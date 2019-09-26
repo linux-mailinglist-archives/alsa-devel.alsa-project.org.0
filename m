@@ -2,127 +2,124 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E23ABF269
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 14:03:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 809C1BF2BE
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 14:16:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4FDD71746;
-	Thu, 26 Sep 2019 14:03:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4FDD71746
+	by alsa0.perex.cz (Postfix) with ESMTPS id F41811745;
+	Thu, 26 Sep 2019 14:16:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F41811745
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569499434;
-	bh=HUCnz4L+Qr5VBHCKwx2RTHAjN5Q7BNr4HYiS1zHcNPg=;
-	h=From:To:Date:References:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Aq2MKmlRboe20AGmR1tVF1mntM4d+dR1TsardMEF91GLYbCK333ySNchOiKIvCluh
-	 j6RqPKl5lAK77f4XxCrKPCOkaLWJHf8utpf+8swsRTSZ1APLr3kQ1o8X5dZfFei6/k
-	 vfuiHWcyKAOnpTj9NZUOdzPuck/tNfEqFvA9hAWk=
+	s=default; t=1569500217;
+	bh=bgq/YsCeXwwoX8IH6mqJkZCSZJWZ2d82KRGvd6y5OhY=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=L0NUgxucXiCpdWIhX4n7o0I1VCgVg/D2BVmfqTaSaYeGMZjDAXnlrGSNc4nZXlJbp
+	 vUB9QY8OEhc3xayXh05+/tGRdjWJ21ffwmf43Xs9ZWyFLPnWAp3xU0rHUZ8070VXUk
+	 iTXKYyGpByMiV82FQ5fqf9LDdKGAO7nSA1KL9GVg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3F6CF8048D;
-	Thu, 26 Sep 2019 14:02:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37ACBF802BD;
+	Thu, 26 Sep 2019 14:15:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 191A4F8048D; Thu, 26 Sep 2019 14:02:26 +0200 (CEST)
+ id C7C16F803F4; Thu, 26 Sep 2019 14:15:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750047.outbound.protection.outlook.com [40.107.75.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C59B7F80140
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 14:02:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C59B7F80140
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D535F80140
+ for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 14:15:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D535F80140
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="FXLPtu5M"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20190926120222euoutp0290f5f09dd547c6cee0978f0781fb7b67~H_1YXeC2h0835108351euoutp022
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 12:02:22 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20190926120222euoutp0290f5f09dd547c6cee0978f0781fb7b67~H_1YXeC2h0835108351euoutp022
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1569499342;
- bh=VEV0/iaFoeW20MntKkcdN0/wf7pATj10AKaP15fvTAM=;
- h=From:To:Cc:Subject:Date:References:From;
- b=FXLPtu5MMr5/O5egyvAUNmIwbc5MUxZOHp9qXMJ0a3bem22BWH8slnEnzWs62qsA2
- E1O+gl8wu5ut53mK2c0+FTTFNClsYl7ojOkBVCMP11BFMExtOjy0wQLvqdGsHqaL+Q
- WqcLCVyZF2nRzjc8NtsWT4M2oSgB31BnFScc8CqM=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20190926120222eucas1p196b3d04460cd05752b710e06d817055e~H_1YEfVFJ3149731497eucas1p1L;
- Thu, 26 Sep 2019 12:02:22 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id DB.D2.04469.DC8AC8D5; Thu, 26
- Sep 2019 13:02:21 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20190926120221eucas1p1a11b4182b93b408d5d5507dc65c951b4~H_1XwDoI_0103801038eucas1p19;
- Thu, 26 Sep 2019 12:02:21 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20190926120221eusmtrp16ac7b14ae730d565073971e092a45278~H_1XwBox_0281402814eusmtrp1L;
- Thu, 26 Sep 2019 12:02:21 +0000 (GMT)
-X-AuditID: cbfec7f2-569ff70000001175-f8-5d8ca8cd4271
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id F0.81.04166.DC8AC8D5; Thu, 26
- Sep 2019 13:02:21 +0100 (BST)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20190926120221eusmtip14f7b1d97bb3abb01e350d7ffe0829b3a~H_1XNXMir2594225942eusmtip1M;
- Thu, 26 Sep 2019 12:02:21 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Date: Thu, 26 Sep 2019 14:02:10 +0200
-Message-Id: <20190926120210.8544-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.17.1
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFuplleLIzCtJLcpLzFFi42LZduzned2zK3piDeavtrS4cvEQk8XUh0/Y
- LOYfOcdqcf78BnaLb1c6mCwu75rDZjHj/D4miwfN69gs1h65y26x9PpFJovWvUfYLQ6/aWd1
- 4PHY8LmJzWPNvDWMHjtn3WX32LSqk82jb8sqRo/Pm+QC2KK4bFJSczLLUov07RK4Mr72vWAr
- +KZVceBIC1MD42LFLkZODgkBE4lz894wdjFycQgJrGCUeHypBcr5wiix6d4yJgjnM6PE1rtX
- mLsYOcBa+jp4IOLLGSW+Hf+I0NH28jwbyFw2AUOJrrddYLaIQJ3E2TNHwIqYBY4wSTTf/80E
- khAWqJBYMOMuC8hUFgFVib39+SBhXgEbidtrDzFB3CcvsXrDAWaQXgmBdnaJuxsOs0EkXCRO
- LJ4HVSQs8er4FnYIW0bi9OQeFoiGZkaJh+fWskM4PYwSl5tmMEJUWUscPn6RFWQzs4CmxPpd
- +hBhR4nLk44xQrzJJ3HjrSBImBnInLRtOtT3vBIdbUIQ1WoSs46vg1t78MIlZgjbQ+LU278s
- ILaQQKzE3VfXGCcwys1C2LWAkXEVo3hqaXFuemqxYV5quV5xYm5xaV66XnJ+7iZGYCI5/e/4
- px2MXy8lHWIU4GBU4uE9ENYdK8SaWFZcmXuIUYKDWUmE1zeyJ1aINyWxsiq1KD++qDQntfgQ
- ozQHi5I4bzXDg2ghgfTEktTs1NSC1CKYLBMHp1QDY/7b48aTX36ZsejzVlWbRsnSS1Gx1RJF
- e2SfyR718OWfw+X+tK/lhZ/m6Zd2Cb+XluyV3hwXerld7Pm2Q5t3LSuIDVMOMhPyMTM+d/tk
- gqfYIkWNL52lH/1mvBXMDs2uF9oseCDqxuvEUtMChagX7K9uiQbk93NM89t+zzxdRKOwcl6Z
- w7cUJZbijERDLeai4kQAvSQMRSADAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrELMWRmVeSWpSXmKPExsVy+t/xu7pnV/TEGlxqUre4cvEQk8XUh0/Y
- LOYfOcdqcf78BnaLb1c6mCwu75rDZjHj/D4miwfN69gs1h65y26x9PpFJovWvUfYLQ6/aWd1
- 4PHY8LmJzWPNvDWMHjtn3WX32LSqk82jb8sqRo/Pm+QC2KL0bIryS0tSFTLyi0tslaINLYz0
- DC0t9IxMLPUMjc1jrYxMlfTtbFJSczLLUov07RL0Mr72vWAr+KZVceBIC1MD42LFLkYODgkB
- E4m+Dp4uRk4OIYGljBJbZ5WA2BICMhInpzWwQtjCEn+udbF1MXIB1XxilDix7SkjSIJNwFCi
- 6y1EQkSgiVHi2OaZLCAOs8ApJokbV6eAVQkLlEn8bF/LBrKNRUBVYm9/PkiYV8BG4vbaQ0wQ
- G+QlVm84wDyBkWcBI8MqRpHU0uLc9NxiQ73ixNzi0rx0veT83E2MwPDdduzn5h2MlzYGH2IU
- 4GBU4uE9ENYdK8SaWFZcmXuIUYKDWUmE1zeyJ1aINyWxsiq1KD++qDQntfgQoynQ7onMUqLJ
- +cDYyiuJNzQ1NLewNDQ3Njc2s1AS5+0QOBgjJJCeWJKanZpakFoE08fEwSnVwNjryftJftPS
- 9Ryrs9o3brvc55pu1bjb/tGMExoLX0hs+V0ps33qnmN3Nntl5h1dHLV+Dl992+3zLV67zj1c
- cIMpalp0n7tS9pad/7fX59y1ZZrBLSC282vb20P2DjtXztk/if/5HqOGoiO62cdXce5f0HXm
- gmxMalLNehXbfNtHyQcr21XmtP9WYinOSDTUYi4qTgQAghDln3UCAAA=
-X-CMS-MailID: 20190926120221eucas1p1a11b4182b93b408d5d5507dc65c951b4
-X-Msg-Generator: CA
-X-RootMTR: 20190926120221eucas1p1a11b4182b93b408d5d5507dc65c951b4
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20190926120221eucas1p1a11b4182b93b408d5d5507dc65c951b4
-References: <CGME20190926120221eucas1p1a11b4182b93b408d5d5507dc65c951b4@eucas1p1.samsung.com>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Maciej Falkowski <m.falkowski@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [alsa-devel] [PATCH v2] dt-bindings: sound: Convert Samsung
- Exynos5433 TM2(E) audio complex with WM5110 codec to dt-schema
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="T026+s3E"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lwWISNINfAy5qseSNeah3l6eScgoYVv/90dWDPcShKV7RRGswObd4J/9rNI+f3Jpnio7MLqrhMJ1nh1JA6uWX6o99J1mGSc0ay46BBvYUAvwg5kAz0CLKgO84ZNGMVxgZZbgtMvr8VKmDkZVn/2yK5UNsvw+oN4aNSL+zvmDK6WjwE5boYt8dwpYBnH25U0hwDZiMQFlS0nED643ESw7Ajepg29VbHhqxXdhf6ByT7xhQoHrB56G6xnPTlUlP4Wm0+Qtd9NnNqF49xq5W1F6S0yEc1dpQHLwdFeLUUZF6DKijY+0IXvXaTNQrobZHF3YKhweGrOFURi+ReK/Il4vag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zu6BPbxMCYaxFZ4GKJqs+DNo5zuYElhJeQVzmZExJrk=;
+ b=U+k4TwViUJeMWsacKrM6wcp/OIbao96mIWSK3L/s/JAkPV7/DsZq9L4kdLMV9EOAKLwhkUREq9e0T9xIlVI9CwlRbt3p0YV05BvQT6Zl6h3ZoxR/e30OIqnjt0/u0h9xh1Ar4twRR56UmYwjrOjoVRkl51iVP3XA9LMdyxaP27tFEgV7+LAvqgh4ELeXS1QQFxZCHcXYGWe/KiCBhRwGtPcaEBhg4yUfAn/ovII2YDERkJP5mlherRS9t7kNfkj+KX9UQ0qwnihNNOuF+oTyh/YVQyO48Qx9NORvkCoeeMd5giQoVv4G+poc4Uhsw4J9dW8zP1fRDgCT9n974/9avw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=canonical.com smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zu6BPbxMCYaxFZ4GKJqs+DNo5zuYElhJeQVzmZExJrk=;
+ b=T026+s3EVyHkGVp9BbPsZ34Pi6HLDAEnGEn/OCN9ShTG2QtVHM3ZAHrdTfuMQIW5u+gsgp1+28y4XHkq6fH2D9xdwpZHHkZqKvZFj1Zunq4zHlPGyDZ32ZgBiJD9oIhLD4Hhi9akYXnxRmnG3oDsQlUwsbD0HK4jUmVyj+U/DQ8=
+Received: from DM5PR12CA0007.namprd12.prod.outlook.com (2603:10b6:4:1::17) by
+ MWHPR12MB1519.namprd12.prod.outlook.com (2603:10b6:301:d::22) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2305.15; Thu, 26 Sep 2019 12:15:02 +0000
+Received: from CO1NAM03FT026.eop-NAM03.prod.protection.outlook.com
+ (2a01:111:f400:7e48::202) by DM5PR12CA0007.outlook.office365.com
+ (2603:10b6:4:1::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2305.16 via Frontend
+ Transport; Thu, 26 Sep 2019 12:15:02 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; canonical.com; dkim=none (message not signed)
+ header.d=none; canonical.com; dmarc=permerror action=none header.from=amd.com; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXCHOV01.amd.com (165.204.84.17) by
+ CO1NAM03FT026.mail.protection.outlook.com (10.152.80.162) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.2305.15 via Frontend Transport; Thu, 26 Sep 2019 12:15:02 +0000
+Received: from vishnu-All-Series.amd.com (10.180.168.240) by
+ SATLEXCHOV01.amd.com (10.181.40.71) with Microsoft SMTP Server id 14.3.389.1; 
+ Thu, 26 Sep 2019 07:15:01 -0500
+From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+To: 
+Date: Fri, 27 Sep 2019 04:37:35 +0530
+Message-ID: <1569539290-756-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Mailer: git-send-email 2.7.4
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(396003)(346002)(136003)(376002)(428003)(189003)(199004)(5660300002)(81166006)(305945005)(81156014)(8676002)(8936002)(109986005)(50226002)(2906002)(70206006)(4326008)(70586007)(486006)(47776003)(336012)(126002)(36756003)(426003)(478600001)(356004)(6666004)(53416004)(48376002)(19627235002)(476003)(2616005)(86362001)(16586007)(316002)(1671002)(26005)(51416003)(7696005)(54906003)(50466002)(186003)(266003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1519; H:SATLEXCHOV01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 911b3319-8eff-4581-72c2-08d7427b2895
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1519:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB15199AF335C23D743C393C7AE7860@MWHPR12MB1519.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:24;
+X-Forefront-PRVS: 0172F0EF77
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: NvSagpV+KtTNSPMNwWME6pHr5xZhL76WqEGtUjIMaBaE74sZlHtR9L6BIWG2afdx7Jl9udYgUQBiABunkicV9wTqQn0t7thjAt+iC9TJ1aCtQYzX/tiDS8FpPKsl0Uhm8/FD4NDNIUErvQ0/BcVoWpX9BWqYMmdF1UQ5vBwDo1nKCt/D88wzxq/+H+90y1sGTBlcBOnazbISEWhNMoHkuCLwaukpj0c55o+yV3N7MTj6P45h566D3IkA+T89JV37Iqn4Fxpzm1Q01i6PCsyJIlm4K1nl+8SxSPplFLF35obIb0x95iLr0HrvlXao0NV4Hi84h1bRDfZH++KlnblW6k5tr2ZPB+7/XLOLLNEGdR0cm65O/rNSJn9txSS5P7FI7NcnPvIxBYfKnGScSnFSraIfZc4ko+ifp/gRdZ8HbUM=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2019 12:15:02.2725 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 911b3319-8eff-4581-72c2-08d7427b2895
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXCHOV01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1519
+Cc: "moderated list:SOUND - SOC LAYER /
+ DYNAMIC AUDIO POWER MANAGEM..." <alsa-devel@alsa-project.org>,
+ Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi
+ Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Sanju R Mehta <sanju.mehta@amd.com>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Mark Brown <broonie@kernel.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Alexander.Deucher@amd.com, Colin Ian
+ King <colin.king@canonical.com>, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [alsa-devel] [PATCH 1/5] ASoC: amd: Registering device endpoints
+	using MFD framework
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,174 +132,308 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Maciej Falkowski <m.falkowski@samsung.com>
+Removed platform based endpoint registering.
+Now Registering DMA and multiple I2S BT playback
+endpoint devices automatically by using MFD framework.
 
-Convert Samsung Exynos5433 TM2(E) audio complex with WM5110 codec to
-newer dt-schema format.
-
-Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Reviewed-by: Vijendar Mukunda <vijendar.mukunda@amd.com>
 ---
-v2:
-- Added type and description and removed number of items from 'model' property.
+ sound/soc/amd/raven/acp3x.h     |  54 ++++++++-------
+ sound/soc/amd/raven/pci-acp3x.c | 148 +++++++++++++++++++++++++++++-----------
+ 2 files changed, 139 insertions(+), 63 deletions(-)
 
-Best regards,
-Maciej Falkowski
----
- .../bindings/sound/samsung,tm2-audio.txt      | 42 ----------
- .../bindings/sound/samsung,tm2-audio.yaml     | 84 +++++++++++++++++++
- 2 files changed, 84 insertions(+), 42 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/samsung,tm2-audio.txt
- create mode 100644 Documentation/devicetree/bindings/sound/samsung,tm2-audio.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/samsung,tm2-audio.txt b/Documentation/devicetree/bindings/sound/samsung,tm2-audio.txt
-deleted file mode 100644
-index f5ccc12ddc00..000000000000
---- a/Documentation/devicetree/bindings/sound/samsung,tm2-audio.txt
-+++ /dev/null
-@@ -1,42 +0,0 @@
--Samsung Exynos5433 TM2(E) audio complex with WM5110 codec
+diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
+index 4f2cadd..3a27fc8 100644
+--- a/sound/soc/amd/raven/acp3x.h
++++ b/sound/soc/amd/raven/acp3x.h
+@@ -7,33 +7,41 @@
+ 
+ #include "chip_offset_byte.h"
+ 
+-#define ACP3x_PHY_BASE_ADDRESS 0x1240000
+-#define	ACP3x_I2S_MODE	0
+-#define	ACP3x_REG_START	0x1240000
+-#define	ACP3x_REG_END	0x1250200
+-#define I2S_MODE	0x04
+-#define	BT_TX_THRESHOLD 26
+-#define	BT_RX_THRESHOLD 25
+-#define ACP3x_POWER_ON 0x00
+-#define ACP3x_POWER_ON_IN_PROGRESS 0x01
+-#define ACP3x_POWER_OFF 0x02
+-#define ACP3x_POWER_OFF_IN_PROGRESS 0x03
++#define ACP3x_DEVS		3
++#define ACP3x_PHY_BASE_ADDRESS	0x1240000
++#define	ACP3x_I2S_MODE		0
++#define	ACP3x_REG_START		0x1240000
++#define	ACP3x_REG_END		0x1250200
++#define ACP3x_I2STDM_REG_START	0x1242400
++#define ACP3x_I2STDM_REG_END	0x1242410
++#define ACP3x_BT_TDM_REG_START	0x1242800
++#define ACP3x_BT_TDM_REG_END	0x1242810
++#define I2S_MODE		0x04
++#define	I2S_RX_THRESHOLD	27
++#define	I2S_TX_THRESHOLD	28
++#define	BT_TX_THRESHOLD		26
++#define	BT_RX_THRESHOLD		25
++#define ACP_ERR_INTR_MASK	29
++#define ACP3x_POWER_ON		0x00
++#define ACP3x_POWER_ON_IN_PROGRESS	0x01
++#define ACP3x_POWER_OFF			0x02
++#define ACP3x_POWER_OFF_IN_PROGRESS	0x03
+ #define ACP3x_SOFT_RESET__SoftResetAudDone_MASK	0x00010001
+ 
+ #define ACP_SRAM_PTE_OFFSET	0x02050000
+-#define PAGE_SIZE_4K_ENABLE 0x2
++#define PAGE_SIZE_4K_ENABLE	0x2
+ #define MEM_WINDOW_START	0x4000000
+-#define PLAYBACK_FIFO_ADDR_OFFSET 0x400
+-#define CAPTURE_FIFO_ADDR_OFFSET  0x500
 -
--Required properties:
+-#define PLAYBACK_MIN_NUM_PERIODS    2
+-#define PLAYBACK_MAX_NUM_PERIODS    8
+-#define PLAYBACK_MAX_PERIOD_SIZE    16384
+-#define PLAYBACK_MIN_PERIOD_SIZE    4096
+-#define CAPTURE_MIN_NUM_PERIODS     2
+-#define CAPTURE_MAX_NUM_PERIODS     8
+-#define CAPTURE_MAX_PERIOD_SIZE     16384
+-#define CAPTURE_MIN_PERIOD_SIZE     4096
++#define PLAYBACK_FIFO_ADDR_OFFSET	0x400
++#define CAPTURE_FIFO_ADDR_OFFSET	0x500
++
++#define PLAYBACK_MIN_NUM_PERIODS	2
++#define PLAYBACK_MAX_NUM_PERIODS	8
++#define PLAYBACK_MAX_PERIOD_SIZE	16384
++#define PLAYBACK_MIN_PERIOD_SIZE	4096
++#define CAPTURE_MIN_NUM_PERIODS		2
++#define CAPTURE_MAX_NUM_PERIODS		8
++#define CAPTURE_MAX_PERIOD_SIZE		16384
++#define CAPTURE_MIN_PERIOD_SIZE		4096
+ 
+ #define MAX_BUFFER (PLAYBACK_MAX_PERIOD_SIZE * PLAYBACK_MAX_NUM_PERIODS)
+ #define MIN_BUFFER MAX_BUFFER
+diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
+index facec24..c0b8fad 100644
+--- a/sound/soc/amd/raven/pci-acp3x.c
++++ b/sound/soc/amd/raven/pci-acp3x.c
+@@ -9,23 +9,49 @@
+ #include <linux/io.h>
+ #include <linux/platform_device.h>
+ #include <linux/interrupt.h>
++#include <linux/mfd/core.h>
++#include <linux/pm_runtime.h>
++#include <sound/pcm.h>
+ 
+ #include "acp3x.h"
+ 
++struct i2s_platform_data {
++	unsigned int cap;
++	int channel;
++	u32 snd_rates;
++};
+ struct acp3x_dev_data {
++	struct device *parent;
++	struct mfd_cell *cell;
++	struct resource *res;
+ 	void __iomem *acp3x_base;
+ 	bool acp3x_audio_mode;
+-	struct resource *res;
+ 	struct platform_device *pdev;
+ };
+ 
++
++static struct device *get_mfd_cell_dev(const char *device_name, int r)
++{
++	char auto_dev_name[25];
++	struct device *dev;
++
++	snprintf(auto_dev_name, sizeof(auto_dev_name),
++		 "%s.%d.auto", device_name, r);
++	dev = bus_find_device_by_name(&platform_bus_type,
++					NULL, auto_dev_name);
++	dev_info(dev, "device %s added\n", auto_dev_name);
++	return dev;
++}
++
+ static int snd_acp3x_probe(struct pci_dev *pci,
+ 			   const struct pci_device_id *pci_id)
+ {
+ 	int ret;
+-	u32 addr, val;
++	uint64_t addr;
++	int val, i, r;
+ 	struct acp3x_dev_data *adata;
+-	struct platform_device_info pdevinfo;
++	struct device *dev;
++	struct i2s_platform_data *i2s_pdata;
+ 	unsigned int irqflags;
+ 
+ 	if (pci_enable_device(pci)) {
+@@ -63,47 +89,82 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 	}
+ 	pci_set_master(pci);
+ 	pci_set_drvdata(pci, adata);
 -
-- - compatible		 : "samsung,tm2-audio"
-- - model		 : the user-visible name of this sound complex
-- - audio-codec		 : the first entry should be phandle of the wm5110 audio
--			   codec node, as described in ../mfd/arizona.txt;
--			   the second entry should be phandle of the HDMI
--			   transmitter node
-- - i2s-controller	 : the list of phandle and argument tuples pointing to
--			   I2S controllers, the first entry should be I2S0 and
--			   the second one I2S1
-- - audio-amplifier	 : the phandle of the MAX98504 amplifier
-- - samsung,audio-routing : a list of the connections between audio components;
--			   each entry is a pair of strings, the first being the
--			   connection's sink, the second being the connection's
--			   source; valid names for sources and sinks are the
--			   WM5110's and MAX98504's pins and the jacks on the
--			   board: HP, SPK, Main Mic, Sub Mic, Third Mic,
--			   Headset Mic
-- - mic-bias-gpios	 : GPIO pin that enables the Main Mic bias regulator
++	adata->parent = &pci->dev;
+ 	val = rv_readl(adata->acp3x_base + mmACP_I2S_PIN_CONFIG);
+ 	switch (val) {
+ 	case I2S_MODE:
+ 		adata->res = devm_kzalloc(&pci->dev,
+-					  sizeof(struct resource) * 2,
+-					  GFP_KERNEL);
+-		if (!adata->res) {
++				sizeof(struct resource) * 4,
++						GFP_KERNEL);
++		adata->cell = devm_kzalloc(&pci->dev,
++				sizeof(struct mfd_cell) * 3,
++						GFP_KERNEL);
++		if (!adata->cell) {
+ 			ret = -ENOMEM;
+ 			goto unmap_mmio;
+ 		}
+ 
+-		adata->res[0].name = "acp3x_i2s_iomem";
+-		adata->res[0].flags = IORESOURCE_MEM;
+-		adata->res[0].start = addr;
+-		adata->res[0].end = addr + (ACP3x_REG_END - ACP3x_REG_START);
 -
+-		adata->res[1].name = "acp3x_i2s_irq";
+-		adata->res[1].flags = IORESOURCE_IRQ;
+-		adata->res[1].start = pci->irq;
+-		adata->res[1].end = pci->irq;
 -
--Example:
+-		adata->acp3x_audio_mode = ACP3x_I2S_MODE;
 -
--sound {
--	compatible = "samsung,tm2-audio";
--	audio-codec = <&wm5110>, <&hdmi>;
--	i2s-controller = <&i2s0 0>, <&i2s1 0>;
--	audio-amplifier = <&max98504>;
--	mic-bias-gpios = <&gpr3 2 0>;
--	model = "wm5110";
--	samsung,audio-routing =
--		"HP", "HPOUT1L",
--		"HP", "HPOUT1R",
--		"SPK", "SPKOUT",
--		"SPKOUT", "HPOUT2L",
--		"SPKOUT", "HPOUT2R",
--		"Main Mic", "MICBIAS2",
--		"IN1R", "Main Mic";
--};
-diff --git a/Documentation/devicetree/bindings/sound/samsung,tm2-audio.yaml b/Documentation/devicetree/bindings/sound/samsung,tm2-audio.yaml
-new file mode 100644
-index 000000000000..62b5b9a1dec0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/samsung,tm2-audio.yaml
-@@ -0,0 +1,84 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/samsung,tm2-audio.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+-		memset(&pdevinfo, 0, sizeof(pdevinfo));
+-		pdevinfo.name = "acp3x_rv_i2s";
+-		pdevinfo.id = 0;
+-		pdevinfo.parent = &pci->dev;
+-		pdevinfo.num_res = 2;
+-		pdevinfo.res = adata->res;
+-		pdevinfo.data = &irqflags;
+-		pdevinfo.size_data = sizeof(irqflags);
+-
+-		adata->pdev = platform_device_register_full(&pdevinfo);
+-		if (IS_ERR(adata->pdev)) {
+-			dev_err(&pci->dev, "cannot register %s device\n",
+-				pdevinfo.name);
+-			ret = PTR_ERR(adata->pdev);
+-			goto unmap_mmio;
++		i2s_pdata = devm_kzalloc(&pci->dev,
++				sizeof(struct i2s_platform_data) * 3,
++						GFP_KERNEL);
++		if (i2s_pdata == NULL) {
++			kfree(adata->res);
++			kfree(adata->cell);
++			return -ENOMEM;
+ 		}
++		adata->res[0].name	= "acp3x_i2s_iomem";
++		adata->res[0].flags	= IORESOURCE_MEM;
++		adata->res[0].start	= addr;
++		adata->res[0].end	= addr +
++			(ACP3x_REG_END - ACP3x_REG_START);
++		i2s_pdata[0].cap	= 0;
++		i2s_pdata[0].snd_rates	= SNDRV_PCM_RATE_8000_96000;
 +
-+title: Samsung Exynos SoC Exynos5433 TM2(E) audio complex with WM5110 codec
++		adata->res[1].name	= "acp3x_i2s_sp_play_cap";
++		adata->res[1].flags	= IORESOURCE_MEM;
++		adata->res[1].start	= addr + ACP3x_I2STDM_REG_START;
++		adata->res[1].end	= addr + ACP3x_I2STDM_REG_END;
++		i2s_pdata[1].cap	= 0;
++		i2s_pdata[1].snd_rates	= SNDRV_PCM_RATE_8000_96000;
 +
-+maintainers:
-+  - Krzysztof Kozlowski <krzk@kernel.org>
-+  - Sylwester Nawrocki <s.nawrocki@samsung.com>
++		adata->res[2].name	= "acp3x_i2s_bt_play_cap";
++		adata->res[2].flags	= IORESOURCE_MEM;
++		adata->res[2].start	= addr + ACP3x_BT_TDM_REG_START;
++		adata->res[2].end	= addr + ACP3x_BT_TDM_REG_END;
++		i2s_pdata[2].cap	= 0;
++		i2s_pdata[2].snd_rates	= SNDRV_PCM_RATE_8000_96000;
 +
-+properties:
-+  compatible:
-+    const: samsung,tm2-audio
++		adata->res[3].name	= "acp3x_i2s_irq";
++		adata->res[3].flags	= IORESOURCE_IRQ;
++		adata->res[3].start	= pci->irq;
++		adata->res[3].end	= adata->res[3].start;
 +
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: The user-visible name of this sound complex.
++		adata->acp3x_audio_mode	= ACP3x_I2S_MODE;
 +
-+  audio-codec:
-+    allOf:
-+      - $ref: /schemas/types.yaml#/definitions/phandle-array
-+      - items:
-+          - description: |
-+              phandle of the wm5110 audio codec node,
-+              as described in ../mfd/arizona.txt;
-+          - description: phandle of the HDMI transmitter node.
++		adata->cell[0].name	=	"acp3x_rv_i2s_dma";
++		adata->cell[0].num_resources	= 4;
++		adata->cell[0].resources	= &adata->res[0];
++		adata->cell[0].platform_data	= &irqflags;
++		adata->cell[0].pdata_size	= sizeof(irqflags);
 +
-+  i2s-controller:
-+    allOf:
-+      - $ref: /schemas/types.yaml#/definitions/phandle-array
-+      - items:
-+          - description: phandle of the I2S0.
-+          - description: phandle of the I2S1.
++		adata->cell[1].name		= "acp3x_i2s_playcap";
++		adata->cell[1].num_resources	= 1;
++		adata->cell[1].resources	= &adata->res[1];
++		adata->cell[1].platform_data	= &i2s_pdata[0];
++		adata->cell[1].pdata_size	=
++				sizeof(struct i2s_platform_data);
 +
-+  audio-amplifier:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: phandle of the MAX98504 amplifier.
++		adata->cell[2].name		= "acp3x_i2s_playcap";
++		adata->cell[2].num_resources	= 1;
++		adata->cell[2].resources	= &adata->res[2];
++		adata->cell[2].platform_data	= &i2s_pdata[1];
++		adata->cell[2].pdata_size	=
++				sizeof(struct i2s_platform_data);
++		r = mfd_add_hotplug_devices(adata->parent, adata->cell,	3);
++		for (i = 0; i < 3 ; i++)
++			dev = get_mfd_cell_dev(adata->cell[i].name, i);
+ 		break;
 +
-+  samsung,audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    description: |
-+      List of the connections between audio components.
-+      Each entry is a pair of strings, the first being the
-+      connection's sink, the second being the connection's
-+      source. Valid names for sources and sinks are
-+      the WM5110's and MAX98504's pins and the jacks on the
-+      board: HP, SPK, Main Mic, Sub Mic, Third Mic, Headset Mic.
-+
-+  mic-bias-gpios:
-+    description: GPIO pin that enables the Main Mic bias regulator.
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - model
-+  - audio-codec
-+  - i2s-controller
-+  - audio-amplifier
-+  - samsung,audio-routing
-+  - mic-bias-gpios
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    sound {
-+        compatible = "samsung,tm2-audio";
-+        model = "wm5110";
-+        audio-codec = <&wm5110>, <&hdmi>;
-+        i2s-controller = <&i2s0 0>, <&i2s1 0>;
-+        audio-amplifier = <&max98504>;
-+        mic-bias-gpios = <&gpr3>;
-+        samsung,audio-routing =
-+                "HP", "HPOUT1L",
-+                "HP", "HPOUT1R",
-+                "SPK", "SPKOUT",
-+                "SPKOUT", "HPOUT2L",
-+                "SPKOUT", "HPOUT2R",
-+                "Main Mic", "MICBIAS2",
-+                "IN1R", "Main Mic";
-+    };
-+
+ 	default:
+ 		dev_err(&pci->dev, "Invalid ACP audio mode : %d\n", val);
+ 		ret = -ENODEV;
+@@ -112,23 +173,29 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 	return 0;
+ 
+ unmap_mmio:
+-	pci_disable_msi(pci);
++	mfd_remove_devices(adata->parent);
++	kfree(adata->res);
++	kfree(adata->cell);
+ 	iounmap(adata->acp3x_base);
++	/*ignore device status and return driver probe error*/
++	return -ENODEV;
+ release_regions:
+ 	pci_release_regions(pci);
++	/*ignore device status and return driver probe error*/
++	return -ENODEV;
+ disable_pci:
+ 	pci_disable_device(pci);
+-
+-	return ret;
++	/*ignore device status and return driver probe error*/
++	return -ENODEV;
+ }
+ 
+ static void snd_acp3x_remove(struct pci_dev *pci)
+ {
+ 	struct acp3x_dev_data *adata = pci_get_drvdata(pci);
+-
+-	platform_device_unregister(adata->pdev);
++	mfd_remove_devices(adata->parent);
++	kfree(adata->res);
++	kfree(adata->cell);
+ 	iounmap(adata->acp3x_base);
+-
+ 	pci_disable_msi(pci);
+ 	pci_release_regions(pci);
+ 	pci_disable_device(pci);
+@@ -151,6 +218,7 @@ static struct pci_driver acp3x_driver  = {
+ 
+ module_pci_driver(acp3x_driver);
+ 
++MODULE_AUTHOR("Vishnuvardhanrao.Ravulapati@amd.com");
+ MODULE_AUTHOR("Maruthi.Bayyavarapu@amd.com");
+ MODULE_DESCRIPTION("AMD ACP3x PCI driver");
+ MODULE_LICENSE("GPL v2");
 -- 
-2.17.1
-
-
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

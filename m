@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97788C0C6F
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 22:12:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 227E2C0C74
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 22:14:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F7A6167C;
-	Fri, 27 Sep 2019 22:11:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F7A6167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB55F167A;
+	Fri, 27 Sep 2019 22:13:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB55F167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569615139;
-	bh=r5r4fuAKqBeGPsbVG4HAtcVaFfbqhtV2GeJtRak1CvE=;
+	s=default; t=1569615269;
+	bh=prA02nStOh/lWhlKVERCMJFRKP/0nQo/AKDS62ojVDU=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YCNoEn8b1F4wLAq7F/NfG4zOzx3VefJaAAGiTpadFBfU1DJHMu2/3z5wHAm/zMRfJ
-	 FYCTERB+wjA0XlsmxK00LOWwTPWjRh4WFjcku3U1FXsXmuMrXnfh+EnI+fUcVMOG15
-	 RzOoGvnGJVpD/U/HZbgSOu4+I8hnA30BqgFPQ3bY=
+	b=UoupsGlhVa0y46P2Bs0r11Ob/2uol7II3liQGpXLOftyGMPWvRFqWe3vUb/TKdbQU
+	 3XpzLr16kBB3f84lUHg1SEk4F/C7Ojadg92/NfTU7tSuKQWIO0NDSRVGhU8yYbiDp7
+	 6vgIVV6e3z7pPinwbg63wLkDpn3v6/u88aJhjAe4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 097FAF8065A;
-	Fri, 27 Sep 2019 22:06:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DCB4F806E5;
+	Fri, 27 Sep 2019 22:06:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B1B7DF805DF; Fri, 27 Sep 2019 22:06:09 +0200 (CEST)
+ id 79058F80612; Fri, 27 Sep 2019 22:06:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B6A3AF805F9
+ by alsa1.perex.cz (Postfix) with ESMTPS id B4130F805F8
  for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 22:06:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6A3AF805F9
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B4130F805F8
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
  27 Sep 2019 13:05:48 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,556,1559545200"; d="scan'208";a="190444269"
+X-IronPort-AV: E=Sophos;i="5.64,556,1559545200"; d="scan'208";a="190444272"
 Received: from wcui-mobl1.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
  ([10.251.146.136])
- by fmsmga007.fm.intel.com with ESMTP; 27 Sep 2019 13:05:47 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 27 Sep 2019 13:05:48 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Fri, 27 Sep 2019 15:05:33 -0500
-Message-Id: <20190927200538.660-9-pierre-louis.bossart@linux.intel.com>
+Date: Fri, 27 Sep 2019 15:05:34 -0500
+Message-Id: <20190927200538.660-10-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190927200538.660-1-pierre-louis.bossart@linux.intel.com>
 References: <20190927200538.660-1-pierre-louis.bossart@linux.intel.com>
@@ -57,8 +57,8 @@ MIME-Version: 1.0
 Cc: tiwai@suse.de, broonie@kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Marcin Rajwa <marcin.rajwa@linux.intel.com>
-Subject: [alsa-devel] [PATCH 08/13] ASoC: SOF: ipc: introduce
-	no_stream_position in sof_ipc_stream_params struct
+Subject: [alsa-devel] [PATCH 09/13] ASoC: SOF: Intel: hda: fix reset of
+	host_period_bytes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,36 +78,48 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Marcin Rajwa <marcin.rajwa@linux.intel.com>
 
-The host period bytes value needs to be passed to firmware.
-However current implementation uses this field for different
-purpose - to indicate whether FW should send stream position
-to the host. Therefore this patch introduces another field
-"no_stream_position", a boolean value aimed to store information
-about position tracking. This way host_period_bytes preserves its
-original value.
+This patch prevents the reset of host period bytes
+and uses no_stream_position to record requests
+for stream position.
 
 Signed-off-by: Marcin Rajwa <marcin.rajwa@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- include/sound/sof/stream.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/sof/intel/hda-pcm.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-diff --git a/include/sound/sof/stream.h b/include/sound/sof/stream.h
-index 0b71b381b952..7facefb541b3 100644
---- a/include/sound/sof/stream.h
-+++ b/include/sound/sof/stream.h
-@@ -83,10 +83,10 @@ struct sof_ipc_stream_params {
- 	uint16_t sample_valid_bytes;
- 	uint16_t sample_container_bytes;
+diff --git a/sound/soc/sof/intel/hda-pcm.c b/sound/soc/sof/intel/hda-pcm.c
+index 9b730f183529..575f5f5877d8 100644
+--- a/sound/soc/sof/intel/hda-pcm.c
++++ b/sound/soc/sof/intel/hda-pcm.c
+@@ -89,6 +89,7 @@ int hda_dsp_pcm_hw_params(struct snd_sof_dev *sdev,
+ 	struct hdac_ext_stream *stream = stream_to_hdac_ext_stream(hstream);
+ 	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
+ 	struct snd_dma_buffer *dmab;
++	struct sof_ipc_fw_version *v = &sdev->fw_ready.version;
+ 	int ret;
+ 	u32 size, rate, bits;
  
--	/* for notifying host period has completed - 0 means no period IRQ */
- 	uint32_t host_period_bytes;
-+	uint16_t no_stream_position; /**< 1 means don't send stream position */
+@@ -116,9 +117,17 @@ int hda_dsp_pcm_hw_params(struct snd_sof_dev *sdev,
+ 	/* disable SPIB, to enable buffer wrap for stream */
+ 	hda_dsp_stream_spib_config(sdev, stream, HDA_DSP_SPIB_DISABLE, 0);
  
--	uint32_t reserved[2];
-+	uint16_t reserved[3];
- 	uint16_t chmap[SOF_IPC_MAX_CHANNELS];	/**< channel map - SOF_CHMAP_ */
- } __packed;
+-	/* set host_period_bytes to 0 if no IPC position */
+-	if (hda && hda->no_ipc_position)
+-		ipc_params->host_period_bytes = 0;
++	/* update no_stream_position flag for ipc params */
++	if (hda && hda->no_ipc_position) {
++		/* For older ABIs set host_period_bytes to zero to inform
++		 * FW we don't want position updates. Newer versions use
++		 * no_stream_position for this purpose.
++		 */
++		if (v->abi_version < SOF_ABI_VER(3, 10, 0))
++			ipc_params->host_period_bytes = 0;
++		else
++			ipc_params->no_stream_position = 1;
++	}
+ 
+ 	ipc_params->stream_tag = hstream->stream_tag;
  
 -- 
 2.20.1

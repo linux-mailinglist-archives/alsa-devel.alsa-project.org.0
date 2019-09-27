@@ -2,63 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00EAEC0379
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 12:34:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B82FC037D
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 12:35:50 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 667B5166E;
-	Fri, 27 Sep 2019 12:33:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 667B5166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF3291681;
+	Fri, 27 Sep 2019 12:34:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF3291681
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569580441;
-	bh=2Qk/oCJNqawU3pOUNn29sB7Jm4Ag6Lc5w5pbQ3Bdp5w=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Qpb2zTTlQNaJKU5RDgn29Op/kJKp5rpe1vRUOwYHz6QclAjoOhAMIFrFtgY7z2pBe
-	 0YbaioE8Q3949kdo8jN7Pu0x+iKnsPpOJbrQsCYuFX1hVOqgyshe9kODigqEA24qow
-	 exs0mCCry3raCTs6ZvqIZ0+m+VrLyzrV25ASbc5k=
+	s=default; t=1569580549;
+	bh=z6G5bLXfKPCI53paRWXpLlURz1fIiVEhFWln+TquNx4=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KCbyiHV5lLICihgqpllCdDbaVtqUom8xj50xHgpRqeH9Z1KkoalLgGKs0Pz+KfTT7
+	 2HBf10waemR/gfCoLBQPenFg6lTGkpAuTwt43leMiT990yB0gkdIhqBj+TfUfyGFYM
+	 UX+naJDv8GJhiCBAa/liI8aZwY3z/B5R9pAFGzyM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B61EDF80140;
-	Fri, 27 Sep 2019 12:32:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 549A2F805FE;
+	Fri, 27 Sep 2019 12:32:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91C9CF805A8; Fri, 27 Sep 2019 12:32:14 +0200 (CEST)
+ id 770C3F8049A; Fri, 27 Sep 2019 12:32:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
  SPF_PASS,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
- by alsa1.perex.cz (Postfix) with ESMTP id 0A137F80140
- for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 12:32:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A137F80140
-X-UUID: ccbf7ee149e74c3faf74a0849cd0bc5e-20190927
-X-UUID: ccbf7ee149e74c3faf74a0849cd0bc5e-20190927
-Received: from mtkmrs01.mediatek.inc [(172.21.131.159)] by
- mailgw02.mediatek.com (envelope-from <jiaxin.yu@mediatek.com>)
+Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
+ by alsa1.perex.cz (Postfix) with ESMTP id 3792DF804CA
+ for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 12:32:11 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3792DF804CA
+X-UUID: bd78dd990801499e82ca87821b5c1ee9-20190927
+X-UUID: bd78dd990801499e82ca87821b5c1ee9-20190927
+Received: from mtkcas07.mediatek.inc [(172.21.101.84)] by mailgw01.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
  (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 1138489025; Fri, 27 Sep 2019 18:32:01 +0800
+ with ESMTP id 1210023946; Fri, 27 Sep 2019 18:32:02 +0800
 Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
+ mtkmbs01n1.mediatek.inc (172.21.101.68) with Microsoft SMTP Server (TLS) id
  15.0.1395.4; Fri, 27 Sep 2019 18:31:58 +0800
 Received: from localhost.localdomain (10.17.3.153) by mtkcas07.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Fri, 27 Sep 2019 18:31:57 +0800
+ Transport; Fri, 27 Sep 2019 18:31:58 +0800
 From: Jiaxin Yu <jiaxin.yu@mediatek.com>
 To: <broonie@kernel.org>, <mark.rutland@arm.com>, <robh+dt@kernel.org>,
  <linux@roeck-us.net>, <wim@linux-watchdog.org>
-Date: Fri, 27 Sep 2019 18:31:53 +0800
-Message-ID: <1569580317-21181-1-git-send-email-jiaxin.yu@mediatek.com>
+Date: Fri, 27 Sep 2019 18:31:54 +0800
+Message-ID: <1569580317-21181-2-git-send-email-jiaxin.yu@mediatek.com>
 X-Mailer: git-send-email 1.8.1.1.dirty
+In-Reply-To: <1569580317-21181-1-git-send-email-jiaxin.yu@mediatek.com>
+References: <1569580317-21181-1-git-send-email-jiaxin.yu@mediatek.com>
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: 9EC9B41ACD81D96D4657B1B000FF35A2B3D68B95758CA29C6DC62AD7B037718E2000:8
 X-MTK: N
-Cc: alsa-devel@alsa-project.org, yong.liang@mediatek.com, lgirdwood@gmail.com,
- jiaxin.yu@mediatek.com, tzungbi@google.com, linux-mediatek@lists.infradead.org,
- eason.yen@mediatek.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH v2 0/4] ASoC: mt8183: fix audio playback slowly
-	after playback
+Cc: alsa-devel@alsa-project.org, yong.liang@mediatek.com,
+ "yong.liang" <yong.liang@mediatek.corp-partner.google.com>,
+ lgirdwood@gmail.com, jiaxin.yu@mediatek.com, tzungbi@google.com,
+ linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH v2 1/4] dt-bindings: mediatek: mt8183: Add
+	#reset-cells
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,33 +80,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series patches add reset controller for MT8183, and audio will use it in 
-machine driver during bootup, they depend on the following patch:
+From: "yong.liang" <yong.liang@mediatek.corp-partner.google.com>
 
-1. this series add support reset-controller in infra
-	[v5,2/2] clk: reset: Modify reset-controller driver
-	https://patchwork.kernel.org/patch/11060419/
+Add #reset-cells property and update example
 
-v2 changes:
-	1. remove "WIP" that in the title of patches
-	2. add hyper link for the patch that depends on
+Signed-off-by: yong.liang <yong.liang@mediatek.corp-partner.google.com>
+---
+ .../devicetree/bindings/watchdog/mtk-wdt.txt        |  9 ++++++---
+ .../dt-bindings/reset-controller/mt8183-resets.h    | 13 +++++++++++++
+ 2 files changed, 19 insertions(+), 3 deletions(-)
 
-Jiaxin Yu (2):
-  dt-bindings: medaitek: mt8183: add property "resets" && "reset-names"
-  ASoC: mt8183: fix audio playback slowly after playback during bootup
-
-yong.liang (2):
-  dt-bindings: mediatek: mt8183: Add #reset-cells
-  watchdog: mtk_wdt: mt8183: Add reset controller
-
- .../bindings/sound/mt8183-afe-pcm.txt         |   6 +
- .../devicetree/bindings/watchdog/mtk-wdt.txt  |   9 +-
- drivers/watchdog/Kconfig                      |   1 +
- drivers/watchdog/mtk_wdt.c                    | 110 +++++++++++++++++-
- .../reset-controller/mt8183-resets.h          |  13 +++
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c    |  15 +++
- 6 files changed, 150 insertions(+), 4 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt b/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
+index 3ee625d0812f..ecb9ff784832 100644
+--- a/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
++++ b/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
+@@ -16,11 +16,14 @@ Required properties:
+ 
+ Optional properties:
+ - timeout-sec: contains the watchdog timeout in seconds.
++- #reset-cells: Should be 1.
+ 
+ Example:
+ 
+-wdt: watchdog@10000000 {
+-	compatible = "mediatek,mt6589-wdt";
+-	reg = <0x10000000 0x18>;
++watchdog: watchdog@10007000 {
++	compatible = "mediatek,mt8183-wdt",
++		     "mediatek,mt6589-wdt";
++	reg = <0 0x10007000 0 0x100>;
+ 	timeout-sec = <10>;
++	#reset-cells = <1>;
+ };
+diff --git a/include/dt-bindings/reset-controller/mt8183-resets.h b/include/dt-bindings/reset-controller/mt8183-resets.h
+index 8804e34ebdd4..47dadcf3fd24 100644
+--- a/include/dt-bindings/reset-controller/mt8183-resets.h
++++ b/include/dt-bindings/reset-controller/mt8183-resets.h
+@@ -78,4 +78,17 @@
+ #define MT8183_INFRACFG_AO_I2C7_SW_RST				126
+ #define MT8183_INFRACFG_AO_I2C8_SW_RST				127
+ 
++#define MT8183_TOPRGU_MM_SW_RST                                 1
++#define MT8183_TOPRGU_MFG_SW_RST                                2
++#define MT8183_TOPRGU_VENC_SW_RST                               3
++#define MT8183_TOPRGU_VDEC_SW_RST                               4
++#define MT8183_TOPRGU_IMG_SW_RST                                5
++#define MT8183_TOPRGU_MD_SW_RST                                 7
++#define MT8183_TOPRGU_CONN_SW_RST                               9
++#define MT8183_TOPRGU_CONN_MCU_SW_RST                           12
++#define MT8183_TOPRGU_IPU0_SW_RST                               14
++#define MT8183_TOPRGU_IPU1_SW_RST                               15
++#define MT8183_TOPRGU_AUDIO_SW_RST                              17
++#define MT8183_TOPRGU_CAMSYS_SW_RST                             18
++
+ #endif  /* _DT_BINDINGS_RESET_CONTROLLER_MT8183 */
 -- 
 2.18.0
 

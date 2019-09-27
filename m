@@ -2,78 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA78EBFFE6
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 09:17:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F629C010B
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 10:23:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C26D1664;
-	Fri, 27 Sep 2019 09:17:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C26D1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB1A0166C;
+	Fri, 27 Sep 2019 10:22:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB1A0166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569568679;
-	bh=zb0ljwbKnZ5cHrV/o1SVp0AjiUZSE6uhfpXfnZ0LAPY=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IBLqVF9UlG6L9WWe+Z+58qhE0+SBUTBxX8pNQCJejMeP0Nt67JxSnqJPE7cvz7Mmf
-	 7soyFUVCa1/pEz94KtIBuW6Rj3SwjuHhh9t5Pnlh7uott6fvTwLL61LxuszFTy49iI
-	 NsmAnWb9d916AQ0vq1S9ApiexHubefnhNaF0ApaM=
+	s=default; t=1569572606;
+	bh=ykN2kyUXPsrRUqJqU1YtP14NQrnf35N49PgMxG2Sy5k=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HfgnCtJFpnbyPLSgh+O9e477967SWx3mx7zVVCFezIgjKwOubgEcqPsUtDOU122dM
+	 bnRquwwB9LO5YEAA0djbWYf2AkE41re8qrw0lYI1z7RD5MRTCjAq6p0QYAKF1hljP+
+	 1tBowKQBrfHjoqG9xPlVf8UBlRFAlNkqK++PbAb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE15EF804CA;
-	Fri, 27 Sep 2019 09:16:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CB2AF8049A;
+	Fri, 27 Sep 2019 10:21:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5311AF8049A; Fri, 27 Sep 2019 09:16:12 +0200 (CEST)
+ id 92A57F8049A; Fri, 27 Sep 2019 10:21:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, PRX_BODY_78, RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
- SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00202F80138
- for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 09:16:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00202F80138
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="qWFM55N7"
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id x8R7G4QR036352;
- Fri, 27 Sep 2019 02:16:04 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1569568564;
- bh=cxUX0V9QJgMtxUcWuyqtRvcxSiRtu+Nn5Z4BXj+Qiyk=;
- h=From:To:CC:Subject:Date;
- b=qWFM55N7RXCpWjeQwt/YCtDz4tGPkgLzqwf/xiHL9D9igDjw9aX9Ym8lVkr+b47E3
- ppFIxVke0Ayg3Rc522VGOX6UTTcXKOPdlcrfFuhhS2O3ZEAijaB8qQMMFVrckl0wPx
- pC7Uo3eIhlSFRZ2IjbWHQOPfexVCHKILAoLRAZWI=
-Received: from DFLE102.ent.ti.com (dfle102.ent.ti.com [10.64.6.23])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x8R7G49A093113
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 27 Sep 2019 02:16:04 -0500
-Received: from DFLE105.ent.ti.com (10.64.6.26) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Fri, 27
- Sep 2019 02:16:04 -0500
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Fri, 27 Sep 2019 02:16:04 -0500
-Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id x8R7G1fM083442;
- Fri, 27 Sep 2019 02:16:02 -0500
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Date: Fri, 27 Sep 2019 10:16:46 +0300
-Message-ID: <20190927071646.22319-1-peter.ujfalusi@ti.com>
-X-Mailer: git-send-email 2.23.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D540F80140
+ for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 10:21:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D540F80140
+Received: from [114.253.240.25] (helo=[192.168.1.108])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1iDlVP-0001YW-Iv; Fri, 27 Sep 2019 08:21:35 +0000
+To: Mark Pearson <mpearson@lenovo.com>, Jaroslav Kysela <perex@perex.cz>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Elimar Riesebieter <riesebie@lxtec.de>
+References: <20190919142329.35bsdnh5skuj7jl3@toy.home.lxtec.de>
+ <853b3859-8c8e-1c52-becb-3807d351b8f1@linux.intel.com>
+ <f11c5347d8504148a47fdbc48d920f59@lenovo.com>
+ <98b99cea-9be1-f232-f62c-1f0b7a10e295@linux.intel.com>
+ <38abcb71-3041-7015-e56a-43f628b2faf1@perex.cz>
+ <153ba191eb3c4849b6e65db5fc8e8760@lenovo.com>
+From: Hui Wang <hui.wang@canonical.com>
+Message-ID: <4cb6bec8-1dac-9114-c230-c9196763e58d@canonical.com>
+Date: Fri, 27 Sep 2019 16:21:30 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- pierre-louis.bossart@linux.intel.com, kuninori.morimoto.gx@renesas.com
-Subject: [alsa-devel] [PATCH v2] ASoC: soc-pcm: Use different sequence for
-	start/stop trigger
+In-Reply-To: <153ba191eb3c4849b6e65db5fc8e8760@lenovo.com>
+Content-Language: en-US
+Subject: Re: [alsa-devel] [External] Re: alsa-lib: Add ucm support for
+ whiskeylake sof-skl_hda_card audio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,152 +74,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On stream stop currently we stop the DMA first followed by the CPU DAI.
-This can cause underflow (playback) or overflow (capture) on the DAI side
-as the DMA is no longer feeding data while the DAI is still active.
-It can be observed easily if the DAI side does not have FIFO (or it is
-disabled) to survive the time while the DMA is stopped, but still can
-happen on relatively slow CPUs when relatively high sampling rate is used:
-the FIFO is drained between the time the DMA is stopped and the DAI is
-stopped.
-
-It can only fixed by using different sequence within trigger for 'stop' and
-'start':
-case SNDRV_PCM_TRIGGER_START:
-case SNDRV_PCM_TRIGGER_RESUME:
-case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-	Trigger order: dai_link, DMA, CPU DAI then the codec
-
-case SNDRV_PCM_TRIGGER_STOP:
-case SNDRV_PCM_TRIGGER_SUSPEND:
-case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-	Trigger order: codec, CPU DAI, DMA then dai_link
-
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
----
-Hi,
-
-Changes since v1:
-- Rebased on top 'ASoC: soc-component: fix a couple missing error assignments'
-
-Changes since rfc:
-- Fixed missing error assignments (copy pasted the error)
-- Document the trigger order in the commit message
-
-Regards,
-Peter
-
- sound/soc/soc-pcm.c | 64 ++++++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 61 insertions(+), 3 deletions(-)
-
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index a1b99ac57d9e..66910500e3b6 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1047,7 +1047,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
-+static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_component *component;
-@@ -1056,8 +1056,8 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret;
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
--		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
-+	if (rtd->dai_link->ops->trigger) {
-+		ret = rtd->dai_link->ops->trigger(substream, cmd);
- 		if (ret < 0)
- 			return ret;
- 	}
-@@ -1074,6 +1074,42 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 	if (ret < 0)
- 		return ret;
- 
-+	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_component *component;
-+	struct snd_soc_rtdcom_list *rtdcom;
-+	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai;
-+	int i, ret;
-+
-+	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	ret = snd_soc_dai_trigger(cpu_dai, substream, cmd);
-+	if (ret < 0)
-+		return ret;
-+
-+	for_each_rtdcom(rtd, rtdcom) {
-+		component = rtdcom->component;
-+
-+		ret = snd_soc_component_trigger(component, substream, cmd);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	if (rtd->dai_link->ops->trigger) {
- 		ret = rtd->dai_link->ops->trigger(substream, cmd);
- 		if (ret < 0)
-@@ -1083,6 +1119,28 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 	return 0;
- }
- 
-+static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
-+{
-+	int ret;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		ret = soc_pcm_trigger_start(substream, cmd);
-+		break;
-+	case SNDRV_PCM_TRIGGER_STOP:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		ret = soc_pcm_trigger_stop(substream, cmd);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return ret;
-+}
-+
- static int soc_pcm_bespoke_trigger(struct snd_pcm_substream *substream,
- 				   int cmd)
- {
--- 
-Peter
-
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+U28gZmFyLCB0aGUgYWxzYS1saWIgc3RpbGwgZGVwZW5kcyBvbiB0aGUgY2FyZC0+bmFtZS9sb25n
+LW5hbWUgdG8gZmluZCAKdGhlIG5lZWRlZCBVQ00sIEkga25vdyBzb21lIERlbGwgbWFjaGluZXMg
+YWxzbyB1c2VzIHNvZiBkcml2ZXIgKHNvIHRoZSAKY2FyZC0+bmFtZS9sb25nLW5hbWUgaXMgYWxz
+byBzb2Ytc2tsX2hkYV9jYXJkKSwgc28gaWYgdGhpcyBVQ00gaXMgCm1lcmdlZCwgaXQgd2lsbCBi
+ZSBzaGFyZWQgd2l0aCBEZWxsIG1hY2hpbmVzLiBCdXQgb24gdGhvc2UgRGVsbCAKbWFjaGluZXMs
+IHRoZXJlIGlzIG5vIEJBU1MgU3BlYWtlciwgYW5kIERlbGwgbWFjaGluZXMgaGF2ZSBzdGggdGhh
+dCAKTGVub3ZvIG1hY2hpbmVzIGRvbid0IGhhdmUsIGxpa2UgaGVhZHNldC1taWMgYW5kIGhlYWRw
+aG9uZS1taWMuIEhvdyB0byAKbWFrZSB0aGlzIFVDTSB3b3JrIG9uIGJvdGggTGVub3ZvIGFuZCBE
+ZWxsIG1hY2hpbmVzPwoKUmVnYXJkcywKCkh1aS4KCgpPbiAyMDE5LzkvMjQg5LiL5Y2IODowNiwg
+TWFyayBQZWFyc29uIHdyb3RlOgo+Pj4gSSB0aGluayB0aGUgZmlyc3Qgb3JkZXIgd291bGQgYmUg
+dG8gaGF2ZSB0aGUgZmlsZSBjbGVhbmVkLXVwLCB3aXRoIGl0cwo+Pj4gSW50ZWwgb3JpZ2luIGNs
+ZWFybHkgc3RhdGVkIHdpdGggYSBzaWduZWQtb2ZmLWJ5IHRhZy4KPj4+Cj4+PiBUaGVuIG9uY2Ug
+dGhpcyBpcyBkb25lLCB0aGUgRGViaWFuIHBhY2thZ2UgY3JlYXRpb24gbmVlZHMgdG8gYmUKPj4+
+IGhhbmRsZWQgKHVzaW5nIGVpdGhlciB0aGUgQUxTQSByZXBvIG9yIHRoZSBjbG9uZWQgdmVyc2lv
+biBvbiBTT0YKPj4+IEdpdEh1YikuIEkgZG9uJ3QgaGF2ZSBhbnkgZXhwZXJpZW5jZSB3aXRoIERl
+YmlhbiBwYWNrYWdlcyBzbyBjYW4ndAo+Pj4gcmVhbGx5IGNvbW1lbnQgb24gdGhlIGVmZm9ydCBp
+dCB3b3VsZCB0YWtlLgo+PiBJIGRpZCBzb21lIGNsZWFudXBzIGhlcmU6Cj4+Cj4+IGh0dHBzOi8v
+Z2l0aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS11Y20tCj4+IGNvbmYvY29tbWl0L2Y3OTZmMDg1
+MmEwOTdlMjM4ZmE5ZjVlZmIxNzRlOTViNWVlNmM4YjcKPj4KPj4gUGllcnJlLCBjb3VsZCB5b3Ug
+Y29uZmlybSB0aGUgb3JpZ2luYWwgc291cmNlIGFuZCBhcmUgeW91IG9rIHdpdGggdGhhdD8KPj4K
+PiBJIGdvdCBjb25maXJtYXRpb24gZnJvbSBJbnRlbCB0aGF0IHRoZXkgYXJlIHRoZSBvcmlnaW5h
+bCBzb3VyY2UgLSB0aGV5IHByb3ZpZGVkIG1lIHdpdGggdGhlIGZpbGVzIChhcyBhbiBhc2lkZSBp
+biBjYXNlIGl0IGlzIGltcG9ydGFudCwgb3JpZ2luYWxseSB0aGV5IHdlcmUgd29ya2luZyB3aXRo
+IENhbm9uaWNhbCBvbiBnZXR0aW5nIFVidW50dSB3b3JraW5nIG9uIG9uZSBvZiBvdXIgKExlbm92
+bykgcGxhdGZvcm1zKS4gSSB3YXMgZm9sbG93aW5nIHVwIHdpdGggQ2Fub25pY2FsIHRvIGp1c3Qg
+Y2hlY2sgd2hhdCB0aGV5IGhhZCBkb25lIGJ1dCBoYXZlbid0IGhlYXJkIGJhY2sgeWV0Lgo+Cj4g
+U2luY2UgSW50ZWwgaGFzIHByb3ZpZGVkIHRoZSBmaWxlcyB0byBtZSBkaXJlY3RseSAtIGNhbiBJ
+IGFjdCBhcyBhbiBvcmlnaW5hbCBzb3VyY2UgY29uZmlybWF0aW9uPwo+Cj4KPiBfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IEFsc2EtZGV2ZWwgbWFpbGlu
+ZyBsaXN0Cj4gQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCj4gaHR0cHM6Ly9tYWlsbWFuLmFs
+c2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCj4KX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxp
+c3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2pl
+Y3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

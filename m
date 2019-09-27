@@ -2,78 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83D74C07FD
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 16:51:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D67FC085A
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 17:12:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0497E1671;
-	Fri, 27 Sep 2019 16:50:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0497E1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93BE11668;
+	Fri, 27 Sep 2019 17:11:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93BE11668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569595888;
-	bh=eb9D2DC2bCJZoo5fvySJXVD3EfYGeKVzrSRZErisCgE=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
+	s=default; t=1569597139;
+	bh=swx4EKtLQgsdgOgdFru0SxSZhYW0wRz1gV5FpCykdOE=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n1COAUHDHvxj2lgG5BKmJPVjZJPXtw4x+ghc7BJQNnbJxxpeS2g5t1blE24hvMC2+
-	 xQdoor2HCsvbVM3gYSBNphscVB4JPp9cE9amuDW/fqRObxEZMPvi+b5RxXr3M4jrrW
-	 mMxwocSfxAureXuHRGUtr5Yd0C6wOy48McUf4zto=
+	b=ojf3tE+0mGQ/IE/iEKzUJ/INfk7N1MNv/BP/tikGIuIdpJ5pSzeUB9/O+hlbLaiaL
+	 LlwC2jeKoo17spIPjs+6lKTABc/awNq4DmggQM5Yp4n9vpIfYXW1EPESHJIsVE8crg
+	 J+ny8yaGzhmbfHXFazEgs4rD/f4zeluI8ofcrefo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45D61F8044C;
-	Fri, 27 Sep 2019 16:49:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07AF1F80140;
+	Fri, 27 Sep 2019 17:10:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C393F8049A; Fri, 27 Sep 2019 16:49:40 +0200 (CEST)
+ id 7D50FF8049A; Fri, 27 Sep 2019 17:10:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 93675F80140
- for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 16:49:34 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 6BEC3A003F;
- Fri, 27 Sep 2019 16:49:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 6BEC3A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1569595774; bh=+YmtyTjsSLa/NMFL9DikVsYGfOyRXMkeiao37z8WsMY=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=SK1oV+RXtGQb8ECSodyzCk3qTTde7o72OoKXa118JPTE+DNWOaMlFFits+291LVph
- WhwkvVym9H9moiiaMgptSIzipaMYnt3x4nLsat/ns6lasPndxx82qi+3/kJ0UKh3da
- kEX5lejg9nih1njRHxG99RjX+Bz72zBqSdOt3tmg=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 27 Sep 2019 16:49:29 +0200 (CEST)
-To: Jaska Uimonen <jaska.uimonen@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Pearson <mpearson@lenovo.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Elimar Riesebieter <riesebie@lxtec.de>
-References: <20190919142329.35bsdnh5skuj7jl3@toy.home.lxtec.de>
- <853b3859-8c8e-1c52-becb-3807d351b8f1@linux.intel.com>
- <f11c5347d8504148a47fdbc48d920f59@lenovo.com>
- <98b99cea-9be1-f232-f62c-1f0b7a10e295@linux.intel.com>
- <38abcb71-3041-7015-e56a-43f628b2faf1@perex.cz>
- <1569578841.43188.16.camel@linux.intel.com>
- <71636f27-3dd6-6236-f025-13dc465d06ae@perex.cz>
- <1569592832.43188.21.camel@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <86f0f63d-16b5-55ff-2aba-775f1f5c4351@perex.cz>
-Date: Fri, 27 Sep 2019 16:49:29 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6A710F80140
+ for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 17:10:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A710F80140
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2019 08:10:27 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,555,1559545200"; d="scan'208";a="219808427"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.6.245])
+ ([10.252.6.245])
+ by fmsmga002.fm.intel.com with ESMTP; 27 Sep 2019 08:10:20 -0700
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Navid Emamdoost <navid.emamdoost@gmail.com>
+References: <20190925161922.22479-1-navid.emamdoost@gmail.com>
+ <13f4bd40-dbaa-e24e-edca-4b4acff9d9c5@linux.intel.com>
+ <20190927025526.GD22969@cs-dulles.cs.umn.edu>
+ <dc68e0dc-9a8e-cc52-c560-3e86c783dbb3@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <6966df25-e82c-1abe-6a0f-ff497dcda23b@intel.com>
+Date: Fri, 27 Sep 2019 17:10:18 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <1569592832.43188.21.camel@linux.intel.com>
+In-Reply-To: <dc68e0dc-9a8e-cc52-c560-3e86c783dbb3@linux.intel.com>
 Content-Language: en-US
-Subject: Re: [alsa-devel] [External] Re: alsa-lib: Add ucm support for
- whiskeylake sof-skl_hda_card audio
+Cc: alsa-devel@alsa-project.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, kjlu@umn.edu,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, smccaman@umn.edu,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Enrico Weigelt <info@metux.net>, linux-kernel@vger.kernel.org,
+ emamd001@umn.edu
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: Intel: Skylake: prevent memory
+ leak in snd_skl_parse_uuids
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,119 +83,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 27. 09. 19 v 16:00 Jaska Uimonen napsal(a):
-> On Fri, 2019-09-27 at 12:57 +0200, Jaroslav Kysela wrote:
->> Dne 27. 09. 19 v 12:07 Jaska Uimonen napsal(a):
->>> On Tue, 2019-09-24 at 13:53 +0200, Jaroslav Kysela wrote:
->>>> Dne 19. 09. 19 v 17:15 Pierre-Louis Bossart napsal(a):
->>>>> On 9/19/19 9:54 AM, Mark Pearson wrote:
->>>>>>>
->>>>>>> Indeed UCM is required for all cases where SOF and
->>>>>>> PulseAudio
->>>>>>> are used.
->>>>>>>
->>>>>>> Our thinking was however to add this UCM file to the new
->>>>>>> repository outside
->>>>>>> of alsa-lib [1]. There is an on-going thread started by
->>>>>>> Jaroslav to move those
->>>>>>> files and relicense them as BSD-3-Clause [2]
->>>>>>>
->>>>>>> [1]
->>>>>>> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-
->>>>>>> July/153257.html
->>>>>>> [2]
->>>>>>> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-
->>>>>>> September/155246.html
->>>>>>
->>>>>> Thanks Pierre.
->>>>>>
->>>>>> Do we have any approximate timelines on when and how this
->>>>>> will
->>>>>> happen? (I'm new to this)
->>>>>>
->>>>>> One of my main aims is that we have a customer using Debian
->>>>>> and
->>>>>> one of our platforms that require this change - I need to
->>>>>> make
->>>>>> sure I understand how this would roll out and what actions
->>>>>> they
->>>>>> need to take in the meantime if it's not going to be
->>>>>> available in
->>>>>> Debian.
->>>>>
->>>>> I think the first order would be to have the file cleaned-up,
->>>>> with
->>>>> its 
->>>>> Intel origin clearly stated with a signed-off-by tag.
->>>>>
->>>>> Then once this is done, the Debian package creation needs to be
->>>>> handled 
->>>>> (using either the ALSA repo or the cloned version on SOF
->>>>> GitHub).
->>>>> I 
->>>>> don't have any experience with Debian packages so can't really
->>>>> comment 
->>>>> on the effort it would take.
->>>>
->>>> I did some cleanups here:
->>>>
->>>> https://github.com/alsa-project/alsa-ucm-conf/commit/f796f0852a09
->>>> 7e23
->>>> 8fa9f5efb174e95b5ee6c8b7
->>>>
->>>> Pierre, could you confirm the original source and are you ok with
->>>> that?
+On 2019-09-27 15:14, Pierre-Louis Bossart wrote:
+> On 9/26/19 9:55 PM, Navid Emamdoost wrote:
+>> On Wed, Sep 25, 2019 at 12:05:28PM -0500, Pierre-Louis Bossart wrote:
+>>> On 9/25/19 11:19 AM, Navid Emamdoost wrote:
+>>>> In snd_skl_parse_uuids if allocation for module->instance_id fails, the
+>>>> allocated memory for module shoulde be released. I changes the
+>>>> allocation for module to use devm_kzalloc to be resource_managed
+>>>> allocation and avoid the release in error path.
 >>>
->>> Cleanup looks fine to me, we should add still UCM "PlaybackVolume"
->>> and
->>> "CaptureVolume" settings, because otherwise Pulseaudio will use SW
->>> volume only. This will make for example HDA led quirks useless...
->>> (and actually CaptureVolume and PlaybackVolume in pulseaudio ucm
->>> support is still not integrated, hopefully soon). Defining Capture
->>> and
->>> PlaybackVolume should not do any harm currently for user space.
+>>> if you use devm_, don't you need to fix the error path as well then, 
+>>> I see a
+>>> kfree(uuid) in skl_freeup_uuid_list().
 >>>
->>> I can do that, Jaroslav you want PR against github or patches here 
->>> to mailing list?
->>
->> As you wish. Both ways are acceptable for me. Note that I did another
->> cleanup
->> for 'Bass Speaker' for Carbon X1 7th and merged 'import' branch to
->> 'master'
->> branch on github (so do the PR against master, if you like).
->>
->> 				Thanks,
->> 					Jaroslav
->>
+>>> I am not very familiar with this code but the error seems to be that the
+>>> list_add_tail() is called after the module->instance_id is allocated, so
+>>> there is a risk that the module allocated earlier is not freed (since 
+>>> it's
+>>> not yet added to the list). Freeing the module as done in patch 1 works,
+>>> using devm_ without fixing the error path does not seem correct to me.
+>>>
+
+Good catch, Pierre.
+
+>> Thanks for the feedback, then it's your call if you can accept patch 1 as
+>> fix.
 > 
-> I made now:
-> https://github.com/alsa-project/alsa-ucm-conf/pull/1
-> and
-> https://github.com/alsa-project/alsa-ucm-conf/pull/2
-
-Thanks. Why switches (PlaybackSwitch/CaptureSwitch) are not defined, too?
-
-> It would be good if Lenovo and Canonical folks also check these.
+> Cezary, it's really your call.
 > 
-> I'm testing this in Dell device with Ubuntu and twiddling outputs 
-> and volumes/mutes from UI. PR 2 is assuming Pulseaudio HW control, 
-> so not sure if the changes bad without it. 
 
-BTW: Could you, Intel guys, review other UCM profiles for the SST drivers,
-too? It seems that PlaybackVolume is only in few other profiles and no one is
-using switches and capture CTL ID definitions. It basically means, that all
-UCM profiles are broken and only software volume is used in PA :-(
+Actually, not the best person to ask about "objective decisions" here as 
+my vision is clouded by changes done internally. This code no longer 
+exists in our internal repo. It's better for host to send MODULE_INFO 
+request rather than understanding firmware binary structure and parse it 
+directly.
 
-				Jaroslav
+I'm fine with solution #1 as I guess asking to wait for refactor is not 
+an option. Code deployment is delayed due to range of administrative 
+decisions, some of which should be uncovered on alsa-devel soon enough.
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Czarek
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

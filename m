@@ -2,108 +2,127 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 098CDBF393
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 14:57:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67866BF3D2
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Sep 2019 15:13:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B3C81746;
-	Thu, 26 Sep 2019 14:57:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B3C81746
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC5A91749;
+	Thu, 26 Sep 2019 15:12:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC5A91749
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569502676;
-	bh=EoUwdKrFxhnLewIjrKzkWtoKj46IqP9p8DUh5TxFfdA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1569503615;
+	bh=0S60MhbV/13JGaFFMwtjSPNzWsVUvr8KCkJPtonJUYA=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FbjmgP3feT+LX1JsEBaeubypBP3T6Ig0sV3OQ08rJZDiHxmIjkV0Rz9mlljlBnwDN
-	 1Cf3Fn+o1/W+Z/sT56PocDCQfk0NAALQnxqEAleD15nwG9UQVWA6bfZZodT2rKBUQC
-	 Vg8lYEigoiUk1pd4FEgOBocw4g1YLU497eO9smow=
+	b=AWcPoozFJcE+s1X5j/ZNzFBWDfKK8cQRbvcBuAShjS++V67keMV6TG03no6oQXi87
+	 kCrE1jrwgjW1GuulN1j8LJ4lX9SymEzJ9m+jkZexkHLI9Nz4LXfZPWBd237Llh0jXP
+	 p6AURuwcBlECwgkfgkBfcBoxjhrPmxqGrQt162MI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12DB4F8048D;
-	Thu, 26 Sep 2019 14:56:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C0FFF802BD;
+	Thu, 26 Sep 2019 15:11:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA13BF803F4; Thu, 26 Sep 2019 14:56:09 +0200 (CEST)
+ id 1E3E4F80213; Thu, 26 Sep 2019 15:11:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DATE_IN_FUTURE_06_12,
+ DKIM_SIGNED,DKIM_VALID,FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr750043.outbound.protection.outlook.com [40.107.75.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83244F80140
- for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 14:56:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83244F80140
+ by alsa1.perex.cz (Postfix) with ESMTPS id 785E6F80213
+ for <alsa-devel@alsa-project.org>; Thu, 26 Sep 2019 15:11:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 785E6F80213
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="N6BslChf"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8QChmox126209;
- Thu, 26 Sep 2019 12:55:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2019-08-05;
- bh=wgbB1gckrWIlucivgg+XWAxQa+UFNwnWecELwTVQsJU=;
- b=N6BslChfal8kgvrGAJzkingykcTMlYd1NcnZtth2N9VL1pVIsYFPTg8RxUNyS8GkypHp
- RIyEmIxN54gm6CDxe5GH2oXeEGs/kpwq+JTy+0F/D6RG98QJIdO1avYWfgJ1XHhmeE4O
- wHt8UUyepcfChmtz7nDidi/6x3pnMZXLRNhakCJNxGZ3SSn6FsBjsaTjruKs0A1z4EE2
- izAq6Qs34SNH9yreZ4uVraPfEHO+dnR3VfsJr+k5XwnMTYDUvmMtbNsZkc/0F14eyEUg
- To6gmai5KsPD07idBfG1x3xnzwJiNv7Q0GWMhqnOuToXaRbTCrwazCGEsuhrUJ7DDQpn Vg== 
-Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
- by aserp2120.oracle.com with ESMTP id 2v5btqbhjc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 26 Sep 2019 12:55:57 +0000
-Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
- by userp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8QChr1D098396;
- Thu, 26 Sep 2019 12:55:56 GMT
-Received: from userv0121.oracle.com (userv0121.oracle.com [156.151.31.72])
- by userp3020.oracle.com with ESMTP id 2v8w5ka3gj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 26 Sep 2019 12:55:56 +0000
-Received: from abhmp0016.oracle.com (abhmp0016.oracle.com [141.146.116.22])
- by userv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x8QCtooO015468;
- Thu, 26 Sep 2019 12:55:51 GMT
-Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Thu, 26 Sep 2019 05:55:50 -0700
-Date: Thu, 26 Sep 2019 15:55:38 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-Message-ID: <20190926125538.GF29696@kadam>
-References: <1569539290-756-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1569539290-756-5-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="bW4IARLL"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jpr6xvFXFO1aV+ILyMcwaZL4w6dP7pWGA741KILg9XhuXXWKmZ4OR00wMco3kkF8XwWP8SAHgfkp89VCkpmJj5rbETsuQYzyWjvlyNtzq3qyRCWzZh3Ni5SnxJ55PZt8TcXg/kmqjzIlqcKb2EfY0OfSZU2PxM750Pa4zu9gMslzJG0I/5VOO+02AUwGwROjIs1rWLDNzj14pKInDNNphCHdlKlfk5Me80JTy7/r6t66BtCaJbXboMG6a6LNlaSui9er1J9d76GJX5kr6Xxw5CedOx/yXeDcS0rHZ+KS0o/Mj40eoebUcpMJlUWzDZhBj6zkcCquOiLnIyRog2OGFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+Pavt5LsdTFAkBN7Y81A+07Fyi+wAmHWIGN74pCm9dM=;
+ b=fMqlseDfgBdgQIIToCNp6dm7Jn/prnXQYL4LpbByPPKAxI/hyzLIIEscDQMqZK3H11uePxH0sVFXunM71CRD9FPVwDcpaK8BcPFYZO3d7WnOgCeb+CDk0P9p1mBqwmndCQlFrN8LOtfjkA9x19/4g1SetIeGRILfP4/Cq5cVwKzeI/38sWzB7fhz/aUmTFGek+EATL9Ks5HWhT1QMfAnFya5d9G5977ADMP9cKkxxS1uC7L+iSPT9m7jgHYadwgZPc/numIYS7FD6l6BYdkhalz9VV9BDEu8EIxfj+Fn0jNzH5FelfyOleIQPaYi2wU/MrPpGL7R/adsRt6nLYY0lQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=oracle.com smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+Pavt5LsdTFAkBN7Y81A+07Fyi+wAmHWIGN74pCm9dM=;
+ b=bW4IARLL2UdOiKtpvd+yV0+HiCLJ9G7l5wCF/Tfipu62p/uGTnwIuFIGEPcffWS2lP9ylYrCRTcgxPIDMUAdX7PmwQ8KdxUmk1AkLOdm16wmWA9U8imzJzj8aaXZvL/nN476egi5p8Kw0hg76NXcSfatkAJaGfQktjOfx1pIRzI=
+Received: from SN1PR12CA0078.namprd12.prod.outlook.com (2603:10b6:802:20::49)
+ by MWHPR1201MB0014.namprd12.prod.outlook.com (2603:10b6:300:e7::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2284.25; Thu, 26 Sep
+ 2019 13:11:41 +0000
+Received: from BY2NAM03FT026.eop-NAM03.prod.protection.outlook.com
+ (2a01:111:f400:7e4a::208) by SN1PR12CA0078.outlook.office365.com
+ (2603:10b6:802:20::49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2178.16 via Frontend
+ Transport; Thu, 26 Sep 2019 13:11:41 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; oracle.com; dkim=none (message not signed)
+ header.d=none;oracle.com; dmarc=permerror action=none header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXCHOV01.amd.com (165.204.84.17) by
+ BY2NAM03FT026.mail.protection.outlook.com (10.152.84.210) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.2305.15 via Frontend Transport; Thu, 26 Sep 2019 13:11:40 +0000
+Received: from vishnu-All-Series.amd.com (10.180.168.240) by
+ SATLEXCHOV01.amd.com (10.181.40.71) with Microsoft SMTP Server id 14.3.389.1; 
+ Thu, 26 Sep 2019 08:11:39 -0500
+From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+To: 
+Date: Fri, 27 Sep 2019 05:34:47 +0530
+Message-ID: <1569542689-25512-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <Fix for missing initialization of IRQFLAGS.>
+References: <Fix for missing initialization of IRQFLAGS.>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1569539290-756-5-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9391
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1908290000 definitions=main-1909260121
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9391
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1011
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
- definitions=main-1909260121
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(376002)(346002)(39860400002)(136003)(428003)(199004)(189003)(86362001)(186003)(5660300002)(36756003)(50466002)(356004)(6666004)(316002)(81156014)(54906003)(109986005)(305945005)(8676002)(2906002)(16586007)(81166006)(53416004)(4326008)(486006)(2616005)(11346002)(50226002)(48376002)(8936002)(76176011)(7696005)(1671002)(51416003)(126002)(11926002)(476003)(70206006)(336012)(70586007)(426003)(446003)(47776003)(26005)(478600001)(266003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR1201MB0014; H:SATLEXCHOV01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ed66ccfd-dab3-4e17-7d34-08d742831210
+X-Microsoft-Antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600167)(711020)(4605104)(1401327)(4618075)(2017052603328);
+ SRVR:MWHPR1201MB0014; 
+X-MS-TrafficTypeDiagnostic: MWHPR1201MB0014:
+X-Microsoft-Antispam-PRVS: <MWHPR1201MB0014BFBA1F46FCE9ABE804DAE7860@MWHPR1201MB0014.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:1247;
+X-Forefront-PRVS: 0172F0EF77
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Message-Info: t1Ayqpw61EwaD3Rs8547A5SMQZSO93ki3Q0KiyIgfXZg/HQOUhc8OR9YzDufLMaKKyLOg5lo2eU7ttsZXe5DNl+wJMWyjn7HpxwQ/DYlIzODcJvBWcrCS8hNHr2RCIYhS4OUomLc7PSmzPmx7bGGJ8QKF7rNwWNoraTkurldrdBNaIkv3clzEdlgMgeCH6ZnUPP8ImtuVX+QKsOW/8R6yszYOTRipPuR71mw+Yr1uSV3MzQvA/BFoUdLKRlwn7uUhDkSpOp4ceh2n5AZFJozSxrcWkn4QPY3F05Z2wqY0YRWH/CoQwR9UwwbGDNVEFcXb52xnvJ27t2BotXCZWO4vK62/YavpUFNeWDer2hVh/im1H8xSXiBgnhxvEKokNZKNzG8KA0vKZKKIuitELPqm1wB6/nscFmdkT2JGRZZ5uo=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Sep 2019 13:11:40.5842 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed66ccfd-dab3-4e17-7d34-08d742831210
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXCHOV01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR1201MB0014
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
  <alsa-devel@alsa-project.org>,
- Maruthi Bayyavarapu <maruthi.bayyavarapu@amd.com>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Vijendar Mukunda <vijendar.mukunda@amd.com>,
- Alexander.Deucher@amd.com, Colin Ian King <colin.king@canonical.com>
-Subject: Re: [alsa-devel] [PATCH 5/5] ASoC: amd: ACP powergating should be
- done by controller
+ Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi
+ Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Mark Brown <broonie@kernel.org>, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Alexander.Deucher@amd.com, Colin Ian King <colin.king@canonical.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [alsa-devel] [PATCH] ASoC: amd: Missing Initialization of IRQFLAGS
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,68 +140,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Sep 27, 2019 at 04:37:39AM +0530, Ravulapati Vishnu vardhan rao wrote:
-> +static int acp3x_power_on(void __iomem *acp3x_base)
-> +{
-> +	u32 val;
-> +	u32 timeout = 0;
-> +	int ret = 0;
-> +
-> +	val = rv_readl(acp3x_base + mmACP_PGFSM_STATUS);
-> +	if (val) {
+Fix for missing initialization of IRQFLAGS in
+ACP-PCI driver and Missing Macro of ACP3x_DEVS.
 
-Flip this around.
+Follow up to IDb33df346
 
-	if (!val)
-		return 0;
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+---
+ sound/soc/amd/raven/pci-acp3x.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-> +		if (!((val & ACP_PGFSM_STATUS_MASK) ==
-> +				ACP_POWER_ON_IN_PROGRESS))
+diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
+index 627798a..3887ea0 100644
+--- a/sound/soc/amd/raven/pci-acp3x.c
++++ b/sound/soc/amd/raven/pci-acp3x.c
+@@ -219,7 +219,7 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 				sizeof(struct resource) * 4,
+ 						GFP_KERNEL);
+ 		adata->cell = devm_kzalloc(&pci->dev,
+-				sizeof(struct mfd_cell) * 3,
++				sizeof(struct mfd_cell) * ACP3x_DEVS,
+ 						GFP_KERNEL);
+ 		if (!adata->cell) {
+ 			ret = -ENOMEM;
+@@ -260,6 +260,7 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		adata->res[3].flags	= IORESOURCE_IRQ;
+ 		adata->res[3].start	= pci->irq;
+ 		adata->res[3].end	= adata->res[3].start;
++		irqflags		= 0;
+ 
+ 		adata->acp3x_audio_mode	= ACP3x_I2S_MODE;
+ 
+@@ -282,8 +283,9 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		adata->cell[2].platform_data	= &i2s_pdata[1];
+ 		adata->cell[2].pdata_size	=
+ 				sizeof(struct i2s_platform_data);
+-		r = mfd_add_hotplug_devices(adata->parent, adata->cell,	3);
+-		for (i = 0; i < 3 ; i++)
++		r = mfd_add_hotplug_devices(adata->parent, adata->cell,
++								ACP3x_DEVS);
++		for (i = 0; i < ACP3x_DEVS ; i++)
+ 			dev = get_mfd_cell_dev(adata->cell[i].name, i);
+ 		break;
+ 
+-- 
+2.7.4
 
-Use != insead of !(foo == bar).
-
-	if ((val & ACP_PGFSM_STATUS_MASK) != ACP_POWER_ON_IN_PROGRESS)
-
-> +			rv_writel(ACP_PGFSM_CNTL_POWER_ON_MASK,
-> +				acp3x_base + mmACP_PGFSM_CONTROL);
-> +		while (true) {
-> +			val  = rv_readl(acp3x_base + mmACP_PGFSM_STATUS);
-> +			if (!val)
-> +				break;
-
-return 0;
-
-
-
-> +			udelay(1);
-> +			if (timeout > 500) {
-
-if (timeout++ > 500) {
-
-
-> +				pr_err("ACP is Not Powered ON\n");
-
-We print two error messages.  :/
-
-
-> +				ret = -ETIMEDOUT;
-
-return -ETIMOUT;
-
-> +				break;
-> +			}
-> +			timeout++;
-> +		}
-> +		if (ret) {
-> +			pr_err("ACP is not powered on status:%d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +	return ret;
-> +}
-
-regards,
-dan carpenter
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

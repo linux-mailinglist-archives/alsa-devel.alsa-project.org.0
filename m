@@ -2,83 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706EEC0977
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 18:19:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C318FC09B6
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 18:40:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D7E751665;
-	Fri, 27 Sep 2019 18:18:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7E751665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3E109166F;
+	Fri, 27 Sep 2019 18:39:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3E109166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569601186;
-	bh=7SN7yzycSXB0KiGdzaY5f+GE1CQYV9iyHNVegQHdQgE=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1569602404;
+	bh=TCzNl5+PwfHMnpF5UVkz5YHXPCYXJcJ5afAIKCO79V4=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=or431Zr6xgmAKaC/6CRtwEJglsmeOR3zbzmt/pQiadaGF6a/3c+gMmpkxGI5CfgBE
-	 srQ1o2JSkSl+4jVKfznRqsy3xp8dTxwWDISfLFinYSbMUWOEHU1rU2M2twX3OoHBso
-	 Da91EZk34QZe6hy8OCiA2PTKlzEZ4bxXjBuvtnA8=
+	b=FNsRLmUOClWgIfP/OYzhRs6UFDw94rXCHxqN5fUXSff1pk2jk0ts2SHQjPPlufr+2
+	 yNW88bOgCRhozRIlZ6wgcRm7WgV+EvksZUMPDHHvRN2FaECs2jOuh+LRQS6jvDi2YK
+	 RoTbLoufTTKAQvw0wjcG5yAbGwpGyFarBONVobyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79B4FF8044C;
-	Fri, 27 Sep 2019 18:18:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FAF8F80535;
+	Fri, 27 Sep 2019 18:38:10 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9DA19F8049A; Fri, 27 Sep 2019 18:17:59 +0200 (CEST)
+ id AEB63F805A8; Fri, 27 Sep 2019 18:38:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DE536F800B3
- for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 18:17:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DE536F800B3
-Received: by mail-oi1-f193.google.com with SMTP id k9so5668724oib.7
- for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 09:17:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=61wEmdcrcYWJhNxd2306tXwFPpNdjt5BEaPJ4YXafyM=;
- b=o9zie7fPwnls5gwz9zrcfi8e7e48nXlQ/Jnyj8AXMVuLW95IJGS1GMLM7BwKcVkTPu
- aacLhNRbK+GD669B4MDQqtpyx7OsBLQ/OtUgMCDPfK1wYVAvP0DeJ2o57jpVPNCR8ZvZ
- 3TSx1HMRmb2Kx3sDVoJMwpk+le1tUz6zqOM3Ufk2NGO26KWunF6NMVeHrLiLg2+P4smw
- K2e8i0JfNnEHYK56ObGTtcN+Wy/W8sKscC3YG2ZYwfhMfW9lsziJVFTVpmS+llh26Jao
- VHchZDZbxawSshaZlE+657VuOvnTsxK8ok59/0t5+gpRq9qqw6uCKP9ko2tkIsyTweeu
- Ejsw==
-X-Gm-Message-State: APjAAAUW5OjLdvfMINiKlD+y0qZ+X8Zi0qS66FxjfMxPjSV/HdLEQGHv
- 3cMkcQzlHijekE7DgvvD0Q==
-X-Google-Smtp-Source: APXvYqzQ50C+MzxL+jlDDEzxwVOUDJXNh2/Ri5dfX21zjNX52KVp6n8DSiAfRPZ1iIKlDQ96r5QBdw==
-X-Received: by 2002:aca:d58c:: with SMTP id m134mr7507074oig.178.1569601074750; 
- Fri, 27 Sep 2019 09:17:54 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id l81sm1778474oih.10.2019.09.27.09.17.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Sep 2019 09:17:54 -0700 (PDT)
-Date: Fri, 27 Sep 2019 11:17:53 -0500
-From: Rob Herring <robh@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <20190927161753.GA30805@bogus>
-References: <CGME20190925132644eucas1p2716a805d184f9bbc4ad7a94cc9cca633@eucas1p2.samsung.com>
- <20190925132628.31858-1-m.szyprowski@samsung.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0448F80508
+ for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 18:38:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0448F80508
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Sep 2019 09:38:01 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,556,1559545200"; d="scan'208";a="193286234"
+Received: from sanyamba-mobl.amr.corp.intel.com (HELO [10.254.4.17])
+ ([10.254.4.17])
+ by orsmga003.jf.intel.com with ESMTP; 27 Sep 2019 09:38:01 -0700
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>, broonie@kernel.org,
+ lgirdwood@gmail.com
+References: <20190927071646.22319-1-peter.ujfalusi@ti.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <70954c83-282b-802f-848d-1b86c248ee87@linux.intel.com>
+Date: Fri, 27 Sep 2019 11:29:06 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20190925132628.31858-1-m.szyprowski@samsung.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org, Maciej Falkowski <m.falkowski@samsung.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [alsa-devel] [PATCH v5] dt-bindings: sound: Convert Samsung I2S
- controller to dt-schema
+In-Reply-To: <20190927071646.22319-1-peter.ujfalusi@ti.com>
+Content-Language: en-US
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: soc-pcm: Use different sequence
+ for start/stop trigger
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,35 +73,157 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 25 Sep 2019 15:26:28 +0200, Marek Szyprowski wrote:
-> From: Maciej Falkowski <m.falkowski@samsung.com>
-> 
-> Convert Samsung I2S controller to newer dt-schema format.
-> 
-> Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
-> v5:
-> - Removed '#clock-cells' property from required properties
-> - Added deprecated property to 'clock-output-names'
-> and removed corresponding comment. 
-> 
-> Best regards, 
-> Maciej Falkowski
-> ---
->  .../devicetree/bindings/sound/samsung-i2s.txt |  84 -----------
->  .../bindings/sound/samsung-i2s.yaml           | 136 ++++++++++++++++++
->  2 files changed, 136 insertions(+), 84 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/samsung-i2s.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/samsung-i2s.yaml
-> 
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+
+On 9/27/19 2:16 AM, Peter Ujfalusi wrote:
+> On stream stop currently we stop the DMA first followed by the CPU DAI.
+> This can cause underflow (playback) or overflow (capture) on the DAI side
+> as the DMA is no longer feeding data while the DAI is still active.
+> It can be observed easily if the DAI side does not have FIFO (or it is
+> disabled) to survive the time while the DMA is stopped, but still can
+> happen on relatively slow CPUs when relatively high sampling rate is used:
+> the FIFO is drained between the time the DMA is stopped and the DAI is
+> stopped.
+> 
+> It can only fixed by using different sequence within trigger for 'stop' and
+> 'start':
+> case SNDRV_PCM_TRIGGER_START:
+> case SNDRV_PCM_TRIGGER_RESUME:
+> case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> 	Trigger order: dai_link, DMA, CPU DAI then the codec
+> 
+> case SNDRV_PCM_TRIGGER_STOP:
+> case SNDRV_PCM_TRIGGER_SUSPEND:
+> case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> 	Trigger order: codec, CPU DAI, DMA then dai_link
+> 
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+
+This patch was tested by the Intel SOF QA folks, and we don't see any 
+errors added by this sequence change (more precisely we see the usual 
+random IPC timeouts we are chasing but nothing new clearly caused by 
+this patch). And the change makes sense so
+
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+> ---
+> Hi,
+> 
+> Changes since v1:
+> - Rebased on top 'ASoC: soc-component: fix a couple missing error assignments'
+> 
+> Changes since rfc:
+> - Fixed missing error assignments (copy pasted the error)
+> - Document the trigger order in the commit message
+> 
+> Regards,
+> Peter
+> 
+>   sound/soc/soc-pcm.c | 64 ++++++++++++++++++++++++++++++++++++++++++---
+>   1 file changed, 61 insertions(+), 3 deletions(-)
+> 
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index a1b99ac57d9e..66910500e3b6 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -1047,7 +1047,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+>   	return 0;
+>   }
+>   
+> -static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+> +static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
+>   {
+>   	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+>   	struct snd_soc_component *component;
+> @@ -1056,8 +1056,8 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+>   	struct snd_soc_dai *codec_dai;
+>   	int i, ret;
+>   
+> -	for_each_rtd_codec_dai(rtd, i, codec_dai) {
+> -		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
+> +	if (rtd->dai_link->ops->trigger) {
+> +		ret = rtd->dai_link->ops->trigger(substream, cmd);
+>   		if (ret < 0)
+>   			return ret;
+>   	}
+> @@ -1074,6 +1074,42 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+>   	if (ret < 0)
+>   		return ret;
+>   
+> +	for_each_rtd_codec_dai(rtd, i, codec_dai) {
+> +		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+> +	struct snd_soc_component *component;
+> +	struct snd_soc_rtdcom_list *rtdcom;
+> +	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
+> +	struct snd_soc_dai *codec_dai;
+> +	int i, ret;
+> +
+> +	for_each_rtd_codec_dai(rtd, i, codec_dai) {
+> +		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+> +	ret = snd_soc_dai_trigger(cpu_dai, substream, cmd);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	for_each_rtdcom(rtd, rtdcom) {
+> +		component = rtdcom->component;
+> +
+> +		ret = snd_soc_component_trigger(component, substream, cmd);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+> +
+>   	if (rtd->dai_link->ops->trigger) {
+>   		ret = rtd->dai_link->ops->trigger(substream, cmd);
+>   		if (ret < 0)
+> @@ -1083,6 +1119,28 @@ static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+>   	return 0;
+>   }
+>   
+> +static int soc_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
+> +{
+> +	int ret;
+> +
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +		ret = soc_pcm_trigger_start(substream, cmd);
+> +		break;
+> +	case SNDRV_PCM_TRIGGER_STOP:
+> +	case SNDRV_PCM_TRIGGER_SUSPEND:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +		ret = soc_pcm_trigger_stop(substream, cmd);
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>   static int soc_pcm_bespoke_trigger(struct snd_pcm_substream *substream,
+>   				   int cmd)
+>   {
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

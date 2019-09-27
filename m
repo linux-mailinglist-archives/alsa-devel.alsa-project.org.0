@@ -2,68 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 012FFC0710
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 16:11:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58C9BC0788
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Sep 2019 16:29:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8932A166C;
-	Fri, 27 Sep 2019 16:10:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8932A166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D453E166C;
+	Fri, 27 Sep 2019 16:28:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D453E166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569593506;
-	bh=Z9Kwz+mVtpx3Rw/C4Xz5VCMzJE86j+4sL3FxPbDtg+A=;
-	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1569594582;
+	bh=68SF2C68vyusPmxVFn6A4u3Uz7SUZh858kjKvZUviP8=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CijFeEsXe3tKFX1u+9nff7pf1b38A8kBWBrTiJzxdQqYIB/mR6wLFujl0SHUy4AfJ
-	 zFBAxl4TioOJy/OUtX/x38v454QfSniT5SIdwbZ7ajrLHv9Dt9zlWtuM/Y3Guyd2D9
-	 uCd1aHZuTa97Y2f4k5FFb1GlUxsozeVJYCjoak4c=
+	b=nZSh5OHdnV1GuTcExnhHPSZUDyQGaZ2/hw7q0NJhqUpOeKcSmCkwNxkRYD1y/L03O
+	 07iYV5DI/UNbDqRQq4cUh0wxxBRHw3clj82SDN6vENIlPlvL/WPd3CrJDpoSJ5YbM9
+	 /pC0YI+hV/qlCtCN1tn9O9muAjtsWs3vpuib7ccA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8EA1AF8049A;
-	Fri, 27 Sep 2019 16:10:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 329DDF8044C;
+	Fri, 27 Sep 2019 16:27:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4F2BF8049A; Fri, 27 Sep 2019 16:09:59 +0200 (CEST)
+ id 7454CF8049A; Fri, 27 Sep 2019 16:27:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_NONE,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D0526F80138
- for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 16:09:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0526F80138
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2019 07:09:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,555,1559545200"; d="scan'208";a="193232600"
-Received: from kekkonen.fi.intel.com ([10.237.72.156])
- by orsmga003.jf.intel.com with ESMTP; 27 Sep 2019 07:09:51 -0700
-Message-ID: <1569592832.43188.21.camel@linux.intel.com>
-From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
-To: Jaroslav Kysela <perex@perex.cz>, Pierre-Louis Bossart
- <pierre-louis.bossart@linux.intel.com>, Mark Pearson <mpearson@lenovo.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, Elimar
- Riesebieter <riesebie@lxtec.de>
-Date: Fri, 27 Sep 2019 17:00:32 +0300
-In-Reply-To: <71636f27-3dd6-6236-f025-13dc465d06ae@perex.cz>
-References: <20190919142329.35bsdnh5skuj7jl3@toy.home.lxtec.de>
- <853b3859-8c8e-1c52-becb-3807d351b8f1@linux.intel.com>
- <f11c5347d8504148a47fdbc48d920f59@lenovo.com>
- <98b99cea-9be1-f232-f62c-1f0b7a10e295@linux.intel.com>
- <38abcb71-3041-7015-e56a-43f628b2faf1@perex.cz>
- <1569578841.43188.16.camel@linux.intel.com>
- <71636f27-3dd6-6236-f025-13dc465d06ae@perex.cz>
-X-Mailer: Evolution 3.24.6 (3.24.6-1.fc26) 
-Mime-Version: 1.0
-Subject: Re: [alsa-devel] [External] Re: alsa-lib: Add ucm support for
- whiskeylake sof-skl_hda_card audio
+ by alsa1.perex.cz (Postfix) with ESMTPS id C38B3F80140
+ for <alsa-devel@alsa-project.org>; Fri, 27 Sep 2019 16:27:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C38B3F80140
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="fkktZQXA"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8REOIZF190898;
+ Fri, 27 Sep 2019 14:27:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2019-08-05;
+ bh=Rz1WKelrhXx/CX8CfO1Ki+c8gnklPMpb9zMgJPDFb08=;
+ b=fkktZQXAnJ5jRf9NfvPe73M8qlAx3rnCqZhbmta/wD/sexw4ILyBAHwrID5c9OMu3POJ
+ G2/nsxeGCnBAu2ExYHdtETIwNVnqGFagyeochWDiGTBQcq0xr6ILDHMrCgoIbZ943lI+
+ 0fw1YGQXNwI/J5UnKbwMZCofKL7OsowuGxep9hSW1YFXKc6lo2S8+PDPej5l9refK4rb
+ nJ7hywdJGSl6ErksGW5YpA9C926H5GsrVR7X3fxAd4wQIVf5lIe87iXU2hiK7aTj1ehe
+ lpkUFzVNa499m7gO2UvezmYdedHRxDuLYiwQYlcyb9nIl/JErP1xMiksycZlPDeFjMcL Og== 
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+ by aserp2120.oracle.com with ESMTP id 2v5btqjm9u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 27 Sep 2019 14:27:49 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+ by aserp3020.oracle.com (8.16.0.27/8.16.0.27) with SMTP id x8RENX6P019009;
+ Fri, 27 Sep 2019 14:27:48 GMT
+Received: from aserv0121.oracle.com (aserv0121.oracle.com [141.146.126.235])
+ by aserp3020.oracle.com with ESMTP id 2v9m3f0adv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 27 Sep 2019 14:27:48 +0000
+Received: from abhmp0010.oracle.com (abhmp0010.oracle.com [141.146.116.16])
+ by aserv0121.oracle.com (8.14.4/8.13.8) with ESMTP id x8RERi3U019336;
+ Fri, 27 Sep 2019 14:27:45 GMT
+Received: from kadam (/41.57.98.10) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Fri, 27 Sep 2019 07:27:44 -0700
+Date: Fri, 27 Sep 2019 17:27:36 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Colin Ian King <colin.king@canonical.com>
+Message-ID: <20190927142552.GH27389@kadam>
+References: <20190927103858.631-1-colin.king@canonical.com>
+ <729ae953-b78a-9452-e8b3-3583a21a1295@canonical.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <729ae953-b78a-9452-e8b3-3583a21a1295@canonical.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9393
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1908290000 definitions=main-1909270134
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9393
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1908290000
+ definitions=main-1909270134
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: amd: acp3x: clean up an indentation
+	issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,105 +117,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 2019-09-27 at 12:57 +0200, Jaroslav Kysela wrote:
-> Dne 27. 09. 19 v 12:07 Jaska Uimonen napsal(a):
-> > On Tue, 2019-09-24 at 13:53 +0200, Jaroslav Kysela wrote:
-> > > Dne 19. 09. 19 v 17:15 Pierre-Louis Bossart napsal(a):
-> > > > On 9/19/19 9:54 AM, Mark Pearson wrote:
-> > > > > > 
-> > > > > > Indeed UCM is required for all cases where SOF and
-> > > > > > PulseAudio
-> > > > > > are used.
-> > > > > > 
-> > > > > > Our thinking was however to add this UCM file to the new
-> > > > > > repository outside
-> > > > > > of alsa-lib [1]. There is an on-going thread started by
-> > > > > > Jaroslav to move those
-> > > > > > files and relicense them as BSD-3-Clause [2]
-> > > > > > 
-> > > > > > [1]
-> > > > > > https://mailman.alsa-project.org/pipermail/alsa-devel/2019-
-> > > > > > July/153257.html
-> > > > > > [2]
-> > > > > > https://mailman.alsa-project.org/pipermail/alsa-devel/2019-
-> > > > > > September/155246.html
-> > > > > 
-> > > > > Thanks Pierre.
-> > > > > 
-> > > > > Do we have any approximate timelines on when and how this
-> > > > > will
-> > > > > happen? (I'm new to this)
-> > > > > 
-> > > > > One of my main aims is that we have a customer using Debian
-> > > > > and
-> > > > > one of our platforms that require this change - I need to
-> > > > > make
-> > > > > sure I understand how this would roll out and what actions
-> > > > > they
-> > > > > need to take in the meantime if it's not going to be
-> > > > > available in
-> > > > > Debian.
-> > > > 
-> > > > I think the first order would be to have the file cleaned-up,
-> > > > with
-> > > > its 
-> > > > Intel origin clearly stated with a signed-off-by tag.
-> > > > 
-> > > > Then once this is done, the Debian package creation needs to be
-> > > > handled 
-> > > > (using either the ALSA repo or the cloned version on SOF
-> > > > GitHub).
-> > > > I 
-> > > > don't have any experience with Debian packages so can't really
-> > > > comment 
-> > > > on the effort it would take.
-> > > 
-> > > I did some cleanups here:
-> > > 
-> > > https://github.com/alsa-project/alsa-ucm-conf/commit/f796f0852a09
-> > > 7e23
-> > > 8fa9f5efb174e95b5ee6c8b7
-> > > 
-> > > Pierre, could you confirm the original source and are you ok with
-> > > that?
+On Fri, Sep 27, 2019 at 11:43:31AM +0100, Colin Ian King wrote:
+> On 27/09/2019 11:38, Colin King wrote:
+> > From: Colin Ian King <colin.king@canonical.com>
 > > 
-> > Cleanup looks fine to me, we should add still UCM "PlaybackVolume"
-> > and
-> > "CaptureVolume" settings, because otherwise Pulseaudio will use SW
-> > volume only. This will make for example HDA led quirks useless...
-> > (and actually CaptureVolume and PlaybackVolume in pulseaudio ucm
-> > support is still not integrated, hopefully soon). Defining Capture
-> > and
-> > PlaybackVolume should not do any harm currently for user space.
+> > There is a return statement that is indented too deeply, remove
+> > the extraneous tab.
 > > 
-> > I can do that, Jaroslav you want PR against github or patches here 
-> > to mailing list?
-> 
-> As you wish. Both ways are acceptable for me. Note that I did another
-> cleanup
-> for 'Bass Speaker' for Carbon X1 7th and merged 'import' branch to
-> 'master'
-> branch on github (so do the PR against master, if you like).
-> 
-> 				Thanks,
-> 					Jaroslav
-> 
+> > Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> > ---
+> >  sound/soc/amd/raven/acp3x-pcm-dma.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
+> > index bc4dfafdfcd1..ea57088d50ce 100644
+> > --- a/sound/soc/amd/raven/acp3x-pcm-dma.c
+> > +++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
+> > @@ -631,7 +631,7 @@ static int acp3x_audio_probe(struct platform_device *pdev)
+> >  	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> >  	if (!res) {
+> >  		dev_err(&pdev->dev, "IORESOURCE_IRQ FAILED\n");
+> > -			return -ENODEV;
+> > +		return -ENODEV;
+> >  	}
+> >  
+> >  	adata = devm_kzalloc(&pdev->dev, sizeof(*adata), GFP_KERNEL);
+> > 
+> Oops, I've sent this fix before. ignore. apologies.
 
-I made now:
-https://github.com/alsa-project/alsa-ucm-conf/pull/1
-and
-https://github.com/alsa-project/alsa-ucm-conf/pull/2
+Haha.  I used to do this all the time.  Now my QC script searches my
+outbox.  I still send duplicates sometimes if I'm travelling and forget
+to copy my outbox over.
 
-It would be good if Lenovo and Canonical folks also check these.
-
-I'm testing this in Dell device with Ubuntu and twiddling outputs 
-and volumes/mutes from UI. PR 2 is assuming Pulseaudio HW control, 
-so not sure if the changes bad without it. 
-
-br,
-Jaska 
-
-
+regards,
+dan carpenter
 
 _______________________________________________
 Alsa-devel mailing list

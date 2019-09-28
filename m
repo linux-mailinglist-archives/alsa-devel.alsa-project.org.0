@@ -2,82 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE2EDC0E07
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Sep 2019 00:28:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0A0DC0F7E
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Sep 2019 05:36:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4420B166F;
-	Sat, 28 Sep 2019 00:27:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4420B166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1CEFF1665;
+	Sat, 28 Sep 2019 05:36:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CEFF1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569623280;
-	bh=kLDqfudY3IG0r6CBBagcP2GqaOqhOy+RE6m+lHUCL8s=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1569641812;
+	bh=pjIfoiGomp5CUgHXuI3ZazeixBtdWK+n7N/a6Xiltuw=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XsEUXLLunDXmEqHuIhssepWO84Zpv+K2e4NXzYxf38qbjbheU7vMY2Cd4rH+BdX3j
-	 kAliJd5hMxsGC0jSBkExn8+Jyt4TJK5exQtDxdeO+1pUFOoBxWx5yWjaboy9e+PHWa
-	 vE5S5geMhmN1fw6tOY/bC7Q8HUqrlGpwGbzE+Q5Y=
+	b=dZIi5Z6rBrb1rG39PmSPvzLYRiRIB76+z7iuh9hywC+KDWolZZ0J+wnGHXpg73Cfh
+	 to0P5vtBfBvjMjpuWqO+YQxE1gO8xzpZFTh3Xojzdfw9n3E/ghujsnwLVDqR2Ur4M6
+	 Rr8977LR6XugYVQ4rAc9KlLNGIEG8QMfOsp25/ss=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73FBCF80138;
-	Sat, 28 Sep 2019 00:26:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0348F8048D;
+	Sat, 28 Sep 2019 05:35:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1C89F8049A; Sat, 28 Sep 2019 00:25:49 +0200 (CEST)
+ id C696BF803F4; Sat, 28 Sep 2019 05:33:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_PASS,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A8F86F800B3
- for <alsa-devel@alsa-project.org>; Sat, 28 Sep 2019 00:25:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8F86F800B3
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Sep 2019 15:25:41 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,557,1559545200"; d="scan'208";a="219948342"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga002.fm.intel.com with ESMTP; 27 Sep 2019 15:25:40 -0700
-Received: from jastaffa-mobl3.amr.corp.intel.com (unknown [10.251.18.83])
- by linux.intel.com (Postfix) with ESMTP id 23629580127;
- Fri, 27 Sep 2019 15:25:39 -0700 (PDT)
-To: Andy Shevchenko <andy.shevchenko@gmail.com>
-References: <20190925161922.22479-1-navid.emamdoost@gmail.com>
- <13f4bd40-dbaa-e24e-edca-4b4acff9d9c5@linux.intel.com>
- <20190927025526.GD22969@cs-dulles.cs.umn.edu>
- <dc68e0dc-9a8e-cc52-c560-3e86c783dbb3@linux.intel.com>
- <6966df25-e82c-1abe-6a0f-ff497dcda23b@intel.com>
- <20190927153304.GS32742@smile.fi.intel.com>
- <2e8ef4df-9c5f-f6e0-23ee-32d3bc555330@linux.intel.com>
- <CAHp75Veung3v41RMmBoQHE7TFWUccE2oXsVnNgUt0JE0naTfLw@mail.gmail.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <3428d5e2-3246-7e1c-cb4d-59351193e4de@linux.intel.com>
-Date: Fri, 27 Sep 2019 17:25:41 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DDFFF800E2
+ for <alsa-devel@alsa-project.org>; Sat, 28 Sep 2019 05:33:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DDFFF800E2
+Received: from [114.254.47.161] (helo=[192.168.1.108])
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1iE3UR-0004yx-0b; Sat, 28 Sep 2019 03:33:47 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Mark Pearson <mpearson@lenovo.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Elimar Riesebieter <riesebie@lxtec.de>
+References: <20190919142329.35bsdnh5skuj7jl3@toy.home.lxtec.de>
+ <853b3859-8c8e-1c52-becb-3807d351b8f1@linux.intel.com>
+ <f11c5347d8504148a47fdbc48d920f59@lenovo.com>
+ <98b99cea-9be1-f232-f62c-1f0b7a10e295@linux.intel.com>
+ <38abcb71-3041-7015-e56a-43f628b2faf1@perex.cz>
+ <153ba191eb3c4849b6e65db5fc8e8760@lenovo.com>
+ <4cb6bec8-1dac-9114-c230-c9196763e58d@canonical.com>
+ <cc8e8881-a210-610d-d4fb-fdf8daef942c@perex.cz>
+From: Hui Wang <hui.wang@canonical.com>
+Message-ID: <c39251a2-66fc-74da-a8c3-7990259fc70f@canonical.com>
+Date: Sat, 28 Sep 2019 11:33:42 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <CAHp75Veung3v41RMmBoQHE7TFWUccE2oXsVnNgUt0JE0naTfLw@mail.gmail.com>
+In-Reply-To: <cc8e8881-a210-610d-d4fb-fdf8daef942c@perex.cz>
 Content-Language: en-US
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Navid Emamdoost <emamd001@umn.edu>,
- Stephen McCamant <smccaman@umn.edu>, Kangjie Lu <kjlu@umn.edu>,
- Thomas Gleixner <tglx@linutronix.de>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Enrico Weigelt <info@metux.net>, Navid Emamdoost <navid.emamdoost@gmail.com>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: Intel: Skylake: prevent memory
- leak in snd_skl_parse_uuids
+Subject: Re: [alsa-devel] [External] Re: alsa-lib: Add ucm support for
+ whiskeylake sof-skl_hda_card audio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,32 +76,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 9/27/19 3:39 PM, Andy Shevchenko wrote:
-> On Fri, Sep 27, 2019 at 7:39 PM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
->>> The problem with solution #1 is freeing orphaned pointer. It will work,
->>> but it's simple is not okay from object life time prospective.
->>
->> ?? I don't get your point at all Andy.
->> Two allocations happens in a loop and if the second fails, you free the
->> first and then jump to free everything allocated in the previous
->> iterations. what am I missing?
-> 
-> Two things:
->   - one allocation is done with kzalloc(), while the other one with
-> devm_kcalloc()
->   - due to above the ordering of resources is reversed
-
-Ah yes, I see your point now, sorry for being thick.
-Indeed it'd make sense to use devm_ for both allocations, but then the 
-kfree needs to be removed in the error handling.
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Ck9uIDIwMTkvOS8yNyDkuIvljYg1OjAxLCBKYXJvc2xhdiBLeXNlbGEgd3JvdGU6Cj4gRG5lIDI3
+LiAwOS4gMTkgdiAxMDoyMSBIdWkgV2FuZyBuYXBzYWwoYSk6Cj4+IFNvIGZhciwgdGhlIGFsc2Et
+bGliIHN0aWxsIGRlcGVuZHMgb24gdGhlIGNhcmQtPm5hbWUvbG9uZy1uYW1lIHRvIGZpbmQKPj4g
+dGhlIG5lZWRlZCBVQ00sIEkga25vdyBzb21lIERlbGwgbWFjaGluZXMgYWxzbyB1c2VzIHNvZiBk
+cml2ZXIgKHNvIHRoZQo+PiBjYXJkLT5uYW1lL2xvbmctbmFtZSBpcyBhbHNvIHNvZi1za2xfaGRh
+X2NhcmQpLCBzbyBpZiB0aGlzIFVDTSBpcwo+PiBtZXJnZWQsIGl0IHdpbGwgYmUgc2hhcmVkIHdp
+dGggRGVsbCBtYWNoaW5lcy4gQnV0IG9uIHRob3NlIERlbGwKPj4gbWFjaGluZXMsIHRoZXJlIGlz
+IG5vIEJBU1MgU3BlYWtlciwgYW5kIERlbGwgbWFjaGluZXMgaGF2ZSBzdGggdGhhdAo+PiBMZW5v
+dm8gbWFjaGluZXMgZG9uJ3QgaGF2ZSwgbGlrZSBoZWFkc2V0LW1pYyBhbmQgaGVhZHBob25lLW1p
+Yy4gSG93IHRvCj4+IG1ha2UgdGhpcyBVQ00gd29yayBvbiBib3RoIExlbm92byBhbmQgRGVsbCBt
+YWNoaW5lcz8KPiBUaGFua3MgZm9yIHRoaXMgaW5mby4gVGhlIGxvbmctbmFtZSBjb250YWlucyBE
+TUkgaW5mbywgc28gSSB1cGRhdGVkIHRoZQo+IGNvbmZpZ3VyYXRpb24gaW4gdGhpcyB3YXk6Cj4K
+PiBodHRwczovL2dpdGh1Yi5jb20vYWxzYS1wcm9qZWN0L2Fsc2EtdWNtLWNvbmYvY29tbWl0L2Fj
+ODMxOTI0NWUxMjEzZTQ2YTFhZTVjMmRlNGRkZDRhMGM4OTI2ZTIKPgo+IGh0dHBzOi8vZ2l0aHVi
+LmNvbS9hbHNhLXByb2plY3QvYWxzYS11Y20tY29uZi9jb21taXQvOWJkMGJmMzRhNTcxYTRhM2Mz
+OGQ3NDA5ODk3MmQ4MmM1OGZhYzgwZQo+Cj4gKGV2ZXJ5dGhpbmcgaXMgaW4gdGhlIHVwZGF0ZWQg
+J2ltcG9ydCcgYnJhbmNoKQo+Cj4gU28geW91IGNhbiBhZGQgdGhlIHNwZWNpZmljIGNvbmZpZyBm
+b3IgdGhlIERlbGwgZGV2aWNlLCB0b28uCgpPSywgdGhhdCBpcyBnb29kLCB0aGFua3MuCgpSZWdh
+cmRzLAoKSHVpLgoKPgo+IAkJCQkJSmFyb3NsYXYKPgo+Cj4+IFJlZ2FyZHMsCj4+Cj4+IEh1aS4K
+Pj4KPj4KPj4gT24gMjAxOS85LzI0IOS4i+WNiDg6MDYsIE1hcmsgUGVhcnNvbiB3cm90ZToKPj4+
+Pj4gSSB0aGluayB0aGUgZmlyc3Qgb3JkZXIgd291bGQgYmUgdG8gaGF2ZSB0aGUgZmlsZSBjbGVh
+bmVkLXVwLCB3aXRoIGl0cwo+Pj4+PiBJbnRlbCBvcmlnaW4gY2xlYXJseSBzdGF0ZWQgd2l0aCBh
+IHNpZ25lZC1vZmYtYnkgdGFnLgo+Pj4+Pgo+Pj4+PiBUaGVuIG9uY2UgdGhpcyBpcyBkb25lLCB0
+aGUgRGViaWFuIHBhY2thZ2UgY3JlYXRpb24gbmVlZHMgdG8gYmUKPj4+Pj4gaGFuZGxlZCAodXNp
+bmcgZWl0aGVyIHRoZSBBTFNBIHJlcG8gb3IgdGhlIGNsb25lZCB2ZXJzaW9uIG9uIFNPRgo+Pj4+
+PiBHaXRIdWIpLiBJIGRvbid0IGhhdmUgYW55IGV4cGVyaWVuY2Ugd2l0aCBEZWJpYW4gcGFja2Fn
+ZXMgc28gY2FuJ3QKPj4+Pj4gcmVhbGx5IGNvbW1lbnQgb24gdGhlIGVmZm9ydCBpdCB3b3VsZCB0
+YWtlLgo+Pj4+IEkgZGlkIHNvbWUgY2xlYW51cHMgaGVyZToKPj4+Pgo+Pj4+IGh0dHBzOi8vZ2l0
+aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS11Y20tCj4+Pj4gY29uZi9jb21taXQvZjc5NmYwODUy
+YTA5N2UyMzhmYTlmNWVmYjE3NGU5NWI1ZWU2YzhiNwo+Pj4+Cj4+Pj4gUGllcnJlLCBjb3VsZCB5
+b3UgY29uZmlybSB0aGUgb3JpZ2luYWwgc291cmNlIGFuZCBhcmUgeW91IG9rIHdpdGggdGhhdD8K
+Pj4+Pgo+Pj4gSSBnb3QgY29uZmlybWF0aW9uIGZyb20gSW50ZWwgdGhhdCB0aGV5IGFyZSB0aGUg
+b3JpZ2luYWwgc291cmNlIC0gdGhleSBwcm92aWRlZCBtZSB3aXRoIHRoZSBmaWxlcyAoYXMgYW4g
+YXNpZGUgaW4gY2FzZSBpdCBpcyBpbXBvcnRhbnQsIG9yaWdpbmFsbHkgdGhleSB3ZXJlIHdvcmtp
+bmcgd2l0aCBDYW5vbmljYWwgb24gZ2V0dGluZyBVYnVudHUgd29ya2luZyBvbiBvbmUgb2Ygb3Vy
+IChMZW5vdm8pIHBsYXRmb3JtcykuIEkgd2FzIGZvbGxvd2luZyB1cCB3aXRoIENhbm9uaWNhbCB0
+byBqdXN0IGNoZWNrIHdoYXQgdGhleSBoYWQgZG9uZSBidXQgaGF2ZW4ndCBoZWFyZCBiYWNrIHll
+dC4KPj4+Cj4+PiBTaW5jZSBJbnRlbCBoYXMgcHJvdmlkZWQgdGhlIGZpbGVzIHRvIG1lIGRpcmVj
+dGx5IC0gY2FuIEkgYWN0IGFzIGFuIG9yaWdpbmFsIHNvdXJjZSBjb25maXJtYXRpb24/Cj4+Pgo+
+Pj4KPj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+
+PiBBbHNhLWRldmVsIG1haWxpbmcgbGlzdAo+Pj4gQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3Jn
+Cj4+PiBodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fs
+c2EtZGV2ZWwKPj4+Cj4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3Jn
+Cmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1k
+ZXZlbAo=

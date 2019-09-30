@@ -2,81 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F65FC2407
-	for <lists+alsa-devel@lfdr.de>; Mon, 30 Sep 2019 17:13:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 345EEC24C2
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Sep 2019 18:00:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6066166B;
-	Mon, 30 Sep 2019 17:12:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6066166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5FA51668;
+	Mon, 30 Sep 2019 17:59:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5FA51668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569856404;
-	bh=Js7Cj8Cvnxa+d4ynjk0MqKk2dzYWI59UoBxbGNfsAiA=;
+	s=default; t=1569859214;
+	bh=c09Tj2e1eyUItEHX/HhnmDE2iYC0+hoZXNW7S6WvaKU=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rJ1lMkNsMjIiI1RYcSrbOdi9vEsZTZunEda0DV0Pf6ax6W77iQlVZz2q/eXORuxF2
-	 SOZuITaQMLR/HaPa21dYcuojcoV1hozmg+32pIw1EG/W6k4JCQ3cDo7gLGKUyKCYcw
-	 +FpHGZ+q1yMg1JaGG3pRlf8qzBEAcyHadpEZpvg8=
+	b=fOPBR8mVL9UbGqYeZOWMhbagHctMqRbu+CkXY6++eo0ctXZhmDzymer7o/jkH2rEY
+	 8r95XZE45OExuVSSBZFF7TmD32oIZMh+PFW7bAAe9ykr4Gn0ZRdDD26zG03DI/rZuS
+	 T0W/QeuukJSmA7TlJC0Uw+Sj0tAzSpCQS9az69P0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 59C01F803D5;
-	Mon, 30 Sep 2019 17:11:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC284F80391;
+	Mon, 30 Sep 2019 17:58:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86EBBF80391; Mon, 30 Sep 2019 17:11:37 +0200 (CEST)
+ id 5A51BF80391; Mon, 30 Sep 2019 17:58:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48232F800D0
- for <alsa-devel@alsa-project.org>; Mon, 30 Sep 2019 17:11:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48232F800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 897BAF800D0
+ for <alsa-devel@alsa-project.org>; Mon, 30 Sep 2019 17:58:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 897BAF800D0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="p63xC20X"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=8uSfWCZgaluu7uas+vrNL5RwfSc5wU4qMNPdunevW+g=; b=p63xC20XYZ6IwhINUL0OO9wgM
- /vpVVFPJakns3ost04TDmFPe/gnoUnxo7QBrcPYdE6lxNTLgRcno9ui7wlixQ7MGl+Ktd62P+JG6D
- hZB3c9Gte/f8Y8Pfn5L0M9f6r4yqolks3RsYxdBz1f62QucZ5gnmCDdH+ZLOeVJsTpLUI=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iExKn-0006z4-7t; Mon, 30 Sep 2019 15:11:33 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 4E9A32742CE9; Mon, 30 Sep 2019 16:11:32 +0100 (BST)
-Date: Mon, 30 Sep 2019 16:11:32 +0100
-From: Mark Brown <broonie@kernel.org>
-To: "Sa, Nuno" <Nuno.Sa@analog.com>
-Message-ID: <20190930151132.GA4265@sirena.co.uk>
-References: <20190926071707.17557-1-nuno.sa@analog.com>
- <20190926184318.GF2036@sirena.org.uk>
- <6245f99f37c10dcec0a52344bab4b980f08e07da.camel@analog.com>
+ dkim=pass (2048-bit key) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl
+ header.b="W5XI/oK4"
+Received: from remote.user (localhost [127.0.0.1])
+ by rere.qmqm.pl (Postfix) with ESMTPSA id 46hn7s5yWPz2J;
+ Mon, 30 Sep 2019 17:56:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
+ t=1569858988; bh=SM910taOzVBeIz8sDiWoqtsSpZFNnnEfHCLXVlJL+OE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=W5XI/oK4TO+8usSOpDLLwIUD8EOfNsMD0XE8ds9ESj4IQs+D9zTxF9VT7DVuPZHVl
+ 9/AEZ4r7OVtdbseLYth+b7RMiIuY4oF0124m2klhObq/VnGS+5a7s4aYffBd2yL0Vb
+ kdRZbmtDylWd8qGQpAsWP3LHRweacre6kmH+RX5Pt6+N3noLu+Vxv5Ti+Z0vPoKllq
+ SB3g/Dlvj0Hm1X5luO32G8DQcoAGN+pkecnMYSBCY/vEpq+Z/YL7COPcPcBE5+nLW0
+ z5Ljz3xu91ZoG3GdWQHa1K5LIdHE9xNwaqmAImLvdCdKAu08yv516uMZdQJxmh2vzb
+ sBzrIyWPZ1LmA==
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.101.4 at mail
+Date: Mon, 30 Sep 2019 17:58:19 +0200
+From: =?iso-8859-2?Q?Micha=B3_Miros=B3aw?= <mirq-linux@rere.qmqm.pl>
+To: YueHaibing <yuehaibing@huawei.com>
+Message-ID: <20190930155818.GA32237@qmqm.qmqm.pl>
+References: <20190928081641.44232-1-yuehaibing@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <6245f99f37c10dcec0a52344bab4b980f08e07da.camel@analog.com>
-X-Cookie: Mickey Mouse wears a Spiro Agnew watch.
+Content-Disposition: inline
+In-Reply-To: <20190928081641.44232-1-yuehaibing@huawei.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>, "tiwai@suse.com" <tiwai@suse.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>
-Subject: Re: [alsa-devel] [PATCH 1/2] ASOC: Add ADAU7118 8 Channel
- PDM-to-I2S/TDM Converter driver
+Cc: alexandre.belloni@bootlin.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, nicolas.ferre@microchip.com,
+ tiwai@suse.com, broonie@kernel.org, codrin.ciubotariu@microchip.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH -next] ASoC: atmel: Fix build error
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,122 +80,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3642646242028983781=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Sat, Sep 28, 2019 at 04:16:41PM +0800, YueHaibing wrote:
+> when do randbuilding, I got this error:
+> 
+> sound/soc/atmel/atmel_ssc_dai.o: In function `atmel_ssc_set_audio':
+> (.text+0x12f6): undefined reference to `atmel_pcm_pdc_platform_register'
+> 
+> This is because SND_ATMEL_SOC_SSC_DMA=y, SND_ATMEL_SOC_SSC=y,
+> but SND_ATMEL_SOC_SSC_PDC=m. Fix it bt reintroducing the default Kconfig.
 
---===============3642646242028983781==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="AqsLC8rIMeq19msA"
-Content-Disposition: inline
+Defaults won't forbid the invalid configuration. Can you try following:
 
-
---AqsLC8rIMeq19msA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Sep 30, 2019 at 09:44:00AM +0000, Sa, Nuno wrote:
-> On Thu, 2019-09-26 at 11:43 -0700, Mark Brown wrote:
-
-> > > +	case SND_SOC_DAIFMT_RIGHT_J:
-> > > +		st->right_j = true;
-> > > +		break;
-
-> > Don't we need to set any register values here?
-
-> The register set is done in adau7118_hw_params(). For right
-> justification the device can delay bclck by 8, 12 or 16. So, We need to
-> know the data_width to check if we can apply the configuration.
-
-OK.
-
-> > > +	case SND_SOC_BIAS_STANDBY:
-> > > +		if (snd_soc_component_get_bias_level(component) ==
-> > > +							SND_SOC_BIAS_OF
-> > > F) {
-> > > +			if (!st->iovdd)
-> > > +				return 0;
-
-> > This is broken, the device will always require power so it should
-> > always control the regulators.
-
-> The reason why I made this optional was to let the user assume that, in
-> some cases, the supply can be always present (and not controlled by the
-> kernel) and, in those cases, he would not have to care about giving
-> regulators nodes in devicetree. Furthermore, the driver would not have
-
-Have you tried doing that?  Notice how the regulator API subtitutes in a
-dummy regulator for you and the driver works fine without custom code.
-
-> to care about enabling/disabling  regulators. Is this not a valid
-> scenario? Or is it that, for this kind of devices it does not really
-
-It's not a valid scenario in driver code - the driver shouldn't be
-randomly ignoring errors and hoping the errors were deliberate rather
-than indiciations of real problems.
-
-> > > +static int adau7118_resume(struct snd_soc_component *component)
-> > > +{
-> > > +	return snd_soc_component_force_bias_level(component,
-> > > +						  SND_SOC_BIAS_STANDBY)
-> > > ;
-> > > +}
-
-> > Let DAPM do this for you, there's no substantial delays on power
-> > on so you're probably best just setting idle_bias_off.
-
-> So, this means dropping resume/suspend and to not set idle_bias_on,
-> right?
-
-Right.  Like I say it looks like your power up path is fast enough for
-this.
-
-> > > +static int adau7118_regulator_setup(struct adau7118_data *st)
-> > > +{
-> > > +	int ret = 0;
-> > > +
-> > > +	st->iovdd = devm_regulator_get_optional(st->dev, "IOVDD");
-> > > +	if (!IS_ERR(st->iovdd)) {
-
-> > Unless the device can operate with supplies physically absent it
-> > should not be requesting regulators as optional, this breaks your
-> > error handling especially with probe deferral which is a fairly
-> > common case.
-
-> Just for my understanding (most likely I'm missing something obvious),
-> why would I have issues with the error handling in probe deferral?
-
-Actually it does look like you handle this correctly further down, the
-normal pattern would have been to have the error handling inside the if
-here and not indent the rest of the success path so I misread it.
-
---AqsLC8rIMeq19msA
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2SGyMACgkQJNaLcl1U
-h9CkAwf9EYiV4BQm0xxoHsLhEYWWYl4f4l8dyWkSXXJg/n2cm55ZotoM4Rxa3+Ir
-L9m1vcsZPqn9T9CR2lBzOUKXfFkPnvpxao2yvwaZHrZrHELKGBtG+g+Kjgk9YT2+
-VjvdYBf7czonV8AmRHnvZpgzv69cAfLJM0H4iVfmy0sclAgCMBSesTixTUDGcRgw
-IjiCtqt9TkzZBrLUqefaCMDN3k3Jba+3jA580jZS3SUS6geaLyQCzSOnTkPQUka5
-BAlftJCTfbAH/dUVLJlvpDTbzN11ivTduZU/y5q5SMvgp17jDU/e7yF0QUVDv0wK
-zLChmYfli7ZUEHXi44LPrAeOfZY9NQ==
-=syDp
------END PGP SIGNATURE-----
-
---AqsLC8rIMeq19msA--
-
---===============3642646242028983781==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
+index f118c229ed82..461f023c5635 100644
+--- a/sound/soc/atmel/Kconfig
++++ b/sound/soc/atmel/Kconfig
+@@ -12,10 +12,12 @@ if SND_ATMEL_SOC
+ config SND_ATMEL_SOC_PDC
+ 	tristate
+ 	depends on HAS_DMA
++	select SND_ATMEL_SOC_SSC
+ 
+ config SND_ATMEL_SOC_DMA
+ 	tristate
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM
++	select SND_ATMEL_SOC_SSC
+ 
+ config SND_ATMEL_SOC_SSC
+ 	tristate
+@@ -24,7 +26,6 @@ config SND_ATMEL_SOC_SSC_PDC
+ 	tristate "SoC PCM DAI support for AT91 SSC controller using PDC"
+ 	depends on ATMEL_SSC
+ 	select SND_ATMEL_SOC_PDC
+-	select SND_ATMEL_SOC_SSC
+ 	help
+ 	  Say Y or M if you want to add support for Atmel SSC interface
+ 	  in PDC mode configured using audio-graph-card in device-tree.
+@@ -33,7 +34,6 @@ config SND_ATMEL_SOC_SSC_DMA
+ 	tristate "SoC PCM DAI support for AT91 SSC controller using DMA"
+ 	depends on ATMEL_SSC
+ 	select SND_ATMEL_SOC_DMA
+-	select SND_ATMEL_SOC_SSC
+ 	help
+ 	  Say Y or M if you want to add support for Atmel SSC interface
+ 	  in DMA mode configured using audio-graph-card in device-tree.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3642646242028983781==--

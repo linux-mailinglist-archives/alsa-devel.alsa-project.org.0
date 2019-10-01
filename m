@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F078C3F34
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 20:00:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 702C6C3F3B
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 20:01:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9EB38167E;
-	Tue,  1 Oct 2019 19:59:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EB38167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0686167E;
+	Tue,  1 Oct 2019 20:00:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0686167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569952817;
-	bh=4AkZb/8jQQcfSKLF3bE53F/8gFopSJrYA9IuLtypO1o=;
+	s=default; t=1569952892;
+	bh=VecJZt/z12R00hGVYxdt7BqYadTbW/gwdWIxAy+I1is=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=FfyeIvktzSfP9CDsaU4lPxEqiy5S5FNhKxM/gWYFl+D2jSDmo07p469GN1YooIZGj
-	 vCXoQjcklE5bnNRPkB28z8XqojQ/aGG2/8P8RGxQZB8HjUj5/0gpbe+cwDPHcPKoNV
-	 yoiL00z6X2GwoDbhkLfh9jMINWmmQoLqqmCuD1jM=
+	b=Lmm65wE4nDh5HJvancAVPkdkxUnqpbkmeF3dLFMqmylWeuTA3I1x2NyOhT9kQ5PPI
+	 ZmoWRW3B1MR57rPtejDb/A+PxcCIgDMa808Thnjo0MUeVSp7AawWkaRG1KiRSj32ST
+	 MmKsL6g8CNpvS5raLv2OGSI6w1HWLGhdCjw382wo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E60BF80674;
-	Tue,  1 Oct 2019 19:56:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C02FAF805F8;
+	Tue,  1 Oct 2019 19:57:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98D7CF8063A; Tue,  1 Oct 2019 19:56:50 +0200 (CEST)
+ id 6A77DF80638; Tue,  1 Oct 2019 19:56:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8945CF80611
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0FAEF80636
  for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 19:56:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8945CF80611
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0FAEF80636
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="A3yeytQv"
+ header.b="hltQysae"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=36UwyUDtI4B390c+vj7LPmBlXuo3UWZwEJuBfDmi8F0=; b=A3yeytQvoCZ5
- ycOeid7DFmXaVaPS7GK8Ml6FbxAVtl4I5IW7pQz9EzhmwtEepdinEQN/NaIr5g35cawS5NBFMeZ4v
- XEfpgnkWhEeKZ8edNC7QVbNdO5A/QvPSGBoBObUWn0P8eydBWTZwTX0m5gvo5HA53hnTS+cGKwF+0
- SzSSY=;
+ List-Archive; bh=DZcj0MNHs/AG94s54d+Hz+fZfO5cdjpk63kGNXP16tw=; b=hltQysaejNiw
+ RPaQZookPcXUbKlTXj9+50DouAKVigM9QMevM2j42nVUTs85RLCEM9J5CYt29VEDMjZXjlUZ6tp60
+ Vh75h7w2IMS5vWulG3UNxN0dqyAIv8INm0Zpzk+uG67PqfZZvLGTVvmwowG+XDK9x9kysxfyxPnnI
+ ASiTY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iFMOE-0005sS-Af; Tue, 01 Oct 2019 17:56:46 +0000
+ id 1iFMOF-0005sZ-0u; Tue, 01 Oct 2019 17:56:47 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D36A527429C0; Tue,  1 Oct 2019 18:56:45 +0100 (BST)
+ id 8ABA027429C0; Tue,  1 Oct 2019 18:56:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-In-Reply-To: <20190927200538.660-13-pierre-louis.bossart@linux.intel.com>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+In-Reply-To: <20190927200538.660-8-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191001175645.D36A527429C0@ypsilon.sirena.org.uk>
-Date: Tue,  1 Oct 2019 18:56:45 +0100 (BST)
+Message-Id: <20191001175646.8ABA027429C0@ypsilon.sirena.org.uk>
+Date: Tue,  1 Oct 2019 18:56:46 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: Add context data to any IPC
-	timeout." to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: core: check for mandatory fw_ready
+	op during SOF probe" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: Add context data to any IPC timeout.
+   ASoC: SOF: core: check for mandatory fw_ready op during SOF probe
 
 has been applied to the asoc tree at
 
@@ -113,103 +113,69 @@ to this mail.
 Thanks,
 Mark
 
-From 3a9e204d4e36904a464a2e53206b053a7ffc7bad Mon Sep 17 00:00:00 2001
-From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Date: Fri, 27 Sep 2019 15:05:37 -0500
-Subject: [PATCH] ASoC: SOF: Intel: Add context data to any IPC timeout.
+From 8692d498d675e2e1433274c5f03b855824f3f35d Mon Sep 17 00:00:00 2001
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Date: Fri, 27 Sep 2019 15:05:32 -0500
+Subject: [PATCH] ASoC: SOF: core: check for mandatory fw_ready op during SOF
+ probe
 
-Helps with FW debug as it provides DSP IPC processing context.
+fw_ready should be a mandatory op. Make sure fw_ready ops is set
+during probe.
 
-Signed-off-by: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190927200538.660-13-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20190927200538.660-8-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/bdw.c | 22 +++++++++++++++++++++-
- sound/soc/sof/intel/byt.c | 23 ++++++++++++++++++++++-
- 2 files changed, 43 insertions(+), 2 deletions(-)
+ sound/soc/sof/core.c     | 3 ++-
+ sound/soc/sof/ipc.c      | 6 ------
+ sound/soc/sof/sof-priv.h | 2 +-
+ 3 files changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-index e282179263e8..170c74dc13b1 100644
---- a/sound/soc/sof/intel/bdw.c
-+++ b/sound/soc/sof/intel/bdw.c
-@@ -241,7 +241,7 @@ static void bdw_dump(struct snd_sof_dev *sdev, u32 flags)
- 	struct sof_ipc_dsp_oops_xtensa xoops;
- 	struct sof_ipc_panic_info panic_info;
- 	u32 stack[BDW_STACK_DUMP_SIZE];
--	u32 status, panic;
-+	u32 status, panic, imrx, imrd;
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 15167b8220ed..5998861a9002 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -466,7 +466,8 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+ 	if (!sof_ops(sdev) || !sof_ops(sdev)->probe || !sof_ops(sdev)->run ||
+ 	    !sof_ops(sdev)->block_read || !sof_ops(sdev)->block_write ||
+ 	    !sof_ops(sdev)->send_msg || !sof_ops(sdev)->load_firmware ||
+-	    !sof_ops(sdev)->ipc_msg_data || !sof_ops(sdev)->ipc_pcm_params)
++	    !sof_ops(sdev)->ipc_msg_data || !sof_ops(sdev)->ipc_pcm_params ||
++	    !sof_ops(sdev)->fw_ready)
+ 		return -EINVAL;
  
- 	/* now try generic SOF status messages */
- 	status = snd_sof_dsp_read(sdev, BDW_DSP_BAR, SHIM_IPCD);
-@@ -250,6 +250,26 @@ static void bdw_dump(struct snd_sof_dev *sdev, u32 flags)
- 			  BDW_STACK_DUMP_SIZE);
- 	snd_sof_get_status(sdev, status, panic, &xoops, &panic_info, stack,
- 			   BDW_STACK_DUMP_SIZE);
-+
-+	/* provide some context for firmware debug */
-+	imrx = snd_sof_dsp_read(sdev, BDW_DSP_BAR, SHIM_IMRX);
-+	imrd = snd_sof_dsp_read(sdev, BDW_DSP_BAR, SHIM_IMRD);
-+	dev_err(sdev->dev,
-+		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
-+		panic & SHIM_IPCX_BUSY ? "yes" : "no",
-+		panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
-+	dev_err(sdev->dev,
-+		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
-+		imrx & SHIM_IMRX_BUSY ? "yes" : "no",
-+		imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
-+	dev_err(sdev->dev,
-+		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
-+		status & SHIM_IPCD_BUSY ? "yes" : "no",
-+		status & SHIM_IPCD_DONE ? "yes" : "no", status);
-+	dev_err(sdev->dev,
-+		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
-+		imrd & SHIM_IMRD_BUSY ? "yes" : "no",
-+		imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
- }
+ 	INIT_LIST_HEAD(&sdev->pcm_list);
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index b946c81197a1..26675dfe0240 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -792,12 +792,6 @@ struct snd_sof_ipc *snd_sof_ipc_init(struct snd_sof_dev *sdev)
+ 	struct snd_sof_ipc *ipc;
+ 	struct snd_sof_ipc_msg *msg;
  
- /*
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 5e7a6aaa627a..ecbc9c79bcad 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -139,7 +139,7 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
- 	struct sof_ipc_dsp_oops_xtensa xoops;
- 	struct sof_ipc_panic_info panic_info;
- 	u32 stack[BYT_STACK_DUMP_SIZE];
--	u32 status, panic;
-+	u32 status, panic, imrd, imrx;
+-	/* check if mandatory ops required for ipc are defined */
+-	if (!sof_ops(sdev)->fw_ready) {
+-		dev_err(sdev->dev, "error: ipc mandatory ops not defined\n");
+-		return NULL;
+-	}
+-
+ 	ipc = devm_kzalloc(sdev->dev, sizeof(*ipc), GFP_KERNEL);
+ 	if (!ipc)
+ 		return NULL;
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 348759035dd0..44f789bf7fb0 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -133,7 +133,7 @@ struct snd_sof_dsp_ops {
+ 	 * FW ready checks for ABI compatibility and creates
+ 	 * memory windows at first boot
+ 	 */
+-	int (*fw_ready)(struct snd_sof_dev *sdev, u32 msg_id); /* optional */
++	int (*fw_ready)(struct snd_sof_dev *sdev, u32 msg_id); /* mandatory */
  
- 	/* now try generic SOF status messages */
- 	status = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IPCD);
-@@ -148,6 +148,27 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
- 			  BYT_STACK_DUMP_SIZE);
- 	snd_sof_get_status(sdev, status, panic, &xoops, &panic_info, stack,
- 			   BYT_STACK_DUMP_SIZE);
-+
-+	/* provide some context for firmware debug */
-+	imrx = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRX);
-+	imrd = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRD);
-+	dev_err(sdev->dev,
-+		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
-+		panic & SHIM_IPCX_BUSY ? "yes" : "no",
-+		panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
-+	dev_err(sdev->dev,
-+		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
-+		imrx & SHIM_IMRX_BUSY ? "yes" : "no",
-+		imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
-+	dev_err(sdev->dev,
-+		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
-+		status & SHIM_IPCD_BUSY ? "yes" : "no",
-+		status & SHIM_IPCD_DONE ? "yes" : "no", status);
-+	dev_err(sdev->dev,
-+		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
-+		imrd & SHIM_IMRD_BUSY ? "yes" : "no",
-+		imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
-+
- }
- 
- /*
+ 	/* connect pcm substream to a host stream */
+ 	int (*pcm_open)(struct snd_sof_dev *sdev,
 -- 
 2.20.1
 

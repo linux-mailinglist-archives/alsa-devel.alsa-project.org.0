@@ -2,82 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 59C7DC3A8E
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 18:31:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF4F9C3E1E
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 19:05:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D50FD167A;
-	Tue,  1 Oct 2019 18:30:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D50FD167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 29899167C;
+	Tue,  1 Oct 2019 19:04:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 29899167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569947499;
-	bh=jNnL45RQ73c6RkRFitqvOnKrKxMZmx9rvMbxqzzJnPk=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1569949521;
+	bh=Zar5ggV90DtveSL/6bV5TmsjuM0kLjxRcDM+DqyvwVY=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PGEtgfFiPxoeVM0W/EIJU2k37vZh3H8ZBpOVeWRHeQKSxCUaSDny+BPQammX0qLfN
-	 JWB/za3BJnoHoFAFowyimfIS3X1Hv582ObR4jbuTwjyj8RPlOfb2jb9ZPqQP2ioswI
-	 5U2ceCFNzxYnKB86nOIVfkiMJcQ69/O9PJnXknu0=
+	b=Dh2PQlzyVRdf1zxz+ps+T1YOkfkR3bSoimBexSy6zFNS3rV8PAmXaJkT/tTyXW9Tj
+	 j4hcBW+C/ur0ruRuJb5QFrE7jZNHHpE4xC52PWOviyxNbwoe6YjPn1o+N9vip8hLF8
+	 9WpELKWr4cwDHZm00o1D1CxHdrCI0o6JWU0qS4a0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9462F80519;
-	Tue,  1 Oct 2019 18:29:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7038CF804FF;
+	Tue,  1 Oct 2019 19:03:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C7D9F80506; Tue,  1 Oct 2019 18:29:51 +0200 (CEST)
+ id 3D5BBF80506; Tue,  1 Oct 2019 19:03:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
- [209.85.160.196])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 617CBF800D0
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 18:29:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 617CBF800D0
-Received: by mail-qt1-f196.google.com with SMTP id j31so22390825qta.5
- for <alsa-devel@alsa-project.org>; Tue, 01 Oct 2019 09:29:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0zO73icoSPJ3pNVWiNNF9L9OEEbriWKwEbaN0EtJRPI=;
- b=HMr/xjJ+f3EuVMIa8FGFEvUSQnuZ520/gqdsdbDHb0OM2kQWqsFARHLwAZWRi8NS1r
- 9tT8fdQtYK9BDW6RtntaAiuN510itVBxgdtGpjzAIt/bQkQT15oDRTmS/gTL6RJ1wm5+
- j5hbtvq5ElRr+kZ9cipumoAjZRrwykqrPqoE7AWhp/V4d3rMzfcHwNADweUDBdFRTyC+
- INcw0IG3lbfmw5axmevQ61uGpzn5kc35o4IgsaSOVbHoQ4aThwY/EtH86ojhcDMkmuUe
- v6OixiR1PlXjUsBRXsbNc4LHWMlNBfP0CECbxMvprsSneis/2P0EZKj/DntwriCqIZ90
- HmYQ==
-X-Gm-Message-State: APjAAAXz51khEXQNDuZtUusl1wvMW+B1DFwVJ6j6H1+arqzsuhLKTeNc
- 7e4SM+GAqRpgR11CWO8DoFDSnuf47Ko9et72jVw=
-X-Google-Smtp-Source: APXvYqxkgIX2gcVaLjsRtcgaC+7CiGnoTPy8gmARgU5xbBtCjA5leLB24V7ISErrIwWtMs8YA3rGRE+qoQ6Sf7PgVcI=
-X-Received: by 2002:ac8:1a2e:: with SMTP id v43mr31469917qtj.204.1569947386677; 
- Tue, 01 Oct 2019 09:29:46 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC2AEF800DE
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 19:03:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC2AEF800DE
+Received: from [167.98.27.226] (helo=[10.35.6.110])
+ by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
+ id 1iFLYX-0005ws-HS; Tue, 01 Oct 2019 18:03:21 +0100
+To: Jon Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
+ alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>
+References: <20190930165130.10642-1-ben.dooks@codethink.co.uk>
+ <20190930165130.10642-2-ben.dooks@codethink.co.uk>
+ <1488a5a8-5c55-5643-1956-0cd9d9c90644@nvidia.com>
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+Organization: Codethink Limited.
+Message-ID: <7f9cc620-b3d0-c417-724d-3198055aca82@codethink.co.uk>
+Date: Tue, 1 Oct 2019 18:03:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-References: <20191001142026.1124917-1-arnd@arndb.de>
- <bb58c7cc-209d-7a2f-0e5b-95a9605ffe7b@linux.intel.com>
- <CAK8P3a3Js2dNhnRhP7PLadWZ69DZr1mz6DowN9HDJL4CFDAAFw@mail.gmail.com>
- <e4b90233-846c-bfc1-68a3-a7b7c28b60bd@linux.intel.com>
-In-Reply-To: <e4b90233-846c-bfc1-68a3-a7b7c28b60bd@linux.intel.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 1 Oct 2019 18:29:30 +0200
-Message-ID: <CAK8P3a1vHECVV86JHxEZmo7jQOosHO=H33v784keqLMNiiHSxA@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Fabio Estevam <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Hulk Robot <hulkci@huawei.com>,
- Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: imx: fix reverse
- CONFIG_SND_SOC_SOF_OF dependency
+In-Reply-To: <1488a5a8-5c55-5643-1956-0cd9d9c90644@nvidia.com>
+Content-Language: en-GB
+Cc: linux-kernel@lists.codethink.co.uk,
+ Edward Cragg <edward.cragg@codethink.co.uk>
+Subject: Re: [alsa-devel] [PATCH v3 1/7] ASoC: tegra: add a TDM
+	configuration callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,39 +71,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 1, 2019 at 6:03 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
-> On 10/1/19 10:41 AM, Arnd Bergmann wrote:
-> > On Tue, Oct 1, 2019 at 5:32 PM Pierre-Louis Bossart
-> > <pierre-louis.bossart@linux.intel.com> wrote:
+On 01/10/2019 14:40, Jon Hunter wrote:
+> 
+> On 30/09/2019 17:51, Ben Dooks wrote:
+>> From: Edward Cragg <edward.cragg@codethink.co.uk>
+>>
+>> Add a callback to configure TDM settings for the Tegra30 I2S ASoC 'platform'
+>> driver.
+>>
+>> Signed-off-by: Edward Cragg <edward.cragg@codethink.co.uk>
+>> [ben.dooks@codethink.co.uk: merge fix for power management]
+>> [ben.dooks@codethink.co.uk: add review change for fsync of 1 clock]
+>> Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
+>> ---
+>>   sound/soc/tegra/tegra30_i2s.c | 33 +++++++++++++++++++++++++++++++++
+>>   1 file changed, 33 insertions(+)
+>>
+>> diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
+>> index ac6983c6bd72..7f9ef6abeae2 100644
+>> --- a/sound/soc/tegra/tegra30_i2s.c
+>> +++ b/sound/soc/tegra/tegra30_i2s.c
+>> @@ -254,6 +254,38 @@ static int tegra30_i2s_trigger(struct snd_pcm_substream *substream, int cmd,
+>>   	return 0;
+>>   }
+>>   
+>> +/*
+>> + * Set up TDM
+>> + */
+>> +static int tegra30_i2s_set_tdm(struct snd_soc_dai *dai,
+>> +			       unsigned int tx_mask, unsigned int rx_mask,
+>> +			       int slots, int slot_width)
+>> +{
+>> +	struct tegra30_i2s *i2s = snd_soc_dai_get_drvdata(dai);
+>> +	unsigned int mask, val;
+>> +
+>> +	dev_dbg(dai->dev, "%s: txmask=0x%08x rxmask=0x%08x slots=%d width=%d\n",
+>> +		 __func__, tx_mask, rx_mask, slots, slot_width);
+>> +
+>> +	/* Set up slots and tx/rx masks */
+>> +	mask = TEGRA30_I2S_SLOT_CTRL_TOTAL_SLOTS_MASK |
+>> +	       TEGRA30_I2S_SLOT_CTRL_RX_SLOT_ENABLES_MASK |
+>> +	       TEGRA30_I2S_SLOT_CTRL_TX_SLOT_ENABLES_MASK;
+>> +
+>> +	val = (tx_mask << TEGRA30_I2S_SLOT_CTRL_TX_SLOT_ENABLES_SHIFT) |
+>> +	      (rx_mask << TEGRA30_I2S_SLOT_CTRL_RX_SLOT_ENABLES_SHIFT) |
+>> +	      ((slots - 1) << TEGRA30_I2S_SLOT_CTRL_TOTAL_SLOTS_SHIFT);
+>> +
+>> +	pm_runtime_get_sync(dai->dev);
+>> +	regmap_update_bits(i2s->regmap, TEGRA30_I2S_SLOT_CTRL, mask, val);
+>> +	// set the fsync width to minimum of 1 clock width
+> 
+> Please make sure you are consistent with your commenting style and you
+> adhere to the kernel coding style.
+> 
+> Also, I see a lot of ...
+> 
+> ERROR: trailing whitespace
+> #197: FILE: sound/soc/tegra/tegra30_i2s.c:258:
+> + * Set up TDM^M$
+> 
+> ERROR: DOS line endings
+> #198: FILE: sound/soc/tegra/tegra30_i2s.c:259:
+> + */^M$
 
-> >
-> > The same could be done with a Kconfig-only solution avoiding
-> > 'select' such as:
-> >
-> > config SND_SOC_SOF_IMX8_SUPPORT
-> >           bool "SOF support for i.MX8"
-> >           depends on IMX_SCU
-> >           depends on IMX_DSP
-> >
-> >   config SND_SOC_SOF_IMX8
-> >           def_tristate SND_SOC_SOF_OF
-> >           depends on SND_SOC_SOF_IMX8_SUPPORT
->
-> Ah, nice, thanks for the suggestion! That would be my preference, we
-> have a similar select for PCI and ACPI parts in sound/soc/sof/Kconfig
-> and I was looking for a means to do this more elegantly.
-> I can submit a new fix or let you sent a v2, whatever is more convenient.
+ok, for me I am getting:
 
-Ok, please send a patch then, I can add it to my randconfig test tree to
-make sure it covers all corner cases.
+> $ ./scripts/checkpatch.pl ./patches/0001-ASoC-tegra-add-a-TDM-configuration-callback.patch 
+> WARNING: Possible unwrapped commit description (prefer a maximum 75 chars per line)
+> #6: 
+> Add a callback to configure TDM settings for the Tegra30 I2S ASoC 'platform'
+> 
+> total: 0 errors, 1 warnings, 45 lines checked
+> 
+> NOTE: For some of the reported defects, checkpatch may be able to
+>       mechanically convert to the typical style using --fix or --fix-inplace.
 
-    Arnd
+I don't see any warnings about the line-endings
+
+I will remove the comment about the function, it is fairly self explanatory.
+
+
+
+-- 
+Ben Dooks				http://www.codethink.co.uk/
+Senior Engineer				Codethink - Providing Genius
+
+https://www.codethink.co.uk/privacy.html
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

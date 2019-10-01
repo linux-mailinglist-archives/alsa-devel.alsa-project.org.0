@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AD5BC333B
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:46:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61A01C3352
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:49:03 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C158A1678;
-	Tue,  1 Oct 2019 13:45:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C158A1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id E548E168E;
+	Tue,  1 Oct 2019 13:48:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E548E168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569930372;
-	bh=9VEvfY+b14Tg89sQVbeNMebqaCxGFXAKJ+lTcTgqMdI=;
+	s=default; t=1569930543;
+	bh=kE7yihrFi05wg2Ohf23n7bH0MSr72gfXKwF9c7jMnzk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gTXSlnHX0rFVYvqgMR11eukwA2ApiBAyB1YTCQMXXtaifo/NdbxnOKZgOwPoTx70x
-	 vn9gZ23uMnXLq9MqXZ1/nmNd/UsKrgrrwawDBa14wnJfpyUCv37o8rXZxqu+5Ujm9A
-	 iZG1MQ6o/tw54kwuvAaaNe1LvUoEUiv28FWD8emE=
+	b=ndn0SkX0moO25myhjsBkHGitAXS5RycgzgVTfAnATPnl/iTxxuU6j8TJ8bOMAXCZg
+	 vStXoWnzVZOUwVl2eVbTG9iFpluc+3+5RRisE2/2MxfP3244Uy2vl32xtZRQMfFI0W
+	 qHLDpP8XCpDIfCtw0qKQKtkWFd3Xqwqp/38nybxc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90E93F80600;
-	Tue,  1 Oct 2019 13:41:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28455F80636;
+	Tue,  1 Oct 2019 13:41:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3175CF80659; Tue,  1 Oct 2019 13:40:57 +0200 (CEST)
+ id 3A0EBF805FF; Tue,  1 Oct 2019 13:41:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA98CF805F8
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA98CF805F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 309BEF805FB
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 309BEF805FB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ukEO4Ubf"
+ header.b="hGjRKc5z"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=WERVSR+BAQJwf3PYWWyXu5R8XD5gifIGU8k5q5E4VGw=; b=ukEO4Ubfs4C5
- e1EtMwu3yNT9/lC1hpLzQoFaXSxdrgrdBa2Pzi2yVPVmti3JfFiBgAESsr49bHkXbEIUqnP9Vr1Bm
- XQ1uPFV8VeDkyRKhKv+GQ5kaxYZ+WjMfvoeb7ReGSUTWi8m9lMwbxPP6SwbRDtSXBbQvkkZK1D/tS
- yIXBU=;
+ List-Archive; bh=ZGl+hCx9u/66B7tvLuoBxNOYAm3sNLNizym3DyA34fs=; b=hGjRKc5zycsW
+ CPYR6e2IPZO68ULxAdUEptle9zMo6ktB6gTeZN86uQWLQ4iVEKZEigYGKtttEjR7sSsQKLZ/KP22R
+ 7ZyAUeZCqjf7oMOM/yuNvXGODmDMdVJqWWQ36VEJcL+V/JqscXWamMcrPTdbZOi3CfdTUZQ9iUSVy
+ W19ro=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iFGWN-0004Sz-Tb; Tue, 01 Oct 2019 11:40:47 +0000
+ id 1iFGWO-0004T4-8k; Tue, 01 Oct 2019 11:40:48 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 6CF3527429C0; Tue,  1 Oct 2019 12:40:47 +0100 (BST)
+ id AA2AA2742A10; Tue,  1 Oct 2019 12:40:47 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Colin Ian King <colin.king@canonical.com>
-In-Reply-To: <20190925111023.7771-1-colin.king@canonical.com>
+In-Reply-To: <20190925100330.20695-1-colin.king@canonical.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191001114047.6CF3527429C0@ypsilon.sirena.org.uk>
+Message-Id: <20191001114047.AA2AA2742A10@ypsilon.sirena.org.uk>
 Date: Tue,  1 Oct 2019 12:40:47 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] Applied "ASoC: wcd9335: clean up indentation issue" to
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
+Subject: [alsa-devel] Applied "ASoC: rt5663: clean up indentation issues" to
 	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -90,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: wcd9335: clean up indentation issue
+   ASoC: rt5663: clean up indentation issues
 
 has been applied to the asoc tree at
 
@@ -115,42 +115,43 @@ to this mail.
 Thanks,
 Mark
 
-From 944eedd8c021893d08d02a8eec8e5161327316cd Mon Sep 17 00:00:00 2001
+From bd1468f252e85280b71a069a2255842d78133cc4 Mon Sep 17 00:00:00 2001
 From: Colin Ian King <colin.king@canonical.com>
-Date: Wed, 25 Sep 2019 12:10:23 +0100
-Subject: [PATCH] ASoC: wcd9335: clean up indentation issue
+Date: Wed, 25 Sep 2019 11:03:30 +0100
+Subject: [PATCH] ASoC: rt5663: clean up indentation issues
 
-There is an if statement that is indented one level too deeply,
+There are two break statements that are indented one level too deeply,
 remove the extraneous tabs.
 
 Signed-off-by: Colin Ian King <colin.king@canonical.com>
-Link: https://lore.kernel.org/r/20190925111023.7771-1-colin.king@canonical.com
+Link: https://lore.kernel.org/r/20190925100330.20695-1-colin.king@canonical.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/wcd9335.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ sound/soc/codecs/rt5663.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
-index f318403133e9..f11ffa28683b 100644
---- a/sound/soc/codecs/wcd9335.c
-+++ b/sound/soc/codecs/wcd9335.c
-@@ -2837,11 +2837,11 @@ static int wcd9335_codec_enable_dec(struct snd_soc_dapm_widget *w,
- 				   TX_HPF_CUT_OFF_FREQ_MASK) >> 5;
- 		snd_soc_component_update_bits(comp, tx_vol_ctl_reg, 0x10, 0x10);
- 		snd_soc_component_update_bits(comp, dec_cfg_reg, 0x08, 0x00);
--			if (hpf_coff_freq != CF_MIN_3DB_150HZ) {
--				snd_soc_component_update_bits(comp, dec_cfg_reg,
--						    TX_HPF_CUT_OFF_FREQ_MASK,
--						    hpf_coff_freq << 5);
--			}
-+		if (hpf_coff_freq != CF_MIN_3DB_150HZ) {
-+			snd_soc_component_update_bits(comp, dec_cfg_reg,
-+						      TX_HPF_CUT_OFF_FREQ_MASK,
-+						      hpf_coff_freq << 5);
-+		}
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		snd_soc_component_update_bits(comp, tx_vol_ctl_reg, 0x10, 0x00);
+diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
+index 2943692f66ed..e6c1ec6c426e 100644
+--- a/sound/soc/codecs/rt5663.c
++++ b/sound/soc/codecs/rt5663.c
+@@ -3644,7 +3644,7 @@ static int rt5663_i2c_probe(struct i2c_client *i2c,
+ 		regmap_update_bits(rt5663->regmap, RT5663_PWR_ANLG_1,
+ 			RT5663_LDO1_DVO_MASK | RT5663_AMP_HP_MASK,
+ 			RT5663_LDO1_DVO_0_9V | RT5663_AMP_HP_3X);
+-			break;
++		break;
+ 	case CODEC_VER_0:
+ 		regmap_update_bits(rt5663->regmap, RT5663_DIG_MISC,
+ 			RT5663_DIG_GATE_CTRL_MASK, RT5663_DIG_GATE_CTRL_EN);
+@@ -3663,7 +3663,7 @@ static int rt5663_i2c_probe(struct i2c_client *i2c,
+ 		regmap_update_bits(rt5663->regmap, RT5663_TDM_2,
+ 			RT5663_DATA_SWAP_ADCDAT1_MASK,
+ 			RT5663_DATA_SWAP_ADCDAT1_LL);
+-			break;
++		break;
+ 	default:
+ 		dev_err(&i2c->dev, "%s:Unknown codec type\n", __func__);
+ 	}
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBD49C3390
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:59:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FD1AC338B
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:58:27 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09DE31677;
-	Tue,  1 Oct 2019 13:58:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09DE31677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9429E168B;
+	Tue,  1 Oct 2019 13:57:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9429E168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569931148;
-	bh=5CM3ju3DAErAzDmg4MGzRyDqxsxg27UX8cbY2Brr/wQ=;
+	s=default; t=1569931106;
+	bh=TkFyvjZdBuCTiDGgA1lpGQVb8t3Qn/wrMOtcjPiujgc=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rF5L1SeXkReGwxggdz79Lr3ItiDctTzbBpKWVacBUrCOrf7r6sKCscKEbsgj05ueA
-	 7cEcff6Hh6ufHGJefjmyKZmZ2LYnMhDYBZQA1SzeXf/Iu+jqOb9WRnyrOczo6VIiCT
-	 yjUqdX0c+VEz9cQR0QEfHKt7LAY5ix1u7VwYbRgE=
+	b=T1RwdVJy0Aj366WyryQYK9tPF2gBq2zDL8qZzuDVw5ecblqgNHWE4JJGjQA0X3Abg
+	 VAQvcH1oBADJc+Qd9+IUQzmWODx2D04oXZrfmK4HnHhP5r4Ur/KY6sxF3kPEAoCthZ
+	 B8KhOlRNn6yv9HYgFCFmniXZO2YNooDudzsD1oV8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C166F808F4;
-	Tue,  1 Oct 2019 13:41:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA1BBF8087B;
+	Tue,  1 Oct 2019 13:41:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0CDEF8070E; Tue,  1 Oct 2019 13:41:14 +0200 (CEST)
+ id A99A6F8070C; Tue,  1 Oct 2019 13:41:14 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35200F80612
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35200F80612
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED8ACF80610
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED8ACF80610
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="wbsvENvl"
+ header.b="fkXHGQmK"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=QZypRfIKtbbv6yAIONU+jaxY/eYAyxms/xepNaDfALc=; b=wbsvENvljTZo
- WUDQeFm+64tWr1H3idrIlT3wH1+Xvwh1UFIcXjrrSQSUS9tgvozAr5V04n7jlNWpA5G4I5rWbqVup
- +hypTn/zJsy6y3352ABwCWiJ7SKqQy+6Kum2ELnb9f8DuTaCZLnZARfZhERscUomwj1vKsxfNc+oI
- yjl+c=;
+ List-Archive; bh=b0stKEdyVX3aTCnyP8Y+NZxscAvzUSD7HEvqZHp/HS4=; b=fkXHGQmKYYS0
+ 2D5KiYPcPuDMEW20wVRIGLIWzUHZFbSGcxcI9q2vYBwGZh3iRjfknV+1RyWJiOo5iocN5wwGr2pIY
+ X41LhE1N+peTDYR1l5l2f+nNFcZCdyPCyBTbQWFNt1c85NuMmyXJh3HrsbL49y/CRKJruFXZLu1Ke
+ uYWP4=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iFGWR-0004V2-Se; Tue, 01 Oct 2019 11:40:51 +0000
+ id 1iFGWR-0004Uy-Mt; Tue, 01 Oct 2019 11:40:51 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 5C4892742A10; Tue,  1 Oct 2019 12:40:51 +0100 (BST)
+ id 293F627429C0; Tue,  1 Oct 2019 12:40:51 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <8736grafp5.wl-kuninori.morimoto.gx@renesas.com>
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20190920112320.166052-1-tzungbi@google.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191001114051.5C4892742A10@ypsilon.sirena.org.uk>
+Message-Id: <20191001114051.293F627429C0@ypsilon.sirena.org.uk>
 Date: Tue,  1 Oct 2019 12:40:51 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-component.h: remove GPL explanation
-	from header" to the asoc tree
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ cychiang@google.com, robh+dt@kernel.org, tzungbi@google.com,
+ Mark Brown <broonie@kernel.org>, dgreid@google.com
+Subject: [alsa-devel] Applied "ASoC: dt-bindings: mt8183: add missing
+	update" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component.h: remove GPL explanation from header
+   ASoC: dt-bindings: mt8183: add missing update
 
 has been applied to the asoc tree at
 
@@ -112,36 +114,38 @@ to this mail.
 Thanks,
 Mark
 
-From fd5d3907197c60464672c8a32edeea66e01f6222 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 20 Sep 2019 11:01:42 +0900
-Subject: [PATCH] ASoC: soc-component.h: remove GPL explanation from header
+From 7cf2804775f8a388411624b3e768e55d08711e9d Mon Sep 17 00:00:00 2001
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Fri, 20 Sep 2019 19:23:20 +0800
+Subject: [PATCH] ASoC: dt-bindings: mt8183: add missing update
 
-soc-component.h already has SPDX License, thus, GPL explanation
-is not needed. This patch removes it.
+Headset codec is optional.  Add missing update to DT binding document.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/8736grafp5.wl-kuninori.morimoto.gx@renesas.com
+Fixes: a962a809e5e4 ("ASoC: mediatek: mt8183: make headset codec optional")
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+Link: https://lore.kernel.org/r/20190920112320.166052-1-tzungbi@google.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-component.h | 4 ----
- 1 file changed, 4 deletions(-)
+ .../bindings/sound/mt8183-mt6358-ts3a227-max98357.txt         | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index 5d80b2eef525..1a832695f69c 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -3,10 +3,6 @@
-  * soc-component.h
-  *
-  * Copyright (c) 2019 Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-- *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License version 2 as
-- * published by the Free Software Foundation.
-  */
- #ifndef __SOC_COMPONENT_H
- #define __SOC_COMPONENT_H
+diff --git a/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt b/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
+index d6d5207fa996..17ff3892f439 100644
+--- a/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
++++ b/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
+@@ -2,9 +2,11 @@ MT8183 with MT6358, TS3A227 and MAX98357 CODECS
+ 
+ Required properties:
+ - compatible : "mediatek,mt8183_mt6358_ts3a227_max98357"
+-- mediatek,headset-codec: the phandles of ts3a227 codecs
+ - mediatek,platform: the phandle of MT8183 ASoC platform
+ 
++Optional properties:
++- mediatek,headset-codec: the phandles of ts3a227 codecs
++
+ Example:
+ 
+ 	sound {
 -- 
 2.20.1
 

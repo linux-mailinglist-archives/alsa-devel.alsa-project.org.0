@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1AD7C3F31
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 19:59:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F078C3F34
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 20:00:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79D551686;
-	Tue,  1 Oct 2019 19:58:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D551686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EB38167E;
+	Tue,  1 Oct 2019 19:59:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EB38167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569952771;
-	bh=ry5t+sl30AP48XGaxHGBTSLQzMvE1ojSaCss/vUC2eM=;
+	s=default; t=1569952817;
+	bh=4AkZb/8jQQcfSKLF3bE53F/8gFopSJrYA9IuLtypO1o=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rGlTSt9N4Alyuh1CvqskbWbpghXVkrAhvjz/UtYlyBwVgU7jX+HyfuDyTpY0Icp6E
-	 zgVHr9qRq+oC04Y8qXjZB61WygyGyc1UED7PmViWWGhw7Xx+Rt9L6BP9/5SwL69IQF
-	 TzE8EO+gWgwyeX0z979WHsfmuKSM+QWY2kXGuztA=
+	b=FfyeIvktzSfP9CDsaU4lPxEqiy5S5FNhKxM/gWYFl+D2jSDmo07p469GN1YooIZGj
+	 vCXoQjcklE5bnNRPkB28z8XqojQ/aGG2/8P8RGxQZB8HjUj5/0gpbe+cwDPHcPKoNV
+	 yoiL00z6X2GwoDbhkLfh9jMINWmmQoLqqmCuD1jM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7870F8065D;
-	Tue,  1 Oct 2019 19:56:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E60BF80674;
+	Tue,  1 Oct 2019 19:56:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8D3FF8063B; Tue,  1 Oct 2019 19:56:49 +0200 (CEST)
+ id 98D7CF8063A; Tue,  1 Oct 2019 19:56:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 398C7F80633
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8945CF80611
  for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 19:56:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 398C7F80633
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8945CF80611
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="xWZAMXNt"
+ header.b="A3yeytQv"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=MZFzrdDU+QC6CG3fZVqiYdlWg9uCLpejRSH+S8a6v3w=; b=xWZAMXNtbawK
- K+pd0z9Dkf8MDyftvultNupjvjOZAYwbpYuYpWkQElSUJ5umQdv+SyCa2F3/4ZvBji35wz+YWgrRd
- nIwJCzPRk6Bd4iFZZBO9cXdGqve9rfzE2Oj6+3JI4BXR1BKCddUFmBYcBdnAzn6YMKf+ZA9s1v1pk
- jxxgA=;
+ List-Archive; bh=36UwyUDtI4B390c+vj7LPmBlXuo3UWZwEJuBfDmi8F0=; b=A3yeytQvoCZ5
+ ycOeid7DFmXaVaPS7GK8Ml6FbxAVtl4I5IW7pQz9EzhmwtEepdinEQN/NaIr5g35cawS5NBFMeZ4v
+ XEfpgnkWhEeKZ8edNC7QVbNdO5A/QvPSGBoBObUWn0P8eydBWTZwTX0m5gvo5HA53hnTS+cGKwF+0
+ SzSSY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iFMOE-0005sW-Py; Tue, 01 Oct 2019 17:56:46 +0000
+ id 1iFMOE-0005sS-Af; Tue, 01 Oct 2019 17:56:46 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 4D7EA2742A30; Tue,  1 Oct 2019 18:56:46 +0100 (BST)
+ id D36A527429C0; Tue,  1 Oct 2019 18:56:45 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Marcin Rajwa <marcin.rajwa@linux.intel.com>
-In-Reply-To: <20190927200538.660-9-pierre-louis.bossart@linux.intel.com>
+To: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+In-Reply-To: <20190927200538.660-13-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191001175646.4D7EA2742A30@ypsilon.sirena.org.uk>
-Date: Tue,  1 Oct 2019 18:56:46 +0100 (BST)
+Message-Id: <20191001175645.D36A527429C0@ypsilon.sirena.org.uk>
+Date: Tue,  1 Oct 2019 18:56:45 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: ipc: introduce no_stream_position
-	in sof_ipc_stream_params struct" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: Add context data to any IPC
+	timeout." to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: ipc: introduce no_stream_position in sof_ipc_stream_params struct
+   ASoC: SOF: Intel: Add context data to any IPC timeout.
 
 has been applied to the asoc tree at
 
@@ -113,45 +113,103 @@ to this mail.
 Thanks,
 Mark
 
-From e3ebfd0ab5b4880bfb6a9f32614c2e389cc3da56 Mon Sep 17 00:00:00 2001
-From: Marcin Rajwa <marcin.rajwa@linux.intel.com>
-Date: Fri, 27 Sep 2019 15:05:33 -0500
-Subject: [PATCH] ASoC: SOF: ipc: introduce no_stream_position in
- sof_ipc_stream_params struct
+From 3a9e204d4e36904a464a2e53206b053a7ffc7bad Mon Sep 17 00:00:00 2001
+From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Date: Fri, 27 Sep 2019 15:05:37 -0500
+Subject: [PATCH] ASoC: SOF: Intel: Add context data to any IPC timeout.
 
-The host period bytes value needs to be passed to firmware.
-However current implementation uses this field for different
-purpose - to indicate whether FW should send stream position
-to the host. Therefore this patch introduces another field
-"no_stream_position", a boolean value aimed to store information
-about position tracking. This way host_period_bytes preserves its
-original value.
+Helps with FW debug as it provides DSP IPC processing context.
 
-Signed-off-by: Marcin Rajwa <marcin.rajwa@linux.intel.com>
+Signed-off-by: Liam Girdwood <liam.r.girdwood@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190927200538.660-9-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20190927200538.660-13-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/sof/stream.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/sof/intel/bdw.c | 22 +++++++++++++++++++++-
+ sound/soc/sof/intel/byt.c | 23 ++++++++++++++++++++++-
+ 2 files changed, 43 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/sof/stream.h b/include/sound/sof/stream.h
-index 0b71b381b952..7facefb541b3 100644
---- a/include/sound/sof/stream.h
-+++ b/include/sound/sof/stream.h
-@@ -83,10 +83,10 @@ struct sof_ipc_stream_params {
- 	uint16_t sample_valid_bytes;
- 	uint16_t sample_container_bytes;
+diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
+index e282179263e8..170c74dc13b1 100644
+--- a/sound/soc/sof/intel/bdw.c
++++ b/sound/soc/sof/intel/bdw.c
+@@ -241,7 +241,7 @@ static void bdw_dump(struct snd_sof_dev *sdev, u32 flags)
+ 	struct sof_ipc_dsp_oops_xtensa xoops;
+ 	struct sof_ipc_panic_info panic_info;
+ 	u32 stack[BDW_STACK_DUMP_SIZE];
+-	u32 status, panic;
++	u32 status, panic, imrx, imrd;
  
--	/* for notifying host period has completed - 0 means no period IRQ */
- 	uint32_t host_period_bytes;
-+	uint16_t no_stream_position; /**< 1 means don't send stream position */
+ 	/* now try generic SOF status messages */
+ 	status = snd_sof_dsp_read(sdev, BDW_DSP_BAR, SHIM_IPCD);
+@@ -250,6 +250,26 @@ static void bdw_dump(struct snd_sof_dev *sdev, u32 flags)
+ 			  BDW_STACK_DUMP_SIZE);
+ 	snd_sof_get_status(sdev, status, panic, &xoops, &panic_info, stack,
+ 			   BDW_STACK_DUMP_SIZE);
++
++	/* provide some context for firmware debug */
++	imrx = snd_sof_dsp_read(sdev, BDW_DSP_BAR, SHIM_IMRX);
++	imrd = snd_sof_dsp_read(sdev, BDW_DSP_BAR, SHIM_IMRD);
++	dev_err(sdev->dev,
++		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
++		panic & SHIM_IPCX_BUSY ? "yes" : "no",
++		panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
++	dev_err(sdev->dev,
++		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
++		imrx & SHIM_IMRX_BUSY ? "yes" : "no",
++		imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
++	dev_err(sdev->dev,
++		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
++		status & SHIM_IPCD_BUSY ? "yes" : "no",
++		status & SHIM_IPCD_DONE ? "yes" : "no", status);
++	dev_err(sdev->dev,
++		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
++		imrd & SHIM_IMRD_BUSY ? "yes" : "no",
++		imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
+ }
  
--	uint32_t reserved[2];
-+	uint16_t reserved[3];
- 	uint16_t chmap[SOF_IPC_MAX_CHANNELS];	/**< channel map - SOF_CHMAP_ */
- } __packed;
+ /*
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index 5e7a6aaa627a..ecbc9c79bcad 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -139,7 +139,7 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
+ 	struct sof_ipc_dsp_oops_xtensa xoops;
+ 	struct sof_ipc_panic_info panic_info;
+ 	u32 stack[BYT_STACK_DUMP_SIZE];
+-	u32 status, panic;
++	u32 status, panic, imrd, imrx;
  
+ 	/* now try generic SOF status messages */
+ 	status = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IPCD);
+@@ -148,6 +148,27 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
+ 			  BYT_STACK_DUMP_SIZE);
+ 	snd_sof_get_status(sdev, status, panic, &xoops, &panic_info, stack,
+ 			   BYT_STACK_DUMP_SIZE);
++
++	/* provide some context for firmware debug */
++	imrx = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRX);
++	imrd = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRD);
++	dev_err(sdev->dev,
++		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
++		panic & SHIM_IPCX_BUSY ? "yes" : "no",
++		panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
++	dev_err(sdev->dev,
++		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
++		imrx & SHIM_IMRX_BUSY ? "yes" : "no",
++		imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
++	dev_err(sdev->dev,
++		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
++		status & SHIM_IPCD_BUSY ? "yes" : "no",
++		status & SHIM_IPCD_DONE ? "yes" : "no", status);
++	dev_err(sdev->dev,
++		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
++		imrd & SHIM_IMRD_BUSY ? "yes" : "no",
++		imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
++
+ }
+ 
+ /*
 -- 
 2.20.1
 

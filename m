@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6280CC3F6A
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 20:08:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AB7AC3F38
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 20:01:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECDCF1678;
-	Tue,  1 Oct 2019 20:07:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECDCF1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A9291675;
+	Tue,  1 Oct 2019 20:00:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A9291675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569953313;
-	bh=bIaQwTFDkcdAhny+nne/QnlnJ5PYf//PxmKNInB2Loc=;
+	s=default; t=1569952860;
+	bh=9pr7AAhAygUVvtMH5fRfQEAzHg1KlzZND5BoeT9AGCI=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=U+qk/HzN2CoCc3c5r515ykmRUvYF9HvyJz0opWUA56LroMaQuAvaLIE15+b/CWbK1
-	 BAluQdrgbfYFvc5VNunBdKM2BKA2uXlM3H+d5EpmTgk502BiAJuNVsaTWk8NHUZ0iV
-	 VigzFIVhBPafo07A5W2pgKzul0qDA12LfqG7mE7o=
+	b=bLTL9RONbSfya2A1tmUBtDpPUhscvcV4NgCnfYvJW363Pruc+2fXLJHxYCL2uWjTX
+	 5DNwRkhzdNh82zi2eF1X69Ys9xws0oiCm/cg7KyK4kn94MjTPTAWDLYAr3kIFzbYaF
+	 RBGbM78FY+eC/A8C/9F5QQXtpAzBoRbTKGJ1Yo8U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE96EF80753;
-	Tue,  1 Oct 2019 19:57:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E20D7F80637;
+	Tue,  1 Oct 2019 19:56:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF272F80635; Tue,  1 Oct 2019 19:57:04 +0200 (CEST)
+ id 6E0E8F80678; Tue,  1 Oct 2019 19:56:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66116F80649
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 19:56:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66116F80649
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB69BF80638
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 19:56:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB69BF80638
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="YifMT7kV"
+ header.b="sZuhVOx9"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Q86xXsbTo/ON0vkqoDhzmO+pJ/pUoP5sclj/tazRips=; b=YifMT7kVeJCD
- 72j2wgL8Z6yPWhGwWedVlhpN/5lVNYeoAEJyKz1EHdkiE2Sya9RqqXBYTgN+VUFABAtn5FPoAM+Kt
- 3zgykpKXFbq/G8RdzdXReTSI/vHvQM0SiUOmrVW1UUU71RPLdYeP1lQXkn5JiBKhjnGCqrtzZVCIr
- IJgyQ=;
+ List-Archive; bh=k0RiAjX59fGoSMJVDxgVcV+kXKJKZSOKVyq+A5FBRI4=; b=sZuhVOx9m+oX
+ vvZYkRWodEiYDzfUVYGG5aiB97UHwJx3FRoezR+eQxwNq5EOlGFL85s/suEj8A5oSi7qlzDKG8SrN
+ UOZp4cdiAALNdzBgbiIyzUqhr7citDjnPF/LtmRyld1WELmGo3pun9WHkFqfNM5xOLyzxT5ieS0/I
+ vCuW4=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iFMOG-0005ss-1B; Tue, 01 Oct 2019 17:56:48 +0000
+ id 1iFMOG-0005t2-EL; Tue, 01 Oct 2019 17:56:48 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 7F68E2742A10; Tue,  1 Oct 2019 18:56:47 +0100 (BST)
+ id F1BB827429C0; Tue,  1 Oct 2019 18:56:47 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jaska Uimonen <jaska.uimonen@intel.com>
-In-Reply-To: <20190927201408.925-5-pierre-louis.bossart@linux.intel.com>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20190927201408.925-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191001175647.7F68E2742A10@ypsilon.sirena.org.uk>
+Message-Id: <20191001175647.F1BB827429C0@ypsilon.sirena.org.uk>
 Date: Tue,  1 Oct 2019 18:56:47 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: intel: sof_rt5682: add remove function
-	to disable jack" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: intel: sof_rt5682: use separate route
+	map for dmic" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: intel: sof_rt5682: add remove function to disable jack
+   ASoC: intel: sof_rt5682: use separate route map for dmic
 
 has been applied to the asoc tree at
 
@@ -113,52 +113,95 @@ to this mail.
 Thanks,
 Mark
 
-From 6ba5041c23c1062d4e8287b2b76a1181538c6df1 Mon Sep 17 00:00:00 2001
-From: Jaska Uimonen <jaska.uimonen@intel.com>
-Date: Fri, 27 Sep 2019 15:14:08 -0500
-Subject: [PATCH] ASoC: intel: sof_rt5682: add remove function to disable jack
+From 4413adc4fd872579de87bedaecda633f999ef995 Mon Sep 17 00:00:00 2001
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+Date: Fri, 27 Sep 2019 15:14:06 -0500
+Subject: [PATCH] ASoC: intel: sof_rt5682: use separate route map for dmic
 
-When removing sof module the rt5682 jack handler will oops
-if jack detection is not disabled. So add remove function,
-which disables the jack detection.
+dmic map can only be added when dmic dai link is present.
 
-Signed-off-by: Jaska Uimonen <jaska.uimonen@intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190927201408.925-5-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20190927201408.925-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/sof_rt5682.c | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ sound/soc/intel/boards/sof_rt5682.c | 35 +++++++++++++++++++++++++----
+ 1 file changed, 31 insertions(+), 4 deletions(-)
 
 diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 57b4ef75be15..5ce643d62faf 100644
+index a437567b8cee..57b4ef75be15 100644
 --- a/sound/soc/intel/boards/sof_rt5682.c
 +++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -648,8 +648,24 @@ static int sof_audio_probe(struct platform_device *pdev)
- 					  &sof_audio_card_rt5682);
+@@ -308,6 +308,9 @@ static const struct snd_soc_dapm_widget sof_widgets[] = {
+ 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+ 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+ 	SND_SOC_DAPM_SPK("Spk", NULL),
++};
++
++static const struct snd_soc_dapm_widget dmic_widgets[] = {
+ 	SND_SOC_DAPM_MIC("SoC DMIC", NULL),
+ };
+ 
+@@ -318,10 +321,6 @@ static const struct snd_soc_dapm_route sof_map[] = {
+ 
+ 	/* other jacks */
+ 	{ "IN1P", NULL, "Headset Mic" },
+-
+-	/* digital mics */
+-	{"DMic", NULL, "SoC DMIC"},
+-
+ };
+ 
+ static const struct snd_soc_dapm_route speaker_map[] = {
+@@ -329,6 +328,11 @@ static const struct snd_soc_dapm_route speaker_map[] = {
+ 	{ "Spk", NULL, "Speaker" },
+ };
+ 
++static const struct snd_soc_dapm_route dmic_map[] = {
++	/* digital mics */
++	{"DMic", NULL, "SoC DMIC"},
++};
++
+ static int speaker_codec_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_card *card = rtd->card;
+@@ -342,6 +346,28 @@ static int speaker_codec_init(struct snd_soc_pcm_runtime *rtd)
+ 	return ret;
  }
  
-+static int sof_rt5682_remove(struct platform_device *pdev)
++static int dmic_init(struct snd_soc_pcm_runtime *rtd)
 +{
-+	struct snd_soc_card *card = platform_get_drvdata(pdev);
-+	struct snd_soc_component *component = NULL;
++	struct snd_soc_card *card = rtd->card;
++	int ret;
 +
-+	for_each_card_components(card, component) {
-+		if (!strcmp(component->name, rt5682_component[0].name)) {
-+			snd_soc_component_set_jack(component, NULL, NULL);
-+			break;
-+		}
++	ret = snd_soc_dapm_new_controls(&card->dapm, dmic_widgets,
++					ARRAY_SIZE(dmic_widgets));
++	if (ret) {
++		dev_err(card->dev, "DMic widget addition failed: %d\n", ret);
++		/* Don't need to add routes if widget addition failed */
++		return ret;
 +	}
 +
-+	return 0;
++	ret = snd_soc_dapm_add_routes(&card->dapm, dmic_map,
++				      ARRAY_SIZE(dmic_map));
++
++	if (ret)
++		dev_err(card->dev, "DMic map addition failed: %d\n", ret);
++
++	return ret;
 +}
 +
- static struct platform_driver sof_audio = {
- 	.probe = sof_audio_probe,
-+	.remove = sof_rt5682_remove,
- 	.driver = {
- 		.name = "sof_rt5682",
- 		.pm = &snd_soc_pm_ops,
+ /* sof audio machine driver for rt5682 codec */
+ static struct snd_soc_card sof_audio_card_rt5682 = {
+ 	.name = "sof_rt5682",
+@@ -445,6 +471,7 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 		links[id].name = "dmic01";
+ 		links[id].cpus = &cpus[id];
+ 		links[id].cpus->dai_name = "DMIC01 Pin";
++		links[id].init = dmic_init;
+ 		if (dmic_be_num > 1) {
+ 			/* set up 2 BE links at most */
+ 			links[id + 1].name = "dmic16k";
 -- 
 2.20.1
 

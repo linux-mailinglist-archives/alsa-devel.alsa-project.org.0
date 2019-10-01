@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F18DC331F
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:44:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFD03C3355
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:50:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2DBB01694;
-	Tue,  1 Oct 2019 13:43:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DBB01694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 818151679;
+	Tue,  1 Oct 2019 13:49:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 818151679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569930279;
-	bh=tdj7ZKRTVFOOng0pIk7Qqe9Bwl/ei/uuGBW46v+HwtA=;
+	s=default; t=1569930614;
+	bh=m9STAxu6scKMERJ7m3ULZlgsExDomAAGEUR7uPA4ypc=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=qb5mz70/rMZbYfRksdzU31M96fW49GAX+OvlbTcBsaFXDo/qWKsI7iR1tQKeXDLWO
-	 +ZvBohUA9sql1tjgyMCqty4nr82l3DKyTh7IoYiTRaivTX93Ib+99QhZKxGb9lPv6b
-	 ZSC2GPcKxOFX+/RY8KZ8T6p43fWz5JenL/ZA3t2A=
+	b=D84VeEps9e6CeHLP3aP9SArZ7ISVNRcdJ6ppmbt8R3YSPtHTEK8vrU9Zns8maJ3dW
+	 udtTUiJggOw3V+gaLxo9TLH/xkpBucA5xWqM33GQXHsoF1DaakVJsgYISubQV5Mwgy
+	 5e2wXk8Hzm0TtKBfIMJbuVPgmaHdHjSulwrRSmL4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F246BF80506;
-	Tue,  1 Oct 2019 13:41:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87303F80717;
+	Tue,  1 Oct 2019 13:41:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACB98F80636; Tue,  1 Oct 2019 13:40:53 +0200 (CEST)
+ id 35D8BF80679; Tue,  1 Oct 2019 13:41:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4162BF80518
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4162BF80518
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4395F8053A
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4395F8053A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Rm1HYTga"
+ header.b="q6SqyX1C"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Iv9wdKvTB0h+dHZKzI9dA1j0Tf9XKyywHQlK8mDvtjk=; b=Rm1HYTgatKnU
- DPpL4yS+eCBVV1I1h0pIsCWojSnTboCNhulb67RhJ5tQnl/DpUB+I/xGkR52TWvqtu9yjPf01jjJC
- dQ4oppb6IEyuoqWUconqjzpx1hTNZ3tJt2/+UjL1hmO4dVURdWVloe+Xyyv3JQWiQd4QzD5YGgBqp
- W467w=;
+ List-Archive; bh=iY6ES9hP3CWF4u3OHcTrGb1l/ZeOMGCP6gxjprw6Y3c=; b=q6SqyX1CYEul
+ 7ipsRGWpXBg9WW6ZuvTlIVkZyOqJJM/sdVVqPQ4ns9LN+ku3dxFiJ8t6g+eoDyeptQRHIePZLbML3
+ JPzcpjFofHJEPCa6sL8eFjLoUW9795g9ecRk3toF1sABLnjbDMN5e5IQXC4jpiBb13DGRrN3Sm6yF
+ g7g2I=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iFGWN-0004Si-5U; Tue, 01 Oct 2019 11:40:47 +0000
+ id 1iFGWM-0004Sc-L8; Tue, 01 Oct 2019 11:40:46 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A948D27429C0; Tue,  1 Oct 2019 12:40:46 +0100 (BST)
+ id 2CCFA2742A10; Tue,  1 Oct 2019 12:40:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Lars-Peter Clausen <lars@metafoo.de>
-In-Reply-To: <20190926115012.24049-1-alexandru.ardelean@analog.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <7937c1404ee327ce141cb03b3575b02ea01a740c.1569493933.git.shengjiu.wang@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191001114046.A948D27429C0@ypsilon.sirena.org.uk>
+Message-Id: <20191001114046.2CCFA2742A10@ypsilon.sirena.org.uk>
 Date: Tue,  1 Oct 2019 12:40:46 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, tiwai@suse.com,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>,
- Alexandru Ardelean <alexandru.ardelean@analog.com>
-Subject: [alsa-devel] Applied "ASoC: adau1761: Add PGA Slew time control" to
-	the asoc tree
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, lars@metafoo.de, timur@kernel.org,
+ Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org, tiwai@suse.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
+ festevam@gmail.com
+Subject: [alsa-devel] Applied "ASoC: fsl_asrc: Use in(out)put_format instead
+	of in(out)put_word_width" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: adau1761: Add PGA Slew time control
+   ASoC: fsl_asrc: Use in(out)put_format instead of in(out)put_word_width
 
 has been applied to the asoc tree at
 
@@ -115,85 +117,153 @@ to this mail.
 Thanks,
 Mark
 
-From 83078521072e95cf555d356f9e0b39021c46ac76 Mon Sep 17 00:00:00 2001
-From: Lars-Peter Clausen <lars@metafoo.de>
-Date: Thu, 26 Sep 2019 14:50:11 +0300
-Subject: [PATCH] ASoC: adau1761: Add PGA Slew time control
+From 4bf62571070dd1021556e275d9221f736b2ffcf3 Mon Sep 17 00:00:00 2001
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+Date: Fri, 27 Sep 2019 09:46:09 +0800
+Subject: [PATCH] ASoC: fsl_asrc: Use in(out)put_format instead of
+ in(out)put_word_width
 
-The PGA Slew Time control allows to configure the rate with which the PGA
-gain control ramps up/down to the target setting.
+snd_pcm_format_t is more formal than enum asrc_word_width, which has
+two property, width and physical width, which is more accurate than
+enum asrc_word_width. So it is better to use in(out)put_format
+instead of in(out)put_word_width.
 
-The PGA slew control is done via the ALC Control 0 register. There are 2
-bits on that reg, that control PGA slew time, while the other bits control
-parts of the ALC (automatic level control) block.
-
-Signed-off-by: Lars-Peter Clausen <lars@metafoo.de>
-Signed-off-by: Alexandru Ardelean <alexandru.ardelean@analog.com>
-Link: https://lore.kernel.org/r/20190926115012.24049-1-alexandru.ardelean@analog.com
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Link: https://lore.kernel.org/r/7937c1404ee327ce141cb03b3575b02ea01a740c.1569493933.git.shengjiu.wang@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/adau1761.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ sound/soc/fsl/fsl_asrc.c | 56 +++++++++++++++++++++++++++-------------
+ sound/soc/fsl/fsl_asrc.h |  4 +--
+ 2 files changed, 40 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/codecs/adau1761.c b/sound/soc/codecs/adau1761.c
-index 977f5a63be3f..a9ef735f8b4e 100644
---- a/sound/soc/codecs/adau1761.c
-+++ b/sound/soc/codecs/adau1761.c
-@@ -28,6 +28,7 @@
- #define ADAU1761_REC_MIXER_RIGHT1	0x400d
- #define ADAU1761_LEFT_DIFF_INPUT_VOL	0x400e
- #define ADAU1761_RIGHT_DIFF_INPUT_VOL	0x400f
-+#define ADAU1761_ALC_CTRL0		0x4011
- #define ADAU1761_PLAY_LR_MIXER_LEFT	0x4020
- #define ADAU1761_PLAY_MIXER_LEFT0	0x401c
- #define ADAU1761_PLAY_MIXER_LEFT1	0x401d
-@@ -71,6 +72,7 @@ static const struct reg_default adau1761_reg_defaults[] = {
- 	{ ADAU1761_REC_MIXER_RIGHT0,		0x00 },
- 	{ ADAU1761_REC_MIXER_RIGHT1,		0x00 },
- 	{ ADAU1761_LEFT_DIFF_INPUT_VOL,		0x00 },
-+	{ ADAU1761_ALC_CTRL0,			0x00 },
- 	{ ADAU1761_RIGHT_DIFF_INPUT_VOL,	0x00 },
- 	{ ADAU1761_PLAY_LR_MIXER_LEFT,		0x00 },
- 	{ ADAU1761_PLAY_MIXER_LEFT0,		0x00 },
-@@ -147,6 +149,21 @@ static SOC_VALUE_ENUM_SINGLE_DECL(adau1761_capture_bias_enum,
- 		ADAU17X1_REC_POWER_MGMT, 1, 0x3, adau1761_bias_select_text,
- 		adau1761_bias_select_values);
+diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
+index cfa40ef6b1ca..4d3804a1ea55 100644
+--- a/sound/soc/fsl/fsl_asrc.c
++++ b/sound/soc/fsl/fsl_asrc.c
+@@ -265,6 +265,8 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
+ 	struct asrc_config *config = pair->config;
+ 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
+ 	enum asrc_pair_index index = pair->index;
++	enum asrc_word_width input_word_width;
++	enum asrc_word_width output_word_width;
+ 	u32 inrate, outrate, indiv, outdiv;
+ 	u32 clk_index[2], div[2];
+ 	int in, out, channels;
+@@ -283,9 +285,32 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
+ 		return -EINVAL;
+ 	}
  
-+static const unsigned int adau1761_pga_slew_time_values[] = {
-+	3, 0, 1, 2,
-+};
+-	/* Validate output width */
+-	if (config->output_word_width == ASRC_WIDTH_8_BIT) {
+-		pair_err("does not support 8bit width output\n");
++	switch (snd_pcm_format_width(config->input_format)) {
++	case 8:
++		input_word_width = ASRC_WIDTH_8_BIT;
++		break;
++	case 16:
++		input_word_width = ASRC_WIDTH_16_BIT;
++		break;
++	case 24:
++		input_word_width = ASRC_WIDTH_24_BIT;
++		break;
++	default:
++		pair_err("does not support this input format, %d\n",
++			 config->input_format);
++		return -EINVAL;
++	}
 +
-+static const char * const adau1761_pga_slew_time_text[] = {
-+	"Off",
-+	"24 ms",
-+	"48 ms",
-+	"96 ms",
-+};
-+
-+static SOC_VALUE_ENUM_SINGLE_DECL(adau1761_pga_slew_time_enum,
-+		ADAU1761_ALC_CTRL0, 6, 0x3, adau1761_pga_slew_time_text,
-+		adau1761_pga_slew_time_values);
-+
- static const struct snd_kcontrol_new adau1761_jack_detect_controls[] = {
- 	SOC_SINGLE("Speaker Auto-mute Switch", ADAU1761_DIGMIC_JACKDETECT,
- 		4, 1, 0),
-@@ -161,6 +178,8 @@ static const struct snd_kcontrol_new adau1761_differential_mode_controls[] = {
++	switch (snd_pcm_format_width(config->output_format)) {
++	case 16:
++		output_word_width = ASRC_WIDTH_16_BIT;
++		break;
++	case 24:
++		output_word_width = ASRC_WIDTH_24_BIT;
++		break;
++	default:
++		pair_err("does not support this output format, %d\n",
++			 config->output_format);
+ 		return -EINVAL;
+ 	}
  
- 	SOC_DOUBLE_R_TLV("PGA Boost Capture Volume", ADAU1761_REC_MIXER_LEFT1,
- 		ADAU1761_REC_MIXER_RIGHT1, 3, 2, 0, adau1761_pga_boost_tlv),
-+
-+	SOC_ENUM("PGA Capture Slew Time", adau1761_pga_slew_time_enum),
+@@ -383,8 +408,8 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
+ 	/* Implement word_width configurations */
+ 	regmap_update_bits(asrc_priv->regmap, REG_ASRMCR1(index),
+ 			   ASRMCR1i_OW16_MASK | ASRMCR1i_IWD_MASK,
+-			   ASRMCR1i_OW16(config->output_word_width) |
+-			   ASRMCR1i_IWD(config->input_word_width));
++			   ASRMCR1i_OW16(output_word_width) |
++			   ASRMCR1i_IWD(input_word_width));
+ 
+ 	/* Enable BUFFER STALL */
+ 	regmap_update_bits(asrc_priv->regmap, REG_ASRMCR(index),
+@@ -497,13 +522,13 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
+ 				  struct snd_soc_dai *dai)
+ {
+ 	struct fsl_asrc *asrc_priv = snd_soc_dai_get_drvdata(dai);
+-	int width = params_width(params);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct fsl_asrc_pair *pair = runtime->private_data;
+ 	unsigned int channels = params_channels(params);
+ 	unsigned int rate = params_rate(params);
+ 	struct asrc_config config;
+-	int word_width, ret;
++	snd_pcm_format_t format;
++	int ret;
+ 
+ 	ret = fsl_asrc_request_pair(channels, pair);
+ 	if (ret) {
+@@ -513,15 +538,10 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	pair->config = &config;
+ 
+-	if (width == 16)
+-		width = ASRC_WIDTH_16_BIT;
+-	else
+-		width = ASRC_WIDTH_24_BIT;
+-
+ 	if (asrc_priv->asrc_width == 16)
+-		word_width = ASRC_WIDTH_16_BIT;
++		format = SNDRV_PCM_FORMAT_S16_LE;
+ 	else
+-		word_width = ASRC_WIDTH_24_BIT;
++		format = SNDRV_PCM_FORMAT_S24_LE;
+ 
+ 	config.pair = pair->index;
+ 	config.channel_num = channels;
+@@ -529,13 +549,13 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
+ 	config.outclk = OUTCLK_ASRCK1_CLK;
+ 
+ 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+-		config.input_word_width   = width;
+-		config.output_word_width  = word_width;
++		config.input_format   = params_format(params);
++		config.output_format  = format;
+ 		config.input_sample_rate  = rate;
+ 		config.output_sample_rate = asrc_priv->asrc_rate;
+ 	} else {
+-		config.input_word_width   = word_width;
+-		config.output_word_width  = width;
++		config.input_format   = format;
++		config.output_format  = params_format(params);
+ 		config.input_sample_rate  = asrc_priv->asrc_rate;
+ 		config.output_sample_rate = rate;
+ 	}
+diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
+index c60075112570..38af485bdd22 100644
+--- a/sound/soc/fsl/fsl_asrc.h
++++ b/sound/soc/fsl/fsl_asrc.h
+@@ -342,8 +342,8 @@ struct asrc_config {
+ 	unsigned int dma_buffer_size;
+ 	unsigned int input_sample_rate;
+ 	unsigned int output_sample_rate;
+-	enum asrc_word_width input_word_width;
+-	enum asrc_word_width output_word_width;
++	snd_pcm_format_t input_format;
++	snd_pcm_format_t output_format;
+ 	enum asrc_inclk inclk;
+ 	enum asrc_outclk outclk;
  };
- 
- static const struct snd_kcontrol_new adau1761_single_mode_controls[] = {
-@@ -632,6 +651,7 @@ static bool adau1761_readable_register(struct device *dev, unsigned int reg)
- 	case ADAU1761_DEJITTER:
- 	case ADAU1761_CLK_ENABLE0:
- 	case ADAU1761_CLK_ENABLE1:
-+	case ADAU1761_ALC_CTRL0:
- 		return true;
- 	default:
- 		break;
 -- 
 2.20.1
 

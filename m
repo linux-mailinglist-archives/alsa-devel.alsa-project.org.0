@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2E24C3353
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:49:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F20AC333F
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:48:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E59F166E;
-	Tue,  1 Oct 2019 13:48:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E59F166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26C4C167C;
+	Tue,  1 Oct 2019 13:47:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26C4C167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569930575;
-	bh=54OEFINkJsRFF/HGdEQ38bkCIyyIT3B9+NZ5DQucN4k=;
+	s=default; t=1569930492;
+	bh=I98ex7BOrazPo8Y/qxlFTWnhJGn0MS/pB67t0H6g3Iw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=hdv7Q2a1Sb/1Gbbbf8KmMUg5VYeVLvoixn54lM+IMHujl01TX8Wnmq/i14Za9vH32
-	 KmsBXDzgZixqYnHaTN9cFTau4gLuSrNN8soio0RyTqhgw+So1nlJc4smOcxKI35DHB
-	 kJEqKRX8NGIdSCGxm6iyzwWqDJx2AUR/+5LIaK7I=
+	b=LTh70w6jQ3VaT6ivEPn1qw/AHd3K80VI7urz1nSzYNaJ8GnL2iocJfyYRvoaj5sw4
+	 o7vd/f1vh6ojzGBsRZtb51f94Ym5gxnyOHrUNr7NQlAsi4kjedKb7EgxTA4bV4UlIC
+	 i8j+Z+tWVZPMNADzyT9rKCmv7ZwmebFrLSHULkFY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B804BF80518;
-	Tue,  1 Oct 2019 13:41:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE16CF804FF;
+	Tue,  1 Oct 2019 13:41:15 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B937EF8067B; Tue,  1 Oct 2019 13:41:02 +0200 (CEST)
+ id 28192F8067A; Tue,  1 Oct 2019 13:41:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B41EF80506
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B41EF80506
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF34FF805FF
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF34FF805FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="a0FYSRLw"
+ header.b="W6+VhIel"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=EZwXH2/aboNMmkJHaxOZm8Q5obeSzSnzi54A3erjNLY=; b=a0FYSRLwPqIy
- 7f9N2YC5sUglieOL4Sk813LoHqYbsXCQB1TKMJ9g0HIyUbbZmTdr72dI9gwQbzDSEjc81igak3EqX
- ySK9pcDJYCNs2yAnz8Shb9Nc21UNcSDFt33CpSD9Owhknmd7fWV/LZSaOr0pnYXXQdzhH/rg1M3Jh
- VhZgA=;
+ List-Archive; bh=+gqFQySrShV/ToSh8YGHlEnWI1hCCq31xeGoKbe2xP8=; b=W6+VhIelim16
+ 88zCkz/rOj4zN0jeG1fTJB2sQdqgKIRWUbskh8rnG2yZOw3/dzTeSqk3/AkE03V52p9H5WIc2T32r
+ zbQTwiI49zMC75YmcNFGM73DgP5pKKXqv0qI/H4cM7CfKlYsi6blQdfAPmFZjTg1qOthqj0ce+ZVv
+ JEDPc=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iFGWM-0004SZ-FF; Tue, 01 Oct 2019 11:40:46 +0000
+ id 1iFGWN-0004Sl-FO; Tue, 01 Oct 2019 11:40:47 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id E1B2827429C0; Tue,  1 Oct 2019 12:40:45 +0100 (BST)
+ id E68622742A10; Tue,  1 Oct 2019 12:40:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-In-Reply-To: <45a7c383f43cc1dd9d0934846447aee653278c03.1569493933.git.shengjiu.wang@nxp.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+In-Reply-To: <20190925183358.11955-1-daniel.baluta@nxp.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191001114045.E1B2827429C0@ypsilon.sirena.org.uk>
-Date: Tue,  1 Oct 2019 12:40:45 +0100 (BST)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, lars@metafoo.de, timur@kernel.org,
- Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org, tiwai@suse.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- Nicolin Chen <nicoleotsuka@gmail.com>, Mark Brown <broonie@kernel.org>,
- festevam@gmail.com
-Subject: [alsa-devel] Applied "ASoC: fsl_asrc: update supported sample
-	format" to the asoc tree
+Message-Id: <20191001114046.E68622742A10@ypsilon.sirena.org.uk>
+Date: Tue,  1 Oct 2019 12:40:46 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@intel.com,
+ linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, linux-imx@nxp.com,
+ pierre-louis.bossart@intel.com
+Subject: [alsa-devel] Applied "ASoC: core: Clarify usage of ignore_machine"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl_asrc: update supported sample format
+   ASoC: core: Clarify usage of ignore_machine
 
 has been applied to the asoc tree at
 
@@ -117,53 +115,46 @@ to this mail.
 Thanks,
 Mark
 
-From 109539c986cee525e5ff9ae98793f23c2b29e54d Mon Sep 17 00:00:00 2001
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-Date: Fri, 27 Sep 2019 09:46:10 +0800
-Subject: [PATCH] ASoC: fsl_asrc: update supported sample format
+From 49f9c4f2e83cf562f1a6e3f62eafa4ede5343e4a Mon Sep 17 00:00:00 2001
+From: Daniel Baluta <daniel.baluta@nxp.com>
+Date: Wed, 25 Sep 2019 21:33:58 +0300
+Subject: [PATCH] ASoC: core: Clarify usage of ignore_machine
 
-The ASRC support 24bit/16bit/8bit input width, which is
-data width, not slot width.
+For a sound card ignore_machine means that existing FEs links should be
+ignored and existing BEs links should be overridden with some information
+from the matching component driver.
 
-For the S20_3LE format, the data with is 20bit, slot width
-is 24bit, if we set ASRMCR1n.IWD to be 24bits, the result
-is the volume is lower than expected, it likes 24bit data
-right shift 4 bits
+Current code make some confusions about this so fix it!
 
-So replace S20_3LE with S24_3LE in supported list and add S8
-format in TX supported list
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-Link: https://lore.kernel.org/r/45a7c383f43cc1dd9d0934846447aee653278c03.1569493933.git.shengjiu.wang@nxp.com
+Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+Link: https://lore.kernel.org/r/20190925183358.11955-1-daniel.baluta@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_asrc.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ sound/soc/soc-core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 4d3804a1ea55..584badf956d2 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -624,7 +624,7 @@ static int fsl_asrc_dai_probe(struct snd_soc_dai *dai)
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index d2842a383846..4a47ba94559f 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1859,7 +1859,7 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
  
- #define FSL_ASRC_FORMATS	(SNDRV_PCM_FMTBIT_S24_LE | \
- 				 SNDRV_PCM_FMTBIT_S16_LE | \
--				 SNDRV_PCM_FMTBIT_S20_3LE)
-+				 SNDRV_PCM_FMTBIT_S24_3LE)
+ 	for_each_component(component) {
  
- static struct snd_soc_dai_driver fsl_asrc_dai = {
- 	.probe = fsl_asrc_dai_probe,
-@@ -635,7 +635,8 @@ static struct snd_soc_dai_driver fsl_asrc_dai = {
- 		.rate_min = 5512,
- 		.rate_max = 192000,
- 		.rates = SNDRV_PCM_RATE_KNOT,
--		.formats = FSL_ASRC_FORMATS,
-+		.formats = FSL_ASRC_FORMATS |
-+			   SNDRV_PCM_FMTBIT_S8,
- 	},
- 	.capture = {
- 		.stream_name = "ASRC-Capture",
+-		/* does this component override FEs ? */
++		/* does this component override BEs ? */
+ 		if (!component->driver->ignore_machine)
+ 			continue;
+ 
+@@ -1880,7 +1880,7 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
+ 				continue;
+ 			}
+ 
+-			dev_info(card->dev, "info: override FE DAI link %s\n",
++			dev_info(card->dev, "info: override BE DAI link %s\n",
+ 				 card->dai_link[i].name);
+ 
+ 			/* override platform component */
 -- 
 2.20.1
 

@@ -2,62 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD70C3208
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:12:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C261C3264
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:23:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4785E1672;
-	Tue,  1 Oct 2019 13:11:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4785E1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4CD31676;
+	Tue,  1 Oct 2019 13:22:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4CD31676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569928334;
-	bh=6RhDeG1qB+sR7O5Xl3Oys/NPKNYMiieuUNcdfr/8eqo=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1569929019;
+	bh=fTel2VBHI0dMMes1AGihBNsYWml1OpL8CMXZxPGs3JU=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OX+PlUykr+piFA2/sdKo/86LRCEaNcxPJ26NjJupmTbVDqvUKkbYDulFG8G6P1xWj
-	 gHj7z/8YadJJ1tVmhkKelSFqU3TQuX0CzlDG4VK4jY6RZeAuTtihs04ZNqAywdsyp0
-	 O91oQuj4FBT09kIaRSVrxKZeiqB/yuORzXMIL13o=
+	b=egNIaVv1FrGGO/O08v2quXawu+sDVi/jFZSzJBiqBxxcZtHcKAWusbL6UWnvvozfN
+	 Y7OHpPjgRSQU4LhAF3WvfqqyqwL3qTepHIbqXJ7Ll7DMo4hsWvXgrN5VaT2s0bgCDU
+	 Orko6nulzODt1gg38XyjeRX7Nc7tYM25AbrpHV0I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CC73F80519;
-	Tue,  1 Oct 2019 13:10:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20F42F804FF;
+	Tue,  1 Oct 2019 13:21:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A89CF80506; Tue,  1 Oct 2019 13:10:26 +0200 (CEST)
+ id 65E5AF80506; Tue,  1 Oct 2019 13:21:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1ED24F800D0
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:10:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ED24F800D0
-Received: from [167.98.27.226] (helo=[10.35.6.110])
- by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
- id 1iFG2S-0007Mo-R5; Tue, 01 Oct 2019 12:09:52 +0100
-To: Jon Hunter <jonathanh@nvidia.com>, linux-tegra@vger.kernel.org,
- alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>
-References: <20190930165130.10642-1-ben.dooks@codethink.co.uk>
- <20190930165130.10642-6-ben.dooks@codethink.co.uk>
- <6d6ae684-dd5f-b180-9114-dafe12886d4f@nvidia.com>
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-Organization: Codethink Limited.
-Message-ID: <54bde532-2276-aa4e-6206-7757b482c6fa@codethink.co.uk>
-Date: Tue, 1 Oct 2019 12:09:51 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 19E8DF800D0
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:21:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19E8DF800D0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="tqz2dO5e"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=WP08K81EP8nRSl3NecDTAL6O6lhtnramqxO7uUpAriw=; b=tqz2dO5eKDmISNQTeYJ2MH6GC
+ 03ziUcUXkSlarqF15sDoo7Q/ZXlc5BXRQJioCbeaJhkUSTPxhv9s3xKHdKl5e4aoe2/0RwcMrrp72
+ 7VRX1VWWlK+ybEScOSHExQMH8Wy/pH/U9uHa4fkXHJ9peDwhUUi9j2WvkCm92xPCFatbI=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iFGE0-0004OZ-Ax; Tue, 01 Oct 2019 11:21:48 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 7E257274299F; Tue,  1 Oct 2019 12:21:47 +0100 (BST)
+Date: Tue, 1 Oct 2019 12:21:47 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Message-ID: <20191001112147.GA5618@sirena.co.uk>
+References: <20190920130218.32690-1-s.nawrocki@samsung.com>
+ <CGME20190920130318eucas1p126cc8be60118ffbf1f332626dde1c05a@eucas1p1.samsung.com>
+ <20190920130218.32690-6-s.nawrocki@samsung.com>
 MIME-Version: 1.0
-In-Reply-To: <6d6ae684-dd5f-b180-9114-dafe12886d4f@nvidia.com>
-Content-Language: en-GB
-Cc: linux-kernel@lists.codethink.co.uk
-Subject: Re: [alsa-devel] [PATCH v3 5/7] ASoC: tegra: set i2s_offset to 0
-	for tdm
+In-Reply-To: <20190920130218.32690-6-s.nawrocki@samsung.com>
+X-Cookie: Dyslexics have more fnu.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, ckeepax@opensource.cirrus.com,
+ b.zolnierkie@samsung.com, sbkim73@samsung.com, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, krzk@kernel.org, robh+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, m.szyprowski@samsung.com
+Subject: Re: [alsa-devel] [PATCH v2 05/10] ASoC: samsung: arndale: Simplify
+ DAI link initialization
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,64 +88,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1589042140488344666=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 30/09/2019 21:52, Jon Hunter wrote:
-> 
-> 
-> On 30/09/2019 17:51, Ben Dooks wrote:
->> Set the offset to 0 for TDM mode, as per the current setup. Note we also
->> move the data offset programming to the i2s hw_parameters call as per
->> the suggestion from Jon Hunter.
->>
->> Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
->> ---
->> v2:
->>   - fix the review comments and move the i2s offset setting
->> ---
->>   sound/soc/tegra/tegra30_i2s.c | 13 +++++++------
->>   1 file changed, 7 insertions(+), 6 deletions(-)
->>
->> diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
->> index c573151da341..a03692b0afc3 100644
->> --- a/sound/soc/tegra/tegra30_i2s.c
->> +++ b/sound/soc/tegra/tegra30_i2s.c
->> @@ -66,7 +66,7 @@ static int tegra30_i2s_set_fmt(struct snd_soc_dai *dai,
->>   				unsigned int fmt)
->>   {
->>   	struct tegra30_i2s *i2s = snd_soc_dai_get_drvdata(dai);
->> -	unsigned int mask = 0, val = 0;
->> +	unsigned int mask = 0, val = 0, data_offset = 1;
->>   	unsigned int ch_mask, ch_val = 0;
->>   
->>   	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
->> @@ -95,11 +95,13 @@ static int tegra30_i2s_set_fmt(struct snd_soc_dai *dai,
->>   		ch_val = TEGRA30_I2S_CH_CTRL_EGDE_CTRL_NEG_EDGE;
->>   		val |= TEGRA30_I2S_CTRL_FRAME_FORMAT_FSYNC;
->>   		val |= TEGRA30_I2S_CTRL_LRCK_L_LOW;
->> +		data_offset = 0;
->>   		break;
->>   	case SND_SOC_DAIFMT_DSP_B:
->>   		ch_val = TEGRA30_I2S_CH_CTRL_EGDE_CTRL_NEG_EDGE;
->>   		val |= TEGRA30_I2S_CTRL_FRAME_FORMAT_FSYNC;
->>   		val |= TEGRA30_I2S_CTRL_LRCK_R_LOW;
->> +		data_offset = 0;
-> 
-> My understanding is that the difference between dsp-a and dsp-b is that
-> dsp-a has an offset of 1 and dsp-b has an offset of 0.
 
-Ok, can anyone else check this before I make the change for DSP_B ?
+--===============1589042140488344666==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="TB36FDmn/VVEgNH/"
+Content-Disposition: inline
 
 
--- 
-Ben Dooks				http://www.codethink.co.uk/
-Senior Engineer				Codethink - Providing Genius
+--TB36FDmn/VVEgNH/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-https://www.codethink.co.uk/privacy.html
+On Fri, Sep 20, 2019 at 03:02:14PM +0200, Sylwester Nawrocki wrote:
+> There is only one DAI link so we can drop an unnecessary loop statement.
+> Use card->dai_link in place of direct static arndale_rt5631_dai[] array
+> dereference as a prerequisite for adding support for other CODECs.
+> Unnecessary assignment of dai_link->codecs->name to NULL is removed.
+
+This doesn't apply against current code, please check and resend.
+
+--TB36FDmn/VVEgNH/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2TNsoACgkQJNaLcl1U
+h9B8Jgf/QOtwWNhy8BAfZQIc2REqWPl8fmuaapDD6MEvJOA3b+piDx2e6Q9YvKjq
+afK2TLU5HN42PJIr5MTFPljexJovF0uhsmzekrLgYPV9UJR6KzsnoMtWq0aIccyu
+KFRsyntw3MK+Ot9TxDVIpK/tGC4s2rAV+hJO7XV/t0V62Z3r91t0Ncp+wVxibwga
+rxG4oFnwQYNp8aIpzKNc4GOqJ0W1A/5JOgUALtMlGtk6W7FJqOg4xmLsQH8TG1ne
+j5YN7VCoJnki8nFk1JjiikxYYcvSLjxuB0nD/GlbBnP5McroJrCrKV/nJSooYkwd
++Sp8RijARqOYXpEbsVnN8K+DflY9pw==
+=RFd7
+-----END PGP SIGNATURE-----
+
+--TB36FDmn/VVEgNH/--
+
+--===============1589042140488344666==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1589042140488344666==--

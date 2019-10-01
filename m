@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9912C3366
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:55:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF729C3388
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 13:57:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5237B1689;
-	Tue,  1 Oct 2019 13:54:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5237B1689
+	by alsa0.perex.cz (Postfix) with ESMTPS id 645891657;
+	Tue,  1 Oct 2019 13:56:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 645891657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569930906;
-	bh=ASu/PYO98+2O3HrE98U2DRWwbrlv7mDR/2lDH2J9Ync=;
+	s=default; t=1569931064;
+	bh=euCqUfWxE3+31aLProQGxphK1P74liJlu8orwd7T9io=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=kLj+/p7/fydp+CZbgfT02Kmqs1SUsPHQ2xPt1o6aB/MuYDskqitNmgrbE8tSiiPIO
-	 x2ef69KYw0HdLuVpxFH2y6zPQAn722GgoAW/gFNKeEgaihCCRWaVw86MwW1tbcZoEW
-	 2Ytr5bavdCeNptz0tB1+Bx9PJXttD/pLwg4btW4U=
+	b=sOHy/kOwY2OGr9L1zwhcP3kNj/BiL9y/XV5sfiNNzdhK+B08Ez+jVOXJSYZkG0YDI
+	 Qowvp4NvZV1a4VjiQsXnPIgWGUMFOTuELI86SiqdW9+PKhTY/OzE1Z5l2GzjwgbLr8
+	 4dG4AGsHeZnXJJptRi0Cm5zidzrMJWZjFDullDO0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 448B4F80793;
-	Tue,  1 Oct 2019 13:41:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9FDE8F8086C;
+	Tue,  1 Oct 2019 13:41:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE5B3F806FA; Tue,  1 Oct 2019 13:41:10 +0200 (CEST)
+ id 23372F806F8; Tue,  1 Oct 2019 13:41:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 22682F805FE
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22682F805FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28E75F8060F
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 13:40:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28E75F8060F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="h+F8h5Bm"
+ header.b="tCb9X5iS"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=mhWHWBwXSbknkb3rCE8Kq54ngtwnC6sNCqslzzoP/mY=; b=h+F8h5BmdFrM
- LwarzQ0UJn8y1BAA6wDIE5Kc2ykAnLw30sa7nr202zk1THlrdrZAVQkD6R1WRg5Cy9mcmOkN91RdJ
- 4kmiv+JQW4+ZvROrqWp+AYBxSQvKYjP2kh27FI7O3G0DDHEhO5h1/Xz/k5nmutDkX0/LtwMl3SR3L
- avrwg=;
+ List-Archive; bh=fST/AH+GOt2GHguW9Cy53gJrYgbzWWwyPXEqzuvSsEs=; b=tCb9X5iSdz0b
+ Xn1KGOQTBvZ2Z6OVme0fjPxRVkv5AEjseEShBXVJMwGRdua+NxRxVeWRY0ZQQ+TAdA4vdPZdGo0gV
+ A4jbN5nN+OwUmDI4e0LUa5vnuad2n0YS/DDUV8xELsEVOmGdCmQ+FqEFgbyhoOzvuddfSngWrAUfG
+ NRjAE=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iFGWQ-0004UC-9E; Tue, 01 Oct 2019 11:40:50 +0000
+ id 1iFGWQ-0004UX-V9; Tue, 01 Oct 2019 11:40:51 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A9B8727429C0; Tue,  1 Oct 2019 12:40:49 +0100 (BST)
+ id 5D7C527429C0; Tue,  1 Oct 2019 12:40:50 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87d0g6f7s5.wl-kuninori.morimoto.gx@renesas.com>
+To: Sylwester Nawrocki <s.nawrocki@samsung.com>
+In-Reply-To: <20190920130218.32690-7-s.nawrocki@samsung.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191001114049.A9B8727429C0@ypsilon.sirena.org.uk>
-Date: Tue,  1 Oct 2019 12:40:49 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: call list_del(&rtd->list) at
-	soc_free_pcm_runtime()" to the asoc tree
+Message-Id: <20191001114050.5D7C527429C0@ypsilon.sirena.org.uk>
+Date: Tue,  1 Oct 2019 12:40:50 +0100 (BST)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, ckeepax@opensource.cirrus.com,
+ b.zolnierkie@samsung.com, sbkim73@samsung.com, patches@opensource.cirrus.com,
+ lgirdwood@gmail.com, Krzysztof Kozlowski <krzk@kernel.org>, robh+dt@kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ m.szyprowski@samsung.com
+Subject: [alsa-devel] Applied "ASoC: dt-bindings: Document "samsung,
+	arndale-wm1811" compatible" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: call list_del(&rtd->list) at soc_free_pcm_runtime()
+   ASoC: dt-bindings: Document "samsung, arndale-wm1811" compatible
 
 has been applied to the asoc tree at
 
@@ -112,61 +117,38 @@ to this mail.
 Thanks,
 Mark
 
-From 753ace0a34fbd39ac2ec654c6859823db420f69e Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 12 Sep 2019 13:38:50 +0900
-Subject: [PATCH] ASoC: soc-core: call list_del(&rtd->list) at
- soc_free_pcm_runtime()
+From f4528af69fdc112247a78599c6e8f7f618aff4e6 Mon Sep 17 00:00:00 2001
+From: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Date: Fri, 20 Sep 2019 15:02:15 +0200
+Subject: [PATCH] ASoC: dt-bindings: Document "samsung, arndale-wm1811"
+ compatible
 
-Current ALSA SoC is calling list_del(&rtd->list) at (1)
+Add compatible string for boards with WM1811 CODEC to the list.
 
-	static void soc_remove_pcm_runtimes(...)
-	{
-		...
-		for_each_card_rtds_safe(card, rtd, _rtd) {
-(1)			list_del(&rtd->list);
-(2)			soc_free_pcm_runtime(rtd);
-		}
-		...
-	}
-
-But, we will call soc_free_pcm_runtime() after that (2).
-&rtd->list is         connected at soc_new_pcm_runtime(),
-Thus, it should be disconnected at soc_free_pcm_runtime().
-
-This patch calls list_del(&rtd->list) at soc_free_pcm_runtime().
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87d0g6f7s5.wl-kuninori.morimoto.gx@renesas.com
+Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Link: https://lore.kernel.org/r/20190920130218.32690-7-s.nawrocki@samsung.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/sound/arndale.txt | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index cadf96bc0097..7a3f4783adf6 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -359,6 +359,7 @@ static void soc_free_pcm_runtime(struct snd_soc_pcm_runtime *rtd)
- {
- 	kfree(rtd->codec_dais);
- 	snd_soc_rtdcom_del_all(rtd);
-+	list_del(&rtd->list);
- 	kfree(rtd);
- }
+diff --git a/Documentation/devicetree/bindings/sound/arndale.txt b/Documentation/devicetree/bindings/sound/arndale.txt
+index 0e76946385ae..17530120ccfc 100644
+--- a/Documentation/devicetree/bindings/sound/arndale.txt
++++ b/Documentation/devicetree/bindings/sound/arndale.txt
+@@ -1,8 +1,9 @@
+ Audio Binding for Arndale boards
  
-@@ -397,10 +398,8 @@ static void soc_remove_pcm_runtimes(struct snd_soc_card *card)
- {
- 	struct snd_soc_pcm_runtime *rtd, *_rtd;
+ Required properties:
+-- compatible : Can be the following,
+-			"samsung,arndale-rt5631"
++- compatible : Can be one of the following:
++		"samsung,arndale-rt5631",
++		"samsung,arndale-wm1811"
  
--	for_each_card_rtds_safe(card, rtd, _rtd) {
--		list_del(&rtd->list);
-+	for_each_card_rtds_safe(card, rtd, _rtd)
- 		soc_free_pcm_runtime(rtd);
--	}
- 
- 	card->num_rtd = 0;
- }
+ - samsung,audio-cpu: The phandle of the Samsung I2S controller
+ - samsung,audio-codec: The phandle of the audio codec
 -- 
 2.20.1
 

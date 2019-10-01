@@ -2,126 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE223C37FF
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 16:47:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64101C3854
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 16:58:51 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9141677;
-	Tue,  1 Oct 2019 16:46:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9141677
+	by alsa0.perex.cz (Postfix) with ESMTPS id EF1FD167B;
+	Tue,  1 Oct 2019 16:58:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF1FD167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569941220;
-	bh=3sa0AQOZjR4Pk/Ubt2wy+isD7GhqC062uxF9LKIGGYE=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1569941931;
+	bh=+ohpBSax/H/hlDLnCY1qvb4eizk49Hp1CTxRidZNKxg=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dNQgejxtgew0lRHYgfPH3G4fnOn3fRL35svhT39lZUkOAmSMi7hIG6szQGTDpatmK
-	 hbfChfXluO3ECabIO0G+0tI5dZI4XMsD/49GF6dAaqXrJo3brnZ72JBoQCjspRwxT4
-	 zidfB8b3T/3xR2OMofON9lUfJIgOP8lgYsdG9svo=
+	b=U1jUTigdndkUS6FvoEfff3GcaJfOhhiYjej8rWbvb1aYCpjuIm7XAaF6xAZw36/EY
+	 hzsM77D1pXo4OcIkwG6KlrIc6xu/ZfVpa0dRs6UhMo4mYEBHB+SNbfr2oSsRy66+1c
+	 M7aFQg/ETUykm5q51TzLaLCfUDcM67ObeKDlrorY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87678F804FF;
-	Tue,  1 Oct 2019 16:45:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50314F80519;
+	Tue,  1 Oct 2019 16:57:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0BC26F80506; Tue,  1 Oct 2019 16:45:13 +0200 (CEST)
+ id DFF61F80506; Tue,  1 Oct 2019 16:57:03 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70070.outbound.protection.outlook.com [40.107.7.70])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from rere.qmqm.pl (rere.qmqm.pl [91.227.64.183])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 909CBF800D0
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 16:45:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 909CBF800D0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 439A5F800DE
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 16:57:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 439A5F800DE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="ICD79ETW"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=FCKjlRlFk3TA8TCaneS7sIi7VoftPea6mC+tyGxK9xqcAwRdQBsqfvVZ6CzVSnpMJGGv3JpdNRMErO1ZABBpJ+PLK04AxZgOkNnC2a9SWjVbCfofSeT/cjW+xivb8UeWP52aitwq+KiNdmBGVXAPNVEBSe4hqALXJC7jHyWLy+LxdKowN+edsAbf+AFcNrXChcA02ZIRcN/mlAyg8tVCaVZ6pzomXU3pYNUJq46aNDvP1fqKwXj7NCZdgKlvlNeL3lpkXJaunSTxkRQn34GIQNRZFn0pPQ+ZrgV3fbgF3XVPgUOz9wg4LzYxMuuBew05UdNxho7URAKnONTBoHZ7Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fpk5bg8yHFceEbfXDU5pRhdled4cpLLpzt0VL11XZoE=;
- b=b9+gOeE8VPCNW+sI4HJJLaCdiy7cyX742U+7VWHztaj1+NNEjohgFF4PKYpr9EfI8tbvX+XmbnKciccj8SjO1FtluTdL4GAArU2rrdl+QPs899eYT+FAXYujaNTu09MuQ7aALx8K/xTWyNK9s93SdeVkstSYdHNOlXty+mPwm7hVhWg72DYPAvHJ6YZxXrI4WAnaf7t5Yl5wvwKxCFG8vessPbJENMS1h7bmP86r1epOpaRmZqrl/QCBSop3uXFZE7w/+EGLUemIjjkIwnXYi6xwYiN4qoKLN/wq6zNiUITjxL2UC4KS4diJsj/pTpH9fQdy2tHQtsNVc1SaGLtj6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Fpk5bg8yHFceEbfXDU5pRhdled4cpLLpzt0VL11XZoE=;
- b=ICD79ETWMJtWg/DvUB9wkvJ6RQpayoQerHpl3mOKZpxDKfvmX8oDbetkooJyvi1e2dovpq4kep9iRVut7GDTY6tICZbjZqdKlnR6vl9VrqOy/x5rGbM7+X6mASqTkclGzQ+7fzTKiWxnbULY2VX9O4WPa6rT3XgMPHh39De+lgU=
-Received: from VI1PR04MB4094.eurprd04.prod.outlook.com (52.133.13.160) by
- VI1PR04MB4991.eurprd04.prod.outlook.com (20.177.49.220) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2305.17; Tue, 1 Oct 2019 14:45:01 +0000
-Received: from VI1PR04MB4094.eurprd04.prod.outlook.com
- ([fe80::6ced:919:ea4f:5000]) by VI1PR04MB4094.eurprd04.prod.outlook.com
- ([fe80::6ced:919:ea4f:5000%6]) with mapi id 15.20.2305.017; Tue, 1 Oct 2019
- 14:45:01 +0000
-From: Daniel Baluta <daniel.baluta@nxp.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "arnd@arndb.de" <arnd@arndb.de>
-Thread-Topic: [PATCH] ASoC: SOF: imx: fix reverse CONFIG_SND_SOC_SOF_OF
- dependency
-Thread-Index: AQHVeGNxrQzh2sOFKEyKM74n1aPArKdF3NMA
-Date: Tue, 1 Oct 2019 14:45:01 +0000
-Message-ID: <100bf3142f6043e5d1615d2f99677938770e7c4b.camel@nxp.com>
-References: <20191001142026.1124917-1-arnd@arndb.de>
-In-Reply-To: <20191001142026.1124917-1-arnd@arndb.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=daniel.baluta@nxp.com; 
-x-originating-ip: [89.37.124.34]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 69a33f01-701e-4a7e-d354-08d7467df078
-x-ms-office365-filtering-ht: Tenant
-x-ms-traffictypediagnostic: VI1PR04MB4991:|VI1PR04MB4991:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <VI1PR04MB4991E9145DD1DB459AEA751FF99D0@VI1PR04MB4991.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:10000;
-x-forefront-prvs: 0177904E6B
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(979002)(4636009)(39860400002)(366004)(376002)(136003)(346002)(396003)(199004)(189003)(5660300002)(36756003)(91956017)(6512007)(256004)(76116006)(4326008)(229853002)(6486002)(81166006)(110136005)(316002)(25786009)(14454004)(8936002)(6116002)(81156014)(54906003)(118296001)(6436002)(3846002)(6246003)(50226002)(478600001)(11346002)(2616005)(66066001)(486006)(476003)(2906002)(446003)(186003)(66556008)(44832011)(2501003)(102836004)(26005)(305945005)(6506007)(7736002)(64756008)(66446008)(99286004)(71200400001)(66476007)(66946007)(86362001)(8676002)(71190400001)(7416002)(76176011)(99106002)(969003)(989001)(999001)(1009001)(1019001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR04MB4991;
- H:VI1PR04MB4094.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: kUCTygm93eDpLDRMO7AXuGrmMIlCa6C86+AMXzWYMTYTvBTJHrnUtsGR/kn9U1CQztXnXTJNLV8BNOeOp/vUABA8FBkGN/Puu3HsAFNb27qdYLOozLrMnuoJgekKqT82cRiro824xGo2WqbBSOT6HrAa2M+OXuIK8fovA0w3lk+5tcR+/6uyYe0Pj6vM2KS+JIa+yaXBycElwlH1NWsY3wMQkH0j9/zQaRJHLrmuawsJkNs0gi4bISFkC5j6sYbFQRCB7mSDnlm+BxSJ0QN0w6bhT9kL5Qv9x2K8YXzZv7atB+zcX3PMG8bfo9HUYX95nhzcYg3VgVDHgoC0NUP0G+3Vqpsm+OJ5LcoaYm7wDuDJWPEbEsZ36w3nOXwaojJrYoZtlNhK5X6YC2XLXJyNpjvwMcvAlXmrNh8Y15UcplM=
-Content-ID: <2201E3394F70494086F1E44768C0FC7B@eurprd04.prod.outlook.com>
+ dkim=pass (2048-bit key) header.d=rere.qmqm.pl header.i=@rere.qmqm.pl
+ header.b="JsQ1F1kX"
+Received: from remote.user (localhost [127.0.0.1])
+ by rere.qmqm.pl (Postfix) with ESMTPSA id 46jMkZ2SSrz4G;
+ Tue,  1 Oct 2019 16:55:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rere.qmqm.pl; s=1;
+ t=1569941704; bh=/oFjgNLU/ZvSelC6tLjw91cHQa877YduGYa+snzVYRU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=JsQ1F1kX3wGRrlY1a9hWTLA2LaalbBEahiTlqlZOGsDZXb+SyXUwzKD4rbke0EmXG
+ x7N82fQJUZm074OdjoaLeJbSdMG/B3bF3Y+uWGhTlrenGAtWt3MMrBkxoPn3XT0f1v
+ ZYxlbloRZzLwqC97uSfDNoEDk0Yhu006mYNLkwnJtid/YXtL8s7NeBwDWKf2yIH9tk
+ brd/t5cuqt8mnC01f850RppQzimpW7PEbWF1Z5ZrE8uY+2lVF17M9PdYc7BIglHjxm
+ ZiM2Lzi3u2RaucgE3dU7OMpp60GXXQsanht7Z/0Ho1o/zDnV8d5fPbjPMTazBU7wW0
+ JuWnKzqAZOu9g==
+X-Virus-Status: Clean
+X-Virus-Scanned: clamav-milter 0.101.4 at mail
+Date: Tue, 1 Oct 2019 16:56:56 +0200
+From: =?iso-8859-2?Q?Micha=B3_Miros=B3aw?= <mirq-linux@rere.qmqm.pl>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20191001145656.GB6905@qmqm.qmqm.pl>
+References: <20191001142116.1172290-1-arnd@arndb.de>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69a33f01-701e-4a7e-d354-08d7467df078
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Oct 2019 14:45:01.4451 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: N/wCaJCl/p8Kz0edEcCdjElILRQmMXzVBmhmqK98e8FsF7j2ChE1i1FOJhdDI2+voX27yjK5lIMPRrFpSKshVQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB4991
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "shawnguo@kernel.org" <shawnguo@kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "tiwai@suse.com" <tiwai@suse.com>,
- "yuehaibing@huawei.com" <yuehaibing@huawei.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "hulkci@huawei.com" <hulkci@huawei.com>, dl-linux-imx <linux-imx@nxp.com>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: imx: fix reverse
- CONFIG_SND_SOC_SOF_OF dependency
+Content-Disposition: inline
+In-Reply-To: <20191001142116.1172290-1-arnd@arndb.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Mark Brown <broonie@kernel.org>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: atmel: fix atmel_ssc_set_audio link
+	failure
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,72 +84,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-2"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 2019-10-01 at 16:20 +0200, Arnd Bergmann wrote:
-> CONFIG_SND_SOC_SOF_IMX depends on CONFIG_SND_SOC_SOF, but is in
-> turn referenced by the sof-of-dev driver. This creates a reverse
-> dependency that manifests in a link error when CONFIG_SND_SOC_SOF_OF
-> is built-in but CONFIG_SND_SOC_SOF_IMX=m:
-> 
-> sound/soc/sof/sof-of-dev.o:(.data+0x118): undefined reference to
-> `sof_imx8_ops'
-> 
-> Make the latter a 'bool' symbol and change the Makefile so the imx8
-> driver is compiled the same way as the driver using it.
-> 
-> A nicer way would be to reverse the layering and move all
-> the imx specific bits of sof-of-dev.c into the imx driver
-> itself, which can then call into the common code. Doing this
-> would need more testing and can be done if we add another
-> driver like the first one.
-> 
-> Fixes: f4df4e4042b0 ("ASoC: SOF: imx8: Fix COMPILE_TEST error")
-> Fixes: 202acc565a1f ("ASoC: SOF: imx: Add i.MX8 HW support")
+On Tue, Oct 01, 2019 at 04:20:55PM +0200, Arnd Bergmann wrote:
+> The ssc audio driver can call into both pdc and dma backends.  With the
+> latest rework, the logic to do this in a safe way avoiding link errors
+> was removed, bringing back link errors that were fixed long ago in commit
+> 061981ff8cc8 ("ASoC: atmel: properly select dma driver state") such as
+> =
+
+> sound/soc/atmel/atmel_ssc_dai.o: In function `atmel_ssc_set_audio':
+> atmel_ssc_dai.c:(.text+0xac): undefined reference to `atmel_pcm_pdc_platf=
+orm_register'
+> =
+
+> Fix it this time using Makefile hacks and a comment to prevent this
+> from accidentally getting removed again rather than Kconfig hacks.
+> =
+
+> Fixes: 18291410557f ("ASoC: atmel: enable SOC_SSC_PDC and SOC_SSC_DMA in =
+Kconfig")
 > Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-
-Acked-by: Daniel Baluta <daniel.baluta@nxp.com>
-
-Indeed we will need to somehow avoid getting sof_imx8_ops from 
-sof-of-dev.c by directly referencing it. 
-
-Will keep this in mind for the next platform.
-
-Thanks a lot Arnd!
-
 > ---
->  sound/soc/sof/imx/Kconfig  | 2 +-
->  sound/soc/sof/imx/Makefile | 4 +++-
->  2 files changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
-> index 5acae75f5750..a3891654a1fc 100644
-> --- a/sound/soc/sof/imx/Kconfig
-> +++ b/sound/soc/sof/imx/Kconfig
-> @@ -12,7 +12,7 @@ config SND_SOC_SOF_IMX_TOPLEVEL
->  if SND_SOC_SOF_IMX_TOPLEVEL
->  
->  config SND_SOC_SOF_IMX8
-> -	tristate "SOF support for i.MX8"
-> +	bool "SOF support for i.MX8"
->  	depends on IMX_SCU
->  	depends on IMX_DSP
->  	help
-> diff --git a/sound/soc/sof/imx/Makefile b/sound/soc/sof/imx/Makefile
-> index 6ef908e8c807..9e8f35df0ff2 100644
-> --- a/sound/soc/sof/imx/Makefile
-> +++ b/sound/soc/sof/imx/Makefile
-> @@ -1,4 +1,6 @@
->  # SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
->  snd-sof-imx8-objs := imx8.o
->  
-> -obj-$(CONFIG_SND_SOC_SOF_IMX8) += snd-sof-imx8.o
-> +ifdef CONFIG_SND_SOC_SOF_IMX8
-> +obj-$(CONFIG_SND_SOC_SOF_OF) += snd-sof-imx8.o
+>  sound/soc/atmel/Kconfig  |  4 ++--
+>  sound/soc/atmel/Makefile | 10 ++++++++--
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+> =
+
+> diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
+> index f118c229ed82..25c31bf64936 100644
+> --- a/sound/soc/atmel/Kconfig
+> +++ b/sound/soc/atmel/Kconfig
+> @@ -10,11 +10,11 @@ config SND_ATMEL_SOC
+>  if SND_ATMEL_SOC
+>  =
+
+>  config SND_ATMEL_SOC_PDC
+> -	tristate
+> +	bool
+>  	depends on HAS_DMA
+>  =
+
+>  config SND_ATMEL_SOC_DMA
+> -	tristate
+> +	bool
+>  	select SND_SOC_GENERIC_DMAENGINE_PCM
+>  =
+
+>  config SND_ATMEL_SOC_SSC
+> diff --git a/sound/soc/atmel/Makefile b/sound/soc/atmel/Makefile
+> index 1f6890ed3738..c7d2989791be 100644
+> --- a/sound/soc/atmel/Makefile
+> +++ b/sound/soc/atmel/Makefile
+> @@ -6,8 +6,14 @@ snd-soc-atmel_ssc_dai-objs :=3D atmel_ssc_dai.o
+>  snd-soc-atmel-i2s-objs :=3D atmel-i2s.o
+>  snd-soc-mchp-i2s-mcc-objs :=3D mchp-i2s-mcc.o
+>  =
+
+> -obj-$(CONFIG_SND_ATMEL_SOC_PDC) +=3D snd-soc-atmel-pcm-pdc.o
+> -obj-$(CONFIG_SND_ATMEL_SOC_DMA) +=3D snd-soc-atmel-pcm-dma.o
+> +# pdc and dma need to both be built-in if any user of
+> +# ssc is built-in.
+> +ifdef CONFIG_SND_ATMEL_SOC_PDC
+> +obj-$(CONFIG_SND_ATMEL_SOC_SSC) +=3D snd-soc-atmel-pcm-pdc.o
 > +endif
+> +ifdef CONFIG_SND_ATMEL_SOC_DMA
+> +obj-$(CONFIG_SND_ATMEL_SOC_SSC) +=3D snd-soc-atmel-pcm-dma.o
+> +endif
+>  obj-$(CONFIG_SND_ATMEL_SOC_SSC) +=3D snd-soc-atmel_ssc_dai.o
+>  obj-$(CONFIG_SND_ATMEL_SOC_I2S) +=3D snd-soc-atmel-i2s.o
+>  obj-$(CONFIG_SND_MCHP_SOC_I2S_MCC) +=3D snd-soc-mchp-i2s-mcc.o
+
+I was just exploring similar solution, using $(if X,Y) instead, but your
+fix will work just as well.
+
+Reviewed-by: Micha=B3 Miros=B3aw <mirq-linux@rere.qmqm.pl>
+
+Best Regards,
+Micha=B3=A0Miros=B3aw
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

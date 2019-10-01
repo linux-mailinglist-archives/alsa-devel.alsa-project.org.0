@@ -2,132 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14195C3A13
-	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 18:11:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59C7DC3A8E
+	for <lists+alsa-devel@lfdr.de>; Tue,  1 Oct 2019 18:31:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2E901674;
-	Tue,  1 Oct 2019 18:10:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2E901674
+	by alsa0.perex.cz (Postfix) with ESMTPS id D50FD167A;
+	Tue,  1 Oct 2019 18:30:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D50FD167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569946285;
-	bh=geskF9KVaaFr3atN/DyXttrf5iE6w7d9OZHJYrOo9l4=;
-	h=To:From:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1569947499;
+	bh=jNnL45RQ73c6RkRFitqvOnKrKxMZmx9rvMbxqzzJnPk=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NPG3AaMhpYZ3ODuqxrTnJpUbGraOyxRdW39y18DfSd/2hzY0a+kISldxs007WLON3
-	 t2WXm/P9TkstVZ1GWbEMX/YWmtjIhdoFSV/tnBPjg/97cbLzpzjEkcthchzGF9Iuq7
-	 CtxQVRpWCgUu8wfT4RV6eMRwgC15FcaSLolJqlUs=
+	b=PGEtgfFiPxoeVM0W/EIJU2k37vZh3H8ZBpOVeWRHeQKSxCUaSDny+BPQammX0qLfN
+	 JWB/za3BJnoHoFAFowyimfIS3X1Hv582ObR4jbuTwjyj8RPlOfb2jb9ZPqQP2ioswI
+	 5U2ceCFNzxYnKB86nOIVfkiMJcQ69/O9PJnXknu0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 465F7F805FF;
-	Tue,  1 Oct 2019 18:09:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9462F80519;
+	Tue,  1 Oct 2019 18:29:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01BAFF80482; Tue,  1 Oct 2019 18:09:18 +0200 (CEST)
+ id 0C7D9F80506; Tue,  1 Oct 2019 18:29:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-qt1-f196.google.com (mail-qt1-f196.google.com
+ [209.85.160.196])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E975F80482
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 18:09:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E975F80482
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="OzBe6rYt"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20191001160914euoutp019a57901cc65db4f3959976d48e3dd93b~JkbW0-tP_0806408064euoutp01x
- for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 16:09:14 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20191001160914euoutp019a57901cc65db4f3959976d48e3dd93b~JkbW0-tP_0806408064euoutp01x
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1569946154;
- bh=0iXMcbO5zbECgDnWNZ06BqtYV9m9VlieFlQ6pOPEbvA=;
- h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
- b=OzBe6rYt5XCT0stjr5ugyXUZJPiZlu4PWOWyn3H3KQTrSugx2+lS0A+eEYTIg5VnE
- A7/fVyDJMvGQeWkw/5DDRHEUux+iFx2k9O0o0FBH2tUnosJVSI7E0Tdtl/levzNTT6
- qFjO5OGQ/OVeV+aNvEHe7nNkBKbjwQpfsCeAyBLw=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20191001160914eucas1p278f9a0f55b635d74feeb1c0e4117d6e1~JkbWrWueW2183421834eucas1p2Z;
- Tue,  1 Oct 2019 16:09:14 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id 9F.B8.04309.A2A739D5; Tue,  1
- Oct 2019 17:09:14 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20191001160913eucas1p1ce452b9fe9bfa44843438a67a7822a57~JkbV_BVvv2988729887eucas1p1E;
- Tue,  1 Oct 2019 16:09:13 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20191001160913eusmtrp2acb5fb911c2b830ef6a7bb3f1d64291c~JkbV9V3dx1352113521eusmtrp2s;
- Tue,  1 Oct 2019 16:09:13 +0000 (GMT)
-X-AuditID: cbfec7f4-ae1ff700000010d5-b1-5d937a2a24e6
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 27.F6.04166.92A739D5; Tue,  1
- Oct 2019 17:09:13 +0100 (BST)
-Received: from [106.120.51.75] (unknown [106.120.51.75]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20191001160913eusmtip28cac83a3c5e49e10aa8353c3e73e9d70~JkbVUfWlO1030610306eusmtip2I;
- Tue,  1 Oct 2019 16:09:13 +0000 (GMT)
-To: broonie@kernel.org
-From: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Message-ID: <4baf2a0d-f0b3-579c-365c-2948e7c841c9@samsung.com>
-Date: Tue, 1 Oct 2019 18:09:12 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 617CBF800D0
+ for <alsa-devel@alsa-project.org>; Tue,  1 Oct 2019 18:29:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 617CBF800D0
+Received: by mail-qt1-f196.google.com with SMTP id j31so22390825qta.5
+ for <alsa-devel@alsa-project.org>; Tue, 01 Oct 2019 09:29:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=0zO73icoSPJ3pNVWiNNF9L9OEEbriWKwEbaN0EtJRPI=;
+ b=HMr/xjJ+f3EuVMIa8FGFEvUSQnuZ520/gqdsdbDHb0OM2kQWqsFARHLwAZWRi8NS1r
+ 9tT8fdQtYK9BDW6RtntaAiuN510itVBxgdtGpjzAIt/bQkQT15oDRTmS/gTL6RJ1wm5+
+ j5hbtvq5ElRr+kZ9cipumoAjZRrwykqrPqoE7AWhp/V4d3rMzfcHwNADweUDBdFRTyC+
+ INcw0IG3lbfmw5axmevQ61uGpzn5kc35o4IgsaSOVbHoQ4aThwY/EtH86ojhcDMkmuUe
+ v6OixiR1PlXjUsBRXsbNc4LHWMlNBfP0CECbxMvprsSneis/2P0EZKj/DntwriCqIZ90
+ HmYQ==
+X-Gm-Message-State: APjAAAXz51khEXQNDuZtUusl1wvMW+B1DFwVJ6j6H1+arqzsuhLKTeNc
+ 7e4SM+GAqRpgR11CWO8DoFDSnuf47Ko9et72jVw=
+X-Google-Smtp-Source: APXvYqxkgIX2gcVaLjsRtcgaC+7CiGnoTPy8gmARgU5xbBtCjA5leLB24V7ISErrIwWtMs8YA3rGRE+qoQ6Sf7PgVcI=
+X-Received: by 2002:ac8:1a2e:: with SMTP id v43mr31469917qtj.204.1569947386677; 
+ Tue, 01 Oct 2019 09:29:46 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20191001123625.19370-3-s.nawrocki@samsung.com>
-Content-Language: en-GB
-X-Brightmail-Tracker: H4sIAAAAAAAAA01Sa0hTYRjuO5ftuFp8ztvLkoqxP0U3JehAIkWBEwqkfhSF1ClPGrkpO2rO
- ytRu3tJKa+s0yUuwGl10VmoXrU03TdgUTBSzC0mhIIYbQRSutlPkv+d53ud93+95+RhS5abV
- zHFDHm80cNkamYJ66v7hXb+2qC59U+W8mh0ZdhJsm+URzV7/NCVjRy44EOvztcrZ7yPlBOv4
- PEqzFl83wT7onZSz/rkemh2+GyC2LdW1+stkui5xUq5z2CtkuvY7Z3VmaxDpah7bkc7vWJkm
- P6BIyuCzjxfwxo3JhxVZlzpjcr1Eoc0yKCtB9UQlimAAbwbxRhVViRSMCt9F0DgukhIJILhf
- 2y2TiB/B4Plzf2xMuKXegyXdhuChd4AOjVLhWQS3XIqQJwrvgjafKSRH41iYsFaEh5K4gYBp
- ew8ZKshwAlzuq0EhrMTJ4D3vpkKYwloY/CKGZ8bg/TD/0UVLnkgYuDkV9kTgJGjxPwz3kjgO
- ygL3aAmvgo5Za3gZ4PdysHZ8kks5d8JM71tawlEw43n8V4+HYNdtQmo4h6D6+YRcIlcQfPA0
- Ism1FVyeYToUjcRr4NGzjZK8HbpezBHSVZbD2Gyk9IjlcO2pmZRkJZRfVEluLfy0m/+eXQ1V
- U0HqCtKIi6KJi+KIi+KI//c2IsqO4vh8QZ/JC4kG/uQGgdML+YbMDUdz9A7053cNLngCnejZ
- ryNOhBmkWaYs2VOXrqK5AsGkdyJgSE20MunXtXSVMoMzFfHGnEPG/GxecKIVDKWJU55a8vGg
- CmdyefwJns/ljf+qBBOhLkHapgTfrr2NhS9fGXaL0/7U6nXeBkXfvoGhuaPN/c0tZadZ5nXQ
- Uv/tw8KTjOoIxVetUjg43dlfbAnM82VgMDe3p8X7V7pNtU2aN6ljy4bp3ZytYW+pb8vNsVWu
- 1LSa4I6lD8aHYgtSrua9e5+Y0hSXmLq62HUs1zZdKjtjHa3VUEIWl7CWNArcb1mudhRZAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrOIsWRmVeSWpSXmKPExsVy+t/xe7qaVZNjDfbd0ba4cvEQk8XGGetZ
- LaY+fMJmcaV1E6PF+fMb2C2+Xelgstj0+BqrxYzz+5gs1h65y27x+f1+VouLK74wOXB7bPjc
- xOaxc9Zddo9NqzrZPDYvqfeYPuc/o0ffllWMHp83yQWwR+nZFOWXlqQqZOQXl9gqRRtaGOkZ
- WlroGZlY6hkam8daGZkq6dvZpKTmZJalFunbJehltO8QLTjHVLF8xmm2BsYpTF2MHBwSAiYS
- U44LdDFycQgJLGWU2PdpNjNEXEpifotSFyMnkCks8edaFxuILSTwmlHi5Z5QkBJhAR+Jjecr
- QcIiAmISt+d0MoOMYRaYyyTR928zC8TMg4wSWx7vYAWpYhMwlOg92scIYvMK2EmcaznGAmKz
- CKhInH42C6xGVCBC4vCOWVA1ghInZz4Bq+EUsJFY/HkdWJxZQF3iz7xLzBC2uETTl5WsELa8
- xPa3c5gnMArNQtI+C0nLLCQts5C0LGBkWcUoklpanJueW2yoV5yYW1yal66XnJ+7iREYqduO
- /dy8g/HSxuBDjAIcjEo8vA1Bk2OFWBPLiitzDzFKcDArifDa/JkUK8SbklhZlVqUH19UmpNa
- fIjRFOi5icxSosn5wCSSVxJvaGpobmFpaG5sbmxmoSTO2yFwMEZIID2xJDU7NbUgtQimj4mD
- U6qBsW05K8v6qpbKXw7Ps/Nr+Q/pJpv+We0ZYLZWS/3xm8mXFkifyJvZK7/F3nxhnV4Qg/os
- j+oZ13Jvb7FRPaV/8ebZXyuXaX4QWnXwgN9ilzzLNU/0/qodCz60WtrA7Fe9ntjXz6mLuquP
- d8R+Fg7M0T26OTyiJFJm1uF8wfdnXDmiLm9bkmfOpMRSnJFoqMVcVJwIANxqanXqAgAA
-X-CMS-MailID: 20191001160913eucas1p1ce452b9fe9bfa44843438a67a7822a57
-X-Msg-Generator: CA
-X-RootMTR: 20191001123640eucas1p265d38cc9ad2a3103abd63b5d04d18628
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20191001123640eucas1p265d38cc9ad2a3103abd63b5d04d18628
-References: <20191001123625.19370-1-s.nawrocki@samsung.com>
- <CGME20191001123640eucas1p265d38cc9ad2a3103abd63b5d04d18628@eucas1p2.samsung.com>
- <20191001123625.19370-3-s.nawrocki@samsung.com>
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- ckeepax@opensource.cirrus.com, b.zolnierkie@samsung.com, sbkim73@samsung.com,
- patches@opensource.cirrus.com, lgirdwood@gmail.com, krzk@kernel.org,
- linux-arm-kernel@lists.infradead.org, m.szyprowski@samsung.com
-Subject: Re: [alsa-devel] [PATCH v3 RESEND 3/3] ASoC: samsung: Rename
-	Arndale card driver
+References: <20191001142026.1124917-1-arnd@arndb.de>
+ <bb58c7cc-209d-7a2f-0e5b-95a9605ffe7b@linux.intel.com>
+ <CAK8P3a3Js2dNhnRhP7PLadWZ69DZr1mz6DowN9HDJL4CFDAAFw@mail.gmail.com>
+ <e4b90233-846c-bfc1-68a3-a7b7c28b60bd@linux.intel.com>
+In-Reply-To: <e4b90233-846c-bfc1-68a3-a7b7c28b60bd@linux.intel.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 1 Oct 2019 18:29:30 +0200
+Message-ID: <CAK8P3a1vHECVV86JHxEZmo7jQOosHO=H33v784keqLMNiiHSxA@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Fabio Estevam <festevam@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Hulk Robot <hulkci@huawei.com>,
+ Mark Brown <broonie@kernel.org>, NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Daniel Baluta <daniel.baluta@nxp.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: imx: fix reverse
+ CONFIG_SND_SOC_SOF_OF dependency
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,14 +95,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/1/19 14:36, Sylwester Nawrocki wrote:
-> Rename arndale_rt5631.c to just arnddale.c as we support other CODECs
-> than RT5631.  While at it replace spaces in Kconfig with tabs.
-> 
-> Signed-off-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
+On Tue, Oct 1, 2019 at 6:03 PM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+> On 10/1/19 10:41 AM, Arnd Bergmann wrote:
+> > On Tue, Oct 1, 2019 at 5:32 PM Pierre-Louis Bossart
+> > <pierre-louis.bossart@linux.intel.com> wrote:
 
-I forgot to add carry the tag:
- Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
+> >
+> > The same could be done with a Kconfig-only solution avoiding
+> > 'select' such as:
+> >
+> > config SND_SOC_SOF_IMX8_SUPPORT
+> >           bool "SOF support for i.MX8"
+> >           depends on IMX_SCU
+> >           depends on IMX_DSP
+> >
+> >   config SND_SOC_SOF_IMX8
+> >           def_tristate SND_SOC_SOF_OF
+> >           depends on SND_SOC_SOF_IMX8_SUPPORT
+>
+> Ah, nice, thanks for the suggestion! That would be my preference, we
+> have a similar select for PCI and ACPI parts in sound/soc/sof/Kconfig
+> and I was looking for a means to do this more elegantly.
+> I can submit a new fix or let you sent a v2, whatever is more convenient.
+
+Ok, please send a patch then, I can add it to my randconfig test tree to
+make sure it covers all corner cases.
+
+    Arnd
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

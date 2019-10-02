@@ -2,71 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDFAAC49B3
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 10:39:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2F34C49D7
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 10:44:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D03F0167F;
-	Wed,  2 Oct 2019 10:38:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D03F0167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 881EF167B;
+	Wed,  2 Oct 2019 10:43:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 881EF167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570005557;
-	bh=/dpRJilCq8LDhWLvlevlvugRNHE7+TuDWGX9lTI9tDk=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=olv37y++ApShX3ECjW51TPpyv52AIyjPmcr5AW7Lq9kqTPBEq9jTkgXPpKJd6Jzni
-	 83Wq8+zRjEHZ7PoxuAhvb+wakoV1t/6QR6ljhsBGeR80ug5eJ+f5GHHZpyaXco1KuE
-	 +MxtDMAEAk3fly5y/RRNC2/o48ndzbE6rJTwFFHE=
+	s=default; t=1570005875;
+	bh=88T2M9WySDespDDqgELOIPHB5z0RVqcb3/Ix+3w2Ey0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=PiEm57/n9Tpbc19Il3mj4rtHW5XPWYHFimY+Lk1p2M3nhKnu+kxHYTiYamRHJH7Fe
+	 9d54jX4cXsw3QZQ4W5jarBFGQHX0uA9wPXGLT+itDVJGzxrqH0CYha8jzT5FpUzSqV
+	 jIVnAe32vhJVAMieOPKSafJGfDEpT94IiU4MrkZ8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F8F1F804CB;
-	Wed,  2 Oct 2019 10:36:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02745F803D5;
+	Wed,  2 Oct 2019 10:42:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 374E8F80528; Wed,  2 Oct 2019 10:36:53 +0200 (CEST)
+ id 558EAF80391; Wed,  2 Oct 2019 10:42:49 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9565F8036E
- for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 10:36:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9565F8036E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="H/cyj4XQ"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 737A1206C0;
- Wed,  2 Oct 2019 08:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1570005409;
- bh=Fz3G6JDNACXQd2RhNujXk869SixEzsjL+NkZV4Cq0F8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=H/cyj4XQuDZuUnYggEFCdOaT7QbbspwnS2Z+e4L/x6JPny9+x8KuJ/grHK9Tcn3UG
- uZ24/Ko13j82XZps2OqX7mJDgI6Q8bz6dllZ73XqRfTJWv899MzPCAJPs5Bp7oTX6s
- RVq3R17S8RhweG9EeeoVQrCLW6iZmAJivn5SeHWE=
-Date: Wed, 2 Oct 2019 10:36:46 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Michal Suchanek <msuchanek@suse.de>
-Message-ID: <20191002083646.GB1687317@kroah.com>
-References: <20191002081717.GA4015@kitsune.suse.cz>
- <91e2fc425e0dea92d7f131da890e52af273de36c.1570005196.git.msuchanek@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C55CF8036E
+ for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 10:42:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C55CF8036E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="beuSgqoM"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ x928cxLp000582; Wed, 2 Oct 2019 03:42:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type;
+ s=PODMain02222019; bh=WB7+FG8tIlNPodINVvK+ytEK10JE2ZHiG0dXcoI2+Qo=;
+ b=beuSgqoMezH7EkJKxg9T1B6VUuqdjb0OCqZNLNqWStwnNRNCrVs/E5tl45LRuxrZKj8B
+ u4ww9FD2xvDbTh+jvO/5oCe0E7eW+8gQ6d3UOWwA2XYGI5K0wigiD7bAVXBeqTuQHRF0
+ AA3piMkMz3v+MNVgZi2LAUkWEaOsc2GGOtcb7HyliZBmQ9XgcEbQKrKw6+Uvrm7b0jJd
+ SQWLtK12MLwzRkudv0ri3czQEUfC+WGJLFmx28bwiXcoASVYvlKKVkzctrZvCJCpNAcO
+ 7H/LzRZ1AqhVQTUPLIDkoO30aqJJ1WeH4Jt4LKCfzqgfLkyDN3IH/PmQCArZPzM+iOtO pw== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex01.ad.cirrus.com ([87.246.76.36])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2va4x4pjwa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Wed, 02 Oct 2019 03:42:44 -0500
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 2 Oct
+ 2019 09:42:40 +0100
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Wed, 2 Oct 2019 09:42:40 +0100
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 9B0032A1;
+ Wed,  2 Oct 2019 08:42:40 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Date: Wed, 2 Oct 2019 09:42:40 +0100
+Message-ID: <20191002084240.21589-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.11.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <91e2fc425e0dea92d7f131da890e52af273de36c.1570005196.git.msuchanek@suse.de>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Vinod Koul <vkoul@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>
-Subject: Re: [alsa-devel] [PATCH 2/2] soundwire: depend on ACPI || OF
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
+ mlxlogscore=676
+ malwarescore=0 adultscore=0 phishscore=0 impostorscore=0
+ priorityscore=1501 suspectscore=1 bulkscore=0 mlxscore=0 clxscore=1015
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-1908290000 definitions=main-1910020082
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com
+Subject: [alsa-devel] [PATCH] ASoC: wm_adsp: Don't generate kcontrols
+	without READ flags
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,41 +103,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 02, 2019 at 10:33:30AM +0200, Michal Suchanek wrote:
-> Now devicetree is supposrted for probing sondwire as well.
-> 
-> Fixes: a2e484585ad3 ("soundwire: core: add device tree support for slave devices")
-> Signed-off-by: Michal Suchanek <msuchanek@suse.de>
-> ---
->  drivers/soundwire/Kconfig | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
-> index c73bfbaa2659..c8c80df090d1 100644
-> --- a/drivers/soundwire/Kconfig
-> +++ b/drivers/soundwire/Kconfig
-> @@ -5,7 +5,7 @@
->  
->  menuconfig SOUNDWIRE
->  	tristate "SoundWire support"
-> -	depends on ACPI
-> +	depends on ACPI || OF
->  	help
->  	  SoundWire is a 2-Pin interface with data and clock line ratified
->  	  by the MIPI Alliance. SoundWire is used for transporting data
-> -- 
-> 2.23.0
-> 
+From: Stuart Henderson <stuarth@opensource.cirrus.com>
 
+User space always expects to be able to read ALSA controls, so ensure
+no kcontrols are generated without an appropriate READ flag. In the case
+of a read of such a control zeros will be returned.
 
-<formletter>
+Signed-off-by: Stuart Henderson <stuarth@opensource.cirrus.com>
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+---
+ sound/soc/codecs/wm_adsp.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index 85396d920e0a9..9b8bb7bbe945d 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -1259,8 +1259,7 @@ static unsigned int wmfw_convert_flags(unsigned int in, unsigned int len)
+ 	}
+ 
+ 	if (in) {
+-		if (in & WMFW_CTL_FLAG_READABLE)
+-			out |= rd;
++		out |= rd;
+ 		if (in & WMFW_CTL_FLAG_WRITEABLE)
+ 			out |= wr;
+ 		if (in & WMFW_CTL_FLAG_VOLATILE)
+-- 
+2.11.0
 
-</formletter>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

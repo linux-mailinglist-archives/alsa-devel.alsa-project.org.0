@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30BEDC499E
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 10:35:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79DBBC499F
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 10:36:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AAE1F167B;
-	Wed,  2 Oct 2019 10:34:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAE1F167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F019F1664;
+	Wed,  2 Oct 2019 10:35:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F019F1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570005331;
-	bh=7emjAkLJSM9Q7rr5J6qlMfbjwAUQPbz9gKWiQERLBdg=;
+	s=default; t=1570005378;
+	bh=dFOxz28PvT77qgIKYFz3tEq7Oq31YKFAtubTPd0EacE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aEVAIjlE8PyVQkZe2lOmLZcNJPV0J5pD0y624Gf4v7XJrhPVOxXMucEp9qgScB/NE
-	 v7DsQ1jfa2x+eA7fE5IJH0Pd1i7Bi1ysQjNc0LAeigm1Lq2ozRep8NepeTz+rUm2Ud
-	 Q9FsceicC3EjI7SvHCxEX+zMwP5BYYArSzIRjv+M=
+	b=ntPDINB+b5vHmeLmHTdmQz/Fog92OZgYp7jQ/d8JMMuGicUO+mFBlO4zYkAqTtner
+	 zsA4ff7iGMRFZJusqr9esUntl3SvlR36tKLly5XIkT20zHTk9EeMxMlQJGszCgPcdf
+	 +IkZnhPifn4GsXgKqlavFPN4h5Sm8WCub0iTJ8aY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFD18F803D5;
-	Wed,  2 Oct 2019 10:33:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEE5FF805FA;
+	Wed,  2 Oct 2019 10:33:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 178B4F8036E; Wed,  2 Oct 2019 10:33:44 +0200 (CEST)
+ id DF459F803F3; Wed,  2 Oct 2019 10:33:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -33,17 +33,17 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BD67F8016F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F26FF80377
  for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 10:33:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BD67F8016F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F26FF80377
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id B6B21B090;
- Wed,  2 Oct 2019 08:33:40 +0000 (UTC)
+ by mx1.suse.de (Postfix) with ESMTP id 25490B0B7;
+ Wed,  2 Oct 2019 08:33:41 +0000 (UTC)
 From: Michal Suchanek <msuchanek@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Wed,  2 Oct 2019 10:33:29 +0200
-Message-Id: <459d62805e8cb20e27667626e80d962569e7e83a.1570005196.git.msuchanek@suse.de>
+Date: Wed,  2 Oct 2019 10:33:30 +0200
+Message-Id: <91e2fc425e0dea92d7f131da890e52af273de36c.1570005196.git.msuchanek@suse.de>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191002081717.GA4015@kitsune.suse.cz>
 References: <20191002081717.GA4015@kitsune.suse.cz>
@@ -52,7 +52,7 @@ Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Vinod Koul <vkoul@kernel.org>, Sanyog Kale <sanyog.r.kale@intel.com>,
  Michal Suchanek <msuchanek@suse.de>
-Subject: [alsa-devel] [PATCH 1/2] soundwire: depend on ACPI
+Subject: [alsa-devel] [PATCH 2/2] soundwire: depend on ACPI || OF
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,26 +65,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhlIGRldmljZSBjYW5ub3QgYmUgcHJvYmVkIG9uICFBQ1BJIGFuZCBnaXZlcyB0aGlzIHdhcm5p
-bmc6Cgpkcml2ZXJzL3NvdW5kd2lyZS9zbGF2ZS5jOjE2OjEyOiB3YXJuaW5nOiDigJhzZHdfc2xh
-dmVfYWRk4oCZIGRlZmluZWQgYnV0Cm5vdCB1c2VkIFstV3VudXNlZC1mdW5jdGlvbl0KIHN0YXRp
-YyBpbnQgc2R3X3NsYXZlX2FkZChzdHJ1Y3Qgc2R3X2J1cyAqYnVzLAogICAgICAgICAgICBefn5+
-fn5+fn5+fn5+CgpGaXhlczogN2MzY2QxODliODZkICgic291bmR3aXJlOiBBZGQgTWFzdGVyIHJl
-Z2lzdHJhdGlvbiIpClNpZ25lZC1vZmYtYnk6IE1pY2hhbCBTdWNoYW5layA8bXN1Y2hhbmVrQHN1
-c2UuZGU+Ci0tLQogZHJpdmVycy9zb3VuZHdpcmUvS2NvbmZpZyB8IDEgKwogMSBmaWxlIGNoYW5n
-ZWQsIDEgaW5zZXJ0aW9uKCspCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9zb3VuZHdpcmUvS2NvbmZp
-ZyBiL2RyaXZlcnMvc291bmR3aXJlL0tjb25maWcKaW5kZXggZjUxODI3M2NmYmUzLi5jNzNiZmJh
-YTI2NTkgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvc291bmR3aXJlL0tjb25maWcKKysrIGIvZHJpdmVy
-cy9zb3VuZHdpcmUvS2NvbmZpZwpAQCAtNSw2ICs1LDcgQEAKIAogbWVudWNvbmZpZyBTT1VORFdJ
-UkUKIAl0cmlzdGF0ZSAiU291bmRXaXJlIHN1cHBvcnQiCisJZGVwZW5kcyBvbiBBQ1BJCiAJaGVs
-cAogCSAgU291bmRXaXJlIGlzIGEgMi1QaW4gaW50ZXJmYWNlIHdpdGggZGF0YSBhbmQgY2xvY2sg
-bGluZSByYXRpZmllZAogCSAgYnkgdGhlIE1JUEkgQWxsaWFuY2UuIFNvdW5kV2lyZSBpcyB1c2Vk
-IGZvciB0cmFuc3BvcnRpbmcgZGF0YQotLSAKMi4yMy4wCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRl
-dmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFp
-bG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+Now devicetree is supposrted for probing sondwire as well.
+
+Fixes: a2e484585ad3 ("soundwire: core: add device tree support for slave devices")
+Signed-off-by: Michal Suchanek <msuchanek@suse.de>
+---
+ drivers/soundwire/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/soundwire/Kconfig b/drivers/soundwire/Kconfig
+index c73bfbaa2659..c8c80df090d1 100644
+--- a/drivers/soundwire/Kconfig
++++ b/drivers/soundwire/Kconfig
+@@ -5,7 +5,7 @@
+ 
+ menuconfig SOUNDWIRE
+ 	tristate "SoundWire support"
+-	depends on ACPI
++	depends on ACPI || OF
+ 	help
+ 	  SoundWire is a 2-Pin interface with data and clock line ratified
+ 	  by the MIPI Alliance. SoundWire is used for transporting data
+-- 
+2.23.0
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

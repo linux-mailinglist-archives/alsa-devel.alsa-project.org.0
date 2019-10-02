@@ -2,47 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A4C1C4710
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 07:42:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ACA6C4711
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 07:42:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2182B1668;
-	Wed,  2 Oct 2019 07:41:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2182B1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 038521695;
+	Wed,  2 Oct 2019 07:41:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 038521695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569994927;
+	s=default; t=1569994959;
 	bh=uwQEHWLmYqB0trdsyOxPPmxM1j+OyGjmLuZqLy1swnA=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=glfnzAWp/kEMLl8tyHdJblFHXwNdTsU2GFAn5JE1wLfpJi4nKZdrFw9LmO2/+SvzZ
-	 qID7CdTDoVGsRmrbGrjNanAbFUXJy6edPmoNJyqveNrfgEh/XnoAEKhzywFZxNS9TZ
-	 DXOwyiyTHdg9h+3wx1Xlw+zhxLg9YmRUv6kbBSM0=
+	b=IvKkbicMsSMjHY8EDjZsjuuvu0axiQ1QLmdsbHVhDC8bwjIZWOyx1jtNBLM+Tm/bh
+	 NrLa8fBocBOi2KTyIRDdOZ0WGoyMDVkfk/eMg/5Gt7R/mPaGUXofIvCv1LEtiz7Pfo
+	 Zu0IHmCdJ/crkGNGTRyOzhkrNAzF0RhAjJKZIn2A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 233AAF80724;
-	Wed,  2 Oct 2019 07:32:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38B2BF8071F;
+	Wed,  2 Oct 2019 07:32:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B01A4F80720; Wed,  2 Oct 2019 07:32:36 +0200 (CEST)
+ id A31A5F8072A; Wed,  2 Oct 2019 07:32:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 5A7ACF80716
- for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 07:32:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A7ACF80716
-Date: 02 Oct 2019 14:32:29 +0900
-X-IronPort-AV: E=Sophos;i="5.64,573,1559487600"; d="scan'208";a="27857367"
-Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 02 Oct 2019 14:32:29 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 24020F8071F
+ for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 07:32:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24020F8071F
+Date: 02 Oct 2019 14:32:31 +0900
+X-IronPort-AV: E=Sophos;i="5.64,573,1559487600"; d="scan'208";a="27857374"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 02 Oct 2019 14:32:31 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 20F9C4004953;
- Wed,  2 Oct 2019 14:32:29 +0900 (JST)
-Message-ID: <87bluzaf0y.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3953141AC467;
+ Wed,  2 Oct 2019 14:32:31 +0900 (JST)
+Message-ID: <87a7ajaf0w.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
 To: Mark Brown <broonie@kernel.org>

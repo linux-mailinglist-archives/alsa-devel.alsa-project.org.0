@@ -2,105 +2,106 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 191FAC89E1
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 15:37:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCEEEC8A58
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 15:58:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98E21167D;
-	Wed,  2 Oct 2019 15:36:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98E21167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57635167C;
+	Wed,  2 Oct 2019 15:57:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57635167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570023467;
-	bh=2wgFWG59Wgluw5GuMQP/WZfcb7hKDiEPq1E4PalFou0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GTDthyo1xYjKPeE0XN+yTlpukVE3foI1FEqYtZT5iK2cA9OAdBhSj8rpdco817L2R
-	 rI+TNIcrHnEZleGPhSyikocBqEV9eahwBu/5FQK8KP8LJS9WtrSzzzwW3YKS9tSgtr
-	 rKyZvV3v7wKI6BQ5hhqB1Dng6tpw2ppnnR7jvVAE=
+	s=default; t=1570024705;
+	bh=8Cslzj6YVJ5InYUOzOnzL0LTe3Ej01Teb0ti9oswQZo=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ayg4MK1twkbIP3bIZhr1HHU2zRoh7Nx+EANzQuYmYylfAOzhgwl9aaTxyrYcXT39M
+	 n2X5MOJGAucTtiMoqHHFuMPp8/Leecb7J/l5bJdPXMu/DI04Z4KU3QMnGJcaltYw20
+	 J2bsC2kzj7tqKBIFlcvTErX4ej2bC09Rw0W3ySeE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 183EEF80391;
-	Wed,  2 Oct 2019 15:36:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3477F80377;
+	Wed,  2 Oct 2019 15:56:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03EF3F80391; Wed,  2 Oct 2019 15:35:59 +0200 (CEST)
+ id 1F691F80391; Wed,  2 Oct 2019 15:56:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from EUR04-DB3-obe.outbound.protection.outlook.com
+ (mail-eopbgr60080.outbound.protection.outlook.com [40.107.6.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 97967F8036E
- for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 15:35:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97967F8036E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77B91F800DE
+ for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 15:56:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77B91F800DE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="CEwJVEoE"
-Received: by mail-wr1-x442.google.com with SMTP id y19so19716406wrd.3
- for <alsa-devel@alsa-project.org>; Wed, 02 Oct 2019 06:35:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=SKsMv8qnMo+5vAVsJhy/p0hqFSrqBGNR2va/5wYlCuM=;
- b=CEwJVEoE0/j9CZxiEx8eaD9UtVNmxSeBk+wSYk0Ie4EqY8VXts8uiIcXkz+nV50KXu
- yKdlBWYBdjU2d2dEgqeyVK70H6nm/GN2aoIrvE3GxkvaqFYa6pmrVa9iV51u9/J25UoW
- cvRIh4cpLWJ6r2tXFe5dU4Eja4scW/+Jf/dVf9blzrjUhqBBVi6fdkfWDAlT2m4VYw9j
- RS1aUXbe1apSFbPzvdFUBTrZsiNYDvViq6YCDRMYebDVzvsORWFdvB4S4q3Mf+YPQyl9
- 5lxeJL8TFr+Zx1zQbjeKLVPl0sAR3PWqHeCBpK8ZwtJMiuLws18C+B1rzUO8JsTTB2XM
- z+Fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=SKsMv8qnMo+5vAVsJhy/p0hqFSrqBGNR2va/5wYlCuM=;
- b=m3W9eFjiUc/PP8oysOViIouoD/ULcvq4L0OY90QEM/P82S10HrmlEGmNKiV1mqO/rt
- WoQM6eEekVW4Tp0Xd5WkbVh3VBBGRm4kuZCq34yox8NglUkMCDgQM+h4fFNb+ROYgFIJ
- JxGtDe0wkZKpKG2CddH/I2uVSotq5xhCF6+Azup8ioFCZeZHUAP+wRFE4dkgiBn2jvkN
- vtpxO8MwkPEus4fkO1749zR61ht/7mla6phVLL1ynaxjm674abApMMq89E6LelbQ5Pm9
- aH/rqE0uZyQo5pi29cvSqBCHnnu0bYnEQbt2Krpm94yg+LgCB2lWa9fcPt6r8mT+RlSQ
- qJbQ==
-X-Gm-Message-State: APjAAAWFbQ+VJesmCv0hhVRiJ1TgSie1kAB5ltkobI5erwwmITfA3ykU
- HHkubPHV2yGgwpkpqhro85nozg==
-X-Google-Smtp-Source: APXvYqwmQEJTRFI2E4QtGacDdNY5KlrW5j4hYCbn4S/SB7PHxXD8maaacFuWFSKfjW3MsMrj5O0Gxw==
-X-Received: by 2002:a5d:43d0:: with SMTP id v16mr2822249wrr.390.1570023355697; 
- Wed, 02 Oct 2019 06:35:55 -0700 (PDT)
-Received: from dell ([2.27.167.122])
- by smtp.gmail.com with ESMTPSA id m18sm23191103wrg.97.2019.10.02.06.35.54
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 02 Oct 2019 06:35:55 -0700 (PDT)
-Date: Wed, 2 Oct 2019 14:35:53 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Message-ID: <20191002133553.GA21172@dell>
-References: <1569891524-18875-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1569891524-18875-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <20191001064539.GB11769@dell>
- <2ff13a61-a346-4d49-ab3a-da5d2126727c@amd.com>
- <20191001120020.GC11769@dell>
- <BN6PR12MB180930BD7D03FD7DEB14D7C1F79D0@BN6PR12MB1809.namprd12.prod.outlook.com>
- <20191002123759.GD11769@dell>
- <BN6PR12MB1809451A3152488F3D8D1371F79C0@BN6PR12MB1809.namprd12.prod.outlook.com>
+ dkim=pass (1024-bit key) header.d=artgroupspa.onmicrosoft.com
+ header.i=@artgroupspa.onmicrosoft.com header.b="iP8Gw5Np"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=X2ejRJzVEwYBi0bK9O1rfoq3fq3fI/S47rEwyNrnSuNJdy2D8+zpigI7+atYrEo1AHofRa8FNlxYFpwtTAsHCBtp5ZtBdoA6reZRpsDUEF/CgeTtpI07u4YrBi65WkeovmTXSzOaVOesuH7lZ9G+8aiw2YKGw0U/7MHrGWbgU7VXH3oDhcEvLdrJakcO1M2TxzswjVObvcHtrB3VOr+RBuubS8fty2zUze9RSEGncWJ/bFj7PHaI5A1PJu8dIXDys+QapFwDX3+GnRT+hykgPvTamHcdMtcwI7gyyAx2MExwM4cZhKTxs/4I7Ktv/4691iztL+pQY6VkfJgsfiXStw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+6bxRIFGaRk5hAKQSeP3O9v7QnEdwrZYrZg8Wj9gOac=;
+ b=UE/qFlbXYp2WDt+xB3M+9HTttxKSjalf6FLPJmYrJhDVnrL7/Vrcn+xgWxazzkqeOAl04VZfip5BNFkoiERUn1wXlPkTVBMxYxWBxtyXcBIsvx5y8D2TNuTr0MYrdI5wEC8RCIrdI9rBMSgfE9q/vMwHsy0KPEtKKGYx5O4MpAl9ZdVfEAsmaZhrHvtfLV6RzNmpx6qsHiLOBPkyfjt82wq0MIDcgbMdbnkuq//nHQB2FhfK+ZKWVP+ynFQLWtkAKxHU1vLITsQEPzswS2kCnD39rxH3IEey9MCYYp87ESh/julNerMlq5HuJD1kbrtrYE59avfmVmgTMVFud86KyA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=artgroup-spa.com; dmarc=pass action=none
+ header.from=artgroup-spa.com; dkim=pass header.d=artgroup-spa.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=artgroupspa.onmicrosoft.com; s=selector2-artgroupspa-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+6bxRIFGaRk5hAKQSeP3O9v7QnEdwrZYrZg8Wj9gOac=;
+ b=iP8Gw5Np9mmhxe76ikajhZ+xbn3aVX7HnQZvLuH/SOTRLGAPDram2f6h/jicsA0hAv8xIdvPdzKcdYItSiZyQ2/KsGGuveLjLrvKGsnuZJrZXEWzedXlm37yu0LKziTXWSkoi4BDlVK2NZtqaHnd/MRXgPWBjQvDXKEnwrKJihw=
+Received: from AM0P192MB0353.EURP192.PROD.OUTLOOK.COM (52.134.87.13) by
+ AM0P192MB0260.EURP192.PROD.OUTLOOK.COM (52.134.83.23) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2305.20; Wed, 2 Oct 2019 13:56:34 +0000
+Received: from AM0P192MB0353.EURP192.PROD.OUTLOOK.COM
+ ([fe80::988:f053:65ad:ee6e]) by AM0P192MB0353.EURP192.PROD.OUTLOOK.COM
+ ([fe80::988:f053:65ad:ee6e%7]) with mapi id 15.20.2305.017; Wed, 2 Oct 2019
+ 13:56:34 +0000
+From: Andrea Narciso - ART S.p.A. <andrea.narciso@artgroup-spa.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Thread-Topic: Period size setting is ignored when dmix is used
+Thread-Index: AdV5Ka+sIn7kKP1SSz2ubpFE9H2Kcg==
+Date: Wed, 2 Oct 2019 13:56:34 +0000
+Message-ID: <AM0P192MB03532F4DBA062D95D86107A2BA9C0@AM0P192MB0353.EURP192.PROD.OUTLOOK.COM>
+Accept-Language: it-IT, en-US
+Content-Language: it-IT
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=andrea.narciso@artgroup-spa.com; 
+x-originating-ip: [85.47.31.140]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: a2a99f99-eead-4631-592f-08d747405633
+x-ms-traffictypediagnostic: AM0P192MB0260:
+x-microsoft-antispam-prvs: <AM0P192MB0260C776ACA0F132CB30B6ECBA9C0@AM0P192MB0260.EURP192.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-forefront-prvs: 0178184651
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(366004)(396003)(136003)(39840400004)(199004)(189003)(7736002)(66066001)(256004)(2351001)(7696005)(74316002)(8936002)(14444005)(6506007)(478600001)(2906002)(305945005)(6436002)(5640700003)(99286004)(25786009)(9686003)(476003)(33656002)(486006)(6116002)(5660300002)(3846002)(102836004)(66446008)(66476007)(64756008)(66556008)(66946007)(76116006)(86362001)(14454004)(52536014)(55016002)(71200400001)(71190400001)(6916009)(316002)(2501003)(8676002)(81156014)(81166006)(186003)(26005);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM0P192MB0260;
+ H:AM0P192MB0353.EURP192.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: artgroup-spa.com does not
+ designate permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: mD/O6vNQHzIcog9MUXgz26vG67ZVbrQwPUaZWZwnXivjNfdydv1LruyWE4332upBkdNRH+NObwNV9eVSNP+zzloxOE8POLk4GThUNqn9IEzUUaoqxc5LNZCViU4mrueVqPfTs3pzbomnWOudzLNEgUsB8kYE6v410TaafPSzreM7eC+F9J+D0xDOWe8eD4ZzEdGxUHdeoNNe9zJ/C9QI6TqTs60+OEPK104UYZVtuZT7HugsnWcbh4J2OqjRfYcw8vxRn4/BxOCOrFur/zUZOF3CA/9/M6TBHwK2Vo6p2AnCkhRU413HD5ZGJz4yb8II9clPfA9ALdOCElDTpnL08EYgQCTsOKJORMBIvNWNTC21RC1XxEBK9uRZa2ChE3U8Az+P7sJoKapvViXtyP3rpnshRfdLq9RtII67oQxwpSY=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <BN6PR12MB1809451A3152488F3D8D1371F79C0@BN6PR12MB1809.namprd12.prod.outlook.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, "Mehta, Sanju" <Sanju.Mehta@amd.com>,
- Mark Brown <broonie@kernel.org>, "Mukunda,
- Vijendar" <Vijendar.Mukunda@amd.com>, "RAVULAPATI,
- VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>,
- Colin Ian King <colin.king@canonical.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel] [PATCH 2/7] ASoC: amd: Registering device
- endpoints using MFD framework
+X-OriginatorOrg: artgroup-spa.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2a99f99-eead-4631-592f-08d747405633
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2019 13:56:34.4899 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53c55efc-dafd-4709-9ce8-f76299277497
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: dULf+Caiqk2bWluMoTnaUO1SPXb/E0gQvHDTUDW2xiH4UHh7V501XsxJP0/S2MC+DpEOc/nGysdA+6GgafxtXuyyq0xNvHdlEIZv8z3Iw4s=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0P192MB0260
+Subject: [alsa-devel] Period size setting is ignored when dmix is used
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,82 +114,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gV2VkLCAwMiBPY3QgMjAxOSwgRGV1Y2hlciwgQWxleGFuZGVyIHdyb3RlOgoKPiA+IC0tLS0t
-T3JpZ2luYWwgTWVzc2FnZS0tLS0tCj4gPiBGcm9tOiBMZWUgSm9uZXMgPGxlZS5qb25lc0BsaW5h
-cm8ub3JnPgo+ID4gU2VudDogV2VkbmVzZGF5LCBPY3RvYmVyIDIsIDIwMTkgODozOCBBTQo+ID4g
-VG86IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT4KPiA+IENj
-OiBSQVZVTEFQQVRJLCBWSVNITlUgVkFSREhBTiBSQU8KPiA+IDxWaXNobnV2YXJkaGFucmFvLlJh
-dnVsYXBhdGlAYW1kLmNvbT47IExpYW0gR2lyZHdvb2QKPiA+IDxsZ2lyZHdvb2RAZ21haWwuY29t
-PjsgTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3JnPjsgSmFyb3NsYXYKPiA+IEt5c2VsYSA8
-cGVyZXhAcGVyZXguY3o+OyBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuY29tPjsgTXVrdW5kYSwK
-PiA+IFZpamVuZGFyIDxWaWplbmRhci5NdWt1bmRhQGFtZC5jb20+OyBNYXJ1dGhpIFNyaW5pdmFz
-IEJheXlhdmFyYXB1Cj4gPiA8TWFydXRoaS5CYXl5YXZhcmFwdUBhbWQuY29tPjsgTWVodGEsIFNh
-bmp1Cj4gPiA8U2FuanUuTWVodGFAYW1kLmNvbT47IENvbGluIElhbiBLaW5nIDxjb2xpbi5raW5n
-QGNhbm9uaWNhbC5jb20+OyBEYW4KPiA+IENhcnBlbnRlciA8ZGFuLmNhcnBlbnRlckBvcmFjbGUu
-Y29tPjsgbW9kZXJhdGVkIGxpc3Q6U09VTkQgLSBTT0MgTEFZRVIKPiA+IC8gRFlOQU1JQyBBVURJ
-TyBQT1dFUiBNQU5BR0VNLi4uIDxhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc+Owo+ID4gb3Bl
-biBsaXN0IDxsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnPgo+ID4gU3ViamVjdDogUmU6IFtQ
-QVRDSCAyLzddIEFTb0M6IGFtZDogUmVnaXN0ZXJpbmcgZGV2aWNlIGVuZHBvaW50cyB1c2luZyBN
-RkQKPiA+IGZyYW1ld29yawo+ID4gCj4gPiBPbiBUdWUsIDAxIE9jdCAyMDE5LCBEZXVjaGVyLCBB
-bGV4YW5kZXIgd3JvdGU6Cj4gPiAKPiA+ID4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQo+
-ID4gPiA+IEZyb206IExlZSBKb25lcyA8bGVlLmpvbmVzQGxpbmFyby5vcmc+Cj4gPiA+ID4gU2Vu
-dDogVHVlc2RheSwgT2N0b2JlciAxLCAyMDE5IDg6MDAgQU0KPiA+ID4gPiBUbzogUkFWVUxBUEFU
-SSwgVklTSE5VIFZBUkRIQU4gUkFPCj4gPiA+ID4gPFZpc2hudXZhcmRoYW5yYW8uUmF2dWxhcGF0
-aUBhbWQuY29tPgo+ID4gPiA+IENjOiBSQVZVTEFQQVRJLCBWSVNITlUgVkFSREhBTiBSQU8KPiA+
-ID4gPiA8VmlzaG51dmFyZGhhbnJhby5SYXZ1bGFwYXRpQGFtZC5jb20+OyBEZXVjaGVyLCBBbGV4
-YW5kZXIKPiA+ID4gPiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IExpYW0gR2lyZHdvb2QK
-PiA+IDxsZ2lyZHdvb2RAZ21haWwuY29tPjsKPiA+ID4gPiBNYXJrIEJyb3duIDxicm9vbmllQGtl
-cm5lbC5vcmc+OyBKYXJvc2xhdiBLeXNlbGEgPHBlcmV4QHBlcmV4LmN6PjsKPiA+ID4gPiBUYWth
-c2hpIEl3YWkgPHRpd2FpQHN1c2UuY29tPjsgTXVrdW5kYSwgVmlqZW5kYXIKPiA+ID4gPiA8Vmlq
-ZW5kYXIuTXVrdW5kYUBhbWQuY29tPjsgTWFydXRoaSBTcmluaXZhcyBCYXl5YXZhcmFwdQo+ID4g
-PiA+IDxNYXJ1dGhpLkJheXlhdmFyYXB1QGFtZC5jb20+OyBNZWh0YSwgU2FuanUKPiA+IDxTYW5q
-dS5NZWh0YUBhbWQuY29tPjsKPiA+ID4gPiBDb2xpbiBJYW4gS2luZyA8Y29saW4ua2luZ0BjYW5v
-bmljYWwuY29tPjsgRGFuIENhcnBlbnRlcgo+ID4gPiA+IDxkYW4uY2FycGVudGVyQG9yYWNsZS5j
-b20+OyBtb2RlcmF0ZWQgbGlzdDpTT1VORCAtIFNPQyBMQVlFUiAvCj4gPiA+ID4gRFlOQU1JQyBB
-VURJTyBQT1dFUiBNQU5BR0VNLi4uIDxhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc+Owo+ID4g
-b3Blbgo+ID4gPiA+IGxpc3QgPGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+Cj4gPiA+ID4g
-U3ViamVjdDogUmU6IFtQQVRDSCAyLzddIEFTb0M6IGFtZDogUmVnaXN0ZXJpbmcgZGV2aWNlIGVu
-ZHBvaW50cwo+ID4gPiA+IHVzaW5nIE1GRCBmcmFtZXdvcmsKPiA+ID4gPgo+ID4gPiA+IE9uIFR1
-ZSwgMDEgT2N0IDIwMTksIHZpc2hudSB3cm90ZToKPiA+ID4gPgo+ID4gPiA+ID4gSGkgSm9uZXMs
-Cj4gPiA+ID4gPgo+ID4gPiA+ID4gSSBhbSB2ZXJ5IFRoYW5rZnVsIHRvIHlvdXIgcmV2aWV3IGNv
-bW1lbnRzLgo+ID4gPiA+ID4KPiA+ID4gPiA+IEFjdHVhbGx5IFRoZSBkcml2ZXIgaXMgbm90IHRv
-dGFsbHkgYmFzZWQgb24gTUZELiBJdCBqdXN0IHVzZXMKPiA+ID4gPiA+IG1mZF9hZGRfaG90cGx1
-Z19kZXZpY2VzKCkgYW5kIG1mZF9yZW1vdmVfZGV2aWNlcygpIGZvciBhZGRpbmcKPiA+IHRoZQo+
-ID4gPiA+ID4gZGV2aWNlcyBhdXRvbWF0aWNhbGx5Lgo+ID4gPiA+ID4KPiA+ID4gPiA+IFJlbWFp
-bmluZyBjb2RlIGhhcyBub3RoaW5nIHRvIGRvIHdpdGggTUZEIGZyYW1ld29yay4KPiA+ID4gPiA+
-Cj4gPiA+ID4gPiBTbyBJIHRob3VnaHQgSXQgd291bGQgbm90IGJyZWFrIHRoZSBjb2Rpbmcgc3R5
-bGUgYW5kIG1vdmVkIGFoZWFkCj4gPiA+ID4gPiBieSB1c2luZyB0aGUgTUZEIEFQSSBieSBhZGRp
-bmcgaXRzIGhlYWRlciBmaWxlLgo+ID4gPiA+ID4KPiA+ID4gPiA+IElmIGl0IGlzIGFueSB2aW9s
-YXRpb24gb2YgY29kaW5nIHN0YW5kYXJkIHRoZW4gSSBjYW4gbW92ZSBpdCB0bwo+ID4gPiA+ID4g
-ZHJpdmVycy9tZmQuCj4gPiA+ID4gPgo+ID4gPiA+ID4gVGhpcyBwYXRjaCBjb3VsZCBiZSBhIHNo
-b3cgc3RvcHBlciBmb3IgdXMuUGxlYXNlIHN1Z2dlc3QgdXMgaG93Cj4gPiA+ID4gPiBjYW4gd2Ug
-bW92ZSBhaGVhZCBBU0FQLgo+ID4gPiA+Cj4gPiA+ID4gRWl0aGVyIG1vdmUgdGhlIE1GRCBwYXJ0
-cyB0byBkcml2ZXJzL21mZCwgb3Igc3RvcCB1c2luZyB0aGUgTUZEIEFQSS4KPiA+ID4KPiA+ID4g
-VGhlcmUgYXJlIG1vcmUgZHJpdmVycyBvdXRzaWRlIG9mIGRyaXZlcnMvbWZkIHVzaW5nIHRoaXMg
-QVBJIHRoYW4KPiA+ID4gZHJpdmVycyBpbiBkcml2ZXJzL21mZC4KPiA+IAo+ID4gUGVvcGxlIGRv
-IHdyb25nIHRoaW5ncyBhbGwgdGhlIHRpbWUuICBJdCBkb2Vzbid0IG1ha2UgdGhlbSByaWdodC4K
-PiA+IAo+ID4gPiBJbiBhIGxvdCBvZiBjYXNlcyBpdCBkb2Vzbid0IG1ha2Ugc2Vuc2UgdG8gbW92
-ZSB0aGUgZHJpdmVyIHRvIGRyaXZlcnMvbWZkLgo+ID4gCj4gPiBJbiB0aG9zZSBjYXNlcywgdGhl
-IHBsYXRmb3JtX2RldmljZV8qKCkgQVBJIHNob3VsZCBiZSB1c2VkLgo+IAo+IFdoeSBkbyB3ZSBo
-YXZlIGJvdGg/ICBJdCdzIG5vdCBjbGVhciB0byBtZSBvbiB3aGVuIHdlIHNob3VsZCB1c2Ugb25l
-CgpUaGUgcGxhdGZvcm1fZGV2aWNlXyooKSBBUEkgaXMgdGhlIGRlIGZhY3RvIEFQSSB0byB1c2Ug
-Zm9yIHJlZ2lzdGVyaW5nCmRldmljZXMuICBtZmRfKigpIGlzIGEgZnJhbWV3b3JrIGJ1aWx0IG9u
-LXRvcCBvZiB0aGF0IGZvciBkZXZpY2VzCndoaWNoIHJlZ2lzdGVyIHN1Yi1kZXZpY2VzIHRoYXQg
-ZG8gbm90IHJlYXNvbmFibHkgcmVzaWRlIGVsc2V3aGVyZS4KClRoZSBtZmRfKigpIGhlbHBlciBm
-dW5jdGlvbnMgc2hvdWxkIG9ubHkgYmUgdXNlZCBieSBNRkQgZGV2aWNlcy4KCj4gdnMgdGhlIG90
-aGVyLiAgVGhlc2UgYXJlIG5vdCBwbGF0Zm9ybXMgcGVyIHNlLCB0aGV5IGFyZSBQQ0kgZGV2aWNl
-cwo+IHRoYXQgaGFwcGVuIHRvIGhhdmUgb3RoZXIgZGV2aWNlcyBvbiB0aGVtLiAgT24gcHJldmlv
-dXMgcHJvamVjdHMsIEkKPiB3YXMgdG9sZCB0byB1c2UgbWZkIGFuZCBubyBvYmplY3Rpb25zIHdl
-cmUgcmFpc2VkIGF0IHRoYXQgdGltZS4KCldobyB0b2xkIHlvdSB0byB1c2UgTUZEIEFQSSBvdXRz
-aWRlIG9mIGRyaXZlcnMvbWZkPyAgVGhhdCdzIGEgaGFjay4KCi0tIApMZWUgSm9uZXMgW+adjueQ
-vOaWr10KTGluYXJvIFNlcnZpY2VzIFRlY2huaWNhbCBMZWFkCkxpbmFyby5vcmcg4pSCIE9wZW4g
-c291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29DcwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3
-aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpo
-dHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2
-ZWwK
+I would like to set different period size (or time) values for different ALSA applications, in order to optimize latency and processor load based on specific application needs.
+For example, a telephony application will use a shorter period size/time than a media player application, so that low latency does not affect the quality of the call. 
+I found out that if dmix plugin is used in the ALSA path, period size/time settings are completely ignored and forced to default values (supposedly read from the ALSA driver of the HW card).
+
+For example, not using dmix, period size value is correctly accepted (but of course I cannot play audio from multiple applications at the same time): 
+aplay -vv --period-size=4096 -D plug:hw <WAV file name>
+Plug PCM: Hardware PCM card 0 'HDA Intel' device 0 subdevice 0
+...
+  period_size  : 4096
+...
+
+Adding dmix instead, I can play audio from multiple applications at the same time, but period size is ignored and I cannot therefore set different latencies for different applications:
+aplay -vv --period-size=4096 -D plug:dmix <WAV file name>
+Plug PCM: Hardware PCM card 0 'HDA Intel' device 0 subdevice 0
+...
+  period_size  : 1024
+...
+
+Am I missing something? Is there a way to implement mixing + different latency settings in ALSA applications, without using an audio server? 
+
+Thanks
+Andrea
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

@@ -2,84 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 68921C45F3
-	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 04:56:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7711CC46C9
+	for <lists+alsa-devel@lfdr.de>; Wed,  2 Oct 2019 06:57:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D6884167C;
-	Wed,  2 Oct 2019 04:55:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D6884167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4D431677;
+	Wed,  2 Oct 2019 06:56:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4D431677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1569984972;
-	bh=F3UD/+8Ss0wxuDqk1BQ/F4dvQfZiTvPnJBbqVrd10H0=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1569992227;
+	bh=jPo8LBqLyznWugLgzNgmODdMHMFZl3LqN48YLevLWm0=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KXL3w9J3S3vgBgBM+k/1v0743nFesa9wXZpxeDfkY+h39kvwPT+cmmCKvsPcbZrJ2
-	 oOxBptl55+0J0R0m7nNmghx/pf2vWBohtZ9dnxWjqabIMRJDmazBV3LbtGRrB6LP4C
-	 7mAd+KGK7R8hPlsT87vY8eavlHXmDfkcMSd89as4=
+	b=aFxzC1RaOXVdGojJAHFrI/ATfoLi9kvRU4sPwqxR/eAs0O73vWxrmjBKptOPHI5SI
+	 +VC13IeWCN6OQsksHIGAiAHhWFJH8TkLpxqyETHdZ6ZmePWxFRbvmMYLpOkVCaH4t3
+	 3qw4SVIUHuYjqDG2hLrtpJ2KjUphvNl6yUcYiP8g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58639F80391;
-	Wed,  2 Oct 2019 04:54:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B6D8F8036E;
+	Wed,  2 Oct 2019 06:55:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02915F80391; Wed,  2 Oct 2019 04:54:24 +0200 (CEST)
+ id 36DEDF8036E; Wed,  2 Oct 2019 06:55:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BEF2F800DE
- for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 04:54:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BEF2F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1009F8036E
+ for <alsa-devel@alsa-project.org>; Wed,  2 Oct 2019 06:55:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1009F8036E
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Oct 2019 19:54:10 -0700
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Oct 2019 21:55:10 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,572,1559545200"; d="scan'208";a="216299818"
-Received: from kmsmsx156.gar.corp.intel.com ([172.21.138.133])
- by fmsmga004.fm.intel.com with ESMTP; 01 Oct 2019 19:53:56 -0700
-Received: from pgsmsx108.gar.corp.intel.com ([169.254.8.138]) by
- KMSMSX156.gar.corp.intel.com ([169.254.1.31]) with mapi id 14.03.0439.000;
- Wed, 2 Oct 2019 10:53:55 +0800
-From: "Lu, Brent" <brent.lu@intel.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Thread-Topic: [alsa-devel] [PATCH] ASoC: Intel: eve: Enable mclk and ssp
- sclk early
-Thread-Index: AQHVeDPt+TrcGokx5EWZxsNB/Hvyd6dFQ4qAgAFZI3A=
-Date: Wed, 2 Oct 2019 02:53:55 +0000
-Message-ID: <CF33C36214C39B4496568E5578BE70C7402EE40A@PGSMSX108.gar.corp.intel.com>
+X-IronPort-AV: E=Sophos;i="5.64,572,1559545200"; d="scan'208";a="194761265"
+Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
+ by orsmga003.jf.intel.com with ESMTP; 01 Oct 2019 21:55:07 -0700
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Date: Wed,  2 Oct 2019 12:50:58 +0800
+Message-Id: <1569991858-24293-1-git-send-email-brent.lu@intel.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1569919250-24472-1-git-send-email-brent.lu@intel.com>
 References: <1569919250-24472-1-git-send-email-brent.lu@intel.com>
- <823bff94-3135-c3a9-4d7f-c07b564faba2@linux.intel.com>
-In-Reply-To: <823bff94-3135-c3a9-4d7f-c07b564faba2@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNThhYzRjNDUtZWY3MS00ZTkwLTlhN2QtYjUyYjFkZGI4MjNmIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoia0lKNHAzTXhYNGFUNlpSMzI5UDNuMHZ4TTM5UzBHUDlNWWR3VThOYXduS3FwZnZlcmt2OXAyNnBkVTdQK1c0TiJ9
-x-ctpclassification: CTP_NT
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: no-action
-x-originating-ip: [172.30.20.206]
-MIME-Version: 1.0
-Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>, "N,
- Harshapriya" <harshapriya.n@intel.com>,
+Cc: cezary.rojewski@intel.com, harshapriya.n@intel.com,
  "Subhransu S . Prusty" <subhransu.s.prusty@intel.com>,
- "yang.jie@linux.intel.com" <yang.jie@linux.intel.com>,
- "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>, "Chiang,
- Mac" <mac.chiang@intel.com>, "broonie@kernel.org" <broonie@kernel.org>, "M,
- Naveen" <naveen.m@intel.com>,
- "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: eve: Enable mclk and ssp sclk
- early
+ yang.jie@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ liam.r.girdwood@linux.intel.com, mac.chiang@intel.com, broonie@kernel.org,
+ naveen.m@intel.com, yung-chuan.liao@linux.intel.com,
+ Brent Lu <brent.lu@intel.com>
+Subject: [alsa-devel] [PATCH] ASoC: Intel: eve: Enable mclk and ssp sclk
+	early
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,129 +72,192 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> > diff --git a/sound/soc/intel/boards/Kconfig
-> b/sound/soc/intel/boards/Kconfig
-> > index 5c27f7a..d5f167e 100644
-> > --- a/sound/soc/intel/boards/Kconfig
-> > +++ b/sound/soc/intel/boards/Kconfig
-> > @@ -315,6 +315,7 @@ config
-> SND_SOC_INTEL_KBL_RT5663_RT5514_MAX98927_MACH
-> >   	depends on I2C && ACPI
-> >   	depends on MFD_INTEL_LPSS || COMPILE_TEST
-> >           depends on SPI
-> > +	select SND_SOC_INTEL_SKYLAKE_SSP_CLK
-> 
-> It would be nicer to follow the same order as for kbl_rt5663_max98927,
-> with this SKYLAKE_SSP_CLK added last after HDAC_HDMI
-> 
-> 
+From: Naveen M <naveen.m@intel.com>
 
-Will fix it.
+rt5663 and rt5514 needs mclk/sclk early to synchronize its internal
+clocks.
 
-> > +static int platform_clock_control(struct snd_soc_dapm_widget *w,
-> > +			struct snd_kcontrol *k, int  event)
-> > +{
-> > +	struct snd_soc_dapm_context *dapm = w->dapm;
-> > +	struct snd_soc_card *card = dapm->card;
-> > +	struct kbl_codec_private *priv = snd_soc_card_get_drvdata(card);
-> > +	int ret = 0;
-> > +
-> > +	/*
-> > +	 * MCLK/SCLK need to be ON early for a successful synchronization of
-> > +	 * codec internal clock. And the clocks are turned off during
-> > +	 * POST_PMD after the stream is stopped.
-> > +	 */
-> > +	switch (event) {
-> > +	case SND_SOC_DAPM_PRE_PMU:
-> > +		if (__clk_is_enabled(priv->mclk))
-> > +			return 0;
-> 
-> Is this if() test needed? it's not part of the code for
-> kbl_rt5663_max98927, despite all the comments and code structure being
-> identical.
-> 
+Signed-off-by: Naveen M <naveen.m@intel.com>
+Signed-off-by: Harsha Priya <harshapriya.n@intel.com>
+Signed-off-by: Subhransu S. Prusty <subhransu.s.prusty@intel.com>
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+ sound/soc/intel/boards/Kconfig                     |  1 +
+ .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  | 94 ++++++++++++++++++++++
+ 2 files changed, 95 insertions(+)
 
-This function call prevents the clk_set_rate() from being called when clock is 
-enabled. It's removed during the upstream review and use the flag 
-CLK_SET_RATE_GATE instead. Will fix it.
-
-https://patchwork.kernel.org/patch/10070383/
-https://patchwork.kernel.org/patch/10133179/
-
-> > +
-> > +		/* Enable MCLK */
-> > +		ret = clk_set_rate(priv->mclk, 24000000);
-> > +		if (ret < 0) {
-> > +			dev_err(card->dev, "Can't set rate for mclk, err:
-> %d\n",
-> > +				ret);
-> > +			return ret;
-> > +		}
-> > +
-> > +		ret = clk_prepare_enable(priv->mclk);
-> > +		if (ret < 0) {
-> > +			dev_err(card->dev, "Can't enable mclk, err: %d\n",
-> ret);
-> > +			return ret;
-> > +		}
-> > +
-> > +		/* Enable SCLK */
-> > +		ret = clk_set_rate(priv->sclk, 3072000);
-> > +		if (ret < 0) {
-> > +			dev_err(card->dev, "Can't set rate for sclk, err:
-> %d\n",
-> > +				ret);
-> > +			clk_disable_unprepare(priv->mclk);
-> > +			return ret;
-> > +		}
-> > +
-> > +		ret = clk_prepare_enable(priv->sclk);
-> > +		if (ret < 0) {
-> > +			dev_err(card->dev, "Can't enable sclk, err: %d\n",
-> ret);
-> > +			clk_disable_unprepare(priv->mclk);
-> > +		}
-> > +		break;
-> > +	case SND_SOC_DAPM_POST_PMD:
-> > +		if (!__clk_is_enabled(priv->mclk))
-> > +			return 0;
-> 
-> same here, is this if() test needed? If yes, isn't it needed in
-> kbl_rt5663_max98927?
-> 
-
-Will fix it.
-
-> > +
-> > +		clk_disable_unprepare(priv->mclk);
-> > +		clk_disable_unprepare(priv->sclk);
-> > +		break;
-> > +	default:
-> > +		return 0;
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> > +
-> 
-> While I am at it, this machine driver uses .ignore_pmdown_time, which is
-> typically used to avoid clock issues. Now that you have an explicit
-> control on clocks, is .ignore_pmdown_time actually required?
-
-Actually I don't know the purpose to use ignore_pmdown_time flag in the first
-place but I think they are not related since this patch is to turn on ssp clocks earlier
-while the ignore_pmdown_time flag is used to delay the DAPM power down for
-playback stream in the soc_pcm_close(). Just my two cents and thank you for the
-review.
-
-
-Regards,
-Brent
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index 5c27f7a..5e0e7db 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -320,6 +320,7 @@ config SND_SOC_INTEL_KBL_RT5663_RT5514_MAX98927_MACH
+         select SND_SOC_RT5514_SPI
+         select SND_SOC_MAX98927
+         select SND_SOC_HDAC_HDMI
++	select SND_SOC_INTEL_SKYLAKE_SSP_CLK
+         help
+           This adds support for ASoC Onboard Codec I2S machine driver. This will
+           create an alsa sound card for RT5663 + RT5514 + MAX98927.
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+index 74dda87..dc09a85 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+@@ -22,6 +22,9 @@
+ #include "../../codecs/rt5514.h"
+ #include "../../codecs/rt5663.h"
+ #include "../../codecs/hdac_hdmi.h"
++#include <linux/clk.h>
++#include <linux/clk-provider.h>
++#include <linux/clkdev.h>
+ 
+ #define KBL_REALTEK_CODEC_DAI "rt5663-aif"
+ #define KBL_REALTEK_DMIC_CODEC_DAI "rt5514-aif1"
+@@ -50,6 +53,8 @@ struct kbl_codec_private {
+ 	struct snd_soc_jack kabylake_headset;
+ 	struct list_head hdmi_pcm_list;
+ 	struct snd_soc_jack kabylake_hdmi[2];
++	struct clk *mclk;
++	struct clk *sclk;
+ };
+ 
+ enum {
+@@ -71,6 +76,61 @@ static const struct snd_kcontrol_new kabylake_controls[] = {
+ 	SOC_DAPM_PIN_SWITCH("DMIC"),
+ };
+ 
++static int platform_clock_control(struct snd_soc_dapm_widget *w,
++			struct snd_kcontrol *k, int  event)
++{
++	struct snd_soc_dapm_context *dapm = w->dapm;
++	struct snd_soc_card *card = dapm->card;
++	struct kbl_codec_private *priv = snd_soc_card_get_drvdata(card);
++	int ret = 0;
++
++	/*
++	 * MCLK/SCLK need to be ON early for a successful synchronization of
++	 * codec internal clock. And the clocks are turned off during
++	 * POST_PMD after the stream is stopped.
++	 */
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		/* Enable MCLK */
++		ret = clk_set_rate(priv->mclk, 24000000);
++		if (ret < 0) {
++			dev_err(card->dev, "Can't set rate for mclk, err: %d\n",
++				ret);
++			return ret;
++		}
++
++		ret = clk_prepare_enable(priv->mclk);
++		if (ret < 0) {
++			dev_err(card->dev, "Can't enable mclk, err: %d\n", ret);
++			return ret;
++		}
++
++		/* Enable SCLK */
++		ret = clk_set_rate(priv->sclk, 3072000);
++		if (ret < 0) {
++			dev_err(card->dev, "Can't set rate for sclk, err: %d\n",
++				ret);
++			clk_disable_unprepare(priv->mclk);
++			return ret;
++		}
++
++		ret = clk_prepare_enable(priv->sclk);
++		if (ret < 0) {
++			dev_err(card->dev, "Can't enable sclk, err: %d\n", ret);
++			clk_disable_unprepare(priv->mclk);
++		}
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		clk_disable_unprepare(priv->mclk);
++		clk_disable_unprepare(priv->sclk);
++		break;
++	default:
++		return 0;
++	}
++
++	return 0;
++}
++
+ static const struct snd_soc_dapm_widget kabylake_widgets[] = {
+ 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+ 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+@@ -79,11 +139,15 @@ static const struct snd_soc_dapm_widget kabylake_widgets[] = {
+ 	SND_SOC_DAPM_MIC("DMIC", NULL),
+ 	SND_SOC_DAPM_SPK("HDMI1", NULL),
+ 	SND_SOC_DAPM_SPK("HDMI2", NULL),
++	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
++			platform_clock_control, SND_SOC_DAPM_PRE_PMU |
++			SND_SOC_DAPM_POST_PMD),
+ 
+ };
+ 
+ static const struct snd_soc_dapm_route kabylake_map[] = {
+ 	/* Headphones */
++	{ "Headphone Jack", NULL, "Platform Clock" },
+ 	{ "Headphone Jack", NULL, "HPOL" },
+ 	{ "Headphone Jack", NULL, "HPOR" },
+ 
+@@ -92,6 +156,7 @@ static const struct snd_soc_dapm_route kabylake_map[] = {
+ 	{ "Right Spk", NULL, "Right BE_OUT" },
+ 
+ 	/* other jacks */
++	{ "Headset Mic", NULL, "Platform Clock" },
+ 	{ "IN1P", NULL, "Headset Mic" },
+ 	{ "IN1N", NULL, "Headset Mic" },
+ 
+@@ -643,6 +708,7 @@ static int kabylake_audio_probe(struct platform_device *pdev)
+ {
+ 	struct kbl_codec_private *ctx;
+ 	struct snd_soc_acpi_mach *mach;
++	int ret = 0;
+ 
+ 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
+ 	if (!ctx)
+@@ -658,6 +724,34 @@ static int kabylake_audio_probe(struct platform_device *pdev)
+ 		dmic_constraints = mach->mach_params.dmic_num == 2 ?
+ 			&constraints_dmic_2ch : &constraints_dmic_channels;
+ 
++	ctx->mclk = devm_clk_get(&pdev->dev, "ssp1_mclk");
++	if (IS_ERR(ctx->mclk)) {
++		ret = PTR_ERR(ctx->mclk);
++		if (ret == -ENOENT) {
++			dev_info(&pdev->dev,
++				"Failed to get ssp1_mclk, defer probe\n");
++			return -EPROBE_DEFER;
++		}
++
++		dev_err(&pdev->dev, "Failed to get ssp1_mclk with err:%d\n",
++								ret);
++		return ret;
++	}
++
++	ctx->sclk = devm_clk_get(&pdev->dev, "ssp1_sclk");
++	if (IS_ERR(ctx->sclk)) {
++		ret = PTR_ERR(ctx->sclk);
++		if (ret == -ENOENT) {
++			dev_info(&pdev->dev,
++				"Failed to get ssp1_sclk, defer probe\n");
++			return -EPROBE_DEFER;
++		}
++
++		dev_err(&pdev->dev, "Failed to get ssp1_sclk with err:%d\n",
++								ret);
++		return ret;
++	}
++
+ 	return devm_snd_soc_register_card(&pdev->dev, &kabylake_audio_card);
+ }
+ 
+-- 
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

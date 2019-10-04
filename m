@@ -2,126 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B9B2CBB22
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 15:01:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75A74CBB2F
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 15:04:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A57F91685;
-	Fri,  4 Oct 2019 15:00:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A57F91685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C2821688;
+	Fri,  4 Oct 2019 15:04:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C2821688
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570194071;
-	bh=g6FYKzjJZfjPgZfNQ5A4cWXoc08OSieBvVNHpgGxsZ0=;
-	h=From:To:Date:References:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=aRLb90tfXE87IYtonFKRSDQ0WdTGHEerEYqy/yi9qd9VSZnV1v5rfo/2EJ4Yu4DS6
-	 oolf9fe1rVWvD4h4IP1ARn0qiNVNOHnWgvDIguxxE73QCz2JCyH2ye7NvjHSW+NlYS
-	 CYqG6XDZIPt/O0HWIQQmCwpD5bAxLk3nKCzUj8d0=
+	s=default; t=1570194294;
+	bh=IXrbeEUorG869fk+LjRpHIVGezPAY1zs0u6eYXwbjs4=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=E6L2pS+VVFH/Mdst4njGGkeh78vBzPsbiCNU7rlSAgqtSQwcpAT9OSqOMiFHS8mf7
+	 15t8XP6K/l9SimPDDPTPSI2XQcwkJZctDKoLKy81bNO7iiW+C+m1KzwSkfbLycTFXU
+	 2o6x0xDrl7zGXq3hm+IlEQP/EdH/0a+pNvfGN/5A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07CE9F803F3;
-	Fri,  4 Oct 2019 14:59:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81D7CF803F3;
+	Fri,  4 Oct 2019 15:03:09 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B283F80391; Fri,  4 Oct 2019 14:59:25 +0200 (CEST)
+ id CE45FF80391; Fri,  4 Oct 2019 15:03:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.lenbrook.com (mail.lenbrook.com [69.156.198.123])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A5343F800DE
- for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 14:59:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5343F800DE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="erajWbRY"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20191004125920euoutp01c084b572353baa2b27a95cbb0d6056b2~KcxZyV8YM3055430554euoutp01e
- for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 12:59:20 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20191004125920euoutp01c084b572353baa2b27a95cbb0d6056b2~KcxZyV8YM3055430554euoutp01e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1570193960;
- bh=GcBauXsEMEiJCxPDlVLXlQ0KFOglngvIkek6lOAaf7k=;
- h=From:To:Cc:Subject:Date:References:From;
- b=erajWbRYmnsHq1QJR1CJC/Bm1agzdXmnP1hlnB87ygKnzpviiS87lINMmPen7J214
- oU6u0Pz731hF6blwty46EAvEOwzMGo6suKlIgp1IGSgfd+AofJGXNJrYRqxlyM3wk5
- 7UeZLprz8FkO50ocaEUXDWx/yIqsUEj9CYfHOsTc=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20191004125919eucas1p2654352f8c6e5147bbd04dd3be2af28e0~KcxZbqVQf0815808158eucas1p2B;
- Fri,  4 Oct 2019 12:59:19 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id 59.09.04309.722479D5; Fri,  4
- Oct 2019 13:59:19 +0100 (BST)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20191004125919eucas1p21149ecdf6d83fbe7bc8c39eaa8b29a46~KcxZH15pd0817408174eucas1p2D;
- Fri,  4 Oct 2019 12:59:19 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20191004125919eusmtrp181c7b6d9ce9bfe3836201023081d05c2~KcxZHJ5Eq2829528295eusmtrp1W;
- Fri,  4 Oct 2019 12:59:19 +0000 (GMT)
-X-AuditID: cbfec7f4-ae1ff700000010d5-6f-5d9742277290
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 3B.1E.04166.722479D5; Fri,  4
- Oct 2019 13:59:19 +0100 (BST)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20191004125919eusmtip1edb4f2ee17db898daf6413aea45e7a27~KcxYjCVlC0401604016eusmtip1V;
- Fri,  4 Oct 2019 12:59:18 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Date: Fri,  4 Oct 2019 14:59:14 +0200
-Message-Id: <20191004125914.1033-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.17.1
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmphleLIzCtJLcpLzFFi42LZduznOV11p+mxBi0fzC2uXDzEZLFxxnpW
- i6kPn7BZzD9yjtXi/PkN7BbfrnQwWVzeNYfNYsb5fUwWD5rXsVmsPXKX3eLwm3ZWB26PDZ+b
- 2Dx2zrrL7rFpVSebR9+WVYwenzfJBbBGcdmkpOZklqUW6dslcGVM3P+AveCFR8WXw69ZGhgn
- WHQxcnJICJhIvNx4lrWLkYtDSGAFo8S3pRegnC+MErs+bGeCcD4zSnz82ssK09I9tZEZxBYS
- WM4oseWBH1xH35zfYEVsAoYSXW+72EBsEYE6ibNnjjCCFDELbGaS2Hh1JViRsECoxNxFHYwg
- NouAqsSZLWvYQWxeARuJ85+bmCG2yUus3nCAGaRZQuA3m8Snd9sZIRIuErt6jrNB2MISr45v
- YYewZSROT+5hgWhoZpR4eG4tO4TTwyhxuWkGVLe1xOHjF4HO4AC6SVNi/S59iLCjxL/9r5lA
- whICfBI33gqChJmBzEnbpjNDhHklOtqEIKrVJGYdXwe39uCFS1A3e0hMmzeNFRJCsRI3e94x
- TmCUm4WwawEj4ypG8dTS4tz01GKjvNRyveLE3OLSvHS95PzcTYzAtHH63/EvOxh3/Uk6xCjA
- wajEw/vBYnqsEGtiWXFl7iFGCQ5mJRHeS+unxArxpiRWVqUW5ccXleakFh9ilOZgURLnrWZ4
- EC0kkJ5YkpqdmlqQWgSTZeLglGpgNNndIsCTIN6WJ8Aa0yV1YZnW8dcf/HcU2pe556517fhb
- VnJ5Y9PcuWnyZgXZ57kSZ9VGcZrazt4WkcLnfUpH4b7X21WiQRJKabMCXz49+r1L+5hFt8nH
- z39TTlsIia42zL5r5LE44PyWTR9culZ9eV4dNDdr+mVzY5ET67Yb3nivOyEocBqTEktxRqKh
- FnNRcSIAZnwnUxcDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrFLMWRmVeSWpSXmKPExsVy+t/xu7rqTtNjDa5Nlre4cvEQk8XGGetZ
- LaY+fMJmMf/IOVaL8+c3sFt8u9LBZHF51xw2ixnn9zFZPGhex2ax9shddovDb9pZHbg9Nnxu
- YvPYOesuu8emVZ1sHn1bVjF6fN4kF8AapWdTlF9akqqQkV9cYqsUbWhhpGdoaaFnZGKpZ2hs
- HmtlZKqkb2eTkpqTWZZapG+XoJcxcf8D9oIXHhVfDr9maWCcYNHFyMkhIWAi0T21kbmLkYtD
- SGApo0Tn/mZGiISMxMlpDawQtrDEn2tdbCC2kMAnRomlXwtAbDYBQ4mutyBxLg4RgSZGiWOb
- Z7KAOMwC25kkzjcfAesQFgiWWHWwiQXEZhFQlTizZQ07iM0rYCNx/nMTM8QGeYnVGw4wT2Dk
- WcDIsIpRJLW0ODc9t9hQrzgxt7g0L10vOT93EyMwXLcd+7l5B+OljcGHGAU4GJV4eD9YTI8V
- Yk0sK67MPcQowcGsJMJ7af2UWCHelMTKqtSi/Pii0pzU4kOMpkDLJzJLiSbnA2MpryTe0NTQ
- 3MLS0NzY3NjMQkmct0PgYIyQQHpiSWp2ampBahFMHxMHp1QDY+HuX7vv2l75uDjDeWLvjSta
- 33dUr5s6aVLqz6lbG1yk7z+bsiel/kr+6dqG72dDpr14cHCqdFr/xuC/f7oKdjeUhbR8kEo8
- tanP9ZzUdqfz0nsdlWd6vf6iURbcz+Og4fOVof21aduLBx//W836oFSx537B9omPWF7HLNwy
- XT76fVgtH9+JWfZKLMUZiYZazEXFiQChayBLbQIAAA==
-X-CMS-MailID: 20191004125919eucas1p21149ecdf6d83fbe7bc8c39eaa8b29a46
-X-Msg-Generator: CA
-X-RootMTR: 20191004125919eucas1p21149ecdf6d83fbe7bc8c39eaa8b29a46
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20191004125919eucas1p21149ecdf6d83fbe7bc8c39eaa8b29a46
-References: <CGME20191004125919eucas1p21149ecdf6d83fbe7bc8c39eaa8b29a46@eucas1p2.samsung.com>
-Cc: Maciej Falkowski <m.falkowski@samsung.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- Mark Brown <broonie@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [alsa-devel] [PATCH v6] dt-bindings: sound: Convert Samsung I2S
- controller to dt-schema
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59FD8F80137
+ for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 15:03:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59FD8F80137
+Received: from MAIL1.pickering.lenbrook.com ([192.168.0.250]) by
+ MAIL1.pickering.lenbrook.com ([192.168.0.250]) with mapi id 14.03.0415.000;
+ Fri, 4 Oct 2019 09:03:00 -0400
+From: Kevin Groeneveld <KGroeneveld@lenbrook.com>
+To: Lucas Stach <l.stach@pengutronix.de>, "dmaengine@vger.kernel.org"
+ <dmaengine@vger.kernel.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>
+Thread-Topic: kernel freeze regression relating to imx-sdma
+Thread-Index: AdV6LyY1Rzd7AEOaQv+Ew+dBI1dYnwAI5e+AABa2rgA=
+Date: Fri, 4 Oct 2019 13:02:59 +0000
+Message-ID: <BF6B9AADDDF11740967545E971C7C0DE6BAAEC23@MAIL1.pickering.lenbrook.com>
+References: <BF6B9AADDDF11740967545E971C7C0DE6BAAEB86@MAIL1.pickering.lenbrook.com>
+ <1daf496b14c9682a52e06592471ca37a5abb72e7.camel@pengutronix.de>
+In-Reply-To: <1daf496b14c9682a52e06592471ca37a5abb72e7.camel@pengutronix.de>
+Accept-Language: en-US, en-CA
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.0.66]
+MIME-Version: 1.0
+Cc: "lars@metafoo.de" <lars@metafoo.de>
+Subject: Re: [alsa-devel] kernel freeze regression relating to imx-sdma
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,269 +70,104 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Maciej Falkowski <m.falkowski@samsung.com>
+Hi Lucas,
 
-Convert Samsung I2S controller to newer dt-schema format.
+Thanks for the feedback.
 
-Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
-[mszyprow: integrated fix for minor spelling issues]
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
-Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
----
-v6:
-- integrated fix for minor spelling issues
-- collected tags
----
- .../devicetree/bindings/sound/samsung-i2s.txt |  84 -----------
- .../bindings/sound/samsung-i2s.yaml           | 138 ++++++++++++++++++
- 2 files changed, 138 insertions(+), 84 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/samsung-i2s.txt
- create mode 100644 Documentation/devicetree/bindings/sound/samsung-i2s.yaml
+>-----Original Message-----
+>From: Lucas Stach [mailto:l.stach@pengutronix.de]
+>Sent: October 3, 2019 5:26 PM
+>To: Kevin Groeneveld; dmaengine@vger.kernel.org
+>Subject: Re: kernel freeze regression relating to imx-sdma
+>
+>Hi Kevin,
+>
+>Am Donnerstag, den 03.10.2019, 21:11 +0000 schrieb Kevin Groeneveld:
+>> We have recently come across an issue which can cause the linux kernel to
+>> freeze on an iMX6 based system.  After bisecting the issue I have found the
+>> issue is related to the following imx-sdma commits:
+>>
+>> 64068853bc77786d1a28abb4087d6a3e93aedbe2 dmaengine: imx-sdma: use GFP_NOWAIT for dma descriptor allocations
+>> b8603d2a5795c42f78998e70dc792336e0dc20c9 dmaengine: imx-sdma: implement channel termination via worker
+>> ebb853b1bd5f659b92c71dc6a9de44cfc37c78c0 Revert "dmaengine: imx-sdma: alloclate bd memory from dma pool"
+>> c06abca69218ac42fa58d1ba7a7b0d9bab5f1b18 Revert "dmaengine: imx-sdma: Use GFP_NOWAIT for dma allocations"
+>>
+>> If I revert these four commits the freeze does not happen.  The issue is still
+>> present up to at least v5.3.
+>>
+>> The problem seems to be related to overruns when doing an SPDIF capture,
+>> particularly when there is not actually a valid SPDIF input to the iMX6.  When
+>> the issue occurs the following is (usually) printed on the console (using a v5.0
+>> based kernel):
+>>
+>> [ 1251.944877] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
+>> [ 1251.950823] rcu:     (detected by 0, t=2102 jiffies, g=220425, q=0)
+>> [ 1251.956866] rcu: All QSes seen, last rcu_sched kthread activity 2102 (95117-93015), jiffies_till_next_fqs=1, root ->qsmask 0x0
+>> [ 1251.968266] arecord         S    0  1916   1908 0x00000002
+>> [ 1251.973816] [<8010dcec>] (unwind_backtrace) from [<8010a4c4>] (show_stack+0x10/0x14)
+>> [ 1251.981596] [<8010a4c4>] (show_stack) from [<8016b314>] (rcu_check_callbacks+0x57c/0x5d8)
+>> [ 1251.989806] [<8016b314>] (rcu_check_callbacks) from [<8016fe84>] (update_process_times+0x30/0x5c)
+>> [ 1251.998709] [<8016fe84>] (update_process_times) from [<8017e960>] (tick_sched_timer+0x44/0x94)
+>> [ 1252.007353] [<8017e960>] (tick_sched_timer) from [<80170a84>] (__hrtimer_run_queues+0xd8/0x160)
+>> [ 1252.016081] [<80170a84>] (__hrtimer_run_queues) from [<8017103c>] (hrtimer_interrupt+0xdc/0x284)
+>> [ 1252.024891] [<8017103c>] (hrtimer_interrupt) from [<8010d6c0>] (twd_handler+0x2c/0x38)
+>> [ 1252.032839] [<8010d6c0>] (twd_handler) from [<80160b34>] (handle_percpu_devid_irq+0x70/0x11c)
+>> [ 1252.041401] [<80160b34>] (handle_percpu_devid_irq) from [<8015c234>] (generic_handle_irq+0x18/0x28)
+>> [ 1252.050480] [<8015c234>] (generic_handle_irq) from [<8015c814>] (__handle_domain_irq+0xa0/0xb4)
+>> [ 1252.059211] [<8015c814>] (__handle_domain_irq) from [<8039098c>] (gic_handle_irq+0x58/0x90)
+>> [ 1252.067590] [<8039098c>] (gic_handle_irq) from [<80101a0c>] (__irq_svc+0x6c/0x90)
+>> [ 1252.075085] Exception stack(0x848afe30 to 0x848afe78)
+>> [ 1252.080155] fe20:                                     8decf200 00000000 00000000 80b84ac8
+>> [ 1252.088354] fe40: 00000000 8decf200 892f7800 00001589 892f7800 00000000 00000000 848ae000
+>> [ 1252.096549] fe60: 8d8cf000 848afe80 805721e8 8056aae4 60000013 ffffffff
+>> [ 1252.103200] [<80101a0c>] (__irq_svc) from [<8056aae4>] (__snd_pcm_stream_unlock_mode+0xc0/0xd8)
+>> [ 1252.111925] [<8056aae4>] (__snd_pcm_stream_unlock_mode) from [<00000000>] (  (null))
+>> [ 1252.119695] rcu: rcu_sched kthread starved for 2102 jiffies! g220425 f0x2 RCU_GP_WAIT_FQS(5) ->state=0x0 ->cpu=0
+>> [ 1252.129877] rcu: RCU grace-period kthread stack dump:
+>> [ 1252.134938] rcu_sched       R  running task        0    10      2 0x00000000
+>> [ 1252.142034] [<806eee5c>] (__schedule) from [<806eef80>] (schedule+0x90/0xa0)
+>> [ 1252.149116] [<806eef80>] (schedule) from [<806f2244>] (schedule_timeout+0x1f0/0x238)
+>> [ 1252.156891] [<806f2244>] (schedule_timeout) from [<8016940c>] (rcu_gp_kthread+0x550/0x8f0)
+>> [ 1252.165183] [<8016940c>] (rcu_gp_kthread) from [<8013a358>] (kthread+0x110/0x128)
+>> [ 1252.172693] [<8013a358>] (kthread) from [<801010e8>] (ret_from_fork+0x14/0x2c)
+>> [ 1252.179925] Exception stack(0x8f877fb0 to 0x8f877ff8)
+>> [ 1252.184991] 7fa0:                                     00000000 00000000 00000000 00000000
+>> [ 1252.193187] 7fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+>> [ 1252.201380] 7fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+>>
+>> I suspect the issue may not actually be a bug with imx-sdma but a
+>> race condition elsewhere that is exposed by the four mentioned
+>> commits.
+>>
+>> I did notice that when an SPDIF overrun occurs
+>> dmaengine_terminate_async is called but dmaengine_synchronize is
+>> not.  Should these calls always be paired? Or is it okay to call
+>> dmaengine_terminate_async without dmaengine_synchronize in some
+>> cases?
+>
+>Yes, it seems this uncovered a bug in the SPDIF driver. Before those
+>commits the dmaengine_terminate_async in the SDMA driver wasn't really
+>async, now it is. The API requires that you call dmaengine_synchronize
+>eventually after the terminate_async before starting any new operations
+>on the dmaengine. It doesn't necessarily need to be in the same
+>codepath, but the the async terminate always needs to be paired up with
+>a synchronize.
 
-diff --git a/Documentation/devicetree/bindings/sound/samsung-i2s.txt b/Documentation/devicetree/bindings/sound/samsung-i2s.txt
-deleted file mode 100644
-index a88cb00fa096..000000000000
---- a/Documentation/devicetree/bindings/sound/samsung-i2s.txt
-+++ /dev/null
-@@ -1,84 +0,0 @@
--* Samsung I2S controller
--
--Required SoC Specific Properties:
--
--- compatible : should be one of the following.
--   - samsung,s3c6410-i2s: for 8/16/24bit stereo I2S.
--   - samsung,s5pv210-i2s: for 8/16/24bit multichannel(5.1) I2S with
--     secondary fifo, s/w reset control and internal mux for root clk src.
--   - samsung,exynos5420-i2s: for 8/16/24bit multichannel(5.1) I2S for
--     playback, stereo channel capture, secondary fifo using internal
--     or external dma, s/w reset control, internal mux for root clk src
--     and 7.1 channel TDM support for playback. TDM (Time division multiplexing)
--     is to allow transfer of multiple channel audio data on single data line.
--   - samsung,exynos7-i2s: with all the available features of exynos5 i2s,
--     exynos7 I2S has 7.1 channel TDM support for capture, secondary fifo
--     with only external dma and more no.of root clk sampling frequencies.
--   - samsung,exynos7-i2s1: I2S1 on previous samsung platforms supports
--     stereo channels. exynos7 i2s1 upgraded to 5.1 multichannel with
--     slightly modified bit offsets.
--
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- dmas: list of DMA controller phandle and DMA request line ordered pairs.
--- dma-names: identifier string for each DMA request line in the dmas property.
--  These strings correspond 1:1 with the ordered pairs in dmas.
--- clocks: Handle to iis clock and RCLK source clk.
--- clock-names:
--  i2s0 uses some base clocks from CMU and some are from audio subsystem internal
--  clock controller. The clock names for i2s0 should be "iis", "i2s_opclk0" and
--  "i2s_opclk1" as shown in the example below.
--  i2s1 and i2s2 uses clocks from CMU. The clock names for i2s1 and i2s2 should
--  be "iis" and "i2s_opclk0".
--  "iis" is the i2s bus clock and i2s_opclk0, i2s_opclk1 are sources of the root
--  clk. i2s0 has internal mux to select the source of root clk and i2s1 and i2s2
--  doesn't have any such mux.
--- #clock-cells: should be 1, this property must be present if the I2S device
--  is a clock provider in terms of the common clock bindings, described in
--  ../clock/clock-bindings.txt.
--- clock-output-names (deprecated): from the common clock bindings, names of
--  the CDCLK I2S output clocks, suggested values are "i2s_cdclk0", "i2s_cdclk1",
--  "i2s_cdclk3" for the I2S0, I2S1, I2S2 devices respectively.
--
--There are following clocks available at the I2S device nodes:
-- CLK_I2S_CDCLK    - the CDCLK (CODECLKO) gate clock,
-- CLK_I2S_RCLK_PSR - the RCLK prescaler divider clock (corresponding to the
--		    IISPSR register),
-- CLK_I2S_RCLK_SRC - the RCLKSRC mux clock (corresponding to RCLKSRC bit in
--		    IISMOD register).
--
--Refer to the SoC datasheet for availability of the above clocks.
--The CLK_I2S_RCLK_PSR and CLK_I2S_RCLK_SRC clocks are usually only available
--in the IIS Multi Audio Interface.
--
--Note: Old DTs may not have the #clock-cells property and then not use the I2S
--node as a clock supplier.
--
--Optional SoC Specific Properties:
--
--- samsung,idma-addr: Internal DMA register base address of the audio
--  sub system(used in secondary sound source).
--- pinctrl-0: Should specify pin control groups used for this controller.
--- pinctrl-names: Should contain only one value - "default".
--- #sound-dai-cells: should be 1.
--
--
--Example:
--
--i2s0: i2s@3830000 {
--	compatible = "samsung,s5pv210-i2s";
--	reg = <0x03830000 0x100>;
--	dmas = <&pdma0 10
--		&pdma0 9
--		&pdma0 8>;
--	dma-names = "tx", "rx", "tx-sec";
--	clocks = <&clock_audss EXYNOS_I2S_BUS>,
--		<&clock_audss EXYNOS_I2S_BUS>,
--		<&clock_audss EXYNOS_SCLK_I2S>;
--	clock-names = "iis", "i2s_opclk0", "i2s_opclk1";
--	#clock-cells = <1>;
--	samsung,idma-addr = <0x03000000>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&i2s0_bus>;
--	#sound-dai-cells = <1>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/samsung-i2s.yaml b/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
-new file mode 100644
-index 000000000000..53e3bad4178c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
-@@ -0,0 +1,138 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/samsung-i2s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Samsung SoC I2S controller
-+
-+maintainers:
-+  - Krzysztof Kozlowski <krzk@kernel.org>
-+  - Sylwester Nawrocki <s.nawrocki@samsung.com>
-+
-+properties:
-+  compatible:
-+    description: |
-+      samsung,s3c6410-i2s: for 8/16/24bit stereo I2S.
-+
-+      samsung,s5pv210-i2s: for 8/16/24bit multichannel (5.1) I2S with
-+      secondary FIFO, s/w reset control and internal mux for root clock
-+      source.
-+
-+      samsung,exynos5420-i2s: for 8/16/24bit multichannel (5.1) I2S for
-+      playback, stereo channel capture, secondary FIFO using internal
-+      or external DMA, s/w reset control, internal mux for root clock
-+      source and 7.1 channel TDM support for playback; TDM (Time division
-+      multiplexing) is to allow transfer of multiple channel audio data on
-+      single data line.
-+
-+      samsung,exynos7-i2s: with all the available features of Exynos5 I2S.
-+      Exynos7 I2S has 7.1 channel TDM support for capture, secondary FIFO
-+      with only external DMA and more number of root clock sampling
-+      frequencies.
-+
-+      samsung,exynos7-i2s1: I2S1 on previous samsung platforms supports
-+      stereo channels. Exynos7 I2S1 upgraded to 5.1 multichannel with
-+      slightly modified bit offsets.
-+    enum:
-+      - samsung,s3c6410-i2s
-+      - samsung,s5pv210-i2s
-+      - samsung,exynos5420-i2s
-+      - samsung,exynos7-i2s
-+      - samsung,exynos7-i2s1
-+
-+  reg:
-+    maxItems: 1
-+
-+  dmas:
-+    minItems: 2
-+    maxItems: 3
-+
-+  dma-names:
-+    oneOf:
-+      - items:
-+          - const: tx
-+          - const: rx
-+      - items:
-+          - const: tx
-+          - const: rx
-+          - const: tx-sec
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 3
-+
-+  clock-names:
-+    oneOf:
-+      - items:
-+          - const: iis
-+      - items: # for I2S0
-+          - const: iis
-+          - const: i2s_opclk0
-+          - const: i2s_opclk1
-+      - items: # for I2S1 and I2S2
-+          - const: iis
-+          - const: i2s_opclk0
-+    description: |
-+      "iis" is the I2S bus clock and i2s_opclk0, i2s_opclk1 are sources
-+      of the root clock. I2S0 has internal mux to select the source
-+      of root clock and I2S1 and I2S2 doesn't have any such mux.
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  clock-output-names:
-+    deprecated: true
-+    oneOf:
-+      - items: # for I2S0
-+          - const: i2s_cdclk0
-+      - items: # for I2S1
-+          - const: i2s_cdclk1
-+      - items: # for I2S2
-+          - const: i2s_cdclk2
-+    description: Names of the CDCLK I2S output clocks.
-+
-+  samsung,idma-addr:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: |
-+      Internal DMA register base address of the audio
-+      subsystem (used in secondary sound source).
-+
-+  pinctrl-0:
-+    description: Should specify pin control groups used for this controller.
-+
-+  pinctrl-names:
-+    const: default
-+
-+  "#sound-dai-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - dmas
-+  - dma-names
-+  - clocks
-+  - clock-names
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/exynos-audss-clk.h>
-+
-+    i2s0: i2s@3830000 {
-+        compatible = "samsung,s5pv210-i2s";
-+        reg = <0x03830000 0x100>;
-+        dmas = <&pdma0 10>,
-+                <&pdma0 9>,
-+                <&pdma0 8>;
-+        dma-names = "tx", "rx", "tx-sec";
-+        clocks = <&clock_audss EXYNOS_I2S_BUS>,
-+                <&clock_audss EXYNOS_I2S_BUS>,
-+                <&clock_audss EXYNOS_SCLK_I2S>;
-+        clock-names = "iis", "i2s_opclk0", "i2s_opclk1";
-+        #clock-cells = <1>;
-+        samsung,idma-addr = <0x03000000>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&i2s0_bus>;
-+        #sound-dai-cells = <1>;
-+    };
--- 
-2.17.1
+I don't think the bug is limited to SPDIF.  The calls to dmaengine_terminate_async are in sound/core/pcm_dmaengine.c.  When the ALSA device is closed it does call dmaengine_synchronize.  But when there is an overrun it does not.  It was commit bc0e7345168c0f7483d2d1da86285d89136417cd (by Lars-Peter Clausen) where the call to dmaengine_synchronize was added for closing an ALSA device.  It seems the overrun case was overlooked?  I think maybe I should copy the ALSA list on this as well.
+
+I have also found another manifestation of the imx-sdma change which may be useful for others trying to debug this.  If I run the following command:
+
+arecord -Dhw:4,0 -fS24_LE -c2 -r44100 --buffer-size 100 > /dev/null
+
+With kernel v4.20-rc5 I get an endless stream of overrun messages.  With kernel v4.20-rc6 (which includes the four imx-sdma commits mentioned above) I get a few overrun messages but then arecord exits with "arecord: pcm_read:2096: read error: Input/output error"
+
+Best regards,
+Kevin
 
 _______________________________________________
 Alsa-devel mailing list

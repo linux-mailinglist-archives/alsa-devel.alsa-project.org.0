@@ -2,66 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D07C7CC4F5
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 23:42:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AF6ECC522
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 23:45:31 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 69B88168B;
-	Fri,  4 Oct 2019 23:41:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69B88168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 972CC1686;
+	Fri,  4 Oct 2019 23:44:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 972CC1686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570225357;
-	bh=x0aGR24nYhq7eFYNn+q8EQzJ/iErhVPPrYjsaeYWDy0=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1570225530;
+	bh=0l3c7R4cWo3urdxDOvpibIC9QsqEGJbUn/J4r7xOhoI=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k1KW99DjC91TM02c/79wRPhU2bDBMTRQobg5qF3smjft7lJ9A3QgnzpCw0XVz2GCD
-	 CMJKBr7KJCE+i3NeroIl5C96/8V8zUO2YDsXjLkuat5EcnyBOCVUC8kc12xeF8PuO1
-	 frJGPwOtTrRcPa9k+mFHCGyGZQPs5NRrVdjb86ws=
+	b=I0t5LYP5n2KBN+1EKsE/W/iDIWzvnk2ZdjIzkyJPiBihR/MJYA/uLnOKNBVIVf3ru
+	 3/Y8OHN5QfS1FZ90YbqSfkIZzIMXoQ53nN+c+hviDv9fZ3+HznqQx+X7RLthA2nT/N
+	 l1bAEBnS+B/ft6VNu1DAgIy6zdnqPCxrKHfe4c6o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D95C3F80137;
-	Fri,  4 Oct 2019 23:40:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A7C1F803F3;
+	Fri,  4 Oct 2019 23:43:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 896E8F80391; Fri,  4 Oct 2019 23:40:50 +0200 (CEST)
+ id 1D0E7F803D5; Fri,  4 Oct 2019 23:43:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42F11F80137
- for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 23:40:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42F11F80137
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Oct 2019 14:40:44 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.67,257,1566889200"; d="scan'208";a="186382566"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga008.jf.intel.com with ESMTP; 04 Oct 2019 14:40:44 -0700
-Received: from omukherj-mobl4.amr.corp.intel.com (unknown [10.251.29.2])
- by linux.intel.com (Postfix) with ESMTP id E6833580378;
- Fri,  4 Oct 2019 14:40:43 -0700 (PDT)
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- alsa-devel@alsa-project.org
-References: <20191004154127.28459-1-ranjani.sridharan@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <304027eb-ea44-ae4f-b4b2-f2020f528312@linux.intel.com>
-Date: Fri, 4 Oct 2019 16:40:43 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4FC66F80137
+ for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 23:43:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FC66F80137
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="eVxW6Kgt"
+Received: by mail-pg1-x543.google.com with SMTP id p30so2404620pgl.2
+ for <alsa-devel@alsa-project.org>; Fri, 04 Oct 2019 14:43:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=GlE7EV9ZCAIebEa+EIBxR8fUoerT1/7sfKy7D9MHjI4=;
+ b=eVxW6KgtyZ8JQrKs0J/lCOximSvmXNsC1eBefIROkzFGAjbHwvP1CIkoAjV00sn/ZT
+ c37j0oEoOCfnf42J6h13VbuR1Plru4KL2pAmil/2mEiCxIC+/eOl5vhe/yZ2QsOOQryF
+ NfODdc9R4JjgUz3eIt3BqOdX3FRAu3XS9Vu2k=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=GlE7EV9ZCAIebEa+EIBxR8fUoerT1/7sfKy7D9MHjI4=;
+ b=OZq83EhoLsSJFe3P8C5wDNClhVGtHm1/lzaCSHS3Jc+a6ijLFGjhAOHF0beJtzjkVV
+ ULyx0uRIHIQsToxxrKTIQCzlAofHVQm6plREzFz3MrjtdOfppyDZgZIsWiM7coYRhchA
+ WqRB52WcqKNVBwjx/UudJrnlhQMyCSOlfKXb1OGw7SmL2XfCrlxRWIJTxVapoTAbzL81
+ UnN1m4SUmyB2FR00aYmT9UyOFrSxwiAna0jVy+cCR/uRo9UX3lQIRVn6QXB0BTED0S+C
+ ZBEjK7Tfox3RmB2sJDlVnAA6rJWcHpqfQI6Lc18YFxsBlQupEffBksTthyc0iOBSpjeA
+ X+VA==
+X-Gm-Message-State: APjAAAXw6iXk5ZLx0diRsiq1/mTlcA1/Uq9jFeC/iQO1U9dZdQS1+NVx
+ 2oet8pu4AcKym/NNBwcB0RtClA==
+X-Google-Smtp-Source: APXvYqz/zeAfOFLn8InrUDsSwRMd8ffzxCvY/3n479aCfXR18qlzfF6acmga5aGS3E9hIODd6McEkw==
+X-Received: by 2002:a63:df50:: with SMTP id h16mr17395692pgj.126.1570225423141; 
+ Fri, 04 Oct 2019 14:43:43 -0700 (PDT)
+Received: from smtp.gmail.com ([2620:15c:202:1:fa53:7765:582b:82b9])
+ by smtp.gmail.com with ESMTPSA id a11sm10446799pfg.94.2019.10.04.14.43.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 04 Oct 2019 14:43:42 -0700 (PDT)
+From: Stephen Boyd <swboyd@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Fri,  4 Oct 2019 14:43:31 -0700
+Message-Id: <20191004214334.149976-8-swboyd@chromium.org>
+X-Mailer: git-send-email 2.23.0.581.g78d2f28ef7-goog
+In-Reply-To: <20191004214334.149976-1-swboyd@chromium.org>
+References: <20191004214334.149976-1-swboyd@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <20191004154127.28459-1-ranjani.sridharan@linux.intel.com>
-Content-Language: en-US
-Cc: broonie@kernel.org, tiwai@suse.com
-Subject: Re: [alsa-devel] [RFC PATCH 0/2] Alter the trigger order for FE/BE
- DAI's based on command
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Paul Cercueil <paul@crapouillou.net>,
+ Mark Brown <broonie@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Frank Rowand <frowand.list@gmail.com>
+Subject: [alsa-devel] [PATCH 07/10] ASoC: jz4740: Use
+	of_device_get_match_data()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,70 +97,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/4/19 8:41 AM, Ranjani Sridharan wrote:
-> Currently, the trigger orders SND_SOC_DPCM_TRIGGER_PRE/POST
-> determine the order in which FE DAI and BE DAI are triggered.
-> In the case of SND_SOC_DPCM_TRIGGER_PRE, the FE DAI is
-> triggered before the BE DAI and in the case of
-> SND_SOC_DPCM_TRIGGER_POST, the BE DAI is triggered before
-> the FE DAI. And this order remains the same irrespective of the
-> trigger command.
->      
-> In the case of the SOF driver, during playback, the FW
-> expects the BE DAI to be triggered before the FE DAI during
-> the START trigger. The BE DAI trigger handles the starting of
-> Link DMA and so it must be started before the FE DAI is started
-> to prevent xruns during pause/release. This can be addressed
-> by setting the trigger order for the FE dai link to
-> SND_SOC_DPCM_TRIGGER_POST. But during the STOP trigger,
-> the FW expects the FE DAI to be triggered before the BE DAI.
-> Retaining the same order during the START and STOP commands,
-> results in FW error as the DAI component in the FW is still
-> active.
->      
-> The issue can be fixed by mirroring the trigger order of
-> FE and BE DAI's during the START and STOP trigger. So, with the
-> trigger order set to SND_SOC_DPCM_TRIGGER_PRE, the FE DAI will be
-> trigger first during SNDRV_PCM_TRIGGER_START/STOP/RESUME
-> and the BE DAI will be triggered first during the
-> STOP/SUSPEND/PAUSE commands. Conversely, with the trigger order
-> set to SND_SOC_DPCM_TRIGGER_POST, the BE DAI will be triggered
-> first during the SNDRV_PCM_TRIGGER_START/STOP/RESUME commands
-> and the FE DAI will be triggered first during the
-> SNDRV_PCM_TRIGGER_STOP/SUSPEND/PAUSE commands.
-> 
-> My first thought was to use a BESPOKE trigger for the SOF driver
-> but looking more into the implementation of the bespoke trigger
-> in soc_pcm_bespoke_trigger() didnt indicate it had much to do
-> with the ordering of the FE/BE DAI's but rather just use the
-> bespoke trigger callbacks in the DAI driver.
-> 
-> More details on the SOF issue can be found in:
-> Github Issue: https://github.com/thesofproject/linux/issues/1160
+This probe function is only called if the device is backed by a DT node,
+so switch this call to of_device_get_match_data() to reduce code size
+and simplify a bit. This also avoids needing to reference a potentially
+undefined variable because of_device_get_match_data() doesn't need to
+know anything beyond the struct device to find the match table.
 
-I am a bit confused because that GitHub link does not provide any test 
-results, and the PR1277 CI results show only half of the platforms 
-tested. not sure why. I also don't get if this is an issue specific to 
-the HDaudio Link DMA or if this is a across-the-board issue.
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Paul Cercueil <paul@crapouillou.net>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: Frank Rowand <frowand.list@gmail.com>
+Cc: <alsa-devel@alsa-project.org>
+Signed-off-by: Stephen Boyd <swboyd@chromium.org>
+---
 
-The other comment is that I see quite a few legacy Intel machine drivers 
-with the POST trigger hard-coded for front-ends, and we'd need to retest 
-some of these platforms to see if this change broke them.
+Please ack or pick for immediate merge so the last patch can be merged.
 
-> 
-> Ranjani Sridharan (2):
->    ASoC: pcm: update FE/BE trigger order based on the command
->    ASoC: SOF: topology: set trigger order for FE DAI link
-> 
->   sound/soc/soc-pcm.c      | 99 +++++++++++++++++++++++++++++-----------
->   sound/soc/sof/topology.c |  4 ++
->   2 files changed, 76 insertions(+), 27 deletions(-)
-> 
+ sound/soc/jz4740/jz4740-i2s.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/jz4740/jz4740-i2s.c b/sound/soc/jz4740/jz4740-i2s.c
+index 13408de34055..d2dab4d24b87 100644
+--- a/sound/soc/jz4740/jz4740-i2s.c
++++ b/sound/soc/jz4740/jz4740-i2s.c
+@@ -503,9 +503,8 @@ static int jz4740_i2s_dev_probe(struct platform_device *pdev)
+ 	if (!i2s)
+ 		return -ENOMEM;
+ 
+-	match = of_match_device(jz4740_of_matches, &pdev->dev);
+-	if (match)
+-		i2s->version = (enum jz47xx_i2s_version)match->data;
++	i2s->version =
++		(enum jz47xx_i2s_version)of_device_get_match_data(&pdev->dev);
+ 
+ 	mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	i2s->base = devm_ioremap_resource(&pdev->dev, mem);
+-- 
+Sent by a computer through tubes
 
 _______________________________________________
 Alsa-devel mailing list

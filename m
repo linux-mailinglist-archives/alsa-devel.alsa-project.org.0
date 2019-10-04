@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 381D7CC23F
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 19:59:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7AF0CC245
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 20:02:26 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C0B21167D;
-	Fri,  4 Oct 2019 19:58:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0B21167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4241683;
+	Fri,  4 Oct 2019 20:01:36 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4241683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570211987;
-	bh=LD04KBwwt2LSC8I03dKli93wfpl6nF/ygj+ZhGp9Ptk=;
+	s=default; t=1570212146;
+	bh=BJSYgLdkyVVx6mQ+PjlBXihcdDmwHcdzFzfyMlA08xc=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=s1MbLyE5NZa8KR0yO3BYSryyF4DIiALsa0XYemdSTu01zh7ma1LkA19qk/LTDRuz0
-	 xH4RCFxvPEpr3E2UT43PT6CuMfR4GWeawb3Nju2YbdFzz8R275f6XVImCtkD95NtyN
-	 W8XfEggI2ox4GhRa+X+v6u5jMKNUu1FhO0geTGLc=
+	b=P9NPghEfCc/2HRPMN9eas10N27oRpx2eKlLRfLen5RokkTLztIaPIZddys4aPdTAh
+	 QPmtOJrWoY7WJ/L3mkUcUswA4foKEkbf0r/Oz/9feCSiBWayZfilnxgPO9NLngilkD
+	 E31PZjzrpaaDx/CgtiAUuyh8Tu0C0p+Tv7Vw1lck=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E347AF8068A;
-	Fri,  4 Oct 2019 19:52:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68B77F80716;
+	Fri,  4 Oct 2019 19:53:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 133E0F80633; Fri,  4 Oct 2019 19:52:48 +0200 (CEST)
+ id 8F3FAF80612; Fri,  4 Oct 2019 19:52:50 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 496ADF80528
- for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 19:52:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 496ADF80528
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8637F805FD
+ for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 19:52:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8637F805FD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="jl+bIApn"
+ header.b="DGL87zhY"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=23h7hrNuuBzYxbv0A+McL9EDRzTDvU0UkCbQmXL7gEU=; b=jl+bIApnjKcO
- B7wXEYeEghjPpo1OZHbNdn43BbvsHqMHb+zeZofoqkPAnIhHMm2Glf1A71hluVJ+0xCREAjU58Jpl
- 8a2nCIFDnY/mmLcYnd7gTqbXXrF+JyaaCRlpTrnlD/3AOmvbrSHOy3ftRDBNjNhkec+P5TYUcovwv
- dhGOM=;
+ List-Archive; bh=9rMD/iIRt+AstMhHvit3hB7IN7ex8Ugxf6OLt9MXTjw=; b=DGL87zhYsfQq
+ Q6fWG2jJZXD8hMQtWWddWRzLFW2gdL8ciheUJKNIb09GW5eDofezelfeLSj5rvsdlhSOQsVyVYlaI
+ mwGdxG2YpnKu8rup3WlrOgGYyf9Bea8/TiFfC5LkDYc5tYd11TuarP1rA9saitkF+d0O9G5opUCVs
+ mdc2k=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iGRkq-0003vH-Ok; Fri, 04 Oct 2019 17:52:36 +0000
+ id 1iGRkq-0003v7-5d; Fri, 04 Oct 2019 17:52:36 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 4139E2741EF2; Fri,  4 Oct 2019 18:52:36 +0100 (BST)
+ id A47FE2741EF2; Fri,  4 Oct 2019 18:52:35 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Stuart Henderson <stuarth@opensource.cirrus.com>
-In-Reply-To: <20191002084240.21589-1-ckeepax@opensource.cirrus.com>
+To: kbuild test robot <lkp@intel.com>
+In-Reply-To: <20191001175504.ufhyxh66psrht42k@332d0cec05f4>
 X-Patchwork-Hint: ignore
-Message-Id: <20191004175236.4139E2741EF2@ypsilon.sirena.org.uk>
-Date: Fri,  4 Oct 2019 18:52:36 +0100 (BST)
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, lgirdwood@gmail.com
-Subject: [alsa-devel] Applied "ASoC: wm_adsp: Don't generate kcontrols
-	without READ flags" to the asoc tree
+Message-Id: <20191004175235.A47FE2741EF2@ypsilon.sirena.org.uk>
+Date: Fri,  4 Oct 2019 18:52:35 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Frank Shi <shifu0704@thundersoft.com>,
+ kbuild-all@01.org
+Subject: [alsa-devel] Applied "tas2770: fix platform_no_drv_owner.cocci
+	warnings" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,11 +90,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: wm_adsp: Don't generate kcontrols without READ flags
+   tas2770: fix platform_no_drv_owner.cocci warnings
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -114,37 +115,38 @@ to this mail.
 Thanks,
 Mark
 
-From 3ae7359c0e39f42a96284d6798fc669acff38140 Mon Sep 17 00:00:00 2001
-From: Stuart Henderson <stuarth@opensource.cirrus.com>
-Date: Wed, 2 Oct 2019 09:42:40 +0100
-Subject: [PATCH] ASoC: wm_adsp: Don't generate kcontrols without READ flags
+From 5a7423993007d08bfc7b982451eca0526f51744d Mon Sep 17 00:00:00 2001
+From: kbuild test robot <lkp@intel.com>
+Date: Wed, 2 Oct 2019 01:55:04 +0800
+Subject: [PATCH] tas2770: fix platform_no_drv_owner.cocci warnings
 
-User space always expects to be able to read ALSA controls, so ensure
-no kcontrols are generated without an appropriate READ flag. In the case
-of a read of such a control zeros will be returned.
+sound/soc/codecs/tas2770.c:796:3-8: No need to set .owner here. The core will do it.
 
-Signed-off-by: Stuart Henderson <stuarth@opensource.cirrus.com>
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20191002084240.21589-1-ckeepax@opensource.cirrus.com
+ Remove .owner field if calls are used which set it automatically
+
+Generated by: scripts/coccinelle/api/platform_no_drv_owner.cocci
+
+Fixes: 1a476abc723e ("tas2770: add tas2770 smart PA kernel driver")
+CC: Frank Shi <shifu0704@thundersoft.com>
+Signed-off-by: kbuild test robot <lkp@intel.com>
+Link: https://lore.kernel.org/r/20191001175504.ufhyxh66psrht42k@332d0cec05f4
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/wm_adsp.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/codecs/tas2770.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index 85396d920e0a..9b8bb7bbe945 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -1259,8 +1259,7 @@ static unsigned int wmfw_convert_flags(unsigned int in, unsigned int len)
- 	}
- 
- 	if (in) {
--		if (in & WMFW_CTL_FLAG_READABLE)
--			out |= rd;
-+		out |= rd;
- 		if (in & WMFW_CTL_FLAG_WRITEABLE)
- 			out |= wr;
- 		if (in & WMFW_CTL_FLAG_VOLATILE)
+diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
+index 9da88ccb1d51..dbbb21fe0548 100644
+--- a/sound/soc/codecs/tas2770.c
++++ b/sound/soc/codecs/tas2770.c
+@@ -793,7 +793,6 @@ MODULE_DEVICE_TABLE(of, tas2770_of_match);
+ static struct i2c_driver tas2770_i2c_driver = {
+ 	.driver = {
+ 		.name   = "tas2770",
+-		.owner  = THIS_MODULE,
+ 		.of_match_table = of_match_ptr(tas2770_of_match),
+ 	},
+ 	.probe      = tas2770_i2c_probe,
 -- 
 2.20.1
 

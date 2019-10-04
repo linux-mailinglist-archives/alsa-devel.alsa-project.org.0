@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0650CC239
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 19:57:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E802CC23C
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 19:59:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3582F168B;
-	Fri,  4 Oct 2019 19:57:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3582F168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 268281684;
+	Fri,  4 Oct 2019 19:58:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 268281684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570211871;
-	bh=ZuzS86cpOqFv28PtIHjBtEVM+Tvh6k3MCMHqbTLoUQQ=;
+	s=default; t=1570211944;
+	bh=ExK4eqYiuayKHa9k3q4n7V9wXMjoVmzPeTeB1mlOflk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=eX7FqjJg/kTNNChWSF52bEGN9D/V0Jc1rYuu831uU6OFXkecJBYvWevJqDAlxypnU
-	 qpoEiWJqNHyqAUsZdSK93x1ArnaRPeYCkEExlTuQ+p/IyxAUBAtz8Ghxh2kUeP/koF
-	 wBuDveKpLimsjRaNr7Ricj5pUFRfvWhgy96FJEc0=
+	b=NGU2RyWg6LYZ2FSB2LrNIBeTL0XGsYD338900eq1Wz6DprDp2Zz8ny5gdkM6wEx4P
+	 L2FAYtjCnCUs20xknaiyOmUeC60ZtNtYwkpmxyokmoHb0pndOyzRhRyJJT7+kN3XjR
+	 zt/ZZ84B3KggkBVKzA+rG4i4q4V9cbHszvDbXSc8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67888F8063D;
-	Fri,  4 Oct 2019 19:52:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0D604F80678;
+	Fri,  4 Oct 2019 19:52:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 457C5F805FE; Fri,  4 Oct 2019 19:52:44 +0200 (CEST)
+ id CE1E0F80634; Fri,  4 Oct 2019 19:52:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77153F80377
- for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 19:52:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77153F80377
+ by alsa1.perex.cz (Postfix) with ESMTPS id D150DF800C2
+ for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 19:52:37 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D150DF800C2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="HkUpiaSm"
+ header.b="A/efAStV"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=oYLVZLWmGAZnFnYmN0rAySi9QjYTZ+Q4UCUl8X/mowI=; b=HkUpiaSmuwxf
- 7WnWfahTPCrjVo8eg5u7IteE44hsXFUzHNZNuEAlLAlxKL53etxoaWQgxTWjOw5EidlardFb/esDU
- 2kAwrv4JaBqoH4Ip/daD01PSjFx1QZPy1cZ8/lHwsF0hNimGZTQMNaTjUhMO0Bx18turL0CdscOlL
- DHFpQ=;
+ List-Archive; bh=/tVPZenYEEvKXdV0H0rtDml9JDehxDB1KYdDNZdz9Gs=; b=A/efAStVmGes
+ N7QaUZoz9lOew9PUrjMART1+Yl7PLXIHavgkzsw8c6ERp/n2niBgG+bcfdakdNvVoIWUdXdJWbSaY
+ aKUrJLBglIzmH3mxhP0TTlXIScO3xzxpHgGR7yNWtNpGG9HqcA1h/Otf1gBVzVoDyBKQBGalVKsvK
+ ZTkCY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iGRkp-0003up-Fp; Fri, 04 Oct 2019 17:52:35 +0000
+ id 1iGRkq-0003vE-Fz; Fri, 04 Oct 2019 17:52:36 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id E712A2741EF2; Fri,  4 Oct 2019 18:52:34 +0100 (BST)
+ id 060992741EF0; Fri,  4 Oct 2019 18:52:35 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <874l0rbu1i.wl-kuninori.morimoto.gx@renesas.com>
+To: Robin Murphy <robin.murphy@arm.com>
+In-Reply-To: <bcb12a849a05437fb18372bc7536c649b94bdf07.1570029862.git.robin.murphy@arm.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191004175234.E712A2741EF2@ypsilon.sirena.org.uk>
-Date: Fri,  4 Oct 2019 18:52:34 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: add soc_setup_card_name()" to
+Message-Id: <20191004175236.060992741EF0@ypsilon.sirena.org.uk>
+Date: Fri,  4 Oct 2019 18:52:35 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, heiko@sntech.de, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-rockchip@lists.infradead.org,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoc: rockchip: i2s: Fix RPM imbalance" to
 	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,11 +89,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: add soc_setup_card_name()
+   ASoc: rockchip: i2s: Fix RPM imbalance
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -112,100 +114,37 @@ to this mail.
 Thanks,
 Mark
 
-From 0f23f718ecbc135866ac40db3424dd75f01c76ea Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 2 Oct 2019 14:22:49 +0900
-Subject: [PATCH] ASoC: soc-core: add soc_setup_card_name()
+From b1e620e7d32f5aad5353cc3cfc13ed99fea65d3a Mon Sep 17 00:00:00 2001
+From: Robin Murphy <robin.murphy@arm.com>
+Date: Wed, 2 Oct 2019 16:30:37 +0100
+Subject: [PATCH] ASoc: rockchip: i2s: Fix RPM imbalance
 
-ALSA needs to setup shortname, longname, and driver.
-These methods are very similar.
-This patch adds new soc_setup_card_name() and setup these.
+If rockchip_pcm_platform_register() fails, e.g. upon deferring to wait
+for an absent DMA channel, we return without disabling RPM, which makes
+subsequent re-probe attempts scream with errors about the unbalanced
+enable. Don't do that.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/874l0rbu1i.wl-kuninori.morimoto.gx@renesas.com
+Fixes: ebb75c0bdba2 ("ASoC: rockchip: i2s: Adjust devm usage")
+Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+Link: https://lore.kernel.org/r/bcb12a849a05437fb18372bc7536c649b94bdf07.1570029862.git.robin.murphy@arm.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 60 +++++++++++++++++++++++++++++++-------------
- 1 file changed, 42 insertions(+), 18 deletions(-)
+ sound/soc/rockchip/rockchip_i2s.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index a34000d08856..f79ffc4b5b57 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -1905,6 +1905,42 @@ static void soc_check_tplg_fes(struct snd_soc_card *card)
+diff --git a/sound/soc/rockchip/rockchip_i2s.c b/sound/soc/rockchip/rockchip_i2s.c
+index af2d5a6124c8..61c984f10d8e 100644
+--- a/sound/soc/rockchip/rockchip_i2s.c
++++ b/sound/soc/rockchip/rockchip_i2s.c
+@@ -677,7 +677,7 @@ static int rockchip_i2s_probe(struct platform_device *pdev)
+ 	ret = rockchip_pcm_platform_register(&pdev->dev);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Could not register PCM\n");
+-		return ret;
++		goto err_suspend;
  	}
- }
  
-+#define soc_setup_card_name(name, name1, name2, norm)		\
-+	__soc_setup_card_name(name, sizeof(name), name1, name2, norm)
-+static void __soc_setup_card_name(char *name, int len,
-+				  const char *name1, const char *name2,
-+				  int normalization)
-+{
-+	int i;
-+
-+	snprintf(name, len, "%s", name1 ? name1 : name2);
-+
-+	if (!normalization)
-+		return;
-+
-+	/*
-+	 * Name normalization
-+	 *
-+	 * The driver name is somewhat special, as it's used as a key for
-+	 * searches in the user-space.
-+	 *
-+	 * ex)
-+	 *	"abcd??efg" -> "abcd__efg"
-+	 */
-+	for (i = 0; i < len; i++) {
-+		switch (name[i]) {
-+		case '_':
-+		case '-':
-+		case '\0':
-+			break;
-+		default:
-+			if (!isalnum(name[i]))
-+				name[i] = '_';
-+			break;
-+		}
-+	}
-+}
-+
- static void soc_cleanup_card_resources(struct snd_soc_card *card)
- {
- 	struct snd_soc_dai_link *link, *_link;
-@@ -2070,24 +2106,12 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
- 	/* try to set some sane longname if DMI is available */
- 	snd_soc_set_dmi_name(card, NULL);
- 
--	snprintf(card->snd_card->shortname, sizeof(card->snd_card->shortname),
--		 "%s", card->name);
--	snprintf(card->snd_card->longname, sizeof(card->snd_card->longname),
--		 "%s", card->long_name ? card->long_name : card->name);
--	snprintf(card->snd_card->driver, sizeof(card->snd_card->driver),
--		 "%s", card->driver_name ? card->driver_name : card->name);
--	for (i = 0; i < ARRAY_SIZE(card->snd_card->driver); i++) {
--		switch (card->snd_card->driver[i]) {
--		case '_':
--		case '-':
--		case '\0':
--			break;
--		default:
--			if (!isalnum(card->snd_card->driver[i]))
--				card->snd_card->driver[i] = '_';
--			break;
--		}
--	}
-+	soc_setup_card_name(card->snd_card->shortname,
-+			    card->name, NULL, 0);
-+	soc_setup_card_name(card->snd_card->longname,
-+			    card->long_name, card->name, 0);
-+	soc_setup_card_name(card->snd_card->driver,
-+			    card->driver_name, card->name, 1);
- 
- 	if (card->late_probe) {
- 		ret = card->late_probe(card);
+ 	return 0;
 -- 
 2.20.1
 

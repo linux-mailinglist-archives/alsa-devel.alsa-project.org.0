@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB914CC232
-	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 19:56:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A29A4CC230
+	for <lists+alsa-devel@lfdr.de>; Fri,  4 Oct 2019 19:55:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CB171697;
-	Fri,  4 Oct 2019 19:55:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CB171697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C1C0168D;
+	Fri,  4 Oct 2019 19:54:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C1C0168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570211774;
-	bh=eo6++4Bk0swwTpdxlrOWFWfyNYVkedGZgrzUjGsED88=;
+	s=default; t=1570211737;
+	bh=GpWJrgqI3VPiojB77Qv/b1RNk2N9jo15OGAecBievZY=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=KgSfogj4B4SUgW1J6EdeTo8KATx8Sp7lAiYCx7zm9tO1ca6HqCEXlXOewExGjRYdK
-	 hTqYHm9bmpjWj8PCKaU02DFfFchc9MH1SsUpr8HLMvC43TErwyXg51PyjDyevltBrZ
-	 KocDZRSqVlUbfWrL6g0noMGrrQxesU3AAE822b1E=
+	b=h/T6KLIdVPEomncAEBRFfLSpvygti63SxqlyFca1WPRJOBjDSJLzxAXHUMP4jGil/
+	 XUtdS9AJ6Xp2j0EqmgLONq9HH9nbGXBvHtGVLJCuD+d19IeUr24jldR0QCMTWko2+a
+	 uHKV2TxIeUtmQGLWPaGjL247vx5qeVCU7BdppFyw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CA77F80635;
-	Fri,  4 Oct 2019 19:52:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5AC8AF805AA;
+	Fri,  4 Oct 2019 19:52:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3D62F80600; Fri,  4 Oct 2019 19:52:42 +0200 (CEST)
+ id F0DE5F8060D; Fri,  4 Oct 2019 19:52:41 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,45 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D281FF803F3
- for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 19:52:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D281FF803F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 08A8AF80391
+ for <alsa-devel@alsa-project.org>; Fri,  4 Oct 2019 19:52:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08A8AF80391
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="x3vprIro"
+ header.b="iwGfXuXU"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=YUurKKcNX2A3p1DuzcEuNuIKK3zu/r6glue8wknPYmY=; b=x3vprIromulT
- fEalh3TZGPmRL7UV31cjbzSK5166YQ5d7y07Id1d7z0P4V38+gDaMM/qq3BayewZvSV40amI4DNBX
- vWRimf37Ir8cCSYM7NblzV9c/KeUjWJlR5EhlycPj2VEYULZI1lVjW1AHxwjKjMC3vFARwT1IFnew
- jHikE=;
+ List-Archive; bh=W7xN7P/YlyjvxtbdrBs+yyThWLCVeMKwOLbG3H/F1VM=; b=iwGfXuXU4mF4
+ 9I1Tsndikk+NeyPOctWGBFuAr7O4I+SFeQC403FWSV7b1R6/3FGWSHxmfY88asiS714WiYKXKnAGB
+ tSkLk62fSY45aRm2Fyyafc4VfnLAEzEwQz1Y/Kik/5FgwXNr0J1HLSwk7B2BKovZJWpsKoDuGxbwc
+ GQ+h0=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iGRkp-0003ug-2j; Fri, 04 Oct 2019 17:52:35 +0000
+ id 1iGRkp-0003ul-5i; Fri, 04 Oct 2019 17:52:35 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id F20E92741EF0; Fri,  4 Oct 2019 18:52:33 +0100 (BST)
+ id A9D9D27420B6; Fri,  4 Oct 2019 18:52:34 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Biju Das <biju.das@bp.renesas.com>
-In-Reply-To: <1570171940-42937-1-git-send-email-biju.das@bp.renesas.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <8736gbbu1a.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191004175233.F20E92741EF0@ypsilon.sirena.org.uk>
-Date: Fri,  4 Oct 2019 18:52:33 +0100 (BST)
-Cc: Fabrizio Castro <fabrizio.castro@bp.renesas.com>,
- devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Simon Horman <horms@verge.net.au>,
- Chris Paterson <Chris.Paterson2@renesas.com>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-renesas-soc@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Mark Rutland <mark.rutland@arm.com>
-Subject: [alsa-devel] Applied "ASoC: rsnd: Document r8a774b1 bindings" to
-	the asoc tree
+Message-Id: <20191004175234.A9D9D27420B6@ypsilon.sirena.org.uk>
+Date: Fri,  4 Oct 2019 18:52:34 +0100 (BST)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: soc-core: use devm_xxx for component
+	related resource" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rsnd: Document r8a774b1 bindings
+   ASoC: soc-core: use devm_xxx for component related resource
 
 has been applied to the asoc tree at
 
@@ -118,32 +112,85 @@ to this mail.
 Thanks,
 Mark
 
-From 01400bfb2ea76a399448486e2d26f2f1b5a77787 Mon Sep 17 00:00:00 2001
-From: Biju Das <biju.das@bp.renesas.com>
-Date: Fri, 4 Oct 2019 07:52:20 +0100
-Subject: [PATCH] ASoC: rsnd: Document r8a774b1 bindings
+From 50014499e6a45edd7ba1facf2133c03bbc7d8266 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 2 Oct 2019 14:22:57 +0900
+Subject: [PATCH] ASoC: soc-core: use devm_xxx for component related resource
 
-Document SoC specific bindings for RZ/G2N (r8a774b1) SoC.
+dai / component related resources are created when component is
+registered, and it will be freed when component was unregistered.
+These resources are not re-used after that.
+This means, we can use devm_xxx for dai / component, without
+thinking about kfree().
+This patch uses devm_xxx for these.
 
-Signed-off-by: Biju Das <biju.das@bp.renesas.com>
-Link: https://lore.kernel.org/r/1570171940-42937-1-git-send-email-biju.das@bp.renesas.com
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/8736gbbu1a.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- Documentation/devicetree/bindings/sound/renesas,rsnd.txt | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/soc-core.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.txt b/Documentation/devicetree/bindings/sound/renesas,rsnd.txt
-index 5c52182f7dcf..797fd035434c 100644
---- a/Documentation/devicetree/bindings/sound/renesas,rsnd.txt
-+++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.txt
-@@ -268,6 +268,7 @@ Required properties:
- 				    - "renesas,rcar_sound-r8a7745" (RZ/G1E)
- 				    - "renesas,rcar_sound-r8a77470" (RZ/G1C)
- 				    - "renesas,rcar_sound-r8a774a1" (RZ/G2M)
-+				    - "renesas,rcar_sound-r8a774b1" (RZ/G2N)
- 				    - "renesas,rcar_sound-r8a774c0" (RZ/G2E)
- 				    - "renesas,rcar_sound-r8a7778" (R-Car M1A)
- 				    - "renesas,rcar_sound-r8a7779" (R-Car H1)
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index f79ffc4b5b57..2c2803e6544b 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2506,7 +2506,7 @@ static char *fmt_single_name(struct device *dev, int *id)
+ 			*id = 0;
+ 	}
+ 
+-	return kstrdup(name, GFP_KERNEL);
++	return devm_kstrdup(dev, name, GFP_KERNEL);
+ }
+ 
+ /*
+@@ -2523,7 +2523,7 @@ static inline char *fmt_multiple_name(struct device *dev,
+ 		return NULL;
+ 	}
+ 
+-	return kstrdup(dai_drv->name, GFP_KERNEL);
++	return devm_kstrdup(dev, dai_drv->name, GFP_KERNEL);
+ }
+ 
+ /**
+@@ -2539,8 +2539,6 @@ static void snd_soc_unregister_dais(struct snd_soc_component *component)
+ 		dev_dbg(component->dev, "ASoC: Unregistered DAI '%s'\n",
+ 			dai->name);
+ 		list_del(&dai->list);
+-		kfree(dai->name);
+-		kfree(dai);
+ 	}
+ }
+ 
+@@ -2554,7 +2552,7 @@ static struct snd_soc_dai *soc_add_dai(struct snd_soc_component *component,
+ 
+ 	dev_dbg(dev, "ASoC: dynamically register DAI %s\n", dev_name(dev));
+ 
+-	dai = kzalloc(sizeof(struct snd_soc_dai), GFP_KERNEL);
++	dai = devm_kzalloc(dev, sizeof(*dai), GFP_KERNEL);
+ 	if (dai == NULL)
+ 		return NULL;
+ 
+@@ -2576,10 +2574,8 @@ static struct snd_soc_dai *soc_add_dai(struct snd_soc_component *component,
+ 		else
+ 			dai->id = component->num_dai;
+ 	}
+-	if (dai->name == NULL) {
+-		kfree(dai);
++	if (!dai->name)
+ 		return NULL;
+-	}
+ 
+ 	dai->component = component;
+ 	dai->dev = dev;
+@@ -2765,7 +2761,6 @@ static void snd_soc_component_add(struct snd_soc_component *component)
+ static void snd_soc_component_cleanup(struct snd_soc_component *component)
+ {
+ 	snd_soc_unregister_dais(component);
+-	kfree(component->name);
+ }
+ 
+ static void snd_soc_component_del_unlocked(struct snd_soc_component *component)
 -- 
 2.20.1
 

@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51238CC8E9
-	for <lists+alsa-devel@lfdr.de>; Sat,  5 Oct 2019 11:01:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38B85CC8EA
+	for <lists+alsa-devel@lfdr.de>; Sat,  5 Oct 2019 11:01:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF1621693;
-	Sat,  5 Oct 2019 11:00:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF1621693
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBB401684;
+	Sat,  5 Oct 2019 11:01:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBB401684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570266080;
-	bh=v0Bdj7/isEnSQYPIhkBS+NGX6VBf1u8wq4N637ca6Kw=;
+	s=default; t=1570266112;
+	bh=G9eb+DaPEGID575tdtSKFnoq+oaFWfSII+fK/6SeE9U=;
 	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=At2SLjvwuHge0oH/erHpPo/5axptKMHOoZD5UCho+mRdhMm9IJn8nbiOHK9IrJQCg
-	 iwBp3SqRrUx7UZcj75ejvTE8iKD3cuDvEWrNciRBT5hNMGm4+zLbGeQwYiQjN1TLUR
-	 AVBjYMQC64sZIetefObXXN/1T9n9VqJb7oMO0Mj4=
+	b=PbnOJyNwFjZxNmBkRxc/7tYzAytSr6OLGDcJjIq6kkVNe2EbLFsiXNQCkhuO9yNgu
+	 wl55YSo47pKYucxJP/+v5LlKq/2CqEaNPuQ6lLia+QWD1KivUCVYi0AxgCcnNSutm8
+	 S2Grn/SORxQvoYrq5LQCPYYcT7PLRSwmh7JYyK5I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 740EBF8065A;
-	Sat,  5 Oct 2019 10:56:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5631CF80672;
+	Sat,  5 Oct 2019 10:56:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82346F80659; Sat,  5 Oct 2019 10:55:59 +0200 (CEST)
+ id 176EFF8065E; Sat,  5 Oct 2019 10:56:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
- [IPv6:2607:f8b0:4864:20::54a])
+Received: from mail-vk1-xa4a.google.com (mail-vk1-xa4a.google.com
+ [IPv6:2607:f8b0:4864:20::a4a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B882F8063D
- for <alsa-devel@alsa-project.org>; Sat,  5 Oct 2019 10:55:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B882F8063D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B334F8065B
+ for <alsa-devel@alsa-project.org>; Sat,  5 Oct 2019 10:56:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B334F8065B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="cJpLy7YH"
-Received: by mail-pg1-x54a.google.com with SMTP id z7so5980077pgk.11
- for <alsa-devel@alsa-project.org>; Sat, 05 Oct 2019 01:55:57 -0700 (PDT)
+ header.b="bzeU3if7"
+Received: by mail-vk1-xa4a.google.com with SMTP id r128so1440895vke.17
+ for <alsa-devel@alsa-project.org>; Sat, 05 Oct 2019 01:56:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=kmoQ5EfiuLPugExVdasoEEQ+xSgNc8VlrAlw91YpZWU=;
- b=cJpLy7YHnMDaIZiQzeucIuhSVgVwX/T/uIRDaMaSWPVblQ1e6ymh7GXJqCSmCo4GXT
- Jc4Zmu6OfUG4aPCpr9xLNxy2Pg7kez9HhFw8cfrclIghRTESqS1mpvNj3dUYHfUXsT5A
- FULp7yHNmqg+oQw3WzNeS+HE5cZIT4WPaZZ0opOgmdiLNNd1hvFoVNmUaw/zSuc4dbDk
- BdzwAmte2M0xqJHk/PLUy9QFN8/zwxad23V4tOmwXFHOMEZN0kU9WkcdO+Pt2hyF8zgF
- 1jvdGrqX3/r0jRSgdQYggIbZf4ZTaHWpAXTxyVZOuqWfWuRCvqMdkBgJBUu/oLmJkBov
- gRuw==
+ :cc; bh=rmarnAXGH/IVM9E6O/kofu7B6WtqfiEY/XdNOdLsqBU=;
+ b=bzeU3if7DxaxnfVoE9uMNoCVvKuYg83LUsVDFLIgrvm4+cVe6K5fKgwxILmnYV0IiK
+ TnKMctjeMjTAa+HCjSGkCAR7CoOCo2HnhiykxoQ9lLRf1rOEMs8/d/H++5owWymuChO7
+ 9wVQxxy2PYKAWkOjF+q2Tx5J400gERSM/UwQT+WnQQ7C21YzC9bFBwc2Rr0pa3gNjEj1
+ MK0WPL7BAbOmXV7SDejwmDTC0qVjRwJwpb6NbsesTyR2gC9LteZjqTsoSbrEQHF4eMSW
+ Cv4rY6daqaRnzHUZECagTQ0Fdp8FJ+VCI8UU1FV+8NyPAfwHcFMLgpeJqNiYhjIO77lu
+ eACA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=kmoQ5EfiuLPugExVdasoEEQ+xSgNc8VlrAlw91YpZWU=;
- b=byV6u4Sq7kyYqVzyh2rbI9wqbyO7IFHxSyJKi3xhtKyJKu+T7/YLmKWcAOU3r0y1ev
- D4dc5SUoequLATUNHgRJBRlOBfXriLiq7qjnaDrLT4FbvRvj+IGbMzPkT6RTCt3QBFdc
- S36x0oR9zsDU3HlvOah6TQ2SLhMik1xN5c4lTdR7DID/grcDo9Ykr1Zjxrx+iAHF4GpS
- QuCljzS+FYMGK1avH1ErA95w7p3wJxpg9eU+4AUAgrvwiM2WKJSprkC3RzNDQSvS6uCd
- ljbUO/0GI8EsnP0N079l9Vx98b1wclnGpobzztJFSrNh3Kfh0A6OpHH00zwemR8Vpyl3
- Joow==
-X-Gm-Message-State: APjAAAWC1E1k7Sfv1PKQzz6Gomf/sXx3JPiWH6N5xbNxkFu1k9sVNtxb
- m1BK5Dm388rsFvuoB2v/sd11qDG8vCdr
-X-Google-Smtp-Source: APXvYqwynwoYoFkQk/iqR6Um03rnnEYqoeUKYCC03KFr+9G5mr1Gtv+8iqBgDOJh+ZT7W5oEvjXdNeqyTLf/
-X-Received: by 2002:a63:1515:: with SMTP id v21mr1565875pgl.270.1570265755484; 
- Sat, 05 Oct 2019 01:55:55 -0700 (PDT)
-Date: Sat,  5 Oct 2019 16:55:05 +0800
+ bh=rmarnAXGH/IVM9E6O/kofu7B6WtqfiEY/XdNOdLsqBU=;
+ b=WbXM/utTA2vd5BpR3Kgo2FZSkjOnvjIdO92Wi+Ou/QlVpoX6o9G88JlkToHKLMcIRu
+ INto78+Ro0hKRCnkp0KCJG3SxWPW4BH6KMidXyKgfVL8/Yp7/iPcbhKOGXH+/l+kWAdK
+ Dhbr/iTmAtUGTxQ7XqJ79uTqsd+8i6qvMAoEqrCDiK2oTAcs76uCkGDNjRDvGUbaQ6VC
+ K8bbsJzULGk6ViAbFnAvcG0aCuqQiRv1zenWnVX5xoLoAntAzwJw4xZqDe/HssDz2LyZ
+ F9s0o/3iizw+vLQgCq3HU+3daMZTJfzHHqv2CCPtmodOISjmuaOaj2rJiHeZ0zgKzgYT
+ hxGA==
+X-Gm-Message-State: APjAAAWw1K7mWBSzFk/rbq01XpK3i8lHYRUrnBn0slnZuGAcd5jQHo7F
+ 4dcCxKVCp+nUdjWjaxqzbGe6Flq51oVQ
+X-Google-Smtp-Source: APXvYqz/QqwUKaLQMPmJGzF7Xcfm/8WCRzf1j9McGQh8Nngpccr2Rra79TI/mlXJuiIj47FobzpygxptSzwH
+X-Received: by 2002:a1f:6681:: with SMTP id a123mr3377115vkc.81.1570265760593; 
+ Sat, 05 Oct 2019 01:56:00 -0700 (PDT)
+Date: Sat,  5 Oct 2019 16:55:06 +0800
 In-Reply-To: <20191005085509.187179-1-tzungbi@google.com>
-Message-Id: <20191005164320.06.I0df85fe54162426e31f60a589d9b461c65df2faa@changeid>
+Message-Id: <20191005164320.07.I5388b69a7a9c551078fed216a77440cee6dedf49@changeid>
 Mime-Version: 1.0
 References: <20191005085509.187179-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.23.0.581.g78d2f28ef7-goog
@@ -80,8 +80,7 @@ Cc: gwendal@google.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  cychiang@google.com, drinkcat@google.com, tzungbi@google.com,
  robh+dt@kernel.org, enric.balletbo@collabora.com, bleung@google.com,
  dgreid@google.com
-Subject: [alsa-devel] [PATCH v2 06/10] ASoC: dt-bindings: cros_ec_codec: add
-	SHM bindings
+Subject: [alsa-devel] [PATCH v2 07/10] ASoC: cros_ec_codec: support WoV
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,53 +98,883 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-- Add "ec-shm" for binding to shared memory exposed by EC.
-- Add "memory-region" for binding to memory region shared by AP.
+1. Get EC codec's capabilities.
+2. Get and set SHM address if any.
+3. Transmit language model to EC codec if needed.
+4. Start to read audio data from EC codec if receives host event.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- .../bindings/sound/google,cros-ec-codec.txt   | 20 +++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ drivers/platform/chrome/cros_ec_trace.c       |   1 +
+ .../linux/platform_data/cros_ec_commands.h    |  69 ++
+ sound/soc/codecs/cros_ec_codec.c              | 695 +++++++++++++++++-
+ 3 files changed, 763 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.txt b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.txt
-index 0ce9fafc78e2..cb46bc082b4b 100644
---- a/Documentation/devicetree/bindings/sound/google,cros-ec-codec.txt
-+++ b/Documentation/devicetree/bindings/sound/google,cros-ec-codec.txt
-@@ -10,8 +10,26 @@ Required properties:
- - compatible: Must contain "google,cros-ec-codec"
- - #sound-dai-cells: Should be 1. The cell specifies number of DAIs.
+diff --git a/drivers/platform/chrome/cros_ec_trace.c b/drivers/platform/chrome/cros_ec_trace.c
+index 2ea0d4e0d54d..5af1d66d9eca 100644
+--- a/drivers/platform/chrome/cros_ec_trace.c
++++ b/drivers/platform/chrome/cros_ec_trace.c
+@@ -101,6 +101,7 @@
+ 	TRACE_SYMBOL(EC_CMD_EC_CODEC), \
+ 	TRACE_SYMBOL(EC_CMD_EC_CODEC_DMIC), \
+ 	TRACE_SYMBOL(EC_CMD_EC_CODEC_I2S_RX), \
++	TRACE_SYMBOL(EC_CMD_EC_CODEC_WOV), \
+ 	TRACE_SYMBOL(EC_CMD_REBOOT_EC), \
+ 	TRACE_SYMBOL(EC_CMD_GET_PANIC_INFO), \
+ 	TRACE_SYMBOL(EC_CMD_ACPI_READ), \
+diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
+index 21db0d4d4025..69210881ebac 100644
+--- a/include/linux/platform_data/cros_ec_commands.h
++++ b/include/linux/platform_data/cros_ec_commands.h
+@@ -556,6 +556,9 @@ enum host_event_code {
+ 	/* Keyboard recovery combo with hardware reinitialization */
+ 	EC_HOST_EVENT_KEYBOARD_RECOVERY_HW_REINIT = 30,
  
-+Optional properties:
-+- ec-shm: Shared memory region from EC.  It contains 3 unsigned 32-bit
-+          integer.  The first 2 integers combine to become an unsigned
-+	  64-bit address.  The last one integer is length of the shared
-+	  memory.
-+- memory-region: Shared memory region to EC.  A "shared-dma-pool".  See
-+                 ../reserved-memory/reserved-memory.txt for details.
++	/* WoV */
++	EC_HOST_EVENT_WOV = 31,
 +
- Example:
+ 	/*
+ 	 * The high bit of the event mask is not used as a host event code.  If
+ 	 * it reads back as set, then the entire event mask should be
+@@ -4477,10 +4480,14 @@ enum ec_codec_subcmd {
+ };
  
-+{
-+	...
-+
-+	reserved_mem: reserved_mem {
-+		compatible = "shared-dma-pool";
-+		reg = <0 0x52800000 0 0x100000>;
-+		no-map;
-+	};
-+}
-+
- cros-ec@0 {
- 	compatible = "google,cros-ec-spi";
+ enum ec_codec_cap {
++	EC_CODEC_CAP_WOV_AUDIO_SHM = 0,
++	EC_CODEC_CAP_WOV_LANG_SHM = 1,
+ 	EC_CODEC_CAP_LAST = 32,
+ };
  
-@@ -20,5 +38,7 @@ cros-ec@0 {
- 	cros_ec_codec: ec-codec {
- 		compatible = "google,cros-ec-codec";
- 		#sound-dai-cells = <1>;
-+		ec-shm = <0x0 0x10500000 0x80000>;
-+		memory-region = <&reserved_mem>;
+ enum ec_codec_shm_id {
++	EC_CODEC_SHM_ID_WOV_AUDIO = 0x0,
++	EC_CODEC_SHM_ID_WOV_LANG = 0x1,
+ 	EC_CODEC_SHM_ID_LAST,
+ };
+ 
+@@ -4641,6 +4648,68 @@ struct __ec_align4 ec_param_ec_codec_i2s_rx {
  	};
  };
+ 
++/*****************************************************************************/
++/* Commands for WoV on audio codec. */
++
++#define EC_CMD_EC_CODEC_WOV 0x00BF
++
++enum ec_codec_wov_subcmd {
++	EC_CODEC_WOV_SET_LANG = 0x0,
++	EC_CODEC_WOV_SET_LANG_SHM = 0x1,
++	EC_CODEC_WOV_GET_LANG = 0x2,
++	EC_CODEC_WOV_ENABLE = 0x3,
++	EC_CODEC_WOV_DISABLE = 0x4,
++	EC_CODEC_WOV_READ_AUDIO = 0x5,
++	EC_CODEC_WOV_READ_AUDIO_SHM = 0x6,
++	EC_CODEC_WOV_SUBCMD_COUNT,
++};
++
++/*
++ * @hash is SHA256 of the whole language model.
++ * @total_len indicates the length of whole language model.
++ * @offset is the cursor from the beginning of the model.
++ * @buf is the packet buffer.
++ * @len denotes how many bytes in the buf.
++ */
++struct __ec_align4 ec_param_ec_codec_wov_set_lang {
++	uint8_t hash[32];
++	uint32_t total_len;
++	uint32_t offset;
++	uint8_t buf[128];
++	uint32_t len;
++};
++
++struct __ec_align4 ec_param_ec_codec_wov_set_lang_shm {
++	uint8_t hash[32];
++	uint32_t total_len;
++};
++
++struct __ec_align4 ec_param_ec_codec_wov {
++	uint8_t cmd; /* enum ec_codec_wov_subcmd */
++	uint8_t reserved[3];
++
++	union {
++		struct ec_param_ec_codec_wov_set_lang
++				set_lang_param;
++		struct ec_param_ec_codec_wov_set_lang_shm
++				set_lang_shm_param;
++	};
++};
++
++struct __ec_align4 ec_response_ec_codec_wov_get_lang {
++	uint8_t hash[32];
++};
++
++struct __ec_align4 ec_response_ec_codec_wov_read_audio {
++	uint8_t buf[128];
++	uint32_t len;
++};
++
++struct __ec_align4 ec_response_ec_codec_wov_read_audio_shm {
++	uint32_t offset;
++	uint32_t len;
++};
++
+ /*****************************************************************************/
+ /* System commands */
+ 
+diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+index 3d4f9e82d6e9..807cb59ca3db 100644
+--- a/sound/soc/codecs/cros_ec_codec.c
++++ b/sound/soc/codecs/cros_ec_codec.c
+@@ -8,10 +8,15 @@
+  * EC for audio function.
+  */
+ 
++#include <crypto/hash.h>
++#include <crypto/sha.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
++#include <linux/io.h>
++#include <linux/jiffies.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
++#include <linux/of_address.h>
+ #include <linux/platform_data/cros_ec_commands.h>
+ #include <linux/platform_data/cros_ec_proto.h>
+ #include <linux/platform_device.h>
+@@ -23,8 +28,45 @@
+ struct cros_ec_codec_priv {
+ 	struct device *dev;
+ 	struct cros_ec_device *ec_device;
++
++	/* common */
++	uint32_t ec_capabilities;
++
++	uint64_t ec_shm_addr;
++	uint32_t ec_shm_len;
++
++	uint64_t ap_shm_phys_addr;
++	uint32_t ap_shm_len;
++	uint64_t ap_shm_addr;
++	uint64_t ap_shm_last_alloc;
++
++	/* DMIC */
++	atomic_t dmic_probed;
++
++	/* WoV */
++	bool wov_enabled;
++	uint8_t *wov_audio_shm_p;
++	uint32_t wov_audio_shm_len;
++	uint8_t wov_audio_shm_type;
++	uint8_t *wov_lang_shm_p;
++	uint32_t wov_lang_shm_len;
++	uint8_t wov_lang_shm_type;
++
++	struct mutex wov_dma_lock;
++	uint8_t wov_buf[64000];
++	uint32_t wov_rp, wov_wp;
++	size_t wov_dma_offset;
++	bool wov_burst_read;
++	struct snd_pcm_substream *wov_substream;
++	struct delayed_work wov_copy_work;
++	struct notifier_block wov_notifier;
+ };
+ 
++static int ec_codec_capable(struct cros_ec_codec_priv *priv, uint8_t cap)
++{
++	return priv->ec_capabilities & BIT(cap);
++}
++
+ static int send_ec_host_command(struct cros_ec_device *ec_dev, uint32_t cmd,
+ 				uint8_t *out, size_t outsize,
+ 				uint8_t *in, size_t insize)
+@@ -57,6 +99,41 @@ static int send_ec_host_command(struct cros_ec_device *ec_dev, uint32_t cmd,
+ 	return ret;
+ }
+ 
++static int calculate_sha256(struct cros_ec_codec_priv *priv,
++			    uint8_t *buf, uint32_t size, uint8_t *digest)
++{
++	struct crypto_shash *tfm;
++
++	tfm = crypto_alloc_shash("sha256", CRYPTO_ALG_TYPE_SHASH, 0);
++	if (IS_ERR(tfm)) {
++		dev_err(priv->dev, "can't alloc shash\n");
++		return PTR_ERR(tfm);
++	}
++
++	{
++		SHASH_DESC_ON_STACK(desc, tfm);
++
++		desc->tfm = tfm;
++
++		crypto_shash_digest(desc, buf, size, digest);
++		shash_desc_zero(desc);
++	}
++
++	crypto_free_shash(tfm);
++
++#ifdef DEBUG
++	{
++		char digest_str[65];
++
++		bin2hex(digest_str, digest, 32);
++		digest_str[64] = 0;
++		dev_dbg(priv->dev, "hash=%s\n", digest_str);
++	}
++#endif
++
++	return 0;
++}
++
+ static int dmic_get_gain(struct snd_kcontrol *kcontrol,
+ 			 struct snd_ctl_elem_value *ucontrol)
+ {
+@@ -147,6 +224,9 @@ static int dmic_probe(struct snd_soc_component *component)
+ 	struct ec_response_ec_codec_dmic_get_max_gain r;
+ 	int ret;
+ 
++	if (!atomic_add_unless(&priv->dmic_probed, 1, 1))
++		return 0;
++
+ 	p.cmd = EC_CODEC_DMIC_GET_MAX_GAIN;
+ 
+ 	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_DMIC,
+@@ -324,23 +404,634 @@ static const struct snd_soc_component_driver i2s_rx_component_driver = {
+ 	.num_dapm_routes	= ARRAY_SIZE(i2s_rx_dapm_routes),
+ };
+ 
++static void *wov_map_shm(struct cros_ec_codec_priv *priv,
++			 uint8_t shm_id, uint32_t *len, uint8_t *type)
++{
++	struct ec_param_ec_codec p;
++	struct ec_response_ec_codec_get_shm_addr r;
++	uint32_t req, offset;
++
++	p.cmd = EC_CODEC_GET_SHM_ADDR;
++	p.get_shm_addr_param.shm_id = shm_id;
++	if (send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC,
++				 (uint8_t *)&p, sizeof(p),
++				 (uint8_t *)&r, sizeof(r)) < 0) {
++		dev_err(priv->dev, "failed to EC_CODEC_GET_SHM_ADDR\n");
++		return NULL;
++	}
++
++	dev_dbg(priv->dev, "phys_addr=%#llx, len=%#x\n", r.phys_addr, r.len);
++
++	*len = r.len;
++	*type = r.type;
++
++	switch (r.type) {
++	case EC_CODEC_SHM_TYPE_EC_RAM:
++		return devm_ioremap_wc(priv->dev,
++				       r.phys_addr + priv->ec_shm_addr, r.len);
++	case EC_CODEC_SHM_TYPE_SYSTEM_RAM:
++		if (r.phys_addr) {
++			dev_err(priv->dev, "unknown status\n");
++			return NULL;
++		}
++
++		req = round_up(r.len, PAGE_SIZE);
++		dev_dbg(priv->dev, "round up from %u to %u\n", r.len, req);
++
++		if (priv->ap_shm_last_alloc + req >
++		    priv->ap_shm_phys_addr + priv->ap_shm_len) {
++			dev_err(priv->dev, "insufficient space for AP SHM\n");
++			return NULL;
++		}
++
++		dev_dbg(priv->dev, "alloc AP SHM addr=%#llx, len=%#x\n",
++			priv->ap_shm_last_alloc, req);
++
++		p.cmd = EC_CODEC_SET_SHM_ADDR;
++		p.set_shm_addr_param.phys_addr = priv->ap_shm_last_alloc;
++		p.set_shm_addr_param.len = req;
++		p.set_shm_addr_param.shm_id = shm_id;
++		if (send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC,
++					 (uint8_t *)&p, sizeof(p),
++					 NULL, 0) < 0) {
++			dev_err(priv->dev, "failed to EC_CODEC_SET_SHM_ADDR\n");
++			return NULL;
++		}
++
++		/*
++		 * Note: EC codec only requests for `r.len' but we allocate
++		 * round up PAGE_SIZE `req'.
++		 */
++		offset = priv->ap_shm_last_alloc - priv->ap_shm_phys_addr;
++		priv->ap_shm_last_alloc += req;
++
++		return (void *)(uintptr_t)(priv->ap_shm_addr + offset);
++	default:
++		return NULL;
++	}
++}
++
++static bool wov_queue_full(struct cros_ec_codec_priv *priv)
++{
++	return ((priv->wov_wp + 1) % sizeof(priv->wov_buf)) == priv->wov_rp;
++}
++
++static size_t wov_queue_size(struct cros_ec_codec_priv *priv)
++{
++	if (priv->wov_wp >= priv->wov_rp)
++		return priv->wov_wp - priv->wov_rp;
++	else
++		return sizeof(priv->wov_buf) - priv->wov_rp + priv->wov_wp;
++}
++
++static void wov_queue_dequeue(struct cros_ec_codec_priv *priv, size_t len)
++{
++	struct snd_pcm_runtime *runtime = priv->wov_substream->runtime;
++	size_t req;
++
++	while (len) {
++		req = min(len, runtime->dma_bytes - priv->wov_dma_offset);
++		if (priv->wov_wp >= priv->wov_rp)
++			req = min(req, (size_t)priv->wov_wp - priv->wov_rp);
++		else
++			req = min(req, sizeof(priv->wov_buf) - priv->wov_rp);
++
++		memcpy(runtime->dma_area + priv->wov_dma_offset,
++		       priv->wov_buf + priv->wov_rp, req);
++
++		priv->wov_dma_offset += req;
++		if (priv->wov_dma_offset == runtime->dma_bytes)
++			priv->wov_dma_offset = 0;
++
++		priv->wov_rp += req;
++		if (priv->wov_rp == sizeof(priv->wov_buf))
++			priv->wov_rp = 0;
++
++		len -= req;
++	}
++
++	snd_pcm_period_elapsed(priv->wov_substream);
++}
++
++static void wov_queue_try_dequeue(struct cros_ec_codec_priv *priv)
++{
++	size_t period_bytes = snd_pcm_lib_period_bytes(priv->wov_substream);
++
++	while (period_bytes && wov_queue_size(priv) >= period_bytes) {
++		wov_queue_dequeue(priv, period_bytes);
++		period_bytes = snd_pcm_lib_period_bytes(priv->wov_substream);
++	}
++}
++
++static void wov_queue_enqueue(struct cros_ec_codec_priv *priv,
++			      uint8_t *addr, size_t len, bool iomem)
++{
++	size_t req;
++
++	while (len) {
++		if (wov_queue_full(priv)) {
++			wov_queue_try_dequeue(priv);
++
++			if (wov_queue_full(priv)) {
++				dev_err(priv->dev, "overrun detected\n");
++				return;
++			}
++		}
++
++		if (priv->wov_wp >= priv->wov_rp)
++			req = sizeof(priv->wov_buf) - priv->wov_wp;
++		else
++			/* Note: waste 1-byte to differentiate full and empty */
++			req = priv->wov_rp - priv->wov_wp - 1;
++		req = min(req, len);
++
++		if (iomem)
++			memcpy_fromio(priv->wov_buf + priv->wov_wp, addr, req);
++		else
++			memcpy(priv->wov_buf + priv->wov_wp, addr, req);
++
++		priv->wov_wp += req;
++		if (priv->wov_wp == sizeof(priv->wov_buf))
++			priv->wov_wp = 0;
++
++		addr += req;
++		len -= req;
++	}
++
++	wov_queue_try_dequeue(priv);
++}
++
++static int wov_read_audio_shm(struct cros_ec_codec_priv *priv)
++{
++	struct ec_param_ec_codec_wov p;
++	struct ec_response_ec_codec_wov_read_audio_shm r;
++	int ret;
++
++	p.cmd = EC_CODEC_WOV_READ_AUDIO_SHM;
++	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
++				   (uint8_t *)&p, sizeof(p),
++				   (uint8_t *)&r, sizeof(r));
++	if (ret) {
++		dev_err(priv->dev, "failed to EC_CODEC_WOV_READ_AUDIO_SHM\n");
++		return ret;
++	}
++
++	if (!r.len)
++		dev_dbg(priv->dev, "no data, sleep\n");
++	else
++		wov_queue_enqueue(priv, priv->wov_audio_shm_p + r.offset, r.len,
++			priv->wov_audio_shm_type == EC_CODEC_SHM_TYPE_EC_RAM);
++	return -EAGAIN;
++}
++
++static int wov_read_audio(struct cros_ec_codec_priv *priv)
++{
++	struct ec_param_ec_codec_wov p;
++	struct ec_response_ec_codec_wov_read_audio r;
++	int remain = priv->wov_burst_read ? 16000 : 320;
++	int ret;
++
++	while (remain >= 0) {
++		p.cmd = EC_CODEC_WOV_READ_AUDIO;
++		ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
++					   (uint8_t *)&p, sizeof(p),
++					   (uint8_t *)&r, sizeof(r));
++		if (ret) {
++			dev_err(priv->dev,
++				"failed to EC_CODEC_WOV_READ_AUDIO\n");
++			return ret;
++		}
++
++		if (!r.len) {
++			dev_dbg(priv->dev, "no data, sleep\n");
++			priv->wov_burst_read = false;
++			break;
++		}
++
++		wov_queue_enqueue(priv, r.buf, r.len, false);
++		remain -= r.len;
++	}
++
++	return -EAGAIN;
++}
++
++static void wov_copy_work(struct work_struct *w)
++{
++	struct cros_ec_codec_priv *priv =
++		container_of(w, struct cros_ec_codec_priv, wov_copy_work.work);
++	int ret;
++
++	mutex_lock(&priv->wov_dma_lock);
++	if (!priv->wov_substream) {
++		dev_warn(priv->dev, "no pcm substream\n");
++		goto leave;
++	}
++
++	if (ec_codec_capable(priv, EC_CODEC_CAP_WOV_AUDIO_SHM))
++		ret = wov_read_audio_shm(priv);
++	else
++		ret = wov_read_audio(priv);
++
++	if (ret == -EAGAIN)
++		schedule_delayed_work(&priv->wov_copy_work,
++				      msecs_to_jiffies(10));
++	else if (ret)
++		dev_err(priv->dev, "failed to read audio data\n");
++leave:
++	mutex_unlock(&priv->wov_dma_lock);
++}
++
++static int wov_enable_get(struct snd_kcontrol *kcontrol,
++			  struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *c = snd_soc_kcontrol_component(kcontrol);
++	struct cros_ec_codec_priv *priv = snd_soc_component_get_drvdata(c);
++
++	ucontrol->value.integer.value[0] = priv->wov_enabled;
++	return 0;
++}
++
++static int wov_enable_put(struct snd_kcontrol *kcontrol,
++			  struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *c = snd_soc_kcontrol_component(kcontrol);
++	struct cros_ec_codec_priv *priv = snd_soc_component_get_drvdata(c);
++	int enabled = ucontrol->value.integer.value[0];
++	struct ec_param_ec_codec_wov p;
++	int ret;
++
++	if (priv->wov_enabled != enabled) {
++		if (enabled)
++			p.cmd = EC_CODEC_WOV_ENABLE;
++		else
++			p.cmd = EC_CODEC_WOV_DISABLE;
++
++		ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
++					   (uint8_t *)&p, sizeof(p), NULL, 0);
++		if (ret) {
++			dev_err(priv->dev, "failed to %s wov\n",
++				enabled ? "enable" : "disable");
++			return ret;
++		}
++
++		priv->wov_enabled = enabled;
++	}
++
++	return 0;
++}
++
++static int wov_set_lang_shm(struct cros_ec_codec_priv *priv,
++			    uint8_t *buf, size_t size, uint8_t *digest)
++{
++	struct ec_param_ec_codec_wov p;
++	struct ec_param_ec_codec_wov_set_lang_shm *pp = &p.set_lang_shm_param;
++	int ret;
++
++	if (size > priv->wov_lang_shm_len) {
++		dev_err(priv->dev, "no enough SHM size: %d\n",
++			priv->wov_lang_shm_len);
++		return -EIO;
++	}
++
++	switch (priv->wov_lang_shm_type) {
++	case EC_CODEC_SHM_TYPE_EC_RAM:
++		memcpy_toio(priv->wov_lang_shm_p, buf, size);
++		memset_io(priv->wov_lang_shm_p + size, 0,
++			  priv->wov_lang_shm_len - size);
++		break;
++	case EC_CODEC_SHM_TYPE_SYSTEM_RAM:
++		memcpy(priv->wov_lang_shm_p, buf, size);
++		memset(priv->wov_lang_shm_p + size, 0,
++		       priv->wov_lang_shm_len - size);
++
++		/* make sure write to memory before calling host command */
++		wmb();
++		break;
++	}
++
++	p.cmd = EC_CODEC_WOV_SET_LANG_SHM;
++	memcpy(pp->hash, digest, SHA256_DIGEST_SIZE);
++	pp->total_len = size;
++	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
++				   (uint8_t *)&p, sizeof(p), NULL, 0);
++	if (ret) {
++		dev_err(priv->dev, "failed to EC_CODEC_WOV_SET_LANG_SHM\n");
++		return ret;
++	}
++
++	return 0;
++}
++
++static int wov_set_lang(struct cros_ec_codec_priv *priv,
++			uint8_t *buf, size_t size, uint8_t *digest)
++{
++	struct ec_param_ec_codec_wov p;
++	struct ec_param_ec_codec_wov_set_lang *pp = &p.set_lang_param;
++	size_t i, req;
++	int ret;
++
++	for (i = 0; i < size; i += req) {
++		req = min(size - i, ARRAY_SIZE(pp->buf));
++
++		p.cmd = EC_CODEC_WOV_SET_LANG;
++		memcpy(pp->hash, digest, SHA256_DIGEST_SIZE);
++		pp->total_len = size;
++		pp->offset = i;
++		memcpy(pp->buf, buf + i, req);
++		pp->len = req;
++		ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
++					   (uint8_t *)&p, sizeof(p), NULL, 0);
++		if (ret) {
++			dev_err(priv->dev, "failed to EC_CODEC_WOV_SET_LANG\n");
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++static int wov_hotword_model_put(struct snd_kcontrol *kcontrol,
++				 const unsigned int __user *bytes,
++				 unsigned int size)
++{
++	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
++	struct cros_ec_codec_priv *priv =
++		snd_soc_component_get_drvdata(component);
++	struct ec_param_ec_codec_wov p;
++	struct ec_response_ec_codec_wov_get_lang r;
++	uint8_t digest[SHA256_DIGEST_SIZE];
++	uint8_t *buf;
++	int ret;
++
++	/* Skips the TLV header. */
++	bytes += 2;
++	size -= 8;
++
++	dev_dbg(priv->dev, "%s: size=%d\n", __func__, size);
++
++	buf = kmalloc(size, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	if (copy_from_user(buf, bytes, size)) {
++		ret = -EFAULT;
++		goto leave;
++	}
++
++	ret = calculate_sha256(priv, buf, size, digest);
++	if (ret)
++		goto leave;
++
++	p.cmd = EC_CODEC_WOV_GET_LANG;
++	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
++				   (uint8_t *)&p, sizeof(p),
++				   (uint8_t *)&r, sizeof(r));
++	if (ret)
++		goto leave;
++
++	if (memcmp(digest, r.hash, SHA256_DIGEST_SIZE) == 0) {
++		dev_dbg(priv->dev, "not updated");
++		goto leave;
++	}
++
++	if (ec_codec_capable(priv, EC_CODEC_CAP_WOV_LANG_SHM))
++		ret = wov_set_lang_shm(priv, buf, size, digest);
++	else
++		ret = wov_set_lang(priv, buf, size, digest);
++
++leave:
++	kfree(buf);
++	return ret;
++}
++
++static struct snd_kcontrol_new wov_controls[] = {
++	SOC_SINGLE_BOOL_EXT("Wake-on-Voice Switch", 0,
++			    wov_enable_get, wov_enable_put),
++	SND_SOC_BYTES_TLV("Hotword Model", 0x11000, NULL,
++			  wov_hotword_model_put),
++};
++
++static struct snd_soc_dai_driver wov_dai_driver = {
++	.name = "Wake on Voice",
++	.capture = {
++		.stream_name = "WoV Capture",
++		.channels_min = 1,
++		.channels_max = 1,
++		.rates = SNDRV_PCM_RATE_16000,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE,
++	},
++};
++
++static int wov_host_event(struct notifier_block *nb,
++			  unsigned long queued_during_suspend, void *notify)
++{
++	struct cros_ec_codec_priv *priv =
++		container_of(nb, struct cros_ec_codec_priv, wov_notifier);
++	u32 host_event;
++
++	dev_dbg(priv->dev, "%s\n", __func__);
++
++	host_event = cros_ec_get_host_event(priv->ec_device);
++	if (host_event & EC_HOST_EVENT_MASK(EC_HOST_EVENT_WOV)) {
++		schedule_delayed_work(&priv->wov_copy_work, 0);
++		return NOTIFY_OK;
++	} else {
++		return NOTIFY_DONE;
++	}
++}
++
++static int wov_probe(struct snd_soc_component *component)
++{
++	struct cros_ec_codec_priv *priv =
++		snd_soc_component_get_drvdata(component);
++	int ret;
++
++	mutex_init(&priv->wov_dma_lock);
++	INIT_DELAYED_WORK(&priv->wov_copy_work, wov_copy_work);
++
++	priv->wov_notifier.notifier_call = wov_host_event;
++	ret = blocking_notifier_chain_register(
++			&priv->ec_device->event_notifier, &priv->wov_notifier);
++	if (ret)
++		return ret;
++
++	if (ec_codec_capable(priv, EC_CODEC_CAP_WOV_LANG_SHM)) {
++		priv->wov_lang_shm_p = wov_map_shm(priv,
++				EC_CODEC_SHM_ID_WOV_LANG,
++				&priv->wov_lang_shm_len,
++				&priv->wov_lang_shm_type);
++		if (!priv->wov_lang_shm_p)
++			return -EFAULT;
++	}
++
++	if (ec_codec_capable(priv, EC_CODEC_CAP_WOV_AUDIO_SHM)) {
++		priv->wov_audio_shm_p = wov_map_shm(priv,
++				EC_CODEC_SHM_ID_WOV_AUDIO,
++				&priv->wov_audio_shm_len,
++				&priv->wov_audio_shm_type);
++		if (!priv->wov_audio_shm_p)
++			return -EFAULT;
++	}
++
++	return dmic_probe(component);
++}
++
++static void wov_remove(struct snd_soc_component *component)
++{
++	struct cros_ec_codec_priv *priv =
++		snd_soc_component_get_drvdata(component);
++
++	blocking_notifier_chain_unregister(
++			&priv->ec_device->event_notifier, &priv->wov_notifier);
++}
++
++static int wov_pcm_open(struct snd_pcm_substream *substream)
++{
++	static const struct snd_pcm_hardware hw_param = {
++		.info = SNDRV_PCM_INFO_MMAP |
++			SNDRV_PCM_INFO_INTERLEAVED |
++			SNDRV_PCM_INFO_MMAP_VALID,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE,
++		.rates = SNDRV_PCM_RATE_16000,
++		.channels_min = 1,
++		.channels_max = 1,
++		.period_bytes_min = PAGE_SIZE,
++		.period_bytes_max = 0x20000 / 8,
++		.periods_min = 8,
++		.periods_max = 8,
++		.buffer_bytes_max = 0x20000,
++	};
++
++	return snd_soc_set_runtime_hwparams(substream, &hw_param);
++}
++
++static int wov_pcm_hw_params(struct snd_pcm_substream *substream,
++			     struct snd_pcm_hw_params *hw_params)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_component *component = rtd->codec_dai->component;
++	struct cros_ec_codec_priv *priv =
++		snd_soc_component_get_drvdata(component);
++
++	mutex_lock(&priv->wov_dma_lock);
++	priv->wov_substream = substream;
++	priv->wov_rp = priv->wov_wp = 0;
++	priv->wov_dma_offset = 0;
++	priv->wov_burst_read = true;
++	mutex_unlock(&priv->wov_dma_lock);
++
++	return snd_pcm_lib_alloc_vmalloc_buffer(substream,
++			params_buffer_bytes(hw_params));
++}
++
++static int wov_pcm_hw_free(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_component *component = rtd->codec_dai->component;
++	struct cros_ec_codec_priv *priv =
++		snd_soc_component_get_drvdata(component);
++
++	mutex_lock(&priv->wov_dma_lock);
++	wov_queue_dequeue(priv, wov_queue_size(priv));
++	priv->wov_substream = NULL;
++	mutex_unlock(&priv->wov_dma_lock);
++
++	cancel_delayed_work_sync(&priv->wov_copy_work);
++
++	return snd_pcm_lib_free_vmalloc_buffer(substream);
++}
++
++static snd_pcm_uframes_t wov_pcm_pointer(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_component *component = rtd->codec_dai->component;
++	struct cros_ec_codec_priv *priv =
++		snd_soc_component_get_drvdata(component);
++
++	return bytes_to_frames(runtime, priv->wov_dma_offset);
++}
++
++static const struct snd_pcm_ops wov_pcm_ops = {
++	.open		= wov_pcm_open,
++	.hw_params	= wov_pcm_hw_params,
++	.hw_free	= wov_pcm_hw_free,
++	.pointer	= wov_pcm_pointer,
++	.page		= snd_pcm_lib_get_vmalloc_page,
++};
++
++static const struct snd_soc_component_driver wov_component_driver = {
++	.probe		= wov_probe,
++	.remove		= wov_remove,
++	.controls	= wov_controls,
++	.num_controls	= ARRAY_SIZE(wov_controls),
++	.ops		= &wov_pcm_ops,
++};
++
+ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct cros_ec_device *ec_device = dev_get_drvdata(pdev->dev.parent);
+ 	struct cros_ec_codec_priv *priv;
++	uint32_t val[3];
++	struct device_node *node;
++	struct resource res;
++	struct ec_param_ec_codec p;
++	struct ec_response_ec_codec_get_capabilities r;
++	int ret;
+ 
+ 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
++	if (device_property_read_u32_array(dev, "ec-shm", val, 3) == 0) {
++		priv->ec_shm_addr = (uint64_t)val[0] << 32 | val[1];
++		priv->ec_shm_len = val[2];
++
++		dev_dbg(dev, "ec_shm_addr=%#llx len=%#x\n",
++			priv->ec_shm_addr, priv->ec_shm_len);
++	}
++
++	node = of_parse_phandle(dev->of_node, "memory-region", 0);
++	if (node) {
++		ret = of_address_to_resource(node, 0, &res);
++		if (!ret) {
++			priv->ap_shm_phys_addr = res.start;
++			priv->ap_shm_len = resource_size(&res);
++			priv->ap_shm_addr =
++				(uint64_t)(uintptr_t)devm_ioremap_wc(
++					dev, priv->ap_shm_phys_addr,
++					priv->ap_shm_len);
++			priv->ap_shm_last_alloc = priv->ap_shm_phys_addr;
++
++			dev_dbg(dev, "ap_shm_phys_addr=%#llx len=%#x\n",
++				priv->ap_shm_phys_addr, priv->ap_shm_len);
++		}
++	}
++
+ 	priv->dev = dev;
+ 	priv->ec_device = ec_device;
++	atomic_set(&priv->dmic_probed, 0);
++
++	p.cmd = EC_CODEC_GET_CAPABILITIES;
++	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC,
++				   (uint8_t *)&p, sizeof(p),
++				   (uint8_t *)&r, sizeof(r));
++	if (ret) {
++		dev_err(dev, "failed to EC_CODEC_GET_CAPABILITIES\n");
++		return ret;
++	}
++	priv->ec_capabilities = r.capabilities;
+ 
+ 	platform_set_drvdata(pdev, priv);
+ 
+-	return devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
+-					       &i2s_rx_dai_driver, 1);
++	ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
++					      &i2s_rx_dai_driver, 1);
++	if (ret)
++		return ret;
++
++	return devm_snd_soc_register_component(dev, &wov_component_driver,
++					       &wov_dai_driver, 1);
+ }
+ 
+ #ifdef CONFIG_OF
 -- 
 2.23.0.581.g78d2f28ef7-goog
 

@@ -2,57 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22095CD16E
-	for <lists+alsa-devel@lfdr.de>; Sun,  6 Oct 2019 12:49:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 496D0CD17D
+	for <lists+alsa-devel@lfdr.de>; Sun,  6 Oct 2019 12:57:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9D342166B;
-	Sun,  6 Oct 2019 12:48:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D342166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7FA91614;
+	Sun,  6 Oct 2019 12:57:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7FA91614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570358976;
-	bh=rAImRNYiTmTeHny0UxONJOk6+Kkqv+ot4N8HrK4nwi4=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1570359478;
+	bh=SwXm3jwbfGk6SDQnzybyb2+smRFAp7mxubbNmrsj4fw=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=kEynlhxP+UJtHYKLLVjzXYWk0ZKT3T1qDlBgpg9mBYG8K2BUwxFbRhB3J4yAHluuV
-	 v5WLFRBFtdG9RqXxmH01SmgktotGWv0A6Akt04+8+K2BQzTDTYzkLUlNXfTpzARp07
-	 BXTjRQ/bAvhkGnJZEK+WRU7OTn1hwdO4bZ5sMicw=
+	b=GWJVy7B6IPoykSBhq+OfmfbzefXEEY3md1fNufvaqjcqR9tgTCoZQeeUdQKomL4oE
+	 zE0omGFL3CgNYGWUF8zfp3FxA+pKDffl2gBsr5geuFYku4tEnli2bxJ5gtMLY0H9ff
+	 TwMk6lrJ9R/emXBs9lwOphZsyx4122B2mvgBCoSc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93D83F80447;
-	Sun,  6 Oct 2019 12:47:25 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 554BEF80322;
+	Sun,  6 Oct 2019 12:56:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 904F3F804CB; Sun,  6 Oct 2019 12:47:22 +0200 (CEST)
+ id 7CDE8F8038F; Sun,  6 Oct 2019 12:56:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A28BF80308
- for <alsa-devel@alsa-project.org>; Sun,  6 Oct 2019 12:47:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A28BF80308
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Oct 2019 03:47:17 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.67,263,1566889200"; d="scan'208";a="192019190"
-Received: from gliakhov-mobl2.ger.corp.intel.com (HELO ubuntu) ([10.252.41.73])
- by fmsmga008.fm.intel.com with ESMTP; 06 Oct 2019 03:47:16 -0700
-Date: Sun, 6 Oct 2019 12:47:15 +0200
-From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Message-ID: <20191006104715.GA14691@ubuntu>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D16F4F80308
+ for <alsa-devel@alsa-project.org>; Sun,  6 Oct 2019 12:56:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D16F4F80308
+Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 8B54B5739D6D5E177BA0;
+ Sun,  6 Oct 2019 18:56:02 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS412-HUB.china.huawei.com
+ (10.3.19.212) with Microsoft SMTP Server id 14.3.439.0; Sun, 6 Oct 2019
+ 18:55:55 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <timur@kernel.org>, <nicoleotsuka@gmail.com>, <Xiubo.Lee@gmail.com>,
+ <festevam@gmail.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
+ <perex@perex.cz>, <tiwai@suse.com>
+Date: Sun, 6 Oct 2019 18:55:22 +0800
+Message-ID: <20191006105522.58560-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Subject: [alsa-devel] what's the kernel policy WRT firmware parsing security?
+X-Originating-IP: [10.133.213.239]
+X-CFilter-Loop: Reflected
+Cc: YueHaibing <yuehaibing@huawei.com>, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH -next] ASoC: fsl_mqs: remove set but not used
+	variable 'bclk'
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,20 +72,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Fixes gcc '-Wunused-but-set-variable' warning:
 
-I decided to have a look at whether the ALSA topology parsing is bullet
-proof against malformed topology files. It seems not quite to be the case.
-At least I seem to have found a possibility of crashing the kernel by a
-malformed topology file. I haven't tested it, so, maybe I'm wrong.
+sound/soc/fsl/fsl_mqs.c: In function fsl_mqs_hw_params:
+sound/soc/fsl/fsl_mqs.c:54:6: warning: variable bclk set but not used [-Wunused-but-set-variable]
 
-In principle, firmware files can only be written by root, and if you have
-root access to the system, it's anyway doomed. Is this the approach and
-we aren't really trying to make topology parsing 100% safe, or do we want
-to fix any such possible parsing issues?
+It is never used, so can be removed.
 
-Thanks
-Guennadi
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ sound/soc/fsl/fsl_mqs.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/sound/soc/fsl/fsl_mqs.c b/sound/soc/fsl/fsl_mqs.c
+index c1619a5..7b9cab3 100644
+--- a/sound/soc/fsl/fsl_mqs.c
++++ b/sound/soc/fsl/fsl_mqs.c
+@@ -51,10 +51,9 @@ static int fsl_mqs_hw_params(struct snd_pcm_substream *substream,
+ 	struct fsl_mqs *mqs_priv = snd_soc_component_get_drvdata(component);
+ 	unsigned long mclk_rate;
+ 	int div, res;
+-	int bclk, lrclk;
++	int lrclk;
+ 
+ 	mclk_rate = clk_get_rate(mqs_priv->mclk);
+-	bclk = snd_soc_params_to_bclk(params);
+ 	lrclk = params_rate(params);
+ 
+ 	/*
+-- 
+2.7.4
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

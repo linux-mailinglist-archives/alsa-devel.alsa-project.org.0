@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE0FFCE002
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 13:14:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 365AACE003
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 13:15:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52FAE1664;
-	Mon,  7 Oct 2019 13:13:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52FAE1664
+	by alsa0.perex.cz (Postfix) with ESMTPS id C930410E;
+	Mon,  7 Oct 2019 13:14:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C930410E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570446857;
-	bh=4aSRgvS8V/luZ/zTENpUbonh1dmnwv7jjpk/WOR7H3o=;
+	s=default; t=1570446905;
+	bh=z9pyD49e396GRQXm9IrUubPHnm6zDA1VmiBmNmCcJlw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c7gJ6xy8Stqp8fTLzUBSRynvnWedG/IY4nfufNB3Z6uNjKSuCkocJ6IqA+4fAlFeu
-	 GHLJ5jFrdzP/MFBAQp4RnS6jUbSFz3ZlNk/1beO0pYWyFNkFQFORvGRyYNFyRh+HWI
-	 RTSoA1lK5Dx5wLm5YH5hGw6FaRHphkSFtDbwE2Y0=
+	b=T9aZ5iQ9c16JjyBSRq6e+t1H7pKMYkbZE921i316HpKqVpfKwmrnJa+oHqjfmmEC8
+	 YyIDXaJsiEuuFv7NuHUZoDZpUc/69IkH6Y0ncbPCVonD/bL4AN1zoFgpSXpg++qaj4
+	 LtCZNB+47KF4p5kqF949OFB+uV3/4UyIDmGm+0gc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D4CCF806F5;
-	Mon,  7 Oct 2019 13:06:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9330EF8070E;
+	Mon,  7 Oct 2019 13:06:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CC76F80659; Mon,  7 Oct 2019 13:05:56 +0200 (CEST)
+ id CE3BAF80673; Mon,  7 Oct 2019 13:05:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A2B01F80634
- for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 13:05:52 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2B01F80634
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A8DFF8063B
+ for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 13:05:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A8DFF8063B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="Kq8sK4B5"; 
+ header.b="PFu7mh3L"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="CmvpkFcH"
+ header.i=@messagingengine.com header.b="mlYfBmBf"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id D8BD62134B;
- Mon,  7 Oct 2019 07:05:51 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 68BB921BBE;
+ Mon,  7 Oct 2019 07:05:53 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Mon, 07 Oct 2019 07:05:51 -0400
+ by compute1.internal (MEProxy); Mon, 07 Oct 2019 07:05:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=WWIvukujK0B6y
- 6gKhB4SQl5wnnhYHuiNgnMSqolKyzs=; b=Kq8sK4B5PEsM6Mh6mXu8pw/nC3x7z
- 6x8mWRscFWMPOfGF9t2ml2/7BVxjKsxQjlxvoX2D56gDD/IjQcH1l/t475GIRN6q
- jXCvUS6q3lXh8nm8C51TxDCkQlpgvUkeqfoJjigsQHEJ82poWO4cpbtMeikTzeX6
- OST2fPHlvOb4ANxQT5MFSwLWYGryRyTyh+sXkhu0CqYFh45FRXlrEaDq8lmFMHnL
- 1aNYzSbRWbx5erSuNQKC3GMFOgBuTn7k6oalT3rQC8wHXreubV1Rtuu4q49aELsN
- O+rPdK0ttxk1zZug3VRFza/PMkFSqCbW97t8ofO8D5xNMl3zqpASRMDyQ==
+ :mime-version:content-transfer-encoding; s=fm2; bh=hR/m70CiuZX0g
+ Eyvt6mXm9Ex1uS3vqhqhcrA8DtZSfk=; b=PFu7mh3L/GnfAPOoGKNKUzZ5Qn527
+ mmC4X2UgUjhcUEyTo7yzr1oqLlbMYFcaQ/qACgAoj73G9He8KSYTi/fQLl3gTjeZ
+ /o7L1mGkPsF6yEmJqJDYUd518srVtB+gQncBWh/UiO9kWEWcSSTSUgj6L0aR6LEG
+ wGco8zrHvN6+S4trt/lZ7GJknOAWlqjYN4l4oazIcRyCT92vcwyCJw5OBmQq6hzE
+ Y8jXR7wt/mjVcbjRGYf9DYjb2Q/S9mwGl5a4h6pjw1zpknHU4rDVdLtd9lIaV7+O
+ adwL+NmQGWCYcL9sDFNx0Xs333OiY7REtsT22eFFmlDNa75CJei4OPyCw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=WWIvukujK0B6y6gKhB4SQl5wnnhYHuiNgnMSqolKyzs=; b=CmvpkFcH
- hxJ6Lcl2DH8Am1V4CtRKy57RQGGnRy2dZpcJm0VH69zeeta7XOvJqN/Ige6pGS90
- viU+7+xxrhXnoyP8HTWjusfCjl5ByaeLLM7+4MEw8PL+FSSW8UzJ7+0AKhohFxlo
- Ic6sYyvg4J+4hUjDGtX/r8MQ+OgR02nIqQiPvYrvSiyzVKV4/LUjZSHx+gH6lXzh
- eG8D3epwSyiTlnudeDwUuM0PryFomyiFU6hLq7SCtNxbCM2PM6EcgpImP2qXnFy1
- 28npbscmhZQkPobdozteiOfpMAG/VH9G93oETX0k3sNYpteUU3o2sinj6BTUwX1+
- Fh8xSHjRpPKp1w==
-X-ME-Sender: <xms:DxybXQg7JnuyZrWw67RqVvt1kQxy_W4Tk2cFIOOqya-HF4ZEorG72g>
+ fm1; bh=hR/m70CiuZX0gEyvt6mXm9Ex1uS3vqhqhcrA8DtZSfk=; b=mlYfBmBf
+ S8yvRbdqkpdJ7W/y+PjrbPTAElh9UxXh/dZs9CI9wwqZ82KQD+zGSoqWd4P0Shhj
+ 0i6EfPtjNBdER1vyf35MehlZ1XNurhFF1KS8SP5Vgv+487kM1+KWLAuPaeFO/79p
+ ofs4sFq+xClE2HBAz0E53k6zhmVeWUb+Jvb6LVpPBhGVLwyW4IObU7EqOlg3l64n
+ 550cXXO9Gu95cGwCXkesLXgA182WyAkX6tu4JYj5EOc6eEy3lJtFX8w/YkqmCcoE
+ rJlxt40ZuSDXqzqWwtkdM59th1uK/q7HSGLl1guqJClFFX48H+feWR8HkzeoswdO
+ UfaWINTbGZglVA==
+X-ME-Sender: <xms:ERybXWGXCQg6UWq1ZtYeO_dn1jTUmXGzqM9TW1mMJ6NQu5MCsuI-ig>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrheejgddviecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
@@ -75,26 +75,26 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrheejgddviecutefuodetggdote
  hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
  frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
  rdhjphenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:DxybXeZlm6uPUV-l8REBSGp0gyxSaO2et905jml_8VXAKGwM_Hj7pw>
- <xmx:DxybXYTt6y2B-gl0OH-xVsJvyxqZJTZP-ruWBnhwY_V_Qfu1yoe4Qw>
- <xmx:DxybXRRMm5WDYi_SmePi2ciqwKk9Q83fYG1YNA4TAKaBgCXqZIKNGg>
- <xmx:DxybXWbucpluIhw8jHhSXo6GDQps8eViLABBVs0xv3pUpEnARVaQGA>
+X-ME-Proxy: <xmx:ERybXbmPp1ZjWjqckx-fbqnGLy7qGvkrNGHqQQJZhr0wBRAzsBbi0Q>
+ <xmx:ERybXbJUrx6sSEI0Z7sdraD8jhRfRgV0ozPSyjYFxSQhbcJrpBdv2Q>
+ <xmx:ERybXUYF1hWiAU1sT7p9bvgg5SvAfxDzkvcNZSB0BHJtvq-o6g2uAQ>
+ <xmx:ERybXYau_mOmWNx4bKKPj_fc-JYCUtlij1N05wWn0nMZpuW-AKoTcQ>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6FB458005A;
- Mon,  7 Oct 2019 07:05:50 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id EEEE98005A;
+ Mon,  7 Oct 2019 07:05:51 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Mon,  7 Oct 2019 20:05:25 +0900
-Message-Id: <20191007110532.30270-11-o-takashi@sakamocchi.jp>
+Date: Mon,  7 Oct 2019 20:05:26 +0900
+Message-Id: <20191007110532.30270-12-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191007110532.30270-1-o-takashi@sakamocchi.jp>
 References: <20191007110532.30270-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 10/17] bebob: use the same size of period for
-	PCM substream in AMDTP streams
+Subject: [alsa-devel] [PATCH 11/17] fireworks: use the same size of period
+	for PCM substream in AMDTP streams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,63 +138,55 @@ the size of PCM period.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/bebob/bebob_pcm.c | 39 ++++++++++++++++++++++----------
- 1 file changed, 27 insertions(+), 12 deletions(-)
+ sound/firewire/fireworks/fireworks_pcm.c | 39 +++++++++++++++++-------
+ 1 file changed, 28 insertions(+), 11 deletions(-)
 
-diff --git a/sound/firewire/bebob/bebob_pcm.c b/sound/firewire/bebob/bebob_pcm.c
-index 3b2227abf8a9..516c9874f4a1 100644
---- a/sound/firewire/bebob/bebob_pcm.c
-+++ b/sound/firewire/bebob/bebob_pcm.c
-@@ -129,18 +129,17 @@ pcm_init_hw_params(struct snd_bebob *bebob,
- 	return err;
- }
- 
--static int
--pcm_open(struct snd_pcm_substream *substream)
-+static int pcm_open(struct snd_pcm_substream *substream)
+diff --git a/sound/firewire/fireworks/fireworks_pcm.c b/sound/firewire/fireworks/fireworks_pcm.c
+index 35fc95283423..314d1f8b8344 100644
+--- a/sound/firewire/fireworks/fireworks_pcm.c
++++ b/sound/firewire/fireworks/fireworks_pcm.c
+@@ -173,13 +173,13 @@ pcm_init_hw_params(struct snd_efw *efw,
+ static int pcm_open(struct snd_pcm_substream *substream)
  {
- 	struct snd_bebob *bebob = substream->private_data;
- 	const struct snd_bebob_rate_spec *spec = bebob->spec->rate;
+ 	struct snd_efw *efw = substream->private_data;
 -	unsigned int sampling_rate;
-+	struct amdtp_domain *d = &bebob->domain;
- 	enum snd_bebob_clock_type src;
++	struct amdtp_domain *d = &efw->domain;
+ 	enum snd_efw_clock_source clock_source;
  	int err;
  
- 	err = snd_bebob_stream_lock_try(bebob);
+ 	err = snd_efw_stream_lock_try(efw);
  	if (err < 0)
 -		goto end;
 +		return err;
  
- 	err = pcm_init_hw_params(bebob, substream);
+ 	err = pcm_init_hw_params(efw, substream);
  	if (err < 0)
-@@ -150,15 +149,19 @@ pcm_open(struct snd_pcm_substream *substream)
+@@ -189,23 +189,40 @@ static int pcm_open(struct snd_pcm_substream *substream)
  	if (err < 0)
  		goto err_locked;
  
 -	/*
--	 * When source of clock is internal or any PCM stream are running,
--	 * the available sampling rate is limited at current sampling rate.
+-	 * When source of clock is not internal or any PCM streams are running,
+-	 * available sampling rate is limited at current sampling rate.
 -	 */
-+	mutex_lock(&bebob->mutex);
++	mutex_lock(&efw->mutex);
 +
 +	// When source of clock is not internal or any stream is reserved for
 +	// transmission of PCM frames, the available sampling rate is limited
 +	// at current one.
- 	if (src == SND_BEBOB_CLOCK_TYPE_EXTERNAL ||
--	    amdtp_stream_pcm_running(&bebob->tx_stream) ||
--	    amdtp_stream_pcm_running(&bebob->rx_stream)) {
-+	    (bebob->substreams_counter > 0 && d->events_per_period > 0)) {
+ 	if ((clock_source != SND_EFW_CLOCK_SOURCE_INTERNAL) ||
+-	    amdtp_stream_pcm_running(&efw->tx_stream) ||
+-	    amdtp_stream_pcm_running(&efw->rx_stream)) {
++	    (efw->substreams_counter > 0 && d->events_per_period > 0)) {
 +		unsigned int frames_per_period = d->events_per_period;
 +		unsigned int sampling_rate;
 +
- 		err = spec->get(bebob, &sampling_rate);
- 		if (err < 0) {
-+			mutex_unlock(&bebob->mutex);
- 			dev_err(&bebob->unit->device,
- 				"fail to get sampling rate: %d\n", err);
+ 		err = snd_efw_command_get_sampling_rate(efw, &sampling_rate);
+-		if (err < 0)
++		if (err < 0) {
++			mutex_unlock(&efw->mutex);
  			goto err_locked;
-@@ -166,11 +169,23 @@ pcm_open(struct snd_pcm_substream *substream)
- 
++		}
  		substream->runtime->hw.rate_min = sampling_rate;
  		substream->runtime->hw.rate_max = sampling_rate;
 +
@@ -203,13 +195,13 @@ index 3b2227abf8a9..516c9874f4a1 100644
 +					SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
 +					frames_per_period, frames_per_period);
 +			if (err < 0) {
-+				mutex_unlock(&bebob->mutex);
++				mutex_unlock(&efw->mutex);
 +				goto err_locked;
 +			}
 +		}
  	}
  
-+	mutex_unlock(&bebob->mutex);
++	mutex_unlock(&efw->mutex);
 +
  	snd_pcm_set_sync(substream);
 -end:
@@ -217,7 +209,7 @@ index 3b2227abf8a9..516c9874f4a1 100644
 +
 +	return 0;
  err_locked:
- 	snd_bebob_stream_lock_release(bebob);
+ 	snd_efw_stream_lock_release(efw);
  	return err;
 -- 
 2.20.1

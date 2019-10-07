@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CA76CE2B2
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 15:07:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66DFBCE2A8
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 15:06:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA6CF167F;
-	Mon,  7 Oct 2019 15:06:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA6CF167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D45F01615;
+	Mon,  7 Oct 2019 15:05:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D45F01615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570453653;
-	bh=omzv5KSKp+uVYQg5E8g1/1/rG7c+F0e7eKWt2Cqrj1A=;
+	s=default; t=1570453598;
+	bh=pGpD8kA/Vrg6luocBAfRJvUAW8v6az2eyjSzEG4LqWs=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=vGc6ENzk7z+CCYtqZ/mL//rUtM3wE7kfvY8HMbL2FEI4bQgky1Yx0tYaCvlXVa3U0
-	 PD+QtZ1TAJfnIikym/ES7+2CYV8DIiT3rX0ZboUgEOyKkO46VSOYHVss6BBGzmHLM5
-	 tnBTULyUNWP4AabNiur7qWTH2KI9bfZTu3nNsp+8=
+	b=pMcNqcWQc4XEjmcOTsb/7uEHwdM9YqHEhZ2E7YOieCQKFo77S0ZZxbORlWCf2ywXJ
+	 wriCKadb0kVmkXc9CAVYa50F751PK6e6rgnNPhstettivQow5K1q6LcXMjDDfAPLMQ
+	 Tl04bzu7o/NOw686S1fcoIrAhO0Krc5oNmgFYnY4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EC37F80634;
-	Mon,  7 Oct 2019 15:03:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1F7CF805FD;
+	Mon,  7 Oct 2019 15:03:20 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B4F1F80323; Mon,  7 Oct 2019 15:03:17 +0200 (CEST)
+ id 0E155F802BD; Mon,  7 Oct 2019 15:03:16 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,46 +34,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06E74F80137
- for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 15:03:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06E74F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CE26F802BD
+ for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 15:03:12 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CE26F802BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="vgbv/AXW"
+ header.b="DxajtVCI"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=+GKNSiDM449B7j26Qri6+MHaUubwgCu58aKPDyjCsX4=; b=vgbv/AXWUC0p
- yKiGRaUI48LhhUO7h6WGJ7Pm3xcSLT7YuynHevPhoX8rnbDFEpIqn5cwH4uVk4VBvJuq7Xv6t8wuf
- HyRrMhsAdz7x7YihiTs9VFfo5Ryv9kZSe4oj/5drHSbwyHlHAisL3Psb8sPJG4cClbqFdFPHCi5A0
- +6+/o=;
+ List-Archive; bh=Cfep0rIWMWln/JuLOxx1Em6o0m/piiYjUQUP4jMHOv0=; b=DxajtVCIZ7TS
+ LUoA4FeiAcAzoPTrmWvtbEN1KtrYBEv1W9u2aZ7c252BXAw0zAjorz8kqWIqIWS228TtPZyt0OlxW
+ ypNHjM2RHffgNnU33MjcMIYZEikgtRvvIWjOYveK0Bd7yLHxEBw4HE4OlNyfCBKHboLT8B1KdT8jZ
+ dZuck=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHSfO-0003Qn-UP; Mon, 07 Oct 2019 13:03:10 +0000
+ id 1iHSfP-0003Qq-3C; Mon, 07 Oct 2019 13:03:11 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id EAEBE2741EF0; Mon,  7 Oct 2019 14:03:09 +0100 (BST)
+ id 5DBE7274162F; Mon,  7 Oct 2019 14:03:09 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20191006104631.60608-1-yuehaibing@huawei.com>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+In-Reply-To: <20191004102208.GB823@mwanda>
 X-Patchwork-Hint: ignore
-Message-Id: <20191007130309.EAEBE2741EF0@ypsilon.sirena.org.uk>
+Message-Id: <20191007130309.5DBE7274162F@ypsilon.sirena.org.uk>
 Date: Mon,  7 Oct 2019 14:03:09 +0100 (BST)
-Cc: m.felsch@pengutronix.de, alsa-devel@alsa-project.org, ladis@linux-mips.org,
- ckeepax@opensource.cirrus.com, kuninori.morimoto.gx@renesas.com,
- linux-kernel@vger.kernel.org, piotrs@opensource.cirrus.com,
- andradanciu1997@gmail.com, lgirdwood@gmail.com, paul@crapouillou.net,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
- shifu0704@thundersoft.com, enric.balletbo@collabora.com,
- srinivas.kandagatla@linaro.org, tiwai@suse.com, mirq-linux@rere.qmqm.pl,
- rf@opensource.wolfsonmicro.com
-Subject: [alsa-devel] Applied "ASoc: tas2770: Fix build error without
-	GPIOLIB" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, linuxppc-dev@lists.ozlabs.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>
+Subject: [alsa-devel] Applied "ASoC: fsl_mqs: Fix error handling in probe"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoc: tas2770: Fix build error without GPIOLIB
+   ASoC: fsl_mqs: Fix error handling in probe
 
 has been applied to the asoc tree at
 
@@ -119,50 +117,105 @@ to this mail.
 Thanks,
 Mark
 
-From 03fe492e8346d3da59b6eb7ea306d46ebf22e9d5 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Sun, 6 Oct 2019 18:46:31 +0800
-Subject: [PATCH] ASoc: tas2770: Fix build error without GPIOLIB
+From a9d273671440c439c4f236123c59dd839c1a0eb7 Mon Sep 17 00:00:00 2001
+From: Dan Carpenter <dan.carpenter@oracle.com>
+Date: Fri, 4 Oct 2019 13:22:09 +0300
+Subject: [PATCH] ASoC: fsl_mqs: Fix error handling in probe
 
-If GPIOLIB is not set, building fails:
+There are several problems in the error handling in fsl_mqs_probe().
 
-sound/soc/codecs/tas2770.c: In function tas2770_reset:
-sound/soc/codecs/tas2770.c:38:3: error: implicit declaration of function gpiod_set_value_cansleep; did you mean gpio_set_value_cansleep? [-Werror=implicit-function-declaration]
-   gpiod_set_value_cansleep(tas2770->reset_gpio, 0);
-   ^~~~~~~~~~~~~~~~~~~~~~~~
-   gpio_set_value_cansleep
-sound/soc/codecs/tas2770.c: In function tas2770_i2c_probe:
-sound/soc/codecs/tas2770.c:749:24: error: implicit declaration of function devm_gpiod_get_optional; did you mean devm_regulator_get_optional? [-Werror=implicit-function-declaration]
-  tas2770->reset_gpio = devm_gpiod_get_optional(tas2770->dev,
-                        ^~~~~~~~~~~~~~~~~~~~~~~
-                        devm_regulator_get_optional
-sound/soc/codecs/tas2770.c:751:13: error: GPIOD_OUT_HIGH undeclared (first use in this function); did you mean GPIOF_INIT_HIGH?
-             GPIOD_OUT_HIGH);
-             ^~~~~~~~~~~~~~
-             GPIOF_INIT_HIGH
+1) "ret" isn't initialized on some paths.  GCC has a feature which
+   warns about uninitialized variables but the code initializes "ret"
+   to zero at the start of the function so the checking is turned off.
+2) "gpr_np" is a pointer so initializing it to zero is confusing and
+   generates a Sparse warning.
+3) of_parse_phandle() doesn't return error pointers on error, it returns
+   NULL.
+4) If devm_snd_soc_register_component() fails then the function should
+   free the "gpr_np".
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Fixes: 1a476abc723e ("tas2770: add tas2770 smart PA kernel driver")
-Suggested-by: Ladislav Michl <ladis@linux-mips.org>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20191006104631.60608-1-yuehaibing@huawei.com
+Fixes: 9e28f6532c61 ("ASoC: fsl_mqs: Add MQS component driver")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+Link: https://lore.kernel.org/r/20191004102208.GB823@mwanda
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tas2770.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/fsl/fsl_mqs.c | 27 +++++++++++++++------------
+ 1 file changed, 15 insertions(+), 12 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index dbbb21fe0548..15f6fcc6d87e 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -15,6 +15,7 @@
- #include <linux/pm.h>
- #include <linux/i2c.h>
- #include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/firmware.h>
+diff --git a/sound/soc/fsl/fsl_mqs.c b/sound/soc/fsl/fsl_mqs.c
+index 7b9cab3a62e7..f7fc44e8fb27 100644
+--- a/sound/soc/fsl/fsl_mqs.c
++++ b/sound/soc/fsl/fsl_mqs.c
+@@ -178,10 +178,10 @@ static const struct regmap_config fsl_mqs_regmap_config = {
+ static int fsl_mqs_probe(struct platform_device *pdev)
+ {
+ 	struct device_node *np = pdev->dev.of_node;
+-	struct device_node *gpr_np = 0;
++	struct device_node *gpr_np = NULL;
+ 	struct fsl_mqs *mqs_priv;
+ 	void __iomem *regs;
+-	int ret = 0;
++	int ret;
+ 
+ 	mqs_priv = devm_kzalloc(&pdev->dev, sizeof(*mqs_priv), GFP_KERNEL);
+ 	if (!mqs_priv)
+@@ -198,17 +198,16 @@ static int fsl_mqs_probe(struct platform_device *pdev)
+ 
+ 	if (mqs_priv->use_gpr) {
+ 		gpr_np = of_parse_phandle(np, "gpr", 0);
+-		if (IS_ERR(gpr_np)) {
++		if (!gpr_np) {
+ 			dev_err(&pdev->dev, "failed to get gpr node by phandle\n");
+-			ret = PTR_ERR(gpr_np);
+-			goto out;
++			return -EINVAL;
+ 		}
+ 
+ 		mqs_priv->regmap = syscon_node_to_regmap(gpr_np);
+ 		if (IS_ERR(mqs_priv->regmap)) {
+ 			dev_err(&pdev->dev, "failed to get gpr regmap\n");
+ 			ret = PTR_ERR(mqs_priv->regmap);
+-			goto out;
++			goto err_free_gpr_np;
+ 		}
+ 	} else {
+ 		regs = devm_platform_ioremap_resource(pdev, 0);
+@@ -229,7 +228,7 @@ static int fsl_mqs_probe(struct platform_device *pdev)
+ 		if (IS_ERR(mqs_priv->ipg)) {
+ 			dev_err(&pdev->dev, "failed to get the clock: %ld\n",
+ 				PTR_ERR(mqs_priv->ipg));
+-			goto out;
++			return PTR_ERR(mqs_priv->ipg);
+ 		}
+ 	}
+ 
+@@ -237,17 +236,21 @@ static int fsl_mqs_probe(struct platform_device *pdev)
+ 	if (IS_ERR(mqs_priv->mclk)) {
+ 		dev_err(&pdev->dev, "failed to get the clock: %ld\n",
+ 			PTR_ERR(mqs_priv->mclk));
+-		goto out;
++		ret = PTR_ERR(mqs_priv->mclk);
++		goto err_free_gpr_np;
+ 	}
+ 
+ 	dev_set_drvdata(&pdev->dev, mqs_priv);
+ 	pm_runtime_enable(&pdev->dev);
+ 
+-	return devm_snd_soc_register_component(&pdev->dev, &soc_codec_fsl_mqs,
++	ret = devm_snd_soc_register_component(&pdev->dev, &soc_codec_fsl_mqs,
+ 			&fsl_mqs_dai, 1);
+-out:
+-	if (!IS_ERR(gpr_np))
+-		of_node_put(gpr_np);
++	if (ret)
++		goto err_free_gpr_np;
++	return 0;
++
++err_free_gpr_np:
++	of_node_put(gpr_np);
+ 
+ 	return ret;
+ }
 -- 
 2.20.1
 

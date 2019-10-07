@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9920ECDFFC
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 13:13:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE0FFCE002
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 13:14:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E079168F;
-	Mon,  7 Oct 2019 13:12:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E079168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 52FAE1664;
+	Mon,  7 Oct 2019 13:13:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52FAE1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570446815;
-	bh=4UR0BlsVE18vFWeLxABocK+DCimoJlHnnDu27247VT4=;
+	s=default; t=1570446857;
+	bh=4aSRgvS8V/luZ/zTENpUbonh1dmnwv7jjpk/WOR7H3o=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GEKJ1w9+gOqaQxxxGRzA3UTI/sJladpfaRp8WAbC4xjBaP/gWwJm6aOpitartHs9b
-	 tLzFnYNh3/W9DvK9CseuIqkIzXUDDbfrkp2LDFvhYSdILyx0/exQfZKngYkflqaWZB
-	 LmaXWEvi8mhkZTHhQaQbuBGsPEM/WOcaIgmVE4f0=
+	b=c7gJ6xy8Stqp8fTLzUBSRynvnWedG/IY4nfufNB3Z6uNjKSuCkocJ6IqA+4fAlFeu
+	 GHLJ5jFrdzP/MFBAQp4RnS6jUbSFz3ZlNk/1beO0pYWyFNkFQFORvGRyYNFyRh+HWI
+	 RTSoA1lK5Dx5wLm5YH5hGw6FaRHphkSFtDbwE2Y0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 85E0CF806EF;
-	Mon,  7 Oct 2019 13:06:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D4CCF806F5;
+	Mon,  7 Oct 2019 13:06:05 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50D61F80638; Mon,  7 Oct 2019 13:05:54 +0200 (CEST)
+ id 2CC76F80659; Mon,  7 Oct 2019 13:05:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,67 +34,67 @@ Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0CC1AF80610
- for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 13:05:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CC1AF80610
+ by alsa1.perex.cz (Postfix) with ESMTPS id A2B01F80634
+ for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 13:05:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2B01F80634
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="EMVz1duP"; 
+ header.b="Kq8sK4B5"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="SApH50uv"
+ header.i=@messagingengine.com header.b="CmvpkFcH"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 43D0521CC3;
- Mon,  7 Oct 2019 07:05:50 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id D8BD62134B;
+ Mon,  7 Oct 2019 07:05:51 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Mon, 07 Oct 2019 07:05:50 -0400
+ by compute1.internal (MEProxy); Mon, 07 Oct 2019 07:05:51 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=YzXKu+WZoTozI
- R6y0LRU4n4MSnrgZ1eUjR9ramzalQI=; b=EMVz1duPyx0F0D1IoGTRVm6WoR9si
- EZ9qB2dJgrAqhRyO0KIdVTw/jQpViFkcHvKH08Fekw9EqqUAH6kXtL1kj/5WkUlg
- EvywOIePCb2x88dDSyiPDsLYElqB5a6SVBhD0SOHGI5Gjvrb2B+5YzkCw2OT73Fr
- vGQNi4ZgV+nN5y7IRM4+6dTXab1KaQo9jp6X6dCR1ZVmKVjpbjnjVDm1V0jWl7Yg
- em9aJbrgzSp+xkmWG1EuidKalPfJZNsZeHmHzD/rDlEffSS+/t4j7GS5xVrqD5Ff
- 2A/y0v7k6DkCtK9l36bH7vE8RenFRxKmA708YPDyZxDaEQiD9rYKwlkww==
+ :mime-version:content-transfer-encoding; s=fm2; bh=WWIvukujK0B6y
+ 6gKhB4SQl5wnnhYHuiNgnMSqolKyzs=; b=Kq8sK4B5PEsM6Mh6mXu8pw/nC3x7z
+ 6x8mWRscFWMPOfGF9t2ml2/7BVxjKsxQjlxvoX2D56gDD/IjQcH1l/t475GIRN6q
+ jXCvUS6q3lXh8nm8C51TxDCkQlpgvUkeqfoJjigsQHEJ82poWO4cpbtMeikTzeX6
+ OST2fPHlvOb4ANxQT5MFSwLWYGryRyTyh+sXkhu0CqYFh45FRXlrEaDq8lmFMHnL
+ 1aNYzSbRWbx5erSuNQKC3GMFOgBuTn7k6oalT3rQC8wHXreubV1Rtuu4q49aELsN
+ O+rPdK0ttxk1zZug3VRFza/PMkFSqCbW97t8ofO8D5xNMl3zqpASRMDyQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=YzXKu+WZoTozIR6y0LRU4n4MSnrgZ1eUjR9ramzalQI=; b=SApH50uv
- OtBJroSJbkTbZflM8DQHWRFQl65mVzsVf2MIZ77jB73MUw/1Fuhz0I3kV2EiWeWC
- 99NSRU3Ta9XSt0336nTs84UrODi7aQ9vVsGneuI4euu/M+IPKm/UF/DT0XLBaYsw
- VHpXYJbbVDQs1+YHd2SNInhky5uA+jAKL3MiuDdXpbu1BJPhWMexk9dGfaTI8Stj
- UPCUEVjtkAcsaR9TsqNlgWogJwdLoQgEW5rUUqG4ct/c0YjmtHlptYRc7dYBrmye
- OrUFugm/J7sc5lOer44LQpkTwI8VFOBIbk+5rMSsPPMQqJHf2jRxp/sHkPsAbMYm
- MQERe7aET8M6xA==
-X-ME-Sender: <xms:DhybXZoxSRpAves9BLF7RmmbmqUqDMpNEG3tLGBqrzz1k0nZSQLR3A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrheejgddvhecutefuodetggdotefrodftvf
+ fm1; bh=WWIvukujK0B6y6gKhB4SQl5wnnhYHuiNgnMSqolKyzs=; b=CmvpkFcH
+ hxJ6Lcl2DH8Am1V4CtRKy57RQGGnRy2dZpcJm0VH69zeeta7XOvJqN/Ige6pGS90
+ viU+7+xxrhXnoyP8HTWjusfCjl5ByaeLLM7+4MEw8PL+FSSW8UzJ7+0AKhohFxlo
+ Ic6sYyvg4J+4hUjDGtX/r8MQ+OgR02nIqQiPvYrvSiyzVKV4/LUjZSHx+gH6lXzh
+ eG8D3epwSyiTlnudeDwUuM0PryFomyiFU6hLq7SCtNxbCM2PM6EcgpImP2qXnFy1
+ 28npbscmhZQkPobdozteiOfpMAG/VH9G93oETX0k3sNYpteUU3o2sinj6BTUwX1+
+ Fh8xSHjRpPKp1w==
+X-ME-Sender: <xms:DxybXQg7JnuyZrWw67RqVvt1kQxy_W4Tk2cFIOOqya-HF4ZEorG72g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrheejgddviecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
  ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
  hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
  frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
- rdhjphenucevlhhushhtvghrufhiiigvpeeh
-X-ME-Proxy: <xmx:DhybXd4m9zajqvtQcZlLqZ22oY03n-CCanV06DS2m3T5b7HA5vPGAQ>
- <xmx:DhybXWQfDuuuj2EsK42FdUjCbUdYuT-RQJ1oZy7bS6_DIiLRTgPHUw>
- <xmx:DhybXd07GJoM_B9AcQeTKAh4HUGWWjwYNhxm79yYWNK47xUJmKxrog>
- <xmx:DhybXRN_Y0iD8yw3lKcWYywycwqQ53oz2GmqKnNXoMKIzE3KQ4uNGg>
+ rdhjphenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:DxybXeZlm6uPUV-l8REBSGp0gyxSaO2et905jml_8VXAKGwM_Hj7pw>
+ <xmx:DxybXYTt6y2B-gl0OH-xVsJvyxqZJTZP-ruWBnhwY_V_Qfu1yoe4Qw>
+ <xmx:DxybXRRMm5WDYi_SmePi2ciqwKk9Q83fYG1YNA4TAKaBgCXqZIKNGg>
+ <xmx:DxybXWbucpluIhw8jHhSXo6GDQps8eViLABBVs0xv3pUpEnARVaQGA>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id E6CBF8005A;
- Mon,  7 Oct 2019 07:05:48 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6FB458005A;
+ Mon,  7 Oct 2019 07:05:50 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Mon,  7 Oct 2019 20:05:24 +0900
-Message-Id: <20191007110532.30270-10-o-takashi@sakamocchi.jp>
+Date: Mon,  7 Oct 2019 20:05:25 +0900
+Message-Id: <20191007110532.30270-11-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191007110532.30270-1-o-takashi@sakamocchi.jp>
 References: <20191007110532.30270-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 09/17] fireface: register the size of PCM
-	period to AMDTP domain
+Subject: [alsa-devel] [PATCH 10/17] bebob: use the same size of period for
+	PCM substream in AMDTP streams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,77 +112,113 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit is a preparation to share the size of PCM period between
-PCM substreams on AMDTP streams in the same domain. At this time,
-the size of PCM period in PCM substream which starts AMDTP streams in the
-same domain is recorded.
+In current implementation, when opening a PCM substream, it's needed to
+check whether the opposite PCM substream runs. This is to assign
+effectual constraints (e.g. sampling rate) to opened PCM substream.
+
+The number of PCM substreams and MIDI substreams on AMDTP streams in
+domain is recorded in own structure. Usage of this count is an
+alternative of the above check. This is better because the count is
+incremented in pcm.hw_params earlier than pcm.trigger.
+
+This idea has one issue because it's incremented for MIDI substreams as
+well. In current implementation, for a case that any MIDI substream run
+and a PCM substream is going to start, PCM application to start the PCM
+substream can decide hardware parameters by restart packet streaming.
+Just checking the substream count can brings regression.
+
+Now AMDTP domain structure has a member for the size of PCM period in
+PCM substream which starts AMDTP streams in domain. When the value has
+zero and the substream count is greater than 1, it means that any MIDI
+substream starts AMDTP streams in domain. Usage of the value can resolve
+the above issue.
+
+This commit replaces the check with the substream count and the value for
+the size of PCM period.
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/fireface/ff-pcm.c    |  3 ++-
- sound/firewire/fireface/ff-stream.c | 11 ++++++++++-
- sound/firewire/fireface/ff.h        |  3 ++-
- 3 files changed, 14 insertions(+), 3 deletions(-)
+ sound/firewire/bebob/bebob_pcm.c | 39 ++++++++++++++++++++++----------
+ 1 file changed, 27 insertions(+), 12 deletions(-)
 
-diff --git a/sound/firewire/fireface/ff-pcm.c b/sound/firewire/fireface/ff-pcm.c
-index 9eab3ad283ce..4f2208202494 100644
---- a/sound/firewire/fireface/ff-pcm.c
-+++ b/sound/firewire/fireface/ff-pcm.c
-@@ -211,9 +211,10 @@ static int pcm_hw_params(struct snd_pcm_substream *substream,
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-+		unsigned int frames_per_period = params_period_size(hw_params);
- 
- 		mutex_lock(&ff->mutex);
--		err = snd_ff_stream_reserve_duplex(ff, rate);
-+		err = snd_ff_stream_reserve_duplex(ff, rate, frames_per_period);
- 		if (err >= 0)
- 			++ff->substreams_counter;
- 		mutex_unlock(&ff->mutex);
-diff --git a/sound/firewire/fireface/ff-stream.c b/sound/firewire/fireface/ff-stream.c
-index e8e6f9fd6433..d05e7d3055e1 100644
---- a/sound/firewire/fireface/ff-stream.c
-+++ b/sound/firewire/fireface/ff-stream.c
-@@ -106,7 +106,8 @@ void snd_ff_stream_destroy_duplex(struct snd_ff *ff)
- 	destroy_stream(ff, &ff->tx_stream);
+diff --git a/sound/firewire/bebob/bebob_pcm.c b/sound/firewire/bebob/bebob_pcm.c
+index 3b2227abf8a9..516c9874f4a1 100644
+--- a/sound/firewire/bebob/bebob_pcm.c
++++ b/sound/firewire/bebob/bebob_pcm.c
+@@ -129,18 +129,17 @@ pcm_init_hw_params(struct snd_bebob *bebob,
+ 	return err;
  }
  
--int snd_ff_stream_reserve_duplex(struct snd_ff *ff, unsigned int rate)
-+int snd_ff_stream_reserve_duplex(struct snd_ff *ff, unsigned int rate,
-+				 unsigned int frames_per_period)
+-static int
+-pcm_open(struct snd_pcm_substream *substream)
++static int pcm_open(struct snd_pcm_substream *substream)
  {
- 	unsigned int curr_rate;
- 	enum snd_ff_clock_src src;
-@@ -150,6 +151,14 @@ int snd_ff_stream_reserve_duplex(struct snd_ff *ff, unsigned int rate)
- 		err = ff->spec->protocol->allocate_resources(ff, rate);
- 		if (err < 0)
- 			return err;
+ 	struct snd_bebob *bebob = substream->private_data;
+ 	const struct snd_bebob_rate_spec *spec = bebob->spec->rate;
+-	unsigned int sampling_rate;
++	struct amdtp_domain *d = &bebob->domain;
+ 	enum snd_bebob_clock_type src;
+ 	int err;
+ 
+ 	err = snd_bebob_stream_lock_try(bebob);
+ 	if (err < 0)
+-		goto end;
++		return err;
+ 
+ 	err = pcm_init_hw_params(bebob, substream);
+ 	if (err < 0)
+@@ -150,15 +149,19 @@ pcm_open(struct snd_pcm_substream *substream)
+ 	if (err < 0)
+ 		goto err_locked;
+ 
+-	/*
+-	 * When source of clock is internal or any PCM stream are running,
+-	 * the available sampling rate is limited at current sampling rate.
+-	 */
++	mutex_lock(&bebob->mutex);
 +
-+		err = amdtp_domain_set_events_per_period(&ff->domain,
-+							 frames_per_period);
-+		if (err < 0) {
-+			fw_iso_resources_free(&ff->tx_resources);
-+			fw_iso_resources_free(&ff->rx_resources);
-+			return err;
++	// When source of clock is not internal or any stream is reserved for
++	// transmission of PCM frames, the available sampling rate is limited
++	// at current one.
+ 	if (src == SND_BEBOB_CLOCK_TYPE_EXTERNAL ||
+-	    amdtp_stream_pcm_running(&bebob->tx_stream) ||
+-	    amdtp_stream_pcm_running(&bebob->rx_stream)) {
++	    (bebob->substreams_counter > 0 && d->events_per_period > 0)) {
++		unsigned int frames_per_period = d->events_per_period;
++		unsigned int sampling_rate;
++
+ 		err = spec->get(bebob, &sampling_rate);
+ 		if (err < 0) {
++			mutex_unlock(&bebob->mutex);
+ 			dev_err(&bebob->unit->device,
+ 				"fail to get sampling rate: %d\n", err);
+ 			goto err_locked;
+@@ -166,11 +169,23 @@ pcm_open(struct snd_pcm_substream *substream)
+ 
+ 		substream->runtime->hw.rate_min = sampling_rate;
+ 		substream->runtime->hw.rate_max = sampling_rate;
++
++		if (frames_per_period > 0) {
++			err = snd_pcm_hw_constraint_minmax(substream->runtime,
++					SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
++					frames_per_period, frames_per_period);
++			if (err < 0) {
++				mutex_unlock(&bebob->mutex);
++				goto err_locked;
++			}
 +		}
  	}
  
- 	return 0;
-diff --git a/sound/firewire/fireface/ff.h b/sound/firewire/fireface/ff.h
-index b4c22ca6079e..970d4ae571ee 100644
---- a/sound/firewire/fireface/ff.h
-+++ b/sound/firewire/fireface/ff.h
-@@ -139,7 +139,8 @@ int snd_ff_stream_get_multiplier_mode(enum cip_sfc sfc,
- 				      enum snd_ff_stream_mode *mode);
- int snd_ff_stream_init_duplex(struct snd_ff *ff);
- void snd_ff_stream_destroy_duplex(struct snd_ff *ff);
--int snd_ff_stream_reserve_duplex(struct snd_ff *ff, unsigned int rate);
-+int snd_ff_stream_reserve_duplex(struct snd_ff *ff, unsigned int rate,
-+				 unsigned int frames_per_period);
- int snd_ff_stream_start_duplex(struct snd_ff *ff, unsigned int rate);
- void snd_ff_stream_stop_duplex(struct snd_ff *ff);
- void snd_ff_stream_update_duplex(struct snd_ff *ff);
++	mutex_unlock(&bebob->mutex);
++
+ 	snd_pcm_set_sync(substream);
+-end:
+-	return err;
++
++	return 0;
+ err_locked:
+ 	snd_bebob_stream_lock_release(bebob);
+ 	return err;
 -- 
 2.20.1
 

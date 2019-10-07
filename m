@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30E0CCEB92
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 20:15:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD9F6CEBAD
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 20:23:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C680B1660;
-	Mon,  7 Oct 2019 20:14:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C680B1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D56E85D;
+	Mon,  7 Oct 2019 20:22:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D56E85D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570472118;
-	bh=v+X1IkWfN0QkzFMlUtu6o8bT4lzqmAZKByZGDWGA+bI=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=jskq0FxFGWwXvN9MVZt19JjDYQwR1ZWUXAdeHNOucwC8EYzOuIlULG5PZlN/ngOJD
-	 Dz9PzeGSFIw0rp92x/U9EoXM/RblwuUXT6ztqrE9RrKBLPU7sOukyZHn/ZiCZfLZLI
-	 01j/xggwyAkjY6Vq3xvXbqblYwL3Eu5dyARX8uD0=
+	s=default; t=1570472599;
+	bh=eLWFI2RU00j9sI9WVHqUM9FvK/o6Lc61Uy4+fwQgj1s=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=XeGfxdQgkaZ0CcEZdHFT3j5uzzI7qN5FG33O9a+wkheuKqjRt/faL+Xa8H8IYUr91
+	 nPRFHeuJqhvevhLwRaL8JcopGmap/SdeAyPKdGdaYwqbngRC5eZv1RhJBa5CLcXuAQ
+	 Y599UFjeYQnGXx8fuGFwCUgODBSNZCu2U65N/s/o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1526F802FB;
-	Mon,  7 Oct 2019 20:13:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6C8BF802DF;
+	Mon,  7 Oct 2019 20:21:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E50BF802FB; Mon,  7 Oct 2019 20:13:30 +0200 (CEST)
+ id 74093F802BE; Mon,  7 Oct 2019 20:21:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mo6-p00-ob.smtp.rzone.de (mo6-p00-ob.smtp.rzone.de
+ [IPv6:2a01:238:20a:202:5300::10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7D5FF800BF
- for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 20:13:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7D5FF800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 247CEF800BF
+ for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 20:21:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 247CEF800BF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="GaYXeXG9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=YszzIRRq8+HMe+uWy5lgHyDF5uj3GQ+Jn/wpF3eKyO4=; b=GaYXeXG9/kZA
- xoRoklbcb21LauF4f0MDmub9bJdPkJYpgJBMBQpQ/Vkmbh288FFFllOjhsaDZtDi/71KJJK9qjauh
- iFkLS8na+vM6ThtkF/TlQYWmNR/KxtMd0ROzrP7t4v6ZxfoF3LwTl9i37LSqEDt/bCSE3ESIF0waa
- EpZ0w=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iHXVe-0004GD-1J; Mon, 07 Oct 2019 18:13:26 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 42DD6274162F; Mon,  7 Oct 2019 19:13:25 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Dan Murphy <dmurphy@ti.com>
-In-Reply-To: <20191007171157.17813-1-dmurphy@ti.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20191007181325.42DD6274162F@ypsilon.sirena.org.uk>
-Date: Mon,  7 Oct 2019 19:13:25 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, navada@ti.com, Mark Brown <broonie@kernel.org>,
- shifu0704@thundersoft.com
-Subject: [alsa-devel] Applied "ASoC: tas2770: Fix snd_soc_update_bits error
-	handling" to the asoc tree
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="Iu8Ed9H3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1570472487;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+ Subject:Sender;
+ bh=niAYvrs9RamXh+uW6Dcvtw08yy8ElpEViqKy5gQWBUA=;
+ b=Iu8Ed9H3ItAI0An9mRiqrgi7Sz1H1T3JiW5i+yonn2IWcyTZ8wMGU4qVT3e9sv3xhj
+ +HOHG5wkPOYJyXyg2WH8LR7FXPsC4sEIfe+6YWBpF3cnAaMXQJuhFqYUgbkltUt70zbE
+ RnyC/9brfNi5j90cT2PR3xdaEiUvwdmI2AW5cnO4YsjTkKb5+qivqaFd2Oy4pIr0lT1R
+ TaeE9ERmDBAUlg1O1VKx6EhGM/iVDDR0K8NJuetvXUQ/rToXq4t4feRe4O8tDUWJQbo7
+ kvcxoSV5aQduNDAi8wlXvz44A9VWPsxMQM+t5uodyd3OKQeJjacn6JI+nNUMTmJc0mYO
+ 7Lbg==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXQrEOHTIXt87vtBtcfg=="
+X-RZG-CLASS-ID: mo00
+Received: from localhost.localdomain by smtp.strato.de (RZmta 44.28.0 AUTH)
+ with ESMTPSA id L0811cv97ILQ3g7
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
+ 521 ECDH bits, eq. 15360 bits RSA))
+ (Client did not present a certificate);
+ Mon, 7 Oct 2019 20:21:26 +0200 (CEST)
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Mark Brown <broonie@kernel.org>
+Date: Mon,  7 Oct 2019 20:19:52 +0200
+Message-Id: <20191007181952.34786-1-stephan@gerhold.net>
+X-Mailer: git-send-email 2.23.0
+MIME-Version: 1.0
+Cc: alsa-devel@alsa-project.org, Stephan Gerhold <stephan@gerhold.net>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [alsa-devel] [PATCH] ASoC: msm8916-wcd-digital: Remove broken MIX2
+	DAPM routes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,187 +81,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Since 5.3-rc1, the kernel (correctly) complains about missing
+widgets when loading msm8916-wcd-digital:
 
-   ASoC: tas2770: Fix snd_soc_update_bits error handling
+	ASoC: no sink widget found for RX1 MIX2 INP1
+	ASoC: Failed to add route IIR1 -> IIR1 -> RX1 MIX2 INP1
+	ASoC: no sink widget found for RX2 MIX2 INP1
+	ASoC: Failed to add route IIR1 -> IIR1 -> RX2 MIX2 INP1
+	ASoC: no sink widget found for RX1 MIX2 INP1
+	ASoC: Failed to add route IIR2 -> IIR2 -> RX1 MIX2 INP1
+	ASoC: no sink widget found for RX2 MIX2 INP1
+	ASoC: Failed to add route IIR2 -> IIR2 -> RX2 MIX2 INP1
 
-has been applied to the asoc tree at
+This happens because RX1/2 MIX2 INP1 is not actually supported by
+msm8916-wcd-digital for some reason. There were some traces of it
+in the initial patch, but the last remnants were removed in
+commit fecd5c09ddf8 ("ASoC: msm8916-wcd-digital: remove few unused variables").
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+On 5.3 everything seemingly worked even with that error, but on 5.4-rc1
+the sound card is no longer successfully registered:
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+	qcom-apq8016-sbc 7702000.sound: ASoC: failed to instantiate card -19
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+This happens because a check for the return code of
+snd_soc_dapm_add_routes() was added in
+commit daa480bde6b3 ("ASoC: soc-core: tidyup for snd_soc_dapm_add_routes()").
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Avoid the error by removing the routes that reference the missing widgets.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From edd6d5393206ec9bfc74776f6f20a57f11327e1b Mon Sep 17 00:00:00 2001
-From: Dan Murphy <dmurphy@ti.com>
-Date: Mon, 7 Oct 2019 12:11:55 -0500
-Subject: [PATCH] ASoC: tas2770: Fix snd_soc_update_bits error handling
-
-According the documentation for snd_soc_update_bits the API
-will return a 1 if the update was successful with a value change,
-a 0 if the update was successful with no value change or a negative
-if the command just failed.
-
-So the value of return in the driver needs to be checked for being less
-then 0 or the caller may indicate failure when the value actually
-changed.
-
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
-Link: https://lore.kernel.org/r/20191007171157.17813-1-dmurphy@ti.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: ef8a4757a6db ("ASoC: msm8916-wcd-digital: Add sidetone support")
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
 ---
- sound/soc/codecs/tas2770.c | 46 +++++++++++++++++++++++++-------------
- 1 file changed, 30 insertions(+), 16 deletions(-)
+ sound/soc/codecs/msm8916-wcd-digital.c | 5 -----
+ 1 file changed, 5 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-index f3a665b64fd6..ad76f22fcfac 100644
---- a/sound/soc/codecs/tas2770.c
-+++ b/sound/soc/codecs/tas2770.c
-@@ -83,7 +83,8 @@ static int tas2770_codec_suspend(struct snd_soc_component *component)
- 		TAS2770_PWR_CTRL,
- 		TAS2770_PWR_CTRL_MASK,
- 		TAS2770_PWR_CTRL_SHUTDOWN);
--	if (ret)
-+
-+	if (ret < 0)
- 		return ret;
+diff --git a/sound/soc/codecs/msm8916-wcd-digital.c b/sound/soc/codecs/msm8916-wcd-digital.c
+index 9fa5d44fdc79..36d8f619e298 100644
+--- a/sound/soc/codecs/msm8916-wcd-digital.c
++++ b/sound/soc/codecs/msm8916-wcd-digital.c
+@@ -1022,11 +1022,6 @@ static const struct snd_soc_dapm_route msm8916_wcd_digital_audio_map[] = {
+ 	{"RX3 MIX1 INP2", "IIR1", "IIR1"},
+ 	{"RX3 MIX1 INP2", "IIR2", "IIR2"},
  
- 	return 0;
-@@ -97,8 +98,9 @@ static int tas2770_codec_resume(struct snd_soc_component *component)
- 		TAS2770_PWR_CTRL,
- 		TAS2770_PWR_CTRL_MASK,
- 		TAS2770_PWR_CTRL_ACTIVE);
--	if (ret)
--		return -EINVAL;
-+
-+	if (ret < 0)
-+		return ret;
- 
- 	return 0;
- }
-@@ -150,7 +152,10 @@ static int tas2770_dac_event(struct snd_soc_dapm_widget *w,
- 	}
- 
- end:
--	return ret;
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
- }
- 
- static const struct snd_kcontrol_new isense_switch =
-@@ -200,7 +205,10 @@ static int tas2770_mute(struct snd_soc_dai *dai, int mute)
- 			TAS2770_PWR_CTRL_MASK,
- 			TAS2770_PWR_CTRL_ACTIVE);
- 
--	return ret;
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
- }
- 
- static int tas2770_set_bitwidth(struct tas2770_priv *tas2770, int bitwidth)
-@@ -253,7 +261,10 @@ static int tas2770_set_bitwidth(struct tas2770_priv *tas2770, int bitwidth)
- 		tas2770->i_sense_slot);
- 
- end:
--	return ret;
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
- }
- 
- static int tas2770_set_samplerate(struct tas2770_priv *tas2770, int samplerate)
-@@ -345,9 +356,11 @@ static int tas2770_set_samplerate(struct tas2770_priv *tas2770, int samplerate)
- 	}
- 
- end:
--	if (!ret)
--		tas2770->sampling_rate = samplerate;
--	return ret;
-+	if (ret < 0)
-+		return ret;
-+
-+	tas2770->sampling_rate = samplerate;
-+	return 0;
- }
- 
- static int tas2770_hw_params(struct snd_pcm_substream *substream,
-@@ -401,7 +414,7 @@ static int tas2770_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG1,
- 		TAS2770_TDM_CFG_REG1_RX_MASK,
- 		asi_cfg_1);
--	if (ret)
-+	if (ret < 0)
- 		return ret;
- 
- 	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-@@ -426,7 +439,7 @@ static int tas2770_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- 	ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG1,
- 		TAS2770_TDM_CFG_REG1_MASK,
- 	(tdm_rx_start_slot << TAS2770_TDM_CFG_REG1_51_SHIFT));
--	if (ret)
-+	if (ret < 0)
- 		return ret;
- 
- 	tas2770->asi_format = fmt;
-@@ -470,12 +483,12 @@ static int tas2770_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 	ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG3,
- 		TAS2770_TDM_CFG_REG3_30_MASK,
- 		(left_slot << TAS2770_TDM_CFG_REG3_30_SHIFT));
--	if (ret)
-+	if (ret < 0)
- 		return ret;
- 	ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG3,
- 		TAS2770_TDM_CFG_REG3_RXS_MASK,
- 	(right_slot << TAS2770_TDM_CFG_REG3_RXS_SHIFT));
--	if (ret)
-+	if (ret < 0)
- 		return ret;
- 
- 	switch (slot_width) {
-@@ -509,10 +522,11 @@ static int tas2770_set_dai_tdm_slot(struct snd_soc_dai *dai,
- 		ret = -EINVAL;
- 	}
- 
--	if (!ret)
--		tas2770->slot_width = slot_width;
-+	if (ret < 0)
-+		return ret;
- 
--	return ret;
-+	tas2770->slot_width = slot_width;
-+	return 0;
- }
- 
- static struct snd_soc_dai_ops tas2770_dai_ops = {
+-	{"RX1 MIX2 INP1", "IIR1", "IIR1"},
+-	{"RX2 MIX2 INP1", "IIR1", "IIR1"},
+-	{"RX1 MIX2 INP1", "IIR2", "IIR2"},
+-	{"RX2 MIX2 INP1", "IIR2", "IIR2"},
+-
+ 	{"IIR1", NULL, "IIR1 INP1 MUX"},
+ 	{"IIR1 INP1 MUX", "DEC1", "DEC1 MUX"},
+ 	{"IIR1 INP1 MUX", "DEC2", "DEC2 MUX"},
 -- 
-2.20.1
+2.23.0
 
 _______________________________________________
 Alsa-devel mailing list

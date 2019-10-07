@@ -2,61 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 116CFCE7AA
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 17:35:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A85F5CE7C2
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 17:38:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C0F3950;
-	Mon,  7 Oct 2019 17:34:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C0F3950
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FD931685;
+	Mon,  7 Oct 2019 17:37:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FD931685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570462506;
-	bh=BzwbkVK1JhflP3iZ3NjqBRVf9ygNDTEhBbytdhtkyAE=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1570462727;
+	bh=Xv9IlC2MW5YBqIKtd74ABfeF+ygYl9kyNowkVBgNfjc=;
+	h=In-Reply-To:References:From:To:Date:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EYedbNEYQlLP3u6g/ZHcQ+K4zDpBbOZDBBzV6ZCOwdk7QoA/oC/RI6J9D0A0oU4ki
-	 RqBNZnXvyn9bljEINT/7BJmPt9eysr+f+4eleipNw6v2KhEurYxsFPQdJtSNqYPLX4
-	 1gAvBJaH4R4LBwx8EO8DOocCk17TRzdXnWTTGwNE=
+	b=VliL9UBS+k6VU7gkPqtT1Q+IEtdJQCgpii2TixI4tVXZoXsunaN6qzuxI21SvSoLP
+	 xt8h8TKZN8IWbutVRWUL4jw0r3UUjQef5GvA+qUmZr0sxqhma6SJW1acH2+JqdQo93
+	 Nk1lqcs4RidfU0G5cL0VoQ75VC7a4Cjd5g9lFu4I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88B95F805FE;
-	Mon,  7 Oct 2019 17:31:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B671F802FB;
+	Mon,  7 Oct 2019 17:35:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0500F805FD; Mon,  7 Oct 2019 17:31:45 +0200 (CEST)
+ id 1AFC0F802BE; Mon,  7 Oct 2019 17:35:32 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 44DC3F802FB
- for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 17:31:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44DC3F802FB
-Received: from [167.98.27.226] (helo=rainbowdash.codethink.co.uk)
- by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
- id 1iHUz4-0003mi-QW; Mon, 07 Oct 2019 16:31:39 +0100
-Received: from ben by rainbowdash.codethink.co.uk with local (Exim 4.92.2)
- (envelope-from <ben@rainbowdash.codethink.co.uk>)
- id 1iHUz4-0001IX-Fw; Mon, 07 Oct 2019 16:31:38 +0100
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-To: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
-Date: Mon,  7 Oct 2019 16:31:36 +0100
-Message-Id: <20191007153136.4920-8-ben.dooks@codethink.co.uk>
-X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20191007153136.4920-1-ben.dooks@codethink.co.uk>
-References: <20191007153136.4920-1-ben.dooks@codethink.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9323DF80137
+ for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 17:35:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9323DF80137
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="aMLKJPZS"
+Received: by mail-pf1-x444.google.com with SMTP id q10so8931878pfl.0
+ for <alsa-devel@alsa-project.org>; Mon, 07 Oct 2019 08:35:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=message-id:mime-version:content-transfer-encoding:in-reply-to
+ :references:from:to:cc:subject:user-agent:date;
+ bh=9grFCI4XfO/P0ws+W1hJ+qqcKoeFDoYdqOk/sFE2nys=;
+ b=aMLKJPZSjvPLIvvPUOcLneGm6UxCTtoLtzu9ffcLbVXvDidM8JuF1e+MVb3sIS65Rq
+ U+WAA8O0CjIgP1SVdukQJ1n7LhU5IDHRkmgOsXRbwgbLurkHtpICBk6CDY5zOBvJOuKG
+ Uk12yc1LHvoAeGZUh/7hlz1jJKzEGxP+syK4A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:mime-version
+ :content-transfer-encoding:in-reply-to:references:from:to:cc:subject
+ :user-agent:date;
+ bh=9grFCI4XfO/P0ws+W1hJ+qqcKoeFDoYdqOk/sFE2nys=;
+ b=Leb4+hst/bIkRxS5i+ITPw1oM/GlLTpdT5uXbF2+KdlTstl4pfYlIma6N6pL1qXSRB
+ 6d3nGz7yTxgoJ6izNCemdyv3CPZI5QCHBMqBI/Qxu+qU4wcRnIMVshZC7j9x8UeDKerk
+ 8L1JYgy0z9eLnEfJ9g24Y7AA3IszlcRiFww2mLDtx9m34svHRyyvVy8BbfmrB31/SASN
+ d2kOL/7Q4N/b3LEMMV7pJz7IxMie8n+3GBBuo0Odu8Q79IGI2g82YrznBMgRf5hngDn8
+ nWkemU0ssDeAUOCFdb64UDGimAvmdnUAeYJsxc5ajUkwZthZ3ZAzO+RVQA6/oXPpbDHl
+ 8OXw==
+X-Gm-Message-State: APjAAAWCVpHS7hjZxS97trdaEHZDIQKz0kSYsSyrNSd3cstQqNo5HJio
+ lEk1QQvqRqdDEUiGEWIa6L6ytA==
+X-Google-Smtp-Source: APXvYqxI/+jk3P66gPY4uMBlG8j+Wudd2oTqEZlZdOkg+hiDgW6/L1ArOedrtmf15tLgJKc8pMlAUw==
+X-Received: by 2002:a65:6644:: with SMTP id z4mr4897044pgv.208.1570462527521; 
+ Mon, 07 Oct 2019 08:35:27 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
+ by smtp.gmail.com with ESMTPSA id i1sm15674482pfg.2.2019.10.07.08.35.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 07 Oct 2019 08:35:26 -0700 (PDT)
+Message-ID: <5d9b5b3e.1c69fb81.7203c.1215@mx.google.com>
 MIME-Version: 1.0
-Cc: linux-kernel@lists.codethink.co.uk, Ben Dooks <ben.dooks@codethink.co.uk>
-Subject: [alsa-devel] [PATCH v4 7/7] ASoC: tegra: take packing settings from
-	the audio cif_config
+In-Reply-To: <CAFv8NwLuYKHJoG9YR3WvofwiMnXCgYv-Sk7t5jCvTZbST+Ctjw@mail.gmail.com>
+References: <20191007071610.65714-1-cychiang@chromium.org>
+ <CA+Px+wWkr1xmSpgEkSaGS7UZu8TKUYvSnbjimBRH29=kDtcHKA@mail.gmail.com>
+ <ebf9bc3f-a531-6c5b-a146-d80fe6c5d772@roeck-us.net>
+ <CAFv8NwLuYKHJoG9YR3WvofwiMnXCgYv-Sk7t5jCvTZbST+Ctjw@mail.gmail.com>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Cheng-yi Chiang <cychiang@chromium.org>, Guenter Roeck <linux@roeck-us.net>
+User-Agent: alot/0.8.1
+Date: Mon, 07 Oct 2019 08:35:25 -0700
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Tzung-Bi Shih <tzungbi@chromium.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Hung-Te Lin <hungte@chromium.org>, Tzung-Bi Shih <tzungbi@google.com>,
+ Mark Brown <broonie@kernel.org>, Sean Paul <seanpaul@chromium.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Dylan Reid <dgreid@chromium.org>
+Subject: Re: [alsa-devel] [PATCH] firmware: vpd: Add an interface to read
+	VPD value
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,64 +109,17 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the CIF is not configured as 16 or 8 bit, then the
-packing for 8/16 bits should not be enabled as the
-hardware only supports 8 or 16 bit packing.
+Quoting Cheng-yi Chiang (2019-10-07 06:58:41)
+> 
+> Hi Guenter,
+> Thanks for the quick review.
+> I'll update accordingly in v2.
 
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
----
- sound/soc/tegra/tegra30_ahub.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
-
-diff --git a/sound/soc/tegra/tegra30_ahub.c b/sound/soc/tegra/tegra30_ahub.c
-index 24bc03428b45..0768c6b6dc25 100644
---- a/sound/soc/tegra/tegra30_ahub.c
-+++ b/sound/soc/tegra/tegra30_ahub.c
-@@ -96,10 +96,17 @@ int tegra30_ahub_setup_rx_fifo(enum tegra30_ahub_rxcif rxcif,
- 	      (channel * TEGRA30_AHUB_CHANNEL_CTRL_STRIDE);
- 	val = tegra30_apbif_read(reg);
- 	val &= ~(TEGRA30_AHUB_CHANNEL_CTRL_RX_THRESHOLD_MASK |
--		 TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_MASK);
--	val |= (7 << TEGRA30_AHUB_CHANNEL_CTRL_RX_THRESHOLD_SHIFT) |
--	       TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_EN |
--	       TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_16;
-+		 TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_MASK |
-+		 TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_EN);
-+	val |= (7 << TEGRA30_AHUB_CHANNEL_CTRL_RX_THRESHOLD_SHIFT);
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_16 ||
-+	    cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_8)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_EN;
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_16)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_16;
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_8)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_8_4;
-+
- 	tegra30_apbif_write(reg, val);
- 
- 	cif_conf->direction = TEGRA30_AUDIOCIF_DIRECTION_RX;
-@@ -203,10 +210,16 @@ int tegra30_ahub_setup_tx_fifo(enum tegra30_ahub_txcif txcif,
- 	      (channel * TEGRA30_AHUB_CHANNEL_CTRL_STRIDE);
- 	val = tegra30_apbif_read(reg);
- 	val &= ~(TEGRA30_AHUB_CHANNEL_CTRL_TX_THRESHOLD_MASK |
--		 TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_MASK);
--	val |= (7 << TEGRA30_AHUB_CHANNEL_CTRL_TX_THRESHOLD_SHIFT) |
--	       TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_EN |
--	       TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_16;
-+		 TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_MASK |
-+		 TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_EN);
-+	val |= (7 << TEGRA30_AHUB_CHANNEL_CTRL_TX_THRESHOLD_SHIFT);
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_16 ||
-+	    cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_8)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_EN;
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_16)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_16;
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_8)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_8_4;
- 	tegra30_apbif_write(reg, val);
- 
- 	cif_conf->direction = TEGRA30_AUDIOCIF_DIRECTION_TX;
--- 
-2.23.0
+I'd prefer this use the nvmem framework which already handles many of
+the requirements discussed here. Implement an nvmem provider and figure
+out how to wire that up to the kernel users. Also, please include a user
+of the added support, otherwise it is impossible to understand how this
+code is used.
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,89 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C527CDC2F
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 09:06:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CD64CDC4F
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 09:18:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 046901616;
-	Mon,  7 Oct 2019 09:05:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 046901616
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8E2A1664;
+	Mon,  7 Oct 2019 09:17:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8E2A1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570431989;
-	bh=pp76bsQfVribkloZk+Eu8MVEqzK8E/ugqF2KbSj72p0=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=bULY8qEvbRG5Zv35SMqKbt1wyu7rjowM5ha3XgIWuLZtkIcSnRnnb/dvsUJcNUKJ8
-	 mmzdngLV30ls/ZQRrctqKUhNMRNj4DFahpXtw/OvYISBqJzLinZEOhR2Uvdl8jHMXE
-	 Fzwds1ytli/m8M7Iw0KdoYDaSPifT+kxbSfGFsW0=
+	s=default; t=1570432688;
+	bh=bi0EEH3aoUH6oGT6hmM7skgyJNiKmXiy/QHMDTuHMAU=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pRM1jGVJh3cHeR8yROdWkYRXOnUS06yw1URwc3HaAFiloa1MNnX8g0M4dg3NmBLXE
+	 99g/C+3tElpOhKt65EIsShg04USnjeT74OQoJ7fA7WQEehGnUfNYjbQJvbyw9cpX6l
+	 3t6momdDOD3uTMOD6DDzjhTjhirUpeZmPY14ghUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DC0CF802BD;
-	Mon,  7 Oct 2019 09:04:44 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F0760F802BD;
+	Mon,  7 Oct 2019 09:16:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC392F802BD; Mon,  7 Oct 2019 09:04:40 +0200 (CEST)
+ id E5004F802BE; Mon,  7 Oct 2019 09:16:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
- [IPv6:2607:f8b0:4864:20::342])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 24750F80137
- for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 09:04:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24750F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 37740F80273
+ for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 09:16:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37740F80273
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Lvcm1U5k"
-Received: by mail-ot1-x342.google.com with SMTP id g13so10073879otp.8
- for <alsa-devel@alsa-project.org>; Mon, 07 Oct 2019 00:04:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=V1Fq1if03fTxZwfIDS+AXRsqn/zMBIp6rhN/Ahq0s0M=;
- b=Lvcm1U5kMqQnGsZ/Z86XsSGVHGp8luMvhUw8V2IMJSj6VbyWwKPMJ5q2LXVUsx7eig
- KYRLZuUKYyOLEjvOdL07CUUwwDtgc6RzP3Zbko/JRR18jNxWne8Rl2my3Y0IaSGUNStN
- jrhOnddOzrYb9eBDjuEp8TmdhL/8DF2pNyxbTshOVduicQWwf3CtVlOH4iBRjtko4yh8
- cLYdIAZcgbbjOkWlT008qamelHEudzFtl24cketvZFLM5iJLtIoxjM5P9kpg0oaUHMtS
- OUcztHsnlP5c9uWRtVlB7dnPTZNBUXi7kdJuffqkXU8negTN3voiobMPHKZZX7F0y9PQ
- r29A==
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="nkMQ8X9C"
+Received: by mail-pf1-x443.google.com with SMTP id q12so8032595pff.9
+ for <alsa-devel@alsa-project.org>; Mon, 07 Oct 2019 00:16:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zzfC8RVq1jP1kr40tiN+8WHn9COGwplqh2mQFPqwcC8=;
+ b=nkMQ8X9CAoT8fwvh8c2BskmgfPKD8hl3HO2ivNlWnmNsG22vLvXE4w7M6RHR0vJfq4
+ l1RI2y6w9uDbcRSFqoli/p50exF0Zidpx6tLxBRqAEOnllb4hf2meGdHc4hE74MeuyLT
+ S6OTOePKh8HFHqJSRN736bofzO7OGadxfB06E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=V1Fq1if03fTxZwfIDS+AXRsqn/zMBIp6rhN/Ahq0s0M=;
- b=YxnJz7h44+ljjIOm2xss/rIa7NGbwfdiLH5449E1p10+A0t/X4pY7Ns7HT9WsZkPeP
- AKcvI8VpkXdY/TWpW3CxEr22jWrH6jjC5CWLZ91MgRMP3qENjSZ0PXv9E3GRkSKrJ3QZ
- 1eXTct+M60Sf5DXagF1gurSDXUhanjlUr4GU2sx1D9XT5CZITy/Ugi0g1v4AlsMcKNS6
- timPecRRsCIByEoDRwau9raJHQMCK1KfvBIQmspwfrxAK4wpiPedyOOVnb/o6l476LNd
- oHpUqFb6C4o/XhUrMX4YnX4omLWKFVuWGtnnBTcg5YMUMnUeXid9st7pXoJU+iMhfl0U
- BDWA==
-X-Gm-Message-State: APjAAAXfB4gVG55hbbXdNj1pryWNU0E+U3nAiaRRoBbPZfPMLcfp6HJK
- 9DJRY2TycrViajeHxu158pcGywScw4tCoyEb1phNoQ==
-X-Google-Smtp-Source: APXvYqz5NKpWPk5P2gnHbhTiIn9IVx8rbMKHqaQKsiNUqdryg3KYXMCeoiihQBTM9L7BJFj6bJX0jcfwMkZtgS8pnRM=
-X-Received: by 2002:a05:6830:1d97:: with SMTP id
- y23mr5419897oti.103.1570431875776; 
- Mon, 07 Oct 2019 00:04:35 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zzfC8RVq1jP1kr40tiN+8WHn9COGwplqh2mQFPqwcC8=;
+ b=OvjykK43J9S06UumlnMLTm2tVjqc6/4prd9INsfRumPQEegyXF+CCumswVLTOcPKhu
+ LUknjfxdxmZjg7TC3uDd5o73ajuiA1oissawOonkJN2kVaX1tJdN/0ifDLLq82CW9Y7X
+ gukM/BSFGco2gEmnOu3VsDZJX0NM4eWYOhZSoTMUy5E7ms2/F7FSIrkGYb4zA3sqGGX3
+ K3zf5t6QTkiSxwvN9sOOym9e8ItEs9NuOQk17gq/QjJkk+e8yimKy8QVw4bmxVwbQds8
+ NgPxSRCBWZM7ZQpfhCL/4ImnJxc+swRcUuPnfMxAROW9vksSpJzHDo+WiP9Q3ZLOsdbU
+ yy5Q==
+X-Gm-Message-State: APjAAAUMe3EcN1beoD8zpDuzxdeapMmtLxr8s+kKKZBftifRny39egIa
+ Yhf6+p9GILonETqCDtCgzHU7DA==
+X-Google-Smtp-Source: APXvYqwiP0yuYdJ+4gkcqPLdLjqZtNFDPJkZPqAzA+L0Ij6yff4yxpEiwaN/m998Kt1N7CdwNV74Ow==
+X-Received: by 2002:a17:90a:256c:: with SMTP id
+ j99mr31552845pje.125.1570432576781; 
+ Mon, 07 Oct 2019 00:16:16 -0700 (PDT)
+Received: from localhost ([2401:fa00:1:10:79b4:bd83:e4a5:a720])
+ by smtp.gmail.com with ESMTPSA id d10sm15020616pfh.8.2019.10.07.00.16.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 07 Oct 2019 00:16:15 -0700 (PDT)
+From: Cheng-Yi Chiang <cychiang@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Mon,  7 Oct 2019 15:16:10 +0800
+Message-Id: <20191007071610.65714-1-cychiang@chromium.org>
+X-Mailer: git-send-email 2.23.0.581.g78d2f28ef7-goog
 MIME-Version: 1.0
-References: <20191005164320.07.I5388b69a7a9c551078fed216a77440cee6dedf49@changeid>
- <201910060040.RXI5XB2W%lkp@intel.com>
-In-Reply-To: <201910060040.RXI5XB2W%lkp@intel.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Mon, 7 Oct 2019 15:04:24 +0800
-Message-ID: <CA+Px+wUqwjPKkbZAfJ0+a6JAhxRqGLqq_JRY6Qwoh49JrxKr8w@mail.gmail.com>
-To: kbuild test robot <lkp@intel.com>, Guenter Roeck <groeck@google.com>
-Cc: Gwendal Grignou <gwendal@google.com>, devicetree@vger.kernel.org,
- ALSA development <alsa-devel@alsa-project.org>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Nicolas Boichat <drinkcat@google.com>, robh+dt@kernel.org,
- Mark Brown <broonie@kernel.org>, kbuild-all@01.org,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@google.com>, Dylan Reid <dgreid@google.com>
-Subject: Re: [alsa-devel] [PATCH v2 07/10] ASoC: cros_ec_codec: support WoV
+Cc: alsa-devel@alsa-project.org, tzungbi@chromium.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Stephen Boyd <swboyd@chromium.org>, Hung-Te Lin <hungte@chromium.org>,
+ Mark Brown <broonie@kernel.org>, Sean Paul <seanpaul@chromium.org>,
+ dgreid@chromium.org, Guenter Roeck <linux@roeck-us.net>,
+ Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: [alsa-devel] [PATCH] firmware: vpd: Add an interface to read VPD
+	value
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,69 +101,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Oct 6, 2019 at 12:54 AM kbuild test robot <lkp@intel.com> wrote:
-> url:    https://github.com/0day-ci/linux/commits/Tzung-Bi-Shih/ASoC-mediatek-mt8183-mt6358-ts3a227-max98357-support-WoV/20191005-171021
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> reproduce:
->         # apt-get install sparse
->         # sparse version: v0.6.1-rc1-42-g38eda53-dirty
->         make ARCH=x86_64 allmodconfig
->         make C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__'
->
-> If you fix the issue, kindly add following tag
-> Reported-by: kbuild test robot <lkp@intel.com>
->
->
-> sparse warnings: (new ones prefixed by >>)
->
-> >> sound/soc/codecs/cros_ec_codec.c:430:39: sparse: sparse: incorrect type in return expression (different address spaces) @@    expected void * @@    got void [noderef] <asvoid * @@
-> >> sound/soc/codecs/cros_ec_codec.c:430:39: sparse:    expected void *
-> >> sound/soc/codecs/cros_ec_codec.c:430:39: sparse:    got void [noderef] <asn:2> *
-> >> sound/soc/codecs/cros_ec_codec.c:549:69: sparse: sparse: incorrect type in argument 2 (different address spaces) @@    expected void const volatile [noderef] <asn:2> * @@    got latile [noderef] <asn:2> * @@
-> >> sound/soc/codecs/cros_ec_codec.c:549:69: sparse:    expected void const volatile [noderef] <asn:2> *
-> >> sound/soc/codecs/cros_ec_codec.c:549:69: sparse:    got unsigned char [usertype] *addr
-> >> sound/soc/codecs/cros_ec_codec.c:698:33: sparse: sparse: incorrect type in argument 1 (different address spaces) @@    expected void volatile [noderef] <asn:2> * @@    got latile [noderef] <asn:2> * @@
-> >> sound/soc/codecs/cros_ec_codec.c:698:33: sparse:    expected void volatile [noderef] <asn:2> *
-> >> sound/soc/codecs/cros_ec_codec.c:698:33: sparse:    got unsigned char [usertype] *wov_lang_shm_p
->    sound/soc/codecs/cros_ec_codec.c:699:48: sparse: sparse: incorrect type in argument 1 (different address spaces) @@    expected void volatile [noderef] <asn:2> * @@    got latile [noderef] <asn:2> * @@
->    sound/soc/codecs/cros_ec_codec.c:699:48: sparse:    expected void volatile [noderef] <asn:2> *
-> >> sound/soc/codecs/cros_ec_codec.c:699:48: sparse:    got unsigned char [usertype] *
+Add an interface for other driver to query VPD value.
+This will be used for ASoC machine driver to query calibration
+data stored in VPD for smart amplifier speaker resistor
+calibration.
 
-I cannot reproduce the same sparse errors.
+Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+---
+ drivers/firmware/google/vpd.c              | 16 ++++++++++++++++
+ include/linux/firmware/google/google_vpd.h | 18 ++++++++++++++++++
+ 2 files changed, 34 insertions(+)
+ create mode 100644 include/linux/firmware/google/google_vpd.h
 
-My commit stack: apply my patches onto broonie/sound.git for-next
-$ git log --oneline
-b4471777f5d8 (HEAD -> draft) ASoC: mediatek: mt8183: support WoV
-b6bb558fa59d ASoC: dt-bindings: mt8183: add ec-codec
-a08bede115d4 ASoC: mediatek: mt6358: support WoV
-f67068fd0c91 ASoC: cros_ec_codec: support WoV
-7e11271c070e ASoC: dt-bindings: cros_ec_codec: add SHM bindings
-fd04f20e77d3 ASoC: cros_ec_codec: read max DMIC gain from EC codec
-c008f01d5bc3 platform/chrome: cros_ec: add common commands for EC codec
-50d2c1f9b1f4 ASoC: cros_ec_codec: extract DMIC EC command from I2S RX
-00e5a1c121eb ASoC: cros_ec_codec: refactor I2S RX
-3f0c475d6ec8 platform/chrome: cros_ec: remove unused EC feature
-3877dcd0194c (mark/for-next, asoc-next) Merge branch 'asoc-5.5' into asoc-next
+diff --git a/drivers/firmware/google/vpd.c b/drivers/firmware/google/vpd.c
+index db0812263d46..71e9d2da63be 100644
+--- a/drivers/firmware/google/vpd.c
++++ b/drivers/firmware/google/vpd.c
+@@ -65,6 +65,22 @@ static ssize_t vpd_attrib_read(struct file *filp, struct kobject *kobp,
+ 				       info->bin_attr.size);
+ }
+ 
++int vpd_attribute_read_value(bool ro, const char *key,
++			     char **value, u32 value_len)
++{
++	struct vpd_attrib_info *info;
++	struct vpd_section *sec = ro ? &ro_vpd : &rw_vpd;
++
++	list_for_each_entry(info, &sec->attribs, list) {
++		if (strcmp(info->key, key) == 0) {
++			*value = kstrndup(info->value, value_len, GFP_KERNEL);
++			return 0;
++		}
++	}
++	return -EINVAL;
++}
++EXPORT_SYMBOL(vpd_attribute_read_value);
++
+ /*
+  * vpd_section_check_key_name()
+  *
+diff --git a/include/linux/firmware/google/google_vpd.h b/include/linux/firmware/google/google_vpd.h
+new file mode 100644
+index 000000000000..6f1160f28af8
+--- /dev/null
++++ b/include/linux/firmware/google/google_vpd.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Google VPD interface.
++ *
++ * Copyright 2019 Google Inc.
++ */
++
++/* Interface for reading VPD value on Chrome platform. */
++
++#ifndef __GOOGLE_VPD_H
++#define __GOOGLE_VPD_H
++
++#include <linux/types.h>
++
++int vpd_attribute_read_value(bool ro, const char *key,
++			     char **value, u32 value_len);
++
++#endif  /* __GOOGLE_VPD_H */
+-- 
+2.23.0.581.g78d2f28ef7-goog
 
-My reproduce steps:
-$ make ARCH=x86_64 mrproper
-$ make ARCH=x86_64 allmodconfig
-$ make ARCH=x86_64 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' -j40
-2>&1 | grep -v sched | tee log.txt
-(Note: filter sched out to not get flood sparse errors)
-$ grep cros_ec_codec log.txt
-  CHECK   sound/soc/codecs/cros_ec_codec.c
-  CC [M]  sound/soc/codecs/cros_ec_codec.o
-
-It did not generate the same message as 0day reported.
-
-One difference would be the sparse version (it is from "apt install"
-in my environment):
-$ sparse --version
-0.6.0 (Debian: 0.6.0-3)
-On the other hand, 0day used "v0.6.1-rc1-42-g38eda53-dirty".
-
-Guenter, what we could do in the case?  Do you have any idea?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

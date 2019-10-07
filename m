@@ -2,88 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E07FFCE47F
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 16:01:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C60ACE4A8
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 16:07:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 319671616;
-	Mon,  7 Oct 2019 16:00:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 319671616
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1E611614;
+	Mon,  7 Oct 2019 16:06:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1E611614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570456860;
-	bh=GGpquykgMEZOg7c7+F1Hv5RmLLFNZJVVRM2CDize5Jk=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1570457230;
+	bh=fvbMsSxRJVGJPikhGF+fSw3sZ+6DiWS6OZVt/AG8EiQ=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TEgx/A6ZHqGz8rTlvhV0a0RoV3nyz5NDyaFkXHaq8G27zKxYFKUTn1vbcuU725d4J
-	 cOmCBiEmvULe2FBCk4nBsmDbRPdhvNlqk/3oASbLHecNXRl+Dx9oN/ptgYO2bxeJ57
-	 m5Cewf59zdxh4XvPJjTzyMaEpS+mo4m6gXmppXlY=
+	b=SE3FK/lexCC4xpH3AYHXBXz9NjqmRSAn00DflmNhVvb/ePyUSKU/c9ctXQp1eBmY3
+	 WoOVyzbysBT9PQtIsrG0SbZERUICrE00RFW4qND2zOhiZ2teJJC+hK4EF8Qz0NoWPq
+	 1zs95AAhCCmGzpRIRYcjjuRBUBmTjsS8IqldeoVM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A20C2F802DF;
-	Mon,  7 Oct 2019 15:59:15 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 239CDF802BD;
+	Mon,  7 Oct 2019 16:05:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22834F800BF; Mon,  7 Oct 2019 15:59:13 +0200 (CEST)
+ id 21740F802BE; Mon,  7 Oct 2019 16:05:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,
- SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe42.google.com (mail-vs1-xe42.google.com
- [IPv6:2607:f8b0:4864:20::e42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BC25F800BF
- for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 15:59:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BC25F800BF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="kDOH59OZ"
-Received: by mail-vs1-xe42.google.com with SMTP id d204so8919205vsc.12
- for <alsa-devel@alsa-project.org>; Mon, 07 Oct 2019 06:59:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ctSXe3Qibn7SwlKCbsSDIKSVJbFoB8K7abxEy4a8a2Y=;
- b=kDOH59OZ6r1FcPSXe+JGbtRsP2+75ns0l5OY5gHErPOOKope1DPRHLXTxUrkcPgf6z
- bLCUrMwDkb0U8f1EbVgdAYQXz+IY/WPdw2QVF8FpuYOIqlo3/g+rPGykW5dJExYIIRbs
- gBiPr5yJigX15w4y1wtSGnsdBzV6QSQO13RXs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ctSXe3Qibn7SwlKCbsSDIKSVJbFoB8K7abxEy4a8a2Y=;
- b=eoysLaigd35Vp+8saKik4o18v2OQTPgKwrmlCP+4nZE/HxFSInAzgC+jRIY7AdJfA/
- Cgm1F8LZB26+QAEBksbwaKIgFCtIKoAgB5yd2qeLCdB3oWvPjGG6hfUI/+qGRMkfw2TO
- GId2afubxpwHGIpo3NqErHMt7yJFIGTjZz90sI+vzjb+Q/YeXOxm9P4ZrEfHH2n8UJHf
- pdVXcsqmgvb3WT+b/y/8mN0S0S9tPBAm6QQajdl3lzjlwDmf97gtKx3Pzz/KZQ2KtHIk
- aalJ7cB0s0vuIsPTXT6+k4/diU5ZzIHdiJM0HZFwXvQL8q/hPdOgQatRB8luQoHZOJXD
- lybQ==
-X-Gm-Message-State: APjAAAXqFo4g2zPQWy/oZALUGwJRzDS6cU6Jnh4cIaWwMn1nNnKDrCfq
- 6jOpyw/r3MG54Jat61rDBatKuE5fkEqRz8hjEfzIuw==
-X-Google-Smtp-Source: APXvYqzvEfSO3HqKvInVixjThDGPwl6gp+QVYjOFJmfDBQtcYmmYhlgtXAGem4GcilN/j4BZcMBegIbfRsM/k/N7jPA=
-X-Received: by 2002:a67:2b86:: with SMTP id
- r128mr15828347vsr.119.1570456748312; 
- Mon, 07 Oct 2019 06:59:08 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F66CF80273
+ for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 16:05:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F66CF80273
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Oct 2019 07:05:18 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.67,268,1566889200"; d="scan'208";a="196295982"
+Received: from apulla-mobl.amr.corp.intel.com (HELO [10.251.4.206])
+ ([10.251.4.206])
+ by orsmga003.jf.intel.com with ESMTP; 07 Oct 2019 07:05:17 -0700
+To: Jaroslav Kysela <perex@perex.cz>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20191006152232.17701-1-perex@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <fd997c93-c7c9-6ede-90c2-a94df93a613e@linux.intel.com>
+Date: Mon, 7 Oct 2019 09:05:17 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <20191007071610.65714-1-cychiang@chromium.org>
- <CA+Px+wWkr1xmSpgEkSaGS7UZu8TKUYvSnbjimBRH29=kDtcHKA@mail.gmail.com>
- <ebf9bc3f-a531-6c5b-a146-d80fe6c5d772@roeck-us.net>
-In-Reply-To: <ebf9bc3f-a531-6c5b-a146-d80fe6c5d772@roeck-us.net>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Mon, 7 Oct 2019 21:58:41 +0800
-Message-ID: <CAFv8NwLuYKHJoG9YR3WvofwiMnXCgYv-Sk7t5jCvTZbST+Ctjw@mail.gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Tzung-Bi Shih <tzungbi@chromium.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Hung-Te Lin <hungte@chromium.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
- Sean Paul <seanpaul@chromium.org>, Dylan Reid <dgreid@chromium.org>
-Subject: Re: [alsa-devel] [PATCH] firmware: vpd: Add an interface to read
-	VPD value
+In-Reply-To: <20191006152232.17701-1-perex@perex.cz>
+Content-Language: en-US
+Cc: Takashi Iwai <tiwai@suse.de>, Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Re: [alsa-devel] [PATCH v3] ALSA: hda: add Intel DSP configuration
+ / probe code
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,122 +72,230 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 7, 2019 at 8:27 PM Guenter Roeck <linux@roeck-us.net> wrote:
->
-> On 10/7/19 1:03 AM, Tzung-Bi Shih wrote:
-> > On Mon, Oct 7, 2019 at 3:16 PM Cheng-Yi Chiang <cychiang@chromium.org> wrote:
-> >>
-> >> Add an interface for other driver to query VPD value.
-> >> This will be used for ASoC machine driver to query calibration
-> >> data stored in VPD for smart amplifier speaker resistor
-> >> calibration.
-> >>
-> >> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-> >> ---
-> >>   drivers/firmware/google/vpd.c              | 16 ++++++++++++++++
-> >>   include/linux/firmware/google/google_vpd.h | 18 ++++++++++++++++++
-> >>   2 files changed, 34 insertions(+)
-> >>   create mode 100644 include/linux/firmware/google/google_vpd.h
-> >>
-> >> diff --git a/drivers/firmware/google/vpd.c b/drivers/firmware/google/vpd.c
-> >> index db0812263d46..71e9d2da63be 100644
-> >> --- a/drivers/firmware/google/vpd.c
-> >> +++ b/drivers/firmware/google/vpd.c
-> >> @@ -65,6 +65,22 @@ static ssize_t vpd_attrib_read(struct file *filp, struct kobject *kobp,
-> >>                                         info->bin_attr.size);
-> >>   }
-> >>
-> >> +int vpd_attribute_read_value(bool ro, const char *key,
-> >> +                            char **value, u32 value_len)
->
-> FWIW, I don't think the "_value" in this function name adds any value,
-> unless there is going to be some other read function.
-ACK
->
-> The API should be documented, and state clearly that the caller must release
-> the returned value.
-ACK
->
-> >> +{
-> >> +       struct vpd_attrib_info *info;
-> >> +       struct vpd_section *sec = ro ? &ro_vpd : &rw_vpd;
-> >> +
-> >> +       list_for_each_entry(info, &sec->attribs, list) {
-> >> +               if (strcmp(info->key, key) == 0) {
-> >> +                       *value = kstrndup(info->value, value_len, GFP_KERNEL);
-> >
-> > Value is not necessary a NULL-terminated string.
-> > kmalloc(info->bin_attr.size) and memcpy(...) would make the most
-> > sense.
-> >
-> kmemdup() ?
-ACK
->
-> > The value_len parameter makes less sense.  It seems the caller knows
-> > the length of the value in advance.
-> > Suggest to change the value_len to report the length of value.  I.e.
-> > *value_len = info->bin_attr.size;
-> >  > Also please check the return value for memory allocation-like
-> > functions (e.g. kstrndup, kmalloc) so that *value won't be NULL but
-> > the function returned 0.
-> >
-> >> +                       return 0;
-> >> +               }
-> >> +       }
-> >> +       return -EINVAL;
->
-> Maybe something like -ENOENT would be more appropriate here.
->
-ACK
-> >> +}
-> >> +EXPORT_SYMBOL(vpd_attribute_read_value);
-> >> +
->
-> I would suggest to use EXPORT_SYMBOL_GPL().
->
-ACK
 
-Hi Guenter,
-Thanks for the quick review.
-I'll update accordingly in v2.
 
-> >>   /*
-> >>    * vpd_section_check_key_name()
-> >>    *
-> >> diff --git a/include/linux/firmware/google/google_vpd.h b/include/linux/firmware/google/google_vpd.h
-> >> new file mode 100644
-> >> index 000000000000..6f1160f28af8
-> >> --- /dev/null
-> >> +++ b/include/linux/firmware/google/google_vpd.h
-> >> @@ -0,0 +1,18 @@
-> >> +/* SPDX-License-Identifier: GPL-2.0 */
-> >> +/*
-> >> + * Google VPD interface.
-> >> + *
-> >> + * Copyright 2019 Google Inc.
-> >> + */
-> >> +
-> >> +/* Interface for reading VPD value on Chrome platform. */
-> >> +
-> >> +#ifndef __GOOGLE_VPD_H
-> >> +#define __GOOGLE_VPD_H
-> >> +
-> >> +#include <linux/types.h>
-> >> +
-> >> +int vpd_attribute_read_value(bool ro, const char *key,
-> >> +                            char **value, u32 value_len);
-> >> +
-> >> +#endif  /* __GOOGLE_VPD_H */
-> >> --
-> >> 2.23.0.581.g78d2f28ef7-goog
-> >>
-> >
->
+On 10/6/19 10:22 AM, Jaroslav Kysela wrote:
+> For distributions, we need one place where we can decide
+> which driver will be activated for the auto-configation of the
+> Intel's HDA hardware with DSP. Actually, we cover three drivers:
+> 
+> * Legacy HDA
+> * Intel SST
+> * Intel Sound Open Firmware (SOF)
+> 
+> All those drivers registers similar PCI IDs, so the first
+> driver probed from the PCI stack can win. But... it is not
+> guaranteed that the correct driver wins.
+> 
+> This commit changes Intel's NHLT ACPI module to a common
+> DSP probe module for the Intel's hardware. All above sound
+> drivers calls this code. The user can force another behaviour
+> using the module parameter 'dsp_driver' located in
+> the 'snd-intel-dspcfg' module.
+> 
+> This change allows to add specific dmi checks for the specific
+> systems. The examples are taken from the pull request:
+> 
+>    https://github.com/thesofproject/linux/pull/927
+> 
+> Tested on Lenovo Carbon X1 7th gen.
+
+Thanks Jaroslav, I like the ideas in the patch, the flags+DMI table is 
+quite elegant.
+
+We will need to do additional checks for the quirks, e.g. I know there 
+is a 'Phaser' Chromebook with HDaudio and I don't recall if they use 
+DMICs. I also don't know if we always have the NHTL information when the 
+legacy BIOS is used.
+
+It's likely that we will have multiple iterations before getting this 
+right. And we'll have to add SoundWire support as well (which isn't that 
+hard, I already have all the ACPI parsing needed to detect if a link is 
+enabled).
+
+Some additional comments below.
+
+> +module_param(dsp_driver, int, 0444);
+> +MODULE_PARM_DESC(dsp_driver, "Force the DSP driver for Intel DSP (0=auto, 1=legacy, 2=SST, 3=SOF)");
+> +
+> +#define FLAG_SST		(1<<0)
+> +#define FLAG_SOF		(1<<1)
+> +#define FLAG_SOF_ONLY_IF_DMIC	(1<<16)
+> +
+> +struct config_entry {
+> +	u32 flags;
+> +	u16 device;
+> +	const struct dmi_system_id *dmi_table;
+> +};
+> +
+> +/*
+> + * configuration table - the order of entries is important!
+
+It's not really the order but the exclusion between SST and SOF for the 
+same PCI ID?
+
+> + */
+> +static const struct config_entry config_table[] = {
+> +/* Cometlake-LP */
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_CML_LP)
+> +	{
+> +		/* prefer SST */
+> +		.flags = FLAG_SST,
+> +		.device = 0x02c8,
+> +	},
+> +#elif IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
+> +	{
+> +		.flags = FLAG_SOF,
+
+need to add FLAG_SOF_ONLY_IF_DMIC
+
+> +		.device = 0x02c8,
+> +	},
+> +#endif
+> +/* Cometlake-H */
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_CML_H)
+> +	{
+> +		.flags = FLAG_SST,
+> +		.device = 0x06c8,
+> +	},
+> +#elif IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_H)
+> +	{
+> +		.flags = FLAG_SOF,
+
+| FLAG_SOF_ONLY_IF_DMIC
+
+> +		.device = 0x06c8,
+> +	},
+> +#endif
+> +/* Merrifield */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_MERRIFIELD)
+> +	{
+> +		.flags = FLAG_SOF,
+> +		.device = 0x119a,
+> +	},
+> +#endif
+> +/* Broxton-T */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_APOLLOLAKE)
+> +	{
+> +		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC,
+> +		.device = 0x1a98,
+> +	},
+> +#endif
+> +/* Geminilake */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_GEMINILAKE)
+> +	{
+> +		.flags = FLAG_SOF,
+
+can we have more than one table per PCI ID? e.g. in this case it'd be 
+good to have the DMIC case separate from Google.
+
+> +		.device = 0x3198,
+> +		.dmi_table = (const struct dmi_system_id []) {
+> +			{
+> +				.ident = "Google Chromebooks",
+> +				.matches = {
+> +					DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+> +				}
+> +			},
+> +			{}
+> +		}
+> +	},
+> +#endif
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_GLK)
+
+should it be elif, as done for CometLake/CML?
+
+> +	{
+> +		.flags = FLAG_SST,
+> +		.device = 0x3198,
+> +	},
+> +#endif
+> +/* Icelake */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_ICELAKE)
+> +	{
+> +		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC,
+> +		.device = 0x34c8,
+> +	},
+> +#endif
+> +/* Elkhart Lake */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_ELKHARTLAKE)
+> +	{
+> +		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC,
+> +		.device = 0x4b55,
+> +	},
+> +#endif
+> +/* Appololake (Broxton-P) */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_APOLLOLAKE)
+> +	{
+> +		.flags = FLAG_SOF,
+> +		.device = 0x5a98,
+> +		.dmi_table = (const struct dmi_system_id []) {
+> +			{
+> +				.ident = "Up Squared",
+> +				.matches = {
+> +					DMI_MATCH(DMI_SYS_VENDOR, "AAEON"),
+> +					DMI_MATCH(DMI_BOARD_NAME, "UP-APL01"),
+> +				}
+> +			},
+> +			{}
+> +		}
+> +	},
+> +#endif
+> +#if IS_ENABLED(CONFIG_SND_SOC_INTEL_APL)
+
+elif?
+
+> +	{
+> +		.flags = FLAG_SST,
+> +		.device = 0x5a98,
+> +	},
+> +#endif
+> +/* Cannonlake */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_CANNONLAKE)
+> +	{
+> +		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC,
+> +		.device = 0x9dc8,
+> +	},
+> +#endif
+> +/* Sunrise Point-LP */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_SKYLAKE)
+> +	{
+> +		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC,
+> +		.device = 0x9d70,
+> +	},
+> +#endif
+> +/* Kabylake-LP */
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_KABYLAKE)
+> +	{
+> +		.flags = FLAG_SOF | FLAG_SOF_ONLY_IF_DMIC,
+> +		.device = 0x9d71,
+> +	},
+> +#endif
+
+SKL and SKL are not supported by SOF for now, and SST doesn't support 
+HDaudio+DMIC combinations
+
+This should be FLAG_SST but only for Google Chromebooks, e.g.
+
+
+		.flags = FLAG_SST,
+		.device = 0x9d70 or 0x9d71
+		.dmi_table = (const struct dmi_system_id []) {
+			{
+				.ident = "Google Chromebooks",
+				.matches = {
+					DMI_MATCH(DMI_SYS_VENDOR, "Google"),
+				}
+			},
+			{}
+		}
+	},
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

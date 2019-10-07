@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5301CEB9D
-	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 20:16:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDC25CEB99
+	for <lists+alsa-devel@lfdr.de>; Mon,  7 Oct 2019 20:16:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 36C0D42;
-	Mon,  7 Oct 2019 20:16:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36C0D42
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90B9C84B;
+	Mon,  7 Oct 2019 20:15:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90B9C84B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570472215;
-	bh=BHnsCsagyy9Ki+2LoVudoDIZHL4//C1D2nIWB23WcHc=;
+	s=default; t=1570472164;
+	bh=oBvbBPlh+9APe3fbNnmx/AO8ytN0cu0lUWS3GWwCyt4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Yz29u8edfxaVYwd0BDNlXjqflEW9SoT22hlZa/tmDRqsUIN86fG/6buIAA4bMVwYx
-	 iP42Y8e1AM/8jPQThV5wBVMu86jee0Mi1zcRVqzXYSUL+nttJtYnikDmaIpmFioP5H
-	 9aZyaEW+yMDdX4Des47lw25MncqBSINd9ZXi/osE=
+	b=CO2SF+jEsPvaYY51gE1PMem1eDV+62TjNm0mt7ZKs2CZjgIFYk9Bvmx+xAjCrUJSQ
+	 dmcKMIf8rWjOeFxCAD2mfWe1jV0eRgPwdmV64DnNHyhRfouPmSUOjIT2DODBcPFkOR
+	 jFhQziaUmkFAHPQ5cH9gl3lxGORTLEPeso2QYL64=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9CDCF800BF;
-	Mon,  7 Oct 2019 20:13:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D33A2F80534;
+	Mon,  7 Oct 2019 20:13:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81708F80137; Mon,  7 Oct 2019 20:13:30 +0200 (CEST)
+ id C4FBFF802DF; Mon,  7 Oct 2019 20:13:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3158F80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id 32F11F802BD
  for <alsa-devel@alsa-project.org>; Mon,  7 Oct 2019 20:13:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3158F80137
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32F11F802BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="JNe81tPr"
+ header.b="xAoCDiDe"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=dlfa46lGCXB+/J0deOqs/W09rBlwYzs099ZfVzI+9RM=; b=JNe81tPrJrrH
- VkighFnutBYOUCjjUr2NKOzNc0lmT86d6oIAdhojEKNGH6z8dbbOsLJ5mFn9Nm+g3M6VF8sC0etWz
- GcyY17vAMPbIvUUh4iVmR7pRxyvbajIEnv7mSlVWF1oS/owSLzCbazZQoRkWIlXXbtG6sT9r35a/e
- hNl4c=;
+ List-Archive; bh=F/519QCZ2cPEiTPBsN/gfjftRPvGaCJLTY4nnrMZONU=; b=xAoCDiDeBOBg
+ +yP/gYICl4E0AJFQbECVzr+VI3P783zvguMUugFprIVgZnMp+zQ0wgxOjCeRrJHL5xZLyFJvXmce4
+ ovZUxARgZunEn1df47fHhCNwKGpozH+DyUQT69MvI7xYyg4U02b0hNHmJYgnVUNS3ygEGJwJhhOQ1
+ 69Lxc=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHXVe-0004GE-2f; Mon, 07 Oct 2019 18:13:26 +0000
+ id 1iHXVe-0004GF-8B; Mon, 07 Oct 2019 18:13:26 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 7EAD52741D8E; Mon,  7 Oct 2019 19:13:25 +0100 (BST)
+ id B7D8E2741EF0; Mon,  7 Oct 2019 19:13:25 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Dan Murphy <dmurphy@ti.com>
-In-Reply-To: <20191007171157.17813-3-dmurphy@ti.com>
+In-Reply-To: <20191007171157.17813-2-dmurphy@ti.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191007181325.7EAD52741D8E@ypsilon.sirena.org.uk>
+Message-Id: <20191007181325.B7D8E2741EF0@ypsilon.sirena.org.uk>
 Date: Mon,  7 Oct 2019 19:13:25 +0100 (BST)
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
  lgirdwood@gmail.com, navada@ti.com, Mark Brown <broonie@kernel.org>,
  shifu0704@thundersoft.com
-Subject: [alsa-devel] Applied "ASoc: tas2770: Remove unused defines and
-	variables" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: tas2770: Remove unneeded read of the
+	TDM_CFG3 register" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoc: tas2770: Remove unused defines and variables
+   ASoC: tas2770: Remove unneeded read of the TDM_CFG3 register
 
 has been applied to the asoc tree at
 
@@ -114,67 +114,42 @@ to this mail.
 Thanks,
 Mark
 
-From 40f90ef0a77bab65c8f959ba1d264bb674f7234b Mon Sep 17 00:00:00 2001
+From 5911e6729e0886a3fb00b897b73892134d37158a Mon Sep 17 00:00:00 2001
 From: Dan Murphy <dmurphy@ti.com>
-Date: Mon, 7 Oct 2019 12:11:57 -0500
-Subject: [PATCH] ASoc: tas2770: Remove unused defines and variables
+Date: Mon, 7 Oct 2019 12:11:56 -0500
+Subject: [PATCH] ASoC: tas2770: Remove unneeded read of the TDM_CFG3 register
 
-Remove unused defines and structure variables that are not
-referenced by the code.  If these are needed for future
-enhancements then they should be added at that time.
+Remove the unneeded and incorrect read of the TDM_CFG3 register.
+The read is done but the value is never used.
 
 Signed-off-by: Dan Murphy <dmurphy@ti.com>
-Link: https://lore.kernel.org/r/20191007171157.17813-3-dmurphy@ti.com
+Link: https://lore.kernel.org/r/20191007171157.17813-2-dmurphy@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tas2770.h | 21 ---------------------
- 1 file changed, 21 deletions(-)
+ sound/soc/codecs/tas2770.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2770.h b/sound/soc/codecs/tas2770.h
-index d597a8280707..cbb858369fe6 100644
---- a/sound/soc/codecs/tas2770.h
-+++ b/sound/soc/codecs/tas2770.h
-@@ -125,40 +125,19 @@
- #define ERROR_UNDER_VOLTAGE 0x0000008
- #define ERROR_BROWNOUT      0x0000010
- #define ERROR_CLASSD_PWR    0x0000020
--#define TAS2770_SLOT_16BIT  16
--#define TAS2770_SLOT_32BIT  32
--#define TAS2770_I2C_RETRY_COUNT      3
--
--struct tas2770_register {
--	int book;
--	int page;
--	int reg;
--};
--
--struct tas2770_dai_cfg {
--	unsigned int dai_fmt;
--	unsigned int tdm_delay;
--};
+diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
+index 15f6fcc6d87e..f3a665b64fd6 100644
+--- a/sound/soc/codecs/tas2770.c
++++ b/sound/soc/codecs/tas2770.c
+@@ -374,7 +374,6 @@ static int tas2770_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ {
+ 	u8 tdm_rx_start_slot = 0, asi_cfg_1 = 0;
+ 	int ret;
+-	int value = 0;
+ 	struct snd_soc_component *component = dai->component;
+ 	struct tas2770_priv *tas2770 =
+ 			snd_soc_component_get_drvdata(component);
+@@ -430,8 +429,6 @@ static int tas2770_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	if (ret)
+ 		return ret;
  
- struct tas2770_priv {
- 	struct device *dev;
- 	struct regmap *regmap;
--	struct snd_soc_codec *codec;
- 	struct snd_soc_component *component;
--	struct mutex dev_lock;
--	struct hrtimer mtimer;
- 	int power_state;
- 	int asi_format;
- 	struct gpio_desc *reset_gpio;
- 	int sampling_rate;
--	int frame_size;
- 	int channel_size;
- 	int slot_width;
- 	int v_sense_slot;
- 	int i_sense_slot;
--	bool runtime_suspend;
--	unsigned int err_code;
--	struct mutex codec_lock;
- };
+-	value = snd_soc_component_read32(component, TAS2770_TDM_CFG_REG3);
+-
+ 	tas2770->asi_format = fmt;
  
- #endif /* __TAS2770__ */
+ 	return 0;
 -- 
 2.20.1
 

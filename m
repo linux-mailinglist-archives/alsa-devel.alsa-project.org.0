@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C6F0CFAA6
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 14:56:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85342CFAB7
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 14:58:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE8501614;
-	Tue,  8 Oct 2019 14:56:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE8501614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 095E0165D;
+	Tue,  8 Oct 2019 14:57:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 095E0165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570539413;
-	bh=lAGNeuhHbYx/ZlqNEb4GB4Qjhi5ERUrP6mZvhmAyQ5o=;
+	s=default; t=1570539520;
+	bh=4ZEbwMgSNU2VCkyLgwpm7u5KuwNd4fXpWRAI6KxfWnA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=OVYkulc4+4jVCd8JYiwQ/kR5TifBViTN1iZFOZdmoTV7dAQPKkrDveqN5wW/HBttc
-	 yWKaLgNPjx4h0QO2UQgMDq09M0pD+UXdP4iIOGwvx+F75bjOxsNr5GALZWQlgzRx4N
-	 rps7YdyGXueoySb1Vt7H500OGJh5ZNnHSEWnLWPw=
+	b=MGr/Wi+gfv6eXWU22gTr/Os1Orl+YP5fy7NFhRTQwXagfO+D0fCb5DMaBF91o66AG
+	 8asVaJwOVCpbGIS+ppirphyUJuL+Ru/mOGIvPc1tI5sAJu7xrB3fS8jBxMSRb6UTOY
+	 oKMQ7WVO6kIn5GDUG/c+K87lybB36M+5lPgvVZ18=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15421F805A8;
-	Tue,  8 Oct 2019 14:53:40 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D43EBF806F0;
+	Tue,  8 Oct 2019 14:53:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9306AF8064C; Tue,  8 Oct 2019 14:53:33 +0200 (CEST)
+ id A96F9F80659; Tue,  8 Oct 2019 14:53:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23A8CF804CB
- for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23A8CF804CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4CEB3F800BF
+ for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4CEB3F800BF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="f/FKhdj1"
+ header.b="gnHamUD+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=FvAX8aDfi4UGMCCaOtzfS4l5FKNVl9ZRr6x291SrNbo=; b=f/FKhdj1Pfvz
- onr09d1vVi0gfwsfv3IYc9vscSNV1IJaKNkShT2ICVTHDRSrm5Bh0YdLMGiyN6cECs7sNzGBOqiB/
- HWxpDktjTnP901P0M0qXgi1SNjCAQdu2pywpLyZh7y2+SaTwH1mUBNo3Z1ttubFRSZc3o1e56GKvy
- tE1f4=;
+ List-Archive; bh=O4gd209kfpQlZPxIHFvbBZnMgdzW5Hdu+QSutVV5l0c=; b=gnHamUD+7Opk
+ 2dM2c3l4LQz0DM4D/N9cScPegjHu7MVswMq/laz3nrT7D4fwL+O6cGD42EbusZM6zIVJx1aueIJM+
+ pHQhovrW5I/fCcZDZ5k7TWRcFKyuRP2aw7v08Qq8ow0hK+nD34u0MkGYUtBcu2IxB4pLRl3a2fWoj
+ zQ1AA=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHozV-0008M6-VT; Tue, 08 Oct 2019 12:53:26 +0000
+ id 1iHozV-0008M0-I8; Tue, 08 Oct 2019 12:53:25 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 752592740D48; Tue,  8 Oct 2019 13:53:25 +0100 (BST)
+ id 0B01B2740D4B; Tue,  8 Oct 2019 13:53:24 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <878sq390cs.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <875zl790cb.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191008125325.752592740D48@ypsilon.sirena.org.uk>
+Message-Id: <20191008125325.0B01B2740D4B@ypsilon.sirena.org.uk>
 Date: Tue,  8 Oct 2019 13:53:25 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: fsl: fsl_asrc_dma: remove snd_pcm_ops"
-	to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-generic-dmaengine-pcm: remove
+	snd_pcm_ops" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl: fsl_asrc_dma: remove snd_pcm_ops
+   ASoC: soc-generic-dmaengine-pcm: remove snd_pcm_ops
 
 has been applied to the asoc tree at
 
@@ -112,172 +112,216 @@ to this mail.
 Thanks,
 Mark
 
-From 8903ed25e9fdf6cfd02a3a16db69e500803e16b9 Mon Sep 17 00:00:00 2001
+From ece23171ea95c4fe9395c1c861af0c1bd50ad9e5 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 2 Oct 2019 14:34:43 +0900
-Subject: [PATCH] ASoC: fsl: fsl_asrc_dma: remove snd_pcm_ops
+Date: Wed, 2 Oct 2019 14:35:00 +0900
+Subject: [PATCH] ASoC: soc-generic-dmaengine-pcm: remove snd_pcm_ops
 
 snd_pcm_ops is no longer needed.
 Let's use component driver callback.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/878sq390cs.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/875zl790cb.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_asrc_dma.c | 56 +++++++++++++++++++-----------------
- 1 file changed, 29 insertions(+), 27 deletions(-)
+ sound/soc/soc-generic-dmaengine-pcm.c | 102 +++++++++++++-------------
+ 1 file changed, 51 insertions(+), 51 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index 2a60fc6142b1..d6146de9acd2 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -52,13 +52,12 @@ static void fsl_asrc_dma_complete(void *arg)
- 	snd_pcm_period_elapsed(substream);
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index f2c98a9cbf75..f4c755209e03 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -75,12 +75,10 @@ int snd_dmaengine_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
  }
+ EXPORT_SYMBOL_GPL(snd_dmaengine_pcm_prepare_slave_config);
  
--static int fsl_asrc_dma_prepare_and_submit(struct snd_pcm_substream *substream)
-+static int fsl_asrc_dma_prepare_and_submit(struct snd_pcm_substream *substream,
-+					   struct snd_soc_component *component)
+-static int dmaengine_pcm_hw_params(struct snd_pcm_substream *substream,
+-	struct snd_pcm_hw_params *params)
++static int dmaengine_pcm_hw_params(struct snd_soc_component *component,
++				   struct snd_pcm_substream *substream,
++				   struct snd_pcm_hw_params *params)
  {
- 	u8 dir = substream->stream == SNDRV_PCM_STREAM_PLAYBACK ? OUT : IN;
 -	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct fsl_asrc_pair *pair = runtime->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct device *dev = component->dev;
- 	unsigned long flags = DMA_CTRL_ACK;
- 
-@@ -95,7 +94,8 @@ static int fsl_asrc_dma_prepare_and_submit(struct snd_pcm_substream *substream)
- 	return 0;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, SND_DMAENGINE_PCM_DRV_NAME);
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	struct dma_chan *chan = snd_dmaengine_pcm_get_chan(substream);
+ 	int (*prepare_slave_config)(struct snd_pcm_substream *substream,
+@@ -109,11 +107,11 @@ static int dmaengine_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	return snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(params));
  }
  
--static int fsl_asrc_dma_trigger(struct snd_pcm_substream *substream, int cmd)
-+static int fsl_asrc_dma_trigger(struct snd_soc_component *component,
-+				struct snd_pcm_substream *substream, int cmd)
+-static int dmaengine_pcm_set_runtime_hwparams(struct snd_pcm_substream *substream)
++static int
++dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
++				   struct snd_pcm_substream *substream)
  {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct fsl_asrc_pair *pair = runtime->private_data;
-@@ -105,7 +105,7 @@ static int fsl_asrc_dma_trigger(struct snd_pcm_substream *substream, int cmd)
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		ret = fsl_asrc_dma_prepare_and_submit(substream);
-+		ret = fsl_asrc_dma_prepare_and_submit(substream, component);
- 		if (ret)
- 			return ret;
- 		dma_async_issue_pending(pair->dma_chan[IN]);
-@@ -124,7 +124,8 @@ static int fsl_asrc_dma_trigger(struct snd_pcm_substream *substream, int cmd)
- 	return 0;
- }
- 
--static int fsl_asrc_dma_hw_params(struct snd_pcm_substream *substream,
-+static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
-+				  struct snd_pcm_substream *substream,
- 				  struct snd_pcm_hw_params *params)
- {
- 	enum dma_slave_buswidth buswidth = DMA_SLAVE_BUSWIDTH_2_BYTES;
-@@ -132,7 +133,6 @@ static int fsl_asrc_dma_hw_params(struct snd_pcm_substream *substream,
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	struct snd_dmaengine_dai_dma_data *dma_params_fe = NULL;
- 	struct snd_dmaengine_dai_dma_data *dma_params_be = NULL;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct fsl_asrc_pair *pair = runtime->private_data;
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
-@@ -247,7 +247,8 @@ static int fsl_asrc_dma_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int fsl_asrc_dma_hw_free(struct snd_pcm_substream *substream)
-+static int fsl_asrc_dma_hw_free(struct snd_soc_component *component,
-+				struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct fsl_asrc_pair *pair = runtime->private_data;
-@@ -266,12 +267,12 @@ static int fsl_asrc_dma_hw_free(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
-+static int fsl_asrc_dma_startup(struct snd_soc_component *component,
-+				struct snd_pcm_substream *substream)
- {
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct snd_dmaengine_dai_dma_data *dma_data;
- 	struct device *dev = component->dev;
- 	struct fsl_asrc *asrc_priv = dev_get_drvdata(dev);
-@@ -342,7 +343,8 @@ static int fsl_asrc_dma_startup(struct snd_pcm_substream *substream)
- 	return ret;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, SND_DMAENGINE_PCM_DRV_NAME);
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	struct device *dma_dev = dmaengine_dma_dev(pcm, substream);
+ 	struct dma_chan *chan = pcm->chan[substream->stream];
+@@ -150,28 +148,43 @@ static int dmaengine_pcm_set_runtime_hwparams(struct snd_pcm_substream *substrea
+ 	return snd_soc_set_runtime_hwparams(substream, &hw);
  }
  
--static int fsl_asrc_dma_shutdown(struct snd_pcm_substream *substream)
-+static int fsl_asrc_dma_shutdown(struct snd_soc_component *component,
-+				 struct snd_pcm_substream *substream)
+-static int dmaengine_pcm_open(struct snd_pcm_substream *substream)
++static int dmaengine_pcm_open(struct snd_soc_component *component,
++			      struct snd_pcm_substream *substream)
  {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, SND_DMAENGINE_PCM_DRV_NAME);
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	struct dma_chan *chan = pcm->chan[substream->stream];
+ 	int ret;
+ 
+-	ret = dmaengine_pcm_set_runtime_hwparams(substream);
++	ret = dmaengine_pcm_set_runtime_hwparams(component, substream);
+ 	if (ret)
+ 		return ret;
+ 
+ 	return snd_dmaengine_pcm_open(substream, chan);
+ }
+ 
++static int dmaengine_pcm_close(struct snd_soc_component *component,
++			       struct snd_pcm_substream *substream)
++{
++	return snd_dmaengine_pcm_close(substream);
++}
++
++static int dmaengine_pcm_hw_free(struct snd_soc_component *component,
++				 struct snd_pcm_substream *substream)
++{
++	return snd_pcm_lib_free_pages(substream);
++}
++
++static int dmaengine_pcm_trigger(struct snd_soc_component *component,
++				 struct snd_pcm_substream *substream, int cmd)
++{
++	return snd_dmaengine_pcm_trigger(substream, cmd);
++}
++
+ static struct dma_chan *dmaengine_pcm_compat_request_channel(
++	struct snd_soc_component *component,
+ 	struct snd_soc_pcm_runtime *rtd,
+ 	struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, SND_DMAENGINE_PCM_DRV_NAME);
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+ 	dma_filter_fn fn = NULL;
+@@ -209,10 +222,9 @@ static bool dmaengine_pcm_can_report_residue(struct device *dev,
+ 	return true;
+ }
+ 
+-static int dmaengine_pcm_new(struct snd_soc_pcm_runtime *rtd)
++static int dmaengine_pcm_new(struct snd_soc_component *component,
++			     struct snd_soc_pcm_runtime *rtd)
+ {
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, SND_DMAENGINE_PCM_DRV_NAME);
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	const struct snd_dmaengine_pcm_config *config = pcm->config;
+ 	struct device *dev = component->dev;
+@@ -239,8 +251,8 @@ static int dmaengine_pcm_new(struct snd_soc_pcm_runtime *rtd)
+ 				config->chan_names[i]);
+ 
+ 		if (!pcm->chan[i] && (pcm->flags & SND_DMAENGINE_PCM_FLAG_COMPAT)) {
+-			pcm->chan[i] = dmaengine_pcm_compat_request_channel(rtd,
+-				substream);
++			pcm->chan[i] = dmaengine_pcm_compat_request_channel(
++				component, rtd, substream);
+ 		}
+ 
+ 		if (!pcm->chan[i]) {
+@@ -269,11 +281,9 @@ static int dmaengine_pcm_new(struct snd_soc_pcm_runtime *rtd)
+ }
+ 
+ static snd_pcm_uframes_t dmaengine_pcm_pointer(
++	struct snd_soc_component *component,
+ 	struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, SND_DMAENGINE_PCM_DRV_NAME);
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 
+ 	if (pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_RESIDUE)
+@@ -282,13 +292,11 @@ static snd_pcm_uframes_t dmaengine_pcm_pointer(
+ 		return snd_dmaengine_pcm_pointer(substream);
+ }
+ 
+-static int dmaengine_copy_user(struct snd_pcm_substream *substream,
++static int dmaengine_copy_user(struct snd_soc_component *component,
++			       struct snd_pcm_substream *substream,
+ 			       int channel, unsigned long hwoff,
+ 			       void __user *buf, unsigned long bytes)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_component *component =
+-		snd_soc_rtdcom_lookup(rtd, SND_DMAENGINE_PCM_DRV_NAME);
  	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct fsl_asrc_pair *pair = runtime->private_data;
-@@ -361,7 +363,9 @@ static int fsl_asrc_dma_shutdown(struct snd_pcm_substream *substream)
+ 	struct dmaengine_pcm *pcm = soc_component_to_pcm(component);
+ 	int (*process)(struct snd_pcm_substream *substream,
+@@ -316,39 +324,31 @@ static int dmaengine_copy_user(struct snd_pcm_substream *substream,
  	return 0;
  }
  
--static snd_pcm_uframes_t fsl_asrc_dma_pcm_pointer(struct snd_pcm_substream *substream)
-+static snd_pcm_uframes_t
-+fsl_asrc_dma_pcm_pointer(struct snd_soc_component *component,
-+			 struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct fsl_asrc_pair *pair = runtime->private_data;
-@@ -369,17 +373,8 @@ static snd_pcm_uframes_t fsl_asrc_dma_pcm_pointer(struct snd_pcm_substream *subs
- 	return bytes_to_frames(substream->runtime, pair->pos);
- }
- 
--static const struct snd_pcm_ops fsl_asrc_dma_pcm_ops = {
+-static const struct snd_pcm_ops dmaengine_pcm_ops = {
++static const struct snd_soc_component_driver dmaengine_pcm_component = {
++	.name		= SND_DMAENGINE_PCM_DRV_NAME,
++	.probe_order	= SND_SOC_COMP_ORDER_LATE,
+ 	.open		= dmaengine_pcm_open,
+-	.close		= snd_dmaengine_pcm_close,
 -	.ioctl		= snd_pcm_lib_ioctl,
--	.hw_params	= fsl_asrc_dma_hw_params,
--	.hw_free	= fsl_asrc_dma_hw_free,
--	.trigger	= fsl_asrc_dma_trigger,
--	.open		= fsl_asrc_dma_startup,
--	.close		= fsl_asrc_dma_shutdown,
--	.pointer	= fsl_asrc_dma_pcm_pointer,
++	.close		= dmaengine_pcm_close,
++	.ioctl		= snd_soc_pcm_lib_ioctl,
+ 	.hw_params	= dmaengine_pcm_hw_params,
+-	.hw_free	= snd_pcm_lib_free_pages,
+-	.trigger	= snd_dmaengine_pcm_trigger,
++	.hw_free	= dmaengine_pcm_hw_free,
++	.trigger	= dmaengine_pcm_trigger,
+ 	.pointer	= dmaengine_pcm_pointer,
++	.pcm_construct	= dmaengine_pcm_new,
+ };
+ 
+-static const struct snd_pcm_ops dmaengine_pcm_process_ops = {
++static const struct snd_soc_component_driver dmaengine_pcm_component_process = {
++	.name		= SND_DMAENGINE_PCM_DRV_NAME,
++	.probe_order	= SND_SOC_COMP_ORDER_LATE,
+ 	.open		= dmaengine_pcm_open,
+-	.close		= snd_dmaengine_pcm_close,
+-	.ioctl		= snd_pcm_lib_ioctl,
++	.close		= dmaengine_pcm_close,
++	.ioctl		= snd_soc_pcm_lib_ioctl,
+ 	.hw_params	= dmaengine_pcm_hw_params,
+-	.hw_free	= snd_pcm_lib_free_pages,
+-	.trigger	= snd_dmaengine_pcm_trigger,
++	.hw_free	= dmaengine_pcm_hw_free,
++	.trigger	= dmaengine_pcm_trigger,
+ 	.pointer	= dmaengine_pcm_pointer,
+ 	.copy_user	= dmaengine_copy_user,
 -};
 -
--static int fsl_asrc_dma_pcm_new(struct snd_soc_pcm_runtime *rtd)
-+static int fsl_asrc_dma_pcm_new(struct snd_soc_component *component,
-+				struct snd_soc_pcm_runtime *rtd)
- {
- 	struct snd_card *card = rtd->card->snd_card;
- 	struct snd_pcm_substream *substream;
-@@ -414,7 +409,8 @@ static int fsl_asrc_dma_pcm_new(struct snd_soc_pcm_runtime *rtd)
- 	return ret;
- }
- 
--static void fsl_asrc_dma_pcm_free(struct snd_pcm *pcm)
-+static void fsl_asrc_dma_pcm_free(struct snd_soc_component *component,
-+				  struct snd_pcm *pcm)
- {
- 	struct snd_pcm_substream *substream;
- 	int i;
-@@ -432,8 +428,14 @@ static void fsl_asrc_dma_pcm_free(struct snd_pcm *pcm)
- 
- struct snd_soc_component_driver fsl_asrc_component = {
- 	.name		= DRV_NAME,
--	.ops		= &fsl_asrc_dma_pcm_ops,
--	.pcm_new	= fsl_asrc_dma_pcm_new,
--	.pcm_free	= fsl_asrc_dma_pcm_free,
-+	.ioctl		= snd_soc_pcm_lib_ioctl,
-+	.hw_params	= fsl_asrc_dma_hw_params,
-+	.hw_free	= fsl_asrc_dma_hw_free,
-+	.trigger	= fsl_asrc_dma_trigger,
-+	.open		= fsl_asrc_dma_startup,
-+	.close		= fsl_asrc_dma_shutdown,
-+	.pointer	= fsl_asrc_dma_pcm_pointer,
-+	.pcm_construct	= fsl_asrc_dma_pcm_new,
-+	.pcm_destruct	= fsl_asrc_dma_pcm_free,
+-static const struct snd_soc_component_driver dmaengine_pcm_component = {
+-	.name		= SND_DMAENGINE_PCM_DRV_NAME,
+-	.probe_order	= SND_SOC_COMP_ORDER_LATE,
+-	.ops		= &dmaengine_pcm_ops,
+-	.pcm_new	= dmaengine_pcm_new,
+-};
+-
+-static const struct snd_soc_component_driver dmaengine_pcm_component_process = {
+-	.name		= SND_DMAENGINE_PCM_DRV_NAME,
+-	.probe_order	= SND_SOC_COMP_ORDER_LATE,
+-	.ops		= &dmaengine_pcm_process_ops,
+-	.pcm_new	= dmaengine_pcm_new,
++	.pcm_construct	= dmaengine_pcm_new,
  };
- EXPORT_SYMBOL_GPL(fsl_asrc_component);
+ 
+ static const char * const dmaengine_pcm_dma_channel_names[] = {
 -- 
 2.20.1
 

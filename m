@@ -2,79 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B16CCF619
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 11:35:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33FEACF6CE
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 12:13:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F39E165D;
-	Tue,  8 Oct 2019 11:34:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F39E165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE6771657;
+	Tue,  8 Oct 2019 12:13:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE6771657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570527304;
-	bh=1u70P/1r9CflW2MgtRqjj6kqm+bjex5jSHZaCAUXq7M=;
+	s=default; t=1570529632;
+	bh=ewB4t6YJZsc7eAUUfZQVpmDnB9XsgKzamal9SqcJXwI=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=fVA1Hj7cDBJcwet9CRXpy1OOSfdIGVN1IPCPXfN4jRLy+xFjkR177kkCFfcXX+96i
-	 ACUd9TrDyzAhJdbM48jBhM/110G2sYAgjhQBVjFt1KPW7kaz2G0sEU6ZqOn33tk7+W
-	 +A1on4XHpQ/C7Lhahw+fA4xeIdb939xGjDxtpjdM=
+	b=lu8a/SdJi3BTQHhqw+lvFQo2Gt8K0N3Wb191gTCznIzdBVykTni0TqS1D2emElNub
+	 LC1QZX6yyo606SgYrJBqYdSuln98I3mR63irHNiyprREj45RxoRNNvwL0IoRjcb6nz
+	 ipJrp7Ciri/sDTjCp93EzAl7Xsp/CCQ/krpgJzeQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3B800F8045E;
-	Tue,  8 Oct 2019 11:33:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CA3EF8045E;
+	Tue,  8 Oct 2019 12:12:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99347F8045E; Tue,  8 Oct 2019 11:33:34 +0200 (CEST)
+ id E4AC6F8038F; Tue,  8 Oct 2019 12:12:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ABCC3F800BF
- for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 11:33:29 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABCC3F800BF
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x989XPsG019190,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCAS11.realtek.com.tw[172.21.6.12])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x989XPsG019190
- (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 8 Oct 2019 17:33:26 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTITCAS11.realtek.com.tw (172.21.6.12) with Microsoft SMTP Server (TLS) id
- 14.3.468.0; Tue, 8 Oct 2019 17:33:25 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Tue, 8 Oct 2019 17:33:24 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::6d88:58e2:6d4b:ff7c]) by
- RTEXMB01.realtek.com.tw ([fe80::6d88:58e2:6d4b:ff7c%13]) with mapi id
- 15.01.1779.005; Tue, 8 Oct 2019 17:33:24 +0800
-Content-Type: multipart/mixed;
- boundary="_000_8f933cee57fc4420875e1e2ba14f1937realtekcom_"
-From: =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>
-Thread-Topic: [PATCH] ASoC: rt1011: export r0 and temperature config
-Thread-Index: AdV9u26p1DMGwkqZTrmPc4068Rp6yQ==
-Date: Tue, 8 Oct 2019 09:33:24 +0000
-Message-ID: <8f933cee57fc4420875e1e2ba14f1937@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: <8f933cee57fc4420875e1e2ba14f1937@realtek.com>
-x-originating-ip: [172.22.102.105]
+ by alsa1.perex.cz (Postfix) with ESMTPS id A7A3FF800BF
+ for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 12:12:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A7A3FF800BF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="Trn1r5D9"
+Received: by mail-pf1-x441.google.com with SMTP id x127so10499135pfb.7
+ for <alsa-devel@alsa-project.org>; Tue, 08 Oct 2019 03:12:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oJBL7qyzxoDJRRddYXK54hndGf2KGEetfbRWryMKt2E=;
+ b=Trn1r5D9cGQW5wjoTVdST1Vr+Nt4P4YpIV2bWoatnDDPis7Dy9jpi4NP/IkdP5+fej
+ ZbRZqPfICPJGzhNgYmI6sibzynWOpiZ5k2L0YfGRG0X9mDpgl5puTbYLT5nXIT88PR7n
+ VBfHcTrONdTja6s5V1shQdAHCQFgGN8IIegi8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=oJBL7qyzxoDJRRddYXK54hndGf2KGEetfbRWryMKt2E=;
+ b=gL8759uCwNiOUTVMOA/6ubcPondv/HwYLdkHZkrpYzOSxT3j41P+m+0rgAkAJ1jqpR
+ 2mvhinVolvRRxwGgbRMzsaQUaQwkvipvaD9w/wUC5j8ZyJLm2E58o+hGRpszex07hEW4
+ x8gej9I2zKM6aBaolhATWeHPfEUG6QOjN52RnydXLVNlazGnEsuLEbKhGA5jeL89uZ4e
+ FAQzQiev2ZtLMEnZf3RsGPszxOc/tYIpM0cNNUxS6BonLfepqrGV0OFO70zSzeaci68S
+ uL5iUZ8NLBv/55KyjCeHrpOBAHOg+VVV3p78VTul9rV/AH5JZ/gCp4mswh5Hevtg8QkG
+ N2Iw==
+X-Gm-Message-State: APjAAAUUodr5Cf/3vR+Lk5Aajuawt5nBYQL6AZE6ir6SqyrhQ/PJ9wSf
+ cdMoUDnoCpHL/0Ya5H9Ir+dzzQ==
+X-Google-Smtp-Source: APXvYqwuL/NpT53t//3HEQqYcM39S9q70cMotyVyM1K2EG7T0EBBhKzkMC/651IeZcvTwB6aGwIs8A==
+X-Received: by 2002:a63:e5c:: with SMTP id 28mr35543545pgo.133.1570529519761; 
+ Tue, 08 Oct 2019 03:11:59 -0700 (PDT)
+Received: from localhost ([2401:fa00:1:10:79b4:bd83:e4a5:a720])
+ by smtp.gmail.com with ESMTPSA id t3sm1894936pje.7.2019.10.08.03.11.56
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 08 Oct 2019 03:11:58 -0700 (PDT)
+From: Cheng-Yi Chiang <cychiang@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Tue,  8 Oct 2019 18:11:44 +0800
+Message-Id: <20191008101144.39342-1-cychiang@chromium.org>
+X-Mailer: git-send-email 2.23.0.581.g78d2f28ef7-goog
 MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "cychiang@google.com" <cychiang@google.com>,
- =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
- =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
-Subject: [alsa-devel] [PATCH] ASoC: rt1011: export r0 and temperature config
+Cc: alsa-devel@alsa-project.org, tzungbi@chromium.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Stephen Boyd <swboyd@chromium.org>, Hung-Te Lin <hungte@chromium.org>,
+ sathya.prakash.m.r@intel.com, Mark Brown <broonie@kernel.org>,
+ Sean Paul <seanpaul@chromium.org>, Shuming Fan <shumingf@realtek.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, dgreid@chromium.org,
+ Guenter Roeck <linux@roeck-us.net>, Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: [alsa-devel] [PATCH v2] firmware: vpd: Add an interface to read VPD
+	value
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,174 +97,135 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_000_8f933cee57fc4420875e1e2ba14f1937realtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+Add an interface for other driver to query VPD value.
+This will be used for ASoC machine driver to query calibration
+data stored in VPD for smart amplifier speaker resistor
+calibration.
 
-SW4gY2hyb21lYm9vayBjYXNlLCB0aGUgbWFjaGluZSBkcml2ZXIgd2lsbCBnZXQgdGhlDQpyMCBj
-YWxpYnJhdGlvbiBkYXRhIGFuZCB0ZW1wZXJhdHVyZSBmcm9tIFZQRC4NClRoZXJlZm9yZSwgdGhl
-IGNvZGVjIGV4cG9ydHMgcjAgYW5kIHRlbXBlcmF0dXJlIGNvbmZpZyBBUEkgZm9yIGl0Lg0KDQpT
-aWduZWQtb2ZmLWJ5OiBTaHVtaW5nIEZhbiA8c2h1bWluZ2ZAcmVhbHRlay5jb20+DQotLS0NCiBz
-b3VuZC9zb2MvY29kZWNzL3J0MTAxMS5jIHwgNDEgKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrDQogc291bmQvc29jL2NvZGVjcy9ydDEwMTEuaCB8ICA1ICsrKysrDQogMiBm
-aWxlcyBjaGFuZ2VkLCA0NiBpbnNlcnRpb25zKCspDQoNCmRpZmYgLS1naXQgYS9zb3VuZC9zb2Mv
-Y29kZWNzL3J0MTAxMS5jIGIvc291bmQvc29jL2NvZGVjcy9ydDEwMTEuYw0KaW5kZXggYTkyYTBi
-YWNkODEyLi5hOTkyYmIyMjI0YjIgMTAwNjQ0DQotLS0gYS9zb3VuZC9zb2MvY29kZWNzL3J0MTAx
-MS5jDQorKysgYi9zb3VuZC9zb2MvY29kZWNzL3J0MTAxMS5jDQpAQCAtMTMyNSw2ICsxMzI1LDQ3
-IEBAIHN0YXRpYyBpbnQgcnQxMDExX3IwX2xvYWRfaW5mbyhzdHJ1Y3Qgc25kX2tjb250cm9sICpr
-Y29udHJvbCwNCiAJLnB1dCA9IHJ0MTAxMV9yMF9sb2FkX21vZGVfcHV0IFwNCiB9DQogDQoraW50
-IHJ0MTAxMV9yMF9jb25maWcoc3RydWN0IHNuZF9zb2NfY29tcG9uZW50ICpjb21wb25lbnQsIHVu
-c2lnbmVkIGludCByMCkNCit7DQorCXN0cnVjdCBydDEwMTFfcHJpdiAqcnQxMDExID0NCisJCXNu
-ZF9zb2NfY29tcG9uZW50X2dldF9kcnZkYXRhKGNvbXBvbmVudCk7DQorCXN0cnVjdCBkZXZpY2Ug
-KmRldjsNCisJdW5zaWduZWQgaW50IHIwX2ludGVnZXIsIHIwX2ZhY3RvciwgZm9ybWF0Ow0KKw0K
-KwlpZiAoIWNvbXBvbmVudC0+Y2FyZC0+aW5zdGFudGlhdGVkKQ0KKwkJcmV0dXJuIDA7DQorDQor
-CWlmICghcjApDQorCQlyZXR1cm4gLUVJTlZBTDsNCisNCisJZGV2ID0gcmVnbWFwX2dldF9kZXZp
-Y2UocnQxMDExLT5yZWdtYXApOw0KKwlydDEwMTEtPnIwX3JlZyA9IHIwOw0KKw0KKwlmb3JtYXQg
-PSAyMTQ3NDgzNjQ4VTsgLyogMl4yNCAqIDEyOCAqLw0KKwlyMF9pbnRlZ2VyID0gZm9ybWF0IC8g
-cnQxMDExLT5yMF9yZWcgLyAxMjg7DQorCXIwX2ZhY3RvciA9ICgoZm9ybWF0IC8gcnQxMDExLT5y
-MF9yZWcgKiAxMDApIC8gMTI4KQ0KKwkJCQkJLSAocjBfaW50ZWdlciAqIDEwMCk7DQorCWRldl9k
-YmcoZGV2LAkiTmV3IHIwIHJlc2lzdGFuY2UgYWJvdXQgJWQuJTAyZCBvaG0sIHJlZz0weCVYXG4i
-LA0KKwkJcjBfaW50ZWdlciwgcjBfZmFjdG9yLCBydDEwMTEtPnIwX3JlZyk7DQorDQorCWlmIChy
-dDEwMTEtPnIwX3JlZykNCisJCXJ0MTAxMV9yMF9sb2FkKHJ0MTAxMSk7DQorDQorCXJldHVybiAw
-Ow0KK30NCitFWFBPUlRfU1lNQk9MX0dQTChydDEwMTFfcjBfY29uZmlnKTsNCisNCitpbnQgcnQx
-MDExX3RlbXBlcmF0dXJlX2NvbmZpZyhzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVu
-dCwNCisJdW5zaWduZWQgaW50IHRlbXApDQorew0KKwlzbmRfc29jX2NvbXBvbmVudF91cGRhdGVf
-Yml0cyhjb21wb25lbnQsDQorCQlSVDEwMTFfU1RQX0lOSVRJQUxfUkVTSVNUQU5DRV9URU1QLCAw
-eDNmZiwNCisJCSh0ZW1wIDw8IDIpKTsNCisNCisJcmV0dXJuIDA7DQorfQ0KK0VYUE9SVF9TWU1C
-T0xfR1BMKHJ0MTAxMV90ZW1wZXJhdHVyZV9jb25maWcpOw0KKw0KIHN0YXRpYyBjb25zdCBzdHJ1
-Y3Qgc25kX2tjb250cm9sX25ldyBydDEwMTFfc25kX2NvbnRyb2xzW10gPSB7DQogCS8qIEkyUyBE
-YXRhIEluIFNlbGVjdGlvbiAqLw0KIAlTT0NfRU5VTSgiRElOIFNvdXJjZSIsIHJ0MTAxMV9kaW5f
-c291cmNlX2VudW0pLA0KZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDExLmggYi9z
-b3VuZC9zb2MvY29kZWNzL3J0MTAxMS5oDQppbmRleCAyZDY1OTgzZjNkMGYuLmI5OWRmMzM0YmUx
-NCAxMDA2NDQNCi0tLSBhL3NvdW5kL3NvYy9jb2RlY3MvcnQxMDExLmgNCisrKyBiL3NvdW5kL3Nv
-Yy9jb2RlY3MvcnQxMDExLmgNCkBAIC02NzAsNCArNjcwLDkgQEAgc3RydWN0IHJ0MTAxMV9wcml2
-IHsNCiAJaW50IHJlY3Zfc3BrX21vZGU7DQogfTsNCiANCitpbnQgcnQxMDExX3IwX2NvbmZpZyhz
-dHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCwgdW5zaWduZWQgaW50IHIwKTsNCitp
-bnQgcnQxMDExX3RlbXBlcmF0dXJlX2NvbmZpZyhzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNv
-bXBvbmVudCwNCisJdW5zaWduZWQgaW50IHRlbXApOw0KKw0KKw0KICNlbmRpZgkJLyogZW5kIG9m
-IF9SVDEwMTFfSF8gKi8NCi0tIA0KMi4yMy4wDQoNCg==
+The example usage in ASoC machine driver is like:
 
---_000_8f933cee57fc4420875e1e2ba14f1937realtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+#define DSM_CALIB_KEY "dsm_calib"
+static int load_calibration_data(struct cml_card_private *ctx) {
+    char *data = NULL;
+    int ret;
+    u32 value_len;
 
-eJ8+IslrAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAADQ3NEQzMzU4
-OTY1RTg0NDI4RkI0M0Q1NTRBMkY3MDc1AAYHAQ2ABAACAAAAAgACAAEFgAMADgAAAOMHCgAIAAkA
-IQAYAAIAQAEBIIADAA4AAADjBwoACAAJACEAGAACAEABAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABADcAAABbUEFUQ0hdIEFTb0M6IHJ0MTAxMTogZXhwb3J0IHIwIGFuZCB0
-ZW1wZXJhdHVyZSBjb25maWcABhIBC4ABACEAAAA0NzREMzM1ODk2NUU4NDQyOEZCNDNENTU0QTJG
-NzA3NQAGBwEDkAYAqBUAAEQAAAACAX8AAQAAAC8AAAA8OGY5MzNjZWU1N2ZjNDQyMDg3NWUxZTJi
-YTE0ZjE5MzdAcmVhbHRlay5jb20+AAALAB8OAAAAAAIBCRABAAAAvQUAALkFAAD5CwAATFpGdUP+
-M/phAApmYmlkBAAAY2PAcGcxMjUyAP4DQ/B0ZXh0AfcCpAPjAgAEY2gKwHNldDAg7wdtAoMAUBFN
-MgqABrQCgJZ9CoAIyDsJYjE5DsC/CcMWcgoyFnECgBViKgmwcwnwBJBhdAWyDlADYHOibwGAIEV4
-EcFuGDBdBlJ2BJAXtgIQcgDAdH0IUG4aMRAgBcAFoBtkZJogA1IgECIXslx2CJDkd2sLgGQ1HVME
-8AdADRdwMApxF/Jia21rBnMBkAAgIEJNX0LgRUdJTn0K/AHxC/FcIEkDoBHAA2FlBuBvqmsb0GES
-ACwcwGgZ4G0AwWgLgBngZAUQGjEgPQPwbAMgGDAFQCLhXGybI2EKgHISMB5RaWIYcc5pAiAjkBiA
-YSAAcBxgeRAgbXAYYghwGeAcg1boUEQuJNVUIvAJcBrh1yK1BaAFgSAQMHAJEQQgByVBJo4b4WZp
-ZyBBzFBJHHAFsWl0KAYk1SZTK8AYUGQtGTBmLYhieToGAGh1bQuAJSvQRgORPHMuhGZAJwlwB0AQ
-IGsuBaBtPq0k1S0xACTVIBkgdR3Aki8ZIGMvKXNzLwAgCR6QMTEwQCB8IDT4MSArM680vzUCMT8y
-TbJoM0EgNTOUNhYyHHCXAxAHkRmUZCLANDYsYIcAgBuBJfFzKCspLKzrDeABICAxAGcscCpwNuH7
-Nr8y5WI9DzK3JNUdsRAwIypwFoBhMGIA0GQ4GQ6QLi5BMBaAYmIyFUJwNEJgIB6RNjQ0dzCYPO8/
-vwo1AT6vRP8KpEBAPIAxMw6gLDpw4itIszQ3IEhxH2El4K8psAuABUAyxF8lQF8JAFhhZF8LgAIQ
-KB9gcpR1YwVAcx3AX2sb4VNL4AbwICpMhiw2Fi60cHUFQD1KjgRiX05C9lxQIDYlXCBAUFZFtUpc
-/yuES8pG0VKxJuACIAnwBUB+KlQnIsBGkACQLaJKRDC/O1Y2AAAARbVL1UqVcCOxX00AMsROcFcn
-U75fJGFf1SOgdiYyKFQnKRYgVzzrAQAdYGMZ4CpdYVxnVY23S3EQIBgwciLASwFmANA/GJEiwBrk
-XGdRZzxwKCH5VCctPh5QCyBjMDqRAZB/AjAHMBxBVncJcCcxA6AwT2FPYlNWWWUFLUUgIFZ8QUxl
-j11hTnJf0ADAcPta9F1zKDLEYzBp5FxYawdvSxBp4U5yZX8rGuROcTIiMUmANDgzQxA4VdA7IC8q
-OUBeQpBNAOlC0DI4TQAvZIdfh05x/W7FL0qFbOdy4HDBa/hgRnlOcSgocn9tBXChHqAp/3PkVndD
-0Grwcbh3NFxnXWHNWzBiUxBdYSwiB8IlQX8JcACQY9JdoQGgCGAFQCUgZC4lMDIcYG9oBm1gEV/Q
-PTB4JVj5UCBuIk2mcZlgG2yMXFj/YdqAPWwMSvZq9YEfZP82AAFQ1itFWFBPUlQAX1NZTUJPTF/4
-R1BMavVSiIU/Udomyf9Sv1PPVNheL0pSJsJWf1nP+VrRdXAmMU/ADcAqIFu4h343iEBKs1NUUF8g
-IAhJVEloUF9SRVMCSZWQQU5DRV9U2EVNUCLAfbAzASB+N9YoJsIvIDw5QCmKL4ZP/4dfiG+L34n/
-NlNJ9BvhH2D7SdFL/18YUHtBSqRMQkyVOHNbXU5xVwdwEkky/QXwRCZCIaEGYB5wTBAl8gNxBwYA
-T0NfRU5V8E0oIkQgIAYACGFdoLd+IEqGDeBujcGnMl8J8P0ukClNpjxPRr8340ZfN4gjQGt88DY1
-OW+gZjNVCZBmQfBiQiBkrvAz/0KgF3BwgELvqk+tH0Yfsh9xSDY2NzBJcDOQtgI5P0mkV8+jaEpT
-BZB6cHNw/mtPg1xmULG56IrfUo+Nj/9Ur1W7XGeLT4xfvT+Of4+P95CVmQ82FiMJ8KmRcCHIMc99
-EKnAlkCVNEhfcPixEeMk1UHgMjMuAUAsuxVCAcyAAAAAHwBCAAEAAAAcAAAAUwBoAHUAbQBpAG4A
-ZwAgAFsAA4P4ZpiSXQAAAB8AZQABAAAAKgAAAHMAaAB1AG0AaQBuAGcAZgBAAHIAZQBhAGwAdABl
-AGsALgBjAG8AbQAAAAAAHwBkAAEAAAAKAAAAUwBNAFQAUAAAAAAAAgFBAAEAAABoAAAAAAAAAIEr
-H6S+oxAZnW4A3QEPVAIAAACAUwBoAHUAbQBpAG4AZwAgAFsAA4P4ZpiSXQAAAFMATQBUAFAAAABz
-AGgAdQBtAGkAbgBnAGYAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAfAAJdAQAAACoAAABzAGgA
-dQBtAGkAbgBnAGYAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8A5V8BAAAAMgAAAHMAaQBw
-ADoAcwBoAHUAbQBpAG4AZwBmAEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfABoMAQAAABwA
-AABTAGgAdQBtAGkAbgBnACAAWwADg/hmmJJdAAAAHwAfDAEAAAAqAAAAcwBoAHUAbQBpAG4AZwBm
-AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAB4MAQAAAAoAAABTAE0AVABQAAAAAAACARkM
-AQAAAGgAAAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBTAGgAdQBtAGkAbgBnACAAWwADg/hmmJJd
-AAAAUwBNAFQAUAAAAHMAaAB1AG0AaQBuAGcAZgBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAB8A
-AV0BAAAAKgAAAHMAaAB1AG0AaQBuAGcAZgBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAAAACwBA
-OgEAAAAfABoAAQAAABIAAABJAFAATQAuAE4AbwB0AGUAAAAAAAMA8T8EBAAACwBAOgEAAAADAP0/
-5AQAAAIBCzABAAAAEAAAAEdNM1iWXoRCj7Q9VUovcHUDABcAAQAAAEAAOQAACkpuu33VAUAACDAt
-S7puu33VAQsAKQAAAAAAHwDZPwEAAAAAAgAASQBuACAAYwBoAHIAbwBtAGUAYgBvAG8AawAgAGMA
-YQBzAGUALAAgAHQAaABlACAAbQBhAGMAaABpAG4AZQAgAGQAcgBpAHYAZQByACAAdwBpAGwAbAAg
-AGcAZQB0ACAAdABoAGUADQAKAHIAMAAgAGMAYQBsAGkAYgByAGEAdABpAG8AbgAgAGQAYQB0AGEA
-IABhAG4AZAAgAHQAZQBtAHAAZQByAGEAdAB1AHIAZQAgAGYAcgBvAG0AIABWAFAARAAuAA0ACgBU
-AGgAZQByAGUAZgBvAHIAZQAsACAAdABoAGUAIABjAG8AZABlAGMAIABlAHgAcABvAHIAdABzACAA
-cgAwACAAYQBuAGQAIAB0AGUAbQBwAGUAcgBhAHQAdQByAGUAIABjAG8AbgBmAGkAZwAgAEEAUABJ
-ACAAZgBvAHIAIABpAHQALgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYALQBiAHkAOgAgAFMA
-aAB1AG0AaQBuAGcAIABGAGEAbgAgADwAcwBoAHUAbQBpAG4AZwBmAEAAcgBlAGEAbAB0AGUAawAu
-AGMAbwBtAD4ADQAKAC0ALQAtAA0ACgAgAHMAbwB1AG4AZAAvAHMAbwBjAC8AYwBvAGQAZQBjAHMA
-LwByAHQAMQAwADEAMQAuAGMAIAB8ACAAAAALAACACCAGAAAAAADAAAAAAAAARgAAAAAUhQAAAQAA
-AB8AAICGAwIAAAAAAMAAAAAAAABGAQAAAB4AAABhAGMAYwBlAHAAdABsAGEAbgBnAHUAYQBnAGUA
-AAAAAAEAAAAaAAAAegBoAC0AVABXACwAIABlAG4ALQBVAFMAAAAAAAMAAIAIIAYAAAAAAMAAAAAA
-AABGAQAAADIAAABFAHgAYwBoAGEAbgBnAGUAQQBwAHAAbABpAGMAYQB0AGkAbwBuAEYAbABhAGcA
-cwAAAAAAIAAAAEgAAIAIIAYAAAAAAMAAAAAAAABGAQAAACIAAABOAGUAdAB3AG8AcgBrAE0AZQBz
-AHMAYQBnAGUASQBkAAAAAABQDS0jorT2QumTCNdL0pFDHwAAgBOP8kH0gxRBpYTu21prC/8BAAAA
-FgAAAEMAbABpAGUAbgB0AEkAbgBmAG8AAAAAAAEAAAAqAAAAQwBsAGkAZQBuAHQAPQBNAFMARQB4
-AGMAaABhAG4AZwBlAFIAUABDAAAAAAAfAPo/AQAAABwAAABTAGgAdQBtAGkAbgBnACAAWwADg/hm
-mJJdAAAAHwA3AAEAAABuAAAAWwBQAEEAVABDAEgAXQAgAEEAUwBvAEMAOgAgAHIAdAAxADAAMQAx
-ADoAIABlAHgAcABvAHIAdAAgAHIAMAAgAGEAbgBkACAAdABlAG0AcABlAHIAYQB0AHUAcgBlACAA
-YwBvAG4AZgBpAGcAAAAAAB8APQABAAAAAgAAAAAAAAADADYAAAAAAAIBcQABAAAAFgAAAAHVfbtu
-qdQzBsJKmU65j3ONOvEaeskAAB8AcAABAAAAbgAAAFsAUABBAFQAQwBIAF0AIABBAFMAbwBDADoA
-IAByAHQAMQAwADEAMQA6ACAAZQB4AHAAbwByAHQAIAByADAAIABhAG4AZAAgAHQAZQBtAHAAZQBy
-AGEAdAB1AHIAZQAgAGMAbwBuAGYAaQBnAAAAAAAfADUQAQAAAF4AAAA8ADgAZgA5ADMAMwBjAGUA
-ZQA1ADcAZgBjADQANAAyADAAOAA3ADUAZQAxAGUAMgBiAGEAMQA0AGYAMQA5ADMANwBAAHIAZQBh
-AGwAdABlAGsALgBjAG8AbQA+AAAAAAADAN4/tgMAAAMAExIAAAAAAgEAgBOP8kH0gxRBpYTu21pr
-C/8BAAAALgAAAEgAZQBhAGQAZQByAEIAbwBkAHkARgByAGEAZwBtAGUAbgB0AEwAaQBzAHQAAAAA
-AAEAAAAiAAAAAQAKAAAABAAAAAAAAAAUAAAAAAAAAAAAAAD/////AAAAAAAACwAAgBOP8kH0gxRB
-pYTu21prC/8BAAAAHAAAAEgAYQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQAAAAAAAAACwAAgBOP8kH0
-gxRBpYTu21prC/8BAAAAKAAAAEkAcwBRAHUAbwB0AGUAZABUAGUAeAB0AEMAaABhAG4AZwBlAGQA
-AAAAAAAAQAAHMLKltG67fdUBAgELAAEAAAAQAAAAR00zWJZehEKPtD1VSi9wdQMAJgAAAAAACwAG
-DAAAAAACARAwAQAAAEYAAAAAAAAAVYdzBydTnEqtzhI+Jf9FjgcAEDF6tDMDukiE16+cLrz/QAAA
-AMqzOwAAS3UcvFPS1UaMdMmV6iXaYwAAAAEtyQAAAAACARMwAQAAABAAAADUMwbCSplOuY9zjTrx
-GnrJAgEUMAEAAAAMAAAAyQAAAGNMK5BJAAAAHwD4PwEAAAAcAAAAUwBoAHUAbQBpAG4AZwAgAFsA
-A4P4ZpiSXQAAAB8AIkABAAAABgAAAEUAWAAAAAAAHwAjQAEAAAC2AAAALwBPAD0AUgBUAEUAWABD
-AEgALwBPAFUAPQBFAFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUA
-IABHAFIATwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBS
-AEUAQwBJAFAASQBFAE4AVABTAC8AQwBOAD0AVQBTAEUAUgBDADkARQAzADcANAA5ADYAAAAAAB8A
-JEABAAAABgAAAEUAWAAAAAAAHwAlQAEAAAC2AAAALwBPAD0AUgBUAEUAWABDAEgALwBPAFUAPQBF
-AFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIATwBVAFAA
-IAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJAFAASQBF
-AE4AVABTAC8AQwBOAD0AVQBTAEUAUgBDADkARQAzADcANAA5ADYAAAAAAB8AMEABAAAAHAAAAFMA
-aAB1AG0AaQBuAGcAIABbAAOD+GaYkl0AAAAfADFAAQAAABwAAABTAGgAdQBtAGkAbgBnACAAWwAD
-g/hmmJJdAAAAHwA4QAEAAAAcAAAAUwBoAHUAbQBpAG4AZwAgAFsAA4P4ZpiSXQAAAB8AOUABAAAA
-HAAAAFMAaAB1AG0AaQBuAGcAIABbAAOD+GaYkl0AAAADAFlAAAAAAAMAWkAAAAAAAwAJWQEAAAAf
-AApdAQAAACoAAABzAGgAdQBtAGkAbgBnAGYAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8A
-C10BAAAAKgAAAHMAaAB1AG0AaQBuAGcAZgBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAAAAHwAA
-gB+k6zOoei5Cvnt54amOVLMBAAAAOAAAAEMAbwBuAHYAZQByAHMAYQB0AGkAbwBuAEkAbgBkAGUA
-eABUAHIAYQBjAGsAaQBuAGcARQB4AAAAAQAAACQBAABJAEkAPQBbAEMASQBEAD0AYwAyADAANgAz
-ADMAZAA0AC0AOQA5ADQAYQAtAGIAOQA0AGUALQA4AGYANwAzAC0AOABkADMAYQBmADEAMQBhADcA
-YQBjADkAOwBJAEQAWABIAEUAQQBEAD0ARAA1ADcARABCAEIANgBFAEEAOQA7AEkARABYAEMATwBV
-AE4AVAA9ADEAXQA7AFAAUwA9AFUAbgBrAG4AbwB3AG4AOwBWAGUAcgBzAGkAbwBuAD0AVgBlAHIA
-cwBpAG8AbgAgADEANQAuADEAIAAoAEIAdQBpAGwAZAAgADEANwA3ADkALgAwACkALAAgAFMAdABh
-AGcAZQA9AEgANAA7AFUAUAA9ADEAMAA7AEQAUAA9ADEAQwA1AAAACwAAgAggBgAAAAAAwAAAAAAA
-AEYAAAAAgoUAAAAAAAADAA00/T8AAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACAAAAB4AC0AbQBz
-AC0AaABhAHMALQBhAHQAdABhAGMAaAAAAAEAAAACAAAAAAAAAB8AAICGAwIAAAAAAMAAAAAAAABG
-AQAAACIAAAB4AC0AbwByAGkAZwBpAG4AYQB0AGkAbgBnAC0AaQBwAAAAAAABAAAAIgAAAFsAMQA3
-ADIALgAyADIALgAxADAAMgAuADEAMAA1AF0AAAAAAMGg
+    /* Read calibration data from VPD. */
+    ret = vpd_attribute_read(1, DSM_CALIB_KEY,
+                            (u8 **)&data, &value_len);
 
---_000_8f933cee57fc4420875e1e2ba14f1937realtekcom_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+    /* Parsing of this string...*/
+}
+
+
+Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+---
+Change from v1 to v2:
+- Use kmemdup to copy data.
+- Set value_len according to bin_attr.size.
+- Check return value of kmemdup.
+- Rename the function to vpd_attribute_read.
+- Add docstrings for the function.
+- Returns -ENOENT when the key is not found.
+- Use EXPORT_SYMBOL_GPL.
+
+Note:
+
+The user of this API is in ASoC machine driver cml_rt1011_rt5682.
+It is pending on the initial machine driver change
+
+https://patchwork.kernel.org/patch/11161145/
+
+and the codec driver change to provide API to do calibration.
+
+https://patchwork.kernel.org/patch/11179237/
+
+The draft patch of machine driver change which uses this API is at
+
+https://chromium-review.googlesource.com/c/chromiumos/third_party/kernel/+/1838091
+
+
+
+ drivers/firmware/google/vpd.c              | 31 ++++++++++++++++++++++
+ include/linux/firmware/google/google_vpd.h | 18 +++++++++++++
+ 2 files changed, 49 insertions(+)
+ create mode 100644 include/linux/firmware/google/google_vpd.h
+
+diff --git a/drivers/firmware/google/vpd.c b/drivers/firmware/google/vpd.c
+index db0812263d46..c2be0e756402 100644
+--- a/drivers/firmware/google/vpd.c
++++ b/drivers/firmware/google/vpd.c
+@@ -65,6 +65,37 @@ static ssize_t vpd_attrib_read(struct file *filp, struct kobject *kobp,
+ 				       info->bin_attr.size);
+ }
+ 
++/**
++ *	vpd_attribute_read - Read VPD value for a key.
++ *	@ro: True for RO section. False for RW section.
++ *	@key: A string for key.
++ *	@value: Where to write the VPD value on success. The caller
++ *	        must free the memory.
++ *	@value_len: The length of value in bytes.
++ *
++ *	Returns 0 on success, -ENOENT when the key is not found, and
++ *	-ENOMEM when failed to allocate memory for value.
++ */
++int vpd_attribute_read(bool ro, const char *key,
++		       u8 **value, u32 *value_len)
++{
++	struct vpd_attrib_info *info;
++	struct vpd_section *sec = ro ? &ro_vpd : &rw_vpd;
++
++	list_for_each_entry(info, &sec->attribs, list) {
++		if (strcmp(info->key, key) == 0) {
++			*value = kmemdup(info->value, info->bin_attr.size,
++					 GFP_KERNEL);
++			if (!*value)
++				return -ENOMEM;
++			*value_len = info->bin_attr.size;
++			return 0;
++		}
++	}
++	return -ENOENT;
++}
++EXPORT_SYMBOL_GPL(vpd_attribute_read);
++
+ /*
+  * vpd_section_check_key_name()
+  *
+diff --git a/include/linux/firmware/google/google_vpd.h b/include/linux/firmware/google/google_vpd.h
+new file mode 100644
+index 000000000000..4364eaa4e1e3
+--- /dev/null
++++ b/include/linux/firmware/google/google_vpd.h
+@@ -0,0 +1,18 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Google VPD interface.
++ *
++ * Copyright 2019 Google Inc.
++ */
++
++/* Interface for reading VPD value on Chrome platform. */
++
++#ifndef __GOOGLE_VPD_H
++#define __GOOGLE_VPD_H
++
++#include <linux/types.h>
++
++int vpd_attribute_read(bool ro, const char *key,
++		       u8 **value, u32 *value_len);
++
++#endif  /* __GOOGLE_VPD_H */
+-- 
+2.23.0.581.g78d2f28ef7-goog
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---_000_8f933cee57fc4420875e1e2ba14f1937realtekcom_--

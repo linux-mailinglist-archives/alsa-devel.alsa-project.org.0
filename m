@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93510CFADF
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:03:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1482ECFAD7
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:02:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 26C4A166C;
-	Tue,  8 Oct 2019 15:02:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26C4A166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A1A84167D;
+	Tue,  8 Oct 2019 15:02:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1A84167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570539818;
-	bh=JBWm/HSInQYjJDSjnJwWdRQSAIJ3gbTHbnqoDBD9UN4=;
+	s=default; t=1570539772;
+	bh=rtzgwSSxr4Gaxu4DfdJ83ejUl3tWvejHPlCK6sGazVQ=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=pTxBXymyhJiiWJQWYJebHPlTjQXye0solb1O55GGs+qH+Z9AHDAOvp8Oo7Z7U2NWH
-	 3N5vIWDZUxCd6LjlHsEzCU4G8mrCpovMDP10aCe2Ol3wWy9DgUtaHYFtRm24Cu/ZuM
-	 4wCTK0nrppVkfOaDx0PLMtByYIKb1Bp0DFcZxwmE=
+	b=u0xEddQG4rbtIfxGEpWYcfSkSAUBIOnwU5mXah/UMV0hMFoIFtKSkS9yVkYrSa23o
+	 GQq/AwKWCNelpw6EvwB210It9ZZRT2Wn/3t4DKKKKpwnKBbAlINNrWgH0yZYni/GCt
+	 Iw366hjZLLmRTW2Ki9DcL7s2hRSTgXnv0QWJFysI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 19F70F80759;
-	Tue,  8 Oct 2019 14:54:05 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2F91F80746;
+	Tue,  8 Oct 2019 14:54:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 15075F806E9; Tue,  8 Oct 2019 14:53:45 +0200 (CEST)
+ id C8C2CF8068A; Tue,  8 Oct 2019 14:53:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 433DDF8059F
- for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 433DDF8059F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E219F80322
+ for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E219F80322
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="qXzj0ZZt"
+ header.b="rPcJJUx3"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Zc566HcLCLWCypL0YrFoKQT/cG67w9tUNgam/vrW0f8=; b=qXzj0ZZt0u5m
- /8XMO/8TSLlOL6tvJ3Zkz82YVYLOgaEpQqAvaf7PnPuW2orYsMlbzI3TdjPAFrA1XF7fMIYSNtser
- zaDWUCkKvpsYS8AttAT+35CSdU5ghla4zKswu3kJmf0AuHDcpYj5F3HKPwm212j8U3MekH/ZZ1wE0
- 3oBL0=;
+ List-Archive; bh=m1tVcyK82gakXH0sVmKtLvrwu/aXBpvq1f4wW4IcEoE=; b=rPcJJUx3EvvW
+ ZtCHtFD7Oq9cpFAd2tIEQC/hM0anTjxKVKAqHgdwz1+vuVFZrrfkWmuieMkCKKD7//HM6Of2880Bo
+ Ltg1gVCCrJBDu5bkSS8RpBTUY3+5gD7GA8bbuSiv3cUHFTkW2qW3z+6rEOWllmyYgGIWTRu1aOj3l
+ uaIIU=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHozW-0008MN-Kw; Tue, 08 Oct 2019 12:53:26 +0000
+ id 1iHozX-0008Mu-TQ; Tue, 08 Oct 2019 12:53:28 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 2A6E02740D48; Tue,  8 Oct 2019 13:53:26 +0100 (BST)
+ id 6262F2740D4B; Tue,  8 Oct 2019 13:53:27 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87d0ff90d6.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87k19n90du.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191008125326.2A6E02740D48@ypsilon.sirena.org.uk>
-Date: Tue,  8 Oct 2019 13:53:26 +0100 (BST)
+Message-Id: <20191008125327.6262F2740D4B@ypsilon.sirena.org.uk>
+Date: Tue,  8 Oct 2019 13:53:27 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: fsl: imx-pcm-fiq: remove snd_pcm_ops"
-	to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: mediatek: remove snd_pcm_ops" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl: imx-pcm-fiq: remove snd_pcm_ops
+   ASoC: mediatek: remove snd_pcm_ops
 
 has been applied to the asoc tree at
 
@@ -112,158 +112,161 @@ to this mail.
 Thanks,
 Mark
 
-From 2adc3fcc4a1f50e614cff67d8de5dcbb4a3b553d Mon Sep 17 00:00:00 2001
+From 1fddf424b3c49a475ca7c23662f515b53f884172 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 2 Oct 2019 14:34:29 +0900
-Subject: [PATCH] ASoC: fsl: imx-pcm-fiq: remove snd_pcm_ops
+Date: Wed, 2 Oct 2019 14:34:05 +0900
+Subject: [PATCH] ASoC: mediatek: remove snd_pcm_ops
 
 snd_pcm_ops is no longer needed.
 Let's use component driver callback.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87d0ff90d6.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87k19n90du.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/imx-pcm-fiq.c | 56 ++++++++++++++++++++-----------------
- 1 file changed, 31 insertions(+), 25 deletions(-)
+ .../mediatek/common/mtk-afe-platform-driver.c | 28 ++++++++-----------
+ .../mediatek/common/mtk-afe-platform-driver.h | 10 ++++---
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c    | 11 ++++----
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c    | 11 ++++----
+ 4 files changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/sound/soc/fsl/imx-pcm-fiq.c b/sound/soc/fsl/imx-pcm-fiq.c
-index c49aea4fba56..08131d147983 100644
---- a/sound/soc/fsl/imx-pcm-fiq.c
-+++ b/sound/soc/fsl/imx-pcm-fiq.c
-@@ -69,8 +69,9 @@ static struct fiq_handler fh = {
- 	.name		= DRV_NAME,
- };
- 
--static int snd_imx_pcm_hw_params(struct snd_pcm_substream *substream,
--				struct snd_pcm_hw_params *params)
-+static int snd_imx_pcm_hw_params(struct snd_soc_component *component,
-+				 struct snd_pcm_substream *substream,
-+				 struct snd_pcm_hw_params *params)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct imx_pcm_runtime_data *iprtd = runtime->private_data;
-@@ -85,7 +86,8 @@ static int snd_imx_pcm_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
+diff --git a/sound/soc/mediatek/common/mtk-afe-platform-driver.c b/sound/soc/mediatek/common/mtk-afe-platform-driver.c
+index 3ce527ce30ce..b6624d8d084b 100644
+--- a/sound/soc/mediatek/common/mtk-afe-platform-driver.c
++++ b/sound/soc/mediatek/common/mtk-afe-platform-driver.c
+@@ -77,11 +77,10 @@ int mtk_afe_add_sub_dai_control(struct snd_soc_component *component)
  }
+ EXPORT_SYMBOL_GPL(mtk_afe_add_sub_dai_control);
  
--static int snd_imx_pcm_prepare(struct snd_pcm_substream *substream)
-+static int snd_imx_pcm_prepare(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream)
+-static snd_pcm_uframes_t mtk_afe_pcm_pointer
+-			 (struct snd_pcm_substream *substream)
++snd_pcm_uframes_t mtk_afe_pcm_pointer(struct snd_soc_component *component,
++				      struct snd_pcm_substream *substream)
  {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct imx_pcm_runtime_data *iprtd = runtime->private_data;
-@@ -104,7 +106,8 @@ static int snd_imx_pcm_prepare(struct snd_pcm_substream *substream)
- 
- static int imx_pcm_fiq;
- 
--static int snd_imx_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
-+static int snd_imx_pcm_trigger(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream, int cmd)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct imx_pcm_runtime_data *iprtd = runtime->private_data;
-@@ -141,7 +144,9 @@ static int snd_imx_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
- 	return 0;
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
+ 	struct mtk_base_afe_memif *memif = &afe->memif[rtd->cpu_dai->id];
+ 	const struct mtk_base_memif_data *memif_data = memif->data;
+@@ -111,18 +110,13 @@ static snd_pcm_uframes_t mtk_afe_pcm_pointer
+ POINTER_RETURN_FRAMES:
+ 	return bytes_to_frames(substream->runtime, pcm_ptr_bytes);
  }
++EXPORT_SYMBOL_GPL(mtk_afe_pcm_pointer);
  
--static snd_pcm_uframes_t snd_imx_pcm_pointer(struct snd_pcm_substream *substream)
-+static snd_pcm_uframes_t
-+snd_imx_pcm_pointer(struct snd_soc_component *component,
-+		    struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct imx_pcm_runtime_data *iprtd = runtime->private_data;
-@@ -165,7 +170,8 @@ static const struct snd_pcm_hardware snd_imx_hardware = {
- 	.fifo_size = 0,
- };
- 
--static int snd_imx_open(struct snd_pcm_substream *substream)
-+static int snd_imx_open(struct snd_soc_component *component,
-+			struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct imx_pcm_runtime_data *iprtd;
-@@ -194,7 +200,8 @@ static int snd_imx_open(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int snd_imx_close(struct snd_pcm_substream *substream)
-+static int snd_imx_close(struct snd_soc_component *component,
-+			 struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct imx_pcm_runtime_data *iprtd = runtime->private_data;
-@@ -206,8 +213,9 @@ static int snd_imx_close(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int snd_imx_pcm_mmap(struct snd_pcm_substream *substream,
--		struct vm_area_struct *vma)
-+static int snd_imx_pcm_mmap(struct snd_soc_component *component,
-+			    struct snd_pcm_substream *substream,
-+			    struct vm_area_struct *vma)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	int ret;
-@@ -222,17 +230,6 @@ static int snd_imx_pcm_mmap(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
--static const struct snd_pcm_ops imx_pcm_ops = {
--	.open		= snd_imx_open,
--	.close		= snd_imx_close,
--	.ioctl		= snd_pcm_lib_ioctl,
--	.hw_params	= snd_imx_pcm_hw_params,
--	.prepare	= snd_imx_pcm_prepare,
--	.trigger	= snd_imx_pcm_trigger,
--	.pointer	= snd_imx_pcm_pointer,
--	.mmap		= snd_imx_pcm_mmap,
+-const struct snd_pcm_ops mtk_afe_pcm_ops = {
+-	.ioctl = snd_pcm_lib_ioctl,
+-	.pointer = mtk_afe_pcm_pointer,
 -};
+-EXPORT_SYMBOL_GPL(mtk_afe_pcm_ops);
 -
- static int imx_pcm_preallocate_dma_buffer(struct snd_pcm *pcm, int stream)
+-int mtk_afe_pcm_new(struct snd_soc_pcm_runtime *rtd)
++int mtk_afe_pcm_new(struct snd_soc_component *component,
++		    struct snd_soc_pcm_runtime *rtd)
  {
- 	struct snd_pcm_substream *substream = pcm->streams[stream].substream;
-@@ -279,7 +276,8 @@ static int imx_pcm_new(struct snd_soc_pcm_runtime *rtd)
- 
- static int ssi_irq;
- 
--static int imx_pcm_fiq_new(struct snd_soc_pcm_runtime *rtd)
-+static int snd_imx_pcm_new(struct snd_soc_component *component,
-+			   struct snd_soc_pcm_runtime *rtd)
- {
+ 	size_t size;
  	struct snd_pcm *pcm = rtd->pcm;
- 	struct snd_pcm_substream *substream;
-@@ -329,7 +327,8 @@ static void imx_pcm_free(struct snd_pcm *pcm)
- 	}
- }
+-	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, AFE_PCM_NAME);
+ 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(component);
  
--static void imx_pcm_fiq_free(struct snd_pcm *pcm)
-+static void snd_imx_pcm_free(struct snd_soc_component *component,
-+			     struct snd_pcm *pcm)
+ 	size = afe->mtk_afe_hardware->buffer_bytes_max;
+@@ -132,17 +126,19 @@ int mtk_afe_pcm_new(struct snd_soc_pcm_runtime *rtd)
+ }
+ EXPORT_SYMBOL_GPL(mtk_afe_pcm_new);
+ 
+-void mtk_afe_pcm_free(struct snd_pcm *pcm)
++void mtk_afe_pcm_free(struct snd_soc_component *component,
++		      struct snd_pcm *pcm)
  {
- 	mxc_set_irq_fiq(ssi_irq, 0);
- 	release_fiq(&fh);
-@@ -337,9 +336,16 @@ static void imx_pcm_fiq_free(struct snd_pcm *pcm)
+ 	snd_pcm_lib_preallocate_free_for_all(pcm);
+ }
+ EXPORT_SYMBOL_GPL(mtk_afe_pcm_free);
+ 
+ const struct snd_soc_component_driver mtk_afe_pcm_platform = {
+-	.name = AFE_PCM_NAME,
+-	.ops = &mtk_afe_pcm_ops,
+-	.pcm_new = mtk_afe_pcm_new,
+-	.pcm_free = mtk_afe_pcm_free,
++	.name		= AFE_PCM_NAME,
++	.ioctl		= snd_soc_pcm_lib_ioctl,
++	.pointer	= mtk_afe_pcm_pointer,
++	.pcm_construct	= mtk_afe_pcm_new,
++	.pcm_destruct	= mtk_afe_pcm_free,
+ };
+ EXPORT_SYMBOL_GPL(mtk_afe_pcm_platform);
+ 
+diff --git a/sound/soc/mediatek/common/mtk-afe-platform-driver.h b/sound/soc/mediatek/common/mtk-afe-platform-driver.h
+index 88df6797732f..e550d11568c3 100644
+--- a/sound/soc/mediatek/common/mtk-afe-platform-driver.h
++++ b/sound/soc/mediatek/common/mtk-afe-platform-driver.h
+@@ -10,7 +10,6 @@
+ #define _MTK_AFE_PLATFORM_DRIVER_H_
+ 
+ #define AFE_PCM_NAME "mtk-afe-pcm"
+-extern const struct snd_pcm_ops mtk_afe_pcm_ops;
+ extern const struct snd_soc_component_driver mtk_afe_pcm_platform;
+ 
+ struct mtk_base_afe;
+@@ -18,9 +17,12 @@ struct snd_pcm;
+ struct snd_soc_component;
+ struct snd_soc_pcm_runtime;
+ 
+-
+-int mtk_afe_pcm_new(struct snd_soc_pcm_runtime *rtd);
+-void mtk_afe_pcm_free(struct snd_pcm *pcm);
++snd_pcm_uframes_t mtk_afe_pcm_pointer(struct snd_soc_component *component,
++				      struct snd_pcm_substream *substream);
++int mtk_afe_pcm_new(struct snd_soc_component *component,
++		    struct snd_soc_pcm_runtime *rtd);
++void mtk_afe_pcm_free(struct snd_soc_component *component,
++		      struct snd_pcm *pcm);
+ 
+ int mtk_afe_combine_sub_dai(struct mtk_base_afe *afe);
+ int mtk_afe_add_sub_dai_control(struct snd_soc_component *component);
+diff --git a/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c b/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
+index e52c032d53aa..033c07fb599c 100644
+--- a/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
++++ b/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
+@@ -710,11 +710,12 @@ static int mt6797_afe_component_probe(struct snd_soc_component *component)
  }
  
- static const struct snd_soc_component_driver imx_soc_component_fiq = {
--	.ops		= &imx_pcm_ops,
--	.pcm_new	= imx_pcm_fiq_new,
--	.pcm_free	= imx_pcm_fiq_free,
-+	.open		= snd_imx_open,
-+	.close		= snd_imx_close,
+ static const struct snd_soc_component_driver mt6797_afe_component = {
+-	.name = AFE_PCM_NAME,
+-	.ops = &mtk_afe_pcm_ops,
+-	.pcm_new = mtk_afe_pcm_new,
+-	.pcm_free = mtk_afe_pcm_free,
+-	.probe = mt6797_afe_component_probe,
++	.name		= AFE_PCM_NAME,
++	.probe		= mt6797_afe_component_probe,
 +	.ioctl		= snd_soc_pcm_lib_ioctl,
-+	.hw_params	= snd_imx_pcm_hw_params,
-+	.prepare	= snd_imx_pcm_prepare,
-+	.trigger	= snd_imx_pcm_trigger,
-+	.pointer	= snd_imx_pcm_pointer,
-+	.mmap		= snd_imx_pcm_mmap,
-+	.pcm_construct	= snd_imx_pcm_new,
-+	.pcm_destruct	= snd_imx_pcm_free,
++	.pointer	= mtk_afe_pcm_pointer,
++	.pcm_construct	= mtk_afe_pcm_new,
++	.pcm_destruct	= mtk_afe_pcm_free,
  };
  
- int imx_pcm_fiq_init(struct platform_device *pdev,
+ static int mt6797_dai_memif_register(struct mtk_base_afe *afe)
+diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+index 721632386a50..76af09d8f1af 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
++++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+@@ -1048,11 +1048,12 @@ static int mt8183_afe_component_probe(struct snd_soc_component *component)
+ }
+ 
+ static const struct snd_soc_component_driver mt8183_afe_component = {
+-	.name = AFE_PCM_NAME,
+-	.ops = &mtk_afe_pcm_ops,
+-	.pcm_new = mtk_afe_pcm_new,
+-	.pcm_free = mtk_afe_pcm_free,
+-	.probe = mt8183_afe_component_probe,
++	.name		= AFE_PCM_NAME,
++	.probe		= mt8183_afe_component_probe,
++	.ioctl		= snd_soc_pcm_lib_ioctl,
++	.pointer	= mtk_afe_pcm_pointer,
++	.pcm_construct	= mtk_afe_pcm_new,
++	.pcm_destruct	= mtk_afe_pcm_free,
+ };
+ 
+ static int mt8183_dai_memif_register(struct mtk_base_afe *afe)
 -- 
 2.20.1
 

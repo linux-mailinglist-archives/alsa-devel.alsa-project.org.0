@@ -2,70 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC8D0CFB2A
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:19:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F746CFB2D
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:20:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EA3E1691;
-	Tue,  8 Oct 2019 15:19:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EA3E1691
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9EC61696;
+	Tue,  8 Oct 2019 15:19:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9EC61696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570540799;
-	bh=ukOO20GGOA3SYZ2Q+81pr9pvIaditfeoziF+1xdnTRk=;
+	s=default; t=1570540836;
+	bh=xLIfep4USvoUHFu0afqyPsKzrIUNLfxAroYJZcjfS78=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=EjshCo6t5ntJ9Zx3c2aThhMvrAkFp28RBhaQhZ0Y8VlkQEdrYzvJsLmy+9GtFzIxF
-	 iK+IYZRRywIz3oOz2H5Nq6j3Us4TPh9/RmHZqFqH5C1hhy8IeBF+JzKOg2o1GzesNl
-	 DpqxB2kVbdzZrB5VkNrTzyGAvCc0YozQ8LVyfE0M=
+	b=BMYTfFP3rScDtPiHy/Wzq0wlxLeQiSPPzzhKh8nX92naUifLhjg50w/PTsnsRMUQ2
+	 CKTDjs42gDsGxqcclZ5+tP5pKpXKFVyWMLz+tjqiinpZbvmHDJEhZUMVFEnp/VHjUj
+	 c18dnsDb9iIqi6amciIP30/QyIAPbbHgIuJ5XAyQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F718F8961D;
-	Tue,  8 Oct 2019 14:54:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA8DBF89626;
+	Tue,  8 Oct 2019 14:54:44 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 733F2F80797; Tue,  8 Oct 2019 14:54:17 +0200 (CEST)
+ id 64AA5F80797; Tue,  8 Oct 2019 14:54:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42815F8065D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78678F800BF
  for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42815F8065D
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78678F800BF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="c4ws42UY"
+ header.b="AH1XE+7v"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=2ZtHyFpSilZK8LAkRzbw8lnhFW5BBkmHWOUt7GKQGCg=; b=c4ws42UYLDHl
- EmyeUXBf80tScYTrNWzSjOHBZJ7r17NjnJcNFjyleAKU0RbWMq2LfmQzpswXcjkqbULFA21jY1Mga
- D3hzzzZ6hZwxkYjTot5N/he+8QinREoYCTZXf0iR/ZTu2PKKYoI9J7dJ0ga8t8LKQYzTp99MhHE7b
- LX51I=;
+ List-Archive; bh=URqKzeEmWOcCNjkN9I1aw1JlNE3kX7DXdBciof+oso0=; b=AH1XE+7vWemW
+ 8XcMdq9xl6EfRpK+f9Om9bs/Xrdus9AGI29NCi64g92ZEnFQjJ7WA3lszo3A1RCKWLb2lkAnS2Fzp
+ l/V280qk5f7XWIw69hg9lCeVi5L/ESD73bbVrZ238QFKDfigucrkRyG1gnbYVmbxW2ov2L2GtZVyG
+ 5rDEg=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHozd-0008PI-SS; Tue, 08 Oct 2019 12:53:33 +0000
+ id 1iHoze-0008PQ-4k; Tue, 08 Oct 2019 12:53:34 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 5B0CA2740D48; Tue,  8 Oct 2019 13:53:33 +0100 (BST)
+ id 963862740D4A; Tue,  8 Oct 2019 13:53:33 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87lfu3af24.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87muejaf2a.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191008125333.5B0CA2740D48@ypsilon.sirena.org.uk>
+Message-Id: <20191008125333.963862740D4A@ypsilon.sirena.org.uk>
 Date: Tue,  8 Oct 2019 13:53:33 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: intel: sst-baytrail-pcm: remove
+Subject: [alsa-devel] Applied "ASoC: intel: sst-mfld-platform-pcm: remove
 	snd_pcm_ops" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: intel: sst-baytrail-pcm: remove snd_pcm_ops
+   ASoC: intel: sst-mfld-platform-pcm: remove snd_pcm_ops
 
 has been applied to the asoc tree at
 
@@ -112,155 +112,97 @@ to this mail.
 Thanks,
 Mark
 
-From bb3613515e96d02f665190091e7a0209d7985f8b Mon Sep 17 00:00:00 2001
+From 9b9974d3d5d732a3897c9fa08f43aff65f917738 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 2 Oct 2019 14:31:47 +0900
-Subject: [PATCH] ASoC: intel: sst-baytrail-pcm: remove snd_pcm_ops
+Date: Wed, 2 Oct 2019 14:31:41 +0900
+Subject: [PATCH] ASoC: intel: sst-mfld-platform-pcm: remove snd_pcm_ops
 
 snd_pcm_ops is no longer needed.
 Let's use component driver callback.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87lfu3af24.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87muejaf2a.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/baytrail/sst-baytrail-pcm.c | 52 ++++++++++-----------
- 1 file changed, 25 insertions(+), 27 deletions(-)
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c | 30 +++++++++-----------
+ 1 file changed, 14 insertions(+), 16 deletions(-)
 
-diff --git a/sound/soc/intel/baytrail/sst-baytrail-pcm.c b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-index 54f2ee3010ee..1d780fcc448c 100644
---- a/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-+++ b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-@@ -58,11 +58,11 @@ struct sst_byt_priv_data {
+diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+index 8cc3cc363eb0..47e3d1943d7e 100644
+--- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
++++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
+@@ -586,7 +586,8 @@ static struct snd_soc_dai_driver sst_platform_dai[] = {
+ },
  };
  
- /* this may get called several times by oss emulation */
--static int sst_byt_pcm_hw_params(struct snd_pcm_substream *substream,
-+static int sst_byt_pcm_hw_params(struct snd_soc_component *component,
-+				 struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *params)
+-static int sst_platform_open(struct snd_pcm_substream *substream)
++static int sst_soc_open(struct snd_soc_component *component,
++			struct snd_pcm_substream *substream)
  {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
- 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
- 	struct sst_byt *byt = pdata->byt;
-@@ -121,7 +121,8 @@ static int sst_byt_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_runtime *runtime;
+ 
+@@ -598,15 +599,15 @@ static int sst_platform_open(struct snd_pcm_substream *substream)
  	return 0;
  }
  
--static int sst_byt_pcm_hw_free(struct snd_pcm_substream *substream)
-+static int sst_byt_pcm_hw_free(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream)
+-static int sst_platform_pcm_trigger(struct snd_pcm_substream *substream,
+-					int cmd)
++static int sst_soc_trigger(struct snd_soc_component *component,
++			   struct snd_pcm_substream *substream, int cmd)
  {
+ 	int ret_val = 0, str_id;
+ 	struct sst_runtime_stream *stream;
+ 	int status;
  	struct snd_soc_pcm_runtime *rtd = substream->private_data;
  
-@@ -164,10 +165,10 @@ static void sst_byt_pcm_work(struct work_struct *work)
- 		sst_byt_pcm_restore_stream_context(pcm_data->substream);
+-	dev_dbg(rtd->dev, "sst_platform_pcm_trigger called\n");
++	dev_dbg(rtd->dev, "%s called\n", __func__);
+ 	if (substream->pcm->internal)
+ 		return 0;
+ 	stream = substream->runtime->private_data;
+@@ -646,8 +647,8 @@ static int sst_platform_pcm_trigger(struct snd_pcm_substream *substream,
  }
  
--static int sst_byt_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
-+static int sst_byt_pcm_trigger(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream, int cmd)
+ 
+-static snd_pcm_uframes_t sst_platform_pcm_pointer
+-			(struct snd_pcm_substream *substream)
++static snd_pcm_uframes_t sst_soc_pointer(struct snd_soc_component *component,
++					 struct snd_pcm_substream *substream)
  {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
- 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
- 	struct sst_byt *byt = pdata->byt;
-@@ -228,11 +229,11 @@ static u32 byt_notify_pointer(struct sst_byt_stream *stream, void *data)
- 	return pos;
+ 	struct sst_runtime_stream *stream;
+ 	int ret_val, status;
+@@ -668,14 +669,8 @@ static snd_pcm_uframes_t sst_platform_pcm_pointer
+ 	return str_info->buffer_ptr;
  }
  
--static snd_pcm_uframes_t sst_byt_pcm_pointer(struct snd_pcm_substream *substream)
-+static snd_pcm_uframes_t sst_byt_pcm_pointer(struct snd_soc_component *component,
-+					     struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
- 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
- 
-@@ -241,10 +242,10 @@ static snd_pcm_uframes_t sst_byt_pcm_pointer(struct snd_pcm_substream *substream
- 	return bytes_to_frames(runtime, pcm_data->hw_ptr);
- }
- 
--static int sst_byt_pcm_open(struct snd_pcm_substream *substream)
-+static int sst_byt_pcm_open(struct snd_soc_component *component,
-+			    struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
- 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
- 	struct sst_byt *byt = pdata->byt;
-@@ -269,10 +270,10 @@ static int sst_byt_pcm_open(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int sst_byt_pcm_close(struct snd_pcm_substream *substream)
-+static int sst_byt_pcm_close(struct snd_soc_component *component,
-+			     struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct sst_byt_priv_data *pdata = snd_soc_component_get_drvdata(component);
- 	struct sst_byt_pcm_data *pcm_data = &pdata->pcm[substream->stream];
- 	struct sst_byt *byt = pdata->byt;
-@@ -294,7 +295,8 @@ static int sst_byt_pcm_close(struct snd_pcm_substream *substream)
- 	return ret;
- }
- 
--static int sst_byt_pcm_mmap(struct snd_pcm_substream *substream,
-+static int sst_byt_pcm_mmap(struct snd_soc_component *component,
-+			    struct snd_pcm_substream *substream,
- 			    struct vm_area_struct *vma)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-@@ -303,22 +305,11 @@ static int sst_byt_pcm_mmap(struct snd_pcm_substream *substream,
- 	return snd_pcm_lib_default_mmap(substream, vma);
- }
- 
--static const struct snd_pcm_ops sst_byt_pcm_ops = {
--	.open		= sst_byt_pcm_open,
--	.close		= sst_byt_pcm_close,
--	.ioctl		= snd_pcm_lib_ioctl,
--	.hw_params	= sst_byt_pcm_hw_params,
--	.hw_free	= sst_byt_pcm_hw_free,
--	.trigger	= sst_byt_pcm_trigger,
--	.pointer	= sst_byt_pcm_pointer,
--	.mmap		= sst_byt_pcm_mmap,
+-static const struct snd_pcm_ops sst_platform_ops = {
+-	.open = sst_platform_open,
+-	.ioctl = snd_pcm_lib_ioctl,
+-	.trigger = sst_platform_pcm_trigger,
+-	.pointer = sst_platform_pcm_pointer,
 -};
 -
--static int sst_byt_pcm_new(struct snd_soc_pcm_runtime *rtd)
-+static int sst_byt_pcm_new(struct snd_soc_component *component,
+-static int sst_pcm_new(struct snd_soc_pcm_runtime *rtd)
++static int sst_soc_pcm_new(struct snd_soc_component *component,
 +			   struct snd_soc_pcm_runtime *rtd)
  {
+ 	struct snd_soc_dai *dai = rtd->cpu_dai;
  	struct snd_pcm *pcm = rtd->pcm;
- 	size_t size;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct sst_pdata *pdata = dev_get_platdata(component->dev);
- 
- 	if (pcm->streams[SNDRV_PCM_STREAM_PLAYBACK].substream ||
-@@ -380,8 +371,15 @@ static int sst_byt_pcm_probe(struct snd_soc_component *component)
- static const struct snd_soc_component_driver byt_dai_component = {
+@@ -709,9 +704,12 @@ static const struct snd_soc_component_driver sst_soc_platform_drv  = {
  	.name		= DRV_NAME,
- 	.probe		= sst_byt_pcm_probe,
--	.ops		= &sst_byt_pcm_ops,
--	.pcm_new	= sst_byt_pcm_new,
-+	.open		= sst_byt_pcm_open,
-+	.close		= sst_byt_pcm_close,
+ 	.probe		= sst_soc_probe,
+ 	.remove		= sst_soc_remove,
+-	.ops		= &sst_platform_ops,
++	.open		= sst_soc_open,
 +	.ioctl		= snd_soc_pcm_lib_ioctl,
-+	.hw_params	= sst_byt_pcm_hw_params,
-+	.hw_free	= sst_byt_pcm_hw_free,
-+	.trigger	= sst_byt_pcm_trigger,
-+	.pointer	= sst_byt_pcm_pointer,
-+	.mmap		= sst_byt_pcm_mmap,
-+	.pcm_construct	= sst_byt_pcm_new,
++	.trigger	= sst_soc_trigger,
++	.pointer	= sst_soc_pointer,
+ 	.compr_ops	= &sst_platform_compr_ops,
+-	.pcm_new	= sst_pcm_new,
++	.pcm_construct	= sst_soc_pcm_new,
  };
  
- #ifdef CONFIG_PM
+ static int sst_platform_probe(struct platform_device *pdev)
 -- 
 2.20.1
 

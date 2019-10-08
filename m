@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72A54CFA8E
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 14:56:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFAFDCFAA9
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 14:57:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD6DE1616;
-	Tue,  8 Oct 2019 14:55:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD6DE1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 647C2823;
+	Tue,  8 Oct 2019 14:56:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 647C2823
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570539362;
-	bh=FYbkcgpuKrHp4A/FDOq9LA2pc3gfbjqxOQRNFNU/fJ8=;
+	s=default; t=1570539424;
+	bh=PuZJ3n8+jqSq65pfrn+ujBCH1oXDn3ePvEflVR5z6iw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=fyV/2JdtJA1y+TBsbl4DlLt+Oxc1eKBndOCxUe9nN1jd3MxLlWN+JiQaGcKj02dTJ
-	 rbJRxDQquVW5HfC0D38stc+E6GLPP4/iUTfztY7UVOrCb/ZwmeksknGfg3wwZdUHCm
-	 1XJhJIcDH09eR/VWSAlMrRqjugPWCooUCuwzKTr4=
+	b=ZS1BOmDpwHbgrq3wzVvsysFqjSP7gHcU1+F++ZkHYzSDEXsIBPYB9M9TQQJPi8+TS
+	 P50AwdFNQMkNDZsG50kgL3WhtykLY+6ue5sbyPg3LRzDG9/xKVrr6PPA6H8Ov1f0J6
+	 ew41r4/5U5xuNEEszTPr+agCbg5ogCY1fT7awtE4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6EA1EF80675;
-	Tue,  8 Oct 2019 14:53:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F9C3F80322;
+	Tue,  8 Oct 2019 14:53:43 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED215F8060D; Tue,  8 Oct 2019 14:53:29 +0200 (CEST)
+ id E42B0F8064C; Tue,  8 Oct 2019 14:53:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_76,SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 285AAF80135
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7560FF80447
  for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 285AAF80135
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7560FF80447
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ZV2hmTSd"
+ header.b="CRtrQi9v"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ewo5iu06OAf4rYtCITH+byYPpmkJT0waO5AZ/gRoIs8=; b=ZV2hmTSdZzFu
- xDjPrAlZbPodkkFrHL+c7s+Auah9T4Xu3Rm8O0YBp7MY9b4uxgiajwRU3ZvBU+dywHD7T9sE/SKWS
- wdWBfCYfeDsursi5HlAI7BFNzmXpSi5SDIuhAJCett/YuKorpaPnSGML6DszzX/DXIege8cNr84vE
- O9NEc=;
+ List-Archive; bh=CMlKsK681Gk41uEDQykIp5t0FABpyHU68H8h+d8/R7g=; b=CRtrQi9vTcSR
+ cHOwiMZXRDoN+gwLnScwk3Qkj93ZDIpM+XgpzuZOvZN3eFDmcF7OBInaE1Vh9GpMh00GM73y8MpEV
+ xvyUdnB7FcmfzapoqmyOlhKgGUmWuBfdnN/75g0pQL2GPXpeQjQfdORYvH7VAErwzUWn6zFfWGDYK
+ KhA8A=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHozV-0008Ly-4z; Tue, 08 Oct 2019 12:53:25 +0000
+ id 1iHozV-0008Lz-AN; Tue, 08 Oct 2019 12:53:25 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 924112740D48; Tue,  8 Oct 2019 13:53:24 +0100 (BST)
+ id C80662740D4A; Tue,  8 Oct 2019 13:53:24 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <8736gb90by.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <874l0r90c6.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191008125324.924112740D48@ypsilon.sirena.org.uk>
+Message-Id: <20191008125324.C80662740D4A@ypsilon.sirena.org.uk>
 Date: Tue,  8 Oct 2019 13:53:24 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-component: remove snd_pcm_ops from
-	component driver" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-utils: remove snd_pcm_ops" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: remove snd_pcm_ops from component driver
+   ASoC: soc-utils: remove snd_pcm_ops
 
 has been applied to the asoc tree at
 
@@ -112,242 +112,51 @@ to this mail.
 Thanks,
 Mark
 
-From e9067bb502787869dabe385727baff233024097b Mon Sep 17 00:00:00 2001
+From a49e460f847f54600fb1fdae63765eb54ae659cc Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 2 Oct 2019 14:35:13 +0900
-Subject: [PATCH] ASoC: soc-component: remove snd_pcm_ops from component driver
+Date: Wed, 2 Oct 2019 14:35:05 +0900
+Subject: [PATCH] ASoC: soc-utils: remove snd_pcm_ops
 
-No driver is using snd_pcm_ops on component driver.
-This patch removes it.
+snd_pcm_ops is no longer needed.
+Let's use component driver callback.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/8736gb90by.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/874l0r90c6.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-component.h |  5 ---
- sound/soc/soc-component.c     | 77 -----------------------------------
- sound/soc/soc-pcm.c           | 10 ++---
- 3 files changed, 3 insertions(+), 89 deletions(-)
+ sound/soc/soc-utils.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
-index aa2e2cbc1ee5..6aa3ecb7b6d3 100644
---- a/include/sound/soc-component.h
-+++ b/include/sound/soc-component.h
-@@ -46,11 +46,7 @@ struct snd_soc_component_driver {
- 	int (*write)(struct snd_soc_component *component,
- 		     unsigned int reg, unsigned int val);
+diff --git a/sound/soc/soc-utils.c b/sound/soc/soc-utils.c
+index 54dcece52b0c..2fd4562f5e63 100644
+--- a/sound/soc/soc-utils.c
++++ b/sound/soc/soc-utils.c
+@@ -63,7 +63,8 @@ static const struct snd_pcm_hardware dummy_dma_hardware = {
+ 	.periods_max		= 128,
+ };
  
--	/* remove me */
- 	/* pcm creation and destruction */
--	int (*pcm_new)(struct snd_soc_pcm_runtime *rtd);
--	void (*pcm_free)(struct snd_pcm *pcm);
--
- 	int (*pcm_construct)(struct snd_soc_component *component,
- 			     struct snd_soc_pcm_runtime *rtd);
- 	void (*pcm_destruct)(struct snd_soc_component *component,
-@@ -110,7 +106,6 @@ struct snd_soc_component_driver {
- 		    struct snd_pcm_substream *substream,
- 		    struct vm_area_struct *vma);
- 
--	const struct snd_pcm_ops *ops;
- 	const struct snd_compr_ops *compr_ops;
- 
- 	/* probe ordering - for components with runtime dependencies */
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index d2b052ac88cd..debaf1f6f403 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -316,12 +316,6 @@ int snd_soc_component_open(struct snd_soc_component *component,
+-static int dummy_dma_open(struct snd_pcm_substream *substream)
++static int dummy_dma_open(struct snd_soc_component *component,
++			  struct snd_pcm_substream *substream)
  {
- 	if (component->driver->open)
- 		return component->driver->open(component, substream);
--
--	/* remove me */
--	if (component->driver->ops &&
--	    component->driver->ops->open)
--		return component->driver->ops->open(substream);
--
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 
+@@ -74,13 +75,9 @@ static int dummy_dma_open(struct snd_pcm_substream *substream)
  	return 0;
  }
  
-@@ -330,12 +324,6 @@ int snd_soc_component_close(struct snd_soc_component *component,
- {
- 	if (component->driver->close)
- 		return component->driver->close(component, substream);
+-static const struct snd_pcm_ops snd_dummy_dma_ops = {
+-	.open		= dummy_dma_open,
+-	.ioctl		= snd_pcm_lib_ioctl,
+-};
 -
--	/* remove me */
--	if (component->driver->ops &&
--	    component->driver->ops->close)
--		return component->driver->ops->close(substream);
--
- 	return 0;
- }
+ static const struct snd_soc_component_driver dummy_platform = {
+-	.ops = &snd_dummy_dma_ops,
++	.open		= dummy_dma_open,
++	.ioctl		= snd_soc_pcm_lib_ioctl,
+ };
  
-@@ -344,12 +332,6 @@ int snd_soc_component_prepare(struct snd_soc_component *component,
- {
- 	if (component->driver->prepare)
- 		return component->driver->prepare(component, substream);
--
--	/* remove me */
--	if (component->driver->ops &&
--	    component->driver->ops->prepare)
--		return component->driver->ops->prepare(substream);
--
- 	return 0;
- }
- 
-@@ -360,12 +342,6 @@ int snd_soc_component_hw_params(struct snd_soc_component *component,
- 	if (component->driver->hw_params)
- 		return component->driver->hw_params(component,
- 						    substream, params);
--
--	/* remove me */
--	if (component->driver->ops &&
--	    component->driver->ops->hw_params)
--		return component->driver->ops->hw_params(substream, params);
--
- 	return 0;
- }
- 
-@@ -374,12 +350,6 @@ int snd_soc_component_hw_free(struct snd_soc_component *component,
- {
- 	if (component->driver->hw_free)
- 		return component->driver->hw_free(component, substream);
--
--	/* remove me */
--	if (component->driver->ops &&
--	    component->driver->ops->hw_free)
--		return component->driver->ops->hw_free(substream);
--
- 	return 0;
- }
- 
-@@ -389,12 +359,6 @@ int snd_soc_component_trigger(struct snd_soc_component *component,
- {
- 	if (component->driver->trigger)
- 		return component->driver->trigger(component, substream, cmd);
--
--	/* remove me */
--	if (component->driver->ops &&
--	    component->driver->ops->trigger)
--		return component->driver->ops->trigger(substream, cmd);
--
- 	return 0;
- }
- 
-@@ -462,11 +426,6 @@ int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
- 		/* FIXME: use 1st pointer */
- 		if (component->driver->pointer)
- 			return component->driver->pointer(component, substream);
--
--		/* remove me */
--		if (component->driver->ops &&
--		    component->driver->ops->pointer)
--			return component->driver->ops->pointer(substream);
- 	}
- 
- 	return 0;
-@@ -486,12 +445,6 @@ int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
- 		if (component->driver->ioctl)
- 			return component->driver->ioctl(component, substream,
- 							cmd, arg);
--
--		/* remove me */
--		if (component->driver->ops &&
--		    component->driver->ops->ioctl)
--			return component->driver->ops->ioctl(substream,
--							     cmd, arg);
- 	}
- 
- 	return snd_pcm_lib_ioctl(substream, cmd, arg);
-@@ -512,12 +465,6 @@ int snd_soc_pcm_component_copy_user(struct snd_pcm_substream *substream,
- 		if (component->driver->copy_user)
- 			return component->driver->copy_user(
- 				component, substream, channel, pos, buf, bytes);
--
--		/* remove me */
--		if (component->driver->ops &&
--		    component->driver->ops->copy_user)
--			return component->driver->ops->copy_user(
--				substream, channel, pos, buf, bytes);
- 	}
- 
- 	return -EINVAL;
-@@ -541,14 +488,6 @@ struct page *snd_soc_pcm_component_page(struct snd_pcm_substream *substream,
- 			if (page)
- 				return page;
- 		}
--
--		/* remove me */
--		if (component->driver->ops &&
--		    component->driver->ops->page) {
--			page = component->driver->ops->page(substream, offset);
--			if (page)
--				return page;
--		}
- 	}
- 
- 	return NULL;
-@@ -568,11 +507,6 @@ int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
- 		if (component->driver->mmap)
- 			return component->driver->mmap(component,
- 						       substream, vma);
--
--		/* remove me */
--		if (component->driver->ops &&
--		    component->driver->ops->mmap)
--			return component->driver->ops->mmap(substream, vma);
- 	}
- 
- 	return -EINVAL;
-@@ -593,13 +527,6 @@ int snd_soc_pcm_component_new(struct snd_pcm *pcm)
- 			if (ret < 0)
- 				return ret;
- 		}
--
--		/* remove me */
--		if (component->driver->pcm_new) {
--			ret = component->driver->pcm_new(rtd);
--			if (ret < 0)
--				return ret;
--		}
- 	}
- 
- 	return 0;
-@@ -616,9 +543,5 @@ void snd_soc_pcm_component_free(struct snd_pcm *pcm)
- 
- 		if (component->driver->pcm_destruct)
- 			component->driver->pcm_destruct(component, pcm);
--
--		/* remove me */
--		if (component->driver->pcm_free)
--			component->driver->pcm_free(pcm);
- 	}
- }
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index dbf67d8a5411..f462947a5d27 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2988,16 +2988,12 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 
- 	for_each_rtdcom(rtd, rtdcom) {
- 		const struct snd_soc_component_driver *drv = rtdcom->component->driver;
--		const struct snd_pcm_ops *ops = drv->ops;
- 
--		if (!ops)
--			continue;
--
--		if (ops->copy_user || drv->copy_user)
-+		if (drv->copy_user)
- 			rtd->ops.copy_user	= snd_soc_pcm_component_copy_user;
--		if (ops->page || drv->page)
-+		if (drv->page)
- 			rtd->ops.page		= snd_soc_pcm_component_page;
--		if (ops->mmap || drv->mmap)
-+		if (drv->mmap)
- 			rtd->ops.mmap		= snd_soc_pcm_component_mmap;
- 	}
- 
+ static const struct snd_soc_component_driver dummy_codec = {
 -- 
 2.20.1
 

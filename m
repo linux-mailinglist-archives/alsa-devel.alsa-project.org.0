@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C67F1CFACE
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:00:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 566AECFAD0
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:01:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 50ABD15E0;
-	Tue,  8 Oct 2019 14:59:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50ABD15E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id E62CB166B;
+	Tue,  8 Oct 2019 15:00:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E62CB166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570539638;
-	bh=1X0SbSUTcVV6bkS/Eud5N3zNQxTmmNa8xKRW39eAHgw=;
+	s=default; t=1570539676;
+	bh=NQ6pyjfqn9bYm3syvVaigYB4F1frgDIAUSSiBej8+vE=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=mhdXGKXftTc62nn0EW+ndiwNux03sTP5V0uQs5Xha07jhr08QA90JHk1CffoLrdG8
-	 aqdMV7ZPaC6ZakmucKaIpzGHvIvEeNDvG9GVziboT/U06lbgZSgwHFOQHmgaYYJH0W
-	 HpbD37Ij0MrTv/vwl4OWRNVTx8WNYBfaZDWPbh/A=
+	b=Vnhb1ds00SqwNgxC5VHI/mNEQ3il+iuhY7TBW5PyaQD9212C4kW0o82PxYV2ecJV5
+	 Zo8SCh1/fkt3lcdKALLhAHwSe9264L8cGEoMGPbuAD7WTHZKiwkWephSud9wNgeIUh
+	 9TYr3qPqIAfoKxhtheM2tqMi7OJvIPdM1aSLxwTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D93E5F80610;
-	Tue,  8 Oct 2019 14:53:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AA10F80717;
+	Tue,  8 Oct 2019 14:53:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D238F8068A; Tue,  8 Oct 2019 14:53:39 +0200 (CEST)
+ id A1C25F8045E; Tue,  8 Oct 2019 14:53:39 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C546FF8045E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94575F805A8
  for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C546FF8045E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94575F805A8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="dCPTLbBK"
+ header.b="d/Z0a+E+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=D0TXRfZces3MnCWgZphYw9PP+mp3smqfjMd1mStxSOI=; b=dCPTLbBKIguM
- EL9b1RHsOHA1JRpEwVKGEEMakI8f4TGnV7jgOq8DP957klKxXWrCV/3qRwXdnEF/mWv1KM6hVClQF
- CBc+m3cpj7ZatJGmyYIYzzk48ed3tvCb2UzJmTrFGgTJq7t3eDwxv+tv25L6I9Tf0ku1wUJVeob6R
- P4Lwo=;
+ List-Archive; bh=CWUxvXXG5AeD+4FfKO6kH5qkXqP+zzV1+82RSmHPfro=; b=d/Z0a+E+HJuN
+ e2BAkvysp81jqjnGXvW/ipd0HwU9cp1SYHKBqxCUdwxjYtcj5w9SjternwRX+vQ4TOYy4AIJRfgC/
+ 7UjPwYqdB6FoO1kZ4OIdRyYR2VWkya0JUPPG5ui0ihvlTtKVglBnousnPL8z5127z8Cnc2I5cthcw
+ 0CB2Y=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHozX-0008Md-4J; Tue, 08 Oct 2019 12:53:27 +0000
+ id 1iHozW-0008MV-TF; Tue, 08 Oct 2019 12:53:26 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 98A322740D4B; Tue,  8 Oct 2019 13:53:26 +0100 (BST)
+ id 69AC62740D4A; Tue,  8 Oct 2019 13:53:26 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87ftkb90df.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87eezv90db.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191008125326.98A322740D4B@ypsilon.sirena.org.uk>
+Message-Id: <20191008125326.69AC62740D4A@ypsilon.sirena.org.uk>
 Date: Tue,  8 Oct 2019 13:53:26 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: rt5514-spi: remove snd_pcm_ops" to the
-	asoc tree
+Subject: [alsa-devel] Applied "ASoC: bcm: cygnus-pcm: remove snd_pcm_ops" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5514-spi: remove snd_pcm_ops
+   ASoC: bcm: cygnus-pcm: remove snd_pcm_ops
 
 has been applied to the asoc tree at
 
@@ -112,111 +112,158 @@ to this mail.
 Thanks,
 Mark
 
-From 85efbc911ed5ae1d458fe3fc05c4d9cfe13836d6 Mon Sep 17 00:00:00 2001
+From dc06bd0fc480417784bae62537f287f2d0d70089 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 2 Oct 2019 14:34:20 +0900
-Subject: [PATCH] ASoC: rt5514-spi: remove snd_pcm_ops
+Date: Wed, 2 Oct 2019 14:34:24 +0900
+Subject: [PATCH] ASoC: bcm: cygnus-pcm: remove snd_pcm_ops
 
 snd_pcm_ops is no longer needed.
 Let's use component driver callback.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87ftkb90df.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87eezv90db.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5514-spi.c | 41 ++++++++++++++++++-----------------
- 1 file changed, 21 insertions(+), 20 deletions(-)
+ sound/soc/bcm/cygnus-pcm.c | 56 ++++++++++++++++++++------------------
+ 1 file changed, 30 insertions(+), 26 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5514-spi.c b/sound/soc/codecs/rt5514-spi.c
-index 892ea406a69b..57ff5aee452d 100644
---- a/sound/soc/codecs/rt5514-spi.c
-+++ b/sound/soc/codecs/rt5514-spi.c
-@@ -201,18 +201,18 @@ static irqreturn_t rt5514_spi_irq(int irq, void *data)
+diff --git a/sound/soc/bcm/cygnus-pcm.c b/sound/soc/bcm/cygnus-pcm.c
+index 8966b02844dc..c65408085c1d 100644
+--- a/sound/soc/bcm/cygnus-pcm.c
++++ b/sound/soc/bcm/cygnus-pcm.c
+@@ -376,7 +376,8 @@ static void disable_intr(struct snd_pcm_substream *substream)
+ 
  }
  
- /* PCM for streaming audio from the DSP buffer */
--static int rt5514_spi_pcm_open(struct snd_pcm_substream *substream)
-+static int rt5514_spi_pcm_open(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream)
+-static int cygnus_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
++static int cygnus_pcm_trigger(struct snd_soc_component *component,
++			      struct snd_pcm_substream *substream, int cmd)
  {
- 	snd_soc_set_runtime_hwparams(substream, &rt5514_spi_pcm_hardware);
+ 	int ret = 0;
  
+@@ -577,7 +578,8 @@ static irqreturn_t cygnus_dma_irq(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static int cygnus_pcm_open(struct snd_pcm_substream *substream)
++static int cygnus_pcm_open(struct snd_soc_component *component,
++			   struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+@@ -613,7 +615,8 @@ static int cygnus_pcm_open(struct snd_pcm_substream *substream)
  	return 0;
  }
  
--static int rt5514_spi_hw_params(struct snd_pcm_substream *substream,
--			       struct snd_pcm_hw_params *hw_params)
-+static int rt5514_spi_hw_params(struct snd_soc_component *component,
-+				struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *hw_params)
+-static int cygnus_pcm_close(struct snd_pcm_substream *substream)
++static int cygnus_pcm_close(struct snd_soc_component *component,
++			    struct snd_pcm_substream *substream)
  {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct rt5514_dsp *rt5514_dsp =
- 		snd_soc_component_get_drvdata(component);
- 	int ret;
-@@ -234,10 +234,9 @@ static int rt5514_spi_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct cygnus_aio_port *aio;
+@@ -633,8 +636,9 @@ static int cygnus_pcm_close(struct snd_pcm_substream *substream)
+ 	return 0;
  }
  
--static int rt5514_spi_hw_free(struct snd_pcm_substream *substream)
-+static int rt5514_spi_hw_free(struct snd_soc_component *component,
+-static int cygnus_pcm_hw_params(struct snd_pcm_substream *substream,
+-	struct snd_pcm_hw_params *params)
++static int cygnus_pcm_hw_params(struct snd_soc_component *component,
++				struct snd_pcm_substream *substream,
++				struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+@@ -649,7 +653,8 @@ static int cygnus_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int cygnus_pcm_hw_free(struct snd_pcm_substream *substream)
++static int cygnus_pcm_hw_free(struct snd_soc_component *component,
 +			      struct snd_pcm_substream *substream)
  {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct rt5514_dsp *rt5514_dsp =
- 		snd_soc_component_get_drvdata(component);
- 
-@@ -251,24 +250,22 @@ static int rt5514_spi_hw_free(struct snd_pcm_substream *substream)
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct cygnus_aio_port *aio;
+@@ -661,7 +666,8 @@ static int cygnus_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	return 0;
  }
  
- static snd_pcm_uframes_t rt5514_spi_pcm_pointer(
-+		struct snd_soc_component *component,
- 		struct snd_pcm_substream *substream)
+-static int cygnus_pcm_prepare(struct snd_pcm_substream *substream)
++static int cygnus_pcm_prepare(struct snd_soc_component *component,
++			      struct snd_pcm_substream *substream)
  {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
  	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	struct rt5514_dsp *rt5514_dsp =
- 		snd_soc_component_get_drvdata(component);
- 
- 	return bytes_to_frames(runtime, rt5514_dsp->dma_offset);
+@@ -694,7 +700,8 @@ static int cygnus_pcm_prepare(struct snd_pcm_substream *substream)
+ 	return 0;
  }
  
--static const struct snd_pcm_ops rt5514_spi_pcm_ops = {
--	.open		= rt5514_spi_pcm_open,
--	.hw_params	= rt5514_spi_hw_params,
--	.hw_free	= rt5514_spi_hw_free,
--	.pointer	= rt5514_spi_pcm_pointer,
--	.page		= snd_pcm_lib_get_vmalloc_page,
--};
-+static struct page *rt5514_spi_pcm_page(struct snd_soc_component *component,
-+					struct snd_pcm_substream *substream,
-+					unsigned long offset)
-+{
-+	return snd_pcm_lib_get_vmalloc_page(substream, offset);
-+}
- 
- static int rt5514_spi_pcm_probe(struct snd_soc_component *component)
+-static snd_pcm_uframes_t cygnus_pcm_pointer(struct snd_pcm_substream *substream)
++static snd_pcm_uframes_t cygnus_pcm_pointer(struct snd_soc_component *component,
++					    struct snd_pcm_substream *substream)
  {
-@@ -302,9 +299,13 @@ static int rt5514_spi_pcm_probe(struct snd_soc_component *component)
+ 	struct cygnus_aio_port *aio;
+ 	unsigned int res = 0, cur = 0, base = 0;
+@@ -750,19 +757,8 @@ static int cygnus_pcm_preallocate_dma_buffer(struct snd_pcm *pcm, int stream)
+ 	return 0;
  }
  
- static const struct snd_soc_component_driver rt5514_spi_component = {
--	.name  = DRV_NAME,
--	.probe = rt5514_spi_pcm_probe,
--	.ops = &rt5514_spi_pcm_ops,
-+	.name		= DRV_NAME,
-+	.probe		= rt5514_spi_pcm_probe,
-+	.open		= rt5514_spi_pcm_open,
-+	.hw_params	= rt5514_spi_hw_params,
-+	.hw_free	= rt5514_spi_hw_free,
-+	.pointer	= rt5514_spi_pcm_pointer,
-+	.page		= rt5514_spi_pcm_page,
+-
+-static const struct snd_pcm_ops cygnus_pcm_ops = {
+-	.open		= cygnus_pcm_open,
+-	.close		= cygnus_pcm_close,
+-	.ioctl		= snd_pcm_lib_ioctl,
+-	.hw_params	= cygnus_pcm_hw_params,
+-	.hw_free	= cygnus_pcm_hw_free,
+-	.prepare	= cygnus_pcm_prepare,
+-	.trigger	= cygnus_pcm_trigger,
+-	.pointer	= cygnus_pcm_pointer,
+-};
+-
+-static void cygnus_dma_free_dma_buffers(struct snd_pcm *pcm)
++static void cygnus_dma_free_dma_buffers(struct snd_soc_component *component,
++					struct snd_pcm *pcm)
+ {
+ 	struct snd_pcm_substream *substream;
+ 	struct snd_dma_buffer *buf;
+@@ -788,7 +784,8 @@ static void cygnus_dma_free_dma_buffers(struct snd_pcm *pcm)
+ 	}
+ }
+ 
+-static int cygnus_dma_new(struct snd_soc_pcm_runtime *rtd)
++static int cygnus_dma_new(struct snd_soc_component *component,
++			  struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_card *card = rtd->card->snd_card;
+ 	struct snd_pcm *pcm = rtd->pcm;
+@@ -810,7 +807,7 @@ static int cygnus_dma_new(struct snd_soc_pcm_runtime *rtd)
+ 		ret = cygnus_pcm_preallocate_dma_buffer(pcm,
+ 				SNDRV_PCM_STREAM_CAPTURE);
+ 		if (ret) {
+-			cygnus_dma_free_dma_buffers(pcm);
++			cygnus_dma_free_dma_buffers(component, pcm);
+ 			return ret;
+ 		}
+ 	}
+@@ -819,9 +816,16 @@ static int cygnus_dma_new(struct snd_soc_pcm_runtime *rtd)
+ }
+ 
+ static struct snd_soc_component_driver cygnus_soc_platform = {
+-	.ops		= &cygnus_pcm_ops,
+-	.pcm_new	= cygnus_dma_new,
+-	.pcm_free	= cygnus_dma_free_dma_buffers,
++	.open		= cygnus_pcm_open,
++	.close		= cygnus_pcm_close,
++	.ioctl		= snd_soc_pcm_lib_ioctl,
++	.hw_params	= cygnus_pcm_hw_params,
++	.hw_free	= cygnus_pcm_hw_free,
++	.prepare	= cygnus_pcm_prepare,
++	.trigger	= cygnus_pcm_trigger,
++	.pointer	= cygnus_pcm_pointer,
++	.pcm_construct	= cygnus_dma_new,
++	.pcm_destruct	= cygnus_dma_free_dma_buffers,
  };
  
- /**
+ int cygnus_soc_platform_register(struct device *dev,
 -- 
 2.20.1
 

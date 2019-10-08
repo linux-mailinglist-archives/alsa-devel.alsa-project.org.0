@@ -2,62 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3405CFF09
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 18:37:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FBE8CFF27
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 18:46:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 30A8F86E;
-	Tue,  8 Oct 2019 18:36:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 30A8F86E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98ED71660;
+	Tue,  8 Oct 2019 18:45:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98ED71660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570552622;
-	bh=yKATf/zI6kpKPeYqrxgQPr4gB1vuNipPbIGJ8OhDUkw=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NCCDw9OJcBQLQRwmq7wcIXskOOe+bN6aIe2N9Ae2uR7f8pmmFGd1NIGeSBCpV9uKj
-	 f0pjQXDO5cssaJDaprxu0jDBSoubSdW+Rhg49HpHt/SNwDKFIQXEQfnH498IwTgohy
-	 979E68CppiCXjsbvZ2spKaBZdewp0qgOLQU9GcOY=
+	s=default; t=1570553198;
+	bh=rjZIpyNDhNK0gjs5GZtujQyB8sZyDEY5HI5yqvYN0WM=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SIlOfAmbYPPXplTtJvJ3qlqwbCIaxv1wD7kQ0H5jgjRzlspexOVfZ3qhLgiWo5OeR
+	 NAU9VmG5M+OpGnQyv1yGLLk3SWj9OhvpR/vAmsa3ZexpuesEz5+k21TfbrVQ24uvRm
+	 1BTM/Kudnt7oALPOLgvWv6SP/KyYIZBLA9mxBVAw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A939F8045E;
-	Tue,  8 Oct 2019 18:35:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93F61F805FA;
+	Tue,  8 Oct 2019 18:44:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36014F8038F; Tue,  8 Oct 2019 18:35:14 +0200 (CEST)
+ id C1D67F800BF; Tue,  8 Oct 2019 18:44:51 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from cvs.linux-mips.org (eddie.linux-mips.org [148.251.95.138])
- by alsa1.perex.cz (Postfix) with ESMTP id A375DF80113
- for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 18:35:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A375DF80113
-Received: (from localhost user: 'ladis' uid#1021 fake: STDIN
- (ladis@eddie.linux-mips.org)) by eddie.linux-mips.org
- id S23991911AbfJHQfJd4fX3 (ORCPT
- <rfc822;alsa-devel@alsa-project.org>); Tue, 8 Oct 2019 18:35:09 +0200
-Date: Tue, 8 Oct 2019 18:35:08 +0200
-From: Ladislav Michl <ladis@linux-mips.org>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20191008163508.GA16283@lenoch>
-References: <20191006104631.60608-1-yuehaibing@huawei.com>
- <20191007130309.EAEBE2741EF0@ypsilon.sirena.org.uk>
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E79FF800BF
+ for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 18:44:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E79FF800BF
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 08 Oct 2019 09:44:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.67,270,1566889200"; d="scan'208";a="218338316"
+Received: from kwwong-mobl.amr.corp.intel.com (HELO pbossart-mobl3.intel.com)
+ ([10.251.150.53])
+ by fmsmga004.fm.intel.com with ESMTP; 08 Oct 2019 09:44:45 -0700
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Tue,  8 Oct 2019 11:44:34 -0500
+Message-Id: <20191008164443.1358-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191007130309.EAEBE2741EF0@ypsilon.sirena.org.uk>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com,
- piotrs@opensource.cirrus.com, YueHaibing <yuehaibing@huawei.com>,
- m.felsch@pengutronix.de, linux-kernel@vger.kernel.org, paul@crapouillou.net,
- Hulk Robot <hulkci@huawei.com>, srinivas.kandagatla@linaro.org,
- andradanciu1997@gmail.com, enric.balletbo@collabora.com,
- shifu0704@thundersoft.com, tiwai@suse.com, mirq-linux@rere.qmqm.pl,
- rf@opensource.wolfsonmicro.com
-Subject: Re: [alsa-devel] Applied "ASoc: tas2770: Fix build error without
- GPIOLIB" to the asoc tree
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [PATCH 0/9] ASoC: SOF updates for Intel/i.MX
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,97 +71,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi YueHaibing & Mark,
+Small set of updates for Intel and NXP platforms.
 
-On Mon, Oct 07, 2019 at 02:03:09PM +0100, Mark Brown wrote:
-> The patch
-> 
->    ASoc: tas2770: Fix build error without GPIOLIB
-> 
-> has been applied to the asoc tree at
-> 
->    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+On the Intel side, the code is now aligned with the HDaudio legacy
+with the sync_write. OEMs reported concerns with mute LEDs not
+supported with SOF/UCM, we can now tie a topology-defined control with
+a mute LED. Note that the large set of differences in the topology is
+largely due to code move, the new functionality is minimal in size.
 
-Hmm, too late it seems...
-Patch should actually remove <linux/gpio.h> as this is legacy one (see comment
-on the top and also Documentation/driver-api/gpio/consumer.rst)
+On the i.MX side, add topology support for ESAI parameters. This
+reflects on-going work on the firmware side.
 
-And that brings a question. Given this is -next only is it actually possible
-to squash fixes into 1a476abc723e ("tas2770: add tas2770 smart PA kernel driver")
-just to make bisect a bit more happy?
+And last add debug module parameters for ACPI and PCI modules. For now
+the only flag used is for PM runtime, e.g. to measure the
+suspend-resume latencies of child devices without dealing with DSP
+reinitialization or keep the parent active while testing the SoundWire
+clock-stop-mode.
 
-	l.
+Daniel Baluta (2):
+  ASoC: SOF: imx: Describe ESAI parameters to be sent to DSP
+  ASoC: SOF: imx: Read ESAI parameters and send them to DSP
 
-> All being well this means that it will be integrated into the linux-next
-> tree (usually sometime in the next 24 hours) and sent to Linus during
-> the next merge window (or sooner if it is a bug fix), however if
-> problems are discovered then the patch may be dropped or reverted.  
-> 
-> You may get further e-mails resulting from automated or manual testing
-> and review of the tree, please engage with people reporting problems and
-> send followup patches addressing any issues that are reported if needed.
-> 
-> If any updates are required or you are submitting further changes they
-> should be sent as incremental updates against current git, existing
-> patches will not be replaced.
-> 
-> Please add any relevant lists and maintainers to the CCs when replying
-> to this mail.
-> 
-> Thanks,
-> Mark
-> 
-> >From 03fe492e8346d3da59b6eb7ea306d46ebf22e9d5 Mon Sep 17 00:00:00 2001
-> From: YueHaibing <yuehaibing@huawei.com>
-> Date: Sun, 6 Oct 2019 18:46:31 +0800
-> Subject: [PATCH] ASoc: tas2770: Fix build error without GPIOLIB
-> 
-> If GPIOLIB is not set, building fails:
-> 
-> sound/soc/codecs/tas2770.c: In function tas2770_reset:
-> sound/soc/codecs/tas2770.c:38:3: error: implicit declaration of function gpiod_set_value_cansleep; did you mean gpio_set_value_cansleep? [-Werror=implicit-function-declaration]
->    gpiod_set_value_cansleep(tas2770->reset_gpio, 0);
->    ^~~~~~~~~~~~~~~~~~~~~~~~
->    gpio_set_value_cansleep
-> sound/soc/codecs/tas2770.c: In function tas2770_i2c_probe:
-> sound/soc/codecs/tas2770.c:749:24: error: implicit declaration of function devm_gpiod_get_optional; did you mean devm_regulator_get_optional? [-Werror=implicit-function-declaration]
->   tas2770->reset_gpio = devm_gpiod_get_optional(tas2770->dev,
->                         ^~~~~~~~~~~~~~~~~~~~~~~
->                         devm_regulator_get_optional
-> sound/soc/codecs/tas2770.c:751:13: error: GPIOD_OUT_HIGH undeclared (first use in this function); did you mean GPIOF_INIT_HIGH?
->              GPIOD_OUT_HIGH);
->              ^~~~~~~~~~~~~~
->              GPIOF_INIT_HIGH
-> 
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Fixes: 1a476abc723e ("tas2770: add tas2770 smart PA kernel driver")
-> Suggested-by: Ladislav Michl <ladis@linux-mips.org>
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> Link: https://lore.kernel.org/r/20191006104631.60608-1-yuehaibing@huawei.com
-> Signed-off-by: Mark Brown <broonie@kernel.org>
-> ---
->  sound/soc/codecs/tas2770.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
-> index dbbb21fe0548..15f6fcc6d87e 100644
-> --- a/sound/soc/codecs/tas2770.c
-> +++ b/sound/soc/codecs/tas2770.c
-> @@ -15,6 +15,7 @@
->  #include <linux/pm.h>
->  #include <linux/i2c.h>
->  #include <linux/gpio.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/firmware.h>
-> -- 
-> 2.20.1
-> 
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+Jaska Uimonen (3):
+  ASoC: SOF: enable dual control for pga
+  AsoC: SOF: refactor control load code
+  ASoC: SOF: acpi led support for switch controls
+
+Kai Vehmanen (2):
+  ASoC: SOF: enable sync_write in hdac_bus
+  Revert "ASoC: SOF: Force polling mode on CFL and CNL"
+
+Pierre-Louis Bossart (2):
+  ASoC: SOF: acpi: add debug module param
+  ASoC: SOF: pci: add debug module param
+
+ include/sound/sof/dai-imx.h     |  34 +++
+ include/sound/sof/dai.h         |   2 +
+ include/uapi/sound/sof/abi.h    |   2 +-
+ include/uapi/sound/sof/tokens.h |   7 +-
+ sound/soc/sof/control.c         |  32 +++
+ sound/soc/sof/intel/hda.c       |   8 +-
+ sound/soc/sof/pcm.c             |   8 +
+ sound/soc/sof/sof-acpi-dev.c    |  12 +-
+ sound/soc/sof/sof-pci-dev.c     |  12 +-
+ sound/soc/sof/sof-priv.h        |   9 +
+ sound/soc/sof/topology.c        | 401 +++++++++++++++++++-------------
+ 11 files changed, 354 insertions(+), 173 deletions(-)
+ create mode 100644 include/sound/sof/dai-imx.h
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

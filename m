@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C80C5CFAE0
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:04:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C801CFAE5
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:06:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A05F167F;
-	Tue,  8 Oct 2019 15:03:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A05F167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBCA01676;
+	Tue,  8 Oct 2019 15:05:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBCA01676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570539850;
-	bh=nj+pf+NPtDTo0XCcBw6V6l9w2rgvS0/v50b43RHAFN8=;
+	s=default; t=1570539971;
+	bh=1DE05biKR0nMIgDvYiiIYTu/gKUcGGVnWY9jD3ddOEw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=DxaEW6snCQBPywE6k9Ss203t0ZS7TyW30BYsd7XDO/EEMttqKJ1gSCsKbfM+b8taZ
-	 DisMqcLJCRPH126zO6v2uH3KL0fftrDQfbajZdZKN2istPy3Ew9rjSwVNNaq+UMjEG
-	 Qg6bFh/MRaPNNnx/9rLL0xNmiR7zFQijpW79SUrM=
+	b=BYNdUY9XfDxZXPheh5uXaaMVCU32ZACRMZjdJMRlLsvykrd98Mca84vr2XIMtE4tH
+	 68H6EQrgiHN2LaYbgF9HOGeaWifaZJmsdKU/ixNtBDz5goLP3RrMGedpQVKF+5oPzu
+	 BdzfFNPKo+2Cmyu4VP2QhfiQWJEbQ8fbTDIq8AUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9F50F80760;
-	Tue,  8 Oct 2019 14:54:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AF86F8076D;
+	Tue,  8 Oct 2019 14:54:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CAB89F806F0; Tue,  8 Oct 2019 14:53:45 +0200 (CEST)
+ id 1C666F80709; Tue,  8 Oct 2019 14:53:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 681F5F805FD
- for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 681F5F805FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5328CF80600
+ for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5328CF80600
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="RlyzX8PU"
+ header.b="C4Jj+a+/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=+CjykeA6nO1DsNqnXC8+jQ7MGAxJsoJ+BgYxJJLp5NY=; b=RlyzX8PU1WVC
- GxJvOefRZRXMmpBq4IruZSmuJGgEtpVk2mLBR2v2VIzREjWMLGxWIdtAZugdx6UH0f5/BXAmBifml
- E0B3E6v7ByK7p09HJh17sKQd7yt12Um43Z6pUlNLyp5mfHlLb8MVtowZ2meaQwtm0kI3QcV/HNykJ
- nDx9o=;
+ List-Archive; bh=QKmM8ituZZLezOrtfZEpY4ng2nKgrHO7pE8iYUreKyw=; b=C4Jj+a+/SWRv
+ ZTDUwel9DOJ7oJnqUvuOqMzWdaPxW6OXn3Jbia58BH+oTb3BOv5XOC89iAzcwRxHXhSOr2EhD9dhP
+ tEUGp037Kiixglhxe6SSjZuZyX/U67eFRYZSZpyA0iyQT1cFRyNhdm8+FkOhkLwYfYii2VbCEm1uI
+ vU5Dc=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHozY-0008Mz-3h; Tue, 08 Oct 2019 12:53:28 +0000
+ id 1iHozY-0008NK-UJ; Tue, 08 Oct 2019 12:53:29 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 9D9172740D48; Tue,  8 Oct 2019 13:53:27 +0100 (BST)
+ id 631D72740D48; Tue,  8 Oct 2019 13:53:28 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87lfu390dz.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87pnjf90ef.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191008125327.9D9172740D48@ypsilon.sirena.org.uk>
-Date: Tue,  8 Oct 2019 13:53:27 +0100 (BST)
+Message-Id: <20191008125328.631D72740D48@ypsilon.sirena.org.uk>
+Date: Tue,  8 Oct 2019 13:53:28 +0100 (BST)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: mediatek: mtk-btcvsd: remove
-	snd_pcm_ops" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: pxa: mmp-pcm: remove snd_pcm_ops" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: mediatek: mtk-btcvsd: remove snd_pcm_ops
+   ASoC: pxa: mmp-pcm: remove snd_pcm_ops
 
 has been applied to the asoc tree at
 
@@ -112,182 +112,143 @@ to this mail.
 Thanks,
 Mark
 
-From 9a0b72b71da0d50fe6e4fee2abaced10e61c48cc Mon Sep 17 00:00:00 2001
+From 540e59c68bbcd450d711aaddddc9332507a5a504 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 2 Oct 2019 14:34:00 +0900
-Subject: [PATCH] ASoC: mediatek: mtk-btcvsd: remove snd_pcm_ops
+Date: Wed, 2 Oct 2019 14:33:44 +0900
+Subject: [PATCH] ASoC: pxa: mmp-pcm: remove snd_pcm_ops
 
 snd_pcm_ops is no longer needed.
 Let's use component driver callback.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87lfu390dz.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87pnjf90ef.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/mediatek/common/mtk-btcvsd.c | 76 ++++++++++----------------
- 1 file changed, 28 insertions(+), 48 deletions(-)
+ sound/soc/pxa/mmp-pcm.c | 62 ++++++++++++++++++++++++++---------------
+ 1 file changed, 40 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/mediatek/common/mtk-btcvsd.c b/sound/soc/mediatek/common/mtk-btcvsd.c
-index d00608c73c6e..2b490ae2e642 100644
---- a/sound/soc/mediatek/common/mtk-btcvsd.c
-+++ b/sound/soc/mediatek/common/mtk-btcvsd.c
-@@ -875,11 +875,9 @@ static const struct snd_pcm_hardware mtk_btcvsd_hardware = {
- 	.fifo_size = 0,
+diff --git a/sound/soc/pxa/mmp-pcm.c b/sound/soc/pxa/mmp-pcm.c
+index 7096b5263e25..54a4c9213e83 100644
+--- a/sound/soc/pxa/mmp-pcm.c
++++ b/sound/soc/pxa/mmp-pcm.c
+@@ -55,8 +55,9 @@ static struct snd_pcm_hardware mmp_pcm_hardware[] = {
+ 	},
  };
  
--static int mtk_pcm_btcvsd_open(struct snd_pcm_substream *substream)
-+static int mtk_pcm_btcvsd_open(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream)
+-static int mmp_pcm_hw_params(struct snd_pcm_substream *substream,
+-			      struct snd_pcm_hw_params *params)
++static int mmp_pcm_hw_params(struct snd_soc_component *component,
++			     struct snd_pcm_substream *substream,
++			     struct snd_pcm_hw_params *params)
  {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, BTCVSD_SND_NAME);
- 	struct mtk_btcvsd_snd *bt = snd_soc_component_get_drvdata(component);
- 	int ret;
+ 	struct dma_chan *chan = snd_dmaengine_pcm_get_chan(substream);
+ 	struct dma_slave_config slave_config;
+@@ -77,6 +78,18 @@ static int mmp_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
  
-@@ -899,11 +897,9 @@ static int mtk_pcm_btcvsd_open(struct snd_pcm_substream *substream)
++static int mmp_pcm_trigger(struct snd_soc_component *component,
++			   struct snd_pcm_substream *substream, int cmd)
++{
++	return snd_dmaengine_pcm_trigger(substream, cmd);
++}
++
++static snd_pcm_uframes_t mmp_pcm_pointer(struct snd_soc_component *component,
++					 struct snd_pcm_substream *substream)
++{
++	return snd_dmaengine_pcm_pointer(substream);
++}
++
+ static bool filter(struct dma_chan *chan, void *param)
+ {
+ 	struct mmp_dma_data *dma_data = param;
+@@ -94,10 +107,10 @@ static bool filter(struct dma_chan *chan, void *param)
+ 	return found;
+ }
+ 
+-static int mmp_pcm_open(struct snd_pcm_substream *substream)
++static int mmp_pcm_open(struct snd_soc_component *component,
++			struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct snd_soc_component *component = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	struct platform_device *pdev = to_platform_device(component->dev);
+ 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
+ 	struct mmp_dma_data dma_data;
+@@ -117,8 +130,15 @@ static int mmp_pcm_open(struct snd_pcm_substream *substream)
+ 		    &dma_data);
+ }
+ 
+-static int mmp_pcm_mmap(struct snd_pcm_substream *substream,
+-			 struct vm_area_struct *vma)
++static int mmp_pcm_close(struct snd_soc_component *component,
++			 struct snd_pcm_substream *substream)
++{
++	return snd_dmaengine_pcm_close_release_chan(substream);
++}
++
++static int mmp_pcm_mmap(struct snd_soc_component *component,
++			struct snd_pcm_substream *substream,
++			struct vm_area_struct *vma)
+ {
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	unsigned long off = vma->vm_pgoff;
+@@ -129,17 +149,8 @@ static int mmp_pcm_mmap(struct snd_pcm_substream *substream,
+ 		vma->vm_end - vma->vm_start, vma->vm_page_prot);
+ }
+ 
+-static const struct snd_pcm_ops mmp_pcm_ops = {
+-	.open		= mmp_pcm_open,
+-	.close		= snd_dmaengine_pcm_close_release_chan,
+-	.ioctl		= snd_pcm_lib_ioctl,
+-	.hw_params	= mmp_pcm_hw_params,
+-	.trigger	= snd_dmaengine_pcm_trigger,
+-	.pointer	= snd_dmaengine_pcm_pointer,
+-	.mmap		= mmp_pcm_mmap,
+-};
+-
+-static void mmp_pcm_free_dma_buffers(struct snd_pcm *pcm)
++static void mmp_pcm_free_dma_buffers(struct snd_soc_component *component,
++				     struct snd_pcm *pcm)
+ {
+ 	struct snd_pcm_substream *substream;
+ 	struct snd_dma_buffer *buf;
+@@ -188,7 +199,8 @@ static int mmp_pcm_preallocate_dma_buffer(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int mmp_pcm_new(struct snd_soc_pcm_runtime *rtd)
++static int mmp_pcm_new(struct snd_soc_component *component,
++		       struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_pcm_substream *substream;
+ 	struct snd_pcm *pcm = rtd->pcm;
+@@ -205,15 +217,21 @@ static int mmp_pcm_new(struct snd_soc_pcm_runtime *rtd)
+ 	return 0;
+ 
+ err:
+-	mmp_pcm_free_dma_buffers(pcm);
++	mmp_pcm_free_dma_buffers(component, pcm);
  	return ret;
  }
  
--static int mtk_pcm_btcvsd_close(struct snd_pcm_substream *substream)
-+static int mtk_pcm_btcvsd_close(struct snd_soc_component *component,
-+				struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, BTCVSD_SND_NAME);
- 	struct mtk_btcvsd_snd *bt = snd_soc_component_get_drvdata(component);
- 	struct mtk_btcvsd_snd_stream *bt_stream = get_bt_stream(bt, substream);
- 
-@@ -914,12 +910,10 @@ static int mtk_pcm_btcvsd_close(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int mtk_pcm_btcvsd_hw_params(struct snd_pcm_substream *substream,
-+static int mtk_pcm_btcvsd_hw_params(struct snd_soc_component *component,
-+				    struct snd_pcm_substream *substream,
- 				    struct snd_pcm_hw_params *hw_params)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, BTCVSD_SND_NAME);
- 	struct mtk_btcvsd_snd *bt = snd_soc_component_get_drvdata(component);
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
-@@ -934,11 +928,9 @@ static int mtk_pcm_btcvsd_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static int mtk_pcm_btcvsd_hw_free(struct snd_pcm_substream *substream)
-+static int mtk_pcm_btcvsd_hw_free(struct snd_soc_component *component,
-+				  struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, BTCVSD_SND_NAME);
- 	struct mtk_btcvsd_snd *bt = snd_soc_component_get_drvdata(component);
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-@@ -947,11 +939,9 @@ static int mtk_pcm_btcvsd_hw_free(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int mtk_pcm_btcvsd_prepare(struct snd_pcm_substream *substream)
-+static int mtk_pcm_btcvsd_prepare(struct snd_soc_component *component,
-+				  struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, BTCVSD_SND_NAME);
- 	struct mtk_btcvsd_snd *bt = snd_soc_component_get_drvdata(component);
- 	struct mtk_btcvsd_snd_stream *bt_stream = get_bt_stream(bt, substream);
- 
-@@ -961,11 +951,9 @@ static int mtk_pcm_btcvsd_prepare(struct snd_pcm_substream *substream)
- 	return 0;
- }
- 
--static int mtk_pcm_btcvsd_trigger(struct snd_pcm_substream *substream, int cmd)
-+static int mtk_pcm_btcvsd_trigger(struct snd_soc_component *component,
-+				  struct snd_pcm_substream *substream, int cmd)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, BTCVSD_SND_NAME);
- 	struct mtk_btcvsd_snd *bt = snd_soc_component_get_drvdata(component);
- 	struct mtk_btcvsd_snd_stream *bt_stream = get_bt_stream(bt, substream);
- 	int stream = substream->stream;
-@@ -993,12 +981,10 @@ static int mtk_pcm_btcvsd_trigger(struct snd_pcm_substream *substream, int cmd)
- 	}
- }
- 
--static snd_pcm_uframes_t mtk_pcm_btcvsd_pointer
--	(struct snd_pcm_substream *substream)
-+static snd_pcm_uframes_t mtk_pcm_btcvsd_pointer(
-+	struct snd_soc_component *component,
-+	struct snd_pcm_substream *substream)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, BTCVSD_SND_NAME);
- 	struct mtk_btcvsd_snd *bt = snd_soc_component_get_drvdata(component);
- 	struct mtk_btcvsd_snd_stream *bt_stream;
- 	snd_pcm_uframes_t frame = 0;
-@@ -1044,13 +1030,11 @@ static snd_pcm_uframes_t mtk_pcm_btcvsd_pointer
- 	return frame;
- }
- 
--static int mtk_pcm_btcvsd_copy(struct snd_pcm_substream *substream,
-+static int mtk_pcm_btcvsd_copy(struct snd_soc_component *component,
-+			       struct snd_pcm_substream *substream,
- 			       int channel, unsigned long pos,
- 			       void __user *buf, unsigned long count)
- {
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_component *component =
--		snd_soc_rtdcom_lookup(rtd, BTCVSD_SND_NAME);
- 	struct mtk_btcvsd_snd *bt = snd_soc_component_get_drvdata(component);
- 
- 	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-@@ -1061,18 +1045,6 @@ static int mtk_pcm_btcvsd_copy(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--static struct snd_pcm_ops mtk_btcvsd_ops = {
--	.open = mtk_pcm_btcvsd_open,
--	.close = mtk_pcm_btcvsd_close,
--	.ioctl = snd_pcm_lib_ioctl,
--	.hw_params = mtk_pcm_btcvsd_hw_params,
--	.hw_free = mtk_pcm_btcvsd_hw_free,
--	.prepare = mtk_pcm_btcvsd_prepare,
--	.trigger = mtk_pcm_btcvsd_trigger,
--	.pointer = mtk_pcm_btcvsd_pointer,
--	.copy_user = mtk_pcm_btcvsd_copy,
--};
--
- /* kcontrol */
- static const char *const btsco_band_str[] = {"NB", "WB"};
- 
-@@ -1295,9 +1267,17 @@ static int mtk_btcvsd_snd_component_probe(struct snd_soc_component *component)
- }
- 
- static const struct snd_soc_component_driver mtk_btcvsd_snd_platform = {
--	.name = BTCVSD_SND_NAME,
--	.ops = &mtk_btcvsd_ops,
--	.probe = mtk_btcvsd_snd_component_probe,
-+	.name		= BTCVSD_SND_NAME,
-+	.probe		= mtk_btcvsd_snd_component_probe,
-+	.open		= mtk_pcm_btcvsd_open,
-+	.close		= mtk_pcm_btcvsd_close,
+ static const struct snd_soc_component_driver mmp_soc_component = {
+ 	.name		= DRV_NAME,
+-	.ops		= &mmp_pcm_ops,
+-	.pcm_new	= mmp_pcm_new,
+-	.pcm_free	= mmp_pcm_free_dma_buffers,
++	.open		= mmp_pcm_open,
++	.close		= mmp_pcm_close,
 +	.ioctl		= snd_soc_pcm_lib_ioctl,
-+	.hw_params	= mtk_pcm_btcvsd_hw_params,
-+	.hw_free	= mtk_pcm_btcvsd_hw_free,
-+	.prepare	= mtk_pcm_btcvsd_prepare,
-+	.trigger	= mtk_pcm_btcvsd_trigger,
-+	.pointer	= mtk_pcm_btcvsd_pointer,
-+	.copy_user	= mtk_pcm_btcvsd_copy,
++	.hw_params	= mmp_pcm_hw_params,
++	.trigger	= mmp_pcm_trigger,
++	.pointer	= mmp_pcm_pointer,
++	.mmap		= mmp_pcm_mmap,
++	.pcm_construct	= mmp_pcm_new,
++	.pcm_destruct	= mmp_pcm_free_dma_buffers,
  };
  
- static int mtk_btcvsd_snd_probe(struct platform_device *pdev)
+ static int mmp_pcm_probe(struct platform_device *pdev)
 -- 
 2.20.1
 

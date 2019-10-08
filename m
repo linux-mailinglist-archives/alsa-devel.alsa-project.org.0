@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85D67CFB4D
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:26:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57243CFB39
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 15:22:38 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 526861670;
-	Tue,  8 Oct 2019 15:26:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 526861670
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3A0916B2;
+	Tue,  8 Oct 2019 15:21:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3A0916B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570541218;
-	bh=PfqtoJiIvnjlkJkpCaB2rK6ci75/NVY6h/e0Uh2YCqg=;
+	s=default; t=1570540957;
+	bh=ISNpG5MOiK0yR0MHukTDt85q25w8NFxjVuPwhul7dYA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=K/JAt0UbMMEEH6w2lxZpOJS0BQ73WR5lHBvaJPpmbVuRg+Qvu1iX/SzhoFeWFsR6D
-	 /22/PbdBsaVMlwLc2xjifBQZT3SeAqgivtJeCZECOJjd5G0VuNtzaKBJiCzSTOd2xq
-	 /gnDPmUclYNGdRDmLbPoy7SvNs+1Fd2E/EoK/dlI=
+	b=uqPlwtQn7gDocXP34/HVHNWH5uezjRcgn1BTwUmmIIlXxjwYGPr4tu/TffdODwnPf
+	 67afEIQobEjFIZ3lgrSEcpwl8qh24t3sbdRFOe1SSJZOodsMCVxqFkbDSoGANZQc8v
+	 hQl8zmcYJErnQrd9+0abaqrWSVMom/kTgaaQpcUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4C81FF8971A;
-	Tue,  8 Oct 2019 14:54:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 539D4F89673;
+	Tue,  8 Oct 2019 14:54:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69E5BF8086D; Tue,  8 Oct 2019 14:54:30 +0200 (CEST)
+ id C4EF1F80671; Tue,  8 Oct 2019 14:54:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9020DF80676
- for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9020DF80676
+ by alsa1.perex.cz (Postfix) with ESMTPS id 341B0F8065E
+ for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 14:53:35 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 341B0F8065E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="GCgkapxY"
+ header.b="Oq2UZ/iK"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=8ZyBzxmPDZ0eyBVDumHL6hLnaIS3O2/wuFjVBskv8A0=; b=GCgkapxY4U32
- 9NmKd3Htg5Cpu644HnC16Ccvdz3q1wX1FFX1Vy9XaLSdkMwCTursu7O6K0dKsMd5bW+iw1AV7NZEl
- hyMkhWGy7zwumga4kqgo8JkpT1hOCDXF+zOZvpNFrgmNDvfCgRF8n6L1M/haxW7KvdXwrOw4DTKtf
- IAGAw=;
+ List-Archive; bh=BG68NqVOXumpkWCkn0OWV2VnbqS6lWwOjOIssdMs54E=; b=Oq2UZ/iKXvYY
+ 2k9XJAOIPBnHG81Y57F9wo7mHYd1VdMS8WY+SI1RGIevxLvhKvsBqYB/ev15F59uCw/38fwLhD/uV
+ CVR6Yw2GKJxF/ipPxbWttia4pz9/yZ+xliwNksZRBzI1z3PcjhgFANWkJSL1+47HJeFTKaA/y7yuT
+ e+bXo=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iHozf-0008Q0-H9; Tue, 08 Oct 2019 12:53:35 +0000
+ id 1iHoze-0008Ph-Q0; Tue, 08 Oct 2019 12:53:34 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 00B9F2740D4A; Tue,  8 Oct 2019 13:53:34 +0100 (BST)
+ id 435272740D4A; Tue,  8 Oct 2019 13:53:34 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>
-In-Reply-To: <1569580317-21181-5-git-send-email-jiaxin.yu@mediatek.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87r23vaf39.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191008125335.00B9F2740D4A@ypsilon.sirena.org.uk>
+Message-Id: <20191008125334.435272740D4A@ypsilon.sirena.org.uk>
 Date: Tue,  8 Oct 2019 13:53:34 +0100 (BST)
-Cc: mark.rutland@arm.com, alsa-devel@alsa-project.org, tzungbi@google.com,
- yong.liang@mediatek.com, lgirdwood@gmail.com, jiaxin.yu@mediatek.com,
- robh+dt@kernel.org, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, linux@roeck-us.net, eason.yen@mediatek.com,
- wim@linux-watchdog.org, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: mt8183: fix audio playback slowly after
-	playback during bootup" to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: soc-core: add snd_soc_pcm_lib_ioctl()"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: mt8183: fix audio playback slowly after playback during bootup
+   ASoC: soc-core: add snd_soc_pcm_lib_ioctl()
 
 has been applied to the asoc tree at
 
@@ -116,63 +112,60 @@ to this mail.
 Thanks,
 Mark
 
-From 9e985503ee4b23d576c303a17dfe52cfc8f32727 Mon Sep 17 00:00:00 2001
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Date: Fri, 27 Sep 2019 18:31:57 +0800
-Subject: [PATCH] ASoC: mt8183: fix audio playback slowly after playback during
- bootup
+From 8ec241c495dde3d19a0459304298c2468c60182b Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 2 Oct 2019 14:31:06 +0900
+Subject: [PATCH] ASoC: soc-core: add snd_soc_pcm_lib_ioctl()
 
-Before regmap_reinit_cache we must reset audio regs as default values.
-So we use reset controller unit(toprgu) to reset audio hw.
+add snd_soc_pcm_lib_ioctl() to bypass to snd_pcm_lib_ioctl()
 
-Signed-off-by: Jiaxin Yu <jiaxin.yu@mediatek.com>
-Reviewed-by: Yingjoe Chen <yingjoe.chen@mediatek.com>
-Link: https://lore.kernel.org/r/1569580317-21181-5-git-send-email-jiaxin.yu@mediatek.com
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/87r23vaf39.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ include/sound/soc.h  |  5 +++++
+ sound/soc/soc-core.c | 12 ++++++++++++
+ 2 files changed, 17 insertions(+)
 
-diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-index 4a31106d3471..721632386a50 100644
---- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
-@@ -11,6 +11,7 @@
- #include <linux/of.h>
- #include <linux/of_address.h>
- #include <linux/pm_runtime.h>
-+#include <linux/reset.h>
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index d93cb46c536d..32748f78060a 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1390,6 +1390,11 @@ static inline void snd_soc_dapm_mutex_unlock(struct snd_soc_dapm_context *dapm)
+ 	mutex_unlock(&dapm->card->dapm_mutex);
+ }
  
- #include "mt8183-afe-common.h"
- #include "mt8183-afe-clk.h"
-@@ -1089,6 +1090,7 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- 	struct mtk_base_afe *afe;
- 	struct mt8183_afe_private *afe_priv;
- 	struct device *dev;
-+	struct reset_control *rstc;
- 	int i, irq_id, ret;
- 
- 	afe = devm_kzalloc(&pdev->dev, sizeof(*afe), GFP_KERNEL);
-@@ -1126,6 +1128,19 @@ static int mt8183_afe_pcm_dev_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	rstc = devm_reset_control_get(dev, "audiosys");
-+	if (IS_ERR(rstc)) {
-+		ret = PTR_ERR(rstc);
-+		dev_err(dev, "could not get audiosys reset:%d\n", ret);
-+		return ret;
-+	}
++/* bypass */
++int snd_soc_pcm_lib_ioctl(struct snd_soc_component *component,
++			  struct snd_pcm_substream *substream,
++			  unsigned int cmd, void *arg);
 +
-+	ret = reset_control_reset(rstc);
-+	if (ret) {
-+		dev_err(dev, "failed to trigger audio reset:%d\n", ret);
-+		return ret;
-+	}
+ #include <sound/soc-component.h>
+ 
+ #endif
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index d39d908f3204..bd2ac1912466 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -277,6 +277,18 @@ static inline void snd_soc_debugfs_exit(void)
+ 
+ #endif
+ 
++/*
++ * This is glue code between snd_pcm_lib_ioctl() and
++ * snd_soc_component_driver :: ioctl
++ */
++int snd_soc_pcm_lib_ioctl(struct snd_soc_component *component,
++			  struct snd_pcm_substream *substream,
++			  unsigned int cmd, void *arg)
++{
++	return snd_pcm_lib_ioctl(substream, cmd, arg);
++}
++EXPORT_SYMBOL_GPL(snd_soc_pcm_lib_ioctl);
 +
- 	/* enable clock for regcache get default value from hw */
- 	afe_priv->pm_runtime_bypass_reg_ctl = true;
- 	pm_runtime_get_sync(&pdev->dev);
+ static int snd_soc_rtdcom_add(struct snd_soc_pcm_runtime *rtd,
+ 			      struct snd_soc_component *component)
+ {
 -- 
 2.20.1
 

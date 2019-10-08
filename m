@@ -2,91 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6389BCF807
-	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 13:24:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5035ECF906
+	for <lists+alsa-devel@lfdr.de>; Tue,  8 Oct 2019 13:58:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E320D165D;
-	Tue,  8 Oct 2019 13:23:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E320D165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C42321660;
+	Tue,  8 Oct 2019 13:57:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C42321660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570533875;
-	bh=Oc8QDrGkKgGbNmSrOjXuY1a4uovS/0QsZM3F7VENYxg=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=GN3hVHbyn+VaMieevXQ/m2W717SFycOkeS5acVNjYCoWa/bKMoOX3DmyeLojhgi3F
-	 feA9l/TTZCPKF9oE30VcUoZyfyCqlyP8foBfnckh+KbiZtR6YkHw5XszVGDoJ5Ecvp
-	 tngMsk4dl1iTx+ic/1Jwpg0hNt/wa6Fk5hI/wbnQ=
+	s=default; t=1570535904;
+	bh=x46DiqKFHfuZav+4D4LECXAdIJdP5U6fddkQOPMPdE0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dWKJLUfow+DiyU0MvxDfcPaQhJ6628qkIAObLaJNrhiZ+EIYoMcSa+xklNJ/DO+JH
+	 DSIjJ7BWqjVaWQguZSoOFk4bYT/d55v6+lDXBzUbkFiFixWGjMtgYx81e3GcUjvLQr
+	 4rHelUaZOWWKnFzl8DdrIi/2kRdwaj/u6cV2az7w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 321CBF8045E;
-	Tue,  8 Oct 2019 13:22:50 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0B4D9F80322;
+	Tue,  8 Oct 2019 13:56:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 331C7F8038F; Tue,  8 Oct 2019 13:22:48 +0200 (CEST)
+ id 6E3B5F8038F; Tue,  8 Oct 2019 13:56:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
- SPF_PASS, USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-ua1-x942.google.com (mail-ua1-x942.google.com
- [IPv6:2607:f8b0:4864:20::942])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B858BF80113
- for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 13:22:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B858BF80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5845EF80113
+ for <alsa-devel@alsa-project.org>; Tue,  8 Oct 2019 13:56:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5845EF80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="cX3T49ip"
-Received: by mail-ua1-x942.google.com with SMTP id w7so5043170uag.4
- for <alsa-devel@alsa-project.org>; Tue, 08 Oct 2019 04:22:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9DelI9l/tPyAatXsWxEA7ENrUJpqr9VtyvJyQnqibnU=;
- b=cX3T49iphc+chTagMvbhQO9sgBWLKcMGvB9GLyNSvJfQb5dpu/xYat4l0/DeEEjKd9
- kGi3R1eJ4X4q6XuZUtXSN6RV7Pd8GSuVHDqbjzo29Hq5lUJ/vADsWtrXePo/p7ub7YLM
- Zd8U1Zeu7bwglxWAtakrznQ2SAdWU590wbX3U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=9DelI9l/tPyAatXsWxEA7ENrUJpqr9VtyvJyQnqibnU=;
- b=nhniW66BIqfnsQsRja1Vf3hDEh4Ge/x8A0jdvoqrV35DZjNnfx1I3xIsqXxO0ltkyb
- PP5Yt4muOpMxmH2PKFBug6BnnbjPr9QDXvbrMARMMQH4Qb4DiNGPKjC2b0PF0+9B8og3
- F/SxKXJGGmeJk6WZckm24u0f7cicutStyXOO6IycZh7PAhg4i3Uka6ndiwZ5HExwDbC+
- QVKKasmtnOfMRq4LevDALzPfkoxPIh+xoD4Kj5wgNOV1LH/Q2VI8kuf/E3W8TunWUTFO
- 1NQa1PRwVDLOPXQKIy2yTCOyMfr/vOnzh2ix58uW56vVSoCPZlTgv082jSck+JmGNp9Q
- KeWA==
-X-Gm-Message-State: APjAAAXeIYLKQI/oi5eeHH/fIAxEKEKAJAEXdTeietDfCoavY/+hWbLp
- No45NIIw0u6UNVEjveWUZK4XkweiDswAO6l9LidLBw==
-X-Google-Smtp-Source: APXvYqxVXmqBWjJSOraQJMkFXrwKR/cFFqHn0ndgDqwfeU8P2uMUu/Ahr2H7X/M1cFJLJR+2VksCMa4m74odQ/jVx+c=
-X-Received: by 2002:ab0:5e85:: with SMTP id y5mr6888802uag.55.1570533763652;
- Tue, 08 Oct 2019 04:22:43 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="a6jxkZbi"
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x98BuUJU112051;
+ Tue, 8 Oct 2019 06:56:30 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1570535790;
+ bh=2m4Z+ILKTgwMdnFzMkp3FfYvEt175FxlTl3cltv0YlE=;
+ h=From:To:CC:Subject:Date;
+ b=a6jxkZbilfAqFr3Peh7c5utNefRXpNJBdTw0FiUcjjZ5Qyhf88w/Fp5eZZiDHSzw5
+ J8Y1mARSeQGJFCfrnBC5HXQ28SsRbZ/dvwW3BSB/ME23hFSGYiC0JMkKxnicsWxgjQ
+ IGvaZdEHbEAYTUyTOt1nW5TRrZ2FF2iwxmEgLREo=
+Received: from DLEE104.ent.ti.com (dlee104.ent.ti.com [157.170.170.34])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x98BuUoX052259
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 8 Oct 2019 06:56:30 -0500
+Received: from DLEE103.ent.ti.com (157.170.170.33) by DLEE104.ent.ti.com
+ (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Tue, 8 Oct
+ 2019 06:56:27 -0500
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE103.ent.ti.com
+ (157.170.170.33) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
+ Frontend Transport; Tue, 8 Oct 2019 06:56:27 -0500
+Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id x98BuSHB078230;
+ Tue, 8 Oct 2019 06:56:28 -0500
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Date: Tue, 8 Oct 2019 14:57:20 +0300
+Message-ID: <20191008115720.7135-1-peter.ujfalusi@ti.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-References: <8f933cee57fc4420875e1e2ba14f1937@realtek.com>
- <20191008105138.GC4382@sirena.co.uk>
- <CAFv8NwJ+g+ESJJ5JxaLHADhBASKsjTE7pqY=HhcZZcT2Yy+Ygw@mail.gmail.com>
- <20191008110643.GD4382@sirena.co.uk>
-In-Reply-To: <20191008110643.GD4382@sirena.co.uk>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Tue, 8 Oct 2019 19:22:17 +0800
-Message-ID: <CAFv8Nw+68LkmCmPnq5+rvf3Ffnh1kRROdjrx=nN8tgMTGEq+xQ@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>, SteveS.Lee@maximintegrated.com,
- George.Song@maximintegrated.com, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- pierre-louis.bossart@linux.intel.com, "M R,
- Sathya Prakash" <sathya.prakash.m.r@intel.com>, jinho.ahn@maximintegrated.com,
- Tzung-Bi Shih <tzungbi@chromium.org>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- Dylan Reid <dgreid@chromium.org>, "Flove\(HsinFu\)" <flove@realtek.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: rt1011: export r0 and temperature
-	config
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com
+Subject: [alsa-devel] [PATCH] ASoC: pcm3168a: Use fixup instead of
+	constraint for channels and formats
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,41 +90,203 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 8, 2019 at 7:06 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Tue, Oct 08, 2019 at 06:59:57PM +0800, Cheng-yi Chiang wrote:
->
-> > The calibration data (R0 values and temperature) were measured and
-> > written to VPD in the factory. When machine driver initializes sound
-> > card, it reads the value from VPD and uses the exported API to set
-> > calibration value for codec. The purpose is to protect speaker. This
->
-> So the VPD is not part of the CODEC?  One question would be why the
-> CODEC driver doesn't directly read this information.
-+Maxim folks as they are also interested in setting calibration data in driver.
+The snd_pcm_hw_constraint_minmax() works fine when a single codec is
+connected to a single CPU DAI, but in multicodec or DPCM setup the
+constraints placed by the driver will apply to the whole PCM stream (FE
+included) and thus prevents more than 8 playback channels for example.
 
-Hi Mark,
-The VPD is not part of the codec.
-It is a binary blob in system firmware where we can store important
-information per-device.
-The calibration data is written to RO section of VPD in the factory
-during calibration step.
-The codec driver is not suitable of reading this information directly
-because the string format written into VPD is customized per board.
-For example on cml_rt1011_rt5682.c there are four R0 values for four
-speakers, and one temperature values . So in this case, there are
-totally 5 values in a VPD dsm_calib key. In VPD, the format is like
-"dsm_calib"="0x00278F09 0x00251E1B 0x0021AFE6 0x0022720A 0x0000012E"
-We put all the information into one string to allow arbitrary
-calibration data needed for smart amp calibration in the future.
-On other system using smart amp, there might be two speakers, with two
-temperature values..etc. The format will be changed accordingly.
-Number of temperature values depends on number of temperature sensor
-available near the speakers.
-Since machine driver knows the combination of speakers and the
-available temperature sensor, we think that machine driver is the
-better place to put this per-board logic.
-Thanks!
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+---
+Hi,
+
+I have a board which uses two pcm3168a codec connected to one McASP port with
+parallel serializers.
+One 16 channel (2x 8 channel) playback and one 12 (2x 6 channel) capture should
+be possible as I use only one CPU DAI + platform.
+However no matter how I tried to set things up ALSA blocked more than 8 channel
+playback in simple multicodec or DPCM setup.
+
+It turned out that the constraint set by the codec on the BE is actually applies
+to the FE as well as they both use the same runtime.
+
+The codec still have different constraints depending on the interface format, so
+I replaced the constraint with a fixup function to make sure that the codec will
+not advertise non supported formats.
+
+Is this a know feature?
+
+Another thing which I have came across is the lack of support for parallel data
+pins in ASoC core.
+For example the soc-pcm only checks the tdm slots to fix up the channels
+supported by the codec, but when we have multiple pins in use and they are
+operate in parallel, then the number of slots must be multiplied by the data
+pins in use.
+I have wip patches for this, adding
+
+int snd_soc_dai_set_data_pins(struct snd_soc_dai *dai,
+			      unsigned int tx_data_pins,
+			      unsigned int rx_data_pins);
+
+and then using the information in soc-pcm, but need to check further to see if
+there are other places this might be needed.
+
+Regards,
+Peter
+
+ sound/soc/codecs/pcm3168a.c | 98 +++++++++++++++----------------------
+ 1 file changed, 40 insertions(+), 58 deletions(-)
+
+diff --git a/sound/soc/codecs/pcm3168a.c b/sound/soc/codecs/pcm3168a.c
+index 88b75695fbf7..708dac27feff 100644
+--- a/sound/soc/codecs/pcm3168a.c
++++ b/sound/soc/codecs/pcm3168a.c
+@@ -62,6 +62,7 @@ struct pcm3168a_priv {
+ 	unsigned long sysclk;
+ 
+ 	struct pcm3168a_io_params io_params[2];
++	struct snd_soc_dai_driver dai_drv[2];
+ };
+ 
+ static const char *const pcm3168a_roll_off[] = { "Sharp", "Slow" };
+@@ -314,6 +315,37 @@ static int pcm3168a_set_dai_sysclk(struct snd_soc_dai *dai,
+ 	return 0;
+ }
+ 
++static void pcm3168a_update_fixup_pcm_stream(struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	struct pcm3168a_priv *pcm3168a = snd_soc_component_get_drvdata(component);
++	u64 formats = SNDRV_PCM_FMTBIT_S24_3LE | SNDRV_PCM_FMTBIT_S24_LE;
++	unsigned int channel_max = dai->id == PCM3168A_DAI_DAC ? 8 : 6;
++
++	if (!pcm3168a->io_params[dai->id].fmt)
++		return;
++
++	if (pcm3168a->io_params[dai->id].fmt == PCM3168A_FMT_RIGHT_J) {
++		/* S16_LE is only supported in RIGHT_J mode */
++		formats |= SNDRV_PCM_FMTBIT_S16_LE;
++
++		/*
++		 * If multi DIN/DOUT is not selected, RIGHT_J can only support
++		 * two channels (no TDM support)
++		 */
++		if (pcm3168a->io_params[dai->id].tdm_slots != 2)
++			channel_max = 2;
++	}
++
++	if (dai->id == PCM3168A_DAI_DAC) {
++		dai->driver->playback.channels_max = channel_max;
++		dai->driver->playback.formats = formats;
++	} else {
++		dai->driver->capture.channels_max = channel_max;
++		dai->driver->capture.formats = formats;
++	}
++}
++
+ static int pcm3168a_set_dai_fmt(struct snd_soc_dai *dai, unsigned int format)
+ {
+ 	struct snd_soc_component *component = dai->component;
+@@ -376,6 +408,8 @@ static int pcm3168a_set_dai_fmt(struct snd_soc_dai *dai, unsigned int format)
+ 
+ 	regmap_update_bits(pcm3168a->regmap, reg, mask, fmt << shift);
+ 
++	pcm3168a_update_fixup_pcm_stream(dai);
++
+ 	return 0;
+ }
+ 
+@@ -409,6 +443,8 @@ static int pcm3168a_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
+ 	else
+ 		io_params->tdm_mask = rx_mask;
+ 
++	pcm3168a_update_fixup_pcm_stream(dai);
++
+ 	return 0;
+ }
+ 
+@@ -530,63 +566,7 @@ static int pcm3168a_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
+-static int pcm3168a_startup(struct snd_pcm_substream *substream,
+-			    struct snd_soc_dai *dai)
+-{
+-	struct snd_soc_component *component = dai->component;
+-	struct pcm3168a_priv *pcm3168a = snd_soc_component_get_drvdata(component);
+-	unsigned int sample_min;
+-	unsigned int channel_max;
+-	unsigned int channel_maxs[] = {
+-		8, /* DAC */
+-		6  /* ADC */
+-	};
+-
+-	/*
+-	 * Available Data Bits
+-	 *
+-	 * RIGHT_J : 24 / 16
+-	 * LEFT_J  : 24
+-	 * I2S     : 24
+-	 *
+-	 * TDM available
+-	 *
+-	 * I2S
+-	 * LEFT_J
+-	 */
+-	switch (pcm3168a->io_params[dai->id].fmt) {
+-	case PCM3168A_FMT_RIGHT_J:
+-		sample_min  = 16;
+-		channel_max =  2;
+-		break;
+-	case PCM3168A_FMT_LEFT_J:
+-	case PCM3168A_FMT_I2S:
+-	case PCM3168A_FMT_DSP_A:
+-	case PCM3168A_FMT_DSP_B:
+-		sample_min  = 24;
+-		channel_max = channel_maxs[dai->id];
+-		break;
+-	default:
+-		sample_min  = 24;
+-		channel_max =  2;
+-	}
+-
+-	snd_pcm_hw_constraint_minmax(substream->runtime,
+-				     SNDRV_PCM_HW_PARAM_SAMPLE_BITS,
+-				     sample_min, 32);
+-
+-	/* Allow all channels in multi DIN/DOUT mode */
+-	if (pcm3168a->io_params[dai->id].tdm_slots == 2)
+-		channel_max = channel_maxs[dai->id];
+-
+-	snd_pcm_hw_constraint_minmax(substream->runtime,
+-				     SNDRV_PCM_HW_PARAM_CHANNELS,
+-				     2, channel_max);
+-
+-	return 0;
+-}
+ static const struct snd_soc_dai_ops pcm3168a_dai_ops = {
+-	.startup	= pcm3168a_startup,
+ 	.set_fmt	= pcm3168a_set_dai_fmt,
+ 	.set_sysclk	= pcm3168a_set_dai_sysclk,
+ 	.hw_params	= pcm3168a_hw_params,
+@@ -776,8 +756,10 @@ int pcm3168a_probe(struct device *dev, struct regmap *regmap)
+ 	pm_runtime_enable(dev);
+ 	pm_runtime_idle(dev);
+ 
+-	ret = devm_snd_soc_register_component(dev, &pcm3168a_driver, pcm3168a_dais,
+-			ARRAY_SIZE(pcm3168a_dais));
++	memcpy(pcm3168a->dai_drv, pcm3168a_dais, sizeof(pcm3168a->dai_drv));
++	ret = devm_snd_soc_register_component(dev, &pcm3168a_driver,
++					      pcm3168a->dai_drv,
++					      ARRAY_SIZE(pcm3168a->dai_drv));
+ 	if (ret) {
+ 		dev_err(dev, "failed to register component: %d\n", ret);
+ 		goto err_regulator;
+-- 
+Peter
+
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

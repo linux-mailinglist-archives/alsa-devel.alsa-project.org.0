@@ -2,104 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08196D10D4
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Oct 2019 16:07:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 501C1D1101
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Oct 2019 16:17:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 829F7165D;
-	Wed,  9 Oct 2019 16:06:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 829F7165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E17391661;
+	Wed,  9 Oct 2019 16:16:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E17391661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570630026;
-	bh=y19Re3ZHYWK7TgI9oWVLDz76u8xSW7ivo2qCCTxsRHQ=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1570630636;
+	bh=aY1kzboVe78xPXhjcmRhBdopKPNuo2SGQ3kqbDmuG+Q=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AasB8WCWUPQqDFub0l55TB8F1AF9o7berXaXjIryItPtV4aI/G1eIibdrrhBzakQd
-	 9Wm0vTJM3JxQej/CKtK86mYUA9Oii8iddH69DM/bekBwqtwzA61uLRbRR6uQcgc3gb
-	 29YQz7sV0uKnDItBA14/elCWMMkVRWU79k3og4Ro=
+	b=nUrDq4tctFPJH1B/rSsfIWbsiBJB5BgIaHWwOTrQshBr363GjTo44AKKmaj4OcA5H
+	 WRec1cAi5tW5i6PliIBEwL5BpcwIN6AHNtIohx9V4Tjt1vz1HRJQXRmO8WLpk/EoWw
+	 7Mde5bYc1+jZUZFOoYT0bKTt+EjV/IsXNK1z6XXs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 38210F802BD;
-	Wed,  9 Oct 2019 16:05:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 123B5F802FB;
+	Wed,  9 Oct 2019 16:15:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 51891F802BE; Wed,  9 Oct 2019 16:05:18 +0200 (CEST)
+ id E4E60F802BE; Wed,  9 Oct 2019 16:15:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C59E6F800BF
- for <alsa-devel@alsa-project.org>; Wed,  9 Oct 2019 16:05:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C59E6F800BF
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0886F800AE
+ for <alsa-devel@alsa-project.org>; Wed,  9 Oct 2019 16:15:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0886F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="r0N9yf2b"
-Received: by mail-wm1-x341.google.com with SMTP id 7so2781707wme.1
- for <alsa-devel@alsa-project.org>; Wed, 09 Oct 2019 07:05:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=Uj3uK+PXxvqbeopMnt61nNLWeJ5KhO8l4CJVLwumEdU=;
- b=r0N9yf2b+byu4vuI8y0JeeHavanBpTMDQpn/KaBT8Gm4fGqhrZiXJi0RqeKptEsRWn
- Br9sL6Yil/FWaiOqUwPcODWe94yJNRyZzu/B8LEWYVr9gHUdwbSDbtiDcmi2byyJImGC
- YXqINhsTJVv9QKm5SIub8rUPhTw6lqrIfQDn6bO+Fhi9lPH2JT8Tz16ne+srPsgphekB
- 7HBBcyqyGGKSqEmo58Ndwm8VYH6Q/cg0zXvAVuOMeGHts28iFJiR2szzJePhV1zYuapJ
- ORG/XU7r4bwCNqLU+5GO4AscWIvAVeOsZPxTu36s4L+htHTizyP8MCAdOnMgeKp0V12x
- 8nKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=Uj3uK+PXxvqbeopMnt61nNLWeJ5KhO8l4CJVLwumEdU=;
- b=WrRNn554IDHtp/dxDss5/KWMIGLHJ+XatqcC8XPPAZsPizy6nNJixQFKnxytX+X9KP
- EFq40eNZnLgSbegOxlb3vtEfZTx6ngOUV4vO3qZ1HNeiEV7J5tGUacU8Z2un6t4oHjAf
- FsT2OEKO40r0XpnOgsu5coRGW5UJK4+zN+97qW4PzDLwmzTIMUsk35jM2ENfFAZDGZyO
- viJQmziZH1RVMtyM9JiLR9xu7t5G9KvKYRDN70V0BHjV45md9bLynjdciFdftEhFj7aa
- 9qOXICsI/Z/k7mpvL3jZKugRR9B1dtpUhFI/x1MN0NIDRwAusnk1dWj/1NEl674eT/n6
- GCvw==
-X-Gm-Message-State: APjAAAU6Zm9dgtK1CdETXeBi0U3oFLdIBrTU5/IMx8eSH+APEv618/wx
- La/TQLpUqtc15ze3YZKm0UJ8/g==
-X-Google-Smtp-Source: APXvYqwTU1rnlyXZsfzUTaF2tYxe+uafBqiZSZYxBNpBuDzM8Nr7Tt4r2+AOyoXwV4lcRyYbLYeo8Q==
-X-Received: by 2002:a7b:ce12:: with SMTP id m18mr2759228wmc.108.1570629914590; 
- Wed, 09 Oct 2019 07:05:14 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id s12sm2897774wra.82.2019.10.09.07.05.13
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 09 Oct 2019 07:05:13 -0700 (PDT)
-To: Stephen Boyd <swboyd@chromium.org>, Cheng-yi Chiang <cychiang@chromium.org>
-References: <20191007071610.65714-1-cychiang@chromium.org>
- <CA+Px+wWkr1xmSpgEkSaGS7UZu8TKUYvSnbjimBRH29=kDtcHKA@mail.gmail.com>
- <ebf9bc3f-a531-6c5b-a146-d80fe6c5d772@roeck-us.net>
- <CAFv8NwLuYKHJoG9YR3WvofwiMnXCgYv-Sk7t5jCvTZbST+Ctjw@mail.gmail.com>
- <5d9b5b3e.1c69fb81.7203c.1215@mx.google.com>
- <CAFv8Nw+x6V-995ijyws1Q36W1MpaP=kNJeiVtNakH-uC3Vgg9Q@mail.gmail.com>
- <5d9ca7e4.1c69fb81.7f8fa.3f7d@mx.google.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <e968e478-bb48-5b05-b6c4-ae1bf77f714f@linaro.org>
-Date: Wed, 9 Oct 2019 15:05:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="cVvyCmy+"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=POxETTBPmCjnYU0uMGoBV2RzCASmpLWvSLKtWWIJZwk=; b=cVvyCmy+tEAk+rcYenhPDEhdU
+ TP4QTzDW5yls+FqwUrta/d0bE/AsGBuRSMeVUGfxtlhT75zq+4Yau6o36i3YvTqBuXVozNLMpse9z
+ iMkMEtGbjZKwGzb2BCoC3YUmwD5iJsfPL5lRL3tD3mKzQTqJyISuq0r9CtnaItxDpGR9k=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iICkM-0004x2-TE; Wed, 09 Oct 2019 14:15:22 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 67E6B2741DF9; Wed,  9 Oct 2019 15:15:22 +0100 (BST)
+Date: Wed, 9 Oct 2019 15:15:22 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>
+Message-ID: <20191009141522.GD3929@sirena.co.uk>
+References: <c0b01f37cdc241a596b12942c8c5172f@realtek.com>
 MIME-Version: 1.0
-In-Reply-To: <5d9ca7e4.1c69fb81.7f8fa.3f7d@mx.google.com>
-Content-Language: en-US
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Tzung-Bi Shih <tzungbi@chromium.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Hung-Te Lin <hungte@chromium.org>, Tzung-Bi Shih <tzungbi@google.com>,
- Mark Brown <broonie@kernel.org>, Sean Paul <seanpaul@chromium.org>,
- Dylan Reid <dgreid@chromium.org>, Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [alsa-devel] [PATCH] firmware: vpd: Add an interface to read
-	VPD value
+In-Reply-To: <c0b01f37cdc241a596b12942c8c5172f@realtek.com>
+X-Cookie: Every path has its puddle.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ Derek =?utf-8?B?W+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "sathya.prakash.m.r@intel.com" <sathya.prakash.m.r@intel.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
+Subject: Re: [alsa-devel] [PATCH RESEND] ASoC: rt1011: set tx/rx slots from
+ tx/rx_mask in TDM case
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,44 +88,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============5948272256627224798=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-
-On 08/10/2019 16:14, Stephen Boyd wrote:
->> 3) As my use case does not use device tree, it is hard for ASoC
->> machine to access nvmem device. I am wondering if I can use
->> nvm_cell_lookup so machine driver can find the nvmem device using a
->> con_id. But currently the cell lookup API requires a matched device,
->> which does not fit my usage because there will be different machine
->> drivers requesting the value.
->> I think I can still workaround this by adding the lookup table in
->> machine driver. This would seem to be a bit weird because I found that
->> most lookup table is added in provider side, not consumer side. Not
->> sure if this is logically correct.
-> Maybe Srini has some input here. It looks like your main concern is
-> consumer to provider mapping?
-> 
-
-In non-DT setup, there are various ways to lookup nvmem provider.
-
-1> nvmem_device_get()/put() using provider devid/name. I think you 
-should be able to use this in your case.
-2> nvmem_register_notifier() which notifies when nvmem provider is added 
-to system.
-3> nvmem_device_find() with own match function this will be merged in 
-next window (https://lkml.org/lkml/2019/10/3/215)
+--===============5948272256627224798==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IDYEmSnFhs3mNXr+"
+Content-Disposition: inline
 
 
-If none of these are of any help, could explain what exactly are you 
-looking for w.r.t nvmem to be able to move to what Stephen Boyd suggested?
+--IDYEmSnFhs3mNXr+
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---srini
+On Tue, Oct 08, 2019 at 09:32:05AM +0000, Shuming [=E8=8C=83=E6=9B=B8=E9=8A=
+=98] wrote:
+
+> +		if (first_bit =3D=3D 0 || first_bit =3D=3D 2 ||
+> +			first_bit =3D=3D 4 || first_bit =3D=3D 6) {
+
+
+> +		} else {
+> +		}
+
+This would be more idiomatically written as a switch statement, as would
+the equivalent stuff on the TX side.
+
+--IDYEmSnFhs3mNXr+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2d63kACgkQJNaLcl1U
+h9CdUwf/ZlJrXiP9kQBlJRSWU0taqVFsGDEHukkbW2JnmRPWzLfXDjznn19A2qiw
+J1KrVFrk2KzftEQqUuhChKkW8wGiSgMUj3oam3aQxn2xVgQ7Oa9/simpt7yJzymJ
+PfGowaeit1xzXY/g0/28rcbkgrpy3YPwCYmfTMw2uDt2WSuFwIXw8biAJ8j+p/ec
+n4Ny7cQz2Gt/ApL8z7adu+NeEIC4bY8HDNPHO7d+zE+TDitRtwP/nmVzt9V49u8j
+L1Y4Bw/zyz0LlTZo4fdFo7SKLlRgRer2a1y25MMaj46gbmZmJuGiMUulxplQ5ig0
+TUQAtOoaaD8brvfcV9k5psitdSGHFQ==
+=1q/q
+-----END PGP SIGNATURE-----
+
+--IDYEmSnFhs3mNXr+--
+
+--===============5948272256627224798==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============5948272256627224798==--

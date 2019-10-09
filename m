@@ -2,88 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 903F5D0CBE
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Oct 2019 12:24:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9AA10D0D13
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Oct 2019 12:48:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06F9D1616;
-	Wed,  9 Oct 2019 12:23:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06F9D1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1EAD41614;
+	Wed,  9 Oct 2019 12:47:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1EAD41614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570616666;
-	bh=U4XN1lJWo30d80AfhtswIoHw8VH1rnpI48A54jur0Wc=;
+	s=default; t=1570618089;
+	bh=sWgSPXH1xHwxk/rQjdloHA+mlGIKPWfOdNaPpxnKqG8=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=NPJaJgT3HUXLWnV5F24opwOgFQbI4hXGCC7h8VP7paO7TrLgmv2iJ09KMj4SMRVEx
-	 xa0r6ywgcUEhrsYdssEvruZ2+E3kwPOCCQWSaicGXlIIQ71qCwK9sYDVV0xQljy+CP
-	 DoNbveH5r8iU0uzvwduGPYygdAq0ja/EK4LHVqGM=
+	b=OKwY3DyC6Mz5KGsXCDDm6VhGmkySPVuvu+PA2dnLYllF6ynNsPfQIoyoSp1E6Qudl
+	 eqPssTHrPg2n5QDUUNm+R+bVKaGuGpeMuDfa7sfQYkrZF9FHhxYZ98wKHw+AViqtpT
+	 W67F0BqbKfldp7RQb4crqwie/f3q29Hy2BK7IF0E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B834F802BD;
-	Wed,  9 Oct 2019 12:22:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6DDE1F802BD;
+	Wed,  9 Oct 2019 12:46:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4BF26F802BD; Wed,  9 Oct 2019 12:22:40 +0200 (CEST)
+ id 15AF9F80113; Wed,  9 Oct 2019 12:46:22 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8404F80113
- for <alsa-devel@alsa-project.org>; Wed,  9 Oct 2019 12:22:37 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8404F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80988F80113
+ for <alsa-devel@alsa-project.org>; Wed,  9 Oct 2019 12:46:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80988F80113
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="X4t2Dq/u"
-Received: by mail-wm1-x344.google.com with SMTP id r17so4424619wme.0
- for <alsa-devel@alsa-project.org>; Wed, 09 Oct 2019 03:22:37 -0700 (PDT)
+ header.b="RJZeN1la"
+Received: by mail-wm1-x343.google.com with SMTP id y135so4478430wmc.1
+ for <alsa-devel@alsa-project.org>; Wed, 09 Oct 2019 03:46:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=sstpw1xzoTcys4bTI2z5iT/eq7Z/Z/zzCvHhmA4A8rU=;
- b=X4t2Dq/uhpHhMBk6MlJ5LGM/9j59VfzyXMcipbRZXLDmuFaszNoIi7uuNObDq9DKVI
- DZDbdXUxdsdQed/9mO21N71hPS9dduzZQKaflkEV+tTaQzsJD7Jdruo0u76ZHW2d0/xz
- rDTK/jP8jQL7cbpBPpdy8M/6R6ZTRV7cvjqkoK52SseFeXi5/hhmRyikwRLXZzK0tFg/
- aORskQ7zGOeMH36xr6NrI311cxs6oCR5SHTjsC1y8uN6ZyjAXZsBjmOfvDgkyC17adAq
- BuzrR368owE+VkR/zaqNESXB5Gokxx9bv+2GsZD1T67/y4W6k9amHdySCvP66sER4K5j
- isUA==
+ bh=bLt5Gpr+TBYMqPJckYDfypWA6Ci7GEvQRrL7skWxG/M=;
+ b=RJZeN1la5DmYjMu7aEtVsZxkzkziIx5DoE0FOl6k0Gy69PkBvwxSj7bKVvvAX5NSAv
+ 7C4BiuBGD1HbiwaeB7rJIP7sG6AFMKZJtHieX2I5hXxGttR6KG6m6P2t9VdR7ngJXgPX
+ C8thnd80knly0m37L9CTTL0FnJ0z0KrgTIXoCgY8daWSx1pKdyy2BhGg/k0A0GroKDZI
+ rPzUMzf1HVUycYXUG0buy4nw8hHIZvOtjOunUOqnPrFnF0eDJk5R9Hw9RZl5BDXjQg3Q
+ waqeilWohfIHKefEDD6kOe6zAjwVGuYCy49sTvsnvKkjbDsW4VFuZWsso0/q5Xe3Wsbn
+ aj4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=sstpw1xzoTcys4bTI2z5iT/eq7Z/Z/zzCvHhmA4A8rU=;
- b=nVzD6heTsmUBu40NolWKbXdL/sfhzX1Ssi/U3OSzeud+f+xepWgN33lNyEjtztD9JK
- itCMH2xNKEJr3+Xqe+/ZYgqdF/m/3YkOZVATt/FG+jAT93bnqI1rZuoyDgTf8Vwg7n2P
- iUxDOzhu4BVOWkf507JskCUC2kfbk1THjXsEtmyBisYOwy28BpzBjihxvJ0eb//9sYaU
- r43cuCCQbZWn9uJftN6cXpkAr1fTn0Nv96+3fcNWSUUuLwZZopr4s2hFnTk4d9C60mnP
- Zjg/Lr+4Z2lpoM4oEBXl2Luml9viWR2H6+S/zcvRUBkVQ80U4ngh5TLXVjlOd5n8OZSK
- XsEg==
-X-Gm-Message-State: APjAAAXr/zcsP0djQlAGLPepZSsUIbqK9mUObBzQKG/HB9xkMOkoCmt6
- iWMlKnb2VqgedulbiwRes8U8Fw==
-X-Google-Smtp-Source: APXvYqySTdm1+ZynCCZE5I6c+aQVO46sCHFw7En9hCntPJymIhkKXfobUTWKUmKX2Hfeo1ALaRjGrA==
-X-Received: by 2002:a1c:2cc4:: with SMTP id s187mr2036135wms.166.1570616556682; 
- Wed, 09 Oct 2019 03:22:36 -0700 (PDT)
+ bh=bLt5Gpr+TBYMqPJckYDfypWA6Ci7GEvQRrL7skWxG/M=;
+ b=i5FgsJQDX9sZXp4nIVWTGPY+r+0Gm3OuhKX8s33Y3EmQRgPXvBqDonH1CuLCtfXWCZ
+ DipGHXQfdRW8qPVM84gXlgsHoNTA+oPDVgFcJZ111qUsUHL/Kie+EjtU7fhgqdhbLuFX
+ cML0u+CZSXPS+QCjdbR8pGpq9aFy//OXQoxcEpmG4/UBU3UO+FdW3GUiZpCniTl4tyiD
+ bN4y1ach6H9PevLhFhngKzDtPLTjCwhlGal64KS2BIQqBnVzSCLynCCJbzg40frMQFOq
+ pAQxwiblUiyGW09OXIuA2GQWmJz677AKq/8EpeUj7SzvqpbMHQXYfByga4738+XYf0xT
+ 4ERQ==
+X-Gm-Message-State: APjAAAXnmVKbRN3rSHjey2s18hWZlDfSNX+bfKzqrIU3zeqbATkJU2My
+ 4ggDY+L1z2exKu0vaMyb5KAyww==
+X-Google-Smtp-Source: APXvYqyHCZJHAK2FkQAKsfFkzde/fa2r2D1UAddHZlRYXktMUnNw5SOqGgFY6CIRgjSVSyMGvTmoMA==
+X-Received: by 2002:a1c:1901:: with SMTP id 1mr2091192wmz.28.1570617978608;
+ Wed, 09 Oct 2019 03:46:18 -0700 (PDT)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id q22sm1657407wmj.5.2019.10.09.03.22.35
+ by smtp.gmail.com with ESMTPSA id g4sm2131248wrw.9.2019.10.09.03.46.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 09 Oct 2019 03:22:35 -0700 (PDT)
+ Wed, 09 Oct 2019 03:46:17 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: broonie@kernel.org
-Date: Wed,  9 Oct 2019 11:21:27 +0100
-Message-Id: <20191009102127.7860-1-srinivas.kandagatla@linaro.org>
+Date: Wed,  9 Oct 2019 11:46:03 +0100
+Message-Id: <20191009104603.15412-1-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
  spapothi@codeaurora.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] [RFC PATCH] ASoC: soc-dapm: Invalidate DAPM path
-	during dapm addition of routes
+ vkoul@kernel.org, Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Gopikrishnaiah Anandan <agopik@codeaurora.org>
+Subject: [alsa-devel] [RFC PATCH] ASoC: soc-dapm: Skip suspending widgets
+	with ignore flag
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,44 +104,30 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Sudheer Papothi <spapothi@codeaurora.org>
 
-During sound card registration, dapm adds routes of
-codec and other component paths, but the invalidation of
-the widgets in these paths will happen only when the
-sound card is instantiated. As these routes are added
-before sound card instantiation, these widgets are
-not invalidated until a playback or recording usecase
-is started.
+For wigdets which have set the suspend ignore flag asoc framework
+shouldn't mark them as dirty when ASoC suspend function is called.
+This change adds check to skip suspending the widgets with the flag set.
 
-Audio playback or recording usecase is not started in
-the case of codec loopback. So, if codec loopback is
-performed just after soundcard registration, then the
-widgets are not powered up as those widgets are not
-invalidated, results into codec loopback failure.
-
-Change is to remove the sound card instantiation check
-condition in dapm add paths, so widgets get invalidated
-whenever they are added.
-
+Signed-off-by: Gopikrishnaiah Anandan <agopik@codeaurora.org>
 Signed-off-by: Sudheer Papothi <spapothi@codeaurora.org>
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 ---
- sound/soc/soc-dapm.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/soc/soc-dapm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index b6378f025836..13544f7c850b 100644
+index 13544f7c850b..4ecfd32e59b8 100644
 --- a/sound/soc/soc-dapm.c
 +++ b/sound/soc/soc-dapm.c
-@@ -2862,8 +2862,7 @@ static int snd_soc_dapm_add_path(struct snd_soc_dapm_context *dapm,
- 		dapm_mark_dirty(widgets[dir], "Route added");
- 	}
+@@ -303,6 +303,8 @@ void dapm_mark_endpoints_dirty(struct snd_soc_card *card)
+ 	mutex_lock(&card->dapm_mutex);
  
--	if (dapm->card->instantiated && path->connect)
--		dapm_path_invalidate(path);
-+	dapm_path_invalidate(path);
- 
- 	return 0;
- err:
+ 	list_for_each_entry(w, &card->widgets, list) {
++		if (w->ignore_suspend)
++			continue;
+ 		if (w->is_ep) {
+ 			dapm_mark_dirty(w, "Rechecking endpoints");
+ 			if (w->is_ep & SND_SOC_DAPM_EP_SINK)
 -- 
 2.21.0
 

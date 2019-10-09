@@ -2,78 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4F3DD0D77
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Oct 2019 13:17:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB1C2D0D8B
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Oct 2019 13:20:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3823C1616;
-	Wed,  9 Oct 2019 13:16:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3823C1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B4E11654;
+	Wed,  9 Oct 2019 13:19:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B4E11654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570619860;
-	bh=pfQ+Jf/HkImpSkjB64x3HZ48iEe8MZvDGhC2WOullfA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1570620048;
+	bh=vgPoF9v0RUyPmzx2pwIhZ5fBmJHhYP7Sy9aDpTatyro=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XrGn3FyRH82g7/g6G4HL/ZdAFgGUdA5gXOpWQvTci+n9V5rgDOxbfpPSxhLSgyZu7
-	 4NdTwRfLAmmAEg6aGkleQ1a2IsaOvS0e0PNE1gHpbEpFgKNjt2Cr4ZIll7qL7e4Qhe
-	 g+YwOx7rYG1/gw49pZaw99auEKcKvCo7bz+Ph5DQ=
+	b=Jj+P//heF/gh9DsC0W24E6J1dml/KjZ250unveaTGxvcb9eOYsQNq9Ozq7VXlaH0d
+	 syPHPC0w0LqNYVlg2fv+kWdrhA6HiycIl3DUkx1amBlDFFimFxjgTb5Pe5Rd7fhcnZ
+	 fSrIddgBuJhLAw81YwjjVDsbgWG7rjMZhq4oPcJQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB0A6F802BE;
-	Wed,  9 Oct 2019 13:15:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1CEDF800AE;
+	Wed,  9 Oct 2019 13:19:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38B6CF802BE; Wed,  9 Oct 2019 13:15:54 +0200 (CEST)
+ id A54F3F802BE; Wed,  9 Oct 2019 13:19:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mo6-p01-ob.smtp.rzone.de (mo6-p01-ob.smtp.rzone.de
- [IPv6:2a01:238:20a:202:5301::3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D467BF800AE
- for <alsa-devel@alsa-project.org>; Wed,  9 Oct 2019 13:15:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D467BF800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2ED63F800AE
+ for <alsa-devel@alsa-project.org>; Wed,  9 Oct 2019 13:18:59 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ED63F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="Rxn8R3Ks"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1570619749;
- s=strato-dkim-0002; d=gerhold.net;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=gIr5w1LNV8p5VM13/Ns6jSh9ntQ3Ce19P3uUZH/6bOo=;
- b=Rxn8R3Ks0wd5/nOk3Y+/4iv3UT13LWa7tvtf0hdc+WnW8+GIx4ySi/MJlczadIwkpQ
- Tx1PGHRyVtL/EdpfRtwcxWSa1KVXCcg/CqUdWaEwLjns6CSw0TqO9SWScpR8xaaIzSgy
- OwL0aNI5PC9f9Ny0CxoTcJZ0IMwqlkCtg/5tTqsKgxoPgljDzI4/Io6NYqZigZUlqjLy
- sCM35zu0Tf5U17Gohj4BVWEUKk0kA2PLa0dI7SCRsi4vSaIt1+qr9dfiYHALAhqE8Qn0
- NbcAWceyH3rCKICBnXGMPzKPzBNBA+BS/EfJrTLKtLlND+iHbaN2TK5Ol5gyVHkl/5Bx
- lMrg==
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u266EZF6ORJL0PVgt6Qm"
-X-RZG-CLASS-ID: mo00
-Received: from gerhold.net by smtp.strato.de (RZmta 44.28.0 AUTH)
- with ESMTPSA id L0811cv99BFlEHX
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve secp521r1 with
- 521 ECDH bits, eq. 15360 bits RSA))
- (Client did not present a certificate);
- Wed, 9 Oct 2019 13:15:47 +0200 (CEST)
-Date: Wed, 9 Oct 2019 13:15:41 +0200
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20191009111541.GA170307@gerhold.net>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="ru69PyPe"
+Received: by mail-wr1-x444.google.com with SMTP id j11so2436409wrp.1
+ for <alsa-devel@alsa-project.org>; Wed, 09 Oct 2019 04:18:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=X1jBx8b8NTy2Q+Af6vxHBjKqe3YVW97aJiNQNQGtrZs=;
+ b=ru69PyPe0UtYrlO/fyA+tolySxWWh0Ch6HqnMTAtHHU63224V0uSWQjeuEoK7lxhif
+ TLINXhqaPeOvatqyJJqiwgh2R7n9yd0ZrvVghtgbPYL50A32STy9PtJK122BtLyuDgqS
+ BQ2DeEIj8s5vQhtgsepH8uAfRPud/cxE37wTeQfEhvz40Xb435njt+MNGptf8MZPsikx
+ E1t5k0sgrwLsfh9hvjc32efWCEeRMsNXCQy4CQ7wLNSyzujYH/KIH+WLHyQLZ6EftFml
+ 0JcpwTqvitm6j8YjQ+04LnKS8ASqm9ZcyRAgQUis0hWri/03bPuMdNAdXutJL7XQMj5w
+ CkqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=X1jBx8b8NTy2Q+Af6vxHBjKqe3YVW97aJiNQNQGtrZs=;
+ b=ok9qMMMPmawX1ZwSB1+pSXpOKJ4Q8+d5y0RtOPq/Igx13OYOi8JNcC34ysU87SfNF2
+ 4BAfVRoOwxwBLLwYzKtUdkUDXmfJS+VOCFH0xhpfi02nFeSrnm/Y2lQtO+m9Fl2V4U+z
+ v22tLR/DtfeGHCHRFlZdNQGkFi3lbl0yLAXNqp2jGSY/nSGzvqCtlKMtB8pNuyv8pgK5
+ oGord/DcCfMjmyROrOmU024UYuNHgEGr2fhQcDiY8v5uQM0Va9etDvRyKwtXjfymur7J
+ DY7U8zS3nfDwEARzQjjQAtEH58l0SLDRP0SNPMBMNggGRVumz2a43MXVIFYF/JBclbVK
+ HSdA==
+X-Gm-Message-State: APjAAAWHtxcVUe+vrbQVOjxIU2/6IJPDtG54dNkfqnFylPqZf2A87vRy
+ zaiirYc8tzGboz2fLjxqzEwo+tO4wIY=
+X-Google-Smtp-Source: APXvYqxK90NuL8YSpTznLuil4RbL0kVK2hvlumjqRtekolWQ80AbDoBVvWylDdHxvWRHsLRIZ3qg1w==
+X-Received: by 2002:adf:e542:: with SMTP id z2mr2546457wrm.188.1570619939169; 
+ Wed, 09 Oct 2019 04:18:59 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id t13sm4100538wra.70.2019.10.09.04.18.58
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 09 Oct 2019 04:18:58 -0700 (PDT)
+To: Stephan Gerhold <stephan@gerhold.net>
 References: <20191007181952.34786-1-stephan@gerhold.net>
  <6d324680-de9b-8fe9-5093-abb7cb1f1f83@linaro.org>
+ <20191009111541.GA170307@gerhold.net>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <d7dceb5f-dc2b-afa3-87f8-fbfdd68447cd@linaro.org>
+Date: Wed, 9 Oct 2019 12:18:57 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <6d324680-de9b-8fe9-5093-abb7cb1f1f83@linaro.org>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Cc: Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, alsa-devel@alsa-project.org
+In-Reply-To: <20191009111541.GA170307@gerhold.net>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>
 Subject: Re: [alsa-devel] [PATCH] ASoC: msm8916-wcd-digital: Remove broken
-	MIX2 DAPM routes
+ MIX2 DAPM routes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,141 +103,23 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 09, 2019 at 10:15:57AM +0100, Srinivas Kandagatla wrote:
-> Hi Stephan,
-> Thanks for testing and reporting this!
-> 
-> On 07/10/2019 19:19, Stephan Gerhold wrote:
-> > Since 5.3-rc1, the kernel (correctly) complains about missing
-> > widgets when loading msm8916-wcd-digital:
-> > 
-> > 	ASoC: no sink widget found for RX1 MIX2 INP1
-> > 	ASoC: Failed to add route IIR1 -> IIR1 -> RX1 MIX2 INP1
-> > 	ASoC: no sink widget found for RX2 MIX2 INP1
-> > 	ASoC: Failed to add route IIR1 -> IIR1 -> RX2 MIX2 INP1
-> > 	ASoC: no sink widget found for RX1 MIX2 INP1
-> > 	ASoC: Failed to add route IIR2 -> IIR2 -> RX1 MIX2 INP1
-> > 	ASoC: no sink widget found for RX2 MIX2 INP1
-> > 	ASoC: Failed to add route IIR2 -> IIR2 -> RX2 MIX2 INP1
-> > 
-> > This happens because RX1/2 MIX2 INP1 is not actually supported by
-> > msm8916-wcd-digital for some reason. There were some traces of it
-> 
-> RX1/2 MIX2 path is supported by the codec with IIR1 and IIR2 inputs on INP1.
-> 
-> MIX2 path was not added when we added first codec support as there was no
-> IIR support. I think I totally missed adding this while adding IIR support.
-> Better fix here would be to add that missing path.
-> 
 
-Either way is fine for me, as long as it gets fixed for 5.4 :)
 
-> Can you try this patch?
+On 09/10/2019 12:15, Stephan Gerhold wrote:
+> Thanks for the patch!
 > 
-> ------------------------------------->cut<-----------------------------
+> I think your mail client messed it up, but I managed to apply it with
+> some manual fixes. It seems to work fine too:
 > 
-> From c54cc63897794efdf3c9fa8886d8377f80c272f8 Mon Sep 17 00:00:00 2001
-> From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> Date: Wed, 9 Oct 2019 10:10:09 +0100
-> Subject: [PATCH] ASoC: msm8916-wcd-digital: add missing MIX2 path for RX1/2
-> 
-> This patch adds missing MIX2 path on RX1/2 which take IIR1 and
-> IIR2 as inputs.
-> 
-> Without this patch sound card fails to intialize with below warning:
-> 
->  ASoC: no sink widget found for RX1 MIX2 INP1
->  ASoC: Failed to add route IIR1 -> IIR1 -> RX1 MIX2 INP1
->  ASoC: no sink widget found for RX2 MIX2 INP1
->  ASoC: Failed to add route IIR1 -> IIR1 -> RX2 MIX2 INP1
->  ASoC: no sink widget found for RX1 MIX2 INP1
->  ASoC: Failed to add route IIR2 -> IIR2 -> RX1 MIX2 INP1
->  ASoC: no sink widget found for RX2 MIX2 INP1
->  ASoC: Failed to add route IIR2 -> IIR2 -> RX2 MIX2 INP1
-> 
-> Reported-by: Stephan Gerhold <stephan@gerhold.net>
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  sound/soc/codecs/msm8916-wcd-digital.c | 22 ++++++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/sound/soc/codecs/msm8916-wcd-digital.c
-> b/sound/soc/codecs/msm8916-wcd-digital.c
-> index 9fa5d44fdc79..58b2468fb2a7 100644
-> --- a/sound/soc/codecs/msm8916-wcd-digital.c
-> +++ b/sound/soc/codecs/msm8916-wcd-digital.c
-> @@ -243,6 +243,10 @@ static const char *const rx_mix1_text[] = {
->  	"ZERO", "IIR1", "IIR2", "RX1", "RX2", "RX3"
->  };
-> 
-> +static const char * const rx_mix2_text[] = {
-> +	"ZERO", "IIR1", "IIR2"
-> +};
-> +
->  static const char *const dec_mux_text[] = {
->  	"ZERO", "ADC1", "ADC2", "ADC3", "DMIC1", "DMIC2"
->  };
-> @@ -270,6 +274,16 @@ static const struct soc_enum rx3_mix1_inp_enum[] = {
->  	SOC_ENUM_SINGLE(LPASS_CDC_CONN_RX3_B2_CTL, 0, 6, rx_mix1_text),
->  };
-> 
-> +/* RX1 MIX2 */
-> +static const struct soc_enum rx_mix2_inp1_chain_enum =
-> +	SOC_ENUM_SINGLE(LPASS_CDC_CONN_RX1_B3_CTL,
-> +		0, 3, rx_mix2_text);
-> +
-> +/* RX2 MIX2 */
-> +static const struct soc_enum rx2_mix2_inp1_chain_enum =
-> +	SOC_ENUM_SINGLE(LPASS_CDC_CONN_RX2_B3_CTL,
-> +		0, 3, rx_mix2_text);
-> +
->  /* DEC */
->  static const struct soc_enum dec1_mux_enum = SOC_ENUM_SINGLE(
->  				LPASS_CDC_CONN_TX_B1_CTL, 0, 6, dec_mux_text);
-> @@ -309,6 +323,10 @@ static const struct snd_kcontrol_new rx3_mix1_inp2_mux
-> = SOC_DAPM_ENUM(
->  				"RX3 MIX1 INP2 Mux", rx3_mix1_inp_enum[1]);
->  static const struct snd_kcontrol_new rx3_mix1_inp3_mux = SOC_DAPM_ENUM(
->  				"RX3 MIX1 INP3 Mux", rx3_mix1_inp_enum[2]);
-> +static const struct snd_kcontrol_new rx1_mix2_inp1_mux = SOC_DAPM_ENUM(
-> +				"RX1 MIX2 INP1 Mux", rx_mix2_inp1_chain_enum);
-> +static const struct snd_kcontrol_new rx2_mix2_inp1_mux = SOC_DAPM_ENUM(
-> +				"RX2 MIX2 INP1 Mux", rx2_mix2_inp1_chain_enum);
-> 
->  /* Digital Gain control -38.4 dB to +38.4 dB in 0.3 dB steps */
->  static const DECLARE_TLV_DB_SCALE(digital_gain, -3840, 30, 0);
-> @@ -740,6 +758,10 @@ static const struct snd_soc_dapm_widget
-> msm8916_wcd_digital_dapm_widgets[] = {
->  			 &rx3_mix1_inp2_mux),
->  	SND_SOC_DAPM_MUX("RX3 MIX1 INP3", SND_SOC_NOPM, 0, 0,
->  			 &rx3_mix1_inp3_mux),
-> +	SND_SOC_DAPM_MUX("RX1 MIX2 INP1", SND_SOC_NOPM, 0, 0,
-> +			 &rx1_mix2_inp1_mux),
-> +	SND_SOC_DAPM_MUX("RX2 MIX2 INP1", SND_SOC_NOPM, 0, 0,
-> +			 &rx2_mix2_inp1_mux),
-> 
->  	SND_SOC_DAPM_MUX("CIC1 MUX", SND_SOC_NOPM, 0, 0, &cic1_mux),
->  	SND_SOC_DAPM_MUX("CIC2 MUX", SND_SOC_NOPM, 0, 0, &cic2_mux),
-> -- 
-> 2.21.0
-> 
-> ------------------------------------->cut<-----------------------------
-> 
+> Tested-by: Stephan Gerhold<stephan@gerhold.net>
+Thanks for testing!
 
-Thanks for the patch!
-
-I think your mail client messed it up, but I managed to apply it with
-some manual fixes. It seems to work fine too:
-
-Tested-by: Stephan Gerhold <stephan@gerhold.net>
-
-Thanks,
-Stephan
+--srini
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

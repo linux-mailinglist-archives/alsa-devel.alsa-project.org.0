@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25F94D14BE
-	for <lists+alsa-devel@lfdr.de>; Wed,  9 Oct 2019 19:01:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1C5E8D157A
+	for <lists+alsa-devel@lfdr.de>; Wed,  9 Oct 2019 19:23:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0D391670;
-	Wed,  9 Oct 2019 19:00:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0D391670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A4941674;
+	Wed,  9 Oct 2019 19:22:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A4941674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570640505;
-	bh=o7IfMuGA1qIcRLG+Qr/tIeUznNIkM8fstKnZVq7jijc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZH6rH0jke5VHy9XzkQM2F4s8MtP6TrHcBGiliYfTi1wXwmsvGZ4JT3CU13Ok5SeWv
-	 A2F6vYbz01Ce+pAWq4tfCMAZE+y1kaWyHqMgMZxAC9ALDQgrAYlhN/HLEG1bS7ab2G
-	 59isVwt7GRcaxyZWZOJ8isyeUe7GhzcN3brIDiM0=
+	s=default; t=1570641824;
+	bh=fI+F3vMnO9mAtT93iC9VKcokST7+e5WEP+gcyGKaZL4=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=NphOVMhisibKpGbZeC9rgW4JY9juxsOPekCZRkRi8qlF61fLcMwgMsIf3RBAee5Ip
+	 J2Jr3UqlOqa2O2QGgAgjqtH67g8RiBBjAQuJumrB04y8jIo3cm8MX0Ww2k9iJW7NHL
+	 VOPQOZjX6HWFSrg3gSSv0YeE1iSs1noLfKsyHcUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21C84F802BE;
-	Wed,  9 Oct 2019 19:00:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32ED5F802BD;
+	Wed,  9 Oct 2019 19:22:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02202F802BE; Wed,  9 Oct 2019 18:59:58 +0200 (CEST)
+ id ED9CEF80308; Wed,  9 Oct 2019 19:21:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FD5DF800AE
- for <alsa-devel@alsa-project.org>; Wed,  9 Oct 2019 18:59:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FD5DF800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5D515F800AE
+ for <alsa-devel@alsa-project.org>; Wed,  9 Oct 2019 19:21:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D515F800AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="wnmE+fIt"
+ header.b="W3atcQgx"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Rj06Tv5j+rvhEcTqvvqFPxXNxUI4Mfz6LMD0PqzgMF4=; b=wnmE+fItLg2W6Q9JuGiFzyNtF
- Hn5rFYVs1CrEiohk66VdhhmARG+r/KAFLkPbtAbHUTN6IXR4w5tV4MDBnF1qr5mWmTkMGcAChts1f
- /D/pJ3wR2vnnQczB01F9vf05nuT2dzVeJgbvo8DohPDZ16Ck4T3wz33eEkJJXEZ4rSveI=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=IxAhdgaQrq0J/VgaJk4Li88x6ZuphvJhRzy9YVZATI4=; b=W3atcQgxz0VK
+ qgwUx5C1pL778u1fRvJ9j/go4rghn/bptabdJwPMJmvuyM7Vzkp62SQGGbye3VAobT7d9+r8qije7
+ /XUiFec4C+pAbueudkV6i9q9LykahBuQXmZZLBP4RuQ4lCQkFItbejvf4fyl0LLbXJrg+vnmw2Npk
+ UQpuw=;
 Received: from 188.31.199.195.threembb.co.uk ([188.31.199.195]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1iIFJa-0005HN-L7; Wed, 09 Oct 2019 16:59:54 +0000
+ id 1iIFer-0005Jq-Jg; Wed, 09 Oct 2019 17:21:54 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 8DBA3D03ED3; Wed,  9 Oct 2019 17:59:53 +0100 (BST)
-Date: Wed, 9 Oct 2019 17:59:53 +0100
+ id 59243D03ED4; Wed,  9 Oct 2019 18:21:48 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20191009165953.GM2036@sirena.org.uk>
-References: <20191009102127.7860-1-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
-In-Reply-To: <20191009102127.7860-1-srinivas.kandagatla@linaro.org>
-X-Cookie: Be careful!  UGLY strikes 9 out of 10!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- spapothi@codeaurora.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- vkoul@kernel.org
-Subject: Re: [alsa-devel] [RFC PATCH] ASoC: soc-dapm: Invalidate DAPM path
- during dapm addition of routes
+To: Dan Murphy <dmurphy@ti.com>
+In-Reply-To: <20191008181517.5332-1-dmurphy@ti.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20191009172148.59243D03ED4@fitzroy.sirena.org.uk>
+Date: Wed,  9 Oct 2019 18:21:48 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, navada@ti.com, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoc: Add Texas Instruments TAS2562 amplifier
+	binding" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,71 +79,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0895740363577291120=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============0895740363577291120==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5y45gzHVJWc99xXB"
-Content-Disposition: inline
+   ASoc: Add Texas Instruments TAS2562 amplifier binding
 
+has been applied to the asoc tree at
 
---5y45gzHVJWc99xXB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
 
-On Wed, Oct 09, 2019 at 11:21:27AM +0100, Srinivas Kandagatla wrote:
-> From: Sudheer Papothi <spapothi@codeaurora.org>
->=20
-> During sound card registration, dapm adds routes of
-> codec and other component paths, but the invalidation of
-> the widgets in these paths will happen only when the
-> sound card is instantiated. As these routes are added
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-The whole point with this check is that as you say we're
-validating everything as we instantiate the card, not piecemeal
-while the map is partially constructed.  Doing that is wasteful
-and noisy.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> before sound card instantiation, these widgets are
-> not invalidated until a playback or recording usecase
-> is started.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-You said yourself that we sync everything when the card is
-instantiated.  Not on first capture or record, when the card is
-instantiated.  If for some reason there is some problem with that
-on your system please fix that, don't add a bodge somewhere else
-to mask the problem.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---5y45gzHVJWc99xXB
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks,
+Mark
 
------BEGIN PGP SIGNATURE-----
+From ac84b8b21b8e305b82d2b204999ee3140990d1b5 Mon Sep 17 00:00:00 2001
+From: Dan Murphy <dmurphy@ti.com>
+Date: Tue, 8 Oct 2019 13:15:16 -0500
+Subject: [PATCH] ASoc: Add Texas Instruments TAS2562 amplifier binding
 
-iQEyBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2eEggACgkQJNaLcl1U
-h9BgPgf3RQI51vbBRTM40x54ZfHusQX6D6EE8gGPuMWgrrPkxU6CroFzRmvr5jps
-n2voRmRkI7TsiHIRL7qYwCwjsNxwRi7J/s3SLem7WoC64io0f+yU7z/hTmuMK9Js
-NejKG2uFU0o3Cmtzn6I160MCnav+FsCJ5UgwqTcZdUxLmMJJoOScM8BEK3ExdUf5
-06YQGcMpaZtB1XbfyCNqy7KpHkOpFxAerW5Df5Vkv5WEs0zZNZpbvUKpyKBD8lOY
-iBIq48MHlsZ7sp55FKhTKqfs5Uj2DZ2zkF7fSeqTBQuaZK/o2zRTxEB5lnkD/88Q
-dNCBvlCBtU4PiMfgJ0mvrUbjD4lQ
-=rzwa
------END PGP SIGNATURE-----
+Add the DT binding for the TAS2562 amplifier.
 
---5y45gzHVJWc99xXB--
+Signed-off-by: Dan Murphy <dmurphy@ti.com>
+Link: https://lore.kernel.org/r/20191008181517.5332-1-dmurphy@ti.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ .../devicetree/bindings/sound/tas2562.txt     | 34 +++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/tas2562.txt
 
---===============0895740363577291120==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/Documentation/devicetree/bindings/sound/tas2562.txt b/Documentation/devicetree/bindings/sound/tas2562.txt
+new file mode 100644
+index 000000000000..658e1fb18a99
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/tas2562.txt
+@@ -0,0 +1,34 @@
++Texas Instruments TAS2562 Smart PA
++
++The TAS2562 is a mono, digital input Class-D audio amplifier optimized for
++efficiently driving high peak power into small loudspeakers.
++Integrated speaker voltage and current sense provides for
++real time monitoring of loudspeaker behavior.
++
++Required properties:
++ - #address-cells  - Should be <1>.
++ - #size-cells     - Should be <0>.
++ - compatible:	   - Should contain "ti,tas2562".
++ - reg:		   - The i2c address. Should be 0x4c, 0x4d, 0x4e or 0x4f.
++ - ti,imon-slot-no:- TDM TX current sense time slot.
++
++Optional properties:
++- interrupt-parent: phandle to the interrupt controller which provides
++                    the interrupt.
++- interrupts: (GPIO) interrupt to which the chip is connected.
++- shut-down: GPIO used to control the state of the device.
++
++Examples:
++tas2562@4c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++        compatible = "ti,tas2562";
++        reg = <0x4c>;
++
++        interrupt-parent = <&gpio1>;
++        interrupts = <14>;
++
++	shut-down = <&gpio1 15 0>;
++        ti,imon-slot-no = <0>;
++};
++
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0895740363577291120==--

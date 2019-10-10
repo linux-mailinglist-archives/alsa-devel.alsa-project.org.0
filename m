@@ -2,78 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB39CD32A3
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 22:45:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFCAED32A8
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 22:46:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 53104167D;
-	Thu, 10 Oct 2019 22:44:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53104167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 735231676;
+	Thu, 10 Oct 2019 22:45:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 735231676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570740332;
-	bh=2Mn2VrV30dQmYSdWG9zDsnJEqEpJ40opehF7ZjlrQE4=;
+	s=default; t=1570740378;
+	bh=12DTMfn/t7dDzTFOFIPgbu7LzUpGfDZ8YIDNFmRqOLM=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ms2OioZLuNa5lhtx6xmQGOmm2X9HmKXjBAYGvs/JmteD5ArWbb0EJuFQPp/hPqbPk
-	 eZAmtQ5mNWHHnussWkNjhNR0QaVe2gMtmaJrPuIIERL23GxFaZY8eQMfiOrz4r6YXn
-	 CozhE24Mn7jhcdllKxYSP1PCjMRaVUl1mZbJs7Qg=
+	b=DTI3AxdGp6R1Pcf92JofDoJnSB2f5fo40N/6JQsnEUD4qGY23Ik8R+FiRzZKckt74
+	 HmfkJ62xe+7G2ZYDJ2O4cSRvmC4M19F5g8jp0wBL1fidGY0CxbUlY1+6kKPh5ACX+H
+	 wu6/c6k6HTpIDtJ1Zn0vN2YlVZzidIfy5ZBfwjMo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 942E1F8038F;
-	Thu, 10 Oct 2019 22:43:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80BAAF805A8;
+	Thu, 10 Oct 2019 22:44:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 59D5AF8038F; Thu, 10 Oct 2019 22:43:46 +0200 (CEST)
+ id 6827DF804CB; Thu, 10 Oct 2019 22:44:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.131])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D671CF802BC
- for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 22:43:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D671CF802BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id E64FAF8045E
+ for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 22:44:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E64FAF8045E
 Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
  (mreue012 [212.227.15.129]) with ESMTPA (Nemesis) id
- 1MZAvp-1ieTO30iRt-00VBpT; Thu, 10 Oct 2019 22:43:02 +0200
+ 1MvKTJ-1i0iit3Hhh-00rJAB; Thu, 10 Oct 2019 22:43:26 +0200
 From: Arnd Bergmann <arnd@arndb.de>
 To: Kukjin Kim <kgene@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
  Sangbeom Kim <sbkim73@samsung.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
  Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Date: Thu, 10 Oct 2019 22:30:01 +0200
-Message-Id: <20191010203043.1241612-17-arnd@arndb.de>
+Date: Thu, 10 Oct 2019 22:30:02 +0200
+Message-Id: <20191010203043.1241612-18-arnd@arndb.de>
 X-Mailer: git-send-email 2.20.0
 In-Reply-To: <20191010203043.1241612-1-arnd@arndb.de>
 References: <20191010202802.1132272-1-arnd@arndb.de>
  <20191010203043.1241612-1-arnd@arndb.de>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:lmK9wS9sc6nMQoBUUXcAPPuQgSQ3WrsOcrUXsclaGNLYeBYgj79
- 5aHzgPRFU+EfSCkv/w11qKN7+Y8K/0guyK4AbiyvfzVoSum77d/2CHMU411Ibt3oiCw4uDV
- tr5vnswQPsH3wPeg5xBjK6DA33UwKnB41YHO47O+70JZ0MVQBhh2OO2KU+JTZvNcUdg3nQX
- aGjg0CD1N4zDhEoOfSuqg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:Yvd26aZbfwk=:tFDCEM6WoRw7PSv2HMlIkA
- UDyTbad1V5uW3cETaHlMreOiM37YfpqPFbnWifcy+Jm1D/JtP5L+rAMwnxrtPBPkQYdUdGehG
- Q90L4sHVWh/4NwFRsB3spxQu3ig3+yDwGn2X8uLrMPIa4Ki4oWoNYe2tFHDVTwssHG1Mz8OIt
- wHxJ7GZlTH2z4M+C9XT86IQ9h4tCFKbqCPmrt+/qsz8QGYrTmC5OUsAKyE/g8gwKyHTpdIPeo
- s0K3rbxVPM3Pb8dIcBDX+KacTaiDLb27df6M6mXHWHzeqJfVy6uuX/5DwBN9VYHaJxoTZ1+vp
- GXlSfAN7Fn6I+DWnPyYRq/P3UBKasLeG9yQ7mjRYF3U81zXECxizbkuOK8kSmls7pODeBWPmx
- PyhTKkuNn2izg+0UqD3HCjACW0QuyaRY3iSwtNfGJSBQyWT1KZNjNe8HnOcslgnCgVr0PZeAs
- gEbXIxPpJgeUGpA8jsE/BrPSv/HvWfm42rgfvRYjqY/rjLiT50Esl+ewU9sRCQGnA87hmTzR6
- TNOE74NfD7AnnMwz2jCz50hFeXKyciAVmQrouHyoLGiDOxNeWY1T4enXAsGma86NuVlAJZYtQ
- ioukCRHpu+57HJ9q2ymKlsxoIimkQUU2Fc3aLro/PzrlmUX5iJtIxDSUS/M1YoW73wQAMgEPB
- 1RWvPMuABO4mJ4ZosHcopZj90hLaHlB+i0+ME5m2bD98h85eArL3qKXzyeeryWKlqOuSHpqG8
- kPF17ELCdtkl/e+vFIV6WVpmdkMIfgrcGYdvHIt3b1D5toVEZQLURB1WYEW8eXr+D5HvEwXam
- KojAvcHdq+C+FcToe0Ayf84WuA+sHRFp4uQjCkkQ9Znt98ktkvEpaO0QEnAvIR5W84z5jY80/
- iMCHQGfv/aP595ZU/naw==
-Cc: Ulf Hansson <ulf.hansson@linaro.org>, linux-samsung-soc@vger.kernel.org,
+X-Provags-ID: V03:K1:E/PWTX0ODVddzN9zfl588cxLhZigrWay5tj6I/VSq0zBeAZBVl/
+ Pg2AljjW3Ge51Sc7P0F0xcbqWnwKB06qeBicZLXQwT85V0JqdtHV5vRAF08PRH8dc/14zdF
+ WTMGnlPwH5JkcHA81yXKVDNGSHT0NA/HcnAYqCGBokfcNXX/gtKury0/xWgyPkpnT0hFE4T
+ 7JnLQyvtW8LH7gA6FqSVw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:nhMgLxHXEnI=:lW3e8hBLScTKZYjz4rT4KG
+ 3eo5Nbp+ZaVxOTJriTSNETi7QY3XGfXPFLXqEpQ4zSohEqoKEjKucOm/xWizWh5WQbMR4IBYp
+ STWrTf3B4C4c20HzNxcVZ4Qsost+e4iFgjfPd1EZYbqQoNs3uSMSIK6rUKaELUW7dClQEkQA8
+ P422P/yC0lMpKhnwCY5iGu0HAoZB+y4qAoyBq46BZeScNe9UydVJGbdfPQOcTuwEtJrgOgsP9
+ GJDqTFx6Dy/7hWXlBvXunhnbcAGTbpvw8nHP0ICxkueZdY7+ZOBCYvHgvakBqUAkAgeidxz4s
+ q5g0Mj8qbZqZQNv7Rc8VQ97zJZg6W7MQPGwuWQvPSfRX/5OD5VeF0pBHZktaSLKIwSAa2+Q0v
+ D5gz2RR0ZwjjJxoUTE2SsssKBw6XHYTrxu0C3QC6l894nelb8mhhK2g42PX6Qr+nsoQB6YN1c
+ 5PvrgU4yAKrnpFf0x3Q8FiSiUk7Eg9F2O0EuUKOcG1y/4bIyh59OECkEBwwzKiNR2vuAAJcDp
+ zecwKX3PHsfmIDDkWZ8B7oX6SP1zi1olkIa1SL1csXGnINI/Z8TZfHh1osw8OZnEZpPpSoj1e
+ dIitQ1wkmEYnQaixB/xIjsd1ms1uUETf/7x/R4MOEeHdgqXFEgYONsqP7ReSVBfloSHF4T0uW
+ 49rDZ2e3rfUjStgC9wQ4di4Lhw04NDjiSxv5PDy3dh8P3dQNdZCBgsewsk2zsWt1Wlp3i+BgD
+ Dc2M48xWqtata/QCGakefWPxk7NBRnkVfllMK0YsoAf+BjXjWpNDN4OHd27hlkqYbSZ8pOKyl
+ EFWV27nCjU0i+uxCbVVw9MHMsERevYPrVRmmmDwyGVx2qyiL5UomQsYnvSyZApWIV5SjFp3rX
+ /AldcAlb09FyRXbam93g==
+Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
  Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
  linus.walleij@linaro.org, Takashi Iwai <tiwai@suse.com>,
- alsa-devel@alsa-project.org, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 17/36] ARM: s3c: h1940-audio: turn into
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH 18/36] ARM: s3c: gta02-audio: turn into
 	platform driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -97,180 +97,204 @@ combined with a platform_driver for this board.
 
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/arm/mach-s3c24xx/mach-h1940.c | 18 ++++++++
- sound/soc/samsung/h1940_uda1380.c  | 71 ++++++++++--------------------
- 2 files changed, 41 insertions(+), 48 deletions(-)
+ arch/arm/mach-s3c24xx/mach-gta02.c | 17 ++++++
+ sound/soc/samsung/neo1973_wm8753.c | 85 +++++++++---------------------
+ 2 files changed, 43 insertions(+), 59 deletions(-)
 
-diff --git a/arch/arm/mach-s3c24xx/mach-h1940.c b/arch/arm/mach-s3c24xx/mach-h1940.c
-index 74d6b68e91c7..922d53bacbdf 100644
---- a/arch/arm/mach-s3c24xx/mach-h1940.c
-+++ b/arch/arm/mach-s3c24xx/mach-h1940.c
-@@ -475,6 +475,22 @@ static struct gpiod_lookup_table h1940_mmc_gpio_table = {
+diff --git a/arch/arm/mach-s3c24xx/mach-gta02.c b/arch/arm/mach-s3c24xx/mach-gta02.c
+index 594901f3b8e5..526fd0933289 100644
+--- a/arch/arm/mach-s3c24xx/mach-gta02.c
++++ b/arch/arm/mach-s3c24xx/mach-gta02.c
+@@ -15,6 +15,7 @@
+ #include <linux/delay.h>
+ #include <linux/timer.h>
+ #include <linux/init.h>
++#include <linux/gpio/machine.h>
+ #include <linux/gpio.h>
+ #include <linux/gpio_keys.h>
+ #include <linux/workqueue.h>
+@@ -474,6 +475,20 @@ static struct platform_device gta02_buttons_device = {
  	},
  };
  
-+static struct gpiod_lookup_table h1940_audio_gpio_table = {
-+	.dev_id = "h1940-audio",
++static struct gpiod_lookup_table gta02_audio_gpio_table = {
++	.dev_id = "neo1973-audio",
 +	.table = {
-+		GPIO_LOOKUP("H1940_LATCH",
-+			    H1940_LATCH_AUDIO_POWER - H1940_LATCH_GPIO(0),
-+			    "speaker-power", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("GPIOG", 4, "hp", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("GPIOJ", 2, "amp-shut", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("GPIOJ", 1, "hp", GPIO_ACTIVE_HIGH),
 +		{ },
 +	},
 +};
 +
-+static struct platform_device h1940_audio = {
-+	.name = "h1940-audio",
-+	.id   = -1,
++static struct platform_device gta02_audio = {
++	.name = "neo1973-audio",
++	.id = -1,
 +};
 +
- static struct pwm_lookup h1940_pwm_lookup[] = {
- 	PWM_LOOKUP("samsung-pwm", 0, "pwm-backlight", NULL, 36296,
- 		   PWM_POLARITY_NORMAL),
-@@ -652,6 +668,7 @@ static struct platform_device *h1940_devices[] __initdata = {
+ static void __init gta02_map_io(void)
+ {
+ 	s3c24xx_init_io(gta02_iodesc, ARRAY_SIZE(gta02_iodesc));
+@@ -498,6 +513,7 @@ static struct platform_device *gta02_devices[] __initdata = {
+ 	&gta02_buttons_device,
+ 	&s3c_device_adc,
  	&s3c_device_ts,
- 	&power_supply,
- 	&h1940_battery,
-+	&h1940_audio,
++	&gta02_audio,
  };
  
- static void __init h1940_map_io(void)
-@@ -691,6 +708,7 @@ static void __init h1940_init(void)
+ static void gta02_poweroff(void)
+@@ -524,6 +540,7 @@ static void __init gta02_machine_init(void)
  
- 	s3c24xx_fb_set_platdata(&h1940_fb_info);
- 	gpiod_add_lookup_table(&h1940_mmc_gpio_table);
-+	gpiod_add_lookup_table(&h1940_audio_gpio_table);
- 	s3c24xx_mci_set_platdata(&h1940_mmc_cfg);
-  	s3c24xx_udc_set_platdata(&h1940_udc_cfg);
- 	s3c24xx_ts_set_platdata(&h1940_ts_cfg);
-diff --git a/sound/soc/samsung/h1940_uda1380.c b/sound/soc/samsung/h1940_uda1380.c
-index a95c34e53a2b..5fc001b4effd 100644
---- a/sound/soc/samsung/h1940_uda1380.c
-+++ b/sound/soc/samsung/h1940_uda1380.c
-@@ -15,9 +15,6 @@
- #include <sound/jack.h>
+ 	i2c_register_board_info(0, gta02_i2c_devs, ARRAY_SIZE(gta02_i2c_devs));
  
- #include "regs-iis.h"
--#include <asm/mach-types.h>
--
++	gpiod_add_lookup_table(&gta02_audio_gpio_table);
+ 	platform_add_devices(gta02_devices, ARRAY_SIZE(gta02_devices));
+ 	pm_power_off = gta02_poweroff;
+ 
+diff --git a/sound/soc/samsung/neo1973_wm8753.c b/sound/soc/samsung/neo1973_wm8753.c
+index 38f536bafa09..b41e3dc297e7 100644
+--- a/sound/soc/samsung/neo1973_wm8753.c
++++ b/sound/soc/samsung/neo1973_wm8753.c
+@@ -11,14 +11,11 @@
+ 
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+-#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
+ 
+ #include <sound/soc.h>
+ 
 -#include <mach/gpio-samsung.h>
+-#include <asm/mach-types.h>
+ #include "regs-iis.h"
+-
+ #include "../codecs/wm8753.h"
  #include "s3c24xx-i2s.h"
  
- static const unsigned int rates[] = {
-@@ -31,6 +28,8 @@ static const struct snd_pcm_hw_constraint_list hw_rates = {
- 	.list = rates,
+@@ -166,6 +163,7 @@ static struct snd_soc_ops neo1973_voice_ops = {
+ 	.hw_free = neo1973_voice_hw_free,
  };
  
-+static struct gpio_desc *gpiod_speaker_power;
-+
- static struct snd_soc_jack hp_jack;
++static struct gpio_desc *gpiod_hp_in, *gpiod_amp_shut;
+ static int gta02_speaker_enabled;
  
- static struct snd_soc_jack_pin hp_jack_pins[] = {
-@@ -47,7 +46,6 @@ static struct snd_soc_jack_pin hp_jack_pins[] = {
- 
- static struct snd_soc_jack_gpio hp_jack_gpios[] = {
- 	{
--		.gpio			= S3C2410_GPG(4),
- 		.name			= "hp-gpio",
- 		.report			= SND_JACK_HEADPHONE,
- 		.invert			= 1,
-@@ -123,9 +121,9 @@ static int h1940_spk_power(struct snd_soc_dapm_widget *w,
- 				struct snd_kcontrol *kcontrol, int event)
+ static int lm4853_set_spk(struct snd_kcontrol *kcontrol,
+@@ -173,7 +171,7 @@ static int lm4853_set_spk(struct snd_kcontrol *kcontrol,
  {
- 	if (SND_SOC_DAPM_EVENT_ON(event))
--		gpio_set_value(S3C_GPIO_END + 9, 1);
-+		gpiod_set_value(gpiod_speaker_power, 1);
- 	else
--		gpio_set_value(S3C_GPIO_END + 9, 0);
-+		gpiod_set_value(gpiod_speaker_power, 0);
+ 	gta02_speaker_enabled = ucontrol->value.integer.value[0];
+ 
+-	gpio_set_value(S3C2410_GPJ(2), !gta02_speaker_enabled);
++	gpiod_set_value(gpiod_hp_in, !gta02_speaker_enabled);
  
  	return 0;
  }
-@@ -151,8 +149,6 @@ static const struct snd_soc_dapm_route audio_map[] = {
- 	{"VINM", NULL, "Mic Jack"},
- };
- 
--static struct platform_device *s3c24xx_snd_device;
--
- static int h1940_uda1380_init(struct snd_soc_pcm_runtime *rtd)
+@@ -188,7 +186,7 @@ static int lm4853_get_spk(struct snd_kcontrol *kcontrol,
+ static int lm4853_event(struct snd_soc_dapm_widget *w,
+ 			struct snd_kcontrol *k, int event)
  {
- 	snd_soc_card_jack_new(rtd->card, "Headphone Jack", SND_JACK_HEADPHONE,
-@@ -194,55 +190,34 @@ static struct snd_soc_card h1940_asoc = {
- 	.num_dapm_routes = ARRAY_SIZE(audio_map),
+-	gpio_set_value(S3C2410_GPJ(1), SND_SOC_DAPM_EVENT_OFF(event));
++	gpiod_set_value(gpiod_amp_shut, SND_SOC_DAPM_EVENT_OFF(event));
+ 
+ 	return 0;
+ }
+@@ -308,13 +306,8 @@ static struct snd_soc_codec_conf neo1973_codec_conf[] = {
+ 	},
  };
  
--static int __init h1940_init(void)
-+static int h1940_probe(struct platform_device *pdev)
+-static const struct gpio neo1973_gta02_gpios[] = {
+-	{ S3C2410_GPJ(2), GPIOF_OUT_INIT_HIGH, "GTA02_HP_IN" },
+-	{ S3C2410_GPJ(1), GPIOF_OUT_INIT_HIGH, "GTA02_AMP_SHUT" },
+-};
+-
+ static struct snd_soc_card neo1973 = {
+-	.name = "neo1973",
++	.name = "neo1973gta02",
+ 	.owner = THIS_MODULE,
+ 	.dai_link = neo1973_dai,
+ 	.num_links = ARRAY_SIZE(neo1973_dai),
+@@ -332,62 +325,36 @@ static struct snd_soc_card neo1973 = {
+ 	.fully_routed = true,
+ };
+ 
+-static struct platform_device *neo1973_snd_device;
+-
+-static int __init neo1973_init(void)
++static int neo1973_probe(struct platform_device *pdev)
  {
 -	int ret;
+-
+-	if (!machine_is_neo1973_gta02())
+-		return -ENODEV;
 +	struct device *dev = &pdev->dev;
  
--	if (!machine_is_h1940())
--		return -ENODEV;
-+	h1940_asoc.dev = dev;
-+	hp_jack_gpios[0].gpiod_dev = dev;
-+	gpiod_speaker_power = devm_gpiod_get(&pdev->dev, "speaker-power",
-+					     GPIOD_OUT_LOW);
- 
--	/* configure some gpios */
--	ret = gpio_request(S3C_GPIO_END + 9, "speaker-power");
--	if (ret)
--		goto err_out;
+-	if (machine_is_neo1973_gta02()) {
+-		neo1973.name = "neo1973gta02";
+-		neo1973.num_aux_devs = 1;
 -
--	ret = gpio_direction_output(S3C_GPIO_END + 9, 0);
--	if (ret)
--		goto err_gpio;
+-		ret = gpio_request_array(neo1973_gta02_gpios,
+-				ARRAY_SIZE(neo1973_gta02_gpios));
+-		if (ret)
+-			return ret;
++	gpiod_hp_in = devm_gpiod_get(dev, "hp", GPIOD_OUT_HIGH);
++	if (IS_ERR(gpiod_hp_in)) {
++		dev_err(dev, "missing gpio %s\n", "hp");
++		return PTR_ERR(gpiod_hp_in);
+ 	}
 -
--	s3c24xx_snd_device = platform_device_alloc("soc-audio", -1);
--	if (!s3c24xx_snd_device) {
+-	neo1973_snd_device = platform_device_alloc("soc-audio", -1);
+-	if (!neo1973_snd_device) {
 -		ret = -ENOMEM;
--		goto err_gpio;
-+	if (IS_ERR(gpiod_speaker_power)) {
-+		dev_err(dev, "Could not get gpio\n");
-+		return PTR_ERR(gpiod_speaker_power);
+-		goto err_gpio_free;
++	gpiod_amp_shut = devm_gpiod_get(dev, "amp-shut", GPIOD_OUT_HIGH);
++	if (IS_ERR(gpiod_amp_shut)) {
++		dev_err(dev, "missing gpio %s\n", "amp-shut");
++		return PTR_ERR(gpiod_amp_shut);
  	}
  
--	platform_set_drvdata(s3c24xx_snd_device, &h1940_asoc);
--	ret = platform_device_add(s3c24xx_snd_device);
+-	platform_set_drvdata(neo1973_snd_device, &neo1973);
+-	ret = platform_device_add(neo1973_snd_device);
 -
 -	if (ret)
--		goto err_plat;
+-		goto err_put_device;
 -
 -	return 0;
 -
--err_plat:
--	platform_device_put(s3c24xx_snd_device);
--err_gpio:
--	gpio_free(S3C_GPIO_END + 9);
--
--err_out:
+-err_put_device:
+-	platform_device_put(neo1973_snd_device);
+-err_gpio_free:
+-	if (machine_is_neo1973_gta02()) {
+-		gpio_free_array(neo1973_gta02_gpios,
+-				ARRAY_SIZE(neo1973_gta02_gpios));
+-	}
 -	return ret;
--}
--
--static void __exit h1940_exit(void)
--{
--	platform_device_unregister(s3c24xx_snd_device);
--	gpio_free(S3C_GPIO_END + 9);
-+	return devm_snd_soc_register_card(dev, &h1940_asoc);
++	neo1973.dev = dev;
++	return devm_snd_soc_register_card(dev, &neo1973);
  }
+-module_init(neo1973_init);
+-
+-static void __exit neo1973_exit(void)
+-{
+-	platform_device_unregister(neo1973_snd_device);
  
--module_init(h1940_init);
--module_exit(h1940_exit);
-+static struct platform_driver h1940_audio_driver = {
+-	if (machine_is_neo1973_gta02()) {
+-		gpio_free_array(neo1973_gta02_gpios,
+-				ARRAY_SIZE(neo1973_gta02_gpios));
+-	}
+-}
+-module_exit(neo1973_exit);
++struct platform_driver neo1973_audio = {
 +	.driver = {
-+		.name = "h1940-audio",
++		.name = "neo1973-audio",
 +		.pm = &snd_soc_pm_ops,
 +	},
-+	.probe = h1940_probe,
++	.probe = neo1973_probe,
 +};
-+module_platform_driver(h1940_audio_driver);
++module_platform_driver(neo1973_audio);
  
  /* Module information */
- MODULE_AUTHOR("Arnaud Patard, Vasily Khoruzhick");
- MODULE_DESCRIPTION("ALSA SoC H1940");
+ MODULE_AUTHOR("Graeme Gregory, graeme@openmoko.org, www.openmoko.org");
+ MODULE_DESCRIPTION("ALSA SoC WM8753 Neo1973 and Frerunner");
  MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:h1940-audio");
++MODULE_ALIAS("platform:neo1973-audio");
 -- 
 2.20.0
 

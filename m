@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16D45D2C55
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 16:24:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26352D2C5D
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 16:25:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96308166F;
-	Thu, 10 Oct 2019 16:23:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96308166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B3E7F1682;
+	Thu, 10 Oct 2019 16:24:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B3E7F1682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570717461;
-	bh=6Ic3w6+gAuIyH/gKVSczK26xh+omLzM2vp8fThBtQh8=;
+	s=default; t=1570717508;
+	bh=i3ZtQ9OJlpVtS3mKCZdAJNSkF+LqVqroJznUr6nFUVQ=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=fUU32Q0y0AfuHsV2U8f8Qfq8mreWffvFQpc9Yk6RaAY2Lo6esbxyZtImEWuIcYoUk
-	 VMzTB5diH8uwfrrdkETcSxCILiFKdCxF5tV7VoBIOHQ4xbD6wuRXIk2AOV2R+K4iec
-	 XVQuOTbZS5Jz1OxzlRhvPR3QWpkbLXV1L9JWtMSg=
+	b=ATJoMF9zoPQek+fxlSMkC97U4STxJ335ky68CQvUtN9MSFseakzjg4hrlU5uxB/An
+	 aSBU/8pmMddQi4V+ef+ZjohBKReVMF0EckCQcAXbSh9n26l59DbUiSEr5QJ0DYh+ZY
+	 uk7CYuihNXCtI646z6ZJc/7bV/Gf3SRlsdmqKJ+E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C971CF805FD;
-	Thu, 10 Oct 2019 16:22:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BDD3F80322;
+	Thu, 10 Oct 2019 16:22:42 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 128D7F805FC; Thu, 10 Oct 2019 16:22:35 +0200 (CEST)
+ id 42F34F80113; Thu, 10 Oct 2019 16:22:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DD4B2F80113
- for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 16:22:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD4B2F80113
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F247F802BC
+ for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 16:22:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F247F802BC
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="jvbYf8q9"
+ header.b="fA8ncRc6"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=c2hoP8OkSo4Nbw1kpifd1XXm5NcTbDCZMzbOk5brjA0=; b=jvbYf8q9wUOG
- Tu4pFxyr3twKCFkSkcUW7WhH1dYrMUmfP7+RWTYWnLrxkgDWKHjX60z/unPPnr/L+EnxLgkh+jU2l
- iZSSRMmXgh83XrSGGs0h/bY91jCgEtigAG8RxHUCYXrqPp9U/+jt33jdQymyDodhcNu2XA1GUGMfz
- uPZac=;
+ List-Archive; bh=eS4XRVuj+d+m068P+iGRtV+RR5DBYHsFV0RY52uS3t8=; b=fA8ncRc6OYNF
+ ozlUWdYMezH6i7ytXIYYoA6TmiFRz613Lzew8eEx9MSwNyQBesJO3Dtl4CM5e8DQ5nalVxM8x8oPG
+ 4rd/IVTDhe6El4XCPvYisP1FLSm5m+ufzrOWB5sYFLEZeWxE/d0geT6cuHf3f49Mi0J/ODpe/a8BO
+ Q7ZoA=;
 Received: from fw-tnat-cam3.arm.com ([217.140.106.51]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1iIZKp-0001ZS-6s; Thu, 10 Oct 2019 14:22:31 +0000
+ id 1iIZKp-0001ZT-BI; Thu, 10 Oct 2019 14:22:31 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id D75E8D0003A; Thu, 10 Oct 2019 15:22:30 +0100 (BST)
+ id 053B9D0003B; Thu, 10 Oct 2019 15:22:31 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Dan Murphy <dmurphy@ti.com>
-In-Reply-To: 
+To: Daniel Baluta <daniel.baluta@nxp.com>
+In-Reply-To: <20191008164443.1358-7-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191010142230.D75E8D0003A@fitzroy.sirena.org.uk>
-Date: Thu, 10 Oct 2019 15:22:30 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: tas2562: Introduce the TAS2562
-	amplifier" to the asoc tree
+Message-Id: <20191010142231.053B9D0003B@fitzroy.sirena.org.uk>
+Date: Thu, 10 Oct 2019 15:22:31 +0100 (BST)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: imx: Read ESAI parameters and send
+	them to DSP" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,11 +87,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: tas2562: Introduce the TAS2562 amplifier
+   ASoC: SOF: imx: Read ESAI parameters and send them to DSP
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -111,758 +112,129 @@ to this mail.
 Thanks,
 Mark
 
-From c173dba44c2d2ec2adaa4e607e9729b74236bd57 Mon Sep 17 00:00:00 2001
-From: Dan Murphy <dmurphy@ti.com>
-Date: Tue, 8 Oct 2019 13:15:17 -0500
-Subject: [PATCH] ASoC: tas2562: Introduce the TAS2562 amplifier
+From a4eff5f86c9c5e7d07d880bd86ce8faad19d7063 Mon Sep 17 00:00:00 2001
+From: Daniel Baluta <daniel.baluta@nxp.com>
+Date: Tue, 8 Oct 2019 11:44:40 -0500
+Subject: [PATCH] ASoC: SOF: imx: Read ESAI parameters and send them to DSP
 
-Introduce the Texas Instruments TAS2562 amplifier driver
-with I/V sense for loud speaker applications.
+ESAI parameters are read for topology file, packed into
+sof_ipc_dai_esai_parms struct and then sent to DSP.
 
-http://www.ti.com/lit/gpn/tas2562
-
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
-Link: https://lore.kernel.org/r/20191008181517.5332-2-dmurphy@ti.com
+Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20191008164443.1358-7-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/Kconfig   |   5 +
- sound/soc/codecs/Makefile  |   2 +
- sound/soc/codecs/tas2562.c | 590 +++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/tas2562.h |  85 ++++++
- 4 files changed, 682 insertions(+)
- create mode 100644 sound/soc/codecs/tas2562.c
- create mode 100644 sound/soc/codecs/tas2562.h
+ sound/soc/sof/pcm.c      |  8 +++++
+ sound/soc/sof/topology.c | 69 ++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 75 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index ae213c6392ec..f4747ebc251e 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -181,6 +181,7 @@ config SND_SOC_ALL_CODECS
- 	select SND_SOC_STAC9766 if SND_SOC_AC97_BUS
- 	select SND_SOC_STI_SAS
- 	select SND_SOC_TAS2552 if I2C
-+	select SND_SOC_TAS2562 if I2C
- 	select SND_SOC_TAS2770 if I2C
- 	select SND_SOC_TAS5086 if I2C
- 	select SND_SOC_TAS571X if I2C
-@@ -1133,6 +1134,10 @@ config SND_SOC_TAS2552
- 	tristate "Texas Instruments TAS2552 Mono Audio amplifier"
- 	depends on I2C
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index 6490b1577152..d72798d2b302 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -682,6 +682,14 @@ static int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	case SOF_DAI_INTEL_ALH:
+ 		/* do nothing for ALH dai_link */
+ 		break;
++	case SOF_DAI_IMX_ESAI:
++		channels->min = dai->dai_config->esai.tdm_slots;
++		channels->max = dai->dai_config->esai.tdm_slots;
++
++		dev_dbg(sdev->dev,
++			"channels_min: %d channels_max: %d\n",
++			channels->min, channels->max);
++		break;
+ 	default:
+ 		dev_err(sdev->dev, "error: invalid DAI type %d\n",
+ 			dai->dai_config->type);
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 2e5fab1cfbb4..a29109ea3c06 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -641,6 +641,13 @@ static const struct sof_topology_token dmic_tokens[] = {
  
-+config SND_SOC_TAS2562
-+	tristate "Texas Instruments TAS2562 Mono Audio amplifier"
-+	depends on I2C
-+
- config SND_SOC_TAS2770
- 	tristate "Texas Instruments TAS2770 speaker amplifier"
- 	depends on I2C
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 2118407a1dd5..ddfd07071925 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -284,6 +284,7 @@ snd-soc-max98504-objs := max98504.o
- snd-soc-simple-amplifier-objs := simple-amplifier.o
- snd-soc-tpa6130a2-objs := tpa6130a2.o
- snd-soc-tas2552-objs := tas2552.o
-+snd-soc-tas2562-objs := tas2562.o
+ };
  
- obj-$(CONFIG_SND_SOC_88PM860X)	+= snd-soc-88pm860x.o
- obj-$(CONFIG_SND_SOC_AB8500_CODEC)	+= snd-soc-ab8500-codec.o
-@@ -481,6 +482,7 @@ obj-$(CONFIG_SND_SOC_STA529)   += snd-soc-sta529.o
- obj-$(CONFIG_SND_SOC_STAC9766)	+= snd-soc-stac9766.o
- obj-$(CONFIG_SND_SOC_STI_SAS)	+= snd-soc-sti-sas.o
- obj-$(CONFIG_SND_SOC_TAS2552)	+= snd-soc-tas2552.o
-+obj-$(CONFIG_SND_SOC_TAS2562)	+= snd-soc-tas2562.o
- obj-$(CONFIG_SND_SOC_TAS5086)	+= snd-soc-tas5086.o
- obj-$(CONFIG_SND_SOC_TAS571X)	+= snd-soc-tas571x.o
- obj-$(CONFIG_SND_SOC_TAS5720)	+= snd-soc-tas5720.o
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-new file mode 100644
-index 000000000000..729acd874c48
---- /dev/null
-+++ b/sound/soc/codecs/tas2562.c
-@@ -0,0 +1,590 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// Driver for the Texas Instruments TAS2562 CODEC
-+// Copyright (C) 2019 Texas Instruments Inc.
-+
-+
-+#include <linux/module.h>
-+#include <linux/errno.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/delay.h>
-+
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dapm.h>
-+#include <sound/tlv.h>
-+
-+#include "tas2562.h"
-+
-+#define TAS2562_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |\
-+			 SNDRV_PCM_FORMAT_S32_LE)
-+
-+struct tas2562_data {
-+	struct snd_soc_component *component;
-+	struct gpio_desc *sdz_gpio;
-+	struct regmap *regmap;
-+	struct device *dev;
-+	struct i2c_client *client;
-+	int v_sense_slot;
-+	int i_sense_slot;
++/* ESAI */
++static const struct sof_topology_token esai_tokens[] = {
++	{SOF_TKN_IMX_ESAI_MCLK_ID,
++		SND_SOC_TPLG_TUPLE_TYPE_SHORT, get_token_u16,
++		offsetof(struct sof_ipc_dai_esai_params, mclk_id), 0},
 +};
 +
-+static int tas2562_set_bias_level(struct snd_soc_component *component,
-+				 enum snd_soc_bias_level level)
-+{
-+	struct tas2562_data *tas2562 =
-+			snd_soc_component_get_drvdata(component);
+ /*
+  * DMIC PDM Tokens
+  * SOF_TKN_INTEL_DMIC_PDM_CTRL_ID should be the first token
+@@ -2549,8 +2556,66 @@ static int sof_link_esai_load(struct snd_soc_component *scomp, int index,
+ 			      struct snd_soc_tplg_hw_config *hw_config,
+ 			      struct sof_ipc_dai_config *config)
+ {
+-	/*TODO: Add implementation */
+-	return 0;
++	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
++	struct snd_soc_tplg_private *private = &cfg->priv;
++	struct sof_ipc_reply reply;
++	u32 size = sizeof(*config);
++	int ret;
 +
-+	switch (level) {
-+	case SND_SOC_BIAS_ON:
-+		snd_soc_component_update_bits(component,
-+			TAS2562_PWR_CTRL,
-+			TAS2562_MODE_MASK, TAS2562_ACTIVE);
-+		break;
-+	case SND_SOC_BIAS_STANDBY:
-+	case SND_SOC_BIAS_PREPARE:
-+		snd_soc_component_update_bits(component,
-+			TAS2562_PWR_CTRL,
-+			TAS2562_MODE_MASK, TAS2562_MUTE);
-+		break;
-+	case SND_SOC_BIAS_OFF:
-+		snd_soc_component_update_bits(component,
-+			TAS2562_PWR_CTRL,
-+			TAS2562_MODE_MASK, TAS2562_SHUTDOWN);
-+		break;
++	/* handle master/slave and inverted clocks */
++	sof_dai_set_format(hw_config, config);
 +
-+	default:
-+		dev_err(tas2562->dev,
-+				"wrong power level setting %d\n", level);
++	/* init IPC */
++	memset(&config->esai, 0, sizeof(struct sof_ipc_dai_esai_params));
++	config->hdr.size = size;
++
++	ret = sof_parse_tokens(scomp, &config->esai, esai_tokens,
++			       ARRAY_SIZE(esai_tokens), private->array,
++			       le32_to_cpu(private->size));
++	if (ret != 0) {
++		dev_err(sdev->dev, "error: parse esai tokens failed %d\n",
++			le32_to_cpu(private->size));
++		return ret;
++	}
++
++	config->esai.mclk_rate = le32_to_cpu(hw_config->mclk_rate);
++	config->esai.bclk_rate = le32_to_cpu(hw_config->bclk_rate);
++	config->esai.fsync_rate = le32_to_cpu(hw_config->fsync_rate);
++	config->esai.mclk_direction = hw_config->mclk_direction;
++	config->esai.tdm_slots = le32_to_cpu(hw_config->tdm_slots);
++	config->esai.tdm_slot_width = le32_to_cpu(hw_config->tdm_slot_width);
++	config->esai.rx_slots = le32_to_cpu(hw_config->rx_slots);
++	config->esai.tx_slots = le32_to_cpu(hw_config->tx_slots);
++
++	dev_info(sdev->dev,
++		 "tplg: config ESAI%d fmt 0x%x mclk %d width %d slots %d mclk id %d\n",
++		config->dai_index, config->format,
++		config->esai.mclk_rate, config->esai.tdm_slot_width,
++		config->esai.tdm_slots, config->esai.mclk_id);
++
++	if (config->esai.tdm_slots < 1 || config->esai.tdm_slots > 8) {
++		dev_err(sdev->dev, "error: invalid channel count for ESAI%d\n",
++			config->dai_index);
 +		return -EINVAL;
 +	}
 +
-+	return 0;
-+}
-+
-+static int tas2562_set_samplerate(struct tas2562_data *tas2562, int samplerate)
-+{
-+	int samp_rate;
-+	int ramp_rate;
-+
-+	switch (samplerate) {
-+	case 7350:
-+		ramp_rate = TAS2562_TDM_CFG0_RAMPRATE_44_1;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_7305_8KHZ;
-+		break;
-+	case 8000:
-+		ramp_rate = 0;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_7305_8KHZ;
-+		break;
-+	case 14700:
-+		ramp_rate = TAS2562_TDM_CFG0_RAMPRATE_44_1;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_14_7_16KHZ;
-+		break;
-+	case 16000:
-+		ramp_rate = 0;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_14_7_16KHZ;
-+		break;
-+	case 22050:
-+		ramp_rate = TAS2562_TDM_CFG0_RAMPRATE_44_1;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_22_05_24KHZ;
-+		break;
-+	case 24000:
-+		ramp_rate = 0;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_22_05_24KHZ;
-+		break;
-+	case 29400:
-+		ramp_rate = TAS2562_TDM_CFG0_RAMPRATE_44_1;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_29_4_32KHZ;
-+		break;
-+	case 32000:
-+		ramp_rate = 0;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_29_4_32KHZ;
-+		break;
-+	case 44100:
-+		ramp_rate = TAS2562_TDM_CFG0_RAMPRATE_44_1;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_44_1_48KHZ;
-+		break;
-+	case 48000:
-+		ramp_rate = 0;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_44_1_48KHZ;
-+		break;
-+	case 88200:
-+		ramp_rate = TAS2562_TDM_CFG0_RAMPRATE_44_1;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_88_2_96KHZ;
-+		break;
-+	case 96000:
-+		ramp_rate = 0;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_88_2_96KHZ;
-+		break;
-+	case 176400:
-+		ramp_rate = TAS2562_TDM_CFG0_RAMPRATE_44_1;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_176_4_192KHZ;
-+		break;
-+	case 192000:
-+		ramp_rate = 0;
-+		samp_rate = TAS2562_TDM_CFG0_SAMPRATE_176_4_192KHZ;
-+		break;
-+	default:
-+		dev_info(tas2562->dev, "%s, unsupported sample rate, %d\n",
-+			__func__, samplerate);
-+		return -EINVAL;
-+	}
-+
-+	snd_soc_component_update_bits(tas2562->component, TAS2562_TDM_CFG0,
-+		TAS2562_TDM_CFG0_RAMPRATE_MASK,	ramp_rate);
-+	snd_soc_component_update_bits(tas2562->component, TAS2562_TDM_CFG0,
-+		TAS2562_TDM_CFG0_SAMPRATE_MASK,	samp_rate);
-+
-+	return 0;
-+}
-+
-+static int tas2562_set_dai_tdm_slot(struct snd_soc_dai *dai,
-+		unsigned int tx_mask, unsigned int rx_mask,
-+		int slots, int slot_width)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+	int ret = 0;
-+
-+	switch (slot_width) {
-+	case 16:
-+		ret = snd_soc_component_update_bits(component,
-+						    TAS2562_TDM_CFG2,
-+						    TAS2562_TDM_CFG2_RXLEN_MASK,
-+						    TAS2562_TDM_CFG2_RXLEN_16B);
-+		break;
-+	case 24:
-+		ret = snd_soc_component_update_bits(component,
-+						    TAS2562_TDM_CFG2,
-+						    TAS2562_TDM_CFG2_RXLEN_MASK,
-+						    TAS2562_TDM_CFG2_RXLEN_24B);
-+		break;
-+	case 32:
-+		ret = snd_soc_component_update_bits(component,
-+						    TAS2562_TDM_CFG2,
-+						    TAS2562_TDM_CFG2_RXLEN_MASK,
-+						    TAS2562_TDM_CFG2_RXLEN_32B);
-+		break;
-+
-+	case 0:
-+		/* Do not change slot width */
-+		break;
-+	default:
-+		dev_err(tas2562->dev, "slot width not supported");
-+		ret = -EINVAL;
-+	}
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int tas2562_set_bitwidth(struct tas2562_data *tas2562, int bitwidth)
-+{
-+	int ret;
-+
-+	switch (bitwidth) {
-+	case SNDRV_PCM_FORMAT_S16_LE:
-+		snd_soc_component_update_bits(tas2562->component,
-+					      TAS2562_TDM_CFG2,
-+					      TAS2562_TDM_CFG2_RXWLEN_MASK,
-+					      TAS2562_TDM_CFG2_RXWLEN_16B);
-+		tas2562->v_sense_slot = tas2562->i_sense_slot + 2;
-+		break;
-+	case SNDRV_PCM_FORMAT_S24_LE:
-+		snd_soc_component_update_bits(tas2562->component,
-+					      TAS2562_TDM_CFG2,
-+					      TAS2562_TDM_CFG2_RXWLEN_MASK,
-+					      TAS2562_TDM_CFG2_RXWLEN_24B);
-+		tas2562->v_sense_slot = tas2562->i_sense_slot + 4;
-+		break;
-+	case SNDRV_PCM_FORMAT_S32_LE:
-+		snd_soc_component_update_bits(tas2562->component,
-+					      TAS2562_TDM_CFG2,
-+					      TAS2562_TDM_CFG2_RXWLEN_MASK,
-+					      TAS2562_TDM_CFG2_RXWLEN_32B);
-+		tas2562->v_sense_slot = tas2562->i_sense_slot + 4;
-+		break;
-+
-+	default:
-+		dev_info(tas2562->dev, "Not supported params format\n");
-+	}
-+
-+	ret = snd_soc_component_update_bits(tas2562->component,
-+		TAS2562_TDM_CFG5,
-+		TAS2562_TDM_CFG5_VSNS_EN | TAS2562_TDM_CFG5_VSNS_SLOT_MASK,
-+		TAS2562_TDM_CFG5_VSNS_EN | tas2562->v_sense_slot);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = snd_soc_component_update_bits(tas2562->component,
-+		TAS2562_TDM_CFG6,
-+		TAS2562_TDM_CFG6_ISNS_EN | TAS2562_TDM_CFG6_ISNS_SLOT_MASK,
-+		TAS2562_TDM_CFG6_ISNS_EN | tas2562->i_sense_slot);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int tas2562_hw_params(struct snd_pcm_substream *substream,
-+			     struct snd_pcm_hw_params *params,
-+			     struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	ret = tas2562_set_bitwidth(tas2562, params_format(params));
-+	if (ret) {
-+		dev_err(tas2562->dev, "set bitwidth failed, %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = tas2562_set_samplerate(tas2562, params_rate(params));
-+	if (ret)
-+		dev_err(tas2562->dev, "set bitwidth failed, %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int tas2562_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+	u8 tdm_rx_start_slot = 0, asi_cfg_1 = 0;
-+	int ret;
-+
-+	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-+	case SND_SOC_DAIFMT_NB_NF:
-+		asi_cfg_1 = 0;
-+		break;
-+	case SND_SOC_DAIFMT_IB_NF:
-+		asi_cfg_1 |= TAS2562_TDM_CFG1_RX_FALLING;
-+		break;
-+	default:
-+		dev_err(tas2562->dev, "ASI format Inverse is not found\n");
-+		return -EINVAL;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component, TAS2562_TDM_CFG1,
-+					    TAS2562_TDM_CFG1_RX_EDGE_MASK,
-+					    asi_cfg_1);
++	/* send message to DSP */
++	ret = sof_ipc_tx_message(sdev->ipc,
++				 config->hdr.cmd, config, size, &reply,
++				 sizeof(reply));
 +	if (ret < 0) {
-+		dev_err(tas2562->dev, "Failed to set RX edge\n");
++		dev_err(sdev->dev, "error: failed to set DAI config for ESAI%d\n",
++			config->dai_index);
 +		return ret;
 +	}
 +
-+	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
-+	case (SND_SOC_DAIFMT_I2S):
-+	case (SND_SOC_DAIFMT_DSP_A):
-+	case (SND_SOC_DAIFMT_DSP_B):
-+		tdm_rx_start_slot = BIT(1);
-+		break;
-+	case (SND_SOC_DAIFMT_LEFT_J):
-+		tdm_rx_start_slot = 0;
-+		break;
-+	default:
-+		dev_err(tas2562->dev, "DAI Format is not found, fmt=0x%x\n",
-+			fmt);
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	ret = snd_soc_component_update_bits(component, TAS2562_TDM_CFG1,
-+					    TAS2562_TDM_CFG1_RX_OFFSET_MASK,
-+					    tdm_rx_start_slot);
-+
++	/* set config for all DAI's with name matching the link name */
++	ret = sof_set_dai_config(sdev, size, link, config);
 +	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int tas2562_mute(struct snd_soc_dai *dai, int mute)
-+{
-+	struct snd_soc_component *component = dai->component;
-+
-+	return snd_soc_component_update_bits(component, TAS2562_PWR_CTRL,
-+					     TAS2562_MODE_MASK,
-+					     mute ? TAS2562_MUTE : 0);
-+}
-+
-+static int tas2562_codec_probe(struct snd_soc_component *component)
-+{
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	tas2562->component = component;
-+
-+	if (tas2562->sdz_gpio)
-+		gpiod_set_value_cansleep(tas2562->sdz_gpio, 1);
-+
-+	ret = snd_soc_component_update_bits(component, TAS2562_PWR_CTRL,
-+					    TAS2562_MODE_MASK, TAS2562_MUTE);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+#ifdef CONFIG_PM
-+static int tas2562_suspend(struct snd_soc_component *component)
-+{
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+
-+	regcache_cache_only(tas2562->regmap, true);
-+	regcache_mark_dirty(tas2562->regmap);
-+
-+	if (tas2562->sdz_gpio)
-+		gpiod_set_value_cansleep(tas2562->sdz_gpio, 0);
-+
-+	return 0;
-+}
-+
-+static int tas2562_resume(struct snd_soc_component *component)
-+{
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+
-+	if (tas2562->sdz_gpio)
-+		gpiod_set_value_cansleep(tas2562->sdz_gpio, 1);
-+
-+	regcache_cache_only(tas2562->regmap, false);
-+
-+	return regcache_sync(tas2562->regmap);
-+}
-+#else
-+#define tas2562_suspend NULL
-+#define tas2562_resume NULL
-+#endif
-+
-+static const char * const tas2562_ASI1_src[] = {
-+	"I2C offset", "Left", "Right", "LeftRightDiv2",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(tas2562_ASI1_src_enum, TAS2562_TDM_CFG2, 4,
-+			    tas2562_ASI1_src);
-+
-+static const struct snd_kcontrol_new tas2562_asi1_mux =
-+	SOC_DAPM_ENUM("ASI1 Source", tas2562_ASI1_src_enum);
-+
-+static int tas2562_dac_event(struct snd_soc_dapm_widget *w,
-+			     struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component =
-+					snd_soc_dapm_to_component(w->dapm);
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		dev_info(tas2562->dev, "SND_SOC_DAPM_POST_PMU\n");
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		dev_info(tas2562->dev, "SND_SOC_DAPM_PRE_PMD\n");
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static DECLARE_TLV_DB_SCALE(tas2562_dac_tlv, 850, 50, 0);
-+
-+static const struct snd_kcontrol_new isense_switch =
-+	SOC_DAPM_SINGLE("Switch", TAS2562_PWR_CTRL, TAS2562_ISENSE_POWER_EN,
-+			1, 1);
-+
-+static const struct snd_kcontrol_new vsense_switch =
-+	SOC_DAPM_SINGLE("Switch", TAS2562_PWR_CTRL, TAS2562_VSENSE_POWER_EN,
-+			1, 1);
-+
-+static const struct snd_kcontrol_new tas2562_snd_controls[] = {
-+	SOC_SINGLE_TLV("Amp Gain Volume", TAS2562_PB_CFG1, 0, 0x1c, 0,
-+		       tas2562_dac_tlv),
-+};
-+
-+static const struct snd_soc_dapm_widget tas2562_dapm_widgets[] = {
-+	SND_SOC_DAPM_AIF_IN("ASI1", "ASI1 Playback", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_MUX("ASI1 Sel", SND_SOC_NOPM, 0, 0, &tas2562_asi1_mux),
-+	SND_SOC_DAPM_AIF_IN("DAC IN", "Playback", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_DAC_E("DAC", NULL, SND_SOC_NOPM, 0, 0, tas2562_dac_event,
-+			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-+	SND_SOC_DAPM_SWITCH("ISENSE", TAS2562_PWR_CTRL, 3, 1, &isense_switch),
-+	SND_SOC_DAPM_SWITCH("VSENSE", TAS2562_PWR_CTRL, 2, 1, &vsense_switch),
-+	SND_SOC_DAPM_SIGGEN("VMON"),
-+	SND_SOC_DAPM_SIGGEN("IMON"),
-+	SND_SOC_DAPM_OUTPUT("OUT"),
-+};
-+
-+static const struct snd_soc_dapm_route tas2562_audio_map[] = {
-+	{"ASI1 Sel", "I2C offset", "ASI1"},
-+	{"ASI1 Sel", "Left", "ASI1"},
-+	{"ASI1 Sel", "Right", "ASI1"},
-+	{"ASI1 Sel", "LeftRightDiv2", "ASI1"},
-+	{ "DAC", NULL, "DAC IN" },
-+	{ "OUT", NULL, "DAC" },
-+	{"ISENSE", "Switch", "IMON"},
-+	{"VSENSE", "Switch", "VMON"},
-+};
-+
-+static const struct snd_soc_component_driver soc_component_dev_tas2562 = {
-+	.probe			= tas2562_codec_probe,
-+	.suspend		= tas2562_suspend,
-+	.resume			= tas2562_resume,
-+	.set_bias_level		= tas2562_set_bias_level,
-+	.controls		= tas2562_snd_controls,
-+	.num_controls		= ARRAY_SIZE(tas2562_snd_controls),
-+	.dapm_widgets		= tas2562_dapm_widgets,
-+	.num_dapm_widgets	= ARRAY_SIZE(tas2562_dapm_widgets),
-+	.dapm_routes		= tas2562_audio_map,
-+	.num_dapm_routes	= ARRAY_SIZE(tas2562_audio_map),
-+	.idle_bias_on		= 1,
-+	.use_pmdown_time	= 1,
-+	.endianness		= 1,
-+	.non_legacy_dai_naming	= 1,
-+};
-+
-+static const struct snd_soc_dai_ops tas2562_speaker_dai_ops = {
-+	.hw_params	= tas2562_hw_params,
-+	.set_fmt	= tas2562_set_dai_fmt,
-+	.set_tdm_slot	= tas2562_set_dai_tdm_slot,
-+	.digital_mute	= tas2562_mute,
-+};
-+
-+static struct snd_soc_dai_driver tas2562_dai[] = {
-+	{
-+		.name = "tas2562-amplifier",
-+		.id = 0,
-+		.playback = {
-+			.stream_name    = "ASI1 Playback",
-+			.channels_min   = 2,
-+			.channels_max   = 2,
-+			.rates      = SNDRV_PCM_RATE_8000_192000,
-+			.formats    = TAS2562_FORMATS,
-+		},
-+		.ops = &tas2562_speaker_dai_ops,
-+	},
-+};
-+
-+static const struct regmap_range_cfg tas2562_ranges[] = {
-+	{
-+		.range_min = 0,
-+		.range_max = 5 * 128,
-+		.selector_reg = TAS2562_PAGE_CTRL,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0,
-+		.window_len = 128,
-+	},
-+};
-+
-+static const struct reg_default tas2562_reg_defaults[] = {
-+	{ TAS2562_PAGE_CTRL, 0x00 },
-+	{ TAS2562_SW_RESET, 0x00 },
-+	{ TAS2562_PWR_CTRL, 0x0e },
-+	{ TAS2562_PB_CFG1, 0x20 },
-+	{ TAS2562_TDM_CFG0, 0x09 },
-+	{ TAS2562_TDM_CFG1, 0x02 },
-+};
-+
-+static const struct regmap_config tas2562_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+
-+	.max_register = 5 * 128,
-+	.cache_type = REGCACHE_RBTREE,
-+	.reg_defaults = tas2562_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(tas2562_reg_defaults),
-+	.ranges = tas2562_ranges,
-+	.num_ranges = ARRAY_SIZE(tas2562_ranges),
-+};
-+
-+static int tas2562_parse_dt(struct tas2562_data *tas2562)
-+{
-+	struct device *dev = tas2562->dev;
-+	int ret = 0;
-+
-+	tas2562->sdz_gpio = devm_gpiod_get_optional(dev, "shut-down-gpio",
-+						      GPIOD_OUT_HIGH);
-+	if (IS_ERR(tas2562->sdz_gpio)) {
-+		if (PTR_ERR(tas2562->sdz_gpio) == -EPROBE_DEFER) {
-+			tas2562->sdz_gpio = NULL;
-+			return -EPROBE_DEFER;
-+		}
-+	}
-+
-+	ret = fwnode_property_read_u32(dev->fwnode, "ti,imon-slot-no",
-+			&tas2562->i_sense_slot);
-+	if (ret)
-+		dev_err(dev, "Looking up %s property failed %d\n",
-+			"ti,imon-slot-no", ret);
++		dev_err(sdev->dev, "error: failed to save DAI config for ESAI%d\n",
++			config->dai_index);
 +
 +	return ret;
-+}
-+
-+static int tas2562_probe(struct i2c_client *client,
-+			 const struct i2c_device_id *id)
-+{
-+	struct device *dev = &client->dev;
-+	struct tas2562_data *data;
-+	int ret;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->client = client;
-+	data->dev = &client->dev;
-+
-+	tas2562_parse_dt(data);
-+
-+	data->regmap = devm_regmap_init_i2c(client, &tas2562_regmap_config);
-+	if (IS_ERR(data->regmap)) {
-+		ret = PTR_ERR(data->regmap);
-+		dev_err(dev, "failed to allocate register map: %d\n", ret);
-+		return ret;
-+	}
-+
-+	dev_set_drvdata(&client->dev, data);
-+
-+	return devm_snd_soc_register_component(dev, &soc_component_dev_tas2562,
-+					       tas2562_dai,
-+					       ARRAY_SIZE(tas2562_dai));
-+
-+}
-+
-+static const struct i2c_device_id tas2562_id[] = {
-+	{ "tas2562", 0 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, tas2562_id);
-+
-+static const struct of_device_id tas2562_of_match[] = {
-+	{ .compatible = "ti,tas2562", },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, tas2562_of_match);
-+
-+static struct i2c_driver tas2562_i2c_driver = {
-+	.driver = {
-+		.name = "tas2562",
-+		.of_match_table = of_match_ptr(tas2562_of_match),
-+	},
-+	.probe = tas2562_probe,
-+	.id_table = tas2562_id,
-+};
-+
-+module_i2c_driver(tas2562_i2c_driver);
-+
-+MODULE_AUTHOR("Dan Murphy <dmurphy@ti.com>");
-+MODULE_DESCRIPTION("TAS2562 Audio amplifier driver");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/tas2562.h b/sound/soc/codecs/tas2562.h
-new file mode 100644
-index 000000000000..60f2bb1d198b
---- /dev/null
-+++ b/sound/soc/codecs/tas2562.h
-@@ -0,0 +1,85 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * tas2562.h - ALSA SoC Texas Instruments TAS2562 Mono Audio Amplifier
-+ *
-+ * Copyright (C) 2019 Texas Instruments Incorporated -  http://www.ti.com
-+ *
-+ * Author: Dan Murphy <dmurphy@ti.com>
-+ */
-+
-+#ifndef __TAS2562_H__
-+#define __TAS2562_H__
-+
-+#define TAS2562_PAGE_CTRL	0x00
-+
-+#define TAS2562_REG(page, reg)	((page * 128) + reg)
-+
-+#define TAS2562_SW_RESET	TAS2562_REG(0, 0x01)
-+#define TAS2562_PWR_CTRL	TAS2562_REG(0, 0x02)
-+#define TAS2562_PB_CFG1		TAS2562_REG(0, 0x03)
-+#define TAS2562_MISC_CFG1	TAS2562_REG(0, 0x04)
-+#define TAS2562_MISC_CFG2	TAS2562_REG(0, 0x05)
-+
-+#define TAS2562_TDM_CFG0	TAS2562_REG(0, 0x06)
-+#define TAS2562_TDM_CFG1	TAS2562_REG(0, 0x07)
-+#define TAS2562_TDM_CFG2	TAS2562_REG(0, 0x08)
-+#define TAS2562_TDM_CFG3	TAS2562_REG(0, 0x09)
-+#define TAS2562_TDM_CFG4	TAS2562_REG(0, 0x0a)
-+#define TAS2562_TDM_CFG5	TAS2562_REG(0, 0x0b)
-+#define TAS2562_TDM_CFG6	TAS2562_REG(0, 0x0c)
-+#define TAS2562_TDM_CFG7	TAS2562_REG(0, 0x0d)
-+#define TAS2562_TDM_CFG8	TAS2562_REG(0, 0x0e)
-+#define TAS2562_TDM_CFG9	TAS2562_REG(0, 0x0f)
-+#define TAS2562_TDM_CFG10	TAS2562_REG(0, 0x10)
-+#define TAS2562_TDM_DET		TAS2562_REG(0, 0x11)
-+#define TAS2562_REV_ID		TAS2562_REG(0, 0x7d)
-+
-+/* Page 2 */
-+#define TAS2562_DVC_CFG1	TAS2562_REG(2, 0x01)
-+#define TAS2562_DVC_CFG2	TAS2562_REG(2, 0x02)
-+
-+#define TAS2562_RESET	BIT(0)
-+
-+#define TAS2562_MODE_MASK	0x3
-+#define TAS2562_ACTIVE		0x0
-+#define TAS2562_MUTE		0x1
-+#define TAS2562_SHUTDOWN	0x2
-+
-+#define TAS2562_TDM_CFG1_RX_EDGE_MASK	BIT(0)
-+#define TAS2562_TDM_CFG1_RX_FALLING	1
-+#define TAS2562_TDM_CFG1_RX_OFFSET_MASK	GENMASK(4, 0)
-+
-+#define TAS2562_TDM_CFG0_RAMPRATE_MASK		BIT(5)
-+#define TAS2562_TDM_CFG0_RAMPRATE_44_1		BIT(5)
-+#define TAS2562_TDM_CFG0_SAMPRATE_MASK		GENMASK(3, 1)
-+#define TAS2562_TDM_CFG0_SAMPRATE_7305_8KHZ	0x0
-+#define TAS2562_TDM_CFG0_SAMPRATE_14_7_16KHZ	0x1
-+#define TAS2562_TDM_CFG0_SAMPRATE_22_05_24KHZ	0x2
-+#define TAS2562_TDM_CFG0_SAMPRATE_29_4_32KHZ	0x3
-+#define TAS2562_TDM_CFG0_SAMPRATE_44_1_48KHZ	0x4
-+#define TAS2562_TDM_CFG0_SAMPRATE_88_2_96KHZ	0x5
-+#define TAS2562_TDM_CFG0_SAMPRATE_176_4_192KHZ	0x6
-+
-+#define TAS2562_TDM_CFG2_RIGHT_JUSTIFY	BIT(6)
-+
-+#define TAS2562_TDM_CFG2_RXLEN_MASK	GENMASK(0, 1)
-+#define TAS2562_TDM_CFG2_RXLEN_16B	0x0
-+#define TAS2562_TDM_CFG2_RXLEN_24B	BIT(0)
-+#define TAS2562_TDM_CFG2_RXLEN_32B	BIT(1)
-+
-+#define TAS2562_TDM_CFG2_RXWLEN_MASK	GENMASK(3, 2)
-+#define TAS2562_TDM_CFG2_RXWLEN_16B	0x0
-+#define TAS2562_TDM_CFG2_RXWLEN_20B	BIT(2)
-+#define TAS2562_TDM_CFG2_RXWLEN_24B	BIT(3)
-+#define TAS2562_TDM_CFG2_RXWLEN_32B	(BIT(2) | BIT(3))
-+
-+#define TAS2562_VSENSE_POWER_EN		BIT(2)
-+#define TAS2562_ISENSE_POWER_EN		BIT(3)
-+
-+#define TAS2562_TDM_CFG5_VSNS_EN	BIT(6)
-+#define TAS2562_TDM_CFG5_VSNS_SLOT_MASK	GENMASK(5, 0)
-+
-+#define TAS2562_TDM_CFG6_ISNS_EN	BIT(6)
-+#define TAS2562_TDM_CFG6_ISNS_SLOT_MASK	GENMASK(5, 0)
-+
-+#endif /* __TAS2562_H__ */
+ }
+ 
+ static int sof_link_dmic_load(struct snd_soc_component *scomp, int index,
 -- 
 2.20.1
 

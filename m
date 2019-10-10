@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2287DD2C78
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 16:27:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17446D2C62
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 16:25:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B32C4168F;
-	Thu, 10 Oct 2019 16:26:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B32C4168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A29371680;
+	Thu, 10 Oct 2019 16:25:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A29371680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570717667;
-	bh=9IdMQGLuYB4CW2DGkHkjN7qqF3/JwY/fPGBMNF20a1Q=;
+	s=default; t=1570717557;
+	bh=ySnOfaFAGDr1HaA4XoMgZDs810wZtBOb2MIw9BzLW58=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=UzQ3l/8vvzSbF00OG9cB0BgzyARCvm/mohozTFpzcPmtSFvU+YlidNfB96m9jtLey
-	 ubaToa7lHt5VwuIAJMUgaWINpWnyWH9KGsMba/1/b4oTEUAAoH1OTGCD8WFZ2qqRSh
-	 U7NaC5NtQE0Ahc4AoBVObTe9yjb2XnPxiOwiHQzE=
+	b=rsjm7YKOe3+8PpH61dmwUkhxFbCzW7ul9rnO7S6MvijVr9RFWxkFTBcl08wfPZYZ9
+	 KSLXu+VrfH4EcA/WIaxvmudEO+YUrNgODTH01BZdEw/DKgh7xlyQGToFPX0sf5wkbl
+	 nVQ+G6gSl52GxLRVNDP8V6hxZwhlXqw/vmQXoILE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1DFDF8063C;
-	Thu, 10 Oct 2019 16:22:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2935CF80610;
+	Thu, 10 Oct 2019 16:22:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A38E9F805FF; Thu, 10 Oct 2019 16:22:40 +0200 (CEST)
+ id 16FCDF805FB; Thu, 10 Oct 2019 16:22:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ADF1CF8038F
+ by alsa1.perex.cz (Postfix) with ESMTPS id F24C5F804CA
  for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 16:22:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADF1CF8038F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F24C5F804CA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Bq6NmWRO"
+ header.b="vwtbLpND"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Vu26j0pkksd5a+5AFHdMUJqu3g0GR+no5stRlOk1dVY=; b=Bq6NmWRO4EiN
- YqLGK1KjfixASfBlpa9xCr++pzXvPUXqXBSIHokhAER9TQDwoUf3wdMYj95SP2Ks/VmPVCN5V4o1k
- 40pSAZMkFXFsff2/sdn707LhoJywC06bspd/oFhgkx4SrnySk+TZVTy+S5ma+LYMBVKEo59FxZvkk
- 45VTU=;
+ List-Archive; bh=v3l6NbZKSuoPRbUgwA3pYd8Lr3Gani+G3ec5vq6bYxk=; b=vwtbLpND8zj9
+ w2Xu5n3j9xLo8RfS03+SxoG1FWBN+YPRgfZeceujpoqiCDDHsceTP8b+5BhE4RE2ec+tSyRs2f4oO
+ cqkhu00l6/uHsBNpwr15aehl3gdLhFKO48kosDr8eRGeolEkMkQNmNB4iSo3xQUgGqJz88n4lMYGT
+ oIbA8=;
 Received: from fw-tnat-cam3.arm.com ([217.140.106.51]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1iIZKq-0001Zj-2v; Thu, 10 Oct 2019 14:22:32 +0000
+ id 1iIZKq-0001Zu-Aw; Thu, 10 Oct 2019 14:22:32 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id AD5CAD0003D; Thu, 10 Oct 2019 15:22:31 +0100 (BST)
+ id E9BB2D0003B; Thu, 10 Oct 2019 15:22:31 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20191008164443.1358-3-pierre-louis.bossart@linux.intel.com>
+To: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+In-Reply-To: <20191008164443.1358-8-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191010142231.AD5CAD0003D@fitzroy.sirena.org.uk>
+Message-Id: <20191010142231.E9BB2D0003B@fitzroy.sirena.org.uk>
 Date: Thu, 10 Oct 2019 15:22:31 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "Revert "ASoC: SOF: Force polling mode on CFL
-	and CNL"" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: enable dual control for pga" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   Revert "ASoC: SOF: Force polling mode on CFL and CNL"
+   ASoC: SOF: enable dual control for pga
 
 has been applied to the asoc tree at
 
@@ -112,49 +112,47 @@ to this mail.
 Thanks,
 Mark
 
-From 902fd492d5ea2c02666ddadc1da977ca94e6b52c Mon Sep 17 00:00:00 2001
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Tue, 8 Oct 2019 11:44:36 -0500
-Subject: [PATCH] Revert "ASoC: SOF: Force polling mode on CFL and CNL"
+From a68c6b6cc77b841dc37c17a5d9a7074e26801af5 Mon Sep 17 00:00:00 2001
+From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+Date: Tue, 8 Oct 2019 11:44:41 -0500
+Subject: [PATCH] ASoC: SOF: enable dual control for pga
 
-This reverts commit 64ca9d9fcb3e3c86b1417e3d17a90b43dd660f81.
+Currently sof pga element supports only 1 kcontrol and you can't create
+for example a mixer element with combined volume slider and mute switch.
+So enable sof pga to have more than 1 kcontrol associated with it. Also
+check for possible NULL tlv pointer as switch element might not have it.
 
-The workaround is no longer needed after configuring HDAC
-bus with sync_write=1.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191008164443.1358-3-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191008164443.1358-8-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda.c | 7 -------
- 1 file changed, 7 deletions(-)
+ sound/soc/sof/topology.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 5a5163eef2ef..103f4273c4d3 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -32,9 +32,6 @@
- /* platform specific devices */
- #include "shim.h"
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 0aabb3190ddc..a0b1c38e666b 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1580,7 +1580,7 @@ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
+ 	if (!volume)
+ 		return -ENOMEM;
  
--#define IS_CFL(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0xa348)
--#define IS_CNL(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0x9dc8)
--
- #define EXCEPT_MAX_HDR_SIZE	0x400
+-	if (le32_to_cpu(tw->num_kcontrols) != 1) {
++	if (!le32_to_cpu(tw->num_kcontrols)) {
+ 		dev_err(sdev->dev, "error: invalid kcontrol count %d for volume\n",
+ 			tw->num_kcontrols);
+ 		ret = -EINVAL;
+@@ -1617,7 +1617,8 @@ static int sof_widget_load_pga(struct snd_soc_component *scomp, int index,
+ 	swidget->private = volume;
  
- /*
-@@ -262,10 +259,6 @@ static int hda_init(struct snd_sof_dev *sdev)
- 	/* HDA bus init */
- 	sof_hda_bus_init(bus, &pci->dev);
- 
--	/* Workaround for a communication error on CFL (bko#199007) and CNL */
--	if (IS_CFL(pci) || IS_CNL(pci))
--		bus->polling_mode = 1;
--
- 	bus->use_posbuf = 1;
- 	bus->bdl_pos_adj = 0;
- 	bus->sync_write = 1;
+ 	list_for_each_entry(scontrol, &sdev->kcontrol_list, list) {
+-		if (scontrol->comp_id == swidget->comp_id) {
++		if (scontrol->comp_id == swidget->comp_id &&
++		    scontrol->volume_table) {
+ 			min_step = scontrol->min_volume_step;
+ 			max_step = scontrol->max_volume_step;
+ 			volume->min_value = scontrol->volume_table[min_step];
 -- 
 2.20.1
 

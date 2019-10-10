@@ -2,141 +2,110 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7CC1D220B
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 09:44:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8643ED2449
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 10:52:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18639166B;
-	Thu, 10 Oct 2019 09:43:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18639166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2160166B;
+	Thu, 10 Oct 2019 10:51:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2160166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570693453;
-	bh=Q0/MirMgeHCU6/bWPzWuFULuqqBh6WiG6OiTVgRQy1I=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1570697537;
+	bh=RBUWARUHuN36yFYpzOFajNlyrjENJCzKpni0dXxvXYI=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lDNjMGDUIuTxJQIGjd3UpbwtGFChd+bt78iKk4MNaFNVOhofIQ50NHO5o75i2uPR6
-	 cvir5erRvDtSgYAT8wJ54I8YrB3B6IqNhHFuzHLV9X5m0RnxNj0zmcJKmuDBZHD3UV
-	 EJakwzd/+QuUU6tQYxNKjK20siuj6JelcA4ajebw=
+	b=ee6/1Mo0PmipdOQyIUfHRTF+HBgTmbeyRnub9OWTFm/7AdeeSc2HxCTtSiv4HviCO
+	 qvgsfysk9TlrmlNsJz2pzcYnLLu+8EcI2G8SRLvw8hGdRbFfTSta3VBvFrEoJk2F6B
+	 GpLJtu2WXv5Ei4xLyJPBgSCVUxoLeZyqO3JpqmY8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48940F8038F;
-	Thu, 10 Oct 2019 09:42:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0F4B0F800E3;
+	Thu, 10 Oct 2019 10:50:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C8E9F80447; Thu, 10 Oct 2019 09:42:25 +0200 (CEST)
+ id 30366F8038F; Thu, 10 Oct 2019 10:50:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com
- [148.163.135.77])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6479EF80322
- for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 09:42:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6479EF80322
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0C61F800E3
+ for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 10:50:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0C61F800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=analog.onmicrosoft.com
- header.i=@analog.onmicrosoft.com header.b="QIq6uzGJ"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
- by mx0a-00128a01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- x9A7cHCn023051; Thu, 10 Oct 2019 03:42:16 -0400
-Received: from nam02-sn1-obe.outbound.protection.outlook.com
- (mail-sn1nam02lp2051.outbound.protection.outlook.com [104.47.36.51])
- by mx0a-00128a01.pphosted.com with ESMTP id 2ver39qt28-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 10 Oct 2019 03:42:15 -0400
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=C29/yiPKKWwumZakhThPGrFrk0e3M2xBb8lC6JJK8TKNO6a2BPv0GdbEVL31pyYuJn0bySzwvGlyCz7DvHG7Tn4WQSCK2aWOQkxjHrJ08GMtQ3lcwsiSQq7zsOfB0QQPmIkGcF+ohvatWmrAt1gusjXp77L9jL0DuCgW04xckH7zxK6aGVV++1Py9xFySBf+6a8wzQxnXxoiZeSu8GtYiyi6P/L8xHkB5p/+Qd0d0SMKIeD4XEnvIyGTCUtV4okxnvP9UWnd5sXzWjpa6FRnQJFVJ3vj+DdYEUNl6KcvLh9wXU/Swu1kH+rs0/Za9XWjct3RiJYfXjp6v55EdX96yw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZcaasmzVl3SQyrzMHNFBLH3SkeUDjrvLmE5s163pVPg=;
- b=VNfgjC4Vc2NmdIZXSyuJ1KpN5Lqy7CTIdCmNLT33a+phqXf3VtNee40DEuoTtv+9Xl+ycX9wznda6GQdjFJKd1cgOMbb8aeaT76oqpmUMiwO3RmqrSIDjZ6YPM3bAvMsn5jG4gqC6KyG/4d2NcElBSECooWs2rjvWYef2umIw+MCrCBWZNRqdPQJNJFkL2geZLedbdGGHkcl9HjW22+DcWC+eM1l1b7PDYqgIpn83BINJ00zc0w6obrRAlv4LXc4CkruwQU769XRiFhO0jlPExUTl2/enxGZkhoKY4Y6JnY5gzQwqYvyMqxE1+vJZE3z55OeAm2VxIFbGPyXwIRDBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 137.71.25.55) smtp.rcpttodomain=arm.com smtp.mailfrom=analog.com;
- dmarc=bestguesspass action=none header.from=analog.com; dkim=none (message
- not signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=analog.onmicrosoft.com; s=selector2-analog-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZcaasmzVl3SQyrzMHNFBLH3SkeUDjrvLmE5s163pVPg=;
- b=QIq6uzGJtSoYQ3N+pWSzBADEkE8YdoetGTsBe21bUUi6S3JoVJmcK2QwJpRHcUkHRfDi0VuPjKCHCmkEPJdxr1QJPErq89f5Kmx7RTw/vuuQenZMwtgmI5rnG8AJ/lCnFHnZgScyZ8gRlh0Xam6MJufvMySpGSvznrxtAnT2pkw=
-Received: from BN6PR03CA0080.namprd03.prod.outlook.com (2603:10b6:405:6f::18)
- by DM5PR03MB2428.namprd03.prod.outlook.com (2603:10b6:3:72::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2347.16; Thu, 10 Oct
- 2019 07:42:13 +0000
-Received: from BL2NAM02FT057.eop-nam02.prod.protection.outlook.com
- (2a01:111:f400:7e46::204) by BN6PR03CA0080.outlook.office365.com
- (2603:10b6:405:6f::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2347.17 via Frontend
- Transport; Thu, 10 Oct 2019 07:42:13 +0000
-Received-SPF: Pass (protection.outlook.com: domain of analog.com designates
- 137.71.25.55 as permitted sender) receiver=protection.outlook.com;
- client-ip=137.71.25.55; helo=nwd2mta1.analog.com;
-Received: from nwd2mta1.analog.com (137.71.25.55) by
- BL2NAM02FT057.mail.protection.outlook.com (10.152.77.36) with Microsoft SMTP
- Server (version=TLS1_0, cipher=TLS_RSA_WITH_AES_256_CBC_SHA) id 15.20.2347.16
- via Frontend Transport; Thu, 10 Oct 2019 07:42:13 +0000
-Received: from NWD2HUBCAS7.ad.analog.com (nwd2hubcas7.ad.analog.com
- [10.64.69.107])
- by nwd2mta1.analog.com (8.13.8/8.13.8) with ESMTP id x9A7g6Bd013839
- (version=TLSv1/SSLv3 cipher=AES256-SHA bits=256 verify=OK);
- Thu, 10 Oct 2019 00:42:06 -0700
-Received: from nsa.sphairon.box (10.44.3.90) by NWD2HUBCAS7.ad.analog.com
- (10.64.69.107) with Microsoft SMTP Server (TLS) id 14.3.408.0; Thu, 10 Oct
- 2019 03:42:12 -0400
-From: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>
-To: <devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>
-Date: Thu, 10 Oct 2019 09:42:34 +0200
-Message-ID: <20191010074234.7344-2-nuno.sa@analog.com>
-X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20191010074234.7344-1-nuno.sa@analog.com>
-References: <20191010074234.7344-1-nuno.sa@analog.com>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Q/kFfAx5"
+Received: by mail-wm1-x344.google.com with SMTP id 5so6013976wmg.0
+ for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 01:50:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=CaSbN7PRxQjoeZuLYZCS/ibrJufD/sGhgzh/IxmCXB0=;
+ b=Q/kFfAx5bsul8OwzADd7GaD5P3N6vWkTxheK4IdLMtL3FweIIQGg3nrFmDj9FsjwYv
+ g7VN4G0a+M4PgzOA5Z0f2Zj6STOST83/zIrUavjrlsK4MWXKcWXCVnlvobfPS8Y3zG13
+ izHikJVVQf5NXthw+W+0V7fdGmH0jX+cMF0RBf5Xdnals8I5ckqMg1h0RYILD4IUb3LK
+ qhl5/ac1GEn2CpW9AKp0Yw4Xfhcz2win1W58PFaHrnePSL5GCSRpM3g3hHB7kffo8r9S
+ 6QFD3RrPlHh6V1rWv7LDuDHFeB3ejpUlnLjitW4zh+HJlgw0kgEN8dCk66RQzp+jrjjN
+ CPhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=CaSbN7PRxQjoeZuLYZCS/ibrJufD/sGhgzh/IxmCXB0=;
+ b=Xt7HGr+O4re5xAZX/DIp6tSUo4IDdHF75o46wcVd1EjIZtBNKFEkC3RAYWhz1VXx1z
+ TJi2iDTCdMsW1EGj62Bp+GPqIIXnzo6qR9x8rCMn4DRFg1y1zv/RpYAe19ekXny/GHQ+
+ A5t5N6L2hmK9MIyyV+LOhchj99cDtNOu4P6oy9Aw/NHzZ2akcVoIu4ltBSCP53QA8NS3
+ 6m7jeKKXTyNpft1NKfWiWL+tjWkXXATeHbQH0G1+CJ2q+7cmGYXX76AtLrZy6s/7LKeV
+ FaYUGHZdTvM2AmP6CcUA13ML0ILjGFTgUtmMm8+SIrg/L+B5M6kBd8JyFKWq7tZU1Uv0
+ T7FA==
+X-Gm-Message-State: APjAAAX8CIar+b+5qXwyIgW7L1swNaIdpTuo8OO6A46Vdtg72GDTUTnW
+ TedvRFzMkSBhSPE8+GGyX9DnUw==
+X-Google-Smtp-Source: APXvYqynP6wIggXzDDvzdrv2aJ+sTKUmFj2Xg07oubjzNbikJp1j3UntU1oUCON1/ZzY0a39oVbQlg==
+X-Received: by 2002:a05:600c:1088:: with SMTP id
+ e8mr6697021wmd.27.1570697424720; 
+ Thu, 10 Oct 2019 01:50:24 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id b130sm7435533wmh.12.2019.10.10.01.50.22
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 10 Oct 2019 01:50:23 -0700 (PDT)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>
+References: <20190813083550.5877-1-srinivas.kandagatla@linaro.org>
+ <20190813083550.5877-4-srinivas.kandagatla@linaro.org>
+ <ba88e0f9-ae7d-c26e-d2dc-83bf910c2c01@linux.intel.com>
+ <c2eecd44-f06a-7287-2862-0382bf697f8d@linaro.org>
+ <d2b7773b-d52a-7769-aa5b-ef8c8845d447@linux.intel.com>
+ <d7c1fdb2-602f-ecb1-9b32-91b893e7f408@linaro.org>
+ <f0228cb4-0a6f-17f3-fe03-9be7f5f2e59d@linux.intel.com>
+ <20190813191827.GI5093@sirena.co.uk>
+ <cc360858-571a-6a46-1789-1020bcbe4bca@linux.intel.com>
+ <20190813195804.GL5093@sirena.co.uk>
+ <20190814041142.GU12733@vkoul-mobl.Dlink>
+ <99d35a9d-cbd8-f0da-4701-92ef650afe5a@linux.intel.com>
+ <5e08f822-3507-6c69-5d83-4ce2a9f5c04f@linaro.org>
+ <53bb3105-8e85-a972-fce8-a7911ae4d461@linux.intel.com>
+ <95870089-25da-11ea-19fd-0504daa98994@linaro.org>
+ <2326a155-332e-fda0-b7a2-b48f348e1911@linux.intel.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <34e4cde8-f2e5-0943-115a-651d86f87c1a@linaro.org>
+Date: Thu, 10 Oct 2019 09:50:22 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-Originating-IP: [10.44.3.90]
-X-ADIRoutedOnPrem: True
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:137.71.25.55; IPV:NLI; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(396003)(136003)(346002)(39860400002)(376002)(199004)(189003)(6306002)(8936002)(446003)(2616005)(336012)(478600001)(5820100001)(966005)(126002)(11346002)(476003)(486006)(50226002)(8676002)(426003)(23676004)(53416004)(246002)(4326008)(76176011)(47776003)(54906003)(316002)(110136005)(70206006)(70586007)(2870700001)(50466002)(1076003)(16526019)(5660300002)(356004)(6666004)(106002)(186003)(86362001)(45776006)(6116002)(26005)(36756003)(3846002)(7736002)(7636002)(305945005)(2906002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR03MB2428; H:nwd2mta1.analog.com; FPR:;
- SPF:Pass; LANG:en; PTR:nwd2mail10.analog.com; A:1; MX:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c44d8652-af07-46fc-88b6-08d74d555d63
-X-MS-TrafficTypeDiagnostic: DM5PR03MB2428:
-X-MS-Exchange-PUrlCount: 3
-X-Microsoft-Antispam-PRVS: <DM5PR03MB2428DF4AD7F215FA89A4F15299940@DM5PR03MB2428.namprd03.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
-X-Forefront-PRVS: 018632C080
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Jc/jxf6oXsYki++AFTCRRRK2iq5haAnxMCEMayuPwg1ZMtz0B12MYzNYKkLSNbiUPMcEOHQHz5QemKU8FWRHyYY+G/t/l339oAkv607G65f+D9XzcTwWZqWhS4G5AdKQa9LVPod8fXK1K9C+ml8qncOUm5Ufz2T1w9rmk4Rp/xM2tMJCeR/HRiES0UgLK/yfrv6awxr9/viqyIl4sdtDDZyR2vpGm0U2RignGhr8Vjnw+pnOJskf+p7iD8fwsmM+u+bZbgW2r+sq1nIqNXZhvDl6qB9ujvjueeIVNhChov5R22ou/o40cpcq8XwozqGKMEiRPe6RjEEVcW4EcluyrKX45BRW4IMGNsRpv6MgnFEJw+svEeo0PTRDEZUUj2FLQAGNW7+VuhCNlMOsLk8N7mH834GizlNkBvzRb4EB1l5r3//6XIRt4xA77VSnOCqZUN0V1k7acNmC5DOmSVhIUw==
-X-OriginatorOrg: analog.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2019 07:42:13.0107 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c44d8652-af07-46fc-88b6-08d74d555d63
-X-MS-Exchange-CrossTenant-Id: eaa689b4-8f87-40e0-9c6f-7228de4d754a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=eaa689b4-8f87-40e0-9c6f-7228de4d754a; Ip=[137.71.25.55];
- Helo=[nwd2mta1.analog.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR03MB2428
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-10_04:2019-10-08,2019-10-10 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999 mlxscore=0
- bulkscore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
- lowpriorityscore=0 clxscore=1015 malwarescore=0 impostorscore=0
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1908290000 definitions=main-1910100071
-Cc: Mark Rutland <mark.rutland@arm.com>, Lars-Peter Clausen <lars@metafoo.de>,
- Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH v3 2/2] dt-bindings: asoc: Add ADAU7118
-	documentation
+In-Reply-To: <2326a155-332e-fda0-b7a2-b48f348e1911@linux.intel.com>
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, plai@codeaurora.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org, spapothi@codeaurora.org
+Subject: Re: [alsa-devel] [PATCH v2 3/5] ASoC: core: add support to
+ snd_soc_dai_get_sdw_stream()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -149,67 +118,138 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RG9jdW1lbnQgdGhlIEFEQVU3MTE4IDggY2hhbm5lbCBQRE0gdG8gSTJTL1RETSBjb252ZXJ0ZXIg
-ZGV2aWNldHJlZQpiaW5kaW5ncy4KClNpZ25lZC1vZmYtYnk6IE51bm8gU8OhIDxudW5vLnNhQGFu
-YWxvZy5jb20+Ci0tLQpDaGFuZ2VzIGluIHYyOgogKiBMaXN0IHJlZ3VsYXRvcnMgYXMgcmVxdWly
-ZWQ7CgpDaGFuZ2VzIGluIHYzOgogKiBTZXQgdGhlIGNvcnJlY3QgbGljZW5zZSBmb3IgbmV3IGJp
-bmRpbmdzLgoKIC4uLi9iaW5kaW5ncy9zb3VuZC9hZGksYWRhdTcxMTgueWFtbCAgICAgICAgICB8
-IDkwICsrKysrKysrKysrKysrKysrKysKIDEgZmlsZSBjaGFuZ2VkLCA5MCBpbnNlcnRpb25zKCsp
-CiBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3Nv
-dW5kL2FkaSxhZGF1NzExOC55YW1sCgpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0
-cmVlL2JpbmRpbmdzL3NvdW5kL2FkaSxhZGF1NzExOC55YW1sIGIvRG9jdW1lbnRhdGlvbi9kZXZp
-Y2V0cmVlL2JpbmRpbmdzL3NvdW5kL2FkaSxhZGF1NzExOC55YW1sCm5ldyBmaWxlIG1vZGUgMTAw
-NjQ0CmluZGV4IDAwMDAwMDAwMDAwMC4uY2ZjZWY2MDJiM2Q5Ci0tLSAvZGV2L251bGwKKysrIGIv
-RG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL3NvdW5kL2FkaSxhZGF1NzExOC55YW1s
-CkBAIC0wLDAgKzEsOTAgQEAKKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wLW9u
-bHkgT1IgQlNELTItQ2xhdXNlKQorJVlBTUwgMS4yCistLS0KKyRpZDogaHR0cDovL2RldmljZXRy
-ZWUub3JnL3NjaGVtYXMvc291bmQvYWRpLGFkYXU3MTE4LnlhbWwjCiskc2NoZW1hOiBodHRwOi8v
-ZGV2aWNldHJlZS5vcmcvbWV0YS1zY2hlbWFzL2NvcmUueWFtbCMKKworCit0aXRsZTogQW5hbG9n
-IERldmljZXMgQURBVTcxMTggOCBDaGFubmVsIFBETSB0byBJMlMvVERNIENvbnZlcnRlcgorCitt
-YWludGFpbmVyczoKKyAgLSBOdW5vIFPDoSA8bnVuby5zYUBhbmFsb2cuY29tPgorCitkZXNjcmlw
-dGlvbjogfAorICBBbmFsb2cgRGV2aWNlcyBBREFVNzExOCA4IENoYW5uZWwgUERNIHRvIEkyUy9U
-RE0gQ29udmVydGVyIG92ZXIgSTJDIG9yIEhXCisgIHN0YW5kYWxvbmUgbW9kZS4KKyAgaHR0cHM6
-Ly93d3cuYW5hbG9nLmNvbS9tZWRpYS9lbi90ZWNobmljYWwtZG9jdW1lbnRhdGlvbi9kYXRhLXNo
-ZWV0cy9BREFVNzExOC5wZGYKKworcHJvcGVydGllczoKKyAgY29tcGF0aWJsZToKKyAgICBlbnVt
-OgorICAgICAgLSBhZGksYWRhdTcxMTgKKworICByZWc6CisgICAgbWF4SXRlbXM6IDEKKworICAi
-I3NvdW5kLWRhaS1jZWxscyI6CisgICAgY29uc3Q6IDAKKworICBJT1ZERC1zdXBwbHk6CisgICAg
-ZGVzY3JpcHRpb246IERpZ2l0YWwgSW5wdXQvT3V0cHV0IFBvd2VyIFN1cHBseS4KKyAgICAkcmVm
-OiAiL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvcGhhbmRsZSIKKworICBEVkRELXN1
-cHBseToKKyAgICBkZXNjcmlwdGlvbjogSW50ZXJuYWwgQ29yZSBEaWdpdGFsIFBvd2VyIFN1cHBs
-eS4KKyAgICAkcmVmOiAiL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvcGhhbmRsZSIK
-KworICBhZGksZGVjaW1hdGlvbi1yYXRpbzoKKyAgICBkZXNjcmlwdGlvbjogfAorICAgICAgVGhp
-cyBwcm9wZXJ0eSBzZXQncyB0aGUgZGVjaW1hdGlvbiByYXRpbyBvZiBQRE0gdG8gUENNIGF1ZGlv
-IGRhdGEuCisgICAgYWxsT2Y6CisgICAgICAtICRyZWY6IC9zY2hlbWFzL3R5cGVzLnlhbWwjL2Rl
-ZmluaXRpb25zL3VpbnQzMgorICAgICAgLSBlbnVtOiBbNjQsIDMyLCAxNl0KKyAgICAgICAgZGVm
-YXVsdDogNjQKKworICBhZGkscGRtLWNsay1tYXA6CisgICAgZGVzY3JpcHRpb246IHwKKyAgICAg
-IFRoZSBBREFVNzExOCBoYXMgdHdvIFBETSBjbG9ja3MgZm9yIHRoZSBmb3VyIElucHV0cy4gRWFj
-aCBpbnB1dCBtdXN0IGJlCisgICAgICBhc3NpZ25lZCB0byBvbmUgb2YgdGhlc2UgdHdvIGNsb2Nr
-cy4gVGhpcyBwcm9wZXJ0eSBzZXQncyB0aGUgbWFwcGluZworICAgICAgYmV0d2VlbiB0aGUgY2xv
-Y2tzIGFuZCB0aGUgaW5wdXRzLgorICAgIGFsbE9mOgorICAgICAgLSAkcmVmOiAvc2NoZW1hcy90
-eXBlcy55YW1sIy9kZWZpbml0aW9ucy91aW50MzItYXJyYXkKKyAgICAgIC0gbWluSXRlbXM6IDQK
-KyAgICAgICAgbWF4SXRlbXM6IDQKKyAgICAgICAgaXRlbXM6CisgICAgICAgICAgbWF4aW11bTog
-MQorICAgICAgICBkZWZhdWx0OiBbMCwgMCwgMSwgMV0KKworcmVxdWlyZWQ6CisgIC0gIiNzb3Vu
-ZC1kYWktY2VsbHMiCisgIC0gY29tcGF0aWJsZQorICAtIElPVkRELXN1cHBseQorICAtIERWREQt
-c3VwcGx5CisKK2V4YW1wbGVzOgorICAtIHwKKyAgICBpMmMwIHsKKyAgICAgICAgLyogZXhhbXBs
-ZSB3aXRoIGkyYyBzdXBwb3J0ICovCisgICAgICAgICNhZGRyZXNzLWNlbGxzID0gPDE+OworICAg
-ICAgICAjc2l6ZS1jZWxscyA9IDwwPjsKKyAgICAgICAgc3RhdHVzID0gIm9rYXkiOworICAgICAg
-ICBhZGF1NzExOF9jb2RlYzogYWRhdTcxMTgtY29kZWNAMTQgeworICAgICAgICAgICAgICAgIGNv
-bXBhdGlibGUgPSAiYWRpLGFkYXU3MTE4IjsKKyAgICAgICAgICAgICAgICByZWcgPSA8MTQ+Owor
-ICAgICAgICAgICAgICAgICNzb3VuZC1kYWktY2VsbHMgPSA8MD47CisgICAgICAgICAgICAgICAg
-c3RhdHVzID0gIm9rYXkiOworICAgICAgICAgICAgICAgIElPVkRELXN1cHBseSA9IDwmc3VwcGx5
-PjsKKyAgICAgICAgICAgICAgICBEVkRELXN1cHBseSA9IDwmc3VwcGx5PjsKKyAgICAgICAgICAg
-ICAgICBhZGkscGRtLWNsay1tYXAgPSA8MSAxIDAgMD47CisgICAgICAgICAgICAgICAgYWRpLGRl
-Y2ltYXRpb24tcmF0aW8gPSA8MTY+OworICAgICAgICB9OworICAgIH07CisKKyAgICAvKiBleGFt
-cGxlIHdpdGggaHcgc3RhbmRhbG9uZSBtb2RlICovCisgICAgYWRhdTcxMThfY29kZWNfaHc6IGFk
-YXU3MTE4LWNvZGVjLWh3IHsKKyAgICAgICAgICAgIGNvbXBhdGlibGUgPSAiYWRpLGFkYXU3MTE4
-IjsKKyAgICAgICAgICAgICNzb3VuZC1kYWktY2VsbHMgPSA8MD47CisgICAgICAgICAgICBzdGF0
-dXMgPSAib2theSI7CisgICAgICAgICAgICBJT1ZERC1zdXBwbHkgPSA8JnN1cHBseT47CisgICAg
-ICAgICAgICBEVkRELXN1cHBseSA9IDwmc3VwcGx5PjsKKyAgICB9OwotLSAKMi4yMy4wCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1h
-aWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFs
-c2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+
+
+On 09/10/2019 19:53, Pierre-Louis Bossart wrote:
+> 
+> 
+> On 10/9/19 11:01 AM, Srinivas Kandagatla wrote:
+>>
+>>
+>> On 09/10/2019 15:29, Pierre-Louis Bossart wrote:
+>>>
+>>>
+>>> On 10/9/19 3:32 AM, Srinivas Kandagatla wrote:
+>>>> Hi Pierre,
+>>>>
+>>>> On 14/08/2019 15:09, Pierre-Louis Bossart wrote:
+>>>>>
+>>>>>
+>>>>> On 8/13/19 11:11 PM, Vinod Koul wrote:
+>>>>>> On 13-08-19, 20:58, Mark Brown wrote:
+>>>>>>> On Tue, Aug 13, 2019 at 02:38:53PM -0500, Pierre-Louis Bossart 
+>>>>>>> wrote:
+>>>>>>>
+>>>>>>>> Indeed. I don't have a full understanding of that part to be 
+>>>>>>>> honest, nor why
+>>>>>>>> we need something SoundWire-specific. We already abused the 
+>>>>>>>> set_tdm_slot API
+>>>>>>>> to store an HDaudio stream, now we have a rather confusing stream
+>>>>>>>> information for SoundWire and I have about 3 other 'stream' 
+>>>>>>>> contexts in
+>>>>>>>> SOF... I am still doing basic cleanups but this has been on my 
+>>>>>>>> radar for a
+>>>>>>>> while.
+>>>>>>>
+>>>>>>> There is something to be said for not abusing the TDM slot API if 
+>>>>>>> it can
+>>>>>>> make things clearer by using bus-idiomatic mechanisms, but it 
+>>>>>>> does mean
+>>>>>>> everything needs to know about each individual bus :/ .
+>>>>>>
+>>>>>> Here ASoC doesn't need to know about sdw bus. As Srini explained, 
+>>>>>> this
+>>>>>> helps in the case for him to get the stream context and set the 
+>>>>>> stream
+>>>>>> context from the machine driver.
+>>>>>>
+>>>>>> Nothing else is expected to be done from this API. We already do a 
+>>>>>> set
+>>>>>> using snd_soc_dai_set_sdw_stream(). Here we add the 
+>>>>>> snd_soc_dai_get_sdw_stream() to query
+>>>>>
+>>>>> I didn't see a call to snd_soc_dai_set_sdw_stream() in Srini's code?
+>>>>
+>>>>
+>>>> There is a snd_soc_dai_get_sdw_stream() to get stream context and we 
+>>>> add slave streams(amplifier in this case) to that context using 
+>>>> sdw_stream_add_slave() in machine driver[1].
+>>>>
+>>>> Without this helper there is no way to link slave streams to stream 
+>>>> context in non dai based setup like smart speaker amplifiers.
+>>>>
+>>>> Currently this driver is blocked on this patch, If you think there 
+>>>> are other ways to do this, am happy to try them out.
+>>>
+>>> So to be clear, you are *not* using snd_soc_dai_set_sdw_stream?
+>> Yes, am not using snd_soc_dai_set_sdw_stream().
+> 
+> It's been a while since this thread started, and I still don't quite get 
+> the concepts or logic.
+> 
+> First, I don't understand what the problem with "aux" devices is. All 
+> the SoundWire stuff is based on the concept of DAI, so I guess I am 
+
+That is the actual problem! Some aux devices does not have dais.
+
+> missing why introducing the "aux" device changes anything.
+> 
+
+Problem is that aux devices(amplifier) are dai less but connected via 
+SoundWire. So question is how do we attach those SoundWire streams to 
+SoundWire master stream?
+
+My Idea was to get handle to the SoundWire stream from controller dai 
+and adding these aux SoundWire slave devices as slave to them in machine 
+driver. This was much less intrusive than other solutions.
+
+Is there a better way to associate a dai-less codecs to SoundWire master 
+stream?
+
+> Next, a 'stream' connects multiple DAIs to transmit information from 
+> sources to sinks. A DAI in itself is created without having any notion 
+> of which stream it will be associated with. This can only be done with 
+> machine level information.
+> 
+> If you query a DAI to get a stream context, then how is this stream 
+> context allocated in the first place? It looks like a horse and cart 
+> problem. Or you are assuming that a specific DAI provides the context, 
+> and that all other DAIs do not expose this .get_sdw_stream()? What if 
+> more that 1 DAI provide a stream context?
+
+In this particular board setup. Soundwire master is allocating the 
+stream runtime for each of it dais, and this runtime is used in machine 
+driver to attach Auxdev Soundwire slaves.
+
+Other setups where the codec has dai should work as expected!
+
+
+> 
+> And last, I am even more lost since w/ the existing codec drivers we 
+> have, sdw_stream_add_slave() is called from the dai .hw_params callback, 
+> once you have information on formats/rates, etc. using 
+> sdw_stream_add_slave() from a machine driver looks like an even bigger 
+> stretch. I really thought the machine driver would only propagate the 
+> notion of stream to all DAIs that are part of the same dailink.
+> 
+> I am not trying to block the Qualcomm implementation, just would like to 
+> make sure the assumptions are clear and that we are not using the same 
+> API in completely different ways.
+
+Am open for any suggestions on dealing with dai less setups like what we 
+have on our board.
+
+--srini
+> 
+> 
+> 
+> 
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

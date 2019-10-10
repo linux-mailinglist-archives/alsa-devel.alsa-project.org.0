@@ -2,63 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18FBAD2E00
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 17:45:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D9BFD2E37
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 17:59:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A2F1A1661;
-	Thu, 10 Oct 2019 17:44:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A2F1A1661
+	by alsa0.perex.cz (Postfix) with ESMTPS id C594D1665;
+	Thu, 10 Oct 2019 17:58:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C594D1665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570722304;
-	bh=8s2f41a9UCQP00vxxBpeTAAs7PjgzZl0i3L8J8XkgO8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1570723146;
+	bh=CJiYHhFZc5slTDNXcsr1UJLbi7v0bVG1eHMCXJ9FBvw=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZAiUfbEdKgAKCFOTixgdvYoHrcGzPSIY/1EEoqAWzBsC3FmvADg5/QoMK+vjOU8aQ
-	 rZOQjH9zClj7PHc7ZxZmLC1dN8gOqsOICiPKu6W2q8ysaX5hNocLwdXPUxYAGRUcfy
-	 wV81wCReW93FzNJHBKSENd+dkZhqOAp+osBcw6xQ=
+	b=gaEaG7D9G7J/K3loJ4iGrXHtTao4AgFJPLPpecruv/hA4qwrrlyuooPn+EZVIzInR
+	 iBRhFklq+PS8TPfo+S9rz4ms5yZdaZ7tXK9V3Hlw+H8YEdb1GpVlaBrwpa7qGQ6TKE
+	 OZ8INloc2ome8XQrb/tesLnPoiZHAPzVEnxSI16g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 687CCF80636;
-	Thu, 10 Oct 2019 17:41:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13684F80322;
+	Thu, 10 Oct 2019 17:57:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F0C9F80610; Thu, 10 Oct 2019 17:41:09 +0200 (CEST)
+ id 22B52F8038F; Thu, 10 Oct 2019 17:57:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 20087F80447
- for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 17:41:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 20087F80447
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Oct 2019 08:41:03 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.67,280,1566889200"; d="scan'208";a="369125073"
-Received: from aandraox-mobl1.amr.corp.intel.com (HELO [10.254.98.68])
- ([10.254.98.68])
- by orsmga005.jf.intel.com with ESMTP; 10 Oct 2019 08:41:02 -0700
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <87sgo2ilso.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <a11ccb66-1e7d-2967-586b-bd705494a798@linux.intel.com>
-Date: Thu, 10 Oct 2019 10:38:48 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EABAFF802BC
+ for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 17:57:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EABAFF802BC
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="DTMgmD/M"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ViRqVDBCrSWY+fOz3i8Bb5UjyYmM7z1MB1RbjK8mhWU=; b=DTMgmD/MnCe1zUY7uA8YoFYi0
+ IiLlDTb3Ekr8q06vfRgH3D43Vk9ENqSv55l5k1XLtJWU5XVddF5NTF1hMue8+LTxys8QPI0ByALMp
+ TbHYxi57dtoU1ZdOfqSNsycn1uJcflcznOSifM3jX7tlNmS1BA/8xf5CHHE6w/F0ya2xE=;
+Received: from fw-tnat-cam3.arm.com ([217.140.106.51]
+ helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1iIaoW-0001xV-OR; Thu, 10 Oct 2019 15:57:16 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 1E355D00041; Thu, 10 Oct 2019 16:57:16 +0100 (BST)
+Date: Thu, 10 Oct 2019 16:57:16 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Daniel Baluta <daniel.baluta@gmail.com>
+Message-ID: <20191010155716.GE4741@sirena.org.uk>
+References: <20191009181356.GO2036@sirena.org.uk>
+ <CAEnQRZAR1b-CHHVEv0ia92vYu38fWkwgW3mdwJFhEQsHk2j5+A@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <87sgo2ilso.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH 00/21] ASoC: soc-core cleanup - step 4
+In-Reply-To: <CAEnQRZAR1b-CHHVEv0ia92vYu38fWkwgW3mdwJFhEQsHk2j5+A@mail.gmail.com>
+X-Cookie: Void where prohibited by law.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.de>,
+ "S.j. Wang" <shengjiu.wang@nxp.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Curtis Malainey <cujomalainey@google.com>,
+ Guido Roncarolo <guido.roncarolo@nxp.com>
+Subject: Re: [alsa-devel] [ANNOUNCE] 2019 Linux Audio miniconference
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,72 +86,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============7138885113596990744=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--===============7138885113596990744==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="o0ZfoUVt4BxPQnbU"
+Content-Disposition: inline
 
-On 10/8/19 11:29 PM, Kuninori Morimoto wrote:
-> 
-> Hi Mark
-> Cc Pierre-Louis
-> 
-> These are step4 of soc-core cleanup.
-> These related to soc-topology.
-> If my understanding and my code are correct,
-> there is no effect to topology side, but I can't test.
-> 
-> I'm not sure who can test these, but I guess
-> Pierre-Louis knows ?
-> Pierre-Louis, can you help it ?
 
-This patchset was tested with the Intel SOF CI, and no regressions were 
-seen.
+--o0ZfoUVt4BxPQnbU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Full results here: https://github.com/thesofproject/linux/pull/1298
+On Wed, Oct 09, 2019 at 09:48:14PM +0300, Daniel Baluta wrote:
+> On Wed, Oct 9, 2019 at 9:15 PM Mark Brown <broonie@kernel.org> wrote:
 
-I added a couple of comments to help improve commit messages or code. 
-Nothing major, more about fixing inconsistencies than about broken code.
+> My topics:
 
-I could however not figure out if Patch 6 was correct or not, this is by 
-far the most complicated in this series and additional folks more 
-familiar with the code should look into it.
+I'll add these to the agenda.
 
-> 
-> Kuninori Morimoto (21):
->    ASoC: soc-core: remove for_each_rtdcom_safe()
->    ASoC: soc-core: add for_each_rtd_components() and replace
->    ASoC: soc-core: move soc_init_dai_link()
->    ASoC: soc-core: rename soc_init_dai_link() to soc_dai_link_sanity_check()
->    ASoC: soc-core: remove duplicated soc_is_dai_link_bound()
->    ASoC: soc-core: call soc_bind_dai_link() under snd_soc_add_dai_link()
->    ASoC: soc-core: add soc_unbind_dai_link()
->    ASoC: soc-core: snd_soc_unbind_card() cleanup
->    ASoC: soc-core: remove unneeded snd_soc_tplg_component_remove()
->    ASoC: soc-core: move snd_soc_lookup_component()
->    ASoC: soc-core: add snd_soc_del_component()
->    ASoC: soc-core: use snd_soc_lookup_component() at snd_soc_unregister_component()
->    ASoC: soc-core: move snd_soc_register_dai()
->    ASoC: soc-core: have legacy_dai_naming at snd_soc_register_dai()
->    ASoC: soc-core: move snd_soc_unregister_dais()
->    ASoC: soc-core: add snd_soc_unregister_dai()
->    ASoC: soc-core: don't call snd_soc_dapm_new_dai_widgets() at snd_soc_register_dai()
->    ASoC: soc-core: use mutex_lock() at snd_soc_add_component()
->    ASoC: soc-core: call snd_soc_register_dai() from snd_soc_register_dais()
->    ASoC: soc-core: remove topology specific operation
->    ASoC: soc.h: dobj is used only when SND_SOC_TOPOLOGY
-> 
->   include/sound/soc.h       |  25 ++-
->   sound/soc/soc-component.c |  43 +---
->   sound/soc/soc-compress.c  |  52 ++---
->   sound/soc/soc-core.c      | 542 ++++++++++++++++++++--------------------------
->   sound/soc/soc-pcm.c       |  49 ++---
->   sound/soc/soc-topology.c  |  32 ++-
->   6 files changed, 320 insertions(+), 423 deletions(-)
-> 
+> - SOF driver: ACPI / DT unification
+
+Are there concrete plans to discuss here or is this more of a
+"what are we doing" kind of thing?  ACPI standardization has been
+an issue :/
+
+> - SOF driver: Handling built-in driver use case
+
+What's the issue here?
+
+--o0ZfoUVt4BxPQnbU
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2fVNsACgkQJNaLcl1U
+h9C3KQf/eS5VnHNcxya+vVcaZKM2dFGpzNyFhcQ8JT+ToWPYYyUiTqMwLD9FAveU
+A1xEyc1x3VBZD/ZHfnBGSF9ERUPswXk1XDm0tDnHIIKJ1KA4VyuA16oeYx3LtMFJ
+sMjg9Oq36Yrh5tR8+PHhHJabffd525yX9FaxMtTRmZTDFXLp8XSMc0H58mKF9Wij
+jGQbAATA7f72vULM6fpFNhMpyetzMEqDbNr6qVO1eJqz1ZfV/lHUeHQLgd+ZRiw4
+EBYSuaknp9pCZ0677etmMRX6vInPkfv8J/DKdvOw+QGcv324ofSnFyfeXToZNiVw
+4DnW7sCBuwMwIOEtu4inC26t1nH0Dw==
+=6GjH
+-----END PGP SIGNATURE-----
+
+--o0ZfoUVt4BxPQnbU--
+
+--===============7138885113596990744==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============7138885113596990744==--

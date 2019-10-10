@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2134AD2C80
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 16:29:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2287DD2C78
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 16:27:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1A9D1688;
-	Thu, 10 Oct 2019 16:28:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1A9D1688
+	by alsa0.perex.cz (Postfix) with ESMTPS id B32C4168F;
+	Thu, 10 Oct 2019 16:26:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B32C4168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570717787;
-	bh=3RPCicTEnUlo0FxEB8j0MhzisQxuMnlH2XPuIlA6mTE=;
+	s=default; t=1570717667;
+	bh=9IdMQGLuYB4CW2DGkHkjN7qqF3/JwY/fPGBMNF20a1Q=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Fnvpu0I/uTfSPvnWCx+92C88e9lM0zYvtIFity3MJHlfxv9ZDgxHYNcydydU8OIb8
-	 7k3Jv4C/tuWfoz5MeAmCw0BWiG6/pw9gRrovNXOfjjFHqa+N0TsEfrsyW0xhtS9foH
-	 04Kv7sN//CbeC/uPYwUG4uYx7bjAix0yH5ND6vSA=
+	b=UzQ3l/8vvzSbF00OG9cB0BgzyARCvm/mohozTFpzcPmtSFvU+YlidNfB96m9jtLey
+	 ubaToa7lHt5VwuIAJMUgaWINpWnyWH9KGsMba/1/b4oTEUAAoH1OTGCD8WFZ2qqRSh
+	 U7NaC5NtQE0Ahc4AoBVObTe9yjb2XnPxiOwiHQzE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 088E5F8068A;
-	Thu, 10 Oct 2019 16:22:55 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1DFDF8063C;
+	Thu, 10 Oct 2019 16:22:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B37B3F80447; Thu, 10 Oct 2019 16:22:44 +0200 (CEST)
+ id A38E9F805FF; Thu, 10 Oct 2019 16:22:40 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 215D5F805FA
+ by alsa1.perex.cz (Postfix) with ESMTPS id ADF1CF8038F
  for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 16:22:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 215D5F805FA
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADF1CF8038F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="otTcds4z"
+ header.b="Bq6NmWRO"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Eh/dJ/g5/MHpbsUs/aakrqudygWl36PX93T5HzQdA6U=; b=otTcds4zHN/z
- ThmK63nfdFGBxtftBGvzs4WxsXyP14LTyWtAOOpQixCiCV7vpRBmY30394KpoPz4L+9fQiCZDw2yM
- s9f0iN5Wdv6cIhxGjEBCvLcNn/MBdfYNwtSh1QGvsy/OVyTmlk90wHZrJW5UxWe8U2jo/Sp62lCfn
- Ym4Ow=;
+ List-Archive; bh=Vu26j0pkksd5a+5AFHdMUJqu3g0GR+no5stRlOk1dVY=; b=Bq6NmWRO4EiN
+ YqLGK1KjfixASfBlpa9xCr++pzXvPUXqXBSIHokhAER9TQDwoUf3wdMYj95SP2Ks/VmPVCN5V4o1k
+ 40pSAZMkFXFsff2/sdn707LhoJywC06bspd/oFhgkx4SrnySk+TZVTy+S5ma+LYMBVKEo59FxZvkk
+ 45VTU=;
 Received: from fw-tnat-cam3.arm.com ([217.140.106.51]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1iIZKq-0001Zl-6p; Thu, 10 Oct 2019 14:22:32 +0000
+ id 1iIZKq-0001Zj-2v; Thu, 10 Oct 2019 14:22:32 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id CC795D0003A; Thu, 10 Oct 2019 15:22:31 +0100 (BST)
+ id AD5CAD0003D; Thu, 10 Oct 2019 15:22:31 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jaska Uimonen <jaska.uimonen@linux.intel.com>
-In-Reply-To: <20191008164443.1358-9-pierre-louis.bossart@linux.intel.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20191008164443.1358-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191010142231.CC795D0003A@fitzroy.sirena.org.uk>
+Message-Id: <20191010142231.AD5CAD0003D@fitzroy.sirena.org.uk>
 Date: Thu, 10 Oct 2019 15:22:31 +0100 (BST)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "AsoC: SOF: refactor control load code" to the
-	asoc tree
+Subject: [alsa-devel] Applied "Revert "ASoC: SOF: Force polling mode on CFL
+	and CNL"" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   AsoC: SOF: refactor control load code
+   Revert "ASoC: SOF: Force polling mode on CFL and CNL"
 
 has been applied to the asoc tree at
 
@@ -112,353 +112,49 @@ to this mail.
 Thanks,
 Mark
 
-From acf1b71cb693263c7c9373296e872a8fa61a5cf3 Mon Sep 17 00:00:00 2001
-From: Jaska Uimonen <jaska.uimonen@linux.intel.com>
-Date: Tue, 8 Oct 2019 11:44:42 -0500
-Subject: [PATCH] AsoC: SOF: refactor control load code
+From 902fd492d5ea2c02666ddadc1da977ca94e6b52c Mon Sep 17 00:00:00 2001
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Date: Tue, 8 Oct 2019 11:44:36 -0500
+Subject: [PATCH] Revert "ASoC: SOF: Force polling mode on CFL and CNL"
 
-Move code around to enable token parsing in control load.
+This reverts commit 64ca9d9fcb3e3c86b1417e3d17a90b43dd660f81.
 
-Signed-off-by: Jaska Uimonen <jaska.uimonen@linux.intel.com>
+The workaround is no longer needed after configuring HDAC
+bus with sync_write=1.
+
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191008164443.1358-9-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191008164443.1358-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/topology.c | 314 +++++++++++++++++++--------------------
- 1 file changed, 157 insertions(+), 157 deletions(-)
+ sound/soc/sof/intel/hda.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index a0b1c38e666b..3918301c573b 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -432,163 +432,6 @@ static enum sof_comp_type find_process_comp_type(enum sof_ipc_process_type type)
- 	return SOF_COMP_NONE;
- }
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 5a5163eef2ef..103f4273c4d3 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -32,9 +32,6 @@
+ /* platform specific devices */
+ #include "shim.h"
  
--/*
-- * Standard Kcontrols.
-- */
+-#define IS_CFL(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0xa348)
+-#define IS_CNL(pci) ((pci)->vendor == 0x8086 && (pci)->device == 0x9dc8)
 -
--static int sof_control_load_volume(struct snd_soc_component *scomp,
--				   struct snd_sof_control *scontrol,
--				   struct snd_kcontrol_new *kc,
--				   struct snd_soc_tplg_ctl_hdr *hdr)
--{
--	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct snd_soc_tplg_mixer_control *mc =
--		container_of(hdr, struct snd_soc_tplg_mixer_control, hdr);
--	struct sof_ipc_ctrl_data *cdata;
--	int tlv[TLV_ITEMS];
--	unsigned int i;
--	int ret;
--
--	/* validate topology data */
--	if (le32_to_cpu(mc->num_channels) > SND_SOC_TPLG_MAX_CHAN)
--		return -EINVAL;
--
--	/* init the volume get/put data */
--	scontrol->size = struct_size(scontrol->control_data, chanv,
--				     le32_to_cpu(mc->num_channels));
--	scontrol->control_data = kzalloc(scontrol->size, GFP_KERNEL);
--	if (!scontrol->control_data)
--		return -ENOMEM;
--
--	scontrol->comp_id = sdev->next_comp_id;
--	scontrol->min_volume_step = le32_to_cpu(mc->min);
--	scontrol->max_volume_step = le32_to_cpu(mc->max);
--	scontrol->num_channels = le32_to_cpu(mc->num_channels);
--
--	/* set cmd for mixer control */
--	if (le32_to_cpu(mc->max) == 1) {
--		scontrol->cmd = SOF_CTRL_CMD_SWITCH;
--		goto out;
--	}
--
--	scontrol->cmd = SOF_CTRL_CMD_VOLUME;
--
--	/* extract tlv data */
--	if (get_tlv_data(kc->tlv.p, tlv) < 0) {
--		dev_err(sdev->dev, "error: invalid TLV data\n");
--		return -EINVAL;
--	}
--
--	/* set up volume table */
--	ret = set_up_volume_table(scontrol, tlv, le32_to_cpu(mc->max) + 1);
--	if (ret < 0) {
--		dev_err(sdev->dev, "error: setting up volume table\n");
--		return ret;
--	}
--
--	/* set default volume values to 0dB in control */
--	cdata = scontrol->control_data;
--	for (i = 0; i < scontrol->num_channels; i++) {
--		cdata->chanv[i].channel = i;
--		cdata->chanv[i].value = VOL_ZERO_DB;
--	}
--
--out:
--	dev_dbg(sdev->dev, "tplg: load kcontrol index %d chans %d\n",
--		scontrol->comp_id, scontrol->num_channels);
--
--	return 0;
--}
--
--static int sof_control_load_enum(struct snd_soc_component *scomp,
--				 struct snd_sof_control *scontrol,
--				 struct snd_kcontrol_new *kc,
--				 struct snd_soc_tplg_ctl_hdr *hdr)
--{
--	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct snd_soc_tplg_enum_control *ec =
--		container_of(hdr, struct snd_soc_tplg_enum_control, hdr);
--
--	/* validate topology data */
--	if (le32_to_cpu(ec->num_channels) > SND_SOC_TPLG_MAX_CHAN)
--		return -EINVAL;
--
--	/* init the enum get/put data */
--	scontrol->size = struct_size(scontrol->control_data, chanv,
--				     le32_to_cpu(ec->num_channels));
--	scontrol->control_data = kzalloc(scontrol->size, GFP_KERNEL);
--	if (!scontrol->control_data)
--		return -ENOMEM;
--
--	scontrol->comp_id = sdev->next_comp_id;
--	scontrol->num_channels = le32_to_cpu(ec->num_channels);
--
--	scontrol->cmd = SOF_CTRL_CMD_ENUM;
--
--	dev_dbg(sdev->dev, "tplg: load kcontrol index %d chans %d comp_id %d\n",
--		scontrol->comp_id, scontrol->num_channels, scontrol->comp_id);
--
--	return 0;
--}
--
--static int sof_control_load_bytes(struct snd_soc_component *scomp,
--				  struct snd_sof_control *scontrol,
--				  struct snd_kcontrol_new *kc,
--				  struct snd_soc_tplg_ctl_hdr *hdr)
--{
--	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
--	struct sof_ipc_ctrl_data *cdata;
--	struct snd_soc_tplg_bytes_control *control =
--		container_of(hdr, struct snd_soc_tplg_bytes_control, hdr);
--	struct soc_bytes_ext *sbe = (struct soc_bytes_ext *)kc->private_value;
--	int max_size = sbe->max;
--
--	if (le32_to_cpu(control->priv.size) > max_size) {
--		dev_err(sdev->dev, "err: bytes data size %d exceeds max %d.\n",
--			control->priv.size, max_size);
--		return -EINVAL;
--	}
--
--	/* init the get/put bytes data */
--	scontrol->size = sizeof(struct sof_ipc_ctrl_data) +
--		le32_to_cpu(control->priv.size);
--	scontrol->control_data = kzalloc(max_size, GFP_KERNEL);
--	cdata = scontrol->control_data;
--	if (!scontrol->control_data)
--		return -ENOMEM;
--
--	scontrol->comp_id = sdev->next_comp_id;
--	scontrol->cmd = SOF_CTRL_CMD_BINARY;
--
--	dev_dbg(sdev->dev, "tplg: load kcontrol index %d chans %d\n",
--		scontrol->comp_id, scontrol->num_channels);
--
--	if (le32_to_cpu(control->priv.size) > 0) {
--		memcpy(cdata->data, control->priv.data,
--		       le32_to_cpu(control->priv.size));
--
--		if (cdata->data->magic != SOF_ABI_MAGIC) {
--			dev_err(sdev->dev, "error: Wrong ABI magic 0x%08x.\n",
--				cdata->data->magic);
--			return -EINVAL;
--		}
--		if (SOF_ABI_VERSION_INCOMPATIBLE(SOF_ABI_VERSION,
--						 cdata->data->abi)) {
--			dev_err(sdev->dev,
--				"error: Incompatible ABI version 0x%08x.\n",
--				cdata->data->abi);
--			return -EINVAL;
--		}
--		if (cdata->data->size + sizeof(const struct sof_abi_hdr) !=
--		    le32_to_cpu(control->priv.size)) {
--			dev_err(sdev->dev,
--				"error: Conflict in bytes vs. priv size.\n");
--			return -EINVAL;
--		}
--	}
--	return 0;
--}
--
+ #define EXCEPT_MAX_HDR_SIZE	0x400
+ 
  /*
-  * Topology Token Parsing.
-  * New tokens should be added to headers and parsing tables below.
-@@ -1039,6 +882,163 @@ static void sof_dbg_comp_config(struct snd_soc_component *scomp,
- 		config->frame_fmt);
- }
+@@ -262,10 +259,6 @@ static int hda_init(struct snd_sof_dev *sdev)
+ 	/* HDA bus init */
+ 	sof_hda_bus_init(bus, &pci->dev);
  
-+/*
-+ * Standard Kcontrols.
-+ */
-+
-+static int sof_control_load_volume(struct snd_soc_component *scomp,
-+				   struct snd_sof_control *scontrol,
-+				   struct snd_kcontrol_new *kc,
-+				   struct snd_soc_tplg_ctl_hdr *hdr)
-+{
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	struct snd_soc_tplg_mixer_control *mc =
-+		container_of(hdr, struct snd_soc_tplg_mixer_control, hdr);
-+	struct sof_ipc_ctrl_data *cdata;
-+	int tlv[TLV_ITEMS];
-+	unsigned int i;
-+	int ret;
-+
-+	/* validate topology data */
-+	if (le32_to_cpu(mc->num_channels) > SND_SOC_TPLG_MAX_CHAN)
-+		return -EINVAL;
-+
-+	/* init the volume get/put data */
-+	scontrol->size = struct_size(scontrol->control_data, chanv,
-+				     le32_to_cpu(mc->num_channels));
-+	scontrol->control_data = kzalloc(scontrol->size, GFP_KERNEL);
-+	if (!scontrol->control_data)
-+		return -ENOMEM;
-+
-+	scontrol->comp_id = sdev->next_comp_id;
-+	scontrol->min_volume_step = le32_to_cpu(mc->min);
-+	scontrol->max_volume_step = le32_to_cpu(mc->max);
-+	scontrol->num_channels = le32_to_cpu(mc->num_channels);
-+
-+	/* set cmd for mixer control */
-+	if (le32_to_cpu(mc->max) == 1) {
-+		scontrol->cmd = SOF_CTRL_CMD_SWITCH;
-+		goto out;
-+	}
-+
-+	scontrol->cmd = SOF_CTRL_CMD_VOLUME;
-+
-+	/* extract tlv data */
-+	if (get_tlv_data(kc->tlv.p, tlv) < 0) {
-+		dev_err(sdev->dev, "error: invalid TLV data\n");
-+		return -EINVAL;
-+	}
-+
-+	/* set up volume table */
-+	ret = set_up_volume_table(scontrol, tlv, le32_to_cpu(mc->max) + 1);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "error: setting up volume table\n");
-+		return ret;
-+	}
-+
-+	/* set default volume values to 0dB in control */
-+	cdata = scontrol->control_data;
-+	for (i = 0; i < scontrol->num_channels; i++) {
-+		cdata->chanv[i].channel = i;
-+		cdata->chanv[i].value = VOL_ZERO_DB;
-+	}
-+
-+out:
-+	dev_dbg(sdev->dev, "tplg: load kcontrol index %d chans %d\n",
-+		scontrol->comp_id, scontrol->num_channels);
-+
-+	return 0;
-+}
-+
-+static int sof_control_load_enum(struct snd_soc_component *scomp,
-+				 struct snd_sof_control *scontrol,
-+				 struct snd_kcontrol_new *kc,
-+				 struct snd_soc_tplg_ctl_hdr *hdr)
-+{
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	struct snd_soc_tplg_enum_control *ec =
-+		container_of(hdr, struct snd_soc_tplg_enum_control, hdr);
-+
-+	/* validate topology data */
-+	if (le32_to_cpu(ec->num_channels) > SND_SOC_TPLG_MAX_CHAN)
-+		return -EINVAL;
-+
-+	/* init the enum get/put data */
-+	scontrol->size = struct_size(scontrol->control_data, chanv,
-+				     le32_to_cpu(ec->num_channels));
-+	scontrol->control_data = kzalloc(scontrol->size, GFP_KERNEL);
-+	if (!scontrol->control_data)
-+		return -ENOMEM;
-+
-+	scontrol->comp_id = sdev->next_comp_id;
-+	scontrol->num_channels = le32_to_cpu(ec->num_channels);
-+
-+	scontrol->cmd = SOF_CTRL_CMD_ENUM;
-+
-+	dev_dbg(sdev->dev, "tplg: load kcontrol index %d chans %d comp_id %d\n",
-+		scontrol->comp_id, scontrol->num_channels, scontrol->comp_id);
-+
-+	return 0;
-+}
-+
-+static int sof_control_load_bytes(struct snd_soc_component *scomp,
-+				  struct snd_sof_control *scontrol,
-+				  struct snd_kcontrol_new *kc,
-+				  struct snd_soc_tplg_ctl_hdr *hdr)
-+{
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	struct sof_ipc_ctrl_data *cdata;
-+	struct snd_soc_tplg_bytes_control *control =
-+		container_of(hdr, struct snd_soc_tplg_bytes_control, hdr);
-+	struct soc_bytes_ext *sbe = (struct soc_bytes_ext *)kc->private_value;
-+	int max_size = sbe->max;
-+
-+	if (le32_to_cpu(control->priv.size) > max_size) {
-+		dev_err(sdev->dev, "err: bytes data size %d exceeds max %d.\n",
-+			control->priv.size, max_size);
-+		return -EINVAL;
-+	}
-+
-+	/* init the get/put bytes data */
-+	scontrol->size = sizeof(struct sof_ipc_ctrl_data) +
-+		le32_to_cpu(control->priv.size);
-+	scontrol->control_data = kzalloc(max_size, GFP_KERNEL);
-+	cdata = scontrol->control_data;
-+	if (!scontrol->control_data)
-+		return -ENOMEM;
-+
-+	scontrol->comp_id = sdev->next_comp_id;
-+	scontrol->cmd = SOF_CTRL_CMD_BINARY;
-+
-+	dev_dbg(sdev->dev, "tplg: load kcontrol index %d chans %d\n",
-+		scontrol->comp_id, scontrol->num_channels);
-+
-+	if (le32_to_cpu(control->priv.size) > 0) {
-+		memcpy(cdata->data, control->priv.data,
-+		       le32_to_cpu(control->priv.size));
-+
-+		if (cdata->data->magic != SOF_ABI_MAGIC) {
-+			dev_err(sdev->dev, "error: Wrong ABI magic 0x%08x.\n",
-+				cdata->data->magic);
-+			return -EINVAL;
-+		}
-+		if (SOF_ABI_VERSION_INCOMPATIBLE(SOF_ABI_VERSION,
-+						 cdata->data->abi)) {
-+			dev_err(sdev->dev,
-+				"error: Incompatible ABI version 0x%08x.\n",
-+				cdata->data->abi);
-+			return -EINVAL;
-+		}
-+		if (cdata->data->size + sizeof(const struct sof_abi_hdr) !=
-+		    le32_to_cpu(control->priv.size)) {
-+			dev_err(sdev->dev,
-+				"error: Conflict in bytes vs. priv size.\n");
-+			return -EINVAL;
-+		}
-+	}
-+	return 0;
-+}
-+
- /* external kcontrol init - used for any driver specific init */
- static int sof_control_load(struct snd_soc_component *scomp, int index,
- 			    struct snd_kcontrol_new *kc,
+-	/* Workaround for a communication error on CFL (bko#199007) and CNL */
+-	if (IS_CFL(pci) || IS_CNL(pci))
+-		bus->polling_mode = 1;
+-
+ 	bus->use_posbuf = 1;
+ 	bus->bdl_pos_adj = 0;
+ 	bus->sync_write = 1;
 -- 
 2.20.1
 

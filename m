@@ -2,95 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DD6DD2655
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 11:30:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95F5DD2763
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 12:42:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9DA331616;
-	Thu, 10 Oct 2019 11:29:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DA331616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 202EB1661;
+	Thu, 10 Oct 2019 12:41:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 202EB1661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570699805;
-	bh=ZTmOiUHAxthhLhE5rhFGNw69EDWZTT1A3JpzjqrzecU=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1570704168;
+	bh=AtNufKRMAHEoGF3nLShbR/DLxTvS73oCbUnDSj+FHLQ=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LJNydyHjaFy1qEwX6qmrAs44Lb12sqWp7Ie1vwCgocOsRhWstczmDdb007I52f79w
-	 vK4id0WtZRbXVSE67kc7xcalnQ9EvAvtZvvv78A/xMuNVHvvnqz2yymT8PZV0yTDGY
-	 KVZvXFf8N/pizTaWrqrI19vdGF0K/z8lxJmCO/es=
+	b=SoQQ+CHh+aguOf8deAyyCPeCVpHeVKQaLmmm9yi2AbwPQ+weDf2qDNvBS9WT95sp+
+	 NWWVYyeLYz78uCpUAUulRl5tCXI4Mkb4XPcRKM7A6/bo44OffmjyXiaiHeKYU2IJ5i
+	 cPRxd4/D+yyD52QNr5lcBHqhoxCv2UsbZ/g3RJvM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89220F80447;
-	Thu, 10 Oct 2019 11:28:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 57980F8038F;
+	Thu, 10 Oct 2019 12:41:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F33A0F8038F; Thu, 10 Oct 2019 11:28:15 +0200 (CEST)
+ id 6BFE0F8038F; Thu, 10 Oct 2019 12:41:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,PRX_BODY_30,SPF_HELO_PASS,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com
+ (mail-eopbgr710062.outbound.protection.outlook.com [40.107.71.62])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33820F802BC
- for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 11:28:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33820F802BC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17E32F80113
+ for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 12:40:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17E32F80113
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="vBgud5FU"
-Received: by mail-wm1-x341.google.com with SMTP id 7so6140399wme.1
- for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 02:28:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=D/ELkajn5nIeWjt+au+JukJPjjOmYN8ul5L5G8g9Cbw=;
- b=vBgud5FUoF0BluzVgOr5mc+3sO+QeVDiiFna1seL30oxei6d/G1Gcn6OURjpSV5FJp
- tyIDD8hgqfT6TqZ0m8A+Y570QFqu7S18n75up5d6x6MwFgpV2at9SaLbbeQMiQbgHkK1
- HFkubXUAXl0UuYvhGw8Hu6IcWiMWHPa3r20trLP/WXhWAHUJQg3ZNz8NkhNi/DKeFb97
- FTEXsltHQ9xnTUKo9aJL817yRA6Kjg8QH9Af0vGts/ubMQ8yskDLIBA44ZPI4WOVeS+G
- FTra92WmfZuYkQdI53afAlAcjNMt5rfa5bQr5fIQIGChlBjL3p7uv9RQPwGWYYdlPOsj
- tXeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=D/ELkajn5nIeWjt+au+JukJPjjOmYN8ul5L5G8g9Cbw=;
- b=m98E5M+BbwhRi0nAyT7VdA7/3FQ2xkfnEJPQq/2OED78xvw7R7QE0p0xrvKoSCcvum
- 2SHhJe7yQTh9TKXiM8AIGnTd9SlKMsIx224hW4YwvN0YWFJHJkQ7qisUR6VkzimNoqcv
- EIKGlgXjZfzrHhDvdQw1F8p2nUAvstCR1eFQOVJMsdBsLvWywmgwQUsB4JSFE2WoLOiC
- YzXTaag9abX9ipd8AO5AxNA7FMYt5KgYpDkBww0oBr0DCxBkrXBbWUK+LEJPX9L1Vzir
- OBG5SCEwI6W+TujPtZso1TmGSViCkf/QF8owC7KLhOBhR0RT/sMexgTOeH6IaiGRabby
- +jvA==
-X-Gm-Message-State: APjAAAXhg9fDZ7gXC1H9YiSstFvNOGM9r7L29aG4/830sWYzrptGq1ux
- r4lADz+8y1vvtwcHC9FjoM5crA==
-X-Google-Smtp-Source: APXvYqzh6cSKpRv0QPcGFghP+vIiOOMTWhRv7tSw50MdW0LwB1cnhPJCjyLv5lQ6J6Vs3RTkKyuYyg==
-X-Received: by 2002:a7b:caea:: with SMTP id t10mr6538733wml.118.1570699691297; 
- Thu, 10 Oct 2019 02:28:11 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id l11sm6282042wmh.34.2019.10.10.02.28.06
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 10 Oct 2019 02:28:10 -0700 (PDT)
-To: Mark Brown <broonie@kernel.org>
-References: <20191009085108.4950-1-srinivas.kandagatla@linaro.org>
- <20191009085108.4950-3-srinivas.kandagatla@linaro.org>
- <20191009163535.GK2036@sirena.org.uk>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <95637c0a-8373-0eda-47e5-ac6e529019e5@linaro.org>
-Date: Thu, 10 Oct 2019 10:28:04 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20191009163535.GK2036@sirena.org.uk>
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="VyPshbJU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=XC66nuo5V/2A14QaStu6Dpf4bm6/X7d2v51iDat9DcyLK3hohGhqRH4OdX2SDoBlSRk0E1dNg7Hdfy3YeVmSGp3QwgUVuf2rCskc5/iA3ZrlImqO0S3XHvMitUueUzLgd9sEM/erjFsr811eUGaBBmgGS8ivCZ/nC5GG5wSfIDKTrUNYSgrZZ91K4sTKvCVsXSOHl2rNiVug7aFLhMoDDal4p80F4El78L3mI33MLCXmSEyJ8YsX/yQsMW3g+NzHjfi8ervblsxd9vNAzJLkcdtZRKWGSMJMSy0UBT3GMngEirTE/9WgcXUTIBQK7nLG8ivKBg1L1GbwflKSYaxvOQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=taJfzhBhgLYSNVx6tza02zms4nw5WV/Fo2B+hydIYmY=;
+ b=JipE7C1tWQKs2DzjmBkqtHXzL0MX13awIBfjGOBkVT26+PCA+OJCW2Zu6/5qwaR9XIB7qgIIfsRFEtkl4XumcsjopuF/b6Un8qLM5KGP+7nO7KKS3f8XOTSTnONn8fskLLeHtG4Zw84gdnNjlo7qvcpyby1W1T2vgWyM0WA6nLvfu3QpSKIysgNLTkUYIj/EwymCJYOCyfldX5UVTxEwlmW/x6rPX/gP99en+txImbAJ03PB0T5ridkqSiAOlfFl8PbmVrZhidIMNjJDxiWOeeaSlos7gwm4Yb3NiWM1x29QOgLMW+lIlfW8ZlTzbG6nfBNNPFCbIjp0AI6k09jWZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=taJfzhBhgLYSNVx6tza02zms4nw5WV/Fo2B+hydIYmY=;
+ b=VyPshbJUq3q6CGKWm9/Q5+mzSLeEZW612nfXxqIYH8RB8k/DaoLkbo1uiDzblRQT7gksVZTVNahgLRbTLJ3/Jjys5dAodKHgSIvfomo30yQp9574+b5dVk2xSmjtb44SJY263JuDopeEExCIkp3Gb+5Jq34B1ZatAwM1gZd/RbQ=
+Received: from DM6PR12MB3868.namprd12.prod.outlook.com (10.255.173.213) by
+ DM6PR12MB2793.namprd12.prod.outlook.com (20.176.114.219) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2347.17; Thu, 10 Oct 2019 10:40:51 +0000
+Received: from DM6PR12MB3868.namprd12.prod.outlook.com
+ ([fe80::64dd:646d:6fa1:15a1]) by DM6PR12MB3868.namprd12.prod.outlook.com
+ ([fe80::64dd:646d:6fa1:15a1%4]) with mapi id 15.20.2347.016; Thu, 10 Oct 2019
+ 10:40:51 +0000
+From: vishnu <vravulap@amd.com>
+To: Mark Brown <broonie@kernel.org>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Thread-Topic: [PATCH 1/7] ASoC: amd: No need PCI-MSI interrupts
+Thread-Index: AQHVd/NK02/86+8bwUqA0+UYmDRNb6dGCguAgAABq4CADmkpAA==
+Date: Thu, 10 Oct 2019 10:40:51 +0000
+Message-ID: <f9b1c3d5-6e02-354f-91b6-3b57e2f88bde@amd.com>
+References: <1569891524-18875-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <BN6PR12MB18093C8EDE60811B3D917DEAF79D0@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <20191001172941.GC4786@sirena.co.uk>
+In-Reply-To: <20191001172941.GC4786@sirena.co.uk>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- spapothi@codeaurora.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- vkoul@kernel.org, pierre-louis.bossart@linux.intel.com
-Subject: Re: [alsa-devel] [PATCH v7 2/2] ASoC: codecs: add wsa881x amplifier
-	support
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: PN1PR0101CA0054.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c00:d::16) To DM6PR12MB3868.namprd12.prod.outlook.com
+ (2603:10b6:5:1c8::21)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Vishnuvardhanrao.Ravulapati@amd.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [165.204.159.251]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 120a3bf8-715f-4c93-e6cc-08d74d6e519d
+x-ms-office365-filtering-ht: Tenant
+x-ms-traffictypediagnostic: DM6PR12MB2793:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB2793C4AD344931B17225D558E7940@DM6PR12MB2793.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 018632C080
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(136003)(366004)(396003)(376002)(39860400002)(189003)(199004)(4326008)(6116002)(71190400001)(71200400001)(66476007)(66556008)(64756008)(66446008)(6636002)(66946007)(3846002)(256004)(66066001)(6246003)(99286004)(52116002)(25786009)(14454004)(478600001)(31686004)(7736002)(305945005)(486006)(476003)(54906003)(110136005)(11346002)(2616005)(446003)(76176011)(31696002)(316002)(102836004)(81166006)(81156014)(53546011)(6506007)(8676002)(386003)(8936002)(26005)(186003)(36756003)(6436002)(2906002)(229853002)(5660300002)(6486002)(4744005)(6512007);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2793;
+ H:DM6PR12MB3868.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: FRpD9649/lvZG3nM/cu4MNhLK77As/TS80Y1pNKHZERrciprotlk9up5jeQlk0Lf+DF5FRChehVHTFde045zwSegB3DNXpkzUvaI08/8xepVU2dN/dxfWTVTfgAUSVuzW8kXSRkAj5BG4VTpuuFvWDKx4MX8e90Db+4790imVQ2RoCcGcfcZqwmLHTbkSfsNPjH0rjZU4tHSwOtyVrb6SkSQXLUemd2xNlNZk0GoKKzosHTkF9a3R/RyuNA/I0Nd7eivn0m8HbZDTi0bXz2e0biURPiGi1e7Nn/VgMcbaSTg9UgcsJT7C5cQUio/LZuEMTl4T06RmeqkI4wcA4UYGb/E6EbKsQC2hty/g0I67V2UP3HFdKVBR77W8c0OEMu7EmTwLz/q526Nf3OZbuyVmgi5XDbnmgPRtG1QRs7+B0E=
+Content-ID: <7882EA1F37EFB7409C1D10251D7901F9@namprd12.prod.outlook.com>
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 120a3bf8-715f-4c93-e6cc-08d74d6e519d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2019 10:40:51.0906 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fNxYOwFaUb2Ita2e52ZT4O4OCdRb5ulajHo9XI2v7fc5uECfIeWsd5OV+by0Urzm9qtsVMvRmEZhoKE8KZFaAQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2793
+Cc: "moderated list:SOUND - SOC LAYER /
+ DYNAMIC AUDIO POWER MANAGEM..." <alsa-devel@alsa-project.org>,
+ Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, "Mukunda,
+ Vijendar" <Vijendar.Mukunda@amd.com>, "RAVULAPATI,
+ VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [alsa-devel] [PATCH 1/7] ASoC: amd: No need PCI-MSI interrupts
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,111 +136,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Mark for taking time to review this patch.
+Hi,
+Please find my inline comments.
 
-On 09/10/2019 17:35, Mark Brown wrote:
-> On Wed, Oct 09, 2019 at 09:51:08AM +0100, Srinivas Kandagatla wrote:
-> 
->> +static const u8 wsa881x_reg_readable[WSA881X_CACHE_SIZE] = {
-> 
->> +static bool wsa881x_readable_register(struct device *dev, unsigned int reg)
->> +{
->> +	return wsa881x_reg_readable[reg];
-> u
-> There's no bounds check and that array size is not...
-> 
-I converted this now to a proper switch statement as other drivers do.
+Thanks,
+Vishnu
 
->> +static struct regmap_config wsa881x_regmap_config = {
->> +	.reg_bits = 32,
->> +	.val_bits = 8,
->> +	.cache_type = REGCACHE_RBTREE,
->> +	.reg_defaults = wsa881x_defaults,
->> +	.num_reg_defaults = ARRAY_SIZE(wsa881x_defaults),
->> +	.max_register = WSA881X_MAX_REGISTER,
+On 01/10/19 10:59 PM, Mark Brown wrote:
+> On Tue, Oct 01, 2019 at 05:23:43PM +0000, Deucher, Alexander wrote:
 > 
-> ...what regmap has as max_register.  Uusually you'd render as a
-> switch statement (as you did for volatile) and let the compiler
-> figure out a sensible way to do the lookup.
+>>> ACP-PCI controller driver does not depends msi interrupts.
+>>> So removed msi related pci functions which have no use and does not impact
+>>> on existing functionality.
+> 
+>> In general, however, aren't MSIs preferred to legacy interrupts?
+> 
+> As I understand it.  Or at the very least I'm not aware of any situation
+> where they're harmful.  It'd be good to have a clear explanation of why
+> we're removing the support.
 
-Sorry, I did not get your point here.
+Actually our device is audio device and it does not depends on MSI`s.
+So we thought to remove it as it has no purpose or meaning to have
+this code in our audio based ACP-PCI driver.
 
-Are you saying that we can skip max_register in this regmap config ?
-Then how would max_register in regmap be set?
+>> Doesn't the driver have to opt into MSI support?  As such, won't
+>> removing this code effectively disable MSI support?
+> 
+> Yes.
 
-> 
->> +static void wsa881x_init(struct wsa881x_priv *wsa881x)
->> +{
->> +	struct regmap *rm = wsa881x->regmap;
->> +	unsigned int val = 0;
->> +
->> +	regmap_read(rm, WSA881X_CHIP_ID1, &wsa881x->version);
->> +	regcache_cache_only(rm, true);
->> +	regmap_multi_reg_write(rm, wsa881x_rev_2_0,
->> +			       ARRAY_SIZE(wsa881x_rev_2_0));
->> +	regcache_cache_only(rm, false);
-> 
-> This looks broken, what is it supposed to be doing?  It looks
-> like it should be a register patch but it's not documented.
-> 
-Yep, it makes sense to move this to patch, its done in new version.
 
->> +static const struct snd_kcontrol_new wsa881x_snd_controls[] = {
->> +	SOC_ENUM("Smart Boost Level", smart_boost_lvl_enum),
->> +	WSA881X_PA_GAIN_TLV("PA Gain", WSA881X_SPKR_DRV_GAIN,
->> +			    4, 0xC, 1, pa_gain),
-> 
-> As covered in control-names.rst all volume controls should end in
-> Volume.
-> 
-Fixed this in next version.
-
->> +static void wsa881x_clk_ctrl(struct snd_soc_component *comp, bool enable)
->> +{
->> +	struct wsa881x_priv *wsa881x = snd_soc_component_get_drvdata(comp);
->> +
->> +	mutex_lock(&wsa881x->res_lock);
-> 
-> What is this lock supposed to be protecting?  As far as I can
-> tell this function is the only place it is used and this function
-> has exactly one caller which itself has only one caller which is
-> a DAPM widget and hence needs no locking.  It looks awfully like
-> it should just be a widget itself, or inlined into the single
-> caller.
-> 
-This was done for temperature sensor reads which can happen in parallel.
-But for now I will remove it and add back once we add tsens support.
-
->> +static void wsa881x_bandgap_ctrl(struct snd_soc_component *comp, bool enable)
->> +{
->> +	struct wsa881x_priv *wsa881x = snd_soc_component_get_drvdata(comp);
-> 
-> Similarly here.
-> 
-This one was over done! its now removed in next version.
-
->> +static int32_t wsa881x_resource_acquire(struct snd_soc_component *comp,
->> +					bool enable)
->> +{
->> +	wsa881x_clk_ctrl(comp, enable);
->> +	wsa881x_bandgap_ctrl(comp, enable);
->> +
->> +	return 0;
->> +}
-> 
-> There's no corresponding disables.
-
-both wsa881x_clk_ctrl() and wsa881x_bandgap_ctrl() have corresponding 
-disables in that functions.
-
-thanks,
-srini
-> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,78 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9BFD2E37
-	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 17:59:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35655D2EBC
+	for <lists+alsa-devel@lfdr.de>; Thu, 10 Oct 2019 18:44:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C594D1665;
-	Thu, 10 Oct 2019 17:58:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C594D1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9CA1D1670;
+	Thu, 10 Oct 2019 18:43:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CA1D1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570723146;
-	bh=CJiYHhFZc5slTDNXcsr1UJLbi7v0bVG1eHMCXJ9FBvw=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gaEaG7D9G7J/K3loJ4iGrXHtTao4AgFJPLPpecruv/hA4qwrrlyuooPn+EZVIzInR
-	 iBRhFklq+PS8TPfo+S9rz4ms5yZdaZ7tXK9V3Hlw+H8YEdb1GpVlaBrwpa7qGQ6TKE
-	 OZ8INloc2ome8XQrb/tesLnPoiZHAPzVEnxSI16g=
+	s=default; t=1570725843;
+	bh=m6henfC1YK5jADMyL8T3P3AlTWgjD6REEou1Badyutw=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lVeGOc9DEbSpGzMjajAU5ZynDAeTd3G5BvzB9d6j6KlZ3u3rJhZNJD6h1T4vrhqoQ
+	 OvxujH4wlE6EKxPmF8Em2qxuqcSivLpPndnmElJ/QdNVCpZOaWVL+sV6dTTuPO2vZF
+	 qjUDPjqnUXPL0uOr+l+aXixUbb58H7u1XbegLU0E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13684F80322;
-	Thu, 10 Oct 2019 17:57:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E6D0FF8038F;
+	Thu, 10 Oct 2019 18:42:18 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22B52F8038F; Thu, 10 Oct 2019 17:57:20 +0200 (CEST)
+ id BBAE5F8038F; Thu, 10 Oct 2019 18:42:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EABAFF802BC
- for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 17:57:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EABAFF802BC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="DTMgmD/M"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ViRqVDBCrSWY+fOz3i8Bb5UjyYmM7z1MB1RbjK8mhWU=; b=DTMgmD/MnCe1zUY7uA8YoFYi0
- IiLlDTb3Ekr8q06vfRgH3D43Vk9ENqSv55l5k1XLtJWU5XVddF5NTF1hMue8+LTxys8QPI0ByALMp
- TbHYxi57dtoU1ZdOfqSNsycn1uJcflcznOSifM3jX7tlNmS1BA/8xf5CHHE6w/F0ya2xE=;
-Received: from fw-tnat-cam3.arm.com ([217.140.106.51]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1iIaoW-0001xV-OR; Thu, 10 Oct 2019 15:57:16 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 1E355D00041; Thu, 10 Oct 2019 16:57:16 +0100 (BST)
-Date: Thu, 10 Oct 2019 16:57:16 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Daniel Baluta <daniel.baluta@gmail.com>
-Message-ID: <20191010155716.GE4741@sirena.org.uk>
-References: <20191009181356.GO2036@sirena.org.uk>
- <CAEnQRZAR1b-CHHVEv0ia92vYu38fWkwgW3mdwJFhEQsHk2j5+A@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80483F800E3
+ for <alsa-devel@alsa-project.org>; Thu, 10 Oct 2019 18:42:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80483F800E3
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Oct 2019 09:42:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.67,280,1566889200"; d="scan'208";a="207224648"
+Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
+ by fmsmga001.fm.intel.com with ESMTP; 10 Oct 2019 09:42:06 -0700
+Received: from kbuild by lkp-server01 with local (Exim 4.89)
+ (envelope-from <lkp@intel.com>)
+ id 1iIbVu-0007Cm-Ea; Fri, 11 Oct 2019 00:42:06 +0800
+Date: Fri, 11 Oct 2019 00:41:19 +0800
+From: kbuild test robot <lkp@intel.com>
+To: Dan Murphy <dmurphy@ti.com>
+Message-ID: <201910110016.g5AIyc2E%lkp@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <CAEnQRZAR1b-CHHVEv0ia92vYu38fWkwgW3mdwJFhEQsHk2j5+A@mail.gmail.com>
-X-Cookie: Void where prohibited by law.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.de>,
- "S.j. Wang" <shengjiu.wang@nxp.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Curtis Malainey <cujomalainey@google.com>,
- Guido Roncarolo <guido.roncarolo@nxp.com>
-Subject: Re: [alsa-devel] [ANNOUNCE] 2019 Linux Audio miniconference
+Content-Disposition: inline
+X-Patchwork-Hint: ignore
+User-Agent: NeoMutt/20170113 (1.7.2)
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ kbuild-all@01.org
+Subject: [alsa-devel] [asoc:for-5.5 122/122]
+ sound/soc/codecs/tas2562.c:195:14: sparse: sparse: restricted
+ snd_pcm_format_t degrades to integer
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,64 +73,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7138885113596990744=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+head:   c173dba44c2d2ec2adaa4e607e9729b74236bd57
+commit: c173dba44c2d2ec2adaa4e607e9729b74236bd57 [122/122] ASoC: tas2562: Introduce the TAS2562 amplifier
+reproduce:
+        # apt-get install sparse
+        # sparse version: v0.6.1-rc1-42-g38eda53-dirty
+        git checkout c173dba44c2d2ec2adaa4e607e9729b74236bd57
+        make ARCH=x86_64 allmodconfig
+        make C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__'
 
---===============7138885113596990744==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="o0ZfoUVt4BxPQnbU"
-Content-Disposition: inline
+If you fix the issue, kindly add following tag
+Reported-by: kbuild test robot <lkp@intel.com>
 
 
---o0ZfoUVt4BxPQnbU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+sparse warnings: (new ones prefixed by >>)
 
-On Wed, Oct 09, 2019 at 09:48:14PM +0300, Daniel Baluta wrote:
-> On Wed, Oct 9, 2019 at 9:15 PM Mark Brown <broonie@kernel.org> wrote:
+>> sound/soc/codecs/tas2562.c:195:14: sparse: sparse: restricted snd_pcm_format_t degrades to integer
+   sound/soc/codecs/tas2562.c:202:14: sparse: sparse: restricted snd_pcm_format_t degrades to integer
+   sound/soc/codecs/tas2562.c:209:14: sparse: sparse: restricted snd_pcm_format_t degrades to integer
+>> sound/soc/codecs/tas2562.c:246:58: sparse: sparse: incorrect type in argument 2 (different base types) @@    expected int bitwidth @@    got restricted snd_pcm_formint bitwidth @@
+>> sound/soc/codecs/tas2562.c:246:58: sparse:    expected int bitwidth
+>> sound/soc/codecs/tas2562.c:246:58: sparse:    got restricted snd_pcm_format_t
+   sound/soc/codecs/tas2562.c:472:39: sparse: sparse: restricted snd_pcm_format_t degrades to integer
 
-> My topics:
+vim +195 sound/soc/codecs/tas2562.c
 
-I'll add these to the agenda.
+   189	
+   190	static int tas2562_set_bitwidth(struct tas2562_data *tas2562, int bitwidth)
+   191	{
+   192		int ret;
+   193	
+   194		switch (bitwidth) {
+ > 195		case SNDRV_PCM_FORMAT_S16_LE:
+   196			snd_soc_component_update_bits(tas2562->component,
+   197						      TAS2562_TDM_CFG2,
+   198						      TAS2562_TDM_CFG2_RXWLEN_MASK,
+   199						      TAS2562_TDM_CFG2_RXWLEN_16B);
+   200			tas2562->v_sense_slot = tas2562->i_sense_slot + 2;
+   201			break;
+   202		case SNDRV_PCM_FORMAT_S24_LE:
+   203			snd_soc_component_update_bits(tas2562->component,
+   204						      TAS2562_TDM_CFG2,
+   205						      TAS2562_TDM_CFG2_RXWLEN_MASK,
+   206						      TAS2562_TDM_CFG2_RXWLEN_24B);
+   207			tas2562->v_sense_slot = tas2562->i_sense_slot + 4;
+   208			break;
+   209		case SNDRV_PCM_FORMAT_S32_LE:
+   210			snd_soc_component_update_bits(tas2562->component,
+   211						      TAS2562_TDM_CFG2,
+   212						      TAS2562_TDM_CFG2_RXWLEN_MASK,
+   213						      TAS2562_TDM_CFG2_RXWLEN_32B);
+   214			tas2562->v_sense_slot = tas2562->i_sense_slot + 4;
+   215			break;
+   216	
+   217		default:
+   218			dev_info(tas2562->dev, "Not supported params format\n");
+   219		}
+   220	
+   221		ret = snd_soc_component_update_bits(tas2562->component,
+   222			TAS2562_TDM_CFG5,
+   223			TAS2562_TDM_CFG5_VSNS_EN | TAS2562_TDM_CFG5_VSNS_SLOT_MASK,
+   224			TAS2562_TDM_CFG5_VSNS_EN | tas2562->v_sense_slot);
+   225		if (ret < 0)
+   226			return ret;
+   227	
+   228		ret = snd_soc_component_update_bits(tas2562->component,
+   229			TAS2562_TDM_CFG6,
+   230			TAS2562_TDM_CFG6_ISNS_EN | TAS2562_TDM_CFG6_ISNS_SLOT_MASK,
+   231			TAS2562_TDM_CFG6_ISNS_EN | tas2562->i_sense_slot);
+   232		if (ret < 0)
+   233			return ret;
+   234	
+   235		return 0;
+   236	}
+   237	
+   238	static int tas2562_hw_params(struct snd_pcm_substream *substream,
+   239				     struct snd_pcm_hw_params *params,
+   240				     struct snd_soc_dai *dai)
+   241	{
+   242		struct snd_soc_component *component = dai->component;
+   243		struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
+   244		int ret;
+   245	
+ > 246		ret = tas2562_set_bitwidth(tas2562, params_format(params));
+   247		if (ret) {
+   248			dev_err(tas2562->dev, "set bitwidth failed, %d\n", ret);
+   249			return ret;
+   250		}
+   251	
+   252		ret = tas2562_set_samplerate(tas2562, params_rate(params));
+   253		if (ret)
+   254			dev_err(tas2562->dev, "set bitwidth failed, %d\n", ret);
+   255	
+   256		return ret;
+   257	}
+   258	
 
-> - SOF driver: ACPI / DT unification
-
-Are there concrete plans to discuss here or is this more of a
-"what are we doing" kind of thing?  ACPI standardization has been
-an issue :/
-
-> - SOF driver: Handling built-in driver use case
-
-What's the issue here?
-
---o0ZfoUVt4BxPQnbU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2fVNsACgkQJNaLcl1U
-h9C3KQf/eS5VnHNcxya+vVcaZKM2dFGpzNyFhcQ8JT+ToWPYYyUiTqMwLD9FAveU
-A1xEyc1x3VBZD/ZHfnBGSF9ERUPswXk1XDm0tDnHIIKJ1KA4VyuA16oeYx3LtMFJ
-sMjg9Oq36Yrh5tR8+PHhHJabffd525yX9FaxMtTRmZTDFXLp8XSMc0H58mKF9Wij
-jGQbAATA7f72vULM6fpFNhMpyetzMEqDbNr6qVO1eJqz1ZfV/lHUeHQLgd+ZRiw4
-EBYSuaknp9pCZ0677etmMRX6vInPkfv8J/DKdvOw+QGcv324ofSnFyfeXToZNiVw
-4DnW7sCBuwMwIOEtu4inC26t1nH0Dw==
-=6GjH
------END PGP SIGNATURE-----
-
---o0ZfoUVt4BxPQnbU--
-
---===============7138885113596990744==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+---
+0-DAY kernel test infrastructure                Open Source Technology Center
+https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7138885113596990744==--

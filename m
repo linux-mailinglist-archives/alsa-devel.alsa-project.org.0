@@ -2,80 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BBFFD440B
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2019 17:22:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E3E6D442B
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2019 17:28:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 862CF1665;
-	Fri, 11 Oct 2019 17:21:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 862CF1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75A3B1673;
+	Fri, 11 Oct 2019 17:28:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75A3B1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570807346;
-	bh=xIx7Fz5bm9cgNwYX8/ym7B3exR7vLtqrXDdz0BjJTz4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=boV2jNAT1ORAM3idjPYX+a64qbfQ7kvwsKfvRk+G2ZfWVtdKnNoUANnvTux9LKohH
-	 FizoddY2T2FQQTvj6FM6jEZI1IZtFOYh/tf6kXp35xf74a1odWaXeM+oQDivh7oehd
-	 KIQ/qP16BH+ArBGwbb2gv16teG2uXBj1h7qwsUkg=
+	s=default; t=1570807738;
+	bh=BYLwu/zCpPoOPqjLKMv8dTb9kzV4wHfNbMTLpAUiEC4=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Rw3voJjdXXlegS/tEGZFa4Te1RlWxTU3pOPZXtn5SRxquLA7onsZfF/CH2gn7pA/I
+	 vFIsi9ae4p62nvgYupTF/J0zeTtCyUv0RzrlIMbgnI6FlqNXmVVT+8OKzxXw69RO6f
+	 i8l2zqOLBsjzlmLarX7wihOjvn5CU2s4/IKivsf0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF14EF802BD;
-	Fri, 11 Oct 2019 17:20:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBA62F80308;
+	Fri, 11 Oct 2019 17:27:13 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95AC4F802BE; Fri, 11 Oct 2019 17:20:39 +0200 (CEST)
+ id 1D9FDF802DF; Fri, 11 Oct 2019 17:27:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
- [209.85.167.196])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F107F80113
- for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2019 17:20:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F107F80113
-Received: by mail-oi1-f196.google.com with SMTP id i185so8276763oif.9
- for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2019 08:20:32 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C855F80113
+ for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2019 17:27:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C855F80113
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="RRfXmGqn"
+Received: by mail-wm1-x344.google.com with SMTP id 7so10864697wme.1
+ for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2019 08:27:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SWDjIo4cWdaskHFzBqz2DKFMY0pEOV1E6WUMQBP96fA=;
+ b=RRfXmGqn/H+D/R/f7CbflLPFjD4cAXYz6JCqn902kwscIgYgFtO5e6m9ZIQvR0vDEI
+ jIP0Ba0NDZYAmXB9g68nHeO3NPnzwvCt+/g1ceBd8hOlAYVJ3t/Dthlr6siLAivpDqqB
+ yaS0Ge96DJ1hLSGvbcI1CJxnoudVPCNpNJ9PXYPi22TrwSrh6rXFkZNejV28VvqPeciz
+ 7KynwQPltLHZq1dfjdwOYtitROGmossZvjgbOO0obIE9tePkm+xVzbPgVqEmRV0bZN2K
+ CLrofjq9Ll4LTPucFPnpCOCUpBPt+TaRD9qhkEGD1c4y5x/PiU2fHHTDhvM+xRsGilOz
+ lsAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=zwS8rnb6Pul2Tj4IPe9QhJRNl+DNx3RdlplLF9pczuk=;
- b=J+hcs6xAZ4JWSPtDudwSXyqk8S2rsNduQINkYkmBVdWkgydQkm1h2s6rJ0sGj7w0vW
- kCiCMjIL7Ags+YqD+d5q7jg9o19WOIyTmjzT33d0RRqpX0UJp78C2+RdSMSFRbcTHGyX
- +xMRfs9fBQ7vc44q1h2CAbOg0N8igI13h11VvQMmzuGrg1SpboOosJ/KHuztAmLZmrdm
- Hd4JWKJ+G0cJjK6eE3MAPZByrbxE0K/4Z8wsyGuqp619WNB54Scp1wfOzGt3h3AyMPy8
- GCCs+4SiFOCKHs71iizMZDbi6+MVOrp0MwmAG4Qvl7f1GfnwmA0qmEPNZjUEGwA/zNh+
- zIXQ==
-X-Gm-Message-State: APjAAAX1FmpKztCaSqVo7Ws9KogG+e12t/MR+hbxfUXpweLs+tGCFxp3
- 3xKePs0lWRYEU/RCijTtng==
-X-Google-Smtp-Source: APXvYqxeMfb0jpX/cZhqRDivEunM6dWUjFbeka9g66lQDFOgGGwSJoMxBm/KHFglSYdf+wWw96sJEQ==
-X-Received: by 2002:a54:4481:: with SMTP id v1mr12176488oiv.152.1570807231287; 
- Fri, 11 Oct 2019 08:20:31 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id i5sm2638917otk.10.2019.10.11.08.20.30
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SWDjIo4cWdaskHFzBqz2DKFMY0pEOV1E6WUMQBP96fA=;
+ b=h+uWy4q993vyBWygXGO5F2vU0kjfRT5SGdRXd4UKAY+B+C+3bwc53TqKIhCdGdLFkj
+ jxhM1ygy8Ag+r1mF77Gz+JEO5OUX9CCc3SHe6eRHre13n3WZWxhdr0pQUOgaeaVM39mA
+ umYNgSi+0llqgClMDaa6yC4zrPeuEVobX/Dijpmdn5mEQzjKlVlq/pB5ptN+DU0l8VBs
+ F+EnM7iHCZwuUnYgaeKl05N4SJcEyyoPLQ8Qw6nnGK4IAhabFty7m6/Je04fhzQke0lF
+ kptGBAKdIGvIXM5oKwhHs+yL90oAAJ6DUgLE9RuDJJXO3VbGcyK0nkHyHZKgKnTTvqg/
+ T8iA==
+X-Gm-Message-State: APjAAAVQTu2ICpxfsZDS+GFuHCUHRThYTHl2JPKDgEwCXTfZzhdwUg1G
+ kGC3YgPOqKuUykniLqJ7EyU4mQ==
+X-Google-Smtp-Source: APXvYqzo5aVndjcgu1IWSr1WlQnJqwzlUCkga5p93Z3ioPspCHynR+8ZHh/wtwLEqios8h0k9ZyXEg==
+X-Received: by 2002:a1c:ac02:: with SMTP id v2mr452252wme.85.1570807627681;
+ Fri, 11 Oct 2019 08:27:07 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.gmail.com with ESMTPSA id a204sm16439979wmh.21.2019.10.11.08.27.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 11 Oct 2019 08:20:30 -0700 (PDT)
-Date: Fri, 11 Oct 2019 10:20:29 -0500
-From: Rob Herring <robh@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Message-ID: <20191011152029.GA18877@bogus>
-References: <20191005085509.187179-1-tzungbi@google.com>
- <20191005164320.09.Iec97a3f137148cdf316056612590b3e0b302f5f3@changeid>
+ Fri, 11 Oct 2019 08:27:06 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: broonie@kernel.org,
+	robh@kernel.org
+Date: Fri, 11 Oct 2019 16:24:43 +0100
+Message-Id: <20191011152446.5925-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191005164320.09.Iec97a3f137148cdf316056612590b3e0b302f5f3@changeid>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: gwendal@google.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- cychiang@google.com, drinkcat@google.com, broonie@kernel.org,
- enric.balletbo@collabora.com, bleung@google.com, dgreid@google.com
-Subject: Re: [alsa-devel] [PATCH v2 09/10] ASoC: dt-bindings: mt8183: add
-	ec-codec
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, spapothi@codeaurora.org, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, vkoul@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [alsa-devel] [PATCH v8 0/3] ASoC: codecs: Add WSA881x Smart Speaker
+	amplifier support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,47 +102,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Oct 05, 2019 at 04:55:08PM +0800, Tzung-Bi Shih wrote:
-> Add an optional property "ec-codec".  If specified, mt8183 could use the
-> "wake on voice" feature offered by EC codec.
-> 
-> Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-> ---
->  .../bindings/sound/mt8183-mt6358-ts3a227-max98357.txt          | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt b/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
-> index 17ff3892f439..decaa013a07e 100644
-> --- a/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
-> +++ b/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
-> @@ -6,12 +6,15 @@ Required properties:
->  
->  Optional properties:
->  - mediatek,headset-codec: the phandles of ts3a227 codecs
-> +- mediatek,ec-codec: the phandle of EC codecs.
-> +                     See google,cros-ec-codec.txt for more details.
+This patchset adds support to WSA8810/WSA8815 Class-D Smart Speaker
+Amplifier which is SoundWire interfaced.
 
-Not the best designed audio binding here. We really should just have 
-links to codecs and then you can look at the codec nodes to determine 
-the type.
+This patchset along with DB845c machine driver and WCD934x codec driver
+has been tested on SDM845 SoC based DragonBoard DB845c with two
+WSA8810 and Lenovo YOGA C630 Laptop based on SDM850 with WSA8815
+speaker amplifiers.
 
->  
->  Example:
->  
->  	sound {
->  		compatible = "mediatek,mt8183_mt6358_ts3a227_max98357";
+Most of the code in this driver is rework of Qualcomm downstream drivers
+used in Andriod. Credits to Banajit Goswami and Patrick Lai's Team.
 
-Don't you need to add EC codec to this? Just kidding. Just highlighting 
-the weirdness of this binding.
+TODO:
+        Add thermal sensor support in WSA881x.
 
->  		mediatek,headset-codec = <&ts3a227>;
-> +		mediatek,ec-codec = <&ec_codec>;
->  		mediatek,platform = <&afe>;
->  	};
->  
-> -- 
-> 2.23.0.581.g78d2f28ef7-goog
-> 
+Thanks,
+srini
+
+Changes since v7:
+	- Added support to dai based on Discussion on mailing list.
+	- Moved readable array to proper switch statement.
+	- Remove unnecessary locks which can be added once tsens is supported.
+	- Suffix gain to Volume as suggested by Mark.
+
+Srinivas Kandagatla (3):
+  dt-bindings: ASoC: Add WSA881x bindings
+  dt-bindings: ASoC: WSA881x: Add missing #sound-dai-cells
+  ASoC: codecs: add wsa881x amplifier support
+
+ .../bindings/sound/qcom,wsa881x.yaml          |   68 +
+ sound/soc/codecs/Kconfig                      |   10 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/wsa881x.c                    | 1153 +++++++++++++++++
+ 4 files changed, 1233 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
+ create mode 100644 sound/soc/codecs/wsa881x.c
+
+-- 
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

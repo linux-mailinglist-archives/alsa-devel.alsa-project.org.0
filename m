@@ -2,58 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92A2CD45AA
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2019 18:45:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E173D45B2
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2019 18:47:49 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 868F31664;
-	Fri, 11 Oct 2019 18:44:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 868F31664
+	by alsa0.perex.cz (Postfix) with ESMTPS id C96E81680;
+	Fri, 11 Oct 2019 18:46:57 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C96E81680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570812313;
-	bh=YUn/fRyYS1NlC+SSgvo0udhe+OZLDDw6HHSQeBJq+Qo=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=UsHoZ94vxKa/5KTBNeZLMqdgjiQKoCc8HoJbs8TDbNpNCMob+/osTqSs2yLBUPbsm
-	 e/0Xda1C1LDgxdC57HDNpIJHiOUExgzOyXgUGZzlWbEG6OHr8rU2J9/QZHqTZmQ9+I
-	 2+6JnT13Fg820oYrXoo21rCUnXn3wV/wqOoTpiTE=
+	s=default; t=1570812468;
+	bh=z8XlvXUuGVBZe7mXc9sZLfL1IiOITJNc4xtWbBwVp2Q=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BXco2MjzOiphqJ3JNfppoT2ito+bruLIuAh7V48E27oz8p9bf62MUb89p9kQbNMPg
+	 jDyBH9PWT9PmcjJ1MzneLIgI/WUXJzYcGl4OjB2pH5fi2+KI3xPm9t/SdrIdBjYXBS
+	 N2feEta6XTtP9iQouFzoxR4fgRDjyUjiDmzZlKQA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A50D3F80539;
-	Fri, 11 Oct 2019 18:43:28 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB842F80634;
+	Fri, 11 Oct 2019 18:43:34 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FD33F8026F; Fri, 11 Oct 2019 18:43:25 +0200 (CEST)
+ id E6928F802DF; Fri, 11 Oct 2019 18:43:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DC62F800E3
- for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2019 18:43:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC62F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id C90C4F80113
+ for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2019 18:43:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C90C4F80113
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Oct 2019 09:43:19 -0700
+ 11 Oct 2019 09:43:20 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.67,284,1566889200"; d="scan'208";a="224387815"
+X-IronPort-AV: E=Sophos;i="5.67,284,1566889200"; d="scan'208";a="224387817"
 Received: from askelkar-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.254.181.148])
  by fmsmga002.fm.intel.com with ESMTP; 11 Oct 2019 09:43:19 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Fri, 11 Oct 2019 11:43:08 -0500
-Message-Id: <20191011164312.7988-1-pierre-louis.bossart@linux.intel.com>
+Date: Fri, 11 Oct 2019 11:43:09 -0500
+Message-Id: <20191011164312.7988-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20191011164312.7988-1-pierre-louis.bossart@linux.intel.com>
+References: <20191011164312.7988-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: tiwai@suse.de, broonie@kernel.org,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 0/4] ASoC: SOF: fix static analysis warnings
+Subject: [alsa-devel] [PATCH 1/4] ASoC: SOF: Intel: byt: fix operator
+	precedence warnings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,21 +75,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Recent SOF commits generate warnings reported e.g. by
-cppcheck. Unfortunately those tools are too verbose to be used by our
-CI, so there's always a delay in detecting such issues.
+Address cppcheck warnings
 
-Pierre-Louis Bossart (4):
-  ASoC: SOF: Intel: byt: fix operator precedence warnings
-  ASoC: SOF: Intel: bdw: fix operator precedence warnings
-  ASoC: SOF: topology: remove always-true redundant test
-  ASoC: SOF: topology: check errors when parsing LED tokens
+sound/soc/sof/intel/byt.c:163:26: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  panic & SHIM_IPCX_BUSY ? "yes" : "no",
+                         ^
 
- sound/soc/sof/intel/bdw.c | 16 ++++++++--------
+sound/soc/sof/intel/byt.c:164:26: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
+                         ^
+
+sound/soc/sof/intel/byt.c:167:25: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  imrx & SHIM_IMRX_BUSY ? "yes" : "no",
+                        ^
+
+sound/soc/sof/intel/byt.c:168:25: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
+                        ^
+
+sound/soc/sof/intel/byt.c:171:27: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  status & SHIM_IPCD_BUSY ? "yes" : "no",
+                          ^
+
+sound/soc/sof/intel/byt.c:172:27: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  status & SHIM_IPCD_DONE ? "yes" : "no", status);
+                          ^
+
+sound/soc/sof/intel/byt.c:175:25: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  imrd & SHIM_IMRD_BUSY ? "yes" : "no",
+                        ^
+
+sound/soc/sof/intel/byt.c:176:25: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
+                        ^
+
+Fixes: 3a9e204d4e369 ("ASoC: SOF: Intel: Add context data to any IPC timeout.")
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
  sound/soc/sof/intel/byt.c | 16 ++++++++--------
- sound/soc/sof/topology.c  | 12 ++++++++----
- 3 files changed, 24 insertions(+), 20 deletions(-)
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index b2597ecfdc1c..07e5efe4945c 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -160,20 +160,20 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
+ 	imrd = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRD);
+ 	dev_err(sdev->dev,
+ 		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
+-		panic & SHIM_IPCX_BUSY ? "yes" : "no",
+-		panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
++		(panic & SHIM_IPCX_BUSY) ? "yes" : "no",
++		(panic & SHIM_IPCX_DONE) ? "yes" : "no", panic);
+ 	dev_err(sdev->dev,
+ 		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
+-		imrx & SHIM_IMRX_BUSY ? "yes" : "no",
+-		imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
++		(imrx & SHIM_IMRX_BUSY) ? "yes" : "no",
++		(imrx & SHIM_IMRX_DONE) ? "yes" : "no", imrx);
+ 	dev_err(sdev->dev,
+ 		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
+-		status & SHIM_IPCD_BUSY ? "yes" : "no",
+-		status & SHIM_IPCD_DONE ? "yes" : "no", status);
++		(status & SHIM_IPCD_BUSY) ? "yes" : "no",
++		(status & SHIM_IPCD_DONE) ? "yes" : "no", status);
+ 	dev_err(sdev->dev,
+ 		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
+-		imrd & SHIM_IMRD_BUSY ? "yes" : "no",
+-		imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
++		(imrd & SHIM_IMRD_BUSY) ? "yes" : "no",
++		(imrd & SHIM_IMRD_DONE) ? "yes" : "no", imrd);
+ 
+ }
+ 
 -- 
 2.20.1
 

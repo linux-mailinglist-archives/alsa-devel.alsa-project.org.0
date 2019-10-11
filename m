@@ -2,80 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F0A2D3DBC
-	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2019 12:51:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55396D3DD3
+	for <lists+alsa-devel@lfdr.de>; Fri, 11 Oct 2019 12:59:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 091671670;
-	Fri, 11 Oct 2019 12:51:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 091671670
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDE8B1671;
+	Fri, 11 Oct 2019 12:58:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDE8B1671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1570791117;
-	bh=5O3t8gqMQ/ara/KGccnq/qqvH2ZfH2W36Gu6Jd1L/VY=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Q0JCCxSqQM9dPnk8IRObbmaEjs9DGxfZFLybcZiyEDzh1pyOYdrdvp20Gvajx0xS+
-	 mTr3LXm93Hor5z55SRVj2V0teqsXIFlDxqUTnH+QWD4XuBr4Umw3TRf+M7i0a93O9V
-	 B0xHEsa79nSxQLpU0BQj8nqg89z2IyvO0cGRGLWg=
+	s=default; t=1570791560;
+	bh=5Zh9zFdZ51wpwCgVLxT6HJlHtvChjt2lzhcR67sh2gg=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=lnkEPCLUpSIRfzS8tIkil/NAqkGxtuyaRc0lMSRFlcYQ55JtszCbqneC8eoFpuSf8
+	 pi7bvkdSU5EEAvVZuXlNHKWAI6cYO0/Q+oXeaWBHx/85jnWDpf+fW/RrC7b2WrVjdw
+	 BsKi/A4U3xr3wkekFvuDQYJ95seJ+PUfFv8lMWro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2AF56F802FB;
-	Fri, 11 Oct 2019 12:50:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 218A7F802FB;
+	Fri, 11 Oct 2019 12:57:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02956F802BE; Fri, 11 Oct 2019 12:50:07 +0200 (CEST)
+ id BF556F802BE; Fri, 11 Oct 2019 12:57:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67F26F80113
- for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2019 12:50:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67F26F80113
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="oFF+nMW8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+GYaGvn6aQG4ujRHeTb1+lopvEhjRcfgUQWj4NEdRZ0=; b=oFF+nMW8ULTocBKQP7Rg0G0OD
- ULnpmBNgzEV4j+EqDbOV/8Kdzb2mh5FWrQeFQm7wEwX6fdvC1FsK8ujWRciwYHXfBbq3oXwwe+HGq
- Baau7aDhUJjlC4PE6unDctPMCzjGx3HIrkGX42kkWsJ45W2xe8WLLJQIaNMl1O16Npsb0=;
-Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1iIsUk-0005Sr-Uf; Fri, 11 Oct 2019 10:50:03 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 3111DD0019E; Fri, 11 Oct 2019 11:50:01 +0100 (BST)
-Date: Fri, 11 Oct 2019 11:50:01 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20191011105001.GG4741@sirena.org.uk>
-References: <20191010202802.1132272-1-arnd@arndb.de>
- <20191010203043.1241612-1-arnd@arndb.de>
- <20191010203043.1241612-20-arnd@arndb.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2630CF800E3
+ for <alsa-devel@alsa-project.org>; Fri, 11 Oct 2019 12:57:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2630CF800E3
+Received: from DGGEMS409-HUB.china.huawei.com (unknown [172.30.72.58])
+ by Forcepoint Email with ESMTP id 2080A3BA948A5F34A716;
+ Fri, 11 Oct 2019 18:57:25 +0800 (CST)
+Received: from localhost (10.133.213.239) by DGGEMS409-HUB.china.huawei.com
+ (10.3.19.209) with Microsoft SMTP Server id 14.3.439.0; Fri, 11 Oct 2019
+ 18:57:15 +0800
+From: YueHaibing <yuehaibing@huawei.com>
+To: <timur@kernel.org>, <nicoleotsuka@gmail.com>, <Xiubo.Lee@gmail.com>,
+ <festevam@gmail.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
+ <perex@perex.cz>, <tiwai@suse.com>
+Date: Fri, 11 Oct 2019 18:56:06 +0800
+Message-ID: <20191011105606.19428-1-yuehaibing@huawei.com>
+X-Mailer: git-send-email 2.10.2.windows.1
 MIME-Version: 1.0
-In-Reply-To: <20191010203043.1241612-20-arnd@arndb.de>
-X-Cookie: Void where prohibited by law.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Sangbeom Kim <sbkim73@samsung.com>, linus.walleij@linaro.org,
- Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-kernel@vger.kernel.org, Kukjin Kim <kgene@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH 20/36] ASoC: samsung: s3c2412-i2s: avoid
- hardcoded S3C2410_PA_IIS
+X-Originating-IP: [10.133.213.239]
+X-CFilter-Loop: Reflected
+Cc: YueHaibing <yuehaibing@huawei.com>, alsa-devel@alsa-project.org,
+ linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH -next] ASoC: fsl_mqs: fix old-style function
+	declaration
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,55 +67,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8991946021695153129=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+gcc warn about this:
 
---===============8991946021695153129==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rV8arf8D5Dod9UkK"
-Content-Disposition: inline
+sound/soc/fsl/fsl_mqs.c:146:1: warning:
+ static is not at beginning of declaration [-Wold-style-declaration]
 
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+---
+ sound/soc/fsl/fsl_mqs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---rV8arf8D5Dod9UkK
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+diff --git a/sound/soc/fsl/fsl_mqs.c b/sound/soc/fsl/fsl_mqs.c
+index f7fc44e..0c813a4 100644
+--- a/sound/soc/fsl/fsl_mqs.c
++++ b/sound/soc/fsl/fsl_mqs.c
+@@ -143,7 +143,7 @@ static void fsl_mqs_shutdown(struct snd_pcm_substream *substream,
+ 				   MQS_EN_MASK, 0);
+ }
+ 
+-const static struct snd_soc_component_driver soc_codec_fsl_mqs = {
++static const struct snd_soc_component_driver soc_codec_fsl_mqs = {
+ 	.idle_bias_on = 1,
+ 	.non_legacy_dai_naming	= 1,
+ };
+-- 
+2.7.4
 
-On Thu, Oct 10, 2019 at 10:30:04PM +0200, Arnd Bergmann wrote:
-> The constant requires indirectly including a machine header file,
-> but it's not actually used any more since commit 87b132bc0315 ("ASoC:
-> samsung: s3c24{xx,12}-i2s: port to use generic dmaengine API"), so
-> remove it completely.
-
-Acked-by: Mark Brown <broonie@kernel.org>
-
---rV8arf8D5Dod9UkK
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2gXlgACgkQJNaLcl1U
-h9DRDwf/Z97B2zjL3Z9O+QU4Fp9jlers2KrllaRLXhvKAvYYwb8JNWOGuedCmQDi
-C6Gj9aBSXHmzjjFCM08/QJMG8u6TcM5H2gCjEVFOiRCMqP5DPX5qCIiiQ0SnBrdi
-G78NJlKJRTR9kLnVYFd8DRx4fOHelhaH0X7n5EPUliwMpydcV81iL9zttP39m5+h
-bTSe5rNrUxE6oNaq/1Ud7YFogrTUUSHQugLgRHDwsGakNFIYpP7HYvd9lYfAlX0C
-dz+DUqy/Yq8FJMN3SUlsUyNx3X1LVOkKbKCiKbcwoYIaXy+YyNCPAja8eRtrWVZU
-tdnsAgWDN5OszUmItgS481uI9UwV6Q==
-=6yUg
------END PGP SIGNATURE-----
-
---rV8arf8D5Dod9UkK--
-
---===============8991946021695153129==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============8991946021695153129==--

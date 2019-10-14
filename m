@@ -2,73 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9454AD5FFB
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 12:22:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CDD4D6001
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 12:23:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0528D167D;
-	Mon, 14 Oct 2019 12:21:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0528D167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8ABC51671;
+	Mon, 14 Oct 2019 12:22:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ABC51671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571048552;
-	bh=2tsdZk77BE9Uo5KRkBcfpT+6MvbmuQluLsyetYE7wo4=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JRRGd2cSpXP7EZXnA0Y+tXhI91g89EgjklfEwgS6TUH2LeMQHfc5pdzExY+aOT9Jz
-	 ftyZbN5AltTANMskteiLAwjeKWAfStlr9w0KPEnvZkhUAxT5s64BkvLYUtfVXRRKKO
-	 VVczo2AOkQ3reSfiAIm4JsPOTzjORaLWHXKzjE8g=
+	s=default; t=1571048598;
+	bh=2AXBPj1c6s0FXpwPohiBkFWiTcOllnNiCb0QCWkGVog=;
+	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Gcwg2YX/bgqnJkj+JudFvBX6aMOz5aRouFnsDxbWc1QiLdglv4DMYmfo6WMdbVk60
+	 2T/algCeiVv/Npfi69Xl8mwuHWaLeGIzikBWesH1nJGS+fVONL8Qya7nGasC4sZZWy
+	 G5pm7BvZLtR2u2PYDUMarctOfcNumQYsTAV+ezZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47F44F80362;
-	Mon, 14 Oct 2019 12:20:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E3C9F80212;
+	Mon, 14 Oct 2019 12:20:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 127E9F80362; Mon, 14 Oct 2019 12:20:44 +0200 (CEST)
+ id 0FC5AF80377; Mon, 14 Oct 2019 12:20:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-pg1-x54a.google.com (mail-pg1-x54a.google.com
- [IPv6:2607:f8b0:4864:20::54a])
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-yw1-xc4a.google.com (mail-yw1-xc4a.google.com
+ [IPv6:2607:f8b0:4864:20::c4a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0485FF80138
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 12:20:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0485FF80138
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80388F80376
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 12:20:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80388F80376
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="Mf+/ukDv"
-Received: by mail-pg1-x54a.google.com with SMTP id z7so12349530pgk.11
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 03:20:41 -0700 (PDT)
+ header.b="eVRPf2rK"
+Received: by mail-yw1-xc4a.google.com with SMTP id l123so13326844ywd.23
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 03:20:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=NUWv3pS6i68MPyjlBfm0nFo2xRHgz4DI1UFPygXWc14=;
- b=Mf+/ukDvCvG79e+JKV/LbVKJnZ317XOeJkfVvPRDrUlNFL4aJeeYA8ORopngzAoY6s
- xdwCooAwsc4aUOg0vs36dVFlDSvf88OZvj5C9Dq3gJG3No2op8TbR2JVM788ZjdXRkss
- 2tIrMu7pTC8/u19pHTBITL/KLx969HshJYvtt59VIzhX9ig6VlBA7t4RBz1Z0Ny5zcaa
- cEH9EpheAGIcCPgP5OGQz/Z8TCjnisJFR1Qxjx9a9XgvkkwEjq/bB9ZWNtmIzAotLNV0
- lsTzzJUOexSrh+8v6uUjTrRF5FuxGS0gjLfyQtIaxyL1XWXmjloOkVmNHoNIxVW9JaXE
- wrqg==
+ h=date:in-reply-to:message-id:mime-version:references:subject:from:to
+ :cc; bh=OjLdBxamMEBZoCWEKxvyfi3zlPS7sITB1tlY1PlFJZY=;
+ b=eVRPf2rKgR0b8Na1dnuVjOtXmfbGYZwl4VqP3QxKcECdKXOoxlTz48u7APC+RWbHOP
+ DFmgYXjsH3Lq/zIayx+kocIt92rT3kTuBrcarVlNG6TLb8STyyNtWyH6Raz4nU6/pWb1
+ T+W3s4ZdUYNcNrT8U6hS/aiI0BEllbfG1QZ8ThZWgWj2bHZxD5Htx6fwC3qPPaxKYM/r
+ 8qwHg/2BsPSsjSolIcKqH2UN58FpZoh/LJ96A1q5PF2OLn2xfgMBGdd5leRkKduxQ9CA
+ 0pgr+/s1DHXcES8zswier67wDAXdUOOQlxaFBr1ZQhH0umfEaG6W6TqUErAN4ar19rX0
+ pcKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=NUWv3pS6i68MPyjlBfm0nFo2xRHgz4DI1UFPygXWc14=;
- b=jupumvrcrTMo2w8FP8qnAuKi09nEEQ1oSU/TJh8AKuG0j6LZ1AoIJY5zJ3BekxmP4n
- +yxGqTVpAMW+r7VPSF1BpmKRnGGNxb+6GL3ezaPEJcorgCxXgcYFjfuE+asoJTNNfrex
- ukIOPKcTfocu1EAwMyMCUg5ATYcX2ubfQxyI7Vc4R2fWPEMpHGmzujjPtzKlSGFO4YdG
- IDRdH9SSCjNnEohKe7VmNsebCpG1yNDR2yWJEWy8JhwxCnwhOMh1EqOpSilkdk65EQni
- sU/g5JC8PD/JHdgLvw7Wo6IvnHGbBsouQT8XDCA1EjI9ZX5AAGY+79DwZwvd1aabzLXj
- TXAA==
-X-Gm-Message-State: APjAAAX6+MuoYz0Ek8jsEGKvcT3CLpl/TE/jQcu1Ng0OshgxH2Ugafs9
- 77BKrMeG414UMCLxTouMBi5jVgvOjcwT
-X-Google-Smtp-Source: APXvYqybl2o6f9MpE2y0b4jGAulKGhnTL0ZJF7GuOPvB9xeT2A80cEhd29tNE2grvM2fiuFrEaqpmfICjoBn
-X-Received: by 2002:a63:c911:: with SMTP id o17mr32400264pgg.150.1571048439006; 
- Mon, 14 Oct 2019 03:20:39 -0700 (PDT)
-Date: Mon, 14 Oct 2019 18:20:12 +0800
-Message-Id: <20191014102022.236013-1-tzungbi@google.com>
+ h=x-gm-message-state:date:in-reply-to:message-id:mime-version
+ :references:subject:from:to:cc;
+ bh=OjLdBxamMEBZoCWEKxvyfi3zlPS7sITB1tlY1PlFJZY=;
+ b=ck+SHSvtDnj60BQj8YLMkf2Pw43YEVxw+em8qggCGdn/1GowvgZHMheHjrdkmBNehm
+ tmrFtSuCXUn+ha5/NpTdW6/q89rx1y9rHbciuDMV2r5iwsIPLJgY92ZmC5PBdq8f8nMh
+ q+H2videE2BPO0lpa5oWEuUGtaNfvirpevx4p4Dt9tNqtaL+6EqRkb68/MeDK4WH0InM
+ 1Re7ApNKjS1AXZSI1XFQTKIZd8NvyFCMsN0djZtyCkhtj/a074oXUm0p09zqp4ho0oxc
+ IG6i2SDMspopNc2WgDLrljiV5qCOlxfsXOIWtOHk8hG6VdhwXTcB23Y6aDjE7GRDjSoe
+ ysLQ==
+X-Gm-Message-State: APjAAAXSmDlVOEYBWsf5JCddcsrI3tFsCcjTgWFDrQJId51amwZiLY+2
+ OwdOdZFAU+MrBIEKqky3WwYfOu6BnYH9
+X-Google-Smtp-Source: APXvYqwpWgmqpyrmUa2wXckIz2VMz7v1JP5V+8C4UzQfkJmabm9Yn88YxlT1SHUJmolE6m4HsHNhhbbIoXZQ
+X-Received: by 2002:a81:1b49:: with SMTP id b70mr11985099ywb.229.1571048444225; 
+ Mon, 14 Oct 2019 03:20:44 -0700 (PDT)
+Date: Mon, 14 Oct 2019 18:20:13 +0800
+In-Reply-To: <20191014102022.236013-1-tzungbi@google.com>
+Message-Id: <20191014180059.01.I374c311eaca0d47944a37b07acbe48fdb74f734d@changeid>
 Mime-Version: 1.0
+References: <20191014102022.236013-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.23.0.700.g56cf767bdb-goog
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
@@ -76,8 +80,8 @@ Cc: gwendal@google.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  cychiang@google.com, drinkcat@google.com, tzungbi@google.com,
  robh+dt@kernel.org, enric.balletbo@collabora.com, bleung@google.com,
  dgreid@google.com
-Subject: [alsa-devel] [PATCH v3 00/10] ASoC: mediatek:
- mt8183-mt6358-ts3a227-max98357: support WoV
+Subject: [alsa-devel] [PATCH v3 01/10] platform/chrome: cros_ec: remove
+	unused EC feature
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,69 +99,26 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series makes mt6358, cros_ec_codec, and mt8183-mt6358-ts3a227-max98357
-support WoV (wake on voice).
+Remove unused EC_FEATURE_AUDIO_CODEC.
 
-The first 3 commits are some cleanups and refactors.  It looks like
-breaking the existing interface.  But please be noticed that, the
-cros_ec_codec has not used by any real device yet.  The refactor is
-very necessary to keep the style consistent and for easier to further
-extend and maintain.
-  platform/chrome: cros_ec: remove unused EC feature
-  ASoC: cros_ec_codec: refactor I2S RX
-  ASoC: cros_ec_codec: extract DMIC EC command from I2S RX
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+ include/linux/platform_data/cros_ec_commands.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-The 4th commit extends the feature offered from EC codec.
-  platform/chrome: cros_ec: add common commands for EC codec
-
-The 5th commit changes the behavior of setting and getting DMIC gains.
-  ASoC: cros_ec_codec: read max DMIC gain from EC codec
-
-The 6th and 7th commit make cros_ec_codec support WoV.
-  ASoC: dt-bindings: cros_ec_codec: add SHM bindings
-  ASoC: cros_ec_codec: support WoV
-
-The 8th commit sets necessary registers on mt6358 to support WoV.
-  ASoC: mediatek: mt6358: support WoV
-
-The last 2 commit make machine driver mt8183-mt6358-ts3a227-max98357
-support WoV if ec-codec is in DTS.
-  ASoC: dt-bindings: mt8183: add ec-codec
-  ASoC: mediatek: mt8183: support WoV
-
-Changes from v1:
-- fix a compile error and make kbuild bot happy
-https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/156315.html
-Changes from v2:
-- rebase upon to "don't use snd_pcm_ops" series
-https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/156170.html
-- fix sparse errors
-https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/156328.html
-- use "reg" for SHM binding
-https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/156657.html
-
-Tzung-Bi Shih (10):
-  WIP: platform/chrome: cros_ec: remove unused EC feature
-  WIP: ASoC: cros_ec_codec: refactor I2S RX
-  WIP: ASoC: cros_ec_codec: extract DMIC EC command from I2S RX
-  WIP: platform/chrome: cros_ec: add common commands for EC codec
-  WIP: ASoC: cros_ec_codec: read max DMIC gain from EC codec
-  WIP: ASoC: dt-bindings: cros_ec_codec: add SHM bindings
-  WIP: ASoC: cros_ec_codec: support WoV
-  WIP: ASoC: mediatek: mt6358: support WoV
-  WIP: ASoC: dt-bindings: mt8183: add ec-codec
-  WIP: ASoC: mediatek: mt8183: support WoV
-
- .../bindings/sound/google,cros-ec-codec.txt   |   24 +-
- .../sound/mt8183-mt6358-ts3a227-max98357.txt  |    3 +
- drivers/platform/chrome/cros_ec_trace.c       |    5 +-
- .../linux/platform_data/cros_ec_commands.h    |  285 ++++-
- sound/soc/codecs/cros_ec_codec.c              | 1128 +++++++++++++----
- sound/soc/codecs/mt6358.c                     |  105 ++
- sound/soc/mediatek/Kconfig                    |    1 +
- .../mt8183/mt8183-mt6358-ts3a227-max98357.c   |   70 +-
- 8 files changed, 1296 insertions(+), 325 deletions(-)
-
+diff --git a/include/linux/platform_data/cros_ec_commands.h b/include/linux/platform_data/cros_ec_commands.h
+index 98415686cbfa..43b8f7dae4cc 100644
+--- a/include/linux/platform_data/cros_ec_commands.h
++++ b/include/linux/platform_data/cros_ec_commands.h
+@@ -1277,8 +1277,6 @@ enum ec_feature_code {
+ 	 * MOTIONSENSE_CMD_TABLET_MODE_LID_ANGLE.
+ 	 */
+ 	EC_FEATURE_REFINED_TABLET_MODE_HYSTERESIS = 37,
+-	/* EC supports audio codec. */
+-	EC_FEATURE_AUDIO_CODEC = 38,
+ 	/* The MCU is a System Companion Processor (SCP). */
+ 	EC_FEATURE_SCP = 39,
+ 	/* The MCU is an Integrated Sensor Hub */
 -- 
 2.23.0.700.g56cf767bdb-goog
 

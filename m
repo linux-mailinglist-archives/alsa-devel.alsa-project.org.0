@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 096B3D6202
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 14:07:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 304E4D620D
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 14:08:37 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9AEA21682;
-	Mon, 14 Oct 2019 14:06:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AEA21682
+	by alsa0.perex.cz (Postfix) with ESMTPS id BB7301683;
+	Mon, 14 Oct 2019 14:07:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB7301683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571054855;
-	bh=WDkibVOxFL+oc88myl1McmIR8p9//SaF3Url9/p14Qs=;
+	s=default; t=1571054916;
+	bh=+GmyRRtHlNKGK+WqjVB+FKsdr2bL6fccaXpbzmHK1o0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Of7A9mfFW/ExBmWdbCFpE4B8IhLh8FgzMWNp1rxV9HxihGoOl3m3IecP8PzZxEjX/
-	 xbkI6YIIc2INUOCChlZYPb6BG+zY0UCdCcSKHLKVVuP9k8U0CwiwMNhZftyIq/V5Gs
-	 DEcZ+R+yN9uJUh/soXwda8Hp6knl3Yia5fsSm+EU=
+	b=Ppv9KLVYOziU5NcASS4nxj0UkVLzwMZjFAb7Wi3yuTWEFcvBHq7zrV5CplSSGp89C
+	 uxQAvY8EUYaXGrIwPmiYMNlSCXldr6blY9bvJUz8Z4F8MSJooSyHmbfj6YcHhw6NIA
+	 4O5Lx2rR4AKDa1MW45lQNDYfoNmCUftItX90ZZKU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 835F0F80369;
-	Mon, 14 Oct 2019 14:05:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4578F80610;
+	Mon, 14 Oct 2019 14:05:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 99192F8045D; Mon, 14 Oct 2019 14:05:02 +0200 (CEST)
+ id BDE4FF804AA; Mon, 14 Oct 2019 14:05:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFAD0F80362
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 14:04:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFAD0F80362
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DD1FF80376
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 14:05:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DD1FF80376
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="H6UN6SO2"
+ header.b="ZkvZ04Jy"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=JMCzNGjkdJrly3/aH/7UDDl727DQ/lS3yFqmaRkPWeE=; b=H6UN6SO2lufI
- rqUd3aNlg++SEPrt1UgYoodC5QrD+72cQMMqJijKgMlFxL7XSCsni7IwH/683WpPH/mpYBwuIQs39
- ZTugjUo7foaxfHAAVZOeMbEW26cimmk+BFS93sriIfH+Kv8QyxTJEkChj3ErVuib8VKZjg9Qvzx/i
- nIttc=;
+ List-Archive; bh=HTqny5PVHvnmykrT7/i1QnwbFEAoZl4BaIh7+Q4ZBD8=; b=ZkvZ04JyHUqK
+ EKhKl9qgVeJw+aFrjyJIXS7+NcnGa5tQma35pvSFybaP2Kua7HqT/YESsko4VZlh983J/GaiDxM/o
+ BK/JqULa93WSTPO2lLgkrwv9FGxqdVQ7840MOw8WdgGlK4bgQPdRmuVY9say3n4huwkdDYLkQ5Q2q
+ qZpm4=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iJz5u-0007WI-4Q; Mon, 14 Oct 2019 12:04:58 +0000
+ id 1iJz5u-0007WR-MS; Mon, 14 Oct 2019 12:04:58 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 8ED7A27428DF; Mon, 14 Oct 2019 13:04:57 +0100 (BST)
+ id 236F02741EF2; Mon, 14 Oct 2019 13:04:58 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20191011164312.7988-2-pierre-louis.bossart@linux.intel.com>
+To: YueHaibing <yuehaibing@huawei.com>
+In-Reply-To: <20191011150042.20096-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191014120457.8ED7A27428DF@ypsilon.sirena.org.uk>
-Date: Mon, 14 Oct 2019 13:04:57 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: byt: fix operator
-	precedence warnings" to the asoc tree
+Message-Id: <20191014120458.236F02741EF2@ypsilon.sirena.org.uk>
+Date: Mon, 14 Oct 2019 13:04:58 +0100 (BST)
+Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
+ piotrs@opensource.cirrus.com, lgirdwood@gmail.com, krzk@kernel.org,
+ linux-kernel@vger.kernel.org, paul@crapouillou.net,
+ Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
+ npoushin@opensource.cirrus.com, enric.balletbo@collabora.com, tiwai@suse.com,
+ nuno.sa@analog.com, rf@opensource.wolfsonmicro.com
+Subject: [alsa-devel] Applied "ASoC: adau7118: Fix Kconfig warning without
+	CONFIG_I2C" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: byt: fix operator precedence warnings
+   ASoC: adau7118: Fix Kconfig warning without CONFIG_I2C
 
 has been applied to the asoc tree at
 
@@ -112,94 +117,41 @@ to this mail.
 Thanks,
 Mark
 
-From f9f618e7128e834db3f54d290a926c4a71104e02 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Fri, 11 Oct 2019 11:43:09 -0500
-Subject: [PATCH] ASoC: SOF: Intel: byt: fix operator precedence warnings
+From de729862cc0f0b46dd3a3c11079240ea4e13b97d Mon Sep 17 00:00:00 2001
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Fri, 11 Oct 2019 23:00:42 +0800
+Subject: [PATCH] ASoC: adau7118: Fix Kconfig warning without CONFIG_I2C
 
-Address cppcheck warnings
+When building a kernel without CONFIG_I2C, Kconfig warns:
 
-sound/soc/sof/intel/byt.c:163:26: style: Clarify calculation
-precedence for '&' and '?'. [clarifyCalculation]
-  panic & SHIM_IPCX_BUSY ? "yes" : "no",
-                         ^
+WARNING: unmet direct dependencies detected for REGMAP_I2C
+  Depends on [n]: I2C [=n]
+  Selected by [y]:
+  - SND_SOC_ADAU7118_I2C [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y]
 
-sound/soc/sof/intel/byt.c:164:26: style: Clarify calculation
-precedence for '&' and '?'. [clarifyCalculation]
-  panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
-                         ^
+Add missing I2C dependency to SND_SOC_ADAU7118_I2C to fix this.
 
-sound/soc/sof/intel/byt.c:167:25: style: Clarify calculation
-precedence for '&' and '?'. [clarifyCalculation]
-  imrx & SHIM_IMRX_BUSY ? "yes" : "no",
-                        ^
-
-sound/soc/sof/intel/byt.c:168:25: style: Clarify calculation
-precedence for '&' and '?'. [clarifyCalculation]
-  imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
-                        ^
-
-sound/soc/sof/intel/byt.c:171:27: style: Clarify calculation
-precedence for '&' and '?'. [clarifyCalculation]
-  status & SHIM_IPCD_BUSY ? "yes" : "no",
-                          ^
-
-sound/soc/sof/intel/byt.c:172:27: style: Clarify calculation
-precedence for '&' and '?'. [clarifyCalculation]
-  status & SHIM_IPCD_DONE ? "yes" : "no", status);
-                          ^
-
-sound/soc/sof/intel/byt.c:175:25: style: Clarify calculation
-precedence for '&' and '?'. [clarifyCalculation]
-  imrd & SHIM_IMRD_BUSY ? "yes" : "no",
-                        ^
-
-sound/soc/sof/intel/byt.c:176:25: style: Clarify calculation
-precedence for '&' and '?'. [clarifyCalculation]
-  imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
-                        ^
-
-Fixes: 3a9e204d4e369 ("ASoC: SOF: Intel: Add context data to any IPC timeout.")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191011164312.7988-2-pierre-louis.bossart@linux.intel.com
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Fixes: ca514c0f12b0 ("ASOC: Add ADAU7118 8 Channel PDM-to-I2S/TDM Converter driver")
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Link: https://lore.kernel.org/r/20191011150042.20096-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/byt.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+ sound/soc/codecs/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index b2597ecfdc1c..07e5efe4945c 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -160,20 +160,20 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
- 	imrd = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRD);
- 	dev_err(sdev->dev,
- 		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
--		panic & SHIM_IPCX_BUSY ? "yes" : "no",
--		panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
-+		(panic & SHIM_IPCX_BUSY) ? "yes" : "no",
-+		(panic & SHIM_IPCX_DONE) ? "yes" : "no", panic);
- 	dev_err(sdev->dev,
- 		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
--		imrx & SHIM_IMRX_BUSY ? "yes" : "no",
--		imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
-+		(imrx & SHIM_IMRX_BUSY) ? "yes" : "no",
-+		(imrx & SHIM_IMRX_DONE) ? "yes" : "no", imrx);
- 	dev_err(sdev->dev,
- 		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
--		status & SHIM_IPCD_BUSY ? "yes" : "no",
--		status & SHIM_IPCD_DONE ? "yes" : "no", status);
-+		(status & SHIM_IPCD_BUSY) ? "yes" : "no",
-+		(status & SHIM_IPCD_DONE) ? "yes" : "no", status);
- 	dev_err(sdev->dev,
- 		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
--		imrd & SHIM_IMRD_BUSY ? "yes" : "no",
--		imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
-+		(imrd & SHIM_IMRD_BUSY) ? "yes" : "no",
-+		(imrd & SHIM_IMRD_DONE) ? "yes" : "no", imrd);
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index f4747ebc251e..5a706102db04 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -416,6 +416,7 @@ config SND_SOC_ADAU7118_HW
  
- }
- 
+ config SND_SOC_ADAU7118_I2C
+ 	tristate "Analog Devices ADAU7118 8 Channel PDM-to-I2S/TDM Converter - I2C"
++	depends on I2C
+ 	select SND_SOC_ADAU7118
+ 	select REGMAP_I2C
+ 	help
 -- 
 2.20.1
 

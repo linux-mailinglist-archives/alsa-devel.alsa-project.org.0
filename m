@@ -2,75 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B680D6218
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 14:10:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D74D62A7
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 14:36:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9F5371666;
-	Mon, 14 Oct 2019 14:10:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F5371666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0741D1674;
+	Mon, 14 Oct 2019 14:35:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0741D1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571055055;
-	bh=BhVshP32ltQwLtvIO/l8Q8PGHt7H4szPJ12l+EztnKA=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rQqda058DVV2vZvUdsweBKWK6yrXzoGOgQKnOcsfbZsfxYe9WnZxr7/v3uT/XNNLT
-	 6EHrSCoFdyKDdRfoKePYUJ70pdrxf8B5dJnBQa7GYIDzZ24+fWUrf6djQ2Z+k6Rh4r
-	 vLXO5XiKBotL9abHIiQCEAU22MfeBujrwuA3JeZk=
+	s=default; t=1571056572;
+	bh=kT0sifmZcnTasEsaV2FlbNuKFpHZET1B82VHF94XcvE=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KRBu4ngBRvINVZF3zn10JayBLgpJLZoefIXA226VBkG1LKq6fceELoTAjtc8rLPZ1
+	 sUvKi/OJbKYI3+cJe7U8coI70ZJ+KPO5x0nlvaItVSTbtlBrEDhxT6Hv66salZDytk
+	 ViRRP0uNeFzGtotPFaDYZXDCWuK4QREjUFuYT6a8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D97DF80642;
-	Mon, 14 Oct 2019 14:05:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7BD5F80362;
+	Mon, 14 Oct 2019 14:34:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14D68F80369; Mon, 14 Oct 2019 14:05:07 +0200 (CEST)
+ id ADA0AF80362; Mon, 14 Oct 2019 14:34:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
+ [IPv6:2607:f8b0:4864:20::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DABEFF80138
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 14:05:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DABEFF80138
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A8D1F80212
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 14:34:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A8D1F80212
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="hy0uOOWF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ZEvx4rHQS/ChhCZb0lOjQFPU66r3utXfBR2h6nSX49o=; b=hy0uOOWFeDFK
- 1sjkIDRwNDFgGrVSpw/8V93GKT59q6Xb9FQgw3HmDUZAzJskk40j0j5L1gvpCYXWDSm+vTGKypof0
- lGkz2Wqv5cimCBiMKF8280h4QfQn16Bvp0P0ssUulEBVScTlPehMSbkm5ftvYuzxi5eIMV0ZRptpo
- Ahdf0=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iJz5u-0007WY-Tx; Mon, 14 Oct 2019 12:04:59 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 64B702742162; Mon, 14 Oct 2019 13:04:58 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <20191011084816.14279-1-olivier.moysan@st.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20191014120458.64B702742162@ypsilon.sirena.org.uk>
-Date: Mon, 14 Oct 2019 13:04:58 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, alexandre.torgue@st.com,
- tiwai@suse.com, arnaud.pouliquen@st.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: stm32: spdifrx: retry synchronization
-	in sync state" to the asoc tree
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="D2cc9wrH"
+Received: by mail-oi1-x244.google.com with SMTP id k20so13588339oih.3
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 05:34:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8iLjshTXGmcUkjH1jEkadZShwPFBLspbffes+yRjZgY=;
+ b=D2cc9wrHifvrfvQCRkPEFLOEnC9L7yarowrEwRrhChFpDWaZmJDbx3+iNUpPrNLJES
+ It0SY7S1izs74cNZTCgkSRLgkwNsBwRjqEPpGEI60islljgaW0z9GqoCP+GH5g/uLIQd
+ cfgRe+CJvQPB82W5jsrZ+2lgRsYVqjNMFZd0AEnbD17NIhudcjM2jwtPnVh81YaKzuNw
+ QT3kwwSQkSxrELJYN+Y+nHwatzawh14/cJA43PRC5xNJwmDMw5evatBVTXXgtiAaMwzl
+ Akr5Nsz6F500RnshJGPen8WHOdx5skVBzJzHuPWV0vqXpf1/hTrd3naAbdmx+wLiHIZf
+ h8aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8iLjshTXGmcUkjH1jEkadZShwPFBLspbffes+yRjZgY=;
+ b=rPPuCS5xfA1KpJzeUt+8wPbFYQR4GfIM9zG29lTKqwQN64hfYSSO2DOVC31tJZs8GO
+ 5Ksd5FAGL5ppO3LYE4adzsu9RyPSIB3g5lqrsMwJRwn1nICXachX/fa/5kJN9YjK0cfM
+ P+0Nv93A6E3x050l9P71cBWee2DqHOuTiBDpUohymd0tTUwMLGX7uiMZaNGX0+mqdmKV
+ FN9CDLquZ2kjlsaKR/EVU3sf/U1PCYRetuyCm9OroCrTAmTVnq6Wd1PPNeVmTuuyoO9A
+ nqOflFYFAIUA8S1ZU0Jdj7ET/1x5djajbai2mLD12KXnC8ZTbvR8fbpwcoO9DMqU4SmM
+ apAg==
+X-Gm-Message-State: APjAAAUD+dHFzX1nbJPhSlyqeJL6qUI8EzR3+Mo2maOgns6tbhhe+HMp
+ hB02mei6OP+ClnGwvxWRbWcgh7is5QWj9EK0aoJIdw==
+X-Google-Smtp-Source: APXvYqynDK6URPYcg8UEy4tlUHS7DSTW0ic6uunNazq6QOzQY21CpX4H9Rxs2YzjthRV3K0epyXM8/Tnwh8fQZOe0GY=
+X-Received: by 2002:a05:6808:4c3:: with SMTP id
+ a3mr24505140oie.82.1571056457681; 
+ Mon, 14 Oct 2019 05:34:17 -0700 (PDT)
+MIME-Version: 1.0
+References: <20191014102022.236013-1-tzungbi@google.com>
+In-Reply-To: <20191014102022.236013-1-tzungbi@google.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Mon, 14 Oct 2019 20:34:06 +0800
+Message-ID: <CA+Px+wXt0Y95t3qzdxWaP94w+Jnr30sRUHfa97FymPvG25Y6qA@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Gwendal Grignou <gwendal@google.com>, devicetree@vger.kernel.org,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ Nicolas Boichat <drinkcat@google.com>, robh+dt@kernel.org,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@google.com>, Dylan Reid <dgreid@google.com>
+Subject: Re: [alsa-devel] [PATCH v3 00/10] ASoC: mediatek:
+ mt8183-mt6358-ts3a227-max98357: support WoV
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,107 +97,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Mon, Oct 14, 2019 at 6:20 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
+>
+> This series makes mt6358, cros_ec_codec, and mt8183-mt6358-ts3a227-max98357
+> support WoV (wake on voice).
+>
+> The first 3 commits are some cleanups and refactors.  It looks like
+> breaking the existing interface.  But please be noticed that, the
+> cros_ec_codec has not used by any real device yet.  The refactor is
+> very necessary to keep the style consistent and for easier to further
+> extend and maintain.
+>   platform/chrome: cros_ec: remove unused EC feature
+>   ASoC: cros_ec_codec: refactor I2S RX
+>   ASoC: cros_ec_codec: extract DMIC EC command from I2S RX
+>
+> The 4th commit extends the feature offered from EC codec.
+>   platform/chrome: cros_ec: add common commands for EC codec
+>
+> The 5th commit changes the behavior of setting and getting DMIC gains.
+>   ASoC: cros_ec_codec: read max DMIC gain from EC codec
+>
+> The 6th and 7th commit make cros_ec_codec support WoV.
+>   ASoC: dt-bindings: cros_ec_codec: add SHM bindings
+>   ASoC: cros_ec_codec: support WoV
+>
+> The 8th commit sets necessary registers on mt6358 to support WoV.
+>   ASoC: mediatek: mt6358: support WoV
+>
+> The last 2 commit make machine driver mt8183-mt6358-ts3a227-max98357
+> support WoV if ec-codec is in DTS.
+>   ASoC: dt-bindings: mt8183: add ec-codec
+>   ASoC: mediatek: mt8183: support WoV
+>
+> Changes from v1:
+> - fix a compile error and make kbuild bot happy
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/156315.html
+> Changes from v2:
+> - rebase upon to "don't use snd_pcm_ops" series
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/156170.html
+> - fix sparse errors
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/156328.html
+> - use "reg" for SHM binding
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/156657.html
+>
+> Tzung-Bi Shih (10):
+>   WIP: platform/chrome: cros_ec: remove unused EC feature
+>   WIP: ASoC: cros_ec_codec: refactor I2S RX
+>   WIP: ASoC: cros_ec_codec: extract DMIC EC command from I2S RX
+>   WIP: platform/chrome: cros_ec: add common commands for EC codec
+>   WIP: ASoC: cros_ec_codec: read max DMIC gain from EC codec
+>   WIP: ASoC: dt-bindings: cros_ec_codec: add SHM bindings
+>   WIP: ASoC: cros_ec_codec: support WoV
+>   WIP: ASoC: mediatek: mt6358: support WoV
+>   WIP: ASoC: dt-bindings: mt8183: add ec-codec
+>   WIP: ASoC: mediatek: mt8183: support WoV
 
-   ASoC: stm32: spdifrx: retry synchronization in sync state
+Ha..I noticed here are some "WIP" prefixes forgot to remove.  To not
+generate too much flood, will fix in later versions.
 
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 0c93c291321f2ba8dc4cd3d4df74801caaa297db Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Fri, 11 Oct 2019 10:48:16 +0200
-Subject: [PATCH] ASoC: stm32: spdifrx: retry synchronization in sync state
-
-When STM32 SPDIFRX is in sync state, allow multiple
-synchro attempts, instead of exiting on first unsuccessful
-trial. This is useful when spdif signal is not immediately
-available on input. This also allows Pulseaudio to check
-iec capture device availability when no signal is present.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Link: https://lore.kernel.org/r/20191011084816.14279-1-olivier.moysan@st.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/stm/stm32_spdifrx.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
-index cd4b235fce57..3fd28ee01675 100644
---- a/sound/soc/stm/stm32_spdifrx.c
-+++ b/sound/soc/stm/stm32_spdifrx.c
-@@ -351,6 +351,8 @@ static int stm32_spdifrx_start_sync(struct stm32_spdifrx_data *spdifrx)
- 		     SPDIFRX_CR_CUMSK | SPDIFRX_CR_PTMSK | SPDIFRX_CR_RXSTEO;
- 		cr_mask = cr;
- 
-+		cr |= SPDIFRX_CR_NBTRSET(SPDIFRX_NBTR_63);
-+		cr_mask |= SPDIFRX_CR_NBTR_MASK;
- 		cr |= SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_SYNC);
- 		cr_mask |= SPDIFRX_CR_SPDIFEN_MASK;
- 		ret = regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
-@@ -666,7 +668,7 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
- 	struct snd_pcm_substream *substream = spdifrx->substream;
- 	struct platform_device *pdev = spdifrx->pdev;
- 	unsigned int cr, mask, sr, imr;
--	unsigned int flags;
-+	unsigned int flags, sync_state;
- 	int err = 0, err_xrun = 0;
- 
- 	regmap_read(spdifrx->regmap, STM32_SPDIFRX_SR, &sr);
-@@ -726,11 +728,23 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
- 	}
- 
- 	if (err) {
--		/* SPDIFRX in STATE_STOP. Disable SPDIFRX to clear errors */
-+		regmap_read(spdifrx->regmap, STM32_SPDIFRX_CR, &cr);
-+		sync_state = FIELD_GET(SPDIFRX_CR_SPDIFEN_MASK, cr) &&
-+			     SPDIFRX_SPDIFEN_SYNC;
-+
-+		/* SPDIFRX is in STATE_STOP. Disable SPDIFRX to clear errors */
- 		cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_DISABLE);
- 		regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
- 				   SPDIFRX_CR_SPDIFEN_MASK, cr);
- 
-+		/* If SPDIFRX was in STATE_SYNC, retry synchro */
-+		if (sync_state) {
-+			cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_SYNC);
-+			regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
-+					   SPDIFRX_CR_SPDIFEN_MASK, cr);
-+			return IRQ_HANDLED;
-+		}
-+
- 		if (substream)
- 			snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
- 
--- 
-2.20.1
-
+>
+>  .../bindings/sound/google,cros-ec-codec.txt   |   24 +-
+>  .../sound/mt8183-mt6358-ts3a227-max98357.txt  |    3 +
+>  drivers/platform/chrome/cros_ec_trace.c       |    5 +-
+>  .../linux/platform_data/cros_ec_commands.h    |  285 ++++-
+>  sound/soc/codecs/cros_ec_codec.c              | 1128 +++++++++++++----
+>  sound/soc/codecs/mt6358.c                     |  105 ++
+>  sound/soc/mediatek/Kconfig                    |    1 +
+>  .../mt8183/mt8183-mt6358-ts3a227-max98357.c   |   70 +-
+>  8 files changed, 1296 insertions(+), 325 deletions(-)
+>
+> --
+> 2.23.0.700.g56cf767bdb-goog
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

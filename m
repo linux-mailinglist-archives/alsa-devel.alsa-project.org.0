@@ -2,93 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98601D59FA
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 05:30:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB253D5BD6
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 09:05:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FB56166B;
-	Mon, 14 Oct 2019 05:29:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FB56166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 14DC21666;
+	Mon, 14 Oct 2019 09:04:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14DC21666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571023828;
-	bh=V0Egbow9X1ICcTkqEos32sNn8utII7+8xT1L9eDfIII=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1571036712;
+	bh=BBJ9J08HMvWeM0F6mKqUlZdTt//iok0B21DWvrB4pZU=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OSrtALfxFn6nfHgr5o3hswv/Xiqyiv3AnohXDHfAzb5v/oaPeo/kjIfeEBJS5qXAf
-	 ugUzJafNGNxXrihdnWSShgNbG/1cliXZBMzosVmNzhzWxuTMNdXUxb9+DuEdihNUZN
-	 ZasNdEIH/KhULPUBAMafWsNlklzZOkXBERcTC+ak=
+	b=lTUJlB4lw73vd5r2Up/gEgWIwAyqW30jgztladobPbnMNI5uKEQN7c2ocRwyOIB9F
+	 q95l8K3zX5sCos+Dik07PeM4kftdvA0/KRQKgK0csm5XSVxL0ryPm6E2E/li+cxzTs
+	 SGGGaTg2MuN7cqamjHYnvclyo7EJ6jYZtDYSqy9M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 915C6F80212;
-	Mon, 14 Oct 2019 05:28:43 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72290F80322;
+	Mon, 14 Oct 2019 09:03:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E82CDF80362; Mon, 14 Oct 2019 05:28:37 +0200 (CEST)
+ id C2A90F80362; Mon, 14 Oct 2019 09:03:24 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
- SPF_PASS, USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-ua1-x941.google.com (mail-ua1-x941.google.com
- [IPv6:2607:f8b0:4864:20::941])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 755F0F80212
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 05:28:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 755F0F80212
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17260F8011D
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 09:03:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17260F8011D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="oS6pE20t"
-Received: by mail-ua1-x941.google.com with SMTP id b14so4564570uap.6
- for <alsa-devel@alsa-project.org>; Sun, 13 Oct 2019 20:28:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+uAit0SREJNRiELJ4OKCvBPLbAJm2+Lw1+Tpx2de+40=;
- b=oS6pE20tIbgCYicTcvquerz8XaCIP8j31dhBnlwHxPfDSw5JY1HPPG/O5jzCnVaz3Y
- q8W0P/o8qlWbXq0bJ4Qzd/x7TrY7LTO+ddCYjsz6rxIU4O/CbhQgE3ETbqUj/1bDQKgr
- m0xzry5ha9ZFaCAwnkcC6hWfGHXNk9dldwGBE=
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="QclHqXW6"
+Received: by mail-wr1-x441.google.com with SMTP id y19so18297409wrd.3
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 00:03:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=kARX9+0BKAD7qk3BjARPSF4hECeeh6Sx7CLH7T+oTb0=;
+ b=QclHqXW6ZKzWj9AvwDjjpURbYYwL2ehXvGg3U3vqXoz2YaRjsROg0JGyTwNk9g54Zv
+ i3LukqN94drT2bwK8oQISHzBug4ZZWS4VT9Qn1fuzrxXgFZTgCki5XLSh/Cj0ateWNpx
+ ffCsL9UWjm+ECWErvYzruTNMykHx639hORyyVVYP3O4vrFdFh27UZikVmP8b5xOE/b/I
+ Tksm6CH991VoJXwUi1GbASr/4TIHNxj5jwv7g1Cu512PvGVfxwESX+puUNCe5+WtXIZs
+ i7lDirHUD87ahyjWEqfbY+NoRne58RmejCjpyTnOAa/PBCJDtIGBf7vrS6ZRu+q0G2me
+ JG7w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+uAit0SREJNRiELJ4OKCvBPLbAJm2+Lw1+Tpx2de+40=;
- b=J64L3X2H7XOQXO2MFVBA6eSulKFP+Xh7Kb/DcudPE8naZOUc5gTEh13r91ZxdQ+m6R
- MY3vBHBl1mFnJ7SAcUdhFDOwK7RBQfASuMCDqfuFVf9ngXevxAgQLeaCLdVud3Potcax
- UapC4K+o0blN2l9XS/Dol3WFcsL/fHZ2Lql89FqGROgokr4LDLj0FmhAwtFqx8B4P462
- gr9GrnO8QXUVYmkB8eYdz9pqM5uT9bskzpq2B5f1t0SdYXwPZ/0JPSAFvj6vE0/+j7rL
- no+ui/Rz26diGvX/Qzwt2uW4PaKOAHNIFGveSA8zbgD8UPmVDvDlUcaMGzA9wtlKes/x
- LNwA==
-X-Gm-Message-State: APjAAAX9CteWBnOFF4yGRmyN/IYxewjsfVyyGr2hZlsBpnhMjki4gCzh
- HwIT+ZYrDUi+w9UUrgFu1TSBCw8NYjSfx7/2iM5spg==
-X-Google-Smtp-Source: APXvYqyuob+/0KvYeM3s1jllOH4ovf5VWr38UfCbu8IYv4MP9Mr0n8q2DWApAP3bugtsf1sl54DYEAwORJrnq+qgk28=
-X-Received: by 2002:ab0:2bcf:: with SMTP id s15mr15218344uar.55.1571023711060; 
- Sun, 13 Oct 2019 20:28:31 -0700 (PDT)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=kARX9+0BKAD7qk3BjARPSF4hECeeh6Sx7CLH7T+oTb0=;
+ b=G7svXPfkoYGyfeMyJhIw0PPKYHDBDs33prMbipf/A+kJbd4vsk3I1sbn+IHViPcuHD
+ uo8S7S6qSCK0JlHh9djW2eieB0XVFLnI0Urj/9Mebjo3p/jNp50llQ/QkX500OZa2LZ2
+ WJyG5PlVNqZzdvh9seN89wwKa4qIDNTE4O9MezXQRxuHo+In3lbGgMuyDi/HMKr0L0xK
+ Hope3VBj6cR8/E0HKBhzBofQ7ekGpDLL6kGFDNdyFy1jlKBBTcqHwM/o99cFdqwYJ4OM
+ vNMcoMR+Zy1gt+R2IJiNKjt8ioIM++jhmzBbj4YOsbs6DtDypVjvvil/9h4r2csEnwLB
+ YusA==
+X-Gm-Message-State: APjAAAX9Rx8sfr0SOh+tr2RpFaJF7bHMsDB0WCvdAnMR/NMP+ZT7QnX+
+ 01MJUNpxrN0yBLNdqbsClqofhA==
+X-Google-Smtp-Source: APXvYqzYx84rDsCIL+mfTwQbJ8TVHerC4FF8I0+AOYTGhsCPHzwLJ/Hj+UoebQyNvEYHO7chm9im1w==
+X-Received: by 2002:adf:f00d:: with SMTP id j13mr8881658wro.253.1571036601043; 
+ Mon, 14 Oct 2019 00:03:21 -0700 (PDT)
+Received: from dell ([2.27.167.11])
+ by smtp.gmail.com with ESMTPSA id g185sm23439606wme.10.2019.10.14.00.03.20
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 14 Oct 2019 00:03:20 -0700 (PDT)
+Date: Mon, 14 Oct 2019 08:03:18 +0100
+From: Lee Jones <lee.jones@linaro.org>
+To: "RAVULAPATI, VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>
+Message-ID: <20191014070318.GC4545@dell>
+References: <1569891524-18875-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <1569891524-18875-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <20191001064539.GB11769@dell>
+ <2ff13a61-a346-4d49-ab3a-da5d2126727c@amd.com>
+ <20191001120020.GC11769@dell>
+ <BN6PR12MB180930BD7D03FD7DEB14D7C1F79D0@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <20191002123759.GD11769@dell>
+ <BN6PR12MB1809451A3152488F3D8D1371F79C0@BN6PR12MB1809.namprd12.prod.outlook.com>
+ <20191002133553.GA21172@dell>
+ <DM6PR12MB3868561CDEEF9D21940E8F57E7940@DM6PR12MB3868.namprd12.prod.outlook.com>
 MIME-Version: 1.0
-References: <8f933cee57fc4420875e1e2ba14f1937@realtek.com>
- <20191008105138.GC4382@sirena.co.uk>
- <CAFv8NwJ+g+ESJJ5JxaLHADhBASKsjTE7pqY=HhcZZcT2Yy+Ygw@mail.gmail.com>
- <20191008110643.GD4382@sirena.co.uk>
- <CAFv8Nw+68LkmCmPnq5+rvf3Ffnh1kRROdjrx=nN8tgMTGEq+xQ@mail.gmail.com>
- <20191008123834.GI4382@sirena.co.uk>
-In-Reply-To: <20191008123834.GI4382@sirena.co.uk>
-From: Cheng-yi Chiang <cychiang@chromium.org>
-Date: Mon, 14 Oct 2019 11:28:04 +0800
-Message-ID: <CAFv8NwJEsxomhg_5yKQ4ajwbPvbCKseQYC_8_iqBosU4LZquVQ@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>, SteveS.Lee@maximintegrated.com,
- George.Song@maximintegrated.com, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "M R,
- Sathya Prakash" <sathya.prakash.m.r@intel.com>, jinho.ahn@maximintegrated.com,
- Tzung-Bi Shih <tzungbi@chromium.org>,
- =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
- =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
- Dylan Reid <dgreid@chromium.org>, "Flove\(HsinFu\)" <flove@realtek.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: rt1011: export r0 and temperature
-	config
+Content-Disposition: inline
+In-Reply-To: <DM6PR12MB3868561CDEEF9D21940E8F57E7940@DM6PR12MB3868.namprd12.prod.outlook.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, "Mehta, Sanju" <Sanju.Mehta@amd.com>,
+ Mark Brown <broonie@kernel.org>, "Mukunda,
+ Vijendar" <Vijendar.Mukunda@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [alsa-devel] [PATCH 2/7] ASoC: amd: Registering device
+ endpoints using MFD framework
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,64 +116,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 8, 2019 at 8:38 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Tue, Oct 08, 2019 at 07:22:17PM +0800, Cheng-yi Chiang wrote:
->
-> > The VPD is not part of the codec.
-> > It is a binary blob in system firmware where we can store important
-> > information per-device.
-> > The calibration data is written to RO section of VPD in the factory
-> > during calibration step.
->
-> Ugh, this is not idiomatic for a DT system :(
->
-> > The codec driver is not suitable of reading this information directly
-> > because the string format written into VPD is customized per board.
-> > For example on cml_rt1011_rt5682.c there are four R0 values for four
->
-> The expected model for a DT system is that this stuff should just come
-> in through DT properties, if for system design/manufacturing reasons it
-> needs to be stored separately then you'd expect it to be merged into the
-> main DT by the bootloader or something else earlier on in boot.
->
-> > speakers, and one temperature values . So in this case, there are
-> > totally 5 values in a VPD dsm_calib key. In VPD, the format is like
-> > "dsm_calib"="0x00278F09 0x00251E1B 0x0021AFE6 0x0022720A 0x0000012E"
-> > We put all the information into one string to allow arbitrary
-> > calibration data needed for smart amp calibration in the future.
-> > On other system using smart amp, there might be two speakers, with two
-> > temperature values..etc. The format will be changed accordingly.
-> > Number of temperature values depends on number of temperature sensor
-> > available near the speakers.
-> > Since machine driver knows the combination of speakers and the
-> > available temperature sensor, we think that machine driver is the
-> > better place to put this per-board logic.
->
-> I'm not sure why they all need to be in one property?  That's a
-> secondary problem though.
-Hi Mark,
-We did not consider this careful enough when we add this VPD field.
-The reason we put them all in one field because we thought that
-machine driver should have the knowledge to parse it.
-Now that it seems there are various places to parse it:
-- coreboot board file
-- coreboot device driver
-- kernel machine driver
-- kernel vpd driver
-- kernel codec driver
-The parsing becomes a problem, let alone that coreboot does not have
-some useful string functions to parse it.
-To ease this effort we are going to separate them into different
-fields, such that whichever driver wants the data, it can get it
-easily with key matching.
-Thanks for the suggestion!
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVGh1LCAxMCBPY3QgMjAxOSwgUkFWVUxBUEFUSSwgVklTSE5VIFZBUkRIQU4gUkFPIHdyb3Rl
+OgoKPiBIaSBMZWUsCj4gCj4gV2UgaGF2ZSB0d28gaW5zdGFuY2VzIEJUIGFuZCBJMlMuCj4gV2Ug
+bmVlZCB0byBjcmVhdGUgZGV2aWNlcyB3aXRoIHNhbWUgbmFtZSBhZGRlZCB3aXRoIG51bWJlciBv
+ZiBkZXZpY2UKPiBsaWtlIGV4YW1wbGU6Cj4gYWNwM3hfaTJzX3BsYXljYXAuMS5hdXRvPGh0dHA6
+Ly8xLmF1dG8+Cj4gYWNwM3hfaTJzX3BsYXljYXAuMi5hdXRvPGh0dHA6Ly8yLmF1dG8+Cj4gCj4g
+YnkgdXNpbmcgTUZEIHdlIGNhbiBtYWtlIGl0IGhhcHBlbiBhdXRvbWF0aWNhbGx5IGJ5IGdpdmlu
+Zwo+ICJhY3AzeF9pMnNfcGxheWNhcCIgYW5kIG90aGVyIGV4dGVuc2lvbiB3aWxsIGJlIGFkZGVk
+IGJ5IE1GRCBhZGQgZGV2aWNlIEFQSS4KClRoZSBhdXRvIGV4dGVuc2lvbiBpcyBoYW5kZWQgYnkg
+dGhlIHBsYXRmb3JtX2RlaXZjZV9hbGxvYygpIEFQSS4KCiAgcGxhdGZvcm1fZGV2aWNlX2FsbG9j
+KCJhY3AzeF9pMnNfcGxheWNhcCIsIFBMQVRGT1JNX0RFVklEX0FVVE8pOwoKPiBUaGlzIGhlbHBz
+IHVzIGJ5IHJlY3RpZnlpbmcgdGhlIHJlbmFtaW5nIGlzc3VlIHdoaWNoIHdlIGdldCBieSB1c2lu
+Zwo+IFBsYXRmb3JtX2Rldl9jcmVhdGUgQVBJYHMuSWYgd2UgaGF2ZSB0byB1c2UgcGxhdGZvcm0g
+cmVsYXRlZCBBUElzIHRoZW4KPiB3ZSBuZWVkIHRvIGdpdmUgZGlmZmVyZW50IG5hbWluZyBjb252
+ZW50aW9ucyB3aGlsZSBjcmVhdGluZyB0aGUgZGV2aWNlcwo+IGFuZCBjYW50IHVzZSBpdCBpbiBs
+b29wIGFzIHdlIGhhdmUgMyBkZXZpY2VzIHdlIG5lZWQgdG8gY2FsbCB0aHJlZQo+IGV4cGxpY2l0
+bHkuVGhpcyBtYWtlIG91ciBjb2RlIGxlbmd0aHkuCj4gSWYgd2UgdXNlIE1GRCBpdCB3b3VsZCBo
+ZWxwIHVzIGEgbG90Lgo+IAo+IFBsZWFzZSBzdWdnZXN0IHVzIGhvdyBjYW4gd2UgcHJvY2VlZC4K
+CllvdSBoYXZlIDIgY2hvaWNlcyBhdmFpbGFibGUgdG8geW91IGJhc2VkIG9uIHdoZXRoZXIgeW91
+ciBkZXZpY2UgaXMgYW4KTUZEIG9yIG5vdDoKCklmIHllcywgbW92ZSBpdCAob3IgYSBwYXJ0IG9m
+IGl0KSB0byBkcml2ZXJzL21mZC4KSWYgbm8sIHRoZW4gdXNlIHRoZSBwbGF0Zm9ybV9kZXZpY2Vf
+KigpIEFQSS4KCi0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KTGluYXJvIFNlcnZpY2VzIFRlY2hu
+aWNhbCBMZWFkCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29D
+cwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0
+CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

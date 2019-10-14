@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 304E4D620D
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 14:08:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B680D6218
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 14:10:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BB7301683;
-	Mon, 14 Oct 2019 14:07:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BB7301683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F5371666;
+	Mon, 14 Oct 2019 14:10:05 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F5371666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571054916;
-	bh=+GmyRRtHlNKGK+WqjVB+FKsdr2bL6fccaXpbzmHK1o0=;
+	s=default; t=1571055055;
+	bh=BhVshP32ltQwLtvIO/l8Q8PGHt7H4szPJ12l+EztnKA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Ppv9KLVYOziU5NcASS4nxj0UkVLzwMZjFAb7Wi3yuTWEFcvBHq7zrV5CplSSGp89C
-	 uxQAvY8EUYaXGrIwPmiYMNlSCXldr6blY9bvJUz8Z4F8MSJooSyHmbfj6YcHhw6NIA
-	 4O5Lx2rR4AKDa1MW45lQNDYfoNmCUftItX90ZZKU=
+	b=rQqda058DVV2vZvUdsweBKWK6yrXzoGOgQKnOcsfbZsfxYe9WnZxr7/v3uT/XNNLT
+	 6EHrSCoFdyKDdRfoKePYUJ70pdrxf8B5dJnBQa7GYIDzZ24+fWUrf6djQ2Z+k6Rh4r
+	 vLXO5XiKBotL9abHIiQCEAU22MfeBujrwuA3JeZk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4578F80610;
-	Mon, 14 Oct 2019 14:05:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2D97DF80642;
+	Mon, 14 Oct 2019 14:05:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDE4FF804AA; Mon, 14 Oct 2019 14:05:05 +0200 (CEST)
+ id 14D68F80369; Mon, 14 Oct 2019 14:05:07 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4DD1FF80376
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 14:05:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DD1FF80376
+ by alsa1.perex.cz (Postfix) with ESMTPS id DABEFF80138
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 14:05:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DABEFF80138
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ZkvZ04Jy"
+ header.b="hy0uOOWF"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=HTqny5PVHvnmykrT7/i1QnwbFEAoZl4BaIh7+Q4ZBD8=; b=ZkvZ04JyHUqK
- EKhKl9qgVeJw+aFrjyJIXS7+NcnGa5tQma35pvSFybaP2Kua7HqT/YESsko4VZlh983J/GaiDxM/o
- BK/JqULa93WSTPO2lLgkrwv9FGxqdVQ7840MOw8WdgGlK4bgQPdRmuVY9say3n4huwkdDYLkQ5Q2q
- qZpm4=;
+ List-Archive; bh=ZEvx4rHQS/ChhCZb0lOjQFPU66r3utXfBR2h6nSX49o=; b=hy0uOOWFeDFK
+ 1sjkIDRwNDFgGrVSpw/8V93GKT59q6Xb9FQgw3HmDUZAzJskk40j0j5L1gvpCYXWDSm+vTGKypof0
+ lGkz2Wqv5cimCBiMKF8280h4QfQn16Bvp0P0ssUulEBVScTlPehMSbkm5ftvYuzxi5eIMV0ZRptpo
+ Ahdf0=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iJz5u-0007WR-MS; Mon, 14 Oct 2019 12:04:58 +0000
+ id 1iJz5u-0007WY-Tx; Mon, 14 Oct 2019 12:04:59 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 236F02741EF2; Mon, 14 Oct 2019 13:04:58 +0100 (BST)
+ id 64B702742162; Mon, 14 Oct 2019 13:04:58 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20191011150042.20096-1-yuehaibing@huawei.com>
+To: Olivier Moysan <olivier.moysan@st.com>
+In-Reply-To: <20191011084816.14279-1-olivier.moysan@st.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191014120458.236F02741EF2@ypsilon.sirena.org.uk>
+Message-Id: <20191014120458.64B702742162@ypsilon.sirena.org.uk>
 Date: Mon, 14 Oct 2019 13:04:58 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, ckeepax@opensource.cirrus.com,
- piotrs@opensource.cirrus.com, lgirdwood@gmail.com, krzk@kernel.org,
- linux-kernel@vger.kernel.org, paul@crapouillou.net,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>,
- npoushin@opensource.cirrus.com, enric.balletbo@collabora.com, tiwai@suse.com,
- nuno.sa@analog.com, rf@opensource.wolfsonmicro.com
-Subject: [alsa-devel] Applied "ASoC: adau7118: Fix Kconfig warning without
-	CONFIG_I2C" to the asoc tree
+Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, alexandre.torgue@st.com,
+ tiwai@suse.com, arnaud.pouliquen@st.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: stm32: spdifrx: retry synchronization
+	in sync state" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +91,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: adau7118: Fix Kconfig warning without CONFIG_I2C
+   ASoC: stm32: spdifrx: retry synchronization in sync state
 
 has been applied to the asoc tree at
 
@@ -117,41 +116,71 @@ to this mail.
 Thanks,
 Mark
 
-From de729862cc0f0b46dd3a3c11079240ea4e13b97d Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Fri, 11 Oct 2019 23:00:42 +0800
-Subject: [PATCH] ASoC: adau7118: Fix Kconfig warning without CONFIG_I2C
+From 0c93c291321f2ba8dc4cd3d4df74801caaa297db Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Fri, 11 Oct 2019 10:48:16 +0200
+Subject: [PATCH] ASoC: stm32: spdifrx: retry synchronization in sync state
 
-When building a kernel without CONFIG_I2C, Kconfig warns:
+When STM32 SPDIFRX is in sync state, allow multiple
+synchro attempts, instead of exiting on first unsuccessful
+trial. This is useful when spdif signal is not immediately
+available on input. This also allows Pulseaudio to check
+iec capture device availability when no signal is present.
 
-WARNING: unmet direct dependencies detected for REGMAP_I2C
-  Depends on [n]: I2C [=n]
-  Selected by [y]:
-  - SND_SOC_ADAU7118_I2C [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y]
-
-Add missing I2C dependency to SND_SOC_ADAU7118_I2C to fix this.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Fixes: ca514c0f12b0 ("ASOC: Add ADAU7118 8 Channel PDM-to-I2S/TDM Converter driver")
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20191011150042.20096-1-yuehaibing@huawei.com
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Link: https://lore.kernel.org/r/20191011084816.14279-1-olivier.moysan@st.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/stm/stm32_spdifrx.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index f4747ebc251e..5a706102db04 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -416,6 +416,7 @@ config SND_SOC_ADAU7118_HW
+diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
+index cd4b235fce57..3fd28ee01675 100644
+--- a/sound/soc/stm/stm32_spdifrx.c
++++ b/sound/soc/stm/stm32_spdifrx.c
+@@ -351,6 +351,8 @@ static int stm32_spdifrx_start_sync(struct stm32_spdifrx_data *spdifrx)
+ 		     SPDIFRX_CR_CUMSK | SPDIFRX_CR_PTMSK | SPDIFRX_CR_RXSTEO;
+ 		cr_mask = cr;
  
- config SND_SOC_ADAU7118_I2C
- 	tristate "Analog Devices ADAU7118 8 Channel PDM-to-I2S/TDM Converter - I2C"
-+	depends on I2C
- 	select SND_SOC_ADAU7118
- 	select REGMAP_I2C
- 	help
++		cr |= SPDIFRX_CR_NBTRSET(SPDIFRX_NBTR_63);
++		cr_mask |= SPDIFRX_CR_NBTR_MASK;
+ 		cr |= SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_SYNC);
+ 		cr_mask |= SPDIFRX_CR_SPDIFEN_MASK;
+ 		ret = regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
+@@ -666,7 +668,7 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
+ 	struct snd_pcm_substream *substream = spdifrx->substream;
+ 	struct platform_device *pdev = spdifrx->pdev;
+ 	unsigned int cr, mask, sr, imr;
+-	unsigned int flags;
++	unsigned int flags, sync_state;
+ 	int err = 0, err_xrun = 0;
+ 
+ 	regmap_read(spdifrx->regmap, STM32_SPDIFRX_SR, &sr);
+@@ -726,11 +728,23 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
+ 	}
+ 
+ 	if (err) {
+-		/* SPDIFRX in STATE_STOP. Disable SPDIFRX to clear errors */
++		regmap_read(spdifrx->regmap, STM32_SPDIFRX_CR, &cr);
++		sync_state = FIELD_GET(SPDIFRX_CR_SPDIFEN_MASK, cr) &&
++			     SPDIFRX_SPDIFEN_SYNC;
++
++		/* SPDIFRX is in STATE_STOP. Disable SPDIFRX to clear errors */
+ 		cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_DISABLE);
+ 		regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
+ 				   SPDIFRX_CR_SPDIFEN_MASK, cr);
+ 
++		/* If SPDIFRX was in STATE_SYNC, retry synchro */
++		if (sync_state) {
++			cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_SYNC);
++			regmap_update_bits(spdifrx->regmap, STM32_SPDIFRX_CR,
++					   SPDIFRX_CR_SPDIFEN_MASK, cr);
++			return IRQ_HANDLED;
++		}
++
+ 		if (substream)
+ 			snd_pcm_stop(substream, SNDRV_PCM_STATE_DISCONNECTED);
+ 
 -- 
 2.20.1
 

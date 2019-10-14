@@ -2,108 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB253D5BD6
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 09:05:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 230ADD5C84
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 09:33:43 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14DC21666;
-	Mon, 14 Oct 2019 09:04:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14DC21666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 99F3F166E;
+	Mon, 14 Oct 2019 09:32:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 99F3F166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571036712;
-	bh=BBJ9J08HMvWeM0F6mKqUlZdTt//iok0B21DWvrB4pZU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571038422;
+	bh=O0KPltP8GOIc61ArSGy2shBXC3fZCfYrSuOXFGuPPR8=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lTUJlB4lw73vd5r2Up/gEgWIwAyqW30jgztladobPbnMNI5uKEQN7c2ocRwyOIB9F
-	 q95l8K3zX5sCos+Dik07PeM4kftdvA0/KRQKgK0csm5XSVxL0ryPm6E2E/li+cxzTs
-	 SGGGaTg2MuN7cqamjHYnvclyo7EJ6jYZtDYSqy9M=
+	b=m4juS0Lm6X5leYbZMPJbz+ly9Ajg+8BjfObedRRo46ko86lAvn/RZdF9XNNz/PaL7
+	 JnNIADriodGbESrdiOYjgZDyWWb09ENz/ptczRH+Mkt4661lL901e+XL1Oj2xP2Tq0
+	 dRwWxxfFzFw0xeUdS4AubS2dSX5+0+5tvU4ACMGc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72290F80322;
-	Mon, 14 Oct 2019 09:03:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2D12F8036C;
+	Mon, 14 Oct 2019 09:31:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2A90F80362; Mon, 14 Oct 2019 09:03:24 +0200 (CEST)
+ id 2A900F80362; Mon, 14 Oct 2019 09:31:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17260F8011D
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 09:03:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17260F8011D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="QclHqXW6"
-Received: by mail-wr1-x441.google.com with SMTP id y19so18297409wrd.3
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 00:03:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=kARX9+0BKAD7qk3BjARPSF4hECeeh6Sx7CLH7T+oTb0=;
- b=QclHqXW6ZKzWj9AvwDjjpURbYYwL2ehXvGg3U3vqXoz2YaRjsROg0JGyTwNk9g54Zv
- i3LukqN94drT2bwK8oQISHzBug4ZZWS4VT9Qn1fuzrxXgFZTgCki5XLSh/Cj0ateWNpx
- ffCsL9UWjm+ECWErvYzruTNMykHx639hORyyVVYP3O4vrFdFh27UZikVmP8b5xOE/b/I
- Tksm6CH991VoJXwUi1GbASr/4TIHNxj5jwv7g1Cu512PvGVfxwESX+puUNCe5+WtXIZs
- i7lDirHUD87ahyjWEqfbY+NoRne58RmejCjpyTnOAa/PBCJDtIGBf7vrS6ZRu+q0G2me
- JG7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=kARX9+0BKAD7qk3BjARPSF4hECeeh6Sx7CLH7T+oTb0=;
- b=G7svXPfkoYGyfeMyJhIw0PPKYHDBDs33prMbipf/A+kJbd4vsk3I1sbn+IHViPcuHD
- uo8S7S6qSCK0JlHh9djW2eieB0XVFLnI0Urj/9Mebjo3p/jNp50llQ/QkX500OZa2LZ2
- WJyG5PlVNqZzdvh9seN89wwKa4qIDNTE4O9MezXQRxuHo+In3lbGgMuyDi/HMKr0L0xK
- Hope3VBj6cR8/E0HKBhzBofQ7ekGpDLL6kGFDNdyFy1jlKBBTcqHwM/o99cFdqwYJ4OM
- vNMcoMR+Zy1gt+R2IJiNKjt8ioIM++jhmzBbj4YOsbs6DtDypVjvvil/9h4r2csEnwLB
- YusA==
-X-Gm-Message-State: APjAAAX9Rx8sfr0SOh+tr2RpFaJF7bHMsDB0WCvdAnMR/NMP+ZT7QnX+
- 01MJUNpxrN0yBLNdqbsClqofhA==
-X-Google-Smtp-Source: APXvYqzYx84rDsCIL+mfTwQbJ8TVHerC4FF8I0+AOYTGhsCPHzwLJ/Hj+UoebQyNvEYHO7chm9im1w==
-X-Received: by 2002:adf:f00d:: with SMTP id j13mr8881658wro.253.1571036601043; 
- Mon, 14 Oct 2019 00:03:21 -0700 (PDT)
-Received: from dell ([2.27.167.11])
- by smtp.gmail.com with ESMTPSA id g185sm23439606wme.10.2019.10.14.00.03.20
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 14 Oct 2019 00:03:20 -0700 (PDT)
-Date: Mon, 14 Oct 2019 08:03:18 +0100
-From: Lee Jones <lee.jones@linaro.org>
-To: "RAVULAPATI, VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>
-Message-ID: <20191014070318.GC4545@dell>
-References: <1569891524-18875-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1569891524-18875-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <20191001064539.GB11769@dell>
- <2ff13a61-a346-4d49-ab3a-da5d2126727c@amd.com>
- <20191001120020.GC11769@dell>
- <BN6PR12MB180930BD7D03FD7DEB14D7C1F79D0@BN6PR12MB1809.namprd12.prod.outlook.com>
- <20191002123759.GD11769@dell>
- <BN6PR12MB1809451A3152488F3D8D1371F79C0@BN6PR12MB1809.namprd12.prod.outlook.com>
- <20191002133553.GA21172@dell>
- <DM6PR12MB3868561CDEEF9D21940E8F57E7940@DM6PR12MB3868.namprd12.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02D35F80212
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 09:31:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02D35F80212
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2019 00:31:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.67,295,1566889200"; d="scan'208";a="395104613"
+Received: from pgsmsx112.gar.corp.intel.com ([10.108.55.201])
+ by fmsmga005.fm.intel.com with ESMTP; 14 Oct 2019 00:31:45 -0700
+Received: from pgsmsx110.gar.corp.intel.com (10.221.44.111) by
+ PGSMSX112.gar.corp.intel.com (10.108.55.201) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Mon, 14 Oct 2019 15:31:44 +0800
+Received: from pgsmsx108.gar.corp.intel.com ([169.254.8.51]) by
+ PGSMSX110.gar.corp.intel.com ([169.254.13.229]) with mapi id 14.03.0439.000;
+ Mon, 14 Oct 2019 15:31:44 +0800
+From: "Lu, Brent" <brent.lu@intel.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Thread-Topic: [PATCH] ASoC: Intel: eve: Enable mclk and ssp sclk early
+Thread-Index: AQHVeDPt+TrcGokx5EWZxsNB/Hvyd6dGQ3IAgBOM4uA=
+Date: Mon, 14 Oct 2019 07:31:44 +0000
+Message-ID: <CF33C36214C39B4496568E5578BE70C740314038@PGSMSX108.gar.corp.intel.com>
+References: <1569919250-24472-1-git-send-email-brent.lu@intel.com>
+ <1569991858-24293-1-git-send-email-brent.lu@intel.com>
+In-Reply-To: <1569991858-24293-1-git-send-email-brent.lu@intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZmU5OGM0MDctMTA5ZC00YmUyLTlkZDQtODdiNmNmODhlNTEwIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiSXVEZU9GZVoyM0xRa0JmaTByMU9wXC91TUhHN3ZUTG43T1J4VVNrUERTWmR6RUNobG5CUlp4WWpZUlwvVGdTYyt3In0=
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [172.30.20.206]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <DM6PR12MB3868561CDEEF9D21940E8F57E7940@DM6PR12MB3868.namprd12.prod.outlook.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, "Mehta, Sanju" <Sanju.Mehta@amd.com>,
- Mark Brown <broonie@kernel.org>, "Mukunda,
- Vijendar" <Vijendar.Mukunda@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- Colin Ian King <colin.king@canonical.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel] [PATCH 2/7] ASoC: amd: Registering device
- endpoints using MFD framework
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>, "N,
+ Harshapriya" <harshapriya.n@intel.com>, "Subhransu S .
+ Prusty" <subhransu.s.prusty@intel.com>,
+ "yang.jie@linux.intel.com" <yang.jie@linux.intel.com>,
+ "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>,
+ "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>, "Chiang,
+ Mac" <mac.chiang@intel.com>, "broonie@kernel.org" <broonie@kernel.org>, "M,
+ Naveen" <naveen.m@intel.com>,
+ "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: eve: Enable mclk and ssp sclk
+	early
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,34 +94,216 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gVGh1LCAxMCBPY3QgMjAxOSwgUkFWVUxBUEFUSSwgVklTSE5VIFZBUkRIQU4gUkFPIHdyb3Rl
-OgoKPiBIaSBMZWUsCj4gCj4gV2UgaGF2ZSB0d28gaW5zdGFuY2VzIEJUIGFuZCBJMlMuCj4gV2Ug
-bmVlZCB0byBjcmVhdGUgZGV2aWNlcyB3aXRoIHNhbWUgbmFtZSBhZGRlZCB3aXRoIG51bWJlciBv
-ZiBkZXZpY2UKPiBsaWtlIGV4YW1wbGU6Cj4gYWNwM3hfaTJzX3BsYXljYXAuMS5hdXRvPGh0dHA6
-Ly8xLmF1dG8+Cj4gYWNwM3hfaTJzX3BsYXljYXAuMi5hdXRvPGh0dHA6Ly8yLmF1dG8+Cj4gCj4g
-YnkgdXNpbmcgTUZEIHdlIGNhbiBtYWtlIGl0IGhhcHBlbiBhdXRvbWF0aWNhbGx5IGJ5IGdpdmlu
-Zwo+ICJhY3AzeF9pMnNfcGxheWNhcCIgYW5kIG90aGVyIGV4dGVuc2lvbiB3aWxsIGJlIGFkZGVk
-IGJ5IE1GRCBhZGQgZGV2aWNlIEFQSS4KClRoZSBhdXRvIGV4dGVuc2lvbiBpcyBoYW5kZWQgYnkg
-dGhlIHBsYXRmb3JtX2RlaXZjZV9hbGxvYygpIEFQSS4KCiAgcGxhdGZvcm1fZGV2aWNlX2FsbG9j
-KCJhY3AzeF9pMnNfcGxheWNhcCIsIFBMQVRGT1JNX0RFVklEX0FVVE8pOwoKPiBUaGlzIGhlbHBz
-IHVzIGJ5IHJlY3RpZnlpbmcgdGhlIHJlbmFtaW5nIGlzc3VlIHdoaWNoIHdlIGdldCBieSB1c2lu
-Zwo+IFBsYXRmb3JtX2Rldl9jcmVhdGUgQVBJYHMuSWYgd2UgaGF2ZSB0byB1c2UgcGxhdGZvcm0g
-cmVsYXRlZCBBUElzIHRoZW4KPiB3ZSBuZWVkIHRvIGdpdmUgZGlmZmVyZW50IG5hbWluZyBjb252
-ZW50aW9ucyB3aGlsZSBjcmVhdGluZyB0aGUgZGV2aWNlcwo+IGFuZCBjYW50IHVzZSBpdCBpbiBs
-b29wIGFzIHdlIGhhdmUgMyBkZXZpY2VzIHdlIG5lZWQgdG8gY2FsbCB0aHJlZQo+IGV4cGxpY2l0
-bHkuVGhpcyBtYWtlIG91ciBjb2RlIGxlbmd0aHkuCj4gSWYgd2UgdXNlIE1GRCBpdCB3b3VsZCBo
-ZWxwIHVzIGEgbG90Lgo+IAo+IFBsZWFzZSBzdWdnZXN0IHVzIGhvdyBjYW4gd2UgcHJvY2VlZC4K
-CllvdSBoYXZlIDIgY2hvaWNlcyBhdmFpbGFibGUgdG8geW91IGJhc2VkIG9uIHdoZXRoZXIgeW91
-ciBkZXZpY2UgaXMgYW4KTUZEIG9yIG5vdDoKCklmIHllcywgbW92ZSBpdCAob3IgYSBwYXJ0IG9m
-IGl0KSB0byBkcml2ZXJzL21mZC4KSWYgbm8sIHRoZW4gdXNlIHRoZSBwbGF0Zm9ybV9kZXZpY2Vf
-KigpIEFQSS4KCi0tIApMZWUgSm9uZXMgW+adjueQvOaWr10KTGluYXJvIFNlcnZpY2VzIFRlY2hu
-aWNhbCBMZWFkCkxpbmFyby5vcmcg4pSCIE9wZW4gc291cmNlIHNvZnR3YXJlIGZvciBBUk0gU29D
-cwpGb2xsb3cgTGluYXJvOiBGYWNlYm9vayB8IFR3aXR0ZXIgfCBCbG9nCl9fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0
-CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0
-Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+> Subject: [PATCH] ASoC: Intel: eve: Enable mclk and ssp sclk early
+> 
+> From: Naveen M <naveen.m@intel.com>
+> 
+> rt5663 and rt5514 needs mclk/sclk early to synchronize its internal clocks.
+> 
+> Signed-off-by: Naveen M <naveen.m@intel.com>
+> Signed-off-by: Harsha Priya <harshapriya.n@intel.com>
+> Signed-off-by: Subhransu S. Prusty <subhransu.s.prusty@intel.com>
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> ---
+>  sound/soc/intel/boards/Kconfig                     |  1 +
+>  .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  | 94
+> ++++++++++++++++++++++
+>  2 files changed, 95 insertions(+)
+> 
+
+Hi Pierre-Louis
+
+This is the v2 patch based on your previous comment to remove unnecessary
+function calls. The order in Kconfig is also rearranged. Please let me know if
+this patch is ok. Thanks.
+
+
+
+> diff --git a/sound/soc/intel/boards/Kconfig
+> b/sound/soc/intel/boards/Kconfig index 5c27f7a..5e0e7db 100644
+> --- a/sound/soc/intel/boards/Kconfig
+> +++ b/sound/soc/intel/boards/Kconfig
+> @@ -320,6 +320,7 @@ config
+> SND_SOC_INTEL_KBL_RT5663_RT5514_MAX98927_MACH
+>          select SND_SOC_RT5514_SPI
+>          select SND_SOC_MAX98927
+>          select SND_SOC_HDAC_HDMI
+> +	select SND_SOC_INTEL_SKYLAKE_SSP_CLK
+>          help
+>            This adds support for ASoC Onboard Codec I2S machine driver. This will
+>            create an alsa sound card for RT5663 + RT5514 + MAX98927.
+> diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> index 74dda87..dc09a85 100644
+> --- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> +++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> @@ -22,6 +22,9 @@
+>  #include "../../codecs/rt5514.h"
+>  #include "../../codecs/rt5663.h"
+>  #include "../../codecs/hdac_hdmi.h"
+> +#include <linux/clk.h>
+> +#include <linux/clk-provider.h>
+> +#include <linux/clkdev.h>
+> 
+>  #define KBL_REALTEK_CODEC_DAI "rt5663-aif"
+>  #define KBL_REALTEK_DMIC_CODEC_DAI "rt5514-aif1"
+> @@ -50,6 +53,8 @@ struct kbl_codec_private {
+>  	struct snd_soc_jack kabylake_headset;
+>  	struct list_head hdmi_pcm_list;
+>  	struct snd_soc_jack kabylake_hdmi[2];
+> +	struct clk *mclk;
+> +	struct clk *sclk;
+>  };
+> 
+>  enum {
+> @@ -71,6 +76,61 @@ static const struct snd_kcontrol_new
+> kabylake_controls[] = {
+>  	SOC_DAPM_PIN_SWITCH("DMIC"),
+>  };
+> 
+> +static int platform_clock_control(struct snd_soc_dapm_widget *w,
+> +			struct snd_kcontrol *k, int  event)
+> +{
+> +	struct snd_soc_dapm_context *dapm = w->dapm;
+> +	struct snd_soc_card *card = dapm->card;
+> +	struct kbl_codec_private *priv = snd_soc_card_get_drvdata(card);
+> +	int ret = 0;
+> +
+> +	/*
+> +	 * MCLK/SCLK need to be ON early for a successful synchronization of
+> +	 * codec internal clock. And the clocks are turned off during
+> +	 * POST_PMD after the stream is stopped.
+> +	 */
+> +	switch (event) {
+> +	case SND_SOC_DAPM_PRE_PMU:
+> +		/* Enable MCLK */
+> +		ret = clk_set_rate(priv->mclk, 24000000);
+> +		if (ret < 0) {
+> +			dev_err(card->dev, "Can't set rate for mclk, err:
+> %d\n",
+> +				ret);
+> +			return ret;
+> +		}
+> +
+> +		ret = clk_prepare_enable(priv->mclk);
+> +		if (ret < 0) {
+> +			dev_err(card->dev, "Can't enable mclk, err: %d\n",
+> ret);
+> +			return ret;
+> +		}
+> +
+> +		/* Enable SCLK */
+> +		ret = clk_set_rate(priv->sclk, 3072000);
+> +		if (ret < 0) {
+> +			dev_err(card->dev, "Can't set rate for sclk, err:
+> %d\n",
+> +				ret);
+> +			clk_disable_unprepare(priv->mclk);
+> +			return ret;
+> +		}
+> +
+> +		ret = clk_prepare_enable(priv->sclk);
+> +		if (ret < 0) {
+> +			dev_err(card->dev, "Can't enable sclk, err: %d\n",
+> ret);
+> +			clk_disable_unprepare(priv->mclk);
+> +		}
+> +		break;
+> +	case SND_SOC_DAPM_POST_PMD:
+> +		clk_disable_unprepare(priv->mclk);
+> +		clk_disable_unprepare(priv->sclk);
+> +		break;
+> +	default:
+> +		return 0;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct snd_soc_dapm_widget kabylake_widgets[] = {
+>  	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+>  	SND_SOC_DAPM_MIC("Headset Mic", NULL), @@ -79,11 +139,15
+> @@ static const struct snd_soc_dapm_widget kabylake_widgets[] = {
+>  	SND_SOC_DAPM_MIC("DMIC", NULL),
+>  	SND_SOC_DAPM_SPK("HDMI1", NULL),
+>  	SND_SOC_DAPM_SPK("HDMI2", NULL),
+> +	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
+> +			platform_clock_control, SND_SOC_DAPM_PRE_PMU
+> |
+> +			SND_SOC_DAPM_POST_PMD),
+> 
+>  };
+> 
+>  static const struct snd_soc_dapm_route kabylake_map[] = {
+>  	/* Headphones */
+> +	{ "Headphone Jack", NULL, "Platform Clock" },
+>  	{ "Headphone Jack", NULL, "HPOL" },
+>  	{ "Headphone Jack", NULL, "HPOR" },
+> 
+> @@ -92,6 +156,7 @@ static const struct snd_soc_dapm_route
+> kabylake_map[] = {
+>  	{ "Right Spk", NULL, "Right BE_OUT" },
+> 
+>  	/* other jacks */
+> +	{ "Headset Mic", NULL, "Platform Clock" },
+>  	{ "IN1P", NULL, "Headset Mic" },
+>  	{ "IN1N", NULL, "Headset Mic" },
+> 
+> @@ -643,6 +708,7 @@ static int kabylake_audio_probe(struct
+> platform_device *pdev)  {
+>  	struct kbl_codec_private *ctx;
+>  	struct snd_soc_acpi_mach *mach;
+> +	int ret = 0;
+> 
+>  	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
+>  	if (!ctx)
+> @@ -658,6 +724,34 @@ static int kabylake_audio_probe(struct
+> platform_device *pdev)
+>  		dmic_constraints = mach->mach_params.dmic_num == 2 ?
+>  			&constraints_dmic_2ch :
+> &constraints_dmic_channels;
+> 
+> +	ctx->mclk = devm_clk_get(&pdev->dev, "ssp1_mclk");
+> +	if (IS_ERR(ctx->mclk)) {
+> +		ret = PTR_ERR(ctx->mclk);
+> +		if (ret == -ENOENT) {
+> +			dev_info(&pdev->dev,
+> +				"Failed to get ssp1_mclk, defer probe\n");
+> +			return -EPROBE_DEFER;
+> +		}
+> +
+> +		dev_err(&pdev->dev, "Failed to get ssp1_mclk with
+> err:%d\n",
+> +								ret);
+> +		return ret;
+> +	}
+> +
+> +	ctx->sclk = devm_clk_get(&pdev->dev, "ssp1_sclk");
+> +	if (IS_ERR(ctx->sclk)) {
+> +		ret = PTR_ERR(ctx->sclk);
+> +		if (ret == -ENOENT) {
+> +			dev_info(&pdev->dev,
+> +				"Failed to get ssp1_sclk, defer probe\n");
+> +			return -EPROBE_DEFER;
+> +		}
+> +
+> +		dev_err(&pdev->dev, "Failed to get ssp1_sclk with err:%d\n",
+> +								ret);
+> +		return ret;
+> +	}
+> +
+>  	return devm_snd_soc_register_card(&pdev->dev,
+> &kabylake_audio_card);  }
+> 
+> --
+> 2.7.4
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

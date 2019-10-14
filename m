@@ -2,85 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D73AAD6029
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 12:29:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0846D602C
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 12:30:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 715D51687;
-	Mon, 14 Oct 2019 12:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 715D51687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4AD15167D;
+	Mon, 14 Oct 2019 12:29:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AD15167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571048969;
-	bh=0NtcqLAvqDNiiJ7pmaXit1Y538syZHP5Cjfud1cfyaA=;
-	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
+	s=default; t=1571049013;
+	bh=gK9IAsi+Nh6BH+B5gLpIMPaEs6SQWwE98EMziUMISCU=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cUlLc/8GJwausTfS12KnQzw/F9K7+4ExUuMK7arFoeNCi/yyFcNeeLA30X4vtkLJS
-	 23ko8uOe6CxZg1peuHeR0+WUvc1qWce/335OjwyCXlp7VwnD6FIGQfZrpjAFnNB+1Q
-	 60ANJDWy9w/+yDvpVGWwwsDYbnagkGURirTrgaJE=
+	b=RfpQZ2MgmvwKA/WI/lI2Ls7CLRyjayB1IJkam3RWaAvq1B2AvPF+Ah25pTuykisTk
+	 jS6n1OpFgnBI5+kafA1NueM0bKo68NTMCYS5qCceaeV/c7xGrNCiKfFRhyRUaCdltj
+	 4ribqmmWujppDYqEFxK6d33H4o94nbAPB0xWmHlA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32FCBF80322;
-	Mon, 14 Oct 2019 12:21:41 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E555F80377;
+	Mon, 14 Oct 2019 12:26:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38086F8070B; Mon, 14 Oct 2019 12:21:39 +0200 (CEST)
+ id 4CB69F8036C; Mon, 14 Oct 2019 12:26:47 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com
- [IPv6:2607:f8b0:4864:20::44a])
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 111A8F80709
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 12:21:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 111A8F80709
+ by alsa1.perex.cz (Postfix) with ESMTPS id A22E4F80362
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 12:26:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A22E4F80362
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="RV4T7j5V"
-Received: by mail-pf1-x44a.google.com with SMTP id b204so13106547pfb.11
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 03:21:30 -0700 (PDT)
+ header.b="KvUU7xGu"
+Received: by mail-ot1-x343.google.com with SMTP id 60so13354647otu.0
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 03:26:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=TGRk5VKUseteFNz9IdieAorUl/jPsDxLvDx05ItO45s=;
- b=RV4T7j5Vhr3Wq6JOwSEbLmQu0HchKMynfCJCEr+FDn6XpVhhmE1Rg/gN5yRNqJn2w7
- aE4LxnLOcuTgENXBnTIg4hcFJJ0nJelOaNVSyhLxRwFYy29nv5MW8+A3uS99NgCrDBFU
- VCgut6JPOikiNwAHlEqvDg7LKmgS6NmpAN8/trcGwlzVb3HxQNHcGd+Zsg/lBSt17V3P
- pxhNUx6HL/K/rME89Vd8toaZtZxiNcs9Ot6zr5n2t9pMZAj1cOWu8MdyFvw0IHnzIsOj
- Dd6/j61yDQ1dmPh/IZpZORHst/Cx6sxLwOW7aUjBoVz1mUrLBlr+iSHOPh2K4EBH+XfK
- CZbA==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=n2gNfmZJ5/1ywIBAglWfJ1GQhU7lYRYGj78jRXB8nZA=;
+ b=KvUU7xGueOdTvLYGN0YCl+yNdFRL12cVtp36VZQeUh/UOFbq/t7ylixoxslq6SjFVA
+ WeSuJ7nkjVvJn/gz2lExXAIb6PZhigPL5ADksY5Q/0qfo56FGkX1GI6hYbA0EddocPCb
+ ZiXC1l4L2R5y0rjJh0TTyGJYj4K5KheJwlsh2RsKbf9n/LGx5GVBKraEq0H8AMggtfWu
+ DVwm6WhXE+hJcbmvsb1spXTWXvy+QJnqjitk+RpJTi66lQlti23hAkLS35OaZjtT5opl
+ aqczV0SU4bfwbjgCDjmu9WbUEM3BPM6TL6LPQ5f+B8xGiNQ5OdVB+fwO8s/FZHSHbNR4
+ SSsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=TGRk5VKUseteFNz9IdieAorUl/jPsDxLvDx05ItO45s=;
- b=fpUMhHQ4Wjhl6HBBh7gpFwSgwp0Uxk0rSJnqvxaXGAe3ZPs2TRRMG7L7iEiJpVCvtI
- F1XjnAM7bWxZlYgE1Q17FFwoKxlvX1LhZrw4fOtQgY002nBf0/65jZHmg6CqYhujnHji
- 5egQ/FqTnkTj/GWaX4OBgd/i0OvcSGV4Bw5TMoKn46tiEYDENYSNRaMkNoeuhcT8hJC6
- KOA8POq0FL5TAF2xNvHgvOk0iAP2mG5HAzSNcXH+Mm5S90UDN46hNtErGdSy4yfC/oQK
- 2rC9QdxDNbTw/POmxwvj3YAQsQNOspgI3N7TheygDOMt2XNrraVXQAkhll4G0iJNwcul
- Ly+w==
-X-Gm-Message-State: APjAAAUUmkkEj1RsSD6gPPOXjvW8UAy2L+lWBiIHrvLAmPurt5Iz6Upk
- uYgEY8bkrIp3m/RY7ECGIDQURYEz1DHF
-X-Google-Smtp-Source: APXvYqxdjXmfjzMWkkrpMbIh8ZFqL8/PJsfbzoiXUmNkbqu13cy9Ifq/KU8zgxnSlDAOLu9kmSKOl6ZNacoY
-X-Received: by 2002:a65:5b05:: with SMTP id y5mr32923119pgq.48.1571048488530; 
- Mon, 14 Oct 2019 03:21:28 -0700 (PDT)
-Date: Mon, 14 Oct 2019 18:20:22 +0800
-In-Reply-To: <20191014102022.236013-1-tzungbi@google.com>
-Message-Id: <20191014180059.10.Ibf012d0cd8679d846213606dc5f426aea1ff590a@changeid>
-Mime-Version: 1.0
-References: <20191014102022.236013-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.23.0.700.g56cf767bdb-goog
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=n2gNfmZJ5/1ywIBAglWfJ1GQhU7lYRYGj78jRXB8nZA=;
+ b=TUHYhXtM3ez8gRlNzZPi4N3GGC3o4/SLrhDixof919Hq5w6jj+iDPwo7tOqB8IVrvR
+ QVO8S0kjC9Sbs+Dky2OfuNI7QMjPO8Vx+zeilFusy+bXpHbSWTag1xxEvJLOVCZeZc13
+ AH/+VyGrDk/ZMGtkhgYchiFgoSI5KnJ0ga+sTpq0YwF3sBNMhysCU1c+caAKqfz+g5OQ
+ 8HwAklk8oF9PFoKvfCHJBl8/14QoooNYJDuWtKNwbdZm5Pgjzbbr8M8k/WAJJpHxUr3G
+ Ms/7Jl0G47q3aa3x30gt94AGJE0fUMCf2EXi+7f0LDz6Rnw6wGzi+xtSTCj2XqG1bdAt
+ Qf4w==
+X-Gm-Message-State: APjAAAU7gDh/8+A8qTQWBU7dJVRXYGysWHQX2ktdxMNGK0Ku/IGFFSRw
+ nyFzgRckJXC5PsOVcewKBTueqvrB6/JGEbz7cVGeKQ==
+X-Google-Smtp-Source: APXvYqyvZCtpMEsAR5R8mu0eANfkz0L7vCRZN5v6gSdqM/aSG7UC/Hh3Yo2isE/Xh9wQG11gKzO079TpUDZ28nHJQ8E=
+X-Received: by 2002:a05:6830:158:: with SMTP id
+ j24mr8255902otp.99.1571048802022; 
+ Mon, 14 Oct 2019 03:26:42 -0700 (PDT)
+MIME-Version: 1.0
+References: <20191005164320.07.I5388b69a7a9c551078fed216a77440cee6dedf49@changeid>
+ <201910060040.RXI5XB2W%lkp@intel.com>
+ <CA+Px+wUqwjPKkbZAfJ0+a6JAhxRqGLqq_JRY6Qwoh49JrxKr8w@mail.gmail.com>
+ <e02d6319-77b2-b74d-883e-7ec87c5bd1fc@intel.com>
+In-Reply-To: <e02d6319-77b2-b74d-883e-7ec87c5bd1fc@intel.com>
 From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
-Cc: gwendal@google.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- cychiang@google.com, drinkcat@google.com, tzungbi@google.com,
- robh+dt@kernel.org, enric.balletbo@collabora.com, bleung@google.com,
- dgreid@google.com
-Subject: [alsa-devel] [PATCH v3 10/10] ASoC: mediatek: mt8183: support WoV
+Date: Mon, 14 Oct 2019 18:26:30 +0800
+Message-ID: <CA+Px+wUJvpHHM8NuEgjnnU+ObFXFPtNqPheGq5nAOfq4ohRMsQ@mail.gmail.com>
+To: Rong Chen <rong.a.chen@intel.com>
+Cc: Gwendal Grignou <gwendal@google.com>, devicetree@vger.kernel.org,
+ ALSA development <alsa-devel@alsa-project.org>,
+ kbuild test robot <lkp@intel.com>, Guenter Roeck <groeck@google.com>,
+ Nicolas Boichat <drinkcat@google.com>, robh+dt@kernel.org,
+ Mark Brown <broonie@kernel.org>, kbuild-all@01.org,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@google.com>, Dylan Reid <dgreid@google.com>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>
+Subject: Re: [alsa-devel] [kbuild-all] Re: [PATCH v2 07/10] ASoC:
+ cros_ec_codec: support WoV
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,152 +107,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add DAI link and pin muxing for wake on voice.
+On Wed, Oct 9, 2019 at 3:25 PM Rong Chen <rong.a.chen@intel.com> wrote:
+>
+>
+>
+> On 10/7/19 3:04 PM, Tzung-Bi Shih wrote:
+> > On Sun, Oct 6, 2019 at 12:54 AM kbuild test robot <lkp@intel.com> wrote:
+> >> url:    https://github.com/0day-ci/linux/commits/Tzung-Bi-Shih/ASoC-mediatek-mt8183-mt6358-ts3a227-max98357-support-WoV/20191005-171021
+> >> base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
+> >> reproduce:
+> >>          # apt-get install sparse
+> >>          # sparse version: v0.6.1-rc1-42-g38eda53-dirty
+> >>          make ARCH=x86_64 allmodconfig
+> >>          make C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__'
+> >>
+> >> If you fix the issue, kindly add following tag
+> >> Reported-by: kbuild test robot <lkp@intel.com>
+> >>
+> >>
+> >> sparse warnings: (new ones prefixed by >>)
+> >>
+> >>>> sound/soc/codecs/cros_ec_codec.c:430:39: sparse: sparse: incorrect type in return expression (different address spaces) @@    expected void * @@    got void [noderef] <asvoid * @@
+> >>>> sound/soc/codecs/cros_ec_codec.c:430:39: sparse:    expected void *
+> >>>> sound/soc/codecs/cros_ec_codec.c:430:39: sparse:    got void [noderef] <asn:2> *
+> >>>> sound/soc/codecs/cros_ec_codec.c:549:69: sparse: sparse: incorrect type in argument 2 (different address spaces) @@    expected void const volatile [noderef] <asn:2> * @@    got latile [noderef] <asn:2> * @@
+> >>>> sound/soc/codecs/cros_ec_codec.c:549:69: sparse:    expected void const volatile [noderef] <asn:2> *
+> >>>> sound/soc/codecs/cros_ec_codec.c:549:69: sparse:    got unsigned char [usertype] *addr
+> >>>> sound/soc/codecs/cros_ec_codec.c:698:33: sparse: sparse: incorrect type in argument 1 (different address spaces) @@    expected void volatile [noderef] <asn:2> * @@    got latile [noderef] <asn:2> * @@
+> >>>> sound/soc/codecs/cros_ec_codec.c:698:33: sparse:    expected void volatile [noderef] <asn:2> *
+> >>>> sound/soc/codecs/cros_ec_codec.c:698:33: sparse:    got unsigned char [usertype] *wov_lang_shm_p
+> >>     sound/soc/codecs/cros_ec_codec.c:699:48: sparse: sparse: incorrect type in argument 1 (different address spaces) @@    expected void volatile [noderef] <asn:2> * @@    got latile [noderef] <asn:2> * @@
+> >>     sound/soc/codecs/cros_ec_codec.c:699:48: sparse:    expected void volatile [noderef] <asn:2> *
+> >>>> sound/soc/codecs/cros_ec_codec.c:699:48: sparse:    got unsigned char [usertype] *
+> > I cannot reproduce the same sparse errors.
+> >
+> > My commit stack: apply my patches onto broonie/sound.git for-next
+> > $ git log --oneline
+> > b4471777f5d8 (HEAD -> draft) ASoC: mediatek: mt8183: support WoV
+> > b6bb558fa59d ASoC: dt-bindings: mt8183: add ec-codec
+> > a08bede115d4 ASoC: mediatek: mt6358: support WoV
+> > f67068fd0c91 ASoC: cros_ec_codec: support WoV
+> > 7e11271c070e ASoC: dt-bindings: cros_ec_codec: add SHM bindings
+> > fd04f20e77d3 ASoC: cros_ec_codec: read max DMIC gain from EC codec
+> > c008f01d5bc3 platform/chrome: cros_ec: add common commands for EC codec
+> > 50d2c1f9b1f4 ASoC: cros_ec_codec: extract DMIC EC command from I2S RX
+> > 00e5a1c121eb ASoC: cros_ec_codec: refactor I2S RX
+> > 3f0c475d6ec8 platform/chrome: cros_ec: remove unused EC feature
+> > 3877dcd0194c (mark/for-next, asoc-next) Merge branch 'asoc-5.5' into asoc-next
+> >
+> > My reproduce steps:
+> > $ make ARCH=x86_64 mrproper
+> > $ make ARCH=x86_64 allmodconfig
+> > $ make ARCH=x86_64 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' -j40
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- sound/soc/mediatek/Kconfig                    |  1 +
- .../mt8183/mt8183-mt6358-ts3a227-max98357.c   | 70 ++++++++++++++++++-
- 2 files changed, 68 insertions(+), 3 deletions(-)
+Find a typo from my previous message.  It should be "make ARCH=... C=1 ...".
 
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index 111e44b64b38..8b29f3979899 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -125,6 +125,7 @@ config SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A
- 	select SND_SOC_MAX98357A
- 	select SND_SOC_BT_SCO
- 	select SND_SOC_TS3A227E
-+	select SND_SOC_CROS_EC_CODEC
- 	help
- 	  This adds ASoC driver for Mediatek MT8183 boards
- 	  with the MT6358 TS3A227E MAX98357A audio codec.
-diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-index bb9cdc0d6552..0555f7d73d05 100644
---- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-@@ -19,11 +19,12 @@ enum PINCTRL_PIN_STATE {
- 	PIN_STATE_DEFAULT = 0,
- 	PIN_TDM_OUT_ON,
- 	PIN_TDM_OUT_OFF,
-+	PIN_WOV,
- 	PIN_STATE_MAX
- };
- 
- static const char * const mt8183_pin_str[PIN_STATE_MAX] = {
--	"default", "aud_tdm_out_on", "aud_tdm_out_off",
-+	"default", "aud_tdm_out_on", "aud_tdm_out_off", "wov",
- };
- 
- struct mt8183_mt6358_ts3a227_max98357_priv {
-@@ -142,6 +143,11 @@ SND_SOC_DAILINK_DEFS(playback_hdmi,
- 	DAILINK_COMP_ARRAY(COMP_DUMMY()),
- 	DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
-+SND_SOC_DAILINK_DEFS(wake_on_voice,
-+	DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+	DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
-+
- /* BE */
- SND_SOC_DAILINK_DEFS(primary_codec,
- 	DAILINK_COMP_ARRAY(COMP_CPU("ADDA")),
-@@ -229,6 +235,41 @@ static struct snd_soc_ops mt8183_mt6358_tdm_ops = {
- 	.shutdown = mt8183_mt6358_tdm_shutdown,
- };
- 
-+static int
-+mt8183_mt6358_ts3a227_max98357_wov_startup(
-+	struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct mt8183_mt6358_ts3a227_max98357_priv *priv =
-+			snd_soc_card_get_drvdata(card);
-+
-+	return pinctrl_select_state(priv->pinctrl,
-+				    priv->pin_states[PIN_WOV]);
-+}
-+
-+static void
-+mt8183_mt6358_ts3a227_max98357_wov_shutdown(
-+	struct snd_pcm_substream *substream)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct mt8183_mt6358_ts3a227_max98357_priv *priv =
-+			snd_soc_card_get_drvdata(card);
-+	int ret;
-+
-+	ret = pinctrl_select_state(priv->pinctrl,
-+				   priv->pin_states[PIN_STATE_DEFAULT]);
-+	if (ret)
-+		dev_err(card->dev, "%s failed to select state %d\n",
-+			__func__, ret);
-+}
-+
-+static const struct snd_soc_ops mt8183_mt6358_ts3a227_max98357_wov_ops = {
-+	.startup = mt8183_mt6358_ts3a227_max98357_wov_startup,
-+	.shutdown = mt8183_mt6358_ts3a227_max98357_wov_shutdown,
-+};
-+
- static struct snd_soc_dai_link
- mt8183_mt6358_ts3a227_max98357_dai_links[] = {
- 	/* FE */
-@@ -306,6 +347,15 @@ mt8183_mt6358_ts3a227_max98357_dai_links[] = {
- 		.dpcm_playback = 1,
- 		SND_SOC_DAILINK_REG(playback_hdmi),
- 	},
-+	{
-+		.name = "Wake on Voice",
-+		.stream_name = "Wake on Voice",
-+		.ignore_suspend = 1,
-+		.ignore = 1,
-+		SND_SOC_DAILINK_REG(wake_on_voice),
-+		.ops = &mt8183_mt6358_ts3a227_max98357_wov_ops,
-+	},
-+
- 	/* BE */
- 	{
- 		.name = "Primary Codec",
-@@ -429,7 +479,7 @@ static int
- mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = &mt8183_mt6358_ts3a227_max98357_card;
--	struct device_node *platform_node;
-+	struct device_node *platform_node, *ec_codec;
- 	struct snd_soc_dai_link *dai_link;
- 	struct mt8183_mt6358_ts3a227_max98357_priv *priv;
- 	int ret;
-@@ -444,10 +494,24 @@ mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
- 
-+	ec_codec = of_parse_phandle(pdev->dev.of_node, "mediatek,ec-codec", 0);
-+
- 	for_each_card_prelinks(card, i, dai_link) {
- 		if (dai_link->platforms->name)
- 			continue;
--		dai_link->platforms->of_node = platform_node;
-+
-+		if (ec_codec && strcmp(dai_link->name, "Wake on Voice") == 0) {
-+			dai_link->cpus[0].name = NULL;
-+			dai_link->cpus[0].of_node = ec_codec;
-+			dai_link->cpus[0].dai_name = NULL;
-+			dai_link->codecs[0].name = NULL;
-+			dai_link->codecs[0].of_node = ec_codec;
-+			dai_link->codecs[0].dai_name = "Wake on Voice";
-+			dai_link->platforms[0].of_node = ec_codec;
-+			dai_link->ignore = 0;
-+		} else {
-+			dai_link->platforms->of_node = platform_node;
-+		}
- 	}
- 
- 	mt8183_mt6358_ts3a227_max98357_headset_dev.dlc.of_node =
--- 
-2.23.0.700.g56cf767bdb-goog
+> > 2>&1 | grep -v sched | tee log.txt
+> > (Note: filter sched out to not get flood sparse errors)
+> > $ grep cros_ec_codec log.txt
+> >    CHECK   sound/soc/codecs/cros_ec_codec.c
+> >    CC [M]  sound/soc/codecs/cros_ec_codec.o
+> >
+> > It did not generate the same message as 0day reported.
+> >
+> > One difference would be the sparse version (it is from "apt install"
+> > in my environment):
+> > $ sparse --version
+> > 0.6.0 (Debian: 0.6.0-3)
+> > On the other hand, 0day used "v0.6.1-rc1-42-g38eda53-dirty".
+>
+> Hi,
+>
+> The sparse warnings could be generated by the latest sparse
+> (https://github.com/lucvoo/sparse.git). Could you try again?
 
+Thanks.  By using the version from github, it can generate the same
+sparse errors.
+$ sparse --version
+v0.6.1-rc1-43-g0ccb3b4
+
+It seems current debian's version (i.e. 0.6.0 (Debian: 0.6.0-3))
+cannot reproduce the errors even without the typo mentioned above.
+
+>
+> Best Regards,
+> Rong Chen
+>
+> >
+> > Guenter, what we could do in the case?  Do you have any idea?
+> > _______________________________________________
+> > kbuild-all mailing list -- kbuild-all@lists.01.org
+> > To unsubscribe send an email to kbuild-all-leave@lists.01.org
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

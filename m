@@ -2,65 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB1EFD6663
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 17:46:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BB8CD6673
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 17:48:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2E2811671;
-	Mon, 14 Oct 2019 17:45:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E2811671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 91F6F1654;
+	Mon, 14 Oct 2019 17:47:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 91F6F1654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571068004;
-	bh=d3Xuu7vb0Uv6lyWSwcbUpCO5z5R42ApwHTrQht9w3ZM=;
+	s=default; t=1571068098;
+	bh=r2HADENyTkWRTYmAa1dMi6mx9m7/Hbg95j7bhNbOxU8=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HzFU2K0Jm61bQ0J5SpIz/1t/FZiAPTewhzvVlQhMH3P56443S/WJ/VmeC6Kv5LzfK
-	 5dfrw7De8CvoSeLe/85KCaIdG3zd4ywMC0r65eF1FS93uaB5pmXhl+Goz3Q5ZHMSbY
-	 v+wC06J2AP2FfSDUqbmBw+0Y0vnN2hFJIk9tUH1Y=
+	b=QSppBq0lN4MS20Thl13zS07fH3fl+uRv74qeWgVWDmZ0RAMhLAmLP9y1IIjJpxeWL
+	 w+xYWfHBVHJchgum/XeR+XZcuwrUyz8yer7OJTOZ3S2xCWdRm1GkHP6tIEWDKY9uWf
+	 GrNeeeu+dBNndriXUv8AcBZ3g8O/2BiqS0mKWbJI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2175AF80322;
-	Mon, 14 Oct 2019 17:44:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30A93F805AE;
+	Mon, 14 Oct 2019 17:45:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58C53F80362; Mon, 14 Oct 2019 17:44:56 +0200 (CEST)
+ id A72E8F8049B; Mon, 14 Oct 2019 17:45:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59184F80138
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 17:44:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59184F80138
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4B57AF8049B
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 17:45:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B57AF8049B
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Oct 2019 08:44:48 -0700
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Oct 2019 08:45:28 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.67,296,1566889200"; d="scan'208";a="225112710"
+X-IronPort-AV: E=Sophos;i="5.67,296,1566889200"; d="scan'208";a="199434997"
 Received: from rtnitta-mobl1.amr.corp.intel.com (HELO [10.251.134.135])
  ([10.251.134.135])
- by fmsmga002.fm.intel.com with ESMTP; 14 Oct 2019 08:44:47 -0700
-To: YueHaibing <yuehaibing@huawei.com>, lgirdwood@gmail.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- jaska.uimonen@linux.intel.com, yang.jie@linux.intel.com,
- yung-chuan.liao@linux.intel.com
-References: <20191014091308.23688-1-yuehaibing@huawei.com>
+ by orsmga006.jf.intel.com with ESMTP; 14 Oct 2019 08:45:26 -0700
+To: "Lu, Brent" <brent.lu@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <1569919250-24472-1-git-send-email-brent.lu@intel.com>
+ <1569991858-24293-1-git-send-email-brent.lu@intel.com>
+ <CF33C36214C39B4496568E5578BE70C740314038@PGSMSX108.gar.corp.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <3222f3a0-f3cf-b1b9-df23-ec392f7dae4f@linux.intel.com>
-Date: Mon, 14 Oct 2019 10:36:11 -0500
+Message-ID: <5cb82600-71a2-53c8-21b6-a1171cae41ad@linux.intel.com>
+Date: Mon, 14 Oct 2019 10:38:14 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20191014091308.23688-1-yuehaibing@huawei.com>
+In-Reply-To: <CF33C36214C39B4496568E5578BE70C740314038@PGSMSX108.gar.corp.intel.com>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH -next] ASoC: SOF: Fix randbuild error
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>, "N,
+ Harshapriya" <harshapriya.n@intel.com>,
+ "Subhransu S . Prusty" <subhransu.s.prusty@intel.com>,
+ "yang.jie@linux.intel.com" <yang.jie@linux.intel.com>,
+ "liam.r.girdwood@linux.intel.com" <liam.r.girdwood@linux.intel.com>, "Chiang,
+ Mac" <mac.chiang@intel.com>, "broonie@kernel.org" <broonie@kernel.org>, "M,
+ Naveen" <naveen.m@intel.com>,
+ "yung-chuan.liao@linux.intel.com" <yung-chuan.liao@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: eve: Enable mclk and ssp sclk
+ early
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,43 +88,31 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 10/14/19 4:13 AM, YueHaibing wrote:
-> When LEDS_TRIGGER_AUDIO is m and SND_SOC_SOF is y,
+On 10/14/19 2:31 AM, Lu, Brent wrote:
+>> Subject: [PATCH] ASoC: Intel: eve: Enable mclk and ssp sclk early
+>>
+>> From: Naveen M <naveen.m@intel.com>
+>>
+>> rt5663 and rt5514 needs mclk/sclk early to synchronize its internal clocks.
+>>
+>> Signed-off-by: Naveen M <naveen.m@intel.com>
+>> Signed-off-by: Harsha Priya <harshapriya.n@intel.com>
+>> Signed-off-by: Subhransu S. Prusty <subhransu.s.prusty@intel.com>
+>> Signed-off-by: Brent Lu <brent.lu@intel.com>
+>> ---
+>>   sound/soc/intel/boards/Kconfig                     |  1 +
+>>   .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  | 94
+>> ++++++++++++++++++++++
+>>   2 files changed, 95 insertions(+)
+>>
 > 
-> sound/soc/sof/control.o: In function `snd_sof_switch_put':
-> control.c:(.text+0x587): undefined reference to `ledtrig_audio_set'
-> control.c:(.text+0x593): undefined reference to `ledtrig_audio_set'
+> Hi Pierre-Louis
 > 
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Fixes: 5d43001ae436 ("ASoC: SOF: acpi led support for switch controls")
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> This is the v2 patch based on your previous comment to remove unnecessary
+> function calls. The order in Kconfig is also rearranged. Please let me know if
+> this patch is ok. Thanks.
 
-Thanks for the fix.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> ---
->   sound/soc/sof/control.c | 2 ++
->   1 file changed, 2 insertions(+)
-> 
-> diff --git a/sound/soc/sof/control.c b/sound/soc/sof/control.c
-> index 41551e8..2c4abd4 100644
-> --- a/sound/soc/sof/control.c
-> +++ b/sound/soc/sof/control.c
-> @@ -36,10 +36,12 @@ static void update_mute_led(struct snd_sof_control *scontrol,
->   
->   	scontrol->led_ctl.led_value = temp;
->   
-> +#if IS_REACHABLE(CONFIG_LEDS_TRIGGER_AUDIO)
->   	if (!scontrol->led_ctl.direction)
->   		ledtrig_audio_set(LED_AUDIO_MUTE, temp ? LED_OFF : LED_ON);
->   	else
->   		ledtrig_audio_set(LED_AUDIO_MICMUTE, temp ? LED_OFF : LED_ON);
-> +#endif
->   }
->   
->   static inline u32 mixer_to_ipc(unsigned int value, u32 *volume_map, int size)
-> 
+I don't see a v2?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

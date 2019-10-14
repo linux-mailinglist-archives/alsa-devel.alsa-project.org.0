@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1FA79D6214
-	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 14:10:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 096B3D6202
+	for <lists+alsa-devel@lfdr.de>; Mon, 14 Oct 2019 14:07:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ACA1D1670;
-	Mon, 14 Oct 2019 14:09:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ACA1D1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AEA21682;
+	Mon, 14 Oct 2019 14:06:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AEA21682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571055009;
-	bh=N7N7kk75UWlXlRLZHQCbubU2IqAx9LK8T1YftVtyKg4=;
+	s=default; t=1571054855;
+	bh=WDkibVOxFL+oc88myl1McmIR8p9//SaF3Url9/p14Qs=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=obUNqi+iL7aXVX1c2E4hpBlBuQX9u5zGCLMat8qyuvWJ6HeoFqhrusgcImnPdIrzH
-	 j6B9ZeeCLcy+sq++1sL4Pqi4fbgjK574Ybd3HEfXqiWuQnSab/iiDmMQ8AGb4l67R8
-	 ozZXwZYob/+8TxqAEWzykEIuu2Q9cxHKxDkgAFz0=
+	b=Of7A9mfFW/ExBmWdbCFpE4B8IhLh8FgzMWNp1rxV9HxihGoOl3m3IecP8PzZxEjX/
+	 xbkI6YIIc2INUOCChlZYPb6BG+zY0UCdCcSKHLKVVuP9k8U0CwiwMNhZftyIq/V5Gs
+	 DEcZ+R+yN9uJUh/soXwda8Hp6knl3Yia5fsSm+EU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4750AF80637;
-	Mon, 14 Oct 2019 14:05:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 835F0F80369;
+	Mon, 14 Oct 2019 14:05:07 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1A54F80529; Mon, 14 Oct 2019 14:05:06 +0200 (CEST)
+ id 99192F8045D; Mon, 14 Oct 2019 14:05:02 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61655F8036C
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 14:05:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61655F8036C
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFAD0F80362
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 14:04:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFAD0F80362
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="qn+OlOED"
+ header.b="H6UN6SO2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=T57gFAQ2HL0OrNojxYT6RFsspIHb42s2lXo+OYKN3oU=; b=qn+OlOED4Bqj
- 8Fv1zdAGKWWZJCAl7bXukw7iCCsS86IVOk6Mc697BCVuVlyI5GBGOmiMeEE9XE0ZIsA0ucaybSXqm
- nKaikyzKNfIiccC5JDwiL+VAehIFfeFonC2FpRJ8UOp9yVraGm0018xuq4i3Xl6EfsREU4OKoipca
- iOpJQ=;
+ List-Archive; bh=JMCzNGjkdJrly3/aH/7UDDl727DQ/lS3yFqmaRkPWeE=; b=H6UN6SO2lufI
+ rqUd3aNlg++SEPrt1UgYoodC5QrD+72cQMMqJijKgMlFxL7XSCsni7IwH/683WpPH/mpYBwuIQs39
+ ZTugjUo7foaxfHAAVZOeMbEW26cimmk+BFS93sriIfH+Kv8QyxTJEkChj3ErVuib8VKZjg9Qvzx/i
+ nIttc=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iJz5u-0007WM-UW; Mon, 14 Oct 2019 12:04:58 +0000
+ id 1iJz5u-0007WI-4Q; Mon, 14 Oct 2019 12:04:58 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D43862741EED; Mon, 14 Oct 2019 13:04:57 +0100 (BST)
+ id 8ED7A27428DF; Mon, 14 Oct 2019 13:04:57 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20191011143538.15300-1-yuehaibing@huawei.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191011164312.7988-2-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191014120457.D43862741EED@ypsilon.sirena.org.uk>
+Message-Id: <20191014120457.8ED7A27428DF@ypsilon.sirena.org.uk>
 Date: Mon, 14 Oct 2019 13:04:57 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- festevam@gmail.com, tiwai@suse.com, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, Nicolin Chen <nicoleotsuka@gmail.com>,
- Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
-Subject: [alsa-devel] Applied "ASoC: fsl_mqs: Move static keyword to the
-	front of declarations" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: byt: fix operator
+	precedence warnings" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +87,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: fsl_mqs: Move static keyword to the front of declarations
+   ASoC: SOF: Intel: byt: fix operator precedence warnings
 
 has been applied to the asoc tree at
 
@@ -115,38 +112,94 @@ to this mail.
 Thanks,
 Mark
 
-From dd79841ca66ff509660880237dc286d7f116a766 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Fri, 11 Oct 2019 22:35:38 +0800
-Subject: [PATCH] ASoC: fsl_mqs: Move static keyword to the front of
- declarations
+From f9f618e7128e834db3f54d290a926c4a71104e02 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Fri, 11 Oct 2019 11:43:09 -0500
+Subject: [PATCH] ASoC: SOF: Intel: byt: fix operator precedence warnings
 
-gcc warn about this:
+Address cppcheck warnings
 
-sound/soc/fsl/fsl_mqs.c:146:1: warning:
- static is not at beginning of declaration [-Wold-style-declaration]
+sound/soc/sof/intel/byt.c:163:26: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  panic & SHIM_IPCX_BUSY ? "yes" : "no",
+                         ^
 
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
-Link: https://lore.kernel.org/r/20191011143538.15300-1-yuehaibing@huawei.com
+sound/soc/sof/intel/byt.c:164:26: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
+                         ^
+
+sound/soc/sof/intel/byt.c:167:25: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  imrx & SHIM_IMRX_BUSY ? "yes" : "no",
+                        ^
+
+sound/soc/sof/intel/byt.c:168:25: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
+                        ^
+
+sound/soc/sof/intel/byt.c:171:27: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  status & SHIM_IPCD_BUSY ? "yes" : "no",
+                          ^
+
+sound/soc/sof/intel/byt.c:172:27: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  status & SHIM_IPCD_DONE ? "yes" : "no", status);
+                          ^
+
+sound/soc/sof/intel/byt.c:175:25: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  imrd & SHIM_IMRD_BUSY ? "yes" : "no",
+                        ^
+
+sound/soc/sof/intel/byt.c:176:25: style: Clarify calculation
+precedence for '&' and '?'. [clarifyCalculation]
+  imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
+                        ^
+
+Fixes: 3a9e204d4e369 ("ASoC: SOF: Intel: Add context data to any IPC timeout.")
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20191011164312.7988-2-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_mqs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/sof/intel/byt.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl_mqs.c b/sound/soc/fsl/fsl_mqs.c
-index f7fc44e8fb27..0c813a45bba7 100644
---- a/sound/soc/fsl/fsl_mqs.c
-+++ b/sound/soc/fsl/fsl_mqs.c
-@@ -143,7 +143,7 @@ static void fsl_mqs_shutdown(struct snd_pcm_substream *substream,
- 				   MQS_EN_MASK, 0);
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index b2597ecfdc1c..07e5efe4945c 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -160,20 +160,20 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
+ 	imrd = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRD);
+ 	dev_err(sdev->dev,
+ 		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
+-		panic & SHIM_IPCX_BUSY ? "yes" : "no",
+-		panic & SHIM_IPCX_DONE ? "yes" : "no", panic);
++		(panic & SHIM_IPCX_BUSY) ? "yes" : "no",
++		(panic & SHIM_IPCX_DONE) ? "yes" : "no", panic);
+ 	dev_err(sdev->dev,
+ 		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
+-		imrx & SHIM_IMRX_BUSY ? "yes" : "no",
+-		imrx & SHIM_IMRX_DONE ? "yes" : "no", imrx);
++		(imrx & SHIM_IMRX_BUSY) ? "yes" : "no",
++		(imrx & SHIM_IMRX_DONE) ? "yes" : "no", imrx);
+ 	dev_err(sdev->dev,
+ 		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
+-		status & SHIM_IPCD_BUSY ? "yes" : "no",
+-		status & SHIM_IPCD_DONE ? "yes" : "no", status);
++		(status & SHIM_IPCD_BUSY) ? "yes" : "no",
++		(status & SHIM_IPCD_DONE) ? "yes" : "no", status);
+ 	dev_err(sdev->dev,
+ 		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
+-		imrd & SHIM_IMRD_BUSY ? "yes" : "no",
+-		imrd & SHIM_IMRD_DONE ? "yes" : "no", imrd);
++		(imrd & SHIM_IMRD_BUSY) ? "yes" : "no",
++		(imrd & SHIM_IMRD_DONE) ? "yes" : "no", imrd);
+ 
  }
  
--const static struct snd_soc_component_driver soc_codec_fsl_mqs = {
-+static const struct snd_soc_component_driver soc_codec_fsl_mqs = {
- 	.idle_bias_on = 1,
- 	.non_legacy_dai_naming	= 1,
- };
 -- 
 2.20.1
 

@@ -2,85 +2,151 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAE00D6FE4
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 09:09:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7AF4D7075
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 09:48:41 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 387329F6;
-	Tue, 15 Oct 2019 09:09:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 387329F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 381601671;
+	Tue, 15 Oct 2019 09:47:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 381601671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571123398;
-	bh=3NOL4jfk0gKhh+tNHsv1tnOgOolQ9V4ntl5Vu1ht+eU=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1571125721;
+	bh=MfDByJPBT8zCNbYucUZzlCljqPdTFIbNiNkMBx2Y3sM=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WKQarV3JU9Rl9HjLLYru1NDRcllvOt82bmhDa9UaITFE1N4QfFrxSSmw9+yQhKuXV
-	 YrH1RLiZsI58ry7UaEaG+VqOsBr3x2ILSQ33vgnZi8LzBBtu/Xe1uYJz5eBkQ2224y
-	 0qe3Q4huahlrwvRvi4Qk2v94SwrtI0LkyOuWdGdg=
+	b=gC1iNQieRUGhwkr/9vsixyFDdm2rs6I/DHJc+bfWXJe4Rb/EYNAkfdNXZiGTVY8XV
+	 6b0KVHvTqvP3PDr7mbghQefYj/7QLI5rsrmtWjmKDvePc73BUDNN7wEb6qGOR+vN1w
+	 kWWZJH2j28B8NIpMI/squbZBPISkRaBvkNOUxu2s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8C78F804AA;
-	Tue, 15 Oct 2019 09:08:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67F80F804A9;
+	Tue, 15 Oct 2019 09:46:56 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC38BF804AA; Tue, 15 Oct 2019 09:08:11 +0200 (CEST)
+ id B4F98F804AA; Tue, 15 Oct 2019 09:46:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34A12F8011D
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 09:08:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34A12F8011D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C572F800F4
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 09:46:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C572F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="LdGOE1Vh"
-Received: by mail-wm1-x341.google.com with SMTP id y135so1597962wmc.1
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 00:08:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=oslaV2my9GzLs8qEq5sxfues3BGFxSl/z3ofkyZLH2M=;
- b=LdGOE1Vhtime6CMGv/XAX//y3AFkW2r7FqCXt3t+OhjkU7wTPrVLV3XyeQMR+1z423
- y9b9wNosfwDkCDBqmRe0tyvC0UWqsrK4bR4D7UF9IiI6CUJzHb5IFAlnHdI2PbM4O8/P
- W6cfDZtKSFltV3vVrZ64giD3LYKa7GcdmVPCNhlWfZfoRKjSbRrZEBk8xSSdkzS8IKie
- Vslk35eVRVtvTZPL3gqdkHmMW4vKW7zjDGjZ5CqI514+CsPdySdSPOeZc5gqQcyrP5nl
- umBp9TS1ZKTkFyUBDCac8Qe+db7CDPjb43WK8bFBSOvgMgLzWRNdgCz6xraZ+igbikM1
- 9YYw==
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="EfJVmgUy"
+Received: by mail-wm1-x344.google.com with SMTP id b24so19112183wmj.5
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 00:46:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=subject:to:cc:references:from:openpgp:autocrypt:organization
+ :message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=SihB2BERFui2a5ZnG4/gZ4FQfE6NjJstFeY2lQhJ46U=;
+ b=EfJVmgUyLeJbJBtlWPtA9Eo7uqDTyRF5VA05/pN2eGVmG6R7E7FEZN8/VeKBR3wSx2
+ I7KjXQ2kfAY7w1a2pbQnDjvMQ1oD4y+xPrnqwrYu4cHgP9OxslR0s6x2+89JQxrSYPfO
+ 1yBxavtbvaNWpHBnftKXfMh+OX8w5nl+g6WcnE+jlcFgwrbexkQGSB5x4eo9queoQRH6
+ nmvgYrPKbe9Fo2OhSTi4wPFz2MPFM6WK6fq9rtT4Ux0x9LAKIMJgMYHYk/kmGB481mS/
+ u72+h8BYZzG90OoRkIyJPU523JAj1OSm0KfHkL074EW/Bg2XbwvqBX+PIr6b9toIHHqP
+ /Dgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=oslaV2my9GzLs8qEq5sxfues3BGFxSl/z3ofkyZLH2M=;
- b=KrnRPupKyn6cm2bak/CWjQ+P7+57t0soAK6bd2sZEowBy6Jfz/xlXtHUt4FtNmdenh
- RXzxl4M9mSo1N8dIlsoang5l78xNGzKX69NPKFjvqbPasODRueQYNsPjhCUcNGGlNdY4
- aLGuPkPZ1hbGNGCZlMk3e0JAOPqqtKwMUMIIZB6L3XRFLowWw555IiaWNe4aPQnwwxNr
- fAnWiW+glMFP9LowP6ByKTpN6ZqpXStkwuZafHHBKZ5Gu+RmNLYLI89/i06J9yBcsNs+
- Zzo/OlkDULWbNeotpPiUTwVFFqf4060YlWfn31ZzTiPqJOCWXYZemyavwkJmDJ6epbGO
- jo5g==
-X-Gm-Message-State: APjAAAXYk85ypkqy5MhthfnQpOZMEdTvSdUjtHfUx0ZsZ3rgiXWA6spO
- dqs8HN2qs6hlZU8rrNKf7yHrHjqfGC55KEbHF3U=
-X-Google-Smtp-Source: APXvYqzqeyHzjQJ6S4tvXzwufZgHCpVzvis0DzNvZUOH02MhuQQIOYHar99b8IWbPhyfh4sgezL3qNQTtzxKPdxCGtM=
-X-Received: by 2002:a1c:e48a:: with SMTP id b132mr18748373wmh.13.1571123287771; 
- Tue, 15 Oct 2019 00:08:07 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
+ :organization:message-id:date:user-agent:mime-version:in-reply-to
+ :content-language:content-transfer-encoding;
+ bh=SihB2BERFui2a5ZnG4/gZ4FQfE6NjJstFeY2lQhJ46U=;
+ b=kUZK4iMAV/q9Mvm7Es1ar92K1AnBuTTRwZk7T1sasWha+ujztdXmTU/fF8tzlVrAxP
+ 1TGaAnNsJrHjMYsGIh2UN6F3lSFVZhroE0o1qBSR4wipQqbRWgJCFRibc8hDy1RNt5hc
+ wM1p8SfUBwtXSB4BTcjREyrA0HcJyjpAJrJglhlZPBiAbGI1HrbEnjKQScrW2ZviTiQX
+ 99cmiUJM2uzHH2naW1GEFGiUNew28ebudqlpMZlxaCx7hZ6yueT9Ji2ZHXJ1ImePRpjn
+ uQ+zngrPDzo1qQ4msSCibEhoJhYnzYqt0ztNkORhkDf0TwKF4N1YAzzjdWUF2wfs/1br
+ xG2w==
+X-Gm-Message-State: APjAAAVBJ4JJXd6E+J3nq0GKMdhYl00lwuWhZuCWKf9eEC/2SSLRljnF
+ 9BqT5vWL/E2iINA1rq31XnfBbw==
+X-Google-Smtp-Source: APXvYqy8hyx7/iiK2L26yBpUuGHlhjlTUq3OW2QSB8Z+sfm8KTlG6BPISmZtOVK1xQFQe9qMgTpZ8w==
+X-Received: by 2002:a7b:ce8f:: with SMTP id q15mr17897677wmj.3.1571125607813; 
+ Tue, 15 Oct 2019 00:46:47 -0700 (PDT)
+Received: from [10.1.2.12] (lmontsouris-657-1-212-31.w90-63.abo.wanadoo.fr.
+ [90.63.244.31])
+ by smtp.gmail.com with ESMTPSA id t123sm35071848wma.40.2019.10.15.00.46.46
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 15 Oct 2019 00:46:47 -0700 (PDT)
+To: Cheng-Yi Chiang <cychiang@chromium.org>, linux-kernel@vger.kernel.org
+References: <20191008102145.55134-1-cychiang@chromium.org>
+From: Neil Armstrong <narmstrong@baylibre.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=narmstrong@baylibre.com; prefer-encrypt=mutual; keydata=
+ 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
+ ZaTUOEkgIor5losDrePdPgE=
+Organization: Baylibre
+Message-ID: <d0f03ff3-2743-b3e1-1b53-c4ef26b158db@baylibre.com>
+Date: Tue, 15 Oct 2019 09:46:36 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-References: <87a7a24l7r.wl-kuninori.morimoto.gx@renesas.com>
- <CAEnQRZAsZ=Q=tcqCzVp8bvj4Jme+YTH9GxmMoBgvOT+w6z8iiw@mail.gmail.com>
- <877e564ht5.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <877e564ht5.wl-kuninori.morimoto.gx@renesas.com>
-From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Tue, 15 Oct 2019 10:07:55 +0300
-Message-ID: <CAEnQRZDtwFoXQ2H_j1v-95Pnh=QzZFX86jHk1RTq1oqSO+5jRw@mail.gmail.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: sof: include types.h at header.h
+In-Reply-To: <20191008102145.55134-1-cychiang@chromium.org>
+Content-Language: en-US
+Cc: Jernej Skrabec <jernej.skrabec@siol.net>, tzungbi@chromium.org,
+ alsa-devel@alsa-project.org, Jonas Karlman <jonas@kwiboo.se>,
+ dianders@chromium.org, dri-devel@lists.freedesktop.org,
+ Hans Verkuil <hverkuil@xs4all.nl>, linux-rockchip@lists.infradead.org,
+ Russell King <rmk+kernel@armlinux.org.uk>, Mark Brown <broonie@kernel.org>,
+ Daniel Kurtz <djkurtz@chromium.org>, Yakir Yang <ykk@rock-chips.com>,
+ dgreid@chromium.org, linux-arm-kernel@lists.infradead.org,
+ Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [alsa-devel] [PATCH v3] drm/bridge: dw-hdmi: Restore audio when
+	setting a mode
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,37 +159,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gVHVlLCBPY3QgMTUsIDIwMTkgYXQgOTo1NyBBTSBLdW5pbm9yaSBNb3JpbW90bwo8a3VuaW5v
-cmkubW9yaW1vdG8uZ3hAcmVuZXNhcy5jb20+IHdyb3RlOgo+Cj4KPiBIaSBEYW5pZWwKPgo+ID4g
-PiBDb250ZW50LVRyYW5zZmVyLUVuY29kaW5nOiA4Yml0Cj4gPiA+Cj4gPiA+IFdpdGhvdXQgPHR5
-cGVzLmg+IHdlIHdpbGwgZ2V0IHRoZXNlIGVycm9yCj4gPiA+Cj4gPiA+IGxpbnV4L2luY2x1ZGUv
-c291bmQvc29mL2hlYWRlci5oOjEyNToyOiBlcnJvcjogdW5rbm93biB0eXBlIG5hbWUg4oCYdWlu
-dDMyX3TigJl1aW50MzJfdCBzaXplOwo+ID4gPiBsaW51eC9pbmNsdWRlL3NvdW5kL3NvZi9oZWFk
-ZXIuaDoxMzY6MjogZXJyb3I6IHVua25vd24gdHlwZSBuYW1lIOKAmHVpbnQzMl904oCZdWludDMy
-X3Qgc2l6ZTsKPiA+ID4gbGludXgvaW5jbHVkZS9zb3VuZC9zb2YvaGVhZGVyLmg6MTM3OjI6IGVy
-cm9yOiB1bmtub3duIHR5cGUgbmFtZSDigJh1aW50MzJfdOKAmXVpbnQzMl90IGNtZDsKPiA+ID4g
-Li4uCj4gPiA+IGxpbnV4L2luY2x1ZGUvc291bmQvc29mL2RhaS1pbXguaDoxODoyOiBlcnJvcjog
-dW5rbm93biB0eXBlIG5hbWUg4oCYdWludDE2X3TigJl1aW50MTZfdCByZXNlcnZlZDE7Cj4gPiA+
-IGxpbnV4L2luY2x1ZGUvc291bmQvc29mL2RhaS1pbXguaDozMDoyOiBlcnJvcjogdW5rbm93biB0
-eXBlIG5hbWUg4oCYdWludDE2X3TigJl1aW50MTZfdCB0ZG1fc2xvdF93aWR0aDsKPiA+ID4gbGlu
-dXgvaW5jbHVkZS9zb3VuZC9zb2YvZGFpLWlteC5oOjMxOjI6IGVycm9yOiB1bmtub3duIHR5cGUg
-bmFtZSDigJh1aW50MTZfdOKAmXVpbnQxNl90IHJlc2VydmVkMjsKPiA+ID4KPiA+Cj4gPiBJIHRo
-aW5rIHlvdXIgcGF0Y2ggaXMgT0ssIGJ1dCB5b3Ugc2hvdWxkIHVwZGF0ZSB0aGUgY29tbWl0IG1l
-c3NhZ2UgYmVjYXVzZQo+ID4gU3RlcGhlbiBSb3Rod2VsbCBhbHJlYWR5IGZpeGVkIGRhaS1pbXgu
-aCBjb21waWxhdGlvbiBlcnJvciAgaW4gbGludXgtbmV4dC4KPgo+IEkgc2VlLiBUaGFua3MKPgo+
-IEJ1dCBobW0uLi4gSSBjb3VsZG4ndCBmaW5kIGl0IGF0IGxpbnV4LW5leHQvbWFzdGVyIHRvZGF5
-Li4uCj4gTm90IHlldCBtZXJnZWQgPwoKWWVzLCB0aGlzIGlzIHN0cmFuZ2UuIEkndmUgc2VudCBh
-biBlbWFpbCB0byBTdGVwaGVuIGFuZAphbHNvIGFkZGVkIHlvdSB0byBDYy4KCkJ1dCwgeW91ciBw
-YXRjaCBpcyBzdGlsbCB2YWxpZCBiZWNhdXNlIFN0ZXBoZW4gdXNlZCArI2luY2x1ZGUgPGxpbnV4
-L3R5cGVzLmg+CmluIGRhaS1pbXguaCBhbmQgeW91IGFyZSBub3cgZml4aW5nIHRoZSBnZW5lcmlj
-IHNpdHVhdGlvbiBieSBpbmNsdWRpbmcgaXQgaW4KaGVhZGVyLmguCgpMZXRzIHNlZSBpZiBTdGVw
-aGVuIGNhbiBjbGFyaWZ5IHRoZSBzaXR1YXRpb24uIFBlcmhhcHMgd2UgY2FuIGRyb3AgaGlzIHBh
-dGNoCmFuZCBvbmx5IGhhdmUgeW91cnMuCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1w
-cm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3Rp
-bmZvL2Fsc2EtZGV2ZWwK
+On 08/10/2019 12:21, Cheng-Yi Chiang wrote:
+> From: Daniel Kurtz <djkurtz@chromium.org>
+> 
+> When setting a new display mode, dw_hdmi_setup() calls
+> dw_hdmi_enable_video_path(), which disables all hdmi clocks, including
+> the audio clock.
+> 
+> We should only (re-)enable the audio clock if audio was already enabled
+> when setting the new mode.
+> 
+> Without this patch, on RK3288, there will be HDMI audio on some monitors
+> if i2s was played to headphone when the monitor was plugged.
+> ACER H277HU and ASUS PB278 are two of the monitors showing this issue.
+> 
+> Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+> Signed-off-by: Daniel Kurtz <djkurtz@chromium.org>
+> Signed-off-by: Yakir Yang <ykk@rock-chips.com>
+> ---
+>  Change from v2 to v3:
+>  - Remove spinlock around setting clock.
+> 
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> index a15fbf71b9d7..af060162b0af 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+> @@ -2054,7 +2054,7 @@ static int dw_hdmi_setup(struct dw_hdmi *hdmi, struct drm_display_mode *mode)
+>  
+>  		/* HDMI Initialization Step E - Configure audio */
+>  		hdmi_clk_regenerator_update_pixel_clock(hdmi);
+> -		hdmi_enable_audio_clk(hdmi, true);
+> +		hdmi_enable_audio_clk(hdmi, hdmi->audio_enable);
+>  	}
+>  
+>  	/* not for DVI mode */
+> 
+
+Looks coherent for me.
+
+Reviewed-by: Neil Armstrong <narmstrong@baylibre.com>
+
+Applying to drm-misc-next
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

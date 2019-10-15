@@ -2,101 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E17D782F
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 16:15:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C46FD7861
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 16:25:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56DA19F6;
-	Tue, 15 Oct 2019 16:14:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56DA19F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1934D857;
+	Tue, 15 Oct 2019 16:25:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1934D857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571148931;
-	bh=KfsP3N+9CrhmlMOnyQcy6/SZjJZCNPywLl5LYQ5+tC4=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1571149553;
+	bh=zC3uJwynV9wlFuMBIoek/PokgnrLRMFKdWxZ/52Aypo=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DgFc/nkcysbFtN8EK3hysIRoQuPopdTs6zDUmYSQ05Q8D6g1ZmGQIkmjvSML9lweX
-	 w2nkormX4Qy97cPEaBDB/c/j1YO+QkgnvUxvJJZ+ltstwO9qrB2VEQcMX3lkJ4ljEb
-	 RHnWoDxGgX1Z9yHUtN2Uqrg1GPv00evIzMfq/AKg=
+	b=qnAJI/Il/NZgxTb2vxMufB8sFR5SE+pBICgIxKLuWvkb1rS/Zt2gxiOwy91xY6v+N
+	 lIZcRsflXrIHe5/xyHCt8heeGipSt1RSq2IgM0BWdndjU4tx0V6jv5N2F7AAsaOGWn
+	 7lmSGHKH2lRRKQShG269ITl1voUdJpYRmMQA3LBI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 975EBF804AA;
-	Tue, 15 Oct 2019 16:13:46 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C5808F804AA;
+	Tue, 15 Oct 2019 16:24:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 351E1F804AA; Tue, 15 Oct 2019 16:13:44 +0200 (CEST)
+ id 322FFF804AA; Tue, 15 Oct 2019 16:24:06 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-vs1-xe42.google.com (mail-vs1-xe42.google.com
- [IPv6:2607:f8b0:4864:20::e42])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3C6EDF80323
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 16:13:40 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C6EDF80323
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F2F6F8011D
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 16:24:03 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F2F6F8011D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="y1zTKzdT"
-Received: by mail-vs1-xe42.google.com with SMTP id e19so257298vsb.12
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 07:13:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=b/eFKQ/v4cr/yPgp0izVLyHlXJnLa4HICmgwi01lXvc=;
- b=y1zTKzdTdmsrc43HicE1W4OcK2myObdXuvjFUiN6jPSz0v4CsQcuh/7ktoHHvscwUe
- WAwmr+69J8UQWkzDEau4wVhaYHdaO4IdBaGAc7OY4t7+8gjIaturNOu7H8P+woacKeaX
- Q2AZx29vX20cH0G+wE6lGHbjFqhEgd6TDQt5NFwoEMYBFVyy98pBTsVcCU/gKEmrlJdN
- kXucwpHKaYU3S/aY7SwELglpgMrbYVpYBXYvalu8VW/Qx9KsRMtEKMtH8+zawqcSiAaB
- Tm6cWyWtdfchVHsvvoCwiwb379LpR2fZ0vwCzFIUCU3Atp7GrKAl4d9J2wJ6rvb4hXrN
- eWsw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="vdm+Kl7G"
+Received: by mail-wr1-x444.google.com with SMTP id z9so24110532wrl.11
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 07:24:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=FAnSKJ9Pew82PkAXBmKY6NLtUVGPV5vweCMQygZLvvc=;
+ b=vdm+Kl7Gd2y8KQLrE/HVhM8oojADmvZGvILZ1fyliGX2ZgMa9FIC9w8kzDxAMJuDjd
+ tqCIlnyOggnEoSYxZJ1Y7rUjNA8gBdVlFKsxpYi6hy+nkIaklBboKo7lkhwMrlJaFdcL
+ 0MgFqVTbuVUK1wuhcUhTp6rfthPK1vSdRge5O5Pcq3XW0+3kZIbigf+Y6dfavg/k4dCB
+ ghGvkniJqx3yGmzSZ/i0UOfsGeMwIDESQLlGA6wl4Sfvol8nxxLE84K0mdY9BbZriZMa
+ jRZoCjXC1ZUMbID1bn/0THaqWglcm+43TCn6DU24RN3vOs0NIrGxEtg6aXLoyDPw1t9r
+ 60rA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=b/eFKQ/v4cr/yPgp0izVLyHlXJnLa4HICmgwi01lXvc=;
- b=CwMD04eKRYzXz7/x3r1XW7OR1cqPpJL51+yIpv1Ku9Fgjg26dvrhh0Qfifu+A3QDTh
- QyJuVdvnZtp76uMBO03HMZRLwYEK2bpEzOXkgegNyAEgbfCZdfGsOWhaWMb1ulP7n56C
- fsA4J7cykFhHFlzl+fMApcZ3FwwTXD98xWihRRe2ai3pn92S3JSTMA6dLVFdVOn35KKc
- itPyLcvQ3WQMONceV7CWKlbKz1J8SegLYtevxKMzHd1dbCSkRx7faAtViO98xriGKyQn
- xJzlDpiAUdeXpUpjkdFvIHeX7jalQp0SLqjxfSQFqtnh9iptZZeZdHpjKHCPcpI2e0Pn
- kiHA==
-X-Gm-Message-State: APjAAAV3V/uJH+e5KkYijS2fpgqDMXGfZ5DjFMU6gdgDa8rIVMbnUpy/
- 7SzYxYWejToc1Po/LRhn20/ZjNdtwz66ToFgtFTJtg==
-X-Google-Smtp-Source: APXvYqxluszvLcVxMEdWdPelTTF58EOAxfZDkgM4jA/rH5H2Cc2i74AuIVwFlZIgVdMLDs2o7gG3CCQM2jc+SegK0h8=
-X-Received: by 2002:a05:6102:5e1:: with SMTP id
- w1mr4153604vsf.191.1571148818927; 
- Tue, 15 Oct 2019 07:13:38 -0700 (PDT)
-MIME-Version: 1.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=FAnSKJ9Pew82PkAXBmKY6NLtUVGPV5vweCMQygZLvvc=;
+ b=fCB8Dh86mFYnvi+rNVRV4T9GZiafgLWLUtyN9LlOvISCp1tED77pA+Rsyj6T3YN6vO
+ 73eHgy9FI3M8A9hrtO6hfaikUKEv7qxgAiE4Ml2YIk2U2o9GKJbGHMtQRh8PC4TJD4qi
+ VJZnMesxLerBk1BF2epdIv6MgW6dOI7PeSgfDsOCgYkl7qr0/0vU5xpZndHVxgvROhTe
+ RMcSw9ctcOIQwax5bJp6jCbv8dz98E2+Iv1Dp+A1FR6/tioegn+w1JDBvHUSOC9Schvi
+ jC5dA97Hd5cUd51AMGpFLGzlEI8ju7E6sBiuwuoB7UsWrqmRS9Dwq31ZzMhz4WR/fH4P
+ AroA==
+X-Gm-Message-State: APjAAAXGm7Oas9u88nZr52uv4itA2TFdhuaFay5TJGwghc64Vxyd9nGs
+ CoTyLwbIbHMnIQkuoGu+LZc=
+X-Google-Smtp-Source: APXvYqxMLLgnR0vPxF/fKc2CDYJpM14udBOYJNSRJ7usNIA2JSpBWl8XxRhB+VXeRePSyanx9OYDig==
+X-Received: by 2002:a5d:51c8:: with SMTP id n8mr215083wrv.228.1571149442587;
+ Tue, 15 Oct 2019 07:24:02 -0700 (PDT)
+Received: from localhost (p2E5BE2CE.dip0.t-ipconnect.de. [46.91.226.206])
+ by smtp.gmail.com with ESMTPSA id f20sm17308471wmb.6.2019.10.15.07.24.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 15 Oct 2019 07:24:00 -0700 (PDT)
+Date: Tue, 15 Oct 2019 16:23:59 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Arnd Bergmann <arnd@arndb.de>
+Message-ID: <20191015142359.GA1101003@ulmo>
 References: <20191010202802.1132272-1-arnd@arndb.de>
  <20191010203043.1241612-1-arnd@arndb.de>
  <20191010203043.1241612-11-arnd@arndb.de>
+MIME-Version: 1.0
 In-Reply-To: <20191010203043.1241612-11-arnd@arndb.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Tue, 15 Oct 2019 16:13:02 +0200
-Message-ID: <CAPDyKFqkRApT-q4ssi1Hn2cmLY=0K7bKXdo-D42q+xACFcC9dQ@mail.gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
-Cc: alsa-devel@alsa-project.org, Linus Walleij <linus.walleij@linaro.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
+User-Agent: Mutt/1.12.2 (2019-09-21)
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, linus.walleij@linaro.org,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, linux-spi@vger.kernel.org,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ linux-samsung-soc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
  Krzysztof Kozlowski <krzk@kernel.org>, Kukjin Kim <kgene@kernel.org>,
- =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
- linux-serial@vger.kernel.org, Jiri Slaby <jslaby@suse.com>,
+ =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
+ linux-serial@vger.kernel.org,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
  linux-pwm@vger.kernel.org,
  Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Mark Brown <broonie@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Jiri Slaby <jslaby@suse.com>,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
  Sangbeom Kim <sbkim73@samsung.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-mmc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
  Faiz Abbas <faiz_abbas@ti.com>, Olof Johansson <olof@lixom.net>
 Subject: Re: [alsa-devel] [PATCH 11/36] ARM: s5pv210: split from plat-samsung
 X-BeenThere: alsa-devel@alsa-project.org
@@ -111,167 +113,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8467501387157597187=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 10 Oct 2019 at 22:38, Arnd Bergmann <arnd@arndb.de> wrote:
->
-> These can be build completely independently, so split
-> the two Kconfig symbols.
->
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-> ---
->  arch/arm/Kconfig.debug        | 6 +++---
->  arch/arm/Makefile             | 1 -
->  arch/arm/plat-samsung/Kconfig | 2 +-
->  drivers/mmc/host/Kconfig      | 2 +-
->  drivers/pwm/Kconfig           | 2 +-
->  drivers/spi/Kconfig           | 2 +-
->  drivers/tty/serial/Kconfig    | 2 +-
->  sound/soc/samsung/Kconfig     | 2 +-
->  8 files changed, 9 insertions(+), 10 deletions(-)
 
-For the mmc parts:
-
-Acked-by: Ulf Hansson <ulf.hansson@linaro.org>
-
-Kind regards
-Uffe
+--===============8467501387157597187==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="d6Gm4EdcadzBjdND"
+Content-Disposition: inline
 
 
->
-> diff --git a/arch/arm/Kconfig.debug b/arch/arm/Kconfig.debug
-> index 9c4f2d6deb06..4c4e97ae4fcb 100644
-> --- a/arch/arm/Kconfig.debug
-> +++ b/arch/arm/Kconfig.debug
-> @@ -998,7 +998,7 @@ choice
->                   via SCIFA4 on Renesas SH-Mobile AG5 (SH73A0).
->
->         config DEBUG_S3C_UART0
-> -               depends on PLAT_SAMSUNG || ARCH_EXYNOS
-> +               depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
->                 select DEBUG_EXYNOS_UART if ARCH_EXYNOS
->                 select DEBUG_S3C24XX_UART if ARCH_S3C24XX
->                 select DEBUG_S3C64XX_UART if ARCH_S3C64XX
-> @@ -1010,7 +1010,7 @@ choice
->                   by the boot-loader before use.
->
->         config DEBUG_S3C_UART1
-> -               depends on PLAT_SAMSUNG || ARCH_EXYNOS
-> +               depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
->                 select DEBUG_EXYNOS_UART if ARCH_EXYNOS
->                 select DEBUG_S3C24XX_UART if ARCH_S3C24XX
->                 select DEBUG_S3C64XX_UART if ARCH_S3C64XX
-> @@ -1022,7 +1022,7 @@ choice
->                   by the boot-loader before use.
->
->         config DEBUG_S3C_UART2
-> -               depends on PLAT_SAMSUNG || ARCH_EXYNOS
-> +               depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
->                 select DEBUG_EXYNOS_UART if ARCH_EXYNOS
->                 select DEBUG_S3C24XX_UART if ARCH_S3C24XX
->                 select DEBUG_S3C64XX_UART if ARCH_S3C64XX
-> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
-> index f492d7c338fe..a1bc15cda751 100644
-> --- a/arch/arm/Makefile
-> +++ b/arch/arm/Makefile
-> @@ -235,7 +235,6 @@ machine-$(CONFIG_PLAT_SPEAR)                += spear
->  # by CONFIG_* macro name.
->  plat-$(CONFIG_ARCH_OMAP)       += omap
->  plat-$(CONFIG_ARCH_S3C64XX)    += samsung
-> -plat-$(CONFIG_ARCH_S5PV210)    += samsung
->  plat-$(CONFIG_PLAT_ORION)      += orion
->  plat-$(CONFIG_PLAT_PXA)                += pxa
->  plat-$(CONFIG_PLAT_S3C24XX)    += samsung
-> diff --git a/arch/arm/plat-samsung/Kconfig b/arch/arm/plat-samsung/Kconfig
-> index 740bdb23f38a..1530946cc672 100644
-> --- a/arch/arm/plat-samsung/Kconfig
-> +++ b/arch/arm/plat-samsung/Kconfig
-> @@ -4,7 +4,7 @@
->
->  config PLAT_SAMSUNG
->         bool
-> -       depends on PLAT_S3C24XX || ARCH_S3C64XX || ARCH_S5PV210
-> +       depends on PLAT_S3C24XX || ARCH_S3C64XX
->         default y
->         select GENERIC_IRQ_CHIP
->         select NO_IOPORT_MAP
-> diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-> index 400a581c918c..16a0e5430b44 100644
-> --- a/drivers/mmc/host/Kconfig
-> +++ b/drivers/mmc/host/Kconfig
-> @@ -275,7 +275,7 @@ config MMC_SDHCI_TEGRA
->
->  config MMC_SDHCI_S3C
->         tristate "SDHCI support on Samsung S3C SoC"
-> -       depends on MMC_SDHCI && (PLAT_SAMSUNG || ARCH_EXYNOS)
-> +       depends on MMC_SDHCI && (PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS)
->         help
->           This selects the Secure Digital Host Controller Interface (SDHCI)
->           often referrered to as the HSMMC block in some of the Samsung S3C
+--d6Gm4EdcadzBjdND
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Oct 10, 2019 at 10:29:55PM +0200, Arnd Bergmann wrote:
+[...]
 > diff --git a/drivers/pwm/Kconfig b/drivers/pwm/Kconfig
 > index e3a2518503ed..8eb738cac0c7 100644
 > --- a/drivers/pwm/Kconfig
 > +++ b/drivers/pwm/Kconfig
 > @@ -394,7 +394,7 @@ config PWM_ROCKCHIP
->
+> =20
 >  config PWM_SAMSUNG
->         tristate "Samsung PWM support"
-> -       depends on PLAT_SAMSUNG || ARCH_EXYNOS
-> +       depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
->         help
->           Generic PWM framework driver for Samsung.
->
-> diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-> index 6f7fdcbb9151..355391ee643d 100644
-> --- a/drivers/spi/Kconfig
-> +++ b/drivers/spi/Kconfig
-> @@ -625,7 +625,7 @@ config SPI_S3C24XX_FIQ
->
->  config SPI_S3C64XX
->         tristate "Samsung S3C64XX series type SPI"
-> -       depends on (PLAT_SAMSUNG || ARCH_EXYNOS || COMPILE_TEST)
-> +       depends on (PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST)
->         help
->           SPI driver for Samsung S3C64XX and newer SoCs.
->
-> diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
-> index 4789b5d62f63..17f01cf3009c 100644
-> --- a/drivers/tty/serial/Kconfig
-> +++ b/drivers/tty/serial/Kconfig
-> @@ -237,7 +237,7 @@ config SERIAL_CLPS711X_CONSOLE
->
->  config SERIAL_SAMSUNG
->         tristate "Samsung SoC serial support"
-> -       depends on PLAT_SAMSUNG || ARCH_EXYNOS
-> +       depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
->         select SERIAL_CORE
->         help
->           Support for the on-chip UARTs on the Samsung S3C24XX series CPUs,
-> diff --git a/sound/soc/samsung/Kconfig b/sound/soc/samsung/Kconfig
-> index 638983123d8f..7a0035dd9995 100644
-> --- a/sound/soc/samsung/Kconfig
-> +++ b/sound/soc/samsung/Kconfig
-> @@ -1,7 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  menuconfig SND_SOC_SAMSUNG
->         tristate "ASoC support for Samsung"
-> -       depends on PLAT_SAMSUNG || ARCH_EXYNOS || COMPILE_TEST
-> +       depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS || COMPILE_TEST
->         depends on COMMON_CLK
->         select SND_SOC_GENERIC_DMAENGINE_PCM
->         ---help---
-> --
-> 2.20.0
->
->
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+>  	tristate "Samsung PWM support"
+> -	depends on PLAT_SAMSUNG || ARCH_EXYNOS
+> +	depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
+>  	help
+>  	  Generic PWM framework driver for Samsung.
+> =20
+
+Acked-by: Thierry Reding <thierry.reding@gmail.com>
+
+--d6Gm4EdcadzBjdND
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAl2l1n0ACgkQ3SOs138+
+s6Eb7xAAsZ9JZaeRn7IjUZs/yz8zD5TWoNpojsmj6Kzf947MW5cgaZEJei22skVy
+3Kv1ogZu1N2WO2L7v//P9waAgCs0EuHgeRkT+UgsW2AapaShdkNmMh0tgJNWGFLm
+JwwGVB6rfjuBVYQgICBlfKzPdA9KDQNlxJPJmE3lC2kAQ5KWtsWHJIuWpk3zruQK
+rZyp33ecFy4Xa+Sxue8CTgyUoHv+t7fhjtpAn/NgMJGy4WGi5lfn8S9bkb9uULHD
+cZY4hv+EPC/GAaMQJ6HX9BwGnY1l+Mh8K7uH323OWAMQUqNAgKYuGvhUYSCtLPB1
+WNdTjM1kkz93c1pLaikNdKtO3NhqrmXD+fKwmEF7xCQqEfBvPznq4ipHb4MHJEih
+YLw8CGBBCX51LOghEJsYi0dMhvWdq4WFJcmXCcjWBYygVWkbvwkdCZSOTdeyI3GE
+QTTlWslD1YDL7FuwCYPLBpldFi1JT8hFwP8oK3VTSxmpd4j8mjDKsMHpHtzzTGe/
+6Le5t6ewz0rvR5ZFAnZB04VlIFV+l+Zx3e3Bxaqc2h/I6u1yagTZuPSknB7FJRPs
+ic4Qr6sfKbK7LMuIIohElzhuVHcEeIfZ3NYAkWh7t9sqefIRrJUcDcPkz3sQ/8Vn
+ChkBlbp/IuPwYuSPNI9nf7EW5vFjV7aTYZFXI7mj5M3kK5suvsU=
+=4m87
+-----END PGP SIGNATURE-----
+
+--d6Gm4EdcadzBjdND--
+
+--===============8467501387157597187==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8467501387157597187==--

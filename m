@@ -2,91 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E72F4D79F3
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 17:39:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A9CD7AAA
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 17:58:36 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1BA0850;
-	Tue, 15 Oct 2019 17:38:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1BA0850
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0AFB84D;
+	Tue, 15 Oct 2019 17:57:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0AFB84D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571153957;
-	bh=y/YsG7SHLgzLY6uDHMI7B9ipi6yQXqg6BsSb0U+0H4I=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1571155115;
+	bh=9LmGCYQ4Lu7SqByfcEeEsI8fd1FY02uYkjNINp6/UNE=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SYZ02chb2/jI+XG7MgNCY+tSZ3Qc7UWIcZ8ljJvygZCmZbt9z15ij+8H+niyixXGj
-	 Cu31SXljWRtRGTWgnkyi1TsrkxKTl6/1qjW8/6DhjRJ78WOrGZzAcU72p26cE0Hb1s
-	 xrYtCOKAON2gq1fSSz1VvzbaMF6Um9YGX5Ux007g=
+	b=n0n6zSvXpIVdFeiUGn5CigM9sBx6zsL8HOaTAvHydMNQHEmeoQE48SIAj2YiFHOl1
+	 RJoWhszfmIi1s6dlNlC5jL2TO8UMRkhy5YKEMpx/bYlQ+07XcS8Yli5dKJIq35KMIN
+	 LdRYZBHnQaWXB3B89fcXmm4eMYQCTosuAp0KmEBM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 747A4F804A9;
-	Tue, 15 Oct 2019 17:37:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 32EEEF804AA;
+	Tue, 15 Oct 2019 17:56:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A99EBF804AA; Tue, 15 Oct 2019 17:37:29 +0200 (CEST)
+ id 72E0BF804AA; Tue, 15 Oct 2019 17:56:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
- [IPv6:2607:f8b0:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 65612F80323
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 17:37:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65612F80323
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="XgpucEun"
-Received: by mail-ot1-x341.google.com with SMTP id 41so17305405oti.12
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 08:37:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=cgNM0n5gGfcK7ckXF49wd8P15GFoQ8+bReW9zILWg9Q=;
- b=XgpucEunT3K6pX5ErPI6Wn+W0xlCbsc7WiKcxyEvdXZKAwGdGprhSgYi2SFRsIzoZY
- S9yz5o6ITvJawDH4K4rU5vXRK9KwEay/uKmLzPuYGcX3ldv2jHavQm5wgfvbyXIZ/jMh
- +w5rpwQuyMbqnhHAHz02NJdZ76o8rQPJOK2dZ3x27deuED/Ey41iqCmBy+FZoxlVLr1L
- GYI5nw2WvBk5mHxGH4/pu1lDCWwHqNGYvMNeBKiv7yddiRXeWYixYQggIgo6KurmLGCK
- 1AnVQlthnckQAokX3wYX9Wht5MHsd/LxEa6OpILGleosdgIDTA4YX/cgoaJ0toeAD4lj
- 5URQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=cgNM0n5gGfcK7ckXF49wd8P15GFoQ8+bReW9zILWg9Q=;
- b=qeHYrk58Tq0g0Uti1Skkf+knrwUfDkL8cuohE7MMdkNjYHE0agnbOvYYrV4rr5WXig
- HJNRmj1Vb9jOBxH8XeIJQAToSOscPYyFc+8e7PPOXJwinerHRbdxb/szGLTy0/ZBpdLf
- FssMTySS09nMeA6q+9hL+pE/dY4HpVQe4QBFywWvRGfMWpBpVe39ekmrPrmLyw45uf6C
- /IRJxlzHWNL1vt+XZpQ9dIsAiZsEfrbYZx15GA/eoJKyHe6A7WtcIf+F10llrz7zHLZd
- Jmkk6VohiihntkoP4K8QINcq9lN9rMswgMMSWKMZ5YR0pjJjWe99kjG6kLJ4/EfaGnwa
- 3KWQ==
-X-Gm-Message-State: APjAAAXKyDZA/EMh+pLLpXNLJtUtiWWvQfQSuNmsJTK3vichEN9zW+O6
- VxbqA6AMWHRDoc+y2W4U3zO4AB/ROUq1SON0Ef8S6Q==
-X-Google-Smtp-Source: APXvYqyqTW0ikCL03cio+d+Gzmk4cTMFD83hv3qpHaLEzcsV2fmsdLrCaYZWZY0tNV/gtoVbZOAtyOnX7jjws/nqq2o=
-X-Received: by 2002:a05:6830:14ca:: with SMTP id
- t10mr13652260otq.182.1571153843870; 
- Tue, 15 Oct 2019 08:37:23 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 035F0F800F4
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 17:56:44 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 035F0F800F4
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Oct 2019 08:56:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.67,300,1566889200"; d="scan'208";a="201796072"
+Received: from unknown (HELO [10.254.44.8]) ([10.254.44.8])
+ by FMSMGA003.fm.intel.com with ESMTP; 15 Oct 2019 08:56:42 -0700
+To: Daniel Baluta <daniel.baluta@gmail.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <87a7a24l7r.wl-kuninori.morimoto.gx@renesas.com>
+ <CAEnQRZAsZ=Q=tcqCzVp8bvj4Jme+YTH9GxmMoBgvOT+w6z8iiw@mail.gmail.com>
+ <877e564ht5.wl-kuninori.morimoto.gx@renesas.com>
+ <CAEnQRZDtwFoXQ2H_j1v-95Pnh=QzZFX86jHk1RTq1oqSO+5jRw@mail.gmail.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <93911ba6-370e-4b93-d3c2-81081b1be0aa@linux.intel.com>
+Date: Tue, 15 Oct 2019 08:27:15 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-References: <20191014102022.236013-1-tzungbi@google.com>
- <20191014180059.01.I374c311eaca0d47944a37b07acbe48fdb74f734d@changeid>
- <20191015114854.GB4030@sirena.co.uk>
-In-Reply-To: <20191015114854.GB4030@sirena.co.uk>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Tue, 15 Oct 2019 23:37:12 +0800
-Message-ID: <CA+Px+wXoLTdSYQLsg9oTXOW3r9=xqCU4evNcbDjoTcctrtVbPw@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>, 
- Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Cc: Gwendal Grignou <gwendal@google.com>, devicetree@vger.kernel.org,
- ALSA development <alsa-devel@alsa-project.org>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Nicolas Boichat <drinkcat@google.com>, robh+dt@kernel.org,
- Benson Leung <bleung@google.com>, Dylan Reid <dgreid@google.com>
-Subject: Re: [alsa-devel] [PATCH v3 01/10] platform/chrome: cros_ec: remove
-	unused EC feature
+In-Reply-To: <CAEnQRZDtwFoXQ2H_j1v-95Pnh=QzZFX86jHk1RTq1oqSO+5jRw@mail.gmail.com>
+Content-Language: en-US
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: sof: include types.h at header.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,24 +73,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 15, 2019 at 7:49 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Mon, Oct 14, 2019 at 06:20:13PM +0800, Tzung-Bi Shih wrote:
-> > Remove unused EC_FEATURE_AUDIO_CODEC.
->
-> What's the route to getting these platform/chrome changes reviewed?
-> They don't seem to have got any attention thus far and this one is right
-> at the start of the series.
-
-Enric, could you help to review the "platform/chrome" changes in this
-series?  All changes have merged in the EC firmware code
-(https://chromium.googlesource.com/chromiumos/platform/ec/+/refs/heads/master/include/ec_commands.h).
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+CgpPbiAxMC8xNS8xOSAyOjA3IEFNLCBEYW5pZWwgQmFsdXRhIHdyb3RlOgo+IE9uIFR1ZSwgT2N0
+IDE1LCAyMDE5IGF0IDk6NTcgQU0gS3VuaW5vcmkgTW9yaW1vdG8KPiA8a3VuaW5vcmkubW9yaW1v
+dG8uZ3hAcmVuZXNhcy5jb20+IHdyb3RlOgo+Pgo+Pgo+PiBIaSBEYW5pZWwKPj4KPj4+PiBDb250
+ZW50LVRyYW5zZmVyLUVuY29kaW5nOiA4Yml0Cj4+Pj4KPj4+PiBXaXRob3V0IDx0eXBlcy5oPiB3
+ZSB3aWxsIGdldCB0aGVzZSBlcnJvcgo+Pj4+Cj4+Pj4gbGludXgvaW5jbHVkZS9zb3VuZC9zb2Yv
+aGVhZGVyLmg6MTI1OjI6IGVycm9yOiB1bmtub3duIHR5cGUgbmFtZSDigJh1aW50MzJfdOKAmXVp
+bnQzMl90IHNpemU7Cj4+Pj4gbGludXgvaW5jbHVkZS9zb3VuZC9zb2YvaGVhZGVyLmg6MTM2OjI6
+IGVycm9yOiB1bmtub3duIHR5cGUgbmFtZSDigJh1aW50MzJfdOKAmXVpbnQzMl90IHNpemU7Cj4+
+Pj4gbGludXgvaW5jbHVkZS9zb3VuZC9zb2YvaGVhZGVyLmg6MTM3OjI6IGVycm9yOiB1bmtub3du
+IHR5cGUgbmFtZSDigJh1aW50MzJfdOKAmXVpbnQzMl90IGNtZDsKPj4+PiAuLi4KPj4+PiBsaW51
+eC9pbmNsdWRlL3NvdW5kL3NvZi9kYWktaW14Lmg6MTg6MjogZXJyb3I6IHVua25vd24gdHlwZSBu
+YW1lIOKAmHVpbnQxNl904oCZdWludDE2X3QgcmVzZXJ2ZWQxOwo+Pj4+IGxpbnV4L2luY2x1ZGUv
+c291bmQvc29mL2RhaS1pbXguaDozMDoyOiBlcnJvcjogdW5rbm93biB0eXBlIG5hbWUg4oCYdWlu
+dDE2X3TigJl1aW50MTZfdCB0ZG1fc2xvdF93aWR0aDsKPj4+PiBsaW51eC9pbmNsdWRlL3NvdW5k
+L3NvZi9kYWktaW14Lmg6MzE6MjogZXJyb3I6IHVua25vd24gdHlwZSBuYW1lIOKAmHVpbnQxNl90
+4oCZdWludDE2X3QgcmVzZXJ2ZWQyOwo+Pj4+Cj4+Pgo+Pj4gSSB0aGluayB5b3VyIHBhdGNoIGlz
+IE9LLCBidXQgeW91IHNob3VsZCB1cGRhdGUgdGhlIGNvbW1pdCBtZXNzYWdlIGJlY2F1c2UKPj4+
+IFN0ZXBoZW4gUm90aHdlbGwgYWxyZWFkeSBmaXhlZCBkYWktaW14LmggY29tcGlsYXRpb24gZXJy
+b3IgIGluIGxpbnV4LW5leHQuCj4+Cj4+IEkgc2VlLiBUaGFua3MKPj4KPj4gQnV0IGhtbS4uLiBJ
+IGNvdWxkbid0IGZpbmQgaXQgYXQgbGludXgtbmV4dC9tYXN0ZXIgdG9kYXkuLi4KPj4gTm90IHll
+dCBtZXJnZWQgPwo+IAo+IFllcywgdGhpcyBpcyBzdHJhbmdlLiBJJ3ZlIHNlbnQgYW4gZW1haWwg
+dG8gU3RlcGhlbiBhbmQKPiBhbHNvIGFkZGVkIHlvdSB0byBDYy4KPiAKPiBCdXQsIHlvdXIgcGF0
+Y2ggaXMgc3RpbGwgdmFsaWQgYmVjYXVzZSBTdGVwaGVuIHVzZWQgKyNpbmNsdWRlIDxsaW51eC90
+eXBlcy5oPgo+IGluIGRhaS1pbXguaCBhbmQgeW91IGFyZSBub3cgZml4aW5nIHRoZSBnZW5lcmlj
+IHNpdHVhdGlvbiBieSBpbmNsdWRpbmcgaXQgaW4KPiBoZWFkZXIuaC4KPiAKPiBMZXRzIHNlZSBp
+ZiBTdGVwaGVuIGNhbiBjbGFyaWZ5IHRoZSBzaXR1YXRpb24uIFBlcmhhcHMgd2UgY2FuIGRyb3Ag
+aGlzIHBhdGNoCj4gYW5kIG9ubHkgaGF2ZSB5b3Vycy4KCnRoaXMgaXMgYSBmaWxlIHNoYXJlZCB3
+aXRoIHRoZSBmaXJtd2FyZSwgd2Ugc2hvdWxkbid0IGhhdmUgdG8gYWRkIGxpbnV4IApzcGVjaWZp
+YyBzdHVmZiBpbiB0aGVyZS4KCkFsc28gSSBkb24ndCBrbm93IGhvdyB5b3UgZ2V0IHRob3NlIGVy
+cm9ycywgd2UndmUgYmVlbiB1c2luZyB0aGlzIGZpbGUgCmZvciBzb21lIHRpbWUsIGNhbiB5b3Ug
+Y2xhcmlmeSBob3cgdGhpcyBlcnJvciBoYXBwZW5zPwoKVGhhbmtzLgoKPiBfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IEFsc2EtZGV2ZWwgbWFpbGluZyBs
+aXN0Cj4gQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCj4gaHR0cHM6Ly9tYWlsbWFuLmFsc2Et
+cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCj4gCl9fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0
+CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0
+Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

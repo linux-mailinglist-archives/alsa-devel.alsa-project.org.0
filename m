@@ -2,85 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3DF2D7A95
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 17:53:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63E6CD7E96
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 20:15:33 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F9661614;
-	Tue, 15 Oct 2019 17:53:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F9661614
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9B73844;
+	Tue, 15 Oct 2019 20:14:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9B73844
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571154837;
-	bh=eC3an+sLSJIr7uqaEqfkVyne5T2ssTtoCOuH5pyCbps=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571163333;
+	bh=TxzmVrHeEJyZlmyWxI5MWHYuyi8y1ZkVu3dgLacGB/w=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 Reply-To:From;
-	b=A8OFrMzPgB2zxl1eH5A257eO+c1FS8DnArXiSeT9HSTyyE0b9PG7mQgwyrhQUvPhK
-	 wPfuMuh4R0hkIp+Is0aU8VaUyg5eRO2+yABtOJMbUvK4mq041Pu2Plgk8nNW/8Bu7N
-	 1lKd2kf4FfHTzwsjxWUazI+LNnwESL55IqvXFgaQ=
+	 From;
+	b=Rks3yGnjgyNM3kDTUguC42mPBg6SdAmkOcSLYzM3EAQurD2b/ZgrRxQ34jy3x/hGW
+	 v4ITQ3vkMOQzx2cBF0BESpCwaGALtFgYKhjzlxdJLwvp+TyjHXdBuxRln/EHGfQ91B
+	 r/Ydij3IHtlee2eNODJqUVK0a1R1KQG9/uUN/U5w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31DDAF804AA;
-	Tue, 15 Oct 2019 17:52:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D9672F804AA;
+	Tue, 15 Oct 2019 20:13:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 389D7F804AA; Tue, 15 Oct 2019 17:52:10 +0200 (CEST)
+ id E282BF804AA; Tue, 15 Oct 2019 20:13:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from egnor-li.ofb.net (egnor-li.ofb.net [IPv6:2600:3c01:e000:283::1])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=FREEMAIL_FROM,PRX_BODY_29,
+ SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [IPv6:2a01:e0c:1:1599::13])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4EB60F8011D
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 17:52:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4EB60F8011D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=ofb.net header.i=@ofb.net
- header.b="ytTb7U79"
-Received: from ofb.net (163.242.197.104.bc.googleusercontent.com
- [104.197.242.163])
- by egnor-li.ofb.net (Postfix) with ESMTP id 07F3D117F5C;
- Tue, 15 Oct 2019 15:52:04 +0000 (UTC)
-Received: from localhost.localdomain (unknown [173.239.75.234])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by ofb.net (Postfix) with ESMTPSA id C53BD3E869;
- Tue, 15 Oct 2019 08:52:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ofb.net; s=ofb;
- t=1571154723; bh=Du5GC1eegq5oZfHhj7cgpcqqhcPYzqrMOWf3mSVvhnI=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To:From;
- b=ytTb7U79swrCWJ3kG4z4gyOYIhgCyJKS8Y6shFebPVkiYf5jd+cI+SddYBrukxLBL
- I/QN/2/++z4TCHTDHrlAXXzlBPRi1n4dUd1MMJ5Cj3tDcL/sMgSqfbBOWkwWMlLctx
- XtRVkTsX7/rwbTVsrJQPwpQRlRBx0rKbpjm+9mZtwPzIQLYTPznxIvRB3N73hmDPvg
- 2vExn4QwOcILomXNZS8En5e1X3v7Az0gUOQDJK8W1DfOB6U8vPEDOE4B67P76LCNaM
- px4QxtJTGQrTtMFBxXy6+2NcuMxqf6vUHqOZSsSMzbNrkFYDREpe05egkRN7DNEdj0
- KjEApyfy82e9A==
-Received: from frederik by localhost.localdomain with local (Exim 4.92.2)
- (envelope-from <frederik@localhost.localdomain>)
- id 1iKP7C-0004ZZ-P2; Tue, 15 Oct 2019 08:52:02 -0700
-Date: Tue, 15 Oct 2019 08:52:02 -0700
-From: frederik@ofb.net
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20191015155202.bqcqzvvpeesfvuwg@localhost>
-References: <20190904164706.gwjbcywbj7emnwvr@localhost>
- <s5hv9u19x2f.wl-tiwai@suse.de>
- <20190910173345.63bv2xa4vlkxicxj@localhost>
- <365e4bcc033c151076140471225db51c80808b7f.camel@iki.fi>
- <s5himprulnt.wl-tiwai@suse.de>
- <e294e2985eda906be3c3625235cc28643208dab2.camel@iki.fi>
- <s5hblvjukn6.wl-tiwai@suse.de>
- <20190919211244.buu3d6ey4k2dxyul@localhost>
- <7c81ae80233efb25b25f2d1f941e9c11acb3967b.camel@iki.fi>
- <s5hh857o1ik.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 211E5F800F4
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 20:13:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 211E5F800F4
+Received: from ladybug (unknown [37.165.241.96])
+ (Authenticated sender: subscript)
+ by smtp4-g21.free.fr (Postfix) with ESMTPSA id 9079A19F58A
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 20:13:40 +0200 (CEST)
+Date: Tue, 15 Oct 2019 20:13:35 +0200
+From: wwp <subscript@free.fr>
+To: alsa-devel@alsa-project.org
+Message-ID: <20191015201335.0927bc87@ladybug>
+In-Reply-To: <20191014134028.GA11018@b4.vu>
+References: <20191013102030.50d7c8d0@ladybug>
+	<20191014134028.GA11018@b4.vu>
+X-Mailer: Claws Mail 3.17.4git48 (GTK+ 2.24.31; x86_64-unknown-linux-gnu)
+User-Agent: DOH
+X-Face: 9x'hO=<A?%6*-4(@CJIAZa76:2U]#n7hu##-c.@?as>puy,
+ x7GILB]CjB5[R"/@e8LHs#mq
+ :>z.ziF; S^1k#Q&M7o"]ff+U|,o2]03`:m[B3N_TSP-p(:x[Y1s/|"AP+~kJ(>>>B7cC]URQW}Cf5R
+ [.$i$]W/Cms{l]itD;=B&F6fPm1GF4
+Face: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAFVBMVEX9x7aws4vD
+ 2ekyQlOrRVP//////f9jDrkCAAACMElEQVQ4jVWUy5KjMAxFzYTKGhEXezvVXg8x
+ NesQXP0BU4XX2B3r/z9hJPHKeNHV0UEPX11QMx+kE+e5FPmvcEgdAAtH0MAHKFEI
+ 8iOtcYVzBcSIS6WUZCXs6AmcFT9GCXoI4ckgdy1wTEDBd+BzpZzkrHFzWXtE1AKG
+ 0GFube4OsCYE31OKBtuVbapYDxxvFNV637zjiVcglZ4y8g+l5fZ/wAkEvAVbUMDW
+ +9KDgK7FDcSa45P/vQCA97o9mm9TqcqH5+TTa9cqLmHtnrxvqLk7wNZENZexIvAh
+ +0UuEiaA2vef+1jCs+b2QzP5x5kREa6s4zQQY4A7SK5DHkBT/GW6IoD+xOyMw9s0
+ Bu/9HzzBjDaNbpk0xWkofSxqjtbc/Xa+8caO2VbbOZJbzgD9HY9FJRFvPb3V3TEu
+ qQrWUg7wtPkAWedMpkHrkETHc+d5tMnFghFn790HSNayl8hemSqRgw4A4MhslPND
+ ldCUHfyl5hZaxwkkQ4eniGh4UHenDkjqnIBW1xraNzkut3iCsgvyiJaSyg4wmh0Y
+ rrgCEoyaUqVdE//YAdUFl4/46gZV5Bq/UMTtbzD5fhsXMZD/xol1xdTAC7ep8A2g
+ lLr5FtkVSl9XUMi4o1IVvRMMKgVP7k2mjjVn6GuR179q9Fj4ygojF4JvWTEN0qhw
+ FcNhrBulR6nL7++o/NfqxJiCHtaGfKdL2L1LCjYS5dL0kTi+JXxzLPJDwMfXB7cG
+ LDP/EvAPpzg/DzW8HhEAAAAASUVORK5CYII=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <s5hh857o1ik.wl-tiwai@suse.de>
-User-Agent: NeoMutt/20180716
-Cc: Tanu Kaskinen <tanuk@iki.fi>, alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] parameter for pulse device?
+Subject: Re: [alsa-devel] Focusrite Scarlett 18i8 3rd Gen audio interface
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,183 +81,109 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Reply-To: frederik@ofb.net
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============6253069103655629749=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dear Takashi,
+--===============6253069103655629749==
+Content-Type: multipart/signed; micalg=pgp-sha1;
+ boundary="Sig_/+jJ.BRpP9_5Zs8EMv_fdzmg"; protocol="application/pgp-signature"
 
-I tested your patch, after commenting some lines in my ~/.asoundrc, and I can confirm that it works. I can now specify a pulse device to 'ecasound':
+--Sig_/+jJ.BRpP9_5Zs8EMv_fdzmg
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: quoted-printable
 
-    ecasound -o alsa,pulse:music -i song.wav
-
-and when I do it with no "DEVICE" argument, then it outputs to the sink defined by "pacmd set-default-sink":
-
-    ecasound -o alsa,pulse -i song.wav
-
-I guess this only exercises one of the cases in your patch where the empty string is recognized as NULL:
-
-+			} else if (!*device) {
-+				device = NULL;
-
-Let me know if you want me to do more testing, and apologies for the long delay in my reply.
-
-Thanks,
-
-Frederick
+Hello Geoffrey,
 
 
-On Fri, Sep 20, 2019 at 09:44:19AM +0200, Takashi Iwai wrote:
->On Fri, 20 Sep 2019 09:35:59 +0200,
->Tanu Kaskinen wrote:
->>
->> On Thu, 2019-09-19 at 14:12 -0700, frederik@ofb.net wrote:
->> > Thank you for the tips.
->> >
->> > I don't know if my input is still needed, but I figured out from
->> > looking at some of the syntax you linked to that I can put this in
->> > ~/.asoundrc and it does the job (this is what I had had in mind when
->> > I asked about "magic with macros", it is somewhat advanced for me):
->> >
->> >     pcm.!pulse {
->> >         @args [ DEV ]
->> >         @args.DEV {
->> >             type string
->> >             default "default"
->> >         }
->> >         type pulse;
->> >         device $DEV
->> >     }
->> >
->> > Now I can set up a filter like this:
->> >
->> >     ecasound -i alsa,pulse:mic -o alsa,pulse:monitor
->> >
->> > Is something like this going into the alsa-plugins repo?
->>
->> I'm sure something like this will be accepted if you submit a patch. I
->> got the impression that Takashi isn't willing to write the patch
->> himself, and nor am I, so you're in the best position to make this
->> happen.
->
->I have a test patch but had no chance to test the stuff at all
->currently as I am (and will be for the next few weeks) traveling.
->
->> Note that
->>
->>             default "default"
->>
->> doesn't do the intended thing with the current pcm_pulse.c code. With
->> the current code the plugin will request PulseAudio to use a device
->> named "default", which most likely won't exist and playback or
->> recording will fail. The plugin code needs to pass NULL as the device
->> name to pa_stream_connect_playback() and pa_stream_connect_record()
->> when it detects that the default device is requested, so you'll need to
->> modify pcm_pulse.c in order to make this work. Instead of "default" as
->> the special string in the configuration, I suggested using "".
->
->Below is the totally untested patch (even not build-tested!)
->If anyone interested, feel free to cook it.
->
->
->thanks,
->
->Takashi
->
->---
->diff --git a/pulse/50-pulseaudio.conf b/pulse/50-pulseaudio.conf
->index 62da207af9ca..916258d942af 100644
->--- a/pulse/50-pulseaudio.conf
->+++ b/pulse/50-pulseaudio.conf
->@@ -1,7 +1,13 @@
-> # Add a specific named PulseAudio pcm and ctl (typically useful for testing)
->
-> pcm.pulse {
->+	@args [ DEVICE ]
->+	@args.DEVICE {
->+		type string
->+		default ""
->+	}
-> 	type pulse
->+	device $DEVICE
-> 	hint {
-> 		show {
-> 			@func refer
->diff --git a/pulse/ctl_pulse.c b/pulse/ctl_pulse.c
->index fbb6eae2ec76..9b820fd04b15 100644
->--- a/pulse/ctl_pulse.c
->+++ b/pulse/ctl_pulse.c
->@@ -664,6 +664,8 @@ SND_CTL_PLUGIN_DEFINE_FUNC(pulse)
-> 			if (snd_config_get_string(n, &server) < 0) {
-> 				SNDERR("Invalid type for %s", id);
-> 				return -EINVAL;
->+			} else if (!*server) {
->+				server = NULL;
-> 			}
-> 			continue;
-> 		}
->@@ -671,6 +673,8 @@ SND_CTL_PLUGIN_DEFINE_FUNC(pulse)
-> 			if (snd_config_get_string(n, &device) < 0) {
-> 				SNDERR("Invalid type for %s", id);
-> 				return -EINVAL;
->+			} else if (!*device) {
->+				device = NULL;
-> 			}
-> 			continue;
-> 		}
->@@ -678,6 +682,8 @@ SND_CTL_PLUGIN_DEFINE_FUNC(pulse)
-> 			if (snd_config_get_string(n, &source) < 0) {
-> 				SNDERR("Invalid type for %s", id);
-> 				return -EINVAL;
->+			} else if (!*source) {
->+				source = NULL;
-> 			}
-> 			continue;
-> 		}
->@@ -685,6 +691,8 @@ SND_CTL_PLUGIN_DEFINE_FUNC(pulse)
-> 			if (snd_config_get_string(n, &sink) < 0) {
-> 				SNDERR("Invalid type for %s", id);
-> 				return -EINVAL;
->+			} else if (!*sink) {
->+				sink = NULL;
-> 			}
-> 			continue;
-> 		}
->diff --git a/pulse/pcm_pulse.c b/pulse/pcm_pulse.c
->index 283174357e8b..869c9b674c6b 100644
->--- a/pulse/pcm_pulse.c
->+++ b/pulse/pcm_pulse.c
->@@ -1069,6 +1069,8 @@ SND_PCM_PLUGIN_DEFINE_FUNC(pulse)
-> 			if (snd_config_get_string(n, &server) < 0) {
-> 				SNDERR("Invalid type for %s", id);
-> 				return -EINVAL;
->+			} else if (!*server) {
->+				server = NULL;
-> 			}
-> 			continue;
-> 		}
->@@ -1076,6 +1078,8 @@ SND_PCM_PLUGIN_DEFINE_FUNC(pulse)
-> 			if (snd_config_get_string(n, &device) < 0) {
-> 				SNDERR("Invalid type for %s", id);
-> 				return -EINVAL;
->+			} else if (!*device) {
->+				device = NULL;
-> 			}
-> 			continue;
-> 		}
->@@ -1091,6 +1095,8 @@ SND_PCM_PLUGIN_DEFINE_FUNC(pulse)
-> 			if (snd_config_get_string(n, &fallback_name) < 0) {
-> 				SNDERR("Invalid value for %s", id);
-> 				return -EINVAL;
->+			} else if (!*fallback_name) {
->+				fallback_name = NULL;
-> 			}
-> 			continue;
-> 		}
->
+On Tue, 15 Oct 2019 00:10:28 +1030 "Geoffrey D. Bennett" <g@b4.vu> wrote:
+
+> Hi wwp,
+>=20
+> On Sun, Oct 13, 2019 at 10:20:30AM +0200, wwp wrote:
+> > Hello,
+> >=20
+> > I've recently bought a Focusrite Scarlett 18i8 3rd Gen audio interface,
+> > great device, but in CentOS 7, with either the available 3.x or 4.x
+> > kernels, the device just appears in the available Alsa devices, but no
+> > mixer is available, the device direct hardware monitor output is also
+> > not working (it is, by default, and works well in Windows, but I
+> > presume that w/ no mixer support in Alsa, it's expected that nothing
+> > works). I'm able to bound I/O ports in QJackCtl but nothing goes out of
+> > the device. =20
+>=20
+> Is any of the class-compliant functionality (play/record) working at
+> all in CentOS 7? I would expect that out of the box you should be able
+> to get standard ALSA/PulseAudio apps working for I/O.
+
+I tried, nothing, maybe not tried right or enough.
+
+
+> > Of course, adding the 0x1235:8214 USB ID to the quirks just doesn't
+> > work. I presume there's more work like the patch submitted here (I saw
+> > the archives) in the "[PATCH RFC V2] ALSA: usb-audio: Scarlett Gen 2
+> > mixer interface" mail thread? =20
+>=20
+> Yes, there would definitely be more work to do along those lines. If
+> we're lucky, the protocol is basically the same as 2nd gen and just
+> extended for the additional features in the 3rd gen. FWIW, I haven't
+> heard of anyone starting that work.
+>=20
+> > Do you it is worth trying applying that 2nd Gen patch to one of the v4
+> > kernel available for CentOS 7, adding the 3rd Gen quirks and see how it
+> > behaves? Or is there already progress on supporting the 3rd Gen one too=
+? =20
+>=20
+> I doubt that it would do much useful beyond letting you know if it
+> accepts the same initialisation sequence as the 2nd gen devices. If
+> you want to send me (off-list) a wireshark USB capture from 1) the
+> Windows driver initialising your device and 2) you adjusting settings
+> in Focusrite Control, I can have a look at it and let you know if it
+> looks similar to the 2nd gen devices.
+
+I tried -> broken pipe. IOW, it doesn't work, not as simple as doing as
+if the 3rd gen was a 2nd gen.
+
+
+Regards,
+
+--=20
+wwp
+https://useplaintext.email/
+
+--Sig_/+jJ.BRpP9_5Zs8EMv_fdzmg
+Content-Type: application/pgp-signature
+Content-Description: OpenPGP digital signature
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2.0.22 (GNU/Linux)
+
+iQIcBAEBAgAGBQJdpgxTAAoJEEnFZ+hWA4VJ4eIQAKiXyfPVysW0CMHUQc68BAvM
+Ri1amuNAYu7r+/teq0y/aRukNSZzQNyiFRDB+a8YblyyPrREEMilSqZ1Er3Tos7n
+wSAxCAE7zMBvompF4p7uh9/MxDxF3Oaaqr52xT2SLKLuA0wWq255AwxGMbI8r5gf
+EZrLSNplXQoWcQEqbHpIanNX+z1mYiu3hgGxv6RAT9y/KVSrv6w4UPc/2OuR7cEF
+BUSho7+LXOnT9lKOzSY6QtjzVWsV6E84iGWLbnH1UAKtvPwTZE+nHH0F5dyh6JBw
+mqtYmRHkFtLRIe/OS/YaYkZw/ihjSexbtD1RIFEi4SyIpbGiiPmWCSBoT6y/UqU2
+sCVS3ZxSh1QKSizGsisQl6OTdlpvlIfdiTpQtoJXD7k0P601MFbz/zKxsu8izR1b
+yngWiDLwHSKvLjkkv/S1jb/uvnUIYJXPQPZ5XNn4StRyk3dUCLaTeA/yUYa2aEny
+6ndS2DnVlND2zsgRPCN2b2SPt7BH63pSf549VTt6Ac3GEFhz3pDcTjmP+IYcO5de
+jYvpyaQLUidb7IGm7fUvkt64ly2yn/UjNT/+HJET8GP1QldG8eQU6Z9s0h2xO9jh
+jPcKpMqYyWoe7yJZMOzwIgZHQGMR1wkLQXCkzBhQ5zNaMzgnhYVY9AIxiDLJucfe
+VZg07KpldKuASR44wEvQ
+=7j/9
+-----END PGP SIGNATURE-----
+
+--Sig_/+jJ.BRpP9_5Zs8EMv_fdzmg--
+
+--===============6253069103655629749==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6253069103655629749==--

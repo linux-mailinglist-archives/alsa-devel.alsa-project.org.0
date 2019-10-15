@@ -2,77 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC138D758D
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 13:50:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C772D7671
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 14:24:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CA4415E0;
-	Tue, 15 Oct 2019 13:49:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CA4415E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id DEE5C1616;
+	Tue, 15 Oct 2019 14:23:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DEE5C1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571140245;
-	bh=RMiG/OwGA+Yjj+z3VEArLATr2vsmcffGN8UzLK/gxBg=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571142285;
+	bh=tYAHwHns6ZfN3dC+AkjnhQfMDtabE4ctUg+BMPVNtZg=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sx/iGrXVF8bUGrjUr0VqD56k9rmZg8Z660miRBlq3BQ9OQcKtUfLShI40L5N77V47
-	 VZnkOkZoBh91ZEEdupG5w9HHV/7U4b/IgJ4Nr8Z1cUqws8g5vJPyZBSpWQkyJWre+N
-	 ZzErtrFqOP7SP6x+UExw5bUyFhOKBeAedsxQTjr4=
+	b=Y3UJVtFrNAek2tHpmiNujC640Xn1Msg/AgUI0NQMqljnmw4qCo5o2npHU5cpiehDv
+	 ArYwthtph0rHp83h/+QfmNGJMqJ5OxjHA6Pr2uz1KbYZAqvMTvzpo+dn6OZ+2s+cpV
+	 iLQ/8ez2SYtKjK8MwQxQ0KR0vTNM3yYPDfgyiCEE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09785F804A9;
-	Tue, 15 Oct 2019 13:49:01 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2109FF804A9;
+	Tue, 15 Oct 2019 14:23:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F108CF804AA; Tue, 15 Oct 2019 13:48:58 +0200 (CEST)
+ id 56613F804AA; Tue, 15 Oct 2019 14:22:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
+ [IPv6:2a00:1450:4864:20::443])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEE8CF8011D
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 13:48:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEE8CF8011D
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF66FF80323
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 14:22:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF66FF80323
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="sQoy2DFY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=XovC9Fd62XjhLfN4wCR5FJF9dddJmhaM10zo4oaQMis=; b=sQoy2DFY0zkS3ePUwfkRWD7LN
- XjF9F8jGJERwMETzWX1PuuIpZXZTP74UEfqAXPHaA7phXtj59ymChM5SGU558P0lK9SIf1AXHbF2K
- OYbftzuPJLrEUBucULM0d/XPKlHgKrzn8o2zBHJP1bMRVpkFoncCTAZfzAhVMwb2f3lmk=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iKLJv-00027Q-NP; Tue, 15 Oct 2019 11:48:55 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id BB07127419E4; Tue, 15 Oct 2019 12:48:54 +0100 (BST)
-Date: Tue, 15 Oct 2019 12:48:54 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Message-ID: <20191015114854.GB4030@sirena.co.uk>
-References: <20191014102022.236013-1-tzungbi@google.com>
- <20191014180059.01.I374c311eaca0d47944a37b07acbe48fdb74f734d@changeid>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="ha9SgCIw"
+Received: by mail-wr1-x443.google.com with SMTP id b9so23632248wrs.0
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 05:22:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=bDfGVQjLwucspFf3MSlUAeaaGSMNhHbSYDBFpj+ymqQ=;
+ b=ha9SgCIwrZh2MxtJXScwcMKk6Va0RXRm1tLKRoE4JY6yiwQgEzIbYwWG0rpoD+tORx
+ jRKFisDpTw3E6Eht/caO/XXZotqXmx/Hp1Gvebglm16WMWdgb5gTyc+qZICe7KHXMy67
+ g6/p1arXdEU83/5CuMLwO9Ua3JeFtoGFaziC2CCKVbWEszTcBVKl0W5GnC6J6D4yl39J
+ PUKNGXJIlTuxS26cNZmhEBNsd26Ektr83Arl/THp2M/Xf+KJNWKCiqBMmBZ8DhPOQAhU
+ BUfGekft5l5pXkNomIK9cN6WGOJa9T4Kp1juWhgDM7PGdwcbZ6g0o4SoPrjwsxXDq8DI
+ byiw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=bDfGVQjLwucspFf3MSlUAeaaGSMNhHbSYDBFpj+ymqQ=;
+ b=Z4jg+dgf5Y3KkTZb5P+GMgtmp/WGfjQJmc3vvLYViq17GU7elAQoA+G/2P/WDCtR7+
+ 7dlrnKKZd6rUtILklhDq0ZmnQGQpcvZnbGsJlueH6IDz+mgp4XgFSvXpqK7FvhiqI6S3
+ Nwb7xyp+9I7HISODcHxZOOTbSwg7as18yer2gKWOTBf7oKd/0cM3OGClrtw+BOOavfNV
+ OhpxpieudF/V52QP7cuayGCJBDrrd0IOj6Vor9NxjjMR2PmFY2uH4nqKTFzX2uyxbhHT
+ y1InmXLwT8JVRxmfRTZ9VLnDOw3uqYuXzYjOPhP2H0T6tWQGUY+vhZ/+YqoRwtBCoNa0
+ HFuw==
+X-Gm-Message-State: APjAAAWJot+NTGENbRwXmCz3apoMco1pfoL3pDAFOqE7gEioerjYTzdo
+ 4gZw/mb1WCze+unfe4BpyNPZrA==
+X-Google-Smtp-Source: APXvYqw0QWG1LAvYnp2xS0NK5ksIEqdxTKAD+EuCuDvTOJZxyO2DJb/fvjjDXQBy9kl6PqYPyaH4mQ==
+X-Received: by 2002:adf:fad2:: with SMTP id a18mr4206443wrs.279.1571142174186; 
+ Tue, 15 Oct 2019 05:22:54 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id e18sm30040325wrv.63.2019.10.15.05.22.52
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 15 Oct 2019 05:22:53 -0700 (PDT)
+To: Rob Herring <robh@kernel.org>
+References: <20191011154423.2506-1-srinivas.kandagatla@linaro.org>
+ <20191011154423.2506-2-srinivas.kandagatla@linaro.org>
+ <20191014171241.GA24989@bogus>
+ <76be1a0d-43ea-44c3-ef6c-9f9a2025c7a2@linaro.org>
+ <CAL_Jsq+ZBhh2A3yLtOyReHHAET_bvM-ygBtRXeFihAxf0jvDKQ@mail.gmail.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <f7977140-c103-7d0d-9523-2212e1029598@linaro.org>
+Date: Tue, 15 Oct 2019 13:22:52 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20191014180059.01.I374c311eaca0d47944a37b07acbe48fdb74f734d@changeid>
-X-Cookie: Yes, but which self do you want to be?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: gwendal@google.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- cychiang@google.com, drinkcat@google.com, robh+dt@kernel.org,
- enric.balletbo@collabora.com, bleung@google.com, dgreid@google.com
-Subject: Re: [alsa-devel] [PATCH v3 01/10] platform/chrome: cros_ec: remove
- unused EC feature
+In-Reply-To: <CAL_Jsq+ZBhh2A3yLtOyReHHAET_bvM-ygBtRXeFihAxf0jvDKQ@mail.gmail.com>
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Banajit Goswami <bgoswami@codeaurora.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ spapothi@codeaurora.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Vinod <vkoul@kernel.org>,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v3 1/2] dt-bindings: soundwire: add
+ bindings for Qcom controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,54 +110,74 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7070238556160168131=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============7070238556160168131==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dc+cDN39EJAMEtIO"
-Content-Disposition: inline
+
+On 15/10/2019 12:35, Rob Herring wrote:
+> On Mon, Oct 14, 2019 at 12:34 PM Srinivas Kandagatla
+> <srinivas.kandagatla@linaro.org> wrote:
+>>
+>> Thanks Rob for taking time to review,
+>>
+>> On 14/10/2019 18:12, Rob Herring wrote:
+>>> On Fri, Oct 11, 2019 at 04:44:22PM +0100, Srinivas Kandagatla wrote:
+>>>> This patch adds bindings for Qualcomm soundwire controller.
+>>>>
+>>>> Qualcomm SoundWire Master controller is present in most Qualcomm SoCs
+>>>> either integrated as part of WCD audio codecs via slimbus or
+>>>> as part of SOC I/O.
+>>>>
+>>>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+>>>> ---
+>>>>    .../bindings/soundwire/qcom,sdw.txt           | 167 ++++++++++++++++++
+>>>>    1 file changed, 167 insertions(+)
+>>>>    create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+>>>
+>>> Next time, do a DT schema.
+>>>
+>> Sure! I can do that in next version!
+> 
+> I meant the next binding you write, not v4. However, ...
+> 
+> [...]
+> 
+>>>> += SoundWire devices
+>>>> +Each subnode of the bus represents SoundWire device attached to it.
+>>>> +The properties of these nodes are defined by the individual bindings.
+>>>
+>>> Is there some sort of addressing that needs to be defined?
+>>>
+>> Thanks, Looks like I missed that here.
+>>
+>> it should be something like this,
+>>
+>> #address-cells = <2>;
+>> #size-cells = <0>;
+>>
+>> Will add the in next version.
+> 
+> You need a common soundwire binding for this. You also need to define
+> the format of 'reg' and unit addresses. And it needs to be a schema.
+> So perhaps this binding too should be.
+
+We already have a common SoundWire bindings in mainline for this
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml?h=v5.4-rc3
+
+Should this binding just make a reference to it instead of duplicating 
+this same info here?
+
+--srini
 
 
---dc+cDN39EJAMEtIO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Oct 14, 2019 at 06:20:13PM +0800, Tzung-Bi Shih wrote:
-> Remove unused EC_FEATURE_AUDIO_CODEC.
-
-What's the route to getting these platform/chrome changes reviewed?
-They don't seem to have got any attention thus far and this one is right
-at the start of the series.
-
---dc+cDN39EJAMEtIO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2lsiUACgkQJNaLcl1U
-h9BH+Af/VoQYmxlIIQ22+R99CZ1J66203wVcnQ5aT5edsF12LFEwx/4iG4dKU6t8
-xf0JGlUi/3Yfi+UVq/g2k+Zd5zPCK6j4ydCbrLiK8kCn8SNu+6w+2KcqC44rwcw0
-+2UyLZKc8svUgtjpjvrmHOM2rJAAOP9ga8EGQEkCpv37+1q7mB9V/CxVm4LiTEbu
-qtytgfntxj1STs+bKuLAAEaY7lEm7qVnA1qvBHhoI94LyDRLNEj3UC9f9jBXKZwX
-4m67h40ZI/71kw+BYwZuif96uCPA9Yaryow0z3a1EMAWSjT9ZunKOUjs9KVovDPN
-UFb+uRtknxPygNRWavTEI0rUt3F4Ng==
-=lh/o
------END PGP SIGNATURE-----
-
---dc+cDN39EJAMEtIO--
-
---===============7070238556160168131==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> Rob
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7070238556160168131==--

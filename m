@@ -2,89 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2F16D6FBE
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 08:52:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BA0D7D6FBF
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 08:52:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68AB91612;
-	Tue, 15 Oct 2019 08:51:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68AB91612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B4F31666;
+	Tue, 15 Oct 2019 08:52:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B4F31666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571122330;
-	bh=j6Xsq2qM8IToVAv1zWPmKPjNeEj81yDjrRIVSghBn8s=;
+	s=default; t=1571122379;
+	bh=O9DSA8X0UfT+e0wyLsjhaXI/hkB71zgLvmJbcFIYf40=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=M4APpS7ww+l3SEgPzOetNDjfFj4xsbG9lajJrgH4nnwYB1mNerQqdw26jQ3b12eww
-	 4+vlzaC7DkrW+Ojslgd1+xqSquDjGKSwewy+8xXqAxzFgwAq4SPgNLXtyNCCTLuKBf
-	 HAaQhNfv/4mn7VJY5/KOZ7zV1fyFA6Zw6hDmZg3g=
+	b=iAV2gRKRcRyqOoOq2qXnoYq99HRm11oUMwoHDS1ikIkkAZLQCDN7c471HEfuOei42
+	 Jb6I75oIMbnSPIPU8w93Wn9G/7QRfqpdsRBIgFPvSX1NhpvAKSksm+H32zuUldWAVh
+	 9zX5QhY3V6trtIeH/btG1SZlh/EYRCFagE25N3J4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E581F80529;
-	Tue, 15 Oct 2019 08:49:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C180F805FA;
+	Tue, 15 Oct 2019 08:50:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8ADFAF805AE; Tue, 15 Oct 2019 08:49:57 +0200 (CEST)
+ id 93CC9F805FB; Tue, 15 Oct 2019 08:50:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,PRX_BODY_30,SPF_HELO_NONE,
- SPF_PASS,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-ot1-x342.google.com (mail-ot1-x342.google.com
- [IPv6:2607:f8b0:4864:20::342])
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8E28F80529
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 08:49:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8E28F80529
+ by alsa1.perex.cz (Postfix) with ESMTPS id EDA51F805F5
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 08:50:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDA51F805F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="S2iA/C/4"
-Received: by mail-ot1-x342.google.com with SMTP id e11so15944741otl.5
- for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 23:49:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="slm8pkCb"
+Received: by mail-wr1-x442.google.com with SMTP id b9so22357067wrs.0
+ for <alsa-devel@alsa-project.org>; Mon, 14 Oct 2019 23:50:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=T6CfSaXg0nXorPrsVxQLsn7XoM958V8S7+Mz58slh/I=;
- b=S2iA/C/4+OsENkaAlPpz4KSMVu9qzTexRyw6DCYaGvSAGECKUiyuflF0cwWn3AbTD8
- ae1G0KOBRcBEsgGqIW6+YC4OrUJFxAhq++JgGKh94tQn27xIeYwXl5mIUUnQniyz53M+
- kKQMhc6EsGc9bqmTjN+SnfspYTG/s38wkDa/7uoqG2VnE0mMRWBR8mwkbpXDcj90xNV5
- Mk54AZFJes4TzuExPnjw06wnhXtUlFDl+13aJwhVGGmzI3jKuoNmo6+fqr/YoIeGGrrN
- Hg76FO1LZQSkRHBuHy5/5T10Z64KmJDgJ9lg/QyJwcJ7Vk7l4q4eWvFZAAnjiop5mCKk
- 6lWA==
+ :cc; bh=UyoOKWxtyUBKIdJ9AivCjTmLmYh/M5kwGnE07ZEd8k4=;
+ b=slm8pkCbTmzSxRYywXw8xFTANkCx0v04w8oDnSatZPBF8CeHAOuQKALMtCOrlWNqvp
+ 9Y190kzlRwduQFtQbpiuEccGqGdTlp3GuwLd3hmYbgjNB9Vl1DkBQRXnjtYMNUvAVBBP
+ jUi1e7tTF4a7B2HZAwJ7t0PS1LzyQ+iQtEUVulG7HL/xnX9awdCGE5JCqJWK89GzN5jE
+ osSq98YSv1WJJu+1BloqS1J6biZIzS2F3fL8iwKBau5rMy94CislhcuOCw9XvVpC4jUt
+ v+u7BjRYfIoJXappoh/KMiV8NziWZDSkHwnWZD+iKPWe4EqjYOLIbR9kejZZ2TUKTkdC
+ U1kg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=T6CfSaXg0nXorPrsVxQLsn7XoM958V8S7+Mz58slh/I=;
- b=NHN34xfdf0WrdI4tH1onFuOk73aZJkPesobRa0cyUOiEn/e7jFKCAxoxjsG1aPFKeZ
- hipjNhOYA/ndJlAV5UuSs+yeyWUNXa3WePiLMfzEWxhxekhyh2aLHg8Ujw6eWQbtJA1v
- UHXwBzWFFOOxeYxJwDcFP0Y9zT2UI1zaiU1Xy82V8bb3WLF5hhrtZw6syf5LdbbRwuVI
- esf8qF4MgJwF4SKVHFCYf7tfdDYiHlu8TFIWYmkOUw8ukpxr+I5G3DKUAqrsSyzPp6dV
- PqP86DVLC6Ws/+os+GuFNwEoWctSEWLPpWV6p+zQYe98iFHEc9ZVCbUxSYr5Fdy8Dxwm
- fNaQ==
-X-Gm-Message-State: APjAAAWTnrtEXBh6j4dxYE3fJRKxTgRfnxnQcfeZuByH+TgysxAvYXN4
- RouODDjPnHcIW/AdiHFI3EqfMLgOZUwwKYf264rlBA==
-X-Google-Smtp-Source: APXvYqzEAMtsxE/4p3+aaNp7zGQyRBxDllJuljqZyw6mK6xH07NcGJ8wt4QeuudB0Uir2EoE7wss597NvwPa+aY4fcY=
-X-Received: by 2002:a9d:7f12:: with SMTP id j18mr27602020otq.328.1571122192582; 
- Mon, 14 Oct 2019 23:49:52 -0700 (PDT)
+ bh=UyoOKWxtyUBKIdJ9AivCjTmLmYh/M5kwGnE07ZEd8k4=;
+ b=aABSIDrxX9JNzPJrvfBHxUilK60NKdcpTWgH6Wq/sbb04sGGURyEfDTBPR3ShgCq01
+ uf7T0cu2cv9Mh6eOV/Ic26vLl29H7gN8ydThITu1xb/yVbFAZXvKMJt+DcRNTVdYoOPa
+ dlSCBwEF2GlQySb/sk9YDp9hVlaXb2/0+JWiaw4ntOBE56mQiems/SJOE8TnqOB1a4CL
+ X2KhDjs79uyvqd13jCw6FHUfJ4SsH9JzmoApxFdijy2Xd6KjWupU6as1Vu16B7/ngEAH
+ 6V2yOpTTWrYYIZC65m8HhM5SCxkSfsYUvwyWr3cW1CeOfkyijU31fMryOvkzWOoE2R/u
+ 8/Ng==
+X-Gm-Message-State: APjAAAXb5mwv07wvndcrppFBX+tbzL5HoSOpmUq8mRBz9ja85QttW/CL
+ +/ZkPHdrkKP4fHFZPgXKHlko8JqXPIDIQwkkyR62pFoV
+X-Google-Smtp-Source: APXvYqwiWNbG06jTEMUPaJGoSYetBRY16BnUuvp5/DA6puPSWgY2ws/aR6yb6QnCm93Ijrnzz0fhvPmHBLul54xQqxo=
+X-Received: by 2002:a5d:4ace:: with SMTP id y14mr17682994wrs.131.1571122209257; 
+ Mon, 14 Oct 2019 23:50:09 -0700 (PDT)
 MIME-Version: 1.0
-References: <20191014180059.07.I5388b69a7a9c551078fed216a77440cee6dedf49@changeid>
- <201910150924.II2vi71d%lkp@intel.com>
-In-Reply-To: <201910150924.II2vi71d%lkp@intel.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Tue, 15 Oct 2019 14:49:41 +0800
-Message-ID: <CA+Px+wXEpPbWgsQcrz3YVbH1-3z9Jgy3KM3H8o=O6T3M2Gbb2A@mail.gmail.com>
-To: kbuild test robot <lkp@intel.com>
-Cc: Gwendal Grignou <gwendal@google.com>, devicetree@vger.kernel.org,
- ALSA development <alsa-devel@alsa-project.org>, kbuild-all@lists.01.org,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Nicolas Boichat <drinkcat@google.com>, robh+dt@kernel.org,
- Mark Brown <broonie@kernel.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@google.com>, Dylan Reid <dgreid@google.com>
-Subject: Re: [alsa-devel] [PATCH v3 07/10] ASoC: cros_ec_codec: support WoV
+References: <87ftju67pi.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87ftju67pi.wl-kuninori.morimoto.gx@renesas.com>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Tue, 15 Oct 2019 09:49:58 +0300
+Message-ID: <CAEnQRZBd3kxbu8SkjnW5OsW4MhYCGpwU0qLrWVjHJMqTnNiKUA@mail.gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: simple-card: fixup
+	simple_dai_link_of_dpcm() comment
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,130 +95,47 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Oct 15, 2019 at 9:34 AM kbuild test robot <lkp@intel.com> wrote:
+On Tue, Oct 15, 2019 at 5:52 AM Kuninori Morimoto
+<kuninori.morimoto.gx@renesas.com> wrote:
 >
-> Hi Tzung-Bi,
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 >
-> Thank you for the patch! Yet something to improve:
+> The comment is wrong.
+> This patch fixup it.
 >
-> [auto build test ERROR on asoc/for-next]
-> [cannot apply to v5.4-rc3 next-20191014]
-> [if your patch is applied to the wrong git tree, please drop us a note to help
-> improve the system. BTW, we also suggest to use '--base' option to specify the
-> base tree in git format-patch, please see https://stackoverflow.com/a/37406982]
->
-> url:    https://github.com/0day-ci/linux/commits/Tzung-Bi-Shih/ASoC-mediatek-mt8183-mt6358-ts3a227-max98357-support-WoV/20191014-183227
-> base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-> config: x86_64-randconfig-g002-201941 (attached as .config)
-> compiler: gcc-7 (Debian 7.4.0-13) 7.4.0
-> reproduce:
->         # save the attached .config to linux build tree
->         make ARCH=x86_64
->
-> If you fix the issue, kindly add following tag
-> Reported-by: kbuild test robot <lkp@intel.com>
->
-> All errors (new ones prefixed by >>):
->
->    sound/soc/codecs/cros_ec_codec.c: In function 'cros_ec_codec_platform_probe':
-> >> sound/soc/codecs/cros_ec_codec.c:993:23: error: implicit declaration of function 'of_read_number'; did you mean 'wov_read_audio'? [-Werror=implicit-function-declaration]
->       priv->ec_shm_addr = of_read_number(regaddr_p, 2);
->                           ^~~~~~~~~~~~~~
->                           wov_read_audio
->    cc1: some warnings being treated as errors
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-The error is caused by EC_CODEC=y but CONFIG_OF is not set:
-$ grep -e 'CONFIG_OF.*' -e 'EC_CODEC' config
-# CONFIG_OF is not set
-CONFIG_SND_SOC_CROS_EC_CODEC=y
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
 
->
-> vim +993 sound/soc/codecs/cros_ec_codec.c
->
->    973
->    974  static int cros_ec_codec_platform_probe(struct platform_device *pdev)
->    975  {
->    976          struct device *dev = &pdev->dev;
->    977          struct cros_ec_device *ec_device = dev_get_drvdata(pdev->dev.parent);
->    978          struct cros_ec_codec_priv *priv;
->    979          struct device_node *node;
->    980          struct resource res;
->    981          struct ec_param_ec_codec p;
->    982          struct ec_response_ec_codec_get_capabilities r;
->    983          int ret;
->    984          u64 ec_shm_size;
->    985          const __be32 *regaddr_p;
->    986
->    987          priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->    988          if (!priv)
->    989                  return -ENOMEM;
->    990
->    991          regaddr_p = of_get_address(dev->of_node, 0, &ec_shm_size, NULL);
->    992          if (regaddr_p) {
->  > 993                  priv->ec_shm_addr = of_read_number(regaddr_p, 2);
-
-In the case, the of_get_address( ) will get a dummy implementation
-(https://elixir.bootlin.com/linux/v5.3.6/source/include/linux/of_address.h#L82)
-while of_read_number( ) won't
-(https://elixir.bootlin.com/linux/v5.3.6/source/include/linux/of.h#L234).
-
-Rob, what do you think if we add a dummy implementation for
-of_read_number( ) if !CONFIG_OF (i.e. after
-https://elixir.bootlin.com/linux/v5.3.6/source/include/linux/of.h#L559)?
- Does it make sense?
-
->    994                  priv->ec_shm_len = ec_shm_size;
->    995
->    996                  dev_dbg(dev, "ec_shm_addr=%#llx len=%#x\n",
->    997                          priv->ec_shm_addr, priv->ec_shm_len);
->    998          }
->    999
->   1000          node = of_parse_phandle(dev->of_node, "memory-region", 0);
->   1001          if (node) {
->   1002                  ret = of_address_to_resource(node, 0, &res);
->   1003                  if (!ret) {
->   1004                          priv->ap_shm_phys_addr = res.start;
->   1005                          priv->ap_shm_len = resource_size(&res);
->   1006                          priv->ap_shm_addr =
->   1007                                  (uint64_t)(uintptr_t)devm_ioremap_wc(
->   1008                                          dev, priv->ap_shm_phys_addr,
->   1009                                          priv->ap_shm_len);
->   1010                          priv->ap_shm_last_alloc = priv->ap_shm_phys_addr;
->   1011
->   1012                          dev_dbg(dev, "ap_shm_phys_addr=%#llx len=%#x\n",
->   1013                                  priv->ap_shm_phys_addr, priv->ap_shm_len);
->   1014                  }
->   1015          }
->   1016
->   1017          priv->dev = dev;
->   1018          priv->ec_device = ec_device;
->   1019          atomic_set(&priv->dmic_probed, 0);
->   1020
->   1021          p.cmd = EC_CODEC_GET_CAPABILITIES;
->   1022          ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC,
->   1023                                     (uint8_t *)&p, sizeof(p),
->   1024                                     (uint8_t *)&r, sizeof(r));
->   1025          if (ret) {
->   1026                  dev_err(dev, "failed to EC_CODEC_GET_CAPABILITIES\n");
->   1027                  return ret;
->   1028          }
->   1029          priv->ec_capabilities = r.capabilities;
->   1030
->   1031          platform_set_drvdata(pdev, priv);
->   1032
->   1033          ret = devm_snd_soc_register_component(dev, &i2s_rx_component_driver,
->   1034                                                &i2s_rx_dai_driver, 1);
->   1035          if (ret)
->   1036                  return ret;
->   1037
->   1038          return devm_snd_soc_register_component(dev, &wov_component_driver,
->   1039                                                 &wov_dai_driver, 1);
->   1040  }
->   1041
->
 > ---
-> 0-DAY kernel test infrastructure                Open Source Technology Center
-> https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
+>  sound/soc/generic/simple-card.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
+> index fc9c753..10b82bf 100644
+> --- a/sound/soc/generic/simple-card.c
+> +++ b/sound/soc/generic/simple-card.c
+> @@ -149,7 +149,7 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+>         if (li->cpu) {
+>                 int is_single_links = 0;
+>
+> -               /* BE is dummy */
+> +               /* Codec is dummy */
+>                 codecs->of_node         = NULL;
+>                 codecs->dai_name        = "snd-soc-dummy-dai";
+>                 codecs->name            = "snd-soc-dummy";
+> @@ -179,7 +179,7 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
+>         } else {
+>                 struct snd_soc_codec_conf *cconf;
+>
+> -               /* FE is dummy */
+> +               /* CPU is dummy */
+>                 cpus->of_node           = NULL;
+>                 cpus->dai_name          = "snd-soc-dummy-dai";
+>                 cpus->name              = "snd-soc-dummy";
+> --
+> 2.7.4
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

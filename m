@@ -2,51 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63E6CD7E96
-	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 20:15:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3ABD7EBF
+	for <lists+alsa-devel@lfdr.de>; Tue, 15 Oct 2019 20:19:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E9B73844;
-	Tue, 15 Oct 2019 20:14:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9B73844
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC5AF1616;
+	Tue, 15 Oct 2019 20:18:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC5AF1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571163333;
-	bh=TxzmVrHeEJyZlmyWxI5MWHYuyi8y1ZkVu3dgLacGB/w=;
+	s=default; t=1571163541;
+	bh=WyFnB5W9Iv0G9OZS0wwS99JJqwrKNsxpeFmJYTVcVz8=;
 	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Rks3yGnjgyNM3kDTUguC42mPBg6SdAmkOcSLYzM3EAQurD2b/ZgrRxQ34jy3x/hGW
-	 v4ITQ3vkMOQzx2cBF0BESpCwaGALtFgYKhjzlxdJLwvp+TyjHXdBuxRln/EHGfQ91B
-	 r/Ydij3IHtlee2eNODJqUVK0a1R1KQG9/uUN/U5w=
+	b=fWrcyjw5BasNg5dnSc98F+11YW5lQhRszzXFB9wDxbvSYhEWOSwScORlvXSuVMgTf
+	 OV74sTySI+SgURFQ1TxDeJfhBNJE9km7WYWUxVNjaFPX6SwySv7Z/0s+tSk3gJsabo
+	 k0cXAswRD2bPC+MUD0B6YNBjKcAhiMVrE1Xo29Kc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9672F804AA;
-	Tue, 15 Oct 2019 20:13:47 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 969EEF804AB;
+	Tue, 15 Oct 2019 20:17:16 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E282BF804AA; Tue, 15 Oct 2019 20:13:45 +0200 (CEST)
+ id A1F52F8011D; Tue, 15 Oct 2019 20:17:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=FREEMAIL_FROM,PRX_BODY_29,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [IPv6:2a01:e0c:1:1599::13])
+X-Spam-Status: No, score=1.4 required=5.0 tests=FREEMAIL_FROM, PRX_BODYSUB_18, 
+ PRX_BODY_30, SPF_HELO_NONE, SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp4-g21.free.fr (smtp4-g21.free.fr [212.27.42.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 211E5F800F4
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 20:13:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 211E5F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDC5EF8011D
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 20:17:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDC5EF8011D
 Received: from ladybug (unknown [37.165.241.96])
  (Authenticated sender: subscript)
- by smtp4-g21.free.fr (Postfix) with ESMTPSA id 9079A19F58A
- for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 20:13:40 +0200 (CEST)
-Date: Tue, 15 Oct 2019 20:13:35 +0200
+ by smtp4-g21.free.fr (Postfix) with ESMTPSA id B3F6319F5D0
+ for <alsa-devel@alsa-project.org>; Tue, 15 Oct 2019 20:17:08 +0200 (CEST)
+Date: Tue, 15 Oct 2019 20:17:07 +0200
 From: wwp <subscript@free.fr>
 To: alsa-devel@alsa-project.org
-Message-ID: <20191015201335.0927bc87@ladybug>
-In-Reply-To: <20191014134028.GA11018@b4.vu>
-References: <20191013102030.50d7c8d0@ladybug>
-	<20191014134028.GA11018@b4.vu>
+Message-ID: <20191015201707.29a7f547@ladybug>
+In-Reply-To: <1795449400.2217618.1571067909254@mail.yahoo.com>
+References: <mailman.1096.1571065442.5591.alsa-devel@alsa-project.org>
+ <1795449400.2217618.1571067909254@mail.yahoo.com>
 X-Mailer: Claws Mail 3.17.4git48 (GTK+ 2.24.31; x86_64-unknown-linux-gnu)
 User-Agent: DOH
 X-Face: 9x'hO=<A?%6*-4(@CJIAZa76:2U]#n7hu##-c.@?as>puy,
@@ -69,6 +70,7 @@ Face: iVBORw0KGgoAAAANSUhEUgAAADAAAAAwBAMAAAClLOS0AAAAFVBMVEX9x7aws4vD
  LDP/EvAPpzg/DzW8HhEAAAAASUVORK5CYII=
 MIME-Version: 1.0
 Subject: Re: [alsa-devel] Focusrite Scarlett 18i8 3rd Gen audio interface
+ (Re: Alsa-devel Digest, Vol 152, Issue 150)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,68 +83,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6253069103655629749=="
+Content-Type: multipart/mixed; boundary="===============4604869561295641564=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---===============6253069103655629749==
+--===============4604869561295641564==
 Content-Type: multipart/signed; micalg=pgp-sha1;
- boundary="Sig_/+jJ.BRpP9_5Zs8EMv_fdzmg"; protocol="application/pgp-signature"
+ boundary="Sig_/Kn8XEMpsQfgm1f6CifCDtL5"; protocol="application/pgp-signature"
 
---Sig_/+jJ.BRpP9_5Zs8EMv_fdzmg
-Content-Type: text/plain; charset=US-ASCII
+--Sig_/Kn8XEMpsQfgm1f6CifCDtL5
+Content-Type: text/plain; charset=ISO-8859-15
 Content-Transfer-Encoding: quoted-printable
 
-Hello Geoffrey,
+Hello Hin-Tak,
 
 
-On Tue, 15 Oct 2019 00:10:28 +1030 "Geoffrey D. Bennett" <g@b4.vu> wrote:
+On Mon, 14 Oct 2019 15:45:09 +0000 (UTC) Hin-Tak Leung <htl10@users.sourcef=
+orge.net> wrote:
 
-> Hi wwp,
+> =20
+> > Date: Tue, 15 Oct 2019 00:10:28 +1030
+> > From: "Geoffrey D. Bennett" <g@b4.vu>
+> > To: wwp <subscript@free.fr>
+> > Cc: alsa-devel@alsa-project.org
+> > Subject: Re: [alsa-devel] Focusrite Scarlett 18i8 3rd Gen audio
+> >=A0=A0=A0 interface
+> > Message-ID: <20191014134028.GA11018@b4.vu>
+> > Content-Type: text/plain; charset=3Dus-ascii =20
 >=20
-> On Sun, Oct 13, 2019 at 10:20:30AM +0200, wwp wrote:
-> > Hello,
-> >=20
-> > I've recently bought a Focusrite Scarlett 18i8 3rd Gen audio interface,
-> > great device, but in CentOS 7, with either the available 3.x or 4.x
-> > kernels, the device just appears in the available Alsa devices, but no
-> > mixer is available, the device direct hardware monitor output is also
-> > not working (it is, by default, and works well in Windows, but I
-> > presume that w/ no mixer support in Alsa, it's expected that nothing
-> > works). I'm able to bound I/O ports in QJackCtl but nothing goes out of
-> > the device. =20
+> > Hi wwp, =20
 >=20
-> Is any of the class-compliant functionality (play/record) working at
-> all in CentOS 7? I would expect that out of the box you should be able
-> to get standard ALSA/PulseAudio apps working for I/O.
-
-I tried, nothing, maybe not tried right or enough.
-
-
-> > Of course, adding the 0x1235:8214 USB ID to the quirks just doesn't
-> > work. I presume there's more work like the patch submitted here (I saw
-> > the archives) in the "[PATCH RFC V2] ALSA: usb-audio: Scarlett Gen 2
-> > mixer interface" mail thread? =20
+> > On Sun, Oct 13, 2019 at 10:20:30AM +0200, wwp wrote: =20
+> > > Hello,
+> > >
+> > > I've recently bought a Focusrite Scarlett 18i8 3rd Gen audio interfac=
+e,
+> > > great device, but in CentOS 7, with either the available 3.x or 4.x
+> > > kernels,  =20
+> > ... =20
 >=20
-> Yes, there would definitely be more work to do along those lines. If
-> we're lucky, the protocol is basically the same as 2nd gen and just
-> extended for the additional features in the 3rd gen. FWIW, I haven't
-> heard of anyone starting that work.
+> > > Of course, adding the 0x1235:8214 USB ID to the quirks just doesn't
+> > > work. I presume there's more work like the patch submitted here (I saw
+> > > the archives) in the "[PATCH RFC V2] ALSA: usb-audio: Scarlett Gen 2
+> > > mixer interface" mail thread? =20
 >=20
-> > Do you it is worth trying applying that 2nd Gen patch to one of the v4
-> > kernel available for CentOS 7, adding the 3rd Gen quirks and see how it
-> > behaves? Or is there already progress on supporting the 3rd Gen one too=
-? =20
->=20
-> I doubt that it would do much useful beyond letting you know if it
-> accepts the same initialisation sequence as the 2nd gen devices. If
-> you want to send me (off-list) a wireshark USB capture from 1) the
-> Windows driver initialising your device and 2) you adjusting settings
-> in Focusrite Control, I can have a look at it and let you know if it
-> looks similar to the 2nd gen devices.
+> Have you tried treating it as a 18i8 2nd Gen device first, at least?
 
-I tried -> broken pipe. IOW, it doesn't work, not as simple as doing as
-if the 3rd gen was a 2nd gen.
+Yup, didn't work.
+
+
+> FWIW, I had adapted Geoffrey's work as a DKMS module:
+>=20
+> https://github.com/HinTak/sound-usb-dkms
+>=20
+> But you'll still need to be running as recent as a 5.2.x release kernel t=
+o use it. It just makes it easier to play with the code without recompiling=
+ the whole kernel. HTH. 3.x and 4.x is definitely way too old!
+
+That won't be for me for a long while, then, no spare time enough to
+deal w/ kernel 5.x here.
 
 
 Regards,
@@ -151,31 +150,31 @@ Regards,
 wwp
 https://useplaintext.email/
 
---Sig_/+jJ.BRpP9_5Zs8EMv_fdzmg
+--Sig_/Kn8XEMpsQfgm1f6CifCDtL5
 Content-Type: application/pgp-signature
 Content-Description: OpenPGP digital signature
 
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2.0.22 (GNU/Linux)
 
-iQIcBAEBAgAGBQJdpgxTAAoJEEnFZ+hWA4VJ4eIQAKiXyfPVysW0CMHUQc68BAvM
-Ri1amuNAYu7r+/teq0y/aRukNSZzQNyiFRDB+a8YblyyPrREEMilSqZ1Er3Tos7n
-wSAxCAE7zMBvompF4p7uh9/MxDxF3Oaaqr52xT2SLKLuA0wWq255AwxGMbI8r5gf
-EZrLSNplXQoWcQEqbHpIanNX+z1mYiu3hgGxv6RAT9y/KVSrv6w4UPc/2OuR7cEF
-BUSho7+LXOnT9lKOzSY6QtjzVWsV6E84iGWLbnH1UAKtvPwTZE+nHH0F5dyh6JBw
-mqtYmRHkFtLRIe/OS/YaYkZw/ihjSexbtD1RIFEi4SyIpbGiiPmWCSBoT6y/UqU2
-sCVS3ZxSh1QKSizGsisQl6OTdlpvlIfdiTpQtoJXD7k0P601MFbz/zKxsu8izR1b
-yngWiDLwHSKvLjkkv/S1jb/uvnUIYJXPQPZ5XNn4StRyk3dUCLaTeA/yUYa2aEny
-6ndS2DnVlND2zsgRPCN2b2SPt7BH63pSf549VTt6Ac3GEFhz3pDcTjmP+IYcO5de
-jYvpyaQLUidb7IGm7fUvkt64ly2yn/UjNT/+HJET8GP1QldG8eQU6Z9s0h2xO9jh
-jPcKpMqYyWoe7yJZMOzwIgZHQGMR1wkLQXCkzBhQ5zNaMzgnhYVY9AIxiDLJucfe
-VZg07KpldKuASR44wEvQ
-=7j/9
+iQIcBAEBAgAGBQJdpg0jAAoJEEnFZ+hWA4VJ72cP/R+2GxIuMMtBBB2D+uKWkY5g
+kHHrlTUum1SlwLFXGCGD4RzpWUfsWENrn9fo817A1504lKrzc9XVkGXiYfs0BM/+
+8frMk1rwV3TsX7m49lbncf0LB0SqizEU9Ltb7gxWA0UhMAsCvlTnmYFntEtxhx8R
+Ya5D4ZkPVotvkmYRD3CUt9Jg5wzSdbSDByY6lIs85Z0J5yhhdQTQryzcgsvqYjhd
+5pOV5JqmqgTcQCJKSB15V1mykSxahLR3XqK6kkRi8RXlvc81/5Stim0QYqwgF9ns
+2ooosRBIkTsnndi5TlUTpsDhOYyRNB4Dzwkn0TcOPE5Eu9K+rehm78vx+Kck1Lxm
+luvvaIBWaDLOudH5AzZR4fJXiPF+8MYqzRRZd8RjUgl3q0+nfqlr+vXeWgFU8DgR
+eQr75q6FIixcEVwdiH+k2oHm9jt8N4u8K1p32nDddDZSZjJnNN94QFfRAeiTU1E8
+ezfaaCxSGVuNuVP6n3VeTs94HoMOgXID2TGAC1sJyInE4OOhuepvdXfxdpLl3BCF
+Uq+ruKKUVH44Xdc4iTzQnUrI3EFcCjugN5kKpq/GmbtEtzOZg4pA2gVfwLkp6K2q
+ao5XXCak1quutqY6KMI6gTHd/Rzr4ntyYLHeLlrKxMpQjJSNcjIz+zlDWvD/ExGb
+nCD5EXvWZvp0Fnx0BT80
+=Skdi
 -----END PGP SIGNATURE-----
 
---Sig_/+jJ.BRpP9_5Zs8EMv_fdzmg--
+--Sig_/Kn8XEMpsQfgm1f6CifCDtL5--
 
---===============6253069103655629749==
+--===============4604869561295641564==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -186,4 +185,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============6253069103655629749==--
+--===============4604869561295641564==--

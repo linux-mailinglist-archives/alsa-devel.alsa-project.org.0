@@ -2,76 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAEA2D9472
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 16:55:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74791D9C5F
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 23:18:53 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3B4D9857;
-	Wed, 16 Oct 2019 16:54:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B4D9857
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDBEE9F6;
+	Wed, 16 Oct 2019 23:18:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDBEE9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571237738;
-	bh=SgEMkL0xRU7IND7xy0OvUeZKm1NZoC5L97aLvyBeIxs=;
+	s=default; t=1571260733;
+	bh=Dief/WfbKXpFBAMtigLiRq3RegYR82CeOUMksP1I3E8=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mlg39zbi/lWP3ZDCdiNcVwTLsnYfcSPNottGn75f7SNKil7LXHSZMQLFmCV5GkPuC
-	 WPLpFMysvlC8lwSHhLqaRvGMdVSU5fl+DEHZ0p5W4noLGk6Hndq/jWq2Z6rrp/c6lD
-	 RGLFgghujT7fsquraRTYnXWAyUtb9/2BUYHw2hZc=
+	b=scnPRI7pcbaRRl8CstOWOR117SPJlUEOxkz5tZUz7hA2925hukHZ5bv1oaYCy3u8M
+	 M6bqcgtn8L8S2Hlnprg/N2ezBX+YYp6UUVQr78NNuqe+pSOu7SYYYzEvxSv7D1HJYv
+	 VNSBMk75FQipuUhmzwUb64XdVTIMcCBqIyJUQP/s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E93FCF8036C;
-	Wed, 16 Oct 2019 16:53:53 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3EDE3F80323;
+	Wed, 16 Oct 2019 23:17:08 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78129F80362; Wed, 16 Oct 2019 16:53:52 +0200 (CEST)
+ id 88814F80362; Wed, 16 Oct 2019 23:17:05 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
+ [66.111.4.224])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4CAFF80322
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 16:53:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4CAFF80322
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06071F80276
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 23:17:01 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06071F80276
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="x7w7DZ/g"
-Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4985F2168B;
- Wed, 16 Oct 2019 14:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1571237627;
- bh=uc/PYalgTjzCCWhp6PA2rkYtBpjEkTRPLPZjqrQyptI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=x7w7DZ/gRhixI5aXMMHU39O2Ro3sO/7sBmGkF+zzkpkPrptyR9+jc4MEcN7v509e9
- Zg5kAUqeRoB9qzys+P36C2PI+bAfPTelA9JfB1RJB/FGqDk57u3ph7ZaakwdFs7iRm
- 2UxhvNWaIWWezJxjUZVD3w+9mEyjt/+qlNHsYyqY=
-Date: Wed, 16 Oct 2019 16:53:45 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Code Kipper <codekipper@gmail.com>
-Message-ID: <20191016145345.ll2igr2j5zttosjj@gilmour>
-References: <20191016070740.121435-1-codekipper@gmail.com>
- <20191016070740.121435-3-codekipper@gmail.com>
- <20191016080653.3seixioa2xiaobd7@gilmour>
- <CAEKpxBmuYe-kHpa4cvo6iabTM_qNro2hXVAkjioBZFt9N4pHdA@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com
+ header.b="crNv5j1k"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="e74ZIf2b"
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+ by mailnew.nyi.internal (Postfix) with ESMTP id A5FBB721C;
+ Wed, 16 Oct 2019 17:16:59 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute6.internal (MEProxy); Wed, 16 Oct 2019 17:16:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=TDIuhUqyETt+wUzSenxW4gSfVzI
+ J3N49EH7vP3P1UPw=; b=crNv5j1k2SsRQS5f3cUQ7HdTBDG9uyu6KGfumMMf8sY
+ QhcJ8T/vsPywtbJyLI6LJ9+lkZCX+RnrDr5JJ7fSpzV2gVAVAN2ou9WKGsTqW1kd
+ 6PDH4Y/s15dI+UHZ18MVIaKU+WBKcUbgN6XTKRZxg4hRLZmBOBCyFEK5HP0Ia1Ht
+ HWldOZQRiNWk+V5vxEcADntiSkqHPW2/a/atQvMr9ECXqxkdam28dbrLSS0NPoyf
+ eIVLBC8RkZcm3lB7jLwzJsw0GBWq2bon4Mv7+dlGFEAcNRvv69WxBkDb20yJFsC8
+ kXotq9zNaeBAG/khmhggLIAY9+YeBy8ZmNCi/8WyRdw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=TDIuhU
+ qyETt+wUzSenxW4gSfVzIJ3N49EH7vP3P1UPw=; b=e74ZIf2bn1B7OgTPPafrLu
+ j7JMRX4NTZVdbpL6bIchqZhpptR3p1WOEDkEKmSfqD6d0anip+aEipGyiyW2fqIy
+ GtGVu4+9KdOG4RhE0CrnJn8VWMF0IdGgy0RB/xAkG0cbU2YZnDhEh5eRmjkEGr0g
+ EXnxUDfKHYw+vUKWn/Siqse7uSjFs4e1papPgp/87zIrpZjHL2YGZELC4zFuK+sk
+ 9cU6caTi77OXbigCyEDrtj5d8yUKvNv1xS3NF13D4WYiC6k6wtnh92JwUPqrymae
+ j+0U12zsrIL5oVf+/4pq3sweO6DaQe+hQtj9iSuYg+ZDhMKdPzDNJ8Wgw8bywxXA
+ ==
+X-ME-Sender: <xms:yoinXfuzRqRkM5zUeUHD_u8JNS8eqrWBSsCKr4L4UKqAL1GnI5avEw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrjeehgdduiedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjfgesthdtredttdervdenucfhrhhomhepifhrvghg
+ ucfmjfcuoehgrhgvgheskhhrohgrhhdrtghomheqnecuffhomhgrihhnpehkvghrnhgvlh
+ drohhrghenucfkphepudejvddruddtgedrvdegkedrgeegnecurfgrrhgrmhepmhgrihhl
+ fhhrohhmpehgrhgvgheskhhrohgrhhdrtghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:yoinXUwPyqot8LUwlkCVowN-Yi6X4gfRrFStBg9sPtuxTIijnf3JMw>
+ <xmx:yoinXR5-ax-XZ5wdOUGlhcZ7jQ1YkA5fsw5fTUCBrC8t-lsD_0E17Q>
+ <xmx:yoinXWWeje0aVM_vhnZLzW8lX4RrC1FUWZ-cYd1pxGnhe29gNTKOdQ>
+ <xmx:y4inXQnwQ-D5thTWP5pf2YvGFNuRrkktvovmLzbyB65svFqHWtAl-w>
+Received: from localhost (li1825-44.members.linode.com [172.104.248.44])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3DADFD60063;
+ Wed, 16 Oct 2019 17:16:57 -0400 (EDT)
+Date: Wed, 16 Oct 2019 14:16:54 -0700
+From: Greg KH <greg@kroah.com>
+To: Richard Leitner <richard.leitner@skidata.com>
+Message-ID: <20191016211654.GB856391@kroah.com>
+References: <20191016091304.15870-1-richard.leitner@skidata.com>
 MIME-Version: 1.0
-In-Reply-To: <CAEKpxBmuYe-kHpa4cvo6iabTM_qNro2hXVAkjioBZFt9N4pHdA@mail.gmail.com>
-User-Agent: NeoMutt/20180716
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- linux-sunxi <linux-sunxi@googlegroups.com>,
- linux-kernel <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
- Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH v6 2/7] ASoC: sun4i-i2s: Add functions for
- RX and TX channel offsets
+Content-Disposition: inline
+In-Reply-To: <20191016091304.15870-1-richard.leitner@skidata.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+Cc: alsa-devel@alsa-project.org, Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, stable@vger.kernel.org,
+ lgirdwood@gmail.com, Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
+ Igor Opaniuk <igor.opaniuk@toradex.com>, broonie@kernel.org,
+ festevam@gmail.com
+Subject: Re: [alsa-devel] [PATCH v5.3] ASoC: sgtl5000: add ADC mute control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,93 +110,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7741116471127264195=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Oct 16, 2019 at 11:13:04AM +0200, Richard Leitner wrote:
+> From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+> 
+> Upstream commit 631bc8f0134a ("ASoC: sgtl5000: Fix of unmute outputs on
+> probe"), which is e9f621efaebd in v5.3 replaced snd_soc_component_write
+> with snd_soc_component_update_bits and therefore no longer cleared the
+> MUTE_ADC flag. This caused the ADC to stay muted and recording doesn't
+> work any longer. This patch fixes this problem by adding a Switch control
+> for MUTE_ADC.
+> 
+> commit 694b14554d75 ("ASoC: sgtl5000: add ADC mute control") upstream
+> 
+> This control mute/unmute the ADC input of SGTL5000
+> using its CHIP_ANA_CTRL register.
+> 
+> Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+> Reviewed-by: Marcel Ziswiler <marcel.ziswiler@toradex.com>
+> Reviewed-by: Igor Opaniuk <igor.opaniuk@toradex.com>
+> Reviewed-by: Fabio Estevam <festevam@gmail.com>
+> Link: https://lore.kernel.org/r/20190719100524.23300-5-oleksandr.suvorov@toradex.com
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Signed-off-by: Richard Leitner <richard.leitner@skidata.com>
+> Fixes: e9f621efaebd ("ASoC: sgtl5000: Fix of unmute outputs on probe")
+> ---
+>  sound/soc/codecs/sgtl5000.c | 1 +
+>  1 file changed, 1 insertion(+)
 
---===============7741116471127264195==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="jby4uz6cwklukmi6"
-Content-Disposition: inline
+Now applied, thanks.
 
-
---jby4uz6cwklukmi6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Oct 16, 2019 at 10:25:29AM +0200, Code Kipper wrote:
-> On Wed, 16 Oct 2019 at 10:06, Maxime Ripard <mripard@kernel.org> wrote:
-> >
-> > Hi,
-> >
-> > On Wed, Oct 16, 2019 at 09:07:35AM +0200, codekipper@gmail.com wrote:
-> > > From: Marcus Cooper <codekipper@gmail.com>
-> > >
-> > > Newer SoCs like the H6 have the channel offset bits in a different
-> > > position to what is on the H3. As we will eventually add multi-
-> > > channel support then create function calls as opposed to regmap
-> > > fields to add support for different devices.
-> > >
-> > > Signed-off-by: Marcus Cooper <codekipper@gmail.com>
-> > > ---
-> > >  sound/soc/sunxi/sun4i-i2s.c | 31 +++++++++++++++++++++++++------
-> > >  1 file changed, 25 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-> > > index f1a80973c450..875567881f30 100644
-> > > --- a/sound/soc/sunxi/sun4i-i2s.c
-> > > +++ b/sound/soc/sunxi/sun4i-i2s.c
-> > > @@ -157,6 +157,8 @@ struct sun4i_i2s_quirks {
-> > >       int     (*set_chan_cfg)(const struct sun4i_i2s *,
-> > >                               const struct snd_pcm_hw_params *);
-> > >       int     (*set_fmt)(struct sun4i_i2s *, unsigned int);
-> > > +     void    (*set_txchanoffset)(const struct sun4i_i2s *, int);
-> > > +     void    (*set_rxchanoffset)(const struct sun4i_i2s *);
-> >
-> > The point of removing the regmap_field was that because having a
-> > one-size-fits-all function with regmap_field sort of making the
-> > abstraction was becoming more and more of a burden to maintain.
-> >
-> > Having functions for each and every register access is exactly the
-> > same as using regmap_field here, and the issue we adressed is not with
-> > regmap_fields in itself.
-> >
-> > If the H6 has a different register layout, then so be it, create a new
-> > set_chan_cfg or set_fmt function for the H6.
->
-> The H3 and the H6 have a similar register layout but the issue here
-> is that sooner rather than later we would want to be supporting
-> multi-channel audio which requires the offset to be applied to each
-> TX channel channel select register(8chan PCM for HDMI requires 4 Tx
-> channels). Currently we're only using one.
-
-So, as it turns out, they do not have the same register layout?
-
-Maxime
-
---jby4uz6cwklukmi6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXacu+QAKCRDj7w1vZxhR
-xbpWAQD9d7cqPH+6+SLdgcA51ULmYTV+ruv2fADxYhKJiST9+AD/UEhef7PZqkGw
-6nq7Em4kSoD7ip5xtYFAHDOWzTFGUgk=
-=IAvd
------END PGP SIGNATURE-----
-
---jby4uz6cwklukmi6--
-
---===============7741116471127264195==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7741116471127264195==--

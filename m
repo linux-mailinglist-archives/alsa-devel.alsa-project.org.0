@@ -2,67 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A285D8E42
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 12:45:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0180D8EA0
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 12:51:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6F9F1615;
-	Wed, 16 Oct 2019 12:45:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6F9F1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 68F9B847;
+	Wed, 16 Oct 2019 12:50:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68F9B847
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571222756;
-	bh=hAvNeRU8hvfjTwAol3Rr0c9IiYNKSRSzjY7ntQPUS+A=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=O5vZKlME1Ls0KGI6XlWYVnKmh39pq8y9HrUcqyYx2Q6Wa5g2Wn0iBoBReo2N3Nwb5
-	 PcRlFLSx99de3jK4P8dFkzVaXvHwM1EfnJ5qhIaUXD6dZrzsb7HnpVbPU/ERBQyulg
-	 ig8mciAS6E8V+dBa58TB+15V81BChFRBQlZFnPbA=
+	s=default; t=1571223102;
+	bh=jZaZcPuJ8udW85Jz7fklzTfkSMqPM6lwq1l/hjqrzTo=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=VkfwHpqLFYtq4RLH6FJHqgFNJt0BOv1KjBKu3zUW7eb/Uptp9U88wjiOqMhcyxOTv
+	 WGkDpb6Mx706PQ8Cf15oetSeeXn8Kzp0NKBEUBGpkEfgys7cign9CY4+wQhuk0VZIc
+	 mZmZ+ULeKUsrmlSs3PgKtQ47dIr9YhaOx8VKwtbE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03A46F80322;
-	Wed, 16 Oct 2019 12:44:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D08B2F80362;
+	Wed, 16 Oct 2019 12:49:57 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A12D0F80362; Wed, 16 Oct 2019 12:44:08 +0200 (CEST)
+ id 0FB61F80362; Wed, 16 Oct 2019 12:49:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-7.3 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, HEADER_FROM_DIFFERENT_DOMAINS, SPF_HELO_NONE,
+ SPF_PASS, 
+ URIBL_BLOCKED,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-ua1-x941.google.com (mail-ua1-x941.google.com
+ [IPv6:2607:f8b0:4864:20::941])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8DF8F80322
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 12:44:04 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8DF8F80322
+ by alsa1.perex.cz (Postfix) with ESMTPS id 242F1F8011F
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 12:49:51 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 242F1F8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OoVBpgu5"
-Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 20ABB2168B;
- Wed, 16 Oct 2019 10:44:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1571222641;
- bh=Sg5D34GnHEWc66UOrTDBpqCvV3gIlQjrJcuLuidVbQk=;
- h=From:To:Cc:Subject:Date:From;
- b=OoVBpgu5xWSD6KRAwpxjFGmRsQdb1ZsEZYmSRwhMu6VxTD5JCe/PG4sCz9zWgT8aZ
- D5T6KpfOy8jF20KpsbAaFULilkgW9ud63c03zoyVPFLThXYvFRlaAPYsenVkPsrcdB
- guMIpCXdhYLdzCF1rWbZH07xX6FryErjHgMFk5Os=
-From: Maxime Ripard <mripard@kernel.org>
-To: lgirdwood@gmail.com, broonie@kernel.org, Chen-Yu Tsai <wens@csie.org>,
- Maxime Ripard <mripard@kernel.org>
-Date: Wed, 16 Oct 2019 12:43:55 +0200
-Message-Id: <20191016104355.65169-1-mripard@kernel.org>
-X-Mailer: git-send-email 2.23.0
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="ObFq94ms"
+Received: by mail-ua1-x941.google.com with SMTP id b14so7066145uap.6
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 03:49:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ojjYtDjrw8larMFBVqkWTImOnD6WOKIQeRui6WWFfto=;
+ b=ObFq94ms9X3CQrY1WWzpVDO/R4Gxvt5oWIwvlatRSnxbRKgd5LfLd6VhpQIRxwCz4c
+ elHtdBktcm7bhzJdPS/IOQJchWw2fdqUFLX5toqTJHfdhDuQMhJyCD3UMK1yXRlwDgMp
+ ukNRSgYQPuMpSZLxH4P/RCY2/OE5zlVXrrSeU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ojjYtDjrw8larMFBVqkWTImOnD6WOKIQeRui6WWFfto=;
+ b=E/VdvEfrFkxHzJWe39aKnUcn2JWWx1m8pxP8i4rmUeNjlVa2TuLNjdFaU6/cdV/Vwv
+ ySKWMazZn3xf75PGmj9y24QBuzAkJBNZdJIPBrA07nhyzIiroAn4rlzZUup+fQT5Abaf
+ CPuqnLmdoqytTIJc2A5Daik3758sw4cx4OmRfr1AqB01fW0gqURYhsgUTTjtIrXmYG6w
+ k7uxK9E1jt5AYqRQih6lDLntesl6nwf3Da3NsFhNl5eykvrSOOzBehu1h5Hhsr7G+h2L
+ 5DoR2mIR0j74zr4Aoe1dPTkgCY1eXnRJhAfLehUrlWEX3gv+cUQlKb4oSpvhO93Qmka0
+ t8KA==
+X-Gm-Message-State: APjAAAVmTWogWgSNqQzwg/nTv8RTqHdoIiEaSx/cY5uyobd2WhEncYDI
+ AxNW4GsDt/oxXgaK0K7DQJlq/hlpMuX11pqK2d72Cw==
+X-Google-Smtp-Source: APXvYqwf88w45dhDT8yfkbrMZQ+MyA7ULlWXC++gbSROyRckhhTO5Q3OJ6k4y9KXa5R1OTP4Q/biYfECxE8iyGmNxLo=
+X-Received: by 2002:ab0:2bcf:: with SMTP id s15mr3591671uar.55.1571222989485; 
+ Wed, 16 Oct 2019 03:49:49 -0700 (PDT)
 MIME-Version: 1.0
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Rob Herring <robh+dt@kernel.org>,
- Frank Rowand <frowand.list@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH v3] ASoC: dt-bindings: Convert Allwinner A10
-	codec to a schema
+References: <20191016085845.11672-1-shumingf@realtek.com>
+In-Reply-To: <20191016085845.11672-1-shumingf@realtek.com>
+From: Cheng-yi Chiang <cychiang@chromium.org>
+Date: Wed, 16 Oct 2019 18:49:23 +0800
+Message-ID: <CAFv8NwLzXpOQdLgjppYwgTQtFzfMVP==tSGyFM7g5iyUosKihw@mail.gmail.com>
+To: =?UTF-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, lars@metafoo.de,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ =?UTF-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: rt1011: Read and apply r0 and
+	temperature device property
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,406 +98,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The Allwinner SoCs have an embedded audio codec that is supported in Linux,
-with a matching Device Tree binding.
+On Wed, Oct 16, 2019 at 4:59 PM <shumingf@realtek.com> wrote:
+>
+> From: Shuming Fan <shumingf@realtek.com>
+>
+> Typically, the r0 (calibration data) and temperature were measured in the factory.
+> This information is written into the non-volatile area
+> where keeps data whether factory reset or OS update.
+> In Chromium OS case, the coreboot will read the info from VPD and create
+> the device property for each rt1011.
+>
+> Signed-off-by: Shuming Fan <shumingf@realtek.com>
+> ---
+>  sound/soc/codecs/rt1011.c | 41 ++++++++++++++++++++++++++++++++++++++-
+>  sound/soc/codecs/rt1011.h |  1 +
+>  2 files changed, 41 insertions(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
+> index b927e61b32df..ad049cfddcb0 100644
+> --- a/sound/soc/codecs/rt1011.c
+> +++ b/sound/soc/codecs/rt1011.c
+> @@ -2328,8 +2328,12 @@ static void rt1011_calibration_work(struct work_struct *work)
+>         struct rt1011_priv *rt1011 =
+>                 container_of(work, struct rt1011_priv, cali_work);
+>         struct snd_soc_component *component = rt1011->component;
+> +       unsigned int r0_integer, r0_factor, format;
+>
+> -       rt1011_calibrate(rt1011, 1);
+> +       if (rt1011->r0_calib)
+> +               rt1011_calibrate(rt1011, 0);
+> +       else
+> +               rt1011_calibrate(rt1011, 1);
+>
+>         /*
+>          * This flag should reset after booting.
+> @@ -2340,6 +2344,39 @@ static void rt1011_calibration_work(struct work_struct *work)
+>
+>         /* initial */
+>         rt1011_reg_init(component);
+> +
+> +       /* Apply temperature and calibration data from device property */
+> +       if (rt1011->temperature_calib) {
+> +               snd_soc_component_update_bits(component,
+> +                       RT1011_STP_INITIAL_RESISTANCE_TEMP, 0x3ff,
+> +                       (rt1011->temperature_calib << 2));
+> +       }
+> +
+> +       if (rt1011->r0_calib) {
+> +               rt1011->r0_reg = rt1011->r0_calib;
+> +
+> +               format = 2147483648U; /* 2^24 * 128 */
+> +               r0_integer = format / rt1011->r0_reg / 128;
+> +               r0_factor = ((format / rt1011->r0_reg * 100) / 128)
+> +                                               - (r0_integer * 100);
+> +               dev_info(component->dev,        "DP r0 resistance about %d.%02d ohm, reg=0x%X\n",
+> +                       r0_integer, r0_factor, rt1011->r0_reg);
+> +
+> +               rt1011_r0_load(rt1011);
+> +       }
+> +}
+> +
+> +static int rt1011_parse_dp(struct rt1011_priv *rt1011, struct device *dev)
+> +{
+> +       device_property_read_u32(dev, "realtek,temperature_calib",
+> +               &rt1011->temperature_calib);
+> +       device_property_read_u32(dev, "realtek,r0_calib",
+> +               &rt1011->r0_calib);
+> +
+> +       dev_dbg(dev, "%s: r0_calib: 0x%x, temperture_calib: 0x%x",
+> +               __func__, rt1011->r0_calib, rt1011->temperature_calib);
+> +
+> +       return 0;
+>  }
+>
+>  static int rt1011_i2c_probe(struct i2c_client *i2c,
+> @@ -2356,6 +2393,8 @@ static int rt1011_i2c_probe(struct i2c_client *i2c,
+>
+>         i2c_set_clientdata(i2c, rt1011);
+>
+> +       rt1011_parse_dp(rt1011, &i2c->dev);
+> +
+>         rt1011->regmap = devm_regmap_init_i2c(i2c, &rt1011_regmap);
+>         if (IS_ERR(rt1011->regmap)) {
+>                 ret = PTR_ERR(rt1011->regmap);
+> diff --git a/sound/soc/codecs/rt1011.h b/sound/soc/codecs/rt1011.h
+> index 3f7dea1191ad..68fadc15fa8c 100644
+> --- a/sound/soc/codecs/rt1011.h
+> +++ b/sound/soc/codecs/rt1011.h
+> @@ -690,6 +690,7 @@ struct rt1011_priv {
+>
+>         int bq_drc_set;
+>         unsigned int r0_reg, cali_done;
+> +       unsigned int r0_calib, temperature_calib;
+>         int recv_spk_mode;
+>  };
+>
+> --
+> 2.23.0
+>
+FYI, the relevant coreboot patch series is at
+https://review.coreboot.org/c/coreboot/+/36031
+I have tested it with coreboot changes.
 
-Now that we have the DT validation in place, let's convert the device tree
-bindings for that controller over to a YAML schemas.
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
-
----
-
-Changes from v2:
-  - Change the audio-routing values to an enum, and enforce boundaries on
-    the size
-  - Add restrictions to the possible values of audio-routing
-
-Changes from v1:
-  - Fix subject prefix
----
- .../sound/allwinner,sun4i-a10-codec.yaml      | 267 ++++++++++++++++++
- .../devicetree/bindings/sound/sun4i-codec.txt |  94 ------
- 2 files changed, 267 insertions(+), 94 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-codec.yaml
- delete mode 100644 Documentation/devicetree/bindings/sound/sun4i-codec.txt
-
-diff --git a/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-codec.yaml b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-codec.yaml
-new file mode 100644
-index 000000000000..b8f89c7258eb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/allwinner,sun4i-a10-codec.yaml
-@@ -0,0 +1,267 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/allwinner,sun4i-a10-codec.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Allwinner A10 Codec Device Tree Bindings
-+
-+maintainers:
-+  - Chen-Yu Tsai <wens@csie.org>
-+  - Maxime Ripard <maxime.ripard@bootlin.com>
-+
-+properties:
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  compatible:
-+    enum:
-+      - allwinner,sun4i-a10-codec
-+      - allwinner,sun6i-a31-codec
-+      - allwinner,sun7i-a20-codec
-+      - allwinner,sun8i-a23-codec
-+      - allwinner,sun8i-h3-codec
-+      - allwinner,sun8i-v3s-codec
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Bus Clock
-+      - description: Module Clock
-+
-+  clock-names:
-+    items:
-+      - const: apb
-+      - const: codec
-+
-+  dmas:
-+    items:
-+      - description: RX DMA Channel
-+      - description: TX DMA Channel
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: tx
-+
-+  resets:
-+    maxItems: 1
-+
-+  allwinner,audio-routing:
-+    description: |-
-+      A list of the connections between audio components.  Each entry
-+      is a pair of strings, the first being the connection's sink, the
-+      second being the connection's source.
-+    allOf:
-+      - $ref: /schemas/types.yaml#definitions/non-unique-string-array
-+      - minItems: 2
-+        maxItems: 18
-+        items:
-+          enum:
-+            # Audio Pins on the SoC
-+            - HP
-+            - HPCOM
-+            - LINEIN
-+            - LINEOUT
-+            - MIC1
-+            - MIC2
-+            - MIC3
-+
-+            # Microphone Biases from the SoC
-+            - HBIAS
-+            - MBIAS
-+
-+            # Board Connectors
-+            - Headphone
-+            - Headset Mic
-+            - Line In
-+            - Line Out
-+            - Mic
-+            - Speaker
-+
-+  allwinner,codec-analog-controls:
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    description: Phandle to the codec analog controls in the PRCM
-+
-+  allwinner,pa-gpios:
-+    description: GPIO to enable the external amplifier
-+
-+required:
-+  - "#sound-dai-cells"
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - clock-names
-+  - dmas
-+  - dma-names
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - allwinner,sun6i-a31-codec
-+            - allwinner,sun8i-a23-codec
-+            - allwinner,sun8i-h3-codec
-+            - allwinner,sun8i-v3s-codec
-+
-+    then:
-+      if:
-+        properties:
-+          compatible:
-+            const: allwinner,sun6i-a31-codec
-+
-+      then:
-+        required:
-+          - resets
-+          - allwinner,audio-routing
-+
-+      else:
-+        required:
-+          - resets
-+          - allwinner,audio-routing
-+          - allwinner,codec-analog-controls
-+
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - allwinner,sun6i-a31-codec
-+
-+    then:
-+      properties:
-+        allwinner,audio-routing:
-+          items:
-+            enum:
-+              - HP
-+              - HPCOM
-+              - LINEIN
-+              - LINEOUT
-+              - MIC1
-+              - MIC2
-+              - MIC3
-+              - HBIAS
-+              - MBIAS
-+              - Headphone
-+              - Headset Mic
-+              - Line In
-+              - Line Out
-+              - Mic
-+              - Speaker
-+
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - allwinner,sun8i-a23-codec
-+
-+    then:
-+      properties:
-+        allwinner,audio-routing:
-+          items:
-+            enum:
-+              - HP
-+              - HPCOM
-+              - LINEIN
-+              - MIC1
-+              - MIC2
-+              - HBIAS
-+              - MBIAS
-+              - Headphone
-+              - Headset Mic
-+              - Line In
-+              - Line Out
-+              - Mic
-+              - Speaker
-+
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - allwinner,sun8i-h3-codec
-+
-+    then:
-+      properties:
-+        allwinner,audio-routing:
-+          items:
-+            enum:
-+              - HP
-+              - HPCOM
-+              - LINEIN
-+              - LINEOUT
-+              - MIC1
-+              - MIC2
-+              - HBIAS
-+              - MBIAS
-+              - Headphone
-+              - Headset Mic
-+              - Line In
-+              - Line Out
-+              - Mic
-+              - Speaker
-+
-+  - if:
-+      properties:
-+        compatible:
-+          enum:
-+            - allwinner,sun8i-v3s-codec
-+
-+    then:
-+      properties:
-+        allwinner,audio-routing:
-+          items:
-+            enum:
-+              - HP
-+              - HPCOM
-+              - MIC1
-+              - HBIAS
-+              - Headphone
-+              - Headset Mic
-+              - Line In
-+              - Line Out
-+              - Mic
-+              - Speaker
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    codec@1c22c00 {
-+        #sound-dai-cells = <0>;
-+        compatible = "allwinner,sun7i-a20-codec";
-+        reg = <0x01c22c00 0x40>;
-+        interrupts = <0 30 4>;
-+        clocks = <&apb0_gates 0>, <&codec_clk>;
-+        clock-names = "apb", "codec";
-+        dmas = <&dma 0 19>, <&dma 0 19>;
-+        dma-names = "rx", "tx";
-+    };
-+
-+  - |
-+    codec@1c22c00 {
-+        #sound-dai-cells = <0>;
-+        compatible = "allwinner,sun6i-a31-codec";
-+        reg = <0x01c22c00 0x98>;
-+        interrupts = <0 29 4>;
-+        clocks = <&ccu 61>, <&ccu 135>;
-+        clock-names = "apb", "codec";
-+        resets = <&ccu 42>;
-+        dmas = <&dma 15>, <&dma 15>;
-+        dma-names = "rx", "tx";
-+        allwinner,audio-routing =
-+            "Headphone", "HP",
-+            "Speaker", "LINEOUT",
-+            "LINEIN", "Line In",
-+            "MIC1", "MBIAS",
-+            "MIC1", "Mic",
-+            "MIC2", "HBIAS",
-+            "MIC2", "Headset Mic";
-+    };
-+
-+...
-diff --git a/Documentation/devicetree/bindings/sound/sun4i-codec.txt b/Documentation/devicetree/bindings/sound/sun4i-codec.txt
-deleted file mode 100644
-index 66579bbd3294..000000000000
---- a/Documentation/devicetree/bindings/sound/sun4i-codec.txt
-+++ /dev/null
-@@ -1,94 +0,0 @@
--* Allwinner A10 Codec
--
--Required properties:
--- compatible: must be one of the following compatibles:
--		- "allwinner,sun4i-a10-codec"
--		- "allwinner,sun6i-a31-codec"
--		- "allwinner,sun7i-a20-codec"
--		- "allwinner,sun8i-a23-codec"
--		- "allwinner,sun8i-h3-codec"
--		- "allwinner,sun8i-v3s-codec"
--- reg: must contain the registers location and length
--- interrupts: must contain the codec interrupt
--- dmas: DMA channels for tx and rx dma. See the DMA client binding,
--	Documentation/devicetree/bindings/dma/dma.txt
--- dma-names: should include "tx" and "rx".
--- clocks: a list of phandle + clock-specifer pairs, one for each entry
--  in clock-names.
--- clock-names: should contain the following:
--   - "apb": the parent APB clock for this controller
--   - "codec": the parent module clock
--
--Optional properties:
--- allwinner,pa-gpios: gpio to enable external amplifier
--
--Required properties for the following compatibles:
--		- "allwinner,sun6i-a31-codec"
--		- "allwinner,sun8i-a23-codec"
--		- "allwinner,sun8i-h3-codec"
--		- "allwinner,sun8i-v3s-codec"
--- resets: phandle to the reset control for this device
--- allwinner,audio-routing: A list of the connections between audio components.
--			   Each entry is a pair of strings, the first being the
--			   connection's sink, the second being the connection's
--			   source. Valid names include:
--
--			   Audio pins on the SoC:
--			   "HP"
--			   "HPCOM"
--			   "LINEIN"	(not on sun8i-v3s)
--			   "LINEOUT"	(not on sun8i-a23 or sun8i-v3s)
--			   "MIC1"
--			   "MIC2"	(not on sun8i-v3s)
--			   "MIC3"	(sun6i-a31 only)
--
--			   Microphone biases from the SoC:
--			   "HBIAS"
--			   "MBIAS"	(not on sun8i-v3s)
--
--			   Board connectors:
--			   "Headphone"
--			   "Headset Mic"
--			   "Line In"
--			   "Line Out"
--			   "Mic"
--			   "Speaker"
--
--Required properties for the following compatibles:
--		- "allwinner,sun8i-a23-codec"
--		- "allwinner,sun8i-h3-codec"
--		- "allwinner,sun8i-v3s-codec"
--- allwinner,codec-analog-controls: A phandle to the codec analog controls
--				   block in the PRCM.
--
--Example:
--codec: codec@1c22c00 {
--	#sound-dai-cells = <0>;
--	compatible = "allwinner,sun7i-a20-codec";
--	reg = <0x01c22c00 0x40>;
--	interrupts = <0 30 4>;
--	clocks = <&apb0_gates 0>, <&codec_clk>;
--	clock-names = "apb", "codec";
--	dmas = <&dma 0 19>, <&dma 0 19>;
--	dma-names = "rx", "tx";
--};
--
--codec: codec@1c22c00 {
--	#sound-dai-cells = <0>;
--	compatible = "allwinner,sun6i-a31-codec";
--	reg = <0x01c22c00 0x98>;
--	interrupts = <GIC_SPI 29 IRQ_TYPE_LEVEL_HIGH>;
--	clocks = <&ccu CLK_APB1_CODEC>, <&ccu CLK_CODEC>;
--	clock-names = "apb", "codec";
--	resets = <&ccu RST_APB1_CODEC>;
--	dmas = <&dma 15>, <&dma 15>;
--	dma-names = "rx", "tx";
--	allwinner,audio-routing =
--		"Headphone", "HP",
--		"Speaker", "LINEOUT",
--		"LINEIN", "Line In",
--		"MIC1",	"MBIAS",
--		"MIC1", "Mic",
--		"MIC2", "HBIAS",
--		"MIC2", "Headset Mic";
--};
--- 
-2.23.0
-
+Tested-By: Cheng-Yi Chiang <cychiang@chromium.org>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

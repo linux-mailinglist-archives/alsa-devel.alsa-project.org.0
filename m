@@ -2,61 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82DECD8C10
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 11:00:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95E13D8C4F
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 11:15:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B761847;
-	Wed, 16 Oct 2019 11:00:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B761847
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2280950;
+	Wed, 16 Oct 2019 11:14:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2280950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571216453;
-	bh=4Fj7FZfYAX6LwsZzdQ0yWBp4WfNzp+mwDH32z3IdtnE=;
+	s=default; t=1571217312;
+	bh=I/MWfBWgsVdIAu7+WjZd15kIYrAm9xV1USpVjVzbyTU=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=NGTUfOTDNbGGyOQZtJETjpqnSzNFc0QazutnvGLs6hi0zpC1CV9k+WG7ZrE/EL7Jo
-	 +w64+EEGekeQtnDq6IhKo3e2wV2Yw1N5WOi1ZWE0lDrIrN3TB40qKWWS2iUsxENGNN
-	 6hHUCLGAZIMKe1KrRXizSQWK9E/U+Bv2YVgU3+SQ=
+	b=P9jXLDtftNjgGnbuBwzuInvh0+pRQg6lYvW8WU+nLZvDreecVTyk5+Fpvw1zQbyr3
+	 hDpG+Ap4ncxiSzzaisAhnfAU36i0LBwKLGSPWOKDcrwYxBaFFPpn+ySUG2eRaHtaf+
+	 TBQQAYEoAbLV6jgNVhIG9nRb/caQ/cLKZYT8GTmw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 399CAF80362;
-	Wed, 16 Oct 2019 10:59:10 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 85B41F80362;
+	Wed, 16 Oct 2019 11:13:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF8C9F80377; Wed, 16 Oct 2019 10:59:07 +0200 (CEST)
+ id E53D1F80362; Wed, 16 Oct 2019 11:13:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail1.skidata.com (mail1.skidata.com [91.230.2.99])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 99684F8036C
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 10:59:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99684F8036C
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x9G8wxJT002135,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCAS12.realtek.com.tw[172.21.6.16])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x9G8wxJT002135
- (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 16 Oct 2019 16:58:59 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTITCAS12.realtek.com.tw (172.21.6.16) with Microsoft SMTP Server id
- 14.3.439.0; Wed, 16 Oct 2019 16:58:58 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Date: Wed, 16 Oct 2019 16:58:45 +0800
-Message-ID: <20191016085845.11672-1-shumingf@realtek.com>
-X-Mailer: git-send-email 2.23.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 461BFF80276
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 11:13:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 461BFF80276
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=skidata.com header.i=@skidata.com
+ header.b="MFzNP5io"
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
+ d=skidata.com; i=@skidata.com; q=dns/txt; s=selector1;
+ t=1571217202; x=1602753202;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=kKIuy6KHImHHQv8CRduIvGuN6BHhgWA18/nOgMiEItI=;
+ b=MFzNP5io9I/wqeMeaRMEaaFwJwHbk3VmtGF0RNIeDQmQmSKZ026Dz5qG
+ 57mQnhDEs2B0kf3CXqdBBew3LNSP44XZJYNUdZDODfdvaAFXtrYM5Bc/O
+ QD2XEnxE9jTdr4xbXCcVRlAPxH9rUXSou8IRPsl7nbTjaMy5wbNEmdZ3n
+ tPMN8aFQb6Vt7wKsmFAhBAErK5PWqZIojq4M9V9CF4fmzJGWaabWzMj4b
+ gqQEFi8a9MKKAsG5AW+Ve9moMoohENnVL65v6DQ7u8djRU5e98wCoDUc/
+ SozVO3HyFD1u028EU+/8gagYVhogiaykjM4at29TA+fGiO5qcPtA/bbTZ Q==;
+IronPort-SDR: qNGUlV/AfLiwMs+w8r2vA/UExC2ZaWjO5V1PGrkkN2PW4suNle81PyESJSG1SHJoEx1+Cccpmq
+ rb+mimXGlno5cekbWkx+/zEepLdrMNkoVJAARODs5e5rB9QZV5g/cCT/2VOq7lF8OKfE1KvGwn
+ b8TLl7EIsFA9yvU6BteH1gx99B8yElHm1LK2vmz0wbmCkG9eMWbXdjYsJTN7Mwzg7vhMHUl3xi
+ ra/UI6lVoyvtiDB6DtLVLVimLTfeNRgzJobvrhLnunlSsBYBfTTQzK0LCwm6QG+aNpwCPG618L
+ o+E=
+X-IronPort-AV: E=Sophos;i="5.67,303,1566856800"; d="scan'208";a="20289456"
+From: Richard Leitner <richard.leitner@skidata.com>
+To: <stable@vger.kernel.org>
+Date: Wed, 16 Oct 2019 11:13:04 +0200
+Message-ID: <20191016091304.15870-1-richard.leitner@skidata.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-X-Originating-IP: [172.22.102.1]
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, cychiang@google.com, derek.fang@realtek.com,
- Shuming Fan <shumingf@realtek.com>, flove@realtek.com
-Subject: [alsa-devel] [PATCH] ASoC: rt1011: Read and apply r0 and
-	temperature device property
+X-Originating-IP: [192.168.111.252]
+X-ClientProxiedBy: sdex5srv.skidata.net (192.168.111.83) To
+ sdex5srv.skidata.net (192.168.111.83)
+Cc: alsa-devel@alsa-project.org, Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
+ Igor Opaniuk <igor.opaniuk@toradex.com>, broonie@kernel.org,
+ festevam@gmail.com, Richard Leitner <richard.leitner@skidata.com>
+Subject: [alsa-devel] [PATCH v5.3] ASoC: sgtl5000: add ADC mute control
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,101 +89,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
 
-Typically, the r0 (calibration data) and temperature were measured in the factory.
-This information is written into the non-volatile area
-where keeps data whether factory reset or OS update.
-In Chromium OS case, the coreboot will read the info from VPD and create
-the device property for each rt1011.
+Upstream commit 631bc8f0134a ("ASoC: sgtl5000: Fix of unmute outputs on
+probe"), which is e9f621efaebd in v5.3 replaced snd_soc_component_write
+with snd_soc_component_update_bits and therefore no longer cleared the
+MUTE_ADC flag. This caused the ADC to stay muted and recording doesn't
+work any longer. This patch fixes this problem by adding a Switch control
+for MUTE_ADC.
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
+commit 694b14554d75 ("ASoC: sgtl5000: add ADC mute control") upstream
+
+This control mute/unmute the ADC input of SGTL5000
+using its CHIP_ANA_CTRL register.
+
+Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+Reviewed-by: Marcel Ziswiler <marcel.ziswiler@toradex.com>
+Reviewed-by: Igor Opaniuk <igor.opaniuk@toradex.com>
+Reviewed-by: Fabio Estevam <festevam@gmail.com>
+Link: https://lore.kernel.org/r/20190719100524.23300-5-oleksandr.suvorov@toradex.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Richard Leitner <richard.leitner@skidata.com>
+Fixes: e9f621efaebd ("ASoC: sgtl5000: Fix of unmute outputs on probe")
 ---
- sound/soc/codecs/rt1011.c | 41 ++++++++++++++++++++++++++++++++++++++-
- sound/soc/codecs/rt1011.h |  1 +
- 2 files changed, 41 insertions(+), 1 deletion(-)
+ sound/soc/codecs/sgtl5000.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
-index b927e61b32df..ad049cfddcb0 100644
---- a/sound/soc/codecs/rt1011.c
-+++ b/sound/soc/codecs/rt1011.c
-@@ -2328,8 +2328,12 @@ static void rt1011_calibration_work(struct work_struct *work)
- 	struct rt1011_priv *rt1011 =
- 		container_of(work, struct rt1011_priv, cali_work);
- 	struct snd_soc_component *component = rt1011->component;
-+	unsigned int r0_integer, r0_factor, format;
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index 3f28e7862b5b..b65232521ea8 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -720,6 +720,7 @@ static const struct snd_kcontrol_new sgtl5000_snd_controls[] = {
+ 			SGTL5000_CHIP_ANA_ADC_CTRL,
+ 			8, 1, 0, capture_6db_attenuate),
+ 	SOC_SINGLE("Capture ZC Switch", SGTL5000_CHIP_ANA_CTRL, 1, 1, 0),
++	SOC_SINGLE("Capture Switch", SGTL5000_CHIP_ANA_CTRL, 0, 1, 1),
  
--	rt1011_calibrate(rt1011, 1);
-+	if (rt1011->r0_calib)
-+		rt1011_calibrate(rt1011, 0);
-+	else
-+		rt1011_calibrate(rt1011, 1);
- 
- 	/*
- 	 * This flag should reset after booting.
-@@ -2340,6 +2344,39 @@ static void rt1011_calibration_work(struct work_struct *work)
- 
- 	/* initial */
- 	rt1011_reg_init(component);
-+
-+	/* Apply temperature and calibration data from device property */
-+	if (rt1011->temperature_calib) {
-+		snd_soc_component_update_bits(component,
-+			RT1011_STP_INITIAL_RESISTANCE_TEMP, 0x3ff,
-+			(rt1011->temperature_calib << 2));
-+	}
-+
-+	if (rt1011->r0_calib) {
-+		rt1011->r0_reg = rt1011->r0_calib;
-+
-+		format = 2147483648U; /* 2^24 * 128 */
-+		r0_integer = format / rt1011->r0_reg / 128;
-+		r0_factor = ((format / rt1011->r0_reg * 100) / 128)
-+						- (r0_integer * 100);
-+		dev_info(component->dev,	"DP r0 resistance about %d.%02d ohm, reg=0x%X\n",
-+			r0_integer, r0_factor, rt1011->r0_reg);
-+
-+		rt1011_r0_load(rt1011);
-+	}
-+}
-+
-+static int rt1011_parse_dp(struct rt1011_priv *rt1011, struct device *dev)
-+{
-+	device_property_read_u32(dev, "realtek,temperature_calib",
-+		&rt1011->temperature_calib);
-+	device_property_read_u32(dev, "realtek,r0_calib",
-+		&rt1011->r0_calib);
-+
-+	dev_dbg(dev, "%s: r0_calib: 0x%x, temperture_calib: 0x%x",
-+		__func__, rt1011->r0_calib, rt1011->temperature_calib);
-+
-+	return 0;
- }
- 
- static int rt1011_i2c_probe(struct i2c_client *i2c,
-@@ -2356,6 +2393,8 @@ static int rt1011_i2c_probe(struct i2c_client *i2c,
- 
- 	i2c_set_clientdata(i2c, rt1011);
- 
-+	rt1011_parse_dp(rt1011, &i2c->dev);
-+
- 	rt1011->regmap = devm_regmap_init_i2c(i2c, &rt1011_regmap);
- 	if (IS_ERR(rt1011->regmap)) {
- 		ret = PTR_ERR(rt1011->regmap);
-diff --git a/sound/soc/codecs/rt1011.h b/sound/soc/codecs/rt1011.h
-index 3f7dea1191ad..68fadc15fa8c 100644
---- a/sound/soc/codecs/rt1011.h
-+++ b/sound/soc/codecs/rt1011.h
-@@ -690,6 +690,7 @@ struct rt1011_priv {
- 
- 	int bq_drc_set;
- 	unsigned int r0_reg, cali_done;
-+	unsigned int r0_calib, temperature_calib;
- 	int recv_spk_mode;
- };
- 
+ 	SOC_DOUBLE_TLV("Headphone Playback Volume",
+ 			SGTL5000_CHIP_ANA_HP_CTRL,
 -- 
-2.23.0
+2.21.0
 
 _______________________________________________
 Alsa-devel mailing list

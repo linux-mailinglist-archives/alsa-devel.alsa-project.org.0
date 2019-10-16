@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 052C6D91D2
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 15:00:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85133D91D6
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 15:01:09 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D5C81614;
-	Wed, 16 Oct 2019 14:59:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D5C81614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 143A31654;
+	Wed, 16 Oct 2019 15:00:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 143A31654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571230820;
-	bh=Wo7cr/7pzBQZlsfLarCjpb/jTRb8cAJlwjLss+ozcLo=;
+	s=default; t=1571230869;
+	bh=4XgY+X6FpfdEGVT6w9IvbawuMzaMWlXo8tkKaqynDtY=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=EKsfRFGXmRliY2H92MtdA9lUqyJcwj9EwxI7NrFG6PzCNEjhL7xSgPcg8IK38JsdN
-	 C8a7oHIypaBkBeW7ZkgY/LvWnVTUS7v9zhB4KViEXQriLdOSaRt0Au+qa0oK96ViVD
-	 0qo/l6JYAOoiorSNBVyJLJ8Z/HRJnbhCDL/vbK7c=
+	b=guVIDZiBBP3kAy14BQIYCPTUpjDrC0fMh1SYiYNNe1UuyAZ0xdmXbdVFrRxp8Ap+h
+	 aXhHAzjLQbaadhklnAC0MvXDoHn2Fjuo4B6Rlb8bZ8H4UOVfK1ldectCnFaqMHR93s
+	 pTPRzJPlEoQUcEuztTluanOxMczAFRLzgXeOMuYU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BF28F805FB;
-	Wed, 16 Oct 2019 14:58:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2636EF8060D;
+	Wed, 16 Oct 2019 14:58:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FC3EF80445; Wed, 16 Oct 2019 14:58:16 +0200 (CEST)
+ id 51344F80445; Wed, 16 Oct 2019 14:58:17 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_21,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CCC80F8011F
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 14:58:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCC80F8011F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80E58F8036C
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 14:58:14 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80E58F8036C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="KihaAp+V"
+ header.b="gExDv11/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=yL3oQQ6gaJv9m1qs3vn03FOthRed/U9oS6QfwDAmSLU=; b=KihaAp+VU3Nt
- 7/FwfPODL41zV9xehu4VmBbixLyYJVrirgEaGkLjozREI7AxTPsIQsGtIYWiBsx/qJgB+y8PKqb6i
- fHRszUHzFlhrBoXfhBFxM62D5cOUGifkhOebBMFIXaM2h7IyYphvVKzH7zv+MQSP40Pp9BzNBgxJu
- SywSk=;
+ List-Archive; bh=IMV6sxNZsTQbAoCY4QWWlPLCw3v2Erjb3kK1XV7RnoE=; b=gExDv11/E/Lz
+ onlO9Z7uV0xfpfU9MDBGC3Nepa5ymqllCL22EyGWw5xdfcQxRbawxWuLKM9TVgqyp1BN1EOrgZFvW
+ 3YqzoVSdwNfW2Xkg3Q4PvNlvbuRwt7AWBXwHVgU7Hp1SA+4Cb7dOysMtN2P3n7fAIh+5yiBvCJnps
+ x88pE=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iKisX-0005MN-Fc; Wed, 16 Oct 2019 12:58:13 +0000
+ id 1iKisX-0005MO-No; Wed, 16 Oct 2019 12:58:13 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id EA8842741FD5; Wed, 16 Oct 2019 13:58:12 +0100 (BST)
+ id 31AD92742162; Wed, 16 Oct 2019 13:58:13 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Shuming Fan <shumingf@realtek.com>
-In-Reply-To: <20191016085845.11672-1-shumingf@realtek.com>
+In-Reply-To: <20191016115617.23213-1-shumingf@realtek.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191016125812.EA8842741FD5@ypsilon.sirena.org.uk>
-Date: Wed, 16 Oct 2019 13:58:12 +0100 (BST)
+Message-Id: <20191016125813.31AD92742162@ypsilon.sirena.org.uk>
+Date: Wed, 16 Oct 2019 13:58:13 +0100 (BST)
 Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
  lars@metafoo.de, cychiang@google.com, lgirdwood@gmail.com,
  Mark Brown <broonie@kernel.org>, derek.fang@realtek.com, flove@realtek.com
-Subject: [alsa-devel] Applied "ASoC: rt1011: Read and apply r0 and
+Subject: [alsa-devel] Applied "ASoC: dt-bindings: rt1011: add r0 and
 	temperature device property" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1011: Read and apply r0 and temperature device property
+   ASoC: dt-bindings: rt1011: add r0 and temperature device property
 
 has been applied to the asoc tree at
 
@@ -114,106 +114,49 @@ to this mail.
 Thanks,
 Mark
 
-From 8de6e755069fbfaefae67d3abff2b2e3d83db986 Mon Sep 17 00:00:00 2001
+From cf775f68a0939f0e5aad5855f63338c4b5e51c59 Mon Sep 17 00:00:00 2001
 From: Shuming Fan <shumingf@realtek.com>
-Date: Wed, 16 Oct 2019 16:58:45 +0800
-Subject: [PATCH] ASoC: rt1011: Read and apply r0 and temperature device
+Date: Wed, 16 Oct 2019 19:56:17 +0800
+Subject: [PATCH] ASoC: dt-bindings: rt1011: add r0 and temperature device
  property
 
 Typically, the r0 (calibration data) and temperature were measured in the factory.
 This information is written into the non-volatile area
 where keeps data whether factory reset or OS update.
-In Chromium OS case, the coreboot will read the info from VPD and create
-the device property for each rt1011.
 
 Signed-off-by: Shuming Fan <shumingf@realtek.com>
-Tested-By: Cheng-Yi Chiang <cychiang@chromium.org>
-Link: https://lore.kernel.org/r/20191016085845.11672-1-shumingf@realtek.com
+Link: https://lore.kernel.org/r/20191016115617.23213-1-shumingf@realtek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1011.c | 41 ++++++++++++++++++++++++++++++++++++++-
- sound/soc/codecs/rt1011.h |  1 +
- 2 files changed, 41 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/rt1011.txt | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
-index b927e61b32df..ad049cfddcb0 100644
---- a/sound/soc/codecs/rt1011.c
-+++ b/sound/soc/codecs/rt1011.c
-@@ -2328,8 +2328,12 @@ static void rt1011_calibration_work(struct work_struct *work)
- 	struct rt1011_priv *rt1011 =
- 		container_of(work, struct rt1011_priv, cali_work);
- 	struct snd_soc_component *component = rt1011->component;
-+	unsigned int r0_integer, r0_factor, format;
+diff --git a/Documentation/devicetree/bindings/sound/rt1011.txt b/Documentation/devicetree/bindings/sound/rt1011.txt
+index 35a23e60d679..02d53b9aa247 100644
+--- a/Documentation/devicetree/bindings/sound/rt1011.txt
++++ b/Documentation/devicetree/bindings/sound/rt1011.txt
+@@ -20,6 +20,14 @@ Required properties:
+         |     1     |    1     |   0x3b     |
+         -------------------------------------
  
--	rt1011_calibrate(rt1011, 1);
-+	if (rt1011->r0_calib)
-+		rt1011_calibrate(rt1011, 0);
-+	else
-+		rt1011_calibrate(rt1011, 1);
++Optional properties:
++
++- realtek,temperature_calib
++  u32. The temperature was measured while doing the calibration. Units: Celsius degree
++
++- realtek,r0_calib
++  u32. This is r0 calibration data which was measured in factory mode.
++
+ Pins on the device (for linking into audio routes) for RT1011:
  
- 	/*
- 	 * This flag should reset after booting.
-@@ -2340,6 +2344,39 @@ static void rt1011_calibration_work(struct work_struct *work)
- 
- 	/* initial */
- 	rt1011_reg_init(component);
-+
-+	/* Apply temperature and calibration data from device property */
-+	if (rt1011->temperature_calib) {
-+		snd_soc_component_update_bits(component,
-+			RT1011_STP_INITIAL_RESISTANCE_TEMP, 0x3ff,
-+			(rt1011->temperature_calib << 2));
-+	}
-+
-+	if (rt1011->r0_calib) {
-+		rt1011->r0_reg = rt1011->r0_calib;
-+
-+		format = 2147483648U; /* 2^24 * 128 */
-+		r0_integer = format / rt1011->r0_reg / 128;
-+		r0_factor = ((format / rt1011->r0_reg * 100) / 128)
-+						- (r0_integer * 100);
-+		dev_info(component->dev,	"DP r0 resistance about %d.%02d ohm, reg=0x%X\n",
-+			r0_integer, r0_factor, rt1011->r0_reg);
-+
-+		rt1011_r0_load(rt1011);
-+	}
-+}
-+
-+static int rt1011_parse_dp(struct rt1011_priv *rt1011, struct device *dev)
-+{
-+	device_property_read_u32(dev, "realtek,temperature_calib",
-+		&rt1011->temperature_calib);
-+	device_property_read_u32(dev, "realtek,r0_calib",
-+		&rt1011->r0_calib);
-+
-+	dev_dbg(dev, "%s: r0_calib: 0x%x, temperture_calib: 0x%x",
-+		__func__, rt1011->r0_calib, rt1011->temperature_calib);
-+
-+	return 0;
- }
- 
- static int rt1011_i2c_probe(struct i2c_client *i2c,
-@@ -2356,6 +2393,8 @@ static int rt1011_i2c_probe(struct i2c_client *i2c,
- 
- 	i2c_set_clientdata(i2c, rt1011);
- 
-+	rt1011_parse_dp(rt1011, &i2c->dev);
-+
- 	rt1011->regmap = devm_regmap_init_i2c(i2c, &rt1011_regmap);
- 	if (IS_ERR(rt1011->regmap)) {
- 		ret = PTR_ERR(rt1011->regmap);
-diff --git a/sound/soc/codecs/rt1011.h b/sound/soc/codecs/rt1011.h
-index 3f7dea1191ad..68fadc15fa8c 100644
---- a/sound/soc/codecs/rt1011.h
-+++ b/sound/soc/codecs/rt1011.h
-@@ -690,6 +690,7 @@ struct rt1011_priv {
- 
- 	int bq_drc_set;
- 	unsigned int r0_reg, cali_done;
-+	unsigned int r0_calib, temperature_calib;
- 	int recv_spk_mode;
+   * SPO
+@@ -29,4 +37,6 @@ Example:
+ rt1011: codec@38 {
+ 	compatible = "realtek,rt1011";
+ 	reg = <0x38>;
++	realtek,temperature_calib = <25>;
++	realtek,r0_calib = <0x224050>;
  };
- 
 -- 
 2.20.1
 

@@ -2,57 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B642D9051
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 14:03:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E827FD9054
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 14:04:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C996B15E2;
-	Wed, 16 Oct 2019 14:03:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C996B15E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1D2D166F;
+	Wed, 16 Oct 2019 14:03:48 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1D2D166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571227431;
-	bh=AXl6uL5aQdjuuyt4nPdgmctaL1sN/jd80HFo46T0BCw=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=eNlSH0sZQKozS7qeSZFxddj4c0pcjh2LvLRd9i6Ujc0DN4AH1TOvyjQsoLRs1hIi8
-	 q87npNd4tV6TzQqlBaHWnXyuZ3Wm/XwyasHMYPRnZ/PK0BVt47LRyRfPZVdMoRY0Vt
-	 +5HcPzdm3gLeHGD8N4gwqhILrRoVd0aEWM6UaeQE=
+	s=default; t=1571227479;
+	bh=hVRg3ea8viXBEfAmpbJQBc6567mvf5eu1u+/IDwSzUY=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AhJrVzWBrBYvd7eB6ansbovZco/f9aA/Yn5EilYYPudDLWFEn28MbW8Vf68KWCjV3
+	 hcSDto/xSpxwIHtHBlyNxXym+yCXqaflgkHJZvzCo5WxU3f0/eU4Qf3yX2v7MVVeyZ
+	 Mpj7AwrMoH+zt9K1M+UOegw6g1uSS9AFuWEIjhKs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39B82F80323;
-	Wed, 16 Oct 2019 14:02:07 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2833F805FF;
+	Wed, 16 Oct 2019 14:02:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85683F80362; Wed, 16 Oct 2019 14:02:04 +0200 (CEST)
+ id 13F29F805FD; Wed, 16 Oct 2019 14:02:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CBF4FF80322
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 14:02:01 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBF4FF80322
-Received: from [167.98.27.226] (helo=rainbowdash.codethink.co.uk)
- by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
- id 1iKhzy-0006Vx-5I; Wed, 16 Oct 2019 13:01:50 +0100
-Received: from ben by rainbowdash.codethink.co.uk with local (Exim 4.92.2)
- (envelope-from <ben@rainbowdash.codethink.co.uk>)
- id 1iKhzx-0001XM-KS; Wed, 16 Oct 2019 13:01:49 +0100
-From: "Ben Dooks (Codethink)" <ben.dooks@codethink.co.uk>
-To: linux-kernel@lists.codethink.co.uk
-Date: Wed, 16 Oct 2019 13:01:49 +0100
-Message-Id: <20191016120149.5860-1-ben.dooks@codethink.co.uk>
-X-Mailer: git-send-email 2.23.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id EA088F805F5
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 14:02:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA088F805F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="etsZ1bWT"
+Received: by mail-wr1-x444.google.com with SMTP id z9so27725987wrl.11
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 05:02:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=MJlPPYSOTR+XMqwsFOpW43F1STdyWoaZhxY38kEyCWg=;
+ b=etsZ1bWTCeKvaBi7j7rTkURIltg2naJHd+NQgupHHlgZXx5NJpBarRk+m2C7bXMjOi
+ FL4zOg8RMXQ89ZL7Jp/eN1N/JbgkqmscwWmE/X1yPBbUc1S4v6YvSWTs+4bSt2p++Axd
+ PYgxNf22OFeFs5I801rrrqOgGBp8m8Ae3z7iImSE4DN7LEz2AkjbmdpoEQHPyAxLqX18
+ R+PMozVsAIqzLU+Aropn8/vSAd8wbmiARBIBe7nwCnlv8mpRj4QkPoMzb7pQoKr9U/ye
+ 5D8iMxQ0xrteIczddx6Eg2nFqcq2U5zVDNFs0tlBU3dErnEtJKTaGGB6SSjqiYRqp1eH
+ Tung==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=MJlPPYSOTR+XMqwsFOpW43F1STdyWoaZhxY38kEyCWg=;
+ b=NIzmgxLSvVfBhYrDwJQ6VZSA6AorK+2CYfvE87Rlghj9SCxO/KcjPPDXSj+4QB5/p1
+ hkvTkG//N/yUDMHCV+7FLLfgZ+S1KpTheOoHtevAiUsELyU1kJinPg/pbf02FQn2skvM
+ Di85vkQiw0mZJXNtQy13rq42zibL6/spbajH1jYEmNj7PX1epZt36Byu3gA+5Snsj47H
+ y7Br6jKRnCObGtueYH/BABdoTfuQraOgyDPaxWqRuTC2qq45Nr79mYNnIb40GJZcIaio
+ h/JSgfxkl52cxBheMtCvaDhIcHA99tbrj3QJSeRiJEEbnU5Qsf4lD7vk8b7r0w0i/BZu
+ IBeA==
+X-Gm-Message-State: APjAAAX/KDNwsIV9/Zq0RwrlbWGFm63AFG6kcORs078Mhx3pP2cPzEJy
+ 9A82A9AS+8s+FX4Rmu+mSUamp+d7LioH9jHVztyua2FH4c8=
+X-Google-Smtp-Source: APXvYqxgpyG22ylSyrF9Js6Assnyl2ZxuEKyL7SnQxtgAOMehI0YOCH6xsZbiXEhlDX5043znbNahsswawXbPYFeCrc=
+X-Received: by 2002:adf:a141:: with SMTP id r1mr2446415wrr.122.1571227335079; 
+ Wed, 16 Oct 2019 05:02:15 -0700 (PDT)
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>,
- "Ben Dooks \(Codethink\)" <ben.dooks@codethink.co.uk>
-Subject: [alsa-devel] [PATCH] ASoC: wm8958: use <asm/unaligned.h> to
-	simplify code
+References: <87a7a24l7r.wl-kuninori.morimoto.gx@renesas.com>
+ <CAEnQRZAsZ=Q=tcqCzVp8bvj4Jme+YTH9GxmMoBgvOT+w6z8iiw@mail.gmail.com>
+ <877e564ht5.wl-kuninori.morimoto.gx@renesas.com>
+ <CAEnQRZDtwFoXQ2H_j1v-95Pnh=QzZFX86jHk1RTq1oqSO+5jRw@mail.gmail.com>
+ <93911ba6-370e-4b93-d3c2-81081b1be0aa@linux.intel.com>
+ <87o8yhwn3d.wl-kuninori.morimoto.gx@renesas.com>
+ <CAEnQRZDEZySYWzJ9gifVAiZ0qOxDe_w9zMxgsLbN0URmpcYCAw@mail.gmail.com>
+ <20191016112147.GB4881@sirena.co.uk>
+In-Reply-To: <20191016112147.GB4881@sirena.co.uk>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Wed, 16 Oct 2019 15:02:04 +0300
+Message-ID: <CAEnQRZAk_wW9bKd7LJxeBUTwsn_vME9u0w0B84r5ovqUYR=GeA@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: sof: include types.h at header.h
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,135 +104,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Simplify the memcpy/be32_to_cpu() code by simply using
-get_unaligned_be32() throughout and makes the code nicer
-to look at.
+On Wed, Oct 16, 2019 at 2:21 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Wed, Oct 16, 2019 at 02:11:57PM +0300, Daniel Baluta wrote:
+>
+> > That means Mark needs to drop Morimoto-san's patch.
+>
+> Please send a patch reverting it if you think that's the best option.
 
-This fixes the following warnings from sparse:
+On a second thought header.h from FW side includes <stdint.h> so I
+think it is fair that header.h from Linux kernel
+to include <types.h>
 
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
+Another remark I have is that usually kernel headers should include
+their <uapi> counterparts, but in header.h
+doesn't happen. I wonder why.
 
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
----
-Cc: Liam Girdwood <lgirdwood@gmail.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Jaroslav Kysela <perex@perex.cz>
-Cc: Takashi Iwai <tiwai@suse.com>
-Cc: patches@opensource.cirrus.com
-Cc: alsa-devel@alsa-project.org
----
- sound/soc/codecs/wm8958-dsp2.c | 22 +++++++++-------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
+In my opinion the best solution would be this:
 
-diff --git a/sound/soc/codecs/wm8958-dsp2.c b/sound/soc/codecs/wm8958-dsp2.c
-index 18535b326680..ca42445b649d 100644
---- a/sound/soc/codecs/wm8958-dsp2.c
-+++ b/sound/soc/codecs/wm8958-dsp2.c
-@@ -25,6 +25,8 @@
- #include <linux/mfd/wm8994/pdata.h>
- #include <linux/mfd/wm8994/gpio.h>
- 
-+#include <asm/unaligned.h>
-+
- #include "wm8994.h"
- 
- #define WM_FW_BLOCK_INFO 0xff
-@@ -58,18 +60,15 @@ static int wm8958_dsp2_fw(struct snd_soc_component *component, const char *name,
- 	}
- 
- 	if (memcmp(fw->data, "WMFW", 4) != 0) {
--		memcpy(&data32, fw->data, sizeof(data32));
--		data32 = be32_to_cpu(data32);
-+		data32 = get_unaligned_be32(fw->data);
- 		dev_err(component->dev, "%s: firmware has bad file magic %08x\n",
- 			name, data32);
- 		goto err;
- 	}
- 
--	memcpy(&data32, fw->data + 4, sizeof(data32));
--	len = be32_to_cpu(data32);
-+	len = get_unaligned_be32(fw->data + 4);
-+	data32 = get_unaligned_be32(fw->data + 8);
- 
--	memcpy(&data32, fw->data + 8, sizeof(data32));
--	data32 = be32_to_cpu(data32);
- 	if ((data32 >> 24) & 0xff) {
- 		dev_err(component->dev, "%s: unsupported firmware version %d\n",
- 			name, (data32 >> 24) & 0xff);
-@@ -87,9 +86,8 @@ static int wm8958_dsp2_fw(struct snd_soc_component *component, const char *name,
- 	}
- 
- 	if (check) {
--		memcpy(&data64, fw->data + 24, sizeof(u64));
--		dev_info(component->dev, "%s timestamp %llx\n",
--			 name, be64_to_cpu(data64));
-+		data64 = get_unaligned_be64(fw->data + 24);
-+		dev_info(component->dev, "%s timestamp %llx\n",  name, data64);
- 	} else {
- 		snd_soc_component_write(component, 0x102, 0x2);
- 		snd_soc_component_write(component, 0x900, 0x2);
-@@ -104,8 +102,7 @@ static int wm8958_dsp2_fw(struct snd_soc_component *component, const char *name,
- 			goto err;
- 		}
- 
--		memcpy(&data32, data + 4, sizeof(data32));
--		block_len = be32_to_cpu(data32);
-+		block_len = get_unaligned_be32(data + 4);
- 		if (block_len + 8 > len) {
- 			dev_err(component->dev, "%zd byte block longer than file\n",
- 				block_len);
-@@ -116,8 +113,7 @@ static int wm8958_dsp2_fw(struct snd_soc_component *component, const char *name,
- 			goto err;
- 		}
- 
--		memcpy(&data32, data, sizeof(data32));
--		data32 = be32_to_cpu(data32);
-+		data32 = get_unaligned_be32(data);
- 
- 		switch ((data32 >> 24) & 0xff) {
- 		case WM_FW_BLOCK_INFO:
--- 
-2.23.0
+diff --git a/include/sound/sof/header.h b/include/sound/sof/header.h
+index 10f00c08dbb7..a0d6b5896467 100644
+--- a/include/sound/sof/header.h
++++ b/include/sound/sof/header.h
+@@ -9,6 +9,7 @@
+ #ifndef __INCLUDE_SOUND_SOF_HEADER_H__
+ #define __INCLUDE_SOUND_SOF_HEADER_H__
 
++#include <uapi/sound/sof/header.h>
+ #include <uapi/sound/sof/abi.h>
+
+ /** \addtogroup sof_uapi uAPI
+
+I need Pierre to have a look.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

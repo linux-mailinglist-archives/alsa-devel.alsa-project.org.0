@@ -2,66 +2,112 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BAD14D85FE
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 04:40:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 517AAD8632
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 05:07:14 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 089E71654;
-	Wed, 16 Oct 2019 04:40:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 089E71654
+	by alsa0.perex.cz (Postfix) with ESMTPS id C66AC15E0;
+	Wed, 16 Oct 2019 05:06:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C66AC15E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571193653;
-	bh=vKaugpInW+Epdizl+SYSqJJq47IciVzGxGCHtUc1/3I=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UXlRThKAGglceZ6mth81gek2X82E6zizmvnK5WIsO+pTwHsP/83Q8cjlSu+l6PGn+
-	 R9rJTkBvnFqE5y3cgZvnBczvfJ3XVFw29HIxM1Hn9GktuTh38t3XJLBliRVZxG1yps
-	 i2R7r6P9vAUv0ObGR4OV6TY4MM0jmRfJnC+oEx4Q=
+	s=default; t=1571195233;
+	bh=5Hvukn8ne+Fd1BAUCChyeTzQOI2WjJWJxTXePqQ98gY=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Dt3ULJTVdmCh+vBGoLCAmQzuF2j+NTDwgm6KSkiaguYY+J4WIBNFNL/yo7P5YvQ1J
+	 8Ur+D3XDO/RN5Txf/UNMbjZZB6B6czedOs+BhvmaNj0dC+/Q8Z9v82twVpftR9ujQR
+	 KnGkkAX2Uc9t4OuzDnHjCed2RwtYWRrNT08/Cnds=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C938F80369;
-	Wed, 16 Oct 2019 04:39:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05133F80362;
+	Wed, 16 Oct 2019 05:05:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E09CF8036C; Wed, 16 Oct 2019 04:39:06 +0200 (CEST)
+ id B09B3F80362; Wed, 16 Oct 2019 05:05:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RDNS_NONE,SPF_HELO_NONE,
- SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- by alsa1.perex.cz (Postfix) with ESMTP id F1EBFF80362
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 04:38:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1EBFF80362
-X-UUID: 696304e4c6f3425cbf18b72cd5196de8-20191016
-X-UUID: 696304e4c6f3425cbf18b72cd5196de8-20191016
-Received: from mtkcas06.mediatek.inc [(172.21.101.30)] by mailgw01.mediatek.com
- (envelope-from <jiaxin.yu@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 928964542; Wed, 16 Oct 2019 10:38:54 +0800
-Received: from MTKCAS06.mediatek.inc (172.21.101.30) by
- mtkmbs01n2.mediatek.inc (172.21.101.79) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Wed, 16 Oct 2019 10:38:50 +0800
-Received: from localhost.localdomain (10.17.3.153) by MTKCAS06.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Wed, 16 Oct 2019 10:38:49 +0800
-From: Jiaxin Yu <jiaxin.yu@mediatek.com>
-To: <broonie@kernel.org>, <mark.rutland@arm.com>, <robh+dt@kernel.org>,
- <linux@roeck-us.net>, <wim@linux-watchdog.org>
-Date: Wed, 16 Oct 2019 10:38:42 +0800
-Message-ID: <1571193522-11886-3-git-send-email-jiaxin.yu@mediatek.com>
-X-Mailer: git-send-email 1.8.1.1.dirty
-In-Reply-To: <1571193522-11886-1-git-send-email-jiaxin.yu@mediatek.com>
-References: <1571193522-11886-1-git-send-email-jiaxin.yu@mediatek.com>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,PRX_BODY_135,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr70080.outbound.protection.outlook.com [40.107.7.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD81AF8011F
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 05:05:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD81AF8011F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="oKwERHv0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=kgBgWcYNiS2JRkIjycVwzLlz8gUjoKJcqPXiMNBChza15OJ82frPUiw38CJ1+wqJYymDR7nZlI79QiiS2/AvZLnhtYbG0QmO4LIJQSEUuYEpZuKO0wDu99TZvIeRpA+r6LfDEO3+lNgbcG/eBAeoKZszHtbOqUwTzTAkCMdUUDxi1F+q/l05EJUb0a6Uzn+0RGHlGswC9lvDCgnr9WGulUOBS1KbvjvY3O/TeaCSgxOMzOJzCacxkWH79i2ZGL3omwmSC0XDqXnddasUhb4VU8Mtx2No1pZkuSyJjpX65fyf0coQ/OLrsFurmORJubWShZ+j3KY1lxVk9bYipIKoDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nIBrbhOKJD2m0AJdwVcU1f2A5UibnopLz0RHiVuUBHk=;
+ b=RUMTH/iQ3zaHpClKf/797ql+oSUEXI19C6IUuRl+mllSlWjfna9vYGXbNBnFLYm1uJeUPTChkHTD4AOOP1iJP/qaWBqvRIRIKCBUFk1bwgEifFBhJiAqXEnh3O9Bn9kkOFvcgLrh9GdTHaEhRsLrFYkk03U2ipH99lyLODLkRnw+cXEac3eHa6IP+itvayFJ255IkB8J2geWKTUTNVC5NYl80jIhCNlZWFIqEwOu7Jm+k7OChOodG7wVVbzLFiEEnkF0nblt9RfMSR5YbozBC6rjaT1hiUlf51EfpYfIPPEw9Y6vVaY78HCyMg+di87vWaswJyw+wMFMBC/gqgdB0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nIBrbhOKJD2m0AJdwVcU1f2A5UibnopLz0RHiVuUBHk=;
+ b=oKwERHv0qR6toYKaFpXx9mawsInNc3m6vksmGR23hmdf5aVM+wkD5Ko61BMg1nBx0RUP37GVzb0UAABzAMam7ANQ54xCWqglhhprmVOnEZRCV8Ec0sRvEr0rMH1OxPK3GFVJt7HPF2aAw0vv4Nxe3P5sjpKZdItts0y238KFK3I=
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com (20.179.232.225) by
+ VE1PR04MB6589.eurprd04.prod.outlook.com (20.179.235.217) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2347.18; Wed, 16 Oct 2019 03:05:16 +0000
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::e052:9278:76a3:27c]) by VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::e052:9278:76a3:27c%6]) with mapi id 15.20.2347.023; Wed, 16 Oct 2019
+ 03:05:16 +0000
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "jiada_wang@mentor.com" <jiada_wang@mentor.com>, "broonie@kernel.org"
+ <broonie@kernel.org>
+Thread-Topic: Question about "957ce0c6b8a1 ASoC: soc-pcm: check symmetry after
+ hw_params"
+Thread-Index: AdWDzUVy/0m9KNAaShGMg8lV0wkwGQ==
+Date: Wed, 16 Oct 2019 03:05:16 +0000
+Message-ID: <VE1PR04MB647977B69BF05FA82CAC7D10E3920@VE1PR04MB6479.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shengjiu.wang@nxp.com; 
+x-originating-ip: [92.121.36.197]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 3278611b-5a31-4b49-37ce-08d751e5abd7
+x-ms-office365-filtering-ht: Tenant
+x-ms-traffictypediagnostic: VE1PR04MB6589:
+x-microsoft-antispam-prvs: <VE1PR04MB65894FC3FD5B279F8C8D95E3E3920@VE1PR04MB6589.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:792;
+x-forefront-prvs: 0192E812EC
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(346002)(136003)(396003)(366004)(376002)(199004)(189003)(2906002)(33656002)(316002)(2501003)(81156014)(102836004)(81166006)(26005)(14454004)(256004)(14444005)(8936002)(7696005)(5660300002)(6506007)(790700001)(71200400001)(6116002)(25786009)(71190400001)(8676002)(99286004)(52536014)(3846002)(186003)(66446008)(66476007)(86362001)(66556008)(64756008)(66066001)(76116006)(2201001)(9686003)(6436002)(478600001)(110136005)(55016002)(66946007)(7736002)(54896002)(74316002)(476003)(486006)(6306002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VE1PR04MB6589;
+ H:VE1PR04MB6479.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: YC0ZW2teZ2J5YZNJRQqUBBmlXjQDZ6FAqgHdYCoqKYFEsM6fnFgNQ/CC4Zd/bBl9QIG4R3DMTAgC5QPu+s4y1un6BBdFDjaCFbty1SgdoKd4Zqx9WcF96w8y389ZzQwBoRNkyhAkd7XG6ETxnqA5Ri8W0WCfNdGWl62yxdemO4t8LXEYJ4bDrtvK2tBrBDeBrp7cEWl+GmXVrqRA5gUgqAq72JDdObVy++2A6RjRDxHG83qJPydnDG0vhIJKpP4ZzHjWMOgUycwFDvA/Eo1nTStXK+v7/ZcqodACKmVDGHfenTjPN00oOqOJSpoeJl02f4gCPDYkU2kjIRKH9m6QZ2BeONU2Ab99mbxGCgYH1O1CFm7swCWGfVsEbuU9lOypvPYGn96pi/ER4m+TVTDMYyTAHxnV3eXcXZj9Au8YKPo=
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: EDE643BDA5F2795A887B7DEE791A7E72E79A19DDBB5D9C481F742A084FC346522000:8
-X-MTK: N
-Cc: alsa-devel@alsa-project.org, yong.liang@mediatek.com, lgirdwood@gmail.com,
- jiaxin.yu@mediatek.com, tzungbi@google.com, linux-mediatek@lists.infradead.org,
- eason.yen@mediatek.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 2/2] watchdog: mtk_wdt: mt8183: Add reset
-	controller
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3278611b-5a31-4b49-37ce-08d751e5abd7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Oct 2019 03:05:16.6844 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: mQOOr8pv33SLgfHMdNEYAJyDOaCLJgkSlN56l/zt94B9bSEeEbfEeLdcfgoKUTmBUJ/Q9yrTsAJQfYHnNphy9A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6589
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] Question about "957ce0c6b8a1 ASoC: soc-pcm: check
+ symmetry after hw_params"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,202 +125,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: "yong.liang" <yong.liang@mediatek.com>
+Hi Jiada, Mark
 
-Add reset controller API in watchdog driver.
-Besides watchdog, MTK toprgu module also provide sub-system (eg, audio,
-camera, codec and connectivity) software reset functionality.
+     After this commit
 
-Signed-off-by: yong.liang <yong.liang@mediatek.com>
----
- drivers/watchdog/Kconfig   |   1 +
- drivers/watchdog/mtk_wdt.c | 111 ++++++++++++++++++++++++++++++++++++-
- 2 files changed, 111 insertions(+), 1 deletion(-)
+     "957ce0c6b8a1 ASoC: soc-pcm: check symmetry after hw_params"
 
-diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-index 2e07caab9db2..629249fe5305 100644
---- a/drivers/watchdog/Kconfig
-+++ b/drivers/watchdog/Kconfig
-@@ -717,6 +717,7 @@ config MEDIATEK_WATCHDOG
- 	tristate "Mediatek SoCs watchdog support"
- 	depends on ARCH_MEDIATEK || COMPILE_TEST
- 	select WATCHDOG_CORE
-+	select RESET_CONTROLLER
- 	help
- 	  Say Y here to include support for the watchdog timer
- 	  in Mediatek SoCs.
-diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
-index 9c3d0033260d..d29484c7940a 100644
---- a/drivers/watchdog/mtk_wdt.c
-+++ b/drivers/watchdog/mtk_wdt.c
-@@ -9,6 +9,9 @@
-  * Based on sunxi_wdt.c
-  */
- 
-+#include <dt-bindings/reset-controller/mt2712-resets.h>
-+#include <dt-bindings/reset-controller/mt8183-resets.h>
-+#include <linux/delay.h>
- #include <linux/err.h>
- #include <linux/init.h>
- #include <linux/io.h>
-@@ -16,10 +19,12 @@
- #include <linux/module.h>
- #include <linux/moduleparam.h>
- #include <linux/of.h>
-+#include <linux/of_device.h>
- #include <linux/platform_device.h>
-+#include <linux/reset-controller.h>
-+#include <linux/slab.h>
- #include <linux/types.h>
- #include <linux/watchdog.h>
--#include <linux/delay.h>
- 
- #define WDT_MAX_TIMEOUT		31
- #define WDT_MIN_TIMEOUT		1
-@@ -44,6 +49,9 @@
- #define WDT_SWRST		0x14
- #define WDT_SWRST_KEY		0x1209
- 
-+#define WDT_SWSYSRST		0x18U
-+#define WDT_SWSYS_RST_KEY	0x88000000
-+
- #define DRV_NAME		"mtk-wdt"
- #define DRV_VERSION		"1.0"
- 
-@@ -53,8 +61,99 @@ static unsigned int timeout;
- struct mtk_wdt_dev {
- 	struct watchdog_device wdt_dev;
- 	void __iomem *wdt_base;
-+	spinlock_t lock; /* protects WDT_SWSYSRST reg */
-+	struct reset_controller_dev rcdev;
-+};
-+
-+struct mtk_wdt_data {
-+	int sw_rst_num;
- };
- 
-+static const struct mtk_wdt_data mt2712_data = {
-+	.sw_rst_num = MT2712_TOPRGU_SW_RST_NUM,
-+};
-+
-+static const struct mtk_wdt_data mt8183_data = {
-+	.sw_rst_num = MT8183_TOPRGU_SW_RST_NUM,
-+};
-+
-+static int toprgu_reset_assert(struct reset_controller_dev *rcdev,
-+			       unsigned long id)
-+{
-+	unsigned int tmp;
-+	unsigned long flags;
-+	struct mtk_wdt_dev *data =
-+		 container_of(rcdev, struct mtk_wdt_dev, rcdev);
-+
-+	spin_lock_irqsave(&data->lock, flags);
-+
-+	tmp = __raw_readl(data->wdt_base + WDT_SWSYSRST);
-+	tmp |= BIT(id);
-+	tmp |= WDT_SWSYS_RST_KEY;
-+	writel(tmp, data->wdt_base + WDT_SWSYSRST);
-+
-+	spin_unlock_irqrestore(&data->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int toprgu_reset_deassert(struct reset_controller_dev *rcdev,
-+				 unsigned long id)
-+{
-+	unsigned int tmp;
-+	unsigned long flags;
-+	struct mtk_wdt_dev *data =
-+		 container_of(rcdev, struct mtk_wdt_dev, rcdev);
-+
-+	spin_lock_irqsave(&data->lock, flags);
-+
-+	tmp = __raw_readl(data->wdt_base + WDT_SWSYSRST);
-+	tmp &= ~BIT(id);
-+	tmp |= WDT_SWSYS_RST_KEY;
-+	writel(tmp, data->wdt_base + WDT_SWSYSRST);
-+
-+	spin_unlock_irqrestore(&data->lock, flags);
-+
-+	return 0;
-+}
-+
-+static int toprgu_reset(struct reset_controller_dev *rcdev,
-+			unsigned long id)
-+{
-+	int ret;
-+
-+	ret = toprgu_reset_assert(rcdev, id);
-+	if (ret)
-+		return ret;
-+
-+	return toprgu_reset_deassert(rcdev, id);
-+}
-+
-+static const struct reset_control_ops toprgu_reset_ops = {
-+	.assert = toprgu_reset_assert,
-+	.deassert = toprgu_reset_deassert,
-+	.reset = toprgu_reset,
-+};
-+
-+static int toprgu_register_reset_controller(struct platform_device *pdev,
-+					    int rst_num)
-+{
-+	int ret;
-+	struct mtk_wdt_dev *mtk_wdt = platform_get_drvdata(pdev);
-+
-+	spin_lock_init(&mtk_wdt->lock);
-+
-+	mtk_wdt->rcdev.owner = THIS_MODULE;
-+	mtk_wdt->rcdev.nr_resets = rst_num;
-+	mtk_wdt->rcdev.ops = &toprgu_reset_ops;
-+	mtk_wdt->rcdev.of_node = pdev->dev.of_node;
-+	ret = reset_controller_register(&mtk_wdt->rcdev);
-+	if (ret != 0)
-+		dev_err(&pdev->dev,
-+			"couldn't register wdt reset controller: %d\n", ret);
-+	return ret;
-+}
-+
- static int mtk_wdt_restart(struct watchdog_device *wdt_dev,
- 			   unsigned long action, void *data)
- {
-@@ -155,6 +254,7 @@ static int mtk_wdt_probe(struct platform_device *pdev)
- {
- 	struct device *dev = &pdev->dev;
- 	struct mtk_wdt_dev *mtk_wdt;
-+	struct mtk_wdt_data *wdt_data;
- 	int err;
- 
- 	mtk_wdt = devm_kzalloc(dev, sizeof(*mtk_wdt), GFP_KERNEL);
-@@ -190,6 +290,13 @@ static int mtk_wdt_probe(struct platform_device *pdev)
- 	dev_info(dev, "Watchdog enabled (timeout=%d sec, nowayout=%d)\n",
- 		 mtk_wdt->wdt_dev.timeout, nowayout);
- 
-+	wdt_data = (struct mtk_wdt_data *)of_device_get_match_data(dev);
-+	if (wdt_data) {
-+		err = toprgu_register_reset_controller(pdev,
-+						       wdt_data->sw_rst_num);
-+		if (err)
-+			return err;
-+	}
- 	return 0;
- }
- 
-@@ -218,7 +325,9 @@ static int mtk_wdt_resume(struct device *dev)
- #endif
- 
- static const struct of_device_id mtk_wdt_dt_ids[] = {
-+	{ .compatible = "mediatek,mt2712-wdt", .data = &mt2712_data },
- 	{ .compatible = "mediatek,mt6589-wdt" },
-+	{ .compatible = "mediatek,mt8183-wdt", .data = &mt8183_data },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, mtk_wdt_dt_ids);
--- 
-2.18.0
+     The soc_pcm_params_symmetry can't take effect, because its position
+is after the change of cpu_dai->rate.
+
+     The code of soc_pcm_params_symmetry is:
+
+static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
+                                struct snd_pcm_hw_params *params)
+{
+...
+        if (symmetry && cpu_dai->rate && cpu_dai->rate != rate) {
+                dev_err(rtd->dev, "ASoC: unmatched rate symmetry: %d - %d\n",
+                                cpu_dai->rate, rate);
+                return -EINVAL;
+        }
+
+...
+}
+
+     This code soc_pcm_hw_params  of is:
+
+static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+                                struct snd_pcm_hw_params *params)
+{
+
+...
+        /* store the parameters for each DAIs */
+        cpu_dai->rate = params_rate(params);
+        cpu_dai->channels = params_channels(params);
+        cpu_dai->sample_bits =
+                snd_pcm_format_physical_width(params_format(params));
+
+        snd_soc_dapm_update_dai(substream, params, cpu_dai);
+
+...
+        ret = soc_pcm_params_symmetry(substream, params);
+        if (ret)
+                goto component_err;
+
+...
+}
+
+   Is this an issue?
+
+Best regards
+Wang shengjiu
+
 
 _______________________________________________
 Alsa-devel mailing list

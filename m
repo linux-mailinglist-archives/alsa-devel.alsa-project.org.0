@@ -2,74 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A226D91DC
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 15:01:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CD464D9459
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 16:52:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DED541615;
-	Wed, 16 Oct 2019 15:00:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DED541615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 339521615;
+	Wed, 16 Oct 2019 16:52:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 339521615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571230895;
-	bh=nbmj3eQGKACSv+hxYkLt1C0NppDO3vVj5hKI1Ia6bns=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=bs20ko3Uho9Kssd5jVFNyrZBSNqfTBPX8bUmY1iztywix8sChrYH8h0OFWGKDn3On
-	 d4F4sIFmV3XUzXKABbIyk23Ijs+jzcGi2vVeB4DKIGbV53YUFaiD1tbjfG7EV5i6un
-	 aUpKjBsX7rtTikiFxLuRXbeIoxTbty51Ajeo1TkM=
+	s=default; t=1571237579;
+	bh=dveIp+eBELQazgKmcPOzxj4g2N2s/Uthb3zdLyVaX/w=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZE6nMfgS7pbeePRt0NYVq5V4M+VSJf0R5CsazUHbm5vd2GBme8RnPVDioH9dlYYFr
+	 SKSwdu2RGkMaVvBVKW7IflfLL7wpSazE+IWBVQ4dDDqyjgVDIDqVLMxHweEuoWH5Rj
+	 +LB4JyCmonhWZPHs1Zi+pi5B75bupMHQ72IMkC1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5AC85F80635;
-	Wed, 16 Oct 2019 14:58:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61D34F80323;
+	Wed, 16 Oct 2019 16:51:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83EE5F805FD; Wed, 16 Oct 2019 14:58:19 +0200 (CEST)
+ id 28B97F80362; Wed, 16 Oct 2019 16:51:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2561F80376
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 14:58:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2561F80376
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BF2BF8011F
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 16:51:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BF2BF8011F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="QjhkP2r7"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=i4IFev4hoNhLiHnNyOc0tlmnPsToq3hWRFR2YG1XIyg=; b=QjhkP2r7bmJB
- KWZo00DROulH/agljegaAJ0/6sVz+AsO89Vle/6GSYlbIRiePP6SDjZZrUh6zoNvtaPl12GoPNn7R
- BLLhq3LQIsIxCpK/ipX0QfYHV8zNOBo+uJF0lnOtSl14LuzqbtRUZbRQNDU3Pv2/uEUQFlLvtQozk
- YAMFM=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iKisY-0005MR-0T; Wed, 16 Oct 2019 12:58:14 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 7502027428FD; Wed, 16 Oct 2019 13:58:13 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Ben Dooks (Codethink) <ben.dooks@codethink.co.uk>
-In-Reply-To: <20191016120149.5860-1-ben.dooks@codethink.co.uk>
-X-Patchwork-Hint: ignore
-Message-Id: <20191016125813.7502027428FD@ypsilon.sirena.org.uk>
-Date: Wed, 16 Oct 2019 13:58:13 +0100 (BST)
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Ben Dooks <ben.dooks@codethink.co.uk>
-Subject: [alsa-devel] Applied "ASoC: wm8958: use <asm/unaligned.h> to
-	simplify code" to the asoc tree
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="bMkLi5d6"
+Received: from localhost (lfbn-1-10718-76.w90-89.abo.wanadoo.fr [90.89.68.76])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 331AE2168B;
+ Wed, 16 Oct 2019 14:51:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1571237465;
+ bh=Xh/9gWmwBKdF+8neE3kItdxVMfpHXwc3n8w1uZywGNQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=bMkLi5d63UN14+72d9h18uH19CkeKG76vGq+CqQ+wIG2Cyem630Ojwrt9CEOdzh1f
+ nfcG0oLaZc2le2vb93goK32+ObpHGn+url2irqclWJw+pWdZempUJgMh0VLuA1KDwD
+ FgYwaZLYrXiSq3mJDbHG9vjPT2zA1qR1eMkuVBy4=
+Date: Wed, 16 Oct 2019 16:51:03 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Code Kipper <codekipper@gmail.com>
+Message-ID: <20191016145103.im4h75qi2fcdcmar@gilmour>
+References: <20191016070740.121435-1-codekipper@gmail.com>
+ <20191016070740.121435-2-codekipper@gmail.com>
+ <20191016080420.4cbxn2hdt3wwtrhl@gilmour>
+ <CAEKpxBmNCA4U8-X8iSwOxBZ7T3dp6352S2Kfxc6f5E4N671zvg@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAEKpxBmNCA4U8-X8iSwOxBZ7T3dp6352S2Kfxc6f5E4N671zvg@mail.gmail.com>
+User-Agent: NeoMutt/20180716
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-sunxi <linux-sunxi@googlegroups.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "Andrea Venturi \(pers\)" <be17068@iperbole.bo.it>,
+ Chen-Yu Tsai <wens@csie.org>, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH v6 1/7] ASoC: sun4i-i2s: Move channel
+	select offset
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,170 +84,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2673402443098103098=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: wm8958: use <asm/unaligned.h> to simplify code
+--===============2673402443098103098==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="fi6amry3fbotqfax"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+--fi6amry3fbotqfax
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Wed, Oct 16, 2019 at 10:41:31AM +0200, Code Kipper wrote:
+> On Wed, 16 Oct 2019 at 10:04, Maxime Ripard <mripard@kernel.org> wrote:
+> >
+> > On Wed, Oct 16, 2019 at 09:07:34AM +0200, codekipper@gmail.com wrote:
+> > > From: Marcus Cooper <codekipper@gmail.com>
+> > >
+> > > On the newer SoCs the offset is used to set the mode of the
+> > > connection. As it is to be used elsewhere then it makes sense
+> > > to move it to the main structure.
+> >
+> > Elsewhere where, and to do what?
+> Thanks...How does this sound?
+>
+> As it is to be used to set the same offset for each TX data channel in use
+> during multi-channel audio then let's move it to the main structure.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+That still doesn't explain why you want to move it to the main
+structure. It's there, it's calculated already, and can be used during
+multi-channel audio if you set it up in the same function. What you
+need to explain is why you can't do it in the same function.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Maxime
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--fi6amry3fbotqfax
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Mark
+-----BEGIN PGP SIGNATURE-----
 
-From 3ad00f6a5f76d4030a3c712fabe0cf69920925fc Mon Sep 17 00:00:00 2001
-From: "Ben Dooks (Codethink)" <ben.dooks@codethink.co.uk>
-Date: Wed, 16 Oct 2019 13:01:49 +0100
-Subject: [PATCH] ASoC: wm8958: use <asm/unaligned.h> to simplify code
+iHUEABYIAB0WIQRcEzekXsqa64kGDp7j7w1vZxhRxQUCXacuVwAKCRDj7w1vZxhR
+xTaQAP0X2iGfJ5IY9S8B+s9Zh5MP11erZjYLItvMfIJTyW5EAgD/QxPJRbfuSz03
+Mqd/XK6k/sf6xBYpSzArepQAruvCDQs=
+=rCXO
+-----END PGP SIGNATURE-----
 
-Simplify the memcpy/be32_to_cpu() code by simply using
-get_unaligned_be32() throughout and makes the code nicer
-to look at.
+--fi6amry3fbotqfax--
 
-This fixes the following warnings from sparse:
-
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:62:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:69:15: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:72:18: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:91:17: warning: cast to restricted __be64
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:108:29: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-sound/soc/codecs/wm8958-dsp2.c:120:26: warning: cast to restricted __be32
-
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20191016120149.5860-1-ben.dooks@codethink.co.uk
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/wm8958-dsp2.c | 22 +++++++++-------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
-
-diff --git a/sound/soc/codecs/wm8958-dsp2.c b/sound/soc/codecs/wm8958-dsp2.c
-index 18535b326680..ca42445b649d 100644
---- a/sound/soc/codecs/wm8958-dsp2.c
-+++ b/sound/soc/codecs/wm8958-dsp2.c
-@@ -25,6 +25,8 @@
- #include <linux/mfd/wm8994/pdata.h>
- #include <linux/mfd/wm8994/gpio.h>
- 
-+#include <asm/unaligned.h>
-+
- #include "wm8994.h"
- 
- #define WM_FW_BLOCK_INFO 0xff
-@@ -58,18 +60,15 @@ static int wm8958_dsp2_fw(struct snd_soc_component *component, const char *name,
- 	}
- 
- 	if (memcmp(fw->data, "WMFW", 4) != 0) {
--		memcpy(&data32, fw->data, sizeof(data32));
--		data32 = be32_to_cpu(data32);
-+		data32 = get_unaligned_be32(fw->data);
- 		dev_err(component->dev, "%s: firmware has bad file magic %08x\n",
- 			name, data32);
- 		goto err;
- 	}
- 
--	memcpy(&data32, fw->data + 4, sizeof(data32));
--	len = be32_to_cpu(data32);
-+	len = get_unaligned_be32(fw->data + 4);
-+	data32 = get_unaligned_be32(fw->data + 8);
- 
--	memcpy(&data32, fw->data + 8, sizeof(data32));
--	data32 = be32_to_cpu(data32);
- 	if ((data32 >> 24) & 0xff) {
- 		dev_err(component->dev, "%s: unsupported firmware version %d\n",
- 			name, (data32 >> 24) & 0xff);
-@@ -87,9 +86,8 @@ static int wm8958_dsp2_fw(struct snd_soc_component *component, const char *name,
- 	}
- 
- 	if (check) {
--		memcpy(&data64, fw->data + 24, sizeof(u64));
--		dev_info(component->dev, "%s timestamp %llx\n",
--			 name, be64_to_cpu(data64));
-+		data64 = get_unaligned_be64(fw->data + 24);
-+		dev_info(component->dev, "%s timestamp %llx\n",  name, data64);
- 	} else {
- 		snd_soc_component_write(component, 0x102, 0x2);
- 		snd_soc_component_write(component, 0x900, 0x2);
-@@ -104,8 +102,7 @@ static int wm8958_dsp2_fw(struct snd_soc_component *component, const char *name,
- 			goto err;
- 		}
- 
--		memcpy(&data32, data + 4, sizeof(data32));
--		block_len = be32_to_cpu(data32);
-+		block_len = get_unaligned_be32(data + 4);
- 		if (block_len + 8 > len) {
- 			dev_err(component->dev, "%zd byte block longer than file\n",
- 				block_len);
-@@ -116,8 +113,7 @@ static int wm8958_dsp2_fw(struct snd_soc_component *component, const char *name,
- 			goto err;
- 		}
- 
--		memcpy(&data32, data, sizeof(data32));
--		data32 = be32_to_cpu(data32);
-+		data32 = get_unaligned_be32(data);
- 
- 		switch ((data32 >> 24) & 0xff) {
- 		case WM_FW_BLOCK_INFO:
--- 
-2.20.1
+--===============2673402443098103098==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============2673402443098103098==--

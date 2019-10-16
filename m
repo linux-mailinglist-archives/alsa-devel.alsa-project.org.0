@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62E60D8EDF
-	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 13:04:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 503AED8F0E
+	for <lists+alsa-devel@lfdr.de>; Wed, 16 Oct 2019 13:13:59 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A97671654;
-	Wed, 16 Oct 2019 13:03:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A97671654
+	by alsa0.perex.cz (Postfix) with ESMTPS id D01D815E2;
+	Wed, 16 Oct 2019 13:13:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D01D815E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571223846;
-	bh=Vg8Bj2CJNkNzSkisOHp1qp32ka8JSBsOb9utwh9DDEA=;
+	s=default; t=1571224438;
+	bh=p4QaABNgesJaF3FXigazRZ2MBJtR8f/9Se6dbN6rItg=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=blarvu43SIA+RPUhhfuDQXNvm/wi9GM2exwms0Cv5Cml6As6CN8yz48GE7aPmPrH8
-	 rfnC3sA55sTWNVoe25NbcSXo/B/7etxSEa8dddMpmedDlEZeQd1tVTPmk/MPuwPGps
-	 eU5hgAwXUbRpKBGmdcW+3fv2kOvorTFRFbbRedv4=
+	b=Xx2bAuRTOCLVnb0IUGvDXLfIlRz3XQnf0uBL5eTM00ul+Rmu6HSGs/KiH6rU7PXtE
+	 jPO1MN8ZtktQD0v2FALQsiDSrDOU0F0QgFaDTEt5HxsFxgnsAxgTdimodAn/JbcVP7
+	 piDrnkpa6RtT6msvOuny/cr1aQ1KxHY0tx6Ofybg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 462D5F80323;
-	Wed, 16 Oct 2019 13:02:22 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80598F80362;
+	Wed, 16 Oct 2019 13:12:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E98B4F80362; Wed, 16 Oct 2019 13:02:19 +0200 (CEST)
+ id C5157F80362; Wed, 16 Oct 2019 13:12:11 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55F8EF80276
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 13:02:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55F8EF80276
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A007F8011F
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 13:12:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A007F8011F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NCpzc9CE"
-Received: by mail-wm1-x343.google.com with SMTP id i16so2421560wmd.3
- for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 04:02:16 -0700 (PDT)
+ header.b="gqMnE4f/"
+Received: by mail-wm1-x344.google.com with SMTP id r19so2462175wmh.2
+ for <alsa-devel@alsa-project.org>; Wed, 16 Oct 2019 04:12:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
  :cc:content-transfer-encoding;
- bh=6TnyruJNVx6ER2jTYjftbmVl31X4S3LEaQJe+CNcXgU=;
- b=NCpzc9CEnVV6r3afA31DnekhMWsFWhCUV1k0dKynm+k+QGrhD5DNArYmbCs0smXBVH
- EfLDXgfR/shJrejX1GEO7wJqHMca29lclkA3eBuKKYt+odHkmsrm1rDnKgd1hnEHyZ3D
- KhqfdwW5Lo30HjW60gqDz58ijUjjNceMo892HGH+xXzKAURKzZC7Soba5lrJzQg+lQ15
- DZ5ZZUvvrUtpWVXdJgIgmJL5iis075xHlo1nUIEHS7e6oKXrpJ+8oHIxJWNX27BGrkOR
- ua7I063cOf27ZxEpQZCWXknwYBa0Pz3se/p5fqnYvxvGA1isneDfzp0rOpqyt69QH65n
- Vr8w==
+ bh=nrMycvm/TZl3jJZmVZTvx/He0214xW5FqKNP+hxfLIg=;
+ b=gqMnE4f/qoqVvdLxsy9u8JkqKlmYCHzOtLKq32whWOzqEXPL5iX9ImvaYOvGHWhRXL
+ qe29dLLpB08/acFcKHAOLDoUDzVfa5flISXLONwRNZUV40hH/YqZ8n/MSZfMUsgu7vSw
+ 44G7lbkPCYS5eOyNIqPrzwBSnegV4oyhd5uMVsnJIjYbGnY5BckZpwVSCNq4AtqAiCn/
+ If9ZEw/H7TFDGtPmGPJxqvXUBNJDHkoIbUHiKJ1iefAOgDYmBF4bTk2zK9f2DEY/kLwj
+ WbThEyEsTqepJtiasQsdlKgiMbEwQyjV31yCFiyqdg9SQeKNwzNUi0SSPbt5oTj/7dM1
+ mV+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc:content-transfer-encoding;
- bh=6TnyruJNVx6ER2jTYjftbmVl31X4S3LEaQJe+CNcXgU=;
- b=IdHLLOpaE0k1kwiWbQmzRf4LtukEDr1TguhnypcYhH0sCrmrcqi7e9tHkRprd//j7p
- W4WlsmO3vcxJOmkAObDthd8v0MURMZ/A5X6XeZnxUsTWUzuITeFxstH6VFCzZGGMyTRZ
- rP+dY32C3Vyp0RTB6p7hKb/2G9kZ4illsSN5T1xG66rVcrZpoFOsGYtpucIn8+iWqcS0
- pqWXUt7DR4xm4sVhBSVClhfws5vigxcB+ClfaRZ35jHsFUZPzvXUtYOetUSvlfxJV356
- Bm4XfDEymNa/3rV9fjgk4duf2qw0S6xZRXqKqnxufcqms5K+ZNYrN1ShK8+cZOQm2vrY
- NrHg==
-X-Gm-Message-State: APjAAAX84pzimic8JOsYRs8Se2tgCMyCoqfL+UN+c34UrLc5EoKnTiAS
- qI2ko6Ymp1u2BWTiG8Tbg2bUpJgY60Gs3VyOwEo=
-X-Google-Smtp-Source: APXvYqykkUnC2VF5xJfFzW27e7kIVDcvdsV59pt+sj3qpQnIvZvXWTYXHxRQYcQpsYSeDY8du+dl3b43clMfzKPVvdQ=
-X-Received: by 2002:a1c:e48a:: with SMTP id b132mr2943709wmh.13.1571223736423; 
- Wed, 16 Oct 2019 04:02:16 -0700 (PDT)
+ bh=nrMycvm/TZl3jJZmVZTvx/He0214xW5FqKNP+hxfLIg=;
+ b=QXVOye7qMF2i0zPkOwQMAmuLvrgW6szgB0ousVbjBQB/UheZV7+YRmdGmytsmUobSd
+ 6BZO7vtZsd706WPDjbuqgRJioyc3ri3qRdlNrdcyHIPvb+bDK62TJ5sGfjQJMT9BS7s2
+ iioZRl6AxRDspFYyrBSYXvgcsFNSSeEpoHXZG2J475lcTqqi+ub34cI6sZMs6oUQvbiM
+ 1z2rEsV6FEJ0FpFIPiWOxlspdFRjf0dfUf4cB5PL9MnFVbhRT7Q4b+/rTmFW+oWfteVG
+ US/6kmUMR3DWuwN+lZ+P9VIWd8xHkd9UU70fktWT6tfpU85Xs1p0ZCFxPHDNjDSeMPGU
+ MHnw==
+X-Gm-Message-State: APjAAAVR2qt7RzkMmFsbtSDWjJ6lj0RCtWKvlkyE6oSNMW79GjeUn91w
+ aLMGBJut1Vb6GGvpL7vte/zL/jSfh59wBNA6cXA=
+X-Google-Smtp-Source: APXvYqwo6jAZTCmB/FNu55aRKaWe7nERisYH4YsQGYMn1/W4TrcQZHzyz1AfOPao7+JLaoNmaFfH479+HQx7xsAYtFg=
+X-Received: by 2002:a05:600c:2308:: with SMTP id
+ 8mr2755359wmo.73.1571224328329; 
+ Wed, 16 Oct 2019 04:12:08 -0700 (PDT)
 MIME-Version: 1.0
 References: <87a7a24l7r.wl-kuninori.morimoto.gx@renesas.com>
  <CAEnQRZAsZ=Q=tcqCzVp8bvj4Jme+YTH9GxmMoBgvOT+w6z8iiw@mail.gmail.com>
@@ -78,10 +79,11 @@ References: <87a7a24l7r.wl-kuninori.morimoto.gx@renesas.com>
  <87o8yhwn3d.wl-kuninori.morimoto.gx@renesas.com>
 In-Reply-To: <87o8yhwn3d.wl-kuninori.morimoto.gx@renesas.com>
 From: Daniel Baluta <daniel.baluta@gmail.com>
-Date: Wed, 16 Oct 2019 14:02:04 +0300
-Message-ID: <CAEnQRZAe20xzGXEDcXczcna9dFP+XFCR3sOBrVyMQK+F85aO9g@mail.gmail.com>
+Date: Wed, 16 Oct 2019 14:11:57 +0300
+Message-ID: <CAEnQRZDEZySYWzJ9gifVAiZ0qOxDe_w9zMxgsLbN0URmpcYCAw@mail.gmail.com>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Subject: Re: [alsa-devel] [PATCH] ASoC: sof: include types.h at header.h
 X-BeenThere: alsa-devel@alsa-project.org
@@ -121,8 +123,10 @@ dXggc3BlY2lmaWMgc3R1ZmYgaW4gdGhlcmUuCj4gPgo+ID4gQWxzbyBJIGRvbid0IGtub3cgaG93
 IHlvdSBnZXQgdGhvc2UgZXJyb3JzLCB3ZSd2ZSBiZWVuIHVzaW5nIHRoaXMgZmlsZQo+ID4gZm9y
 IHNvbWUgdGltZSwgY2FuIHlvdSBjbGFyaWZ5IGhvdyB0aGlzIGVycm9yIGhhcHBlbnM/Cj4KPiBJ
 IGhhZCBnb3QgdGhpcyBlcnJvciBieSB1c2luZyAibWFrZSBhbGx5ZXNjb25maWciIGFuZCBjb21w
-aWxlIGZvciB4ODYuCj4KPiBUaGFuayB5b3UgZm9yIHlvdXIgaGVscCAhIQo+IEJlc3QgcmVnYXJk
-cwo+IC0tLQo+IEt1bmlub3JpIE1vcmltb3RvCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxz
-YS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2Fsc2EtZGV2ZWwK
+aWxlIGZvciB4ODYuCgpTb3JyeSwgSSd2ZSBlYXJsaWVyIHNlbnQgYW4gZW1wdHkgbWVzc2FnZS4K
+Ck9rLCB0aGVuIElTdGVwaGVuJ3MgcGF0Y2ggZml4ZXMgdGhlIGlzc3VlIGFuZCB3ZSBzaG91bGQg
+bm90IHRvdWNoCmluY2x1ZGUvc291bmQvc29mL2hlYWRlci5oCgpUaGF0IG1lYW5zIE1hcmsgbmVl
+ZHMgdG8gZHJvcCBNb3JpbW90by1zYW4ncyBwYXRjaC4KX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZl
+bEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxt
+YW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

@@ -2,61 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71714DA593
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Oct 2019 08:25:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE8E7DA653
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Oct 2019 09:21:40 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E47069F6;
-	Thu, 17 Oct 2019 08:24:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E47069F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23893950;
+	Thu, 17 Oct 2019 09:20:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23893950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571293548;
-	bh=LKe8X/zWLVaAjgeAbFLnz2OihApA2LaVjBV9B4owZQ4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=AtbQOmgyRNfLEmJyA6rtrihLo8832OxqGYzZXRmMuVy4/1SQ865Ws8nZaSd2M8qjz
-	 goXx5FXwRM0+u2BKGVYfAURZOqNqG4NDXzSsAQFVYUvJ4npNcKqPd5+LNULyuIWurd
-	 o/1kW5N0gm7L757WgBstKseURqkW2tlET2EHZY7c=
+	s=default; t=1571296900;
+	bh=SO7bHahsqxBQMFSGLeq83ZzoXxFVVCEgQZFCPsVXNgA=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=R0OwhCaO3+jd7iaqTAyCV3MrXj5k6OuVe7OgpGtHbF5/rVC8+CWY90cN3ZdLDiEtc
+	 ys4Oi23nXjU3DGH1crvD1yfw7vpOV3QmZPCEEv1EQ0pKZkSIjmYrN0fCYBccd9yg1U
+	 r6A8iiv+o+wiQq3D7geheq0GtpQItKqsQ1DCONZ0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 17D1DF80528;
-	Thu, 17 Oct 2019 08:24:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50609F804AA;
+	Thu, 17 Oct 2019 09:19:55 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60381F804AA; Thu, 17 Oct 2019 08:24:00 +0200 (CEST)
+ id B522DF804AA; Thu, 17 Oct 2019 09:19:52 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 50909F802A0
- for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 08:23:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 50909F802A0
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id CF242200031;
- Thu, 17 Oct 2019 08:23:54 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 8322220004C;
- Thu, 17 Oct 2019 08:23:49 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 11186402B4;
- Thu, 17 Oct 2019 14:23:42 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
-Date: Thu, 17 Oct 2019 14:21:08 +0800
-Message-Id: <1571293268-5146-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: fsl_asrc: refine the setting of internal
-	clock divider
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4977AF80276
+ for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 09:19:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4977AF80276
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 17632ACE1;
+ Thu, 17 Oct 2019 07:19:49 +0000 (UTC)
+Date: Thu, 17 Oct 2019 09:19:48 +0200
+Message-ID: <s5hv9snj0tn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+In-Reply-To: <F3E69B3D-E11B-4D99-905A-CC5927D61D6C@canonical.com>
+References: <20190925113255.25062-1-kai.heng.feng@canonical.com>
+ <20190925113255.25062-2-kai.heng.feng@canonical.com>
+ <F3E69B3D-E11B-4D99-905A-CC5927D61D6C@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Linux PCI <linux-pci@vger.kernel.org>,
+ alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH v4 2/2] ALSA: hda: Allow HDA to be runtime
+	suspended when dGPU is not bound to a driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,117 +68,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For P2P output, the output divider should align with the output sample
-rate, if use ideal sample rate, there will be a lot of overload, which
-would cause underrun.
+On Mon, 07 Oct 2019 20:49:56 +0200,
+Kai-Heng Feng wrote:
+> 
+> Hi Takashi,
+> 
+> > On Sep 25, 2019, at 19:32, Kai-Heng Feng <kai.heng.feng@canonical.com> wrote:
+> > 
+> > Nvidia proprietary driver doesn't support runtime power management, so
+> > when a user only wants to use the integrated GPU, it's a common practice
+> > to let dGPU not to bind any driver, and let its upstream port to be
+> > runtime suspended. At the end of runtime suspension the port uses
+> > platform power management to disable power through _OFF method of power
+> > resource, which is listed by _PR3.
+> > 
+> > After commit b516ea586d71 ("PCI: Enable NVIDIA HDA controllers"), when
+> > the dGPU comes with an HDA function, the HDA won't be suspended if the
+> > dGPU is unbound, so the power resource can't be turned off by its
+> > upstream port driver.
+> > 
+> > Commit 37a3a98ef601 ("ALSA: hda - Enable runtime PM only for
+> > discrete GPU") only allows HDA to be runtime suspended once GPU is
+> > bound, to keep APU's HDA working.
+> > 
+> > However, HDA on dGPU isn't that useful if dGPU is not bound to any
+> > driver.  So let's relax the runtime suspend requirement for dGPU's HDA
+> > function, to disable the power source to save lots of power.
+> > 
+> > BugLink: https://bugs.launchpad.net/bugs/1840835
+> > Fixes: b516ea586d71 ("PCI: Enable NVIDIA HDA controllers")
+> > Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> 
+> Do you still have any concern on this patch?
+> Please merge [v5 1/2] and this patch [v4 2/2] if you think it's good.
 
-The maximum divider of asrc clock is 1024, but there is no judgement
-for this limitaion in driver, which may cause the divider setting not
-correct.
+Sorry for the late reply, as I've been off for a few weeks.
+Now I applied both patches for 5.4.
 
-For non-ideal ratio mode, the clock rate should divide the sample rate
-with no remainder, and the quotient should be less than 1024.
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_asrc.c | 40 +++++++++++++++++++++++++++++++---------
- 1 file changed, 31 insertions(+), 9 deletions(-)
+Thanks!
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index 0bf91a6f54b9..44d05ec28bd3 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -260,7 +260,7 @@ static int fsl_asrc_set_ideal_ratio(struct fsl_asrc_pair *pair,
-  * of struct asrc_config which includes in/output sample rate, width, channel
-  * and clock settings.
-  */
--static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
-+static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool p2p)
- {
- 	struct asrc_config *config = pair->config;
- 	struct fsl_asrc *asrc_priv = pair->asrc_priv;
-@@ -268,7 +268,8 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
- 	enum asrc_word_width input_word_width;
- 	enum asrc_word_width output_word_width;
- 	u32 inrate, outrate, indiv, outdiv;
--	u32 clk_index[2], div[2];
-+	u32 clk_index[2], div[2], rem[2];
-+	u64 clk_rate;
- 	int in, out, channels;
- 	int pre_proc, post_proc;
- 	struct clk *clk;
-@@ -351,7 +352,9 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
- 	/* We only have output clock for ideal ratio mode */
- 	clk = asrc_priv->asrck_clk[clk_index[ideal ? OUT : IN]];
- 
--	div[IN] = clk_get_rate(clk) / inrate;
-+	clk_rate = clk_get_rate(clk);
-+	rem[IN] = do_div(clk_rate, inrate);
-+	div[IN] = (u32)clk_rate;
- 	if (div[IN] == 0) {
- 		pair_err("failed to support input sample rate %dHz by asrck_%x\n",
- 				inrate, clk_index[ideal ? OUT : IN]);
-@@ -360,11 +363,20 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
- 
- 	clk = asrc_priv->asrck_clk[clk_index[OUT]];
- 
--	/* Use fixed output rate for Ideal Ratio mode (INCLK_NONE) */
--	if (ideal)
--		div[OUT] = clk_get_rate(clk) / IDEAL_RATIO_RATE;
--	else
--		div[OUT] = clk_get_rate(clk) / outrate;
-+	/*
-+	 * When P2P mode, output rate should align with the out samplerate.
-+	 * if set too high output rate, there will be lots of Overload.
-+	 * When M2M mode, output rate should also need to align with the out
-+	 * samplerate, but M2M must use less time to achieve good performance.
-+	 */
-+	clk_rate = clk_get_rate(clk);
-+	if (p2p || !ideal) {
-+		rem[OUT] = do_div(clk_rate, outrate);
-+		div[OUT] = clk_rate;
-+	} else {
-+		rem[OUT] = do_div(clk_rate, IDEAL_RATIO_RATE);
-+		div[OUT] = clk_rate;
-+	}
- 
- 	if (div[OUT] == 0) {
- 		pair_err("failed to support output sample rate %dHz by asrck_%x\n",
-@@ -372,6 +384,16 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair)
- 		return -EINVAL;
- 	}
- 
-+	if (!ideal && (div[IN] > 1024 || div[OUT] > 1024 ||
-+		       rem[IN] != 0 || rem[OUT] != 0)) {
-+		pair_err("The divider can't be used for non ideal mode\n");
-+		return -EINVAL;
-+	}
-+
-+	/* Divider range is [1, 1024] */
-+	div[IN] = min_t(u32, 1024, div[IN]);
-+	div[OUT] = min_t(u32, 1024, div[OUT]);
-+
- 	/* Set the channel number */
- 	channels = config->channel_num;
- 
-@@ -560,7 +582,7 @@ static int fsl_asrc_dai_hw_params(struct snd_pcm_substream *substream,
- 		config.output_sample_rate = rate;
- 	}
- 
--	ret = fsl_asrc_config_pair(pair);
-+	ret = fsl_asrc_config_pair(pair, true);
- 	if (ret) {
- 		dev_err(dai->dev, "fail to config asrc pair\n");
- 		return ret;
--- 
-2.21.0
+Takashi
 
+> 
+> Thanks!
+> 
+> Kai-Heng
+> 
+> > ---
+> > v4:
+> > - Find upstream port, it's callee's responsibility now.
+> > v3:
+> > - Make changelog more clear.
+> > v2:
+> > - Change wording.
+> > - Rebase to Tiwai's branch.
+> > sound/pci/hda/hda_intel.c | 8 +++++++-
+> > 1 file changed, 7 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+> > index 240f4ca76391..e63b871343e5 100644
+> > --- a/sound/pci/hda/hda_intel.c
+> > +++ b/sound/pci/hda/hda_intel.c
+> > @@ -1280,11 +1280,17 @@ static void init_vga_switcheroo(struct azx *chip)
+> > {
+> > 	struct hda_intel *hda = container_of(chip, struct hda_intel, chip);
+> > 	struct pci_dev *p = get_bound_vga(chip->pci);
+> > +	struct pci_dev *parent;
+> > 	if (p) {
+> > 		dev_info(chip->card->dev,
+> > 			 "Handle vga_switcheroo audio client\n");
+> > 		hda->use_vga_switcheroo = 1;
+> > -		chip->bus.keep_power = 1; /* cleared in either gpu_bound op or codec probe */
+> > +
+> > +		/* cleared in either gpu_bound op or codec probe, or when its
+> > +		 * upstream port has _PR3 (i.e. dGPU).
+> > +		 */
+> > +		parent = pci_upstream_bridge(p);
+> > +		chip->bus.keep_power = parent ? !pci_pr3_present(parent) : 1;
+> > 		chip->driver_caps |= AZX_DCAPS_PM_RUNTIME;
+> > 		pci_dev_put(p);
+> > 	}
+> > -- 
+> > 2.17.1
+> > 
+> 
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,63 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 711A5DA685
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Oct 2019 09:34:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F953DA69D
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Oct 2019 09:43:32 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1A501612;
-	Thu, 17 Oct 2019 09:33:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1A501612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95D40857;
+	Thu, 17 Oct 2019 09:42:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95D40857
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571297644;
-	bh=/9sZ8AyoS3RZnSUnn8REdOxAkCBQkobGk2PuHJZHyNY=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571298211;
+	bh=1T7mQE1uqCN2WX/3YY+cn/TjoM1PlJPN5fERUivNP7w=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XyQ/VaHuybjcR8lv8dzV7pXzxr2n3PbxLTulHpJeS35AAVapo2aLnn6NaDbvdu1r6
-	 aRenipsnDP9u6zmFGDmGqDjzNUW+te3N8Eqp8C/0WVvz4aQq7tFu8C2bNJi52gU3X4
-	 hVSvW7FibPZw3ws8c02Y0Kfvg5cHj2U/SG9f7E2c=
+	b=DohE9QioLRvZcrnv5KR9tKP+LsZ17aBCGqffxLauFZhkCF8G+n7x3HUk0ObnCw+nS
+	 UYOjW/5FG7lO9o03OIfQ2PoezA9Za/HadfInVcPa1nNeXizqnAL8NyrDXdH4WVZiCJ
+	 ZMOeyZkJGLjbd+wmDR5OaPTRalaOpW2do1ZE6OWk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 163D4F80276;
-	Thu, 17 Oct 2019 09:32:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AD02F804AA;
+	Thu, 17 Oct 2019 09:41:47 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDE41F804AA; Thu, 17 Oct 2019 09:32:15 +0200 (CEST)
+ id BA5F7F804AA; Thu, 17 Oct 2019 09:41:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03D9BF80276
- for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 09:32:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03D9BF80276
-Received: from DGGEMS401-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 38170F1E5786B6648918;
- Thu, 17 Oct 2019 15:32:07 +0800 (CST)
-Received: from [127.0.0.1] (10.133.213.239) by DGGEMS401-HUB.china.huawei.com
- (10.3.19.201) with Microsoft SMTP Server id 14.3.439.0;
- Thu, 17 Oct 2019 15:32:03 +0800
-To: <codrin.ciubotariu@microchip.com>, <lgirdwood@gmail.com>,
- <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <nicolas.ferre@microchip.com>, <alexandre.belloni@bootlin.com>,
- <mirq-linux@rere.qmqm.pl>
-References: <20190928081641.44232-1-yuehaibing@huawei.com>
-From: Yuehaibing <yuehaibing@huawei.com>
-Message-ID: <c0a0ddc9-5ae4-8b5e-1d77-b322970651bd@huawei.com>
-Date: Thu, 17 Oct 2019 15:32:01 +0800
-User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:45.0) Gecko/20100101
- Thunderbird/45.2.0
-MIME-Version: 1.0
-In-Reply-To: <20190928081641.44232-1-yuehaibing@huawei.com>
-X-Originating-IP: [10.133.213.239]
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH -next] ASoC: atmel: Fix build error
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95514F80276
+ for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 09:41:42 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95514F80276
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 441DDB2B5;
+ Thu, 17 Oct 2019 07:41:41 +0000 (UTC)
+Date: Thu, 17 Oct 2019 09:41:39 +0200
+Message-ID: <s5hsgnrizt8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+In-Reply-To: <20191007110532.30270-1-o-takashi@sakamocchi.jp>
+References: <20191007110532.30270-1-o-takashi@sakamocchi.jp>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, clemens@ladisch.de
+Subject: Re: [alsa-devel] [PATCH 00/17] firewire: share the size of period
+	for both playback and capture PCM substreams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,45 +70,58 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ping..., this issue still in linux-next 20191017
+On Mon, 07 Oct 2019 13:05:15 +0200,
+Takashi Sakamoto wrote:
+> 
+> Hi,
+> 
+> This patchset is a preparation for enhancement of AMDTP domain that I
+> addressed to my previous patchset:
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-July/152430.html
+> 
+> When queued packets for several IT/IR contexts in the same domain are
+> handled in hardware IRQ context for an IT context, the number of events
+> in the packets are mostly the same for each of contexts. This means that
+> the size of period for PCM substreams associated to the contexts is also
+> the same.
+> 
+> At present, PCM substreams for the contexts can have own size of period.
+> This commit adds a member into AMDTP domain to share the size of period
+> for PCM substreams on AMDTP streams in the same domain.
+> 
+> This patchset includes optimization to detect whether isochronous
+> resources for AMDTP streams are reserved or not in pcm.open callback.
+> 
+> Takashi Sakamoto (17):
+>   firewire-lib: add a member into AMDTP domain for events per period
+>   bebob: register the size of PCM period to AMDTP domain
+>   fireworks: register the size of PCM period to AMDTP domain
+>   oxfw: register the size of PCM period to AMDTP domain
+>   dice: register the size of PCM period to AMDTP domain
+>   firewire-digi00x: register the size of PCM period to AMDTP domain
+>   firewire-tascam: register the size of PCM period to AMDTP domain
+>   firewire-motu: register the size of PCM period to AMDTP domain
+>   fireface: register the size of PCM period to AMDTP domain
+>   bebob: use the same size of period for PCM substream in AMDTP streams
+>   fireworks: use the same size of period for PCM substream in AMDTP
+>     streams
+>   oxfw: use the same size of period for PCM substream in AMDTP streams
+>   dice: use the same size of period for PCM substream in AMDTP streams
+>   firewire-digi00x: use the same size of period for PCM substream in
+>     AMDTP streams
+>   firewire-tascam: use the same size of period for PCM substream in
+>     AMDTP streams
+>   firewire-motu: use the same size of period for PCM substream in AMDTP
+>     streams
+>   fireface: use the same size of period for PCM substreams in AMDTP
+>     streams
 
-On 2019/9/28 16:16, YueHaibing wrote:
-> when do randbuilding, I got this error:
-> 
-> sound/soc/atmel/atmel_ssc_dai.o: In function `atmel_ssc_set_audio':
-> (.text+0x12f6): undefined reference to `atmel_pcm_pdc_platform_register'
-> 
-> This is because SND_ATMEL_SOC_SSC_DMA=y, SND_ATMEL_SOC_SSC=y,
-> but SND_ATMEL_SOC_SSC_PDC=m. Fix it bt reintroducing the default Kconfig.
-> 
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Fixes: 18291410557f ("ASoC: atmel: enable SOC_SSC_PDC and SOC_SSC_DMA in Kconfig")
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-> ---
->  sound/soc/atmel/Kconfig | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
-> index f118c22..79e45f2 100644
-> --- a/sound/soc/atmel/Kconfig
-> +++ b/sound/soc/atmel/Kconfig
-> @@ -12,10 +12,14 @@ if SND_ATMEL_SOC
->  config SND_ATMEL_SOC_PDC
->  	tristate
->  	depends on HAS_DMA
-> +	default m if SND_ATMEL_SOC_SSC_PDC=m && SND_ATMEL_SOC_SSC=m
-> +	default y if SND_ATMEL_SOC_SSC_PDC=y || (SND_ATMEL_SOC_SSC_PDC=m && SND_ATMEL_SOC_SSC=y)
->  
->  config SND_ATMEL_SOC_DMA
->  	tristate
->  	select SND_SOC_GENERIC_DMAENGINE_PCM
-> +	default m if SND_ATMEL_SOC_SSC_DMA=m && SND_ATMEL_SOC_SSC=m
-> +	default y if SND_ATMEL_SOC_SSC_DMA=y || (SND_ATMEL_SOC_SSC_DMA=m && SND_ATMEL_SOC_SSC=y)
->  
->  config SND_ATMEL_SOC_SSC
->  	tristate
-> 
+Applied all 17 patches now (with the correction of subject prefix).
 
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

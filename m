@@ -2,76 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69D57DB10A
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Oct 2019 17:24:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01A68DB17D
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Oct 2019 17:49:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBE0E168D;
-	Thu, 17 Oct 2019 17:23:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBE0E168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5EBC6168A;
+	Thu, 17 Oct 2019 17:48:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EBC6168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571325856;
-	bh=7cGuKmxrCNWIzhUIDRl77KQRUiMWEijzJONQy+GJckI=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571327356;
+	bh=eHJ3siXvGBH8kv9LVGrcSMM8Zne0hVSqoJ5zDAfbvDY=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LYg22IeiWgoeumHK9v829EE0rXYxWSSKyB8rRY1Jadl/ZfkjB8+otXfr3BCXVpT3/
-	 GHyHWytVKZ1q8xIM3LjqvHSi0xve28D0aE0wzIPAUi5pZFnVEO6T80j6CT7aBc9aoC
-	 mg05Vz7HaH7eUq7BlAP7zcEuIXANt8ZXSUOGsoIM=
+	b=tgpgEsiJ9lxEUTh1Fsq0r8EUQTGNbCpyqahDu8/NZYf8XgsVizCrCRdoXnRILbeWi
+	 5lG3QGiTvkdY6nihVBH/nY9HHqL4mLs2IxBemadse5bA41fN/FTSYOddbB1llZopkx
+	 WLiHavLfD1ODOvHXPRML9JV7pIizjkFElCc20CBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1754F80528;
-	Thu, 17 Oct 2019 17:22:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83E63F80322;
+	Thu, 17 Oct 2019 17:47:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FA7BF804AA; Thu, 17 Oct 2019 17:22:28 +0200 (CEST)
+ id 0C3A7F804AA; Thu, 17 Oct 2019 17:47:28 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8109F80276
- for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 17:22:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8109F80276
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="gtWpIetf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=BhyZS7+sRv/JZoP4+6IBFbCyglVKgcF0rn92fjDmAO4=; b=gtWpIetf0FkX1pIJJ0IwoGVv1
- HsDLDA4LxEH/3ehgYeE2v/v4db7yQfFqttcJ3hZn40dmLYr7HcSeUIEDeiJ+SXdj6qWTsJDunTnJW
- UsVMf/lRaXRA6k+XOkmMYFfQ7ql2huqjvy76X4Ss6lAckL+3wwNBjXoTscIdmn7FZiz5en14jen27
- JMuybt8YtEWBjpZhLazYG0NlpASIKyzP0/YxdSi/9XBgUOIlAkuqw7PKFPdQJK0ouTyQSzShFMFkD
- 9OvxDkSoKwSmw2Ygq9z9CN/k/9Icn8f2HccjIUmvMMzz9uZIagfqbuxRB3y3XfxsVL8Aq6+H9pp6x
- DFbYCt2dA==;
-Received: from [2601:1c0:6280:3f0::9ef4]
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1iL7bW-0005jG-JK; Thu, 17 Oct 2019 15:22:19 +0000
-To: Stephen Rothwell <sfr@canb.auug.org.au>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <20191017152645.65892c78@canb.auug.org.au>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <e8994e88-bdab-b3be-d62f-550ce9f2c76d@infradead.org>
-Date: Thu, 17 Oct 2019 08:22:17 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
-MIME-Version: 1.0
-In-Reply-To: <20191017152645.65892c78@canb.auug.org.au>
-Content-Language: en-US
-Cc: Vinod Koul <vkoul@kernel.org>,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] linux-next: Tree for Oct 17 (soundwire)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 39E38F80276
+ for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 17:47:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 39E38F80276
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 1DE56B583;
+ Thu, 17 Oct 2019 15:47:24 +0000 (UTC)
+Date: Thu, 17 Oct 2019 17:47:23 +0200
+Message-ID: <s5h4l07idbo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Lukas Wunner <lukas@wunner.de>
+In-Reply-To: <3086bc75135c1e3567c5bc4f3cc4ff5cbf7a56c2.1571324194.git.lukas@wunner.de>
+References: <3086bc75135c1e3567c5bc4f3cc4ff5cbf7a56c2.1571324194.git.lukas@wunner.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Rivera Valdez <riveravaldez@ysinembargo.com>, alsa-devel@alsa-project.org,
+ Przemyslaw Kopa <prymoo@gmail.com>, Daniel Drake <dan@reactivated.net>,
+ nouveau@lists.freedesktop.org
+Subject: Re: [alsa-devel] [PATCH] ALSA: hda - Force runtime PM on Nvidia
+	HDMI codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,37 +67,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/16/19 9:26 PM, Stephen Rothwell wrote:
-> Hi all,
-> =
-
-> Changes since 20191016:
-> =
-
-
-on x86_64:
-
-# CONFIG_BLOCK is not set
-
-  CC [M]  drivers/soundwire/intel_init.o
-In file included from ../drivers/soundwire/intel_init.c:12:0:
-../include/linux/iomap.h: In function =91iomap_sector=92:
-../include/linux/iomap.h:76:48: error: =91SECTOR_SHIFT=92 undeclared (first=
- use in this function); did you mean =91SECTIONS_SHIFT=92?
-  return (iomap->addr + pos - iomap->offset) >> SECTOR_SHIFT;
-                                                ^~~~~~~~~~~~
-                                                SECTIONS_SHIFT
-
-
--- =
-
-~Randy
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVGh1LCAxNyBPY3QgMjAxOSAxNzowNDoxMSArMDIwMCwKTHVrYXMgV3VubmVyIHdyb3RlOgo+
+IAo+IFByemVteXPFgmF3IEtvcGEgcmVwb3J0cyB0aGF0IHNpbmNlIGNvbW1pdCBiNTE2ZWE1ODZk
+NzEgKCJQQ0k6IEVuYWJsZQo+IE5WSURJQSBIREEgY29udHJvbGxlcnMiKSwgdGhlIGRpc2NyZXRl
+IEdQVSBOdmlkaWEgR2VGb3JjZSBHVCA1NDBNIG9uIGhpcwo+IDIwMTEgU2Ftc3VuZyBsYXB0b3Ag
+cmVmdXNlcyB0byBydW50aW1lIHN1c3BlbmQsIHJlc3VsdGluZyBpbiBhIHBvd2VyCj4gcmVncmVz
+c2lvbiBhbmQgZXhjZXNzaXZlIGhlYXQuCj4gCj4gUml2ZXJhIFZhbGRleiB3aXRuZXNzZXMgdGhl
+IHNhbWUgaXNzdWUgd2l0aCBhIEdlRm9yY2UgR1QgNTI1TSAoR0YxMDhNKQo+IG9mIHRoZSBzYW1l
+IGVyYSwgYXMgZG9lcyBhbm90aGVyIEFyY2ggTGludXggdXNlciBuYW1lZCAiUjBBUiIgd2l0aCBh
+Cj4gbW9yZSByZWNlbnQgR2VGb3JjZSBHVFggMTA1MCBUaSAoR1AxMDdNKS4KPiAKPiBUaGUgY29t
+bWl0IGV4cG9zZXMgdGhlIGRpc2NyZXRlIEdQVSdzIEhEQSBjb250cm9sbGVyIGFuZCBhbGwgZm91
+ciBjb2RlY3MKPiBvbiB0aGUgY29udHJvbGxlciBkbyBub3Qgc2V0IHRoZSBDTEtTVE9QIGFuZCBF
+UFNTIGJpdHMgaW4gdGhlIFN1cHBvcnRlZAo+IFBvd2VyIFN0YXRlcyBSZXNwb25zZS4gIFRoZXkg
+YWxzbyBkbyBub3Qgc2V0IHRoZSBQUy1DbGtTdG9wT2sgYml0IGluIHRoZQo+IEdldCBQb3dlciBT
+dGF0ZSBSZXNwb25zZS4gIGhkYV9jb2RlY19ydW50aW1lX3N1c3BlbmQoKSB0aGVyZWZvcmUgZG9l
+cwo+IG5vdCBjYWxsIHNuZF9oZGFjX2NvZGVjX2xpbmtfZG93bigpLCB3aGljaCBwcmV2ZW50cyBl
+YWNoIGNvZGVjIGFuZCB0aGUKPiBQQ0kgZGV2aWNlIGZyb20gcnVudGltZSBzdXNwZW5kaW5nLgo+
+IAo+IFRoZSBzYW1lIGlzc3VlIGlzIHByZXNlbnQgb24gc29tZSBBTUQgZGlzY3JldGUgR1BVcyBh
+bmQgd2UgYWRkcmVzc2VkIGl0Cj4gYnkgZm9yY2luZyBydW50aW1lIFBNIGRlc3BpdGUgdGhlIGJp
+dHMgbm90IGJlaW5nIHNldCwgc2VlIGNvbW1pdAo+IDU3Y2I1NGU1M2JkZCAoIkFMU0E6IGhkYSAt
+IEZvcmNlIHRvIGxpbmsgZG93biBhdCBydW50aW1lIHN1c3BlbmQgb24KPiBBVEkvQU1EIEhETUki
+KS4KPiAKPiBEbyB0aGUgc2FtZSBmb3IgTnZpZGlhIEhETUkgY29kZWNzLgo+IAo+IEZpeGVzOiBi
+NTE2ZWE1ODZkNzEgKCJQQ0k6IEVuYWJsZSBOVklESUEgSERBIGNvbnRyb2xsZXJzIikKPiBMaW5r
+OiBodHRwczovL2Jicy5hcmNobGludXgub3JnL3ZpZXd0b3BpYy5waHA/cGlkPTE4NjU1MTIKPiBM
+aW5rOiBodHRwczovL2J1Z3MuZnJlZWRlc2t0b3Aub3JnL3Nob3dfYnVnLmNnaT9pZD03NTk4NSNj
+ODEKPiBSZXBvcnRlZC1ieTogUHJ6ZW15c8WCYXcgS29wYSA8cHJ5bW9vQGdtYWlsLmNvbT4KPiBS
+ZXBvcnRlZC1ieTogUml2ZXJhIFZhbGRleiA8cml2ZXJhdmFsZGV6QHlzaW5lbWJhcmdvLmNvbT4K
+PiBTaWduZWQtb2ZmLWJ5OiBMdWthcyBXdW5uZXIgPGx1a2FzQHd1bm5lci5kZT4KPiBDYzogRGFu
+aWVsIERyYWtlIDxkYW5AcmVhY3RpdmF0ZWQubmV0Pgo+IENjOiBzdGFibGVAdmdlci5rZXJuZWwu
+b3JnICMgdjUuMysKCkFwcGxpZWQgbm93LiAgVGhhbmtzLgoKClRha2FzaGkKCgo+IC0tLQo+ICBz
+b3VuZC9wY2kvaGRhL3BhdGNoX2hkbWkuYyB8IDIgKysKPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5z
+ZXJ0aW9ucygrKQo+IAo+IGRpZmYgLS1naXQgYS9zb3VuZC9wY2kvaGRhL3BhdGNoX2hkbWkuYyBi
+L3NvdW5kL3BjaS9oZGEvcGF0Y2hfaGRtaS5jCj4gaW5kZXggYmNhNWRlNy4uNzk1Y2JkYSAxMDA2
+NDQKPiAtLS0gYS9zb3VuZC9wY2kvaGRhL3BhdGNoX2hkbWkuYwo+ICsrKyBiL3NvdW5kL3BjaS9o
+ZGEvcGF0Y2hfaGRtaS5jCj4gQEAgLTM0NzQsNiArMzQ3NCw4IEBAIHN0YXRpYyBpbnQgcGF0Y2hf
+bnZoZG1pKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjKQo+ICAJCW52aGRtaV9jaG1hcF9jZWFfYWxs
+b2NfdmFsaWRhdGVfZ2V0X3R5cGU7Cj4gIAlzcGVjLT5jaG1hcC5vcHMuY2htYXBfdmFsaWRhdGUg
+PSBudmhkbWlfY2htYXBfdmFsaWRhdGU7Cj4gIAo+ICsJY29kZWMtPmxpbmtfZG93bl9hdF9zdXNw
+ZW5kID0gMTsKPiArCj4gIAlnZW5lcmljX2Fjb21wX2luaXQoY29kZWMsICZudmhkbWlfYXVkaW9f
+b3BzLCBudmhkbWlfcG9ydDJwaW4pOwo+ICAKPiAgCXJldHVybiAwOwo+IC0tIAo+IDIuMjAuMQo+
+IAo+IApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNh
+LWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9t
+YWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

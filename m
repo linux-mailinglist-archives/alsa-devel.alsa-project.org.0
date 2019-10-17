@@ -2,100 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D689ADB1DE
-	for <lists+alsa-devel@lfdr.de>; Thu, 17 Oct 2019 18:04:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8357DB249
+	for <lists+alsa-devel@lfdr.de>; Thu, 17 Oct 2019 18:25:46 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 695CD1683;
-	Thu, 17 Oct 2019 18:03:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 695CD1683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4C816B3;
+	Thu, 17 Oct 2019 18:24:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4C816B3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571328286;
-	bh=2d/QGpAcpAm3v1ajd6fmYhuvK5IxQURVslXXI5IeMfQ=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1571329546;
+	bh=AP/ASChex5Wal+mMnBWxTG2d0BbMnsFWm86iAEzD03w=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fSPFj4VysF95R8kQA1bJLrKzmwG4SjReVNV3VLy+pnZ6ASnvXmPaMb19DYcmdXQ2C
-	 3GrwutHnCpO9GDTJHXjj5uDm2i0Pl5RH51bl1iXuQJyaxOlN38EUtFTQd+clVGWBYX
-	 bEmubabC4oK1y3xlQV1uMnEljtDQFrCmFCHW/+gc=
+	b=EB8jIvf25iiEAlKqq9bxGvxcMkIl1s0LmW6jj4pswcHYv3nMqLpqWm8NmM87JOUJQ
+	 WV4eb6C9TqsYWoY9da3l2hgf1L3AYtZbcXlAnFYpGJz4eh/HuOzfgoFcRqUyntRNUJ
+	 wmRmInHCDdAGxcGstV09ssF7KnBWbwudQwWY+/xc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28640F8071F;
-	Thu, 17 Oct 2019 17:55:08 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B74DF80276;
+	Thu, 17 Oct 2019 18:24:01 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D6A6EF8063A; Thu, 17 Oct 2019 17:54:54 +0200 (CEST)
+ id C9B3EF804AA; Thu, 17 Oct 2019 18:23:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5DDC4F80611
- for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 17:54:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DDC4F80611
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="mZbAT9PO"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="dTheEY+p"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 8E81D51D;
- Thu, 17 Oct 2019 11:54:48 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Thu, 17 Oct 2019 11:54:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=pQnVJ4RFC3beo
- gCWRqq/Uq8xX+nvmJyI3hjh4Y/a6l8=; b=mZbAT9POtew9NfqfERa2fl6nBA8Ai
- NU2k4F1ezTeDLuk6blS7E7tF7Tdbq9PrJqSA1M7V0JsoSgOK8bJdE40QYoZ9Q3UW
- dkExv1Y4TH4sPegHs5Z55TZvUWUJUQFbPli2xkRKPNwnmRH0lE5eevqx9DyAMIZ3
- ScmFT2j3F6GS7b6debd+LDh0JRDl0duvCw6DSjXO3gUemBjAmQiJxsM/lLK6mmzo
- efCqz0Ium1pee5/WRVGe2sRzqjv/7ZbJi0xB7U6BQ6XrHe0fzvDtIwltw4j1U+H9
- SFbdOuIpGN1pMU9ZTnfyoljj8jWzncamQcH7MnXJRopZfTA+PMVth1qrw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=pQnVJ4RFC3beogCWRqq/Uq8xX+nvmJyI3hjh4Y/a6l8=; b=dTheEY+p
- IPG0Y6FxnbsSTubCFdTaDbkW3p61P1QmoFZxrWtLbw4Kl0H1dryy5yp3sLC2tZAD
- XkGKjLQb0Aqk0w5C4YJyRFjxt8DESx3waTp/m0gKH78RSHzc5kwuqchbXL2XHyjN
- Ii+dKNVRArBqSfEYmIzktWgIbKsmO1yVQTIfDrXn6cH2zafnwtIO0medsawDPqOd
- UnN/WaoEwbUtaeMj/CmKMwCoK3PqBPZ3fh77Aep9fKcpbBTo3sCYN9WA3ZVDZEz8
- w8ajWOGOR0MAthuuHrF3/DDmQywhfyvz6uEGpLuQRY+GONS9RyahaKZRCsBrgJP9
- dBQnLcHzJCYRyQ==
-X-ME-Sender: <xms:x46oXcZKSDO0um57CuGXSNgMaIf1YH1Fl2mJQUYr0puJ6A2JnsAM-w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrjeejgdelgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
- ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
- hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
- frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
- rdhjphenucevlhhushhtvghrufhiiigvpeduud
-X-ME-Proxy: <xmx:yI6oXeZ6rM4Pfp9sxxIHXkln_Fc_2ckQ1kS1RrRIkRPWXd3vTUqPkw>
- <xmx:yI6oXb8FzSOG8ZJmsah-iMK8bDeNmfCibLmS99GpO08gNIbdNIOHuw>
- <xmx:yI6oXVgaqTgYfZypJIKcM-At7ngHfKUfVplAwvE0M46rgX-mltgnXA>
- <xmx:yI6oXSamT1xFhBxLyGTabSUlvqUN0kfdMZUs3JmzRy0yJlZiCSP0Ww>
-Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id B0ADB80059;
- Thu, 17 Oct 2019 11:54:46 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: clemens@ladisch.de,
-	tiwai@suse.de
-Date: Fri, 18 Oct 2019 00:54:24 +0900
-Message-Id: <20191017155424.885-13-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191017155424.885-1-o-takashi@sakamocchi.jp>
-References: <20191017155424.885-1-o-takashi@sakamocchi.jp>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31994F80276
+ for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 18:23:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31994F80276
+Received: from [167.98.27.226] (helo=[10.35.5.173])
+ by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
+ id 1iL8Yy-0004Hd-Sv; Thu, 17 Oct 2019 17:23:44 +0100
+To: Dmitry Osipenko <digetx@gmail.com>, linux-tegra@vger.kernel.org,
+ alsa-devel@alsa-project.org, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>
+References: <20191007153136.4920-1-ben.dooks@codethink.co.uk>
+ <20191007153136.4920-4-ben.dooks@codethink.co.uk>
+ <cfd308bd-290a-f72f-6876-d94151c09843@gmail.com>
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+Organization: Codethink Limited.
+Message-ID: <16910e8d-4745-4e55-0436-9b3200876037@codethink.co.uk>
+Date: Thu, 17 Oct 2019 17:23:44 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 12/12] ALSA: firewire-lib: tune the minimum
-	available size of PCM period
+In-Reply-To: <cfd308bd-290a-f72f-6876-d94151c09843@gmail.com>
+Content-Language: en-GB
+Cc: linux-kernel@lists.codethink.co.uk,
+ Edward Cragg <edward.cragg@codethink.co.uk>
+Subject: Re: [alsa-devel] [PATCH v4 3/7] ASoC: tegra: i2s: Add support for
+ more than 2 channels
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,61 +72,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In IEC 61883-1/6, one isoc packet can transfer events up to the value of
-syt interval. This comes from the interval of isoc cycle. As 1394 OHCI
-controller can generate hardware IRQ per isoc packet, the interval is
-calculated as 125 usec.
-
-In IEC 61883-1/6, two ways of transmission is described; blocking and
-non-blocking methods. In blocking method, the sequence of packet includes
-'empty' or 'NODATA' packets which include no events. In non-blocking
-method, the number of events per packet is variable up to the syt
-interval.
-
-This commit uses double of the value of syt interval as minimum available
-size of PCM period due to the above protocol design.
-
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/amdtp-stream.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 8a7818130382..7486eec4d958 100644
---- a/sound/firewire/amdtp-stream.c
-+++ b/sound/firewire/amdtp-stream.c
-@@ -213,9 +213,21 @@ int amdtp_stream_add_pcm_hw_constraints(struct amdtp_stream *s,
- 	maximum_usec_per_period = USEC_PER_SEC * PAGE_SIZE /
- 				  CYCLES_PER_SECOND / ctx_header_size;
- 
-+	// In IEC 61883-6, one isoc packet can transfer events up to the value
-+	// of syt interval. This comes from the interval of isoc cycle. As 1394
-+	// OHCI controller can generate hardware IRQ per isoc packet, the
-+	// interval is 125 usec.
-+	// However, there are two ways of transmission in IEC 61883-6; blocking
-+	// and non-blocking modes. In blocking mode, the sequence of isoc packet
-+	// includes 'empty' or 'NODATA' packets which include no event. In
-+	// non-blocking mode, the number of events per packet is variable up to
-+	// the syt interval.
-+	// Due to the above protocol design, the minimum PCM frames per
-+	// interrupt should be double of the value of syt interval, thus it is
-+	// 250 usec.
- 	err = snd_pcm_hw_constraint_minmax(runtime,
- 					   SNDRV_PCM_HW_PARAM_PERIOD_TIME,
--					   5000, maximum_usec_per_period);
-+					   250, maximum_usec_per_period);
- 	if (err < 0)
- 		goto end;
- 
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gMDgvMTAvMjAxOSAxNjoyOSwgRG1pdHJ5IE9zaXBlbmtvIHdyb3RlOgo+IEhlbGxvIEJlbiwK
+PiAKPiAwNy4xMC4yMDE5IDE4OjMxLCBCZW4gRG9va3Mg0L/QuNGI0LXRgjoKPj4gRnJvbTogRWR3
+YXJkIENyYWdnIDxlZHdhcmQuY3JhZ2dAY29kZXRoaW5rLmNvLnVrPgo+Pgo+PiBUaGUgQ0lGIGNv
+bmZpZ3VyYXRpb24gYW5kIGNsb2NrIHNldHRpbmcgaXMgY3VycmVudGx5IGhhcmQgY29kZWQgZm9y
+IDIKPj4gY2hhbm5lbHMuIFNpbmNlIHRoZSBoYXJkd2FyZSBpcyBjYXBhYmxlIG9mIHN1cHBvcnRp
+bmcgMS04IGNoYW5uZWxzIGFkZAo+PiBzdXBwb3J0IGZvciByZWFkaW5nIHRoZSBjaGFubmVsIGNv
+dW50IGZyb20gdGhlIHN1cHBsaWVkIHBhcmFtZXRlcnMgdG8KPj4gYWxsb3cgZm9yIGJldHRlciBU
+RE0gc3VwcG9ydC4gSXQgc2VlbXMgdGhlIG9yaWdpbmFsIGltcGxlbWVudGF0aW9uIG9mIHRoaXMK
+Pj4gZHJpdmVyIHdhcyBmaXhlZCBhdCAyIGNoYW5uZWxzIGZvciBzaW1wbGljaXR5LCBhbmQgbm90
+IGltcGxlbWVudGluZyBURE0uCj4+Cj4+IFNpZ25lZC1vZmYtYnk6IEVkd2FyZCBDcmFnZyA8ZWR3
+YXJkLmNyYWdnQGNvZGV0aGluay5jby51az4KPj4gW2Jlbi5kb29rc0Bjb2RldGhpbmsuY28udWs6
+IGFkZGVkIGlzX3RkbSBhbmQgY2hhbm5lbCBuciBjaGVja10KPj4gW2Jlbi5kb29rc0Bjb2RldGhp
+bmsuY28udWs6IG1lcmdlIGVkZ2UgY29udHJvbCBpbnRvIHNldC1mb3JtYXRdCj4+IFtiZW4uZG9v
+a3NAY29kZXRoaW5rLmNvLnVrOiByZW1vdmVkIGlzX3RkbSBhbmQgbW92ZWQgZWRnZSB0byBod19w
+YXJhbXNdCj4+IFNpZ25lZC1vZmYtYnk6IEJlbiBEb29rcyA8YmVuLmRvb2tzQGNvZGV0aGluay5j
+by51az4KPj4gLS0tCj4+ICAgc291bmQvc29jL3RlZ3JhL3RlZ3JhMzBfaTJzLmMgfCAyMSArKysr
+KysrKysrKysrLS0tLS0tLS0KPj4gICAxIGZpbGUgY2hhbmdlZCwgMTMgaW5zZXJ0aW9ucygrKSwg
+OCBkZWxldGlvbnMoLSkKPj4KPj4gZGlmZiAtLWdpdCBhL3NvdW5kL3NvYy90ZWdyYS90ZWdyYTMw
+X2kycy5jIGIvc291bmQvc29jL3RlZ3JhL3RlZ3JhMzBfaTJzLmMKPj4gaW5kZXggMDYzZjM0Yzg4
+MmFmLi43MzgyZjc5NDliZjQgMTAwNjQ0Cj4+IC0tLSBhL3NvdW5kL3NvYy90ZWdyYS90ZWdyYTMw
+X2kycy5jCj4+ICsrKyBiL3NvdW5kL3NvYy90ZWdyYS90ZWdyYTMwX2kycy5jCj4+IEBAIC02Nyw2
+ICs2Nyw3IEBAIHN0YXRpYyBpbnQgdGVncmEzMF9pMnNfc2V0X2ZtdChzdHJ1Y3Qgc25kX3NvY19k
+YWkgKmRhaSwKPj4gICB7Cj4+ICAgCXN0cnVjdCB0ZWdyYTMwX2kycyAqaTJzID0gc25kX3NvY19k
+YWlfZ2V0X2RydmRhdGEoZGFpKTsKPj4gICAJdW5zaWduZWQgaW50IG1hc2sgPSAwLCB2YWwgPSAw
+Owo+PiArCXVuc2lnbmVkIGludCBjaF9tYXNrLCBjaF92YWwgPSAwOwo+PiAgIAo+PiAgIAlzd2l0
+Y2ggKGZtdCAmIFNORF9TT0NfREFJRk1UX0lOVl9NQVNLKSB7Cj4+ICAgCWNhc2UgU05EX1NPQ19E
+QUlGTVRfTkJfTkY6Cj4+IEBAIC03NSw2ICs3Niw3IEBAIHN0YXRpYyBpbnQgdGVncmEzMF9pMnNf
+c2V0X2ZtdChzdHJ1Y3Qgc25kX3NvY19kYWkgKmRhaSwKPj4gICAJCXJldHVybiAtRUlOVkFMOwo+
+PiAgIAl9Cj4+ICAgCj4+ICsJY2hfbWFzayA9IFRFR1JBMzBfSTJTX0NIX0NUUkxfRUdERV9DVFJM
+X01BU0s7Cj4+ICAgCW1hc2sgfD0gVEVHUkEzMF9JMlNfQ1RSTF9NQVNURVJfRU5BQkxFOwo+PiAg
+IAlzd2l0Y2ggKGZtdCAmIFNORF9TT0NfREFJRk1UX01BU1RFUl9NQVNLKSB7Cj4+ICAgCWNhc2Ug
+U05EX1NPQ19EQUlGTVRfQ0JTX0NGUzoKPj4gQEAgLTkwLDEwICs5MiwxMiBAQCBzdGF0aWMgaW50
+IHRlZ3JhMzBfaTJzX3NldF9mbXQoc3RydWN0IHNuZF9zb2NfZGFpICpkYWksCj4+ICAgCQlURUdS
+QTMwX0kyU19DVFJMX0xSQ0tfTUFTSzsKPj4gICAJc3dpdGNoIChmbXQgJiBTTkRfU09DX0RBSUZN
+VF9GT1JNQVRfTUFTSykgewo+PiAgIAljYXNlIFNORF9TT0NfREFJRk1UX0RTUF9BOgo+PiArCQlj
+aF92YWwgPSBURUdSQTMwX0kyU19DSF9DVFJMX0VHREVfQ1RSTF9ORUdfRURHRTsKPj4gICAJCXZh
+bCB8PSBURUdSQTMwX0kyU19DVFJMX0ZSQU1FX0ZPUk1BVF9GU1lOQzsKPj4gICAJCXZhbCB8PSBU
+RUdSQTMwX0kyU19DVFJMX0xSQ0tfTF9MT1c7Cj4+ICAgCQlicmVhazsKPj4gICAJY2FzZSBTTkRf
+U09DX0RBSUZNVF9EU1BfQjoKPj4gKwkJY2hfdmFsID0gVEVHUkEzMF9JMlNfQ0hfQ1RSTF9FR0RF
+X0NUUkxfTkVHX0VER0U7Cj4gCj4gRG93bnN0cmVhbSBjb2RlIHNldHMgRFNQX0IgdG8gUE9TX0VE
+R0UsIGxvb2tzIGxpa2UgeW91IGhhdmUgYSB0eXBvIGhlcmUuCj4gT3IgZG9lcyBEU1BfQiBoYXBw
+ZW4gdG8gd29yayB3aXRoIHRoZSBORUdfRURHRT8KCm9rLCB3aWxsIGNoYW5nZSwgd2UndmUgb25s
+eSBiZWVuIHVzaW5nIFNORF9TT0NfREFJRk1UX0RTUF9BCgpGb3IgcmVmZXJlbmNlLCBpcyB0aGVy
+ZSBhIGdpdCByZXBvIHdpdGggdGhpcyB2ZXJzaW9uIG9mIHRlZ3JhIHRkbSBzdXBwb3J0PwoKCi0t
+IApCZW4gRG9va3MJCQkJaHR0cDovL3d3dy5jb2RldGhpbmsuY28udWsvClNlbmlvciBFbmdpbmVl
+cgkJCQlDb2RldGhpbmsgLSBQcm92aWRpbmcgR2VuaXVzCgpodHRwczovL3d3dy5jb2RldGhpbmsu
+Y28udWsvcHJpdmFjeS5odG1sCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0
+Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fs
+c2EtZGV2ZWwK

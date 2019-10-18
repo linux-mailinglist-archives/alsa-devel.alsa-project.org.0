@@ -2,77 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9428DCD97
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 20:10:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEDD6DCDA9
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 20:12:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD7001684;
-	Fri, 18 Oct 2019 20:09:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD7001684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 413511614;
+	Fri, 18 Oct 2019 20:12:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 413511614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571422234;
-	bh=4SA+8RBZgquSzr3Ke0iYVgxPZ3VGZwiCaWb8yG98qfk=;
+	s=default; t=1571422377;
+	bh=yfvQWX2lSlIV4Llk0QgSkAJDRSIG33iiwB+Nzg2pHQU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=UAO0PjArNzBUdHp2otqlol0t4zG6i/1sI5UQ4fNuuOfqbfkmG5YbeV2ys8UdQtM3r
-	 FWuIzjkptDE3PNQJh0TePz1DciA+emijgq8fDHxlR2uYfLgFvAlENikv3gFYLEsuCd
-	 y0nK4P6VHIq/KcYUUnbIL4bB3KDsrxPYO1nWXbxI=
+	b=pjpVCVuZTRCC5hah5gvZwsKP+uHZw0VXiH8bVAjkbsJT0+ETGmTQOhFv5VhQ7kScI
+	 amkbk/0tqA03f+LWAAi21VWUZkkV66rmEdIpKlMgGGWWOcUiaZIujc1KCAcSJpb+ef
+	 ZJJXN1nJ2kOvDAsc+Nw4RO6mrlIoHtjUr5KwRFHc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89353F80635;
-	Fri, 18 Oct 2019 20:07:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B46E7F8063C;
+	Fri, 18 Oct 2019 20:07:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC52BF80610; Fri, 18 Oct 2019 20:07:07 +0200 (CEST)
+ id 4F4AFF80369; Fri, 18 Oct 2019 20:07:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57952F80323
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 20:06:59 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57952F80323
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8FE67F8036C
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 20:07:00 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FE67F8036C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="jgcWFtxn"
+ header.b="s3bnqBwh"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=hWN6iotQzqORhI85NQUfvHQlZSBW0NQNxJUWC/ER/MQ=; b=jgcWFtxnHEJu
- MZv715iujjk/yK4ebDjzI0/uvzNNaHshYcNWieSW6P8gctwJxacbqpbmSfaMRDXLwZfnxLwy/Qu16
- 5ulVRa6/EEUm7cl8XBUXDTIT6qB6E/84KbB+ajCCzRCAMjrCU24fpRqdB2oxSjaiourglMtklczEi
- jN3M8=;
+ List-Archive; bh=yZ5ihh+JlZp10ClOg05PmwAuVkRD1OdpzVwW9zBqAmM=; b=s3bnqBwhK7O0
+ HJcbkXuG0VHf4/PUJPylcJro5WEwFskA95EHWzdgREHmbnbcccuH2+0TeKhzEScFhOMzXxVEyKzLV
+ LqkIJJ2oADEB/jK2mdsjj1Wv0w9AdSvecR+/UGKdC9kKcP3lV8n0g3I0vDfq4qkBzwGSd0Lu/qYko
+ KSrjY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iLWeQ-0004Ei-JE; Fri, 18 Oct 2019 18:06:58 +0000
+ id 1iLWeR-0004Ev-5Z; Fri, 18 Oct 2019 18:06:59 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 091CB2743276; Fri, 18 Oct 2019 19:06:57 +0100 (BST)
+ id A66102743259; Fri, 18 Oct 2019 19:06:58 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Maciej Falkowski <m.falkowski@samsung.com>
-In-Reply-To: <20191004125914.1033-1-m.szyprowski@samsung.com>
+To: Colin Ian King <colin.king@canonical.com>
+In-Reply-To: <20191018082317.11971-1-colin.king@canonical.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191018180658.091CB2743276@ypsilon.sirena.org.uk>
-Date: Fri, 18 Oct 2019 19:06:57 +0100 (BST)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-samsung-soc@vger.kernel.org,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [alsa-devel] Applied "dt-bindings: sound: Convert Samsung I2S
-	controller to dt-schema" to the asoc tree
+Message-Id: <20191018180658.A66102743259@ypsilon.sirena.org.uk>
+Date: Fri, 18 Oct 2019 19:06:58 +0100 (BST)
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
+Subject: [alsa-devel] Applied "ASoC: rt1011: fix spelling mistake
+	"temperture" -> "temperature"" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   dt-bindings: sound: Convert Samsung I2S controller to dt-schema
+   ASoC: rt1011: fix spelling mistake "temperture" -> "temperature"
 
 has been applied to the asoc tree at
 
@@ -118,263 +115,34 @@ to this mail.
 Thanks,
 Mark
 
-From 2d39a1fc19ea2d33fd68f5d02e6136ddaae2ac11 Mon Sep 17 00:00:00 2001
-From: Maciej Falkowski <m.falkowski@samsung.com>
-Date: Fri, 4 Oct 2019 14:59:14 +0200
-Subject: [PATCH] dt-bindings: sound: Convert Samsung I2S controller to
- dt-schema
+From 349959a9c767cee04b7362fda230cc2433246fd9 Mon Sep 17 00:00:00 2001
+From: Colin Ian King <colin.king@canonical.com>
+Date: Fri, 18 Oct 2019 09:23:17 +0100
+Subject: [PATCH] ASoC: rt1011: fix spelling mistake "temperture" ->
+ "temperature"
 
-Convert Samsung I2S controller to newer dt-schema format.
+There is a spelling mistake in a dev_dbg message. Fix it.
 
-Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
-[mszyprow: integrated fix for minor spelling issues]
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
-Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/r/20191004125914.1033-1-m.szyprowski@samsung.com
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Link: https://lore.kernel.org/r/20191018082317.11971-1-colin.king@canonical.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../devicetree/bindings/sound/samsung-i2s.txt |  84 -----------
- .../bindings/sound/samsung-i2s.yaml           | 138 ++++++++++++++++++
- 2 files changed, 138 insertions(+), 84 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/samsung-i2s.txt
- create mode 100644 Documentation/devicetree/bindings/sound/samsung-i2s.yaml
+ sound/soc/codecs/rt1011.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/samsung-i2s.txt b/Documentation/devicetree/bindings/sound/samsung-i2s.txt
-deleted file mode 100644
-index a88cb00fa096..000000000000
---- a/Documentation/devicetree/bindings/sound/samsung-i2s.txt
-+++ /dev/null
-@@ -1,84 +0,0 @@
--* Samsung I2S controller
--
--Required SoC Specific Properties:
--
--- compatible : should be one of the following.
--   - samsung,s3c6410-i2s: for 8/16/24bit stereo I2S.
--   - samsung,s5pv210-i2s: for 8/16/24bit multichannel(5.1) I2S with
--     secondary fifo, s/w reset control and internal mux for root clk src.
--   - samsung,exynos5420-i2s: for 8/16/24bit multichannel(5.1) I2S for
--     playback, stereo channel capture, secondary fifo using internal
--     or external dma, s/w reset control, internal mux for root clk src
--     and 7.1 channel TDM support for playback. TDM (Time division multiplexing)
--     is to allow transfer of multiple channel audio data on single data line.
--   - samsung,exynos7-i2s: with all the available features of exynos5 i2s,
--     exynos7 I2S has 7.1 channel TDM support for capture, secondary fifo
--     with only external dma and more no.of root clk sampling frequencies.
--   - samsung,exynos7-i2s1: I2S1 on previous samsung platforms supports
--     stereo channels. exynos7 i2s1 upgraded to 5.1 multichannel with
--     slightly modified bit offsets.
--
--- reg: physical base address of the controller and length of memory mapped
--  region.
--- dmas: list of DMA controller phandle and DMA request line ordered pairs.
--- dma-names: identifier string for each DMA request line in the dmas property.
--  These strings correspond 1:1 with the ordered pairs in dmas.
--- clocks: Handle to iis clock and RCLK source clk.
--- clock-names:
--  i2s0 uses some base clocks from CMU and some are from audio subsystem internal
--  clock controller. The clock names for i2s0 should be "iis", "i2s_opclk0" and
--  "i2s_opclk1" as shown in the example below.
--  i2s1 and i2s2 uses clocks from CMU. The clock names for i2s1 and i2s2 should
--  be "iis" and "i2s_opclk0".
--  "iis" is the i2s bus clock and i2s_opclk0, i2s_opclk1 are sources of the root
--  clk. i2s0 has internal mux to select the source of root clk and i2s1 and i2s2
--  doesn't have any such mux.
--- #clock-cells: should be 1, this property must be present if the I2S device
--  is a clock provider in terms of the common clock bindings, described in
--  ../clock/clock-bindings.txt.
--- clock-output-names (deprecated): from the common clock bindings, names of
--  the CDCLK I2S output clocks, suggested values are "i2s_cdclk0", "i2s_cdclk1",
--  "i2s_cdclk3" for the I2S0, I2S1, I2S2 devices respectively.
--
--There are following clocks available at the I2S device nodes:
-- CLK_I2S_CDCLK    - the CDCLK (CODECLKO) gate clock,
-- CLK_I2S_RCLK_PSR - the RCLK prescaler divider clock (corresponding to the
--		    IISPSR register),
-- CLK_I2S_RCLK_SRC - the RCLKSRC mux clock (corresponding to RCLKSRC bit in
--		    IISMOD register).
--
--Refer to the SoC datasheet for availability of the above clocks.
--The CLK_I2S_RCLK_PSR and CLK_I2S_RCLK_SRC clocks are usually only available
--in the IIS Multi Audio Interface.
--
--Note: Old DTs may not have the #clock-cells property and then not use the I2S
--node as a clock supplier.
--
--Optional SoC Specific Properties:
--
--- samsung,idma-addr: Internal DMA register base address of the audio
--  sub system(used in secondary sound source).
--- pinctrl-0: Should specify pin control groups used for this controller.
--- pinctrl-names: Should contain only one value - "default".
--- #sound-dai-cells: should be 1.
--
--
--Example:
--
--i2s0: i2s@3830000 {
--	compatible = "samsung,s5pv210-i2s";
--	reg = <0x03830000 0x100>;
--	dmas = <&pdma0 10
--		&pdma0 9
--		&pdma0 8>;
--	dma-names = "tx", "rx", "tx-sec";
--	clocks = <&clock_audss EXYNOS_I2S_BUS>,
--		<&clock_audss EXYNOS_I2S_BUS>,
--		<&clock_audss EXYNOS_SCLK_I2S>;
--	clock-names = "iis", "i2s_opclk0", "i2s_opclk1";
--	#clock-cells = <1>;
--	samsung,idma-addr = <0x03000000>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&i2s0_bus>;
--	#sound-dai-cells = <1>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/samsung-i2s.yaml b/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
-new file mode 100644
-index 000000000000..53e3bad4178c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/samsung-i2s.yaml
-@@ -0,0 +1,138 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/samsung-i2s.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Samsung SoC I2S controller
-+
-+maintainers:
-+  - Krzysztof Kozlowski <krzk@kernel.org>
-+  - Sylwester Nawrocki <s.nawrocki@samsung.com>
-+
-+properties:
-+  compatible:
-+    description: |
-+      samsung,s3c6410-i2s: for 8/16/24bit stereo I2S.
-+
-+      samsung,s5pv210-i2s: for 8/16/24bit multichannel (5.1) I2S with
-+      secondary FIFO, s/w reset control and internal mux for root clock
-+      source.
-+
-+      samsung,exynos5420-i2s: for 8/16/24bit multichannel (5.1) I2S for
-+      playback, stereo channel capture, secondary FIFO using internal
-+      or external DMA, s/w reset control, internal mux for root clock
-+      source and 7.1 channel TDM support for playback; TDM (Time division
-+      multiplexing) is to allow transfer of multiple channel audio data on
-+      single data line.
-+
-+      samsung,exynos7-i2s: with all the available features of Exynos5 I2S.
-+      Exynos7 I2S has 7.1 channel TDM support for capture, secondary FIFO
-+      with only external DMA and more number of root clock sampling
-+      frequencies.
-+
-+      samsung,exynos7-i2s1: I2S1 on previous samsung platforms supports
-+      stereo channels. Exynos7 I2S1 upgraded to 5.1 multichannel with
-+      slightly modified bit offsets.
-+    enum:
-+      - samsung,s3c6410-i2s
-+      - samsung,s5pv210-i2s
-+      - samsung,exynos5420-i2s
-+      - samsung,exynos7-i2s
-+      - samsung,exynos7-i2s1
-+
-+  reg:
-+    maxItems: 1
-+
-+  dmas:
-+    minItems: 2
-+    maxItems: 3
-+
-+  dma-names:
-+    oneOf:
-+      - items:
-+          - const: tx
-+          - const: rx
-+      - items:
-+          - const: tx
-+          - const: rx
-+          - const: tx-sec
-+
-+  clocks:
-+    minItems: 1
-+    maxItems: 3
-+
-+  clock-names:
-+    oneOf:
-+      - items:
-+          - const: iis
-+      - items: # for I2S0
-+          - const: iis
-+          - const: i2s_opclk0
-+          - const: i2s_opclk1
-+      - items: # for I2S1 and I2S2
-+          - const: iis
-+          - const: i2s_opclk0
-+    description: |
-+      "iis" is the I2S bus clock and i2s_opclk0, i2s_opclk1 are sources
-+      of the root clock. I2S0 has internal mux to select the source
-+      of root clock and I2S1 and I2S2 doesn't have any such mux.
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  clock-output-names:
-+    deprecated: true
-+    oneOf:
-+      - items: # for I2S0
-+          - const: i2s_cdclk0
-+      - items: # for I2S1
-+          - const: i2s_cdclk1
-+      - items: # for I2S2
-+          - const: i2s_cdclk2
-+    description: Names of the CDCLK I2S output clocks.
-+
-+  samsung,idma-addr:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: |
-+      Internal DMA register base address of the audio
-+      subsystem (used in secondary sound source).
-+
-+  pinctrl-0:
-+    description: Should specify pin control groups used for this controller.
-+
-+  pinctrl-names:
-+    const: default
-+
-+  "#sound-dai-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - dmas
-+  - dma-names
-+  - clocks
-+  - clock-names
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/exynos-audss-clk.h>
-+
-+    i2s0: i2s@3830000 {
-+        compatible = "samsung,s5pv210-i2s";
-+        reg = <0x03830000 0x100>;
-+        dmas = <&pdma0 10>,
-+                <&pdma0 9>,
-+                <&pdma0 8>;
-+        dma-names = "tx", "rx", "tx-sec";
-+        clocks = <&clock_audss EXYNOS_I2S_BUS>,
-+                <&clock_audss EXYNOS_I2S_BUS>,
-+                <&clock_audss EXYNOS_SCLK_I2S>;
-+        clock-names = "iis", "i2s_opclk0", "i2s_opclk1";
-+        #clock-cells = <1>;
-+        samsung,idma-addr = <0x03000000>;
-+        pinctrl-names = "default";
-+        pinctrl-0 = <&i2s0_bus>;
-+        #sound-dai-cells = <1>;
-+    };
+diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
+index ad049cfddcb0..dcd397a83cb4 100644
+--- a/sound/soc/codecs/rt1011.c
++++ b/sound/soc/codecs/rt1011.c
+@@ -2373,7 +2373,7 @@ static int rt1011_parse_dp(struct rt1011_priv *rt1011, struct device *dev)
+ 	device_property_read_u32(dev, "realtek,r0_calib",
+ 		&rt1011->r0_calib);
+ 
+-	dev_dbg(dev, "%s: r0_calib: 0x%x, temperture_calib: 0x%x",
++	dev_dbg(dev, "%s: r0_calib: 0x%x, temperature_calib: 0x%x",
+ 		__func__, rt1011->r0_calib, rt1011->temperature_calib);
+ 
+ 	return 0;
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEDD6DCDA9
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 20:12:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A4E1DCDB6
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 20:15:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 413511614;
-	Fri, 18 Oct 2019 20:12:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 413511614
+	by alsa0.perex.cz (Postfix) with ESMTPS id E7B47166E;
+	Fri, 18 Oct 2019 20:14:38 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7B47166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571422377;
-	bh=yfvQWX2lSlIV4Llk0QgSkAJDRSIG33iiwB+Nzg2pHQU=;
+	s=default; t=1571422529;
+	bh=iYqziDK2XEprw+0Pna2CQ1egTAUFdabhw7/Revlmci4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=pjpVCVuZTRCC5hah5gvZwsKP+uHZw0VXiH8bVAjkbsJT0+ETGmTQOhFv5VhQ7kScI
-	 amkbk/0tqA03f+LWAAi21VWUZkkV66rmEdIpKlMgGGWWOcUiaZIujc1KCAcSJpb+ef
-	 ZJJXN1nJ2kOvDAsc+Nw4RO6mrlIoHtjUr5KwRFHc=
+	b=d/4PYJqc6uVSRtn58XIIamosOGOWaHDhIrXRlgRzhD8JVONereT7SQIwyDOWTsMzq
+	 SxRvUYmpYWBOTeu84Q6VVH4Ouu+1AC7PX7IYIKWIYqJSIaBbklkkmU2qhiU6mB3B9a
+	 imMHva+OM9GaSmpjHT7H4a8UE5Yv5WMZbDg44EOk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B46E7F8063C;
-	Fri, 18 Oct 2019 20:07:21 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8978BF8067C;
+	Fri, 18 Oct 2019 20:07:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F4AFF80369; Fri, 18 Oct 2019 20:07:08 +0200 (CEST)
+ id 97752F80611; Fri, 18 Oct 2019 20:07:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,45 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FE67F8036C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2004FF805FA
  for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 20:07:00 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FE67F8036C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2004FF805FA
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="s3bnqBwh"
+ header.b="J4DQxjy7"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=yZ5ihh+JlZp10ClOg05PmwAuVkRD1OdpzVwW9zBqAmM=; b=s3bnqBwhK7O0
- HJcbkXuG0VHf4/PUJPylcJro5WEwFskA95EHWzdgREHmbnbcccuH2+0TeKhzEScFhOMzXxVEyKzLV
- LqkIJJ2oADEB/jK2mdsjj1Wv0w9AdSvecR+/UGKdC9kKcP3lV8n0g3I0vDfq4qkBzwGSd0Lu/qYko
- KSrjY=;
+ List-Archive; bh=lCHGkcA5JrwM2qbr9v3SAkjr/Lxp8j5zYwsCVgBYT6Y=; b=J4DQxjy7heGY
+ BgCw33vUcNx/3/WUq51kk4/4QB2Didk6Q++bszeQRumcgExAlBIfprmhUTqXoROaLgyF7KT9GG9Ql
+ UwopbTO5fPe9hB6Dqh1L/GKHCZ6oKTr3VhQdQbQYD2YUA0Ulzn7IJ8/7N1o1gpIe9ou6r6oh1pYOW
+ 5JwnY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iLWeR-0004Ev-5Z; Fri, 18 Oct 2019 18:06:59 +0000
+ id 1iLWeQ-0004En-Oo; Fri, 18 Oct 2019 18:06:58 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A66102743259; Fri, 18 Oct 2019 19:06:58 +0100 (BST)
+ id 3C2B12743277; Fri, 18 Oct 2019 19:06:58 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Colin Ian King <colin.king@canonical.com>
-In-Reply-To: <20191018082317.11971-1-colin.king@canonical.com>
+To: Maciej Falkowski <m.falkowski@samsung.com>
+In-Reply-To: <20191017100529.4183-1-m.szyprowski@samsung.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191018180658.A66102743259@ypsilon.sirena.org.uk>
+Message-Id: <20191018180658.3C2B12743277@ypsilon.sirena.org.uk>
 Date: Fri, 18 Oct 2019 19:06:58 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt1011: fix spelling mistake
-	"temperture" -> "temperature"" to the asoc tree
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Rob Herring <robh@kernel.org>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: [alsa-devel] Applied "dt-bindings: sound: Convert Samsung Exynos
+	Odroid XU3/XU4 audio complex to dt-schema" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +93,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1011: fix spelling mistake "temperture" -> "temperature"
+   dt-bindings: sound: Convert Samsung Exynos Odroid XU3/XU4 audio complex to dt-schema
 
 has been applied to the asoc tree at
 
@@ -115,34 +118,190 @@ to this mail.
 Thanks,
 Mark
 
-From 349959a9c767cee04b7362fda230cc2433246fd9 Mon Sep 17 00:00:00 2001
-From: Colin Ian King <colin.king@canonical.com>
-Date: Fri, 18 Oct 2019 09:23:17 +0100
-Subject: [PATCH] ASoC: rt1011: fix spelling mistake "temperture" ->
- "temperature"
+From 9ac47908f35ba885eb3b4736c83185f63eef2ed2 Mon Sep 17 00:00:00 2001
+From: Maciej Falkowski <m.falkowski@samsung.com>
+Date: Thu, 17 Oct 2019 12:05:29 +0200
+Subject: [PATCH] dt-bindings: sound: Convert Samsung Exynos Odroid XU3/XU4
+ audio complex to dt-schema
 
-There is a spelling mistake in a dev_dbg message. Fix it.
+Convert Samsung Exynos Odroid XU3/XU4 audio complex with MAX98090 codec
+to newer dt-schema format.
 
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
-Link: https://lore.kernel.org/r/20191018082317.11971-1-colin.king@canonical.com
+'clocks' property is unneeded in the bindings and is left undefined in 'properties'.
+
+'samsung,audio-widgets' and 'samsung,audio-routing' are optional from driver
+perspective and they are set as unrequired.
+
+Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
+[mszyprow: reordered non-standard properties]
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20191017100529.4183-1-m.szyprowski@samsung.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1011.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/sound/samsung,odroid.txt         | 54 -----------
+ .../bindings/sound/samsung,odroid.yaml        | 91 +++++++++++++++++++
+ 2 files changed, 91 insertions(+), 54 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/samsung,odroid.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/samsung,odroid.yaml
 
-diff --git a/sound/soc/codecs/rt1011.c b/sound/soc/codecs/rt1011.c
-index ad049cfddcb0..dcd397a83cb4 100644
---- a/sound/soc/codecs/rt1011.c
-+++ b/sound/soc/codecs/rt1011.c
-@@ -2373,7 +2373,7 @@ static int rt1011_parse_dp(struct rt1011_priv *rt1011, struct device *dev)
- 	device_property_read_u32(dev, "realtek,r0_calib",
- 		&rt1011->r0_calib);
- 
--	dev_dbg(dev, "%s: r0_calib: 0x%x, temperture_calib: 0x%x",
-+	dev_dbg(dev, "%s: r0_calib: 0x%x, temperature_calib: 0x%x",
- 		__func__, rt1011->r0_calib, rt1011->temperature_calib);
- 
- 	return 0;
+diff --git a/Documentation/devicetree/bindings/sound/samsung,odroid.txt b/Documentation/devicetree/bindings/sound/samsung,odroid.txt
+deleted file mode 100644
+index e9da2200e173..000000000000
+--- a/Documentation/devicetree/bindings/sound/samsung,odroid.txt
++++ /dev/null
+@@ -1,54 +0,0 @@
+-Samsung Exynos Odroid XU3/XU4 audio complex with MAX98090 codec
+-
+-Required properties:
+-
+- - compatible - "hardkernel,odroid-xu3-audio" - for Odroid XU3 board,
+-		"hardkernel,odroid-xu4-audio" - for Odroid XU4 board (deprecated),
+-		"samsung,odroid-xu3-audio" - for Odroid XU3 board (deprecated),
+-		"samsung,odroid-xu4-audio" - for Odroid XU4 board (deprecated)
+- - model - the user-visible name of this sound complex
+- - clocks - should contain entries matching clock names in the clock-names
+-    property
+- - samsung,audio-widgets - this property specifies off-codec audio elements
+-   like headphones or speakers, for details see widgets.txt
+- - samsung,audio-routing - a list of the connections between audio
+-   components;  each entry is a pair of strings, the first being the
+-   connection's sink, the second being the connection's source;
+-   valid names for sources and sinks are the MAX98090's pins (as
+-   documented in its binding), and the jacks on the board
+-
+-   For Odroid X2:
+-     "Headphone Jack", "Mic Jack", "DMIC"
+-
+-   For Odroid U3, XU3:
+-     "Headphone Jack", "Speakers"
+-
+-   For Odroid XU4:
+-     no entries
+-
+-Required sub-nodes:
+-
+- - 'cpu' subnode with a 'sound-dai' property containing the phandle of the I2S
+-    controller
+- - 'codec' subnode with a 'sound-dai' property containing list of phandles
+-    to the CODEC nodes, first entry must be corresponding to the MAX98090
+-    CODEC and the second entry must be the phandle of the HDMI IP block node
+-
+-Example:
+-
+-sound {
+-	compatible = "hardkernel,odroid-xu3-audio";
+-	model = "Odroid-XU3";
+-	samsung,audio-routing =
+-		"Headphone Jack", "HPL",
+-		"Headphone Jack", "HPR",
+-		"IN1", "Mic Jack",
+-		"Mic Jack", "MICBIAS";
+-
+-	cpu {
+-		sound-dai = <&i2s0 0>;
+-	};
+-	codec {
+-		sound-dai = <&hdmi>, <&max98090>;
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/sound/samsung,odroid.yaml b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
+new file mode 100644
+index 000000000000..c6b244352d05
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/samsung,odroid.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/samsung,odroid.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung Exynos Odroid XU3/XU4 audio complex with MAX98090 codec
++
++maintainers:
++  - Krzysztof Kozlowski <krzk@kernel.org>
++  - Sylwester Nawrocki <s.nawrocki@samsung.com>
++
++properties:
++  compatible:
++    oneOf:
++      - const: hardkernel,odroid-xu3-audio
++
++      - const: hardkernel,odroid-xu4-audio
++        deprecated: true
++
++      - const: samsung,odroid-xu3-audio
++        deprecated: true
++
++      - const: samsung,odroid-xu4-audio
++        deprecated: true
++
++  model:
++    $ref: /schemas/types.yaml#/definitions/string
++    description: The user-visible name of this sound complex.
++
++  cpu:
++    type: object
++    properties:
++      sound-dai:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        description: phandles to the I2S controllers
++
++  codec:
++    type: object
++    properties:
++      sound-dai:
++        $ref: /schemas/types.yaml#/definitions/phandle-array
++        description: |
++          List of phandles to the CODEC nodes,
++          first entry must be corresponding to the MAX98090 CODEC and
++          the second entry must be the phandle of the HDMI IP block node.
++
++  samsung,audio-routing:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description: |
++      List of the connections between audio
++      components;  each entry is a pair of strings, the first being the
++      connection's sink, the second being the connection's source;
++      valid names for sources and sinks are the MAX98090's pins (as
++      documented in its binding), and the jacks on the board.
++      For Odroid X2: "Headphone Jack", "Mic Jack", "DMIC"
++      For Odroid U3, XU3: "Headphone Jack", "Speakers"
++      For Odroid XU4: no entries
++
++  samsung,audio-widgets:
++    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
++    description: |
++      This property specifies off-codec audio elements
++      like headphones or speakers, for details see widgets.txt
++
++required:
++  - compatible
++  - model
++  - cpu
++  - codec
++
++examples:
++  - |
++    sound {
++        compatible = "hardkernel,odroid-xu3-audio";
++        model = "Odroid-XU3";
++        samsung,audio-routing =
++                "Headphone Jack", "HPL",
++                "Headphone Jack", "HPR",
++                "IN1", "Mic Jack",
++                "Mic Jack", "MICBIAS";
++
++        cpu {
++            sound-dai = <&i2s0 0>;
++        };
++
++        codec {
++            sound-dai = <&hdmi>, <&max98090>;
++        };
++    };
++
 -- 
 2.20.1
 

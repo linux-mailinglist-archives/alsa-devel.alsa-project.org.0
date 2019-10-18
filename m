@@ -2,61 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C716DC9EC
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 17:55:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6C9EDCC8F
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 19:24:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD2981674;
-	Fri, 18 Oct 2019 17:55:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD2981674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 43EA21654;
+	Fri, 18 Oct 2019 19:23:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43EA21654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571414157;
-	bh=BzwbkVK1JhflP3iZ3NjqBRVf9ygNDTEhBbytdhtkyAE=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1571419452;
+	bh=4ojrHbUdX5xQ9Otb8spt/Sg5X/jVSWPOzWo1Ubl5jJ4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Vg/EH/DErmY98HGYMokIYy0nhSfnKzhaVZb8Cmnfhi/P5jIOyJNcBQPV0rJAdmFwk
-	 9Car5EGAarJYfDqDdd0B4Couy1QmwhUWcrXtgib4gggiKRs4E/zkjVLNOqh4sdNiE4
-	 1+HFdkuF2CG17kZ2zmybco00l/B4Vc5f4rlREE10=
+	b=anFgVTSMEqwWdjK7dHMMinqevrcOynznufPkGbjyPDVFP0ty1HCemcoQ9x+Aqy1kA
+	 2JKfdGhOhz9DbcaQhbmISUokhYYsSBSx5dmxSSKCBzDa9EOAP5bvh28rNQL3NVm54u
+	 Ti5fu1N+PG3pFLUZxbOqsZ7sIUF8DqhWdl1RtqGU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A647CF80534;
-	Fri, 18 Oct 2019 17:48:49 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A69AF80323;
+	Fri, 18 Oct 2019 19:22:28 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E925F805FE; Fri, 18 Oct 2019 17:48:44 +0200 (CEST)
+ id DD8B1F80362; Fri, 18 Oct 2019 19:22:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from imap1.codethink.co.uk (imap1.codethink.co.uk [176.9.8.82])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC7C0F80369
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 17:48:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC7C0F80369
-Received: from [167.98.27.226] (helo=rainbowdash.codethink.co.uk)
- by imap1.codethink.co.uk with esmtpsa (Exim 4.84_2 #1 (Debian))
- id 1iLUUV-0006s4-Ji; Fri, 18 Oct 2019 16:48:35 +0100
-Received: from ben by rainbowdash.codethink.co.uk with local (Exim 4.92.2)
- (envelope-from <ben@rainbowdash.codethink.co.uk>)
- id 1iLUUU-0001zA-PE; Fri, 18 Oct 2019 16:48:34 +0100
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-To: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>
-Date: Fri, 18 Oct 2019 16:48:33 +0100
-Message-Id: <20191018154833.7560-8-ben.dooks@codethink.co.uk>
-X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
-References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A939DF80322
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 19:22:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A939DF80322
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="qqxu/nOj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=YEUqwXf68rAn5s1l3tXa9+Nk4NAT0bB7VwakuvjxaLs=; b=qqxu/nOj/LYHzT/4No5A2w9Bt
+ 14EqFiyq8GyiJfeDqnzchr+4WwrOpkqpkoRNH8VJqlWa6fu1u4KVKbzZjgy+CiWCXFlb7nqFwNaZx
+ PDCha66YmI8vpPsvEE8MBWHbIQRHMMKZqc6vK0CPeX1afZCocWnikDGFMK8UFOt6POnjA=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iLVxG-00049W-8Z; Fri, 18 Oct 2019 17:22:22 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 166FA2741DEA; Fri, 18 Oct 2019 18:22:21 +0100 (BST)
+Date: Fri, 18 Oct 2019 18:22:20 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Message-ID: <20191018172220.GC4828@sirena.co.uk>
+References: <20191017213539.00-tzungbi@google.com>
+ <20191017213539.07.I5388b69a7a9c551078fed216a77440cee6dedf49@changeid>
 MIME-Version: 1.0
-Cc: linux-kernel@lists.codethink.co.uk, Ben Dooks <ben.dooks@codethink.co.uk>
-Subject: [alsa-devel] [PATCH v5 7/7] ASoC: tegra: take packing settings from
-	the audio cif_config
+In-Reply-To: <20191017213539.07.I5388b69a7a9c551078fed216a77440cee6dedf49@changeid>
+X-Cookie: Smear the road with a runner!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: gwendal@google.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ cychiang@google.com, drinkcat@google.com, robh+dt@kernel.org,
+ enric.balletbo@collabora.com, bleung@google.com, dgreid@google.com
+Subject: Re: [alsa-devel] [PATCH v4 07/10] ASoC: cros_ec_codec: support WoV
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,71 +84,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3044227401797896927=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the CIF is not configured as 16 or 8 bit, then the
-packing for 8/16 bits should not be enabled as the
-hardware only supports 8 or 16 bit packing.
 
-Signed-off-by: Ben Dooks <ben.dooks@codethink.co.uk>
----
- sound/soc/tegra/tegra30_ahub.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+--===============3044227401797896927==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="vEao7xgI/oilGqZ+"
+Content-Disposition: inline
 
-diff --git a/sound/soc/tegra/tegra30_ahub.c b/sound/soc/tegra/tegra30_ahub.c
-index 24bc03428b45..0768c6b6dc25 100644
---- a/sound/soc/tegra/tegra30_ahub.c
-+++ b/sound/soc/tegra/tegra30_ahub.c
-@@ -96,10 +96,17 @@ int tegra30_ahub_setup_rx_fifo(enum tegra30_ahub_rxcif rxcif,
- 	      (channel * TEGRA30_AHUB_CHANNEL_CTRL_STRIDE);
- 	val = tegra30_apbif_read(reg);
- 	val &= ~(TEGRA30_AHUB_CHANNEL_CTRL_RX_THRESHOLD_MASK |
--		 TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_MASK);
--	val |= (7 << TEGRA30_AHUB_CHANNEL_CTRL_RX_THRESHOLD_SHIFT) |
--	       TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_EN |
--	       TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_16;
-+		 TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_MASK |
-+		 TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_EN);
-+	val |= (7 << TEGRA30_AHUB_CHANNEL_CTRL_RX_THRESHOLD_SHIFT);
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_16 ||
-+	    cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_8)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_EN;
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_16)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_16;
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_8)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_RX_PACK_8_4;
-+
- 	tegra30_apbif_write(reg, val);
- 
- 	cif_conf->direction = TEGRA30_AUDIOCIF_DIRECTION_RX;
-@@ -203,10 +210,16 @@ int tegra30_ahub_setup_tx_fifo(enum tegra30_ahub_txcif txcif,
- 	      (channel * TEGRA30_AHUB_CHANNEL_CTRL_STRIDE);
- 	val = tegra30_apbif_read(reg);
- 	val &= ~(TEGRA30_AHUB_CHANNEL_CTRL_TX_THRESHOLD_MASK |
--		 TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_MASK);
--	val |= (7 << TEGRA30_AHUB_CHANNEL_CTRL_TX_THRESHOLD_SHIFT) |
--	       TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_EN |
--	       TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_16;
-+		 TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_MASK |
-+		 TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_EN);
-+	val |= (7 << TEGRA30_AHUB_CHANNEL_CTRL_TX_THRESHOLD_SHIFT);
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_16 ||
-+	    cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_8)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_EN;
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_16)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_16;
-+	if (cif_conf->audio_bits == TEGRA30_AUDIOCIF_BITS_8)
-+		val |= TEGRA30_AHUB_CHANNEL_CTRL_TX_PACK_8_4;
- 	tegra30_apbif_write(reg, val);
- 
- 	cif_conf->direction = TEGRA30_AUDIOCIF_DIRECTION_TX;
--- 
-2.23.0
+
+--vEao7xgI/oilGqZ+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Oct 17, 2019 at 10:00:12PM +0800, Tzung-Bi Shih wrote:
+> 1. Get EC codec's capabilities.
+> 2. Get and set SHM address if any.
+> 3. Transmit language model to EC codec if needed.
+> 4. Start to read audio data from EC codec if receives host event.
+
+This breaks the build:
+
+ld: sound/soc/codecs/cros_ec_codec.o: in function `calculate_sha256.isra.15':
+cros_ec_codec.c:(.text+0x119d): undefined reference to `crypto_alloc_shash'
+ld: cros_ec_codec.c:(.text+0x11c1): undefined reference to `crypto_shash_digest'
+ld: cros_ec_codec.c:(.text+0x11df): undefined reference to `crypto_destroy_tfm'
+make: *** [Makefile:1094: vmlinux] Error 1
+
+--vEao7xgI/oilGqZ+
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2p9MwACgkQJNaLcl1U
+h9C6hQf/WgLMjwUC9ev2n7739zYINOiNlP2HiWhim675Y+ILwL3SO3kAdVwi+Ev5
+IeBwkDqetGni8J+KbGWyYPE2LnmVjvOoCyH+6V8E/fHfkLPtXocG5UZL4DjVstTB
+27MdU4tDUczYrk+mRVuaBnz9f8DHTIufhiaRiiO3r3QI8Kpf1ClZ/gnEez5b+y7T
+lOPOFXopjOoH14AX3CztZbJjnGDJ9k5oFFMMkv7fjqtcnxbDHXCYs4cumAHYeqld
++8aHLp58m4Jcdjq3QYdaV1PTeJP2cGBRXsWoGiMJyYgcH5WALgdS3fLv+yIGSUx5
+qbuLVXUou6jeu+irpsqUkcPm7JQzgw==
+=MH7S
+-----END PGP SIGNATURE-----
+
+--vEao7xgI/oilGqZ+--
+
+--===============3044227401797896927==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3044227401797896927==--

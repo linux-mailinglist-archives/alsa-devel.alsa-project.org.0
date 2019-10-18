@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8505DDC8FD
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 17:44:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65417DC93E
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 17:45:25 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D0B9E166C;
-	Fri, 18 Oct 2019 17:43:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0B9E166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D58F51615;
+	Fri, 18 Oct 2019 17:44:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D58F51615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571413454;
-	bh=aNfLJ/YWpULG7YbdI/uRJ5CY/qnCN7bN1kQhokekWlg=;
+	s=default; t=1571413524;
+	bh=rRAxC5hmo1QPLC0FHNO3o/NTlBPG1j3UWMShBS1CYWk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HzmdB29xX34YVb7z0y3jH/GFBAwNv6wroAy/6yBB6eKXmC/px1jNzfUR7vZPJCTuM
-	 OPCnvamW9HTwEl7E6NcD09wto8Y5UC/Hf/i6CV5/0zRU9seXhSqsPEKriEe0pd9noi
-	 4BhL1WI5ArDYem885O883OVCLzvR7ZwqjtS+556Y=
+	b=h+mAyHwzDKKox+E9Tz8avP056T1QlCQ+Oi5kIwk5//SzE5MP6PGBSFVHZEP8BV/Pr
+	 ovt7iWd56jws71+cvHlMG4hia5alV5tN+8VAjWOOq0fU7DoPwJ4wWlTGJBw6ToOrAe
+	 7eTNL/aML5eaycRSniv6dLm4tdUd8uBKIvtyZJdc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36F5EF805FE;
-	Fri, 18 Oct 2019 17:42:33 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2934F80323;
+	Fri, 18 Oct 2019 17:42:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F133EF8036C; Fri, 18 Oct 2019 17:42:27 +0200 (CEST)
+ id 22953F800F3; Fri, 18 Oct 2019 17:42:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
- SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.74])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1DECBF800F3
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 17:42:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DECBF800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0BE36F800F3
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 17:42:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BE36F800F3
 Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
  (mreue108 [212.227.15.145]) with ESMTPA (Nemesis) id
- 1M3UdI-1iM2cm1zbW-000bi3; Fri, 18 Oct 2019 17:42:22 +0200
+ 1MG9Xu-1iFzgL1eRQ-00GVSz; Fri, 18 Oct 2019 17:42:25 +0200
 From: Arnd Bergmann <arnd@arndb.de>
 To: Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
  Robert Jarzmik <robert.jarzmik@free.fr>
-Date: Fri, 18 Oct 2019 17:41:25 +0200
-Message-Id: <20191018154201.1276638-10-arnd@arndb.de>
+Date: Fri, 18 Oct 2019 17:41:31 +0200
+Message-Id: <20191018154201.1276638-16-arnd@arndb.de>
 X-Mailer: git-send-email 2.20.0
 In-Reply-To: <20191018154052.1276506-1-arnd@arndb.de>
 References: <20191018154052.1276506-1-arnd@arndb.de>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:ohXLc/rKHD3S0qlftz4r0qHFku7fe6p+1ct87Kb4VLl6S2fZF1V
- iGCq0WFspg+WijCvfLITNxSD/Wxoicw6WYyOj7Oew32wHt9rtFM4cZbUl6MFjgYnwS5aJwp
- gnY12Cf8fZ+beQoQBVvDnqYITrRIeU3MnbcDHDCb+osw0wruJFcEWNYc2htFYZdifop/Ijr
- aNUEF2uzfNwNBWZqoHDhQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:+5ta5rdfDEU=:cAi+iWvuqWj7bT0cLJh0d1
- jB20bnFKegpC31k2ZLI5eH2UfPsYMwACCYdEORmmXOTWhJBllOslDxD5IeNy+5EtV6boYIiSP
- Qu9ToTNhpEJXM186zH94RpSoLPZiMHcUj3GKtnwz2aiT9BFJ9NgAYaDAkOpkUc1jlAPOAA+H7
- 2iCKyaoty5fBW8UdvHKcCeH4z0hfqedBTSw3W4bUKxQfJEeH9Vigmy/4yo1X3WGSGlnMrR9Us
- ttTz1f2JSaE8kYijcS0cS1efCLs/Vo8un5yKvAmkMZ7cDw6gQ1MRhK6JcKYOtZ5Ekvpd1lWu2
- yma6lMIoGokc1yM5OGkD7iTDad1OkLlmb/ck0x/LdO292YGQxl4xOXL70mVapMLmESVKA5A1r
- LQmBDtotsjbz/HZBG/k1OZW8via4xXJxYWp8WYCXE1qXgqndM6TH4eClXYABy0l9ZMOMK7z1W
- QxnWBrQycoErlG5xd9fmY3jRqmAZcj+ys3XfBproU8Q01bTZV6keemePaXoIYdmSKInqpbHkF
- zAuNiGGyqPogbvRTigFf+m34Ua3iCpKxsRltBbC8KG8YLZNRxRYxxfzmZ8yEC6nntxdgiuxkS
- pEKrz6cf3856i9E2Cyhq4XGMutylHcn+0PzSY2nyNWAtNrAHI6WmpuRJ2doI1fRSeFYAaTaiM
- 3fnUu+4xerpLucJ3i5bDuo+23x3B1/QvCkGzic/i6D3+mLjygLuvxPEkVX7+XTqt5QShkxMxU
- lvOghBI8NsW5Q+0YKNM3V5FdMbW+N7wiNumgVoiXhXxRBDMW3Xl6TMZN9eZ2OlUNZTyXPHCw2
- H/5NdjtQYgnr1D78grhXvf4QML7HDCJqyezKQ/2w7BCE0OaK50xmO58vNIqmBH0ob8Cce7Jgg
- Zdt5GCT5KmIRVpERms6w==
-Cc: Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 10/46] ARM: pxa: pxa2xx-ac97-lib: use IRQ
-	resource
+X-Provags-ID: V03:K1:E20XgLKSQLAmPv/Au++8EwmYOgk3y+XACbUkV3LAih2e2Yj07KM
+ g05RSY7gyHzJgD4iIfT7YhtgXiu1Lr1vuBtrh6M2wc4pYSmoYCowFNc0qD0m8AOU38V+L2J
+ 1uw4hDqzNqscLb3ouObtwnShsY39wQ2qTmK85xQMDWFl/iuUo8Unpvdft1lD9W1dGmdH1RY
+ Tz3ENzPk5SnnU/9zsKF2A==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:Sa9VA/rH7Rw=:tUTpmnZ1ACTEs7/I4CO+z/
+ JcGaLN/vw2kDyaS+WvNVr89diurJqlTwzePy8dNm1SH21cdmG1ncV7vX16jJLqZr/a1JfMqCm
+ OqsU9LNZrNd2oE2cFaoz1wFzK9XosYLFmQ8sOpE0UTPjF+76H2d+8kzd9h9scBkf5p61N/Asx
+ erZU7ZdoSEU+/JL8LflFBP4wChaLjJLp73Rff5I24hvqQC1sWHa6RgRX5xAOedrfHuW9yhasm
+ tYPsiN+QsuXgWZIi+UgJOiHH8qvaSUDzhDP9qWh7kw+wm78B6QVz9ipH+h8k3dFnfaFYSrh+G
+ FaPBTEyVa9Z+mvL+chhfa4/SzgaLx+XS+ZQhNxxAXg2r+B6xd18a4nFk4bux/Uhm0xqOXczJu
+ EFrEkZNA2xFfvmNIGeuyYg/5UHlic66vyoLfnYwuP8f23wi/tTJCPMUEms43ggCrx3G6ON0wr
+ b59aB8CvmuDTAF65622N2WD6oZqJBz9amgm0V5MuiT+MQPN9LYfqws5kx8tIx0E9IwyDJmXOZ
+ Gj4ZVdA6lx2uQRTp2V9qqMo+vzaqqcABlgjOdS6aQqVEakqWN9xjexkFOYYFqbzgGkLOdsC80
+ zthA0EGldK9IKGoixKU1rXVAFU0dvxvbv6V4tWAGO20+o5Wt4NeSIieFFbDVX6PzLTiMzijWl
+ GYOpBL4BzXt4Bdu8WeB4jMKiyQKWtjTmdzCBqLemKz+3mvnkC97/hscZhRcfj16DKW38TTEJz
+ ClYctnIUkkXqWF3chUrPpZAiIyahgaR3QFnbNhUQeGw23H6n4QuaDx+Ff/jwsAyF2CjMBUGNI
+ x+9DU9vHCheyMnAcWabolXltjGzjYlmTmj/ygdMt0uY3NWfscFit9ossaMY+rUMyTicgZs4P3
+ kidBS57Dl4kQ8A4of0KQ==
+Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH 16/46] ARM: pxa: tosa: use gpio descriptor for
+	audio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,91 +88,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The pxa2xx-ac97-lib code is the last driver to use mach/irqs.h
-for PXA. Almost everything already passes the interrupt as
-a resource, so use it from there.
+The audio driver should not use a hardwired gpio number
+from the header. Change it to use a lookup table.
 
-The one exception is the mxm8x10 machine, which apparently has
-a resource-less device. Replacing it with the correct one
-enables the driver here as well.
-
+Cc: Mark Brown <broonie@kernel.org>
 Cc: alsa-devel@alsa-project.org
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/arm/mach-pxa/mxm8x10.c |  8 ++------
- sound/arm/pxa2xx-ac97-lib.c | 10 +++++++---
- 2 files changed, 9 insertions(+), 9 deletions(-)
+ arch/arm/mach-pxa/tosa.c | 12 ++++++++++++
+ sound/soc/pxa/tosa.c     | 16 +++++++---------
+ 2 files changed, 19 insertions(+), 9 deletions(-)
 
-diff --git a/arch/arm/mach-pxa/mxm8x10.c b/arch/arm/mach-pxa/mxm8x10.c
-index fde386f6cffe..35546b59c88e 100644
---- a/arch/arm/mach-pxa/mxm8x10.c
-+++ b/arch/arm/mach-pxa/mxm8x10.c
-@@ -26,6 +26,7 @@
- #include <linux/platform_data/video-pxafb.h>
- #include <linux/platform_data/mmc-pxamci.h>
- #include <linux/platform_data/usb-ohci-pxa27x.h>
-+#include <linux/platform_data/asoc-pxa.h>
- #include "pxa320.h"
+diff --git a/arch/arm/mach-pxa/tosa.c b/arch/arm/mach-pxa/tosa.c
+index 264b5b6ed13b..9a7f1e42adac 100644
+--- a/arch/arm/mach-pxa/tosa.c
++++ b/arch/arm/mach-pxa/tosa.c
+@@ -859,6 +859,17 @@ static struct platform_device wm9712_device = {
+ 	.id	= -1,
+ };
  
- #include "mxm8x10.h"
-@@ -356,14 +357,9 @@ void __init mxm_8x10_usb_host_init(void)
- 	pxa_set_ohci_info(&mxm_8x10_ohci_platform_data);
- }
++static struct gpiod_lookup_table tosa_audio_gpio_table = {
++	.dev_id = "tosa-audio",
++	.table = {
++		GPIO_LOOKUP("tc6393xb",
++			    TOSA_GPIO_L_MUTE - TOSA_TC6393XB_GPIO_BASE,
++			    "l-mute", GPIO_ACTIVE_HIGH),
++		{ },
++	},
++};
++
++
+ static struct platform_device tosa_audio_device = {
+ 	.name	= "tosa-audio",
+ 	.id	= -1,
+@@ -916,6 +927,7 @@ static void __init tosa_init(void)
+ 	PMCR = 0x01;
  
--/* AC97 Sound Support */
--static struct platform_device mxm_8x10_ac97_device = {
--	.name = "pxa2xx-ac97"
--};
--
- void __init mxm_8x10_ac97_init(void)
- {
--	platform_device_register(&mxm_8x10_ac97_device);
-+	pxa_set_ac97_info(NULL);
- }
+ 	gpiod_add_lookup_table(&tosa_mci_gpio_table);
++	gpiod_add_lookup_table(&tosa_audio_gpio_table);
+ 	pxa_set_mci_info(&tosa_mci_platform_data);
+ 	pxa_set_ficp_info(&tosa_ficp_platform_data);
+ 	pxa_set_i2c_info(NULL);
+diff --git a/sound/soc/pxa/tosa.c b/sound/soc/pxa/tosa.c
+index 81ee1bcf4c44..d671cf3d44ed 100644
+--- a/sound/soc/pxa/tosa.c
++++ b/sound/soc/pxa/tosa.c
+@@ -16,14 +16,13 @@
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+ #include <linux/device.h>
+-#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
  
- /* NAND flash Support */
-diff --git a/sound/arm/pxa2xx-ac97-lib.c b/sound/arm/pxa2xx-ac97-lib.c
-index 9b5c1f0f8998..8c79d224f03b 100644
---- a/sound/arm/pxa2xx-ac97-lib.c
-+++ b/sound/arm/pxa2xx-ac97-lib.c
-@@ -21,7 +21,6 @@
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/soc.h>
  
- #include <sound/pxa2xx-lib.h>
- 
--#include <mach/irqs.h>
- #include <mach/regs-ac97.h>
+ #include <asm/mach-types.h>
+-#include <mach/tosa.h>
  #include <linux/platform_data/asoc-pxa.h>
  
-@@ -319,6 +318,7 @@ EXPORT_SYMBOL_GPL(pxa2xx_ac97_hw_resume);
- int pxa2xx_ac97_hw_probe(struct platform_device *dev)
+ #define TOSA_HP        0
+@@ -35,6 +34,7 @@
+ 
+ static int tosa_jack_func;
+ static int tosa_spk_func;
++static struct gpio_desc *l_mute_gpio;
+ 
+ static void tosa_ext_control(struct snd_soc_dapm_context *dapm)
  {
+@@ -128,7 +128,7 @@ static int tosa_set_spk(struct snd_kcontrol *kcontrol,
+ static int tosa_hp_event(struct snd_soc_dapm_widget *w,
+ 	struct snd_kcontrol *k, int event)
+ {
+-	gpio_set_value(TOSA_GPIO_L_MUTE, SND_SOC_DAPM_EVENT_ON(event) ? 1 : 0);
++	gpiod_set_value(l_mute_gpio, SND_SOC_DAPM_EVENT_ON(event) ? 1 : 0);
+ 	return 0;
+ }
+ 
+@@ -222,25 +222,23 @@ static int tosa_probe(struct platform_device *pdev)
+ 	struct snd_soc_card *card = &tosa;
  	int ret;
-+	int irq;
- 	pxa2xx_audio_ops_t *pdata = dev->dev.platform_data;
  
- 	if (pdata) {
-@@ -387,7 +387,11 @@ int pxa2xx_ac97_hw_probe(struct platform_device *dev)
+-	ret = gpio_request_one(TOSA_GPIO_L_MUTE, GPIOF_OUT_INIT_LOW,
+-			       "Headphone Jack");
++	l_mute_gpio = devm_gpiod_get(&pdev->dev, "l-mute", GPIOD_OUT_LOW);
++	ret = PTR_ERR_OR_ZERO(l_mute_gpio);
  	if (ret)
- 		goto err_clk2;
+ 		return ret;
  
--	ret = request_irq(IRQ_AC97, pxa2xx_ac97_irq, 0, "AC97", NULL);
-+	irq = platform_get_irq(dev, 0);
-+	if (!irq)
-+		goto err_irq;
+ 	card->dev = &pdev->dev;
+ 
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
++	if (ret)
+ 		dev_err(&pdev->dev, "snd_soc_register_card() failed: %d\n",
+ 			ret);
+-		gpio_free(TOSA_GPIO_L_MUTE);
+-	}
 +
-+	ret = request_irq(irq, pxa2xx_ac97_irq, 0, "AC97", NULL);
- 	if (ret < 0)
- 		goto err_irq;
+ 	return ret;
+ }
  
-@@ -413,7 +417,7 @@ void pxa2xx_ac97_hw_remove(struct platform_device *dev)
- 	if (cpu_is_pxa27x())
- 		gpio_free(reset_gpio);
- 	GCR |= GCR_ACLINK_OFF;
--	free_irq(IRQ_AC97, NULL);
-+	free_irq(platform_get_irq(dev, 0), NULL);
- 	if (ac97conf_clk) {
- 		clk_put(ac97conf_clk);
- 		ac97conf_clk = NULL;
+ static int tosa_remove(struct platform_device *pdev)
+ {
+-	gpio_free(TOSA_GPIO_L_MUTE);
+ 	return 0;
+ }
+ 
 -- 
 2.20.0
 

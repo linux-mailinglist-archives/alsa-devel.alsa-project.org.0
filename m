@@ -2,87 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0AFFDBFA0
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 10:17:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6ADF7DBFBF
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 10:20:06 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B63E85D;
-	Fri, 18 Oct 2019 10:16:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B63E85D
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC53A84D;
+	Fri, 18 Oct 2019 10:19:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC53A84D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571386631;
-	bh=hJXY4xeU2+HmHWwt0q4T/efcIyOuBJeJpFnUwFQA7g4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=AtVDuxHgbi+DZhHg4gVoYy0WvCGhFm+3uUnIFOeK3fwd1bNUyeGP9enQgCzCVICCq
-	 1lB5G7n1M9AIiQE3AZXkF1FBViBxwO5Co/W8FtODclYly6Ohko4a9GWXJuoHQ3ppiU
-	 tvHFu0JtsV0ioWvuIGrXVn7pJBKrxmdKuCVfbQpE=
+	s=default; t=1571386806;
+	bh=SVPrOsqiXh5Xj0fl1iPUc++9hAvpyNv+9h7FaWXJebs=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Xj7XxAT582Tv2Riwz9fAf9hrmu8SFH5v5fepZCQJ7aNYnc3ovJAzQjihFF3Et47qb
+	 2HXdCjofbzyrRBoQah9szjeZEFjPKcRpxB5DUZqXlDGWWzvREPEnky0EpB6i284q3N
+	 ojaH1UD6Z2fyDg0VpG/zFf0Clnk9PvTVloLUPDUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9C64F80323;
-	Fri, 18 Oct 2019 10:15:27 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 345E0F80362;
+	Fri, 18 Oct 2019 10:18:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 962CAF80362; Fri, 18 Oct 2019 10:15:24 +0200 (CEST)
+ id 2D80DF80362; Fri, 18 Oct 2019 10:18:18 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B264CF800F3
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 10:15:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B264CF800F3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="m8ChvJlM"
-Received: by mail-pf1-x442.google.com with SMTP id x127so3390307pfb.7
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 01:15:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uiSq7qeFYNBf+B+hvyqTL3DKogK+/9GgP2nnW/iTdJQ=;
- b=m8ChvJlMrxPv5W8hkfPBg5heCY/fbqHBiTpBTRP3b/WNHPtpzvGVHF5e5f+wCXWtss
- rZ1oxTtWrm/r15UOlkNpO/Yqi/nCcSaE2vTYRRFdUC8JUJ41R/RMgiFAjcLWBCqEbW9q
- qS42/w5YDBEf/LJhPrwB2VBrQ+9h14+tjCMHcLSDVYDQMqSL3UgXqMMyZBs1qlykOUsc
- lfTRNrLm4lw9MuG7v0032yGm+EBoRPQKCtWlZl/hGfg239A/o9eQM3nFqAWK6hikKnEL
- KTnTPx67BNmIYewuXrz8Ersk3DU4QMpbXM+tbPjrxcAJOQ5BmYx9UzQ+ggM0VZHREvj3
- TC4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=uiSq7qeFYNBf+B+hvyqTL3DKogK+/9GgP2nnW/iTdJQ=;
- b=Y19J8OLR6nEKneKHa6CWXkm2Dqb5V1oR/H2da09ZIZtOtFNIugD6BpC67+XSgclTZJ
- ZQit+ARCmFfi00A7GvSN86AEAZmKErnsq+wPnj0S7/slbeZqzJlFdrF3E5yLbgUOKAwE
- VHAEKz8gYdFqMZzcNtWfoq5OCWFqfqj4dKNDn5IiuQEcbhmL6dCjRcmIUUP8dBNVKdAU
- 95maPnwnZpEG9XiGwkPY7R008k4cOWrUnltCuWAw7oXbZW51EeJM1IH8GS+xCC4V8PnN
- yDSaGEK5NZJupkxkMusaLhBhENL2SGmDrXQhdXxm91YU+2M5JVCeS9XiOeF68PD4Bo1u
- hmLg==
-X-Gm-Message-State: APjAAAVlMBaAIs4CHFPW9xtcjnlngG4mJj56j7WKxX4bY94RtKHjXH1Z
- Jd7+oC8Yvwx9kMoUs/bCGqg=
-X-Google-Smtp-Source: APXvYqyaREvbxLHrPizSXgFUs5I1CvDkE+rdYjdtx6uTUnVXZOAzUbbFx63V9/unDy0Pp9RTOGw4Kw==
-X-Received: by 2002:aa7:9472:: with SMTP id t18mr5105603pfq.261.1571386519409; 
- Fri, 18 Oct 2019 01:15:19 -0700 (PDT)
-Received: from suzukaze.ipads-lab.se.sjtu.edu.cn ([89.31.126.54])
- by smtp.gmail.com with ESMTPSA id z12sm5688656pfj.41.2019.10.18.01.15.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 18 Oct 2019 01:15:18 -0700 (PDT)
-From: Chuhong Yuan <hslester96@gmail.com>
-To: 
-Date: Fri, 18 Oct 2019 16:14:49 +0800
-Message-Id: <20191018081448.8486-1-hslester96@gmail.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Chuhong Yuan <hslester96@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH] ASoC: tlv320aic32x4: add a check for
-	devm_clk_get
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82B97F800D0
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 10:18:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82B97F800D0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 3F37BB445;
+ Fri, 18 Oct 2019 08:18:14 +0000 (UTC)
+Date: Fri, 18 Oct 2019 10:18:14 +0200
+Message-ID: <s5hr23ah3g9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai-Heng Feng <kai.heng.feng@canonical.com>
+In-Reply-To: <20191018073848.14590-1-kai.heng.feng@canonical.com>
+References: <20191018073848.14590-1-kai.heng.feng@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: bhelgaas@google.com, linux-pci@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v6 1/2] PCI: Add a helper to check Power
+	Resource Requirements _PR3 existence
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,32 +71,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-aic32x4_set_dai_sysclk misses a check for devm_clk_get and may miss the
-failure.
-Add a check to fix it.
+On Fri, 18 Oct 2019 09:38:47 +0200,
+Kai-Heng Feng wrote:
+> 
+> A driver may want to know the existence of _PR3, to choose different
+> runtime suspend behavior. A user will be add in next patch.
+> 
+> This is mostly the same as nouveau_pr3_present().
+> 
+> Reported-by: kbuild test robot <lkp@intel.com>
 
-Signed-off-by: Chuhong Yuan <hslester96@gmail.com>
----
- sound/soc/codecs/tlv320aic32x4.c | 3 +++
- 1 file changed, 3 insertions(+)
+It's confusing -- this particular change isn't reported by the test
+bot, but only about the lack of the CONFIG_ACPI ifdef.
 
-diff --git a/sound/soc/codecs/tlv320aic32x4.c b/sound/soc/codecs/tlv320aic32x4.c
-index 68165de1c8de..b4e9a6c73f90 100644
---- a/sound/soc/codecs/tlv320aic32x4.c
-+++ b/sound/soc/codecs/tlv320aic32x4.c
-@@ -573,6 +573,9 @@ static int aic32x4_set_dai_sysclk(struct snd_soc_dai *codec_dai,
- 	struct clk *pll;
- 
- 	pll = devm_clk_get(component->dev, "pll");
-+	if (IS_ERR(pll))
-+		return PTR_ERR(pll);
-+
- 	mclk = clk_get_parent(pll);
- 
- 	return clk_set_rate(mclk, freq);
--- 
-2.20.1
 
+thanks,
+
+Takashi
+
+> Signed-off-by: Kai-Heng Feng <kai.heng.feng@canonical.com>
+> ---
+> v6:
+> - Only define the function when CONFIG_ACPI is set.
+> v5:
+> - Add wording suggestion from Bjorn.
+> v4:
+> - Let caller to find its upstream port device.
+> 
+>  drivers/pci/pci.c   | 18 ++++++++++++++++++
+>  include/linux/pci.h |  2 ++
+>  2 files changed, 20 insertions(+)
+> 
+> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+> index e7982af9a5d8..1df99d9e350e 100644
+> --- a/drivers/pci/pci.c
+> +++ b/drivers/pci/pci.c
+> @@ -5856,6 +5856,24 @@ int pci_set_vga_state(struct pci_dev *dev, bool decode,
+>  	return 0;
+>  }
+>  
+> +#ifdef CONFIG_ACPI
+> +bool pci_pr3_present(struct pci_dev *pdev)
+> +{
+> +	struct acpi_device *adev;
+> +
+> +	if (acpi_disabled)
+> +		return false;
+> +
+> +	adev = ACPI_COMPANION(&pdev->dev);
+> +	if (!adev)
+> +		return false;
+> +
+> +	return adev->power.flags.power_resources &&
+> +		acpi_has_method(adev->handle, "_PR3");
+> +}
+> +EXPORT_SYMBOL_GPL(pci_pr3_present);
+> +#endif
+> +
+>  /**
+>   * pci_add_dma_alias - Add a DMA devfn alias for a device
+>   * @dev: the PCI device for which alias is added
+> diff --git a/include/linux/pci.h b/include/linux/pci.h
+> index f9088c89a534..1d15c5d49cdd 100644
+> --- a/include/linux/pci.h
+> +++ b/include/linux/pci.h
+> @@ -2310,9 +2310,11 @@ struct irq_domain *pci_host_bridge_acpi_msi_domain(struct pci_bus *bus);
+>  
+>  void
+>  pci_msi_register_fwnode_provider(struct fwnode_handle *(*fn)(struct device *));
+> +bool pci_pr3_present(struct pci_dev *pdev);
+>  #else
+>  static inline struct irq_domain *
+>  pci_host_bridge_acpi_msi_domain(struct pci_bus *bus) { return NULL; }
+> +static bool pci_pr3_present(struct pci_dev *pdev) { return false; }
+>  #endif
+>  
+>  #ifdef CONFIG_EEH
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

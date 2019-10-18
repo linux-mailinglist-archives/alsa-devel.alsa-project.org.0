@@ -2,93 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8294DCFD3
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 22:14:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B840DCFD4
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 22:14:54 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8261E1692;
-	Fri, 18 Oct 2019 22:13:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8261E1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0C9A885D;
+	Fri, 18 Oct 2019 22:14:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C9A885D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571429658;
-	bh=HfSxkt3gLYTfiX+tr9p2cnm8P7w+3imiHma6HpNXJ+U=;
+	s=default; t=1571429694;
+	bh=wF9rBAUGUnvdpSC3cRXDARudX07um5Tie++XODwqB3k=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h2xLU7YMN/ySYrVuUcRgmqi54lDYy54zd1u1NLU4DsNE5VSYbRA0RgW9wYxlGfMLO
-	 DcREP4od62WzIuT2qmbZZzmFLiy9SleDpknSMJ7Mqt3uqAQ0OSIcg8sKBhxtbyqCKk
-	 XCfsZaHUcBobXXIekQrrm6hzGnwijEyKzGzNq5Go=
+	b=TN2mTHRi3qi8kfZpuVSI7OtMRQMx9O5OUEOo8qGaVmED2F8M2oW7mQE5N/7By6M+d
+	 NZG0pPXYb+vI8LTRKuJrPNKC5dl5UOvF/EuL0bFgTTHyu+f+/tpLI3Y6OORaFZAIm+
+	 E77DilJquB0xvBYrgSMgv352HoraSRzsh8bLrbQY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B6E0F8071C;
-	Fri, 18 Oct 2019 22:05:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 533C3F8072C;
+	Fri, 18 Oct 2019 22:05:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E831CF8065E; Fri, 18 Oct 2019 22:05:26 +0200 (CEST)
+ id 6C7E4F8065D; Fri, 18 Oct 2019 22:05:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9FC38F80642
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 22:05:22 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FC38F80642
+ by alsa1.perex.cz (Postfix) with ESMTPS id 590C6F8065A
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 22:05:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 590C6F8065A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="S39KbJIP"
-Received: by mail-pg1-x541.google.com with SMTP id r1so3917482pgj.12
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 13:05:22 -0700 (PDT)
+ header.b="dq/rt5hZ"
+Received: by mail-pf1-x444.google.com with SMTP id q5so4500497pfg.13
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 13:05:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=7eJPId3wfJpnS2z5yIggQTzVsYAHOCTyJM6m5E7Bb0Y=;
- b=S39KbJIPkS995U7RfmdeWgSI9EnSU0vmJZZcoy8ZAzFCmwtDAJN97ShyUVSYy1937i
- fq2KhBZARdKMp6noss5S0QwzjjPJpjWZpQ2lQjTScbfLf5iMsOJTUVnkAVOdO6nFRpgR
- O+/nhZCfr4y9j49Sa4M4SmIquvi4EfEiIw11Q=
+ bh=UrGM4XMPIZ54nhe47WX7fEV/zcd4T2H47VLwVS3uqjA=;
+ b=dq/rt5hZnLLA9YEOJojUqQ36gLCnDfWs9WJuseP3hso+Rsgt681xrs+CCw4MO4b8/y
+ E7JgQsK3+QgqXSvlRtFJciD6uKtnjwczJRVE/IS1q/nStT6fm/ymNgPpjdMbhHMaCjWO
+ X1OFaC5wygMhGhZJ7WdZ3pUo8Q7n9G6d0BW9M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=7eJPId3wfJpnS2z5yIggQTzVsYAHOCTyJM6m5E7Bb0Y=;
- b=FHDngHWfD4/WOQe+MM1iBnO6wZdOE6uNJisWB3aq7LIVOVIRRqVouWzLKPNtBz9xTR
- GD6giw2E8tiYDkoYpBJeMHakJGJbS3iaDeQMyjjeDHt8QP7qOCZ8n09V8+kpPbCLlEpS
- pMacbhwaNY9DGYAw8MBiyVEx/5rlJF9KFUBUXAJUQGebNTlVAwbFLsWz9t57FZs/ykGW
- uAAWHhk2i7sO00XvcXz1qxPtbuZ7lLcFaEuFEveIxPG2yptgcJuL8/Z4X/zd0lOUi2yv
- JVG1cnU99UNbqbptQen9LMfMxS90wZ9c5fYqPjIe/OWxFCt/JsaITP1KcIcphiZvmvp2
- clew==
-X-Gm-Message-State: APjAAAUByDAkTFgjmOEipYhonfr1+JUxGYxv8at/+5PSLLdQv22uWX/Z
- TyI6vtvMTzTd0qhUcFYmXNX+uVJRmrwd
-X-Google-Smtp-Source: APXvYqwttUz/KEU9BswzeGS7ChKaLxX+26DGJAGwK+8B5cGbPKeIKnd1KXMGCWtPT1GCdWCe4LssHg==
-X-Received: by 2002:a62:3082:: with SMTP id w124mr8440193pfw.191.1571429121012; 
- Fri, 18 Oct 2019 13:05:21 -0700 (PDT)
+ bh=UrGM4XMPIZ54nhe47WX7fEV/zcd4T2H47VLwVS3uqjA=;
+ b=gSB7XONr7C8Ky4A8ooOhsj29jXbTxqfBne47VqPyHwV7/xKtme0VdNWvaEFIwELzgr
+ +2WGy6vQ3h962h9qRZpFik9EuWovg6w3PiPQYsMBAjf87vrhJtTZMGzqpn62hayLIgyu
+ v7pgMjW1YYrTlYff7mqIL7Z9NPJliCwGCsoJhacht9QIgoA+YQQXDybURK/ASW05wfRS
+ jMWq2ciuONdDlAFQraJg0IJk8o+I6whPlccSL7sv8vmdVOxR/lVfu+Rgh/FyIlRyh501
+ ITPiRhpRXOVTW3A0fD0JwcI8ovDDvqBAMTGSbpf/yLorlcuCSkVmFRyDgFOuEth+9tze
+ IBcA==
+X-Gm-Message-State: APjAAAWDXiJWENv03LJ8mfEZCMfmU8ccn5K6nmCrtqB3oV6PCoYUNvnN
+ m4GEGc33J5l40zhFW/9CNQA+JA2xNzPE
+X-Google-Smtp-Source: APXvYqztEqL94ERvQE3ay1oGJnlxaIaEBtXCiVYzxpO8cBq1pIl+p8F98VW3BaAgxV7KItiOJbr54A==
+X-Received: by 2002:a17:90a:86c7:: with SMTP id
+ y7mr12618859pjv.82.1571429122618; 
+ Fri, 18 Oct 2019 13:05:22 -0700 (PDT)
 Received: from localhost ([2620:15c:202:201:c87a:31ae:9107:f63d])
- by smtp.gmail.com with ESMTPSA id c62sm7830596pfa.92.2019.10.18.13.05.20
+ by smtp.gmail.com with ESMTPSA id g7sm13895384pfm.176.2019.10.18.13.05.21
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Oct 2019 13:05:20 -0700 (PDT)
+ Fri, 18 Oct 2019 13:05:21 -0700 (PDT)
 From: Curtis Malainey <cujomalainey@chromium.org>
 To: alsa-devel@alsa-project.org
-Date: Fri, 18 Oct 2019 13:04:48 -0700
-Message-Id: <20191018200449.141123-12-cujomalainey@chromium.org>
+Date: Fri, 18 Oct 2019 13:04:49 -0700
+Message-Id: <20191018200449.141123-13-cujomalainey@chromium.org>
 X-Mailer: git-send-email 2.23.0.866.gb869b98d4c-goog
 In-Reply-To: <20191018200449.141123-1-cujomalainey@chromium.org>
 References: <20191018200449.141123-1-cujomalainey@chromium.org>
 MIME-Version: 1.0
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Ben Zhang <benzh@chromium.org>, Takashi Iwai <tiwai@suse.com>,
- Jie Yang <yang.jie@linux.intel.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Richard Fontana <rfontana@redhat.com>, Mark Brown <broonie@kernel.org>,
- Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>,
- Thomas Gleixner <tglx@linutronix.de>
-Subject: [alsa-devel] [PATCH v2 11/12] ASoC: rt5677: Set ADC clock to use
-	PLL and enable ASRC
+Cc: Oder Chiou <oder_chiou@realtek.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>
+Subject: [alsa-devel] [PATCH v2 12/12] ASoC: rt5677: Wait for DSP to boot
+	before loading firmware
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,115 +101,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use the PLL to kept the correct 24M clock rate so frequency shift does
-not occur when using the DSP VAD.
+Wait for hardware to startup. If we load before hardware is ready we
+could end up corrupting the firmware.
 
 Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
 ---
- sound/soc/codecs/rt5677.c           |  6 ++++++
- sound/soc/codecs/rt5677.h           |  2 ++
- sound/soc/intel/boards/bdw-rt5677.c | 33 +++++++++++++++++++++++++++++
- 3 files changed, 41 insertions(+)
+ sound/soc/codecs/rt5677.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
 diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index 6e8d11060bbab..fdc3e5d6f9430 100644
+index fdc3e5d6f9430..123d68baa4d72 100644
 --- a/sound/soc/codecs/rt5677.c
 +++ b/sound/soc/codecs/rt5677.c
-@@ -5048,6 +5048,11 @@ static const struct snd_soc_dai_ops rt5677_aif_dai_ops = {
- 	.set_tdm_slot = rt5677_set_tdm_slot,
- };
+@@ -894,6 +894,7 @@ static void rt5677_dsp_work(struct work_struct *work)
+ 		container_of(work, struct rt5677_priv, dsp_work.work);
+ 	static bool activity;
+ 	bool enable = rt5677->dsp_vad_en;
++	int i, val;
  
-+static const struct snd_soc_dai_ops rt5677_dsp_dai_ops = {
-+	.set_sysclk = rt5677_set_dai_sysclk,
-+	.set_pll = rt5677_set_dai_pll,
-+};
+ 
+ 	dev_info(rt5677->component->dev, "DSP VAD: enable=%d, activity=%d\n",
+@@ -915,6 +916,18 @@ static void rt5677_dsp_work(struct work_struct *work)
+ 		rt5677_set_vad_source(rt5677);
+ 		rt5677_set_dsp_mode(rt5677, true);
+ 
++#define RT5677_BOOT_RETRY 20
++		for (i = 0; i < RT5677_BOOT_RETRY; i++) {
++			regmap_read(rt5677->regmap, RT5677_PWR_DSP_ST, &val);
++			if (val == 0x3ff)
++				break;
++			udelay(500);
++		}
++		if (i == RT5677_BOOT_RETRY && val != 0x3ff) {
++			dev_err(rt5677->component->dev, "DSP Boot Timed Out!");
++			return;
++		}
 +
- static struct snd_soc_dai_driver rt5677_dai[] = {
- 	{
- 		.name = "rt5677-aif1",
-@@ -5154,6 +5159,7 @@ static struct snd_soc_dai_driver rt5677_dai[] = {
- 			.rates = SNDRV_PCM_RATE_16000,
- 			.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 		},
-+		.ops = &rt5677_dsp_dai_ops,
- 	},
- };
- 
-diff --git a/sound/soc/codecs/rt5677.h b/sound/soc/codecs/rt5677.h
-index f8ada967fdbc9..944ae02aafc2f 100644
---- a/sound/soc/codecs/rt5677.h
-+++ b/sound/soc/codecs/rt5677.h
-@@ -1336,6 +1336,8 @@
- #define RT5677_PLL_M_SFT			12
- #define RT5677_PLL_M_BP				(0x1 << 11)
- #define RT5677_PLL_M_BP_SFT			11
-+#define RT5677_PLL_UPDATE_PLL1			(0x1 << 1)
-+#define RT5677_PLL_UPDATE_PLL1_SFT		1
- 
- /* Global Clock Control 1 (0x80) */
- #define RT5677_SCLK_SRC_MASK			(0x3 << 14)
-diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
-index b2475e3eff7b4..98a4e3cd819f7 100644
---- a/sound/soc/intel/boards/bdw-rt5677.c
-+++ b/sound/soc/intel/boards/bdw-rt5677.c
-@@ -170,10 +170,37 @@ static int bdw_rt5677_hw_params(struct snd_pcm_substream *substream,
- 	return ret;
- }
- 
-+static int bdw_rt5677_dsp_hw_params(struct snd_pcm_substream *substream,
-+	struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-+	int ret;
-+
-+	ret = snd_soc_dai_set_sysclk(codec_dai, RT5677_SCLK_S_PLL1, 24576000,
-+		SND_SOC_CLOCK_IN);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "can't set codec sysclk configuration\n");
-+		return ret;
-+	}
-+	ret = snd_soc_dai_set_pll(codec_dai, 0, RT5677_PLL1_S_MCLK,
-+		24000000, 24576000);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "can't set codec pll configuration\n");
-+		return ret;
-+	}
-+
-+	return ret;
-+}
-+
- static const struct snd_soc_ops bdw_rt5677_ops = {
- 	.hw_params = bdw_rt5677_hw_params,
- };
- 
-+static const struct snd_soc_ops bdw_rt5677_dsp_ops = {
-+	.hw_params = bdw_rt5677_dsp_hw_params,
-+};
-+
- #if !IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
- static int bdw_rt5677_rtd_init(struct snd_soc_pcm_runtime *rtd)
- {
-@@ -213,6 +240,11 @@ static int bdw_rt5677_init(struct snd_soc_pcm_runtime *rtd)
- 	rt5677_sel_asrc_clk_src(component, RT5677_DA_STEREO_FILTER |
- 			RT5677_AD_STEREO1_FILTER | RT5677_I2S1_SOURCE,
- 			RT5677_CLK_SEL_I2S1_ASRC);
-+	/* Enable codec ASRC function for Mono ADC L.
-+	 * The ASRC clock source is clk_sys2_asrc.
-+	 */
-+	rt5677_sel_asrc_clk_src(component, RT5677_AD_MONO_L_FILTER,
-+			RT5677_CLK_SEL_SYS2);
- 
- 	/* Request rt5677 GPIO for headphone amp control */
- 	bdw_rt5677->gpio_hp_en = devm_gpiod_get(component->dev, "headphone-enable",
-@@ -291,6 +323,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
- 	{
- 		.name = "Codec DSP",
- 		.stream_name = "Wake on Voice",
-+		.ops = &bdw_rt5677_dsp_ops,
- 		SND_SOC_DAILINK_REG(dsp),
- 	},
- 
+ 		/* Boot the firmware from IRAM instead of SRAM0. */
+ 		rt5677_dsp_mode_i2c_write_addr(rt5677, RT5677_DSP_BOOT_VECTOR,
+ 			0x0009, 0x0003);
 -- 
 2.23.0.866.gb869b98d4c-goog
 

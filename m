@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46A40DC95F
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 17:49:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 721D0DC969
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 17:50:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A9A02168F;
-	Fri, 18 Oct 2019 17:48:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9A02168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEB561672;
+	Fri, 18 Oct 2019 17:49:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEB561672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571413762;
-	bh=xap5Zfyj5gUpxygAGE6+2u9Ul4xfQ/isV1AQfCxmcng=;
+	s=default; t=1571413809;
+	bh=d1eX7mjM0rX5z3YXoEcD0r6xS/U7nkfd85x0gALt6yA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mTef4ONLJh87GtOmXExRNeMO6uRN6Priu62Q/aYxxj69Y3+4iePWpv9J9aqMvw047
-	 B0p0BnLUQ87GHViyyp77tduyw7FYrSc65F3qGj+CafVrLmiGnY9it43Z5hqaCuNGR1
-	 ZTLCAY437KN0LU7cGdgi2qTU5cmKEPHhOtBglCyo=
+	b=u15MvUxaRaLWvFHwCMewpwmq9ULhI1yoKWKPt/UawiXxYn5gYHvRidRVHOi3oRKZ3
+	 i7oG9jcSSx6YJw8tKJWt4rnZVujI4GdHLCnLtiPkZBiJwrikfZvZGkDa7FaPAjU9gB
+	 3CaCo2wgNV9IqhAGk7pxMtMeRrkoGIJTQpQSSGVE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B3317F80671;
-	Fri, 18 Oct 2019 17:42:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEB73F80676;
+	Fri, 18 Oct 2019 17:42:53 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5882FF80639; Fri, 18 Oct 2019 17:42:42 +0200 (CEST)
+ id 2C336F8063D; Fri, 18 Oct 2019 17:42:44 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A261FF80376
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 17:42:28 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A261FF80376
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83F0BF805FC
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 17:42:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83F0BF805FC
 Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
  (mreue108 [212.227.15.145]) with ESMTPA (Nemesis) id
- 1MTiLj-1iSrhB0H8v-00U4HI; Fri, 18 Oct 2019 17:42:28 +0200
+ 1MKbXu-1ibuFm0USC-00L1jl; Fri, 18 Oct 2019 17:42:30 +0200
 From: Arnd Bergmann <arnd@arndb.de>
 To: Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
  Robert Jarzmik <robert.jarzmik@free.fr>
-Date: Fri, 18 Oct 2019 17:41:39 +0200
-Message-Id: <20191018154201.1276638-24-arnd@arndb.de>
+Date: Fri, 18 Oct 2019 17:41:45 +0200
+Message-Id: <20191018154201.1276638-30-arnd@arndb.de>
 X-Mailer: git-send-email 2.20.0
 In-Reply-To: <20191018154052.1276506-1-arnd@arndb.de>
 References: <20191018154052.1276506-1-arnd@arndb.de>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:u2katV/LmSiKXDQedAs4tlsJvSfrK7Os+EoGt44jJ5GjNIXKxH5
- dJUynWvmbAn6d/zef06Cx+zYsJOC49+vB4lAIM5K/d7K6Hyh2dOIiNbc+1x62bARp8ooYCH
- P/hwxkNIGKpDLGY85X+lxlMWwr7HjwtfzG5FKdIWSX01YO8zQAwrW4fz9K+PJ9aKEmAvs/c
- KsAYYfTm27xvYvYti0Mxg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:S48uBYMxdbg=:7Py8YLfrE8bsznnbmS1yrt
- 3hOtGX4e5m5nJw3oAKy5kzM1z39HPSfz/195l3WuRV1k51jUkqCnOmXJrD1uS9Y1qOvuPRkZc
- z65zBAI+okvs1jgv5U8aQK5HkoQJv/UjCOO5D1ScM/QoSW0+OHUahQgwdlswSP4niAh6J7jC0
- k0xlHHtRYwasIzveyVrJhUE7V8ol6NtY/874RIRvWbyVBZ+p2gJLwgu46qvB47Eq2Ap5V/xjU
- Zb5XQq7O+L90UOtiwuAc0txACvMlNA5DHAsUPKGuQi8cOsMNshjzJYCRqM2TPBkyoE3/PaVNC
- iZ5OzsLsp0+M4AU8Hfz0dTdWvZffb9AczcuvnZLdeWb1bEYCwAauJBYAurqtIrCQKn4NCvQ+P
- YyctDeXhbIpza9jAxeyiPcvbxJQXI4oQilT5WRQMuJ/zXSq32kdgiMCWURO54sGWl9S5fP67z
- XbyKVlZCgIUyo1UI+xRo413xLxmBL/8UZFBzQjjbrbur1sZglc/8t/ZheOHWm6lABt1Zt2D30
- lpSSEJobQx2z50wj2egB+XeSgoHtIpp7xG10hg4ZtvJwbRfPZwcoPa1nEC+soIDhFHbvGUYpV
- 4rDMl1dMwTx3HNCyToXqCbcLtrG0XQSES8/7NRs60nQCtMmwqy4EjCX0a9WSnRE/ZrstUgApe
- nyRxKA1CPzCPIZmi4YYuBX8f0/3/UgwliZj0XeDKVS7mxVIHSuj27Pmf6MIa3x3WXzyzFkQvT
- yzOZUnF70C65y4lTQedZ1kU/FeJ9K4sfcRn6KVeseOkN9KQeo9mSaj1WgJezObDMcmF5iz4BJ
- PzwoYPaJkGwLjjC1Dz6iQXNJptLRoW5QHBsaEV2uXAPKFAOAesxD+UCB33pkWhtVOQS80/S78
- izqEKPJ5TUneMCtVlylg==
+X-Provags-ID: V03:K1:JnyiR7rxqnAnO9BolIMCAtr756n0YCtxDEUDXWA0qY34R6AhKmw
+ JIS6nus6XOfzi/0EFukEBpCihUFcq4KDlzoAh3G+v5xAoBL+UjfTnccuvUl2RbRgXj1CrWl
+ S72O66Yd0/wThsj3sCDsF7yvfEq6ML3/xAJUucEGi/0xa3Pd5QkcWl7ryGzRO53qiiI072v
+ Yx76SnTUIfT8I6fDNL54Q==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:KidX8pZMFC8=:XCbuwKMNPuxxsgY+EWmE+8
+ NYw8+N0UXRTkGdvBirUjzDp7wzwI42Dt0xuGG89pqCJhqIVDCgGakQLQ4M2x94cX5hG/APMrE
+ lAh28BAwA5DMsfIqaUdOrngo8N6sSRtIUrJb18qIcpj9Jc+BrfSGgmR7bP+ln6421gg/bp4HS
+ bIN92XgUWekVG+OBarxbvtNZqb3SIkBQP4bS2vtTT2QrssuiLEH3i3PafxFwP/u2njPLVHsZl
+ 7EwBCSJl9D5bqrAtdex6beRJLEeAPoXijoSmza/gOTBOpC9b9toPErH/fbHSoND6LWHJCnuPE
+ +BhiDBEhgSqh0i8awtuhArhp1eBLUiWXwK3WV+ShQYjnbPUz9OupLUfbqNxiYc2IKWwl6SbsH
+ tCRJERTbqeeFt4lS0k1wAWzm+zqp3tbQM6yhUBkikrIXdlT/416v+fZGBzIMp9bf5wu7yEvie
+ hJnFHnJQ3szUkvEYbq+1fxyKmnec1ot16eGfsp941nVS3MefWLTMRsgFcjmhi+S4S+o+p3eYW
+ BT+VPjAAEhgO6wsDdwK+rBNLDZC0DzyxteiVS7XS+R7cbUH2+ml/dN4kwoRwhb2NELsOj+qze
+ dgdOVAK2CZzBW7MEZwv+ocrHLJ8QUnQBfq0z7OtCPd2fNNxr6F2SxYqxWOjxhHu6fq6+a7ea9
+ EkNbWd7RigP1QwXwzVp8JLFKkhnY+Stlt3dkOqIvTjFCh6QT4+POSWUzu/Ln2ZQye3SjCJdVS
+ Yec/pO/nUFBLF4Bhc+8KxIuswH6KaqKLsvEFqfmDF5pRYrsbFu44jnKFXnZzLTMYPGZ4ESZ1o
+ 7M6DYIQUZPaiO93OUq48eqrc9fnopwPT1AhWiBrjNtQOeUGLUt6BQI9JTEoEKi3Te5SgTIbd2
+ xTEXU2HDMa+Fro1lEUzw==
 Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
  Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
  Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 24/46] ARM: pxa: magician: use platform driver
-	for audio
+Subject: [alsa-devel] [PATCH 30/46] SoC: pxa: use pdev resource for FIFO regs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,299 +87,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The magician audio driver creates a codec device and gets
-data from a board specific header file, both of which is
-a bit suspicious. Move these into the board file itself,
-using a gpio lookup table.
+The driver currently takes the hardwired FIFO address from
+a header file that we want to eliminate. Change it to use
+the mmio resource instead and stop including the heare.
 
 Cc: Mark Brown <broonie@kernel.org>
 Cc: alsa-devel@alsa-project.org
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/arm/mach-pxa/magician.c |  50 +++++++++++++
- sound/soc/pxa/magician.c     | 141 +++++++++--------------------------
- 2 files changed, 87 insertions(+), 104 deletions(-)
+ sound/soc/pxa/pxa2xx-ac97.c | 22 +++++++++++++++-------
+ 1 file changed, 15 insertions(+), 7 deletions(-)
 
-diff --git a/arch/arm/mach-pxa/magician.c b/arch/arm/mach-pxa/magician.c
-index 31037679bf24..48ac4b96e5ce 100644
---- a/arch/arm/mach-pxa/magician.c
-+++ b/arch/arm/mach-pxa/magician.c
-@@ -54,6 +54,7 @@
- #include <linux/spi/spi.h>
- #include <linux/spi/pxa2xx_spi.h>
- #include <linux/spi/ads7846.h>
-+#include <sound/uda1380.h>
+diff --git a/sound/soc/pxa/pxa2xx-ac97.c b/sound/soc/pxa/pxa2xx-ac97.c
+index 2138106fed23..4fd97c50aa2c 100644
+--- a/sound/soc/pxa/pxa2xx-ac97.c
++++ b/sound/soc/pxa/pxa2xx-ac97.c
+@@ -21,10 +21,12 @@
+ #include <sound/pxa2xx-lib.h>
+ #include <sound/dmaengine_pcm.h>
  
- static unsigned long magician_pin_config[] __initdata = {
+-#include <mach/pxa-regs.h>
+-#include <mach/regs-ac97.h>
+ #include <linux/platform_data/asoc-pxa.h>
  
-@@ -892,6 +893,53 @@ static struct platform_device strataflash = {
- 	},
++#define PCDR	0x0040  /* PCM FIFO Data Register */
++#define MODR	0x0140  /* Modem FIFO Data Register */
++#define MCDR	0x0060  /* Mic-in FIFO Data Register */
++
+ static void pxa2xx_ac97_warm_reset(struct ac97_controller *adrv)
+ {
+ 	pxa2xx_ac97_try_warm_reset();
+@@ -59,35 +61,30 @@ static struct ac97_controller_ops pxa2xx_ac97_ops = {
  };
  
-+/*
-+ * audio support
-+ */
-+static struct uda1380_platform_data uda1380_info = {
-+	.gpio_power = EGPIO_MAGICIAN_CODEC_POWER,
-+	.gpio_reset = EGPIO_MAGICIAN_CODEC_RESET,
-+	.dac_clk    = UDA1380_DAC_CLK_WSPLL,
-+};
-+
-+static struct i2c_board_info magician_audio_i2c_board_info[] = {
-+	{
-+		I2C_BOARD_INFO("uda1380", 0x18),
-+		.platform_data = &uda1380_info,
-+	},
-+};
-+
-+static struct gpiod_lookup_table magician_audio_gpio_table = {
-+	.dev_id = "magician-audio",
-+	.table = {
-+		GPIO_LOOKUP("htc-egpio-0",
-+			    EGPIO_MAGICIAN_SPK_POWER - MAGICIAN_EGPIO_BASE,
-+			    "SPK_POWER", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("htc-egpio-0",
-+			    EGPIO_MAGICIAN_EP_POWER - MAGICIAN_EGPIO_BASE,
-+			    "EP_POWER", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("htc-egpio-0",
-+			    EGPIO_MAGICIAN_MIC_POWER - MAGICIAN_EGPIO_BASE,
-+			    "MIC_POWER", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("htc-egpio-0",
-+			    EGPIO_MAGICIAN_IN_SEL0 - MAGICIAN_EGPIO_BASE,
-+			    "IN_SEL0", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("htc-egpio-0",
-+			    EGPIO_MAGICIAN_IN_SEL1 - MAGICIAN_EGPIO_BASE,
-+			    "IN_SEL1", GPIO_ACTIVE_HIGH),
-+		{ },
-+	},
-+};
-+
-+static void magician_audio_init(void)
-+{
-+	i2c_register_board_info(0,
-+		ARRAY_AND_SIZE(magician_audio_i2c_board_info));
-+
-+	gpiod_add_lookup_table(&magician_audio_gpio_table);
-+	platform_device_register_simple("magician-audio", -1, NULL, 0);
-+}
-+
- /*
-  * PXA I2C main controller
-  */
-@@ -1033,6 +1081,8 @@ static void __init magician_init(void)
+ static struct snd_dmaengine_dai_dma_data pxa2xx_ac97_pcm_stereo_in = {
+-	.addr		= __PREG(PCDR),
+ 	.addr_width	= DMA_SLAVE_BUSWIDTH_4_BYTES,
+ 	.chan_name	= "pcm_pcm_stereo_in",
+ 	.maxburst	= 32,
+ };
  
- 	gpiod_add_lookup_table(&bq24022_gpiod_table);
- 	platform_add_devices(ARRAY_AND_SIZE(devices));
-+
-+	magician_audio_init();
- }
+ static struct snd_dmaengine_dai_dma_data pxa2xx_ac97_pcm_stereo_out = {
+-	.addr		= __PREG(PCDR),
+ 	.addr_width	= DMA_SLAVE_BUSWIDTH_4_BYTES,
+ 	.chan_name	= "pcm_pcm_stereo_out",
+ 	.maxburst	= 32,
+ };
  
- MACHINE_START(MAGICIAN, "HTC Magician")
-diff --git a/sound/soc/pxa/magician.c b/sound/soc/pxa/magician.c
-index 6483cff5b73d..c5993a532cf0 100644
---- a/sound/soc/pxa/magician.c
-+++ b/sound/soc/pxa/magician.c
-@@ -14,16 +14,14 @@
- #include <linux/interrupt.h>
- #include <linux/platform_device.h>
- #include <linux/delay.h>
--#include <linux/gpio.h>
-+#include <linux/gpio/consumer.h>
- #include <linux/i2c.h>
+ static struct snd_dmaengine_dai_dma_data pxa2xx_ac97_pcm_aux_mono_out = {
+-	.addr		= __PREG(MODR),
+ 	.addr_width	= DMA_SLAVE_BUSWIDTH_2_BYTES,
+ 	.chan_name	= "pcm_aux_mono_out",
+ 	.maxburst	= 16,
+ };
  
- #include <sound/core.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
--#include <sound/uda1380.h>
+ static struct snd_dmaengine_dai_dma_data pxa2xx_ac97_pcm_aux_mono_in = {
+-	.addr		= __PREG(MODR),
+ 	.addr_width	= DMA_SLAVE_BUSWIDTH_2_BYTES,
+ 	.chan_name	= "pcm_aux_mono_in",
+ 	.maxburst	= 16,
+ };
  
--#include <mach/magician.h>
- #include <asm/mach-types.h>
- #include "../codecs/uda1380.h"
- #include "pxa2xx-i2s.h"
-@@ -36,6 +34,9 @@ static int magician_hp_switch;
- static int magician_spk_switch = 1;
- static int magician_in_sel = MAGICIAN_MIC;
+ static struct snd_dmaengine_dai_dma_data pxa2xx_ac97_pcm_mic_mono_in = {
+-	.addr		= __PREG(MCDR),
+ 	.addr_width	= DMA_SLAVE_BUSWIDTH_2_BYTES,
+ 	.chan_name	= "pcm_aux_mic_mono",
+ 	.maxburst	= 16,
+@@ -225,6 +222,7 @@ static int pxa2xx_ac97_dev_probe(struct platform_device *pdev)
+ 	int ret;
+ 	struct ac97_controller *ctrl;
+ 	pxa2xx_audio_ops_t *pdata = pdev->dev.platform_data;
++	struct resource *regs;
+ 	void **codecs_pdata;
  
-+static struct gpio_desc *gpiod_spk_power, *gpiod_ep_power, *gpiod_mic_power;
-+static struct gpio_desc *gpiod_in_sel0, *gpiod_in_sel1;
-+
- static void magician_ext_control(struct snd_soc_dapm_context *dapm)
- {
- 
-@@ -215,10 +216,10 @@ static int magician_set_input(struct snd_kcontrol *kcontrol,
- 
- 	switch (magician_in_sel) {
- 	case MAGICIAN_MIC:
--		gpio_set_value(EGPIO_MAGICIAN_IN_SEL1, 1);
-+		gpiod_set_value(gpiod_in_sel1, 1);
- 		break;
- 	case MAGICIAN_MIC_EXT:
--		gpio_set_value(EGPIO_MAGICIAN_IN_SEL1, 0);
-+		gpiod_set_value(gpiod_in_sel1, 0);
+ 	if (pdev->id != -1) {
+@@ -232,6 +230,16 @@ static int pxa2xx_ac97_dev_probe(struct platform_device *pdev)
+ 		return -ENXIO;
  	}
  
- 	return 1;
-@@ -227,21 +228,21 @@ static int magician_set_input(struct snd_kcontrol *kcontrol,
- static int magician_spk_power(struct snd_soc_dapm_widget *w,
- 				struct snd_kcontrol *k, int event)
- {
--	gpio_set_value(EGPIO_MAGICIAN_SPK_POWER, SND_SOC_DAPM_EVENT_ON(event));
-+	gpiod_set_value(gpiod_spk_power, SND_SOC_DAPM_EVENT_ON(event));
- 	return 0;
- }
- 
- static int magician_hp_power(struct snd_soc_dapm_widget *w,
- 				struct snd_kcontrol *k, int event)
- {
--	gpio_set_value(EGPIO_MAGICIAN_EP_POWER, SND_SOC_DAPM_EVENT_ON(event));
-+	gpiod_set_value(gpiod_ep_power, SND_SOC_DAPM_EVENT_ON(event));
- 	return 0;
- }
- 
- static int magician_mic_bias(struct snd_soc_dapm_widget *w,
- 				struct snd_kcontrol *k, int event)
- {
--	gpio_set_value(EGPIO_MAGICIAN_MIC_POWER, SND_SOC_DAPM_EVENT_ON(event));
-+	gpiod_set_value(gpiod_mic_power, SND_SOC_DAPM_EVENT_ON(event));
- 	return 0;
- }
- 
-@@ -328,106 +329,38 @@ static struct snd_soc_card snd_soc_card_magician = {
- 	.fully_routed = true,
- };
- 
--static struct platform_device *magician_snd_device;
--
--/*
-- * FIXME: move into magician board file once merged into the pxa tree
-- */
--static struct uda1380_platform_data uda1380_info = {
--	.gpio_power = EGPIO_MAGICIAN_CODEC_POWER,
--	.gpio_reset = EGPIO_MAGICIAN_CODEC_RESET,
--	.dac_clk    = UDA1380_DAC_CLK_WSPLL,
--};
--
--static struct i2c_board_info i2c_board_info[] = {
--	{
--		I2C_BOARD_INFO("uda1380", 0x18),
--		.platform_data = &uda1380_info,
--	},
--};
--
--static int __init magician_init(void)
--{
--	int ret;
--	struct i2c_adapter *adapter;
--	struct i2c_client *client;
--
--	if (!machine_is_magician())
--		return -ENODEV;
--
--	adapter = i2c_get_adapter(0);
--	if (!adapter)
--		return -ENODEV;
--	client = i2c_new_device(adapter, i2c_board_info);
--	i2c_put_adapter(adapter);
--	if (!client)
--		return -ENODEV;
--
--	ret = gpio_request(EGPIO_MAGICIAN_SPK_POWER, "SPK_POWER");
--	if (ret)
--		goto err_request_spk;
--	ret = gpio_request(EGPIO_MAGICIAN_EP_POWER, "EP_POWER");
--	if (ret)
--		goto err_request_ep;
--	ret = gpio_request(EGPIO_MAGICIAN_MIC_POWER, "MIC_POWER");
--	if (ret)
--		goto err_request_mic;
--	ret = gpio_request(EGPIO_MAGICIAN_IN_SEL0, "IN_SEL0");
--	if (ret)
--		goto err_request_in_sel0;
--	ret = gpio_request(EGPIO_MAGICIAN_IN_SEL1, "IN_SEL1");
--	if (ret)
--		goto err_request_in_sel1;
--
--	gpio_set_value(EGPIO_MAGICIAN_IN_SEL0, 0);
--
--	magician_snd_device = platform_device_alloc("soc-audio", -1);
--	if (!magician_snd_device) {
--		ret = -ENOMEM;
--		goto err_pdev;
--	}
--
--	platform_set_drvdata(magician_snd_device, &snd_soc_card_magician);
--	ret = platform_device_add(magician_snd_device);
--	if (ret) {
--		platform_device_put(magician_snd_device);
--		goto err_pdev;
--	}
--
--	return 0;
--
--err_pdev:
--	gpio_free(EGPIO_MAGICIAN_IN_SEL1);
--err_request_in_sel1:
--	gpio_free(EGPIO_MAGICIAN_IN_SEL0);
--err_request_in_sel0:
--	gpio_free(EGPIO_MAGICIAN_MIC_POWER);
--err_request_mic:
--	gpio_free(EGPIO_MAGICIAN_EP_POWER);
--err_request_ep:
--	gpio_free(EGPIO_MAGICIAN_SPK_POWER);
--err_request_spk:
--	return ret;
--}
--
--static void __exit magician_exit(void)
-+static int magician_audio_probe(struct platform_device *pdev)
- {
--	platform_device_unregister(magician_snd_device);
--
--	gpio_set_value(EGPIO_MAGICIAN_SPK_POWER, 0);
--	gpio_set_value(EGPIO_MAGICIAN_EP_POWER, 0);
--	gpio_set_value(EGPIO_MAGICIAN_MIC_POWER, 0);
--
--	gpio_free(EGPIO_MAGICIAN_IN_SEL1);
--	gpio_free(EGPIO_MAGICIAN_IN_SEL0);
--	gpio_free(EGPIO_MAGICIAN_MIC_POWER);
--	gpio_free(EGPIO_MAGICIAN_EP_POWER);
--	gpio_free(EGPIO_MAGICIAN_SPK_POWER);
-+	struct device *dev = &pdev->dev;
++	regs = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	if (!regs)
++		return -ENXIO;
 +
-+	gpiod_spk_power = devm_gpiod_get(dev, "SPK_POWER", GPIOD_OUT_LOW);
-+	if (IS_ERR(gpiod_spk_power))
-+		return PTR_ERR(gpiod_spk_power);
-+	gpiod_ep_power = devm_gpiod_get(dev, "EP_POWER", GPIOD_OUT_LOW);
-+	if (IS_ERR(gpiod_ep_power))
-+		return PTR_ERR(gpiod_ep_power);
-+	gpiod_mic_power = devm_gpiod_get(dev, "MIC_POWER", GPIOD_OUT_LOW);
-+	if (IS_ERR(gpiod_mic_power))
-+		return PTR_ERR(gpiod_mic_power);
-+	gpiod_in_sel0 = devm_gpiod_get(dev, "IN_SEL0", GPIOD_OUT_HIGH);
-+	if (IS_ERR(gpiod_in_sel0))
-+		return PTR_ERR(gpiod_in_sel0);
-+	gpiod_in_sel1 = devm_gpiod_get(dev, "IN_SEL1", GPIOD_OUT_LOW);
-+	if (IS_ERR(gpiod_in_sel1))
-+		return PTR_ERR(gpiod_in_sel1);
++	pxa2xx_ac97_pcm_stereo_in.addr = regs->start + PCDR;
++	pxa2xx_ac97_pcm_stereo_out.addr = regs->start + PCDR;
++	pxa2xx_ac97_pcm_aux_mono_out.addr = regs->start + MODR;
++	pxa2xx_ac97_pcm_aux_mono_in.addr = regs->start + MODR;
++	pxa2xx_ac97_pcm_mic_mono_in.addr = regs->start + MCDR;
 +
-+	snd_soc_card_magician.dev = &pdev->dev;
-+	return devm_snd_soc_register_card(&pdev->dev, &snd_soc_card_magician);
- }
- 
--module_init(magician_init);
--module_exit(magician_exit);
-+static struct platform_driver magician_audio_driver = {
-+	.driver.name = "magician-audio",
-+	.driver.pm = &snd_soc_pm_ops,
-+	.probe = magician_audio_probe,
-+};
-+module_platform_driver(magician_audio_driver);
- 
- MODULE_AUTHOR("Philipp Zabel");
- MODULE_DESCRIPTION("ALSA SoC Magician");
- MODULE_LICENSE("GPL");
-+MODULE_ALIAS("platform:magician-audio");
+ 	ret = pxa2xx_ac97_hw_probe(pdev);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "PXA2xx AC97 hw probe error (%d)\n", ret);
 -- 
 2.20.0
 

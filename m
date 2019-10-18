@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB3A1DC959
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 17:48:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DCEFDC951
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 17:48:01 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8084E1672;
-	Fri, 18 Oct 2019 17:47:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8084E1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9BE11674;
+	Fri, 18 Oct 2019 17:47:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9BE11674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571413726;
-	bh=EvIaKlueOr79uvizoKfdljyxdg9Wh9i+9gCJcr8PwLE=;
+	s=default; t=1571413681;
+	bh=lzNPfd8sc/iBZuuTNSc43n9KxN+5/OPAjzVdnsn50jU=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FLwgXHghutk0zfY5bP4uQ9yqm7EG9ZwHtEaDlLTLlBDQKMSQaETslAHFWdkEvFEbc
-	 kRMfRWe55o6XW0lHWECfant8aGm8fQYXtR9cTRp1mI8idxLkxnypaOoLUQqVzuUrfY
-	 rVn8ELWHUcFnV/07QV38rGn76iGg9jyNW6zcvVI8=
+	b=Ebgsxr/Y+/88I60OmJ9VA7X1QAQTf9T+mFpDucdK4E5VYq5Hh0cEhz/tTsZfNn3GT
+	 nBp9P4yZfzPFkrakuH7bwpZCTwP8ux4FiDeovly1wej7bhLtxWrxKoB5BxQksXcnAg
+	 G7ZJPOi4O7aNKpZQB9HwIx3pwUfpNKxrsSw+uScI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E0F0F8065D;
-	Fri, 18 Oct 2019 17:42:51 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DE76F805FD;
+	Fri, 18 Oct 2019 17:42:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E3B3FF80633; Fri, 18 Oct 2019 17:42:38 +0200 (CEST)
+ id AE0F0F80635; Fri, 18 Oct 2019 17:42:38 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.74])
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 388B5F80323
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 17:42:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 388B5F80323
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6698AF8036C
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 17:42:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6698AF8036C
 Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
  (mreue108 [212.227.15.145]) with ESMTPA (Nemesis) id
- 1McpS0-1hmhsG1gOI-00ZwWl; Fri, 18 Oct 2019 17:42:26 +0200
+ 1MqrwN-1hhUo60Vc1-00moY8; Fri, 18 Oct 2019 17:42:27 +0200
 From: Arnd Bergmann <arnd@arndb.de>
 To: Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
  Robert Jarzmik <robert.jarzmik@free.fr>
-Date: Fri, 18 Oct 2019 17:41:34 +0200
-Message-Id: <20191018154201.1276638-19-arnd@arndb.de>
+Date: Fri, 18 Oct 2019 17:41:36 +0200
+Message-Id: <20191018154201.1276638-21-arnd@arndb.de>
 X-Mailer: git-send-email 2.20.0
 In-Reply-To: <20191018154052.1276506-1-arnd@arndb.de>
 References: <20191018154052.1276506-1-arnd@arndb.de>
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:VTDetqiA3IUPd37iiTjF8wmf8is9z0ii2hZFyGnfpBo7v9YzRzf
- eLPjN/VpyDbNNgQqFV9CrvQZZGL4LvF9qcdU1Wow93cSHhGzpdK2nq9u5Wx/PYPamq+3re6
- Sk/nIeH15eZgiayt6b8hOpI8KxPD9zRBZ9hEYEH+Pnp6QXXjHK5Q0mab6YaTZX96iJ0we8Q
- z9m8F5M9ZSmiBlVV9yRSg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:Z5MPd9t3zuc=:f31rOBD3gYLsiOgUZCPLvb
- K/Wd1JvNV7F6gIvfl3p6iza//HPWorhTW38CfK+6SD/pXEIcjcuo8qh7NrKL//HaIuM2gm2qR
- n6KBMgZZ4gIQwhIeexa569uM8xBZIpXoPd5czCtWdFgb5jax+Jq+D6dvPUTUzXXfNETAYw+/R
- 8DM9MHZFBhn2V8HoEk1okYWzovOFgYq8Ej/sALgYoaHYw2cKJWPkboR3eieBuXUXKHkWoHxr7
- 9kNcaaaUDCiIuN1wtSTf/6hLoNwmqohiHuWcRulQG+mM3AuTdJQJE4FR886KE1MJq9CteBU9G
- iHYZuBp19msfHtU6hsmpOBWo86zga2Z8W1cIN04vewk3IvdMJEoefkwFTfMyhB8sfaLSKFxn2
- L1QhyoN0sr1Or430sUqOiyHLUAqNFq2BeGa7tTfzwflAGHiSkmthybx3qJSL9O8xkbtlA///T
- 48YpjyVOYwOAB3bUSSpZO7hELaEMOz77+htSfhnJqUfCwz+119BJs6AIOjjqGooDKwjNnXGoU
- JWct38hOLypaQ1ZGwNhe1jFW0/sAGoZQSfS+5dE0kBASWFMqcJj4G4TDb6/m5WTu6R1IdMEBk
- 9JhqiaK6b6cdNsnRXh9t1+oRdbADOHwgtNtvwrEBxvmYY93WuFFD6qnBZjBJNRz5P9dnEEAUb
- jaVTvl1DLADz26gL1VgGIvr4pFZjiA++Dz6/6DxjEW1NRakOZElbomRh0z8n2pphk/x9YzkXh
- KC/0sM/qf2pUjNc9Tcs/8s9vj0SGEAyj9IbyEXCl/k80SNVXG4nOcG6zJ4sSa4UjuuUYel277
- q2H2zM4VdnjppDQGBoVCF2kseF2BCbxh9dB0SZMRZTfz/4NJPKyivdMwg6BLXj07q/21+BlqZ
- SsdEOLWB8auzGCvIdxew==
+X-Provags-ID: V03:K1:EnGATBO6UcVguXcv7G62u/so/z4MGLoOyIeCs3iHNegQs2eAeZx
+ RXCX3mThC+ltOlQdPgJxtQZMZlOJ3twIf0mEeLe18rdoMMe6IE0UavPRiwZY+GxnbCoIXXx
+ siq75br/ck5gUvdB2C3VR34VF3oWZTLCtTdwjYxeT5yXVF7pAztV6fyrPa/tQoSOff6iOPp
+ zo94i1VPUXq+5/kWovNeA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:gb1LxFRHfzU=:NfvjD9Kuk7/AeZGNDEvdV5
+ /bA7c+abFvFFLaLKBvWWnHjzupokHiHg+jaqNzpFE2WYjHrtVuC4gMgvdZO4y3S34PNXdWjfM
+ wqnMk/b2q75h1WdC6/kWPHOhbZNQr0ANRen9w1R70PqjvOCI7XcpjgRHimD2CzXB7AzVFcdoZ
+ pPtTdkbQYvTSLxw8BYBW0i4v7yZHl5P59PDCdn2AtdJWVUfaRRmTs0dagR3/WQ/DODNBZxfM/
+ p6kbEQ8tNW7bhHzZBXJ7axwTspl8UXp6zg1Tk/fAh2x4rG+pOOHq6RoHMTD6t9HaP/rgv6gXf
+ 5OFYhi91hf2ie0nje0StPKzkgLRKO7gUty9VBnyVCtI/6Rj7xcB5jzN/gsvV11G6+6e+y2GUz
+ 7t26S42/ZX7OgdCDpAheaGua3bETTjvsPIBIfhetggs3Epj3Z6NTVX6cL+4Ivr7+4nhWY/qXI
+ AYth/l5P6vp8KCf77uHQBogHOKmwJDXErHvdIUq3X5U+pIz/ktxdh6pN8SmVbA8YD+Hkq3anT
+ GzbxCqdRH8nJfiftqSrar5m9Q969UJl8/Ge1ByvLjkN5fcWhnE6ZjK9jo8xRdqz9gKC7o+q7+
+ x8oU/4DNj52NVSPjh2Qb3PHMOfV6ZX1Ev7+bPWibNMlKkVqjGET3b/6QnaJ3BcQ/22q/YH8FU
+ 3/qDrnVldAV+jR6qk6Eo+h6TluH8p89dkfB13mGUNThpGCPiz0AJorbMciyZ8PuLkix1Qp9rC
+ NMH2LjHPDg0qwgyC/LCkvS5bRUiNT7TFDxcv3qFg7v6CS4ZFPNRsGFiwuxFBqpzn7Mmh3gUzY
+ +GAC7QacilOEXNX3IXRGa7guukryclQBQCGzVNLeOc5B1pqXFRg8qVMAZnvmsSPIWlsHgaqzE
+ r39gMLYEcFN91mxgZCVw==
 Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
  Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Philipp Zabel <philipp.zabel@gmail.com>,
- Paul Parsons <lost.distance@yahoo.com>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH 19/46] ARM: pxa: hx4700: use gpio descriptors
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH 21/46] ARM: pxa: spitz: use gpio descriptors
 	for audio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -92,187 +91,241 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 The audio driver should not use a hardwired gpio number
 from the header. Change it to use a lookup table.
 
-Cc: Philipp Zabel <philipp.zabel@gmail.com>
-Cc: Paul Parsons <lost.distance@yahoo.com>
 Cc: Mark Brown <broonie@kernel.org>
 Cc: alsa-devel@alsa-project.org
 Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 ---
- arch/arm/mach-pxa/hx4700-pcmcia.c             |  2 +-
- arch/arm/mach-pxa/hx4700.c                    | 16 ++++++++-
- arch/arm/mach-pxa/{include/mach => }/hx4700.h |  2 +-
- sound/soc/pxa/hx4700.c                        | 34 ++++++++-----------
- 4 files changed, 31 insertions(+), 23 deletions(-)
- rename arch/arm/mach-pxa/{include/mach => }/hx4700.h (99%)
+ arch/arm/mach-pxa/spitz.c                    | 33 ++++++++++-
+ arch/arm/mach-pxa/{include/mach => }/spitz.h |  2 +-
+ arch/arm/mach-pxa/spitz_pm.c                 |  2 +-
+ sound/soc/pxa/spitz.c                        | 58 ++++++++------------
+ 4 files changed, 57 insertions(+), 38 deletions(-)
+ rename arch/arm/mach-pxa/{include/mach => }/spitz.h (99%)
 
-diff --git a/arch/arm/mach-pxa/hx4700-pcmcia.c b/arch/arm/mach-pxa/hx4700-pcmcia.c
-index e8acbfc9ef6c..e2331dfe427d 100644
---- a/arch/arm/mach-pxa/hx4700-pcmcia.c
-+++ b/arch/arm/mach-pxa/hx4700-pcmcia.c
-@@ -10,7 +10,7 @@
- #include <linux/irq.h>
+diff --git a/arch/arm/mach-pxa/spitz.c b/arch/arm/mach-pxa/spitz.c
+index a4fdc399d152..6028fd83c44d 100644
+--- a/arch/arm/mach-pxa/spitz.c
++++ b/arch/arm/mach-pxa/spitz.c
+@@ -44,7 +44,7 @@
+ #include <linux/platform_data/mmc-pxamci.h>
+ #include <linux/platform_data/usb-ohci-pxa27x.h>
+ #include <linux/platform_data/video-pxafb.h>
+-#include <mach/spitz.h>
++#include "spitz.h"
+ #include "sharpsl_pm.h"
+ #include <mach/smemc.h>
  
- #include <asm/mach-types.h>
--#include <mach/hx4700.h>
-+#include "hx4700.h"
+@@ -948,11 +948,42 @@ static void __init spitz_i2c_init(void)
+ static inline void spitz_i2c_init(void) {}
+ #endif
  
- #include <pcmcia/soc_common.h>
- 
-diff --git a/arch/arm/mach-pxa/hx4700.c b/arch/arm/mach-pxa/hx4700.c
-index b3dcbe291e13..84383d14bf64 100644
---- a/arch/arm/mach-pxa/hx4700.c
-+++ b/arch/arm/mach-pxa/hx4700.c
-@@ -42,7 +42,7 @@
- 
- #include "pxa27x.h"
- #include "addr-map.h"
--#include <mach/hx4700.h>
-+#include "hx4700.h"
- #include <linux/platform_data/irda-pxaficp.h>
- 
- #include <sound/ak4641.h>
-@@ -823,6 +823,19 @@ static struct i2c_board_info i2c_board_info[] __initdata = {
- 	},
- };
- 
-+static struct gpiod_lookup_table hx4700_audio_gpio_table = {
-+	.dev_id = "hx4700-audio",
++static struct gpiod_lookup_table spitz_audio_gpio_table = {
++	.dev_id = "spitz-audio",
 +	.table = {
-+		GPIO_LOOKUP("gpio-pxa", GPIO75_HX4700_EARPHONE_nDET,
-+			    "earphone-ndet", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("gpio-pxa", GPIO92_HX4700_HP_DRIVER,
-+			    "hp-driver", GPIO_ACTIVE_HIGH),
-+		GPIO_LOOKUP("gpio-pxa", GPIO107_HX4700_SPK_nSD,
-+			    "spk-nsd", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_L - SPITZ_SCP_GPIO_BASE,
++			    "mute-l", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_R - SPITZ_SCP_GPIO_BASE,
++			    "mute-r", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("sharp-scoop.1", SPITZ_GPIO_MIC_BIAS - SPITZ_SCP2_GPIO_BASE,
++			    "mic", GPIO_ACTIVE_HIGH),
 +		{ },
 +	},
 +};
 +
- static struct platform_device audio = {
- 	.name	= "hx4700-audio",
- 	.id	= -1,
-@@ -883,6 +896,7 @@ static void __init hx4700_init(void)
- 	pxa_set_stuart_info(NULL);
++static struct gpiod_lookup_table akita_audio_gpio_table = {
++	.dev_id = "spitz-audio",
++	.table = {
++		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_L - SPITZ_SCP_GPIO_BASE,
++			    "mute-l", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_R - SPITZ_SCP_GPIO_BASE,
++			    "mute-r", GPIO_ACTIVE_HIGH),
++		GPIO_LOOKUP("gpio-pxa", AKITA_GPIO_MIC_BIAS - AKITA_IOEXP_GPIO_BASE,
++			    "mic", GPIO_ACTIVE_HIGH),
++		{ },
++	},
++};
++
+ /******************************************************************************
+  * Audio devices
+  ******************************************************************************/
+ static inline void spitz_audio_init(void)
+ {
++	if (machine_is_akita())
++		gpiod_add_lookup_table(&akita_audio_gpio_table);
++	else
++		gpiod_add_lookup_table(&spitz_audio_gpio_table);
++
+ 	platform_device_register_simple("spitz-audio", -1, NULL, 0);
+ }
  
- 	gpiod_add_lookup_table(&bq24022_gpiod_table);
-+	gpiod_add_lookup_table(&hx4700_audio_gpio_table);
- 	platform_add_devices(devices, ARRAY_SIZE(devices));
- 	pwm_add_table(hx4700_pwm_lookup, ARRAY_SIZE(hx4700_pwm_lookup));
- 
-diff --git a/arch/arm/mach-pxa/include/mach/hx4700.h b/arch/arm/mach-pxa/hx4700.h
+diff --git a/arch/arm/mach-pxa/include/mach/spitz.h b/arch/arm/mach-pxa/spitz.h
 similarity index 99%
-rename from arch/arm/mach-pxa/include/mach/hx4700.h
-rename to arch/arm/mach-pxa/hx4700.h
-index 0c30e6d9c660..ce2db33989e1 100644
---- a/arch/arm/mach-pxa/include/mach/hx4700.h
-+++ b/arch/arm/mach-pxa/hx4700.h
-@@ -10,7 +10,7 @@
+rename from arch/arm/mach-pxa/include/mach/spitz.h
+rename to arch/arm/mach-pxa/spitz.h
+index 04828d8918aa..f97e3ebd762d 100644
+--- a/arch/arm/mach-pxa/include/mach/spitz.h
++++ b/arch/arm/mach-pxa/spitz.h
+@@ -11,7 +11,7 @@
+ #define __ASM_ARCH_SPITZ_H  1
+ #endif
  
- #include <linux/gpio.h>
- #include <linux/mfd/asic3.h>
--#include "irqs.h" /* PXA_NR_BUILTIN_GPIO */
-+#include <mach/irqs.h> /* PXA_NR_BUILTIN_GPIO */
+-#include "irqs.h" /* PXA_NR_BUILTIN_GPIO, PXA_GPIO_TO_IRQ */
++#include <mach/irqs.h> /* PXA_NR_BUILTIN_GPIO, PXA_GPIO_TO_IRQ */
+ #include <linux/fb.h>
  
- #define HX4700_ASIC3_GPIO_BASE	PXA_NR_BUILTIN_GPIO
- #define HX4700_EGPIO_BASE	(HX4700_ASIC3_GPIO_BASE + ASIC3_NUM_GPIOS)
-diff --git a/sound/soc/pxa/hx4700.c b/sound/soc/pxa/hx4700.c
-index 0139343dbcce..2fae601f0844 100644
---- a/sound/soc/pxa/hx4700.c
-+++ b/sound/soc/pxa/hx4700.c
-@@ -10,7 +10,7 @@
+ /* Spitz/Akita GPIOs */
+diff --git a/arch/arm/mach-pxa/spitz_pm.c b/arch/arm/mach-pxa/spitz_pm.c
+index 201dabe883b6..6689b67f9ce5 100644
+--- a/arch/arm/mach-pxa/spitz_pm.c
++++ b/arch/arm/mach-pxa/spitz_pm.c
+@@ -19,7 +19,7 @@
+ #include <asm/irq.h>
+ #include <asm/mach-types.h>
+ 
+-#include <mach/spitz.h>
++#include "spitz.h"
+ #include "pxa27x.h"
+ #include "sharpsl_pm.h"
+ 
+diff --git a/sound/soc/pxa/spitz.c b/sound/soc/pxa/spitz.c
+index f7babffb7228..8fcdade9c8dd 100644
+--- a/sound/soc/pxa/spitz.c
++++ b/sound/soc/pxa/spitz.c
+@@ -14,13 +14,12 @@
+ #include <linux/timer.h>
  #include <linux/interrupt.h>
  #include <linux/platform_device.h>
- #include <linux/delay.h>
 -#include <linux/gpio.h>
 +#include <linux/gpio/consumer.h>
- 
  #include <sound/core.h>
- #include <sound/jack.h>
-@@ -18,10 +18,10 @@
- #include <sound/pcm_params.h>
+ #include <sound/pcm.h>
  #include <sound/soc.h>
  
--#include <mach/hx4700.h>
  #include <asm/mach-types.h>
+-#include <mach/spitz.h>
+ #include "../codecs/wm8750.h"
  #include "pxa2xx-i2s.h"
  
-+static struct gpio_desc *gpiod_hp_driver, *gpiod_spk_nsd;
- static struct snd_soc_jack hs_jack;
+@@ -37,7 +36,7 @@
  
- /* Headphones jack detection DAPM pin */
-@@ -40,9 +40,8 @@ static struct snd_soc_jack_pin hs_jack_pin[] = {
+ static int spitz_jack_func;
+ static int spitz_spk_func;
+-static int spitz_mic_gpio;
++static struct gpio_desc *gpiod_mic, *gpiod_mute_l, *gpiod_mute_r;
  
- /* Headphones jack detection GPIO */
- static struct snd_soc_jack_gpio hs_jack_gpio = {
--	.gpio		= GPIO75_HX4700_EARPHONE_nDET,
- 	.invert		= true,
--	.name		= "hp-gpio",
-+	.name		= "earphone-ndet",
- 	.report		= SND_JACK_HEADPHONE,
- 	.debounce_time	= 200,
- };
-@@ -81,14 +80,14 @@ static const struct snd_soc_ops hx4700_ops = {
- static int hx4700_spk_power(struct snd_soc_dapm_widget *w,
- 			    struct snd_kcontrol *k, int event)
+ static void spitz_ext_control(struct snd_soc_dapm_context *dapm)
  {
--	gpio_set_value(GPIO107_HX4700_SPK_nSD, !!SND_SOC_DAPM_EVENT_ON(event));
-+	gpiod_set_value(gpiod_spk_nsd, !!SND_SOC_DAPM_EVENT_ON(event));
+@@ -56,8 +55,8 @@ static void spitz_ext_control(struct snd_soc_dapm_context *dapm)
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Mic Jack");
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Line Jack");
+ 		snd_soc_dapm_enable_pin_unlocked(dapm, "Headphone Jack");
+-		gpio_set_value(SPITZ_GPIO_MUTE_L, 1);
+-		gpio_set_value(SPITZ_GPIO_MUTE_R, 1);
++		gpiod_set_value(gpiod_mute_l, 1);
++		gpiod_set_value(gpiod_mute_r, 1);
+ 		break;
+ 	case SPITZ_MIC:
+ 		/* enable mic jack and bias, mute hp */
+@@ -65,8 +64,8 @@ static void spitz_ext_control(struct snd_soc_dapm_context *dapm)
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Headset Jack");
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Line Jack");
+ 		snd_soc_dapm_enable_pin_unlocked(dapm, "Mic Jack");
+-		gpio_set_value(SPITZ_GPIO_MUTE_L, 0);
+-		gpio_set_value(SPITZ_GPIO_MUTE_R, 0);
++		gpiod_set_value(gpiod_mute_l, 0);
++		gpiod_set_value(gpiod_mute_r, 0);
+ 		break;
+ 	case SPITZ_LINE:
+ 		/* enable line jack, disable mic bias and mute hp */
+@@ -74,8 +73,8 @@ static void spitz_ext_control(struct snd_soc_dapm_context *dapm)
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Headset Jack");
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Mic Jack");
+ 		snd_soc_dapm_enable_pin_unlocked(dapm, "Line Jack");
+-		gpio_set_value(SPITZ_GPIO_MUTE_L, 0);
+-		gpio_set_value(SPITZ_GPIO_MUTE_R, 0);
++		gpiod_set_value(gpiod_mute_l, 0);
++		gpiod_set_value(gpiod_mute_r, 0);
+ 		break;
+ 	case SPITZ_HEADSET:
+ 		/* enable and unmute headset jack enable mic bias, mute L hp */
+@@ -83,8 +82,8 @@ static void spitz_ext_control(struct snd_soc_dapm_context *dapm)
+ 		snd_soc_dapm_enable_pin_unlocked(dapm, "Mic Jack");
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Line Jack");
+ 		snd_soc_dapm_enable_pin_unlocked(dapm, "Headset Jack");
+-		gpio_set_value(SPITZ_GPIO_MUTE_L, 0);
+-		gpio_set_value(SPITZ_GPIO_MUTE_R, 1);
++		gpiod_set_value(gpiod_mute_l, 0);
++		gpiod_set_value(gpiod_mute_r, 1);
+ 		break;
+ 	case SPITZ_HP_OFF:
+ 
+@@ -93,8 +92,8 @@ static void spitz_ext_control(struct snd_soc_dapm_context *dapm)
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Headset Jack");
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Mic Jack");
+ 		snd_soc_dapm_disable_pin_unlocked(dapm, "Line Jack");
+-		gpio_set_value(SPITZ_GPIO_MUTE_L, 0);
+-		gpio_set_value(SPITZ_GPIO_MUTE_R, 0);
++		gpiod_set_value(gpiod_mute_l, 0);
++		gpiod_set_value(gpiod_mute_r, 0);
+ 		break;
+ 	}
+ 
+@@ -199,7 +198,7 @@ static int spitz_set_spk(struct snd_kcontrol *kcontrol,
+ static int spitz_mic_bias(struct snd_soc_dapm_widget *w,
+ 	struct snd_kcontrol *k, int event)
+ {
+-	gpio_set_value_cansleep(spitz_mic_gpio, SND_SOC_DAPM_EVENT_ON(event));
++	gpiod_set_value_cansleep(gpiod_mic, SND_SOC_DAPM_EVENT_ON(event));
  	return 0;
  }
  
- static int hx4700_hp_power(struct snd_soc_dapm_widget *w,
- 			   struct snd_kcontrol *k, int event)
- {
--	gpio_set_value(GPIO92_HX4700_HP_DRIVER, !!SND_SOC_DAPM_EVENT_ON(event));
-+	gpiod_set_value(gpiod_hp_driver, !!SND_SOC_DAPM_EVENT_ON(event));
- 	return 0;
- }
- 
-@@ -162,11 +161,6 @@ static struct snd_soc_card snd_soc_card_hx4700 = {
- 	.fully_routed		= true,
- };
- 
--static struct gpio hx4700_audio_gpios[] = {
--	{ GPIO107_HX4700_SPK_nSD, GPIOF_OUT_INIT_HIGH, "SPK_POWER" },
--	{ GPIO92_HX4700_HP_DRIVER, GPIOF_OUT_INIT_LOW, "EP_POWER" },
--};
--
- static int hx4700_audio_probe(struct platform_device *pdev)
- {
+@@ -287,39 +286,28 @@ static int spitz_probe(struct platform_device *pdev)
+ 	struct snd_soc_card *card = &snd_soc_spitz;
  	int ret;
-@@ -174,26 +168,26 @@ static int hx4700_audio_probe(struct platform_device *pdev)
- 	if (!machine_is_h4700())
- 		return -ENODEV;
  
--	ret = gpio_request_array(hx4700_audio_gpios,
--				ARRAY_SIZE(hx4700_audio_gpios));
-+	gpiod_hp_driver = devm_gpiod_get(&pdev->dev, "hp-driver", GPIOD_OUT_HIGH);
-+	ret = PTR_ERR_OR_ZERO(gpiod_hp_driver);
-+	if (ret)
-+		return ret;
-+	gpiod_spk_nsd = devm_gpiod_get(&pdev->dev, "spk-nsd", GPIOD_OUT_HIGH);
-+	ret = PTR_ERR_OR_ZERO(gpiod_spk_nsd);
- 	if (ret)
- 		return ret;
- 
-+	hs_jack_gpio.gpiod_dev = &pdev->dev;
- 	snd_soc_card_hx4700.dev = &pdev->dev;
- 	ret = devm_snd_soc_register_card(&pdev->dev, &snd_soc_card_hx4700);
+-	if (machine_is_akita())
+-		spitz_mic_gpio = AKITA_GPIO_MIC_BIAS;
+-	else
+-		spitz_mic_gpio = SPITZ_GPIO_MIC_BIAS;
+-
+-	ret = gpio_request(spitz_mic_gpio, "MIC GPIO");
 -	if (ret)
--		gpio_free_array(hx4700_audio_gpios,
--				ARRAY_SIZE(hx4700_audio_gpios));
+-		goto err1;
+-
+-	ret = gpio_direction_output(spitz_mic_gpio, 0);
+-	if (ret)
+-		goto err2;
++	gpiod_mic = devm_gpiod_get(&pdev->dev, "mic", GPIOD_OUT_LOW);
++	if (IS_ERR(gpiod_mic))
++		return PTR_ERR(gpiod_mic);
++	gpiod_mute_l = devm_gpiod_get(&pdev->dev, "mute-l", GPIOD_OUT_LOW);
++	if (IS_ERR(gpiod_mute_l))
++		return PTR_ERR(gpiod_mute_l);
++	gpiod_mute_r = devm_gpiod_get(&pdev->dev, "mute-r", GPIOD_OUT_LOW);
++	if (IS_ERR(gpiod_mute_r))
++		return PTR_ERR(gpiod_mute_r);
  
+ 	card->dev = &pdev->dev;
+ 
+ 	ret = devm_snd_soc_register_card(&pdev->dev, card);
+-	if (ret) {
++	if (ret)
+ 		dev_err(&pdev->dev, "snd_soc_register_card() failed: %d\n",
+ 			ret);
+-		goto err2;
+-	}
+-
+-	return 0;
+ 
+-err2:
+-	gpio_free(spitz_mic_gpio);
+-err1:
  	return ret;
  }
  
- static int hx4700_audio_remove(struct platform_device *pdev)
+ static int spitz_remove(struct platform_device *pdev)
  {
--	gpio_set_value(GPIO92_HX4700_HP_DRIVER, 0);
--	gpio_set_value(GPIO107_HX4700_SPK_nSD, 0);
--
--	gpio_free_array(hx4700_audio_gpios, ARRAY_SIZE(hx4700_audio_gpios));
-+	gpiod_set_value(gpiod_hp_driver, 0);
-+	gpiod_set_value(gpiod_spk_nsd, 0);
+-	gpio_free(spitz_mic_gpio);
  	return 0;
  }
  

@@ -2,89 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0400DBD70
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 08:03:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E634DBD91
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 08:19:22 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 659CA1666;
-	Fri, 18 Oct 2019 08:02:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 659CA1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAEE01671;
+	Fri, 18 Oct 2019 08:18:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAEE01671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571378615;
-	bh=EbmygBDpta3SqTwkMhnvMQkvb6Fwe0klmVOd9r2b8Cc=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1571379561;
+	bh=5t5rBnyQ1XIJs1lV+PY2/S0BVLFJM5JiKDH92qSS2ZQ=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a/yQz7EI6iTdSRwTKJFQTzZZE9pDeXOvCqHNZF9Prop1WpEkGMn9ospwI1Fmu8zim
-	 o7lNghMJvrTJfci5uyrVn23jbII/k0isIO3P00EmwO9KGLVYWnKCkHv/q4lM3MTQ4T
-	 Stw+ynl55FHGkc39q8B7Ri1G8Q+IZ1KzhCaC+aVc=
+	b=oZHx4Y7Izp8sYA4lTnkSo/cJp4XjXIWSU5SscGEGmdIAn4sS8tNObRS/Z8MhHdxaA
+	 iJL/1dJcP4A5wZgVWhN/4qBg1VY+hBXXTbO1a/ygTOS423E4IWVu5zfa/7teE2XQ/H
+	 ioMbr2K6w3098ti3ZUOYqrXKDsGDmJK41U6VK6xo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40267F8036C;
-	Fri, 18 Oct 2019 08:01:52 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37CFAF80323;
+	Fri, 18 Oct 2019 08:17:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9D9DF804AA; Thu, 17 Oct 2019 16:38:19 +0200 (CEST)
+ id 3D65EF80362; Fri, 18 Oct 2019 08:17:35 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, FREEMAIL_FROM, HTML_MESSAGE, SPF_HELO_NONE, SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com
- [IPv6:2607:f8b0:4864:20::e43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EF0F0F80276
- for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 16:38:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF0F0F80276
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="aAX/lgCa"
-Received: by mail-vs1-xe43.google.com with SMTP id v19so1763370vsv.3
- for <alsa-devel@alsa-project.org>; Thu, 17 Oct 2019 07:38:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GbJAFcoHHqLY58vVrIGY0ohV7fj3YmZzesRhk43UItM=;
- b=aAX/lgCaqAHtJKrpo9L1Lu3lGxnVxyOZTpVe3LVEnn3LVjA4NWARsv0RVd8v0myXO7
- 8jKj9XA4IeKhCV2qMH4A8IBXJMjAlXk+h97P/zofxwus3EhG2jbgKh6H2hndUV6TTH+I
- sl/JStXAvKnC+wh7axv+kRgfx5hERmj1FFNOp0pfN8IditVibmHlcYIuurz6qE6553ZZ
- Keen26Ejj7IJoO5K1m0AnDYuFShjFnwPTsq3Kp36sib+mobm3t22K0p6p8y4jonhjLGS
- CIgOMqWLAYZG0vngcvFFbw+g/gCc9Oa2acxcLwPVIx8ZNcq7Q3BlEnU4/m8Nt8pUwT6b
- vFhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=GbJAFcoHHqLY58vVrIGY0ohV7fj3YmZzesRhk43UItM=;
- b=D1Xo5khAqXpe2SYOKJSOaFwG2ThGWBUXyjKCzyVeMAa6Esemta/nGUtYRfjd16Vy4D
- rgf3E0CF2WdL/u8lKrGDZsJzBF8zxLBTh/QY1R0YSwgo60/Ry3ZEuSy26eKEZRr17Jx8
- FaMnkagKnM9iJE+98et4y07FygBRFwTdI9xSbZOnCJQIIIeQiCOyiUXEXDqqC5qI+nMj
- DDPeoLBc9puX1HcuNW6VkW2p0Zc/9wS9kYrCIVy17BTHDKI5EYpBSX5We6ZlVO5tJdHd
- uQPDMHT11CvtCEKXZyiyn0xQz0Ue7QUxOL992r60M13Mv77rFwpFbLU93J/K+dHnwa1j
- vCfw==
-X-Gm-Message-State: APjAAAVCRNyK8o9jyx5gev+gEiIqA+Qwvn0u2EM5BbKgLHRTFQ1qFTCs
- VJQfhMPIFeUlPz7OrjiE4r6MkvPN75uojZ5Ycp8=
-X-Google-Smtp-Source: APXvYqwJLV1Fmemb/1yGdq+8Hu2BTLvAGrnHJHxGxXW4PW+XhkdnHuODXp137LMZHucaE1ubfewWtf/VyHa87YRjztk=
-X-Received: by 2002:a67:eb04:: with SMTP id a4mr2081129vso.146.1571323094135; 
- Thu, 17 Oct 2019 07:38:14 -0700 (PDT)
-MIME-Version: 1.0
-References: <20191011171937.8013-1-szszoke.code@gmail.com>
- <s5hftjriy1q.wl-tiwai@suse.de>
-In-Reply-To: <s5hftjriy1q.wl-tiwai@suse.de>
-From: =?UTF-8?Q?Szabolcs_Sz=C5=91ke?= <szszoke.code@gmail.com>
-Date: Thu, 17 Oct 2019 16:38:02 +0200
-Message-ID: <CAMuiEQhoGCVh_PKXsp0Ytn0XvXpWJW8PxH-DN3jK9VB8g-4YQQ@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-X-Mailman-Approved-At: Fri, 18 Oct 2019 08:01:49 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Ard van Breemen <ard@kwaak.net>, Manuel Reinhardt <manuel.rhdt@gmail.com>,
- Takashi Iwai <tiwai@suse.com>, Richard Fontana <rfontana@redhat.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Shuah Khan <shuah@kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Disable quirks for BOSS
-	Katana amplifiers
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6623BF800D0
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 08:17:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6623BF800D0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 25363ABC6;
+ Fri, 18 Oct 2019 06:17:31 +0000 (UTC)
+Date: Fri, 18 Oct 2019 08:17:30 +0200
+Message-ID: <s5hblueh91h.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: frederik@ofb.net
+In-Reply-To: <20191015155202.bqcqzvvpeesfvuwg@localhost>
+References: <20190904164706.gwjbcywbj7emnwvr@localhost>
+ <s5hv9u19x2f.wl-tiwai@suse.de>
+ <20190910173345.63bv2xa4vlkxicxj@localhost>
+ <365e4bcc033c151076140471225db51c80808b7f.camel@iki.fi>
+ <s5himprulnt.wl-tiwai@suse.de>
+ <e294e2985eda906be3c3625235cc28643208dab2.camel@iki.fi>
+ <s5hblvjukn6.wl-tiwai@suse.de>
+ <20190919211244.buu3d6ey4k2dxyul@localhost>
+ <7c81ae80233efb25b25f2d1f941e9c11acb3967b.camel@iki.fi>
+ <s5hh857o1ik.wl-tiwai@suse.de>
+ <20191015155202.bqcqzvvpeesfvuwg@localhost>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Tanu Kaskinen <tanuk@iki.fi>, alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] parameter for pulse device?
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,31 +74,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhhbmsgeW91IGZvciB5b3VyIGhlbHAhCgpEZW4gdG9ycyAxNyBva3QuIDIwMTkgMTA6MTlUYWth
-c2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+IHNrcmV2OgoKPiBPbiBGcmksIDExIE9jdCAyMDE5IDE5
-OjE5OjM2ICswMjAwLAo+IFN6YWJvbGNzIFN6xZFrZSB3cm90ZToKPiA+Cj4gPiBCT1NTIEthdGFu
-YSBhbXBsaWZpZXJzIGNhbm5vdCBiZSB1c2VkIGZvciByZWNvcmRpbmcgb3IgcGxheWJhY2sgaWYg
-cXVpcmtzCj4gPiBhcmUgYXBwbGllZAo+ID4KPiA+IEJ1Z0xpbms6IGh0dHBzOi8vYnVnemlsbGEu
-a2VybmVsLm9yZy9zaG93X2J1Zy5jZ2k/aWQ9MTk1MjIzCj4gPiBTaWduZWQtb2ZmLWJ5OiBTemFi
-b2xjcyBTesWRa2UgPHN6c3pva2UuY29kZUBnbWFpbC5jb20+Cj4KPiBBcHBsaWVkIG5vdy4gIFRo
-YW5rcy4KPgo+Cj4gVGFrYXNoaQo+Cj4gPgo+ID4gLS0tCj4gPiAgc291bmQvdXNiL3BjbS5jIHwg
-MyArKysKPiA+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspCj4gPgo+ID4gZGlmZiAt
-LWdpdCBhL3NvdW5kL3VzYi9wY20uYyBiL3NvdW5kL3VzYi9wY20uYwo+ID4gaW5kZXggMzNjZDI2
-NzYzYzBlLi5kYWFkYjBjNjZlZWUgMTAwNjQ0Cj4gPiAtLS0gYS9zb3VuZC91c2IvcGNtLmMKPiA+
-ICsrKyBiL3NvdW5kL3VzYi9wY20uYwo+ID4gQEAgLTM0OCw2ICszNDgsOSBAQCBzdGF0aWMgaW50
-IHNldF9zeW5jX2VwX2ltcGxpY2l0X2ZiX3F1aXJrKHN0cnVjdAo+IHNuZF91c2Jfc3Vic3RyZWFt
-ICpzdWJzLAo+ID4gICAgICAgICAgICAgICBlcCA9IDB4ODQ7Cj4gPiAgICAgICAgICAgICAgIGlm
-bnVtID0gMDsKPiA+ICAgICAgICAgICAgICAgZ290byBhZGRfc3luY19lcF9mcm9tX2lmbnVtOwo+
-ID4gKyAgICAgY2FzZSBVU0JfSUQoMHgwNTgyLCAweDAxZDgpOiAvKiBCT1NTIEthdGFuYSAqLwo+
-ID4gKyAgICAgICAgICAgICAvKiBCT1NTIEthdGFuYSBhbXBsaWZpZXJzIGRvIG5vdCBuZWVkIHF1
-aXJrcyAqLwo+ID4gKyAgICAgICAgICAgICByZXR1cm4gMDsKPiA+ICAgICAgIH0KPiA+Cj4gPiAg
-ICAgICBpZiAoYXR0ciA9PSBVU0JfRU5EUE9JTlRfU1lOQ19BU1lOQyAmJgo+ID4gLS0KPiA+IDIu
-MjAuMQo+ID4KPgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-XwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0
-cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVs
-Cg==
+On Tue, 15 Oct 2019 17:52:02 +0200,
+frederik@ofb.net wrote:
+> 
+> Dear Takashi,
+> 
+> I tested your patch, after commenting some lines in my ~/.asoundrc, and I can confirm that it works. I can now specify a pulse device to 'ecasound':
+> 
+>    ecasound -o alsa,pulse:music -i song.wav
+> 
+> and when I do it with no "DEVICE" argument, then it outputs to the sink defined by "pacmd set-default-sink":
+> 
+>    ecasound -o alsa,pulse -i song.wav
+> 
+> I guess this only exercises one of the cases in your patch where the empty string is recognized as NULL:
+> 
+> +			} else if (!*device) {
+> +				device = NULL;
+> 
+> Let me know if you want me to do more testing, and apologies for the long delay in my reply.
+
+OK, good to hear.  Now I applied the patch to git repo.
+
+
+thanks,
+
+Takashi
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

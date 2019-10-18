@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A39AADBDA3
-	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 08:24:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE373DBDA4
+	for <lists+alsa-devel@lfdr.de>; Fri, 18 Oct 2019 08:25:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D102168B;
-	Fri, 18 Oct 2019 08:23:44 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D102168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 741361654;
+	Fri, 18 Oct 2019 08:24:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 741361654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571379874;
-	bh=bcSRnvfcdPKtO9/SZo228d+jV/y/d87MIR2w7aUcE0k=;
+	s=default; t=1571379920;
+	bh=KLfqvZfQRL0jIFNh47DrYc/G52dKDlSOm3jBpsHFdH0=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pi5PyZdjyuEmrGEc/fOUERJcyevhYVHoy3hm8PAD9DOyzDTO6bcKZlvaHYOI0mi02
-	 e0sfBT+aKGK5yt4M3ReHRhyXP/+L+euHa1T6qTwOKZ0VxxrJwllCdqsOMDMhX6xRV4
-	 pNKocjlaWWYnh7v0ZKszNA0RLVEGKr3pfxJZmbhk=
+	b=hK/Zb5r8d/6klKTnveJRle9PV5i3c2kQVGmSilcDV5JuAAj/dxG9kREihc8Gv/UGd
+	 6DAATFecQRl3gvLC2VIJSXkxkUsKlvf6byyRxo/ZEPDCBNuWiFs2vHtzQHW6Yujpnk
+	 bxPDWA+2RuGaY0MAPdj0jUxgFEqaw3owvGyEiM9U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CAE4F8064C;
-	Fri, 18 Oct 2019 08:19:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5E41FF8065D;
+	Fri, 18 Oct 2019 08:19:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 37570F805FF; Fri, 18 Oct 2019 08:19:31 +0200 (CEST)
+ id 5F795F805FD; Fri, 18 Oct 2019 08:19:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,68 +35,67 @@ Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
  [64.147.123.19])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8EEB3F805F5
- for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 08:19:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8EEB3F805F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 142EBF80534
+ for <alsa-devel@alsa-project.org>; Fri, 18 Oct 2019 08:19:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 142EBF80534
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="Zsj64ytv"; 
+ header.b="UEPnb2ZZ"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="Fv+2Udsa"
+ header.i=@messagingengine.com header.b="ZLGD/kVl"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id C144B435;
- Fri, 18 Oct 2019 02:19:24 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 4983E3C2;
+ Fri, 18 Oct 2019 02:19:26 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Fri, 18 Oct 2019 02:19:25 -0400
+ by compute1.internal (MEProxy); Fri, 18 Oct 2019 02:19:26 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=4zlG53Fnbka4s
- oR2yyp017jEEawHxtg3AOAe3pxYXHU=; b=Zsj64ytvVb+q9k8afwFpt5zIcy8xd
- cSdmNrdZYTAa6GakbCQUMgXJI/iv1CfT4BS5qJ3HR5oqfbfW4vry231z+y6OyGt9
- YEES1sDL70J0HLrDvUCOwMmvwxmIgxxdQxH5lVLkkubPIMrlT8XjqIQrm33LyH1Y
- KXOdrvn3gA51BkUe/XUa+QycJUrpYMZSzl97z1vw7XfpA309wV43P8LIUVHgRJpC
- GBWVcmrYG6lMjEeejhG2+eyCVVOmpa0Iz8feRy25mGuB40wAPverkORQRi6oP1vl
- T8x1xI+c2tQ3+S05IOCncSsKj3Ho83ZrAMW529X5FG006PIlbEQQtOfXg==
+ :mime-version:content-transfer-encoding; s=fm2; bh=M+tdzcwzo4gAH
+ cWljbgFSZaKlKtUyhaHZtzBBvLzfMo=; b=UEPnb2ZZon1xyvIu8wtJNyaobf3C3
+ YmxStFLySfgK0NjdK0kv5zNZkLT4I9ZvKjYuG/x5zOM6LWRFyoJnwVsfhpLalGex
+ DqRCO+4v9wBC7bdZHpnZU5eGHQaA58c2ajVpNLyZ+olFuWcAZkNbAT5N/YOq2rDD
+ Hs0RoOBDHAcLkqQOu3dCgsjQiRCoyUCbxoCvQ1ycC23m8p0q5VORA6o2OjrZ7pAC
+ N6Z1oiIEu9bywfKRRS2R1WsZ2G6HpM3NRyax0vRVRUaZ+snBNITU410dGqraIuLi
+ Tv6B6UVQKfVR0Kmw99h7u4y2dDuRXL2u4rLCLkRjW+GrKZigCpbLk5TZQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=4zlG53Fnbka4soR2yyp017jEEawHxtg3AOAe3pxYXHU=; b=Fv+2Udsa
- JW9TIOpTBCZRV52LgerAQWGqwly9ENe8k2c+HC7/dHN8kMTvm7999VHSY/1MwVLg
- N/Id71f7vzPP0f+9su7Q2s7Ug6Wb7DF5byvd4DR63J3NgkDZ6K+kuhAKJv2HFa53
- piyrs91+SpvE0Gat343lLHA9KN1tQlKSSNHIdrqOKgZa5DYN7xRuR6/WKBGq6Amp
- 6FliA8XoQ7sa0HMsQ+8+qFHc88WyrlndNUl5sLIwDsFFvric+yI4fHb1wwjmXn04
- U6DVtITgBN7x+YnqLjo8OsOWYS5mbtSat/n22wwPdiBky1jyBWG+HW5AFcXODl8v
- 7qyi0CGdt8Hn4Q==
-X-ME-Sender: <xms:bFmpXR8DzL7_mUtM8TI28OhXGpYPNojhNWTDpGIoByiD8KlRIPYkhQ>
+ fm1; bh=M+tdzcwzo4gAHcWljbgFSZaKlKtUyhaHZtzBBvLzfMo=; b=ZLGD/kVl
+ rVQoW79mzjResS5enfCQ+W0EWDn2ZdZJc+H3A9RAmbPBvDbPx+40ISWjSQBGzqJ2
+ 7Z1F0VFrqRCoGah84aTG6JIIu/9iWSeVjV22p1woEzZcIyPEpsG6yyu3wm4sZlQh
+ K9tawzBZ4FJZdSexMjsWfPiq5f7XzT+LEJIi/g/PALO/IQKNelVTh5Ex6zWDf6aD
+ qZmOcszKJkxEmv0B9g+ccIF8OHmRtG0wdhspinkId121GAUJMUaGgXQdbCkTI+kh
+ FwcQYclP0VY0+sY0YNH/SG1VwvfPecegDCloIv3izmIZtyfIWKN1pRwBLa22Og8z
+ y5dabkbIUtUqRQ==
+X-ME-Sender: <xms:bVmpXVuOBnVuBu7SO8uX_f4Jwsf9iclPJ4TTExsaKoy0LihaBq6fXA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrjeekgddutdegucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuffhomhgrihhnpehrgidrvghvvghnth
- hsnecukfhppedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhmpeho
- qdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuihiivg
- eptd
-X-ME-Proxy: <xmx:bFmpXV0OR7gI0kN2d4jF0zuQjVT7iP-0fZcxDJPrgiUeiRerfNnUkg>
- <xmx:bFmpXc0Juys5nYDMSTZhGjRocc5ZrgTap-HNGfYBFA-XcwjkkkhW2w>
- <xmx:bFmpXZuZYgx2-i2mM8TGAL1P-ErASdwK1LMn6oStCS6qPjEukxFGbQ>
- <xmx:bFmpXQwKh8LpVyi0W6Y6FOax5pza-eXdBjm8iP41VB12wjZy2sRJwA>
+ shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedune
+ curfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghh
+ ihdrjhhpnecuvehluhhsthgvrhfuihiivgepge
+X-ME-Proxy: <xmx:bVmpXT9-Myjgiida1GIJkt7WSkS7-q9eqljIEzvvJYMosgbynLW9uQ>
+ <xmx:bVmpXRHyh8ewZSHpFLMkLjTXYjk8taMnr4T91_k08iCYueyhZrIUhA>
+ <xmx:bVmpXaQWwJnDGq3RCTitKzsdg5ewkFpkLn2UfuWzkp6w6P1ZZjtCRQ>
+ <xmx:bVmpXfAykJN7JZ3RYpCUmFwEoayTxnuSG31zr_dNUrPra9gKNmtc0A>
 Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
  [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id BC1198005B;
- Fri, 18 Oct 2019 02:19:22 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7311380065;
+ Fri, 18 Oct 2019 02:19:24 -0400 (EDT)
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: clemens@ladisch.de,
 	tiwai@suse.de
-Date: Fri, 18 Oct 2019 15:19:10 +0900
-Message-Id: <20191018061911.24909-6-o-takashi@sakamocchi.jp>
+Date: Fri, 18 Oct 2019 15:19:11 +0900
+Message-Id: <20191018061911.24909-7-o-takashi@sakamocchi.jp>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191018061911.24909-1-o-takashi@sakamocchi.jp>
 References: <20191018061911.24909-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 5/6] ALSA: firewire-lib: handle several AMDTP
-	streams in callback handler of IRQ target
+Subject: [alsa-devel] [PATCH 6/6] ALSA: firewire-lib: postpone to start IR
+	context
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,389 +113,317 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit changes AMDTP domain to run on an IT context of 1394 OHCI as
-IRQ target. No hardware interrupt is scheduled for the other isoc
-contexts. All of the isoc context are processed in a callback for an isoc
-context of IRQ target.
+Some devices have a quirk to postpone transmission of isoc packet for
+several dozen or hundred isoc cycles since configured to transmit.
+Furthermore, some devices have a quirk to transmit isoc packet with
+discontinued data of its header.
 
-The IRQ target is automatically selected from a list of AMDTP streams,
-thus users of AMDTP domain should add an AMDTP stream for IT context
-at least.
+In 1394 OHCI specification, software allows to start isoc context with
+certain isoc cycle. Linux firewire subsystem has kernel API to use it
+as well.
 
-The reason to select IT context as IRQ target is that the IT context
-runs on local 1394 OHCI controller and it can be used as reliable,
-constant IRQ generator. On the other hand, IR context can include skip
-cycle according to isoc packet transferred by device.
+This commit uses the functionality of 1394 OHCI controller to handle
+the quirks. At present, this feature is convenient to ALSA bebob and
+fireface driver. As a result, some devices can be safely handled, as
+long as I know:
+ - MAudio FireWire solo
+ - MAudio ProFire Lightbridge
+ - MAudio FireWire 410
+ - Roland FA-66
 
 Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 ---
- sound/firewire/amdtp-stream.c | 179 ++++++++++++++++++++++++++--------
- sound/firewire/amdtp-stream.h |   7 +-
- 2 files changed, 140 insertions(+), 46 deletions(-)
+ sound/firewire/amdtp-stream.c               | 79 +++++++++++++++++++--
+ sound/firewire/amdtp-stream.h               |  2 +-
+ sound/firewire/bebob/bebob_stream.c         | 10 ++-
+ sound/firewire/dice/dice-stream.c           |  2 +-
+ sound/firewire/digi00x/digi00x-stream.c     |  2 +-
+ sound/firewire/fireface/ff-stream.c         | 10 ++-
+ sound/firewire/fireworks/fireworks_stream.c |  2 +-
+ sound/firewire/motu/motu-stream.c           |  2 +-
+ sound/firewire/oxfw/oxfw-stream.c           |  2 +-
+ sound/firewire/tascam/tascam-stream.c       |  2 +-
+ 10 files changed, 98 insertions(+), 15 deletions(-)
 
 diff --git a/sound/firewire/amdtp-stream.c b/sound/firewire/amdtp-stream.c
-index 36c3f1f9dbff..48be31eae9a5 100644
+index 48be31eae9a5..37d38efb4c87 100644
 --- a/sound/firewire/amdtp-stream.c
 +++ b/sound/firewire/amdtp-stream.c
-@@ -482,13 +482,13 @@ static inline int queue_out_packet(struct amdtp_stream *s,
- }
- 
- static inline int queue_in_packet(struct amdtp_stream *s,
--				  struct fw_iso_packet *params, bool sched_irq)
-+				  struct fw_iso_packet *params)
- {
- 	// Queue one packet for IR context.
- 	params->header_length = s->ctx_data.tx.ctx_header_size;
- 	params->payload_length = s->ctx_data.tx.max_ctx_payload_length;
- 	params->skip = false;
--	return queue_packet(s, params, sched_irq);
-+	return queue_packet(s, params, false);
- }
- 
- static void generate_cip_header(struct amdtp_stream *s, __be32 cip_header[2],
-@@ -790,15 +790,24 @@ static void process_ctx_payloads(struct amdtp_stream *s,
- 		update_pcm_pointers(s, pcm, pcm_frames);
- }
- 
-+static void amdtp_stream_master_callback(struct fw_iso_context *context,
-+					 u32 tstamp, size_t header_length,
-+					 void *header, void *private_data);
-+
-+static void amdtp_stream_master_first_callback(struct fw_iso_context *context,
-+					u32 tstamp, size_t header_length,
-+					void *header, void *private_data);
-+
- static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 				size_t header_length, void *header,
- 				void *private_data)
- {
- 	struct amdtp_stream *s = private_data;
- 	const __be32 *ctx_header = header;
--	unsigned int events_per_period = s->events_per_period;
--	unsigned int event_count = s->event_count;
-+	unsigned int events_per_period = s->ctx_data.rx.events_per_period;
-+	unsigned int event_count = s->ctx_data.rx.event_count;
- 	unsigned int packets;
-+	bool is_irq_target;
- 	int i;
- 
- 	if (s->packet_index < 0)
-@@ -811,6 +820,10 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 
- 	process_ctx_payloads(s, s->pkt_descs, packets);
- 
-+	is_irq_target =
-+		!!(context->callback.sc == amdtp_stream_master_callback ||
-+		   context->callback.sc == amdtp_stream_master_first_callback);
-+
- 	for (i = 0; i < packets; ++i) {
- 		const struct pkt_desc *desc = s->pkt_descs + i;
- 		unsigned int syt;
-@@ -829,10 +842,12 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 				    desc->data_blocks, desc->data_block_counter,
- 				    syt, i);
- 
--		event_count += desc->data_blocks;
--		if (event_count >= events_per_period) {
--			event_count -= events_per_period;
--			sched_irq = true;
-+		if (is_irq_target) {
-+			event_count += desc->data_blocks;
-+			if (event_count >= events_per_period) {
-+				event_count -= events_per_period;
-+				sched_irq = true;
-+			}
- 		}
- 
- 		if (queue_out_packet(s, &template.params, sched_irq) < 0) {
-@@ -841,7 +856,7 @@ static void out_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 		}
- 	}
- 
--	s->event_count = event_count;
-+	s->ctx_data.rx.event_count = event_count;
- }
- 
- static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
-@@ -850,8 +865,6 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
- {
- 	struct amdtp_stream *s = private_data;
- 	__be32 *ctx_header = header;
--	unsigned int events_per_period = s->events_per_period;
--	unsigned int event_count = s->event_count;
- 	unsigned int packets;
- 	int i;
- 	int err;
-@@ -873,31 +886,47 @@ static void in_stream_callback(struct fw_iso_context *context, u32 tstamp,
- 	}
- 
- 	for (i = 0; i < packets; ++i) {
--		const struct pkt_desc *desc = s->pkt_descs + i;
- 		struct fw_iso_packet params = {0};
--		bool sched_irq = false;
--
--		if (err >= 0) {
--			event_count += desc->data_blocks;
--			if (event_count >= events_per_period) {
--				event_count -= events_per_period;
--				sched_irq = true;
--			}
--		} else {
--			sched_irq =
--				!((s->packet_index + 1) % s->idle_irq_interval);
--		}
- 
--		if (queue_in_packet(s, &params, sched_irq) < 0) {
-+		if (queue_in_packet(s, &params) < 0) {
- 			cancel_stream(s);
- 			return;
- 		}
- 	}
-+}
-+
-+static void amdtp_stream_master_callback(struct fw_iso_context *context,
-+					 u32 tstamp, size_t header_length,
-+					 void *header, void *private_data)
-+{
-+	struct amdtp_domain *d = private_data;
-+	struct amdtp_stream *irq_target = d->irq_target;
-+	struct amdtp_stream *s;
-+
-+	out_stream_callback(context, tstamp, header_length, header, irq_target);
-+	if (amdtp_streaming_error(irq_target))
-+		goto error;
- 
--	s->event_count = event_count;
-+	list_for_each_entry(s, &d->streams, list) {
-+		if (s != irq_target && amdtp_stream_running(s)) {
-+			fw_iso_context_flush_completions(s->context);
-+			if (amdtp_streaming_error(s))
-+				goto error;
-+		}
-+	}
-+
-+	return;
-+error:
-+	if (amdtp_stream_running(irq_target))
-+		cancel_stream(irq_target);
-+
-+	list_for_each_entry(s, &d->streams, list) {
-+		if (amdtp_stream_running(s))
-+			cancel_stream(s);
-+	}
- }
- 
--/* this is executed one time */
-+// this is executed one time.
- static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 					u32 tstamp, size_t header_length,
- 					void *header, void *private_data)
-@@ -928,18 +957,39 @@ static void amdtp_stream_first_callback(struct fw_iso_context *context,
- 	context->callback.sc(context, tstamp, header_length, header, s);
- }
- 
-+static void amdtp_stream_master_first_callback(struct fw_iso_context *context,
-+					       u32 tstamp, size_t header_length,
-+					       void *header, void *private_data)
-+{
-+	struct amdtp_domain *d = private_data;
-+	struct amdtp_stream *s = d->irq_target;
-+	const __be32 *ctx_header = header;
-+
-+	s->callbacked = true;
-+	wake_up(&s->callback_wait);
-+
-+	s->start_cycle = compute_it_cycle(*ctx_header, s->queue_size);
-+
-+	context->callback.sc = amdtp_stream_master_callback;
-+
-+	context->callback.sc(context, tstamp, header_length, header, d);
-+}
-+
- /**
-  * amdtp_stream_start - start transferring packets
-  * @s: the AMDTP stream to start
-  * @channel: the isochronous channel on the bus
-  * @speed: firewire speed code
-+ * @d: the AMDTP domain to which the AMDTP stream belongs
-+ * @is_irq_target: whether isoc context for the AMDTP stream is used to generate
-+ *		   hardware IRQ.
+@@ -9,6 +9,7 @@
+ #include <linux/device.h>
+ #include <linux/err.h>
+ #include <linux/firewire.h>
++#include <linux/firewire-constants.h>
+ #include <linux/module.h>
+ #include <linux/slab.h>
+ #include <sound/pcm.h>
+@@ -983,13 +984,16 @@ static void amdtp_stream_master_first_callback(struct fw_iso_context *context,
+  * @d: the AMDTP domain to which the AMDTP stream belongs
+  * @is_irq_target: whether isoc context for the AMDTP stream is used to generate
+  *		   hardware IRQ.
++ * @start_cycle: the isochronous cycle to start the context. Start immediately
++ *		 if negative value is given.
   *
   * The stream cannot be started until it has been configured with
   * amdtp_stream_set_parameters() and it must be started before any PCM or MIDI
   * device can be started.
   */
  static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
--			      struct amdtp_domain *d)
-+			      struct amdtp_domain *d, bool is_irq_target)
+-			      struct amdtp_domain *d, bool is_irq_target)
++			      struct amdtp_domain *d, bool is_irq_target,
++			      int start_cycle)
  {
  	static const struct {
  		unsigned int data_block;
-@@ -955,10 +1005,13 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
- 	};
- 	unsigned int events_per_buffer = d->events_per_buffer;
- 	unsigned int events_per_period = d->events_per_period;
-+	unsigned int idle_irq_interval;
- 	unsigned int ctx_header_size;
- 	unsigned int max_ctx_payload_size;
- 	enum dma_data_direction dir;
- 	int type, tag, err;
-+	fw_iso_callback_t ctx_cb;
-+	void *ctx_data;
+@@ -1146,7 +1150,7 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
+ 		tag |= FW_ISO_CONTEXT_MATCH_TAG0;
  
- 	mutex_lock(&s->mutex);
- 
-@@ -969,6 +1022,12 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
- 	}
- 
- 	if (s->direction == AMDTP_IN_STREAM) {
-+		// NOTE: IT context should be used for constant IRQ.
-+		if (is_irq_target) {
-+			err = -EINVAL;
-+			goto err_unlock;
-+		}
-+
- 		s->data_block_counter = UINT_MAX;
- 	} else {
- 		entry = &initial_state[s->sfc];
-@@ -1008,22 +1067,29 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
- 	if (events_per_buffer == 0)
- 		events_per_buffer = events_per_period * 3;
- 
--	s->idle_irq_interval =
--			DIV_ROUND_UP(CYCLES_PER_SECOND * events_per_period,
--				     amdtp_rate_table[s->sfc]);
-+	idle_irq_interval = DIV_ROUND_UP(CYCLES_PER_SECOND * events_per_period,
-+					 amdtp_rate_table[s->sfc]);
- 	s->queue_size = DIV_ROUND_UP(CYCLES_PER_SECOND * events_per_buffer,
- 				     amdtp_rate_table[s->sfc]);
--	s->events_per_period = events_per_period;
--	s->event_count = 0;
- 
- 	err = iso_packets_buffer_init(&s->buffer, s->unit, s->queue_size,
- 				      max_ctx_payload_size, dir);
+ 	s->callbacked = false;
+-	err = fw_iso_context_start(s->context, -1, 0, tag);
++	err = fw_iso_context_start(s->context, start_cycle, 0, tag);
  	if (err < 0)
- 		goto err_unlock;
+ 		goto err_pkt_descs;
  
-+	if (is_irq_target) {
-+		s->ctx_data.rx.events_per_period = events_per_period;
-+		s->ctx_data.rx.event_count = 0;
-+		ctx_cb = amdtp_stream_master_first_callback;
-+		ctx_data = d;
-+	} else {
-+		ctx_cb = amdtp_stream_first_callback;
-+		ctx_data = s;
-+	}
+@@ -1339,14 +1343,40 @@ int amdtp_domain_add_stream(struct amdtp_domain *d, struct amdtp_stream *s,
+ }
+ EXPORT_SYMBOL_GPL(amdtp_domain_add_stream);
+ 
++static int get_current_cycle_time(struct fw_card *fw_card, int *cur_cycle)
++{
++	int generation;
++	int rcode;
++	__be32 reg;
++	u32 data;
 +
- 	s->context = fw_iso_context_create(fw_parent_device(s->unit)->card,
- 					  type, channel, speed, ctx_header_size,
--					  amdtp_stream_first_callback, s);
-+					  ctx_cb, ctx_data);
- 	if (IS_ERR(s->context)) {
- 		err = PTR_ERR(s->context);
- 		if (err == -EBUSY)
-@@ -1054,14 +1120,20 @@ static int amdtp_stream_start(struct amdtp_stream *s, int channel, int speed,
- 	s->packet_index = 0;
- 	do {
- 		struct fw_iso_packet params;
--		bool sched_irq;
- 
--		sched_irq = !((s->packet_index + 1) % s->idle_irq_interval);
- 		if (s->direction == AMDTP_IN_STREAM) {
--			err = queue_in_packet(s, &params, sched_irq);
-+			err = queue_in_packet(s, &params);
- 		} else {
-+			bool sched_irq = false;
++	// This is a request to local 1394 OHCI controller and expected to
++	// complete without any event waiting.
++	generation = fw_card->generation;
++	smp_rmb();	// node_id vs. generation.
++	rcode = fw_run_transaction(fw_card, TCODE_READ_QUADLET_REQUEST,
++				   fw_card->node_id, generation, SCODE_100,
++				   CSR_REGISTER_BASE + CSR_CYCLE_TIME,
++				   &reg, sizeof(reg));
++	if (rcode != RCODE_COMPLETE)
++		return -EIO;
 +
- 			params.header_length = 0;
- 			params.payload_length = 0;
-+
-+			if (is_irq_target) {
-+				sched_irq = !((s->packet_index + 1) %
-+					      idle_irq_interval);
-+			}
-+
- 			err = queue_out_packet(s, &params, sched_irq);
- 		}
- 		if (err < 0)
-@@ -1276,17 +1348,33 @@ int amdtp_domain_start(struct amdtp_domain *d)
- 	struct amdtp_stream *s;
- 	int err = 0;
- 
-+	// Select an IT context as IRQ target.
- 	list_for_each_entry(s, &d->streams, list) {
--		err = amdtp_stream_start(s, s->channel, s->speed, d);
--		if (err < 0)
-+		if (s->direction == AMDTP_OUT_STREAM)
- 			break;
- 	}
-+	if (!s)
-+		return -ENXIO;
-+	d->irq_target = s;
- 
--	if (err < 0) {
--		list_for_each_entry(s, &d->streams, list)
--			amdtp_stream_stop(s);
-+	list_for_each_entry(s, &d->streams, list) {
-+		if (s != d->irq_target) {
-+			err = amdtp_stream_start(s, s->channel, s->speed, d,
-+						 false);
-+			if (err < 0)
-+				goto error;
-+		}
- 	}
- 
-+	s = d->irq_target;
-+	err = amdtp_stream_start(s, s->channel, s->speed, d, true);
-+	if (err < 0)
-+		goto error;
++	data = be32_to_cpu(reg);
++	*cur_cycle = data >> 12;
 +
 +	return 0;
-+error:
-+	list_for_each_entry(s, &d->streams, list)
-+		amdtp_stream_stop(s);
- 	return err;
- }
- EXPORT_SYMBOL_GPL(amdtp_domain_start);
-@@ -1299,12 +1387,17 @@ void amdtp_domain_stop(struct amdtp_domain *d)
- {
- 	struct amdtp_stream *s, *next;
- 
-+	if (d->irq_target)
-+		amdtp_stream_stop(d->irq_target);
++}
 +
- 	list_for_each_entry_safe(s, next, &d->streams, list) {
- 		list_del(&s->list);
+ /**
+  * amdtp_domain_start - start sending packets for isoc context in the domain.
+  * @d: the AMDTP domain.
++ * @ir_delay_cycle: the cycle delay to start all IR contexts.
+  */
+-int amdtp_domain_start(struct amdtp_domain *d)
++int amdtp_domain_start(struct amdtp_domain *d, unsigned int ir_delay_cycle)
+ {
+ 	struct amdtp_stream *s;
+-	int err = 0;
++	int cycle;
++	int err;
  
--		amdtp_stream_stop(s);
-+		if (s != d->irq_target)
-+			amdtp_stream_stop(s);
+ 	// Select an IT context as IRQ target.
+ 	list_for_each_entry(s, &d->streams, list) {
+@@ -1357,17 +1387,54 @@ int amdtp_domain_start(struct amdtp_domain *d)
+ 		return -ENXIO;
+ 	d->irq_target = s;
+ 
++	if (ir_delay_cycle > 0) {
++		struct fw_card *fw_card = fw_parent_device(s->unit)->card;
++
++		err = get_current_cycle_time(fw_card, &cycle);
++		if (err < 0)
++			return err;
++
++		// No need to care overflow in cycle field because of enough
++		// width.
++		cycle += ir_delay_cycle;
++
++		// Round up to sec field.
++		if ((cycle & 0x00001fff) >= CYCLES_PER_SECOND) {
++			unsigned int sec;
++
++			// The sec field can overflow.
++			sec = (cycle & 0xffffe000) >> 13;
++			cycle = (++sec << 13) |
++				((cycle & 0x00001fff) / CYCLES_PER_SECOND);
++		}
++
++		// In OHCI 1394 specification, lower 2 bits are available for
++		// sec field.
++		cycle &= 0x00007fff;
++	} else {
++		cycle = -1;
++	}
++
+ 	list_for_each_entry(s, &d->streams, list) {
++		int cycle_match;
++
++		if (s->direction == AMDTP_IN_STREAM) {
++			cycle_match = cycle;
++		} else {
++			// IT context starts immediately.
++			cycle_match = -1;
++		}
++
+ 		if (s != d->irq_target) {
+ 			err = amdtp_stream_start(s, s->channel, s->speed, d,
+-						 false);
++						 false, cycle_match);
+ 			if (err < 0)
+ 				goto error;
+ 		}
  	}
  
- 	d->events_per_period = 0;
-+	d->irq_target = NULL;
- }
- EXPORT_SYMBOL_GPL(amdtp_domain_stop);
+ 	s = d->irq_target;
+-	err = amdtp_stream_start(s, s->channel, s->speed, d, true);
++	err = amdtp_stream_start(s, s->channel, s->speed, d, true, -1);
+ 	if (err < 0)
+ 		goto error;
+ 
 diff --git a/sound/firewire/amdtp-stream.h b/sound/firewire/amdtp-stream.h
-index 470e77ca0061..c4bde69c2d4f 100644
+index c4bde69c2d4f..f2d44e2dc3c8 100644
 --- a/sound/firewire/amdtp-stream.h
 +++ b/sound/firewire/amdtp-stream.h
-@@ -143,11 +143,12 @@ struct amdtp_stream {
- 			// To generate CIP header.
- 			unsigned int fdf;
- 			int syt_override;
-+
-+			// To generate constant hardware IRQ.
-+			unsigned int event_count;
-+			unsigned int events_per_period;
- 		} rx;
- 	} ctx_data;
--	unsigned int event_count;
--	unsigned int events_per_period;
--	unsigned int idle_irq_interval;
+@@ -288,7 +288,7 @@ void amdtp_domain_destroy(struct amdtp_domain *d);
+ int amdtp_domain_add_stream(struct amdtp_domain *d, struct amdtp_stream *s,
+ 			    int channel, int speed);
  
- 	/* For CIP headers. */
- 	unsigned int source_node_id_field;
+-int amdtp_domain_start(struct amdtp_domain *d);
++int amdtp_domain_start(struct amdtp_domain *d, unsigned int ir_delay_cycle);
+ void amdtp_domain_stop(struct amdtp_domain *d);
+ 
+ static inline int amdtp_domain_set_events_per_period(struct amdtp_domain *d,
+diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
+index 5e4a61458be2..7ac0d9f495c4 100644
+--- a/sound/firewire/bebob/bebob_stream.c
++++ b/sound/firewire/bebob/bebob_stream.c
+@@ -658,7 +658,15 @@ int snd_bebob_stream_start_duplex(struct snd_bebob *bebob)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		err = amdtp_domain_start(&bebob->domain);
++		// The device postpones start of transmission mostly for 1 sec
++		// after receives packets firstly. For safe, IR context starts
++		// 1.5 sec (=12000 cycles) later. This is within 2.0 sec
++		// (=CALLBACK_TIMEOUT).
++		// Furthermore, some devices transfer isoc packets with
++		// discontinuous counter in the beginning of packet streaming.
++		// The delay has an effect to avoid detection of this
++		// discontinuity.
++		err = amdtp_domain_start(&bebob->domain, 12000);
+ 		if (err < 0)
+ 			goto error;
+ 
+diff --git a/sound/firewire/dice/dice-stream.c b/sound/firewire/dice/dice-stream.c
+index 0cff346e8052..6a3d60913e10 100644
+--- a/sound/firewire/dice/dice-stream.c
++++ b/sound/firewire/dice/dice-stream.c
+@@ -462,7 +462,7 @@ int snd_dice_stream_start_duplex(struct snd_dice *dice)
+ 			goto error;
+ 		}
+ 
+-		err = amdtp_domain_start(&dice->domain);
++		err = amdtp_domain_start(&dice->domain, 0);
+ 		if (err < 0)
+ 			goto error;
+ 
+diff --git a/sound/firewire/digi00x/digi00x-stream.c b/sound/firewire/digi00x/digi00x-stream.c
+index 0c539188ba18..405d6903bfbc 100644
+--- a/sound/firewire/digi00x/digi00x-stream.c
++++ b/sound/firewire/digi00x/digi00x-stream.c
+@@ -375,7 +375,7 @@ int snd_dg00x_stream_start_duplex(struct snd_dg00x *dg00x)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		err = amdtp_domain_start(&dg00x->domain);
++		err = amdtp_domain_start(&dg00x->domain, 0);
+ 		if (err < 0)
+ 			goto error;
+ 
+diff --git a/sound/firewire/fireface/ff-stream.c b/sound/firewire/fireface/ff-stream.c
+index a13754f914e8..63b79c4a5405 100644
+--- a/sound/firewire/fireface/ff-stream.c
++++ b/sound/firewire/fireface/ff-stream.c
+@@ -184,6 +184,7 @@ int snd_ff_stream_start_duplex(struct snd_ff *ff, unsigned int rate)
+ 	 */
+ 	if (!amdtp_stream_running(&ff->rx_stream)) {
+ 		int spd = fw_parent_device(ff->unit)->max_speed;
++		unsigned int ir_delay_cycle;
+ 
+ 		err = ff->spec->protocol->begin_session(ff, rate);
+ 		if (err < 0)
+@@ -199,7 +200,14 @@ int snd_ff_stream_start_duplex(struct snd_ff *ff, unsigned int rate)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		err = amdtp_domain_start(&ff->domain);
++		// The device postpones start of transmission mostly for several
++		// cycles after receiving packets firstly.
++		if (ff->spec->protocol == &snd_ff_protocol_ff800)
++			ir_delay_cycle = 800;	// = 100 msec
++		else
++			ir_delay_cycle = 16;	// = 2 msec
++
++		err = amdtp_domain_start(&ff->domain, ir_delay_cycle);
+ 		if (err < 0)
+ 			goto error;
+ 
+diff --git a/sound/firewire/fireworks/fireworks_stream.c b/sound/firewire/fireworks/fireworks_stream.c
+index f35a33d4d4e6..2206af0fef42 100644
+--- a/sound/firewire/fireworks/fireworks_stream.c
++++ b/sound/firewire/fireworks/fireworks_stream.c
+@@ -272,7 +272,7 @@ int snd_efw_stream_start_duplex(struct snd_efw *efw)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		err = amdtp_domain_start(&efw->domain);
++		err = amdtp_domain_start(&efw->domain, 0);
+ 		if (err < 0)
+ 			goto error;
+ 
+diff --git a/sound/firewire/motu/motu-stream.c b/sound/firewire/motu/motu-stream.c
+index 9975770c9b1f..a17ddceb1bec 100644
+--- a/sound/firewire/motu/motu-stream.c
++++ b/sound/firewire/motu/motu-stream.c
+@@ -260,7 +260,7 @@ int snd_motu_stream_start_duplex(struct snd_motu *motu)
+ 		if (err < 0)
+ 			goto stop_streams;
+ 
+-		err = amdtp_domain_start(&motu->domain);
++		err = amdtp_domain_start(&motu->domain, 0);
+ 		if (err < 0)
+ 			goto stop_streams;
+ 
+diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
+index 995e9c5bd84b..501a80094bf7 100644
+--- a/sound/firewire/oxfw/oxfw-stream.c
++++ b/sound/firewire/oxfw/oxfw-stream.c
+@@ -355,7 +355,7 @@ int snd_oxfw_stream_start_duplex(struct snd_oxfw *oxfw)
+ 			}
+ 		}
+ 
+-		err = amdtp_domain_start(&oxfw->domain);
++		err = amdtp_domain_start(&oxfw->domain, 0);
+ 		if (err < 0)
+ 			goto error;
+ 
+diff --git a/sound/firewire/tascam/tascam-stream.c b/sound/firewire/tascam/tascam-stream.c
+index a9b3b7eb6d21..eb07e1decf9b 100644
+--- a/sound/firewire/tascam/tascam-stream.c
++++ b/sound/firewire/tascam/tascam-stream.c
+@@ -473,7 +473,7 @@ int snd_tscm_stream_start_duplex(struct snd_tscm *tscm, unsigned int rate)
+ 		if (err < 0)
+ 			goto error;
+ 
+-		err = amdtp_domain_start(&tscm->domain);
++		err = amdtp_domain_start(&tscm->domain, 0);
+ 		if (err < 0)
+ 			return err;
+ 
 -- 
 2.20.1
 

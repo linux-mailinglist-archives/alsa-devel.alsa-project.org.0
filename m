@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2BE61DF4A5
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 20:02:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E81DF4B2
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 20:04:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81F2B1666;
-	Mon, 21 Oct 2019 20:01:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81F2B1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0561B167D;
+	Mon, 21 Oct 2019 20:03:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0561B167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571680957;
-	bh=5bdbS9H4Yg0PoY9Gknrm6U9d8v4KqoDPh28EQlyKfQA=;
+	s=default; t=1571681063;
+	bh=Q23X7ILypoHK8Kc3hN5kOQSGIrJi8WGBn0kwNsu21fw=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Sgvm2lHz7oJlIVqvR3Vx/as1Pu4sr8xhNx7CMOHLWRGOCtAOdcx9tTZlKFvqrlbsO
-	 BkWKjZN6pgpWGuxQ4ab3CRv8Er/Chyd5y5PsVTj1y/D/1WKmAXYnZM1Fm+mx1qVHEv
-	 HDUzHqIm/w9Gm4xG8NrkSIlWWjF8H4V6rTXce2Cs=
+	b=oXeVe6QQLm3lFHqba3T86PcD2GnAT+r/3iUvNB27Uo1LFyvLyYje6G5kDFHQyBCFy
+	 wZZGvMpSNRadqFXHC20dGTuijpbUsHIoAN8HaciSMMhaKGpW5inM9EGk86eWpjzzRO
+	 X5btLjm8LcuDU5SBuRmCraOeZ78HXnskki4JUqrI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DAA7F805FA;
-	Mon, 21 Oct 2019 20:00:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF021F80610;
+	Mon, 21 Oct 2019 20:01:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8C36F805FA; Mon, 21 Oct 2019 20:00:49 +0200 (CEST)
+ id EC7F7F805FC; Mon, 21 Oct 2019 20:00:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1951CF80321
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 20:00:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1951CF80321
+ by alsa1.perex.cz (Postfix) with ESMTPS id 74F6FF80112
+ for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 20:00:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74F6FF80112
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="AwInmsLe"
+ header.b="QyljPhLY"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=R1wNsuJ7ESRTQUjTXu6r49W11fxuXeN68GOMgzcvdKA=; b=AwInmsLea4Ij
- IO0+hVvTOWkoISFEwPApXDQw+NygZ8dAjLy+TdKboGwHHKT3PbJiOgvYPcgVYrm6ztiUmLBsjTCzL
- YnVYc7satHbM5juStbDYnJP/vkMhUQVzm1kRM+qpdFGFss6aCplP6t6FZlcxZJdbuZx6+jNdRBjA3
- SRL2Q=;
+ List-Archive; bh=xMWoIJdZy/ZyyfYXw7AoTxf+0fkApz8RfT37Qdj1H9Q=; b=QyljPhLY6uvF
+ VTGSuJ6YbBA/L7LvYh9AidCqFA1UMX2e6H3CY8KTWlHzCTiA0t93wXhwSzC3Vl+lHMZsVcfT53rFe
+ 1agTLWIXAUnv8m8OQBn+QNBax+FAP3LJV7TQY98tAlNevhfkY78CvtBwfmFCchGCS+Q17UuCFh5gU
+ tlfJ0=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iMbz3-0004bJ-Tq; Mon, 21 Oct 2019 18:00:46 +0000
+ id 1iMbz4-0004bN-BS; Mon, 21 Oct 2019 18:00:46 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 4536D2743021; Mon, 21 Oct 2019 19:00:45 +0100 (BST)
+ id B97EE2743297; Mon, 21 Oct 2019 19:00:45 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
 To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20191019143504.4.Ibf012d0cd8679d846213606dc5f426aea1ff590a@changeid>
+In-Reply-To: <20191019143504.2.I57266d36564f393e9d701c9db648cc2efb0346fc@changeid>
 X-Patchwork-Hint: ignore
-Message-Id: <20191021180045.4536D2743021@ypsilon.sirena.org.uk>
+Message-Id: <20191021180045.B97EE2743297@ypsilon.sirena.org.uk>
 Date: Mon, 21 Oct 2019 19:00:45 +0100 (BST)
 Cc: gwendal@google.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  cychiang@google.com, drinkcat@google.com, robh+dt@kernel.org,
  tzungbi@google.com, Mark Brown <broonie@kernel.org>,
  enric.balletbo@collabora.com, bleung@google.com, dgreid@google.com
-Subject: [alsa-devel] Applied "ASoC: mediatek: mt8183: support WoV" to the
+Subject: [alsa-devel] Applied "ASoC: mediatek: mt6358: support WoV" to the
 	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -90,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: mediatek: mt8183: support WoV
+   ASoC: mediatek: mt6358: support WoV
 
 has been applied to the asoc tree at
 
@@ -115,156 +115,150 @@ to this mail.
 Thanks,
 Mark
 
-From 2cc3cd5fdc8ba07ba590204a3a6f6d16289d25e5 Mon Sep 17 00:00:00 2001
+From 8e8c533b132ad0ce9c99a50ff4c910a8dd7efb8e Mon Sep 17 00:00:00 2001
 From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Sat, 19 Oct 2019 15:02:54 +0800
-Subject: [PATCH] ASoC: mediatek: mt8183: support WoV
+Date: Sat, 19 Oct 2019 15:02:52 +0800
+Subject: [PATCH] ASoC: mediatek: mt6358: support WoV
 
-Add DAI link and pin muxing for wake on voice.
+Switch mono DMIC on to support wake-on-voice.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-Link: https://lore.kernel.org/r/20191019143504.4.Ibf012d0cd8679d846213606dc5f426aea1ff590a@changeid
+Link: https://lore.kernel.org/r/20191019143504.2.I57266d36564f393e9d701c9db648cc2efb0346fc@changeid
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/mediatek/Kconfig                    |  1 +
- .../mt8183/mt8183-mt6358-ts3a227-max98357.c   | 70 ++++++++++++++++++-
- 2 files changed, 68 insertions(+), 3 deletions(-)
+ sound/soc/codecs/mt6358.c | 105 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 105 insertions(+)
 
-diff --git a/sound/soc/mediatek/Kconfig b/sound/soc/mediatek/Kconfig
-index 111e44b64b38..8b29f3979899 100644
---- a/sound/soc/mediatek/Kconfig
-+++ b/sound/soc/mediatek/Kconfig
-@@ -125,6 +125,7 @@ config SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A
- 	select SND_SOC_MAX98357A
- 	select SND_SOC_BT_SCO
- 	select SND_SOC_TS3A227E
-+	select SND_SOC_CROS_EC_CODEC
- 	help
- 	  This adds ASoC driver for Mediatek MT8183 boards
- 	  with the MT6358 TS3A227E MAX98357A audio codec.
-diff --git a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-index bb9cdc0d6552..0555f7d73d05 100644
---- a/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-+++ b/sound/soc/mediatek/mt8183/mt8183-mt6358-ts3a227-max98357.c
-@@ -19,11 +19,12 @@ enum PINCTRL_PIN_STATE {
- 	PIN_STATE_DEFAULT = 0,
- 	PIN_TDM_OUT_ON,
- 	PIN_TDM_OUT_OFF,
-+	PIN_WOV,
- 	PIN_STATE_MAX
- };
+diff --git a/sound/soc/codecs/mt6358.c b/sound/soc/codecs/mt6358.c
+index bb737fd678cc..1b830ea4f6ed 100644
+--- a/sound/soc/codecs/mt6358.c
++++ b/sound/soc/codecs/mt6358.c
+@@ -93,6 +93,8 @@ struct mt6358_priv {
+ 	int mtkaif_protocol;
  
- static const char * const mt8183_pin_str[PIN_STATE_MAX] = {
--	"default", "aud_tdm_out_on", "aud_tdm_out_off",
-+	"default", "aud_tdm_out_on", "aud_tdm_out_off", "wov",
- };
- 
- struct mt8183_mt6358_ts3a227_max98357_priv {
-@@ -142,6 +143,11 @@ SND_SOC_DAILINK_DEFS(playback_hdmi,
- 	DAILINK_COMP_ARRAY(COMP_DUMMY()),
- 	DAILINK_COMP_ARRAY(COMP_EMPTY()));
- 
-+SND_SOC_DAILINK_DEFS(wake_on_voice,
-+	DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+	DAILINK_COMP_ARRAY(COMP_DUMMY()),
-+	DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 	struct regulator *avdd_reg;
 +
- /* BE */
- SND_SOC_DAILINK_DEFS(primary_codec,
- 	DAILINK_COMP_ARRAY(COMP_CPU("ADDA")),
-@@ -229,6 +235,41 @@ static struct snd_soc_ops mt8183_mt6358_tdm_ops = {
- 	.shutdown = mt8183_mt6358_tdm_shutdown,
++	int wov_enabled;
  };
  
-+static int
-+mt8183_mt6358_ts3a227_max98357_wov_startup(
-+	struct snd_pcm_substream *substream)
+ int mt6358_set_mtkaif_protocol(struct snd_soc_component *cmpnt,
+@@ -464,6 +466,106 @@ static int mt6358_put_volsw(struct snd_kcontrol *kcontrol,
+ 	return ret;
+ }
+ 
++static void mt6358_restore_pga(struct mt6358_priv *priv);
++
++static int mt6358_enable_wov_phase2(struct mt6358_priv *priv)
 +{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct mt8183_mt6358_ts3a227_max98357_priv *priv =
-+			snd_soc_card_get_drvdata(card);
++	/* analog */
++	regmap_update_bits(priv->regmap, MT6358_AUDDEC_ANA_CON13,
++			   0xffff, 0x0000);
++	regmap_update_bits(priv->regmap, MT6358_DCXO_CW14, 0xffff, 0xa2b5);
++	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON1,
++			   0xffff, 0x0800);
++	mt6358_restore_pga(priv);
 +
-+	return pinctrl_select_state(priv->pinctrl,
-+				    priv->pin_states[PIN_WOV]);
++	regmap_update_bits(priv->regmap, MT6358_DCXO_CW13, 0xffff, 0x9929);
++	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON9,
++			   0xffff, 0x0025);
++	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON8,
++			   0xffff, 0x0005);
++
++	/* digital */
++	regmap_update_bits(priv->regmap, MT6358_AUD_TOP_CKPDN_CON0,
++			   0xffff, 0x0000);
++	regmap_update_bits(priv->regmap, MT6358_GPIO_MODE3, 0xffff, 0x0120);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG0, 0xffff, 0xffff);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG1, 0xffff, 0x0200);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG2, 0xffff, 0x2424);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG3, 0xffff, 0xdbac);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG4, 0xffff, 0x029e);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG5, 0xffff, 0x0000);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_POSDIV_CFG0,
++			   0xffff, 0x0000);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_HPF_CFG0,
++			   0xffff, 0x0451);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_TOP, 0xffff, 0x68d1);
++
++	return 0;
 +}
 +
-+static void
-+mt8183_mt6358_ts3a227_max98357_wov_shutdown(
-+	struct snd_pcm_substream *substream)
++static int mt6358_disable_wov_phase2(struct mt6358_priv *priv)
 +{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_card *card = rtd->card;
-+	struct mt8183_mt6358_ts3a227_max98357_priv *priv =
-+			snd_soc_card_get_drvdata(card);
-+	int ret;
++	/* digital */
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_TOP, 0xffff, 0xc000);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_HPF_CFG0,
++			   0xffff, 0x0450);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_POSDIV_CFG0,
++			   0xffff, 0x0c00);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG5, 0xffff, 0x0100);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG4, 0xffff, 0x006c);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG3, 0xffff, 0xa879);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG2, 0xffff, 0x2323);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG1, 0xffff, 0x0400);
++	regmap_update_bits(priv->regmap, MT6358_AFE_VOW_CFG0, 0xffff, 0x0000);
++	regmap_update_bits(priv->regmap, MT6358_GPIO_MODE3, 0xffff, 0x02d8);
++	regmap_update_bits(priv->regmap, MT6358_AUD_TOP_CKPDN_CON0,
++			   0xffff, 0x0000);
 +
-+	ret = pinctrl_select_state(priv->pinctrl,
-+				   priv->pin_states[PIN_STATE_DEFAULT]);
-+	if (ret)
-+		dev_err(card->dev, "%s failed to select state %d\n",
-+			__func__, ret);
++	/* analog */
++	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON8,
++			   0xffff, 0x0004);
++	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON9,
++			   0xffff, 0x0000);
++	regmap_update_bits(priv->regmap, MT6358_DCXO_CW13, 0xffff, 0x9829);
++	regmap_update_bits(priv->regmap, MT6358_AUDENC_ANA_CON1,
++			   0xffff, 0x0000);
++	mt6358_restore_pga(priv);
++	regmap_update_bits(priv->regmap, MT6358_DCXO_CW14, 0xffff, 0xa2b5);
++	regmap_update_bits(priv->regmap, MT6358_AUDDEC_ANA_CON13,
++			   0xffff, 0x0010);
++
++	return 0;
 +}
 +
-+static const struct snd_soc_ops mt8183_mt6358_ts3a227_max98357_wov_ops = {
-+	.startup = mt8183_mt6358_ts3a227_max98357_wov_startup,
-+	.shutdown = mt8183_mt6358_ts3a227_max98357_wov_shutdown,
-+};
++static int mt6358_get_wov(struct snd_kcontrol *kcontrol,
++			  struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *c = snd_soc_kcontrol_component(kcontrol);
++	struct mt6358_priv *priv = snd_soc_component_get_drvdata(c);
 +
- static struct snd_soc_dai_link
- mt8183_mt6358_ts3a227_max98357_dai_links[] = {
- 	/* FE */
-@@ -306,6 +347,15 @@ mt8183_mt6358_ts3a227_max98357_dai_links[] = {
- 		.dpcm_playback = 1,
- 		SND_SOC_DAILINK_REG(playback_hdmi),
- 	},
-+	{
-+		.name = "Wake on Voice",
-+		.stream_name = "Wake on Voice",
-+		.ignore_suspend = 1,
-+		.ignore = 1,
-+		SND_SOC_DAILINK_REG(wake_on_voice),
-+		.ops = &mt8183_mt6358_ts3a227_max98357_wov_ops,
-+	},
++	ucontrol->value.integer.value[0] = priv->wov_enabled;
++	return 0;
++}
 +
- 	/* BE */
- 	{
- 		.name = "Primary Codec",
-@@ -429,7 +479,7 @@ static int
- mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
- {
- 	struct snd_soc_card *card = &mt8183_mt6358_ts3a227_max98357_card;
--	struct device_node *platform_node;
-+	struct device_node *platform_node, *ec_codec;
- 	struct snd_soc_dai_link *dai_link;
- 	struct mt8183_mt6358_ts3a227_max98357_priv *priv;
- 	int ret;
-@@ -444,10 +494,24 @@ mt8183_mt6358_ts3a227_max98357_dev_probe(struct platform_device *pdev)
- 		return -EINVAL;
- 	}
++static int mt6358_put_wov(struct snd_kcontrol *kcontrol,
++			  struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *c = snd_soc_kcontrol_component(kcontrol);
++	struct mt6358_priv *priv = snd_soc_component_get_drvdata(c);
++	int enabled = ucontrol->value.integer.value[0];
++
++	if (priv->wov_enabled != enabled) {
++		if (enabled)
++			mt6358_enable_wov_phase2(priv);
++		else
++			mt6358_disable_wov_phase2(priv);
++
++		priv->wov_enabled = enabled;
++	}
++
++	return 0;
++}
++
+ static const DECLARE_TLV_DB_SCALE(playback_tlv, -1000, 100, 0);
+ static const DECLARE_TLV_DB_SCALE(pga_tlv, 0, 600, 0);
  
-+	ec_codec = of_parse_phandle(pdev->dev.of_node, "mediatek,ec-codec", 0);
+@@ -483,6 +585,9 @@ static const struct snd_kcontrol_new mt6358_snd_controls[] = {
+ 			     MT6358_AUDENC_ANA_CON0, MT6358_AUDENC_ANA_CON1,
+ 			     8, 4, 0,
+ 			     snd_soc_get_volsw, mt6358_put_volsw, pga_tlv),
 +
- 	for_each_card_prelinks(card, i, dai_link) {
- 		if (dai_link->platforms->name)
- 			continue;
--		dai_link->platforms->of_node = platform_node;
-+
-+		if (ec_codec && strcmp(dai_link->name, "Wake on Voice") == 0) {
-+			dai_link->cpus[0].name = NULL;
-+			dai_link->cpus[0].of_node = ec_codec;
-+			dai_link->cpus[0].dai_name = NULL;
-+			dai_link->codecs[0].name = NULL;
-+			dai_link->codecs[0].of_node = ec_codec;
-+			dai_link->codecs[0].dai_name = "Wake on Voice";
-+			dai_link->platforms[0].of_node = ec_codec;
-+			dai_link->ignore = 0;
-+		} else {
-+			dai_link->platforms->of_node = platform_node;
-+		}
- 	}
++	SOC_SINGLE_BOOL_EXT("Wake-on-Voice Phase2 Switch", 0,
++			    mt6358_get_wov, mt6358_put_wov),
+ };
  
- 	mt8183_mt6358_ts3a227_max98357_headset_dev.dlc.of_node =
+ /* MUX */
 -- 
 2.20.1
 

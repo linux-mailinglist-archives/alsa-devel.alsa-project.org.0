@@ -2,90 +2,82 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F6B7DE8BB
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 11:56:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAAACDE963
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 12:23:48 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A4D0C1615;
-	Mon, 21 Oct 2019 11:55:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4D0C1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59CD484C;
+	Mon, 21 Oct 2019 12:22:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59CD484C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571651805;
-	bh=FRKRZWr2Zk7aijmj/K5y2yp7T5qtWgocH1WNk/6tTLQ=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=C767qnlH44ktQ2fRzIN7JziBmmO3wSbtYXawg4j359oEhDgTEfFTXExuPUJh45R7o
-	 EC0stwjz/3fIhjgDRYvVFFACTF+eF8eo51YfarorHXr/DxjF0YqWGJRxndKI4FLnik
-	 xvUSWvbWpKHNwub2A9YtjHy3v1SGX0FpA4gMVLQo=
+	s=default; t=1571653428;
+	bh=ebL1YH4uid3RlK6FmsykK+n2HmiGHiTCzGJ/Iismw74=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Kf4OIDr6eLOgCCI74Z+bG/Eg9Xv1+gPHSIdfoOLz0CSGpEqZhtS6Y4CkFw1lXn6nf
+	 LAncoiFrZbgbHT5wj5coxa+xk5I+GqeZGEGmm+47MvslHUlnzxrS4FhZ8I62PsIMeb
+	 K/RsMUKksqowKL7X738T4Jn//GQ00F/R29IFe3zA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3868CF8036F;
-	Mon, 21 Oct 2019 11:55:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E60BF80321;
+	Mon, 21 Oct 2019 12:22:04 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85403F80368; Mon, 21 Oct 2019 11:54:59 +0200 (CEST)
+ id 3A0F1F80368; Mon, 21 Oct 2019 12:22:01 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+X-Spam-Status: No, score=0.3 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
+ [209.85.208.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E08EFF80112
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 11:54:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E08EFF80112
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="e1AsVdc8"
-Received: by mail-wm1-x342.google.com with SMTP id g24so3365568wmh.5
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 02:54:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=l0PmgB8vQ7ayVyix5K/Wkc67Lw4jYhDf6SJZvdZy4h8=;
- b=e1AsVdc8VihT2c2OlLCjWb5VLG7pyRJ4T55phPemU7G4sWlW34Lvt95lTaydF1icpA
- +zU5+DfY4DvLijMUV45po1l2oozJXcn5DE1oTFSzEhFSxNcYqAH7ePcLWhH3byUk0r46
- 7XFEtSlSvtWh7wBVMut6ZquVplJMCt+1b2XC+zhRobOyHKa2u4DLku1Bk4VNdgBgFK0E
- L7JEE2Uf9jYYNx1mQ/yP9gd1vEcGpH+JtGwuchn7HsqrDuDUSXRDZPVD4Nui0p8PAK4I
- xXp+QbWsw465VGPlmZIDxQAFJXVr5nLOzZrMV14g+HA/lgnTyFBfbrMD/OeiKt7Y+Skr
- T4Fg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9BF1EF801EB
+ for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 12:21:58 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9BF1EF801EB
+Received: by mail-ed1-f68.google.com with SMTP id l21so9582337edr.5
+ for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 03:21:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=l0PmgB8vQ7ayVyix5K/Wkc67Lw4jYhDf6SJZvdZy4h8=;
- b=Uev8GyC1IGfYMZd5vOcUaUDlA/1d2S2XPoC3nLnhVJ2uLY6Hp9ZSCUEzW7aq73yl0p
- cRTkrIG4hM6B1JG3Fa1amGerfJTCLZEg4m0rkdB3yv4E5RGho1R5dzlkZJdejGL8H6xt
- BaxUOJUcSqhih4u3J7tUPElgkqJGVRNeB2FHxNi+iY7ZOmK/muYOsxxNSFaudW7dq1NM
- 5rQ3TDqfDb906RAYYc4dy/0eTfHlaFDqLcU9Bv1bHPFfca6qQMM3qUaeKsS2rwqbRMQZ
- OC5w2QsZBnhlzmGC9UZZxVfYO7NG9qp/I0lBYa+Jnj0Azokda/2x6JmW/enK3jBRtqmv
- lVzw==
-X-Gm-Message-State: APjAAAUbzglXCI2wXLYbrMPoXVxbOd7BqehZgCmoKRaiOAc5hvSVexId
- 1YVbu5BCRziys9iWc/aOFPf1Og==
-X-Google-Smtp-Source: APXvYqzPFx9XzxEnT1i23LUwKiFnLQGT3YA6PskIYIlobCBL8ThRsnhMtCJyhmLtlI0/hI9FW7aeZA==
-X-Received: by 2002:a1c:5609:: with SMTP id k9mr18142735wmb.103.1571651695736; 
- Mon, 21 Oct 2019 02:54:55 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id v11sm12356283wml.30.2019.10.21.02.54.54
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=NTXwyuKPtae41ucu10e0jfWsFbRgsyPTHworMEWDZyQ=;
+ b=dcBLaXFqfqvkMVvVkTUAojNLMbAS8n9WXeFchELjl2U0UIDpoXXNH2Lz8J8gfhDdCD
+ OACuifLxK9DlbRaH2TfEmCTG58OhwVAxte0lTPyaDljkWTVhDYDMVe3j3TtTC1qdv7Ea
+ x6P6IdngDaGMLvmD7/rD0NYFeTPb/TKCnQiYXD0FOHWjJXEPnVZ6M5m3mQeOVZF7K10k
+ jpW4zwcP2DUHou0W1+BE8Ihj5oMkluE16cOGtXDnsew5NGdPaG79wgpIKuTSc5NkBWIt
+ Ac32rWuUqoHZuAm6eTngEP4WjA+qLZsLmPh6I9rFXE/n0d3K8ZyzbeqJja3h1zq/b5cF
+ Tlug==
+X-Gm-Message-State: APjAAAUpKyNBb4ifb/xvKHcjzQ+0xbdD5gYe/QDl4L7U8WELwekrQaUw
+ xIb//cCa0SqzIvwdIKoYRTc=
+X-Google-Smtp-Source: APXvYqwXeK2/2BY3ORkuBAxMultEP+lVNX/1OoZXMoqOvq9xllY1syL/7QofFUXQ2efCb4ja3MbPsQ==
+X-Received: by 2002:a50:ec0f:: with SMTP id g15mr24142459edr.59.1571653317618; 
+ Mon, 21 Oct 2019 03:21:57 -0700 (PDT)
+Received: from pi3 ([194.230.155.217])
+ by smtp.googlemail.com with ESMTPSA id ay16sm181628edb.47.2019.10.21.03.21.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 21 Oct 2019 02:54:54 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org,
-	vkoul@kernel.org,
-	tiwai@suse.com
-Date: Mon, 21 Oct 2019 10:54:32 +0100
-Message-Id: <20191021095432.5639-1-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
+ Mon, 21 Oct 2019 03:21:56 -0700 (PDT)
+Date: Mon, 21 Oct 2019 12:21:54 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <20191021102154.GA1903@pi3>
+References: <CGME20191017100534eucas1p1407cf6ef5606d6bd6a4140502cc95984@eucas1p1.samsung.com>
+ <20191017100529.4183-1-m.szyprowski@samsung.com>
 MIME-Version: 1.0
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- Xiaojun Sang <xsang@codeaurora.org>, spapothi@codeaurora.org
-Subject: [alsa-devel] [PATCH] ASoC: compress: fix unsigned integer overflow
-	check
+Content-Disposition: inline
+In-Reply-To: <20191017100529.4183-1-m.szyprowski@samsung.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-samsung-soc@vger.kernel.org, Maciej Falkowski <m.falkowski@samsung.com>,
+ Rob Herring <robh@kernel.org>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>
+Subject: Re: [alsa-devel] [PATCH v2] dt-bindings: sound: Convert Samsung
+ Exynos Odroid XU3/XU4 audio complex to dt-schema
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,32 +95,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Xiaojun Sang <xsang@codeaurora.org>
+On Thu, Oct 17, 2019 at 12:05:29PM +0200, Marek Szyprowski wrote:
+> From: Maciej Falkowski <m.falkowski@samsung.com>
+> 
+> Convert Samsung Exynos Odroid XU3/XU4 audio complex with MAX98090 codec
+> to newer dt-schema format.
+> 
+> 'clocks' property is unneeded in the bindings and is left undefined in 'properties'.
+> 
+> 'samsung,audio-widgets' and 'samsung,audio-routing' are optional from driver
+> perspective and they are set as unrequired.
+> 
+> Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
+> [mszyprow: reordered non-standard properties]
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+>  .../bindings/sound/samsung,odroid.txt         | 54 -----------
+>  .../bindings/sound/samsung,odroid.yaml        | 91 +++++++++++++++++++
+>  2 files changed, 91 insertions(+), 54 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/samsung,odroid.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/samsung,odroid.yaml
 
-Parameter fragments and fragment_size are type of u32. U32_MAX is
-the correct check.
+Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
 
-Signed-off-by: Xiaojun Sang <xsang@codeaurora.org>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/core/compress_offload.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 41905afada63..f34ce564d92c 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -528,7 +528,7 @@ static int snd_compress_check_input(struct snd_compr_params *params)
- {
- 	/* first let's check the buffer parameter's */
- 	if (params->buffer.fragment_size == 0 ||
--	    params->buffer.fragments > INT_MAX / params->buffer.fragment_size ||
-+	    params->buffer.fragments > U32_MAX / params->buffer.fragment_size ||
- 	    params->buffer.fragments == 0)
- 		return -EINVAL;
- 
--- 
-2.21.0
+Best regards,
+Krzysztof
 
 _______________________________________________
 Alsa-devel mailing list

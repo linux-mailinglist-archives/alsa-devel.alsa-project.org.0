@@ -2,102 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79BD6DF023
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 16:42:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D1F84DF087
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 16:54:17 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE539166C;
-	Mon, 21 Oct 2019 16:41:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE539166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E2B0166B;
+	Mon, 21 Oct 2019 16:53:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E2B0166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571668928;
-	bh=TqDhy3w8ejINvI0xKKHbG57IWtE4LvX/ni8RFvGx0JY=;
+	s=default; t=1571669657;
+	bh=ZYxBKhnKxqTj22AkRMADPAD3NCtVHyRt45Ulg6tsgKE=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LxNpvYFYBzRc4JwN52Kdrl8l84MARAmHNzgEnddoeBMHNhr/YS3841JHNeOdvAvWW
-	 jM5xSzWGdK6vOEyO3Xf39l4z7yPS1mpzofXmPkVmYsPoBE3fSVxbnmmUkOdH6mluTM
-	 qwTaEOK8eijb6vCpLY72vsKLU3ILDxc7pYvjhjXw=
+	b=CbljxN6//sVuJ42SxnZVYGhFhL81kbK45HjCT5L5h5sxTqzD9LMy8HLjwddghIwAg
+	 9mSFsOfAj1kfZldJx0TJSdahE3HMQsD6uJBt/w0H+AY6gu1Sz4k+2LNp3dcL1+fZoa
+	 MpF4h1rVtocDC2dEzJgS0ZiLtqBn0eUCRgJRu1DY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47B05F801EB;
-	Mon, 21 Oct 2019 16:40:24 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 998BFF80393;
+	Mon, 21 Oct 2019 16:52:33 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20B0DF80368; Mon, 21 Oct 2019 16:40:22 +0200 (CEST)
+ id 72F29F80368; Mon, 21 Oct 2019 16:52:30 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 504F1F801EB
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 16:40:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 504F1F801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C4F3F800C0
+ for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 16:52:27 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C4F3F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="r6QYaJd9"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="FeN0JGfG"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id B7FE654A;
- Mon, 21 Oct 2019 10:40:12 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Mon, 21 Oct 2019 10:40:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=UfVmvk/I5XyrBHQTUFyuqjkubQ9
- +hhYCZ378we1yqXw=; b=r6QYaJd9KO4mZNG82bftCeli8nhgfU85/SM/DCOfNud
- wfdMgGzrV/7cTHp9gz4LRtqYl9LpvltiI2JodV1Gyv2B7/CzXRvnXxlzEJc1fNQm
- JMnRvV8DsJX7mpg+PXOfgkmuowE6RZx1r2arZGMkT1GQc4fWsNbQWXY/2oCg/35T
- qXWp2Pgzjk2ZaVLG+ALCbcCECiGEo3m97QqzCmqm3BpGgSNZunc09k//iC1rp8t4
- l1oxzYOSGBqmP3OyM8NnFYf98E+W2ky2+xOon7afSrzZE4WenV1WiJx0bozfdTO4
- IT2KQcoViBANvb0wXYS7+BUMMDpbaqsQbX15NBF3VrA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=UfVmvk
- /I5XyrBHQTUFyuqjkubQ9+hhYCZ378we1yqXw=; b=FeN0JGfGgHxmOKbaKef7cT
- 7+auwgjpqC+XaFCwu3Q/HvZeiVP7vh7x/lVs1cngq9GkR1HRDKuLOrrxux7qHOvh
- 4VPoAZeKKdEKnRzclqByWWFKyAS7v4hUEQyYArg6hr9ZevbYsCwiqx3myTNPmICW
- WMsisl73udTlsM9hYHHYKkbiANL3zGUeXjonj35PYevb/bdftLqs5G8DDDq0M/9D
- T7jAh/MlQeQT/UlNesnx2BKTHa33ySJdE9i7nQQ3lP9qyz/v1D3nxO4M8Xb44Zaj
- U+ldnHfsTnO4iQsf9t9WONaviBYHMbNxTNdEgN0tTJudnDzdQsB+T/LFNy3IcFNw
- ==
-X-ME-Sender: <xms:S8OtXfP3ANELVFn1b81sueoYm9RUbZwYcyk9ZETB__vouk8UGVoKvw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrkeehgdekudcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujggfsehttdertddtredvnecuhfhrohhmpefvrghkrghs
- hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
- hpqeenucffohhmrghinheptggrlhhlsggrtghkrdhstgenucfkphepudegrdefrdejhedr
- udekudenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmh
- hotggthhhirdhjphenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:S8OtXePZVsvgphIPN4iZB34O-1Mxbv1cLWCaNYSlTNZv7cDcrExHiA>
- <xmx:S8OtXZSkqxQYDqfP1erPwh1UgI44gpk3PB_-n5LXLBvmtxrhw9tVEw>
- <xmx:S8OtXYAUYSIQwdwHe6E7Pu3TsvFUNol0twsj7VZA0DuB-raMmfOzHg>
- <xmx:TMOtXfBTuRvWQIBh61gx0EM-9xtduI2v7h7rI2h_b3gVxxZ9ThSu9w>
-Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 47EFFD60068;
- Mon, 21 Oct 2019 10:40:10 -0400 (EDT)
-Date: Mon, 21 Oct 2019 23:40:07 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de
-Message-ID: <20191021144006.GA5560@workstation>
-Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, clemens@ladisch.de,
- alsa-devel@alsa-project.org
-References: <20191018061911.24909-1-o-takashi@sakamocchi.jp>
- <s5hsgnpfbdj.wl-tiwai@suse.de> <20191020083718.GA23146@workstation>
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="U9FNaa4j"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=Cl4SFYYSIDTMj3GUDISXtr+bUlNzJ4lPzxVAaEKBSV0=; b=U9FNaa4jnmUGmPgBoZievN6Pt
+ 1/7cWEfjp0R4M1H2Jq2JRpcSqOgN3+bGUybu/rqPCW59VoWbL2HeNen5Tn+Zb3b8DvvCcVoEA+X6S
+ oqBdweM5fa51AOpzKiZjg04F3ezKCmf6R4MRhdTdJFnEbZi9uEG7vMkJ86uaAy8ViLuiw=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iMZ2o-0004M1-6A; Mon, 21 Oct 2019 14:52:26 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 2CF1A274301C; Mon, 21 Oct 2019 15:52:25 +0100 (BST)
+Date: Mon, 21 Oct 2019 15:52:25 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
+Message-ID: <20191021145225.GG4691@sirena.co.uk>
+References: <20191021140816.262401-1-nuno.sa@analog.com>
+ <20191021140816.262401-2-nuno.sa@analog.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191020083718.GA23146@workstation>
+In-Reply-To: <20191021140816.262401-2-nuno.sa@analog.com>
+X-Cookie: Why are you so hard to ignore?
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH 0/6] ALSA: firewire: handle several IR/IT
- context in callback of the IT context
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 1/2] dt-bindings: asoc: adau7118: Cleanup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,98 +85,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8374967731540050442=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On Sun, Oct 20, 2019 at 05:37:19PM +0900, Takashi Sakamoto wrote:
-> On Sat, Oct 19, 2019 at 09:22:16AM +0200, Takashi Iwai wrote:
-> > Although the preempt handling in AMDTP looks a bit suspicious, it
-> > should be OK as long as the code has been tested, so I took as is.
-> 
-> I can understand your concern but it works well as long as I tested.
-> In this time I use preemption-disable during processing queued packet in
-> process context but before I had used irq-disable instead.
-> 
-> I depict a call graph to process isoc packet in process context below:
-> 
-> On pcm.ack() or pcm.pointer() callbacks:
-> fw_iso_context_flush_completions()
-> ->struct fw_card_driver.flush_iso_completions()
-> = ohci_flush_iso_completions()
->   ->tasklet_disable()
->   ->context_tasklet()
->     (read registers on 1394 OHCI controller to get info for queued packet)
->   ->flush_iso_completions()
->     ->struct fw_iso_context.callback.sc()
->     = amdtp_master_callback()
->       ->out_stream_callback() (for irq-target)
->       ->fw_iso_context_flush_completions()
->         ->...
->           ->out_stream_callback() or in_stream_callback() (for non irq-target)
->   ->tasklet_enable()
-> 
-> The tasklet of IT context for irq-target AMDTP stream is temporarily
-> disabled when flushing isoc packets queued for the context. The tasklet
-> doesn't run even if it's queued in hw IRQ context. In a point to
-> processing queued packet for several isoc contexts in the same domain,
-> I have no concern without any irq-flag handling for local cpu.
-> 
-> 1394 OHCI controller still continue isoc cycle during the above call
-> graph (= 125 usec interval according to 24.576 MHz clock). Actually the
-> number of queued packets for non-irq-target AMDTP stream can be slightly
-> different from the number for irq-target AMDTP stream by one or two
-> packets without any interruption. In a case that any interruption occurs
-> after processing queued packets for the irq-target stream, it's likely to
-> process largely different number of queued packets for the rest of AMDTP
-> streams in the same domain after resumed. It's desirable not to make such
-> count gap between streams in the same domain and I leave it for my future
-> work.
-> 
-> In this time the count gap is allowed. I use kernel preemption to avoid
-> the interruption but to catch hw IRQ from 1394 OHCI controller (and the
-> other hardware).
-> 
-> 
-> In another point, there's a race condition against flushing queued packet
-> in runtime between several PCM substreams for AMDTP streams in the same
-> domain. ALSA PCM core executes pcm.pointer and pcm.ack callback under spin
-> lock of runtime of PCM substream, thus the race is controlled for operations
-> to single PCM substream. However some PCM substreams are associated to the
-> same domain via AMDTP streams. At present I never add any solution for this
-> race.
-
-I realize that this race is managed as well, by a call of
-test_and_set_bit_lock(). When operations for several PCM substream call
-pcm.pointer or pcm.ack simultaneously, one of them can flush queued
-packets. I refine the above call graph:
-
-On pcm.ack() or pcm.pointer() callbacks:
-fw_iso_context_flush_completions()
-->struct fw_card_driver.flush_iso_completions()
-= ohci_flush_iso_completions()
-  ->tasklet_disable()
-  if (!test_and_set_bit_lock())
-    ->context_tasklet()
-      (read registers on 1394 OHCI controller to get info for queued packet)
-    ->flush_iso_completions()
-      ->struct fw_iso_context.callback.sc()
-      = amdtp_master_callback()
-        ->out_stream_callback() (for irq-target)
-        ->fw_iso_context_flush_completions()
-          ->...
-            ->out_stream_callback() or in_stream_callback() (for non irq-target)
-    ->clear_bit_unlock()
-  ->tasklet_enable()
+--===============8374967731540050442==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VACxsDaSTfeluoxK"
+Content-Disposition: inline
 
 
-Regards
+--VACxsDaSTfeluoxK
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Takashi Sakamoto
+On Mon, Oct 21, 2019 at 04:08:15PM +0200, Nuno S=E1 wrote:
+> This changes are in accordance with the review done to this bindings.
+> This is a follow-up patch to 969d49b2cdc8.
+
+Please include human readable descriptions of things like commits and
+issues being discussed in e-mail in your mails, this makes them much
+easier for humans to read especially when they have no internet access.
+I do frequently catch up on my mail on flights or while otherwise
+travelling so this is even more pressing for me than just being about
+making things a bit easier to read.
+
+--VACxsDaSTfeluoxK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2txigACgkQJNaLcl1U
+h9DjAgf+PV9vOpdiw8ZF/t9vOrEiceLN50X7baJ1t7kS8qZ1Mkw5/Sis1mO3C8Ix
+mszvAMdJB3xQD3N8x/KLiaBAqHtgvSemGIlP6Vt5kl59eOfOxOT7eN+ulUjplu3m
+Vwkt4tSca6Uz8TmsjD6QinZPtOjIwM2slJABC6opepYhR93LwoeC35OnUuaGnLyU
+KBWwzwtqUr0QtsT9Ch773O5DqB+IODJ40D9Iuse+dXAVozjievXEr0Q89P5Nirke
+lwdIZ1ky5DLhB09wa0TkiZR4stZad5weCDrgGjk/X6d+hqjqLZT67Li75rO8y2aD
+caJM7bJQefvSs3IvTolTsdKoYJ7b1w==
+=s/Xl
+-----END PGP SIGNATURE-----
+
+--VACxsDaSTfeluoxK--
+
+--===============8374967731540050442==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8374967731540050442==--

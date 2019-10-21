@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95C20DF4B0
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 20:04:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20BD9DF4B3
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 20:05:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15E9E166C;
-	Mon, 21 Oct 2019 20:03:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15E9E166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A46E5166C;
+	Mon, 21 Oct 2019 20:04:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A46E5166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571681053;
-	bh=/PrbPI1nxwpQAHVTW6Xro8qMWGnBdlhprbo25W77rrM=;
+	s=default; t=1571681112;
+	bh=hQwlSWSBgWeXH8Zt2oD+Rup9s8fTceWdt+8EYvfo7I0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=IqfyET8txcjVpnSmUfz0Ka5Coc2uF3ueCU4pP8JYf4boxmWQBVMSrEg4yVpqmHDdV
-	 YYg3FxFg9fwBmSZD+S4Zs3ljgd7ojIIxkt5s7A4GtNF6SEyufnlKn6GiS/asIVsLoO
-	 oIAocVo0EBSUMFPuKpCTeLRKkKcLLjYadgn04afw=
+	b=rFzdrhyo9k8JRvqOxd6SCi9Kw6SfTgrX5o8DXhbdoUD9yM6gkHTafb/6MlSGTimKe
+	 VGNVLxFLK3UpBdSIESxv1ibCiA0OvsMwxMcNQpog5mJa8SAr8m855lk94vfaRensSO
+	 /33GEzEZmphVjd0bvfnxx/YiezaYTYjSUu1kyzFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23B40F805FE;
-	Mon, 21 Oct 2019 20:00:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 623B9F80633;
+	Mon, 21 Oct 2019 20:01:02 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CED0F805FC; Mon, 21 Oct 2019 20:00:54 +0200 (CEST)
+ id 62326F8036F; Mon, 21 Oct 2019 20:00:55 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31010F8036F
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEEE8F80393
  for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 20:00:47 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31010F8036F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEEE8F80393
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="V7gI5yvw"
+ header.b="EUgOYGF+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=b9z1pQ9mAvur/PgoNbDLn3mafTIDh3+vOexkqZCw3Pk=; b=V7gI5yvwfWPK
- ev+AIZPUPowyVb68gJVUr5k1/A2qthQ5ur7XAVLAbXxbfJ/wj6oGRD9Tk2DXEfrlH9/2MQAMl5oeO
- PqAKDrpBRzWsYpmb9W7o1V5AkJd0puMtvhFDQAdc7lslsXgwuXRNSN9O0Irvtm7CjIeEmi/rtllK9
- 1DGeA=;
+ List-Archive; bh=xPyRRoetFVp+xgqkSIDKATLWjAboLeoEpl+LnasuBUc=; b=EUgOYGF+Beig
+ LtjRDnYCg+5Mfa7q7ooruOuORlo7LS+SnHXol54R3dVvuuZ44lcqy9B1H3r8MPEJldRZI2hmgN05N
+ Bj1wjoQsGkTWVd2672CJRkZlrPyq2+WW7Vzs5AD/e6xok1BqG85JmZ3bSf3z3uqntrsglxhwV07gh
+ SzE1o=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iMbz5-0004bn-FO; Mon, 21 Oct 2019 18:00:47 +0000
+ id 1iMbz4-0004bb-UV; Mon, 21 Oct 2019 18:00:47 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id B95582743297; Mon, 21 Oct 2019 19:00:46 +0100 (BST)
+ id 3D5772743267; Mon, 21 Oct 2019 19:00:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Xiaojun Sang <xsang@codeaurora.org>
-In-Reply-To: <20191021095432.5639-1-srinivas.kandagatla@linaro.org>
+To: Stephan Gerhold <stephan@gerhold.net>
+In-Reply-To: <20191020153007.206070-2-stephan@gerhold.net>
 X-Patchwork-Hint: ignore
-Message-Id: <20191021180046.B95582743297@ypsilon.sirena.org.uk>
+Message-Id: <20191021180046.3D5772743267@ypsilon.sirena.org.uk>
 Date: Mon, 21 Oct 2019 19:00:46 +0100 (BST)
-Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- spapothi@codeaurora.org, tiwai@suse.com, vkoul@kernel.org,
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] Applied "ASoC: compress: fix unsigned integer overflow
-	check" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: msm8916-wcd-analog: Add earpiece" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,11 +90,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: compress: fix unsigned integer overflow check
+   ASoC: msm8916-wcd-analog: Add earpiece
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -115,36 +115,125 @@ to this mail.
 Thanks,
 Mark
 
-From d3645b055399538415586ebaacaedebc1e5899b0 Mon Sep 17 00:00:00 2001
-From: Xiaojun Sang <xsang@codeaurora.org>
-Date: Mon, 21 Oct 2019 10:54:32 +0100
-Subject: [PATCH] ASoC: compress: fix unsigned integer overflow check
+From 7d2f70f248ab0e4251591cf7b36cc43281941f56 Mon Sep 17 00:00:00 2001
+From: Stephan Gerhold <stephan@gerhold.net>
+Date: Sun, 20 Oct 2019 17:30:07 +0200
+Subject: [PATCH] ASoC: msm8916-wcd-analog: Add earpiece
 
-Parameter fragments and fragment_size are type of u32. U32_MAX is
-the correct check.
+PM8916 supports an earpiece as another (small) speaker.
+The earpiece is routed through RX MIX1 similarly to
+the headphones, except that RDAC2 MUX is set to RX1.
 
-Signed-off-by: Xiaojun Sang <xsang@codeaurora.org>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Acked-by: Vinod Koul <vkoul@kernel.org>
-Link: https://lore.kernel.org/r/20191021095432.5639-1-srinivas.kandagatla@linaro.org
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+Acked-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Link: https://lore.kernel.org/r/20191020153007.206070-2-stephan@gerhold.net
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/core/compress_offload.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/msm8916-wcd-analog.c | 54 ++++++++++++++++++++++++++-
+ 1 file changed, 52 insertions(+), 2 deletions(-)
 
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index 99b882158705..942af8c29b79 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -528,7 +528,7 @@ static int snd_compress_check_input(struct snd_compr_params *params)
- {
- 	/* first let's check the buffer parameter's */
- 	if (params->buffer.fragment_size == 0 ||
--	    params->buffer.fragments > INT_MAX / params->buffer.fragment_size ||
-+	    params->buffer.fragments > U32_MAX / params->buffer.fragment_size ||
- 	    params->buffer.fragments == 0)
- 		return -EINVAL;
+diff --git a/sound/soc/codecs/msm8916-wcd-analog.c b/sound/soc/codecs/msm8916-wcd-analog.c
+index 667e9f73aba3..4168b0a0aafb 100644
+--- a/sound/soc/codecs/msm8916-wcd-analog.c
++++ b/sound/soc/codecs/msm8916-wcd-analog.c
+@@ -228,6 +228,10 @@
+ #define CDC_A_RX_EAR_CTL			(0xf19E)
+ #define RX_EAR_CTL_SPK_VBAT_LDO_EN_MASK		BIT(0)
+ #define RX_EAR_CTL_SPK_VBAT_LDO_EN_ENABLE	BIT(0)
++#define RX_EAR_CTL_PA_EAR_PA_EN_MASK		BIT(6)
++#define RX_EAR_CTL_PA_EAR_PA_EN_ENABLE		BIT(6)
++#define RX_EAR_CTL_PA_SEL_MASK			BIT(7)
++#define RX_EAR_CTL_PA_SEL			BIT(7)
  
+ #define CDC_A_SPKR_DAC_CTL		(0xf1B0)
+ #define SPKR_DAC_CTL_DAC_RESET_MASK	BIT(4)
+@@ -312,6 +316,7 @@ static const char *const hph_text[] = { "ZERO", "Switch", };
+ static const struct soc_enum hph_enum = SOC_ENUM_SINGLE_VIRT(
+ 					ARRAY_SIZE(hph_text), hph_text);
+ 
++static const struct snd_kcontrol_new ear_mux = SOC_DAPM_ENUM("EAR_S", hph_enum);
+ static const struct snd_kcontrol_new hphl_mux = SOC_DAPM_ENUM("HPHL", hph_enum);
+ static const struct snd_kcontrol_new hphr_mux = SOC_DAPM_ENUM("HPHR", hph_enum);
+ 
+@@ -685,6 +690,34 @@ static int pm8916_wcd_analog_enable_spk_pa(struct snd_soc_dapm_widget *w,
+ 	return 0;
+ }
+ 
++static int pm8916_wcd_analog_enable_ear_pa(struct snd_soc_dapm_widget *w,
++					    struct snd_kcontrol *kcontrol,
++					    int event)
++{
++	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		snd_soc_component_update_bits(component, CDC_A_RX_EAR_CTL,
++				    RX_EAR_CTL_PA_SEL_MASK, RX_EAR_CTL_PA_SEL);
++		break;
++	case SND_SOC_DAPM_POST_PMU:
++		snd_soc_component_update_bits(component, CDC_A_RX_EAR_CTL,
++				    RX_EAR_CTL_PA_EAR_PA_EN_MASK,
++				    RX_EAR_CTL_PA_EAR_PA_EN_ENABLE);
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		snd_soc_component_update_bits(component, CDC_A_RX_EAR_CTL,
++				    RX_EAR_CTL_PA_EAR_PA_EN_MASK, 0);
++		/* Delay to reduce ear turn off pop */
++		usleep_range(7000, 7100);
++		snd_soc_component_update_bits(component, CDC_A_RX_EAR_CTL,
++				    RX_EAR_CTL_PA_SEL_MASK, 0);
++		break;
++	}
++	return 0;
++}
++
+ static const struct reg_default wcd_reg_defaults_2_0[] = {
+ 	{CDC_A_RX_COM_OCP_CTL, 0xD1},
+ 	{CDC_A_RX_COM_OCP_COUNT, 0xFF},
+@@ -801,12 +834,20 @@ static const struct snd_soc_dapm_route pm8916_wcd_analog_audio_map[] = {
+ 	{"PDM_TX", NULL, "A_MCLK2"},
+ 	{"A_MCLK2", NULL, "A_MCLK"},
+ 
++	/* Earpiece (RX MIX1) */
++	{"EAR", NULL, "EAR_S"},
++	{"EAR_S", "Switch", "EAR PA"},
++	{"EAR PA", NULL, "RX_BIAS"},
++	{"EAR PA", NULL, "HPHL DAC"},
++	{"EAR PA", NULL, "HPHR DAC"},
++	{"EAR PA", NULL, "EAR CP"},
++
+ 	/* Headset (RX MIX1 and RX MIX2) */
+ 	{"HEADPHONE", NULL, "HPHL PA"},
+ 	{"HEADPHONE", NULL, "HPHR PA"},
+ 
+-	{"HPHL PA", NULL, "EAR_HPHL_CLK"},
+-	{"HPHR PA", NULL, "EAR_HPHR_CLK"},
++	{"HPHL DAC", NULL, "EAR_HPHL_CLK"},
++	{"HPHR DAC", NULL, "EAR_HPHR_CLK"},
+ 
+ 	{"CP", NULL, "NCP_CLK"},
+ 
+@@ -847,11 +888,20 @@ static const struct snd_soc_dapm_widget pm8916_wcd_analog_dapm_widgets[] = {
+ 	SND_SOC_DAPM_INPUT("AMIC1"),
+ 	SND_SOC_DAPM_INPUT("AMIC3"),
+ 	SND_SOC_DAPM_INPUT("AMIC2"),
++	SND_SOC_DAPM_OUTPUT("EAR"),
+ 	SND_SOC_DAPM_OUTPUT("HEADPHONE"),
+ 
+ 	/* RX stuff */
+ 	SND_SOC_DAPM_SUPPLY("INT_LDO_H", SND_SOC_NOPM, 1, 0, NULL, 0),
+ 
++	SND_SOC_DAPM_PGA_E("EAR PA", SND_SOC_NOPM,
++			   0, 0, NULL, 0,
++			   pm8916_wcd_analog_enable_ear_pa,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
++			   SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_MUX("EAR_S", SND_SOC_NOPM, 0, 0, &ear_mux),
++	SND_SOC_DAPM_SUPPLY("EAR CP", CDC_A_NCP_EN, 4, 0, NULL, 0),
++
+ 	SND_SOC_DAPM_PGA("HPHL PA", CDC_A_RX_HPH_CNP_EN, 5, 0, NULL, 0),
+ 	SND_SOC_DAPM_MUX("HPHL", SND_SOC_NOPM, 0, 0, &hphl_mux),
+ 	SND_SOC_DAPM_MIXER("HPHL DAC", CDC_A_RX_HPH_L_PA_DAC_CTL, 3, 0, NULL,
 -- 
 2.20.1
 

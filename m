@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20271DF4BC
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 20:07:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95C20DF4B0
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 20:04:13 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA54F1670;
-	Mon, 21 Oct 2019 20:06:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA54F1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15E9E166C;
+	Mon, 21 Oct 2019 20:03:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15E9E166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571681229;
-	bh=9GEuOQBoCJ7O3yZsIJDmJQcy+v/K75ObyhhjfOWbGwk=;
+	s=default; t=1571681053;
+	bh=/PrbPI1nxwpQAHVTW6Xro8qMWGnBdlhprbo25W77rrM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=SltEUT+sv7S5rDZ4aLWYBVGh9SZiCwrtqvdI9VP5y/o3rMzTtOW/+WXpUDiUeZUIl
-	 Tm0sPE14E67oK7W7aNt3PsVuCf3SkAYA/8kuF7IcmFhFt4UAwAvRG8pxGTpdinmYlV
-	 8CCvEFcodYhkMPrIFlc9uQ37FQu9z3Ji2suVHPCA=
+	b=IqfyET8txcjVpnSmUfz0Ka5Coc2uF3ueCU4pP8JYf4boxmWQBVMSrEg4yVpqmHDdV
+	 YYg3FxFg9fwBmSZD+S4Zs3ljgd7ojIIxkt5s7A4GtNF6SEyufnlKn6GiS/asIVsLoO
+	 oIAocVo0EBSUMFPuKpCTeLRKkKcLLjYadgn04afw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1DC7EF8065B;
-	Mon, 21 Oct 2019 20:01:06 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23B40F805FE;
+	Mon, 21 Oct 2019 20:00:59 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BA86F803D7; Mon, 21 Oct 2019 20:00:57 +0200 (CEST)
+ id 2CED0F805FC; Mon, 21 Oct 2019 20:00:54 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6E79BF801EB
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 20:00:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E79BF801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31010F8036F
+ for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 20:00:47 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31010F8036F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="PGEycT3N"
+ header.b="V7gI5yvw"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=uq0cbL+MVqRsyuw0sPQS5GA0v05y+bqGq3kL9K0P2h8=; b=PGEycT3N3lTQ
- NSSgmXX+NrJZnmMPp0DDgf3TJ5vpiZ60E/A5h7/jh7v9/BlffeXg/8qSJZDhUVO94BoiVkdBKZIA6
- oHFGZxOgPxsjFb2uNM5ycbXGiYwo6ZffM4e2i8UHOVbaL6uUVM1svJMDhy6F5RQfWvgyT7vK5Cl+k
- 9gRQU=;
+ List-Archive; bh=b9z1pQ9mAvur/PgoNbDLn3mafTIDh3+vOexkqZCw3Pk=; b=V7gI5yvwfWPK
+ ev+AIZPUPowyVb68gJVUr5k1/A2qthQ5ur7XAVLAbXxbfJ/wj6oGRD9Tk2DXEfrlH9/2MQAMl5oeO
+ PqAKDrpBRzWsYpmb9W7o1V5AkJd0puMtvhFDQAdc7lslsXgwuXRNSN9O0Irvtm7CjIeEmi/rtllK9
+ 1DGeA=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iMbz5-0004bf-DO; Mon, 21 Oct 2019 18:00:47 +0000
+ id 1iMbz5-0004bn-FO; Mon, 21 Oct 2019 18:00:47 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 8052B2743293; Mon, 21 Oct 2019 19:00:46 +0100 (BST)
+ id B95582743297; Mon, 21 Oct 2019 19:00:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Maciej Falkowski <m.falkowski@samsung.com>
-In-Reply-To: <20190926110219.6144-1-m.szyprowski@samsung.com>
+To: Xiaojun Sang <xsang@codeaurora.org>
+In-Reply-To: <20191021095432.5639-1-srinivas.kandagatla@linaro.org>
 X-Patchwork-Hint: ignore
-Message-Id: <20191021180046.8052B2743293@ypsilon.sirena.org.uk>
+Message-Id: <20191021180046.B95582743297@ypsilon.sirena.org.uk>
 Date: Mon, 21 Oct 2019 19:00:46 +0100 (BST)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Mark Brown <broonie@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [alsa-devel] Applied "ASoC: samsung: i2s: Document clocks macros"
-	to the asoc tree
+Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ spapothi@codeaurora.org, tiwai@suse.com, vkoul@kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [alsa-devel] Applied "ASoC: compress: fix unsigned integer overflow
+	check" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,11 +90,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: samsung: i2s: Document clocks macros
+   ASoC: compress: fix unsigned integer overflow check
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -117,45 +115,36 @@ to this mail.
 Thanks,
 Mark
 
-From 6cc23ed2ceab880e96ad287d9c85b53659050510 Mon Sep 17 00:00:00 2001
-From: Maciej Falkowski <m.falkowski@samsung.com>
-Date: Thu, 26 Sep 2019 13:02:19 +0200
-Subject: [PATCH] ASoC: samsung: i2s: Document clocks macros
+From d3645b055399538415586ebaacaedebc1e5899b0 Mon Sep 17 00:00:00 2001
+From: Xiaojun Sang <xsang@codeaurora.org>
+Date: Mon, 21 Oct 2019 10:54:32 +0100
+Subject: [PATCH] ASoC: compress: fix unsigned integer overflow check
 
-Document clocks macros with their description
-from 'Documentation/devicetree/bindings/sound/samsung-i2s.txt'
+Parameter fragments and fragment_size are type of u32. U32_MAX is
+the correct check.
 
-Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
-Link: https://lore.kernel.org/r/20190926110219.6144-1-m.szyprowski@samsung.com
+Signed-off-by: Xiaojun Sang <xsang@codeaurora.org>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Acked-by: Vinod Koul <vkoul@kernel.org>
+Link: https://lore.kernel.org/r/20191021095432.5639-1-srinivas.kandagatla@linaro.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/dt-bindings/sound/samsung-i2s.h | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ sound/core/compress_offload.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/dt-bindings/sound/samsung-i2s.h b/include/dt-bindings/sound/samsung-i2s.h
-index 77545f14c379..250de0d6c734 100644
---- a/include/dt-bindings/sound/samsung-i2s.h
-+++ b/include/dt-bindings/sound/samsung-i2s.h
-@@ -2,8 +2,14 @@
- #ifndef _DT_BINDINGS_SAMSUNG_I2S_H
- #define _DT_BINDINGS_SAMSUNG_I2S_H
+diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
+index 99b882158705..942af8c29b79 100644
+--- a/sound/core/compress_offload.c
++++ b/sound/core/compress_offload.c
+@@ -528,7 +528,7 @@ static int snd_compress_check_input(struct snd_compr_params *params)
+ {
+ 	/* first let's check the buffer parameter's */
+ 	if (params->buffer.fragment_size == 0 ||
+-	    params->buffer.fragments > INT_MAX / params->buffer.fragment_size ||
++	    params->buffer.fragments > U32_MAX / params->buffer.fragment_size ||
+ 	    params->buffer.fragments == 0)
+ 		return -EINVAL;
  
--#define CLK_I2S_CDCLK		0
--#define CLK_I2S_RCLK_SRC	1
--#define CLK_I2S_RCLK_PSR	2
-+#define CLK_I2S_CDCLK		0 /* the CDCLK (CODECLKO) gate clock */
-+
-+#define CLK_I2S_RCLK_SRC	1 /* the RCLKSRC mux clock (corresponding to
-+				   * RCLKSRC bit in IISMOD register)
-+				   */
-+
-+#define CLK_I2S_RCLK_PSR	2 /* the RCLK prescaler divider clock
-+				   * (corresponding to the IISPSR register)
-+				   */
- 
- #endif /* _DT_BINDINGS_SAMSUNG_I2S_H */
 -- 
 2.20.1
 

@@ -2,80 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 489BCDEE61
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 15:52:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E09FDEE8C
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 15:59:07 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4AEF166C;
-	Mon, 21 Oct 2019 15:51:35 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4AEF166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0AA1165F;
+	Mon, 21 Oct 2019 15:58:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0AA1165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571665945;
-	bh=uWy+lLhZsGMoEyPqMNZzkXf0LHxA9u8h3v7BxS0zphU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571666346;
+	bh=670rtFM1hMCXsl7D8DdpuNx/cVJECu8NRCG1yWaPQZg=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=n8VYA1ZCWGWeSVXKRra0t+ORYXSwWt0SakNkPIfICCsW4iDZYVIWAfrEJOGE1N+T1
-	 rQ7tNtPOVVf5Ol41blGfdPkk4jXH1kLk6yXyAJxarO7NItPtzCjMcMaJkG4gh0FHxe
-	 UU0PLqZAMw1U832Yri8IDUf/gLrFmC4DrKzQEzjU=
+	 Reply-To:From;
+	b=kMoWXOWKOdME+Qg7CsTsCzRuC9shP93iKCk9x7slZ2sdjqJ2IObuGFqZ5FneYPZtB
+	 xxSOc14Awt4rGjptQMk96QGUABvbo5/v9izp9MRtn3zNY81xCb+XEFtRJm4NwgYFvk
+	 nSIJN17MdgxsoydkUZ0w+gpqFA7o2hB2RZ9HmYBs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D8F8F8036F;
-	Mon, 21 Oct 2019 15:50:42 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0898AF80393;
+	Mon, 21 Oct 2019 15:57:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00C5BF80368; Mon, 21 Oct 2019 15:50:37 +0200 (CEST)
+ id 7DD09F80368; Mon, 21 Oct 2019 15:57:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic314-19.consmr.mail.ir2.yahoo.com
+ (sonic314-19.consmr.mail.ir2.yahoo.com [77.238.177.145])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FD32F80112
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 15:50:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FD32F80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id A794FF800C0
+ for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 15:57:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A794FF800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="a/rSfFvy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=aEu1uJJTKafM7jVw7dAgeyLCE5JqgyFPy0YM24aRC+U=; b=a/rSfFvy+yPWsunq+u0NBQ2Sy
- 7twL6/L0qz7NtWlv1zjGaLKz8G2pVtdWoW6piUuHvn3mOKxYv88pJ3BpV4xwYgm/G28mb+yi4u3Yn
- z1+d+NA8V5oeNKrw5nfJFsG0lE0la1gyxAP1NF8IDXh3sZFi6+j9TVlUZ5x9jAod0IDzs=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iMY4w-0004GM-Cg; Mon, 21 Oct 2019 13:50:34 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 7719B274301C; Mon, 21 Oct 2019 14:50:33 +0100 (BST)
-Date: Mon, 21 Oct 2019 14:50:33 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Enric Balletbo i Serra <enric.balletbo@collabora.com>
-Message-ID: <20191021135033.GF4691@sirena.co.uk>
-References: <20191019070254.23870-1-tzungbi@google.com>
- <20191019143504.1.I5388b69a7a9c551078fed216a77440cee6dedf49@changeid>
- <659a3d1f-a8e1-268d-5e95-b328aeed601b@collabora.com>
- <20191021114303.GC4691@sirena.co.uk>
- <a4e1530a-b706-2a73-e0b3-ad56cf9085bc@collabora.com>
+ dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com
+ header.b="HTeMcXhu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1571666236; bh=u/PrNqm/NQDOUmyCEHox9WFE19qXMbD8N8LETnSRN3c=;
+ h=Date:From:Reply-To:To:Cc:In-Reply-To:References:Subject:From:Subject;
+ b=HTeMcXhuRyivp4mIB6vxNVqzNKaPdm2OECBYfw83y70bywdi23HktrTt3pJcX/m84jR+jMCxeovq+qWvDGphEwpK9kGlAmQBgqqGTr3UeGfOb/kGDxTk5dqzKiis5yDNnFtXayAII0IgXGGA+fAPTo+MmOl876uAUmWvZVucsElpLdIKo3ZLrkscB+uMxs9F09iByOSm25D7mtUKANQC03DYKbFVVYuOhw6LfegiNkBlsWOrlT1ASLVyFh8Wxx4xolz7bWGVYN7vjGci4O68OCZu/6KMM80m/5TRUrtzEx9O617VYdG9Gumfpbr+pC/blVc3M4TsCGSd1KKyhKpB7Q==
+X-YMail-OSG: llPNg.MVM1nAVXdxcJ7l4cKMk6RtZmRchuwropRCGj5TUY7N06YKHBx6LtTAsG2
+ 9Nkg.6Fxrbta2Z1a3pbjAmZmYAYzHN8EJNpJPIyDbH3jLXxjYt0Of_QBUA3i9vSwHc7QKRv5nFLR
+ OSh8AsVB_K91zj8lgJEjjkdl3WUje7ICq9iGvIlCDvhPlrvCjclA.5_VYuCUjzPDN71KEbvHVDCC
+ CxeUMvv0VD.1G3kKsUHDI3hrO75XwUBVRjRfV1vrQCMYnEjIk8Gxpf0WS.duRa6zO_Cdop7jlrqO
+ QwOrRjtR.Gxyc50Cja5AfADvFTW83riDWNVrlTPWuTh_iEFt4zFqsAEq3vAJ1PT3a1MrFJsQsxtv
+ 7t1wnSA3kHkpMGBE7zUhzYSMqms7JpRyu.f3bW6gNumtk3g8PTm1HoSpYmCXCnO.xO5CdApoCNPZ
+ Szq0p1s5We0cunUGp7.fJkphF5ylKbJ.M2tkr3vH5VHzi.aX38sJTQaKT71UwgPNF0eEgn5QXKWU
+ we4Om5.2W05dshtmWTc0y0Qc3K3f_AL2F.gmLeW_J_PirsgQWs35682Wb3dadYk299fuJyzBjYdM
+ KOtcvYB40mv7TVhr4C7KfuqT1niivnR9ppYIvmelQcqqKFbdtqGirxiLZvIsHSec3hpBHV5QClcH
+ _BTSMQw_kcrhZk7n49qyBYUroo2aPaK4TU6sAjuCM04Kq2H5cZ7thaS_FbkkNdHkaGdZKTFvOfl8
+ WFzz1hJ5ljkK0a7.l2pH8Grl4horiiTdWvHKcoGIPMaySnI7t3VAt3LmPmouAWbDYx_BqhHUUIuR
+ iWXMSTzy4uDMnN7FhhkYewZRz8RurlHkOU.HlF5ZYT9j5_knW6OvWtrGiHPG2ruA4zgGSK8.0aF4
+ tv9AHfNMiyqcWU96VtAHBjh0W8vzrrfGcu.6hxoQsmaUMod0TqyUdDru20y_bFfoBcCaTfJ6CJpM
+ d5NJLbuA2wkpigBHoT69PAp2w6jTIjGpOeQgguRjOQy4pRaWAnW4W25GfWkJu6JB4X5rI2CM4LVc
+ xfi5YliAFQiuZliTY0ieB2RbVHI2lmsBwHN3cqvAAx_JLx.SzbGms_Z8uEzVqsHwLkaENeBVKSNn
+ 0N2ptP_rU8yyxowuylh.HXGd4RYi.G4Fn617kLovIm3PsO7rdzXPuDVgDV465Z3uuFOKG1mhgtGq
+ PaB9klIpR3GFnCZmtVtBvPsRbVfp9h2aDlHIxvR8NvvbeDAbENDqKikdf6x6ZER6LRVUMUbLWOat
+ .WFqZ4Ld8qaNRaB6ptXVQAHIAA8HvvuvwbQ3piC0VcwpDdAjxmEKoIIbOqjq1EdfPQfrJXgZDIK8
+ iD1YZm7T5rxsfDZfBS5CK_Ulu8GwjuTOejh3Wauw-
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic314.consmr.mail.ir2.yahoo.com with HTTP; Mon, 21 Oct 2019 13:57:16 +0000
+Date: Mon, 21 Oct 2019 13:57:11 +0000 (UTC)
+From: Hin-Tak Leung <htl10@users.sourceforge.net>
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Message-ID: <43747502.7351282.1571666231987@mail.yahoo.com>
+In-Reply-To: <CAGvk5PrZ65wEp7y7UbtEN2CCf6c-wvoknMKyTmuqXY9EPg7jiw@mail.gmail.com>
+References: <2146461867.4835752.1571321696465@mail.yahoo.com>
+ <CAEy1m_CXrhr15RZz_Q+TiMGj4DMBbUV8sCobmmkhguYJWCw03Q@mail.gmail.com>
+ <572375501.5493214.1571396197926@mail.yahoo.com>
+ <CAGvk5PrZ65wEp7y7UbtEN2CCf6c-wvoknMKyTmuqXY9EPg7jiw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <a4e1530a-b706-2a73-e0b3-ad56cf9085bc@collabora.com>
-X-Cookie: Why are you so hard to ignore?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: gwendal@google.com, drinkcat@google.com, alsa-devel@alsa-project.org,
- cychiang@google.com, devicetree@vger.kernel.org,
- Tzung-Bi Shih <tzungbi@google.com>, robh+dt@kernel.org, bleung@google.com,
- dgreid@google.com
-Subject: Re: [alsa-devel] [PATCH v5 1/4] ASoC: cros_ec_codec: support WoV
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] alsa conformance test fails to run for playback
+ (and works for capture)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,55 +92,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6046603910314160384=="
+Reply-To: htl10@users.sourceforge.net
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---===============6046603910314160384==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1Y7d0dPL928TPQbc"
-Content-Disposition: inline
-
-
---1Y7d0dPL928TPQbc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Oct 21, 2019 at 03:12:50PM +0200, Enric Balletbo i Serra wrote:
-
-> Ok, I was off the latest two weeks so I didn't catch it :-(. I'll try to figure
-> out the better way to avoid conflicts knowing that these are already queued.
-
-So long as they're easy to resolve it shouldn't be an issue, Linus
-doesn't super mind fixing things up.
-
---1Y7d0dPL928TPQbc
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2tt6gACgkQJNaLcl1U
-h9BF/wf8CTYyYmc413jqwsQxB9+4R2QOYPA9MG7qBRZ+z0NinvCl876PH7YNk9Tw
-9CshD9oIKe3LRpyRsAHHlwI38yAAB0n4+/p1UYuQEB/bNoM9P85OIaH/Qj95GnO1
-Pbm4y44PVUPv46aGRPSXt1RtkGVZhRVj4j/IOFu7JkQGT/ZnMHVpzwHAV4uCxlij
-oQjH+C/lWeQsBxEBMio/5nryhSRRb3qXWQPGVSrSNLDci08llkQGGBc3A4jTQyKh
-9k7QO5lopV2ThKdiQv8wSTc1lWTRxDWHORq0RgIrSQCMVrif9SA/hF4FAKRcLhyN
-VSbdH6IbO1dzKpZmtq7z/nKI3l4AiQ==
-=dZWZ
------END PGP SIGNATURE-----
-
---1Y7d0dPL928TPQbc--
-
---===============6046603910314160384==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============6046603910314160384==--
+IE9uIFN1bmRheSwgMjAgT2N0b2JlciAyMDE5LCAxMTo1MTo0MiBCU1QsIFl1LUhzdWFuIEhzdSA8
+eXVoc3VhbkBjaHJvbWl1bS5vcmc+IHdyb3RlOgoKCj4gSGkgSGluLVRhaywKPiBNYXliZSBpdCBp
+cyBub3QgdGhlIGNvcnJlY3QgcGNtIG5hbWUuwqAgSSBndWVzcyB0aGUgY29ycmVjdCBvbmUgaXMK
+PiAiaHc6c2VlZWQ4bWljdm9pY2VjLDAiLiBDb3VsZCB5b3UgdHJ5IGl0Pwo+IEJ5IHRoZSB3YXks
+IHlvdSBjYW4gYWxzbyB1c2UgYXBsYXkgLUQge2RldmljZV9uYW1lfSB0byBtYWtlIHN1cmUKPiB3
+aGV0aGVyIHRoZSBuYW1lIGlzIGNvcnJlY3Qgb3Igbm90LgoKPiBCZXN0LAo+IFl1LUhzdWFuCgpE
+ZWFyIFl1LUhzdWFuLAoKTm8gImh3OnNlZWVkOG1pY3ZvaWNlYywwIiBkaWQgbm90IHdvcmsgYXMg
+aW5wdXQgdG8gdGhlIGNvbmZvcm1hbmNlIHRlc3QuIEFzIGlucHV0IHRvICdhcGxheSAtRCcsIGJv
+dGggdGhlICwwIGFuZCB3aXRob3V0IGl0IHNvcnQgb2Ygd29ya3MuCihpdCB3YWl0cyBmb3IgaW5w
+dXQgZnJvbSBzdGRpbikuCgpXaGVuIEkgYWN0dWFsbHkgZ2F2ZSBpdCBhbiBjaGFubmVsIGZpbGUg
+dG8gcGxheSwgYm90aCBmb3JtcyAoJ2FwbGF5IC1EIGh3OkNBUkQ9c2VlZWQ4bWljdm9pY2VjIC4u
+LicgYW5kICdhcGxheSAtRCBodzpDQVJEPXNlZWVkOG1pY3ZvaWNlYywwIC4uLicpIHN0b3BwZWQg
+d2l0aDoKClBsYXlpbmcgV0FWRSAnVW50aXRsZWQgcmVjb3JkaW5nIDIwMTktMTAtMTEgMTkuMTUu
+MTEud2F2JyA6IFNpZ25lZCAxNiBiaXQgTGl0dGxlIEVuZGlhbiwgUmF0ZSAxNjAwMCBIeiwgQ2hh
+bm5lbHMgNgphcGxheTogc2V0X3BhcmFtczoxMzM5OiBTYW1wbGUgZm9ybWF0IG5vbiBhdmFpbGFi
+bGUKQXZhaWxhYmxlIGZvcm1hdHM6Ci0gUzMyX0xFCgpUaGUgaW50ZXJlc3RpbmcgcGFydCBvZiAn
+YXBsYXkgLUwnIGlzICh0aGVyZSBpcyBhbm90aGVyIGRldmljZSk6CgpzeXNkZWZhdWx0OkNBUkQ9
+c2VlZWQ4bWljdm9pY2VjCiBzZWVlZC04bWljLXZvaWNlY2FyZCwgCiBEZWZhdWx0IEF1ZGlvIERl
+dmljZQpkbWl4OkNBUkQ9c2VlZWQ4bWljdm9pY2VjLERFVj0wCiBzZWVlZC04bWljLXZvaWNlY2Fy
+ZCwgCiBEaXJlY3Qgc2FtcGxlIG1peGluZyBkZXZpY2UKZHNub29wOkNBUkQ9c2VlZWQ4bWljdm9p
+Y2VjLERFVj0wCiBzZWVlZC04bWljLXZvaWNlY2FyZCwgCiBEaXJlY3Qgc2FtcGxlIHNub29waW5n
+IGRldmljZQpodzpDQVJEPXNlZWVkOG1pY3ZvaWNlYyxERVY9MAogc2VlZWQtOG1pYy12b2ljZWNh
+cmQsIAogRGlyZWN0IGhhcmR3YXJlIGRldmljZSB3aXRob3V0IGFueSBjb252ZXJzaW9ucwpwbHVn
+aHc6Q0FSRD1zZWVlZDhtaWN2b2ljZWMsREVWPTAKIHNlZWVkLThtaWMtdm9pY2VjYXJkLCAKIEhh
+cmR3YXJlIGRldmljZSB3aXRoIGFsbCBzb2Z0d2FyZSBjb252ZXJzaW9ucwp1c2JzdHJlYW06Q0FS
+RD1zZWVlZDhtaWN2b2ljZWMKIHNlZWVkLThtaWMtdm9pY2VjYXJkCiBVU0IgU3RyZWFtIE91dHB1
+dAoKQXMgSSBtZW50aW9uZWQgYXQgdGhlIGJlZ2lubmluZywgJ2FyZWNvcmQgLUwnIGFuZCBydW5u
+aW5nIHRoZSBjb25mb3JtYW5jZSB0ZXN0IGluIENBUFRVUkUgbW9kZSB1c2luZyAnaHc6Q0FSRD1z
+ZWVlZDhtaWN2b2ljZWMnIHdvcmtzLiBJdCBpcyBQTEFZQkFDSyB3aGljaCBkb2VzIG5vdC4KClJl
+Z2FyZHMsCkhpbi1UYWsKCgoKCiAgCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9q
+ZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2Fsc2EtZGV2ZWwK

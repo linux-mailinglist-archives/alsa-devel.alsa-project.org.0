@@ -2,75 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0813BDF4AD
-	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 20:03:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20271DF4BC
+	for <lists+alsa-devel@lfdr.de>; Mon, 21 Oct 2019 20:07:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FD4615E0;
-	Mon, 21 Oct 2019 20:02:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FD4615E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id AA54F1670;
+	Mon, 21 Oct 2019 20:06:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA54F1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571681004;
-	bh=wR6HYFx2XX1Qi/1dUZtkGGiFkIzDosuhcwd+v6LZvr8=;
+	s=default; t=1571681229;
+	bh=9GEuOQBoCJ7O3yZsIJDmJQcy+v/K75ObyhhjfOWbGwk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=b6sryebrraBD/2+DEsd0aInmRBG8+1tBq13cOP3cnJJoZcEwoz2K1QAvH1Z+8QSoW
-	 M5Fbp2oUeq8mZb6M8S6pZovToXsgf9V8CBJrttT1Qp4wPuty8LdfpTALcwnJ1KRcNf
-	 ZD9jbIae/ABcRVtdwbRMqK28roq4asEiqdX+eves=
+	b=SltEUT+sv7S5rDZ4aLWYBVGh9SZiCwrtqvdI9VP5y/o3rMzTtOW/+WXpUDiUeZUIl
+	 Tm0sPE14E67oK7W7aNt3PsVuCf3SkAYA/8kuF7IcmFhFt4UAwAvRG8pxGTpdinmYlV
+	 8CCvEFcodYhkMPrIFlc9uQ37FQu9z3Ji2suVHPCA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8735F80393;
-	Mon, 21 Oct 2019 20:00:57 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DC7EF8065B;
+	Mon, 21 Oct 2019 20:01:06 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1628EF80321; Mon, 21 Oct 2019 20:00:49 +0200 (CEST)
+ id 8BA86F803D7; Mon, 21 Oct 2019 20:00:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16E37F801EB
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 20:00:46 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16E37F801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E79BF801EB
+ for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 20:00:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E79BF801EB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="YdI6okyC"
+ header.b="PGEycT3N"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=wlDa9VryuUJQhYEG0o9q9nJ687FaGpsHWqMMgoNvQE4=; b=YdI6okyC/vHf
- PpjIeDIOJte8zpvAEl3MdQ+5qD+xJIUG8lfYtGZ63vesMtqzCvi/o9Ekgk6B/gU9DeZlTv/HB+H5g
- zt9IrADpM1pg+wPNvh402ILmzyfoyGVrIkm1q3GxTAIxc8hyTnjXiQAgebXE5G0q0JnMgEqY8yjTc
- 47b6g=;
+ List-Archive; bh=uq0cbL+MVqRsyuw0sPQS5GA0v05y+bqGq3kL9K0P2h8=; b=PGEycT3N3lTQ
+ NSSgmXX+NrJZnmMPp0DDgf3TJ5vpiZ60E/A5h7/jh7v9/BlffeXg/8qSJZDhUVO94BoiVkdBKZIA6
+ oHFGZxOgPxsjFb2uNM5ycbXGiYwo6ZffM4e2i8UHOVbaL6uUVM1svJMDhy6F5RQfWvgyT7vK5Cl+k
+ 9gRQU=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iMbz4-0004bM-24; Mon, 21 Oct 2019 18:00:46 +0000
+ id 1iMbz5-0004bf-DO; Mon, 21 Oct 2019 18:00:47 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 7E7892743267; Mon, 21 Oct 2019 19:00:45 +0100 (BST)
+ id 8052B2743293; Mon, 21 Oct 2019 19:00:46 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20191019143504.3.Iec97a3f137148cdf316056612590b3e0b302f5f3@changeid>
+To: Maciej Falkowski <m.falkowski@samsung.com>
+In-Reply-To: <20190926110219.6144-1-m.szyprowski@samsung.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191021180045.7E7892743267@ypsilon.sirena.org.uk>
-Date: Mon, 21 Oct 2019 19:00:45 +0100 (BST)
-Cc: gwendal@google.com, devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- cychiang@google.com, drinkcat@google.com, robh+dt@kernel.org,
- tzungbi@google.com, Mark Brown <broonie@kernel.org>,
- enric.balletbo@collabora.com, bleung@google.com, dgreid@google.com,
- Rob Herring <robh@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: dt-bindings: mt8183: add ec-codec" to
-	the asoc tree
+Message-Id: <20191021180046.8052B2743293@ypsilon.sirena.org.uk>
+Date: Mon, 21 Oct 2019 19:00:46 +0100 (BST)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: [alsa-devel] Applied "ASoC: samsung: i2s: Document clocks macros"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: dt-bindings: mt8183: add ec-codec
+   ASoC: samsung: i2s: Document clocks macros
 
 has been applied to the asoc tree at
 
@@ -116,42 +117,45 @@ to this mail.
 Thanks,
 Mark
 
-From 0cce736d389cbeae6a7d0a72bafb4408d21eb44a Mon Sep 17 00:00:00 2001
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Sat, 19 Oct 2019 15:02:53 +0800
-Subject: [PATCH] ASoC: dt-bindings: mt8183: add ec-codec
+From 6cc23ed2ceab880e96ad287d9c85b53659050510 Mon Sep 17 00:00:00 2001
+From: Maciej Falkowski <m.falkowski@samsung.com>
+Date: Thu, 26 Sep 2019 13:02:19 +0200
+Subject: [PATCH] ASoC: samsung: i2s: Document clocks macros
 
-Add an optional property "ec-codec".  If specified, mt8183 could use the
-"wake on voice" feature offered by EC codec.
+Document clocks macros with their description
+from 'Documentation/devicetree/bindings/sound/samsung-i2s.txt'
 
-Acked-by: Rob Herring <robh@kernel.org>
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-Link: https://lore.kernel.org/r/20191019143504.3.Iec97a3f137148cdf316056612590b3e0b302f5f3@changeid
+Signed-off-by: Maciej Falkowski <m.falkowski@samsung.com>
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Link: https://lore.kernel.org/r/20190926110219.6144-1-m.szyprowski@samsung.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../bindings/sound/mt8183-mt6358-ts3a227-max98357.txt          | 3 +++
- 1 file changed, 3 insertions(+)
+ include/dt-bindings/sound/samsung-i2s.h | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt b/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
-index 17ff3892f439..decaa013a07e 100644
---- a/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
-+++ b/Documentation/devicetree/bindings/sound/mt8183-mt6358-ts3a227-max98357.txt
-@@ -6,12 +6,15 @@ Required properties:
+diff --git a/include/dt-bindings/sound/samsung-i2s.h b/include/dt-bindings/sound/samsung-i2s.h
+index 77545f14c379..250de0d6c734 100644
+--- a/include/dt-bindings/sound/samsung-i2s.h
++++ b/include/dt-bindings/sound/samsung-i2s.h
+@@ -2,8 +2,14 @@
+ #ifndef _DT_BINDINGS_SAMSUNG_I2S_H
+ #define _DT_BINDINGS_SAMSUNG_I2S_H
  
- Optional properties:
- - mediatek,headset-codec: the phandles of ts3a227 codecs
-+- mediatek,ec-codec: the phandle of EC codecs.
-+                     See google,cros-ec-codec.txt for more details.
+-#define CLK_I2S_CDCLK		0
+-#define CLK_I2S_RCLK_SRC	1
+-#define CLK_I2S_RCLK_PSR	2
++#define CLK_I2S_CDCLK		0 /* the CDCLK (CODECLKO) gate clock */
++
++#define CLK_I2S_RCLK_SRC	1 /* the RCLKSRC mux clock (corresponding to
++				   * RCLKSRC bit in IISMOD register)
++				   */
++
++#define CLK_I2S_RCLK_PSR	2 /* the RCLK prescaler divider clock
++				   * (corresponding to the IISPSR register)
++				   */
  
- Example:
- 
- 	sound {
- 		compatible = "mediatek,mt8183_mt6358_ts3a227_max98357";
- 		mediatek,headset-codec = <&ts3a227>;
-+		mediatek,ec-codec = <&ec_codec>;
- 		mediatek,platform = <&afe>;
- 	};
- 
+ #endif /* _DT_BINDINGS_SAMSUNG_I2S_H */
 -- 
 2.20.1
 

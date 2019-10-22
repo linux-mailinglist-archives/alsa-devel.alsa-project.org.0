@@ -2,84 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D994DDFC21
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 05:13:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE8C9DFCE3
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 06:55:24 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42BB5165E;
-	Tue, 22 Oct 2019 05:13:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42BB5165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 228FD1660;
+	Tue, 22 Oct 2019 06:54:34 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 228FD1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571714037;
-	bh=Gp+yLSU/My3uE6aXrJF8jTcdxcncalxEqdPb/G+xPNY=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1571720124;
+	bh=txvpl2Cno2aHMFBEuA8EflL7gbSRRWn25ngR4JF5VdA=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WDqj+iwsIHpa+qDTAgFexbo3OZGQaCl2Il2S9svZgR2s2nFn64G8Yoh4g8nK0epch
-	 LedVxG0bp/FeCwi0/1YfDFjDiJWtWw/J2CmJw16E7Be1G+IT9v6cKWO5C+i30pIq5m
-	 9G/6uKcUJ9qZT5LdggSV5VnuNC+wZkbk+rVpB31s=
+	b=kVr4PJk8Sa9ucTDbx39RLtbVIuTN4mKmLO1qC0fl0/xEVbEypeslUx2749bP19pUx
+	 8aSr1Diikb6e9+i0toJjiq3jhINAj3IYMLTHZAIo4k1JAYO5BoVx/5uOYEA8UcNENX
+	 crMPrGj45p172WzZqFfN2pvIPHJb+uFnzU7F4RBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 875DCF8031A;
-	Tue, 22 Oct 2019 05:12:13 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2B9DF802FB;
+	Tue, 22 Oct 2019 06:53:40 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE346F8031A; Tue, 22 Oct 2019 05:12:09 +0200 (CEST)
+ id C7ADEF800C0; Tue, 22 Oct 2019 06:53:36 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ADC84F80112
- for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 05:12:03 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADC84F80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id EFC74F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 06:53:32 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFC74F800C0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="K0b7xhMq"
-Received: by mail-wr1-x442.google.com with SMTP id t16so11034875wrr.1
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 20:12:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=DBGwxBswkEid+QYsKOoKTSk4CtB3fQhNvSrwGatyLx0=;
- b=K0b7xhMqt64fnvR3ILBAbY/mqyZkV1DwiFHyB0m3J43kFz6jKK0Y/NO8TBQP7Wr9UL
- PQfgxfM1u2SphsjK3c7chtiW1WBkMfGyE5fxtpN+5Dn/eo1zJOgHBi3vY+sQ8H+EPoIY
- w5L0Q5djLFsUahOlexunN7Elrbsz6tfRIBFi0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=DBGwxBswkEid+QYsKOoKTSk4CtB3fQhNvSrwGatyLx0=;
- b=Kh1H1AGEW2g+LThhTkxlw1x80dOVTnd6Tfs6YdJp9ZDmeco+98ESOF+2WZBqH10Tdp
- 8M1NrpDYZuxMd5J0JPWbJZoy0Q5YTtNZ/OtKLucXxoLRkqhHNkHuBFrs/r/W6qfzSJPF
- L5oyaB4hAtj2tLfG0lx6d5hTm50AsJv53k4sJYcLVZaFAHINL9CA4QB4EGeHQA3i5N24
- jo0WUthB+QtRgfM4oiITTny9675o08MgV6IFhCReEyWjQu0NEpLfA5q0AH7vO5FAVFVz
- oVioJvzrURZ7nqA0Jl4F6AMXdoMz5QWUY8fHTleCCo7USgPu+znp69RW5w9EkbTYG0du
- bdTA==
-X-Gm-Message-State: APjAAAVz8b+1xT3Wnp0talAlvRE7LJi11NpeUokTxgj+7Y6EF8gk/Kzz
- zQ64u2LTK8yGTNHzl7dbWOBt0TXgIMItiRAgEUJdtA==
-X-Google-Smtp-Source: APXvYqwVhpzg/T617PK/MoOirSNmIus8eMerWOKSOtp96OKp/ukpJHsMFJf79I2DXfQWc+C0iqBjeWIDk0GfVEUOUX4=
-X-Received: by 2002:adf:e80b:: with SMTP id o11mr1160769wrm.231.1571713922674; 
- Mon, 21 Oct 2019 20:12:02 -0700 (PDT)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="q+OarvDz"
+Received: from localhost (unknown [122.181.223.147])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 64974214B2;
+ Tue, 22 Oct 2019 04:53:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1571720009;
+ bh=pBTQ0YOEOQnzuYUb+FHQ4FBCyJ82lfDZHeeN8yBIiFw=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=q+OarvDzZbllVYVz8+gParOTzlzJoIHeghSRJUKIkjv5hWxaJdcM8ErWSazWiq13t
+ HL7/yOC0TixjBbbwqMYUzp8kqC0WqWG4GQ+FpGZeTvLgb+DYCf7/t39ZPajRSuBQve
+ m6Rd/HFCIPCIW82dDHW7zkP2PwJvAXwnlWaW88rI=
+Date: Tue, 22 Oct 2019 10:23:24 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20191022045324.GI2654@vkoul-mobl>
+References: <20190916190952.32388-1-pierre-louis.bossart@linux.intel.com>
+ <20190916190952.32388-3-pierre-louis.bossart@linux.intel.com>
+ <20191021040458.GX2654@vkoul-mobl>
+ <96f5b446-ae02-afd6-9e5c-12e3507567f3@linux.intel.com>
 MIME-Version: 1.0
-References: <2146461867.4835752.1571321696465@mail.yahoo.com>
- <CAEy1m_CXrhr15RZz_Q+TiMGj4DMBbUV8sCobmmkhguYJWCw03Q@mail.gmail.com>
- <572375501.5493214.1571396197926@mail.yahoo.com>
- <CAGvk5PrZ65wEp7y7UbtEN2CCf6c-wvoknMKyTmuqXY9EPg7jiw@mail.gmail.com>
- <43747502.7351282.1571666231987@mail.yahoo.com>
-In-Reply-To: <43747502.7351282.1571666231987@mail.yahoo.com>
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-Date: Tue, 22 Oct 2019 11:11:51 +0800
-Message-ID: <CAGvk5PoYYikRL90Vn2GxGWngwaaYzZwe6UX_hcjfAnLeBwvy=w@mail.gmail.com>
-To: htl10@users.sourceforge.net
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] alsa conformance test fails to run for playback
-	(and works for capture)
+Content-Disposition: inline
+In-Reply-To: <96f5b446-ae02-afd6-9e5c-12e3507567f3@linux.intel.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v2 2/5] soundwire: cadence_master: add
+ hw_reset capability in debugfs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,49 +85,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgSGluLVRhaywKCkkgZmluYWxseSBmb3VuZCBvdXQgdGhlIHJlYXNvbiEgSXQgaXMgYmVjYXVz
-ZSB0aGVyZSBpcyBhIGxlbmd0aCBsaW1pdApvZiBQQ00gbmFtZSBpbiBBTFNBIGNvbmZvcm1hbmNl
-IHRlc3QuCkkgaGF2ZSBpbmNyZWFzZWQgaXQgb24KaHR0cHM6Ly9jaHJvbWl1bS1yZXZpZXcuZ29v
-Z2xlc291cmNlLmNvbS9jL2Nocm9taXVtb3MvcGxhdGZvcm0vYXVkaW90ZXN0LysvMTg3MTc5Mi4K
-V2FpdGluZyBmb3IgdGhlIHJldmlldyBhbmQgbWVyZ2UuClRoYW5rcyBhIGxvdCBmb3IgeW91ciBj
-YXRjaCEKCkJlc3QsCll1LUhzdWFuCgpIaW4tVGFrIExldW5nIDxodGwxMEB1c2Vycy5zb3VyY2Vm
-b3JnZS5uZXQ+IOaWvCAyMDE55bm0MTDmnIgyMeaXpSDpgLHkuIAg5LiL5Y2IOTo1N+Wvq+mBk++8
-mgo+Cj4gT24gU3VuZGF5LCAyMCBPY3RvYmVyIDIwMTksIDExOjUxOjQyIEJTVCwgWXUtSHN1YW4g
-SHN1IDx5dWhzdWFuQGNocm9taXVtLm9yZz4gd3JvdGU6Cj4KPgo+ID4gSGkgSGluLVRhaywKPiA+
-IE1heWJlIGl0IGlzIG5vdCB0aGUgY29ycmVjdCBwY20gbmFtZS4gIEkgZ3Vlc3MgdGhlIGNvcnJl
-Y3Qgb25lIGlzCj4gPiAiaHc6c2VlZWQ4bWljdm9pY2VjLDAiLiBDb3VsZCB5b3UgdHJ5IGl0Pwo+
-ID4gQnkgdGhlIHdheSwgeW91IGNhbiBhbHNvIHVzZSBhcGxheSAtRCB7ZGV2aWNlX25hbWV9IHRv
-IG1ha2Ugc3VyZQo+ID4gd2hldGhlciB0aGUgbmFtZSBpcyBjb3JyZWN0IG9yIG5vdC4KPgo+ID4g
-QmVzdCwKPiA+IFl1LUhzdWFuCj4KPiBEZWFyIFl1LUhzdWFuLAo+Cj4gTm8gImh3OnNlZWVkOG1p
-Y3ZvaWNlYywwIiBkaWQgbm90IHdvcmsgYXMgaW5wdXQgdG8gdGhlIGNvbmZvcm1hbmNlIHRlc3Qu
-IEFzIGlucHV0IHRvICdhcGxheSAtRCcsIGJvdGggdGhlICwwIGFuZCB3aXRob3V0IGl0IHNvcnQg
-b2Ygd29ya3MuCj4gKGl0IHdhaXRzIGZvciBpbnB1dCBmcm9tIHN0ZGluKS4KPgo+IFdoZW4gSSBh
-Y3R1YWxseSBnYXZlIGl0IGFuIGNoYW5uZWwgZmlsZSB0byBwbGF5LCBib3RoIGZvcm1zICgnYXBs
-YXkgLUQgaHc6Q0FSRD1zZWVlZDhtaWN2b2ljZWMgLi4uJyBhbmQgJ2FwbGF5IC1EIGh3OkNBUkQ9
-c2VlZWQ4bWljdm9pY2VjLDAgLi4uJykgc3RvcHBlZCB3aXRoOgo+Cj4gUGxheWluZyBXQVZFICdV
-bnRpdGxlZCByZWNvcmRpbmcgMjAxOS0xMC0xMSAxOS4xNS4xMS53YXYnIDogU2lnbmVkIDE2IGJp
-dCBMaXR0bGUgRW5kaWFuLCBSYXRlIDE2MDAwIEh6LCBDaGFubmVscyA2Cj4gYXBsYXk6IHNldF9w
-YXJhbXM6MTMzOTogU2FtcGxlIGZvcm1hdCBub24gYXZhaWxhYmxlCj4gQXZhaWxhYmxlIGZvcm1h
-dHM6Cj4gLSBTMzJfTEUKPgo+IFRoZSBpbnRlcmVzdGluZyBwYXJ0IG9mICdhcGxheSAtTCcgaXMg
-KHRoZXJlIGlzIGFub3RoZXIgZGV2aWNlKToKPgo+IHN5c2RlZmF1bHQ6Q0FSRD1zZWVlZDhtaWN2
-b2ljZWMKPiBzZWVlZC04bWljLXZvaWNlY2FyZCwKPiBEZWZhdWx0IEF1ZGlvIERldmljZQo+IGRt
-aXg6Q0FSRD1zZWVlZDhtaWN2b2ljZWMsREVWPTAKPiBzZWVlZC04bWljLXZvaWNlY2FyZCwKPiBE
-aXJlY3Qgc2FtcGxlIG1peGluZyBkZXZpY2UKPiBkc25vb3A6Q0FSRD1zZWVlZDhtaWN2b2ljZWMs
-REVWPTAKPiBzZWVlZC04bWljLXZvaWNlY2FyZCwKPiBEaXJlY3Qgc2FtcGxlIHNub29waW5nIGRl
-dmljZQo+IGh3OkNBUkQ9c2VlZWQ4bWljdm9pY2VjLERFVj0wCj4gc2VlZWQtOG1pYy12b2ljZWNh
-cmQsCj4gRGlyZWN0IGhhcmR3YXJlIGRldmljZSB3aXRob3V0IGFueSBjb252ZXJzaW9ucwo+IHBs
-dWdodzpDQVJEPXNlZWVkOG1pY3ZvaWNlYyxERVY9MAo+IHNlZWVkLThtaWMtdm9pY2VjYXJkLAo+
-IEhhcmR3YXJlIGRldmljZSB3aXRoIGFsbCBzb2Z0d2FyZSBjb252ZXJzaW9ucwo+IHVzYnN0cmVh
-bTpDQVJEPXNlZWVkOG1pY3ZvaWNlYwo+IHNlZWVkLThtaWMtdm9pY2VjYXJkCj4gVVNCIFN0cmVh
-bSBPdXRwdXQKPgo+IEFzIEkgbWVudGlvbmVkIGF0IHRoZSBiZWdpbm5pbmcsICdhcmVjb3JkIC1M
-JyBhbmQgcnVubmluZyB0aGUgY29uZm9ybWFuY2UgdGVzdCBpbiBDQVBUVVJFIG1vZGUgdXNpbmcg
-J2h3OkNBUkQ9c2VlZWQ4bWljdm9pY2VjJyB3b3Jrcy4gSXQgaXMgUExBWUJBQ0sgd2hpY2ggZG9l
-cyBub3QuCj4KPiBSZWdhcmRzLAo+IEhpbi1UYWsKPgo+Cj4KPgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNh
-LWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+On 21-10-19, 05:20, Pierre-Louis Bossart wrote:
+> On 10/20/19 11:04 PM, Vinod Koul wrote:
+> > On 16-09-19, 14:09, Pierre-Louis Bossart wrote:
+> > > Provide debugfs capability to kick link and devices into hard-reset
+> > > (as defined by MIPI). This capability is really useful when some
+> > > devices are no longer responsive and/or to check the software handling
+> > > of resynchronization.
+> > > 
+> > > Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > > ---
+> > >   drivers/soundwire/cadence_master.c | 20 ++++++++++++++++++++
+> > >   1 file changed, 20 insertions(+)
+> > > 
+> > > diff --git a/drivers/soundwire/cadence_master.c b/drivers/soundwire/cadence_master.c
+> > > index e3d06330d125..5f900cf2acb9 100644
+> > > --- a/drivers/soundwire/cadence_master.c
+> > > +++ b/drivers/soundwire/cadence_master.c
+> > > @@ -340,6 +340,23 @@ static int cdns_reg_show(struct seq_file *s, void *data)
+> > >   }
+> > >   DEFINE_SHOW_ATTRIBUTE(cdns_reg);
+> > > +static int cdns_hw_reset(void *data, u64 value)
+> > > +{
+> > > +	struct sdw_cdns *cdns = data;
+> > > +	int ret;
+> > > +
+> > > +	if (value != 1)
+> > > +		return -EINVAL;
+> > > +
+> > > +	ret = sdw_cdns_exit_reset(cdns);
+> > 
+> > So we are performing reset of the device behind the kernel, so I think
+> > it makes sense to mark the kernel as tainted.
+> 
+> This is a bit ironic. This reset is the only way to prove that the
+> enumeration is done right and that all the subsystem fully recovers, and yet
+> we'd mark the kernel as 'untrustworthy' and all bug reports would be
+> ignored.
+
+Nope you dont expect this would be done on a production system and for
+you own testing you can choose not to ignore the reports!
+
+> I don't mind doing this but we'd have to agree on a code. The only one I see
+> relevant is "taint requested by userspace application", which is not exactly
+> super useful.
+
+But it does tell you that userspace did something so watch out!
+
+> > > +	dev_dbg(cdns->dev, "link hw_reset done: %d\n", ret);
+> > > +
+> > > +	return ret;
+> > 
+> > We may want to get rid of the debug and do:
+> >          return sdw_cdns_exit_reset();
+> 
+> this debug line is useful, it marks the start of the reset sequence and
+> that's valuable information. Remove it and you've lost the ability to
+> analyze the dmesg logs. It's even more useful if we mark the kernel as
+> tainted as you suggested above.
+
+ok
+
+> 
+> > 
+> > > +}
+> > > +
+> > > +DEFINE_DEBUGFS_ATTRIBUTE(cdns_hw_reset_fops, NULL, cdns_hw_reset, "%llu\n");
+> > > +
+> > >   /**
+> > >    * sdw_cdns_debugfs_init() - Cadence debugfs init
+> > >    * @cdns: Cadence instance
+> > > @@ -348,6 +365,9 @@ DEFINE_SHOW_ATTRIBUTE(cdns_reg);
+> > >   void sdw_cdns_debugfs_init(struct sdw_cdns *cdns, struct dentry *root)
+> > >   {
+> > >   	debugfs_create_file("cdns-registers", 0400, root, cdns, &cdns_reg_fops);
+> > > +
+> > > +	debugfs_create_file("cdns-hw-reset", 0200, root, cdns,
+> > > +			    &cdns_hw_reset_fops);
+> > >   }
+> > >   EXPORT_SYMBOL_GPL(sdw_cdns_debugfs_init);
+> > > -- 
+> > > 2.20.1
+> > 
+
+-- 
+~Vinod
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

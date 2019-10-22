@@ -2,104 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB031E087E
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 18:17:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3830FE087F
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 18:17:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73D1415E0;
-	Tue, 22 Oct 2019 18:16:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73D1415E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id C1B6D1670;
+	Tue, 22 Oct 2019 18:16:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1B6D1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571761028;
-	bh=Gp0r7jLHOyjjGCUdaKBA4h144OOqdSJHYUI+M7cESHw=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=oqYXF9ufnlFfevHXtrSJRfGlyjJdbhgJuMbA7QIvxdac9ud0JphH9j6cZdbChPvfx
-	 ypo57P7uLAtAXTXc9BA/SPhK12hka4CPWouRWb3/BV06kL9r1U3yiMKuimVNLNhqrF
-	 82NvvNZm3K8/FRNNg8Ka1uUkC8DKzuuVGPW++nrk=
+	s=default; t=1571761039;
+	bh=skxKiWBOmHtnXs8gyMOXjlKT54D0EcrfqaAunRtBCvU=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KRvoVvYdERP+c9eMau14EfKvAicjfQ/0s9QqhF40SEulc6rZddtv/9CPSoWf/kNUk
+	 AfQfML/ybkzY5FiFsmFurautFcWvsQbhDYmSCETZ9CdxqTyHdkr4zpoksDLjlc6zN1
+	 D7oSNIr4+YPAQBTeJ/dCkHpXQbwlgO8zWBYU2U6k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0EE75F805FE;
-	Tue, 22 Oct 2019 18:14:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55D37F80610;
+	Tue, 22 Oct 2019 18:14:19 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41D59F80368; Mon, 21 Oct 2019 11:59:21 +0200 (CEST)
+ id ED0ADF8031A; Tue, 22 Oct 2019 16:54:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ua1-x942.google.com (mail-ua1-x942.google.com
- [IPv6:2607:f8b0:4864:20::942])
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f72.google.com (mail-io1-f72.google.com
+ [209.85.166.72])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEC47F80112
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 11:59:15 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEC47F80112
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="A+lOYOm+"
-Received: by mail-ua1-x942.google.com with SMTP id b14so3619291uap.6
- for <alsa-devel@alsa-project.org>; Mon, 21 Oct 2019 02:59:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pdHS5iTjhH216W3OQmstavgIx2TJJX3EShTQ+j4ScZ4=;
- b=A+lOYOm+Xr9/QoAPbGmRqhJkdtF0Lqe8WUL4ACj5RU0nNNF8swHXxJ1znB4G8Os5Ny
- GFNaGZ/ejdu+ewHfdHOPCmruyouYE59ddCzoE/xVdTrwx+9jDUvHxy7BDp9wIDVdNxfI
- /6ZVUUwI4YOYuKQGiiojp4zvyT6amzLfph0exWZKznf04jiM3DxdRAExfvqYeyeqcqdD
- +jHYiIvYbVFtFjJ+6C1ZbvLjFHV0Oba7w+6LuMl93+fW5xmlBomtFj1iieYNFONPPx+n
- GuW5fPipC9llariB4WKqkEzYSA5LiCXyADKzbRoQItF2MbOokfHyNH6+nW64EQTg2+/Q
- SDPg==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66885F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 16:54:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66885F800C0
+Received: by mail-io1-f72.google.com with SMTP id r5so20418445iop.2
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 07:54:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=pdHS5iTjhH216W3OQmstavgIx2TJJX3EShTQ+j4ScZ4=;
- b=MWZYCuahmBKZ9SDqB9dFmMQJYrMqs3/PD/TuMvKh4jY7pDKNi+7XusKKdIB5TBN/Wq
- JWdjeaYYATLNMeORF+lnq9ovqiACaarPcjhBthJ4RayUxAq2i2Amz4uAf2I9aE4nJg0K
- D8iQq6HN+xK8lQSMdr9ciE7iMCIBptZ63nCn1rw6GzCfiET9+5kdMdB4s+MwweB6U2B6
- cy/+4YPHIC/jTEqF/N93CSNDNLAQV0wrLVUZe0vuc0GY5oAcj8VFI30h/0spvZhBjKqK
- 2jexLpIxv5BztHHRVZZ5GvQeM1oO/fq3Q5SZCrDudVtyBTnzpRaWskgbmGMGYyFm5TAP
- 71LQ==
-X-Gm-Message-State: APjAAAUlJ6qgvFOXSuqHq0MEkxmPoDuNLlYWDu23yGd52rLNSfpxyyKC
- yl4cgbdt5GCsBS3t98icS68vkmaBY9oWhqCC+baPSg==
-X-Google-Smtp-Source: APXvYqyX35z25w9uC+afBeqWkMX+7aKojU6riMDxod1s9TtFAaRTKL1Dky4gIujxC0cprlM32BbtJAeRhAkOs/Lhxl0=
-X-Received: by 2002:ab0:5a97:: with SMTP id w23mr2075364uae.129.1571651953620; 
- Mon, 21 Oct 2019 02:59:13 -0700 (PDT)
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=/l4YRohPu2U+waow0rajZOPTsLqoJy+OFJYokmx4Ib4=;
+ b=frv2KzYteFtl455k7WzQhdRo5ApVoHJVppxDuM4qfs8p2/g+1MdRwG9o9XZE+SDqeY
+ 4BjvqMa0qtoQE5T0CdOSen3ShL3AJMgxdqflDobm2sHxA+m3TCiuf3K/5OZyaAPB/KB2
+ V9VkB7Y4NuO28hdGT7bfBM6f4TrLpdogMPnlBUr+uzh0dVdu9Kuj0OnZvqla/QEf/YqX
+ 4jSHuRzC9oGWv2ulBBsYrrGIcucydOLPfXqbHOd65dfrN0m9edNRyFEosrVq6hpYdnrr
+ DJXBQhoTB/3guhnB61SratvoGzDQ1aPfhtlGkNrVJ8u6pmZnvaYUgvkOsFAvqhoBKxB9
+ iqkg==
+X-Gm-Message-State: APjAAAWaZObn5z/k4RBSj+uaOmjcsREyXuEpHKvkxQmjMdwRJVKOJuws
+ AT9cmhEu4XDRce/2o91WIssCVoTDZ01O4x3ZF+q3y3VWZhY2
+X-Google-Smtp-Source: APXvYqzzv3pjOV43MjYcorPKwPet1xJDCOz1ge/ruZ+9pJYbuYMJDRlEV36mejfnRULOhLbo61vcJTf/pg638GYdD0Zk2E6KnKXn
 MIME-Version: 1.0
-References: <20191018154052.1276506-1-arnd@arndb.de>
- <20191018154201.1276638-5-arnd@arndb.de>
-In-Reply-To: <20191018154201.1276638-5-arnd@arndb.de>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Mon, 21 Oct 2019 11:58:37 +0200
-Message-ID: <CAPDyKFqHoPOPAA_0WpxQUjBTXJ-5BfMbcNXhFNr7rv3RObsgow@mail.gmail.com>
-To: Arnd Bergmann <arnd@arndb.de>
+X-Received: by 2002:a05:6638:632:: with SMTP id
+ h18mr4120087jar.55.1571756047286; 
+ Tue, 22 Oct 2019 07:54:07 -0700 (PDT)
+Date: Tue, 22 Oct 2019 07:54:07 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000df5189059580f8e9@google.com>
+From: syzbot <syzbot+0620f79a1978b1133fd7@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, andreyknvl@google.com, benquike@gmail.com, 
+ dan.carpenter@oracle.com, g@b4.vu, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, perex@perex.cz, rfontana@redhat.com, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com, yuehaibing@huawei.com
 X-Mailman-Approved-At: Tue, 22 Oct 2019 18:14:15 +0200
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linux USB List <linux-usb@vger.kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
- Dominik Brodowski <linux@dominikbrodowski.net>, linux-mtd@lists.infradead.org,
- Pavel Machek <pavel@ucw.cz>, Robert Jarzmik <robert.jarzmik@free.fr>,
- linux-clk <linux-clk@vger.kernel.org>, linux-leds@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-input@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>,
- Guenter Roeck <linux@roeck-us.net>, linux-watchdog@vger.kernel.org,
- alsa-devel@alsa-project.org, Linux PM <linux-pm@vger.kernel.org>,
- Haojian Zhuang <haojian.zhuang@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Stephen Boyd <sboyd@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Daniel Mack <daniel@zonque.org>
-Subject: Re: [alsa-devel] [PATCH 05/46] ARM: pxa: split up mach/hardware.h
+Subject: [alsa-devel] KASAN: slab-out-of-bounds Read in build_audio_procunit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,62 +79,157 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"; DelSp="yes"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 18 Oct 2019 at 17:43, Arnd Bergmann <arnd@arndb.de> wrote:
->
-> The mach/hardware.h is included in lots of places, and it provides
-> three different things on pxa:
->
-> - the cpu_is_pxa* macros
-> - an indirect inclusion of mach/addr-map.h
-> - the __REG() and io_pv2() helper macros
->
-> Split it up into separate <linux/soc/pxa/cpu.h> and mach/pxa-regs.h
-> headers, then change all the files that use mach/hardware.h to
-> include the exact set of those three headers that they actually
-> need, allowing for further more targeted cleanup.
->
-> linux/soc/pxa/cpu.h can remain permanently exported and is now in
-> a global location along with similar headers. pxa-regs.h and
-> addr-map.h are only used in a very small number of drivers now
-> and can be moved to arch/arm/mach-pxa/ directly when those drivers
-> are to pass the necessary data as resources.
->
-> Cc: Michael Turquette <mturquette@baylibre.com>
-> Cc: Stephen Boyd <sboyd@kernel.org>
-> Cc: Viresh Kumar <viresh.kumar@linaro.org>
-> Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> Cc: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-> Cc: Pavel Machek <pavel@ucw.cz>
-> Cc: Ulf Hansson <ulf.hansson@linaro.org>
-> Cc: Dominik Brodowski <linux@dominikbrodowski.net>
-> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Guenter Roeck <linux@roeck-us.net>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: linux-clk@vger.kernel.org
-> Cc: linux-pm@vger.kernel.org
-> Cc: linux-input@vger.kernel.org
-> Cc: linux-leds@vger.kernel.org
-> Cc: linux-mmc@vger.kernel.org
-> Cc: linux-mtd@lists.infradead.org
-> Cc: linux-rtc@vger.kernel.org
-> Cc: linux-usb@vger.kernel.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-fbdev@vger.kernel.org
-> Cc: linux-watchdog@vger.kernel.org
-> Cc: alsa-devel@alsa-project.org
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Hello,
 
-[...]
+syzbot found the following crash on:
 
-For the mmc part:
+HEAD commit:    22be26f7 usb-fuzzer: main usb gadget fuzzer driver
+git tree:       https://github.com/google/kasan.git usb-fuzzer
+console output: https://syzkaller.appspot.com/x/log.txt?x=103893cf600000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=387eccb7ac68ec5
+dashboard link: https://syzkaller.appspot.com/bug?extid=0620f79a1978b1133fd7
+compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16fd6a40e00000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1033215f600000
 
-Acked-by: Ulf Hansson <ulf.hansson@linaro.org>
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+0620f79a1978b1133fd7@syzkaller.appspotmail.com
+
+usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+usb 1-1: Product: syz
+usb 1-1: Manufacturer: syz
+usb 1-1: SerialNumber: syz
+==================================================================
+BUG: KASAN: slab-out-of-bounds in uac_processing_unit_iProcessing  
+include/uapi/linux/usb/audio.h:429 [inline]
+BUG: KASAN: slab-out-of-bounds in build_audio_procunit+0x1306/0x13f0  
+sound/usb/mixer.c:2436
+Read of size 1 at addr ffff8881d537c7b7 by task kworker/0:2/101
+
+CPU: 0 PID: 101 Comm: kworker/0:2 Not tainted 5.4.0-rc3+ #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS  
+Google 01/01/2011
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+  __dump_stack lib/dump_stack.c:77 [inline]
+  dump_stack+0xca/0x13e lib/dump_stack.c:113
+  print_address_description.constprop.0+0x36/0x50 mm/kasan/report.c:374
+  __kasan_report.cold+0x1a/0x33 mm/kasan/report.c:506
+  kasan_report+0xe/0x20 mm/kasan/common.c:634
+  uac_processing_unit_iProcessing include/uapi/linux/usb/audio.h:429 [inline]
+  build_audio_procunit+0x1306/0x13f0 sound/usb/mixer.c:2436
+  parse_audio_processing_unit sound/usb/mixer.c:2468 [inline]
+  parse_audio_unit+0x17e9/0x36f0 sound/usb/mixer.c:2757
+  snd_usb_mixer_controls+0x715/0xb90 sound/usb/mixer.c:3095
+  snd_usb_create_mixer+0x2b5/0x1890 sound/usb/mixer.c:3445
+  usb_audio_probe+0xc76/0x2010 sound/usb/card.c:653
+  usb_probe_interface+0x305/0x7a0 drivers/usb/core/driver.c:361
+  really_probe+0x281/0x6d0 drivers/base/dd.c:548
+  driver_probe_device+0x104/0x210 drivers/base/dd.c:721
+  __device_attach_driver+0x1c2/0x220 drivers/base/dd.c:828
+  bus_for_each_drv+0x162/0x1e0 drivers/base/bus.c:430
+  __device_attach+0x217/0x360 drivers/base/dd.c:894
+  bus_probe_device+0x1e4/0x290 drivers/base/bus.c:490
+  device_add+0xae6/0x16f0 drivers/base/core.c:2201
+  usb_set_configuration+0xdf6/0x1670 drivers/usb/core/message.c:2023
+  generic_probe+0x9d/0xd5 drivers/usb/core/generic.c:210
+  usb_probe_device+0x99/0x100 drivers/usb/core/driver.c:266
+  really_probe+0x281/0x6d0 drivers/base/dd.c:548
+  driver_probe_device+0x104/0x210 drivers/base/dd.c:721
+  __device_attach_driver+0x1c2/0x220 drivers/base/dd.c:828
+  bus_for_each_drv+0x162/0x1e0 drivers/base/bus.c:430
+  __device_attach+0x217/0x360 drivers/base/dd.c:894
+  bus_probe_device+0x1e4/0x290 drivers/base/bus.c:490
+  device_add+0xae6/0x16f0 drivers/base/core.c:2201
+  usb_new_device.cold+0x6a4/0xe79 drivers/usb/core/hub.c:2536
+  hub_port_connect drivers/usb/core/hub.c:5183 [inline]
+  hub_port_connect_change drivers/usb/core/hub.c:5323 [inline]
+  port_event drivers/usb/core/hub.c:5469 [inline]
+  hub_event+0x1dd0/0x37e0 drivers/usb/core/hub.c:5551
+  process_one_work+0x92b/0x1530 kernel/workqueue.c:2269
+  worker_thread+0x96/0xe20 kernel/workqueue.c:2415
+  kthread+0x318/0x420 kernel/kthread.c:255
+  ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
+
+Allocated by task 101:
+  save_stack+0x1b/0x80 mm/kasan/common.c:69
+  set_track mm/kasan/common.c:77 [inline]
+  __kasan_kmalloc mm/kasan/common.c:510 [inline]
+  __kasan_kmalloc.constprop.0+0xbf/0xd0 mm/kasan/common.c:483
+  kmalloc include/linux/slab.h:561 [inline]
+  usb_get_configuration+0x314/0x3050 drivers/usb/core/config.c:857
+  usb_enumerate_device drivers/usb/core/hub.c:2369 [inline]
+  usb_new_device+0xd3/0x160 drivers/usb/core/hub.c:2505
+  hub_port_connect drivers/usb/core/hub.c:5183 [inline]
+  hub_port_connect_change drivers/usb/core/hub.c:5323 [inline]
+  port_event drivers/usb/core/hub.c:5469 [inline]
+  hub_event+0x1dd0/0x37e0 drivers/usb/core/hub.c:5551
+  process_one_work+0x92b/0x1530 kernel/workqueue.c:2269
+  worker_thread+0x96/0xe20 kernel/workqueue.c:2415
+  kthread+0x318/0x420 kernel/kthread.c:255
+  ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
+
+Freed by task 17:
+  save_stack+0x1b/0x80 mm/kasan/common.c:69
+  set_track mm/kasan/common.c:77 [inline]
+  kasan_set_free_info mm/kasan/common.c:332 [inline]
+  __kasan_slab_free+0x130/0x180 mm/kasan/common.c:471
+  slab_free_hook mm/slub.c:1424 [inline]
+  slab_free_freelist_hook mm/slub.c:1475 [inline]
+  slab_free mm/slub.c:3018 [inline]
+  kfree+0xe4/0x320 mm/slub.c:3967
+  urb_destroy drivers/usb/core/urb.c:26 [inline]
+  kref_put include/linux/kref.h:65 [inline]
+  usb_free_urb.part.0+0x7a/0xc0 drivers/usb/core/urb.c:95
+  usb_free_urb+0x1b/0x30 drivers/usb/core/urb.c:94
+  usb_start_wait_urb+0x1e5/0x2b0 drivers/usb/core/message.c:79
+  usb_internal_control_msg drivers/usb/core/message.c:101 [inline]
+  usb_control_msg+0x31c/0x4a0 drivers/usb/core/message.c:152
+  get_port_status drivers/usb/core/hub.c:569 [inline]
+  hub_ext_port_status+0x125/0x460 drivers/usb/core/hub.c:586
+  hub_port_status drivers/usb/core/hub.c:608 [inline]
+  hub_activate+0x497/0x1570 drivers/usb/core/hub.c:1111
+  process_one_work+0x92b/0x1530 kernel/workqueue.c:2269
+  worker_thread+0x96/0xe20 kernel/workqueue.c:2415
+  kthread+0x318/0x420 kernel/kthread.c:255
+  ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
+
+The buggy address belongs to the object at ffff8881d537c700
+  which belongs to the cache kmalloc-192 of size 192
+The buggy address is located 183 bytes inside of
+  192-byte region [ffff8881d537c700, ffff8881d537c7c0)
+The buggy address belongs to the page:
+page:ffffea000754df00 refcount:1 mapcount:0 mapping:ffff8881da002a00  
+index:0x0
+flags: 0x200000000000200(slab)
+raw: 0200000000000200 ffffea000754d680 0000000600000006 ffff8881da002a00
+raw: 0000000000000000 0000000000100010 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+  ffff8881d537c680: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+  ffff8881d537c700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+> ffff8881d537c780: 00 00 00 02 fc fc fc fc fc fc fc fc fc fc fc fc
+                                      ^
+  ffff8881d537c800: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+  ffff8881d537c880: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+==================================================================
+
+
+---
+This bug is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this bug report. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this bug, for details see:
+https://goo.gl/tpsmEJ#testing-patches
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

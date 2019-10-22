@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C489E094F
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 18:41:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F529E0957
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 18:41:56 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A3D61694;
-	Tue, 22 Oct 2019 18:40:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A3D61694
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24D7B1696;
+	Tue, 22 Oct 2019 18:41:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24D7B1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571762473;
-	bh=ULDJDKyKog/i/urJ9JZfTgDrSn0QihqnrasDjU/bi5Q=;
+	s=default; t=1571762516;
+	bh=DMS3mV0V0p+Y2XjyeigPppJwGfWb5+fVA2xCc4G4XiA=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h92IxUGrLet96pLxUYtXDHavFMmEb7B3MqX1qPxnhe8xtCqtMdFJqZXmrG97EVDNi
-	 UaL8rzF5Dna3kQ6ni3tsFK+oILolgWButp7PzNBEVm/epWwFp3NTuPmucVW37qfW4T
-	 5Zinj4hGevFkFGuPOKvHiToBQqQGkbHTK6Ow/wQE=
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 003C0F80638;
-	Tue, 22 Oct 2019 18:38:12 +0200 (CEST)
+	b=azt3Pij/eoVNIrmVgli63KtOi7TXoNIPmo7fc/Rd7GV2adoFBlc/aerCoApIjug37
+	 WGDtJ1oizJfUV9aFj9NFRYz79Gk6aNXofCaQCPVl4tyM2EzZErpbjFLddIROv2s9PB
+	 NmV8kiWkWIsCBU+WJomvBD1kJDKOd3+VfAfjVEiQ=
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 424C8F8063C;
+	Tue, 22 Oct 2019 18:38:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1F40F80539; Tue, 22 Oct 2019 18:38:05 +0200 (CEST)
+ id AE857F8063B; Tue, 22 Oct 2019 18:38:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,45 +35,45 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E8E28F802FB
- for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 18:38:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8E28F802FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F2AEF80390
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 18:38:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F2AEF80390
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="CoarkaAR"
+ header.b="VbxtWlr6"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9/fvYnIL7LfXM+M3n0vReAsqZf3TBvnkJHO/5fj3JO0=; b=CoarkaARHMkWh9bAgIzemxZsR
- ZvzmzF5YtXG46kMDc4mq8Elq4v2Ls1Ksi/5d0fJ6wJKXvnPpN8U2VLyNJkUidbNWi4BxmYBYFdmOF
- n65S189GFbYRke3uf//1BK3EiXaZQdS65jWEunJuTsODPGypUvSDx8gwF1rjAgkf9WshY=;
+ bh=BKcFfApj5RoNNrr6PNcShwRSzBMTqZADkQJDoDqR6ik=; b=VbxtWlr69+jYe4fpFwJUR3x/m
+ xF6y8rnYjq2y5yrl4JYSz5aM6gV+LlOxK+Q3HxgUfSVwii3kSkxa8TwPE4z1I0qRCunkheuPrJ2DG
+ cI7nUdmZb+r0XO+54Tpeb5HNaPkkmhd+2KLbw7tAX7+uoGjLUB6JCrPUg7m3PXpOJDDKA=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iMxAY-00073e-Kl; Tue, 22 Oct 2019 16:38:02 +0000
+ id 1iMxAo-00073r-5r; Tue, 22 Oct 2019 16:38:18 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 20D842743259; Tue, 22 Oct 2019 17:38:02 +0100 (BST)
-Date: Tue, 22 Oct 2019 17:38:02 +0100
+ id AA38F2743259; Tue, 22 Oct 2019 17:38:17 +0100 (BST)
+Date: Tue, 22 Oct 2019 17:38:17 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20191022163802.GR5554@sirena.co.uk>
+Message-ID: <20191022163817.GS5554@sirena.co.uk>
 References: <20191018154052.1276506-1-arnd@arndb.de>
- <20191018154201.1276638-21-arnd@arndb.de>
+ <20191018154201.1276638-22-arnd@arndb.de>
 MIME-Version: 1.0
-In-Reply-To: <20191018154201.1276638-21-arnd@arndb.de>
+In-Reply-To: <20191018154201.1276638-22-arnd@arndb.de>
 X-Cookie: Whip it, whip it good!
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, Linus Walleij <linus.walleij@linaro.org>,
  linux-kernel@vger.kernel.org, Haojian Zhuang <haojian.zhuang@gmail.com>,
  Daniel Mack <daniel@zonque.org>, Robert Jarzmik <robert.jarzmik@free.fr>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH 21/46] ARM: pxa: spitz: use gpio
-	descriptors for audio
+Subject: Re: [alsa-devel] [PATCH 22/46] ARM: pxa: eseries: use gpio lookup
+	for audio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,45 +86,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2484943554496479563=="
+Content-Type: multipart/mixed; boundary="===============6675459701640461112=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============2484943554496479563==
+--===============6675459701640461112==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jTlsQtO0VwrbBARu"
+	protocol="application/pgp-signature"; boundary="rG09A39trvEtf3rB"
 Content-Disposition: inline
 
 
---jTlsQtO0VwrbBARu
+--rG09A39trvEtf3rB
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Fri, Oct 18, 2019 at 05:41:36PM +0200, Arnd Bergmann wrote:
-> The audio driver should not use a hardwired gpio number
-> from the header. Change it to use a lookup table.
+On Fri, Oct 18, 2019 at 05:41:37PM +0200, Arnd Bergmann wrote:
+> The three eseries machines have very similar drivers for audio, all
+> using the mach/eseries-gpio.h header for finding the gpio numbers.
 
 Acked-by: Mark Brown <broonie@kernel.org>
 
---jTlsQtO0VwrbBARu
+--rG09A39trvEtf3rB
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2vMGkACgkQJNaLcl1U
-h9BZoAf/byNOVvP8AyVc+q40jXPdmEx1BeW+W+mdkphAUOlrJ8L7ofKVxME7W4jz
-lCcZv3svPKXE4Tuv1b8Ua+cFGKl37CIRLQJnpXajrmm5699mqaovyUu6BZXJS9mn
-jZvyjEMHS3N2WrMeIZ79cdLjPYLX4ruUhzC0F/gsKPIgHVl9Rt1eJYBGzkTuImWm
-yG4Uda6MUVs46UNkpIcT2WWBf72YHWoo2uzy81R+2NX+Hsc4vx1ocJS2VJoDJWPe
-yLvJBZlDtnrq1S2F1HMJaK8H86GAT1vNK6FjyrOtDQfpvdqNFCm0oTcyqpn7DvLV
-CuSqfIOGxomBEe6WRIVMGaPQ9mKR+w==
-=QbX5
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2vMHgACgkQJNaLcl1U
+h9BajAf/VaPUPbuOM5XFe50jUB4C0hAjngOdu3qVFRYIfGYfbBgT1GqUsq1wJUmn
+RkRh//A+Sht8MoKnOh4QESjoY9maJv0XU1BQ73dULQRHOVYwuJtlJOd4oKbvkvwb
+jdVs5ZvDGbsf6PXnHBC5rqC1P+zBX/CZ8IN3xrJNlS4Z5vNzWj0ALFTiAN528Cxo
+qOVAiwLdGdkC56ACLm5xrHDEPaoGMTgWGx9GYV/c71IbeOGjykBWbepnKnK8kH6d
+lvggiHydyKe8fb7bTsv6dJEVul14x1DMBg2rWM226ujhoAbY8gt/DHOCT4Jbzc04
+X6wwL7joES06ET3LwI91pNukZe8J+Q==
+=ldMH
 -----END PGP SIGNATURE-----
 
---jTlsQtO0VwrbBARu--
+--rG09A39trvEtf3rB--
 
---===============2484943554496479563==
+--===============6675459701640461112==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -135,4 +135,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============2484943554496479563==--
+--===============6675459701640461112==--

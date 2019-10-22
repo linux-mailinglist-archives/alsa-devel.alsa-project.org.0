@@ -2,75 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8267FE05A6
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 15:59:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48AABE05C5
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 16:03:21 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C191166B;
-	Tue, 22 Oct 2019 15:58:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C191166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7B56166E;
+	Tue, 22 Oct 2019 16:02:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7B56166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571752750;
-	bh=6KYD/TEPQhN9v+Ui9EW9Dzqi2yqsUZvAxPFOpcb8pG0=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=jP0t3/y+pR+m47XP7yse+U7sJezDT6H+4KcoR4JQbCFEuKjZsbVs/rRQO/ID6yvYS
-	 Qt+45dv6+Efwb0asLJPk9S1IcELUdhYmiOzYJVPR91/C/N9cXYW1vraHvTCoUw8nTx
-	 f4RMiblbKOvXhR+UP1hhOeBOFQL/w0o8SD4PvJ6E=
+	s=default; t=1571753000;
+	bh=gq3E2Fukby9mER33nU9dAz3x17Jppk2840Itgtf5W3s=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=JDzPihPJR3PwVrfCYZbbl/JtLuX7uEp0Tm7Zhmif3WEkvTzVPZFLifElpsPyTRxj4
+	 +qLLhv7vz+7w4MnhQhM52HEiiEhXm8fJvyuYg7XUfDub4yHanQ9mPQRagtKFADCpBY
+	 F7l+xQfHSBcFBDAdflThzdN32Pv4DqeGrXi16zLs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AA18F80112;
-	Tue, 22 Oct 2019 15:57:26 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A40CF80322;
+	Tue, 22 Oct 2019 16:01:37 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CE6DF8031A; Tue, 22 Oct 2019 15:57:24 +0200 (CEST)
+ id 3B73FF8031A; Tue, 22 Oct 2019 16:01:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1B8B9F80112
- for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 15:57:20 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B8B9F80112
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk
- header.b="P2X5ueKh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=LaVWeAv+qriIIqzhQUq7bEGrENM96irBmsdvMfhEllA=; b=P2X5ueKh84wV/oLYo6iW4Mm9T
- 2ceOfVnNz3UooqpTS5IUk6v+u+/WF9xDKOdiN2Xq1jH+FAcrYP1PSRuyi908CC21ags9BmjGLYBMe
- CNcnJVhgzKXEaOdfuUOax/eOcjGEre1qbuD/I3z7LhNynyisdmRzDwsdxrkOJuTbF8fUgXlB921Y4
- 21Pg8CAmmz3HeV3o0oFb5V34uDYYd0EqITkrv/FCDFh9G4WImSWO4owyrdDsi2erP53EZQEEDIZIg
- MbavVhsi3N7uyF8ry6oQigrr5boLDVkcTnFgsJjz7msFJ4rinZJBBW1T7cOM3g9npro+S48OFBY5D
- ndmWsUQUA==;
-Received: from shell.armlinux.org.uk
- ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:46004)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <linux@armlinux.org.uk>)
- id 1iMuen-0007bQ-Tx; Tue, 22 Oct 2019 14:57:06 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1iMuel-0004ck-0d; Tue, 22 Oct 2019 14:57:03 +0100
-Date: Tue, 22 Oct 2019 14:57:02 +0100
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Jerome Brunet <jbrunet@baylibre.com>, Mark Brown <broonie@kernel.org>
-Message-ID: <20191022135702.GU25745@shell.armlinux.org.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92CEBF80112
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 16:01:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92CEBF80112
+Received: from mail-qk1-f173.google.com ([209.85.222.173]) by
+ mrelayeu.kundenserver.de (mreue108 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1MgNpJ-1ho8bG3LMF-00huHk for <alsa-devel@alsa-project.org>; Tue, 22 Oct
+ 2019 16:01:29 +0200
+Received: by mail-qk1-f173.google.com with SMTP id u22so16287435qkk.11
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 07:01:29 -0700 (PDT)
+X-Gm-Message-State: APjAAAXl1+tWEK+HPdakRYQ86jR++vNdmpoTIUTgCKh30B2hhftN0aNt
+ cfzEcYER6O+8K0D0a8afT6Y7aA3DScrO7RrO1yg=
+X-Google-Smtp-Source: APXvYqzNJSBsmzArUiJoxHmomaDqQtkgb7eiZl33ieH3Pnwwm1/FZ2lXqT+Z19UoP0NfH21IBu5WdckCCzmNgI5QFYQ=
+X-Received: by 2002:a37:a50f:: with SMTP id o15mr1985123qke.3.1571752888552;
+ Tue, 22 Oct 2019 07:01:28 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [REGRESSION 5.3] WARNING: pulseaudio/1297 still has
-	locks held!
+References: <20191010202802.1132272-1-arnd@arndb.de>
+ <20191010203043.1241612-1-arnd@arndb.de>
+ <20191010203043.1241612-11-arnd@arndb.de>
+ <20191011055149.4dudr4tk2znpt65u@pengutronix.de>
+In-Reply-To: <20191011055149.4dudr4tk2znpt65u@pengutronix.de>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 22 Oct 2019 16:01:12 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1st8gR7u+8-oyP6HrzZdmrzhq7PRonYuz0a5O8rfKaSA@mail.gmail.com>
+Message-ID: <CAK8P3a1st8gR7u+8-oyP6HrzZdmrzhq7PRonYuz0a5O8rfKaSA@mail.gmail.com>
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+X-Provags-ID: V03:K1:moo5tP6TcQrfSQ8DR9JcpVJRu0+Qm5gdJXjXNbKEiP89vIcM/gI
+ AjFQmd+GHo6TX6OVeSlZPJeOX9/gT3MgOcQYXcfBXopESeDp5WA1pacbKIKYkKZN+qz5Axl
+ VMLCIb905sktwgH72I9qvH/beI6Ja9s4cOd+JRJESUA59ofV62jrDcqDS7P4bJCoBjm3I+X
+ HGuKdo3cuX4nCn71karSA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:8ALXOrhz5jg=:RpMOI2ZKMFklILrNQyWxD6
+ NcItQlZsjy3dAvOnv5jAeiwNOrr9GShhYvsM/gGw0vZDRV7b7Y9JVlKbebqoBfH5loJJvx/7K
+ dKkz7HgZXlLrhoXjaPLGhKZ+QYMT3aoAaRhd4PRlVCQ7y92W/kHSmcw46eX0u8QC2OpH2UrYb
+ QhNIkFnEv3/jxqphnwYCqyG0jfdllK9rqVjJeS5475agB3ORhlJI6vBtSBy/QjB6xgdtMsFIs
+ EZNSPGzY6B2qIwPRyyvIEyNBFq2X+Zj5WGEl++n6R6gr6kwxU9VVMWe1aOROazu0nftQ81X/k
+ 9sJ/jrGB7M5jP00U64KkuUIMujLVX1TrikIql1oCOWt/KmW1Al9gwDvhXhZ4B8FmyBf+yakg5
+ iGgN3i801wqHO8T4I8ryOfy0lNQ/bhO8Ezr86/MjCNqZWi4UpEApNOxreWVW60hd9cP11YmmQ
+ gLUgysYk4cMGP7iaMDrK3PNo0Ow1Rv7ljAcHukPJ40RO9ecjvuqnpVMERQbytQxGONZq5N5ou
+ L/cLcqZQejS0HcO5W6Bb2nR/pvxdiTDIJElqBltef3bPoUI1A0dWemJKgJsyOYU5vNwmReDKs
+ UhWrrJibwAj+D00+5pskpq+YYOb5V8+4/5CfPdoDjKpGloKxDhjlJS5jHN0tfjzra98ruzSMa
+ wmXDuR9JACTQpybbE9+A9dRQvpqz4lJ6NHR/MTOfIY/4QLoi0Re1CXA3+bB178LnUYwAnN67t
+ gw6meMwvO4FeSaRU4mx5G59WOagCk9omYzBzAmGB0HTZcNNzqqQE4P66PeaqvAJaH+CCb78kN
+ B+mq9UMKax/dm3E6A1EANYNqDepj3TmQs7uOZVCAnrsph00I4VCFN9pCHkn3wuUdpPUW9WytO
+ 2egGHseRRNhRsnFXo1og==
+Cc: Ulf Hansson <ulf.hansson@linaro.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ "moderated list:ARM/SAMSUNG EXYNOS ARM ARCHITECTURES"
+ <linux-samsung-soc@vger.kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Kukjin Kim <kgene@kernel.org>,
+ =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
+ linux-serial@vger.kernel.org, Jiri Slaby <jslaby@suse.com>,
+ Linux PWM List <linux-pwm@vger.kernel.org>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Mark Brown <broonie@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Sangbeom Kim <sbkim73@samsung.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ linux-spi <linux-spi@vger.kernel.org>, Faiz Abbas <faiz_abbas@ti.com>,
+ Olof Johansson <olof@lixom.net>
+Subject: Re: [alsa-devel] [PATCH 11/36] ARM: s5pv210: split from plat-samsung
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,54 +110,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When upgrading from 5.2 to 5.3, I now encounter this error after boot:
-
-====================================
-WARNING: pulseaudio/1297 still has locks held!
-5.3.0+ #1826 Not tainted
-------------------------------------
-1 lock held by pulseaudio/1297:
- #0: ee815308 (&hcp->lock){....}, at: hdmi_codec_startup+0x20/0x130
-
-stack backtrace:
-CPU: 0 PID: 1297 Comm: pulseaudio Not tainted 5.3.0+ #1826
-Hardware name: Marvell Dove (Cubox)
-[<c0017b4c>] (unwind_backtrace) from [<c0014d10>] (show_stack+0x10/0x14)
-[<c0014d10>] (show_stack) from [<c00a2d18>] (futex_wait_queue_me+0x13c/0x19c)
-[<c00a2d18>] (futex_wait_queue_me) from [<c00a3630>] (futex_wait+0x184/0x24c)
-[<c00a3630>] (futex_wait) from [<c00a5e1c>] (do_futex+0x334/0x598)
-[<c00a5e1c>] (do_futex) from [<c00a62e8>] (sys_futex_time32+0x118/0x180)
-[<c00a62e8>] (sys_futex_time32) from [<c0009000>] (ret_fast_syscall+0x0/0x54)
-Exception stack(0xebd31fa8 to 0xebd31ff0)
-1fa0:                   00000000 ffffffff 000c8748 00000189 00000001 00000000
-1fc0: 00000000 ffffffff 00000000 000000f0 00000000 00000000 00000000 00056200
-1fe0: 000000f0 beac03a8 b6d6c835 b6d6f456
-
-This seems to be caused by:
-
-  eb1ecadb7f67 ("ASoC: hdmi-codec: re-introduce mutex locking")
-
-which holds a mutex and returns to userspace.  Meanwhile, userspace
-issues a futex operation, which ends up in futex_wait_queue_me().
-
-futex_wait_queue_me() can wait, and if the system will be hibernating,
-is a potential hibernation point.  One of the requirements there is
-that no locks shall be held, and the freezer code verifies that by
-calling debug_check_no_locks_held().  With lockdep enabled, it reveals
-that hdmi-codec is indeed holding a lock.
-
-Reverting this commit solves the problem.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-According to speedtest.net: 11.9Mbps down 500kbps up
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gRnJpLCBPY3QgMTEsIDIwMTkgYXQgNzo1MSBBTSBVd2UgS2xlaW5lLUvDtm5pZwo8dS5rbGVp
+bmUta29lbmlnQHBlbmd1dHJvbml4LmRlPiB3cm90ZToKPgo+IE9uIFRodSwgT2N0IDEwLCAyMDE5
+IGF0IDEwOjI5OjU1UE0gKzAyMDAsIEFybmQgQmVyZ21hbm4gd3JvdGU6Cj4gPiBUaGVzZSBjYW4g
+YmUgYnVpbGQgY29tcGxldGVseSBpbmRlcGVuZGVudGx5LCBzbyBzcGxpdAo+ID4gdGhlIHR3byBL
+Y29uZmlnIHN5bWJvbHMuCj4gPgo+ID4gU2lnbmVkLW9mZi1ieTogQXJuZCBCZXJnbWFubiA8YXJu
+ZEBhcm5kYi5kZT4KPgo+IEknZCBtZW50aW9uIHRoZSB0d28gc3ltYm9scycgbmFtZXMgeW91J3Jl
+IHdvcmtpbmcgb24gaW4gdGhlIGNvbW1pdCBsb2cuCj4gSSBndWVzcyBpdCdzIGFib3V0IFBMQVRf
+U0FNU1VORyBhbmQgQVJDSF9TNVBWMjEwLiBBbmQgSSB3b3VsZG4ndCBjYWxsIGl0Cj4gInNwbGl0
+IiB3aGljaCBJTUhPIHN1Z2dlc3RzIHRoZXJlIHdhcyBvbmx5IG9uZSBzeW1ib2wgYmVmb3JlLgo+
+Cj4gTWF5YmU6Cj4KPiAgICAgICAgIERvbid0IGltcGx5IFBMQVRfU0FNU1VORyBpZiBBUkNIX1M1
+UFYyMTAgaXMgZW5hYmxlZAo+Cj4gd291bGQgYmUgYSBiZXR0ZXIgc3ViamVjdCBsaW5lPwoKT2ss
+IGNoYW5nZWQgdG8KCkFSTTogczVwdjIxMDogZG9uJ3QgaW1wbHkgQ09ORklHX1BMQVRfU0FNU1VO
+RwoKPiA+IEBAIC0yMzUsNyArMjM1LDYgQEAgbWFjaGluZS0kKENPTkZJR19QTEFUX1NQRUFSKSAg
+ICAgICAgICAgICAgKz0gc3BlYXIKPiA+ICAjIGJ5IENPTkZJR18qIG1hY3JvIG5hbWUuCj4gPiAg
+cGxhdC0kKENPTkZJR19BUkNIX09NQVApICAgICArPSBvbWFwCj4gPiAgcGxhdC0kKENPTkZJR19B
+UkNIX1MzQzY0WFgpICArPSBzYW1zdW5nCj4gPiAtcGxhdC0kKENPTkZJR19BUkNIX1M1UFYyMTAp
+ICArPSBzYW1zdW5nCj4KPiBXb3VsZCBpdCBtYWtlIG1vcmUgc2Vuc2UgdG8gbWFrZSB0aGlzCj4K
+PiAgICAgICAgIHBsYXQtJChQTEFUX1NBTVNVTkcpICs9IHNhbXN1bmcKPgo+IChpbiBhIHNlcGFy
+YXRlIHBhdGNoKT8gSG1tLCBpdCBzZWVtcyB0aGVyZSBpcyBubyBwbGF0LXkgZm9yCj4gUExBVF9T
+M0MyNFhYPXkgYnVpbGRzLiBJcyB0aGlzIGludGVuZGVkPyBJZiB5ZXMsIHRoZSBkaXJlY3Rvcnkg
+bmFtZQo+IGNvbnRhaW5pbmcgInNhbXN1bmciIHN1Z2dlc3RzIHNvbWV0aGluZyB0aGF0IHNlZW1z
+IHVudHJ1ZS4KCkJ5IHRoZSBlbmQgb2YgdGhlIHNlcmllcywgdGhlIHBsYXQtc2Ftc3VuZyBkaXJl
+Y3RvcnkgaXMgY29tcGxldGVseQpyZW1vdmVkIChmb2xkZWQgaW50byBtYWNoLXMzYyksIHNvIHRo
+YXQgd291bGQgb25seSBhZGQgbW9yZQpjaHVybiBmb3IgdGhlIHNhbWUgcmVzdWx0IEkgdGhpbmsu
+CgogICAgIEFybmQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0
+dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZl
+bAo=

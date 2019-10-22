@@ -2,62 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070D0E0CC5
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 21:49:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6EDEE0D25
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 22:15:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9020D1607;
-	Tue, 22 Oct 2019 21:48:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9020D1607
+	by alsa0.perex.cz (Postfix) with ESMTPS id 20FA3166B;
+	Tue, 22 Oct 2019 22:14:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 20FA3166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571773786;
-	bh=v4fVSE3MboIB3EM4tYARvqJhA+f9U4R81xZjm5iP6wg=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1571775320;
+	bh=OpoVVHOFIloFwdUu0ZzznNt2K2JBfmqSYECkMKSlMsM=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YPp1/0pLIMPmcqy6vW4NbwW8b8TxGaTyXXIP92Pg/hKQiWDugHxJ7QbZRUWDHe+MY
-	 z8po6+DVoO+8tKiZlZpKrP6j7sx0yBfsA+U8f3vA14wS9xK756NRPk99V37jAGo8wu
-	 w+c8FTMRArF+ApGaULiSYRdpx9fpenY0cQW1jGZ4=
+	b=U9Y8K5mv7xNGanOstGw9i95Cew6apP6GF34A0zYTeHc7wbXW9WcWtMIHDjfbi72Pf
+	 m1pmpYklYnmACgq5XADi1KN+euGCiq9mf0QxvZ5fuMwgNRndytygDKJ/20AXfwCA/9
+	 hnY7FxDn5bYbD6gfcpvPIsJ5LPsG0djzooL7kuBM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D805BF805FA;
-	Tue, 22 Oct 2019 21:47:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2AB8EF8026A;
+	Tue, 22 Oct 2019 22:13:36 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06DF3F8058C; Tue, 22 Oct 2019 21:47:15 +0200 (CEST)
+ id 306CAF8031A; Tue, 22 Oct 2019 22:13:34 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.74])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2B388F8031A
- for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 21:47:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2B388F8031A
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Oct 2019 12:47:08 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,217,1569308400"; d="scan'208";a="201780644"
-Received: from mssikder-mobl.amr.corp.intel.com (HELO localhost.localdomain)
- ([10.254.68.44])
- by orsmga006.jf.intel.com with ESMTP; 22 Oct 2019 12:47:08 -0700
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue, 22 Oct 2019 14:47:05 -0500
-Message-Id: <20191022194705.23347-3-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191022194705.23347-1-pierre-louis.bossart@linux.intel.com>
-References: <20191022194705.23347-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00868F800C0
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 22:13:31 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00868F800C0
+Received: from mail-qt1-f181.google.com ([209.85.160.181]) by
+ mrelayeu.kundenserver.de (mreue109 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1MEmAX-1iFZbd0fAh-00GLuq for <alsa-devel@alsa-project.org>; Tue, 22 Oct
+ 2019 22:13:30 +0200
+Received: by mail-qt1-f181.google.com with SMTP id o49so20927193qta.7
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 13:13:29 -0700 (PDT)
+X-Gm-Message-State: APjAAAVFFvC46iuZf6sgYordqBzZmf/xCKCwlCVIMEAvcAXJ1feX+s/Q
+ 537kIybdMw2j3UbUbHh+JbAnPIIHLof1tp8LMjQ=
+X-Google-Smtp-Source: APXvYqwHws2+wdbd8O8mZBRDAI3f/vMQUkU/DX6M5bMx+/92TDs7sn5fYNiZg1DtZYJeC8Fy8qgIRm0PfsfvEwlnrmU=
+X-Received: by 2002:a0c:fde8:: with SMTP id m8mr3823785qvu.4.1571775208879;
+ Tue, 22 Oct 2019 13:13:28 -0700 (PDT)
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org, Pan Xiuli <xiuli.pan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 2/2] ASoC: SOF: Intel: initial support to
-	JasperLake.
+References: <20191018154052.1276506-1-arnd@arndb.de>
+ <20191018154201.1276638-30-arnd@arndb.de>
+ <20191022163913.GV5554@sirena.co.uk>
+In-Reply-To: <20191022163913.GV5554@sirena.co.uk>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Tue, 22 Oct 2019 22:13:12 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a0a2EU8mKNGLNoh+fnpNU6X=qgpAv3kOGN5uXv+f63KwA@mail.gmail.com>
+Message-ID: <CAK8P3a0a2EU8mKNGLNoh+fnpNU6X=qgpAv3kOGN5uXv+f63KwA@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+X-Provags-ID: V03:K1:zmSArxz6rQRv6xcPqrwqYBElQ4Y4jesLbAlwQrpmCUkgoYnFDbO
+ CMD43iAaX2Rl9mGv6ChH2xJX400LlHlHJ5caTDr+dj8zIENcOGjBhFS+OM8I/9E0ndEG1hF
+ P1ACEPWfzw0LcYkhBG3IK7OVJLgUncOH9hmVHz78NmBiQeoYnT5bIDKnI//YhMPXgiqPhf0
+ wQHMUYE8y1h4eTXepCMNQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:9RUIrxqEpkI=:hgD0/YD0H6DlT52RtWkvL8
+ 0ayDKSFKUsa4WRxAkBjXDg/HGc11dzFgtNH6jy/Zok7+rOP5juDkfI1hSIWIL93GUdkWFnm2Q
+ 5zH1+3MzZTeTeX6Sa3mfAuPI5zKjBbLqdhLPc364s3BOYuIz7ebyYwXFsmK6WmEKTSXhr1LKX
+ EVU804S48BLZAAcnWE5D5EQmOdnHwkQ7EapsskhEK8zEEDeayL8tTawoWXPdZeabQGHmwu+iD
+ CVczxRkKRzAs/tWHCHHk1RjZSWjtq365X/1vvBF6j1ACXUTzpDEf9ziE8mZMPu3QGUxhFX5qV
+ 4vcfFf5fBfPyq2WQkRQJT6pY6+ZisVQccF2rgGuaHs6vaU7tplStf86y/S5JK5K0ll2279smt
+ CWAUW2qd8/z582OMbCdgvUrD6I87VEngxQeVghv7F8OU9CYoKI8L2ubN7R4S56ltrVcip7Z6/
+ yjmqzdEkL098Gwf27wpFYa3/7a1fyJkwd579YM8QjM74s9MAdiNsWe7KOz9P/rdiHZI47dYPE
+ /ZTKxeo+vqL3NC5m6sXwYafG1PCpRkdEv1V1eVA0dTGVt0P9616ilrjV8VOhDIuPyrDUQZ+I4
+ EfkrpRt/sk/tprO1P/ybvlSyo79OaXWIRwGLonwzXOtX1pXyQCFZLgMlHNpl5SjEHf+X61G2T
+ CRsEhCU3saL+HAN2JRB7thysoDA/vVtkaZpxKKVx9Neh/31VRWD8PyiuvYd1X8F/KKOg44co1
+ eC7yhzy1cW2S8QQ2Ej7H4zdwwhbza5kJr2EMcPgDjFffPnx1SoqCY5RUg/dnYJ4zVTNP7n0mP
+ 18bfLB5mKqM7kzZPYVrJhaTbnE2iLePf7TJRpm9QavS05krp338XHAMf6uF2OhHsey8GBmPNs
+ xP7RVh6e8bfFtX0AgUhw==
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Haojian Zhuang <haojian.zhuang@gmail.com>, Daniel Mack <daniel@zonque.org>,
+ Robert Jarzmik <robert.jarzmik@free.fr>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH 30/46] SoC: pxa: use pdev resource for FIFO
+	regs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,133 +100,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pan Xiuli <xiuli.pan@linux.intel.com>
+On Tue, Oct 22, 2019 at 6:39 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Fri, Oct 18, 2019 at 05:41:45PM +0200, Arnd Bergmann wrote:
+> > The driver currently takes the hardwired FIFO address from
+> > a header file that we want to eliminate. Change it to use
+> > the mmio resource instead and stop including the heare.
+>
+> Acked-by: Mark Brown <broonie@kernel.org>
+>
+> Please submit patches using subject lines reflecting the style for the
+> subsystem, this makes it easier for people to identify relevant patches.
 
-Add Kconfig, PCI ID and chip info for JSL platform.
-The DSP only has 2 cores for this platform.
+Fixed, I guess I lost an 'A' somewhere.
 
-Signed-off-by: Pan Xiuli <xiuli.pan@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/intel/Kconfig | 16 ++++++++++++++++
- sound/soc/sof/intel/cnl.c   | 17 +++++++++++++++++
- sound/soc/sof/intel/hda.h   |  1 +
- sound/soc/sof/sof-pci-dev.c | 22 ++++++++++++++++++++++
- 4 files changed, 56 insertions(+)
-
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index d62f51d33be1..342f22a7c64f 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -29,6 +29,7 @@ config SND_SOC_SOF_INTEL_PCI
- 	select SND_SOC_SOF_COMETLAKE_H if SND_SOC_SOF_COMETLAKE_H_SUPPORT
- 	select SND_SOC_SOF_TIGERLAKE   if SND_SOC_SOF_TIGERLAKE_SUPPORT
- 	select SND_SOC_SOF_ELKHARTLAKE if SND_SOC_SOF_ELKHARTLAKE_SUPPORT
-+	select SND_SOC_SOF_JASPERLAKE  if SND_SOC_SOF_JASPERLAKE_SUPPORT
- 	help
- 	  This option is not user-selectable but automagically handled by
- 	  'select' statements at a higher level
-@@ -244,6 +245,21 @@ config SND_SOC_SOF_ELKHARTLAKE
-           This option is not user-selectable but automagically handled by
- 	  'select' statements at a higher level
- 
-+config SND_SOC_SOF_JASPERLAKE_SUPPORT
-+	bool "SOF support for JasperLake"
-+	help
-+          This adds support for Sound Open Firmware for Intel(R) platforms
-+          using the JasperLake processors.
-+          Say Y if you have such a device.
-+          If unsure select "N".
-+
-+config SND_SOC_SOF_JASPERLAKE
-+	tristate
-+	select SND_SOC_SOF_HDA_COMMON
-+	help
-+          This option is not user-selectable but automagically handled by
-+	  'select' statements at a higher level
-+
- config SND_SOC_SOF_HDA_COMMON
- 	tristate
- 	select SND_SOC_SOF_INTEL_COMMON
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index f5ed474474ba..0563706f1e03 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -328,3 +328,20 @@ const struct sof_intel_dsp_desc ehl_chip_info = {
- 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
- };
- EXPORT_SYMBOL(ehl_chip_info);
-+
-+const struct sof_intel_dsp_desc jsl_chip_info = {
-+	/* Jasperlake */
-+	.cores_num = 2,
-+	.init_core_mask = 1,
-+	.cores_mask = HDA_DSP_CORE_MASK(0) |
-+				HDA_DSP_CORE_MASK(1),
-+	.ipc_req = CNL_DSP_REG_HIPCIDR,
-+	.ipc_req_mask = CNL_DSP_REG_HIPCIDR_BUSY,
-+	.ipc_ack = CNL_DSP_REG_HIPCIDA,
-+	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
-+	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
-+	.rom_init_timeout	= 300,
-+	.ssp_count = ICL_SSP_COUNT,
-+	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
-+};
-+EXPORT_SYMBOL(jsl_chip_info);
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index ad5e2df8800a..0e7c366b8f71 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -614,5 +614,6 @@ extern const struct sof_intel_dsp_desc skl_chip_info;
- extern const struct sof_intel_dsp_desc icl_chip_info;
- extern const struct sof_intel_dsp_desc tgl_chip_info;
- extern const struct sof_intel_dsp_desc ehl_chip_info;
-+extern const struct sof_intel_dsp_desc jsl_chip_info;
- 
- #endif
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index 030f2cb06921..4adbb27c76c5 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -245,6 +245,24 @@ static const struct sof_dev_desc ehl_desc = {
- };
- #endif
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_JASPERLAKE)
-+static const struct sof_dev_desc jsl_desc = {
-+	.machines               = snd_soc_acpi_intel_jsl_machines,
-+	.resindex_lpe_base      = 0,
-+	.resindex_pcicfg_base   = -1,
-+	.resindex_imr_base      = -1,
-+	.irqindex_host_ipc      = -1,
-+	.resindex_dma_base      = -1,
-+	.chip_info = &jsl_chip_info,
-+	.default_fw_path = "intel/sof",
-+	.default_tplg_path = "intel/sof-tplg",
-+	.nocodec_fw_filename = "sof-jsl.ri",
-+	.nocodec_tplg_filename = "sof-jsl-nocodec.tplg",
-+	.ops = &sof_cnl_ops,
-+	.arch_ops = &sof_xtensa_arch_ops
-+};
-+#endif
-+
- static const struct dev_pm_ops sof_pci_pm = {
- 	SET_SYSTEM_SLEEP_PM_OPS(snd_sof_suspend, snd_sof_resume)
- 	SET_RUNTIME_PM_OPS(snd_sof_runtime_suspend, snd_sof_runtime_resume,
-@@ -423,6 +441,10 @@ static const struct pci_device_id sof_pci_ids[] = {
- 	{ PCI_DEVICE(0x8086, 0x34C8),
- 		.driver_data = (unsigned long)&icl_desc},
- #endif
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_JASPERLAKE)
-+	{ PCI_DEVICE(0x8086, 0x38c8),
-+		.driver_data = (unsigned long)&jsl_desc},
-+#endif
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
- 	{ PCI_DEVICE(0x8086, 0x02c8),
- 		.driver_data = (unsigned long)&cml_desc},
--- 
-2.20.1
-
+      Arnd
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BF857E035C
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 13:49:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31F20E035F
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 13:50:12 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 403081658;
-	Tue, 22 Oct 2019 13:48:34 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 403081658
+	by alsa0.perex.cz (Postfix) with ESMTPS id C290A1655;
+	Tue, 22 Oct 2019 13:49:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C290A1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571744964;
-	bh=N0Ra5v6ncfivvR4ViBN4JpOh91qMtywBhzQ0bM6Qgek=;
+	s=default; t=1571745011;
+	bh=WfWnPENLBYdVwatXeqJjh+oXGFDwcScRke2w0vXCpm0=;
 	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QDg3WwUl9yzAsR6i4RLgWG9ix0XRI6+ndfFg0zm/tgumlbvQk3nkGsbjQ0xJcyJbF
-	 k5UCeBGiVHJHWU67qYy0SiDx2fxFMiBftP3IJxm/UmQb/NJ0nhXwr9EvV+0fSGPWAq
-	 Mcln1iDurx62K6aRgbniYOwJuoGvc9XxKGymzPIg=
+	b=UvlCNynRDWmsDobhUXCj+4DZ3Waz6YvFHik4PxBbJkJziM07Z4CnuD17mMVeE+L1L
+	 ad326a3pNFTmqySE7McsnqpS78X4Ml6Wt3gqbGzlaPVS5Ge4bf+b3vzz0d2Wp0Nuko
+	 mHFhWOtwL5XPYE7zF1SncTwsI7Da9GRCulCuwE1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30A21F8058C;
-	Tue, 22 Oct 2019 13:47:02 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BD43F805FE;
+	Tue, 22 Oct 2019 13:47:03 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9614CF80539; Tue, 22 Oct 2019 13:46:54 +0200 (CEST)
+ id 76AACF80390; Tue, 22 Oct 2019 13:46:59 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-vk1-xa49.google.com (mail-vk1-xa49.google.com
- [IPv6:2607:f8b0:4864:20::a49])
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+ USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
+Received: from mail-ua1-x949.google.com (mail-ua1-x949.google.com
+ [IPv6:2607:f8b0:4864:20::949])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC834F80112
- for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 13:46:51 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC834F80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id CAA81F80112
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 13:46:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CAA81F80112
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="fvUU4X0S"
-Received: by mail-vk1-xa49.google.com with SMTP id i20so7455655vkk.21
- for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 04:46:51 -0700 (PDT)
+ header.b="v/XhJrE4"
+Received: by mail-ua1-x949.google.com with SMTP id g23so159560uan.5
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 04:46:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=q90rWJEkGm2l9nI3fLz2Cj+itxcilYQDCfUCXu1yWQg=;
- b=fvUU4X0Sib4BfXVWA9CPePFVHefO+pH8Ci8fFdRiFSB5iTPQA+ra5mL+VLYXS7IZNR
- zt4DCioEFPM6+qZU7/V76QviJtdzE8pWUIIYz25OGqu8fcCg/ad/mBFD0X3VMj6iE6sl
- 5e5jBG8G1FjxHr/xlaM66aihrErDmJqsgHtVlTctEF8nGdpQyh3/iGguis1EpaVIXxFc
- r9FVu8lnN5mq2/lZJKIog6SciWR7ePKbkaMVHBwIX4gQOmsutILG/GhOmCeRGTxxkxUJ
- a75pPUwAB59Lx1guwRD0KIOKxiPcMXxt31Pn9IJzZN9q+c/Rv4tOuPJCaKinGj7AQDa0
- 0CQg==
+ :cc; bh=6PvO4YGcBPU7HqTKrAMBpr5jWnrEO6vhCWHVgxtCZF0=;
+ b=v/XhJrE4hvhwOzEGcKs+eQoCDnnCj5mUo5POIAosRXGG9AR786k5ivdMEx0u1rAa0G
+ 6FwQqiAnM4B6RlupEtxMjyDNTPzx34+E+/70eATGUSkjoJ8W8GvCVILVpBm2wwS0OLtF
+ FsHUuxV6o+LY4rkICqCZ2pv588XXJ85QW0p3TajaPFxkmYIuxmsJAgn01++mJD7sr8FX
+ qQK7k3vaWYUeu/1UDlFrcRHs8lKDl5yseG5047lhqeRkvc7QVEOoMnskxTlBn2dviIYF
+ WvDKYhDmT/6v2QcIjvBcyBFdj5zYQORvKyeT9rKwpfGTE+vQjTOHSioHV293JvSx2+5k
+ jm2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=q90rWJEkGm2l9nI3fLz2Cj+itxcilYQDCfUCXu1yWQg=;
- b=KCgwF2foBVOW5NVV2U+pOsIfizNsvE2euYIu+jF1wgh/V/Ytiri2AdTUjT7ON2I7rK
- FGGcNT1utfpmgGyK38jVPiTz/LbKRKcSuPNtQIEn95GRZUimGzwWhRte7B1A5jGLkI9s
- CUegvthfxenQNq1Wp6utJW0Z+FQHxOHkRs5MyDEliRKP8VN99m0Zk4+rFhjk0FahjXsb
- 2mw+uWYlJ/Kw2PfT9ZjJJX2H7ZORpG5/Bj8gnycc0ZIOqZ63qOuwzIbywWv81Yr1/XYd
- fLlSqq4OijoctemwgSm8lRmqXDMBflDNjyKEiVLovoIargvr4bvK6u4Gv9i6m6Q2F7po
- /TIQ==
-X-Gm-Message-State: APjAAAVqOlJfQjWyFXRomYvjCjm0At5SKeRDDjnRIhbgakJH5j+32HpD
- HfAa5LUG7HDkp9LcZCfzrhZ6b9vHq8IA
-X-Google-Smtp-Source: APXvYqzsB+mP+SYK0nkZDI+E5ctlzYSDa2qZV3FsZvCzlBqBSD0WoJVKv1DehaXyYVIbfl0rJsvRLOUyAOTG
-X-Received: by 2002:a67:8841:: with SMTP id k62mr1532968vsd.101.1571744809794; 
- Tue, 22 Oct 2019 04:46:49 -0700 (PDT)
-Date: Tue, 22 Oct 2019 19:45:00 +0800
+ bh=6PvO4YGcBPU7HqTKrAMBpr5jWnrEO6vhCWHVgxtCZF0=;
+ b=FMmMSGxABSa7+Oo55x3UCOYd2vnrWdSnEzfggwgPJ8BjlwxAZOQXwz0ePpvFTgUSet
+ Q6P88LGGjkHLhGP9NjVyhzgDcr02WdIAllWqa/Qi2jrfmK3avPmFkAVSdPNOQXY4pzGn
+ QQvmhbbxSM8MEEbmOC1tvWA+DvZO4R2eHWnxPtnYP4F3JZNVUBuNzP+mfLLB1EdEEKOi
+ Z3e0qmXxefpIY6uBvGyOpUN8ShD+NuNKIFjWTwJVUVFNwxKk/P10w/QTEr6A1OdxxRlH
+ 06FB5/faST7v9C3C/18Lld1MCIRrrrGjgRuGT9mgfsqOM3ZLTJt/iV+jKu+WIFp4U8gv
+ rXVg==
+X-Gm-Message-State: APjAAAX6qwv3YkM38ESpsj+aCXo+NjCEQk+lFmk1H1M7kk937twZbR3Z
+ dW3PaF9mU+MJohq2I4Jd9BrrcG9W583s
+X-Google-Smtp-Source: APXvYqwY1rlBy1N3hHiRYbjJlOMwfLIOQOq0dmz2amkEN+2rQ4+TI3BcHF+QmqbKwaRye4ZzLeXpjHYP/Bkz
+X-Received: by 2002:a67:f2da:: with SMTP id a26mr1534141vsn.60.1571744814867; 
+ Tue, 22 Oct 2019 04:46:54 -0700 (PDT)
+Date: Tue, 22 Oct 2019 19:45:01 +0800
 In-Reply-To: <20191022114505.196852-1-tzungbi@google.com>
-Message-Id: <20191022193301.1.I3039014cf259de5e4d6315fc05dff111591a0901@changeid>
+Message-Id: <20191022193301.2.I66284413ef7dbbf4b6ea7735f71807ebd35bf7e8@changeid>
 Mime-Version: 1.0
 References: <20191022114505.196852-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.23.0.866.gb869b98d4c-goog
@@ -80,7 +80,7 @@ Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  cychiang@google.com, jonas@kwiboo.se, allen.chen@ite.com.tw,
  jernej.skrabec@siol.net, dri-devel@lists.freedesktop.org, a.hajda@samsung.com,
  Laurent.pinchart@ideasonboard.com, tzungbi@google.com, dgreid@google.com
-Subject: [alsa-devel] [PATCH 1/6] ASoC: hdmi-codec: add PCM trigger operator
+Subject: [alsa-devel] [PATCH 2/6] drm: bridge: it6505: bridge to hdmi-codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,101 +98,204 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-HDMI codec may be also interested in PCM triggers.  Add PCM trigger
-operator.
+From: Allen Chen <allen.chen@ite.com.tw>
 
+Bridge to hdmi-codec to support audio feature.
+
+It is observed that some DP-to-HDMI dongles will get into bad states
+if sending InfoFrame without audio data.  Defer to enable it6505's
+audio feature when PCM triggers START or RESUME.
+
+Signed-off-by: Allen Chen <allen.chen@ite.com.tw>
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- include/sound/hdmi-codec.h    | 13 +++++++++++++
- sound/soc/codecs/hdmi-codec.c | 31 +++++++++++++++++++++++++++++++
- 2 files changed, 44 insertions(+)
+ drivers/gpu/drm/bridge/ite-it6505.c | 152 ++++++++++++++++++++++++++++
+ 1 file changed, 152 insertions(+)
 
-diff --git a/include/sound/hdmi-codec.h b/include/sound/hdmi-codec.h
-index 83b17682e01c..9de462ef170d 100644
---- a/include/sound/hdmi-codec.h
-+++ b/include/sound/hdmi-codec.h
-@@ -50,6 +50,13 @@ struct hdmi_codec_params {
- typedef void (*hdmi_codec_plugged_cb)(struct device *dev,
- 				      bool plugged);
+diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
+index 5e046f677343..1d19184d2056 100644
+--- a/drivers/gpu/drm/bridge/ite-it6505.c
++++ b/drivers/gpu/drm/bridge/ite-it6505.c
+@@ -26,6 +26,8 @@
+ #include <drm/drm_dp_helper.h>
+ #include <drm/drm_edid.h>
  
-+enum {
-+	HDMI_CODEC_TRIGGER_EVENT_STOP,
-+	HDMI_CODEC_TRIGGER_EVENT_START,
-+	HDMI_CODEC_TRIGGER_EVENT_SUSPEND,
-+	HDMI_CODEC_TRIGGER_EVENT_RESUME,
-+};
++#include <sound/hdmi-codec.h>
 +
- struct hdmi_codec_pdata;
- struct hdmi_codec_ops {
- 	/*
-@@ -66,6 +73,12 @@ struct hdmi_codec_ops {
- 			 struct hdmi_codec_daifmt *fmt,
- 			 struct hdmi_codec_params *hparms);
- 
-+	/*
-+	 * PCM trigger callback.
-+	 * Optional
-+	 */
-+	int (*trigger)(struct device *dev, int event);
-+
- 	/*
- 	 * Shuts down the audio stream.
- 	 * Mandatory
-diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
-index b5fd8f08726e..1ba2fa26ba03 100644
---- a/sound/soc/codecs/hdmi-codec.c
-+++ b/sound/soc/codecs/hdmi-codec.c
-@@ -565,12 +565,42 @@ static int hdmi_codec_digital_mute(struct snd_soc_dai *dai, int mute)
- 	return 0;
+ #define AX 0
+ #define BX 1
+ #define AUDSEL I2S
+@@ -146,6 +148,7 @@ struct it6505 {
+ 	struct notifier_block event_nb;
+ 	struct extcon_dev *extcon;
+ 	struct work_struct extcon_wq;
++	struct delayed_work delayed_audio;
+ 	enum sys_status status;
+ 	bool hbr;
+ 	u8 en_ssc;
+@@ -1223,6 +1226,149 @@ static void it6505_set_audio(struct it6505 *it6505)
+ 	dptxset(it6505, 0xD3, 0x20, 0x00);
  }
  
-+static int hdmi_codec_trigger(struct snd_pcm_substream *substream, int cmd,
-+			      struct snd_soc_dai *dai)
++static void it6505_delayed_audio(struct work_struct *work)
 +{
-+	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
-+	int event;
++	struct it6505 *it6505 = container_of(work, struct it6505,
++					     delayed_audio.work);
 +
-+	if (!hcp->hcd.ops->trigger)
-+		return 0;
++	it6505_set_audio(it6505);
++	it6505->en_audio = 1;
++}
 +
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		event = HDMI_CODEC_TRIGGER_EVENT_STOP;
++static int it6505_audio_hw_params(struct device *dev, void *data,
++				  struct hdmi_codec_daifmt *daifmt,
++				  struct hdmi_codec_params *params)
++{
++	struct it6505 *it6505 = dev_get_drvdata(dev);
++	unsigned int channel_num = params->cea.channels;
++
++	DRM_DEV_DEBUG_DRIVER(dev, "setting %d Hz, %d bit, %d channels\n",
++			     params->sample_rate, params->sample_width,
++			     channel_num);
++
++	if (!it6505->bridge.encoder)
++		return -ENODEV;
++
++	switch (params->sample_rate) {
++	case 24000:
++		it6505->aud_fs = AUD24K;
 +		break;
-+	case SNDRV_PCM_TRIGGER_START:
-+		event = HDMI_CODEC_TRIGGER_EVENT_START;
++	case 32000:
++		it6505->aud_fs = AUD32K;
 +		break;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+		event = HDMI_CODEC_TRIGGER_EVENT_SUSPEND;
++	case 44100:
++		it6505->aud_fs = AUD44P1K;
 +		break;
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+		event = HDMI_CODEC_TRIGGER_EVENT_RESUME;
++	case 48000:
++		it6505->aud_fs = AUD48K;
++		break;
++	case 88200:
++		it6505->aud_fs = AUD88P2K;
++		break;
++	case 96000:
++		it6505->aud_fs = AUD96K;
++		break;
++	case 176400:
++		it6505->aud_fs = AUD176P4K;
++		break;
++	case 192000:
++		it6505->aud_fs = AUD192K;
++		break;
++	default:
++		DRM_DEV_DEBUG_DRIVER(dev, "sample rate: %d Hz not support",
++				     params->sample_rate);
++		return -EINVAL;
++	}
++
++	switch (params->sample_width) {
++	case 16:
++		it6505->audwordlength = AUD16BIT;
++		break;
++	case 18:
++		it6505->audwordlength = AUD18BIT;
++		break;
++	case 20:
++		it6505->audwordlength = AUD20BIT;
++		break;
++	case 24:
++	case 32:
++		it6505->audwordlength = AUD24BIT;
++		break;
++	default:
++		DRM_DEV_DEBUG_DRIVER(dev, "wordlength: %d bit not support",
++				     params->sample_width);
++		return -EINVAL;
++	}
++
++	if (channel_num == 0 || channel_num % 2) {
++		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
++				     channel_num);
++		return -EINVAL;
++	}
++	it6505->aud_ch = channel_num;
++
++	return 0;
++}
++
++static int it6505_audio_trigger(struct device *dev, int event)
++{
++	struct it6505 *it6505 = dev_get_drvdata(dev);
++
++	DRM_DEV_DEBUG_DRIVER(dev, "event: %d", event);
++	switch (event) {
++	case HDMI_CODEC_TRIGGER_EVENT_START:
++	case HDMI_CODEC_TRIGGER_EVENT_RESUME:
++		queue_delayed_work(system_wq, &it6505->delayed_audio,
++				   msecs_to_jiffies(180));
++		break;
++	case HDMI_CODEC_TRIGGER_EVENT_STOP:
++	case HDMI_CODEC_TRIGGER_EVENT_SUSPEND:
++		cancel_delayed_work(&it6505->delayed_audio);
 +		break;
 +	default:
 +		return -EINVAL;
 +	}
 +
-+	return hcp->hcd.ops->trigger(dai->dev->parent, event);
++	return 0;
 +}
 +
- static const struct snd_soc_dai_ops hdmi_codec_i2s_dai_ops = {
- 	.startup	= hdmi_codec_startup,
- 	.shutdown	= hdmi_codec_shutdown,
- 	.hw_params	= hdmi_codec_hw_params,
- 	.set_fmt	= hdmi_codec_i2s_set_fmt,
- 	.digital_mute	= hdmi_codec_digital_mute,
-+	.trigger	= hdmi_codec_trigger,
- };
++static void it6505_audio_shutdown(struct device *dev, void *data)
++{
++	struct it6505 *it6505 = dev_get_drvdata(dev);
++
++	dptxset(it6505, 0xE8, 0x22, 0x00);
++	dptxset(it6505, 0x05, 0x02, 0x02);
++	it6505->en_audio = 0;
++}
++
++static const struct hdmi_codec_ops it6505_audio_codec_ops = {
++	.hw_params = it6505_audio_hw_params,
++	.trigger = it6505_audio_trigger,
++	.audio_shutdown = it6505_audio_shutdown,
++};
++
++static int it6505_register_audio_driver(struct device *dev)
++{
++	struct it6505 *it6505 = dev_get_drvdata(dev);
++	struct hdmi_codec_pdata codec_data = {
++		.ops = &it6505_audio_codec_ops,
++		.max_i2s_channels = 8,
++		.i2s = 1,
++	};
++	struct platform_device *pdev;
++
++	pdev = platform_device_register_data(dev, HDMI_CODEC_DRV_NAME,
++					     PLATFORM_DEVID_AUTO, &codec_data,
++					     sizeof(codec_data));
++	if (IS_ERR(pdev))
++		return PTR_ERR(pdev);
++
++	INIT_DELAYED_WORK(&it6505->delayed_audio, it6505_delayed_audio);
++
++	DRM_DEV_DEBUG_DRIVER(dev, "bound to %s", HDMI_CODEC_DRV_NAME);
++	return 0;
++}
++
+ /***************************************************************************
+  * DPCD Read and EDID
+  ***************************************************************************/
+@@ -2460,6 +2606,12 @@ static int it6505_i2c_probe(struct i2c_client *client,
+ 		return err;
+ 	}
  
- static const struct snd_soc_dai_ops hdmi_codec_spdif_dai_ops = {
-@@ -578,6 +608,7 @@ static const struct snd_soc_dai_ops hdmi_codec_spdif_dai_ops = {
- 	.shutdown	= hdmi_codec_shutdown,
- 	.hw_params	= hdmi_codec_hw_params,
- 	.digital_mute	= hdmi_codec_digital_mute,
-+	.trigger	= hdmi_codec_trigger,
- };
- 
- #define HDMI_RATES	(SNDRV_PCM_RATE_32000 | SNDRV_PCM_RATE_44100 |\
++	err = it6505_register_audio_driver(dev);
++	if (err < 0) {
++		DRM_DEV_ERROR(dev, "Failed to register audio driver: %d", err);
++		return err;
++	}
++
+ 	/* Register aux channel */
+ 	it6505->aux.name = "DP-AUX";
+ 	it6505->aux.dev = dev;
 -- 
 2.23.0.866.gb869b98d4c-goog
 

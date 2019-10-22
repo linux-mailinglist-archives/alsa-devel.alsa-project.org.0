@@ -2,76 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76C18E06C4
-	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 16:51:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF2FDE07C0
+	for <lists+alsa-devel@lfdr.de>; Tue, 22 Oct 2019 17:47:05 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 06A5C166C;
-	Tue, 22 Oct 2019 16:50:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06A5C166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 764F1166C;
+	Tue, 22 Oct 2019 17:46:15 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 764F1166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571755874;
-	bh=W8jr3RMLO53xLB0zR3f9Hy4aDxWys41zf5qYBfKVFAY=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571759225;
+	bh=mYh/Jvhcg5tx9ThgltPfwbSahb0Non2Joq36YfWnr4c=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZuXcPlJ2hKvj6BTKF7Nd7dvEBcQ4ybzAqa8BV4eP/Be59Clg5Sd9MO0RRum7u9ZuG
-	 B5euVP4nUxfnSBNX8r+bTCOK7dKkqLnbI6TBqjopVQqoSfHua642drxFbtJS0stDmg
-	 XazQmrsy3aqXhZnR9FBUOGx+ICUd1AZs9xv+X8fM=
+	b=L/cKrumkZm1gNFArQTWcoxAK5PAePN3e5TWxKHY/u7+XOsmtl2IYTmSRFfqS5XTxV
+	 QvpMZplLJPNm9o+zG5s+f2glasSnH3FAMImlMbQq9JDI+ec3KKXdYSv+zedKVVSUCt
+	 qAGn5H57CtPCHRzdYZLk7sd0GACfAPgDAIVyR+TY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 149CCF802FB;
-	Tue, 22 Oct 2019 16:49:30 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93A96F802FB;
+	Tue, 22 Oct 2019 17:45:21 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98E11F8031A; Tue, 22 Oct 2019 16:49:27 +0200 (CEST)
+ id C6930F8031A; Tue, 22 Oct 2019 17:45:19 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5A7E5F80112
- for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 16:49:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A7E5F80112
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Oi3fy8aD"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=0eKDxE4HL61aJt0ApJeOxdPcu8dTF+4AVsl1J7hRGaE=; b=Oi3fy8aDOtcJxcw+JN/EoKP9e
- NgyNqq3nYMps/boQLpeSJTiUK45m0eTrnQ3WRo6Iv+57VZbEaUg7d+FVldg0M2UHuipyc6VOp5wjc
- VDy+/Sul/Www4oIS192iH3GoT1df8AcQDuynAVgX/iVGUWP+5Q4Y3IiaHbwzW1fU+Vsr0=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iMvTP-0006q0-JJ; Tue, 22 Oct 2019 14:49:23 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id BA90D2743259; Tue, 22 Oct 2019 15:49:22 +0100 (BST)
-Date: Tue, 22 Oct 2019 15:49:22 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Message-ID: <20191022144922.GE5554@sirena.co.uk>
-References: <20191022135702.GU25745@shell.armlinux.org.uk>
- <1jpnioc1eu.fsf@starbuckisacylon.baylibre.com>
-MIME-Version: 1.0
-In-Reply-To: <1jpnioc1eu.fsf@starbuckisacylon.baylibre.com>
-X-Cookie: Whip it, whip it good!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org,
- Russell King - ARM Linux admin <linux@armlinux.org.uk>
-Subject: Re: [alsa-devel] [REGRESSION 5.3] WARNING: pulseaudio/1297 still
-	has locks held!
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40A94F8026A
+ for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 17:45:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40A94F8026A
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id AA4ABB44E;
+ Tue, 22 Oct 2019 15:45:15 +0000 (UTC)
+Date: Tue, 22 Oct 2019 17:45:14 +0200
+Message-ID: <s5hsgnkdbsl.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: syzbot <syzbot+0620f79a1978b1133fd7@syzkaller.appspotmail.com>
+In-Reply-To: <000000000000df5189059580f8e9@google.com>
+References: <000000000000df5189059580f8e9@google.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, g@b4.vu, yuehaibing@huawei.com,
+ andreyknvl@google.com, linux-usb@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
+ rfontana@redhat.com, tiwai@suse.com, benquike@gmail.com,
+ dan.carpenter@oracle.com
+Subject: Re: [alsa-devel] KASAN: slab-out-of-bounds Read in
+	build_audio_procunit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,61 +69,128 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0333135082567853217=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 22 Oct 2019 16:54:07 +0200,
+syzbot wrote:
+> 
+> Hello,
+> 
+> syzbot found the following crash on:
+> 
+> HEAD commit:    22be26f7 usb-fuzzer: main usb gadget fuzzer driver
+> git tree:       https://github.com/google/kasan.git usb-fuzzer
+> console output: https://syzkaller.appspot.com/x/log.txt?x=103893cf600000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=387eccb7ac68ec5
+> dashboard link: https://syzkaller.appspot.com/bug?extid=0620f79a1978b1133fd7
+> compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16fd6a40e00000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1033215f600000
+> 
+> IMPORTANT: if you fix the bug, please add the following tag to the commit:
+> Reported-by: syzbot+0620f79a1978b1133fd7@syzkaller.appspotmail.com
+> 
+> usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+> usb 1-1: Product: syz
+> usb 1-1: Manufacturer: syz
+> usb 1-1: SerialNumber: syz
+> ==================================================================
+> BUG: KASAN: slab-out-of-bounds in uac_processing_unit_iProcessing
+> include/uapi/linux/usb/audio.h:429 [inline]
+> BUG: KASAN: slab-out-of-bounds in build_audio_procunit+0x1306/0x13f0
+> sound/usb/mixer.c:2436
+> Read of size 1 at addr ffff8881d537c7b7 by task kworker/0:2/101
+> 
+> CPU: 0 PID: 101 Comm: kworker/0:2 Not tainted 5.4.0-rc3+ #0
+> Hardware name: Google Google Compute Engine/Google Compute Engine,
+> BIOS  Google 01/01/2011
+> Workqueue: usb_hub_wq hub_event
+> Call Trace:
+>  __dump_stack lib/dump_stack.c:77 [inline]
+>  dump_stack+0xca/0x13e lib/dump_stack.c:113
+>  print_address_description.constprop.0+0x36/0x50 mm/kasan/report.c:374
+>  __kasan_report.cold+0x1a/0x33 mm/kasan/report.c:506
+>  kasan_report+0xe/0x20 mm/kasan/common.c:634
+>  uac_processing_unit_iProcessing include/uapi/linux/usb/audio.h:429 [inline]
+>  build_audio_procunit+0x1306/0x13f0 sound/usb/mixer.c:2436
+>  parse_audio_processing_unit sound/usb/mixer.c:2468 [inline]
+>  parse_audio_unit+0x17e9/0x36f0 sound/usb/mixer.c:2757
+>  snd_usb_mixer_controls+0x715/0xb90 sound/usb/mixer.c:3095
+>  snd_usb_create_mixer+0x2b5/0x1890 sound/usb/mixer.c:3445
+>  usb_audio_probe+0xc76/0x2010 sound/usb/card.c:653
+>  usb_probe_interface+0x305/0x7a0 drivers/usb/core/driver.c:361
+>  really_probe+0x281/0x6d0 drivers/base/dd.c:548
+>  driver_probe_device+0x104/0x210 drivers/base/dd.c:721
+>  __device_attach_driver+0x1c2/0x220 drivers/base/dd.c:828
+>  bus_for_each_drv+0x162/0x1e0 drivers/base/bus.c:430
+>  __device_attach+0x217/0x360 drivers/base/dd.c:894
+>  bus_probe_device+0x1e4/0x290 drivers/base/bus.c:490
+>  device_add+0xae6/0x16f0 drivers/base/core.c:2201
+>  usb_set_configuration+0xdf6/0x1670 drivers/usb/core/message.c:2023
+>  generic_probe+0x9d/0xd5 drivers/usb/core/generic.c:210
+>  usb_probe_device+0x99/0x100 drivers/usb/core/driver.c:266
+>  really_probe+0x281/0x6d0 drivers/base/dd.c:548
+>  driver_probe_device+0x104/0x210 drivers/base/dd.c:721
+>  __device_attach_driver+0x1c2/0x220 drivers/base/dd.c:828
+>  bus_for_each_drv+0x162/0x1e0 drivers/base/bus.c:430
+>  __device_attach+0x217/0x360 drivers/base/dd.c:894
+>  bus_probe_device+0x1e4/0x290 drivers/base/bus.c:490
+>  device_add+0xae6/0x16f0 drivers/base/core.c:2201
+>  usb_new_device.cold+0x6a4/0xe79 drivers/usb/core/hub.c:2536
+>  hub_port_connect drivers/usb/core/hub.c:5183 [inline]
+>  hub_port_connect_change drivers/usb/core/hub.c:5323 [inline]
+>  port_event drivers/usb/core/hub.c:5469 [inline]
+>  hub_event+0x1dd0/0x37e0 drivers/usb/core/hub.c:5551
+>  process_one_work+0x92b/0x1530 kernel/workqueue.c:2269
+>  worker_thread+0x96/0xe20 kernel/workqueue.c:2415
+>  kthread+0x318/0x420 kernel/kthread.c:255
+>  ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
 
---===============0333135082567853217==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WK3l2KTTmXPVedZ6"
-Content-Disposition: inline
+Damn, there was a silly copy&paste error in the validation code.
+The fix patch is below.  I'm going to queue this for the next pull
+request for 5.4.
 
 
---WK3l2KTTmXPVedZ6
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+thanks,
 
-On Tue, Oct 22, 2019 at 04:14:49PM +0200, Jerome Brunet wrote:
+Takashi
 
-> AFAIK, the revert is safe. We can keep the codec this way if it is ok
-> with you. IMO, it is simpler that way
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: usb-audio: Fix copy&paste error in the validator
 
-Let's just do the revert, at least initially, so it can be backported
-simply.
+The recently introduced USB-audio descriptor validator had a stupid
+copy&paste error that may lead to an unexpected overlook of too short
+descriptors for processing and extension units.  It's likely the cause
+of the report triggered by syzkaller fuzzer.  Let's fix it.
 
-> I can also submit a follow-up to use a mutex in a safer/cleaner way (mutex
-> + busy flag) if you prefer.
+Fixes: 57f8770620e9 ("ALSA: usb-audio: More validations of descriptor units")
+Reported-by: syzbot+0620f79a1978b1133fd7@syzkaller.appspotmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/usb/validate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-That'd definitely be worth looking at, both for the extra safety and in
-case we discover on review that the revert is causing problems.
-
---WK3l2KTTmXPVedZ6
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2vFvEACgkQJNaLcl1U
-h9CPKQf/YT4wSPz6G5f2G8dy2JwW/xXl8JeqZfYK81EPbKcNW2y+Qaas2xSjehzN
-XrDEG/Yh9ZGcZIUxR0kHv41DbSe44UlZRBF7WPc+8QPfvv5OOopPQOSnylaPKj0H
-95fKWZb2ReWFbMccEo/y9NQ97rBqIqAbILvGgowzyvm0RZ2eIZcDMAVnO/mmJ35l
-bBjTSNe9oSjoCPdf48rQcdF9CN302y2GeCnuaEowl9VNmz4ynGtpVAhwbg9pWyck
-+18nnOrSXs9x4z70jVhQJwgPVEUO1EWJLMc5+5sngP663Gd0l1V9gq+btz4zPWNF
-sIlC4WTMWiGUaROexxAWtF7/k1o72g==
-=Obxc
------END PGP SIGNATURE-----
-
---WK3l2KTTmXPVedZ6--
-
---===============0333135082567853217==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/sound/usb/validate.c b/sound/usb/validate.c
+index 3c8f73a0eb12..a5e584b60dcd 100644
+--- a/sound/usb/validate.c
++++ b/sound/usb/validate.c
+@@ -75,7 +75,7 @@ static bool validate_processing_unit(const void *p,
+ 
+ 	if (d->bLength < sizeof(*d))
+ 		return false;
+-	len = d->bLength < sizeof(*d) + d->bNrInPins;
++	len = sizeof(*d) + d->bNrInPins;
+ 	if (d->bLength < len)
+ 		return false;
+ 	switch (v->protocol) {
+-- 
+2.16.4
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0333135082567853217==--

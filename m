@@ -2,67 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 462A7E24F4
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 23:11:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B923AE2507
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 23:17:00 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4357167F;
-	Wed, 23 Oct 2019 23:10:42 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4357167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 437591607;
+	Wed, 23 Oct 2019 23:16:10 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 437591607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571865092;
-	bh=NEPbXD861VC5j0apwKgESHlxUcM0dFil77K6lxeLlog=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=sHJYBB8cnMTD+u80q26YhKUInjOSceK9aZwW/FxetypyOU3LhGqG7RkLUey9ls5L4
-	 getKrnDtL43SO2bQd2mmXIt42ILyyPPKHFW3eIKFtzzRKqkxaGnYAdjTe/BOIghb6X
-	 sj4/tPLwPcZac4RxDNFbVT50aJlN5I22KpW2huFE=
+	s=default; t=1571865420;
+	bh=NVUoIAZK88isRXj0iOkEfFHpHTrbxv2/ntB9fPs+SWs=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=aj8cppEqv1e/1ww0WO1mIAtWtWiYksR/QigbFID4JJK4V18g5gpnBRF/SCjyUdXNl
+	 F+thGnPKZ88UcGMPq9GpC4p5D2f6HTzT/7A1nczI54LyWFNC+6Q3K6/zFwHPoNYZ5a
+	 jlp2YH3UfF2EtqWkyHQrlE4Ih3eAJgXICn00BDU0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 285AEF80635;
-	Wed, 23 Oct 2019 23:07:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFBF1F80321;
+	Wed, 23 Oct 2019 23:15:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55C7AF80112; Wed, 23 Oct 2019 23:07:18 +0200 (CEST)
+ id 82CBAF80368; Wed, 23 Oct 2019 23:15:12 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78AB0F80112
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 23:07:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78AB0F80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8CC2F80274
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 23:15:09 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8CC2F80274
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2019 14:07:13 -0700
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2019 14:15:07 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,222,1569308400"; d="scan'208";a="201260317"
+X-IronPort-AV: E=Sophos;i="5.68,222,1569308400"; d="scan'208";a="373003313"
 Received: from ayamada-mobl1.gar.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.254.95.208])
- by orsmga003.jf.intel.com with ESMTP; 23 Oct 2019 14:07:11 -0700
+ by orsmga005.jf.intel.com with ESMTP; 23 Oct 2019 14:15:06 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Wed, 23 Oct 2019 16:06:57 -0500
-Message-Id: <20191023210657.32440-5-pierre-louis.bossart@linux.intel.com>
+Date: Wed, 23 Oct 2019 16:14:59 -0500
+Message-Id: <20191023211504.32675-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191023210657.32440-1-pierre-louis.bossart@linux.intel.com>
-References: <20191023210657.32440-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
+ slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
-Subject: [alsa-devel] [PATCH 4/4] soundwire: intel: update stream callbacks
-	for hwparams/free stream operations
+Subject: [alsa-devel] [PATCH 0/5] ASoC: SOF: Intel: Soundwire integration
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,155 +75,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Rander Wang <rander.wang@linux.intel.com>
+This patchset applies on top of the series "[PATCH 0/4] soundwire:
+update ASoC interfaces". The SOF/Intel code makes use of the
+interfaces defined for initialization.
 
-Rename 'config_stream' as 'params_stream' to be closer to ALSA/ASoC
-concepts.
+Build support for SoundWire is not provided for now, all
+Soundwire-related code will be handled with a dummy fallback. We will
+enable SoundWire interfaces in the Kconfigs when the functionality is
+enabled in the soundwire tree.
 
-Add a 'free_stream' callback in case any resources allocated in the
-'params_stream' stage need to be released.
+In short, if the interfaces are agreed on, there is no risk with the
+integration of these patches on the ASoC side.
 
-Define structures for callbacks, mainly to allow for extensions as
-needed.
+Pierre-Louis Bossart (5):
+  ASoC: SOF: Intel: add SoundWire configuration interface
+  ASoC: SOF: IPC: dai-intel: move ALH declarations in header file
+  ASoC: SOF: Intel: hda: add SoundWire stream config/free callbacks
+  ASoC: SOF: Intel: hda: initial SoundWire machine driver autodetect
+  ASoC: SOF: Intel: hda: disable SoundWire interrupts on suspend
 
-Add the link_id and alh_stream_id parameters which are needed to align
-with firmware IPC needs.
+ include/sound/sof/dai-intel.h    |  18 +--
+ sound/soc/sof/intel/hda-dsp.c    |   2 +
+ sound/soc/sof/intel/hda-loader.c |  13 ++
+ sound/soc/sof/intel/hda.c        | 230 ++++++++++++++++++++++++++++++-
+ sound/soc/sof/intel/hda.h        |  44 ++++++
+ 5 files changed, 295 insertions(+), 12 deletions(-)
 
-Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- drivers/soundwire/intel.c           | 20 ++++++++++++------
- drivers/soundwire/intel.h           |  4 ++--
- drivers/soundwire/intel_init.c      |  1 +
- include/linux/soundwire/sdw_intel.h | 32 +++++++++++++++++++++++++----
- 4 files changed, 45 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index acdec12d748d..10ff03d3a9e5 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -523,17 +523,24 @@ intel_pdi_alh_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
- 	intel_writel(alh, SDW_ALH_STRMZCFG(pdi->intel_alh_id), conf);
- }
- 
--static int intel_config_stream(struct sdw_intel *sdw,
-+static int intel_params_stream(struct sdw_intel *sdw,
- 			       struct snd_pcm_substream *substream,
- 			       struct snd_soc_dai *dai,
--			       struct snd_pcm_hw_params *hw_params, int link_id)
-+			       struct snd_pcm_hw_params *hw_params,
-+			       int link_id, int alh_stream_id)
- {
- 	struct sdw_intel_link_res *res = sdw->res;
-+	struct sdw_intel_stream_params_data params_data;
- 
--	if (res->ops && res->ops->config_stream && res->arg)
--		return res->ops->config_stream(res->arg,
--				substream, dai, hw_params, link_id);
-+	params_data.substream = substream;
-+	params_data.dai = dai;
-+	params_data.hw_params = hw_params;
-+	params_data.link_id = link_id;
-+	params_data.alh_stream_id = alh_stream_id;
- 
-+	if (res->ops && res->ops->params_stream && res->dev)
-+		return res->ops->params_stream(res->dev,
-+					       &params_data);
- 	return -EIO;
- }
- 
-@@ -648,7 +655,8 @@ static int intel_hw_params(struct snd_pcm_substream *substream,
- 
- 
- 	/* Inform DSP about PDI stream number */
--	ret = intel_config_stream(sdw, substream, dai, params,
-+	ret = intel_params_stream(sdw, substream, dai, params,
-+				  sdw->instance,
- 				  pdi->intel_alh_id);
- 	if (ret)
- 		goto error;
-diff --git a/drivers/soundwire/intel.h b/drivers/soundwire/intel.h
-index e4cc1d3804ff..38b7c125fb10 100644
---- a/drivers/soundwire/intel.h
-+++ b/drivers/soundwire/intel.h
-@@ -14,7 +14,7 @@
-  * @alh: ALH (Audio Link Hub) pointer
-  * @irq: Interrupt line
-  * @ops: Shim callback ops
-- * @arg: Shim callback ops argument
-+ * @dev: device implementing hw_params and free callbacks
-  */
- struct sdw_intel_link_res {
- 	struct platform_device *pdev;
-@@ -24,7 +24,7 @@ struct sdw_intel_link_res {
- 	void __iomem *alh;
- 	int irq;
- 	const struct sdw_intel_ops *ops;
--	void *arg;
-+	struct device *dev;
- };
- 
- #endif /* __SDW_INTEL_LOCAL_H */
-diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index f8ae199094d3..6bc167c83b47 100644
---- a/drivers/soundwire/intel_init.c
-+++ b/drivers/soundwire/intel_init.c
-@@ -119,6 +119,7 @@ static struct sdw_intel_ctx
- 		link->alh = res->mmio_base + SDW_ALH_BASE;
- 
- 		link->ops = res->ops;
-+		link->dev = res->dev;
- 
- 		memset(&pdevinfo, 0, sizeof(pdevinfo));
- 
-diff --git a/include/linux/soundwire/sdw_intel.h b/include/linux/soundwire/sdw_intel.h
-index 2cb653299731..36e2b522a749 100644
---- a/include/linux/soundwire/sdw_intel.h
-+++ b/include/linux/soundwire/sdw_intel.h
-@@ -4,15 +4,39 @@
- #ifndef __SDW_INTEL_H
- #define __SDW_INTEL_H
- 
-+/**
-+ * struct sdw_intel_stream_params_data: configuration passed during
-+ * the @params_stream callback, e.g. for interaction with DSP
-+ * firmware.
-+ */
-+struct sdw_intel_stream_params_data {
-+	struct snd_pcm_substream *substream;
-+	struct snd_soc_dai *dai;
-+	struct snd_pcm_hw_params *hw_params;
-+	int link_id;
-+	int alh_stream_id;
-+};
-+
-+/**
-+ * struct sdw_intel_stream_free_data: configuration passed during
-+ * the @free_stream callback, e.g. for interaction with DSP
-+ * firmware.
-+ */
-+struct sdw_intel_stream_free_data {
-+	struct snd_pcm_substream *substream;
-+	struct snd_soc_dai *dai;
-+	int link_id;
-+};
-+
- /**
-  * struct sdw_intel_ops: Intel audio driver callback ops
-  *
-- * @config_stream: configure the stream with the hw_params
-- * the first argument containing the context is mandatory
-  */
- struct sdw_intel_ops {
--	int (*config_stream)(void *arg, void *substream,
--			     void *dai, void *hw_params, int stream_num);
-+	int (*params_stream)(struct device *dev,
-+			     struct sdw_intel_stream_params_data *params_data);
-+	int (*free_stream)(struct device *dev,
-+			   struct sdw_intel_stream_free_data *free_data);
- };
- 
- /**
 -- 
 2.20.1
 

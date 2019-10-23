@@ -2,77 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE130E1499
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 10:46:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16068E14BC
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 10:51:19 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4E80415E2;
-	Wed, 23 Oct 2019 10:45:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E80415E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9396C166E;
+	Wed, 23 Oct 2019 10:50:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9396C166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571820398;
-	bh=mFsqVKYxMBqwjk9Tg3OwiTjIsvlicnDg5DzhCovfJU0=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571820678;
+	bh=ilUosGDuxw2VeUGqSFH4P9GIo9OAo+q8cwBee365rrc=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z/dewEgxZo/n0VTbINM1si31beEM4e6D9+3ho2TkItfG5LtF1Q9GZv5dYycSTFLif
-	 vcTcjyC7SVsi7a8H0Io/Jdpr6npisi03ueB6TYwVNuHRmECT0jFGse1Zbr/1eftu8J
-	 L1ZhPy9naH8TZu/6GOtF15T+Isa5opmt05hPhkGQ=
+	b=O3M3K2XzSIic/myN+Oyx0OZ40CzcnO8y6qnS06JWec0d9uE5dyr0LnFg04JuoaaEA
+	 1Jmhq10Bb4XA+HOZkjHOgM+e4md4Zgp5CwLgpwDh2cepZPrPhpTCPnBG//GsdysXed
+	 6hMPMlmTSedysBJzsX6wTHSTJstBAXtYEKag5wTA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55314F8036F;
-	Wed, 23 Oct 2019 10:44:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DF09F802DF;
+	Wed, 23 Oct 2019 10:49:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44E9CF80368; Wed, 23 Oct 2019 10:44:51 +0200 (CEST)
+ id 1A1C0F80368; Wed, 23 Oct 2019 10:49:33 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
+ [IPv6:2607:f8b0:4864:20::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9564F802DF
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 10:44:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9564F802DF
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID x9N8idV2013066,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCASV02.realtek.com.tw[172.21.6.19])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id x9N8idV2013066
- (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
- Wed, 23 Oct 2019 16:44:39 +0800
-Received: from RTEXMB03.realtek.com.tw (172.21.6.96) by
- RTITCASV02.realtek.com.tw (172.21.6.19) with Microsoft SMTP Server (TLS) id
- 14.3.468.0; Wed, 23 Oct 2019 16:44:38 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Wed, 23 Oct 2019 16:44:37 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::6d88:58e2:6d4b:ff7c]) by
- RTEXMB01.realtek.com.tw ([fe80::6d88:58e2:6d4b:ff7c%13]) with mapi id
- 15.01.1779.005; Wed, 23 Oct 2019 16:44:37 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>, Aaron Ma <aaron.ma@canonical.com>
-Thread-Topic: [PATCH] ALSA: hda/realtek - Fix 2 front mics of codec 0x623
-Thread-Index: AQHViO7vxXHEn3Xl7Ee6N1/g4hdxKqdmTdyAgAGbrzA=
-Date: Wed, 23 Oct 2019 08:44:37 +0000
-Message-ID: <848ebd7fd86e4c05936e70f500f718e9@realtek.com>
-References: <20191022153855.14368-1-aaron.ma@canonical.com>
- <s5hpniodaq4.wl-tiwai@suse.de>
-In-Reply-To: <s5hpniodaq4.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.105.211]
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E8CFF802DF
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 10:49:29 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E8CFF802DF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="huwfFp12"
+Received: by mail-oi1-x244.google.com with SMTP id g81so16686385oib.8
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 01:49:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ADV4dloY4QrpGFTvy/OoeHNXpjGf72Q0UAxYSc8ChkI=;
+ b=huwfFp12qyI2jHm5EkRIvVBfBZqxMGd9x3nLq47NHMuoNKyPqUUlPqebVk2hNWcmoB
+ khsxVS+6M6Mwbin2NE2ARQLmtl2uUthxZN6Q0ty4ygeOYJOmRfBZsicWfsp0FZeh0PR0
+ 0YM25+A7HZueY+CL67+tKQ4O0O+iPzCz3YCSV7s5SXkpIa1N/74v/bSlQ8OVkxDLFOtZ
+ t1WUqnauORxl1IlJycJtJDRyJNJFWU0w6tlcmL3a7O2EPySayNDeSJq2uSSuC3gJq3vQ
+ lmjitHFVXJtM3d77FbqsRR5hW3PKY6hdPWimAJgEkDU4svHHe24YtTnR4XqvCMWsWMxz
+ tapw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ADV4dloY4QrpGFTvy/OoeHNXpjGf72Q0UAxYSc8ChkI=;
+ b=TE7Dhc7HqZEN2GdE31ObNJtb+2rPTq1MXcq+RdJ3rjqI4vuuGFJ12Che66tMBBflYg
+ VN2pXNA/gKeJbRr7wEvUs1tJd7fHjiFE0XdInG8UTQJYhg7/WaGc5qWriHtXfiMWaaur
+ xN+TQLOWg1hBmD4pEaHros2LhTTNX/5knfYP15cOVJkdzPylq8hZJDGyMLoZx+0UNTH9
+ eUjc+H1Ak1tgxjqFBiuDI4HfdwFyj3a5BROzGT6ejLIIGxb1SlLXw3vy29a2KnAaslI3
+ +xj4y9NHGGDZZ5GlBpdEc6Q0oFjRczUG3teVel7KbAtYRuezxHHOBlAvPUVcMEWB9K7a
+ TIBA==
+X-Gm-Message-State: APjAAAWQ/6qEf5DZ5pIYCRmRaVsLwdzdR0vUNtF9SHcAA9BHWnFy29+x
+ MQ1o5pe1Yj4oSbR40iDygXQtz8Y8p+N+DXA22QMT7Q==
+X-Google-Smtp-Source: APXvYqzqfl89y1pbwQVoS8A11ClrnUFaZyaqUTogCmeTUjY5/jx96G9aTd3cpQSBIBLrLvTVV6/LLgDn+8AwgABdV6M=
+X-Received: by 2002:aca:1a18:: with SMTP id a24mr6615198oia.145.1571820568027; 
+ Wed, 23 Oct 2019 01:49:28 -0700 (PDT)
 MIME-Version: 1.0
-Cc: "hui.wang@canonical.com" <hui.wang@canonical.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ALSA: hda/realtek - Fix 2 front mics of
-	codec 0x623
+References: <20191023063103.44941-1-maowenan@huawei.com>
+ <CA+Px+wX7-tn-rXeKqnPtp74tU5cLxhJwF6XZ_jeQX-tnAfvO5g@mail.gmail.com>
+ <1d948ec1-69e4-735f-c369-80d2b28e0eaa@huawei.com>
+In-Reply-To: <1d948ec1-69e4-735f-c369-80d2b28e0eaa@huawei.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Wed, 23 Oct 2019 16:49:16 +0800
+Message-ID: <CA+Px+wXgXkmVYboPcrhOWkAwRB2ygLDLi+TN9xw2awUZKMhCJA@mail.gmail.com>
+To: maowenan <maowenan@huawei.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ ALSA development <alsa-devel@alsa-project.org>,
+ kernel-janitors@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, yuehaibing@huawei.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ =?UTF-8?B?U2h1bmxpIFdhbmcgKOeOi+mhuuWIqSk=?= <shunli.wang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, tglx@linutronix.de,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ KaiChieh Chuang <kaichieh.chuang@mediatek.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: mediatek: Check
+	SND_SOC_CROS_EC_CODEC dependency
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,84 +107,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Oct 23, 2019 at 4:38 PM maowenan <maowenan@huawei.com> wrote:
+> I receive below message after I post, do you know why?
+> '''
+> Your mail to 'Alsa-devel' with the subject
+>
+>     [PATCH] ASoC: mediatek: Check SND_SOC_CROS_EC_CODEC dependency
+>
+> Is being held until the list moderator can review it for approval.
+>
+> The reason it is being held:
+>
+>     Post by non-member to a members-only list
 
+I don't exactly know.  But I got similar messages when I first time
+sent mail to the alsa-devel.
 
-> -----Original Message-----
-> From: Takashi Iwai <tiwai@suse.de>
-> Sent: Wednesday, October 23, 2019 12:08 AM
-> To: Aaron Ma <aaron.ma@canonical.com>
-> Cc: perex@perex.cz; Kailang <kailang@realtek.com>;
-> hui.wang@canonical.com; alsa-devel@alsa-project.org;
-> linux-kernel@vger.kernel.org
-> Subject: Re: [PATCH] ALSA: hda/realtek - Fix 2 front mics of codec 0x623
-> 
-> On Tue, 22 Oct 2019 17:38:55 +0200,
-> Aaron Ma wrote:
-> >
-> > These 2 ThinkCentres installed a new realtek codec ID 0x623, it has 2
-> > front mics with the same location on pin 0x18 and 0x19.
-> >
-> > Apply fixup ALC283_FIXUP_HEADSET_MIC to change 1 front mic location to
-> > right, then pulseaudio can handle them.
-> > One "Front Mic" and one "Mic" will be shown, and audio output works
-> > fine.
-> >
-> > Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
-> 
-> I'd like to have Kailang's review about the new codec before applying.
-> 
-> Kailang, could you take a look?
-OK.
-I will post you the patch for ALC623 codec tomorrow.
-Thanks.
-
-> 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> > ---
-> >  sound/pci/hda/patch_realtek.c | 3 +++
-> >  1 file changed, 3 insertions(+)
-> >
-> > diff --git a/sound/pci/hda/patch_realtek.c
-> > b/sound/pci/hda/patch_realtek.c index b000b36ac3c6..c34d8b435f58
-> > 100644
-> > --- a/sound/pci/hda/patch_realtek.c
-> > +++ b/sound/pci/hda/patch_realtek.c
-> > @@ -7186,6 +7186,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[]
-> = {
-> >  	SND_PCI_QUIRK(0x17aa, 0x312f, "ThinkCentre Station",
-> ALC294_FIXUP_LENOVO_MIC_LOCATION),
-> >  	SND_PCI_QUIRK(0x17aa, 0x313c, "ThinkCentre Station",
-> ALC294_FIXUP_LENOVO_MIC_LOCATION),
-> >  	SND_PCI_QUIRK(0x17aa, 0x3151, "ThinkCentre Station",
-> > ALC283_FIXUP_HEADSET_MIC),
-> > +	SND_PCI_QUIRK(0x17aa, 0x3178, "ThinkCentre Station",
-> ALC283_FIXUP_HEADSET_MIC),
-> > +	SND_PCI_QUIRK(0x17aa, 0x3176, "ThinkCentre Station",
-> > +ALC283_FIXUP_HEADSET_MIC),
-> >  	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80",
-> ALC269_FIXUP_DMIC_THINKPAD_ACPI),
-> >  	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210",
-> ALC283_FIXUP_INT_MIC),
-> >  	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70",
-> > ALC269_FIXUP_DMIC_THINKPAD_ACPI), @@ -9187,6 +9189,7 @@ static
-> const struct hda_device_id snd_hda_id_realtek[] = {
-> >  	HDA_CODEC_ENTRY(0x10ec0298, "ALC298", patch_alc269),
-> >  	HDA_CODEC_ENTRY(0x10ec0299, "ALC299", patch_alc269),
-> >  	HDA_CODEC_ENTRY(0x10ec0300, "ALC300", patch_alc269),
-> > +	HDA_CODEC_ENTRY(0x10ec0623, "ALC623", patch_alc269),
-> >  	HDA_CODEC_REV_ENTRY(0x10ec0861, 0x100340, "ALC660",
-> patch_alc861),
-> >  	HDA_CODEC_ENTRY(0x10ec0660, "ALC660-VD", patch_alc861vd),
-> >  	HDA_CODEC_ENTRY(0x10ec0861, "ALC861", patch_alc861),
-> > --
-> > 2.17.1
-> >
-> 
-> ------Please consider the environment before printing this e-mail.
+Have you subscribed to alsa-devel mailing list?  I guess it is fine to
+wait maintainers to proceed your patch.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

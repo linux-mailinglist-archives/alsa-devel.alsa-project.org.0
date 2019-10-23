@@ -2,81 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AEBDE113D
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 06:52:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A2F7E10FE
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 06:31:34 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC7E51675;
-	Wed, 23 Oct 2019 06:51:38 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC7E51675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79E28165F;
+	Wed, 23 Oct 2019 06:30:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79E28165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571806349;
-	bh=WJbpPyy06ZTWVw25vOQyHq24ONsI2GuBzTM5xDeoqhc=;
-	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=JEDtgXLaGWS2u8fLo6ScpdkLlq4KW0vU/ve/+5BLyKxKiHugOBH7/bjG5QT96GAC8
-	 SfnJh4avsP041nmepE5mXi19NHZxuRrLaXPQEoPGVbev/zQZZkqfgXzoxl1Tla/PaR
-	 Ko0BWGyL0fBxmDvdaKUY5yNmy7Uo0sxLX6y3ovfA=
+	s=default; t=1571805093;
+	bh=6KvTCr9nIN0vNbLanAdvorDV3/FWefqDKfFrRCxK8Y8=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=q8YnssWuJH9Dk6eknxr4MHnhQLbPTrEYCQiLYaiPah/Gvlehj+qXScnMPtSbfSKGv
+	 d332t4AzCJ6lKYTGo1a3yKmziHsg/F9+Jv8kjecUNIf7LYYAFFsBA1aSE5EX2zskOv
+	 oIE/KFOLGVz93qjVPPwn4EvY1w8AOqVcnIUmu6tA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83EF6F80612;
-	Wed, 23 Oct 2019 06:48:18 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6BFFF80368;
+	Wed, 23 Oct 2019 06:29:49 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7266FF80368; Wed, 23 Oct 2019 06:05:22 +0200 (CEST)
+ id 5FD70F80368; Wed, 23 Oct 2019 06:29:45 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com
- [IPv6:2607:f8b0:4864:20::e43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 941BCF80274
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 06:05:19 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 941BCF80274
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="X2h9xPiC"
-Received: by mail-vs1-xe43.google.com with SMTP id j85so3789231vsd.11
- for <alsa-devel@alsa-project.org>; Tue, 22 Oct 2019 21:05:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=9H8nYrQhOjB2A3FwoGKLO7o+79UaUbsJYfq2RcqOLpY=;
- b=X2h9xPiC11JJBVG4aZR9eDFAzk2iEeP0aPy32F6H+4OOKUh4eMSNpodUB5Ljz0RL9g
- tQcN71hFC7h7IPpVCs6pAIuq8QJUf9OL48MUw8sV00z20Rj9Z7HjT4CWXDe9njX+THPI
- HzakwCBf8nBM3khQfJ07tkcmhUTxi5poEP4UB5qRQjLNU7sqzCasCRY722DfjUAooWhu
- ruz5be99WQ+ZaQ9BOYP/odP+BO4O2B8GBVtHTVgeFqkQRFi5WwluurGzWJulZJE21FRo
- FA1gUO4pfifFyGBZIcr5lJcOWlfRCbHOLrfNEyiJlcW+H7lDd2U0xu09wxjE3HL0Xi7g
- MCmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=9H8nYrQhOjB2A3FwoGKLO7o+79UaUbsJYfq2RcqOLpY=;
- b=W8LXMavNp4gY8jk1MSIGQ9C7lsmxYU3j8ZNIFNtNpMidB87x5uJWokKFiKHhmjdJ9K
- kiH8b/EtoT/rNkzbKo2sUWQCXJLEtLM0Pj82IKaQSvUqLZWrjeDWmbwUyBWLQOJ6uJzM
- G9BTVdUnrwSxyyM5HM45X/EF48/oHfbCTpVpe1KBR1I5xu6nIs0HSYbL1OxTxvf5yfjT
- DjI5vzAaLg05DwCnuYUVvk9kkI9rKT/v22AkMmPyGENiQXq2HeOq5SrhuIdd02YsnUx5
- 0QEaDCULh5axyVyp+E25QKxH76IXIdQufDUSSFb75fl293bormb6NKgU10qIyfuwpKXa
- Mgxg==
-X-Gm-Message-State: APjAAAWew0oS5HglAIBFlNdqFeOQyMVG5ohYG2Nf5L3fJfup0uO6MrDx
- 54tdlBcc0marEVZSNvyRDAG6LVYwY158mHDUcvY=
-X-Google-Smtp-Source: APXvYqyPqiB5q26NdusQaDAE9nmzfH55qAYC8hKj8nylD5Q6AFugbWBt77ls6KxG8hdFwBR1YOFd9xRVost37qOgfPA=
-X-Received: by 2002:a05:6102:3004:: with SMTP id
- s4mr2507127vsa.214.1571803517087; 
- Tue, 22 Oct 2019 21:05:17 -0700 (PDT)
-MIME-Version: 1.0
-From: Fly Pig <flyingecar@gmail.com>
-Date: Tue, 22 Oct 2019 21:05:08 -0700
-Message-ID: <CA+9XP1jeMVuzj0gz_-H6zV=cmjWQwvBLi08AED1KBie+kugmcg@mail.gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, alsa-devel@alsa-project.org
-X-Mailman-Approved-At: Wed, 23 Oct 2019 06:48:10 +0200
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Subject: [alsa-devel] [PATCH] ALSA: usb-audio: Add Gustard U16/X26 device
- family to quirks for native DSD support
+ by alsa1.perex.cz (Postfix) with ESMTPS id DA846F80112
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 06:29:41 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA846F80112
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 159C0B20F;
+ Wed, 23 Oct 2019 04:29:40 +0000 (UTC)
+Date: Wed, 23 Oct 2019 06:29:39 +0200
+Message-ID: <s5hmudsccek.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191022194402.23178-1-pierre-louis.bossart@linux.intel.com>
+References: <20191022194402.23178-1-pierre-louis.bossart@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Pan Xiuli <xiuli.pan@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: hda: Add Tigerlake/Jasperlake PCI ID
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,34 +70,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi There
+On Tue, 22 Oct 2019 21:44:02 +0200,
+Pierre-Louis Bossart wrote:
+> 
+> From: Pan Xiuli <xiuli.pan@linux.intel.com>
+> 
+> Add HD Audio Device PCI ID for the Intel Tigerlake and Jasperlake
+> platform.
+> 
+> Signed-off-by: Pan Xiuli <xiuli.pan@linux.intel.com>
+> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+Applied now.  Thanks.
 
 
-This patch add native DSD support for Gustard U16/X26 USB Interface. Tested
-on my unit, working properly. Hence submit the patch.
-
-Cheers.
-
-Thank you very much.
-
-Pig
-
-
-
-
-
-
-
---- a/sound/usb/quirks.c 2019-09-22 21:28:09.757897000 +0000
-+++ b/sound/usb/quirks.c 2019-09-22 21:33:36.892274800 +0000
-@@ -1369,6 +1369,7 @@
-  case USB_ID(0x22d9, 0x0461): /* OPPO UDP-205 */
-  case USB_ID(0x2522, 0x0012): /* LH Labs VI DAC Infinity */
-  case USB_ID(0x2772, 0x0230): /* Pro-Ject Pre Box S2 Digital */
-+        case USB_ID(0x292b, 0xc4b3): /* Gustard U16 */
-  if (fp->altsetting == 2)
-  return SNDRV_PCM_FMTBIT_DSD_U32_BE;
-  break;
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

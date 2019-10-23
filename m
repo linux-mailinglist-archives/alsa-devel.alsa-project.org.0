@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C88BE1564
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 11:09:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E447E1567
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 11:10:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE68841;
-	Wed, 23 Oct 2019 11:08:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE68841
+	by alsa0.perex.cz (Postfix) with ESMTPS id 362B6165E;
+	Wed, 23 Oct 2019 11:09:21 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 362B6165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571821785;
-	bh=QK1SsNiKJeZTIDjSekrUsLUnUTXXCsKvAFO3PxY0tqk=;
+	s=default; t=1571821811;
+	bh=M9ESIUVzvQ9VAjCZot3aAQwFw+MviMttxRQ0w4Gus+c=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R1mF6H74ERR+0qJGlRRo9d8twSc5YCHIQ9UNbAgE5EDZ6M1UxvttTEGjsnWYrqQz4
-	 H57ZqNPd52GRy3qcIFKpFmy9IFpgC1OOLb8kjdeypk6WX/9I2UpdrcU4QVpGBnhIBz
-	 OHxE0iLYpHYf3+yH1hEc5JYEwywUCCIl358x0G+U=
+	b=eFrs/LiC8f9VcqCfNujEF4JYPqWgdvemAeAp7P+dOfWHStIoXiDnbjdm+te9F2LZW
+	 LuzcSj5V8QjG0oveHeV7jshiBpEVXFmAsRduKzD7Uskp3CvzxlXiNLJKjbbvmw3wbz
+	 h/HO70YrDYJEDMX8Ek4FOX4Jog6D3X7n4BzfdfEU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB459F80642;
-	Wed, 23 Oct 2019 11:04:12 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A6FDF8065B;
+	Wed, 23 Oct 2019 11:04:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7C240F80612; Wed, 23 Oct 2019 11:04:06 +0200 (CEST)
+ id 697C1F80638; Wed, 23 Oct 2019 11:04:08 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A54CBF805FB
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 11:04:02 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A54CBF805FB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 335C5F805FD
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 11:04:04 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 335C5F805FD
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2019 02:04:02 -0700
+ 23 Oct 2019 02:04:03 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,220,1569308400"; d="scan'208";a="197375905"
+X-IronPort-AV: E=Sophos;i="5.68,220,1569308400"; d="scan'208";a="197375918"
 Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by fmsmga007.fm.intel.com with ESMTP; 23 Oct 2019 02:04:00 -0700
+ by fmsmga007.fm.intel.com with ESMTP; 23 Oct 2019 02:04:02 -0700
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org,
 	broonie@kernel.org
-Date: Wed, 23 Oct 2019 12:03:28 +0300
-Message-Id: <20191023090331.10531-7-kai.vehmanen@linux.intel.com>
+Date: Wed, 23 Oct 2019 12:03:29 +0300
+Message-Id: <20191023090331.10531-8-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191023090331.10531-1-kai.vehmanen@linux.intel.com>
 References: <20191023090331.10531-1-kai.vehmanen@linux.intel.com>
 Cc: tiwai@suse.de, libin.yang@intel.com, pierre-louis.bossart@linux.intel.com,
  kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [PATCH v7 6/9] ASoC: Intel: bxt-da7219-max98357a:
+Subject: [alsa-devel] [PATCH v7 7/9] ASoC: Intel: glk_rt5682_max98357a:
 	common hdmi codec support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -82,47 +82,47 @@ HDA codecs are already handled.
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
  sound/soc/intel/boards/Makefile               |  2 +-
- sound/soc/intel/boards/bxt_da7219_max98357a.c | 11 +++++++++++
+ sound/soc/intel/boards/glk_rt5682_max98357a.c | 11 +++++++++++
  2 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index 52e990b16b0d..0cf4a984f083 100644
+index 0cf4a984f083..b36f44906c91 100644
 --- a/sound/soc/intel/boards/Makefile
 +++ b/sound/soc/intel/boards/Makefile
-@@ -4,7 +4,7 @@ snd-soc-sst-byt-rt5640-mach-objs := byt-rt5640.o
- snd-soc-sst-byt-max98090-mach-objs := byt-max98090.o
- snd-soc-sst-bdw-rt5677-mach-objs := bdw-rt5677.o
+@@ -6,7 +6,7 @@ snd-soc-sst-bdw-rt5677-mach-objs := bdw-rt5677.o
  snd-soc-sst-broadwell-objs := broadwell.o
--snd-soc-sst-bxt-da7219_max98357a-objs := bxt_da7219_max98357a.o
-+snd-soc-sst-bxt-da7219_max98357a-objs := bxt_da7219_max98357a.o hda_dsp_common.o
+ snd-soc-sst-bxt-da7219_max98357a-objs := bxt_da7219_max98357a.o hda_dsp_common.o
  snd-soc-sst-bxt-rt298-objs := bxt_rt298.o
- snd-soc-sst-glk-rt5682_max98357a-objs := glk_rt5682_max98357a.o
+-snd-soc-sst-glk-rt5682_max98357a-objs := glk_rt5682_max98357a.o
++snd-soc-sst-glk-rt5682_max98357a-objs := glk_rt5682_max98357a.o hda_dsp_common.o
  snd-soc-sst-bytcr-rt5640-objs := bytcr_rt5640.o
-diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-index ac1dea5f9d11..5873abb46441 100644
---- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
-+++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
-@@ -21,6 +21,7 @@
- #include "../../codecs/da7219.h"
- #include "../../codecs/da7219-aad.h"
- #include "../common/soc-intel-quirks.h"
+ snd-soc-sst-bytcr-rt5651-objs := bytcr_rt5651.o
+ snd-soc-sst-cht-bsw-rt5672-objs := cht_bsw_rt5672.o
+diff --git a/sound/soc/intel/boards/glk_rt5682_max98357a.c b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+index bd2d371f2acd..b36264d1d1cd 100644
+--- a/sound/soc/intel/boards/glk_rt5682_max98357a.c
++++ b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+@@ -19,6 +19,7 @@
+ #include <sound/soc-acpi.h>
+ #include "../../codecs/rt5682.h"
+ #include "../../codecs/hdac_hdmi.h"
 +#include "hda_dsp_common.h"
  
- #define BXT_DIALOG_CODEC_DAI	"da7219-hifi"
- #define BXT_MAXIM_CODEC_DAI	"HiFi"
-@@ -38,6 +39,7 @@ struct bxt_hdmi_pcm {
- 
- struct bxt_card_private {
+ /* The platform clock outputs 19.2Mhz clock to codec as I2S MCLK */
+ #define GLK_PLAT_CLK_FREQ 19200000
+@@ -41,6 +42,7 @@ struct glk_hdmi_pcm {
+ struct glk_card_private {
+ 	struct snd_soc_jack geminilake_headset;
  	struct list_head hdmi_pcm_list;
 +	bool common_hdmi_codec_drv;
  };
  
  enum {
-@@ -615,6 +617,13 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
- 		snd_soc_dapm_add_routes(&card->dapm, broxton_map,
- 					ARRAY_SIZE(broxton_map));
+@@ -545,6 +547,13 @@ static int glk_card_late_probe(struct snd_soc_card *card)
+ 	int err = 0;
+ 	int i = 0;
  
-+	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct bxt_hdmi_pcm,
++	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct glk_hdmi_pcm,
 +			       head);
 +	component = pcm->codec_dai->component;
 +
@@ -132,13 +132,13 @@ index ac1dea5f9d11..5873abb46441 100644
  	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
  		component = pcm->codec_dai->component;
  		snprintf(jack_name, sizeof(jack_name),
-@@ -720,6 +729,8 @@ static int broxton_audio_probe(struct platform_device *pdev)
+@@ -612,6 +621,8 @@ static int geminilake_audio_probe(struct platform_device *pdev)
  	if (ret)
  		return ret;
  
 +	ctx->common_hdmi_codec_drv = mach->mach_params.common_hdmi_codec_drv;
 +
- 	return devm_snd_soc_register_card(&pdev->dev, &broxton_audio_card);
+ 	return devm_snd_soc_register_card(&pdev->dev, card);
  }
  
 -- 

@@ -2,101 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1972E1DD5
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 16:14:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0ED3E1F1C
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 17:21:57 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D9EF1666;
-	Wed, 23 Oct 2019 16:13:26 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D9EF1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24D841614;
+	Wed, 23 Oct 2019 17:21:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24D841614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571840056;
-	bh=NaZeH6FG3a+rpmZCXlvCTpMGS5I4hPmxHewAcrruqNU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=J1b2UTv4QDzQW/SqwOScpjkSV/GJet1A1XwmMez1Z0h8ZMdN3uTa8b9ta0klzEHSE
-	 AV6IKsKHC70SXKZfz2XyWA9qIwR3mb+WIwMTQgNaNRRQAA9Wb9S8dSGNtf/rTbqIHX
-	 bnEEIyPXnTmu05j2ORRt1nErQHzWMpJ4S3ZwOz+Y=
+	s=default; t=1571844117;
+	bh=gLUKAu1kvMgEgMaoS9hp+5AXZj1GEdOUp8hw2ijzMiA=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=JuA77CjMPln8qJIWtU90kMBJW0rkjyQ7SLEog2IsIgc17Vcw/zz9McgQFEgq2U2pS
+	 qe8OzhYxoKK3zFmjE5LEbxefEpD3bX7ifmIK4C44fpnXMBXRBmkdmu//F8Dtv3rb/c
+	 IigcyKzpJOKp0fzlFJnHaCwNgwCq39Cxw4QGUnvM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2EC2F80393;
-	Wed, 23 Oct 2019 16:12:31 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A0B7F80393;
+	Wed, 23 Oct 2019 17:20:12 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B26E3F80368; Wed, 23 Oct 2019 16:12:28 +0200 (CEST)
+ id 4B625F80368; Wed, 23 Oct 2019 17:20:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ed1-f66.google.com (mail-ed1-f66.google.com
- [209.85.208.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9683CF802DF
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 16:12:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9683CF802DF
-Received: by mail-ed1-f66.google.com with SMTP id q24so9896043edr.10
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 07:12:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=rcTMyT1DxjA7fFrS2w24JzXu+0SnoZwJUx+ToqxoQbY=;
- b=XPzf37/aB31AgLnS5XuzItTV+t6df81s917fLzC47mcbFKWLoqlEHsAmuQPJcd8Fio
- GBc8aZGCNEakETP6fhPsZVDtSi3PvTkFeJsWjqMYuvmLu4dc+EhAxf0hT+QrM8uOk4XT
- AHIQhb0LTYRNz5PTI1xghlEaXAGeA1wiytpPyxtMrc7F02hMzdjBAPH32Skjk18f6gSt
- t6QupY/wuFg5c3qw6SmzJD+TT3pQ1yB6lffWn9ju9WRiLMbDF9hAni/nOfQdnJFV9SUh
- VbBaOHIMHSdwxRVQPe8SngP5iLYCd9xrn0xyrOvqgrlVk61G/+8lBV2NF0dji1pGcCAA
- HfDQ==
-X-Gm-Message-State: APjAAAXwaSzj0qSKwlsW/SNeoNxAViv34O9TGdUJIx69uGtd2eCAncRL
- /y4696vmA7FFZD2IIkaB/9w=
-X-Google-Smtp-Source: APXvYqxkd9DwWDZi/qHKDFHlMK0H8AlyVBKbEwPxz7lMmEqyzeKCvZ18JbP/k1gOjozG9nkYwgwxAA==
-X-Received: by 2002:a50:ee8d:: with SMTP id f13mr25391791edr.285.1571839945480; 
- Wed, 23 Oct 2019 07:12:25 -0700 (PDT)
-Received: from pi3 ([194.230.155.217])
- by smtp.googlemail.com with ESMTPSA id p9sm60974edx.4.2019.10.23.07.12.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 23 Oct 2019 07:12:24 -0700 (PDT)
-Date: Wed, 23 Oct 2019 16:12:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Arnd Bergmann <arnd@arndb.de>
-Message-ID: <20191023141221.GA11575@pi3>
-References: <20191010202802.1132272-1-arnd@arndb.de>
- <20191010203043.1241612-1-arnd@arndb.de>
- <20191010203043.1241612-11-arnd@arndb.de>
- <20191023121458.GB11048@pi3>
- <CAK8P3a3ktdA12vpi6zrTXs7-03efk2Ke_0_mQ9X40MLNcZnEqA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAK8P3a3ktdA12vpi6zrTXs7-03efk2Ke_0_mQ9X40MLNcZnEqA@mail.gmail.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- "moderated list:ARM/SAMSUNG EXYNOS ARM ARCHITECTURES"
- <linux-samsung-soc@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Kukjin Kim <kgene@kernel.org>,
- =?utf-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
- linux-serial@vger.kernel.org,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Linux PWM List <linux-pwm@vger.kernel.org>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Jiri Slaby <jslaby@suse.com>,
- Mark Brown <broonie@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Sangbeom Kim <sbkim73@samsung.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-mmc <linux-mmc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-spi <linux-spi@vger.kernel.org>, Faiz Abbas <faiz_abbas@ti.com>,
- Olof Johansson <olof@lixom.net>
-Subject: Re: [alsa-devel] [PATCH 11/36] ARM: s5pv210: split from plat-samsung
+ by alsa1.perex.cz (Postfix) with ESMTPS id D71DBF802DF
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 17:20:06 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D71DBF802DF
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 Oct 2019 08:20:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,221,1569308400"; d="scan'208";a="349419680"
+Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
+ by orsmga004.jf.intel.com with ESMTP; 23 Oct 2019 08:20:01 -0700
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Date: Wed, 23 Oct 2019 23:16:36 +0800
+Message-Id: <1571843796-5021-1-git-send-email-brent.lu@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Richard Fontana <rfontana@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Naveen M <naveen.m@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ "Subhransu S . Prusty" <subhransu.s.prusty@intel.com>,
+ Brent Lu <brent.lu@intel.com>
+Subject: [alsa-devel] [PATCH] ASoC: Intel: eve: Enable mclk and ssp sclk
+	early for rt5514
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,46 +73,262 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 23, 2019 at 03:17:35PM +0200, Arnd Bergmann wrote:
-> On Wed, Oct 23, 2019 at 2:15 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> > On Thu, Oct 10, 2019 at 10:29:55PM +0200, Arnd Bergmann wrote:
-> > > These can be build completely independently, so split
-> > > the two Kconfig symbols.
-> > >       config DEBUG_S3C_UART0
-> > > -             depends on PLAT_SAMSUNG || ARCH_EXYNOS
-> > > +             depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
-> >
-> > How are you going to select DEBUG_S5PV210_UART now?
-> 
-> I don't see a problem here, the patch should not change the behavior at all.
-> 
-> The whole entry now looks like:
-> 
->         config DEBUG_S3C_UART0
->                 depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
->                 select DEBUG_EXYNOS_UART if ARCH_EXYNOS
->                 select DEBUG_S3C24XX_UART if ARCH_S3C24XX
->                 select DEBUG_S3C64XX_UART if ARCH_S3C64XX
->                 select DEBUG_S5PV210_UART if ARCH_S5PV210
->                 bool "Use Samsung S3C UART 0 for low-level debug"
-> 
-> so this will work as before with any of ARCH_EXYNOS, ARCH_S3C24XX,
-> ARCH_S3C64XX and ARCH_S5PV210.
-> 
-> What am I missing?
+The first DMIC capture always fail (zero sequence data from PCM port)
+after using DSP hotwording function (i.e. Google assistant). The DMIC
+is attached to rt5514 which also require eaily mclk/sclk like rt5663.
+Therefore we add a dapm route to provide ssp mclk/sclk early to rt5514.
+The rt5514 is attached to SSP0 and the rt5663 is attached to SSP1 so
+we create another supply widget to provide SSP0 mclk/sclk to rt5514.
 
-Ah, everything is OK, I mixed up removed with added line so it looked
-reversed (removal of ARCH_S5PV210).
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+ .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  | 136 ++++++++++++++-------
+ 1 file changed, 92 insertions(+), 44 deletions(-)
 
-Looks good.
-
-Best regards,
-Krzysztof
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+index dc09a85..1755efa 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+@@ -53,8 +53,10 @@ struct kbl_codec_private {
+ 	struct snd_soc_jack kabylake_headset;
+ 	struct list_head hdmi_pcm_list;
+ 	struct snd_soc_jack kabylake_hdmi[2];
+-	struct clk *mclk;
+-	struct clk *sclk;
++	struct clk *ssp0_mclk;
++	struct clk *ssp0_sclk;
++	struct clk *ssp1_mclk;
++	struct clk *ssp1_sclk;
+ };
+ 
+ enum {
+@@ -77,13 +79,31 @@ static const struct snd_kcontrol_new kabylake_controls[] = {
+ };
+ 
+ static int platform_clock_control(struct snd_soc_dapm_widget *w,
+-			struct snd_kcontrol *k, int  event)
++			struct snd_kcontrol *k, int event, int ssp_num)
+ {
+ 	struct snd_soc_dapm_context *dapm = w->dapm;
+ 	struct snd_soc_card *card = dapm->card;
+ 	struct kbl_codec_private *priv = snd_soc_card_get_drvdata(card);
++	struct clk *mclk, *sclk;
++	unsigned long sclk_rate;
+ 	int ret = 0;
+ 
++	switch (ssp_num) {
++	case 0:
++		mclk = priv->ssp0_mclk;
++		sclk = priv->ssp0_sclk;
++		sclk_rate = 6144000;
++		break;
++	case 1:
++		mclk = priv->ssp1_mclk;
++		sclk = priv->ssp1_sclk;
++		sclk_rate = 3072000;
++		break;
++	default:
++		dev_err(card->dev, "Invalid ssp_num %d\n", ssp_num);
++		return -EINVAL;
++	}
++
+ 	/*
+ 	 * MCLK/SCLK need to be ON early for a successful synchronization of
+ 	 * codec internal clock. And the clocks are turned off during
+@@ -92,37 +112,39 @@ static int platform_clock_control(struct snd_soc_dapm_widget *w,
+ 	switch (event) {
+ 	case SND_SOC_DAPM_PRE_PMU:
+ 		/* Enable MCLK */
+-		ret = clk_set_rate(priv->mclk, 24000000);
++		ret = clk_set_rate(mclk, 24000000);
+ 		if (ret < 0) {
+-			dev_err(card->dev, "Can't set rate for mclk, err: %d\n",
+-				ret);
++			dev_err(card->dev, "Can't set rate for ssp%d_mclk, err: %d\n",
++				ssp_num, ret);
+ 			return ret;
+ 		}
+ 
+-		ret = clk_prepare_enable(priv->mclk);
++		ret = clk_prepare_enable(mclk);
+ 		if (ret < 0) {
+-			dev_err(card->dev, "Can't enable mclk, err: %d\n", ret);
++			dev_err(card->dev, "Can't enable ssp%d_mclk, err: %d\n",
++				ssp_num, ret);
+ 			return ret;
+ 		}
+ 
+ 		/* Enable SCLK */
+-		ret = clk_set_rate(priv->sclk, 3072000);
++		ret = clk_set_rate(sclk, sclk_rate);
+ 		if (ret < 0) {
+-			dev_err(card->dev, "Can't set rate for sclk, err: %d\n",
+-				ret);
+-			clk_disable_unprepare(priv->mclk);
++			dev_err(card->dev, "Can't set rate for ssp%d_sclk, err: %d\n",
++				ssp_num, ret);
++			clk_disable_unprepare(mclk);
+ 			return ret;
+ 		}
+ 
+-		ret = clk_prepare_enable(priv->sclk);
++		ret = clk_prepare_enable(sclk);
+ 		if (ret < 0) {
+-			dev_err(card->dev, "Can't enable sclk, err: %d\n", ret);
+-			clk_disable_unprepare(priv->mclk);
++			dev_err(card->dev, "Can't enable ssp%d_sclk, err: %d\n",
++				ssp_num, ret);
++			clk_disable_unprepare(mclk);
+ 		}
+ 		break;
+ 	case SND_SOC_DAPM_POST_PMD:
+-		clk_disable_unprepare(priv->mclk);
+-		clk_disable_unprepare(priv->sclk);
++		clk_disable_unprepare(mclk);
++		clk_disable_unprepare(sclk);
+ 		break;
+ 	default:
+ 		return 0;
+@@ -131,6 +153,18 @@ static int platform_clock_control(struct snd_soc_dapm_widget *w,
+ 	return 0;
+ }
+ 
++static int platform_clock_control_ssp0(struct snd_soc_dapm_widget *w,
++			struct snd_kcontrol *k, int event)
++{
++	return platform_clock_control(w, k, event, 0);
++}
++
++static int platform_clock_control_ssp1(struct snd_soc_dapm_widget *w,
++			struct snd_kcontrol *k, int event)
++{
++	return platform_clock_control(w, k, event, 1);
++}
++
+ static const struct snd_soc_dapm_widget kabylake_widgets[] = {
+ 	SND_SOC_DAPM_HP("Headphone Jack", NULL),
+ 	SND_SOC_DAPM_MIC("Headset Mic", NULL),
+@@ -139,15 +173,17 @@ static const struct snd_soc_dapm_widget kabylake_widgets[] = {
+ 	SND_SOC_DAPM_MIC("DMIC", NULL),
+ 	SND_SOC_DAPM_SPK("HDMI1", NULL),
+ 	SND_SOC_DAPM_SPK("HDMI2", NULL),
+-	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
+-			platform_clock_control, SND_SOC_DAPM_PRE_PMU |
++	SND_SOC_DAPM_SUPPLY("Platform Clock SSP0", SND_SOC_NOPM, 0, 0,
++			platform_clock_control_ssp0, SND_SOC_DAPM_PRE_PMU |
++			SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_SUPPLY("Platform Clock SSP1", SND_SOC_NOPM, 0, 0,
++			platform_clock_control_ssp1, SND_SOC_DAPM_PRE_PMU |
+ 			SND_SOC_DAPM_POST_PMD),
+-
+ };
+ 
+ static const struct snd_soc_dapm_route kabylake_map[] = {
+ 	/* Headphones */
+-	{ "Headphone Jack", NULL, "Platform Clock" },
++	{ "Headphone Jack", NULL, "Platform Clock SSP1" },
+ 	{ "Headphone Jack", NULL, "HPOL" },
+ 	{ "Headphone Jack", NULL, "HPOR" },
+ 
+@@ -156,7 +192,7 @@ static const struct snd_soc_dapm_route kabylake_map[] = {
+ 	{ "Right Spk", NULL, "Right BE_OUT" },
+ 
+ 	/* other jacks */
+-	{ "Headset Mic", NULL, "Platform Clock" },
++	{ "Headset Mic", NULL, "Platform Clock SSP1" },
+ 	{ "IN1P", NULL, "Headset Mic" },
+ 	{ "IN1N", NULL, "Headset Mic" },
+ 
+@@ -180,6 +216,7 @@ static const struct snd_soc_dapm_route kabylake_map[] = {
+ 	{ "ssp0 Rx", NULL, "Right HiFi Capture" },
+ 
+ 	/* DMIC */
++	{ "DMIC", NULL, "Platform Clock SSP0" },
+ 	{ "DMIC1L", NULL, "DMIC" },
+ 	{ "DMIC1R", NULL, "DMIC" },
+ 	{ "DMIC2L", NULL, "DMIC" },
+@@ -704,6 +741,29 @@ static struct snd_soc_card kabylake_audio_card = {
+ 	.late_probe = kabylake_card_late_probe,
+ };
+ 
++static int kabylake_audio_clk_get(struct device *dev, const char *id,
++	struct clk **clk)
++{
++	int ret = 0;
++
++	if (!clk)
++		return -EINVAL;
++
++	*clk = devm_clk_get(dev, id);
++	if (IS_ERR(*clk)) {
++		ret = PTR_ERR(*clk);
++		if (ret == -ENOENT) {
++			dev_info(dev, "Failed to get %s, defer probe\n", id);
++			return -EPROBE_DEFER;
++		}
++
++		dev_err(dev, "Failed to get %s with err:%d\n", id, ret);
++		return ret;
++	}
++
++	return ret;
++}
++
+ static int kabylake_audio_probe(struct platform_device *pdev)
+ {
+ 	struct kbl_codec_private *ctx;
+@@ -724,33 +784,21 @@ static int kabylake_audio_probe(struct platform_device *pdev)
+ 		dmic_constraints = mach->mach_params.dmic_num == 2 ?
+ 			&constraints_dmic_2ch : &constraints_dmic_channels;
+ 
+-	ctx->mclk = devm_clk_get(&pdev->dev, "ssp1_mclk");
+-	if (IS_ERR(ctx->mclk)) {
+-		ret = PTR_ERR(ctx->mclk);
+-		if (ret == -ENOENT) {
+-			dev_info(&pdev->dev,
+-				"Failed to get ssp1_mclk, defer probe\n");
+-			return -EPROBE_DEFER;
+-		}
++	ret = kabylake_audio_clk_get(&pdev->dev, "ssp0_mclk", &ctx->ssp0_mclk);
++	if (ret != 0)
++		return ret;
+ 
+-		dev_err(&pdev->dev, "Failed to get ssp1_mclk with err:%d\n",
+-								ret);
++	ret = kabylake_audio_clk_get(&pdev->dev, "ssp0_sclk", &ctx->ssp0_sclk);
++	if (ret != 0)
+ 		return ret;
+-	}
+ 
+-	ctx->sclk = devm_clk_get(&pdev->dev, "ssp1_sclk");
+-	if (IS_ERR(ctx->sclk)) {
+-		ret = PTR_ERR(ctx->sclk);
+-		if (ret == -ENOENT) {
+-			dev_info(&pdev->dev,
+-				"Failed to get ssp1_sclk, defer probe\n");
+-			return -EPROBE_DEFER;
+-		}
++	ret = kabylake_audio_clk_get(&pdev->dev, "ssp1_mclk", &ctx->ssp1_mclk);
++	if (ret != 0)
++		return ret;
+ 
+-		dev_err(&pdev->dev, "Failed to get ssp1_sclk with err:%d\n",
+-								ret);
++	ret = kabylake_audio_clk_get(&pdev->dev, "ssp1_sclk", &ctx->ssp1_sclk);
++	if (ret != 0)
+ 		return ret;
+-	}
+ 
+ 	return devm_snd_soc_register_card(&pdev->dev, &kabylake_audio_card);
+ }
+-- 
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

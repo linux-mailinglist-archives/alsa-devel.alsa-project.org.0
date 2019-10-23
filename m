@@ -2,74 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBE38E1FE8
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 17:48:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA007E2032
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 18:10:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D700166B;
-	Wed, 23 Oct 2019 17:47:43 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D700166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53F9D165E;
+	Wed, 23 Oct 2019 18:09:26 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53F9D165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571845713;
-	bh=7RHWz8iQFDTc/MA4Cu+UoFeZH9wip5TANaXEuh8D5ws=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OqwipOpT3vSWFVRhGG9x1EzaOpSFBgNddkHBdbfmotk+SMaAnwnBDwJ+Pf4TxSVTy
-	 SPHw1xkeigxKhsOacNilg9JR0TmFuLq8zb06qQzQZ1xsXw21LdxLjF+v1vmU78bGZH
-	 5IAShaskzc5lnuazlF2zUHjvsF65qlLu4tKi+awg=
+	s=default; t=1571847016;
+	bh=LtijriNBXC4C+yXP2bs+0c4Fk9P1HFIftaKnbRYorrY=;
+	h=From:To:In-Reply-To:References:Date:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eNkhnV0WdfJDRWvvHHweWufm1p9fOEbfxRKVWur/0wntEenCbxQaBQy2PyLJCXJax
+	 cH7TjdsaPhz7W60EGJbpJu+qgJUuuSwUi+5VpLoV2x/TwQMZ1E/8jX77aL2lKTDYEQ
+	 s9k6T2YOZzliL+e97P8BFAwoOFRINJYFLURQWqFI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 01162F80393;
-	Wed, 23 Oct 2019 17:47:17 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6728F80368;
+	Wed, 23 Oct 2019 18:08:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3854CF80393; Wed, 23 Oct 2019 17:47:15 +0200 (CEST)
+ id 99B28F80368; Wed, 23 Oct 2019 18:08:29 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E6F2F80321
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 17:47:12 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E6F2F80321
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk
- header.b="R+stJRZe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=6Mw2GwPsUdPIehFtfr7bfihaj9sr3ZnEwQhV81nrLcY=; b=R+stJRZeNYQ2Jol49hZQhyWSRU
- VX+HajErkxi6D+PWVNkhBdrMkjiESzFSoLVPX+6t5zKY+txGKK1i+lIJCiXWC4H/9Z5PMJY7PXjoN
- I+HCU31On5B9jFjdFWr14kcT0geiQDer6ELahOGhi2VK/cK5boZsbVznBnY7SSwJhdhpQkbeXUVoB
- 4evIpIQ5Y8Px8u8EyUtgg692eT0eI3gu1hqH5GwbV1iSyOSgpsOyPiH51posniOmal21rA6AeCPlS
- BssHqncTiQ4LRviGcGbuC0lP1AOS0XRCsNCYSxccdG2IDwByNsEB7Qo6GFD94wKpSzKxaZiENq1H3
- oOVnZQKQ==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:59302 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <rmk@armlinux.org.uk>)
- id 1iNIqi-0005p1-4d; Wed, 23 Oct 2019 16:47:00 +0100
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <rmk@armlinux.org.uk>)
- id 1iNIqh-0000tW-EZ; Wed, 23 Oct 2019 16:46:59 +0100
-From: Russell King <rmk+kernel@armlinux.org.uk>
-To: Mark Brown <broonie@kernel.org>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_HELO_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id 08DD5F80112
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 18:08:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08DD5F80112
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1iNIqh-0000tW-EZ@rmk-PC.armlinux.org.uk>
-Date: Wed, 23 Oct 2019 16:46:59 +0100
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-arm-kernel@lists.armlinux.org.uk
-Subject: [alsa-devel] [PATCH] ASoC: kirkwood: fix IRQ error handling
+From: GitHub pull_request - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1571846903163125992-webhooks-bot@alsa-project.org>
+References: <1571846903163125992-webhooks-bot@alsa-project.org>
+Message-Id: <20191023160829.99B28F80368@alsa1.perex.cz>
+Date: Wed, 23 Oct 2019 18:08:29 +0200 (CEST)
+Subject: [alsa-devel] [RFC] sof-skl_hda: change to use common HDMI codec
+	driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,30 +60,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Propagate the error code from request_irq(), rather than returning
--EBUSY.
+alsa-project/alsa-ucm-conf pull request #4 was opened from kv2019i:
 
-Signed-off-by: Russell King <rmk+kernel@armlinux.org.uk>
----
- sound/soc/kirkwood/kirkwood-dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Here's a companion patch to the hda-hdmi kernel patchset on alsa-devel:
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/157201.html
 
-diff --git a/sound/soc/kirkwood/kirkwood-dma.c b/sound/soc/kirkwood/kirkwood-dma.c
-index 6f69f314f2c2..d2d5c25bf550 100644
---- a/sound/soc/kirkwood/kirkwood-dma.c
-+++ b/sound/soc/kirkwood/kirkwood-dma.c
-@@ -132,7 +132,7 @@ static int kirkwood_dma_open(struct snd_pcm_substream *substream)
- 		err = request_irq(priv->irq, kirkwood_dma_irq, IRQF_SHARED,
- 				  "kirkwood-i2s", priv);
- 		if (err)
--			return -EBUSY;
-+			return err;
- 
- 		/*
- 		 * Enable Error interrupts. We're only ack'ing them but
--- 
-2.20.1
+Modify UCM sequences to use user-space interface of the common
+HDMI codec driver. Use of hdac-hdmi driver is no longer supported
+by this UCM file.
 
+To use this UCM file, kernel must be compiled with
+SND_SOC_SOF_HDA_COMMON_HDMI_CODEC
+
+Request URL   : https://github.com/alsa-project/alsa-ucm-conf/pull/4
+Patch URL     : https://github.com/alsa-project/alsa-ucm-conf/pull/4.patch
+Repository URL: https://github.com/alsa-project/alsa-ucm-conf
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

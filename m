@@ -2,92 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C85BE1CA5
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 15:32:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EE6AE1CF4
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 15:41:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 916171671;
-	Wed, 23 Oct 2019 15:31:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 916171671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B59D1655;
+	Wed, 23 Oct 2019 15:40:53 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B59D1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571837526;
-	bh=MXM9H8qi8RJa8phygtH0eY5fhxhtIp+ssbaD14XDrEU=;
+	s=default; t=1571838103;
+	bh=SoTt2hzYlypJhbvd/4yKXoLnV6sPutSai7mF42z8zss=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WkwSZ391cIxhICfhG9pRiEbCABit84HR8p4tDWsr5bd+jBktfQXWtD9oEIHAlMxdb
-	 XwUirBriuwv6Azeoc9Gdb5x7WzUZU+Fm5D5+tJaQiEC8Ihczxvy9Svm8QGJifU1UFl
-	 XJDKanvjzdTO7LgB1Q8gqM/BlNT98XSp1gnqr/+Q=
+	b=emZRn+w2YKIKXT3UQmM/4p7eBkfSvzThK9r10HoXKvTaO9FVUMRNAnb21ECp2r8jj
+	 OS7I7K1g5zI1m4m5lHU2VGZeiDxfAsrU6dsbxkJRVQEPO4mNw4KriD0IcBTVLyfcpn
+	 8xEGKu301SMF6txI2Q7SFhxeC/Vaiu9u+f2OAXrY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A386CF805E2;
-	Wed, 23 Oct 2019 15:30:04 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id DACBFF80368;
+	Wed, 23 Oct 2019 15:39:58 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F1CFF803D7; Wed, 23 Oct 2019 15:30:01 +0200 (CEST)
+ id 00B69F80368; Wed, 23 Oct 2019 15:39:56 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D16C0F80393
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 15:29:58 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D16C0F80393
-Received: from mail-qk1-f175.google.com ([209.85.222.175]) by
- mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1MN4ux-1igATI1p25-00J15m for <alsa-devel@alsa-project.org>; Wed, 23 Oct
- 2019 15:29:57 +0200
-Received: by mail-qk1-f175.google.com with SMTP id u22so19696883qkk.11
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 06:29:57 -0700 (PDT)
-X-Gm-Message-State: APjAAAXnqeV7vYwfoR4NiN3jWQOVhr6QNDYq75K6bQiskqExxVafibJ2
- nmg2SWZgdlsc1VmmG54/p18Q8HcNuMgVPeQKzq0=
-X-Google-Smtp-Source: APXvYqzGCvORTP+HJikmS9n+sLPhWUfQgJCCEYKmJ03DZvSC0gT0L7hZhZ7lqgzmTpFpBJ2WhE68gjxgaObVawX07k4=
-X-Received: by 2002:a37:a50f:: with SMTP id o15mr7091533qke.3.1571837396079;
- Wed, 23 Oct 2019 06:29:56 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51C5AF802DF
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 15:39:50 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51C5AF802DF
+Received: from mail-qt1-f172.google.com ([209.85.160.172]) by
+ mrelayeu.kundenserver.de (mreue109 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1N0o3X-1i2hmN0esX-00wjHB for <alsa-devel@alsa-project.org>; Wed, 23 Oct
+ 2019 15:39:50 +0200
+Received: by mail-qt1-f172.google.com with SMTP id c17so29299678qtn.8
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 06:39:49 -0700 (PDT)
+X-Gm-Message-State: APjAAAWfJSAt0/f7wtM6/C7g5PJWhhqmBKi6tPFkMHQZcYyDj8QZG//o
+ JSM2lvreMPFsJrxwv+N1vZZDCJXKM1rKb1F8mIU=
+X-Google-Smtp-Source: APXvYqyt7m8OnGbGOfKvN6UapNf8Y0PixnD+b/5MFVO15QeK4AzpoE5xCHBxjuJT4OWklHgs4L5FWsrmt4sucJ53v+g=
+X-Received: by 2002:ac8:18eb:: with SMTP id o40mr9289234qtk.304.1571837989082; 
+ Wed, 23 Oct 2019 06:39:49 -0700 (PDT)
 MIME-Version: 1.0
 References: <20191010202802.1132272-1-arnd@arndb.de>
- <20191010203043.1241612-1-arnd@arndb.de>
- <20191010203043.1241612-21-arnd@arndb.de> <20191023125053.GF11048@pi3>
-In-Reply-To: <20191023125053.GF11048@pi3>
+ <20191023131049.GG11048@pi3>
+In-Reply-To: <20191023131049.GG11048@pi3>
 From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 23 Oct 2019 15:29:40 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a3x1_eB4GT7qvhgVnq-sU8a=wkSf4FP18p7pVHmtrfWFA@mail.gmail.com>
-Message-ID: <CAK8P3a3x1_eB4GT7qvhgVnq-sU8a=wkSf4FP18p7pVHmtrfWFA@mail.gmail.com>
+Date: Wed, 23 Oct 2019 15:39:32 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a1v2-+geD+JbNP-t418ZjntQNSte4rt8c7N6sJdpb3+DQ@mail.gmail.com>
+Message-ID: <CAK8P3a1v2-+geD+JbNP-t418ZjntQNSte4rt8c7N6sJdpb3+DQ@mail.gmail.com>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-X-Provags-ID: V03:K1:dzPyK+rMRYEmzyjc4Yg7MkOu5ZYhWHLRlGVVp4ekcfNiaj9kOw2
- 8lkWW7qJGqwgtfhQYUcnBQc7WS1cekAZzpNcQ7E1TTglzlTjwQKED/hBxdSkJkFgX8cQrMb
- qQ7ATDIKWKAKUgZdgl1BOn3yVp1bx5liPqqK5P0OXv3GqKzWnyBWHf0Z1i0GnUygpCiZYde
- mr/sRnua5PzPxT83nwsYA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:LOAoViBu40E=:PLT0rAEkyCoLegmPw6fmq5
- pc9LNYgAfSqDqweHuU6T7RGacPYfibOpzc7KZgPthe2atIrubZPXW+YTMOMw37xVsymcbtHeD
- NuJCIylMX1dAjidToga9Ms8I0rJqD6CRrC/jiJoDN+1aXyBznplDT5NrMmCb2XjVmIkiKGkvR
- ZIvaNOx8Yo2JKLvWDMaC9IsIOh6k8iHaj5mTAYhzMcvui/5czkJrFBIsHvOgN64DWzo1Xm7cE
- J1fEoU6tdwieOPLSBEdN8m5d9wTckrIxKPm0O7Olvog5Y4ngNfrmxsJxPIE0ocAhzN/n0MBhH
- 3N7K0WOsEJdMwzNg7Nc3PbwyIRuawCAYJa1J5eFZzuZTISaihBe0WW7yjlWltxOLT0qUsfO1p
- L6GevaUPG36FG37+kjHIEHHebp27yOyK3PwgLHvJDUos3B+Tk6jPKhX0evYdSTWE5nBYrQLOg
- n4u+33cu5aLjYv+ftC5DpX6RaRHY2Jvx8VAu2ZBCPiGtqqlB2SwPpCSHI674Ipr7H8Sv3Z8nz
- 9fFnhNeNz+YwmRFpcy27I/PJr6hr+QJa+v2oFjJcN7inR4y0JU+92rUOZNS2xQF0WPWGiQvT5
- v4A0dCtitsNi+JnxZIpBbCSfYJoObCcdt/ikc+kiR4ShosRtCLW2CuOy5nOXMMv2/aVIVv2kT
- 8AkR48rANSRuCNobIAX8sMavMjMrQOuPDr19+RcQlyrm8X4i1/aokbz+9DZUQ9pyJ4JIqQ3Ra
- lk0iYjqEaRFGCD7aoibvc6NXy8sUSg16AWy3o23WarisvX3ZbFL/gXQoy4eunwj/7oYhippbz
- o0ukMM3KCeld57eln9W79hFe+4TwzE3TPpdRdvAv6SnE2scINz9rCRRXIfJWV4d2KOR/KdHTA
- WJjer4AERjxtwctHlJhQ==
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- "moderated list:ARM/SAMSUNG EXYNOS ARM ARCHITECTURES"
- <linux-samsung-soc@vger.kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Sangbeom Kim <sbkim73@samsung.com>, Linus Walleij <linus.walleij@linaro.org>,
- Takashi Iwai <tiwai@suse.com>,
+X-Provags-ID: V03:K1:/psy1I++9ss8+KSXq8rajBnglla0BwKSFGE0ZKQirhw068UB6z4
+ JTsPMrhflIrvvvX/A0wVk0N2edLf8JXCj6IM0EWeJGG9dzSOkdTzT1Q3OFYqpZ8GlLJs6nw
+ egn4iOIS42u7OGimVIGF+OoAcb6+pwlATtIW82HTWrevMEZxzu3O/Mk0LA6xUPAhdKUJ1uU
+ X9v8drZelnGVxDaGmMiVg==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:CrOxP9Zp5jU=:h9HfkiPXXZ/4xxe0h3B3PQ
+ jBrnf88/8ROzEis7N6/20Ivnqd+56NW5v0BsDOrXmOOGQNNZvvgZJ+ThVbJc1FGEnDCVBCICu
+ LGziI2JX4B1BCftsWrDJ/JPcrwijfSmDfsRdhNQQbZrkpb1NPMXbp78SarieGDy6Ox293i7hs
+ 7TFJun05SGruAPII4rSwzD8k9Z76x5pPT9IpP6mNfqVgHqSfveC/T8b7FfJY4PJHJDoYF7xKe
+ fgs9WtpMGtDmBVQRxwa5OoUu+6sAsGMWUgZ8YTMf3QHOFMSSKDd6ORxyWYgLdBlWxUrIQ0I4x
+ poISjKr3yi6HZKx6IObHwzUG5rCNBigL+vw2K+W0HnKjM77cgMy11btsFG4+m6lmcOc3rmty8
+ GMsf/8rfpqTL8ff0bXKHS3puAc8UVgGAZ5/Y1tQf/R9nPNXoUbop49UMoqKSTBjqEnWbCBOeJ
+ F6Icj+uy/ixH8LvW5akkbN6hsxALB9WIasznTqFSjP2g4sp6ZQbFnNjUy+9oL6tH0b8C9I8Hc
+ LjHUKTIZxUYjG9a67zhs+EYUXh8zinzCvib/+JatnbvcHGLZiOzjIb2mj0B2DLbubW7EY0Iq1
+ f0FDRkFq3xt+L8AANaBuj/ENNm+AQJ3q8S+lwuWnRzACJQ/0fYIFcnamGkNiFoavIaLrxOI+H
+ 8sPv99ImkUSUT5dlJctNDI4TW3VBFmmBgDYkfCygi2UKJ4JQRk/AITjKcS8zOpRxW4EYksbxL
+ kmufSRw1Gxis8iQXgBi7oWrgYX1jgbjgnOGnt/IjebYRDu7nfRGVexEWvr+v2BY+2P0YnmHFA
+ 0g6+bpH5NBrhGG2ljF6Fjx5vGHW+ddqbdtvkiX8Ohuh4aNoFFYfMcLQLSgBiCEr03DBKsZG7/
+ 5CImmvbgGQ3st5S4JQbA==
+Cc: Linux Fbdev development list <linux-fbdev@vger.kernel.org>,
  ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Kukjin Kim <kgene@kernel.org>,
+ dri-devel <dri-devel@lists.freedesktop.org>,
  Sylwester Nawrocki <s.nawrocki@samsung.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH 21/36] ARM: s3c: move iis pinctrl config
-	into boards
+ linux-stm32@st-md-mailman.stormreply.com, linux-leds@vger.kernel.org,
+ "moderated list:ARM/SAMSUNG EXYNOS ARM ARCHITECTURES"
+ <linux-samsung-soc@vger.kernel.org>, linux-clk <linux-clk@vger.kernel.org>,
+ Lihua Yao <ylhuajnu@outlook.com>, Kukjin Kim <kgene@kernel.org>,
+ linux-serial@vger.kernel.org,
+ "open list:HID CORE LAYER" <linux-input@vger.kernel.org>,
+ =?UTF-8?Q?Pawe=C5=82_Chmiel?= <pawel.mikolaj.chmiel@gmail.com>,
+ Linux PWM List <linux-pwm@vger.kernel.org>,
+ Sergio Prado <sergio.prado@e-labworks.com>,
+ Linux PM list <linux-pm@vger.kernel.org>, Lihua Yao <ylhuajnu@163.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-hwmon@vger.kernel.org,
+ patches@opensource.cirrus.com, USB list <linux-usb@vger.kernel.org>,
+ linux-mmc <linux-mmc@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-spi <linux-spi@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH 00/36] ARM: samsung platform cleanup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,36 +106,27 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 23, 2019 at 2:51 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On Thu, Oct 10, 2019 at 10:30:05PM +0200, Arnd Bergmann wrote:
-> > The s3c_gpio_cfgall_range() function is an internal interface of
-> > the samsung gpio driver and should not be called directly by drivers,
-> > so move the iis pin initialization into the boards.
-> >
-> > Note that the s3c2412-i2s driver has no boards using it in
-> > mainline linux, the driver gets selected for the jive machine
-> > but is never instantiated.
-
-> This is not entirely equivalent move as before this was probe (so being
-> executed also on rebinds) and now it is init. I guess it should not make
-> any difference so let it be.
-
-Right, I've added an explanation in the changelog text now:
-
- The s3c_gpio_cfgall_range() function is an internal interface of the
- samsung gpio driver and should not be called directly by drivers, so
- move the iis pin initialization into the boards.
-
-+This means the pin configuration is only run once at early boot, rather
-+than each time the driver binds, but the effect should be the same.
-
-        Arnd
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gV2VkLCBPY3QgMjMsIDIwMTkgYXQgMzoxMSBQTSBLcnp5c3p0b2YgS296bG93c2tpIDxrcnpr
+QGtlcm5lbC5vcmc+IHdyb3RlOgo+IE9uIFRodSwgT2N0IDEwLCAyMDE5IGF0IDEwOjI4OjAyUE0g
+KzAyMDAsIEFybmQgQmVyZ21hbm4gd3JvdGU6Cj4gPiBUaGUgY29udGVudHMgYXJlIGF2YWlsYWJs
+ZSBmb3IgdGVzdGluZyBpbgo+ID4KPiA+IGdpdDovL2tlcm5lbC5vcmc6L3B1Yi9zY20vbGludXgv
+a2VybmVsL2dpdC9hcm5kL3BsYXlncm91bmQuZ2l0IHMzYy1tdWx0aXBsYXRmb3JtCj4KPiBXaGVu
+IHNlbmRpbmcgdjIsIGNhbiB5b3UgQ2M6Cj4KPiBQYXdlxYIgQ2htaWVsIDxwYXdlbC5taWtvbGFq
+LmNobWllbEBnbWFpbC5jb20+Cj4gTGlodWEgWWFvIDx5bGh1YWpudUBvdXRsb29rLmNvbT4KPiAo
+b3IgTGlodWEgWWFvIDx5bGh1YWpudUAxNjMuY29tPiBpZiBvdXRsb29rLmNvbSBib3VuY2VzKQo+
+IFNlcmdpbyBQcmFkbyA8c2VyZ2lvLnByYWRvQGUtbGFid29ya3MuY29tPgo+IFN5bHdlc3RlciBO
+YXdyb2NraSA8cy5uYXdyb2NraUBzYW1zdW5nLmNvbT4KPgo+IFRoZXNlIGFyZSBmb2xrcyB3aGlj
+aCB0byBteSBrbm93bGVkZ2UgaGFkIHdvcmtpbmcgUzNDIGFuZCBTNVAgYm9hcmRzCj4gc28gbWF5
+YmUgdGhleSBjb3VsZCBwcm92aWRlIHRlc3RpbmcuCgpPaywgd2lsbCBkby4gSSd2ZSB1cGxvYWRl
+ZCB0aGUgbW9kaWZpZWQgdmVyc2lvbiBiYXNlZCBvbiB5b3VyIGNvbW1lbnRzIHRvCnRoZSBhYm92
+ZSBVUkwgZm9yIG5vdy4KCkknbGwgcHJvYmFibHkgZ2l2ZSBpdCBhIGxpdHRsZSBtb3JlIHRpbWUg
+YmVmb3JlIHJlc2VuZGluZywgYnV0IHRoZXkKY291bGQgYWxyZWFkeQpzdGFydCB0ZXN0aW5nIHRo
+YXQgdmVyc2lvbi4KClRoYW5rcyBhIGxvdCBmb3IgdGhlIHJldmlldyEKCiAgICAgIEFybmQKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBt
+YWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5h
+bHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

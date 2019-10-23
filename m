@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6ABFE2316
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 21:06:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D84A6E2312
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 21:03:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E6201655;
-	Wed, 23 Oct 2019 21:05:27 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E6201655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 693741615;
+	Wed, 23 Oct 2019 21:03:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 693741615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571857577;
-	bh=V+pqlk2En2hZ7cI8fIiTc3+4vVnCG9aPt6XKWHjQZBw=;
+	s=default; t=1571857438;
+	bh=Tv6/fYCUdsEwd6838u6T+UYti2NZML/kvOcpQKcD9d0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=I7fHEiZALOto/mAOE/zAv0G9ujq2TsppZL2a8JSDE/GnAOMTZndJ0Owp8HiUY2klj
-	 gRQBYJm5iUv9N1YnVUYGYpI0bHfPkkJPzx4mDzPzb6HSA+IVkwZUbrZXR9E7aW/zcX
-	 hq8ZsRdaxGLEZWxsR6bIKyfPkzSPJOMwVWuPy1Dw=
+	b=J26qAPz3Ih2nhxIjDlaFDImsPp+X2/TMnPHTLMJY3Vyg54zYTOa6T3+Z5iSER1pDC
+	 e+L8hTHI6zonMOkxf56SQFsmt72n4YooMTpgteLbdMTU7dSfDcxFVI3dU/AI0bjBGE
+	 pjcBXFXVVKFZ1sQymxi+te9CM54fc6NXs6njgnUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72DEAF8071F;
-	Wed, 23 Oct 2019 20:56:36 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C417F8068A;
+	Wed, 23 Oct 2019 20:56:32 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5E0DF80612; Wed, 23 Oct 2019 20:56:23 +0200 (CEST)
+ id D0730F80612; Wed, 23 Oct 2019 20:56:21 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35F8AF8058C
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 20:56:07 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35F8AF8058C
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9C56F80393
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 20:56:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9C56F80393
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="sVaPnD2Y"
+ header.b="L4TmW74B"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Bh1Ky4qqn0l2U4YH+pV59SEEZg9IZde9zzxhVTnZVqc=; b=sVaPnD2YHfCI
- lkGSlZKe6cyCSVl5NqDU12V2/Z6gJfDpCrYid5S8FsFXEQwEo6WIubMYOqJhL7533SI/ccuN3y8fu
- IQND3CqQ9u+X4k++tLD19CBNgpFSF3f7oKQuexQ+RK9WQulZ7czca04R50HwJiPqLd7py4AWpaxyS
- ycglg=;
+ List-Archive; bh=j/8yayfqMY0ZyCUC8zjVt9apU8LafgXQ0fDRwU+6/iQ=; b=L4TmW74BoYDt
+ J9IEPYU9uFs7yHt4LFK7+xRfFBHFlm30/Dqz3JDPHWDoFirnv5GUmrMP8cnCqU3fwSQliUlAkblVe
+ vjwQWzrLXRB4mpsqp7cTWweAYNZGRwalCZ7X11Ni7TT5+AXPjxSqpvCv6opPFOfYI8byw5k1/bQta
+ A6A9I=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iNLnj-0001BG-Bo; Wed, 23 Oct 2019 18:56:07 +0000
+ id 1iNLnj-0001B9-4v; Wed, 23 Oct 2019 18:56:07 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id C539D274326E; Wed, 23 Oct 2019 19:56:06 +0100 (BST)
+ id 98437274326D; Wed, 23 Oct 2019 19:56:06 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <878spm64m4.wl-kuninori.morimoto.gx@renesas.com>
+To: Jiada Wang <jiada_wang@mentor.com>
+In-Reply-To: <20191022185518.12838-1-erosca@de.adit-jv.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191023185606.C539D274326E@ypsilon.sirena.org.uk>
+Message-Id: <20191023185606.98437274326D@ypsilon.sirena.org.uk>
 Date: Wed, 23 Oct 2019 19:56:06 +0100 (BST)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: soc-core: add for_each_rtd_components()
-	and replace" to the asoc tree
+Cc: Timo Wischer <twischer@de.adit-jv.com>, alsa-devel@alsa-project.org,
+ Andrew Gabbasov <andrew_gabbasov@mentor.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Eugeniu Rosca <roscaeugeniu@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Eugeniu Rosca <erosca@de.adit-jv.com>
+Subject: [alsa-devel] Applied "ASoC: rsnd: dma: set bus width to data width
+	for monaural data" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +92,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: add for_each_rtd_components() and replace
+   ASoC: rsnd: dma: set bus width to data width for monaural data
 
 has been applied to the asoc tree at
 
@@ -113,538 +117,78 @@ to this mail.
 Thanks,
 Mark
 
-From 2b544dd7b43b19fb55ea4fbb3e30b60eb20b7828 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Tue, 15 Oct 2019 12:59:31 +0900
-Subject: [PATCH] ASoC: soc-core: add for_each_rtd_components() and replace
+From d4d9360bf702890b5d3b1b62d8619a2690dd3278 Mon Sep 17 00:00:00 2001
+From: Jiada Wang <jiada_wang@mentor.com>
+Date: Tue, 22 Oct 2019 20:55:18 +0200
+Subject: [PATCH] ASoC: rsnd: dma: set bus width to data width for monaural
+ data
 
-ALSA SoC has for_each_rtdcom() which is link list for
-rtd-component which is called as rtdcom. The relationship image is like below
+According to R-Car3 HW manual 40.3.3 (Data Format on Audio Local Bus),
+in case of monaural data writing or reading through Audio-DMAC,
+it's always in Left Justified format, so both src and dst
+DMA Bus width should be equal to physical data width.
 
-			       rtdcom	   rtdcom      rtdcom
-			       component   component   component
-	rtd->component_list -> list	-> list	    -> list ...
+Therefore set src and dst's DMA bus width to:
+ - [monaural case] data width
+ - [non-monaural case] 32bits (as prior applying the patch)
 
-Here, the pointer get via normal link list is rtdcom,
-Thus, current for_each loop is like below, and need to get
-component via rtdcom->component
-
-	for_each_rtdcom(rtd, rtdcom) {
-		component = rtdcom->component;
-		...
-	}
-
-but usually, user want to get pointer from for_each_xxx is component
-directly, like below.
-
-	for_each_rtd_component(rtd, rtdcom, component) {
-		...
-	}
-
-This patch expands list_for_each_entry manually, and enable to get
-component directly from for_each macro.
-Because of it, the macro becoming difficult to read,
-but macro itself becoming useful.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/878spm64m4.wl-kuninori.morimoto.gx@renesas.com
+Cc: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+Cc: Timo Wischer <twischer@de.adit-jv.com>
+Signed-off-by: Jiada Wang <jiada_wang@mentor.com>
+Signed-off-by: Eugeniu Rosca <erosca@de.adit-jv.com>
+Link: https://lore.kernel.org/r/20191022185518.12838-1-erosca@de.adit-jv.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc.h       |  8 ++++--
- sound/soc/soc-component.c | 43 +++++++++-----------------------
- sound/soc/soc-compress.c  | 52 ++++++++++-----------------------------
- sound/soc/soc-core.c      | 22 +++++++----------
- sound/soc/soc-pcm.c       | 49 +++++++++++-------------------------
- 5 files changed, 54 insertions(+), 120 deletions(-)
+ sound/soc/sh/rcar/dma.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index d730883626dc..320dcd440dab 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -739,8 +739,12 @@ struct snd_soc_rtdcom_list {
- struct snd_soc_component*
- snd_soc_rtdcom_lookup(struct snd_soc_pcm_runtime *rtd,
- 		       const char *driver_name);
--#define for_each_rtdcom(rtd, rtdcom) \
--	list_for_each_entry(rtdcom, &(rtd)->component_list, list)
-+#define for_each_rtd_components(rtd, rtdcom, _component)		\
-+	for (rtdcom = list_first_entry(&(rtd)->component_list,		\
-+				       typeof(*rtdcom), list);		\
-+	     (&rtdcom->list != &(rtd)->component_list) &&		\
-+		     (_component = rtdcom->component);			\
-+	     rtdcom = list_next_entry(rtdcom, list))
- 
- struct snd_soc_dai_link_component {
- 	const char *name;
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index debaf1f6f403..98ef0666add2 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -420,13 +420,10 @@ int snd_soc_pcm_component_pointer(struct snd_pcm_substream *substream)
- 	struct snd_soc_component *component;
- 	struct snd_soc_rtdcom_list *rtdcom;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
--		/* FIXME: use 1st pointer */
-+	/* FIXME: use 1st pointer */
-+	for_each_rtd_components(rtd, rtdcom, component)
- 		if (component->driver->pointer)
- 			return component->driver->pointer(component, substream);
--	}
- 
- 	return 0;
- }
-@@ -438,14 +435,11 @@ int snd_soc_pcm_component_ioctl(struct snd_pcm_substream *substream,
- 	struct snd_soc_component *component;
- 	struct snd_soc_rtdcom_list *rtdcom;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
--		/* FIXME: use 1st ioctl */
-+	/* FIXME: use 1st ioctl */
-+	for_each_rtd_components(rtd, rtdcom, component)
- 		if (component->driver->ioctl)
- 			return component->driver->ioctl(component, substream,
- 							cmd, arg);
--	}
- 
- 	return snd_pcm_lib_ioctl(substream, cmd, arg);
- }
-@@ -458,14 +452,11 @@ int snd_soc_pcm_component_copy_user(struct snd_pcm_substream *substream,
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	struct snd_soc_component *component;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
--		/* FIXME. it returns 1st copy now */
-+	/* FIXME. it returns 1st copy now */
-+	for_each_rtd_components(rtd, rtdcom, component)
- 		if (component->driver->copy_user)
- 			return component->driver->copy_user(
- 				component, substream, channel, pos, buf, bytes);
--	}
- 
- 	return -EINVAL;
- }
-@@ -478,10 +469,8 @@ struct page *snd_soc_pcm_component_page(struct snd_pcm_substream *substream,
- 	struct snd_soc_component *component;
- 	struct page *page;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
--		/* FIXME. it returns 1st page now */
-+	/* FIXME. it returns 1st page now */
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (component->driver->page) {
- 			page = component->driver->page(component,
- 						       substream, offset);
-@@ -500,14 +489,11 @@ int snd_soc_pcm_component_mmap(struct snd_pcm_substream *substream,
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	struct snd_soc_component *component;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
--		/* FIXME. it returns 1st mmap now */
-+	/* FIXME. it returns 1st mmap now */
-+	for_each_rtd_components(rtd, rtdcom, component)
- 		if (component->driver->mmap)
- 			return component->driver->mmap(component,
- 						       substream, vma);
--	}
- 
- 	return -EINVAL;
- }
-@@ -519,9 +505,7 @@ int snd_soc_pcm_component_new(struct snd_pcm *pcm)
- 	struct snd_soc_component *component;
+diff --git a/sound/soc/sh/rcar/dma.c b/sound/soc/sh/rcar/dma.c
+index 0324a5c39619..bcb6d5960661 100644
+--- a/sound/soc/sh/rcar/dma.c
++++ b/sound/soc/sh/rcar/dma.c
+@@ -165,14 +165,40 @@ static int rsnd_dmaen_start(struct rsnd_mod *mod,
+ 	struct device *dev = rsnd_priv_to_dev(priv);
+ 	struct dma_async_tx_descriptor *desc;
+ 	struct dma_slave_config cfg = {};
++	enum dma_slave_buswidth buswidth = DMA_SLAVE_BUSWIDTH_4_BYTES;
+ 	int is_play = rsnd_io_is_play(io);
  	int ret;
  
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (component->driver->pcm_construct) {
- 			ret = component->driver->pcm_construct(component, rtd);
- 			if (ret < 0)
-@@ -538,10 +522,7 @@ void snd_soc_pcm_component_free(struct snd_pcm *pcm)
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	struct snd_soc_component *component;
++	/*
++	 * in case of monaural data writing or reading through Audio-DMAC
++	 * data is always in Left Justified format, so both src and dst
++	 * DMA Bus width need to be set equal to physical data width.
++	 */
++	if (rsnd_runtime_channel_original(io) == 1) {
++		struct snd_pcm_runtime *runtime = rsnd_io_to_runtime(io);
++		int bits = snd_pcm_format_physical_width(runtime->format);
++
++		switch (bits) {
++		case 8:
++			buswidth = DMA_SLAVE_BUSWIDTH_1_BYTE;
++			break;
++		case 16:
++			buswidth = DMA_SLAVE_BUSWIDTH_2_BYTES;
++			break;
++		case 32:
++			buswidth = DMA_SLAVE_BUSWIDTH_4_BYTES;
++			break;
++		default:
++			dev_err(dev, "invalid format width %d\n", bits);
++			return -EINVAL;
++		}
++	}
++
+ 	cfg.direction	= is_play ? DMA_MEM_TO_DEV : DMA_DEV_TO_MEM;
+ 	cfg.src_addr	= dma->src_addr;
+ 	cfg.dst_addr	= dma->dst_addr;
+-	cfg.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+-	cfg.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
++	cfg.src_addr_width = buswidth;
++	cfg.dst_addr_width = buswidth;
  
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component)
- 		if (component->driver->pcm_destruct)
- 			component->driver->pcm_destruct(component, pcm);
--	}
- }
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 9e54d8ae6d2c..61f230324164 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -28,9 +28,7 @@ static int soc_compr_components_open(struct snd_compr_stream *cstream,
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	int ret;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->open)
- 			continue;
-@@ -57,9 +55,7 @@ static int soc_compr_components_free(struct snd_compr_stream *cstream,
- 	struct snd_soc_component *component;
- 	struct snd_soc_rtdcom_list *rtdcom;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (component == last)
- 			break;
- 
-@@ -353,9 +349,7 @@ static int soc_compr_components_trigger(struct snd_compr_stream *cstream,
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	int ret;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->trigger)
- 			continue;
-@@ -458,9 +452,7 @@ static int soc_compr_components_set_params(struct snd_compr_stream *cstream,
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	int ret;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->set_params)
- 			continue;
-@@ -601,9 +593,7 @@ static int soc_compr_get_params(struct snd_compr_stream *cstream,
- 			goto err;
- 	}
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->get_params)
- 			continue;
-@@ -627,9 +617,7 @@ static int soc_compr_get_caps(struct snd_compr_stream *cstream,
- 
- 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->get_caps)
- 			continue;
-@@ -652,9 +640,7 @@ static int soc_compr_get_codec_caps(struct snd_compr_stream *cstream,
- 
- 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->get_codec_caps)
- 			continue;
-@@ -684,9 +670,7 @@ static int soc_compr_ack(struct snd_compr_stream *cstream, size_t bytes)
- 			goto err;
- 	}
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->ack)
- 			continue;
-@@ -715,9 +699,7 @@ static int soc_compr_pointer(struct snd_compr_stream *cstream,
- 	if (cpu_dai->driver->cops && cpu_dai->driver->cops->pointer)
- 		cpu_dai->driver->cops->pointer(cstream, tstamp, cpu_dai);
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->pointer)
- 			continue;
-@@ -740,9 +722,7 @@ static int soc_compr_copy(struct snd_compr_stream *cstream,
- 
- 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->copy)
- 			continue;
-@@ -770,9 +750,7 @@ static int soc_compr_set_metadata(struct snd_compr_stream *cstream,
- 			return ret;
- 	}
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->set_metadata)
- 			continue;
-@@ -801,9 +779,7 @@ static int soc_compr_get_metadata(struct snd_compr_stream *cstream,
- 			return ret;
- 	}
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->get_metadata)
- 			continue;
-@@ -932,9 +908,7 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
- 		memcpy(compr->ops, &soc_compr_ops, sizeof(soc_compr_ops));
- 	}
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->compr_ops ||
- 		    !component->driver->compr_ops->copy)
- 			continue;
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index f028a6938ee8..f1b41b0391ed 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -293,10 +293,11 @@ static int snd_soc_rtdcom_add(struct snd_soc_pcm_runtime *rtd,
- 			      struct snd_soc_component *component)
- {
- 	struct snd_soc_rtdcom_list *rtdcom;
-+	struct snd_soc_component *comp;
- 
--	for_each_rtdcom(rtd, rtdcom) {
-+	for_each_rtd_components(rtd, rtdcom, comp) {
- 		/* already connected */
--		if (rtdcom->component == component)
-+		if (comp == component)
- 			return 0;
- 	}
- 
-@@ -327,6 +328,7 @@ struct snd_soc_component *snd_soc_rtdcom_lookup(struct snd_soc_pcm_runtime *rtd,
- 						const char *driver_name)
- {
- 	struct snd_soc_rtdcom_list *rtdcom;
-+	struct snd_soc_component *component;
- 
- 	if (!driver_name)
- 		return NULL;
-@@ -339,8 +341,8 @@ struct snd_soc_component *snd_soc_rtdcom_lookup(struct snd_soc_pcm_runtime *rtd,
- 	 * But, if many components which have same driver name are connected
- 	 * to 1 rtd, this function will return 1st found component.
- 	 */
--	for_each_rtdcom(rtd, rtdcom) {
--		const char *component_name = rtdcom->component->driver->name;
-+	for_each_rtd_components(rtd, rtdcom, component) {
-+		const char *component_name = component->driver->name;
- 
- 		if (!component_name)
- 			continue;
-@@ -1248,9 +1250,7 @@ static void soc_remove_link_components(struct snd_soc_card *card)
- 
- 	for_each_comp_order(order) {
- 		for_each_card_rtds(card, rtd) {
--			for_each_rtdcom(rtd, rtdcom) {
--				component = rtdcom->component;
--
-+			for_each_rtd_components(rtd, rtdcom, component) {
- 				if (component->driver->remove_order != order)
- 					continue;
- 
-@@ -1269,9 +1269,7 @@ static int soc_probe_link_components(struct snd_soc_card *card)
- 
- 	for_each_comp_order(order) {
- 		for_each_card_rtds(card, rtd) {
--			for_each_rtdcom(rtd, rtdcom) {
--				component = rtdcom->component;
--
-+			for_each_rtd_components(rtd, rtdcom, component) {
- 				if (component->driver->probe_order != order)
- 					continue;
- 
-@@ -1520,9 +1518,7 @@ static int soc_link_init(struct snd_soc_card *card,
- 	 * topology based drivers can use the DAI link id field to set PCM
- 	 * device number and then use rtd + a base offset of the BEs.
- 	 */
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (!component->driver->use_dai_pcm_id)
- 			continue;
- 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 600d9bf3b076..8655df6a6089 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -118,11 +118,8 @@ bool snd_soc_runtime_ignore_pmdown_time(struct snd_soc_pcm_runtime *rtd)
- 	if (!rtd->pmdown_time || rtd->dai_link->ignore_pmdown_time)
- 		return true;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component)
- 		ignore &= !component->driver->use_pmdown_time;
--	}
- 
- 	return ignore;
- }
-@@ -435,8 +432,7 @@ static int soc_pcm_components_open(struct snd_pcm_substream *substream,
- 	struct snd_soc_component *component;
- 	int ret = 0;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		*last = component;
- 
- 		ret = snd_soc_component_module_get_when_open(component);
-@@ -467,9 +463,7 @@ static int soc_pcm_components_close(struct snd_pcm_substream *substream,
- 	struct snd_soc_component *component;
- 	int ret = 0;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (component == last)
- 			break;
- 
-@@ -500,9 +494,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		pinctrl_pm_select_default_state(codec_dai->dev);
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		pm_runtime_get_sync(component->dev);
- 	}
- 
-@@ -625,9 +617,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- out:
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		pm_runtime_mark_last_busy(component->dev);
- 		pm_runtime_put_autosuspend(component->dev);
- 	}
-@@ -740,9 +730,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		pm_runtime_mark_last_busy(component->dev);
- 		pm_runtime_put_autosuspend(component->dev);
- 	}
-@@ -782,9 +770,7 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
- 		}
- 	}
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		ret = snd_soc_component_prepare(component, substream);
- 		if (ret < 0) {
- 			dev_err(component->dev,
-@@ -849,9 +835,7 @@ static int soc_pcm_components_hw_free(struct snd_pcm_substream *substream,
- 	struct snd_soc_component *component;
- 	int ret = 0;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		if (component == last)
- 			break;
- 
-@@ -945,9 +929,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 
- 	snd_soc_dapm_update_dai(substream, params, cpu_dai);
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		ret = snd_soc_component_hw_params(component, substream, params);
- 		if (ret < 0) {
- 			dev_err(component->dev,
-@@ -1062,9 +1044,7 @@ static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
- 			return ret;
- 	}
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		ret = snd_soc_component_trigger(component, substream, cmd);
- 		if (ret < 0)
- 			return ret;
-@@ -1102,9 +1082,7 @@ static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
- 	if (ret < 0)
- 		return ret;
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		component = rtdcom->component;
--
-+	for_each_rtd_components(rtd, rtdcom, component) {
- 		ret = snd_soc_component_trigger(component, substream, cmd);
- 		if (ret < 0)
- 			return ret;
-@@ -2879,6 +2857,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
- 	struct snd_soc_rtdcom_list *rtdcom;
-+	struct snd_soc_component *component;
- 	struct snd_pcm *pcm;
- 	char new_name[64];
- 	int ret = 0, playback = 0, capture = 0;
-@@ -2990,8 +2969,8 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 		rtd->ops.ioctl		= snd_soc_pcm_component_ioctl;
- 	}
- 
--	for_each_rtdcom(rtd, rtdcom) {
--		const struct snd_soc_component_driver *drv = rtdcom->component->driver;
-+	for_each_rtd_components(rtd, rtdcom, component) {
-+		const struct snd_soc_component_driver *drv = component->driver;
- 
- 		if (drv->copy_user)
- 			rtd->ops.copy_user	= snd_soc_pcm_component_copy_user;
+ 	dev_dbg(dev, "%s %pad -> %pad\n",
+ 		rsnd_mod_name(mod),
 -- 
 2.20.1
 

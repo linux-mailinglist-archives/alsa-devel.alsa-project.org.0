@@ -2,103 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33E6DE1C2E
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 15:19:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5A34E1C9E
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 15:31:20 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B95A8165E;
-	Wed, 23 Oct 2019 15:18:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95A8165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39A981655;
+	Wed, 23 Oct 2019 15:30:30 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39A981655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571836783;
-	bh=Aue7LnRjOINpvZtlr6mPipz2DAMz4pkO4mBIMEuQMwY=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1571837480;
+	bh=9aG8UQi5fC3gbx8CKYInWngBURglCGHX07pFcUMdx2Y=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I1sdk1yGz8yslv3VyKehAzHtdEtYR6B7DO9csUvtF3vBoO7mh1VpOK3gD7B4qiHAW
-	 hEyBnvyzCPoQyXrTLS0BWzSJhm3nRba1hxc2WaLDXuu8AvlqzHGw+1bUd08p2wuqHj
-	 tbmcXT8n1EIJWmy5/Skk1hNqyRtd58esMpY9gELA=
+	b=B1AFxmSFZtMxpTDQfjlSmZheva/+xO1Ce0diN9MzgwLM8jdBFC26pN+gvLmIkydjb
+	 on4gxs9jSJswlMPjI5m5lA7WxuGlA6esOeyaVjz+8FL9nv/OQA85bM0flekUdzWnoU
+	 vXlb699cFcVMtGO4mm/X4JapKwPdZzfC5yaRhcJ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83EA1F80321;
-	Wed, 23 Oct 2019 15:17:59 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8897F802DF;
+	Wed, 23 Oct 2019 15:29:35 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BAA3DF80368; Wed, 23 Oct 2019 15:17:56 +0200 (CEST)
+ id 546FDF80368; Wed, 23 Oct 2019 15:29:31 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 968F0F802DF
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 15:17:53 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 968F0F802DF
-Received: from mail-qk1-f177.google.com ([209.85.222.177]) by
- mrelayeu.kundenserver.de (mreue010 [212.227.15.129]) with ESMTPSA (Nemesis)
- id 1Macf4-1hqxi63NYA-00cByi for <alsa-devel@alsa-project.org>; Wed, 23 Oct
- 2019 15:17:53 +0200
-Received: by mail-qk1-f177.google.com with SMTP id u22so19658428qkk.11
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 06:17:52 -0700 (PDT)
-X-Gm-Message-State: APjAAAVAQVksdrLSxLAT72O6nCZKjPx2ZUky26MTjtkQLG+QVzHbNWp5
- r/s9aeNwE9ICjVe1K0R3MNhnOyO5fvRxfMC1T8w=
-X-Google-Smtp-Source: APXvYqwuwF999+RxRIbSV5NNX+xHenNtGFCAqCA+7Cahtx0tw1C0BafJPH8NNbUYS7dpsAsfv3lWqVq7b2MktsSH9qA=
-X-Received: by 2002:a37:9442:: with SMTP id w63mr7981201qkd.138.1571836671589; 
- Wed, 23 Oct 2019 06:17:51 -0700 (PDT)
-MIME-Version: 1.0
-References: <20191010202802.1132272-1-arnd@arndb.de>
- <20191010203043.1241612-1-arnd@arndb.de>
- <20191010203043.1241612-11-arnd@arndb.de> <20191023121458.GB11048@pi3>
-In-Reply-To: <20191023121458.GB11048@pi3>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 23 Oct 2019 15:17:35 +0200
-X-Gmail-Original-Message-ID: <CAK8P3a3ktdA12vpi6zrTXs7-03efk2Ke_0_mQ9X40MLNcZnEqA@mail.gmail.com>
-Message-ID: <CAK8P3a3ktdA12vpi6zrTXs7-03efk2Ke_0_mQ9X40MLNcZnEqA@mail.gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-X-Provags-ID: V03:K1:esgP1am+15Wq7dis1xv+FKaIktg+t/ugaSH2D4kTuYXMK3PZwXR
- l74xTgPE2aITln/6dzN95RI250n+XnPbHyqtiDX3G4rsWctNASkC1cCneccQk6nA/D5E1dD
- 4SiZD9DUsXKp6taC9jWQrkPpCgX+kX+tTwRx2y+ok3+TWKsuZWa8WE62fwRDJROm44Y6GFs
- O6T4J85yNqrroPiw2KZIA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:V0+FzBVafRE=:Hm6qfhf8MJBgq1YsPKRVw/
- spX0PD/rsny5Inr4rPF3jWWusaVWAmqrDsi7CBtJhn4vdyuslTBuGiWdnQkvhSERakJHGzyIZ
- oqe3ZrrCN8iKwXrQJ+30dHYKCXbOqDvcWB8W7yNefeNblFWhjIOKjLaF5jxiC/s3zMBU3VHmQ
- jEFEHJcec3hnImzZYYdJoXcIuvb4OGLX+GflSLa1+tVzIeQavwTDW2/Clpae7Gc5von9loGd3
- oEtlq3VRmg3T+p25TigErgI/iP7b5mW/3c+H1jjfyZ6Brq0Ts2wX6+AS2KfnsR5JSYxLlR9mf
- AIrTa5JWqXEqfOGo/rFgjdIcLN3fge+4XJF+9bgM4FZHVc97u3+hPtwjiLy034GHJ4UiJIsq9
- iPGLoebEmkDxOOIecBKTGBKDDLKuHlKHkR+sImV6nXvyM8qImZ7P0ChV/TUhzTSRoF0Y9mG+E
- MJbUy6juwW4axWhMGsPysQ4dGCr01DKP91m5ZQMuceKXK0GTL5wkb4zeF+dPaHO0M1JINtbvX
- mB3Ne6zrcLWrVZq+y8YMHBXMjVIjtngJP6TQOOyoSirvUi/VCBDDVhGbxXVWMF8H+jgrh3t2T
- nTLQoHQwZitScpQCTdlxYt8JbKRKO+EqId+2xBGl5bHKY7KhhhQJFy8RUVUmYNJnLx5iARnDf
- pVLeZlo/kYFI91D6fAx1asF9dpuDlRLdys1qggDdGVouKWexUw0cnLLeNYcYtkVZs6k+AZBzu
- BgviFWVlFkF0m7urAcCNB/okss0GgwKdLHkqW7PiTxTmcpVhoPUY2c0mAbOJrlndFKiM5SdaY
- OA2lUc/Jc0411vTBRCKFdtfraLje9SWNKQgmtC917KPM6EdNK66B0skfinGxG/chsdj/gmz3R
- 1Sd9u+tZpu5bWPC5s45Q==
-Cc: Ulf Hansson <ulf.hansson@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Thierry Reding <thierry.reding@gmail.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- "moderated list:ARM/SAMSUNG EXYNOS ARM ARCHITECTURES"
- <linux-samsung-soc@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Kukjin Kim <kgene@kernel.org>,
- =?UTF-8?B?Q2zDqW1lbnQgUMOpcm9u?= <peron.clem@gmail.com>,
- linux-serial@vger.kernel.org,
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Linux PWM List <linux-pwm@vger.kernel.org>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Jiri Slaby <jslaby@suse.com>,
- Mark Brown <broonie@kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Sangbeom Kim <sbkim73@samsung.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-mmc <linux-mmc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-spi <linux-spi@vger.kernel.org>, Faiz Abbas <faiz_abbas@ti.com>,
- Olof Johansson <olof@lixom.net>
-Subject: Re: [alsa-devel] [PATCH 11/36] ARM: s5pv210: split from plat-samsung
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7EE36F80112
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 15:29:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EE36F80112
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 66EDCB8BE;
+ Wed, 23 Oct 2019 13:29:27 +0000 (UTC)
+Date: Wed, 23 Oct 2019 15:29:27 +0200
+Message-ID: <s5h8spbzj2g.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20191023120114.17445-1-srinivas.kandagatla@linaro.org>
+References: <20191023120114.17445-1-srinivas.kandagatla@linaro.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ spapothi@codeaurora.org, tiwai@suse.com,
+ Preetam Singh Ranawat <apranawat@codeaurora.org>, vkoul@kernel.org,
+ broonie@kernel.org
+Subject: Re: [alsa-devel] [RFC PATCH] ALSA: pcm: fix blocking while loop in
+	snd_pcm_update_hw_ptr0()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,34 +73,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Oct 23, 2019 at 2:15 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> On Thu, Oct 10, 2019 at 10:29:55PM +0200, Arnd Bergmann wrote:
-> > These can be build completely independently, so split
-> > the two Kconfig symbols.
-> >       config DEBUG_S3C_UART0
-> > -             depends on PLAT_SAMSUNG || ARCH_EXYNOS
-> > +             depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
->
-> How are you going to select DEBUG_S5PV210_UART now?
+On Wed, 23 Oct 2019 14:01:14 +0200,
+Srinivas Kandagatla wrote:
+> 
+> From: Preetam Singh Ranawat <apranawat@codeaurora.org>
+> 
+> When period interrupts are disabled, while loop in snd_pcm_update_hw_ptr0()
+> results in the machine locking up if runtime->hw_ptr_buffer_jiffies is 0.
+> 
+> Validate runtime->hw_ptr_buffer_jiffies value before while loop to avoid
+> delta check.
 
-I don't see a problem here, the patch should not change the behavior at all.
+Although the fix itself is fine, I still wonder how this is
+triggered.  Could you check in what kind of PCM state is it?
 
-The whole entry now looks like:
+Basically snd_pcm_update_hw_ptr*() is called only in the running PCM
+state, and for that, we should have set hw_ptr_buffer_jiffies at
+snd_pcm_post_start().  It's
 
-        config DEBUG_S3C_UART0
-                depends on PLAT_SAMSUNG || ARCH_S5PV210 || ARCH_EXYNOS
-                select DEBUG_EXYNOS_UART if ARCH_EXYNOS
-                select DEBUG_S3C24XX_UART if ARCH_S3C24XX
-                select DEBUG_S3C64XX_UART if ARCH_S3C64XX
-                select DEBUG_S5PV210_UART if ARCH_S5PV210
-                bool "Use Samsung S3C UART 0 for low-level debug"
+	runtime->hw_ptr_buffer_jiffies = (runtime->buffer_size * HZ) / 
+							    runtime->rate;
 
-so this will work as before with any of ARCH_EXYNOS, ARCH_S3C24XX,
-ARCH_S3C64XX and ARCH_S5PV210.
+So maybe the given buffer size is so small and hw_ptr_buffer_jiffies
+is really 0?
 
-What am I missing?
 
-     Arnd
+thanks,
+
+Takashi
+
+> 
+> Signed-off-by: Preetam Singh Ranawat <apranawat@codeaurora.org>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+> 
+> This issue was noticed in Android setup from fastcapture path.
+> 
+>  sound/core/pcm_lib.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
+> index d80041ea4e01..f407f6895f8a 100644
+> --- a/sound/core/pcm_lib.c
+> +++ b/sound/core/pcm_lib.c
+> @@ -341,7 +341,8 @@ static int snd_pcm_update_hw_ptr0(struct snd_pcm_substream *substream,
+>  		 * the elapsed time to detect xruns.
+>  		 */
+>  		jdelta = curr_jiffies - runtime->hw_ptr_jiffies;
+> -		if (jdelta < runtime->hw_ptr_buffer_jiffies / 2)
+> +		if ((jdelta < runtime->hw_ptr_buffer_jiffies / 2) ||
+> +		    !runtime->hw_ptr_buffer_jiffies)
+>  			goto no_delta_check;
+>  		hdelta = jdelta - delta * HZ / runtime->rate;
+>  		xrun_threshold = runtime->hw_ptr_buffer_jiffies / 2 + 1;
+> -- 
+> 2.21.0
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

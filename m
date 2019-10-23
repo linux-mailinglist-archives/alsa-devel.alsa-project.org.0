@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BEC6E22F2
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 20:58:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90D28E22EF
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 20:57:58 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD83A167E;
-	Wed, 23 Oct 2019 20:57:54 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD83A167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 162DC1658;
+	Wed, 23 Oct 2019 20:57:08 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 162DC1658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571857125;
-	bh=vYJfF3QZgmhsUgQjzRWdjfSqRbe7O1M9mrBIiUOY5t8=;
+	s=default; t=1571857078;
+	bh=nJeY0BBJeHxeymmgtK/gHMtjL7zi0CzGIRMGguHvDdA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=c9m7hBEySeOJT8bYPP9i/p8ilAE8ruWl58w+SnSDyGKMeH2/iyVpcNKPcJdv+6C7B
-	 9+tzTco77/e4pZ1QpAWkMAkN4mh+vuOwwo7m+qihKvvaSTUMdmSQcwuOMG6wd21yFB
-	 XD3tyqCoahXCA/67bz+LkGqfrM4xaGIG29AhwJv0=
+	b=oewbMe2d273S0/LL+RzX6gAbUKbHfOug/83zCGhQ7YJzVkQGgYODnJFXVFQA1xUsJ
+	 YPcOQlGYq+hO1jIvP9QRLlZ58mZveGSqwQT6J9nStSogLNTQqDMgfqiAopVzuwDgnh
+	 nSM8roVyTiPNjqzRvPvpZrMdVG709kY+UGAKyvF4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FBEEF803D7;
-	Wed, 23 Oct 2019 20:56:19 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 62574F805FF;
+	Wed, 23 Oct 2019 20:56:14 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 042F9F805FD; Wed, 23 Oct 2019 20:56:11 +0200 (CEST)
+ id 5A1C7F805FE; Wed, 23 Oct 2019 20:56:10 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48BCEF80274
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8246F80112
  for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 20:56:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48BCEF80274
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8246F80112
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="XqNNaCKg"
+ header.b="VDSwYMKi"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=DwstmcniS79fBLbk2eZPym5lxUqHsiFAjO8g/YbvgBA=; b=XqNNaCKgfgGt
- qbXAyY+iP7CcZVfCciQr/4KTBGQW+DhfiiJJ3Za1tR/PDrUbUubZ2bZcb4W9CUe4qkIy7Ka+lTeq+
- Ha0oe7/dcNzcDyfaYXTHyOWDmiWeU7UhqdAvuG3171SQaK1QmtsiBF57zLod+I/lPmckM8TTYS2d0
- 9/tUA=;
+ List-Archive; bh=e8czRQyb7+ORL6ys22KV/0SV9Pw4dt+JhCfSFagW2rg=; b=VDSwYMKixtMq
+ M9H5FhObCOsRu3MJgWorOxy4MfehKTZ4cItHYAK+lf4OvmDQn2f0aYOYcnkz/jtmz0CxJhs/iq6BN
+ eonnFfAyPPtdCDP7HP0g+EOdLNz/zn/2npI3vZWTbD7VbBGl0TJ0VGDzoWxRTQ5c3ShstU9dDuJaN
+ VAxr0=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iNLni-0001Ao-Av; Wed, 23 Oct 2019 18:56:06 +0000
+ id 1iNLnh-0001Ak-Vk; Wed, 23 Oct 2019 18:56:06 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id C641C274326D; Wed, 23 Oct 2019 19:56:05 +0100 (BST)
+ id 620502743293; Wed, 23 Oct 2019 19:56:05 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20191022192844.21022-3-pierre-louis.bossart@linux.intel.com>
+To: Pan Xiuli <xiuli.pan@linux.intel.com>
+In-Reply-To: <20191022194705.23347-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191023185605.C641C274326D@ypsilon.sirena.org.uk>
+Message-Id: <20191023185605.620502743293@ypsilon.sirena.org.uk>
 Date: Wed, 23 Oct 2019 19:56:05 +0100 (BST)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: add dev_err() traces
-	for snd_sof_dsp_read_poll_timeout()" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: initial support to
+	JasperLake." to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: hda: add dev_err() traces for snd_sof_dsp_read_poll_timeout()
+   ASoC: SOF: Intel: initial support to JasperLake.
 
 has been applied to the asoc tree at
 
@@ -112,198 +113,135 @@ to this mail.
 Thanks,
 Mark
 
-From 6a414489e0f3309a221f26b3d11c19d1a96a3635 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 22 Oct 2019 14:28:44 -0500
-Subject: [PATCH] ASoC: SOF: Intel: hda: add dev_err() traces for
- snd_sof_dsp_read_poll_timeout()
+From 6fd9903527bf103167004022a0199b8fac1b8b29 Mon Sep 17 00:00:00 2001
+From: Pan Xiuli <xiuli.pan@linux.intel.com>
+Date: Tue, 22 Oct 2019 14:47:05 -0500
+Subject: [PATCH] ASoC: SOF: Intel: initial support to JasperLake.
 
-Such traces should be extremely rare but extremely useful for debug.
+Add Kconfig, PCI ID and chip info for JSL platform.
+The DSP only has 2 cores for this platform.
 
-Report errors for all calls to sdn_sof_dsp_read_poll_timeout(), but
-only on negative values for consistency.
-
-Add traces that enable each timeout to be uniquely identified.
-
+Signed-off-by: Pan Xiuli <xiuli.pan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191022192844.21022-3-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191022194705.23347-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-dsp.c    | 30 +++++++++++++++++++++++++++---
- sound/soc/sof/intel/hda-loader.c | 13 ++++++++++++-
- sound/soc/sof/intel/hda-stream.c | 24 ++++++++++++++++++++----
- 3 files changed, 59 insertions(+), 8 deletions(-)
+ sound/soc/sof/intel/Kconfig | 16 ++++++++++++++++
+ sound/soc/sof/intel/cnl.c   | 17 +++++++++++++++++
+ sound/soc/sof/intel/hda.h   |  1 +
+ sound/soc/sof/sof-pci-dev.c | 22 ++++++++++++++++++++++
+ 4 files changed, 56 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index fb55a3c5afd0..3ea401646e0c 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -42,6 +42,12 @@ int hda_dsp_core_reset_enter(struct snd_sof_dev *sdev, unsigned int core_mask)
- 					((adspcs & reset) == reset),
- 					HDA_DSP_REG_POLL_INTERVAL_US,
- 					HDA_DSP_RESET_TIMEOUT_US);
-+	if (ret < 0) {
-+		dev_err(sdev->dev,
-+			"error: %s: timeout on HDA_DSP_REG_ADSPCS read\n",
-+			__func__);
-+		return ret;
-+	}
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index d62f51d33be1..342f22a7c64f 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -29,6 +29,7 @@ config SND_SOC_SOF_INTEL_PCI
+ 	select SND_SOC_SOF_COMETLAKE_H if SND_SOC_SOF_COMETLAKE_H_SUPPORT
+ 	select SND_SOC_SOF_TIGERLAKE   if SND_SOC_SOF_TIGERLAKE_SUPPORT
+ 	select SND_SOC_SOF_ELKHARTLAKE if SND_SOC_SOF_ELKHARTLAKE_SUPPORT
++	select SND_SOC_SOF_JASPERLAKE  if SND_SOC_SOF_JASPERLAKE_SUPPORT
+ 	help
+ 	  This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level
+@@ -244,6 +245,21 @@ config SND_SOC_SOF_ELKHARTLAKE
+           This option is not user-selectable but automagically handled by
+ 	  'select' statements at a higher level
  
- 	/* has core entered reset ? */
- 	adspcs = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
-@@ -77,6 +83,13 @@ int hda_dsp_core_reset_leave(struct snd_sof_dev *sdev, unsigned int core_mask)
- 					    HDA_DSP_REG_POLL_INTERVAL_US,
- 					    HDA_DSP_RESET_TIMEOUT_US);
- 
-+	if (ret < 0) {
-+		dev_err(sdev->dev,
-+			"error: %s: timeout on HDA_DSP_REG_ADSPCS read\n",
-+			__func__);
-+		return ret;
-+	}
++config SND_SOC_SOF_JASPERLAKE_SUPPORT
++	bool "SOF support for JasperLake"
++	help
++          This adds support for Sound Open Firmware for Intel(R) platforms
++          using the JasperLake processors.
++          Say Y if you have such a device.
++          If unsure select "N".
 +
- 	/* has core left reset ? */
- 	adspcs = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
- 				  HDA_DSP_REG_ADSPCS);
-@@ -151,8 +164,12 @@ int hda_dsp_core_power_up(struct snd_sof_dev *sdev, unsigned int core_mask)
- 					    (adspcs & cpa) == cpa,
- 					    HDA_DSP_REG_POLL_INTERVAL_US,
- 					    HDA_DSP_RESET_TIMEOUT_US);
--	if (ret < 0)
--		dev_err(sdev->dev, "error: timeout on core powerup\n");
-+	if (ret < 0) {
-+		dev_err(sdev->dev,
-+			"error: %s: timeout on HDA_DSP_REG_ADSPCS read\n",
-+			__func__);
-+		return ret;
-+	}
- 
- 	/* did core power up ? */
- 	adspcs = snd_sof_dsp_read(sdev, HDA_DSP_BAR,
-@@ -171,17 +188,24 @@ int hda_dsp_core_power_up(struct snd_sof_dev *sdev, unsigned int core_mask)
- int hda_dsp_core_power_down(struct snd_sof_dev *sdev, unsigned int core_mask)
- {
- 	u32 adspcs;
-+	int ret;
- 
- 	/* update bits */
- 	snd_sof_dsp_update_bits_unlocked(sdev, HDA_DSP_BAR,
- 					 HDA_DSP_REG_ADSPCS,
- 					 HDA_DSP_ADSPCS_SPA_MASK(core_mask), 0);
- 
--	return snd_sof_dsp_read_poll_timeout(sdev, HDA_DSP_BAR,
-+	ret = snd_sof_dsp_read_poll_timeout(sdev, HDA_DSP_BAR,
- 				HDA_DSP_REG_ADSPCS, adspcs,
- 				!(adspcs & HDA_DSP_ADSPCS_SPA_MASK(core_mask)),
- 				HDA_DSP_REG_POLL_INTERVAL_US,
- 				HDA_DSP_PD_TIMEOUT * USEC_PER_MSEC);
-+	if (ret < 0)
-+		dev_err(sdev->dev,
-+			"error: %s: timeout on HDA_DSP_REG_ADSPCS read\n",
-+			__func__);
++config SND_SOC_SOF_JASPERLAKE
++	tristate
++	select SND_SOC_SOF_HDA_COMMON
++	help
++          This option is not user-selectable but automagically handled by
++	  'select' statements at a higher level
 +
-+	return ret;
- }
- 
- bool hda_dsp_core_is_enabled(struct snd_sof_dev *sdev,
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 7956dbf5be88..b1783360fe10 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -126,7 +126,8 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, const void *fwdata,
- 					    HDA_DSP_INIT_TIMEOUT_US);
- 
- 	if (ret < 0) {
--		dev_err(sdev->dev, "error: waiting for HIPCIE done\n");
-+		dev_err(sdev->dev, "error: %s: timeout for HIPCIE done\n",
-+			__func__);
- 		goto err;
- 	}
- 
-@@ -152,6 +153,10 @@ static int cl_dsp_init(struct snd_sof_dev *sdev, const void *fwdata,
- 	if (!ret)
- 		return 0;
- 
-+	dev_err(sdev->dev,
-+		"error: %s: timeout HDA_DSP_SRAM_REG_ROM_STATUS read\n",
-+		__func__);
+ config SND_SOC_SOF_HDA_COMMON
+ 	tristate
+ 	select SND_SOC_SOF_INTEL_COMMON
+diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
+index 4ddd73762d81..5b97bdfba823 100644
+--- a/sound/soc/sof/intel/cnl.c
++++ b/sound/soc/sof/intel/cnl.c
+@@ -327,3 +327,20 @@ const struct sof_intel_dsp_desc ehl_chip_info = {
+ 	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
+ };
+ EXPORT_SYMBOL(ehl_chip_info);
 +
- err:
- 	hda_dsp_dump(sdev, SOF_DBG_REGS | SOF_DBG_PCI | SOF_DBG_MBOX);
- 	hda_dsp_core_reset_power_down(sdev, chip->cores_mask);
-@@ -258,6 +263,12 @@ static int cl_copy_fw(struct snd_sof_dev *sdev, struct hdac_ext_stream *stream)
- 	 * but we return the initial error should the DMA stop also fail
- 	 */
++const struct sof_intel_dsp_desc jsl_chip_info = {
++	/* Jasperlake */
++	.cores_num = 2,
++	.init_core_mask = 1,
++	.cores_mask = HDA_DSP_CORE_MASK(0) |
++				HDA_DSP_CORE_MASK(1),
++	.ipc_req = CNL_DSP_REG_HIPCIDR,
++	.ipc_req_mask = CNL_DSP_REG_HIPCIDR_BUSY,
++	.ipc_ack = CNL_DSP_REG_HIPCIDA,
++	.ipc_ack_mask = CNL_DSP_REG_HIPCIDA_DONE,
++	.ipc_ctl = CNL_DSP_REG_HIPCCTL,
++	.rom_init_timeout	= 300,
++	.ssp_count = ICL_SSP_COUNT,
++	.ssp_base_offset = CNL_SSP_BASE_OFFSET,
++};
++EXPORT_SYMBOL(jsl_chip_info);
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 23e430d3e056..ea02bf40cb25 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -604,5 +604,6 @@ extern const struct sof_intel_dsp_desc skl_chip_info;
+ extern const struct sof_intel_dsp_desc icl_chip_info;
+ extern const struct sof_intel_dsp_desc tgl_chip_info;
+ extern const struct sof_intel_dsp_desc ehl_chip_info;
++extern const struct sof_intel_dsp_desc jsl_chip_info;
  
-+	if (status < 0) {
-+		dev_err(sdev->dev,
-+			"error: %s: timeout HDA_DSP_SRAM_REG_ROM_STATUS read\n",
-+			__func__);
-+	}
+ #endif
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index 030f2cb06921..4adbb27c76c5 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -245,6 +245,24 @@ static const struct sof_dev_desc ehl_desc = {
+ };
+ #endif
+ 
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_JASPERLAKE)
++static const struct sof_dev_desc jsl_desc = {
++	.machines               = snd_soc_acpi_intel_jsl_machines,
++	.resindex_lpe_base      = 0,
++	.resindex_pcicfg_base   = -1,
++	.resindex_imr_base      = -1,
++	.irqindex_host_ipc      = -1,
++	.resindex_dma_base      = -1,
++	.chip_info = &jsl_chip_info,
++	.default_fw_path = "intel/sof",
++	.default_tplg_path = "intel/sof-tplg",
++	.nocodec_fw_filename = "sof-jsl.ri",
++	.nocodec_tplg_filename = "sof-jsl-nocodec.tplg",
++	.ops = &sof_cnl_ops,
++	.arch_ops = &sof_xtensa_arch_ops
++};
++#endif
 +
- 	ret = cl_trigger(sdev, stream, SNDRV_PCM_TRIGGER_STOP);
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: DMA trigger stop failed\n");
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index 2c7447188402..450f9c55785f 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -275,8 +275,12 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
- 					HDA_DSP_REG_POLL_INTERVAL_US,
- 					HDA_DSP_STREAM_RUN_TIMEOUT);
- 
--		if (ret)
-+		if (ret < 0) {
-+			dev_err(sdev->dev,
-+				"error: %s: cmd %d: timeout on STREAM_SD_OFFSET read\n",
-+				__func__, cmd);
- 			return ret;
-+		}
- 
- 		hstream->running = true;
- 		break;
-@@ -294,8 +298,12 @@ int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
- 						HDA_DSP_REG_POLL_INTERVAL_US,
- 						HDA_DSP_STREAM_RUN_TIMEOUT);
- 
--		if (ret)
-+		if (ret < 0) {
-+			dev_err(sdev->dev,
-+				"error: %s: cmd %d: timeout on STREAM_SD_OFFSET read\n",
-+				__func__, cmd);
- 			return ret;
-+		}
- 
- 		snd_sof_dsp_write(sdev, HDA_DSP_HDA_BAR, sd_offset +
- 				  SOF_HDA_ADSP_REG_CL_SD_STS,
-@@ -356,8 +364,12 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
- 					    HDA_DSP_REG_POLL_INTERVAL_US,
- 					    HDA_DSP_STREAM_RUN_TIMEOUT);
- 
--	if (ret)
-+	if (ret < 0) {
-+		dev_err(sdev->dev,
-+			"error: %s: timeout on STREAM_SD_OFFSET read1\n",
-+			__func__);
- 		return ret;
-+	}
- 
- 	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
- 				sd_offset + SOF_HDA_ADSP_REG_CL_SD_STS,
-@@ -418,8 +430,12 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
- 					    HDA_DSP_REG_POLL_INTERVAL_US,
- 					    HDA_DSP_STREAM_RUN_TIMEOUT);
- 
--	if (ret)
-+	if (ret < 0) {
-+		dev_err(sdev->dev,
-+			"error: %s: timeout on STREAM_SD_OFFSET read2\n",
-+			__func__);
- 		return ret;
-+	}
- 
- 	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
- 				sd_offset + SOF_HDA_ADSP_REG_CL_SD_STS,
+ static const struct dev_pm_ops sof_pci_pm = {
+ 	SET_SYSTEM_SLEEP_PM_OPS(snd_sof_suspend, snd_sof_resume)
+ 	SET_RUNTIME_PM_OPS(snd_sof_runtime_suspend, snd_sof_runtime_resume,
+@@ -423,6 +441,10 @@ static const struct pci_device_id sof_pci_ids[] = {
+ 	{ PCI_DEVICE(0x8086, 0x34C8),
+ 		.driver_data = (unsigned long)&icl_desc},
+ #endif
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_JASPERLAKE)
++	{ PCI_DEVICE(0x8086, 0x38c8),
++		.driver_data = (unsigned long)&jsl_desc},
++#endif
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
+ 	{ PCI_DEVICE(0x8086, 0x02c8),
+ 		.driver_data = (unsigned long)&cml_desc},
 -- 
 2.20.1
 

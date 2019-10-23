@@ -2,63 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14F3FE255A
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 23:30:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 734E9E2560
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 23:31:18 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B6841616;
-	Wed, 23 Oct 2019 23:29:41 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B6841616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0135B1662;
+	Wed, 23 Oct 2019 23:30:28 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0135B1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571866231;
-	bh=L+3K3BsoAps1ChdJyMttFHiJ4tugB1+5zoRL/IDNdBg=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uhX+My2Qk9ZX7heLxDsc4MVoveEDvUhoz2ZycWYQUfEeLi4eey9BoZtmuzXzv9HaH
-	 rG09OpoZnhYqp7hr020GDsDbJ1dvFWmkKlXMu0Y+UuUXlkbRwB0icVTMSqvd0QfDnA
-	 A7P4lGATtwyuMXEg9VVwofAMWtfcQNA8PsMRcgRE=
+	s=default; t=1571866278;
+	bh=HKRoaWFmGzauR/dO86EhCocIQVIUBL2Rjh3HiYirD7M=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fNdCqwl5sqiaKff3O7AeOKpop/fWu8PhW7nq6sVxmx1r10wKqFzRmyMdkJY85vLxD
+	 6vKYgFk9nU6IIvdzpC4JzLk2qsbgxV08umVUErBJvT04XCNzEnzj+ir71p/5N5xLht
+	 cAtVnO/lhoWz9Ynsq0NVUW4BrfgQxklQE/FQ3zNA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B389F8058C;
-	Wed, 23 Oct 2019 23:28:48 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2EED9F805FB;
+	Wed, 23 Oct 2019 23:28:51 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 614EEF803A6; Wed, 23 Oct 2019 23:28:43 +0200 (CEST)
+ id 80A3AF80321; Wed, 23 Oct 2019 23:28:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7652F80274
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29BF0F80321
  for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 23:28:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7652F80274
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29BF0F80321
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 23 Oct 2019 14:28:36 -0700
+ 23 Oct 2019 14:28:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,222,1569308400"; d="scan'208";a="399541151"
+X-IronPort-AV: E=Sophos;i="5.68,222,1569308400"; d="scan'208";a="399541156"
 Received: from ayamada-mobl1.gar.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.254.95.208])
- by fmsmga006.fm.intel.com with ESMTP; 23 Oct 2019 14:28:34 -0700
+ by fmsmga006.fm.intel.com with ESMTP; 23 Oct 2019 14:28:36 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Wed, 23 Oct 2019 16:28:09 -0500
-Message-Id: <20191023212823.608-1-pierre-louis.bossart@linux.intel.com>
+Date: Wed, 23 Oct 2019 16:28:10 -0500
+Message-Id: <20191023212823.608-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20191023212823.608-1-pierre-louis.bossart@linux.intel.com>
+References: <20191023212823.608-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
-Subject: [alsa-devel] [PATCH 00/14] soundwire: intel: implement new ASoC
-	interfaces
+Subject: [alsa-devel] [PATCH 01/14] soundwire: renames to prepare support
+	for master drivers/devices
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,57 +80,133 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-this patchset applies on top of the series "[PATCH 0/4] soundwire:
-update ASoC interfaces" and previously submitted cleanups "[PATCH v3
-0/5] soundwire: intel/cadence: better initialization"
+Add clearer references to sdw_slave_driver for internal macros
 
-The changes are essentially a removal of the platform devices and the
-implementation of the new interfaces required to scan the ACPI tables,
-probe the links and start them.
+No change for sdw_driver and module_sdw_driver to avoid compatibility
+issues with existing codec devices
 
-The missing prepare, trigger and setup ASoC callbacks are also
-implemented. The hw_params and free callbacks use the new interfaces
-as well.
+No functionality change.
 
-While there are quite a few lines of code changed, this is mostly
-about interface changes. The next series will contain more functional
-changes and deal with race conditions on probe, enumeration and
-suspend/resume issues.
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ drivers/soundwire/bus_type.c       | 21 +++++++++++----------
+ include/linux/soundwire/sdw_type.h | 18 ++++++++++--------
+ 2 files changed, 21 insertions(+), 18 deletions(-)
 
-Bard Liao (1):
-  soundwire: add device driver to sdw_md_driver
-
-Pierre-Louis Bossart (10):
-  soundwire: renames to prepare support for master drivers/devices
-  soundwire: rename dev_to_sdw_dev macro
-  soundwire: rename drv_to_sdw_slave_driver macro
-  soundwire: bus_type: rename sdw_drv_ to sdw_slave_drv
-  soundwire: intel: rename res field as link_res
-  soundwire: add support for sdw_slave_type
-  soundwire: add initial definitions for sdw_master_device
-  soundwire: intel: remove platform devices and provide new interface
-  soundwire: intel: free all resources on hw_free()
-  soundwire: intel_init: add implementation of sdw_intel_enable_irq()
-
-Rander Wang (3):
-  soundwire: intel: add prepare support in sdw dai driver
-  soundwire: intel: add trigger support in sdw dai driver
-  soundwire: intel: add sdw_stream_setup helper for .startup callback
-
- drivers/base/regmap/regmap-sdw.c   |   4 +-
- drivers/soundwire/Makefile         |   2 +-
- drivers/soundwire/bus.c            |   2 +-
- drivers/soundwire/bus_type.c       |  60 +++---
- drivers/soundwire/intel.c          | 280 ++++++++++++++++++++++-----
- drivers/soundwire/intel.h          |   8 +-
- drivers/soundwire/intel_init.c     | 300 ++++++++++++++++++++++-------
- drivers/soundwire/master.c         |  64 ++++++
- drivers/soundwire/slave.c          |   9 +-
- include/linux/soundwire/sdw.h      |  39 +++-
- include/linux/soundwire/sdw_type.h |  34 +++-
- 11 files changed, 642 insertions(+), 160 deletions(-)
- create mode 100644 drivers/soundwire/master.c
-
+diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+index 4a465f55039f..370b94752662 100644
+--- a/drivers/soundwire/bus_type.c
++++ b/drivers/soundwire/bus_type.c
+@@ -34,7 +34,7 @@ sdw_get_device_id(struct sdw_slave *slave, struct sdw_driver *drv)
+ static int sdw_bus_match(struct device *dev, struct device_driver *ddrv)
+ {
+ 	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+-	struct sdw_driver *drv = drv_to_sdw_driver(ddrv);
++	struct sdw_driver *drv = drv_to_sdw_slave_driver(ddrv);
+ 
+ 	return !!sdw_get_device_id(slave, drv);
+ }
+@@ -70,7 +70,7 @@ EXPORT_SYMBOL_GPL(sdw_bus_type);
+ static int sdw_drv_probe(struct device *dev)
+ {
+ 	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+-	struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
++	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
+ 	const struct sdw_device_id *id;
+ 	int ret;
+ 
+@@ -116,7 +116,7 @@ static int sdw_drv_probe(struct device *dev)
+ static int sdw_drv_remove(struct device *dev)
+ {
+ 	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+-	struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
++	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
+ 	int ret = 0;
+ 
+ 	if (drv->remove)
+@@ -130,20 +130,21 @@ static int sdw_drv_remove(struct device *dev)
+ static void sdw_drv_shutdown(struct device *dev)
+ {
+ 	struct sdw_slave *slave = dev_to_sdw_dev(dev);
+-	struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
++	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
+ 
+ 	if (drv->shutdown)
+ 		drv->shutdown(slave);
+ }
+ 
+ /**
+- * __sdw_register_driver() - register a SoundWire Slave driver
++ * __sdw_register_slave_driver() - register a SoundWire Slave driver
+  * @drv: driver to register
+  * @owner: owning module/driver
+  *
+  * Return: zero on success, else a negative error code.
+  */
+-int __sdw_register_driver(struct sdw_driver *drv, struct module *owner)
++int __sdw_register_slave_driver(struct sdw_driver *drv,
++				struct module *owner)
+ {
+ 	drv->driver.bus = &sdw_bus_type;
+ 
+@@ -164,17 +165,17 @@ int __sdw_register_driver(struct sdw_driver *drv, struct module *owner)
+ 
+ 	return driver_register(&drv->driver);
+ }
+-EXPORT_SYMBOL_GPL(__sdw_register_driver);
++EXPORT_SYMBOL_GPL(__sdw_register_slave_driver);
+ 
+ /**
+- * sdw_unregister_driver() - unregisters the SoundWire Slave driver
++ * sdw_unregister_slave_driver() - unregisters the SoundWire Slave driver
+  * @drv: driver to unregister
+  */
+-void sdw_unregister_driver(struct sdw_driver *drv)
++void sdw_unregister_slave_driver(struct sdw_driver *drv)
+ {
+ 	driver_unregister(&drv->driver);
+ }
+-EXPORT_SYMBOL_GPL(sdw_unregister_driver);
++EXPORT_SYMBOL_GPL(sdw_unregister_slave_driver);
+ 
+ static int __init sdw_bus_init(void)
+ {
+diff --git a/include/linux/soundwire/sdw_type.h b/include/linux/soundwire/sdw_type.h
+index aaa7f4267c14..abaa21278152 100644
+--- a/include/linux/soundwire/sdw_type.h
++++ b/include/linux/soundwire/sdw_type.h
+@@ -6,13 +6,15 @@
+ 
+ extern struct bus_type sdw_bus_type;
+ 
+-#define drv_to_sdw_driver(_drv) container_of(_drv, struct sdw_driver, driver)
++#define drv_to_sdw_slave_driver(_drv) \
++	container_of(_drv, struct sdw_driver, driver)
+ 
+-#define sdw_register_driver(drv) \
+-	__sdw_register_driver(drv, THIS_MODULE)
++#define sdw_register_slave_driver(drv) \
++	__sdw_register_slave_driver(drv, THIS_MODULE)
+ 
+-int __sdw_register_driver(struct sdw_driver *drv, struct module *owner);
+-void sdw_unregister_driver(struct sdw_driver *drv);
++int __sdw_register_slave_driver(struct sdw_driver *drv,
++				struct module *owner);
++void sdw_unregister_slave_driver(struct sdw_driver *drv);
+ 
+ int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
+ 
+@@ -24,7 +26,7 @@ int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
+  * module init/exit. This eliminates a lot of boilerplate. Each module may only
+  * use this macro once, and calling it replaces module_init() and module_exit()
+  */
+-#define module_sdw_driver(__sdw_driver) \
+-	module_driver(__sdw_driver, sdw_register_driver, \
+-			sdw_unregister_driver)
++#define module_sdw_driver(__sdw_slave_driver) \
++	module_driver(__sdw_slave_driver, sdw_register_slave_driver, \
++			sdw_unregister_slave_driver)
+ #endif /* __SOUNDWIRE_TYPES_H */
 -- 
 2.20.1
 

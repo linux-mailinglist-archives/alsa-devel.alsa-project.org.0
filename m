@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D84A6E2312
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 21:03:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3A22E22FA
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 20:59:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 693741615;
-	Wed, 23 Oct 2019 21:03:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 693741615
+	by alsa0.perex.cz (Postfix) with ESMTPS id BACE31672;
+	Wed, 23 Oct 2019 20:58:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BACE31672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571857438;
-	bh=Tv6/fYCUdsEwd6838u6T+UYti2NZML/kvOcpQKcD9d0=;
+	s=default; t=1571857184;
+	bh=gcE3k5YvA0nzoeUtX4DuvVScxlXwi1mpXjyBGDOf4/Y=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=J26qAPz3Ih2nhxIjDlaFDImsPp+X2/TMnPHTLMJY3Vyg54zYTOa6T3+Z5iSER1pDC
-	 e+L8hTHI6zonMOkxf56SQFsmt72n4YooMTpgteLbdMTU7dSfDcxFVI3dU/AI0bjBGE
-	 pjcBXFXVVKFZ1sQymxi+te9CM54fc6NXs6njgnUU=
+	b=p4mfJLYbGRSggZ6cbxXrwvoOXNWLEsRGG9WT2yPlJVttU+/2ON3Y4vDIyYWMyO22W
+	 VxTos5Jc5QRF6q5J2zgRaQRs6HyXOFnN/gvzhrZFVyg+pPudHLhZC5Jrx7UpL2Fl7j
+	 R7MH1q3IDcd2WZkoqEXHcrHwAsaik+48SQJLDUrU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C417F8068A;
-	Wed, 23 Oct 2019 20:56:32 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2BD0DF8060D;
+	Wed, 23 Oct 2019 20:56:24 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D0730F80612; Wed, 23 Oct 2019 20:56:21 +0200 (CEST)
+ id 2BB87F8060D; Wed, 23 Oct 2019 20:56:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9C56F80393
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 20:56:08 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9C56F80393
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2AA4EF803D7
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 20:56:07 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AA4EF803D7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="L4TmW74B"
+ header.b="S2916Ly/"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=j/8yayfqMY0ZyCUC8zjVt9apU8LafgXQ0fDRwU+6/iQ=; b=L4TmW74BoYDt
- J9IEPYU9uFs7yHt4LFK7+xRfFBHFlm30/Dqz3JDPHWDoFirnv5GUmrMP8cnCqU3fwSQliUlAkblVe
- vjwQWzrLXRB4mpsqp7cTWweAYNZGRwalCZ7X11Ni7TT5+AXPjxSqpvCv6opPFOfYI8byw5k1/bQta
- A6A9I=;
+ List-Archive; bh=GE2osdEkB+rRYka4kibi6qZR1kieaPp02+7FgD1hFAo=; b=S2916Ly/yjop
+ TCrZK/UbtiaGYFEUgAArvwQLdIceH2gjuN79DgFbs++AB2saS/5htUcRfrN9FGNh2yWev2WuskBQ6
+ tfFDaHS1KZNNAK+KVey3dwucCOgCwNzozcojH56LT1SzVC+uGJfm3+PBwCxF8PsJJ/doClB1v5Xjv
+ JulIc=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iNLnj-0001B9-4v; Wed, 23 Oct 2019 18:56:07 +0000
+ id 1iNLni-0001B0-Vk; Wed, 23 Oct 2019 18:56:07 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 98437274326D; Wed, 23 Oct 2019 19:56:06 +0100 (BST)
+ id 693462743021; Wed, 23 Oct 2019 19:56:06 +0100 (BST)
 From: Mark Brown <broonie@kernel.org>
-To: Jiada Wang <jiada_wang@mentor.com>
-In-Reply-To: <20191022185518.12838-1-erosca@de.adit-jv.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <8736fkyzx8.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191023185606.98437274326D@ypsilon.sirena.org.uk>
+Message-Id: <20191023185606.693462743021@ypsilon.sirena.org.uk>
 Date: Wed, 23 Oct 2019 19:56:06 +0100 (BST)
-Cc: Timo Wischer <twischer@de.adit-jv.com>, alsa-devel@alsa-project.org,
- Andrew Gabbasov <andrew_gabbasov@mentor.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Eugeniu Rosca <roscaeugeniu@gmail.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Eugeniu Rosca <erosca@de.adit-jv.com>
-Subject: [alsa-devel] Applied "ASoC: rsnd: dma: set bus width to data width
-	for monaural data" to the asoc tree
+Cc: Pavel Machek <pavel@denx.de>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: rsnd: add missing of_node_put()" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rsnd: dma: set bus width to data width for monaural data
+   ASoC: rsnd: add missing of_node_put()
 
 has been applied to the asoc tree at
 
@@ -117,78 +113,62 @@ to this mail.
 Thanks,
 Mark
 
-From d4d9360bf702890b5d3b1b62d8619a2690dd3278 Mon Sep 17 00:00:00 2001
-From: Jiada Wang <jiada_wang@mentor.com>
-Date: Tue, 22 Oct 2019 20:55:18 +0200
-Subject: [PATCH] ASoC: rsnd: dma: set bus width to data width for monaural
- data
+From ef2c695151df54817f92128f96a920ff888c6920 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 23 Oct 2019 11:10:43 +0900
+Subject: [PATCH] ASoC: rsnd: add missing of_node_put()
 
-According to R-Car3 HW manual 40.3.3 (Data Format on Audio Local Bus),
-in case of monaural data writing or reading through Audio-DMAC,
-it's always in Left Justified format, so both src and dst
-DMA Bus width should be equal to physical data width.
+This patch adds missing of_node_put() for
+rsnd_parse_tdm_split_mode()
+rsnd_parse_connect_graph()
 
-Therefore set src and dst's DMA bus width to:
- - [monaural case] data width
- - [non-monaural case] 32bits (as prior applying the patch)
-
-Cc: Andrew Gabbasov <andrew_gabbasov@mentor.com>
-Cc: Timo Wischer <twischer@de.adit-jv.com>
-Signed-off-by: Jiada Wang <jiada_wang@mentor.com>
-Signed-off-by: Eugeniu Rosca <erosca@de.adit-jv.com>
-Link: https://lore.kernel.org/r/20191022185518.12838-1-erosca@de.adit-jv.com
+Reported-by: Pavel Machek <pavel@denx.de>
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/8736fkyzx8.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sh/rcar/dma.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
+ sound/soc/sh/rcar/core.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sh/rcar/dma.c b/sound/soc/sh/rcar/dma.c
-index 0324a5c39619..bcb6d5960661 100644
---- a/sound/soc/sh/rcar/dma.c
-+++ b/sound/soc/sh/rcar/dma.c
-@@ -165,14 +165,40 @@ static int rsnd_dmaen_start(struct rsnd_mod *mod,
+diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
+index 4bed26842095..72924c8b0696 100644
+--- a/sound/soc/sh/rcar/core.c
++++ b/sound/soc/sh/rcar/core.c
+@@ -1075,7 +1075,10 @@ static void rsnd_parse_tdm_split_mode(struct rsnd_priv *priv,
+ 			j++;
+ 		}
+ 
++		of_node_put(node);
+ 	}
++
++	of_node_put(ssiu_np);
+ }
+ 
+ static void rsnd_parse_connect_simple(struct rsnd_priv *priv,
+@@ -1093,11 +1096,13 @@ static void rsnd_parse_connect_graph(struct rsnd_priv *priv,
+ 				     struct device_node *endpoint)
+ {
  	struct device *dev = rsnd_priv_to_dev(priv);
- 	struct dma_async_tx_descriptor *desc;
- 	struct dma_slave_config cfg = {};
-+	enum dma_slave_buswidth buswidth = DMA_SLAVE_BUSWIDTH_4_BYTES;
- 	int is_play = rsnd_io_is_play(io);
- 	int ret;
+-	struct device_node *remote_node = of_graph_get_remote_port_parent(endpoint);
++	struct device_node *remote_node;
  
-+	/*
-+	 * in case of monaural data writing or reading through Audio-DMAC
-+	 * data is always in Left Justified format, so both src and dst
-+	 * DMA Bus width need to be set equal to physical data width.
-+	 */
-+	if (rsnd_runtime_channel_original(io) == 1) {
-+		struct snd_pcm_runtime *runtime = rsnd_io_to_runtime(io);
-+		int bits = snd_pcm_format_physical_width(runtime->format);
-+
-+		switch (bits) {
-+		case 8:
-+			buswidth = DMA_SLAVE_BUSWIDTH_1_BYTE;
-+			break;
-+		case 16:
-+			buswidth = DMA_SLAVE_BUSWIDTH_2_BYTES;
-+			break;
-+		case 32:
-+			buswidth = DMA_SLAVE_BUSWIDTH_4_BYTES;
-+			break;
-+		default:
-+			dev_err(dev, "invalid format width %d\n", bits);
-+			return -EINVAL;
-+		}
-+	}
-+
- 	cfg.direction	= is_play ? DMA_MEM_TO_DEV : DMA_DEV_TO_MEM;
- 	cfg.src_addr	= dma->src_addr;
- 	cfg.dst_addr	= dma->dst_addr;
--	cfg.src_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
--	cfg.dst_addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
-+	cfg.src_addr_width = buswidth;
-+	cfg.dst_addr_width = buswidth;
+ 	if (!rsnd_io_to_mod_ssi(io))
+ 		return;
  
- 	dev_dbg(dev, "%s %pad -> %pad\n",
- 		rsnd_mod_name(mod),
++	remote_node = of_graph_get_remote_port_parent(endpoint);
++
+ 	/* HDMI0 */
+ 	if (strstr(remote_node->full_name, "hdmi@fead0000")) {
+ 		rsnd_flags_set(io, RSND_STREAM_HDMI0);
+@@ -1111,6 +1116,8 @@ static void rsnd_parse_connect_graph(struct rsnd_priv *priv,
+ 	}
+ 
+ 	rsnd_parse_tdm_split_mode(priv, io, endpoint);
++
++	of_node_put(remote_node);
+ }
+ 
+ void rsnd_parse_connect_common(struct rsnd_dai *rdai,
 -- 
 2.20.1
 

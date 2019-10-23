@@ -2,61 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE299E1334
-	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 09:34:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57F2FE1392
+	for <lists+alsa-devel@lfdr.de>; Wed, 23 Oct 2019 10:05:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 784091662;
-	Wed, 23 Oct 2019 09:33:57 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 784091662
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7A011660;
+	Wed, 23 Oct 2019 10:04:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7A011660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571816087;
-	bh=PjUejnL8YVZWgmxyjJ4C3J7pPZumqaTTYrQF4qhmj3E=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gcs+DA2RO04jJpiOKv2UkbxjFT1omxDsc5YlPHk3hmanJdAJ/KQP29d0wcuL687zE
-	 V9KcGGph1RUuwarz2CF6N6sRSO7JOPMszmg7N4LLPkzmZU7LfZtoLdJ3+m8phDL9Kz
-	 KzaPjBNEic91eJCZ0TzR6ybuXvYZhSj143v8NnQs=
+	s=default; t=1571817910;
+	bh=TGhO7Lg1bhjRNnkMNV97TbL7QN9KRlYT27B3exJdouk=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LqSvQy0g0QhYgDT0dg3hb0Id4IA2ry/gsdoPQP4/2e2EEJt8doCI1EbjN4GvwwnLB
+	 KHyPNQOaxoTm8rVIHkn2SiT/scl7PjsazRjGYbtBvQIcNfftgI9D8OfIKhiOmYXg9M
+	 b3Gr1vbbRpapvB4SI2czLmWocdMypqPy8NTJ9lhg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 025ACF80393;
-	Wed, 23 Oct 2019 09:33:03 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21CF6F80321;
+	Wed, 23 Oct 2019 10:03:27 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBE08F80368; Wed, 23 Oct 2019 09:33:00 +0200 (CEST)
+ id 66A75F80368; Wed, 23 Oct 2019 10:03:25 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
+ [IPv6:2607:f8b0:4864:20::344])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4ED82F802DF
- for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 09:32:56 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4ED82F802DF
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 388871A06EF;
- Wed, 23 Oct 2019 09:32:55 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 4F7061A06E3;
- Wed, 23 Oct 2019 09:32:50 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 0C054402F0;
- Wed, 23 Oct 2019 15:32:43 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
-Date: Wed, 23 Oct 2019 15:29:49 +0800
-Message-Id: <1571815789-15656-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: fsl_esai: Add spin lock to protect reset
-	and stop
+ by alsa1.perex.cz (Postfix) with ESMTPS id 935CAF80112
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 10:03:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 935CAF80112
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="gHIg3gQn"
+Received: by mail-ot1-x344.google.com with SMTP id n48so1685453ota.11
+ for <alsa-devel@alsa-project.org>; Wed, 23 Oct 2019 01:03:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=6uunPk4FRGMVRF/7mka4EzN9Nm4HV/2M2f5HwcfgzDg=;
+ b=gHIg3gQn71VKU1Zb5o/Bjl3AtqVaiUFOBs/9yFdHsyR5Cp3O9qFur0Z7Yp6eGhpSJP
+ zwARXUjs2v0bUpgfQNpyh3eSjlOfqyeklONDjphVP78YlJqbsj6txItzZMqz4fLMkXjE
+ ujdJRD/EJ6Dn4eD61vueYzyHTWA2nMju0JbBrdnWyHj3k0z5rIMg6SaSDLL/aGtcsJyz
+ mM79AoUbEry+9j1JIloGvt49aoCGf7Gc5GT1Lt07h+2w635KjXjOVVq/P8OhlKbEhx/9
+ sb6SUs2Kmy//iuqTRXE9jU1OwV+XtPfM1lxotMBnnPjKkStTZ/JgbvF6bo4zsjRaxsII
+ 7J3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=6uunPk4FRGMVRF/7mka4EzN9Nm4HV/2M2f5HwcfgzDg=;
+ b=GVEJXIf6Zn5eIOs8IvcXm8O7XXWrbEmhI28yCNSKo/1m3IzlHn4EGpHoXrhLozZzaC
+ /cejvtqvyMmq29g8q0BX3QFNqpVZozpwyWYCip1kvwXBWV68UdJiXgUcUXgRjJtQAUPJ
+ TVwFCpOHl8Ln/EHCAf08rdLi5DAkkWqjWlSiAa80/TYqcn+EQCZkXUbYHy5wgpUN4Ib6
+ z+MevaGwKQKWLeQnOQpL8zbUUym6LxbobT9aNjiT+0vn+bsJyR5wEFSNszEMJrOOPxP/
+ vEeO68VKul7CwaS+byQxWS9DYsPcRJYiVr+BaBzrobL3YeK+/8M8RDsVlskQqXI5cA+F
+ T1ZQ==
+X-Gm-Message-State: APjAAAUQbQbe/oF/mjCxKeMos0VJBcTt7fn/XLwVc6cNKRegqL4vEAwb
+ LaA38A6wmwkgBTP00euBseNaprmre+pVcqBGv1TiJw==
+X-Google-Smtp-Source: APXvYqyfHE/ivBJeAMwtq+xDy7lllkwK/zu3sWWZGYeVM4ARAomhLhU7HXNGvp44TV8sDYdi8DuU8C7CCvatK56LIEM=
+X-Received: by 2002:a9d:7d12:: with SMTP id v18mr4015609otn.103.1571817800353; 
+ Wed, 23 Oct 2019 01:03:20 -0700 (PDT)
+MIME-Version: 1.0
+References: <20191023063103.44941-1-maowenan@huawei.com>
+In-Reply-To: <20191023063103.44941-1-maowenan@huawei.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Wed, 23 Oct 2019 16:03:07 +0800
+Message-ID: <CA+Px+wU5UrVC0pk5pbfGTdVsh7OHcBx_MhbC3Bjmj_+zgn54PQ@mail.gmail.com>
+To: Mao Wenan <maowenan@huawei.com>
+Cc: linux-arm-kernel@lists.infradead.org,
+ ALSA development <alsa-devel@alsa-project.org>,
+ kernel-janitors@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, yuehaibing@huawei.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ =?UTF-8?B?U2h1bmxpIFdhbmcgKOeOi+mhuuWIqSk=?= <shunli.wang@mediatek.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, tglx@linutronix.de,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ KaiChieh Chuang <kaichieh.chuang@mediatek.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: mediatek: Check
+	SND_SOC_CROS_EC_CODEC dependency
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,93 +100,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-xrun may happen at the end of stream, the
-trigger->fsl_esai_trigger_stop maybe called in the middle of
-fsl_esai_hw_reset, this may cause esai in wrong state
-after stop, and there may be endless xrun interrupt.
-So Add spin lock to lock these two function.
+On Wed, Oct 23, 2019 at 2:31 PM Mao Wenan <maowenan@huawei.com> wrote:
+>
+> If SND_SOC_MT8183_MT6358_TS3A227E_MAX98357A=y,
+> below errors can be seen:
+> sound/soc/codecs/cros_ec_codec.o: In function `send_ec_host_command':
+> cros_ec_codec.c:(.text+0x534): undefined reference to `cros_ec_cmd_xfer_status'
+> cros_ec_codec.c:(.text+0x101c): undefined reference to `cros_ec_get_host_event'
+>
+> This is because it will select SND_SOC_CROS_EC_CODEC
+> after commit 2cc3cd5fdc8b ("ASoC: mediatek: mt8183: support WoV"),
+> but SND_SOC_CROS_EC_CODEC depends on CROS_EC.
+>
+> Fixes: 2cc3cd5fdc8b ("ASoC: mediatek: mt8183: support WoV")
+> Signed-off-by: Mao Wenan <maowenan@huawei.com>
 
-Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_esai.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Acked-by: Tzung-Bi Shih <tzungbi@google.com>
 
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index 37b14c48b537..6a797648b66d 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -33,6 +33,7 @@
-  * @fsysclk: system clock source to derive HCK, SCK and FS
-  * @spbaclk: SPBA clock (optional, depending on SoC design)
-  * @task: tasklet to handle the reset operation
-+ * @lock: spin lock to handle reset and stop behavior
-  * @fifo_depth: depth of tx/rx FIFO
-  * @slot_width: width of each DAI slot
-  * @slots: number of slots
-@@ -56,6 +57,7 @@ struct fsl_esai {
- 	struct clk *fsysclk;
- 	struct clk *spbaclk;
- 	struct tasklet_struct task;
-+	spinlock_t lock; /* Protect reset and stop */
- 	u32 fifo_depth;
- 	u32 slot_width;
- 	u32 slots;
-@@ -676,8 +678,10 @@ static void fsl_esai_hw_reset(unsigned long arg)
- {
- 	struct fsl_esai *esai_priv = (struct fsl_esai *)arg;
- 	bool tx = true, rx = false, enabled[2];
-+	unsigned long lock_flags;
- 	u32 tfcr, rfcr;
- 
-+	spin_lock_irqsave(&esai_priv->lock, lock_flags);
- 	/* Save the registers */
- 	regmap_read(esai_priv->regmap, REG_ESAI_TFCR, &tfcr);
- 	regmap_read(esai_priv->regmap, REG_ESAI_RFCR, &rfcr);
-@@ -715,6 +719,8 @@ static void fsl_esai_hw_reset(unsigned long arg)
- 		fsl_esai_trigger_start(esai_priv, tx);
- 	if (enabled[rx])
- 		fsl_esai_trigger_start(esai_priv, rx);
-+
-+	spin_unlock_irqrestore(&esai_priv->lock, lock_flags);
- }
- 
- static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
-@@ -722,6 +728,7 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
- {
- 	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	unsigned long lock_flags;
- 
- 	esai_priv->channels[tx] = substream->runtime->channels;
- 
-@@ -734,7 +741,9 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		spin_lock_irqsave(&esai_priv->lock, lock_flags);
- 		fsl_esai_trigger_stop(esai_priv, tx);
-+		spin_unlock_irqrestore(&esai_priv->lock, lock_flags);
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -1002,6 +1011,7 @@ static int fsl_esai_probe(struct platform_device *pdev)
- 
- 	dev_set_drvdata(&pdev->dev, esai_priv);
- 
-+	spin_lock_init(&esai_priv->lock);
- 	ret = fsl_esai_hw_init(esai_priv);
- 	if (ret)
- 		return ret;
--- 
-2.21.0
-
+Thanks for the catching.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,83 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5132EE30AF
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Oct 2019 13:41:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DB19E312B
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Oct 2019 13:46:44 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D99C316AF;
-	Thu, 24 Oct 2019 13:41:06 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D99C316AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2133C16AE;
+	Thu, 24 Oct 2019 13:45:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2133C16AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571917316;
-	bh=N1k8ZVfESTl5BQvDHf1+nG+//O2Gsil71BwbC2zeoG8=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571917604;
+	bh=4Q0rnC+SaauMYuxtzqzX6DpuHne07z6llqAeVTGhyyk=;
+	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BXfA/luh955QwM8ZgQFxyQGA1OPfoAnNRP9aaNAOAiSPervbk8LfA/CwJXj37MvXc
-	 FIIVq/Ep8B7Iw7vG0REikezNO7/XgwedjwKeJ5UZgX5bVYt7BYLDWZg1E5pvlIkJSl
-	 k8mRS/NFKSdmOEyU9OveMy8aJau+JYUGNi70/riU=
+	b=nq30BG7niSg5iW1yDwYu0ArQz7kSg2J4ZFiXCIMVhv8arhubDt5x/PzrL/Mmg4Rr4
+	 P+fLgkfpCF2H2AQA2jBn7DbCpGTnpIUNbxIXGMl2f558sntagS6FXK8d+32KQ1qO2h
+	 NVxlNXkNXUIlYwVgL9KmvAVC5eJq5Sd0ufhf2UDs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7AEC3F8036E;
-	Thu, 24 Oct 2019 13:40:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A08FF8036B;
+	Thu, 24 Oct 2019 13:45:00 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F313EF8036E; Thu, 24 Oct 2019 13:40:21 +0200 (CEST)
+ id 25F5FF8036B; Thu, 24 Oct 2019 13:44:57 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3815CF80137
- for <alsa-devel@alsa-project.org>; Thu, 24 Oct 2019 13:40:18 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3815CF80137
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="OijjdxG5"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=X3j9UrH+/Fzfrt4StiXNQ+AaG04IVrkqPFPRYShjJH4=; b=OijjdxG5DT0DclHIlyYtSOjt9
- QKdLW86wpsJkyhSha1lDzuwcYivt7PvCkdZX9pi4Q7Byvs5+Kqeb3SPxkP2rPwLA4qcU/l9usNBRc
- YrsHsThy+YglGy1Xh/JSyUSZ20k+pK7cPajhMVLb/u3A5i6RWdPBsgdq+S9c0jSRvzQE8=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iNbTU-0003Ph-7k; Thu, 24 Oct 2019 11:40:16 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 700B5274293C; Thu, 24 Oct 2019 12:40:15 +0100 (BST)
-Date: Thu, 24 Oct 2019 12:40:15 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-Message-ID: <20191024114015.GG5207@sirena.co.uk>
-References: <1571432760-3008-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1571432760-3008-3-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-MIME-Version: 1.0
-In-Reply-To: <1571432760-3008-3-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-X-Cookie: What foods these morsels be!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Maruthi Bayyavarapu <maruthi.bayyavarapu@amd.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- open list <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Sanju R Mehta <sanju.mehta@amd.com>,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- Colin Ian King <colin.king@canonical.com>
-Subject: Re: [alsa-devel] [PATCH 3/7] ASoC: amd: Enabling I2S instance in
-	DMA and DAI
+ by alsa1.perex.cz (Postfix) with ESMTPS id 110D0F80137
+ for <alsa-devel@alsa-project.org>; Thu, 24 Oct 2019 13:44:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 110D0F80137
+Received: from [114.245.47.48] (helo=localhost.localdomain)
+ by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <aaron.ma@canonical.com>)
+ id 1iNbXt-0003cb-GY; Thu, 24 Oct 2019 11:44:50 +0000
+From: Aaron Ma <aaron.ma@canonical.com>
+To: perex@perex.cz, tiwai@suse.com, kailang@realtek.com,
+ hui.wang@canonical.com, alsa-devel@alsa-project.org,
+ aaron.ma@canonical.com, linux-kernel@vger.kernel.org
+Date: Thu, 24 Oct 2019 19:44:39 +0800
+Message-Id: <20191024114439.31522-1-aaron.ma@canonical.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20191022153855.14368-1-aaron.ma@canonical.com>
+References: <20191022153855.14368-1-aaron.ma@canonical.com>
+Subject: [alsa-devel] [PATCH v3] ALSA: hda/realtek - Fix 2 front mics of
+	codec 0x623
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,84 +65,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7913356178156291613=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+These 2 ThinkCentres installed a new realtek codec ID 0x623,
+it has 2 front mics with the same location on pin 0x18 and 0x19.
 
---===============7913356178156291613==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XaUbO9McV5wPQijU"
-Content-Disposition: inline
+Apply fixup ALC283_FIXUP_HEADSET_MIC to change 1 front mic
+location to right, then pulseaudio can handle them.
+One "Front Mic" and one "Mic" will be shown, and audio output works
+fine.
 
+Signed-off-by: Aaron Ma <aaron.ma@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
---XaUbO9McV5wPQijU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Sat, Oct 19, 2019 at 02:35:41AM +0530, Ravulapati Vishnu vardhan rao wrote:
-
-> +		case I2S_BT_INSTANCE:
-> +			val = rv_readl(rtd->acp3x_base + mmACP_BTTDM_ITER);
-> +			val = val | (rtd->xfer_resolution  << 3);
-> +			rv_writel(val, rtd->acp3x_base + mmACP_BTTDM_ITER);
-> +		break;
-
-For some reason the break; isn't indented with the rest of the block.
-I'm fairly sure I've mentioned this before...
-
-> +		case I2S_SP_INSTANCE:
-> +		default:
-> +			val = rv_readl(rtd->acp3x_base + mmACP_I2STDM_ITER);
-> +			val = val | (rtd->xfer_resolution  << 3);
-> +			rv_writel(val, rtd->acp3x_base + mmACP_I2STDM_ITER);
-> +		}
-
-Missing break; here - again it's normal kernel coding style to include
-it.
-
-> +	struct snd_soc_pcm_runtime *prtd = substream->private_data;
-> +	struct snd_soc_card *card = prtd->card;
-> +	struct acp3x_platform_info *pinfo = snd_soc_card_get_drvdata(card);
-> +
-> +	if (pinfo) {
-> +		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> +			rtd->i2s_instance = pinfo->play_i2s_instance;
-> +		else
-> +			rtd->i2s_instance = pinfo->cap_i2s_instance;
-> +	}
-
-Looks like you need an error handling case here if pinfo is missing,
-i2s_instance needs to be set.  There are default cases but it's not
-clear that that's a good idea, the intent of the code is clearly that
-there's always platform data.
-
---XaUbO9McV5wPQijU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2xjZ4ACgkQJNaLcl1U
-h9BhrAf/Txqck6/DbNHSTK8lPyCZ9s2RTKplJJicUfk0nuoJtCepGTPnONQjxLm5
-4zppLX7vtUzP9GVvTBzR5acgF79LIEOtevrY2H/3fAJ4W93HsshpLQtDs45ksPrE
-HBiiXl16hX9WNRf1s17LizgPUw+izaQsAhDf8JuBWcKRfhRL9M8/oxe4ZgE3wooK
-SLE7e74+roHIWQ9hhb7eJy4IQSquVSb3dYFpHruwQVJxN20uKypEPzeVxO2EYAK4
-e9GBmKw8rXzlsVME8M57mIQ4RgO3J/hOvmv2Rtpa+lJ26H5qpQqxcLuCpCZ5KR+C
-+2yTqhWbMBMHjpfQtibSEyJFfe8YTw==
-=8jUs
------END PGP SIGNATURE-----
-
---XaUbO9McV5wPQijU--
-
---===============7913356178156291613==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index a0c237cc13d4..80f66ba85f87 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -7221,6 +7221,8 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x312f, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
+ 	SND_PCI_QUIRK(0x17aa, 0x313c, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
+ 	SND_PCI_QUIRK(0x17aa, 0x3151, "ThinkCentre Station", ALC283_FIXUP_HEADSET_MIC),
++	SND_PCI_QUIRK(0x17aa, 0x3176, "ThinkCentre Station", ALC283_FIXUP_HEADSET_MIC),
++	SND_PCI_QUIRK(0x17aa, 0x3178, "ThinkCentre Station", ALC283_FIXUP_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x3902, "Lenovo E50-80", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+ 	SND_PCI_QUIRK(0x17aa, 0x3977, "IdeaPad S210", ALC283_FIXUP_INT_MIC),
+ 	SND_PCI_QUIRK(0x17aa, 0x3978, "Lenovo B50-70", ALC269_FIXUP_DMIC_THINKPAD_ACPI),
+-- 
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7913356178156291613==--

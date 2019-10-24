@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E75E34F7
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Oct 2019 16:04:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C8D09E34FB
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Oct 2019 16:05:45 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40BD016E2;
-	Thu, 24 Oct 2019 16:04:09 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40BD016E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 58EAD41;
+	Thu, 24 Oct 2019 16:04:55 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58EAD41
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571925899;
-	bh=5oruHAwp9gIsfHqivN+YrTzpxr0lAKqQoGfRWv/6ybs=;
+	s=default; t=1571925945;
+	bh=YAlynHED4swo/mkuQgrchfCdIfJj4Tsf2dHBmGLqt2k=;
 	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=E7Ko/3HDrC7iPcnId+sfDdrJwFMIyoHWQBs10lqiX4uzbpy8+Yv8dPeVZzG4Ulw+M
-	 bZjxvakh+bOaFaso0oTsolPYV3DodGJsYu4YE7hLUTVjBM6mRGxBr/+VFrDZCirseo
-	 0iAnWTj/Ruzf/KQDABKjfYx0EM1wvTa8tppCPrrs=
+	b=DlaiK18TLwobwLY51jgQGo4NIKb3O/9OVcoVDq8sCk0WENdUUSuIimlYVxOmEkVju
+	 bkuBdH8rOFlyQfpdywgYPmfjzKT1AePoODc4+OfOvar02WG9WwHZf9iIoe/4pzapsz
+	 53DwBnDc6ITdM7n+X81ageTP7j+2FPz2BK8GVCXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7DA0F80367;
-	Thu, 24 Oct 2019 16:03:14 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AC34F805FB;
+	Thu, 24 Oct 2019 16:03:17 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F7EDF8036E; Thu, 24 Oct 2019 15:47:13 +0200 (CEST)
+ id B277AF8036B; Thu, 24 Oct 2019 15:47:13 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: ***
 X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
  HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
  SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-f198.google.com (mail-il1-f198.google.com
- [209.85.166.198])
+Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
+ [209.85.166.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F775F80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id CC0C6F80137
  for <alsa-devel@alsa-project.org>; Thu, 24 Oct 2019 15:47:10 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F775F80112
-Received: by mail-il1-f198.google.com with SMTP id y7so15643835ilb.3
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC0C6F80137
+Received: by mail-io1-f71.google.com with SMTP id q13so7673955iot.11
  for <alsa-devel@alsa-project.org>; Thu, 24 Oct 2019 06:47:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
- bh=laGJg/ITA0QZDqhx2+KD2negO7qyTZ2zFKV8v0w7O54=;
- b=hatAxfYjGZqF4rW7V8eiawwxWpMrCQ9F6MQ5J2cNp14hdmvhV0/vNbXm36+zG09vXC
- E3VEu7NksWfzrD75l2Xe5sjzDFy92yesyB6Vs23qRxbIQC7WIyXgs5JnEAjctE0oNBqj
- vg57kcv/HzRWvjQFO5PZuJqdRnwJjf/kvnXsUgiY5BQtpW4JjNzQHwc+knp9qz8pAyo8
- Uzax5FbAC/35NbwpDUPBRsjFFTXlK5M8F+/XOHis5EMLHn4fgdYrMXWFqT/pctMZ41jK
- lEHOZSzFSImtLDEOZrLY405GvcQIsqOrdEnO/yvUFfWCvra3luT8mxL61aaUeCinH0nE
- AWLA==
-X-Gm-Message-State: APjAAAUi0NtSwlkTB1ifJBr6Q1xJouUTLOI58URLYvUKZyMON1CDAdir
- nhy1gf3ICawlwdsDDYwZp4nfH+DubcQ6JSEfcSDb/bd1sMgw
-X-Google-Smtp-Source: APXvYqxNbhylOM/zQfqXCs0IhtVFm68yuCUa5QbK8V/In+I9GYJrWp56z5nUn953E0abnkZYettHEO8nbKLmeCU/Vyq4p2l67uEG
+ bh=t2Yf9L/jBVvBAHkV3yxbLEvtZ5yOPvbhkvRuGLMDhJk=;
+ b=iBapWr5zvqLe7y9pCvc4FA7Gwn45ptnhDAaxv3lX0hGdi49UI+8H5NCX3/DRkkuTgJ
+ QnGhD9IlwM345cmULkgIwPJQqBWYXrneckeb2uIerhqY+UMd2olInj587FvZruYrWEHQ
+ paV479yYu/E3w3O9F2hRGt2tgfJChXsFFQZyUH+2dDdrg17MdA6TJoRQsATF2vy+iCJJ
+ 1/NkB8mHvrZ0xNuFXQpDVNK/0JJSNTvsmtbwAbThqDGXQlMelTag7AIe6pmTR8foz/UH
+ UXiSE0urBMJUxGiSazUnLso3UWu3OYgrgTSIyDXbQwS6RXqis2za7feUQ+0TynT8Iy51
+ NHHQ==
+X-Gm-Message-State: APjAAAUGQZCTQLSt98cI9yizYLSxcHImG3d7o2yVoufOigk0qLcV/uzG
+ fjXznSC/+GGookWkC9K1gVlo1o8rdy2uGrj+9hIlK09tBYCJ
+X-Google-Smtp-Source: APXvYqyC4sdEy11y07JTP5+9irjs97ov2ZNLsdTU94ijiWJNUO9SeMFZ36861bQ4WlArQN0D9fkIp83R8dTI541peCgTmGGF24tG
 MIME-Version: 1.0
-X-Received: by 2002:a02:a199:: with SMTP id n25mr14962560jah.92.1571924828332; 
+X-Received: by 2002:a6b:ea19:: with SMTP id m25mr2163572ioc.256.1571924828662; 
  Thu, 24 Oct 2019 06:47:08 -0700 (PDT)
 Date: Thu, 24 Oct 2019 06:47:08 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <00000000000001b0a40595a84593@google.com>
-From: syzbot <syzbot+97e24236f1e2918ad968@syzkaller.appspotmail.com>
-To: allison@lohutok.net, alsa-devel@alsa-project.org, andreyknvl@google.com, 
- benquike@gmail.com, dan.carpenter@oracle.com, g@b4.vu, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, perex@perex.cz, 
+Message-ID: <00000000000006bb9c0595a84569@google.com>
+From: syzbot <syzbot+fd965c77e4711eb13b82@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, andreyknvl@google.com, benquike@gmail.com, 
+ dan.carpenter@oracle.com, g@b4.vu, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, perex@perex.cz, rfontana@redhat.com, 
  syzkaller-bugs@googlegroups.com, tglx@linutronix.de, tiwai@suse.com, 
- wang6495@umn.edu, yuehaibing@huawei.com
+ wang6495@umn.edu
 X-Mailman-Approved-At: Thu, 24 Oct 2019 16:03:12 +0200
-Subject: [alsa-devel] KASAN: use-after-free Read in parse_term_proc_unit
+Subject: [alsa-devel] KASAN: use-after-free Read in build_audio_procunit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,28 +90,28 @@ syzbot found the following crash on:
 
 HEAD commit:    22be26f7 usb-fuzzer: main usb gadget fuzzer driver
 git tree:       https://github.com/google/kasan.git usb-fuzzer
-console output: https://syzkaller.appspot.com/x/log.txt?x=13a38628e00000
+console output: https://syzkaller.appspot.com/x/log.txt?x=17cdccc4e00000
 kernel config:  https://syzkaller.appspot.com/x/.config?x=387eccb7ac68ec5
-dashboard link: https://syzkaller.appspot.com/bug?extid=97e24236f1e2918ad968
+dashboard link: https://syzkaller.appspot.com/bug?extid=fd965c77e4711eb13b82
 compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12184764e00000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1432ae28e00000
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13fe752f600000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17989fd8e00000
 
 IMPORTANT: if you fix the bug, please add the following tag to the commit:
-Reported-by: syzbot+97e24236f1e2918ad968@syzkaller.appspotmail.com
+Reported-by: syzbot+fd965c77e4711eb13b82@syzkaller.appspotmail.com
 
 usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
 usb 1-1: Product: syz
 usb 1-1: Manufacturer: syz
 usb 1-1: SerialNumber: syz
 ==================================================================
-BUG: KASAN: use-after-free in uac_processing_unit_iProcessing  
-include/uapi/linux/usb/audio.h:429 [inline]
-BUG: KASAN: use-after-free in parse_term_proc_unit+0x57a/0x5e0  
-sound/usb/mixer.c:896
-Read of size 1 at addr ffff8881d5346d0e by task kworker/1:2/83
+BUG: KASAN: use-after-free in uac_extension_unit_iExtension  
+include/uapi/linux/usb/audio.h:483 [inline]
+BUG: KASAN: use-after-free in build_audio_procunit+0xeab/0x13f0  
+sound/usb/mixer.c:2434
+Read of size 1 at addr ffff8881d4c0140d by task kworker/0:1/12
 
-CPU: 1 PID: 83 Comm: kworker/1:2 Not tainted 5.4.0-rc3+ #0
+CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.4.0-rc3+ #0
 Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS  
 Google 01/01/2011
 Workqueue: usb_hub_wq hub_event
@@ -121,11 +121,10 @@ Call Trace:
   print_address_description.constprop.0+0x36/0x50 mm/kasan/report.c:374
   __kasan_report.cold+0x1a/0x33 mm/kasan/report.c:506
   kasan_report+0xe/0x20 mm/kasan/common.c:634
-  uac_processing_unit_iProcessing include/uapi/linux/usb/audio.h:429 [inline]
-  parse_term_proc_unit+0x57a/0x5e0 sound/usb/mixer.c:896
-  __check_input_term+0xc32/0x13f0 sound/usb/mixer.c:984
-  parse_audio_feature_unit sound/usb/mixer.c:1875 [inline]
-  parse_audio_unit+0x101d/0x36f0 sound/usb/mixer.c:2753
+  uac_extension_unit_iExtension include/uapi/linux/usb/audio.h:483 [inline]
+  build_audio_procunit+0xeab/0x13f0 sound/usb/mixer.c:2434
+  parse_audio_extension_unit sound/usb/mixer.c:2483 [inline]
+  parse_audio_unit+0x1812/0x36f0 sound/usb/mixer.c:2761
   snd_usb_mixer_controls+0x715/0xb90 sound/usb/mixer.c:3095
   snd_usb_create_mixer+0x2b5/0x1890 sound/usb/mixer.c:3445
   usb_audio_probe+0xc76/0x2010 sound/usb/card.c:653
@@ -157,7 +156,7 @@ Call Trace:
   kthread+0x318/0x420 kernel/kthread.c:255
   ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
 
-Allocated by task 83:
+Allocated by task 12:
   save_stack+0x1b/0x80 mm/kasan/common.c:69
   set_track mm/kasan/common.c:77 [inline]
   __kasan_kmalloc mm/kasan/common.c:510 [inline]
@@ -179,7 +178,7 @@ Allocated by task 83:
   kthread+0x318/0x420 kernel/kthread.c:255
   ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
 
-Freed by task 83:
+Freed by task 12:
   save_stack+0x1b/0x80 mm/kasan/common.c:69
   set_track mm/kasan/common.c:77 [inline]
   kasan_set_free_info mm/kasan/common.c:332 [inline]
@@ -208,25 +207,25 @@ Freed by task 83:
   kthread+0x318/0x420 kernel/kthread.c:255
   ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
 
-The buggy address belongs to the object at ffff8881d5346d00
+The buggy address belongs to the object at ffff8881d4c01400
   which belongs to the cache kmalloc-192 of size 192
-The buggy address is located 14 bytes inside of
-  192-byte region [ffff8881d5346d00, ffff8881d5346dc0)
+The buggy address is located 13 bytes inside of
+  192-byte region [ffff8881d4c01400, ffff8881d4c014c0)
 The buggy address belongs to the page:
-page:ffffea000754d180 refcount:1 mapcount:0 mapping:ffff8881da002a00  
+page:ffffea0007530040 refcount:1 mapcount:0 mapping:ffff8881da002a00  
 index:0x0
 flags: 0x200000000000200(slab)
-raw: 0200000000000200 ffffea0007548ac0 0000000900000009 ffff8881da002a00
+raw: 0200000000000200 ffffea000754fec0 0000000200000002 ffff8881da002a00
 raw: 0000000000000000 0000000000100010 00000001ffffffff 0000000000000000
 page dumped because: kasan: bad access detected
 
 Memory state around the buggy address:
-  ffff8881d5346c00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  ffff8881d5346c80: 00 00 00 00 05 fc fc fc fc fc fc fc fc fc fc fc
-> ffff8881d5346d00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+  ffff8881d4c01300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  ffff8881d4c01380: 00 00 00 07 fc fc fc fc fc fc fc fc fc fc fc fc
+> ffff8881d4c01400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
                        ^
-  ffff8881d5346d80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-  ffff8881d5346e00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+  ffff8881d4c01480: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+  ffff8881d4c01500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
 ==================================================================
 
 

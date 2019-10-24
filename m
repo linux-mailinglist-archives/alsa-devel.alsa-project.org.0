@@ -2,88 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E19CE34C4
-	for <lists+alsa-devel@lfdr.de>; Thu, 24 Oct 2019 15:50:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A66B1E34C7
+	for <lists+alsa-devel@lfdr.de>; Thu, 24 Oct 2019 15:51:42 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A30FD16DF;
-	Thu, 24 Oct 2019 15:50:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A30FD16DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2ED4B16CB;
+	Thu, 24 Oct 2019 15:50:52 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2ED4B16CB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571925055;
-	bh=5cJiLMO2Pidl7ak/XRrH9Q0xTAf7hh7AWg+wU24Hg1E=;
+	s=default; t=1571925102;
+	bh=JF7d572+ROX28zlXcdjuIK60Oyy1H0zaL/Q6LLEd8U8=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qyjstYctkJdFMTpEZLMAWePg+ZgdhdcwVSy17i87Jky17Vi6pl9GlsmsO4fvRFwmw
-	 ri1Vyh91BkLmeJeujWz0a9yvTgN0cmUGJMxsnjO8HoQCpHf3jwVWL15vfxdesFO6EJ
-	 OmtAl5OR5Vd+1Exc+CkfOQDQXZisdckUsZy77D9o=
+	b=Vd15OE133oXIpzVWjdHYm/SWJPwxiOCVeopAiOTz++FW5ZLwpw5uQObsY/VB45Z2g
+	 t8DD0Fl7389jicNKw0OlmTqO64iZin+tdRFxJ8QNPxkDbj3avAnqzZtRJS3stoFUqo
+	 Bh7Af1t54uFov1UZe4PIzL1jPH3pb0z5acd/Dkbo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36C53F80137;
-	Thu, 24 Oct 2019 15:49:11 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9339F80600;
+	Thu, 24 Oct 2019 15:49:22 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B3B3F80137; Thu, 24 Oct 2019 15:49:09 +0200 (CEST)
+ id C30D7F805FE; Thu, 24 Oct 2019 15:49:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.1 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SORTED_RECIPS,SPF_HELO_NONE,
- SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5371AF80137
- for <alsa-devel@alsa-project.org>; Thu, 24 Oct 2019 15:49:05 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5371AF80137
+ by alsa1.perex.cz (Postfix) with ESMTPS id A6810F80112
+ for <alsa-devel@alsa-project.org>; Thu, 24 Oct 2019 15:49:17 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A6810F80112
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="UsqP464/"
-Received: by mail-pg1-x543.google.com with SMTP id e10so14278804pgd.11
- for <alsa-devel@alsa-project.org>; Thu, 24 Oct 2019 06:49:05 -0700 (PDT)
+ header.b="AT5TqI2O"
+Received: by mail-pf1-x442.google.com with SMTP id x28so1733017pfi.12
+ for <alsa-devel@alsa-project.org>; Thu, 24 Oct 2019 06:49:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rL9YpRyTuHk70/QoA0F/U1TMIayhb73ZwaCrSIsUGq0=;
- b=UsqP464/4ZYI6OWZL4XHYBwL9bycMfpKQ5++JhEVtMKo0dG3NjwPEiX9R2NsXXWc4M
- XowBM8KWPOdtXCdYW5OEa81lXuS4k5IZ1px4o4beFuuF1DvWAR84tc2Xu7RehMxglk/f
- j57YzsaO+CJsTz5T6lDe0dFrntlZwRoWXvd9SuG5IF/DuV/cOQneovTMeo4ec3ZrMiw5
- dSCC+cdQLxBc8gur4COhlz3olcHe/hzc845romh421NdfIM9+XJzPTaSSWY0LqHlEAUE
- he48zkk61qfDW1TdbCe17vGExz/XLebfCtHWRXDHAMv+YIOqDbUc2tHVyprOiP7DFlMv
- 1m6g==
+ :cc; bh=Epp7roKhlKHGAskpWn/rk4LYqkhZ0PXTtiAIXJ0osJY=;
+ b=AT5TqI2O5QHrSsCP4a4wU0Ji7l5qDJl48Z8kHrNOqDc0DauuFIBtuedNrQcKIjpm48
+ bnF0Aff+/ERiaQQNy/bwGN6OR2L+FTpmNEcuZs10VmkcUNRfNI2QKRB6dfcGi6XZD3uJ
+ XbOiWx6wb1L91v9Q6dQF0av0fmYFlMHS6uJFi/qeUbtFU89sTDlRGNb4mtpAU/U7Ie39
+ NUmI0wlAsVzik7BMAJPkt7n4CPZhK3AVKC0ytAgO39TrAXAEPeJTMyG5KOaq/GSE5Lj5
+ KR/FZDj3k6cOhpmSSAEO0NgTmViJueqRZWC5ADUP5iyzPrZ/pE5MmgAis8kt3k0XSit6
+ Axmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=rL9YpRyTuHk70/QoA0F/U1TMIayhb73ZwaCrSIsUGq0=;
- b=koGdX6wEL92CAo7VX+lFlZyrAVfRgFN28QNRWxXafI+pE4c1etvd7uityk1RH4BWVC
- weozbLKT16jy7C7WJreWZXmYyvWW55XGhh0duoNMGQqESNhqz6K7HF1hB3xBzULiXox2
- UNQsJV2v69o6UdCmM8kcfw3RCCrXIer+P209H4VmvdZBzY6fAKwcyz1ztoIeuyrfxncQ
- eZNKZwyL1AChAmP52VM8p18/Mr9eYR3BY3vewqlmiHPwxJSpZ9sKGQ7rBj5sWpNL5naM
- MD9mVzCyMMGVwqkJ7bc+yMS5gQu9IYmQqmvT/VQmGud4eu+/aBbRM3GrICKE8CSlPS8a
- gyRg==
-X-Gm-Message-State: APjAAAXuyeiTSX8EmUWp3GrzXGcckCqW7sVk9cYYAof8gKmUL+LdcVIT
- Dp329MU2yXWhx2Xj5ptspmwpCaMPnbkWI/9uswJ+jg==
-X-Google-Smtp-Source: APXvYqzl/ZdSWSJ6mWUTfcNmk43PKaG+hCJrqHP/SB40ZEQLszeBwep9Yue5+aKI7eAEuVPxWq1LOM2ITfL5h6qRWgc=
-X-Received: by 2002:a62:5503:: with SMTP id j3mr17488831pfb.93.1571924943211; 
- Thu, 24 Oct 2019 06:49:03 -0700 (PDT)
+ bh=Epp7roKhlKHGAskpWn/rk4LYqkhZ0PXTtiAIXJ0osJY=;
+ b=O6K0QtsXxX2oJ7UlbNaMzH8AsFA7EbfFe1u6k812DiYmR+50yZzQbuE+NZkKYpcyyd
+ fan/Caaa/40FudEFFcfvEmJAFkb9RED5bYArobZS4pBkhF3oe5XRFUuZOjJVRZMi4C4T
+ 4J8CCfASV3F1ctn/tHm4rhM+K5b2Z36s+kWS4WQXqS0aTJoRmMFNW6S97ofBNwydGPrh
+ 1UtGC6hKtTaSodfZzmzlXuKxS7VqEJNtIhKWL0nnh6SSIVNY/Wp+x7MPMUSzCCT8838M
+ jxHsBT6unKZ++YEPKGMpEc1y7AKp8c2Vd/UHvzquJMXTFX1c42Tov5wQyUx0yCHhEumY
+ nCoA==
+X-Gm-Message-State: APjAAAUBViZbLnSoORamQrPRBA+V59daNwFJWrrIy0r8q+3mSBZEBUDM
+ aeNx3kF65mCWE47qNypgJPIkAtImsR06BLgYJXeZ3e/XMPM=
+X-Google-Smtp-Source: APXvYqxLe8KHesj6gA4iauDrWWbEGuaZ8KBBM7JPPyWbx/nPNfQVymo5EvHkb8EfQazchk8Z+Fu45HXtWEluaqdUL4o=
+X-Received: by 2002:a63:541e:: with SMTP id i30mr16689978pgb.130.1571924955198; 
+ Thu, 24 Oct 2019 06:49:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <00000000000001b0a40595a84593@google.com>
-In-Reply-To: <00000000000001b0a40595a84593@google.com>
+References: <00000000000006bb9c0595a84569@google.com>
+In-Reply-To: <00000000000006bb9c0595a84569@google.com>
 From: Andrey Konovalov <andreyknvl@google.com>
-Date: Thu, 24 Oct 2019 15:48:52 +0200
-Message-ID: <CAAeHK+yM9+69_au5oZzqmRuFuh_SQr3nFCWGCcGueDrvsxyFgA@mail.gmail.com>
-To: syzbot <syzbot+97e24236f1e2918ad968@syzkaller.appspotmail.com>
-Cc: alsa-devel@alsa-project.org, g@b4.vu, yuehaibing@huawei.com,
- wang6495@umn.edu, USB list <linux-usb@vger.kernel.org>,
+Date: Thu, 24 Oct 2019 15:49:03 +0200
+Message-ID: <CAAeHK+yOsChMWj=fnd55mG05asOzFo1Q8dgpiMYpRYnv+_NPbg@mail.gmail.com>
+To: syzbot <syzbot+fd965c77e4711eb13b82@syzkaller.appspotmail.com>
+Cc: alsa-devel@alsa-project.org, g@b4.vu, wang6495@umn.edu,
+ USB list <linux-usb@vger.kernel.org>,
  syzkaller-bugs <syzkaller-bugs@googlegroups.com>,
- LKML <linux-kernel@vger.kernel.org>, Allison Randal <allison@lohutok.net>,
+ LKML <linux-kernel@vger.kernel.org>, Richard Fontana <rfontana@redhat.com>,
  Takashi Iwai <tiwai@suse.com>, Thomas Gleixner <tglx@linutronix.de>,
  =?UTF-8?B?5b2t6L6J?= <benquike@gmail.com>,
  Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel] KASAN: use-after-free Read in parse_term_proc_unit
+Subject: Re: [alsa-devel] KASAN: use-after-free Read in build_audio_procunit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,7 +102,7 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Thu, Oct 24, 2019 at 3:47 PM syzbot
-<syzbot+97e24236f1e2918ad968@syzkaller.appspotmail.com> wrote:
+<syzbot+fd965c77e4711eb13b82@syzkaller.appspotmail.com> wrote:
 >
 > Hello,
 >
@@ -110,28 +110,28 @@ On Thu, Oct 24, 2019 at 3:47 PM syzbot
 >
 > HEAD commit:    22be26f7 usb-fuzzer: main usb gadget fuzzer driver
 > git tree:       https://github.com/google/kasan.git usb-fuzzer
-> console output: https://syzkaller.appspot.com/x/log.txt?x=13a38628e00000
+> console output: https://syzkaller.appspot.com/x/log.txt?x=17cdccc4e00000
 > kernel config:  https://syzkaller.appspot.com/x/.config?x=387eccb7ac68ec5
-> dashboard link: https://syzkaller.appspot.com/bug?extid=97e24236f1e2918ad968
+> dashboard link: https://syzkaller.appspot.com/bug?extid=fd965c77e4711eb13b82
 > compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12184764e00000
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1432ae28e00000
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=13fe752f600000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17989fd8e00000
 >
 > IMPORTANT: if you fix the bug, please add the following tag to the commit:
-> Reported-by: syzbot+97e24236f1e2918ad968@syzkaller.appspotmail.com
+> Reported-by: syzbot+fd965c77e4711eb13b82@syzkaller.appspotmail.com
 >
 > usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
 > usb 1-1: Product: syz
 > usb 1-1: Manufacturer: syz
 > usb 1-1: SerialNumber: syz
 > ==================================================================
-> BUG: KASAN: use-after-free in uac_processing_unit_iProcessing
-> include/uapi/linux/usb/audio.h:429 [inline]
-> BUG: KASAN: use-after-free in parse_term_proc_unit+0x57a/0x5e0
-> sound/usb/mixer.c:896
-> Read of size 1 at addr ffff8881d5346d0e by task kworker/1:2/83
+> BUG: KASAN: use-after-free in uac_extension_unit_iExtension
+> include/uapi/linux/usb/audio.h:483 [inline]
+> BUG: KASAN: use-after-free in build_audio_procunit+0xeab/0x13f0
+> sound/usb/mixer.c:2434
+> Read of size 1 at addr ffff8881d4c0140d by task kworker/0:1/12
 >
-> CPU: 1 PID: 83 Comm: kworker/1:2 Not tainted 5.4.0-rc3+ #0
+> CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.4.0-rc3+ #0
 > Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS
 > Google 01/01/2011
 > Workqueue: usb_hub_wq hub_event
@@ -141,11 +141,10 @@ On Thu, Oct 24, 2019 at 3:47 PM syzbot
 >   print_address_description.constprop.0+0x36/0x50 mm/kasan/report.c:374
 >   __kasan_report.cold+0x1a/0x33 mm/kasan/report.c:506
 >   kasan_report+0xe/0x20 mm/kasan/common.c:634
->   uac_processing_unit_iProcessing include/uapi/linux/usb/audio.h:429 [inline]
->   parse_term_proc_unit+0x57a/0x5e0 sound/usb/mixer.c:896
->   __check_input_term+0xc32/0x13f0 sound/usb/mixer.c:984
->   parse_audio_feature_unit sound/usb/mixer.c:1875 [inline]
->   parse_audio_unit+0x101d/0x36f0 sound/usb/mixer.c:2753
+>   uac_extension_unit_iExtension include/uapi/linux/usb/audio.h:483 [inline]
+>   build_audio_procunit+0xeab/0x13f0 sound/usb/mixer.c:2434
+>   parse_audio_extension_unit sound/usb/mixer.c:2483 [inline]
+>   parse_audio_unit+0x1812/0x36f0 sound/usb/mixer.c:2761
 >   snd_usb_mixer_controls+0x715/0xb90 sound/usb/mixer.c:3095
 >   snd_usb_create_mixer+0x2b5/0x1890 sound/usb/mixer.c:3445
 >   usb_audio_probe+0xc76/0x2010 sound/usb/card.c:653
@@ -177,7 +176,7 @@ On Thu, Oct 24, 2019 at 3:47 PM syzbot
 >   kthread+0x318/0x420 kernel/kthread.c:255
 >   ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
 >
-> Allocated by task 83:
+> Allocated by task 12:
 >   save_stack+0x1b/0x80 mm/kasan/common.c:69
 >   set_track mm/kasan/common.c:77 [inline]
 >   __kasan_kmalloc mm/kasan/common.c:510 [inline]
@@ -199,7 +198,7 @@ On Thu, Oct 24, 2019 at 3:47 PM syzbot
 >   kthread+0x318/0x420 kernel/kthread.c:255
 >   ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
 >
-> Freed by task 83:
+> Freed by task 12:
 >   save_stack+0x1b/0x80 mm/kasan/common.c:69
 >   set_track mm/kasan/common.c:77 [inline]
 >   kasan_set_free_info mm/kasan/common.c:332 [inline]
@@ -228,25 +227,25 @@ On Thu, Oct 24, 2019 at 3:47 PM syzbot
 >   kthread+0x318/0x420 kernel/kthread.c:255
 >   ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
 >
-> The buggy address belongs to the object at ffff8881d5346d00
+> The buggy address belongs to the object at ffff8881d4c01400
 >   which belongs to the cache kmalloc-192 of size 192
-> The buggy address is located 14 bytes inside of
->   192-byte region [ffff8881d5346d00, ffff8881d5346dc0)
+> The buggy address is located 13 bytes inside of
+>   192-byte region [ffff8881d4c01400, ffff8881d4c014c0)
 > The buggy address belongs to the page:
-> page:ffffea000754d180 refcount:1 mapcount:0 mapping:ffff8881da002a00
+> page:ffffea0007530040 refcount:1 mapcount:0 mapping:ffff8881da002a00
 > index:0x0
 > flags: 0x200000000000200(slab)
-> raw: 0200000000000200 ffffea0007548ac0 0000000900000009 ffff8881da002a00
+> raw: 0200000000000200 ffffea000754fec0 0000000200000002 ffff8881da002a00
 > raw: 0000000000000000 0000000000100010 00000001ffffffff 0000000000000000
 > page dumped because: kasan: bad access detected
 >
 > Memory state around the buggy address:
->   ffff8881d5346c00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->   ffff8881d5346c80: 00 00 00 00 05 fc fc fc fc fc fc fc fc fc fc fc
-> > ffff8881d5346d00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>   ffff8881d4c01300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>   ffff8881d4c01380: 00 00 00 07 fc fc fc fc fc fc fc fc fc fc fc fc
+> > ffff8881d4c01400: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
 >                        ^
->   ffff8881d5346d80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
->   ffff8881d5346e00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>   ffff8881d4c01480: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+>   ffff8881d4c01500: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
 > ==================================================================
 >
 >

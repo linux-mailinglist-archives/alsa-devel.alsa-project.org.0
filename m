@@ -2,70 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EC5CE47D7
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 11:51:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B34E7E47F3
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 11:57:30 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AB6117A3;
-	Fri, 25 Oct 2019 11:50:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AB6117A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40CEC17A6;
+	Fri, 25 Oct 2019 11:56:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40CEC17A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571997099;
-	bh=t5ztHQQutNQvxJ6fb7G/VcyjDKodLakQb3UM4adLbss=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571997450;
+	bh=2dJkPghqfZ+UjfnKdv6J3eQbY/2CXacBK0T4wiYiNHM=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IPkx80+lF5F+RKZOHs3R3bFlHrXTXG7GFZElT8WeUkElpouQvPIfCMgySLwZjLTps
-	 QnypSGIkzxNuMnni28CtitIwpklFVP0H7LBJ1dNWBwq8rOYR3B82jYwvcb0V+YXWaE
-	 7n6mQX8HpGS62sgWI2+Usm8vud0QC8vHkifVRzNk=
+	b=dEZhI8O8ko+a5VevwpZGoXhCuDNwfApB/3WOzA+x0sIEWae6dlwGRq4eW9lK9AYY6
+	 FZSPO1RirlvzfRrfywP3qI/0pTCeGS3pNwF552h30rw2jOXFLx5hesRT4f/zQtkz3P
+	 oFQU/QB1U4ZXLRWG1CFI8ugX/Y/qq6C9+wUEdVa4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3222BF80112;
-	Fri, 25 Oct 2019 11:49:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0859CF802A0;
+	Fri, 25 Oct 2019 11:55:46 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1521FF8036F; Fri, 25 Oct 2019 11:49:53 +0200 (CEST)
+ id 3DDDEF8036F; Fri, 25 Oct 2019 11:55:43 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODYSUB_5,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3C48F80112
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 11:49:50 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D2261A0040;
- Fri, 25 Oct 2019 11:49:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D2261A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1571996989; bh=hgXCja1+6Os8JseQQH0Ew4SBc19oUiA2DVcz237b7QI=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=V8YkW2y7PeuqmcLV+lLA4YvHVZjq93fGEh7olyVAYTmrK2IRIHIZ4dUG/97KAN4Sx
- WG5muxCz1YyO7h0WT/XTXs6toblI0bPzmLglse1r3r/sIJHtrttCImHezkX0RD9zDh
- 9AwJ2F3aWAaUz/potY/8/u5aRPDrvfDKWzu3XErc=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 25 Oct 2019 11:49:46 +0200 (CEST)
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- ALSA development <alsa-devel@alsa-project.org>
-References: <20191022174313.29087-1-perex@perex.cz>
- <6d4e41fe-ba1e-3c89-582c-f8dc0964cf18@linux.intel.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <0036ad81-c383-ec91-5acb-fccf681b538c@perex.cz>
-Date: Fri, 25 Oct 2019 11:49:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC6B4F802A0
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 11:55:40 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC6B4F802A0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="slcb1nAz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=8Q43EHgrQ37XLYLMbydJx8zVprEj7FoK+fTwNtZOM/Y=; b=slcb1nAzCdIMLaTfciUUpmtL3
+ UtW/UtgdkrOEMOD4V8k5X59TpPHtK83Z9BbIavVhsYLtLLNTcH1kOv93zoz4b6zFeIuKCOs21zbm3
+ N0PWYo7RE9p5HvAXdtViv1AWSPufgvAdvxSuvIdly5H/8g7yaFPcxEET2W/DMCeS3qhJw=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iNwJm-0006bs-G2; Fri, 25 Oct 2019 09:55:38 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 73CAA274326E; Fri, 25 Oct 2019 10:55:37 +0100 (BST)
+Date: Fri, 25 Oct 2019 10:55:37 +0100
+From: Mark Brown <broonie@kernel.org>
+To: vishnu <vravulap@amd.com>
+Message-ID: <20191025095537.GB4209@sirena.co.uk>
+References: <1571432760-3008-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <1571432760-3008-3-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <20191024114015.GG5207@sirena.co.uk>
+ <3aed0c75-80e7-cc9d-59f9-6ef29b665efc@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <6d4e41fe-ba1e-3c89-582c-f8dc0964cf18@linux.intel.com>
-Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [alsa-devel] [PATCH v5 1/2] ALSA: hda: add Intel DSP
- configuration / probe code
+In-Reply-To: <3aed0c75-80e7-cc9d-59f9-6ef29b665efc@amd.com>
+X-Cookie: Power is poison.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Maruthi Bayyavarapu <maruthi.bayyavarapu@amd.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>, "Mehta,
+ Sanju" <Sanju.Mehta@amd.com>, "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Mukunda, Vijendar" <Vijendar.Mukunda@amd.com>, "RAVULAPATI,
+ VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Colin Ian King <colin.king@canonical.com>
+Subject: Re: [alsa-devel] [PATCH 3/7] ASoC: amd: Enabling I2S instance in
+	DMA and DAI
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,76 +94,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1066329429595129008=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 24. 10. 19 v 22:33 Pierre-Louis Bossart napsal(a):
-> 
-> 
-> On 10/22/19 12:43 PM, Jaroslav Kysela wrote:
->> For distributions, we need one place where we can decide
->> which driver will be activated for the auto-configation of the
->> Intel's HDA hardware with DSP. Actually, we cover three drivers:
->>
->> * Legacy HDA
->> * Intel SST
->> * Intel Sound Open Firmware (SOF)
->>
->> All those drivers registers similar PCI IDs, so the first
->> driver probed from the PCI stack can win. But... it is not
->> guaranteed that the correct driver wins.
->>
->> This commit changes Intel's NHLT ACPI module to a common
->> DSP probe module for the Intel's hardware. All above sound
->> drivers calls this code. The user can force another behaviour
->> using the module parameter 'dsp_driver' located in
->> the 'snd-intel-dspcfg' module.
->>
->> This change allows to add specific dmi checks for the specific
->> systems. The examples are taken from the pull request:
->>
->>     https://github.com/thesofproject/linux/pull/927
->>
->> Tested on Lenovo Carbon X1 7th gen.
-> 
-> Jaroslav, I found a case where the logic doesn't seem to work as intended.
-> 
-> the code currently scans through the table looking for a PCI ID match,
-> and a DMI match for quirks.
-> 
-> On a KBL NUC device with the DSP enabled, we go through the entire list
-> without finding a match, which means we return the _ANY flag. so if we
-> try to probe the snd-soc-skl driver, the checks will allow the driver to
-> continue, despite this configuration not being supported.
-> 
-> It was my understanding that we would always load the legacy driver
-> *unless* there is a match in the table? If yes, there we can change the
-> default this way:
-> 
-> @@ -333,7 +355,7 @@ int snd_intel_dsp_driver_probe(struct pci_dev *pci)
->           /* find the configuration for the specific device */
->           cfg = snd_intel_dsp_find_config(pci, config_table,
-> ARRAY_SIZE(config_table));
->           if (!cfg)
-> -               return SND_INTEL_DSP_DRIVER_ANY;
-> +               return SND_INTEL_DSP_DRIVER_LEGACY;
-> 
-> Or we need to add a case where we force the legacy in the table for each
-> platform.
 
-I would prefer to add another entry to the configuration table without .flags 
-(or .flags = 0) with a comment, why the legacy driver is selected by default 
-even if the DSP is present.
+--===============1066329429595129008==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tjCHc7DPkfUGtrlw"
+Content-Disposition: inline
 
-				Thanks,
-					Jaroslav
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+--tjCHc7DPkfUGtrlw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Oct 25, 2019 at 06:53:16AM +0000, vishnu wrote:
+> On 24/10/19 5:10 PM, Mark Brown wrote:
+> > On Sat, Oct 19, 2019 at 02:35:41AM +0530, Ravulapati Vishnu vardhan rao=
+ wrote:
+
+> >> +		case I2S_BT_INSTANCE:
+> >> +			val =3D rv_readl(rtd->acp3x_base + mmACP_BTTDM_ITER);
+> >> +			val =3D val | (rtd->xfer_resolution  << 3);
+> >> +			rv_writel(val, rtd->acp3x_base + mmACP_BTTDM_ITER);
+> >> +		break;
+
+> > For some reason the break; isn't indented with the rest of the block.
+> > I'm fairly sure I've mentioned this before...
+
+> Sorry for this but I am not able to find indentation.I have tested with=
+=20
+> scripts/checkpatch.pl. It shows no warnings.
+
+The break should be aligned with the rest of the block like I said, an
+extra tab in - you can see lots of examples of break statements in the
+kernel.
+
+--tjCHc7DPkfUGtrlw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl2yxpgACgkQJNaLcl1U
+h9D2EAf/WSOT4sEicM8hxRm4Afv0zc8QzmWWpk3kpMbsbHCyqGcZi3zLh98kr8lD
+u47RPeWzylVb9VRl9y+sPxFSijyTtzN/QAbhGjEkK4hqE+q6mqsawKdKljlMdFUR
+tx8E1yWONkYobWTs94EYAwP2gg6fsQs6qaUTqQWaZB2E5yvxjFsJWNoIpICxVYOR
+oGFZzwW/ly8/taJtA5Q5310KIsLxmnl+HcJXQmZpRnZj3pdSUTKj3z9ukwgy9I9U
+v1yBS4ghFDjZod4vkFjPEJZpScJLabIrgXFgGI/PCHvy7fkvB8Wz9IabAyfWMmVr
+3kT2BFuIxxgXp2xDYxHDxFeahLzuMg==
+=fpuJ
+-----END PGP SIGNATURE-----
+
+--tjCHc7DPkfUGtrlw--
+
+--===============1066329429595129008==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1066329429595129008==--

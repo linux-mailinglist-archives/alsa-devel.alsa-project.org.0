@@ -2,75 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE36CE486E
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 12:18:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED41CE4A78
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 13:51:35 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 424E817D8;
-	Fri, 25 Oct 2019 12:17:50 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 424E817D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 586DE17C8;
+	Fri, 25 Oct 2019 13:50:45 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 586DE17C8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571998720;
-	bh=4eoQROfK7/ARoRAljXPdvyOYPt3CZVVY7d36ENlyqRg=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=udr4fQiQJJXVlD7b4mFYrA/R6beUk3qaeRmcgJYmFsffIXUFDH3darYUm86cReVWt
-	 Gqlv0wTRwCd3zfwXoPAz6ZH2UiREylEftfeQIeyrUSaNT8TiT/3/MMTiL/wHPRmjvU
-	 36X6T+7P1BaaoQn48zGDy4K4zFwvJbJ7U8fSnI1k=
+	s=default; t=1572004295;
+	bh=0jD+Zzsj0Lh8HxPee/QGYxHqzQp4KcT0Unopxe0K6is=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Gl6s8XqCu/YmmFXzZBBen5pTIRdNYA79Pw8eEVyd+DvIg/dvA+CVxJl8V6w1GPhab
+	 QzdPz1mbyn6D5EJnWxdemm0Qeyyi4ODLfnRVvo0yRx79mf6SSIkwqurVOlBizMkTEf
+	 pCpjwGKcJ3C0SGBagTPPIeM4zcPF1TVFYUDNNRUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 538FFF8065D;
-	Fri, 25 Oct 2019 12:12:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAF60F8036F;
+	Fri, 25 Oct 2019 13:49:50 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71459F803D7; Fri, 25 Oct 2019 12:12:25 +0200 (CEST)
+ id 7485EF8036F; Fri, 25 Oct 2019 13:49:48 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 100B3F805FA
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 12:12:14 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 100B3F805FA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="JF2doRef"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=UIHdbuehA4W5cQC/qzKEDI4VtUGGKof8itjs+eOyx+E=; b=JF2doRefoXnQ
- lWBOkJj9/uB6Rh/B2njgORKwRLWda76rcCGjW5aM/TE7Pb8uf+ma1bvwawEJiBBbk4x8pN4jUK+7n
- 05AiVkU+lfk5wAB/2Auucd0ZxvxZUApFlrhkCcfc1x5y7o/iZYpShdZ5K0dZPqiZ132ufI1RuPzZ0
- 6iw98=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iNwZp-0006eG-Ph; Fri, 25 Oct 2019 10:12:13 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 3AA502743273; Fri, 25 Oct 2019 11:12:13 +0100 (BST)
-From: Mark Brown <broonie@kernel.org>
-To: Colin Ian King <colin.king@canonical.com>
-In-Reply-To: <20191024124610.18182-1-colin.king@canonical.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20191025101213.3AA502743273@ypsilon.sirena.org.uk>
-Date: Fri, 25 Oct 2019 11:12:13 +0100 (BST)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- kernel-janitors@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>
-Subject: [alsa-devel] Applied "ASoC: rt5677: Add missing null check for
-	failed allocation of rt5677_dsp" to the asoc tree
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABCA6F802A0
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 13:49:43 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABCA6F802A0
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2019 04:49:41 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,228,1569308400"; d="scan'208";a="373535405"
+Received: from mylly.fi.intel.com (HELO [10.237.72.180]) ([10.237.72.180])
+ by orsmga005.jf.intel.com with ESMTP; 25 Oct 2019 04:49:38 -0700
+To: Tzung-Bi Shih <tzungbi@google.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+References: <CA+Px+wUAzwf1kYD8eMogE9Y6Euw4_-itc5EPWU19c_Sg6+ypQA@mail.gmail.com>
+From: Jarkko Nikula <jarkko.nikula@linux.intel.com>
+Message-ID: <226b1567-08bc-28f1-92e4-42ca04e42c9c@linux.intel.com>
+Date: Fri, 25 Oct 2019 14:49:37 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <CA+Px+wUAzwf1kYD8eMogE9Y6Euw4_-itc5EPWU19c_Sg6+ypQA@mail.gmail.com>
+Content-Language: en-US
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Dylan Reid <dgreid@google.com>, Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ Benson Leung <bleung@google.com>, Hsin-yu Chao <hychao@google.com>
+Subject: Re: [alsa-devel] Questions about max98090 codec driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,73 +73,100 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Hi
 
-   ASoC: rt5677: Add missing null check for failed allocation of rt5677_dsp
+On 10/24/19 9:23 PM, Tzung-Bi Shih wrote:
+> Hi,
+> 
+> I am studying an odd issue of max98090 codec on Baytrail-based
+> chromebook.  The issue is: when user playback and capture
+> simultaneously, it seems the PLL never get locked if msleep(10)
+> between the SHDN off and on
+> (https://elixir.bootlin.com/linux/v5.4-rc2/source/sound/soc/codecs/max98090.c#L2120).
+> The playback stream becomes silent and the console keeps printing "PLL
+> unlocked".  But, if comment out the msleep(10) between the SHDN off
+> and on, the issue fixed.  I am trying to find the reason but facing
+> further more questions and may need your inputs.
+> 
+My memory is vague but one thing came to my mind - is codec I2S master 
+or slave in your setup? I think we were using codec in slave mode only. 
+However don't know does PLL unlock issue occurs when codec is master.
 
-has been applied to the asoc tree at
+> 1. The commit b8a3ee820f7b ("ASoC: max98090: Add recovery for PLL lock
+> failure") enables ULK interrupts
+> (https://elixir.bootlin.com/linux/v5.4-rc2/source/sound/soc/codecs/max98090.c#L2088)
+> when PCM stream starting.  If max98090 claims its PLL is unlocked,
+> max98090_pll_work() get scheduled to workaround it by SHDN off and on
+> (https://elixir.bootlin.com/linux/v5.4-rc2/source/sound/soc/codecs/max98090.c#L2106).
+> 
+> I feel it is weird to sleep in max98090_pll_work().  Especially, at
+> this line https://elixir.bootlin.com/linux/v5.4-rc2/source/sound/soc/codecs/max98090.c#L2125
+> (it makes less sense to "wait" in another thread).  Note that, the
+> threaded IRQF_ONESHOT handler and max98090_pll_work() are in 2
+> different threads.
+> 
+> I guess the original intention is:
+> - disable ULK interrupt in IRQ handler
+> (https://elixir.bootlin.com/linux/v5.4-rc2/source/sound/soc/codecs/max98090.c#L2260)
+> - schedule max98090_pll_work() to workaround it
+> - wait 10ms to give PLL chance to lock
+> - enable ULK interrupt again
+> If max98090 claims its PLL is unlocked again, repeat the above by
+> receiving another ULK interrupt.
+> 
+No ULK interrupt is disabled until max98090_pll_det_enable_work() 
+enables it 10 ms after stream start.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+If I remember correctly we were getting quite often or always PLL unlock 
+interrupts shortly after stream start even PLL locked itself 
+successfully. On those cases workaround was kind of needless and 
+probably caused pop noise or similar.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+So idea was to activate PLL unlock detection after 10 ms and do the 
+workaround only if interrupt happens after that 10 ms "do not detect" 
+period. Liam please correct if I remember wrong.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> Unfortunately, the odd issue seems not be fixed by my rough
+> implementation of these.
+> 
+> 2. According to the datasheet page 164 table 90
+> (https://datasheets.maximintegrated.com/en/ds/MAX98090.pdf), there are
+> some registers should only be adjusted when SHDN==0.  But I fail to
+> find max98090.c tries to set SHDN to 0 and restore it afterwards when
+> writing to these registers.  For example,
+> https://elixir.bootlin.com/linux/v5.4-rc2/source/sound/soc/codecs/max98090.c#L1897.
+> I am wondering if it would bring any side effects because the
+> datasheet states "Changing these settings during normal operation
+> (SHDN=1) can compromise device stability and performance
+> specifications."
+> 
+> 3. By searching some history data, I found a previous version did not
+> have the msleep(10) between the SHDN off and on
+> (https://crrev.com/c/191740, click the file name in the middle of the
+> window to see the diff.  Pardon me, I do not find another public
+> repository for this).  I am curious if anyone of you still remember
+> why the upstream version contains the msleep(10).  I am also curious
+> if anyone of your environment works well with the upstream version
+> max98090.c.
+> 
+Yeah, that's looks like the one of the Liam's original workarounds for 
+the issue. In that case looping 10 times. We were experimenting a lot 
+around the issue and the commit b8a3ee820f7b ("ASoC: max98090: Add 
+recovery for PLL lock failure") is the one combining our efforts 
+together in the single commit.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Don't remember what incarnation brought these 10 ms sleeps between 
+shutdown toggling and after. I'm guessing one for making sure codec 
+reaches the shutdown and another perhaps for limiting that workaround is 
+not run too soon again.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From f8a60435703bdde8f8a0ceb1aa8dad59df821583 Mon Sep 17 00:00:00 2001
-From: Colin Ian King <colin.king@canonical.com>
-Date: Thu, 24 Oct 2019 13:46:10 +0100
-Subject: [PATCH] ASoC: rt5677: Add missing null check for failed allocation of
- rt5677_dsp
-
-The allocation of rt5677_dsp can potentially fail and return null, so add
-a null check and return -ENOMEM on a memory allocation failure.
-
-Addresses-Coverity: ("Dereference null return")
-Fixes: a0e0d135427c ("ASoC: rt5677: Add a PCM device for streaming hotword via SPI")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
-Link: https://lore.kernel.org/r/20191024124610.18182-1-colin.king@canonical.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/rt5677-spi.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/soc/codecs/rt5677-spi.c b/sound/soc/codecs/rt5677-spi.c
-index 36c02d200cfc..3a17643fcd9f 100644
---- a/sound/soc/codecs/rt5677-spi.c
-+++ b/sound/soc/codecs/rt5677-spi.c
-@@ -376,6 +376,8 @@ static int rt5677_spi_pcm_probe(struct snd_soc_component *component)
- 
- 	rt5677_dsp = devm_kzalloc(component->dev, sizeof(*rt5677_dsp),
- 			GFP_KERNEL);
-+	if (!rt5677_dsp)
-+		return -ENOMEM;
- 	rt5677_dsp->dev = &g_spi->dev;
- 	mutex_init(&rt5677_dsp->dma_lock);
- 	INIT_DELAYED_WORK(&rt5677_dsp->copy_work, rt5677_spi_copy_work);
 -- 
-2.20.1
-
+Jarkko
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,75 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBCDFE4F5E
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 16:41:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BBCAE4F70
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 16:45:10 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72F541837;
-	Fri, 25 Oct 2019 16:40:49 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72F541837
+	by alsa0.perex.cz (Postfix) with ESMTPS id F3642183D;
+	Fri, 25 Oct 2019 16:44:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3642183D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572014499;
-	bh=Zx9qsr9FsrArv7azAucsYy6Pdrjn+UC43T1CJHnfrNw=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1572014710;
+	bh=l3Gt0t/zLoUsw1rto/whV3h3K43Kz2tRsSu6GGtZ8Tk=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dy/PvfGb03HAlDHW6Dce81Jqd5mjkzrf4PezVuaaiLFpuXZgeMvQhEuTMlMcI5RZP
-	 yEEFEqNpIwMXFESElGqjLuKyO8jbmg+5f+Q2SOJqvILMzAdBJwg12vHSByFVdZVqpO
-	 umXQsHQ9kg+nwayGR6t0qkmEezfhpEW62BWAkYkc=
+	b=AtSfVHYgwIzzTtnlzmHbOusFFdagapt9YwUxWQH5M3tQqX4JtQAwLDUw5znyG9W18
+	 Nw1ygH4Co1zJSN1kXR9ADLq0vfjkQq0lQ63r1xcZt7DbSZPFTWV4SAE7RC1VOw097U
+	 cogC1XeQc+73wJ1hoa8rMJvOgLjAaRtiY6WeMrcE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8AAAF803D7;
-	Fri, 25 Oct 2019 16:39:54 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5316CF80274;
+	Fri, 25 Oct 2019 16:43:25 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 03447F80393; Fri, 25 Oct 2019 16:39:52 +0200 (CEST)
+ id 0705CF80368; Fri, 25 Oct 2019 16:43:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8AF07F80368
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 16:39:49 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A3462A0040;
- Fri, 25 Oct 2019 16:39:48 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A3462A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1572014388; bh=0xqJjy2+Z5BtAnsxOcjJEkg/0GLq+RLvM7oz1MK76dI=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=mTwPutmy7O38nyUSQ0bC2OaO20mI9weDUI2oLE9umE4EN7r14Q0hfICvQ6yreWfDV
- 3xDtG4TEBInseMbPDzWLGFkyRTxjAek8J5aK7CcNo76Vqtlw5ROnH0KqnqInAhKX/Z
- +ZmChzQ1LYIEvOvPxVRAdu8I4NydeTtGpV200v40=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 25 Oct 2019 16:39:44 +0200 (CEST)
-To: Takashi Iwai <tiwai@suse.de>
-References: <20191025123038.19728-1-perex@perex.cz>
- <s5hk18tuhio.wl-tiwai@suse.de>
- <bce57a56-99d0-62d7-1d53-099a75349341@perex.cz>
- <s5h36fgvs0m.wl-tiwai@suse.de>
- <9403a6a7-9b7e-c2a4-5acf-50d6cbaea7c7@perex.cz>
- <s5hwocsucfp.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <83e4dc16-07e7-aafb-db43-01a89e31270b@perex.cz>
-Date: Fri, 25 Oct 2019 16:39:44 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
-MIME-Version: 1.0
-In-Reply-To: <s5hwocsucfp.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id EBC67F80274
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 16:43:18 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBC67F80274
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2019 07:43:16 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,228,1569308400"; d="scan'208";a="228921327"
+Received: from pgsmsx107.gar.corp.intel.com ([10.221.44.105])
+ by fmsmga002.fm.intel.com with ESMTP; 25 Oct 2019 07:43:14 -0700
+Received: from pgsmsx108.gar.corp.intel.com ([169.254.8.51]) by
+ PGSMSX107.gar.corp.intel.com ([169.254.7.221]) with mapi id 14.03.0439.000;
+ Fri, 25 Oct 2019 22:43:13 +0800
+From: "Lu, Brent" <brent.lu@intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Thread-Topic: [alsa-devel] [PATCH] ASoC: eve: implement set_bias_level
+ function for rt5514
+Thread-Index: AQHVixSpuo5KyaaW0kmhCX7+/fo7hqdq3ikAgACJfMA=
+Date: Fri, 25 Oct 2019 14:43:12 +0000
+Message-ID: <CF33C36214C39B4496568E5578BE70C740320822@PGSMSX108.gar.corp.intel.com>
+References: <1571994691-20199-1-git-send-email-brent.lu@intel.com>
+ <3ce80285-ddb5-653d-cf60-febc9fd0bdee@linux.intel.com>
+In-Reply-To: <3ce80285-ddb5-653d-cf60-febc9fd0bdee@linux.intel.com>
+Accept-Language: en-US
 Content-Language: en-US
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: change 'HDMI/DP, pcm=' to 'HDMI/DP,
- pcm=' Jack control names
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiM2M5NGUzY2ItYWE2Mi00M2I1LWE3ZTgtZGY4N2NjOWQ0N2NlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiYmw5bnFvdWdlOWk0RG9KZXN1SE9lZ0RjbUJ1R0IwTWo3M2djNU05dE1wd0w0OTlFNXcwZUF1UUdMNm9HdGt3NyJ9
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [172.30.20.206]
+MIME-Version: 1.0
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Tzung-Bi Shih <tzungbi@google.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Richard Fontana <rfontana@redhat.com>, Mark Brown <broonie@kernel.org>, "M,
+ Naveen" <naveen.m@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ "Subhransu S . Prusty" <subhransu.s.prusty@intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: eve: implement set_bias_level
+ function for rt5514
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,88 +93,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 25. 10. 19 v 16:28 Takashi Iwai napsal(a):
-> On Fri, 25 Oct 2019 16:18:20 +0200,
-> Jaroslav Kysela wrote:
->>
->> Dne 25. 10. 19 v 16:06 Takashi Iwai napsal(a):
->>> On Fri, 25 Oct 2019 15:57:50 +0200,
->>> Jaroslav Kysela wrote:
->>>>
->>>> Dne 25. 10. 19 v 14:38 Takashi Iwai napsal(a):
->>>>> On Fri, 25 Oct 2019 14:30:38 +0200,
->>>>> Jaroslav Kysela wrote:
->>>>>>
->>>>>> There is an inconsistency in the names for the HDMI/DP Jack control
->>>>>> names between some ASoC drivers and the HDA HDMI driver which
->>>>>> introduced this naming in 2011.
->>>>>>
->>>>>> There might be an impact for the user space (UCM). I will fix
->>>>>> the UCM configurations when this patch is applied.
->>>>>>
->>>>>> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
->>>>>> Cc: Mark Brown <broonie@kernel.org>
->>>>>> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->>>>>
->>>>> Yes, that's a known problem, and I left them so far just for keeping
->>>>> the already existing stuff working.
->>>>>
->>>>> Won't this break the current Chromebooks user-space?
->>>>
->>>> I would really expect to upgrade UCM configs for the recent kernels in
->>>> this case. I believe, those sort of issues are better to fix early
->>>> than lately. I know, the transition might cause a little issues, but
->>>> usually "do upgrade answer" will help. I don't think that we speak
->>>> about a large group of users here.
->>>
->>> Well, that's obviously against our dont-breaking-user-space rule.
->>> The UCM profiles have been widely used on Chromebooks, and they can't
->>> upgrade easily.
->>>
->>> So, I believe this is a case where we have to live with messes.
->>
->> If we speak about Google's kernels, they can apply a revert (depends
->> on their upgrade/maintenance policy). If users use the standard Linux
->> distributions, then we are fine, don't we?
+> On 10/25/19 4:11 AM, Brent Lu wrote:
+> > The first DMIC capture always fail (zero sequence data from PCM port)
+> > after using DSP hotwording function (i.e. Google assistant).
 > 
-> No, we can't break the already existing user-space.  That's what Linus
-> suggested repeatedly over years, too.
+> Can you clarify where the DSP hotwording is done? Intel DSP or rt5514?
 > 
->> I would make an exception for the dont-breaking-user-space policy in
->> this case. I am sure that the UCM configs will stabilize quickly. And
->> this bad jack name is against our control name policy. It's just a
->> bug.
-> 
-> There is no exception for that, it's a so simple rule.  If something
-> gets *practically* broken by the kernel, it's no-go.  User-space is
-> user-space, and it doesn't matter whether it's upstream or not.
-> 
-> And, even if everything is upstream, imagine that user installs two
-> different kernels, and switches with each other occasionally for
-> whatever reason.  The UCM upgrade solution won't work, either.
-
-It's the corner case with the really low impact. Users do not do this usually. 
-Ok, I will be silent again. It seems that we cannot get an agreement on this 
-simple thing. I just prefer the fix rather than nothing.
-
-				Jaroslav
-
-> 
-> 
-> thanks,
-> 
-> Takashi
+> Turning on the MCLK with the BIAS info might force the Intel DSP to remain
+> on, which would impact power consumption if it was supposed to remain off.
 > 
 
+Hi Pierre,
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+It's done in rt5514's DSP and the interface is SPI instead of I2S for the voice wake 
+up function.
+
+There is a driver rt5514-spi.c which provides platform driver and DAI. User space 
+application first uses the mixer to turn on the voice wake up function:
+
+amixer -c0 cset name='DSP Voice Wake Up' on
+
+Then open and read data from the PCM port which goes to the SPI platform and 
+dai code. Finally it uses same mixer to turn off the function and return to normal 
+codec mode. The DMIC recording (from I2S) and the voice wake on function should 
+be mutually exclusive according to the driver design.
+
+In the codec driver rt5514.c there is a rt5514_set_bias_level function. It's expected to 
+turn on/off mclk here according to Realtek people's say but our ssp clock requires set 
+rate function to be called in advance so I implement the code in machine driver.
+
+
+Regards,
+Brent
+> > This rt5514 codec requires to control mclk directly in the
+> > set_bias_level function. Implement this function in machine driver to
+> > control the ssp1_mclk clock explicitly could fix this issue.
+> >
+> > Signed-off-by: Brent Lu <brent.lu@intel.com>
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

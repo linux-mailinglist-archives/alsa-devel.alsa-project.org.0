@@ -2,80 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9F7E5599
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 23:05:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6FEEE55A8
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 23:12:29 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 31D7218BA;
-	Fri, 25 Oct 2019 23:04:32 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31D7218BA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72DF018B6;
+	Fri, 25 Oct 2019 23:11:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72DF018B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572037522;
-	bh=0dSPnDv/Zi/ZWBg32Vq/QxQ0YJs9/UoU9FQvszD6bOo=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1572037949;
+	bh=BW+A0UHSF1WbDUYsdY9c4U6zjEX7HPWkE6jflGIn1mw=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F4/3PBCb4gmepyC2tcCYTzAYz2xEBFYyGAouZ9WDPDFg/998YnrUOu9awoQ3yY8AO
-	 eWicuNNi4uN9G3Cg9QIVz/+nA2MwYiqUhPZvHTmh8HiDeI7v9J77ikwFQT6kwsWeKp
-	 P1kW2Ccf/NBuyb+lrkm84kT0ucZV/AlGDkZqGeqQ=
+	b=Bx+uroxhLuYjeL0cdEeYDT7/8dZWSW9A+b/tuffxMjNAUJjK5sEoOgHwOS3glhFgS
+	 brnW5RWE2E/Au2Efn7MZjaGitIkz5T8hdzIrTi+TSSUCKr1yxwdnepii8uFW5W9+Jq
+	 CAvnGqy0/h3l1p45rZ1q5kUoRvnFuAc44+7cPi9k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFDA2F80112;
-	Fri, 25 Oct 2019 23:03:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38042F80274;
+	Fri, 25 Oct 2019 23:10:45 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F009CF8036F; Fri, 25 Oct 2019 23:03:34 +0200 (CEST)
+ id 87695F8036F; Fri, 25 Oct 2019 23:10:42 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7DFD0F80112
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 23:03:32 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id ACA69A0040;
- Fri, 25 Oct 2019 23:03:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz ACA69A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1572037411; bh=/SiI4kn3Re8hNhXcGQOQSb5CKvEvXgIbxfEQsXpNGz4=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=ycprgERq17IJayFSDEqGRcUt5XjoRFwOXeYSGpmgNZnhBSo57hGVtQnHCP/RU4kbu
- sGmjEiwZWOk6Iun2ygrqmlzp+duPl68UL14Vt13AuD9tY7Nibf28i6yrwLDckDREpK
- Fq2J3pHlN4i+tnkrQf2HPX6pN8EcXPvayaa89scw=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 25 Oct 2019 23:03:26 +0200 (CEST)
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-References: <20191025123038.19728-1-perex@perex.cz>
- <s5hk18tuhio.wl-tiwai@suse.de>
- <bce57a56-99d0-62d7-1d53-099a75349341@perex.cz>
- <s5h36fgvs0m.wl-tiwai@suse.de>
- <9403a6a7-9b7e-c2a4-5acf-50d6cbaea7c7@perex.cz>
- <s5hwocsucfp.wl-tiwai@suse.de>
- <83e4dc16-07e7-aafb-db43-01a89e31270b@perex.cz>
- <s5heez0oleh.wl-tiwai@suse.de>
- <12c5e861-dd78-99cc-b16f-5ddc2ad0e33b@perex.cz>
- <alpine.DEB.2.21.1910252050230.16459@zeliteleevi>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <ed87baf1-1f2e-22d6-2bd7-267b209310d4@perex.cz>
-Date: Fri, 25 Oct 2019 23:03:26 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id CDEA8F80274
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 23:10:39 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CDEA8F80274
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="M9n9pfj8"
+Received: by mail-pf1-x443.google.com with SMTP id b25so2380622pfi.13
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 14:10:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=4SQYqLXX0XdL1+ct2NCqP0blLyo4HQV7tsLhnLw7hQs=;
+ b=M9n9pfj8q7l6P50lkgGdxZehMpVLDK8ZmI6h116XJC4/64SSNK/YYVX+xv3DRF2ivG
+ Zzgg3mBivr6x3cWPjemy+EWNbPRXm/iIW8aNbCrb94Ls9MlU5jU/jb0mn3yNCTdBo9Wa
+ GmH4WJ6y/7gjeq5BRvdgW8izUhckGGyiGd6AsuGFEcjVRuFiy4McVtTy2Z+/FH/qAd80
+ pmDXrACAkqPxzboLhwXjbCgOhhFJ9jplmG2pc5ZjNF2ksSd46aYvZ0QbZ6CgvzGvsiCH
+ EPNUqMYwahXzG8Vj/dr8l6pm6uxAspTidvfzU2fWuZvxPsaWFfUfz3wbEzJum84O0QfG
+ vMSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=4SQYqLXX0XdL1+ct2NCqP0blLyo4HQV7tsLhnLw7hQs=;
+ b=UF3eS/ztzks1Axyq/LY6ZvgFaOP5CL+Sjp0NR9N2PRRHp4DiFE4DUF1wfRvS3k04nf
+ Gac0zstK+Ca5QY8000KdnsRXtMAviwxZS/NkMlxPo3tzPXbjWsjn7UYgJf95lLJtm5Qr
+ 3SGaEqMgEgvsVbgMup4iSbO6VMeD/OzBGpuImy9WG5fFSzlbo8Dd6iHfcAWyI2LhHZZR
+ gQD5RX7ot4vPaYSY8fMQJWuauv+wcwdFvLBR1HYnUvQnFiKtRMS4FBPAMxiIlwx1qsQF
+ Rs1AW1dc15kLcxqpFwqS01zsDv9K4KRX3aTV9zhGGiQXb9tUr6/NG2CIdv6aJJ1io60H
+ h8EA==
+X-Gm-Message-State: APjAAAVQEKGjyaz+Vxjp4MvOW6PnMCE+XGaqQLen50NyUnDj36hjvF0O
+ JXE7XJlZirMT3dfyz7uXHg0=
+X-Google-Smtp-Source: APXvYqzzjTnv2D4OYrUqWzMN8fCAnpjvEbjHAwrTNhaiVf/2Enfk58DhQ/EGZoxwOZADuV5bHAi7cw==
+X-Received: by 2002:a63:e056:: with SMTP id n22mr6675498pgj.73.1572037836935; 
+ Fri, 25 Oct 2019 14:10:36 -0700 (PDT)
+Received: from Asurada-Nvidia.nvidia.com (thunderhill.nvidia.com.
+ [216.228.112.22])
+ by smtp.gmail.com with ESMTPSA id z13sm3550450pfg.172.2019.10.25.14.10.36
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Fri, 25 Oct 2019 14:10:36 -0700 (PDT)
+Date: Fri, 25 Oct 2019 14:10:14 -0700
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Message-ID: <20191025211013.GA15101@Asurada-Nvidia.nvidia.com>
+References: <36e1d0157d2b71985b88e841d416d04c584c04fe.1571986436.git.shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.1910252050230.16459@zeliteleevi>
-Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: change 'HDMI/DP, pcm=' to 'HDMI/DP,
- pcm=' Jack control names
+Content-Disposition: inline
+In-Reply-To: <36e1d0157d2b71985b88e841d416d04c584c04fe.1571986436.git.shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
+ broonie@kernel.org, festevam@gmail.com, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH V2] ASoC: fsl_esai: Add spin lock to
+ protect reset, stop and start
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,66 +100,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 25. 10. 19 v 20:02 Kai Vehmanen napsal(a):
-> Hi Jaroslav and all,
+On Fri, Oct 25, 2019 at 03:13:53PM +0800, Shengjiu Wang wrote:
+> xrun may happen at the end of stream, the
+> trigger->fsl_esai_trigger_stop maybe called in the middle of
+> fsl_esai_hw_reset, this may cause esai in wrong state
+> after stop, and there may be endless xrun interrupt.
 > 
-> On Fri, 25 Oct 2019, Jaroslav Kysela wrote:
+> This issue may also happen with trigger->fsl_esai_trigger_start.
 > 
->> the single user. Another problem is that we are not able to review all those
->> mistakes at the merge time. It is not a complain but a true fact.
+> So Add spin lock to lock those functions.
 > 
-> but the strings are in kernel patches, so even if all UCM files don't
-> go through the list, we can always review when the strings are added
-> in kernel, right?
+> Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 
-My point is that we already did this incomplete review (the wrong strings are 
-in the current kernel). We cannot prevent to avoid those code merges, we are 
-just human. I just don't think that the driver / control names should be part 
-of the don't-break-the-userspace policy.
+Some small comments inline. Once they are addressed, please add:
 
->> I would be really curious what will happen when we change those strings ;-)
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+
+Thanks
+
+> ---
+> Change in v2
+> -add lock for fsl_esai_trigger_start.
 > 
-> I can share some experiences that happen on Linux distros with Pulseaudio:
+>  sound/soc/fsl/fsl_esai.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 > 
-> - if mixer control name is changed/missing that us used in
->    a UCM enable sequence, the enable sequence will fail and PA will
->    not choose that device
-> 	-> e.g. when wrong HDMI control names are in the UCM file, HDMI
-> 	output stops working
-> - if mixer control for a Jack is changed, PA will not listen
->    for ALSA kctl events
-> 	-> HDMI connection is silently missed and HDMI is not listed
-> 	as a possible output
-> 
-> .. i.e. in both cases HDMI is essentially broken if you update to
-> a kernel that updates the strings but don't update user-space in sync.
+> diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+> index 37b14c48b537..9b28e2af26e4 100644
+> --- a/sound/soc/fsl/fsl_esai.c
+> +++ b/sound/soc/fsl/fsl_esai.c
+> @@ -33,6 +33,7 @@
+>   * @fsysclk: system clock source to derive HCK, SCK and FS
+>   * @spbaclk: SPBA clock (optional, depending on SoC design)
+>   * @task: tasklet to handle the reset operation
+> + * @lock: spin lock to handle reset and stop behavior
 
-Yes, it's true. But usually, users do only upgrade. If we resolve the UCM 
-configs before the kernel change, the impact is just very low.
+Should be "between hw_reset() and trigger()" now.
 
-> I wonder if one option would be to expose "legacy string" aliases,
-> allowing to make changes but keep existing user-space happy. With my HDMI
-> codec change, the controls are simply different, so this was not an
-> option and I had to opt for keeping the whole driver around.
+>   * @fifo_depth: depth of tx/rx FIFO
+>   * @slot_width: width of each DAI slot
+>   * @slots: number of slots
+> @@ -56,6 +57,7 @@ struct fsl_esai {
+>  	struct clk *fsysclk;
+>  	struct clk *spbaclk;
+>  	struct tasklet_struct task;
+> +	spinlock_t lock; /* Protect reset and stop */
 
-It seems that we may need to add conditions to the UCM syntax. There are 
-several ways to do it. For your specific purpose it may look like "if the 
-control exist, use this config" or so.
-
-Another approach might be to add something to the decision code which top UCM 
-config file should be loaded. Actually, we rely on the card name / long_name 
-only. It seems that the probe might be extended here.
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+We can drop the comments here since you add it to the top.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

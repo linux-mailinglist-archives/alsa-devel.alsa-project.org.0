@@ -2,72 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 130AAE4E3C
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 16:06:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C97BE4E64
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 16:07:16 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8B561180A;
-	Fri, 25 Oct 2019 16:05:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B561180A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E17841811;
+	Fri, 25 Oct 2019 16:06:25 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E17841811
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572012389;
-	bh=xjcHD0Qi2kKRVPRx2mQ+O5icp5XKAliqsd+RkxY2vPY=;
+	s=default; t=1572012436;
+	bh=dyqAde0W4rQRybKD3eC9MsPK3/jgaVLAd/G+uSKV76o=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gLunQwTvtHHzEG3QnRLjD5uQjXfiWQLzWpXyCQaaTzgVR4Dcijs+YS8MfqvcwTVKh
-	 Um6eL5Ge0hMI5KY5ff9hiBpT/Tg5RY+T5w4kRAZKijmtYRhRXOfzOV5Q9nSIOwUZI3
-	 5kOIy6bRBO47P93vTxe2A1JlXGclAHJI1pjAQ+3s=
+	b=tE6PY0RaBIV83bZogsFSZa04oD3quppTcwBRnZQsWiPmPVfvejhdKMkozcgTZ+N9S
+	 j8USTlPGhg86sV6m7BM3qfCuFgC0uHhr3lcS2d0Ftcd5t/TJRywbCaAWgfawMcQmWI
+	 arHT9Xwvw9ixv11sHL+dMvvzC7QE1dS2qJmBiKkk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C209F803A6;
-	Fri, 25 Oct 2019 16:04:45 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4AE86F805FA;
+	Fri, 25 Oct 2019 16:05:23 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A3CDFF8036F; Fri, 25 Oct 2019 16:04:42 +0200 (CEST)
+ id 61AC6F8045D; Fri, 25 Oct 2019 16:05:20 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BEA9F802A0
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 16:04:39 +0200 (CEST)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 2ABDCA003F;
- Fri, 25 Oct 2019 16:04:39 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 2ABDCA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1572012279; bh=BwbEUQiwYYYtgynoyoonYC1XzENqzlJtLkdvKmYC/OE=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=S596tg72s1MX6a0a083HTS2mI3nPMnEMzYweyOLQwzFRK2xYZyvfQ1nUIOvMG40a0
- z/ZFe4TfiGCzN49ZMPYbi52amNMZo9ObbAkTINub1xf2OZx3NmHAIxf2OJ3MgO9mfk
- pJpZqv7WHd1IjjijsDVOmF8y12atgMt10IlW8SFY=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 25 Oct 2019 16:04:34 +0200 (CEST)
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-References: <20191025123038.19728-1-perex@perex.cz>
- <alpine.DEB.2.21.1910251542360.16459@zeliteleevi>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <6b59a565-faf7-2b70-4e04-546a5ba507c3@perex.cz>
-Date: Fri, 25 Oct 2019 16:04:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A03BF802A0
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 16:05:16 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A03BF802A0
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Oct 2019 07:05:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,228,1569308400"; d="scan'208";a="223930772"
+Received: from bnail-mobl.amr.corp.intel.com (HELO [10.252.140.167])
+ ([10.252.140.167])
+ by fmsmga004.fm.intel.com with ESMTP; 25 Oct 2019 07:05:13 -0700
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+References: <1571994691-20199-1-git-send-email-brent.lu@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3ce80285-ddb5-653d-cf60-febc9fd0bdee@linux.intel.com>
+Date: Fri, 25 Oct 2019 09:05:12 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.1910251542360.16459@zeliteleevi>
+In-Reply-To: <1571994691-20199-1-git-send-email-brent.lu@intel.com>
 Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: change 'HDMI/DP, pcm=' to 'HDMI/DP,
- pcm=' Jack control names
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Tzung-Bi Shih <tzungbi@google.com>, linux-kernel@vger.kernel.org,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Richard Fontana <rfontana@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Naveen M <naveen.m@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
+ "Subhransu S . Prusty" <subhransu.s.prusty@intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: eve: implement set_bias_level
+ function for rt5514
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,26 +83,96 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 25. 10. 19 v 14:44 Kai Vehmanen napsal(a):
-> Hi,
-> 
-> On Fri, 25 Oct 2019, Jaroslav Kysela wrote:
-> 
->> There is an inconsistency in the names for the HDMI/DP Jack control
->> names between some ASoC drivers and the HDA HDMI driver which
->> introduced this naming in 2011.
-> 
-> this will break a lot of existing devices that are using out-of-tree UCM
-> files, so I'm not sure this is worth the effort.
 
-I don't agree. The out-of-tree UCMs should go to upstream anyway, except that 
-they are unusable for the standard users.
 
-				Jaroslav
+On 10/25/19 4:11 AM, Brent Lu wrote:
+> The first DMIC capture always fail (zero sequence data from PCM port)
+> after using DSP hotwording function (i.e. Google assistant).
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Can you clarify where the DSP hotwording is done? Intel DSP or rt5514?
+
+Turning on the MCLK with the BIAS info might force the Intel DSP to 
+remain on, which would impact power consumption if it was supposed to 
+remain off.
+
+> This rt5514 codec requires to control mclk directly in the set_bias_level
+> function. Implement this function in machine driver to control the
+> ssp1_mclk clock explicitly could fix this issue.
+> 
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
+> ---
+>   .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  | 50 ++++++++++++++++++++++
+>   1 file changed, 50 insertions(+)
+> 
+> diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> index dc09a85..b546de8 100644
+> --- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> +++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+> @@ -653,6 +653,55 @@ static struct snd_soc_dai_link kabylake_dais[] = {
+>   	},
+>   };
+>   
+> +static int kabylake_set_bias_level(struct snd_soc_card *card,
+> +	struct snd_soc_dapm_context *dapm, enum snd_soc_bias_level level)
+> +{
+> +	struct snd_soc_component *component = dapm->component;
+> +	struct kbl_codec_private *priv = snd_soc_card_get_drvdata(card);
+> +	int ret = 0;
+> +
+> +	if (!component || strcmp(component->name, RT5514_DEV_NAME))
+> +		return 0;
+> +
+> +	if (IS_ERR(priv->mclk))
+> +		return 0;
+> +
+> +	/*
+> +	 * It's required to control mclk directly in the set_bias_level
+> +	 * function for rt5514 codec or the recording function could
+> +	 * break.
+> +	 */
+> +	switch (level) {
+> +	case SND_SOC_BIAS_PREPARE:
+> +		if (dapm->bias_level == SND_SOC_BIAS_ON) {
+> +			dev_dbg(card->dev, "Disable mclk");
+> +			clk_disable_unprepare(priv->mclk);
+> +		} else {
+> +			dev_dbg(card->dev, "Enable mclk");
+> +			ret = clk_set_rate(priv->mclk, 24000000);
+> +			if (ret) {
+> +				dev_err(card->dev, "Can't set rate for mclk, err: %d\n",
+> +					ret);
+> +				return ret;
+> +			}
+> +
+> +			ret = clk_prepare_enable(priv->mclk);
+> +			if (ret) {
+> +				dev_err(card->dev, "Can't enable mclk, err: %d\n",
+> +					ret);
+> +
+> +				/* mclk is already enabled in FW */
+> +				ret = 0;
+> +			}
+> +		}
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+>   static int kabylake_card_late_probe(struct snd_soc_card *card)
+>   {
+>   	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
+> @@ -692,6 +741,7 @@ static struct snd_soc_card kabylake_audio_card = {
+>   	.owner = THIS_MODULE,
+>   	.dai_link = kabylake_dais,
+>   	.num_links = ARRAY_SIZE(kabylake_dais),
+> +	.set_bias_level = kabylake_set_bias_level,
+>   	.controls = kabylake_controls,
+>   	.num_controls = ARRAY_SIZE(kabylake_controls),
+>   	.dapm_widgets = kabylake_widgets,
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

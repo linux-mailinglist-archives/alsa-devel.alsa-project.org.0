@@ -2,77 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 594FCE4BC1
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 15:06:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 04827E4C47
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 15:32:15 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA6A217E3;
-	Fri, 25 Oct 2019 15:05:31 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA6A217E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64F8D17EC;
+	Fri, 25 Oct 2019 15:31:24 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64F8D17EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572008781;
-	bh=kN0Nc9POSTcAdfsjgk4QFJMdxtRcjnV3laSl3kSFlh8=;
+	s=default; t=1572010334;
+	bh=2LPB4Nx0/EyNbaIHN4FLILOQQH5CIm97GxtZHHvJqGs=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=CUVEzQo+sO7trJkDdBhF2z83d3izOndKekzJjPTX/bfsOA8hoKWs+x7CkJN/0rj6v
-	 Pcz+ipK33el/GF2JIqHcwCLLUl9e3HEkxF78s2kMqQBIGLse5B/kamtRiJ7vqks3Gw
-	 cGVjycwgP4i7e9c4KHdaViV5EEHGufR8p471E97U=
+	b=AhzUfizSULFpKrhcdDUXo2rFZMlzFoxWZR2xns7E/difubnb6maR3tqHFHs3wyP3e
+	 jx777IniNjjPinU6zkxMMqlROZIHSe2a1dwzdxL9p4DreeKCSEq5670UvW08rXI2BX
+	 bsC7BioyLCw7aBL8nVIPNdYxQcUMqoV3o2Vkkcjw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2488AF80368;
-	Fri, 25 Oct 2019 15:04:37 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 985E7F802A0;
+	Fri, 25 Oct 2019 15:30:29 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 151C2F80368; Fri, 25 Oct 2019 15:04:35 +0200 (CEST)
+ id 5A39BF80368; Fri, 25 Oct 2019 15:30:27 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BB96F80112
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 15:04:30 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BB96F80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id 69DF8F80112
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 15:30:23 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 69DF8F80112
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="h+WU6R17"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id x9PD4Sdu038853;
- Fri, 25 Oct 2019 08:04:28 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1572008668;
- bh=P8Jbxp8qjaqsqyxiwg7v1ZgSDea+4jE9jJMRCXAvkR8=;
- h=From:To:CC:Subject:Date;
- b=h+WU6R17jWYt97uthCjwtEBlE6p9TDWiUn3OhVRcJ3b/kYR65sxmZDdlWORQo8q46
- 1Pz4yw3CEalTdcYUTkkCDUK9N9GUnMPW++/eGhl+RX3DK/NatL4M4Co+JjacXMl6p4
- rH640bY7xGvpas4sudRPlgzFDuFBOwYoYKslfEpI=
-Received: from DLEE105.ent.ti.com (dlee105.ent.ti.com [157.170.170.35])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id x9PD4SWD082929
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 25 Oct 2019 08:04:28 -0500
-Received: from DLEE112.ent.ti.com (157.170.170.23) by DLEE105.ent.ti.com
- (157.170.170.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5; Fri, 25
- Oct 2019 08:04:17 -0500
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE112.ent.ti.com
- (157.170.170.23) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1713.5 via
- Frontend Transport; Fri, 25 Oct 2019 08:04:17 -0500
-Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id x9PD4PfJ092315;
- Fri, 25 Oct 2019 08:04:25 -0500
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <jarkko.nikula@bitmer.com>
-Date: Fri, 25 Oct 2019 16:05:28 +0300
-Message-ID: <20191025130528.3556-1-peter.ujfalusi@ti.com>
-X-Mailer: git-send-email 2.23.0
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="hkoiNtYv"
+Received: by mail-pg1-x542.google.com with SMTP id l3so1552139pgr.8
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 06:30:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=pgk2VpYDvWxnQGOn4CatnKUbEjzqifjDf+V5kplLk3Y=;
+ b=hkoiNtYvvdlvP8l6YHJ0NAcOrbqzyTeM8GV5/CrfA0sqk7Un42PZnP+hIk4FRUHCIp
+ uJrYQ2nf1MsX5xGpT+4LwiS2I3HKNvMGsveUyU2msEa+qqz8o7Wpw53WLVf2C//dpdWz
+ NESc7oSR3+f7btvnpogS3AxngiEYpeuPmaTk8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=pgk2VpYDvWxnQGOn4CatnKUbEjzqifjDf+V5kplLk3Y=;
+ b=niMsPFH+AFifdEyxr3LXV6PorN3cvY5TtEVyp4V3gOzUIEgQWa8zL9MXSsHcpaN+KW
+ tBt/b6Pgt/Jx4afrFzAtmWDYwYG0NPDi7MYw9iR2DnxknwjTNL8v4dXbHv5JQa5yCzhM
+ GLv+er8oY2woDWDJDxNRUcxi5JZ9vt/oypG+iQ/LszvovWL7w2nywO7J7KK1Fe+GTMls
+ xT3ZYIsHVJnQnIysT2Nu2s0YSVz1H4wAdsAD4bCbEecTSI4teYS8govBK6BXu0+K4zNx
+ R2fx99UE3YYEqF3TvrKG6joT8XVI1Dbb5HlnI7IG8GCV5+Xlxcmyk1CIB8BvH2U60NAZ
+ pPyw==
+X-Gm-Message-State: APjAAAWAKIVJcPjlG6ELRp5YBuARPU9vFiUoOYKg/+myeikxPcVG8ubw
+ 7bx/uc5PG7n9enofmz0PRVkDgQ==
+X-Google-Smtp-Source: APXvYqzpgx+nnjFmllOVgEw2I1Zze+v/IxDlqkvyVnWJ0/LUdRWU4MyQ5DhY20Cz7S6cmMoKn0X/FQ==
+X-Received: by 2002:a65:4bc3:: with SMTP id p3mr4465303pgr.188.1572010221995; 
+ Fri, 25 Oct 2019 06:30:21 -0700 (PDT)
+Received: from localhost ([2401:fa00:1:10:79b4:bd83:e4a5:a720])
+ by smtp.gmail.com with ESMTPSA id q20sm2534518pfl.79.2019.10.25.06.30.17
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 25 Oct 2019 06:30:20 -0700 (PDT)
+From: Cheng-Yi Chiang <cychiang@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Fri, 25 Oct 2019 21:30:01 +0800
+Message-Id: <20191025133007.11190-1-cychiang@chromium.org>
+X-Mailer: git-send-email 2.24.0.rc0.303.g954a862665-goog
 MIME-Version: 1.0
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: tony@atomide.com, hns@goldelico.com, alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH v2] ASoC: ti: omap-mcpdm: Add support for
-	pdmclk clock handling
+Cc: Mark Rutland <mark.rutland@arm.com>, alsa-devel@alsa-project.org,
+ Heiko Stuebner <heiko@sntech.de>, Neil Armstrong <narmstrong@baylibre.com>,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Hans Verkuil <hverkuil@xs4all.nl>,
+ Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-rockchip@lists.infradead.org, dgreid@chromium.org,
+ Cheng-Yi Chiang <cychiang@chromium.org>, devicetree@vger.kernel.org,
+ tzungbi@chromium.org, Jonas Karlman <jonas@kwiboo.se>,
+ Russell King <rmk+kernel@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ dianders@chromium.org, Mark Brown <broonie@kernel.org>,
+ Daniel Vetter <daniel@ffwll.ch>
+Subject: [alsa-devel] [PATCH v8 0/6] Add HDMI jack support on RK3288
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,109 +107,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-McPDM module receives it's functional clock from external source. This
-clock is the pdmclk provided by the twl6040 audio IC. If the clock is not
-available all register accesses to McPDM fails and the module is not
-operational.
+This patch series supports HDMI jack reporting on RK3288, which uses
+DRM dw-hdmi driver and hdmi-codec codec driver.
 
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Acked-by: Jarkko Nikula <jarkko.nikula@bitmer.com>
----
-Hi,
+The previous discussion about reporting jack status using hdmi-notifier
+and drm_audio_component is at
 
-this has been lurking in my next-wip branch for some time...
-It might not needed anymore as I have not heard about issues with McPDM for a
-while.
+https://lore.kernel.org/patchwork/patch/1083027/
 
-It was dropped back then because some core parts were not picked in time and
-this caused some issues, but can not find the exact reason
+The new approach is to use a callback mechanism that is
+specific to hdmi-codec.
 
-Regards,
-Peter
+The dependent change on hdmi-codec.c
 
- sound/soc/ti/omap-mcpdm.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+6fa5963c37a2 ASoC: hdmi-codec: Add an op to set callback function for plug event
 
-diff --git a/sound/soc/ti/omap-mcpdm.c b/sound/soc/ti/omap-mcpdm.c
-index b8c8290265c7..2c536947b69f 100644
---- a/sound/soc/ti/omap-mcpdm.c
-+++ b/sound/soc/ti/omap-mcpdm.c
-@@ -17,6 +17,7 @@
- #include <linux/err.h>
- #include <linux/io.h>
- #include <linux/irq.h>
-+#include <linux/clk.h>
- #include <linux/slab.h>
- #include <linux/pm_runtime.h>
- #include <linux/of_device.h>
-@@ -42,6 +43,7 @@ struct omap_mcpdm {
- 	int irq;
- 	struct pm_qos_request pm_qos_req;
- 	int latency[2];
-+	struct clk *pdmclk;
- 
- 	struct mutex mutex;
- 
-@@ -416,6 +418,10 @@ static int omap_mcpdm_probe(struct snd_soc_dai *dai)
- 	struct omap_mcpdm *mcpdm = snd_soc_dai_get_drvdata(dai);
- 	int ret;
- 
-+	ret = clk_prepare_enable(mcpdm->pdmclk);
-+	if (ret)
-+		return ret;
-+
- 	pm_runtime_enable(mcpdm->dev);
- 
- 	/* Disable lines while request is ongoing */
-@@ -454,6 +460,7 @@ static int omap_mcpdm_remove(struct snd_soc_dai *dai)
- 	if (pm_qos_request_active(&mcpdm->pm_qos_req))
- 		pm_qos_remove_request(&mcpdm->pm_qos_req);
- 
-+	clk_disable_unprepare(mcpdm->pdmclk);
- 	return 0;
- }
- 
-@@ -473,12 +480,19 @@ static int omap_mcpdm_suspend(struct snd_soc_dai *dai)
- 		mcpdm->pm_active_count++;
- 	}
- 
-+	clk_disable_unprepare(mcpdm->pdmclk);
-+
- 	return 0;
- }
- 
- static int omap_mcpdm_resume(struct snd_soc_dai *dai)
- {
- 	struct omap_mcpdm *mcpdm = snd_soc_dai_get_drvdata(dai);
-+	int ret;
-+
-+	ret = clk_prepare_enable(mcpdm->pdmclk);
-+	if (ret)
-+		return ret;
- 
- 	if (mcpdm->pm_active_count) {
- 		while (mcpdm->pm_active_count--)
-@@ -573,6 +587,15 @@ static int asoc_mcpdm_probe(struct platform_device *pdev)
- 
- 	mcpdm->dev = &pdev->dev;
- 
-+	mcpdm->pdmclk = devm_clk_get(&pdev->dev, "pdmclk");
-+	if (IS_ERR(mcpdm->pdmclk)) {
-+		if (PTR_ERR(mcpdm->pdmclk) == -EPROBE_DEFER)
-+			return -EPROBE_DEFER;
-+		dev_warn(&pdev->dev, "Error getting pdmclk (%ld)!\n",
-+			 PTR_ERR(mcpdm->pdmclk));
-+		mcpdm->pdmclk = NULL;
-+	}
-+
- 	ret =  devm_snd_soc_register_component(&pdev->dev,
- 					       &omap_mcpdm_component,
- 					       &omap_mcpdm_dai, 1);
+has been merged to upstream.
+
+Changes from v7 to v8:
+
+1. rockchip_max98090: Allow three different use cases:
+   max98090-only: For backward compatibility where DTS does not specify HDMI node.
+   HDMI-only: For HDMI-only board like veyron-mickey.
+   max98090 + HDMI: For other veyron boards.
+   Pass different compatible string to specify the use case.
+
+2. Add more maintainers to cc-list for new device property reviewing.
+
+Cheng-Yi Chiang (6):
+  drm: bridge: dw-hdmi: Report connector status using callback
+  ASoC: rockchip-max98090: Support usage with and without HDMI
+  ASoC: rockchip_max98090: Optionally support HDMI use case
+  ASoC: rockchip_max98090: Add HDMI jack support
+  ARM: dts: rockchip: Add HDMI support to rk3288-veyron-analog-audio
+  ARM: dts: rockchip: Add HDMI audio support to rk3288-veyron-mickey.dts
+
+ .../bindings/sound/rockchip-max98090.txt      |  38 +-
+ .../boot/dts/rk3288-veyron-analog-audio.dtsi  |   3 +-
+ arch/arm/boot/dts/rk3288-veyron-mickey.dts    |   7 +
+ .../drm/bridge/synopsys/dw-hdmi-i2s-audio.c   |  11 +
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     |  41 +-
+ include/drm/bridge/dw_hdmi.h                  |   4 +
+ sound/soc/rockchip/Kconfig                    |   3 +-
+ sound/soc/rockchip/rockchip_max98090.c        | 392 +++++++++++++++---
+ 8 files changed, 425 insertions(+), 74 deletions(-)
+
 -- 
-Peter
-
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+2.24.0.rc0.303.g954a862665-goog
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,61 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1511E4442
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 09:19:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DD40E44DB
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 09:50:11 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B9251779;
-	Fri, 25 Oct 2019 09:18:21 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B9251779
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9EAD1779;
+	Fri, 25 Oct 2019 09:49:20 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9EAD1779
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571987951;
-	bh=Vo4hMnxD8MjQbtFLIuqO8nJFOVApkMs83YEh/WA4y2I=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OglFHrJP7tPTn6p99s1aFotbnbU59NMBiaWVHMihrbeA0ykoYS83j7KepyiEgSok3
-	 RT9ppI0L/NFTjuXeK41FuGeZFyTLWwesh+aEokUX1Cj69s9ZY+qHehizNXWQFHYNwO
-	 ECpNv8j22UV34sbqzxCQF+HG/YMtt9BB0pgRYTWA=
+	s=default; t=1571989811;
+	bh=VWPee6Il4Yl3rMfISLEX5knxRmnogyf1hgCGSfvmol4=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=KjRo51UJ1VY8wARZKotzyy/KyyIUn3hnwoWqgJj1IL7KpdIx6ZC+EvxzWygDGsaCW
+	 fTfH+HtHftt1jrCHMqHURtD18OwqPixqSlQ6CHygAAa9N9yb6Ec7YsQ+9tkd++DzA8
+	 wHCbEyY0qtojMq2SZWGj1PYktBb3Q1USXTxlRgmA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D43DFF80274;
-	Fri, 25 Oct 2019 09:17:16 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 60B4EF80368;
+	Fri, 25 Oct 2019 09:48:26 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8EF0F8045D; Fri, 25 Oct 2019 09:17:14 +0200 (CEST)
+ id 477C9F8036F; Fri, 25 Oct 2019 09:48:23 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78EE7F80274
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 09:17:11 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78EE7F80274
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 38CE71A0409;
- Fri, 25 Oct 2019 09:17:11 +0200 (CEST)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 4F49B1A00FD;
- Fri, 25 Oct 2019 09:17:06 +0200 (CEST)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 04A9C402BC;
- Fri, 25 Oct 2019 15:16:59 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com
-Date: Fri, 25 Oct 2019 15:13:53 +0800
-Message-Id: <36e1d0157d2b71985b88e841d416d04c584c04fe.1571986436.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH V2] ASoC: fsl_esai: Add spin lock to protect
-	reset, stop and start
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3232DF80112
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 09:48:19 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3232DF80112
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="lAP1Sj08"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5db2a8ca0000>; Fri, 25 Oct 2019 00:48:26 -0700
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Fri, 25 Oct 2019 00:48:17 -0700
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Fri, 25 Oct 2019 00:48:17 -0700
+Received: from DRHQMAIL107.nvidia.com (10.27.9.16) by HQMAIL111.nvidia.com
+ (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 25 Oct
+ 2019 07:48:17 +0000
+Received: from [10.21.133.51] (172.20.13.39) by DRHQMAIL107.nvidia.com
+ (10.27.9.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 25 Oct
+ 2019 07:48:15 +0000
+To: Mark Brown <broonie@kernel.org>
+References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
+ <20191018154833.7560-4-ben.dooks@codethink.co.uk>
+ <2eef499e-d9d4-732a-ddd6-8d307d8cb08d@nvidia.com>
+ <20191024191846.GJ46373@sirena.co.uk>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <549a97c6-ff73-abe0-7c2b-7f29f975e259@nvidia.com>
+Date: Fri, 25 Oct 2019 08:48:13 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <20191024191846.GJ46373@sirena.co.uk>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ DRHQMAIL107.nvidia.com (10.27.9.16)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1571989706; bh=woREg5ZGPYnyjcnXQe0LrTdl/bxEh/wloZDheV0D1f0=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=lAP1Sj08gBAXtiugJ6WTIE8CLP4n9lYXObLhwkh/u+CjgIrSBYhHBKRuNSNHk7I0d
+ hyVYa8Vs26OvXdEpn9lVMA7ywtL0EFGnsn8K7LxrmUr50YpVfbhbzTZbg3VcS5Oj8z
+ ubr/WnheSJ0i8UPEU75nrsnBdlVCXss827oaornGWrgwpdo/egbyv7aF2FNS8s6URF
+ voGrdxAS1kRj1h+suyrRhlIDkOBz/YLSD4JfPdl28NpD9Rj/bE3PYJ3gt2CF77D8ZG
+ 7FOkKalxBTqfKmV7OsyjoruqEckbo6/iPQApRQsOjd0/5FHGrBYxT1ptD2jufF99/h
+ HtEF7LGoCxSEQ==
+Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Ben Dooks <ben.dooks@codethink.co.uk>,
+ Thierry Reding <thierry.reding@gmail.com>, Edward
+ Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v5 3/7] ASoC: tegra: i2s: Add support for
+ more than 2 channels
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,106 +101,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-xrun may happen at the end of stream, the
-trigger->fsl_esai_trigger_stop maybe called in the middle of
-fsl_esai_hw_reset, this may cause esai in wrong state
-after stop, and there may be endless xrun interrupt.
 
-This issue may also happen with trigger->fsl_esai_trigger_start.
+On 24/10/2019 20:18, Mark Brown wrote:
+> On Thu, Oct 24, 2019 at 05:12:21PM +0100, Jon Hunter wrote:
+>> On 18/10/2019 16:48, Ben Dooks wrote:
+> 
+>>> @@ -90,10 +92,12 @@ static int tegra30_i2s_set_fmt(struct snd_soc_dai *dai,
+>>>  		TEGRA30_I2S_CTRL_LRCK_MASK;
+>>>  	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
+>>>  	case SND_SOC_DAIFMT_DSP_A:
+>>> +		ch_val = TEGRA30_I2S_CH_CTRL_EGDE_CTRL_NEG_EDGE;
+> 
+>> Sorry, I just saw the feedback on the previous iteration. I don't think
+>> we want to set the polarity but based upon the format that is passed ...
+> 
+> The polarity should be set based on the the inversion flags in the
+> format, normally both DSP modes trigger on the rising edge of the LRCLK.
+> The difference is if there's a delay before the first data bit or not.
 
-So Add spin lock to lock those functions.
+Yes. Sorry I realise my email was not clear and when I meant format, I
+was referring to the bits in the format mask part of the format. In the
+example, I shared we use the inversion bits for the determining the
+polarity. There was an old version of one of our drivers where we had
+done this incorrectly.
 
-Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
-Change in v2
--add lock for fsl_esai_trigger_start.
+Cheers
+Jon
 
- sound/soc/fsl/fsl_esai.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
-index 37b14c48b537..9b28e2af26e4 100644
---- a/sound/soc/fsl/fsl_esai.c
-+++ b/sound/soc/fsl/fsl_esai.c
-@@ -33,6 +33,7 @@
-  * @fsysclk: system clock source to derive HCK, SCK and FS
-  * @spbaclk: SPBA clock (optional, depending on SoC design)
-  * @task: tasklet to handle the reset operation
-+ * @lock: spin lock to handle reset and stop behavior
-  * @fifo_depth: depth of tx/rx FIFO
-  * @slot_width: width of each DAI slot
-  * @slots: number of slots
-@@ -56,6 +57,7 @@ struct fsl_esai {
- 	struct clk *fsysclk;
- 	struct clk *spbaclk;
- 	struct tasklet_struct task;
-+	spinlock_t lock; /* Protect reset and stop */
- 	u32 fifo_depth;
- 	u32 slot_width;
- 	u32 slots;
-@@ -676,8 +678,10 @@ static void fsl_esai_hw_reset(unsigned long arg)
- {
- 	struct fsl_esai *esai_priv = (struct fsl_esai *)arg;
- 	bool tx = true, rx = false, enabled[2];
-+	unsigned long lock_flags;
- 	u32 tfcr, rfcr;
- 
-+	spin_lock_irqsave(&esai_priv->lock, lock_flags);
- 	/* Save the registers */
- 	regmap_read(esai_priv->regmap, REG_ESAI_TFCR, &tfcr);
- 	regmap_read(esai_priv->regmap, REG_ESAI_RFCR, &rfcr);
-@@ -715,6 +719,8 @@ static void fsl_esai_hw_reset(unsigned long arg)
- 		fsl_esai_trigger_start(esai_priv, tx);
- 	if (enabled[rx])
- 		fsl_esai_trigger_start(esai_priv, rx);
-+
-+	spin_unlock_irqrestore(&esai_priv->lock, lock_flags);
- }
- 
- static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
-@@ -722,6 +728,7 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
- {
- 	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
- 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
-+	unsigned long lock_flags;
- 
- 	esai_priv->channels[tx] = substream->runtime->channels;
- 
-@@ -729,12 +736,16 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		spin_lock_irqsave(&esai_priv->lock, lock_flags);
- 		fsl_esai_trigger_start(esai_priv, tx);
-+		spin_unlock_irqrestore(&esai_priv->lock, lock_flags);
- 		break;
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		spin_lock_irqsave(&esai_priv->lock, lock_flags);
- 		fsl_esai_trigger_stop(esai_priv, tx);
-+		spin_unlock_irqrestore(&esai_priv->lock, lock_flags);
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -1002,6 +1013,7 @@ static int fsl_esai_probe(struct platform_device *pdev)
- 
- 	dev_set_drvdata(&pdev->dev, esai_priv);
- 
-+	spin_lock_init(&esai_priv->lock);
- 	ret = fsl_esai_hw_init(esai_priv);
- 	if (ret)
- 		return ret;
 -- 
-2.21.0
-
+nvpublic
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

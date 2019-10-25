@@ -2,73 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AED1E47B3
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 11:47:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EC5CE47D7
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 11:51:39 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79AB9179E;
-	Fri, 25 Oct 2019 11:46:24 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79AB9179E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AB6117A3;
+	Fri, 25 Oct 2019 11:50:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AB6117A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1571996834;
-	bh=lL2b44xSlryfubHEOptvRdRwQ7MdBV6fM/1kmq4eiDM=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1571997099;
+	bh=t5ztHQQutNQvxJ6fb7G/VcyjDKodLakQb3UM4adLbss=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X2T7X7iz/M0iZN8dA9E0jIr7zT01gH8IVCYu+F6yWIQfj8UeXmtxjuGiE207QcPR7
-	 8I0KE+Z2ajx5mKnfjttC4g8Lxb8xe85ue8vBXBKPGhuiJhuDDobPA8StcdAf1i0TPC
-	 vM4AA8aV3CdG4F7yoUxtl5EXQ1UOlf9sXuoNnv2o=
+	b=IPkx80+lF5F+RKZOHs3R3bFlHrXTXG7GFZElT8WeUkElpouQvPIfCMgySLwZjLTps
+	 QnypSGIkzxNuMnni28CtitIwpklFVP0H7LBJ1dNWBwq8rOYR3B82jYwvcb0V+YXWaE
+	 7n6mQX8HpGS62sgWI2+Usm8vud0QC8vHkifVRzNk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF2E9F8036F;
-	Fri, 25 Oct 2019 11:45:29 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3222BF80112;
+	Fri, 25 Oct 2019 11:49:54 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1FC9DF8036F; Fri, 25 Oct 2019 11:45:27 +0200 (CEST)
+ id 1521FF8036F; Fri, 25 Oct 2019 11:49:53 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODYSUB_5,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79A2AF80112
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 11:45:23 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79A2AF80112
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dygBEF27"
-Received: from localhost (unknown [223.226.103.150])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 117B721D71;
- Fri, 25 Oct 2019 09:45:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1571996721;
- bh=/TD1sn+igrrq/B7aytIIkMKaHVc3Q8uIn3RN28eMZVc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dygBEF27t8OOXXAe3lYfEQKobczBCYNRKJSKWM6fMWlv47OPvHlzmfpkAu9Klay/L
- NitUVUdsW1SAOs4mVM9lkQgclUW1ExS52YCOcuu+3pcHutetvT0HtUDxnwAyzJEBKV
- 85/Kx4q5rjZjtqdcVzpuHW9CvxrubSvvws+7epWI=
-Date: Fri, 25 Oct 2019 15:15:16 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20191025094516.GG2620@vkoul-mobl>
-References: <20191009181356.GO2036@sirena.org.uk>
- <20191022185906.GZ5554@sirena.co.uk>
- <204150f3-2d0f-e2df-e4d0-7324b4788e99@codeaurora.org>
- <36d84c86-50d0-487b-181a-9238e11d7fce@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3C48F80112
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 11:49:50 +0200 (CEST)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D2261A0040;
+ Fri, 25 Oct 2019 11:49:49 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D2261A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1571996989; bh=hgXCja1+6Os8JseQQH0Ew4SBc19oUiA2DVcz237b7QI=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=V8YkW2y7PeuqmcLV+lLA4YvHVZjq93fGEh7olyVAYTmrK2IRIHIZ4dUG/97KAN4Sx
+ WG5muxCz1YyO7h0WT/XTXs6toblI0bPzmLglse1r3r/sIJHtrttCImHezkX0RD9zDh
+ 9AwJ2F3aWAaUz/potY/8/u5aRPDrvfDKWzu3XErc=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri, 25 Oct 2019 11:49:46 +0200 (CEST)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20191022174313.29087-1-perex@perex.cz>
+ <6d4e41fe-ba1e-3c89-582c-f8dc0964cf18@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <0036ad81-c383-ec91-5acb-fccf681b538c@perex.cz>
+Date: Fri, 25 Oct 2019 11:49:46 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <36d84c86-50d0-487b-181a-9238e11d7fce@linux.intel.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: Daniel Baluta <daniel.baluta@gmail.com>, Takashi Iwai <tiwai@suse.de>,
- Patrick Lai <plai@codeaurora.org>, alsa-devel@alsa-project.org,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Curtis Malainey <cujomalainey@google.com>, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [ANNOUNCE] 2019 Linux Audio miniconference
+In-Reply-To: <6d4e41fe-ba1e-3c89-582c-f8dc0964cf18@linux.intel.com>
+Content-Language: en-US
+Cc: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [alsa-devel] [PATCH v5 1/2] ALSA: hda: add Intel DSP
+ configuration / probe code
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,61 +78,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 24-10-19, 09:31, Pierre-Louis Bossart wrote:
-> On 10/24/19 9:20 AM, Patrick Lai wrote:
-> > On 10/22/19 11:59 AM, Mark Brown wrote:
-> > > Hi,
-> > =
+Dne 24. 10. 19 v 22:33 Pierre-Louis Bossart napsal(a):
+> 
+> 
+> On 10/22/19 12:43 PM, Jaroslav Kysela wrote:
+>> For distributions, we need one place where we can decide
+>> which driver will be activated for the auto-configation of the
+>> Intel's HDA hardware with DSP. Actually, we cover three drivers:
+>>
+>> * Legacy HDA
+>> * Intel SST
+>> * Intel Sound Open Firmware (SOF)
+>>
+>> All those drivers registers similar PCI IDs, so the first
+>> driver probed from the PCI stack can win. But... it is not
+>> guaranteed that the correct driver wins.
+>>
+>> This commit changes Intel's NHLT ACPI module to a common
+>> DSP probe module for the Intel's hardware. All above sound
+>> drivers calls this code. The user can force another behaviour
+>> using the module parameter 'dsp_driver' located in
+>> the 'snd-intel-dspcfg' module.
+>>
+>> This change allows to add specific dmi checks for the specific
+>> systems. The examples are taken from the pull request:
+>>
+>>     https://github.com/thesofproject/linux/pull/927
+>>
+>> Tested on Lenovo Carbon X1 7th gen.
+> 
+> Jaroslav, I found a case where the logic doesn't seem to work as intended.
+> 
+> the code currently scans through the table looking for a PCI ID match,
+> and a DMI match for quirks.
+> 
+> On a KBL NUC device with the DSP enabled, we go through the entire list
+> without finding a match, which means we return the _ANY flag. so if we
+> try to probe the snd-soc-skl driver, the checks will allow the driver to
+> continue, despite this configuration not being supported.
+> 
+> It was my understanding that we would always load the legacy driver
+> *unless* there is a match in the table? If yes, there we can change the
+> default this way:
+> 
+> @@ -333,7 +355,7 @@ int snd_intel_dsp_driver_probe(struct pci_dev *pci)
+>           /* find the configuration for the specific device */
+>           cfg = snd_intel_dsp_find_config(pci, config_table,
+> ARRAY_SIZE(config_table));
+>           if (!cfg)
+> -               return SND_INTEL_DSP_DRIVER_ANY;
+> +               return SND_INTEL_DSP_DRIVER_LEGACY;
+> 
+> Or we need to add a case where we force the legacy in the table for each
+> platform.
 
-> > > =
+I would prefer to add another entry to the configuration table without .flags 
+(or .flags = 0) with a comment, why the legacy driver is selected by default 
+even if the DSP is present.
 
-> > > As with previous years let's pull together an agenda through a mailing
-> > > list discussion - if people could reply to this mail with any topics
-> > > they'd like to discuss we can take it from there.=A0 Of course if we =
-can
-> > > sort things out more quickly via the mailing list that's even better!
-> > =
+				Thanks,
+					Jaroslav
 
-> > 1. Gapless playback handling between two playbacks with different format
-> =
-
-> did you mean compressed formats?
-
-Yes this is for compressed formats. So, we do not allow users to set
-parameters for gapless playback as the assumption is that we are in
-album with same parameters for the subsequent tracks to be played.
-
-But in case of some codecs like wma (and flac iirc) there can be changes
-to next track using different wma formats which warrants change in
-params.
-
-Question is if this should be allowed and if so we need to propose a
-change in API for this
-
-> > 2. Passing timestamp along with buffer for both playback and capture
-> > 3. PCM device volume control
-> > 4. Unified audio graph building across multiple subsystems
-> > =
-
-> > Thanks
-> > Patrick
-> > =
-
-> =
-
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
--- =
-
-~Vinod
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

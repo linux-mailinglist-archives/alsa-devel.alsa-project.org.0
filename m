@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1538EE56CD
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Oct 2019 01:00:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BCB9E56CF
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Oct 2019 01:00:47 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB4BD1917;
-	Sat, 26 Oct 2019 00:59:17 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB4BD1917
+	by alsa0.perex.cz (Postfix) with ESMTPS id BBF3018CA;
+	Sat, 26 Oct 2019 00:59:56 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBF3018CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572044407;
-	bh=G1Z8raswP88rjQUviHW3KXGO4p/S/mFtbf6y09yYUKg=;
+	s=default; t=1572044446;
+	bh=y9dXLx6+rlVPIi4MGaSv1YdGnYLPHsLIDVrEuXAvmEw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VwNdXf38qyokwqAqUWgPO17UFdoEKMJJf4F6rLnw+sR1mpZN1/UYY6W61xMFcIMf9
-	 9GJqCFP3liSjvTiH7XYQNZvZfvNJO9g+W6FVsl5+XP4iHKgN/OACFAZTsb3HodZoTo
-	 MKknYctxYWv0hUNnSGFLfxF5/nFKmb0MZaKjvvfE=
+	b=toxlos+hjBDigsclYjNHnZ6s2uPrqreKvcCP3UmEWo5gkSjfH4cPd/OOtmFquQq1D
+	 6oDDG2sWV/Z7TXS9n/W8Ylr4oT+zUFL+QqIybYFSQ2DWcDqS/iBy1Bm/TdkuCLbzyy
+	 R7lrdkPRvFlOKOLRjh6cZIKvm4xSVGmYQyuyJMZA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FD00F8085E;
-	Sat, 26 Oct 2019 00:42:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D7F3F80863;
+	Sat, 26 Oct 2019 00:42:39 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DFB2CF80675; Sat, 26 Oct 2019 00:42:14 +0200 (CEST)
+ id 5E6F1F8063A; Sat, 26 Oct 2019 00:42:15 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EC52BF8063A
- for <alsa-devel@alsa-project.org>; Sat, 26 Oct 2019 00:41:55 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EC52BF8063A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14999F80637
+ for <alsa-devel@alsa-project.org>; Sat, 26 Oct 2019 00:41:54 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14999F80637
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2019 15:41:55 -0700
+ 25 Oct 2019 15:41:54 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,230,1569308400"; d="scan'208";a="210458237"
+X-IronPort-AV: E=Sophos;i="5.68,230,1569308400"; d="scan'208";a="210458236"
 Received: from archagam-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.252.139.180])
- by fmsmga001.fm.intel.com with ESMTP; 25 Oct 2019 15:41:54 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 25 Oct 2019 15:41:53 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Fri, 25 Oct 2019 17:41:22 -0500
-Message-Id: <20191025224122.7718-27-pierre-louis.bossart@linux.intel.com>
+Date: Fri, 25 Oct 2019 17:41:21 -0500
+Message-Id: <20191025224122.7718-26-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191025224122.7718-1-pierre-louis.bossart@linux.intel.com>
 References: <20191025224122.7718-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: tiwai@suse.de, broonie@kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 26/26] ASoC: SOF: pci: Add prepare/complete PM
-	callbacks
+Subject: [alsa-devel] [PATCH 25/26] ASoC: SOF: PM: Add support for DSP D0i3
+	state when entering S0ix
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,28 +77,81 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Keyon Jie <yang.jie@linux.intel.com>
 
-Use the new implemented snd_sof_prepare() and snd_sof_complete() as the
-power management callbacks for pci probing platforms.
+When system is entering into S0ix, the PCI device may transition to the
+D0i3 substate instead of D3. In D0i3, some always-on functionality can
+be enabled, such as acoustic event detection, voice activity detection
+or hotwording. When an event is detected, the DSP firmware can wake-up
+the device for a transition to D0 with an interrupt.
 
 Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/sof-pci-dev.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/sof/pm.c | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index 4adbb27c76c5..487b1f29f84d 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -264,6 +264,8 @@ static const struct sof_dev_desc jsl_desc = {
- #endif
+diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
+index 99e4e6ffff74..560a937e0484 100644
+--- a/sound/soc/sof/pm.c
++++ b/sound/soc/sof/pm.c
+@@ -430,12 +430,58 @@ EXPORT_SYMBOL(snd_sof_set_d0_substate);
  
- static const struct dev_pm_ops sof_pci_pm = {
-+	.prepare = snd_sof_prepare,
-+	.complete = snd_sof_complete,
- 	SET_SYSTEM_SLEEP_PM_OPS(snd_sof_suspend, snd_sof_resume)
- 	SET_RUNTIME_PM_OPS(snd_sof_runtime_suspend, snd_sof_runtime_resume,
- 			   snd_sof_runtime_idle)
+ int snd_sof_resume(struct device *dev)
+ {
++	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
++	int ret;
++
++	if (sdev->s0_suspend) {
++		/* resume from D0I3 */
++		dev_dbg(sdev->dev, "DSP will exit from D0i3...\n");
++		ret = snd_sof_set_d0_substate(sdev, SOF_DSP_D0I0);
++		if (ret == -ENOTSUPP) {
++			/* fallback to resume from D3 */
++			dev_dbg(sdev->dev, "D0i3 not supported, fall back to resume from D3...\n");
++			goto d3_resume;
++		} else if (ret < 0) {
++			dev_err(sdev->dev, "error: failed to exit from D0I3 %d\n",
++				ret);
++			return ret;
++		}
++
++		/* platform-specific resume from D0i3 */
++		return snd_sof_dsp_resume(sdev);
++	}
++
++d3_resume:
++	/* resume from D3 */
+ 	return sof_resume(dev, false);
+ }
+ EXPORT_SYMBOL(snd_sof_resume);
+ 
+ int snd_sof_suspend(struct device *dev)
+ {
++	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
++	int ret;
++
++	if (sdev->s0_suspend) {
++		/* suspend to D0i3 */
++		dev_dbg(sdev->dev, "DSP is trying to enter D0i3...\n");
++		ret = snd_sof_set_d0_substate(sdev, SOF_DSP_D0I3);
++		if (ret == -ENOTSUPP) {
++			/* fallback to D3 suspend */
++			dev_dbg(sdev->dev, "D0i3 not supported, fall back to D3...\n");
++			goto d3_suspend;
++		} else if (ret < 0) {
++			dev_err(sdev->dev, "error: failed to enter D0I3, %d\n",
++				ret);
++			return ret;
++		}
++
++		/* platform-specific suspend to D0i3 */
++		return snd_sof_dsp_suspend(sdev);
++	}
++
++d3_suspend:
++	/* suspend to D3 */
+ 	return sof_suspend(dev, false);
+ }
+ EXPORT_SYMBOL(snd_sof_suspend);
 -- 
 2.20.1
 

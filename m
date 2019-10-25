@@ -2,70 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C97BE4E64
-	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 16:07:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3619AE4E84
+	for <lists+alsa-devel@lfdr.de>; Fri, 25 Oct 2019 16:08:04 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E17841811;
-	Fri, 25 Oct 2019 16:06:25 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E17841811
+	by alsa0.perex.cz (Postfix) with ESMTPS id B86381814;
+	Fri, 25 Oct 2019 16:07:13 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B86381814
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572012436;
-	bh=dyqAde0W4rQRybKD3eC9MsPK3/jgaVLAd/G+uSKV76o=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1572012483;
+	bh=Rx37uQn1OGRJfGoFrqH+UgGxqgZ1+9dqer7rHzzeHPo=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tE6PY0RaBIV83bZogsFSZa04oD3quppTcwBRnZQsWiPmPVfvejhdKMkozcgTZ+N9S
-	 j8USTlPGhg86sV6m7BM3qfCuFgC0uHhr3lcS2d0Ftcd5t/TJRywbCaAWgfawMcQmWI
-	 arHT9Xwvw9ixv11sHL+dMvvzC7QE1dS2qJmBiKkk=
+	b=ksm0lJhhKIBQTV0lWdLD8wgzB7Fdr5gF6sZtjtRAQPoxLY9N0cVJsbMNLidF88t1z
+	 aB4f973caO3Xxml78kH8sN2eeAyRB5dlkCpjbJlsLPt5xcc5oWfKlzdMbb0UcdWV0r
+	 epxAYkFCRcs6DT4ztk21JEcYtXbTpDX9PPgv7Ous=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AE86F805FA;
-	Fri, 25 Oct 2019 16:05:23 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 84162F8045D;
+	Fri, 25 Oct 2019 16:06:38 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61AC6F8045D; Fri, 25 Oct 2019 16:05:20 +0200 (CEST)
+ id 188D5F80393; Fri, 25 Oct 2019 16:06:37 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A03BF802A0
- for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 16:05:16 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A03BF802A0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2019 07:05:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,228,1569308400"; d="scan'208";a="223930772"
-Received: from bnail-mobl.amr.corp.intel.com (HELO [10.252.140.167])
- ([10.252.140.167])
- by fmsmga004.fm.intel.com with ESMTP; 25 Oct 2019 07:05:13 -0700
-To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
-References: <1571994691-20199-1-git-send-email-brent.lu@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <3ce80285-ddb5-653d-cf60-febc9fd0bdee@linux.intel.com>
-Date: Fri, 25 Oct 2019 09:05:12 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <1571994691-20199-1-git-send-email-brent.lu@intel.com>
-Content-Language: en-US
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Tzung-Bi Shih <tzungbi@google.com>, linux-kernel@vger.kernel.org,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Richard Fontana <rfontana@redhat.com>, Mark Brown <broonie@kernel.org>,
- Naveen M <naveen.m@intel.com>, Thomas Gleixner <tglx@linutronix.de>,
- "Subhransu S . Prusty" <subhransu.s.prusty@intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: eve: implement set_bias_level
- function for rt5514
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22681F80112
+ for <alsa-devel@alsa-project.org>; Fri, 25 Oct 2019 16:06:33 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22681F80112
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 36655BA3A;
+ Fri, 25 Oct 2019 14:06:33 +0000 (UTC)
+Date: Fri, 25 Oct 2019 16:06:33 +0200
+Message-ID: <s5h36fgvs0m.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <bce57a56-99d0-62d7-1d53-099a75349341@perex.cz>
+References: <20191025123038.19728-1-perex@perex.cz>
+ <s5hk18tuhio.wl-tiwai@suse.de>
+ <bce57a56-99d0-62d7-1d53-099a75349341@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: change 'HDMI/DP, pcm=' to 'HDMI/DP,
+	pcm=' Jack control names
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,100 +69,261 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 10/25/19 4:11 AM, Brent Lu wrote:
-> The first DMIC capture always fail (zero sequence data from PCM port)
-> after using DSP hotwording function (i.e. Google assistant).
-
-Can you clarify where the DSP hotwording is done? Intel DSP or rt5514?
-
-Turning on the MCLK with the BIAS info might force the Intel DSP to 
-remain on, which would impact power consumption if it was supposed to 
-remain off.
-
-> This rt5514 codec requires to control mclk directly in the set_bias_level
-> function. Implement this function in machine driver to control the
-> ssp1_mclk clock explicitly could fix this issue.
+On Fri, 25 Oct 2019 15:57:50 +0200,
+Jaroslav Kysela wrote:
 > 
-> Signed-off-by: Brent Lu <brent.lu@intel.com>
-> ---
->   .../soc/intel/boards/kbl_rt5663_rt5514_max98927.c  | 50 ++++++++++++++++++++++
->   1 file changed, 50 insertions(+)
+> Dne 25. 10. 19 v 14:38 Takashi Iwai napsal(a):
+> > On Fri, 25 Oct 2019 14:30:38 +0200,
+> > Jaroslav Kysela wrote:
+> >>
+> >> There is an inconsistency in the names for the HDMI/DP Jack control
+> >> names between some ASoC drivers and the HDA HDMI driver which
+> >> introduced this naming in 2011.
+> >>
+> >> There might be an impact for the user space (UCM). I will fix
+> >> the UCM configurations when this patch is applied.
+> >>
+> >> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+> >> Cc: Mark Brown <broonie@kernel.org>
+> >> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> >
+> > Yes, that's a known problem, and I left them so far just for keeping
+> > the already existing stuff working.
+> >
+> > Won't this break the current Chromebooks user-space?
 > 
-> diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-> index dc09a85..b546de8 100644
-> --- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-> +++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-> @@ -653,6 +653,55 @@ static struct snd_soc_dai_link kabylake_dais[] = {
->   	},
->   };
->   
-> +static int kabylake_set_bias_level(struct snd_soc_card *card,
-> +	struct snd_soc_dapm_context *dapm, enum snd_soc_bias_level level)
-> +{
-> +	struct snd_soc_component *component = dapm->component;
-> +	struct kbl_codec_private *priv = snd_soc_card_get_drvdata(card);
-> +	int ret = 0;
-> +
-> +	if (!component || strcmp(component->name, RT5514_DEV_NAME))
-> +		return 0;
-> +
-> +	if (IS_ERR(priv->mclk))
-> +		return 0;
-> +
-> +	/*
-> +	 * It's required to control mclk directly in the set_bias_level
-> +	 * function for rt5514 codec or the recording function could
-> +	 * break.
-> +	 */
-> +	switch (level) {
-> +	case SND_SOC_BIAS_PREPARE:
-> +		if (dapm->bias_level == SND_SOC_BIAS_ON) {
-> +			dev_dbg(card->dev, "Disable mclk");
-> +			clk_disable_unprepare(priv->mclk);
-> +		} else {
-> +			dev_dbg(card->dev, "Enable mclk");
-> +			ret = clk_set_rate(priv->mclk, 24000000);
-> +			if (ret) {
-> +				dev_err(card->dev, "Can't set rate for mclk, err: %d\n",
-> +					ret);
-> +				return ret;
-> +			}
-> +
-> +			ret = clk_prepare_enable(priv->mclk);
-> +			if (ret) {
-> +				dev_err(card->dev, "Can't enable mclk, err: %d\n",
-> +					ret);
-> +
-> +				/* mclk is already enabled in FW */
-> +				ret = 0;
-> +			}
-> +		}
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	return ret;
-> +}
-> +
->   static int kabylake_card_late_probe(struct snd_soc_card *card)
->   {
->   	struct kbl_codec_private *ctx = snd_soc_card_get_drvdata(card);
-> @@ -692,6 +741,7 @@ static struct snd_soc_card kabylake_audio_card = {
->   	.owner = THIS_MODULE,
->   	.dai_link = kabylake_dais,
->   	.num_links = ARRAY_SIZE(kabylake_dais),
-> +	.set_bias_level = kabylake_set_bias_level,
->   	.controls = kabylake_controls,
->   	.num_controls = ARRAY_SIZE(kabylake_controls),
->   	.dapm_widgets = kabylake_widgets,
+> I would really expect to upgrade UCM configs for the recent kernels in
+> this case. I believe, those sort of issues are better to fix early
+> than lately. I know, the transition might cause a little issues, but
+> usually "do upgrade answer" will help. I don't think that we speak
+> about a large group of users here.
+
+Well, that's obviously against our dont-breaking-user-space rule.
+The UCM profiles have been widely used on Chromebooks, and they can't
+upgrade easily.
+
+So, I believe this is a case where we have to live with messes.
+
+
+thanks,
+
+Takashi
+
+> 
+> 						Jaroslav
+> 
+> >
+> >
+> > thanks,
+> >
+> > Takashi
+> >
+> >> ---
+> >>   Documentation/sound/designs/control-names.rst   | 5 +++--
+> >>   sound/soc/intel/boards/bxt_da7219_max98357a.c   | 2 +-
+> >>   sound/soc/intel/boards/bxt_rt298.c              | 2 +-
+> >>   sound/soc/intel/boards/glk_rt5682_max98357a.c   | 2 +-
+> >>   sound/soc/intel/boards/kbl_da7219_max98357a.c   | 2 +-
+> >>   sound/soc/intel/boards/kbl_da7219_max98927.c    | 2 +-
+> >>   sound/soc/intel/boards/kbl_rt5660.c             | 2 +-
+> >>   sound/soc/intel/boards/kbl_rt5663_max98927.c    | 2 +-
+> >>   sound/soc/intel/boards/skl_hda_dsp_common.c     | 2 +-
+> >>   sound/soc/intel/boards/skl_nau88l25_max98357a.c | 2 +-
+> >>   sound/soc/intel/boards/skl_nau88l25_ssm4567.c   | 2 +-
+> >>   sound/soc/intel/boards/skl_rt286.c              | 2 +-
+> >>   sound/soc/intel/boards/sof_rt5682.c             | 2 +-
+> >>   13 files changed, 15 insertions(+), 14 deletions(-)
+> >>
+> >> diff --git a/Documentation/sound/designs/control-names.rst b/Documentation/sound/designs/control-names.rst
+> >> index 7fedd0f33cd9..a5f6e3842df8 100644
+> >> --- a/Documentation/sound/designs/control-names.rst
+> >> +++ b/Documentation/sound/designs/control-names.rst
+> >> @@ -50,7 +50,7 @@ Internal	internal
+> >>     SOURCE
+> >>   ~~~~~~
+> >> -===================	=================================================
+> >> +===================	===================================================
+> >>   Master
+> >>   Master Mono
+> >>   Hardware Master
+> >> @@ -92,7 +92,8 @@ SPDIF			output only
+> >>   SPDIF In
+> >>   Digital In
+> >>   HDMI/DP			either HDMI or DisplayPort
+> >> -===================	=================================================
+> >> +HDMI/DP,pcm=<num>       either HDMI or DisplayPort with the PCM device link
+> >> +===================	===================================================
+> >>     Exceptions (deprecated)
+> >>   -----------------------
+> >> diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+> >> index ac1dea5f9d11..b49028c6fd10 100644
+> >> --- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
+> >> +++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+> >> @@ -618,7 +618,7 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT, &broxton_hdmi[i],
+> >>   					NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
+> >> index adf416a49b48..caaf2f2af287 100644
+> >> --- a/sound/soc/intel/boards/bxt_rt298.c
+> >> +++ b/sound/soc/intel/boards/bxt_rt298.c
+> >> @@ -530,7 +530,7 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT, &broxton_hdmi[i],
+> >>   					NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/glk_rt5682_max98357a.c b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+> >> index bd2d371f2acd..5474f28e0c31 100644
+> >> --- a/sound/soc/intel/boards/glk_rt5682_max98357a.c
+> >> +++ b/sound/soc/intel/boards/glk_rt5682_max98357a.c
+> >> @@ -548,7 +548,7 @@ static int glk_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT, &geminilake_hdmi[i],
+> >>   					NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+> >> index 537a88932bb6..367415efed9b 100644
+> >> --- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
+> >> +++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+> >> @@ -548,7 +548,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT, &skylake_hdmi[i],
+> >>   					NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
+> >> index 829f95fc4179..b30c2148d1f4 100644
+> >> --- a/sound/soc/intel/boards/kbl_da7219_max98927.c
+> >> +++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
+> >> @@ -977,7 +977,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT, &kabylake_hdmi[i],
+> >>   					NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/kbl_rt5660.c b/sound/soc/intel/boards/kbl_rt5660.c
+> >> index 74fe1f3a5479..0965d1f02b2c 100644
+> >> --- a/sound/soc/intel/boards/kbl_rt5660.c
+> >> +++ b/sound/soc/intel/boards/kbl_rt5660.c
+> >> @@ -470,7 +470,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT, &skylake_hdmi[i],
+> >>   					NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/kbl_rt5663_max98927.c b/sound/soc/intel/boards/kbl_rt5663_max98927.c
+> >> index 7cefda341fbf..9f420e978459 100644
+> >> --- a/sound/soc/intel/boards/kbl_rt5663_max98927.c
+> >> +++ b/sound/soc/intel/boards/kbl_rt5663_max98927.c
+> >> @@ -888,7 +888,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT, &skylake_hdmi[i],
+> >>   					NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.c b/sound/soc/intel/boards/skl_hda_dsp_common.c
+> >> index 58409b6e476e..f717b1d179bd 100644
+> >> --- a/sound/soc/intel/boards/skl_hda_dsp_common.c
+> >> +++ b/sound/soc/intel/boards/skl_hda_dsp_common.c
+> >> @@ -139,7 +139,7 @@ int skl_hda_hdmi_jack_init(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			 "HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			 "HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					    SND_JACK_AVOUT, &pcm->hdmi_jack,
+> >>   					    NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/skl_nau88l25_max98357a.c b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+> >> index 3ce8efbeed12..b009e2df25d3 100644
+> >> --- a/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+> >> +++ b/sound/soc/intel/boards/skl_nau88l25_max98357a.c
+> >> @@ -607,7 +607,7 @@ static int skylake_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT,
+> >>   					&skylake_hdmi[i],
+> >> diff --git a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+> >> index 1a7ac8bdf543..0a6e650dc698 100644
+> >> --- a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+> >> +++ b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
+> >> @@ -648,7 +648,7 @@ static int skylake_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT,
+> >>   					&skylake_hdmi[i],
+> >> diff --git a/sound/soc/intel/boards/skl_rt286.c b/sound/soc/intel/boards/skl_rt286.c
+> >> index 231349a47cc9..56ee4b55dce9 100644
+> >> --- a/sound/soc/intel/boards/skl_rt286.c
+> >> +++ b/sound/soc/intel/boards/skl_rt286.c
+> >> @@ -489,7 +489,7 @@ static int skylake_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			"HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			"HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					SND_JACK_AVOUT, &skylake_hdmi[i],
+> >>   					NULL, 0);
+> >> diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+> >> index 4f6e58c3954a..862a7e35cb5c 100644
+> >> --- a/sound/soc/intel/boards/sof_rt5682.c
+> >> +++ b/sound/soc/intel/boards/sof_rt5682.c
+> >> @@ -277,7 +277,7 @@ static int sof_card_late_probe(struct snd_soc_card *card)
+> >>   	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+> >>   		component = pcm->codec_dai->component;
+> >>   		snprintf(jack_name, sizeof(jack_name),
+> >> -			 "HDMI/DP, pcm=%d Jack", pcm->device);
+> >> +			 "HDMI/DP,pcm=%d Jack", pcm->device);
+> >>   		err = snd_soc_card_jack_new(card, jack_name,
+> >>   					    SND_JACK_AVOUT, &sof_hdmi[i],
+> >>   					    NULL, 0);
+> >> -- 
+> >> 2.20.1
+> >>
+> 
+> 
+> -- 
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 > 
 _______________________________________________
 Alsa-devel mailing list

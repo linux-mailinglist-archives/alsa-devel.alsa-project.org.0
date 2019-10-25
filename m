@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FB0E56AB
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Oct 2019 00:51:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EB40E56BC
+	for <lists+alsa-devel@lfdr.de>; Sat, 26 Oct 2019 00:56:52 +0200 (CEST)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2210418D5;
-	Sat, 26 Oct 2019 00:50:36 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2210418D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0CF5A18F6;
+	Sat, 26 Oct 2019 00:56:02 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0CF5A18F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572043886;
-	bh=fPAnw5LkysC7r9w5H1JqM4z9mT6RRmhjscv+pep+8Co=;
+	s=default; t=1572044212;
+	bh=DiH0Hn/a4SMXmJCWLB1qtq3tUPzvoW2Y2gPI9YYe1B0=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ILD0lAUGZU/ztRgRtn7knCJDm1jIDDKiByWAMA1awfQPUzVNEHL1ti8DjNfPcal4x
-	 z7rZImmodTqYqGXv0h1aZ+cCTml6+tMIWAaQ3RXPrpimoJBblCTmzFFhGNOwqlHKzy
-	 H7f4K7BaY8i3Upur7t9NsbT6IJEAuzjzkw+n4LJ4=
+	b=c8eO4WGSPiZWBFzriufxUR7dqSqpYRpPd0zcB2TkO9ZK0cdfBmmEQC9g5Uy0RjETm
+	 /wpDB0G/qJ19yE0ShQM44gL0LN+6nItHxwPnduCy3KfnLX375m4hpiUo5mAL0rAELS
+	 /6lBb1ijI33YQV+t73jsw+GD5AfBcO3aE3P0oQRk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E58F2F8070D;
-	Sat, 26 Oct 2019 00:42:20 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9A46F80774;
+	Sat, 26 Oct 2019 00:42:31 +0200 (CEST)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9D20F80633; Sat, 26 Oct 2019 00:41:53 +0200 (CEST)
+ id 567B8F8063E; Sat, 26 Oct 2019 00:41:58 +0200 (CEST)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,31 +33,31 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F376AF802A0
- for <alsa-devel@alsa-project.org>; Sat, 26 Oct 2019 00:41:45 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F376AF802A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6994F8060F
+ for <alsa-devel@alsa-project.org>; Sat, 26 Oct 2019 00:41:46 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6994F8060F
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Oct 2019 15:41:43 -0700
+ 25 Oct 2019 15:41:44 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,230,1569308400"; d="scan'208";a="210458209"
+X-IronPort-AV: E=Sophos;i="5.68,230,1569308400"; d="scan'208";a="210458212"
 Received: from archagam-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.intel.com) ([10.252.139.180])
- by fmsmga001.fm.intel.com with ESMTP; 25 Oct 2019 15:41:43 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 25 Oct 2019 15:41:44 -0700
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Fri, 25 Oct 2019 17:41:08 -0500
-Message-Id: <20191025224122.7718-13-pierre-louis.bossart@linux.intel.com>
+Date: Fri, 25 Oct 2019 17:41:09 -0500
+Message-Id: <20191025224122.7718-14-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191025224122.7718-1-pierre-louis.bossart@linux.intel.com>
 References: <20191025224122.7718-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: tiwai@suse.de, broonie@kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 12/26] ASoC: SOF: PM: rename sof_send_pm_ipc to
-	sof_send_pm_ctx_ipc
+Subject: [alsa-devel] [PATCH 13/26] ASoC: SOF: ipc: introduce message for
+	DSP power gating
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,46 +77,45 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Keyon Jie <yang.jie@linux.intel.com>
 
-The helper sof_send_pm_ipc() is only suitable for context save/restore
-IPCs' sending, so rename it to sof_send_pm_ctx_ipc here.
+Add new ipc messages which will be sent from driver to FW, to ask FW to
+enter specific power saving state.
 
 Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/pm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ include/sound/sof/header.h | 1 +
+ include/sound/sof/pm.h     | 8 ++++++++
+ 2 files changed, 9 insertions(+)
 
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index 81e623dfc7e5..ac900fb3379e 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -197,7 +197,7 @@ static int sof_restore_pipelines(struct snd_sof_dev *sdev)
- 	return ret;
- }
+diff --git a/include/sound/sof/header.h b/include/sound/sof/header.h
+index 332143ff7278..bf3edd9c08b4 100644
+--- a/include/sound/sof/header.h
++++ b/include/sound/sof/header.h
+@@ -75,6 +75,7 @@
+ #define SOF_IPC_PM_CLK_GET			SOF_CMD_TYPE(0x005)
+ #define SOF_IPC_PM_CLK_REQ			SOF_CMD_TYPE(0x006)
+ #define SOF_IPC_PM_CORE_ENABLE			SOF_CMD_TYPE(0x007)
++#define SOF_IPC_PM_GATE				SOF_CMD_TYPE(0x008)
  
--static int sof_send_pm_ipc(struct snd_sof_dev *sdev, int cmd)
-+static int sof_send_pm_ctx_ipc(struct snd_sof_dev *sdev, int cmd)
- {
- 	struct sof_ipc_pm_ctx pm_ctx;
- 	struct sof_ipc_reply reply;
-@@ -320,7 +320,7 @@ static int sof_resume(struct device *dev, bool runtime_resume)
- 	}
+ /* component runtime config - multiple different types */
+ #define SOF_IPC_COMP_SET_VALUE			SOF_CMD_TYPE(0x001)
+diff --git a/include/sound/sof/pm.h b/include/sound/sof/pm.h
+index 003879401d63..3cf2e0f39d94 100644
+--- a/include/sound/sof/pm.h
++++ b/include/sound/sof/pm.h
+@@ -45,4 +45,12 @@ struct sof_ipc_pm_core_config {
+ 	uint32_t enable_mask;
+ } __packed;
  
- 	/* notify DSP of system resume */
--	ret = sof_send_pm_ipc(sdev, SOF_IPC_PM_CTX_RESTORE);
-+	ret = sof_send_pm_ctx_ipc(sdev, SOF_IPC_PM_CTX_RESTORE);
- 	if (ret < 0)
- 		dev_err(sdev->dev,
- 			"error: ctx_restore ipc error during resume %d\n",
-@@ -361,7 +361,7 @@ static int sof_suspend(struct device *dev, bool runtime_suspend)
- 		sof_cache_debugfs(sdev);
++struct sof_ipc_pm_gate {
++	struct sof_ipc_cmd_hdr hdr;
++	uint32_t flags;	/* platform specific */
++
++	/* reserved for future use */
++	uint32_t reserved[5];
++} __packed;
++
  #endif
- 	/* notify DSP of upcoming power down */
--	ret = sof_send_pm_ipc(sdev, SOF_IPC_PM_CTX_SAVE);
-+	ret = sof_send_pm_ctx_ipc(sdev, SOF_IPC_PM_CTX_SAVE);
- 	if (ret == -EBUSY || ret == -EAGAIN) {
- 		/*
- 		 * runtime PM has logic to handle -EBUSY/-EAGAIN so
 -- 
 2.20.1
 

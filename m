@@ -2,58 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D219E5F69
-	for <lists+alsa-devel@lfdr.de>; Sat, 26 Oct 2019 22:09:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C8E4E6111
+	for <lists+alsa-devel@lfdr.de>; Sun, 27 Oct 2019 07:00:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D48E18E3;
-	Sat, 26 Oct 2019 22:08:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D48E18E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE36C18EF;
+	Sun, 27 Oct 2019 06:59:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE36C18EF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572120563;
-	bh=gxDWjQusrh4qW5jpLFhyJvh3JqexuLNkTL5yq+Ih2Hg=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1572156046;
+	bh=9HJu7G2X6uuBS5aGM4NFYSIIeXOk9vm+Wb9Mz+bjlmo=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Zi8/sQDInjEJPtoprp1/fpXBxscj+PHlIoU+CmeJF3U/3ae9ocLitFNK1Ugcd7AvS
-	 yLfHQ6o4bLVNGqOYm+Mpvb2jK1x5M+tuB5fpkSLR9Yo/s57n9HO2+PomERB7EmHTgI
-	 IxtamY76bRRPrci+vdo5u4crtrmfMwrZWeRThhQ4=
+	b=Hp0j5Q0vpEx8XgNabYYDV0b2M2jm6ipxQ5k83F6mDhuEJ78KCZL4FXRjrU4yebQmF
+	 rY2Uot6Bg1zffYq2g6yUnM1h3LviCRIWPJFWo7doYhLpT3uO5FYYHh/yJvIOPf/ify
+	 tAU75JVaCgl6u8f0bDOYNFZOW/h+vQy1/9D+KwOc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60D2DF80367;
-	Sat, 26 Oct 2019 22:07:38 +0200 (CEST)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3766FF80392;
+	Sun, 27 Oct 2019 06:59:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B32EF80228; Sat, 26 Oct 2019 22:07:14 +0200 (CEST)
+ id A157AF80392; Sun, 27 Oct 2019 06:58:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.4 required=5.0 tests=FREEMAIL_FROM, KHOP_HELO_FCRDNS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,SPOOFED_FREEMAIL autolearn=disabled
- version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp10.smtpout.orange.fr
- [80.12.242.132])
- (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
+ [IPv6:2607:f8b0:4864:20::530])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9472EF80367
- for <alsa-devel@alsa-project.org>; Sat, 26 Oct 2019 22:06:13 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9472EF80367
-Received: from belgarion ([90.76.41.223]) by mwinf5d19 with ME
- id JL6B210024otT8A03L6B8P; Sat, 26 Oct 2019 22:06:12 +0200
-X-ME-Helo: belgarion
-X-ME-Auth: amFyem1pay5yb2JlcnRAb3JhbmdlLmZy
-X-ME-Date: Sat, 26 Oct 2019 22:06:12 +0200
-X-ME-IP: 90.76.41.223
-From: Robert Jarzmik <robert.jarzmik@free.fr>
-To: Mark Brown <broonie@kernel.org>,
- Charles Keepax <ckeepax@opensource.wolfsonmicro.com>,
- patches@opensource.cirrus.com
-X-URL: http://belgarath.falguerolles.org/
-Date: Sat, 26 Oct 2019 22:06:10 +0200
-Message-ID: <87a79nqnkd.fsf@belgarion.home>
-User-Agent: Gnus/5.130008 (Ma Gnus v0.8) Emacs/26 (gnu/linux)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 34FD6F80228
+ for <alsa-devel@alsa-project.org>; Sun, 27 Oct 2019 06:58:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34FD6F80228
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="lN+/RWMm"
+Received: by mail-pg1-x530.google.com with SMTP id e10so4313862pgd.11
+ for <alsa-devel@alsa-project.org>; Sat, 26 Oct 2019 22:58:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:from:to:subject:mime-version:content-disposition:date;
+ bh=W23GMoX/L/JSui6dQFgqWzNsdin+ErvQoXJ7ztENu2A=;
+ b=lN+/RWMmPxJ2zpxbBb5CDHQ2jRV10Pi4T8Bfa2PEywoD5K9COGSEpo705KBwXvRoos
+ FCPDscwdk5oUqoNip4p0uW6JZNKzm4iww/MTV6kGhLltUTg1XQwTPzy5N222NtjuCHMp
+ LKewqmqhVkPw6cW1RLjxZXbippK1c2fp8l2SR1DLF/VePJ6nig7Y9x1T2U+CcKHx6tYf
+ N88g/lXRwXwGX5XgMls4A+EZQfmCDk8SMG1ZPxLnTxb85FLR1Bq2nZhnloU3+694Ovwt
+ oxPznUARq5oP5tog9j36V+FeZKoYht6e10+Y4PjKp+LKal+QZcRaymhdSFbsBAHne/1L
+ 3nGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:from:to:subject:mime-version
+ :content-disposition:date;
+ bh=W23GMoX/L/JSui6dQFgqWzNsdin+ErvQoXJ7ztENu2A=;
+ b=BGHmjoJQ+kxpcHqDmAywCQBy1Zr9IHanRPLtiLBjoMNXl8VXjw8okZs5FrQdgBRxCB
+ 18rX+Zw8i/1PFC4FSSkF59o5nwus1jD1sWSHuzLSKBLPF6GXLtSqun7dETQkbwCu+3z5
+ ATT1AqJwLaibiOFsDUTCJE0QNhbNEFBdVfUz0judDHZdEO70YR+Xhf0JkEbB8AeuSal2
+ BiUleljYFx5cojVSGKiZwmPyQpL7MadC9XBmXsnGCVotMoWI9lM7A92DDiFggDd3BC0G
+ i6thhYKfkZOzKqhLHpVnVi8DbtyL+X6LDJNxkubzA7uDXBx4eQkbhVoMBtjnzuXSkTK3
+ WTAQ==
+X-Gm-Message-State: APjAAAWMOA/H2g9Ez8/IR0Vucp6dD6799/PrQEXdxBtC3uMw9tLtV89T
+ Unni5X12phJ4xwQSJ4IOG2rnxqB1
+X-Google-Smtp-Source: APXvYqyZefC6T3SyWmHfocoLlZtHUkbAjLVcwQT7NANJTRl9o0kCAmYSxus4zvBcwSoL4oyKYXgnlg==
+X-Received: by 2002:a17:90a:1424:: with SMTP id j33mr70141pja.2.1572155929469; 
+ Sat, 26 Oct 2019 22:58:49 -0700 (PDT)
+Received: from localhost ([2602:ae:1f18:f600:30d8:fbff:feab:8eda])
+ by smtp.gmail.com with ESMTPSA id a23sm6957824pfl.65.2019.10.26.22.58.48
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 26 Oct 2019 22:58:48 -0700 (PDT)
+Message-ID: <5db53218.1c69fb81.4bca1.5d88@mx.google.com>
+From: John McKay <adenosine3p@gmail.com>
+To: <alsa-devel@alsa-project.org>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] wm9713 regression on pxa platforms
+Content-Disposition: inline
+Date: Sun, 27 Oct 2019 05:30:12 +0000
+Subject: [alsa-devel] [PATCH] Fix JACK plugin buffer sizes
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,65 +96,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Wolfson maintainers, hi Mark,
+I was having a conversation on the Archlinux forums[1] about using the
+alsa-plugins JACK plugin. While one of the bugs that we found has
+already been fixed in the git alsa-lib, there is another bug relating
+to buffer sizes.
 
-Recently, the wm9713 support broke on my platforms. I'm pretty sure that a
-previous harmless warning became an error preventing the probe of my driver
-(sound/soc/pxa/mioa701_wm9713.c) : the error is shown in [1] ("Control not
-supported").
+Currently snd_pcm_hw_params_set_buffer_size_near() doesn't really work
+when you are using this plugin unless you happen to request a buffer
+size that almost exactly matches a whole multiple of periods that the
+JACK is asking for. After some debugging, I discovered the reason is
+that some plugins, notably the 'plug' plugin that most everybody is
+going to use to change frequency/format directly attempt to manipulate
+the buffer size. This causes the code in pcm_ioplug.c to fail because it
+cannot find a number of periods/period time that can fit the buffer.
 
-The warning "ASoC: no dapm match for Mic B Source" has be there as far as I'm
-aware for ages, and it never prevented the probe before.
+The included patch stops this by specifying the list of acceptable
+buffer sizes as well, so that when other plugins try to change the
+buffer it always picks one that will work. It does have some problems
+in the JACK plugin now offers a number of periods/sizes that don't
+exist but in practice asking for huge buffers just seems to give you a
+more sane value.
 
-Now, if I apply the ugly patch in [2], everything works as expected ... but
-that's definitely not the right fix.
+[1] https://bbs.archlinux.org/viewtopic.php?id=250116
 
-Would any of you be able to figure out a fix please ?
-
-Cheers.
-
--- 
-Robert
-
-[1] Kernel log
-[  129.888985] pxa2xx-ac97 pxa2xx-ac97: ASoC: dai register pxa2xx-ac97 #3
-[  129.889052] pxa2xx-ac97 pxa2xx-ac97: ASoC: dynamically register DAI pxa2xx-ac97
-[  129.889102] pxa2xx-ac97 pxa2xx-ac97: ASoC: Registered DAI 'pxa2xx-ac97'
-[  129.889135] pxa2xx-ac97 pxa2xx-ac97: ASoC: dynamically register DAI pxa2xx-ac97
-[  129.889176] pxa2xx-ac97 pxa2xx-ac97: ASoC: Registered DAI 'pxa2xx-ac97-aux'
-[  129.889207] pxa2xx-ac97 pxa2xx-ac97: ASoC: dynamically register DAI pxa2xx-ac97
-[  129.889249] pxa2xx-ac97 pxa2xx-ac97: ASoC: Registered DAI 'pxa2xx-ac97-mic'
-[  135.341942] wm9713-codec wm9713-codec: ASoC: dai register wm9713-codec #3
-[  135.342019] wm9713-codec wm9713-codec: ASoC: dynamically register DAI wm9713-codec
-[  135.342077] wm9713-codec wm9713-codec: ASoC: Registered DAI 'wm9713-hifi'
-[  135.342109] wm9713-codec wm9713-codec: ASoC: dynamically register DAI wm9713-codec
-[  135.342162] wm9713-codec wm9713-codec: ASoC: Registered DAI 'wm9713-aux'
-[  135.342193] wm9713-codec wm9713-codec: ASoC: dynamically register DAI wm9713-codec
-[  135.342234] wm9713-codec wm9713-codec: ASoC: Registered DAI 'wm9713-voice'
-[  139.362113] mioa701-wm9713 mioa701-wm9713: ASoC: binding AC97
-[  139.362302] mioa701-wm9713 mioa701-wm9713: ASoC: binding AC97 Aux
-[  139.367170] wm9713-codec wm9713-codec: Control not supported for path Mic B Source -> [MPB] -> Mic B Pre Amp
-[  139.375450] wm9713-codec wm9713-codec: ASoC: no dapm match for Mic B Source --> MPB --> Mic B Pre Amp
-[  139.383448] wm9713-codec wm9713-codec: ASoC: Failed to add route Mic B Source -> MPB -> Mic B Pre Amp
-[  139.393422] mioa701-wm9713 mioa701-wm9713: ASoC: failed to instantiate card -22
-[  139.403089] mioa701-wm9713: probe of mioa701-wm9713 failed with error -22
-
-[2] Ugly test
-diff --git a/sound/soc/codecs/wm9713.c b/sound/soc/codecs/wm9713.c
-index 6497c1ea6228..ec140ccbab0b 100644
---- a/sound/soc/codecs/wm9713.c
-+++ b/sound/soc/codecs/wm9713.c
-@@ -630,8 +630,8 @@ static const struct snd_soc_dapm_route wm9713_audio_map[] = {
-        {"Mic A Source", "Mic 1", "MIC1"},
-        {"Mic A Source", "Mic 2 A", "MIC2A"},
-        {"Mic A Source", "Mic 2 B", "Mic B Source"},
--       {"Mic B Pre Amp", "MPB", "Mic B Source"},
--       {"Mic B Source", NULL, "MIC2B"},
-+       /* {"Mic B Pre Amp", "MPB", "Mic B Source"}, */
-+       /* {"Mic B Source", NULL, "MIC2B"}, */
+--- jack/pcm_jack.c	2019-05-10 06:57:24.000000000 +0000
++++ jack/pcm_jack.c	2019-10-27 03:43:36.053734268 +0000
+@@ -428,6 +428,7 @@
+ 	unsigned int format = SND_PCM_FORMAT_FLOAT;
+ 	unsigned int rate = jack_get_sample_rate(jack->client);
+ 	unsigned int psize_list[MAX_PERIODS_MULTIPLE];
++	unsigned int bsize_list[MAX_PERIODS_MULTIPLE];
+ 	unsigned int nframes = jack_get_buffer_size(jack->client);
+ 	unsigned int jack_buffer_bytes = (snd_pcm_format_size(format, nframes) *
+ 					  jack->num_ports);
+@@ -441,6 +442,9 @@
+ 	for (i = 1; i <= ARRAY_SIZE(psize_list); i++)
+ 		psize_list[i-1] = jack_buffer_bytes * i;
  
-        /* headphone capture */
-        {"Capture Headphone Mux", "Stereo", "Capture Mixer"},
++	for (i = 1; i <= ARRAY_SIZE(bsize_list); i++)
++		bsize_list[i-1] = jack_buffer_bytes * (i + 1);
++
+ 	jack->sample_bits = snd_pcm_format_physical_width(format);
+ 	if ((err = snd_pcm_ioplug_set_param_list(&jack->io, SND_PCM_IOPLUG_HW_ACCESS,
+ 						 ARRAY_SIZE(access_list), access_list)) < 0 ||
+@@ -452,6 +456,8 @@
+ 						   rate, rate)) < 0 ||
+ 	    (err = snd_pcm_ioplug_set_param_list(&jack->io, SND_PCM_IOPLUG_HW_PERIOD_BYTES,
+ 						 ARRAY_SIZE(psize_list), psize_list)) < 0 ||
++	    (err = snd_pcm_ioplug_set_param_list(&jack->io, SND_PCM_IOPLUG_HW_BUFFER_BYTES,
++						 ARRAY_SIZE(bsize_list), bsize_list)) < 0 ||
+ 	    (err = snd_pcm_ioplug_set_param_minmax(&jack->io, SND_PCM_IOPLUG_HW_PERIODS,
+ 						   2, 64)) < 0)
+ 		return err;
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

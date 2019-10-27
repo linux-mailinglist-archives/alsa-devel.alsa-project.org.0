@@ -2,90 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3302EE6D50
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 08:37:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 791A1E6D5A
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 08:38:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AA5AC1EDA;
-	Mon, 28 Oct 2019 08:36:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AA5AC1EDA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 098371EE4;
+	Mon, 28 Oct 2019 08:37:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 098371EE4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572248256;
-	bh=Wu1tM0qZVMdQag4917IMjzBVFRfpRnCm76CHZIrUB2k=;
+	s=default; t=1572248303;
+	bh=9gzrKbW0YCcQwB1yukBbIjKl8fpGUGXtpTGpuruxe8U=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=P9zuVBfTjwbS6uRasbml/vK+qg7cYyuMMEXSZZdo8XksLEDV/FNi3HgQAvnjfn5o1
-	 oH8X3fhqVwLQITiFcbY8s0IuGkLZAsRPROxjs+R8zk4ZOfhN6TrT3hSw1mn1MlwAZz
-	 EdDQN+NhtwaRzl+Z/AybaksVFXbUmHvOqBitIkKM=
+	b=Y4zhYVfXirwomFfBUgPdN6cCxvgcxz4a7gbpzz4sK72SC31m24lgqFJ0J3Ct9fgK4
+	 +5RnnaRVbHd2k0GEUfc5wNJgDyeH03xWoZfu7G3Rv2o4oiRSEJEPNo4fD9gyHM8Fky
+	 Ih/mI8oMCEgu6Miqg47swKhtwwzXvoRpvbo5ac3Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A199F80635;
-	Mon, 28 Oct 2019 08:33:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28C93F80637;
+	Mon, 28 Oct 2019 08:33:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADE22F80392; Sun, 27 Oct 2019 20:49:18 +0100 (CET)
+ id 168C5F80392; Sun, 27 Oct 2019 22:53:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
- [IPv6:2607:f8b0:4864:20::144])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E97C5F80228
- for <alsa-devel@alsa-project.org>; Sun, 27 Oct 2019 20:49:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E97C5F80228
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F7D6F80145
+ for <alsa-devel@alsa-project.org>; Sun, 27 Oct 2019 22:53:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F7D6F80145
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="G+PBpQRQ"
-Received: by mail-il1-x144.google.com with SMTP id s75so6190283ilc.3
- for <alsa-devel@alsa-project.org>; Sun, 27 Oct 2019 12:49:15 -0700 (PDT)
+ header.b="hYmllqNN"
+Received: by mail-io1-xd41.google.com with SMTP id q1so8497138ion.1
+ for <alsa-devel@alsa-project.org>; Sun, 27 Oct 2019 14:53:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
- bh=Fp8qbpwsPU5t44meEzV5unnuVBGj/STbs393t2jsMas=;
- b=G+PBpQRQbVt6Enherj5lZsb71SRxc4snjY5IQwTWS+e+Ft/hoAXpwjeKfYEGo83gVW
- Rsuu0XwD/5Chxlu65jRX13j0lZf0BThZnk8m/rz3A8ka4rE6A8NywUSzV6t8iNq4pjAC
- eUrMQnGFuVwgvHogudXxzbfoBnRc+9HEeU1VqO/Kxg0q33LSUt/8yMwBbcVr+gB8dlc7
- J2pWjuk/CYsBthAyl4QJjvOsccUypq3YMiu4amifZK1hmTHjhBfkw5mw9Aq8pnJ+kfOw
- 3hlPyueJG17CIIdcV0gXqt0mCOiGJWtBxIZXQZkYStIO/Q2PTDNNCVUnFeL+cEv8oBvz
- R6ww==
+ bh=CCZl0j1P1FyTjIpTDRJfaJQYXzqQniNrCSsMSJER5FE=;
+ b=hYmllqNNLIaHWyfzEhzbgV41fN6DR4+U1k3TUA8UD/BT4nz/7KR0ZyVtq8sUS9T5wk
+ bLFsQMrd5ii67uAp22grpEvPHmldksyk9foPhnfAZsSDBRm5CCsZDcSgoCh3E3fU1kg1
+ nvpMNxIL7IRDaNHOVsXf03TRrAQ/L3larGXZLsnb/3U8PTR732e1dUia+ImSqrDjKRz0
+ yMKXpkv7a0ocLAumQDPFlx2JGwJ0hy966ZusA/a2/LGUzs0kh8ggiG55BLesTCumL2rT
+ PHU4X6WjyZsE90RRq4RdP1CHL/Bp5WF1RY3VR3gSN1KeqJvklgOOIyBM4ZfCxJQdlNNq
+ lr2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=Fp8qbpwsPU5t44meEzV5unnuVBGj/STbs393t2jsMas=;
- b=YBcvvWuEGkiNpCXjPH08tTCJMFoisacHFgNd+06TZqGldM5UobkdrJEJFmrsT7c9BV
- MvB4oVg4HkXh0cvXWUKx+pKkNFDPETy82R9YSV6w0vD5vq8KJtXNx4zxm+l66PVirA3u
- AOvfqf3fvnNygyArUjuMxEGlxYABHD6MY8kWCRuILW+gNEs392KeDeshKpJS7TvT7nyd
- 65U54v9sCyhNVtWZkx5x/Xu1i11mtRUKle2WSGGTkdwiDmWmlgRmxxJG9yrv2gycVNpj
- ox3+NfoBYXHG7sPvh5BJC37omgH99ZcygT81UYPMNywEAX8kqcw51VxIIQ80yLTB5dpP
- vTDw==
-X-Gm-Message-State: APjAAAWeaBieGkgV5zmiRy3lpDTNdSXIl6roTC1KpVRtpMt3nzsprnIk
- 74Ktux/LuvQiGv+LwEz6iFo=
-X-Google-Smtp-Source: APXvYqxB3deYkss+3cgHUIMyjARd3DX6Lwwi0mH+0eSz3n+olqnlOUOFQUkSUqZ+8nvlyYXil2QLLw==
-X-Received: by 2002:a92:46c2:: with SMTP id d63mr16888139ilk.43.1572205753618; 
- Sun, 27 Oct 2019 12:49:13 -0700 (PDT)
+ bh=CCZl0j1P1FyTjIpTDRJfaJQYXzqQniNrCSsMSJER5FE=;
+ b=MeRxvcSYDMCSViDNkj8AbI0NuAkVRuZuodGuimkeoN23WIdjnqI1lcy5Azwecqsov5
+ VY9aNOkkVxtCgI181EkvMU5o0pi56MN2KpBtgJe5xZhjHJHUVUNZh93FFH6M4XXwnnAA
+ Q2PxGYQTMKiVDneyCHGTIbDnYd6Inr8uh4Orl+xo3qjqEloJX0Ct33hPU4sq4rwjDhEN
+ S1VyMXOEfRAgRgMLYJb1ZXZ5Icea7Tv8qriEA83YYtna6L6Fr0aK2TO2JnO39OgOGAUG
+ 0e8bE3LwEbfiSp61OkLfseKf6I2Te4QMJDzo9fkRHZW+cs5bDozIwDxDGCIOTW4NdBNs
+ XTew==
+X-Gm-Message-State: APjAAAVFWcNzQV47veCkX3zl8w3nOrEfpR4RV9uNJOGduLWoyAMtHsmL
+ pDmuMZotxy6h+6x0wUcawMI=
+X-Google-Smtp-Source: APXvYqx0XI3ng3sOrKsNNVRkOoLbKi3BQ92jxGPmPUezDvyxLx62hpOCJ8W8vjpQY4WRYfopUQUaYA==
+X-Received: by 2002:a02:19c1:: with SMTP id b184mr14699631jab.54.1572213219249; 
+ Sun, 27 Oct 2019 14:53:39 -0700 (PDT)
 Received: from cs-dulles.cs.umn.edu (cs-dulles.cs.umn.edu. [128.101.35.54])
- by smtp.googlemail.com with ESMTPSA id k4sm634726iof.61.2019.10.27.12.49.12
+ by smtp.googlemail.com with ESMTPSA id d17sm948686ioe.31.2019.10.27.14.53.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Oct 2019 12:49:12 -0700 (PDT)
+ Sun, 27 Oct 2019 14:53:38 -0700 (PDT)
 From: Navid Emamdoost <navid.emamdoost@gmail.com>
 To: 
-Date: Sun, 27 Oct 2019 14:48:47 -0500
-Message-Id: <20191027194856.4056-1-navid.emamdoost@gmail.com>
+Date: Sun, 27 Oct 2019 16:53:24 -0500
+Message-Id: <20191027215330.12729-1-navid.emamdoost@gmail.com>
 X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Mon, 28 Oct 2019 08:33:18 +0100
 Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Takashi Iwai <tiwai@suse.com>, kjlu@umn.edu,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Wei Yongjun <weiyongjun1@huawei.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ Pan Xiuli <xiuli.pan@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ kjlu@umn.edu, Liam Girdwood <lgirdwood@gmail.com>,
+ Slawomir Blauciak <slawomir.blauciak@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, smccaman@umn.edu,
  Navid Emamdoost <navid.emamdoost@gmail.com>, linux-kernel@vger.kernel.org,
  emamd001@umn.edu
-Subject: [alsa-devel] [PATCH] ASoC: SOF: Fix memory leak in
-	sof_dfsentry_write
+Subject: [alsa-devel] [PATCH] ASoC: SOF: ipc: Fix memory leak in
+	sof_set_get_large_ctrl_data
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,33 +106,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In the implementation of sof_dfsentry_write() memory allocated for
-string is leaked in case of an error. Go to error handling path if the
-d_name.name is not valid.
+In the implementation of sof_set_get_large_ctrl_data() there is a memory
+leak in case an error. Release partdata if sof_get_ctrl_copy_params()
+fails.
 
-Fixes: 091c12e1f50c ("ASoC: SOF: debug: add new debugfs entries for IPC flood test")
+Fixes: 54d198d5019d ("ASoC: SOF: Propagate sof_get_ctrl_copy_params() error properly")
 Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
 ---
- sound/soc/sof/debug.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ sound/soc/sof/ipc.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
-index 54cd431faab7..5529e8eeca46 100644
---- a/sound/soc/sof/debug.c
-+++ b/sound/soc/sof/debug.c
-@@ -152,8 +152,10 @@ static ssize_t sof_dfsentry_write(struct file *file, const char __user *buffer,
- 	 */
- 	dentry = file->f_path.dentry;
- 	if (strcmp(dentry->d_name.name, "ipc_flood_count") &&
--	    strcmp(dentry->d_name.name, "ipc_flood_duration_ms"))
--		return -EINVAL;
-+	    strcmp(dentry->d_name.name, "ipc_flood_duration_ms")) {
-+		ret = -EINVAL;
-+		goto out;
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index b2f359d2f7e5..086eeeab8679 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -572,8 +572,10 @@ static int sof_set_get_large_ctrl_data(struct snd_sof_dev *sdev,
+ 	else
+ 		err = sof_get_ctrl_copy_params(cdata->type, partdata, cdata,
+ 					       sparams);
+-	if (err < 0)
++	if (err < 0) {
++		kfree(partdata);
+ 		return err;
 +	}
  
- 	if (!strcmp(dentry->d_name.name, "ipc_flood_duration_ms"))
- 		flood_duration_test = true;
+ 	msg_bytes = sparams->msg_bytes;
+ 	pl_size = sparams->pl_size;
 -- 
 2.17.1
 

@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB4DDE7BCE
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 22:54:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 18EA3E7BCF
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 22:54:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EE71217D;
-	Mon, 28 Oct 2019 22:53:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EE71217D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE5CA2186;
+	Mon, 28 Oct 2019 22:53:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE5CA2186
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572299651;
-	bh=E5Ub6qJ5g/OZn8jsoCjquEgEqrKSR6yXueAHGf00vi0=;
+	s=default; t=1572299686;
+	bh=RT6+h+8Y0LjEsW427wqeXkp6paAl5vW09R+z9vdzWzk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P1+97sw1Cu1vaChpiYYxYkUZx9TwZvMmH84QZrMDwgzPm+IxK6qaRrWMxig7xZuLP
-	 c4t/OMOUkW0+d5/9oqcCGaQZ1dM27h7BQkv2v3hl3J42RNU+pQLRJGIQ9jABvkWdp3
-	 1gV+QMsbIygmr1EAtLEjrCvCOJKZl2w/KHDQv+GE=
+	b=A+oYQYwIp5L6joTfgs3bnJnJeLdl9QNNgSKDSWktqTcCH9ABOHjpmgPCgNtAUAAVX
+	 4I8jrrasM8PHSm8x1vbI7vQNL5ipB0vbC7anuFt2cyNOUISfIeJXdqsYMzp5NWHqah
+	 YmTXUk3ITxIvq0YtCNwAuBOD1PWXzghjkYNbvZYI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0000F8074B;
-	Mon, 28 Oct 2019 22:43:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BFD17F80752;
+	Mon, 28 Oct 2019 22:43:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27EDDF80735; Mon, 28 Oct 2019 22:43:48 +0100 (CET)
+ id E8D2BF80746; Mon, 28 Oct 2019 22:43:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb42.google.com (mail-yb1-xb42.google.com
- [IPv6:2607:f8b0:4864:20::b42])
+Received: from mail-yw1-xc43.google.com (mail-yw1-xc43.google.com
+ [IPv6:2607:f8b0:4864:20::c43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C499F8072A
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 22:43:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C499F8072A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 303EFF802BD
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 22:43:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 303EFF802BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="I7GuFVs5"
-Received: by mail-yb1-xb42.google.com with SMTP id r68so4633817ybf.5
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 14:43:45 -0700 (PDT)
+ header.b="LmoO/6X5"
+Received: by mail-yw1-xc43.google.com with SMTP id i2so2603012ywg.13
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 14:43:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=Zq27KxaTxmtstlOCSE4K4tPBxG7thhuuXBs3cHKpcy0=;
- b=I7GuFVs5opcvn7ciPCzreSvnTnjCt4NQuQXN0whdRVOozdFPAy2vpR/LdFxs0C/5qm
- TnI1K/cGS8PnqVdHtWDQh1/M962fV7AjATd8iKeIZ3pnj/eobOqgG5AUyO9Wnu3iP+bp
- 6kJHQ+MI1hBiJjyprDi1beRHBl/Eb1YuRJwWQB7ppqi1wYbkH5tXtgVKvF3CocjGm5Fh
- /W6Y57OIfmZt2pT8DHXvTPhMfyV6Iq3fpUj1xX2uzr628GvabihnqhmlY+C03lAy1cBo
- hNAa9Pv0Ose132aCRAMhqKfug1Mqi/EPLWBxzwM393rjUUex4nJzt4K1wHvzZx/vmzXH
- aTBQ==
+ bh=NmuQsbCHKb7BkJ6zh/WNcWYe2RbOykwS3NQHXLqtDhs=;
+ b=LmoO/6X5fu2ZRkja6BHX0ytKpwDljwEeMDkFSusx4gve7xOtBmJPqZMx6V8htZNC7b
+ fblhqvgdkvGcnWmDolrMI9aL6Hjxzj0TtCdRIVupeavycnRHkNdpEtWe17zWaovYeio8
+ 7CaYze78R1lFH4VCjoppqHhO4MUXGC9hcY2oFsW0b3mG1mXC1OcDo7V+u/9HtIXDVtFA
+ FPJl/LhX71hT3PFHpAdfY5A83YWVScP9yaZiUy3FaM2qWAdweOHA7dCeiLJhJ2xRCCdv
+ iLrbBn8VKALbibpUeOS+OZjZCUawcq/nckfgn2xTVdy5gP62q2o9aqvWQCVmmj/uQA8O
+ t7DA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=Zq27KxaTxmtstlOCSE4K4tPBxG7thhuuXBs3cHKpcy0=;
- b=B6e5DbgruejCUAMrvKH9m7TQjxFMhjN5aVaGNQOQiJydN5sRGWTw/17mwrZ6FM8Ari
- IIPCC7jvkYs9EZQHq28Yf/YRxd/vbTY7sRyGJWO5AmChYmTBUqnjq4btTe3MwJ7tc+Xk
- 6LEV/J4Nr0Cgke49IfFQCt0gyeqSe2PZCDlbVmyTsDZsvyfTn7HbIqo5yDXIu3z/FsBq
- 9TeXpz8fo4v0iSheLwDQyYNEATXHR9EnK9QX6IPfJIpO0HtPFO5gYWYgskueyj6hQumL
- rc3bHGyyrPKqsPHGtjnyZAfeY8VEohvBdo+AydrzNRAgzaj2P6pzsOqhj/ZEto2FaDeU
- GS5A==
-X-Gm-Message-State: APjAAAV13f9Z64l21sJL8Ca006IxWQnVd7XgPSpkCfeIn6lpEyZ+d2zf
- fKbr2EqDB35jtuJr33p1LfBIPlshpD4=
-X-Google-Smtp-Source: APXvYqwpkfHFuhRh+KxDdhtW7m7HcfNCAhYbRT29Y8l/CCp/CTQcCrmA9pTM8vF4QRR62JUwhumRLw==
-X-Received: by 2002:a25:8502:: with SMTP id w2mr1477826ybk.505.1572299024162; 
- Mon, 28 Oct 2019 14:43:44 -0700 (PDT)
+ bh=NmuQsbCHKb7BkJ6zh/WNcWYe2RbOykwS3NQHXLqtDhs=;
+ b=cjJC+T/pyjrCiCPVTYwIv+QvRAbAC4aegqjEG0wDd9hoMt9WFzTj4bzbB+05x4zPMQ
+ N2O3E4LgamU/vQ5Bqy387AZJchukuTQ5IRw0Yephyyxccdx85ozmmLPpenrCigDqVPn9
+ gZuHlganUPD5xeaknYVk2/ZKCW7t4GDqN021Z3Ur1Gs/u87iZ/obBZ4DJIIMpToEO3TO
+ yO/MAw5Ij9kjKE2YcBR0g/qA+FXIKyYaGBfVTZWkT6p9l+FcX9C+6xkXYQ73jj2hmZBB
+ pq8Q9Gw2zs65ZAaX/n3SJDgqTMUh1l1wL33No2asdHRzols5QFj4DKwy6ec9uRo1hIlz
+ 0qwg==
+X-Gm-Message-State: APjAAAXmlrLY9geMQZfxfr7QVY7zYX0RK+VzhhC0lTp6z1LaWGqy5JVV
+ +MAdvKK8SLW7wbrqvNEC/tM=
+X-Google-Smtp-Source: APXvYqwEfAtxsHHey0gA75G29M9zoivrzSdMucDftnFHD02cqWioBTmAjbg43BqJbHlP+XoD2J8n0Q==
+X-Received: by 2002:a81:bd05:: with SMTP id b5mr14658593ywi.243.1572299026966; 
+ Mon, 28 Oct 2019 14:43:46 -0700 (PDT)
 Received: from tr4.amd.com (atlvpn.amd.com. [165.204.84.11])
- by smtp.gmail.com with ESMTPSA id l68sm3421090ywf.95.2019.10.28.14.43.38
+ by smtp.gmail.com with ESMTPSA id l68sm3421090ywf.95.2019.10.28.14.43.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Oct 2019 14:43:43 -0700 (PDT)
+ Mon, 28 Oct 2019 14:43:46 -0700 (PDT)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org, tiwai@suse.de,
  lukas@wunner.de
-Date: Mon, 28 Oct 2019 17:42:09 -0400
-Message-Id: <20191028214216.1508370-15-alexander.deucher@amd.com>
+Date: Mon, 28 Oct 2019 17:42:10 -0400
+Message-Id: <20191028214216.1508370-16-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191028214216.1508370-1-alexander.deucher@amd.com>
 References: <20191028214216.1508370-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
-Subject: [alsa-devel] [PATCH 14/21] drm/amdgpu: start to disentangle boco
-	from runtime pm
+Subject: [alsa-devel] [PATCH 15/21] drm/amdgpu: disentangle runtime pm and
+	vga_switcheroo
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,127 +103,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-BACO - Bus Active, Chip Off
-BOCO - Bus Off, Chip Off
+Originally we only supported runtime pm on PX/HG laptops
+so vga_switcheroo and runtime pm are sort of entangled.
 
-We originally only supported runtime pm on PX/HG
-laptops so most of the runtime pm code looks for this.
-Add a new flag to check for runtime pm enablement and
-use this rather than checking for PX/HG.
+Attempt to logically separate them.
 
 Reviewed-by: Evan Quan <evan.quan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  3 +++
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  9 ++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c | 13 ++++++++-----
- 3 files changed, 17 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index f2b9714e7e0c..ff2f66bf531b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -985,6 +985,9 @@ struct amdgpu_device {
- 
- 	uint64_t			unique_id;
- 	uint64_t	df_perfmon_config_assign_mask[AMDGPU_MAX_DF_PERFMONS];
-+
-+	/* enable runtime pm on the device */
-+	bool                            runpm;
- };
- 
- static inline struct amdgpu_device *amdgpu_ttm_adev(struct ttm_bo_device *bdev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 849784e27a98..941a7f2a8140 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -1211,9 +1211,10 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 2416a5103154..0dd4ff3658f1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2711,7 +2711,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 		       uint32_t flags)
  {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct drm_device *drm_dev = pci_get_drvdata(pdev);
-+	struct amdgpu_device *adev = drm_dev->dev_private;
- 	int ret;
+ 	int r, i;
+-	bool runtime = false;
++	bool boco = false;
+ 	u32 max_MBps;
  
--	if (!amdgpu_device_supports_boco(drm_dev)) {
-+	if (!adev->runpm) {
- 		pm_runtime_forbid(dev);
- 		return -EBUSY;
- 	}
-@@ -1243,9 +1244,10 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct drm_device *drm_dev = pci_get_drvdata(pdev);
-+	struct amdgpu_device *adev = drm_dev->dev_private;
- 	int ret;
+ 	adev->shutdown = false;
+@@ -2882,11 +2882,14 @@ int amdgpu_device_init(struct amdgpu_device *adev,
+ 	vga_client_register(adev->pdev, adev, NULL, amdgpu_device_vga_set_decode);
  
--	if (!amdgpu_device_supports_boco(drm_dev))
-+	if (!adev->runpm)
- 		return -EINVAL;
- 
- 	if (amdgpu_device_supports_boco(drm_dev)) {
-@@ -1272,9 +1274,10 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
- static int amdgpu_pmops_runtime_idle(struct device *dev)
- {
- 	struct drm_device *drm_dev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_dev->dev_private;
- 	struct drm_crtc *crtc;
- 
--	if (!amdgpu_device_supports_boco(drm_dev)) {
-+	if (!adev->runpm) {
- 		pm_runtime_forbid(dev);
- 		return -EBUSY;
- 	}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-index 1f03cfec5265..06dae1de71d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-@@ -91,7 +91,7 @@ void amdgpu_driver_unload_kms(struct drm_device *dev)
- 	if (amdgpu_sriov_vf(adev))
- 		amdgpu_virt_request_full_gpu(adev, false);
- 
--	if (amdgpu_device_supports_boco(dev)) {
-+	if (adev->runpm) {
- 		pm_runtime_get_sync(dev->dev);
- 		pm_runtime_forbid(dev->dev);
- 	}
-@@ -150,14 +150,17 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
- 	}
- 	dev->dev_private = (void *)adev;
- 
--	if ((amdgpu_runtime_pm != 0) &&
--	    amdgpu_has_atpx() &&
+ 	if (amdgpu_device_supports_boco(ddev))
+-		runtime = true;
+-	if (!pci_is_thunderbolt_attached(adev->pdev))
++		boco = true;
 +	if (amdgpu_has_atpx() &&
- 	    (amdgpu_is_atpx_hybrid() ||
- 	     amdgpu_has_atpx_dgpu_power_cntl()) &&
- 	    ((flags & AMD_IS_APU) == 0) &&
- 	    !pci_is_thunderbolt_attached(dev->pdev))
- 		flags |= AMD_IS_PX;
++	    (amdgpu_is_atpx_hybrid() ||
++	     amdgpu_has_atpx_dgpu_power_cntl()) &&
++	    !pci_is_thunderbolt_attached(adev->pdev))
+ 		vga_switcheroo_register_client(adev->pdev,
+-					       &amdgpu_switcheroo_ops, runtime);
+-	if (runtime)
++					       &amdgpu_switcheroo_ops, boco);
++	if (boco)
+ 		vga_switcheroo_init_domain_pm_ops(adev->dev, &adev->vga_pm_domain);
  
-+	if ((amdgpu_runtime_pm != 0) &&
-+	    (flags & AMD_IS_PX))
-+		adev->runpm = true;
-+
- 	/* amdgpu_device_init should report only fatal error
- 	 * like memory allocation failure or iomapping failure,
- 	 * or memory manager initialization failure, it must
-@@ -180,7 +183,7 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
- 				"Error during ACPI methods call\n");
- 	}
+ 	if (amdgpu_emu_mode == 1) {
+@@ -3063,7 +3066,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
  
--	if (amdgpu_device_supports_boco(dev)) {
-+	if (adev->runpm) {
- 		dev_pm_set_driver_flags(dev->dev, DPM_FLAG_NEVER_SKIP);
- 		pm_runtime_use_autosuspend(dev->dev);
- 		pm_runtime_set_autosuspend_delay(dev->dev, 5000);
-@@ -194,7 +197,7 @@ int amdgpu_driver_load_kms(struct drm_device *dev, unsigned long flags)
- out:
- 	if (r) {
- 		/* balance pm_runtime_get_sync in amdgpu_driver_unload_kms */
--		if (adev->rmmio && amdgpu_device_supports_boco(dev))
-+		if (adev->rmmio && adev->runpm)
- 			pm_runtime_put_noidle(dev->dev);
- 		amdgpu_driver_unload_kms(dev);
- 	}
+ failed:
+ 	amdgpu_vf_error_trans_all(adev);
+-	if (runtime)
++	if (boco)
+ 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
+ 
+ 	return r;
+@@ -3110,9 +3113,12 @@ void amdgpu_device_fini(struct amdgpu_device *adev)
+ 
+ 	kfree(adev->bios);
+ 	adev->bios = NULL;
+-	if (!pci_is_thunderbolt_attached(adev->pdev))
++	if (amdgpu_has_atpx() &&
++	    (amdgpu_is_atpx_hybrid() ||
++	     amdgpu_has_atpx_dgpu_power_cntl()) &&
++	    !pci_is_thunderbolt_attached(adev->pdev))
+ 		vga_switcheroo_unregister_client(adev->pdev);
+-	if (adev->flags & AMD_IS_PX)
++	if (amdgpu_device_supports_boco(adev->ddev))
+ 		vga_switcheroo_fini_domain_pm_ops(adev->dev);
+ 	vga_client_register(adev->pdev, NULL, NULL, NULL);
+ 	if (adev->rio_mem)
 -- 
 2.23.0
 

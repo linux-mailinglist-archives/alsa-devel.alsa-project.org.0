@@ -2,87 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E301E6F6C
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 10:54:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2924E702A
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 12:11:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B10E81F2D;
-	Mon, 28 Oct 2019 10:53:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B10E81F2D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0774C1F37;
+	Mon, 28 Oct 2019 12:10:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0774C1F37
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572256471;
-	bh=GknEs/qzttR8iPEkIjs37/crucsE2fBuciEzsB//DPk=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=I4QiM2MkTzJ7Fr71fd4x2NQ5o2y88S9nhECz7qCHoKXX4bvKWlPWpVkjngB/u0rcG
-	 5K5D7vMjkB3IWSg45Z+EqjjMLY1H7mgUN4RnST52hHoCVnEluJl1x5gGpjIVig83iJ
-	 jcavnkCXnZYgm0H6Sa8PWcc6Wks7UzRDdGw95djc=
+	s=default; t=1572261067;
+	bh=hLRRxTzZEqGFtUud+EOYMeJZnMIDgtdHyyD+2na+sR4=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=N4t+S8naHNRCSwezbY6/DiEEa5lIJEXZkLoB1MZkoWSmUzVFn5rPxduYlfVHFOJO8
+	 iwBt2JTzGVq27HN1iOn9OMc6XZtTDkXlZK2GlaSouyYE1JTskdFetjD+tqU+VC3G4U
+	 1Qg3pkydN8kNI0LlMvIYy2OR2ILeFTNwFYgY+BRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCF7AF802BD;
-	Mon, 28 Oct 2019 10:52:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39868F80361;
+	Mon, 28 Oct 2019 12:09:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4D95F80361; Mon, 28 Oct 2019 10:52:45 +0100 (CET)
+ id 922E5F80361; Mon, 28 Oct 2019 12:09:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE4EAF800E7
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 10:52:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE4EAF800E7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Z2BgNGzJ"
-Received: by mail-pf1-x442.google.com with SMTP id c7so5390048pfo.12
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 02:52:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=00GH+7MY7gv6VeGZTXVYIreq96BqJ0QE/x20tMZ+6ks=;
- b=Z2BgNGzJ7q4FPtJU4fW2x3DMrNZlTDM5dHyQ8Hf5kSrB3beK/s9ztKON5ojRLhAuMU
- Nyza/b0Moh08dmhqk8Sbj4HZo5KxZBPDr9IKjplFa2wWNOjsepMPXWzF68Gq1+GogWj3
- F5uKtCRH9q/B9Y/z0A5OS6pkzkgTaPndd1a/g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=00GH+7MY7gv6VeGZTXVYIreq96BqJ0QE/x20tMZ+6ks=;
- b=TAD6vv0m5g9cbmSVZg2dkGaNrsjj3QRyAH3HQpqVm1CExDbCsDpuEvxIPvC454GgKp
- /+PXcfYwzcgm4H17B9UAIh43GZlWlQMfZZcwCqxuvRazjPs6fMccT6/VzbIDQhXJKqQL
- VtoKwaBO5Bj+fLLBaHosBmjgQlAsI47SaRHlni+jOk9A1oukzaaxzeN9V4aPxw7IPnHp
- gQ3gfpqqK+dYSiuGyTkzRxtLEUNeDLihoaP+9Owdn5CTwZO3NClYRuIY73R+JynP5o+C
- YklWovkLY66TjCepxODJtImKsksyNekmZKubHB6fnotENH4bC9kjyfRqJdWvZL0IULdK
- JyOw==
-X-Gm-Message-State: APjAAAUXm4wpZ1iepySYjNstz5JZTg/+5ibx+bE0CIfTCajqkhyH+dh7
- 3Ot9Ohe0P/VUtrhtWd+oEgZQrA==
-X-Google-Smtp-Source: APXvYqzdMK0gStf/HLg07oXhPJn5lFdaQhPuDeCWUTAcDq3Av+TyeUSuRXkSsM7OLCc3qJH164huew==
-X-Received: by 2002:a63:6901:: with SMTP id e1mr19755671pgc.373.1572256360802; 
- Mon, 28 Oct 2019 02:52:40 -0700 (PDT)
-Received: from localhost ([2401:fa00:1:10:79b4:bd83:e4a5:a720])
- by smtp.gmail.com with ESMTPSA id p3sm9897517pgp.41.2019.10.28.02.52.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 28 Oct 2019 02:52:40 -0700 (PDT)
-From: Cheng-Yi Chiang <cychiang@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Mon, 28 Oct 2019 17:52:29 +0800
-Message-Id: <20191028095229.99438-1-cychiang@chromium.org>
-X-Mailer: git-send-email 2.24.0.rc0.303.g954a862665-goog
-MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, dianders@chromium.org,
- Heiko Stuebner <heiko@sntech.de>, Takashi Iwai <tiwai@suse.com>,
- tzungbi@chromium.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
- enric.balletbo@collabora.com, dgreid@chromium.org,
- linux-arm-kernel@lists.infradead.org, Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: [alsa-devel] [PATCH] ASoC: rockchip: rockchip_max98090: Enable SHDN
-	to fix headset detection
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A938F80145
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 12:09:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A938F80145
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 1F7ECB61F;
+ Mon, 28 Oct 2019 11:09:17 +0000 (UTC)
+Date: Mon, 28 Oct 2019 12:09:16 +0100
+Message-ID: <s5h1ruxt9cz.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Chris Wilson <chris@chris-wilson.co.uk>
+In-Reply-To: <s5h8sp5mg67.wl-tiwai@suse.de>
+References: <20191028081056.22010-1-tiwai@suse.de>
+ <157225086749.26808.5121664839140883561@skylake-alporthouse-com>
+ <s5h8sp5mg67.wl-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Jonas Witschel <diabonas@gmx.de>, alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] Revert "ALSA: hda: Flush interrupts on
+	disabling"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,44 +72,98 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-max98090 spec states that chip needs to be in turned-on state to supply
-mic bias. Enable SHDN dapm widget along with MICBIAS widget to
-actually turn on mic bias for proper headset button detection.
-This is similar to cht_ti_jack_event in
-sound/soc/intel/boards/cht_bsw_max98090_ti.c.
+On Mon, 28 Oct 2019 09:24:00 +0100,
+Takashi Iwai wrote:
+> 
+> On Mon, 28 Oct 2019 09:21:07 +0100,
+> Chris Wilson wrote:
+> > 
+> > Quoting Takashi Iwai (2019-10-28 08:10:56)
+> > > This reverts commit caa8422d01e983782548648e125fd617cadcec3f.
+> > > 
+> > > It turned out that this commit caused a regression at shutdown /
+> > > reboot, as the synchronize_irq() calls seems blocking the whole
+> > > shutdown.  Also another part of the change about shuffling the call
+> > > order looks suspicious; the azx_stop_chip() call disables the CORB /
+> > > RIRB while the others may still need the CORB/RIRB update.
+> > > 
+> > > Since the original commit itself was a cargo-fix, let's revert the
+> > > whole patch.
+> > 
+> > You will want to include a link to the bug you may be reintroducing so
+> > you have that information for easy reference later.
+> 
+> Actually I forgot to put the Fixes tag where usually you can track the
+> original issue from there.  Will fix it.  I don't mind to put yet
+> another bug link tag, though.
+> 
+> > Also do you know if you fixed the bug in any other way, because our CI
+> > hasn't reported that GPF since the patch landed.
+> 
+> Well, let's see whether the GPF reappears with the revert at first.
+> It might be another fix that covered.
 
-Note that due to ts3a227e reports the jack event right away before the
-notifier is registered, if headset is plugged on boot, headset button
-will not get detected until headset is unplugged and plugged. This is
-still an issue to be fixed.
+Thinking over this again, the patch below should cover this kind of
+races (hopefully).  I'm going to queue this together with the revert.
 
-Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+
+thanks,
+
+Takashi
+
+-- 8< --
+From: Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH] ALSA: hda - Fix pending unsol events at shutdown
+
+This is an alternative fix attemp for the issue reported in the commit
+caa8422d01e9 ("ALSA: hda: Flush interrupts on disabling") that was
+reverted later due to regressions.  Instead of tweaking the hardware
+disablement order and the enforced irq flushing, do calling
+cancel_work_sync() of the unsol work early enough, and explicitly
+ignore the unsol events during the shutdown by checking the
+bus->shutdown flag.
+
+Fixes: caa8422d01e9 ("ALSA: hda: Flush interrupts on disabling")
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/rockchip/rockchip_max98090.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ sound/pci/hda/hda_bind.c  | 4 ++++
+ sound/pci/hda/hda_intel.c | 3 +++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 0097df1fae66..e80b09143b63 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -66,10 +66,13 @@ static int rk_jack_event(struct notifier_block *nb, unsigned long event,
- 	struct snd_soc_jack *jack = (struct snd_soc_jack *)data;
- 	struct snd_soc_dapm_context *dapm = &jack->card->dapm;
+diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
+index 8272b50b8349..6a8564566375 100644
+--- a/sound/pci/hda/hda_bind.c
++++ b/sound/pci/hda/hda_bind.c
+@@ -43,6 +43,10 @@ static void hda_codec_unsol_event(struct hdac_device *dev, unsigned int ev)
+ {
+ 	struct hda_codec *codec = container_of(dev, struct hda_codec, core);
  
--	if (event & SND_JACK_MICROPHONE)
-+	if (event & SND_JACK_MICROPHONE) {
- 		snd_soc_dapm_force_enable_pin(dapm, "MICBIAS");
--	else
-+		snd_soc_dapm_force_enable_pin(dapm, "SHDN");
-+	} else {
- 		snd_soc_dapm_disable_pin(dapm, "MICBIAS");
-+		snd_soc_dapm_disable_pin(dapm, "SHDN");
-+	}
++	/* ignore unsol events during shutdown */
++	if (codec->bus->shutdown)
++		return;
++
+ 	if (codec->patch_ops.unsol_event)
+ 		codec->patch_ops.unsol_event(codec, ev);
+ }
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index cf53fbd872ee..7304a92559a3 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1382,8 +1382,11 @@ static int azx_free(struct azx *chip)
+ static int azx_dev_disconnect(struct snd_device *device)
+ {
+ 	struct azx *chip = device->device_data;
++	struct hdac_bus *bus = azx_bus(chip);
  
- 	snd_soc_dapm_sync(dapm);
+ 	chip->bus.shutdown = 1;
++	cancel_work_sync(&bus->unsol_work);
++
+ 	return 0;
+ }
  
 -- 
-2.24.0.rc0.303.g954a862665-goog
+2.16.4
 
 _______________________________________________
 Alsa-devel mailing list

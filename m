@@ -2,91 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C0EE768A
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 17:37:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8D3DE76BC
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 17:40:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE1AB203A;
-	Mon, 28 Oct 2019 17:36:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE1AB203A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 807DE204F;
+	Mon, 28 Oct 2019 17:39:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 807DE204F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572280626;
-	bh=Rb/MkpvIGi/hwahkQfxBSBB5CVkueyiywU+673wAtsY=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1572280827;
+	bh=3MSX0/GLcN+UdVPkBxKHriCas17D69RHJiwGexu8qJ8=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ETgKM8RNvXK7+5jm9SQIkDoEgo8Af8ydgLMpLB9kbvRoBRREe8YJ6OIC0mx+c/z1k
-	 mHFXVp0Reo1AxDyH9OUE8gSbTffWCtLY1EjYK7lefRESsjGgfsnO55R8dj38o/LbY+
-	 flv1gIQA5p2Cb8twmvFwTtoH5MhAIhmW3iyCz4lM=
+	b=T7md90R4cRy3F+WaFo++OuDV6cLUKQYrXEKGdA/SXrPErNVB9mXSwI0kJye2r1IWs
+	 6plXFvhJw71fIPLFOkOONhqZ26JWKRtAf2VPfixC0pgsUJdnKdFDm29Znb+BL0/nfF
+	 Uf1Wdmp5droUGpDJ1I/Hyhu231kmFU7SEclBbw94=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A19BF80361;
-	Mon, 28 Oct 2019 17:35:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9E943F8044A;
+	Mon, 28 Oct 2019 17:38:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 117E2F80361; Mon, 28 Oct 2019 17:35:20 +0100 (CET)
+ id 9E13DF80145; Mon, 28 Oct 2019 17:38:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-x143.google.com (mail-il1-x143.google.com
- [IPv6:2607:f8b0:4864:20::143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DB12F80145
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 17:35:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DB12F80145
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="aU1Ig+FC"
-Received: by mail-il1-x143.google.com with SMTP id h5so5473057ilh.11
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 09:35:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=21j/dEL0woCR7rVyFBJA5jrlm9GOTcbrkftyZXegyKo=;
- b=aU1Ig+FCiz7v2IaiVq8NhUuGtv0bCBMp3YsGpTDegyuWP+LJPtteTZlzwPwajX8jCv
- NRz4cASxes89dYC6sB0CbiJxU/1CaUWgP7M34Cky4H6G6hxoEdT4OV4YIrB4r4FgHBmg
- 5mQ15GrEag5lIB+QOYnvkJWdLW053YG6Ivi4+z853DDikUjFGGKLm4OPisECfiH+my7Z
- gN2OD5tu8Hd5h8meTBFNmA2I3Ykf7ci8D8kC6KC95b/1meOlz3l8pWGmww+XIK+vVvrQ
- UybrDCU6sLgBPJ485nRSyr3ZVTP69vtt89S4QiUmL3yOSOe/2T2//dKXaeedoG5hjdPq
- nHvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=21j/dEL0woCR7rVyFBJA5jrlm9GOTcbrkftyZXegyKo=;
- b=iuYQxKTYh/l+D6QpDL/16k92ky/8FrhU0BhqihhrQAwLpTk2VoykPfMosZZooWnBRg
- eVIEUW7/9QpTjCdx3gPPdO6HudVcOf4HaGuz+kd8moiZnoPjWD84FnGGIvCMcb/bhEYX
- H2eh0i7X+x0Wi59O1dkHlrpFQYuqEf1BlYoznPYROmDh7bR+48o3I1E1dkn5KUiWUQ4f
- Sep3rDoU6xiROA1AFDzyvTW+BbCJjinX7kcDJXx2MEjvimPPRqtJGkGp+1L7BOyFlsQA
- LJq94HxPY6fCPYALRPHV0zMbyNVTniMNumVChHoJqZ2lIxdNhCF1EWkwN/Pyf4KSWc0M
- OOZQ==
-X-Gm-Message-State: APjAAAWJUyNpEz5vi1qDUY8qjsNgQIRxluTJq86w6JTC5n3NlmEBD8Zu
- n4TdgPKnVyyjOhGnpC/Y7uIEB6UDQcy+KwrN94Q=
-X-Google-Smtp-Source: APXvYqxZHTQgUs3vZ4EyKxk1J2VBxbW1V/6qsk4AKLh6jW/960J5msDNOgE9rFT9PBlWL6y2v0qTQSUQ5QvAY+3DS7Q=
-X-Received: by 2002:a92:d94a:: with SMTP id l10mr17910669ilq.227.1572280515345; 
- Mon, 28 Oct 2019 09:35:15 -0700 (PDT)
-MIME-Version: 1.0
-References: <20191027215330.12729-1-navid.emamdoost@gmail.com>
- <fb4fa7f3-fefb-e2d0-da4d-842396a7c251@linux.intel.com>
-In-Reply-To: <fb4fa7f3-fefb-e2d0-da4d-842396a7c251@linux.intel.com>
-From: Navid Emamdoost <navid.emamdoost@gmail.com>
-Date: Mon, 28 Oct 2019 11:35:04 -0500
-Message-ID: <CAEkB2ETrEu6SxBC+OfPNe_DqNn-=4c9p=1d9Cz5XR3NbbcD2OQ@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pan Xiuli <xiuli.pan@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Kangjie Lu <kjlu@umn.edu>, Liam Girdwood <lgirdwood@gmail.com>,
- Slawomir Blauciak <slawomir.blauciak@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Stephen McCamant <smccaman@umn.edu>, LKML <linux-kernel@vger.kernel.org>,
- Navid Emamdoost <emamd001@umn.edu>
-Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: ipc: Fix memory leak in
-	sof_set_get_large_ctrl_data
+ by alsa1.perex.cz (Postfix) with ESMTPS id 25C8AF80145
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 17:38:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 25C8AF80145
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 2E8A7B2FE;
+ Mon, 28 Oct 2019 16:38:38 +0000 (UTC)
+Date: Mon, 28 Oct 2019 17:38:37 +0100
+Message-ID: <s5hy2x4u8oi.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Navid Emamdoost <navid.emamdoost@gmail.com>
+In-Reply-To: <CAEkB2ESwKEQYQx75BnaHf4aUQHObx4jf0hreQx_KTeZ+QCjL4g@mail.gmail.com>
+References: <20191027221007.14317-1-navid.emamdoost@gmail.com>
+ <s5hpnihmlk3.wl-tiwai@suse.de>
+ <CAEkB2ESwKEQYQx75BnaHf4aUQHObx4jf0hreQx_KTeZ+QCjL4g@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, Kangjie Lu <kjlu@umn.edu>,
+ Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>,
+ Navid Emamdoost <emamd001@umn.edu>, Stephen McCamant <smccaman@umn.edu>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Fix memory leak in
+	__snd_usbmidi_create
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,56 +75,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Oct 27, 2019 at 9:15 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
->
-> On 10/27/19 4:53 PM, Navid Emamdoost wrote:
-> > In the implementation of sof_set_get_large_ctrl_data() there is a memory
-> > leak in case an error. Release partdata if sof_get_ctrl_copy_params()
-> > fails.
+On Mon, 28 Oct 2019 17:25:41 +0100,
+Navid Emamdoost wrote:
+> 
+> Thanks for the explanation,
+> 
+> On Mon, Oct 28, 2019 at 1:27 AM Takashi Iwai <tiwai@suse.de> wrote:
 > >
-> > Fixes: 54d198d5019d ("ASoC: SOF: Propagate sof_get_ctrl_copy_params() error properly")
-> > Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
->
-> Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
->
-> May I ask which tool you used to find those issues, looks like we have a
-> gap here?
-
-We are developing a research tool to find such cases. Not sure what
-gap you are referring to, but we statically track the allocation and
-look for an appropriate release/assignment of the pointer.
-
-
->
-> > ---
-> >   sound/soc/sof/ipc.c | 4 +++-
-> >   1 file changed, 3 insertions(+), 1 deletion(-)
+> > On Sun, 27 Oct 2019 23:10:06 +0100,
+> > Navid Emamdoost wrote:
+> > >
+> > > In the implementation of __snd_usbmidi_create() there is a memory leak
+> > > caused by incorrect goto destination. Go to free_midi if
+> > > snd_usbmidi_create_endpoints_midiman() or snd_usbmidi_create_endpoints()
+> > > fail.
 > >
-> > diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-> > index b2f359d2f7e5..086eeeab8679 100644
-> > --- a/sound/soc/sof/ipc.c
-> > +++ b/sound/soc/sof/ipc.c
-> > @@ -572,8 +572,10 @@ static int sof_set_get_large_ctrl_data(struct snd_sof_dev *sdev,
-> >       else
-> >               err = sof_get_ctrl_copy_params(cdata->type, partdata, cdata,
-> >                                              sparams);
-> > -     if (err < 0)
-> > +     if (err < 0) {
-> > +             kfree(partdata);
-> >               return err;
-> > +     }
+> > No, this will lead to double-free.  After registering the rawmidi
+> > interface at snd_usbmidi_create_rawmidi(), the common destructor will
+> > be called via rawmidi private_free callback, and this will release the
+> > all resources already.
+> Now I can see how rawmidi private_free is set up to release the
+> resources, but what concerns me is that at the moment of endpoint/port
+> creation umidi is not yet added to the midi_list.
+> In other words, what I see is that we still have just one local
+> pointer to umidi if any of snd_usbmidi_create_endpoint* fail.
+> Am I missing something?
+
+The rawmidi object that is created via snd_rawmidi_new() is managed
+via snd_device list, and it's traversed at snd_card_disconnect() and
+snd_card_free() calls.  It's something like devm-stuff (but
+implemented in a different way).  The midi_list is an explicit list
+for the USB MIDI driver, and it's an individual one from the device
+list.
+
+
+Takashi
+
+> 
+> 
 > >
-> >       msg_bytes = sparams->msg_bytes;
-> >       pl_size = sparams->pl_size;
 > >
-
-
-
---
-Navid.
+> > thanks,
+> >
+> > Takashi
+> >
+> > >
+> > > Fixes: 731209cc0417 ("ALSA: usb-midi: Use common error handling code in __snd_usbmidi_create()")
+> > > Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+> > > ---
+> > >  sound/usb/midi.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > >
+> > > diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+> > > index b737f0ec77d0..22db37fbfbbd 100644
+> > > --- a/sound/usb/midi.c
+> > > +++ b/sound/usb/midi.c
+> > > @@ -2476,7 +2476,7 @@ int __snd_usbmidi_create(struct snd_card *card,
+> > >       else
+> > >               err = snd_usbmidi_create_endpoints(umidi, endpoints);
+> > >       if (err < 0)
+> > > -             goto exit;
+> > > +             goto free_midi;
+> > >
+> > >       usb_autopm_get_interface_no_resume(umidi->iface);
+> > >
+> > > --
+> > > 2.17.1
+> > >
+> 
+> 
+> 
+> -- 
+> Navid.
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

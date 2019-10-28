@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74359E7447
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:00:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A012E7454
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:01:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 066A51F68;
-	Mon, 28 Oct 2019 15:59:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 066A51F68
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B00C1FAC;
+	Mon, 28 Oct 2019 16:00:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B00C1FAC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572274820;
-	bh=stagE50fWFreb/dtAz1lnhBSZbysk0unqPx8qDRBZew=;
+	s=default; t=1572274904;
+	bh=AMBHzXkIF1njBK0doswXOaa5yM9j1HwYgDS0uGfTggQ=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ksyXrhquuPcPl1c4tVN5Kp2D2ptuSXkGzp+LRgkeHUa9xT8TyWe4lg68FPWDSCGv7
-	 kNSP+FhW8DLgiKL679xck+CZPjE8V5rtb/U2l0ulmgtPJ6ScFuRfIXhfY2GgWqPsVp
-	 YWfqeP/edEPbJiO4aO1TFhN4ViwoVBa2pqAcA1rE=
+	b=Qg1mLpcpAO0DlUIV5+GBjJEia+wOYNUC64bS54/tZz+0gRaeGQLtVLhEJ9f9LzxOH
+	 0MJo96AmNMDx6M8DXa2VW8hW9O74YR7yQM0tUh/M7be0z1S3j59frLyjkdrkGZ1T0k
+	 G73EooF5oaHRCzyY9DVcFy/Snw81IU8z4sIgnDtc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B76AFF80679;
-	Mon, 28 Oct 2019 15:56:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 626FAF8067C;
+	Mon, 28 Oct 2019 15:56:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F9F6F8063D; Mon, 28 Oct 2019 15:56:40 +0100 (CET)
+ id C4100F8065A; Mon, 28 Oct 2019 15:56:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 30445F8044A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E530F803D6
  for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30445F8044A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E530F803D6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="C7qPIN6F"
+ header.b="P2J9RAeS"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Notkq1wSbP60fALgjCO4HKAPF5GXG8rKCXgNEaxZAhE=; b=C7qPIN6FnZMt
- tCJsOGwexFn5Iv3wEseaVkwYsDPVjWx0ccIophw6wYr/MEpQH1wl4vccD7bC7FZrFxZH/Ru8oS1vM
- d5XDHRg4oiM7DZPV9aURWZAkR4NMJHFiEeA+GDZrb8LiYbGraZrDS90FQugFqH5/rIDWI8RqYm5D7
- jBVFU=;
+ List-Archive; bh=iBWlw68IevrAoqc26cOG39WRjF8dxJJZXNnTZLubOjw=; b=P2J9RAeSMltX
+ 0s905dAHwS0Us/0VsU8OiMjeRKzXrpdeGDa9j8rWRJ7NdVOAEszlA/aVgPBr88zMeqe4MfpzSlqIe
+ mjXdc+eBZ/ibL9k4xRP92KmRuiutN+MoDwFglXAYXwPrxIIxT3X73Ufbl8/u40JhM8qjvQQSbxj4/
+ wLoYg=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iP6Ra-0008Oq-CD; Mon, 28 Oct 2019 14:56:30 +0000
+ id 1iP6Ra-0008Oo-9G; Mon, 28 Oct 2019 14:56:30 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 66C6227403EE; Mon, 28 Oct 2019 14:56:28 +0000 (GMT)
+ id D51EB27403F6; Mon, 28 Oct 2019 14:56:28 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Keyon Jie <yang.jie@linux.intel.com>
-In-Reply-To: <20191025224122.7718-26-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191025224122.7718-24-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191028145628.66C6227403EE@ypsilon.sirena.org.uk>
+Message-Id: <20191028145628.D51EB27403F6@ypsilon.sirena.org.uk>
 Date: Mon, 28 Oct 2019 14:56:28 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: PM: Add support for DSP D0i3 state
-	when entering S0ix" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda-dsp: implement
+	suspend/resume for S0ix<->S0 transition" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: PM: Add support for DSP D0i3 state when entering S0ix
+   ASoC: SOF: Intel: hda-dsp: implement suspend/resume for S0ix<->S0 transition
 
 has been applied to the asoc tree at
 
@@ -113,89 +113,61 @@ to this mail.
 Thanks,
 Mark
 
-From c470fc3f61b25e955f8ba90fc9dc554881e4e72c Mon Sep 17 00:00:00 2001
+From 66e40876ddc325d892c493a6d83574bbba5770ce Mon Sep 17 00:00:00 2001
 From: Keyon Jie <yang.jie@linux.intel.com>
-Date: Fri, 25 Oct 2019 17:41:21 -0500
-Subject: [PATCH] ASoC: SOF: PM: Add support for DSP D0i3 state when entering
- S0ix
+Date: Fri, 25 Oct 2019 17:41:19 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda-dsp: implement suspend/resume for
+ S0ix<->S0 transition
 
-When system is entering into S0ix, the PCI device may transition to the
-D0i3 substate instead of D3. In D0i3, some always-on functionality can
-be enabled, such as acoustic event detection, voice activity detection
-or hotwording. When an event is detected, the DSP firmware can wake-up
-the device for a transition to D0 with an interrupt.
+Enable system wake up via IPC interrupt from DSP when the system is
+suspending to the S0ix state, and disable it in the corresponding
+resuming.
 
 Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191025224122.7718-26-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191025224122.7718-24-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/pm.c | 46 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+ sound/soc/sof/intel/hda-dsp.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index 99e4e6ffff74..560a937e0484 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -430,12 +430,58 @@ EXPORT_SYMBOL(snd_sof_set_d0_substate);
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index b5070409a5e3..d23573d9e9c4 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -477,6 +477,15 @@ static int hda_resume(struct snd_sof_dev *sdev, bool runtime_resume)
  
- int snd_sof_resume(struct device *dev)
+ int hda_dsp_resume(struct snd_sof_dev *sdev)
  {
-+	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-+	int ret;
++	struct pci_dev *pci = to_pci_dev(sdev->dev);
 +
 +	if (sdev->s0_suspend) {
-+		/* resume from D0I3 */
-+		dev_dbg(sdev->dev, "DSP will exit from D0i3...\n");
-+		ret = snd_sof_set_d0_substate(sdev, SOF_DSP_D0I0);
-+		if (ret == -ENOTSUPP) {
-+			/* fallback to resume from D3 */
-+			dev_dbg(sdev->dev, "D0i3 not supported, fall back to resume from D3...\n");
-+			goto d3_resume;
-+		} else if (ret < 0) {
-+			dev_err(sdev->dev, "error: failed to exit from D0I3 %d\n",
-+				ret);
-+			return ret;
-+		}
-+
-+		/* platform-specific resume from D0i3 */
-+		return snd_sof_dsp_resume(sdev);
++		/* restore and disable the system wakeup */
++		pci_restore_state(pci);
++		disable_irq_wake(pci->irq);
++		return 0;
 +	}
 +
-+d3_resume:
-+	/* resume from D3 */
- 	return sof_resume(dev, false);
+ 	/* init hda controller. DSP cores will be powered up during fw boot */
+ 	return hda_resume(sdev, false);
  }
- EXPORT_SYMBOL(snd_sof_resume);
- 
- int snd_sof_suspend(struct device *dev)
+@@ -509,8 +518,16 @@ int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev)
+ int hda_dsp_suspend(struct snd_sof_dev *sdev)
  {
-+	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-+	int ret;
-+
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
++	struct pci_dev *pci = to_pci_dev(sdev->dev);
+ 	int ret;
+ 
 +	if (sdev->s0_suspend) {
-+		/* suspend to D0i3 */
-+		dev_dbg(sdev->dev, "DSP is trying to enter D0i3...\n");
-+		ret = snd_sof_set_d0_substate(sdev, SOF_DSP_D0I3);
-+		if (ret == -ENOTSUPP) {
-+			/* fallback to D3 suspend */
-+			dev_dbg(sdev->dev, "D0i3 not supported, fall back to D3...\n");
-+			goto d3_suspend;
-+		} else if (ret < 0) {
-+			dev_err(sdev->dev, "error: failed to enter D0I3, %d\n",
-+				ret);
-+			return ret;
-+		}
-+
-+		/* platform-specific suspend to D0i3 */
-+		return snd_sof_dsp_suspend(sdev);
++		/* enable the system waking up via IPC IRQ */
++		enable_irq_wake(pci->irq);
++		pci_save_state(pci);
++		return 0;
 +	}
 +
-+d3_suspend:
-+	/* suspend to D3 */
- 	return sof_suspend(dev, false);
- }
- EXPORT_SYMBOL(snd_sof_suspend);
+ 	/* stop hda controller and power dsp off */
+ 	ret = hda_suspend(sdev, false);
+ 	if (ret < 0) {
 -- 
 2.20.1
 

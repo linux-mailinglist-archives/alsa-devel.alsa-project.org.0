@@ -2,66 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65AAEE6A95
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 02:55:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 740F6E6AB6
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 03:17:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D25AC1924;
-	Mon, 28 Oct 2019 02:54:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D25AC1924
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A556192C;
+	Mon, 28 Oct 2019 03:16:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A556192C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572227718;
-	bh=xeBZNF2XXp1wtlJvwEZ0S3UiQ3huxd8kPkiI0PHlBmw=;
+	s=default; t=1572229052;
+	bh=e1gbdHAJ8i6a2Ec0TN8j0pVxaA1lBEsEWXq+ybmu4L4=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cEOCjF0sQeYjWaqmE0KnNE3pkA4h+WxuHifKl4S0/dBP0px9pxk6UerHKfFo7DG13
-	 neMCm2BL+WCzPLSLNCI+F2Aff1Z8+0TRsm2Y1OCZI8f6XzUW1pTvuuVMR/AhXI7lFX
-	 Ucsk/h0rvLT94/vOWqzOewIfVcWm7n2kiLShRmtk=
+	b=X4j3FtUgxdS/UtAQpWeKj3oKTSqVS3g10TYGwM9h9IOqbg0IRncAIcBBZAC7to1Bm
+	 UzNxGpWT3idhgEHcvHS3JCUrDmYaTEvSl0J84O+XR/3Lb9Ebjr5QkLuLYTQe8gRCdR
+	 9KRhu6ymsgkBBon2f4Uu2i1Qi6J08Aej0JWw8Spc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29169F8036C;
-	Mon, 28 Oct 2019 02:53:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D5472F8036C;
+	Mon, 28 Oct 2019 03:15:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87331F8036C; Mon, 28 Oct 2019 02:53:31 +0100 (CET)
+ id A0C18F80392; Mon, 28 Oct 2019 03:15:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D7EDEF80145
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 02:53:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7EDEF80145
+ by alsa1.perex.cz (Postfix) with ESMTPS id AF450F80228
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 03:15:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF450F80228
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Oct 2019 18:53:24 -0700
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Oct 2019 19:15:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,238,1569308400"; d="scan'208";a="224494974"
-Received: from rmullina-mobl.amr.corp.intel.com (HELO [10.255.229.12])
- ([10.255.229.12])
- by fmsmga004.fm.intel.com with ESMTP; 27 Oct 2019 18:53:23 -0700
-To: Mao Wenan <maowenan@huawei.com>, lgirdwood@gmail.com, broonie@kernel.org, 
- perex@perex.cz, tiwai@suse.de, daniel.baluta@nxp.com, rdunlap@infradead.org,
- ranjani.sridharan@linux.intel.com, arnd@arndb.de
-References: <20191028014511.73472-1-maowenan@huawei.com>
+X-IronPort-AV: E=Sophos;i="5.68,238,1569308400"; d="scan'208";a="189497387"
+Received: from jestoute-mobl1.amr.corp.intel.com (HELO [10.251.144.224])
+ ([10.251.144.224])
+ by orsmga007.jf.intel.com with ESMTP; 27 Oct 2019 19:15:36 -0700
+To: Navid Emamdoost <navid.emamdoost@gmail.com>
+References: <20191027215330.12729-1-navid.emamdoost@gmail.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <68a432df-81d4-dc54-b836-f58981d78491@linux.intel.com>
-Date: Sun, 27 Oct 2019 20:53:22 -0500
+Message-ID: <fb4fa7f3-fefb-e2d0-da4d-842396a7c251@linux.intel.com>
+Date: Sun, 27 Oct 2019 21:15:35 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.2
 MIME-Version: 1.0
-In-Reply-To: <20191028014511.73472-1-maowenan@huawei.com>
+In-Reply-To: <20191027215330.12729-1-navid.emamdoost@gmail.com>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH -next] ASoC: SOF: select
- SND_INTEL_DSP_CONFIG in SND_SOC_SOF_PCI
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Pan Xiuli <xiuli.pan@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ kjlu@umn.edu, Liam Girdwood <lgirdwood@gmail.com>,
+ Slawomir Blauciak <slawomir.blauciak@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, smccaman@umn.edu,
+ linux-kernel@vger.kernel.org, emamd001@umn.edu
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: ipc: Fix memory leak in
+ sof_set_get_large_ctrl_data
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,49 +85,39 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 10/27/19 8:45 PM, Mao Wenan wrote:
-> When SND_SOC_SOF_PCI=y, and SND_INTEL_DSP_CONFIG=m, below
-> errors can be seen:
-> sound/soc/sof/sof-pci-dev.o: In function `sof_pci_probe':
-> sof-pci-dev.c:(.text+0xb9): undefined reference to
-> `snd_intel_dsp_driver_probe'
+On 10/27/19 4:53 PM, Navid Emamdoost wrote:
+> In the implementation of sof_set_get_large_ctrl_data() there is a memory
+> leak in case an error. Release partdata if sof_get_ctrl_copy_params()
+> fails.
 > 
-> After commit 82d9d54a6c0e ("ALSA: hda: add Intel DSP
-> configuration / probe code"), sof_pci_probe() will call
-> snd_intel_dsp_driver_probe(), so it should select
-> SND_INTEL_DSP_CONFIG in Kconfig SND_SOC_SOF_PCI.
-> 
-> Fixes: 82d9d54a6c0e ("ALSA: hda: add Intel DSP configuration / probe code")
-> Signed-off-by: Mao Wenan <maowenan@huawei.com>
+> Fixes: 54d198d5019d ("ASoC: SOF: Propagate sof_get_ctrl_copy_params() error properly")
+> Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+May I ask which tool you used to find those issues, looks like we have a 
+gap here?
+
 > ---
->   sound/soc/sof/Kconfig | 1 +
->   1 file changed, 1 insertion(+)
+>   sound/soc/sof/ipc.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-> index 56a3ab6..a9b2be2 100644
-> --- a/sound/soc/sof/Kconfig
-> +++ b/sound/soc/sof/Kconfig
-> @@ -16,6 +16,7 @@ config SND_SOC_SOF_PCI
->   	select SND_SOC_ACPI if ACPI
->   	select SND_SOC_SOF_OPTIONS
->   	select SND_SOC_SOF_INTEL_PCI if SND_SOC_SOF_INTEL_TOPLEVEL
-> +	select SND_INTEL_DSP_CONFIG
-
-The problem may be real but the fix should be in 
-sound/sof/sof/intel/Kconfig, e.g. something like:
-
-config SND_SOC_SOF_HDA_COMMON
-	tristate
-	select SND_SOC_SOF_INTEL_COMMON
-+	select SND_INTEL_DSP_CONFIG
-	select SND_SOC_SOF_HDA_LINK_BASELINE
-
-
-I have another patch coming to replace the Intel stuff on the line above.
-
->   	help
->   	  This adds support for PCI enumeration. This option is
->   	  required to enable Intel Skylake+ devices
+> diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+> index b2f359d2f7e5..086eeeab8679 100644
+> --- a/sound/soc/sof/ipc.c
+> +++ b/sound/soc/sof/ipc.c
+> @@ -572,8 +572,10 @@ static int sof_set_get_large_ctrl_data(struct snd_sof_dev *sdev,
+>   	else
+>   		err = sof_get_ctrl_copy_params(cdata->type, partdata, cdata,
+>   					       sparams);
+> -	if (err < 0)
+> +	if (err < 0) {
+> +		kfree(partdata);
+>   		return err;
+> +	}
+>   
+>   	msg_bytes = sparams->msg_bytes;
+>   	pl_size = sparams->pl_size;
 > 
 _______________________________________________
 Alsa-devel mailing list

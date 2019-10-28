@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE4C3E746D
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:06:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D3E8E7472
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:07:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 875DA16C7;
-	Mon, 28 Oct 2019 16:06:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 875DA16C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDAB61F79;
+	Mon, 28 Oct 2019 16:06:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDAB61F79
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572275216;
-	bh=e+wyB+J27UDbDR6ijpOdw/AV8VDlnmQ10GNA8x8NeLA=;
+	s=default; t=1572275257;
+	bh=h+so+3rF61oknDHnQST6d8oJPykJyVgVgPoobZjfGX0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=HVTaBjKBKSmhKkiNAVRYf5nFKNGsKdBvdDRKcLJ2VZtbomEKD1J90W1O+JTGA1EkY
-	 R4THeSZdD3Q1Gw52DnqS0n7rjOJZYJYQmN7ush8s1/dlncZu56ROuyj8FXZ788DcVt
-	 C32T0aI9SgWcJbhi8gTKA/TtdruQyCMK2/wbzX2U=
+	b=St3uDQvktb3LpeuSlB1SFyfNBDq5usB67Cpv+j/J2jl8Sh5q+aovQH7wbFbhegaAA
+	 9ltXJwDHEQ9hyC/0f3KBSa6a2Ld//H6YmGQRazcelJMJOrsowaMUiMtH4npgX8he05
+	 MiohyA3pbU9KAVog1aJ4ONdU8Gsy+H3asdV5y9V8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B3E1F8064C;
-	Mon, 28 Oct 2019 15:57:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C09AFF803D6;
+	Mon, 28 Oct 2019 15:57:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8E28F8067C; Mon, 28 Oct 2019 15:56:50 +0100 (CET)
+ id 38992F8067C; Mon, 28 Oct 2019 15:56:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F2B53F805FC
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1BB3F802BD
  for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2B53F805FC
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1BB3F802BD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="nHP72BnU"
+ header.b="B2Y4N3ip"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=+0nCRHV1U3k0C8rtJE3HcMDcXUknd8WR85FOV2JFeuQ=; b=nHP72BnUUvcn
- 36GHUv1dChEY3gSQVkss5eUxx6COiAY2igNOzkoCnLb/PSHjHe9LaZbcIvagOj7uFDwegQaTN76IK
- URBb4Mz22v+Mr2/h5+HpFZ36ma77HeDI/th6aQEdLEWVAPsdt4Wg17IO5pngz0ILdEi5fzDmyOFkG
- w0Pb4=;
+ List-Archive; bh=gOcOEJt2q/D+fwIXs54Af+3qLEpeDDeV9dlFYIVsJHc=; b=B2Y4N3ipbhYV
+ uxRkKiQlC5PhIAo3M6FbnwBDtmHOTvsS65xXjhvfhuNvtAsFdfWx+vBbUxJlcv+mJYbHS4HiGIUNo
+ kralZKPoAhyVCwNmb+7WaiZghlc/EmHc1RYIzEDO9Ehu7eGp05SvkPaX+y16lH7j6w+Xw8rnxj77Y
+ 3eQiE=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iP6Rd-0008Pf-J7; Mon, 28 Oct 2019 14:56:33 +0000
+ id 1iP6Rd-0008PZ-Fs; Mon, 28 Oct 2019 14:56:33 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 4B07927403FD; Mon, 28 Oct 2019 14:56:31 +0000 (GMT)
+ id AD02F274168E; Mon, 28 Oct 2019 14:56:31 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Keyon Jie <yang.jie@linux.intel.com>
-In-Reply-To: <20191025224122.7718-12-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191025224122.7718-10-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191028145631.4B07927403FD@ypsilon.sirena.org.uk>
+Message-Id: <20191028145631.AD02F274168E@ypsilon.sirena.org.uk>
 Date: Mon, 28 Oct 2019 14:56:31 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: HDA: use macro for register
-	polling retry count" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: topology: parse and store
+	d0i3_compatible flag" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: HDA: use macro for register polling retry count
+   ASoC: SOF: topology: parse and store d0i3_compatible flag
 
 has been applied to the asoc tree at
 
@@ -113,63 +113,68 @@ to this mail.
 Thanks,
 Mark
 
-From 92f4beb718d76e93b76343a3ba872df6cb210672 Mon Sep 17 00:00:00 2001
+From c5232c0171428f005a3204e1c264231fb5999b28 Mon Sep 17 00:00:00 2001
 From: Keyon Jie <yang.jie@linux.intel.com>
-Date: Fri, 25 Oct 2019 17:41:07 -0500
-Subject: [PATCH] ASoC: SOF: Intel: HDA: use macro for register polling retry
- count
+Date: Fri, 25 Oct 2019 17:41:05 -0500
+Subject: [PATCH] ASoC: SOF: topology: parse and store d0i3_compatible flag
 
-Define macro and use it for the register polling retry count.
+Parses the token from tplg file and store it to snd_sof_pcm_stream
+d0i3_compatible flag, which can be used later for d0ix transition
+management.
 
 Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191025224122.7718-12-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191025224122.7718-10-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-dsp.c | 6 ++----
- sound/soc/sof/intel/hda.h     | 1 +
- 2 files changed, 3 insertions(+), 4 deletions(-)
+ sound/soc/sof/topology.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
-index 74805a066183..936361bd25e9 100644
---- a/sound/soc/sof/intel/hda-dsp.c
-+++ b/sound/soc/sof/intel/hda-dsp.c
-@@ -323,12 +323,11 @@ int hda_dsp_set_power_state(struct snd_sof_dev *sdev,
- 			    enum sof_d0_substate d0_substate)
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 121e5d6f8477..cc138ac6a8eb 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -2307,6 +2307,7 @@ static int sof_dai_load(struct snd_soc_component *scomp, int index,
  {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
--	int retry = 50;
- 	int ret;
- 	u8 value;
+ 	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
+ 	struct snd_soc_tplg_stream_caps *caps;
++	struct snd_soc_tplg_private *private = &pcm->priv;
+ 	struct snd_sof_pcm *spcm;
+ 	int stream = SNDRV_PCM_STREAM_PLAYBACK;
+ 	int ret = 0;
+@@ -2329,10 +2330,22 @@ static int sof_dai_load(struct snd_soc_component *scomp, int index,
+ 	dai_drv->dobj.private = spcm;
+ 	list_add(&spcm->list, &sdev->pcm_list);
  
- 	/* Write to D0I3C after Command-In-Progress bit is cleared */
--	ret = hda_dsp_wait_d0i3c_done(sdev, retry);
-+	ret = hda_dsp_wait_d0i3c_done(sdev, HDA_DSP_REG_POLL_RETRY_COUNT);
- 	if (ret < 0) {
- 		dev_err(bus->dev, "CIP timeout before D0I3C update!\n");
++	ret = sof_parse_tokens(scomp, spcm, stream_tokens,
++			       ARRAY_SIZE(stream_tokens), private->array,
++			       le32_to_cpu(private->size));
++	if (ret) {
++		dev_err(sdev->dev, "error: parse stream tokens failed %d\n",
++			le32_to_cpu(private->size));
++		return ret;
++	}
++
+ 	/* do we need to allocate playback PCM DMA pages */
+ 	if (!spcm->pcm.playback)
+ 		goto capture;
+ 
++	dev_vdbg(sdev->dev, "tplg: pcm %s stream tokens: playback d0i3:%d\n",
++		 spcm->pcm.pcm_name, spcm->stream[0].d0i3_compatible);
++
+ 	caps = &spcm->pcm.caps[stream];
+ 
+ 	/* allocate playback page table buffer */
+@@ -2360,6 +2373,9 @@ static int sof_dai_load(struct snd_soc_component *scomp, int index,
+ 	if (!spcm->pcm.capture)
  		return ret;
-@@ -339,8 +338,7 @@ int hda_dsp_set_power_state(struct snd_sof_dev *sdev,
- 	snd_hdac_chip_updateb(bus, VS_D0I3C, SOF_HDA_VS_D0I3C_I3, value);
  
- 	/* Wait for cmd in progress to be cleared before exiting the function */
--	retry = 50;
--	ret = hda_dsp_wait_d0i3c_done(sdev, retry);
-+	ret = hda_dsp_wait_d0i3c_done(sdev, HDA_DSP_REG_POLL_RETRY_COUNT);
- 	if (ret < 0) {
- 		dev_err(bus->dev, "CIP timeout after D0I3C update!\n");
- 		return ret;
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 0e7c366b8f71..99ec60218c16 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -214,6 +214,7 @@
- #define HDA_DSP_CTRL_RESET_TIMEOUT		100
- #define HDA_DSP_WAIT_TIMEOUT		500	/* 500 msec */
- #define HDA_DSP_REG_POLL_INTERVAL_US		500	/* 0.5 msec */
-+#define HDA_DSP_REG_POLL_RETRY_COUNT		50
++	dev_vdbg(sdev->dev, "tplg: pcm %s stream tokens: capture d0i3:%d\n",
++		 spcm->pcm.pcm_name, spcm->stream[1].d0i3_compatible);
++
+ 	caps = &spcm->pcm.caps[stream];
  
- #define HDA_DSP_ADSPIC_IPC			1
- #define HDA_DSP_ADSPIS_IPC			1
+ 	/* allocate capture page table buffer */
 -- 
 2.20.1
 

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56E02E7449
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:00:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F40F2E7458
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:02:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F26D31FA6;
-	Mon, 28 Oct 2019 16:00:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F26D31FA6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E4751FA6;
+	Mon, 28 Oct 2019 16:01:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E4751FA6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572274858;
-	bh=DBy64jGdC377jsbfBssbrJ0YPgsMvZwKwCeLqGOQXoQ=;
+	s=default; t=1572274948;
+	bh=uDPM+Jra4pDKKvYT7lIA2vL0KNuELzJy/Uu5qQpaF/4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=SGO7YlFOCkJp4M+ZpQ8dZOiJBz3OoUYGM86fyByq6QWXRwRa/PRA9/zsSB8mbook1
-	 /x0Mz+yzHN1pM4ZmOtNPJy+RcMXd/RpbY8XL5uZzuzCdIz8a12t6fOo6A4Je9As5wn
-	 MUX9wOrprvrd7S9MxGoytzfveCDVWxRirovut13A=
+	b=L1eJiF+ZvDBo9Z09pMWtsk1FjbDgdthqjfBihTJ625hBVJwE1E6uH1hdsRWV7dmNu
+	 NAntlwVfXPiqDoLzyr0nTVWQeYK4lBty67NjABGpYrN1IR1erun6YmQ29SdSdvho4m
+	 daViTmw3TG9iZtPS8/PrBZ40vZc0LQmvm5ywbU1w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE1FEF805FC;
-	Mon, 28 Oct 2019 15:56:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 309E8F8060D;
+	Mon, 28 Oct 2019 15:56:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BF65F8048F; Mon, 28 Oct 2019 15:56:40 +0100 (CET)
+ id 7F807F80673; Mon, 28 Oct 2019 15:56:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B947CF8048F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 098B4F805A1
  for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B947CF8048F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 098B4F805A1
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ONfev3wv"
+ header.b="a4ACl72h"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=coTvt0m8DwW3lU6vCTRtq0KOWQqMujuWuKEl3udRygk=; b=ONfev3wvfP2h
- DKDPimJW7rzHcmnY9n+tIzqLYcm8KsYpoMLXY5LghRbxYfSGcuqsfD64Q/FL1GJvUB2wQ94TT3Ly3
- qmAb37oReCXrXSN5lNnfqzXqBtlgggsiwfHiNlusLn7os6N1sT5r7NNb86aYIjrbzrVRLOdRf0L03
- ZEuaE=;
+ List-Archive; bh=jdPBgIDnr1C3ksaMV1WI/QyTLYcq/JpTI73ol7qRCa0=; b=a4ACl72hMTzK
+ gv/Opj+4m0rECGS6AVggkAt/KyF7j1w91fLQQczlP5xsO4g4quFa0F0CmDxjUdfXcon3jFKTCxG85
+ OsagoNI/LP/xqK8g9hBJkmeLbNIzhzkn4zdQPzggJLve+aKTBvBDtqR25oJVvvSnhP6yfuXD5wygU
+ owpV4=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iP6Rb-0008P6-VI; Mon, 28 Oct 2019 14:56:32 +0000
+ id 1iP6Rb-0008P1-TH; Mon, 28 Oct 2019 14:56:32 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 40F3C2740409; Mon, 28 Oct 2019 14:56:29 +0000 (GMT)
+ id D1E7127414F2; Mon, 28 Oct 2019 14:56:29 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Keyon Jie <yang.jie@linux.intel.com>
-In-Reply-To: <20191025224122.7718-22-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191025224122.7718-19-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191028145629.40F3C2740409@ypsilon.sirena.org.uk>
+Message-Id: <20191028145629.D1E7127414F2@ypsilon.sirena.org.uk>
 Date: Mon, 28 Oct 2019 14:56:29 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: PM: implement prepare/complete
-	callbacks" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: CNL: add support for
+	sending compact IPC" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: PM: implement prepare/complete callbacks
+   ASoC: SOF: Intel: CNL: add support for sending compact IPC
 
 has been applied to the asoc tree at
 
@@ -113,67 +113,99 @@ to this mail.
 Thanks,
 Mark
 
-From 0b50b3b1c3bc2a2c9eeab418b3de3e60e0530cf4 Mon Sep 17 00:00:00 2001
+From 0267de58acfe5059ace739741f1533dd605ed22f Mon Sep 17 00:00:00 2001
 From: Keyon Jie <yang.jie@linux.intel.com>
-Date: Fri, 25 Oct 2019 17:41:17 -0500
-Subject: [PATCH] ASoC: SOF: PM: implement prepare/complete callbacks
+Date: Fri, 25 Oct 2019 17:41:14 -0500
+Subject: [PATCH] ASoC: SOF: Intel: CNL: add support for sending compact IPC
 
-Implement the prepare() and complete() callbacks for power management,
-initialize s0_suspend flag at prepare(), and reset it at complete().
+For compact IPCs, we will send the IPC header/command via the HIPCIDR
+register and the first 32bit payload via the HIPCIDD register, no
+mailbox will be used.
 
 Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191025224122.7718-22-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191025224122.7718-19-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/pm.c       | 23 +++++++++++++++++++++++
- sound/soc/sof/sof-priv.h |  2 ++
- 2 files changed, 25 insertions(+)
+ sound/soc/sof/intel/cnl.c | 42 ++++++++++++++++++++++++++++++++++-----
+ sound/soc/sof/intel/hda.h |  1 +
+ 2 files changed, 38 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index 584241e9734a..99e4e6ffff74 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -439,3 +439,26 @@ int snd_sof_suspend(struct device *dev)
- 	return sof_suspend(dev, false);
- }
- EXPORT_SYMBOL(snd_sof_suspend);
-+
-+int snd_sof_prepare(struct device *dev)
-+{
-+	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-+
-+#if defined(CONFIG_ACPI)
-+	sdev->s0_suspend = acpi_target_system_state() == ACPI_STATE_S0;
-+#else
-+	/* will suspend to S3 by default */
-+	sdev->s0_suspend = false;
-+#endif
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(snd_sof_prepare);
-+
-+void snd_sof_complete(struct device *dev)
-+{
-+	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
-+
-+	sdev->s0_suspend = false;
-+}
-+EXPORT_SYMBOL(snd_sof_complete);
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index c2541d020bde..6408ac88a3e5 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -492,6 +492,8 @@ int snd_sof_runtime_resume(struct device *dev);
- int snd_sof_runtime_idle(struct device *dev);
- int snd_sof_resume(struct device *dev);
- int snd_sof_suspend(struct device *dev);
-+int snd_sof_prepare(struct device *dev);
-+void snd_sof_complete(struct device *dev);
- int snd_sof_set_d0_substate(struct snd_sof_dev *sdev,
- 			    enum sof_d0_substate d0_substate);
+diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
+index 982b81a0b13a..0e1e265f3f3b 100644
+--- a/sound/soc/sof/intel/cnl.c
++++ b/sound/soc/sof/intel/cnl.c
+@@ -17,6 +17,7 @@
  
+ #include "../ops.h"
+ #include "hda.h"
++#include "hda-ipc.h"
+ 
+ static const struct snd_sof_debugfs_map cnl_dsp_debugfs[] = {
+ 	{"hda", HDA_DSP_HDA_BAR, 0, 0x4000, SOF_DEBUGFS_ACCESS_ALWAYS},
+@@ -150,14 +151,45 @@ static void cnl_ipc_dsp_done(struct snd_sof_dev *sdev)
+ 				CNL_DSP_REG_HIPCCTL_DONE);
+ }
+ 
++static bool cnl_compact_ipc_compress(struct snd_sof_ipc_msg *msg,
++				     u32 *dr, u32 *dd)
++{
++	struct sof_ipc_pm_gate *pm_gate;
++
++	if (msg->header == (SOF_IPC_GLB_PM_MSG | SOF_IPC_PM_GATE)) {
++		pm_gate = msg->msg_data;
++
++		/* send the compact message via the primary register */
++		*dr = HDA_IPC_MSG_COMPACT | HDA_IPC_PM_GATE;
++
++		/* send payload via the extended data register */
++		*dd = pm_gate->flags;
++
++		return true;
++	}
++
++	return false;
++}
++
+ static int cnl_ipc_send_msg(struct snd_sof_dev *sdev,
+ 			    struct snd_sof_ipc_msg *msg)
+ {
+-	/* send the message */
+-	sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
+-			  msg->msg_size);
+-	snd_sof_dsp_write(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCIDR,
+-			  CNL_DSP_REG_HIPCIDR_BUSY);
++	u32 dr = 0;
++	u32 dd = 0;
++
++	if (cnl_compact_ipc_compress(msg, &dr, &dd)) {
++		/* send the message via IPC registers */
++		snd_sof_dsp_write(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCIDD,
++				  dd);
++		snd_sof_dsp_write(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCIDR,
++				  CNL_DSP_REG_HIPCIDR_BUSY | dr);
++	} else {
++		/* send the message via mailbox */
++		sof_mailbox_write(sdev, sdev->host_box.offset, msg->msg_data,
++				  msg->msg_size);
++		snd_sof_dsp_write(sdev, HDA_DSP_BAR, CNL_DSP_REG_HIPCIDR,
++				  CNL_DSP_REG_HIPCIDR_BUSY);
++	}
+ 
+ 	return 0;
+ }
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 99ec60218c16..52a87a47029d 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -312,6 +312,7 @@
+ #define CNL_DSP_REG_HIPCTDD		(CNL_DSP_IPC_BASE + 0x08)
+ #define CNL_DSP_REG_HIPCIDR		(CNL_DSP_IPC_BASE + 0x10)
+ #define CNL_DSP_REG_HIPCIDA		(CNL_DSP_IPC_BASE + 0x14)
++#define CNL_DSP_REG_HIPCIDD		(CNL_DSP_IPC_BASE + 0x18)
+ #define CNL_DSP_REG_HIPCCTL		(CNL_DSP_IPC_BASE + 0x28)
+ 
+ /*  HIPCI */
 -- 
 2.20.1
 

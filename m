@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EAB1E74D0
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:17:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4A47E74DB
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:19:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0A6892053;
-	Mon, 28 Oct 2019 16:17:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A6892053
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3B7102057;
+	Mon, 28 Oct 2019 16:18:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3B7102057
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572275871;
-	bh=gRltGptYGbkn5LWORseaHRq8N3h3TrOu4Djvsctd5gM=;
+	s=default; t=1572275985;
+	bh=6rHdRmHKLTX481PgQT3ljVef9YiE9nqaQd0bcA0c3rg=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Ct0wNkkTVGftFtz2u0AUSIvFcYRPgBbD+k5R31KznGDL6SDITkceLmQA+383VYNpF
-	 CHRQUFT6ZfQK2716AQDz10EG1m3bh14MDrkfnriWXQuzbSTU22VRqMweaSqFb5X1Hg
-	 8zloH6cU0ivtf7aKxca7VDuexlgZkOWGBPrEGtWk=
+	b=Ds71waYtvEx+jt3a2t0qLfr3CNyT31K3bkISVmCLf+c6AxD5WVVOLgVQ6GnrMIy1g
+	 NwY3Sco9l+/dlg1bCeix6y8p757+I0JdnVt3yaj4BG0astttWC3PWv9llnfLUOPtL7
+	 dFJDLk6u3cqi85816XuXikou40Jd1TU3ue7IXLxw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E439F80C20;
-	Mon, 28 Oct 2019 15:57:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3ED30F80CBC;
+	Mon, 28 Oct 2019 15:57:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F76CF80715; Mon, 28 Oct 2019 15:57:14 +0100 (CET)
+ id A42FCF80722; Mon, 28 Oct 2019 15:57:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 616FAF8063D
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFCC4F8064C
  for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 616FAF8063D
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFCC4F8064C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="J/eopTmx"
+ header.b="FS5HV8Ls"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=ayhWuIRk5G3JoYC0+eItJEUm0KsYBGtWrfEHFIWOfGI=; b=J/eopTmx08dP
- Gn2R0iyfVwHXLAPcXiu8TJGiAc03+2NbUjFDRL/AeJpTXQevErvZ5eNpX0H5DEcC3W20NqShBUcJM
- SnU5jTQ6t8+sFN2XY1toDYKNn48nNmKI1qzGH13XCVCpdRDWUDvQxxmpEqhPHf21OPsxfr4eE/YZl
- M9/Ao=;
+ List-Archive; bh=wI3JhvXhfp+cmxuj8CkxoVVRI7G/mcy7GCO0pC7XcS8=; b=FS5HV8LsPJOA
+ qPSK//VFigVP6deMA3heAR4Ddkx8IdSpBFIplad5ngVG6EMzv7DB7p0/rtBjxqW92lt8thrE4MxYO
+ sJb4yLq8oML9pCzifx28RCJL1nEp6wtqiT49gXC6hx4Lx1/1cFWviYBmir4RZsZUgoeze39BLYNU6
+ LnUdw=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iP6Rj-0008Rn-Bv; Mon, 28 Oct 2019 14:56:39 +0000
+ id 1iP6Rj-0008Rq-Lv; Mon, 28 Oct 2019 14:56:39 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 8735D2741458; Mon, 28 Oct 2019 14:56:37 +0000 (GMT)
+ id EB3CC27403EE; Mon, 28 Oct 2019 14:56:37 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Michael Ellerman <mpe@ellerman.id.au>
-In-Reply-To: <20191025051353.2878-1-mpe@ellerman.id.au>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+In-Reply-To: <20191028115207.5142-1-peter.ujfalusi@ti.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191028145637.8735D2741458@ypsilon.sirena.org.uk>
+Message-Id: <20191028145637.EB3CC27403EE@ypsilon.sirena.org.uk>
 Date: Mon, 28 Oct 2019 14:56:37 +0000 (GMT)
-Cc: linuxppc-dev@ozlabs.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, kuninori.morimoto.gx@renesas.com
-Subject: [alsa-devel] Applied "ASoC: fsl: fsl_dma: fix build failure" to the
-	asoc tree
+Cc: alsa-devel@alsa-project.org, arnd@arndb.de, tony@atomide.com,
+ lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>, jarkko.nikula@bitmer.com
+Subject: [alsa-devel] Applied "ASoC: ti: sdma-pcm: Add back the flags
+	parameter for non standard dma names" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,20 +81,18 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============5361402142792451956=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---===============5361402142792451956==
-Content-Type: text/plain
-
 The patch
 
-   ASoC: fsl: fsl_dma: fix build failure
+   ASoC: ti: sdma-pcm: Add back the flags parameter for non standard dma names
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -115,58 +113,41 @@ to this mail.
 Thanks,
 Mark
 
-From d3de1eb461e5bac0b07f5c785e6e0d959915df96 Mon Sep 17 00:00:00 2001
-From: Michael Ellerman <mpe@ellerman.id.au>
-Date: Fri, 25 Oct 2019 16:13:53 +1100
-Subject: [PATCH] ASoC: fsl: fsl_dma: fix build failure
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From dd7e8d903e1eef5a9234a2d69663dcbfeab79571 Mon Sep 17 00:00:00 2001
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Date: Mon, 28 Oct 2019 13:52:07 +0200
+Subject: [PATCH] ASoC: ti: sdma-pcm: Add back the flags parameter for non
+ standard dma names
 
-Commit 4ac85de9977e ("ASoC: fsl: fsl_dma: remove snd_pcm_ops") removed
-fsl_dma_ops but left a usage, leading to a build error for some
-configs, eg. mpc85xx_defconfig:
+When non standard names are used it is possible that one of the directions
+are not provided, thus the flags needs to be present to tell the core that
+we have half duplex setup.
 
-  sound/soc/fsl/fsl_dma.c: In function ‘fsl_soc_dma_probe’:
-  sound/soc/fsl/fsl_dma.c:905:18: error: ‘fsl_dma_ops’ undeclared (first use in this function)
-    dma->dai.ops = &fsl_dma_ops;
-                    ^~~~~~~~~~~
-
-Remove the usage to fix the build.
-
-Fixes: 4ac85de9977e ("ASoC: fsl: fsl_dma: remove snd_pcm_ops")
-Signed-off-by: Michael Ellerman <mpe@ellerman.id.au>
-Link: https://lore.kernel.org/r/20191025051353.2878-1-mpe@ellerman.id.au
+Fixes: 642aafea8889 ("ASoC: ti: remove compat dma probing")
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Link: https://lore.kernel.org/r/20191028115207.5142-1-peter.ujfalusi@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/fsl/fsl_dma.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/ti/sdma-pcm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/fsl/fsl_dma.c b/sound/soc/fsl/fsl_dma.c
-index a092726510d4..2868c4f97cb2 100644
---- a/sound/soc/fsl/fsl_dma.c
-+++ b/sound/soc/fsl/fsl_dma.c
-@@ -901,7 +901,6 @@ static int fsl_soc_dma_probe(struct platform_device *pdev)
- 	}
+diff --git a/sound/soc/ti/sdma-pcm.c b/sound/soc/ti/sdma-pcm.c
+index a236350beb10..2b0bc234e1b6 100644
+--- a/sound/soc/ti/sdma-pcm.c
++++ b/sound/soc/ti/sdma-pcm.c
+@@ -62,7 +62,7 @@ int sdma_pcm_platform_register(struct device *dev,
+ 	config->chan_names[0] = txdmachan;
+ 	config->chan_names[1] = rxdmachan;
  
- 	dma->dai.name = DRV_NAME;
--	dma->dai.ops = &fsl_dma_ops;
- 	dma->dai.open = fsl_dma_open;
- 	dma->dai.close = fsl_dma_close;
- 	dma->dai.ioctl = snd_soc_pcm_lib_ioctl;
+-	return devm_snd_dmaengine_pcm_register(dev, config, 0);
++	return devm_snd_dmaengine_pcm_register(dev, config, flags);
+ }
+ EXPORT_SYMBOL_GPL(sdma_pcm_platform_register);
+ 
 -- 
 2.20.1
-
-
---===============5361402142792451956==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============5361402142792451956==--

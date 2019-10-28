@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B04E74AA
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:14:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95746E7493
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:12:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E15B203B;
-	Mon, 28 Oct 2019 16:13:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E15B203B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BDEC2012;
+	Mon, 28 Oct 2019 16:11:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BDEC2012
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572275672;
-	bh=3pecOAi8j2QVJJe5yZnFbqf54hRSRH5XuCti/vqucEU=;
+	s=default; t=1572275544;
+	bh=72J/Aq4oPoSozschtfyhvHVDOvZyh7CplK7CGvTuDrA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=EkTkUhS+ixU1RasSn+aBR+kSNUhzakiTrhWxXKypt6v0x913yFs3BPDWW0sxuLciV
-	 D6loNmvRv1AO9LEOI/tlzwpDbsZ6yaXQ6wsonuCpMISRM8n8MwhvuFEamBg57bDEZ+
-	 hGaQE3nx9OaYdiowTIJ/EtQQWITGu+dzbnprGjQE=
+	b=lNR+93XAgF463n0a0ig+u5D4OqkUfQv15OcBAHjq7zXOjPw5RuJq7S4BT9bW5yvAn
+	 6Qo9pYukY8M94MqLEXp1B9p3PN/wNBufwcbr4PIuQrLT0laWCeULHtx5bRLgOx1fZW
+	 mTy7fjgrvmHozVAq5KxGQ43GleIjhd/NnHx5CIqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E308F80864;
-	Mon, 28 Oct 2019 15:57:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 784A6F80793;
+	Mon, 28 Oct 2019 15:57:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B78F1F8070C; Mon, 28 Oct 2019 15:57:04 +0100 (CET)
+ id 3287EF80713; Mon, 28 Oct 2019 15:57:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 56F2BF80636
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 56F2BF80636
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1D40F80638
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1D40F80638
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="pVRlddpK"
+ header.b="Op2h14B2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=I9bJmwwQk40mWtJvScxqz4htVMCrizEzyK4x5oLVEio=; b=pVRlddpKuKTy
- f7S1LfSpHm+pBxDOc9qYnGbluPS/0S0y7njGSjtzkkFLly7XREvZ311Bc1IV9QWHxdbtW3icfH0BA
- ndLcA4bCcMa16ZIrUyWqpPuHz4blTY9trNvHYmJm5NAO7POE/WcrLKlKEVoXZkBxkWEPY+znRCBuu
- vqxjo=;
+ List-Archive; bh=7RpxeqCZmG7jTvEnrtlha9Q0UvkoFSGbl7EXlpP0IDE=; b=Op2h14B2g6G8
+ PT6+Jngyl9/BCgg0w485UhLh/tISHxpTuUuhLSxTac4yMMzzQdDo6i8cFEHeHPd73ACXcc42ZF2ag
+ mfQZnjfZMvZyas2T+DhWo94RLJE6zQSXzLHYisknefWwjCYurb2HSlGyuOEDpzbBygRYhft2WyIee
+ XR8D8=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iP6Re-0008QA-Gx; Mon, 28 Oct 2019 14:56:34 +0000
+ id 1iP6Rh-0008RR-Fa; Mon, 28 Oct 2019 14:56:37 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id EF4A527403EF; Mon, 28 Oct 2019 14:56:32 +0000 (GMT)
+ id EB94527403E4; Mon, 28 Oct 2019 14:56:35 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Keyon Jie <yang.jie@linux.intel.com>
-In-Reply-To: <20191025224122.7718-4-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191025224122.7718-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191028145632.EF4A527403EF@ypsilon.sirena.org.uk>
-Date: Mon, 28 Oct 2019 14:56:32 +0000 (GMT)
+Message-Id: <20191028145635.EB94527403E4@ypsilon.sirena.org.uk>
+Date: Mon, 28 Oct 2019 14:56:35 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: add set_power_state() to dsp_ops
-	for power state update" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: reset default d0_substate at
+	probe() and resume()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,11 +88,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: add set_power_state() to dsp_ops for power state update
+   ASoC: SOF: reset default d0_substate at probe() and resume()
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -113,58 +113,51 @@ to this mail.
 Thanks,
 Mark
 
-From e8f112d8c29f44ded83f97828c104bf0904871ec Mon Sep 17 00:00:00 2001
+From 09fe6b528886c0d07ce539b837749edcc46618d0 Mon Sep 17 00:00:00 2001
 From: Keyon Jie <yang.jie@linux.intel.com>
-Date: Fri, 25 Oct 2019 17:40:59 -0500
-Subject: [PATCH] ASoC: SOF: add set_power_state() to dsp_ops for power state
- update
+Date: Fri, 25 Oct 2019 17:40:58 -0500
+Subject: [PATCH] ASoC: SOF: reset default d0_substate at probe() and resume()
 
-D0i3 is a platform-defined substate of D0, so we need a
-platform-specific callback in dsp_ops to handle the relevant
-configurations.
+We initialize/reset d0_substate to default d0i0 value when doing
+transition D3-->D0, e.g. at success of probing and resuming.
 
 Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191025224122.7718-4-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191025224122.7718-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/ops.h      | 9 +++++++++
- sound/soc/sof/sof-priv.h | 2 ++
- 2 files changed, 11 insertions(+)
+ sound/soc/sof/core.c | 3 +++
+ sound/soc/sof/pm.c   | 3 +++
+ 2 files changed, 6 insertions(+)
 
-diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
-index 824d36fe59fd..d7c8fc06f961 100644
---- a/sound/soc/sof/ops.h
-+++ b/sound/soc/sof/ops.h
-@@ -193,6 +193,15 @@ static inline int snd_sof_dsp_set_clk(struct snd_sof_dev *sdev, u32 freq)
- 	return 0;
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 5998861a9002..8661c2cca76b 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -458,6 +458,9 @@ int snd_sof_device_probe(struct device *dev, struct snd_sof_pdata *plat_data)
+ 	/* initialize sof device */
+ 	sdev->dev = dev;
+ 
++	/* initialize default D0 sub-state */
++	sdev->d0_substate = SOF_DSP_D0I0;
++
+ 	sdev->pdata = plat_data;
+ 	sdev->first_boot = true;
+ 	dev_set_drvdata(dev, sdev);
+diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
+index e23beaeefe00..81e623dfc7e5 100644
+--- a/sound/soc/sof/pm.c
++++ b/sound/soc/sof/pm.c
+@@ -326,6 +326,9 @@ static int sof_resume(struct device *dev, bool runtime_resume)
+ 			"error: ctx_restore ipc error during resume %d\n",
+ 			ret);
+ 
++	/* initialize default D0 sub-state */
++	sdev->d0_substate = SOF_DSP_D0I0;
++
+ 	return ret;
  }
  
-+static inline int snd_sof_dsp_set_power_state(struct snd_sof_dev *sdev,
-+					      enum sof_d0_substate substate)
-+{
-+	if (sof_ops(sdev)->set_power_state)
-+		return sof_ops(sdev)->set_power_state(sdev, substate);
-+
-+	return 0;
-+}
-+
- /* debug */
- static inline void snd_sof_dsp_dbg_dump(struct snd_sof_dev *sdev, u32 flags)
- {
-diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
-index 481dfe4ee2d0..e9902e4e8e55 100644
---- a/sound/soc/sof/sof-priv.h
-+++ b/sound/soc/sof/sof-priv.h
-@@ -189,6 +189,8 @@ struct snd_sof_dsp_ops {
- 	int (*runtime_resume)(struct snd_sof_dev *sof_dev); /* optional */
- 	int (*runtime_idle)(struct snd_sof_dev *sof_dev); /* optional */
- 	int (*set_hw_params_upon_resume)(struct snd_sof_dev *sdev); /* optional */
-+	int (*set_power_state)(struct snd_sof_dev *sdev,
-+			       enum sof_d0_substate d0_substate); /* optional */
- 
- 	/* DSP clocking */
- 	int (*set_clk)(struct snd_sof_dev *sof_dev, u32 freq); /* optional */
 -- 
 2.20.1
 

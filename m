@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F04A0E74F3
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:21:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80ADDE74D9
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:19:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86C45206C;
-	Mon, 28 Oct 2019 16:20:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86C45206C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1ED7C201C;
+	Mon, 28 Oct 2019 16:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1ED7C201C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572276101;
-	bh=virbjzUQ5N4IM6Wn1/GygfVtf3bnVYgblgU4iZhbaqg=;
+	s=default; t=1572275943;
+	bh=iAuUrsUgBZF0cczQFMQxyrh3TkQYXZa7htuJCFbHRuk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=KR/JrU5TZW2Wj9A9Vv19nP6keFU8pGw16eguQbygzDZAdoDWLDGe5gyxgubuJzOaM
-	 kVLfEP7t3AF3815LYCN1WFNEm74v/yuY1KLqc5OtJuAzPzrOZJkmDzmK/LAxT3dUuD
-	 qGOPR4CSjNtcmT7Ir8mMQ8cFYLr0dfeuLw5BvmPA=
+	b=lQZ0ArWVqUgSMXtcyS3KPX3KehmV9yNpiWtLAehDgRwxMMNaePchrBffcakad5Pfx
+	 CBQeOdL0UJSQV8npwz8gr3XqKGW/dVQyhqV3fvVDpBeO42WLDITUGIWYm1mi4VBmo6
+	 OX76qAvCp80WvO9ygkLmprjmObhwXAovddFZkN1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56556F89619;
-	Mon, 28 Oct 2019 15:57:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9AAEF80CB7;
+	Mon, 28 Oct 2019 15:57:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB873F80724; Mon, 28 Oct 2019 15:57:20 +0100 (CET)
+ id 1BA55F80642; Mon, 28 Oct 2019 15:57:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,45 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D83DFF8065A
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D83DFF8065A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DE6DF80649
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DE6DF80649
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="G0w0eKog"
+ header.b="XJVUT1V5"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=AFCr3rynD8V4Xu0si+l9pX7hWrr9yeLzz/mOG9Iw2wc=; b=G0w0eKogHrhP
- q8K6V3DrJgZC7vPrVoys+O16CN+nQi6vYsFPu8CvMZEwCu5kkSS4vSxjP3s7vUiAjyT4NK3LXZEyV
- jL/XjtfWFgEw2xMIxEP60y7Y8B3QdjH5BHZfNy8tuaf8+JJbATHxKGqcJUUP1mlVNnb1QD2L2Btzj
- J8NKk=;
+ List-Archive; bh=nwOx8or51i7UJOhgD9RXRX9uRN63VexuC0lVIBwn7g4=; b=XJVUT1V5BODM
+ tl3gfowqFWhMLIRawbAJxleQhWfrzw42r+KRKCCw5XG9g6SHPC/7PVGYdRlYEpWj7oUu+JwrWhls1
+ d+aHI3yXX0LD5M87kptYw7d5sLu4dX9UxvwrQ6dzm+EKPkGgs1Nqa+HMpnhTaruf8ox4REyS5YMYh
+ mM/8I=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iP6Rk-0008Rv-0Q; Mon, 28 Oct 2019 14:56:40 +0000
+ id 1iP6Rj-0008Rw-Uc; Mon, 28 Oct 2019 14:56:40 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 6969827403EF; Mon, 28 Oct 2019 14:56:38 +0000 (GMT)
+ id 986372741532; Mon, 28 Oct 2019 14:56:38 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Navid Emamdoost <navid.emamdoost@gmail.com>
-In-Reply-To: <20191027194856.4056-1-navid.emamdoost@gmail.com>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <20191025221538.6668-1-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191028145638.6969827403EF@ypsilon.sirena.org.uk>
+Message-Id: <20191028145638.986372741532@ypsilon.sirena.org.uk>
 Date: Mon, 28 Oct 2019 14:56:38 +0000 (GMT)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, kjlu@umn.edu,
- Liam Girdwood <lgirdwood@gmail.com>, emamd001@umn.edu,
- Wei Yongjun <weiyongjun1@huawei.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, smccaman@umn.edu,
- "Cc:"@sirena.co.uk, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] Applied "ASoC: SOF: Fix memory leak in
-	sof_dfsentry_write" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda-stream: fix the CONFIG_
+	prefix missing" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Fix memory leak in sof_dfsentry_write
+   ASoC: SOF: Intel: hda-stream: fix the CONFIG_ prefix missing
 
 has been applied to the asoc tree at
 
@@ -118,40 +113,45 @@ to this mail.
 Thanks,
 Mark
 
-From c0a333d842ef67ac04adc72ff79dc1ccc3dca4ed Mon Sep 17 00:00:00 2001
-From: Navid Emamdoost <navid.emamdoost@gmail.com>
-Date: Sun, 27 Oct 2019 14:48:47 -0500
-Subject: [PATCH] ASoC: SOF: Fix memory leak in sof_dfsentry_write
+From f792bd173a6fd51d1a4dde04263085ce67486aa3 Mon Sep 17 00:00:00 2001
+From: Keyon Jie <yang.jie@linux.intel.com>
+Date: Fri, 25 Oct 2019 17:15:38 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda-stream: fix the CONFIG_ prefix missing
 
-In the implementation of sof_dfsentry_write() memory allocated for
-string is leaked in case of an error. Go to error handling path if the
-d_name.name is not valid.
+We are missing the 'CONFIG_' prefix when using the kernel configure item
+SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1, here correct them.
 
-Fixes: 091c12e1f50c ("ASoC: SOF: debug: add new debugfs entries for IPC flood test")
-Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
-Link: https://lore.kernel.org/r/20191027194856.4056-1-navid.emamdoost@gmail.com
+Fixes: 43b2ab9009b13b ('ASoC: SOF: Intel: hda: Disable DMI L1 entry during capture')
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20191025221538.6668-1-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/debug.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ sound/soc/sof/intel/hda-stream.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
-index 54cd431faab7..5529e8eeca46 100644
---- a/sound/soc/sof/debug.c
-+++ b/sound/soc/sof/debug.c
-@@ -152,8 +152,10 @@ static ssize_t sof_dfsentry_write(struct file *file, const char __user *buffer,
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index 2c7447188402..0c11fceb28a7 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -190,7 +190,7 @@ hda_dsp_stream_get(struct snd_sof_dev *sdev, int direction)
+ 	 * Workaround to address a known issue with host DMA that results
+ 	 * in xruns during pause/release in capture scenarios.
  	 */
- 	dentry = file->f_path.dentry;
- 	if (strcmp(dentry->d_name.name, "ipc_flood_count") &&
--	    strcmp(dentry->d_name.name, "ipc_flood_duration_ms"))
--		return -EINVAL;
-+	    strcmp(dentry->d_name.name, "ipc_flood_duration_ms")) {
-+		ret = -EINVAL;
-+		goto out;
-+	}
+-	if (!IS_ENABLED(SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1))
++	if (!IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1))
+ 		if (stream && direction == SNDRV_PCM_STREAM_CAPTURE)
+ 			snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
+ 						HDA_VS_INTEL_EM2,
+@@ -228,7 +228,7 @@ int hda_dsp_stream_put(struct snd_sof_dev *sdev, int direction, int stream_tag)
+ 	spin_unlock_irq(&bus->reg_lock);
  
- 	if (!strcmp(dentry->d_name.name, "ipc_flood_duration_ms"))
- 		flood_duration_test = true;
+ 	/* Enable DMI L1 entry if there are no capture streams open */
+-	if (!IS_ENABLED(SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1))
++	if (!IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1))
+ 		if (!active_capture_stream)
+ 			snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
+ 						HDA_VS_INTEL_EM2,
 -- 
 2.20.1
 

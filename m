@@ -2,79 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40F78E74E2
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 16:20:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71093E7615
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 17:27:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D146C207E;
-	Mon, 28 Oct 2019 16:19:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D146C207E
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECF7F2018;
+	Mon, 28 Oct 2019 17:26:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECF7F2018
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572276024;
-	bh=cTXpT5lHbmMGmOlmXmIYkrY3zuAwiK3/zK2bI0pSIvQ=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=IbxQ9EMTVP84+1RTAzyp19+/RUTMhmeU/u8H50vsNtX+yLoysi+51CdWim4doL220
-	 IobT+MhtmwZpEDY86cLWXUDBOAmxi8gJTIKQEpTtuc+eAj9BWIwRrQQOIQLT2ABTtk
-	 6IIYR0ol9Jg6V/YFJuaW+bfqWmg15S4cBWB5kp+0=
+	s=default; t=1572280068;
+	bh=MoQWQOn46znK9GUNnGQBlFxNDHmRDhaJdoipArvfZeY=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nBwo+mylqiPmiE1lM1RgAE4r4OtSBwaE2lefW/UPIhYaG+AG9SAdcYi1tVjx1K4tZ
+	 qq/d65PfMzwjhjTX/oSKQBAHRoqcidq1nWNcTS1zcPOCK8dtio7VJ4cp1crkaF3JZt
+	 3lTMPRZ+J6iI6lC3lZ7Ki0ihp6f/GDYcq9c1qW/c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 53085F80CBE;
-	Mon, 28 Oct 2019 15:57:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A042F802BD;
+	Mon, 28 Oct 2019 17:26:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 57E3CF8071F; Mon, 28 Oct 2019 15:57:19 +0100 (CET)
+ id AAFE0F80361; Mon, 28 Oct 2019 17:25:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
+ [IPv6:2607:f8b0:4864:20::d43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03188F80612
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:56:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03188F80612
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB7C7F8011D
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 17:25:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB7C7F8011D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="BlTZDNuc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=tN8epsZEkS31NtdlX45cDOmGF5PCzR59bS9MnzLxSmg=; b=BlTZDNucaG1B
- kxm0DU1bGKzsOQw96Q+YQqdQrdJSBmRSPt3YiBXWZYnVqeOZwTh5ybIKq65Ybktnp1pZSbLBHnPeb
- YFvUMyj0QqiJJI+DP8LQsNT1jquBZ4kK3//kxlYFxXMe3j5ACViX2bRNToEsbRiDliprT/JOrLKaA
- VsgpA=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iP6Rj-0008Rp-Hj; Mon, 28 Oct 2019 14:56:39 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 3045F27414F2; Mon, 28 Oct 2019 14:56:38 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Navid Emamdoost <navid.emamdoost@gmail.com>
-In-Reply-To: <20191027215330.12729-1-navid.emamdoost@gmail.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20191028145638.3045F27414F2@ypsilon.sirena.org.uk>
-Date: Mon, 28 Oct 2019 14:56:38 +0000 (GMT)
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Pan Xiuli <xiuli.pan@linux.intel.com>, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, kjlu@umn.edu,
- Liam Girdwood <lgirdwood@gmail.com>,
- Slawomir Blauciak <slawomir.blauciak@linux.intel.com>, emamd001@umn.edu,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, smccaman@umn.edu,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "Cc:"@sirena.co.uk
-Subject: [alsa-devel] Applied "ASoC: SOF: ipc: Fix memory leak in
-	sof_set_get_large_ctrl_data" to the asoc tree
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="BiJaA4se"
+Received: by mail-io1-xd43.google.com with SMTP id p6so11383670iod.7
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 09:25:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=62aOCZujaPjLMXmFPiRB6XzKNfXNdqecHfS0A2Hu8ko=;
+ b=BiJaA4seBZsQTPq9zw4g+A57lDEvtNeQoxuyhvCo9FUNmQt567u2xluFLm8yVUzwSO
+ 6JEuOH2ywUCSy8dF3elfmXyQW5ot8j4Hn+6ochXaNSLdWo41jgWxs/zdVbzR3cbNLn/n
+ fJ4etMLzxmTHiqRfLDwJP2Yr2YkCxC/A3qpmPQjhSpnRLaK7BY7seX/ymv6oZLYJqtb3
+ kDgCSl5H7SSeiz9Kd+AIDyMsWD58VLxPUIsyZ7fIaWr5gzomnLEQXtWCsDBVH0Ak6DB2
+ I4aMXOZ/0Vi8m8tXpwmJSCTf0xk1E2yyjjZwSgtL7xGeAzyD7y/5Bodz5xHaFFONnDZD
+ x1WA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=62aOCZujaPjLMXmFPiRB6XzKNfXNdqecHfS0A2Hu8ko=;
+ b=UU/MovvJu1ggSH5HN7QNAzNlmIlLNjyuOob/oFlcElyeIVrAl9WzQXppnqVjjn/hSp
+ Nw4sjNXJPdv6iv1rHxOE4/iKAlD6V5TcVv2uSzONBqQEwdqZHNsPJdnfXNV0+02maXru
+ jKR56rm6edPmXciZ7Z/luAmfKONLKMNZfNuIVAKqtSVbOzPFCNpxOlg1nAm3pqBAIvBa
+ CqFSoq0+1xGzurVGI7kAKaPSKWLidmMtQlzPbLPLGNTk3QrHU8ldGKoejkBF+flVUQUX
+ l6NzkMiRSmktH9X/V/xQEcNMScN0+bJKxBJuFGkMnj6p+MHYsdS++IsunMR+TpyiUo2Z
+ Ejow==
+X-Gm-Message-State: APjAAAVmeiUdVqTP9V04W2UCl3Z7NdrWu95BpLE0MM5Z+YdVfR2nhMKv
+ Z2uOHenwu5ddhUnQhCmzQmlwtEFlqH7VNNk5Y6Q=
+X-Google-Smtp-Source: APXvYqxS+8kiAL+Wcxn+fmYc+Yioqr8WfBBuzznOXGTcdWpC3bS3vjFRwgW6Rto0lmGXcotfSYpCifNGe71zuO2R4lw=
+X-Received: by 2002:a5e:9706:: with SMTP id w6mr18017287ioj.252.1572279952857; 
+ Mon, 28 Oct 2019 09:25:52 -0700 (PDT)
+MIME-Version: 1.0
+References: <20191027221007.14317-1-navid.emamdoost@gmail.com>
+ <s5hpnihmlk3.wl-tiwai@suse.de>
+In-Reply-To: <s5hpnihmlk3.wl-tiwai@suse.de>
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+Date: Mon, 28 Oct 2019 11:25:41 -0500
+Message-ID: <CAEkB2ESwKEQYQx75BnaHf4aUQHObx4jf0hreQx_KTeZ+QCjL4g@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Cc: alsa-devel@alsa-project.org, Kangjie Lu <kjlu@umn.edu>,
+ Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>,
+ Navid Emamdoost <emamd001@umn.edu>, Stephen McCamant <smccaman@umn.edu>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Fix memory leak in
+	__snd_usbmidi_create
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,76 +94,69 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Thanks for the explanation,
 
-   ASoC: SOF: ipc: Fix memory leak in sof_set_get_large_ctrl_data
+On Mon, Oct 28, 2019 at 1:27 AM Takashi Iwai <tiwai@suse.de> wrote:
+>
+> On Sun, 27 Oct 2019 23:10:06 +0100,
+> Navid Emamdoost wrote:
+> >
+> > In the implementation of __snd_usbmidi_create() there is a memory leak
+> > caused by incorrect goto destination. Go to free_midi if
+> > snd_usbmidi_create_endpoints_midiman() or snd_usbmidi_create_endpoints()
+> > fail.
+>
+> No, this will lead to double-free.  After registering the rawmidi
+> interface at snd_usbmidi_create_rawmidi(), the common destructor will
+> be called via rawmidi private_free callback, and this will release the
+> all resources already.
+Now I can see how rawmidi private_free is set up to release the
+resources, but what concerns me is that at the moment of endpoint/port
+creation umidi is not yet added to the midi_list.
+In other words, what I see is that we still have just one local
+pointer to umidi if any of snd_usbmidi_create_endpoint* fail.
+Am I missing something?
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+>
+>
+> thanks,
+>
+> Takashi
+>
+> >
+> > Fixes: 731209cc0417 ("ALSA: usb-midi: Use common error handling code in __snd_usbmidi_create()")
+> > Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+> > ---
+> >  sound/usb/midi.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/sound/usb/midi.c b/sound/usb/midi.c
+> > index b737f0ec77d0..22db37fbfbbd 100644
+> > --- a/sound/usb/midi.c
+> > +++ b/sound/usb/midi.c
+> > @@ -2476,7 +2476,7 @@ int __snd_usbmidi_create(struct snd_card *card,
+> >       else
+> >               err = snd_usbmidi_create_endpoints(umidi, endpoints);
+> >       if (err < 0)
+> > -             goto exit;
+> > +             goto free_midi;
+> >
+> >       usb_autopm_get_interface_no_resume(umidi->iface);
+> >
+> > --
+> > 2.17.1
+> >
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 45c1380358b12bf2d1db20a5874e9544f56b34ab Mon Sep 17 00:00:00 2001
-From: Navid Emamdoost <navid.emamdoost@gmail.com>
-Date: Sun, 27 Oct 2019 16:53:24 -0500
-Subject: [PATCH] ASoC: SOF: ipc: Fix memory leak in
- sof_set_get_large_ctrl_data
-
-In the implementation of sof_set_get_large_ctrl_data() there is a memory
-leak in case an error. Release partdata if sof_get_ctrl_copy_params()
-fails.
-
-Fixes: 54d198d5019d ("ASoC: SOF: Propagate sof_get_ctrl_copy_params() error properly")
-Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
-Link: https://lore.kernel.org/r/20191027215330.12729-1-navid.emamdoost@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sof/ipc.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
-index b2f359d2f7e5..086eeeab8679 100644
---- a/sound/soc/sof/ipc.c
-+++ b/sound/soc/sof/ipc.c
-@@ -572,8 +572,10 @@ static int sof_set_get_large_ctrl_data(struct snd_sof_dev *sdev,
- 	else
- 		err = sof_get_ctrl_copy_params(cdata->type, partdata, cdata,
- 					       sparams);
--	if (err < 0)
-+	if (err < 0) {
-+		kfree(partdata);
- 		return err;
-+	}
- 
- 	msg_bytes = sparams->msg_bytes;
- 	pl_size = sparams->pl_size;
 -- 
-2.20.1
-
+Navid.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

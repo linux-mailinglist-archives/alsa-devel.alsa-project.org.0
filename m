@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17DEE735D
-	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 15:08:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EAC8E7392
+	for <lists+alsa-devel@lfdr.de>; Mon, 28 Oct 2019 15:24:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 508531F4C;
-	Mon, 28 Oct 2019 15:07:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 508531F4C
+	by alsa0.perex.cz (Postfix) with ESMTPS id B916A1F53;
+	Mon, 28 Oct 2019 15:24:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B916A1F53
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572271713;
-	bh=bo4poG0YFn64A358F9dCvIrVjpgAsQ8RURvCBB+nupA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1572272695;
+	bh=tkFHz/b8etdQHPKI1g3JIMeP1QHtkHiOIEsg2p6AzDQ=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=c9zHDu/4d9/AbsyIPPU1AHJuq3hrUHi9+61YZaqQzpBWRjZGIrAdldnjRoqnb4HaK
-	 ZcX2lf0GgIKYOjk0jFzmYuFFfUMVU8n5RzrAI5ICGtxgbuimpGaRVCr+N2OO4ZquS5
-	 THqrYDc9z/f6vSYu6iE56JwzEo83pmJD+IXWFDb8=
+	b=XABoILYNDDV9PmdagBkzeUG87orpSDPw48UjyCvcriGmeVuokI8QQoCDB23ykdT3a
+	 +ylSSw8SFtr8m8VN17aCaw5zcqqmCwVZEILbmrXbQBhhvPzFqdjI/3FV3lEOW+Egr2
+	 I5wt9ET1fXuURjNZGTgvXSbMsiXAPgloCiJSNypk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 756C9F802BD;
-	Mon, 28 Oct 2019 15:06:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B82BEF800E7;
+	Mon, 28 Oct 2019 15:23:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4D1AF80361; Mon, 28 Oct 2019 15:06:48 +0100 (CET)
+ id 53CA4F80361; Mon, 28 Oct 2019 15:23:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.6 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40BD5F80145
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:06:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40BD5F80145
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="zbT5L1eH"
-Received: from localhost (unknown [91.217.168.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C812620873;
- Mon, 28 Oct 2019 13:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1572269452;
- bh=Q4aTENSogO5dIUk61tZ+mKng+1PdVCEMMsHb/lYON2w=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=zbT5L1eHkeWMiJ7d35cXaAKdgbCDLGGfIdru6dSJRHiWLiDqpQJCHV4Is0NGz914Y
- W27fseMJaz3ZPyVyiHLeXzYiaHwXNMBTDdNompmkd6xpWv2Q00cywIlqCl6gB+GlmV
- 7ylMyirXSq0aERB7GU7/+ezvoTR7TLXaMSpV3LQA=
-Date: Mon, 28 Oct 2019 14:30:50 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20191028133050.GA13691@kroah.com>
-References: <000000000000f838060595f602a7@google.com>
- <s5hr22xau8f.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <s5hr22xau8f.wl-tiwai@suse.de>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Cc: alsa-devel@alsa-project.org, wang6495@umn.edu, yuehaibing@huawei.com,
- tiwai@suse.com, syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
- glider@google.com, allison@lohutok.net,
- syzbot <syzbot+8f2612936028bfd28f28@syzkaller.appspotmail.com>,
- tglx@linutronix.de, benquike@gmail.com, dan.carpenter@oracle.com
-Subject: Re: [alsa-devel] KMSAN: uninit-value in get_term_name
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02B74F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 15:23:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02B74F800E7
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id AB60EB57C;
+ Mon, 28 Oct 2019 14:23:07 +0000 (UTC)
+Date: Mon, 28 Oct 2019 15:23:07 +0100
+Message-ID: <s5h5zk9ar04.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <149b2b82-f204-00ac-b3e4-6a1dd7de07ee@perex.cz>
+References: <20191025123038.19728-1-perex@perex.cz>
+ <s5hk18tuhio.wl-tiwai@suse.de>
+ <bce57a56-99d0-62d7-1d53-099a75349341@perex.cz>
+ <s5h36fgvs0m.wl-tiwai@suse.de>
+ <9403a6a7-9b7e-c2a4-5acf-50d6cbaea7c7@perex.cz>
+ <s5hwocsucfp.wl-tiwai@suse.de>
+ <83e4dc16-07e7-aafb-db43-01a89e31270b@perex.cz>
+ <s5heez0oleh.wl-tiwai@suse.de>
+ <12c5e861-dd78-99cc-b16f-5ddc2ad0e33b@perex.cz>
+ <alpine.DEB.2.21.1910252050230.16459@zeliteleevi>
+ <ed87baf1-1f2e-22d6-2bd7-267b209310d4@perex.cz>
+ <s5h7e4sneiw.wl-tiwai@suse.de>
+ <149b2b82-f204-00ac-b3e4-6a1dd7de07ee@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: change 'HDMI/DP, pcm=' to 'HDMI/DP,
+	pcm=' Jack control names
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,28 +85,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Oct 28, 2019 at 02:13:20PM +0100, Takashi Iwai wrote:
-> On Mon, 28 Oct 2019 11:32:07 +0100,
-> syzbot wrote:
-> > 
-> > Uninit was stored to memory at:
-> >  kmsan_save_stack_with_flags mm/kmsan/kmsan.c:151 [inline]
-> >  kmsan_internal_chain_origin+0xbd/0x180 mm/kmsan/kmsan.c:319
-> >  __msan_chain_origin+0x6b/0xd0 mm/kmsan/kmsan_instr.c:179
-> >  parse_term_proc_unit+0x73d/0x7e0 sound/usb/mixer.c:896
-> >  __check_input_term+0x13ef/0x2360 sound/usb/mixer.c:989
+On Sat, 26 Oct 2019 19:11:27 +0200,
+Jaroslav Kysela wrote:
 > 
-> So this comes from the invalid descriptor for a processing unit, and
-> it's very likely the same issue as already spotted -- the validator up
-> to 5.3-rc4 had a bug that passed the invalid descriptor falsely.
-> This should have been covered by 5.3-rc5, commit ba8bf0967a15 ("ALSA:
-> usb-audio: Fix copy&paste error in the validator").
+> Dne 26. 10. 19 v 9:37 Takashi Iwai napsal(a):
+> > On Fri, 25 Oct 2019 23:03:26 +0200,
+> > Jaroslav Kysela wrote:
+> >>
+> >> Dne 25. 10. 19 v 20:02 Kai Vehmanen napsal(a):
+> >>> Hi Jaroslav and all,
+> >>>
+> >>> On Fri, 25 Oct 2019, Jaroslav Kysela wrote:
+> >>>
+> >>>> the single user. Another problem is that we are not able to review all those
+> >>>> mistakes at the merge time. It is not a complain but a true fact.
+> >>>
+> >>> but the strings are in kernel patches, so even if all UCM files don't
+> >>> go through the list, we can always review when the strings are added
+> >>> in kernel, right?
+> >>
+> >> My point is that we already did this incomplete review (the wrong
+> >> strings are in the current kernel). We cannot prevent to avoid those
+> >> code merges, we are just human. I just don't think that the driver /
+> >> control names should be part of the don't-break-the-userspace policy.
+> >
+> > It's a similar situation like the long-time discussion of tracing:
+> > when the kernel broke latencytop by changing the tracing format, we
+> > had to revert it in the end although the tracing format itself isn't
+> > strictly a "standard kernel ABI".  The consensus is: if upgrading the
+> > kernel breaks anything *significant*, it's a regression and no-go.
+> > It's not about whether it's a part of ABI or not.
+> >
+> > In our particular case, the strings you wanted to fix are the ones
+> > that are actually hard-coded by the UCM profiles that are known to be
+> > really used on major systems.  That's the only reason of NAK.  If it
+> > were for some other minor kcontrol elements, it would have been OK.
+> >
+> > Kai's work to integrate SOF to the legacy HDMI driver would be also OK
+> > because it provides the compatibility mode.  That is, we have some
+> > excuse that it's not us but users (distros) who actually breaks by
+> > choosing the kernel configuration explicitly (and even there can be a
+> > workaround with a module option).
+> 
+> We can add another kernel option for this fix, too. If you like to move
+> in this direction, I'll modify my patch.
 
-SHould we be backporting the validator to any older kernels as well?
+I don't think it's worth for that.  With Kai's patch set, we're going
+to move (back) to the legacy HDMI codec driver in most cases, so these
+strings will be specifically to the SST driver -- which are used by
+only limited number of devices like Chromebook or such. 
+
+That said, if the reason for the change is just about consistency, the
+best recipe is to forget it.
+
+> The question is, if the kernel should provide a hint to the user space
+> (UCM), that something *significant* changed. Perhaps, the component
+> field in the control API might be used for this purpose as I already
+> proposed. In this way, we can support both kernels (with old and new
+> control names).
+
+I'm afraid that the current UCM profile cannot handle any extension as
+of now.  We may need to introduce some incompatible extensibility at
+first to UCM profile syntax.  This can be a good topic for the next
+meeting.
+
 
 thanks,
 
-greg k-h
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

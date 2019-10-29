@@ -2,93 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5B1FE8748
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 12:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F225EE88EB
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 13:58:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71C012251;
-	Tue, 29 Oct 2019 12:37:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71C012251
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8070C21D6;
+	Tue, 29 Oct 2019 13:57:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8070C21D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572349070;
-	bh=yYiYJawoLi7g55qVzzcp3WpY2UQWX4jUTxgn/nDGkJ4=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nfI2P4HIq/H7QJ5NO7I+Re1ZAANmyiya+bIBTDmLLbnnZ4osqIfjnVmofmumLbI3h
-	 n59K/FnsdR8mD3OFjCnkGwOW0xuM7yIbjPE3/0was+yZPKomGCMDiiD53GbHSDbins
-	 QFjDkgpho+Be85Jc8StWc8VSECt19xur+73uOhxA=
+	s=default; t=1572353929;
+	bh=UbTeBN4LQ8tfpbzuzOCXnTmHkVKxZAXY0fMYjGev7YE=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=T6VHFxsOwZ4L0bZ0a/IzDdHM0yCPCLPpLbAhh9IrMYE9RWiCm05Y57bfeG1mTe7hL
+	 XKE3YRkiK/o+H3yIN3SbujasZ0iEicC29YsSGwEJ9+yjrc4kcajHwcpQKMDVmV/UHf
+	 n9Y8blgnMBlXTX1okpfh9dNgRHrSRUUzshjU0SjY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EC86AF8071D;
-	Tue, 29 Oct 2019 12:29:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6809CF8044B;
+	Tue, 29 Oct 2019 13:57:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95328F8065C; Tue, 29 Oct 2019 12:29:16 +0100 (CET)
+ id 4C6FBF8045D; Tue, 29 Oct 2019 13:57:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C985FF805FD
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 12:29:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C985FF805FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F594F8015A
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 13:57:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F594F8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="gsF4cVNV"
-Received: by mail-wm1-x341.google.com with SMTP id g24so2142414wmh.5
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 04:29:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=UpfkndITw/1h6ZYfXIWQrUX2mzHma7l6m7IK0V8q2nM=;
- b=gsF4cVNVZy+lXBaV5/jAQbVHI9zOYAmgGAyiOLJrx1b4jamNVztQAa4OqrqN9RlYUb
- EtAgPYlZnmaAi9L4NrFSSF6apFZKjsfxgnC9eoekloFvrI6UlAX1iCgm/cPg9ccCiYV0
- zeYk7kk2HswEdcCl1Yg3BTWK7mn+uXSP6CJG+rsK7qJ+b+BtOhouxUo5IRInsmIAzIl5
- UufBIQVTjRowTIcVXshbj5bqE/D5X6oTMFkKhLYDPBZYD4w7CBZCtFe0ta81OTm2pQr3
- GewmtE87TBGuZr3JBPCGl/sExnlq89vhVRGMnqb+J0E8yr9ayK/+vqndYRDvQFFGt4jV
- PNKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=UpfkndITw/1h6ZYfXIWQrUX2mzHma7l6m7IK0V8q2nM=;
- b=TU+5m0LIIrEDj6fO1FozwL7HrlOss+6bK7JMFM9X4grWz+y8HsFD3D1O99T51qxtjL
- qWyL+EckWWFiSaeAkJVyIRMNVjv/hezgyErKODV6L0XBDzznxga7FBSp/S+TOe4hEsl6
- Y8KMD4bZxnFjvWeroQDsR3deTM6r9L8o2fQUbR4tEToz1jjcfWC7YtCZaCqdTVE7/Ie5
- AVJ56bh1WIqyNY8cObjJINy69MV00qVNv0516t+k16QTKcjEGh4Q4mjkmOUCCZEh0wT7
- AiJeHnejt3ymAmJ+FRglgbDtWPzlznM+Mc1ujweg8c5WPPaCaNsdJf22qD7nwl1EVHec
- rl1A==
-X-Gm-Message-State: APjAAAVTaoUD/V/WpApm5GiI6GxfMpbF5Ec2FndhqrhLn8rJsd9BkPIc
- yrrghHt6ncU1s3WVie4Rq52VOh66qKU=
-X-Google-Smtp-Source: APXvYqzUZD69wEFtHSU9YipCjt+PUyG2NNSiFgLTg07f5n1brlLAEF4LMXp/US8NXXy36RNzhViK/A==
-X-Received: by 2002:a1c:7c03:: with SMTP id x3mr2566352wmc.20.1572348549204;
- Tue, 29 Oct 2019 04:29:09 -0700 (PDT)
-Received: from srini-hackbox.lan
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id f20sm2373247wmb.6.2019.10.29.04.29.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2019 04:29:08 -0700 (PDT)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: robh@kernel.org, broonie@kernel.org, lee.jones@linaro.org,
- linus.walleij@linaro.org
-Date: Tue, 29 Oct 2019 11:27:00 +0000
-Message-Id: <20191029112700.14548-12-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20191029112700.14548-1-srinivas.kandagatla@linaro.org>
-References: <20191029112700.14548-1-srinivas.kandagatla@linaro.org>
-MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, vinod.koul@linaro.org, spapothi@codeaurora.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] [PATCH v3 11/11] ASoC: qcom: sdm845: add support to
-	DB845c and Lenovo Yoga
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="KpLgEs92"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=6bBEXMhnRCMkhOJtyh3NeGL/yxApYoAeD1NAbx1DX/Q=; b=KpLgEs92MAQF
+ duC8pBs+KO42Jwo3vQEIrxZs509AeL9xBLrEEidxCUk5n9EoRmK74/mEd4QIPuwKuZABLQvGtV5m/
+ I6D83vd87ZCVAvzyFwr0dY+EqlZc92bJK3iw8RDWozU7ec0/QJcT6g+DZI0I6NRU1Hea3lnz4D65e
+ dDpn0=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iPR3U-0002DR-Pj; Tue, 29 Oct 2019 12:57:00 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 5215227428D8; Tue, 29 Oct 2019 12:57:00 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20191028164624.14334-1-perex@perex.cz>
+X-Patchwork-Hint: ignore
+Message-Id: <20191029125700.5215227428D8@ypsilon.sirena.org.uk>
+Date: Tue, 29 Oct 2019 12:57:00 +0000 (GMT)
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: intel - fix the card names" to the asoc
+	tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,174 +82,102 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds support to Lenovo Yoga c630 compatible strings
-and related setup to the sound machine driver.
+The patch
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+   ASoC: intel - fix the card names
+
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From d745cc1ab65945b2d17ec9c5652f38299c054649 Mon Sep 17 00:00:00 2001
+From: Jaroslav Kysela <perex@perex.cz>
+Date: Mon, 28 Oct 2019 17:46:24 +0100
+Subject: [PATCH] ASoC: intel - fix the card names
+
+Those strings are exposed to the user space as the
+card name thus used in the GUIs. The common
+standard is to avoid '_' here. The worst case
+is 'sof-skl_hda_card' string.
+
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Mark Brown <broonie@kernel.org>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20191028164624.14334-1-perex@perex.cz
+Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/qcom/sdm845.c | 86 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 85 insertions(+), 1 deletion(-)
+ sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c | 2 +-
+ sound/soc/intel/boards/skl_hda_dsp_generic.c        | 2 +-
+ sound/soc/intel/boards/sof_rt5682.c                 | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 28f3cef696e6..3b5547a27aad 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -24,6 +24,9 @@
- #define RIGHT_SPK_TDM_TX_MASK   0xC0
- #define SPK_TDM_RX_MASK         0x03
- #define NUM_TDM_SLOTS           8
-+#define SLIM_MAX_TX_PORTS 16
-+#define SLIM_MAX_RX_PORTS 16
-+#define WCD934X_DEFAULT_MCLK_RATE	9600000
+diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+index b546de8ba1e3..a1056cda3dd7 100644
+--- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
++++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
+@@ -737,7 +737,7 @@ static int kabylake_card_late_probe(struct snd_soc_card *card)
+  * kabylake audio machine driver for  MAX98927 + RT5514 + RT5663
+  */
+ static struct snd_soc_card kabylake_audio_card = {
+-	.name = "kbl_r5514_5663_max",
++	.name = "kbl-r5514-5663-max",
+ 	.owner = THIS_MODULE,
+ 	.dai_link = kabylake_dais,
+ 	.num_links = ARRAY_SIZE(kabylake_dais),
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index 1778acdc367c..e8d676c192f6 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -90,7 +90,7 @@ skl_hda_add_dai_link(struct snd_soc_card *card, struct snd_soc_dai_link *link)
+ }
  
- struct sdm845_snd_data {
- 	struct snd_soc_jack jack;
-@@ -36,6 +39,39 @@ struct sdm845_snd_data {
+ static struct snd_soc_card hda_soc_card = {
+-	.name = "skl_hda_card",
++	.name = "hda-dsp",
+ 	.owner = THIS_MODULE,
+ 	.dai_link = skl_hda_be_dai_links,
+ 	.dapm_widgets = skl_hda_widgets,
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 5ce643d62faf..2caebc77fdb5 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -370,7 +370,7 @@ static int dmic_init(struct snd_soc_pcm_runtime *rtd)
  
- static unsigned int tdm_slot_offset[8] = {0, 4, 8, 12, 16, 20, 24, 28};
- 
-+static int sdm845_slim_snd_hw_params(struct snd_pcm_substream *substream,
-+				     struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-+	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	u32 rx_ch[SLIM_MAX_RX_PORTS], tx_ch[SLIM_MAX_TX_PORTS];
-+	u32 rx_ch_cnt = 0, tx_ch_cnt = 0;
-+	int ret = 0, i;
-+
-+	for (i = 0 ; i < dai_link->num_codecs; i++) {
-+		ret = snd_soc_dai_get_channel_map(rtd->codec_dais[i],
-+				&tx_ch_cnt, tx_ch, &rx_ch_cnt, rx_ch);
-+
-+		if (ret != 0 && ret != -ENOTSUPP) {
-+			pr_err("failed to get codec chan map, err:%d\n", ret);
-+			return ret;
-+		} else if (ret == -ENOTSUPP) {
-+			/* Ignore unsupported */
-+			continue;
-+		}
-+
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			ret = snd_soc_dai_set_channel_map(cpu_dai, 0, NULL,
-+							  rx_ch_cnt, rx_ch);
-+		else
-+			ret = snd_soc_dai_set_channel_map(cpu_dai, tx_ch_cnt,
-+							  tx_ch, 0, NULL);
-+	}
-+
-+	return 0;
-+}
-+
- static int sdm845_tdm_snd_hw_params(struct snd_pcm_substream *substream,
- 					struct snd_pcm_hw_params *params)
- {
-@@ -151,6 +187,11 @@ static int sdm845_snd_hw_params(struct snd_pcm_substream *substream,
- 	case QUATERNARY_TDM_TX_0:
- 		ret = sdm845_tdm_snd_hw_params(substream, params);
- 		break;
-+	case SLIMBUS_0_RX...SLIMBUS_6_TX:
-+		ret = sdm845_slim_snd_hw_params(substream, params);
-+		break;
-+	case QUATERNARY_MI2S_RX:
-+		break;
- 	default:
- 		pr_err("%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
- 		break;
-@@ -173,7 +214,20 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
- 	struct sdm845_snd_data *pdata = snd_soc_card_get_drvdata(card);
- 	struct snd_jack *jack;
--	int rval;
-+	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-+	/*
-+	 * Codec SLIMBUS configuration
-+	 * RX1, RX2, RX3, RX4, RX5, RX6, RX7, RX8, RX9, RX10, RX11, RX12, RX13
-+	 * TX1, TX2, TX3, TX4, TX5, TX6, TX7, TX8, TX9, TX10, TX11, TX12, TX13
-+	 * TX14, TX15, TX16
-+	 */
-+	unsigned int rx_ch[SLIM_MAX_RX_PORTS] = {144, 145, 146, 147, 148, 149,
-+					150, 151, 152, 153, 154, 155, 156};
-+	unsigned int tx_ch[SLIM_MAX_TX_PORTS] = {128, 129, 130, 131, 132, 133,
-+					    134, 135, 136, 137, 138, 139,
-+					    140, 141, 142, 143};
-+	int rval, i;
-+
- 
- 	if (!pdata->jack_setup) {
- 		rval = snd_soc_card_jack_new(card, "Headset Jack",
-@@ -211,6 +265,21 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 			return rval;
- 		}
- 		break;
-+	case SLIMBUS_0_RX...SLIMBUS_6_TX:
-+		for (i = 0 ; i < dai_link->num_codecs; i++) {
-+			rval = snd_soc_dai_set_channel_map(rtd->codec_dais[i],
-+							  ARRAY_SIZE(tx_ch),
-+							  tx_ch,
-+							  ARRAY_SIZE(rx_ch),
-+							  rx_ch);
-+			if (rval != 0 && rval != -ENOTSUPP)
-+				return rval;
-+
-+			snd_soc_dai_set_sysclk(rtd->codec_dais[i], 0,
-+					       WCD934X_DEFAULT_MCLK_RATE,
-+					       SNDRV_PCM_STREAM_PLAYBACK);
-+		}
-+		break;
- 	default:
- 		break;
- 	}
-@@ -256,6 +325,14 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
- 		}
- 		snd_soc_dai_set_fmt(cpu_dai, fmt);
- 		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
-+		break;
-+	case QUATERNARY_MI2S_RX:
-+		snd_soc_dai_set_sysclk(cpu_dai,
-+			Q6AFE_LPASS_CLK_ID_QUAD_MI2S_IBIT,
-+			MI2S_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
-+		snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_CBS_CFS);
-+
-+
- 		break;
- 
- 	case QUATERNARY_TDM_RX_0:
-@@ -294,6 +371,8 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
- 			}
- 		}
- 		break;
-+	case SLIMBUS_0_RX...SLIMBUS_6_TX:
-+		break;
- 
- 	default:
- 		pr_err("%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-@@ -338,6 +417,9 @@ static void  sdm845_snd_shutdown(struct snd_pcm_substream *substream)
- 				0, SNDRV_PCM_STREAM_PLAYBACK);
- 		}
- 		break;
-+	case SLIMBUS_0_RX...SLIMBUS_6_TX:
-+	case QUATERNARY_MI2S_RX:
-+		break;
- 
- 	default:
- 		pr_err("%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-@@ -451,6 +533,8 @@ static int sdm845_snd_platform_remove(struct platform_device *pdev)
- 
- static const struct of_device_id sdm845_snd_device_id[]  = {
- 	{ .compatible = "qcom,sdm845-sndcard" },
-+	{ .compatible = "qcom,db845c-sndcard" },
-+	{ .compatible = "lenovo,yoga-c630-sndcard" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, sdm845_snd_device_id);
+ /* sof audio machine driver for rt5682 codec */
+ static struct snd_soc_card sof_audio_card_rt5682 = {
+-	.name = "sof_rt5682",
++	.name = "rt5682", /* the sof- prefix is added by the core */
+ 	.owner = THIS_MODULE,
+ 	.controls = sof_controls,
+ 	.num_controls = ARRAY_SIZE(sof_controls),
 -- 
-2.21.0
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 613ABE88F2
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 14:00:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE5CAE88F1
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 14:00:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB2C421E5;
-	Tue, 29 Oct 2019 13:59:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB2C421E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DA1C2230;
+	Tue, 29 Oct 2019 13:59:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DA1C2230
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572354050;
-	bh=t5oKOYRHSbsgoVQF6CLQ0ViwrWMGgN3jhHv5Z1FRPa8=;
+	s=default; t=1572354024;
+	bh=cV+sKrJ6RN9jKbvqAZr/1uFn4YcJzAJvr4BVnaoYqKQ=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=IO8fVA3OwrZKZpS25bW6I1czfyHGuxVaeOMUmWauivh8C1TnnOHTudLqQ6hMLHJku
-	 IzdiWjlQh5qBNyLthLbRIj7M1EnBwqbGxlXmfI1IJP46aV9lgZHfEnycrjQ7YefAoU
-	 CvSaPHs7/SLcdVEW0L7xRFLwl+lTLo1cES35py78=
+	b=dzJFFfUwvXROYZmxTdmo+wIsok8gDYxUwHsRrQg5E5uGozGWj7JiqbqhPhoXVmEcR
+	 geWaqLCb23bMQOC2wnwYd6qzwUU8gF2k22SQNVuFbpS6cl53z9Yj4kyXX7tJGaBFKS
+	 uSlIXHigDO7k4py2xyZqn1Bt/IJRXKi0Rgzjl2cU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A9E4F80636;
-	Tue, 29 Oct 2019 13:57:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 50E25F80611;
+	Tue, 29 Oct 2019 13:57:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96FCAF805FF; Tue, 29 Oct 2019 13:57:08 +0100 (CET)
+ id 605BCF805FB; Tue, 29 Oct 2019 13:57:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,35 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1E92F80392
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94B41F8036C
  for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 13:57:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1E92F80392
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94B41F8036C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Y96UaNxA"
+ header.b="Enb9SgsK"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=gocwTVPyr9YGkRj8qgx6LZT7QM+fVAHw/mMPk9/2Rwc=; b=Y96UaNxA2UCU
- 9sO6W8Ov9V4FnBx+/WSu3KJDQQRGOfbGW7nOkiL0MFX35wrDiR+W0JMclAu6Sp6IkUP2WIF2v5Ldu
- fULf5zb3/tfdR3y9YRGwvmNOovJG/vx9KTD5axFXjzOsN+XjkcxhURE+RfI4sBESxtzVtzT42Gi0F
- oOIM8=;
+ List-Archive; bh=Wl+5/Qj/XhSNlZehVwD9qVk1hUUvfQ5iMLqz0DQGd0E=; b=Enb9SgsKSwwH
+ 4l7KNx3nuvInMfXC5o/09C023lh/1CtRMwg8irjeb2vSpFbbOqYD+Ag/wrCyTSljba7Rlv2UapKx+
+ Mflf4De6z8aXfQL+mtEKqFpezAkzVPeLjL215UXSJYv03IcuePxdc9GTQImZKgbRi+oDJtic8qNUk
+ BL3pY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iPR3T-0002DH-QF; Tue, 29 Oct 2019 12:56:59 +0000
+ id 1iPR3U-0002DI-3j; Tue, 29 Oct 2019 12:57:00 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 1BD202742157; Tue, 29 Oct 2019 12:56:59 +0000 (GMT)
+ id 98B622742990; Tue, 29 Oct 2019 12:56:59 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Cheng-Yi Chiang <cychiang@chromium.org>
-In-Reply-To: <20191028071930.145899-5-cychiang@chromium.org>
+In-Reply-To: <20191028071930.145899-3-cychiang@chromium.org>
 X-Patchwork-Hint: ignore
-Message-Id: <20191029125659.1BD202742157@ypsilon.sirena.org.uk>
+Message-Id: <20191029125659.98B622742990@ypsilon.sirena.org.uk>
 Date: Tue, 29 Oct 2019 12:56:59 +0000 (GMT)
 Cc: Mark Rutland <mark.rutland@arm.com>, alsa-devel@alsa-project.org,
  dianders@chromium.org, Heiko Stuebner <heiko@sntech.de>,
@@ -77,8 +77,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, alsa-devel@alsa-project.org,
  Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
  Jernej Skrabec <jernej.skrabec@siol.net>, linux-kernel@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>
-Subject: [alsa-devel] Applied "ASoC: rockchip_max98090: Add HDMI jack
-	support" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: rockchip-max98090: Support usage with
+	and without HDMI" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,7 +99,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rockchip_max98090: Add HDMI jack support
+   ASoC: rockchip-max98090: Support usage with and without HDMI
 
 has been applied to the asoc tree at
 
@@ -124,91 +124,80 @@ to this mail.
 Thanks,
 Mark
 
-From bf2f64ea6594066081b0d30b128fa4947e83e737 Mon Sep 17 00:00:00 2001
+From f03412b78a947857bbd20899e1423482fba55761 Mon Sep 17 00:00:00 2001
 From: Cheng-Yi Chiang <cychiang@chromium.org>
-Date: Mon, 28 Oct 2019 15:19:28 +0800
-Subject: [PATCH] ASoC: rockchip_max98090: Add HDMI jack support
+Date: Mon, 28 Oct 2019 15:19:26 +0800
+Subject: [PATCH] ASoC: rockchip-max98090: Support usage with and without HDMI
 
-In machine driver, create a jack and let hdmi-codec report jack status.
+Add one optional property "rockchip,hdmi-codec" to let user specify HDMI
+device node in DTS so machine driver can find hdmi-codec device node for
+HDMI codec DAI.
+
+Use the presence of rockchip,audio-codec and rockchip,hdmi-codec to
+specify the use case.
+
+Use max98090 only : specify rockchip,audio-codec.
+Use HDMI only: specify rockchip,hdmi-codec.
+Use both max98090 and HDMI: specify rockchip,audio-codec and
+rockchip,hdmi-codec.
+
+Move these properties to optional because they are not needed for
+HDMI-only use case.
+"rockchip,audio-codec": The phandle of the MAX98090 audio codec
+"rockchip,headset-codec": The phandle of Ext chip for jack detection
 
 Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
-Link: https://lore.kernel.org/r/20191028071930.145899-5-cychiang@chromium.org
+Link: https://lore.kernel.org/r/20191028071930.145899-3-cychiang@chromium.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/rockchip/Kconfig             |  3 ++-
- sound/soc/rockchip/rockchip_max98090.c | 22 ++++++++++++++++++++++
- 2 files changed, 24 insertions(+), 1 deletion(-)
+ .../bindings/sound/rockchip-max98090.txt      | 27 +++++++++++++++++--
+ 1 file changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/rockchip/Kconfig b/sound/soc/rockchip/Kconfig
-index b43657e6e655..d610b553ea3b 100644
---- a/sound/soc/rockchip/Kconfig
-+++ b/sound/soc/rockchip/Kconfig
-@@ -40,9 +40,10 @@ config SND_SOC_ROCKCHIP_MAX98090
- 	select SND_SOC_ROCKCHIP_I2S
- 	select SND_SOC_MAX98090
- 	select SND_SOC_TS3A227E
-+	select SND_SOC_HDMI_CODEC
- 	help
- 	  Say Y or M here if you want to add support for SoC audio on Rockchip
--	  boards using the MAX98090 codec, such as Veyron.
-+	  boards using the MAX98090 codec and HDMI codec, such as Veyron.
+diff --git a/Documentation/devicetree/bindings/sound/rockchip-max98090.txt b/Documentation/devicetree/bindings/sound/rockchip-max98090.txt
+index a805aa99ad75..e9c58b204399 100644
+--- a/Documentation/devicetree/bindings/sound/rockchip-max98090.txt
++++ b/Documentation/devicetree/bindings/sound/rockchip-max98090.txt
+@@ -5,15 +5,38 @@ Required properties:
+ - rockchip,model: The user-visible name of this sound complex
+ - rockchip,i2s-controller: The phandle of the Rockchip I2S controller that's
+   connected to the CODEC
+-- rockchip,audio-codec: The phandle of the MAX98090 audio codec
+-- rockchip,headset-codec: The phandle of Ext chip for jack detection
++
++Optional properties:
++- rockchip,audio-codec: The phandle of the MAX98090 audio codec.
++- rockchip,headset-codec: The phandle of Ext chip for jack detection. This is
++                          required if there is rockchip,audio-codec.
++- rockchip,hdmi-codec: The phandle of HDMI device for HDMI codec.
  
- config SND_SOC_ROCKCHIP_RT5645
- 	tristate "ASoC support for Rockchip boards using a RT5645/RT5650 codec"
-diff --git a/sound/soc/rockchip/rockchip_max98090.c b/sound/soc/rockchip/rockchip_max98090.c
-index 50ef9b8e7ce4..5c2504a465f4 100644
---- a/sound/soc/rockchip/rockchip_max98090.c
-+++ b/sound/soc/rockchip/rockchip_max98090.c
-@@ -12,6 +12,7 @@
- #include <linux/gpio.h>
- #include <linux/of_gpio.h>
- #include <sound/core.h>
-+#include <sound/hdmi-codec.h>
- #include <sound/jack.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -218,6 +219,25 @@ enum {
- 	DAILINK_HDMI,
+ Example:
+ 
++/* For max98090-only board. */
++sound {
++	compatible = "rockchip,rockchip-audio-max98090";
++	rockchip,model = "ROCKCHIP-I2S";
++	rockchip,i2s-controller = <&i2s>;
++	rockchip,audio-codec = <&max98090>;
++	rockchip,headset-codec = <&headsetcodec>;
++};
++
++/* For HDMI-only board. */
++sound {
++	compatible = "rockchip,rockchip-audio-max98090";
++	rockchip,model = "ROCKCHIP-I2S";
++	rockchip,i2s-controller = <&i2s>;
++	rockchip,hdmi-codec = <&hdmi>;
++};
++
++/* For max98090 plus HDMI board. */
+ sound {
+ 	compatible = "rockchip,rockchip-audio-max98090";
+ 	rockchip,model = "ROCKCHIP-I2S";
+ 	rockchip,i2s-controller = <&i2s>;
+ 	rockchip,audio-codec = <&max98090>;
+ 	rockchip,headset-codec = <&headsetcodec>;
++	rockchip,hdmi-codec = <&hdmi>;
  };
- 
-+static struct snd_soc_jack rk_hdmi_jack;
-+
-+static int rk_hdmi_init(struct snd_soc_pcm_runtime *runtime)
-+{
-+	struct snd_soc_card *card = runtime->card;
-+	struct snd_soc_component *component = runtime->codec_dai->component;
-+	int ret;
-+
-+	/* enable jack detection */
-+	ret = snd_soc_card_jack_new(card, "HDMI Jack", SND_JACK_LINEOUT,
-+				    &rk_hdmi_jack, NULL, 0);
-+	if (ret) {
-+		dev_err(card->dev, "Can't new HDMI Jack %d\n", ret);
-+		return ret;
-+	}
-+
-+	return hdmi_codec_set_jack_detect(component, &rk_hdmi_jack);
-+}
-+
- /* max98090 dai_link */
- static struct snd_soc_dai_link rk_max98090_dailinks[] = {
- 	{
-@@ -237,6 +257,7 @@ static struct snd_soc_dai_link rk_hdmi_dailinks[] = {
- 	{
- 		.name = "HDMI",
- 		.stream_name = "HDMI",
-+		.init = rk_hdmi_init,
- 		.ops = &rk_aif1_ops,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBS_CFS,
-@@ -259,6 +280,7 @@ static struct snd_soc_dai_link rk_max98090_hdmi_dailinks[] = {
- 	[DAILINK_HDMI] = {
- 		.name = "HDMI",
- 		.stream_name = "HDMI",
-+		.init = rk_hdmi_init,
- 		.ops = &rk_aif1_ops,
- 		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF |
- 			SND_SOC_DAIFMT_CBS_CFS,
 -- 
 2.20.1
 

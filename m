@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA1FAE88EC
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 13:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9305E88F9
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 14:01:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DCB22206;
-	Tue, 29 Oct 2019 13:58:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DCB22206
+	by alsa0.perex.cz (Postfix) with ESMTPS id 615DB2238;
+	Tue, 29 Oct 2019 14:00:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 615DB2238
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572353977;
-	bh=86Go57l+FdPPkHd6y2Oi7b5xLiuor/T1Jg6pN42aONA=;
+	s=default; t=1572354087;
+	bh=Uns0u8gjQr2hHqRtXeb6mRzhU2rf7yTlIPPmF5KU1/Y=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ifxt6FwhSBaZgDdSWJclKK0eszOMzLl/GSQl+Ut5xY/fUQ/rVa+utr6+vmBYKda4M
-	 +XygQlC/cZJR14eA1TETry7h9d/Y01SBr15fBehRUK2E4CwldvQKJWb9ApEDiMA6/N
-	 0Zem/Edvl0Hb0b5rTzXGmCHJwobs1KkFR48XZfQ0=
+	b=Zklwb6zn6AoDFs3uMT/C+8+vGbkuPNcsD5Rr/WbbbJFiCkhphvcRc/kpnVkvXwEw9
+	 BvbgNL8RZQ+AP13FP9LY4q2jX8NJ/jPBQAOOfVcd+A9QJybNT6bwAxOGTm0zr1nWGu
+	 AZUxNttdYF/H0Rn3MtT6JeymxAeoWEg2pwBR4vqw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B845DF8015A;
-	Tue, 29 Oct 2019 13:57:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80312F8063B;
+	Tue, 29 Oct 2019 13:57:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71B6FF8044B; Tue, 29 Oct 2019 13:57:04 +0100 (CET)
+ id DAD73F805FD; Tue, 29 Oct 2019 13:57:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,51 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D61A4F80269
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 13:57:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D61A4F80269
+ by alsa1.perex.cz (Postfix) with ESMTPS id 862A7F8015A
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 13:57:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 862A7F8015A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="WaAYrYZ0"
+ header.b="LPxarDj5"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Qdy27gZDbjup2hjmsULyToGjIV3KhtcZPWOxlsuPOpc=; b=WaAYrYZ04cdT
- 5KZLZis/mqi8rhjUrocDoefWPHknyzOu4PvorbSy3mLuH6dNRzP2ZnIIcl/xS7izHqCWzyjMsyPk+
- cecINy5XScQTLMqtCTBGSj8bTk0DICNMsXEYluYephw5SpqZxCyzzJNvW22OFAiXg1JpeafMDXklK
- 28/aE=;
+ List-Archive; bh=UVHMIFb85JIHvAPZmwfb8Jx9ya9sTe0Tgnzxjy0WJlc=; b=LPxarDj51he3
+ 9cgJDYwV+2dkTT+ZlscXHdCtuW/cJvN4b5yFJbTU8pQnLE3vbBV+UxDQlAEE+fBJSvzAz0Iq/SBgS
+ apmM0DO6RzOSMW1iFgmFXQEITrTXPHCioRbFll8GskOZ5vjGB9jmvDPGue3VPSoUTJzAF5t1jOpGU
+ jvMnQ=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iPR3U-0002DO-Ja; Tue, 29 Oct 2019 12:57:00 +0000
+ id 1iPR3U-0002DM-Bt; Tue, 29 Oct 2019 12:57:00 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 1AEEB2742157; Tue, 29 Oct 2019 12:57:00 +0000 (GMT)
+ id DE0F92742998; Tue, 29 Oct 2019 12:56:59 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20191028173329.29538-1-perex@perex.cz>
+To: Cheng-Yi Chiang <cychiang@chromium.org>
+In-Reply-To: <20191028071930.145899-2-cychiang@chromium.org>
 X-Patchwork-Hint: ignore
-Message-Id: <20191029125700.1AEEB2742157@ypsilon.sirena.org.uk>
-Date: Tue, 29 Oct 2019 12:57:00 +0000 (GMT)
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF - remove the dead code
-	(skylake/kabylake)" to the asoc tree
+Message-Id: <20191029125659.DE0F92742998@ypsilon.sirena.org.uk>
+Date: Tue, 29 Oct 2019 12:56:59 +0000 (GMT)
+Cc: Mark Rutland <mark.rutland@arm.com>, alsa-devel@alsa-project.org,
+ dianders@chromium.org, Heiko Stuebner <heiko@sntech.de>,
+ Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-rockchip@lists.infradead.org, dgreid@chromium.org,
+ devicetree@vger.kernel.org, tzungbi@chromium.org,
+ Jonas Karlman <jonas@kwiboo.se>, Russell King <rmk+kernel@armlinux.org.uk>,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Jernej Skrabec <jernej.skrabec@siol.net>, linux-kernel@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>, Daniel Vetter <daniel@ffwll.ch>
+Subject: [alsa-devel] Applied "drm: bridge: dw-hdmi: Report connector status
+	using callback" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +99,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF - remove the dead code (skylake/kabylake)
+   drm: bridge: dw-hdmi: Report connector status using callback
 
 has been applied to the asoc tree at
 
@@ -115,99 +124,166 @@ to this mail.
 Thanks,
 Mark
 
-From c3ad1092e1069f27d0ca110dcaada8a5435ea3e0 Mon Sep 17 00:00:00 2001
-From: Jaroslav Kysela <perex@perex.cz>
-Date: Mon, 28 Oct 2019 18:33:29 +0100
-Subject: [PATCH] ASoC: SOF - remove the dead code (skylake/kabylake)
+From a9c82d63ca4819d3d03964dbf4aa427b36c5a67f Mon Sep 17 00:00:00 2001
+From: Cheng-Yi Chiang <cychiang@chromium.org>
+Date: Mon, 28 Oct 2019 15:19:25 +0800
+Subject: [PATCH] drm: bridge: dw-hdmi: Report connector status using callback
 
-Appearently the CONFIG_SND_SOC_SOF_KABYLAKE and CONFIG_SND_SOC_SOF_SKYLAKE
-options are not present in Kconfig and 'struct snd_sof_dsp_ops sof_skl_ops'
-is not declared in the code, too.
+Allow codec driver register callback function for plug event.
 
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20191028173329.29538-1-perex@perex.cz
+The callback registration flow:
+dw-hdmi <--- hw-hdmi-i2s-audio <--- hdmi-codec
+
+dw-hdmi-i2s-audio implements hook_plugged_cb op
+so codec driver can register the callback.
+
+dw-hdmi exports a function dw_hdmi_set_plugged_cb so platform device
+can register the callback.
+
+When connector plug/unplug event happens, report this event using the
+callback.
+
+Make sure that audio and drm are using the single source of truth for
+connector status.
+
+Signed-off-by: Cheng-Yi Chiang <cychiang@chromium.org>
+Link: https://lore.kernel.org/r/20191028071930.145899-2-cychiang@chromium.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda.h   |  1 -
- sound/soc/sof/sof-pci-dev.c | 44 -------------------------------------
- 2 files changed, 45 deletions(-)
+ .../drm/bridge/synopsys/dw-hdmi-i2s-audio.c   | 11 +++++
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c     | 41 ++++++++++++++++++-
+ include/drm/bridge/dw_hdmi.h                  |  4 ++
+ 3 files changed, 55 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 52a87a47029d..16376f55e420 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -608,7 +608,6 @@ extern struct snd_soc_dai_driver skl_dai[];
-  */
- extern const struct snd_sof_dsp_ops sof_apl_ops;
- extern const struct snd_sof_dsp_ops sof_cnl_ops;
--extern const struct snd_sof_dsp_ops sof_skl_ops;
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+index 1d15cf9b6821..6c2c44d0bdee 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-i2s-audio.c
+@@ -151,11 +151,22 @@ static int dw_hdmi_i2s_get_dai_id(struct snd_soc_component *component,
+ 	return -EINVAL;
+ }
  
- extern const struct sof_intel_dsp_desc apl_chip_info;
- extern const struct sof_intel_dsp_desc cnl_chip_info;
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index 487b1f29f84d..4de90d04a91b 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -173,42 +173,6 @@ static const struct sof_dev_desc icl_desc = {
++static int dw_hdmi_i2s_hook_plugged_cb(struct device *dev, void *data,
++				       hdmi_codec_plugged_cb fn,
++				       struct device *codec_dev)
++{
++	struct dw_hdmi_i2s_audio_data *audio = data;
++	struct dw_hdmi *hdmi = audio->hdmi;
++
++	return dw_hdmi_set_plugged_cb(hdmi, fn, codec_dev);
++}
++
+ static struct hdmi_codec_ops dw_hdmi_i2s_ops = {
+ 	.hw_params	= dw_hdmi_i2s_hw_params,
+ 	.audio_shutdown	= dw_hdmi_i2s_audio_shutdown,
+ 	.get_eld	= dw_hdmi_i2s_get_eld,
+ 	.get_dai_id	= dw_hdmi_i2s_get_dai_id,
++	.hook_plugged_cb = dw_hdmi_i2s_hook_plugged_cb,
  };
- #endif
  
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_SKYLAKE)
--static const struct sof_dev_desc skl_desc = {
--	.machines		= snd_soc_acpi_intel_skl_machines,
--	.resindex_lpe_base	= 0,
--	.resindex_pcicfg_base	= -1,
--	.resindex_imr_base	= -1,
--	.irqindex_host_ipc	= -1,
--	.resindex_dma_base	= -1,
--	.chip_info = &skl_chip_info,
--	.default_fw_path = "intel/sof",
--	.default_tplg_path = "intel/sof-tplg",
--	.nocodec_fw_filename = "sof-skl.ri",
--	.nocodec_tplg_filename = "sof-skl-nocodec.tplg",
--	.ops = &sof_skl_ops,
--	.arch_ops = &sof_xtensa_arch_ops
--};
--#endif
--
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_KABYLAKE)
--static const struct sof_dev_desc kbl_desc = {
--	.machines		= snd_soc_acpi_intel_kbl_machines,
--	.resindex_lpe_base	= 0,
--	.resindex_pcicfg_base	= -1,
--	.resindex_imr_base	= -1,
--	.irqindex_host_ipc	= -1,
--	.resindex_dma_base	= -1,
--	.chip_info = &skl_chip_info,
--	.default_fw_path = "intel/sof",
--	.default_tplg_path = "intel/sof-tplg",
--	.nocodec_fw_filename = "sof-kbl.ri",
--	.nocodec_tplg_filename = "sof-kbl-nocodec.tplg",
--	.ops = &sof_skl_ops,
--	.arch_ops = &sof_xtensa_arch_ops
--};
--#endif
--
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_TIGERLAKE)
- static const struct sof_dev_desc tgl_desc = {
- 	.machines               = snd_soc_acpi_intel_tgl_machines,
-@@ -431,14 +395,6 @@ static const struct pci_device_id sof_pci_ids[] = {
- 	{ PCI_DEVICE(0x8086, 0xa348),
- 		.driver_data = (unsigned long)&cfl_desc},
- #endif
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_KABYLAKE)
--	{ PCI_DEVICE(0x8086, 0x9d71),
--		.driver_data = (unsigned long)&kbl_desc},
--#endif
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_SKYLAKE)
--	{ PCI_DEVICE(0x8086, 0x9d70),
--		.driver_data = (unsigned long)&skl_desc},
--#endif
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_ICELAKE)
- 	{ PCI_DEVICE(0x8086, 0x34C8),
- 		.driver_data = (unsigned long)&icl_desc},
+ static int snd_dw_hdmi_probe(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+index 521d689413c8..2102872bf43c 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
+@@ -191,6 +191,10 @@ struct dw_hdmi {
+ 
+ 	struct mutex cec_notifier_mutex;
+ 	struct cec_notifier *cec_notifier;
++
++	hdmi_codec_plugged_cb plugged_cb;
++	struct device *codec_dev;
++	enum drm_connector_status last_connector_result;
+ };
+ 
+ #define HDMI_IH_PHY_STAT0_RX_SENSE \
+@@ -215,6 +219,28 @@ static inline u8 hdmi_readb(struct dw_hdmi *hdmi, int offset)
+ 	return val;
+ }
+ 
++static void handle_plugged_change(struct dw_hdmi *hdmi, bool plugged)
++{
++	if (hdmi->plugged_cb && hdmi->codec_dev)
++		hdmi->plugged_cb(hdmi->codec_dev, plugged);
++}
++
++int dw_hdmi_set_plugged_cb(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn,
++			   struct device *codec_dev)
++{
++	bool plugged;
++
++	mutex_lock(&hdmi->mutex);
++	hdmi->plugged_cb = fn;
++	hdmi->codec_dev = codec_dev;
++	plugged = hdmi->last_connector_result == connector_status_connected;
++	handle_plugged_change(hdmi, plugged);
++	mutex_unlock(&hdmi->mutex);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(dw_hdmi_set_plugged_cb);
++
+ static void hdmi_modb(struct dw_hdmi *hdmi, u8 data, u8 mask, unsigned reg)
+ {
+ 	regmap_update_bits(hdmi->regm, reg << hdmi->reg_shift, mask, data);
+@@ -2161,6 +2187,7 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ {
+ 	struct dw_hdmi *hdmi = container_of(connector, struct dw_hdmi,
+ 					     connector);
++	enum drm_connector_status result;
+ 
+ 	mutex_lock(&hdmi->mutex);
+ 	hdmi->force = DRM_FORCE_UNSPECIFIED;
+@@ -2168,7 +2195,18 @@ dw_hdmi_connector_detect(struct drm_connector *connector, bool force)
+ 	dw_hdmi_update_phy_mask(hdmi);
+ 	mutex_unlock(&hdmi->mutex);
+ 
+-	return hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++	result = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++
++	mutex_lock(&hdmi->mutex);
++	if (result != hdmi->last_connector_result) {
++		dev_dbg(hdmi->dev, "read_hpd result: %d", result);
++		handle_plugged_change(hdmi,
++				      result == connector_status_connected);
++		hdmi->last_connector_result = result;
++	}
++	mutex_unlock(&hdmi->mutex);
++
++	return result;
+ }
+ 
+ static int dw_hdmi_connector_get_modes(struct drm_connector *connector)
+@@ -2619,6 +2657,7 @@ __dw_hdmi_probe(struct platform_device *pdev,
+ 	hdmi->rxsense = true;
+ 	hdmi->phy_mask = (u8)~(HDMI_PHY_HPD | HDMI_PHY_RX_SENSE);
+ 	hdmi->mc_clkdis = 0x7f;
++	hdmi->last_connector_result = connector_status_disconnected;
+ 
+ 	mutex_init(&hdmi->mutex);
+ 	mutex_init(&hdmi->audio_mutex);
+diff --git a/include/drm/bridge/dw_hdmi.h b/include/drm/bridge/dw_hdmi.h
+index cf528c289857..9a0c8381a069 100644
+--- a/include/drm/bridge/dw_hdmi.h
++++ b/include/drm/bridge/dw_hdmi.h
+@@ -6,6 +6,8 @@
+ #ifndef __DW_HDMI__
+ #define __DW_HDMI__
+ 
++#include <sound/hdmi-codec.h>
++
+ struct drm_connector;
+ struct drm_display_mode;
+ struct drm_encoder;
+@@ -154,6 +156,8 @@ void dw_hdmi_resume(struct dw_hdmi *hdmi);
+ 
+ void dw_hdmi_setup_rx_sense(struct dw_hdmi *hdmi, bool hpd, bool rx_sense);
+ 
++int dw_hdmi_set_plugged_cb(struct dw_hdmi *hdmi, hdmi_codec_plugged_cb fn,
++			   struct device *codec_dev);
+ void dw_hdmi_set_sample_rate(struct dw_hdmi *hdmi, unsigned int rate);
+ void dw_hdmi_set_channel_count(struct dw_hdmi *hdmi, unsigned int cnt);
+ void dw_hdmi_set_channel_allocation(struct dw_hdmi *hdmi, unsigned int ca);
 -- 
 2.20.1
 

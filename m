@@ -2,78 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58F2AE864A
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 12:07:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A4B4E8703
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 12:30:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CAAED221D;
-	Tue, 29 Oct 2019 12:06:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAAED221D
+	by alsa0.perex.cz (Postfix) with ESMTPS id F26172223;
+	Tue, 29 Oct 2019 12:29:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F26172223
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572347249;
-	bh=S9HqGE6zmLOfikDSCrw3WFYfxGVD9Psw1KGPM8JrWsU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=P967BZPxGkOVTgH6eK8j0pux8/zeFuj4R2lTlQl790acF4vPO6BxUQZOkcOCaqdaj
-	 N8hB37JUGQEAyIkj/V5iqwk1JK83rRvj5QFPZTfaO3U+kZT2KL/V5WxXJD3eId3xRo
-	 9Uq8P8cDl6XkYbebBzF7UmOfsXdBFnZSuDxzn3T4=
+	s=default; t=1572348643;
+	bh=JV6iQLtlpBiA2x1UY2cWF3mS9XMf/JGiabCGCmFmVYc=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Cjru9Mkjy+PFv9iiPW8D7k8PylmyX20XoaH3gEYFEDvMqnGvLaSP7gk6JgpNf0Kow
+	 6IRArooOQmtj44+9m8XDumlW3oPqxK5szshirQ8Y1kXkSLc180bOt5gtbdCDoF0d4Q
+	 xAD4wGyeDajOsSCKW8WyVZAZlb9AHcTwQGZWjkuE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29DF8F803CF;
-	Tue, 29 Oct 2019 12:05:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E21C9F803D7;
+	Tue, 29 Oct 2019 12:28:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0D237F80392; Tue, 29 Oct 2019 12:05:45 +0100 (CET)
+ id 81EFDF803CF; Tue, 29 Oct 2019 12:28:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0994F800E7
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 12:05:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0994F800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFA2FF800E7
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 12:28:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFA2FF800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="OP/7Y4EY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=XxiHtIhod+yCsF8mVDZtUYlcmhnJISlqww92ZNlpFgk=; b=OP/7Y4EY2r9HfjydoXmy5i6hM
- sp5gEyQVcbefKaBMJF7/Oc8xg0OJbFGp1If8A9kq/OG8hU8NtNVHgWlL365ggeAr/kEJC9BRtu0OB
- rEBg2es51H2P5EW9aAJ10S6BK35eR497oA29dFjn8GtJY2oshhTclwKXRKT6ihuLL2zzo=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iPPJk-00024q-Qx; Tue, 29 Oct 2019 11:05:40 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 1314A2742157; Tue, 29 Oct 2019 11:05:39 +0000 (GMT)
-Date: Tue, 29 Oct 2019 11:05:38 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20191029110538.GA5253@sirena.co.uk>
-References: <20191028185112.GA22457@sirena.co.uk>
- <s5hk18oty5j.wl-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="hgqZKdfC"
+Received: by mail-wr1-x441.google.com with SMTP id a11so13210879wra.6
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 04:28:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8IfX0jQOtqDn2pCZaOvwF7GcoFk09fED5oporBC3z5U=;
+ b=hgqZKdfCfJnFj64xw3rXV3VPEK6d30/74W69Yz65m7g+kcAqJDHvB87K3T3uaOzxdG
+ gDZMXPaHvF023TiCfdStdHxb59TDTlRirgQZCPVLF7e4Sq24i/aoB6trORieuPmale8m
+ 4H5agAOoNs10bZaFM+1LWvTScfQOQdVGEeHSKlbz1XFHUB42UXM10+8WtH1MCpJ4zajW
+ z14D1/7i8aPEvwd8jvt6XlVu9U14gCyk/J8s0iS6GmyyTFJX96AQ5reclNp10Ie3hrsb
+ g6sje56OCtVCgIX1MfM/wLcb/p9eZincHg4Nxes1s2mDThkK8LhqjuM2aoG+QAuaS/C3
+ CrLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=8IfX0jQOtqDn2pCZaOvwF7GcoFk09fED5oporBC3z5U=;
+ b=hsxtJwxh4tKxZ4EXVrj/AFmrbUOYJo0njyLOchgyLzkWAXrU8s1MohnaYpXUQTdJtd
+ +I44zyK25zMssGOABP0yISQuGGzU9FqUzGw+Qxhg8ubKyHwu6eadUe4xcP0FYDy4Go0N
+ IF5i91SKtzr94TRl6Cok17AHx5QAI3ydMCpbsIbzupuzluwyIPSNnAMPAzv3zeiRgHb9
+ /ac8Hhk+d8kNY8nXUvScZjfSlIqg3im8BC5S/bHL6jhuzw4W0iSUo6gbxAuri0UESbFc
+ wo5PU2hGDFf2lkswE1uxynIrUrXY8iQhUIZ2UgJYV+2S3LzRB3wRaYAnkn1pSy1AlpH4
+ zQOQ==
+X-Gm-Message-State: APjAAAUfhPJkVaDbrTP7Ejb/I/Np/YkSwQoZZgbu6wEprs6++YfmpEST
+ Nxeg2LYMiFs5ou5rnO67X0dx3g==
+X-Google-Smtp-Source: APXvYqxX7UvGklw4BukJiiU81RExjsPkGX9S1gah8yPCTcdMvKCN/bvu59A8jbhXzGu0JHLxw6LDnQ==
+X-Received: by 2002:adf:ea50:: with SMTP id j16mr18810399wrn.295.1572348530671; 
+ Tue, 29 Oct 2019 04:28:50 -0700 (PDT)
+Received: from srini-hackbox.lan
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.gmail.com with ESMTPSA id f20sm2373247wmb.6.2019.10.29.04.28.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 29 Oct 2019 04:28:49 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+To: robh@kernel.org, broonie@kernel.org, lee.jones@linaro.org,
+ linus.walleij@linaro.org
+Date: Tue, 29 Oct 2019 11:26:49 +0000
+Message-Id: <20191029112700.14548-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <s5hk18oty5j.wl-tiwai@suse.de>
-X-Cookie: When does later become never?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Curtis Malainey <cujomalainey@google.com>,
- Patrick Lai <plai@codeaurora.org>, Daniel Baluta <daniel.baluta@gmail.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: [alsa-devel] [ANNOUNCE] Draft schedule for 2019 Linux Audio
-	miniconference
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, vinod.koul@linaro.org, spapothi@codeaurora.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: [alsa-devel] [PATCH v3 00/11] ASoC: Add support to WCD9340/WCD9341
+	codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,65 +98,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5791146175859594641=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patchset adds support to Qualcomm WCD9340/WCD9341 Codec which
+is a standalone Hi-Fi audio codec IC.
+This codec supports both I2S/I2C and SLIMbus audio interfaces.
+On slimbus interface it supports two data lanes; 16 Tx ports
+and 8 Rx ports. It has Five DACs and seven dedicated interpolators,
+Multibutton headset control (MBHC), Active noise cancellation,
+Sidetone paths, MAD (mic activity detection) and codec processing engine.
+It supports Class-H differential earpiece out and stereo single
+ended headphones out.
 
---===============5791146175859594641==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ZPt4rx8FFjLCG7dd"
-Content-Disposition: inline
+This codec also has integrated SoundWire controller.
+Patchset for this is already sent for review at
+https://patchwork.kernel.org/cover/11185769/
+    
+This patchset has been tested on SDM845 based DragonBoard DB845c and
+Lenovo Yoga C630 laptop with WSA881x smart speaker amplifiers via
+soundwire and 4 DMICs.
 
+Pin Controller patch does not have any link dependency, it can go by its own.
 
---ZPt4rx8FFjLCG7dd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Most of the code in this driver is rework of Qualcomm downstream drivers
+used in Andriod. Credits to Banajit Goswami and Patrick Lai's Team.
 
-On Mon, Oct 28, 2019 at 09:26:00PM +0100, Takashi Iwai wrote:
+If anyone is interested to try, here are working set of patches on top of rc3.
+https://git.linaro.org/people/srinivas.kandagatla/linux.git/log/?h=audio/v5.4-rc5-YOGA-C630
+alsa ucm files:
+https://git.linaro.org/people/srinivas.kandagatla/alsa-lib.git/log/?h=DB845c
 
-> May I add one more topic, about the standardization / conformance test
-> of kcontrol strings?  Sorry for the late action.
+Thanks,
+srini
 
-Sure.
+Changes since v2:
+- Updated mfd driver as suggested by Lee.
+- Updated bindings as suggested by Rob.
+- Addressed various comments by Cezary Rojewski
+- Cleaned up code a bit.
 
-> > If you're planning to attend please fill out the form here:
-> >=20
-> >     https://docs.google.com/forms/d/e/1FAIpQLSd6FV-tWYZ1fHlCmyzQhG98OtY=
-H9W9GX-1dQ88mnLxVRGyPww/viewform?usp=3Dsf_link
+Srinivas Kandagatla (10):
+  ASoC: dt-bindings: add dt bindings for WCD9340/WCD9341 audio codec
+  mfd: wcd934x: add support to wcd9340/wcd9341 codec
+  ASoC: wcd934x: add support to wcd9340/wcd9341 codec
+  ASoC: wcd934x: add basic controls
+  ASoC: wcd934x: add playback dapm widgets
+  ASoC: wcd934x: add capture dapm widgets
+  ASoC: wcd934x: add audio routings
+  dt-bindings: pinctrl: qcom-wcd934x: Add bindings for gpio
+  ASoC: qcom: dt-bindings: Add compatible for DB845c and Lenovo Yoga
+  ASoC: qcom: sdm845: add support to DB845c and Lenovo Yoga
 
-> I suppose this is needed only for those who still hasn't registered,
-> right?
+Yeleswarapu Nagaradhesh (1):
+  pinctrl: qcom-wcd934x: Add support to wcd934x pinctrl driver.
 
-Right.
+ .../pinctrl/qcom,wcd934x-pinctrl.yaml         |   52 +
+ .../devicetree/bindings/sound/qcom,sdm845.txt |    5 +-
+ .../bindings/sound/qcom,wcd934x.yaml          |  162 +
+ drivers/mfd/Kconfig                           |   12 +
+ drivers/mfd/Makefile                          |    1 +
+ drivers/mfd/wcd934x.c                         |  306 +
+ drivers/pinctrl/qcom/Kconfig                  |    7 +
+ drivers/pinctrl/qcom/Makefile                 |    1 +
+ drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c   |  365 ++
+ include/linux/mfd/wcd934x/registers.h         |  529 ++
+ include/linux/mfd/wcd934x/wcd934x.h           |   31 +
+ sound/soc/codecs/Kconfig                      |   10 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/wcd934x.c                    | 5084 +++++++++++++++++
+ sound/soc/qcom/sdm845.c                       |   86 +-
+ 15 files changed, 6651 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/qcom,wcd934x-pinctrl.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd934x.yaml
+ create mode 100644 drivers/mfd/wcd934x.c
+ create mode 100644 drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c
+ create mode 100644 include/linux/mfd/wcd934x/registers.h
+ create mode 100644 include/linux/mfd/wcd934x/wcd934x.h
+ create mode 100644 sound/soc/codecs/wcd934x.c
 
---ZPt4rx8FFjLCG7dd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl24HQAACgkQJNaLcl1U
-h9DgFgf8C8dxUoFPmsWrKTFb2NjfVN5hLWZtai7HxpGIgTJZZqARtixobfV2bScg
-lV8hsAMggAjqDvUpYLKKlsigXA/pQ9PIdf9qf9pNiJvI/AKTkL2/gBaqKS7LSZej
-mqdE8hw0MQnhgMRWQnOM7cSj6SwfeaEFqUImtkO7NOYG1pszacwQT7UkhPVe1IA7
-o1qLEqUz18RV8nsVCaR81p0qhn0cRQRDhNk4koIY23MX4UVOVHQ8a63UHXK+db/p
-3D2ShITFSJtWvwA/EkTCbmDnA73tZXEUTbAC4MTHcbb8vvide65Jg4xiomrYAQOB
-WAP5QV1xJi9EIU1aDzOWtnz9WuthWw==
-=dmdW
------END PGP SIGNATURE-----
-
---ZPt4rx8FFjLCG7dd--
-
---===============5791146175859594641==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.21.0
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============5791146175859594641==--

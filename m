@@ -2,66 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98FB0E8ACB
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 15:32:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BA9CE8ACC
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 15:32:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 099D9223C;
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F56A2259;
 	Tue, 29 Oct 2019 15:31:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 099D9223C
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F56A2259
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
 	s=default; t=1572359531;
-	bh=W9KrafElgJwt+P8+AE+mpnfTFrCZzIBDtt7MtMVh7nI=;
+	bh=fjzldddvRvWQixi5i3hVzoRmcIyPTIkpth3F8DOwdYA=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s/z6SLPsIvmrxz4sP7h9dYAIb/G1ljAUL7f1yVTgZmlD97X46jtmMzn5AWDGp4R76
-	 trkWTkj5w6gqHle3ZIJ2EWnGqC2rklEkblU6uCvnjKKgl5jnm7+xe+azO5HWJEApYc
-	 dPALSgOpqek1IAHqbM87PPIYQg0+vimwr6fN6Qgg=
+	b=H+eICe7cykI3kXr0uzvlbvC69OoFvKT68h0hRYDw9SM5nSQZac9fLhFNLC8c20hmE
+	 rgRMZZipkNueIj9YVvgY5saY0UR7I/cvBT0oTO9qCab7qIRzvzddLXBpYyI4QU+ZJt
+	 qNYoqDRCtW/xiSt5wpuGb+kzDJ8RkFCA3NWVdqBE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E639F80600;
-	Tue, 29 Oct 2019 15:21:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F3B6F803D7;
+	Tue, 29 Oct 2019 15:20:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA339F80534; Tue, 29 Oct 2019 15:21:26 +0100 (CET)
+ id 14156F80392; Tue, 29 Oct 2019 15:20:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DB71EF8044B
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 15:21:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DB71EF8044B
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE4AFF8015A
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 15:20:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE4AFF8015A
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Oct 2019 07:21:19 -0700
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2019 07:20:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,244,1569308400"; d="scan'208";a="193618826"
+X-IronPort-AV: E=Sophos;i="5.68,244,1569308400"; d="scan'208";a="193618670"
 Received: from vtungala-mobl3.amr.corp.intel.com (HELO [10.254.109.225])
  ([10.254.109.225])
- by orsmga008.jf.intel.com with ESMTP; 29 Oct 2019 07:21:19 -0700
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-References: <20191025224122.7718-1-pierre-louis.bossart@linux.intel.com>
- <20191025224122.7718-9-pierre-louis.bossart@linux.intel.com>
- <75fa1574-c5c4-595c-182c-fd6e509be348@intel.com>
+ by orsmga008.jf.intel.com with ESMTP; 29 Oct 2019 07:20:37 -0700
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, alsa-devel@alsa-project.org, 
+ broonie@kernel.org
+References: <20191029134017.18901-1-kai.vehmanen@linux.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <fe6cbc40-9865-ff42-214c-22d62ff2e5ba@linux.intel.com>
-Date: Tue, 29 Oct 2019 09:13:46 -0500
+Message-ID: <850db27b-34a3-09d5-bd88-3db08ea28baf@linux.intel.com>
+Date: Tue, 29 Oct 2019 09:20:37 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.2
 MIME-Version: 1.0
-In-Reply-To: <75fa1574-c5c4-595c-182c-fd6e509be348@intel.com>
+In-Reply-To: <20191029134017.18901-1-kai.vehmanen@linux.intel.com>
 Content-Language: en-US
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- Keyon Jie <yang.jie@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 08/26] ASoC: SOF: token: add tokens for PCM
- compatible with D0i3 substate
+Cc: tiwai@suse.de, libin.yang@intel.com, julia.lawall@lip6.fr
+Subject: Re: [alsa-devel] [PATCH v8 0/9] adapt SOF to use snd-hda-codec-hdmi
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,25 +78,77 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 10/29/19 5:11 AM, Cezary Rojewski wrote:
-> On 2019-10-26 00:41, Pierre-Louis Bossart wrote:
->> From: Keyon Jie <yang.jie@linux.intel.com>
->>
->> Add stream token SOF_TKN_STREAM_PLAYBACK_COMPATIBLE_D0I3 and
->> SOF_TKN_STREAM_CAPTURE_COMPATIBLE_D0I3 to denote if the stream can be
->> opened at low power d0i3 status or not.
->>
->> Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
->> Signed-off-by: Pierre-Louis Bossart 
->> <pierre-louis.bossart@linux.intel.com>
+On 10/29/19 8:40 AM, Kai Vehmanen wrote:
+> Hey,
+> here's the 8th round for this series that adapts SOF to use
+> snd-hda-codec-hdmi (patch_hdmi.c) codec driver instead of hdac_hdmi
+> (soc/codecs/hdac_hdmi.c). The primary goal is to unify the HDMI codec
+> implementation between DSP and non-DSP HDA configurations, offer same
+> interface to user-space and reduce maintenance load for all.
 > 
-> By any chance, can stream be playback D0ix incompatible but capture D0ix 
-> compatible? Single token would suffice, no?
+> Intended to go in via Mark's ASoC tree.
 
-we discussed this on github. If we generalize this to low-power 
-streaming, it's possible to have a case where the buffering is not 
-suitable on capture but suitable on playback, or vice-versa, so we added 
-two tokens.
+For the series
+
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+Thanks Kai for this major plumbing rework.
+
+> 
+> v8 changes:
+> - rebased on top of Mark's for-next (50484b6a523a)
+> - addressed Takashi's review comment to patch 5
+> - addressed two sparse warnings in patch 3 reported by
+>    kbuild test robot <lkp@intel.com>
+> - fixed itnull.cocci warning in patch 3 reported by
+>    Julia Lawall <julia.lawall@lip6.fr> and
+>    kbuild test robot <lkp@intel.com>
+> 
+> Feature and testing info:
+>   - Tested on multiple Intel platforms supported by SOF.
+>   - Tested with ALSA console tools as well as with Pulseaudio.
+>        - requires Pulseaudio 12.x or newer, see
+>          https://lists.freedesktop.org/archives/pulseaudio-discuss/2019-August/031358.html
+>   - HDMI, DP, DP-MST with multi-monitor use-scenarios work ok.
+>   - New feature for SOF: ELD /proc fs works just like in
+>     DSP-less mode.
+>   - New feature for SOF: jack detection works out-of-the-box
+>     with Pulseaudio (no need for card specific UCM for HDMI)
+> 
+> Kai Vehmanen (9):
+>    ALSA: hda/hdmi - implement mst_no_extra_pcms flag
+>    ASoC: hdac_hda: add support for HDMI/DP as a HDA codec
+>    ASoC: Intel: skl-hda-dsp-generic: use snd-hda-codec-hdmi
+>    ASoC: Intel: skl-hda-dsp-generic: fix include guard name
+>    ASoC: SOF: Intel: add support for snd-hda-codec-hdmi
+>    ASoC: Intel: bxt-da7219-max98357a: common hdmi codec support
+>    ASoC: Intel: glk_rt5682_max98357a: common hdmi codec support
+>    ASoC: intel: sof_rt5682: common hdmi codec support
+>    ASoC: Intel: bxt_rt298: common hdmi codec support
+> 
+>   include/sound/hda_codec.h                     |   1 +
+>   include/sound/soc-acpi.h                      |   2 +
+>   sound/pci/hda/patch_hdmi.c                    |  19 ++-
+>   sound/soc/codecs/hdac_hda.c                   | 114 ++++++++++++++++--
+>   sound/soc/codecs/hdac_hda.h                   |  13 +-
+>   sound/soc/intel/boards/Makefile               |  10 +-
+>   sound/soc/intel/boards/bxt_da7219_max98357a.c |  11 ++
+>   sound/soc/intel/boards/bxt_rt298.c            |  11 ++
+>   sound/soc/intel/boards/glk_rt5682_max98357a.c |  11 ++
+>   sound/soc/intel/boards/hda_dsp_common.c       |  85 +++++++++++++
+>   sound/soc/intel/boards/hda_dsp_common.h       |  32 +++++
+>   sound/soc/intel/boards/skl_hda_dsp_common.c   |   6 +
+>   sound/soc/intel/boards/skl_hda_dsp_common.h   |  27 ++++-
+>   sound/soc/intel/boards/skl_hda_dsp_generic.c  |   1 +
+>   sound/soc/intel/boards/sof_rt5682.c           |  11 ++
+>   sound/soc/sof/intel/Kconfig                   |  10 ++
+>   sound/soc/sof/intel/hda-codec.c               |  22 +++-
+>   sound/soc/sof/intel/hda.c                     |   6 +
+>   sound/soc/sof/intel/hda.h                     |   6 +-
+>   19 files changed, 367 insertions(+), 31 deletions(-)
+>   create mode 100644 sound/soc/intel/boards/hda_dsp_common.c
+>   create mode 100644 sound/soc/intel/boards/hda_dsp_common.h
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

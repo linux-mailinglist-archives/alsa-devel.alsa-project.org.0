@@ -2,89 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBC64E8356
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 09:39:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022ACE83CF
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 10:05:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B6BB21F6;
-	Tue, 29 Oct 2019 09:38:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B6BB21F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EBA421F7;
+	Tue, 29 Oct 2019 10:04:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EBA421F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572338351;
-	bh=fGzwk6m4oyWhl09BsAo7uq46ql+TNPhYyIwhW3dEe3U=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uxkwy/f76VFcs2uwy0+fBNycilkgBpsB/2LoVIYqAWNNvmynNYunF1VjdkK3w+dIN
-	 VPmMo7qlNhca1zhP6ykEzzO2drufcrqC984R9ifGk6PcAgjn/lTcFvMSmqH1Rrqo+t
-	 AI9qEF2LbP6h2Wlpm9LYHao19UZnbQ20uo6VtVsY=
+	s=default; t=1572339907;
+	bh=/z+blaAod6wbc6USft64JA8/EMgmJ4JMrgv/RTKsXTo=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IR7+20e5Dr317Td9lQqwkM7fyzn1NbZ+4P9r5FZ/otvVwAgd+etuhHk+cI1kec9vS
+	 hhapRaA0Adfk/2pBMUoEfaLu+QU83J17YxkEQBOdqBNFpFUPXLRSoIBXbvticmY7Oa
+	 pXVUfMp6NM/DlvhhLrnI87EAL0bl0yoz6Q4rKkFE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77D34F803CF;
-	Tue, 29 Oct 2019 09:37:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA3A3F8036C;
+	Tue, 29 Oct 2019 10:03:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 93C21F80392; Tue, 29 Oct 2019 09:35:23 +0100 (CET)
+ id 2B3C2F80392; Tue, 29 Oct 2019 10:03:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B3617F8015A
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 09:35:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3617F8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="N478fBlO"
-Received: by mail-pg1-x542.google.com with SMTP id j22so3003289pgh.3
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 01:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=lf5s6Fz7leqrQMKj0V75R9m9lTLSurFPPz+2KwV5ePI=;
- b=N478fBlO32UC62rsQLpqYQg4ISJscCpnddi7FsAoBSPy9+yzNYdJrPT7MIUkMBikZN
- jrRS23f1wxXWb4MlnpX0rfF6wRl5UtCkmMK7O2afrn9esHONx7RaSn5GiaLYrFoCj0Zf
- b3ZqgIoJcFsu4Fm45xrGvPC/qlQTH3hgOI+I+/FsmNhndFingDZPDSDLSQqpfTTKwoRD
- QoJLpwdwLtj/7/nA+7XzHEp8+W3Rzl0byPBmiCmoW25t5RtxxoIwUd6LTadK4Uflbbmh
- kdqEwvfSyYrnscOPd3dcssaCW/SoQrkRrtKb9673BtUfsGM9c1c2cnjBU85TsdpqVSov
- BcfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=lf5s6Fz7leqrQMKj0V75R9m9lTLSurFPPz+2KwV5ePI=;
- b=tq/FoCxECn3/2nmSOcpsRFzY3nEQqKNztnn20GKVZbH8F4fS1f9orH9v3jJcECtxP2
- M0ZKEsVoAptbn6uVW0442rVkAPHU3/oionV3CfUBeFUvF70l6J1Bz/ZlBeFu72bFwJ0i
- AT1ApbdmZWqQl9gQWcRA9YY8miWAq3qBJwMpQ1e/RUIjzd8JQ6hAjLtgh6bSd2IG4tz1
- cHDtk6veh8sn/xN87YxNgfmtrqOVmdzZ5JOL8VFAgUkBoOYNei6D1DmsmqaUKvZG2s21
- v5P8I7/7GPiiXRmF38HHHKY5NWM2r+yg21pB58Jlak9FYewAwnzdnVtE/C4JApqwJltU
- d6iA==
-X-Gm-Message-State: APjAAAWO9DVHOSmQvDwbezxgtbGODImWQ1vyueRVmxP6edKANDgWjWgT
- QfIdxp/fAWkjhAZY90Ggfk4=
-X-Google-Smtp-Source: APXvYqxHvyzfdMzTQ+OctWZ3zxXIPKkxBy6EqVnmpCrpy6kXaaZ/n0qKELoChdao34GKE6IFxkMnIA==
-X-Received: by 2002:a62:3896:: with SMTP id f144mr2610163pfa.254.1572338118506; 
- Tue, 29 Oct 2019 01:35:18 -0700 (PDT)
-Received: from saurav ([27.62.167.137])
- by smtp.gmail.com with ESMTPSA id c6sm11830289pfj.59.2019.10.29.01.35.14
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2019 01:35:17 -0700 (PDT)
-Date: Tue, 29 Oct 2019 14:05:11 +0530
-From: Saurav Girepunje <saurav.girepunje@gmail.com>
-To: perex@perex.cz, tiwai@suse.com, rfontana@redhat.com,
- saurav.girepunje@gmail.com, gregkh@linuxfoundation.org,
- allison@lohutok.net, tglx@linutronix.de,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Message-ID: <20191029083509.GA8293@saurav>
-MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Tue, 29 Oct 2019 09:37:26 +0100
-Cc: saurav.girepunje@hotmail.com
-Subject: [alsa-devel] [PATCH] usb: clock.c : usb true/false for bool return
-	type
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CF5EF800E7
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 10:03:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CF5EF800E7
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id D521FAD8C;
+ Tue, 29 Oct 2019 09:03:17 +0000 (UTC)
+Date: Tue, 29 Oct 2019 10:03:16 +0100
+Message-ID: <s5himo7sz3f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Saurav Girepunje <saurav.girepunje@gmail.com>
+In-Reply-To: <20191029083509.GA8293@saurav>
+References: <20191029083509.GA8293@saurav>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ gregkh@linuxfoundation.org, tiwai@suse.com, rfontana@redhat.com,
+ saurav.girepunje@hotmail.com, tglx@linutronix.de, allison@lohutok.net
+Subject: Re: [alsa-devel] [PATCH] usb: clock.c : usb true/false for bool
+	return type
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,58 +72,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use true/false for bool type return in uac_clock_source_is_valid().
+On Tue, 29 Oct 2019 09:35:11 +0100,
+Saurav Girepunje wrote:
+> 
+> Use true/false for bool type return in uac_clock_source_is_valid().
+> 
+> Signed-off-by: Saurav Girepunje <saurav.girepunje@gmail.com>
+> ---
+>  sound/usb/clock.c | 10 +++++-----
+>  1 file changed, 5 insertions(+), 5 deletions(-)
+> 
+> diff --git a/sound/usb/clock.c b/sound/usb/clock.c
+> index 6b8c14f9b5d4..8b8ab83fac0d 100644
+> --- a/sound/usb/clock.c
+> +++ b/sound/usb/clock.c
+> @@ -165,21 +165,21 @@ static bool uac_clock_source_is_valid(struct snd_usb_audio *chip,
+>  			snd_usb_find_clock_source_v3(chip->ctrl_intf, source_id);
+>  
+>  		if (!cs_desc)
+> -			return 0;
+> +			return false;
+>  		bmControls = le32_to_cpu(cs_desc->bmControls);
+>  	} else { /* UAC_VERSION_1/2 */
+>  		struct uac_clock_source_descriptor *cs_desc =
+>  			snd_usb_find_clock_source(chip->ctrl_intf, source_id);
+>  
+>  		if (!cs_desc)
+> -			return 0;
+> +			return false;
+>  		bmControls = cs_desc->bmControls;
+>  	}
+>  
+>  	/* If a clock source can't tell us whether it's valid, we assume it is */
+>  	if (!uac_v2v3_control_is_readable(bmControls,
+>  				      UAC2_CS_CONTROL_CLOCK_VALID))
+> -		return 1;
+> +		return true;
+>  
+>  	err = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0), UAC2_CS_CUR,
+>  			      USB_TYPE_CLASS | USB_RECIP_INTERFACE | USB_DIR_IN,
+> @@ -191,10 +191,10 @@ static bool uac_clock_source_is_valid(struct snd_usb_audio *chip,
+>  		dev_warn(&dev->dev,
+>  			 "%s(): cannot get clock validity for id %d\n",
+>  			   __func__, source_id);
+> -		return 0;
+> +		return false;
+>  	}
+>  
+> -	return !!data;
+> +	return !!data ? true :  false;
 
-Signed-off-by: Saurav Girepunje <saurav.girepunje@gmail.com>
----
- sound/usb/clock.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+This doesn't need the ternary operator here.  Or drop "!!".
 
-diff --git a/sound/usb/clock.c b/sound/usb/clock.c
-index 6b8c14f9b5d4..8b8ab83fac0d 100644
---- a/sound/usb/clock.c
-+++ b/sound/usb/clock.c
-@@ -165,21 +165,21 @@ static bool uac_clock_source_is_valid(struct snd_usb_audio *chip,
- 			snd_usb_find_clock_source_v3(chip->ctrl_intf, source_id);
- 
- 		if (!cs_desc)
--			return 0;
-+			return false;
- 		bmControls = le32_to_cpu(cs_desc->bmControls);
- 	} else { /* UAC_VERSION_1/2 */
- 		struct uac_clock_source_descriptor *cs_desc =
- 			snd_usb_find_clock_source(chip->ctrl_intf, source_id);
- 
- 		if (!cs_desc)
--			return 0;
-+			return false;
- 		bmControls = cs_desc->bmControls;
- 	}
- 
- 	/* If a clock source can't tell us whether it's valid, we assume it is */
- 	if (!uac_v2v3_control_is_readable(bmControls,
- 				      UAC2_CS_CONTROL_CLOCK_VALID))
--		return 1;
-+		return true;
- 
- 	err = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0), UAC2_CS_CUR,
- 			      USB_TYPE_CLASS | USB_RECIP_INTERFACE | USB_DIR_IN,
-@@ -191,10 +191,10 @@ static bool uac_clock_source_is_valid(struct snd_usb_audio *chip,
- 		dev_warn(&dev->dev,
- 			 "%s(): cannot get clock validity for id %d\n",
- 			   __func__, source_id);
--		return 0;
-+		return false;
- 	}
- 
--	return !!data;
-+	return !!data ? true :  false;
- }
- 
- static int __uac_clock_find_source(struct snd_usb_audio *chip, int entity_id,
--- 
-2.20.1
+(Actually it would work just return data without "!!" for bool type,
+ but maybe it's still clearer to have it.)
 
+Also, please align the subject line with other commits.  For
+USB-audio, it's "ALSA: usb-audio: Subject..."
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FAE2E8E37
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 18:36:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 492A5E8E7C
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 18:41:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59F372114;
-	Tue, 29 Oct 2019 18:35:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59F372114
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FAC4228E;
+	Tue, 29 Oct 2019 18:40:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FAC4228E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572370572;
-	bh=ryY0nOOHRqb8bCREWoVilnw5QuBDWGEA4pO7vMxtWok=;
+	s=default; t=1572370879;
+	bh=YnbY+BHTJAxBTUjXrl7ts3XN8VakyDMi/9nEaG9JI1Q=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=jPN9LQIukJo9UkNjiQLr0MSSLJWFcVZ3VVin0jCZHyBHgKJJOSjVfyVZ0RaMQObfm
-	 VxDNugSYoXSlMLv0iBnVD5V0CSBeZeVSxQdqM/tE1BIE/wHqh90zn50tWN7kZ9CjAf
-	 p8XHI1mkQ+WM3JRzZ/0wdxpUtYX8VDc6ffiHJtgQ=
+	b=FJ0CL/xCNuAslKyHRiyajZBvCHB11ZWPMqIa+Wd/z7Yb++tVcfeq/pR6P5w/XQD7a
+	 ATHiVNUgVmjEAAUX+O5VZ5ofrOwgbH01Gnc4h4vTgSB/LTyyFAvTOVUdAud03pKrKx
+	 hJq0GvLxXf8P6CR14C2SrJYZqFePxMgJlCLkpL1c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5306EF80392;
-	Tue, 29 Oct 2019 18:34:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C7EDEF80672;
+	Tue, 29 Oct 2019 18:34:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C429EF8044B; Tue, 29 Oct 2019 18:34:25 +0100 (CET)
+ id BA2F4F80534; Tue, 29 Oct 2019 18:34:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,42 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEFC4F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 11766F805AE
  for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 18:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEFC4F8015A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11766F805AE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="A6gRn4UQ"
+ header.b="V3BLEywe"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=2zL97C5QnmhxHQveobdDFc9XgZcjmVtdKuMA4SSlq8I=; b=A6gRn4UQowBt
- ElJrUJCPHhykpCg8rzz+mOvaW0XEC1i3O7T0Lv6kepj+T7e3YtdaH6Y+do7FGzYhU38c0JY+kUI0E
- Zqn6g2mzar7O432pbuqAPTKVhStluQW7VqxVuC2Bd6XwykPN6fbiC6OWBCZb4P/JM9AzNGGCovbTK
- OjT1o=;
+ List-Archive; bh=dr8wm7+v1Br+zzY4QFtz9b3DQnpqQUaUkHgX4GqwOoM=; b=V3BLEyweWSOf
+ hK6CO0baHNNJO4Lg5G0tpPkMjaMUf9/mDezbNLoR5cLlXvPtkT7xAKMcqJ6N7vGDaVweJQ/LD7rTY
+ mdAbYII+/slYpLLw+cp/QoNflzngwGksb2z+WDBclw7xxXfagws+/NR7F36Bi2vloZsTs24qiEFvG
+ QHWds=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iPVNs-0002kQ-9u; Tue, 29 Oct 2019 17:34:20 +0000
+ id 1iPVNs-0002kU-Vu; Tue, 29 Oct 2019 17:34:21 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 862DF27428D8; Tue, 29 Oct 2019 17:34:19 +0000 (GMT)
+ id 2918F27429C0; Tue, 29 Oct 2019 17:34:20 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20191029134017.18901-9-kai.vehmanen@linux.intel.com>
+In-Reply-To: <20191029134017.18901-6-kai.vehmanen@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191029173419.862DF27428D8@ypsilon.sirena.org.uk>
-Date: Tue, 29 Oct 2019 17:34:19 +0000 (GMT)
+Message-Id: <20191029173420.2918F27429C0@ypsilon.sirena.org.uk>
+Date: Tue, 29 Oct 2019 17:34:20 +0000 (GMT)
 Cc: libin.yang@intel.com, alsa-devel@alsa-project.org,
  kai.vehmanen@linux.intel.com, tiwai@suse.de,
  pierre-louis.bossart@linux.intel.com, julia.lawall@lip6.fr,
  Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: intel: sof_rt5682: common hdmi codec
-	support" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: add support for
+	snd-hda-codec-hdmi" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: intel: sof_rt5682: common hdmi codec support
+   ASoC: SOF: Intel: add support for snd-hda-codec-hdmi
 
 has been applied to the asoc tree at
 
@@ -115,81 +115,154 @@ to this mail.
 Thanks,
 Mark
 
-From 59bbd703ea2eae7c2766713135e4742c07fbbad7 Mon Sep 17 00:00:00 2001
+From 139c7febad1afa221c687f3314560284e482a1f4 Mon Sep 17 00:00:00 2001
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Tue, 29 Oct 2019 15:40:16 +0200
-Subject: [PATCH] ASoC: intel: sof_rt5682: common hdmi codec support
+Date: Tue, 29 Oct 2019 15:40:13 +0200
+Subject: [PATCH] ASoC: SOF: Intel: add support for snd-hda-codec-hdmi
 
-Add support for using snd-hda-codec-hdmi driver for HDMI/DP
-instead of ASoC hdac-hdmi. This is aligned with how other
-HDA codecs are already handled.
+Add support to implement HDMI/DP audio by using the common
+snd-hda-codec-hdmi driver.
+
+Change of codec driver affects user-space as the two
+drivers expose different mixer controls. A new kernel
+module option "use_common_hdmi" is added to user-space
+to indicate which interface should be used. The default
+driver can be selected via a Kconfig option.
 
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Takashi Iwai <tiwai@suse.de>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191029134017.18901-9-kai.vehmanen@linux.intel.com
+Link: https://lore.kernel.org/r/20191029134017.18901-6-kai.vehmanen@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/Makefile     |  2 +-
- sound/soc/intel/boards/sof_rt5682.c | 11 +++++++++++
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ sound/soc/sof/intel/Kconfig     | 10 ++++++++++
+ sound/soc/sof/intel/hda-codec.c | 22 ++++++++++++++++++----
+ sound/soc/sof/intel/hda.c       |  6 ++++++
+ sound/soc/sof/intel/hda.h       |  6 ++++--
+ 4 files changed, 38 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
-index b36f44906c91..255cee8c7906 100644
---- a/sound/soc/intel/boards/Makefile
-+++ b/sound/soc/intel/boards/Makefile
-@@ -17,7 +17,7 @@ snd-soc-sst-byt-cht-cx2072x-objs := bytcht_cx2072x.o
- snd-soc-sst-byt-cht-da7213-objs := bytcht_da7213.o
- snd-soc-sst-byt-cht-es8316-objs := bytcht_es8316.o
- snd-soc-sst-byt-cht-nocodec-objs := bytcht_nocodec.o
--snd-soc-sof_rt5682-objs := sof_rt5682.o
-+snd-soc-sof_rt5682-objs := sof_rt5682.o hda_dsp_common.o
- snd-soc-kbl_da7219_max98357a-objs := kbl_da7219_max98357a.o
- snd-soc-kbl_da7219_max98927-objs := kbl_da7219_max98927.o
- snd-soc-kbl_rt5663_max98927-objs := kbl_rt5663_max98927.o
-diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
-index 2caebc77fdb5..6164d54fc992 100644
---- a/sound/soc/intel/boards/sof_rt5682.c
-+++ b/sound/soc/intel/boards/sof_rt5682.c
-@@ -21,6 +21,7 @@
- #include "../../codecs/rt5682.h"
- #include "../../codecs/hdac_hdmi.h"
- #include "../common/soc-intel-quirks.h"
-+#include "hda_dsp_common.h"
+diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
+index 342f22a7c64f..d52298946c00 100644
+--- a/sound/soc/sof/intel/Kconfig
++++ b/sound/soc/sof/intel/Kconfig
+@@ -299,6 +299,16 @@ config SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1
+ 	  Say Y if you want to enable DMI Link L1
+ 	  If unsure, select "N".
  
- #define NAME_SIZE 32
- 
-@@ -53,6 +54,7 @@ struct sof_card_private {
- 	struct clk *mclk;
- 	struct snd_soc_jack sof_headset;
- 	struct list_head hdmi_pcm_list;
-+	bool common_hdmi_codec_drv;
- };
- 
- static int sof_rt5682_quirk_cb(const struct dmi_system_id *id)
-@@ -274,6 +276,13 @@ static int sof_card_late_probe(struct snd_soc_card *card)
- 	if (is_legacy_cpu)
- 		return 0;
- 
-+	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct sof_hdmi_pcm,
-+			       head);
-+	component = pcm->codec_dai->component;
++config SND_SOC_SOF_HDA_COMMON_HDMI_CODEC
++	bool "SOF common HDA HDMI codec driver"
++	depends on SND_SOC_SOF_HDA_LINK
++	depends on SND_HDA_CODEC_HDMI
++	help
++	  This adds support for HDMI audio by using the common HDA
++	  HDMI/DisplayPort codec driver.
++	  Say Y if you want to use the common codec driver with SOF.
++	  If unsure select "Y".
 +
-+	if (ctx->common_hdmi_codec_drv)
-+		return hda_dsp_hdmi_build_controls(card, component);
-+
- 	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
- 		component = pcm->codec_dai->component;
- 		snprintf(jack_name, sizeof(jack_name),
-@@ -642,6 +651,8 @@ static int sof_audio_probe(struct platform_device *pdev)
- 	if (ret)
+ endif ## SND_SOC_SOF_HDA_COMMON
+ 
+ config SND_SOC_SOF_HDA_LINK_BASELINE
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index 3ca6795a89ba..827f84a0722e 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -84,6 +84,8 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ {
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
+ 	struct hdac_hda_priv *hda_priv;
++	struct snd_soc_acpi_mach_params *mach_params = NULL;
++	struct snd_sof_pdata *pdata = sdev->pdata;
+ #endif
+ 	struct hda_bus *hbus = sof_to_hbus(sdev);
+ 	struct hdac_device *hdev;
+@@ -113,8 +115,19 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ 	if (ret < 0)
  		return ret;
  
-+	ctx->common_hdmi_codec_drv = mach->mach_params.common_hdmi_codec_drv;
+-	/* use legacy bus only for HDA codecs, idisp uses ext bus */
+-	if ((resp & 0xFFFF0000) != IDISP_VID_INTEL) {
++	if (pdata->machine)
++		mach_params = (struct snd_soc_acpi_mach_params *)
++			&pdata->machine->mach_params;
 +
- 	snd_soc_card_set_drvdata(&sof_audio_card_rt5682, ctx);
++	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL)
++		hda_priv->need_display_power = true;
++
++	/*
++	 * if common HDMI codec driver is not used, codec load
++	 * is skipped here and hdac_hdmi is used instead
++	 */
++	if ((mach_params && mach_params->common_hdmi_codec_drv) ||
++	    (resp & 0xFFFF0000) != IDISP_VID_INTEL) {
+ 		hdev->type = HDA_DEV_LEGACY;
+ 		hda_codec_load_module(&hda_priv->codec);
+ 	}
+@@ -155,7 +168,8 @@ int hda_codec_probe_bus(struct snd_sof_dev *sdev)
+ }
+ EXPORT_SYMBOL(hda_codec_probe_bus);
  
- 	return devm_snd_soc_register_card(&pdev->dev,
+-#if IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
++#if IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI) || \
++	IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
+ 
+ void hda_codec_i915_get(struct snd_sof_dev *sdev)
+ {
+@@ -204,6 +218,6 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev)
+ }
+ EXPORT_SYMBOL(hda_codec_i915_exit);
+ 
+-#endif /* CONFIG_SND_SOC_HDAC_HDMI */
++#endif
+ 
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 103f4273c4d3..7dc0018dc4c3 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -53,6 +53,11 @@ MODULE_PARM_DESC(use_msi, "SOF HDA use PCI MSI mode");
+ static int hda_dmic_num = -1;
+ module_param_named(dmic_num, hda_dmic_num, int, 0444);
+ MODULE_PARM_DESC(dmic_num, "SOF HDA DMIC number");
++
++static bool hda_codec_use_common_hdmi =
++	IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_COMMON_HDMI_CODEC);
++module_param_named(use_common_hdmi, hda_codec_use_common_hdmi, bool, 0444);
++MODULE_PARM_DESC(use_common_hdmi, "SOF HDA use common HDMI codec driver");
+ #endif
+ 
+ static const struct hda_dsp_msg_code hda_dsp_rom_msg[] = {
+@@ -459,6 +464,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 			&pdata->machine->mach_params;
+ 		mach_params->codec_mask = bus->codec_mask;
+ 		mach_params->platform = dev_name(sdev->dev);
++		mach_params->common_hdmi_codec_drv = hda_codec_use_common_hdmi;
+ 	}
+ 
+ 	/* create codec instances */
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 16376f55e420..5ad73a34b09c 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -577,7 +577,9 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev);
+ 
+ #endif /* CONFIG_SND_SOC_SOF_HDA */
+ 
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA) && IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA) && \
++	(IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI) || \
++	 IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI))
+ 
+ void hda_codec_i915_get(struct snd_sof_dev *sdev);
+ void hda_codec_i915_put(struct snd_sof_dev *sdev);
+@@ -591,7 +593,7 @@ static inline void hda_codec_i915_put(struct snd_sof_dev *sdev)  { }
+ static inline int hda_codec_i915_init(struct snd_sof_dev *sdev) { return 0; }
+ static inline int hda_codec_i915_exit(struct snd_sof_dev *sdev) { return 0; }
+ 
+-#endif /* CONFIG_SND_SOC_SOF_HDA && CONFIG_SND_SOC_HDAC_HDMI */
++#endif
+ 
+ /*
+  * Trace Control.
 -- 
 2.20.1
 

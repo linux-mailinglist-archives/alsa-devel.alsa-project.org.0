@@ -2,84 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C7D5E8DE6
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 18:17:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2298FE8E45
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 18:38:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 74FFB2238;
-	Tue, 29 Oct 2019 18:17:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74FFB2238
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6625228C;
+	Tue, 29 Oct 2019 18:37:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6625228C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572369478;
-	bh=MlbJVVGC9kOhhNLKNti9XDRyH5BuUWPs+0FcL6ohGu0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=k6+g/sCF8XfxH0L3p+Gkeoy7EohezJVXdf/JQE4NmysFt9/yEQ32fN/Q4zTY+3Nit
-	 5U9IrtUBJon0oQv2S7DMcAqyZGJlKJus72E2lXFJ+dreH8/Av9aQXYAhejloU5AWYo
-	 nf8ogQftZgIWrNBgAZH2lFf72nrcmPXalWBfVT/w=
+	s=default; t=1572370725;
+	bh=psHPYF/1uEMnm3IN1QxcIviBzSMRXkFKay9qSr8wxNc=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=hySOL83txlgVqumbFx0Cw3F4fDViQ7XkIWA4AzfkxJ6kd/xJoqQdbsTK2uF9KGh/W
+	 sqCM1+N5Scz0IwGEnP2lvlmZYhuthUiSxgbRbNBRhceqGCpHnuIh2whXie5eP2THo2
+	 f13wUKN4eJeAUyVmMKQmiVwLVwf3sUcRs9OcKiI0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 94955F8036C;
-	Tue, 29 Oct 2019 17:57:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AB14F80635;
+	Tue, 29 Oct 2019 18:34:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 861F1F80392; Tue, 29 Oct 2019 17:57:49 +0100 (CET)
+ id 7F0D8F805FC; Tue, 29 Oct 2019 18:34:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
- [209.85.210.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4DCBF80269
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 17:57:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4DCBF80269
-Received: by mail-ot1-f65.google.com with SMTP id u13so10398957ote.0
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 09:57:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=AzR50uFmoDCtnAJJfiGxTvyuBUS+uKVO9Sccr9LgN3A=;
- b=UosshcE+d5t5+QEbBhjnm+mX2Flwknk/2a5eVSDlgNHl4CNr9XEwTzZzxTHICPaWp+
- DQgy/Rgawjnm7BRSgQKr5ZJNedvalvrhJImMvBl7OMrsDGOawD7PbDBzR9vz0TWSKcRj
- I9NKzQ4YgrQIzEYC/oVsO6U8Mfe46lXE49Q4xZiZ7x3u6e1bB46M+zzyrJKlU+tS2x5k
- tkTQ+dQDeSnV2ITOMrLaVt8L0cCL0ht+a8RjOc1EKKiEKEGzjvcNW8tcmpQb0F5ugDx3
- LbAFxBqkof3Vaz1Hj39f/5yQOS7H7C4MK73pD8tOk1aYZztxiwt3w40nubDHKJFqpoSC
- JEgg==
-X-Gm-Message-State: APjAAAV7sfp65BaJTou8r+DKA6IYUdYhvzKGWHBwUUIgslYxyfxBX6iQ
- AG6IBKWzwxnamntUkhe+cQ==
-X-Google-Smtp-Source: APXvYqyA4q27jgqbyYHzCXs5l/JuoLIkpIFSmc+fTrrf3tbcL04DsgIowaA8Q0ofDaNVgZxnpP/5Jg==
-X-Received: by 2002:a05:6830:1256:: with SMTP id
- s22mr19536485otp.308.1572368265215; 
- Tue, 29 Oct 2019 09:57:45 -0700 (PDT)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id u1sm2055522oie.37.2019.10.29.09.57.43
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2019 09:57:43 -0700 (PDT)
-Date: Tue, 29 Oct 2019 11:57:43 -0500
-From: Rob Herring <robh@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Message-ID: <20191029165743.GA11562@bogus>
-References: <20191022114505.196852-1-tzungbi@google.com>
- <20191022193301.3.I37696eb1321a21846f9e5a9eb14dfac7dbe10663@changeid>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191022193301.3.I37696eb1321a21846f9e5a9eb14dfac7dbe10663@changeid>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- cychiang@google.com, narmstrong@baylibre.com, allen.chen@ite.com.tw,
- dri-devel@lists.freedesktop.org, jonas@kwiboo.se, jernej.skrabec@siol.net,
- robh+dt@kernel.org, a.hajda@samsung.com, broonie@kernel.org,
- Laurent.pinchart@ideasonboard.com, tzungbi@google.com, dgreid@google.com
-Subject: Re: [alsa-devel] [PATCH 3/6] ASoC: dt-bindings: mt8183: add a
- property "mediatek, hdmi-codec"
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2789F803CF
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 18:34:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2789F803CF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="W7HcB19V"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=9ThZEXzMwWR8s1oAci22YnfRikEM6XKtEu+y7YIDTR0=; b=W7HcB19V5JIp
+ CNEc5VFK00ByJMY+ozuWazdvD15ehmPhdWOZQG60d+hWnv/ynQfJLYGU5g5KKuybYTMeJP5knYM37
+ zFXdj5LPV0Kjw6WFCX1qflEEyY0r3/2+HIu3BGEXzahx1k9uE4lTwSDqDzvd+cb5GuCQ8UllD8Il1
+ 5hMVs=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iPVNs-0002kP-7U; Tue, 29 Oct 2019 17:34:20 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 4C71D2742157; Tue, 29 Oct 2019 17:34:19 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20191029134017.18901-10-kai.vehmanen@linux.intel.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20191029173419.4C71D2742157@ypsilon.sirena.org.uk>
+Date: Tue, 29 Oct 2019 17:34:19 +0000 (GMT)
+Cc: libin.yang@intel.com, alsa-devel@alsa-project.org,
+ kai.vehmanen@linux.intel.com, tiwai@suse.de,
+ pierre-louis.bossart@linux.intel.com, julia.lawall@lip6.fr,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: Intel: bxt_rt298: common hdmi codec
+	support" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,21 +82,117 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 22 Oct 2019 19:45:02 +0800, Tzung-Bi Shih wrote:
-> Add an optional property "mediatek,hdmi-codec".
-> 
-> Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-> ---
->  .../bindings/sound/mt8183-mt6358-ts3a227-max98357.txt           | 2 ++
->  1 file changed, 2 insertions(+)
-> 
+The patch
 
-Acked-by: Rob Herring <robh@kernel.org>
+   ASoC: Intel: bxt_rt298: common hdmi codec support
+
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 7d2ae58376658a3ca0d8f9a53f6f065df126c432 Mon Sep 17 00:00:00 2001
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Date: Tue, 29 Oct 2019 15:40:17 +0200
+Subject: [PATCH] ASoC: Intel: bxt_rt298: common hdmi codec support
+
+Add support for using snd-hda-codec-hdmi driver for HDMI/DP
+instead of ASoC hdac-hdmi. This is aligned with how other
+HDA codecs are already handled.
+
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20191029134017.18901-10-kai.vehmanen@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/intel/boards/Makefile    |  2 +-
+ sound/soc/intel/boards/bxt_rt298.c | 11 +++++++++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/intel/boards/Makefile b/sound/soc/intel/boards/Makefile
+index 255cee8c7906..8bddf379cef1 100644
+--- a/sound/soc/intel/boards/Makefile
++++ b/sound/soc/intel/boards/Makefile
+@@ -5,7 +5,7 @@ snd-soc-sst-byt-max98090-mach-objs := byt-max98090.o
+ snd-soc-sst-bdw-rt5677-mach-objs := bdw-rt5677.o
+ snd-soc-sst-broadwell-objs := broadwell.o
+ snd-soc-sst-bxt-da7219_max98357a-objs := bxt_da7219_max98357a.o hda_dsp_common.o
+-snd-soc-sst-bxt-rt298-objs := bxt_rt298.o
++snd-soc-sst-bxt-rt298-objs := bxt_rt298.o hda_dsp_common.o
+ snd-soc-sst-glk-rt5682_max98357a-objs := glk_rt5682_max98357a.o hda_dsp_common.o
+ snd-soc-sst-bytcr-rt5640-objs := bytcr_rt5640.o
+ snd-soc-sst-bytcr-rt5651-objs := bytcr_rt5651.o
+diff --git a/sound/soc/intel/boards/bxt_rt298.c b/sound/soc/intel/boards/bxt_rt298.c
+index adf416a49b48..eabf9d8468ae 100644
+--- a/sound/soc/intel/boards/bxt_rt298.c
++++ b/sound/soc/intel/boards/bxt_rt298.c
+@@ -18,6 +18,7 @@
+ #include <sound/pcm_params.h>
+ #include "../../codecs/hdac_hdmi.h"
+ #include "../../codecs/rt298.h"
++#include "hda_dsp_common.h"
+ 
+ /* Headset jack detection DAPM pins */
+ static struct snd_soc_jack broxton_headset;
+@@ -31,6 +32,7 @@ struct bxt_hdmi_pcm {
+ 
+ struct bxt_rt286_private {
+ 	struct list_head hdmi_pcm_list;
++	bool common_hdmi_codec_drv;
+ };
+ 
+ enum {
+@@ -527,6 +529,13 @@ static int bxt_card_late_probe(struct snd_soc_card *card)
+ 	int err, i = 0;
+ 	char jack_name[NAME_SIZE];
+ 
++	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct bxt_hdmi_pcm,
++			       head);
++	component = pcm->codec_dai->component;
++
++	if (ctx->common_hdmi_codec_drv)
++		return hda_dsp_hdmi_build_controls(card, component);
++
+ 	list_for_each_entry(pcm, &ctx->hdmi_pcm_list, head) {
+ 		component = pcm->codec_dai->component;
+ 		snprintf(jack_name, sizeof(jack_name),
+@@ -626,6 +635,8 @@ static int broxton_audio_probe(struct platform_device *pdev)
+ 	if (ret)
+ 		return ret;
+ 
++	ctx->common_hdmi_codec_drv = mach->mach_params.common_hdmi_codec_drv;
++
+ 	return devm_snd_soc_register_card(&pdev->dev, card);
+ }
+ 
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

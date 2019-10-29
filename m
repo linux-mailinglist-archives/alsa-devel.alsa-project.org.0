@@ -2,89 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 47601E8EB6
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 18:53:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CAF3E8FBF
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 20:12:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A58A0229B;
-	Tue, 29 Oct 2019 18:53:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A58A0229B
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7D4C226E;
+	Tue, 29 Oct 2019 20:12:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7D4C226E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572371638;
-	bh=L0we4wCqjNVHYsWts23HdaM3uGsMJgRrSbCT4IWDitg=;
+	s=default; t=1572376371;
+	bh=bDWOP2vSAM1Bo1SwRCfpD5DDqhkUXBLVSZFu5yHNh1o=;
 	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=i2QYK/8Glls/cLMwoSSLP59ghleDc0eZyVyx37glDgVUDw8hSB6XVtN03gxHuzIoS
-	 VZRILLU0HzytW+zM3R+6hKx7oNkwC/rZ7ttMA2vd/11EjA6nxFakUYEf2Wwoxy6RQM
-	 0BKcp5/RnnuyhWrQpC0txmY/AJFTK45OdTv4aU+4=
+	b=tQ9JqyG6Vz4N9ZpWBjch7xKNUwL12Uf1+5mRePO0je1HTpj2uoEdWmXYc7i7JM81c
+	 WaXOZIvSHP34vjkrvG7Xqj2v7cHZ7R99XvUz1a84dSkgt2v2ZohU6dqNS5plY8PXJt
+	 dVXyYgrcy629RPwK0SAJ90uoGI0upSxH7NnsMio8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1D9DF803CF;
-	Tue, 29 Oct 2019 18:52:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1E006F80269;
+	Tue, 29 Oct 2019 20:11:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E7AEF80392; Tue, 29 Oct 2019 18:52:14 +0100 (CET)
+ id 7DC69F803CF; Tue, 29 Oct 2019 20:11:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 583CAF8015A
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 18:52:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 583CAF8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="eMG+GuYW"
-Received: by mail-pg1-x544.google.com with SMTP id 15so10084240pgt.7
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 10:52:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=WQuaGhw+j/L1GECLdxkL+IQAboSwYNwdTLYnLHvyPs8=;
- b=eMG+GuYW0OmhY6ro8Yeeu1abzM+LR/mzcdQEofubIIHWWpsksdJybinfj19OxIPIfV
- 2F/h4pVMuFWoK3OZR3aNK1N4LvBM7hwCpwHrGOrnTBTeA2l5MGwLpBXNxolXYTiNdsZi
- +r4xnfjZcf1F1AD7+FotPnmSKvKT7FJ9ke0Cx0M1wpcO019m9SRWj5DrvPDBk80byObM
- V8J6Fdc6HN4gB319c6v7TulUONDQuiWf8aCtAgkNddCyesnMvBkfqPdePR7LguFh3xTW
- Vr+atD2bGf7HMjywS1koa0GnrKT58QtG6hLSFE5+uuT4djFo80FRXdp2bYwLJ61Wuars
- jJ7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=WQuaGhw+j/L1GECLdxkL+IQAboSwYNwdTLYnLHvyPs8=;
- b=VzxQwMS0eYawVxr46TrLoTYsmQkwy5CvJ77B+wmdiLzNF5QbSZJWYnlQVz7T8pTiP9
- HF2hldJfKPJv0/OPiNkhTSIr4fjctLAgfVbsCPDyLdaJ8ayzfWSx+7tvUgjB+xW1/NgA
- SP6IYqxEdinEMnETpdzLdGEAhU+feuQav0ZOGL+Z+Jpar1tMOYnmn9BJMFQto5Eem76J
- VAt3gxa1aOUQ0E9rTjtN2HKwBfS1FjDUm48g6fUnManlSASCL+6+oWsbqlIwMWqmtBFd
- zV+epbThRcRKX9BLuS6z48BDN3soS4Ma81+PqH5sGhbkPalSNsEG3EiHVIU8yZXknU0j
- VJBg==
-X-Gm-Message-State: APjAAAUN1hCO4filKQMJZdp1RX6OBHp8cskLJtTVsxFO2Bp77KZmnBCq
- xr5GepRrEN1TuNim39GG5W8=
-X-Google-Smtp-Source: APXvYqzrSQsPEEJLMY2h97BAVghXEBeEsEuCaCOuF7o17Uq27bil0is02/pulRLMZFnxkezDHUGo2Q==
-X-Received: by 2002:a17:90a:1424:: with SMTP id
- j33mr8490846pja.2.1572371528296; 
- Tue, 29 Oct 2019 10:52:08 -0700 (PDT)
-Received: from saurav ([117.232.226.35])
- by smtp.gmail.com with ESMTPSA id m17sm8901042pfh.79.2019.10.29.10.52.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Oct 2019 10:52:07 -0700 (PDT)
-Date: Tue, 29 Oct 2019 23:22:00 +0530
-From: Saurav Girepunje <saurav.girepunje@gmail.com>
-To: perex@perex.cz, tiwai@suse.com, allison@lohutok.net,
- rfontana@redhat.com, saurav.girepunje@gmail.com, tglx@linutronix.de,
- gregkh@linuxfoundation.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Message-ID: <20191029175200.GA7320@saurav>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07440F80269
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 20:11:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07440F80269
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Oct 2019 12:10:55 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,245,1569308400"; d="scan'208";a="230179348"
+Received: from stinkbox.fi.intel.com (HELO stinkbox) ([10.237.72.174])
+ by fmsmga002.fm.intel.com with SMTP; 29 Oct 2019 12:10:50 -0700
+Received: by stinkbox (sSMTP sendmail emulation);
+ Tue, 29 Oct 2019 21:10:50 +0200
+Date: Tue, 29 Oct 2019 21:10:50 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Message-ID: <20191029191050.GF1208@intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: saurav.girepunje@hotmail.com
-Subject: [alsa-devel] [PATCH v1] ALSA: usb-audio: sound: usb: usb true/false
- for bool return type
+Cc: Takashi Iwai <tiwai@suse.de>, intel-gfx@lists.freedesktop.org
+Subject: [alsa-devel] pcm_lock deadlock
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,71 +68,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Use true/false for bool type return in uac_clock_source_is_valid().
+Hi Takashi,
 
-Signed-off-by: Saurav Girepunje <saurav.girepunje@gmail.com>
----
+I just got this deadlock when I tried to modprobe i915 on an ELK:
 
-Changes in v1:
+[  203.716416] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+[  203.716417] WARNING: possible recursive locking detected
+[  203.716418] 5.4.0-rc5-elk+ #206 Not tainted
+[  203.716419] --------------------------------------------
+[  203.716420] kworker/0:1/12 is trying to acquire lock:
+[  203.716421] efb1c138 (&spec->pcm_lock){+.+.}, at: generic_hdmi_init+0x21=
+/0x140 [snd_hda_codec_hdmi]
+[  203.716426] =
 
-	- Update the patch subject suggested by Takashi Iwai <tiwai@suse.de>
+               but task is already holding lock:
+[  203.716427] efb1c138 (&spec->pcm_lock){+.+.}, at: check_presence_and_rep=
+ort+0x67/0xb0 [snd_hda_codec_hdmi]
+[  203.716430] =
 
-        - Drop "!!" but keep the ternary operator in last return
-          statement so that function will return always true/false.
- 
- sound/usb/clock.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+               other info that might help us debug this:
+[  203.716431]  Possible unsafe locking scenario:
 
-diff --git a/sound/usb/clock.c b/sound/usb/clock.c
-index 72e9bdf76115..8d5538063598 100644
---- a/sound/usb/clock.c
-+++ b/sound/usb/clock.c
-@@ -167,21 +167,21 @@ static bool uac_clock_source_is_valid(struct snd_usb_audio *chip,
- 			snd_usb_find_clock_source_v3(chip->ctrl_intf, source_id);
- 
- 		if (!cs_desc)
--			return 0;
-+			return false;
- 		bmControls = le32_to_cpu(cs_desc->bmControls);
- 	} else { /* UAC_VERSION_1/2 */
- 		struct uac_clock_source_descriptor *cs_desc =
- 			snd_usb_find_clock_source(chip->ctrl_intf, source_id);
- 
- 		if (!cs_desc)
--			return 0;
-+			return false;
- 		bmControls = cs_desc->bmControls;
- 	}
- 
- 	/* If a clock source can't tell us whether it's valid, we assume it is */
- 	if (!uac_v2v3_control_is_readable(bmControls,
- 				      UAC2_CS_CONTROL_CLOCK_VALID))
--		return 1;
-+		return true;
- 
- 	err = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0), UAC2_CS_CUR,
- 			      USB_TYPE_CLASS | USB_RECIP_INTERFACE | USB_DIR_IN,
-@@ -193,10 +193,10 @@ static bool uac_clock_source_is_valid(struct snd_usb_audio *chip,
- 		dev_warn(&dev->dev,
- 			 "%s(): cannot get clock validity for id %d\n",
- 			   __func__, source_id);
--		return 0;
-+		return false;
- 	}
- 
--	return !!data;
-+	return data ? true :  false;
- }
- 
- static int __uac_clock_find_source(struct snd_usb_audio *chip, int entity_id,
--- 
-2.20.1
+[  203.716431]        CPU0
+[  203.716432]        ----
+[  203.716432]   lock(&spec->pcm_lock);
+[  203.716433]   lock(&spec->pcm_lock);
+[  203.716434] =
 
+                *** DEADLOCK ***
+
+[  203.716435]  May be due to missing lock nesting notation
+
+[  203.716436] 3 locks held by kworker/0:1/12:
+[  203.716436]  #0: f14096a0 ((wq_completion)events){+.+.}, at: process_one=
+_work+0x1b8/0x530
+[  203.716442]  #1: f14dbf4c ((work_completion)(&bus->unsol_work)){+.+.}, a=
+t: process_one_work+0x1b8/0x530
+[  203.716444]  #2: efb1c138 (&spec->pcm_lock){+.+.}, at: check_presence_an=
+d_report+0x67/0xb0 [snd_hda_codec_hdmi]
+[  203.716448] =
+
+               stack backtrace:
+[  203.716449] CPU: 0 PID: 12 Comm: kworker/0:1 Not tainted 5.4.0-rc5-elk+ =
+#206
+[  203.716450] Hardware name: System manufacturer P5Q-EM/P5Q-EM, BIOS 2203 =
+   07/08/2009
+[  203.716457] Workqueue: events snd_hdac_bus_process_unsol_events [snd_hda=
+_core]
+[  203.716459] Call Trace:
+[  203.716463]  dump_stack+0x66/0x8e
+[  203.716466]  __lock_acquire.cold.62+0x3bf/0x3c7
+[  203.716468]  ? mark_held_locks+0x3f/0x60
+[  203.716470]  ? _raw_spin_unlock_irq+0x22/0x30
+[  203.716478]  ? azx_rirb_get_response+0xd7/0x220 [snd_hda_codec]
+[  203.716479]  ? lockdep_hardirqs_on+0xec/0x1a0
+[  203.716480]  ? _raw_spin_unlock_irq+0x22/0x30
+[  203.716483]  ? trace_hardirqs_on+0x4a/0xf0
+[  203.716484]  ? find_held_lock+0x26/0xb0
+[  203.716486]  lock_acquire+0x74/0x150
+[  203.716488]  ? generic_hdmi_init+0x21/0x140 [snd_hda_codec_hdmi]
+[  203.716490]  __mutex_lock+0x60/0x810
+[  203.716492]  ? generic_hdmi_init+0x21/0x140 [snd_hda_codec_hdmi]
+[  203.716496]  ? snd_hdac_exec_verb+0x16/0x40 [snd_hda_core]
+[  203.716499]  ? codec_read+0x29/0x40 [snd_hda_core]
+[  203.716501]  mutex_lock_nested+0x14/0x20
+[  203.716503]  ? generic_hdmi_init+0x21/0x140 [snd_hda_codec_hdmi]
+[  203.716505]  generic_hdmi_init+0x21/0x140 [snd_hda_codec_hdmi]
+[  203.716507]  generic_hdmi_resume+0x18/0x60 [snd_hda_codec_hdmi]
+[  203.716512]  hda_call_codec_resume+0xc2/0x130 [snd_hda_codec]
+[  203.716517]  hda_codec_runtime_resume+0x2a/0x60 [snd_hda_codec]
+[  203.716520]  __rpm_callback+0x7a/0x140
+[  203.716524]  ? snd_hda_codec_device_new+0x2a0/0x2a0 [snd_hda_codec]
+[  203.716529]  ? snd_hda_codec_device_new+0x2a0/0x2a0 [snd_hda_codec]
+[  203.716531]  rpm_callback+0x1a/0x70
+[  203.716535]  ? snd_hda_codec_device_new+0x2a0/0x2a0 [snd_hda_codec]
+[  203.716537]  rpm_resume+0x52c/0x700
+[  203.716538]  ? _raw_spin_lock_irqsave+0x32/0x40
+[  203.716540]  __pm_runtime_resume+0x43/0x90
+[  203.716543]  snd_hdac_power_up_pm+0x4d/0x50 [snd_hda_core]
+[  203.716546]  hdmi_present_sense+0x34/0x340 [snd_hda_codec_hdmi]
+[  203.716548]  ? finish_task_switch+0x89/0x210
+[  203.716550]  check_presence_and_report+0x7a/0xb0 [snd_hda_codec_hdmi]
+[  203.716553]  hdmi_unsol_event+0x57/0x60 [snd_hda_codec_hdmi]
+[  203.716557]  ? hda_codec_match+0x70/0x70 [snd_hda_codec]
+[  203.716561]  hda_codec_unsol_event+0x12/0x20 [snd_hda_codec]
+[  203.716564]  snd_hdac_bus_process_unsol_events+0x51/0x60 [snd_hda_core]
+[  203.716566]  process_one_work+0x230/0x530
+[  203.716567]  worker_thread+0x37/0x410
+[  203.716569]  kthread+0xf5/0x110
+[  203.716570]  ? process_one_work+0x530/0x530
+[  203.716572]  ? kthread_create_worker_on_cpu+0x20/0x20
+[  203.716574]  ret_from_fork+0x2e/0x38
+
+Looks like commit ade49db337a9 ("ALSA: hda/hdmi - Allow audio
+component for AMD/ATI and Nvidia HDMI") introduced pcm_lock
+to generic_hdmi_init().
+
+-- =
+
+Ville Syrj=E4l=E4
+Intel
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

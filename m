@@ -2,78 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EE30E7CDD
-	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 00:31:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8AADDE7E9D
+	for <lists+alsa-devel@lfdr.de>; Tue, 29 Oct 2019 03:43:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7EF8321A2;
-	Tue, 29 Oct 2019 00:30:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EF8321A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2CCC521A5;
+	Tue, 29 Oct 2019 03:42:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2CCC521A5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572305499;
-	bh=KG1t0cIUS5FYrrqFQiGIQvS6vER1vHwsXklyg4Q0WvU=;
+	s=default; t=1572316993;
+	bh=9w4+bvXygTn0Lr9BvpAqYMA4uBAbd4rniORMyr1Ilq8=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kehyZ6dNTrQuYOEYbwX4TKd3qU9OrLwSzz1VTjUc9Tug9Fp0l+4l6muP7T5Io8CZ0
-	 HD+ku1rDd36aXb9NRWXAONCVXTX1qaz2qECpIwMTJ/J16W6C5/YXxbNNvD9QDSLWlM
-	 TXgs50jdN/7yubpJUkiUt0jAqcYAjW7sLqmP4agQ=
+	b=iIkA0FmlcRlaHlG9A3rbNy5qLLxIsv/yhO+INR+77e7UsfrnyrFKxrLMNS4VmBkGu
+	 voWzIUV4buNIkIeFsuGtWVuK9/1EveM+URijPrNnPyO2Zz6ruV8ox5Zbs2wgCspINw
+	 e9y1o+7zG5JZ7Z7vX7pSw8HrlyYY4WuFE90BXWSs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8950DF80361;
-	Tue, 29 Oct 2019 00:29:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B0DFF80392;
+	Tue, 29 Oct 2019 03:41:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 321DCF80361; Tue, 29 Oct 2019 00:29:47 +0100 (CET)
+ id 1B2B7F80392; Tue, 29 Oct 2019 03:41:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-5.8 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_14,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_SPF_WL
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C88EDF8011D
- for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 00:29:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C88EDF8011D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="r6Be/t5h"
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6E23A21920
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 23:29:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1572305380;
- bh=7Gaaf6qwiBEYhOFxiCWLOekDtJw6Ox4++B/1fEyh4/k=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=r6Be/t5h+cVOxrGvrcglVP5hJwDvjL5PLKNDq90oCNRJLp9UcsbiZpQ/MqVTTFM7D
- MPfnkF5Oh2r9PkgqTr1XvHrvyE9ICsO86YKWf9p2o/vI04SyzrzoOc6wbIkJ/rU7KC
- iwwFa19gEZ3MuO1igXE9398TuK4RMhNOST+UF9fc=
-Received: by mail-qt1-f172.google.com with SMTP id g50so17354962qtb.4
- for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 16:29:40 -0700 (PDT)
-X-Gm-Message-State: APjAAAVgpustmKAgkxa2Z20vAYZtVeKB08HQeS3IOxoAaM5VmR4Cx2Y2
- zdDDLzv2NqLprtVapn4WKXyIAxhJLy0Ejnp/+w==
-X-Google-Smtp-Source: APXvYqw0R7s1hrV6VYjOGPRDkr+OyJrA+Qw1rwyUmS5BM2DLn9OgWHjM15sPoWVzEF/ayMDFYuIjBF4P3C3Nu05OPqg=
-X-Received: by 2002:a0c:ed29:: with SMTP id u9mr4303137qvq.136.1572305379547; 
- Mon, 28 Oct 2019 16:29:39 -0700 (PDT)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 02F9CF80269
+ for <alsa-devel@alsa-project.org>; Tue, 29 Oct 2019 03:41:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 02F9CF80269
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="VLQKO+JO"
+Received: by mail-wr1-x444.google.com with SMTP id r1so11932714wrs.9
+ for <alsa-devel@alsa-project.org>; Mon, 28 Oct 2019 19:41:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=ZeDXYfJYer9ewRjx0PKDp7gkl9UyDafoP/CtcLx8QMs=;
+ b=VLQKO+JOvP8uz/jmVZM9OjdCfHDXyDMWpkMpTUHQHfjmA84+CUWD7XxXQNaduG/DhK
+ WpLIlhGmDUXteBLSWlDLv3lLQKGl9plS/P7jNHsE1n2OgqkcjY1MB0T3Q0WBTvNA1F40
+ PLq6JygSU3JQITuvsF6azO0JElsbcTQp8BtSk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=ZeDXYfJYer9ewRjx0PKDp7gkl9UyDafoP/CtcLx8QMs=;
+ b=FSapqL0vu1P6Ul4jIrs3A/ybD7jVcNkVi5inOA4zB319NFriP0c1Lo/6G6kjuTCzP3
+ mvbH/K7EG7hO5nBYo++FkRgRoOMqX3ZxVP3iXYZ7JH9JVTUpb+sLu9vgO6PmwUfzAFyY
+ lWRPC1LCeTc4XpxKH0CFwvEmjPBupKsxSc/sJh5VV/VRQX7P/bfKNeelcWfcaTJ1CkiN
+ uwX2dRWk99tKM7K7XlY9MehpztDUIcWXU2ustoGHW9/g+tJZp0G2WmTak02VCirP30qB
+ EjWqElbjnVjbaiKxaJ+A3worCSM9AE0KAtZ5YZB6eCfh1xVZuSkRZe1YEWuvi4RusZ3j
+ zGpQ==
+X-Gm-Message-State: APjAAAWc7QQ6n2Gu6eQzHnnDsBE4WUwUPIW6749A9unIGIKUDXHNNjO3
+ uHBfR0h7anp8FwDoRgRyDG3En5B7xm88pJ9MLFeoyA==
+X-Google-Smtp-Source: APXvYqyc+JXXHY09WmrhUa6gx/7O5d2iKpnoJiK3FXpiuNcBFCoy0/gMtIdx+mtcV6BqjcvdZ3c6ru0/7R8MCJ1fJrA=
+X-Received: by 2002:adf:e806:: with SMTP id o6mr15942278wrm.139.1572316882248; 
+ Mon, 28 Oct 2019 19:41:22 -0700 (PDT)
 MIME-Version: 1.0
-References: <20191021140816.262401-1-nuno.sa@analog.com>
- <20191021140816.262401-2-nuno.sa@analog.com>
-In-Reply-To: <20191021140816.262401-2-nuno.sa@analog.com>
-From: Rob Herring <robh+dt@kernel.org>
-Date: Mon, 28 Oct 2019 18:29:28 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqL_9pWQMbqyBuKGJQuxaoeUSbPGj4Y22z0yUK-oa1OSAQ@mail.gmail.com>
-Message-ID: <CAL_JsqL_9pWQMbqyBuKGJQuxaoeUSbPGj4Y22z0yUK-oa1OSAQ@mail.gmail.com>
-To: =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Linux-ALSA <alsa-devel@alsa-project.org>, Lars-Peter Clausen <lars@metafoo.de>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH 1/2] dt-bindings: asoc: adau7118: Cleanup
+References: <20191025133007.11190-4-cychiang@chromium.org>
+ <201910290345.w2EEW5S3%lkp@intel.com>
+In-Reply-To: <201910290345.w2EEW5S3%lkp@intel.com>
+From: Cheng-yi Chiang <cychiang@chromium.org>
+Date: Tue, 29 Oct 2019 10:40:55 +0800
+Message-ID: <CAFv8NwJYrpT=hCFwWfbdRvC971X-XGS-mjEBJrggQTJ02nhv7g@mail.gmail.com>
+To: kbuild test robot <lkp@intel.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Heiko Stuebner <heiko@sntech.de>,
+ Neil Armstrong <narmstrong@baylibre.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, linux-kernel <linux-kernel@vger.kernel.org>,
+ Hans Verkuil <hverkuil@xs4all.nl>, Andrzej Hajda <a.hajda@samsung.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-rockchip@lists.infradead.org, Dylan Reid <dgreid@chromium.org>,
+ devicetree@vger.kernel.org, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Jonas Karlman <jonas@kwiboo.se>, Liam Girdwood <lgirdwood@gmail.com>,
+ Russell King <rmk+kernel@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Jernej Skrabec <jernej.skrabec@siol.net>,
+ kbuild-all@lists.01.org, Doug Anderson <dianders@chromium.org>,
+ Mark Brown <broonie@kernel.org>, Daniel Vetter <daniel@ffwll.ch>
+Subject: Re: [alsa-devel] [PATCH v8 3/6] ASoC: rockchip_max98090: Optionally
+ support HDMI use case
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,57 +104,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gTW9uLCBPY3QgMjEsIDIwMTkgYXQgOTowOCBBTSBOdW5vIFPDoSA8bnVuby5zYUBhbmFsb2cu
-Y29tPiB3cm90ZToKPgo+IFRoaXMgY2hhbmdlcyBhcmUgaW4gYWNjb3JkYW5jZSB3aXRoIHRoZSBy
-ZXZpZXcgZG9uZSB0byB0aGlzIGJpbmRpbmdzLgo+IFRoaXMgaXMgYSBmb2xsb3ctdXAgcGF0Y2gg
-dG8gOTY5ZDQ5YjJjZGM4Lgo+Cj4gU2lnbmVkLW9mZi1ieTogTnVubyBTw6EgPG51bm8uc2FAYW5h
-bG9nLmNvbT4KPiAtLS0KPiAgLi4uL2JpbmRpbmdzL3NvdW5kL2FkaSxhZGF1NzExOC55YW1sICAg
-ICAgICAgIHwgMjUgKysrKysrKystLS0tLS0tLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwgMTAgaW5z
-ZXJ0aW9ucygrKSwgMTUgZGVsZXRpb25zKC0pCgpTdGlsbCBzb21lIGlzc3VlcyBoZXJlLi4uCgo+
-Cj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9h
-ZGksYWRhdTcxMTgueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3Vu
-ZC9hZGksYWRhdTcxMTgueWFtbAo+IGluZGV4IGNmY2VmNjAyYjNkOS4uYzNmMTBhZmJkZDZmIDEw
-MDY0NAo+IC0tLSBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9hZGks
-YWRhdTcxMTgueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9z
-b3VuZC9hZGksYWRhdTcxMTgueWFtbAo+IEBAIC0yNiwxMyArMjYsMTEgQEAgcHJvcGVydGllczoK
-PiAgICAiI3NvdW5kLWRhaS1jZWxscyI6Cj4gICAgICBjb25zdDogMAo+Cj4gLSAgSU9WREQtc3Vw
-cGx5Ogo+ICsgIGlvdmRkLXN1cHBseToKPiAgICAgIGRlc2NyaXB0aW9uOiBEaWdpdGFsIElucHV0
-L091dHB1dCBQb3dlciBTdXBwbHkuCj4gLSAgICAkcmVmOiAiL3NjaGVtYXMvdHlwZXMueWFtbCMv
-ZGVmaW5pdGlvbnMvcGhhbmRsZSIKPgo+IC0gIERWREQtc3VwcGx5Ogo+ICsgIGR2ZGQtc3VwcGx5
-Ogo+ICAgICAgZGVzY3JpcHRpb246IEludGVybmFsIENvcmUgRGlnaXRhbCBQb3dlciBTdXBwbHku
-Cj4gLSAgICAkcmVmOiAiL3NjaGVtYXMvdHlwZXMueWFtbCMvZGVmaW5pdGlvbnMvcGhhbmRsZSIK
-Pgo+ICAgIGFkaSxkZWNpbWF0aW9uLXJhdGlvOgo+ICAgICAgZGVzY3JpcHRpb246IHwKPiBAQCAt
-NTgsMjMgKzU2LDIxIEBAIHByb3BlcnRpZXM6Cj4gIHJlcXVpcmVkOgo+ICAgIC0gIiNzb3VuZC1k
-YWktY2VsbHMiCj4gICAgLSBjb21wYXRpYmxlCj4gLSAgLSBJT1ZERC1zdXBwbHkKPiAtICAtIERW
-REQtc3VwcGx5Cj4gKyAgLSBpb3ZkZC1zdXBwbHkKPiArICAtIGR2ZGQtc3VwcGx5Cj4KPiAgZXhh
-bXBsZXM6Cj4gICAgLSB8Cj4gLSAgICBpMmMwIHsKPiArICAgIGkyYyB7Cj4gICAgICAgICAgLyog
-ZXhhbXBsZSB3aXRoIGkyYyBzdXBwb3J0ICovCj4gICAgICAgICAgI2FkZHJlc3MtY2VsbHMgPSA8
-MT47Cj4gICAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47Cj4gLSAgICAgICAgc3RhdHVzID0gIm9r
-YXkiOwo+IC0gICAgICAgIGFkYXU3MTE4X2NvZGVjOiBhZGF1NzExOC1jb2RlY0AxNCB7Cj4gKyAg
-ICAgICAgYWRhdTcxMThfY29kZWM6IGF1ZGlvLWNvZGVjQDE0IHsKCkRvY3VtZW50YXRpb24vZGV2
-aWNldHJlZS9iaW5kaW5ncy9zb3VuZC9hZGksYWRhdTcxMTguZXhhbXBsZS5kdHM6MjEuNDQtMjku
-MTU6Cldhcm5pbmcgKGkyY19idXNfcmVnKTogL2V4YW1wbGUtMC9pMmMvYXVkaW8tY29kZWNAMTQ6
-IEkyQyBidXMgdW5pdAphZGRyZXNzIGZvcm1hdCBlcnJvciwgZXhwZWN0ZWQgImUiCgpVbml0LWFk
-ZHJlc3Mgc2hvdWxkIGJlIGluIGhleC4KCj4gICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0g
-ImFkaSxhZGF1NzExOCI7Cj4gICAgICAgICAgICAgICAgICByZWcgPSA8MTQ+Owo+ICAgICAgICAg
-ICAgICAgICAgI3NvdW5kLWRhaS1jZWxscyA9IDwwPjsKPiAtICAgICAgICAgICAgICAgIHN0YXR1
-cyA9ICJva2F5IjsKPiAtICAgICAgICAgICAgICAgIElPVkRELXN1cHBseSA9IDwmc3VwcGx5PjsK
-PiAtICAgICAgICAgICAgICAgIERWREQtc3VwcGx5ID0gPCZzdXBwbHk+Owo+ICsgICAgICAgICAg
-ICAgICAgaW92ZGQtc3VwcGx5ID0gPCZzdXBwbHk+Owo+ICsgICAgICAgICAgICAgICAgZHZkZC1z
-dXBwbHkgPSA8JnN1cHBseT47Cj4gICAgICAgICAgICAgICAgICBhZGkscGRtLWNsay1tYXAgPSA8
-MSAxIDAgMD47Cj4gICAgICAgICAgICAgICAgICBhZGksZGVjaW1hdGlvbi1yYXRpbyA9IDwxNj47
-Cj4gICAgICAgICAgfTsKPiBAQCAtODQsNyArODAsNiBAQCBleGFtcGxlczoKPiAgICAgIGFkYXU3
-MTE4X2NvZGVjX2h3OiBhZGF1NzExOC1jb2RlYy1odyB7Cj4gICAgICAgICAgICAgIGNvbXBhdGli
-bGUgPSAiYWRpLGFkYXU3MTE4IjsKPiAgICAgICAgICAgICAgI3NvdW5kLWRhaS1jZWxscyA9IDww
-PjsKPiAtICAgICAgICAgICAgc3RhdHVzID0gIm9rYXkiOwo+IC0gICAgICAgICAgICBJT1ZERC1z
-dXBwbHkgPSA8JnN1cHBseT47Cj4gLSAgICAgICAgICAgIERWREQtc3VwcGx5ID0gPCZzdXBwbHk+
-Owo+ICsgICAgICAgICAgICBpb3ZkZC1zdXBwbHkgPSA8JnN1cHBseT47Cj4gKyAgICAgICAgICAg
-IGR2ZGQtc3VwcGx5ID0gPCZzdXBwbHk+Owo+ICAgICAgfTsKPiAtLQo+IDIuMjMuMAo+Cl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFp
-bGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxz
-YS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+On Tue, Oct 29, 2019 at 3:10 AM kbuild test robot <lkp@intel.com> wrote:
+>
+> Hi Cheng-Yi,
+>
+> I love your patch! Yet something to improve:
+>
+> [auto build test ERROR on rockchip/for-next]
+> [also build test ERROR on v5.4-rc5 next-20191028]
+> [if your patch is applied to the wrong git tree, please drop us a note to help
+> improve the system. BTW, we also suggest to use '--base' option to specify the
+> base tree in git format-patch, please see https://stackoverflow.com/a/37406982]
+>
+> url:    https://github.com/0day-ci/linux/commits/Cheng-Yi-Chiang/Add-HDMI-jack-support-on-RK3288/20191028-212502
+> base:   https://git.kernel.org/pub/scm/linux/kernel/git/mmind/linux-rockchip.git for-next
+> config: i386-allmodconfig (attached as .config)
+> compiler: gcc-7 (Debian 7.4.0-14) 7.4.0
+> reproduce:
+>         # save the attached .config to linux build tree
+>         make ARCH=i386
+>
+> If you fix the issue, kindly add following tag
+> Reported-by: kbuild test robot <lkp@intel.com>
+>
+> All errors (new ones prefixed by >>):
+>
+>    sound/soc/rockchip/snd-soc-rockchip-max98090: struct of_device_id is 196 bytes.  The last of 3 is:
+>    0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x72 0x6f 0x63 0x6b 0x63 0x68 0x69 0x70 0x2c 0x72 0x6f 0x63 0x6b 0x63 0x68 0x69 0x70 0x2d 0x61 0x75 0x64 0x69 0x6f 0x2d 0x6d 0x61 0x78 0x39 0x38 0x30 0x39 0x30 0x2d 0x68 0x64 0x6d 0x69 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x10 0x00 0x00 0x00
+> >> FATAL: sound/soc/rockchip/snd-soc-rockchip-max98090: struct of_device_id is not terminated with a NULL entry!
+
+Please ignore this error for v8 patch series because the change in
+rockchip_max98090.c of of_device_id is removed in v9 patch series.
+Thanks!
+
+>
+> ---
+> 0-DAY kernel test infrastructure                Open Source Technology Center
+> https://lists.01.org/pipermail/kbuild-all                   Intel Corporation
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

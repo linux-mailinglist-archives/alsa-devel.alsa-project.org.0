@@ -2,61 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8295DE9DCD
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 15:46:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C354E9E20
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 15:58:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECED122A3;
-	Wed, 30 Oct 2019 15:45:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECED122A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id F184122FD;
+	Wed, 30 Oct 2019 15:57:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F184122FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572446806;
-	bh=sc6ZUYwHz8oMDqXT9dNOM/MfJUb3m9LY2OD3zkPl9o4=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1572447507;
+	bh=0h4icZLCTva4lgBpdc/0vLWBaFdWLGgYx7b0A0qKUtc=;
+	h=In-Reply-To:References:From:To:Date:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T0kQOq8uz4ZOxL1ilz0kSaV019cY4MfkdjWjCs4FSf79KKZsymVNAJ3Gcle4xZRp4
-	 nNMDEK4ZWvrGEW+FUCsVgYYHeUmfa75huQ8qfaShmHs1CadS8D+/mtTPg/csbLKKK9
-	 z/ZqxyMJ+e4TvyepS3Bcy0b9rnzM3Sv9I5JcOjrs=
+	b=U/4BGsv82LTrBuaZnWjfH4p0qS+3dqiKenRP1TZGBsGnguS2/04NvEP0WfeCssaX4
+	 mObjeECU/A22AaEmIWhzmahi5lu2hk0rhbzCInHiBjmEZDPvnOzgGAw7SIDjjisGBX
+	 QAFvPBWMM4yajNFIozQsRcViQr7BFLEAvjHssSak=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90A07F80361;
-	Wed, 30 Oct 2019 15:45:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 21139F8044A;
+	Wed, 30 Oct 2019 15:56:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D53F5F8044A; Wed, 30 Oct 2019 15:40:19 +0100 (CET)
+ id F3BEAF80361; Wed, 30 Oct 2019 15:54:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heaven.argudo.org (heaven.argudo.org [195.154.250.235])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D16AF802BD
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 15:40:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D16AF802BD
-Received: by heaven.argudo.org (Postfix, from userid 1008)
- id B88DA1502247; Wed, 30 Oct 2019 15:40:10 +0100 (CET)
-Received: from deiphobe (maison [78.229.44.71]) (Authenticated sender: jpa)
- by heaven.argudo.org (Postfix) with ESMTPSA id A3A121500724;
- Wed, 30 Oct 2019 15:40:03 +0100 (CET)
-Message-ID: <b5a6913851d53f19a892ee88042921a38b1a7628.camel@argudo.org>
-From: Jean-Paul Argudo <jpa@argudo.org>
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Date: Wed, 30 Oct 2019 15:40:03 +0100
-In-Reply-To: <20191030115001.GB6313@workstation>
-References: <769b9f5dae864cf1eb433ab84eed385a161931c8.camel@argudo.org>
- <20191030091540.GA1856@workstation>
- <ad6f8c036538aa755017efe976ac223bb7c90be3.camel@argudo.org>
- <c4b792255de178094fd53d80a25fc75b795e3acb.camel@argudo.org>
- <20191030115001.GB6313@workstation>
-Organization: PostgreSQL Fr
-Content-Type: multipart/mixed; boundary="=-xveMYzbiY7c2xZSdZcw6"
-User-Agent: Evolution 3.34.1-2 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27D60F802A0
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 15:51:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27D60F802A0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="bNgUZU71"
+Received: by mail-pf1-x441.google.com with SMTP id 193so454950pfc.13
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 07:51:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=message-id:mime-version:content-transfer-encoding:in-reply-to
+ :references:from:subject:to:cc:user-agent:date;
+ bh=kUX+QB+n6uPsMbBuXUFFDaJg5lKGQ/rdJhKtAOQxM68=;
+ b=bNgUZU71v+0fmmNO32iK5sG8ShIFzxEVanGouBgUUl1TWyrYV9O7bG3dlDm8YLckH4
+ d+aygtJELB/eg5oR8mSOvB/gHvYdLip5dMSYcpm4ZFmdvQ9c11yC9alSFajCI0d29EH6
+ lsn085FJbQRp1w/1MosfnmNAbXjWAU5xYDf3o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:mime-version
+ :content-transfer-encoding:in-reply-to:references:from:subject:to:cc
+ :user-agent:date;
+ bh=kUX+QB+n6uPsMbBuXUFFDaJg5lKGQ/rdJhKtAOQxM68=;
+ b=FGTj4tztOlJ6WjGAB69PHj67NCHSwkBeqw6P8ENM5T25XUVXJU/7mecKwGUnScl1d0
+ F74dOz8qI1TSPJlz6V9IWL5iJqqKZe3wJdfR84G0cFRabJKdCC623N1ZwUCqzR1NzvUz
+ /sPIclJnMWvFvjlofsPjX33IjxlCpGLjnBVdxLnFP45L52b363d9NBBpDWsVX8HhYicb
+ owGGDnBxW5TV4SMIrxdF8OtHrbU4pFNi5GKmu46b172/0aXnjO58eBl0eqbBflRKx6Ch
+ 49FcGqN1noA5/22TEvNPEcEF2YTz07u7cEXH8tR3Aom8jyog7Xks/8Zu1JXUxD+qHfYy
+ f/pg==
+X-Gm-Message-State: APjAAAVhvu/tsAlfQKJG7un/3msQsMRatDIO5Jj7niwezIkxPy6hhEDU
+ BItFFJKGLu3xYdeuq8yyLZNrmQ==
+X-Google-Smtp-Source: APXvYqzbFFg5OC6TJ9lnqjvMpIqFnf7mzbiND6t96bWdmgGcpqetszJAYKhFjob6bIjnEsoSQ7lghA==
+X-Received: by 2002:a63:3442:: with SMTP id b63mr8798587pga.264.1572447055787; 
+ Wed, 30 Oct 2019 07:50:55 -0700 (PDT)
+Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
+ by smtp.gmail.com with ESMTPSA id s11sm2394909pjp.26.2019.10.30.07.50.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Oct 2019 07:50:55 -0700 (PDT)
+Message-ID: <5db9a34f.1c69fb81.23dfc.7ea5@mx.google.com>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] snd-bebob : from kernel 4.13 to 5.3.19 and .20
+In-Reply-To: <20191029112700.14548-10-srinivas.kandagatla@linaro.org>
+References: <20191029112700.14548-1-srinivas.kandagatla@linaro.org>
+ <20191029112700.14548-10-srinivas.kandagatla@linaro.org>
+From: Stephen Boyd <swboyd@chromium.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org,
+ lee.jones@linaro.org, linus.walleij@linaro.org, robh@kernel.org
+User-Agent: alot/0.8.1
+Date: Wed, 30 Oct 2019 07:50:54 -0700
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ bgoswami@codeaurora.org, vinod.koul@linaro.org, spapothi@codeaurora.org,
+ linux-kernel@vger.kernel.org,
+ Yeleswarapu Nagaradhesh <nagaradh@codeaurora.org>, linux-gpio@vger.kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Subject: Re: [alsa-devel] [PATCH v3 09/11] pinctrl: qcom-wcd934x: Add
+	support to wcd934x pinctrl driver.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,585 +100,237 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---=-xveMYzbiY7c2xZSdZcw6
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: 8bit
-
-Hi,
-
-Le mercredi 30 octobre 2019 à 20:50 +0900, Takashi Sakamoto a écrit :
-> Hi,
+Quoting Srinivas Kandagatla (2019-10-29 04:26:58)
+> From: Yeleswarapu Nagaradhesh <nagaradh@codeaurora.org>
 > 
-> On Wed, Oct 30, 2019 at 10:40:18AM +0100, Jean-Paul Argudo wrote:
-> > > I'll install Eoan kernel and test my devices.
-> > > (but I don't have Saffire and Saffire LE...) I'd like you to wait
-> > > for my test report.
-> > 
-> > What I can say is that with kernel 4.13 under Ubunto Disco
-> > everything
-> > was fine :-(
+> This patch adds support to wcd934x pinctrl block found in
+> WCD9340/WC9341 Audio codecs.
 > 
-> I install Eoan (linux-image-5.3.0-19-generic:5.3.0-19.20) and test
-> ALSA
-> bebob driver with my test devices:
->  - Yamaha GO46 (DM1000 ASIC)
->  - M-Audio FireWire Solo (DM1000 ASIC)
->  - Behringer FCA610 (DM1500 ASIC)
->  - Focusrite SaffirePro 26 I/O (DM1000E)
+> [Srini: multiple cleanups to the code]
+
+This goes after the author signoff and before yours. Can you add more
+details too?
+
+> Signed-off-by: Yeleswarapu Nagaradhesh <nagaradh@codeaurora.org>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> ---
+>  drivers/pinctrl/qcom/Kconfig                |   7 +
+>  drivers/pinctrl/qcom/Makefile               |   1 +
+>  drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c | 365 ++++++++++++++++++++
+>  3 files changed, 373 insertions(+)
+>  create mode 100644 drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c
 > 
-> However I don't find similar discontinuities. This means that you
-> encounter model-specific issue as regression I didn't realized.
+> diff --git a/drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c b/drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c
+> new file mode 100644
+> index 000000000000..1aff88d0bcb3
+> --- /dev/null
+> +++ b/drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c
+> @@ -0,0 +1,365 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
+> +// Copyright (c) 2019, Linaro Limited
+> +
+> +#include <linux/module.h>
+> +#include <linux/gpio.h>
+> +#include <linux/interrupt.h>
+> +#include <linux/regmap.h>
+> +#include <linux/slab.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/of_gpio.h>
+> +
+> +#include "../core.h"
+> +#include "../pinctrl-utils.h"
+> +
+> +#define WCD_REG_DIR_CTL_OFFSET 0x42
+> +#define WCD_REG_VAL_CTL_OFFSET 0x43
+> +#define WCD_GPIO_PULL_UP       1
+> +#define WCD_GPIO_PULL_DOWN     2
+> +#define WCD_GPIO_BIAS_DISABLE  3
+> +#define WCD_GPIO_STRING_LEN    20
+> +#define WCD934X_NPINS          5
+> +
+> +/**
+> + * struct wcd_gpio_pad - keep current GPIO settings
+> + * @offset: offset of gpio.
+> + * @is_valid: Set to false, when GPIO in high Z state.
+> + * @value: value of a pin
+> + * @output_enabled: Set to true if GPIO is output and false if it is input
+> + * @pullup: Constant current which flow through GPIO output buffer.
+> + * @strength: Drive strength of a pin
+> + */
+> +struct wcd_gpio_pad {
+> +       u16  offset;
+> +       bool is_valid;
+> +       bool value;
+> +       bool output_enabled;
+> +       unsigned int pullup;
+> +       unsigned int strength;
+> +};
+> +
+> +struct wcd_gpio_priv {
+> +       struct device *dev;
+> +       struct regmap *map;
+> +       struct pinctrl_dev *ctrl;
+> +       struct gpio_chip chip;
+> +};
+> +
+> +static int wcd_gpio_read(struct wcd_gpio_priv *priv_data,
+> +                        struct wcd_gpio_pad *pad, unsigned int addr)
+> +{
+> +       unsigned int val;
+> +       int ret;
+> +
+> +       ret = regmap_read(priv_data->map, addr, &val);
+> +       if (ret < 0)
+> +               dev_err(priv_data->dev, "%s: read 0x%x failed\n",
+> +                       __func__, addr);
+> +       else
+> +               ret = (val >> pad->offset);
+> +
+> +       return ret;
+> +}
+> +
+> +static int wcd_gpio_write(struct wcd_gpio_priv *priv_data,
+> +                         struct wcd_gpio_pad *pad, unsigned int addr,
+> +                         unsigned int val)
+> +{
+> +       int ret;
+> +
+> +       ret = regmap_update_bits(priv_data->map, addr, (1 << pad->offset),
+> +                                val << pad->offset);
+> +       if (ret < 0)
+> +               dev_err(priv_data->dev, "write 0x%x failed\n", addr);
 
-ok.
+Is there value in these error messages? Also, use %#x to get '0x'.
 
-> 
-> For my information, would you please get output from nodes on procfs?
+> +
+> +       return ret;
+> +}
+[...]
+> +
+> +static int wcd_pinctrl_probe(struct platform_device *pdev)
+> +{
+> +       struct device *dev = &pdev->dev;
+> +       struct pinctrl_pin_desc *pindesc;
+> +       struct pinctrl_desc *pctrldesc;
+> +       struct wcd_gpio_pad *pad, *pads;
+> +       struct wcd_gpio_priv *priv_data;
+> +       u32 npins = WCD934X_NPINS;
+> +       char **name;
+> +       int i;
+> +
+> +       priv_data = devm_kzalloc(dev, sizeof(*priv_data), GFP_KERNEL);
+> +       if (!priv_data)
+> +               return -ENOMEM;
+> +
+> +       priv_data->dev = dev;
+> +       priv_data->map = dev_get_regmap(dev->parent, NULL);
+> +       if (!priv_data->map) {
+> +               dev_err(dev, "%s: failed to get regmap\n", __func__);
+> +               return  -EINVAL;
+> +       }
+> +
+> +       pindesc = devm_kcalloc(dev, npins, sizeof(*pindesc), GFP_KERNEL);
+> +       if (!pindesc)
+> +               return -ENOMEM;
+> +
+> +       pads = devm_kcalloc(dev, npins, sizeof(*pads), GFP_KERNEL);
+> +       if (!pads)
+> +               return -ENOMEM;
 
+Is it possible to put the pad struct around the pindesc struct? It's
+sort of sad that we have to allocate a chunk of memory twice for the
+pindesc and the pads when we could either use container_of() on the
+pindesc or just point the pindesc driver data member to the container
+structure for the qcom specific bits.
 
-$ cat /proc/asound/cards 
- 0 [NVidia         ]: HDA-Intel - HDA NVidia
-                      HDA NVidia at 0xf7080000 irq 17
- 1 [headset        ]: USB-Audio - Trust GXT 363 headset
-                      C-Media Electronics Incÿ Trust GXT 363 headset at
-usb-0000:00:14.0-7, full spe
- 2 [U0x46d0x825    ]: USB-Audio - USB Device 0x46d:0x825
-                      USB Device 0x46d:0x825 at usb-0000:00:14.0-4.1,
-high speed
- 3 [SaffireLE      ]: BeBoB - SaffireLE
-                      Focusrite SaffireLE (id:2, rev:1), GUID
-00130e010004394c at fw1.0, S400
+> +
+> +       pctrldesc = devm_kzalloc(dev, sizeof(*pctrldesc), GFP_KERNEL);
+> +       if (!pctrldesc)
+> +               return -ENOMEM;
+> +
+> +       pctrldesc->pctlops = &wcd_pinctrl_ops;
+> +       pctrldesc->confops = &wcd_pinconf_ops;
+> +       pctrldesc->owner = THIS_MODULE;
+> +       pctrldesc->name = dev_name(dev);
+> +       pctrldesc->pins = pindesc;
+> +       pctrldesc->npins = npins;
+> +
+> +       name = devm_kcalloc(dev, npins, sizeof(char *), GFP_KERNEL);
+> +       if (!name)
+> +               return -ENOMEM;
+> +
+> +       for (i = 0; i < npins; i++, pindesc++) {
+> +               name[i] = devm_kzalloc(dev, sizeof(char) * WCD_GPIO_STRING_LEN,
+> +                                      GFP_KERNEL);
+> +               if (!name[i])
+> +                       return -ENOMEM;
+> +
+> +               pad = &pads[i];
+> +               pindesc->drv_data = pad;
+> +               pindesc->number = i;
+> +               snprintf(name[i], (WCD_GPIO_STRING_LEN - 1), "gpio%d", (i+1));
+> +               pindesc->name = name[i];
 
+Why not use devm_kasprintf()? The 'name' array is also unnecessary?
 
->  * /proc/asound/cardX/firewire/clock
+> +               pad->offset = i;
+> +               pad->is_valid  = true;
+> +       }
+> +
+> +       priv_data->chip = wcd_gpio_chip;
+> +       priv_data->chip.parent = dev;
+> +       priv_data->chip.base = -1;
+> +       priv_data->chip.ngpio = npins;
+> +       priv_data->chip.label = dev_name(dev);
+> +       priv_data->chip.of_gpio_n_cells = 2;
+> +       priv_data->chip.can_sleep = false;
+> +       platform_set_drvdata(pdev, priv_data);
+> +
+> +       priv_data->ctrl = devm_pinctrl_register(dev, pctrldesc, priv_data);
+> +       if (IS_ERR(priv_data->ctrl)) {
+> +               dev_err(dev, "%s: failed to register to pinctrl\n", __func__);
+> +               return PTR_ERR(priv_data->ctrl);
+> +       }
+> +
+> +       return gpiochip_add_data(&priv_data->chip, priv_data);
 
-$ cat /proc/asound/card3/firewire/clock 
-Sampling rate: 44100
-Clock Source: Internal
+WHy not use devm_gpiochip_add_data()?
 
->  * /proc/asound/cardX/firewire/firmware
+> +}
+> +
+> +static int wcd_pinctrl_remove(struct platform_device *pdev)
+> +{
+> +       struct wcd_gpio_priv *priv_data = platform_get_drvdata(pdev);
+> +
+> +       gpiochip_remove(&priv_data->chip);
+> +
+> +       return 0;
 
-$ cat /proc/asound/card3/firewire/firmware 
-Manufacturer:	bridgeCo
-Protocol Ver:	1
-Build Ver:	0
-GUID:		0x00130E010004394C
-Model ID:	0x02
-Model Rev:	1
-Firmware Date:	20061207
-Firmware Time:	140826
-Firmware ID:	0x0
-Firmware Ver:	16850194
-Base Addr:	0x20080000
-Max Size:	1572864
-Loader Date:	20051019
-Loader Time:	094952
+And drop this function?
 
->  * /proc/asound/cardX/firewire/formation
+> +}
+> +
+> +static const struct of_device_id wcd_pinctrl_of_match[] = {
+> +       { .compatible = "qcom,wcd9340-pinctrl" },
+> +       { .compatible = "qcom,wcd9341-pinctrl" },
+> +       { },
 
-$ cat /proc/asound/card3/firewire/formation 
-Output Stream from device:
-	Rate	PCM	MIDI
-	32000	0	0
-	44100	6	1
-	48000	6	1
-	88200	6	1
-	96000	6	1
-	176400	0	0
-	192000	0	0
-Input Stream to device:
-	Rate	PCM	MIDI
-	32000	0	0
-	44100	8	1
-	48000	8	1
-	88200	8	1
-	96000	8	1
-	176400	0	0
-	192000	0	0
+Nitpick: Drop the comma on the sentinel.
 
-((I had to replug the interface to grab this information, off course...
-It lasts a few seconds, sometimes minutes, then:
- * the interface is no longer online, turning from green to orange or
- * the interface is still green, but my computer is completely frozen
-(except the mouse pointer :-P))
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, wcd_pinctrl_of_match);
 
-> Additionally, please install 'gir1.2-hinawa-2.0' package, then clone
-> below remote repository:
->  * 
-> https://github.com/takaswie/hinawa-utils
-
-You forgot to mention a bit here :-)
-
-For the record and former users of debian/ubuntu:
-
-I had to get and install libhinawa-master.. for that, pip3 with meson,
-ninja, lib + ubuntu package libgirepository1.0-dev
-
-After the library was installed (with both sudo ninja install and/or
-ninja install), I couldn't use it:
-
-"ValueError: Namespace Hinawa not available"
-
-**I really discourage anyone to try this hard way** : DO INSTEAD:
-
-I finaly managed to download the "build" version of .debs here:
-https://salsa.debian.org/debian/libhinawa
-
-Then 
-sudo dpkg -i libhinawa-dev_1.4.0-1_amd64.deb libhinawa1_1.4.0-
-1_amd64.deb gir1.2-hinawa-2.0_1.4.0-1_amd64.deb
-
-Then I was finaly unable to use your hinawa-utils scripts !!!
-
-> 
-> This repository includes two scripts to get information from the device:
->  * hinawa-bebob-parser
->  * hinawa-bebob-connection-cui
-> 
-> When your device is detected as sound card '2' and your device is also
-> detected as '/dev/fw1', execute below:
-> 
-> $ ./hinawa-bebob-connection-cui 2 graph-connections
-
- ./hinawa-bebob-connection-cui 3 graph-connections >
-graph_connections.txt
-
-(file attached here, hope it gets thru the ML)
-
-> $ ./hinawa-bebob-parser 1 2
-
-./hinawa-bebob-parser 1 2 > parser.txt
-
-(same)
-
-> 
-> > At startup it lights green ok, but no sound is playable, then the
-> > lights turn orange (like it is when it's not working), I hear a
-> > "relay sound" (a electric clic of a relay), then, the Saffire LE
-> > disapears from the sound menu in Ubuntu sound menu.
-> 
-> Once your device is detected and ALSA bebob driver bound to it,
-> pulseaudio detects it and start PCM substream to get capabilities
-> of the device.
-> 
-> In your case, the PCM substream is corrupted by the discontinuity.
-> Then pulseaudio give up to use the device. As a result, sound menu
-> drops entry of the device.
-> 
-> I guess that the color of LED corresponds to the packet streaming.
-
-Thank you very much for the information :)
-
-> 
-> On Wed, Oct 30, 2019 at 11:12:01AM +0100, Jean-Paul Argudo wrote:
-> > But something new and maybe interesting for you : 
-> > 
-> > Oct 30 09:25:25 deiphobe pulseaudio[2589]: E: [alsa-sink-BeBoB] alsa-sink.c: ALSA woke us up to write new data to the device, but there was actually nothing to write.
-> > Oct 30 09:25:25 deiphobe pulseaudio[2589]: E: [alsa-sink-BeBoB] alsa- sink.c: Most likely this is a bug in the ALSA driver 'snd_bebob'.  Please report this issue to the ALSA developers.
-> > Oct 30 09:25:25 deiphobe pulseaudio[2589]: E: [alsa-sink-BeBoB] alsa-sink.c: We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.
->  
-> Practically these logs can be ignored. (I work to suppress the above
-> lines in development period for Linux kernel v5.5.)
-
-OK.
-
->  
-> > **And in kern.log** : at the beggining in the boot sequence (?),
-> > between FS-cache lines and usb ones: 
-> > 
-> > Oct 27 21:54:36 deiphobe kernel: [    8.742105] FS-Cache: N-key=[8] '020001bdc0a800fe'
-> > 
-> > Oct 27 21:54:40 deiphobe kernel: [   12.768168] usb 3-4.1: reset high- speed USB device number 5 using xhci_hcd
-> > Oct 27 21:54:45 deiphobe kernel: [   18.294126] snd-bebob fw1.0: transaction failed: no ack
-> > Oct 27 21:54:45 deiphobe kernel: [   18.294167] snd-bebob fw1.0: fail to get section type for isoc out plug 0: -5
-> > Oct 27 21:54:45 deiphobe kernel: [   18.294172] snd-bebob fw1.0: fail to run AMDTP slave stream:-5
-> > Oct 27 21:54:45 deiphobe kernel: [   18.306399] firewire_ohci 0000:05:01.0: DMA context still active (0x00000411)
-> > Oct 27 21:54:45 deiphobe kernel: [   18.318425] firewire_ohci 0000:05:01.0: DMA context still active (0x00000411)
-> > Oct 27 21:54:47 deiphobe kernel: [   20.311440] irq_handler: 20 callbacks suppressed
-> > Oct 27 21:54:47 deiphobe kernel: [   20.311441] firewire_ohci 0000:05:01.0: isochronous cycle inconsistent
-> > Oct 27 21:54:48 deiphobe kernel: [   21.322730] firewire_core 0000:05:01.0: phy config: new root=ffc1, gap_count=5
-> > 
-> > Oct 27 21:54:50 deiphobe kernel: [   22.970251] rfkill: input handler disabled
-> > Oct 27 20:55:10 deiphobe kernel: [   42.697284] usb 3-4.1: reset high- speed USB device number 5 using xhci_hcd
-> 
-> IEEE 1394 bus 'bus-reset' state. Just before/after the bus-reset, any
-> functionality easily fails. It's better to plug-in the device enough
-> after bootup.
-
-I'll try this if any..
-
-Typically, the unit gets up around the X.org starts... 
-
-Thanks again!
-
-Really hope the log info included here helps :)
-
-++
-
-> 
-> 
-> Regards
-> 
-> Takashi Sakamoto
-
---=-xveMYzbiY7c2xZSdZcw6
-Content-Disposition: attachment; filename="parser.txt"
-Content-Type: text/plain; name="parser.txt"; charset="ISO-8859-15"
-Content-Transfer-Encoding: base64
-
-eyJ1bml0cyI6IHsiaXNvYyI6IHsib3V0cHV0IjogeyIwIjogeyJ0eXBlIjogIklzb1N0cmVhbSIs
-ICJuYW1lIjogIlBDUiBDb21wb3VuZCBPdXRwdXQiLCAiY2hhbm5lbHMiOiBbIlJlYyAxIiwgIlJl
-YyAzIiwgIlJlYyA1IiwgIlJlYyAyIiwgIlJlYyA0IiwgIlJlYyA2IiwgIk1pZGkgSW4iXSwgImNs
-dXN0ZXJzIjogWyJMaW5lMTIiLCAiTGluZTM0IiwgIlNQRElGIiwgIk1pZGkiXSwgImlucHV0Ijog
-eyJkaXIiOiAib3V0cHV0IiwgIm1vZGUiOiAic3VidW5pdCIsICJkYXRhIjogeyJzdWJ1bml0LXR5
-cGUiOiAibXVzaWMiLCAic3VidW5pdC1pZCI6IDAsICJwbHVnIjogMH19LCAib3V0cHV0cyI6IFtd
-fSwgIjEiOiB7InR5cGUiOiAiU3luYyIsICJuYW1lIjogIlBDUiBTeW5jaCBPdXRwdXQiLCAiY2hh
-bm5lbHMiOiBbIlN5bmNoQ2hhbm5lbCAxIl0sICJjbHVzdGVycyI6IFtdLCAiaW5wdXQiOiB7fSwg
-Im91dHB1dHMiOiBbXX19LCAiaW5wdXQiOiB7IjAiOiB7InR5cGUiOiAiSXNvU3RyZWFtIiwgIm5h
-bWUiOiAiUENSIENvbXBvdW5kIElucHV0IiwgImNoYW5uZWxzIjogWyJQbGF5IDciLCAiUGxheSAx
-IiwgIlBsYXkgMyIsICJQbGF5IDUiLCAiUGxheSA4IiwgIlBsYXkgMiIsICJQbGF5IDQiLCAiUGxh
-eSA2IiwgIk1pZGkgT3V0Il0sICJjbHVzdGVycyI6IFsiTGluZTEyIiwgIkxpbmUzNCIsICJMaW5l
-NTYiLCAiU1BESUYiLCAiTWlkaSJdLCAiaW5wdXQiOiBbXSwgIm91dHB1dHMiOiBbeyJkaXIiOiAi
-aW5wdXQiLCAibW9kZSI6ICJzdWJ1bml0IiwgImRhdGEiOiB7InN1YnVuaXQtdHlwZSI6ICJtdXNp
-YyIsICJzdWJ1bml0LWlkIjogMCwgInBsdWciOiAwfX1dfSwgIjEiOiB7InR5cGUiOiAiU3luYyIs
-ICJuYW1lIjogIlBDUiBTeW5jaCBJbnB1dCIsICJjaGFubmVscyI6IFsiU3luY2hDaGFubmVsIDEi
-XSwgImNsdXN0ZXJzIjogW10sICJpbnB1dCI6IFtdLCAib3V0cHV0cyI6IFtdfX19LCAiZXh0ZXJu
-YWwiOiB7Im91dHB1dCI6IHsiMCI6IHsidHlwZSI6ICJNSURJIiwgIm5hbWUiOiAiTWlkaSBPdXRw
-dXQiLCAiY2hhbm5lbHMiOiBbIk1pZGkgT3V0Il0sICJjbHVzdGVycyI6IFtdLCAiaW5wdXQiOiB7
-ImRpciI6ICJvdXRwdXQiLCAibW9kZSI6ICJzdWJ1bml0IiwgImRhdGEiOiB7InN1YnVuaXQtdHlw
-ZSI6ICJtdXNpYyIsICJzdWJ1bml0LWlkIjogMCwgInBsdWciOiA1fX0sICJvdXRwdXRzIjogW119
-LCAiMSI6IHsidHlwZSI6ICJEaWdpdGFsIiwgIm5hbWUiOiAiU1BESUYgT3V0cHV0IiwgImNoYW5u
-ZWxzIjogWyJTUERJRiBPdXQgTCIsICJTUERJRiBPdXQgUiJdLCAiY2x1c3RlcnMiOiBbXSwgImlu
-cHV0IjogeyJkaXIiOiAib3V0cHV0IiwgIm1vZGUiOiAic3VidW5pdCIsICJkYXRhIjogeyJzdWJ1
-bml0LXR5cGUiOiAibXVzaWMiLCAic3VidW5pdC1pZCI6IDAsICJwbHVnIjogNH19LCAib3V0cHV0
-cyI6IFtdfSwgIjIiOiB7InR5cGUiOiAiQW5hbG9nIiwgIm5hbWUiOiAiQW5hbG9nIE91dHB1dCAx
-LzIiLCAiY2hhbm5lbHMiOiBbIk91dCAxIiwgIk91dCAyIl0sICJjbHVzdGVycyI6IFtdLCAiaW5w
-dXQiOiB7ImRpciI6ICJvdXRwdXQiLCAibW9kZSI6ICJzdWJ1bml0IiwgImRhdGEiOiB7InN1YnVu
-aXQtdHlwZSI6ICJtdXNpYyIsICJzdWJ1bml0LWlkIjogMCwgInBsdWciOiAxfX0sICJvdXRwdXRz
-IjogW119LCAiMyI6IHsidHlwZSI6ICJBbmFsb2ciLCAibmFtZSI6ICJBbmFsb2cgT3V0cHV0IDMv
-NCIsICJjaGFubmVscyI6IFsiT3V0IDMiLCAiT3V0IDQiXSwgImNsdXN0ZXJzIjogW10sICJpbnB1
-dCI6IHsiZGlyIjogIm91dHB1dCIsICJtb2RlIjogInN1YnVuaXQiLCAiZGF0YSI6IHsic3VidW5p
-dC10eXBlIjogIm11c2ljIiwgInN1YnVuaXQtaWQiOiAwLCAicGx1ZyI6IDJ9fSwgIm91dHB1dHMi
-OiBbXX0sICI0IjogeyJ0eXBlIjogIkFuYWxvZyIsICJuYW1lIjogIkFuYWxvZyBPdXRwdXQgNS82
-IiwgImNoYW5uZWxzIjogWyJPdXQgNSIsICJPdXQgNiJdLCAiY2x1c3RlcnMiOiBbXSwgImlucHV0
-IjogeyJkaXIiOiAib3V0cHV0IiwgIm1vZGUiOiAic3VidW5pdCIsICJkYXRhIjogeyJzdWJ1bml0
-LXR5cGUiOiAibXVzaWMiLCAic3VidW5pdC1pZCI6IDAsICJwbHVnIjogM319LCAib3V0cHV0cyI6
-IFtdfX0sICJpbnB1dCI6IHsiMCI6IHsidHlwZSI6ICJNSURJIiwgIm5hbWUiOiAiTWlkaSBJbnB1
-dCIsICJjaGFubmVscyI6IFsiTWlkaSBJbiJdLCAiY2x1c3RlcnMiOiBbXSwgImlucHV0IjogW10s
-ICJvdXRwdXRzIjogW3siZGlyIjogImlucHV0IiwgIm1vZGUiOiAic3VidW5pdCIsICJkYXRhIjog
-eyJzdWJ1bml0LXR5cGUiOiAibXVzaWMiLCAic3VidW5pdC1pZCI6IDAsICJwbHVnIjogNH19XX0s
-ICIxIjogeyJ0eXBlIjogIkFuYWxvZyIsICJuYW1lIjogIlNQRElGIElucHV0IiwgImNoYW5uZWxz
-IjogWyJSZWMgNSIsICJSZWMgNiJdLCAiY2x1c3RlcnMiOiBbXSwgImlucHV0IjogW10sICJvdXRw
-dXRzIjogW3siZGlyIjogImlucHV0IiwgIm1vZGUiOiAic3VidW5pdCIsICJkYXRhIjogeyJzdWJ1
-bml0LXR5cGUiOiAibXVzaWMiLCAic3VidW5pdC1pZCI6IDAsICJwbHVnIjogM319XX0sICIyIjog
-eyJ0eXBlIjogIkFuYWxvZyIsICJuYW1lIjogIkFuYWxvZyBJbnB1dCAxLzIiLCAiY2hhbm5lbHMi
-OiBbIlJlYyAxIiwgIlJlYyAyIl0sICJjbHVzdGVycyI6IFtdLCAiaW5wdXQiOiBbXSwgIm91dHB1
-dHMiOiBbeyJkaXIiOiAiaW5wdXQiLCAibW9kZSI6ICJzdWJ1bml0IiwgImRhdGEiOiB7InN1YnVu
-aXQtdHlwZSI6ICJtdXNpYyIsICJzdWJ1bml0LWlkIjogMCwgInBsdWciOiAxfX1dfSwgIjMiOiB7
-InR5cGUiOiAiQW5hbG9nIiwgIm5hbWUiOiAiQW5hbG9nIElucHV0IDMvNCIsICJjaGFubmVscyI6
-IFsiUmVjIDMiLCAiUmVjIDQiXSwgImNsdXN0ZXJzIjogW10sICJpbnB1dCI6IFtdLCAib3V0cHV0
-cyI6IFt7ImRpciI6ICJpbnB1dCIsICJtb2RlIjogInN1YnVuaXQiLCAiZGF0YSI6IHsic3VidW5p
-dC10eXBlIjogIm11c2ljIiwgInN1YnVuaXQtaWQiOiAwLCAicGx1ZyI6IDJ9fV19LCAiNCI6IHsi
-dHlwZSI6ICJTeW5jIiwgIm5hbWUiOiAiU1BESUYgSW5wdXQgU3luYyIsICJjaGFubmVscyI6IFsi
-U3luY2hDaGFubmVsIDEiXSwgImNsdXN0ZXJzIjogW10sICJpbnB1dCI6IFtdLCAib3V0cHV0cyI6
-IFtdfX19fSwgInN1YnVuaXRzIjogeyJhdWRpbyI6IHsiMCI6IHsib3V0cHV0IjogeyIwIjogeyJ0
-eXBlIjogIklzb1N0cmVhbSIsICJuYW1lIjogIkFTVSBBdWRpbyBPdXRwdXQgRXh0IDEvMiIsICJj
-aGFubmVscyI6IFtdLCAiY2x1c3RlcnMiOiBbXSwgImlucHV0Ijoge30sICJvdXRwdXRzIjogW119
-LCAiMSI6IHsidHlwZSI6ICJJc29TdHJlYW0iLCAibmFtZSI6ICJBU1UgQXVkaW8gT3V0cHV0IEV4
-dCAzLzQiLCAiY2hhbm5lbHMiOiBbXSwgImNsdXN0ZXJzIjogW10sICJpbnB1dCI6IHt9LCAib3V0
-cHV0cyI6IFtdfSwgIjIiOiB7InR5cGUiOiAiSXNvU3RyZWFtIiwgIm5hbWUiOiAiQVNVIEF1ZGlv
-IE91dHB1dCBFeHQgNS82IiwgImNoYW5uZWxzIjogW10sICJjbHVzdGVycyI6IFtdLCAiaW5wdXQi
-OiB7fSwgIm91dHB1dHMiOiBbXX0sICIzIjogeyJ0eXBlIjogIklzb1N0cmVhbSIsICJuYW1lIjog
-IkFTVSBBdWRpbyBPdXRwdXQgRXh0IDcvOCIsICJjaGFubmVscyI6IFtdLCAiY2x1c3RlcnMiOiBb
-XSwgImlucHV0Ijoge30sICJvdXRwdXRzIjogW119fSwgImlucHV0IjogeyIwIjogeyJ0eXBlIjog
-Iklzb1N0cmVhbSIsICJuYW1lIjogIkFTVSBBdWRpbyBJbnB1dCAxMzk0IDEvMiIsICJjaGFubmVs
-cyI6IFtdLCAiY2x1c3RlcnMiOiBbXSwgImlucHV0Ijoge30sICJvdXRwdXRzIjogW119LCAiMSI6
-IHsidHlwZSI6ICJJc29TdHJlYW0iLCAibmFtZSI6ICJBU1UgQXVkaW8gSW5wdXQgMTM5NCAzLzQi
-LCAiY2hhbm5lbHMiOiBbXSwgImNsdXN0ZXJzIjogW10sICJpbnB1dCI6IHt9LCAib3V0cHV0cyI6
-IFtdfSwgIjIiOiB7InR5cGUiOiAiSXNvU3RyZWFtIiwgIm5hbWUiOiAiQVNVIEF1ZGlvIElucHV0
-IDEzOTQgNS82IiwgImNoYW5uZWxzIjogW10sICJjbHVzdGVycyI6IFtdLCAiaW5wdXQiOiB7fSwg
-Im91dHB1dHMiOiBbXX0sICIzIjogeyJ0eXBlIjogIklzb1N0cmVhbSIsICJuYW1lIjogIkFTVSBB
-dWRpbyBJbnB1dCAxMzk0IDcvOCIsICJjaGFubmVscyI6IFtdLCAiY2x1c3RlcnMiOiBbXSwgImlu
-cHV0Ijoge30sICJvdXRwdXRzIjogW119fX19LCAibXVzaWMiOiB7IjAiOiB7Im91dHB1dCI6IHsi
-MCI6IHsidHlwZSI6ICJJc29TdHJlYW0iLCAibmFtZSI6ICJNU1UgQ29tcG91bmQgT3V0cHV0Iiwg
-ImNoYW5uZWxzIjogWyJSZWMgMSIsICJSZWMgMyIsICJSZWMgNSIsICJSZWMgMiIsICJSZWMgNCIs
-ICJSZWMgNiIsICJNaWRpIEluIl0sICJjbHVzdGVycyI6IFsiTGluZTEyIiwgIkxpbmUzNCIsICJT
-UERJRiIsICJNaWRpIl0sICJpbnB1dCI6IHt9LCAib3V0cHV0cyI6IFt7ImRpciI6ICJvdXRwdXQi
-LCAibW9kZSI6ICJ1bml0IiwgImRhdGEiOiB7InVuaXQtdHlwZSI6ICJpc29jIiwgInBsdWciOiAw
-fX1dfSwgIjEiOiB7InR5cGUiOiAiSXNvU3RyZWFtIiwgIm5hbWUiOiAiTVNVIEF1ZGlvIE91dHB1
-dCAxLzIiLCAiY2hhbm5lbHMiOiBbIk91dCAxIiwgIk91dCAyIl0sICJjbHVzdGVycyI6IFsiTGlu
-ZTEyIl0sICJpbnB1dCI6IHt9LCAib3V0cHV0cyI6IFt7ImRpciI6ICJvdXRwdXQiLCAibW9kZSI6
-ICJ1bml0IiwgImRhdGEiOiB7InVuaXQtdHlwZSI6ICJleHRlcm5hbCIsICJwbHVnIjogMn19XX0s
-ICIyIjogeyJ0eXBlIjogIklzb1N0cmVhbSIsICJuYW1lIjogIk1TVSBBdWRpbyBPdXRwdXQgMy80
-IiwgImNoYW5uZWxzIjogWyJPdXQgMyIsICJPdXQgNCJdLCAiY2x1c3RlcnMiOiBbIkxpbmUzNCJd
-LCAiaW5wdXQiOiB7fSwgIm91dHB1dHMiOiBbeyJkaXIiOiAib3V0cHV0IiwgIm1vZGUiOiAidW5p
-dCIsICJkYXRhIjogeyJ1bml0LXR5cGUiOiAiZXh0ZXJuYWwiLCAicGx1ZyI6IDN9fV19LCAiMyI6
-IHsidHlwZSI6ICJJc29TdHJlYW0iLCAibmFtZSI6ICJNU1UgQXVkaW8gT3V0cHV0IDUvNiIsICJj
-aGFubmVscyI6IFsiT3V0IDUiLCAiT3V0IDYiXSwgImNsdXN0ZXJzIjogWyJMaW5lNTYiXSwgImlu
-cHV0Ijoge30sICJvdXRwdXRzIjogW3siZGlyIjogIm91dHB1dCIsICJtb2RlIjogInVuaXQiLCAi
-ZGF0YSI6IHsidW5pdC10eXBlIjogImV4dGVybmFsIiwgInBsdWciOiA0fX1dfSwgIjQiOiB7InR5
-cGUiOiAiSXNvU3RyZWFtIiwgIm5hbWUiOiAiTVNVIEF1ZGlvIE91dHB1dCBTUERJRiIsICJjaGFu
-bmVscyI6IFsiU1BESUYgT3V0IEwiLCAiU1BESUYgT3V0IFIiXSwgImNsdXN0ZXJzIjogWyJTUERJ
-RiJdLCAiaW5wdXQiOiB7fSwgIm91dHB1dHMiOiBbeyJkaXIiOiAib3V0cHV0IiwgIm1vZGUiOiAi
-dW5pdCIsICJkYXRhIjogeyJ1bml0LXR5cGUiOiAiZXh0ZXJuYWwiLCAicGx1ZyI6IDF9fV19LCAi
-NSI6IHsidHlwZSI6ICJNSURJIiwgIm5hbWUiOiAiTVNVIE1pZGkgT3V0cHV0IiwgImNoYW5uZWxz
-IjogWyJNaWRpIE91dCJdLCAiY2x1c3RlcnMiOiBbXSwgImlucHV0Ijoge30sICJvdXRwdXRzIjog
-W3siZGlyIjogIm91dHB1dCIsICJtb2RlIjogInVuaXQiLCAiZGF0YSI6IHsidW5pdC10eXBlIjog
-ImV4dGVybmFsIiwgInBsdWciOiAwfX1dfSwgIjYiOiB7InR5cGUiOiAiU3luYyIsICJuYW1lIjog
-IkludGVybmFsIFN5bmMiLCAiY2hhbm5lbHMiOiBbIlN5bmNoQ2hhbm5lbCAxIl0sICJjbHVzdGVy
-cyI6IFtdLCAiaW5wdXQiOiB7fSwgIm91dHB1dHMiOiBbeyJkaXIiOiAiaW5wdXQiLCAibW9kZSI6
-ICJzdWJ1bml0IiwgImRhdGEiOiB7InN1YnVuaXQtdHlwZSI6ICJtdXNpYyIsICJzdWJ1bml0LWlk
-IjogMCwgInBsdWciOiA1fX1dfX0sICJpbnB1dCI6IHsiMCI6IHsidHlwZSI6ICJJc29TdHJlYW0i
-LCAibmFtZSI6ICJNU1UgQ29tcG91bmQgSW5wdXQiLCAiY2hhbm5lbHMiOiBbIlBsYXkgNyIsICJQ
-bGF5IDEiLCAiUGxheSAzIiwgIlBsYXkgNSIsICJQbGF5IDgiLCAiUGxheSAyIiwgIlBsYXkgNCIs
-ICJQbGF5IDYiLCAiTWlkaSBPdXQiXSwgImNsdXN0ZXJzIjogWyJMaW5lMTIiLCAiTGluZTM0Iiwg
-IkxpbmU1NiIsICJTUERJRiIsICJNaWRpIl0sICJpbnB1dCI6IHsiZGlyIjogImlucHV0IiwgIm1v
-ZGUiOiAidW5pdCIsICJkYXRhIjogeyJ1bml0LXR5cGUiOiAiaXNvYyIsICJwbHVnIjogMH19LCAi
-b3V0cHV0cyI6IFtdfSwgIjEiOiB7InR5cGUiOiAiSXNvU3RyZWFtIiwgIm5hbWUiOiAiTVNVIEF1
-ZGlvIElucHV0IDEvMiIsICJjaGFubmVscyI6IFsiUmVjIDEiLCAiUmVjIDIiXSwgImNsdXN0ZXJz
-IjogWyJMaW5lMTIiXSwgImlucHV0IjogeyJkaXIiOiAiaW5wdXQiLCAibW9kZSI6ICJ1bml0Iiwg
-ImRhdGEiOiB7InVuaXQtdHlwZSI6ICJleHRlcm5hbCIsICJwbHVnIjogMn19LCAib3V0cHV0cyI6
-IFtdfSwgIjIiOiB7InR5cGUiOiAiSXNvU3RyZWFtIiwgIm5hbWUiOiAiTVNVIEF1ZGlvIElucHV0
-IDMvNCIsICJjaGFubmVscyI6IFsiUmVjIDMiLCAiUmVjIDQiXSwgImNsdXN0ZXJzIjogWyJMaW5l
-MzQiXSwgImlucHV0IjogeyJkaXIiOiAiaW5wdXQiLCAibW9kZSI6ICJ1bml0IiwgImRhdGEiOiB7
-InVuaXQtdHlwZSI6ICJleHRlcm5hbCIsICJwbHVnIjogM319LCAib3V0cHV0cyI6IFtdfSwgIjMi
-OiB7InR5cGUiOiAiSXNvU3RyZWFtIiwgIm5hbWUiOiAiTVNVIEF1ZGlvIElucHV0IFNQRElGIiwg
-ImNoYW5uZWxzIjogWyJSZWMgNSIsICJSZWMgNiJdLCAiY2x1c3RlcnMiOiBbIlNQRElGIl0sICJp
-bnB1dCI6IHsiZGlyIjogImlucHV0IiwgIm1vZGUiOiAidW5pdCIsICJkYXRhIjogeyJ1bml0LXR5
-cGUiOiAiZXh0ZXJuYWwiLCAicGx1ZyI6IDF9fSwgIm91dHB1dHMiOiBbXX0sICI0IjogeyJ0eXBl
-IjogIk1JREkiLCAibmFtZSI6ICJNU1UgTWlkaSBJbnB1dCIsICJjaGFubmVscyI6IFsiTWlkaSBJ
-biJdLCAiY2x1c3RlcnMiOiBbXSwgImlucHV0IjogeyJkaXIiOiAiaW5wdXQiLCAibW9kZSI6ICJ1
-bml0IiwgImRhdGEiOiB7InVuaXQtdHlwZSI6ICJleHRlcm5hbCIsICJwbHVnIjogMH19LCAib3V0
-cHV0cyI6IFtdfSwgIjUiOiB7InR5cGUiOiAiU3luYyIsICJuYW1lIjogIk1TVSBTeW5jaCBJbnB1
-dCIsICJjaGFubmVscyI6IFsiU3luY2hDaGFubmVsIDEiXSwgImNsdXN0ZXJzIjogW10sICJpbnB1
-dCI6IHsiZGlyIjogIm91dHB1dCIsICJtb2RlIjogInN1YnVuaXQiLCAiZGF0YSI6IHsic3VidW5p
-dC10eXBlIjogIm11c2ljIiwgInN1YnVuaXQtaWQiOiAwLCAicGx1ZyI6IDZ9fSwgIm91dHB1dHMi
-OiBbXX19fX19LCAiZnVuY3Rpb24tYmxvY2tzIjogeyJhdWRpbyI6IHsiMCI6IHt9fSwgIm11c2lj
-IjogeyIwIjoge319fSwgInN0cmVhbS1mb3JtYXRzIjogeyJpc29jIjogeyJvdXRwdXQiOiB7IjAi
-OiBbeyJ0eXBlIjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUiOiA0NDEwMCwgInJhdGUtY29u
-dHJvbCI6ICJjbG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5lYXItYXVk
-aW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXIt
-YXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5l
-YXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIk1JREktY29uZm9y
-bWFudCJdfSwgeyJ0eXBlIjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUiOiA0ODAwMCwgInJh
-dGUtY29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5l
-YXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1s
-aW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJp
-dC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIk1JREkt
-Y29uZm9ybWFudCJdfSwgeyJ0eXBlIjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUiOiA4ODIw
-MCwgInJhdGUtY29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11bHRpLWJp
-dC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRp
-LWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11
-bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Iiwg
-Ik1JREktY29uZm9ybWFudCJdfSwgeyJ0eXBlIjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUi
-OiA5NjAwMCwgInJhdGUtY29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11
-bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Iiwg
-Im11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3
-IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8t
-cmF3IiwgIk1JREktY29uZm9ybWFudCJdfV0sICIxIjogW3sidHlwZSI6ICJTeW5jIiwgInJhdGUt
-Y29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJzYW1wbGluZy1yYXRlIjogMjIwNTAsICJmb3JtYXRp
-b24iOiBbIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Il19LCB7InR5cGUiOiAiU3luYyIsICJy
-YXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQiLCAic2FtcGxpbmctcmF0ZSI6IDIyMDUwLCAiZm9y
-bWF0aW9uIjogWyJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyJdfSwgeyJ0eXBlIjogIlN5bmMi
-LCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgInNhbXBsaW5nLXJhdGUiOiAyMjA1MCwg
-ImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciXX0sIHsidHlwZSI6ICJT
-eW5jIiwgInJhdGUtY29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJzYW1wbGluZy1yYXRlIjogMjIw
-NTAsICJmb3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Il19XX0sICJpbnB1
-dCI6IHsiMCI6IFt7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDQ0MTAwLCAi
-cmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxp
-bmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0
-LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGkt
-Yml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVs
-dGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAi
-TUlESS1jb25mb3JtYW50Il19LCB7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxpbmctcmF0ZSI6
-IDQ4MDAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlvbiI6IFsibXVs
-dGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAi
-bXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXci
-LCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1y
-YXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRp
-by1yYXciLCAiTUlESS1jb25mb3JtYW50Il19LCB7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxp
-bmctcmF0ZSI6IDg4MjAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlv
-biI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRp
-by1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1h
-dWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVh
-ci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxp
-bmVhci1hdWRpby1yYXciLCAiTUlESS1jb25mb3JtYW50Il19LCB7InR5cGUiOiAiQ29tcG91bmQi
-LCAic2FtcGxpbmctcmF0ZSI6IDk2MDAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwg
-ImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxp
-bmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0
-LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGkt
-Yml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVs
-dGktYml0LWxpbmVhci1hdWRpby1yYXciLCAiTUlESS1jb25mb3JtYW50Il19XSwgIjEiOiBbeyJ0
-eXBlIjogIlN5bmMiLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgInNhbXBsaW5nLXJh
-dGUiOiAyMjA1MCwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciXX0s
-IHsidHlwZSI6ICJTeW5jIiwgInJhdGUtY29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJzYW1wbGlu
-Zy1yYXRlIjogMjIwNTAsICJmb3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3
-Il19LCB7InR5cGUiOiAiU3luYyIsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQiLCAic2Ft
-cGxpbmctcmF0ZSI6IDIyMDUwLCAiZm9ybWF0aW9uIjogWyJtdWx0aS1iaXQtbGluZWFyLWF1ZGlv
-LXJhdyJdfSwgeyJ0eXBlIjogIlN5bmMiLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwg
-InNhbXBsaW5nLXJhdGUiOiAyMjA1MCwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1h
-dWRpby1yYXciXX1dfX0sICJleHRlcm5hbCI6IHsib3V0cHV0IjogeyIwIjogW3sidHlwZSI6ICJD
-b21wb3VuZCIsICJzYW1wbGluZy1yYXRlIjogNDQxMDAsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2st
-YmFzZWQiLCAiZm9ybWF0aW9uIjogWyJNSURJLWNvbmZvcm1hbnQiXX0sIHsidHlwZSI6ICJDb21w
-b3VuZCIsICJzYW1wbGluZy1yYXRlIjogNDgwMDAsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFz
-ZWQiLCAiZm9ybWF0aW9uIjogWyJNSURJLWNvbmZvcm1hbnQiXX0sIHsidHlwZSI6ICJDb21wb3Vu
-ZCIsICJzYW1wbGluZy1yYXRlIjogODgyMDAsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQi
-LCAiZm9ybWF0aW9uIjogWyJNSURJLWNvbmZvcm1hbnQiXX0sIHsidHlwZSI6ICJDb21wb3VuZCIs
-ICJzYW1wbGluZy1yYXRlIjogOTYwMDAsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQiLCAi
-Zm9ybWF0aW9uIjogWyJNSURJLWNvbmZvcm1hbnQiXX1dLCAiMSI6IFt7InR5cGUiOiAiQ29tcG91
-bmQiLCAic2FtcGxpbmctcmF0ZSI6IDQ0MTAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2Vk
-IiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0
-LWxpbmVhci1hdWRpby1yYXciXX0sIHsidHlwZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1yYXRl
-IjogNDgwMDAsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjogWyJt
-dWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyIsICJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyJd
-fSwgeyJ0eXBlIjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUiOiA4ODIwMCwgInJhdGUtY29u
-dHJvbCI6ICJjbG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5lYXItYXVk
-aW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Il19LCB7InR5cGUiOiAiQ29tcG91
-bmQiLCAic2FtcGxpbmctcmF0ZSI6IDk2MDAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2Vk
-IiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0
-LWxpbmVhci1hdWRpby1yYXciXX1dLCAiMiI6IFt7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxp
-bmctcmF0ZSI6IDQ0MTAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlv
-biI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRp
-by1yYXciXX0sIHsidHlwZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1yYXRlIjogNDgwMDAsICJy
-YXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjogWyJtdWx0aS1iaXQtbGlu
-ZWFyLWF1ZGlvLXJhdyIsICJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyJdfSwgeyJ0eXBlIjog
-IkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUiOiA4ODIwMCwgInJhdGUtY29udHJvbCI6ICJjbG9j
-ay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11
-bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Il19LCB7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxp
-bmctcmF0ZSI6IDk2MDAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlv
-biI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRp
-by1yYXciXX1dLCAiMyI6IFt7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDQ0
-MTAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGkt
-Yml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciXX0sIHsi
-dHlwZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1yYXRlIjogNDgwMDAsICJyYXRlLWNvbnRyb2wi
-OiAiY2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjogWyJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJh
-dyIsICJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyJdfSwgeyJ0eXBlIjogIkNvbXBvdW5kIiwg
-InNhbXBsaW5nLXJhdGUiOiA4ODIwMCwgInJhdGUtY29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJm
-b3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5l
-YXItYXVkaW8tcmF3Il19LCB7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDk2
-MDAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGkt
-Yml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciXX1dLCAi
-NCI6IFt7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDQ0MTAwLCAicmF0ZS1j
-b250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1h
-dWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciXX0sIHsidHlwZSI6ICJDb21w
-b3VuZCIsICJzYW1wbGluZy1yYXRlIjogNDgwMDAsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFz
-ZWQiLCAiZm9ybWF0aW9uIjogWyJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyIsICJtdWx0aS1i
-aXQtbGluZWFyLWF1ZGlvLXJhdyJdfSwgeyJ0eXBlIjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJh
-dGUiOiA4ODIwMCwgInJhdGUtY29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBb
-Im11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3
-Il19LCB7InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDk2MDAwLCAicmF0ZS1j
-b250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1h
-dWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciXX1dfSwgImlucHV0IjogeyIw
-IjogW3sidHlwZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1yYXRlIjogNDQxMDAsICJyYXRlLWNv
-bnRyb2wiOiAiY2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjogWyJNSURJLWNvbmZvcm1hbnQiXX0s
-IHsidHlwZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1yYXRlIjogNDgwMDAsICJyYXRlLWNvbnRy
-b2wiOiAiY2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjogWyJNSURJLWNvbmZvcm1hbnQiXX0sIHsi
-dHlwZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1yYXRlIjogODgyMDAsICJyYXRlLWNvbnRyb2wi
-OiAiY2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjogWyJNSURJLWNvbmZvcm1hbnQiXX0sIHsidHlw
-ZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1yYXRlIjogOTYwMDAsICJyYXRlLWNvbnRyb2wiOiAi
-Y2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjogWyJNSURJLWNvbmZvcm1hbnQiXX1dLCAiMSI6IFt7
-InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDQ0MTAwLCAicmF0ZS1jb250cm9s
-IjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1y
-YXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciXX0sIHsidHlwZSI6ICJDb21wb3VuZCIs
-ICJzYW1wbGluZy1yYXRlIjogNDgwMDAsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQiLCAi
-Zm9ybWF0aW9uIjogWyJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyIsICJtdWx0aS1iaXQtbGlu
-ZWFyLWF1ZGlvLXJhdyJdfSwgeyJ0eXBlIjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUiOiA4
-ODIwMCwgInJhdGUtY29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11bHRp
-LWJpdC1saW5lYXItYXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Il19LCB7
-InR5cGUiOiAiQ29tcG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDk2MDAwLCAicmF0ZS1jb250cm9s
-IjogImNsb2NrLWJhc2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1y
-YXciLCAibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciXX1dLCAiMiI6IFt7InR5cGUiOiAiQ29t
-cG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDQ0MTAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJh
-c2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGkt
-Yml0LWxpbmVhci1hdWRpby1yYXciXX0sIHsidHlwZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1y
-YXRlIjogNDgwMDAsICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjog
-WyJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyIsICJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJh
-dyJdfSwgeyJ0eXBlIjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUiOiA4ODIwMCwgInJhdGUt
-Y29udHJvbCI6ICJjbG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5lYXIt
-YXVkaW8tcmF3IiwgIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Il19LCB7InR5cGUiOiAiQ29t
-cG91bmQiLCAic2FtcGxpbmctcmF0ZSI6IDk2MDAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJh
-c2VkIiwgImZvcm1hdGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGkt
-Yml0LWxpbmVhci1hdWRpby1yYXciXX1dLCAiMyI6IFt7InR5cGUiOiAiQ29tcG91bmQiLCAic2Ft
-cGxpbmctcmF0ZSI6IDQ0MTAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1h
-dGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1h
-dWRpby1yYXciXX0sIHsidHlwZSI6ICJDb21wb3VuZCIsICJzYW1wbGluZy1yYXRlIjogNDgwMDAs
-ICJyYXRlLWNvbnRyb2wiOiAiY2xvY2stYmFzZWQiLCAiZm9ybWF0aW9uIjogWyJtdWx0aS1iaXQt
-bGluZWFyLWF1ZGlvLXJhdyIsICJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyJdfSwgeyJ0eXBl
-IjogIkNvbXBvdW5kIiwgInNhbXBsaW5nLXJhdGUiOiA4ODIwMCwgInJhdGUtY29udHJvbCI6ICJj
-bG9jay1iYXNlZCIsICJmb3JtYXRpb24iOiBbIm11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Iiwg
-Im11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Il19LCB7InR5cGUiOiAiQ29tcG91bmQiLCAic2Ft
-cGxpbmctcmF0ZSI6IDk2MDAwLCAicmF0ZS1jb250cm9sIjogImNsb2NrLWJhc2VkIiwgImZvcm1h
-dGlvbiI6IFsibXVsdGktYml0LWxpbmVhci1hdWRpby1yYXciLCAibXVsdGktYml0LWxpbmVhci1h
-dWRpby1yYXciXX1dLCAiNCI6IFt7InR5cGUiOiAiU3luYyIsICJyYXRlLWNvbnRyb2wiOiAiY2xv
-Y2stYmFzZWQiLCAic2FtcGxpbmctcmF0ZSI6IDIyMDUwLCAiZm9ybWF0aW9uIjogWyJtdWx0aS1i
-aXQtbGluZWFyLWF1ZGlvLXJhdyJdfSwgeyJ0eXBlIjogIlN5bmMiLCAicmF0ZS1jb250cm9sIjog
-ImNsb2NrLWJhc2VkIiwgInNhbXBsaW5nLXJhdGUiOiAyMjA1MCwgImZvcm1hdGlvbiI6IFsibXVs
-dGktYml0LWxpbmVhci1hdWRpby1yYXciXX0sIHsidHlwZSI6ICJTeW5jIiwgInJhdGUtY29udHJv
-bCI6ICJjbG9jay1iYXNlZCIsICJzYW1wbGluZy1yYXRlIjogMjIwNTAsICJmb3JtYXRpb24iOiBb
-Im11bHRpLWJpdC1saW5lYXItYXVkaW8tcmF3Il19LCB7InR5cGUiOiAiU3luYyIsICJyYXRlLWNv
-bnRyb2wiOiAiY2xvY2stYmFzZWQiLCAic2FtcGxpbmctcmF0ZSI6IDIyMDUwLCAiZm9ybWF0aW9u
-IjogWyJtdWx0aS1iaXQtbGluZWFyLWF1ZGlvLXJhdyJdfV19fX19Cg==
-
-
---=-xveMYzbiY7c2xZSdZcw6
-Content-Disposition: attachment; filename="graph_connections.txt"
-Content-Type: text/plain; name="graph_connections.txt"; charset="ISO-8859-15"
-Content-Transfer-Encoding: base64
-
-ZGlncmFwaCB7CiAgcmFua2RpciA9ICJMUiIKICBzdWJncmFwaCBjbHVzdGVyX3N1YnVuaXRfYXVk
-aW9fMCB7CiAgICBsYWJlbCA9ICJhdWRpbyBzdWJ1bml0IDAiCiAgICBzdWJncmFwaCBjbHVzdGVy
-X3N1YnVuaXRfYXVkaW9fMF9pbnB1dCB7CiAgICAgIGxhYmVsID0gImlucHV0IgogICAgc3VidW5p
-dF8wIFtsYWJlbCA9ICJBU1UgQXVkaW8gSW5wdXQgMTM5NCAxLzIgKElzb1N0cmVhbSkiLCBzaGFw
-ZSA9ICJlbGxpcHNlIl0KICAgIHN1YnVuaXRfMSBbbGFiZWwgPSAiQVNVIEF1ZGlvIElucHV0IDEz
-OTQgMy80IChJc29TdHJlYW0pIiwgc2hhcGUgPSAiZWxsaXBzZSJdCiAgICBzdWJ1bml0XzIgW2xh
-YmVsID0gIkFTVSBBdWRpbyBJbnB1dCAxMzk0IDUvNiAoSXNvU3RyZWFtKSIsIHNoYXBlID0gImVs
-bGlwc2UiXQogICAgc3VidW5pdF8zIFtsYWJlbCA9ICJBU1UgQXVkaW8gSW5wdXQgMTM5NCA3Lzgg
-KElzb1N0cmVhbSkiLCBzaGFwZSA9ICJlbGxpcHNlIl0KICAgIH0KICAgIHN1YmdyYXBoIGNsdXN0
-ZXJfc3VidW5pdF9hdWRpb18wX291dHB1dCB7CiAgICAgIGxhYmVsID0gIm91dHB1dCIKICAgIHN1
-YnVuaXRfNCBbbGFiZWwgPSAiQVNVIEF1ZGlvIE91dHB1dCBFeHQgMS8yIChJc29TdHJlYW0pIiwg
-c2hhcGUgPSAiZWxsaXBzZSJdCiAgICBzdWJ1bml0XzUgW2xhYmVsID0gIkFTVSBBdWRpbyBPdXRw
-dXQgRXh0IDMvNCAoSXNvU3RyZWFtKSIsIHNoYXBlID0gImVsbGlwc2UiXQogICAgc3VidW5pdF82
-IFtsYWJlbCA9ICJBU1UgQXVkaW8gT3V0cHV0IEV4dCA1LzYgKElzb1N0cmVhbSkiLCBzaGFwZSA9
-ICJlbGxpcHNlIl0KICAgIHN1YnVuaXRfNyBbbGFiZWwgPSAiQVNVIEF1ZGlvIE91dHB1dCBFeHQg
-Ny84IChJc29TdHJlYW0pIiwgc2hhcGUgPSAiZWxsaXBzZSJdCiAgICB9CiAgfQogIHN1YmdyYXBo
-IGNsdXN0ZXJfc3VidW5pdF9tdXNpY18wIHsKICAgIGxhYmVsID0gIm11c2ljIHN1YnVuaXQgMCIK
-ICAgIHN1YmdyYXBoIGNsdXN0ZXJfc3VidW5pdF9tdXNpY18wX2lucHV0IHsKICAgICAgbGFiZWwg
-PSAiaW5wdXQiCiAgICBzdWJ1bml0XzggW2xhYmVsID0gIk1TVSBDb21wb3VuZCBJbnB1dCAoSXNv
-U3RyZWFtKSIsIHNoYXBlID0gImVsbGlwc2UiXQogICAgc3VidW5pdF85IFtsYWJlbCA9ICJNU1Ug
-QXVkaW8gSW5wdXQgMS8yIChJc29TdHJlYW0pIiwgc2hhcGUgPSAiZWxsaXBzZSJdCiAgICBzdWJ1
-bml0XzEwIFtsYWJlbCA9ICJNU1UgQXVkaW8gSW5wdXQgMy80IChJc29TdHJlYW0pIiwgc2hhcGUg
-PSAiZWxsaXBzZSJdCiAgICBzdWJ1bml0XzExIFtsYWJlbCA9ICJNU1UgQXVkaW8gSW5wdXQgU1BE
-SUYgKElzb1N0cmVhbSkiLCBzaGFwZSA9ICJlbGxpcHNlIl0KICAgIHN1YnVuaXRfMTIgW2xhYmVs
-ID0gIk1TVSBNaWRpIElucHV0IChNSURJKSIsIHNoYXBlID0gImVsbGlwc2UiXQogICAgc3VidW5p
-dF8xMyBbbGFiZWwgPSAiTVNVIFN5bmNoIElucHV0IChTeW5jKSIsIHNoYXBlID0gImJveCJdCiAg
-ICB9CiAgICBzdWJncmFwaCBjbHVzdGVyX3N1YnVuaXRfbXVzaWNfMF9vdXRwdXQgewogICAgICBs
-YWJlbCA9ICJvdXRwdXQiCiAgICBzdWJ1bml0XzE0IFtsYWJlbCA9ICJNU1UgQ29tcG91bmQgT3V0
-cHV0IChJc29TdHJlYW0pIiwgc2hhcGUgPSAiZWxsaXBzZSJdCiAgICBzdWJ1bml0XzE1IFtsYWJl
-bCA9ICJNU1UgQXVkaW8gT3V0cHV0IDEvMiAoSXNvU3RyZWFtKSIsIHNoYXBlID0gImVsbGlwc2Ui
-XQogICAgc3VidW5pdF8xNiBbbGFiZWwgPSAiTVNVIEF1ZGlvIE91dHB1dCAzLzQgKElzb1N0cmVh
-bSkiLCBzaGFwZSA9ICJlbGxpcHNlIl0KICAgIHN1YnVuaXRfMTcgW2xhYmVsID0gIk1TVSBBdWRp
-byBPdXRwdXQgNS82IChJc29TdHJlYW0pIiwgc2hhcGUgPSAiZWxsaXBzZSJdCiAgICBzdWJ1bml0
-XzE4IFtsYWJlbCA9ICJNU1UgQXVkaW8gT3V0cHV0IFNQRElGIChJc29TdHJlYW0pIiwgc2hhcGUg
-PSAiZWxsaXBzZSJdCiAgICBzdWJ1bml0XzE5IFtsYWJlbCA9ICJNU1UgTWlkaSBPdXRwdXQgKE1J
-REkpIiwgc2hhcGUgPSAiZWxsaXBzZSJdCiAgICBzdWJ1bml0XzIwIFtsYWJlbCA9ICJJbnRlcm5h
-bCBTeW5jIChTeW5jKSIsIHNoYXBlID0gImJveCJdCiAgICB9CiAgfQogIHN1YnVuaXRfMTQgLT4g
-dW5pdF8yIAogIHVuaXRfMCAtPiBzdWJ1bml0XzggCiAgc3VidW5pdF8yMCAtPiBzdWJ1bml0XzEz
-IFtjb25zdHJhaW50PWZhbHNlXQp9Cg==
-
-
---=-xveMYzbiY7c2xZSdZcw6
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Nitpick: Drop the newline between device table and match table.
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---=-xveMYzbiY7c2xZSdZcw6--
-

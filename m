@@ -2,90 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17D40E9D32
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 15:11:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8815BE9D57
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 15:21:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45ABB231F;
-	Wed, 30 Oct 2019 15:10:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45ABB231F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A78C22C6;
+	Wed, 30 Oct 2019 15:20:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A78C22C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572444692;
-	bh=ejpAtYQN7SGhMd4g/zy7p05VYABvB++4QsiMGxD7P28=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=aOKr7IQRUQ6Bs/4njVIi8ALJ9WdtTwd8wA/VgaxIeaEdvRBevGZc++pQQehgy5scZ
-	 v6rXziVlbFvan/JDJu/XE0LsUwPtIcXrbv1bYhtRvGin74WawGKKITL2EkcPfuRgb/
-	 1c6jnXZpcXRADX9boYpD6xhsT+ugcHAj8OUgEA1M=
+	s=default; t=1572445271;
+	bh=lab985DvEDZgPfnHv631ThY27Mn/Wt04/Bs0rKW6VJ8=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=MOXqgbp+qXJYbhl2FB+0HoRDxrmlwIkb7xkt9VA7Q2uEaMw5PPS1JVmuLunfvHnl2
+	 kWfJ9lMKfgFzt0S9CpBQZ4ZRc73gTns+Ybo5zmO96Nlitiq1jT7ss7af2xMSB4XCZF
+	 0kJHMdROC/pqM+rNRJsDo2FwxzuMtd3fj1/UICHk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B8DB2F8015A;
-	Wed, 30 Oct 2019 15:10:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8D185F8044A;
+	Wed, 30 Oct 2019 15:19:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C78F7F80361; Wed, 30 Oct 2019 15:10:35 +0100 (CET)
+ id A3B36F8044A; Wed, 30 Oct 2019 15:16:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
- [IPv6:2a00:1450:4864:20::144])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_SBL_CSS,SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D200BF802A1
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 15:10:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D200BF802A1
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6075F8015A
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 15:16:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6075F8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=shutemov-name.20150623.gappssmtp.com
- header.i=@shutemov-name.20150623.gappssmtp.com header.b="UHnwlO44"
-Received: by mail-lf1-x144.google.com with SMTP id f5so1686665lfp.1
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 07:10:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=shutemov-name.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=vWvOPEIi1tbsZALaFAv0Uy0WFf8KUbbFXlv9R7bSARI=;
- b=UHnwlO44x8oRaD6wl7/Yv6WQXv1nR50giDX60GgPqV972Fr3GoJC1jnFvHS39TN0lh
- K1FCyNB9qwU19KxQWnJT8t3ZqipYusVSGv0kIsu2bQe+DttKFDB+gEaVKBWmDFYe2+ZZ
- R2x9Xh7y2zboI/vQPvmyxeMqqG4xNbMgg+TtpbJD2xbLrNnU1XPwyEiD6by/jvw3FUPK
- 5FNDMJbN2F+IH1k0QWnhlFvisLiKCwcMqqTTL6TMGtFowemAQ0ATnXZd4r8txSCh//56
- uYpLiHnz2XAsPjgSGO2jXUTTOdpeNeqW+BxuLJa8DzD0LVjX64G9OQjQkEaOofO2FOMy
- QiCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=vWvOPEIi1tbsZALaFAv0Uy0WFf8KUbbFXlv9R7bSARI=;
- b=NiTn1niCvW6336OpJTSkyMWUSkHclwL9xIFS7xb5pHlhlw78Q9KDIIgl9EPYenP7ZK
- 83AwfYtjLS+GeAKkyccsEbfnpNYPJJ+Kr8R0ha9Rmt9svTI86ULQ7OODCm8bGttLILhl
- xTjCGFpo+zKpW9htBsSOosTGyTTmsCzZtUkTMA2G2pxhTYsVsDznDeXjYGfUX2t/fLqW
- /ySqhS87pm6vZiopl0pJJKXb9nZQlbVCMPgxMzcB5k36eUCFVk8RiUU3x0sDy5lhKrTO
- n8RA5TTWQrqpM/kNhNw0zHdOaPj3ldyJp/hVvbYIDQrfy3fjr+hRhKNubtkwM4XFJY22
- NATQ==
-X-Gm-Message-State: APjAAAVQuOy9h3a9+hnoy7MUq+9sf68lxnJeKYFDjsFmk45VJkvBW/a7
- aIcgsGM8KhgbSK3Bbp4gIQ3mBeOp6B4=
-X-Google-Smtp-Source: APXvYqzFqjIdXhHgSDDwq/JhvWduZmLL2rp2GUtjDIt05HFFNvGaSxeJVxGJEMc+xOs+2ukKp+l/BQ==
-X-Received: by 2002:ac2:569c:: with SMTP id 28mr443084lfr.139.1572444630933;
- Wed, 30 Oct 2019 07:10:30 -0700 (PDT)
-Received: from box.localdomain ([86.57.175.117])
- by smtp.gmail.com with ESMTPSA id x187sm91633lfa.64.2019.10.30.07.10.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Oct 2019 07:10:30 -0700 (PDT)
-Received: by box.localdomain (Postfix, from userid 1000)
- id D5DEE100C02; Wed, 30 Oct 2019 17:10:29 +0300 (+03)
-Date: Wed, 30 Oct 2019 17:10:29 +0300
-From: "Kirill A. Shutemov" <kirill@shutemov.name>
-To: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <20191030141029.isw4y3tfmjp5azev@box.shutemov.name>
-MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: NeoMutt/20180716
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Thomas Gleixner <tglx@linutronix.de>, Logan Gunthorpe <logang@deltatee.com>,
- Kirill Smelkov <kirr@nexedi.com>, Guenter Roeck <linux@roeck-us.net>
-Subject: [alsa-devel] sound/core/timer: Deadlock on register_mutex
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="biShQrnW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=2slcNVRI6gezbG+D5dW0HDTSVBztmNZYOmi0hbNafcc=; b=biShQrnWYm61
+ +l2Ug3xs/lamcciJZh0GCbZlEW22tUci5Dqqwlk3JNZCBk46+UNC187voTsCCrwO8IR7zkzSJuZgd
+ 1p6KyJ1xPsHaVslw4vS86e3M89kG4rf7TTxt0zYJyE2PSDdXMOkD8e03jKmDYPkUTnUwaWg1WVF6Y
+ j/7iY=;
+Received: from [195.11.164.221] (helo=fitzroy.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1iPolz-0005Cg-49; Wed, 30 Oct 2019 14:16:31 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id BDA77D020A7; Wed, 30 Oct 2019 14:16:30 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Shuming Fan <shumingf@realtek.com>
+In-Reply-To: <20191030085533.14299-1-shumingf@realtek.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20191030141630.BDA77D020A7@fitzroy.sirena.org.uk>
+Date: Wed, 30 Oct 2019 14:16:30 +0000 (GMT)
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, lgirdwood@gmail.com, Mark Brown <broonie@kernel.org>,
+ derek.fang@realtek.com, sathya.prakash.m.r@intel.com, flove@realtek.com
+Subject: [alsa-devel] Applied "ASoC: rt5682: improve the sensitivity of push
+	button" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,76 +80,112 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+The patch
 
-I've stepped on this after pulling USB sound card:
+   ASoC: rt5682: improve the sensitivity of push button
 
-	 ============================================
-	 WARNING: possible recursive locking detected
-	 5.4.0-rc4-00090-g95b5dc072cc3-dirty #48 Not tainted
-	 --------------------------------------------
-	 xdg-screensaver/1321 is trying to acquire lock:
-	 ffffffffbaf6b3a0 (register_mutex){+.+.}, at: snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
+has been applied to the asoc tree at
 
-	but task is already holding lock:
-	 ffffffffbaf6b3a0 (register_mutex){+.+.}, at: snd_timer_close (/sound/core/timer.c:416)
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
 
-	other info that might help us debug this:
-	  Possible unsafe locking scenario:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-		CPU0
-		----
-	   lock(register_mutex);
-	   lock(register_mutex);
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-	*** DEADLOCK ***
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-	  May be due to missing lock nesting notation
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-	 2 locks held by xdg-screensaver/1321:
-	 #0: ffff9f74bbf5ef50 (&tu->ioctl_lock){+.+.}, at: snd_timer_user_release (/sound/core/timer.c:1467)
-	 #1: ffffffffbaf6b3a0 (register_mutex){+.+.}, at: snd_timer_close (/sound/core/timer.c:416)
+Thanks,
+Mark
 
-	stack backtrace:
-	 CPU: 27 PID: 1321 Comm: xdg-screensaver Not tainted 5.4.0-rc4-00090-g95b5dc072cc3-dirty #48
-	 Hardware name: Gigabyte Technology Co., Ltd. X299 AORUS Gaming 3 Pro/X299 AORUS Gaming 3 Pro-CF, BIOS F3 12/28/2017
-	 Call Trace:
-	 dump_stack (/lib/dump_stack.c:115)
-	 __lock_acquire.cold (/kernel/locking/lockdep.c:2371 /kernel/locking/lockdep.c:2412 /kernel/locking/lockdep.c:2955 /kernel/locking/lockdep.c:3955)
-	 ? __lock_acquire (/kernel/locking/lockdep.c:3962)
-	 lock_acquire (/arch/x86/include/asm/current.h:15 /kernel/locking/lockdep.c:4489)
-	 ? snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
-	 __mutex_lock (/include/linux/compiler.h:199 /arch/x86/include/asm/atomic64_64.h:22 /include/asm-generic/atomic-instrumented.h:837 /include/asm-generic/atomic-long.h:28 /kernel/locking/mutex.c:111 /kernel/locking/mutex.c:152 /kernel/locking/mutex.c:958 /kernel/locking/mutex.c:1103)
-	 ? snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
-	 ? __mutex_lock (/include/linux/compiler.h:199 /arch/x86/include/asm/atomic64_64.h:22 /include/asm-generic/atomic-instrumented.h:837 /include/asm-generic/atomic-long.h:28 /kernel/locking/mutex.c:111 /kernel/locking/mutex.c:152 /kernel/locking/mutex.c:958 /kernel/locking/mutex.c:1103)
-	 ? __mutex_lock (/arch/x86/include/asm/preempt.h:102 /kernel/locking/mutex.c:964 /kernel/locking/mutex.c:1103)
-	 ? snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
-	 ? snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
-	 ? lockdep_hardirqs_on (/kernel/locking/lockdep.c:3394 /kernel/locking/lockdep.c:3434)
-	 snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
-	 snd_timer_dev_free (/sound/core/timer.c:967)
-	 __snd_device_free (/sound/core/device.c:76)
-	 snd_device_free_all (/sound/core/device.c:228)
-	 release_card_device (/sound/core/init.c:471 /sound/core/init.c:140)
-	 device_release (/drivers/base/core.c:1105)
-	 kobject_put (/lib/kobject.c:697 /lib/kobject.c:722 /include/linux/kref.h:65 /lib/kobject.c:739)
-	 snd_timer_close_locked (/sound/core/timer.c:398)
-	 snd_timer_close (/sound/core/timer.c:417)
-	 snd_timer_user_release (/sound/core/timer.c:1469)
-	 __fput (/fs/file_table.c:281)
-	 task_work_run (/kernel/task_work.c:115 (discriminator 1))
-	 exit_to_usermode_loop (/include/linux/tracehook.h:188 /arch/x86/entry/common.c:163)
-	 do_syscall_64 (/arch/x86/entry/common.c:194 /arch/x86/entry/common.c:274 /arch/x86/entry/common.c:300)
-	 entry_SYSCALL_64_after_hwframe (/arch/x86/entry/entry_64.S:177)
+From e226445802cb2a51c3cb127fac31fba0a4330e87 Mon Sep 17 00:00:00 2001
+From: Shuming Fan <shumingf@realtek.com>
+Date: Wed, 30 Oct 2019 16:55:33 +0800
+Subject: [PATCH] ASoC: rt5682: improve the sensitivity of push button
 
+The sensitivity could improve by decreasing the HW debounce time
+and reduce the delay time of workequeue.
+This patch added a device property for HW debounce time control.
+We could change this value to tune the sensitivity of push button.
 
---
- Kirill A. Shutemov
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+Link: https://lore.kernel.org/r/20191030085533.14299-1-shumingf@realtek.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ include/sound/rt5682.h    |  1 +
+ sound/soc/codecs/rt5682.c | 15 +++++++++++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/include/sound/rt5682.h b/include/sound/rt5682.h
+index bf2ee75aabb1..bc2c31734df1 100644
+--- a/include/sound/rt5682.h
++++ b/include/sound/rt5682.h
+@@ -31,6 +31,7 @@ struct rt5682_platform_data {
+ 	enum rt5682_dmic1_data_pin dmic1_data_pin;
+ 	enum rt5682_dmic1_clk_pin dmic1_clk_pin;
+ 	enum rt5682_jd_src jd_src;
++	unsigned int btndet_delay;
+ };
+ 
+ #endif
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index c50b75ce82e0..35dcec135c8a 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -44,6 +44,7 @@ static const struct rt5682_platform_data i2s_default_platform_data = {
+ 	.dmic1_data_pin = RT5682_DMIC1_DATA_GPIO2,
+ 	.dmic1_clk_pin = RT5682_DMIC1_CLK_GPIO3,
+ 	.jd_src = RT5682_JD1,
++	.btndet_delay = 16,
+ };
+ 
+ struct rt5682_priv {
+@@ -1026,6 +1027,18 @@ static int rt5682_set_jack_detect(struct snd_soc_component *component,
+ 		regmap_update_bits(rt5682->regmap, RT5682_IRQ_CTRL_2,
+ 			RT5682_JD1_EN_MASK | RT5682_JD1_POL_MASK,
+ 			RT5682_JD1_EN | RT5682_JD1_POL_NOR);
++		regmap_update_bits(rt5682->regmap, RT5682_4BTN_IL_CMD_4,
++			0x7f7f, (rt5682->pdata.btndet_delay << 8 |
++			rt5682->pdata.btndet_delay));
++		regmap_update_bits(rt5682->regmap, RT5682_4BTN_IL_CMD_5,
++			0x7f7f, (rt5682->pdata.btndet_delay << 8 |
++			rt5682->pdata.btndet_delay));
++		regmap_update_bits(rt5682->regmap, RT5682_4BTN_IL_CMD_6,
++			0x7f7f, (rt5682->pdata.btndet_delay << 8 |
++			rt5682->pdata.btndet_delay));
++		regmap_update_bits(rt5682->regmap, RT5682_4BTN_IL_CMD_7,
++			0x7f7f, (rt5682->pdata.btndet_delay << 8 |
++			rt5682->pdata.btndet_delay));
+ 		mod_delayed_work(system_power_efficient_wq,
+ 			   &rt5682->jack_detect_work, msecs_to_jiffies(250));
+ 		break;
+@@ -2467,6 +2480,8 @@ static int rt5682_parse_dt(struct rt5682_priv *rt5682, struct device *dev)
+ 		&rt5682->pdata.dmic1_clk_pin);
+ 	device_property_read_u32(dev, "realtek,jd-src",
+ 		&rt5682->pdata.jd_src);
++	device_property_read_u32(dev, "realtek,btndet-delay",
++		&rt5682->pdata.btndet_delay);
+ 
+ 	rt5682->pdata.ldo1_en = of_get_named_gpio(dev->of_node,
+ 		"realtek,ldo1-en-gpios", 0);
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

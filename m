@@ -2,96 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1ABE2E9E22
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 15:59:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF4EFE9E54
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 16:06:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8FEA232F;
-	Wed, 30 Oct 2019 15:58:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8FEA232F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F72D2297;
+	Wed, 30 Oct 2019 16:05:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F72D2297
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572447554;
-	bh=6rYe7nWMLWDY/XJcsNvQWaQGvN+jMncBVdkFCdAfCRU=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1572447990;
+	bh=5ORgnnb30RyXyK/Tba30J8yhadtuNTH+4rzJojx6C/Q=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eYNHUB9wktP8Tk1ui8Ztr+cK4JB665Sj2AuCZ4lbnGlkoS+Ih9JNQSZ3u+54aacQJ
-	 aYAiEF9nCpf0J9tGgmYT98ZPOMpiLqXCdApVy65tsBOpt7uwvq0DS6qaudMQs4ddjO
-	 TaoPa8txbSFiRe+i+aRMsfjY63m1OMjwTDMWJJgU=
+	b=qCCIdBkuf1DDa9nC2QVUJc2wqNBwG38aKGuMderMorS3XRaOu/NBad9wNJyga7VqG
+	 mZyqaGp6hjaw91uFeF6daMmgbkv1A2vtZ2a4RNbmGm8fPW84RNzDV7t/TZnHQhWRcK
+	 Oz4dnFAnty4HhCpUapWbLQFeUrwBq76RAgJexNMc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1791F805AE;
-	Wed, 30 Oct 2019 15:56:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46F42F80361;
+	Wed, 30 Oct 2019 16:04:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 988DBF80361; Wed, 30 Oct 2019 15:56:22 +0100 (CET)
+ id CD6A7F802BD; Wed, 30 Oct 2019 16:04:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2A94FF8015A
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 15:56:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A94FF8015A
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="W3gbXEvu"
-Received: by mail-wr1-x444.google.com with SMTP id a11so2653055wra.6
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 07:56:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=3KGaDNuZOqaW+oq9eCygfM069fZ/a2Mqyl7Of0Yf3Bk=;
- b=W3gbXEvu5iu+v3Sxxu1RVFPekMr8X8F8JzwignYx4p0KZkG+YP9eZd1wnj1TxbgO6W
- 89sUUPKqCOeUlBJyiMxzKo1T2VxdYaaB/9mvCtJUBKg6nfKXG866CRoT9kPFz/dKq63G
- vIGbZi4dC7QPg6QlVN1ZNSTW2qVYK+tmJHP1QfUFHfcloXf7RwIFFfrBODzE3rVy3Yk4
- LZYG0txO706XP16RwRLHhfX+a+CoZ30rTJndNx+YgErlj3hiQVOnjPw6kQvJzH1mCauE
- +NKqegFjdYqIo+X1UldYjNNnwl+mpUFiKwyoeP2qqOBU2EksImdTj08e+BmgjXA63eeX
- Fwaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=3KGaDNuZOqaW+oq9eCygfM069fZ/a2Mqyl7Of0Yf3Bk=;
- b=KJWU6U5LXDctafhC34cVb8iv2jYKA+EIBczdmgEEV3u3kR8ld2LVZuvaf34tsemhH5
- ryTVTqi8IKKLMNPCkbbxeEEGoQr7V2gak4M1aDQ4cD0hpSAuCYKT41zMBZNz+gF0fZR2
- C7cvozO2DDb09ZreQu+tJ61RiVNZjs9ShszA7iA9xJ+eB1BAMkpNnlq62t32Lebc1Qk7
- OJqeibb/P0WeKSMhB5JFjxTgNI4PVS0f0Ab+bioteU8SsH5nVTMP8px6D+encDHiWm6z
- PmeRnx2TdZrTg+HYuuqwuSqWh+AmCzxOVmnFz9oMg42oC1wlh/r0piw0proDkGsgpLdP
- vasA==
-X-Gm-Message-State: APjAAAUxrwWOd3MwVjXE4OJFICHP1xq/Dmoi8xeTXXOKEbqlzJFKnjH8
- FebCteqCGaWRSe4ukxZlbD+Z9A==
-X-Google-Smtp-Source: APXvYqzNEp7v8VF6xzERjzhXpFhkFob5hrJIC4MZV7Tiihtvl6ZSZv8Ub0Haz1Ef1kEUnQ9Tnn0N1w==
-X-Received: by 2002:adf:828c:: with SMTP id 12mr274663wrc.40.1572447369376;
- Wed, 30 Oct 2019 07:56:09 -0700 (PDT)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id n11sm272188wmd.26.2019.10.30.07.56.08
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 30 Oct 2019 07:56:08 -0700 (PDT)
-To: Vinod Koul <vkoul@kernel.org>
-References: <20191011154423.2506-1-srinivas.kandagatla@linaro.org>
- <20191011154423.2506-3-srinivas.kandagatla@linaro.org>
- <20191021044405.GB2654@vkoul-mobl>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <17cb6d3f-2317-9667-8642-566a8a88bd4c@linaro.org>
-Date: Wed, 30 Oct 2019 14:56:07 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20191021044405.GB2654@vkoul-mobl>
-Content-Language: en-US
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- spapothi@codeaurora.org, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH v3 2/2] soundwire: qcom: add support for
- SoundWire controller
+ by alsa1.perex.cz (Postfix) with ESMTPS id 98CB9F802A0
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 16:04:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 98CB9F802A0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 04B24B3CD;
+ Wed, 30 Oct 2019 15:04:02 +0000 (UTC)
+Date: Wed, 30 Oct 2019 16:04:01 +0100
+Message-ID: <s5h1ruugtr2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Kirill A. Shutemov" <kirill@shutemov.name>
+In-Reply-To: <20191030141029.isw4y3tfmjp5azev@box.shutemov.name>
+References: <20191030141029.isw4y3tfmjp5azev@box.shutemov.name>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Logan Gunthorpe <logang@deltatee.com>,
+ Kirill Smelkov <kirr@nexedi.com>, Guenter Roeck <linux@roeck-us.net>
+Subject: Re: [alsa-devel] sound/core/timer: Deadlock on register_mutex
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,96 +68,186 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 21/10/2019 05:44, Vinod Koul wrote:
-> On 11-10-19, 16:44, Srinivas Kandagatla wrote:
+On Wed, 30 Oct 2019 15:10:29 +0100,
+Kirill A. Shutemov wrote:
 > 
->> +static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
->> +{
->> +	struct qcom_swrm_ctrl *ctrl = dev_id;
->> +	u32 sts, value;
->> +	unsigned long flags;
->> +
->> +	ctrl->reg_read(ctrl, SWRM_INTERRUPT_STATUS, &sts);
->> +
->> +	if (sts & SWRM_INTERRUPT_STATUS_CMD_ERROR) {
->> +		ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS, &value);
->> +		dev_err_ratelimited(ctrl->dev,
->> +				    "CMD error, fifo status 0x%x\n",
->> +				     value);
->> +		ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CMD, 0x1);
->> +	}
->> +
->> +	if ((sts & SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED) ||
->> +	    sts & SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS)
->> +		schedule_work(&ctrl->slave_work);
+> Hi,
 > 
-> we are in irq thread, so why not do the work here rather than schedule
-> it?
-
-The reason is that, sdw_handle_slave_status() we will read device id 
-registers, which are fifo based in this controller and triggers an 
-interrupt for each read.
-So all the such reads will timeout waiting for interrupt if we do not do 
-it in a separate thread.
-
-
-
+> I've stepped on this after pulling USB sound card:
 > 
->> +static int qcom_swrm_compute_params(struct sdw_bus *bus)
->> +{
->> +	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
->> +	struct sdw_master_runtime *m_rt;
->> +	struct sdw_slave_runtime *s_rt;
->> +	struct sdw_port_runtime *p_rt;
->> +	struct qcom_swrm_port_config *pcfg;
->> +	int i = 0;
->> +
->> +	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
->> +		list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
->> +			pcfg = &ctrl->pconfig[p_rt->num - 1];
->> +			p_rt->transport_params.port_num = p_rt->num;
->> +			p_rt->transport_params.sample_interval = pcfg->si + 1;
->> +			p_rt->transport_params.offset1 = pcfg->off1;
->> +			p_rt->transport_params.offset2 = pcfg->off2;
->> +		}
->> +
->> +		list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
->> +			list_for_each_entry(p_rt, &s_rt->port_list, port_node) {
->> +				pcfg = &ctrl->pconfig[i];
->> +				p_rt->transport_params.port_num = p_rt->num;
->> +				p_rt->transport_params.sample_interval =
->> +					pcfg->si + 1;
->> +				p_rt->transport_params.offset1 = pcfg->off1;
->> +				p_rt->transport_params.offset2 = pcfg->off2;
->> +				i++;
->> +			}
+> 	 ============================================
+> 	 WARNING: possible recursive locking detected
+> 	 5.4.0-rc4-00090-g95b5dc072cc3-dirty #48 Not tainted
+> 	 --------------------------------------------
+> 	 xdg-screensaver/1321 is trying to acquire lock:
+> 	 ffffffffbaf6b3a0 (register_mutex){+.+.}, at: snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
 > 
-> Can you explain this one, am not sure I understood this. This fn is
-> supposed to compute and fill up the params, all I can see is filling up!
+> 	but task is already holding lock:
+> 	 ffffffffbaf6b3a0 (register_mutex){+.+.}, at: snd_timer_close (/sound/core/timer.c:416)
 > 
-Bandwidth parameters are currently coming from board specific Device 
-Tree, which are programmed here.
+> 	other info that might help us debug this:
+> 	  Possible unsafe locking scenario:
+> 
+> 		CPU0
+> 		----
+> 	   lock(register_mutex);
+> 	   lock(register_mutex);
+> 
+> 	*** DEADLOCK ***
+> 
+> 	  May be due to missing lock nesting notation
+> 
+> 	 2 locks held by xdg-screensaver/1321:
+> 	 #0: ffff9f74bbf5ef50 (&tu->ioctl_lock){+.+.}, at: snd_timer_user_release (/sound/core/timer.c:1467)
+> 	 #1: ffffffffbaf6b3a0 (register_mutex){+.+.}, at: snd_timer_close (/sound/core/timer.c:416)
+> 
+> 	stack backtrace:
+> 	 CPU: 27 PID: 1321 Comm: xdg-screensaver Not tainted 5.4.0-rc4-00090-g95b5dc072cc3-dirty #48
+> 	 Hardware name: Gigabyte Technology Co., Ltd. X299 AORUS Gaming 3 Pro/X299 AORUS Gaming 3 Pro-CF, BIOS F3 12/28/2017
+> 	 Call Trace:
+> 	 dump_stack (/lib/dump_stack.c:115)
+> 	 __lock_acquire.cold (/kernel/locking/lockdep.c:2371 /kernel/locking/lockdep.c:2412 /kernel/locking/lockdep.c:2955 /kernel/locking/lockdep.c:3955)
+> 	 ? __lock_acquire (/kernel/locking/lockdep.c:3962)
+> 	 lock_acquire (/arch/x86/include/asm/current.h:15 /kernel/locking/lockdep.c:4489)
+> 	 ? snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
+> 	 __mutex_lock (/include/linux/compiler.h:199 /arch/x86/include/asm/atomic64_64.h:22 /include/asm-generic/atomic-instrumented.h:837 /include/asm-generic/atomic-long.h:28 /kernel/locking/mutex.c:111 /kernel/locking/mutex.c:152 /kernel/locking/mutex.c:958 /kernel/locking/mutex.c:1103)
+> 	 ? snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
+> 	 ? __mutex_lock (/include/linux/compiler.h:199 /arch/x86/include/asm/atomic64_64.h:22 /include/asm-generic/atomic-instrumented.h:837 /include/asm-generic/atomic-long.h:28 /kernel/locking/mutex.c:111 /kernel/locking/mutex.c:152 /kernel/locking/mutex.c:958 /kernel/locking/mutex.c:1103)
+> 	 ? __mutex_lock (/arch/x86/include/asm/preempt.h:102 /kernel/locking/mutex.c:964 /kernel/locking/mutex.c:1103)
+> 	 ? snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
+> 	 ? snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
+> 	 ? lockdep_hardirqs_on (/kernel/locking/lockdep.c:3394 /kernel/locking/lockdep.c:3434)
+> 	 snd_timer_free.part.0 (/include/linux/compiler.h:199 /include/linux/list.h:268 /sound/core/timer.c:944)
+> 	 snd_timer_dev_free (/sound/core/timer.c:967)
+> 	 __snd_device_free (/sound/core/device.c:76)
+> 	 snd_device_free_all (/sound/core/device.c:228)
+> 	 release_card_device (/sound/core/init.c:471 /sound/core/init.c:140)
+> 	 device_release (/drivers/base/core.c:1105)
+> 	 kobject_put (/lib/kobject.c:697 /lib/kobject.c:722 /include/linux/kref.h:65 /lib/kobject.c:739)
+> 	 snd_timer_close_locked (/sound/core/timer.c:398)
+> 	 snd_timer_close (/sound/core/timer.c:417)
+> 	 snd_timer_user_release (/sound/core/timer.c:1469)
+> 	 __fput (/fs/file_table.c:281)
+> 	 task_work_run (/kernel/task_work.c:115 (discriminator 1))
+> 	 exit_to_usermode_loop (/include/linux/tracehook.h:188 /arch/x86/entry/common.c:163)
+> 	 do_syscall_64 (/arch/x86/entry/common.c:194 /arch/x86/entry/common.c:274 /arch/x86/entry/common.c:300)
+> 	 entry_SYSCALL_64_after_hwframe (/arch/x86/entry/entry_64.S:177)
 
->> +static const struct snd_soc_dai_ops qcom_swrm_pdm_dai_ops = {
->> +	.hw_params = qcom_swrm_hw_params,
->> +	.prepare = qcom_swrm_prepare,
->> +	.hw_free = qcom_swrm_hw_free,
->> +	.startup = qcom_swrm_startup,
->> +	.shutdown = qcom_swrm_shutdown,
->> +        .set_sdw_stream = qcom_swrm_set_sdw_stream,
-> 
-> why does indent look off to me!
-> 
-Yep, Fixed in next version.
+OK, this looks like a deadlock that is via put_device() called at
+closing the timer device that is the last open instance while freeing
+the card.
 
---srini
+Could you try the patch below?
+
+
+thanks,
+
+Takashi
+
+--- a/sound/core/timer.c
++++ b/sound/core/timer.c
+@@ -226,7 +226,8 @@ static int snd_timer_check_master(struct snd_timer_instance *master)
+ 	return 0;
+ }
+ 
+-static int snd_timer_close_locked(struct snd_timer_instance *timeri);
++static int snd_timer_close_locked(struct snd_timer_instance *timeri,
++				  struct device **card_dev_to_put);
+ 
+ /*
+  * open a timer instance
+@@ -238,6 +239,7 @@ int snd_timer_open(struct snd_timer_instance **ti,
+ {
+ 	struct snd_timer *timer;
+ 	struct snd_timer_instance *timeri = NULL;
++	struct device *card_dev_to_put = NULL;
+ 	int err;
+ 
+ 	mutex_lock(&register_mutex);
+@@ -261,7 +263,7 @@ int snd_timer_open(struct snd_timer_instance **ti,
+ 		list_add_tail(&timeri->open_list, &snd_timer_slave_list);
+ 		err = snd_timer_check_slave(timeri);
+ 		if (err < 0) {
+-			snd_timer_close_locked(timeri);
++			snd_timer_close_locked(timeri, &card_dev_to_put);
+ 			timeri = NULL;
+ 		}
+ 		goto unlock;
+@@ -313,7 +315,7 @@ int snd_timer_open(struct snd_timer_instance **ti,
+ 			timeri = NULL;
+ 
+ 			if (timer->card)
+-				put_device(&timer->card->card_dev);
++				card_dev_to_put = &timer->card->card_dev;
+ 			module_put(timer->module);
+ 			goto unlock;
+ 		}
+@@ -323,12 +325,15 @@ int snd_timer_open(struct snd_timer_instance **ti,
+ 	timer->num_instances++;
+ 	err = snd_timer_check_master(timeri);
+ 	if (err < 0) {
+-		snd_timer_close_locked(timeri);
++		snd_timer_close_locked(timeri, &card_dev_to_put);
+ 		timeri = NULL;
+ 	}
+ 
+  unlock:
+ 	mutex_unlock(&register_mutex);
++	/* put_device() is called after unlock for avoiding deadlock */
++	if (card_dev_to_put)
++		put_device(card_dev_to_put);
+ 	*ti = timeri;
+ 	return err;
+ }
+@@ -338,11 +343,13 @@ EXPORT_SYMBOL(snd_timer_open);
+  * close a timer instance
+  * call this with register_mutex down.
+  */
+-static int snd_timer_close_locked(struct snd_timer_instance *timeri)
++static int snd_timer_close_locked(struct snd_timer_instance *timeri,
++				  struct device **card_devp_to_put)
+ {
+ 	struct snd_timer *timer = timeri->timer;
+ 	struct snd_timer_instance *slave, *tmp;
+ 
++	*card_devp_to_put = NULL;
+ 	if (timer) {
+ 		spin_lock_irq(&timer->lock);
+ 		timeri->flags |= SNDRV_TIMER_IFLG_DEAD;
+@@ -395,7 +402,7 @@ static int snd_timer_close_locked(struct snd_timer_instance *timeri)
+ 			timer->hw.close(timer);
+ 		/* release a card refcount for safe disconnection */
+ 		if (timer->card)
+-			put_device(&timer->card->card_dev);
++			*card_devp_to_put = &timer->card->card_dev;
+ 		module_put(timer->module);
+ 	}
+ 
+@@ -407,14 +414,18 @@ static int snd_timer_close_locked(struct snd_timer_instance *timeri)
+  */
+ int snd_timer_close(struct snd_timer_instance *timeri)
+ {
++	struct device *card_dev_to_put = NULL;
+ 	int err;
+ 
+ 	if (snd_BUG_ON(!timeri))
+ 		return -ENXIO;
+ 
+ 	mutex_lock(&register_mutex);
+-	err = snd_timer_close_locked(timeri);
++	err = snd_timer_close_locked(timeri, &card_dev_to_put);
+ 	mutex_unlock(&register_mutex);
++	/* put_device() is called after unlock for avoiding deadlock */
++	if (card_dev_to_put)
++		put_device(card_dev_to_put);
+ 	return err;
+ }
+ EXPORT_SYMBOL(snd_timer_close);
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

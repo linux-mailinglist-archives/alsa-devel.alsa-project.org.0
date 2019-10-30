@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23DB6E9BF1
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 13:59:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CF89E9BF5
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 14:00:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83E2720E8;
-	Wed, 30 Oct 2019 13:58:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83E2720E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84853230F;
+	Wed, 30 Oct 2019 13:59:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84853230F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572440368;
-	bh=QYF7R48qADJDFjMopYYJ/YGZF9ipLRO2fJLcJXWwfSk=;
+	s=default; t=1572440415;
+	bh=cjqzbU8DDGmjUItmq7Evi4/VwzSBEXnAK8AIvuAN3EY=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Gc6RJP4vW+9/mPQHvTiP1ffAjMf5Kz47S9S2te2MgZfjdLBnvV8lIDXH0J7VSkFuP
-	 iGJ2DhQwV9jD40uER5FSeUge4t6OTy8300jciwHVEvZvYabx1O3XDCTaX3v8CRYmXL
-	 40DpUoSwnLvkpbBgpHLwQ/EKMCf5EYYdSwBW8tm4=
+	b=kshboKqef5mRuDYjdZ2Pi5dZV3TsIFv/U6Ln+eXc9cjdnPbrSfp+qAhYssdxHDH5Z
+	 yPc9FyABGzxT/hIEp05ou2zxuuxnLDfeAv1XBCDDn5NR8fZAx3RWQtGn1tgqNO9qk+
+	 ehvJ0RZ0l+PKz2k8ID/VLNGyx8qKgdxxflUjZzqs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97237F8044A;
-	Wed, 30 Oct 2019 13:57:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09DC5F805FB;
+	Wed, 30 Oct 2019 13:57:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01A3EF803D6; Wed, 30 Oct 2019 13:57:41 +0100 (CET)
+ id 4689EF80361; Wed, 30 Oct 2019 13:57:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 70E69F8015A
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 13:57:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70E69F8015A
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9EFDF802A0
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 13:57:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9EFDF802A0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="VnMj05TN"
+ header.b="QpNG3F1I"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=wHN4bd8CO8F8O3L1AjD1wtLQaC42DtoJHk5y1nllBXg=; b=VnMj05TN40bM
- Et/XwCoMR/TAxfTpnlr5AKGQPr2Sp9tE/UopOfRAtZmJHyxRpyyAOgt+vbZk4mDeQwmB8twnAJ2/f
- Li7/mTX/+xaQemz5C8/PRD9sQ7NqR6F9F3k1jleebnhgVKkXNgOi12B34mJUjxpNKzbjy6G7gete6
- gZRJg=;
+ List-Archive; bh=pZPYhuH3ns2SOeFxf4Io1IAuLRlQvBthQ594MYLjrTU=; b=QpNG3F1IxQJp
+ p/NMvR9vAKsm0vkpZKBxTW0ikQGwAQiI9GbAlswGHw/DKEidwNXyy6kWwetpQvauP5y5zynD9hAqa
+ 5AU8Y8nGnSA4FmTxI61qV7XQmf5LhEK3ZwIzpeAf+cFVdosZGShVtGqGHMD3hWcBS5f3n5TQBJ8pR
+ 2EV68=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iPnXe-000509-2E; Wed, 30 Oct 2019 12:57:38 +0000
+ id 1iPnXe-00050A-Eb; Wed, 30 Oct 2019 12:57:38 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 8C12B27420F4; Wed, 30 Oct 2019 12:57:37 +0000 (GMT)
+ id B58D82742152; Wed, 30 Oct 2019 12:57:37 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <8736fbdnwt.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87a79idajh.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191030125737.8C12B27420F4@ypsilon.sirena.org.uk>
+Message-Id: <20191030125737.B58D82742152@ypsilon.sirena.org.uk>
 Date: Wed, 30 Oct 2019 12:57:37 +0000 (GMT)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: remove unneeded
-	snd_soc_tplg_component_remove()" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: rt5677-spi: fixup compile warning" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,14 +80,16 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0628445730326150254=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--===============0628445730326150254==
+Content-Type: text/plain
+
 The patch
 
-   ASoC: soc-core: remove unneeded snd_soc_tplg_component_remove()
+   ASoC: rt5677-spi: fixup compile warning
 
 has been applied to the asoc tree at
 
@@ -112,46 +114,54 @@ to this mail.
 Thanks,
 Mark
 
-From e9904ed5e73af4fd00cf4fcf705420a385af45da Mon Sep 17 00:00:00 2001
+From d247568bb21b6665cc32dee8b0a9716d44bd11a7 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 30 Oct 2019 10:26:10 +0900
-Subject: [PATCH] ASoC: soc-core: remove unneeded
- snd_soc_tplg_component_remove()
+Date: Wed, 30 Oct 2019 15:14:58 +0900
+Subject: [PATCH] ASoC: rt5677-spi: fixup compile warning
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-snd_soc_tplg_component_remove() is pair of snd_soc_tplg_component_load(),
-and it is topology related cleanup function.
+This patch fixup this warning
 
-The driver which called _load() needs to call _remove() by its responsibility.
-Today, skl-pcm and topology are the user, and these are calling both
-_load() and _remove().
+LINUX/sound/soc/codecs/rt5677-spi.c: In function ‘rt5677_spi_pcm_close’:
+LINUX/sound/soc/codecs/rt5677-spi.c:114:30: warning: unused variable ‘rtd’ [-Wunused-variable]
+  struct snd_soc_pcm_runtime *rtd = substream->private_data;
+                              ^~~
 
-soc-core doesn't need to call it.
-This patch remove it.
-
+Fixes: a0e0d135427c ("ASoC: rt5677: Add a PCM device for streaming hotword via SPI")
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/8736fbdnwt.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87a79idajh.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/soc/codecs/rt5677-spi.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index f1b41b0391ed..b07ecfac39d7 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2890,8 +2890,6 @@ static int __snd_soc_unregister_component(struct device *dev)
- 		if (dev != component->dev)
- 			continue;
+diff --git a/sound/soc/codecs/rt5677-spi.c b/sound/soc/codecs/rt5677-spi.c
+index dac1097bc740..3aa3ea7c2768 100644
+--- a/sound/soc/codecs/rt5677-spi.c
++++ b/sound/soc/codecs/rt5677-spi.c
+@@ -111,7 +111,6 @@ static int rt5677_spi_pcm_close(
+ 		struct snd_soc_component *component,
+ 		struct snd_pcm_substream *substream)
+ {
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct rt5677_dsp *rt5677_dsp =
+ 			snd_soc_component_get_drvdata(component);
  
--		snd_soc_tplg_component_remove(component,
--					      SND_SOC_TPLG_INDEX_ALL);
- 		snd_soc_component_del_unlocked(component);
- 		found = 1;
- 		break;
 -- 
 2.20.1
+
+
+--===============0628445730326150254==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============0628445730326150254==--

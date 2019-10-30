@@ -2,74 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9568E9B70
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 13:23:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23DB6E9BF1
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 13:59:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27B2B2308;
-	Wed, 30 Oct 2019 13:22:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27B2B2308
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83E2720E8;
+	Wed, 30 Oct 2019 13:58:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83E2720E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572438199;
-	bh=sAqroiQgd3nda1a20v2r9UhgWL663N61RU9x5GWBs3E=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bRkfEcHjYykoO02ExyWyXX+NKm/1/XOu6JHM7SRXSdjIFlADWJG12Sfp/HuzWU3JH
-	 8Z8PHvCxWPRRjguPtcv0S+lfFzt0sReaqzO7CqV34JIzaIhUHdYnaJ4gTTV7Fi5ov5
-	 vVfDwiGvo1+j3dqGzsIqqiz2G/WnS49hL7uNtt/E=
+	s=default; t=1572440368;
+	bh=QYF7R48qADJDFjMopYYJ/YGZF9ipLRO2fJLcJXWwfSk=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=Gc6RJP4vW+9/mPQHvTiP1ffAjMf5Kz47S9S2te2MgZfjdLBnvV8lIDXH0J7VSkFuP
+	 iGJ2DhQwV9jD40uER5FSeUge4t6OTy8300jciwHVEvZvYabx1O3XDCTaX3v8CRYmXL
+	 40DpUoSwnLvkpbBgpHLwQ/EKMCf5EYYdSwBW8tm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96383F8044A;
-	Wed, 30 Oct 2019 13:21:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 97237F8044A;
+	Wed, 30 Oct 2019 13:57:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53469F80361; Wed, 30 Oct 2019 13:21:32 +0100 (CET)
+ id 01A3EF803D6; Wed, 30 Oct 2019 13:57:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 374A0F802A0
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 13:21:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 374A0F802A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70E69F8015A
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 13:57:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70E69F8015A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="usqaic5L"
+ header.b="VnMj05TN"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=48voixcHnRdFxNC3czopNEeKps1EW3SSA2ugEojtyEY=; b=usqaic5Lktt1REEhklUHrTpgq
- UVH8bez+u5tlEMfB96K5klVZ2ncCtsi4DN8zYEu8jqRyjXEiaEhhTMizjL9X2DSTJfh8gji7pslS/
- ZvauJ5KtuFx6Czmy3OvLCEQELrqDO1J0CrPBwnmAFAeRLZ2jkmoNSpVrHYYwY0vHP/vH8=;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=wHN4bd8CO8F8O3L1AjD1wtLQaC42DtoJHk5y1nllBXg=; b=VnMj05TN40bM
+ Et/XwCoMR/TAxfTpnlr5AKGQPr2Sp9tE/UopOfRAtZmJHyxRpyyAOgt+vbZk4mDeQwmB8twnAJ2/f
+ Li7/mTX/+xaQemz5C8/PRD9sQ7NqR6F9F3k1jleebnhgVKkXNgOi12B34mJUjxpNKzbjy6G7gete6
+ gZRJg=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iPmyb-0004ui-LW; Wed, 30 Oct 2019 12:21:25 +0000
+ id 1iPnXe-000509-2E; Wed, 30 Oct 2019 12:57:38 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D8E4327420F4; Wed, 30 Oct 2019 12:21:24 +0000 (GMT)
-Date: Wed, 30 Oct 2019 12:21:24 +0000
+ id 8C12B27420F4; Wed, 30 Oct 2019 12:57:37 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: alsa-devel@alsa-project.org
-Message-ID: <20191030122124.GA7218@sirena.co.uk>
-MIME-Version: 1.0
-X-Cookie: Celebrity voices impersonated.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Daniel Baluta <daniel.baluta@gmail.com>, Takashi Iwai <tiwai@suse.de>,
- Patrick Lai <plai@codeaurora.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Curtis Malainey <cujomalainey@google.com>,
- Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [ANNOUNCE] Schedule for 2019 Linux Audio miniconference
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <8736fbdnwt.wl-kuninori.morimoto.gx@renesas.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20191030125737.8C12B27420F4@ypsilon.sirena.org.uk>
+Date: Wed, 30 Oct 2019 12:57:37 +0000 (GMT)
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: soc-core: remove unneeded
+	snd_soc_tplg_component_remove()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,87 +79,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3392840563375146194=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============3392840563375146194==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="LZvS9be/3tNcYl/X"
-Content-Disposition: inline
+   ASoC: soc-core: remove unneeded snd_soc_tplg_component_remove()
 
+has been applied to the asoc tree at
 
---LZvS9be/3tNcYl/X
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
 
-Hi,
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-As in previous years we're going to have an audio miniconference so we can
-get together and talk through issues, especially design decisions, face to
-face.  This year's event will be held on October 31st in Lyon, France,
-the day after ELC-E.  This will be held at the Lyon Convention Center (the
-ELC-E venue) and will be free of charge to attend, generously
-sponsored by Intel.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-The plan is to gather at 9am and start once enough people are there and
-ready.  I look forward to seeing you all tomorrow!
-=20
-The agenda is looking pretty full now, what we've got so far is:
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
- - Introductions (me)
- - Use case management enhancements (Curtis)
- - DSP framework integration (Liam)
-  - SOF integration with ACPI and DT (Daniel)
-  - SOF support for non-modular drivers (Daniel)
-   - Gapless compressed playback (Patrick)
-  - Soundwire status (Liam?)
-   - Multi-CPU support
-   - Mixing with HDA/I2S in a single system
-  - PCM issues (Patrick)
-   - PCM device volume control
-   - Attaching timestamps to buffers
-  - kcontrol issues (Takashi)
-   - Standardization
-   - Confirmance testing
-  - Virtualization (Liam)
-  - User experiences (Jerome)
-  - Unified graph (Patrick)
-  - Componentisation status/plans (Me)
-
-Thanks again to Intel for supporting this event.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
 Mark
 
---LZvS9be/3tNcYl/X
-Content-Type: application/pgp-signature; name="signature.asc"
+From e9904ed5e73af4fd00cf4fcf705420a385af45da Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Wed, 30 Oct 2019 10:26:10 +0900
+Subject: [PATCH] ASoC: soc-core: remove unneeded
+ snd_soc_tplg_component_remove()
 
------BEGIN PGP SIGNATURE-----
+snd_soc_tplg_component_remove() is pair of snd_soc_tplg_component_load(),
+and it is topology related cleanup function.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl25gEQACgkQJNaLcl1U
-h9DExgf+OeXwqc+vBgQk8ZqU2cipuYsUMvDu3ChkfGIy+u24lSV6aDNhfJ00csVM
-RqT9esLZ15zaS6GM18mOA86/XxaYh+0F0QP/HIgpT1NeKIu+8rLP3/D72LnHHugW
-0Ktdv4q5kQVGyF3iuPvNTHp8zC5WHkuoS4xmluWuSkSLScXLLgbAoRQLBDt5RH1c
-PbKyL0B/2uyC8flU1Fe1FupsWQcHPZSgOHjYGYazZMvYlV1zm6HcnpnmS5FwxXLs
-9SJ8NeLFIA22WeDN/55pLgetD0xkCmB5t6WvmhF6fgtsXt79aNodC7Sz3cINkmkp
-cZ4cKqE+E/xn2hS92Z5V0Vh1yiqtvg==
-=TbPv
------END PGP SIGNATURE-----
+The driver which called _load() needs to call _remove() by its responsibility.
+Today, skl-pcm and topology are the user, and these are calling both
+_load() and _remove().
 
---LZvS9be/3tNcYl/X--
+soc-core doesn't need to call it.
+This patch remove it.
 
---===============3392840563375146194==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/8736fbdnwt.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/soc-core.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index f1b41b0391ed..b07ecfac39d7 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -2890,8 +2890,6 @@ static int __snd_soc_unregister_component(struct device *dev)
+ 		if (dev != component->dev)
+ 			continue;
+ 
+-		snd_soc_tplg_component_remove(component,
+-					      SND_SOC_TPLG_INDEX_ALL);
+ 		snd_soc_component_del_unlocked(component);
+ 		found = 1;
+ 		break;
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3392840563375146194==--

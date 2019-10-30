@@ -2,66 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CAAE9B10
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 12:47:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26CB9E9B26
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 12:51:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 016612306;
-	Wed, 30 Oct 2019 12:46:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 016612306
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8937F230E;
+	Wed, 30 Oct 2019 12:51:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8937F230E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572436059;
-	bh=Yxz8a+ty5uED8VyUSHTtMGEfHyfppeH7lt2SLMgpyJ0=;
-	h=From:To:Date:In-Reply-To:References:In-Reply-To:References:Cc:
-	 Subject:List-Id:List-Unsubscribe:List-Archive:List-Post:List-Help:
-	 List-Subscribe:From;
-	b=LOe3r8h1WnC+32SKb5CXzU0UVIsZMCpmgbYPsHrPPj12JakyYQXUOwBCufpObakiB
-	 aDeE68PRTzDD7bQNy2898VIbmXVaar9mobjZBi/WVSDGGdV4vVcPW90hU3rU//l8Tz
-	 +8ZiZjWXduNnSZ4zOjVzAJCqrI7WVnxxgMSzR1W4=
+	s=default; t=1572436318;
+	bh=92Mf/QyVNYYQddQl4VgqE/s+qblldsBq/taa05XuVKs=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=BLA0fxE+KWw3HIcxJeAPVD2GP7iIZzxRxx+Yt9iYc5kExsyvZmzEl3CrNGr7YluMO
+	 s1ybiRk5a5W0sHSj5aBXDeaHAEGjeHi3z1q6U5E235txmQzA/mV9lDbGgRq+xDqw48
+	 w/HNwBh4ohnaQoZo4BNPBoWJQ7cwy0XTzirKNxjM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68B1AF80361;
-	Wed, 30 Oct 2019 12:45:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 641F0F802BD;
+	Wed, 30 Oct 2019 12:50:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 89C3CF8048E; Wed, 30 Oct 2019 12:45:54 +0100 (CET)
+ id A704BF80361; Wed, 30 Oct 2019 12:50:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14352F802A1
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 12:45:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14352F802A1
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 2F6E2200481;
- Wed, 30 Oct 2019 12:45:50 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id B18E9200092;
- Wed, 30 Oct 2019 12:45:43 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 0DD29402B7;
- Wed, 30 Oct 2019 19:45:35 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
- lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh+dt@kernel.org,
- mark.rutland@arm.com, devicetree@vger.kernel.org
-Date: Wed, 30 Oct 2019 19:41:27 +0800
-Message-Id: <2000eb7ee4c086020157bfc209dd02cf1a1cbffc.1572435604.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <6465fb7dfaa68b6693584bcfa696894628d45fe9.1572435604.git.shengjiu.wang@nxp.com>
-References: <6465fb7dfaa68b6693584bcfa696894628d45fe9.1572435604.git.shengjiu.wang@nxp.com>
-In-Reply-To: <6465fb7dfaa68b6693584bcfa696894628d45fe9.1572435604.git.shengjiu.wang@nxp.com>
-References: <6465fb7dfaa68b6693584bcfa696894628d45fe9.1572435604.git.shengjiu.wang@nxp.com>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH V2 2/2] ASoC: fsl_asrc: Add support for imx8qm
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18B65F802A1
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 12:50:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18B65F802A1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="qDCwJLU3"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="V0K18gC8"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 4642321E6A;
+ Wed, 30 Oct 2019 07:50:07 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Wed, 30 Oct 2019 07:50:07 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm2; bh=HMFfDDceu4KUPGn7J++VuNhscGA
+ lz6Rm4rvKSvxRu7s=; b=qDCwJLU3goBmXP/tCS3WMIoFcYAALJbe0qwWkV84AZF
+ +/o4s0hL2JENAb63lhP/HcSnBRu0PjufIEtsROqOmO+DwoftNXTj6l1JLYBtapdj
+ VUOQ2a8hEhDDn+o3guq4G8LU+fXSL6c4+T4HTRc+tXty9Qot/f05OTiXQXHPWp1w
+ ARSg7yIDdXzmgYF3TxMWEooBUcaxHa6hEFQB9QmZVusxjM0wpr1jH/8vtSPsdQiY
+ MvEimEQdfhAGg7TsukkrrJ/IfZvYeeTX88SyS3yHWl10PpPY/EBeWCOF8rwDZvg/
+ rX6IfoeWniWUCJnm4YWAQQPAw+L7Z++FxANQCTd0ecw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=HMFfDD
+ ceu4KUPGn7J++VuNhscGAlz6Rm4rvKSvxRu7s=; b=V0K18gC8a9zSvBZoQqlxqs
+ et7jAthPWnts5tFEsdV4XRm87GPhd5L68uapzV/ZlUpBHyxNSnr82eRyy1rsLvNt
+ Xx8l6TB33x4lelibJQ8ZbAovthqBdXV7ml6H0dZ+r00lOjuu1DVUP1LK1r5i1POy
+ 641Ar1moNmV8BK7ghkVbAbIiqopMylDjUOhdpQ7dykockqOKUXT7tNUPr2RMBZp0
+ +lGKZYGs+A7cmb+np6gTjESTBjOHzSJSg0wRRg9EDNtS31Nwbn8bFYyDydvIQ5Py
+ 3kXLJkjJH40+fZzY01dCaxG1mwoQzG+QsZUvTfLREOPGVKD3lso7lwsggem5wAGw
+ ==
+X-ME-Sender: <xms:7ni5XUpCuXJfMHMKQok854Z6rgRRY4Fx_ZOcYfFJvVr4vXrqwBiKww>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtfedgfeefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjfgesthdtredttdervdenucfhrhhomhepvfgrkhgr
+ shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+ hjpheqnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucfkphepudegrdefrdejhedr
+ udekudenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmh
+ hotggthhhirdhjphenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:7ni5Xe6qzDMDwHeD_m73qGLLDLrtmsxtFC3dVlTNLniQeUKIdbs5nw>
+ <xmx:7ni5XUOIyajoNzoyoa5QD6RiuzQi8OXUOJjLpSMB8JHb7lJHtyeGyA>
+ <xmx:7ni5XQNA_rRWphQGHT-qSjpZy3KxNpVRPxEJxPX6G4Z4c5xRSTRlmw>
+ <xmx:73i5XV2fZEbeeh_54EhMb0XDrAjjJW3iiCQlM7Z1U6zzwXlvZVU55g>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7DF3C8005A;
+ Wed, 30 Oct 2019 07:50:05 -0400 (EDT)
+Date: Wed, 30 Oct 2019 20:50:02 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jean-Paul Argudo <jpa@argudo.org>
+Message-ID: <20191030115001.GB6313@workstation>
+Mail-Followup-To: Jean-Paul Argudo <jpa@argudo.org>,
+ alsa-devel@alsa-project.org
+References: <769b9f5dae864cf1eb433ab84eed385a161931c8.camel@argudo.org>
+ <20191030091540.GA1856@workstation>
+ <ad6f8c036538aa755017efe976ac223bb7c90be3.camel@argudo.org>
+ <c4b792255de178094fd53d80a25fc75b795e3acb.camel@argudo.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <c4b792255de178094fd53d80a25fc75b795e3acb.camel@argudo.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] snd-bebob : from kernel 4.13 to 5.3.19 and .20
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,355 +111,101 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are two asrc module in imx8qm, each module has different
-clock configuration, and the DMA type is EDMA.
+Hi,
 
-So in this patch, we define the new clocks, refine the clock map,
-and include struct fsl_asrc_soc_data for different soc usage.
+On Wed, Oct 30, 2019 at 10:40:18AM +0100, Jean-Paul Argudo wrote:
+> > I'll install Eoan kernel and test my devices.
+> > (but I don't have Saffire and Saffire LE...) I'd like you to wait
+> > for my test report.
+> 
+> What I can say is that with kernel 4.13 under Ubunto Disco everything
+> was fine :-(
 
-The EDMA channel is fixed with each dma request, one dma request
-corresponding to one dma channel. So we need to request dma
-channel with dma request of asrc module.
+I install Eoan (linux-image-5.3.0-19-generic:5.3.0-19.20) and test ALSA
+bebob driver with my test devices:
+ - Yamaha GO46 (DM1000 ASIC)
+ - M-Audio FireWire Solo (DM1000 ASIC)
+ - Behringer FCA610 (DM1500 ASIC)
+ - Focusrite SaffirePro 26 I/O (DM1000E)
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
----
-Changes in v2
-- use !use_edma to wrap code in fsl_asrc_dma
-- add Acked-by: Nicolin Chen
+However I don't find similar discontinuities. This means that you
+encounter model-specific issue as regression I didn't realized.
 
- sound/soc/fsl/fsl_asrc.c     | 91 +++++++++++++++++++++++++++++-------
- sound/soc/fsl/fsl_asrc.h     | 65 +++++++++++++++++++++++++-
- sound/soc/fsl/fsl_asrc_dma.c | 42 +++++++++++------
- 3 files changed, 166 insertions(+), 32 deletions(-)
+For my information, would you please get output from nodes on procfs?
+ * /proc/asound/cardX/firewire/clock
+ * /proc/asound/cardX/firewire/firmware
+ * /proc/asound/cardX/firewire/formation
 
-diff --git a/sound/soc/fsl/fsl_asrc.c b/sound/soc/fsl/fsl_asrc.c
-index a3cfceea7d2f..9dc5b5a93fb0 100644
---- a/sound/soc/fsl/fsl_asrc.c
-+++ b/sound/soc/fsl/fsl_asrc.c
-@@ -43,24 +43,55 @@ static struct snd_pcm_hw_constraint_list fsl_asrc_rate_constraints = {
-  */
- static unsigned char input_clk_map_imx35[] = {
- 	0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
-+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
- };
- 
- static unsigned char output_clk_map_imx35[] = {
- 	0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
-+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
-+	3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
- };
- 
- /* i.MX53 uses the same map for input and output */
- static unsigned char input_clk_map_imx53[] = {
- /*	0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xa  0xb  0xc  0xd  0xe  0xf */
- 	0x0, 0x1, 0x2, 0x7, 0x4, 0x5, 0x6, 0x3, 0x8, 0x9, 0xa, 0xb, 0xc, 0xf, 0xe, 0xd,
-+	0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
-+	0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
- };
- 
- static unsigned char output_clk_map_imx53[] = {
- /*	0x0  0x1  0x2  0x3  0x4  0x5  0x6  0x7  0x8  0x9  0xa  0xb  0xc  0xd  0xe  0xf */
- 	0x8, 0x9, 0xa, 0x7, 0xc, 0x5, 0x6, 0xb, 0x0, 0x1, 0x2, 0x3, 0x4, 0xf, 0xe, 0xd,
-+	0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
-+	0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
- };
- 
--static unsigned char *clk_map[2];
-+/* i.MX8QM uses the same map for input and output */
-+static unsigned char input_clk_map_imx8_0[] = {
-+	0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0x0,
-+	0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
-+	0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,
-+};
-+
-+static unsigned char output_clk_map_imx8_0[] = {
-+	0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0x0,
-+	0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
-+	0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,
-+};
-+
-+static unsigned char input_clk_map_imx8_1[] = {
-+	0xf, 0xf, 0xf, 0xf, 0xf, 0x7, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0x0,
-+	0x0, 0x1, 0x2, 0x3, 0xb, 0xc, 0xf, 0xf, 0xd, 0xe, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,
-+	0x4, 0x5, 0x6, 0xf, 0x8, 0x9, 0xa, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,
-+};
-+
-+static unsigned char output_clk_map_imx8_1[] = {
-+	0xf, 0xf, 0xf, 0xf, 0xf, 0x7, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0x0,
-+	0x0, 0x1, 0x2, 0x3, 0xb, 0xc, 0xf, 0xf, 0xd, 0xe, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,
-+	0x4, 0x5, 0x6, 0xf, 0x8, 0x9, 0xa, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,
-+};
- 
- /**
-  * Select the pre-processing and post-processing options
-@@ -353,8 +384,8 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
- 	}
- 
- 	/* Validate input and output clock sources */
--	clk_index[IN] = clk_map[IN][config->inclk];
--	clk_index[OUT] = clk_map[OUT][config->outclk];
-+	clk_index[IN] = asrc_priv->soc->inclk_map[config->inclk];
-+	clk_index[OUT] = asrc_priv->soc->outclk_map[config->outclk];
- 
- 	/* We only have output clock for ideal ratio mode */
- 	clk = asrc_priv->asrck_clk[clk_index[ideal ? OUT : IN]];
-@@ -398,13 +429,13 @@ static int fsl_asrc_config_pair(struct fsl_asrc_pair *pair, bool use_ideal_rate)
- 	/* Set the channel number */
- 	channels = config->channel_num;
- 
--	if (asrc_priv->channel_bits < 4)
-+	if (asrc_priv->soc->channel_bits < 4)
- 		channels /= 2;
- 
- 	/* Update channels for current pair */
- 	regmap_update_bits(asrc_priv->regmap, REG_ASRCNCR,
--			   ASRCNCR_ANCi_MASK(index, asrc_priv->channel_bits),
--			   ASRCNCR_ANCi(index, channels, asrc_priv->channel_bits));
-+			   ASRCNCR_ANCi_MASK(index, asrc_priv->soc->channel_bits),
-+			   ASRCNCR_ANCi(index, channels, asrc_priv->soc->channel_bits));
- 
- 	/* Default setting: Automatic selection for processing mode */
- 	regmap_update_bits(asrc_priv->regmap, REG_ASRCTR,
-@@ -531,7 +562,7 @@ static int fsl_asrc_dai_startup(struct snd_pcm_substream *substream,
- 	struct fsl_asrc *asrc_priv = snd_soc_dai_get_drvdata(dai);
- 
- 	/* Odd channel number is not valid for older ASRC (channel_bits==3) */
--	if (asrc_priv->channel_bits == 3)
-+	if (asrc_priv->soc->channel_bits == 3)
- 		snd_pcm_hw_constraint_step(substream->runtime, 0,
- 					   SNDRV_PCM_HW_PARAM_CHANNELS, 2);
- 
-@@ -964,14 +995,10 @@ static int fsl_asrc_probe(struct platform_device *pdev)
- 		}
- 	}
- 
--	if (of_device_is_compatible(np, "fsl,imx35-asrc")) {
--		asrc_priv->channel_bits = 3;
--		clk_map[IN] = input_clk_map_imx35;
--		clk_map[OUT] = output_clk_map_imx35;
--	} else {
--		asrc_priv->channel_bits = 4;
--		clk_map[IN] = input_clk_map_imx53;
--		clk_map[OUT] = output_clk_map_imx53;
-+	asrc_priv->soc = of_device_get_match_data(&pdev->dev);
-+	if (!asrc_priv->soc) {
-+		dev_err(&pdev->dev, "failed to get soc data\n");
-+		return -ENODEV;
- 	}
- 
- 	ret = fsl_asrc_init(asrc_priv);
-@@ -1113,9 +1140,39 @@ static const struct dev_pm_ops fsl_asrc_pm = {
- 	SET_SYSTEM_SLEEP_PM_OPS(fsl_asrc_suspend, fsl_asrc_resume)
- };
- 
-+static const struct fsl_asrc_soc_data fsl_asrc_imx35_data = {
-+	.use_edma = false,
-+	.channel_bits = 3,
-+	.inclk_map = input_clk_map_imx35,
-+	.outclk_map = output_clk_map_imx35,
-+};
-+
-+static const struct fsl_asrc_soc_data fsl_asrc_imx53_data = {
-+	.use_edma = false,
-+	.channel_bits = 4,
-+	.inclk_map = input_clk_map_imx53,
-+	.outclk_map = output_clk_map_imx53,
-+};
-+
-+static const struct fsl_asrc_soc_data fsl_asrc_imx8qm_0_data = {
-+	.use_edma = true,
-+	.channel_bits = 4,
-+	.inclk_map = input_clk_map_imx8_0,
-+	.outclk_map = output_clk_map_imx8_0,
-+};
-+
-+static const struct fsl_asrc_soc_data fsl_asrc_imx8qm_1_data = {
-+	.use_edma = true,
-+	.channel_bits = 4,
-+	.inclk_map = input_clk_map_imx8_1,
-+	.outclk_map = output_clk_map_imx8_1,
-+};
-+
- static const struct of_device_id fsl_asrc_ids[] = {
--	{ .compatible = "fsl,imx35-asrc", },
--	{ .compatible = "fsl,imx53-asrc", },
-+	{ .compatible = "fsl,imx35-asrc", .data = &fsl_asrc_imx35_data },
-+	{ .compatible = "fsl,imx53-asrc", .data = &fsl_asrc_imx53_data },
-+	{ .compatible = "fsl,imx8qm-asrc0", .data = &fsl_asrc_imx8qm_0_data },
-+	{ .compatible = "fsl,imx8qm-asrc1", .data = &fsl_asrc_imx8qm_1_data },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, fsl_asrc_ids);
-diff --git a/sound/soc/fsl/fsl_asrc.h b/sound/soc/fsl/fsl_asrc.h
-index 2b57e8c53728..8decbe670c3e 100644
---- a/sound/soc/fsl/fsl_asrc.h
-+++ b/sound/soc/fsl/fsl_asrc.h
-@@ -308,6 +308,29 @@ enum asrc_inclk {
- 	INCLK_SSI3_TX = 0x0b,
- 	INCLK_SPDIF_TX = 0x0c,
- 	INCLK_ASRCK1_CLK = 0x0f,
-+
-+	/* clocks for imx8 */
-+	INCLK_AUD_PLL_DIV_CLK0 = 0x10,
-+	INCLK_AUD_PLL_DIV_CLK1 = 0x11,
-+	INCLK_AUD_CLK0         = 0x12,
-+	INCLK_AUD_CLK1         = 0x13,
-+	INCLK_ESAI0_RX_CLK     = 0x14,
-+	INCLK_ESAI0_TX_CLK     = 0x15,
-+	INCLK_SPDIF0_RX        = 0x16,
-+	INCLK_SPDIF1_RX        = 0x17,
-+	INCLK_SAI0_RX_BCLK     = 0x18,
-+	INCLK_SAI0_TX_BCLK     = 0x19,
-+	INCLK_SAI1_RX_BCLK     = 0x1a,
-+	INCLK_SAI1_TX_BCLK     = 0x1b,
-+	INCLK_SAI2_RX_BCLK     = 0x1c,
-+	INCLK_SAI3_RX_BCLK     = 0x1d,
-+	INCLK_ASRC0_MUX_CLK    = 0x1e,
-+
-+	INCLK_ESAI1_RX_CLK     = 0x20,
-+	INCLK_ESAI1_TX_CLK     = 0x21,
-+	INCLK_SAI6_TX_BCLK     = 0x22,
-+	INCLK_HDMI_RX_SAI0_RX_BCLK     = 0x24,
-+	INCLK_HDMI_TX_SAI0_TX_BCLK     = 0x25,
- };
- 
- enum asrc_outclk {
-@@ -325,6 +348,29 @@ enum asrc_outclk {
- 	OUTCLK_SSI3_RX = 0x0b,
- 	OUTCLK_SPDIF_RX = 0x0c,
- 	OUTCLK_ASRCK1_CLK = 0x0f,
-+
-+	/* clocks for imx8 */
-+	OUTCLK_AUD_PLL_DIV_CLK0 = 0x10,
-+	OUTCLK_AUD_PLL_DIV_CLK1 = 0x11,
-+	OUTCLK_AUD_CLK0         = 0x12,
-+	OUTCLK_AUD_CLK1         = 0x13,
-+	OUTCLK_ESAI0_RX_CLK     = 0x14,
-+	OUTCLK_ESAI0_TX_CLK     = 0x15,
-+	OUTCLK_SPDIF0_RX        = 0x16,
-+	OUTCLK_SPDIF1_RX        = 0x17,
-+	OUTCLK_SAI0_RX_BCLK     = 0x18,
-+	OUTCLK_SAI0_TX_BCLK     = 0x19,
-+	OUTCLK_SAI1_RX_BCLK     = 0x1a,
-+	OUTCLK_SAI1_TX_BCLK     = 0x1b,
-+	OUTCLK_SAI2_RX_BCLK     = 0x1c,
-+	OUTCLK_SAI3_RX_BCLK     = 0x1d,
-+	OUTCLK_ASRCO_MUX_CLK    = 0x1e,
-+
-+	OUTCLK_ESAI1_RX_CLK     = 0x20,
-+	OUTCLK_ESAI1_TX_CLK     = 0x21,
-+	OUTCLK_SAI6_TX_BCLK     = 0x22,
-+	OUTCLK_HDMI_RX_SAI0_RX_BCLK     = 0x24,
-+	OUTCLK_HDMI_TX_SAI0_TX_BCLK     = 0x25,
- };
- 
- #define ASRC_CLK_MAX_NUM	16
-@@ -387,6 +433,21 @@ struct dma_block {
- 	unsigned int length;
- };
- 
-+/**
-+ * fsl_asrc_soc_data: soc specific data
-+ *
-+ * @use_edma: using edma as dma device or not
-+ * @channel_bits: width of ASRCNCR register for each pair
-+ * @inclk_map: clock map for input clock
-+ * @outclk_map: clock map for output clock
-+ */
-+struct fsl_asrc_soc_data {
-+	bool use_edma;
-+	unsigned int channel_bits;
-+	unsigned char *inclk_map;
-+	unsigned char *outclk_map;
-+};
-+
- /**
-  * fsl_asrc_pair: ASRC Pair private data
-  *
-@@ -431,7 +492,7 @@ struct fsl_asrc_pair {
-  * @asrck_clk: clock sources to driver ASRC internal logic
-  * @lock: spin lock for resource protection
-  * @pair: pair pointers
-- * @channel_bits: width of ASRCNCR register for each pair
-+ * @soc: soc specific data
-  * @channel_avail: non-occupied channel numbers
-  * @asrc_rate: default sample rate for ASoC Back-Ends
-  * @asrc_width: default sample width for ASoC Back-Ends
-@@ -450,7 +511,7 @@ struct fsl_asrc {
- 	spinlock_t lock;
- 
- 	struct fsl_asrc_pair *pair[ASRC_PAIR_MAX_NUM];
--	unsigned int channel_bits;
-+	const struct fsl_asrc_soc_data *soc;
- 	unsigned int channel_avail;
- 
- 	int asrc_rate;
-diff --git a/sound/soc/fsl/fsl_asrc_dma.c b/sound/soc/fsl/fsl_asrc_dma.c
-index d6146de9acd2..f871fdb9d1c6 100644
---- a/sound/soc/fsl/fsl_asrc_dma.c
-+++ b/sound/soc/fsl/fsl_asrc_dma.c
-@@ -197,21 +197,37 @@ static int fsl_asrc_dma_hw_params(struct snd_soc_component *component,
- 	dma_cap_set(DMA_SLAVE, mask);
- 	dma_cap_set(DMA_CYCLIC, mask);
- 
--	/* Get DMA request of Back-End */
--	tmp_chan = dma_request_slave_channel(dev_be, tx ? "tx" : "rx");
--	tmp_data = tmp_chan->private;
--	pair->dma_data.dma_request = tmp_data->dma_request;
--	dma_release_channel(tmp_chan);
-+	/*
-+	 * For EDMA DEV_TO_DEV channel, we don't need to configure
-+	 * dma_request and dma_request2, we can get dma channel through
-+	 * dma_request_slave_channel directly.
-+	 * Compare with SDMA channel, EDMA channel is bound with dma
-+	 * request event of each peripheral, and it is fixed. Not like SDMA,
-+	 * the channel is allocated dynamically. So when DMA is EDMA, we
-+	 * can only get EDMA channel through dma-names of Front-End device.
-+	 */
-+	if (!asrc_priv->soc->use_edma) {
-+		/* Get DMA request of Back-End */
-+		tmp_chan = dma_request_slave_channel(dev_be, tx ? "tx" : "rx");
-+		tmp_data = tmp_chan->private;
-+		pair->dma_data.dma_request = tmp_data->dma_request;
-+		dma_release_channel(tmp_chan);
- 
--	/* Get DMA request of Front-End */
--	tmp_chan = fsl_asrc_get_dma_channel(pair, dir);
--	tmp_data = tmp_chan->private;
--	pair->dma_data.dma_request2 = tmp_data->dma_request;
--	pair->dma_data.peripheral_type = tmp_data->peripheral_type;
--	pair->dma_data.priority = tmp_data->priority;
--	dma_release_channel(tmp_chan);
-+		/* Get DMA request of Front-End */
-+		tmp_chan = fsl_asrc_get_dma_channel(pair, dir);
-+		tmp_data = tmp_chan->private;
-+		pair->dma_data.dma_request2 = tmp_data->dma_request;
-+		pair->dma_data.peripheral_type = tmp_data->peripheral_type;
-+		pair->dma_data.priority = tmp_data->priority;
-+		dma_release_channel(tmp_chan);
-+
-+		pair->dma_chan[dir] =
-+			dma_request_channel(mask, filter, &pair->dma_data);
-+	} else {
-+		pair->dma_chan[dir] =
-+			fsl_asrc_get_dma_channel(pair, dir);
-+	}
- 
--	pair->dma_chan[dir] = dma_request_channel(mask, filter, &pair->dma_data);
- 	if (!pair->dma_chan[dir]) {
- 		dev_err(dev, "failed to request DMA channel for Back-End\n");
- 		return -EINVAL;
--- 
-2.21.0
+Additionally, please install 'gir1.2-hinawa-2.0' package, then clone
+below remote repository:
+ * https://github.com/takaswie/hinawa-utils
 
+This repository includes two scripts to get information from the device:
+ * hinawa-bebob-parser
+ * hinawa-bebob-connection-cui
+
+When your device is detected as sound card '2' and your device is also
+detected as '/dev/fw1', execute below:
+
+$ ./hinawa-bebob-connection-cui 2 graph-connections
+$ ./hinawa-bebob-parser 1 2
+
+> At startup it lights green ok, but no sound is playable, then the
+> lights turn orange (like it is when it's not working), I hear a
+> "relay sound" (a electric clic of a relay), then, the Saffire LE
+> disapears from the sound menu in Ubuntu sound menu.
+
+Once your device is detected and ALSA bebob driver bound to it,
+pulseaudio detects it and start PCM substream to get capabilities
+of the device.
+
+In your case, the PCM substream is corrupted by the discontinuity.
+Then pulseaudio give up to use the device. As a result, sound menu
+drops entry of the device.
+
+I guess that the color of LED corresponds to the packet streaming.
+
+On Wed, Oct 30, 2019 at 11:12:01AM +0100, Jean-Paul Argudo wrote:
+> But something new and maybe interesting for you : 
+> 
+> Oct 30 09:25:25 deiphobe pulseaudio[2589]: E: [alsa-sink-BeBoB] alsa-sink.c: ALSA woke us up to write new data to the device, but there was actually nothing to write.
+> Oct 30 09:25:25 deiphobe pulseaudio[2589]: E: [alsa-sink-BeBoB] alsa- sink.c: Most likely this is a bug in the ALSA driver 'snd_bebob'.  Please report this issue to the ALSA developers.
+> Oct 30 09:25:25 deiphobe pulseaudio[2589]: E: [alsa-sink-BeBoB] alsa-sink.c: We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.
+ 
+Practically these logs can be ignored. (I work to suppress the above
+lines in development period for Linux kernel v5.5.)
+ 
+> **And in kern.log** : at the beggining in the boot sequence (?),
+> between FS-cache lines and usb ones: 
+> 
+> Oct 27 21:54:36 deiphobe kernel: [    8.742105] FS-Cache: N-key=[8] '020001bdc0a800fe'
+> 
+> Oct 27 21:54:40 deiphobe kernel: [   12.768168] usb 3-4.1: reset high- speed USB device number 5 using xhci_hcd
+> Oct 27 21:54:45 deiphobe kernel: [   18.294126] snd-bebob fw1.0: transaction failed: no ack
+> Oct 27 21:54:45 deiphobe kernel: [   18.294167] snd-bebob fw1.0: fail to get section type for isoc out plug 0: -5
+> Oct 27 21:54:45 deiphobe kernel: [   18.294172] snd-bebob fw1.0: fail to run AMDTP slave stream:-5
+> Oct 27 21:54:45 deiphobe kernel: [   18.306399] firewire_ohci 0000:05:01.0: DMA context still active (0x00000411)
+> Oct 27 21:54:45 deiphobe kernel: [   18.318425] firewire_ohci 0000:05:01.0: DMA context still active (0x00000411)
+> Oct 27 21:54:47 deiphobe kernel: [   20.311440] irq_handler: 20 callbacks suppressed
+> Oct 27 21:54:47 deiphobe kernel: [   20.311441] firewire_ohci 0000:05:01.0: isochronous cycle inconsistent
+> Oct 27 21:54:48 deiphobe kernel: [   21.322730] firewire_core 0000:05:01.0: phy config: new root=ffc1, gap_count=5
+> 
+> Oct 27 21:54:50 deiphobe kernel: [   22.970251] rfkill: input handler disabled
+> Oct 27 20:55:10 deiphobe kernel: [   42.697284] usb 3-4.1: reset high- speed USB device number 5 using xhci_hcd
+
+IEEE 1394 bus 'bus-reset' state. Just before/after the bus-reset, any
+functionality easily fails. It's better to plug-in the device enough
+after bootup.
+
+
+Regards
+
+Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

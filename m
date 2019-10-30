@@ -2,92 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C354E9E20
-	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 15:58:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ABE2E9E22
+	for <lists+alsa-devel@lfdr.de>; Wed, 30 Oct 2019 15:59:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F184122FD;
-	Wed, 30 Oct 2019 15:57:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F184122FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id A8FEA232F;
+	Wed, 30 Oct 2019 15:58:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8FEA232F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572447507;
-	bh=0h4icZLCTva4lgBpdc/0vLWBaFdWLGgYx7b0A0qKUtc=;
-	h=In-Reply-To:References:From:To:Date:Cc:Subject:List-Id:
+	s=default; t=1572447554;
+	bh=6rYe7nWMLWDY/XJcsNvQWaQGvN+jMncBVdkFCdAfCRU=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U/4BGsv82LTrBuaZnWjfH4p0qS+3dqiKenRP1TZGBsGnguS2/04NvEP0WfeCssaX4
-	 mObjeECU/A22AaEmIWhzmahi5lu2hk0rhbzCInHiBjmEZDPvnOzgGAw7SIDjjisGBX
-	 QAFvPBWMM4yajNFIozQsRcViQr7BFLEAvjHssSak=
+	b=eYNHUB9wktP8Tk1ui8Ztr+cK4JB665Sj2AuCZ4lbnGlkoS+Ih9JNQSZ3u+54aacQJ
+	 aYAiEF9nCpf0J9tGgmYT98ZPOMpiLqXCdApVy65tsBOpt7uwvq0DS6qaudMQs4ddjO
+	 TaoPa8txbSFiRe+i+aRMsfjY63m1OMjwTDMWJJgU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 21139F8044A;
-	Wed, 30 Oct 2019 15:56:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1791F805AE;
+	Wed, 30 Oct 2019 15:56:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3BEAF80361; Wed, 30 Oct 2019 15:54:42 +0100 (CET)
+ id 988DBF80361; Wed, 30 Oct 2019 15:56:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 27D60F802A0
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 15:51:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27D60F802A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A94FF8015A
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 15:56:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A94FF8015A
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="bNgUZU71"
-Received: by mail-pf1-x441.google.com with SMTP id 193so454950pfc.13
- for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 07:51:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=message-id:mime-version:content-transfer-encoding:in-reply-to
- :references:from:subject:to:cc:user-agent:date;
- bh=kUX+QB+n6uPsMbBuXUFFDaJg5lKGQ/rdJhKtAOQxM68=;
- b=bNgUZU71v+0fmmNO32iK5sG8ShIFzxEVanGouBgUUl1TWyrYV9O7bG3dlDm8YLckH4
- d+aygtJELB/eg5oR8mSOvB/gHvYdLip5dMSYcpm4ZFmdvQ9c11yC9alSFajCI0d29EH6
- lsn085FJbQRp1w/1MosfnmNAbXjWAU5xYDf3o=
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="W3gbXEvu"
+Received: by mail-wr1-x444.google.com with SMTP id a11so2653055wra.6
+ for <alsa-devel@alsa-project.org>; Wed, 30 Oct 2019 07:56:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=3KGaDNuZOqaW+oq9eCygfM069fZ/a2Mqyl7Of0Yf3Bk=;
+ b=W3gbXEvu5iu+v3Sxxu1RVFPekMr8X8F8JzwignYx4p0KZkG+YP9eZd1wnj1TxbgO6W
+ 89sUUPKqCOeUlBJyiMxzKo1T2VxdYaaB/9mvCtJUBKg6nfKXG866CRoT9kPFz/dKq63G
+ vIGbZi4dC7QPg6QlVN1ZNSTW2qVYK+tmJHP1QfUFHfcloXf7RwIFFfrBODzE3rVy3Yk4
+ LZYG0txO706XP16RwRLHhfX+a+CoZ30rTJndNx+YgErlj3hiQVOnjPw6kQvJzH1mCauE
+ +NKqegFjdYqIo+X1UldYjNNnwl+mpUFiKwyoeP2qqOBU2EksImdTj08e+BmgjXA63eeX
+ Fwaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:message-id:mime-version
- :content-transfer-encoding:in-reply-to:references:from:subject:to:cc
- :user-agent:date;
- bh=kUX+QB+n6uPsMbBuXUFFDaJg5lKGQ/rdJhKtAOQxM68=;
- b=FGTj4tztOlJ6WjGAB69PHj67NCHSwkBeqw6P8ENM5T25XUVXJU/7mecKwGUnScl1d0
- F74dOz8qI1TSPJlz6V9IWL5iJqqKZe3wJdfR84G0cFRabJKdCC623N1ZwUCqzR1NzvUz
- /sPIclJnMWvFvjlofsPjX33IjxlCpGLjnBVdxLnFP45L52b363d9NBBpDWsVX8HhYicb
- owGGDnBxW5TV4SMIrxdF8OtHrbU4pFNi5GKmu46b172/0aXnjO58eBl0eqbBflRKx6Ch
- 49FcGqN1noA5/22TEvNPEcEF2YTz07u7cEXH8tR3Aom8jyog7Xks/8Zu1JXUxD+qHfYy
- f/pg==
-X-Gm-Message-State: APjAAAVhvu/tsAlfQKJG7un/3msQsMRatDIO5Jj7niwezIkxPy6hhEDU
- BItFFJKGLu3xYdeuq8yyLZNrmQ==
-X-Google-Smtp-Source: APXvYqzbFFg5OC6TJ9lnqjvMpIqFnf7mzbiND6t96bWdmgGcpqetszJAYKhFjob6bIjnEsoSQ7lghA==
-X-Received: by 2002:a63:3442:: with SMTP id b63mr8798587pga.264.1572447055787; 
- Wed, 30 Oct 2019 07:50:55 -0700 (PDT)
-Received: from chromium.org ([2620:15c:202:1:fa53:7765:582b:82b9])
- by smtp.gmail.com with ESMTPSA id s11sm2394909pjp.26.2019.10.30.07.50.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 30 Oct 2019 07:50:55 -0700 (PDT)
-Message-ID: <5db9a34f.1c69fb81.23dfc.7ea5@mx.google.com>
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=3KGaDNuZOqaW+oq9eCygfM069fZ/a2Mqyl7Of0Yf3Bk=;
+ b=KJWU6U5LXDctafhC34cVb8iv2jYKA+EIBczdmgEEV3u3kR8ld2LVZuvaf34tsemhH5
+ ryTVTqi8IKKLMNPCkbbxeEEGoQr7V2gak4M1aDQ4cD0hpSAuCYKT41zMBZNz+gF0fZR2
+ C7cvozO2DDb09ZreQu+tJ61RiVNZjs9ShszA7iA9xJ+eB1BAMkpNnlq62t32Lebc1Qk7
+ OJqeibb/P0WeKSMhB5JFjxTgNI4PVS0f0Ab+bioteU8SsH5nVTMP8px6D+encDHiWm6z
+ PmeRnx2TdZrTg+HYuuqwuSqWh+AmCzxOVmnFz9oMg42oC1wlh/r0piw0proDkGsgpLdP
+ vasA==
+X-Gm-Message-State: APjAAAUxrwWOd3MwVjXE4OJFICHP1xq/Dmoi8xeTXXOKEbqlzJFKnjH8
+ FebCteqCGaWRSe4ukxZlbD+Z9A==
+X-Google-Smtp-Source: APXvYqzNEp7v8VF6xzERjzhXpFhkFob5hrJIC4MZV7Tiihtvl6ZSZv8Ub0Haz1Ef1kEUnQ9Tnn0N1w==
+X-Received: by 2002:adf:828c:: with SMTP id 12mr274663wrc.40.1572447369376;
+ Wed, 30 Oct 2019 07:56:09 -0700 (PDT)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id n11sm272188wmd.26.2019.10.30.07.56.08
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 30 Oct 2019 07:56:08 -0700 (PDT)
+To: Vinod Koul <vkoul@kernel.org>
+References: <20191011154423.2506-1-srinivas.kandagatla@linaro.org>
+ <20191011154423.2506-3-srinivas.kandagatla@linaro.org>
+ <20191021044405.GB2654@vkoul-mobl>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <17cb6d3f-2317-9667-8642-566a8a88bd4c@linaro.org>
+Date: Wed, 30 Oct 2019 14:56:07 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20191029112700.14548-10-srinivas.kandagatla@linaro.org>
-References: <20191029112700.14548-1-srinivas.kandagatla@linaro.org>
- <20191029112700.14548-10-srinivas.kandagatla@linaro.org>
-From: Stephen Boyd <swboyd@chromium.org>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org,
- lee.jones@linaro.org, linus.walleij@linaro.org, robh@kernel.org
-User-Agent: alot/0.8.1
-Date: Wed, 30 Oct 2019 07:50:54 -0700
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, vinod.koul@linaro.org, spapothi@codeaurora.org,
- linux-kernel@vger.kernel.org,
- Yeleswarapu Nagaradhesh <nagaradh@codeaurora.org>, linux-gpio@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: Re: [alsa-devel] [PATCH v3 09/11] pinctrl: qcom-wcd934x: Add
-	support to wcd934x pinctrl driver.
+In-Reply-To: <20191021044405.GB2654@vkoul-mobl>
+Content-Language: en-US
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ spapothi@codeaurora.org, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH v3 2/2] soundwire: qcom: add support for
+ SoundWire controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,236 +104,96 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Srinivas Kandagatla (2019-10-29 04:26:58)
-> From: Yeleswarapu Nagaradhesh <nagaradh@codeaurora.org>
+
+
+On 21/10/2019 05:44, Vinod Koul wrote:
+> On 11-10-19, 16:44, Srinivas Kandagatla wrote:
 > 
-> This patch adds support to wcd934x pinctrl block found in
-> WCD9340/WC9341 Audio codecs.
+>> +static irqreturn_t qcom_swrm_irq_handler(int irq, void *dev_id)
+>> +{
+>> +	struct qcom_swrm_ctrl *ctrl = dev_id;
+>> +	u32 sts, value;
+>> +	unsigned long flags;
+>> +
+>> +	ctrl->reg_read(ctrl, SWRM_INTERRUPT_STATUS, &sts);
+>> +
+>> +	if (sts & SWRM_INTERRUPT_STATUS_CMD_ERROR) {
+>> +		ctrl->reg_read(ctrl, SWRM_CMD_FIFO_STATUS, &value);
+>> +		dev_err_ratelimited(ctrl->dev,
+>> +				    "CMD error, fifo status 0x%x\n",
+>> +				     value);
+>> +		ctrl->reg_write(ctrl, SWRM_CMD_FIFO_CMD, 0x1);
+>> +	}
+>> +
+>> +	if ((sts & SWRM_INTERRUPT_STATUS_NEW_SLAVE_ATTACHED) ||
+>> +	    sts & SWRM_INTERRUPT_STATUS_CHANGE_ENUM_SLAVE_STATUS)
+>> +		schedule_work(&ctrl->slave_work);
 > 
-> [Srini: multiple cleanups to the code]
+> we are in irq thread, so why not do the work here rather than schedule
+> it?
 
-This goes after the author signoff and before yours. Can you add more
-details too?
+The reason is that, sdw_handle_slave_status() we will read device id 
+registers, which are fifo based in this controller and triggers an 
+interrupt for each read.
+So all the such reads will timeout waiting for interrupt if we do not do 
+it in a separate thread.
 
-> Signed-off-by: Yeleswarapu Nagaradhesh <nagaradh@codeaurora.org>
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> ---
->  drivers/pinctrl/qcom/Kconfig                |   7 +
->  drivers/pinctrl/qcom/Makefile               |   1 +
->  drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c | 365 ++++++++++++++++++++
->  3 files changed, 373 insertions(+)
->  create mode 100644 drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c
+
+
 > 
-> diff --git a/drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c b/drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c
-> new file mode 100644
-> index 000000000000..1aff88d0bcb3
-> --- /dev/null
-> +++ b/drivers/pinctrl/qcom/pinctrl-wcd934x-gpio.c
-> @@ -0,0 +1,365 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2016-2017, The Linux Foundation. All rights reserved.
-> +// Copyright (c) 2019, Linaro Limited
-> +
-> +#include <linux/module.h>
-> +#include <linux/gpio.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/regmap.h>
-> +#include <linux/slab.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/of_gpio.h>
-> +
-> +#include "../core.h"
-> +#include "../pinctrl-utils.h"
-> +
-> +#define WCD_REG_DIR_CTL_OFFSET 0x42
-> +#define WCD_REG_VAL_CTL_OFFSET 0x43
-> +#define WCD_GPIO_PULL_UP       1
-> +#define WCD_GPIO_PULL_DOWN     2
-> +#define WCD_GPIO_BIAS_DISABLE  3
-> +#define WCD_GPIO_STRING_LEN    20
-> +#define WCD934X_NPINS          5
-> +
-> +/**
-> + * struct wcd_gpio_pad - keep current GPIO settings
-> + * @offset: offset of gpio.
-> + * @is_valid: Set to false, when GPIO in high Z state.
-> + * @value: value of a pin
-> + * @output_enabled: Set to true if GPIO is output and false if it is input
-> + * @pullup: Constant current which flow through GPIO output buffer.
-> + * @strength: Drive strength of a pin
-> + */
-> +struct wcd_gpio_pad {
-> +       u16  offset;
-> +       bool is_valid;
-> +       bool value;
-> +       bool output_enabled;
-> +       unsigned int pullup;
-> +       unsigned int strength;
-> +};
-> +
-> +struct wcd_gpio_priv {
-> +       struct device *dev;
-> +       struct regmap *map;
-> +       struct pinctrl_dev *ctrl;
-> +       struct gpio_chip chip;
-> +};
-> +
-> +static int wcd_gpio_read(struct wcd_gpio_priv *priv_data,
-> +                        struct wcd_gpio_pad *pad, unsigned int addr)
-> +{
-> +       unsigned int val;
-> +       int ret;
-> +
-> +       ret = regmap_read(priv_data->map, addr, &val);
-> +       if (ret < 0)
-> +               dev_err(priv_data->dev, "%s: read 0x%x failed\n",
-> +                       __func__, addr);
-> +       else
-> +               ret = (val >> pad->offset);
-> +
-> +       return ret;
-> +}
-> +
-> +static int wcd_gpio_write(struct wcd_gpio_priv *priv_data,
-> +                         struct wcd_gpio_pad *pad, unsigned int addr,
-> +                         unsigned int val)
-> +{
-> +       int ret;
-> +
-> +       ret = regmap_update_bits(priv_data->map, addr, (1 << pad->offset),
-> +                                val << pad->offset);
-> +       if (ret < 0)
-> +               dev_err(priv_data->dev, "write 0x%x failed\n", addr);
+>> +static int qcom_swrm_compute_params(struct sdw_bus *bus)
+>> +{
+>> +	struct qcom_swrm_ctrl *ctrl = to_qcom_sdw(bus);
+>> +	struct sdw_master_runtime *m_rt;
+>> +	struct sdw_slave_runtime *s_rt;
+>> +	struct sdw_port_runtime *p_rt;
+>> +	struct qcom_swrm_port_config *pcfg;
+>> +	int i = 0;
+>> +
+>> +	list_for_each_entry(m_rt, &bus->m_rt_list, bus_node) {
+>> +		list_for_each_entry(p_rt, &m_rt->port_list, port_node) {
+>> +			pcfg = &ctrl->pconfig[p_rt->num - 1];
+>> +			p_rt->transport_params.port_num = p_rt->num;
+>> +			p_rt->transport_params.sample_interval = pcfg->si + 1;
+>> +			p_rt->transport_params.offset1 = pcfg->off1;
+>> +			p_rt->transport_params.offset2 = pcfg->off2;
+>> +		}
+>> +
+>> +		list_for_each_entry(s_rt, &m_rt->slave_rt_list, m_rt_node) {
+>> +			list_for_each_entry(p_rt, &s_rt->port_list, port_node) {
+>> +				pcfg = &ctrl->pconfig[i];
+>> +				p_rt->transport_params.port_num = p_rt->num;
+>> +				p_rt->transport_params.sample_interval =
+>> +					pcfg->si + 1;
+>> +				p_rt->transport_params.offset1 = pcfg->off1;
+>> +				p_rt->transport_params.offset2 = pcfg->off2;
+>> +				i++;
+>> +			}
+> 
+> Can you explain this one, am not sure I understood this. This fn is
+> supposed to compute and fill up the params, all I can see is filling up!
+> 
+Bandwidth parameters are currently coming from board specific Device 
+Tree, which are programmed here.
 
-Is there value in these error messages? Also, use %#x to get '0x'.
+>> +static const struct snd_soc_dai_ops qcom_swrm_pdm_dai_ops = {
+>> +	.hw_params = qcom_swrm_hw_params,
+>> +	.prepare = qcom_swrm_prepare,
+>> +	.hw_free = qcom_swrm_hw_free,
+>> +	.startup = qcom_swrm_startup,
+>> +	.shutdown = qcom_swrm_shutdown,
+>> +        .set_sdw_stream = qcom_swrm_set_sdw_stream,
+> 
+> why does indent look off to me!
+> 
+Yep, Fixed in next version.
 
-> +
-> +       return ret;
-> +}
-[...]
-> +
-> +static int wcd_pinctrl_probe(struct platform_device *pdev)
-> +{
-> +       struct device *dev = &pdev->dev;
-> +       struct pinctrl_pin_desc *pindesc;
-> +       struct pinctrl_desc *pctrldesc;
-> +       struct wcd_gpio_pad *pad, *pads;
-> +       struct wcd_gpio_priv *priv_data;
-> +       u32 npins = WCD934X_NPINS;
-> +       char **name;
-> +       int i;
-> +
-> +       priv_data = devm_kzalloc(dev, sizeof(*priv_data), GFP_KERNEL);
-> +       if (!priv_data)
-> +               return -ENOMEM;
-> +
-> +       priv_data->dev = dev;
-> +       priv_data->map = dev_get_regmap(dev->parent, NULL);
-> +       if (!priv_data->map) {
-> +               dev_err(dev, "%s: failed to get regmap\n", __func__);
-> +               return  -EINVAL;
-> +       }
-> +
-> +       pindesc = devm_kcalloc(dev, npins, sizeof(*pindesc), GFP_KERNEL);
-> +       if (!pindesc)
-> +               return -ENOMEM;
-> +
-> +       pads = devm_kcalloc(dev, npins, sizeof(*pads), GFP_KERNEL);
-> +       if (!pads)
-> +               return -ENOMEM;
-
-Is it possible to put the pad struct around the pindesc struct? It's
-sort of sad that we have to allocate a chunk of memory twice for the
-pindesc and the pads when we could either use container_of() on the
-pindesc or just point the pindesc driver data member to the container
-structure for the qcom specific bits.
-
-> +
-> +       pctrldesc = devm_kzalloc(dev, sizeof(*pctrldesc), GFP_KERNEL);
-> +       if (!pctrldesc)
-> +               return -ENOMEM;
-> +
-> +       pctrldesc->pctlops = &wcd_pinctrl_ops;
-> +       pctrldesc->confops = &wcd_pinconf_ops;
-> +       pctrldesc->owner = THIS_MODULE;
-> +       pctrldesc->name = dev_name(dev);
-> +       pctrldesc->pins = pindesc;
-> +       pctrldesc->npins = npins;
-> +
-> +       name = devm_kcalloc(dev, npins, sizeof(char *), GFP_KERNEL);
-> +       if (!name)
-> +               return -ENOMEM;
-> +
-> +       for (i = 0; i < npins; i++, pindesc++) {
-> +               name[i] = devm_kzalloc(dev, sizeof(char) * WCD_GPIO_STRING_LEN,
-> +                                      GFP_KERNEL);
-> +               if (!name[i])
-> +                       return -ENOMEM;
-> +
-> +               pad = &pads[i];
-> +               pindesc->drv_data = pad;
-> +               pindesc->number = i;
-> +               snprintf(name[i], (WCD_GPIO_STRING_LEN - 1), "gpio%d", (i+1));
-> +               pindesc->name = name[i];
-
-Why not use devm_kasprintf()? The 'name' array is also unnecessary?
-
-> +               pad->offset = i;
-> +               pad->is_valid  = true;
-> +       }
-> +
-> +       priv_data->chip = wcd_gpio_chip;
-> +       priv_data->chip.parent = dev;
-> +       priv_data->chip.base = -1;
-> +       priv_data->chip.ngpio = npins;
-> +       priv_data->chip.label = dev_name(dev);
-> +       priv_data->chip.of_gpio_n_cells = 2;
-> +       priv_data->chip.can_sleep = false;
-> +       platform_set_drvdata(pdev, priv_data);
-> +
-> +       priv_data->ctrl = devm_pinctrl_register(dev, pctrldesc, priv_data);
-> +       if (IS_ERR(priv_data->ctrl)) {
-> +               dev_err(dev, "%s: failed to register to pinctrl\n", __func__);
-> +               return PTR_ERR(priv_data->ctrl);
-> +       }
-> +
-> +       return gpiochip_add_data(&priv_data->chip, priv_data);
-
-WHy not use devm_gpiochip_add_data()?
-
-> +}
-> +
-> +static int wcd_pinctrl_remove(struct platform_device *pdev)
-> +{
-> +       struct wcd_gpio_priv *priv_data = platform_get_drvdata(pdev);
-> +
-> +       gpiochip_remove(&priv_data->chip);
-> +
-> +       return 0;
-
-And drop this function?
-
-> +}
-> +
-> +static const struct of_device_id wcd_pinctrl_of_match[] = {
-> +       { .compatible = "qcom,wcd9340-pinctrl" },
-> +       { .compatible = "qcom,wcd9341-pinctrl" },
-> +       { },
-
-Nitpick: Drop the comma on the sentinel.
-
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, wcd_pinctrl_of_match);
-
-Nitpick: Drop the newline between device table and match table.
-
+--srini
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

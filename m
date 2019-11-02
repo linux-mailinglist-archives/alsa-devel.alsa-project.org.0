@@ -2,96 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62647ECF67
-	for <lists+alsa-devel@lfdr.de>; Sat,  2 Nov 2019 16:11:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85A3AECFEA
+	for <lists+alsa-devel@lfdr.de>; Sat,  2 Nov 2019 18:19:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4991192C;
-	Sat,  2 Nov 2019 16:10:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4991192C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 07BCF1AB9;
+	Sat,  2 Nov 2019 18:18:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07BCF1AB9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572707479;
-	bh=MAquxvbOPA0p7RBrkVU5sHaHCxbtA/c4PFoEso9mZXI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=F6JsngQRq4eQihGUTmUG09mDxj1ZNVDToVecwSD40/xtjsuN1BtR0q/Pa4rLr6Zbs
-	 1QaRzZd+B3BLyq/NZkfqw0pCKGpAjAzbcJISOoyF1giSNacWibpJKVQvc1sDfWYK3Y
-	 KcoatqFQSwew7gwSZCUxNDg2I512rjgE5kWHYL5E=
+	s=default; t=1572715159;
+	bh=sjuoZaqU4GAqTScDiLGEB5iAcCmD2yVcWVerhrNI3KI=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iSkHUIquItkPV175C/NNbiv+k82Js6Xp6xfHeKcBL2q34X09P5v6GipDmWulJwAjW
+	 rHZOKTTghbxIJqbyqKQebJuKtf7RpezGoll4hxQ93K+4nwlvdSXcstlsSNwZYpn+MS
+	 KPDID4c0Cq8laOjkghtJwC30oNYvLUgRLFAsj/jM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 09BEBF80392;
-	Sat,  2 Nov 2019 16:09:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33B77F8036C;
+	Sat,  2 Nov 2019 18:17:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D04BF80392; Sat,  2 Nov 2019 16:09:33 +0100 (CET)
+ id 7B931F80392; Sat,  2 Nov 2019 18:17:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03D38F80361
- for <alsa-devel@alsa-project.org>; Sat,  2 Nov 2019 16:09:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03D38F80361
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD935F80361
+ for <alsa-devel@alsa-project.org>; Sat,  2 Nov 2019 18:17:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD935F80361
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="tXe7s5au"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="EGd0lhVM"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 5888520E72;
- Sat,  2 Nov 2019 11:09:27 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Sat, 02 Nov 2019 11:09:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=7n7hiJWEp4TyIgvBs6OOKhwxBc
- f2hgKRHro7PFOOqSY=; b=tXe7s5auRgp0ztPbhMhJfqptTv0XMk74PJKcK7p9Xk
- pfTz6ehFQmNx3/R/VW/thx8KxXvjqoGUrE4DrDpDKpymdKkU6TZqGKlG00SuVVM8
- xHfFucfIq8eUMM3RzHm7xL35MAJyN3xrgfZSgz9VLy8eDxITTURwjB9OvkzxSyaD
- aGjPQgb9b4BZ3vavlhZ/aeyaqkB8aCS06ONUCfMGhlBNzc25OD7wGhvC2+XDnBp1
- FEIqnw+4d+5JY3oO09EXHCb3R+BoemeXp4rQZtjkTYcsi3I5qNfL95EgYoUXlhm+
- mKHFTnfPeRZWf65tJU94YKUZEv+hXTcDZ6ZhJPThxULA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=7n7hiJWEp4TyIgvBs
- 6OOKhwxBcf2hgKRHro7PFOOqSY=; b=EGd0lhVMxTLUno3kE8OshF3/Q1n3a3G+f
- zUU3gyCY6UTIwUs//lMV8LAnOcrcFZmMe9KSM3sIG4QfIvV74+zvDq3QlmoAsffY
- ZHxaXUlS11CRSk3V/X4EfXhIHgvj6HHhFVhgp58w+h4MzYSTFUJ//pZraMDGsxrY
- 1EQxOTCmLVlfhRm395AvxzNbiHVqIZWj33iXXgPNxsy9QPqd+BcWG4PtUX4O+WDq
- KDwQ9FQnhxfmDdSp3SdGFiWAz8i9dyEkjixalcbpdmSvkhbSdpy+5Sn5Mu4SfN0f
- DP9l7aRu3x+UExGpj1ciokuFOx2+NtCZmNEMx0sH6UaOaVe3PRZXQ==
-X-ME-Sender: <xms:JZy9XXYkN7ppLVWK0EUapWGDjf6Zgb1_iJqQQcjku7M4YkvtPvLqAw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtledgjedtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedunecurf
- grrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdr
- jhhpnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:JZy9XZna4cJTW_e0iHDa0DfRUDj6U_XZlbzddYTPP0qFUo3-_JSQDw>
- <xmx:JZy9XWGl9ZLU3Nc6VC8Ix2mKbZ4cRLCdwdzMqDqDmpdF8sTAB8VGCw>
- <xmx:JZy9XYGUYFu3qv35AJKvTSi1biqfuGMQ1cndy2ZeKsgQpYtKZWUWeQ>
- <xmx:J5y9XcGXdPelxvCHQxNqJyH8rNlEacthj-BUmIJ1x6LJF9qPrkw-GA>
-Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id F072180059;
- Sat,  2 Nov 2019 11:09:23 -0400 (EDT)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: clemens@ladisch.de,
-	tiwai@suse.de
-Date: Sun,  3 Nov 2019 00:09:20 +0900
-Message-Id: <20191102150920.20367-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="A+y6PFIM"
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id C91AE218AC;
+ Sat,  2 Nov 2019 17:17:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1572715023;
+ bh=GfQZUABhRi5OXyXYO6lH8FZhAHfWp5MMlR+i3/nES8U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=A+y6PFIMFFdJFUZ14xT8WjFhSXeVpe1WlLeE8anw3zqlW5XiWqgqfo8ADuiospU5O
+ Tib2MySF1VSyv7tpn0X2TBNucsn9M1M2xD4GVPwjm4I7XfsSCZp+4UGVKL3vFC2qaQ
+ yWYPa/gqq40mD0fWUJK695XF8Ct6KOe5ZPmg7vKw=
+Date: Sat, 2 Nov 2019 18:16:53 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Vinod Koul <vkoul@kernel.org>
+Message-ID: <20191102171653.GE484428@kroah.com>
+References: <20191031095307.GB2695@vkoul-mobl.Dlink>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, stable@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ALSA: bebob: fix to detect configured source
-	of sampling clock for Focusrite Saffire Pro i/o series
+Content-Disposition: inline
+In-Reply-To: <20191031095307.GB2695@vkoul-mobl.Dlink>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [GIT PULL] soundwire fixes for v5.4-rc6
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,48 +80,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For Focusrite Saffire Pro i/o, the lowest 8 bits of register represents
-configured source of sampling clock. The next lowest 8 bits represents
-whether the configured source is actually detected or not just after
-the register is changed for the source.
+On Thu, Oct 31, 2019 at 03:23:07PM +0530, Vinod Koul wrote:
+> Hi Greg,
+> 
+> Please pull to receive couple of fixes for soundwire. All these changes
+> have been sitting in linux-next as well
+> 
+> The following changes since commit 54ecb8f7028c5eb3d740bb82b0f1d90f2df63c5c:
+> 
+>   Linux 5.4-rc1 (2019-09-30 10:35:40 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/soundwire.git tags/soundwire-5.4-rc6
 
-Current implementation evaluates whole the register to detect configured
-source. This results in failure due to the next lowest 8 bits when the
-source is connected in advance.
+Pulled and pushed out, thanks.
 
-This commit fixes the bug.
-
-Fixes: 25784ec2d034 ("ALSA: bebob: Add support for Focusrite Saffire/SaffirePro series")
-Cc: <stable@vger.kernel.org> # v3.16+
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/bebob/bebob_focusrite.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/firewire/bebob/bebob_focusrite.c b/sound/firewire/bebob/bebob_focusrite.c
-index 32b864bee25f..06d6a37cd853 100644
---- a/sound/firewire/bebob/bebob_focusrite.c
-+++ b/sound/firewire/bebob/bebob_focusrite.c
-@@ -27,6 +27,8 @@
- #define SAFFIRE_CLOCK_SOURCE_SPDIF		1
- 
- /* clock sources as returned from register of Saffire Pro 10 and 26 */
-+#define SAFFIREPRO_CLOCK_SOURCE_SELECT_MASK	0x000000ff
-+#define SAFFIREPRO_CLOCK_SOURCE_DETECT_MASK	0x0000ff00
- #define SAFFIREPRO_CLOCK_SOURCE_INTERNAL	0
- #define SAFFIREPRO_CLOCK_SOURCE_SKIP		1 /* never used on hardware */
- #define SAFFIREPRO_CLOCK_SOURCE_SPDIF		2
-@@ -189,6 +191,7 @@ saffirepro_both_clk_src_get(struct snd_bebob *bebob, unsigned int *id)
- 		map = saffirepro_clk_maps[1];
- 
- 	/* In a case that this driver cannot handle the value of register. */
-+	value &= SAFFIREPRO_CLOCK_SOURCE_SELECT_MASK;
- 	if (value >= SAFFIREPRO_CLOCK_SOURCE_COUNT || map[value] < 0) {
- 		err = -EIO;
- 		goto end;
--- 
-2.20.1
-
+greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C608EE147
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2019 14:33:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF888EE11F
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2019 14:29:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B60C41774;
-	Mon,  4 Nov 2019 14:32:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B60C41774
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BC2F1766;
+	Mon,  4 Nov 2019 14:28:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BC2F1766
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572874389;
-	bh=WYa2htW3fO9FaO+KiDO9QpiCs++93wZO0QkuZ1BaNT8=;
+	s=default; t=1572874187;
+	bh=TLAvOsvNMKzLax0jOZFoVZL4VVl7vcNEeb2pKX15SqU=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=U4ACu3nZ4GnYaZee40GmcJUs7OrKamokEcW61m83+WwO8if62qkG/h575JN+w7dRq
-	 cbC2WGxNVB1Cve/KtXVeKFnB/N4irgD60PvUSK+jytqrcumzAEwlPvmX8xQASdE/4F
-	 KJ1DMy7uGO9M832tlCA1EMABeai2G8v7TqirG2T0=
+	b=a7XrxeOiFgWRfvHTmaV5KCEgyKgpWkm/8/Jez9mwT0j+/6oiEA863lDokS41s8/IQ
+	 p9ryfJUCGWWsMf3BIo+QmcVmN03uLBAKmjxHwDUvI5PyiOFRyg8ANNMaext3iFOGcS
+	 b1axC9gAn9UzM7dEARrlxal0eESGpQ+IjdNWzv/4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB535F8065E;
-	Mon,  4 Nov 2019 14:27:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADC95F8045F;
+	Mon,  4 Nov 2019 14:27:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBD78F80637; Mon,  4 Nov 2019 14:27:21 +0100 (CET)
+ id 10E05F8060D; Mon,  4 Nov 2019 14:27:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3ED86F8048D
- for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2019 14:27:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3ED86F8048D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 557A9F80321
+ for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2019 14:27:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 557A9F80321
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="oN6PWw+C"
+ header.b="f0yrBQbP"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=qqEnd6SRaJJ4olmq5sQpdBFGZk+mmIwHRFusovai2fw=; b=oN6PWw+CKc9V
- 9hBw/bvO4dvZbmQ3IqzHIYbNilT0PcPRgFumh48kN9CPwvH6EzI5LlfN+o6suBk5/EEsLGBmwbqx1
- FQSZR+2o4/C7qPmlV/8/YNxB11IpOn6QECv4YOy75R3zKHYgLcHns6rzb0DUPgjf2rIw3mc8/jHk3
- F6anM=;
+ List-Archive; bh=3uWYvkVAp/Gz+aHYfP6VJJDXIKFHytpoxHVLXfULA0o=; b=f0yrBQbP/s2U
+ b9ETNVvtxIappu5Nou/B7rwZwRdiYTkMVdcgA9ApIKWd3phS7ZcdYRAQ8RyZa0WxrgnOWvqCFAKDa
+ FJpVb+d3EXjf1f3KtApdj6F7qUoFzqd1Vrgw3AGPiXBvgeVovNsEm2CadImyYdr1hc6tbpZ2MYp5B
+ NaBEk=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iRcO1-0002eH-C6; Mon, 04 Nov 2019 13:27:13 +0000
+ id 1iRcO0-0002e0-MK; Mon, 04 Nov 2019 13:27:12 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id CD1472743044; Mon,  4 Nov 2019 13:27:12 +0000 (GMT)
+ id 2BC26274319C; Mon,  4 Nov 2019 13:27:12 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20191101173045.27099-5-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191101173045.27099-8-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191104132712.CD1472743044@ypsilon.sirena.org.uk>
+Message-Id: <20191104132712.2BC26274319C@ypsilon.sirena.org.uk>
 Date: Mon,  4 Nov 2019 13:27:12 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Randy Dunlap <rdunlap@infradead.org>, Arnd Bergmann <arnd@arndb.de>
-Subject: [alsa-devel] Applied "ASoC: SOF: Kconfig: add EXPERT dependency for
-	developer options, clarify help" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: Intel: Skylake: mark HDAudio codec
+	support as deprecated." to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Kconfig: add EXPERT dependency for developer options, clarify help
+   ASoC: Intel: Skylake: mark HDAudio codec support as deprecated.
 
 has been applied to the asoc tree at
 
@@ -113,98 +113,46 @@ to this mail.
 Thanks,
 Mark
 
-From 70ae4eb540af32ee6a6260143ccae6054ebd433f Mon Sep 17 00:00:00 2001
+From 02701b909c2fab4b49f9c9545ab921c9b2c7a768 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Fri, 1 Nov 2019 12:30:38 -0500
-Subject: [PATCH] ASoC: SOF: Kconfig: add EXPERT dependency for developer
- options, clarify help
+Date: Fri, 1 Nov 2019 12:30:41 -0500
+Subject: [PATCH] ASoC: Intel: Skylake: mark HDAudio codec support as
+ deprecated.
 
-Some distros select all possible options, despite existing warnings to
-be careful. This leads to e.g. user reports that the HDaudio codec and
-DMIC are not handled by SOF.
+This option famously broke audio on Linus' laptop and the problem have
+not been fixed.
 
-Add an explicit menu item to unlock developer options, and make them
-dependent on CONFIG_EXPERT. Hopefully with this double-lock these
-options will only be selected by developers.
+Mark as DEPRECATED to avoid any ambiguity with distros.
 
-GitHub issue: https://github.com/thesofproject/sof/issues/1885
+Use SOF if you need HDaudio support w/ the DSP enabled, e.g. for DMIC
+capture.
+
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191101173045.27099-5-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191101173045.27099-8-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/Kconfig | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+ sound/soc/intel/Kconfig | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/sof/Kconfig b/sound/soc/sof/Kconfig
-index 56a3ab66b46b..6435eb531668 100644
---- a/sound/soc/sof/Kconfig
-+++ b/sound/soc/sof/Kconfig
-@@ -14,7 +14,6 @@ config SND_SOC_SOF_PCI
- 	depends on PCI
- 	select SND_SOC_SOF
- 	select SND_SOC_ACPI if ACPI
--	select SND_SOC_SOF_OPTIONS
- 	select SND_SOC_SOF_INTEL_PCI if SND_SOC_SOF_INTEL_TOPLEVEL
+diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+index 086fc60b2a14..79b227613108 100644
+--- a/sound/soc/intel/Kconfig
++++ b/sound/soc/intel/Kconfig
+@@ -209,9 +209,12 @@ config SND_SOC_INTEL_SKYLAKE_SSP_CLK
+ config SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC
+ 	bool "HDAudio codec support"
  	help
- 	  This adds support for PCI enumeration. This option is
-@@ -27,7 +26,6 @@ config SND_SOC_SOF_ACPI
- 	depends on ACPI || COMPILE_TEST
- 	select SND_SOC_SOF
- 	select SND_SOC_ACPI if ACPI
--	select SND_SOC_SOF_OPTIONS
- 	select SND_SOC_SOF_INTEL_ACPI if SND_SOC_SOF_INTEL_TOPLEVEL
- 	select IOSF_MBI if X86 && PCI
- 	help
-@@ -40,19 +38,23 @@ config SND_SOC_SOF_OF
- 	tristate "SOF OF enumeration support"
- 	depends on OF || COMPILE_TEST
- 	select SND_SOC_SOF
--	select SND_SOC_SOF_OPTIONS
- 	help
- 	  This adds support for Device Tree enumeration. This option is
- 	  required to enable i.MX8 devices.
- 	  Say Y if you need this option. If unsure select "N".
+-	  If you have a Intel Skylake/Broxton/ApolloLake/KabyLake/
+-	  GeminiLake or CannonLake platform with an HDaudio codec
+-	  then enable this option by saying Y
++	  This option broke audio on Linus' Skylake laptop in December 2018
++	  and the race conditions during the probe were not fixed since.
++	  This option is DEPRECATED, all HDaudio codec support needs
++	  to be handled by the SOF driver.
++	  Distributions should not enable this option and there are no known
++	  users of this capability.
  
--config SND_SOC_SOF_OPTIONS
--	tristate
-+config SND_SOC_SOF_DEVELOPER_SUPPORT
-+	bool "SOF developer options support"
-+	depends on EXPERT
- 	help
--	  This option is not user-selectable but automagically handled by
--	  'select' statements at a higher level
-+	  This option unlock SOF developer options for debug/performance/
-+	  code hardening.
-+	  Distributions should not select this option, only SOF development
-+	  teams should select it.
-+	  Say Y if you are involved in SOF development and need this option
-+	  If not, select N
- 
--if SND_SOC_SOF_OPTIONS
-+if SND_SOC_SOF_DEVELOPER_SUPPORT
- 
- config SND_SOC_SOF_NOCODEC
- 	tristate
-@@ -64,6 +66,11 @@ config SND_SOC_SOF_NOCODEC_SUPPORT
- 	  option if no known codec is detected. This is typically only
- 	  enabled for developers or devices where the sound card is
- 	  controlled externally
-+	  This option is mutually exclusive with the Intel HDaudio support,
-+	  selecting it may have negative impacts and prevent e.g. microphone
-+	  functionality from being enabled on Intel CoffeeLake and later
-+	  platforms.
-+	  Distributions should not select this option!
- 	  Say Y if you need this nocodec fallback option
- 	  If unsure select "N".
- 
-@@ -168,7 +175,7 @@ config SND_SOC_SOF_DEBUG_RETAIN_DSP_CONTEXT
- 
- endif ## SND_SOC_SOF_DEBUG
- 
--endif ## SND_SOC_SOF_OPTIONS
-+endif ## SND_SOC_SOF_DEVELOPER_SUPPORT
- 
- config SND_SOC_SOF
+ config SND_SOC_INTEL_SKYLAKE_COMMON
  	tristate
 -- 
 2.20.1

@@ -2,72 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3182CEE161
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2019 14:37:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C73E6EE170
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2019 14:40:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B49F81760;
-	Mon,  4 Nov 2019 14:36:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B49F81760
+	by alsa0.perex.cz (Postfix) with ESMTPS id 61E3B1789;
+	Mon,  4 Nov 2019 14:39:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61E3B1789
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572874638;
-	bh=Aqx4kNxHFTK2xVF9FrBW7aT8nzk7LQwb9dOy9qc+A6w=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=k+9KhORQFFNQlERN3k00O27ACP1BM3ZL+bnSAfVlvT6xikLRdT3g7sGrpkvsxgXoC
-	 4ZVbo/um7p5BZ0ldaN3Jf8VfN7RwUWZu2gzReQV37wTO4pQTTqZFxAS7ACMmkjvKOx
-	 hkild0RypYRax58WzF3kdFvCt9KNXcrITdTC+Y8A=
+	s=default; t=1572874804;
+	bh=1Heg9ux/Q4R5oNljmEMPraDVoAAX20a6IIOxjpjRzlA=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SlCdQazVOVj4ukjpYMnFeaQIK2fopwhCW0RaoglZP79EHX/KeHX9Jhxq9dAv+0zz6
+	 zO/7wlmOldz5gujQh8rKAlCjxw0w0py2Lct/IAgGz9yRJUq/2mu5Z6aGcObA1wcxpe
+	 ZQdG92wgB0ZkZVINC/JbWSyC7tzSysKtOyTR1Cj0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1073BF80717;
-	Mon,  4 Nov 2019 14:27:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C19CF804FE;
+	Mon,  4 Nov 2019 14:37:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31E38F8065E; Mon,  4 Nov 2019 14:27:33 +0100 (CET)
+ id 62AE5F8048D; Mon,  4 Nov 2019 14:37:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 55B60F805FE
- for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2019 14:27:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55B60F805FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id E835CF80321
+ for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2019 14:37:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E835CF80321
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="pmrgAPQQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=pOki1ngyPTqttObvjQ4FZXBv92MIzFC6OhdlCEfMNp0=; b=pmrgAPQQeKH9
- qFcxUiLQ1LUTnRLFOxqfO1r7RZXEEzaCy9EmJY+01OfU8zLKxVZGKBych5Vl0t7PrNwlbmTCefSEq
- iG+g1BaVtw75uXsAd/mULrJnem8cqjUrTfyeS8AJe5u95lp1Z24mcn7C+QCO4SytgRdw7kDznMniY
- VCWhg=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iRcO3-0002fC-2s; Mon, 04 Nov 2019 13:27:15 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 97C0E2743193; Mon,  4 Nov 2019 13:27:14 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20191101170635.26389-1-pierre-louis.bossart@linux.intel.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20191104132714.97C0E2743193@ypsilon.sirena.org.uk>
-Date: Mon,  4 Nov 2019 13:27:14 +0000 (GMT)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: hdac_hda: fix race in device removal"
-	to the asoc tree
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="MRlR2bfv"
+Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xA4DWFkJ026453; Mon, 4 Nov 2019 14:37:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=0V0+n6EoG5ZZ+IdpLsOxLEtGg4+FYYg6VUMRseHZqHA=;
+ b=MRlR2bfvQfp6TmzTJF+TAOFdz7iv72iApjX1BtIml+gWAdhk6XTdhD5zMwAGlWJn7hiX
+ 72UnCam408Cz3k86Sv/6Df6UmeXtjiQTeCRxKGJMKJ0rAzRPuIFznZ0ivwESy9yDBJUD
+ 6WHkjeIAnKqOqsl2s79PQbqLg+RiaU2K9BglSVceDVFx7HykUvbMsjVgTpgNtL4REiSc
+ LeGoYL3b7+3oeUNsdWMVjNhPBDxOlAaJyibOnJo0Yg67CVkpH7C8j+9f/wHfBRmPn/7q
+ 1NycHLFlHspA50/WNl2EZ+FGz2bCxW4Dd+L3nMHohxAZip2sbdKxUu+PEI3F769J0Rma hA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2w10f19mg4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 04 Nov 2019 14:37:06 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 496CB100042;
+ Mon,  4 Nov 2019 14:37:06 +0100 (CET)
+Received: from Webmail-eu.st.com (Safex1hubcas22.st.com [10.75.90.92])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1C5C12FF5DB;
+ Mon,  4 Nov 2019 14:37:06 +0100 (CET)
+Received: from SAFEX1HUBCAS24.st.com (10.75.90.95) by Safex1hubcas22.st.com
+ (10.75.90.92) with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 4 Nov 2019
+ 14:37:06 +0100
+Received: from localhost (10.201.21.218) by webmail-ga.st.com (10.75.90.48)
+ with Microsoft SMTP Server (TLS) id 14.3.439.0; Mon, 4 Nov 2019 14:37:05
+ +0100
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>,
+ <arnaud.pouliquen@st.com>
+Date: Mon, 4 Nov 2019 14:36:54 +0100
+Message-ID: <20191104133654.28750-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.201.21.218]
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
+ definitions=2019-11-04_08:2019-11-04,2019-11-04 signatures=0
+Cc: benjamin.gaignard@st.com
+Subject: [alsa-devel] [PATCH] ASoC: stm32: sai: add restriction on mmap
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,82 +97,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Do not support mmap in S/PDIF mode. In S/PDIF mode
+the buffer has to be copied, to allow the channel status
+bits insertion.
 
-   ASoC: hdac_hda: fix race in device removal
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 5dc7d5bc9627eb26d33c7c7eefc467cf217f9326 Mon Sep 17 00:00:00 2001
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Fri, 1 Nov 2019 12:06:35 -0500
-Subject: [PATCH] ASoC: hdac_hda: fix race in device removal
-
-When ASoC card instance is removed containing a HDA codec,
-hdac_hda_codec_remove() may run in parallel with codec resume.
-This will cause problems if the HDA link is freed with
-snd_hdac_ext_bus_link_put() while the codec is still in
-middle of its resume process.
-
-To fix this, change the order such that pm_runtime_disable()
-is called before the link is freed. This will ensure any
-pending runtime PM action is completed before proceeding
-to free the link.
-
-This issue can be easily hit with e.g. SOF driver by loading and
-unloading the drivers.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191101170635.26389-1-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 ---
- sound/soc/codecs/hdac_hda.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/stm/stm32_sai_sub.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/hdac_hda.c b/sound/soc/codecs/hdac_hda.c
-index 91242b6f8ea7..4570f662fb48 100644
---- a/sound/soc/codecs/hdac_hda.c
-+++ b/sound/soc/codecs/hdac_hda.c
-@@ -410,8 +410,8 @@ static void hdac_hda_codec_remove(struct snd_soc_component *component)
- 		return;
- 	}
- 
--	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
- 	pm_runtime_disable(&hdev->dev);
-+	snd_hdac_ext_bus_link_put(hdev->bus, hlink);
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index a4060813bc74..48e629ac2d88 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -1218,6 +1218,16 @@ static int stm32_sai_pcm_process_spdif(struct snd_pcm_substream *substream,
+ 	return 0;
  }
  
- static const struct snd_soc_dapm_route hdac_hda_dapm_routes[] = {
++/* No support of mmap in S/PDIF mode */
++static const struct snd_pcm_hardware stm32_sai_pcm_hw_spdif = {
++	.info = SNDRV_PCM_INFO_INTERLEAVED,
++	.buffer_bytes_max = 8 * PAGE_SIZE,
++	.period_bytes_min = 1024,
++	.period_bytes_max = PAGE_SIZE,
++	.periods_min = 2,
++	.periods_max = 8,
++};
++
+ static const struct snd_pcm_hardware stm32_sai_pcm_hw = {
+ 	.info = SNDRV_PCM_INFO_INTERLEAVED | SNDRV_PCM_INFO_MMAP,
+ 	.buffer_bytes_max = 8 * PAGE_SIZE,
+@@ -1270,7 +1280,7 @@ static const struct snd_dmaengine_pcm_config stm32_sai_pcm_config = {
+ };
+ 
+ static const struct snd_dmaengine_pcm_config stm32_sai_pcm_config_spdif = {
+-	.pcm_hardware = &stm32_sai_pcm_hw,
++	.pcm_hardware = &stm32_sai_pcm_hw_spdif,
+ 	.prepare_slave_config = snd_dmaengine_pcm_prepare_slave_config,
+ 	.process = stm32_sai_pcm_process_spdif,
+ };
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

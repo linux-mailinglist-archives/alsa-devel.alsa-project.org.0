@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F23BDEE158
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2019 14:35:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CDDAEE15D
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2019 14:36:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 793051778;
-	Mon,  4 Nov 2019 14:35:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 793051778
+	by alsa0.perex.cz (Postfix) with ESMTPS id B92C71756;
+	Mon,  4 Nov 2019 14:35:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B92C71756
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572874550;
-	bh=D4KvGGYKNWGnTrajQwRxDfIhfW8Vs7DHh0+RD+ml5a0=;
+	s=default; t=1572874591;
+	bh=QVLPf9c6BKWg1uKwkcY1xkfE3cVRGyzdxiXYepU8p3k=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ANewcPc2mpdGZlhmLJ5GRmhhmT/lhdSogZD6EDd1V96GykYt67I/1p+sRgZJGVs3j
-	 XX8K8twH2Ey4KzXqjYoWtIbPbe3rDC3dNGmFisgjYtJh2HbwMOihXjDFOvy7pLr9Z+
-	 15qC3na6Me48em3+wME/P7HwCxCtKWJn8SVw4cXA=
+	b=UD34c+4DzW+OXvSpCBYqfGcqYJmWuc3HcupU5A/0SyRY65sekWYWC2U3dWc4zwhPt
+	 /ZAQ+NR6MhO95+Z9kvl5WcuDRl7idPEkzptVNsm5uCbpdI8X4aLIjT/qGHYEBylf+I
+	 VKVH2Vsxi4yxE2dhL/f+JKlLkH7FYRhjxRYfmy7o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B049F806FA;
-	Mon,  4 Nov 2019 14:27:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34956F80715;
+	Mon,  4 Nov 2019 14:27:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBDD5F8065A; Mon,  4 Nov 2019 14:27:28 +0100 (CET)
+ id 6A344F8065B; Mon,  4 Nov 2019 14:27:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D873BF80600
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D6F9F80321
  for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2019 14:27:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D873BF80600
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D6F9F80321
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="wBOs29wP"
+ header.b="t/+f/bT5"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=VFlUwta7raHERrz/5xlzluQlhhI3kpCewQdjfvTymq4=; b=wBOs29wPZO/3
- x/4mScLn2o4Cv7vQA7QQxYwlbONxHzsRIWkvj+87Hk6i5tgvX/QVyJf7m1YaSyJrMCwWkA1SfKc7L
- ANFX+5uhveWNFSEUQqqOoMbZb9WjI7TMqJ/zehziwnjrW8/k5mcp6YD4/Rn3VWKzI4aq5XHCtBj7I
- INhpw=;
+ List-Archive; bh=MMuqwozdnh507sczlhP/Y4zrSkwhWkLRckF0hu3yF5A=; b=t/+f/bT5jpm0
+ VGFgEa46/w25Fc1kqFOX8fhuCcxj8Lm2DZK1G6Bzo6UxJxRJSD2ceOi4lLdJEjrSuJp1zVe9A9xGF
+ AKxsudTys/rXwTOKZzNJCXh5/IyfvJzFb3dt0NXFbYb7byRPOBt0TpagdSO8y4qexm9NKQFIHnqnl
+ KNekg=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iRcO1-0002eU-QA; Mon, 04 Nov 2019 13:27:13 +0000
+ id 1iRcO2-0002eh-9y; Mon, 04 Nov 2019 13:27:14 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 473032743035; Mon,  4 Nov 2019 13:27:13 +0000 (GMT)
+ id AF703274301E; Mon,  4 Nov 2019 13:27:13 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20191101173045.27099-3-pierre-louis.bossart@linux.intel.com>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+In-Reply-To: <20191101170916.26517-4-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191104132713.473032743035@ypsilon.sirena.org.uk>
+Message-Id: <20191104132713.AF703274301E@ypsilon.sirena.org.uk>
 Date: Mon,  4 Nov 2019 13:27:13 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Arnd Bergmann <arnd@arndb.de>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: Broadwell: clarify mutual
-	exclusion with legacy driver" to the asoc tree
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: Simplify the
+	hda_dsp_wait_d0i3c_done() function" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +88,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: Broadwell: clarify mutual exclusion with legacy driver
+   ASoC: SOF: Intel: hda: Simplify the hda_dsp_wait_d0i3c_done() function
 
 has been applied to the asoc tree at
 
@@ -113,67 +113,58 @@ to this mail.
 Thanks,
 Mark
 
-From a6955fe0e2309feeab5ec71e4b0dcbe498f4f497 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Fri, 1 Nov 2019 12:30:36 -0500
-Subject: [PATCH] ASoC: SOF: Intel: Broadwell: clarify mutual exclusion with
- legacy driver
+From 65c56f5dccc87ca2993a50672e144c7378189f2c Mon Sep 17 00:00:00 2001
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Date: Fri, 1 Nov 2019 12:09:16 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: Simplify the hda_dsp_wait_d0i3c_done()
+ function
 
-Some distros select all options blindly, which leads to confusion and
-bug reports. SOF does not fully support Broadwell due to firmware
-dependencies, the machine drivers can only support one option, and
-UCM/topology files are still being propagated to downstream distros,
-so make SOF on Broadwell an opt-in option that first require distros
-to opt-out of existing defaults.
+Remove the retry argument for the hda_dsp_wait_d0i3c_done()
+function and use the HDA_DSP_REG_POLL_RETRY_COUNT macro
+directly.
 
-Bugzilla: https://bugzilla.kernel.org/show_bug.cgi?id=204237
-Fixes: f35bf70f61d3 ('ASoC: Intel: Make sure BDW based machine drivers build for SOF')
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191101173045.27099-3-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191101170916.26517-4-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/Kconfig     |  3 +++
- sound/soc/sof/intel/Kconfig | 10 +++++++++-
- 2 files changed, 12 insertions(+), 1 deletion(-)
+ sound/soc/sof/intel/hda-dsp.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
-index ba5b90e66e2f..93ebe1297e41 100644
---- a/sound/soc/intel/Kconfig
-+++ b/sound/soc/intel/Kconfig
-@@ -59,6 +59,9 @@ config SND_SOC_INTEL_HASWELL
- 	  If you have a Intel Haswell or Broadwell platform connected to
- 	  an I2S codec, then enable this option by saying Y or m. This is
- 	  typically used for Chromebooks. This is a recommended option.
-+	  This option is mutually exclusive with the SOF support on
-+	  Broadwell. If you want to enable SOF on Broadwell, you need to
-+	  deselect this option first.
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index d23573d9e9c4..8cd5ecc01b62 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -307,9 +307,10 @@ void hda_dsp_ipc_int_disable(struct snd_sof_dev *sdev)
+ 			HDA_DSP_REG_HIPCCTL_BUSY | HDA_DSP_REG_HIPCCTL_DONE, 0);
+ }
  
- config SND_SOC_INTEL_BAYTRAIL
- 	tristate "Baytrail (legacy) Platforms"
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 973c137a6c5a..cd9954bfec0b 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -85,10 +85,18 @@ config SND_SOC_SOF_BAYTRAIL
+-static int hda_dsp_wait_d0i3c_done(struct snd_sof_dev *sdev, int retry)
++static int hda_dsp_wait_d0i3c_done(struct snd_sof_dev *sdev)
+ {
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
++	int retry = HDA_DSP_REG_POLL_RETRY_COUNT;
  
- config SND_SOC_SOF_BROADWELL_SUPPORT
- 	bool "SOF support for Broadwell"
-+	depends on SND_SOC_INTEL_HASWELL=n
- 	help
- 	  This adds support for Sound Open Firmware for Intel(R) platforms
- 	  using the Broadwell processors.
--	  Say Y if you have such a device.
-+	  This option is mutually exclusive with the Haswell/Broadwell legacy
-+	  driver. If you want to enable SOF on Broadwell you need to deselect
-+	  the legacy driver first.
-+	  SOF does fully support Broadwell yet, so this option is not
-+	  recommended for distros. At some point all legacy drivers will be
-+	  deprecated but not before all userspace firmware/topology/UCM files
-+	  are made available to downstream distros.
-+	  Say Y if you want to enable SOF on Broadwell
- 	  If unsure select "N".
+ 	while (snd_hdac_chip_readb(bus, VS_D0I3C) & SOF_HDA_VS_D0I3C_CIP) {
+ 		if (!retry--)
+@@ -346,7 +347,7 @@ int hda_dsp_set_power_state(struct snd_sof_dev *sdev,
+ 	u8 value;
  
- config SND_SOC_SOF_BROADWELL
+ 	/* Write to D0I3C after Command-In-Progress bit is cleared */
+-	ret = hda_dsp_wait_d0i3c_done(sdev, HDA_DSP_REG_POLL_RETRY_COUNT);
++	ret = hda_dsp_wait_d0i3c_done(sdev);
+ 	if (ret < 0) {
+ 		dev_err(bus->dev, "CIP timeout before D0I3C update!\n");
+ 		return ret;
+@@ -357,7 +358,7 @@ int hda_dsp_set_power_state(struct snd_sof_dev *sdev,
+ 	snd_hdac_chip_updateb(bus, VS_D0I3C, SOF_HDA_VS_D0I3C_I3, value);
+ 
+ 	/* Wait for cmd in progress to be cleared before exiting the function */
+-	ret = hda_dsp_wait_d0i3c_done(sdev, HDA_DSP_REG_POLL_RETRY_COUNT);
++	ret = hda_dsp_wait_d0i3c_done(sdev);
+ 	if (ret < 0) {
+ 		dev_err(bus->dev, "CIP timeout after D0I3C update!\n");
+ 		return ret;
 -- 
 2.20.1
 

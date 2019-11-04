@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DCB5EE169
-	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2019 14:38:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A43FCEE167
+	for <lists+alsa-devel@lfdr.de>; Mon,  4 Nov 2019 14:38:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04F4F1765;
-	Mon,  4 Nov 2019 14:37:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04F4F1765
+	by alsa0.perex.cz (Postfix) with ESMTPS id 386711758;
+	Mon,  4 Nov 2019 14:37:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 386711758
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572874711;
-	bh=gYOu36yULP6aQXUHb+BPAJI/J2dQtw8JJZ46G2EAEqE=;
+	s=default; t=1572874681;
+	bh=Xemdjq3vOmjG8vxtg1C/thGYUxuVwgAPP5nDy+ZdvEk=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=noBZTgkMmZUxnwmHUBHKDWlBzW4JapW/m7IqkVrRYd5dwAHjZo5IeNAZeSD9kbO4I
-	 HpeFDZt148qSjmZG1uYGHt8TR8X51mzr0VWK/klfKqyK8+dJRvhTNIBHnUfXPo28AK
-	 mkBOkIekA2C8tASJaOe93cKx+ftNgmzCDfhhGm5w=
+	b=mT0GpPl00yrsQ6eYZuBry/sFznY+4MSg6rfZa16wWWHy6rnOIaQVlQHJ8mvXzDsIK
+	 B+laukjgKUj8Y4eUkoeNfwWfV7JGqar6aWd1Pdtd5YL54bvPeyDSIbISdhuxXcW2MG
+	 LLLvAjK02u/KDsILsp8ny/RG56BNh1R3B1KmDQCE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4F47BF8073C;
-	Mon,  4 Nov 2019 14:27:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C026F80737;
+	Mon,  4 Nov 2019 14:27:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E84EF80672; Mon,  4 Nov 2019 14:27:35 +0100 (CET)
+ id A0B30F80671; Mon,  4 Nov 2019 14:27:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31F62F8060E
- for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2019 14:27:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31F62F8060E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9029DF80633
+ for <alsa-devel@alsa-project.org>; Mon,  4 Nov 2019 14:27:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9029DF80633
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="HShHk8Ir"
+ header.b="QPIbZUhy"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=4O4TGbRjwxJpk8o//hzsfvP126vkkd/ZvWILRpphLTY=; b=HShHk8IrNB2r
- ji7NWn7iZZTgf0MfS6DXUp0eic8xwhFXgbPRSWYnMO9vksHakB5OMIRG7GRZiDlEtKn3zHCjLQqbD
- i/ATZfEKoXcoTikf5wxDLhk2WBabjpZOZwKDBVbMb4jQ/6ed9eds+HFXMXyZoc98cPs1WIxF0ykQb
- 2DjbQ=;
+ List-Archive; bh=KjOFqC3LpLokCguUrWPascEa+8RC7whRG2pGwXHTHq8=; b=QPIbZUhyhI8A
+ hrhMyqH9Y8uKjJ/GSa9AjVML7+vOEkULPQx7aokJ7+nONV3KEgTvrqgm0Dw3Yp/Q3aGZ74oBcHZzJ
+ Y74BuMWwYT6zDR8a/HcI8vRV4Tb9pSWPgP7woVOkON65WkPn554k0tbYVltxUtr7OQBptg4KZdVE8
+ +P1i8=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iRcO2-0002ev-Pt; Mon, 04 Nov 2019 13:27:14 +0000
+ id 1iRcO2-0002f4-Vb; Mon, 04 Nov 2019 13:27:15 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 2D91C2743044; Mon,  4 Nov 2019 13:27:14 +0000 (GMT)
+ id 64AE3274301E; Mon,  4 Nov 2019 13:27:14 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Naveen Manohar <naveen.m@intel.com>
-In-Reply-To: <20191101171847.26767-2-pierre-louis.bossart@linux.intel.com>
+To: zhong jiang <zhongjiang@huawei.com>
+In-Reply-To: <1572528855-25990-1-git-send-email-zhongjiang@huawei.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191104132714.2D91C2743044@ypsilon.sirena.org.uk>
+Message-Id: <20191104132714.64AE3274301E@ypsilon.sirena.org.uk>
 Date: Mon,  4 Nov 2019 13:27:14 +0000 (GMT)
-Cc: Sathya Prakash M R <sathya.prakash.m.r@intel.com>, tiwai@suse.de,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: Add acpi match for rt1011 based
-	m/c driver" to the asoc tree
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, Mark Brown <broonie@kernel.org>,
+ zhongjiang@huawei.com
+Subject: [alsa-devel] Applied "ASoC: ux500: Remove redundant variable
+	"status"" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: Add acpi match for rt1011 based m/c driver
+   ASoC: ux500: Remove redundant variable "status"
 
 has been applied to the asoc tree at
 
@@ -114,40 +114,42 @@ to this mail.
 Thanks,
 Mark
 
-From f95ce1355944189c26e4182c813d7f018b434dbd Mon Sep 17 00:00:00 2001
-From: Naveen Manohar <naveen.m@intel.com>
-Date: Fri, 1 Nov 2019 12:18:46 -0500
-Subject: [PATCH] ASoC: Intel: Add acpi match for rt1011 based m/c driver
+From e0859710516c98b189879966b48ea1c77e0cd979 Mon Sep 17 00:00:00 2001
+From: zhong jiang <zhongjiang@huawei.com>
+Date: Thu, 31 Oct 2019 21:34:15 +0800
+Subject: [PATCH] ASoC: ux500: Remove redundant variable "status"
 
-Add match for CML m/c with RT1011 and RT5682
+local variable "status" is not used. hence it is safe to remove and
+just return 0.
 
-Signed-off-by: Naveen Manohar <naveen.m@intel.com>
-Signed-off-by: Sathya Prakash M R <sathya.prakash.m.r@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191101171847.26767-2-pierre-louis.bossart@linux.intel.com
+Signed-off-by: zhong jiang <zhongjiang@huawei.com>
+Link: https://lore.kernel.org/r/1572528855-25990-1-git-send-email-zhongjiang@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/common/soc-acpi-intel-cnl-match.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/soc/ux500/ux500_msp_i2s.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-index 985aa366c9e8..16d0bae8b316 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
-@@ -47,6 +47,13 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
- 		.sof_fw_filename = "sof-cnl.ri",
- 		.sof_tplg_filename = "sof-cml-rt5682-max98357a.tplg",
- 	},
-+	{
-+		.id = "10EC1011",
-+		.drv_name = "cml_rt1011_rt5682",
-+		.quirk_data = &cml_codecs,
-+		.sof_fw_filename = "sof-cnl.ri",
-+		.sof_tplg_filename = "sof-cml-rt1011-rt5682.tplg",
-+	},
- 	{
- 		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
+diff --git a/sound/soc/ux500/ux500_msp_i2s.c b/sound/soc/ux500/ux500_msp_i2s.c
+index a90e0d7f0b73..394d8b2a4a16 100644
+--- a/sound/soc/ux500/ux500_msp_i2s.c
++++ b/sound/soc/ux500/ux500_msp_i2s.c
+@@ -533,7 +533,6 @@ static void disable_msp_tx(struct ux500_msp *msp)
+ static int disable_msp(struct ux500_msp *msp, unsigned int dir)
+ {
+ 	u32 reg_val_GCR;
+-	int status = 0;
+ 	unsigned int disable_tx, disable_rx;
+ 
+ 	reg_val_GCR = readl(msp->registers + MSP_GCR);
+@@ -566,7 +565,7 @@ static int disable_msp(struct ux500_msp *msp, unsigned int dir)
+ 	else if (disable_rx)
+ 		disable_msp_rx(msp);
+ 
+-	return status;
++	return 0;
+ }
+ 
+ int ux500_msp_i2s_trigger(struct ux500_msp *msp, int cmd, int direction)
 -- 
 2.20.1
 

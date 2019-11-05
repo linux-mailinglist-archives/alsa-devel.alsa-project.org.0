@@ -2,66 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7AFEFEE3
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 14:43:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F0F3EFEE5
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 14:44:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3708816C1;
-	Tue,  5 Nov 2019 14:43:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3708816C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB154170B;
+	Tue,  5 Nov 2019 14:43:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB154170B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572961434;
-	bh=9/udbswmYZfe/BUEsAdgB/zHRScidEerx5F5L8z+Izc=;
+	s=default; t=1572961470;
+	bh=g+EGhbSbsTL7s4e/2sWX3XH5GTGFo9RidIVTfRaBLxA=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AZWN57VXcv8GPSyvEzSZQMicTSr7sHRZHbVvbdOBUca4AERs57970k+0De8vS+Pf8
-	 Xn2Vzvn5uv+Q4YUk1Y7NMsK5M3urynwDMbPyVGdtv3jXb2mgvj0kXMMg7SZTLcjTjU
-	 Lm/ietqlrh8ZWP6l4dNIT/HNk+jJevYtgUUJVCZA=
+	b=hQ3azfVXtiDY4AFKhXGsrDf14zELO9TeiMWsUDKNoOnyYpUXuX9XvOt6iZN+6zcgJ
+	 a3sJj5w4DPL6F8zvcAWXQFw+QVH/i3KjH0rXTXA0ZV0c4t4OsobOvO+K92W9iRncnq
+	 fBAdE01GlS73V/HgCmCjX578ZMiXuvRi8vPPGk6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C81CF8065A;
-	Tue,  5 Nov 2019 14:38:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30064F80674;
+	Tue,  5 Nov 2019 14:38:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9F11F80271; Tue,  5 Nov 2019 14:30:53 +0100 (CET)
+ id 0B0F6F8049B; Tue,  5 Nov 2019 14:36:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_28,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EEF11F80271
- for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 14:30:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEF11F80271
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2019 05:30:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,271,1569308400"; d="scan'208";a="353144108"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga004.jf.intel.com with ESMTP; 05 Nov 2019 05:30:28 -0800
-Received: from andy by smile with local (Exim 4.93-RC1)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1iRyuf-0003Jh-GS; Tue, 05 Nov 2019 15:30:25 +0200
-Date: Tue, 5 Nov 2019 15:30:25 +0200
-From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
-Message-ID: <20191105133025.GR32742@smile.fi.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82734F800F3
+ for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 14:36:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82734F800F3
+Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1iRz0B-000869-V7; Tue, 05 Nov 2019 14:36:07 +0100
+Received: from ukl by pty.hi.pengutronix.de with local (Exim 4.89)
+ (envelope-from <ukl@pengutronix.de>)
+ id 1iRz08-0007MZ-9i; Tue, 05 Nov 2019 14:36:04 +0100
+Date: Tue, 5 Nov 2019 14:36:04 +0100
+From: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+To: "Vaittinen, Matti" <Matti.Vaittinen@fi.rohmeurope.com>
+Message-ID: <20191105133604.d2xcasxw7pwzwvh7@pengutronix.de>
 References: <cover.1572875541.git.matti.vaittinen@fi.rohmeurope.com>
  <20191105122042.GO32742@smile.fi.intel.com>
  <4e6fa62d7022c7b1426477a150a93c899725f5b0.camel@fi.rohmeurope.com>
  <20191105131038.duol3rwwkbuvgvwv@pengutronix.de>
+ <938a5ec7b41ae9ce7b0de83764d6b774cfdaa781.camel@fi.rohmeurope.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20191105131038.duol3rwwkbuvgvwv@pengutronix.de>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <938a5ec7b41ae9ce7b0de83764d6b774cfdaa781.camel@fi.rohmeurope.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
+X-SA-Exim-Mail-From: ukl@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
 X-Mailman-Approved-At: Tue, 05 Nov 2019 14:38:15 +0100
 Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
@@ -71,8 +72,8 @@ Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  "sathyanarayanan.kuppuswamy@linux.intel.com"
  <sathyanarayanan.kuppuswamy@linux.intel.com>,
  "ptyser@xes-inc.com" <ptyser@xes-inc.com>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- "marek.behun@nic.cz" <marek.behun@nic.cz>,
+ "t.scherer@eckelmann.de" <t.scherer@eckelmann.de>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
  "festevam@gmail.com" <festevam@gmail.com>,
  "linux-stm32@st-md-mailman.stormreply.com"
  <linux-stm32@st-md-mailman.stormreply.com>,
@@ -80,9 +81,9 @@ Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
  "khilman@kernel.org" <khilman@kernel.org>,
  "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
- "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "marek.behun@nic.cz" <marek.behun@nic.cz>,
  "bgolaszewski@baylibre.com" <bgolaszewski@baylibre.com>,
- "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
  "bamv2005@gmail.com" <bamv2005@gmail.com>, "joel@jms.id.au" <joel@jms.id.au>,
  "nandor.han@ge.com" <nandor.han@ge.com>,
  "bcm-kernel-feedback-list@broadcom.com"
@@ -100,16 +101,16 @@ Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
  "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
  "ssantosh@kernel.org" <ssantosh@kernel.org>,
  "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>,
  "kernel@pengutronix.de" <kernel@pengutronix.de>,
  "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
  "sbranden@broadcom.com" <sbranden@broadcom.com>,
  "yamada.masahiro@socionext.com" <yamada.masahiro@socionext.com>,
  "andrew@aj.id.au" <andrew@aj.id.au>, "info@metux.net" <info@metux.net>,
- "Vaittinen, Matti" <Matti.Vaittinen@fi.rohmeurope.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
  "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "t.scherer@eckelmann.de" <t.scherer@eckelmann.de>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
  "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
  "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
  "shawnguo@kernel.org" <shawnguo@kernel.org>
@@ -131,43 +132,77 @@ Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 05, 2019 at 02:10:38PM +0100, Uwe Kleine-K=F6nig wrote:
-> On Tue, Nov 05, 2019 at 12:54:55PM +0000, Vaittinen, Matti wrote:
-> > On Tue, 2019-11-05 at 14:20 +0200, Andy Shevchenko wrote:
-> > > I would also like to see bloat-o-meter statistics before and after
-> > > your patch.
-> > > My guts tell me that the result will be not in the favour of yours
-> > > solution.
+On Tue, Nov 05, 2019 at 01:30:20PM +0000, Vaittinen, Matti wrote:
+> On Tue, 2019-11-05 at 14:10 +0100, Uwe Kleine-K=F6nig wrote:
+> > Hello,
 > > =
 
-> > Can you please tell me what type of stats you hope to see? I can try
-> > generating what you are after. The cover letter contained typical +/-
-> > change stats from git and summary:
+> > On Tue, Nov 05, 2019 at 12:54:55PM +0000, Vaittinen, Matti wrote:
+> > > On Tue, 2019-11-05 at 14:20 +0200, Andy Shevchenko wrote:
+> > > > I would also like to see bloat-o-meter statistics before and
+> > > > after
+> > > > your patch.
+> > > > My guts tell me that the result will be not in the favour of
+> > > > yours
+> > > > solution.
+> > > =
+
+> > > Can you please tell me what type of stats you hope to see? I can
+> > > try
+> > > generating what you are after. The cover letter contained typical
+> > > +/-
+> > > change stats from git and summary:
+> > > =
+
+> > > 62 files changed, 228 insertions(+), 104 deletions(-)
 > > =
 
-> > 62 files changed, 228 insertions(+), 104 deletions(-)
+> > I guess he wants to see
+> > =
+
+> > 	scripts/bloat-o-meter vmlinuz.old vmlinuz
+> > =
+
+> > . I would expect a 0 there. I didn't look in detail, but in general I
+> > like the idea to give 0 and 1 a symbolic name.
 > =
 
-> I guess he wants to see
-> =
+> Thanks Uwe. This far I have only cross-compiled the series for arm
+> which I use for developing the ROHM PMICs. scripts/bloat-o-meter /
+> tools it uses does not seem to recognize the image format (not a big
+> surprize as my host is x86_64).
 
-> 	scripts/bloat-o-meter vmlinuz.old vmlinuz
+It works for me, I guess that's because my binutils support several
+architectures:
 
-Yes, but be sure you have compiled them all and build them all in.
-Otherwise you might get wrong result.
+	$ nm --help
+	...
+	nm: supported targets: elf64-x86-64 elf32-i386 elf32-iamcu elf32-x86-64
+	pei-i386 pei-x86-64 elf64-l1om elf64-k1om elf64-little elf64-big
+	elf32-little elf32-big elf64-littleaarch64 elf64-bigaarch64
+	elf32-littleaarch64 elf32-bigaarch64 elf32-littlearm elf32-bigarm
+	elf64-alpha ecoff-littlealpha elf32-littlearm-fdpic elf32-bigarm-fdpic
+	elf32-hppa-linux elf32-hppa elf64-ia64-little elf64-ia64-big pei-ia64
+	elf32-m32r-linux elf32-m32rle-linux elf32-m68k elf32-tradbigmips
+	elf32-tradlittlemips ecoff-bigmips ecoff-littlemips elf32-ntradbigmips
+	elf64-tradbigmips elf32-ntradlittlemips elf64-tradlittlemips
+	elf32-powerpc aixcoff-rs6000 elf32-powerpcle ppcboot elf64-powerpc
+	elf64-powerpcle aixcoff64-rs6000 aix5coff64-rs6000 elf64-littleriscv
+	elf32-littleriscv elf32-s390 elf64-s390 elf32-sh-linux elf32-shbig-linux
+	elf32-sh-fdpic elf32-shbig-fdpic elf32-sparc elf64-sparc pe-x86-64
+	pe-bigobj-x86-64 pe-i386 plugin srec symbolsrec verilog tekhex binary
+	ihex
 
-> . I would expect a 0 there. I didn't look in detail, but in general I
-> like the idea to give 0 and 1 a symbolic name.
+(added line breaks for easier reading). I got this by installing
+binutils-multiarch (on Debian).
 
-I'll will be fine with that if and only if maintainers are okay. For now,
-I don't like the idea to trade bad for worse.
+Best regards
+Uwe
 
 -- =
 
-With Best Regards,
-Andy Shevchenko
-
-
+Pengutronix e.K.                           | Uwe Kleine-K=F6nig            |
+Industrial Linux Solutions                 | http://www.pengutronix.de/  |
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

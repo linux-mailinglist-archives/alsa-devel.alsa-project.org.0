@@ -2,66 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72026EF3B9
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 03:50:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8EE55EF3C3
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 03:57:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3F371708;
-	Tue,  5 Nov 2019 03:49:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3F371708
+	by alsa0.perex.cz (Postfix) with ESMTPS id 731701714;
+	Tue,  5 Nov 2019 03:56:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 731701714
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572922218;
-	bh=3NQ231ZtRV5dIRLdCdyj8vvkhxU91Jm6VclOfFRMLUo=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1572922632;
+	bh=yAzVytdiNqjcqQhVhTW3J101uadvi019uDrNXnEDuP4=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P9WCYEp/W828m4gjriLyqLEXsjW4nP4MaSJA6XRf4SS1TJcK/HuWuV8IEeqGjaV9Z
-	 4jRDWQa1IiT3ldacIGvvW2vZV2ssZPwJK8n6DpMqw4XGmo0mm+HwMNKpyYyiIPULU3
-	 qNh9dKutwrGzgu3DFr2Lky3fr/v2PtXk97i0DIJ4=
+	b=KG1WShre+zNzephtQSEgMzyLtjHUu/86ip8HH+r1ddIY/bjoISHzmDmBwuxXRR3Ag
+	 4Rh13q6bpIePPWyLJ4/YWWy8MJvl16pMjWuWMdg8Ponx0Y6/PTaxnyVf4oOZkfPN9u
+	 gk9yLWbZij5GSZWwyZMrIBSKgJ5xgUDi0XVFFaWM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 507E6F80612;
-	Tue,  5 Nov 2019 03:47:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A916F8049B;
+	Tue,  5 Nov 2019 03:55:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9033F805E0; Tue,  5 Nov 2019 03:47:03 +0100 (CET)
+ id 1FAA2F8049B; Tue,  5 Nov 2019 03:55:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-il1-x142.google.com (mail-il1-x142.google.com
+ [IPv6:2607:f8b0:4864:20::142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AD638F8015B
- for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 03:46:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD638F8015B
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Nov 2019 18:46:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,269,1569308400"; d="scan'208";a="226952324"
-Received: from demiho-mobl.amr.corp.intel.com (HELO [10.255.94.53])
- ([10.255.94.53])
- by fmsmga004.fm.intel.com with ESMTP; 04 Nov 2019 18:46:54 -0800
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <874kzrdo1x.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <e47765e3-ad11-fe5b-bec9-ae8e6022a193@linux.intel.com>
-Date: Mon, 4 Nov 2019 20:38:45 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3467EF8015B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 03:55:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3467EF8015B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="F4GMpQBC"
+Received: by mail-il1-x142.google.com with SMTP id w1so7985826ilq.11
+ for <alsa-devel@alsa-project.org>; Mon, 04 Nov 2019 18:55:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8xv8ahGLcFkFEb+5ui4KF1A+NaNyAKTo8+ZrhMG6bno=;
+ b=F4GMpQBCq8jseQ+XvJVSAtoxbTYlpExCsXJcPORKjAG5NdJqu3qu2ngBxUZPAw0gva
+ 1NDbiOvH869t3XJEFuUWBmE5PrjS0+NRIiTAjPvrfsHNYxO/VD8xXInhtcM1IFbJ8pvB
+ LMqdrerpVrjYAZzKHxbekDk697syXU3lFi1THzDOatjVR4Di5l92UyTQuU82+yzbitlS
+ Z930BYb0nqIIQq+XjpY8bI9E59nuaK97TPjR6F8oKqpk9SnxRf2en05pftVDo3G8ysfp
+ ThYTMIq57n+BHmZ4HLiSID9JH2ST+k4d8bWXXiOQcrXd2eW4/zLTC6tDe7Wwo71EGS97
+ /pBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8xv8ahGLcFkFEb+5ui4KF1A+NaNyAKTo8+ZrhMG6bno=;
+ b=VSpQYzYCC9DRKHtfeBoGi3Jz2dmNPB0RjKkdr1/CmibkGZjiVV9g9gEw+BAyVEonXU
+ LkPT7vChUnkLf118EcwHUp6HBkR6bzFHx5qh6TN/t05j6yef7HlhARIRWuyQ0fHwkN5i
+ furc3KS6rVrzXWB8DbtORGwns3jQbFZGt3firQWNMerBoXAUNAMzByOQLNd0DF1q5THJ
+ 6TxO3SdYxCurYEn3p54Om8itn3iqBWAQ0IJeg6JCKw5xiamqRaztsRejOb+e+6OwPGB0
+ jU1D3baIQCwC9mZKBii5nPwknZc1PGQEO0QkwrUdaTDoxkgc/fXpyAhW/VX4C+v9hhHR
+ tJRw==
+X-Gm-Message-State: APjAAAU6v45V3b4IVEp3VfP9Z2gyU/gjI2VAXnrJhB5GpshZl/e1kAtX
+ GCZKyIJXkiUxs0/dg0aWiV0y/DREGYvfam/3W5wuUnm5
+X-Google-Smtp-Source: APXvYqx+0rP6Gnr6ofwpdtNrqPkqRcmEYXf8quoXVqOol3B9rSw8rJtlfquAqgiTqg5LNon1nsx57IrLES3d+KRwPTw=
+X-Received: by 2002:a92:d64d:: with SMTP id x13mr14311214ilp.54.1572922515212; 
+ Mon, 04 Nov 2019 18:55:15 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <874kzrdo1x.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v2 resend 00/18] ASoC: soc-core cleanup -
- step 4
+References: <874kzrdo1x.wl-kuninori.morimoto.gx@renesas.com>
+ <8736fbdnwt.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <8736fbdnwt.wl-kuninori.morimoto.gx@renesas.com>
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Mon, 4 Nov 2019 18:55:08 -0800
+Message-ID: <CAFQqKeW3x1iL-jx3HHCBh_cUGmD543fMansX1x8EMNy==MOiNA@mail.gmail.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 resend 01/18] ASoC: soc-core: remove
+ unneeded snd_soc_tplg_component_remove()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,59 +93,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, Oct 29, 2019 at 6:28 PM Kuninori Morimoto <
+kuninori.morimoto.gx@renesas.com> wrote:
 
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+>
+> snd_soc_tplg_component_remove() is pair of snd_soc_tplg_component_load(),
+> and it is topology related cleanup function.
+>
+> The driver which called _load() needs to call _remove() by its
+> responsibility.
+> Today, skl-pcm and topology are the user, and these are calling both
+> _load() and _remove().
+>
+> soc-core doesn't need to call it.
+> This patch remove it.
+>
+Morimoto-san,
 
-On 10/29/19 8:23 PM, Kuninori Morimoto wrote:
-> 
-> Hi Mark
-> 
-> These are resend of soc-core cleanup step4.
-> These are based on mark/for-5.5 branch.
-> I already got report from Intel that these had no issue on Intel CI machine.
+When I submitted changes for fixing module load/unload errors with SOF, I
+had a patch that added this change. At that time, Mark commented that this
+can be left as is to make the unregister_component() robust.
 
-In addition to the first pass of automatic testing on SOF-enabled 
-devices, I double-checked the v2 code once more and didn't see any 
-issues with the changes. Copying Ranjani and Kai in case they have spare 
-cycles to have additional eyes on this large change.
+Mark, do you still think it should be left as is or are you OK to remove
+this?
 
-The comments I have are on existing code that was moved, and the 
-improvements could be handled as a follow-up patch. So for the series
+Thanks,
+Ranjani
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-Thanks Morimoto-san, this is a major clean-up. Nice work!
-
-> 
-> Kuninori Morimoto (18):
->    ASoC: soc-core: remove unneeded snd_soc_tplg_component_remove()
->    ASoC: soc-core: move soc_init_dai_link()
->    ASoC: soc-core: tidyup soc_init_dai_link()
->    ASoC: soc-core: remove duplicated soc_is_dai_link_bound()
->    ASoC: soc-core: call soc_bind_dai_link() under snd_soc_add_dai_link()
->    ASoC: soc-core: add soc_unbind_dai_link()
->    ASoC: soc-core: move snd_soc_lookup_component()
->    ASoC: soc-core: add snd_soc_del_component_unlocked()
->    ASoC: soc-core: remove snd_soc_component_add/del()
->    ASoC: soc-core: use snd_soc_lookup_component() at snd_soc_unregister_component()
->    ASoC: soc-core: move snd_soc_register_dai()
->    ASoC: soc-core: move snd_soc_unregister_dais()
->    ASoC: soc-core: add snd_soc_unregister_dai()
->    ASoC: soc-core: have legacy_dai_naming at snd_soc_register_dai()
->    ASoC: soc-core: don't call snd_soc_dapm_new_dai_widgets() at snd_soc_register_dai()
->    ASoC: soc-core: call snd_soc_register_dai() from snd_soc_register_dais()
->    ASoC: soc-core: remove topology specific operation
->    ASoC: soc.h: dobj is used only when SND_SOC_TOPOLOGY
-> 
->   include/sound/soc.h      |  15 +-
->   sound/soc/soc-core.c     | 536 +++++++++++++++++++++--------------------------
->   sound/soc/soc-topology.c |  17 +-
->   3 files changed, 263 insertions(+), 305 deletions(-)
-> 
+>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> ---
+>  sound/soc/soc-core.c | 2 --
+>  1 file changed, 2 deletions(-)
+>
+> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> index f1b41b0..b07ecfa 100644
+> --- a/sound/soc/soc-core.c
+> +++ b/sound/soc/soc-core.c
+> @@ -2890,8 +2890,6 @@ static int __snd_soc_unregister_component(struct
+> device *dev)
+>                 if (dev != component->dev)
+>                         continue;
+>
+> -               snd_soc_tplg_component_remove(component,
+> -                                             SND_SOC_TPLG_INDEX_ALL);
+>                 snd_soc_component_del_unlocked(component);
+>                 found = 1;
+>                 break;
+> --
+> 2.7.4
+>
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

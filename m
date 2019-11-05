@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B78D7F012B
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 16:22:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87D96F011B
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 16:20:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2113416CE;
-	Tue,  5 Nov 2019 16:21:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2113416CE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BE3016EA;
+	Tue,  5 Nov 2019 16:20:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BE3016EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572967345;
-	bh=qylrYnyPXZdaUU0mOk5qc9oxRPwcUOdhZIxIYzbYYv8=;
+	s=default; t=1572967253;
+	bh=q3T7wxxu/Ce6af0AdHtjkmnv+K+LpiqoBa9TCvVFCXg=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tweAdx6zQ5OTjEAFpj87kE2IFXjuEnB+5ayJlI6VbmudkI/grjgSQ17eUsxwScNZY
-	 drE+tve8aic3GFEibZ+5f2qdJZ+fl8qvKlG77JGKRqHF8sBHtQRjaN+UOtBNDE52K8
-	 qB7YT4DefCuXv5ZiAKXNfLncj+adW2F5JLzy7nGc=
+	b=uJsu+s7ea4HwhAsKFfwajwv3xg8nB6V+WgExLZOF3g2kZ1ZfjUMethZJhAnOOF4fj
+	 In17F9O1e3FlGZnHu+j3Ett9GCuNq82xIEkDyupzcDyhfg3xeGOrrdXu2Oy5WC3hEC
+	 /W4kKR9ba2E/7psmbulb8cO8RfiSZHcbM47uOPVI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E163F8053B;
-	Tue,  5 Nov 2019 16:19:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA8E5F805E0;
+	Tue,  5 Nov 2019 16:19:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2C78EF80637; Tue,  5 Nov 2019 16:19:06 +0100 (CET)
+ id 4C33DF805FF; Tue,  5 Nov 2019 16:19:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57D33F8049B
+ by alsa1.perex.cz (Postfix) with ESMTPS id A756EF800F3
  for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 16:18:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57D33F8049B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A756EF800F3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id E33A1B261
+ by mx1.suse.de (Postfix) with ESMTP id F14C2B269
  for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 15:18:58 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Tue,  5 Nov 2019 16:18:33 +0100
-Message-Id: <20191105151856.10785-2-tiwai@suse.de>
+Date: Tue,  5 Nov 2019 16:18:34 +0100
+Message-Id: <20191105151856.10785-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191105151856.10785-1-tiwai@suse.de>
 References: <20191105151856.10785-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 01/24] ALSA: drivers: Remove superfluous
+Subject: [alsa-devel] [PATCH 02/24] ALSA: mips: Remove superfluous
 	snd_dma_continuous_data()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -75,52 +75,23 @@ the callers.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/drivers/dummy.c         | 2 +-
- sound/drivers/ml403-ac97cr.c  | 2 +-
- sound/drivers/pcsp/pcsp_lib.c | 4 ++--
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ sound/mips/hal2.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/drivers/dummy.c b/sound/drivers/dummy.c
-index aee7c04d49e5..022a0db692e0 100644
---- a/sound/drivers/dummy.c
-+++ b/sound/drivers/dummy.c
-@@ -702,7 +702,7 @@ static int snd_card_dummy_pcm(struct snd_dummy *dummy, int device,
- 	if (!fake_buffer) {
- 		snd_pcm_lib_preallocate_pages_for_all(pcm,
- 			SNDRV_DMA_TYPE_CONTINUOUS,
--			snd_dma_continuous_data(GFP_KERNEL),
-+			NULL,
- 			0, 64*1024);
- 	}
- 	return 0;
-diff --git a/sound/drivers/ml403-ac97cr.c b/sound/drivers/ml403-ac97cr.c
-index a3c1c064d1b5..70a6d1832698 100644
---- a/sound/drivers/ml403-ac97cr.c
-+++ b/sound/drivers/ml403-ac97cr.c
-@@ -1242,7 +1242,7 @@ snd_ml403_ac97cr_pcm(struct snd_ml403_ac97cr *ml403_ac97cr, int device)
- 	ml403_ac97cr->pcm = pcm;
- 
+diff --git a/sound/mips/hal2.c b/sound/mips/hal2.c
+index 6676bcbd769f..c9e060939708 100644
+--- a/sound/mips/hal2.c
++++ b/sound/mips/hal2.c
+@@ -741,8 +741,7 @@ static int hal2_pcm_create(struct snd_hal2 *hal2)
+ 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE,
+ 			&hal2_capture_ops);
  	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_CONTINUOUS,
--					  snd_dma_continuous_data(GFP_KERNEL),
-+					  NULL,
- 					  64 * 1024,
- 					  128 * 1024);
- 	return 0;
-diff --git a/sound/drivers/pcsp/pcsp_lib.c b/sound/drivers/pcsp/pcsp_lib.c
-index 8f0f05bbc081..f91316bf01cb 100644
---- a/sound/drivers/pcsp/pcsp_lib.c
-+++ b/sound/drivers/pcsp/pcsp_lib.c
-@@ -352,8 +352,8 @@ int snd_pcsp_new_pcm(struct snd_pcsp *chip)
- 
- 	snd_pcm_lib_preallocate_pages_for_all(chip->pcm,
- 					      SNDRV_DMA_TYPE_CONTINUOUS,
--					      snd_dma_continuous_data
--					      (GFP_KERNEL), PCSP_BUFFER_SIZE,
-+					      NULL,
-+					      PCSP_BUFFER_SIZE,
- 					      PCSP_BUFFER_SIZE);
+-					   snd_dma_continuous_data(GFP_KERNEL),
+-					   0, 1024 * 1024);
++					   NULL, 0, 1024 * 1024);
  
  	return 0;
+ }
 -- 
 2.16.4
 

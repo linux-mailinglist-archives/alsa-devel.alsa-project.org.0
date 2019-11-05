@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CFFAF0ABD
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 00:58:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93528F0AC6
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 01:00:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2338216F7;
-	Wed,  6 Nov 2019 00:57:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2338216F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 285A716DB;
+	Wed,  6 Nov 2019 00:59:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 285A716DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572998317;
-	bh=pLAX5ZIQkZZNd1AEaExQt7SdM96ICwHftGKcmKmmpY4=;
+	s=default; t=1572998402;
+	bh=dxmXo7BXPSQICHANA0AhzLHuDBsaw0EpHVEBOg36vPQ=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=FFtTIow3eii49qckJ9Ll1Y12FSldiB/I0qmgPWVccjSMEF+pbnb9j/X04Qbf61BnM
-	 goe9q7GPVwIAaciNU/aC6mZaPrER2VqYzX9WKOUBWsc6LeFoJk7syGK24mJ0jAZw7h
-	 W3WhCAu6J3T4bnmplA29b8fIGxa5abzLa5tbsIu8=
+	b=KpKv+FqWZbDtklrx2Zd4Ecv3nO33qH7yUXf5vWRyAxvIJfp0RsdrsBkDcdfnptgYM
+	 nAlndIuZ+OSQus3iBgtsQA0qJH4hoCFEanM4ByDrqyJDMY9V54S7UQvtTElcvzCd6D
+	 4s0ZjogV5WVfF4ak77p1c+Zq014whbgCrZMxArlg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24752F806E7;
-	Wed,  6 Nov 2019 00:51:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A2FEF80709;
+	Wed,  6 Nov 2019 00:51:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B8DAAF805E0; Wed,  6 Nov 2019 00:51:35 +0100 (CET)
+ id 547D6F80642; Wed,  6 Nov 2019 00:51:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AAF4F805FE
+ by alsa1.perex.cz (Postfix) with ESMTPS id B79D1F8053B
  for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 00:51:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AAF4F805FE
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B79D1F8053B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="tOIY+i3J"
+ header.b="NZS9FLdM"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=LlxCsx6gV8NPnR0dxW0kPz253jbpvuCd0TTO5e8wPr8=; b=tOIY+i3Jpc0p
- DScxEGw0zS5SBXOHaChOWMItvahKH+Q5hGuexXESmT0VYdGimHDF54kAt2xZ1zFVayC6caYIOGa1K
- 4h4UVPN1mpR6eRcGXPgrRCfvHSS3SLL1I1sLD/6gPDfI8muxcgLGJN8khoHX3XOibjXpeM9g3mw5h
- QSBeA=;
+ List-Archive; bh=dE62fVUkhyeJBjI7LcvT4s1M06u2firYWVjVN2LghlI=; b=NZS9FLdMhBbJ
+ /s4jxxR9Tw6Avb+JBVW9yTL4sYykrF3yVQ4xLL05nz2JChfMLodD8eHkFMm4qwG5+3RnZiwJYixqm
+ 41hnWTxMMNhNfmmE8lHu0cYIbabqgCxHadjZ7BWvadn3CNyVoBeJlJtuBoAHjW+GpoQ3XgyKC5N/j
+ TEGtM=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iS8ba-00081X-MK; Tue, 05 Nov 2019 23:51:22 +0000
+ id 1iS8bb-00081j-4T; Tue, 05 Nov 2019 23:51:23 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 329E5274301E; Tue,  5 Nov 2019 23:51:22 +0000 (GMT)
+ id A0E032741915; Tue,  5 Nov 2019 23:51:22 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <871rum3jmy.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <874kzi3jn8.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191105235122.329E5274301E@ypsilon.sirena.org.uk>
+Message-Id: <20191105235122.A0E032741915@ypsilon.sirena.org.uk>
 Date: Tue,  5 Nov 2019 23:51:22 +0000 (GMT)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: soc-core: remove
-	snd_soc_component_add/del()" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: tidyup
+	snd_soc_lookup_component()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: remove snd_soc_component_add/del()
+   ASoC: soc-core: tidyup snd_soc_lookup_component()
 
 has been applied to the asoc tree at
 
@@ -114,126 +114,64 @@ to this mail.
 Thanks,
 Mark
 
-From b18768f56162964f70bbb9119dba59a947d7d577 Mon Sep 17 00:00:00 2001
+From 5bd7e08b3c5f3924259643e1f413e10ca6c97634 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Tue, 5 Nov 2019 15:46:45 +0900
-Subject: [PATCH] ASoC: soc-core: remove snd_soc_component_add/del()
+Date: Tue, 5 Nov 2019 15:46:35 +0900
+Subject: [PATCH] ASoC: soc-core: tidyup snd_soc_lookup_component()
 
-soc-core has
-snd_soc_add_component(), snd_soc_component_add(),
-snd_soc_del_component(), snd_soc_component_del().
-
-These are very confusing naming.
-snd_soc_component_xxx() are called from snd_soc_xxx_component(),
-and these are very small.
-Let's merge these into snd_soc_xxx_component(), and
-remove snd_soc_component_xxx().
+snd_soc_lookup_component() is using mix of continue and break
+in the same loop. It is odd.
+This patch cleanup it.
 
 Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/871rum3jmy.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/874kzi3jn8.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 58 +++++++++++++++++++-------------------------
- 1 file changed, 25 insertions(+), 33 deletions(-)
+ sound/soc/soc-core.c | 23 ++++++++++-------------
+ 1 file changed, 10 insertions(+), 13 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index e91325b688f2..bb0592159414 100644
+index b71bddb30db1..acbaed4e4e9d 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -2746,34 +2746,6 @@ EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
- 
- #endif
- 
--static void snd_soc_component_add(struct snd_soc_component *component)
--{
--	mutex_lock(&client_mutex);
--
--	if (!component->driver->write && !component->driver->read) {
--		if (!component->regmap)
--			component->regmap = dev_get_regmap(component->dev,
--							   NULL);
--		if (component->regmap)
--			snd_soc_component_setup_regmap(component);
--	}
--
--	/* see for_each_component */
--	list_add(&component->list, &component_list);
--
--	mutex_unlock(&client_mutex);
--}
--
--static void snd_soc_component_del(struct snd_soc_component *component)
--{
--	struct snd_soc_card *card = component->card;
--
--	if (card)
--		snd_soc_unbind_card(card, false);
--
--	list_del(&component->list);
--}
--
- #define ENDIANNESS_MAP(name) \
- 	(SNDRV_PCM_FMTBIT_##name##LE | SNDRV_PCM_FMTBIT_##name##BE)
- static u64 endianness_format_map[] = {
-@@ -2820,8 +2792,14 @@ static void snd_soc_try_rebind_card(void)
- 
- static void snd_soc_del_component_unlocked(struct snd_soc_component *component)
+@@ -360,25 +360,22 @@ struct snd_soc_component *snd_soc_lookup_component(struct device *dev,
+ 						   const char *driver_name)
  {
-+	struct snd_soc_card *card = component->card;
-+
- 	snd_soc_unregister_dais(component);
--	snd_soc_component_del(component);
-+
-+	if (card)
-+		snd_soc_unbind_card(card, false);
-+
-+	list_del(&component->list);
- }
+ 	struct snd_soc_component *component;
+-	struct snd_soc_component *ret;
++	struct snd_soc_component *found_component;
  
- int snd_soc_add_component(struct device *dev,
-@@ -2833,6 +2811,8 @@ int snd_soc_add_component(struct device *dev,
- 	int ret;
- 	int i;
- 
-+	mutex_lock(&client_mutex);
-+
- 	ret = snd_soc_component_initialize(component, component_driver, dev);
- 	if (ret)
- 		goto err_free;
-@@ -2850,14 +2830,26 @@ int snd_soc_add_component(struct device *dev,
- 		goto err_cleanup;
+-	ret = NULL;
++	found_component = NULL;
+ 	mutex_lock(&client_mutex);
+ 	for_each_component(component) {
+-		if (dev != component->dev)
+-			continue;
+-
+-		if (driver_name &&
+-		    (driver_name != component->driver->name) &&
+-		    (strcmp(component->driver->name, driver_name) != 0))
+-			continue;
+-
+-		ret = component;
+-		break;
++		if ((dev == component->dev) &&
++		    (!driver_name ||
++		     (driver_name == component->driver->name) ||
++		     (strcmp(component->driver->name, driver_name) == 0))) {
++			found_component = component;
++			break;
++		}
  	}
+ 	mutex_unlock(&client_mutex);
  
--	snd_soc_component_add(component);
--	snd_soc_try_rebind_card();
-+	if (!component->driver->write && !component->driver->read) {
-+		if (!component->regmap)
-+			component->regmap = dev_get_regmap(component->dev,
-+							   NULL);
-+		if (component->regmap)
-+			snd_soc_component_setup_regmap(component);
-+	}
- 
--	return 0;
-+	/* see for_each_component */
-+	list_add(&component->list, &component_list);
- 
- err_cleanup:
--	snd_soc_del_component_unlocked(component);
-+	if (ret < 0)
-+		snd_soc_del_component_unlocked(component);
- err_free:
-+	mutex_unlock(&client_mutex);
-+
-+	if (ret == 0)
-+		snd_soc_try_rebind_card();
-+
- 	return ret;
+-	return ret;
++	return found_component;
  }
- EXPORT_SYMBOL_GPL(snd_soc_add_component);
+ EXPORT_SYMBOL_GPL(snd_soc_lookup_component);
+ 
 -- 
 2.20.1
 

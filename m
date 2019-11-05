@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7101FF0583
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 19:57:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88435F0584
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 19:58:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D48B11707;
-	Tue,  5 Nov 2019 19:57:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D48B11707
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0AA9216FD;
+	Tue,  5 Nov 2019 19:57:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AA9216FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572980271;
-	bh=q5Gmw8uxH+OCstv88Evt3vtvnnV0pBZsSGfNNo+pobA=;
+	s=default; t=1572980318;
+	bh=6ilSNoPFuhXVIMbPBrv6Dha+3s7GTIkvwVVyjyKU3iA=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=pjZGrDxOQe6mnqIjAVyVefjR6VAaQnoRhJwJUdITG0N2hcjgDgNaSW5JDGMqt/KmP
-	 dTYNwqBAO6oGE9UJMC4ScdT+6tN4XdXLDIdG4ZxdqBuxsMxYrrxXfwkzdHXR1sNtJb
-	 Ven2dZNBhan+Ns/JmpLhDObe9DI4qEbPo45P5n/g=
+	b=QzLrcG9W2bnX6sboqD8STZCF7oGvu3lOY+l1pFML4IIHPUDtBiL4stseuxhSf+e0E
+	 fXYCpnfKxUwajl99ROq2nvCJx2070shdXYl9AWzmp/DNX2dpZq7z+GutPOA5ykZgui
+	 MbnOKK+lgXxqNIFLpzol2fv0OFmRHbQNGbqQczHU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F89FF805DF;
-	Tue,  5 Nov 2019 19:55:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA49EF8060F;
+	Tue,  5 Nov 2019 19:55:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77A46F8015B; Tue,  5 Nov 2019 19:55:19 +0100 (CET)
+ id 42CBDF8049B; Tue,  5 Nov 2019 19:55:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 795C7F800F3
- for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 19:55:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 795C7F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5FFBF80535
+ for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 19:55:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5FFBF80535
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="M03wx5Da"
+ header.b="IgaJgxt1"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=DO7nRIH9sf6GS3/0x3oPjPwLFRaq8ATinxPJ/r7FG/E=; b=M03wx5DatCQ+
- zbDolM86BwXE2K/gwFj8Il0QsjpvVOZCPnvl9JBioMRurr6bc9rslGX8QkRL4fjne0H0lfyjtYO3N
- xCT51aRexYblrRM9DSOxSTBHhqc0/ZKydtvyq6YdZtdlP7x6UdNQ/gHmmolucA9uUg/rs+of2dL+c
- PK938=;
+ List-Archive; bh=1G9fhThjQX6JETaHjlSPqwo7wO+vrFaCPgnMNC5KMUs=; b=IgaJgxt1W7BW
+ h+Kqzjixsa4+e1SqzkkyrXfLJZciVEECeZQMQ3pCm55ck/C2voA+WxLpdXT4sMPTECnfmpE2mGzWu
+ ulo9XKBdYL0nhrnBeBgm7evzvjaDbupLIVvjUe7zxWi2QFb1WekpTEZDDZ8vzeoYA+obHcOH7yp0/
+ +67GY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iS3z0-0007Pg-Je; Tue, 05 Nov 2019 18:55:14 +0000
+ id 1iS3z0-0007Pj-Kv; Tue, 05 Nov 2019 18:55:14 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id D274D274301E; Tue,  5 Nov 2019 18:55:11 +0000 (GMT)
+ id 4F0082743280; Tue,  5 Nov 2019 18:55:12 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-In-Reply-To: <20191104224812.3393-3-ranjani.sridharan@linux.intel.com>
+To: Yong Zhi <yong.zhi@intel.com>
+In-Reply-To: <1572905399-22402-1-git-send-email-yong.zhi@intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191105185511.D274D274301E@ypsilon.sirena.org.uk>
-Date: Tue,  5 Nov 2019 18:55:11 +0000 (GMT)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: topology: set trigger order for FE
-	DAI link" to the asoc tree
+Message-Id: <20191105185512.4F0082743280@ypsilon.sirena.org.uk>
+Date: Tue,  5 Nov 2019 18:55:12 +0000 (GMT)
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com,
+ ryans.lee@maximintegrated.com, pierre-louis.bossart@linux.intel.com,
+ Mark Brown <broonie@kernel.org>, sathyanarayana.nujella@intel.com,
+ daniel.baluta@nxp.com
+Subject: [alsa-devel] Applied "ASoC: max98373: replace gpio_request with
+	devm_gpio_request" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,11 +90,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: topology: set trigger order for FE DAI link
+   ASoC: max98373: replace gpio_request with devm_gpio_request
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -113,38 +115,39 @@ to this mail.
 Thanks,
 Mark
 
-From 5eee2b3f60065a2530d13f28e771be48b989eb4c Mon Sep 17 00:00:00 2001
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Date: Mon, 4 Nov 2019 14:48:12 -0800
-Subject: [PATCH] ASoC: SOF: topology: set trigger order for FE DAI link
+From e44f3d49f900c645af434a3a1dfdbfb79c4a7851 Mon Sep 17 00:00:00 2001
+From: Yong Zhi <yong.zhi@intel.com>
+Date: Mon, 4 Nov 2019 16:09:59 -0600
+Subject: [PATCH] ASoC: max98373: replace gpio_request with devm_gpio_request
 
-Set trigger order for FE DAI links to SND_SOC_DPCM_TRIGGER_POST
-to trigger the BE DAI's before the FE DAI's. This prevents the
-xruns seen on playback pipelines using the link DMA.
+Use devm_gpio_request() to automatic unroll when fails and avoid
+resource leaks at error paths.
 
-Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191104224812.3393-3-ranjani.sridharan@linux.intel.com
+Signed-off-by: Yong Zhi <yong.zhi@intel.com>
+Link: https://lore.kernel.org/r/1572905399-22402-1-git-send-email-yong.zhi@intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/topology.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/codecs/max98373.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index e0e2ae734632..e7076692119b 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -2951,6 +2951,10 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
- 	if (!link->no_pcm) {
- 		link->nonatomic = true;
+diff --git a/sound/soc/codecs/max98373.c b/sound/soc/codecs/max98373.c
+index eb709d528259..cae1def8902d 100644
+--- a/sound/soc/codecs/max98373.c
++++ b/sound/soc/codecs/max98373.c
+@@ -960,11 +960,11 @@ static int max98373_i2c_probe(struct i2c_client *i2c,
  
-+		/* set trigger order */
-+		link->trigger[0] = SND_SOC_DPCM_TRIGGER_POST;
-+		link->trigger[1] = SND_SOC_DPCM_TRIGGER_POST;
-+
- 		/* nothing more to do for FE dai links */
- 		return 0;
- 	}
+ 	/* Power on device */
+ 	if (gpio_is_valid(max98373->reset_gpio)) {
+-		ret = gpio_request(max98373->reset_gpio, "MAX98373_RESET");
++		ret = devm_gpio_request(&i2c->dev, max98373->reset_gpio,
++					"MAX98373_RESET");
+ 		if (ret) {
+ 			dev_err(&i2c->dev, "%s: Failed to request gpio %d\n",
+ 				__func__, max98373->reset_gpio);
+-			gpio_free(max98373->reset_gpio);
+ 			return -EINVAL;
+ 		}
+ 		gpio_direction_output(max98373->reset_gpio, 0);
 -- 
 2.20.1
 

@@ -2,97 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3B49EFED5
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 14:40:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21574EFED0
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 14:39:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 63AAA16F3;
-	Tue,  5 Nov 2019 14:39:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63AAA16F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id A21CB16F5;
+	Tue,  5 Nov 2019 14:38:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A21CB16F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572961207;
-	bh=CUOxaeIRDjvsWIh7ukSe3Y5hyP2pn80heSFOTDH2Z2U=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1572961162;
+	bh=sqB3K8TJIzVfVGMLvEVDsT1u3iR13A33UfplRIIbC6Y=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KqG/NKzMfS6MLQIhYwUWaz9UI0rX8ytR4XaPXLmBa/QrmcBrW1wiLb5aMAsTbJMDR
-	 tb0M4ShSsT6zoc8RUbGTbJT6IdK7wWOqBWfN8MnZRCRUkmYLJH4F4yApGj5DL46Oug
-	 +y5E0j7FGdT8/VaOnq2tGdEjMYr4mQodQn7AYZLw=
+	b=rg3gTbIWlrnb3YbMX5XKakKiuwuvFOgOySk2mLSdraAK18Of/BNsdNzbv5ZbrYo2n
+	 PENihMczDf6epFVNXfjIPzVTWhpzvmD0YLZDwXHUdpfdcmsqbPJaqYNg7HKBaZV6yu
+	 eQRfa55qdQwa78c4Bkji7omB8dkbsiCnK43yBYAg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79C93F805FB;
-	Tue,  5 Nov 2019 14:38:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C52EF80446;
+	Tue,  5 Nov 2019 14:37:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C688CF8015B; Tue,  5 Nov 2019 13:21:03 +0100 (CET)
+ id 5AC06F8049B; Tue,  5 Nov 2019 14:37:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3684CF8015B
- for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 13:20:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3684CF8015B
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1F895F800F3
+ for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 14:37:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F895F800F3
+X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Nov 2019 04:20:57 -0800
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2019 05:37:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,271,1569308400"; d="scan'208";a="192084709"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by orsmga007.jf.intel.com with ESMTP; 05 Nov 2019 04:20:45 -0800
-Received: from andy by smile with local (Exim 4.93-RC1)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1iRxpC-0002Sh-HQ; Tue, 05 Nov 2019 14:20:42 +0200
-Date: Tue, 5 Nov 2019 14:20:42 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
-Message-ID: <20191105122042.GO32742@smile.fi.intel.com>
-References: <cover.1572875541.git.matti.vaittinen@fi.rohmeurope.com>
+X-IronPort-AV: E=Sophos;i="5.68,271,1569308400"; d="scan'208";a="403353670"
+Received: from nvavanes-mobl.amr.corp.intel.com (HELO [10.254.182.110])
+ ([10.254.182.110])
+ by fmsmga006.fm.intel.com with ESMTP; 05 Nov 2019 05:37:28 -0800
+To: "Lu, Brent" <brent.lu@intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <1570007072-23049-1-git-send-email-brent.lu@intel.com>
+ <CF33C36214C39B4496568E5578BE70C74031B9FD@PGSMSX108.gar.corp.intel.com>
+ <63da3995-b807-f9e6-6f09-a90e6b8e8e53@linux.intel.com>
+ <CF33C36214C39B4496568E5578BE70C74032F8BA@PGSMSX108.gar.corp.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <9abda4e6-7a85-50e3-ca09-7029fe5a0d7a@linux.intel.com>
+Date: Tue, 5 Nov 2019 06:48:38 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1572875541.git.matti.vaittinen@fi.rohmeurope.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Mailman-Approved-At: Tue, 05 Nov 2019 14:38:15 +0100
-Cc: Semi Malinen <semi.malinen@ge.com>,
- Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
- linux-aspeed@lists.ozlabs.org, David Daney <david.daney@cavium.com>,
- Linus Walleij <linus.walleij@linaro.org>, alsa-devel@alsa-project.org,
- Peter Tyser <ptyser@xes-inc.com>, Thierry Reding <thierry.reding@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Marek Vasut <marek.vasut+renesas@gmail.com>,
- Florian Fainelli <f.fainelli@gmail.com>, Kevin Hilman <khilman@kernel.org>,
- Michal Simek <michal.simek@xilinx.com>, Marek Behun <marek.behun@nic.cz>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- bcm-kernel-feedback-list@broadcom.com, Joel Stanley <joel@jms.id.au>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>,
- Bamvor Jian Zhang <bamv2005@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- linux-pwm@vger.kernel.org, Grygorii Strashko <grygorii.strashko@ti.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, mazziesaccount@gmail.com,
- Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Nandor Han <nandor.han@ge.com>,
- William Breathitt Gray <vilhelm.gray@gmail.com>, linux-gpio@vger.kernel.org,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Santosh Shilimkar <ssantosh@kernel.org>, linux-tegra@vger.kernel.org,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Scott Branden <sbranden@broadcom.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Andrew Jeffery <andrew@aj.id.au>, "Enrico Weigelt,
- metux IT consult" <info@metux.net>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Thorsten Scherer <t.scherer@eckelmann.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, patches@opensource.cirrus.com,
- Shawn Guo <shawnguo@kernel.org>
-Subject: Re: [alsa-devel] [PATCH 00/62] Add definition for GPIO direction
+In-Reply-To: <CF33C36214C39B4496568E5578BE70C74032F8BA@PGSMSX108.gar.corp.intel.com>
+Content-Language: en-US
+Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ "Zavras, Alexios" <alexios.zavras@intel.com>, Mark Brown <broonie@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [alsa-devel] [PATCH] ASoC: bdw-rt5677: enable runtime channel
+ merge
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,59 +81,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 05, 2019 at 12:09:10PM +0200, Matti Vaittinen wrote:
-> The patch series adds definitions for GPIO line directions.
+
+
+On 11/5/19 12:03 AM, Lu, Brent wrote:
+>>>> In the DAI link "Capture PCM", the FE DAI "Capture Pin" supports
+>>>> 4-channel capture but the BE DAI supports only 2-channel capture. To
+>>>> fix the channel mismatch, we need to enable the runtime channel merge
+>> for this DAI link.
+>>>>
+>>>
+>>> Hi Pierre,
+>>>
+>>> This patch is for the same issue discussed in the following thread:
+>>> https://patchwork.kernel.org/patch/11134167/
+>>>
+>>> We enable the runtime channel merge for the DMIC DAI instead of adding
+>>> a machine driver constraint. It's working good on chrome's 3.14 branch
+>>> (which requires some backport for the runtime channel merge feature).
+>>> Please let me know if this implementation is correct for the FE/BE mismatch
+>> problem.
+>>
+>> Sorry, I don't fully understand your points, and it's the first time I see anyone
+>> use this .dpcm_merged_chan field for an Intel platform.
+>>
+>> If I look at the code I see that the core would limit the number of channels to
+>> two. But that code needs the CPU_DAI to use 2 channels, which I don't see.
+>> So is this patch self-contained or do we need an additional constraint on the
+>> FE?
+>>
+>> Thanks
+>> -Pierre
 > 
-> For occasional GPIO contributor like me it is always a pain to remember
-> whether 1 or 0 was used for GPIO direction INPUT/OUTPUT. Judging the
-> fact that I removed few comments like:
+> Hi Pierre,
 > 
-> /* Return 0 if output, 1 if input */
-> /* This means "out" */
-> return 1; /* input */
-> return 0; /* output */
+> We don't need constraint on FE because dpcm_runtime_merge_chan() modifies
+> the channel number of snd_pcm_hardware structure directly. The structure will
+> be used to initialize the snd_pcm_hw_constraints structure later in the
+> snd_pcm_hw_constraints_complete() function. Since the channel number is already
+> modified, we don't need a constraint to install an extra rule for it.
 > 
-> it seems at least some others may find it hard to remember too. Adding
-> defines for these values helps us who really have good - but short
-> duration - memory :]
-> 
-> Please also see the last patch. It adds warning prints to be emitted
-> from gpiolib if other than defined values are used. This patch can be
-> dropped out if there is a reason for that to still be allowed.
-> 
-> This idea comes from RFC series for ROHM BD71828 PMIC and was initially
-> discussed with Linus Walleij here:
-> https://lore.kernel.org/lkml/c06725c3dd34118a324907137758d8b85b3d4043.camel@fi.rohmeurope.com/
-> but as this has no dependencies to BD71828 work (which probably takes a
-> while) I decided to make it independent series.
-> 
-> Patches are compile-tested only. I have no HW to really test them. Thus I'd
-> appreciate carefull review. This work is mainly about converting zeros
-> and ones to the new defines but it wouldn't be first time I get it wrong
-> in one of the patches :)
+> The result of using dpcm_merged_chan flag and machine driver constraint should
+> be the same when user space programs calling HW_REFINE ioctl call but I think the
+> flag is more elegant for machine driver code.
 
-For all patches I have been Cc'ed to, NAK.
-
-I don't see the advantages now since all known hardware uses the single bit to
-describe direction (even for Intel where we have separate gating for in and out
-buffers the direction we basically rely on the bit that enables out buffer).
-
-So, that said the direction is always 1 bit and basically 0/1 value. Which one
-is in and which one is out just a matter of an agreement we did.
-
-I would also like to see bloat-o-meter statistics before and after your patch.
-My guts tell me that the result will be not in the favour of yours solution.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+I could use the opposite argument: by using a capability that no one 
+else uses, you make the solution more obscure and less intuitive. All 
+other machine drivers use constraints, so if the two solutions are 
+equivalent let's follow the more common solution.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38579EF6D2
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 09:06:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71750EF6C5
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 09:03:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9B5E8171B;
-	Tue,  5 Nov 2019 09:05:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B5E8171B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4CCD1713;
+	Tue,  5 Nov 2019 09:02:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4CCD1713
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572941167;
-	bh=shbkpw2GDtaG6oVDQs7dspz/gaGAAl0xlXl5OKnijC4=;
+	s=default; t=1572941011;
+	bh=oame+hngOpbmbMk7YbH06YYDa+T1tF3eDNgaUa+UHAg=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XhhQnMIsyc6EQLNAeSaR1GI9Pw274lS+6/Lkg0skE9AypTrXjxQtlACTyRcBWQ4xf
-	 9Y6Sk5rNuGRPUl95Uaf3evURxfIiaK6wMJfXT4N3DUMUZlB/aATKfZG7V7TfQjgyrE
-	 7xFxoUJCRMVUSX6q2TQOe+w4+VMkAxxa3oXcrAtU=
+	b=nPSnCTtcSqcbUCAFF4k5wMzfIN3cjTUz6pC8uakyz6g4bjCCie0rBoXNXh4aPf3w0
+	 EE86iGy4J6MIB9IKNobJS1888IcsePjamPYxuDKszXZ9Sc1bz0TVRlizvGgB+03MoI
+	 dTefhmwuflzF2NX7/1qUrQi8FMkFRH1JWyTQEicY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C432BF8063E;
-	Tue,  5 Nov 2019 09:01:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1AE1F8053B;
+	Tue,  5 Nov 2019 09:01:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BA0FAF80600; Tue,  5 Nov 2019 09:01:47 +0100 (CET)
+ id 6E7FAF805DF; Tue,  5 Nov 2019 09:01:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38B18F8049B
+ by alsa1.perex.cz (Postfix) with ESMTPS id C8E2CF800F3
  for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 09:01:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38B18F8049B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8E2CF800F3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 08D27B028
+ by mx1.suse.de (Postfix) with ESMTP id 0FCBCB04F
  for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 08:01:40 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Tue,  5 Nov 2019 09:01:36 +0100
-Message-Id: <20191105080138.1260-3-tiwai@suse.de>
+Date: Tue,  5 Nov 2019 09:01:37 +0100
+Message-Id: <20191105080138.1260-4-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191105080138.1260-1-tiwai@suse.de>
 References: <20191105080138.1260-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 2/4] ALSA: memalloc: Add vmalloc buffer
-	allocation support
+Subject: [alsa-devel] [PATCH 3/4] ALSA: pcm: Handle special page mapping in
+	the default mmap handler
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,93 +67,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds the vmalloc buffer support to ALSA memalloc core.  A
-new type, SNDRV_DMA_TYPE_VMALLOC was added.
+When a driver needs to deal with a special buffer like a SG or a
+vmalloc buffer, it has to set up the PCM page ops explicitly for the
+corresponding helper function.  This is rather error-prone and many
+people forgot or incorrectly used it.
 
-The vmalloc buffer has been already supported in the PCM via a few own
-helper functions, but the user sometimes get confused and misuse
-them.  With this patch, the whole buffer management is integrated into
-the memalloc core, so they can be used in a sole common way.
+For simplifying the call patterns and avoiding such a potential bug,
+this patch enhances the PCM default mmap handler to check the
+(pre-)allocated buffer type and handles the page gracefully depending
+on the buffer type.  If the PCM page ops is given, the ops is still
+used in a higher priority.  The new code path is only for the default
+(NULL page ops) case.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- include/sound/memalloc.h |  1 +
- sound/core/memalloc.c    | 20 ++++++++++++++++----
- 2 files changed, 17 insertions(+), 4 deletions(-)
+ sound/core/pcm_native.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/memalloc.h b/include/sound/memalloc.h
-index 240622d89c0b..6ada3b8ede4e 100644
---- a/include/sound/memalloc.h
-+++ b/include/sound/memalloc.h
-@@ -44,6 +44,7 @@ struct snd_dma_device {
- #else
- #define SNDRV_DMA_TYPE_DEV_IRAM	SNDRV_DMA_TYPE_DEV
- #endif
-+#define SNDRV_DMA_TYPE_VMALLOC		7	/* vmalloc'ed buffer */
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index c3a139436ac2..998c63192ae4 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -13,6 +13,7 @@
+ #include <linux/pm_qos.h>
+ #include <linux/io.h>
+ #include <linux/dma-mapping.h>
++#include <linux/vmalloc.h>
+ #include <sound/core.h>
+ #include <sound/control.h>
+ #include <sound/info.h>
+@@ -3335,7 +3336,18 @@ static inline struct page *
+ snd_pcm_default_page_ops(struct snd_pcm_substream *substream, unsigned long ofs)
+ {
+ 	void *vaddr = substream->runtime->dma_area + ofs;
+-	return virt_to_page(vaddr);
++
++	switch (substream->dma_buffer.dev.type) {
++#ifdef CONFIG_SND_DMA_SGBUF
++	case SNDRV_DMA_TYPE_DEV_SG:
++	case SNDRV_DMA_TYPE_DEV_UC_SG:
++		return snd_pcm_sgbuf_ops_page(substream, ofs);
++#endif /* CONFIG_SND_DMA_SGBUF */
++	case SNDRV_DMA_TYPE_VMALLOC:
++		return vmalloc_to_page(vaddr);
++	default:
++		return virt_to_page(vaddr);
++	}
+ }
  
  /*
-  * info for buffer allocation
-diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
-index e56f84fbd659..ac4cd94dbd66 100644
---- a/sound/core/memalloc.c
-+++ b/sound/core/memalloc.c
-@@ -10,6 +10,7 @@
- #include <linux/mm.h>
- #include <linux/dma-mapping.h>
- #include <linux/genalloc.h>
-+#include <linux/vmalloc.h>
- #ifdef CONFIG_X86
- #include <asm/set_memory.h>
- #endif
-@@ -99,10 +100,11 @@ static void snd_free_dev_iram(struct snd_dma_buffer *dmab)
-  *
-  */
- 
--static inline gfp_t snd_mem_get_gfp_flags(const struct device *dev)
-+static inline gfp_t snd_mem_get_gfp_flags(const struct device *dev,
-+					  gfp_t default_gfp)
- {
- 	if (!dev)
--		return GFP_KRENEL;
-+		return default_gfp;
- 	else
- 		return (__force gfp_t)(unsigned long)dev;
- }
-@@ -123,6 +125,8 @@ static inline gfp_t snd_mem_get_gfp_flags(const struct device *dev)
- int snd_dma_alloc_pages(int type, struct device *device, size_t size,
- 			struct snd_dma_buffer *dmab)
- {
-+	gfp_t gfp;
-+
- 	if (WARN_ON(!size))
- 		return -ENXIO;
- 	if (WARN_ON(!dmab))
-@@ -135,8 +139,13 @@ int snd_dma_alloc_pages(int type, struct device *device, size_t size,
- 	dmab->bytes = 0;
- 	switch (type) {
- 	case SNDRV_DMA_TYPE_CONTINUOUS:
--		dmab->area = alloc_pages_exact(size,
--					       snd_mem_get_gfp_flags(device));
-+		gfp = snd_mem_get_gfp_flags(device, GFP_KERNEL);
-+		dmab->area = alloc_pages_exact(size, gfp);
-+		dmab->addr = 0;
-+		break;
-+	case SNDRV_DMA_TYPE_VMALLOC:
-+		gfp = snd_mem_get_gfp_flags(device, GFP_KERNEL | __GFP_HIGHMEM);
-+		dmab->area = __vmalloc(size, gfp, PAGE_KERNEL);
- 		dmab->addr = 0;
- 		break;
- #ifdef CONFIG_HAS_DMA
-@@ -222,6 +231,9 @@ void snd_dma_free_pages(struct snd_dma_buffer *dmab)
- 	case SNDRV_DMA_TYPE_CONTINUOUS:
- 		free_pages_exact(dmab->area, dmab->bytes);
- 		break;
-+	case SNDRV_DMA_TYPE_VMALLOC:
-+		vfree(dmab->area);
-+		break;
- #ifdef CONFIG_HAS_DMA
- #ifdef CONFIG_GENERIC_ALLOCATOR
- 	case SNDRV_DMA_TYPE_DEV_IRAM:
 -- 
 2.16.4
 

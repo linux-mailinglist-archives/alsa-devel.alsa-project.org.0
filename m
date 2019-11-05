@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 556BAF0A8E
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 00:56:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CFFAF0ABD
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 00:58:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E212F16F6;
-	Wed,  6 Nov 2019 00:55:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E212F16F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2338216F7;
+	Wed,  6 Nov 2019 00:57:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2338216F7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572998197;
-	bh=ePrX1QoLitnWVUVn86aJUgb7qRpGFNb7iTS7gO7LHj0=;
+	s=default; t=1572998317;
+	bh=pLAX5ZIQkZZNd1AEaExQt7SdM96ICwHftGKcmKmmpY4=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=mSm1WzWpaaVHwA3etN+Txz5AC4zglcJSTA72Qy6GSWX8Zpws5VSxLmJXY6qh33QUI
-	 dacYMs/NuaEYgPcWrbb8gnLDi212duxC+C2D0IgovNz3QXLI0GPZyZAdJNiwkEtVS4
-	 MtUQ65oZFB4hSdIZFLDaV46xX6jq3bJhIf84vzxE=
+	b=FFtTIow3eii49qckJ9Ll1Y12FSldiB/I0qmgPWVccjSMEF+pbnb9j/X04Qbf61BnM
+	 goe9q7GPVwIAaciNU/aC6mZaPrER2VqYzX9WKOUBWsc6LeFoJk7syGK24mJ0jAZw7h
+	 W3WhCAu6J3T4bnmplA29b8fIGxa5abzLa5tbsIu8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E3C5DF8060F;
-	Wed,  6 Nov 2019 00:51:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24752F806E7;
+	Wed,  6 Nov 2019 00:51:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D8D8F80639; Wed,  6 Nov 2019 00:51:30 +0100 (CET)
+ id B8DAAF805E0; Wed,  6 Nov 2019 00:51:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 311BEF805DF
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 00:51:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 311BEF805DF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6AAF4F805FE
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 00:51:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AAF4F805FE
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="WRuJ8XQu"
+ header.b="tOIY+i3J"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Qel+lEz1HNxh5vAYl64CMMids/i4gZ99T20CEHDTyok=; b=WRuJ8XQuCwHp
- R7Youn89jQr1ozX8kD4VDU4H7es93/WpsLSPErFmSPvZZ3CiYfYsHQcBPCx3ugNwaL35r+3E3/0xP
- LNJWKcu+3szZLNWGPF0Y7GiXRFazjzavzPBOvTsl4ym4zvprbwvnGmIdoYfvhGnAxXG5+jS9Tnse/
- 0fW3U=;
+ List-Archive; bh=LlxCsx6gV8NPnR0dxW0kPz253jbpvuCd0TTO5e8wPr8=; b=tOIY+i3Jpc0p
+ DScxEGw0zS5SBXOHaChOWMItvahKH+Q5hGuexXESmT0VYdGimHDF54kAt2xZ1zFVayC6caYIOGa1K
+ 4h4UVPN1mpR6eRcGXPgrRCfvHSS3SLL1I1sLD/6gPDfI8muxcgLGJN8khoHX3XOibjXpeM9g3mw5h
+ QSBeA=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iS8ba-00081L-8l; Tue, 05 Nov 2019 23:51:22 +0000
+ id 1iS8ba-00081X-MK; Tue, 05 Nov 2019 23:51:22 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id B87F62743280; Tue,  5 Nov 2019 23:51:21 +0000 (GMT)
+ id 329E5274301E; Tue,  5 Nov 2019 23:51:22 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87y2wu2528.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <871rum3jmy.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191105235121.B87F62743280@ypsilon.sirena.org.uk>
-Date: Tue,  5 Nov 2019 23:51:21 +0000 (GMT)
+Message-Id: <20191105235122.329E5274301E@ypsilon.sirena.org.uk>
+Date: Tue,  5 Nov 2019 23:51:22 +0000 (GMT)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: soc-core: move snd_soc_register_dai()"
-	to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: remove
+	snd_soc_component_add/del()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: move snd_soc_register_dai()
+   ASoC: soc-core: remove snd_soc_component_add/del()
 
 has been applied to the asoc tree at
 
@@ -114,114 +114,126 @@ to this mail.
 Thanks,
 Mark
 
-From daf7737335bf555abf14031530fe8e47b46b373a Mon Sep 17 00:00:00 2001
+From b18768f56162964f70bbb9119dba59a947d7d577 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Tue, 5 Nov 2019 15:46:55 +0900
-Subject: [PATCH] ASoC: soc-core: move snd_soc_register_dai()
+Date: Tue, 5 Nov 2019 15:46:45 +0900
+Subject: [PATCH] ASoC: soc-core: remove snd_soc_component_add/del()
 
-This patch moves snd_soc_register_dai() next to
-snd_soc_register_dais().
-This is prepare for snd_soc_register_dais() cleanup.
+soc-core has
+snd_soc_add_component(), snd_soc_component_add(),
+snd_soc_del_component(), snd_soc_component_del().
 
+These are very confusing naming.
+snd_soc_component_xxx() are called from snd_soc_xxx_component(),
+and these are very small.
+Let's merge these into snd_soc_xxx_component(), and
+remove snd_soc_component_xxx().
+
+Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/87y2wu2528.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/871rum3jmy.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 72 ++++++++++++++++++++++----------------------
- 1 file changed, 36 insertions(+), 36 deletions(-)
+ sound/soc/soc-core.c | 58 +++++++++++++++++++-------------------------
+ 1 file changed, 25 insertions(+), 33 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 0ce333669138..fb5f01497498 100644
+index e91325b688f2..bb0592159414 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -2597,42 +2597,6 @@ static struct snd_soc_dai *soc_add_dai(struct snd_soc_component *component,
- 	return dai;
- }
+@@ -2746,34 +2746,6 @@ EXPORT_SYMBOL_GPL(snd_soc_component_exit_regmap);
  
--/**
-- * snd_soc_register_dais - Register a DAI with the ASoC core
-- *
-- * @component: The component the DAIs are registered for
-- * @dai_drv: DAI driver to use for the DAIs
-- * @count: Number of DAIs
-- */
--static int snd_soc_register_dais(struct snd_soc_component *component,
--				 struct snd_soc_dai_driver *dai_drv,
--				 size_t count)
+ #endif
+ 
+-static void snd_soc_component_add(struct snd_soc_component *component)
 -{
--	struct device *dev = component->dev;
--	struct snd_soc_dai *dai;
--	unsigned int i;
--	int ret;
+-	mutex_lock(&client_mutex);
 -
--	dev_dbg(dev, "ASoC: dai register %s #%zu\n", dev_name(dev), count);
--
--	for (i = 0; i < count; i++) {
--
--		dai = soc_add_dai(component, dai_drv + i, count == 1 &&
--				  !component->driver->non_legacy_dai_naming);
--		if (dai == NULL) {
--			ret = -ENOMEM;
--			goto err;
--		}
+-	if (!component->driver->write && !component->driver->read) {
+-		if (!component->regmap)
+-			component->regmap = dev_get_regmap(component->dev,
+-							   NULL);
+-		if (component->regmap)
+-			snd_soc_component_setup_regmap(component);
 -	}
 -
--	return 0;
+-	/* see for_each_component */
+-	list_add(&component->list, &component_list);
 -
--err:
--	snd_soc_unregister_dais(component);
--
--	return ret;
+-	mutex_unlock(&client_mutex);
 -}
 -
- /**
-  * snd_soc_register_dai - Register a DAI dynamically & create its widgets
-  *
-@@ -2676,6 +2640,42 @@ int snd_soc_register_dai(struct snd_soc_component *component,
- }
- EXPORT_SYMBOL_GPL(snd_soc_register_dai);
+-static void snd_soc_component_del(struct snd_soc_component *component)
+-{
+-	struct snd_soc_card *card = component->card;
+-
+-	if (card)
+-		snd_soc_unbind_card(card, false);
+-
+-	list_del(&component->list);
+-}
+-
+ #define ENDIANNESS_MAP(name) \
+ 	(SNDRV_PCM_FMTBIT_##name##LE | SNDRV_PCM_FMTBIT_##name##BE)
+ static u64 endianness_format_map[] = {
+@@ -2820,8 +2792,14 @@ static void snd_soc_try_rebind_card(void)
  
-+/**
-+ * snd_soc_register_dais - Register a DAI with the ASoC core
-+ *
-+ * @component: The component the DAIs are registered for
-+ * @dai_drv: DAI driver to use for the DAIs
-+ * @count: Number of DAIs
-+ */
-+static int snd_soc_register_dais(struct snd_soc_component *component,
-+				 struct snd_soc_dai_driver *dai_drv,
-+				 size_t count)
-+{
-+	struct device *dev = component->dev;
-+	struct snd_soc_dai *dai;
-+	unsigned int i;
-+	int ret;
-+
-+	dev_dbg(dev, "ASoC: dai register %s #%zu\n", dev_name(dev), count);
-+
-+	for (i = 0; i < count; i++) {
-+
-+		dai = soc_add_dai(component, dai_drv + i, count == 1 &&
-+				  !component->driver->non_legacy_dai_naming);
-+		if (dai == NULL) {
-+			ret = -ENOMEM;
-+			goto err;
-+		}
-+	}
-+
-+	return 0;
-+
-+err:
-+	snd_soc_unregister_dais(component);
-+
-+	return ret;
-+}
-+
- static int snd_soc_component_initialize(struct snd_soc_component *component,
- 	const struct snd_soc_component_driver *driver, struct device *dev)
+ static void snd_soc_del_component_unlocked(struct snd_soc_component *component)
  {
++	struct snd_soc_card *card = component->card;
++
+ 	snd_soc_unregister_dais(component);
+-	snd_soc_component_del(component);
++
++	if (card)
++		snd_soc_unbind_card(card, false);
++
++	list_del(&component->list);
+ }
+ 
+ int snd_soc_add_component(struct device *dev,
+@@ -2833,6 +2811,8 @@ int snd_soc_add_component(struct device *dev,
+ 	int ret;
+ 	int i;
+ 
++	mutex_lock(&client_mutex);
++
+ 	ret = snd_soc_component_initialize(component, component_driver, dev);
+ 	if (ret)
+ 		goto err_free;
+@@ -2850,14 +2830,26 @@ int snd_soc_add_component(struct device *dev,
+ 		goto err_cleanup;
+ 	}
+ 
+-	snd_soc_component_add(component);
+-	snd_soc_try_rebind_card();
++	if (!component->driver->write && !component->driver->read) {
++		if (!component->regmap)
++			component->regmap = dev_get_regmap(component->dev,
++							   NULL);
++		if (component->regmap)
++			snd_soc_component_setup_regmap(component);
++	}
+ 
+-	return 0;
++	/* see for_each_component */
++	list_add(&component->list, &component_list);
+ 
+ err_cleanup:
+-	snd_soc_del_component_unlocked(component);
++	if (ret < 0)
++		snd_soc_del_component_unlocked(component);
+ err_free:
++	mutex_unlock(&client_mutex);
++
++	if (ret == 0)
++		snd_soc_try_rebind_card();
++
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_add_component);
 -- 
 2.20.1
 

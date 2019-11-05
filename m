@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93528F0AC6
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 01:00:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C0E6F0AD8
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 01:03:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 285A716DB;
-	Wed,  6 Nov 2019 00:59:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 285A716DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 017841713;
+	Wed,  6 Nov 2019 01:03:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 017841713
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572998402;
-	bh=dxmXo7BXPSQICHANA0AhzLHuDBsaw0EpHVEBOg36vPQ=;
+	s=default; t=1572998636;
+	bh=rTLmPMjdr24CXwnX4YIrqoA+6S9AYjGNOHdgCcYXvj0=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=KpKv+FqWZbDtklrx2Zd4Ecv3nO33qH7yUXf5vWRyAxvIJfp0RsdrsBkDcdfnptgYM
-	 nAlndIuZ+OSQus3iBgtsQA0qJH4hoCFEanM4ByDrqyJDMY9V54S7UQvtTElcvzCd6D
-	 4s0ZjogV5WVfF4ak77p1c+Zq014whbgCrZMxArlg=
+	b=OtF764yqfc5naDXge3CmDi7x0T/TUpHRVmiwcL2fg0uqQvgxdJxpj5C8ujX+w8DeC
+	 EDLXmHakJkQBEuO8C+AyagPeL3T4TcqAYpgQ6LV8Uae0pEJkuLxXrpJSZwRagZ2lEn
+	 6xCes78FW+p51w2Uy8cc8yUBwlCD5beGNN5JOP0w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A2FEF80709;
-	Wed,  6 Nov 2019 00:51:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75747F80753;
+	Wed,  6 Nov 2019 00:51:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 547D6F80642; Wed,  6 Nov 2019 00:51:36 +0100 (CET)
+ id F0FDFF8065D; Wed,  6 Nov 2019 00:51:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,40 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B79D1F8053B
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 00:51:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B79D1F8053B
+ by alsa1.perex.cz (Postfix) with ESMTPS id BAD95F80611
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 00:51:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAD95F80611
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="NZS9FLdM"
+ header.b="crHmDga8"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=dE62fVUkhyeJBjI7LcvT4s1M06u2firYWVjVN2LghlI=; b=NZS9FLdMhBbJ
- /s4jxxR9Tw6Avb+JBVW9yTL4sYykrF3yVQ4xLL05nz2JChfMLodD8eHkFMm4qwG5+3RnZiwJYixqm
- 41hnWTxMMNhNfmmE8lHu0cYIbabqgCxHadjZ7BWvadn3CNyVoBeJlJtuBoAHjW+GpoQ3XgyKC5N/j
- TEGtM=;
+ List-Archive; bh=mCozGsvGzo2jyYpani+YzZtffjam8mVOINJzTV3SV68=; b=crHmDga85fs6
+ wZI9g+OSmht5FDHiTbGpT7TZBOxZ1+S8YHYPSzD/Hu2w3ISLsS3I7s+9Ccxa3aO7QdDEsRgYwo/x+
+ z89Bxn1fStL+A28DLo5yVxGGSh+PP/zvxWTKKHWI8+90FlCjqdjO06wr0iF3Iad2Lcm6Fz5iH9/3I
+ K7WLg=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iS8bb-00081j-4T; Tue, 05 Nov 2019 23:51:23 +0000
+ id 1iS8bb-00081o-D2; Tue, 05 Nov 2019 23:51:23 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A0E032741915; Tue,  5 Nov 2019 23:51:22 +0000 (GMT)
+ id DC16F274301E; Tue,  5 Nov 2019 23:51:22 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <874kzi3jn8.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <875zjy3jnd.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191105235122.A0E032741915@ypsilon.sirena.org.uk>
+Message-Id: <20191105235122.DC16F274301E@ypsilon.sirena.org.uk>
 Date: Tue,  5 Nov 2019 23:51:22 +0000 (GMT)
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: soc-core: tidyup
+Subject: [alsa-devel] Applied "ASoC: soc-core: move
 	snd_soc_lookup_component()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: tidyup snd_soc_lookup_component()
+   ASoC: soc-core: move snd_soc_lookup_component()
 
 has been applied to the asoc tree at
 
@@ -114,39 +114,73 @@ to this mail.
 Thanks,
 Mark
 
-From 5bd7e08b3c5f3924259643e1f413e10ca6c97634 Mon Sep 17 00:00:00 2001
+From b8132657990b5a09ad8e1c9e2c8efc20b5f9372a Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Tue, 5 Nov 2019 15:46:35 +0900
-Subject: [PATCH] ASoC: soc-core: tidyup snd_soc_lookup_component()
+Date: Tue, 5 Nov 2019 15:46:30 +0900
+Subject: [PATCH] ASoC: soc-core: move snd_soc_lookup_component()
 
-snd_soc_lookup_component() is using mix of continue and break
-in the same loop. It is odd.
-This patch cleanup it.
+This patch moves snd_soc_lookup_component() to upper side.
+This is prepare for snd_soc_unregister_component()
 
-Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/874kzi3jn8.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/875zjy3jnd.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+ sound/soc/soc-core.c | 52 ++++++++++++++++++++++----------------------
+ 1 file changed, 26 insertions(+), 26 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index b71bddb30db1..acbaed4e4e9d 100644
+index 1e8dd19cba24..b71bddb30db1 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -360,25 +360,22 @@ struct snd_soc_component *snd_soc_lookup_component(struct device *dev,
- 						   const char *driver_name)
- {
- 	struct snd_soc_component *component;
--	struct snd_soc_component *ret;
-+	struct snd_soc_component *found_component;
+@@ -356,6 +356,32 @@ struct snd_soc_component *snd_soc_rtdcom_lookup(struct snd_soc_pcm_runtime *rtd,
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_rtdcom_lookup);
  
++struct snd_soc_component *snd_soc_lookup_component(struct device *dev,
++						   const char *driver_name)
++{
++	struct snd_soc_component *component;
++	struct snd_soc_component *ret;
++
++	ret = NULL;
++	mutex_lock(&client_mutex);
++	for_each_component(component) {
++		if (dev != component->dev)
++			continue;
++
++		if (driver_name &&
++		    (driver_name != component->driver->name) &&
++		    (strcmp(component->driver->name, driver_name) != 0))
++			continue;
++
++		ret = component;
++		break;
++	}
++	mutex_unlock(&client_mutex);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(snd_soc_lookup_component);
++
+ struct snd_pcm_substream *snd_soc_get_dai_substream(struct snd_soc_card *card,
+ 		const char *dai_link, int stream)
+ {
+@@ -2889,32 +2915,6 @@ void snd_soc_unregister_component(struct device *dev)
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_unregister_component);
+ 
+-struct snd_soc_component *snd_soc_lookup_component(struct device *dev,
+-						   const char *driver_name)
+-{
+-	struct snd_soc_component *component;
+-	struct snd_soc_component *ret;
+-
 -	ret = NULL;
-+	found_component = NULL;
- 	mutex_lock(&client_mutex);
- 	for_each_component(component) {
+-	mutex_lock(&client_mutex);
+-	for_each_component(component) {
 -		if (dev != component->dev)
 -			continue;
 -
@@ -157,21 +191,16 @@ index b71bddb30db1..acbaed4e4e9d 100644
 -
 -		ret = component;
 -		break;
-+		if ((dev == component->dev) &&
-+		    (!driver_name ||
-+		     (driver_name == component->driver->name) ||
-+		     (strcmp(component->driver->name, driver_name) == 0))) {
-+			found_component = component;
-+			break;
-+		}
- 	}
- 	mutex_unlock(&client_mutex);
- 
+-	}
+-	mutex_unlock(&client_mutex);
+-
 -	return ret;
-+	return found_component;
- }
- EXPORT_SYMBOL_GPL(snd_soc_lookup_component);
- 
+-}
+-EXPORT_SYMBOL_GPL(snd_soc_lookup_component);
+-
+ /* Retrieve a card's name from device tree */
+ int snd_soc_of_parse_card_name(struct snd_soc_card *card,
+ 			       const char *propname)
 -- 
 2.20.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70774F031A
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 17:35:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA321F035A
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 17:46:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CADF016CC;
-	Tue,  5 Nov 2019 17:34:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CADF016CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 762FD16E4;
+	Tue,  5 Nov 2019 17:45:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 762FD16E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572971735;
-	bh=ogg02eBs9wTN8F1N0ESi73kwEZCLXweNPvc2kNOR33Q=;
+	s=default; t=1572972376;
+	bh=XnzJUuMNw879yMr3lG/uyFk0o9oQISp8i7XNN67envk=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SZWfMHULLFupHBv9Tnmy/G+4BCx+DtZsaX2WRqqdpZyHcbAFxffhlNZRr3sJm2pLA
-	 KSwwfRLAHLq9BsQJQvdu/DbBso+S/2QAXI2eGlUqZwMBaWnvjb8tLopTaDgBX/idOb
-	 XFbO3gEVdhFLqL/065FvSQS2VgYVdOUZ1eSD3MR0=
+	b=Cl2ViZcmlI5wIjjTFuCaGUau6JC8QLZ97j2oHl/PWOuCHNoXL1JEFpvIawvUG7SnL
+	 xde+BWdiJ6FRr43yLLANTN7ZdvAwsz9hcu8JZ8HZjVLprGV55oeo5QGs+yug28ZRwr
+	 FApbusx0ptYBb3ad5hJPESfhTor86IZ0qa7ZvNNQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3A6ACF8049B;
-	Tue,  5 Nov 2019 17:33:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0F0DF80535;
+	Tue,  5 Nov 2019 17:44:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E02CF8049B; Tue,  5 Nov 2019 17:33:49 +0100 (CET)
+ id 9304EF8049B; Tue,  5 Nov 2019 17:44:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15AE7F8015B
- for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 17:33:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15AE7F8015B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1C205F8015B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 17:44:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C205F8015B
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id B6203B440;
- Tue,  5 Nov 2019 16:33:44 +0000 (UTC)
-Date: Tue, 05 Nov 2019 17:33:44 +0100
-Message-ID: <s5hh83ith93.wl-tiwai@suse.de>
+ by mx1.suse.de (Postfix) with ESMTP id B8634ABA0;
+ Tue,  5 Nov 2019 16:44:26 +0000 (UTC)
+Date: Tue, 05 Nov 2019 17:44:26 +0100
+Message-ID: <s5heeymtgr9.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-In-Reply-To: <20191105160215.GQ25745@shell.armlinux.org.uk>
+In-Reply-To: <s5hh83ith93.wl-tiwai@suse.de>
 References: <s5heeymbvva.wl-tiwai@suse.de>
  <6ad19121-c0e3-d278-2943-ff93ef80353b@baylibre.com>
  <20191105160215.GQ25745@shell.armlinux.org.uk>
+ <s5hh83ith93.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -75,96 +76,105 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 05 Nov 2019 17:02:15 +0100,
-Russell King - ARM Linux admin wrote:
+On Tue, 05 Nov 2019 17:33:44 +0100,
+Takashi Iwai wrote:
 > 
-> On Tue, Nov 05, 2019 at 09:07:43AM +0100, Neil Armstrong wrote:
-> > Hi,
+> On Tue, 05 Nov 2019 17:02:15 +0100,
+> Russell King - ARM Linux admin wrote:
 > > 
-> > On 05/11/2019 08:55, Takashi Iwai wrote:
+> > On Tue, Nov 05, 2019 at 09:07:43AM +0100, Neil Armstrong wrote:
 > > > Hi,
 > > > 
-> > > while recently working on the ALSA memory allocator API cleanup, I
-> > > noticed that dw-hdmi bridge driver seems doing weird about the buffer
-> > > management.  It pre-allocates the usual device buffers fully at the
-> > > probe time, while each stream allocates the buffer via the vmalloc
-> > > helpers and replaces with it at each open.
+> > > On 05/11/2019 08:55, Takashi Iwai wrote:
+> > > > Hi,
+> > > > 
+> > > > while recently working on the ALSA memory allocator API cleanup, I
+> > > > noticed that dw-hdmi bridge driver seems doing weird about the buffer
+> > > > management.  It pre-allocates the usual device buffers fully at the
+> > > > probe time, while each stream allocates the buffer via the vmalloc
+> > > > helpers and replaces with it at each open.
+> > > > 
+> > > > I guess it's no expected behavior?  It's basically a full waste of
+> > > > resources, and the vmalloc buffer isn't guaranteed to work well for
+> > > > mmap on every architecture.
+> > > > 
+> > > > Below is the patch to address it.  Can anyone check whether this still
+> > > > works?
 > > > 
-> > > I guess it's no expected behavior?  It's basically a full waste of
-> > > resources, and the vmalloc buffer isn't guaranteed to work well for
-> > > mmap on every architecture.
+> > > I don't have the setup to check, but this has been pushed by Russell I Added in CC.
 > > > 
-> > > Below is the patch to address it.  Can anyone check whether this still
-> > > works?
+> > > I also added the imx maintainer since it's (AFAIK) only used on iMX SoCs.
+> > > 
+> > > Neil
+> > > 
+> > > > 
+> > > > Since I have a cleanup series and this is involved, I'd like to take
+> > > > the fix through my tree once after it's confirmed (and get ACK if
+> > > > possible).
+> > > > 
+> > > > 
+> > > > Thanks!
+> > > > 
+> > > > Takashi
+> > > > 
+> > > > -- 8< --
+> > > > From: Takashi Iwai <tiwai@suse.de>
+> > > > Subject: [PATCH] drm/bridge: dw-hdmi: Fix the incorrect buffer allocations
+> > > > 
+> > > > The driver sets up the buffer preallocation with SNDRV_DMA_TYPE_DEV,
+> > > > while it re-allocates and releases vmalloc pages.  This is not only a
+> > > > lot of waste resources but also causes the mmap malfunction.
+> > > > 
+> > > > Change / drop the vmalloc-related code and use the standard buffer
+> > > > allocation / release code instead.
 > > 
-> > I don't have the setup to check, but this has been pushed by Russell I Added in CC.
+> > I think getting rid of the vmalloc code here is a mistake - I seem to
+> > remember using the standard buffer allocation causes failures, due to
+> > memory fragmentation.  Since the hardware is limited to DMA from at
+> > most one page, there is no reason for this driver to require contiguous
+> > pages, hence why it's using - and should use - vmalloc pages.  vmalloc
+> > is way kinder to the MM subsystem than trying to request large order
+> > contiguous pages.
 > > 
-> > I also added the imx maintainer since it's (AFAIK) only used on iMX SoCs.
-> > 
-> > Neil
-> > 
-> > > 
-> > > Since I have a cleanup series and this is involved, I'd like to take
-> > > the fix through my tree once after it's confirmed (and get ACK if
-> > > possible).
-> > > 
-> > > 
-> > > Thanks!
-> > > 
-> > > Takashi
-> > > 
-> > > -- 8< --
-> > > From: Takashi Iwai <tiwai@suse.de>
-> > > Subject: [PATCH] drm/bridge: dw-hdmi: Fix the incorrect buffer allocations
-> > > 
-> > > The driver sets up the buffer preallocation with SNDRV_DMA_TYPE_DEV,
-> > > while it re-allocates and releases vmalloc pages.  This is not only a
-> > > lot of waste resources but also causes the mmap malfunction.
-> > > 
-> > > Change / drop the vmalloc-related code and use the standard buffer
-> > > allocation / release code instead.
+> > So, NAK on this patch.
 > 
-> I think getting rid of the vmalloc code here is a mistake - I seem to
-> remember using the standard buffer allocation causes failures, due to
-> memory fragmentation.  Since the hardware is limited to DMA from at
-> most one page, there is no reason for this driver to require contiguous
-> pages, hence why it's using - and should use - vmalloc pages.  vmalloc
-> is way kinder to the MM subsystem than trying to request large order
-> contiguous pages.
+> OK, then we should do other way round, rather drop the buffer
+> preallocation instead.  Currently vmalloc buffer is always allocated
+> at each open and overrides the preallocated buffer, so the whole 64k
+> and more are wasted for no use.
 > 
-> So, NAK on this patch.
+> (BTW, the current code has this snippet:
+> 
+> 	/* Limit the buffer size to the size of the preallocated buffer */
+> 	ret = snd_pcm_hw_constraint_minmax(runtime,
+> 					   SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
+> 					   0, substream->dma_buffer.bytes);
+> 
+> ... and this would have to limit the buffer size only to the
+> preallocated size -- which essentially makes the argument above
+> invalid.  However, this check looks actually bogus, the constraint
+> parameter should be SNDRV_PCM_HW_PARAM_BUFFER_BYTES, not _SIZE.  It
+> might be the reason it worked somehow...)
+> 
+> So below is the revised patch.  Could you guys check it again?
+> 
+> There I copied the comment as is, although the 512k mentioned there
+> looks inconsistent with the actual code.  Should it be 1M?
 
-OK, then we should do other way round, rather drop the buffer
-preallocation instead.  Currently vmalloc buffer is always allocated
-at each open and overrides the preallocated buffer, so the whole 64k
-and more are wasted for no use.
+... and reading the patch again, I found that the hw constraint call
+can be dropped as well.  The dw_hdmi_hw definition already contains
+the max buffer size.
 
-(BTW, the current code has this snippet:
-
-	/* Limit the buffer size to the size of the preallocated buffer */
-	ret = snd_pcm_hw_constraint_minmax(runtime,
-					   SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
-					   0, substream->dma_buffer.bytes);
-
-... and this would have to limit the buffer size only to the
-preallocated size -- which essentially makes the argument above
-invalid.  However, this check looks actually bogus, the constraint
-parameter should be SNDRV_PCM_HW_PARAM_BUFFER_BYTES, not _SIZE.  It
-might be the reason it worked somehow...)
-
-So below is the revised patch.  Could you guys check it again?
-
-There I copied the comment as is, although the 512k mentioned there
-looks inconsistent with the actual code.  Should it be 1M?
+Below is the re-revised patch.  Please check it.
 
 
-Thanks!
+thanks,
 
 Takashi
 
 -- 8< --
 From: Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH] drm/bridge: dw-hdmi: A couple of fixes wrt buffer allocation
+Subject: [PATCH] drm/bridge: dw-hdmi: Drop superfluous buffer preallocation
 
 The driver sets up the buffer preallocation with SNDRV_DMA_TYPE_DEV,
 while it always re-allocates and releases vmalloc pages, hence the
@@ -175,39 +185,35 @@ incorrect parameter (SNDRV_PCM_HW_PARAM_BUFFER_SIZE instead of
 _BUFFER_BYTES).
 
 This patch tries to address these issues: drop the unnecessary buffer
-preallocation and fix the hw constraint to the right parameter.  Since
-the buffer preallocation is dropped, the max buffer size that was
-passed to the preallocation is passed directly now to the hw
-constraint call.
+preallocation and also drop the unnecessary hw constriant.  Without
+the buffer preallocation, the hw constraint becomes superfluous, as
+dw_hdmi_hw definition already contains the buffer byte size
+constraints.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c | 17 +++++++----------
- 1 file changed, 7 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c | 14 --------------
+ 1 file changed, 14 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
-index 2b7539701b42..3efbbc59994b 100644
+index 2b7539701b42..2778d6bcc14e 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
-@@ -337,10 +337,14 @@ static int dw_hdmi_open(struct snd_pcm_substream *substream)
+@@ -337,13 +337,6 @@ static int dw_hdmi_open(struct snd_pcm_substream *substream)
  	if (ret < 0)
  		return ret;
  
 -	/* Limit the buffer size to the size of the preallocated buffer */
-+	/*
-+	 * Limit the buffer size:
-+	 * to support 8-channel 96kHz audio reliably, we need 512k
-+	 * to satisfy alsa with our restricted period (ERR004323).
-+	 */
- 	ret = snd_pcm_hw_constraint_minmax(runtime,
+-	ret = snd_pcm_hw_constraint_minmax(runtime,
 -					   SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
 -					   0, substream->dma_buffer.bytes);
-+					   SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
-+					   0, 1024 * 1024);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -560,13 +564,6 @@ static int snd_dw_hdmi_probe(struct platform_device *pdev)
+-	if (ret < 0)
+-		return ret;
+-
+ 	/* Clear FIFO */
+ 	writeb_relaxed(HDMI_AHB_DMA_CONF0_SW_FIFO_RST,
+ 		       base + HDMI_AHB_DMA_CONF0);
+@@ -560,13 +553,6 @@ static int snd_dw_hdmi_probe(struct platform_device *pdev)
  	strlcpy(pcm->name, DRIVER_NAME, sizeof(pcm->name));
  	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &snd_dw_hdmi_ops);
  

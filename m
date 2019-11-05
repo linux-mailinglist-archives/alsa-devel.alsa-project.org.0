@@ -2,60 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BC1EF1044
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 08:31:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58E3FF117B
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 09:54:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7391616AA;
-	Wed,  6 Nov 2019 08:30:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7391616AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C6F8916AA;
+	Wed,  6 Nov 2019 09:53:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6F8916AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573025475;
-	bh=F0JlFYWNfg9vyBQHEVwQ7B1AE5WBhUnoDfG1lrMW0JE=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=th8lJMds4F1eyKgNUJQNEwe6g55VahK7zhizP/w5ceckAY2Pyu8Xtuy5p+o9oGA9M
-	 deUEZ5g8uqrFjrsKC85S55RrIAdhvsWZgu7i4mRg4yeLDs5MBRQMx9juBB3EvNRhFd
-	 l532zu9K8oHxHJtVptZv1DUpzar2GtSnUChz8hkg=
+	s=default; t=1573030465;
+	bh=FWhEftAJTpNeAThh+jkFxF5+DVXO25YtmNUvbe6tJyc=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=GkhqysXmUuA3jMM9Zqki8RkhzmisG3BTRy/15Yo7p/zQtGjP6zquxkIpKclKCyf/l
+	 l379jg2zbZVDKsSGFXNGi5pdU/zNUTMGt8LAO/l07iribk4oKcWxSr7TMD9zKJnhlV
+	 TLcZzXatHWaR/aEM+7asIit5yEhMQaHf8Z05NB2c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ABFEAF80291;
-	Wed,  6 Nov 2019 08:29:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2012EF803D0;
+	Wed,  6 Nov 2019 09:52:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0081F803D0; Wed,  6 Nov 2019 08:29:26 +0100 (CET)
+ id 6AD0DF8049B; Tue,  5 Nov 2019 16:18:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 16C6FF80291
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 08:29:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16C6FF80291
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 16AB42001C8;
- Wed,  6 Nov 2019 08:29:21 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 8CC4E20013E;
- Wed,  6 Nov 2019 08:29:16 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id AD12340285;
- Wed,  6 Nov 2019 15:29:10 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
- festevam@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Date: Wed,  6 Nov 2019 15:27:45 +0800
-Message-Id: <1573025265-31852-1-git-send-email-shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: [alsa-devel] [PATCH] ASoC: fsl_audmix: Add spin lock to protect tdms
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88BCFF800F3
+ for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 16:17:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88BCFF800F3
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Nov 2019 07:17:57 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,271,1569308400"; d="scan'208";a="192129424"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga007.jf.intel.com with ESMTP; 05 Nov 2019 07:17:45 -0800
+Received: from andy by smile with local (Exim 4.93-RC1)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1iS0aU-0004gk-NK; Tue, 05 Nov 2019 17:17:42 +0200
+Date: Tue, 5 Nov 2019 17:17:42 +0200
+From: "andriy.shevchenko@linux.intel.com" <andriy.shevchenko@linux.intel.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@pengutronix.de>
+Message-ID: <20191105151742.GU32742@smile.fi.intel.com>
+References: <cover.1572875541.git.matti.vaittinen@fi.rohmeurope.com>
+ <20191105122042.GO32742@smile.fi.intel.com>
+ <4e6fa62d7022c7b1426477a150a93c899725f5b0.camel@fi.rohmeurope.com>
+ <20191105131038.duol3rwwkbuvgvwv@pengutronix.de>
+ <938a5ec7b41ae9ce7b0de83764d6b774cfdaa781.camel@fi.rohmeurope.com>
+ <20191105133604.d2xcasxw7pwzwvh7@pengutronix.de>
+ <a967c764d135ab0f96f6b1df62ac91426c935b44.camel@fi.rohmeurope.com>
+ <20191105145946.2ye6ujvqzn2d6fqd@pengutronix.de>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191105145946.2ye6ujvqzn2d6fqd@pengutronix.de>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Wed, 06 Nov 2019 09:52:36 +0100
+Cc: "semi.malinen@ge.com" <semi.malinen@ge.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "david.daney@cavium.com" <david.daney@cavium.com>,
+ "linus.walleij@linaro.org" <linus.walleij@linaro.org>,
+ "sathyanarayanan.kuppuswamy@linux.intel.com"
+ <sathyanarayanan.kuppuswamy@linux.intel.com>,
+ "ptyser@xes-inc.com" <ptyser@xes-inc.com>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ "marek.behun@nic.cz" <marek.behun@nic.cz>,
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "marek.vasut+renesas@gmail.com" <marek.vasut+renesas@gmail.com>,
+ "f.fainelli@gmail.com" <f.fainelli@gmail.com>,
+ "khilman@kernel.org" <khilman@kernel.org>,
+ "michal.simek@xilinx.com" <michal.simek@xilinx.com>,
+ "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "bgolaszewski@baylibre.com" <bgolaszewski@baylibre.com>,
+ "ludovic.desroches@microchip.com" <ludovic.desroches@microchip.com>,
+ "bamv2005@gmail.com" <bamv2005@gmail.com>, "joel@jms.id.au" <joel@jms.id.au>,
+ "nandor.han@ge.com" <nandor.han@ge.com>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>,
+ "linux-imx@nxp.com" <linux-imx@nxp.com>,
+ "linux-pwm@vger.kernel.org" <linux-pwm@vger.kernel.org>,
+ "grygorii.strashko@ti.com" <grygorii.strashko@ti.com>,
+ "ckeepax@opensource.cirrus.com" <ckeepax@opensource.cirrus.com>,
+ "alexandre.torgue@st.com" <alexandre.torgue@st.com>,
+ "mazziesaccount@gmail.com" <mazziesaccount@gmail.com>,
+ "rjui@broadcom.com" <rjui@broadcom.com>,
+ "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+ "vilhelm.gray@gmail.com" <vilhelm.gray@gmail.com>,
+ "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+ "rf@opensource.cirrus.com" <rf@opensource.cirrus.com>,
+ "ssantosh@kernel.org" <ssantosh@kernel.org>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "linux-omap@vger.kernel.org" <linux-omap@vger.kernel.org>,
+ "kernel@pengutronix.de" <kernel@pengutronix.de>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "sbranden@broadcom.com" <sbranden@broadcom.com>,
+ "yamada.masahiro@socionext.com" <yamada.masahiro@socionext.com>,
+ "andrew@aj.id.au" <andrew@aj.id.au>, "info@metux.net" <info@metux.net>,
+ "Vaittinen, Matti" <Matti.Vaittinen@fi.rohmeurope.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+ "t.scherer@eckelmann.de" <t.scherer@eckelmann.de>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "patches@opensource.cirrus.com" <patches@opensource.cirrus.com>,
+ "shawnguo@kernel.org" <shawnguo@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 00/62] Add definition for GPIO direction
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,76 +130,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Audmix support two substream, When two substream start
-to run, the trigger function may be called by two substream
-in same time, that the priv->tdms may be updated wrongly.
+On Tue, Nov 05, 2019 at 03:59:46PM +0100, Uwe Kleine-K=F6nig wrote:
+> On Tue, Nov 05, 2019 at 02:00:02PM +0000, Vaittinen, Matti wrote:
+> > On Tue, 2019-11-05 at 14:36 +0100, Uwe Kleine-K=F6nig wrote:
+> > Thanks Uwe! That was kind! I'm on Fedora but I guess I can find the
+> > multiarch binutils :) I'll try that tomorrow when I'm back at the
+> > office. Let's see what kind of results I can get from it.
+> > =
 
-The expected priv->tdms is 0x3, but sometimes the
-result is 0x2, or 0x1.
+> > Unfortunately bunch of the GPIOs depend on x86 - so I need to see what
+> > I can compile in with decent effort. For my compile test I just hacked
+> > the Makefile to force all in and added some dummy macros to fix few
+> > missing functions :| But I guess I can get some results.
+> =
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_audmix.c | 6 ++++++
- sound/soc/fsl/fsl_audmix.h | 1 +
- 2 files changed, 7 insertions(+)
+> Enable CONFIG_COMPILE_TEST and then you should be able to compile most
+> drivers also on the wrong architecture.
 
-diff --git a/sound/soc/fsl/fsl_audmix.c b/sound/soc/fsl/fsl_audmix.c
-index c7e4e9757dce..a1db1bce330f 100644
---- a/sound/soc/fsl/fsl_audmix.c
-+++ b/sound/soc/fsl/fsl_audmix.c
-@@ -286,6 +286,7 @@ static int fsl_audmix_dai_trigger(struct snd_pcm_substream *substream, int cmd,
- 				  struct snd_soc_dai *dai)
- {
- 	struct fsl_audmix *priv = snd_soc_dai_get_drvdata(dai);
-+	unsigned long lock_flags;
- 
- 	/* Capture stream shall not be handled */
- 	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE)
-@@ -295,12 +296,16 @@ static int fsl_audmix_dai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_START:
- 	case SNDRV_PCM_TRIGGER_RESUME:
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+		spin_lock_irqsave(&priv->lock, lock_flags);
- 		priv->tdms |= BIT(dai->driver->id);
-+		spin_unlock_irqrestore(&priv->lock, lock_flags);
- 		break;
- 	case SNDRV_PCM_TRIGGER_STOP:
- 	case SNDRV_PCM_TRIGGER_SUSPEND:
- 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		spin_lock_irqsave(&priv->lock, lock_flags);
- 		priv->tdms &= ~BIT(dai->driver->id);
-+		spin_unlock_irqrestore(&priv->lock, lock_flags);
- 		break;
- 	default:
- 		return -EINVAL;
-@@ -491,6 +496,7 @@ static int fsl_audmix_probe(struct platform_device *pdev)
- 		return PTR_ERR(priv->ipg_clk);
- 	}
- 
-+	spin_lock_init(&priv->lock);
- 	platform_set_drvdata(pdev, priv);
- 	pm_runtime_enable(dev);
- 
-diff --git a/sound/soc/fsl/fsl_audmix.h b/sound/soc/fsl/fsl_audmix.h
-index 7812ffec45c5..479f05695d53 100644
---- a/sound/soc/fsl/fsl_audmix.h
-+++ b/sound/soc/fsl/fsl_audmix.h
-@@ -96,6 +96,7 @@ struct fsl_audmix {
- 	struct platform_device *pdev;
- 	struct regmap *regmap;
- 	struct clk *ipg_clk;
-+	spinlock_t lock; /* Protect tdms */
- 	u8 tdms;
- };
- 
--- 
-2.21.0
+*Wrong* is a wrong word here. I guess you misspelled *another* / *not nativ=
+e*.
+
+-- =
+
+With Best Regards,
+Andy Shevchenko
+
 
 _______________________________________________
 Alsa-devel mailing list

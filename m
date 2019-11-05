@@ -2,85 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B42D1F04EC
-	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 19:19:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD6ACF0514
+	for <lists+alsa-devel@lfdr.de>; Tue,  5 Nov 2019 19:30:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3027C16E1;
-	Tue,  5 Nov 2019 19:18:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3027C16E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CEEC16DF;
+	Tue,  5 Nov 2019 19:29:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CEEC16DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1572977981;
-	bh=dbKsmn31xo2WtOwSoA3zIVcRyjtAr+dm1i4xqj35y0I=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1572978627;
+	bh=tPIVT0q4a9DhWEdvyesW4f011dU6reURpSJA3CnJGqk=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CcvbZ4jjOQD9CrizgI/KgaZ0iqhrEezKyKIRhIFCueuDBmVlVVO+wjlaWd1o7pdug
-	 eqBSVzIFIhZNN1qXDt0PKdZd9sH7w8iHAmXqI2/Pn+4039RE5PQ0o9vvInWZJOMu0n
-	 pbR6+K6rCCTHbXNjCArPSPg14IO+nN2VaFxf+Adk=
+	b=Prv6wApz15y5W24IQZHac+HaI0U4P1flQD8AL/AwFT4CE2laACCQpcoFuq9UUzd0b
+	 8uN7M0Q7vyChLuL0u0vJs2syBcEmYSNeb59q+c3m8enyceqqiFq6OrRzmVUpppoeYm
+	 1b38XtZT9CBff8xX5UggupJRRkNoS0eWEa1Ea0sA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6886FF800F3;
-	Tue,  5 Nov 2019 19:17:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A02E1F8049B;
+	Tue,  5 Nov 2019 19:28:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 11B0AF80446; Tue,  5 Nov 2019 19:17:54 +0100 (CET)
+ id A572AF8049B; Tue,  5 Nov 2019 19:28:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from srv2.anyservers.com (srv2.anyservers.com [77.79.239.202])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A922EF800F3
- for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 19:17:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A922EF800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1DF02F8015B
+ for <alsa-devel@alsa-project.org>; Tue,  5 Nov 2019 19:28:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1DF02F8015B
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
- header.i=@intel-com.20150623.gappssmtp.com header.b="ciau2OBW"
-Received: by mail-io1-xd43.google.com with SMTP id r144so23707987iod.8
- for <alsa-devel@alsa-project.org>; Tue, 05 Nov 2019 10:17:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=intel-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=u68yfuXhUPLuQ2TW1V6WPFyBZ0Qw5hE5Mro6+mD3+nM=;
- b=ciau2OBW1rmKyUiAVg80xxJx2Q4sIpsalJIMd0eydI6EwT+AceyECutn9xLUWEwHce
- RIDTmEcInAadhtWIB/tUmCHaDPdqpruptU7sRwxWRU3HRa8yHZfOfoXU68RLcey7NuFk
- rFmZGW3836jg2RNUndbNjRbsYEtJg3sL8wiAe1sw5xpse9GlJSjstGyarGNy3Oz/jGCN
- uj7kQm85yj2ZLO2Di5GESLrbUKmbDTmxPkYsDQdl6hC47H8mcxXGY5659RZrS3iBelVs
- WFlKQZNHgGiecxFt27ChRsbqaldK50QNtFf4r0tlgfWEnLaQvhAOo/i7Rzq/ZOTUm/ZB
- mo6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=u68yfuXhUPLuQ2TW1V6WPFyBZ0Qw5hE5Mro6+mD3+nM=;
- b=nlxy0fKdb5L4LY92KOdOPT6ODl6o3ChtrQBBAd89ghmQegsdHJ00SOOiAXWqs0f1zw
- EIMrVGhzd6joAWWvc8VwtPDk5h/FsGRMpJ1sZGVd/eCkiwqWQYtgAKHGud/tLQ4fXC+a
- FlIVTY/hfdu6da7hm2p416PHR7DfD+pbW+yI5kHeE2no8FV3tbkMfFelhgCzY5XTqLm9
- hRApOGSUkoMaqwuy6He2Gg9ul2y8wl59JEhSPI+LFhbQ7bRijvTs1TOyoh8iUgyt09B8
- oBsb4UJN59IYIB/GaPeckJIRGhaeiYbtDYT7HHNWSUOSOu76LKt7eE6WwEPxgEpOP2Ru
- l3XQ==
-X-Gm-Message-State: APjAAAVR9RYnl7a1L0tcPzkfE98LifWbL3m3LN9LBfIi787AJq+dcPpj
- zRg6q9formFfAnvQI4C0lscP1deO8ZEISHKtjBLaFQ==
-X-Google-Smtp-Source: APXvYqzTHc1j25DKCVzqAKjGguLuf0zGRN0Bcs5Mf7b5JqI5Ew2ApsgJtIUL2gjZXkou2G/MQRWbXQN40bsjkRhOQKE=
-X-Received: by 2002:a02:5846:: with SMTP id f67mr2654449jab.121.1572977867001; 
- Tue, 05 Nov 2019 10:17:47 -0800 (PST)
-MIME-Version: 1.0
+ dkim=pass (2048-bit key) header.d=asmblr.net header.i=@asmblr.net
+ header.b="OimEghsr"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=asmblr.net; 
+ s=default;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:
+ In-Reply-To:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=dOxTsRxIAEId56Ksa5W7idoQ5THQHu02KUhHbwU6HOA=; b=OimEghsrf9CM8gJhQ2oLHeru50
+ 8KZA8oQRp3MUde6GOZ05U5xfeRXq6jjcdMItwaANDyVZeNiVQIsxqjJ6VCEa7qoGokWQciXFacNPQ
+ 3eoLeZ+bBsPIod6IJx5Ou5L6ah++MPgCRizyl8PeMqhZ9qboCQUpiOZJGfP1a7rbOBrZ+ANRK2ZaI
+ uRKihNCpb5WMXfh7aZaKswU3cdlfIvbL5zXpbLGz1sFhOg6sCDU9ZBR1HyIYdos2NfJ+b81sCX3Hn
+ zAVXFg+mx6ovQca/kJ93hAiZQwbgHOraRW7HdqZWDaECwhEqWNI6XX86vGXgfcut8x5EqLFuj/KBc
+ HO7Eiwnw==;
+Received: from apn-95-40-136-91.dynamic.gprs.plus.pl ([95.40.136.91]:38616
+ helo=milkyway.galaxy)
+ by srv2.anyservers.com with esmtpsa (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
+ (Exim 4.91) (envelope-from <amade@asmblr.net>)
+ id 1iS3ZD-00ACt8-Bw; Tue, 05 Nov 2019 19:28:35 +0100
+Date: Tue, 5 Nov 2019 19:28:44 +0100
+From: Amadeusz =?UTF-8?B?U8WCYXdpxYRza2k=?= <amade@asmblr.net>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20191105192844.43473f66@milkyway.galaxy>
+In-Reply-To: <20191105080138.1260-2-tiwai@suse.de>
 References: <20191105080138.1260-1-tiwai@suse.de>
  <20191105080138.1260-2-tiwai@suse.de>
- <5d05a1419c6acee8adc8184751e42616898ea28c.camel@linux.intel.com>
- <s5hsgn29ost.wl-tiwai@suse.de>
-In-Reply-To: <s5hsgn29ost.wl-tiwai@suse.de>
-From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-Date: Tue, 5 Nov 2019 10:17:40 -0800
-Message-ID: <CAFQqKeWb9VtJa6cNuN82w6f83CWMr2ZPG9ethKBsxo5oyNfbpQ@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - srv2.anyservers.com
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - asmblr.net
+X-Get-Message-Sender-Via: srv2.anyservers.com: authenticated_id:
+ amade@asmblr.net
+X-Authenticated-Sender: srv2.anyservers.com: amade@asmblr.net
+Cc: alsa-devel@alsa-project.org
 Subject: Re: [alsa-devel] [PATCH 1/4] ALSA: memalloc: Allow NULL device for
  SNDRV_DMA_TYPE_CONTINOUS type
 X-BeenThere: alsa-devel@alsa-project.org
@@ -100,35 +96,82 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
->
-> > >
-> > Hi Takashi,
-> >
-> > I have a question about the usage of snd_dma_alloc_pages() with the
-> > SNDRV_DMA_TYPE_DEV type. I am working on adding a platform-device for
-> > audio which is a child device of the top-level PCI device in SOF.
-> > When I use the handle for the platform-device as the "dev" argument for
-> > snd_dma_alloc_pages(), the dma alloc fails on some platforms (ex: Ice
-> > Lake). But it works fine if I use the top-level PCI device instead.
-> > Why would that be? Are there any restrictions to what devices can be
-> > used for dma alloc?
->
-> This pretty much depends on the device.  Basically the ALSA memalloc
-> stuff simply calls dma_alloc_coherent() if the buffer type is
-> SNDRV_DMA_TYPE_DEV, and the rest goes deeply into the code in
-> kernel/dma/*.
->
-> My wild guess is that the significant difference in your case is about
-> the DMA coherence mask set on the device.  As default the platform
-> device keeps 32bit DMA while the modern PCI drivers often sets up
-> 64bit DMA mask.
->
+On Tue,  5 Nov 2019 09:01:35 +0100
+Takashi Iwai <tiwai@suse.de> wrote:
 
-Thanks, Takashi. So, in this case, would you recommend to always use the
-PCI device for dma alloc?
+> Currently we pass the artificial device pointer to the allocation
+> helper in the case of SNDRV_DMA_TYPE_CONTINUOUS for passing the GFP
+> flags.  But all common cases are the allocations with GFP_KERNEL, and
+> it's messy to put this in each place.
+> 
+> In this patch, the memalloc core helper is changed to accept the NULL
+> device pointer and it treats as the default mode, GFP_KERNEL, so that
+> all callers can omit the complex argument but just leave NULL.
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> ---
+>  Documentation/sound/kernel-api/writing-an-alsa-driver.rst | 14 ++++++++------
+>  sound/core/memalloc.c                                     |  9 ++++++++-
+>  2 files changed, 16 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> index 132f5eb9b530..5385618fd881 100644
+> --- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> +++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+> @@ -3523,12 +3523,14 @@ The second argument (type) and the third argument (device pointer) are
+>  dependent on the bus. For normal devices, pass the device pointer
+>  (typically identical as ``card->dev``) to the third argument with
+>  ``SNDRV_DMA_TYPE_DEV`` type. For the continuous buffer unrelated to the
+> -bus can be pre-allocated with ``SNDRV_DMA_TYPE_CONTINUOUS`` type and the
+> -``snd_dma_continuous_data(GFP_KERNEL)`` device pointer, where
+> -``GFP_KERNEL`` is the kernel allocation flag to use. For the
+> -scatter-gather buffers, use ``SNDRV_DMA_TYPE_DEV_SG`` with the device
+> -pointer (see the `Non-Contiguous Buffers`_
+> -section).
+> +bus can be pre-allocated with ``SNDRV_DMA_TYPE_CONTINUOUS`` type.
+> +You can pass NULL to the device pointer in that case, which is the
+> +default mode implying to allocate with ``GFP_KRENEL`` flag.
+> +If you need a different GFP flag, you can pass it by encoding the flag
+> +into the device pointer via a special macro
+> +:c:func:`snd_dma_continuous_data()`.
+> +For the scatter-gather buffers, use ``SNDRV_DMA_TYPE_DEV_SG`` with the
+> +device pointer (see the `Non-Contiguous Buffers`_ section).
+>  
+>  Once the buffer is pre-allocated, you can use the allocator in the
+>  ``hw_params`` callback:
+> diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+> index 6850d13aa98c..e56f84fbd659 100644
+> --- a/sound/core/memalloc.c
+> +++ b/sound/core/memalloc.c
+> @@ -99,6 +99,13 @@ static void snd_free_dev_iram(struct snd_dma_buffer *dmab)
+>   *
+>   */
+>  
+> +static inline gfp_t snd_mem_get_gfp_flags(const struct device *dev)
+> +{
+> +	if (!dev)
+> +		return GFP_KRENEL;
 
-Thanks,
-Ranjani
+There is a typo, you remove it in next patch, but it may cause problem
+with bisects.
+
+
+> +	else
+> +		return (__force gfp_t)(unsigned long)dev;
+> +}
+>  
+>  /**
+>   * snd_dma_alloc_pages - allocate the buffer area according to the given type
+> @@ -129,7 +136,7 @@ int snd_dma_alloc_pages(int type, struct device *device, size_t size,
+>  	switch (type) {
+>  	case SNDRV_DMA_TYPE_CONTINUOUS:
+>  		dmab->area = alloc_pages_exact(size,
+> -					       (__force gfp_t)(unsigned long)device);
+> +					       snd_mem_get_gfp_flags(device));
+>  		dmab->addr = 0;
+>  		break;
+>  #ifdef CONFIG_HAS_DMA
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,61 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1D02F1945
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 16:00:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAE03F194A
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 16:01:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43281169A;
-	Wed,  6 Nov 2019 15:59:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43281169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B6B4169D;
+	Wed,  6 Nov 2019 16:00:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B6B4169D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573052442;
-	bh=uzfRNL6eDkdXZcktmO9nPMxXAbkoKxiInAQ65iYUSCk=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=I5RrGkq37n//KCUBSGZagHdIELl6AuFCOIezhNQQA9P3hchgdYas5N0tuqnElV4P5
-	 /HHn83MbempxP5L4X649koyfD2fbzqwr26n7ZCVRlJ0A9C3v6jy2VH3W+CgrLGB24B
-	 JxE80rkUe/Saw8vQV4J5hCniOK+u7z541RKipPGs=
+	s=default; t=1573052488;
+	bh=5wUFf27DvwErdtbxKdOTVUPXiKsEzwrmve5USHl+4Ls=;
+	h=Date:From:To:In-Reply-To:References:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WtTfczwKTeN1OqLjIOAj1cWf9azE4DVRyJMr2WCsmWloIrffvguc1GUl8mr/rMw14
+	 PdfHBg0zOBFPU7dhBFL/rsozkBnol8fS+PTmiR05V15VS/O2QsDH+aHUqP7fSom+jc
+	 CVO4vjx8Ul7UA+sBgH/7VWCmaFV2Gmc8jMnst2AM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDA89F804FE;
-	Wed,  6 Nov 2019 15:58:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDC4AF8015B;
+	Wed,  6 Nov 2019 15:59:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0E3EDF804CF; Wed,  6 Nov 2019 15:58:29 +0100 (CET)
+ id 65B6FF803D0; Wed,  6 Nov 2019 15:59:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1FAA5F8045F
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 15:58:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1FAA5F8045F
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2019 06:58:22 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,275,1569308400"; d="scan'208";a="227506676"
-Received: from pdblomfi-mobl.gar.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.254.107.145])
- by fmsmga004.fm.intel.com with ESMTP; 06 Nov 2019 06:58:21 -0800
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D992BF80291
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 15:59:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D992BF80291
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 3E882B554
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 14:59:51 +0000 (UTC)
+Date: Wed, 06 Nov 2019 15:59:51 +0100
+Message-ID: <s5hd0e53va0.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Wed,  6 Nov 2019 08:58:16 -0600
-Message-Id: <20191106145816.9367-1-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Cc: Dragos Tarcatu <dragos_tarcatu@mentor.com>,
- Jaska Uimonen <jaska.uimonen@intel.com>, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: SOF: topology: Fix bytes control size
-	checks
+In-Reply-To: <20191105080138.1260-2-tiwai@suse.de>
+References: <20191105080138.1260-1-tiwai@suse.de>
+ <20191105080138.1260-2-tiwai@suse.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Subject: [alsa-devel] [PATCH v2] ALSA: memalloc: Allow NULL device for
+	SNDRV_DMA_TYPE_CONTINUOUS type
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,55 +70,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Dragos Tarcatu <dragos_tarcatu@mentor.com>
+Currently we pass the artificial device pointer to the allocation
+helper in the case of SNDRV_DMA_TYPE_CONTINUOUS for passing the GFP
+flags.  But all common cases are the allocations with GFP_KERNEL, and
+it's messy to put this in each place.
 
-When using the example SOF amp widget topology, KASAN dumps this
-when the AMP bytes kcontrol gets loaded:
+In this patch, the memalloc core helper is changed to accept the NULL
+device pointer and it treats as the default mode, GFP_KERNEL, so that
+all callers can omit the complex argument but just leave NULL.
 
-[ 9.579548] BUG: KASAN: slab-out-of-bounds in
-sof_control_load+0x8cc/0xac0 [snd_sof]
-[ 9.588194] Write of size 40 at addr ffff8882314559dc by task
-systemd-udevd/2411
-
-Fix that by rejecting the topology if the bytes data size > max_size
-
-Fixes: 311ce4fe7637d ("ASoC: SOF: Add support for loading topologies")
-Reviewed-by: Jaska Uimonen <jaska.uimonen@intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Dragos Tarcatu <dragos_tarcatu@mentor.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20191105080138.1260-2-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/sof/topology.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+v1->v2: typo fixes, fix a remaining WARN_ON() for NULL device
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 17fe6a1d5f3e..6096731e89ce 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1048,15 +1048,16 @@ static int sof_control_load_bytes(struct snd_soc_component *scomp,
- 	struct soc_bytes_ext *sbe = (struct soc_bytes_ext *)kc->private_value;
- 	int max_size = sbe->max;
+ Documentation/sound/kernel-api/writing-an-alsa-driver.rst | 14 ++++++++------
+ sound/core/memalloc.c                                     | 11 ++++++++---
+ 2 files changed, 16 insertions(+), 9 deletions(-)
+
+diff --git a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+index 132f5eb9b530..5385618fd881 100644
+--- a/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
++++ b/Documentation/sound/kernel-api/writing-an-alsa-driver.rst
+@@ -3523,12 +3523,14 @@ The second argument (type) and the third argument (device pointer) are
+ dependent on the bus. For normal devices, pass the device pointer
+ (typically identical as ``card->dev``) to the third argument with
+ ``SNDRV_DMA_TYPE_DEV`` type. For the continuous buffer unrelated to the
+-bus can be pre-allocated with ``SNDRV_DMA_TYPE_CONTINUOUS`` type and the
+-``snd_dma_continuous_data(GFP_KERNEL)`` device pointer, where
+-``GFP_KERNEL`` is the kernel allocation flag to use. For the
+-scatter-gather buffers, use ``SNDRV_DMA_TYPE_DEV_SG`` with the device
+-pointer (see the `Non-Contiguous Buffers`_
+-section).
++bus can be pre-allocated with ``SNDRV_DMA_TYPE_CONTINUOUS`` type.
++You can pass NULL to the device pointer in that case, which is the
++default mode implying to allocate with ``GFP_KRENEL`` flag.
++If you need a different GFP flag, you can pass it by encoding the flag
++into the device pointer via a special macro
++:c:func:`snd_dma_continuous_data()`.
++For the scatter-gather buffers, use ``SNDRV_DMA_TYPE_DEV_SG`` with the
++device pointer (see the `Non-Contiguous Buffers`_ section).
  
--	if (le32_to_cpu(control->priv.size) > max_size) {
-+	/* init the get/put bytes data */
-+	scontrol->size = sizeof(struct sof_ipc_ctrl_data) +
-+		le32_to_cpu(control->priv.size);
-+
-+	if (scontrol->size > max_size) {
- 		dev_err(sdev->dev, "err: bytes data size %d exceeds max %d.\n",
--			control->priv.size, max_size);
-+			scontrol->size, max_size);
- 		return -EINVAL;
- 	}
+ Once the buffer is pre-allocated, you can use the allocator in the
+ ``hw_params`` callback:
+diff --git a/sound/core/memalloc.c b/sound/core/memalloc.c
+index 6850d13aa98c..1b1c7620cbda 100644
+--- a/sound/core/memalloc.c
++++ b/sound/core/memalloc.c
+@@ -99,6 +99,13 @@ static void snd_free_dev_iram(struct snd_dma_buffer *dmab)
+  *
+  */
  
--	/* init the get/put bytes data */
--	scontrol->size = sizeof(struct sof_ipc_ctrl_data) +
--		le32_to_cpu(control->priv.size);
- 	scontrol->control_data = kzalloc(max_size, GFP_KERNEL);
- 	cdata = scontrol->control_data;
- 	if (!scontrol->control_data)
++static inline gfp_t snd_mem_get_gfp_flags(const struct device *dev)
++{
++	if (!dev)
++		return GFP_KERNEL;
++	else
++		return (__force gfp_t)(unsigned long)dev;
++}
+ 
+ /**
+  * snd_dma_alloc_pages - allocate the buffer area according to the given type
+@@ -120,8 +127,6 @@ int snd_dma_alloc_pages(int type, struct device *device, size_t size,
+ 		return -ENXIO;
+ 	if (WARN_ON(!dmab))
+ 		return -ENXIO;
+-	if (WARN_ON(!device))
+-		return -EINVAL;
+ 
+ 	dmab->dev.type = type;
+ 	dmab->dev.dev = device;
+@@ -129,7 +134,7 @@ int snd_dma_alloc_pages(int type, struct device *device, size_t size,
+ 	switch (type) {
+ 	case SNDRV_DMA_TYPE_CONTINUOUS:
+ 		dmab->area = alloc_pages_exact(size,
+-					       (__force gfp_t)(unsigned long)device);
++					       snd_mem_get_gfp_flags(device));
+ 		dmab->addr = 0;
+ 		break;
+ #ifdef CONFIG_HAS_DMA
 -- 
-2.20.1
+2.16.4
 
 _______________________________________________
 Alsa-devel mailing list

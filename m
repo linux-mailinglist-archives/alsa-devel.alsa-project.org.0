@@ -2,85 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 036BEF1C21
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 18:08:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48250F1CC4
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 18:49:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73644169D;
-	Wed,  6 Nov 2019 18:07:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73644169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6FA21686;
+	Wed,  6 Nov 2019 18:48:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6FA21686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573060088;
-	bh=PMz2fT9mdgcMcCLYoH2nPUg8fGsvvcXf+o7Lsu901wA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573062553;
+	bh=AxboZmsLICRdWBg+fLoRFfE7F7oQA7wcg3DEA3C2rbQ=;
+	h=From:To:References:In-Reply-To:Date:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aJxkhD2Qi7SCZeF42oNlQZMnSLrK0bNHiey4BvTFjPbC+3U/JFmTnPzPXl+Hx/5A0
-	 +CiroJXdv/SKqQfhWxLnkVrX/OhUpsjVj9aDxC3brdMzSwXmCA3Ojiqw4WW8UyRxd3
-	 ehEg+Df//7VnphBNA2q9k4EvCXxJ/705bwgLCOpg=
+	b=vbCxreGXTX+/Gt+CW4vY4+7h95m6sgTjPzjTBxFdSXxWFjgzrhSXeBq9B1IRsOHTT
+	 VYudjIBvQ4J7DhmRfZTJTS8r8jA8rbkqf49qYV10qenpPk3LLz32lERPin0Y263Do0
+	 wPbwoMiaM1IgjQKZzYgxGgIQKJGdtVx6SzFxNgJs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A8B6F8048D;
-	Wed,  6 Nov 2019 18:06:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29E45F80291;
+	Wed,  6 Nov 2019 18:47:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88FBEF803F4; Wed,  6 Nov 2019 18:06:21 +0100 (CET)
+ id DD534F803D0; Wed,  6 Nov 2019 18:47:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC4EEF80291
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 18:06:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC4EEF80291
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="c9wFz4hR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ezCIO+lFqtUT0UzJR4NajfDokaUzH2Q2R0P2sNn9les=; b=c9wFz4hRgvRc99LLWN/T1GTg+
- LbpdvxRZK3g+vpD+YTqTSa+GJTHT5hVm86y3as1T4m2JOELIUK0FF8rw0VDuT3Iy+tgOIdR1jI5zl
- ZiqQOznz4ptyNKfqEwsUv9QGpUtlZcXmciI3WYAzPPNydQ/nNRw5NEG5GtSNfeRBf+z1s=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iSOl4-0001tA-Iy; Wed, 06 Nov 2019 17:06:14 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id A3E9E2743035; Wed,  6 Nov 2019 17:06:13 +0000 (GMT)
-Date: Wed, 6 Nov 2019 17:06:13 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20191106170613.GE11849@sirena.co.uk>
-References: <1573137364-5592-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1573137364-5592-4-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <99656586-8512-ed13-6174-12e0b1fbb3dd@linux.intel.com>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from esa4.mentor.iphmx.com (esa4.mentor.iphmx.com [68.232.137.252])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CF74F8015B
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 18:47:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CF74F8015B
+IronPort-SDR: hMzPcm1S4k5+61saSAY1cMk57Wi9BkrHctrB7r+TaGhnwepv3Z2RAtcf3YwdWNNeKmaGWjHNje
+ 9fR4nPRzw8akxgEVTVpaDKPeeg+AdlVLJ5P+7R8xDJ33vJBff1CPEcc2ShPhnXixaomKNTHIvo
+ o2hphJP9KYhMMNW0CABZbsfoJv8gCCi7ZqapzBhP51h87EdHVMHsAxwsrbVN6M6ZU2iDmCMZH/
+ aWyJewP6qV7H10ZK3SzzPzfAbw21Q16z2ulKT2NxU1+PO/zL3U8G0NaqYVuaAN03adEGPIhf5n
+ jdQ=
+X-IronPort-AV: E=Sophos;i="5.68,275,1569312000"; d="scan'208";a="42964748"
+Received: from orw-gwy-01-in.mentorg.com ([192.94.38.165])
+ by esa4.mentor.iphmx.com with ESMTP; 06 Nov 2019 09:47:10 -0800
+IronPort-SDR: g9MUu+J8OTyqvHJDx9CiNu5O73/mDmSTZYzD+voBBo9Cj6HpRaWRQjlgURahtsyp/DdA//iJ1L
+ bEZE+5fvcdQMqja8husaJyIA2kUIwmCsAp59H4JNgv7R2BaP4xiCrtHDjrm3J7AIK85zDN01PW
+ wR/DFh8DvHVrIs9NX1o5T2vkxBM1XFL2C1JWZYIFQwq/61bWQtdu9gS7xPAKTbR6reVxAEckGL
+ OPo4yOAv1RvWPrLuR7/EQFodZwvD2cYWZeuxs7bcgWk41hiKNOUo7Oc72X9IsKuRDHWKASuIoD
+ 6pU=
+From: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+To: Takashi Iwai <tiwai@suse.de>
+References: <20191105143218.5948-1-andrew_gabbasov@mentor.com>	<20191105143218.5948-2-andrew_gabbasov@mentor.com>	<20191105143218.5948-3-andrew_gabbasov@mentor.com>	<20191105143218.5948-4-andrew_gabbasov@mentor.com>,
+ <s5h36f13sv5.wl-tiwai@suse.de>
+In-Reply-To: <s5h36f13sv5.wl-tiwai@suse.de>
+Date: Wed, 6 Nov 2019 20:45:51 +0300
+Organization: Mentor Graphics Corporation
+Message-ID: <000001d594ca$1dd487f0$597d97d0$@mentor.com>
 MIME-Version: 1.0
-In-Reply-To: <99656586-8512-ed13-6174-12e0b1fbb3dd@linux.intel.com>
-X-Cookie: Shah, shah!  Ayatollah you so!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Maruthi Bayyavarapu <maruthi.bayyavarapu@amd.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, YueHaibing <yuehaibing@huawei.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Sanju R Mehta <sanju.mehta@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- djkurtz@google.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
- Colin Ian King <colin.king@canonical.com>, Akshu.Agrawal@amd.com
-Subject: Re: [alsa-devel] [PATCH v2 3/7] ASoC: amd: Enabling I2S instance in
- DMA and DAI
+X-Mailer: Microsoft Outlook 14.0
+Thread-Index: AQHVk+YTmTkKZHEEGEaaN+TTFIVO0Kd+THEAgAAY32M=
+Content-Language: en-us
+X-Originating-IP: [137.202.0.90]
+X-ClientProxiedBy: SVR-IES-MBX-08.mgc.mentorg.com (139.181.222.8) To
+ svr-ies-mbx-02.mgc.mentorg.com (139.181.222.2)
+Cc: Timo Wischer <twischer@de.adit-jv.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v2 3/8] ALSA: aloop: loopback_timer_stop:
+	Support return of error code
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,61 +80,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3411632086170611559=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============3411632086170611559==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lteA1dqeVaWQ9QQl"
-Content-Disposition: inline
+Thank you very much for your response.
 
+> From: Takashi Iwai <tiwai@suse.de>
+> Sent: Wednesday, November 6, 2019 18:51
+> 
+> On Tue, 05 Nov 2019 15:32:13 +0100,
+> Andrew Gabbasov wrote:
+> >
+> > From: Timo Wischer <twischer@de.adit-jv.com>
+> >
+> > This is required for additional timer implementations which could detect
+> > errors and want to throw them.
+> >
+> > Signed-off-by: Timo Wischer <twischer@de.adit-jv.com>
+> > Signed-off-by: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+> 
+> I'd fold this into the patch 2.  Both patches do fairly same things
+> but just for start and stop.
 
---lteA1dqeVaWQ9QQl
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+OK, I agree. I'll squash these 2 commits into a single one in the next
+update (there will be an update for sure to fix the snd_cards reference
+in patch #7).
 
-On Wed, Nov 06, 2019 at 10:34:54AM -0600, Pierre-Louis Bossart wrote:
->=20
->=20
-> On 11/7/19 8:36 AM, Ravulapati Vishnu vardhan rao wrote:
-> > This patch adds I2S SP support in ACP PCM DMA and DAI.
-> > Added I2S support in DMA and DAI probe,its hw_params handling
-> > its open and close functionalities.
+> 
+> And the same question as patch#2 is applied to this one, too, BTW.
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+As for the notifications in case of timer operation failures:
 
---lteA1dqeVaWQ9QQl
-Content-Type: application/pgp-signature; name="signature.asc"
+For stop/suspend operations, the return code of the timer operation,
+and of the PCM trigger function as a whole, actually makes no difference,
+the streams state is changed anyway, so the notification should be done
+in any case.
 
------BEGIN PGP SIGNATURE-----
+For start/resume operations, it seems OK to send notifications
+even if the timer operation fails, if the cable->running and cable->pause
+fields are set before that (as is now), so that the notified control
+reflects the changed state. In case of failure the whole operation
+will be un-done by upper PCM layer, changing the state back,
+and sending one more notifcation.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3C/YQACgkQJNaLcl1U
-h9ArOQgAht7bgmnQJdpVp5l7IWMftkKi3ziKEPuoEkjW98IEYZ3al7FiJ/Eg+Cc8
-AD8ry73ti7FFnGIgJrCiMZf/eDLbzcZxN+zWCjNmW2s0GozS0N9xw/dEJ97OH01/
-fZNRjMjGmfloux+wZ3o/2OXnMBZEtYBmv62I6Qoc0uRH5boJZAh6RIovWyZgIxWe
-qJ/UmfqFIqf9X+RqDfsgTdB3+qaGkGBWw0o1uMbZunkRHmlouS8tdFPPkP0pPfo2
-wncn1Cmg0HK1iSnDuLghAHWQdxhVdfHn7h6v1ljN7Rr5lIbwVuh4bUYMW9Tdz1PX
-Pz0X5ICSXHDtW7SkjpnACVQ0I/mU0g==
-=2GZw
------END PGP SIGNATURE-----
+Alternatively, we could re-order the code and do not set the running
+fields if timer operation fails (and do not notify in this case).
+But the undoing stop operation will be executed in this case
+that will cause the (unpaired) notification, which is probably
+not quite correct.
 
---lteA1dqeVaWQ9QQl--
+Thanks.
 
---===============3411632086170611559==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Best regards,
+Andrew
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3411632086170611559==--

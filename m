@@ -2,96 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91EDBF1369
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 11:09:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3D42F1463
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 11:52:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 004B416AA;
-	Wed,  6 Nov 2019 11:09:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 004B416AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2137F16AF;
+	Wed,  6 Nov 2019 11:51:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2137F16AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573034996;
-	bh=ZYKBXku1hXdMknLwi0wKh4YqHQcVEnx+hwblSFh0RbE=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iOmUaZIuWIK0aVYH57VPBleVrKKX4yAAqNoWWKrv33Lv+Saz+QsgYSDf/Mg8O+14K
-	 L4Ts+iRPaZfaXGGFtpccY7qQpqQ1v4w5iGUfubVTfcsxVo5F9cFGstGukKoamxmwl0
-	 yw6ew/Hs5thuBH9DmLB3MgE8+6QLl1e3SkTaIQdg=
+	s=default; t=1573037550;
+	bh=zW7PW1POe1xLkB6gtWmw52QEzbh+mpgrObpYXbMH6eY=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YF4gSctXn8xQYu5pw/9QKISNoiaGQrO41bhrOBnzY2Unr7s1LIueoj0Ng5YczagTS
+	 8RCQg7y/vLEeNV5lv9zciPrV1hxePssENSawC1o51FRVDEycfSgp2P5fOYY1Y6tEzr
+	 p4qMrxZEn34G7p/1IoNr98+ErjBlTxO0SCQrZjCY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C358F8045F;
-	Wed,  6 Nov 2019 11:08:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3496CF8045F;
+	Wed,  6 Nov 2019 11:50:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23983F803D0; Wed,  6 Nov 2019 11:08:08 +0100 (CET)
+ id 2F4C8F800F3; Wed,  6 Nov 2019 11:50:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x42c.google.com (mail-wr1-x42c.google.com
- [IPv6:2a00:1450:4864:20::42c])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr130055.outbound.protection.outlook.com [40.107.13.55])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 845D7F800F3
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 11:08:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 845D7F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2175F800F3
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 11:50:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2175F800F3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="vO6giWxh"
-Received: by mail-wr1-x42c.google.com with SMTP id i10so4298186wrs.7
- for <alsa-devel@alsa-project.org>; Wed, 06 Nov 2019 02:08:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=RfazqxK++NUeQGibGNsb/xwtl2AjqHTLxKqC49MTjR4=;
- b=vO6giWxhl3D8Ew4bBQphqLy0x5vLotCBC10MctFCYaF30IL9VTV0hCx5csqFpfbOac
- OZ+Fne3LnI3q7YyZNNK7WVZHqdOHesj+x30hKRu+5ukVHog2AS/HmQx7UX4immTCHhGU
- HyUxdJTeevWpRa2LDfBK4du66HGutnLI35hwOza2cemUrgrV0paJ8JOBRoVL3G/iHWZw
- juCb2ZkL8PUFtj23OtQoX9s5Bm+pawpiO3+qDAf7JwrV/UoSqRv6+/pzdRko3aLKx28K
- EjmAbxeqoeGpQV9Ls40nkMIV8mcfuP7a2kuAIdaXoGPpajOc8YLylilehZiPOPu/1IVw
- eINA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=RfazqxK++NUeQGibGNsb/xwtl2AjqHTLxKqC49MTjR4=;
- b=cH+SH+2qzrdH55l16wLpMvWEHubZPzO6WvDHOFhfmAIvz4KNPL72QKurOfLPXYyc6C
- F5nxZer0h5YKJ0/Xbbc+WZF9KJAWx3MDSn/iuKrD+XunBXsrYNNUT4CBVeUnyVMxC/si
- TA1TjJoVsCt4Jot0QBVi5EtfR1H/po2U8jfm6A/DcSFOghVBtwux0Au7A/JtJBXqvEDj
- sKVVsGJ/eNYDC7H6UgrMkvOaCHOOUrX6aWNP5TO1Xsz8tm7G8ZipccDNHGpRxM7Ts94B
- XXCf5y6BsFFoChBKiB9qfgG4XPwdDXoXuRoMiqGT3VCBbb2+xa+jMy60bSRR0wqLI0nc
- vCNw==
-X-Gm-Message-State: APjAAAWDMbCl6VKB/Chd3BWFfzKgZFp6Bjqv/XCtOWEBb1bcrftvbBRa
- JhA6mIom1M9NzlurfBSXZEaBsg==
-X-Google-Smtp-Source: APXvYqxLATsv0dpIOklFV3PCz8dC70Zj2vsSWYi/3P2nLGCV6B+BbAH7mLeIYbgJgVf1KaSE2F/j2A==
-X-Received: by 2002:adf:b608:: with SMTP id f8mr1716914wre.99.1573034884360;
- Wed, 06 Nov 2019 02:08:04 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id j3sm15897267wrs.70.2019.11.06.02.08.03
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 06 Nov 2019 02:08:03 -0800 (PST)
-To: Rob Herring <robh@kernel.org>
-References: <20191029112700.14548-1-srinivas.kandagatla@linaro.org>
- <20191029112700.14548-2-srinivas.kandagatla@linaro.org>
- <20191105193100.GB4709@bogus>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <315fd1f8-b6b5-5df7-604d-4ca92b31772c@linaro.org>
-Date: Wed, 6 Nov 2019 10:08:02 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20191105193100.GB4709@bogus>
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="TmPGAP/3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=b1THa4ENgGt5zeS5PUnngWUk6tvLAIe+Bh8K5psJ516yNjkQj6cC10ZFnatU6nX5idUSole5ClT3dD4iHe4iQ1/85/zq1PN011XyHoYmVrcEG3oguvVPdhyK2JBsoZZGdSxncj6UIFQ9LaOvXdikQ3zYhgEqXGFTxxnxqbZ5Ftc6ovpLikMR1DMBf8vFqDiPFx9J0xDrk3+A4qOfk/d6We8V5+1utmEX+MIqU6Jwy+c+bkWdFiBZWSJ+BCyPOmLK5voyvwVn8ilexYTQeKcdQcWqAoQc7WGtNaUIQNmKh21iZ8XJbLRMmRuO4dfDD30bGNkHqJr5GncoMNG7zWTvww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V0QX3C80PD91klugzd+I0gq7rm8l0f4Q8ArIqfdx/C8=;
+ b=kGT7XzeT7fL/ufeic2MJ7xEJMrpeHFPLQzcDzkzMZYpxbFgBK6SP14LFOQ7DPJxmOLsmzaqG70CyhwMKZHYyyr2k16KDGT5NUJUHe4DUbhBFUzyRVInej6NTLRu2k9+J7/F6SNEIxSPx1sisBmBwlgZ0OMLuNsnLlB0MewZHOlc78NYWt9k6s34JZ0/vmH0Pnv4a+kBqt6YhVdvi1ezFC1o7aXV+wBtyIph2romHwxNBFNxOgN1Fw4NEXU83GBve2j0d54UGtoWtv8EtnlrAU32FBzMjOyeHCmvCnB8Klem6AuRb4fOe6ekSBqpHBYR7EHNH6GMsmyNdC16mvmtPbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=V0QX3C80PD91klugzd+I0gq7rm8l0f4Q8ArIqfdx/C8=;
+ b=TmPGAP/3idjE4UU+VwcUc5yRgY2BZEqQX+GbvY7zNAnQ6oIHjhJjkjNZenlRbAsxANTwnv3cKnhNsA43PakTCJiLNVdEH7kIZVF9mFn4kLxrUt2kyCdu3XY5evxYfw8lQWeed36UQaoo4eGBtvsfLJqxbJNGjChuds6xNHi+67c=
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com (20.179.232.225) by
+ VE1PR04MB6383.eurprd04.prod.outlook.com (20.179.232.148) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2430.22; Wed, 6 Nov 2019 10:50:35 +0000
+Received: from VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::9c38:e113:f0b4:f9]) by VE1PR04MB6479.eurprd04.prod.outlook.com
+ ([fe80::9c38:e113:f0b4:f9%7]) with mapi id 15.20.2408.024; Wed, 6 Nov 2019
+ 10:50:35 +0000
+From: "S.j. Wang" <shengjiu.wang@nxp.com>
+To: "S.j. Wang" <shengjiu.wang@nxp.com>, Rob Herring <robh@kernel.org>
+Thread-Topic: [PATCH V2 1/2] ASoC: dt-bindings: fsl_asrc: add compatible
+ string for imx8qm
+Thread-Index: AdWUjzC3wwj9eI6oTXKcjGy6eTmZpg==
+Date: Wed, 6 Nov 2019 10:50:34 +0000
+Message-ID: <VE1PR04MB6479DD8BDA0A8B6981F61532E3790@VE1PR04MB6479.eurprd04.prod.outlook.com>
+Accept-Language: en-US
 Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- bgoswami@codeaurora.org, vinod.koul@linaro.org, linus.walleij@linaro.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, broonie@kernel.org,
- lee.jones@linaro.org, spapothi@codeaurora.org
-Subject: Re: [alsa-devel] [PATCH v3 01/11] ASoC: dt-bindings: add dt
- bindings for WCD9340/WCD9341 audio codec
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=shengjiu.wang@nxp.com; 
+x-originating-ip: [119.31.174.66]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: e20ddbff-caba-4f8f-18ba-08d762a72715
+x-ms-traffictypediagnostic: VE1PR04MB6383:|VE1PR04MB6383:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <VE1PR04MB6383608AF7B0E2FA06EF075DE3790@VE1PR04MB6383.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-forefront-prvs: 02135EB356
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(366004)(376002)(396003)(346002)(136003)(189003)(199004)(478600001)(229853002)(14454004)(99286004)(8936002)(26005)(186003)(3846002)(6116002)(4326008)(25786009)(66066001)(316002)(110136005)(256004)(2906002)(14444005)(7416002)(54906003)(71190400001)(305945005)(7696005)(74316002)(81156014)(7736002)(66476007)(66946007)(66556008)(6506007)(52536014)(66446008)(64756008)(33656002)(6436002)(102836004)(76116006)(5660300002)(9686003)(55016002)(6246003)(486006)(8676002)(476003)(86362001)(71200400001)(81166006)(32563001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VE1PR04MB6383;
+ H:VE1PR04MB6479.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: s59rthG3RgI8klH72jKE9UQW2witPfrZ5abu8SsjwMNQziZtZpINIpL93pU30kCJH3hhvmtRSB/TLzmI1OMJTLUgw/GTmupj6ae0qJ30LXe+A1de6aigo/2Urc89Q8y/eOmvveTHCN9YWcW0oifDqB0b12brr5LYpTpiKvv0twbt8q39ZYk2JpAKVkQDvJAo7+jDB4tQTDnOa+76u45LNoPMcnO+Onf+EOs5SVQlvRfNtqJdZ8qHij9kr54WOVNUwpMLSJYvBNKw+QvQfvjggbCe67VJz1SnhqqgS0dlt8MfilFTXYk113R/2MHrTUZQikozZR4NvcYey7GsmK31xOWwsqHfZcgPk2IPpovqHos+Vcsk5w0isloUbSL5V2oB8M6CALL3VBj00t8u5YW+b5PcJMjtx/UxKj+ObDYJhPxXihDdgdbSju81fpqLkQmX
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e20ddbff-caba-4f8f-18ba-08d762a72715
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Nov 2019 10:50:35.0239 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: wpRZHb+9dP0mkVSdFJZYBzmev3k+MOBzUVELZF9clE5pEyJUUi9WcYMjj79mAFqBheAQslvwwMeZ7n2Blkcixg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6383
+Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "timur@kernel.org" <timur@kernel.org>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "festevam@gmail.com" <festevam@gmail.com>, "tiwai@suse.com" <tiwai@suse.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH V2 1/2] ASoC: dt-bindings: fsl_asrc: add
+ compatible string for imx8qm
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,30 +127,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 05/11/2019 19:31, Rob Herring wrote:
->> +  vdd-micbias-supply:
->> +    description: A reference to the micbias supply
->> +
->> +  qcom,micbias1-microvolts:
-> The standard unit is 'microvolt', not 'microvolts'.
+Hi Rob
 > 
-I started with microvolt but dt_bindings_check reported errors.
+> Hi
+> >
+> > On Wed, Oct 30, 2019 at 07:41:26PM +0800, Shengjiu Wang wrote:
+> > > In order to support the two asrc modules in imx8qm, we need to add
+> > > compatible string "fsl,imx8qm-asrc0" and "fsl,imx8qm-asrc1"
+> >
+> > Are the blocks different in some way?
+> >
+> > If not, why do you need to distinguish them?
+> >
+> The internal clock mapping is different for each module.
+> 
 
-looking at 
-https://github.com/devicetree-org/dt-schema/blob/master/meta-schemas/vendor-props.yaml#L19 
-  suggested microvolts should be used on vendor properties.
+Or we can use one compatible string, but need add another property
+"fsl,asrc-clk-map" to distinguish the different clock map.
 
-Is this a typo in dt-schema ?
+The change is in below.
 
-thanks,
---srini
+Which one do you think is better? 
+
+Required properties:
+
+-  - compatible         : Contains "fsl,imx35-asrc" or "fsl,imx53-asrc".
++  - compatible         : Contains "fsl,imx35-asrc", "fsl,imx53-asrc",
++                         "fsl,imx8qm-asrc".
+
+   - reg                        : Offset and length of the register set for the device.
+
+@@ -35,6 +36,11 @@ Required properties:
+
+    - fsl,asrc-width    : Defines a mutual sample width used by DPCM Back Ends.
+
++   - fsl,asrc-clk-map   : Defines clock map used in driver. which is required
++                         by imx8qm
++                         <0> - select the map for asrc0
++                         <1> - select the map for asrc1
++
+ Optional properties:
+
+
+Best regards
+Wang shengjiu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

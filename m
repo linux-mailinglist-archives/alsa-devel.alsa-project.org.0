@@ -2,62 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A98F1E20
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 20:02:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FACBF1E26
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 20:03:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2400C1673;
-	Wed,  6 Nov 2019 20:01:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2400C1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id F32FD165F;
+	Wed,  6 Nov 2019 20:02:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F32FD165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573066955;
-	bh=5krE0RIbjDIfBd871ATPYCE0SmcphhrKAWK3MQGSl0k=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KIQ/27MacrvEdvtRRcR6dSMJGcXATJl20cy4cs2BgCHbzTJkCtYlIPNJrzUGsu7Ic
-	 1nAaMtFBXILvC90SdmZWRBim61lfxTaP9Z5jTePLfvvgEF/ME0ZjEgMgwtWsb5OJbi
-	 3UO1F3JUzzGeSYDOoWmYcU2DVMcsanpNSEq4dPUY=
+	s=default; t=1573067000;
+	bh=D6ScurYIl/LTj//TqSYULlNI5J9qCoUEVTb7QT8vhqI=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=WfBcjLJPJG+YvYTDakxwqRmxQTtCNQ8V8R8DstJhjZwE5G1RAspjcPOuHIH3qbQhJ
+	 zTFWg7Rf/fSfuCIq6Dud5goQ82mrRC5tLwemOGTpTEavYwp4qWCYXtUw3kTVWOpBsL
+	 Pk5mLg3y5sAi95cULBWnUd+mCepAcFfZqaInDLUY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67339F8048D;
-	Wed,  6 Nov 2019 20:00:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 252E4F804FD;
+	Wed,  6 Nov 2019 20:00:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D82DBF8045F; Wed,  6 Nov 2019 20:00:47 +0100 (CET)
+ id 35BC4F803F4; Wed,  6 Nov 2019 20:00:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B6C1F800F3
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 20:00:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B6C1F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2538F80321
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 20:00:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2538F80321
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2019 11:00:40 -0800
+ 06 Nov 2019 11:00:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,275,1569308400"; d="scan'208";a="227579898"
+X-IronPort-AV: E=Sophos;i="5.68,275,1569308400"; d="scan'208";a="227579951"
 Received: from ppaladu-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.255.230.49])
- by fmsmga004.fm.intel.com with ESMTP; 06 Nov 2019 11:00:38 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 06 Nov 2019 11:00:40 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Wed,  6 Nov 2019 13:00:29 -0600
-Message-Id: <20191106190034.4619-1-pierre-louis.bossart@linux.intel.com>
+Date: Wed,  6 Nov 2019 13:00:30 -0600
+Message-Id: <20191106190034.4619-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20191106190034.4619-1-pierre-louis.bossart@linux.intel.com>
+References: <20191106190034.4619-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
-Subject: [alsa-devel] [PATCH v2 0/5] soundwire: update ASoC interfaces
+Subject: [alsa-devel] [PATCH v2 1/5] soundwire: sdw_slave: add new fields to
+	track probe status
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,38 +80,40 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We need new fields in existing structures to
-a) deal with race conditions on codec probe/enumeration
-b) allow for multi-step ACPI scan/probe/startup on Intel plaforms
+Changes to the sdw_slave structure needed to solve race conditions on
+driver probe.
 
-To avoid conflicts between ASoC and Soundwire trees, these 4 patches
-are provided out-of-order, before the functionality enabled in these
-header files is added in follow-up patch series which can be applied
-separately in the ASoC and Soundwire trees (of course after Vinod and
-Mark sync-up so that these patches are present in both trees).
+The functionality is added in the next patch.
 
-Changes since v1 (no feedback received since October 23)
-additional initialization_complete utility to help codec drivers with
-their resume operation, waiting for the enumeration to complete is not
-always enough.
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ include/linux/soundwire/sdw.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Pierre-Louis Bossart (4):
-  soundwire: sdw_slave: add new fields to track probe status
-  soundwire: add enumeration_complete structure
-  soundwire: add initialization_complete definition
-  soundwire: intel: update interfaces between ASoC and SoundWire
-
-Rander Wang (1):
-  soundwire: intel: update stream callbacks for hwparams/free stream
-    operations
-
- drivers/soundwire/intel.c           |  20 ++++--
- drivers/soundwire/intel.h           |  13 ++--
- drivers/soundwire/intel_init.c      |  31 +++------
- include/linux/soundwire/sdw.h       |  13 ++++
- include/linux/soundwire/sdw_intel.h | 103 +++++++++++++++++++++++++---
- 5 files changed, 137 insertions(+), 43 deletions(-)
-
+diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
+index 688b40e65c89..a381a596212b 100644
+--- a/include/linux/soundwire/sdw.h
++++ b/include/linux/soundwire/sdw.h
+@@ -545,6 +545,10 @@ struct sdw_slave_ops {
+  * @node: node for bus list
+  * @port_ready: Port ready completion flag for each Slave port
+  * @dev_num: Device Number assigned by Bus
++ * @probed: boolean tracking driver state
++ * @probe_complete: completion utility to control potential races
++ * on startup between driver probe/initialization and SoundWire
++ * Slave state changes/imp-def interrupts
+  */
+ struct sdw_slave {
+ 	struct sdw_slave_id id;
+@@ -559,6 +563,8 @@ struct sdw_slave {
+ 	struct list_head node;
+ 	struct completion *port_ready;
+ 	u16 dev_num;
++	bool probed;
++	struct completion probe_complete;
+ };
+ 
+ #define dev_to_sdw_dev(_dev) container_of(_dev, struct sdw_slave, dev)
 -- 
 2.20.1
 

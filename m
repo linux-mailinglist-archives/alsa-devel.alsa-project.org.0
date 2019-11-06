@@ -2,89 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36F57F1EB6
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 20:26:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B18AF1EB9
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 20:26:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BE7E6167E;
-	Wed,  6 Nov 2019 20:25:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE7E6167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE3F61675;
+	Wed,  6 Nov 2019 20:25:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE3F61675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573068366;
-	bh=9lHzlOygLMgOK9YMJrpoTsQ9XuEEGwjbGEhe5ZlbwYE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IcxMgQsN+2/oswiw/h3x+GgnsakmwoBS32PUs/26h9fLK6u9DbEjt31i3GLVgwjg0
-	 sgMtX5drL5pKguu5xpia1fSke4nelrKDtTVafbOHMsCdQYUjyCK2wQX/UKsA1LSJVz
-	 SCMUuqX3bHGRECdPZjXTvD5n/z0CsygubxIu1PCw=
+	s=default; t=1573068406;
+	bh=i2Zl3ZLytGT1IclXOnc/lLe4vdwavyrMiMX6HY682nM=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ehYgm+utpm5kvYFS1o2U3JqLwIFI91EeJRlmWm2fqvG0nDAKNBEM6buu/LlsCEP3M
+	 fedIHvN/yaeKBBua7cGyL5qNEabt9EIyRAlu/3/3psbn8smlbsfocMTVjr63+ke5c3
+	 m71XhDbffspQBDnoZEb5UfAMvqVFgDBaawFISpRM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B41C7F8045F;
-	Wed,  6 Nov 2019 20:21:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34628F8060D;
+	Wed,  6 Nov 2019 20:22:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B95FF800F3; Wed,  6 Nov 2019 20:21:13 +0100 (CET)
+ id 66736F8060F; Wed,  6 Nov 2019 20:22:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8FE59F80291
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 20:21:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8FE59F80291
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="IEAPWRQp"
-Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
- [209.85.222.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2804E21848
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 19:21:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1573068068;
- bh=kt51GLtJRGhpxeArH7PbPGc0NGH1R9MH+9Qgg9Bbl2E=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=IEAPWRQpe0iBBUsDao1BwZCcAb28KOkc7oYh6GKs2SroYSjzRVbW7TXz2ar0KL9d3
- sUnYQrBCCep8Y0basL097DguXypI0HNiAZbSzC4S+d4qPGDr14sHOzYFSytB1ET9y6
- OdgizA3YtPO8U5omwD7mj8rkAxMmeITXadRB5Qrg=
-Received: by mail-qk1-f182.google.com with SMTP id m4so25648662qke.9
- for <alsa-devel@alsa-project.org>; Wed, 06 Nov 2019 11:21:08 -0800 (PST)
-X-Gm-Message-State: APjAAAU1NZXcFjWdfsZTzhJeTyWLM6Eu/qdElNkcNaBXDTWvfVKZCMex
- F22u2IdpEODKdomde9XBmKNb7q4ztEYZZnGjnw==
-X-Google-Smtp-Source: APXvYqx32bwEhx99vHD/kDAS+/S75zvMWBv+yskX8CR2wiE5zYnXor6TRM6cgKz+ApVQJE7zjdsPqEDMXPf0REI1jX8=
-X-Received: by 2002:a37:4904:: with SMTP id w4mr3368103qka.119.1573068067259; 
- Wed, 06 Nov 2019 11:21:07 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B62EDF805FE
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 20:22:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B62EDF805FE
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2019 11:22:29 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,275,1569308400"; d="scan'208";a="403835062"
+Received: from vidhipat-mobl1.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.254.33.70])
+ by fmsmga006.fm.intel.com with ESMTP; 06 Nov 2019 11:22:27 -0800
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Wed,  6 Nov 2019 13:22:04 -0600
+Message-Id: <20191106192223.6003-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20191018001849.27205-1-srinivas.kandagatla@linaro.org>
- <20191018001849.27205-2-srinivas.kandagatla@linaro.org>
- <20191025204338.GA25892@bogus>
- <90b2d83b-f2b2-3a5d-4deb-589f4b48b208@linaro.org>
- <371955d9-ad2d-5ddc-31b4-710729feae42@linaro.org>
- <CAL_JsqJmRReW2n0R_Sh4f7AFGYA+ZLxuFDokLTSBKoFTg6uRSg@mail.gmail.com>
- <7811be04-dfda-5953-110c-bca685fdcaa4@linaro.org>
- <CAL_JsqJNcXe7YSUjHWyFO_czncnR3y7w3NP8ofXfCiXpMrqzRw@mail.gmail.com>
- <b3d078a1-f87d-c146-bdf7-7a6b30547bd5@linaro.org>
-In-Reply-To: <b3d078a1-f87d-c146-bdf7-7a6b30547bd5@linaro.org>
-From: Rob Herring <robh@kernel.org>
-Date: Wed, 6 Nov 2019 13:20:55 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqK2yBcWbZvK3qUeYW8q+NuWrUmCTBMWqwbAU_0i1fE4rA@mail.gmail.com>
-Message-ID: <CAL_JsqK2yBcWbZvK3qUeYW8q+NuWrUmCTBMWqwbAU_0i1fE4rA@mail.gmail.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: devicetree@vger.kernel.org, Linux-ALSA <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, Vinod Koul <vinod.koul@linaro.org>,
- Linus Walleij <linus.walleij@linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>,
- spapothi@codeaurora.org
-Subject: Re: [alsa-devel] [PATCH v2 01/11] ASoC: dt-bindings: add dt
- bindings for WCD9340/WCD9341 audio codec
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: [alsa-devel] [PATCH v2 00/19] soundwire: code hardening and
+	suspend-resume support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,95 +76,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Nov 6, 2019 at 12:09 PM Srinivas Kandagatla
-<srinivas.kandagatla@linaro.org> wrote:
->
->
->
-> On 05/11/2019 19:08, Rob Herring wrote:
-> > On Wed, Oct 30, 2019 at 4:55 AM Srinivas Kandagatla
-> > <srinivas.kandagatla@linaro.org> wrote:
-> >>
-> >>
-> >>
-> >> On 29/10/2019 20:47, Rob Herring wrote:
-> >>> On Mon, Oct 28, 2019 at 7:45 AM Srinivas Kandagatla
-> >>> <srinivas.kandagatla@linaro.org> wrote:
-> >>>>
-> >>>>
-> >>>>
-> >>>> On 28/10/2019 12:40, Srinivas Kandagatla wrote:
-> >>>>> Its Phandle.
-> >>>>>
-> >>>>> something like this is okay?
-> >>>>>
-> >>>>> slim-ifc-dev:
-> >>>>>      $ref: '/schemas/types.yaml#/definitions/phandle-array'
-> >>>>
-> >>>> Sorry this should not be an array, so something like this:
-> >>>>
-> >>>>      slim-ifc-dev:
-> >>>>        description: SLIMBus Interface device phandle
-> >>>
-> >>> You're just spelling out the abbreviated name. I can do that much.
-> >>> What is 'SLIMBus Interface device'?
-> >>
-> >> Each SLIMBus Component contains one Interface Device. Which is
-> >> responsible for Monitoring and reporting the status of component, Data
-> >> line to Data pin connection setup for SLIMBus streaming. Interface
-> >> device is enumerated just like any other slim device.
-> >
-> > So a standard set of registers every slimbus device has? In hindsight,
-> > I would have made reg have 2 entries with both addresses. I guess that
-> > ship has sailed.
->
-> That will break SLIMBus bindings, Which is expecting one device per
-> device node.
+this patchset applies on top of "[PATCH v2 00/14] soundwire: intel:
+implement new ASoC interfaces".
 
-Like I said, that ship has sailed...
+It implements a series of improvements for:
+a) interrupt handling on Intel platforms in MSI mode
+b) race conditions on codec probe and enumeration
+c) suspend-resume issues (clock-stop mode not supported for now)
+d) underflow handling
+e) updates to the stream state machine which did not support valid
+ALSA transitions.
 
-> >
-> > It seems strange you would need both "devices" described as separate
-> > nodes in DT.
->
-> Because they are two different devices on the SLIMBus Component.
->
-> >
-> >>
-> >> We already have exactly same bindings for WCD9335 in upstream at:
-> >>
-> >> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/sound/qcom,wcd9335.txt?h=v5.4-rc5#n42
-> >>
-> >>>
-> >>> Is it a standard SLIMBus property? If so, document it in the right
-> >>> place. If not, then needs a vendor prefix.
-> >>
-> >> "SLIMBus Interface Device" itself is documented in SLIMBus Specification.
-> >>
-> >> If I remember it correctly You suggested me to move to "slim-ifc-dev"
-> >> as this is part of SLIMBus Specification.
-> >
-> > Probably so. If it is common, then document it in bindings/slimbus/bus.txt.
-> >
-> As we are dealing with audio codecs here, it might be that
-> "slim-ifc-dev" is common across wcd9335 and wcd934x but not all devices
-> on the SLIMBus Component would need handle to interface device. SLIMbus
-> can also be used for control buses as well which might not need this.
+These patches were tested extensively on 4 different platforms and are
+viewed as required for any sort of SoundWire-based product.
 
-Like you said, it's part of the the spec, so define it somewhere
-common, not in a device specific binding.
+Changes since v1: (no feedback received since October 23)
+added support for initialization_complete, integration with Realtek
+codecs exposed an additional race condition between the resume
+operation and restoration of settings in separate thread triggered by
+Slave status change.
+No other functional change
 
-> > Then here, 'slim-ifc-dev: true' is sufficient. You can just assume we
-> > convert bus.txt to schema (or feel free to do that :) ).
->
-> We need phandle to the interface device so that we can program the
-> streaming parameters for the SLIMBus Component.
+Bard Liao (3):
+  soundwire: intel/cadence: fix timeouts in MSI mode
+  soundwire: stream: only prepare stream when it is configured.
+  soundwire: intel: reinitialize IP+DSP in .prepare()
 
-'true' just means 'I'm using the property' and have no other
-constraints. The constraints like type would be defined in the common
-binding and no need to duplicate here.
+Pierre-Louis Bossart (16):
+  soundwire: fix race between driver probe and update_status callback
+  soundwire: bus: add PM/no-PM versions of read/write functions
+  soundwire: bus: write Slave Device Number without runtime_pm
+  soundwire: intel: add helpers for link power down and shim wake
+  soundwire: intel: Add basic power management support
+  soundwire: intel: add pm_runtime support
+  soundwire: intel: reset pm_runtime status during system resume
+  soundwire: bus: add helper to reset Slave status to UNATTACHED
+  soundwire: intel: call helper to reset Slave states on resume
+  soundwire: bus: check first if Slaves become UNATTACHED
+  soundwire: add enumeration_complete signaling
+  soundwire: bus: add initialization_complete signaling
+  soundwire: intel: disable pm_runtime when removing a master
+  soundwire: bus: disable pm_runtime in sdw_slave_delete
+  soundwire: stream: update state machine and add state checks
+  soundwire: stream: do not update parameters during DISABLED-PREPARED
+    transition
 
-Rob
+ Documentation/driver-api/soundwire/stream.rst |  63 +++-
+ drivers/soundwire/bus.c                       | 165 +++++++--
+ drivers/soundwire/bus.h                       |   3 +
+ drivers/soundwire/bus_type.c                  |   5 +
+ drivers/soundwire/cadence_master.c            |  17 +-
+ drivers/soundwire/cadence_master.h            |   4 +
+ drivers/soundwire/intel.c                     | 328 ++++++++++++++++--
+ drivers/soundwire/intel.h                     |   2 +
+ drivers/soundwire/intel_init.c                |  45 ++-
+ drivers/soundwire/slave.c                     |   4 +
+ drivers/soundwire/stream.c                    |  64 +++-
+ include/linux/soundwire/sdw.h                 |   1 +
+ include/linux/soundwire/sdw_intel.h           |   2 +
+ 13 files changed, 632 insertions(+), 71 deletions(-)
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

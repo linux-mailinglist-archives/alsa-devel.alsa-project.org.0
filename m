@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AF2DF1EE8
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 20:36:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 257DBF1EED
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 20:36:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C9F11672;
-	Wed,  6 Nov 2019 20:35:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C9F11672
+	by alsa0.perex.cz (Postfix) with ESMTPS id AAA5816AC;
+	Wed,  6 Nov 2019 20:36:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AAA5816AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573068976;
-	bh=wFEuZwi8Mi8hPsxVAyBaB/Od84yi8pX5d1mYNYalCWc=;
+	s=default; t=1573069014;
+	bh=N4ATYQNW9tKdS9S8Ar5Fnv2PKQZJjhiCyXbSaVQecYY=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Mq/yblGEipQzq76VkpwDpv9KWY3Zc4GEzBsOEXh/jp4jTr6+7SVCRmuVIrnqK6uno
-	 kEuYfZgoegoqY9V3ClFLaOw8VZ89GVPFBouR0kkKYNNxxvos1wJ60ZPLiJbNOeJb07
-	 cUBnr0B7j+5ASnayWjOOBUTwTjuzCQns88BnL46U=
+	b=O9Oj0NpERNbkMCFkdMvOfAKTkl03z7nEe2JJ26N67xP4N0tnyjAuILvejD8D2Wnf9
+	 NjkF/TafeiTdTaIRvLGzR+lNPUMSu6dk4hMnbv9OQP7NlvpglZUBVQ5kZUnJkKBbOO
+	 PiBllyt1NNabGFaKuGRR9H5x541WDg5qTLYWLJ7E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30D33F80772;
-	Wed,  6 Nov 2019 20:23:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0411AF8078F;
+	Wed,  6 Nov 2019 20:23:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35DADF806E8; Wed,  6 Nov 2019 20:22:54 +0100 (CET)
+ id DACC5F806ED; Wed,  6 Nov 2019 20:22:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5908AF80611
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 20:22:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5908AF80611
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBE1AF806E5
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 20:22:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBE1AF806E5
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2019 11:22:50 -0800
+ 06 Nov 2019 11:22:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,275,1569308400"; d="scan'208";a="403835162"
+X-IronPort-AV: E=Sophos;i="5.68,275,1569308400"; d="scan'208";a="403835172"
 Received: from vidhipat-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.254.33.70])
- by fmsmga006.fm.intel.com with ESMTP; 06 Nov 2019 11:22:48 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 06 Nov 2019 11:22:50 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Wed,  6 Nov 2019 13:22:18 -0600
-Message-Id: <20191106192223.6003-15-pierre-louis.bossart@linux.intel.com>
+Date: Wed,  6 Nov 2019 13:22:19 -0600
+Message-Id: <20191106192223.6003-16-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191106192223.6003-1-pierre-louis.bossart@linux.intel.com>
 References: <20191106192223.6003-1-pierre-louis.bossart@linux.intel.com>
@@ -61,8 +61,8 @@ Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
  Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
-Subject: [alsa-devel] [PATCH v2 14/19] soundwire: intel: disable pm_runtime
-	when removing a master
+Subject: [alsa-devel] [PATCH v2 15/19] soundwire: bus: disable pm_runtime in
+	sdw_slave_delete
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,30 +80,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Prevent race conditions between remove and resume by disabling
-pm_runtime.
+Before removing the slave device, disable pm_runtime to prevent any
+race condition with the resume being executed after the bus and slave
+devices are removed.
 
-Note that this only takes care of pm_runtime at the Master level, the
-same precautions are needed when removing a Slave device.
+Since this pm_runtime_disable() is handled in common routines,
+implementations of Slave drivers do not need to call it in their
+.remove() routine.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/intel.c | 2 ++
+ drivers/soundwire/bus.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 36e09e273eda..f0f9a6252522 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -1275,6 +1275,8 @@ static int intel_master_remove(struct sdw_master_device *md)
- {
- 	struct sdw_intel *sdw;
+diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+index 93856747b934..7d02b0ae68e2 100644
+--- a/drivers/soundwire/bus.c
++++ b/drivers/soundwire/bus.c
+@@ -113,6 +113,8 @@ static int sdw_delete_slave(struct device *dev, void *data)
+ 	struct sdw_slave *slave = to_sdw_slave_device(dev);
+ 	struct sdw_bus *bus = slave->bus;
  
-+	pm_runtime_disable(&md->dev);
++	pm_runtime_disable(dev);
 +
- 	sdw = md->pdata;
+ 	sdw_slave_debugfs_exit(slave);
  
- 	if (!sdw->cdns.bus.prop.hw_disabled) {
+ 	mutex_lock(&bus->bus_lock);
 -- 
 2.20.1
 

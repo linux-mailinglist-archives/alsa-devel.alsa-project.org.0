@@ -2,73 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26DB8F1BAC
-	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 17:52:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9ED12F1B40
+	for <lists+alsa-devel@lfdr.de>; Wed,  6 Nov 2019 17:31:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A3E9169C;
-	Wed,  6 Nov 2019 17:51:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A3E9169C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AB3916AF;
+	Wed,  6 Nov 2019 17:30:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AB3916AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573059123;
-	bh=6w4SkKNKH04HXME3xJ92KAbBDGTmW3Ymlo6OTFjm7JE=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573057885;
+	bh=M86JLVNYvTFDkd2sHqKduM8pFiK3c26ebM48DwYLvZY=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=X9eXNKj25IxK4oPHUMIc+jiTTayQ3NPYcRgOjRiK12CGAy86kbYmffrRE2Gzs3EZI
-	 5tvG/OOnwKxWxu0Ac9wgM1F+he00XZbOiryAsx8rdsYEOUCeiCBNFfLUTeRLIzuzL1
-	 ixTJlDtrI9DNS+seCDDvWRdDPQ40Ap6PP8oHh4CA=
+	b=L9FBGOtZEV1lFsDypaaFvEp/7f65pfI0R/Z3L+brEGJ0Rn1ptlJXGsdgb2caGRSM8
+	 biXplfqb4kFKG+m2TzHP3uLKPFQWpKAtk46kDVxyYjiPRn49hMXBqZy73zm1A8GKCH
+	 PYiXcwth1gPqHuAwVBPrIlbDMA2/UYJTaDnvEvDQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6718AF804FE;
-	Wed,  6 Nov 2019 17:49:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5247CF8048D;
+	Wed,  6 Nov 2019 17:29:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5FD08F804CF; Wed,  6 Nov 2019 17:49:54 +0100 (CET)
+ id AA068F803D0; Wed,  6 Nov 2019 17:29:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D728AF803F4
- for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 17:49:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D728AF803F4
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Nov 2019 08:49:47 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,275,1569308400"; d="scan'208";a="285713476"
-Received: from pdblomfi-mobl.gar.corp.intel.com (HELO [10.254.107.145])
- ([10.254.107.145])
- by orsmga001.jf.intel.com with ESMTP; 06 Nov 2019 08:49:46 -0800
-To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-References: <1573137364-5592-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1573137364-5592-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <64ac2908-1091-16ec-b25a-5ac2abc9c9a9@linux.intel.com>
-Date: Wed, 6 Nov 2019 10:24:52 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F62AF80291
+ for <alsa-devel@alsa-project.org>; Wed,  6 Nov 2019 17:29:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F62AF80291
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="AgUJ9MMh"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=w0A2Z9ic9NOch2we3Yklia3nDp3ukxX77gz1x+0PHxQ=; b=AgUJ9MMhLE3gOB+W+/C/lDHWU
+ 6dMPuThXH/Ds745PU7lCdEE8cwdo1/+64GJcYpYentIE7nGszFxtNy54536iybS+7WKErmWaMN4cK
+ SG1O9tj6j6agYANzgHY4JAFtstqGKOLMBdWzJmztlGsKk3qgX3aixoyb39fT3hRmZf5Rw=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iSOBU-0001q6-0z; Wed, 06 Nov 2019 16:29:28 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 4024C2743035; Wed,  6 Nov 2019 16:29:27 +0000 (GMT)
+Date: Wed, 6 Nov 2019 16:29:27 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dragos Tarcatu <dragos_tarcatu@mentor.com>
+Message-ID: <20191106162927.GC11849@sirena.co.uk>
+References: <20191106145816.9367-1-pierre-louis.bossart@linux.intel.com>
+ <20191106162146.292802743193@ypsilon.sirena.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <1573137364-5592-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-Content-Language: en-US
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Akshu.Agrawal@amd.com,
- Sanju R Mehta <sanju.mehta@amd.com>, Mark Brown <broonie@kernel.org>,
- djkurtz@google.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Colin Ian King <colin.king@canonical.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel] [RESEND PATCH v2 1/7] ASoC: amd: Create multiple
- I2S platform device endpoints
+In-Reply-To: <20191106162146.292802743193@ypsilon.sirena.org.uk>
+X-Cookie: Shah, shah!  Ayatollah you so!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ Jaska Uimonen <jaska.uimonen@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [alsa-devel] Applied "ASoC: SOF: topology: Fix bytes control
+ size checks" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,194 +86,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============6287171247908055939=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--===============6287171247908055939==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WfZ7S8PLGjBY9Voh"
+Content-Disposition: inline
 
-On 11/7/19 8:35 AM, Ravulapati Vishnu vardhan rao wrote:
-> Creates Platform Device endpoints for multiple
-> I2S instances: SP and  BT endpoints device.
-> Pass PCI resources like MMIO, irq to the platform devices.
-> 
-> Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-> ---
->   sound/soc/amd/raven/acp3x.h     |  5 +++
->   sound/soc/amd/raven/pci-acp3x.c | 82 +++++++++++++++++++++++++++--------------
->   2 files changed, 60 insertions(+), 27 deletions(-)
-> 
-> diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
-> index 4f2cadd..2f15fe1 100644
-> --- a/sound/soc/amd/raven/acp3x.h
-> +++ b/sound/soc/amd/raven/acp3x.h
-> @@ -7,10 +7,15 @@
->   
->   #include "chip_offset_byte.h"
->   
-> +#define ACP3x_DEVS		3
->   #define ACP3x_PHY_BASE_ADDRESS 0x1240000
->   #define	ACP3x_I2S_MODE	0
->   #define	ACP3x_REG_START	0x1240000
->   #define	ACP3x_REG_END	0x1250200
-> +#define ACP3x_I2STDM_REG_START	0x1242400
-> +#define ACP3x_I2STDM_REG_END	0x1242410
-> +#define ACP3x_BT_TDM_REG_START	0x1242800
-> +#define ACP3x_BT_TDM_REG_END	0x1242810
->   #define I2S_MODE	0x04
->   #define	BT_TX_THRESHOLD 26
->   #define	BT_RX_THRESHOLD 25
-> diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
-> index facec24..ec3ef625 100644
-> --- a/sound/soc/amd/raven/pci-acp3x.c
-> +++ b/sound/soc/amd/raven/pci-acp3x.c
-> @@ -16,16 +16,16 @@ struct acp3x_dev_data {
->   	void __iomem *acp3x_base;
->   	bool acp3x_audio_mode;
->   	struct resource *res;
-> -	struct platform_device *pdev;
-> +	struct platform_device *pdev[ACP3x_DEVS];
->   };
->   
->   static int snd_acp3x_probe(struct pci_dev *pci,
->   			   const struct pci_device_id *pci_id)
->   {
->   	int ret;
-> -	u32 addr, val;
-> +	u32 addr, val, i;
->   	struct acp3x_dev_data *adata;
-> -	struct platform_device_info pdevinfo;
-> +	struct platform_device_info pdevinfo[ACP3x_DEVS];
->   	unsigned int irqflags;
->   
->   	if (pci_enable_device(pci)) {
-> @@ -68,7 +68,7 @@ static int snd_acp3x_probe(struct pci_dev *pci,
->   	switch (val) {
->   	case I2S_MODE:
->   		adata->res = devm_kzalloc(&pci->dev,
-> -					  sizeof(struct resource) * 2,
-> +					  sizeof(struct resource) * 4,
->   					  GFP_KERNEL);
->   		if (!adata->res) {
->   			ret = -ENOMEM;
-> @@ -80,39 +80,62 @@ static int snd_acp3x_probe(struct pci_dev *pci,
->   		adata->res[0].start = addr;
->   		adata->res[0].end = addr + (ACP3x_REG_END - ACP3x_REG_START);
->   
-> -		adata->res[1].name = "acp3x_i2s_irq";
-> -		adata->res[1].flags = IORESOURCE_IRQ;
-> -		adata->res[1].start = pci->irq;
-> -		adata->res[1].end = pci->irq;
-> +		adata->res[1].name = "acp3x_i2s_sp";
-> +		adata->res[1].flags = IORESOURCE_MEM;
-> +		adata->res[1].start = addr + ACP3x_I2STDM_REG_START;
-> +		adata->res[1].end = addr + ACP3x_I2STDM_REG_END;
-> +
-> +		adata->res[2].name = "acp3x_i2s_bt";
-> +		adata->res[2].flags = IORESOURCE_MEM;
-> +		adata->res[2].start = addr + ACP3x_BT_TDM_REG_START;
-> +		adata->res[2].end = addr + ACP3x_BT_TDM_REG_END;
-> +
-> +		adata->res[3].name = "acp3x_i2s_irq";
-> +		adata->res[3].flags = IORESOURCE_IRQ;
-> +		adata->res[3].start = pci->irq;
-> +		adata->res[3].end = adata->res[3].start;
->   
->   		adata->acp3x_audio_mode = ACP3x_I2S_MODE;
->   
->   		memset(&pdevinfo, 0, sizeof(pdevinfo));
-> -		pdevinfo.name = "acp3x_rv_i2s";
-> -		pdevinfo.id = 0;
-> -		pdevinfo.parent = &pci->dev;
-> -		pdevinfo.num_res = 2;
-> -		pdevinfo.res = adata->res;
-> -		pdevinfo.data = &irqflags;
-> -		pdevinfo.size_data = sizeof(irqflags);
-> -
-> -		adata->pdev = platform_device_register_full(&pdevinfo);
-> -		if (IS_ERR(adata->pdev)) {
-> -			dev_err(&pci->dev, "cannot register %s device\n",
-> -				pdevinfo.name);
-> -			ret = PTR_ERR(adata->pdev);
-> -			goto unmap_mmio;
-> +		pdevinfo[0].name = "acp3x_rv_i2s_dma";
-> +		pdevinfo[0].id = 0;
-> +		pdevinfo[0].parent = &pci->dev;
-> +		pdevinfo[0].num_res = 4;
-> +		pdevinfo[0].res = &adata->res[0];
-> +		pdevinfo[0].data = &irqflags;
-> +		pdevinfo[0].size_data = sizeof(irqflags);
-> +
-> +		pdevinfo[1].name = "acp3x_i2s_playcap";
-> +		pdevinfo[1].id = 0;
-> +		pdevinfo[1].parent = &pci->dev;
-> +		pdevinfo[1].num_res = 1;
-> +		pdevinfo[1].res = &adata->res[1];
-> +
-> +		pdevinfo[2].name = "acp3x_i2s_playcap";
-> +		pdevinfo[2].id = 1;
-> +		pdevinfo[2].parent = &pci->dev;
-> +		pdevinfo[2].num_res = 1;
-> +		pdevinfo[2].res = &adata->res[2];
-> +		for (i = 0; i < ACP3x_DEVS ; i++) {
-> +			adata->pdev[i] =
-> +				platform_device_register_full(&pdevinfo[i]);
-> +			if (adata->pdev[i] == NULL) {
 
-should be IS_ERR(adata->pdev[i])
+--WfZ7S8PLGjBY9Voh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> +				dev_err(&pci->dev, "cannot register %s device\n",
-> +					pdevinfo[i].name);
-> +				ret = -ENODEV;
-> +				goto unmap_mmio;
-> +			}
->   		}
->   		break;
-> -	default:
-> -		dev_err(&pci->dev, "Invalid ACP audio mode : %d\n", val);
-> -		ret = -ENODEV;
-> -		goto unmap_mmio;
->   	}
->   	return 0;
->   
->   unmap_mmio:
->   	pci_disable_msi(pci);
-> +	for (i = 0 ; i < ACP3x_DEVS ; i++)
-> +		platform_device_unregister(adata->pdev[i]);
-> +	kfree(adata->res);
+On Wed, Nov 06, 2019 at 04:21:46PM +0000, Mark Brown wrote:
+> The patch
+>=20
+>    ASoC: SOF: topology: Fix bytes control size checks
+>=20
+> has been applied to the asoc tree at
+>=20
+>    https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-=
+5.4
 
-You should revisit the labels, in the default case you haven't allocated 
-any memory
+It's not immediately obvious if something similar is needed for -next,
+the relevant code has been redone since v5.4 was branched off.  If
+something is needed someone will have to send something.
 
->   	iounmap(adata->acp3x_base);
->   release_regions:
->   	pci_release_regions(pci);
-> @@ -124,9 +147,13 @@ static int snd_acp3x_probe(struct pci_dev *pci,
->   
->   static void snd_acp3x_remove(struct pci_dev *pci)
->   {
-> +	int i;
->   	struct acp3x_dev_data *adata = pci_get_drvdata(pci);
->   
-> -	platform_device_unregister(adata->pdev);
-> +	if (adata->acp3x_audio_mode == ACP3x_I2S_MODE) {
-> +		for (i = 0 ; i <  ACP3x_DEVS ; i++)
-> +			platform_device_unregister(adata->pdev[i]);
-> +	}
->   	iounmap(adata->acp3x_base);
->   
->   	pci_disable_msi(pci);
-> @@ -151,6 +178,7 @@ static struct pci_driver acp3x_driver  = {
->   
->   module_pci_driver(acp3x_driver);
->   
-> +MODULE_AUTHOR("Vishnuvardhanrao.Ravulapati@amd.com");
->   MODULE_AUTHOR("Maruthi.Bayyavarapu@amd.com");
->   MODULE_DESCRIPTION("AMD ACP3x PCI driver");
->   MODULE_LICENSE("GPL v2");
-> 
+--WfZ7S8PLGjBY9Voh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3C9OYACgkQJNaLcl1U
+h9DlVwf+MedmDnibo36sZLgPAL9R8fMxJkr4K7sMI+vFxKxggvFVksOLQZt443nl
+x6/oa60+AHaUBS+BUyJAJhekd0Q0SDd1dg2NOKXwG8rAUj44mcZe8SMpyWKWVaHA
+WMrg6JUnC/xlJE5s2ULaNtQvMIHfANeXjY67ffifgCK4v0h751Geh3N1SqQei5Es
+zUmQQLhHQRM720LHy9PnyVdP7xB22PTNNSkNWwKTfDRDX+dfuht0NWZmIlfTP3eU
+f2CREvdBmkEQu2KIbiy6OBivLTUX0SRnN0wdB8yHi5rbUpd3ALmyfxPfhuNn+MUI
+3NuoyLyjSq3hA30l19J1pIHjWBoUrQ==
+=/00N
+-----END PGP SIGNATURE-----
+
+--WfZ7S8PLGjBY9Voh--
+
+--===============6287171247908055939==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6287171247908055939==--

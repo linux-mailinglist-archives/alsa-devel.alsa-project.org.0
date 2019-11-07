@@ -2,73 +2,133 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71259F2EFC
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 14:16:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F2AEF2F46
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 14:28:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3DE31673;
-	Thu,  7 Nov 2019 14:15:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3DE31673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7BB80167F;
+	Thu,  7 Nov 2019 14:27:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7BB80167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573132606;
-	bh=86z6LRYejrXQCgOVGKx2uL7BRKFDvedaW/Q2EDanxCQ=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573133294;
+	bh=Veit1XsMR09xnv3X4Ox7PWk1ZlhHU4KjGfYtDkDgWo8=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CfGmxRCdV8QLIsB9Z5h5oYncMRHeZin9rjKfIkUq0UounQD/nl8LVG78aJ3iHCqPB
-	 aeoIeEaaGXMZnSCXG0LM4wptt5F8dlF5N8qjQuwVAYcKZMVLgXh/RT2BDCihFS89iy
-	 4ZAznClWchGs0W8+pjJe/Izopjyd3mqMu60DoFlQ=
+	b=XcWZ2TzifF0YahOwLIIpfbnNDWXi80YTJrtC8iKlWN3welZ35YrOS4INc3aHlBdvy
+	 oalwhMQE5TPkY5ZdDYUcuuw3hkM/S9x7OIIpiXR47s2raINz/46ehyq5SG0udvv3vR
+	 ZOrRrpvsoOR//mtja7QLoymrHJRtJM6bP+t54n8c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43CA6F80111;
-	Thu,  7 Nov 2019 14:14:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B20F9F8049B;
+	Thu,  7 Nov 2019 14:26:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E83B4F8053B; Thu,  7 Nov 2019 14:14:34 +0100 (CET)
+ id 400E2F80508; Thu,  7 Nov 2019 14:26:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from NAM03-CO1-obe.outbound.protection.outlook.com
+ (mail-eopbgr790044.outbound.protection.outlook.com [40.107.79.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D709F80111
- for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 14:14:31 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 78704A0042;
- Thu,  7 Nov 2019 14:14:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 78704A0042
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1573132471; bh=EmqTkMlOcKiK0QPkViLVcBHsKCrjX7QWriz+gudYTso=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=hKWQAxElfO5x4ZG9v68CdQNXXTsfDKvdaS9sHWtT4GgHx4113RzR0lsqBw3nAxdct
- w2YKP+fSobCYH7sK8GA/cyuIjEkW1GEEejs9dkJ3wDdus8IPmqhr88FjDkBySzZ6Us
- KfbtadWzB/lWN8hybEs1dqyK6jUcR4P+hb8CPEaI=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Thu,  7 Nov 2019 14:14:27 +0100 (CET)
-To: Takashi Iwai <tiwai@suse.de>
-References: <6dcc3e0d-0df5-90cf-220f-59253d3b5c7c@perex.cz>
- <s5ho8xo89m1.wl-tiwai@suse.de>
- <608ff861-9c2a-e498-3ec9-4fe09f2583e6@perex.cz>
- <s5hblto82fo.wl-tiwai@suse.de>
- <822f8c3d-b4fc-98ca-d749-e9f2f638e6e9@perex.cz>
- <s5hftj02ayj.wl-tiwai@suse.de>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <8f7da616-caa9-5af7-e00b-812d65444171@perex.cz>
-Date: Thu, 7 Nov 2019 14:14:27 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7D25BF80111
+ for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 14:26:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D25BF80111
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="MZlQ26V0"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Kp6SPnCkEBiDUHxyefgpLnV1gXwZVFrPJtR1ww7L47Uy5Lh1i3QLajrhqZ8Dbu3RVmzx+egblK+TPe1d64mpxN3Z5H6r6xqRNf8lLv64zFLqQrZgkO/Z5njdPQB6SWVJNOE05IlSHENLMFJ0hCArKFwxDMMBA6bxMWWDaQMnn3ukJkzhMhTqv6urO4TuF1ULxERBxDiDjK/r4Sov+jNWRa93tB3L+RR8hORYRQSTaTNLJkfXF/k4Jlp8PXel9AKGVZw5e8EccCabpRo6WpSDu3Rpaa2XNSNI+VzOf1R2bJz+6Xccxs+G6SXwQVrZTfOl2Gi+aUVneulaZ+9ZsL2b7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BfZufcwbdQY9ftDHvA9zXIjlSwfqsdvSdYQdMQ6rZtQ=;
+ b=ZRr8CRfPxTPLLztgU5rEyY9kGDNDLJusApFz+cVF9F6N9uFrD3xwPIOV4cjTBbD9UR/xE9KgRmAmecZgxf/JkSU8jDAAfwBgNRFXiqu/F0lMD3Z6q9bfOjxUleE3vdvlZK3wnSpIETUGRaDcbKVfmiSDvotuAKQolq5U/8/duq7nDar+Mnd0pYgSlkVfEmrLDje1khZNO3jxl8wxaz+hQ9xtLgaVK85qc+kQL0ST8UWETSrDy0T9sWuzO0yNezxlDNWJzH8Q+DuHbRFmyJK3WI0Zkn2wT4Eimw3prcypcPjWXFNAKebVll8evL7zssPI/z34n1EQ94hi+V0dHIy5Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BfZufcwbdQY9ftDHvA9zXIjlSwfqsdvSdYQdMQ6rZtQ=;
+ b=MZlQ26V0dLbNfBEP2DS29sRqHxOJlSDyRqb5dScbYduGT3ibaAmX5Py8vDFRPIEW6ISoVTCGuoSxYMbIMac+FgCOiSQyg0/IksjPQujklRcriZQVV29Mn5iwqgROPKqgu2w3VeyIV5rLKUdxfa/OpNibtdNpMHh8YGlHylVV2fQ=
+Received: from BN6PR12CA0037.namprd12.prod.outlook.com (2603:10b6:405:70::23)
+ by MWHPR12MB1296.namprd12.prod.outlook.com (2603:10b6:300:f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2430.22; Thu, 7 Nov
+ 2019 13:26:18 +0000
+Received: from DM3NAM03FT023.eop-NAM03.prod.protection.outlook.com
+ (2a01:111:f400:7e49::207) by BN6PR12CA0037.outlook.office365.com
+ (2603:10b6:405:70::23) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2430.20 via Frontend
+ Transport; Thu, 7 Nov 2019 13:26:18 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=permerror action=none header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM3NAM03FT023.mail.protection.outlook.com (10.152.82.205) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2430.20 via Frontend Transport; Thu, 7 Nov 2019 13:26:18 +0000
+Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 7 Nov 2019
+ 07:26:17 -0600
+Received: from vishnu-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Thu, 7 Nov 2019 07:26:07 -0600
+From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+To: 
+Date: Thu, 7 Nov 2019 18:54:48 +0530
+Message-ID: <1573133093-28208-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1573133093-28208-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+References: <1573133093-28208-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <s5hftj02ayj.wl-tiwai@suse.de>
-Content-Language: en-US
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [alsa-devel] UCM extensions
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(39860400002)(396003)(136003)(428003)(199004)(189003)(8676002)(305945005)(4326008)(8936002)(5660300002)(86362001)(36756003)(47776003)(356004)(81166006)(6666004)(16586007)(53416004)(1671002)(54906003)(70206006)(70586007)(316002)(186003)(50466002)(336012)(426003)(446003)(109986005)(126002)(81156014)(11346002)(2616005)(48376002)(476003)(486006)(2906002)(76176011)(7696005)(478600001)(51416003)(50226002)(26005)(266003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1296; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 8cea58c7-c2bf-4452-df03-08d76386126e
+X-MS-TrafficTypeDiagnostic: MWHPR12MB1296:
+X-Microsoft-Antispam-PRVS: <MWHPR12MB1296E82CC806771CF16A9055E7780@MWHPR12MB1296.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:182;
+X-Forefront-PRVS: 0214EB3F68
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: GrH4Lr3dfgnaf7jFd+NawsLIlaR6tiO1yrthXld4WKCNBX/kUPP9wn8j5GNr5FjqaCOAlLGJ2SAaoiMsExfC3kYIQ2y7kRVNWkbTqtm2wFzCKTWQ+/LlhvC1rUkatBcA4Z0CTxaLpR/CENEhozaJKmeUvbo4Ej2iUxTJ3F3xS8RzNRft1o16ON201G9/yNRIvoizyiG/GXOEHTTDeOyfJLBOg18PT7VzfIvvPDiuaIsWvZgSqsS9PPZnUnsj03BLtmt8KTiNccvRMmIsg1FyNxYiogGp+90A/AWalD2z+e6o/3WhmZvpKCSJQU5Ru5jdHZT9JjEVNxIOQcEJr4hp97YlNm/CUwRpSk/Q/qRg/2qDr8R6pessqMw9aAQA0wlQOYDtW/8XqNPvs19pkvAXai/r/SMQRCZxttrcvYCR2rM0d0G3VfrUeXd0nwfDC+vd
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Nov 2019 13:26:18.1392 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8cea58c7-c2bf-4452-df03-08d76386126e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1296
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO
+ POWER MANAGEM..." <alsa-devel@alsa-project.org>, Maruthi
+ Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi
+ Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Akshu.Agrawal@amd.com, Sanju R Mehta <sanju.mehta@amd.com>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Mark Brown <broonie@kernel.org>, djkurtz@google.com,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Colin Ian King <colin.king@canonical.com>, Dan
+ Carpenter <dan.carpenter@oracle.com>
+Subject: [alsa-devel] [PATCH v3 1/6] ASoC: amd:Create multiple I2S platform
+	device endpoints
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,141 +141,181 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 07. 11. 19 v 12:16 Takashi Iwai napsal(a):
-> On Thu, 07 Nov 2019 12:08:26 +0100,
-> Jaroslav Kysela wrote:
->>
->> Dne 07. 11. 19 v 10:23 Takashi Iwai napsal(a):
->>> On Thu, 07 Nov 2019 09:33:27 +0100,
->>> Jaroslav Kysela wrote:
->>>>
->>>> Dne 07. 11. 19 v 7:48 Takashi Iwai napsal(a):
->>>>> On Tue, 05 Nov 2019 20:36:28 +0100,
->>>>> Jaroslav Kysela wrote:
->>>>>>
->>>>>> Hi all,
->>>>>>
->>>>>> 	I make some internal ucm code cleanups in alsa-lib and added
->>>>>> three major extensions to allow more complex configurations which we
->>>>>> require for the SOF kernel driver.
->>>>>>
->>>>>> 	The first thing is the added substitution for the value strings:
->>>>>>
->>>>>> https://github.com/alsa-project/alsa-lib/commit/f1e637b285e8e04e6761248a070f58f3a8fde6fc
->>>>>>
->>>>>> 	The second thing is the If block:
->>>>>>
->>>>>> https://github.com/alsa-project/alsa-lib/commit/985715ce8148dc7ef62c8e3d8ce5a0c2ac51f8df
->>>>>>
->>>>>> 	The third thing is the card / hardware like specifier passed
->>>>>> as the ucm name to snd_use_case_mgr_open() to support multiple card
->>>>>> instances:
->>>>>>
->>>>>> https://github.com/alsa-project/alsa-lib/commit/60164fc5886cdc6ca55eeed0c2e3f751a7d2b2c0
->>>>>>
->>>>>> 	All those patches (with other cleanups) are in the ucm2 branch
->>>>>> on github for comments:
->>>>>>
->>>>>> https://github.com/alsa-project/alsa-lib/commits/ucm2
->>>>>>
->>>>>> 	The proposed SOF UCM config diff is here:
->>>>>>
->>>>>> https://github.com/alsa-project/alsa-ucm-conf/commit/723b6da881721488229154e923ed36413955a051
->>>>>> https://github.com/alsa-project/alsa-ucm-conf/commits/ucm2
->>>>>>
->>>>>> 	I added everything to keep the interface backward compatible,
->>>>>> so the current applications should not observe any different
->>>>>> behavior. The applications like pulseaudio should use the
->>>>>> 'hw:CARD_INDEX' specifier for the open call in the future and
->>>>>> snd_use_case_parse_ctl_elem_id() helper for the element control names.
->>>>>
->>>>> The only concern with these extensions so far is the compatibility.
->>>>> Imagine that people run the new profile on the old parser, it'd break
->>>>> easily.
->>>>>
->>>>> I think other scripts often installing on the versioned directory if
->>>>> incompatibilities are seen.  Can we do that for UCM as well?
->>>>>
->>>>> Or course, once after UCM parser is changed to be future-ready and
->>>>> allow some syntax for possible future extensions, we can keep that
->>>>> version directory in future, too.
->>>>
->>>> While we are going to separate UCM files from alsa-lib to
->>>> alsa-ucm-conf we can define the new syntax change until the first
->>>> version is released (I can put a notice to README).
->>>>
->>>> Speaking for Fedora, we have dependancy 'alsa-lib package version'
->>>> must be equal to 'alsa-ucm package version'. If users will do any
->>>> changes on their own, they should know what they are doing.
->>>
->>> This assumes that you have only one alsa-ucm package.  If there is a
->>> downstream version of UCM profile, this won't work well always.
->>>
->>>> Anyway, we should learn from this and I would propose to add add
->>>> something like 'Syntax 2' to the main configuration file now. The new
->>>> functions should be activated only according the version.
->>>
->>> Yeah, some extensibility is needed in the config space.
->>>
->>>> Unfortunately, the current parser will just show an error message like:
->>>>
->>>> ALSA lib parser.c:1337:(parse_master_file) uknown master file field Syntax
->>>> ALSA lib parser.c:1337:(parse_master_file) uknown master file field If
->>>
->>> Right, that's the problem now.  Even a non-existing control would lead
->>> to an error with the current version of parser.
->>>
->>>> But at least, users should be notified that there is a configuration mismatch.
->>>
->>> I don't think this would suffice.  The new UCM config is not merely a
->>> config but it's becoming rather a language, so this needs some
->>> distinction from the current v1 files.
->>>
->>>> Another possibility is to change the suffix for the master
->>>> configuration file to accept the "Syntax" check for the another future
->>>> update. But honestly, I don't like ".conf2" and ".v2.conf" looks not
->>>> so nice, too.
->>>
->>> My vote is for a different directory.  And, with v2 extension, we
->>> should leave the room for further extensibility, and keep the same
->>> location as long as it's compatible.  Keeping the location for
->>> incompatible configs would lead to a mess.
->>
->> Ok, I can move the new configs to ucm2 (/usr/share/alsa/ucm2) and
->> leave the original directory empty (as fallback), because all configs
->> can be modified to support the right card identificator (kernel module
->> id parameter) rather than the hard coded default value generated by
->> the ALSA core kernel code.
->>
->> But there is an issue with the environment variable "ALSA_CONFIG_UCM"
->> which specifies directly the directory. We cannot predict the syntax
->> for it.
-> 
-> Right, that's a bit of headache.  Another idea would be to we put
-> under /usr/share/alsa/ucm/v2/... and the parser starts looking at
-> $ALSA_CONFIG_UCM/v$VERSION/... then falls back to the
-> $ALSA_CONFIG_UCM/...
-> 
-> But I'm really open for any other options, too.
+Creates Platform Device endpoints for multiple
+I2S instances: SP and  BT endpoints device.
+Pass PCI resources like MMIO, irq to the platform devices.
 
-I would probably vote for this:
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+---
+ sound/soc/amd/raven/acp3x.h     |  5 +++
+ sound/soc/amd/raven/pci-acp3x.c | 78 +++++++++++++++++++++++++++++------------
+ 2 files changed, 60 insertions(+), 23 deletions(-)
 
-/usr/share/alsa/ucm2	- new configs with 'Syntax' field protection
-/usr/share/alsa/ucm	- old configs
-
-ALSA_CONFIG_UCM2	- env path for the new configs
-ALSA_CONFIG_UCM		- env path for the old configs
-
-					Jaroslav
-
+diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
+index 4f2cadd..2f15fe1 100644
+--- a/sound/soc/amd/raven/acp3x.h
++++ b/sound/soc/amd/raven/acp3x.h
+@@ -7,10 +7,15 @@
+ 
+ #include "chip_offset_byte.h"
+ 
++#define ACP3x_DEVS		3
+ #define ACP3x_PHY_BASE_ADDRESS 0x1240000
+ #define	ACP3x_I2S_MODE	0
+ #define	ACP3x_REG_START	0x1240000
+ #define	ACP3x_REG_END	0x1250200
++#define ACP3x_I2STDM_REG_START	0x1242400
++#define ACP3x_I2STDM_REG_END	0x1242410
++#define ACP3x_BT_TDM_REG_START	0x1242800
++#define ACP3x_BT_TDM_REG_END	0x1242810
+ #define I2S_MODE	0x04
+ #define	BT_TX_THRESHOLD 26
+ #define	BT_RX_THRESHOLD 25
+diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
+index facec24..fe37160c 100644
+--- a/sound/soc/amd/raven/pci-acp3x.c
++++ b/sound/soc/amd/raven/pci-acp3x.c
+@@ -16,16 +16,16 @@ struct acp3x_dev_data {
+ 	void __iomem *acp3x_base;
+ 	bool acp3x_audio_mode;
+ 	struct resource *res;
+-	struct platform_device *pdev;
++	struct platform_device *pdev[ACP3x_DEVS];
+ };
+ 
+ static int snd_acp3x_probe(struct pci_dev *pci,
+ 			   const struct pci_device_id *pci_id)
+ {
+ 	int ret;
+-	u32 addr, val;
++	u32 addr, val, i;
+ 	struct acp3x_dev_data *adata;
+-	struct platform_device_info pdevinfo;
++	struct platform_device_info pdevinfo[ACP3x_DEVS];
+ 	unsigned int irqflags;
+ 
+ 	if (pci_enable_device(pci)) {
+@@ -68,7 +68,7 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 	switch (val) {
+ 	case I2S_MODE:
+ 		adata->res = devm_kzalloc(&pci->dev,
+-					  sizeof(struct resource) * 2,
++					  sizeof(struct resource) * 4,
+ 					  GFP_KERNEL);
+ 		if (!adata->res) {
+ 			ret = -ENOMEM;
+@@ -80,28 +80,52 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		adata->res[0].start = addr;
+ 		adata->res[0].end = addr + (ACP3x_REG_END - ACP3x_REG_START);
+ 
+-		adata->res[1].name = "acp3x_i2s_irq";
+-		adata->res[1].flags = IORESOURCE_IRQ;
+-		adata->res[1].start = pci->irq;
+-		adata->res[1].end = pci->irq;
++		adata->res[1].name = "acp3x_i2s_sp";
++		adata->res[1].flags = IORESOURCE_MEM;
++		adata->res[1].start = addr + ACP3x_I2STDM_REG_START;
++		adata->res[1].end = addr + ACP3x_I2STDM_REG_END;
++
++		adata->res[2].name = "acp3x_i2s_bt";
++		adata->res[2].flags = IORESOURCE_MEM;
++		adata->res[2].start = addr + ACP3x_BT_TDM_REG_START;
++		adata->res[2].end = addr + ACP3x_BT_TDM_REG_END;
++
++		adata->res[3].name = "acp3x_i2s_irq";
++		adata->res[3].flags = IORESOURCE_IRQ;
++		adata->res[3].start = pci->irq;
++		adata->res[3].end = adata->res[3].start;
+ 
+ 		adata->acp3x_audio_mode = ACP3x_I2S_MODE;
+ 
+ 		memset(&pdevinfo, 0, sizeof(pdevinfo));
+-		pdevinfo.name = "acp3x_rv_i2s";
+-		pdevinfo.id = 0;
+-		pdevinfo.parent = &pci->dev;
+-		pdevinfo.num_res = 2;
+-		pdevinfo.res = adata->res;
+-		pdevinfo.data = &irqflags;
+-		pdevinfo.size_data = sizeof(irqflags);
+-
+-		adata->pdev = platform_device_register_full(&pdevinfo);
+-		if (IS_ERR(adata->pdev)) {
+-			dev_err(&pci->dev, "cannot register %s device\n",
+-				pdevinfo.name);
+-			ret = PTR_ERR(adata->pdev);
+-			goto unmap_mmio;
++		pdevinfo[0].name = "acp3x_rv_i2s_dma";
++		pdevinfo[0].id = 0;
++		pdevinfo[0].parent = &pci->dev;
++		pdevinfo[0].num_res = 4;
++		pdevinfo[0].res = &adata->res[0];
++		pdevinfo[0].data = &irqflags;
++		pdevinfo[0].size_data = sizeof(irqflags);
++
++		pdevinfo[1].name = "acp3x_i2s_playcap";
++		pdevinfo[1].id = 0;
++		pdevinfo[1].parent = &pci->dev;
++		pdevinfo[1].num_res = 1;
++		pdevinfo[1].res = &adata->res[1];
++
++		pdevinfo[2].name = "acp3x_i2s_playcap";
++		pdevinfo[2].id = 1;
++		pdevinfo[2].parent = &pci->dev;
++		pdevinfo[2].num_res = 1;
++		pdevinfo[2].res = &adata->res[2];
++		for (i = 0; i < ACP3x_DEVS ; i++) {
++			adata->pdev[i] =
++				platform_device_register_full(&pdevinfo[i]);
++			IS_ERR(adata->pdev[i]) {
++				dev_err(&pci->dev, "cannot register %s device\n",
++					pdevinfo[i].name);
++				ret = -ENODEV;
++				goto unmap_mmio;
++			}
+ 		}
+ 		break;
+ 	default:
+@@ -113,6 +137,9 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 
+ unmap_mmio:
+ 	pci_disable_msi(pci);
++	for (i = 0 ; i < ACP3x_DEVS ; i++)
++		platform_device_unregister(adata->pdev[i]);
++	kfree(adata->res);
+ 	iounmap(adata->acp3x_base);
+ release_regions:
+ 	pci_release_regions(pci);
+@@ -124,9 +151,13 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 
+ static void snd_acp3x_remove(struct pci_dev *pci)
+ {
++	int i;
+ 	struct acp3x_dev_data *adata = pci_get_drvdata(pci);
+ 
+-	platform_device_unregister(adata->pdev);
++	if (adata->acp3x_audio_mode == ACP3x_I2S_MODE) {
++		for (i = 0 ; i <  ACP3x_DEVS ; i++)
++			platform_device_unregister(adata->pdev[i]);
++	}
+ 	iounmap(adata->acp3x_base);
+ 
+ 	pci_disable_msi(pci);
+@@ -151,6 +182,7 @@ static struct pci_driver acp3x_driver  = {
+ 
+ module_pci_driver(acp3x_driver);
+ 
++MODULE_AUTHOR("Vishnuvardhanrao.Ravulapati@amd.com");
+ MODULE_AUTHOR("Maruthi.Bayyavarapu@amd.com");
+ MODULE_DESCRIPTION("AMD ACP3x PCI driver");
+ MODULE_LICENSE("GPL v2");
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.7.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

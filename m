@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F8C9F356E
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 18:08:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16497F3547
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 18:02:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C16AA1667;
-	Thu,  7 Nov 2019 18:07:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C16AA1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E2841685;
+	Thu,  7 Nov 2019 18:02:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E2841685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573146529;
-	bh=De1zt8PP2STWdRKlyiXNNMh6i8hNBdqvIzbIGj1+CHQ=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=uBae9G4xVNebFGYD0GA3viFzSVWkt95RjXJHHHrMa3EvOEboIvg5zgZ2EP/OqVSio
-	 gMiWCMVa/r//1TQJyUFyMShcSSc39ej+ZZKiUMIaoxvZOjNAof93GKUYuxBga9RJIY
-	 xPaxrW5rnbvXU9VLXMb1bf7vti2DOpUbSUD1H6XU=
+	s=default; t=1573146178;
+	bh=yJ+wb0Ov9GQSTvyzcDTlRvvRaNU3Nqf+BLSViE18Yxo=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pb8Nctqfs36eWjZQa4evt0SpS0N6U/YMpnC3DauJ5n3nNnH7p6IJGnwEJxrazJwo0
+	 jlzBYkHk7h5yfCkDGtLrVhcxnh180gmmsntP2Q/4NND21bE1Z94iSN3pvN1NTxpnfh
+	 YoWEf8gMcA6Un+ZvGxFYLvxnsfZ66+I2GN6ADVbc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4BD2DF804FE;
-	Thu,  7 Nov 2019 18:05:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB912F804FE;
+	Thu,  7 Nov 2019 18:01:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F84CF8053B; Thu,  7 Nov 2019 18:05:33 +0100 (CET)
+ id 334AFF8049B; Thu,  7 Nov 2019 16:34:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f71.google.com (mail-io1-f71.google.com
+ [209.85.166.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B9A3AF8049B
- for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 18:05:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9A3AF8049B
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2019 09:05:27 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,278,1569308400"; d="scan'208";a="192880778"
-Received: from cjense2x-mobl1.amr.corp.intel.com (HELO [10.251.130.63])
- ([10.251.130.63])
- by orsmga007.jf.intel.com with ESMTP; 07 Nov 2019 09:05:26 -0800
-To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-References: <1573133093-28208-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1573133093-28208-6-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <18b68b8f-773d-8493-22ab-0be3e749b04b@linux.intel.com>
-Date: Thu, 7 Nov 2019 09:27:15 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 637DEF80111
+ for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 16:34:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 637DEF80111
+Received: by mail-io1-f71.google.com with SMTP id r4so2114246ioo.13
+ for <alsa-devel@alsa-project.org>; Thu, 07 Nov 2019 07:34:10 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=osDgrR7+lhnA50ozJ9XpSP5eOLnLOIc3AVbZc33gEAU=;
+ b=Urx/rt9MGgoTyWbMDHNL1ytm0XU3PaYJrDOqch+lkOMiZjmjAQ47Wf3mVsV12lLhRM
+ jJfNjqMJNeYIHuLCnlNwUMiuazdc6+1A2L8ayn2Dp6134gb16BUKYm7yagkfHVKTmyAH
+ Ykcm3gKkL9hCSh72tCwmzR12SW0JwvnyOLilbNZcSBli/lsBPMSDgngkm21hFcdS/RlM
+ jT+K8Yv1jFSHxmSEJi7NV64vgdlCHz1fR++wp0xcw0vWWbweUvr1u18lxOOcWReeHqUF
+ 8tNVZxJkFwQuR/CWiKx6UJx4LgS57DNk82oxkP20gJP8L3w99Qtfd7hsb38K4Ajj7JVo
+ 2i9g==
+X-Gm-Message-State: APjAAAWmJXyyDPqcZWUoWNzVRzHDFk5QPAdCG4bT9BGJ/71mTFbmWCJB
+ eK6jY+2NfZNlco4pys1aWL7iqVQgtsFTwbs0K9O9E06xgJuA
+X-Google-Smtp-Source: APXvYqxuKrKOoebLn1vTcIFUPCuUSPVp9E0atQGaXraOKl+d8s9V7HDrPJCcKrN1GZYrnnQAAGkbtkYezQ7fGdeYdocRoz/f6OQE
 MIME-Version: 1.0
-In-Reply-To: <1573133093-28208-6-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-Content-Language: en-US
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Maruthi Bayyavarapu <maruthi.bayyavarapu@amd.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, YueHaibing <yuehaibing@huawei.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, djkurtz@google.com,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- Colin Ian King <colin.king@canonical.com>, Akshu.Agrawal@amd.com
-Subject: Re: [alsa-devel] [RESEND PATCH v3 5/6] ASoC: amd: handle ACP3x
- i2s-sp watermark interrupt.
+X-Received: by 2002:a5e:8219:: with SMTP id l25mr115557iom.292.1573140849022; 
+ Thu, 07 Nov 2019 07:34:09 -0800 (PST)
+Date: Thu, 07 Nov 2019 07:34:09 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <0000000000007ce1f40596c3651f@google.com>
+From: syzbot <syzbot+622d4ecb979f45c6a775@syzkaller.appspotmail.com>
+To: allison@lohutok.net, alsa-devel@alsa-project.org, andreyknvl@google.com, 
+ benquike@gmail.com, dan.carpenter@oracle.com, gregkh@linuxfoundation.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, perex@perex.cz, 
+ rfontana@redhat.com, syzkaller-bugs@googlegroups.com, tiwai@suse.com, 
+ wang6495@umn.edu, yuehaibing@huawei.com
+X-Mailman-Approved-At: Thu, 07 Nov 2019 18:01:11 +0100
+Subject: [alsa-devel] KASAN: slab-out-of-bounds Read in build_audio_procunit
+	(2)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,39 +81,150 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"; DelSp="yes"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello,
+
+syzbot found the following crash on:
+
+HEAD commit:    d60bbfea usb: raw: add raw-gadget interface
+git tree:       https://github.com/google/kasan.git usb-fuzzer
+console output: https://syzkaller.appspot.com/x/log.txt?x=132e5bcce00000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=79de80330003b5f7
+dashboard link: https://syzkaller.appspot.com/bug?extid=622d4ecb979f45c6a775
+compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1478c6b4e00000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=117cbf8ae00000
+
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+622d4ecb979f45c6a775@syzkaller.appspotmail.com
+
+usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+usb 1-1: Product: syz
+usb 1-1: Manufacturer: syz
+usb 1-1: SerialNumber: syz
+usb 1-1: 0:2 : does not exist
+==================================================================
+BUG: KASAN: slab-out-of-bounds in uac_extension_unit_iExtension  
+include/uapi/linux/usb/audio.h:483 [inline]
+BUG: KASAN: slab-out-of-bounds in build_audio_procunit+0xeab/0x13f0  
+sound/usb/mixer.c:2434
+Read of size 1 at addr ffff8881d4aaa735 by task kworker/1:2/83
+
+CPU: 1 PID: 83 Comm: kworker/1:2 Not tainted 5.4.0-rc6+ #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS  
+Google 01/01/2011
+Workqueue: usb_hub_wq hub_event
+Call Trace:
+  __dump_stack lib/dump_stack.c:77 [inline]
+  dump_stack+0xca/0x13e lib/dump_stack.c:113
+  print_address_description.constprop.0+0x36/0x50 mm/kasan/report.c:374
+  __kasan_report.cold+0x1a/0x33 mm/kasan/report.c:506
+  kasan_report+0xe/0x20 mm/kasan/common.c:634
+  uac_extension_unit_iExtension include/uapi/linux/usb/audio.h:483 [inline]
+  build_audio_procunit+0xeab/0x13f0 sound/usb/mixer.c:2434
+  parse_audio_extension_unit sound/usb/mixer.c:2483 [inline]
+  parse_audio_unit+0x1812/0x36f0 sound/usb/mixer.c:2761
+  snd_usb_mixer_controls+0x715/0xb90 sound/usb/mixer.c:3095
+  snd_usb_create_mixer+0x2b5/0x1890 sound/usb/mixer.c:3445
+  usb_audio_probe+0xc76/0x2010 sound/usb/card.c:653
+  usb_probe_interface+0x305/0x7a0 drivers/usb/core/driver.c:361
+  really_probe+0x281/0x6d0 drivers/base/dd.c:548
+  driver_probe_device+0x104/0x210 drivers/base/dd.c:721
+  __device_attach_driver+0x1c2/0x220 drivers/base/dd.c:828
+  bus_for_each_drv+0x162/0x1e0 drivers/base/bus.c:430
+  __device_attach+0x217/0x360 drivers/base/dd.c:894
+  bus_probe_device+0x1e4/0x290 drivers/base/bus.c:490
+  device_add+0xae6/0x16f0 drivers/base/core.c:2202
+  usb_set_configuration+0xdf6/0x1670 drivers/usb/core/message.c:2023
+  generic_probe+0x9d/0xd5 drivers/usb/core/generic.c:210
+  usb_probe_device+0x99/0x100 drivers/usb/core/driver.c:266
+  really_probe+0x281/0x6d0 drivers/base/dd.c:548
+  driver_probe_device+0x104/0x210 drivers/base/dd.c:721
+  __device_attach_driver+0x1c2/0x220 drivers/base/dd.c:828
+  bus_for_each_drv+0x162/0x1e0 drivers/base/bus.c:430
+  __device_attach+0x217/0x360 drivers/base/dd.c:894
+  bus_probe_device+0x1e4/0x290 drivers/base/bus.c:490
+  device_add+0xae6/0x16f0 drivers/base/core.c:2202
+  usb_new_device.cold+0x6a4/0xe79 drivers/usb/core/hub.c:2537
+  hub_port_connect drivers/usb/core/hub.c:5184 [inline]
+  hub_port_connect_change drivers/usb/core/hub.c:5324 [inline]
+  port_event drivers/usb/core/hub.c:5470 [inline]
+  hub_event+0x1df8/0x3800 drivers/usb/core/hub.c:5552
+  process_one_work+0x92b/0x1530 kernel/workqueue.c:2269
+  worker_thread+0x96/0xe20 kernel/workqueue.c:2415
+  kthread+0x318/0x420 kernel/kthread.c:255
+  ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
+
+Allocated by task 83:
+  save_stack+0x1b/0x80 mm/kasan/common.c:69
+  set_track mm/kasan/common.c:77 [inline]
+  __kasan_kmalloc mm/kasan/common.c:510 [inline]
+  __kasan_kmalloc.constprop.0+0xbf/0xd0 mm/kasan/common.c:483
+  kmalloc include/linux/slab.h:561 [inline]
+  usb_get_configuration+0x311/0x3100 drivers/usb/core/config.c:862
+  usb_enumerate_device drivers/usb/core/hub.c:2370 [inline]
+  usb_new_device+0xd3/0x160 drivers/usb/core/hub.c:2506
+  hub_port_connect drivers/usb/core/hub.c:5184 [inline]
+  hub_port_connect_change drivers/usb/core/hub.c:5324 [inline]
+  port_event drivers/usb/core/hub.c:5470 [inline]
+  hub_event+0x1df8/0x3800 drivers/usb/core/hub.c:5552
+  process_one_work+0x92b/0x1530 kernel/workqueue.c:2269
+  worker_thread+0x96/0xe20 kernel/workqueue.c:2415
+  kthread+0x318/0x420 kernel/kthread.c:255
+  ret_from_fork+0x24/0x30 arch/x86/entry/entry_64.S:352
+
+Freed by task 211:
+  save_stack+0x1b/0x80 mm/kasan/common.c:69
+  set_track mm/kasan/common.c:77 [inline]
+  kasan_set_free_info mm/kasan/common.c:332 [inline]
+  __kasan_slab_free+0x130/0x180 mm/kasan/common.c:471
+  slab_free_hook mm/slub.c:1424 [inline]
+  slab_free_freelist_hook mm/slub.c:1475 [inline]
+  slab_free mm/slub.c:3025 [inline]
+  kfree+0xe4/0x320 mm/slub.c:3977
+  do_new_mount fs/namespace.c:2827 [inline]
+  do_mount+0x68a/0x1bf0 fs/namespace.c:3143
+  ksys_mount+0xd7/0x150 fs/namespace.c:3352
+  __do_sys_mount fs/namespace.c:3366 [inline]
+  __se_sys_mount fs/namespace.c:3363 [inline]
+  __x64_sys_mount+0xba/0x150 fs/namespace.c:3363
+  do_syscall_64+0xb7/0x580 arch/x86/entry/common.c:290
+  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+The buggy address belongs to the object at ffff8881d4aaa600
+  which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 53 bytes to the right of
+  256-byte region [ffff8881d4aaa600, ffff8881d4aaa700)
+The buggy address belongs to the page:
+page:ffffea000752aa80 refcount:1 mapcount:0 mapping:ffff8881da002780  
+index:0x0 compound_mapcount: 0
+flags: 0x200000000010200(slab|head)
+raw: 0200000000010200 ffffea000752c900 0000000a0000000a ffff8881da002780
+raw: 0000000000000000 0000000000100010 00000001ffffffff 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+  ffff8881d4aaa600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  ffff8881d4aaa680: 00 00 00 00 00 00 00 00 00 00 00 00 00 fc fc fc
+> ffff8881d4aaa700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+                                      ^
+  ffff8881d4aaa780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+  ffff8881d4aaa800: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
 
 
-On 11/7/19 7:24 AM, Ravulapati Vishnu vardhan rao wrote:
-> whenever audio data equal to I2S-SP fifo watermark level is
-> produced/consumed, interrupt is generated.
-> 
-> Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-> ---
->   sound/soc/amd/raven/acp3x-pcm-dma.c | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
-> 
-> diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
-> index 8fab505..629a32f 100644
-> --- a/sound/soc/amd/raven/acp3x-pcm-dma.c
-> +++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
-> @@ -176,6 +176,13 @@ static irqreturn_t i2s_irq_handler(int irq, void *dev_id)
->   		snd_pcm_period_elapsed(rv_i2s_data->play_stream);
->   		play_flag = 1;
->   	}
-> +	if ((val & BIT(I2S_TX_THRESHOLD)) &&
-> +				rv_i2s_data->i2ssp_play_stream) {
-> +		rv_writel(BIT(I2S_TX_THRESHOLD),
-> +			rv_i2s_data->acp3x_base	+ mmACP_EXTERNAL_INTR_STAT);
-> +		snd_pcm_period_elapsed(rv_i2s_data->i2ssp_play_stream);
+---
+This bug is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-The commit message looks odd. If you have a DMA and signal a period 
-elapsed, is this really a case where the FIFO level reaches a watermark?
-Usually the FIFOs are somewhat small and there are multiple DMA 
-transfers per period?
+syzbot will keep track of this bug report. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this bug, for details see:
+https://goo.gl/tpsmEJ#testing-patches
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

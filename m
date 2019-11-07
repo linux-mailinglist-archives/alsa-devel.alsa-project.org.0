@@ -2,119 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A655F2872
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 08:53:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB7BCF28AD
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 09:07:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EDC7A1670;
-	Thu,  7 Nov 2019 08:52:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDC7A1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51850166B;
+	Thu,  7 Nov 2019 09:06:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51850166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573113192;
-	bh=GA9cJ8+W3Etn9Z0GNIxLASguvrjMBWDywpR2in9N/aQ=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=vD9v+DkV+ZEdoJX1pLNRmdgsyckng5xdbIy3KI1qpHRwhQ9huuNAQTzB4jKt3oDry
-	 aAn1yrSKffk5UMBiQNd8SLPjqLJu1aa1zHe09H0VxeAunpRjHbeSebqwGHFPYa29v7
-	 gqb5t8D7NOpbqVBohu5woytDhQMguIdDJDcP7FIU=
+	s=default; t=1573114025;
+	bh=+7ecc9YyDuKVNlNpJuXdbmUn3865TZwu8z30v0JoxYo=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uocESihqHtJzhTFLWbJ+jk2RQdeq/QUnxPs0477rby6xdwbejTV+NV1qxHV7U8q2u
+	 5rNci8ba2KQzde0vPHuyEzuef7uVQrE6oiXyrTuooLDWteueuNZEpUuqGRDxDMWmOf
+	 RlmFDZu3aPXfuNJFzo1uKrFsIK5cCV9ElYo5/CFM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28949F80446;
-	Thu,  7 Nov 2019 08:51:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9756BF80446;
+	Thu,  7 Nov 2019 09:05:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BF7BF8049B; Thu,  7 Nov 2019 08:51:25 +0100 (CET)
+ id A090BF8049B; Thu,  7 Nov 2019 09:05:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from EUR03-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr50071.outbound.protection.outlook.com [40.107.5.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 288C1F800F3
- for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 08:51:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 288C1F800F3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="rcCKqK5Z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Ot6KtDEIaBB26gGvxMlr6fjoZPvwaL1QHMLgBcuI4NQD+ecxeEcPQ7XNDAsDAxtdmYy7C4lWg3rR2doe/Qt6zTlleKxNmQTnyid6LHmbsh+PJSgGUdMknbSUuBrec2t66ssp9lqbZFLjxdJaqHEWX8cMtrzeFjUx0b8+EegMgrFB5OWu+5T/pMnREDVdDFbgxr0w/b0Hxd9nOzbRVbrpCMxRjnqdw8l9ywUHMS5uYrbRTwvJaW/SnfiyhZT0CT43MbIhLh1SN09cqFzul7Ekv4CMfYO6Lq9Ds1hNt841mDaMNTS5HyU4Byp4dvxyV3J0f6nxfkWKsWuVNzFvVTnw1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=msFlGiKfaJwHoMxesxTXiLzxrZHaTCBWlBSEl36KY+I=;
- b=OPVFUTvCJPIcRp2A8qtP1dSzjvxx8x6oHkZOGL7s3fW7qaziYcfN6y9NlApr7aCqFZYwoQ833Lv5KbCTtq/RvFE1SgnQmsjl7SADPhBsE2Sl3CXjL5WgFhCj9gat7coUZcyaVr9daEjtV8EtAqVyUZcEKW98xxAZL52ohcg6uWwefl/HhhFuWHhTM++kk1mk13R7p+fCaj04jlDaxswcXAL4N4nNfuvav5n4DHBnXjjE/OcVpSPzgU83CEWRWHXb4S056uYqZyJsfwgRWlQ3/UyF1bDLSrrBSaDqlOY3fCvaYocrS9pAVBtKBHd+4/8gdAHU0EnzQV8rtZHq21PIYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=msFlGiKfaJwHoMxesxTXiLzxrZHaTCBWlBSEl36KY+I=;
- b=rcCKqK5ZPZw1uhN+L9ax24M+NemLTGhFVFo9FnNvKPZEmWOYbf5SgrcL7CRL07Z6WxfY1qGSR+hjWxu1uVxWL8UDkgSxIkVvLPd+Ik8AvCEDQXzaulS8XknrTR4W2UcMI9CePX9gQO0ZKQNusB5T6zBsI3OIL0RqAWFleprbVSg=
-Received: from AM0PR04MB6468.eurprd04.prod.outlook.com (20.179.254.214) by
- AM0PR04MB5490.eurprd04.prod.outlook.com (20.178.115.24) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2430.20; Thu, 7 Nov 2019 07:51:19 +0000
-Received: from AM0PR04MB6468.eurprd04.prod.outlook.com
- ([fe80::24aa:9d65:b376:5ae7]) by AM0PR04MB6468.eurprd04.prod.outlook.com
- ([fe80::24aa:9d65:b376:5ae7%7]) with mapi id 15.20.2430.020; Thu, 7 Nov 2019
- 07:51:19 +0000
-From: "S.j. Wang" <shengjiu.wang@nxp.com>
-To: Rob Herring <robh@kernel.org>
-Thread-Topic: [PATCH V2 1/2] ASoC: dt-bindings: fsl_asrc: add compatible
- string for imx8qm
-Thread-Index: AdWVP8IifFfTCEP2RpqREdYX4F5jzg==
-Date: Thu, 7 Nov 2019 07:51:19 +0000
-Message-ID: <AM0PR04MB64687210E053B6ECE90C860DE3780@AM0PR04MB6468.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=shengjiu.wang@nxp.com; 
-x-originating-ip: [119.31.174.66]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a974b462-1ec3-49b0-a903-08d76357468a
-x-ms-traffictypediagnostic: AM0PR04MB5490:
-x-microsoft-antispam-prvs: <AM0PR04MB549041657A3E54828C428181E3780@AM0PR04MB5490.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-forefront-prvs: 0214EB3F68
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39850400004)(136003)(376002)(366004)(346002)(396003)(199004)(189003)(66476007)(256004)(64756008)(33656002)(66446008)(8936002)(66556008)(7416002)(76116006)(4326008)(316002)(102836004)(6246003)(2906002)(3846002)(26005)(66946007)(5660300002)(6116002)(8676002)(6436002)(7696005)(52536014)(14454004)(55016002)(9686003)(229853002)(54906003)(186003)(71190400001)(14444005)(86362001)(6916009)(476003)(6506007)(486006)(66066001)(74316002)(478600001)(25786009)(81156014)(305945005)(7736002)(99286004)(81166006)(71200400001)(32563001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM0PR04MB5490;
- H:AM0PR04MB6468.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: XYF7YZkKjc6AkWWhtQphLbiKkEqRiBxbRerpzWvNHaIVW9jDsmZYFDl1XMMQZVEKrGR4weR6MKQe/ZBCse4y/ImgP+r30EgVDiIa09Yf/vj3q8WwKDKJEdraEly38k4paqr6LacaqkjWI5hZCA3DBOTbDu1cewbqYSNvNo8hSVxGuCH/+JStE8kYgngYfF7hrL5s15rV2d0PFi6vc3kSaDPZUA34kFKMYZnWocTuFtyZlY2KxRMISqyMPMPwcvlNhb4pQ9dC1BoDfCuKXje3XgosAsAyi5woLHaFHTcvh5pXlczSWtNkNj6Gv7xCjGAvmfkCiHTOLbxuCTt4LQMBAh4ZsyzYoffrkN5V1aHxDOYbCK/I60w3hGhSO2ni1kh6I1qGb7/ATYegjEKPU7vBlaksrR/MGPbOk/szQnK8fNI4b0NUkpVDJBd+U+OoxhbH
-x-ms-exchange-transport-forked: True
-MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a974b462-1ec3-49b0-a903-08d76357468a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Nov 2019 07:51:19.2341 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: SwmEDG5SOPXnPhbGYXHnC/lRZmZOMeql6MrBDMXKQbjhc5MahvS2XNxO9j5RFME1VlSGjSB3n9zluQWGQDeWvw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5490
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "timur@kernel.org" <timur@kernel.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "nicoleotsuka@gmail.com" <nicoleotsuka@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH V2 1/2] ASoC: dt-bindings: fsl_asrc: add
- compatible string for imx8qm
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4DBCFF800F3
+ for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 09:05:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4DBCFF800F3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 3D572AD07;
+ Thu,  7 Nov 2019 08:05:15 +0000 (UTC)
+Date: Thu, 07 Nov 2019 09:05:14 +0100
+Message-ID: <s5hlfss862t.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+In-Reply-To: <20191105143218.5948-8-andrew_gabbasov@mentor.com>
+References: <20191105143218.5948-1-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-2-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-3-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-4-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-5-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-6-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-7-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-8-andrew_gabbasov@mentor.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Timo Wischer <twischer@de.adit-jv.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v2 7/8] ALSA: aloop: Support selection of
+	snd_timer instead of jiffies
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,47 +78,191 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Rob
-> 
-> On Wed, Oct 30, 2019 at 07:41:26PM +0800, Shengjiu Wang wrote:
-> > In order to support the two asrc modules in imx8qm, we need to add
-> > compatible string "fsl,imx8qm-asrc0" and "fsl,imx8qm-asrc1"
-> 
-> Are the blocks different in some way?
-> 
-> If not, why do you need to distinguish them?
-> 
-The internal clock mapping is different for each module.
+On Tue, 05 Nov 2019 15:32:17 +0100,
+Andrew Gabbasov wrote:
+> @@ -102,6 +106,13 @@ struct loopback_cable {
+>  	unsigned int pause;
+>  	/* timer specific */
+>  	struct loopback_ops *ops;
+> +	/* If sound timer is used */
+> +	struct {
+> +		int owner;
 
-Or we can use one compatible string, but need add another
-property "fsl,asrc-clk-map" to distinguish the different clock map.
+The term "owner" is a bit confusing here.  It seems holding the PCM
+direction, but most people expect it being a process-id or something
+like that from the word.
 
-The change is in below.
+> +		struct snd_timer_id id;
+> +		struct tasklet_struct event_tasklet;
 
-Which one do you think is better? 
+You don't need to make own tasklet.  The timer core calls it via
+tasklet in anyway unless you pass SNDRV_TIMER_IFLG_FAST -- see below.
 
-Required properties:
+And the tasklet is no longer recommended infrastructure in the recent
+kernel, we should avoid it as much as possible.
 
--  - compatible         : Contains "fsl,imx35-asrc" or "fsl,imx53-asrc".
-+  - compatible         : Contains "fsl,imx35-asrc", "fsl,imx53-asrc",
-+                         "fsl,imx8qm-asrc".
+>  struct loopback_setup {
+> @@ -122,6 +133,7 @@ struct loopback {
+>  	struct loopback_cable *cables[MAX_PCM_SUBSTREAMS][2];
+>  	struct snd_pcm *pcm[2];
+>  	struct loopback_setup setup[MAX_PCM_SUBSTREAMS][2];
+> +	char *timer_source;
 
-   - reg                        : Offset and length of the register set for the device.
+This can be const char *, I suppose.
 
-@@ -35,6 +36,11 @@ Required properties:
+> +static void loopback_snd_timer_period_elapsed(
+> +		struct loopback_cable * const cable,
+> +		const int event, const unsigned long resolution)
+> +{
+> +	struct loopback_pcm *dpcm_play =
+> +			cable->streams[SNDRV_PCM_STREAM_PLAYBACK];
+> +	struct loopback_pcm *dpcm_capt =
+> +			cable->streams[SNDRV_PCM_STREAM_CAPTURE];
 
-    - fsl,asrc-width    : Defines a mutual sample width used by DPCM Back Ends.
+You shouldn't assign them outside the cable->lock.
 
-+   - fsl,asrc-clk-map   : Defines clock map used in driver. which is required
-+                         by imx8qm
-+                         <0> - select the map for asrc0
-+                         <1> - select the map for asrc1
-+
- Optional properties:
+> +	struct snd_pcm_runtime *valid_runtime;
+> +	unsigned int running, elapsed_bytes;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&cable->lock, flags);
+> +	running = cable->running ^ cable->pause;
+> +	/* no need to do anything if no stream is running */
+> +	if (!running) {
+> +		spin_unlock_irqrestore(&cable->lock, flags);
+> +		return;
+> +	}
+> +
+> +	if (event == SNDRV_TIMER_EVENT_MSTOP) {
+> +		if (!dpcm_play || !dpcm_play->substream ||
+> +		    !dpcm_play->substream->runtime ||
+> +		    !dpcm_play->substream->runtime->status ||
+
+Would these conditions really happen?
+
+> +		    dpcm_play->substream->runtime->status->state !=
+> +		    SNDRV_PCM_STATE_DRAINING) {
+
+What's special with DRAINING state?  The code doesn't show or explain
+it.  And for other conditions, we keep going even if the event is
+MSTOP?
+
+> +			spin_unlock_irqrestore(&cable->lock, flags);
+> +			return;
+> +		}
+> +	}
+> +
+> +	valid_runtime = (running & (1 << SNDRV_PCM_STREAM_PLAYBACK)) ?
+> +				dpcm_play->substream->runtime :
+> +				dpcm_capt->substream->runtime;
+> +
+> +	/* resolution is only valid for SNDRV_TIMER_EVENT_TICK events */
+> +	if (event == SNDRV_TIMER_EVENT_TICK) {
+> +		/* The hardware rules guarantee that playback and capture period
+> +		 * are the same. Therefore only one device has to be checked
+> +		 * here.
+> +		 */
+> +		if (loopback_snd_timer_check_resolution(valid_runtime,
+> +							resolution) < 0) {
+> +			spin_unlock_irqrestore(&cable->lock, flags);
+> +			if (cable->running & (1 << SNDRV_PCM_STREAM_PLAYBACK))
+> +				snd_pcm_stop_xrun(dpcm_play->substream);
+> +			if (cable->running & (1 << SNDRV_PCM_STREAM_CAPTURE))
+> +				snd_pcm_stop_xrun(dpcm_capt->substream);
+
+Referencing outside the lock isn't really safe.  In the case of
+jiffies timer code, it's a kind of OK because it's done in the timer
+callback function that is assigned for each stream open -- that is,
+the stream runtime is guaranteed to be present in the timer callback.
+But I'm not sure about your case...
 
 
-Best regards
-Wang shengjiu
+> @@ -749,6 +1037,152 @@ static struct loopback_ops loopback_jiffies_timer_ops = {
+>  	.dpcm_info = loopback_jiffies_timer_dpcm_info,
+>  };
+>  
+> +static int loopback_parse_timer_id(const char * const str,
+> +				   struct snd_timer_id *tid)
+> +{
+> +	/* [<pref>:](<card name>|<card idx>)[{.,}<dev idx>[{.,}<subdev idx>]] */
+> +	const char * const sep_dev = ".,";
+> +	const char * const sep_pref = ":";
+> +	const char *name = str;
+> +	char save, *sep;
+> +	int card = 0, device = 0, subdevice = 0;
+> +	int err;
+> +
+> +	sep = strpbrk(str, sep_pref);
+> +	if (sep)
+> +		name = sep + 1;
+> +	sep = strpbrk(name, sep_dev);
+> +	if (sep) {
+> +		save = *sep;
+> +		*sep = '\0';
+> +	}
+> +	err = kstrtoint(name, 0, &card);
+> +	if (err == -EINVAL) {
+> +		/* Must be the name, not number */
+> +		for (card = 0; card < snd_ecards_limit; card++) {
+> +			if (snd_cards[card] &&
+> +			    !strcmp(snd_cards[card]->id, name)) {
+> +				err = 0;
+> +				break;
+> +			}
+> +		}
+> +	}
+
+As kbuildbot reported, this is obviously broken with the recent
+kernel.  snd_cards[] is no longer exported!  And I don't want to
+export again.
+
+IOW, if we need this kind of thing, it's better to modify the existing
+code in sound/core/init.c and export that function.
+
+> +/* call in loopback->cable_lock */
+> +static int loopback_snd_timer_open(struct loopback_pcm *dpcm)
+> +{
+> +	int err = 0;
+> +	unsigned long flags;
+> +	struct snd_timer_id tid = {
+> +		.dev_class = SNDRV_TIMER_CLASS_PCM,
+> +		.dev_sclass = SNDRV_TIMER_SCLASS_APPLICATION,
+> +	};
+> +	struct snd_timer_instance *timer = NULL;
+
+Why initialing to NULL here?
+
+> +	spin_lock_irqsave(&dpcm->cable->lock, flags);
+
+You need no irqsave version but spin_lock_irq() for the context like
+open/close that is guaranteed to be sleepable.
+
+> +	spin_lock_irqsave(&dpcm->cable->lock, flags);
+> +
+> +	/* The callback has to be called from another tasklet. If
+> +	 * SNDRV_TIMER_IFLG_FAST is specified it will be called from the
+> +	 * snd_pcm_period_elapsed() call of the selected sound card.
+
+Well, you're the one who specifies SNDRV_TIMER_IFLG_XXX, so you know
+that the flag isn't set.  So tasklet makes little sense.
+
+> +	 * snd_pcm_period_elapsed() helds snd_pcm_stream_lock_irqsave().
+> +	 * Due to our callback loopback_snd_timer_function() also calls
+> +	 * snd_pcm_period_elapsed() which calls snd_pcm_stream_lock_irqsave().
+> +	 * This would end up in a dead lock.
+> +	 */
+> +	timer->flags |= SNDRV_TIMER_IFLG_AUTO;
+> +	timer->callback = loopback_snd_timer_function;
+> +	timer->callback_data = (void *)dpcm->cable;
+> +	timer->ccallback = loopback_snd_timer_event;
+
+This reminds me that we need a safer way to assign these stuff in
+general...  But it's above this patch set, in anyway.
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

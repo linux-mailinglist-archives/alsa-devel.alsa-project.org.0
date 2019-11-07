@@ -2,53 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CA40F3885
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 20:23:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3A0CF3B70
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 23:33:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A5F371699;
-	Thu,  7 Nov 2019 20:22:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5F371699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 49B301680;
+	Thu,  7 Nov 2019 23:32:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 49B301680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573154627;
-	bh=QX3i6MgvIqscdvcoh/3XRkouDg9qVcVp0I6BAXBW5sM=;
-	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=djCWqQe8FqFeBBmcH+Cl4eyNpiiPjUeNQcphtL51XbdN856RPn1iAE40P9gKveIo9
-	 B9dgq/tPLR/i0P5iLiRPdCgtwnuYoMUZTx3J7tHrF8N/kFLwzSxSO32+bjPaAkktxj
-	 BUb0iO91ok33uNLNJ0+QYrM8SPGKI8b1gr1maPoI=
+	s=default; t=1573165986;
+	bh=pnr5r5nNugPe3CUl8T4Rns57VuBiYnZvTpP47wOs+MI=;
+	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Gu4iSosi5MHtYF3iO1WqGJW7/a6vKqgUCqKSOiQexpXCDJFSh15YMFnbrQ926O3fb
+	 tJu2AuKuQvkjSlU9xYLyJjqUHdtmYngxbweJHaCJMZamgKBU9JRKd2lEQ2cduMgHjX
+	 jnMv4528yVoU0keIsos6lE/Zya/TjEGmH4fIBG6o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6B32EF80610;
-	Thu,  7 Nov 2019 20:20:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6EB69F80291;
+	Thu,  7 Nov 2019 23:31:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2AB6FF805FE; Thu,  7 Nov 2019 20:20:18 +0100 (CET)
+ id 305EAF8049B; Thu,  7 Nov 2019 23:31:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-ed1-x531.google.com (mail-ed1-x531.google.com
+ [IPv6:2a00:1450:4864:20::531])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A460F8049B
- for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 20:20:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A460F8049B
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 28C98B1E8
- for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 19:20:13 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Thu,  7 Nov 2019 20:20:08 +0100
-Message-Id: <20191107192008.32331-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20191107192008.32331-1-tiwai@suse.de>
-References: <20191107192008.32331-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 3/3] ALSA: timer: Fix possible race at
-	assigning a timer instance
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2D0E3F80111
+ for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 23:31:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D0E3F80111
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="WC4P/Kd+"
+Received: by mail-ed1-x531.google.com with SMTP id k14so3394008eds.4
+ for <alsa-devel@alsa-project.org>; Thu, 07 Nov 2019 14:31:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=R4Kdr4iwB1HzR/4qWxmVF/2F6FEqGFVuQ+Tfeyx6ZOk=;
+ b=WC4P/Kd+lP5+qxOwGgyXrzErdAfSsGbcpl1M3eCHtd6WCh7qQuS453S268BsQziGcu
+ gm5LtWmf+6f6kyadWniwnuLglvYBxPHrdvV/5EICmP6z1IB9z4ad4u1p+j4ybbE3Sabg
+ frKzwnvYdd4kPhOgv9jrwPDYYhH0mRA4sSZfoSv08dr9p3ptOTiTythJc6pF2Xk1HcwB
+ bZzSskbHPSo5HeaAn+3Wu4FYNJyCckBqzFuo0qZ+HcNsOIthWkvNTAjG1k0g8AbHHc/K
+ HGQGepwUGZlZMTA9kxnlJ/fmXQ4NVjy2OEIycbtVQs21JwQfyqDBSFzdzErg3lM5oGTU
+ uu8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=R4Kdr4iwB1HzR/4qWxmVF/2F6FEqGFVuQ+Tfeyx6ZOk=;
+ b=E1WKTDADMb1kjwdGF3MMEerp9WaUG9tT+x9YuGB8HD63oF9C2SlVrf01LNM12vkWvr
+ QyxWagZesEQZMRBoqDCi9a2njeM6EUp45YPJcRK/GgjaxPDB1mUZkYRm8OMvSEoIY2KV
+ L/ns0dUb9gJY48x5NVjZ87oa3/lwJz23V3kZIbl5ichstGPAohChz3f3mQEuxuSjY0Vz
+ 2GDZeaa4kmZcwc/AJFHkrLmBREuaCEuIGyqnDgZgBbKHPD3GfV2NVtwTngfz1EwX8PrK
+ ljBQq2UMsjZVRyNnU4kA4Rrv0yym2H6rgta+pv/E6bsjbGNQpa0o0H4AmuY3KLPGX5Pm
+ aWmg==
+X-Gm-Message-State: APjAAAVMw5c5UL8K8EqG+YoIpR8H/B10VdcV3RrudXt6TPC9jgV82wmy
+ 2gXmu8iH0cm+7U2t0EMSRfwwTgxH2ptTuQzMatgldg==
+X-Google-Smtp-Source: APXvYqz2j19agGHJf94/WGDIRV4zr1/2j+BZNySPCco15awqPZTwTsesk2u7m/RdtmRkDx19Wv4kSJg4ALgxMH023Ds=
+X-Received: by 2002:a50:8969:: with SMTP id f38mr6503010edf.211.1573165874581; 
+ Thu, 07 Nov 2019 14:31:14 -0800 (PST)
+MIME-Version: 1.0
+From: Ross Zwisler <zwisler@google.com>
+Date: Thu, 7 Nov 2019 15:31:03 -0700
+Message-ID: <CAGRrVHz0LZOXWprAqR+_e59k+NQwiax7je4dSHf85yeHepHV+g@mail.gmail.com>
+To: Bard Liao <bardliao@realtek.com>, Hans de Goede <hdegoede@redhat.com>, 
+ Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
+Cc: Curtis Malainey <cujomalainey@google.com>, alsa-devel@alsa-project.org,
+ Jacob Rasmussen <jacobraz@google.com>,
+ Fletcher Woodruff <fletcherw@google.com>
+Subject: [alsa-devel] issue with jack detect using rt5645
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,336 +89,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When a new timer instance is created and assigned to the active link
-in snd_timer_open(), the caller still doesn't (can't) set its callback
-and callback data.  In both the user-timer and the sequencer-timer
-code, they do manually set up the callbacks after calling
-snd_timer_open().  This has a potential risk of race when the timer
-instance is added to the already running timer target, as the callback
-might get triggered during setting up the callback itself.
+We are trying to get a piece of Google hardware which uses the rt5645
+driver working correctly with newer kernels (currently one based on
+the latest v4.14 stable), and noticed that the following commit:
 
-This patch tries to address it by changing the API usage slightly:
+commit 6b5da66322c5 ("ASoC: rt5645: read jd1_1 status for jd detection")
 
-- An empty timer instance is created at first via the new function
-  snd_timer_instance_new().  This object isn't linked to the timer
-  list yet.
-- The caller sets up the callbacks and others stuff for the new timer
-  instance.
-- The caller invokes snd_timer_open() with this instance, so that it's
-  linked to the target timer.
+broke jack support for our device.  Basically with that patch we never
+correctly see a jack insertion event, and audio is never routed to the
+headphones.
 
-For closing, do similarly:
+With just that one patch reverted, things work correctly on our
+system.  The revert applies cleanly to linus/master.
 
-- Call snd_timer_close().  This unlinks the timer instance from the
-  timer list.
-- Free the timer instance via snd_timer_instance_free() after that.
+Here is the series where that patch was originally upstreamed:
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- include/sound/timer.h      |  4 +-
- sound/core/seq/seq_timer.c | 18 ++++++---
- sound/core/timer.c         | 97 +++++++++++++++++++++++-----------------------
- 3 files changed, 63 insertions(+), 56 deletions(-)
+https://www.spinics.net/lists/alsa-devel/msg64331.html
 
-diff --git a/include/sound/timer.h b/include/sound/timer.h
-index 8a13c09c85f7..a53e37bcd746 100644
---- a/include/sound/timer.h
-+++ b/include/sound/timer.h
-@@ -118,7 +118,9 @@ int snd_timer_global_new(char *id, int device, struct snd_timer **rtimer);
- int snd_timer_global_free(struct snd_timer *timer);
- int snd_timer_global_register(struct snd_timer *timer);
- 
--int snd_timer_open(struct snd_timer_instance **ti, char *owner, struct snd_timer_id *tid, unsigned int slave_id);
-+struct snd_timer_instance *snd_timer_instance_new(const char *owner);
-+void snd_timer_instance_free(struct snd_timer_instance *timeri);
-+int snd_timer_open(struct snd_timer_instance *timeri, struct snd_timer_id *tid, unsigned int slave_id);
- void snd_timer_close(struct snd_timer_instance *timeri);
- unsigned long snd_timer_resolution(struct snd_timer_instance *timeri);
- int snd_timer_start(struct snd_timer_instance *timeri, unsigned int ticks);
-diff --git a/sound/core/seq/seq_timer.c b/sound/core/seq/seq_timer.c
-index 161f3170bd7e..63dc7bdb622d 100644
---- a/sound/core/seq/seq_timer.c
-+++ b/sound/core/seq/seq_timer.c
-@@ -272,7 +272,13 @@ int snd_seq_timer_open(struct snd_seq_queue *q)
- 		return -EINVAL;
- 	if (tmr->alsa_id.dev_class != SNDRV_TIMER_CLASS_SLAVE)
- 		tmr->alsa_id.dev_sclass = SNDRV_TIMER_SCLASS_SEQUENCER;
--	err = snd_timer_open(&t, str, &tmr->alsa_id, q->queue);
-+	t = snd_timer_instance_new(str);
-+	if (!t)
-+		return -ENOMEM;
-+	t->callback = snd_seq_timer_interrupt;
-+	t->callback_data = q;
-+	t->flags |= SNDRV_TIMER_IFLG_AUTO;
-+	err = snd_timer_open(t, &tmr->alsa_id, q->queue);
- 	if (err < 0 && tmr->alsa_id.dev_class != SNDRV_TIMER_CLASS_SLAVE) {
- 		if (tmr->alsa_id.dev_class != SNDRV_TIMER_CLASS_GLOBAL ||
- 		    tmr->alsa_id.device != SNDRV_TIMER_GLOBAL_SYSTEM) {
-@@ -282,16 +288,14 @@ int snd_seq_timer_open(struct snd_seq_queue *q)
- 			tid.dev_sclass = SNDRV_TIMER_SCLASS_SEQUENCER;
- 			tid.card = -1;
- 			tid.device = SNDRV_TIMER_GLOBAL_SYSTEM;
--			err = snd_timer_open(&t, str, &tid, q->queue);
-+			err = snd_timer_open(t, &tid, q->queue);
- 		}
- 	}
- 	if (err < 0) {
- 		pr_err("ALSA: seq fatal error: cannot create timer (%i)\n", err);
-+		snd_timer_instance_free(t);
- 		return err;
- 	}
--	t->callback = snd_seq_timer_interrupt;
--	t->callback_data = q;
--	t->flags |= SNDRV_TIMER_IFLG_AUTO;
- 	spin_lock_irq(&tmr->lock);
- 	tmr->timeri = t;
- 	spin_unlock_irq(&tmr->lock);
-@@ -310,8 +314,10 @@ int snd_seq_timer_close(struct snd_seq_queue *q)
- 	t = tmr->timeri;
- 	tmr->timeri = NULL;
- 	spin_unlock_irq(&tmr->lock);
--	if (t)
-+	if (t) {
- 		snd_timer_close(t);
-+		snd_timer_instance_free(t);
-+	}
- 	return 0;
- }
- 
-diff --git a/sound/core/timer.c b/sound/core/timer.c
-index c0a73913ec62..9091030f4a89 100644
---- a/sound/core/timer.c
-+++ b/sound/core/timer.c
-@@ -88,12 +88,11 @@ static void snd_timer_reschedule(struct snd_timer * timer, unsigned long ticks_l
- 
- /*
-  * create a timer instance with the given owner string.
-- * when timer is not NULL, increments the module counter
-  */
--static struct snd_timer_instance *snd_timer_instance_new(char *owner,
--							 struct snd_timer *timer)
-+struct snd_timer_instance *snd_timer_instance_new(const char *owner)
- {
- 	struct snd_timer_instance *timeri;
-+
- 	timeri = kzalloc(sizeof(*timeri), GFP_KERNEL);
- 	if (timeri == NULL)
- 		return NULL;
-@@ -108,15 +107,20 @@ static struct snd_timer_instance *snd_timer_instance_new(char *owner,
- 	INIT_LIST_HEAD(&timeri->slave_list_head);
- 	INIT_LIST_HEAD(&timeri->slave_active_head);
- 
--	timeri->timer = timer;
--	if (timer && !try_module_get(timer->module)) {
-+	return timeri;
-+}
-+EXPORT_SYMBOL(snd_timer_instance_new);
-+
-+void snd_timer_instance_free(struct snd_timer_instance *timeri)
-+{
-+	if (timeri) {
-+		if (timeri->private_free)
-+			timeri->private_free(timeri);
- 		kfree(timeri->owner);
- 		kfree(timeri);
--		return NULL;
- 	}
--
--	return timeri;
- }
-+EXPORT_SYMBOL(snd_timer_instance_free);
- 
- /*
-  * find a timer instance from the given timer id
-@@ -236,12 +240,11 @@ static void snd_timer_close_locked(struct snd_timer_instance *timeri,
-  * open a timer instance
-  * when opening a master, the slave id must be here given.
-  */
--int snd_timer_open(struct snd_timer_instance **ti,
--		   char *owner, struct snd_timer_id *tid,
-+int snd_timer_open(struct snd_timer_instance *timeri,
-+		   struct snd_timer_id *tid,
- 		   unsigned int slave_id)
- {
- 	struct snd_timer *timer;
--	struct snd_timer_instance *timeri = NULL;
- 	struct device *card_dev_to_put = NULL;
- 	int err;
- 
-@@ -259,22 +262,14 @@ int snd_timer_open(struct snd_timer_instance **ti,
- 			err = -EBUSY;
- 			goto unlock;
- 		}
--		timeri = snd_timer_instance_new(owner, NULL);
--		if (!timeri) {
--			err = -ENOMEM;
--			goto unlock;
--		}
- 		timeri->slave_class = tid->dev_sclass;
- 		timeri->slave_id = tid->device;
- 		timeri->flags |= SNDRV_TIMER_IFLG_SLAVE;
- 		list_add_tail(&timeri->open_list, &snd_timer_slave_list);
- 		num_slaves++;
- 		err = snd_timer_check_slave(timeri);
--		if (err < 0) {
--			snd_timer_close_locked(timeri, &card_dev_to_put);
--			timeri = NULL;
--		}
--		goto unlock;
-+		if (err < 0)
-+			goto close;
- 	}
- 
- 	/* open a master instance */
-@@ -304,45 +299,40 @@ int snd_timer_open(struct snd_timer_instance **ti,
- 		err = -EBUSY;
- 		goto unlock;
- 	}
--	timeri = snd_timer_instance_new(owner, timer);
--	if (!timeri) {
--		err = -ENOMEM;
-+	if (!try_module_get(timer->module)) {
-+		err = -EBUSY;
- 		goto unlock;
- 	}
- 	/* take a card refcount for safe disconnection */
--	if (timer->card)
-+	if (timer->card) {
- 		get_device(&timer->card->card_dev);
--	timeri->slave_class = tid->dev_sclass;
--	timeri->slave_id = slave_id;
-+		card_dev_to_put = &timer->card->card_dev;
-+	}
- 
- 	if (list_empty(&timer->open_list_head) && timer->hw.open) {
- 		err = timer->hw.open(timer);
- 		if (err) {
--			kfree(timeri->owner);
--			kfree(timeri);
--			timeri = NULL;
--
--			if (timer->card)
--				card_dev_to_put = &timer->card->card_dev;
- 			module_put(timer->module);
- 			goto unlock;
- 		}
- 	}
- 
-+	timeri->timer = timer;
-+	timeri->slave_class = tid->dev_sclass;
-+	timeri->slave_id = slave_id;
-+
- 	list_add_tail(&timeri->open_list, &timer->open_list_head);
- 	timer->num_instances++;
- 	err = snd_timer_check_master(timeri);
--	if (err < 0) {
-+ close:
-+	if (err < 0)
- 		snd_timer_close_locked(timeri, &card_dev_to_put);
--		timeri = NULL;
--	}
- 
-  unlock:
- 	mutex_unlock(&register_mutex);
- 	/* put_device() is called after unlock for avoiding deadlock */
--	if (card_dev_to_put)
-+	if (err < 0 && card_dev_to_put)
- 		put_device(card_dev_to_put);
--	*ti = timeri;
- 	return err;
- }
- EXPORT_SYMBOL(snd_timer_open);
-@@ -363,9 +353,11 @@ static void snd_timer_close_locked(struct snd_timer_instance *timeri,
- 		spin_unlock_irq(&timer->lock);
- 	}
- 
--	list_del(&timeri->open_list);
--	if (timeri->flags & SNDRV_TIMER_IFLG_SLAVE)
--		num_slaves--;
-+	if (!list_empty(&timeri->open_list)) {
-+		list_del_init(&timeri->open_list);
-+		if (timeri->flags & SNDRV_TIMER_IFLG_SLAVE)
-+			num_slaves--;
-+	}
- 
- 	/* force to stop the timer */
- 	snd_timer_stop(timeri);
-@@ -384,6 +376,7 @@ static void snd_timer_close_locked(struct snd_timer_instance *timeri,
- 		/* remove slave links */
- 		spin_lock_irq(&slave_active_lock);
- 		spin_lock(&timer->lock);
-+		timeri->timer = NULL;
- 		list_for_each_entry_safe(slave, tmp, &timeri->slave_list_head,
- 					 open_list) {
- 			list_move_tail(&slave->open_list, &snd_timer_slave_list);
-@@ -401,11 +394,6 @@ static void snd_timer_close_locked(struct snd_timer_instance *timeri,
- 			timer = NULL;
- 	}
- 
--	if (timeri->private_free)
--		timeri->private_free(timeri);
--	kfree(timeri->owner);
--	kfree(timeri);
--
- 	if (timer) {
- 		if (list_empty(&timer->open_list_head) && timer->hw.close)
- 			timer->hw.close(timer);
-@@ -1480,8 +1468,10 @@ static int snd_timer_user_release(struct inode *inode, struct file *file)
- 		tu = file->private_data;
- 		file->private_data = NULL;
- 		mutex_lock(&tu->ioctl_lock);
--		if (tu->timeri)
-+		if (tu->timeri) {
- 			snd_timer_close(tu->timeri);
-+			snd_timer_instance_free(tu->timeri);
-+		}
- 		mutex_unlock(&tu->ioctl_lock);
- 		kfree(tu->queue);
- 		kfree(tu->tqueue);
-@@ -1722,6 +1712,7 @@ static int snd_timer_user_tselect(struct file *file,
- 	tu = file->private_data;
- 	if (tu->timeri) {
- 		snd_timer_close(tu->timeri);
-+		snd_timer_instance_free(tu->timeri);
- 		tu->timeri = NULL;
- 	}
- 	if (copy_from_user(&tselect, _tselect, sizeof(tselect))) {
-@@ -1731,9 +1722,11 @@ static int snd_timer_user_tselect(struct file *file,
- 	sprintf(str, "application %i", current->pid);
- 	if (tselect.id.dev_class != SNDRV_TIMER_CLASS_SLAVE)
- 		tselect.id.dev_sclass = SNDRV_TIMER_SCLASS_APPLICATION;
--	err = snd_timer_open(&tu->timeri, str, &tselect.id, current->pid);
--	if (err < 0)
-+	tu->timeri = snd_timer_instance_new(str);
-+	if (!tu->timeri) {
-+		err = -ENOMEM;
- 		goto __err;
-+	}
- 
- 	tu->timeri->flags |= SNDRV_TIMER_IFLG_FAST;
- 	tu->timeri->callback = tu->tread
-@@ -1742,6 +1735,12 @@ static int snd_timer_user_tselect(struct file *file,
- 	tu->timeri->callback_data = (void *)tu;
- 	tu->timeri->disconnect = snd_timer_user_disconnect;
- 
-+	err = snd_timer_open(tu->timeri, &tselect.id, current->pid);
-+	if (err < 0) {
-+		snd_timer_instance_free(tu->timeri);
-+		tu->timeri = NULL;
-+	}
-+
-       __err:
- 	return err;
- }
--- 
-2.16.4
+If we reverted that patch upstream, would it break other devices (the
+"GDP Win" device?) that use the rt5645 driver?  If so, how would you
+recommend proceeding?
 
+Does anyone have one of the "GDP Win" devices so we can test that and
+our device and make sure whatever solution we end up coming up with
+works for everyone?
+
+Thanks,
+- Ross
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

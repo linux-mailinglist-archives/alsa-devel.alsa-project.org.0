@@ -2,74 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00743F2EFA
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 14:16:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71259F2EFC
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 14:16:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6366B1695;
-	Thu,  7 Nov 2019 14:15:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6366B1695
+	by alsa0.perex.cz (Postfix) with ESMTPS id C3DE31673;
+	Thu,  7 Nov 2019 14:15:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3DE31673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573132560;
-	bh=vO3dZBWwCYDWrWid8vbr2oTfshzwMFT9znPGTnlelyk=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=sCnZNvW9o0oXxsm4Ll4CmJZRnt/mAN//4gIBP+qtiIakT7kgA503YYgxxytvASdJ0
-	 zcJ1E7HLgWDBNMcueXdA4b2zdop1/OsEXsi6iDn8+BuddTyJZtOZo8KtyatyMUQd4e
-	 5cKAh7tvxAffzduhWCWQCsOXUSB3BEc0q2PjhxAI=
+	s=default; t=1573132606;
+	bh=86z6LRYejrXQCgOVGKx2uL7BRKFDvedaW/Q2EDanxCQ=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=CfGmxRCdV8QLIsB9Z5h5oYncMRHeZin9rjKfIkUq0UounQD/nl8LVG78aJ3iHCqPB
+	 aeoIeEaaGXMZnSCXG0LM4wptt5F8dlF5N8qjQuwVAYcKZMVLgXh/RT2BDCihFS89iy
+	 4ZAznClWchGs0W8+pjJe/Izopjyd3mqMu60DoFlQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22F64F805DF;
-	Thu,  7 Nov 2019 14:13:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 43CA6F80111;
+	Thu,  7 Nov 2019 14:14:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 230BAF8053B; Thu,  7 Nov 2019 14:13:36 +0100 (CET)
+ id E83B4F8053B; Thu,  7 Nov 2019 14:14:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89B85F80508
- for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 14:13:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89B85F80508
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="xW9btgUA"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=kjSNwdwoXIEkIOovqwOXgverE52L7GoFK8udDLCQOd0=; b=xW9btgUACRW8
- 21EM4EVLzsbAbVEKndUCon0TgVcljjLMm1fCQnAMgzlj91WhJiMLOKp4ioSzcDOCPSL24EMBilUXG
- CPomwnaS/zmu18+dnFdRIZjYebAsNFgelv0OUuU43/xpiqkT0y6pRcngxqvfEi9EZfjSJt4/0AUEI
- BrbYw=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iShbL-0004NI-Sl; Thu, 07 Nov 2019 13:13:27 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 5E1E527431AF; Thu,  7 Nov 2019 13:13:27 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Dragos Tarcatu <dragos_tarcatu@mentor.com>
-In-Reply-To: <20191106145816.9367-1-pierre-louis.bossart@linux.intel.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20191107131327.5E1E527431AF@ypsilon.sirena.org.uk>
-Date: Thu,  7 Nov 2019 13:13:27 +0000 (GMT)
-Cc: alsa-devel@alsa-project.org, Jaska Uimonen <jaska.uimonen@intel.com>,
- tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: topology: Fix bytes control size
-	checks" to the asoc tree
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D709F80111
+ for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 14:14:31 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 78704A0042;
+ Thu,  7 Nov 2019 14:14:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 78704A0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1573132471; bh=EmqTkMlOcKiK0QPkViLVcBHsKCrjX7QWriz+gudYTso=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=hKWQAxElfO5x4ZG9v68CdQNXXTsfDKvdaS9sHWtT4GgHx4113RzR0lsqBw3nAxdct
+ w2YKP+fSobCYH7sK8GA/cyuIjEkW1GEEejs9dkJ3wDdus8IPmqhr88FjDkBySzZ6Us
+ KfbtadWzB/lWN8hybEs1dqyK6jUcR4P+hb8CPEaI=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu,  7 Nov 2019 14:14:27 +0100 (CET)
+To: Takashi Iwai <tiwai@suse.de>
+References: <6dcc3e0d-0df5-90cf-220f-59253d3b5c7c@perex.cz>
+ <s5ho8xo89m1.wl-tiwai@suse.de>
+ <608ff861-9c2a-e498-3ec9-4fe09f2583e6@perex.cz>
+ <s5hblto82fo.wl-tiwai@suse.de>
+ <822f8c3d-b4fc-98ca-d749-e9f2f638e6e9@perex.cz>
+ <s5hftj02ayj.wl-tiwai@suse.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <8f7da616-caa9-5af7-e00b-812d65444171@perex.cz>
+Date: Thu, 7 Nov 2019 14:14:27 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
+MIME-Version: 1.0
+In-Reply-To: <s5hftj02ayj.wl-tiwai@suse.de>
+Content-Language: en-US
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [alsa-devel] UCM extensions
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,94 +81,141 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Dne 07. 11. 19 v 12:16 Takashi Iwai napsal(a):
+> On Thu, 07 Nov 2019 12:08:26 +0100,
+> Jaroslav Kysela wrote:
+>>
+>> Dne 07. 11. 19 v 10:23 Takashi Iwai napsal(a):
+>>> On Thu, 07 Nov 2019 09:33:27 +0100,
+>>> Jaroslav Kysela wrote:
+>>>>
+>>>> Dne 07. 11. 19 v 7:48 Takashi Iwai napsal(a):
+>>>>> On Tue, 05 Nov 2019 20:36:28 +0100,
+>>>>> Jaroslav Kysela wrote:
+>>>>>>
+>>>>>> Hi all,
+>>>>>>
+>>>>>> 	I make some internal ucm code cleanups in alsa-lib and added
+>>>>>> three major extensions to allow more complex configurations which we
+>>>>>> require for the SOF kernel driver.
+>>>>>>
+>>>>>> 	The first thing is the added substitution for the value strings:
+>>>>>>
+>>>>>> https://github.com/alsa-project/alsa-lib/commit/f1e637b285e8e04e6761248a070f58f3a8fde6fc
+>>>>>>
+>>>>>> 	The second thing is the If block:
+>>>>>>
+>>>>>> https://github.com/alsa-project/alsa-lib/commit/985715ce8148dc7ef62c8e3d8ce5a0c2ac51f8df
+>>>>>>
+>>>>>> 	The third thing is the card / hardware like specifier passed
+>>>>>> as the ucm name to snd_use_case_mgr_open() to support multiple card
+>>>>>> instances:
+>>>>>>
+>>>>>> https://github.com/alsa-project/alsa-lib/commit/60164fc5886cdc6ca55eeed0c2e3f751a7d2b2c0
+>>>>>>
+>>>>>> 	All those patches (with other cleanups) are in the ucm2 branch
+>>>>>> on github for comments:
+>>>>>>
+>>>>>> https://github.com/alsa-project/alsa-lib/commits/ucm2
+>>>>>>
+>>>>>> 	The proposed SOF UCM config diff is here:
+>>>>>>
+>>>>>> https://github.com/alsa-project/alsa-ucm-conf/commit/723b6da881721488229154e923ed36413955a051
+>>>>>> https://github.com/alsa-project/alsa-ucm-conf/commits/ucm2
+>>>>>>
+>>>>>> 	I added everything to keep the interface backward compatible,
+>>>>>> so the current applications should not observe any different
+>>>>>> behavior. The applications like pulseaudio should use the
+>>>>>> 'hw:CARD_INDEX' specifier for the open call in the future and
+>>>>>> snd_use_case_parse_ctl_elem_id() helper for the element control names.
+>>>>>
+>>>>> The only concern with these extensions so far is the compatibility.
+>>>>> Imagine that people run the new profile on the old parser, it'd break
+>>>>> easily.
+>>>>>
+>>>>> I think other scripts often installing on the versioned directory if
+>>>>> incompatibilities are seen.  Can we do that for UCM as well?
+>>>>>
+>>>>> Or course, once after UCM parser is changed to be future-ready and
+>>>>> allow some syntax for possible future extensions, we can keep that
+>>>>> version directory in future, too.
+>>>>
+>>>> While we are going to separate UCM files from alsa-lib to
+>>>> alsa-ucm-conf we can define the new syntax change until the first
+>>>> version is released (I can put a notice to README).
+>>>>
+>>>> Speaking for Fedora, we have dependancy 'alsa-lib package version'
+>>>> must be equal to 'alsa-ucm package version'. If users will do any
+>>>> changes on their own, they should know what they are doing.
+>>>
+>>> This assumes that you have only one alsa-ucm package.  If there is a
+>>> downstream version of UCM profile, this won't work well always.
+>>>
+>>>> Anyway, we should learn from this and I would propose to add add
+>>>> something like 'Syntax 2' to the main configuration file now. The new
+>>>> functions should be activated only according the version.
+>>>
+>>> Yeah, some extensibility is needed in the config space.
+>>>
+>>>> Unfortunately, the current parser will just show an error message like:
+>>>>
+>>>> ALSA lib parser.c:1337:(parse_master_file) uknown master file field Syntax
+>>>> ALSA lib parser.c:1337:(parse_master_file) uknown master file field If
+>>>
+>>> Right, that's the problem now.  Even a non-existing control would lead
+>>> to an error with the current version of parser.
+>>>
+>>>> But at least, users should be notified that there is a configuration mismatch.
+>>>
+>>> I don't think this would suffice.  The new UCM config is not merely a
+>>> config but it's becoming rather a language, so this needs some
+>>> distinction from the current v1 files.
+>>>
+>>>> Another possibility is to change the suffix for the master
+>>>> configuration file to accept the "Syntax" check for the another future
+>>>> update. But honestly, I don't like ".conf2" and ".v2.conf" looks not
+>>>> so nice, too.
+>>>
+>>> My vote is for a different directory.  And, with v2 extension, we
+>>> should leave the room for further extensibility, and keep the same
+>>> location as long as it's compatible.  Keeping the location for
+>>> incompatible configs would lead to a mess.
+>>
+>> Ok, I can move the new configs to ucm2 (/usr/share/alsa/ucm2) and
+>> leave the original directory empty (as fallback), because all configs
+>> can be modified to support the right card identificator (kernel module
+>> id parameter) rather than the hard coded default value generated by
+>> the ALSA core kernel code.
+>>
+>> But there is an issue with the environment variable "ALSA_CONFIG_UCM"
+>> which specifies directly the directory. We cannot predict the syntax
+>> for it.
+> 
+> Right, that's a bit of headache.  Another idea would be to we put
+> under /usr/share/alsa/ucm/v2/... and the parser starts looking at
+> $ALSA_CONFIG_UCM/v$VERSION/... then falls back to the
+> $ALSA_CONFIG_UCM/...
+> 
+> But I'm really open for any other options, too.
 
-   ASoC: SOF: topology: Fix bytes control size checks
+I would probably vote for this:
 
-has been applied to the asoc tree at
+/usr/share/alsa/ucm2	- new configs with 'Syntax' field protection
+/usr/share/alsa/ucm	- old configs
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+ALSA_CONFIG_UCM2	- env path for the new configs
+ALSA_CONFIG_UCM		- env path for the old configs
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+					Jaroslav
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 2acdcabb8a4089476208a822050dd47a6557290d Mon Sep 17 00:00:00 2001
-From: Dragos Tarcatu <dragos_tarcatu@mentor.com>
-Date: Wed, 6 Nov 2019 08:58:16 -0600
-Subject: [PATCH] ASoC: SOF: topology: Fix bytes control size checks
-
-When using the example SOF amp widget topology, KASAN dumps this
-when the AMP bytes kcontrol gets loaded:
-
-[ 9.579548] BUG: KASAN: slab-out-of-bounds in
-sof_control_load+0x8cc/0xac0 [snd_sof]
-[ 9.588194] Write of size 40 at addr ffff8882314559dc by task
-systemd-udevd/2411
-
-Fix that by rejecting the topology if the bytes data size > max_size
-
-Fixes: 311ce4fe7637d ("ASoC: SOF: Add support for loading topologies")
-Reviewed-by: Jaska Uimonen <jaska.uimonen@intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Dragos Tarcatu <dragos_tarcatu@mentor.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191106145816.9367-1-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sof/topology.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
-
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index e7076692119b..143b8259a70a 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -1043,15 +1043,16 @@ static int sof_control_load_bytes(struct snd_soc_component *scomp,
- 	struct soc_bytes_ext *sbe = (struct soc_bytes_ext *)kc->private_value;
- 	int max_size = sbe->max;
- 
--	if (le32_to_cpu(control->priv.size) > max_size) {
-+	/* init the get/put bytes data */
-+	scontrol->size = sizeof(struct sof_ipc_ctrl_data) +
-+		le32_to_cpu(control->priv.size);
-+
-+	if (scontrol->size > max_size) {
- 		dev_err(sdev->dev, "err: bytes data size %d exceeds max %d.\n",
--			control->priv.size, max_size);
-+			scontrol->size, max_size);
- 		return -EINVAL;
- 	}
- 
--	/* init the get/put bytes data */
--	scontrol->size = sizeof(struct sof_ipc_ctrl_data) +
--		le32_to_cpu(control->priv.size);
- 	scontrol->control_data = kzalloc(max_size, GFP_KERNEL);
- 	cdata = scontrol->control_data;
- 	if (!scontrol->control_data)
 -- 
-2.20.1
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

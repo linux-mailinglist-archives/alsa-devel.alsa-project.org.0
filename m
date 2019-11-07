@@ -2,64 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC9A0F2C0A
-	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 11:20:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A9CFF2CBB
+	for <lists+alsa-devel@lfdr.de>; Thu,  7 Nov 2019 11:42:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 19E7D1677;
-	Thu,  7 Nov 2019 11:19:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 19E7D1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id D16A21674;
+	Thu,  7 Nov 2019 11:41:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D16A21674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573122049;
-	bh=TnzlMZcDbnvFub7aqsDekqCQZJBMhvoro2QO6DLFusk=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573123334;
+	bh=EU5a4UJFOBRCCh9XuVLJ1zbtr7beq8JHWr3MOjgxV3k=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=In0OUxyH3DN0eUUAC7G3qXbUY8Jc022NWRTIpV/ALbJFFTiKulecyl4CxhRfZ+x6O
-	 1AFT2q7iQtKXVFSkfGCQ5Uex7wFDMdNj5wgzBtg+hra5rvbMGo/AojHWdy1E4udfR3
-	 MAOivwvH43d6qwuQ1shqW7GipPyHcYhTxGOGRjYs=
+	b=PtVh8fdU/ZbrdZjrIJfWUd+mVxTLys8GjmjXI9BalzWSdFk+om1B12rC+t9OY24Vr
+	 gpWTdoJ0vDnFSZP/+BZXmmiFZVxs6SsmDQhHm7Z91pNyIwJv3VW/q/zvwxXTjtprSk
+	 fIrP9+Wzr/Xhn207FdP6mGNDmgVc56nmF8OuLt5k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45BCBF80508;
-	Thu,  7 Nov 2019 11:19:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C670F8049B;
+	Thu,  7 Nov 2019 11:40:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B41EF8049B; Thu,  7 Nov 2019 11:19:01 +0100 (CET)
+ id 5F4D1F8049B; Thu,  7 Nov 2019 11:40:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9544FF80291
- for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 11:18:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9544FF80291
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Nov 2019 02:18:54 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,277,1569308400"; d="scan'208";a="227786371"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.237.137.172])
- ([10.237.137.172])
- by fmsmga004.fm.intel.com with ESMTP; 07 Nov 2019 02:18:53 -0800
-To: Jaroslav Kysela <perex@perex.cz>
-References: <6dcc3e0d-0df5-90cf-220f-59253d3b5c7c@perex.cz>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <60c63704-44ce-d80b-ccbd-b23d748b009b@intel.com>
-Date: Thu, 7 Nov 2019 11:18:52 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <6dcc3e0d-0df5-90cf-220f-59253d3b5c7c@perex.cz>
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from esa3.mentor.iphmx.com (esa3.mentor.iphmx.com [68.232.137.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 83B2FF80111
+ for <alsa-devel@alsa-project.org>; Thu,  7 Nov 2019 11:40:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 83B2FF80111
+IronPort-SDR: r7lkK+eBZUYLwMrJBbYWs2zdQWR13o9ykW0u4IAUFi8I0eGLuHkrCzpIQhAn2t5nkV57jipokJ
+ G5yZ5kvyBAEtazU3K6LW0oDFre7aqlweshHNug0TmQRqsjm2F7KYDLUREib2hIlj885vCIcLYD
+ VC7XJ/e3/6KmsGdMQGY74YIsbaO4HjejsZyoofN2OgEdwIJLwJBlfWv4B9f1s7hM+crwber2T/
+ pAYzRfXi419SRymZnmBiNHTRi7iQy5Eh+eFseJuol2G7IulX/38H2D2LzkqbQfyM24v+27876s
+ Xmo=
+X-IronPort-AV: E=Sophos;i="5.68,277,1569312000"; d="scan'208";a="42956678"
+Received: from orw-gwy-01-in.mentorg.com ([192.94.38.165])
+ by esa3.mentor.iphmx.com with ESMTP; 07 Nov 2019 02:40:22 -0800
+IronPort-SDR: OBXVEr84vlljD/nalAp8A54rljQ2SYQlCGJOD7FZyWqXJyhLonDrJXg+JubTVGgu/BD0W6L+Og
+ MlW8sYfsHBfVKIk5GuAuwvy6Q2JQ/Jtm/0FjaHWrja+slybzu/Gg0lr3lnj1bISWkDO9U9z9SZ
+ p3DRxXJaLZJGJQkjVPJjJ+DvSZaf7DXe+QZsjyerr2PDizCU2kWtgMRgYgUWV/ZQr0Lrw0asAW
+ ZZDmUTmzhsOoTSZ0A9lFXPIAHBxhJ9dT006b9tKCofLuI+DQnfJ/VDaHZK7b2H9l7I3HKmpbNq
+ a9o=
+From: "Gabbasov, Andrew" <Andrew_Gabbasov@mentor.com>
+To: Takashi Iwai <tiwai@suse.de>
+Thread-Topic: [PATCH v2 8/8] ALSA: aloop: Support runtime change of snd_timer
+ via info interface
+Thread-Index: AQHVk+YoG5RC36oMHkeh2PePUSo5Rqd/XLQAgAAn8wA=
+Date: Thu, 7 Nov 2019 10:40:18 +0000
+Message-ID: <2dc6e7841e97441aa3b91fca8e5629e9@svr-ies-mbx-02.mgc.mentorg.com>
+References: <20191105143218.5948-1-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-2-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-3-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-4-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-5-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-6-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-7-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-8-andrew_gabbasov@mentor.com>
+ <20191105143218.5948-9-andrew_gabbasov@mentor.com>
+ <s5hk18c860t.wl-tiwai@suse.de>
+In-Reply-To: <s5hk18c860t.wl-tiwai@suse.de>
+Accept-Language: en-US, en-IE
 Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [alsa-devel] UCM extensions
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [137.202.0.90]
+MIME-Version: 1.0
+Cc: Timo Wischer <twischer@de.adit-jv.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 8/8] ALSA: aloop: Support runtime change
+ of snd_timer via info interface
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,64 +92,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMjAxOS0xMS0wNSAyMDozNiwgSmFyb3NsYXYgS3lzZWxhIHdyb3RlOgo+IEhpIGFsbCwKPiAK
-PiAgwqDCoMKgwqBJIG1ha2Ugc29tZSBpbnRlcm5hbCB1Y20gY29kZSBjbGVhbnVwcyBpbiBhbHNh
-LWxpYiBhbmQgYWRkZWQgdGhyZWUgCj4gbWFqb3IgZXh0ZW5zaW9ucyB0byBhbGxvdyBtb3JlIGNv
-bXBsZXggY29uZmlndXJhdGlvbnMgd2hpY2ggd2UgcmVxdWlyZSAKPiBmb3IgdGhlIFNPRiBrZXJu
-ZWwgZHJpdmVyLgo+IAo+ICDCoMKgwqDCoFRoZSBmaXJzdCB0aGluZyBpcyB0aGUgYWRkZWQgc3Vi
-c3RpdHV0aW9uIGZvciB0aGUgdmFsdWUgc3RyaW5nczoKPiAKPiBodHRwczovL2dpdGh1Yi5jb20v
-YWxzYS1wcm9qZWN0L2Fsc2EtbGliL2NvbW1pdC9mMWU2MzdiMjg1ZThlMDRlNjc2MTI0OGEwNzBm
-NThmM2E4ZmRlNmZjIAo+IAo+IAo+ICDCoMKgwqDCoFRoZSBzZWNvbmQgdGhpbmcgaXMgdGhlIElm
-IGJsb2NrOgo+IAo+IGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS1saWIvY29t
-bWl0Lzk4NTcxNWNlODE0OGRjN2VmNjJjOGUzZDhjZTVhMGMyYWM1MWY4ZGYgCj4gCj4gCj4gIMKg
-wqDCoMKgVGhlIHRoaXJkIHRoaW5nIGlzIHRoZSBjYXJkIC8gaGFyZHdhcmUgbGlrZSBzcGVjaWZp
-ZXIgcGFzc2VkIGFzIHRoZSAKPiB1Y20gbmFtZSB0byBzbmRfdXNlX2Nhc2VfbWdyX29wZW4oKSB0
-byBzdXBwb3J0IG11bHRpcGxlIGNhcmQgaW5zdGFuY2VzOgo+IAo+IGh0dHBzOi8vZ2l0aHViLmNv
-bS9hbHNhLXByb2plY3QvYWxzYS1saWIvY29tbWl0LzYwMTY0ZmM1ODg2Y2RjNmNhNTVlZWVkMGMy
-ZTNmNzUxYTdkMmIyYzAgCj4gCj4gCj4gIMKgwqDCoMKgQWxsIHRob3NlIHBhdGNoZXMgKHdpdGgg
-b3RoZXIgY2xlYW51cHMpIGFyZSBpbiB0aGUgdWNtMiBicmFuY2ggb24gCj4gZ2l0aHViIGZvciBj
-b21tZW50czoKPiAKPiBodHRwczovL2dpdGh1Yi5jb20vYWxzYS1wcm9qZWN0L2Fsc2EtbGliL2Nv
-bW1pdHMvdWNtMgo+IAo+ICDCoMKgwqDCoFRoZSBwcm9wb3NlZCBTT0YgVUNNIGNvbmZpZyBkaWZm
-IGlzIGhlcmU6Cj4gCj4gaHR0cHM6Ly9naXRodWIuY29tL2Fsc2EtcHJvamVjdC9hbHNhLXVjbS1j
-b25mL2NvbW1pdC83MjNiNmRhODgxNzIxNDg4MjI5MTU0ZTkyM2VkMzY0MTM5NTVhMDUxIAo+IAo+
-IGh0dHBzOi8vZ2l0aHViLmNvbS9hbHNhLXByb2plY3QvYWxzYS11Y20tY29uZi9jb21taXRzL3Vj
-bTIKPiAKPiAgwqDCoMKgwqBJIGFkZGVkIGV2ZXJ5dGhpbmcgdG8ga2VlcCB0aGUgaW50ZXJmYWNl
-IGJhY2t3YXJkIGNvbXBhdGlibGUsIHNvIAo+IHRoZSBjdXJyZW50IGFwcGxpY2F0aW9ucyBzaG91
-bGQgbm90IG9ic2VydmUgYW55IGRpZmZlcmVudCBiZWhhdmlvci4gVGhlIAo+IGFwcGxpY2F0aW9u
-cyBsaWtlIHB1bHNlYXVkaW8gc2hvdWxkIHVzZSB0aGUgJ2h3OkNBUkRfSU5ERVgnIHNwZWNpZmll
-ciAKPiBmb3IgdGhlIG9wZW4gY2FsbCBpbiB0aGUgZnV0dXJlIGFuZCBzbmRfdXNlX2Nhc2VfcGFy
-c2VfY3RsX2VsZW1faWQoKSAKPiBoZWxwZXIgZm9yIHRoZSBlbGVtZW50IGNvbnRyb2wgbmFtZXMu
-Cj4gCj4gIMKgwqDCoMKgSWYgeW91IGhhdmUgYW5vdGhlciBpZGVhcyB0byBhZGRyZXNzIHRob3Nl
-IGlzc3VlcywgcGxlYXNlLCBsZXQgbWUgCj4ga25vdy4KPiAKPiAgwqDCoMKgwqBCVFcsIE1hcms6
-IFRoZSBTT0YgVUNNIGNvbmZpZ3MgcmVsaWVzIG9uIHRoZSBkcml2ZXIgbmFtZSBjaGFuZ2VzLCAK
-PiBzbyBpdCBtaWdodCBiZSB3b3J0aCB0byBzZW5kICJBU29DOiBpbnRlbCAtIGZpeCB0aGUgY2Fy
-ZCBuYW1lcyIgcGF0Y2ggdG8gCj4gNS40IHRvIG1ha2UgdGhpbmdzIHN0YWJsZSBtb3JlIHF1aWNr
-bHk6Cj4gCj4gIMKgwqDCoMKgaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tl
-cm5lbC9naXQvYnJvb25pZS9zb3VuZC5naXQvY29tbWl0Lz9oPWZvci01LjUmaWQ9ZDc0NWNjMWFi
-NjU5NDViMmQxN2VjOWM1NjUyZjM4Mjk5YzA1NDY0OQo+IAo+ICDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgVGhhbmtzLAo+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBKYXJvc2xhdgo+IAoKClRoYW5rcyBmb3IgeW91ciB3b3JrLCBKYXJvc2xhdi4KCkhvd2V2
-ZXIsIEkgaGF2ZSBzb21lIGNvbmNlcm5zIGhlcmUuIEZpcnN0LCBjb3VsZCB5b3UgZWxhYm9yYXRl
-IG9uICJ3ZSAKcmVxdWlyZSBmb3IgdGhlIFNPRiBrZXJuZWwgZHJpdmVyIj8KClRoZSBzdWJzdGl0
-dXRpb25zIGFuZCBtdWx0aS1pbnN0YW5jZSBzdXBwb3J0IGlzIHByb2JhYmx5IHdhcm1seSB3ZWxj
-b21lZCAKYnkgbWFueSwgYnV0ICJJZiIgYmxvY2tzIGFyZSB3aGF0IHdvcnJpZXMgbWUuIEVzcGVj
-aWFsbHkgdGhlIG5lc3RlZCAKIklmcyIuIEFzIFRha2FzaGkgcG9pbnRlZCBhbHJlYWR5IG91dCwg
-VUNNIC0gd2hpY2ggaXMgY3VycmVudGx5IGlzIAp2aWV3ZWQgYXMgYSBzaW1wbGUgY29uZmlndXJh
-dGlvbiBzeW50YXggLSBpcyBiZWNvbWluZyBhIGxhbmd1YWdlIG9uIGl0cyAKb3duLiBJZiB3ZSBh
-cmUgdG8ga2VlcCBleHRlbmRpbmcgVUNNIG9uIGFuZCBvbiwgd2UgbWlnaHQgYXMgd2VsbCBzd2l0
-Y2ggCnRvIEpTT04vIFhNTC8gWUFNTCBlbnRpcmVseSBpbnN0ZWFkIG9mIGRldmVsb3Bpbmcgb3Vy
-IG93biB0aGluZ3kuCgoiSWYiIGJsb2NrIGNvdWxkIGp1c3QgYmUgd2hhdCdzIG5lZWRlZCB0byBv
-cGVuIG5ldyBwYW5kb3JhIGJveCwgYWxsb3dpbmcgCmZvciB2ZXJ5IGNvbXBsZXggYW5kIG5vIGxv
-bmdlciBlYXN5LXRvLXJlYWQgY29uZmlnIGZpbGVzLiBJbiBnZW5lcmFsLCBpZiAKb25lIGlzIHRv
-IGVubGlzdCBhbiAiSWYiLCB3aHkgbm90IGRlZmluZSB0d28gVUNNcyBpbnN0ZWFkPwoKTW9yZW92
-ZXIsIEkgc2VlIHlvdSBtZW50aW9uaW5nIHRoZSBjYXJkLW5hbWUgZGVwZW5kZW5jeS4gVGhpcyBz
-b3VuZHMgCnJhdGhlciBpbnZhc2l2ZS4gU2VwYXJhdGlvbiBvZiBkaWZmZXJlbnQgY29uZmlnLXZl
-cnNpb25zIHdvdWxkIGJlIHJlcXVpcmVkLgoKQ3phcmVrCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2
-ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+Hello Takashi,
+
+Thank you very much for your feedback!
+
+> -----Original Message-----
+> From: Takashi Iwai [mailto:tiwai@suse.de]
+> Sent: Thursday, November 07, 2019 11:06 AM
+> To: Gabbasov, Andrew
+> Cc: alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org; Jaroslav
+> Kysela; Takashi Iwai; Timo Wischer
+> Subject: Re: [PATCH v2 8/8] ALSA: aloop: Support runtime change of
+> snd_timer via info interface
+> 
+> On Tue, 05 Nov 2019 15:32:18 +0100,
+> Andrew Gabbasov wrote:
+> >
+> > Show and change sound card timer source with read-write info
+> > file in proc filesystem. Initial string can still be set as
+> > module parameter.
+> >
+> > The timer source string value can be changed at any time,
+> > but it is latched by PCM substream open callback (the first one
+> > for a particular cable). At this point it is actually used, that
+> > is the string is parsed, and the timer is looked up and opened.
+> >
+> > The timer source is set for a loopback card (the same as initial
+> > setting by module parameter), but every cable uses the value,
+> > current at the moment of open.
+> >
+> > Setting the value to empty string switches the timer to jiffies.
+> >
+> > Signed-off-by: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+> 
+> Unfortunately the whole code here are racy.  It may lead to a crash or
+> use-after-free easily.  Some locking is needed definitely.
+
+You are right, using and changing of loopback->timer_source should be protected.
+I'll add locking with loopback->cable_lock to the bodies of print_timer_source_info()
+and change_timer_source_info() (like in the example diff below), similarly to other
+/proc files and mixer controls. All other uses of loopback->timer_source are already
+covered by loopback->cable_lock, except for loopback_set_timer_source() call from
+loopback_probe(), that is done at the very early stage and doesn't conflict with other
+uses. I think, in order to avoid racing problems, this will be enough, won't it?
+
+Thanks.
+
+Best regards,
+Andrew
+
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index 415128a97774..ca9307dd780e 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -1684,8 +1684,10 @@ static void print_timer_source_info(struct snd_info_entry *entry,
+ {
+        struct loopback *loopback = entry->private_data;
+
++       mutex_lock(&loopback->cable_lock);
+        snd_iprintf(buffer, "%s\n",
+                    loopback->timer_source ? loopback->timer_source : "");
++       mutex_unlock(&loopback->cable_lock);
+ }
+
+ static void change_timer_source_info(struct snd_info_entry *entry,
+@@ -1694,8 +1696,10 @@ static void change_timer_source_info(struct snd_info_entry *entry,
+        struct loopback *loopback = entry->private_data;
+        char line[64];
+
++       mutex_lock(&loopback->cable_lock);
+        if (!snd_info_get_line(buffer, line, sizeof(line)))
+                loopback_set_timer_source(loopback, strim(line));
++       mutex_unlock(&loopback->cable_lock);
+ }
+
+ static int loopback_timer_source_proc_new(struct loopback *loopback)
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

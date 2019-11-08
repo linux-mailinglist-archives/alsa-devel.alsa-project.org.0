@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E352F4A83
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Nov 2019 13:09:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA117F4B5A
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Nov 2019 13:22:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 127501677;
-	Fri,  8 Nov 2019 13:08:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 127501677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 434FD167E;
+	Fri,  8 Nov 2019 13:21:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 434FD167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573214987;
-	bh=QD8UUKjZRuGLC1atiW1BlFi7VwogzIJOyqwDbdQg1ZQ=;
+	s=default; t=1573215757;
+	bh=bP5CED4isjNcHTny0vTpepSN2mu5tjmoXwkdukYbAqo=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=hYxSWXq6FzcHnhMaaRnw85clLlzcm3l8Dp3uWl0eLdKR5eKseBHkQxSxlmLyprDVq
-	 JZ/IruKJ7Q/NXv1q2fH5lZqNitsWdLg19sElzbuF1GFpO1WPK3IRHZVu+dUH4JElGD
-	 mkzu+s/WnzZv26XlOQY+3DprjupFD1zxCjEPqxWY=
+	b=N3urMFg1QIbOz5wEYFGVaonNQ6CqSfbSFhCWFYOvCXKVpl/lqwAMGI2zIcF9qrIxN
+	 n70bGAjz0MqUkXnb57gkX5piJsPRmF87n78mfGXENJBVCA9dfwsfv2p7/sUbSqbmMe
+	 6JZova1BqE+vyGxVqETXkGW0/qgUCNMGBpY5f1Mc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6911AF8045F;
-	Fri,  8 Nov 2019 13:08:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AA3AF8045F;
+	Fri,  8 Nov 2019 13:20:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 09918F803D0; Fri,  8 Nov 2019 13:08:00 +0100 (CET)
+ id 80F8AF803D0; Fri,  8 Nov 2019 13:20:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 827EEF80111
- for <alsa-devel@alsa-project.org>; Fri,  8 Nov 2019 13:07:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 827EEF80111
+ by alsa1.perex.cz (Postfix) with ESMTPS id C450AF80111
+ for <alsa-devel@alsa-project.org>; Fri,  8 Nov 2019 13:20:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C450AF80111
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="FH3Cczza"
+ header.b="JYmiQ0BG"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=fGrbvvV39ibxa3jmK9NOHnc2dKnH3m2isspiA81e3kc=; b=FH3CczzaUUqc
- nHr5+xJTCtLh2j5XCIdjgjyTMKjbWa9MSp+wpP0e4g3YnykqpbtPCFbjQR74yyH8PYhEoCueq3B3O
- mB7+Dm1P3WMWk+C2klTqYGJcMqUDmA9emyrSHxixSx8KPDD7N3RiGVJB0FAzsdh7gVJqH+iZeWe7O
- ynAKw=;
+ List-Archive; bh=43JKsAd5OBxddrCi9aQUMrLKNdGmB8x/z+2C5I5ZRyI=; b=JYmiQ0BGsdGl
+ j5XR3Bp+qIVbPrOOt58xWCKuxui39U7+xQJgXjEljxzeNQ00XxLxkr4UKg7Moi3pP1F5j+tq6na9S
+ CSXp/mNxSsiTd/QYeoHQROfs4lTAesHqvyGeUsvpeGezKBzjsPqb4CdimL7x/NnuHOfOWjgENVCTH
+ xkqPA=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iT33T-0007DK-Ti; Fri, 08 Nov 2019 12:07:55 +0000
+ id 1iT3Ft-0007Ef-PD; Fri, 08 Nov 2019 12:20:45 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 5B3712740C6C; Fri,  8 Nov 2019 12:07:55 +0000 (GMT)
+ id 066E22740C6C; Fri,  8 Nov 2019 12:20:44 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20191107134833.1502-1-tiwai@suse.de>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <20191101170916.26517-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191108120755.5B3712740C6C@ypsilon.sirena.org.uk>
-Date: Fri,  8 Nov 2019 12:07:55 +0000 (GMT)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: core: Fix compile warning with
-	CONFIG_DEBUG_FS=n" to the asoc tree
+Message-Id: <20191108122045.066E22740C6C@ypsilon.sirena.org.uk>
+Date: Fri,  8 Nov 2019 12:20:44 +0000 (GMT)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: set L1SEN on S0ix
+	suspend" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,16 +81,14 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============1583677950495635520=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---===============1583677950495635520==
-Content-Type: text/plain
-
 The patch
 
-   ASoC: core: Fix compile warning with CONFIG_DEBUG_FS=n
+   ASoC: SOF: Intel: hda: set L1SEN on S0ix suspend
 
 has been applied to the asoc tree at
 
@@ -114,52 +113,82 @@ to this mail.
 Thanks,
 Mark
 
-From bd0b609e0c3362cb167c51d4bd4330d79fc00987 Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Thu, 7 Nov 2019 14:48:33 +0100
-Subject: [PATCH] ASoC: core: Fix compile warning with CONFIG_DEBUG_FS=n
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 16299326a0cbbc88d4d6491a8ceebbfca81064c5 Mon Sep 17 00:00:00 2001
+From: Keyon Jie <yang.jie@linux.intel.com>
+Date: Fri, 1 Nov 2019 12:09:15 -0500
+Subject: [PATCH] ASoC: SOF: Intel: hda: set L1SEN on S0ix suspend
 
-Paper over a compile warning:
-  sound/soc/soc-pcm.c:1185:8: warning: unused variable ‘name’
+Set L1SEN to make sure the system can enter S0ix, and restore it on
+resume.
 
-Fixes: 0632fa042541 ("ASoC: core: Fix pcm code debugfs error")
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20191107134833.1502-1-tiwai@suse.de
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20191101170916.26517-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-pcm.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/soc/sof/intel/hda-dsp.c | 15 +++++++++++++++
+ sound/soc/sof/intel/hda.h     |  3 +++
+ 2 files changed, 18 insertions(+)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 493a2e80e893..4bf71e3211d8 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1182,7 +1182,9 @@ static int dpcm_be_connect(struct snd_soc_pcm_runtime *fe,
- {
- 	struct snd_soc_dpcm *dpcm;
- 	unsigned long flags;
-+#ifdef CONFIG_DEBUG_FS
- 	char *name;
-+#endif
+diff --git a/sound/soc/sof/intel/hda-dsp.c b/sound/soc/sof/intel/hda-dsp.c
+index 8cd5ecc01b62..4a4d318f97ff 100644
+--- a/sound/soc/sof/intel/hda-dsp.c
++++ b/sound/soc/sof/intel/hda-dsp.c
+@@ -478,9 +478,16 @@ static int hda_resume(struct snd_sof_dev *sdev, bool runtime_resume)
  
- 	/* only add new dpcms */
- 	for_each_dpcm_be(fe, stream, dpcm) {
+ int hda_dsp_resume(struct snd_sof_dev *sdev)
+ {
++	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
+ 	struct pci_dev *pci = to_pci_dev(sdev->dev);
+ 
+ 	if (sdev->s0_suspend) {
++		/* restore L1SEN bit */
++		if (hda->l1_support_changed)
++			snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
++						HDA_VS_INTEL_EM2,
++						HDA_VS_INTEL_EM2_L1SEN, 0);
++
+ 		/* restore and disable the system wakeup */
+ 		pci_restore_state(pci);
+ 		disable_irq_wake(pci->irq);
+@@ -518,11 +525,19 @@ int hda_dsp_runtime_suspend(struct snd_sof_dev *sdev)
+ 
+ int hda_dsp_suspend(struct snd_sof_dev *sdev)
+ {
++	struct sof_intel_hda_dev *hda = sdev->pdata->hw_pdata;
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ 	struct pci_dev *pci = to_pci_dev(sdev->dev);
+ 	int ret;
+ 
+ 	if (sdev->s0_suspend) {
++		/* enable L1SEN to make sure the system can enter S0Ix */
++		hda->l1_support_changed =
++			snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
++						HDA_VS_INTEL_EM2,
++						HDA_VS_INTEL_EM2_L1SEN,
++						HDA_VS_INTEL_EM2_L1SEN);
++
+ 		/* enable the system waking up via IPC IRQ */
+ 		enable_irq_wake(pci->irq);
+ 		pci_save_state(pci);
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 5ad73a34b09c..18d7e72bf9b7 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -408,6 +408,9 @@ struct sof_intel_hda_dev {
+ 
+ 	int irq;
+ 
++	/* PM related */
++	bool l1_support_changed;/* during suspend, is L1SEN changed or not */
++
+ 	/* DMIC device */
+ 	struct platform_device *dmic_dev;
+ };
 -- 
 2.20.1
-
-
---===============1583677950495635520==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============1583677950495635520==--

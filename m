@@ -2,48 +2,48 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBC44F43DE
-	for <lists+alsa-devel@lfdr.de>; Fri,  8 Nov 2019 10:50:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECB74F43EA
+	for <lists+alsa-devel@lfdr.de>; Fri,  8 Nov 2019 10:52:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9124C1685;
-	Fri,  8 Nov 2019 10:49:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9124C1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C7C21683;
+	Fri,  8 Nov 2019 10:51:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C7C21683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573206636;
-	bh=ZHcqq8wJ4PmdLXmkAoFjJYphkE9zdTvKqHXtDckzRx4=;
+	s=default; t=1573206747;
+	bh=hI7IPFvH43H4+grGmbAgN+uQJtrhpeGrEpfrnIjUvXk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iqLQcwWXlirsdBCe7a76dk6i2ual5Htk6weVHn08Epw30R83cHG08bFqHPtFv6tw3
-	 fHq1ktVIlQn8qDB3bWLcV8jMkAN+UyHre02rDvDaj5hvlgxpcwmKAdGFKeoqEJL2Ap
-	 d/qLMAyK3N9Y33H9rdNEQ7FtW+zP5GIJKnotxmKg=
+	b=QouNo4QuoAqCqGa+QDw2OnHj5rBGDYXAVRT4vdpQraj5fdn6wKtxXB+8GfaYxDbTe
+	 9S55sz5ZBdC3V7YQvYbL0rcVaPka/7kpuKGoYcAe12zUokf3dO+8judUqLU0pY9F+w
+	 oYoS1Dq3ufVyfsOl3/Hrj/lJD7bEnIVj2L+X3XVU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 569B3F8045F;
-	Fri,  8 Nov 2019 10:48:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4221F8060F;
+	Fri,  8 Nov 2019 10:49:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25B21F800F3; Fri,  8 Nov 2019 10:48:06 +0100 (CET)
+ id 7D819F8045F; Fri,  8 Nov 2019 10:48:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA6DCF80321
+ by alsa1.perex.cz (Postfix) with ESMTPS id 17F71F803D0
  for <alsa-devel@alsa-project.org>; Fri,  8 Nov 2019 10:46:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA6DCF80321
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17F71F803D0
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id B4541AEC4;
+ by mx1.suse.de (Postfix) with ESMTP id C53C8B03E;
  Fri,  8 Nov 2019 09:46:51 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Fri,  8 Nov 2019 10:46:35 +0100
-Message-Id: <20191108094641.20086-3-tiwai@suse.de>
+Date: Fri,  8 Nov 2019 10:46:36 +0100
+Message-Id: <20191108094641.20086-4-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191108094641.20086-1-tiwai@suse.de>
 References: <20191108094641.20086-1-tiwai@suse.de>
@@ -52,8 +52,8 @@ Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Mark Brown <broonie@kernel.org>, Curtis Malainey <cujomalainey@chromium.org>,
  Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: [alsa-devel] [PATCH 2/8] ASoC: rt5514-spi: Convert to the common
-	vmalloc memalloc
+Subject: [alsa-devel] [PATCH 3/8] ASoC: intel: Drop superfluous
+	snd_pcm_sgbuf_ops_page
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,82 +72,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The recent change (*) in the ALSA memalloc core allows us to drop the
-special vmalloc-specific allocation and page handling.  This patch
-coverts to the common code.
-(*) 1fe7f397cfe2: ALSA: memalloc: Add vmalloc buffer allocation
-                  support
-    7e8edae39fd1: ALSA: pcm: Handle special page mapping in the
-                  default mmap handler
+snd_pcm_sgbuf_ops_page is no longer needed to be set explicitly to PCM
+page ops since the recent change in the PCM core (*).  Leaving it NULL
+should work as long as the preallocation has been done properly.
 
-Since it requires the specific buffer type (SNDRV_DMA_TYPE_VMALLOC),
-it's set in the pcm_new ops now.
+This patch drops the redundant lines.
+
+(*) 7e8edae39fd1: ALSA: pcm: Handle special page mapping in the
+                  default mmap handler
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/codecs/rt5514-spi.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ sound/soc/intel/haswell/sst-haswell-pcm.c | 12 ------------
+ sound/soc/intel/skylake/skl-pcm.c         | 12 ------------
+ 2 files changed, 24 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5514-spi.c b/sound/soc/codecs/rt5514-spi.c
-index 57ff5aee452d..f1b7b947ecbd 100644
---- a/sound/soc/codecs/rt5514-spi.c
-+++ b/sound/soc/codecs/rt5514-spi.c
-@@ -219,8 +219,7 @@ static int rt5514_spi_hw_params(struct snd_soc_component *component,
- 	u8 buf[8];
- 
- 	mutex_lock(&rt5514_dsp->dma_lock);
--	ret = snd_pcm_lib_alloc_vmalloc_buffer(substream,
--			params_buffer_bytes(hw_params));
-+	ret = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
- 	rt5514_dsp->substream = substream;
- 	rt5514_dsp->dma_offset = 0;
- 
-@@ -246,7 +245,7 @@ static int rt5514_spi_hw_free(struct snd_soc_component *component,
- 
- 	cancel_delayed_work_sync(&rt5514_dsp->copy_work);
- 
--	return snd_pcm_lib_free_vmalloc_buffer(substream);
-+	return snd_pcm_lib_free_pages(substream);
+diff --git a/sound/soc/intel/haswell/sst-haswell-pcm.c b/sound/soc/intel/haswell/sst-haswell-pcm.c
+index 6e498a581d20..a3a5bba2fbd9 100644
+--- a/sound/soc/intel/haswell/sst-haswell-pcm.c
++++ b/sound/soc/intel/haswell/sst-haswell-pcm.c
+@@ -796,17 +796,6 @@ static snd_pcm_uframes_t hsw_pcm_pointer(struct snd_soc_component *component,
+ 	return offset;
  }
  
- static snd_pcm_uframes_t rt5514_spi_pcm_pointer(
-@@ -260,12 +259,6 @@ static snd_pcm_uframes_t rt5514_spi_pcm_pointer(
- 	return bytes_to_frames(runtime, rt5514_dsp->dma_offset);
- }
- 
--static struct page *rt5514_spi_pcm_page(struct snd_soc_component *component,
--					struct snd_pcm_substream *substream,
--					unsigned long offset)
+-#ifdef CONFIG_SND_DMA_SGBUF
+-static struct page *hsw_pcm_page(struct snd_soc_component *component,
+-				 struct snd_pcm_substream *substream,
+-				 unsigned long offset)
 -{
--	return snd_pcm_lib_get_vmalloc_page(substream, offset);
+-	return snd_pcm_sgbuf_ops_page(substream, offset);
 -}
- 
- static int rt5514_spi_pcm_probe(struct snd_soc_component *component)
+-#else
+-#define hsw_pcm_page NULL
+-#endif /* CONFIG_SND_DMA_SGBUF */
+-
+ static int hsw_pcm_open(struct snd_soc_component *component,
+ 			struct snd_pcm_substream *substream)
  {
-@@ -298,6 +291,14 @@ static int rt5514_spi_pcm_probe(struct snd_soc_component *component)
- 	return 0;
+@@ -1128,7 +1117,6 @@ static const struct snd_soc_component_driver hsw_dai_component = {
+ 	.hw_free	= hsw_pcm_hw_free,
+ 	.trigger	= hsw_pcm_trigger,
+ 	.pointer	= hsw_pcm_pointer,
+-	.page		= hsw_pcm_page,
+ 	.ioctl		= snd_soc_pcm_lib_ioctl,
+ 	.pcm_construct	= hsw_pcm_new,
+ 	.controls	= hsw_volume_controls,
+diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
+index 0850141c7d47..6bd14f65fe71 100644
+--- a/sound/soc/intel/skylake/skl-pcm.c
++++ b/sound/soc/intel/skylake/skl-pcm.c
+@@ -1235,17 +1235,6 @@ static int skl_platform_soc_mmap(struct snd_soc_component *component,
+ 	return snd_pcm_lib_default_mmap(substream, area);
  }
  
-+static int rt5514_spi_pcm_new(struct snd_soc_component *component,
-+			      struct snd_soc_pcm_runtime *rtd)
-+{
-+	snd_pcm_lib_preallocate_pages_for_all(rtd->pcm, SNDRV_DMA_TYPE_VMALLOC,
-+					      NULL, 0, 0);
-+	return 0;
-+}
-+
- static const struct snd_soc_component_driver rt5514_spi_component = {
- 	.name		= DRV_NAME,
- 	.probe		= rt5514_spi_pcm_probe,
-@@ -305,7 +306,7 @@ static const struct snd_soc_component_driver rt5514_spi_component = {
- 	.hw_params	= rt5514_spi_hw_params,
- 	.hw_free	= rt5514_spi_hw_free,
- 	.pointer	= rt5514_spi_pcm_pointer,
--	.page		= rt5514_spi_pcm_page,
-+	.pcm_construct	= rt5514_spi_pcm_new,
- };
- 
- /**
+-#ifdef CONFIG_SND_DMA_SGBUF
+-static struct page *skl_platform_soc_page(struct snd_soc_component *component,
+-					  struct snd_pcm_substream *substream,
+-					  unsigned long offset)
+-{
+-	return snd_pcm_sgbuf_ops_page(substream, offset);
+-}
+-#else
+-#define skl_platform_soc_page NULL
+-#endif /* CONFIG_SND_DMA_SGBUF */
+-
+ static u64 skl_adjust_codec_delay(struct snd_pcm_substream *substream,
+ 				u64 nsec)
+ {
+@@ -1493,7 +1482,6 @@ static const struct snd_soc_component_driver skl_component  = {
+ 	.pointer	= skl_platform_soc_pointer,
+ 	.get_time_info	= skl_platform_soc_get_time_info,
+ 	.mmap		= skl_platform_soc_mmap,
+-	.page		= skl_platform_soc_page,
+ 	.pcm_construct	= skl_platform_soc_new,
+ 	.pcm_destruct	= skl_platform_soc_free,
+ 	.module_get_upon_open = 1, /* increment refcount when a pcm is opened */
 -- 
 2.16.4
 

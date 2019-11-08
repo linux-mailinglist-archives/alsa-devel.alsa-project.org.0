@@ -2,72 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E98E4F5E43
-	for <lists+alsa-devel@lfdr.de>; Sat,  9 Nov 2019 10:46:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7FFF5E42
+	for <lists+alsa-devel@lfdr.de>; Sat,  9 Nov 2019 10:45:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57D091675;
-	Sat,  9 Nov 2019 10:45:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57D091675
+	by alsa0.perex.cz (Postfix) with ESMTPS id ADDC01674;
+	Sat,  9 Nov 2019 10:44:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADDC01674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573292775;
-	bh=rpNNL6EFxMx9hEfVMrQbCzbQ2uCtxnI712Q7RHjigDc=;
+	s=default; t=1573292730;
+	bh=KIIqb2KJ62GnziLbvkYLwx3WolQ5T5uaz6TXDjtBL3A=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=LVEfppOqEzYqIWxyqgZ4VYa8oDqT4BMVmyUHiwOtqPm2FbZuxkzVxHJ7rOZp48J9y
-	 YeAf45teL7eP/giE1uV39Y4v8Zvur7LJR+MrbcPanINciQRLspbdugYdJragz+A/GY
-	 OgXyvClj03taw+ZYe8XMkFKM7zJZBQiOHvwCmXxU=
+	b=i74PrHuBmPdoPnROznjrwO3NciXGqPg6rAWf9JeL4mQwuoQiV5fTXyopUWZKeRwH/
+	 54YXaE45jWDwIkYMg1MojLb/oIBWr402Jk9j81aSfyF8xlWOerF76IWZfC6gV+l3CJ
+	 BPCLml7uZx/iPdwEMKIKfmaO5YU9uCyrSJw0Ey9Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECA84F805DF;
-	Sat,  9 Nov 2019 10:44:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CB1C8F8049B;
+	Sat,  9 Nov 2019 10:43:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81F95F8049B; Fri,  8 Nov 2019 00:16:21 +0100 (CET)
+ id C204BF803D0; Fri,  8 Nov 2019 08:13:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ssl.serverraum.org (ssl.serverraum.org
- [IPv6:2a01:4f8:151:8464::1:2])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C80DF80291
- for <alsa-devel@alsa-project.org>; Fri,  8 Nov 2019 00:16:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C80DF80291
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=walle.cc header.i=@walle.cc
- header.b="jrvjIlQw"
-Received: from apollo.fritz.box (unknown
- [IPv6:2a02:810c:c200:2e91:6257:18ff:fec4:ca34])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
- (No client certificate requested)
- by ssl.serverraum.org (Postfix) with ESMTPSA id 1652E23E23;
- Fri,  8 Nov 2019 00:16:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
- s=mail2016061301; t=1573168576;
- bh=3QkA7fpgg84g1/OjnwpVpOMBMUXMQKKIxrO3kIEdhKM=;
- h=From:To:Cc:Subject:Date:From;
- b=jrvjIlQwgiKG2vNPYy4NoV61k6XP/VM39t578SoTDO4Rut4Zns+IhCirGvlk7yYk7
- k05I346rQTqeApSM1RWfhkwf1aqE11kx0naQKHf6LBoo9XJ4kx5s6qIjn4gtkByCxv
- 9+AKh23qR8Xk5j2J/64s8D+vwcnN3+mCT/Vc0Q0c=
-From: Michael Walle <michael@walle.cc>
-To: alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Date: Fri,  8 Nov 2019 00:15:48 +0100
-Message-Id: <20191107231548.17454-1-michael@walle.cc>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.101.4 at web
-X-Virus-Status: Clean
-X-Mailman-Approved-At: Sat, 09 Nov 2019 10:43:39 +0100
-Cc: patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Michael Walle <michael@walle.cc>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH] ASoC: wm8904: configure sysclk/FLL
-	automatically
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88CC3F80111
+ for <alsa-devel@alsa-project.org>; Fri,  8 Nov 2019 08:13:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88CC3F80111
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Nov 2019 23:13:52 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,280,1569308400"; d="scan'208";a="377690434"
+Received: from unknown (HELO cooperch-i9.itwn.intel.com) ([10.5.253.42])
+ by orsmga005.jf.intel.com with ESMTP; 07 Nov 2019 23:13:51 -0800
+From: "Chiou, Cooper" <cooper.chiou@intel.com>
+To: alsa-devel@alsa-project.org
+Date: Fri,  8 Nov 2019 15:13:49 +0800
+Message-Id: <20191108071349.12840-1-cooper.chiou@intel.com>
+X-Mailer: git-send-email 2.17.1
+X-Mailman-Approved-At: Sat, 09 Nov 2019 10:43:38 +0100
+Cc: "Chiou, Cooper" <cooper.chiou@intel.com>, Chiou@alsa-project.org
+Subject: [alsa-devel] [PATCH] ALSA: hda: Add Cometlake-S PCI ID
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,132 +64,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This adds a new mode WM8904_CLK_AUTO which automatically enables the FLL
-if a frequency different than the MCLK is set.
+Add HD Audio Device PCI ID for the Intel Cometlake-S platform
 
-These additions make the codec work with the simple-card driver in
-general and especially in systems where the MCLK doesn't match the
-requested clock.
-
-Signed-off-by: Michael Walle <michael@walle.cc>
+Signed-off-by: Chiou, Cooper <cooper.chiou@intel.com>
 ---
-Unfortunately, I had to move wm8904_sys_sysclk() below wm8904_set_fll(). So
-that makes this patch a bit ugly. The added part is the WM8904_CLK_AUTO
-branch.
+ sound/pci/hda/hda_intel.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- sound/soc/codecs/wm8904.c | 72 ++++++++++++++++++++++++---------------
- sound/soc/codecs/wm8904.h |  1 +
- 2 files changed, 45 insertions(+), 28 deletions(-)
-
-diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
-index bcb3c9d5abf0..2dd7addfd1a8 100644
---- a/sound/soc/codecs/wm8904.c
-+++ b/sound/soc/codecs/wm8904.c
-@@ -1410,34 +1410,6 @@ static int wm8904_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
- 
--
--static int wm8904_set_sysclk(struct snd_soc_dai *dai, int clk_id,
--			     unsigned int freq, int dir)
--{
--	struct snd_soc_component *component = dai->component;
--	struct wm8904_priv *priv = snd_soc_component_get_drvdata(component);
--
--	switch (clk_id) {
--	case WM8904_CLK_MCLK:
--		priv->sysclk_src = clk_id;
--		priv->mclk_rate = freq;
--		break;
--
--	case WM8904_CLK_FLL:
--		priv->sysclk_src = clk_id;
--		break;
--
--	default:
--		return -EINVAL;
--	}
--
--	dev_dbg(dai->dev, "Clock source is %d at %uHz\n", clk_id, freq);
--
--	wm8904_configure_clocking(component);
--
--	return 0;
--}
--
- static int wm8904_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- {
- 	struct snd_soc_component *component = dai->component;
-@@ -1824,6 +1796,50 @@ static int wm8904_set_fll(struct snd_soc_dai *dai, int fll_id, int source,
- 	return 0;
- }
- 
-+static int wm8904_set_sysclk(struct snd_soc_dai *dai, int clk_id,
-+			     unsigned int freq, int dir)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct wm8904_priv *priv = snd_soc_component_get_drvdata(component);
-+	unsigned long mclk_freq;
-+	int ret;
-+
-+	switch (clk_id) {
-+	case WM8904_CLK_AUTO:
-+		mclk_freq = clk_get_rate(priv->mclk);
-+		/* enable FLL if a different sysclk is desired */
-+		if (mclk_freq != freq) {
-+			priv->sysclk_src = WM8904_CLK_FLL;
-+			ret = wm8904_set_fll(dai, WM8904_FLL_MCLK,
-+					     WM8904_FLL_MCLK,
-+					     clk_get_rate(priv->mclk), freq);
-+			if (ret)
-+				return ret;
-+			break;
-+		}
-+		clk_id = WM8904_CLK_MCLK;
-+		/* fallthrough */
-+
-+	case WM8904_CLK_MCLK:
-+		priv->sysclk_src = clk_id;
-+		priv->mclk_rate = freq;
-+		break;
-+
-+	case WM8904_CLK_FLL:
-+		priv->sysclk_src = clk_id;
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(dai->dev, "Clock source is %d at %uHz\n", clk_id, freq);
-+
-+	wm8904_configure_clocking(component);
-+
-+	return 0;
-+}
-+
- static int wm8904_digital_mute(struct snd_soc_dai *codec_dai, int mute)
- {
- 	struct snd_soc_component *component = codec_dai->component;
-diff --git a/sound/soc/codecs/wm8904.h b/sound/soc/codecs/wm8904.h
-index c1bca52f9927..de6340446b1f 100644
---- a/sound/soc/codecs/wm8904.h
-+++ b/sound/soc/codecs/wm8904.h
-@@ -10,6 +10,7 @@
- #ifndef _WM8904_H
- #define _WM8904_H
- 
-+#define WM8904_CLK_AUTO 0
- #define WM8904_CLK_MCLK 1
- #define WM8904_CLK_FLL  2
- 
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index cf53fbd872ee..c52419376c74 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2396,6 +2396,9 @@ static const struct pci_device_id azx_ids[] = {
+ 	/* CometLake-H */
+ 	{ PCI_DEVICE(0x8086, 0x06C8),
+ 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
++	/* CometLake-S */
++	{ PCI_DEVICE(0x8086, 0xa3f0),
++	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
+ 	/* Icelake */
+ 	{ PCI_DEVICE(0x8086, 0x34c8),
+ 	  .driver_data = AZX_DRIVER_SKL | AZX_DCAPS_INTEL_SKYLAKE},
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

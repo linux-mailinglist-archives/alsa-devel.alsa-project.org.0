@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02D16F778E
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 16:21:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E04CF7797
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 16:24:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F731167C;
-	Mon, 11 Nov 2019 16:20:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F731167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id BEE821674;
+	Mon, 11 Nov 2019 16:23:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BEE821674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573485693;
-	bh=ljFd5n0gxiIra5uEp1gmLeomMGnV5XMvvK3pFP9z85k=;
+	s=default; t=1573485876;
+	bh=I5LxgcXxL/NI/cDrU5B3A+ahk75wBuCtHrFNEgQxaTU=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=il2ZbCBEUBix6S/mOBDOdTnGE/UV7dnSjxxq0ZWgHnxy/2wzsckYJmmj0tOCsT8l2
-	 lALyuxvHFPb1zeNHcsD6s32HaEnVwB3/dZc4kZJSDLx1xzpVAvrCnl2hsdQU/BDQ7q
-	 alKPELwpVYytfwSF6/imFM5BfQuPnoGlpRzrH/Fc=
+	b=nf1ZLFejasgZaJKbEgVzTdlB7SnQrwex3kM6TOJ7xL3dBPJob7SAUaXagmU7T7muT
+	 8z0NLKczflQk8JL0REPymCQfWXaW0WDnCNn4EM3QzGLlglSzMSWMfJQtzghl1iPMzN
+	 A2/BR/Zwq9irOon+8ISGz+KCh9nqL3BdnR5FWCrw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D7A7EF805F9;
-	Mon, 11 Nov 2019 16:19:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A2D4F80518;
+	Mon, 11 Nov 2019 16:22:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EDFD3F8053A; Mon, 11 Nov 2019 16:19:40 +0100 (CET)
+ id 9F13CF804FF; Mon, 11 Nov 2019 16:22:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 63189F80518
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 16:19:38 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 477A6F8015C
+ for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 16:22:44 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id E90D5A0040;
- Mon, 11 Nov 2019 16:19:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz E90D5A0040
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id C540FA003F;
+ Mon, 11 Nov 2019 16:22:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz C540FA003F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1573485577; bh=bh3WPlf0KDA5BPdQfqHE4L2l35ChVbTNTnMJfbm3uvQ=;
+ t=1573485763; bh=Uu95vIWo4zvzlrnppnCoTAwEIYy8moa8/Jiy3dpz2vM=;
  h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=golxzLpdCLS0azhhRQYo88Vs+eDTlnTes6501IoJBqQFA82YEtY5luzMyi1bpGW+X
- maF1fuus1YEdp1sDqtPAkHfeX0wf+Fmm4BzSjUtOUDOugZY8tKGbjIcFzm8g7VzPqz
- A3NH9Aq6NtDnAvPg24GsKstIlWw1VF2wMyASRH78=
+ b=4eq5FnXvw1LzrQYGR4473V6kkCXnUsd6qiK/K0mX3DHFuuJyhlhNESUoaoCSN933Z
+ pabnbWAn81C6Bz2sdsiQwgA4q3OhhZPBbgPM28uSvXCre/aBrbeqcid1vOjZR+W6Zn
+ q3+s3b3K9QaMNPEZdwMrEEaIuoFy/IJfHq0WjK0s=
 Received: from p50.perex-int.cz (unknown [192.168.100.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 11 Nov 2019 16:19:34 +0100 (CET)
+ Mon, 11 Nov 2019 16:22:40 +0100 (CET)
 To: Curtis Malainey <cujomalainey@chromium.org>, alsa-devel@alsa-project.org
 References: <20191107015808.26844-1-cujomalainey@chromium.org>
- <20191107015808.26844-5-cujomalainey@chromium.org>
+ <20191107015808.26844-6-cujomalainey@chromium.org>
 From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <6d803112-b6fd-0240-0ca5-70a1d8ef7287@perex.cz>
-Date: Mon, 11 Nov 2019 16:19:34 +0100
+Message-ID: <cedaf20b-6752-5f49-64c4-0f3abec8244c@perex.cz>
+Date: Mon, 11 Nov 2019 16:22:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.1
 MIME-Version: 1.0
-In-Reply-To: <20191107015808.26844-5-cujomalainey@chromium.org>
+In-Reply-To: <20191107015808.26844-6-cujomalainey@chromium.org>
 Content-Language: en-US
 Cc: broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH 05/11] ucm: docs: Add MinBufferLevel value
+Subject: Re: [alsa-devel] [PATCH 06/11] ucm: docs: Add DisableSoftwareVolume
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,36 +82,35 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Dne 07. 11. 19 v 2:58 Curtis Malainey napsal(a):
-> Allows ucm to override minimum buffer level for platforms that
-> incorrectly report their buffer level.
+> Some userspace audio servers might default to software volume, this
+> allows the ucm to force its behaviour
 > 
 > Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
 > ---
->   include/use-case.h | 4 ++++
->   1 file changed, 4 insertions(+)
+>   include/use-case.h | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
 > diff --git a/include/use-case.h b/include/use-case.h
-> index 28e92d17..05628303 100644
+> index 05628303..1aeaf9d4 100644
 > --- a/include/use-case.h
 > +++ b/include/use-case.h
-> @@ -330,6 +330,10 @@ int snd_use_case_get_list(snd_use_case_mgr_t *uc_mgr,
->    *   - JackType
->    *      - Specifies whether the jack is accessed via hctl or gpio and therefore
->    *        only carries the possible values of "gpio" or "hctl"
-> + *   - MinBufferLevel
-> + *      - This is used on platform where reported buffer level is not accurate.
-> + *        E.g. "512", which holds 512 samples in device buffer. Note: this will
-> + *        increase latency.
+> @@ -334,6 +334,8 @@ int snd_use_case_get_list(snd_use_case_mgr_t *uc_mgr,
+>    *      - This is used on platform where reported buffer level is not accurate.
+>    *        E.g. "512", which holds 512 samples in device buffer. Note: this will
+>    *        increase latency.
+> + *   - DisableSoftwareVolume
+> + *      - Set to "1" to force userspace to use hardware volume controls
 >    */
 >   int snd_use_case_get(snd_use_case_mgr_t *uc_mgr,
 >                        const char *identifier,
 > 
 
-Applied to alsa-lib's git tree:
 
-https://git.alsa-project.org/?p=alsa-lib.git;a=commit;h=88c69ed2c865f6b857c26c04f5fc56d9396437f8
+My understanding is that if the hardware volume controls are defined in UCM, 
+then the UCM user (audio server) should use them. Otherwise, the software 
+volume control should be applied. I don't see the reason to have this info 
+doubled.
 
-				Thanks,
 					Jaroslav
 
 -- 

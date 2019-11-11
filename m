@@ -2,86 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB226F7D26
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 19:53:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F38CF7F7D
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 20:11:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5426D1671;
-	Mon, 11 Nov 2019 19:53:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5426D1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id A19511679;
+	Mon, 11 Nov 2019 20:10:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A19511679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573498431;
-	bh=QhVUI6Cdm9BHE/rHo43JlNrmdHE+WuIiPjPtdqNX+no=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=pfD8DGMwmkHJ8iIRFTiKMwkjjA3Mnj9S4pzNlct0W9WbLi0WwB91FPX//rPrK8zp0
-	 7ktXMIJDnUNmvty0+3H7zBOuyShf5FR+g9HAUeoSu8vW0Pyr4PH5GzIV31F1yqTVw5
-	 nHGAiwADIdOlA9Jc+mwMkjTNCHMQZ8aC+ns40frA=
+	s=default; t=1573499490;
+	bh=js5MJZF4Rj0n5uzc+uJKqxEgTvJYNE+OQe59izawePU=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KULnonldGi7V+tsMvBpSdHtQnFYqAye0Hj8iK7rGPgI1ZcfXbXQ/kA8QcVCu75JwY
+	 2xlJ/MSHL+r7yYhXFm5XMvdgX6I9AvIYXfXdb3gr/uA0r90Chj0EJOyQh3P/zVgrs1
+	 P6lrnumiL/Rzk9cRzERua+Y1Nore51SerJh6dFuo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5848DF80518;
-	Mon, 11 Nov 2019 19:52:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF24AF80518;
+	Mon, 11 Nov 2019 20:09:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C854FF804FF; Mon, 11 Nov 2019 19:52:04 +0100 (CET)
+ id 6DF78F804FF; Mon, 11 Nov 2019 20:09:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-qk1-x741.google.com (mail-qk1-x741.google.com
- [IPv6:2607:f8b0:4864:20::741])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A3BEF8015C
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 19:52:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A3BEF8015C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="aF75HNJH"
-Received: by mail-qk1-x741.google.com with SMTP id 71so12137088qkl.0
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 10:52:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=+Pb5UoucrgGddH2HlDKDr7PgogucKnOoofI8wOJbcSo=;
- b=aF75HNJHuX21bqGodDnOIERKQiV/ed0RgpYLlKnvaDQLrjs275iD0DUkbyUybBzIrN
- OjPVGGF9hrU0mmT8P6pNxGCWG9uBGeTS3QqT3r2jH6tzLqLgMBDJ24MPhVsJNiMCVz30
- m5Lvspi8MYLbrOuIbmVeaHP+rHzaj5JAd1/pWtzAWnz5rfsQr0c89H/G9QwJqvwN+ISM
- SNoRWcFzvsGatNE7+VLbp24C8D5+VwMvT9j2vo4IhmNEAaUeUFcA5yYaGwNZANDNNKaC
- TnnndldP7Pi/psKK/bObYxrkMnMggfhk4zJGZcW45o61RJVR2uiXD46pTzb9xaeKz2gI
- JqkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=+Pb5UoucrgGddH2HlDKDr7PgogucKnOoofI8wOJbcSo=;
- b=S95zgaqZHBdTGUPsQO+/Ud0ny5z8QwgnySEbEYGyp7NYhJs+tRLVaM+eH45bzChRSI
- LqEbyZk4bdgcmAuaik8OSRVT+PN1CPj7QRj34b83G3KbqDTCPhvuCtDMdbbCcwx/Vdch
- 8h399UciaDbslmnPHlLUDH04nXqgerqLbjXwOD4jbtsMXxqglXVjm1QpolfPw/I4ZpdK
- uHlezLqTQPmGOPFoFho8n4Ilaa15oTjnCmA2idghZ6kFQvl+2DOI2JejfUxoN9fjnk3x
- 5pa14zgKnLin0I+4hOEa+ie4OTe0wQiPqyTEgaJtvLzhF/cVgsup7gFmQs1M6H4TAhFp
- mRVQ==
-X-Gm-Message-State: APjAAAVgXRyLqd4E4tMtl1ufLCbXzJ3/WHiN1H8J1Shx1Q1Do1KoPYQh
- Z9QznJaNkfrRKgUWxvEgAOhWMEt5u8WbQt4TNMxdAA==
-X-Google-Smtp-Source: APXvYqyNF+DKKnoScIuFZJT5wh6EdbxvGzdQdzQOkMrZ2eUVxxmVg+262w7xlibSTH8ZBCPVp9sUuzX3+6y/IXL+iV8=
-X-Received: by 2002:a05:620a:13c2:: with SMTP id
- g2mr11194944qkl.158.1573498319927; 
- Mon, 11 Nov 2019 10:51:59 -0800 (PST)
-MIME-Version: 1.0
-References: <20191107015808.26844-1-cujomalainey@chromium.org>
- <20191107015808.26844-6-cujomalainey@chromium.org>
- <cedaf20b-6752-5f49-64c4-0f3abec8244c@perex.cz>
-In-Reply-To: <cedaf20b-6752-5f49-64c4-0f3abec8244c@perex.cz>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Mon, 11 Nov 2019 10:51:49 -0800
-Message-ID: <CAOReqxjWove6=9x+Hm0-xEJ_4-iocZo4fnwzV73-sxobTTuCyQ@mail.gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: Curtis Malainey <cujomalainey@chromium.org>,
- Mark Brown <broonie@kernel.org>,
- ALSA development <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH 06/11] ucm: docs: Add DisableSoftwareVolume
+ by alsa1.perex.cz (Postfix) with ESMTPS id E32B4F8015C
+ for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 20:09:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E32B4F8015C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id B84ACB22E;
+ Mon, 11 Nov 2019 19:09:39 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Date: Mon, 11 Nov 2019 20:09:37 +0100
+Message-Id: <20191111190937.19186-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: [alsa-devel] [PATCH] ALSA: hda/hdmi - Clean up Intel
+	platform-specific fixup checks
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,51 +59,97 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Nov 11, 2019 at 7:22 AM Jaroslav Kysela <perex@perex.cz> wrote:
->
-> Dne 07. 11. 19 v 2:58 Curtis Malainey napsal(a):
-> > Some userspace audio servers might default to software volume, this
-> > allows the ucm to force its behaviour
-> >
-> > Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-> > ---
-> >   include/use-case.h | 2 ++
-> >   1 file changed, 2 insertions(+)
-> >
-> > diff --git a/include/use-case.h b/include/use-case.h
-> > index 05628303..1aeaf9d4 100644
-> > --- a/include/use-case.h
-> > +++ b/include/use-case.h
-> > @@ -334,6 +334,8 @@ int snd_use_case_get_list(snd_use_case_mgr_t *uc_mgr,
-> >    *      - This is used on platform where reported buffer level is not accurate.
-> >    *        E.g. "512", which holds 512 samples in device buffer. Note: this will
-> >    *        increase latency.
-> > + *   - DisableSoftwareVolume
-> > + *      - Set to "1" to force userspace to use hardware volume controls
-> >    */
-> >   int snd_use_case_get(snd_use_case_mgr_t *uc_mgr,
-> >                        const char *identifier,
-> >
->
->
-> My understanding is that if the hardware volume controls are defined in UCM,
-> then the UCM user (audio server) should use them. Otherwise, the software
-> volume control should be applied. I don't see the reason to have this info
-> doubled.
->
->                                         Jaroslav
->
-+Jimmy Cheng-Yi Chiang can you clarify in what context CRAS might need
-this value? The only cases I see are for Chat 150 C and Jabra SPEAK
-810. There are no volume mixers associated with these files.
-> --
-> Jaroslav Kysela <perex@perex.cz>
-> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Introduce a new flag in hdmi_spec to indicate the Intel platform-
+specific fixups so that we can get rid of the lengthy codec ID
+checks.  The flag is set in intel_hsw_common_init() commonly.
+
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/patch_hdmi.c | 27 +++++----------------------
+ 1 file changed, 5 insertions(+), 22 deletions(-)
+
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 78bd2e3722c7..d05529a429a5 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -37,25 +37,6 @@ static bool static_hdmi_pcm;
+ module_param(static_hdmi_pcm, bool, 0644);
+ MODULE_PARM_DESC(static_hdmi_pcm, "Don't restrict PCM parameters per ELD info");
+ 
+-#define is_haswell(codec)  ((codec)->core.vendor_id == 0x80862807)
+-#define is_broadwell(codec)    ((codec)->core.vendor_id == 0x80862808)
+-#define is_skylake(codec) ((codec)->core.vendor_id == 0x80862809)
+-#define is_broxton(codec) ((codec)->core.vendor_id == 0x8086280a)
+-#define is_kabylake(codec) ((codec)->core.vendor_id == 0x8086280b)
+-#define is_geminilake(codec) (((codec)->core.vendor_id == 0x8086280d) || \
+-				((codec)->core.vendor_id == 0x80862800))
+-#define is_cannonlake(codec) ((codec)->core.vendor_id == 0x8086280c)
+-#define is_icelake(codec) ((codec)->core.vendor_id == 0x8086280f)
+-#define is_tigerlake(codec) ((codec)->core.vendor_id == 0x80862812)
+-#define is_haswell_plus(codec) (is_haswell(codec) || is_broadwell(codec) \
+-				|| is_skylake(codec) || is_broxton(codec) \
+-				|| is_kabylake(codec) || is_geminilake(codec) \
+-				|| is_cannonlake(codec) || is_icelake(codec) \
+-				|| is_tigerlake(codec))
+-#define is_valleyview(codec) ((codec)->core.vendor_id == 0x80862882)
+-#define is_cherryview(codec) ((codec)->core.vendor_id == 0x80862883)
+-#define is_valleyview_plus(codec) (is_valleyview(codec) || is_cherryview(codec))
+-
+ struct hdmi_spec_per_cvt {
+ 	hda_nid_t cvt_nid;
+ 	int assigned;
+@@ -162,6 +143,7 @@ struct hdmi_spec {
+ 
+ 	bool dyn_pin_out;
+ 	bool dyn_pcm_assign;
++	bool intel_hsw_fixup;	/* apply Intel platform-specific fixups */
+ 	/*
+ 	 * Non-generic VIA/NVIDIA specific
+ 	 */
+@@ -925,7 +907,7 @@ static int hdmi_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
+ 		return err;
+ 	}
+ 
+-	if (is_haswell_plus(codec)) {
++	if (spec->intel_hsw_fixup) {
+ 
+ 		/*
+ 		 * on recent platforms IEC Coding Type is required for HBR
+@@ -1709,7 +1691,7 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
+ 	 * To simplify the implementation, malloc all
+ 	 * the virtual pins in the initialization statically
+ 	 */
+-	if (is_haswell_plus(codec)) {
++	if (spec->intel_hsw_fixup) {
+ 		/*
+ 		 * On Intel platforms, device entries number is
+ 		 * changed dynamically. If there is a DP MST
+@@ -1758,7 +1740,7 @@ static int hdmi_add_pin(struct hda_codec *codec, hda_nid_t pin_nid)
+ 		per_pin->dev_id = i;
+ 		per_pin->non_pcm = false;
+ 		snd_hda_set_dev_select(codec, pin_nid, i);
+-		if (is_haswell_plus(codec))
++		if (spec->intel_hsw_fixup)
+ 			intel_haswell_fixup_connect_list(codec, pin_nid);
+ 		err = hdmi_read_pin_conn(codec, pin_idx);
+ 		if (err < 0)
+@@ -2816,6 +2798,7 @@ static int intel_hsw_common_init(struct hda_codec *codec, hda_nid_t vendor_nid,
+ 	spec->vendor_nid = vendor_nid;
+ 	spec->port_map = port_map;
+ 	spec->port_num = port_num;
++	spec->intel_hsw_fixup = true;
+ 
+ 	intel_haswell_enable_all_pins(codec, true);
+ 	intel_haswell_fixup_enable_dp12(codec);
+-- 
+2.16.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

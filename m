@@ -2,71 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C063F72DB
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 12:13:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0ED75F72DC
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 12:14:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15D7A167C;
-	Mon, 11 Nov 2019 12:13:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15D7A167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E06D1684;
+	Mon, 11 Nov 2019 12:13:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E06D1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573470832;
-	bh=uq1qC5PvNIq7saKCbyjF8Wkl3q+cUzcmbb29zOgAEfQ=;
+	s=default; t=1573470887;
+	bh=5qtaS+RqEhFPDCNLyPm0lnDcpfMV7raz5PKWGoOcJ7M=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XYMFfgKvwaPsnRV/ROALuyT6aQV933x0DkSizewp6XbtVGRj0uYTzeS5vG7q5zGkn
-	 JR7O+KRtDsHg74DrMXYEyHeKhqdNynXAWc01F9osoCS+6j2oMLcdfSV/a62yAU2Dic
-	 qAa0HBrSkJxwx0tO1omKapr/6G7MBXv6tnC0LfLg=
+	b=LRrvNJmnLuPRNZ+Izh38KUMuljqR6ly5DG/k06pA7WFyvC3zU5K1SvN0yWeSKg0sS
+	 aDvl1Q9SrPUh9Y+dlh62YSaNYFheBR+7tDGiKUe3D4CxcTM5VyLoNUR801xFmxWqM2
+	 tyXrimFG8bOYifwMAGZHXigNrZ4a8+I6ii2ESiWk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDB1CF80637;
-	Mon, 11 Nov 2019 12:09:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07096F80642;
+	Mon, 11 Nov 2019 12:10:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E24AF80610; Mon, 11 Nov 2019 12:09:41 +0100 (CET)
+ id DC449F8064C; Mon, 11 Nov 2019 12:10:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from esa3.mentor.iphmx.com (esa3.mentor.iphmx.com [68.232.137.180])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D7A4F805FB
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 12:09:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D7A4F805FB
-IronPort-SDR: r1aGAvGQE/tH+Pcd5Y44rHItfwPizhct/j/OekRCjBdNUTigkGF9zpNQdE86hptjyyr5l7wmI0
- /e81ZFGyWT7jM+M1gFBlw6/mNrTc5/UqVxrN+x5jzxFTzJ1f4wyjT0arS3cclQDcgRbVuDHXN9
- 8t2ipDFeVsjBxhMSBRvC9p3h0SXOHZ6GZV8z2HipHiTjHiuTgWiqOGG1lIgfGhUZWHos/vo0z8
- OmRcqbFY7Pqr/JjsgezqWpxcKADVKtqQfB8uVHOnUIZWiMUz0jZI35y1WyU0lDcD2kxtCA6oQk
- Apk=
-X-IronPort-AV: E=Sophos;i="5.68,292,1569312000"; d="scan'208";a="43051117"
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from esa2.mentor.iphmx.com (esa2.mentor.iphmx.com [68.232.141.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E160F8063D
+ for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 12:10:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E160F8063D
+IronPort-SDR: fQZSBLZpICWoXdKfSUDWtp5qoIocOiuGiDq/ukVMUo48dn8b9UMdTXm6YHH5U8NtIj5E1u4QvD
+ aGIA8TkydwrjMMoiC6l1iTfhAkR6Zart2ZbEGpAtr95w9YISfVHjTT6kmFAclk5mr1K7Aua01C
+ J1QP/CAkXI3gZnrg+WH54b0LFva9xIMbkRGQ+mUK/LhksbJEBmCcfr2tOuXAk6eVIOaCrn2Knx
+ fwpFZJqTp+0EUZ8z5oef2sj7F7zjHcdo1rIMEEsuofteZglktpHxFakh6+6rhPahjkM9sxhup7
+ AiQ=
+X-IronPort-AV: E=Sophos;i="5.68,292,1569312000"; d="scan'208";a="42981211"
 Received: from orw-gwy-01-in.mentorg.com ([192.94.38.165])
- by esa3.mentor.iphmx.com with ESMTP; 11 Nov 2019 03:09:37 -0800
-IronPort-SDR: i+TPsAImEE5GlGWViRIeQPLFaDwwF7MsQ1DLCo7Nb+szL+5GjTtIjsFc4ddON7yfahRuLTFMh1
- bufTFF15HH68e+F9e8AI4yGWl2Q6u7+OfuyN5xyjZ6OEUEE7qmwb6yIZ6GKevrVtpL473EzYNf
- MvkVhMBKjxLrUMmi4WmTsPJp+KTn6QVcWBYWHqSwnwpjTfA+4NXFBZ7QYd9pKS4hfbNtsDnvr/
- wjZ5DlHomSeKaPPVtBUyDjMI21HfKLl8dtlx6LZ6/F487vBrouI6kQGZXSowX0AFwAiQSmoeHc
- lUE=
+ by esa2.mentor.iphmx.com with ESMTP; 11 Nov 2019 03:09:58 -0800
+IronPort-SDR: 5QwQpd2UBT/k2p5OLkV4ejgc/1AkE/uU0DLu5z1Syzg70AHcDId4OS5HpEaormtYqgyzbWYxxH
+ NCvm7gPSm9C/Pdc7gYshOFvrzzdji4AaSSM/rTQCnwbh2hL+GOkpOxplzeEVVz/4S2sXPjnPfy
+ lzlu+uNsr5EujyWzTazE0vCsHcDX7vFcmwfhj1jIQrv4Mkc/BvWvSId6GJGQdekrjuWRncPLzZ
+ 7XsdK/4E3hnWyipHfBGna7D0soX/QnshmeCfqtAWYB6hhrfrBabEUTY4Bi9muwlqDEMvYiYcQz
+ 2uU=
 From: Andrew Gabbasov <andrew_gabbasov@mentor.com>
 To: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>, Jaroslav
  Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Timo Wischer
  <twischer@de.adit-jv.com>, Andrew Gabbasov <andrew_gabbasov@mentor.com>
-Date: Mon, 11 Nov 2019 05:08:43 -0600
-Message-ID: <20191111110846.18223-5-andrew_gabbasov@mentor.com>
+Date: Mon, 11 Nov 2019 05:08:44 -0600
+Message-ID: <20191111110846.18223-6-andrew_gabbasov@mentor.com>
 X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20191111110846.18223-4-andrew_gabbasov@mentor.com>
+In-Reply-To: <20191111110846.18223-5-andrew_gabbasov@mentor.com>
 References: <20191111110846.18223-1-andrew_gabbasov@mentor.com>
  <20191111110846.18223-2-andrew_gabbasov@mentor.com>
  <20191111110846.18223-3-andrew_gabbasov@mentor.com>
  <20191111110846.18223-4-andrew_gabbasov@mentor.com>
+ <20191111110846.18223-5-andrew_gabbasov@mentor.com>
 MIME-Version: 1.0
 X-Originating-IP: [137.202.0.90]
-X-ClientProxiedBy: SVR-IES-MBX-07.mgc.mentorg.com (139.181.222.7) To
+X-ClientProxiedBy: svr-ies-mbx-05.mgc.mentorg.com (139.181.222.5) To
  svr-ies-mbx-02.mgc.mentorg.com (139.181.222.2)
-Subject: [alsa-devel] [PATCH v3 4/7] ALSA: aloop: Rename all jiffies timer
-	specific functions
+Subject: [alsa-devel] [PATCH v3 5/7] ALSA: aloop: Move CABLE_VALID_BOTH to
+	the top of file
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,100 +87,40 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Timo Wischer <twischer@de.adit-jv.com>
 
-This commit does not change the behaviour. It only separates the jiffies
-timer specific implementation from the generic part.
+so all functions can use the same.
 
 Signed-off-by: Timo Wischer <twischer@de.adit-jv.com>
 Signed-off-by: Andrew Gabbasov <andrew_gabbasov@mentor.com>
 ---
- sound/drivers/aloop.c | 28 +++++++++++++++-------------
- 1 file changed, 15 insertions(+), 13 deletions(-)
+ sound/drivers/aloop.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
-index 92134e9c6ea7..178f7260a650 100644
+index 178f7260a650..313d7ffe6c91 100644
 --- a/sound/drivers/aloop.c
 +++ b/sound/drivers/aloop.c
-@@ -188,7 +188,7 @@ static inline unsigned int get_rate_shift(struct loopback_pcm *dpcm)
- }
+@@ -55,6 +55,10 @@ MODULE_PARM_DESC(pcm_notify, "Break capture when PCM format/rate/channels change
  
- /* call in cable->lock */
--static int loopback_timer_start(struct loopback_pcm *dpcm)
-+static int loopback_jiffies_timer_start(struct loopback_pcm *dpcm)
- {
- 	unsigned long tick;
- 	unsigned int rate_shift = get_rate_shift(dpcm);
-@@ -209,7 +209,7 @@ static int loopback_timer_start(struct loopback_pcm *dpcm)
- }
+ #define NO_PITCH 100000
  
- /* call in cable->lock */
--static inline int loopback_timer_stop(struct loopback_pcm *dpcm)
-+static inline int loopback_jiffies_timer_stop(struct loopback_pcm *dpcm)
- {
- 	del_timer(&dpcm->timer);
- 	dpcm->timer.expires = 0;
-@@ -217,7 +217,7 @@ static inline int loopback_timer_stop(struct loopback_pcm *dpcm)
++#define CABLE_VALID_PLAYBACK	BIT(SNDRV_PCM_STREAM_PLAYBACK)
++#define CABLE_VALID_CAPTURE	BIT(SNDRV_PCM_STREAM_CAPTURE)
++#define CABLE_VALID_BOTH	(CABLE_VALID_PLAYBACK | CABLE_VALID_CAPTURE)
++
+ struct loopback_cable;
+ struct loopback_pcm;
+ 
+@@ -224,10 +228,6 @@ static inline int loopback_jiffies_timer_stop_sync(struct loopback_pcm *dpcm)
  	return 0;
  }
  
--static inline int loopback_timer_stop_sync(struct loopback_pcm *dpcm)
-+static inline int loopback_jiffies_timer_stop_sync(struct loopback_pcm *dpcm)
+-#define CABLE_VALID_PLAYBACK	(1 << SNDRV_PCM_STREAM_PLAYBACK)
+-#define CABLE_VALID_CAPTURE	(1 << SNDRV_PCM_STREAM_CAPTURE)
+-#define CABLE_VALID_BOTH	(CABLE_VALID_PLAYBACK|CABLE_VALID_CAPTURE)
+-
+ static int loopback_check_format(struct loopback_cable *cable, int stream)
  {
- 	del_timer_sync(&dpcm->timer);
- 
-@@ -502,7 +502,8 @@ static inline void bytepos_finish(struct loopback_pcm *dpcm,
- }
- 
- /* call in cable->lock */
--static unsigned int loopback_pos_update(struct loopback_cable *cable)
-+static unsigned int loopback_jiffies_timer_pos_update
-+		(struct loopback_cable *cable)
- {
- 	struct loopback_pcm *dpcm_play =
- 			cable->streams[SNDRV_PCM_STREAM_PLAYBACK];
-@@ -555,14 +556,15 @@ static unsigned int loopback_pos_update(struct loopback_cable *cable)
- 	return running;
- }
- 
--static void loopback_timer_function(struct timer_list *t)
-+static void loopback_jiffies_timer_function(struct timer_list *t)
- {
- 	struct loopback_pcm *dpcm = from_timer(dpcm, t, timer);
- 	unsigned long flags;
- 
- 	spin_lock_irqsave(&dpcm->cable->lock, flags);
--	if (loopback_pos_update(dpcm->cable) & (1 << dpcm->substream->stream)) {
--		loopback_timer_start(dpcm);
-+	if (loopback_jiffies_timer_pos_update(dpcm->cable) &
-+			(1 << dpcm->substream->stream)) {
-+		loopback_jiffies_timer_start(dpcm);
- 		if (dpcm->period_update_pending) {
- 			dpcm->period_update_pending = 0;
- 			spin_unlock_irqrestore(&dpcm->cable->lock, flags);
-@@ -732,18 +734,18 @@ static void free_cable(struct snd_pcm_substream *substream)
- 
- static int loopback_jiffies_timer_open(struct loopback_pcm *dpcm)
- {
--	timer_setup(&dpcm->timer, loopback_timer_function, 0);
-+	timer_setup(&dpcm->timer, loopback_jiffies_timer_function, 0);
- 
- 	return 0;
- }
- 
- static struct loopback_ops loopback_jiffies_timer_ops = {
- 	.open = loopback_jiffies_timer_open,
--	.start = loopback_timer_start,
--	.stop = loopback_timer_stop,
--	.stop_sync = loopback_timer_stop_sync,
--	.close_substream = loopback_timer_stop_sync,
--	.pos_update = loopback_pos_update,
-+	.start = loopback_jiffies_timer_start,
-+	.stop = loopback_jiffies_timer_stop,
-+	.stop_sync = loopback_jiffies_timer_stop_sync,
-+	.close_substream = loopback_jiffies_timer_stop_sync,
-+	.pos_update = loopback_jiffies_timer_pos_update,
- 	.dpcm_info = loopback_jiffies_timer_dpcm_info,
- };
- 
+ 	struct snd_pcm_runtime *runtime, *cruntime;
 -- 
 2.21.0
 

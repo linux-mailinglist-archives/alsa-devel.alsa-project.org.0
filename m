@@ -2,75 +2,128 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F1CBF790D
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 17:44:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59DD8F79A0
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 18:18:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AD99D1670;
-	Mon, 11 Nov 2019 17:43:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD99D1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE5D1166C;
+	Mon, 11 Nov 2019 18:17:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE5D1166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573490683;
-	bh=jyzszyAWuBlrIX2DKeGpfGuqFiZ3ZQmb6GkEUyqaxag=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573492701;
+	bh=jfEf/svefNmwy7N+W2nCo9O1L/MEkKK+lgRt4iSv95o=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qUy/eYOwkpncgQrKbxoyuvNpn0omZ4PaLsps3KrREJF5SfzriYFf4VOxGnBCraCUI
-	 qShmg8+p+4u5zc+yLBPfGG2ZJPoHiLZD4fjnFCctinzd0O9zi82tL6zNUbfNEOz1MO
-	 +i+q/QTluYHA8tdIr2aTsw7cM1yKYq2RZ4Oua/bg=
+	b=UMUA8Qjc+1s2CoMDE6eiC6vV8nZW/jiCHXF3xHKprkN6nODGxhnd+vsNCs5hYbRgO
+	 OXdUw/WhmjJgt0DPrAVeseowi+NpOtu/UzTdG1wEkZD1W0evLQCDBNSWGjld8gLYWI
+	 pLAhbnYfGFRIk+aORDthuvZVfhU++T4ECNVhi7lw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66103F8060D;
-	Mon, 11 Nov 2019 17:41:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A862F8015C;
+	Mon, 11 Nov 2019 18:16:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01B13F80600; Mon, 11 Nov 2019 17:41:29 +0100 (CET)
+ id 0A459F804FF; Mon, 11 Nov 2019 18:16:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+X-Spam-Status: No, score=0.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,HTML_MESSAGE,SPF_HELO_PASS,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr760049.outbound.protection.outlook.com [40.107.76.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 278FEF802E0
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 17:41:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 278FEF802E0
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2019 08:41:21 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,293,1569308400"; d="scan'208";a="193986462"
-Received: from magalleg-mobl3.amr.corp.intel.com (HELO [10.251.146.103])
- ([10.251.146.103])
- by orsmga007.jf.intel.com with ESMTP; 11 Nov 2019 08:41:19 -0800
-To: Vinod Koul <vkoul@kernel.org>
-References: <20191023210657.32440-1-pierre-louis.bossart@linux.intel.com>
- <20191023210657.32440-2-pierre-louis.bossart@linux.intel.com>
- <20191103045604.GE2695@vkoul-mobl.Dlink>
- <f53b28bb-1ec7-a400-54ed-51fd55819ecd@linux.intel.com>
- <20191108042940.GW952516@vkoul-mobl>
- <e3e10c25-84dc-f4e7-e94b-d18493450021@linux.intel.com>
- <20191109111211.GB952516@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <5a2a40b3-5a3c-f80a-b2a4-33d821d5b0e6@linux.intel.com>
-Date: Mon, 11 Nov 2019 10:34:19 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CEF6F80275
+ for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 18:16:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CEF6F80275
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="z/tTlau6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ivYYIQZmbVJXHsZWOU6W0Z5YiqxS/EdHzN4Xt6CMCZKRW4aNZ4nHouiOlDOYb3mwkE/zDpHIitSN0/PMRyi++KDbQKeA65WnasCTBSH00zLp5IwiheOkotEm3PRyKThgcK2NiGEy3vNQpcL8nuhL3iTd5t3E3LpO6ZpoVJ32XDbfE7HB+mr+Fghf2pNAfiMQkM/P7sE1Hp7mBEdyPwDtcAApWPkBeeJuKPqO8HcYagflP6/y1kDmr8lTHVUTtX81ubGWXGAp1fFxVJgA1EksAJfBw+WpPzL9O2iynAhjKptpbsRomtZF6DeyZNmg6ZGSshF7MriSe09PgGmmamIR7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Svi0PE+UyF5uTatvGe+q6Ej8vTS9XBXGK9S/eFLGIk8=;
+ b=HLVaBXeMGM3HOs++B/3ddbgefYGBksm36k0ybz/mDZrzPsd02jPNUA1MCAD5G6qPx9fIwjd79d2KJoloEe6sbumlGN77G2b8zoYg/kbOxyjSpoA0bIxjGrqT6ZmQBjAzC9qpK9xNZYeRc2fjROasBTYy89B41z1/VoRZkwkNGzCfz3lO6gdubHC9QVx+mG7p3eBXtti2cbLb09uTmGgcCuAyokU3QWBfQEJsAgf0pUNQBGmvwn/v9qWIf2x0KfNjfM7B3nIeQhpoWPCha7DqwCjZfdcDPehDmTq4qgl/FjYdwjx+FwJaHWMlL8Iv5eb9EyXymkUYJ6hm/1bDhMt4MA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Svi0PE+UyF5uTatvGe+q6Ej8vTS9XBXGK9S/eFLGIk8=;
+ b=z/tTlau6ot0ftqo4nB2CadLvSndMuuQlr8gVGQPa/s84TJOvJqtXT4FHFsW56bH2gZHAU9MqfLYkfqdrVeanIXg3hQj7ccEaYXhrpWSUu7K4gxpjTtuenr/WUwEm/bs5DodEW15w8yRJ5R0Fjedt+6riuaDWMpjZ+CzEYvx8tFE=
+Received: from DM6PR12MB3868.namprd12.prod.outlook.com (10.255.173.213) by
+ DM6PR12MB3307.namprd12.prod.outlook.com (20.179.71.80) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2430.25; Mon, 11 Nov 2019 17:16:25 +0000
+Received: from DM6PR12MB3868.namprd12.prod.outlook.com
+ ([fe80::ac0a:4c84:7bb:2843]) by DM6PR12MB3868.namprd12.prod.outlook.com
+ ([fe80::ac0a:4c84:7bb:2843%5]) with mapi id 15.20.2430.023; Mon, 11 Nov 2019
+ 17:16:25 +0000
+From: "RAVULAPATI, VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Thread-Topic: [alsa-devel] [RESEND PATCH v4 1/6] ASoC: amd:Create multiple I2S
+ platform device Endpoint
+Thread-Index: AQHVmJ9+9jKOwokSakevbn7dMoCfyaeGHKWAgAAYnCM=
+Date: Mon, 11 Nov 2019 17:16:25 +0000
+Message-ID: <DM6PR12MB3868D380B280936C902FF67BE7740@DM6PR12MB3868.namprd12.prod.outlook.com>
+References: <1573483794-8921-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <1573483794-8921-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>,
+ <1e64b725-0f0f-0db6-677d-41a3ea564167@linux.intel.com>
+In-Reply-To: <1e64b725-0f0f-0db6-677d-41a3ea564167@linux.intel.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Vishnuvardhanrao.Ravulapati@amd.com; 
+x-originating-ip: [27.59.133.215]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: c7f6fafe-af58-489c-6243-08d766cae202
+x-ms-traffictypediagnostic: DM6PR12MB3307:
+x-ms-exchange-purlcount: 1
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <DM6PR12MB3307D8BC414EF0472A651627E7740@DM6PR12MB3307.namprd12.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:449;
+x-forefront-prvs: 0218A015FA
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(396003)(346002)(376002)(366004)(39860400002)(189003)(199004)(26005)(7696005)(91956017)(76116006)(76176011)(53546011)(476003)(4326008)(74316002)(6436002)(25786009)(14454004)(486006)(86362001)(71190400001)(71200400001)(5660300002)(66946007)(6506007)(66446008)(6246003)(9686003)(64756008)(99286004)(256004)(55016002)(66476007)(11346002)(66066001)(229853002)(66556008)(446003)(6306002)(54896002)(236005)(102836004)(33656002)(3846002)(6116002)(186003)(6916009)(8676002)(81156014)(45080400002)(81166006)(8936002)(478600001)(316002)(52536014)(606006)(7736002)(54906003)(2906002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB3307;
+ H:DM6PR12MB3868.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: rOIcemkH6cEQ2AV3WKdVF6z7mh2/wShLPWu8WBejj1h0947wkbMA1NvEgMUgGrroJK9VdQnsMThAHstbMgh8Q1uDgF5LpLlOHPeibiZ9GvdTUUb/9hq1z8cqMNu3SRQUAnq9K37XjhENkuRrSXNkOxKfUnYBg53Hv3EC7AtwHJ1UgfZrUKh/Hvi0PWQXsRztlCxuZ33IfrtvX0BwDcn2quuaja6QSgzoKRLYR5C0TO0nrW3gWWYkgF3abXmLFSdYXjd0mxfYT9f7C8dUTp/giOwBGKYluuzx/6Nwm8QU+c27N8vsaVL/GzhtUBMlbl/0zvPnzTrEaxqVdmofTm8HhkYB0u0VmY12XS3AwbpbV8luOv6NPs9e01XhcHm4uVlAv6LdnSGhNxuTSl6od3T4BEh0TErVeL0yGeWIkWSH4Nodd6Ja1wDns75KiCVR58IF7p2ErdPjXkx5s3XfCTYGRvHILCJ0e90Gbq+lVtyJyNM=
 MIME-Version: 1.0
-In-Reply-To: <20191109111211.GB952516@vkoul-mobl>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/4] soundwire: sdw_slave: add new fields
- to track probe status
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c7f6fafe-af58-489c-6243-08d766cae202
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2019 17:16:25.6309 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Mc9Z0lMVAX+0y1qh1k+IxgwVbj5smAt0aTV1sRTVRh+pKYcPA87YxDudevuy/T56IE0IrWYKogjzCtdMYZasuw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB3307
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Maruthi Srinivas Bayyavarapu <Maruthi.Bayyavarapu@amd.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, "Agrawal, 
+ Akshu" <Akshu.Agrawal@amd.com>, Mark Brown <broonie@kernel.org>,
+ "djkurtz@google.com" <djkurtz@google.com>, "Mukunda,
+ Vijendar" <Vijendar.Mukunda@amd.com>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>,
+ Colin Ian King <colin.king@canonical.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [alsa-devel] [RESEND PATCH v4 1/6] ASoC: amd:Create multiple
+ I2S platform device Endpoint
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,112 +136,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 11/9/19 5:12 AM, Vinod Koul wrote:
-> On 08-11-19, 08:55, Pierre-Louis Bossart wrote:
->>
->>
->> On 11/7/19 10:29 PM, Vinod Koul wrote:
->>> On 04-11-19, 08:32, Pierre-Louis Bossart wrote:
->>>>
->>>>
->>>> On 11/2/19 11:56 PM, Vinod Koul wrote:
->>>>> On 23-10-19, 16:06, Pierre-Louis Bossart wrote:
->>>>>> Changes to the sdw_slave structure needed to solve race conditions on
->>>>>> driver probe.
->>>>>
->>>>> Can you please explain the race you have observed, it would be a very
->>>>> useful to document it as well
->>>>
->>>> the races are explained in the [PATCH 00/18] soundwire: code hardening and
->>>> suspend-resume support series.
->>>
->>> It would make sense to explain it here as well to give details to
->>> reviewers, there is nothing wrong with too much detail!
->>>
->>>>>>
->>>>>> The functionality is added in the next patch.
->>>>>
->>>>> which one..?
->>>>
->>>> [PATCH 00/18] soundwire: code hardening and suspend-resume support
->>>
->>> Yeah great! let me play detective with 18 patch series. I asked for a
->>> patch and got a series!
->>>
->>> Again, please help the maintainer to help you. We would love to see this
->>> merged as well, but please step up and give more details in cover
->>> letter and changelogs. I shouldn't need to do guesswork and scan through the
->>> inbox to find the context!
->>
->> We are clearly not going anywhere.
-> 
-> Correct as you don't seem to provide clear answers, I am asking again
-> which patch implements the new fields added here, how difficult is it to
-> provide the *specific* patch which implements this so that I can compare
-> the implementation and see why this is needed and apply if fine!
-> 
-> But no you will not provide a clear answer and start ranting!
-> 
->> I partitioned the patches to make your maintainer life easier and help the
->> integration of SoundWire across two trees. All I get is negative feedback,
->> grand-standing, and zero comments on actual changes.
-> 
-> No you get asked specific question which you do not like and start off
-> on a tangent!
-> 
->> For the record, I am mindful of reviewer/maintainer workload, and I did
->> contact you in September to check your availability and provided a pointer
->> to initial code changes. I did send a first version a week prior to your
->> travel/vacation, I resend another version when you were back and waited yet
->> another two weeks to resend a second version. I also contacted Takashi, Mark
->> and you to suggest this code partition, and did not get any pushback. It's
->> not like I am pushing stuff down your throat, I have been patient and
->> considerate.
->>
->> Please start with the patches "soundwire: code hardening and suspend-resume
->> support" and come back to this interface description when you have reviewed
->> these changes. It's not detective work, it's working around the consequences
->> of having separate trees for Audio and SoundWire.
-> 
-> Again, which patch in the series does implement these new members!
+Get Outlook for Android<https://aka.ms/ghei36>
 
-It's really straightforward...here is the match between headers and 
-functionality:
 
-[PATCH v2 1/5] soundwire: sdw_slave: add new fields to track probe status
-[PATCH v2 02/19] soundwire: fix race between driver probe and 
-update_status callback
 
-[PATCH v2 2/5] soundwire: add enumeration_complete structure
-[PATCH v2 12/19] soundwire: add enumeration_complete signaling
+From: Pierre-Louis Bossart
+Sent: Monday, 11 November, 10:11 PM
+Subject: Re: [alsa-devel] [RESEND PATCH v4 1/6] ASoC: amd:Create multiple I2S platform device Endpoint
+To: RAVULAPATI, VISHNU VARDHAN RAO
+Cc: moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..., Maruthi Srinivas Bayyavarapu, open list, Takashi Iwai, Liam Girdwood, Agrawal, Akshu, Mark Brown, djkurtz@google.com, Mukunda, Vijendar, Deucher, Alexander, Colin Ian King, Dan Carpenter
 
-[PATCH v2 3/5] soundwire: add initialization_complete definition
-[PATCH v2 13/19] soundwire: bus: add initialization_complete signaling
 
-[PATCH v2 4/5] soundwire: intel: update interfaces between ASoC and 
-SoundWire
-[PATCH v2 5/5] soundwire: intel: update stream callbacks for 
-hwparams/free stream operations
-[PATCH v2 13/14] soundwire: intel: free all resources on hw_free()
 
-I suggested an approach that you didn't comment on, and now I am not 
-sure what to make of the heated wording and exclamation marks. You did 
-not answer to Liam's question on links between ASoC/SoundWire - despite 
-the fact that drivers/soundwire cannot be an isolated subsystem, both 
-the Intel and Qualcomm solutions have a big fat 'depends on SND_SOC'.
+> +             pdevinfo[2].name = "acp3x_i2s_playcap";
+> +             pdevinfo[2].id = 1;
+> +             pdevinfo[2].parent = &pci->dev;
+> +             pdevinfo[2].num_res = 1;
+> +             pdevinfo[2].res = &adata->res[2];
+> +             for (i = 0; i < ACP3x_DEVS ; i++) {
+> +                     adata->pdev[i] =
+> +                             platform_device_register_full(&pdevinfo[i]);
+> +                     IS_ERR(adata->pdev[i]) {
 
-At this point I am formally asking for your view and guidance on how we 
-are going to do the SoundWire/ASoC integration. It's now your time to 
-make suggestions on what the flow should be between you and 
-Mark/Takashi. If you don't want this initial change to the header files, 
-then what is your proposal?
+how does this even compile?
+
+I have not faced any issue of compilation.
+Can I know what is wrong with it please so that it can be re checked.
+
+> +                             dev_err(&pci->dev, "cannot register %s device\n",
+> +                                     pdevinfo[i].name);
+> +                             ret = -ENODEV;
+> +                             goto unmap_mmio;
+> +                     }
 
 
 _______________________________________________

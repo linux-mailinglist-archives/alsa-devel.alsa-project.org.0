@@ -2,53 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DBA1F6E3A
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 06:43:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74CAAF6F25
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 08:39:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA6501670;
-	Mon, 11 Nov 2019 06:42:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA6501670
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0D411677;
+	Mon, 11 Nov 2019 08:38:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0D411677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573451013;
-	bh=wneF8X/6KjSkDyKg/TfmYTKNNMXdzO+6oqN/PimxgKI=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=I1//WvRQSi/nQw9d86vxFI1m35Z38bonnMLQfiqGi9+V6Vx6vGMNtvGtftjhpGAM5
-	 R7o99HAus68LdYOBpZf0I1pS/5Yd9Qvf88cWG5Xwto3VmWlcyL3NmmHcgsNBEAAm/k
-	 3bIcDnZYK+2NxJxqmEMEJMZnIJ7pVKsYwrPvb1oE=
+	s=default; t=1573457985;
+	bh=neePEt6y6Axgrp+RM9roPgMbmVXi+PaJtGil+8cAdzs=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=vbsgLczhuFeTLOMPx69Qz9Yj2rB7qYJ9/U3kGePnZpaxlq02MVjRkF3uXlb2DrVIk
+	 QWrOw2HO3fI795FJsla205yPPW/T/JkIWt8gYaOsgEc24Wc4CFvgQiLL8yxbWp8Q93
+	 HykqYUrCVoRyodzopH9gcqNkorYCoy7jL0BqfN1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FBA6F8045D;
-	Mon, 11 Nov 2019 06:41:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 16E6EF80275;
+	Mon, 11 Nov 2019 08:38:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3E86F804FF; Mon, 11 Nov 2019 06:41:45 +0100 (CET)
+ id C6087F804FF; Mon, 11 Nov 2019 08:37:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from b4.vu (b4.vu [203.16.231.147])
- (using TLSv1 with cipher ADH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 52CAFF802E0
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 06:41:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52CAFF802E0
-Received: from b4.vu (localhost.localdomain [127.0.0.1])
- by b4.vu (8.13.8/8.13.8) with ESMTP id xAB5fX2Y002055
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 16:11:33 +1030
-Received: (from g@localhost) by b4.vu (8.13.8/8.13.8/Submit) id xAB5fXME002054
- for alsa-devel@alsa-project.org; Mon, 11 Nov 2019 16:11:33 +1030
-Date: Mon, 11 Nov 2019 16:11:33 +1030
-From: "Geoffrey D. Bennett" <g@b4.vu>
-To: alsa-devel@alsa-project.org
-Message-ID: <20191111054133.GA1817@b4.vu>
-Mime-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.4.2.2i
-Subject: [alsa-devel] [PATCH] ALSA: usb-audio: Fix Scarlett 6i6 Gen 2 port
-	data
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC25EF80275
+ for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 08:37:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC25EF80275
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="Gvu+8N/l"
+Received: by mail-qv1-xf43.google.com with SMTP id x14so4508616qvu.0
+ for <alsa-devel@alsa-project.org>; Sun, 10 Nov 2019 23:37:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=t4Zb47p2XPwOCswEiVCxFP3pBYMa8dixjcKcMTAk1Xk=;
+ b=Gvu+8N/lhR7xyJ0lGg6oiJJrH5spP3uTiLTY1hjI1MQw7T2ABX41o5lsHenviAHG9e
+ Lfax9OZnTplip+abpfLRUNX3sr8mCLZyv01XVtD+uuObGt5p/ShA4nfi5nrooxc2l0xR
+ q8p+MbexiTGoAT5xg4F1AFUwJ3lZiI3PwB0lJeTFffms9sRF8cm3hlKgDIFvpj0MW9CU
+ s5d6s/uQ7G/7saHs+tYTUrm/1UXYhR+Oeui90reYAfFE0Z41w18BqZxZNlBcUNiWozBq
+ K2SjQ6OOgFyJTqyGsJqx/9dNCr60a6pmjVGB/+s4bonMwDVTYCZy+ar2pJYDVR8qS4yC
+ xXvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=t4Zb47p2XPwOCswEiVCxFP3pBYMa8dixjcKcMTAk1Xk=;
+ b=nm9nkBae27kikKFw3n278o3i9APjjAwfdWyB3CiYDKkuTYTByx8prA388K7w6u62y2
+ DUcHf5KHZMWBNrBsLJcpOumZCYmLx2ZpUkWmKM9xuAi0an6nHVPeiyshN2o0Jv0/tBlc
+ CuH82+El4RIHfTV9us/6hgqYMubrp539ZEC60ajqNFF3FXnFLP9s0vTZ92GutJTaCike
+ erP/yZQ6haiFumqxtp70KvT8plDfs8BRoXG1TYj4FOmT5gXJLsLyMuFbIsU6UncqDShv
+ Aywoo8tdXQXnXjEeR8SHkfyZigOeL+6wu8M48S2NG0XZuVRpzpHQu3JsTdo4d9Rpn75x
+ CoVA==
+X-Gm-Message-State: APjAAAWfj5cq/3RDRf7da/1JsLg/0y/fp/4jRVai+kHotUyaxc1GOPFx
+ 2IBuvMAfhy7rAeB/3XCrXz5ZbQbFZKbM+cTMOEI=
+X-Google-Smtp-Source: APXvYqxpJG9+Wp9uWvq5SOdQ0ClpNoEw5Bq9RYcUBHDxKCS9kLWbq+/2zfW9+9hTfC22q3nUJO9pss3ALBiVuNJqFsg=
+X-Received: by 2002:ad4:538b:: with SMTP id i11mr18033921qvv.211.1573457871628; 
+ Sun, 10 Nov 2019 23:37:51 -0800 (PST)
+MIME-Version: 1.0
+References: <1573025265-31852-1-git-send-email-shengjiu.wang@nxp.com>
+ <20191109024502.GA9187@Asurada-Nvidia.nvidia.com>
+In-Reply-To: <20191109024502.GA9187@Asurada-Nvidia.nvidia.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Mon, 11 Nov 2019 15:37:40 +0800
+Message-ID: <CAA+D8APXbQYTUBpaPSBtK7J3LfKL0LA8sXrOomEaHTBjqpOV6A@mail.gmail.com>
+To: Nicolin Chen <nicoleotsuka@gmail.com>
+Cc: alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, Shengjiu Wang <shengjiu.wang@nxp.com>, tiwai@suse.com,
+ linux-kernel@vger.kernel.org, broonie@kernel.org,
+ linuxppc-dev@lists.ozlabs.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_audmix: Add spin lock to protect
+	tdms
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,174 +99,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The s6i6_gen2_info.ports[] array had the Mixer and PCM port type
-entries in the wrong place. Use designators to explicitly specify the
-array elements being set.
+Hi
 
-Fixes: 9e4d5c1be21f ("ALSA: usb-audio: Scarlett Gen 2 mixer interface")
-Signed-off-by: Geoffrey D. Bennett <g@b4.vu>
-Reported-by: Jonas Berlin <kernel@xkr47.space>
-Tested-by: Alex Fellows <alex.fellows@gmail.com>
----
-Hi Takashi,
+On Sat, Nov 9, 2019 at 10:48 AM Nicolin Chen <nicoleotsuka@gmail.com> wrote:
+>
+> On Wed, Nov 06, 2019 at 03:27:45PM +0800, Shengjiu Wang wrote:
+> > Audmix support two substream, When two substream start
+> > to run, the trigger function may be called by two substream
+> > in same time, that the priv->tdms may be updated wrongly.
+> >
+> > The expected priv->tdms is 0x3, but sometimes the
+> > result is 0x2, or 0x1.
+>
+> Feels like a bug fix to me, so  might be better to have a "Fixes"
+> line and CC stable tree?
+>
+> Anyway, change looks good to me:
+>
+> Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+>
 
-Is there something special I need to do to mark this as a bug fix and
-request this go into 5.4?
+Ok, will send v2.
 
-Thanks,
-Geoffrey.
-
- sound/usb/mixer_scarlett_gen2.c | 36 ++++++++++++++++-----------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
-
-diff --git a/sound/usb/mixer_scarlett_gen2.c b/sound/usb/mixer_scarlett_gen2.c
-index 7d460b1f1735..94b903d95afa 100644
---- a/sound/usb/mixer_scarlett_gen2.c
-+++ b/sound/usb/mixer_scarlett_gen2.c
-@@ -261,34 +261,34 @@ static const struct scarlett2_device_info s6i6_gen2_info = {
- 	},
- 
- 	.ports = {
--		{
-+		[SCARLETT2_PORT_TYPE_NONE] = {
- 			.id = 0x000,
- 			.num = { 1, 0, 8, 8, 8 },
- 			.src_descr = "Off",
- 			.src_num_offset = 0,
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_ANALOGUE] = {
- 			.id = 0x080,
- 			.num = { 4, 4, 4, 4, 4 },
- 			.src_descr = "Analogue %d",
- 			.src_num_offset = 1,
- 			.dst_descr = "Analogue Output %02d Playback"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_SPDIF] = {
- 			.id = 0x180,
- 			.num = { 2, 2, 2, 2, 2 },
- 			.src_descr = "S/PDIF %d",
- 			.src_num_offset = 1,
- 			.dst_descr = "S/PDIF Output %d Playback"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_MIX] = {
- 			.id = 0x300,
- 			.num = { 10, 18, 18, 18, 18 },
- 			.src_descr = "Mix %c",
- 			.src_num_offset = 65,
- 			.dst_descr = "Mixer Input %02d Capture"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_PCM] = {
- 			.id = 0x600,
- 			.num = { 6, 6, 6, 6, 6 },
- 			.src_descr = "PCM %d",
-@@ -317,44 +317,44 @@ static const struct scarlett2_device_info s18i8_gen2_info = {
- 	},
- 
- 	.ports = {
--		{
-+		[SCARLETT2_PORT_TYPE_NONE] = {
- 			.id = 0x000,
- 			.num = { 1, 0, 8, 8, 4 },
- 			.src_descr = "Off",
- 			.src_num_offset = 0,
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_ANALOGUE] = {
- 			.id = 0x080,
- 			.num = { 8, 6, 6, 6, 6 },
- 			.src_descr = "Analogue %d",
- 			.src_num_offset = 1,
- 			.dst_descr = "Analogue Output %02d Playback"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_SPDIF] = {
-+			.id = 0x180,
- 			/* S/PDIF outputs aren't available at 192KHz
- 			 * but are included in the USB mux I/O
- 			 * assignment message anyway
- 			 */
--			.id = 0x180,
- 			.num = { 2, 2, 2, 2, 2 },
- 			.src_descr = "S/PDIF %d",
- 			.src_num_offset = 1,
- 			.dst_descr = "S/PDIF Output %d Playback"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_ADAT] = {
- 			.id = 0x200,
- 			.num = { 8, 0, 0, 0, 0 },
- 			.src_descr = "ADAT %d",
- 			.src_num_offset = 1,
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_MIX] = {
- 			.id = 0x300,
- 			.num = { 10, 18, 18, 18, 18 },
- 			.src_descr = "Mix %c",
- 			.src_num_offset = 65,
- 			.dst_descr = "Mixer Input %02d Capture"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_PCM] = {
- 			.id = 0x600,
- 			.num = { 20, 18, 18, 14, 10 },
- 			.src_descr = "PCM %d",
-@@ -387,20 +387,20 @@ static const struct scarlett2_device_info s18i20_gen2_info = {
- 	},
- 
- 	.ports = {
--		{
-+		[SCARLETT2_PORT_TYPE_NONE] = {
- 			.id = 0x000,
- 			.num = { 1, 0, 8, 8, 6 },
- 			.src_descr = "Off",
- 			.src_num_offset = 0,
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_ANALOGUE] = {
- 			.id = 0x080,
- 			.num = { 8, 10, 10, 10, 10 },
- 			.src_descr = "Analogue %d",
- 			.src_num_offset = 1,
- 			.dst_descr = "Analogue Output %02d Playback"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_SPDIF] = {
- 			/* S/PDIF outputs aren't available at 192KHz
- 			 * but are included in the USB mux I/O
- 			 * assignment message anyway
-@@ -411,21 +411,21 @@ static const struct scarlett2_device_info s18i20_gen2_info = {
- 			.src_num_offset = 1,
- 			.dst_descr = "S/PDIF Output %d Playback"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_ADAT] = {
- 			.id = 0x200,
- 			.num = { 8, 8, 8, 4, 0 },
- 			.src_descr = "ADAT %d",
- 			.src_num_offset = 1,
- 			.dst_descr = "ADAT Output %d Playback"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_MIX] = {
- 			.id = 0x300,
- 			.num = { 10, 18, 18, 18, 18 },
- 			.src_descr = "Mix %c",
- 			.src_num_offset = 65,
- 			.dst_descr = "Mixer Input %02d Capture"
- 		},
--		{
-+		[SCARLETT2_PORT_TYPE_PCM] = {
- 			.id = 0x600,
- 			.num = { 20, 18, 18, 14, 10 },
- 			.src_descr = "PCM %d",
--- 
-2.20.1
-
+best regards
+wang shengjiu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

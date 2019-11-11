@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AF36F772C
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 15:57:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37BD7F7789
+	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 16:20:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D2BE010E;
-	Mon, 11 Nov 2019 15:56:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D2BE010E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E8C41675;
+	Mon, 11 Nov 2019 16:19:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E8C41675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573484253;
-	bh=0qEQVqquY316aKt+5H3tgu9lHkLVjwZ9MX/xbbKUECQ=;
+	s=default; t=1573485647;
+	bh=Z6Izd3UsoQiWouha+hum3ejEE47ntDgeOjgW2l7taLE=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ATsz/eGW0QyX+R6wdRZFQvXbbLSWMFCWkbxbv7Uf++hUzcrXWyMS1Nq3X/1eAMlQn
-	 NrnDqzz95prpjAAn69r3ghbjoEPHmhnpjBFKlq2pC4qBn6M7BqR2dD8krHNmh0i7rI
-	 Kf1cCPzMEauHg+lyT5T2YiRBmn0cMQYrIevA/aBE=
+	b=vhuKmjB1/ufH1zW+jztNOAI010FrZdVKEp8yPTAIlTjq16lJHcpxqRmp531WcHDS7
+	 x1wcoutdMmOXgh9okSgZF3hk+lTKorttkJDuky+KltJpjbb/4WBcTPcI5IMFEpMr08
+	 fgeIEcTzRBoaAe1NpJQ+onAiKhhqR6NfK2kxo0nI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66AE6F805A0;
-	Mon, 11 Nov 2019 15:55:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8161BF802E0;
+	Mon, 11 Nov 2019 16:19:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5EBC0F80519; Mon, 11 Nov 2019 15:55:36 +0100 (CET)
+ id C15DDF804FF; Mon, 11 Nov 2019 16:19:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,36 +34,36 @@ X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA880F804FF
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 15:55:33 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E84DF8015C
+ for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 16:18:57 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id AFDE7A0040;
- Mon, 11 Nov 2019 15:55:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz AFDE7A0040
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 1BA79A0040;
+ Mon, 11 Nov 2019 16:18:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 1BA79A0040
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1573484132; bh=LB1jm3vQW+W65nX7aT6B8X8CyjmVWo1rmYWXZ6YwzBU=;
+ t=1573485537; bh=568wTfIauQIQeZluGxw4+r1D1IcaswhYNAabzJGpaEQ=;
  h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=Js5dv8bZ1pH6X2w+dF10oNFAf+jYu0FfMg/Yr7bWvSfbc6LL9/lihNS26os2xwl5s
- nNg1M6x6C72PgbhKrRFSuyeai298SuRgPpYAhMwIK8mkFMNAXvFwjIMqV94FQrKKu0
- +1fIgOQm9OiJC1oSv3cAL+l65RDiOf6J33DmwSg4=
+ b=mDenAo7A31v6QtGc9/HA32NjJwBwhFN6LSL59tK2zqkRJoTuKtLE8JMbMjlLs0dBP
+ /XIiRnCmT55w0xeoqL8f0fxlcUDwZe+oLKDhJnA3zOwNQlN6mTijX1F7lGyD9rU3zP
+ yEVCLGaUdBZ26d/PVcDoIkE5jXavdt8rtkFkeFkc=
 Received: from p50.perex-int.cz (unknown [192.168.100.94])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 11 Nov 2019 15:55:28 +0100 (CET)
+ Mon, 11 Nov 2019 16:18:53 +0100 (CET)
 To: Curtis Malainey <cujomalainey@chromium.org>, alsa-devel@alsa-project.org
 References: <20191107015808.26844-1-cujomalainey@chromium.org>
- <20191107015808.26844-5-cujomalainey@chromium.org>
+ <20191107015808.26844-4-cujomalainey@chromium.org>
 From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <fdc86ef0-6a7d-1789-a198-906d13c982f1@perex.cz>
-Date: Mon, 11 Nov 2019 15:55:28 +0100
+Message-ID: <90dd9ae6-4b67-5e85-9712-364df5798c6f@perex.cz>
+Date: Mon, 11 Nov 2019 16:18:53 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.1
 MIME-Version: 1.0
-In-Reply-To: <20191107015808.26844-5-cujomalainey@chromium.org>
+In-Reply-To: <20191107015808.26844-4-cujomalainey@chromium.org>
 Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>, broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH 05/11] ucm: docs: Add MinBufferLevel value
+Cc: broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH 04/11] ucm: docs: Add EDID File value
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,34 +82,34 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 Dne 07. 11. 19 v 2:58 Curtis Malainey napsal(a):
-> Allows ucm to override minimum buffer level for platforms that
-> incorrectly report their buffer level.
+> Add a sys path to the EDID file for the corresponding HDMI device so
+> userspace can use if needed
 > 
 > Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
 > ---
->   include/use-case.h | 4 ++++
->   1 file changed, 4 insertions(+)
+>   include/use-case.h | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
 > diff --git a/include/use-case.h b/include/use-case.h
-> index 28e92d17..05628303 100644
+> index a79e5b91..28e92d17 100644
 > --- a/include/use-case.h
 > +++ b/include/use-case.h
-> @@ -330,6 +330,10 @@ int snd_use_case_get_list(snd_use_case_mgr_t *uc_mgr,
->    *   - JackType
->    *      - Specifies whether the jack is accessed via hctl or gpio and therefore
->    *        only carries the possible values of "gpio" or "hctl"
-> + *   - MinBufferLevel
-> + *      - This is used on platform where reported buffer level is not accurate.
-> + *        E.g. "512", which holds 512 samples in device buffer. Note: this will
-> + *        increase latency.
->    */
->   int snd_use_case_get(snd_use_case_mgr_t *uc_mgr,
->                        const char *identifier,
+> @@ -301,6 +301,8 @@ int snd_use_case_get_list(snd_use_case_mgr_t *uc_mgr,
+>    *      - name of capture mixer
+>    *   - CaptureMixerID
+>    *      - mixer capture ID
+> + *   - EDIDFile
+> + *      - Path to EDID file for HDMI devices
+>    *   - JackControl, JackDev, JackHWMute
+>    *      - Jack information for a device. The jack status can be reported via
+>    *        a kcontrol and/or via an input device. **JackControl** is the
 > 
 
-This is something like the BATCH flag we have in the PCM API. It would be 
-probably nice to add this to the PCM API, too. Takashi?
+Applied to alsa-lib's git tree:
 
+https://git.alsa-project.org/?p=alsa-lib.git;a=commit;h=ef085a55c488f64834fca233355b9881489be10c
+
+			Thanks,
 				Jaroslav
 
 -- 

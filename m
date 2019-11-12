@@ -2,72 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3257F96FB
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2019 18:20:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C4A2F9748
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2019 18:36:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 43C55167D;
-	Tue, 12 Nov 2019 18:19:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 43C55167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 26D5C886;
+	Tue, 12 Nov 2019 18:35:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 26D5C886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573579242;
-	bh=US23GxBP9eodgoXTiImmpLf4CUrb0fPgkltihQxbg2M=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=jP1jrcGi98yC+w5nznBpoPe3vfaCjyz4uR4eXW72ovdJzYnreaucIxM6Y1NDDinQl
-	 xmxIk1Xi/+4dclkn66oM56U/zsmhjDUJgFpv875yQVatlgMX67S9LmiZ90x8YrBkA7
-	 yXfYY3SQ+xB35ThHj/vAz5uSn3OmU9K27pTnVb9k=
+	s=default; t=1573580161;
+	bh=aYka5dobQ9Oud8Y4e1k56GMjEFBwEKIsE//9zfuZeHg=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=nZWG/MQFvasLnaL9MBHz9gDGjCN1PNAdqLjj4ttcZSaBOr3TxIMIZ/hcawYIAJlgT
+	 f1y72qn0U7GFQJErd2CPGsXKMiF0yE3GoApEPVr60Z9aR9M5pIeSMLCbV+AiOIIe6D
+	 Zrj6TNarIEYwass243WTMEekUzYlyxZ/CBrUY1Ro=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 39FE1F80637;
-	Tue, 12 Nov 2019 18:16:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 82F58F8049A;
+	Tue, 12 Nov 2019 18:34:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21D9FF80610; Tue, 12 Nov 2019 18:16:29 +0100 (CET)
+ id EBA5DF80483; Tue, 12 Nov 2019 18:34:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DDD12F8049C
- for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2019 18:16:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDD12F8049C
+ by alsa1.perex.cz (Postfix) with ESMTPS id E5DE0F802E0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2019 18:34:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E5DE0F802E0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="NYvwY0Cl"
+ header.b="gWj6gCs2"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=noPIGK2twrWUdnvZZ1bJWF5vj1WeZeoUf+WjpCKkvPg=; b=NYvwY0Cl/jz9
- n0HBuMp1YDEC/hpyZ4sD3lbgqZBcu2l5RB7kGbXe2tIbUlpE5MoDSYSiAzFdY+5MfNCmhCZqveyeQ
- FjaWEIJQIGFQtz5ScTNIyUI5YVLs4Q6ZJzjJN8sx3Lw6gV412Ouz7mOvCr200wfYUxQxjV9j3eyr1
- dppuo=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=04vAy7mLQ2lEwpnO2BErnDX5znyn19+arzcSdIbWoBo=; b=gWj6gCs2y/sbPH64gK83cyF+j
+ twPmn0uewUHATjtmGGGuxW/S1EDcyzS6a0C7bLngl7BobdmS6PU4zn4/sNrmFiHgzNGRiN2UDD01T
+ 0VluTqPtaKXO1y1RkufxgzB13IyczE8CX3gxWeAhQGK02cqDMUTDlIfEdSpRY9H66Dvnc=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iUZm9-0008J5-3D; Tue, 12 Nov 2019 17:16:21 +0000
+ id 1iUa3O-0008Ly-Cm; Tue, 12 Nov 2019 17:34:10 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 92C4C27429D2; Tue, 12 Nov 2019 17:16:20 +0000 (GMT)
+ id 98232274299F; Tue, 12 Nov 2019 17:34:09 +0000 (GMT)
+Date: Tue, 12 Nov 2019 17:34:09 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-In-Reply-To: <20191111222901.19892-3-pierre-louis.bossart@linux.intel.com>
-X-Patchwork-Hint: ignore
-Message-Id: <20191112171620.92C4C27429D2@ypsilon.sirena.org.uk>
-Date: Tue, 12 Nov 2019 17:16:20 +0000 (GMT)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: Fix CFL and CML FW nocodec
-	binary names." to the asoc tree
+To: Eason Yen <eason.yen@mediatek.com>
+Message-ID: <20191112173409.GI5195@sirena.co.uk>
+References: <1573532538-30602-1-git-send-email-eason.yen@mediatek.com>
+ <1573532538-30602-2-git-send-email-eason.yen@mediatek.com>
+MIME-Version: 1.0
+In-Reply-To: <1573532538-30602-2-git-send-email-eason.yen@mediatek.com>
+X-Cookie: As famous as the unknown soldier.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: matthias.bgg@gmail.com, alsa-devel@alsa-project.org,
+ linux-mediatek@lists.infradead.org, jiaxin.yu@mediatek.com,
+ chipeng.chang@mediatek.com
+Subject: Re: [alsa-devel] [PATCH] ASoC: mediatek: common: refine
+	mtk_afe_fe_hw_params
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,99 +85,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8077701948550078566=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: SOF: Intel: Fix CFL and CML FW nocodec binary names.
+--===============8077701948550078566==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Encpt1P6Mxii2VuT"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
+--Encpt1P6Mxii2VuT
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Tue, Nov 12, 2019 at 12:22:18PM +0800, Eason Yen wrote:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> 1. Add the following function to refine mtk_afe_fe_hw_params
+> - mtk_memif_set_enable
+> - mtk_memif_set_disable
+> - mtk_memif_set_addr
+> - mtk_memif_set_channel
+> - mtk_memif_set_rate
+> - mtk_memif_set_rate_substream
+> - mtk_memif_set_format
+> - mtk_memif_set_pbuf_size
+> 2. extend mtk_base_memif_data struct for new platform(mt6779)
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+It'd be better to split these two into separate patches, they're two
+separate things.  Ideally the refactoring should just be simple code
+motion.  Right now the patch is a bit difficult to follow.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+>  static int mtk_regmap_update_bits(struct regmap *map, int reg,
+> -			   unsigned int mask,
+> -			   unsigned int val, int shift)
+> +				  unsigned int mask,
+> +				  unsigned int val, int shift)
+>  {
+>  	if (reg < 0 || WARN_ON_ONCE(shift < 0))
+>  		return 0;
 
-Thanks,
-Mark
+This is an unrelated indentation change?
 
-From 130d3e90777fe974e4b8fa100cec8faf19cac998 Mon Sep 17 00:00:00 2001
-From: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Date: Mon, 11 Nov 2019 16:29:00 -0600
-Subject: [PATCH] ASoC: SOF: Intel: Fix CFL and CML FW nocodec binary names.
+> +	dev_info(afe->dev, "%s(), %s, ch %d, rate %d, fmt %d, dma_addr %pad, dma_area %p, dma_bytes 0x%zx\n",
+> +		 __func__, memif->data->name,
+> +		 channels, rate, format,
+> +		 &substream->runtime->dma_addr,
+> +		 substream->runtime->dma_area,
+> +		 substream->runtime->dma_bytes);
 
-The manifest information is different between CNL, CML and CFL platforms
-hence we need to load different files.
+This is going to get noisy, dev_dbg at most please.
 
-Signed-off-by: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191111222901.19892-3-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sof/sof-pci-dev.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+--Encpt1P6Mxii2VuT
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index d66412a77873..2ef927371b23 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -113,7 +113,7 @@ static const struct sof_dev_desc cnl_desc = {
- 
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_COFFEELAKE)
- static const struct sof_dev_desc cfl_desc = {
--	.machines		= snd_soc_acpi_intel_cnl_machines,
-+	.machines		= snd_soc_acpi_intel_cfl_machines,
- 	.resindex_lpe_base	= 0,
- 	.resindex_pcicfg_base	= -1,
- 	.resindex_imr_base	= -1,
-@@ -122,7 +122,7 @@ static const struct sof_dev_desc cfl_desc = {
- 	.chip_info = &cnl_chip_info,
- 	.default_fw_path = "intel/sof",
- 	.default_tplg_path = "intel/sof-tplg",
--	.nocodec_fw_filename = "sof-cnl.ri",
-+	.nocodec_fw_filename = "sof-cfl.ri",
- 	.nocodec_tplg_filename = "sof-cnl-nocodec.tplg",
- 	.ops = &sof_cnl_ops,
- 	.arch_ops = &sof_xtensa_arch_ops
-@@ -133,7 +133,7 @@ static const struct sof_dev_desc cfl_desc = {
- 	IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_H)
- 
- static const struct sof_dev_desc cml_desc = {
--	.machines		= snd_soc_acpi_intel_cnl_machines,
-+	.machines		= snd_soc_acpi_intel_cml_machines,
- 	.resindex_lpe_base	= 0,
- 	.resindex_pcicfg_base	= -1,
- 	.resindex_imr_base	= -1,
-@@ -142,7 +142,7 @@ static const struct sof_dev_desc cml_desc = {
- 	.chip_info = &cnl_chip_info,
- 	.default_fw_path = "intel/sof",
- 	.default_tplg_path = "intel/sof-tplg",
--	.nocodec_fw_filename = "sof-cnl.ri",
-+	.nocodec_fw_filename = "sof-cml.ri",
- 	.nocodec_tplg_filename = "sof-cnl-nocodec.tplg",
- 	.ops = &sof_cnl_ops,
- 	.arch_ops = &sof_xtensa_arch_ops
--- 
-2.20.1
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3K7RAACgkQJNaLcl1U
+h9BVOgf/RJ9QQbtlE/1cjYex/YS7artXYBg7EcJLvABZQcJLc1IH6iK2Ov8CQRNe
+ozdn/rmpProjd28/8Pc3Dc8fU9rY7CzshEAPX7sT8QplUOmHyWD+aoJs7Hw7ACCJ
+QrNZ3be5yh6Xng2LzZM9N+Hr5yJyjnELcFvwj7r4EijioTLPTaR1cce3LoNjBmyV
+428s26enFSmBs/vXkHYxYyhMapI6e5+knDEXJ6gNDuaM1Vz1y+EuuvLRCMVOsYo7
+iQF9/Y5Ka700ptA4XDAJSNwreI3r9CVnfKtmmOFrC6iQl3E0BJMeJfbS48/TA08D
+y4mnwJ0np18D3+h73Nrnby7juf03pQ==
+=6ikF
+-----END PGP SIGNATURE-----
+
+--Encpt1P6Mxii2VuT--
+
+--===============8077701948550078566==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8077701948550078566==--

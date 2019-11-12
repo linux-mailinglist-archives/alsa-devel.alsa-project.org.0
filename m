@@ -2,66 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCFB7F93E9
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2019 16:18:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E3AAF949A
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2019 16:44:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D490165E;
-	Tue, 12 Nov 2019 16:17:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D490165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id A09E81668;
+	Tue, 12 Nov 2019 16:43:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A09E81668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573571921;
-	bh=7Gq3KhPhlO8Fr1ikNTTaVBaOggLPeJE4iHJaF1ExjGI=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
+	s=default; t=1573573449;
+	bh=PKvOM44i1lfx8oPwVRpQj5B1acvAujHNQ7N1hKd2nik=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a3Ys8MftfAIGITAlQttbdJYZOh618zlUeFFK/KGRW1Y8/+UekszKZA7svAcqWyfW3
-	 mbEvuygPMOJwkYjHHPdq3VO9EO//HXOADsLKa2QLybQ+d8AmO9cafCNI5FOuhmhVRK
-	 eOw7MFced1me2hLzk4i+noTaNx6tN+SpnDLl3fjE=
+	b=N5QxI+ni91hPK/bQ6ajdo0CpYjLgMAKzUvMhQXHhDHdsUgUz1a3O1kOsDG7aLkfW2
+	 qZCRk0f99u74jj5z2QVJl/Ryy0NBF0j+YAq1EomEDJiSwdSTIcNSDMVl2YgHhGi2R7
+	 AOmvoiTAFz9l47Vz1J/FegD17S2kjdbgflJJpe78=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5BAFEF80483;
-	Tue, 12 Nov 2019 16:16:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3BBAF8049A;
+	Tue, 12 Nov 2019 16:42:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C2953F80483; Tue, 12 Nov 2019 16:16:54 +0100 (CET)
+ id BB51BF80483; Tue, 12 Nov 2019 16:42:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FE57F80275
- for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2019 16:16:51 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 267AEA003F;
- Tue, 12 Nov 2019 16:16:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 267AEA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1573571811; bh=7iYub1b9WZQVS2zi5UHt2tS0uZC8da4WJsvy3lOy0jc=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=LjGp3sY9ZnS/oEdkfkPFR1tEXbZFt8gLMX8I77AA0j3EB1YEvkzUCikDHevdw7ZrE
- gmNXJ7mmr3WDa2YJksji4Vqthz97s3zwS5aGvnIDLOoZTa/hkFw761GIZdpwBtUI24
- G2g+pS699pRbajD2kh7raGaVaycvNpyVK0T477Ac=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 12 Nov 2019 16:16:49 +0100 (CET)
-To: Rolf Eike Beer <eb@emlix.com>, alsa-devel@alsa-project.org
-References: <3413798.Kuoc3IQsnZ@devpool35>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <4869792a-6ee9-e88f-b728-75ec1af42f7b@perex.cz>
-Date: Tue, 12 Nov 2019 16:16:48 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
-MIME-Version: 1.0
-In-Reply-To: <3413798.Kuoc3IQsnZ@devpool35>
-Content-Language: en-US
-Subject: Re: [alsa-devel] Several problems when trying to run alsa-info.sh
+ by alsa1.perex.cz (Postfix) with ESMTPS id B535EF802E0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2019 16:42:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B535EF802E0
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 36CB8B39E;
+ Tue, 12 Nov 2019 15:42:18 +0000 (UTC)
+Date: Tue, 12 Nov 2019 16:42:17 +0100
+Message-ID: <s5hblthp0di.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <20191112151642.680072-3-arnd@arndb.de>
+References: <20191112151642.680072-1-arnd@arndb.de>
+ <20191112151642.680072-3-arnd@arndb.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, Baolin Wang <baolin.wang@linaro.org>,
+ y2038@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang7@gmail.com>
+Subject: Re: [alsa-devel] [PATCH v6 2/8] ALSA: Avoid using timespec for
+	struct snd_timer_status
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,34 +69,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 12. 11. 19 v 8:37 Rolf Eike Beer napsal(a):
-> Greetings,
+On Tue, 12 Nov 2019 16:16:36 +0100,
+Arnd Bergmann wrote:
 > 
-> I had the need to run alsa-info.sh --stdout from 1.1.9 on our embedded device.
-> There were multiple things I noticed:
+> From: Baolin Wang <baolin.wang@linaro.org>
 > 
-> -it requires /bin/bash, but seems to run ok with just /bin/sh. We don't have
-> bash.
+> struct snd_timer_status uses 'timespec' type variables to record
+> timestamp, which will be changed to an incompatible layout with
+> updated user space using 64-bit time_t.
 > 
-> -it requires pgrep, which we don't have, but replacing all calls with pidof
-> seems to work well enough
+> To handle both the old and the new layout on 32-bit architectures,
+> this patch introduces 'struct snd_timer_status32' and 'struct snd_timer_status64'
+> to handle 32bit time_t and 64bit time_t in native mode and compat mode,
+> which replaces timespec with s64 type.
 > 
-> -it requires whereis, and does not use that
+> When glibc changes time_t to 64-bit, any recompiled program will issue
+> ioctl commands that the kernel does not understand without this patch.
 > 
-> -at least in stdout mode the absence of lspci should not be a fatal error
+> Signed-off-by: Baolin Wang <baolin.wang@linaro.org>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+>  include/uapi/sound/asound.h |  2 ++
+>  sound/core/timer.c          | 62 +++++++++++++++++++++++++++++++++----
+>  sound/core/timer_compat.c   | 57 ++++------------------------------
+>  3 files changed, 64 insertions(+), 57 deletions(-)
+> 
+> diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+> index df1153cea0b7..930854f67fd3 100644
+> --- a/include/uapi/sound/asound.h
+> +++ b/include/uapi/sound/asound.h
+> @@ -761,6 +761,7 @@ struct snd_timer_params {
+>  	unsigned char reserved[60];	/* reserved */
+>  };
+>  
+> +#ifndef __KERNEL__
+>  struct snd_timer_status {
+>  	struct timespec tstamp;		/* Timestamp - last update */
+>  	unsigned int resolution;	/* current period resolution in ns */
 
-Patches are welcome.
+Do we need this ifndef?  Is it for stopping the reference of struct
+snd_timer_status from the kernel code but only 32 and 64 variants?
 
-				Jaroslav
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

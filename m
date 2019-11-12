@@ -2,62 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE1CF8304
-	for <lists+alsa-devel@lfdr.de>; Mon, 11 Nov 2019 23:37:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64653F852A
+	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2019 01:26:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72053168A;
-	Mon, 11 Nov 2019 23:36:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72053168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B83E21658;
+	Tue, 12 Nov 2019 01:25:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B83E21658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573511848;
-	bh=lyXe/xWfJI1AZVOLshcx/5Yr7gQBqkC/bkDM1lf5Ds0=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1573518364;
+	bh=k2Cn92WuouJ6eAhXq8fF/Yg1uXf9RMcfsBN5CFwOO4A=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QLhq9ZMJBlmM673REPUkdA0EX+BmBXI0/5qiz01sh9lgCWa5pAIHHWG083l5n+PxF
-	 Uxz+TeYh5kzSlWOMK/x/gwlO8ueKIkTyDKVybqNXImm+bH7GG71pQ+o86XscakG2fI
-	 9SdWxEdGifVRd43dtenJ9j8jF8vX+FksLWm1Qu1I=
+	b=XxIrvs340utvwn87O/zhFqUv/qkP0BdvGFafhYvJy04coDhniXl5O7k+TBqtKEedR
+	 oVRKZAWTgTYJS7yjf6bDv3nAvs7qxUZ8nWSiudnsKfx6kvdwr9vTO4FCXGgXH54IC3
+	 05j/vg/3RyJyhl/3BsgLVUZzrK+d+/klvsGD4y30=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA405F80612;
-	Mon, 11 Nov 2019 23:34:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0103AF8045D;
+	Tue, 12 Nov 2019 01:24:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7458DF80600; Mon, 11 Nov 2019 23:34:01 +0100 (CET)
+ id 5C9FCF804FF; Tue, 12 Nov 2019 01:24:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B0BE1F804FF
- for <alsa-devel@alsa-project.org>; Mon, 11 Nov 2019 23:33:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0BE1F804FF
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Nov 2019 14:33:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,294,1569308400"; d="scan'208";a="354903238"
-Received: from kathyche-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.251.27.186])
- by orsmga004.jf.intel.com with ESMTP; 11 Nov 2019 14:33:52 -0800
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Mon, 11 Nov 2019 16:33:43 -0600
-Message-Id: <20191111223343.19986-5-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191111223343.19986-1-pierre-louis.bossart@linux.intel.com>
-References: <20191111223343.19986-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 4/4] ASoC: SOF: PM: only suspend to D0I3 when
-	needed
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5C7E8F802E0
+ for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2019 01:24:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C7E8F802E0
+Date: 12 Nov 2019 09:24:08 +0900
+X-IronPort-AV: E=Sophos;i="5.68,294,1569250800"; d="scan'208";a="31205283"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 12 Nov 2019 09:24:08 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id DC97641212A8;
+ Tue, 12 Nov 2019 09:24:08 +0900 (JST)
+Message-ID: <87sgmu7xhz.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <c976b330-f635-e818-1feb-f25db42a6ae4@nvidia.com>
+References: <87ftj23jph.wl-kuninori.morimoto.gx@renesas.com>
+ <87d0e63joh.wl-kuninori.morimoto.gx@renesas.com>
+ <c976b330-f635-e818-1feb-f25db42a6ae4@nvidia.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: linux-tegra <linux-tegra@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v3 02/19] ASoC: soc-core: tidyup
+	soc_init_dai_link()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,43 +74,122 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Keyon Jie <yang.jie@linux.intel.com>
 
-We should suspend audio to D3 by default, for the sake of power saving,
-change the condition of D0I3 suspending here to that when there is
-stream with suspend_ignored specified.
+Hi Jon
 
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Thank you for reporting.
+
+> I am seeing an audio regression on -next and bisect is pointing to
+> this commit. I am seeing the following crash on boot during probe
+> deferral of the soundcard ...
+
+It seems timing bug.
+I have a plan to post below patch if my current posting patch are accepted,
+but it seems it is necessary immediately.
+I believe your issue will be solved by this patch,
+but can you please test it ?
+I will formally post it with your tested-by if it was OK.
+
+# It will be more cleanuped in the future,
+# but it needs more other cleanup patches...
+
+--------------------
+Subject: [PATCH] ASoC: soc-core: care card_probed at soc_cleanup_card_resources()
+
+soc_cleanup_card_resources() will call card->remove(), but it should be
+called if card->probe() or card->late_probe() are called.
+snd_soc_bind_card() might be error before calling
+card->probe() / card->late_probe().
+In that time, card->remove() will be called.
+This patch adds card_probed parameter to judge it.
+
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/sof/pm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-core.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/sof/pm.c b/sound/soc/sof/pm.c
-index b89810bf3230..0fd5567237a8 100644
---- a/sound/soc/sof/pm.c
-+++ b/sound/soc/sof/pm.c
-@@ -468,7 +468,7 @@ int snd_sof_resume(struct device *dev)
- 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
- 	int ret;
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 55014e7..b078227 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -1980,7 +1980,8 @@ static void __soc_setup_card_name(char *name, int len,
+ 	}
+ }
  
--	if (sdev->s0_suspend) {
-+	if (snd_sof_dsp_d0i3_on_suspend(sdev)) {
- 		/* resume from D0I3 */
- 		dev_dbg(sdev->dev, "DSP will exit from D0i3...\n");
- 		ret = snd_sof_set_d0_substate(sdev, SOF_DSP_D0I0);
-@@ -497,7 +497,7 @@ int snd_sof_suspend(struct device *dev)
- 	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
- 	int ret;
+-static void soc_cleanup_card_resources(struct snd_soc_card *card)
++static void soc_cleanup_card_resources(struct snd_soc_card *card,
++				       int card_probed)
+ {
+ 	struct snd_soc_dai_link *link, *_link;
  
--	if (sdev->s0_suspend) {
-+	if (snd_sof_dsp_d0i3_on_suspend(sdev)) {
- 		/* suspend to D0i3 */
- 		dev_dbg(sdev->dev, "DSP is trying to enter D0i3...\n");
- 		ret = snd_sof_set_d0_substate(sdev, SOF_DSP_D0I3);
+@@ -2007,7 +2008,7 @@ static void soc_cleanup_card_resources(struct snd_soc_card *card)
+ 	soc_cleanup_card_debugfs(card);
+ 
+ 	/* remove the card */
+-	if (card->remove)
++	if (card_probed && card->remove)
+ 		card->remove(card);
+ }
+ 
+@@ -2015,7 +2016,7 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ {
+ 	struct snd_soc_pcm_runtime *rtd;
+ 	struct snd_soc_dai_link *dai_link;
+-	int ret, i;
++	int ret, i, card_probed = 0;
+ 
+ 	mutex_lock(&client_mutex);
+ 	mutex_lock_nested(&card->mutex, SND_SOC_CARD_CLASS_INIT);
+@@ -2067,6 +2068,7 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 		ret = card->probe(card);
+ 		if (ret < 0)
+ 			goto probe_end;
++		card_probed = 1;
+ 	}
+ 
+ 	/* probe all components used by DAI links on this card */
+@@ -2129,6 +2131,7 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 			goto probe_end;
+ 		}
+ 	}
++	card_probed = 1;
+ 
+ 	snd_soc_dapm_new_widgets(card);
+ 
+@@ -2145,7 +2148,7 @@ static int snd_soc_instantiate_card(struct snd_soc_card *card)
+ 
+ probe_end:
+ 	if (ret < 0)
+-		soc_cleanup_card_resources(card);
++		soc_cleanup_card_resources(card, card_probed);
+ 
+ 	mutex_unlock(&card->mutex);
+ 	mutex_unlock(&client_mutex);
+@@ -2439,11 +2442,13 @@ EXPORT_SYMBOL_GPL(snd_soc_register_card);
+ static void snd_soc_unbind_card(struct snd_soc_card *card, bool unregister)
+ {
+ 	if (card->instantiated) {
++		int card_probed = 1;
++
+ 		card->instantiated = false;
+ 		snd_soc_dapm_shutdown(card);
+ 		snd_soc_flush_all_delayed_work(card);
+ 
+-		soc_cleanup_card_resources(card);
++		soc_cleanup_card_resources(card, card_probed);
+ 		if (!unregister)
+ 			list_add(&card->list, &unbind_card_list);
+ 	} else {
 -- 
-2.20.1
+2.7.4
 
+
+
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

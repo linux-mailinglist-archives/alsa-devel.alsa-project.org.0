@@ -2,71 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EEC5FADC6
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 10:56:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08175FADDC
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 11:01:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 303401612;
-	Wed, 13 Nov 2019 10:55:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 303401612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 89CB81668;
+	Wed, 13 Nov 2019 11:00:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89CB81668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573638982;
-	bh=ibMPZxiUgTHxeJfCqTFJV3W4hXKxaLc27IBJTGTRJbw=;
+	s=default; t=1573639284;
+	bh=bbrerkm6kk268G05UmON9TKEGfS7d778516kOcBfHwY=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UDLtXPv2730RIjbA3gqBmDBgRRiN7BAgvyKLOAM3poxN/iX8rXsDAuGPJIvF++7YH
-	 FOn2MICwMfz0AG2veKfofa5wPL07zLQb/LC22Vlk1ehDBsJWa+b+ih/j6lhUJwjd4U
-	 fwjChQFqdzu0jq9xCEro3N+WkHgF3xG9KpX5YcN0=
+	b=sihlbJrtkss+iEKjiSoBGwfJQ5saxZd+KZOF6R7GPMFKnBepv6Hyfow4eG84doBxA
+	 pcTAjlnTZxZ8SNEQnn5iSjzK4BLNMDzo2r5hO40nzz425mHEhvj6f69K9oMyVIKznx
+	 PfBr04M8/11miyiEyL2fRV0RPG3EHmq1C1E/KZNY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9C59F80635;
-	Wed, 13 Nov 2019 10:54:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E4F74F896CC;
+	Wed, 13 Nov 2019 10:58:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6248EF80635; Wed, 13 Nov 2019 10:53:44 +0100 (CET)
+ id 4FD0DF80634; Wed, 13 Nov 2019 10:53:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from lelv0142.ext.ti.com (lelv0142.ext.ti.com [198.47.23.249])
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 60C53F80095
- for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 10:53:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60C53F80095
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E753F802E0
+ for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 10:53:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E753F802E0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="rVRXNrOW"
-Received: from fllv0035.itg.ti.com ([10.64.41.0])
- by lelv0142.ext.ti.com (8.15.2/8.15.2) with ESMTP id xAD9rZ0V089866;
- Wed, 13 Nov 2019 03:53:35 -0600
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="wohaGs2Q"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id xAD9rbtv126686;
+ Wed, 13 Nov 2019 03:53:37 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1573638815;
- bh=hYh1EUFha/ylbf5ZiyeOjQ/Riy1tVsc+1RvgaMEdHNY=;
+ s=ti-com-17Q1; t=1573638817;
+ bh=I90xq++VpRRQlH9iLcYVO/WU1tHrd6e7lDGaAOGJKKM=;
  h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=rVRXNrOWKtsFJdE+4ID4buQQPghk1FG7GXNdVaK6a9e+0bTwdZVMgvn4yeCrjdzkA
- HKloqqZVJd6JWJ1KWOB2zvguWupKfy8nGxybY6As2WJW4N4ri9GV3sWampSc88vWsP
- ZijDcXOjXC4Ryv49iNW+W3h2Y2n19aEgwWKOnGJo=
-Received: from DFLE105.ent.ti.com (dfle105.ent.ti.com [10.64.6.26])
- by fllv0035.itg.ti.com (8.15.2/8.15.2) with ESMTP id xAD9rZwu081844;
- Wed, 13 Nov 2019 03:53:35 -0600
-Received: from DFLE102.ent.ti.com (10.64.6.23) by DFLE105.ent.ti.com
- (10.64.6.26) with Microsoft SMTP Server (version=TLS1_2,
+ b=wohaGs2QIMaET3VJOrHbo96YgxOBK1lr+R2PBOVGYDJTQJfhJn+Z/KwXoQPxPG7Do
+ XLbkaqhSKhYfN6e56ZLziSDq9qQKE1e+01RotuVOJr9tJ96JgyZoxgt/0Lqj1jrcsZ
+ wjILvfr2IEkuvLuXMkglHX0aKBBVrd6pbYEnXaAQ=
+Received: from DFLE106.ent.ti.com (dfle106.ent.ti.com [10.64.6.27])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id xAD9rbuN019290
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 13 Nov 2019 03:53:37 -0600
+Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE106.ent.ti.com
+ (10.64.6.27) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Wed, 13
- Nov 2019 03:53:17 -0600
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE102.ent.ti.com
- (10.64.6.23) with Microsoft SMTP Server (version=TLS1_2,
+ Nov 2019 03:53:19 -0600
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DFLE113.ent.ti.com
+ (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Wed, 13 Nov 2019 03:53:17 -0600
+ Frontend Transport; Wed, 13 Nov 2019 03:53:19 -0600
 Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id xAD9rUGT121188;
- Wed, 13 Nov 2019 03:53:32 -0600
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id xAD9rUGU121188;
+ Wed, 13 Nov 2019 03:53:35 -0600
 From: Peter Ujfalusi <peter.ujfalusi@ti.com>
 To: <broonie@kernel.org>, <lgirdwood@gmail.com>, <lars@metafoo.de>
-Date: Wed, 13 Nov 2019 11:54:44 +0200
-Message-ID: <20191113095445.3211-2-peter.ujfalusi@ti.com>
+Date: Wed, 13 Nov 2019 11:54:45 +0200
+Message-ID: <20191113095445.3211-3-peter.ujfalusi@ti.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191113095445.3211-1-peter.ujfalusi@ti.com>
 References: <20191113095445.3211-1-peter.ujfalusi@ti.com>
@@ -74,8 +75,8 @@ MIME-Version: 1.0
 X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
 Cc: vkoul@kernel.org, alsa-devel@alsa-project.org, jsarha@ti.com,
  linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH 1/2] ASoC: dmaengine: Use dma_request_chan()
-	directly for channel request
+Subject: [alsa-devel] [PATCH 2/2] ASoC: ti: davinci-mcasp: Use
+	dma_request_chan() directly for channel request
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,22 +100,22 @@ dma_request_slave_channel_reason() is:
 
 Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 ---
- sound/soc/soc-generic-dmaengine-pcm.c | 2 +-
+ sound/soc/ti/davinci-mcasp.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index f4c755209e03..a428ff393ea2 100644
---- a/sound/soc/soc-generic-dmaengine-pcm.c
-+++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -387,7 +387,7 @@ static int dmaengine_pcm_request_chan_of(struct dmaengine_pcm *pcm,
- 			name = dmaengine_pcm_dma_channel_names[i];
- 		if (config && config->chan_names[i])
- 			name = config->chan_names[i];
--		chan = dma_request_slave_channel_reason(dev, name);
-+		chan = dma_request_chan(dev, name);
- 		if (IS_ERR(chan)) {
- 			if (PTR_ERR(chan) == -EPROBE_DEFER)
- 				return -EPROBE_DEFER;
+diff --git a/sound/soc/ti/davinci-mcasp.c b/sound/soc/ti/davinci-mcasp.c
+index 7aa3c32e4a49..8e5371801d88 100644
+--- a/sound/soc/ti/davinci-mcasp.c
++++ b/sound/soc/ti/davinci-mcasp.c
+@@ -1867,7 +1867,7 @@ static int davinci_mcasp_get_dma_type(struct davinci_mcasp *mcasp)
+ 		return PCM_EDMA;
+ 
+ 	tmp = mcasp->dma_data[SNDRV_PCM_STREAM_PLAYBACK].filter_data;
+-	chan = dma_request_slave_channel_reason(mcasp->dev, tmp);
++	chan = dma_request_chan(mcasp->dev, tmp);
+ 	if (IS_ERR(chan)) {
+ 		if (PTR_ERR(chan) != -EPROBE_DEFER)
+ 			dev_err(mcasp->dev,
 -- 
 Peter
 

@@ -2,79 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B2F2FB5D9
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 18:02:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76CD6FB5E8
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 18:06:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D4851669;
-	Wed, 13 Nov 2019 18:01:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D4851669
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBECB1674;
+	Wed, 13 Nov 2019 18:05:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBECB1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573664547;
-	bh=s7QMDRzw2uvJ0F5+XugwnEjh7nr/BtB49elWtSrnytI=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573664798;
+	bh=C2Mi3K4xzHg/6POf2crnZHe3lPSxGluB8STfLUdbsw4=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ImA+CI8lbmQs4eiN+em/Uabj7iCj5wlCFhuxtQrnheevxUSzhgwxH4o5UqXvdMTMy
-	 mj/erXw2ibpWyMW9kiN+Wnxz/f+vq4vXQRS0H9Lvzh4eqayqDcJR+MjMQFC1x7zA6w
-	 AX18pJyVj1+WvHgbdBGgqWcSQO01wPx2zc1XjP2A=
+	b=GVUSRPrPuZCD12DW4s8AGImGp/RlzwqPkFS2D+apJs9UmM53DwSckA3jpFZGLD0Pe
+	 u0DIQtQfKCq0x5ut8s3TiAHpGIi1V8W9QTAugokdVk3FYXSjyZk7LIRcJX7vWe5YNA
+	 1tib4JgyiFqwi51eGKTEBmjpE/cce5uktk9DYiw8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E896F80086;
-	Wed, 13 Nov 2019 18:00:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA6A6F80088;
+	Wed, 13 Nov 2019 18:04:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0E66F80086; Wed, 13 Nov 2019 18:00:37 +0100 (CET)
+ id 6CE26F80086; Wed, 13 Nov 2019 18:04:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 26848F8007E;
- Wed, 13 Nov 2019 18:00:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26848F8007E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="j33sSwFH"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=0NHzH3hpYIvUakDgXPMy6WsvjLTYMlQWMyrINcsl+1E=; b=j33sSwFHSP6R8ColR4DdxM4u/
- 5eDcOVGRRaLAxa2A6DQQhwkzxJyqealRVfXz2VEZCWFH2wW8PV93vrFIbrHtj/JCeZnO+T6q4I3Wk
- OvOP6s5/h14b0leNngA+L+7Y3mkN3kd/TLc9l2QxyHCKKKBEk2uQ+3vnJhigxrtFrspu4=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1iUw0K-00047b-BS; Wed, 13 Nov 2019 17:00:28 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 382FD274303A; Wed, 13 Nov 2019 17:00:27 +0000 (GMT)
-Date: Wed, 13 Nov 2019 17:00:27 +0000
-From: Mark Brown <broonie@kernel.org>
-To: "Harlozinski, Pawel" <pawel.harlozinski@linux.intel.com>
-Message-ID: <20191113170027.GA4402@sirena.co.uk>
-References: <20191112130237.10141-1-pawel.harlozinski@linux.intel.com>
- <20191112130237.10141-2-pawel.harlozinski@linux.intel.com>
- <20191112171022.GG5195@sirena.co.uk>
- <a65b78da-6faa-9b3d-312e-90c754a45626@linux.intel.com>
-MIME-Version: 1.0
-In-Reply-To: <a65b78da-6faa-9b3d-312e-90c754a45626@linux.intel.com>
-X-Cookie: Type louder, please.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: cezary.rojewski@intel.com, patch@alsa-project.org,
- alsa-devel@alsa-project.org, tiwai@suse.de,
- pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: rt274: Disable jack report IRQ with
- disabling jack
+ by alsa1.perex.cz (Postfix) with ESMTPS id D4E38F80084
+ for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 18:04:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4E38F80084
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id AB964B185;
+ Wed, 13 Nov 2019 17:04:45 +0000 (UTC)
+Date: Wed, 13 Nov 2019 18:04:45 +0100
+Message-ID: <s5hy2wjn1w2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Arnd Bergmann <arnd@arndb.de>
+In-Reply-To: <CAK8P3a3n9hrb-qfAYW9=eYApSX=pkOK5p6iGe0T29-KqGuh0tg@mail.gmail.com>
+References: <20191112151642.680072-1-arnd@arndb.de>
+ <s5hk1847rvm.wl-tiwai@suse.de>
+ <CAK8P3a2TMEUhzxH7RKvAW9STk33KrbCriUaQawOMffoFC6UTQw@mail.gmail.com>
+ <s5hzhgzn304.wl-tiwai@suse.de>
+ <CAK8P3a3n9hrb-qfAYW9=eYApSX=pkOK5p6iGe0T29-KqGuh0tg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang7@gmail.com>
+Subject: Re: [alsa-devel] [PATCH v6 0/8] Fix year 2038 issue for sound
+	subsystem
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,83 +73,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4182905817705859065=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 13 Nov 2019 17:51:57 +0100,
+Arnd Bergmann wrote:
+> 
+> On Wed, Nov 13, 2019 at 5:40 PM Takashi Iwai <tiwai@suse.de> wrote:
+> > On Wed, 13 Nov 2019 15:32:44 +0100, Arnd Bergmann wrote:
+> 
+> > > We had discussed alternatives for this one last time, and decided
+> > > to go with the solution I posted here. The main alternative would
+> > > be to change the 'timespec' in snd_timer_tread to a fixed-length
+> > > structure based on two 'long' members. This would avoid the
+> > > need to match the command with the time_t type, but the cost would
+> > > be requiring CLOCK_MONOTONIC timestamps to avoid the
+> > > overflow, and changing all application source code that requires
+> > > the type to be compatible with 'timespec'.
+> >
+> > Fair enough.
+> >
+> > One thing I forgot to mention: when we add/modify the ioctl or ABI, we
+> > need to increment the protocol version, e.g. SNDRV_PCM_VERSION to
+> > indicate user-space the supported ABI.  Please change these in your
+> > next patches, too.
+> 
+> Just to confirm: this should be a simple one-line patch at the end of the
+> series like
+> 
+> diff --git a/tools/include/uapi/sound/asound.h
+> b/tools/include/uapi/sound/asound.h
+> index df1153cea0b7..72e8380c6dcd 100644
+> --- a/include/uapi/sound/asound.h
+> +++ b/include/uapi/sound/asound.h
+> @@ -154,7 +154,7 @@ struct snd_hwdep_dsp_image {
+>   *                                                                           *
+>   *****************************************************************************/
+> 
+> -#define SNDRV_PCM_VERSION              SNDRV_PROTOCOL_VERSION(2, 0, 14)
+> +#define SNDRV_PCM_VERSION              SNDRV_PROTOCOL_VERSION(2, 0, 15)
+> 
+>  typedef unsigned long snd_pcm_uframes_t;
+>  typedef signed long snd_pcm_sframes_t;
+> 
+> right? Most other kernel interfaces have no version numbering, so
+> I don't know what policy you have here.
 
---===============4182905817705859065==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="liOOAslEiF7prFVr"
-Content-Disposition: inline
+I don't mind much about that, so it's up to you -- we can fold this
+change into the patch that actually adds or modifies the ioctl, too.
 
 
---liOOAslEiF7prFVr
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+thanks,
 
-On Wed, Nov 13, 2019 at 02:55:53PM +0100, Harlozinski, Pawel wrote:
-> On 11/12/2019 6:10 PM, Mark Brown wrote:
-> > On Tue, Nov 12, 2019 at 02:02:37PM +0100, Pawel Harlozinski wrote:
-
-> > >   		/* Disable jack detection */
-> > >   		regmap_update_bits(rt274->regmap, RT274_EAPD_GPIO_IRQ_CTRL,
-> > >   					RT274_IRQ_EN, RT274_IRQ_DIS);
-> > > -
-> > > +		disable_irq(rt274->i2c->irq);
-> > >   		return 0;
-
-> > Shouldn't the register update above be suppressing interrupts?
-> For rt274 disable_irq is also needed, otherwise we're getting flood of irq's
-> in case of not loaded machine board.
-
-Through what mechanism is it needed?  If your machine driver is having
-an impact on this I'm rather worried.
-
-> > disable_irq() is a bit of a hammer and interferes with things like
-> > possible share use.
-
-> This irq should be handled in codec code anyway - control of jack detect
-> events from non-codec code is done with set_jack.
-
-The issue isn't that this is in CODEC code, the issue is that it's
-usually very worrying to need to explicitly disable and enable an
-interrupt at the controller level when the device appears to have
-controls that should stop it asserting the interrupt when it's not
-wanted.
-
-> Similar solutions for jack report irq enable/disable flow are implemented in
-> rt5640 and rt5651.
-
-This may be an indication that those drivers should be improved rather
-than that they should be copied.
-
---liOOAslEiF7prFVr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3MNqoACgkQJNaLcl1U
-h9D7dwf7B1iTEeLycMXiPL/Hb3mQUqrziIEhUmU1cw6BQ3K/Ho0Vp1J1GVMx/HPW
-xVR7TXNU05YgbvGTFCp/fN0qiC3KKs/h4DdiHiqCYg1LenwLmYFI4uPWWfpX3XZK
-aOI4K5Q58QBUAt+jY/hkmArFi9TqhWwFRS4X/HV12tS0cqRqLu+aatQ8zcwDeiSh
-85wWHkWa+iQ3UGpawLZUYAMjFzGSjw7va3jbXOqWTILXRPZyDKHnB8tasxvAWjOj
-AQVOP4fSq+sTZqYEs/CfPI+/nURIkT/X8y+op6X4aBpKsuS4YQ1LAUEokTVPsV/w
-4q/49o7HVWLQMYSMuGnfZ6bpgW5cjQ==
-=D3rZ
------END PGP SIGNATURE-----
-
---liOOAslEiF7prFVr--
-
---===============4182905817705859065==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4182905817705859065==--

@@ -2,70 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F23EEF9D35
-	for <lists+alsa-devel@lfdr.de>; Tue, 12 Nov 2019 23:38:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D06DF9F4E
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 01:31:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 442EB1667;
-	Tue, 12 Nov 2019 23:37:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 442EB1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id D33311660;
+	Wed, 13 Nov 2019 01:30:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D33311660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573598316;
-	bh=LaLSsrgErKeIRp7CD7U+V2YB9sMVNM/3dXRY3zpwdpI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=q4v8Tzj709T1UmMGCsMvbkYnoMuHxo7nEcheLWJPP7OL1ZuG86KgQQDKPFBZ9BBC6
-	 Hl+jt+gwpAz+zwoqeBBcUdAvDOT1dE41NIu9exUo+k3jD7OHiM2e2pLnUZ2LP3/bTb
-	 /iFZkmWm7rKATNIzUyzAWECxvnxF17q83jGwdkjY=
+	s=default; t=1573605091;
+	bh=kQAKcbDwr2sjWVb8W+A2ATnd6rj5gUrX1PuyJkupUWg=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fxEQYNBKyyLsRyiHHdsCt6pPieA6hPZFfP2T6BRymwmM5ygsFehulO3hXesW3wP7b
+	 ZijJ/fBwPFGGsAUdCzRUE6ntKVJyEajsMBZkOImMJPCXrHpGWhvMEYuc3chKAfylDJ
+	 fEbWkGknemkMLKyu5/HJIJdbSjPx7CjyfJCh5SrU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6ABF4F804CF;
-	Tue, 12 Nov 2019 23:36:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E8CEFF80507;
+	Wed, 13 Nov 2019 01:29:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94D2FF804CF; Tue, 12 Nov 2019 23:36:50 +0100 (CET)
+ id B5A6BF804CF; Wed, 13 Nov 2019 01:29:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from ssl.serverraum.org (ssl.serverraum.org [176.9.125.105])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8DAC5F80275
- for <alsa-devel@alsa-project.org>; Tue, 12 Nov 2019 23:36:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DAC5F80275
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=walle.cc header.i=@walle.cc
- header.b="iTB6fj85"
-Received: from apollo.fritz.box (unknown
- [IPv6:2a02:810c:c200:2e91:6257:18ff:fec4:ca34])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-384) server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- by ssl.serverraum.org (Postfix) with ESMTPSA id 8E46223E5E;
- Tue, 12 Nov 2019 23:36:46 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=walle.cc;
- s=mail2016061301; t=1573598207;
- bh=ZQCAeIvVXoosI5EZ8z5kIox93/qG64eH4vjhPLAKDEU=;
- h=From:To:Cc:Subject:Date:From;
- b=iTB6fj85oF0ZhsoYtDOGYHj34i+UA5ro2SweiXUgFZck9fLcO3Pga1XqRnlRqStNB
- J4LFkgEL1XTkffZlv5EC6fHHP7Qx/uWTvbva86JOy2gJHR0WH1pi5QsgqBsiWRgtrn
- EWwoSs60a/xLq6h4p/W28ijJjslI882EOmIn/v5I=
-From: Michael Walle <michael@walle.cc>
-To: alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org
-Date: Tue, 12 Nov 2019 23:36:29 +0100
-Message-Id: <20191112223629.21867-1-michael@walle.cc>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-X-Virus-Scanned: clamav-milter 0.101.4 at web
-X-Virus-Status: Clean
-Cc: patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Michael Walle <michael@walle.cc>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH] ASoC: wm8904: fix regcache handling
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id CEC16F80275
+ for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 01:29:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CEC16F80275
+Date: 13 Nov 2019 09:29:34 +0900
+X-IronPort-AV: E=Sophos;i="5.68,298,1569250800"; d="scan'208";a="31306553"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 13 Nov 2019 09:29:34 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9D3114009F98;
+ Wed, 13 Nov 2019 09:29:34 +0900 (JST)
+Message-ID: <87v9ro4o0h.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <fe4baf43-a06c-f2ac-9b1c-6f0ec5a25cb2@nvidia.com>
+References: <87ftj23jph.wl-kuninori.morimoto.gx@renesas.com>
+ <87d0e63joh.wl-kuninori.morimoto.gx@renesas.com>
+ <c976b330-f635-e818-1feb-f25db42a6ae4@nvidia.com>
+ <87sgmu7xhz.wl-kuninori.morimoto.gx@renesas.com>
+ <fe4baf43-a06c-f2ac-9b1c-6f0ec5a25cb2@nvidia.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: linux-tegra <linux-tegra@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v3 02/19] ASoC: soc-core: tidyup
+	soc_init_dai_link()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,34 +76,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The current code assumes that the power is turned off in
-SND_SOC_BIAS_OFF. If there are no actual regulator the codec isn't
-turned off and the registers are not reset to their default values but
-the regcache is still marked as dirty. Thus a value might not be written
-to the hardware if it is set to the default value. Do a software reset
-before turning off the power to make sure the registers are always reset
-to their default states.
 
-Signed-off-by: Michael Walle <michael@walle.cc>
+Hi Jon
+
+> >> I am seeing an audio regression on -next and bisect is pointing to
+> >> this commit. I am seeing the following crash on boot during probe
+> >> deferral of the soundcard ...
+> > 
+> > It seems timing bug.
+> > I have a plan to post below patch if my current posting patch are accepted,
+> > but it seems it is necessary immediately.
+> > I believe your issue will be solved by this patch,
+> > but can you please test it ?
+> > I will formally post it with your tested-by if it was OK.
+> > 
+> > # It will be more cleanuped in the future,
+> > # but it needs more other cleanup patches...
+> > 
+> > --------------------
+> > Subject: [PATCH] ASoC: soc-core: care card_probed at soc_cleanup_card_resources()
+> > 
+> > soc_cleanup_card_resources() will call card->remove(), but it should be
+> > called if card->probe() or card->late_probe() are called.
+> > snd_soc_bind_card() might be error before calling
+> > card->probe() / card->late_probe().
+> > In that time, card->remove() will be called.
+> > This patch adds card_probed parameter to judge it.
+> > 
+> > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> > ---
+> >  sound/soc/soc-core.c | 15 ++++++++++-----
+> >  1 file changed, 10 insertions(+), 5 deletions(-)
+> 
+> Thanks! I can confirm that this works, so ...
+> 
+> Tested-by: Jon Hunter <jonathanh@nvidia.com>
+
+Thanks. I will post formal patch, soon
+
+Thank you for your help !!
+Best regards
 ---
- sound/soc/codecs/wm8904.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
-index 2a7d23a5daa8..7d7ea15d73e0 100644
---- a/sound/soc/codecs/wm8904.c
-+++ b/sound/soc/codecs/wm8904.c
-@@ -1933,6 +1933,7 @@ static int wm8904_set_bias_level(struct snd_soc_component *component,
- 		snd_soc_component_update_bits(component, WM8904_BIAS_CONTROL_0,
- 				    WM8904_BIAS_ENA, 0);
- 
-+		snd_soc_component_write(component, WM8904_SW_RESET_AND_ID, 0);
- 		regcache_cache_only(wm8904->regmap, true);
- 		regcache_mark_dirty(wm8904->regmap);
- 
--- 
-2.20.1
-
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

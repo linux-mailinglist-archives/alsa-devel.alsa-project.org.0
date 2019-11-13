@@ -2,96 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E10D8FAC0D
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 09:27:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8E73FAD98
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 10:50:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BCAB1667;
-	Wed, 13 Nov 2019 09:26:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BCAB1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id E442A1658;
+	Wed, 13 Nov 2019 10:50:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E442A1658
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573633634;
-	bh=BYlZICjyT7k38HVMXxIv4yNxy5Z03f254kl/v1mFrfc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573638652;
+	bh=+pkUfgKyNSLiwFbn3AT4AxMQ9tJ+gNc3LhqCeDUXuQ0=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mQ5FjjYv7qQ84zYuiFjkOIpPtLwA2QJr6R/LMtscux81AUq7lw1yrzjw95PqZBLcQ
-	 krVh2UcxhqFU6Y06HVUnpTf0piNsYlwOTjM3TH4nDCnFplSVIAndcfMQ0EEdUsYN/V
-	 oTpTKHn0oETexyM4nA8r3VnpkWZZTpJgB+a7Mqmc=
+	b=feeyt5sYNQXW/d84w4IjLd1R97rPZjNPuWr+qui8NqXBTQoRosBXujhnl4GkTSzHC
+	 6djOUWO1RbMJRarXdLJIfg+If6T6NhHQA0dJdCq8ZDJW7UupJYI1VZ+ynnt3CWZoE7
+	 eaOj1E6SRcj8LwXh9l4IviqhiuvbiCoG/RJNjT6Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B5E5F8045D;
-	Wed, 13 Nov 2019 09:25:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF396F80518;
+	Wed, 13 Nov 2019 10:49:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F99BF804FF; Wed, 13 Nov 2019 09:25:28 +0100 (CET)
+ id 7D68CF804FF; Wed, 13 Nov 2019 10:47:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 34932F802E0
- for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 09:25:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 34932F802E0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mailgw02.mediatek.com (unknown [1.203.163.81])
+ by alsa1.perex.cz (Postfix) with ESMTP id 371C2F802E0
+ for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 10:47:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 371C2F802E0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="RRnBMVhW"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xAD8O2WY011619; Wed, 13 Nov 2019 02:25:19 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=HUlJKxSb206fnxwJaIVeyt16K+PMELRcWcNa+iKeQpI=;
- b=RRnBMVhWz+xv57PxGF/yWVwxG7Ph6hVsaFMNRZrnsmXLW+TO+0DG28iAQuhmnacdcNZl
- mvJuyl7RwNaO6l3hqLQQOCPPZ64UDIv1K2L8QmMOUoV07orx5QslPzR9uJTmGToSFVMC
- LGCTjQOnUPTnCnByXUl+lbYfJRsx8MWJQ2XpZVPDjBKoLrQNu2uF+uEFTLPNBdq+nxnu
- qidM7yFLJ6QKgsQgB7zmHkp6C546/fZ37fIebQObiS2MIhE9LG3LUiL0plcGd+9dUequ
- KNjPpwrCCmRI85vK0Ggh92FcKiFuJGrBHMC+0F4pr/hALLRKoRRJGdjjzmt+/CODju2o 0g== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 2w5trnx073-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Wed, 13 Nov 2019 02:25:17 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Wed, 13 Nov
- 2019 08:25:15 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Wed, 13 Nov 2019 08:25:15 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 3D0302A1;
- Wed, 13 Nov 2019 08:25:15 +0000 (UTC)
-Date: Wed, 13 Nov 2019 08:25:15 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Michael Walle <michael@walle.cc>
-Message-ID: <20191113082515.GE10439@ediswmail.ad.cirrus.com>
-References: <20191112223629.21867-1-michael@walle.cc>
+ dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
+ header.b="ApuNDQkB"
+X-UUID: 2719aa13e0d84e6595d8a38434b6819e-20191113
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
+ bh=XrPIxFrz8KAsDxRE5bqWiHwG0QJC6po6mUA88iq2bzo=; 
+ b=ApuNDQkBMW05NIPoUhPC0+49wfgHJZB8lFtQjJStqrnVq52LCChWF3cvAdqc+VbdCu73HEtuyZrY0HZsLywh82hknzDVXrvVu1DiXWFuB+lI1sk074VwuBSqsMQtUkO9ppx8RWTfd8TuGRO5rhQIJ6XsV/nsQohg3m4kGYzngQI=;
+X-UUID: 2719aa13e0d84e6595d8a38434b6819e-20191113
+Received: from mtkcas36.mediatek.inc [(172.27.4.253)] by mailgw02.mediatek.com
+ (envelope-from <jiaxin.yu@mediatek.com>)
+ (mailgw01.mediatek.com ESMTP with TLS)
+ with ESMTP id 515638812; Wed, 13 Nov 2019 17:46:52 +0800
+Received: from MTKCAS36.mediatek.inc (172.27.4.186) by MTKMBS31DR.mediatek.inc
+ (172.27.6.102) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
+ Wed, 13 Nov 2019 17:46:49 +0800
+Received: from [10.17.3.153] (172.27.4.253) by MTKCAS36.mediatek.inc
+ (172.27.4.170) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
+ Transport; Wed, 13 Nov 2019 17:46:49 +0800
+Message-ID: <1573638411.18096.8.camel@mhfsdcap03>
+From: Jiaxin Yu <jiaxin.yu@mediatek.com>
+To: <broonie@kernel.org>, <yingjoe.chen@mediatek.com>, <linux@roeck-us.net>,
+ <p.zabel@pengutronix.de>
+Date: Wed, 13 Nov 2019 17:46:51 +0800
+In-Reply-To: <1571205548-13704-2-git-send-email-jiaxin.yu@mediatek.com>
+References: <1571205548-13704-1-git-send-email-jiaxin.yu@mediatek.com>
+ <1571205548-13704-2-git-send-email-jiaxin.yu@mediatek.com>
+X-Mailer: Evolution 3.10.4-0ubuntu2 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191112223629.21867-1-michael@walle.cc>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- clxscore=1015
- suspectscore=0 phishscore=0 spamscore=0 adultscore=0 priorityscore=1501
- bulkscore=0 mlxscore=0 mlxlogscore=614 lowpriorityscore=0 impostorscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-1910280000
- definitions=main-1911130077
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, patches@opensource.cirrus.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: wm8904: fix regcache handling
+X-TM-SNTS-SMTP: 99F43038FEAE211359C243B6074460598C726E1A8CF0837DFCDE8E9D7CCE06E92000:8
+X-MTK: N
+Cc: mark.rutland@arm.com, alsa-devel@alsa-project.org, yong.liang@mediatek.com,
+ lgirdwood@gmail.com, tzungbi@google.com, robh+dt@kernel.org,
+ linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
+ wim@linux-watchdog.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v4 1/2] dt-bindings: mediatek: mt8183: Add
+	#reset-cells
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,22 +90,109 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 12, 2019 at 11:36:29PM +0100, Michael Walle wrote:
-> The current code assumes that the power is turned off in
-> SND_SOC_BIAS_OFF. If there are no actual regulator the codec isn't
-> turned off and the registers are not reset to their default values but
-> the regcache is still marked as dirty. Thus a value might not be written
-> to the hardware if it is set to the default value. Do a software reset
-> before turning off the power to make sure the registers are always reset
-> to their default states.
+On Wed, 2019-10-16 at 13:59 +0800, Jiaxin Yu wrote:
+> From: "yong.liang" <yong.liang@mediatek.com>
 > 
-> Signed-off-by: Michael Walle <michael@walle.cc>
+> Add #reset-cells property and update example
+> 
+> Signed-off-by: yong.liang <yong.liang@mediatek.com>
 > ---
+>  .../devicetree/bindings/watchdog/mtk-wdt.txt  | 10 ++++++---
+>  .../reset-controller/mt2712-resets.h          | 22 +++++++++++++++++++
+>  .../reset-controller/mt8183-resets.h          | 15 +++++++++++++
+>  3 files changed, 44 insertions(+), 3 deletions(-)
+>  create mode 100644 include/dt-bindings/reset-controller/mt2712-resets.h
+> 
+> diff --git a/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt b/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
+> index 3ee625d0812f..4dd36bd3f1ad 100644
+> --- a/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
+> +++ b/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
+> @@ -4,6 +4,7 @@ Required properties:
+>  
+>  - compatible should contain:
+>  	"mediatek,mt2701-wdt", "mediatek,mt6589-wdt": for MT2701
+> +	"mediatek,mt2712-wdt", "mediatek,mt6589-wdt": for MT2712
+>  	"mediatek,mt6589-wdt": for MT6589
+>  	"mediatek,mt6797-wdt", "mediatek,mt6589-wdt": for MT6797
+>  	"mediatek,mt7622-wdt", "mediatek,mt6589-wdt": for MT7622
+> @@ -16,11 +17,14 @@ Required properties:
+>  
+>  Optional properties:
+>  - timeout-sec: contains the watchdog timeout in seconds.
+> +- #reset-cells: Should be 1.
+>  
+>  Example:
+>  
+> -wdt: watchdog@10000000 {
+> -	compatible = "mediatek,mt6589-wdt";
+> -	reg = <0x10000000 0x18>;
+> +watchdog: watchdog@10007000 {
+> +	compatible = "mediatek,mt8183-wdt",
+> +		     "mediatek,mt6589-wdt";
+> +	reg = <0 0x10007000 0 0x100>;
+>  	timeout-sec = <10>;
+> +	#reset-cells = <1>;
+>  };
+> diff --git a/include/dt-bindings/reset-controller/mt2712-resets.h b/include/dt-bindings/reset-controller/mt2712-resets.h
+> new file mode 100644
+> index 000000000000..e81c8bb311b7
+> --- /dev/null
+> +++ b/include/dt-bindings/reset-controller/mt2712-resets.h
+> @@ -0,0 +1,22 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) 2019 MediaTek Inc.
+> + * Author: Yong Liang <yong.liang@mediatek.com>
+> + */
+> +
+> +#ifndef _DT_BINDINGS_RESET_CONTROLLER_MT2712
+> +#define _DT_BINDINGS_RESET_CONTROLLER_MT2712
+> +
+> +#define MT2712_TOPRGU_INFRA_SW_RST				0
+> +#define MT2712_TOPRGU_MM_SW_RST					1
+> +#define MT2712_TOPRGU_MFG_SW_RST				2
+> +#define MT2712_TOPRGU_VENC_SW_RST				3
+> +#define MT2712_TOPRGU_VDEC_SW_RST				4
+> +#define MT2712_TOPRGU_IMG_SW_RST				5
+> +#define MT2712_TOPRGU_INFRA_AO_SW_RST				8
+> +#define MT2712_TOPRGU_USB_SW_RST				9
+> +#define MT2712_TOPRGU_APMIXED_SW_RST				10
+> +
+> +#define MT2712_TOPRGU_SW_RST_NUM				10
+> +
+> +#endif  /* _DT_BINDINGS_RESET_CONTROLLER_MT2712 */
+> diff --git a/include/dt-bindings/reset-controller/mt8183-resets.h b/include/dt-bindings/reset-controller/mt8183-resets.h
+> index 8804e34ebdd4..d582da6bedae 100644
+> --- a/include/dt-bindings/reset-controller/mt8183-resets.h
+> +++ b/include/dt-bindings/reset-controller/mt8183-resets.h
+> @@ -78,4 +78,19 @@
+>  #define MT8183_INFRACFG_AO_I2C7_SW_RST				126
+>  #define MT8183_INFRACFG_AO_I2C8_SW_RST				127
+>  
+> +#define MT8183_TOPRGU_MM_SW_RST					1
+> +#define MT8183_TOPRGU_MFG_SW_RST				2
+> +#define MT8183_TOPRGU_VENC_SW_RST				3
+> +#define MT8183_TOPRGU_VDEC_SW_RST				4
+> +#define MT8183_TOPRGU_IMG_SW_RST				5
+> +#define MT8183_TOPRGU_MD_SW_RST					7
+> +#define MT8183_TOPRGU_CONN_SW_RST				9
+> +#define MT8183_TOPRGU_CONN_MCU_SW_RST				12
 
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> +#define MT8183_TOPRGU_IPU0_SW_RST				14
+> +#define MT8183_TOPRGU_IPU1_SW_RST				15
+> +#define MT8183_TOPRGU_AUDIO_SW_RST				17
+> +#define MT8183_TOPRGU_CAMSYS_SW_RST				18
+> +
+> +#define MT8183_TOPRGU_SW_RST_NUM				18
+> +
+>  #endif  /* _DT_BINDINGS_RESET_CONTROLLER_MT8183 */
 
-Thanks,
-Charles
+Hi, Philipp && Guenter,
+
+Could you help to review these two patches about mediatek reset
+controller? If this has any questions, please let me know, thanks a lot.
+
+Jiaxin.Yu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

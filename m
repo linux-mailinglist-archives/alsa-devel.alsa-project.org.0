@@ -2,87 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19ADBFA487
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 03:18:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E881BFA911
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 05:39:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 72DA4165F;
-	Wed, 13 Nov 2019 03:18:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72DA4165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 560051666;
+	Wed, 13 Nov 2019 05:38:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 560051666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573611530;
-	bh=DxYDq3vEvlkHWbfXLc33pXe+/VrqE44M/t7NwNVpgyw=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1573619984;
+	bh=WGVWoII3PBgO2vW0A3hzubMOW09KD+uwGJRAjey3YJM=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rFV1CtUr1RyzCEugUjF/QMHo9IsOFiAteRigPyW1WN6hZbdI8iqaDN2qdP8TJj81T
-	 Z82NcyLREWxu9OjwWx/hewHQsHNzhX9SN+SYQbQ+tVU+urtKCDN7a1Gh8KhRQIhnrp
-	 8S41iaxzxAVCgC+zhY38awncYFeyt8Yn5LPX79hs=
+	b=LWnJgUnBJsi2DaNPbRqBGWak7iYMw1VKCPFisNhiRDHpJvzFNPgFN6tHb//dU+HGY
+	 pkN1sBkIF1+FU2v8D+DknObhwys+3fGDvfKPrmuB57/SIQxhAXO++J/s2KR+bP9w9U
+	 neQc+4QPwmPHrvbVX0oumIXbhkUuqNaQca1C5VlM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CA70F8044C;
-	Wed, 13 Nov 2019 03:17:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 33DCEF804FF;
+	Wed, 13 Nov 2019 05:38:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE957F804CF; Wed, 13 Nov 2019 03:17:03 +0100 (CET)
+ id A297DF804FF; Wed, 13 Nov 2019 05:37:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 515AAF8044C
- for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 03:16:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 515AAF8044C
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="C/6sf+uZ"
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5dcb67610000>; Tue, 12 Nov 2019 18:16:01 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Tue, 12 Nov 2019 18:16:57 -0800
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Tue, 12 Nov 2019 18:16:57 -0800
-Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL111.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 13 Nov
- 2019 02:16:56 +0000
-Received: from hqnvemgw03.nvidia.com (10.124.88.68) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via Frontend
- Transport; Wed, 13 Nov 2019 02:16:56 +0000
-Received: from henryl-tu10x.nvidia.com (Not Verified[10.19.109.97]) by
- hqnvemgw03.nvidia.com with Trustwave SEG (v7, 5, 8, 10121)
- id <B5dcb67970000>; Tue, 12 Nov 2019 18:16:56 -0800
-From: Henry Lin <henryl@nvidia.com>
-To: 
-Date: Wed, 13 Nov 2019 10:14:19 +0800
-Message-ID: <20191113021420.13377-1-henryl@nvidia.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191112065108.7766-1-henryl@nvidia.com>
-References: <20191112065108.7766-1-henryl@nvidia.com>
-X-NVConfidentiality: public
-MIME-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1573611361; bh=Tujpg7WZBoOThKGX8MEAml/VB3Yc83jertZP/WdKXl0=;
- h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
- In-Reply-To:References:X-NVConfidentiality:MIME-Version:
- Content-Type;
- b=C/6sf+uZj2gOMh/+HER/DbH5WOlnwdrXdu1S2kYhz3Kqc89ZAAQhoOb5k85XqhhvC
- zWY60Wd/cdyrsszASUdpJmdmOJSLpmnCE0HOHB6Ld1KH2aa40KJPP+kqE/9dgPOy4M
- S3B0nML7ZS27bkJ0DiQjuH0X+ohSrp6o5a/aOScVdxj5xK4NMzlFpOdliYYVriki45
- pMn76QfDjqIX+6NGPq5rlRl69ZjxGym+QgaAoslIKGQAK6zrDvr44DA311pJqXoPQc
- I3iyVcxdgyj0hRlIq0JD7pk+NawUf0zX1SsrG/rsrXCN5+KCPP3kXCwn8/4eACPeZ8
- XMwUJvgDueUEQ==
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- Richard Fontana <rfontana@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Henry Lin <henryl@nvidia.com>, Allison Randal <allison@lohutok.net>
-Subject: [alsa-devel] [PATCH v2] usb-audio: not submit urb for stopped
-	endpoint
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 74E4BF80214
+ for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 05:37:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74E4BF80214
+Date: 13 Nov 2019 13:37:46 +0900
+X-IronPort-AV: E=Sophos;i="5.68,299,1569250800"; d="scan'208,223";a="31333584"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 13 Nov 2019 13:37:46 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id E02614012790;
+ Wed, 13 Nov 2019 13:37:46 +0900 (JST)
+Message-ID: <87lfsk4cit.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <ce011d55-b1b2-7bd9-9de3-48fb616703f0@linux.intel.com>
+References: <87ftj23jph.wl-kuninori.morimoto.gx@renesas.com>
+ <877e4e3jni.wl-kuninori.morimoto.gx@renesas.com>
+ <8ed58ca1-0f9d-63e8-ba5d-28ee5209aee5@linux.intel.com>
+ <87pnhx8xjl.wl-kuninori.morimoto.gx@renesas.com>
+ <87o8xh8wyz.wl-kuninori.morimoto.gx@renesas.com>
+ <87mud18ukk.wl-kuninori.morimoto.gx@renesas.com>
+ <73feb970-bca5-b736-ce44-d44dacab02d1@linux.intel.com>
+ <20191112190326.GJ5195@sirena.co.uk>
+ <ce011d55-b1b2-7bd9-9de3-48fb616703f0@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: multipart/mixed; boundary="Multipart_Wed_Nov_13_13:37:46_2019-1"
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v3 06/19] ASoC: soc-core: add
+	soc_unbind_dai_link()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,47 +74,155 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-While output urb's snd_complete_urb() is executing, calling
-prepare_outbound_urb() may cause endpoint stopped before
-prepare_outbound_urb() returns and result in next urb submitted
-to stopped endpoint. usb-audio driver cannot re-use it afterwards as
-the urb is still hold by usb stack.
+--Multipart_Wed_Nov_13_13:37:46_2019-1
+Content-Type: text/plain; charset=US-ASCII
 
-This change checks EP_FLAG_RUNNING flag after prepare_outbound_urb() again
-to let snd_complete_urb() know the endpoint already stopped and does not
-submit next urb. Below kind of error will be fixed:
 
-[  213.153103] usb 1-2: timeout: still 1 active urbs on EP #1
-[  213.164121] usb 1-2: cannot submit urb 0, error -16: unknown error
+Hi Pierre-Louis
 
-Signed-off-by: Henry Lin <henryl@nvidia.com>
+Thank you for your report
+
+> >> +       for_each_rtd_components(rtd, rtdcom, component) {
+> >> +               pr_err("plb: %s processing component\n", __func__);
+> >> +               if (!component)
+> >> +                       pr_err("plb: %s component is NULL\n", __func__);
+> > 
+> > Could you perhaps add traces of which components are being accessed at
+> > each stage?  We might want to go through and just add something like
+> > that in the code anyway to help figure things out.
+> 
+> I tried to add more traces but couldn't triangulate on a clear issue,
+> and the traces have an Heisenbug effect.
+> 
+> So I switched to higher-level code analysis: it turns out that
+> soc_dai_link_remove() routine is called from both topology and on card
+> cleanup.
+> 
+> The patch 06/19 in this series essentially forces the pcm_runtimes to
+> be freed in both cases, so possibly twice for topology-managed
+> dailinks - or using information that's been freed already.
+> 
+> I 'fixed' this by adding an additional parameter to avoid doing the
+> pcm runtime free from the topology (as was done before), and the
+> kernel oops goes away. My tests have been running for 45mn now, when
+> without change I get a kernel oops in less than 10-20 cycles (but
+> still more than apparently our CI tracks, something to improve).
+> 
+> I pushed the code on GitHub to check if there are any negative points
+> reported by the Intel CI, should be complete shortly:
+> https://github.com/thesofproject/linux/pull/1469
+> 
+> I am not sure the suggested fix is correct, I don't fully get what the
+> topology and card cleanups should do and how the work is split, if at
+> all.
+
+BTW, I guess your kernel is appling this patch,
+but, is it correct ?
+
+	df95a16d2a9626dcfc3f2b3671c9b91fa076c997
+	("ASoC: soc-core: fix RIP warning on card removal")
+
+If so, I think I could understand the issue.
+But, before explaining detail,
+I want to confirm that my solution is correct or not first.
+
+Can you please check attached patch ?
+Then, please remove above RIP warning patch.
+It is not clean patch, but OK to confirming, so far.
+I think
+	- no kernel Oops
+	- no RIP warning
+
+Thank you for your help !!
+Best regards
 ---
- sound/usb/endpoint.c | 3 +++
- 1 file changed, 3 insertions(+)
+Kuninori Morimoto
 
-diff --git a/sound/usb/endpoint.c b/sound/usb/endpoint.c
-index a2ab8e8d3a93..4a9a2f6ef5a4 100644
---- a/sound/usb/endpoint.c
-+++ b/sound/usb/endpoint.c
-@@ -388,6 +388,9 @@ static void snd_complete_urb(struct urb *urb)
- 		}
- 
- 		prepare_outbound_urb(ep, ctx);
-+		/* can be stopped during prepare callback */
-+		if (unlikely(!test_bit(EP_FLAG_RUNNING, &ep->flags)))
-+			goto exit_clear;
- 	} else {
- 		retire_inbound_urb(ep, ctx);
- 		/* can be stopped during retire callback */
--- 
-2.17.1
+--Multipart_Wed_Nov_13_13:37:46_2019-1
+Content-Type: text/plain; type=patch; name="0001-topology-die-fixup-patch-candidate-1.patch"; charset=US-ASCII
+Content-Disposition: attachment; filename="0001-topology-die-fixup-patch-candidate-1.patch"
+Content-Transfer-Encoding: base64
+
+RnJvbSAwZDgyNTIzN2VlYTRiYWFkMGM0ODllMWM0M2E1ODM3M2Y0MWEzNjMyIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBLdW5pbm9yaSBNb3JpbW90byA8a3VuaW5vcmkubW9yaW1vdG8u
+Z3hAcmVuZXNhcy5jb20+CkRhdGU6IFdlZCwgMTMgTm92IDIwMTkgMTE6NTg6MTggKzA5MDAKU3Vi
+amVjdDogW1BBVENIXSB0b3BvbG9neSBkaWUgZml4dXAgcGF0Y2ggY2FuZGlkYXRlIDEKClNpZ25l
+ZC1vZmYtYnk6IEt1bmlub3JpIE1vcmltb3RvIDxrdW5pbm9yaS5tb3JpbW90by5neEByZW5lc2Fz
+LmNvbT4KLS0tCiBpbmNsdWRlL3NvdW5kL3NvYy1jb21wb25lbnQuaCB8ICAyICstCiBzb3VuZC9z
+b2Mvc29jLWNvbXBvbmVudC5jICAgICB8ICA1ICsrLS0tCiBzb3VuZC9zb2Mvc29jLWNvcmUuYyAg
+ICAgICAgICB8IDE0ICsrKysrKysrLS0tLS0tCiBzb3VuZC9zb2Mvc29jLXBjbS5jICAgICAgICAg
+ICB8IDEwIC0tLS0tLS0tLS0KIDQgZmlsZXMgY2hhbmdlZCwgMTEgaW5zZXJ0aW9ucygrKSwgMjAg
+ZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9zb3VuZC9zb2MtY29tcG9uZW50Lmgg
+Yi9pbmNsdWRlL3NvdW5kL3NvYy1jb21wb25lbnQuaAppbmRleCA2YWEzZWNiLi5jZjcyNmE1IDEw
+MDY0NAotLS0gYS9pbmNsdWRlL3NvdW5kL3NvYy1jb21wb25lbnQuaAorKysgYi9pbmNsdWRlL3Nv
+dW5kL3NvYy1jb21wb25lbnQuaApAQCAtNDEzLDYgKzQxMyw2IEBAIHN0cnVjdCBwYWdlICpzbmRf
+c29jX3BjbV9jb21wb25lbnRfcGFnZShzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVh
+bSwKIGludCBzbmRfc29jX3BjbV9jb21wb25lbnRfbW1hcChzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJl
+YW0gKnN1YnN0cmVhbSwKIAkJCSAgICAgICBzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSk7CiBp
+bnQgc25kX3NvY19wY21fY29tcG9uZW50X25ldyhzdHJ1Y3Qgc25kX3BjbSAqcGNtKTsKLXZvaWQg
+c25kX3NvY19wY21fY29tcG9uZW50X2ZyZWUoc3RydWN0IHNuZF9wY20gKnBjbSk7Cit2b2lkIHNu
+ZF9zb2NfcGNtX2NvbXBvbmVudF9mcmVlKHN0cnVjdCBzbmRfc29jX3BjbV9ydW50aW1lICpydGQp
+OwogCiAjZW5kaWYgLyogX19TT0NfQ09NUE9ORU5UX0ggKi8KZGlmZiAtLWdpdCBhL3NvdW5kL3Nv
+Yy9zb2MtY29tcG9uZW50LmMgYi9zb3VuZC9zb2Mvc29jLWNvbXBvbmVudC5jCmluZGV4IDk4ZWYw
+NjYuLjE5NTk3OWYgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9zb2MtY29tcG9uZW50LmMKKysrIGIv
+c291bmQvc29jL3NvYy1jb21wb25lbnQuYwpAQCAtNTE2LDEzICs1MTYsMTIgQEAgaW50IHNuZF9z
+b2NfcGNtX2NvbXBvbmVudF9uZXcoc3RydWN0IHNuZF9wY20gKnBjbSkKIAlyZXR1cm4gMDsKIH0K
+IAotdm9pZCBzbmRfc29jX3BjbV9jb21wb25lbnRfZnJlZShzdHJ1Y3Qgc25kX3BjbSAqcGNtKQor
+dm9pZCBzbmRfc29jX3BjbV9jb21wb25lbnRfZnJlZShzdHJ1Y3Qgc25kX3NvY19wY21fcnVudGlt
+ZSAqcnRkKQogewotCXN0cnVjdCBzbmRfc29jX3BjbV9ydW50aW1lICpydGQgPSBwY20tPnByaXZh
+dGVfZGF0YTsKIAlzdHJ1Y3Qgc25kX3NvY19ydGRjb21fbGlzdCAqcnRkY29tOwogCXN0cnVjdCBz
+bmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50OwogCiAJZm9yX2VhY2hfcnRkX2NvbXBvbmVudHMo
+cnRkLCBydGRjb20sIGNvbXBvbmVudCkKIAkJaWYgKGNvbXBvbmVudC0+ZHJpdmVyLT5wY21fZGVz
+dHJ1Y3QpCi0JCQljb21wb25lbnQtPmRyaXZlci0+cGNtX2Rlc3RydWN0KGNvbXBvbmVudCwgcGNt
+KTsKKwkJCWNvbXBvbmVudC0+ZHJpdmVyLT5wY21fZGVzdHJ1Y3QoY29tcG9uZW50LCBydGQtPnBj
+bSk7CiB9CmRpZmYgLS1naXQgYS9zb3VuZC9zb2Mvc29jLWNvcmUuYyBiL3NvdW5kL3NvYy9zb2Mt
+Y29yZS5jCmluZGV4IDFlOGRkMTkuLjhlN2ZmN2QgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9zb2Mt
+Y29yZS5jCisrKyBiL3NvdW5kL3NvYy9zb2MtY29yZS5jCkBAIC0zODYsNiArMzg2LDkgQEAgc3Rh
+dGljIHZvaWQgc29jX2ZyZWVfcGNtX3J1bnRpbWUoc3RydWN0IHNuZF9zb2NfcGNtX3J1bnRpbWUg
+KnJ0ZCkKIAogCWxpc3RfZGVsKCZydGQtPmxpc3QpOwogCisJZmx1c2hfZGVsYXllZF93b3JrKCZy
+dGQtPmRlbGF5ZWRfd29yayk7CisJc25kX3NvY19wY21fY29tcG9uZW50X2ZyZWUocnRkKTsKKwog
+CS8qCiAJICogd2UgZG9uJ3QgbmVlZCB0byBjYWxsIGtmcmVlKCkgZm9yIHJ0ZC0+ZGV2CiAJICog
+c2VlCkBAIC0xOTY1LDEyICsxOTY4LDYgQEAgc3RhdGljIHZvaWQgc29jX2NsZWFudXBfY2FyZF9y
+ZXNvdXJjZXMoc3RydWN0IHNuZF9zb2NfY2FyZCAqY2FyZCkKIHsKIAlzdHJ1Y3Qgc25kX3NvY19k
+YWlfbGluayAqbGluaywgKl9saW5rOwogCi0JLyogZnJlZSB0aGUgQUxTQSBjYXJkIGF0IGZpcnN0
+OyB0aGlzIHN5bmNzIHdpdGggcGVuZGluZyBvcGVyYXRpb25zICovCi0JaWYgKGNhcmQtPnNuZF9j
+YXJkKSB7Ci0JCXNuZF9jYXJkX2ZyZWUoY2FyZC0+c25kX2NhcmQpOwotCQljYXJkLT5zbmRfY2Fy
+ZCA9IE5VTEw7Ci0JfQotCiAJLyogcmVtb3ZlIGFuZCBmcmVlIGVhY2ggREFJICovCiAJc29jX3Jl
+bW92ZV9saW5rX2RhaXMoY2FyZCk7CiAJc29jX3JlbW92ZV9saW5rX2NvbXBvbmVudHMoY2FyZCk7
+CkBAIC0xOTg4LDYgKzE5ODUsMTEgQEAgc3RhdGljIHZvaWQgc29jX2NsZWFudXBfY2FyZF9yZXNv
+dXJjZXMoc3RydWN0IHNuZF9zb2NfY2FyZCAqY2FyZCkKIAkvKiByZW1vdmUgdGhlIGNhcmQgKi8K
+IAlpZiAoY2FyZC0+cmVtb3ZlKQogCQljYXJkLT5yZW1vdmUoY2FyZCk7CisKKwlpZiAoY2FyZC0+
+c25kX2NhcmQpIHsKKwkJc25kX2NhcmRfZnJlZShjYXJkLT5zbmRfY2FyZCk7CisJCWNhcmQtPnNu
+ZF9jYXJkID0gTlVMTDsKKwl9CiB9CiAKIHN0YXRpYyBpbnQgc25kX3NvY19pbnN0YW50aWF0ZV9j
+YXJkKHN0cnVjdCBzbmRfc29jX2NhcmQgKmNhcmQpCmRpZmYgLS1naXQgYS9zb3VuZC9zb2Mvc29j
+LXBjbS5jIGIvc291bmQvc29jL3NvYy1wY20uYwppbmRleCAxYzAwMTE5Li5hNjBlMzgxIDEwMDY0
+NAotLS0gYS9zb3VuZC9zb2Mvc29jLXBjbS5jCisrKyBiL3NvdW5kL3NvYy9zb2MtcGNtLmMKQEAg
+LTI4ODMsMTUgKzI4ODMsNiBAQCBzdGF0aWMgaW50IGRwY21fZmVfZGFpX2Nsb3NlKHN0cnVjdCBz
+bmRfcGNtX3N1YnN0cmVhbSAqZmVfc3Vic3RyZWFtKQogCXJldHVybiByZXQ7CiB9CiAKLXN0YXRp
+YyB2b2lkIHNvY19wY21fcHJpdmF0ZV9mcmVlKHN0cnVjdCBzbmRfcGNtICpwY20pCi17Ci0Jc3Ry
+dWN0IHNuZF9zb2NfcGNtX3J1bnRpbWUgKnJ0ZCA9IHBjbS0+cHJpdmF0ZV9kYXRhOwotCi0JLyog
+bmVlZCB0byBzeW5jIHRoZSBkZWxheWVkIHdvcmsgYmVmb3JlIHJlbGVhc2luZyByZXNvdXJjZXMg
+Ki8KLQlmbHVzaF9kZWxheWVkX3dvcmsoJnJ0ZC0+ZGVsYXllZF93b3JrKTsKLQlzbmRfc29jX3Bj
+bV9jb21wb25lbnRfZnJlZShwY20pOwotfQotCiAvKiBjcmVhdGUgYSBuZXcgcGNtICovCiBpbnQg
+c29jX25ld19wY20oc3RydWN0IHNuZF9zb2NfcGNtX3J1bnRpbWUgKnJ0ZCwgaW50IG51bSkKIHsK
+QEAgLTMwMzMsNyArMzAyNCw2IEBAIGludCBzb2NfbmV3X3BjbShzdHJ1Y3Qgc25kX3NvY19wY21f
+cnVudGltZSAqcnRkLCBpbnQgbnVtKQogCQlyZXR1cm4gcmV0OwogCX0KIAotCXBjbS0+cHJpdmF0
+ZV9mcmVlID0gc29jX3BjbV9wcml2YXRlX2ZyZWU7CiAJcGNtLT5ub19kZXZpY2Vfc3VzcGVuZCA9
+IHRydWU7CiBvdXQ6CiAJZGV2X2luZm8ocnRkLT5jYXJkLT5kZXYsICIlcyA8LT4gJXMgbWFwcGlu
+ZyBva1xuIiwKLS0gCjIuNy40Cgo=
+
+--Multipart_Wed_Nov_13_13:37:46_2019-1
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--Multipart_Wed_Nov_13_13:37:46_2019-1--

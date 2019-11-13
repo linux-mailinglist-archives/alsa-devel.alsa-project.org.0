@@ -2,89 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7161FB38D
-	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 16:18:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1582AFB4A4
+	for <lists+alsa-devel@lfdr.de>; Wed, 13 Nov 2019 17:07:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C47F1654;
-	Wed, 13 Nov 2019 16:17:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C47F1654
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8C2B11660;
+	Wed, 13 Nov 2019 17:06:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C2B11660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573658320;
-	bh=qv5bqwoo3aH2z6uHpHMZqAxnzQqg+RkNhV1HZDvH2pU=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1573661224;
+	bh=P1k4wv4il3OsonT2u1kajKl+abtThmemHq7D8DemDcg=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Wyp8Se6dUJS73ak2hL0DVLKrfhpqLhk9NVPeX9ttQAorqN3ETeG9kSQ6sdoFchsx9
-	 fUAyyhV59LyQUrOAzSLho4nTMlUyfSp0q1qhCmwfPZdB9zYUcrtO4cYWC2U0g12jRr
-	 HO0A4es/TuZzxaWVZetTebPwqycIBQJy1Q2cmOx8=
+	b=KfCy8yb4TR43GaoRe/Psd++O1vrb73M41bJwkfjZaxVs92UiXMHQnPI7kNjv4Fu+n
+	 WuDmK8tzKuU6stegvcyI/N987gwqo3t5kUJowv2jdDuVsSro6Olm5IAgnENHiUdsEP
+	 ubQmEOjyTohGsq+voGYXIjYJznv2jgNtURD4YMnU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB5AAF80086;
-	Wed, 13 Nov 2019 16:16:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D3CCF80086;
+	Wed, 13 Nov 2019 17:05:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3A6A9F80086; Wed, 13 Nov 2019 16:16:52 +0100 (CET)
+ id E71C5F80086; Wed, 13 Nov 2019 17:05:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F15F8F8007E
- for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 16:16:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F15F8F8007E
-Received: from mail-qt1-f181.google.com ([209.85.160.181]) by
- mrelayeu.kundenserver.de (mreue009 [212.227.15.129]) with ESMTPSA (Nemesis)
- id 1MxUfh-1hglhS21KD-00xvQk for <alsa-devel@alsa-project.org>; Wed, 13 Nov
- 2019 16:16:43 +0100
-Received: by mail-qt1-f181.google.com with SMTP id y10so2961756qto.3
- for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 07:16:42 -0800 (PST)
-X-Gm-Message-State: APjAAAXFz4kD7JZie3TZ5uopzs4+ZIgiI4D/f/fShk7DJdIW2orLeYHp
- O7ED4AWAQKSflO9ksIqsVKQDdZ0GnnAKpdXHy4I=
-X-Google-Smtp-Source: APXvYqyehADfYKSO2+PD82fjNQhlUg+YenUlni8gjYwpgnn1wwsKDRbqkoOHEizWW6rShGLfKQvAB5dcAbI2A6sp3mA=
-X-Received: by 2002:ac8:18eb:: with SMTP id o40mr3132571qtk.304.1573658202039; 
- Wed, 13 Nov 2019 07:16:42 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 68BF9F80084
+ for <alsa-devel@alsa-project.org>; Wed, 13 Nov 2019 17:05:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68BF9F80084
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Nov 2019 08:05:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,300,1569308400"; d="scan'208";a="229789958"
+Received: from dmsnyder-mobl1.amr.corp.intel.com (HELO [10.252.193.15])
+ ([10.252.193.15])
+ by fmsmga004.fm.intel.com with ESMTP; 13 Nov 2019 08:05:06 -0800
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <87ftj23jph.wl-kuninori.morimoto.gx@renesas.com>
+ <877e4e3jni.wl-kuninori.morimoto.gx@renesas.com>
+ <8ed58ca1-0f9d-63e8-ba5d-28ee5209aee5@linux.intel.com>
+ <87pnhx8xjl.wl-kuninori.morimoto.gx@renesas.com>
+ <87o8xh8wyz.wl-kuninori.morimoto.gx@renesas.com>
+ <87mud18ukk.wl-kuninori.morimoto.gx@renesas.com>
+ <73feb970-bca5-b736-ce44-d44dacab02d1@linux.intel.com>
+ <20191112190326.GJ5195@sirena.co.uk>
+ <ce011d55-b1b2-7bd9-9de3-48fb616703f0@linux.intel.com>
+ <87lfsk4cit.wl-kuninori.morimoto.gx@renesas.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <3e4b8289-8e59-d8fe-635b-d55d2b20de5d@linux.intel.com>
+Date: Wed, 13 Nov 2019 10:05:06 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.2
 MIME-Version: 1.0
-References: <20191112151642.680072-1-arnd@arndb.de>
- <20191112151642.680072-6-arnd@arndb.de>
- <s5hv9rpnj6m.wl-tiwai@suse.de>
- <CAK8P3a0esv0T6ALMXJW40B45Qy5BqVSV9rhSD_sVNUc1T+suEg@mail.gmail.com>
- <s5hmud07sfb.wl-tiwai@suse.de>
-In-Reply-To: <s5hmud07sfb.wl-tiwai@suse.de>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Wed, 13 Nov 2019 16:16:26 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a1gJAjyNK4R3k560VjC+sN=haWjhEX4SpgroRoMDQANiA@mail.gmail.com>
-Message-ID: <CAK8P3a1gJAjyNK4R3k560VjC+sN=haWjhEX4SpgroRoMDQANiA@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-X-Provags-ID: V03:K1:0m/dyYyhhUdzy7xM0+yILvHJ6WqtkXASXHiBu9WOkKj+FkegzNz
- H06ikJbw3TNuMJjN7Y3qx30XQjRJaZXJ2abc4oqZAnwTiMaGelEXJLRfXA4jNBLtcdV2Gm1
- DLRcZwSYR3NTIMhk6EiNUZdNO/xPEjZrfXuA6BPAfl5mOLJAz/0Ckn6l0vThHPOOoB/qGEG
- fvQsmG2Xu1SjOh42lKsyg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:T6P65vBs77U=:nMQjyzVpkVFMMg87tVuQC/
- R948qugB+7tGVfQpIzcRDAZs0R5ErKPmLuBT2OV4WZfRmyEpjrov+zxKiGnwHpkP1SzohkpYJ
- VmKE5Cua1obXTaeGh0bVqYIZu6LHaMEB20KMwrEGG2S9NVAoXTf3Gmag1xPnaZl9COYyLpJ6w
- nN3ge9H1Xa2VvmcH8169LoKIfjrd/WaGe3hm6lyptYZCRclEQcL+VUWtBCdyo21O2uXDN0nFp
- LxGCkPbsCfSY8MmCGIJUhDx8RuEwq2vjz3HBYxYvLfY6zU/YSBfh8VhirUpefwcWS1QH7+rlm
- gMq0sm1e09fR8QfJrFCGgx1mSD8gOISLUi22IyG2SX+V5p9bNkwXmQ15GjNNbXR5Av8NV9ZWs
- ULtkcLho9LQSQUXVygeJVijIJlWye39H/4j72T/PBJVuM9gHbIMZ2Ue2FHzG8laBQjSsaAAr7
- MwrBaENDkwxMzw4+NyIfve3CLwGaVg0mtb+6xFpgqP/kT4UfagOQ5Pov3terXgVuhUeGg2E5/
- U9c2AaVc/KRUvdoykzJqJmWq12JHZphuVImeuSm5YzgM7JGtA+Y7v80s0scDuSdoEBdpAVJCr
- 67L/o8sZwxpXY1aPI2xz/kRe1/3YUQ+Jn0lMSyZE2cLddILfaem+8R9JbN7x/TAIypZgkJnrw
- X0AfsqOwFQx/bFNdszb5EzP4o86X6Krc6JcL5xgbBhxporMiW36CkxEXxrFTIPAF9ezEuAvcP
- 04GauSLkpIwJXPhNGzomtew6pG+eJ//+wZQp5Ggcsx6+QTqkmpgUb5dTszDvT0l9c9OMyf0mF
- mgGR80BeP9+C5zEXve0wS+3B6msTaUUhcI86z2vzzAmBKuNrUAe5AdaQEgxFiIdkhcqymwT0K
- DYHTSkfEfyA6Do4YEhaw==
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Baolin Wang <baolin.wang@linaro.org>,
- y2038 Mailman List <y2038@lists.linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Baolin Wang <baolin.wang7@gmail.com>
-Subject: Re: [alsa-devel] [PATCH v6 5/8] ALSA: Avoid using timespec for
-	struct snd_rawmidi_status
+In-Reply-To: <87lfsk4cit.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v3 06/19] ASoC: soc-core: add
+ soc_unbind_dai_link()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,31 +81,95 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 12, 2019 at 9:26 PM Takashi Iwai <tiwai@suse.de> wrote:
-> On Tue, 12 Nov 2019 21:04:10 +0100, Arnd Bergmann wrote:
-> >
-> > On Tue, Nov 12, 2019 at 5:38 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > On Tue, 12 Nov 2019 16:16:39 +0100, Arnd Bergmann wrote:
-> > If you feel there is a problem with the padding syntax, how about enclosing
-> > it in a typedef like:
-> >
-> > typedef struct { char pad[sizeof(time_t) - sizeof(int)]; } __time_pad;
-> >
-> > This typedef could be used in several structures from the other patches
-> > as well.
->
-> Yes, that improves the readability.
 
-Ok, added this change to all instances, along with a description in
-the changelog
-when I add the typedef.
 
-       Arnd
+On 11/12/19 10:37 PM, Kuninori Morimoto wrote:
+> 
+> Hi Pierre-Louis
+> 
+> Thank you for your report
+> 
+>>>> +       for_each_rtd_components(rtd, rtdcom, component) {
+>>>> +               pr_err("plb: %s processing component\n", __func__);
+>>>> +               if (!component)
+>>>> +                       pr_err("plb: %s component is NULL\n", __func__);
+>>>
+>>> Could you perhaps add traces of which components are being accessed at
+>>> each stage?  We might want to go through and just add something like
+>>> that in the code anyway to help figure things out.
+>>
+>> I tried to add more traces but couldn't triangulate on a clear issue,
+>> and the traces have an Heisenbug effect.
+>>
+>> So I switched to higher-level code analysis: it turns out that
+>> soc_dai_link_remove() routine is called from both topology and on card
+>> cleanup.
+>>
+>> The patch 06/19 in this series essentially forces the pcm_runtimes to
+>> be freed in both cases, so possibly twice for topology-managed
+>> dailinks - or using information that's been freed already.
+>>
+>> I 'fixed' this by adding an additional parameter to avoid doing the
+>> pcm runtime free from the topology (as was done before), and the
+>> kernel oops goes away. My tests have been running for 45mn now, when
+>> without change I get a kernel oops in less than 10-20 cycles (but
+>> still more than apparently our CI tracks, something to improve).
+>>
+>> I pushed the code on GitHub to check if there are any negative points
+>> reported by the Intel CI, should be complete shortly:
+>> https://github.com/thesofproject/linux/pull/1469
+>>
+>> I am not sure the suggested fix is correct, I don't fully get what the
+>> topology and card cleanups should do and how the work is split, if at
+>> all.
+> 
+> BTW, I guess your kernel is appling this patch,
+> but, is it correct ?
+> 
+> 	df95a16d2a9626dcfc3f2b3671c9b91fa076c997
+> 	("ASoC: soc-core: fix RIP warning on card removal")
+
+Sorry morimoto-san, I am not getting the question.
+
+Are you asking if the patch is correct?
+
+Or are you asking if the kernel used for this test include this patch? 
+The answer is yes, this patch ("ASoC: soc-core: fix RIP warning on card 
+removal") was merged by Mark and the SOF tree does use it, since we 
+follow Mark's tree.
+
+> If so, I think I could understand the issue.
+> But, before explaining detail,
+> I want to confirm that my solution is correct or not first.
+> 
+> Can you please check attached patch ?
+
+Takashi's feedback seems to hint at problems with this patch, so will 
+wait for further instructions here if you want me to test.
+Thanks!
+
+> Then, please remove above RIP warning patch.
+> It is not clean patch, but OK to confirming, so far.
+> I think
+> 	- no kernel Oops
+> 	- no RIP warning
+> 
+> Thank you for your help !!
+> Best regards
+> ---
+> Kuninori Morimoto
+> 
+> 
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

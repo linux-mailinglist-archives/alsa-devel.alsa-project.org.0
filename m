@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44CC7FC5A6
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Nov 2019 12:49:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 729CDFC5AF
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Nov 2019 12:52:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE5E41614;
-	Thu, 14 Nov 2019 12:48:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE5E41614
+	by alsa0.perex.cz (Postfix) with ESMTPS id F15AF1616;
+	Thu, 14 Nov 2019 12:51:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F15AF1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573732173;
-	bh=/hv/XroE54DJauJesRdan29FAT4m44Qor6DebjqF/tI=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573732338;
+	bh=OYm1vGLFjxH0GATtJQUiL7t7t9uG0/mkbzQLtee1sWw=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GYjo6cVW8IeNhPjNWzdLSh55rnij2PcCfsgm2R2hH7Yp0xvfmA16K6uB5D2SXyWlb
-	 d7xNDdawssTK78H8/nRV0JapdYdXwgo0cDsbU6VovVrBmto3bwRCwokPMUAKfva00k
-	 9GVYOcTgITJ4cfIy73DKuyb8ivmoDg8pXCMqKT9Q=
+	b=qacGBMO2I4ho2vDJ1VMbYL2v/qwo213uU16CPyEDvpGhjQ0m4uLxAsvMA2PD8Zm9c
+	 i1h5RUCINo0yTEd2sYHXhVlkAqJCsZ36Ri6TGC+ArRfD3sHBgy9UQ/0FevNrwPckWO
+	 ilNFAA/h9GnN8T613XnrUAZulObZZ1U3vOTnsVUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D17D6F800CC;
-	Thu, 14 Nov 2019 12:47:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24343F800CF;
+	Thu, 14 Nov 2019 12:50:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76FF1F800CF; Thu, 14 Nov 2019 12:47:47 +0100 (CET)
+ id 2B8CCF800CF; Thu, 14 Nov 2019 12:50:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_14,SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 77E33F80084
- for <alsa-devel@alsa-project.org>; Thu, 14 Nov 2019 12:47:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77E33F80084
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1E288F80084
+ for <alsa-devel@alsa-project.org>; Thu, 14 Nov 2019 12:50:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E288F80084
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="h0Jp62P3"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5dcd3edc0000>; Thu, 14 Nov 2019 03:47:40 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Thu, 14 Nov 2019 03:47:41 -0800
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Thu, 14 Nov 2019 03:47:41 -0800
-Received: from [10.24.218.121] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 14 Nov
- 2019 11:47:40 +0000
-To: Takashi Iwai <tiwai@suse.de>
-References: <20191114033704.18171-1-nmahale@nvidia.com>
- <20191114033704.18171-4-nmahale@nvidia.com> <s5ho8xen2s3.wl-tiwai@suse.de>
-From: Nikhil Mahale <nmahale@nvidia.com>
-Message-ID: <9a6f7ac2-998f-23ff-c606-a780c4804eba@nvidia.com>
-Date: Thu, 14 Nov 2019 17:17:36 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CiFuv13Q"
+Received: from localhost (unknown [223.226.110.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id AD4ED206DB;
+ Thu, 14 Nov 2019 11:50:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1573732226;
+ bh=7cE8IM/g7fk3rGHkQHrlQziLkAAH6dYps+ysFyhbgXo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=CiFuv13QJCCG+uwbTVdr6CSXpD69RDtMPZG7sz9vTCKm37pME91VD96YMVYPy7dXU
+ TryssRvkb0A97U6cyrLLZ3aOr73hSoNGwnTW2Vn2Tk4z6yn6qq2Vn1Z7lXUWhSrvlv
+ iICz4MnaIY0C/BYQVNnvwzcm+7iUxiGnw5HBlG0M=
+Date: Thu, 14 Nov 2019 17:20:20 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20191114115020.GU952516@vkoul-mobl>
+References: <20191023210657.32440-1-pierre-louis.bossart@linux.intel.com>
+ <20191023210657.32440-2-pierre-louis.bossart@linux.intel.com>
+ <20191103045604.GE2695@vkoul-mobl.Dlink>
+ <f53b28bb-1ec7-a400-54ed-51fd55819ecd@linux.intel.com>
+ <20191108042940.GW952516@vkoul-mobl>
+ <e3e10c25-84dc-f4e7-e94b-d18493450021@linux.intel.com>
+ <20191109111211.GB952516@vkoul-mobl>
+ <5a2a40b3-5a3c-f80a-b2a4-33d821d5b0e6@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <s5ho8xen2s3.wl-tiwai@suse.de>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1573732060; bh=Rfc+0eTKTQg4JiN5QdekVo96F4oaalvVT6q22jC+gsI=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=h0Jp62P3qlp7FJAAIcvVf3LvVinLxE8YL2ZomXketsHU0nJUFbfjoeQaRUL2H6lu5
- pDYRpTKgXz4/14hzpz0Qz82LRHEwEaCy8CWHo7wec2yLCsnw5JHVKfSdIBEzG25ApH
- WOQzOwoNVVxZdgnFiaKTpPM1HDedXY0Z5kVEkht2/EDOMvOPNbxT/MWP9NAXG2kHEM
- EX1Y+9JtlUNqtbhobG9HVHjuJ5/4VLTArrSIYCuiAIOn7YsE/U74u5pfCT8tOSYjj4
- 14VGZahcSDdjOdfh08xhyCa6i+7Txrc5DvsDrQ0yDj16XnFYedFhR8SlADFMq5cxpX
- z2pf8jAYPGxEQ==
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, aplattner@nvidia.com
-Subject: Re: [alsa-devel] [PATCH v1 3/5] ALSA: hda - Add DP-MST conn list
-	support
+Content-Disposition: inline
+In-Reply-To: <5a2a40b3-5a3c-f80a-b2a4-33d821d5b0e6@linux.intel.com>
+User-Agent: Mutt/1.12.1 (2019-06-15)
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH 1/4] soundwire: sdw_slave: add new fields
+ to track probe status
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,93 +94,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11/14/19 4:27 PM, Takashi Iwai wrote:
-> On Thu, 14 Nov 2019 04:37:02 +0100,
-> Nikhil Mahale wrote:
->>
->> Document change notification HDA040-A for the Intel High Definition
->> Audio 1.0a specification introduces a Device Select verb for Digital
->> Display Pin Widgets that are multi-stream capable. This verb selects
->> a Device Entry that is used by subsequent Pin Widget verbs,
->> including the Get Connection List Entry verb.
->>
->> This patch queries the current Device Select value, associates it
->> with the connection list, and updates the connection list management
->> code to consider dev_id along with nid.
+On 11-11-19, 10:34, Pierre-Louis Bossart wrote:
 > 
-> I don't get why this is needed.  This is the list that is added only
-> from snd_hda_override_conn_list(), and you don't change that call
-> pattern, so dev_id is always zero.
-
-In follow-on patch "ALSA: hda - Add DP-MST support for non-acomp codecs",
-hdmi_read_pin_conn() calls into snd_hda_set_dev_select() before
-running into code path -
-  
-  snd_hda_get_connections()
-   |-> snd_hda_get_conn_list()
-        |-> read_and_add_raw_conns()
-             |-> snd_hda_override_conn_list()
-                  |-> add_conn_list()
-
-If I understand spec correctly, conn_list need to read/write/track
-along with device entry set into AC_VERB_SET_DEVICE_SEL verb, right?
-This patch address that limited part here.
-
-Thanks,
-Nikhil Mahale
-
-> thanks,
 > 
-> Takashi
+> On 11/9/19 5:12 AM, Vinod Koul wrote:
+> > On 08-11-19, 08:55, Pierre-Louis Bossart wrote:
+> > > 
+> > > 
+> > > On 11/7/19 10:29 PM, Vinod Koul wrote:
+> > > > On 04-11-19, 08:32, Pierre-Louis Bossart wrote:
+> > > > > 
+> > > > > 
+> > > > > On 11/2/19 11:56 PM, Vinod Koul wrote:
+> > > > > > On 23-10-19, 16:06, Pierre-Louis Bossart wrote:
+> > > > > > > Changes to the sdw_slave structure needed to solve race conditions on
+> > > > > > > driver probe.
+> > > > > > 
+> > > > > > Can you please explain the race you have observed, it would be a very
+> > > > > > useful to document it as well
+> > > > > 
+> > > > > the races are explained in the [PATCH 00/18] soundwire: code hardening and
+> > > > > suspend-resume support series.
+> > > > 
+> > > > It would make sense to explain it here as well to give details to
+> > > > reviewers, there is nothing wrong with too much detail!
+> > > > 
+> > > > > > > 
+> > > > > > > The functionality is added in the next patch.
+> > > > > > 
+> > > > > > which one..?
+> > > > > 
+> > > > > [PATCH 00/18] soundwire: code hardening and suspend-resume support
+> > > > 
+> > > > Yeah great! let me play detective with 18 patch series. I asked for a
+> > > > patch and got a series!
+> > > > 
+> > > > Again, please help the maintainer to help you. We would love to see this
+> > > > merged as well, but please step up and give more details in cover
+> > > > letter and changelogs. I shouldn't need to do guesswork and scan through the
+> > > > inbox to find the context!
+> > > 
+> > > We are clearly not going anywhere.
+> > 
+> > Correct as you don't seem to provide clear answers, I am asking again
+> > which patch implements the new fields added here, how difficult is it to
+> > provide the *specific* patch which implements this so that I can compare
+> > the implementation and see why this is needed and apply if fine!
+> > 
+> > But no you will not provide a clear answer and start ranting!
+> > 
+> > > I partitioned the patches to make your maintainer life easier and help the
+> > > integration of SoundWire across two trees. All I get is negative feedback,
+> > > grand-standing, and zero comments on actual changes.
+> > 
+> > No you get asked specific question which you do not like and start off
+> > on a tangent!
+> > 
+> > > For the record, I am mindful of reviewer/maintainer workload, and I did
+> > > contact you in September to check your availability and provided a pointer
+> > > to initial code changes. I did send a first version a week prior to your
+> > > travel/vacation, I resend another version when you were back and waited yet
+> > > another two weeks to resend a second version. I also contacted Takashi, Mark
+> > > and you to suggest this code partition, and did not get any pushback. It's
+> > > not like I am pushing stuff down your throat, I have been patient and
+> > > considerate.
+> > > 
+> > > Please start with the patches "soundwire: code hardening and suspend-resume
+> > > support" and come back to this interface description when you have reviewed
+> > > these changes. It's not detective work, it's working around the consequences
+> > > of having separate trees for Audio and SoundWire.
+> > 
+> > Again, which patch in the series does implement these new members!
 > 
->>
->> Signed-off-by: Nikhil Mahale <nmahale@nvidia.com>
->> Reviewed-by: Aaron Plattner <aplattner@nvidia.com>
->> ---
->>  sound/pci/hda/hda_codec.c | 5 ++++-
->>  1 file changed, 4 insertions(+), 1 deletion(-)
->>
->> diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
->> index a2fb19129219..8f32cab8f4a4 100644
->> --- a/sound/pci/hda/hda_codec.c
->> +++ b/sound/pci/hda/hda_codec.c
->> @@ -88,6 +88,7 @@ struct hda_conn_list {
->>  	struct list_head list;
->>  	int len;
->>  	hda_nid_t nid;
->> +	int dev_id;
->>  	hda_nid_t conns[0];
->>  };
->>  
->> @@ -96,8 +97,9 @@ static struct hda_conn_list *
->>  lookup_conn_list(struct hda_codec *codec, hda_nid_t nid)
->>  {
->>  	struct hda_conn_list *p;
->> +	int dev_id = snd_hda_get_dev_select(codec, nid);
->>  	list_for_each_entry(p, &codec->conn_list, list) {
->> -		if (p->nid == nid)
->> +		if (p->nid == nid && p->dev_id == dev_id)
->>  			return p;
->>  	}
->>  	return NULL;
->> @@ -113,6 +115,7 @@ static int add_conn_list(struct hda_codec *codec, hda_nid_t nid, int len,
->>  		return -ENOMEM;
->>  	p->len = len;
->>  	p->nid = nid;
->> +	p->dev_id = snd_hda_get_dev_select(codec, nid);
->>  	memcpy(p->conns, list, len * sizeof(hda_nid_t));
->>  	list_add(&p->list, &codec->conn_list);
->>  	return 0;
->> -- 
->> 2.16.4
->>
+> It's really straightforward...here is the match between headers and
+> functionality:
+> 
+> [PATCH v2 1/5] soundwire: sdw_slave: add new fields to track probe status
+> [PATCH v2 02/19] soundwire: fix race between driver probe and update_status
+> callback
+> 
+> [PATCH v2 2/5] soundwire: add enumeration_complete structure
+> [PATCH v2 12/19] soundwire: add enumeration_complete signaling
+> 
+> [PATCH v2 3/5] soundwire: add initialization_complete definition
+> [PATCH v2 13/19] soundwire: bus: add initialization_complete signaling
+> 
+> [PATCH v2 4/5] soundwire: intel: update interfaces between ASoC and
+> SoundWire
+> [PATCH v2 5/5] soundwire: intel: update stream callbacks for hwparams/free
+> stream operations
+> [PATCH v2 13/14] soundwire: intel: free all resources on hw_free()
 
------------------------------------------------------------------------------------
-This email message is for the sole use of the intended recipient(s) and may contain
-confidential information.  Any unauthorized review, use, disclosure or distribution
-is prohibited.  If you are not the intended recipient, please contact the sender by
-reply email and destroy all copies of the original message.
------------------------------------------------------------------------------------
+Thanks for the pointers, I will look at these patches and do the needful
+for this series
+
+> I suggested an approach that you didn't comment on, and now I am not sure
+> what to make of the heated wording and exclamation marks. You did not answer
+> to Liam's question on links between ASoC/SoundWire - despite the fact that
+> drivers/soundwire cannot be an isolated subsystem, both the Intel and
+> Qualcomm solutions have a big fat 'depends on SND_SOC'.
+> 
+> At this point I am formally asking for your view and guidance on how we are
+> going to do the SoundWire/ASoC integration. It's now your time to make
+> suggestions on what the flow should be between you and Mark/Takashi. If you
+> don't want this initial change to the header files, then what is your
+> proposal?
+
+It is going to be as it would be for any other subsystem. Please mention
+in the cover letter about required dependency. In case asoc needs this I
+will create a immutable tag and in reverse case Mark will do so.
+
+It is not really an issue if we get the information ahead of time
+
+-- 
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

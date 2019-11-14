@@ -2,89 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32625FCB5C
-	for <lists+alsa-devel@lfdr.de>; Thu, 14 Nov 2019 18:03:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D141FCB8E
+	for <lists+alsa-devel@lfdr.de>; Thu, 14 Nov 2019 18:12:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1A441673;
-	Thu, 14 Nov 2019 18:02:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1A441673
+	by alsa0.perex.cz (Postfix) with ESMTPS id E19671655;
+	Thu, 14 Nov 2019 18:12:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E19671655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573751014;
-	bh=hMH7xDysRumEHSrpiNeZlw7IBCXNNhVzVAaWQqb0Tec=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1573751573;
+	bh=ePtY2/EAKeBJK2hEFzjAdUOYqDVlTadIzp+YTz7kw4I=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U1WXvb/oFA0hlxYUebEhjb538ufvxFSJ3a+Ri8pPeT7BzaWKLI2S+NG+fVaabpjA9
-	 62fkQHuxVboBZfFL3WlHhel5nKxhmygIu9HWFD93a5j+d+kIszdou7Nf94NREUmPBp
-	 HNqgSOKNShxet+TIKhwU9ZrGOVT/vw+gEkupYV8k=
+	b=mimHHKUDLys57GDk4XydR5vi0JLQAoTRqmzJezLEGM1xsReExLuKwyg6ckvnYkWBT
+	 eDgJlNv7npd4UCKsOR8H3dzeFlqPeX69myNNqSJ1xVNAlRQzuqUJ9XB5oVnd8KxFt9
+	 +RJf9PjdUkJzVdiFb1cYhigR9fp64XjfOKQbQ3F8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0559EF800EF;
-	Thu, 14 Nov 2019 18:02:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29BD1F800CD;
+	Thu, 14 Nov 2019 18:11:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E9C6F800EC; Thu, 14 Nov 2019 18:02:40 +0100 (CET)
+ id D36A6F800CF; Thu, 14 Nov 2019 18:11:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- autolearn=disabled version=3.4.0
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 05B97F8007E
- for <alsa-devel@alsa-project.org>; Thu, 14 Nov 2019 18:02:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 05B97F8007E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="gQNjW9fu"
-Received: by mail-qv1-xf42.google.com with SMTP id n12so2644727qvt.1
- for <alsa-devel@alsa-project.org>; Thu, 14 Nov 2019 09:02:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=j1l5ZXAPHJt0a+XpeA7xQeXkw9CmNqTnUN3g64Iafec=;
- b=gQNjW9fu+UTvoleQ8tOOf5NpmJruqGHt1EvvtSyGxkQDXsh0eGjJMUH4zTQj/hHMtc
- PHiC9CMQa9R6FhKgwMfxKjlEEZ0qlGRzX8NTzRN1n6oVyir+D/ojwZWxECm0UFw21P90
- o3OqWI7IbQV8OFUqE8W2KgYO2T8tLal+e29EzkejJj/ZRLslBRtfDTTcQxCP/1WpAE0K
- qOenJYZxUj0o65u5m16zJbM7ONTUpM70XntIHgA75mazMqJILh5026oVQLOd+PoJ5DTO
- KLmVtzdYOy2KXC2leqUwih4iPUxmrRTgdO6Gz6CDAkxXBZdbJwoRGg0q9RqfSMoGLqlZ
- s8kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=j1l5ZXAPHJt0a+XpeA7xQeXkw9CmNqTnUN3g64Iafec=;
- b=pE/3fGnxdARK2WXQvsQ07x+2nNaTxa68DIytNW7eBj4fI17ca9Q1g+s3k49LKynPs9
- liIHN+tmrwfsU35SrdCRLmR2ruy++2abwkOgwynJOvWzD+HqqfmC0wGFi9g/dzp/kKmw
- U8j1DmK+kmkH+TR3UhzWYgRAHY+pQf099L9dlFgN7flpma8mr3w2HI1BK2u3KaVbAFa0
- oj5Ua8MN7867bEN4RpEMhdTXF4xx3gYeDXydzjfjqq1ZuDOMV3FISGNBsp7wvlEd35AN
- pR6hGxcltqeSjyLNZd0ZgIKJYzu7YRvfarr5CxEJ7MCKYEZnBgipPUb572AZTVuaQBT6
- E4NQ==
-X-Gm-Message-State: APjAAAWZm1P5qageFEPLTyl3SPSUy9CagqzES61wGBY39kLXUh/BfjMy
- sXXs4IBmRNG7rwyAgsGFn7ayLs25/vEwJOwEiYijFA==
-X-Google-Smtp-Source: APXvYqzot6FBVnO83R2lmasQUs7XRy8tEip+Omj1oNafWjZ6nVOWohDS+O8L/UP4Zr4JlAHkkejjRTUAYm1nDsHpTP0=
-X-Received: by 2002:a0c:d2b4:: with SMTP id q49mr8697240qvh.135.1573750954348; 
- Thu, 14 Nov 2019 09:02:34 -0800 (PST)
-MIME-Version: 1.0
-References: <201911142322.pHmcOJHb%lkp@intel.com>
- <20191114153304.n4pyix7qadu76tx4@4978f4969bb8>
-In-Reply-To: <20191114153304.n4pyix7qadu76tx4@4978f4969bb8>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Thu, 14 Nov 2019 09:02:23 -0800
-Message-ID: <CAOReqxgtfNWDZOMnT6nSWh408dsrGxJLVgKtUN2dNf0J-JpnWw@mail.gmail.com>
-To: kbuild test robot <lkp@intel.com>
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- ALSA development <alsa-devel@alsa-project.org>, kbuild-all@lists.01.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>
-Subject: Re: [alsa-devel] [RFC PATCH linux-next] ASoC: rt5677:
- rt5677_check_hotword() can be static
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5AAC3F800CC
+ for <alsa-devel@alsa-project.org>; Thu, 14 Nov 2019 18:10:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AAC3F800CC
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 48218AF10;
+ Thu, 14 Nov 2019 17:10:59 +0000 (UTC)
+Date: Thu, 14 Nov 2019 18:10:57 +0100
+Message-ID: <s5h36eql6xq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+In-Reply-To: <20191111110846.18223-1-andrew_gabbasov@mentor.com>
+References: <20191111110846.18223-1-andrew_gabbasov@mentor.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Timo Wischer <twischer@de.adit-jv.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v3 0/7] ALSA: aloop: Support sound timer as
+	clock source instead of jiffies
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,29 +71,81 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 14, 2019 at 7:33 AM kbuild test robot <lkp@intel.com> wrote:
->
->
-> Fixes: 21c00e5df439 ("ASoC: rt5677: Enable jack detect while DSP is running")
-> Signed-off-by: kbuild test robot <lkp@intel.com>
-Acked-by: Curtis Malainey <cujomalainey@chromium.org>
-> ---
->  rt5677.c |    2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-> index 48955b22262fa..cd01a3a8daa82 100644
-> --- a/sound/soc/codecs/rt5677.c
-> +++ b/sound/soc/codecs/rt5677.c
-> @@ -5243,7 +5243,7 @@ static const struct rt5677_irq_desc rt5677_irq_descs[] = {
->         },
->  };
->
-> -bool rt5677_check_hotword(struct rt5677_priv *rt5677)
-> +static bool rt5677_check_hotword(struct rt5677_priv *rt5677)
->  {
->         int reg_gpio;
->
+On Mon, 11 Nov 2019 12:08:39 +0100,
+Andrew Gabbasov wrote:
+> 
+> This patch set is an updated version of patches by Timo Wischer:
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-March/146871.html
+> 
+> This patch set is required for forwarding audio data between a HW sound
+> card and an aloop device without the usage of an asynchronous sample rate
+> converter.
+> 
+> Most of sound and timers related code is kept the same as in previous set.
+> The code, related to snd_pcm_link() functionality and its using for
+> timer source setting, is removed (as rejected earlier). The changes in this
+> update are mainly related to the parameters handling and some cleanup.
+> 
+> The timer source can be initially selected by "timer_source" kernel module
+> parameter. It is supposed to have the following format:
+>     [<pref>:](<card name>|<card idx>)[{.,}<dev idx>[{.,}<subdev idx>]]
+> For example: "hw:I82801AAICH.1.0", or "1.1", or just "I82801AAICH".
+> (Prefix is ignored, just allowed here to be able to use the strings,
+> the user got used to).
+> Although the parsing function recognizes both '.' and ',' as a separator,
+> module parameters handling routines use ',' to separate parameters for
+> different module instances (array elements), so we have to use '.'
+> to separate device and subdevice numbers from the card name or number
+> in module parameters.
+> Empty string indicates using jiffies as a timer source.
+> 
+> Besides "static" selection of timer source at module load time,
+> it is possible to dynamically change it via sound "info" interface
+> (using "/proc/asound/<card>/timer_source" file in read-write mode.
+> The contents of this file is used as a timer source string for
+> a particular loopback card, e.g. "hw:0,0,0" (and here ',' can be used
+> as a separator).
+> 
+> The timer source string value can be changed at any time, but it is
+> latched by PCM substream open callback "loopback_open()" (the first
+> one for a particular cable). At this point it is actually used,
+> that is the string is parsed, and the timer is looked up and opened.
+> This seems to be a good trade-off between flexibility of updates and
+> synchronizations or racing complexity.
+> 
+> The timer source is set for a loopback card (the same as initial setting
+> by module parameter), but every cable uses the value, current at the moment
+> of opening. Theoretically, it's possible to set the timer source for each
+> cable independently (via separate files), but it would be inconsistent
+> with the initial setting via module parameters on a per-card basis.
+> 
+> v2:
+> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-November/157961.html
+> 
+> v3:
+> - Change sound card lookup to use snd_card_ref() and avoid direct access
+>   to sound cards array
+> - Squash commits on returning error codes for timer start and stop
+> - Some locking related fixes
+> - Some code cleanup
+
+The patch won't work with the latest ALSA timer code found in my
+for-next branch due to the API changes.  Essentially you need to
+rewrite as:
+	timeri = snd_timer_instance_new(...);
+	if (!timeri)
+		no_memory_error;
+	timeri->flags |= ...;
+	timeri->ccallback = ...;
+	....
+	err = snd_timer_open(timeri, ....);
+	if (err < 0)
+		error;
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

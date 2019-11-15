@@ -2,99 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E1CFE5F3
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 20:48:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C642FFE8A5
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Nov 2019 00:30:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33870167B;
-	Fri, 15 Nov 2019 20:47:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33870167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FC701679;
+	Sat, 16 Nov 2019 00:29:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FC701679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573847283;
-	bh=/fbUs6SbAbkgS9sEX8uAG4gweCF6hWxp0gqWAxrJQ4k=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1573860614;
+	bh=Znyy1AaRW+TNho9gP2SLgVBBD6RdmL8iW0k6o/YhfBk=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qXgLACh60GQ7ZYx60+btsMKdLVegentSU9G14V1+uSp7AMpcAwXb4zFka+fVDAoHt
-	 5ffNnpoadPtOiQZRBCAwAKMyZLIcqD3QsbWqUefQyqnnbIs4MpIwku6ILuJ2VuIqV1
-	 5566l8F0PK3nJfEMmki9cdPBWdCrBH1/Hd8VIjcY=
+	b=e3NkXwsBon90AxvAwM+3xG7doEgXdJcTS0OtpZ5jMaXkCglA9ZB46UTnLnJFfsjiJ
+	 tlt9ODWe++vnSDuP/mWLk42ZTUknZ8bcYKnipm+mIe/eUWfzFu2XYXGeJb+1DKxzRB
+	 xyGTurFN8N9pkCD/bos8tr1IkIywM3LxUskn8jhU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE234F8010A;
-	Fri, 15 Nov 2019 20:45:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7A4F4F800CC;
+	Sat, 16 Nov 2019 00:28:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E77A1F80108; Fri, 15 Nov 2019 20:45:52 +0100 (CET)
+ id CB103F80104; Sat, 16 Nov 2019 00:28:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
- [67.231.149.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
+ [IPv6:2607:f8b0:4864:20::332])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2CA2AF8007E
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 20:45:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2CA2AF8007E
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE468F800CC
+ for <alsa-devel@alsa-project.org>; Sat, 16 Nov 2019 00:28:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE468F800CC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="j9ssBzkJ"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
- by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xAFJiilp009698; Fri, 15 Nov 2019 13:45:45 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : in-reply-to : references : mime-version :
- content-type; s=PODMain02222019;
- bh=5gu+deuazP/W3ain5t92Qro2DI4GyhyFvAze8omi5M8=;
- b=j9ssBzkJFNj3xkr/6lf4iw3O/tF6cwZk3G2ewLGlT6rFyMoJ6/laoXTEX2IuDL9btRfJ
- SZ6Un7dFqApkG1UXbUX14E2ExS5z7orw3nqFJ1gSvNFowtWFEIflID9SFNVSXEe2e8jz
- LS3Cx7YUogwbjTPrUUGsbtU4neN8do260tgkCD7i2orzbIwMyKMuoBW5lTBFEdkh7YbR
- R8jXFw953sO2mG2pa8hU94cRi5YgHa7Z6xc/+1kKmJjr5RkdK9R2cZQP2jKCj2VlNYYk
- PwIZjwkLkn4tn+g6jI/8KLkvvXrUWnGeEVODQmtitSqWMpOtGh2TEHmXtNBgzQmXTc3S gQ== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=David.Rhodes@cirrus.com
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0a-001ae601.pphosted.com with ESMTP id 2w5ur2tqdr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 15 Nov 2019 13:45:45 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Fri, 15 Nov
- 2019 19:45:42 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Fri, 15 Nov 2019 19:45:42 +0000
-Received: from david-linux.ad.cirrus.com (david-linux.ad.cirrus.com
- [141.131.206.99])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 101492A1;
- Fri, 15 Nov 2019 19:45:40 +0000 (UTC)
-From: David Rhodes <david.rhodes@cirrus.com>
-To: <ckeepax@opensource.cirrus.com>, <david.rhodes@cirrus.com>,
- <broonie@kernel.org>, <lgirdwood@gmail.com>,
- <patches@opensource.cirrus.com>, <alsa-devel@alsa-project.org>
-Date: Fri, 15 Nov 2019 13:54:13 -0600
-Message-ID: <1573847653-17094-2-git-send-email-david.rhodes@cirrus.com>
-X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1573847653-17094-1-git-send-email-david.rhodes@cirrus.com>
-References: <1573847653-17094-1-git-send-email-david.rhodes@cirrus.com>
+ dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org
+ header.b="Co2QuJ7k"
+Received: by mail-ot1-x332.google.com with SMTP id f10so9466793oto.3
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 15:28:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ieee.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1S+5AAijxPmowvKY3xdX13aSIUjpVHHhk9dA/hvM50Q=;
+ b=Co2QuJ7km02YoRxq1SKwwezQbRTDaRmt2AT/+V3dm7GJCVC6tDpFn/Hg+Pl8IbQIen
+ q9JXEgBIbs1nevjrRrpDeM3vhDnhzj4L+joUurXaVVSPqtAxVo/C+6HAL7XhTYcIbh1I
+ m+qW83ur791d1vQ1UQWlsnOW3+IyyU1O0KlBY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1S+5AAijxPmowvKY3xdX13aSIUjpVHHhk9dA/hvM50Q=;
+ b=cDDRDNk4rd+H2NZDUSvNujEsrtQjoYdolrng4Z90UGVLs+Drjk35weVzzf7pWYnzOH
+ 24tymJgyrf83GoCLXs7HJfzAh7/l7wK0QDXw9Sg104xUWm3wTaGP9tMWEIF7Nv1J/AXF
+ m3JWQuhgKuxbdzGYKy1pHIcwBXaz7ml46LD17ciNniI7yt4gjClixMb2x3kooMU3sJSd
+ jURd42RAnHxxlM5DWue7rUusM0EF9fBQvZFB4ZmWCvgfpMeMnDbYvR5ANHBQrNOxJ/nu
+ pP/bpcZaJNgVPr2qUJ7ECJ/7bra1a5AxLngSBopOcWcMQAeGS8X51SZDRFPBMqV3rKZm
+ W3Mg==
+X-Gm-Message-State: APjAAAV4R+r3zT2ov9T+DQ52EFbCkJDnb9pzpv8mZrG95e+nmlp1MQdL
+ 07LfBux07sMV9FkQIKt/17RvfslRTPY=
+X-Google-Smtp-Source: APXvYqyaNSBWiFIaRCeTyVYTqDqSQPW6lT3G5I6VjqWaeBUxMpaIDu6dSy7MMv0zsE8zEo2k7WcIOg==
+X-Received: by 2002:a9d:d76:: with SMTP id 109mr12062247oti.73.1573860497530; 
+ Fri, 15 Nov 2019 15:28:17 -0800 (PST)
+Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com.
+ [209.85.210.41])
+ by smtp.gmail.com with ESMTPSA id b12sm3415448otl.34.2019.11.15.15.28.16
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Nov 2019 15:28:16 -0800 (PST)
+Received: by mail-ot1-f41.google.com with SMTP id w24so8980193otk.6
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 15:28:16 -0800 (PST)
+X-Received: by 2002:a05:6830:1f28:: with SMTP id
+ e8mr1655491oth.173.1573860495926; 
+ Fri, 15 Nov 2019 15:28:15 -0800 (PST)
 MIME-Version: 1.0
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com
- ip4:107.20.210.250 ip4:52.1.14.157 ip4:141.131.128.20 ip4:141.131.3.20
- ip4:213.128.236.230 ip4:87.246.98.25 ip4:87.246.78.26 ip4:87.246.76.56
- ip4:87.246.98.35 -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- mlxlogscore=999
- priorityscore=1501 impostorscore=0 mlxscore=0 clxscore=1015 spamscore=0
- suspectscore=2 bulkscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-1910280000
- definitions=main-1911150174
-Cc: Li Xu <li.xu@cirrus.com>
-Subject: [alsa-devel] [PATCH] ASoC: wm_adsp: Expose mixer control API
+References: <20190904164706.gwjbcywbj7emnwvr@localhost>
+ <CABsjGHJFZD6r7tUKDd17NrAs56O0hypW6MFzJq6m6bWH7ykkPg@mail.gmail.com>
+In-Reply-To: <CABsjGHJFZD6r7tUKDd17NrAs56O0hypW6MFzJq6m6bWH7ykkPg@mail.gmail.com>
+From: xinhui zhou <zxinhui@ieee.org>
+Date: Fri, 15 Nov 2019 15:28:05 -0800
+X-Gmail-Original-Message-ID: <CABsjGHKpQvojz5UmnKKdkD-8dU9oHtiQ76EEZwWR7D3mYw6OdA@mail.gmail.com>
+Message-ID: <CABsjGHKpQvojz5UmnKKdkD-8dU9oHtiQ76EEZwWR7D3mYw6OdA@mail.gmail.com>
+To: alsa-devel@alsa-project.org
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-user@lists.sourceforge.net
+Subject: [alsa-devel] Number of PCM instance (pcm device file) for one sound
+	card
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,163 +106,21 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Li Xu <li.xu@cirrus.com>
+Dear all ,
 
-Expose mixer control API for reading and writing controls from the kernel.
-This API can be used by ALSA kernel drivers with ADSP support to
-read and write firmware-defined memory regions.
+The tutorial below states that ""Each card device can have up to four pcm
+instances"
+https://www.kernel.org/doc/html/v4.19/sound/kernel-api/writing-an-alsa-driver.html#pcm-interface
+<https://www.google.com/url?q=https://www.kernel.org/doc/html/v4.19/sound/kernel-api/writing-an-alsa-driver.html%23pcm-interface&sa=D&source=hangouts&ust=1573928998988000&usg=AFQjCNGmZgiENmLej2aBTQvp-tspn3u8sg>
 
-Signed-off-by: Li Xu <li.xu@cirrus.com>
-Signed-off-by: David Rhodes <david.rhodes@cirrus.com>
----
- sound/soc/codecs/wm_adsp.c | 81 +++++++++++++++++++++++++++++++++++++++++++++-
- sound/soc/codecs/wm_adsp.h |  4 +++
- 2 files changed, 84 insertions(+), 1 deletion(-)
+I am getting confused with the number '4' .  I thought we can add 8 pcm
+device files by default.  By setting  'CONFIG_SND_DYNAMIC_MINORS=y' , we
+can have more than 8 pcm device files.
+Does that tutorial  mean only 4 pcm devices running at the same time ?
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index aa74fd1..4d4de97 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -635,6 +635,9 @@ struct wm_coeff_ctl_ops {
- struct wm_coeff_ctl {
- 	const char *name;
- 	const char *fw_name;
-+	/* Subname is needed to match with firmware */
-+	const char *subname;
-+	unsigned int subname_len;
- 	struct wm_adsp_alg_region alg_region;
- 	struct wm_coeff_ctl_ops ops;
- 	struct wm_adsp *dsp;
-@@ -1520,6 +1523,7 @@ static void wm_adsp_free_ctl_blk(struct wm_coeff_ctl *ctl)
- {
- 	kfree(ctl->cache);
- 	kfree(ctl->name);
-+	kfree(ctl->subname);
- 	kfree(ctl);
- }
- 
-@@ -1597,6 +1601,15 @@ static int wm_adsp_create_control(struct wm_adsp *dsp,
- 		ret = -ENOMEM;
- 		goto err_ctl;
- 	}
-+	if (subname) {
-+		ctl->subname_len = subname_len;
-+		ctl->subname = kmemdup(subname,
-+				       strlen(subname) + 1, GFP_KERNEL);
-+		if (!ctl->subname) {
-+			ret = -ENOMEM;
-+			goto err_ctl_name;
-+		}
-+	}
- 	ctl->enabled = 1;
- 	ctl->set = 0;
- 	ctl->ops.xget = wm_coeff_get;
-@@ -1610,7 +1623,7 @@ static int wm_adsp_create_control(struct wm_adsp *dsp,
- 	ctl->cache = kzalloc(ctl->len, GFP_KERNEL);
- 	if (!ctl->cache) {
- 		ret = -ENOMEM;
--		goto err_ctl_name;
-+		goto err_ctl_subname;
- 	}
- 
- 	list_add(&ctl->list, &dsp->ctl_list);
-@@ -1633,6 +1646,8 @@ static int wm_adsp_create_control(struct wm_adsp *dsp,
- 
- err_ctl_cache:
- 	kfree(ctl->cache);
-+err_ctl_subname:
-+	kfree(ctl->subname);
- err_ctl_name:
- 	kfree(ctl->name);
- err_ctl:
-@@ -2194,6 +2209,70 @@ static int wm_adsp_load(struct wm_adsp *dsp)
- 	return ret;
- }
- 
-+/*
-+ * Find wm_coeff_ctl with input name as its subname
-+ * If not found, return NULL
-+ */
-+static struct wm_coeff_ctl *wm_adsp_get_ctl(struct wm_adsp *dsp,
-+					     const char *name, int type,
-+					     unsigned int alg)
-+{
-+	struct wm_coeff_ctl *pos, *rslt = NULL;
-+
-+	list_for_each_entry(pos, &dsp->ctl_list, list) {
-+		if (!pos->subname)
-+			continue;
-+		if (strncmp(pos->subname, name, pos->subname_len) == 0 &&
-+				pos->alg_region.alg == alg &&
-+				pos->alg_region.type == type) {
-+			rslt = pos;
-+			break;
-+		}
-+	}
-+
-+	return rslt;
-+}
-+
-+int wm_adsp_write_ctl(struct wm_adsp *dsp, const char *name, int type,
-+		      unsigned int alg, void *buf, size_t len)
-+{
-+	struct wm_coeff_ctl *ctl;
-+	struct snd_kcontrol *kcontrol;
-+	int ret;
-+
-+	ctl = wm_adsp_get_ctl(dsp, name, type, alg);
-+	if (!ctl)
-+		return -EINVAL;
-+
-+	if (len > ctl->len)
-+		return -EINVAL;
-+
-+	ret = wm_coeff_write_control(ctl, buf, len);
-+
-+	kcontrol = snd_soc_card_get_kcontrol(dsp->component->card, ctl->name);
-+	snd_ctl_notify(dsp->component->card->snd_card,
-+		       SNDRV_CTL_EVENT_MASK_VALUE, &kcontrol->id);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(wm_adsp_write_ctl);
-+
-+int wm_adsp_read_ctl(struct wm_adsp *dsp, const char *name, int type,
-+		     unsigned int alg, void *buf, size_t len)
-+{
-+	struct wm_coeff_ctl *ctl;
-+
-+	ctl = wm_adsp_get_ctl(dsp, name, type, alg);
-+	if (!ctl)
-+		return -EINVAL;
-+
-+	if (len > ctl->len)
-+		return -EINVAL;
-+
-+	return wm_coeff_read_control(ctl, buf, len);
-+}
-+EXPORT_SYMBOL_GPL(wm_adsp_read_ctl);
-+
- static void wm_adsp_ctl_fixup_base(struct wm_adsp *dsp,
- 				  const struct wm_adsp_alg_region *alg_region)
- {
-diff --git a/sound/soc/codecs/wm_adsp.h b/sound/soc/codecs/wm_adsp.h
-index 5275a49..8589032 100644
---- a/sound/soc/codecs/wm_adsp.h
-+++ b/sound/soc/codecs/wm_adsp.h
-@@ -223,5 +223,9 @@ int wm_adsp_compr_pointer(struct snd_compr_stream *stream,
- 			  struct snd_compr_tstamp *tstamp);
- int wm_adsp_compr_copy(struct snd_compr_stream *stream,
- 		       char __user *buf, size_t count);
-+int wm_adsp_write_ctl(struct wm_adsp *dsp, const char *name,  int type,
-+		      unsigned int alg, void *buf, size_t len);
-+int wm_adsp_read_ctl(struct wm_adsp *dsp, const char *name,  int type,
-+		      unsigned int alg, void *buf, size_t len);
- 
- #endif
--- 
-1.9.1
+Thanks a lot,
 
+Xinhui,
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

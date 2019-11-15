@@ -2,66 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0955FDBAC
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 11:48:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAC14FDBBB
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 11:50:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4879B11C;
-	Fri, 15 Nov 2019 11:47:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4879B11C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1820E1657;
+	Fri, 15 Nov 2019 11:49:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1820E1657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573814912;
-	bh=pU0qj9cLiE+Dk6U9i5ooQekMKXTcGNFxSzF71F4fK0Y=;
+	s=default; t=1573815045;
+	bh=kzCXofr83IXuaEKutZ5svgHaCM6mkaNODOEqJCmv8ok=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=S0vpXYPbmg0BJOLtsGLMpueVFRUP7DvFZqIgzVwf18FhYz3HVgLxi8Kd/kUmE/Pw/
-	 3gtVEkLiy8wFOZVCxatytxbVkzgEVk+WTx6rahOCfy7rTUvlbSVBrVvVzbLxKZu5rN
-	 nI/Y69F+N2ICyAhAh4nnSq3gmSW6fxCqGMhUXm6I=
+	b=ruXqVPCT4LBwYGaB/Njlc7/18RhY7FMgG15JSG4aYm604zFdwVVKbpNZWQ8VgbymX
+	 QgU/LMrXgu8RCWaOezBdWKmxVqgzeBsM8i1CaWT8YP79Lfev6vM5rnSj3q3+Cb2lwS
+	 RBfHACjLVxjibNaC6Apb6E/syQ2e5WoJdsn1sbUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E9CFF80105;
-	Fri, 15 Nov 2019 11:46:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 626B1F80106;
+	Fri, 15 Nov 2019 11:49:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA8A6F80103; Fri, 15 Nov 2019 11:46:45 +0100 (CET)
+ id EDE34F80105; Fri, 15 Nov 2019 11:48:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU, MIME_BASE64_TEXT, RDNS_NONE, SPF_HELO_NONE, SPF_PASS,
  SURBL_BLOCKED, 
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- by alsa1.perex.cz (Postfix) with ESMTP id ADE17F8007E
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 11:46:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ADE17F8007E
+ by alsa1.perex.cz (Postfix) with ESMTP id CCD6AF8007E
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 11:48:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CCD6AF8007E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="Kr1DaXRh"
-X-UUID: 4e8cdbe1277c44a8b64edd28e9994f4c-20191115
+ header.b="FGu/d3oc"
+X-UUID: b69a7603d9df4ee184032f0cc71e42a5-20191115
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
  s=dk; 
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:Date:Subject:CC:To:From;
- bh=XvSkp9xVpFWOB3NWQrX4rm3jnrQn3054pdByDxnuQzU=; 
- b=Kr1DaXRhpepMjBPTFzzkJ8Qqq4AmpHM8CVMR5I3IKYkkL+mM3+AFRh8RPaWzP8s6aQAtvMHMLj57UE+kEvGyU7Er2IVt4EoEir36yPnrKQ2c8OUHFJVim+NbNKnbjnoVxWyh7Q61Cu6MpesO+0eM8OfpLmR0929paDEe8X24TIw=;
-X-UUID: 4e8cdbe1277c44a8b64edd28e9994f4c-20191115
-Received: from mtkmrs01.mediatek.inc [(172.21.131.159)] by
+ bh=r1J2x+cf0MV14ViUNbOr8DSPYB8uoQZWrAw4hIFdll0=; 
+ b=FGu/d3oc0P3aWyR4msvXTXddUk9qsbwZ9S2TXw5RVCRosbXPlIG7gJJoQB3e6WM5fQKDrTwdSTkej0Vga7tI528IvM+6kVSPaJXaBZwMemkSMUbf5Ui2XFFJlAQx216/J/uNkS80QkhXZnEkcvlN4ZB1wqJxt7aYYQOjqQmEkwQ=;
+X-UUID: b69a7603d9df4ee184032f0cc71e42a5-20191115
+Received: from mtkcas09.mediatek.inc [(172.21.101.178)] by
  mailgw01.mediatek.com (envelope-from <eason.yen@mediatek.com>)
  (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 1408849721; Fri, 15 Nov 2019 18:46:35 +0800
+ with ESMTP id 662135799; Fri, 15 Nov 2019 18:48:49 +0800
 Received: from mtkcas07.mediatek.inc (172.21.101.84) by
  mtkmbs08n2.mediatek.inc (172.21.101.56) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Fri, 15 Nov 2019 18:46:29 +0800
+ 15.0.1395.4; Fri, 15 Nov 2019 18:48:45 +0800
 Received: from mtksdaap41.mediatek.inc (172.21.77.4) by mtkcas07.mediatek.inc
  (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via
- Frontend Transport; Fri, 15 Nov 2019 18:46:30 +0800
+ Frontend Transport; Fri, 15 Nov 2019 18:48:46 +0800
 From: Eason Yen <eason.yen@mediatek.com>
 To: <broonie@kernel.org>
-Date: Fri, 15 Nov 2019 18:46:28 +0800
-Message-ID: <1573814790-15057-1-git-send-email-eason.yen@mediatek.com>
+Date: Fri, 15 Nov 2019 18:48:44 +0800
+Message-ID: <1573814926-15805-1-git-send-email-eason.yen@mediatek.com>
 X-Mailer: git-send-email 1.9.1
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: 0E10D15F3C201DB86376E220A1CD87BB91925424D676BEC5877C277BBC603FAA2000:8
+X-TM-SNTS-SMTP: BDCDFFBC8F493320CCF91C8464AD5E89F9EC6E5E6F5288D24BE2BDCDAB9EC9052000:8
 X-MTK: N
 Cc: alsa-devel@alsa-project.org, chipeng.chang@mediatek.com,
  jiaxin.yu@mediatek.com, linux-mediatek@lists.infradead.org,
@@ -88,7 +88,6 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 This patch is to add more helpers to control mtk_memif dma_address/format/pbuf_size
 And refine hw_params and hw_prepare by these helpers.
 
-*** BLURB HERE ***
 v2 changes:
   split patch v1 to two seprated patches for different purpose.
 

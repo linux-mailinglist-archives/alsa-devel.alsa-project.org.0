@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDA6FFDDE9
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 13:31:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5645DFDDE0
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 13:30:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A2BB1615;
-	Fri, 15 Nov 2019 13:30:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A2BB1615
+	by alsa0.perex.cz (Postfix) with ESMTPS id EEB8D1612;
+	Fri, 15 Nov 2019 13:30:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEB8D1612
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573821085;
-	bh=Q5EIIDZQQyBZlC8COXDgeSHEYknMyQa6gyEiLRka4Hs=;
+	s=default; t=1573821055;
+	bh=bEuVVs87mzV1JHgvtE52BNWA/5Dfp6knfKjH/XhBbac=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ENBKmbXU5j17GtN0Qkcj+U3PtsqKrZTDzpz7bg2S2e+RTFw4DGnXyaI3KohyBZ4be
-	 CW7QAH00EHkaW5/DCCBXyft7YnHExVF0hZ8NKY2FAcKpgW+bvAXmsU4Po251DmhR+t
-	 yknQCZ3OSt3XIUTm5idP2WvXmLhEhAfcjJQ9IaJE=
+	b=G03LOjeA1Vxs39Bt5rzpvnJMBPN4CVPw0bJFxbA/s798Di0rEn6p4/v2p6w1jBLGh
+	 x0WznrSfEKqIs1YBucgyJIrMShkKmWqRmyMLaL9IK5lgAOCibSGEH/Vt97IUiCIqO4
+	 j6yDUifXfSsSh6ChUxCE/S9Zc0tgFNPLgOG2FIdo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F980F8013D;
-	Fri, 15 Nov 2019 13:25:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49095F80138;
+	Fri, 15 Nov 2019 13:25:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A690AF8010C; Fri, 15 Nov 2019 13:25:13 +0100 (CET)
+ id 83B2CF80107; Fri, 15 Nov 2019 13:25:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7EB7AF80106
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96BDEF80108
  for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 13:25:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EB7AF80106
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96BDEF80108
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="oR82FhYF"
+ header.b="OfifgALu"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=immwQu1s4GLBl9d9SM1DbC/YW1vUXocvDwY8FGJGiCY=; b=oR82FhYFqr8f
- xA0DUVdcDhwNVB50yvpHL96TcDazahN8+TjfNU/B6JlWJL8VDX3jY4nIJN0tBhdxqxvpm2UUglRbA
- ZoSBmDkdZ4I3hNBa9y8CQA2vrHtNFJlAHcox8I+Jt6wpQ+aUIFsW9FD2yWgLmJ5bz4jC5HJDPFayN
- nB09c=;
+ List-Archive; bh=9Xr+rAsIpC8CQjO9znN4MATq/9q62joQAxWNOZyqq4o=; b=OfifgALu+Jk8
+ +01yTvo/23z/ruBH+bITj+mKv3MQITklmQoUVZzusEdc7ek85enxfAS6rsMtCFPGwwSOwyJodvyqO
+ Mi2omigkbGXSpajrbgjB3WdcyZsT1cqpY1jqMu8lIYCsF8pQx+NoEGqJY6Hm3PUrW6iNSq9rAsgnY
+ Z1ykY=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=ypsilon.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.co.uk>)
- id 1iVaes-0000Jz-1K; Fri, 15 Nov 2019 12:25:02 +0000
+ id 1iVaes-0000KB-7q; Fri, 15 Nov 2019 12:25:02 +0000
 Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 64F8E2741609; Fri, 15 Nov 2019 12:25:01 +0000 (GMT)
+ id A43D1274162A; Fri, 15 Nov 2019 12:25:01 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Jacob Rasmussen <jacobraz@chromium.org>
-In-Reply-To: <20191114232011.165762-1-jacobraz@google.com>
+To: Michael Walle <michael@walle.cc>
+In-Reply-To: <20191112223629.21867-1-michael@walle.cc>
 X-Patchwork-Hint: ignore
-Message-Id: <20191115122501.64F8E2741609@ypsilon.sirena.org.uk>
+Message-Id: <20191115122501.A43D1274162A@ypsilon.sirena.org.uk>
 Date: Fri, 15 Nov 2019 12:25:01 +0000 (GMT)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- jacobraz@google.com, Takashi Iwai <tiwai@suse.com>,
- Ross Zwisler <zwisler@google.com>, Liam Girdwood <lgirdwood@gmail.com>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt5645: Fixed typo for buddy jack
-	support." to the asoc tree
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ patches@opensource.cirrus.com, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: wm8904: fix regcache handling" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5645: Fixed typo for buddy jack support.
+   ASoC: wm8904: fix regcache handling
 
 has been applied to the asoc tree at
 
@@ -116,38 +115,39 @@ to this mail.
 Thanks,
 Mark
 
-From fe23be2d85b05f561431d75acddec726ea807d2a Mon Sep 17 00:00:00 2001
-From: Jacob Rasmussen <jacobraz@chromium.org>
-Date: Thu, 14 Nov 2019 16:20:11 -0700
-Subject: [PATCH] ASoC: rt5645: Fixed typo for buddy jack support.
+From e9149b8c00d25dbaef1aa174fc604bed207e576d Mon Sep 17 00:00:00 2001
+From: Michael Walle <michael@walle.cc>
+Date: Tue, 12 Nov 2019 23:36:29 +0100
+Subject: [PATCH] ASoC: wm8904: fix regcache handling
 
-Had a typo in e7cfd867fd98 that resulted in buddy jack support not being
-fixed.
+The current code assumes that the power is turned off in
+SND_SOC_BIAS_OFF. If there are no actual regulator the codec isn't
+turned off and the registers are not reset to their default values but
+the regcache is still marked as dirty. Thus a value might not be written
+to the hardware if it is set to the default value. Do a software reset
+before turning off the power to make sure the registers are always reset
+to their default states.
 
-Fixes: e7cfd867fd98 ("ASoC: rt5645: Fixed buddy jack support.")
-Signed-off-by: Jacob Rasmussen <jacobraz@google.com>
-Reviewed-by: Ross Zwisler <zwisler@google.com>
-Cc: <jacobraz@google.com>
-CC: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20191114232011.165762-1-jacobraz@google.com
+Signed-off-by: Michael Walle <michael@walle.cc>
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20191112223629.21867-1-michael@walle.cc
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5645.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/wm8904.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/rt5645.c b/sound/soc/codecs/rt5645.c
-index 902ac98a3fbe..19662ee330d6 100644
---- a/sound/soc/codecs/rt5645.c
-+++ b/sound/soc/codecs/rt5645.c
-@@ -3271,7 +3271,7 @@ static void rt5645_jack_detect_work(struct work_struct *work)
- 				    report, SND_JACK_MICROPHONE);
- 		return;
- 	case 4:
--		val = snd_soc_component_read32(rt5645->component, RT5645_A_JD_CTRL1) & 0x002;
-+		val = snd_soc_component_read32(rt5645->component, RT5645_A_JD_CTRL1) & 0x0020;
- 		break;
- 	default: /* read rt5645 jd1_1 status */
- 		val = snd_soc_component_read32(rt5645->component, RT5645_INT_IRQ_ST) & 0x1000;
+diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
+index bcb3c9d5abf0..9e8c564f6e9c 100644
+--- a/sound/soc/codecs/wm8904.c
++++ b/sound/soc/codecs/wm8904.c
+@@ -1917,6 +1917,7 @@ static int wm8904_set_bias_level(struct snd_soc_component *component,
+ 		snd_soc_component_update_bits(component, WM8904_BIAS_CONTROL_0,
+ 				    WM8904_BIAS_ENA, 0);
+ 
++		snd_soc_component_write(component, WM8904_SW_RESET_AND_ID, 0);
+ 		regcache_cache_only(wm8904->regmap, true);
+ 		regcache_mark_dirty(wm8904->regmap);
+ 
 -- 
 2.20.1
 

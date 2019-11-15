@@ -2,90 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9654FE378
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 17:57:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 42385FE384
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 18:00:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4BEC71671;
-	Fri, 15 Nov 2019 17:56:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4BEC71671
+	by alsa0.perex.cz (Postfix) with ESMTPS id C68A2167A;
+	Fri, 15 Nov 2019 17:59:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C68A2167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573837039;
-	bh=e5VD/bVzB0lcRTUJoFRRcl+R11vYF6vuOpwADyBkJV4=;
+	s=default; t=1573837244;
+	bh=mLOS4dqXgwHwu49FQbqdu2Ixu6HgeNi6jyGn38ySl9Y=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HvDH9hIlQel+pBv7wrvVAIEsmA9V+6FCkTIgt2/7ZFHWQmzIKqzNCT3ZTVuL4eEh+
-	 R1oWSlAZFul9BV4w5XoSLZoMAGMYZNVQ06em5Ec8xykQfFoBgx1+ChBJzqi5d5DMEg
-	 tcXleKxnFFqXoAJeMKizOLSFchGGk0+4YIcqletA=
+	b=XzWZ5Doc34sv5QCMBc0jKjq5O1AnayfNhngUUU+siUE5rayG3G1KG8cS66jn7t3Q+
+	 5r9l+4d1HuJbzBnWz2qr/FpnAMVaqr+zA1uoMGKexnWnKWU8q+rpCCxXQP5vrvkclh
+	 Sggvz8cy4UXI1uLGopDDYqj3MjRAWSmkV7F6QVPk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15F73F8014C;
-	Fri, 15 Nov 2019 17:51:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A84A0F80218;
+	Fri, 15 Nov 2019 17:51:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4FCFF80122; Fri, 15 Nov 2019 17:51:04 +0100 (CET)
+ id 860E7F8013D; Fri, 15 Nov 2019 17:51:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41AD0F80115
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:50:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41AD0F80115
+ by alsa1.perex.cz (Postfix) with ESMTPS id 280F4F800FF
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:51:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 280F4F800FF
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="NJcXJKk4"
-Received: by mail-qt1-x842.google.com with SMTP id g50so11475131qtb.4
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 08:50:59 -0800 (PST)
+ header.b="W9lWU6bJ"
+Received: by mail-qk1-x742.google.com with SMTP id m4so8596340qke.9
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 08:51:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=EQdQrTTJ5P/B6GAAEN4PWeFdJlxrHUCbcOO/qZCkvxM=;
- b=NJcXJKk43iH8RFmomOiA9I8sguZGg4QRMxlvsW3Q2Y3Tt3QWbwGYp8JD7Qv9sxSglY
- A8VtjtXC8vBaiJB/rZsEyMiN8XuCpFAWHLkdAZ7UZEq0sxK6H/0WagnLQ5ejgB298UhC
- 0Y84k2YcokIbbrmcw6Gl4trVX7oP0xnX8m1NvfmLBCIu2YJoZC7fH2GQC5EDUB3CfBfR
- K6wEaYRT3uDHRBxbUHMB0KQocUW4+oa9AQy5y/38x+nVf0TvKDI+e31Oq1mkkvLdXsuY
- nDYOg3G5lU1+kyrIMv5JUzpGhSheqhS3wPZW/DnBVY0ty9fDB2mh1vAdd7cLQIm8coKF
- xPLw==
+ bh=0MgTuC5BgKHh8g9okFWnMYj+ryxsdDpMF+psrmOrlpc=;
+ b=W9lWU6bJiT0xvZaPdZUCULtlKXJkcF+7t3J9/CdUquDlbCdERiUcQXYjHQIhAPyxNF
+ CVwEn8/PWOKMS4+Kdy83JRY9IDPAhc9QZt5xKm+9E26e/yj0Glfw51BjFBkR0fpOPqiD
+ naSnUkBDSLtn6S8szFjKIw/Al/TwNrctfHKNnFQ4hgYTBKsdgIPWn2hwtqU0JIwsJn30
+ Oxt4GazjXaDq8aXZUKTAKmXnD02FltuNSGSgK6y1mti/4WRkWratwOrgNfvzwuNjxizT
+ CX2KHzeEdS+kqSaEzync0eaKpgUH5k3tj+JcGBJ3++J4vwb6cbyG2LyKz7Qa/zVNe/vC
+ 6F1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=EQdQrTTJ5P/B6GAAEN4PWeFdJlxrHUCbcOO/qZCkvxM=;
- b=ZtMtxdb9L41j2Sy3yDbS/2fwpTNutecrnt74nqW3iP0DFYFCqP1m/wNmtY65GPXnMA
- QQOLZg60gbabw03GturrbKUqHiGHKHaT/qIx82nxGmFtK1LCe4FBgWH09YVOz0E2PuhU
- M2mVF7xc2ghdBcZuIZ2KEsUk1WTCQJQiPW4jxs6198fK2ApdbvFUFRiu9V8I1fQpqMK4
- CLG4ftZoq/OqKo9WOHSzFyvn6ZcwPYh6Zg8CB3n0itEhoft2ROCPTSCguO+vpPGGvMs4
- 86HbmSsLNNFf1ZAoR1FSUP9lWwEe+Ewo5IQI4dEVvB8ViXDGK9PSaBG5h1OsfK6Sk6vx
- V54w==
-X-Gm-Message-State: APjAAAU0OQhJeo6igQlDUbrUjOn+oqsiHSKDyJTeaD5AflxU+5rtCDXD
- SIuucwfXBj3wcThWHG3mVH4=
-X-Google-Smtp-Source: APXvYqxBQVufszcXfXS99TznWZ5iAkouT0JVCO9WW+4ZpSkVGo50+4Eu2/MPHKQnMR9qcLQQR+qmqA==
-X-Received: by 2002:ac8:4157:: with SMTP id e23mr14740321qtm.158.1573836658053; 
+ bh=0MgTuC5BgKHh8g9okFWnMYj+ryxsdDpMF+psrmOrlpc=;
+ b=XTKvLDbDKtu7rCIt2luMy66gbCGtLm/Xa+TJw1SQL9TdVsOJJb7SG/ePOC4TAF1519
+ qich8zTGC0UI9q4vtC9yajgwMJAI+uBH+UaR92mHAs2NMycRD5/bXI9zMhYQQ1mYKhdk
+ 8YVz3dv5A1/XJSV0n1JcMjO1HP1c6SWxcBuLa+bDoacuFvkAyvzpK5Qrer3whu+kuYvY
+ gcSaZpHzWnp6nVdWYv+PGbfdfRMaVY9bmc1ymbSM3mLXtEDThFmwrlNb5PHRH3v2NZW2
+ oeaPrhms942BEYeG/tAnpdvv7Mh0fvlU+ptxWbgQGryuvo9R4o0Gik8LwbgV8fRjfjth
+ jdew==
+X-Gm-Message-State: APjAAAX+yw7C+2+BDeCj20Ys3T2Cx5HFnLmVM8Zune7WlCDkeDIm9IZi
+ NQEo83edm16dLB5b/mshJ+w=
+X-Google-Smtp-Source: APXvYqyeoT309l8spittf8ytRO2+pekLf702hNJ94cEtqBbyi0eY5X9hsZWCSJwEFOpZWmUpYZqJYA==
+X-Received: by 2002:a37:9585:: with SMTP id
+ x127mr13692046qkd.146.1573836658926; 
  Fri, 15 Nov 2019 08:50:58 -0800 (PST)
 Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id r29sm5610331qtb.63.2019.11.15.08.50.57
+ by smtp.gmail.com with ESMTPSA id r29sm5610331qtb.63.2019.11.15.08.50.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2019 08:50:57 -0800 (PST)
+ Fri, 15 Nov 2019 08:50:58 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org, tiwai@suse.de,
  lukas@wunner.de
-Date: Fri, 15 Nov 2019 11:50:29 -0500
-Message-Id: <20191115165038.56646-12-alexander.deucher@amd.com>
+Date: Fri, 15 Nov 2019 11:50:30 -0500
+Message-Id: <20191115165038.56646-13-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191115165038.56646-1-alexander.deucher@amd.com>
 References: <20191115165038.56646-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
-Subject: [alsa-devel] [PATCH 11/20] drm/amdgpu: add helpers for baco entry
-	and exit
+Subject: [alsa-devel] [PATCH 12/20] drm/amdgpu: add baco support to runtime
+	suspend/resume
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,98 +106,48 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 BACO - Bus Active, Chip Off
 
-Will be used for runtime pm.  Entry will enter the BACO
-state (chip off).  Exit will exit the BACO state (chip on).
+This adds the necessary support to the runtime suspend
+and resume functions to handle boards that support
+baco.
 
 Reviewed-by: Evan Quan <evan.quan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 61 ++++++++++++++++++++++
- 2 files changed, 63 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 186135ea6033..64bc5771b34f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -1145,6 +1145,8 @@ bool amdgpu_device_supports_boco(struct drm_device *dev);
- bool amdgpu_device_supports_baco(struct drm_device *dev);
- bool amdgpu_device_is_peer_accessible(struct amdgpu_device *adev,
- 				      struct amdgpu_device *peer_adev);
-+int amdgpu_device_baco_enter(struct drm_device *dev);
-+int amdgpu_device_baco_exit(struct drm_device *dev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index d05f8c03e559..7b5437a87b01 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -1166,7 +1166,8 @@ static int amdgpu_pmops_resume(struct device *dev)
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
  
- /* atpx handler */
- #if defined(CONFIG_VGA_SWITCHEROO)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 45c196845497..7195ef83ddba 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4299,3 +4299,64 @@ static void amdgpu_device_get_pcie_info(struct amdgpu_device *adev)
+ 	/* GPU comes up enabled by the bios on resume */
+-	if (amdgpu_device_supports_boco(drm_dev)) {
++	if (amdgpu_device_supports_boco(drm_dev) ||
++	    amdgpu_device_supports_baco(drm_dev)) {
+ 		pm_runtime_disable(dev);
+ 		pm_runtime_set_active(dev);
+ 		pm_runtime_enable(dev);
+@@ -1233,6 +1234,8 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+ 		else if (!amdgpu_has_atpx_dgpu_power_cntl())
+ 			pci_set_power_state(pdev, PCI_D3hot);
+ 		drm_dev->switch_power_state = DRM_SWITCH_POWER_DYNAMIC_OFF;
++	} else if (amdgpu_device_supports_baco(drm_dev)) {
++		amdgpu_device_baco_enter(drm_dev);
  	}
- }
  
-+int amdgpu_device_baco_enter(struct drm_device *dev)
-+{
-+	struct amdgpu_device *adev = dev->dev_private;
-+
-+	if (!amdgpu_device_supports_baco(adev->ddev))
-+		return -ENOTSUPP;
-+
-+	if (is_support_sw_smu(adev)) {
-+		struct smu_context *smu = &adev->smu;
-+		int ret;
-+
-+		ret = smu_baco_enter(smu);
-+		if (ret)
-+			return ret;
-+
-+		return 0;
-+	} else {
-+		void *pp_handle = adev->powerplay.pp_handle;
-+		const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+
-+		if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
-+			return -ENOENT;
-+
-+		/* enter BACO state */
-+		if (pp_funcs->set_asic_baco_state(pp_handle, 1))
-+			return -EIO;
-+
-+		return 0;
-+	}
-+}
-+
-+int amdgpu_device_baco_exit(struct drm_device *dev)
-+{
-+	struct amdgpu_device *adev = dev->dev_private;
-+
-+	if (!amdgpu_device_supports_baco(adev->ddev))
-+		return -ENOTSUPP;
-+
-+	if (is_support_sw_smu(adev)) {
-+		struct smu_context *smu = &adev->smu;
-+		int ret;
-+
-+		ret = smu_baco_exit(smu);
-+		if (ret)
-+			return ret;
-+
-+		return 0;
-+	} else {
-+		void *pp_handle = adev->powerplay.pp_handle;
-+		const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+
-+		if (!pp_funcs ||!pp_funcs->get_asic_baco_state ||!pp_funcs->set_asic_baco_state)
-+			return -ENOENT;
-+
-+		/* exit BACO state */
-+		if (pp_funcs->set_asic_baco_state(pp_handle, 0))
-+			return -EIO;
-+
-+		return 0;
-+	}
-+}
+ 	return 0;
+@@ -1258,6 +1261,8 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+ 		if (ret)
+ 			return ret;
+ 		pci_set_master(pdev);
++	} else if (amdgpu_device_supports_baco(drm_dev)) {
++		amdgpu_device_baco_exit(drm_dev);
+ 	}
+ 	ret = amdgpu_device_resume(drm_dev, false, false);
+ 	drm_kms_helper_poll_enable(drm_dev);
 -- 
 2.23.0
 

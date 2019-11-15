@@ -2,59 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7962FDA3F
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 11:00:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12119FDA47
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 11:01:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C350167C;
-	Fri, 15 Nov 2019 11:00:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C350167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 711C1167A;
+	Fri, 15 Nov 2019 11:00:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 711C1167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573812051;
-	bh=vjVLRjwI3JhPsUGglXTO4fSiL6kKWLwc5hmUl4ABFxA=;
+	s=default; t=1573812098;
+	bh=PokkXgkZsJH6JnOVruqbdzV1nTKZYjb/Uf6MELyR5Eg=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=U/5ytEOnOEx56i0ucHP+Ftcx8amDkKdsYXSOK1/L1+4hqru0pqAa2UTPTJ0ZoeNLJ
-	 GuM4xRbYYjpubmP0AwaLQmBvKJwVoP/u2wm5HpcLx2Tb1Vn2gflSCW20myXli3GQ/c
-	 RZJ3T1GBNDp5S36C8rX8w5io0+ihWR5e5rnoR7Hs=
+	b=dfodjrbRUgo5zoIWSqC6ME8ESz6H8xG/vuSgONsqaH9jz0X35rbLiaV6ZVxY1DVlH
+	 jxYw8VSw7HE1busdCuJmfRBkmLSEAoGuXwclW2EaOlWIl0G1U4p5ujCKOqFA0vcOKu
+	 HFQGkIeSqYprG8h2ogtCrtRoOOcMZLbnpf9L08Ts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 73F20F80130;
-	Fri, 15 Nov 2019 10:56:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A1A2F80138;
+	Fri, 15 Nov 2019 10:56:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B637AF80119; Fri, 15 Nov 2019 10:56:45 +0100 (CET)
+ id 5DEA8F80132; Fri, 15 Nov 2019 10:56:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 117B5F80108
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 10:56:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 117B5F80108
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0220F80119
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 10:56:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0220F80119
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="E2w5TOd/"
+ header.b="HGsWDPaG"
 Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
  hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5dce76580000>; Fri, 15 Nov 2019 01:56:40 -0800
+ id <B5dce765b0000>; Fri, 15 Nov 2019 01:56:43 -0800
 Received: from hqmail.nvidia.com ([172.20.161.6])
  by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 15 Nov 2019 01:56:40 -0800
+ Fri, 15 Nov 2019 01:56:43 -0800
 X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 15 Nov 2019 01:56:40 -0800
+ by hqpgpgate101.nvidia.com on Fri, 15 Nov 2019 01:56:43 -0800
 Received: from nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com (172.20.187.13)
  with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Fri, 15 Nov 2019 09:56:37 +0000
+ Fri, 15 Nov 2019 09:56:41 +0000
 From: Nikhil Mahale <nmahale@nvidia.com>
 To: <tiwai@suse.com>
-Date: Fri, 15 Nov 2019 15:26:05 +0530
-Message-ID: <20191115095606.22392-5-nmahale@nvidia.com>
+Date: Fri, 15 Nov 2019 15:26:06 +0530
+Message-ID: <20191115095606.22392-6-nmahale@nvidia.com>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191115095606.22392-1-nmahale@nvidia.com>
 References: <20191115095606.22392-1-nmahale@nvidia.com>
@@ -64,19 +64,19 @@ X-Originating-IP: [10.124.1.5]
 X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
  HQMAIL107.nvidia.com (172.20.187.13)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1573811800; bh=CnRDKI4GHgOnDIZ/jozltdcrxqwMp/Qm1JMBceEVoFw=;
+ t=1573811803; bh=g2rwWWSW2aJFVMkWHebp8xkrrZZwM6qraFoBNR33GGw=;
  h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
  In-Reply-To:References:X-NVConfidentiality:MIME-Version:
  X-Originating-IP:X-ClientProxiedBy:Content-Type;
- b=E2w5TOd/gsPqBKdifgABCBUTsqfVZP6G76HtIDrqS/Fox3WxCnyypf7cT7xguSuk5
- O1lLMwWyCdaNICEPTwsCKpKlSbWcsLQxq7KB0RzbDTGIqlTLdTPDGO9mMFj80XQoBk
- ms865Yt7vzaXAB7bsPstWcHIf8iCWzPxepVANQNnAsgPfAgTrxd7qEFi2JIwzSKQ/A
- i3VLnoicT3Fefa0WMraKW8TukWrpFCzfahtPN3x/6dvgppea36XQD6Q+GZY2ByCLXB
- DdMYAw8Ty1SBuYVh9/UHgAhr6rYWYlPWskIlEwJiNvZv8SmzEwSogEQ94hEsM0vjMB
- iAEA0Okco3zsg==
+ b=HGsWDPaGB8kKk3ye11ws9vetRA1CSQrtu/OdCcved8iz0xFGVjbmmx9kT7QOPP6l/
+ PUJtAgY+9dBvLEwPNoMwlzwuQFUfyXZA4zjITzpv5Grq1TW1lFudx7eR3R/Rl8+6zc
+ iI4Fubw3XJMKy1/jfGADs+j0N9Hk/c7MCi+cmI37m4VtfhGBq33zmydGt57XUkvNEU
+ Hfjbm+EMfmpvV3KjkaYm+yej0eekl1kwgJwmzH2HaFkmpgdaN3kctfA0HZp+VdjYM9
+ cVWPpZjJ8Vjq6Plj9+umz+iCtzLtnb4oyYE6F6HLL7JigBUllxXbxl2H2TKpuLiJEE
+ 74Icp5S7R3Waw==
 Cc: alsa-devel@alsa-project.org, nmahale@nvidia.com, aplattner@nvidia.com
-Subject: [alsa-devel] [PATCH v2 4/5] ALSA: hda - Add DP-MST support for
-	non-acomp codecs
+Subject: [alsa-devel] [PATCH v2 5/5] ALSA: hda - Add DP-MST support for
+	NVIDIA codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,341 +94,162 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch make it possible for non-acomp codecs to set
-dyn_pcm_assign/dp_mst and get DP-MST audio support.
+This patch adds DP-MST support for GK104+ NVIDIA codecs.
 
-Document change notification HDA040-A for the Intel High Definition
-Audio 1.0a specification introduces a Device Select verb for Digital
-Display Pin Widgets that are multi-stream capable. This verb selects
-a Device Entry that is used by subsequent Pin Widget verbs.
-Once the Device Entry is selected, all subsequent Pin Widget verbs
-controlling the sink device will be directed to the selected Device
-Entry until the Device Select verb is updated with a new value.
+GK104+ NVIDIA codecs support DP-MST audio. These codecs have 4
+output converters and 4 pin widgets, with 4 device entries per pin
+widget for a total of 16 device entries.
 
-These Pin Widget verbs include:
+This patch moves the existing patch_nvhdmi() definition to
+patch_nvhdmi_legacy(), used by pre-GK104 NVIDIA codecs. Redefine
+patch_nvhdmi() to enable DP-MST support by setting codec->dp_mst and
+spec->dyn_pcm_assign.
 
-  * Connection Select
-  * Get Connection List Entry
-  * Amplifier Gain/Mute
-  * Power State
-  * Pin Widget Control
-  * ELD Data
-  * DIP-Size
-  * DIP-Index
-  * DIP-Data
-  * DIP-XmitCtrl
-  * Content Protection Control
-  * ASP Channel Mapping
-
-This patch adds calls to snd_hda_set_dev_select() to direct each of
-these Pin Widget control verbs to the correct Device Entry.
+Introduce fresh logic for dynamic pcm assignment, making
+sure that new pcm assignments are compatible with the legacy static
+per_pin-pmc assignment that existed in the days before DP-MST.
 
 Signed-off-by: Nikhil Mahale <nmahale@nvidia.com>
 Reviewed-by: Aaron Plattner <aplattner@nvidia.com>
 ---
- sound/pci/hda/patch_hdmi.c | 91 +++++++++++++++++++++++++++++++---------------
- 1 file changed, 62 insertions(+), 29 deletions(-)
+ sound/pci/hda/patch_hdmi.c | 97 +++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 75 insertions(+), 22 deletions(-)
 
 diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 84d410a93ed8..30589a7ca63d 100644
+index 30589a7ca63d..7595610e5c5b 100644
 --- a/sound/pci/hda/patch_hdmi.c
 +++ b/sound/pci/hda/patch_hdmi.c
-@@ -97,16 +97,19 @@ struct hdmi_spec_per_pin {
- /* operations used by generic code that can be overridden by patches */
- struct hdmi_ops {
- 	int (*pin_get_eld)(struct hda_codec *codec, hda_nid_t pin_nid,
--			   unsigned char *buf, int *eld_size);
-+			   int dev_id, unsigned char *buf, int *eld_size);
+@@ -33,6 +33,8 @@
+ #include "hda_local.h"
+ #include "hda_jack.h"
  
- 	void (*pin_setup_infoframe)(struct hda_codec *codec, hda_nid_t pin_nid,
-+				    int dev_id,
- 				    int ca, int active_channels, int conn_type);
- 
- 	/* enable/disable HBR (HD passthrough) */
--	int (*pin_hbr_setup)(struct hda_codec *codec, hda_nid_t pin_nid, bool hbr);
-+	int (*pin_hbr_setup)(struct hda_codec *codec, hda_nid_t pin_nid,
-+			     int dev_id, bool hbr);
- 
- 	int (*setup_stream)(struct hda_codec *codec, hda_nid_t cvt_nid,
--			    hda_nid_t pin_nid, u32 stream_tag, int format);
-+			    hda_nid_t pin_nid, int dev_id, u32 stream_tag,
-+			    int format);
- 
- 	void (*pin_cvt_fixup)(struct hda_codec *codec,
- 			      struct hdmi_spec_per_pin *per_pin,
-@@ -652,8 +655,16 @@ static bool hdmi_infoframe_uptodate(struct hda_codec *codec, hda_nid_t pin_nid,
- 	return true;
++struct hdmi_spec;
++
+ static bool static_hdmi_pcm;
+ module_param(static_hdmi_pcm, bool, 0644);
+ MODULE_PARM_DESC(static_hdmi_pcm, "Don't restrict PCM parameters per ELD info");
+@@ -1337,15 +1339,32 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
  }
  
-+static int hdmi_pin_get_eld(struct hda_codec *codec, hda_nid_t nid,
-+			    int dev_id, unsigned char *buf, int *eld_size)
-+{
-+	snd_hda_set_dev_select(codec, nid, dev_id);
-+
-+	return snd_hdmi_get_eld(codec, nid, buf, eld_size);
-+}
-+
- static void hdmi_pin_setup_infoframe(struct hda_codec *codec,
--				     hda_nid_t pin_nid,
-+				     hda_nid_t pin_nid, int dev_id,
- 				     int ca, int active_channels,
- 				     int conn_type)
+ static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
+-				struct hdmi_spec_per_pin *per_pin)
++			      struct hdmi_spec_per_pin *per_pin)
  {
-@@ -683,6 +694,8 @@ static void hdmi_pin_setup_infoframe(struct hda_codec *codec,
- 		return;
- 	}
+ 	int i;
  
-+	snd_hda_set_dev_select(codec, pin_nid, dev_id);
+-	/* try the prefer PCM */
+-	if (!test_bit(per_pin->pin_nid_idx, &spec->pcm_bitmap))
++	/*
++	 * generic_hdmi_build_pcms() allocates (num_nids + dev_num - 1)
++	 * number of pcms.
++	 *
++	 * The per_pin of pin_nid_idx=n and dev_id=m prefers to get pcm-n
++	 * if m==0. This guarantees that dynamic pcm assignments are compatible
++	 * with the legacy static per_pin-pmc assignment that existed in the
++	 * days before DP-MST.
++	 *
++	 * per_pin of m!=0 prefers to get pcm=(num_nids + (m - 1)).
++	 */
++	if (per_pin->dev_id == 0 &&
++	    !test_bit(per_pin->pin_nid_idx, &spec->pcm_bitmap))
+ 		return per_pin->pin_nid_idx;
+ 
+-	/* have a second try; check the "reserved area" over num_pins */
++	if (per_pin->dev_id != 0 &&
++	    !(test_bit(spec->num_nids + (per_pin->dev_id - 1),
++		&spec->pcm_bitmap))) {
++		return spec->num_nids + (per_pin->dev_id - 1);
++	}
 +
- 	/*
- 	 * sizeof(ai) is used instead of sizeof(*hdmi_ai) or
- 	 * sizeof(*dp_ai) to avoid partial match/update problems when
-@@ -708,6 +721,7 @@ static void hdmi_setup_audio_infoframe(struct hda_codec *codec,
- 	struct hdmi_spec *spec = codec->spec;
- 	struct hdac_chmap *chmap = &spec->chmap;
- 	hda_nid_t pin_nid = per_pin->pin_nid;
-+	int dev_id = per_pin->dev_id;
- 	int channels = per_pin->channels;
- 	int active_channels;
- 	struct hdmi_eld *eld;
-@@ -716,6 +730,8 @@ static void hdmi_setup_audio_infoframe(struct hda_codec *codec,
- 	if (!channels)
- 		return;
- 
-+	snd_hda_set_dev_select(codec, pin_nid, dev_id);
-+
- 	/* some HW (e.g. HSW+) needs reprogramming the amp at each time */
- 	if (get_wcaps(codec, pin_nid) & AC_WCAP_OUT_AMP)
- 		snd_hda_codec_write(codec, pin_nid, 0,
-@@ -741,8 +757,8 @@ static void hdmi_setup_audio_infoframe(struct hda_codec *codec,
- 				pin_nid, non_pcm, ca, channels,
- 				per_pin->chmap, per_pin->chmap_set);
- 
--	spec->ops.pin_setup_infoframe(codec, pin_nid, ca, active_channels,
--				      eld->info.conn_type);
-+	spec->ops.pin_setup_infoframe(codec, pin_nid, dev_id,
-+				      ca, active_channels, eld->info.conn_type);
- 
- 	per_pin->non_pcm = non_pcm;
- }
-@@ -884,11 +900,12 @@ static void haswell_verify_D0(struct hda_codec *codec,
- 	((format & AC_FMT_TYPE_NON_PCM) && (format & AC_FMT_CHAN_MASK) == 7)
- 
- static int hdmi_pin_hbr_setup(struct hda_codec *codec, hda_nid_t pin_nid,
--			      bool hbr)
-+			      int dev_id, bool hbr)
- {
- 	int pinctl, new_pinctl;
- 
- 	if (snd_hda_query_pin_caps(codec, pin_nid) & AC_PINCAP_HBR) {
-+		snd_hda_set_dev_select(codec, pin_nid, dev_id);
- 		pinctl = snd_hda_codec_read(codec, pin_nid, 0,
- 					    AC_VERB_GET_PIN_WIDGET_CONTROL, 0);
- 
-@@ -918,13 +935,15 @@ static int hdmi_pin_hbr_setup(struct hda_codec *codec, hda_nid_t pin_nid,
- }
- 
- static int hdmi_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
--			      hda_nid_t pin_nid, u32 stream_tag, int format)
-+			      hda_nid_t pin_nid, int dev_id,
-+			      u32 stream_tag, int format)
- {
- 	struct hdmi_spec *spec = codec->spec;
- 	unsigned int param;
++	/* have a second try; check the area over num_nids */
+ 	for (i = spec->num_nids; i < spec->pcm_used; i++) {
+ 		if (!test_bit(i, &spec->pcm_bitmap))
+ 			return i;
+@@ -3518,6 +3537,40 @@ static int patch_nvhdmi(struct hda_codec *codec)
+ 	struct hdmi_spec *spec;
  	int err;
  
--	err = spec->ops.pin_hbr_setup(codec, pin_nid, is_hbr_format(format));
-+	err = spec->ops.pin_hbr_setup(codec, pin_nid, dev_id,
-+				      is_hbr_format(format));
- 
- 	if (err) {
- 		codec_dbg(codec, "hdmi_setup_stream: HBR is not supported\n");
-@@ -1298,6 +1317,7 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
- 	struct hdmi_spec *spec = codec->spec;
- 	struct hdmi_spec_per_pin *per_pin = get_pin(spec, pin_idx);
- 	hda_nid_t pin_nid = per_pin->pin_nid;
-+	int dev_id = per_pin->dev_id;
- 
- 	if (!(get_wcaps(codec, pin_nid) & AC_WCAP_CONN_LIST)) {
- 		codec_warn(codec,
-@@ -1306,6 +1326,8 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
- 		return -EINVAL;
- 	}
- 
-+	snd_hda_set_dev_select(codec, pin_nid, dev_id);
++	err = alloc_generic_hdmi(codec);
++	if (err < 0)
++		return err;
++	codec->dp_mst = true;
 +
- 	/* all the device entries on the same pin have the same conn list */
- 	per_pin->num_mux_nids = snd_hda_get_connections(codec, pin_nid,
- 							per_pin->mux_nids,
-@@ -1517,6 +1539,7 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
- 	struct hdmi_spec *spec = codec->spec;
- 	struct hdmi_eld *eld = &spec->temp_eld;
- 	hda_nid_t pin_nid = per_pin->pin_nid;
-+	int dev_id = per_pin->dev_id;
- 	/*
- 	 * Always execute a GetPinSense verb here, even when called from
- 	 * hdmi_intrinsic_event; for some NVIDIA HW, the unsolicited
-@@ -1529,7 +1552,7 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
- 	bool ret;
- 	bool do_repoll = false;
- 
--	present = snd_hda_jack_pin_sense(codec, pin_nid, per_pin->dev_id);
-+	present = snd_hda_jack_pin_sense(codec, pin_nid, dev_id);
- 
- 	mutex_lock(&per_pin->lock);
- 	eld->monitor_present = !!(present & AC_PINSENSE_PRESENCE);
-@@ -1543,8 +1566,8 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
- 		codec->addr, pin_nid, eld->monitor_present, eld->eld_valid);
- 
- 	if (eld->eld_valid) {
--		if (spec->ops.pin_get_eld(codec, pin_nid, eld->eld_buffer,
--						     &eld->eld_size) < 0)
-+		if (spec->ops.pin_get_eld(codec, pin_nid, dev_id,
-+					  eld->eld_buffer, &eld->eld_size) < 0)
- 			eld->eld_valid = false;
- 		else {
- 			if (snd_hdmi_parse_eld(codec, &eld->info, eld->eld_buffer,
-@@ -1881,7 +1904,6 @@ static int generic_hdmi_playback_pcm_prepare(struct hda_pcm_stream *hinfo,
- 	struct hdmi_spec *spec = codec->spec;
- 	int pin_idx;
- 	struct hdmi_spec_per_pin *per_pin;
--	hda_nid_t pin_nid;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	bool non_pcm;
- 	int pinctl, stripe;
-@@ -1905,7 +1927,6 @@ static int generic_hdmi_playback_pcm_prepare(struct hda_pcm_stream *hinfo,
- 		goto unlock;
- 	}
- 	per_pin = get_pin(spec, pin_idx);
--	pin_nid = per_pin->pin_nid;
- 
- 	/* Verify pin:cvt selections to avoid silent audio after S3.
- 	 * After S3, the audio driver restores pin:cvt selections
-@@ -1920,8 +1941,8 @@ static int generic_hdmi_playback_pcm_prepare(struct hda_pcm_stream *hinfo,
- 	/* Call sync_audio_rate to set the N/CTS/M manually if necessary */
- 	/* Todo: add DP1.2 MST audio support later */
- 	if (codec_has_acomp(codec))
--		snd_hdac_sync_audio_rate(&codec->core, pin_nid, per_pin->dev_id,
--					 runtime->rate);
-+		snd_hdac_sync_audio_rate(&codec->core, per_pin->pin_nid,
-+					 per_pin->dev_id, runtime->rate);
- 
- 	non_pcm = check_non_pcm_per_cvt(codec, cvt_nid);
- 	mutex_lock(&per_pin->lock);
-@@ -1939,16 +1960,18 @@ static int generic_hdmi_playback_pcm_prepare(struct hda_pcm_stream *hinfo,
- 	hdmi_setup_audio_infoframe(codec, per_pin, non_pcm);
- 	mutex_unlock(&per_pin->lock);
- 	if (spec->dyn_pin_out) {
--		pinctl = snd_hda_codec_read(codec, pin_nid, 0,
-+		snd_hda_set_dev_select(codec, per_pin->pin_nid,
-+				       per_pin->dev_id);
-+		pinctl = snd_hda_codec_read(codec, per_pin->pin_nid, 0,
- 					    AC_VERB_GET_PIN_WIDGET_CONTROL, 0);
--		snd_hda_codec_write(codec, pin_nid, 0,
-+		snd_hda_codec_write(codec, per_pin->pin_nid, 0,
- 				    AC_VERB_SET_PIN_WIDGET_CONTROL,
- 				    pinctl | PIN_OUT);
- 	}
- 
- 	/* snd_hda_set_dev_select() has been called before */
--	err = spec->ops.setup_stream(codec, cvt_nid, pin_nid,
--				 stream_tag, format);
-+	err = spec->ops.setup_stream(codec, cvt_nid, per_pin->pin_nid,
-+				     per_pin->dev_id, stream_tag, format);
-  unlock:
- 	mutex_unlock(&spec->pcm_lock);
- 	return err;
-@@ -2000,6 +2023,8 @@ static int hdmi_pcm_close(struct hda_pcm_stream *hinfo,
- 		per_pin = get_pin(spec, pin_idx);
- 
- 		if (spec->dyn_pin_out) {
-+			snd_hda_set_dev_select(codec, per_pin->pin_nid,
-+					       per_pin->dev_id);
- 			pinctl = snd_hda_codec_read(codec, per_pin->pin_nid, 0,
- 					AC_VERB_GET_PIN_WIDGET_CONTROL, 0);
- 			snd_hda_codec_write(codec, per_pin->pin_nid, 0,
-@@ -2377,7 +2402,7 @@ static const struct hda_codec_ops generic_hdmi_patch_ops = {
- };
- 
- static const struct hdmi_ops generic_standard_hdmi_ops = {
--	.pin_get_eld				= snd_hdmi_get_eld,
-+	.pin_get_eld				= hdmi_pin_get_eld,
- 	.pin_setup_infoframe			= hdmi_pin_setup_infoframe,
- 	.pin_hbr_setup				= hdmi_pin_hbr_setup,
- 	.setup_stream				= hdmi_setup_stream,
-@@ -2753,10 +2778,12 @@ static void register_i915_notifier(struct hda_codec *codec)
- 
- /* setup_stream ops override for HSW+ */
- static int i915_hsw_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
--				 hda_nid_t pin_nid, u32 stream_tag, int format)
-+				 hda_nid_t pin_nid, int dev_id, u32 stream_tag,
-+				 int format)
- {
- 	haswell_verify_D0(codec, cvt_nid, pin_nid);
--	return hdmi_setup_stream(codec, cvt_nid, pin_nid, stream_tag, format);
-+	return hdmi_setup_stream(codec, cvt_nid, pin_nid, dev_id,
-+				 stream_tag, format);
- }
- 
- /* pin_cvt_fixup ops override for HSW+ and VLV+ */
-@@ -3722,16 +3749,19 @@ static int patch_tegra_hdmi(struct hda_codec *codec)
- #define ATI_HBR_ENABLE 0x10
- 
- static int atihdmi_pin_get_eld(struct hda_codec *codec, hda_nid_t nid,
--			   unsigned char *buf, int *eld_size)
-+			       int dev_id, unsigned char *buf, int *eld_size)
- {
-+	WARN_ON(dev_id != 0);
- 	/* call hda_eld.c ATI/AMD-specific function */
- 	return snd_hdmi_get_eld_ati(codec, nid, buf, eld_size,
- 				    is_amdhdmi_rev3_or_later(codec));
- }
- 
--static void atihdmi_pin_setup_infoframe(struct hda_codec *codec, hda_nid_t pin_nid, int ca,
-+static void atihdmi_pin_setup_infoframe(struct hda_codec *codec,
-+					hda_nid_t pin_nid, int dev_id, int ca,
- 					int active_channels, int conn_type)
- {
-+	WARN_ON(dev_id != 0);
- 	snd_hda_codec_write(codec, pin_nid, 0, ATI_VERB_SET_CHANNEL_ALLOCATION, ca);
- }
- 
-@@ -3922,10 +3952,12 @@ static void atihdmi_paired_cea_alloc_to_tlv_chmap(struct hdac_chmap *hchmap,
- }
- 
- static int atihdmi_pin_hbr_setup(struct hda_codec *codec, hda_nid_t pin_nid,
--				 bool hbr)
-+				 int dev_id, bool hbr)
- {
- 	int hbr_ctl, hbr_ctl_new;
- 
-+	WARN_ON(dev_id != 0);
++	spec = codec->spec;
++	spec->dyn_pcm_assign = true;
 +
- 	hbr_ctl = snd_hda_codec_read(codec, pin_nid, 0, ATI_VERB_GET_HBR_CONTROL, 0);
- 	if (hbr_ctl >= 0 && (hbr_ctl & ATI_HBR_CAPABLE)) {
- 		if (hbr)
-@@ -3951,9 +3983,9 @@ static int atihdmi_pin_hbr_setup(struct hda_codec *codec, hda_nid_t pin_nid,
- }
- 
- static int atihdmi_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
--				hda_nid_t pin_nid, u32 stream_tag, int format)
-+				hda_nid_t pin_nid, int dev_id,
-+				u32 stream_tag, int format)
- {
--
- 	if (is_amdhdmi_rev3_or_later(codec)) {
- 		int ramp_rate = 180; /* default as per AMD spec */
- 		/* disable ramp-up/down for non-pcm as per AMD spec */
-@@ -3963,7 +3995,8 @@ static int atihdmi_setup_stream(struct hda_codec *codec, hda_nid_t cvt_nid,
- 		snd_hda_codec_write(codec, cvt_nid, 0, ATI_VERB_SET_RAMP_RATE, ramp_rate);
- 	}
- 
--	return hdmi_setup_stream(codec, cvt_nid, pin_nid, stream_tag, format);
-+	return hdmi_setup_stream(codec, cvt_nid, pin_nid, dev_id,
-+				 stream_tag, format);
- }
- 
- 
++	err = hdmi_parse_codec(codec);
++	if (err < 0) {
++		generic_spec_free(codec);
++		return err;
++	}
++
++	generic_hdmi_init_per_pins(codec);
++
++	spec->dyn_pin_out = true;
++
++	spec->chmap.ops.chmap_cea_alloc_validate_get_type =
++		nvhdmi_chmap_cea_alloc_validate_get_type;
++	spec->chmap.ops.chmap_validate = nvhdmi_chmap_validate;
++
++	codec->link_down_at_suspend = 1;
++
++	generic_acomp_init(codec, &nvhdmi_audio_ops, nvhdmi_port2pin);
++
++	return 0;
++}
++
++static int patch_nvhdmi_legacy(struct hda_codec *codec)
++{
++	struct hdmi_spec *spec;
++	int err;
++
+ 	err = patch_generic_hdmi(codec);
+ 	if (err)
+ 		return err;
+@@ -4126,25 +4179,25 @@ HDA_CODEC_ENTRY(0x10de0004, "GPU 04 HDMI",	patch_nvhdmi_8ch_7x),
+ HDA_CODEC_ENTRY(0x10de0005, "MCP77/78 HDMI",	patch_nvhdmi_8ch_7x),
+ HDA_CODEC_ENTRY(0x10de0006, "MCP77/78 HDMI",	patch_nvhdmi_8ch_7x),
+ HDA_CODEC_ENTRY(0x10de0007, "MCP79/7A HDMI",	patch_nvhdmi_8ch_7x),
+-HDA_CODEC_ENTRY(0x10de0008, "GPU 08 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0009, "GPU 09 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de000a, "GPU 0a HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de000b, "GPU 0b HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de000c, "MCP89 HDMI",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de000d, "GPU 0d HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0010, "GPU 10 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0011, "GPU 11 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0012, "GPU 12 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0013, "GPU 13 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0014, "GPU 14 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0015, "GPU 15 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0016, "GPU 16 HDMI/DP",	patch_nvhdmi),
++HDA_CODEC_ENTRY(0x10de0008, "GPU 08 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0009, "GPU 09 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de000a, "GPU 0a HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de000b, "GPU 0b HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de000c, "MCP89 HDMI",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de000d, "GPU 0d HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0010, "GPU 10 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0011, "GPU 11 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0012, "GPU 12 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0013, "GPU 13 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0014, "GPU 14 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0015, "GPU 15 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0016, "GPU 16 HDMI/DP",	patch_nvhdmi_legacy),
+ /* 17 is known to be absent */
+-HDA_CODEC_ENTRY(0x10de0018, "GPU 18 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de0019, "GPU 19 HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de001a, "GPU 1a HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de001b, "GPU 1b HDMI/DP",	patch_nvhdmi),
+-HDA_CODEC_ENTRY(0x10de001c, "GPU 1c HDMI/DP",	patch_nvhdmi),
++HDA_CODEC_ENTRY(0x10de0018, "GPU 18 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de0019, "GPU 19 HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de001a, "GPU 1a HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de001b, "GPU 1b HDMI/DP",	patch_nvhdmi_legacy),
++HDA_CODEC_ENTRY(0x10de001c, "GPU 1c HDMI/DP",	patch_nvhdmi_legacy),
+ HDA_CODEC_ENTRY(0x10de0020, "Tegra30 HDMI",	patch_tegra_hdmi),
+ HDA_CODEC_ENTRY(0x10de0022, "Tegra114 HDMI",	patch_tegra_hdmi),
+ HDA_CODEC_ENTRY(0x10de0028, "Tegra124 HDMI",	patch_tegra_hdmi),
 -- 
 2.16.4
 

@@ -2,75 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E045FE2AD
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 17:24:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0049FE365
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 17:53:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 124421660;
-	Fri, 15 Nov 2019 17:24:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 124421660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 57EDD1669;
+	Fri, 15 Nov 2019 17:52:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57EDD1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573835098;
-	bh=LcpxGnO4/iaj9JhklORsLjywhLtWwv/V2G2NtKaKhaU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nl0wPyW1o4mQ/DjVGBGdEzcje0EU3HVoaB4Zjw0lzHKJ4wXcvGmCwtaIfhEL5IOBE
-	 IXfGwPhR98S8tFqutXd7WPx+U4lLLQl+PviHgFynPaNRRgLRELXjsCKms2hMu+17md
-	 WGCCN9J+IJXUmiGXEw0wZRBWZskzJvqqGbtlMwPI=
+	s=default; t=1573836807;
+	bh=dlfr8sXFGqN7FbUUhAn7jd3jC/b2v0intR5c0xF27Jo=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OiQcjMrpcFuEUjWZmgyODCFw3/zC1ykw7HadBod8RTE8EF5Hoc/8lky3olKzFe+KE
+	 DaXQC2DbLxRIkylzVqBsZ5z2/KHzUtjsOXO9V0KkiQ5qyoJilIF8h5oE+OuSPO9UoM
+	 7oxvFkUC018uEaY4T0XGga41jACLDz7vZ1XiYuhY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8CD4FF800FF;
-	Fri, 15 Nov 2019 17:23:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36F6FF8010D;
+	Fri, 15 Nov 2019 17:51:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77B70F80104; Fri, 15 Nov 2019 17:23:11 +0100 (CET)
+ id 3F545F80107; Fri, 15 Nov 2019 17:50:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [85.220.165.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E77B9F8007E
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:23:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E77B9F8007E
-Received: from pty.hi.pengutronix.de ([2001:67c:670:100:1d::c5])
- by metis.ext.pengutronix.de with esmtps
- (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1iVeL8-0003uL-50; Fri, 15 Nov 2019 17:20:54 +0100
-Received: from mfe by pty.hi.pengutronix.de with local (Exim 4.89)
- (envelope-from <mfe@pengutronix.de>)
- id 1iVeL7-00012y-SE; Fri, 15 Nov 2019 17:20:53 +0100
-Date: Fri, 15 Nov 2019 17:20:53 +0100
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20191115162053.fgsd45seg526gafv@pengutronix.de>
-References: <20191115160819.15557-1-m.felsch@pengutronix.de>
- <20191115160819.15557-4-m.felsch@pengutronix.de>
- <20191115161210.GB4210@sirena.co.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3F4AF80103
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:50:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3F4AF80103
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="sbghSlNM"
+Received: by mail-qk1-x742.google.com with SMTP id d13so8624282qko.3
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 08:50:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AKG53leD+VS+BIKsk2yJF791AEJDMUDmdfqQ8c5h1+0=;
+ b=sbghSlNMyxMPfpAD5q1khmAPpxRApzzAiOuTfW37wjptTZABiXmjNYR8AzLB/9otzT
+ FUj2XSzEV0PR2huAMXExh+sG2CkQi9fUSlMioJcvi0XELnLfYoACYU0cyZ8P6OSicahK
+ v7hrxGR7xe/MZv4psEktFB88kDLeAPoYtV74YCaA8kv3/HmTPQ8SF72Jpq+W4sXwTIuN
+ ZXyfLAHX/qs3qBB4sFFTxeCaMeRO8fhQQ71hOWDOG0FbClKnm+woS8GU5bUeZzosb7Gt
+ aaLBz0DhcgaiB76XPih4DUOVN49XbFdDxoYm5dujRcFDRrP3Tc75c5I04O4YAlenJlte
+ /Nwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=AKG53leD+VS+BIKsk2yJF791AEJDMUDmdfqQ8c5h1+0=;
+ b=OIX/6cn8A7fGjG5vHRD/npnMlENw1p1a1JaAzevvNBBdFgFrwWPMWAvG43DZkS2rlB
+ nmHTP4Gl/8szRdUAXMjEaIKf3DKbObe32AgQIcbGrQXnkarhueD7rT12ZnLDifJMndLG
+ hU6sZz8dLud1C3bN9EPXrBEZ/LN3q3IpYOPvOROmPTwqvWXNQrg0CGwwYrPfVZ55RIrQ
+ WhhO3M6JlyCa2o7jbxhj8/P58HFefpkMR66GtngQ8dV2UViJKC/B/5ibquDxs/p0QbGO
+ kGKXoqRdyq9ttmzDOJ1+Wez/BD/czxedKLBDYnXu6byip46WPuz7icYGn2eE+gyeo1yr
+ 5V8Q==
+X-Gm-Message-State: APjAAAVMBI0MgcbnjIM7j5nXlXmeB4mVlF2/t6xTB2OiMw2ugaIRb18i
+ 56Qt/kFcWiAxW8ijz6GqM5I=
+X-Google-Smtp-Source: APXvYqyKj2APy9jGoN/4Buj+9lgiQIZlMXXiT9bO2e/R46AY329kD1/YIEL135SlLqTAsXQ/8Uqf0g==
+X-Received: by 2002:a37:7d05:: with SMTP id y5mr358180qkc.27.1573836646870;
+ Fri, 15 Nov 2019 08:50:46 -0800 (PST)
+Received: from localhost.localdomain ([71.219.59.120])
+ by smtp.gmail.com with ESMTPSA id r29sm5610331qtb.63.2019.11.15.08.50.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Nov 2019 08:50:46 -0800 (PST)
+From: Alex Deucher <alexdeucher@gmail.com>
+X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
+To: amd-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org, tiwai@suse.de,
+ lukas@wunner.de
+Date: Fri, 15 Nov 2019 11:50:18 -0500
+Message-Id: <20191115165038.56646-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191115161210.GB4210@sirena.co.uk>
-X-Sent-From: Pengutronix Hildesheim
-X-URL: http://www.pengutronix.de/
-X-IRC: #ptxdist @freenode
-X-Accept-Language: de,en
-X-Accept-Content-Type: text/plain
-X-Uptime: 17:15:40 up  7:34, 20 users,  load average: 0.13, 0.07, 0.02
-User-Agent: NeoMutt/20170113 (1.7.2)
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::c5
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, KCHSU0@nuvoton.com,
- robh+dt@kernel.org, kernel@pengutronix.de, thomas.fehrenbacher@siedle.de
-Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: nau8810: add aux input control,
- available on NAU8812
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Subject: [alsa-devel] [PATCH 00/20] Enable BACO for power savings (v3)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,26 +99,93 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
+This patch set enables BACO (Bus Active Chip Off) for
+power savings on VI+ asics.  Similar to PowerXpress
+and Hybrid Graphics (PX/HG) laptops, we can disable GPUs
+at runtime when they are not in use if they support
+BACO.  The runtime pm code in amdgpu was originally
+developed for PX/HG laptops, so it was pretty entangled
+with the vga_switcheroo and ACPI code.  Since the GPU
+contains an audio codec for HDMI/DP, there is some
+interaction with the hda driver.  I am by no means an
+expert on alsa, so any advice on those patches is much
+appreciated.  I had to enable runtime pm on the hda
+device to allow the GPU to enter runtime pm because
+they are linked.
 
-On 19-11-15 16:12, Mark Brown wrote:
-> On Fri, Nov 15, 2019 at 05:08:19PM +0100, Marco Felsch wrote:
-> 
-> > This commit adds the support to control the aux-port on the nau8812
-> > devices. We don't need to differentiate the aux-port registers since
-> > those bitfields are set to '0' on the nau8810 devices [1,2].
-> 
-> It'd still be better to only register these controls if the device isn't
-> a nau8812 so that userspace doesn't see them.
+The full tree can be found here:
+https://cgit.freedesktop.org/~agd5f/linux/log/?h=baco
 
-That's the thing I tought about 10min.. Imagine that: You have an
-embedded device with a very good codec driver (all codec controlls are
-available) but the hw-guys didn't connect all the in-/outputs. So
-switching those controls are useless too. IMHO this is exactly the same
-thing here.
+TODO:
+- Turn off runtime pm when KFD user queues are active
 
-Regards,
-  Marco
+I've tested these pretty extensively on the asics I
+have access to.  All seems to work properly.  HDMI
+audio works fine with runtime pm both with and without
+the GPU BACO stuff.
+
+I'd like to land the the audio patches and the first 15 GPU
+patches.  I don't plan to enable this by default
+(last patch in the GPU set) until the KFD changes are
+in place to properly handle runtime pm, however it can
+be enabled via module parameter (runpm=1).
+
+v2:
+- Split whitespace changes from baco callback addition
+- Fix pci ref counting in px/hg handling in hda driver
+- Handle CONFIG_ACPI properly
+- Split adding new hda pci ids from adding runpm flag
+
+v3:
+- Don't enable BACO on Navi chips yet
+
+Alex Deucher (20):
+  drm/amdgpu: add asic callback for BACO support
+  drm/amdgpu: add supports_baco callback for soc15 asics. (v2)
+  drm/amdgpu: add supports_baco callback for SI asics.
+  drm/amdgpu: add supports_baco callback for CIK asics.
+  drm/amdgpu: add supports_baco callback for VI asics.
+  drm/amdgpu: add supports_baco callback for NV asics.
+  drm/amdgpu: add a amdgpu_device_supports_baco helper
+  drm/amdgpu: rename amdgpu_device_is_px to amdgpu_device_supports_boco
+    (v2)
+  drm/amdgpu: add additional boco checks to runtime suspend/resume (v2)
+  drm/amdgpu: split swSMU baco_reset into enter and exit
+  drm/amdgpu: add helpers for baco entry and exit
+  drm/amdgpu: add baco support to runtime suspend/resume
+  drm/amdgpu: start to disentangle boco from runtime pm
+  drm/amdgpu: disentangle runtime pm and vga_switcheroo
+  drm/amdgpu: enable runtime pm on BACO capable boards if runpm=1
+  drm/amdgpu/runpm: enable runpm on baco capable VI+ asics (v2)
+  ALSA: hda/hdmi - fix vgaswitcheroo detection for AMD
+  ALSA: hda/hdmi - Add new pci ids for AMD GPU display audio
+  ALSA: hda/hdmi - enable runtime pm for newer AMD display audio
+  ALSA: hda/hdmi - enable automatic runtime pm for AMD HDMI codecs by
+    default
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |  11 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    | 106 ++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |  63 ++++++-----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c       |  21 +++-
+ drivers/gpu/drm/amd/amdgpu/cik.c              |  18 +++
+ drivers/gpu/drm/amd/amdgpu/nv.c               |  18 ++-
+ drivers/gpu/drm/amd/amdgpu/si.c               |   6 +
+ drivers/gpu/drm/amd/amdgpu/soc15.c            |  34 +++++-
+ drivers/gpu/drm/amd/amdgpu/vi.c               |  22 ++++
+ drivers/gpu/drm/amd/powerplay/amdgpu_smu.c    |  20 +++-
+ drivers/gpu/drm/amd/powerplay/arcturus_ppt.c  |   3 +-
+ .../gpu/drm/amd/powerplay/inc/amdgpu_smu.h    |   6 +-
+ drivers/gpu/drm/amd/powerplay/inc/smu_v11_0.h |   3 +-
+ drivers/gpu/drm/amd/powerplay/navi10_ppt.c    |   3 +-
+ drivers/gpu/drm/amd/powerplay/smu_v11_0.c     |   9 +-
+ drivers/gpu/drm/amd/powerplay/vega20_ppt.c    |   3 +-
+ sound/pci/hda/hda_intel.c                     |  80 ++++++++++++-
+ sound/pci/hda/patch_hdmi.c                    |   1 +
+ 18 files changed, 366 insertions(+), 61 deletions(-)
+
+-- 
+2.23.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

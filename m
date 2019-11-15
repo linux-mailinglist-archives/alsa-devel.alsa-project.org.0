@@ -2,87 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FC72FE19A
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 16:38:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CD88FE263
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 17:12:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9E582165F;
-	Fri, 15 Nov 2019 16:37:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E582165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E1650165F;
+	Fri, 15 Nov 2019 17:11:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1650165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573832287;
-	bh=UzcGDDMrTTB2Hgf3rR/4aLGq2ZnogxgVa8xIdC2OIIg=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=iyeaZ42e+kQgeIeUXIDA2Nmuy6FB15QjZ1X/PvHiYT0uwZGwtDwbETBsTmaDjuAj4
-	 T0nUSOl8tQewN14lSgZzxYqvKXgxw21mg2EVU5V6Bs+IfWbJUYx06MW8TTwW8otcTQ
-	 8VEi4FIF5lUZRbEonExiwQS9N55+cYhpTGrjpwwI=
+	s=default; t=1573834340;
+	bh=nKs/jZMT8HBLVS35+CKEFpq143ZMT8JM82aiYgxcBI4=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YwXmL3ZdOdtkkIcgcP5V5x20vOjVLgMweGrwx58iw7ZfIUt4ummzdHeZX5K7l2GBv
+	 uqx0p8Iv61chip4tRxjpB1yk1T9TUZIXNRnQ7xmQbSqfYq5uHu4h4jDuOL7HwoX1dL
+	 elQ54m7UqYFMFjCPZW9rJdJS74bLlvWbINowufWU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62DF5F8007E;
-	Fri, 15 Nov 2019 16:36:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9A350F80125;
+	Fri, 15 Nov 2019 17:08:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3812AF80104; Fri, 15 Nov 2019 16:36:19 +0100 (CET)
+ id 00651F80106; Fri, 15 Nov 2019 17:08:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mail-oi1-x243.google.com (mail-oi1-x243.google.com
- [IPv6:2607:f8b0:4864:20::243])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9E61DF8007E
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 16:36:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E61DF8007E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="jC+b78aZ"
-Received: by mail-oi1-x243.google.com with SMTP id n14so8910282oie.13
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 07:36:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZsD9qeaWJ3MU1gD8wOeJzIi0jc9fqeT6eVQx9qG4TsI=;
- b=jC+b78aZY8kkbldlNxO3Le8CvLzIfvJiOWc2oxLfjEtiZDaKsDwHuPhbR7EKkuRMgm
- CAtMU9Il7GVPgQxzvyvWr6xL2W18CZ5r6yuHw6Gcpw1a8L031s9dr8slSmK9UZgT/gfY
- kIX4PN/9fXtXDiLgqzK+ybAecRZZFVBYWYunY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ZsD9qeaWJ3MU1gD8wOeJzIi0jc9fqeT6eVQx9qG4TsI=;
- b=s6zY+5qWQBz4wgNHe485Nnf1KKhhXxpEo8EqXmlP2UDX5vM5duL7yCT7lYBNpRSQxO
- ziKZJEW8CuqqLRwcrWE5nJ2KEGvIVoW8Pj2QMKc+ytDFO/3rGicgwtmiV9+l5xo+BdbU
- /hSZUCnk86eJPhWGyawCgwX8XkmJoFlY8Qc1xH1ZIzP95VmHwb/X0Z+9t6VX2snPundx
- m8jCDNMdIMbb9VCqIuN/95saNaTZmvKxhZmN9PUF+1fY4k/6vCnzPKF04MoyyzLXhIoR
- dsJhGpV7E01cosR6KyzYrrSXGbW7khsJlc4kwrB1FqPtMQ6+YGLP9y6E3u2XHApaLdlR
- sUfg==
-X-Gm-Message-State: APjAAAWSzcxHTC/ANyr2CAnPLiwAQgoq6SFIbH9phM2teagQA+1zXaju
- W11nYKGM46q5NNePCwWC9AqBPm8GikVkSNNmuGFrjQ==
-X-Google-Smtp-Source: APXvYqwjaW9H3rZb6tB+pgBXQPzu7NEOH81k8uIhbNUs14nGqJCUxZsjd6CFaYm0GxB8c5boT5VaVCTWFfxB3F3UDcU=
-X-Received: by 2002:aca:edd8:: with SMTP id l207mr8037925oih.102.1573832173252; 
- Fri, 15 Nov 2019 07:36:13 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D31A1F800CC
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:08:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D31A1F800CC
+Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28]
+ helo=dude02.lab.pengutronix.de)
+ by metis.ext.pengutronix.de with esmtps
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <mfe@pengutronix.de>)
+ id 1iVe90-0002S4-MD; Fri, 15 Nov 2019 17:08:22 +0100
+Received: from mfe by dude02.lab.pengutronix.de with local (Exim 4.92)
+ (envelope-from <mfe@pengutronix.de>)
+ id 1iVe8y-00047B-5i; Fri, 15 Nov 2019 17:08:20 +0100
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: robh+dt@kernel.org, KCHSU0@nuvoton.com, broonie@kernel.org,
+ thomas.fehrenbacher@siedle.de
+Date: Fri, 15 Nov 2019 17:08:16 +0100
+Message-Id: <20191115160819.15557-1-m.felsch@pengutronix.de>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <20191112171715.128727-1-paulhsia@chromium.org>
- <s5h1rud7yel.wl-tiwai@suse.de>
- <CAJaf1TaZzsPdydcMZMemVSkjRvhYvx7ZxY2JEvExQ56B+MjQLQ@mail.gmail.com>
- <s5h7e446raw.wl-tiwai@suse.de> <s5hftisnh3s.wl-tiwai@suse.de>
- <CAJaf1TYwbsuNZ_RmRfo7ZcVPJ04e4Dh3G1e3kVYPQh_sX9TgWQ@mail.gmail.com>
- <s5h36eqmtf3.wl-tiwai@suse.de>
- <CAJaf1TbOqOeRqN6jfAeHVu6drTZ9wBUHf5J9uy4-Ng1Pkr5nww@mail.gmail.com>
- <s5h7e42l7ed.wl-tiwai@suse.de>
-In-Reply-To: <s5h7e42l7ed.wl-tiwai@suse.de>
-From: Chih-Yang Hsia <paulhsia@chromium.org>
-Date: Fri, 15 Nov 2019 23:36:01 +0800
-Message-ID: <CAJaf1TYRwr5JUME7PKZKHUb0OVSzMqZk-02HJf86GAKHuWHQ9A@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [alsa-devel] [PATCH 0/2] ALSA: pcm: Fix race condition in
-	runtime access
+X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::28
+X-SA-Exim-Mail-From: mfe@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel@pengutronix.de
+Subject: [alsa-devel] [PATCH 0/3] Add NAU8812 support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,217 +77,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 15, 2019 at 1:00 AM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Thu, 14 Nov 2019 17:37:54 +0100,
-> Chih-Yang Hsia wrote:
-> >
-> > On Thu, Nov 14, 2019 at 10:20 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > >
-> > > On Thu, 14 Nov 2019 15:16:04 +0100,
-> > > Chih-Yang Hsia wrote:
-> > > >
-> > > > On Wed, Nov 13, 2019 at 7:36 PM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > >
-> > > > > On Wed, 13 Nov 2019 10:47:51 +0100,
-> > > > > Takashi Iwai wrote:
-> > > > > >
-> > > > > > On Wed, 13 Nov 2019 08:24:41 +0100,
-> > > > > > Chih-Yang Hsia wrote:
-> > > > > > >
-> > > > > > > On Wed, Nov 13, 2019 at 2:16 AM Takashi Iwai <tiwai@suse.de> wrote:
-> > > > > > > >
-> > > > > > > > On Tue, 12 Nov 2019 18:17:13 +0100,
-> > > > > > > > paulhsia wrote:
-> > > > > > > > >
-> > > > > > > > > Since
-> > > > > > > > > - snd_pcm_detach_substream sets runtime to null without stream lock and
-> > > > > > > > > - snd_pcm_period_elapsed checks the nullity of the runtime outside of
-> > > > > > > > >   stream lock.
-> > > > > > > > >
-> > > > > > > > > This will trigger null memory access in snd_pcm_running() call in
-> > > > > > > > > snd_pcm_period_elapsed.
-> > > > > > > >
-> > > > > > > > Well, if a stream is detached, it means that the stream must have been
-> > > > > > > > already closed; i.e. it's already a clear bug in the driver that
-> > > > > > > > snd_pcm_period_elapsed() is called against such a stream.
-> > > > > > > >
-> > > > > > > > Or am I missing other possible case?
-> > > > > > > >
-> > > > > > > >
-> > > > > > > > thanks,
-> > > > > > > >
-> > > > > > > > Takashi
-> > > > > > > >
-> > > > > > >
-> > > > > > > In multithreaded environment, it is possible to have to access both
-> > > > > > > `interrupt_handler` (from irq) and `substream close` (from
-> > > > > > > snd_pcm_release) at the same time.
-> > > > > > > Therefore, in driver implementation, if "substream close function" and
-> > > > > > > the "code section where snd_pcm_period_elapsed() in" do not hold the
-> > > > > > > same lock, then the following things can happen:
-> > > > > > >
-> > > > > > > 1. interrupt_handler -> goes into snd_pcm_period_elapsed with a valid
-> > > > > > > sustream pointer
-> > > > > > > 2. snd_pcm_release_substream: call close without blocking
-> > > > > > > 3. snd_pcm_release_substream: call snd_pcm_detache_substream and set
-> > > > > > > substream->runtime to NULL
-> > > > > > > 4. interrupt_handler -> call snd_pcm_runtime() and crash while
-> > > > > > > accessing fields in `substream->runtime`
-> > > > > > >
-> > > > > > > e.g. In intel8x0.c driver for ac97 device,
-> > > > > > > In driver intel8x0.c, `snd_pcm_period_elapsed` is called after
-> > > > > > > checking `ichdev->substream` in `snd_intel8x0_update`.
-> > > > > > > And if a `snd_pcm_release` call from alsa-lib and pass through close()
-> > > > > > > and run to snd_pcm_detach_substream() in another thread, it's possible
-> > > > > > > to trigger a crash.
-> > > > > > > I can reproduce the issue within a multithread VM easily.
-> > > > > > >
-> > > > > > > My patches are trying to provide a basic protection for this situation
-> > > > > > > (and internal pcm lock between detach and elapsed), since
-> > > > > > > - the usage of `snd_pcm_period_elapsed` does not warn callers about
-> > > > > > > the possible race if the driver does not  force the order for `calling
-> > > > > > > snd_pcm_period_elapsed` and `close` by lock and
-> > > > > > > - lots of drivers already have this hidden issue and I can't fix them
-> > > > > > > one by one (You can check the "snd_pcm_period_elapsed usage" and the
-> > > > > > > "close implementation" within all the drivers). The most common
-> > > > > > > mistake is that
-> > > > > > >   - Checking if the substream is null and call into snd_pcm_period_elapsed
-> > > > > > >   - But `close` can happen anytime, pass without block and
-> > > > > > > snd_pcm_detach_substream will be trigger right after it
-> > > > > >
-> > > > > > Thanks, point taken.  While this argument is valid and it's good to
-> > > > > > harden the PCM core side, the concurrent calls are basically a bug,
-> > > > > > and we'd need another fix in anyway.  Also, the patch 2 makes little
-> > > > > > sense; there can't be multiple close calls racing with each other.  So
-> > > > > > I'll go for taking your fix but only the first patch.
-> > > > > >
-> > > > > > Back to this race: the surfaced issue is, as you pointed out, the race
-> > > > > > between snd_pcm_period_elapsed() vs close call.  However, the
-> > > > > > fundamental problem is the pending action after the PCM trigger-stop
-> > > > > > call.  Since the PCM trigger doesn't block nor wait until the hardware
-> > > > > > actually stops the things, the driver may go to the other step even
-> > > > > > after this "supposed-to-be-stopped" point.  In your case, it goes up
-> > > > > > to close, and crashes.  If we had a sync-stop operation, the interrupt
-> > > > > > handler should have finished before moving to the close stage, hence
-> > > > > > such a race could be avoided.
-> > > > > >
-> > > > > > It's been a long known problem, and some drivers have the own
-> > > > > > implementation for stop-sync.  I think it's time to investigate and
-> > > > > > start implementing the fundamental solution.
-> > > > >
-> > > > > BTW, what we need essentially for intel8x0 is to just call
-> > > > > synchronize_irq() before closing, at best in hw_free procedure:
-> > > > >
-> > > > > --- a/sound/pci/intel8x0.c
-> > > > > +++ b/sound/pci/intel8x0.c
-> > > > > @@ -923,8 +923,10 @@ static int snd_intel8x0_hw_params(struct snd_pcm_substream *substream,
-> > > > >
-> > > > >  static int snd_intel8x0_hw_free(struct snd_pcm_substream *substream)
-> > > > >  {
-> > > > > +       struct intel8x0 *chip = snd_pcm_substream_chip(substream);
-> > > > >         struct ichdev *ichdev = get_ichdev(substream);
-> > > > >
-> > > > > +       synchronize_irq(chip->irq);
-> > > > >         if (ichdev->pcm_open_flag) {
-> > > > >                 snd_ac97_pcm_close(ichdev->pcm);
-> > > > >                 ichdev->pcm_open_flag = 0;
-> > > > >
-> > > > >
-> > > > > The same would be needed also at the beginning of the prepare, as the
-> > > > > application may restart the stream without release.
-> > > > >
-> > > > > My idea is to add sync_stop PCM ops and call it from PCM core at
-> > > > > snd_pcm_prepare() and snd_pcm_hw_free().
-> > > > >
-> > > > Will adding synchronize_irq() in snd_pcm_hw_free there fix the race issue?
-> > > > Is it possible to have sequence like the following steps ?
-> > > > - [Thread 1] snd_pcm_hw_free: just pass synchronize_irq()
-> > > > - [Thread 2] another interrupt come -> snd_intel8x0_update() -> goes
-> > > > into the lock region of snd_pcm_period_elapsed() and passes the
-> > > > PCM_RUNTIME_CHECK (right before snd_pcm_running())
-> > >
-> > > This shouldn't happen because at the point snd_pcm_hw_free() the
-> > > stream has been already in the SETUP state, i.e. with trigger PCM
-> > > callback, the hardware has been programmed not to generate the PCM
-> > > stream IRQ.
-> > >
-> > Thanks for pointing that out.
-> > snd_pcm_drop() will be called right before accessing `opts->hw_free`
-> > and device dma will be stopped by SNDRV_PCM_TRIGGER_STOP.
-> > And snd_pcm_prepare() will be called when the device is not running.
-> > So synchronize_irq() should be enough for both of them.
-> >
-> > I have a patch like this now in intel8x0:
-> >
-> > diff --git a/sound/pci/intel8x0.c b/sound/pci/intel8x0.c
-> > index 6ff94d8ad86e..728588937673 100644
-> > --- a/sound/pci/intel8x0.c
-> > +++ b/sound/pci/intel8x0.c
-> > @@ -923,8 +923,10 @@ static int snd_intel8x0_hw_params(struct
-> > snd_pcm_substream *substream,
-> >
-> >  static int snd_intel8x0_hw_free(struct snd_pcm_substream *substream)
-> >  {
-> > +       struct intel8x0 *chip = snd_pcm_substream_chip(substream);
-> >         struct ichdev *ichdev = get_ichdev(substream);
-> >
-> > +       synchronize_irq(chip->irq);
-> >         if (ichdev->pcm_open_flag) {
-> >                 snd_ac97_pcm_close(ichdev->pcm);
-> >                 ichdev->pcm_open_flag = 0;
-> > @@ -993,6 +995,7 @@ static int snd_intel8x0_pcm_prepare(struct
-> > snd_pcm_substream *substream)
-> >         struct snd_pcm_runtime *runtime = substream->runtime;
-> >         struct ichdev *ichdev = get_ichdev(substream);
-> >
-> > +       synchronize_irq(chip->irq);
-> >         ichdev->physbuf = runtime->dma_addr;
-> >         ichdev->size = snd_pcm_lib_buffer_bytes(substream);
-> >         ichdev->fragsize = snd_pcm_lib_period_bytes(substream);
-> >
-> > If that looks good to you, I can upload the patch to pw as well.
-> > Then we can upstream the intel8x0 patch and the first change I made in
-> > this series (the elapse one).
-> > Does that sound good to you?
->
-> I already have a patch set that adds the irq-sync commonly, as this
-> problem is seen on various drivers as you already pointed.
->
-> Below two patches add the support in PCM core side, and the rest need in
-> intel8x0.c is something like:
->
-> --- a/sound/pci/intel8x0.c
-> +++ b/sound/pci/intel8x0.c
-> @@ -3092,6 +3092,7 @@ static int snd_intel8x0_create(struct snd_card *card,
->                 return -EBUSY;
->         }
->         chip->irq = pci->irq;
-> +       card->sync_irq = chip->irq;
+Hi,
 
-Will this assignment or removement cause possible race if the driver
-is careless?
-Maybe providing some helper functions or teaching driver writers when
-is the right time to change or remove the sync_irq will help.
+this small series adds the documentation and support for the nau8812
+devices. The exisiting nau8810 driver can handle both devices so we only
+need to add the dt-bindings and inform the user by adapting the Kconfig
+entry.
 
-Best,
-Paul
+Futhermore the series adds the support for the aux-port control.
 
->         if ((err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops)) < 0) {
->                 snd_intel8x0_free(chip);
->
->
-> (The intel8x0 does re-acquire IRQ, so it'll need a bit more lines, but
->  you get the idea.)
->
-> My plan is to merge the whole changes after 5.5-rc1, destined for
-> 5.6.
->
->
-> thanks,
->
-> Takashi
->
+@John Hsu
+Please can you verify that register accesses to the aux-port control
+bits don't affect the nau8810 devices? I don't have such a device but
+the documentations says that those register fields are just '0'ed. So I
+assume the nau8810 devices ignore such writes.
+
+Marco Felsch (2):
+  dt-bindings: ASoC: add nau8812 documentation
+  ASoC: nau8810: add support for nau8812
+
+Thomas Fehrenbacher (1):
+  ASoC: nau8810: add aux input control, available on NAU8812
+
+ Documentation/devicetree/bindings/sound/nau8810.txt | 2 +-
+ sound/soc/codecs/Kconfig                            | 2 +-
+ sound/soc/codecs/nau8810.c                          | 9 +++++++++
+ sound/soc/codecs/nau8810.h                          | 2 ++
+ 4 files changed, 13 insertions(+), 2 deletions(-)
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

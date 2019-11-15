@@ -2,90 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18CB5FE369
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 17:54:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EA75FE36D
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 17:54:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D0A01612;
-	Fri, 15 Nov 2019 17:53:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D0A01612
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BBF41673;
+	Fri, 15 Nov 2019 17:53:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BBF41673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573836853;
-	bh=vKZNZPD121ERugMJrjSPXB8anSko4PhYDPDh5LOG3wQ=;
+	s=default; t=1573836883;
+	bh=Z8XnqJrNVJv56cbiDpjidXyypBfAv0b62NKRe2jX3es=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h9+LtOhKZFhyP5qbdJW8n9lE85e7NkTBayVthaB/I8zHhr4ozDlULldz4IJYrRKFK
-	 WrKMemg+q4+yIX8ukbra0OvS+UvljZd8fs0UDT58mI4D2i2XTFfegaYT/Fx53hsgpN
-	 7pjeg7CKhWxX5zUzv/FiPG7hzgwX+APCw5DhXEHQ=
+	b=hccpOWmt7NgC2x38MkBC1lnJXPlCeyj+KVCQdL9B/9F43MSwaQi86D60SE80Ao2HJ
+	 GlJkrM0GG3sXt9d9toc0awRgbhNCWY2+LBTPDjjBrjcHRDHToOM1sWYo8Lqm6jsgIX
+	 6we5+tWvHU/YlmXmfJb5QvAZ/5hTESIK6G+CBD4o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92598F80124;
-	Fri, 15 Nov 2019 17:51:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDF38F80139;
+	Fri, 15 Nov 2019 17:51:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C8D9EF80107; Fri, 15 Nov 2019 17:50:54 +0100 (CET)
+ id BE1F2F80107; Fri, 15 Nov 2019 17:50:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf43.google.com (mail-qv1-xf43.google.com
+ [IPv6:2607:f8b0:4864:20::f43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BB08FF80104
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:50:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB08FF80104
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66B85F80106
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:50:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66B85F80106
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="fQBalVcm"
-Received: by mail-qk1-x744.google.com with SMTP id m4so8595912qke.9
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 08:50:50 -0800 (PST)
+ header.b="bq23hm2q"
+Received: by mail-qv1-xf43.google.com with SMTP id q19so4014631qvs.5
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 08:50:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=5jWqSWkcr8Rvf8rBv65dsS38w4SQg0IVGsPkUDNSymc=;
- b=fQBalVcmuS7D569AzzAGn5yTvOZvdpQPU2UShbNTmLqwpKsEorCDhr7Dw4AWCciYfE
- PX/Up36rA7FEBlgy9zgDahv9Yd0plrB/BPAiZyX2mMX0hN6ANHfy1NH1hpuOAf66mPkp
- FHGCTwx/EJbUvbL+yDQyK04NBXQHEAg4JVRhiOnlPoOf9tayeVtQ7Q6oAkYZrLPrmXLm
- MzO5R0nYGBi/iYWhe0g5tjPXLwnI3gUy67Kfe5UlEBkRohVOW17XINHlZEjHBo/43jCo
- j4NEHyBQ726r5aj8j0ULGbMlM6I0nyIG4NokGn5F/T7BLjQm6gMbWnYQyD92mwng+J96
- 1/Zw==
+ bh=oO2VfC8qhxADPkDyDVx31uSOTMR49nkzK5iaws33oXY=;
+ b=bq23hm2qPCoADVjFQxSIbYklRU8bnvJR6vE8sqzIyk0vWIQRX8WmKk1IluI+LV9KNi
+ kaoO8ZwoAR2Lt2J2U7+pWJJoHMilaZ0CT/qe1RTZ+wc9d9ZbtLnf7WsAG/GFPX1ScRsF
+ 5F2vp3JNa5qIL6k0RYwbjCY9iHATdf8wt8a/Fh+a982yqjYJJfs8Hh0U6o2ymIrufKac
+ Wu85aQFRe8mUY22VfzTjGni2wrXX/M4AM+ffyi8UxwqdpD1g8Ziyzvt+zcLG9auk7kYA
+ MJqNFTsEeRELIZjGtu5vvtZHeSjrs8uKCFqwlLcGkEnPrekvc/UIPyN/p9Uuq1Uc9Gr6
+ rdWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=5jWqSWkcr8Rvf8rBv65dsS38w4SQg0IVGsPkUDNSymc=;
- b=oX4vtMLkuqMei86NUc4ZM6nPYmsxNQT/Qz/i1HEMLMOfCEVzaFJFpCKB7gbSI/0JPa
- LhpUP6GmqdWql0MAjyDvw8Slnm1DZ11OyRStiDS2YuYxHlJ7eL/+ELGfx50GrlIzJtLV
- S9DxAoUEIPcAlm/LqHg8HxKztmUzuLylJca8mEA1e1QvQMTHmfHW2sAk828QIPRycLN7
- nxBrmXN3Up3jAqzWM/KyTTlrba2nhHWdzfZPP/mpSrtdEizYuYJFiTNMbZ6i/5i78YUj
- MbTsUxEZheqGUnKt0WNCDkjol3MQE6PwiJIQLBscjg9+dkXlVu9PKpmTBxOXpQHbkaGa
- CV2g==
-X-Gm-Message-State: APjAAAUsWD0k6r218ak05u2JmKsqdAIjRiDqTdRYqmrvKTfHnb7vh9DG
- 7S8DILALsUnFUYJTTD4QT3nuE0FI
-X-Google-Smtp-Source: APXvYqwUQN4Ql9efspU0qVkhPDNX5y515UaSRjj54wrpz4vvqvq1LDWOHRa+MzIcW6l4aJe0ILVY9g==
-X-Received: by 2002:a37:6554:: with SMTP id z81mr13753900qkb.9.1573836649131; 
- Fri, 15 Nov 2019 08:50:49 -0800 (PST)
+ bh=oO2VfC8qhxADPkDyDVx31uSOTMR49nkzK5iaws33oXY=;
+ b=eYV8yjxTDbxlw7GnmKja3t1+4zhc7n677axC9Y/ebtBGS8vpkbcfBgweBB6YYMeWEd
+ qHrUufs6DZwO+zJFs8EmQehqnfVI5u5fkZyCoegtPUtuszteg1JIDIsMVj/T2FPFve8O
+ z+OC5OL20fMj4d0qT2yjUTZWhjmz0IOTQ/4ykCLYRTkF0MF8zYjhKBhqpZ0oxIfP7A0l
+ QyEYcGAKwAYaPDMSWbNIvAm7Bsmt+WOgGGvOvPn4EHFW0uzH7g6CbFeVfZumIukBJ9eI
+ 2WNAg7yWdNWJNTl2783QkZHEVB/yiu5mTaXMOHdEzn3g+DoLagR9+V25SOISDRnD5uPP
+ VaHg==
+X-Gm-Message-State: APjAAAUuiPmM2i06TPFedp8mZQUmDlqBbhGFAFr3lnXswZvrrWT/VZjI
+ ZZnN8EquQSDrztz39bbawpM=
+X-Google-Smtp-Source: APXvYqwym8WcQSfdzXEn9QA+9uo60hF+W0BRETn6JImdbqpPfgbUVJzW+sFkUw2mrm8ZoW5g9UQ9Iw==
+X-Received: by 2002:a0c:cd8b:: with SMTP id v11mr14436226qvm.66.1573836650183; 
+ Fri, 15 Nov 2019 08:50:50 -0800 (PST)
 Received: from localhost.localdomain ([71.219.59.120])
- by smtp.gmail.com with ESMTPSA id r29sm5610331qtb.63.2019.11.15.08.50.47
+ by smtp.gmail.com with ESMTPSA id r29sm5610331qtb.63.2019.11.15.08.50.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 15 Nov 2019 08:50:48 -0800 (PST)
+ Fri, 15 Nov 2019 08:50:49 -0800 (PST)
 From: Alex Deucher <alexdeucher@gmail.com>
 X-Google-Original-From: Alex Deucher <alexander.deucher@amd.com>
 To: amd-gfx@lists.freedesktop.org, alsa-devel@alsa-project.org, tiwai@suse.de,
  lukas@wunner.de
-Date: Fri, 15 Nov 2019 11:50:20 -0500
-Message-Id: <20191115165038.56646-3-alexander.deucher@amd.com>
+Date: Fri, 15 Nov 2019 11:50:21 -0500
+Message-Id: <20191115165038.56646-4-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.23.0
 In-Reply-To: <20191115165038.56646-1-alexander.deucher@amd.com>
 References: <20191115165038.56646-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Cc: Alex Deucher <alexander.deucher@amd.com>, Evan Quan <evan.quan@amd.com>
-Subject: [alsa-devel] [PATCH 02/20] drm/amdgpu: add supports_baco callback
-	for soc15 asics. (v2)
+Subject: [alsa-devel] [PATCH 03/20] drm/amdgpu: add supports_baco callback
+	for SI asics.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,65 +105,38 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 BACO - Bus Active, Chip Off
 
-Check the BACO capabilities from the powerplay table.
+Not supported.
 
-v2: drop unrelated struct cleanup
-
-Reviewed-by: Evan Quan <evan.quan@amd.com> (v1)
+Reviewed-by: Evan Quan <evan.quan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/soc15.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/si.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc15.c b/drivers/gpu/drm/amd/amdgpu/soc15.c
-index 305ad3eec987..1acbb38f6384 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc15.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc15.c
-@@ -599,6 +599,28 @@ static int soc15_asic_reset(struct amdgpu_device *adev)
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/si.c b/drivers/gpu/drm/amd/amdgpu/si.c
+index 29024e64c886..cb682d44737a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/si.c
++++ b/drivers/gpu/drm/amd/amdgpu/si.c
+@@ -1197,6 +1197,11 @@ static int si_asic_reset(struct amdgpu_device *adev)
+ 	return 0;
  }
  
-+static bool soc15_supports_baco(struct amdgpu_device *adev)
++static bool si_asic_supports_baco(struct amdgpu_device *adev)
 +{
-+	bool baco_support;
-+
-+	switch (adev->asic_type) {
-+	case CHIP_VEGA10:
-+	case CHIP_VEGA12:
-+		soc15_asic_get_baco_capability(adev, &baco_support);
-+		break;
-+	case CHIP_VEGA20:
-+		if (adev->psp.sos_fw_version >= 0x80067)
-+			soc15_asic_get_baco_capability(adev, &baco_support);
-+		else
-+			baco_support = false;
-+		break;
-+	default:
-+		return false;
-+	}
-+
-+	return baco_support;
++	return false;
 +}
 +
- /*static int soc15_set_uvd_clock(struct amdgpu_device *adev, u32 clock,
- 			u32 cntl_reg, u32 status_reg)
+ static enum amd_reset_method
+ si_asic_reset_method(struct amdgpu_device *adev)
  {
-@@ -999,6 +1021,7 @@ static const struct amdgpu_asic_funcs soc15_asic_funcs =
- 	.get_pcie_usage = &soc15_get_pcie_usage,
- 	.need_reset_on_init = &soc15_need_reset_on_init,
- 	.get_pcie_replay_count = &soc15_get_pcie_replay_count,
-+	.supports_baco = &soc15_supports_baco,
+@@ -1425,6 +1430,7 @@ static const struct amdgpu_asic_funcs si_asic_funcs =
+ 	.get_pcie_usage = &si_get_pcie_usage,
+ 	.need_reset_on_init = &si_need_reset_on_init,
+ 	.get_pcie_replay_count = &si_get_pcie_replay_count,
++	.supports_baco = &si_asic_supports_baco,
  };
  
- static const struct amdgpu_asic_funcs vega20_asic_funcs =
-@@ -1020,6 +1043,7 @@ static const struct amdgpu_asic_funcs vega20_asic_funcs =
- 	.get_pcie_usage = &vega20_get_pcie_usage,
- 	.need_reset_on_init = &soc15_need_reset_on_init,
- 	.get_pcie_replay_count = &soc15_get_pcie_replay_count,
-+	.supports_baco = &soc15_supports_baco,
- };
- 
- static int soc15_common_early_init(void *handle)
+ static uint32_t si_get_rev_id(struct amdgpu_device *adev)
 -- 
 2.23.0
 

@@ -2,68 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50172FE261
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 17:11:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F495FE269
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 17:13:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CD7A1666;
-	Fri, 15 Nov 2019 17:11:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CD7A1666
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9F141672;
+	Fri, 15 Nov 2019 17:12:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9F141672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573834310;
-	bh=6YKwDdzvvt2haVNB2Ieyh2fNP+rFyvUBtkKGe3DIg3k=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1573834389;
+	bh=+M2Te0yZB9Pdwkil4pBwO49Eh4EYoOB0Pe2O9rlJW8s=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LnRW5UpnJeWG7m+aifCnIfhmkUNCxSMWLhZqjseec80f2/58rFlJa+QSA/rJnnEiB
-	 kXoyZbNvXAjaWj6D9RBMaN3wr3RZwsOrIml66UQdoQBrXlksMu3nM6Zc+k/17kuqBi
-	 heAo4BdOmBGeytXBLKyGmOx3hj9yFS8kwLETu5jw=
+	b=thKMm0N07sJswaF+y0YkqdgZGjpHCR7eOOQu0agFhGabhDup3TL5avpp8kU6EbvZj
+	 3ngdtYEPVMIxoKoOLQK232tv33/EcSeQ38Ygv4SNog3eWHXLI20kMsdY9itsRfgDHA
+	 eB7PaP7XegItwaNnQfms6A2Q095WFQKXZ6mBJR8U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78383F80121;
-	Fri, 15 Nov 2019 17:08:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3FFC8F80106;
+	Fri, 15 Nov 2019 17:12:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50549F80105; Fri, 15 Nov 2019 17:08:32 +0100 (CET)
+ id D4D2FF80104; Fri, 15 Nov 2019 17:12:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2FE0F80103
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:08:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2FE0F80103
-Received: from dude02.hi.pengutronix.de ([2001:67c:670:100:1d::28]
- helo=dude02.lab.pengutronix.de)
- by metis.ext.pengutronix.de with esmtps
+ by alsa1.perex.cz (Postfix) with ESMTPS id C70FEF8007E
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 17:12:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C70FEF8007E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="Ut9of72I"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=a6s56JhDtI/Y8dfJlPMurASdhnGwtfFYnXMKce5BDck=; b=Ut9of72IPWl8JG6PSw0cbyGcq
+ V5VGrWD0LG8ozMn4a0iykI3QVN+VCBw0Qbb9jf/0RTWjOh3y4fDurcGw4Dyjx9kC/2qOaIQ2NjlT9
+ lTGDgrAVBkhvMZJGoN++ErkymbDqCh6LYWydTPR6QzcgUlKEUDodKBuTu7FSrb57dykag=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=ypsilon.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1iVe90-0002S7-MC; Fri, 15 Nov 2019 17:08:22 +0100
-Received: from mfe by dude02.lab.pengutronix.de with local (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1iVe8y-00047J-7C; Fri, 15 Nov 2019 17:08:20 +0100
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: robh+dt@kernel.org, KCHSU0@nuvoton.com, broonie@kernel.org,
- thomas.fehrenbacher@siedle.de
-Date: Fri, 15 Nov 2019 17:08:19 +0100
-Message-Id: <20191115160819.15557-4-m.felsch@pengutronix.de>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191115160819.15557-1-m.felsch@pengutronix.de>
+ (envelope-from <broonie@sirena.co.uk>)
+ id 1iVeCh-0000fv-CY; Fri, 15 Nov 2019 16:12:11 +0000
+Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
+ id 6529A27429D2; Fri, 15 Nov 2019 16:12:10 +0000 (GMT)
+Date: Fri, 15 Nov 2019 16:12:10 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Marco Felsch <m.felsch@pengutronix.de>
+Message-ID: <20191115161210.GB4210@sirena.co.uk>
 References: <20191115160819.15557-1-m.felsch@pengutronix.de>
+ <20191115160819.15557-4-m.felsch@pengutronix.de>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:100:1d::28
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kernel@pengutronix.de
-Subject: [alsa-devel] [PATCH 3/3] ASoC: nau8810: add aux input control,
-	available on NAU8812
+In-Reply-To: <20191115160819.15557-4-m.felsch@pengutronix.de>
+X-Cookie: Tell me what to think!!!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, KCHSU0@nuvoton.com,
+ robh+dt@kernel.org, kernel@pengutronix.de, thomas.fehrenbacher@siedle.de
+Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: nau8810: add aux input control,
+ available on NAU8812
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,91 +84,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0893960639903847722=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Thomas Fehrenbacher <thomas.fehrenbacher@siedle.de>
 
-This commit adds the support to control the aux-port on the nau8812
-devices. We don't need to differentiate the aux-port registers since
-those bitfields are set to '0' on the nau8810 devices [1,2].
+--===============0893960639903847722==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mojUlQ0s9EVzWg2t"
+Content-Disposition: inline
 
-[1] http://www.nuvoton.com/resource-files/NAU8810_Datasheet_Rev_2.8.pdf
-[2] http://www.nuvoton.com/resource-files/NAU8812DatasheetRev2.7.pdf
 
-Signed-off-by: Thomas Fehrenbacher <thomas.fehrenbacher@siedle.de>
-[m.felsch@pengutronix.de: add commit message]
-Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
----
- sound/soc/codecs/nau8810.c | 7 +++++++
- sound/soc/codecs/nau8810.h | 2 ++
- 2 files changed, 9 insertions(+)
+--mojUlQ0s9EVzWg2t
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/codecs/nau8810.c b/sound/soc/codecs/nau8810.c
-index a32a4a8d5f50..b1024d24d413 100644
---- a/sound/soc/codecs/nau8810.c
-+++ b/sound/soc/codecs/nau8810.c
-@@ -351,6 +351,9 @@ static const struct snd_kcontrol_new nau8810_snd_controls[] = {
- 		NAU8810_DACOS_SFT, 1, 0),
- 	SOC_SINGLE("ADC Oversampling Rate(128x) Switch", NAU8810_REG_ADC,
- 		NAU8810_ADCOS_SFT, 1, 0),
-+
-+	SOC_SINGLE("AUX Input Enable Switch", NAU8810_REG_POWER1,
-+		NAU8810_AUX_EN_SFT, 1, 0),
- };
- 
- /* Speaker Output Mixer */
-@@ -383,6 +386,8 @@ static const struct snd_kcontrol_new nau8810_inpga[] = {
- 		NAU8810_NMICPGA_SFT, 1, 0),
- 	SOC_DAPM_SINGLE("MicP Switch", NAU8810_REG_INPUT_SIGNAL,
- 		NAU8810_PMICPGA_SFT, 1, 0),
-+	SOC_DAPM_SINGLE("AUX Switch", NAU8810_REG_INPUT_SIGNAL,
-+		NAU8810_AUXPGA_SFT, 1, 0),
- };
- 
- /* Loopback Switch */
-@@ -436,6 +441,7 @@ static const struct snd_soc_dapm_widget nau8810_dapm_widgets[] = {
- 
- 	SND_SOC_DAPM_INPUT("MICN"),
- 	SND_SOC_DAPM_INPUT("MICP"),
-+	SND_SOC_DAPM_INPUT("AUX"),
- 	SND_SOC_DAPM_OUTPUT("MONOOUT"),
- 	SND_SOC_DAPM_OUTPUT("SPKOUTP"),
- 	SND_SOC_DAPM_OUTPUT("SPKOUTN"),
-@@ -470,6 +476,7 @@ static const struct snd_soc_dapm_route nau8810_dapm_routes[] = {
- 	{"Input PGA", NULL, "Mic Bias"},
- 	{"Input PGA", "MicN Switch", "MICN"},
- 	{"Input PGA", "MicP Switch", "MICP"},
-+	{"Input PGA", "AUX Switch", "AUX"},
- 
- 	/* Digital Looptack */
- 	{"Digital Loopback", "Switch", "ADC"},
-diff --git a/sound/soc/codecs/nau8810.h b/sound/soc/codecs/nau8810.h
-index 1ada31883dc6..7b5ecad173d3 100644
---- a/sound/soc/codecs/nau8810.h
-+++ b/sound/soc/codecs/nau8810.h
-@@ -69,6 +69,7 @@
- 
- /* NAU8810_REG_POWER1 (0x1) */
- #define NAU8810_DCBUF_EN		(0x1 << 8)
-+#define NAU8810_AUX_EN_SFT		6
- #define NAU8810_PLL_EN_SFT		5
- #define NAU8810_MICBIAS_EN_SFT	4
- #define NAU8810_ABIAS_EN		(0x1 << 3)
-@@ -229,6 +230,7 @@
- /* NAU8810_REG_INPUT_SIGNAL (0x2C) */
- #define NAU8810_PMICPGA_SFT		0
- #define NAU8810_NMICPGA_SFT		1
-+#define NAU8810_AUXPGA_SFT		2
- 
- /* NAU8810_REG_PGAGAIN (0x2D) */
- #define NAU8810_PGAGAIN_SFT		0
--- 
-2.20.1
+On Fri, Nov 15, 2019 at 05:08:19PM +0100, Marco Felsch wrote:
+
+> This commit adds the support to control the aux-port on the nau8812
+> devices. We don't need to differentiate the aux-port registers since
+> those bitfields are set to '0' on the nau8810 devices [1,2].
+
+It'd still be better to only register these controls if the device isn't
+a nau8812 so that userspace doesn't see them.
+
+--mojUlQ0s9EVzWg2t
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3OzlkACgkQJNaLcl1U
+h9CzJAf/bweQhNi628v9qYg/EgvL3C6EqcxHS3yI139L2K4AVDVNomczL+iq/fRY
+vDW1oFgcRDy98yNCgFL27Vjn+ocGIE0/7dirr5sjVKriS7HKlVpaMDdgKBqKN/TF
+qcJtJ9fCYPL1IYyIT3LR8isCPQFxgzc6m5AIGAbKwFuTNlH0hK7fGuR2ZcNP9J/j
+lF22G2iRZicU24GZTdDE27xAtvyKl9hLwkxrH3Ren1T2xuP6ouc78jN0fs9bzLxO
+MapAv1vEoZPinvILQW8elIgkWn4jjCjszjDqYTMg7qoQTvw8c/UkYDi8Xky+oA1u
+sO/YhdTe6+7pTnW5+Ngvl8TLVjyXPw==
+=xfur
+-----END PGP SIGNATURE-----
+
+--mojUlQ0s9EVzWg2t--
+
+--===============0893960639903847722==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============0893960639903847722==--

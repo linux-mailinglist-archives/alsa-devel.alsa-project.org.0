@@ -2,76 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F1EFFD476
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 06:35:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 283E3FD971
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 10:39:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 11D291615;
-	Fri, 15 Nov 2019 06:34:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 11D291615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 990A51667;
+	Fri, 15 Nov 2019 10:38:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 990A51667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573796126;
-	bh=01tsTdz5sKSfmLFvtDpk7Q23gFCnTFqeFB1jP1f3Hck=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1573810786;
+	bh=s5/X22gbWnxtCDHr9s0v4gqPCok9WsKcVAdNk778nBs=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YawARfKdQkw9l/b7p8omD2/dF8zdmEVQ4MN1vYUpWSQ5BBp08QZQK1vmP+zAXsAp8
-	 RowLh2G6txacWLIiFQ8CpjVjHutMaO6dLHaatm7amINJTeQAwcFSGQfQiZ0asJOXU0
-	 Ljk9IN5+r7kubeh2hYNv8JQTpt6GySMQALLuEOS0=
+	b=ca/LAAF8OlRyd6DPKkwBMk4ISBiTHbmtcdGSnNA5fADb/B7SZrEKa7FRsMk5Y6CBA
+	 HniIoOaoJvkDCDaLLuU5CH3OpEtgjfMuf9R2UftRPUIvZy57lSbRkW0jbnDE4Lz2F2
+	 iaf8Cjikor7VqJyjREbme0I1d1jLTGhqwFu5TUPU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 37C5FF80103;
-	Fri, 15 Nov 2019 06:33:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAFF5F800CC;
+	Fri, 15 Nov 2019 10:38:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D4A5F80103; Fri, 15 Nov 2019 06:33:38 +0100 (CET)
+ id 7A082F80103; Fri, 15 Nov 2019 10:38:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from mailgw01.mediatek.com (unknown [210.61.82.183])
- by alsa1.perex.cz (Postfix) with ESMTP id 538B0F800CC
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 06:33:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 538B0F800CC
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6FDFFF8007E
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 10:37:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FDFFF8007E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com
- header.b="p/0M+qb3"
-X-UUID: cab5a84008254049846ccc1f8edd7868-20191115
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
- s=dk; 
- h=Content-Transfer-Encoding:MIME-Version:Content-Type:References:In-Reply-To:Date:CC:To:From:Subject:Message-ID;
- bh=gmCzP92C7G4qxYX2rnqn8wBdFvNJ/rhP3o6A+8fl2G0=; 
- b=p/0M+qb3eDhRKvkPjf5KIXIhey3RDqBLvm4wVRzwdzGedrLCWcssIEsRW6WoO67jYIwIRQluHTe6fZxFykUyTtlzesNJ0CJsw8krIMCdlyc4spEWGIVDSawR6179YjCF4zV2P86Y2ZW2IDmenHgTTjfrkYibawnOqp+EL76wJoU=;
-X-UUID: cab5a84008254049846ccc1f8edd7868-20191115
-Received: from mtkcas09.mediatek.inc [(172.21.101.178)] by
- mailgw01.mediatek.com (envelope-from <eason.yen@mediatek.com>)
- (Cellopoint E-mail Firewall v4.1.10 Build 0809 with TLS)
- with ESMTP id 843355152; Fri, 15 Nov 2019 13:33:24 +0800
-Received: from mtkcas07.mediatek.inc (172.21.101.84) by
- mtkmbs08n2.mediatek.inc (172.21.101.56) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Fri, 15 Nov 2019 13:33:19 +0800
-Received: from [172.21.77.33] (172.21.77.33) by mtkcas07.mediatek.inc
- (172.21.101.73) with Microsoft SMTP Server id 15.0.1395.4 via Frontend
- Transport; Fri, 15 Nov 2019 13:33:20 +0800
-Message-ID: <1573796002.14232.14.camel@mtkswgap22>
-From: Eason Yen <eason.yen@mediatek.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Fri, 15 Nov 2019 13:33:22 +0800
-In-Reply-To: <20191112173409.GI5195@sirena.co.uk>
-References: <1573532538-30602-1-git-send-email-eason.yen@mediatek.com>
- <1573532538-30602-2-git-send-email-eason.yen@mediatek.com>
- <20191112173409.GI5195@sirena.co.uk>
-X-Mailer: Evolution 3.2.3-0ubuntu6 
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="ivdSKmnH"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5dce71f10000>; Fri, 15 Nov 2019 01:37:53 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Fri, 15 Nov 2019 01:37:54 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Fri, 15 Nov 2019 01:37:54 -0800
+Received: from [10.24.218.121] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 15 Nov
+ 2019 09:37:52 +0000
+To: Takashi Iwai <tiwai@suse.de>
+References: <20191114033704.18171-1-nmahale@nvidia.com>
+ <s5hr22an3p1.wl-tiwai@suse.de>
+From: Nikhil Mahale <nmahale@nvidia.com>
+Message-ID: <d1d804c6-a21d-67ed-8348-4ccb9950426d@nvidia.com>
+Date: Fri, 15 Nov 2019 15:07:49 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-X-TM-SNTS-SMTP: 86CE66E82027474A9B0B7FFEFCC7979862667C6949F3058B7B4509A9EF0DCEB82000:8
-X-MTK: N
-Cc: matthias.bgg@gmail.com, alsa-devel@alsa-project.org,
- linux-mediatek@lists.infradead.org, jiaxin.yu@mediatek.com,
- chipeng.chang@mediatek.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: mediatek: common: refine
-	mtk_afe_fe_hw_params
+In-Reply-To: <s5hr22an3p1.wl-tiwai@suse.de>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1573810673; bh=B7Py/AOEt0wle8S7StvFnXWWIfdonU3TOab6GKdWUB0=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=ivdSKmnHjbFANFAz9YwLmf5skc+anYgK5qw0z/5NCaLjTwac+x4gh4sl5p3Wz941A
+ hRZnmAHMh6D2cN3ODmSJTFkd5lzkWW82FA6YJFx8M1TszKdCC2ghoKSrSuxVwnhHmn
+ lNes7/bB1q13a96DH70kvggoblerkgcEQ+BETR6TDZLj6BjGKpxJZjhE/NGeX4/Lth
+ JcNzsqoJIxSIQUws7E6vOlijMw6rkW1/PZyhdScQJMKkmdxQimFH5yFbfXhuE8nzDr
+ KSXtnbPPJVNWuTccPtAk/RWLVTBXKmnv1rwmhGz+BrdupZH1ND0MoFRV4rBuqbORGG
+ uyBGFFibIGYaQ==
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, aplattner@nvidia.com
+Subject: Re: [alsa-devel] [PATCH v1 0/5] ALSA: hda - Add DP-MST support for
+	NVIDIA codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,49 +97,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark,
-
- 
-On Tue, 2019-11-12 at 17:34 +0000, Mark Brown wrote:
-> On Tue, Nov 12, 2019 at 12:22:18PM +0800, Eason Yen wrote:
-...
+On 11/14/19 4:08 PM, Takashi Iwai wrote:
+> On Thu, 14 Nov 2019 04:36:59 +0100,
+> Nikhil Mahale wrote:
+>>
+>> Today, DisplayPort multi-stream transport (DP-MST) audio is not
+>> supported on codec drivers which don't use the audio component
+>> (acomp) binding.
+>>
+>> The commit ade49db337a9 (ALSA: hda/hdmi - Allow audio component for
+>> AMD/ATI and Nvidia HDMI) added the DRM audio component binding for
+>> the NVIDIA codec drivers, but the traditional HD-audio unsolicited
+>> event code path is still in use by the proprietary NVIDIA graphics
+>> driver.
+>>
+>> This patch set adds DP-MST audio support for non-acomp codec drivers
+>> which use the traditional HD-audio unsolicited event code path. This
+>> patch set adds DP-MST support for NVIDIA codecs.
+>>
+>> The patch set has been tested for HDMI/DP-SST/DP-MST(4 dp-mst audio
+>> streams) configurations on NVIDIA Kepler and Maxwell GPUs, using
+>> both the nouveau driver and the proprietary NVIDIA graphics driver.
 > 
-> It'd be better to split these two into separate patches, they're two
-> separate things.  Ideally the refactoring should just be simple code
-> motion.  Right now the patch is a bit difficult to follow.
+> Thanks for the patch.  The logic looks good, but there are a few
+> concerns in implementation details.  Will comment in the reply of each
+> patch.
+
+Thanks Takashi, I am sending out 2nd version of patch set in which
+I tried to address you concerned.
+
+Thanks,
+Nikhil Mahale
+
+> The timing is a bit late for merging into 5.5, though, for this kind
+> of non-trivial changes.  It'll be likely applied after 5.5 merge
+> window, so for 5.6.
+> 
+> 
+> Takashi
 > 
 
-Ok, I will separate this patch soon.
-
-
-> >  static int mtk_regmap_update_bits(struct regmap *map, int reg,
-> > -			   unsigned int mask,
-> > -			   unsigned int val, int shift)
-> > +				  unsigned int mask,
-> > +				  unsigned int val, int shift)
-> >  {
-> >  	if (reg < 0 || WARN_ON_ONCE(shift < 0))
-> >  		return 0;
-> 
-> This is an unrelated indentation change?
-
-Yes, it is an alignment that to match open parenthesis.
-
-> 
-> > +	dev_info(afe->dev, "%s(), %s, ch %d, rate %d, fmt %d, dma_addr %pad, dma_area %p, dma_bytes 0x%zx\n",
-> > +		 __func__, memif->data->name,
-> > +		 channels, rate, format,
-> > +		 &substream->runtime->dma_addr,
-> > +		 substream->runtime->dma_area,
-> > +		 substream->runtime->dma_bytes);
-> 
-> This is going to get noisy, dev_dbg at most please.
-
-Ok, thanks for your suggestion.
-
-
-Regards,
-Eason
+-----------------------------------------------------------------------------------
+This email message is for the sole use of the intended recipient(s) and may contain
+confidential information.  Any unauthorized review, use, disclosure or distribution
+is prohibited.  If you are not the intended recipient, please contact the sender by
+reply email and destroy all copies of the original message.
+-----------------------------------------------------------------------------------
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

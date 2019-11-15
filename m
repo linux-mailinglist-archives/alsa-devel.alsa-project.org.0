@@ -2,73 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 33A34FDB6A
-	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 11:31:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF70FDB6C
+	for <lists+alsa-devel@lfdr.de>; Fri, 15 Nov 2019 11:31:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7288F167D;
-	Fri, 15 Nov 2019 11:30:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7288F167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id E91221680;
+	Fri, 15 Nov 2019 11:31:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E91221680
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573813867;
-	bh=qkhBrmVHXPD88Yz8PLWj/x2mLsnmV+lOlsB6qy7fpjo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1573813914;
+	bh=qSiebwJ5pe56JYx1YIYvgg7WXMRnSUpaAVnUIQkZXI0=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=naeH6kLgfONKK5xOSrn5m6OsLSUy2Ixr5PNnfiWhVgniYiJPT+b7QGpFN4D4ju/Or
-	 wj4qFz/bHORRrHThvYa1reXC0keoyhBoSy/Ssiz7AJz0dNrLUHUfotNvthXStCr8dI
-	 QIyGfzegowiwKWDYp6u7eTKAKHxW/I8SglEn8+Ew=
+	b=AgmVPkax+d/UIUzIBVVe3oYol8WZpGZFy46wpEK7BgzRuKlKIhRxe0hMB3157Tyg5
+	 Rd2epKpioVF8oNGN64WhZo8mpkRwDxhSd9ED1j//w4jlls3T1qHZlxmxmYzD7J1mLg
+	 8b4QEJqCxUuFw4cGW8G6g6ZjleSbRDWH66AmmZS8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65F8CF80119;
-	Fri, 15 Nov 2019 11:27:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2D80F80104;
+	Fri, 15 Nov 2019 11:30:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DAC8AF80117; Fri, 15 Nov 2019 11:27:49 +0100 (CET)
+ id DCB9DF80104; Fri, 15 Nov 2019 11:30:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5193F8007E
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 11:27:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5193F8007E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="02PboHr+"
-Received: from vkoul-mobl.Dlink (unknown [106.51.108.125])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 970B820748;
- Fri, 15 Nov 2019 10:27:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1573813665;
- bh=8oHQt7MPagfOxYSdD/WliNlX/xPE5ypyV6uVQjdJNTk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=02PboHr+ua8Y+fd3oIByquwwz/Y5JQMn/3lbO2ZNd1Vy/wQzl7KMpBd4iVtaOw5xW
- rxPhBXILFyHZX/oqkQqZtRjz3ouCQ5NYfyTjNHPV1yN7rqpkyReElQcAMpL8uEb8NB
- wJ8LMGYeAD7DlHJQa8nUPQyEzaNHMLTSJhqLMlUc=
-From: Vinod Koul <vkoul@kernel.org>
-To: Takashi Iwai <tiwai@suse.com>
-Date: Fri, 15 Nov 2019 15:57:05 +0530
-Message-Id: <20191115102705.649976-4-vkoul@kernel.org>
-X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20191115102705.649976-1-vkoul@kernel.org>
-References: <20191115102705.649976-1-vkoul@kernel.org>
-MIME-Version: 1.0
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Vinod Koul <vkoul@kernel.org>,
- Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [RFC PATCH 3/3] ASoC: qcom: q6asm-dai: add support to
-	flac decoder
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3D971F800FF
+ for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 11:30:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D971F800FF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id CE730B278;
+ Fri, 15 Nov 2019 10:30:08 +0000 (UTC)
+Date: Fri, 15 Nov 2019 11:30:08 +0100
+Message-ID: <s5hr229jutr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nikhil Mahale <nmahale@nvidia.com>
+In-Reply-To: <5eb1ef50-e129-c188-0996-cd74de6a5025@nvidia.com>
+References: <20191114033704.18171-1-nmahale@nvidia.com>
+ <20191114033704.18171-4-nmahale@nvidia.com>
+ <s5ho8xen2s3.wl-tiwai@suse.de>
+ <9a6f7ac2-998f-23ff-c606-a780c4804eba@nvidia.com>
+ <s5hd0dumwg5.wl-tiwai@suse.de>
+ <5eb1ef50-e129-c188-0996-cd74de6a5025@nvidia.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, aplattner@nvidia.com
+Subject: Re: [alsa-devel] [PATCH v1 3/5] ALSA: hda - Add DP-MST conn list
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,82 +75,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Qualcomm DSPs also support the flac decoder, so add support for FLAC
-decoder and convert the snd_dec_flac params to qdsp format.
+On Fri, 15 Nov 2019 10:52:30 +0100,
+Nikhil Mahale wrote:
+> 
+> On 11/14/19 6:44 PM, Takashi Iwai wrote:
+> > On Thu, 14 Nov 2019 12:47:36 +0100,
+> > Nikhil Mahale wrote:
+> >>
+> >> On 11/14/19 4:27 PM, Takashi Iwai wrote:
+> >>> On Thu, 14 Nov 2019 04:37:02 +0100,
+> >>> Nikhil Mahale wrote:
+> >>>>
+> >>>> Document change notification HDA040-A for the Intel High Definition
+> >>>> Audio 1.0a specification introduces a Device Select verb for Digital
+> >>>> Display Pin Widgets that are multi-stream capable. This verb selects
+> >>>> a Device Entry that is used by subsequent Pin Widget verbs,
+> >>>> including the Get Connection List Entry verb.
+> >>>>
+> >>>> This patch queries the current Device Select value, associates it
+> >>>> with the connection list, and updates the connection list management
+> >>>> code to consider dev_id along with nid.
+> >>>
+> >>> I don't get why this is needed.  This is the list that is added only
+> >>> from snd_hda_override_conn_list(), and you don't change that call
+> >>> pattern, so dev_id is always zero.
+> >>
+> >> In follow-on patch "ALSA: hda - Add DP-MST support for non-acomp codecs",
+> >> hdmi_read_pin_conn() calls into snd_hda_set_dev_select() before
+> >> running into code path -
+> >>   
+> >>   snd_hda_get_connections()
+> >>    |-> snd_hda_get_conn_list()
+> >>         |-> read_and_add_raw_conns()
+> >>              |-> snd_hda_override_conn_list()
+> >>                   |-> add_conn_list()
+> >>
+> >> If I understand spec correctly, conn_list need to read/write/track
+> >> along with device entry set into AC_VERB_SET_DEVICE_SEL verb, right?
+> > 
+> > AFAIK, the device connection list itself is same no matter which
+> > device entry is.  The pin widget may choose the route per device
+> > entry, but the available routes should be same.
+> 
+> Section 7.3.3.42 of https://www.intel.com/content/dam/www/public/us/en/documents/specification-updates/high-definition-audio-multi-stream.pdf says that 'Get Connection List Entry' control should be per-device!
 
-Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
----
- sound/soc/qcom/qdsp6/q6asm-dai.c | 35 +++++++++++++++++++++++++++++++-
- 1 file changed, 34 insertions(+), 1 deletion(-)
+Hrm, right.  It's a bit concern that this may lead to the unlimited
+number of data, though.
 
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 548eb4fa2da6..56e306bdbbe1 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -635,8 +635,14 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
- 	struct snd_soc_component *c = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
- 	int dir = stream->direction;
- 	struct q6asm_dai_data *pdata;
-+	struct q6asm_flac_cfg flac_cfg;
- 	struct device *dev = c->dev;
- 	int ret;
-+	union snd_codec_options *codec_options;
-+	struct snd_dec_flac *flac;
-+
-+	codec_options = &(prtd->codec_param.codec.options);
-+
- 
- 	memcpy(&prtd->codec_param, params, sizeof(*params));
- 
-@@ -673,6 +679,32 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
- 		return ret;
- 	}
- 
-+	switch (params->codec.id) {
-+	case SND_AUDIOCODEC_FLAC:
-+
-+		memset(&flac_cfg, 0x0, sizeof(struct q6asm_flac_cfg));
-+		flac = &codec_options->flac_d;
-+
-+		flac_cfg.ch_cfg = params->codec.ch_in;
-+		flac_cfg.sample_rate =  params->codec.sample_rate;
-+		flac_cfg.stream_info_present = 1;
-+		flac_cfg.sample_size = flac->sample_size;
-+		flac_cfg.min_blk_size = flac->min_blk_size;
-+		flac_cfg.max_blk_size = flac->max_blk_size;
-+		flac_cfg.max_frame_size = flac->max_frame_size;
-+		flac_cfg.min_frame_size = flac->min_frame_size;
-+
-+		ret = q6asm_stream_media_format_block_flac(prtd->audio_client,
-+							   &flac_cfg);
-+		if (ret < 0) {
-+			dev_err(dev, "FLAC CMD Format block failed:%d\n", ret);
-+			return -EIO;
-+		}
-+		break;
-+	default:
-+		break;
-+	}
-+
- 	ret = q6asm_map_memory_regions(dir, prtd->audio_client, prtd->phys,
- 				       (prtd->pcm_size / prtd->periods),
- 				       prtd->periods);
-@@ -768,8 +800,9 @@ static int q6asm_dai_compr_get_caps(struct snd_compr_stream *stream,
- 	caps->max_fragment_size = COMPR_PLAYBACK_MAX_FRAGMENT_SIZE;
- 	caps->min_fragments = COMPR_PLAYBACK_MIN_NUM_FRAGMENTS;
- 	caps->max_fragments = COMPR_PLAYBACK_MAX_NUM_FRAGMENTS;
--	caps->num_codecs = 1;
-+	caps->num_codecs = 2;
- 	caps->codecs[0] = SND_AUDIOCODEC_MP3;
-+	caps->codecs[1] = SND_AUDIOCODEC_FLAC;
- 
- 	return 0;
- }
--- 
-2.23.0
+Since the necessity is only for HDMI codec, if that's the only place
+we need the connection list, the call there can be replaced with
+snd_hda_get_raw_connections() so that the result won't be cached in
+HD-audio core side.
 
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

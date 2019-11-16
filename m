@@ -2,68 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A7E5FEC7B
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Nov 2019 14:41:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12230FF3FD
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Nov 2019 17:41:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9A48E1692;
-	Sat, 16 Nov 2019 14:40:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A48E1692
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F804169F;
+	Sat, 16 Nov 2019 17:41:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F804169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573911691;
-	bh=riaYIjTz+x5Pj69i5OQsInmn2ZSHs4KYnWJfOY1v8UI=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1573922518;
+	bh=dF54bGY+TmgDpMHPRMfj3WXobN2aE8fCtP6yiHYzWOs=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n6NxC+HcXk7SbsjzAeEW7orpgtJtdYBIUXA8DsbqTsEeXPXW0BijQwgPv24sgy7gy
-	 eVoLeMF+kjz+YtRTd+NKdBkQ5TdE2TKzOpP0dW4IRU01PcMkdORkU10QC/5LqhE9uv
-	 K6dBX25dzmW7TimCIiVdk3VABP1/KiT6GKhZAUlI=
+	b=M9RGW+udWn2XOct4oJfYJ6kMkwn2qP0ncrAMtxpAuNqYP8+BBcW/0iBTwuyhv5Ch2
+	 wrj/nqThEkG3TuJvi1Upi/RpTrDeA6u6zpnfr8yHwzN0btEMWxGIYQtwRVYPp5bx8i
+	 8g3Tx9P7C0MVD9lkoQKIYEarlWD9dos8JjtR3AdA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7A41F8010A;
-	Sat, 16 Nov 2019 14:39:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C263EF80101;
+	Sat, 16 Nov 2019 17:40:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0F09F80101; Sat, 16 Nov 2019 14:39:44 +0100 (CET)
+ id 0F4CFF80101; Sat, 16 Nov 2019 17:40:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42638F80082
- for <alsa-devel@alsa-project.org>; Sat, 16 Nov 2019 14:39:41 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 46349A0042;
- Sat, 16 Nov 2019 14:39:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 46349A0042
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1573911581; bh=K1k70lbegR5gXXlkJOxDqXylUUOS3xdfXqfWypp1O78=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=mzBd4wef/dRV1GUCA0VQTDb2dVelKJFjVParUHoFY1BHVsgW9uz+6jwlAZo0JjBhz
- wq93W0NrwvX59pLChCyQSJ2TvaoQyEddp5zpXYUKAgdSRsmuXMGVaEgqS82YLMvB1u
- sbTMobPpIO9HXFUqYlKtQxuyvr8kH+qW2hfOFfBU=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sat, 16 Nov 2019 14:39:38 +0100 (CET)
-To: Lars Wendler <polynomial-c@gentoo.org>, alsa-devel@alsa-project.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A564F80082
+ for <alsa-devel@alsa-project.org>; Sat, 16 Nov 2019 17:40:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A564F80082
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 6EF42B2DA;
+ Sat, 16 Nov 2019 16:40:04 +0000 (UTC)
+Date: Sat, 16 Nov 2019 17:40:04 +0100
+Message-ID: <s5hftin4vx7.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <48906630-65c7-c0de-6b93-322153cc0968@perex.cz>
 References: <20191116142440.2b4e8e12@abudhabi.paradoxon.rec>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <48906630-65c7-c0de-6b93-322153cc0968@perex.cz>
-Date: Sat, 16 Nov 2019 14:39:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
-MIME-Version: 1.0
-In-Reply-To: <20191116142440.2b4e8e12@abudhabi.paradoxon.rec>
-Content-Language: en-US
-Cc: alsa-bugs@gentoo.org
+ <48906630-65c7-c0de-6b93-322153cc0968@perex.cz>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Lars Wendler <polynomial-c@gentoo.org>, alsa-devel@alsa-project.org,
+ alsa-bugs@gentoo.org
 Subject: Re: [alsa-devel] compression format of alsa-ucm-conf and
- alsa-topology-conf tarballs
+	alsa-topology-conf tarballs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,58 +67,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 16. 11. 19 v 14:25 Lars Wendler napsal(a):
-> Hello lists,
+On Sat, 16 Nov 2019 14:39:38 +0100,
+Jaroslav Kysela wrote:
 > 
-> some shell output says more than any explanation:
+> Dne 16. 11. 19 v 14:25 Lars Wendler napsal(a):
+> > Hello lists,
+> >
+> > some shell output says more than any explanation:
+> >
+> >
+> > lars@abudhabi:~/temp/alsa> wget -q
+> > https://www.alsa-project.org/files/pub/lib/alsa-topology-conf-1.2.1.tar.bz2
+> > lars@abudhabi:~/temp/alsa> wget -q
+> > https://www.alsa-project.org/files/pub/lib/alsa-ucm-conf-1.2.1.tar.bz2
+> > lars@abudhabi:~/temp/alsa> tar -xjf alsa-topology-conf-1.2.1.tar.bz2
+> > bzip2: (stdin) is not a bzip2 file.
+> > tar: Child returned status 2 tar: Error is not recoverable: exiting now
+> > lars@abudhabi:~/temp/alsa(2)> tar -xjf alsa-ucm-conf-1.2.1.tar.bz2
+> > bzip2: (stdin) is not a bzip2 file.
+> > tar: Child returned status 2
+> > tar: Error is not recoverable: exiting now
+> > lars@abudhabi:~/temp/alsa(2)> file alsa-topology-conf-1.2.1.tar.bz2
+> > alsa-topology-conf-1.2.1.tar.bz2: XZ compressed data
+> > lars@abudhabi:~/temp/alsa> file alsa-ucm-conf-1.2.1.tar.bz2
+> > alsa-ucm-conf-1.2.1.tar.bz2: XZ compressed data
+> > lars@abudhabi:~/temp/alsa>
+> >
+> > Please rename the tarballs if possible.
 > 
-> 
-> lars@abudhabi:~/temp/alsa> wget -q
-> https://www.alsa-project.org/files/pub/lib/alsa-topology-conf-1.2.1.tar.bz2
-> lars@abudhabi:~/temp/alsa> wget -q
-> https://www.alsa-project.org/files/pub/lib/alsa-ucm-conf-1.2.1.tar.bz2
-> lars@abudhabi:~/temp/alsa> tar -xjf alsa-topology-conf-1.2.1.tar.bz2
-> bzip2: (stdin) is not a bzip2 file.
-> tar: Child returned status 2 tar: Error is not recoverable: exiting now
-> lars@abudhabi:~/temp/alsa(2)> tar -xjf alsa-ucm-conf-1.2.1.tar.bz2
-> bzip2: (stdin) is not a bzip2 file.
-> tar: Child returned status 2
-> tar: Error is not recoverable: exiting now
-> lars@abudhabi:~/temp/alsa(2)> file alsa-topology-conf-1.2.1.tar.bz2
-> alsa-topology-conf-1.2.1.tar.bz2: XZ compressed data
-> lars@abudhabi:~/temp/alsa> file alsa-ucm-conf-1.2.1.tar.bz2
-> alsa-ucm-conf-1.2.1.tar.bz2: XZ compressed data
-> lars@abudhabi:~/temp/alsa>
-> 
-> Please rename the tarballs if possible.
+> Oops, it was a mistake. The tar balls are repacked. Thanks for your notice.
 
-Oops, it was a mistake. The tar balls are repacked. Thanks for your notice.
-
-				Jaroslav
-
-
-> 
-> Please CC me on replies. I'm not subscribed.
-> 
-> Kind regards
-> Lars
-> 
-> 
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-> 
+While we're at it: LICENSE file seems missing in both tarballs.
 
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

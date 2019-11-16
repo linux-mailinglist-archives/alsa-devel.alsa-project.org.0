@@ -2,93 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C642FFE8A5
-	for <lists+alsa-devel@lfdr.de>; Sat, 16 Nov 2019 00:30:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED1E2FE908
+	for <lists+alsa-devel@lfdr.de>; Sat, 16 Nov 2019 01:21:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3FC701679;
-	Sat, 16 Nov 2019 00:29:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FC701679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7B9861690;
+	Sat, 16 Nov 2019 01:20:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B9861690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1573860614;
-	bh=Znyy1AaRW+TNho9gP2SLgVBBD6RdmL8iW0k6o/YhfBk=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1573863679;
+	bh=xlz5JVQ/2ws8liWSLrHBAuiA0rjrGN+OOTlln80eKI0=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e3NkXwsBon90AxvAwM+3xG7doEgXdJcTS0OtpZ5jMaXkCglA9ZB46UTnLnJFfsjiJ
-	 tlt9ODWe++vnSDuP/mWLk42ZTUknZ8bcYKnipm+mIe/eUWfzFu2XYXGeJb+1DKxzRB
-	 xyGTurFN8N9pkCD/bos8tr1IkIywM3LxUskn8jhU=
+	b=uSHuOk99YfhQNu2ancMAL4gssi9yzH+5Cmp6ullaghsaawwStxzrElpAEgX/xSdpT
+	 cd0o7LsYSHQNnHZc1v3ruc9uN9eOJc+HFxUj+gnRW4h7bMSmPmnC5kUH6c28M/1Ra8
+	 2QeM4gpTr44y1niHtMQZzhtn3Rlf9ihF/s0OK7IY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7A4F4F800CC;
-	Sat, 16 Nov 2019 00:28:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0E33F80105;
+	Sat, 16 Nov 2019 01:19:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB103F80104; Sat, 16 Nov 2019 00:28:25 +0100 (CET)
+ id 4D0A0F80104; Sat, 16 Nov 2019 01:19:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,HTML_MESSAGE,HTTPS_HTTP_MISMATCH,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE468F800CC
- for <alsa-devel@alsa-project.org>; Sat, 16 Nov 2019 00:28:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE468F800CC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ieee.org header.i=@ieee.org
- header.b="Co2QuJ7k"
-Received: by mail-ot1-x332.google.com with SMTP id f10so9466793oto.3
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 15:28:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ieee.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=1S+5AAijxPmowvKY3xdX13aSIUjpVHHhk9dA/hvM50Q=;
- b=Co2QuJ7km02YoRxq1SKwwezQbRTDaRmt2AT/+V3dm7GJCVC6tDpFn/Hg+Pl8IbQIen
- q9JXEgBIbs1nevjrRrpDeM3vhDnhzj4L+joUurXaVVSPqtAxVo/C+6HAL7XhTYcIbh1I
- m+qW83ur791d1vQ1UQWlsnOW3+IyyU1O0KlBY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=1S+5AAijxPmowvKY3xdX13aSIUjpVHHhk9dA/hvM50Q=;
- b=cDDRDNk4rd+H2NZDUSvNujEsrtQjoYdolrng4Z90UGVLs+Drjk35weVzzf7pWYnzOH
- 24tymJgyrf83GoCLXs7HJfzAh7/l7wK0QDXw9Sg104xUWm3wTaGP9tMWEIF7Nv1J/AXF
- m3JWQuhgKuxbdzGYKy1pHIcwBXaz7ml46LD17ciNniI7yt4gjClixMb2x3kooMU3sJSd
- jURd42RAnHxxlM5DWue7rUusM0EF9fBQvZFB4ZmWCvgfpMeMnDbYvR5ANHBQrNOxJ/nu
- pP/bpcZaJNgVPr2qUJ7ECJ/7bra1a5AxLngSBopOcWcMQAeGS8X51SZDRFPBMqV3rKZm
- W3Mg==
-X-Gm-Message-State: APjAAAV4R+r3zT2ov9T+DQ52EFbCkJDnb9pzpv8mZrG95e+nmlp1MQdL
- 07LfBux07sMV9FkQIKt/17RvfslRTPY=
-X-Google-Smtp-Source: APXvYqyaNSBWiFIaRCeTyVYTqDqSQPW6lT3G5I6VjqWaeBUxMpaIDu6dSy7MMv0zsE8zEo2k7WcIOg==
-X-Received: by 2002:a9d:d76:: with SMTP id 109mr12062247oti.73.1573860497530; 
- Fri, 15 Nov 2019 15:28:17 -0800 (PST)
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com.
- [209.85.210.41])
- by smtp.gmail.com with ESMTPSA id b12sm3415448otl.34.2019.11.15.15.28.16
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 15 Nov 2019 15:28:16 -0800 (PST)
-Received: by mail-ot1-f41.google.com with SMTP id w24so8980193otk.6
- for <alsa-devel@alsa-project.org>; Fri, 15 Nov 2019 15:28:16 -0800 (PST)
-X-Received: by 2002:a05:6830:1f28:: with SMTP id
- e8mr1655491oth.173.1573860495926; 
- Fri, 15 Nov 2019 15:28:15 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 505C6F800CC
+ for <alsa-devel@alsa-project.org>; Sat, 16 Nov 2019 01:19:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 505C6F800CC
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Nov 2019 16:19:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,310,1569308400"; d="scan'208";a="405508476"
+Received: from sjing-mobl.amr.corp.intel.com (HELO [10.251.158.74])
+ ([10.251.158.74])
+ by fmsmga005.fm.intel.com with ESMTP; 15 Nov 2019 16:19:25 -0800
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+References: <87ftj23jph.wl-kuninori.morimoto.gx@renesas.com>
+ <877e4e3jni.wl-kuninori.morimoto.gx@renesas.com>
+ <8ed58ca1-0f9d-63e8-ba5d-28ee5209aee5@linux.intel.com>
+ <87pnhx8xjl.wl-kuninori.morimoto.gx@renesas.com>
+ <87o8xh8wyz.wl-kuninori.morimoto.gx@renesas.com>
+ <87mud18ukk.wl-kuninori.morimoto.gx@renesas.com>
+ <73feb970-bca5-b736-ce44-d44dacab02d1@linux.intel.com>
+ <20191112190326.GJ5195@sirena.co.uk>
+ <ce011d55-b1b2-7bd9-9de3-48fb616703f0@linux.intel.com>
+ <87lfsk4cit.wl-kuninori.morimoto.gx@renesas.com>
+ <3e4b8289-8e59-d8fe-635b-d55d2b20de5d@linux.intel.com>
+ <87a78zia3n.wl-kuninori.morimoto.gx@renesas.com>
+ <878soji808.wl-kuninori.morimoto.gx@renesas.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <28d2c726-2a6c-08c2-3393-21c88dcfb03e@linux.intel.com>
+Date: Fri, 15 Nov 2019 18:19:24 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.2
 MIME-Version: 1.0
-References: <20190904164706.gwjbcywbj7emnwvr@localhost>
- <CABsjGHJFZD6r7tUKDd17NrAs56O0hypW6MFzJq6m6bWH7ykkPg@mail.gmail.com>
-In-Reply-To: <CABsjGHJFZD6r7tUKDd17NrAs56O0hypW6MFzJq6m6bWH7ykkPg@mail.gmail.com>
-From: xinhui zhou <zxinhui@ieee.org>
-Date: Fri, 15 Nov 2019 15:28:05 -0800
-X-Gmail-Original-Message-ID: <CABsjGHKpQvojz5UmnKKdkD-8dU9oHtiQ76EEZwWR7D3mYw6OdA@mail.gmail.com>
-Message-ID: <CABsjGHKpQvojz5UmnKKdkD-8dU9oHtiQ76EEZwWR7D3mYw6OdA@mail.gmail.com>
-To: alsa-devel@alsa-project.org
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: alsa-user@lists.sourceforge.net
-Subject: [alsa-devel] Number of PCM instance (pcm device file) for one sound
-	card
+In-Reply-To: <878soji808.wl-kuninori.morimoto.gx@renesas.com>
+Content-Language: en-US
+Cc: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [alsa-devel] [PATCH v3 06/19] ASoC: soc-core: add
+ soc_unbind_dai_link()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,26 +85,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dear all ,
 
-The tutorial below states that ""Each card device can have up to four pcm
-instances"
-https://www.kernel.org/doc/html/v4.19/sound/kernel-api/writing-an-alsa-driver.html#pcm-interface
-<https://www.google.com/url?q=https://www.kernel.org/doc/html/v4.19/sound/kernel-api/writing-an-alsa-driver.html%23pcm-interface&sa=D&source=hangouts&ust=1573928998988000&usg=AFQjCNGmZgiENmLej2aBTQvp-tspn3u8sg>
+> But, these are just my guess.
+> It works for me, but I can't re-produce the issue.
+> 
+> Below is the patch for "testing".
 
-I am getting confused with the number '4' .  I thought we can add 8 pcm
-device files by default.  By setting  'CONFIG_SND_DYNAMIC_MINORS=y' , we
-can have more than 8 pcm device files.
-Does that tutorial  mean only 4 pcm devices running at the same time ?
+Morimoto-san, I haven't fully tested the logic and all the long 
+description, but the patch suggested seems to work on all the platforms 
+I tested on - and actually improves things on Baytrail/Cherrytrail.
 
-Thanks a lot,
+I haven't seen any oopses in several hours now and no regression 
+reported by Intel CI https://github.com/thesofproject/linux/pull/1504
 
-Xinhui,
+Let's see what others think or tested.
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

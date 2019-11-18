@@ -2,63 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB63D100B68
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 19:22:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 594FD100BBC
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 19:48:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5A5C51689;
-	Mon, 18 Nov 2019 19:21:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A5C51689
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDB83168F;
+	Mon, 18 Nov 2019 19:47:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDB83168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574101361;
-	bh=7jQcsoTJHM+P+phTX9P82ydxSiGITXiYpjbteR28BTA=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
+	s=default; t=1574102921;
+	bh=HcwWWoEEfc08bZj+RMC/fE8AXO6VM9Stw+dSW5zMLRY=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=il3vq/+kpZUMAT/UHxRxTAxA7REQd9KZxS9QpnF800JMS3sHR/LxspD4Yb5yRx3H/
-	 FOZveYDXDGsEI/G8iheB/bvTakfP3KblFq+s4nQibh9zthAEwiYCCen3Gu01RSoOMH
-	 f+qXo3+/yjI0MPe14QLRfb45twyDb/oaIgUCbN7w=
+	b=J5t0f48HMJurkFgvFruBhU1OWn5wht6Kut7V3Ydr6wZRHkVWKNR6XfsjCZ58Z/EAG
+	 i0Kpr2HWfXVJ/yrb8vRwYqe/MrIHAjBkS9bT3j7aUuaJZRejLjBy4lc7bEgfVMtnYV
+	 s4WsTgKU5bG9xcL7N2++gwPPbaOh8NNl0GG04Q8A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4754F8014C;
-	Mon, 18 Nov 2019 19:19:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D6816F8013B;
+	Mon, 18 Nov 2019 19:46:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 413C1F8013E; Mon, 18 Nov 2019 19:19:24 +0100 (CET)
+ id 5C291F8013B; Mon, 18 Nov 2019 19:46:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42552F8013B
- for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 19:19:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42552F8013B
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2019 10:19:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,321,1569308400"; d="scan'208";a="407480025"
-Received: from asimomai-mobl1.amr.corp.intel.com (HELO [10.251.156.191])
- ([10.251.156.191])
- by fmsmga006.fm.intel.com with ESMTP; 18 Nov 2019 10:19:16 -0800
-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 277A9F800FF
+ for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 19:46:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 277A9F800FF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id D2FF7AD31;
+ Mon, 18 Nov 2019 18:46:50 +0000 (UTC)
+Date: Mon, 18 Nov 2019 19:46:50 +0100
+Message-ID: <s5h1ru510px.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <1613de8d-3418-c2cf-d7d3-87c66843f5fd@linux.intel.com>
 References: <20191117085308.23915-1-tiwai@suse.de>
- <20191117085308.23915-8-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <3b407a02-b791-52a4-2335-e21d8ab732dd@linux.intel.com>
-Date: Mon, 18 Nov 2019 10:38:49 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
-MIME-Version: 1.0
-In-Reply-To: <20191117085308.23915-8-tiwai@suse.de>
-Content-Language: en-US
-Subject: Re: [alsa-devel] [PATCH 7/8] ALSA: pcm: Add card sync_irq field
+ <20191117085308.23915-2-tiwai@suse.de>
+ <1613de8d-3418-c2cf-d7d3-87c66843f5fd@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH 1/8] ALSA: pcm: Introduce managed buffer
+	allocation mode
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,75 +67,204 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 11/17/19 2:53 AM, Takashi Iwai wrote:
-> Many PCI and other drivers performs snd_pcm_period_elapsed() simply in
-> its interrupt handler, so the sync_stop operation is just to call
-> synchronize_irq().  Instead of putting this call multiple times,
-> introduce the common card->sync_irq field.  When this field is set,
-> PCM core performs synchronize_irq() for sync-stop operation.  Each
-> driver just needs to copy its local IRQ number to card->sync_irq, and
-> that's all we need.
-
-Maybe a red-herring or complete non-sense, but I wonder if this is going 
-to get in the way of Ranjani's multi-client work, where we could have 
-multiple cards created but with a single IRQ handled by the parent PCI 
-device?
-
-Ranjani, you may want to double-check this and chime in, thanks!
-
+On Mon, 18 Nov 2019 17:24:45 +0100,
+Pierre-Louis Bossart wrote:
 > 
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->   include/sound/core.h    | 1 +
->   sound/core/init.c       | 1 +
->   sound/core/pcm_native.c | 2 ++
->   3 files changed, 4 insertions(+)
 > 
-> diff --git a/include/sound/core.h b/include/sound/core.h
-> index ee238f100f73..af3dce956c17 100644
-> --- a/include/sound/core.h
-> +++ b/include/sound/core.h
-> @@ -117,6 +117,7 @@ struct snd_card {
->   	struct device card_dev;		/* cardX object for sysfs */
->   	const struct attribute_group *dev_groups[4]; /* assigned sysfs attr */
->   	bool registered;		/* card_dev is registered? */
-> +	int sync_irq;			/* assigned irq, used for PCM sync */
->   	wait_queue_head_t remove_sleep;
->   
->   #ifdef CONFIG_PM
-> diff --git a/sound/core/init.c b/sound/core/init.c
-> index db99b7fad6ad..faa9f03c01ca 100644
-> --- a/sound/core/init.c
-> +++ b/sound/core/init.c
-> @@ -215,6 +215,7 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
->   	init_waitqueue_head(&card->power_sleep);
->   #endif
->   	init_waitqueue_head(&card->remove_sleep);
-> +	card->sync_irq = -1;
->   
->   	device_initialize(&card->card_dev);
->   	card->card_dev.parent = parent;
-> diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-> index 163d621ff238..1fe581167b7b 100644
-> --- a/sound/core/pcm_native.c
-> +++ b/sound/core/pcm_native.c
-> @@ -574,6 +574,8 @@ static void snd_pcm_sync_stop(struct snd_pcm_substream *substream)
->   		substream->runtime->stop_operating = false;
->   		if (substream->ops->sync_stop)
->   			substream->ops->sync_stop(substream);
-> +		else if (substream->pcm->card->sync_irq > 0)
-> +			synchronize_irq(substream->pcm->card->sync_irq);
->   	}
->   }
->   
 > 
+> On 11/17/19 2:53 AM, Takashi Iwai wrote:
+> > This patch adds the support for the feature to automatically allocate
+> > and free PCM buffers, so called "managed buffer allocation" mode.
+> > It's set up via new PCM helpers, snd_pcm_set_managed_buffer() and
+> > snd_pcm_set_managed_buffer_all(), both of which correspond to the
+> > existing preallocator helpers, snd_pcm_lib_preallocate_pages() and
+> > snd_pcm_lib_preallocate_pages_for_all().  When the new helper is used,
+> > it not only performs the pre-allocation of buffers, but also it
+> > manages to call snd_pcm_lib_malloc_pages() before the PCM hw_params
+> > ops and snd_lib_pcm_free() after the PCM hw_free ops inside PCM core,
+> > respectively.  This allows drivers to drop the explicit calls of the
+> > memory allocation / release functions, and it will be a good amount of
+> > code reduction in the end of this patch series.
+> >
+> > When the PCM substream is set to the managed buffer allocation mode,
+> > the managed_buffer_alloc flag is set in the substream object.  Since
+> > some drivers want to know when a buffer is newly allocated or
+> > re-allocated at hw_params callback (e.g. want to set up the additional
+> > stuff for the given buffer only at allocation time), now PCM core
+> > turns on buffer_changed flag when the buffer has changed.
+> 
+> I am a bit lost on the directions:
+> a) is this introducing a new API that will eventually replace the
+> existing one?
+> b) or are we going to have two options, managed and non-managed buffers?
+> in this case, what would drive an implementer to keep using
+> non-managed buffers? It'd be useful to provide examples.
+>
+> In the cover letter, the wording 'almost all drivers' is used, which
+> leads be to think option b) it is, but the exceptions are not clear to
+> me.
+
+Yes, it's currently it's (b), the new API is completely optional and
+the driver may keep the old API.  Actually in my upcoming patchset
+(see below), only three drivers are left with the old API due to the
+special buffer handling and all the rest are replaced with the new
+API.
+
+You can find the conversion results in topic/pcm-managed branch.
+As seen in the patch diff below, it's a long series.
+
+
+thanks,
+
+Takashi
+
+ .../sound/kernel-api/writing-an-alsa-driver.rst    | 148 +++++++++++++++------
+ .../gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c    |  48 ++++---
+ drivers/media/pci/cobalt/cobalt-alsa-pcm.c         |  61 +--------
+ drivers/media/pci/cx18/cx18-alsa-pcm.c             |  62 +--------
+ drivers/media/pci/ivtv/ivtv-alsa-pcm.c             |  63 +--------
+ drivers/media/pci/solo6x10/solo6x10-g723.c         |  23 +---
+ drivers/media/pci/tw686x/tw686x-audio.c            |  15 +--
+ drivers/media/usb/cx231xx/cx231xx-audio.c          |  78 +----------
+ drivers/media/usb/em28xx/em28xx-audio.c            |  86 +-----------
+ drivers/media/usb/go7007/snd-go7007.c              |  24 +---
+ drivers/media/usb/tm6000/tm6000-alsa.c             |  81 +----------
+ drivers/media/usb/usbtv/usbtv-audio.c              |  28 +---
+ drivers/staging/most/sound/sound.c                 |  44 +-----
+ .../vc04_services/bcm2835-audio/bcm2835-pcm.c      |  17 +--
+ drivers/usb/gadget/function/u_audio.c              |  18 +--
+ include/sound/core.h                               |   1 +
+ include/sound/pcm.h                                |  52 ++------
+ sound/aoa/soundbus/i2sbus/pcm.c                    |  11 +-
+ sound/arm/aaci.c                                   |  40 +++---
+ sound/atmel/ac97c.c                                |  20 +--
+ sound/core/init.c                                  |   1 +
+ sound/core/pcm_local.h                             |   2 +
+ sound/core/pcm_memory.c                            | 143 ++++++++++----------
+ sound/core/pcm_native.c                            |  48 ++++++-
+ sound/drivers/aloop.c                              |  12 +-
+ sound/drivers/dummy.c                              |  14 +-
+ sound/drivers/ml403-ac97cr.c                       |  29 +---
+ sound/drivers/pcsp/pcsp_lib.c                      |  17 +--
+ sound/drivers/vx/vx_pcm.c                          |  27 +---
+ sound/firewire/bebob/bebob_pcm.c                   |  11 +-
+ sound/firewire/dice/dice-pcm.c                     |  13 +-
+ sound/firewire/digi00x/digi00x-pcm.c               |  11 +-
+ sound/firewire/fireface/ff-pcm.c                   |   9 +-
+ sound/firewire/fireworks/fireworks_pcm.c           |  11 +-
+ sound/firewire/isight.c                            |  10 +-
+ sound/firewire/motu/motu-pcm.c                     |  11 +-
+ sound/firewire/oxfw/oxfw-pcm.c                     |  17 +--
+ sound/firewire/tascam/tascam-pcm.c                 |  11 +-
+ sound/isa/ad1816a/ad1816a_lib.c                    |  20 +--
+ sound/isa/cmi8330.c                                |   5 +-
+ sound/isa/es1688/es1688_lib.c                      |  20 +--
+ sound/isa/es18xx.c                                 |  24 +---
+ sound/isa/gus/gus_pcm.c                            |  28 ++--
+ sound/isa/sb/sb16_main.c                           |  21 +--
+ sound/isa/sb/sb8_main.c                            |  21 +--
+ sound/isa/wss/wss_lib.c                            |  23 +---
+ sound/mips/hal2.c                                  |  25 +---
+ sound/mips/sgio2audio.c                            |  20 +--
+ sound/parisc/harmony.c                             |  18 +--
+ sound/pci/ad1889.c                                 |  24 +---
+ sound/pci/ali5451/ali5451.c                        |  30 +----
+ sound/pci/als300.c                                 |  23 +---
+ sound/pci/als4000.c                                |  23 +---
+ sound/pci/asihpi/asihpi.c                          |  10 +-
+ sound/pci/atiixp.c                                 |  14 +-
+ sound/pci/atiixp_modem.c                           |   9 +-
+ sound/pci/au88x0/au88x0_pcm.c                      |  15 +--
+ sound/pci/aw2/aw2-alsa.c                           |  45 ++-----
+ sound/pci/azt3328.c                                |  30 +----
+ sound/pci/bt87x.c                                  |  14 +-
+ sound/pci/ca0106/ca0106_main.c                     |  56 +-------
+ sound/pci/cmipci.c                                 |  36 ++---
+ sound/pci/cs4281.c                                 |  20 +--
+ sound/pci/cs5535audio/cs5535audio_pcm.c            |  12 +-
+ sound/pci/ctxfi/ctpcm.c                            |  15 +--
+ sound/pci/echoaudio/echoaudio.c                    |  19 +--
+ sound/pci/emu10k1/emu10k1x.c                       |  15 +--
+ sound/pci/emu10k1/emupcm.c                         |  41 +-----
+ sound/pci/emu10k1/p16v.c                           |  48 +------
+ sound/pci/ens1370.c                                |  27 +---
+ sound/pci/es1938.c                                 |  28 +---
+ sound/pci/fm801.c                                  |  20 +--
+ sound/pci/hda/hda_controller.c                     |  13 +-
+ sound/pci/ice1712/ice1712.c                        |  42 ++----
+ sound/pci/ice1712/ice1724.c                        |  25 ++--
+ sound/pci/intel8x0.c                               |  11 +-
+ sound/pci/intel8x0m.c                              |  23 +---
+ sound/pci/lola/lola_pcm.c                          |  11 +-
+ sound/pci/lx6464es/lx6464es.c                      |  14 +-
+ sound/pci/maestro3.c                               |   9 +-
+ sound/pci/mixart/mixart.c                          |  14 +-
+ sound/pci/oxygen/oxygen_pcm.c                      |  52 ++++----
+ sound/pci/pcxhr/pcxhr.c                            |  31 +----
+ sound/pci/riptide/riptide.c                        |  10 +-
+ sound/pci/rme32.c                                  |  35 +----
+ sound/pci/sis7019.c                                |  25 +---
+ sound/pci/sonicvibes.c                             |  20 +--
+ sound/pci/trident/trident_main.c                   |  49 +++----
+ sound/pci/via82xx.c                                |  45 +++----
+ sound/pci/via82xx_modem.c                          |   9 +-
+ sound/pci/ymfpci/ymfpci_main.c                     |  33 ++---
+ sound/pcmcia/pdaudiocf/pdaudiocf_pcm.c             |  25 +---
+ sound/ppc/pmac.c                                   |  28 +---
+ sound/ppc/snd_ps3.c                                |  28 +---
+ sound/sh/aica.c                                    |  29 +---
+ sound/sh/sh_dac_audio.c                            |  20 +--
+ sound/soc/amd/acp-pcm-dma.c                        |  58 +++-----
+ sound/soc/amd/raven/acp3x-pcm-dma.c                |  30 +----
+ sound/soc/au1x/dbdma2.c                            |  14 +-
+ sound/soc/au1x/dma.c                               |  21 +--
+ sound/soc/codecs/cros_ec_codec.c                   |   8 +-
+ sound/soc/codecs/rt5514-spi.c                      |  10 +-
+ sound/soc/codecs/rt5677-spi.c                      |  10 +-
+ sound/soc/dwc/dwc-pcm.c                            |  24 +---
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c       |  25 +---
+ sound/soc/intel/baytrail/sst-baytrail-pcm.c        |  19 +--
+ sound/soc/intel/haswell/sst-haswell-pcm.c          |  17 +--
+ sound/soc/intel/skylake/skl-pcm.c                  |  26 +---
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c         |  14 +-
+ sound/soc/mediatek/common/mtk-afe-fe-dai.h         |   2 -
+ .../soc/mediatek/common/mtk-afe-platform-driver.c  |  12 +-
+ .../soc/mediatek/common/mtk-afe-platform-driver.h  |   2 -
+ sound/soc/mediatek/mt2701/mt2701-afe-pcm.c         |   2 -
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c         |   1 -
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c         |   1 -
+ sound/soc/meson/axg-fifo.c                         |  13 +-
+ sound/soc/sh/dma-sh7760.c                          |  14 +-
+ sound/soc/sh/fsi.c                                 |  18 +--
+ sound/soc/sh/rcar/core.c                           |  23 +---
+ sound/soc/sh/siu_pcm.c                             |  39 +-----
+ sound/soc/soc-generic-dmaengine-pcm.c              |  12 +-
+ sound/soc/sof/pcm.c                                |  34 ++---
+ sound/soc/stm/stm32_adfsdm.c                       |  29 +---
+ sound/soc/txx9/txx9aclc.c                          |  14 +-
+ sound/soc/uniphier/aio-dma.c                       |  30 +----
+ sound/soc/xilinx/xlnx_formatter_pcm.c              |  13 +-
+ sound/soc/xtensa/xtfpga-i2s.c                      |   9 +-
+ sound/sparc/amd7930.c                              |  20 +--
+ sound/sparc/cs4231.c                               |  17 +--
+ sound/sparc/dbri.c                                 |  13 +-
+ sound/spi/at73c213.c                               |  11 +-
+ sound/usb/6fire/pcm.c                              |  17 +--
+ sound/usb/caiaq/audio.c                            |  13 +-
+ sound/usb/hiface/pcm.c                             |  18 +--
+ sound/usb/line6/pcm.c                              |  13 +-
+ sound/usb/misc/ua101.c                             |  23 +---
+ sound/usb/pcm.c                                    |  15 +--
+ sound/usb/usx2y/usbusx2yaudio.c                    |  26 ++--
+ sound/usb/usx2y/usx2yhwdeppcm.c                    |  18 +--
+ sound/x86/intel_hdmi_audio.c                       |  16 +--
+ 140 files changed, 781 insertions(+), 2700 deletions(-)
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

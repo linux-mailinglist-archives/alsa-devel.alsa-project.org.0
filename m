@@ -2,71 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9C16FFC8E
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 01:49:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E628FFCF3
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 02:51:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40D91168C;
-	Mon, 18 Nov 2019 01:48:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40D91168C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67CA5168E;
+	Mon, 18 Nov 2019 02:50:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67CA5168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574038167;
-	bh=4e/9G7Jg2f7zZXA7K5VdX4HWBdQvSBAhRWm8cTYFLRI=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AMMeEcE72bCBV2ygrwA4najkmoPz1cHMMxe99CiR5AfTDOZ3Dxv7rOmXIJ78yjXXX
-	 zV8F/anxFUTAIJn4samUfe5JbmlvviQwzBHjJQ3NNLuBqaMJ9ss0UpY40AcIBcCqt9
-	 3PWqI0uMtRfvzy7EjMiUnWAhpdoWIcRA1mZPjpWc=
+	s=default; t=1574041905;
+	bh=1sRwWy5e7Pbb/wc5td2w13ncxB1iaPKu2EZ30K48yFU=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=t4V+fX7zevMCQe79nqh62DB9gzMwx+rA0qh4xbPzV2u72MmY7mPSuPwsCq/dnwxz+
+	 YC0LWF03A9uOmPxEQHYqV8ozDEDs21H3CQ8Mv7gSrnQgquDGAFFTpw28PZbGlJWDHU
+	 uYyJAysY3+972Y9eGPRoAWo3LUFGDKddhYMw1gUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B202F80131;
-	Mon, 18 Nov 2019 01:47:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0FAC7F80131;
+	Mon, 18 Nov 2019 02:50:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6051F80131; Mon, 18 Nov 2019 01:47:40 +0100 (CET)
+ id B8140F80131; Mon, 18 Nov 2019 02:49:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.2 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CE08BF800F1
- for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 01:47:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE08BF800F1
-Date: 18 Nov 2019 09:47:30 +0900
-X-IronPort-AV: E=Sophos;i="5.68,318,1569250800"; d="scan'208";a="31712918"
+ by alsa1.perex.cz (Postfix) with ESMTP id 9A55DF800F1
+ for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 02:49:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A55DF800F1
+Date: 18 Nov 2019 10:49:49 +0900
+X-IronPort-AV: E=Sophos;i="5.68,318,1569250800"; d="scan'208";a="31720981"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 18 Nov 2019 09:47:30 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 18 Nov 2019 10:49:49 +0900
 Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4B3E8400619D;
- Mon, 18 Nov 2019 09:47:30 +0900 (JST)
-Message-ID: <87tv72xb6l.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 02BF34001DA1;
+ Mon, 18 Nov 2019 10:49:49 +0900 (JST)
+Message-ID: <87r226x8aq.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <28d2c726-2a6c-08c2-3393-21c88dcfb03e@linux.intel.com>
-References: <87ftj23jph.wl-kuninori.morimoto.gx@renesas.com>
- <877e4e3jni.wl-kuninori.morimoto.gx@renesas.com>
- <8ed58ca1-0f9d-63e8-ba5d-28ee5209aee5@linux.intel.com>
- <87pnhx8xjl.wl-kuninori.morimoto.gx@renesas.com>
- <87o8xh8wyz.wl-kuninori.morimoto.gx@renesas.com>
- <87mud18ukk.wl-kuninori.morimoto.gx@renesas.com>
- <73feb970-bca5-b736-ce44-d44dacab02d1@linux.intel.com>
- <20191112190326.GJ5195@sirena.co.uk>
- <ce011d55-b1b2-7bd9-9de3-48fb616703f0@linux.intel.com>
- <87lfsk4cit.wl-kuninori.morimoto.gx@renesas.com>
- <3e4b8289-8e59-d8fe-635b-d55d2b20de5d@linux.intel.com>
- <87a78zia3n.wl-kuninori.morimoto.gx@renesas.com>
- <878soji808.wl-kuninori.morimoto.gx@renesas.com>
- <28d2c726-2a6c-08c2-3393-21c88dcfb03e@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Cc: Takashi Iwai <tiwai@suse.de>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v3 06/19] ASoC: soc-core: add
-	soc_unbind_dai_link()
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [PATCH 0/2] ASoC: fixup topology dai_link remove issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,36 +67,33 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Hi Pierre-Louis
+Hi Mark
+Cc Pierre-Louis, Takashi-san
 
-Thank you for testing
+Currently, I'm focusing to ASoC cleanup / balance-up.
+But, it found more unbalance issue, and Intel noticed about it.
+These patches fix dai_link remove issue on topology.
 
-> > But, these are just my guess.
-> > It works for me, but I can't re-produce the issue.
-> > 
-> > Below is the patch for "testing".
-> 
-> Morimoto-san, I haven't fully tested the logic and all the long
-> description, but the patch suggested seems to work on all the
-> platforms I tested on - and actually improves things on
-> Baytrail/Cherrytrail.
-> 
-> I haven't seen any oopses in several hours now and no regression
-> reported by Intel CI https://github.com/thesofproject/linux/pull/1504
+I want to get Acked-by or Reviewed-by from Takashi-san
+for 2) patch if possible.
 
-Wow !! Nice to know !!
-I'm very happy about that !!
+These are already tested by Intel CI, and all issues were solved.
+(https://github.com/thesofproject/linux/pull/1504)
+Extra Tested-by / Reviewed-by are very welcome from Intel
 
-OK, I will post the patch officially with your tested by.
+Kuninori Morimoto (2):
+  1) ASoC: soc-component: tidyup snd_soc_pcm_component_new/free() parameter
+  2) ASoC: soc-pcm: remove soc_pcm_private_free()
 
-> Let's see what others think or tested.
+ include/sound/soc-component.h |  4 ++--
+ sound/soc/soc-component.c     |  8 +++-----
+ sound/soc/soc-core.c          | 19 +++++++++++--------
+ sound/soc/soc-pcm.c           | 12 +-----------
+ 4 files changed, 17 insertions(+), 26 deletions(-)
 
-Yes, it is nice idea
+-- 
+2.7.4
 
-Thank you for your help !!
-Best regards
----
-Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

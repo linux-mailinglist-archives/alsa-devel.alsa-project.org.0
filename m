@@ -2,96 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC4551006C1
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 14:48:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 554CD1006F5
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 15:03:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 375401681;
-	Mon, 18 Nov 2019 14:47:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 375401681
+	by alsa0.perex.cz (Postfix) with ESMTPS id B65721694;
+	Mon, 18 Nov 2019 15:03:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B65721694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574084881;
-	bh=9aBZTyL0KXZrC50P2GpelGYAAB4OB5os9pmwEBrUKdE=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Lpo4HsF+EYGudNJ86qE2PImlERPsW6qLKy9LWF6Lh8kmNP6wsfHeCdOhOfc0H17WC
-	 Ao6+HG+eq4B27I6P2nasv+ZAxjhEj4NKjIjz9hfCkmOhxLaimcga3IVsbADHnO3DRC
-	 /C7F42qfM75ed8atF+vAT23FQIgGcumqv9L8MI04=
+	s=default; t=1574085836;
+	bh=5/sXDh7oljsHIt0D/ZWgdqtLi8dD1Iz38iCUYOivHu4=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=qJHopLY7wFsc+3uZEp2FirGheVpBwrrsDM7jNoU+XR0SfpKAiHnSfXRxyg0VyrYtT
+	 ZCTQHnMU2/GhtFQYPAYQLOT3opreg7MTpH49cH+2Z7/2dvU/4UaLygRBw29OBBAxid
+	 yc6HPdl/PVYQpEh5pTsHTc9uD+RzIQBN6XjtTs/E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 58BC2F80100;
-	Mon, 18 Nov 2019 14:46:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF8ABF8013C;
+	Mon, 18 Nov 2019 15:02:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C5D10F8013B; Mon, 18 Nov 2019 14:46:14 +0100 (CET)
+ id 18862F8013B; Mon, 18 Nov 2019 15:02:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from smtp1.de.adit-jv.com (smtp1.de.adit-jv.com [93.241.18.167])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D6E3EF800FF
- for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 14:46:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6E3EF800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="iZuu/ARc"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xAIDk8d7005170; Mon, 18 Nov 2019 07:46:08 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=PODMain02222019;
- bh=kgedk8P1j1xy9kHnrKOzBOtC3OmjpxDmewRDw/fD/BA=;
- b=iZuu/ARcpkZGSdJb/PjqskNUxRfjM6GN4qmQwGpt4jtId4+l++flVa39tws70AHE59yc
- 57kDZbbZTk+ae1fQIXghJlJxR4q2pN71xSrkIVLYrineaGKwC1Huqad+Iw75NeRGasyY
- LlEh7GQYhCMm/v8hf+/Kb7rGz7Kfr91uQMyMLu3pvDS2VkLX8pUnCECwl3Lf6qoo9093
- GJmBggCg4fxPvo9hfGPS4slK+0Z96ilNSSM4r6SpCq76y2kX4PiAxqCxC7i/b8+zEgRg
- t7NI3eRzArfEeaCa1xALdcOApYNzAovGTRW2keZkWaYQch5piIFbYXYBMymHi5VrIlsY /g== 
-Authentication-Results: ppops.net;
- spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex01.ad.cirrus.com ([87.246.76.36])
- by mx0b-001ae601.pphosted.com with ESMTP id 2wafc82j9g-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Mon, 18 Nov 2019 07:46:06 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Mon, 18 Nov
- 2019 13:46:02 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Mon, 18 Nov 2019 13:46:02 +0000
-Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 662422C6;
- Mon, 18 Nov 2019 13:46:02 +0000 (UTC)
-Date: Mon, 18 Nov 2019 13:46:02 +0000
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: David Rhodes <david.rhodes@cirrus.com>
-Message-ID: <20191118134602.GH10439@ediswmail.ad.cirrus.com>
-References: <1573847653-17094-1-git-send-email-david.rhodes@cirrus.com>
- <1573847653-17094-2-git-send-email-david.rhodes@cirrus.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5408EF800F1
+ for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 15:02:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5408EF800F1
+Received: from localhost (smtp1.de.adit-jv.com [127.0.0.1])
+ by smtp1.de.adit-jv.com (Postfix) with ESMTP id 7E6343C04C0;
+ Mon, 18 Nov 2019 15:02:02 +0100 (CET)
+Received: from smtp1.de.adit-jv.com ([127.0.0.1])
+ by localhost (smtp1.de.adit-jv.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id uIyVSefni55j; Mon, 18 Nov 2019 15:01:53 +0100 (CET)
+Received: from HI2EXCH01.adit-jv.com (hi2exch01.adit-jv.com [10.72.92.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtp1.de.adit-jv.com (Postfix) with ESMTPS id F06A53C04C1;
+ Mon, 18 Nov 2019 15:01:51 +0100 (CET)
+Received: from vmlxhi-102.adit-jv.com (10.72.93.184) by HI2EXCH01.adit-jv.com
+ (10.72.92.24) with Microsoft SMTP Server (TLS) id 14.3.468.0;
+ Mon, 18 Nov 2019 15:01:51 +0100
+From: Eugeniu Rosca <erosca@de.adit-jv.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Jiada Wang
+ <jiada_wang@mentor.com>, Mark Brown <broonie@kernel.org>,
+ <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>
+Date: Mon, 18 Nov 2019 15:01:26 +0100
+Message-ID: <20191118140126.23596-1-erosca@de.adit-jv.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1573847653-17094-2-git-send-email-david.rhodes@cirrus.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Proofpoint-SPF-Result: fail
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 bulkscore=0
- impostorscore=0
- mlxlogscore=711 mlxscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0
- priorityscore=1501 spamscore=0 adultscore=0 malwarescore=0 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-1910280000
- definitions=main-1911180125
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- broonie@kernel.org, lgirdwood@gmail.com, Li Xu <li.xu@cirrus.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: wm_adsp: Expose mixer control API
+X-Originating-IP: [10.72.93.184]
+Cc: Andrew Gabbasov <andrew_gabbasov@mentor.com>,
+ Eugeniu Rosca <roscaeugeniu@gmail.com>,
+ Nilkanth Ahirrao <anilkanth@jp.adit-jv.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Hiroyuki Yokoyama <hiroyuki.yokoyama.vx@renesas.com>,
+ Eugeniu Rosca <erosca@de.adit-jv.com>
+Subject: [alsa-devel] [PATCH] ASoC: rsnd: fix DALIGN register for SSIU
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,27 +77,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Nov 15, 2019 at 01:54:13PM -0600, David Rhodes wrote:
-> From: Li Xu <li.xu@cirrus.com>
-> 
-> Expose mixer control API for reading and writing controls from the kernel.
-> This API can be used by ALSA kernel drivers with ADSP support to
-> read and write firmware-defined memory regions.
-> 
-> Signed-off-by: Li Xu <li.xu@cirrus.com>
-> Signed-off-by: David Rhodes <david.rhodes@cirrus.com>
-> ---
-
-Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-
-Thanks,
-Charles
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+RnJvbTogTmlsa2FudGggQWhpcnJhbyA8YW5pbGthbnRoQGpwLmFkaXQtanYuY29tPgoKVGhlIGN1
+cnJlbnQgZHJpdmVyIG9ubHkgc2V0cyAweDc2NTQzMjEwIGFuZCAweDY3NDUyMzAxIGZvciBEQUxJ
+R04uClRoaXMgZG9lc27igJl0IHdvcmsgd2VsbCBmb3IgVERNIHNwbGl0IGFuZCBleC1zcGxpdCBt
+b2RlIGZvciBhbGwgU1NJVS4KVGhpcyBwYXRjaCBwcm9ncmFtcyB0aGUgREFMSUdOIHJlZ2lzdGVy
+cyBiYXNlZCBvbiB0aGUgU1NJVSBudW1iZXIuCgpDYzogS3VuaW5vcmkgTW9yaW1vdG8gPGt1bmlu
+b3JpLm1vcmltb3RvLmd4QHJlbmVzYXMuY29tPgpDYzogSGlyb3l1a2kgWW9rb3lhbWEgPGhpcm95
+dWtpLnlva295YW1hLnZ4QHJlbmVzYXMuY29tPgpDYzogSmlhZGEgV2FuZyA8amlhZGFfd2FuZ0Bt
+ZW50b3IuY29tPgpDYzogQW5kcmV3IEdhYmJhc292IDxhbmRyZXdfZ2FiYmFzb3ZAbWVudG9yLmNv
+bT4KRml4ZXM6IGE5MTRlNDQ2OTNkNDFiICgiQVNvQzogcnNuZDogbW9yZSBjbGVhciByc25kX2dl
+dF9kYWxpZ24oKSBmb3IgREFMSUdOIikKU2lnbmVkLW9mZi1ieTogTmlsa2FudGggQWhpcnJhbyA8
+YW5pbGthbnRoQGpwLmFkaXQtanYuY29tPgpbZXJvc2NhOiBBZGp1c3QgRml4ZXM6IHRhZywgcmVm
+b3JtYXQgcGF0Y2ggZGVzY3JpcHRpb25dClNpZ25lZC1vZmYtYnk6IEV1Z2VuaXUgUm9zY2EgPGVy
+b3NjYUBkZS5hZGl0LWp2LmNvbT4KLS0tCiBzb3VuZC9zb2Mvc2gvcmNhci9jb3JlLmMgfCAyNSAr
+KysrKysrKysrKysrKysrKysrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjEgaW5zZXJ0aW9ucygr
+KSwgNCBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9zb3VuZC9zb2Mvc2gvcmNhci9jb3JlLmMg
+Yi9zb3VuZC9zb2Mvc2gvcmNhci9jb3JlLmMKaW5kZXggZTk1OTZjMjA5NmNkLi5hZTA1ZWQwOGEy
+YjMgMTAwNjQ0Ci0tLSBhL3NvdW5kL3NvYy9zaC9yY2FyL2NvcmUuYworKysgYi9zb3VuZC9zb2Mv
+c2gvcmNhci9jb3JlLmMKQEAgLTM3Niw2ICszNzYsMTYgQEAgdTMyIHJzbmRfZ2V0X2FkaW5yX2Jp
+dChzdHJ1Y3QgcnNuZF9tb2QgKm1vZCwgc3RydWN0IHJzbmRfZGFpX3N0cmVhbSAqaW8pCiAgKi8K
+IHUzMiByc25kX2dldF9kYWxpZ24oc3RydWN0IHJzbmRfbW9kICptb2QsIHN0cnVjdCByc25kX2Rh
+aV9zdHJlYW0gKmlvKQogeworCXN0YXRpYyBjb25zdCB1MzIgZGFsaWduX3ZhbHVlc1s4XVsyXSA9
+IHsKKwkJezB4NzY1NDMyMTAsIDB4Njc0NTIzMDF9LAorCQl7MHgwMDAwMDAzMiwgMHgwMDAwMDAy
+M30sCisJCXsweDAwMDA3NjU0LCAweDAwMDA2NzQ1fSwKKwkJezB4MDAwMDAwNzYsIDB4MDAwMDAw
+Njd9LAorCQl7MHhmZWRjYmE5OCwgMHhlZmNkYWI4OX0sCisJCXsweDAwMDAwMGJhLCAweDAwMDAw
+MGFifSwKKwkJezB4MDAwMGZlZGMsIDB4MDAwMGVmY2R9LAorCQl7MHgwMDAwMDBmZSwgMHgwMDAw
+MDBlZn0sCisJfTsKIAlzdHJ1Y3QgcnNuZF9tb2QgKnNzaXUgPSByc25kX2lvX3RvX21vZF9zc2l1
+KGlvKTsKIAlzdHJ1Y3QgcnNuZF9tb2QgKnRhcmdldDsKIAlzdHJ1Y3Qgc25kX3BjbV9ydW50aW1l
+ICpydW50aW1lID0gcnNuZF9pb190b19ydW50aW1lKGlvKTsKQEAgLTQxMywxMSArNDIzLDE4IEBA
+IHUzMiByc25kX2dldF9kYWxpZ24oc3RydWN0IHJzbmRfbW9kICptb2QsIHN0cnVjdCByc25kX2Rh
+aV9zdHJlYW0gKmlvKQogCiAJLyogTm9uIHRhcmdldCBtb2Qgb3Igbm9uIDE2Yml0IG5lZWRzIG5v
+cm1hbCBEQUxJR04gKi8KIAlpZiAoKHNuZF9wY21fZm9ybWF0X3dpZHRoKHJ1bnRpbWUtPmZvcm1h
+dCkgIT0gMTYpIHx8Ci0JICAgIChtb2QgIT0gdGFyZ2V0KSkKLQkJcmV0dXJuIDB4NzY1NDMyMTA7
+CisJICAgIChtb2QgIT0gdGFyZ2V0KSkgeworCQlpZiAobW9kID09IHNzaXUpCisJCQlyZXR1cm4g
+ZGFsaWduX3ZhbHVlc1tyc25kX21vZF9pZF9zdWIobW9kKV1bMF07CisJCWVsc2UKKwkJCXJldHVy
+biAweDc2NTQzMjEwOwogCS8qIFRhcmdldCBtb2QgbmVlZHMgaW52ZXJ0ZWQgREFMSUdOIHdoZW4g
+MTZiaXQgKi8KLQllbHNlCi0JCXJldHVybiAweDY3NDUyMzAxOworCX0gZWxzZSB7CisJCWlmICht
+b2QgPT0gc3NpdSkKKwkJCXJldHVybiBkYWxpZ25fdmFsdWVzW3JzbmRfbW9kX2lkX3N1Yihtb2Qp
+XVsxXTsKKwkJZWxzZQorCQkJcmV0dXJuIDB4Njc0NTIzMDE7CisJfQogfQogCiB1MzIgcnNuZF9n
+ZXRfYnVzaWZfc2hpZnQoc3RydWN0IHJzbmRfZGFpX3N0cmVhbSAqaW8sIHN0cnVjdCByc25kX21v
+ZCAqbW9kKQotLSAKMi4yNC4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVj
+dC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9h
+bHNhLWRldmVsCg==

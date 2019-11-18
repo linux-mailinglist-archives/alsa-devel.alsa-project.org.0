@@ -2,58 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1671100C68
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 20:51:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1549C100C6F
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 20:57:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6DF00168D;
-	Mon, 18 Nov 2019 20:50:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6DF00168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93472168C;
+	Mon, 18 Nov 2019 20:56:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93472168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574106680;
-	bh=LJ26NpVmlcSs2Wgq68yn57Be1XIxgoNzXz9hEoUBU6I=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574107043;
+	bh=AmcR0OEnpUntJKnWYAtE5pdGoviKAFKc+aD/GSnXcDU=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VrsKtsQnVpmzoteU631gidrihHK6q7srp1wosy6n6+4hZV/Y5tMpTumFhbVQ6xB0M
-	 LAiVYwz/oHnx02BD5kcajdT4fgwY9sWRPwMmZurRufL0uNpiPPRgC7s3jbCERcsyHa
-	 +PM3pugh+XB0GVq/HRqobeD2/kh+xdWf++DvA32M=
+	b=A7vV6NP1SFPjB/LI9eUBxdrcl+Lrfp0tjG23HvHBfPG5gx/ROyQ/sSOKv/LatNACc
+	 7iIyptDvtR+uTdqVJdyr4tNFYS3oXQyzHo6S0sDJsqPic/EmQdfBinRd60BqTWzOqu
+	 pTPCsuUWmNiUMQGNAuYNn7TmEIPyHH7AfGJPnswU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5CD6F8013B;
-	Mon, 18 Nov 2019 20:49:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B969F8013C;
+	Mon, 18 Nov 2019 20:55:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB03AF8013B; Mon, 18 Nov 2019 20:49:33 +0100 (CET)
+ id 29D0DF8013B; Mon, 18 Nov 2019 20:55:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
+ [IPv6:2607:f8b0:4864:20::144])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 509A1F800F6
- for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 20:49:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 509A1F800F6
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 0CFF4AF95;
- Mon, 18 Nov 2019 19:49:30 +0000 (UTC)
-Date: Mon, 18 Nov 2019 20:49:29 +0100
-Message-ID: <s5hpnhpyng6.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-In-Reply-To: <CAFQqKeWgqHwrCSSbLrkuCHkBww2g4dsBcF93SDN_ZK_-KSe5tg@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03BFEF800F6
+ for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 20:55:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03BFEF800F6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="nC02nqXN"
+Received: by mail-il1-x144.google.com with SMTP id u17so17192352ilq.5
+ for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 11:55:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RFrhqVogoYJP6CGXmHBk7GxTvRtEu48GFu1M+QGTaCY=;
+ b=nC02nqXNIb0TCXpz2I2YSkIKvA4YuJXz1Q0tOrwqF9mwTWrxJHryZ5GdQCArtrw0NO
+ Yqp+Q4ZrNp3Bz7dD1S7LuF5twMIVrNENfVPWryyU29sy1w3hjK3IaDTSOndTWp4TGL/+
+ y7xNEAHWXVHgQlaoAvi1vqGhINCP5Z2wIllFQv9O44nZ6Hmk+LwK3KwbrgKDtyG8n+w6
+ jWcDK8EhY+qHAqM1cCOQrw9IE4HwcOvjwnK92vpziQEE5mSmuENZVVA9Z7M7nIrRGChf
+ YJqRfaQI2/qad8Dhin3urRimzILUDlBlzrtFgtW+N4P+wVHizhYL2xgitD+VfnKICks5
+ 7SdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RFrhqVogoYJP6CGXmHBk7GxTvRtEu48GFu1M+QGTaCY=;
+ b=BoSpRK5ED2A7xb1YRrWSxT4VgPVMvtII1RZPmdU8eHzCxR4aympTWCURmD/wwrOj+E
+ zWmppkpcgziPsSO43W1+thqgySMfkrGAX0bqEyLZ0ucVxoWKKQmjZqL8bqHfBTJnhsfi
+ ofopSZUd28bNj9RWmuxNUoj4qJfQL1jKkwd+ctQyD9VShD0HxoJIqG7+dMVp6W8U/d3V
+ zLAIo5kSXtYtQAX8oswLiFmNLlwXha7dh3YgE2Nw+tKDAPHmA/I0E2w9iX9r05wLx+Bs
+ 15Y5cAQSK8gLTcLcXyB9iuJxxVytSGzcUwz4Nv1eRD4RIYu/KTX04CvWfn93ey6Z6wyS
+ z9kA==
+X-Gm-Message-State: APjAAAUqi61HZuuLnz8iQe9gctNz5GhnHBaiEGCtN6uDBPS6jptpYBPo
+ qOSpoSLz2WE5wIatNNE6JCAmNw0FPlNQCrEJpHwpvg==
+X-Google-Smtp-Source: APXvYqx/Xt9zeZwgX7gGCkIMwkvyPwYkWXSsK0JmoAevSpkslJCUVkCHQWj5v1Ab7+m1EPF1FGuYZorx0ZjRNzhiv6g=
+X-Received: by 2002:a92:8108:: with SMTP id e8mr17423199ild.209.1574106930641; 
+ Mon, 18 Nov 2019 11:55:30 -0800 (PST)
+MIME-Version: 1.0
 References: <20191117085308.23915-1-tiwai@suse.de>
  <20191117085308.23915-8-tiwai@suse.de>
  <3b407a02-b791-52a4-2335-e21d8ab732dd@linux.intel.com>
  <s5hy2wdyq3t.wl-tiwai@suse.de>
  <CAFQqKeWgqHwrCSSbLrkuCHkBww2g4dsBcF93SDN_ZK_-KSe5tg@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+ <s5hpnhpyng6.wl-tiwai@suse.de>
+In-Reply-To: <s5hpnhpyng6.wl-tiwai@suse.de>
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Mon, 18 Nov 2019 11:55:19 -0800
+Message-ID: <CAFQqKeWPgPWpDgZUPvOqSFUY2Zq=8zW-=LhYimtg0S0Hqpc43A@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
@@ -70,52 +97,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gTW9uLCAxOCBOb3YgMjAxOSAyMDoyMDo0MSArMDEwMCwKU3JpZGhhcmFuLCBSYW5qYW5pIHdy
-b3RlOgo+IAo+IE9uIE1vbiwgTm92IDE4LCAyMDE5IGF0IDEwOjU0IEFNIFRha2FzaGkgSXdhaSA8
-dGl3YWlAc3VzZS5kZT4gd3JvdGU6Cj4gCj4gICAgIE9uIE1vbiwgMTggTm92IDIwMTkgMTc6Mzg6
-NDkgKzAxMDAsCj4gICAgIFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IHdyb3RlOgo+ICAgICA+Cj4gICAg
-ID4KPiAgICAgPgo+ICAgICA+IE9uIDExLzE3LzE5IDI6NTMgQU0sIFRha2FzaGkgSXdhaSB3cm90
-ZToKPiAgICAgPiA+IE1hbnkgUENJIGFuZCBvdGhlciBkcml2ZXJzIHBlcmZvcm1zIHNuZF9wY21f
-cGVyaW9kX2VsYXBzZWQoKSBzaW1wbHkgaW4KPiAgICAgPiA+IGl0cyBpbnRlcnJ1cHQgaGFuZGxl
-ciwgc28gdGhlIHN5bmNfc3RvcCBvcGVyYXRpb24gaXMganVzdCB0byBjYWxsCj4gICAgID4gPiBz
-eW5jaHJvbml6ZV9pcnEoKS7CoCBJbnN0ZWFkIG9mIHB1dHRpbmcgdGhpcyBjYWxsIG11bHRpcGxl
-IHRpbWVzLAo+ICAgICA+ID4gaW50cm9kdWNlIHRoZSBjb21tb24gY2FyZC0+c3luY19pcnEgZmll
-bGQuwqAgV2hlbiB0aGlzIGZpZWxkIGlzIHNldCwKPiAgICAgPiA+IFBDTSBjb3JlIHBlcmZvcm1z
-IHN5bmNocm9uaXplX2lycSgpIGZvciBzeW5jLXN0b3Agb3BlcmF0aW9uLsKgIEVhY2gKPiAgICAg
-PiA+IGRyaXZlciBqdXN0IG5lZWRzIHRvIGNvcHkgaXRzIGxvY2FsIElSUSBudW1iZXIgdG8gY2Fy
-ZC0+c3luY19pcnEsIGFuZAo+ICAgICA+ID4gdGhhdCdzIGFsbCB3ZSBuZWVkLgo+ICAgICA+Cj4g
-ICAgID4gTWF5YmUgYSByZWQtaGVycmluZyBvciBjb21wbGV0ZSBub24tc2Vuc2UsIGJ1dCBJIHdv
-bmRlciBpZiB0aGlzIGlzCj4gICAgID4gZ29pbmcgdG8gZ2V0IGluIHRoZSB3YXkgb2YgUmFuamFu
-aSdzIG11bHRpLWNsaWVudCB3b3JrLCB3aGVyZSB3ZSBjb3VsZAo+ICAgICA+IGhhdmUgbXVsdGlw
-bGUgY2FyZHMgY3JlYXRlZCBidXQgd2l0aCBhIHNpbmdsZSBJUlEgaGFuZGxlZCBieSB0aGUKPiAg
-ICAgPiBwYXJlbnQgUENJIGRldmljZT8KPiAgICAgPgo+ICAgICA+IFJhbmphbmksIHlvdSBtYXkg
-d2FudCB0byBkb3VibGUtY2hlY2sgdGhpcyBhbmQgY2hpbWUgaW4sIHRoYW5rcyEKPiAgICAKPiAg
-ICAgVGhlIHN5bmNocm9uaXplX2lycSgpIGlzIGZhaXJseSBzYWZlIHRvIGNhbGwgbXVsdGlwbGUg
-dGltZXMsIGFuZCBJCj4gICAgIGRvbid0IHRoaW5rIGFueSBwcm9ibGVtIGJ5IGludm9raW5nIGl0
-IGZvciBtdWx0aS1jbGllbnRzIHNoYXJpbmcgdGhlCj4gICAgIHNhbWUgSVJRLsKgIEZvciBleGFt
-cGxlLCBEaWdpZ3JhbSBtaVhhcnQgZHJpdmVyIGNyZWF0ZXMgbXVsdGlwbGUgY2FyZAo+ICAgICBv
-YmplY3RzIGZyb20gYSBzaW5nbGUgUENJIGVudHJ5LCBhbmQgSSBhbHJlYWR5IHRob3VnaHQgb2Yg
-dGhhdAo+ICAgICBwb3NzaWJpbGl0eTsgdGhleSBzZXQgdGhlIHNhbWUgY2FyZC0+c3luY19pcnEg
-dmFsdWUgdG8gYWxsIGNhcmQKPiAgICAgb2JqZWN0cywgd2hpY2ggZXZlbnR1YWxseSB3aWxsIGNh
-bGwgc3luY2hyb25pemVfaXJxKCkgbXVsdGlwbGUgdGltZXMuCj4gICAgIMKgRnJvbSB0aGUgcGVy
-Zm9ybWFuY2UgUE9WLCB0aGlzIHNob3VsZG4ndCBiZSBhIGJpZyBwcm9ibGVtLCBiZWNhdXNlCj4g
-ICAgIHRoZSBwbGFjZSBjYWxsaW5nIHRoaXMgaXMgb25seSBhdCBod19wYXJhbXMsIHByZXBhcmUg
-YW5kIGh3X2ZyZWUsCj4gICAgIG5laXRoZXIgYXJlIGhvdC1wYXRoLgo+IAo+IFRoYW5rcyBmb3Ig
-dGhlIGNsYXJpZmljYXRpb24sIFRha2FzaGkuIEJ1dCBqdXN0IHdvbmRlcmluZyBob3cgd291bGQg
-b25lIHBhc3MKPiBvbiB0aGUgc3luY19pcnEgd2hlbiB0aGUgc25kX2NhcmQgaXMgY3JlYXRlZD8g
-VHlwaWNhbGx5IGluIHRoZSBjYXNlIG9mIHRoZQo+IEludGVsIHBsYXRmb3JtcywgdGhlIGNhcmQt
-PmRldiBwb2ludHMgdG8gdGhlIHBsYXRmb3JtIGRldmljZSBmb3IgdGhlIG1hY2hpbmUKPiBkcml2
-ZXIgdGhhdCByZWdpc3RlcnMgdGhlIGNhcmQgYW5kIHRoZSBQQ0kgZGV2aWNlIGlzIHRoZSBwYXJl
-bnQgb2YgdGhlIG1hY2hpbmUKPiBkcnYgcGxhdGZvcm0gZGV2aWNlLsKgCgpJdCdzIGNvbXBsZXRl
-bHkgdXAgdG8gdGhlIGRyaXZlciBpbXBsZW1lbnRhdGlvbiA6KQpZb3UgY2FuIGltcGxlbWVudCB0
-aGUgb3duIHN5bmNfc3RvcCBvcHMgaWYgdGhhdCdzIGVhc2llciwgdG9vLgoKSW4gZ2VuZXJhbCwg
-dGhlIGRyaXZlciBjYW4gc2V0IHVwIGNhcmQtPnN5bmNfaXJxIHdoZW4gdGhlCnJlcXVlc3RfaXJx
-KCkgb3IgaXRzIHZhcmlhbnQgaXMgY2FsbGVkLgoKClRha2FzaGkKX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxz
-YS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3Jn
-L21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+>
+> >
+> > Thanks for the clarification, Takashi. But just wondering how would one
+> pass
+> > on the sync_irq when the snd_card is created? Typically in the case of
+> the
+> > Intel platforms, the card->dev points to the platform device for the
+> machine
+> > driver that registers the card and the PCI device is the parent of the
+> machine
+> > drv platform device.
+>
+> It's completely up to the driver implementation :)
+> You can implement the own sync_stop ops if that's easier, too.
+>
+I think this would make sense in the case of the SOF driver and we'd
+probably need to just call synchronize_irq() in the sync_stop() operation.
+With this change, we can probably remove the workaround we have to address
+the issue we were facing during snd_pcm_period_elapsed().
+
+I can give this a try. We might need to run some stress tests to make sure
+it doesn't break anything.
+
+Thanks,
+Ranjani
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

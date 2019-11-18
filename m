@@ -2,56 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D86D7100611
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 14:03:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E485C100614
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 14:03:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB881168F;
-	Mon, 18 Nov 2019 14:02:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB881168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 59F1F1673;
+	Mon, 18 Nov 2019 14:03:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59F1F1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574082191;
-	bh=pJce/1xSNxIoAhU3XlyHWkFcBHbzu0Nz8+q/TuJz7Mw=;
+	s=default; t=1574082236;
+	bh=6rsT8FivKFfbVG7INtvknFqlw98g9Jop10ZHhwa4NNY=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=HSjL8BB6MfffkBp+5FvUvUwiMkG+4b73hwwaovbg1tAerdCps+LpcTPs6lE/sSCJZ
-	 MVuKq4jM8zwTpnQvkeCiV1GN9aTwduX3ufKt0D3/RKhrvPXKaYQ+Sj4TOSsRt/wf4+
-	 ScYZiu6WeFAn2yTQnG3/BaKNbROWrb4p9osSreRc=
+	b=qwrXaskVZBNaaHhGxh+10GHwAmh3dIsy1XYe8yjo2gSAhfziMZ0vLYCGP5q7j1XyR
+	 L7jiOWiXKTPTAd50A5dRjbntvjImjEWhrekxVb/tp0cEVCSvZV1tGBN09kJvJvrY01
+	 8HAzwpQNRVlm2nYtGhRucBRTD3oRvsZgyM1g/YaA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03737F800F1;
-	Mon, 18 Nov 2019 14:00:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7827AF8014C;
+	Mon, 18 Nov 2019 14:00:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 957EBF800F1; Mon, 18 Nov 2019 14:00:38 +0100 (CET)
+ id C5814F80141; Mon, 18 Nov 2019 14:00:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- MISSING_MID, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ MISSING_MID, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 3D632F800F1
- for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 14:00:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D632F800F1
+ by alsa1.perex.cz (Postfix) with ESMTP id 910C7F80100
+ for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 14:00:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 910C7F80100
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B0C7BDA7;
- Mon, 18 Nov 2019 05:00:34 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 80C03FC2;
+ Mon, 18 Nov 2019 05:00:37 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2285F3F6C4;
- Mon, 18 Nov 2019 05:00:33 -0800 (PST)
-Date: Mon, 18 Nov 2019 13:00:32 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E35C23F6C4;
+ Mon, 18 Nov 2019 05:00:36 -0800 (PST)
+Date: Mon, 18 Nov 2019 13:00:35 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Chuhong Yuan <hslester96@gmail.com>
-In-Reply-To: <20191118073633.28237-1-hslester96@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+In-Reply-To: <20191115102705.649976-4-vkoul@kernel.org>
 X-Patchwork-Hint: ignore
-Message-Id: <20191118130038.957EBF800F1@alsa1.perex.cz>
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+Message-Id: <20191118130041.C5814F80141@alsa1.perex.cz>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- "Cc:"@alsa-project.org
-Subject: [alsa-devel] Applied "ASoC: wm2200: add missed operations in remove
-	and probe failure" to the asoc tree
+ Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] Applied "ASoC: qcom: q6asm-dai: add support to flac
+	decoder" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,7 +75,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: wm2200: add missed operations in remove and probe failure
+   ASoC: qcom: q6asm-dai: add support to flac decoder
 
 has been applied to the asoc tree at
 
@@ -97,49 +100,83 @@ to this mail.
 Thanks,
 Mark
 
-From 51af759a930c18d2ee450772e01c614564772b2a Mon Sep 17 00:00:00 2001
-From: Chuhong Yuan <hslester96@gmail.com>
-Date: Mon, 18 Nov 2019 15:36:33 +0800
-Subject: [PATCH] ASoC: wm2200: add missed operations in remove and probe
- failure
+From 69efab0fc638704e100c3dfb29eac971a4c1cc29 Mon Sep 17 00:00:00 2001
+From: Vinod Koul <vkoul@kernel.org>
+Date: Fri, 15 Nov 2019 15:57:05 +0530
+Subject: [PATCH] ASoC: qcom: q6asm-dai: add support to flac decoder
 
-This driver misses calls to pm_runtime_disable and regulator_bulk_disable
-in remove and a call to free_irq in probe failure.
-Add the calls to fix it.
+Qualcomm DSPs also support the flac decoder, so add support for FLAC
+decoder and convert the snd_dec_flac params to qdsp format.
 
-Signed-off-by: Chuhong Yuan <hslester96@gmail.com>
-Link: https://lore.kernel.org/r/20191118073633.28237-1-hslester96@gmail.com
+Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Link: https://lore.kernel.org/r/20191115102705.649976-4-vkoul@kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/wm2200.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 35 +++++++++++++++++++++++++++++++-
+ 1 file changed, 34 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm2200.c b/sound/soc/codecs/wm2200.c
-index cf64e109c658..7b087d94141b 100644
---- a/sound/soc/codecs/wm2200.c
-+++ b/sound/soc/codecs/wm2200.c
-@@ -2410,6 +2410,8 @@ static int wm2200_i2c_probe(struct i2c_client *i2c,
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index f59353f510b8..8150c10f081e 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -626,8 +626,14 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
+ 	struct snd_soc_component *c = snd_soc_rtdcom_lookup(rtd, DRV_NAME);
+ 	int dir = stream->direction;
+ 	struct q6asm_dai_data *pdata;
++	struct q6asm_flac_cfg flac_cfg;
+ 	struct device *dev = c->dev;
+ 	int ret;
++	union snd_codec_options *codec_options;
++	struct snd_dec_flac *flac;
++
++	codec_options = &(prtd->codec_param.codec.options);
++
  
- err_pm_runtime:
- 	pm_runtime_disable(&i2c->dev);
-+	if (i2c->irq)
-+		free_irq(i2c->irq, wm2200);
- err_reset:
- 	if (wm2200->pdata.reset)
- 		gpio_set_value_cansleep(wm2200->pdata.reset, 0);
-@@ -2426,12 +2428,15 @@ static int wm2200_i2c_remove(struct i2c_client *i2c)
- {
- 	struct wm2200_priv *wm2200 = i2c_get_clientdata(i2c);
+ 	memcpy(&prtd->codec_param, params, sizeof(*params));
  
-+	pm_runtime_disable(&i2c->dev);
- 	if (i2c->irq)
- 		free_irq(i2c->irq, wm2200);
- 	if (wm2200->pdata.reset)
- 		gpio_set_value_cansleep(wm2200->pdata.reset, 0);
- 	if (wm2200->pdata.ldo_ena)
- 		gpio_set_value_cansleep(wm2200->pdata.ldo_ena, 0);
-+	regulator_bulk_disable(ARRAY_SIZE(wm2200->core_supplies),
-+			       wm2200->core_supplies);
+@@ -664,6 +670,32 @@ static int q6asm_dai_compr_set_params(struct snd_compr_stream *stream,
+ 		return ret;
+ 	}
+ 
++	switch (params->codec.id) {
++	case SND_AUDIOCODEC_FLAC:
++
++		memset(&flac_cfg, 0x0, sizeof(struct q6asm_flac_cfg));
++		flac = &codec_options->flac_d;
++
++		flac_cfg.ch_cfg = params->codec.ch_in;
++		flac_cfg.sample_rate =  params->codec.sample_rate;
++		flac_cfg.stream_info_present = 1;
++		flac_cfg.sample_size = flac->sample_size;
++		flac_cfg.min_blk_size = flac->min_blk_size;
++		flac_cfg.max_blk_size = flac->max_blk_size;
++		flac_cfg.max_frame_size = flac->max_frame_size;
++		flac_cfg.min_frame_size = flac->min_frame_size;
++
++		ret = q6asm_stream_media_format_block_flac(prtd->audio_client,
++							   &flac_cfg);
++		if (ret < 0) {
++			dev_err(dev, "FLAC CMD Format block failed:%d\n", ret);
++			return -EIO;
++		}
++		break;
++	default:
++		break;
++	}
++
+ 	ret = q6asm_map_memory_regions(dir, prtd->audio_client, prtd->phys,
+ 				       (prtd->pcm_size / prtd->periods),
+ 				       prtd->periods);
+@@ -759,8 +791,9 @@ static int q6asm_dai_compr_get_caps(struct snd_compr_stream *stream,
+ 	caps->max_fragment_size = COMPR_PLAYBACK_MAX_FRAGMENT_SIZE;
+ 	caps->min_fragments = COMPR_PLAYBACK_MIN_NUM_FRAGMENTS;
+ 	caps->max_fragments = COMPR_PLAYBACK_MAX_NUM_FRAGMENTS;
+-	caps->num_codecs = 1;
++	caps->num_codecs = 2;
+ 	caps->codecs[0] = SND_AUDIOCODEC_MP3;
++	caps->codecs[1] = SND_AUDIOCODEC_FLAC;
  
  	return 0;
  }

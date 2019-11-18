@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 040E3100626
-	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 14:06:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07D1C100623
+	for <lists+alsa-devel@lfdr.de>; Mon, 18 Nov 2019 14:05:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8D8EF168D;
-	Mon, 18 Nov 2019 14:05:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D8EF168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A44821679;
+	Mon, 18 Nov 2019 14:04:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A44821679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574082394;
-	bh=74fXnaW1/ZR7DJEzckC7R/gn2wO4IiNp7pEqbRvWuIQ=;
+	s=default; t=1574082347;
+	bh=8xK2c+I53yfIn6Q6fOPs8+cAgbnhUIBEIs0aS8Q7z4U=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=hTzU/LU0z9BJNKks4vXn1fZvTMRjBbh8itLd20VzOGmkYZPpNkkNuTjFuU2zYq2c6
-	 noN8IANrtcOYvyqJQzwOBavKy03Z7BfT/rUR6CGIXVpRd94C+cyMN4WL5mr+BanQCo
-	 TsPi5ZcGNlGuHiXA+yaPAH69g/oYO+KMr6eJRRhA=
+	b=Npp3Md47b0+1mDDF5FzzJvKLkPiaR+Dn3YeL7iqpTateuXSvl6zJxMYfvQSjtPz8B
+	 FiHxgr2H8jyQz8WIAoDAEqRXmEA1MB9pofNMFicdEDmSSPeEE/+E4EGel2Mt+nqq59
+	 ktlyJ79B6ILIg4pR9WGhWRwem+9Yrbf3uQ3tFht0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F953F801F9;
-	Mon, 18 Nov 2019 14:00:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25902F801F2;
+	Mon, 18 Nov 2019 14:00:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F1D36F801EC; Mon, 18 Nov 2019 14:00:52 +0100 (CET)
+ id 6F155F801ED; Mon, 18 Nov 2019 14:00:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.4 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  MISSING_MID, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D59AEF8014E
- for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 14:00:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D59AEF8014E
+ by alsa1.perex.cz (Postfix) with ESMTP id 874DCF801DA
+ for <alsa-devel@alsa-project.org>; Mon, 18 Nov 2019 14:00:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 874DCF801DA
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E445B1045;
- Mon, 18 Nov 2019 05:00:45 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B162A113E;
+ Mon, 18 Nov 2019 05:00:48 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 548BE3F6C4;
- Mon, 18 Nov 2019 05:00:45 -0800 (PST)
-Date: Mon, 18 Nov 2019 13:00:43 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1F0403F6C4;
+ Mon, 18 Nov 2019 05:00:47 -0800 (PST)
+Date: Mon, 18 Nov 2019 13:00:46 +0000
 From: Mark Brown <broonie@kernel.org>
-To: kbuild test robot <lkp@intel.com>
-In-Reply-To: <20191114153304.n4pyix7qadu76tx4@4978f4969bb8>
+To: Shuming Fan <shumingf@realtek.com>
+In-Reply-To: <20191118091624.18699-1-shumingf@realtek.com>
 X-Patchwork-Hint: ignore
-Message-Id: <20191118130052.F1D36F801EC@alsa1.perex.cz>
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- kbuild-all@lists.01.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ben Zhang <benzh@chromium.org>, Mark Brown <broonie@kernel.org>,
- Bard Liao <bardliao@realtek.com>, Curtis Malainey <cujomalainey@chromium.org>
-Subject: [alsa-devel] Applied "ASoC: rt5677: rt5677_check_hotword() can be
-	static" to the asoc tree
+Message-Id: <20191118130052.6F155F801ED@alsa1.perex.cz>
+Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
+ lars@metafoo.de, lgirdwood@gmail.com, albertchen@realtek.com,
+ Mark Brown <broonie@kernel.org>, alexlee@realtek.com, derek.fang@realtek.com,
+ flove@realtek.com
+Subject: [alsa-devel] Applied "ASoC: rt5682: fix the charge pump capacitor
+	discharges" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,11 +72,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5677: rt5677_check_hotword() can be static
+   ASoC: rt5682: fix the charge pump capacitor discharges
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.4
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -98,32 +97,74 @@ to this mail.
 Thanks,
 Mark
 
-From a3b9ed55775eb18ca9f1641f13328f479a3653cb Mon Sep 17 00:00:00 2001
-From: kbuild test robot <lkp@intel.com>
-Date: Thu, 14 Nov 2019 23:33:04 +0800
-Subject: [PATCH] ASoC: rt5677: rt5677_check_hotword() can be static
+From 44d13f6c2a0b739a7c4df3c478c8070320c4fd45 Mon Sep 17 00:00:00 2001
+From: Shuming Fan <shumingf@realtek.com>
+Date: Mon, 18 Nov 2019 17:16:24 +0800
+Subject: [PATCH] ASoC: rt5682: fix the charge pump capacitor discharges
 
-Fixes: 21c00e5df439 ("ASoC: rt5677: Enable jack detect while DSP is running")
-Signed-off-by: kbuild test robot <lkp@intel.com>
-Link: https://lore.kernel.org/r/20191114153304.n4pyix7qadu76tx4@4978f4969bb8
+Due to switching the HV to LV mode while stopping playback,
+the charge pump capacitor will be discharged to the source of the pump circuit.
+Therefore, this patch removed the event control.
+
+Signed-off-by: Shuming Fan <shumingf@realtek.com>
+Link: https://lore.kernel.org/r/20191118091624.18699-1-shumingf@realtek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5677.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/rt5682.c | 27 +++------------------------
+ 1 file changed, 3 insertions(+), 24 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index f2f763b4c399..e9a051a50ab2 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -5307,7 +5307,7 @@ static const struct rt5677_irq_desc rt5677_irq_descs[] = {
- 	},
- };
+diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
+index 62b8ed412bd1..5370e4b00104 100644
+--- a/sound/soc/codecs/rt5682.c
++++ b/sound/soc/codecs/rt5682.c
+@@ -1451,28 +1451,6 @@ static const struct snd_kcontrol_new hpor_switch =
+ 	SOC_DAPM_SINGLE_AUTODISABLE("Switch", RT5682_HP_CTRL_1,
+ 					RT5682_R_MUTE_SFT, 1, 1);
  
--bool rt5677_check_hotword(struct rt5677_priv *rt5677)
-+static bool rt5677_check_hotword(struct rt5677_priv *rt5677)
+-static int rt5682_charge_pump_event(struct snd_soc_dapm_widget *w,
+-	struct snd_kcontrol *kcontrol, int event)
+-{
+-	struct snd_soc_component *component =
+-		snd_soc_dapm_to_component(w->dapm);
+-
+-	switch (event) {
+-	case SND_SOC_DAPM_PRE_PMU:
+-		snd_soc_component_update_bits(component,
+-			RT5682_HP_CHARGE_PUMP_1, RT5682_PM_HP_MASK, RT5682_PM_HP_HV);
+-		break;
+-	case SND_SOC_DAPM_POST_PMD:
+-		snd_soc_component_update_bits(component,
+-			RT5682_HP_CHARGE_PUMP_1, RT5682_PM_HP_MASK, RT5682_PM_HP_LV);
+-		break;
+-	default:
+-		return 0;
+-	}
+-
+-	return 0;
+-}
+-
+ static int rt5682_hp_event(struct snd_soc_dapm_widget *w,
+ 	struct snd_kcontrol *kcontrol, int event)
  {
- 	int reg_gpio;
+@@ -1756,8 +1734,7 @@ static const struct snd_soc_dapm_widget rt5682_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SUPPLY("HP Amp R", RT5682_PWR_ANLG_1,
+ 		RT5682_PWR_HA_R_BIT, 0, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY_S("Charge Pump", 1, RT5682_DEPOP_1,
+-		RT5682_PUMP_EN_SFT, 0, rt5682_charge_pump_event,
+-		SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++		RT5682_PUMP_EN_SFT, 0, NULL, 0),
+ 	SND_SOC_DAPM_SUPPLY_S("Capless", 2, RT5682_DEPOP_1,
+ 		RT5682_CAPLESS_EN_SFT, 0, NULL, 0),
  
+@@ -2655,6 +2632,8 @@ static int rt5682_i2c_probe(struct i2c_client *i2c,
+ 			RT5682_HPA_CP_BIAS_CTRL_MASK, RT5682_HPA_CP_BIAS_3UA);
+ 	regmap_update_bits(rt5682->regmap, RT5682_CHARGE_PUMP_1,
+ 			RT5682_CP_CLK_HP_MASK, RT5682_CP_CLK_HP_300KHZ);
++	regmap_update_bits(rt5682->regmap, RT5682_HP_CHARGE_PUMP_1,
++			RT5682_PM_HP_MASK, RT5682_PM_HP_HV);
+ 
+ 	INIT_DELAYED_WORK(&rt5682->jack_detect_work,
+ 				rt5682_jack_detect_handler);
 -- 
 2.20.1
 

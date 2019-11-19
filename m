@@ -2,68 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02AA7100F84
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 00:49:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0B2910105C
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 01:48:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85A901690;
-	Tue, 19 Nov 2019 00:48:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85A901690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09ACD1687;
+	Tue, 19 Nov 2019 01:47:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09ACD1687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574120988;
-	bh=ptV/+36m0INhzLyD5x4wIjP02UDYQWg0Xr08xkc+0IM=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574124488;
+	bh=1yHxeC/+a8kU25sTg+Z9ER8NqnB013lOeM6p09NDemc=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Nnd2cjJVcBMMe+DVYYIUT3KSZDfVDDp2StqMqptuSw45c77dti7US10e6O9vooYpB
-	 Qs8ARAxE6Rsu84cgdDnPsPAC68wIUB2ynR2ZUp52cso2/8/R1uzHufze7O9CwjLItP
-	 D5CzG98VmpnbAUdfZGyUiXifCzBz5G/5LFY017RU=
+	b=jpJqE/x2ud/eT1sIeuh9AscO74/FrnxxB+0gqXDcCgIXFnU8HFtY1nZTfmVnJwbOE
+	 QawooSWIUjG8rcmcuUnjyH6HG/yyr0DC6wsMyB0nuC7DQM0DugzG9Ezdy6LapvdMPs
+	 GiMSACQhPIo8C6/MooSLrkUbwEJ4mjbM2pF6VYwY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5DF9F8013C;
-	Tue, 19 Nov 2019 00:48:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44AF6F8013B;
+	Tue, 19 Nov 2019 01:46:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3E2CEF8013B; Tue, 19 Nov 2019 00:48:01 +0100 (CET)
+ id 293BEF8013B; Tue, 19 Nov 2019 01:46:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AAA25F800F6
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 00:47:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAA25F800F6
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2019 15:47:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,321,1569308400"; d="scan'208";a="200149738"
-Received: from mseibert-mobl1.amr.corp.intel.com ([10.251.134.253])
- by orsmga008.jf.intel.com with ESMTP; 18 Nov 2019 15:47:53 -0800
-Message-ID: <3fc820272992362a56881abf7230f1500fdfdd2a.camel@linux.intel.com>
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>, "Sridharan, Ranjani"
- <ranjani.sridharan@intel.com>
-Date: Mon, 18 Nov 2019 15:47:53 -0800
-In-Reply-To: <s5hmucszzni.wl-tiwai@suse.de>
-References: <20191117085308.23915-1-tiwai@suse.de>
- <20191117085308.23915-8-tiwai@suse.de>
- <3b407a02-b791-52a4-2335-e21d8ab732dd@linux.intel.com>
- <s5hy2wdyq3t.wl-tiwai@suse.de>
- <CAFQqKeWgqHwrCSSbLrkuCHkBww2g4dsBcF93SDN_ZK_-KSe5tg@mail.gmail.com>
- <s5hpnhpyng6.wl-tiwai@suse.de>
- <CAFQqKeWPgPWpDgZUPvOqSFUY2Zq=8zW-=LhYimtg0S0Hqpc43A@mail.gmail.com>
- <s5hmucszzni.wl-tiwai@suse.de>
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 7/8] ALSA: pcm: Add card sync_irq field
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 113FCF800F1
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 01:46:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 113FCF800F1
+Date: 19 Nov 2019 09:46:12 +0900
+X-IronPort-AV: E=Sophos;i="5.68,321,1569250800"; d="scan'208";a="32026178"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 19 Nov 2019 09:46:12 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id DC54F4001B60;
+ Tue, 19 Nov 2019 09:46:11 +0900 (JST)
+Message-ID: <8736ek7kx8.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Eugeniu Rosca <erosca@de.adit-jv.com>
+In-Reply-To: <20191118140126.23596-1-erosca@de.adit-jv.com>
+References: <20191118140126.23596-1-erosca@de.adit-jv.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: alsa-devel@alsa-project.org, Andrew Gabbasov <andrew_gabbasov@mentor.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jiada Wang <jiada_wang@mentor.com>,
+ Eugeniu Rosca <roscaeugeniu@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Nilkanth Ahirrao <anilkanth@jp.adit-jv.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>,
+ Hiroyuki Yokoyama <hiroyuki.yokoyama.vx@renesas.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: rsnd: fix DALIGN register for SSIU
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,60 +68,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso8859-7"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2019-11-18 at 21:40 +0100, Takashi Iwai wrote:
-> On Mon, 18 Nov 2019 20:55:19 +0100,
-> Sridharan, Ranjani wrote:
-> > 
-> >     > Thanks for the clarification, Takashi. But just wondering how
-> > would one
-> >     pass
-> >     > on the sync_irq when the snd_card is created? Typically in
-> > the case of
-> >     the
-> >     > Intel platforms, the card->dev points to the platform device
-> > for the
-> >     machine
-> >     > driver that registers the card and the PCI device is the
-> > parent of the
-> >     machine
-> >     > drv platform device. 
-> >    
-> >     It's completely up to the driver implementation :)
-> >     You can implement the own sync_stop ops if that's easier, too.
-> > 
-> > I think this would make sense in the case of the SOF driver and
-> > we'd probably
-> > need to just call synchronize_irq() in the sync_stop() operation.
-> > With this
-> > change, we can probably remove the workaround we have to address
-> > the issue we
-> > were facing during snd_pcm_period_elapsed(). 
-> > 
-> > I can give this a try. We might need to run some stress tests to
-> > make sure it
-> > doesn't break anything. 
-> 
-> If this helps for SOF, it'd be great.  I have converted only non-ASoC
-> drivers regarding the sync-stop stuff, so it won't conflict my
-> upcoming changes :)
-> 
-Hi Takashi,
-
-I just realized that In the SOF driver, we only set the component
-driver ops. The pcm ops are set when creating the new pcm. So, should I
-also add the sync_stop op in the component driver and set the pcm
-sync_stop op to point to the component sync_stop op? Just wanted to
-confirm if I am on the right track.
-
-Thanks,
-Ranjani
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+CkhpIEV1Z2VuaXUKClRoYW5rIHlvdSBmb3IgeW91ciBwYXRjaC4KCj4gRnJvbTogTmlsa2FudGgg
+QWhpcnJhbyA8YW5pbGthbnRoQGpwLmFkaXQtanYuY29tPgo+IAo+IFRoZSBjdXJyZW50IGRyaXZl
+ciBvbmx5IHNldHMgMHg3NjU0MzIxMCBhbmQgMHg2NzQ1MjMwMSBmb3IgREFMSUdOLgo+IFRoaXMg
+ZG9lc26idCB3b3JrIHdlbGwgZm9yIFRETSBzcGxpdCBhbmQgZXgtc3BsaXQgbW9kZSBmb3IgYWxs
+IFNTSVUuCj4gVGhpcyBwYXRjaCBwcm9ncmFtcyB0aGUgREFMSUdOIHJlZ2lzdGVycyBiYXNlZCBv
+biB0aGUgU1NJVSBudW1iZXIuCj4gCj4gQ2M6IEt1bmlub3JpIE1vcmltb3RvIDxrdW5pbm9yaS5t
+b3JpbW90by5neEByZW5lc2FzLmNvbT4KPiBDYzogSGlyb3l1a2kgWW9rb3lhbWEgPGhpcm95dWtp
+Lnlva295YW1hLnZ4QHJlbmVzYXMuY29tPgo+IENjOiBKaWFkYSBXYW5nIDxqaWFkYV93YW5nQG1l
+bnRvci5jb20+Cj4gQ2M6IEFuZHJldyBHYWJiYXNvdiA8YW5kcmV3X2dhYmJhc292QG1lbnRvci5j
+b20+Cj4gRml4ZXM6IGE5MTRlNDQ2OTNkNDFiICgiQVNvQzogcnNuZDogbW9yZSBjbGVhciByc25k
+X2dldF9kYWxpZ24oKSBmb3IgREFMSUdOIikKPiBTaWduZWQtb2ZmLWJ5OiBOaWxrYW50aCBBaGly
+cmFvIDxhbmlsa2FudGhAanAuYWRpdC1qdi5jb20+Cj4gW2Vyb3NjYTogQWRqdXN0IEZpeGVzOiB0
+YWcsIHJlZm9ybWF0IHBhdGNoIGRlc2NyaXB0aW9uXQo+IFNpZ25lZC1vZmYtYnk6IEV1Z2VuaXUg
+Um9zY2EgPGVyb3NjYUBkZS5hZGl0LWp2LmNvbT4KPiAtLS0KPiAgc291bmQvc29jL3NoL3JjYXIv
+Y29yZS5jIHwgMjUgKysrKysrKysrKysrKysrKysrKysrLS0tLQo+ICAxIGZpbGUgY2hhbmdlZCwg
+MjEgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0tZ2l0IGEvc291bmQv
+c29jL3NoL3JjYXIvY29yZS5jIGIvc291bmQvc29jL3NoL3JjYXIvY29yZS5jCj4gaW5kZXggZTk1
+OTZjMjA5NmNkLi5hZTA1ZWQwOGEyYjMgMTAwNjQ0Cj4gLS0tIGEvc291bmQvc29jL3NoL3JjYXIv
+Y29yZS5jCj4gKysrIGIvc291bmQvc29jL3NoL3JjYXIvY29yZS5jCj4gQEAgLTM3Niw2ICszNzYs
+MTYgQEAgdTMyIHJzbmRfZ2V0X2FkaW5yX2JpdChzdHJ1Y3QgcnNuZF9tb2QgKm1vZCwgc3RydWN0
+IHJzbmRfZGFpX3N0cmVhbSAqaW8pCj4gICAqLwo+ICB1MzIgcnNuZF9nZXRfZGFsaWduKHN0cnVj
+dCByc25kX21vZCAqbW9kLCBzdHJ1Y3QgcnNuZF9kYWlfc3RyZWFtICppbykKPiAgewo+ICsJc3Rh
+dGljIGNvbnN0IHUzMiBkYWxpZ25fdmFsdWVzWzhdWzJdID0gewo+ICsJCXsweDc2NTQzMjEwLCAw
+eDY3NDUyMzAxfSwKPiArCQl7MHgwMDAwMDAzMiwgMHgwMDAwMDAyM30sCj4gKwkJezB4MDAwMDc2
+NTQsIDB4MDAwMDY3NDV9LAo+ICsJCXsweDAwMDAwMDc2LCAweDAwMDAwMDY3fSwKPiArCQl7MHhm
+ZWRjYmE5OCwgMHhlZmNkYWI4OX0sCj4gKwkJezB4MDAwMDAwYmEsIDB4MDAwMDAwYWJ9LAo+ICsJ
+CXsweDAwMDBmZWRjLCAweDAwMDBlZmNkfSwKPiArCQl7MHgwMDAwMDBmZSwgMHgwMDAwMDBlZn0s
+Cj4gKwl9Owo+ICAJc3RydWN0IHJzbmRfbW9kICpzc2l1ID0gcnNuZF9pb190b19tb2Rfc3NpdShp
+byk7Cj4gIAlzdHJ1Y3QgcnNuZF9tb2QgKnRhcmdldDsKPiAgCXN0cnVjdCBzbmRfcGNtX3J1bnRp
+bWUgKnJ1bnRpbWUgPSByc25kX2lvX3RvX3J1bnRpbWUoaW8pOwo+IEBAIC00MTMsMTEgKzQyMywx
+OCBAQCB1MzIgcnNuZF9nZXRfZGFsaWduKHN0cnVjdCByc25kX21vZCAqbW9kLCBzdHJ1Y3QgcnNu
+ZF9kYWlfc3RyZWFtICppbykKPiAgCj4gIAkvKiBOb24gdGFyZ2V0IG1vZCBvciBub24gMTZiaXQg
+bmVlZHMgbm9ybWFsIERBTElHTiAqLwo+ICAJaWYgKChzbmRfcGNtX2Zvcm1hdF93aWR0aChydW50
+aW1lLT5mb3JtYXQpICE9IDE2KSB8fAo+IC0JICAgIChtb2QgIT0gdGFyZ2V0KSkKPiAtCQlyZXR1
+cm4gMHg3NjU0MzIxMDsKPiArCSAgICAobW9kICE9IHRhcmdldCkpIHsKPiArCQlpZiAobW9kID09
+IHNzaXUpCj4gKwkJCXJldHVybiBkYWxpZ25fdmFsdWVzW3JzbmRfbW9kX2lkX3N1Yihtb2QpXVsw
+XTsKPiArCQllbHNlCj4gKwkJCXJldHVybiAweDc2NTQzMjEwOwo+ICAJLyogVGFyZ2V0IG1vZCBu
+ZWVkcyBpbnZlcnRlZCBEQUxJR04gd2hlbiAxNmJpdCAqLwo+IC0JZWxzZQo+IC0JCXJldHVybiAw
+eDY3NDUyMzAxOwo+ICsJfSBlbHNlIHsKPiArCQlpZiAobW9kID09IHNzaXUpCj4gKwkJCXJldHVy
+biBkYWxpZ25fdmFsdWVzW3JzbmRfbW9kX2lkX3N1Yihtb2QpXVsxXTsKPiArCQllbHNlCj4gKwkJ
+CXJldHVybiAweDY3NDUyMzAxOwo+ICsJfQo+ICB9CgpCYXNpY2FsbHkgSSBoYXZlIG5vIG9iamVj
+dGlvbi4KQnV0IHdlIGNhbiByZXVzZSBkYWxpZ25fdmFsdWVzWzBdW3hdIHZhbHVlID8KCglpZCAg
+PSAwOwoJaWYgKChzbmRfcGNtX2Zvcm1hdF93aWR0aChydW50aW1lLT5mb3JtYXQpICE9IDE2KSB8
+fAoJICAgIChtb2QgIT0gdGFyZ2V0KSkgewoJCWludiA9IDA7CgkJaWYgKG1vZCA9PSBzc2l1KSkK
+CQkJaWQgPSByc25kX21vZF9pZF9zdWIobW9kKTsKCS8qIFRhcmdldCBtb2QgbmVlZHMgaW52ZXJ0
+ZWQgREFMSUdOIHdoZW4gMTZiaXQgKi8KCX0gZWxzZSB7CgkJaW52ID0gMTsKCQlpZiAobW9kID09
+IHNzaXUpCgkJCWlkID0gcnNuZF9tb2RfaWRfc3ViKG1vZCk7Cgl9CgoJcmV0dXJuIGRhbGlnbl92
+YWx1ZXNbaWRdW2ludl07CgpUaGFuayB5b3UgZm9yIHlvdXIgaGVscCAhIQpCZXN0IHJlZ2FyZHMK
+LS0tCkt1bmlub3JpIE1vcmltb3RvCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9q
+ZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2Fsc2EtZGV2ZWwK

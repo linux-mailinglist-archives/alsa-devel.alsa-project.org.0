@@ -2,76 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76A44102C7C
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 20:22:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABF37102C84
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 20:24:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFE581690;
-	Tue, 19 Nov 2019 20:21:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFE581690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44F3E1694;
+	Tue, 19 Nov 2019 20:24:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44F3E1694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574191354;
-	bh=h1C8OGhriMIGaUGmKxpVYkH3j7aJCn/NArVaXLXxOeQ=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
+	s=default; t=1574191490;
+	bh=OuDxn5xlnk8n1Ka2lryGUzqBH9J2UTB/aRFWfVFLP7s=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=f8jr50G6Qel+kTWttIrhfLEyNZIfJPDm0Q2nnaZIVcvk51yO69yizD5xs4t2ZNuZH
-	 t06cPfAzcyFytjykzmwsoqctqpnrCxuYSdFSfHskLmZPxNeL9x7ZEuPIvNRJNdeky1
-	 OTHY5pnfKABfcG9/vpY4W/WCqXovNsoOGRNuikbE=
+	b=sVbwjAAZA+koKbCDV4dpF31T7YUmIJoy+DTfg6kb41qbGkFvju1avAwwMYw3uXNMf
+	 +S3LK7A7hWESLu7prAsiYiZ0N3CmWZod8TQRfDRUND7ra3cCNOaAACPKjA8gwMLVMX
+	 Ps911P5kv9cvEusW3mJnmOyccdZAEJElTfctjNFA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 553F3F80145;
-	Tue, 19 Nov 2019 20:20:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8FECF80138;
+	Tue, 19 Nov 2019 20:23:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13CCCF80138; Tue, 19 Nov 2019 20:20:48 +0100 (CET)
+ id 5EE13F80138; Tue, 19 Nov 2019 20:23:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8717CF800F4
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 20:20:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8717CF800F4
-Received: from [192.168.178.21] ([95.116.123.164]) by mrelayeu.kundenserver.de
- (mreue106 [212.227.15.183]) with ESMTPSA (Nemesis) id
- 1MKt3r-1iGrmj1sAH-00LFly for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019
- 20:20:44 +0100
-To: alsa-devel@alsa-project.org
-References: <s5ho9nt3yu7.wl-tiwai@suse.de>
- <6ab06af6-71f3-1f24-5706-6537ce4f6f34@jensverwiebe.de>
- <s5h7e3vy9fz.wl-tiwai@suse.de>
-From: Jens Verwiebe <info@jensverwiebe.de>
-Message-ID: <8f278b1d-889d-be80-0507-f992b26ae8c8@jensverwiebe.de>
-Date: Tue, 19 Nov 2019 20:20:44 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id A531AF80135
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 20:23:00 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 7674AA0042;
+ Tue, 19 Nov 2019 20:23:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 7674AA0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1574191380; bh=n2Qos8wSJGH52jgki5Ix9arG/islahBl4AHxRTGAuV0=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=mBD6pswB9RH7Zn7l9jAb2PqPtWdrOzTv/adjhlMUi9pFaPlx0X9SirVDKxzCE3i+a
+ rOSAs728TNwVbEh+79dONbaEF8/EchAbEPzxPUKN2liQqAe/zkErD2N1qU8tli0bqK
+ BAENfsI9hIE9kVWMWE1+Z8R6Ya+Dxar7vkxMPRbs=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 19 Nov 2019 20:22:56 +0100 (CET)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <20191119174933.25526-1-perex@perex.cz>
+ <20191119174933.25526-2-perex@perex.cz>
+ <72dfc285-70e8-706d-3018-535bda1e8630@linux.intel.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <f2de9597-c9c2-7696-622b-a2bbc2c32bb7@perex.cz>
+Date: Tue, 19 Nov 2019 20:22:56 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
-In-Reply-To: <s5h7e3vy9fz.wl-tiwai@suse.de>
-Content-Language: de-DE
-X-Provags-ID: V03:K1:xcjowG17EkmPIuZtum60sbYpGtix5cXXYc9YvyeNcwwgQ7S/8AC
- /l0hV5Eb409wJJHz1zAcxGH0XUny1QmpIhNS5PTSyJZ1N7pVeqGb12l31fjCzAfhM93rS+X
- H4/ktEab+H07EjoAquKkeAcSsUSuF5CO4BYhlg+iNqm0bSJa43Iypo7rVniGFwSAfrC5eLW
- MLPyKlRyb1zBy/suTKMqQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:IdSQXAhHeR0=:ByOemQ9x2cyLsth5b/EaBF
- 8FBQlh+uGPdl+NXCfELW+c+WFtoSiCx4oF3tbfIlfM5XawsRomI68HmOS0Lnx9iM1oT7J/PNu
- X/7sjwh8YbZLWFi97cvL3OEGwx8CToEYzwbDzvDX4xFDXShO6GJP1UduN4LKo09GT31yDfb2K
- 3ujzU7byk0NsRnBA4eQEQMdTo1nBr3XAJ3TTu07x4ZAWhw5oo7mzZZkxfO+h9PZ1oxYW0oHqy
- A5rkzX30a2JpaSfzbTZpQRvlp5V4fSjnEFNjDqcoDLqYzxb6A8PA0pHFRdAnZublrd9QqReOV
- nhDrKym/A+p1qf9XFJo1eBeQcOxFDcUL63j7Pu0s07C2gNC4pi/KPBmQGYzjY2wJzA2i0fKXN
- QCerFoE1ZvIAZieTtzR/f+XyOMeQtSWjhjaMPsIBUtk9gMsH3CdG58KYS+BtpFDmcsGNQpDWm
- vb1UqMx8F0Dg+64JUhelhPNOJTq64SH1vkv3o9j3XmWUpWBmogmbSu+HDwAqppCdul4+NNCrc
- Es1dLWjqs7sJao1VH4xMvqm7yA+GayIRI3HClh75/PNgGSSMvtuvbJXhH4uX/sbnNLzRLHXaC
- OCn5e7kXyDXgqRWg+Ybb/7P8I4nVCUNhxEWG+I6snDRcB30STfPwBkhwPtZQbKlKW2awNhxJq
- +CY3KGz8P/8ogkoeZuHWvXa2bn8by6ZL4wJsq3xKooyyFWZDPZiJy4C0AQo2obMhxOxiSXBJ0
- LWmRg78oovXZLW3dnV0D+aOP89FrJuDub501h3Ak33ozmaaGLziZ2uneP/XE8mpih7olSKrMo
- n/oYUH5u+SUPjp8p3mWYjWhfI5ssBVWBnVZmxCTYOlwPx4X50SkbfHuHmMQ81ueMvwi7TBUVh
- cPICRM0kff0oCfuH6gx7xpTXe3d1tXfmQxGk40kNc=
-Subject: Re: [alsa-devel] Focusrite Scarlett 6i6 gen1 - input handling fix,
- ping
+In-Reply-To: <72dfc285-70e8-706d-3018-535bda1e8630@linux.intel.com>
+Content-Language: en-US
+Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: Intel - use control components
+ to describe card config
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,32 +79,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SSByZWFsbHkgZHVubm8gd2hhdCB5b3UgbWVhbiBieSAibGFzdCBrZXJuZWwiLCBzdGFydGluZyBv
-dmVyIHdpdGggCnB1bGxpbmcgdGhlIGtlcm5lbCBzcmMgYWdhaW4sIGRpZmZpbmfCoCBldGMuID8K
-CllvdSBjYW4gc2ltcGx5IHVzZSB0aGUgcGF0Y2ggYXMgaXMsIGl0IGFwcGxpZWQgZmluZSBvbiBr
-ZXJuZWwgNS4zIGp1c3QgCmFuZCBpIGd1ZXNzIGl0IHdpbGwgb24gbWF0ZXIgdG9vLCBzaW5jZSBu
-b3RoaW5nIGNoYW5nZWQgaW4gCm1peGVyX3NjYXJsZXR0LmMgb3RoZXIgdGhhbiBodW5rcyBtb3Zl
-ZCBhcm91bmQuSSBkb24ndCBzZWUgYSByZWFzb24gd2h5IAp3ZSBzaG91bGQgbWFrZSBhbGwgc28g
-Y29tcGxpY2F0ZWQuIEkgZG9uJ3Qgd2FubmEgcHV0IG1vcmUgZWZmb3JkIGluIHRoaXMgCmFueW1v
-cmUsIHNvcnJ5LgoKQW0gMTkuMTEuMTkgdW0gMjA6MDQgc2NocmllYiBUYWthc2hpIEl3YWk6Cj4g
-T24gVHVlLCAxOSBOb3YgMjAxOSAxOTozMDo0NSArMDEwMCwKPiBKZW5zIFZlcndpZWJlIHdyb3Rl
-Ogo+PiBIaQo+Pgo+PiBJIHdvdWxkIGxpa2UgdG8gYnJpbmcgdXAgbXkgZm9yZ290dGVuIHBhdGNo
-IHVwIGEgbGFzdCB0aW1lIGhlcmUuCj4+Cj4+IFNlZToKPj4gaHR0cHM6Ly9tYWlsbWFuLmFsc2Et
-cHJvamVjdC5vcmcvcGlwZXJtYWlsL2Fsc2EtZGV2ZWwvMjAxNy1Ob3ZlbWJlci8xMjc5MDYuaHRt
-bAo+Pgo+PiBJIGR1bm5vIHdoYXQgZWxzZSB3b3VsZCBiZSBleHBlY3RlZCB0byB3cml0ZSBpbiB0
-aGVyZSwgaSB0aGluayB0aGUKPj4gdGV4dCBzYXlzIGl0IGFsbCA/Cj4+Cj4+IEkgaGF2ZSB0aGlz
-IGluIHVzZSBmb3IgMiB5ZWFycyBub3csIGJ1dCB0aGUgaW50ZXJmYWNlIHdpbGwgYmUgc29sZAo+
-PiBub3csIHNvIGxhc3QgY2hhbmNlIHRvIHRlc3QgdGhlIGNvbW1pdAo+Pgo+PiBpZiBpdCBoYXBw
-ZW5zIGFueXdheSA7LSkKPj4KPj4gQ2hlZXJzIC4uLiBKZW5zCj4gQ291bGQgeW91IHNpbXBseSBy
-ZXN1Ym1pdCB0aGUgcGF0Y2ggZm9yIHRoZSBsYXRlc3Qga2VybmVsPwo+Cj4KPiB0aGFua3MsCj4K
-PiBUYWthc2hpCj4KLS0gCgpKZW5zIFZlcndpZWJlCkFsbGVyc2tlaHJlIDQ0IC0gMjIzMDkgSGFt
-YnVyZwoKVGVsLjogKzQ5IDQwIDY4IDc4IDUwCm1haWx0bzogaW5mb0BqZW5zdmVyd2llYmUuZGUK
-d2ViOiBodHRwczovL3d3dy5qZW5zdmVyd2llYmUuZGUKCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2
-ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+Dne 19. 11. 19 v 20:12 Pierre-Louis Bossart napsal(a):
+> 
+> 
+> On 11/19/19 11:49 AM, Jaroslav Kysela wrote:
+>> Use the control interface (field 'components' in the info structure)
+>> to pass the I/O configuration details. The long card name might
+>> be used in GUI. This information should be hidden.
+>>
+>> Signed-off-by: Jaroslav Kysela <perex@perex.cz>
+>> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> Cc: Mark Brown <broonie@kernel.org>
+>> ---
+>>    sound/soc/intel/Kconfig                |  9 +++++++++
+>>    sound/soc/intel/boards/bytcht_es8316.c | 16 ++++++++++++----
+>>    sound/soc/intel/boards/bytcr_rt5640.c  | 14 +++++++++++---
+>>    sound/soc/intel/boards/bytcr_rt5651.c  | 26 ++++++++++++++++----------
+>>    4 files changed, 48 insertions(+), 17 deletions(-)
+>>
+>> diff --git a/sound/soc/intel/Kconfig b/sound/soc/intel/Kconfig
+>> index c8de0bb5bed9..3421957adedb 100644
+>> --- a/sound/soc/intel/Kconfig
+>> +++ b/sound/soc/intel/Kconfig
+>> @@ -47,6 +47,15 @@ config SND_SOC_INTEL_SST_FIRMWARE
+>>    	# Haswell/Broadwell/Baytrail legacy and will be set
+>>    	# when these platforms are enabled
+>>    
+>> +config SND_SOC_INTEL_USE_CTL_COMPONENTS
+>> +	bool "Use CTL components for I/O configuration"
+>> +	help
+>> +	  Some drivers might pass the I/O configuration through the
+>> +	  soundcard's driver name in the control user space API.
+>> +	  The new scheme is to put this information to the components
+>> +	  field in the ALSA's card info structure. Say Y, if you
+>> +	  have ALSA user space version 1.2.2+.
+>> +
+> 
+> If this is at the board level, then maybe move this to
+> sound/soc/intel/boards/Kconfig
+> 
+> I am not sure about the alsa-lib dependency, it's a bit odd, isn't it?
+> shouldn't this be handled via protocol versions? or a configuration
+> provided by alsa-lib somehow?
+
+It's not about the protocol. It's about to move this type of information to 
+another place. I can remove the ALSA version sentence from the help, because 
+it's just a hint. I would like to create ucm2 configurations based on this 
+rather than the misused long card names.
+
+					Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

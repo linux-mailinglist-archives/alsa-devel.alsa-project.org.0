@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 12788101E80
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 09:49:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 488E8101E8B
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 09:50:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 86287168D;
-	Tue, 19 Nov 2019 09:48:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 86287168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D26CC1694;
+	Tue, 19 Nov 2019 09:49:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D26CC1694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574153364;
-	bh=QYbttdEvUYwCRgDQ/WhpCzhyqGzSI9vVTjTOWGNZn2U=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=qkTMGl5ukC7I3QkIdv3TDIOqFM7uzqY3eDeALHqNFquv39rNbVZYCLzjAHEtEjDtL
-	 s0/SgXgAO2WTWfI8WOzSofRzM0kdcb30antVZtk42HP6cjCcnTvSkoL6tKaechc+wc
-	 gtH2mS36zG6O8aFo1cQbv2FPp5jcjI5eEETQu23g=
+	s=default; t=1574153410;
+	bh=n/WtOnXq9zoWg6et7zK+bgYhYHqE/qkNjW2R8XgIQuM=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=d11zzaHzZCKAMlhJ8PEIKigRTcYOfnDVpDwVB6nOH9vcCfiBoU8TclDjrO1+2ShMK
+	 NUEcVPEhD/3uYu4jqr/EwHgXWHJKWEIm2sBeK/lvgD5o8D2jrf9rHV/nkwN3RvSTBi
+	 VcNidv1CDXGJJJ9V+wfCGw8KlB7CdU4Iz2H5sPkc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3E27F80145;
-	Tue, 19 Nov 2019 09:47:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0DF02F80146;
+	Tue, 19 Nov 2019 09:47:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B487F80119; Tue, 19 Nov 2019 09:47:38 +0100 (CET)
+ id 3D7ACF80147; Tue, 19 Nov 2019 09:47:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,47 +34,49 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4C277F80119
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 09:47:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C277F80119
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6A3EF80119
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 09:47:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6A3EF80119
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="RF8nSMrg"
+ header.b="BmFMSkpj"
 Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
  hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5dd3ac230000>; Tue, 19 Nov 2019 00:47:31 -0800
+ id <B5dd3ac270000>; Tue, 19 Nov 2019 00:47:35 -0800
 Received: from hqmail.nvidia.com ([172.20.161.6])
  by hqpgpgate101.nvidia.com (PGP Universal service);
- Tue, 19 Nov 2019 00:47:34 -0800
+ Tue, 19 Nov 2019 00:47:38 -0800
 X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Tue, 19 Nov 2019 00:47:34 -0800
+ by hqpgpgate101.nvidia.com on Tue, 19 Nov 2019 00:47:38 -0800
 Received: from nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com (172.20.187.13)
  with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 19 Nov 2019 08:47:32 +0000
+ Tue, 19 Nov 2019 08:47:36 +0000
 From: Nikhil Mahale <nmahale@nvidia.com>
 To: <tiwai@suse.com>
-Date: Tue, 19 Nov 2019 14:17:06 +0530
-Message-ID: <20191119084710.29267-1-nmahale@nvidia.com>
+Date: Tue, 19 Nov 2019 14:17:07 +0530
+Message-ID: <20191119084710.29267-2-nmahale@nvidia.com>
 X-Mailer: git-send-email 2.16.4
+In-Reply-To: <20191119084710.29267-1-nmahale@nvidia.com>
+References: <20191119084710.29267-1-nmahale@nvidia.com>
 X-NVConfidentiality: public
 MIME-Version: 1.0
 X-Originating-IP: [10.124.1.5]
 X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
  HQMAIL107.nvidia.com (172.20.187.13)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1574153251; bh=+STf9TDSGroZeS7G8aiugWDLqESTLZQ8r5/XGyPALfc=;
+ t=1574153255; bh=Ut1sS2kDd5HiDDgeTKhlpYi5pzsGfMp26reLAkEKJgs=;
  h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
- X-NVConfidentiality:MIME-Version:X-Originating-IP:
- X-ClientProxiedBy:Content-Type;
- b=RF8nSMrgfr+stJgaBfk7qHktv6pzpTmgA7TAtIbDqh9lzy5xUVI7JzOhmw9GEEfqU
- SiOeS7tmqQjK4a3ymMLpEd5HxwoDymijcv092+M7VN4hxuGBnN6aza2lEebFp6aqHS
- ZoLNwl4vRO5vaksyoVTIC/03OljNip3vzqXhwm6BO4MnE7x6tmadRrp4pfq6N2tqAa
- UjVlrhQx9HlAb6066LMSOKvxQg4EAhpZ8/CUDNcdTXqFpuN1L2fvT65pqvV5bpAPRV
- YZcm8D0lv6UXfW6DJCBd/CwN6crh1JuBgFW43Yh9LNDDHYthSkYKCSrhRQLbt5bkIn
- L9rX/3KO1iTJw==
+ In-Reply-To:References:X-NVConfidentiality:MIME-Version:
+ X-Originating-IP:X-ClientProxiedBy:Content-Type;
+ b=BmFMSkpjQ/W0+we9eGXUvISSQjaax+nzFv0JsxG6hCYu9TDLBj/CLOCACe1Y/8Pjm
+ RI3vnQGoklm9C+I56DBjDN44rsFxcwQSP2ZoKBUJMAx50bjonguLc+O457+gC+y08a
+ qDee6TYz3bGL28fYEKNyfdBtRWR5Z5WyOJ18Yv633K5XCvy5nkyjyuP+s2bPu4aZf4
+ jTtxlkjJ2wd4uNUrYVuZl4IR0sgKO3rTTAmUOmagvIMMyaFb6a4Swd0Me04icIiHb5
+ r6C8gSLKkJB9K8FCRWhPFUIqG0YpDnVQwnxHbL4OCAk4J4WYlUTHQU6SPO+LyIJd83
+ kE6eeNcf+hI7w==
 Cc: alsa-devel@alsa-project.org, nmahale@nvidia.com, aplattner@nvidia.com
-Subject: [alsa-devel] [PATCH v3 0/4] ALSA: hda - Add DP-MST support for
-	NVIDIA codecs
+Subject: [alsa-devel] [PATCH v3 1/4] ALSA: hda - Rename snd_hda_pin_sense to
+	snd_hda_jack_pin_sense
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,35 +94,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Today, DisplayPort multi-stream transport (DP-MST) audio is not
-supported on codec drivers which don't use the audio component
-(acomp) binding.
+s/snd_hda_pin_sense/snd_hda_jack_pin_sense/g
 
-The commit ade49db337a9 (ALSA: hda/hdmi - Allow audio component for
-AMD/ATI and Nvidia HDMI) added the DRM audio component binding for
-the NVIDIA codec drivers, but the traditional HD-audio unsolicited
-event code path is still in use by the proprietary NVIDIA graphics
-driver.
+This aligns the snd_hda_pin_sense function name with the names of
+other functions in hda_jack.h.
 
-This patch set adds DP-MST audio support for non-acomp codec drivers
-which use the traditional HD-audio unsolicited event code path. This
-patch set adds DP-MST support for NVIDIA codecs.
+Signed-off-by: Nikhil Mahale <nmahale@nvidia.com>
+Reviewed-by: Aaron Plattner <aplattner@nvidia.com>
+---
+ sound/pci/hda/hda_jack.c   | 8 ++++----
+ sound/pci/hda/hda_jack.h   | 2 +-
+ sound/pci/hda/patch_hdmi.c | 2 +-
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-The patch set has been tested for HDMI/DP-SST/DP-MST(4 dp-mst audio
-streams) configurations on NVIDIA Kepler and Maxwell GPUs, using
-both the nouveau driver and the proprietary NVIDIA graphics driver.
-
-Nikhil Mahale (4):
-  ALSA: hda - Rename snd_hda_pin_sense to snd_hda_jack_pin_sense
-  ALSA: hda - Add DP-MST jack support
-  ALSA: hda - Add DP-MST support for non-acomp codecs
-  ALSA: hda - Add DP-MST support for NVIDIA codecs
-
- sound/pci/hda/hda_jack.c   | 151 ++++++++++++++++++--------
- sound/pci/hda/hda_jack.h   | 107 ++++++++++++++++--
- sound/pci/hda/patch_hdmi.c | 263 +++++++++++++++++++++++++++++++--------------
- 3 files changed, 385 insertions(+), 136 deletions(-)
-
+diff --git a/sound/pci/hda/hda_jack.c b/sound/pci/hda/hda_jack.c
+index 1fb7b06457ae..1ea42447278f 100644
+--- a/sound/pci/hda/hda_jack.c
++++ b/sound/pci/hda/hda_jack.c
+@@ -191,14 +191,14 @@ void snd_hda_jack_set_dirty_all(struct hda_codec *codec)
+ EXPORT_SYMBOL_GPL(snd_hda_jack_set_dirty_all);
+ 
+ /**
+- * snd_hda_pin_sense - execute pin sense measurement
++ * snd_hda_jack_pin_sense - execute pin sense measurement
+  * @codec: the CODEC to sense
+  * @nid: the pin NID to sense
+  *
+  * Execute necessary pin sense measurement and return its Presence Detect,
+  * Impedance, ELD Valid etc. status bits.
+  */
+-u32 snd_hda_pin_sense(struct hda_codec *codec, hda_nid_t nid)
++u32 snd_hda_jack_pin_sense(struct hda_codec *codec, hda_nid_t nid)
+ {
+ 	struct hda_jack_tbl *jack = snd_hda_jack_tbl_get(codec, nid);
+ 	if (jack) {
+@@ -207,7 +207,7 @@ u32 snd_hda_pin_sense(struct hda_codec *codec, hda_nid_t nid)
+ 	}
+ 	return read_pin_sense(codec, nid);
+ }
+-EXPORT_SYMBOL_GPL(snd_hda_pin_sense);
++EXPORT_SYMBOL_GPL(snd_hda_jack_pin_sense);
+ 
+ /**
+  * snd_hda_jack_detect_state - query pin Presence Detect status
+@@ -222,7 +222,7 @@ int snd_hda_jack_detect_state(struct hda_codec *codec, hda_nid_t nid)
+ 	struct hda_jack_tbl *jack = snd_hda_jack_tbl_get(codec, nid);
+ 	if (jack && jack->phantom_jack)
+ 		return HDA_JACK_PHANTOM;
+-	else if (snd_hda_pin_sense(codec, nid) & AC_PINSENSE_PRESENCE)
++	else if (snd_hda_jack_pin_sense(codec, nid) & AC_PINSENSE_PRESENCE)
+ 		return HDA_JACK_PRESENT;
+ 	else
+ 		return HDA_JACK_NOT_PRESENT;
+diff --git a/sound/pci/hda/hda_jack.h b/sound/pci/hda/hda_jack.h
+index 22fe7ee43e82..cd9b47f51fab 100644
+--- a/sound/pci/hda/hda_jack.h
++++ b/sound/pci/hda/hda_jack.h
+@@ -65,7 +65,7 @@ snd_hda_jack_detect_enable_callback(struct hda_codec *codec, hda_nid_t nid,
+ int snd_hda_jack_set_gating_jack(struct hda_codec *codec, hda_nid_t gated_nid,
+ 				 hda_nid_t gating_nid);
+ 
+-u32 snd_hda_pin_sense(struct hda_codec *codec, hda_nid_t nid);
++u32 snd_hda_jack_pin_sense(struct hda_codec *codec, hda_nid_t nid);
+ 
+ /* the jack state returned from snd_hda_jack_detect_state() */
+ enum {
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 3c720703ebb8..c1eee2274fb5 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -1521,7 +1521,7 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
+ 	bool ret;
+ 	bool do_repoll = false;
+ 
+-	present = snd_hda_pin_sense(codec, pin_nid);
++	present = snd_hda_jack_pin_sense(codec, pin_nid);
+ 
+ 	mutex_lock(&per_pin->lock);
+ 	eld->monitor_present = !!(present & AC_PINSENSE_PRESENCE);
 -- 
 2.16.4
 

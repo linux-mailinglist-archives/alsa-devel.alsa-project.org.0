@@ -2,60 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E899102BAC
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 19:22:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA258102BB1
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 19:32:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C2771698;
-	Tue, 19 Nov 2019 19:21:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C2771698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 74404168D;
+	Tue, 19 Nov 2019 19:31:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 74404168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574187727;
-	bh=rzOJM6MV8/pq8dbudj8kJOe07eP27soUDKWMyXN2R0I=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574188358;
+	bh=f8c8dOHD5SMJ9c8v+ydhwmqb7T7p27Des68PuVDhTxA=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ihmt/8hXaDroSLOBD2dir3Va6wXhKta6CGb+FGko2bi+xW+51DT/OxZgI8HtEHkRC
-	 rdpVtl/cpIPX6neKmuvoI0aUJK/5+T22VUFNbuf83OIZRms54BJDC0Y6s84ddJuxMe
-	 FNwwm9BId7Tc5cj09kbj38CUVRnrumUFGzXAYFRQ=
+	b=QpvAtmeQx+rJiaMnGbOWlKKprivNp84nVqvRZyHQZCMdHA6XQQchObMaGgs1KbYzH
+	 Sm+A0aNv9gsHKy6a/BmlRq33xXSdQpQX2Q2bJ/dzVZwU3LAPSSYlGT/jLkZnckunr7
+	 JfbGwfym9yIUkMUmj1xLxrul9cVWF04ll/uJA+zE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12D1CF80139;
-	Tue, 19 Nov 2019 19:20:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDE96F80139;
+	Tue, 19 Nov 2019 19:30:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6AF10F80138; Tue, 19 Nov 2019 19:20:21 +0100 (CET)
+ id 3D2C6F80138; Tue, 19 Nov 2019 19:30:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id ECE47F800FF
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 19:20:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECE47F800FF
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9694E1FB;
- Tue, 19 Nov 2019 10:20:16 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 04B4C3F703;
- Tue, 19 Nov 2019 10:20:15 -0800 (PST)
-Date: Tue, 19 Nov 2019 18:20:13 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20191119182013.GG3634@sirena.org.uk>
-References: <87r226x8aq.wl-kuninori.morimoto.gx@renesas.com>
- <33d0b023-1886-32fe-e04a-d87685068343@linux.intel.com>
- <87y2wc6584.wl-kuninori.morimoto.gx@renesas.com>
- <a63127e6-fbf1-af5e-d4f5-5b98c00040b5@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59745F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 19:30:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59745F800FF
+Received: from [192.168.178.21] ([95.116.123.164]) by mrelayeu.kundenserver.de
+ (mreue012 [212.227.15.167]) with ESMTPSA (Nemesis) id
+ 1N8EdM-1hktD33QAq-014Ax5 for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019
+ 19:30:45 +0100
+To: alsa-devel@alsa-project.org
+References: <s5ho9nt3yu7.wl-tiwai@suse.de>
+From: Jens Verwiebe <info@jensverwiebe.de>
+Message-ID: <6ab06af6-71f3-1f24-5706-6537ce4f6f34@jensverwiebe.de>
+Date: Tue, 19 Nov 2019 19:30:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <a63127e6-fbf1-af5e-d4f5-5b98c00040b5@linux.intel.com>
-X-Cookie: Beam me up, Scotty!  It ate my phaser!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Takashi Iwai <tiwai@suse.de>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [alsa-devel] [PATCH 0/2] ASoC: fixup topology dai_link remove
- issue
+In-Reply-To: <s5ho9nt3yu7.wl-tiwai@suse.de>
+Content-Language: de-DE
+X-Provags-ID: V03:K1:wK6ievvPFPjv/sVLFZPqOrbsfOB7lOUWkr9ot/fkGQv03ZCg7LW
+ 3IyjNgf/NnXhC5D+dR4Jl2DV/KzdCCK+FFu+Z5+lEXPsEnHmmmpFVqL+k/++HxjjTSGVf6u
+ Jjv7dQjVz7AC6hTg4Sqmxb3F3tPHDq32azntK5rycHDB6kwdM8HFY8XXBJbO0LlJ5BtnHvZ
+ yNcNez9s+aglU7tVsIJLA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:oQtjEaWhl64=:Txx7scQfLnjkV/4DDQ+r/N
+ 1F0fSZXZchvA5AiBNXevygimCOJwgybePJk7lTA+gCEmOmD1gfv+ucFD99bumWIMb05982bpD
+ 0aUgaw/g6HWTB4THH5kUWy11UkVkglgLXooahwUWFGStHwF25pFOHJF9abPUPH4xUlKEJAF8P
+ 9/Qx1vKb0YwTY7mlTS1v3nI+6vR+0BKyxThC0DgWEH7wk10wDuT66sq6HgBnoM9Wn1au/ojzM
+ bzlOTfwvqC9IRmqaoqci6f9mGAEzqXgByypTQwMHVWQEvX/1EYzc4RPSjQ49dEf4ITu4wPJXG
+ FkpW4ionRFcAMKxXvR5ixxn3PNXCHt1sHFLr+XmxVKZyRtpia1Qt21KvX6E7oX178m8UJha+8
+ mRYUPMkXpsIFxzuKs8cNypvbbmQm7FAx5lzMvEhVpG30LEL4JAGqc15tkzJth/QTk65+U3oUS
+ IeEha/CMM9QWoXmkbYItgnxj7EO/amvrqqAqTbF+Ob7pad4c3sihJyEmPDHT8wmUL0UcFGYZK
+ 5X2wyCfJN1X3ZjH1FxwfHDiiiAzGPriY5mW3zQOos/l+Qds/tqisNQ+Vkp/TvNnBm7g28iilO
+ v4F6abWE18jn6j2qwOnICCB+FL37n8gk6J239x8zlA83yxIUvfm0WcN5pJUAsNGTsWLHzlIHx
+ OhdaWY94/slcpC5EAas2MiE4JdwgRV6Qsc+dfYl10uE6GM8eQRiYES/H/GHPCjz6M8+wmuTH3
+ prvUtj0m6Z1J6imOXc81JVHaiLAzvoXanVtDyVg3qk0GHT77RT8mIP6pR7Ij8DeASObO7vuRX
+ +0ALLeWzDVBCdpcFsCwtSiQjvTh6zYd0GAu6oWNzdi3KKRdJZqRV//2fmzREgtc17qV+o7DJf
+ OW9x5k461wQj388cWrc3re/TSPx/II14LtNcbbWMA=
+Subject: Re: [alsa-devel] Focusrite Scarlett 6i6 gen1 - input handling fix,
+ ping
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,54 +82,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6912260607506926644=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi
 
---===============6912260607506926644==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="XRI2XbIfl/05pQwm"
-Content-Disposition: inline
+I would like to bring up my forgotten patch up a last time here.
+
+See: 
+https://mailman.alsa-project.org/pipermail/alsa-devel/2017-November/127906.html
+
+I dunno what else would be expected to write in there, i think the text 
+says it all ?
+
+I have this in use for 2 years now, but the interface will be sold now, 
+so last chance to test the commit
+
+if it happens anyway ;-)
+
+Cheers ... Jens
 
 
---XRI2XbIfl/05pQwm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+-- 
 
-On Tue, Nov 19, 2019 at 07:37:09AM -0600, Pierre-Louis Bossart wrote:
+Jens Verwiebe
+Allerskehre 44 - 22309 Hamburg
 
-> No regression detected so from the Intel side we're good with this patchset.
-> Thanks Morimoto-san for this comprehensive analysis, really nice work!
-
-Yes, thanks indeed for this - it's really great work.
-
---XRI2XbIfl/05pQwm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3UMlwACgkQJNaLcl1U
-h9CmNQf/UjWSM7r5SYrMcKmqIueBAjCIDU/7B4GSYyXHvGaGGDeYAk+C4RYH9s2z
-AF9FK5X2TxWrGDUnHCUl2vZRMzRh8XJGYhLOXuh3C7wVbIg/YX2MfYuNq8Vej7Hx
-WcERN4sgxBjy0OgcAZDBCU2AxwID3r0Nkzge8hnk8fHX/zVELEsDBIg0Z3mEnNR2
-uESKt0f/uTvYUmyj/z63qGhlA64INd5prHtKEsysHQxgjvA62Vg6ZfA59Y9Od4eW
-uoHp3Wj95z9SdlEBeyZsO4H3AebR8FNEPOG1e3CP9TwHaB5CX1kqEOFuQa5CIgbl
-ef+y6OyYASm72zd33Xr4uy5OSxbUXw==
-=Oa7j
------END PGP SIGNATURE-----
-
---XRI2XbIfl/05pQwm--
-
---===============6912260607506926644==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Tel.: +49 40 68 78 50
+mailto: info@jensverwiebe.de
+web: https://www.jensverwiebe.de
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============6912260607506926644==--

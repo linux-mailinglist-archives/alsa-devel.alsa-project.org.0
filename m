@@ -2,81 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC88B101E97
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 09:52:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE3D11020C0
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 10:36:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8A2D1166D;
-	Tue, 19 Nov 2019 09:51:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A2D1166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3AAFB16A2;
+	Tue, 19 Nov 2019 10:35:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AAFB16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574153529;
-	bh=lgDh6G/Y5k6YmiODYRd4a7yWrX1suGXeLrn/91K878c=;
+	s=default; t=1574156163;
+	bh=PFTMEPi+PU6YDJ6RSLg4mQIwoJ2b0v7q2YQIZuo/6DA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fJ09h6T2QGwahbkxY41HZKVZKNbCxAy8NAJkFepdwAZiDUcAzg0a1Ld7FJ0q/24S7
-	 TfhXHthb3QShIXVONuJG/ntuQ0x3nAviHQ9RVnML4i33+XwE18zY0etBY4S122rucb
-	 hvcL0IOwR1eTYcNZKzarjD+p7QZsOF2SckqOXI/8=
+	b=Z8PuM69BqQQIxd5iwEUk3tGyUg2xtcu5LLFUGeWLD9SGon+97h+N5umWjSjsmSmu6
+	 Dgqu2yYUnf1Wy9eXdbyG68t9Vb2iOGFV1ZCr1CjbewltXrTVKk3FulL37c0dQeZYLP
+	 ZNEIv6RnSfnR22K5Q2HqdnzKJHqV2/8DkhuFDKBk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C73E3F801F7;
-	Tue, 19 Nov 2019 09:47:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7CE67F80138;
+	Tue, 19 Nov 2019 10:34:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0C206F8019B; Tue, 19 Nov 2019 09:47:54 +0100 (CET)
+ id BF0B2F80137; Tue, 19 Nov 2019 10:34:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3D763F8015D
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 09:47:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D763F8015D
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from NAM01-SN1-obe.outbound.protection.outlook.com
+ (mail-eopbgr820042.outbound.protection.outlook.com [40.107.82.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F04C8F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 10:34:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F04C8F800FF
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="dnV0Su80"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5dd3ac350000>; Tue, 19 Nov 2019 00:47:49 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Tue, 19 Nov 2019 00:47:48 -0800
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Tue, 19 Nov 2019 00:47:48 -0800
-Received: from nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com (172.20.187.13)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 19 Nov 2019 08:47:46 +0000
-From: Nikhil Mahale <nmahale@nvidia.com>
-To: <tiwai@suse.com>
-Date: Tue, 19 Nov 2019 14:17:10 +0530
-Message-ID: <20191119084710.29267-5-nmahale@nvidia.com>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20191119084710.29267-1-nmahale@nvidia.com>
-References: <20191119084710.29267-1-nmahale@nvidia.com>
-X-NVConfidentiality: public
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="jIt+zi6X"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=UsBCS9DSVV6tlF7Vi1KZBS8wvriUC8qlGUN3T7+zbH2ctRUMj6W2rEEwIE2JHOpVORuuVy5MspZ9EaPizftGI0fYMoh/dH0V3rJK88Zmy6FRBT5n5VZoEm1vQ6RBMSDS8ZTakVBj1cZzN3IkJ0LCLknu52Gusqx/RwBea6Jhvhq7fbSpKEbGwj3GIfAl5F4HY4cQjB16tarM+t9avWXXlGbd5IiyrJFvQVN96SJz4H2mPXDYgu/MdFSRLN0ejdUYS7qG0J3kRtwidoYJZVgXARHpwId1GN4NaiJvlwqfQ8fNf5cCEHJj1FzFOB4wXPsYr89HDkhw22tItliNE2qmTg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mgojnpA9IFKWOtV2KydtCWmKhWX5z9dvrfmrRKWWgXk=;
+ b=huk4Igx8hR2P8Pdp0LsejlOzlhYHPgSqIgTXZPJzd003+QSt43flLeXZ5WvM49xFZhISKVpF75FkXbdCig40GJZa/SnjRKfCcj1vOR4ES0+bXDiEu7ZmjKXw5Hpu0cvE3yGkbknjwqJcg1TT+XiaNPpHP3ofjcc3VpaOpX6cHFwWrvYmvjSBHgMFls2BvORa3iE/QBWrQ2SE64vzF9UAda4iKCRTDe7G+z0Cvs3Wzfx0mRMeFyIxZ+9i1pS50LoVxLv2mFJ+nveinakBTShi3OrgGsjaCW8hB1ueBA7k5WLjzWfqtBX4+HCYdls6cB3sbCqc6cdZJQxjgdcxtpL6oQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mgojnpA9IFKWOtV2KydtCWmKhWX5z9dvrfmrRKWWgXk=;
+ b=jIt+zi6Xj/50spE8QXt19uwUqpsUtTnGE4++FDPu6OFFETHTShXrSPTDrNJ5htDRnIRxy4ZvSRngFq6fIob/UVuIeYU5S70+ljQt3I5tcUVFIeqQZIeG22QbTV50cfP69aHoAXEHXyNRQd5ysfwZmLwmjU53JO6M/fSMttb1o3I=
+Received: from DM6PR12CA0022.namprd12.prod.outlook.com (2603:10b6:5:1c0::35)
+ by BY5PR12MB4259.namprd12.prod.outlook.com (2603:10b6:a03:202::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2451.23; Tue, 19 Nov
+ 2019 09:34:07 +0000
+Received: from CO1NAM11FT049.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eab::207) by DM6PR12CA0022.outlook.office365.com
+ (2603:10b6:5:1c0::35) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2451.24 via Frontend
+ Transport; Tue, 19 Nov 2019 09:34:07 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=permerror action=none header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ CO1NAM11FT049.mail.protection.outlook.com (10.13.175.50) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2451.23 via Frontend Transport; Tue, 19 Nov 2019 09:34:07 +0000
+Received: from SATLEXMB04.amd.com (10.181.40.145) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 19 Nov
+ 2019 03:34:06 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB04.amd.com
+ (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 19 Nov
+ 2019 03:34:05 -0600
+Received: from vishnu-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Tue, 19 Nov 2019 03:34:02 -0600
+From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+To: 
+Date: Tue, 19 Nov 2019 15:02:42 +0530
+Message-ID: <1574155967-1315-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1574155967-1315-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+References: <1574155967-1315-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- HQMAIL107.nvidia.com (172.20.187.13)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1574153269; bh=CUalwSNJyiLn7KZYtumaeEBVhVk0repkTtbnELYIaTw=;
- h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
- In-Reply-To:References:X-NVConfidentiality:MIME-Version:
- X-Originating-IP:X-ClientProxiedBy:Content-Type;
- b=dnV0Su80e27SZC5mvecAmo0e7guzXGspKSiDNqLtFCGVX8tPTGTR7EgDcgn3i+WC6
- YC89ZaYvLUvW8PH6FL+veeCKO2s4nSSGgHnOoKWgjKMkISpJPXWzuTcEsXoMy4KpOR
- aMvgEznmL3/f9kB9dxmqXQYM88OSPEaPc7fY1Saw7lU+wAG+nsTNdGRuj0dTYoJ95u
- W9Au3kt439T2qbiIdx5zNypOtIx/pMH7q8x89PbtvxpGz1Qv7XPXUqGNG8r0dRGjIl
- uTuQ9T4MqPF1gK7tLqboiAcrTKULKJnZ4kxB0nnmyAm7108ciBf/Yir3wXUWdOLE6y
- tMG5SgK9WdVvQ==
-Cc: alsa-devel@alsa-project.org, nmahale@nvidia.com, aplattner@nvidia.com
-Subject: [alsa-devel] [PATCH v3 4/4] ALSA: hda - Add DP-MST support for
-	NVIDIA codecs
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(136003)(39860400002)(396003)(428003)(189003)(199004)(2616005)(8936002)(109986005)(70206006)(86362001)(70586007)(53416004)(305945005)(16586007)(36756003)(316002)(1671002)(4326008)(54906003)(48376002)(50466002)(478600001)(5660300002)(6666004)(336012)(446003)(50226002)(76176011)(26005)(486006)(476003)(81156014)(126002)(8676002)(81166006)(2906002)(186003)(47776003)(426003)(356004)(7696005)(11346002)(51416003)(266003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BY5PR12MB4259; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 1c200e92-e8c6-4c81-79af-08d76cd3a010
+X-MS-TrafficTypeDiagnostic: BY5PR12MB4259:
+X-Microsoft-Antispam-PRVS: <BY5PR12MB4259201658ACF014CE626D92E74C0@BY5PR12MB4259.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:182;
+X-Forefront-PRVS: 022649CC2C
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: bb8SGPuSx1NP4/aaHSwFgzvMVxk9btyiEavIMAKVeoTju0jnQtinVwm4T2lr9bP2BcPfNICA6gWMtZkGRy28HJDaQ839XisiBAonnoRAbCuAGaeW7AAu7pkDb+REkG1CHTlrFP22bU5LviPqIphzZAdB0b7PRemp5zCYGGYA04rBID9mmBXfYNT9fhkMZqBvqZStL7JSjtAO6+N0KdodHa8+FZ828XhQpQ+1kGA7SRxMJyjS8ZqTfUnKlCGIAL0DwtMwV34ztYMsxk5FjpXJQZsGO4AVybZ3689EYNxb5cNoy8yEtPbchYnC4L56cxGN0zI/UeVXT1USNrGJLidQk1pBjkg/cfrWv3OKqQ1GFDUvHrMGcGqGFhXJFvXGZdb253Xu0K4YirBIbbTkDULYM4+xhAdULtt3ZxRH5SQFy7iC5BcWx8Kh0dsLODZlvkmW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2019 09:34:07.1795 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c200e92-e8c6-4c81-79af-08d76cd3a010
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4259
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Akshu.Agrawal@amd.com,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Mark Brown <broonie@kernel.org>, djkurtz@google.com, Alexander.Deucher@amd.com,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [alsa-devel] [PATCH v8 1/6] ASoC: amd:Create multiple I2S platform
+	device endpoint
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,155 +144,211 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds DP-MST support for GK104+ NVIDIA codecs.
+Creates Platform Device endpoints for multiple
+I2S instances: SP and  BT endpoints device.
+Pass PCI resources like MMIO, irq to the platform devices.
 
-GK104+ NVIDIA codecs support DP-MST audio. These codecs have 4
-output converters and 4 pin widgets, with 4 device entries per pin
-widget for a total of 16 device entries.
-
-This patch moves the existing patch_nvhdmi() definition to
-patch_nvhdmi_legacy(), used by pre-GK104 NVIDIA codecs. Redefine
-patch_nvhdmi() to enable DP-MST support by setting codec->dp_mst and
-spec->dyn_pcm_assign.
-
-Introduce fresh logic for dynamic pcm assignment, making
-sure that new pcm assignments are compatible with the legacy static
-per_pin-pmc assignment that existed in the days before DP-MST.
-
-Signed-off-by: Nikhil Mahale <nmahale@nvidia.com>
-Reviewed-by: Aaron Plattner <aplattner@nvidia.com>
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
 ---
- sound/pci/hda/patch_hdmi.c | 95 +++++++++++++++++++++++++++++++++++-----------
- 1 file changed, 73 insertions(+), 22 deletions(-)
+ sound/soc/amd/raven/acp3x.h     |  5 +++
+ sound/soc/amd/raven/pci-acp3x.c | 95 +++++++++++++++++++++++++++--------------
+ 2 files changed, 68 insertions(+), 32 deletions(-)
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 1ba485da17c0..7c2b251e96c5 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1337,15 +1337,32 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
- }
+diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
+index 4f2cadd..2f15fe1 100644
+--- a/sound/soc/amd/raven/acp3x.h
++++ b/sound/soc/amd/raven/acp3x.h
+@@ -7,10 +7,15 @@
  
- static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
--				struct hdmi_spec_per_pin *per_pin)
-+			      struct hdmi_spec_per_pin *per_pin)
+ #include "chip_offset_byte.h"
+ 
++#define ACP3x_DEVS		3
+ #define ACP3x_PHY_BASE_ADDRESS 0x1240000
+ #define	ACP3x_I2S_MODE	0
+ #define	ACP3x_REG_START	0x1240000
+ #define	ACP3x_REG_END	0x1250200
++#define ACP3x_I2STDM_REG_START	0x1242400
++#define ACP3x_I2STDM_REG_END	0x1242410
++#define ACP3x_BT_TDM_REG_START	0x1242800
++#define ACP3x_BT_TDM_REG_END	0x1242810
+ #define I2S_MODE	0x04
+ #define	BT_TX_THRESHOLD 26
+ #define	BT_RX_THRESHOLD 25
+diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
+index facec24..be2670f 100644
+--- a/sound/soc/amd/raven/pci-acp3x.c
++++ b/sound/soc/amd/raven/pci-acp3x.c
+@@ -16,17 +16,17 @@ struct acp3x_dev_data {
+ 	void __iomem *acp3x_base;
+ 	bool acp3x_audio_mode;
+ 	struct resource *res;
+-	struct platform_device *pdev;
++	struct platform_device *pdev[ACP3x_DEVS];
+ };
+ 
+ static int snd_acp3x_probe(struct pci_dev *pci,
+ 			   const struct pci_device_id *pci_id)
  {
- 	int i;
+-	int ret;
+-	u32 addr, val;
+ 	struct acp3x_dev_data *adata;
+-	struct platform_device_info pdevinfo;
++	struct platform_device_info pdevinfo[ACP3x_DEVS];
+ 	unsigned int irqflags;
++	int ret, val, i;
++	u32 addr;
  
--	/* try the prefer PCM */
--	if (!test_bit(per_pin->pin_nid_idx, &spec->pcm_bitmap))
-+	/*
-+	 * generic_hdmi_build_pcms() allocates (num_nids + dev_num - 1)
-+	 * number of pcms.
-+	 *
-+	 * The per_pin of pin_nid_idx=n and dev_id=m prefers to get pcm-n
-+	 * if m==0. This guarantees that dynamic pcm assignments are compatible
-+	 * with the legacy static per_pin-pmc assignment that existed in the
-+	 * days before DP-MST.
-+	 *
-+	 * per_pin of m!=0 prefers to get pcm=(num_nids + (m - 1)).
-+	 */
-+	if (per_pin->dev_id == 0 &&
-+	    !test_bit(per_pin->pin_nid_idx, &spec->pcm_bitmap))
- 		return per_pin->pin_nid_idx;
+ 	if (pci_enable_device(pci)) {
+ 		dev_err(&pci->dev, "pci_enable_device failed\n");
+@@ -43,7 +43,7 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 			     GFP_KERNEL);
+ 	if (!adata) {
+ 		ret = -ENOMEM;
+-		goto release_regions;
++		goto adata_free;
+ 	}
  
--	/* have a second try; check the "reserved area" over num_pins */
-+	if (per_pin->dev_id != 0 &&
-+	    !(test_bit(spec->num_nids + (per_pin->dev_id - 1),
-+		&spec->pcm_bitmap))) {
-+		return spec->num_nids + (per_pin->dev_id - 1);
+ 	/* check for msi interrupt support */
+@@ -56,7 +56,8 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		irqflags = 0;
+ 
+ 	addr = pci_resource_start(pci, 0);
+-	adata->acp3x_base = ioremap(addr, pci_resource_len(pci, 0));
++	adata->acp3x_base = devm_ioremap(&pci->dev, addr,
++					pci_resource_len(pci, 0));
+ 	if (!adata->acp3x_base) {
+ 		ret = -ENOMEM;
+ 		goto release_regions;
+@@ -68,11 +69,11 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 	switch (val) {
+ 	case I2S_MODE:
+ 		adata->res = devm_kzalloc(&pci->dev,
+-					  sizeof(struct resource) * 2,
++					  sizeof(struct resource) * 4,
+ 					  GFP_KERNEL);
+ 		if (!adata->res) {
+ 			ret = -ENOMEM;
+-			goto unmap_mmio;
++			goto release_regions;
+ 		}
+ 
+ 		adata->res[0].name = "acp3x_i2s_iomem";
+@@ -80,41 +81,68 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		adata->res[0].start = addr;
+ 		adata->res[0].end = addr + (ACP3x_REG_END - ACP3x_REG_START);
+ 
+-		adata->res[1].name = "acp3x_i2s_irq";
+-		adata->res[1].flags = IORESOURCE_IRQ;
+-		adata->res[1].start = pci->irq;
+-		adata->res[1].end = pci->irq;
++		adata->res[1].name = "acp3x_i2s_sp";
++		adata->res[1].flags = IORESOURCE_MEM;
++		adata->res[1].start = addr + ACP3x_I2STDM_REG_START;
++		adata->res[1].end = addr + ACP3x_I2STDM_REG_END;
++
++		adata->res[2].name = "acp3x_i2s_bt";
++		adata->res[2].flags = IORESOURCE_MEM;
++		adata->res[2].start = addr + ACP3x_BT_TDM_REG_START;
++		adata->res[2].end = addr + ACP3x_BT_TDM_REG_END;
++
++		adata->res[3].name = "acp3x_i2s_irq";
++		adata->res[3].flags = IORESOURCE_IRQ;
++		adata->res[3].start = pci->irq;
++		adata->res[3].end = adata->res[3].start;
+ 
+ 		adata->acp3x_audio_mode = ACP3x_I2S_MODE;
+ 
+ 		memset(&pdevinfo, 0, sizeof(pdevinfo));
+-		pdevinfo.name = "acp3x_rv_i2s";
+-		pdevinfo.id = 0;
+-		pdevinfo.parent = &pci->dev;
+-		pdevinfo.num_res = 2;
+-		pdevinfo.res = adata->res;
+-		pdevinfo.data = &irqflags;
+-		pdevinfo.size_data = sizeof(irqflags);
+-
+-		adata->pdev = platform_device_register_full(&pdevinfo);
+-		if (IS_ERR(adata->pdev)) {
+-			dev_err(&pci->dev, "cannot register %s device\n",
+-				pdevinfo.name);
+-			ret = PTR_ERR(adata->pdev);
+-			goto unmap_mmio;
++		pdevinfo[0].name = "acp3x_rv_i2s_dma";
++		pdevinfo[0].id = 0;
++		pdevinfo[0].parent = &pci->dev;
++		pdevinfo[0].num_res = 4;
++		pdevinfo[0].res = &adata->res[0];
++		pdevinfo[0].data = &irqflags;
++		pdevinfo[0].size_data = sizeof(irqflags);
++
++		pdevinfo[1].name = "acp3x_i2s_playcap";
++		pdevinfo[1].id = 0;
++		pdevinfo[1].parent = &pci->dev;
++		pdevinfo[1].num_res = 1;
++		pdevinfo[1].res = &adata->res[1];
++
++		pdevinfo[2].name = "acp3x_i2s_playcap";
++		pdevinfo[2].id = 1;
++		pdevinfo[2].parent = &pci->dev;
++		pdevinfo[2].num_res = 1;
++		pdevinfo[2].res = &adata->res[2];
++		for (i = 0; i < ACP3x_DEVS ; i++) {
++			adata->pdev[i] =
++				platform_device_register_full(&pdevinfo[i]);
++			if (IS_ERR(adata->pdev[i])) {
++				dev_err(&pci->dev, "cannot register %s device\n",
++					pdevinfo[i].name);
++				ret = PTR_ERR(adata->pdev[i]);
++				goto unmap_mmio;
++			}
+ 		}
+ 		break;
+ 	default:
+ 		dev_err(&pci->dev, "Invalid ACP audio mode : %d\n", val);
+ 		ret = -ENODEV;
+-		goto unmap_mmio;
++		goto release_regions;
+ 	}
+ 	return 0;
+ 
+ unmap_mmio:
+-	pci_disable_msi(pci);
+-	iounmap(adata->acp3x_base);
++	if (val == I2S_MODE)
++		for (i = 0 ; i < ACP3x_DEVS ; i++)
++			platform_device_unregister(adata->pdev[i]);
+ release_regions:
++	pci_disable_msi(pci);
++adata_free:
+ 	pci_release_regions(pci);
+ disable_pci:
+ 	pci_disable_device(pci);
+@@ -125,10 +153,12 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ static void snd_acp3x_remove(struct pci_dev *pci)
+ {
+ 	struct acp3x_dev_data *adata = pci_get_drvdata(pci);
++	int i;
+ 
+-	platform_device_unregister(adata->pdev);
+-	iounmap(adata->acp3x_base);
+-
++	if (adata->acp3x_audio_mode == ACP3x_I2S_MODE) {
++		for (i = 0 ; i <  ACP3x_DEVS ; i++)
++			platform_device_unregister(adata->pdev[i]);
 +	}
-+
-+	/* have a second try; check the area over num_nids */
- 	for (i = spec->num_nids; i < spec->pcm_used; i++) {
- 		if (!test_bit(i, &spec->pcm_bitmap))
- 			return i;
-@@ -3519,6 +3536,40 @@ static int patch_nvhdmi(struct hda_codec *codec)
- 	struct hdmi_spec *spec;
- 	int err;
+ 	pci_disable_msi(pci);
+ 	pci_release_regions(pci);
+ 	pci_disable_device(pci);
+@@ -151,6 +181,7 @@ static struct pci_driver acp3x_driver  = {
  
-+	err = alloc_generic_hdmi(codec);
-+	if (err < 0)
-+		return err;
-+	codec->dp_mst = true;
-+
-+	spec = codec->spec;
-+	spec->dyn_pcm_assign = true;
-+
-+	err = hdmi_parse_codec(codec);
-+	if (err < 0) {
-+		generic_spec_free(codec);
-+		return err;
-+	}
-+
-+	generic_hdmi_init_per_pins(codec);
-+
-+	spec->dyn_pin_out = true;
-+
-+	spec->chmap.ops.chmap_cea_alloc_validate_get_type =
-+		nvhdmi_chmap_cea_alloc_validate_get_type;
-+	spec->chmap.ops.chmap_validate = nvhdmi_chmap_validate;
-+
-+	codec->link_down_at_suspend = 1;
-+
-+	generic_acomp_init(codec, &nvhdmi_audio_ops, nvhdmi_port2pin);
-+
-+	return 0;
-+}
-+
-+static int patch_nvhdmi_legacy(struct hda_codec *codec)
-+{
-+	struct hdmi_spec *spec;
-+	int err;
-+
- 	err = patch_generic_hdmi(codec);
- 	if (err)
- 		return err;
-@@ -4127,25 +4178,25 @@ HDA_CODEC_ENTRY(0x10de0004, "GPU 04 HDMI",	patch_nvhdmi_8ch_7x),
- HDA_CODEC_ENTRY(0x10de0005, "MCP77/78 HDMI",	patch_nvhdmi_8ch_7x),
- HDA_CODEC_ENTRY(0x10de0006, "MCP77/78 HDMI",	patch_nvhdmi_8ch_7x),
- HDA_CODEC_ENTRY(0x10de0007, "MCP79/7A HDMI",	patch_nvhdmi_8ch_7x),
--HDA_CODEC_ENTRY(0x10de0008, "GPU 08 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0009, "GPU 09 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de000a, "GPU 0a HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de000b, "GPU 0b HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de000c, "MCP89 HDMI",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de000d, "GPU 0d HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0010, "GPU 10 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0011, "GPU 11 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0012, "GPU 12 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0013, "GPU 13 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0014, "GPU 14 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0015, "GPU 15 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0016, "GPU 16 HDMI/DP",	patch_nvhdmi),
-+HDA_CODEC_ENTRY(0x10de0008, "GPU 08 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0009, "GPU 09 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de000a, "GPU 0a HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de000b, "GPU 0b HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de000c, "MCP89 HDMI",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de000d, "GPU 0d HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0010, "GPU 10 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0011, "GPU 11 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0012, "GPU 12 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0013, "GPU 13 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0014, "GPU 14 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0015, "GPU 15 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0016, "GPU 16 HDMI/DP",	patch_nvhdmi_legacy),
- /* 17 is known to be absent */
--HDA_CODEC_ENTRY(0x10de0018, "GPU 18 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de0019, "GPU 19 HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de001a, "GPU 1a HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de001b, "GPU 1b HDMI/DP",	patch_nvhdmi),
--HDA_CODEC_ENTRY(0x10de001c, "GPU 1c HDMI/DP",	patch_nvhdmi),
-+HDA_CODEC_ENTRY(0x10de0018, "GPU 18 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de0019, "GPU 19 HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de001a, "GPU 1a HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de001b, "GPU 1b HDMI/DP",	patch_nvhdmi_legacy),
-+HDA_CODEC_ENTRY(0x10de001c, "GPU 1c HDMI/DP",	patch_nvhdmi_legacy),
- HDA_CODEC_ENTRY(0x10de0020, "Tegra30 HDMI",	patch_tegra_hdmi),
- HDA_CODEC_ENTRY(0x10de0022, "Tegra114 HDMI",	patch_tegra_hdmi),
- HDA_CODEC_ENTRY(0x10de0028, "Tegra124 HDMI",	patch_tegra_hdmi),
+ module_pci_driver(acp3x_driver);
+ 
++MODULE_AUTHOR("Vishnuvardhanrao.Ravulapati@amd.com");
+ MODULE_AUTHOR("Maruthi.Bayyavarapu@amd.com");
+ MODULE_DESCRIPTION("AMD ACP3x PCI driver");
+ MODULE_LICENSE("GPL v2");
 -- 
-2.16.4
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

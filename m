@@ -2,111 +2,111 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D9D5103886
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 12:18:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA10910388D
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 12:19:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 293AC16FD;
-	Wed, 20 Nov 2019 12:17:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 293AC16FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 608A01706;
+	Wed, 20 Nov 2019 12:18:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 608A01706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574248710;
-	bh=gG4krdDUzUedDwmD1UD5shNCrIvMOTGLoZjb4DPVeq8=;
+	s=default; t=1574248749;
+	bh=2a+D240NfLlipgW1Iky5JpKxIj5jdMis8ZQeJrsSLJ8=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ldeI29bNxoDx8dBKZdSeyR6EBVOakH5auHvEoApQN16iIWBmhzwILYOoTwu1EbQEh
-	 vU8USZWUWi4vovJ1HCIsKnDqxNjem7Ne+L+wAsO602FdoEvKhQ3Sz9SIS6KommwwA/
-	 2CcTFtVIlHhKnxiQlqWjTlpSgQhDWWTWGkVemPDY=
+	b=SFUfMXjy3MD7JYiRj1f2LohHYC+sPhN05ePsc9LJ7eKdsC5L/n6UuWHkN7GcVXm8D
+	 7n52fFion5vnOq6mBjzfeENNtSHx5Foe5sbfwf+wQl0Bf2YyHKzuaebojKGd7hnYvp
+	 PyQIAVRTSjv15YcwohD/SqNrtr3aNFNA/E1biVsY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A32FF802E0;
-	Wed, 20 Nov 2019 12:02:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DA11F802E8;
+	Wed, 20 Nov 2019 12:02:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14C04F80137; Tue, 19 Nov 2019 13:33:24 +0100 (CET)
+ id C6DF0F80137; Tue, 19 Nov 2019 13:39:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61739F800F4
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 13:33:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61739F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3F7AF800F4
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 13:39:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3F7AF800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="JfHJ2oYz"
-Received: by mail-wr1-x442.google.com with SMTP id l7so23613843wrp.6
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 04:33:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="ltSecJN5"
+Received: by mail-pl1-x644.google.com with SMTP id l4so11697790plt.13
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 04:39:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HngwhcG+KAeo6DGQH+bLMw2e39IjD09GILs4tcsEDqg=;
- b=JfHJ2oYzP/jkKhX5GW5kTZtPmbfxMsuJ44mQ/jjOV7p96tO8MLii2xYgvvecU87jbf
- xDCCdr2WOehZ/M97knEEzzZIB2yWzTBKx3/BANq1IkzomqaCBDwfd8OyFpoFvEHRvHAI
- /Ih7Ji/6Drt+nGgFcgmZyIelBqpjx/nBFB+jcwv8vpurYruXv+eovEAT9Gvibap3vW8p
- D1HHGnn6VxZZe42T+R4tUOpu5RCcZqMyr8kvIKAkwt0v9BjdFCoFP5F2ZcjHKeOAXd9x
- +cBOy+jeecmTLnGU7RL1AEtLZZOvHE7IDnKukkr5C+QGK3yVjWyYDu6FXXjdyP9JsrS5
- u/jA==
+ :cc; bh=qpwNQdLDEKp3mHj6bhdJa/Rq4oFAWkNqox9VT/5kxaE=;
+ b=ltSecJN5dv6Eibo6pRLuD+iAe9yVQaHC4TL5a/T/Hp7KM4+GTbSEzMBUlRBFPT3Lpa
+ 6HYEE3iYly2QjLrr/CEW/l0f+qZaxMuhIRvTMR6xK28UW2aWNnS0Bp1Drdj1WMQR5t5T
+ OKMkdRURBZ1z4kOSxCPt8gkW2qo0vnUbLQzLNq8rRdnTgYbprZkfUOOOnm2p2A7EF6wE
+ sHfG/BAOBc1uz9plhJm+pw3/GvLUKfu4zB4N6QB5+TmJKbRicc4psQtOVStnO7KxXFAt
+ nHQUFoj3buSHslm/eRzFaHvhxZVMyZVwFhBhO0tfGl449RToViaFGi1gGPr0v20curZJ
+ yTWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=HngwhcG+KAeo6DGQH+bLMw2e39IjD09GILs4tcsEDqg=;
- b=nhLKPjYKMDuMJikATle6Q86LT3q1ThwV2MlUxOfH4q5S4rOjX1CSPMxex9IcKtIE1M
- VN9Yu6lIPUGvjL3DnTVEt2Hgy3erwzf8efRrMNHrFW6Em/+PJSgEfPUSOHPJWydPLhPo
- yj0BfbWdpzsK5lKHjE4camSBa6hz7kjjdxJIW0+mwjMFCitJQKy4Ys7x+HmJ49iUx8xR
- TLpqfOiSpJm1UY+YcXYH6wRLK5zpWw+GLijGRjtDIv2CsIOt+iVgdaMh91wGopRMThWy
- vI76/NDlxkCbP2DzhXzF87kZpfmxVGs3/1plcNNu5wdWMD7HkU3+EWukBqdZDveSNCUU
- NLEg==
-X-Gm-Message-State: APjAAAV33lhEDBuBojgtwHKdI2MtcFU9KuVO/fLeWuzwa1KsryckTxgI
- 3njYKyPDFROP5ZY1ibVRc8gBCU0WDGckuOLpCPn/Vw==
-X-Google-Smtp-Source: APXvYqxrn8CEslDFVxIy0Jl0Mrkp/wAIi6Is+3GFHp4aP52W1APv4nRsysG2XV46LuEQeEZpL+dKjixAXooja/JuLNw=
-X-Received: by 2002:adf:b1cb:: with SMTP id r11mr545384wra.246.1574166800364; 
- Tue, 19 Nov 2019 04:33:20 -0800 (PST)
+ bh=qpwNQdLDEKp3mHj6bhdJa/Rq4oFAWkNqox9VT/5kxaE=;
+ b=Q7ZMfqpBhoXyRGMHjaVOOLCWE4Ot2/XePlGEgpnLAlTrHlj8aoNQhvVS5CJRSmBRdN
+ hJZjL7pGVHZLV0bx1dTCylCF1AFV8RI84HqHIaVd/BTbBRQ/OyB6SNT3zx4fF1aKh/dH
+ O2ny/vNo2HLpm21MYU0qNXDhwgBnq6g7fXltP8hukL72d+OQTxPqGPkxLa7KTQ9b8f9t
+ UYZiq8bfPUU4o4KrnVdyJlM5PHClyCJjhjtofBmpqZCQj8vyGVIfmX40JN6aoB7y/GIS
+ pU4IJWkU3FBfTCtzkc05QNQfJgC0BIwrX7uEP2d3cvzOq/4j3Mkjh/Eo56FZKwCTQd/u
+ OrCA==
+X-Gm-Message-State: APjAAAUQBf/fUEA3R48G+ZfI8jDtmS1tHET6jS2NxR5DTU9/Cd/Cg2MR
+ UgTSIVBp1f56kvL/i8FtyROC9Zh398KpNz6EYDE=
+X-Google-Smtp-Source: APXvYqwbCUL/eximB8mpj2VKlrZgFfSMeoldq7a7WGfu5alkQzf/cM2q5535Tqgna1MJCwUak2duJRDsdSgol0JrIKM=
+X-Received: by 2002:a17:90a:c68f:: with SMTP id
+ n15mr6302731pjt.20.1574167142073; 
+ Tue, 19 Nov 2019 04:39:02 -0800 (PST)
 MIME-Version: 1.0
 References: <20191119002121.4107-1-sean.j.christopherson@intel.com>
- <20191119111012.GA109842@gmail.com>
- <CAKv+Gu9C132peF9_j2rRwRh4s+aWZBY82rgjqmwaE_X=_6y4Zw@mail.gmail.com>
- <20191119122217.GA24878@gmail.com>
-In-Reply-To: <20191119122217.GA24878@gmail.com>
-From: Ard Biesheuvel <ard.biesheuvel@linaro.org>
-Date: Tue, 19 Nov 2019 13:33:09 +0100
-Message-ID: <CAKv+Gu8XY_VCyi0bRqf2E7g_PXyHU83w-e+JvzeCBc+X1Xcrbg@mail.gmail.com>
+ <20191119111012.GA109842@gmail.com> <20191119120655.GA31444@gmail.com>
+In-Reply-To: <20191119120655.GA31444@gmail.com>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Tue, 19 Nov 2019 14:38:51 +0200
+Message-ID: <CAHp75VeYXonBT9eYhqvS9qyOogdaCu8ERv0XMg12hrVBYt6hnw@mail.gmail.com>
 To: Ingo Molnar <mingo@kernel.org>
 X-Mailman-Approved-At: Wed, 20 Nov 2019 12:02:18 +0100
 Cc: Mark Rutland <mark.rutland@arm.com>,
  Cezary Rojewski <cezary.rojewski@intel.com>,
  linux-efi <linux-efi@vger.kernel.org>, linux-ia64@vger.kernel.org,
  Fenghua Yu <fenghua.yu@intel.com>, Peter Zijlstra <peterz@infradead.org>,
- Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
+ Jie Yang <yang.jie@linux.intel.com>,
+ ALSA Development Mailing List <alsa-devel@alsa-project.org>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>, Nadav Amit <namit@vmware.com>,
  Pavel Machek <pavel@ucw.cz>, "H. Peter Anvin" <hpa@zytor.com>,
  Jiri Olsa <jolsa@redhat.com>, Ard Biesheuvel <ardb@kernel.org>,
  ACPI Devel Maling List <linux-acpi@vger.kernel.org>,
- the arch/x86 maintainers <x86@kernel.org>,
+ "maintainer:X86 ARCHITECTURE \(32-BIT AND 64-BIT\)" <x86@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  Ingo Molnar <mingo@redhat.com>, Darren Hart <dvhart@infradead.org>,
  Len Brown <len.brown@intel.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-pm <linux-pm@vger.kernel.org>,
+ Linux PM <linux-pm@vger.kernel.org>,
  Arnaldo Carvalho de Melo <acme@kernel.org>,
  Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
  Borislav Petkov <bp@alien8.de>, Steven Rostedt <rostedt@goodmis.org>,
  Namhyung Kim <namhyung@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- platform-driver-x86@vger.kernel.org, "VMware, Inc." <pv-drivers@vmware.com>,
- Tony Luck <tony.luck@intel.com>,
+ Platform Driver <platform-driver-x86@vger.kernel.org>, "VMware,
+ Inc." <pv-drivers@vmware.com>, Tony Luck <tony.luck@intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  "Rafael J. Wysocki" <rjw@rjwysocki.net>, Takashi Iwai <tiwai@suse.com>,
  Sean Christopherson <sean.j.christopherson@intel.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Andy Shevchenko <andy@infradead.org>
-Subject: Re: [alsa-devel] [PATCH 00/12] treewide: break dependencies on
-	x86's RM header
+Subject: Re: [alsa-devel] [PATCH] x86/platform/intel/quark: Explicitly
+ include linux/io.h for virt_to_phys()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,78 +124,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 19 Nov 2019 at 13:22, Ingo Molnar <mingo@kernel.org> wrote:
+On Tue, Nov 19, 2019 at 2:07 PM Ingo Molnar <mingo@kernel.org> wrote:
 >
 >
-> * Ard Biesheuvel <ard.biesheuvel@linaro.org> wrote:
+> * Ingo Molnar <mingo@kernel.org> wrote:
 >
-> > On Tue, 19 Nov 2019 at 12:10, Ingo Molnar <mingo@kernel.org> wrote:
-> > >
-> > >
-> > > * Sean Christopherson <sean.j.christopherson@intel.com> wrote:
-> > >
-> > > > x86's asm/realmode.h, which defines low level structures, variables and
-> > > > helpers used to bring up APs during SMP boot, ends up getting included in
-> > > > practically every nook and cranny of the kernel because the address used
-> > > > by ACPI for resuming from S3 also happens to be stored in the real mode
-> > > > header, and ACPI bleeds the dependency into its widely included headers.
-> > > >
-> > > > As a result, modifying realmode.h for even the most trivial change to the
-> > > > boot code triggers a full kernel rebuild, which is frustrating to say the
-> > > > least as it some of the most difficult code to get exactly right *and* is
-> > > > also some of the most functionally isolated code in the kernel.
-> > > >
-> > > > To break the kernel's widespread dependency on realmode.h, add a wrapper
-> > > > in the aforementioned ACPI S3 code to access the real mode header instead
-> > > > of derefencing the header directly in asm/acpi.h and thereby exposing it
-> > > > to the world via linux/acpi.h.
-> > > >
-> > > > Build tested on x86 with allyesconfig and allmodconfig, so hopefully there
-> > > > aren't more build issues lurking, but at this point it wouldn't surprise
-> > > > me in the least if this somehow manages to break the build.
-> > > >
-> > > > Based on tip/master, commit ceceaf1f12ba ("Merge branch 'WIP.x86/cleanups'").
-> > > >
-> > > > Patch Synopsis:
-> > > >   - Patches 01-09 fix a variety of build errors that arise when patch 12
-> > > >     drops realmode.h from asm/acpi.h.  Most of the errors are quite absurb
-> > > >     as they have no relation whatsoever to x86's RM boot code, but occur
-> > > >     because realmode.h happens to include asm/io.h.
-> > >
-> > > Yeah, these kind of parasitic header dependencies are the main driving
-> > > force behind kernel header spaghetti hell: it's super easy to add a new
-> > > header, but very hard to remove them...
-> > >
-> > > Hence they practically only accumulate.
-> > >
-> > > As a result header removal patches get priority, from me at least. :-)
-> > >
-> > > >   - Patch 10 removes a spurious include of realmode.h from an ACPI header.
-> > > >
-> > > >   - Patches 11 and 12 implement the wrapper and move it out of acpi.h.
-> > >
-> > > So if the ACPI maintainers are fine with -tip carrying patches #11 and #12
-> > > then I'd be glad to route these patches upstream.
-> > >
-> > > I've applied them to tip:WIP.core/headers as a work-in-progress tree, and
-> > > I'm testing them on randconfigs to make sure there's no broken
-> > > dependencies. I'll wait for the ACPI acks.
-> > >
-> > > I edited the title of patch 12 slightly, to:
-> > >
-> > >    c8bceb321209: x86/ACPI/sleep: Move acpi_wakeup_address() definition into sleep.c, remove <asm/realmode.h> from <asm/acpi.h>
-> > >
-> > > to make sure the big header dependency change is obvious at first sight.
-> > >
-> >
-> > I'm fine with the patches but can we drop the fixes headers please?
-> > This doesn't actually fix anything, and touching early boot stuff for
-> > no good reason should be avoided imo.
+> > I've applied them to tip:WIP.core/headers as a work-in-progress tree,
+> > and I'm testing them on randconfigs to make sure there's no broken
+> > dependencies. I'll wait for the ACPI acks.
 >
-> Agreed and done.
+> One more fix was needed, for the intel-quark driver that is only built on
+> 32-bit configs:
+>
+> ==================>
+> From: Ingo Molnar <mingo@kernel.org>
+> Date: Tue, 19 Nov 2019 12:51:56 +0100
+> Subject: [PATCH] x86/platform/intel/quark: Explicitly include linux/io.h for virt_to_phys()
+>
+> Similarly to the previous patches by Sean Christopherson:
+>
+>  "Through a labyrinthian sequence of includes, usage of virt_to_phys() is
+>   dependent on the include of asm/io.h in x86's asm/realmode.h, which is
+>   included in x86's asm/acpi.h and thus by linux/acpi.h.  Explicitly
+>   include linux/io.h to break the dependency on realmode.h so that a
+>   future patch can remove the realmode.h include from acpi.h without
+>   breaking the build."
 >
 
-Thanks Ingo
+LGTM,
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+
+> Cc: linux-kernel@vger.kernel.org
+> Cc: Sean Christopherson <sean.j.christopherson@intel.com>
+> Cc: Borislav Petkov <bp@alien8.de>
+> Cc: Linus Torvalds <torvalds@linux-foundation.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Cc: Thomas Gleixner <tglx@linutronix.de>
+> Signed-off-by: Ingo Molnar <mingo@kernel.org>
+> ---
+>  arch/x86/platform/intel-quark/imr.c          | 2 ++
+>  arch/x86/platform/intel-quark/imr_selftest.c | 2 ++
+>  2 files changed, 4 insertions(+)
+>
+> diff --git a/arch/x86/platform/intel-quark/imr.c b/arch/x86/platform/intel-quark/imr.c
+> index 6dd25dc5f027..e9d97d52475e 100644
+> --- a/arch/x86/platform/intel-quark/imr.c
+> +++ b/arch/x86/platform/intel-quark/imr.c
+> @@ -29,6 +29,8 @@
+>  #include <asm/cpu_device_id.h>
+>  #include <asm/imr.h>
+>  #include <asm/iosf_mbi.h>
+> +#include <asm/io.h>
+
+A nit: perhaps put it after imr.h.
+
+> +
+>  #include <linux/debugfs.h>
+>  #include <linux/init.h>
+>  #include <linux/mm.h>
+> diff --git a/arch/x86/platform/intel-quark/imr_selftest.c b/arch/x86/platform/intel-quark/imr_selftest.c
+> index 42f879b75f9b..4307830e1b6f 100644
+> --- a/arch/x86/platform/intel-quark/imr_selftest.c
+> +++ b/arch/x86/platform/intel-quark/imr_selftest.c
+> @@ -14,6 +14,8 @@
+>  #include <asm-generic/sections.h>
+>  #include <asm/cpu_device_id.h>
+>  #include <asm/imr.h>
+> +#include <asm/io.h>
+> +
+>  #include <linux/init.h>
+>  #include <linux/mm.h>
+>  #include <linux/types.h>
+>
+
+
+-- 
+With Best Regards,
+Andy Shevchenko
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

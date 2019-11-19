@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CC44103849
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 12:10:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D73DE10384C
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 12:11:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EB0D61693;
-	Wed, 20 Nov 2019 12:09:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB0D61693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72DA516C6;
+	Wed, 20 Nov 2019 12:11:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72DA516C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574248245;
-	bh=JqD4vs09fWkbgQTg0Om68spKREPHfDH7WNXdUPeFZcs=;
+	s=default; t=1574248316;
+	bh=1JkJZ41z5RZHWFhkWksyQnGHWIcx+HoMZz3oSfHxReU=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l7qbL2osWwP5f+1dBQ1pLfBU+rQF56IEwM9OtnMln/R9mO+ECFx35Q2ZeKCcfoZv1
-	 WHXZKo4CQI/H/t226fqY+GLAOek6iuXXo8ROsVffzdzh6fcsojn7eC7a8hKLuIVZWM
-	 gBryP+xe78eNFYWTSqRsPH+memrQ65onIAHFfakM=
+	b=cpjoAhM2bZsYOla66bFDYKrGNwdkfkizMT7bmR3Xl3hehqn+Ol/9DovPlGBn8cYil
+	 SF+NGmfOfWQP30jpIMD+StlonCDgltHysZNfmEfuonjGiORHIEEOBwFEraYSOGH87h
+	 b7xoGrjPRcWuPxJjctZ8tAOtNBCJDWyZfxY0fjzs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 705F0F80232;
-	Wed, 20 Nov 2019 12:02:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 09EF4F80245;
+	Wed, 20 Nov 2019 12:02:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D3755F800F1; Tue, 19 Nov 2019 01:21:51 +0100 (CET)
+ id 0400CF8013C; Tue, 19 Nov 2019 01:21:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,25 +33,25 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D4967F80141
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 01:21:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D4967F80141
+ by alsa1.perex.cz (Postfix) with ESMTPS id BFFE2F8013B
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 01:21:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFFE2F8013B
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2019 16:21:46 -0800
+ 18 Nov 2019 16:21:47 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,321,1569308400"; d="scan'208";a="215412042"
+X-IronPort-AV: E=Sophos;i="5.68,321,1569308400"; d="scan'208";a="215412045"
 Received: from sjchrist-coffee.jf.intel.com ([10.54.74.41])
- by fmsmga001.fm.intel.com with ESMTP; 18 Nov 2019 16:21:45 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 18 Nov 2019 16:21:46 -0800
 From: Sean Christopherson <sean.j.christopherson@intel.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, x86@kernel.org,
  "Rafael J. Wysocki" <rjw@rjwysocki.net>, Len Brown <len.brown@intel.com>,
  Pavel Machek <pavel@ucw.cz>
-Date: Mon, 18 Nov 2019 16:21:16 -0800
-Message-Id: <20191119002121.4107-8-sean.j.christopherson@intel.com>
+Date: Mon, 18 Nov 2019 16:21:17 -0800
+Message-Id: <20191119002121.4107-9-sean.j.christopherson@intel.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191119002121.4107-1-sean.j.christopherson@intel.com>
 References: <20191119002121.4107-1-sean.j.christopherson@intel.com>
@@ -74,8 +74,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  linux-kernel@vger.kernel.org, Andy Shevchenko <andy@infradead.org>
-Subject: [alsa-devel] [PATCH 07/12] virt: vbox: Explicitly include
-	linux/io.h to pick up various defs
+Subject: [alsa-devel] [PATCH 08/12] vmw_balloon: Explicitly include
+	linux/io.h for virt_to_phys()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,43 +93,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Through a labyrinthian sequence of includes, usage of page_to_phys(),
-virt_to_phys() and out*() is dependent on the include of asm/io.h in
-x86's asm/realmode.h, which is included in x86's asm/acpi.h and thus by
-linux/acpi.h.  Explicitly include linux/io.h to break the dependency on
-realmode.h so that a future patch can remove the realmode.h include from
-acpi.h without breaking the build.
+iThrough a labyrinthian sequence of includes, usage of virt_to_phys() is
+dependent on the include of asm/io.h in x86's asm/realmode.h, which is
+included in x86's asm/acpi.h and thus by linux/acpi.h.  Explicitly
+include linux/io.h to break the dependency on realmode.h so that a
+future patch can remove the realmode.h include from acpi.h without
+breaking the build.
 
 Signed-off-by: Sean Christopherson <sean.j.christopherson@intel.com>
 ---
- drivers/virt/vboxguest/vboxguest_core.c  | 1 +
- drivers/virt/vboxguest/vboxguest_utils.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/misc/vmw_balloon.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/virt/vboxguest/vboxguest_core.c b/drivers/virt/vboxguest/vboxguest_core.c
-index 2307b0329aec..d823d558c0c4 100644
---- a/drivers/virt/vboxguest/vboxguest_core.c
-+++ b/drivers/virt/vboxguest/vboxguest_core.c
-@@ -6,6 +6,7 @@
-  */
+diff --git a/drivers/misc/vmw_balloon.c b/drivers/misc/vmw_balloon.c
+index 5e6be1527571..b837e7eba5f7 100644
+--- a/drivers/misc/vmw_balloon.c
++++ b/drivers/misc/vmw_balloon.c
+@@ -17,6 +17,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
  
- #include <linux/device.h>
-+#include <linux/io.h>
- #include <linux/mm.h>
- #include <linux/sched.h>
- #include <linux/sizes.h>
-diff --git a/drivers/virt/vboxguest/vboxguest_utils.c b/drivers/virt/vboxguest/vboxguest_utils.c
-index 43c391626a00..50920b6fc319 100644
---- a/drivers/virt/vboxguest/vboxguest_utils.c
-+++ b/drivers/virt/vboxguest/vboxguest_utils.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <linux/errno.h>
+ #include <linux/types.h>
 +#include <linux/io.h>
  #include <linux/kernel.h>
  #include <linux/mm.h>
- #include <linux/module.h>
+ #include <linux/vmalloc.h>
 -- 
 2.24.0
 

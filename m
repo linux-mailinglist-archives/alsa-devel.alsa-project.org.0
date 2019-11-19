@@ -2,123 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37371025DE
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 15:06:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31013102612
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 15:11:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 552951694;
-	Tue, 19 Nov 2019 15:05:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 552951694
+	by alsa0.perex.cz (Postfix) with ESMTPS id B07C81697;
+	Tue, 19 Nov 2019 15:11:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B07C81697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574172382;
-	bh=rt6tTFb09fJ9VTwxuPFy2gUOAx8v7+MCwDt3aeNk1Mk=;
-	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574172710;
+	bh=rMAAYvixpl0YkDajqEwIPHrsSATXUsULunQP0k8ZarU=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kyBYFyF8+tqVX/1mlH7xaG/jQUNxHNFlEHGZIGJ1Yx+jjd2ABhNPKRtW6KIrCLKs8
-	 Fm/0fMPEWtiqBfASv8oYF87GAV4gSJbfXH7kEhuKHv7RdYowhZmvuZMqYOhSW0OtEu
-	 T8rpPuyqPDlA1HOvqWAs3T4vMFFqPNBjPMou7jw0=
+	b=MKutd9+vdVR9WHifE80t49RHy76P8OrvxUAYsPbre5HTtgnDBJJ/9FmT97CxgiiMF
+	 PMmJYi58KAgJ3VUc2TuTW0mKDId6d1wbtxOgMTjrBKrM8Yn4UHKuaReA6nG9F0Td8E
+	 w7/yR6bLXHga3Qt/KSO/8KNA/5yapEUkOAKcNDIs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5C2FF80137;
-	Tue, 19 Nov 2019 15:04:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AF7EF80137;
+	Tue, 19 Nov 2019 15:10:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C71AAF80137; Tue, 19 Nov 2019 15:04:35 +0100 (CET)
+ id D46A5F80137; Tue, 19 Nov 2019 15:10:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680079.outbound.protection.outlook.com [40.107.68.79])
+ FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,SURBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com
+ (mail-dm3nam03on0601.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:fe49::601])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C70DF800FF
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 15:04:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C70DF800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1DA5F800F4
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 15:10:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1DA5F800F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="YP6vYJCf"
+ header.i=@amdcloud.onmicrosoft.com header.b="q9NAWP2d"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MDGPsztHHG5e5+uWfYoVmnXytrS7nK+/2v+9v7HYoxOIFGECKYId4gfrivbgSlj2ppLtBXCTS43V6bO9Z3IzaZvf1jpn5IY03IWqguyf6x4C7eUxmKvxjCGg+gJLrBuXp6iQViaCLwrXdozq4qA2XxsALLCs8/1es7ikHg/AZ/MZblleufNWh5btENMRIajxEaNRW9SencKwGg0Ib7buPwam/zTRr7UtJgbyJxRttplomfGNIAmWGujoNxLT7JfHZsz53ck2oEMZi3C/VUnrpZz2FTbF7yMusUAtbWNK2E8MLnwcNA8Pujin0h+kV6wEl+f6W96uz8pK5oC64h158g==
+ b=K1ppSMStwJV2eNW+Bfht9fwuOF6+ECCGG70A+wRhD7gAGdPjIeMxBCHqQ+KVh/vF0Hj7KgAEXJ0NH12aIRTAeyXCMPYuTGuWd+N4kwowlGK4eRlpejr6Xe07KKKxvoW7s40q4Ry9t96Qo6VffjKMWWFCSjHz1/zdaoLS7lY64IizjWjR+8vW4Badhya9XJdXcLQ0xyQcT16dtlVeszMP/cErIId375/mS2Y9DD+hIh44XlmpF/+NPVqosjCg6O/sE1+FwZ3hIjc5hTwNsCZa2r/LNV6riARDTo7Vi0+EXcHET4l6Pz+sFrU1fvShg8K6pdfJigYNSqnyTyEuneBlxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fTv4PfCiuPOLkulRAfJSxPVE7d3Bu4RRkM41LmjZFCk=;
- b=OI3gWJ/ViLvEdXcm6tZh0yoqnTHX/e4MX0eBZHsJ/rk7d8jJ6d4p4FzIahZ6Tx0cuCxnf/1zON4082csWRlgkoEuLkvYiIPxC5Ss404oSwDSb+xOXkleBQo9480Rw4lGU8ASwyeWx7jhGe4RWeJJjOoeVCqm30pWqk8NxDAnjHDAyplr9vrcuPmNY3tTYVOVQUxC1CBh+4hK4IvIuPUBlgK16ilnxlhG0z+XPrToCEfyr/89Y3oRDyB3aEl7uAmzOCuoz/qmt777DtWGUFzLuEIF/+dYFqZUqtEPtmUWJriMproozLrVDgb6Nsg19TWpYX5C4uogXgw6hFqlezccyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=kHtyt9MZvqldLJO2OBG9Yfg1Jmv8fU9HitUJQS5/qMs=;
+ b=TQn2xhmUtmqXAqzwe9lJutAUV5LV8kOlMtxfUIcBZbbMcNe3pSnAzAlK+Ykm7wG6Somrxb7xb5d6OeOUXK880Ym4MaqNI9qQLS3IlUHRP+Ze5SdnC7DaZFsy5y/PoL2Cg0pUvpjPOM21Kk4ULWQuSq/pYVaZ6BcOLkKuziK3j28wUguGyoajk1jbTC+UpUek5HP9eshea/2kQAymCESHDhSTQcvnJ9TcGNHX/EH9rfswCpzELASw06jt/Sd+c3oYCOmpsyPg5EV3coSzRow7WC7DlZOZJuV6G9oAoZdxWKEqNZn1GPZlIblb66TdDNiOkWRZwc/Nxl6PPVqkaPUoXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fTv4PfCiuPOLkulRAfJSxPVE7d3Bu4RRkM41LmjZFCk=;
- b=YP6vYJCfJBp6Cn20N8w54n0Dq8C6ek8SJN1feGMfQuzFoKT3sFwWbnaotVTsPxoDOE7NYfet5b2e5frHqKB7RZsXqVqzAEzG9hB+ngHOpL7Kn8IDwIuzfkhum/Xkqt3jYTylfj8Rnvw7Y1fLmnckcwmf+Y83IkT/I/bDvgVfE04=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Vishnuvardhanrao.Ravulapati@amd.com; 
-Received: from CH2PR12MB3862.namprd12.prod.outlook.com (52.132.231.219) by
- CH2PR12MB3990.namprd12.prod.outlook.com (52.132.245.82) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2474.16; Tue, 19 Nov 2019 14:04:25 +0000
-Received: from CH2PR12MB3862.namprd12.prod.outlook.com
- ([fe80::3d47:8737:20c4:1834]) by CH2PR12MB3862.namprd12.prod.outlook.com
- ([fe80::3d47:8737:20c4:1834%7]) with mapi id 15.20.2451.029; Tue, 19 Nov 2019
- 14:04:25 +0000
-From: vishnu <vravulap@amd.com>
-To: Dan Carpenter <dan.carpenter@oracle.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-References: <1574165476-24987-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1574165476-24987-7-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <20191119123531.GA30789@kadam> <3321478e-de8f-2eb6-6e6f-6eb621b8434b@amd.com>
-Message-ID: <f7f14463-2249-4414-fc53-3fee0c99862c@amd.com>
-Date: Tue, 19 Nov 2019 19:33:08 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
-In-Reply-To: <3321478e-de8f-2eb6-6e6f-6eb621b8434b@amd.com>
-Content-Language: en-US
-X-ClientProxiedBy: PN1PR01CA0071.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c00:1::11) To CH2PR12MB3862.namprd12.prod.outlook.com
- (2603:10b6:610:21::27)
-MIME-Version: 1.0
-X-Originating-IP: [165.204.159.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: d099d246-4023-46dc-a210-08d76cf9627e
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:|CH2PR12MB3990:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <CH2PR12MB3990DF013321EB1BC138E725E74C0@CH2PR12MB3990.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:5236;
-X-Forefront-PRVS: 022649CC2C
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(39860400002)(396003)(376002)(366004)(346002)(23433003)(199004)(189003)(186003)(58126008)(305945005)(110136005)(26005)(3846002)(11346002)(6506007)(386003)(6486002)(53546011)(446003)(23676004)(7736002)(36756003)(31696002)(316002)(6666004)(6436002)(52116002)(81156014)(5660300002)(6116002)(2486003)(2906002)(76176011)(66556008)(50466002)(66476007)(54906003)(66946007)(7416002)(229853002)(14444005)(4326008)(8936002)(47776003)(6512007)(14454004)(6246003)(65956001)(66066001)(81166006)(486006)(99286004)(2616005)(476003)(8676002)(65806001)(478600001)(6636002)(2870700001)(25786009)(31686004)(43062003)(32563001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB3990;
- H:CH2PR12MB3862.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
+ bh=kHtyt9MZvqldLJO2OBG9Yfg1Jmv8fU9HitUJQS5/qMs=;
+ b=q9NAWP2dT8lPX4kLB2t5NJ0XPqfL7CYcaWMtd1oRajYjd8WpXw5B6w+KNiaxEbfYXifkURZiuURbZ0GCYs3gUCP5/DzWy7SQ0OuEjQJnBK+k56uEpadyFDJJW0LB3zeYV+/VxPCEMvj5EQ8VdvUp7UKtXcCvL2QhziHVXzMAPPg=
+Received: from SN1PR12CA0046.namprd12.prod.outlook.com (2603:10b6:802:20::17)
+ by MN2PR12MB3215.namprd12.prod.outlook.com (2603:10b6:208:101::33)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2451.26; Tue, 19 Nov
+ 2019 14:09:57 +0000
+Received: from DM6NAM11FT006.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::207) by SN1PR12CA0046.outlook.office365.com
+ (2603:10b6:802:20::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.2451.23 via Frontend
+ Transport; Tue, 19 Nov 2019 14:09:57 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=permerror action=none header.from=amd.com;
 Received-SPF: None (protection.outlook.com: amd.com does not designate
  permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT006.mail.protection.outlook.com (10.13.173.104) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
+ 15.20.2451.23 via Frontend Transport; Tue, 19 Nov 2019 14:09:57 +0000
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 19 Nov
+ 2019 08:09:42 -0600
+Received: from vishnu-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Tue, 19 Nov 2019 08:09:39 -0600
+From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+To: 
+Date: Tue, 19 Nov 2019 19:38:23 +0530
+Message-ID: <1574172508-26546-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1574172508-26546-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+References: <1574172508-26546-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+MIME-Version: 1.0
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(39860400002)(136003)(396003)(376002)(346002)(428003)(189003)(199004)(186003)(76176011)(51416003)(4326008)(2906002)(109986005)(305945005)(86362001)(6666004)(356004)(70586007)(70206006)(478600001)(47776003)(5660300002)(26005)(1671002)(50226002)(48376002)(8676002)(126002)(50466002)(36756003)(81156014)(426003)(81166006)(8936002)(336012)(316002)(486006)(16586007)(446003)(2616005)(7696005)(11346002)(54906003)(53416004)(476003)(266003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3215; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 58eddb09-e6e6-4991-89f3-08d76cfa2864
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3215:
+X-Microsoft-Antispam-PRVS: <MN2PR12MB321505B1258DC37A1A92DF5DE74C0@MN2PR12MB3215.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:182;
+X-Forefront-PRVS: 022649CC2C
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: jgm92UTAKoFU+hjbmYadDb01XfZv7ApTIh4MiQ49Pr7HIDh7VzWD0nUD7kka84puNdJXz+vebooRF9QrXmuoEKAftRYEXZofH+5c+RUkf9ZaKlQAzfn9den3QS0VLjn4TkaTTSt8cBTtaraaO57iCbCssSkm8m9kB5VLivsaQUnUy8A1ST4dY1wsYEHjMwqL+gaPYUyd8N9WQXwXIXaZQLG0/lS477jvg64uRZA601Rf77A1yJBikQFxweDX7o/X8h8fJ9+WSObqCF9FGWUgmMKB4wJcj/229Ua3w6wBboiEYMI1KGQVUkJoNK9XKlm+jqCM7+pKKvNUUWNBwA7bGDdBdii1V6eUDNXYch9QCkfwlVPyZM94JABM3B2rHS6UTJbbPyurfOi9Wxico807A6yC7zBVBUkXscFzhfvQlu5JwLAUoKPIUGgAsoAtFi+h
+X-Microsoft-Antispam-Message-Info: uFpTp9s9Fat+RcD6Kgzt/55FJmvYOqh1nx4jp5mTyOt+eSwMBBdF6F0ib1JfWsbJ9nCW3JpMWx9+DywMgLaOPzfn+9pqKf6lxIVoRgL3G6P1qOTqYl5X8QCRDE9xWK1LtveKVxiGlKJII7F6Y7UGmTAo6ADkOpbdKuRGzgsRUJ+tTx6qhtKKnPOtCE8YdKzDXpUnk2sVZS6+HgveY1+VQaEbvH+fI28Ap5zbs/MllUMiVhtpQ3lWS8W8MJnRPWHAfhCQwC1aAg/pB6qLTIeAnOqGmFmzJyBEYEnMxsjxT9FILm59UG/R/QnBeCk//aFM9v5+rhBW4Q4XX7YawhTnCkoTtW3elxlUKXQCVHiJz/vPkLKsMSiKl/jgXP2Qa5Y5NbSvzKVQ3SSoubfK1u+7kUXU5+WlFskzofFlVgMaRw3ldZhE+211ED/ZWEFDY9Rk
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d099d246-4023-46dc-a210-08d76cf9627e
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2019 14:04:25.3316 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2019 14:09:57.0677 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58eddb09-e6e6-4991-89f3-08d76cfa2864
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TwLHRIR7abvSHGE40n2Ym8/LWvjSMuNjaYcyJtToVXFNXWNVIzTmZT/mf+V0TlTn1g7DvtGtwrNgHp39qdH2gg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB3990
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3215
 Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- YueHaibing <yuehaibing@huawei.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, djkurtz@google.com,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- Akshu.Agrawal@amd.com
-Subject: Re: [alsa-devel] [RESEND PATCH v9 6/6] ASoC: amd: Added ACP3x
- system resume and runtime pm
+ <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Akshu.Agrawal@amd.com,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Mark Brown <broonie@kernel.org>, djkurtz@google.com, Alexander.Deucher@amd.com,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [alsa-devel] [PATCH v10 1/6] ASoC: amd:Create multiple I2S platform
+	device endpoint
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,176 +137,212 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiAxOS8xMS8xOSA2OjI2IFBNLCB2aXNobnUgd3JvdGU6Cj4gCj4gCj4gT24gMTkvMTEvMTkg
-NjowNSBQTSwgRGFuIENhcnBlbnRlciB3cm90ZToKPj4gSSBjYW4ndCBhcHBseSB0aGlzIGJlY2F1
-c2UgSSdtIG5vdCBDQydkIG9uIHBhdGNoZXMgMi01Lgo+Pgo+PiBPbiBUdWUsIE5vdiAxOSwgMjAx
-OSBhdCAwNTo0MToxNlBNICswNTMwLCBSYXZ1bGFwYXRpIFZpc2hudSB2YXJkaGFuIAo+PiByYW8g
-d3JvdGU6Cj4+PiArc3RhdGljIGludCBhY3AzeF9wb3dlcl9vbih2b2lkIF9faW9tZW0gKmFjcDN4
-X2Jhc2UpCj4+PiArewo+Pj4gK8KgwqDCoCB1MzIgdmFsOwo+Pj4gK8KgwqDCoCB1MzIgdGltZW91
-dDsKPj4+ICsKPj4+ICvCoMKgwqAgdGltZW91dCA9IDA7Cj4+PiArwqDCoMKgIHZhbCA9IHJ2X3Jl
-YWRsKGFjcDN4X2Jhc2UgKyBtbUFDUF9QR0ZTTV9TVEFUVVMpOwo+Pj4gKwo+Pj4gK8KgwqDCoCBp
-ZiAodmFsID09IDApCj4+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHZhbDsKPj4+ICsKPj4+ICvC
-oMKgwqAgaWYgKCEoKHZhbCAmIEFDUF9QR0ZTTV9TVEFUVVNfTUFTSykgPT0KPj4+ICvCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgQUNQX1BPV0VSX09OX0lOX1BST0dSRVNTKSkKPj4+ICvC
-oMKgwqDCoMKgwqDCoCBydl93cml0ZWwoQUNQX1BHRlNNX0NOVExfUE9XRVJfT05fTUFTSywKPj4+
-ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFjcDN4X2Jhc2UgKyBtbUFDUF9QR0ZTTV9DT05UUk9M
-KTsKPj4+ICvCoMKgwqAgd2hpbGUgKCsrdGltZW91dCkgewo+Pgo+PiB3aGlsZSAoKyt0aW1lb3V0
-IDwgNTAwKQo+Pgo+IAo+IElmIEkgY2hlY2sgd2l0aCB0aW1lb3V0PDUwMCBhbmQgaW4gbmV4dCBj
-b25kaXRpb24gaSBoYXZlCj4gaWYodGltZW91dCA+NTAwKSB0aGlzIG5ldmVyIGhhcHBlbnMuCj4g
-Cj4gT3VyIGludGVudGlvbiBpcyB0byB3YWl0IGZvciB0aW1lIG91dCBhbmQgZXhpdC4KPiAKPj4+
-ICvCoMKgwqDCoMKgwqDCoCB2YWzCoCA9IHJ2X3JlYWRsKGFjcDN4X2Jhc2UgKyBtbUFDUF9QR0ZT
-TV9TVEFUVVMpOwo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBeXgo+
-PiBFeHRyYSBzcGFjZSBjaGFyYWN0ZXIuCj4+Cj4+Cj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKCF2
-YWwpCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4KPj4gcmV0dXJuIDA7Cj4+
-Cj4+PiArwqDCoMKgwqDCoMKgwqAgdWRlbGF5KDEpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmICh0
-aW1lb3V0ID4gNTAwKSB7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBwcl9lcnIoIkFDUCBp
-cyBOb3QgUG93ZXJlZCBPTlxuIik7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4g
-LUVUSU1FRE9VVDsKPj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+PiArwqDCoMKgIH0KPj4+ICvCoMKg
-wqAgcmV0dXJuIDA7Cj4+Cj4+IFNpbmNlIHdlIGNvbWJpbmVkIHRoZSArK3RpbWVvdXQgYW5kIHRo
-ZSA8IDUwMCB0aGlzIGJlY29tZXMKPj4gInJldHVybiAtRVRJTUVPVVQ7IiBoZXJlLgo+Pgo+Pj4g
-K30KPj4+ICsKPj4+ICtzdGF0aWMgaW50IGFjcDN4X3Bvd2VyX29mZih2b2lkIF9faW9tZW0gKmFj
-cDN4X2Jhc2UpCj4+PiArewo+Pj4gK8KgwqDCoCB1MzIgdmFsOwo+Pj4gK8KgwqDCoCB1MzIgdGlt
-ZW91dCwgcmV0Owo+Pgo+PiBCb3RoIHJldCBhbmQgdGltZW91dCBzaG91bGQganVzdCBiZSBpbnQu
-wqAgUGxlYXNlIHVwZGF0ZSB0aGlzIHRocm91Z2hvdXQuCj4+Cj4+PiArCj4+PiArwqDCoMKgIHRp
-bWVvdXQgPSAwOwo+Pgo+PiBNb3ZlIHRoZSB0aW1lb3V0ID0gMCBuZXh0IHRvIHRoZSBsb29wIG9y
-IHB1dCBpdCBpbiB0aGUgaW5pdGlhbGl6ZXIuCj4+Cj4+PiArwqDCoMKgIHJ2X3dyaXRlbChBQ1Bf
-UEdGU01fQ05UTF9QT1dFUl9PRkZfTUFTSywKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGFj
-cDN4X2Jhc2UgKyBtbUFDUF9QR0ZTTV9DT05UUk9MKTsKPj4+ICvCoMKgwqAgd2hpbGUgKCsrdGlt
-ZW91dCkgewo+Pgo+PiB3aGlsZSAoKyt0aW1lb3V0IDwgNTAwKSB7Cj4+Cj4+PiArwqDCoMKgwqDC
-oMKgwqAgdmFswqAgPSBydl9yZWFkbChhY3AzeF9iYXNlICsgbW1BQ1BfUEdGU01fU1RBVFVTKTsK
-Pj4KPj4gRXh0cmEgc3BhY2UgY2hhci4KPj4KPj4+ICvCoMKgwqDCoMKgwqDCoCBpZiAoKHZhbCAm
-IEFDUF9QR0ZTTV9TVEFUVVNfTUFTSykgPT0gQUNQX1BPV0VSRURfT0ZGKSB7Cj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCByZXQgPSAwOwo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJl
-YWs7Cj4+Cj4+IHJldHVybiAwOwo+Pgo+Pj4gK8KgwqDCoMKgwqDCoMKgIH0KPj4+ICvCoMKgwqDC
-oMKgwqDCoCB1ZGVsYXkoMSk7Cj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKHRpbWVvdXQgPiA1MDAp
-IHsKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHByX2VycigiQUNQIGlzIE5vdCBQb3dlcmVk
-IE9GRlxuIik7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXQgPSAtRVRJTUVET1VUOwo+
-Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgYnJlYWs7Cj4+PiArwqDCoMKgwqDCoMKgwqAgfQo+
-Pj4gK8KgwqDCoCB9Cj4+PiArwqDCoMKgIHJldHVybiByZXQ7Cj4+PiArfQo+Pj4gKwo+Pj4gK3N0
-YXRpYyBpbnQgYWNwM3hfcmVzZXQodm9pZCBfX2lvbWVtICphY3AzeF9iYXNlKQo+Pj4gK3sKPj4+
-ICvCoMKgwqAgdTMyIHZhbCwgdGltZW91dDsKPj4+ICsKPj4+ICvCoMKgwqAgcnZfd3JpdGVsKDEs
-IGFjcDN4X2Jhc2UgKyBtbUFDUF9TT0ZUX1JFU0VUKTsKPj4+ICvCoMKgwqAgdGltZW91dCA9IDA7
-Cj4+PiArwqDCoMKgIHdoaWxlICgrK3RpbWVvdXQpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoCB2YWwg
-PSBydl9yZWFkbChhY3AzeF9iYXNlICsgbW1BQ1BfU09GVF9SRVNFVCk7Cj4+PiArwqDCoMKgwqDC
-oMKgwqAgaWYgKCh2YWwgJiBBQ1AzeF9TT0ZUX1JFU0VUX19Tb2Z0UmVzZXRBdWREb25lX01BU0sp
-IHx8Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHRpbWVvdXQgPiAxMDApIHsKPj4KPj4gVGhpcyB0aW1lb3V0ID4gMTAwIGxpbWl0IHdh
-cyBkaWZmaWN1bHQgdG8gc3BvdC7CoCBMaWtlIGZpbmRpbmcgV2FsZG8uCj4+Cj4+PiArwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCBpZiAodmFsICYgQUNQM3hfU09GVF9SRVNFVF9fU29mdFJlc2V0QXVk
-RG9uZV9NQVNLKQo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4K
-Pj4gVGhpcyBpcyBhIGR1cGxpY2F0ZSBjb25kaXRpb24uCj4+Cj4+PiArwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoCByZXR1cm4gLUVOT0RFVjsKPj4+ICvCoMKgwqDCoMKgwqDCoCB9Cj4+PiArwqDCoMKg
-wqDCoMKgwqAgY3B1X3JlbGF4KCk7Cj4+PiArwqDCoMKgIH0KPj4+ICvCoMKgwqAgcnZfd3JpdGVs
-KDAsIGFjcDN4X2Jhc2UgKyBtbUFDUF9TT0ZUX1JFU0VUKTsKPj4+ICvCoMKgwqAgdGltZW91dCA9
-IDA7Cj4+PiArwqDCoMKgIHdoaWxlICgrK3RpbWVvdXQpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoCB2
-YWwgPSBydl9yZWFkbChhY3AzeF9iYXNlICsgbW1BQ1BfU09GVF9SRVNFVCk7Cj4+PiArwqDCoMKg
-wqDCoMKgwqAgaWYgKCF2YWwpCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBicmVhazsKPj4+
-ICvCoMKgwqDCoMKgwqDCoCBpZiAodGltZW91dCA+IDEwMCkKPj4+ICvCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIHJldHVybiAtRU5PREVWOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGNwdV9yZWxheCgpOwo+
-Pj4gK8KgwqDCoCB9Cj4+PiArwqDCoMKgIHJldHVybiAwOwo+Pj4gK30KPj4+ICsKPj4+ICtzdGF0
-aWMgaW50IGFjcDN4X2luaXQodm9pZCBfX2lvbWVtICphY3AzeF9iYXNlKQo+Pj4gK3sKPj4+ICvC
-oMKgwqAgaW50IHJldDsKPj4+ICsKPj4+ICvCoMKgwqAgLyogcG93ZXIgb24gKi8KPj4+ICvCoMKg
-wqAgcmV0ID0gYWNwM3hfcG93ZXJfb24oYWNwM3hfYmFzZSk7Cj4+PiArwqDCoMKgIGlmIChyZXQp
-IHsKPj4+ICvCoMKgwqDCoMKgwqDCoCBwcl9lcnIoIkFDUDN4IHBvd2VyIG9uIGZhaWxlZFxuIik7
-Cj4+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIHJldDsKPj4+ICvCoMKgwqAgfQo+Pj4gK8KgwqDC
-oCAvKiBSZXNldCAqLwo+Pj4gK8KgwqDCoCByZXQgPSBhY3AzeF9yZXNldChhY3AzeF9iYXNlKTsK
-Pj4+ICvCoMKgwqAgaWYgKHJldCkgewo+Pj4gK8KgwqDCoMKgwqDCoMKgIHByX2VycigiQUNQM3gg
-cmVzZXQgZmFpbGVkXG4iKTsKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gcmV0Owo+Pj4gK8Kg
-wqDCoCB9Cj4+PiArwqDCoMKgIHJldHVybiAwOwo+Pj4gK30KPj4+ICsKPj4+ICtzdGF0aWMgaW50
-IGFjcDN4X2RlaW5pdCh2b2lkIF9faW9tZW0gKmFjcDN4X2Jhc2UpCj4+PiArewo+Pj4gK8KgwqDC
-oCBpbnQgcmV0Owo+Pj4gKwo+Pj4gK8KgwqDCoCAvKiBSZXNldCAqLwo+Pj4gK8KgwqDCoCByZXQg
-PSBhY3AzeF9yZXNldChhY3AzeF9iYXNlKTsKPj4+ICvCoMKgwqAgaWYgKHJldCkgewo+Pj4gK8Kg
-wqDCoMKgwqDCoMKgIHByX2VycigiQUNQM3ggcmVzZXQgZmFpbGVkXG4iKTsKPj4+ICvCoMKgwqDC
-oMKgwqDCoCByZXR1cm4gcmV0Owo+Pj4gK8KgwqDCoCB9Cj4+PiArwqDCoMKgIC8qIHBvd2VyIG9m
-ZiAqLwo+Pj4gK8KgwqDCoCByZXQgPSBhY3AzeF9wb3dlcl9vZmYoYWNwM3hfYmFzZSk7Cj4+PiAr
-wqDCoMKgIGlmIChyZXQpIHsKPj4+ICvCoMKgwqDCoMKgwqDCoCBwcl9lcnIoIkFDUDN4IHBvd2Vy
-IG9mZiBmYWlsZWRcbiIpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7Cj4+PiArwqDC
-oMKgIH0KPj4+ICvCoMKgwqAgcmV0dXJuIDA7Cj4+PiArfQo+Pj4gKwo+Pj4gwqAgc3RhdGljIGlu
-dCBzbmRfYWNwM3hfcHJvYmUoc3RydWN0IHBjaV9kZXYgKnBjaSwKPj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgIGNvbnN0IHN0cnVjdCBwY2lfZGV2aWNlX2lkICpwY2lfaWQpCj4+
-PiDCoCB7Cj4+PiBAQCAtNjQsNiArMTg2LDkgQEAgc3RhdGljIGludCBzbmRfYWNwM3hfcHJvYmUo
-c3RydWN0IHBjaV9kZXYgKnBjaSwKPj4+IMKgwqDCoMKgwqAgfQo+Pj4gwqDCoMKgwqDCoCBwY2lf
-c2V0X21hc3RlcihwY2kpOwo+Pj4gwqDCoMKgwqDCoCBwY2lfc2V0X2RydmRhdGEocGNpLCBhZGF0
-YSk7Cj4+PiArwqDCoMKgIHJldCA9IGFjcDN4X2luaXQoYWRhdGEtPmFjcDN4X2Jhc2UpOwo+Pj4g
-K8KgwqDCoCBpZiAocmV0KQo+Pj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gZGlzYWJsZV9tc2k7Cj4+
-PiDCoMKgwqDCoMKgIHZhbCA9IHJ2X3JlYWRsKGFkYXRhLT5hY3AzeF9iYXNlICsgbW1BQ1BfSTJT
-X1BJTl9DT05GSUcpOwo+Pj4gwqDCoMKgwqDCoCBzd2l0Y2ggKHZhbCkgewo+Pj4gQEAgLTczLDcg
-KzE5OCw3IEBAIHN0YXRpYyBpbnQgc25kX2FjcDN4X3Byb2JlKHN0cnVjdCBwY2lfZGV2ICpwY2ks
-Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEdGUF9L
-RVJORUwpOwo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGlmICghYWRhdGEtPnJlcykgewo+Pj4gwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gLUVOT01FTTsKPj4+IC3CoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGdvdG8gZGlzYWJsZV9tc2k7Cj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBn
-b3RvIGRlX2luaXQ7Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgfQo+Pj4gwqDCoMKgwqDCoMKgwqDC
-oMKgIGFkYXRhLT5yZXNbMF0ubmFtZSA9ICJhY3AzeF9pMnNfaW9tZW0iOwo+Pj4gQEAgLTEzNCwx
-MiArMjU5LDIzIEBAIHN0YXRpYyBpbnQgc25kX2FjcDN4X3Byb2JlKHN0cnVjdCBwY2lfZGV2ICpw
-Y2ksCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0ID0gLUVOT0RFVjsKPj4+IMKgwqDCoMKgwqDC
-oMKgwqDCoCBnb3RvIGRpc2FibGVfbXNpOwo+Pj4gwqDCoMKgwqDCoCB9Cj4+PiArwqDCoMKgIHBt
-X3J1bnRpbWVfc2V0X2F1dG9zdXNwZW5kX2RlbGF5KCZwY2ktPmRldiwgNTAwMCk7Cj4+PiArwqDC
-oMKgIHBtX3J1bnRpbWVfdXNlX2F1dG9zdXNwZW5kKCZwY2ktPmRldik7Cj4+PiArwqDCoMKgIHBt
-X3J1bnRpbWVfc2V0X2FjdGl2ZSgmcGNpLT5kZXYpOwo+Pj4gK8KgwqDCoCBwbV9ydW50aW1lX3B1
-dF9ub2lkbGUoJnBjaS0+ZGV2KTsKPj4+ICvCoMKgwqAgcG1fcnVudGltZV9lbmFibGUoJnBjaS0+
-ZGV2KTsKPj4+IMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+PiDCoCB1bnJlZ2lzdGVyX2RldnM6Cj4+
-PiDCoMKgwqDCoMKgIGlmICh2YWwgPT0gSTJTX01PREUpCj4+PiDCoMKgwqDCoMKgwqDCoMKgwqAg
-Zm9yIChpID0gMCA7IGkgPCBBQ1AzeF9ERVZTIDsgaSsrKQo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgcGxhdGZvcm1fZGV2aWNlX3VucmVnaXN0ZXIoYWRhdGEtPnBkZXZbaV0pOwo+Pj4g
-K2RlX2luaXQ6Cj4+PiArwqDCoMKgIHJldCA9IGFjcDN4X2RlaW5pdChhZGF0YS0+YWNwM3hfYmFz
-ZSk7Cj4+PiArwqDCoMKgIGlmIChyZXQpCj4+PiArwqDCoMKgwqDCoMKgwqAgZGV2X2VycigmcGNp
-LT5kZXYsICJBQ1AgZGUtaW5pdCBmYWlsZWRcbiIpOwo+Pj4gK8KgwqDCoCBlbHNlCj4+PiArwqDC
-oMKgwqDCoMKgwqAgZGV2X2RiZygmcGNpLT5kZXYsICJBQ1AgZGUtaW5pdGlhbGl6ZWRcbiIpOwo+
-Pgo+Pgo+PiBXZSBjYW4ndCBvdmVyd3JpdGUgcmV0IChwcm9iZSBmYWlsZWQgZXZlbiBpZiBkZWlu
-aXQoKSBzdWNjZWVkZWQpLsKgIEkKPj4gZG9udCcga25vdyB0aGF0IHRoZSBkZWJ1ZyBwcmludGsg
-aXMgdXNlZnVsLgo+Pgo+PiBkZV9pbml0Ogo+PiDCoMKgwqDCoGlmIChhY3AzeF9kZWluaXQoYWRh
-dGEtPmFjcDN4X2Jhc2UpKQo+PiDCoMKgwqDCoMKgwqDCoCBkZXZfZXJyKCZwY2ktPmRldiwgIkFD
-UCBkZS1pbml0IGZhaWxlZCBpbiBwcm9iZSBlcnJvciAKPj4gaGFuZGxpbmdcbiIpOwo+Pgo+Pgo+
-Pj4gwqAgZGlzYWJsZV9tc2k6Cj4+PiDCoMKgwqDCoMKgIHBjaV9kaXNhYmxlX21zaShwY2kpOwo+
-Pj4gwqAgcmVsZWFzZV9yZWdpb25zOgo+Pj4gQEAgLTE1MCwxNSArMjg2LDU4IEBAIHN0YXRpYyBp
-bnQgc25kX2FjcDN4X3Byb2JlKHN0cnVjdCBwY2lfZGV2ICpwY2ksCj4+PiDCoMKgwqDCoMKgIHJl
-dHVybiByZXQ7Cj4+PiDCoCB9Cj4+PiArc3RhdGljIGludMKgIHNuZF9hY3AzeF9zdXNwZW5kKHN0
-cnVjdCBkZXZpY2UgKmRldikKPj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgXl4KPj4gRXh0
-cmEgc3BhY2UgY2hhcgo+Pgo+Pj4gK3sKPj4+ICvCoMKgwqAgaW50IHN0YXR1czsKPj4KPj4gaW50
-IHJldDsKPj4KPj4+ICvCoMKgwqAgc3RydWN0IGFjcDN4X2Rldl9kYXRhICphZGF0YTsKPj4+ICsK
-Pj4+ICvCoMKgwqAgYWRhdGEgPSBkZXZfZ2V0X2RydmRhdGEoZGV2KTsKPj4+ICvCoMKgwqAgc3Rh
-dHVzID0gYWNwM3hfZGVpbml0KGFkYXRhLT5hY3AzeF9iYXNlKTsKPj4+ICvCoMKgwqAgaWYgKHN0
-YXR1cykKPj4+ICvCoMKgwqDCoMKgwqDCoCBkZXZfZXJyKGRldiwgIkFDUCBkZS1pbml0IGZhaWxl
-ZFxuIik7Cj4+PiArwqDCoMKgIGVsc2UKPj4+ICvCoMKgwqDCoMKgwqDCoCBkZXZfZGJnKGRldiwg
-IkFDUCBkZS1pbml0aWFsaXplZFxuIik7Cj4+PiArCj4+PiArwqDCoMKgIHJldHVybiAwOwo+Pj4g
-K30KPj4+ICsKPj4+ICtzdGF0aWMgaW50wqAgc25kX2FjcDN4X3Jlc3VtZShzdHJ1Y3QgZGV2aWNl
-ICpkZXYpCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIF5eCj4+IEV4dHJhIHNwYWNlCj4+
-Cj4+PiArewo+Pj4gK8KgwqDCoCBpbnQgc3RhdHVzOwo+Pj4gK8KgwqDCoCBzdHJ1Y3QgYWNwM3hf
-ZGV2X2RhdGEgKmFkYXRhOwo+Pj4gKwo+Pj4gK8KgwqDCoCBhZGF0YSA9IGRldl9nZXRfZHJ2ZGF0
-YShkZXYpOwo+Pj4gK8KgwqDCoCBzdGF0dXMgPSBhY3AzeF9pbml0KGFkYXRhLT5hY3AzeF9iYXNl
-KTsKPj4+ICvCoMKgwqAgaWYgKHN0YXR1cykgewo+Pj4gK8KgwqDCoMKgwqDCoMKgIGRldl9lcnIo
-ZGV2LCAiQUNQIGluaXQgZmFpbGVkXG4iKTsKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1cm4gc3Rh
-dHVzOwo+Pj4gK8KgwqDCoCB9Cj4+PiArwqDCoMKgIHJldHVybiAwOwo+Pj4gK30KPj4+ICsKPj4+
-ICtzdGF0aWMgY29uc3Qgc3RydWN0IGRldl9wbV9vcHMgYWNwM3hfcG0gPSB7Cj4+PiArwqDCoMKg
-IC5ydW50aW1lX3N1c3BlbmQgPSBzbmRfYWNwM3hfc3VzcGVuZCwKPj4+ICvCoMKgwqAgLnJ1bnRp
-bWVfcmVzdW1lID3CoCBzbmRfYWNwM3hfcmVzdW1lLAo+Pj4gK8KgwqDCoCAucmVzdW1lID3CoMKg
-wqDCoMKgwqAgc25kX2FjcDN4X3Jlc3VtZSwKPj4KPj4gRml4IHdoaXRlc3BhY2UuCj4+Cj4+PiAr
-fTsKPj4+ICsKPj4+IMKgIHN0YXRpYyB2b2lkIHNuZF9hY3AzeF9yZW1vdmUoc3RydWN0IHBjaV9k
-ZXYgKnBjaSkKPj4+IMKgIHsKPj4+IC3CoMKgwqAgc3RydWN0IGFjcDN4X2Rldl9kYXRhICphZGF0
-YSA9IHBjaV9nZXRfZHJ2ZGF0YShwY2kpOwo+Pgo+PiBUaGlzIHdhcyBmaW5lLsKgIExlYXZlIGl0
-IGFzLWlzLgo+PgoKQWN0dWFsbHkgSSAgd2FzIHJlcG9ydGVkIGJ5IGtidWlsZCByb2JvdCB0b29s
-IGFib3V0IElTTyBtaXhlZCBmb3JiaWRzIG9mIAppbml0aWFsaXphdGlvbiBzbyBJIGRpZCB0aGlz
-LgoKPj4+IC3CoMKgwqAgaW50IGk7Cj4+PiArwqDCoMKgIHN0cnVjdCBhY3AzeF9kZXZfZGF0YSAq
-YWRhdGE7Cj4+PiArwqDCoMKgIGludCBpLCByZXQ7Cj4+PiArwqDCoMKgIGFkYXRhID0gcGNpX2dl
-dF9kcnZkYXRhKHBjaSk7Cj4+PiDCoMKgwqDCoMKgIGlmIChhZGF0YS0+YWNwM3hfYXVkaW9fbW9k
-ZSA9PSBBQ1AzeF9JMlNfTU9ERSkgewo+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgIGZvciAoaSA9IDAg
-OyBpIDzCoCBBQ1AzeF9ERVZTIDsgaSsrKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIF5eCj4+IFRoZXJlIGlzIGFuIGV4
-dHJhIHNwYWNlIGNoYXIgaGVyZSBhcyB3ZWxsLsKgIEkgZ3Vlc3MgSSBtaXNzZWQgaXQgd2hlbiBJ
-Cj4+IHJldmlld2VkIHBhdGNoIDEuCj4+Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBw
-bGF0Zm9ybV9kZXZpY2VfdW5yZWdpc3RlcihhZGF0YS0+cGRldltpXSk7Cj4+PiDCoMKgwqDCoMKg
-IH0KPj4+ICvCoMKgwqAgcmV0ID0gYWNwM3hfZGVpbml0KGFkYXRhLT5hY3AzeF9iYXNlKTsKPj4+
-ICvCoMKgwqAgaWYgKHJldCkKPj4+ICvCoMKgwqDCoMKgwqDCoCBkZXZfZXJyKCZwY2ktPmRldiwg
-IkFDUCBkZS1pbml0IGZhaWxlZFxuIik7Cj4+PiArwqDCoMKgIGVsc2UKPj4+ICvCoMKgwqDCoMKg
-wqDCoCBkZXZfZGJnKCZwY2ktPmRldiwgIkFDUCBkZS1pbml0aWFsaXplZFxuIik7Cj4+Cj4+IFB1
-dCB0aGUgcHJpbnRrIGluIGFjcDN4X2RlaW5pdCgpIGl0c2VsZiBhbmQgcmVtb3ZlIGl0IGZyb20g
-YWxsIHRoZQo+PiBjYWxsZXJzLgo+Pgo+PiByZWdhcmRzLAo+PiBkYW4gY2FycGVudGVyCj4+Cl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwg
-bWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4u
-YWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+Creates Platform Device endpoints for multiple
+I2S instances: SP and  BT endpoints device.
+Pass PCI resources like MMIO, irq to the platform devices.
+
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+---
+ sound/soc/amd/raven/acp3x.h     |  5 +++
+ sound/soc/amd/raven/pci-acp3x.c | 95 +++++++++++++++++++++++++++--------------
+ 2 files changed, 68 insertions(+), 32 deletions(-)
+
+diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
+index 4f2cadd..2f15fe1 100644
+--- a/sound/soc/amd/raven/acp3x.h
++++ b/sound/soc/amd/raven/acp3x.h
+@@ -7,10 +7,15 @@
+ 
+ #include "chip_offset_byte.h"
+ 
++#define ACP3x_DEVS		3
+ #define ACP3x_PHY_BASE_ADDRESS 0x1240000
+ #define	ACP3x_I2S_MODE	0
+ #define	ACP3x_REG_START	0x1240000
+ #define	ACP3x_REG_END	0x1250200
++#define ACP3x_I2STDM_REG_START	0x1242400
++#define ACP3x_I2STDM_REG_END	0x1242410
++#define ACP3x_BT_TDM_REG_START	0x1242800
++#define ACP3x_BT_TDM_REG_END	0x1242810
+ #define I2S_MODE	0x04
+ #define	BT_TX_THRESHOLD 26
+ #define	BT_RX_THRESHOLD 25
+diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
+index facec24..94f5f21 100644
+--- a/sound/soc/amd/raven/pci-acp3x.c
++++ b/sound/soc/amd/raven/pci-acp3x.c
+@@ -16,17 +16,17 @@ struct acp3x_dev_data {
+ 	void __iomem *acp3x_base;
+ 	bool acp3x_audio_mode;
+ 	struct resource *res;
+-	struct platform_device *pdev;
++	struct platform_device *pdev[ACP3x_DEVS];
+ };
+ 
+ static int snd_acp3x_probe(struct pci_dev *pci,
+ 			   const struct pci_device_id *pci_id)
+ {
+-	int ret;
+-	u32 addr, val;
+ 	struct acp3x_dev_data *adata;
+-	struct platform_device_info pdevinfo;
++	struct platform_device_info pdevinfo[ACP3x_DEVS];
+ 	unsigned int irqflags;
++	int ret, i;
++	u32 addr, val;
+ 
+ 	if (pci_enable_device(pci)) {
+ 		dev_err(&pci->dev, "pci_enable_device failed\n");
+@@ -56,10 +56,11 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		irqflags = 0;
+ 
+ 	addr = pci_resource_start(pci, 0);
+-	adata->acp3x_base = ioremap(addr, pci_resource_len(pci, 0));
++	adata->acp3x_base = devm_ioremap(&pci->dev, addr,
++					pci_resource_len(pci, 0));
+ 	if (!adata->acp3x_base) {
+ 		ret = -ENOMEM;
+-		goto release_regions;
++		goto disable_msi;
+ 	}
+ 	pci_set_master(pci);
+ 	pci_set_drvdata(pci, adata);
+@@ -68,11 +69,11 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 	switch (val) {
+ 	case I2S_MODE:
+ 		adata->res = devm_kzalloc(&pci->dev,
+-					  sizeof(struct resource) * 2,
++					  sizeof(struct resource) * 4,
+ 					  GFP_KERNEL);
+ 		if (!adata->res) {
+ 			ret = -ENOMEM;
+-			goto unmap_mmio;
++			goto disable_msi;
+ 		}
+ 
+ 		adata->res[0].name = "acp3x_i2s_iomem";
+@@ -80,40 +81,67 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		adata->res[0].start = addr;
+ 		adata->res[0].end = addr + (ACP3x_REG_END - ACP3x_REG_START);
+ 
+-		adata->res[1].name = "acp3x_i2s_irq";
+-		adata->res[1].flags = IORESOURCE_IRQ;
+-		adata->res[1].start = pci->irq;
+-		adata->res[1].end = pci->irq;
++		adata->res[1].name = "acp3x_i2s_sp";
++		adata->res[1].flags = IORESOURCE_MEM;
++		adata->res[1].start = addr + ACP3x_I2STDM_REG_START;
++		adata->res[1].end = addr + ACP3x_I2STDM_REG_END;
++
++		adata->res[2].name = "acp3x_i2s_bt";
++		adata->res[2].flags = IORESOURCE_MEM;
++		adata->res[2].start = addr + ACP3x_BT_TDM_REG_START;
++		adata->res[2].end = addr + ACP3x_BT_TDM_REG_END;
++
++		adata->res[3].name = "acp3x_i2s_irq";
++		adata->res[3].flags = IORESOURCE_IRQ;
++		adata->res[3].start = pci->irq;
++		adata->res[3].end = adata->res[3].start;
+ 
+ 		adata->acp3x_audio_mode = ACP3x_I2S_MODE;
+ 
+ 		memset(&pdevinfo, 0, sizeof(pdevinfo));
+-		pdevinfo.name = "acp3x_rv_i2s";
+-		pdevinfo.id = 0;
+-		pdevinfo.parent = &pci->dev;
+-		pdevinfo.num_res = 2;
+-		pdevinfo.res = adata->res;
+-		pdevinfo.data = &irqflags;
+-		pdevinfo.size_data = sizeof(irqflags);
+-
+-		adata->pdev = platform_device_register_full(&pdevinfo);
+-		if (IS_ERR(adata->pdev)) {
+-			dev_err(&pci->dev, "cannot register %s device\n",
+-				pdevinfo.name);
+-			ret = PTR_ERR(adata->pdev);
+-			goto unmap_mmio;
++		pdevinfo[0].name = "acp3x_rv_i2s_dma";
++		pdevinfo[0].id = 0;
++		pdevinfo[0].parent = &pci->dev;
++		pdevinfo[0].num_res = 4;
++		pdevinfo[0].res = &adata->res[0];
++		pdevinfo[0].data = &irqflags;
++		pdevinfo[0].size_data = sizeof(irqflags);
++
++		pdevinfo[1].name = "acp3x_i2s_playcap";
++		pdevinfo[1].id = 0;
++		pdevinfo[1].parent = &pci->dev;
++		pdevinfo[1].num_res = 1;
++		pdevinfo[1].res = &adata->res[1];
++
++		pdevinfo[2].name = "acp3x_i2s_playcap";
++		pdevinfo[2].id = 1;
++		pdevinfo[2].parent = &pci->dev;
++		pdevinfo[2].num_res = 1;
++		pdevinfo[2].res = &adata->res[2];
++		for (i = 0; i < ACP3x_DEVS ; i++) {
++			adata->pdev[i] =
++				platform_device_register_full(&pdevinfo[i]);
++			if (IS_ERR(adata->pdev[i])) {
++				dev_err(&pci->dev, "cannot register %s device\n",
++					pdevinfo[i].name);
++				ret = PTR_ERR(adata->pdev[i]);
++				goto unregister_devs;
++			}
+ 		}
+ 		break;
+ 	default:
+ 		dev_err(&pci->dev, "Invalid ACP audio mode : %d\n", val);
+ 		ret = -ENODEV;
+-		goto unmap_mmio;
++		goto disable_msi;
+ 	}
+ 	return 0;
+ 
+-unmap_mmio:
++unregister_devs:
++	if (val == I2S_MODE)
++		for (i = 0 ; i < ACP3x_DEVS ; i++)
++			platform_device_unregister(adata->pdev[i]);
++disable_msi:
+ 	pci_disable_msi(pci);
+-	iounmap(adata->acp3x_base);
+ release_regions:
+ 	pci_release_regions(pci);
+ disable_pci:
+@@ -125,10 +153,12 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ static void snd_acp3x_remove(struct pci_dev *pci)
+ {
+ 	struct acp3x_dev_data *adata = pci_get_drvdata(pci);
++	int i;
+ 
+-	platform_device_unregister(adata->pdev);
+-	iounmap(adata->acp3x_base);
+-
++	if (adata->acp3x_audio_mode == ACP3x_I2S_MODE) {
++		for (i = 0 ; i <  ACP3x_DEVS ; i++)
++			platform_device_unregister(adata->pdev[i]);
++	}
+ 	pci_disable_msi(pci);
+ 	pci_release_regions(pci);
+ 	pci_disable_device(pci);
+@@ -151,6 +181,7 @@ static struct pci_driver acp3x_driver  = {
+ 
+ module_pci_driver(acp3x_driver);
+ 
++MODULE_AUTHOR("Vishnuvardhanrao.Ravulapati@amd.com");
+ MODULE_AUTHOR("Maruthi.Bayyavarapu@amd.com");
+ MODULE_DESCRIPTION("AMD ACP3x PCI driver");
+ MODULE_LICENSE("GPL v2");
+-- 
+2.7.4
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

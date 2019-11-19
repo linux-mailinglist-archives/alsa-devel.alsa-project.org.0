@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9F62103840
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 12:08:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A1DF10383E
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 12:07:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64F9A16B3;
-	Wed, 20 Nov 2019 12:07:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64F9A16B3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2E4CC169A;
+	Wed, 20 Nov 2019 12:06:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2E4CC169A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574248121;
-	bh=GkKafp7tXr0x0iXUrvCsWr4cP/yJh3lGj7UHslhBP4I=;
+	s=default; t=1574248046;
+	bh=i8tuMLcQP/eIS2/AJxYWx2GObv1beH4qWt53FAby9HQ=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=I+LtVEy3zwEwfdwH5XWnBfaTgfbB9SYC2ai8Bum0x/44RpmW8zZeHzl5w/dOPvnBw
-	 9AGQpupC9bN2gMNROdqnuBB7Dv8K027e4i5BBt6FyOo6eN+E2KtnvdcBYT1lgJ0MHS
-	 zCZn69thtW+4OMVf82+blvCMBNtTZsi8eM1hg7Jg=
+	b=E56w3Co+Mwpog+HKB4ckUfBd/VZRU+lfDAsW4CNGTOrGOqWu1+xR4CE5hs5He/KB7
+	 pg0rl8wZ+6dbSOR7gbGOYefaYmXoqILSpnWqQGKABXRa1V6UzKK0JEb04/ceCoxx/f
+	 g4E+nV3X16v0aEP46aHHVckHfMXdtBVzpWC7tDiE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8028BF80212;
-	Wed, 20 Nov 2019 12:02:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31906F801ED;
+	Wed, 20 Nov 2019 12:02:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14A6DF8013E; Tue, 19 Nov 2019 01:21:49 +0100 (CET)
+ id D6805F8013E; Tue, 19 Nov 2019 01:21:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F5C6F80100
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 01:21:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F5C6F80100
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9F83F8013B
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 01:21:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9F83F8013B
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Nov 2019 16:21:40 -0800
+ 18 Nov 2019 16:21:41 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,321,1569308400"; d="scan'208";a="215412021"
+X-IronPort-AV: E=Sophos;i="5.68,321,1569308400"; d="scan'208";a="215412025"
 Received: from sjchrist-coffee.jf.intel.com ([10.54.74.41])
- by fmsmga001.fm.intel.com with ESMTP; 18 Nov 2019 16:21:38 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 18 Nov 2019 16:21:40 -0800
 From: Sean Christopherson <sean.j.christopherson@intel.com>
 To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
  Borislav Petkov <bp@alien8.de>, x86@kernel.org,
  "Rafael J. Wysocki" <rjw@rjwysocki.net>, Len Brown <len.brown@intel.com>,
  Pavel Machek <pavel@ucw.cz>
-Date: Mon, 18 Nov 2019 16:21:11 -0800
-Message-Id: <20191119002121.4107-3-sean.j.christopherson@intel.com>
+Date: Mon, 18 Nov 2019 16:21:12 -0800
+Message-Id: <20191119002121.4107-4-sean.j.christopherson@intel.com>
 X-Mailer: git-send-email 2.24.0
 In-Reply-To: <20191119002121.4107-1-sean.j.christopherson@intel.com>
 References: <20191119002121.4107-1-sean.j.christopherson@intel.com>
@@ -74,8 +74,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
  linux-kernel@vger.kernel.org, Andy Shevchenko <andy@infradead.org>
-Subject: [alsa-devel] [PATCH 02/12] x86/boot: Explicitly include realmode.h
-	to handle RM reservations
+Subject: [alsa-devel] [PATCH 03/12] x86/ftrace: Explicitly include vmalloc.h
+	for set_vm_flush_reset_perms()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,29 +93,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Explicitly include asm/realmode.h, which provides reserve_real_mode(),
-instead of picking it up by an indirect include of asm/acpi.h.  acpi.h
-will soon stop including realmode.h so that changing realmode.h doesn't
-require a full kernel rebuild.
+The inclusion of linux/vmalloc.h, which is required for its definition
+of set_vm_flush_reset_perms(), is somehow dependent on asm/realmode.h
+being included by asm/acpi.h.  Explicitly include linux/vmalloc.h so
+that a future patch can drop the realmode.h include from asm/acpi.h
+without breaking the build.
 
-Fixes: c1877650f3c9 ("x86/setup: Clean up the header portion of setup.c")
+Fixes: 7fdfe1e40b225 ("x86/ftrace: Use vmalloc special flag")
 Signed-off-by: Sean Christopherson <sean.j.christopherson@intel.com>
 ---
- arch/x86/kernel/setup.c | 1 +
+ arch/x86/kernel/ftrace.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/arch/x86/kernel/setup.c b/arch/x86/kernel/setup.c
-index 559764a4af5f..b6d7301b1037 100644
---- a/arch/x86/kernel/setup.c
-+++ b/arch/x86/kernel/setup.c
-@@ -33,6 +33,7 @@
- #include <asm/kaslr.h>
- #include <asm/mce.h>
- #include <asm/mtrr.h>
-+#include <asm/realmode.h>
- #include <asm/olpc_ofw.h>
- #include <asm/pci-direct.h>
- #include <asm/prom.h>
+diff --git a/arch/x86/kernel/ftrace.c b/arch/x86/kernel/ftrace.c
+index 2a179fb35cd1..681eae0fb64d 100644
+--- a/arch/x86/kernel/ftrace.c
++++ b/arch/x86/kernel/ftrace.c
+@@ -23,6 +23,7 @@
+ #include <linux/list.h>
+ #include <linux/module.h>
+ #include <linux/memory.h>
++#include <linux/vmalloc.h>
+ 
+ #include <trace/syscall.h>
+ 
 -- 
 2.24.0
 

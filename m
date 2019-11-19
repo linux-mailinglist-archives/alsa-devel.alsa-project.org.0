@@ -2,70 +2,109 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 903341026A1
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 15:28:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93A541026B5
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 15:31:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 150C8166C;
-	Tue, 19 Nov 2019 15:27:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 150C8166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 247021693;
+	Tue, 19 Nov 2019 15:30:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 247021693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574173701;
-	bh=R2mPzikI4yUcaig1vTd89utBGT5zVaO/l1IWL0C/Y9o=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574173872;
+	bh=rDBLhCYr9hKvDa8Po60EmMElhig9vycbOCCcT2kAzy0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QRPdv8Gvs/yA00Zy/f9gOSk14eBLdJoFcsqywHB39QUwyjT4bN2Jef8pyHL9II1eu
-	 4PqJydI4nOtD0j3wcd5uvdUN3Oyi4jI+fklc43xJTFW+97o7LqP8x6LjQ/1yiCSKuv
-	 A4MnmeOkUsON4EtL4ipxbP8OD/v4e+vHndCmcd8M=
+	b=EXV8GnH4Z3g7uhHD/YZ8bt2nzY+y4VsQVFydH375SNl9Puse9Rd31PL/6z6O8xW8a
+	 Mwksh6xQcb8L1hEeLpRwi+nyc+4nGbbGhC31tdZ7m3pAD3NraJBqhgc3FJErbM8gos
+	 Y6lxUBEKQ7mIj5D6yhCDvoSORYJpYH3k9txWtmn4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E84E7F80147;
-	Tue, 19 Nov 2019 15:25:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 80B13F80146;
+	Tue, 19 Nov 2019 15:29:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 32F58F80148; Tue, 19 Nov 2019 15:25:51 +0100 (CET)
+ id 00157F80138; Tue, 19 Nov 2019 15:29:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
  autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 735EFF800FF
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 15:25:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 735EFF800FF
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Nov 2019 06:25:45 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,324,1569308400"; d="scan'208";a="215551241"
-Received: from trgallx-mobl.amr.corp.intel.com (HELO [10.251.154.79])
- ([10.251.154.79])
- by fmsmga001.fm.intel.com with ESMTP; 19 Nov 2019 06:25:44 -0800
-To: Colin King <colin.king@canonical.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- "Subhransu S . Prusty" <subhransu.s.prusty@intel.com>,
- Vinod Koul <vkoul@kernel.org>, alsa-devel@alsa-project.org
-References: <20191119113640.166940-1-colin.king@canonical.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <f084c578-2fd5-e090-7d90-1ddffa1e22be@linux.intel.com>
-Date: Tue, 19 Nov 2019 08:23:30 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72707F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 15:29:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72707F800FF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
+ header.b="jGtW79A1"
+Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
+ by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xAJEJFrj171891;
+ Tue, 19 Nov 2019 14:29:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=corp-2019-08-05;
+ bh=YGqCGMrjp855JQhfRhha1mrka4pAadiq0XrsZH5hYAw=;
+ b=jGtW79A1pr9OPnc5oA91hidud7AxlatNcxYphekZmeVmfzy+ypV4kHy6qK9RNCH4eBMD
+ D2Jlgwa/4Y7oldYkflEq16oQsCJSErifIWvenZQNNFvEEsiV5lgUKVqTKUFm8EjbmYGb
+ 8Y3S8Kn2gZ5BqyfRJIZyH/AYo0IuWZNS0fvdkbOPuV2Y/Odxy/ISzkEcwSPAp/yeDBNh
+ /u15xaW8YEh++soJ/JxI8H9YGhCNOkFvHgjTbeNrv6bIjmUFkmPp52PrLN+Efp7ATdGJ
+ j/2dXvCZarL8bAUNh65YpFt+vF5ZussuG3jENLqp8zfTl5p6bIv4qlxU+LX7Usupj/Kz 1A== 
+Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
+ by aserp2120.oracle.com with ESMTP id 2wa92pq6kh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 19 Nov 2019 14:29:20 +0000
+Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
+ by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xAJES0U2101336;
+ Tue, 19 Nov 2019 14:29:20 GMT
+Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
+ by aserp3030.oracle.com with ESMTP id 2wbxm4bu1f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 19 Nov 2019 14:29:20 +0000
+Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
+ by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id xAJETDHY032503;
+ Tue, 19 Nov 2019 14:29:14 GMT
+Received: from kadam (/41.210.141.188) by default (Oracle Beehive Gateway v4.0)
+ with ESMTP ; Tue, 19 Nov 2019 06:29:12 -0800
+Date: Tue, 19 Nov 2019 17:28:57 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Message-ID: <20191119142856.GE30789@kadam>
+References: <1574172508-26546-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <1574172508-26546-7-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20191119113640.166940-1-colin.king@canonical.com>
-Content-Language: en-US
-Cc: Sanyog Kale <sanyog.r.kale@intel.com>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: mrfld: fix incorrect check on
-	p->sink
+Content-Disposition: inline
+In-Reply-To: <1574172508-26546-7-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9445
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
+ malwarescore=0
+ phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.0.1-1911140001 definitions=main-1911190133
+X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9445
+ signatures=668685
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 malwarescore=0
+ suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
+ definitions=main-1911190133
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ djkurtz@google.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Alexander.Deucher@amd.com, Colin Ian King <colin.king@canonical.com>,
+ Akshu.Agrawal@amd.com
+Subject: Re: [alsa-devel] [PATCH v10 6/6] ASoC: amd: Added ACP3x system
+ resume and runtime pm
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,82 +117,15 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This is improved.  Thanks!
 
-
-On 11/19/19 5:36 AM, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
-> 
-> The check on p->sink looks bogus, I believe it should be p->source
-> since the following code blocks are related to p->source. Fix
-> this by replacing p->sink with p->source.
-> 
-> Addresses-Coverity: ("Copy-paste error")
-> Fixes: 24c8d14192cc ("ASoC: Intel: mrfld: add DSP core controls")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-> ---
-> 
-> [ Note: this has not been tested ]
-> 
-
-wow, nice catch. this dates from October 2014 and was merged in Linux 3.19.
-
-I did look at the entire function and indeed it does not seem logical at 
-all and rather an unintentional bad copy-paste, probably undetected 
-since changing the gains on capture is less straightforward to test.
-
-	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
-		dev_dbg(dai->dev, "Stream name=%s\n",
-				dai->playback_widget->name);
-		w = dai->playback_widget;
-		snd_soc_dapm_widget_for_each_sink_path(w, p) {
-			if (p->connected && !p->connected(w, p->sink))
-				continue;
-[snip]
-		}
-	} else {
-		dev_dbg(dai->dev, "Stream name=%s\n",
-				dai->capture_widget->name);
-		w = dai->capture_widget;
-		snd_soc_dapm_widget_for_each_source_path(w, p) {
-			if (p->connected && !p->connected(w, p->sink))
-
-<< here it doesn't look right to use sink here.
-
-				continue;
-
-This macro snd_soc_dapm_widget_for_each_source_path() is also used in 
-the skylake/skl-topology.c but without any source/sink inversion.
-
-I don't think anyone on the Intel side will have time to investigate 
-further, and unless someone from the initial contributors states this 
-was intentional (Vinod/Sanyog?), we should merge this.
-
-let's see if there's any feedback and if not I'll ack this.
-
-
-> ---
->   sound/soc/intel/atom/sst-atom-controls.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/sound/soc/intel/atom/sst-atom-controls.c b/sound/soc/intel/atom/sst-atom-controls.c
-> index baef461a99f1..f883c9340eee 100644
-> --- a/sound/soc/intel/atom/sst-atom-controls.c
-> +++ b/sound/soc/intel/atom/sst-atom-controls.c
-> @@ -1333,7 +1333,7 @@ int sst_send_pipe_gains(struct snd_soc_dai *dai, int stream, int mute)
->   				dai->capture_widget->name);
->   		w = dai->capture_widget;
->   		snd_soc_dapm_widget_for_each_source_path(w, p) {
-> -			if (p->connected && !p->connected(w, p->sink))
-> +			if (p->connected && !p->connected(w, p->source))
->   				continue;
->   
->   			if (p->connect &&  p->source->power &&
-> 
+regards,
+dan carpenter
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

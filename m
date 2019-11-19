@@ -2,72 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DA65102232
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 11:45:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D05D9102240
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 11:50:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C73E11688;
-	Tue, 19 Nov 2019 11:44:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C73E11688
+	by alsa0.perex.cz (Postfix) with ESMTPS id E19561695;
+	Tue, 19 Nov 2019 11:49:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E19561695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574160313;
-	bh=SewgITer8l8y+6sN4emwxe7jd5s8BJ+su7YzFMk2XfA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Scbyko9PVXSRx1CaCWhvfAqAG4YAexW+SL/ymLCEHCA8701ISuUwnVr7vwhiRJayg
-	 OGi1kLwZ0aGfg4r3D5Wh2GMzjxMOsNVbjM/qgfA1OLvHkihWuPWlPl949DluvEbZ9g
-	 568PH8IqkdzCv7whjirxMFyLD1Y2SANRh3fkHK2A=
+	s=default; t=1574160619;
+	bh=zy18RpjY0beUkF5+bI6jT/rhQNiVYKUcCXvR2zpIWWU=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=AxaI/FpdECDlPHcfuwcGtR+oszZkMCw7zx0W35q/Aj5iidYFnrjPIfFGG4yE1AeGT
+	 s0eKaEUfHaqht0ab2i7GTNZ6x2veBmXN0lo//WDNnIKAGBvEqh07BBY+HFZ3/bH/rl
+	 U3Eq35mLPhrqOFOOVA1VgZS77M386M4/znOjg/hc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1A6EF80139;
-	Tue, 19 Nov 2019 11:43:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B565F80145;
+	Tue, 19 Nov 2019 11:48:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0D83F80137; Tue, 19 Nov 2019 11:43:27 +0100 (CET)
+ id DC7CEF80137; Tue, 19 Nov 2019 11:48:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from smtp1.de.adit-jv.com (smtp1.de.adit-jv.com [93.241.18.167])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B305CF80119
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 11:43:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B305CF80119
-Received: from localhost (smtp1.de.adit-jv.com [127.0.0.1])
- by smtp1.de.adit-jv.com (Postfix) with ESMTP id 757BE3C04C0;
- Tue, 19 Nov 2019 11:43:21 +0100 (CET)
-Received: from smtp1.de.adit-jv.com ([127.0.0.1])
- by localhost (smtp1.de.adit-jv.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id siZ-pYDAY8tK; Tue, 19 Nov 2019 11:43:15 +0100 (CET)
-Received: from HI2EXCH01.adit-jv.com (hi2exch01.adit-jv.com [10.72.92.24])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from us-smtp-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp1.de.adit-jv.com (Postfix) with ESMTPS id 62E023C0022;
- Tue, 19 Nov 2019 11:43:15 +0100 (CET)
-Received: from vmlxhi-102.adit-jv.com (10.72.93.184) by HI2EXCH01.adit-jv.com
- (10.72.92.24) with Microsoft SMTP Server (TLS) id 14.3.468.0;
- Tue, 19 Nov 2019 11:43:14 +0100
-Date: Tue, 19 Nov 2019 11:43:12 +0100
-From: Eugeniu Rosca <erosca@de.adit-jv.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Message-ID: <20191119104312.GA15556@vmlxhi-102.adit-jv.com>
-References: <20191118140126.23596-1-erosca@de.adit-jv.com>
- <8736ek7kx8.wl-kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 53CD9F80119
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 11:48:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53CD9F80119
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="JI7yflkl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1574160509;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dv+RpO5DCe2WumB5Fv1GgEhU4rDsh3gYBZ8wiOS9RGI=;
+ b=JI7yflkl0tpDVrgIHxc15+6qa+93YAukXv9aKKeeY0YmwsU+yqAnW2nmcjmbM1ezDWTrcb
+ +pKQCPi6VvLnslPi89uQKLgBJPVZMQfCyCsPz/SlmXDbmRlKk3j3u1RRWRRD3FUBk3Ecfb
+ L8o1FoObqVe9cC4izGzQYbBRa9RFwjI=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-76-WFceUZoGMN6gvxUZTDB6ng-1; Tue, 19 Nov 2019 05:48:26 -0500
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
+ [10.5.11.23])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C3260DB60;
+ Tue, 19 Nov 2019 10:48:25 +0000 (UTC)
+Received: from shalem.localdomain.com (ovpn-117-49.ams2.redhat.com
+ [10.36.117.49])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 689C69302;
+ Tue, 19 Nov 2019 10:48:23 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Date: Tue, 19 Nov 2019 11:48:19 +0100
+Message-Id: <20191119104822.15053-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <8736ek7kx8.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Mutt/1.12.1+40 (7f8642d4ee82) (2019-06-28)
-X-Originating-IP: [10.72.93.184]
-Cc: Nilkanth Ahirrao <external.anilkanth@jp.adit-jv.com>,
- alsa-devel@alsa-project.org, Andrew Gabbasov <andrew_gabbasov@mentor.com>,
- Eugeniu Rosca <roscaeugeniu@gmail.com>, Jiada Wang <jiada_wang@mentor.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Eugeniu Rosca <erosca@de.adit-jv.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: rsnd: fix DALIGN register for SSIU
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-MC-Unique: WFceUZoGMN6gvxUZTDB6ng-1
+X-Mimecast-Spam-Score: 0
+Cc: Takashi Iwai <tiwai@suse.de>, Hans de Goede <hdegoede@redhat.com>,
+ alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [PATCH alsa-lib 1/4] ucm: Fix opening of
+	master-configs by the card's longname
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,36 +91,95 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello Morimoto-san,
+Prior to commit aba2260ae7b5 ("ucm: switch to ucm2 directory and v2 format,
+keep backward compatibility").
 
-On Tue, Nov 19, 2019 at 09:46:12AM +0900, Kuninori Morimoto wrote:
+The filename build in parse_verb_file() was build like this:
+<prefix>/<uc_mgr->conf_file_name>/<file>
 
-[..]
+Where uc_mgr->conf_file_name would contain either the card_name or the
+card's longname depending on the detection of a longname based config in
+uc_mgr_import_master_config().
 
-> Basically I have no objection.
-> But we can reuse dalign_values[0][x] value ?
-> 
-> 	id  = 0;
-> 	if ((snd_pcm_format_width(runtime->format) != 16) ||
-> 	    (mod != target)) {
-> 		inv = 0;
-> 		if (mod == ssiu))
-> 			id = rsnd_mod_id_sub(mod);
-> 	/* Target mod needs inverted DALIGN when 16bit */
-> 	} else {
-> 		inv = 1;
-> 		if (mod == ssiu)
-> 			id = rsnd_mod_id_sub(mod);
-> 	}
-> 
-> 	return dalign_values[id][inv];
+While the filename used in load_master_config() was build like this:
+<prefix>/<card_name>/<card_name>.conf
 
-Thank you for your review comment.
-We will soon push a v2.
+And uc_mgr_import_master_config() first calls load_master_config()
+with the card's longname and if that succeeds it overwrites
+uc_mgr->conf_file_name with the longname so that the subsequent uses
+of uc_mgr->conf_file_name in parse_verb_file() correctly use the longname.
 
+But the new configuration_filename() helper added in commit aba2260ae7b5
+_always_ builds the filename like this:
+<prefix>/<uc_mgr->conf_file_name>/<file><suffix>
+
+This breaks the loading of the master-config by its longname, as when
+the longname is tried uc_mgr->conf_file_name still contains the card_name.
+
+This commit fixes this by adding a dir parameter to configuration_filename()
+and restoring the old behavior by passing card_name as dir in
+load_master_config().
+
+Fixes: aba2260ae7b5 ("ucm: switch to ucm2 directory and v2 format, keep backward compatibility")
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ src/ucm/parser.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/src/ucm/parser.c b/src/ucm/parser.c
+index ed790dc0..17aab054 100644
+--- a/src/ucm/parser.c
++++ b/src/ucm/parser.c
+@@ -76,9 +76,10 @@ static void configuration_filename2(char *fn, size_t fn_len, int format,
+ 
+ static void configuration_filename(snd_use_case_mgr_t *uc_mgr,
+ 				   char *fn, size_t fn_len,
+-				   const char *file, const char *suffix)
++				   const char *dir, const char *file,
++				   const char *suffix)
+ {
+-	const char *env, *dir;
++	const char *env;
+ 
+ 	if (uc_mgr->conf_format > 0) {
+ 		/* known format */
+@@ -94,13 +95,11 @@ static void configuration_filename(snd_use_case_mgr_t *uc_mgr,
+ 		}
+ 	}
+ 	if (env) {
+-		snprintf(fn, fn_len, "%s/%s/%s%s",
+-			env, uc_mgr->conf_file_name, file, suffix);
++		snprintf(fn, fn_len, "%s/%s/%s%s", env, dir, file, suffix);
+ 		fn[fn_len-1] = '\0';
+ 		return;
+ 	}
+ 
+-	dir = uc_mgr->conf_file_name;
+ 	if (uc_mgr->conf_format > 0) {
+ __format:
+ 		configuration_filename2(fn, fn_len, uc_mgr->conf_format,
+@@ -1181,7 +1180,8 @@ static int parse_verb_file(snd_use_case_mgr_t *uc_mgr,
+ 	}
+ 
+ 	/* open Verb file for reading */
+-	configuration_filename(uc_mgr, filename, sizeof(filename), file, "");
++	configuration_filename(uc_mgr, filename, sizeof(filename),
++			       uc_mgr->conf_file_name, file, "");
+ 	err = uc_mgr_config_load(uc_mgr->conf_format, filename, &cfg);
+ 	if (err < 0) {
+ 		uc_error("error: failed to open verb file %s : %d",
+@@ -1576,7 +1576,7 @@ static int load_master_config(snd_use_case_mgr_t *uc_mgr,
+ 	}
+ 
+ 	configuration_filename(uc_mgr, filename, sizeof(filename),
+-			       card_name, ".conf");
++			       card_name, card_name, ".conf");
+ 
+ 	/* if the configuration file does not exist, silently return */
+ 	if (fcheck && access(filename, R_OK) != 0)
 -- 
-Best Regards,
-Eugeniu
+2.23.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

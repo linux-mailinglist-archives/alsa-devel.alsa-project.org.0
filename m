@@ -2,73 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FBDC102DC9
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 21:49:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A80C8102DE6
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 22:05:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DB6E169D;
-	Tue, 19 Nov 2019 21:48:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DB6E169D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 157B316A0;
+	Tue, 19 Nov 2019 22:04:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 157B316A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574196576;
-	bh=W99ENWYn86mlu/mqjNnQYcSIy8gYLwzOgEfhqVzM6go=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574197518;
+	bh=TXYRrTHM84RBOnozCnu89cSejTR1IImmKOyDSWpZOSA=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kfFPv7Euy8R6V3D4/Xc/2OJU68O14FgBVEyQoot/D9LHP+/FEr/MO6q9f/RQrPiJ9
-	 WNfebAV3Gm5VLnhDYTBa418Hr265Y24OCkPErVBnfJPDKB/iyDYJ3PITt51v9HVxB+
-	 ltuNDdZ0ayIHD+T3ustA97+g1jT/s50Vnt5rrObY=
+	b=c4u0HQ1KY5PCLeWsHc37lvP5Q+mLs5yh93aX6b1Ga2H0p5wKnsZlNlLV3ZXLXmLlf
+	 vksWj4oMxurhvAkpJQw+bV/AfAazJaLitrsEVTqtA0birly3dsRointj1kNKCuEwb+
+	 oNCDNb7hTNUKDAPBbMIPyHCSlIl5Q8sy6C0E/fHU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2C53F800F4;
-	Tue, 19 Nov 2019 21:47:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 725AAF80135;
+	Tue, 19 Nov 2019 22:03:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78AAFF80138; Tue, 19 Nov 2019 21:47:50 +0100 (CET)
+ id A1DC3F80138; Tue, 19 Nov 2019 22:03:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 175F6F80135
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 21:47:47 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 24FEBA003F;
- Tue, 19 Nov 2019 21:47:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 24FEBA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1574196467; bh=0Wf7LqNRZ0YfzZ+0d9fCYu/VmmjLGqlf3HsEfbYaNo4=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=HaDkv1Tg6xGsjdo7NzhmnRSWqhmfJxMIT4E68s638qav09SdMWs8AIIoZEDfpDOjB
- MY54NvSIVPM1CZAOxC6Qqih4sdAa07Wa8kka5Z70kLyWC0PMCf6/W5oueCCVeEQHPU
- 9+J78Qn+aDNqWh+PW39bXrZZ/UhNShZxEeBBsRUg=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 19 Nov 2019 21:47:43 +0100 (CET)
-To: Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.de>
-References: <20191119174933.25526-1-perex@perex.cz>
- <20191119174933.25526-2-perex@perex.cz>
- <72dfc285-70e8-706d-3018-535bda1e8630@linux.intel.com>
- <f2de9597-c9c2-7696-622b-a2bbc2c32bb7@perex.cz>
- <s5h36ejy550.wl-tiwai@suse.de> <20191119204138.GI3634@sirena.org.uk>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <95b3dda0-527c-214e-f108-3bdff8010828@perex.cz>
-Date: Tue, 19 Nov 2019 21:47:42 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
-MIME-Version: 1.0
-In-Reply-To: <20191119204138.GI3634@sirena.org.uk>
-Content-Language: en-US
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: Intel - use control components
- to describe card config
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E169F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 22:03:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E169F800FF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id C6317AC37;
+ Tue, 19 Nov 2019 21:03:28 +0000 (UTC)
+Date: Tue, 19 Nov 2019 22:03:27 +0100
+Message-ID: <s5h1ru3y3xc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jens Verwiebe <info@jensverwiebe.de>
+In-Reply-To: <8f278b1d-889d-be80-0507-f992b26ae8c8@jensverwiebe.de>
+References: <s5ho9nt3yu7.wl-tiwai@suse.de>
+ <6ab06af6-71f3-1f24-5706-6537ce4f6f34@jensverwiebe.de>
+ <s5h7e3vy9fz.wl-tiwai@suse.de>
+ <8f278b1d-889d-be80-0507-f992b26ae8c8@jensverwiebe.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Focusrite Scarlett 6i6 gen1 - input handling fix,
+	ping
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,38 +68,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 19. 11. 19 v 21:41 Mark Brown napsal(a):
-> On Tue, Nov 19, 2019 at 09:37:15PM +0100, Takashi Iwai wrote:
->> Jaroslav Kysela wrote:
-> 
->>> It's not about the protocol. It's about to move this type of
->>> information to another place. I can remove the ALSA version sentence
->>> from the help, because it's just a hint. I would like to create ucm2
->>> configurations based on this rather than the misused long card names.
-> 
->> But why these are exclusive?  The current longname workaround makes
->> the device appearing a bit messy, but does it conflict with the
->> additional component string?
-> 
-> Yeah, it's not clear to me why it's a config option to enable this.  I
-> can see a config option to turn off the old display name if it's
-> particularly irritating to people but I can't see any reason not to
-> just provide the new stuff.
-
-Yes, it is really better way to do this. I'll rewrite my patch. Thanks for the 
-idea.
-
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVHVlLCAxOSBOb3YgMjAxOSAyMDoyMDo0NCArMDEwMCwKSmVucyBWZXJ3aWViZSB3cm90ZToK
+PiAKPiBJIHJlYWxseSBkdW5ubyB3aGF0IHlvdSBtZWFuIGJ5ICJsYXN0IGtlcm5lbCIsIHN0YXJ0
+aW5nIG92ZXIgd2l0aAo+IHB1bGxpbmcgdGhlIGtlcm5lbCBzcmMgYWdhaW4sIGRpZmZpbmfCoCBl
+dGMuID8KCkF0IGJlc3QgYWdhaW5zdCB0byB0aGUgbGF0ZXN0IExpbnVzIHRyZWUsIGFuZCBuZWVk
+IHRvIGNvbmZpcm0gdGhhdCBpdApidWlsZHMgYW5kIHdvcmtzLgoKPiBZb3UgY2FuIHNpbXBseSB1
+c2UgdGhlIHBhdGNoIGFzIGlzLCBpdCBhcHBsaWVkIGZpbmUgb24ga2VybmVsIDUuMyBqdXN0Cj4g
+YW5kIGkgZ3Vlc3MgaXQgd2lsbCBvbiBtYXRlciB0b28sIHNpbmNlIG5vdGhpbmcgY2hhbmdlZCBp
+bgo+IG1peGVyX3NjYXJsZXR0LmMgb3RoZXIgdGhhbiBodW5rcyBtb3ZlZCBhcm91bmQuSSBkb24n
+dCBzZWUgYSByZWFzb24KPiB3aHkgd2Ugc2hvdWxkIG1ha2UgYWxsIHNvIGNvbXBsaWNhdGVkLiBJ
+IGRvbid0IHdhbm5hIHB1dCBtb3JlIGVmZm9yZAo+IGluIHRoaXMgYW55bW9yZSwgc29ycnkuCgpU
+aGUgTUwgYXJjaGl2ZSBkb2Vzbid0IGdpdmUgeW91IGFuIGFwcGxpY2FibGUgdGV4dCwgaXQgcmVm
+b3JtYXRzLgpZb3UgbmVlZCB0byByZXN1Ym1pdCBhbiBhcHBsaWNhYmxlIG9uZS4gIFRoYXQncyB0
+aGUgb25seSB3YXkgdG8KcmV2aXZlLCBzb3JyeS4KCgp0aGFua3MsCgpUYWthc2hpCgo+IEFtIDE5
+LjExLjE5IHVtIDIwOjA0IHNjaHJpZWIgVGFrYXNoaSBJd2FpOgo+ID4gT24gVHVlLCAxOSBOb3Yg
+MjAxOSAxOTozMDo0NSArMDEwMCwKPiA+IEplbnMgVmVyd2llYmUgd3JvdGU6Cj4gPj4gSGkKPiA+
+Pgo+ID4+IEkgd291bGQgbGlrZSB0byBicmluZyB1cCBteSBmb3Jnb3R0ZW4gcGF0Y2ggdXAgYSBs
+YXN0IHRpbWUgaGVyZS4KPiA+Pgo+ID4+IFNlZToKPiA+PiBodHRwczovL21haWxtYW4uYWxzYS1w
+cm9qZWN0Lm9yZy9waXBlcm1haWwvYWxzYS1kZXZlbC8yMDE3LU5vdmVtYmVyLzEyNzkwNi5odG1s
+Cj4gPj4KPiA+PiBJIGR1bm5vIHdoYXQgZWxzZSB3b3VsZCBiZSBleHBlY3RlZCB0byB3cml0ZSBp
+biB0aGVyZSwgaSB0aGluayB0aGUKPiA+PiB0ZXh0IHNheXMgaXQgYWxsID8KPiA+Pgo+ID4+IEkg
+aGF2ZSB0aGlzIGluIHVzZSBmb3IgMiB5ZWFycyBub3csIGJ1dCB0aGUgaW50ZXJmYWNlIHdpbGwg
+YmUgc29sZAo+ID4+IG5vdywgc28gbGFzdCBjaGFuY2UgdG8gdGVzdCB0aGUgY29tbWl0Cj4gPj4K
+PiA+PiBpZiBpdCBoYXBwZW5zIGFueXdheSA7LSkKPiA+Pgo+ID4+IENoZWVycyAuLi4gSmVucwo+
+ID4gQ291bGQgeW91IHNpbXBseSByZXN1Ym1pdCB0aGUgcGF0Y2ggZm9yIHRoZSBsYXRlc3Qga2Vy
+bmVsPwo+ID4KPiA+Cj4gPiB0aGFua3MsCj4gPgo+ID4gVGFrYXNoaQo+ID4KPiAtLSAKPiAKPiBK
+ZW5zIFZlcndpZWJlCj4gQWxsZXJza2VocmUgNDQgLSAyMjMwOSBIYW1idXJnCj4gCj4gVGVsLjog
+KzQ5IDQwIDY4IDc4IDUwCj4gbWFpbHRvOiBpbmZvQGplbnN2ZXJ3aWViZS5kZQo+IHdlYjogaHR0
+cHM6Ly93d3cuamVuc3ZlcndpZWJlLmRlCj4gCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KPiBBbHNhLWRldmVsIG1haWxpbmcgbGlzdAo+IEFsc2EtZGV2
+ZWxAYWxzYS1wcm9qZWN0Lm9yZwo+IGh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21h
+aWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2Et
+cHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbHNhLWRldmVsCg==

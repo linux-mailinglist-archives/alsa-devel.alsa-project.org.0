@@ -2,109 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93A541026B5
-	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 15:31:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 61DE2102762
+	for <lists+alsa-devel@lfdr.de>; Tue, 19 Nov 2019 15:53:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 247021693;
-	Tue, 19 Nov 2019 15:30:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 247021693
+	by alsa0.perex.cz (Postfix) with ESMTPS id C16F6168D;
+	Tue, 19 Nov 2019 15:52:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C16F6168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574173872;
-	bh=rDBLhCYr9hKvDa8Po60EmMElhig9vycbOCCcT2kAzy0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EXV8GnH4Z3g7uhHD/YZ8bt2nzY+y4VsQVFydH375SNl9Puse9Rd31PL/6z6O8xW8a
-	 Mwksh6xQcb8L1hEeLpRwi+nyc+4nGbbGhC31tdZ7m3pAD3NraJBqhgc3FJErbM8gos
-	 Y6lxUBEKQ7mIj5D6yhCDvoSORYJpYH3k9txWtmn4=
+	s=default; t=1574175218;
+	bh=raxT2FWc68rwPPwZT1pqda11WYmRtM5HzU7xEOgamkI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=pzJzEgZlccQdOZr+TPVCZM98NhRwCs2lvM2MfO4G5zbyfT+39fDaQGtG2t0zUwM7U
+	 aiBqAe9NRgt1nKULJO60PMjKPl59uDOffAaL/hRvHLzkb91DkOWU96z8/tf/apBjzh
+	 6CpY0HlzOYiO/jB7oePwoS0OqHfXGWk27IyB6HgM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80B13F80146;
-	Tue, 19 Nov 2019 15:29:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0061AF80139;
+	Tue, 19 Nov 2019 15:51:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00157F80138; Tue, 19 Nov 2019 15:29:25 +0100 (CET)
+ id AC4DFF80138; Tue, 19 Nov 2019 15:51:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,UNPARSEABLE_RELAY
- autolearn=disabled version=3.4.0
-Received: from aserp2120.oracle.com (aserp2120.oracle.com [141.146.126.78])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 72707F800FF
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 15:29:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72707F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 44CE5F800F4
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 15:51:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 44CE5F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com
- header.b="jGtW79A1"
-Received: from pps.filterd (aserp2120.oracle.com [127.0.0.1])
- by aserp2120.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xAJEJFrj171891;
- Tue, 19 Nov 2019 14:29:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com;
- h=date : from : to : cc
- : subject : message-id : references : mime-version : content-type :
- in-reply-to; s=corp-2019-08-05;
- bh=YGqCGMrjp855JQhfRhha1mrka4pAadiq0XrsZH5hYAw=;
- b=jGtW79A1pr9OPnc5oA91hidud7AxlatNcxYphekZmeVmfzy+ypV4kHy6qK9RNCH4eBMD
- D2Jlgwa/4Y7oldYkflEq16oQsCJSErifIWvenZQNNFvEEsiV5lgUKVqTKUFm8EjbmYGb
- 8Y3S8Kn2gZ5BqyfRJIZyH/AYo0IuWZNS0fvdkbOPuV2Y/Odxy/ISzkEcwSPAp/yeDBNh
- /u15xaW8YEh++soJ/JxI8H9YGhCNOkFvHgjTbeNrv6bIjmUFkmPp52PrLN+Efp7ATdGJ
- j/2dXvCZarL8bAUNh65YpFt+vF5ZussuG3jENLqp8zfTl5p6bIv4qlxU+LX7Usupj/Kz 1A== 
-Received: from aserp3030.oracle.com (aserp3030.oracle.com [141.146.126.71])
- by aserp2120.oracle.com with ESMTP id 2wa92pq6kh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 19 Nov 2019 14:29:20 +0000
-Received: from pps.filterd (aserp3030.oracle.com [127.0.0.1])
- by aserp3030.oracle.com (8.16.0.27/8.16.0.27) with SMTP id xAJES0U2101336;
- Tue, 19 Nov 2019 14:29:20 GMT
-Received: from aserv0122.oracle.com (aserv0122.oracle.com [141.146.126.236])
- by aserp3030.oracle.com with ESMTP id 2wbxm4bu1f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 19 Nov 2019 14:29:20 +0000
-Received: from abhmp0013.oracle.com (abhmp0013.oracle.com [141.146.116.19])
- by aserv0122.oracle.com (8.14.4/8.14.4) with ESMTP id xAJETDHY032503;
- Tue, 19 Nov 2019 14:29:14 GMT
-Received: from kadam (/41.210.141.188) by default (Oracle Beehive Gateway v4.0)
- with ESMTP ; Tue, 19 Nov 2019 06:29:12 -0800
-Date: Tue, 19 Nov 2019 17:28:57 +0300
-From: Dan Carpenter <dan.carpenter@oracle.com>
-To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-Message-ID: <20191119142856.GE30789@kadam>
-References: <1574172508-26546-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1574172508-26546-7-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="Q5dEsvCF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1574175108;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=b1VG2U9b2Tjd4KDbjyU0krB7w8BMyUEXDHjzMTNIeDI=;
+ b=Q5dEsvCFcPF89g2Uuc6q5gHK8RhElOmPtesqrZFaLcfwFnfsWrwGLOeXhPV9DUE/9RyHNY
+ 6GPTPxE4U6iSDGkEGomHl2dZIvdWjhlpoKeBcnnhGkyRD2RIHfQE9tINbuUpf//+/yLAon
+ 5FqVpGO2ZO8lIhw2uE8rtaWcEoshRxc=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-93-0lmXF69XO7-5ed0j65aUtA-1; Tue, 19 Nov 2019 09:51:44 -0500
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
+ [10.5.11.13])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76B89DB22;
+ Tue, 19 Nov 2019 14:51:42 +0000 (UTC)
+Received: from shalem.localdomain.com (ovpn-117-49.ams2.redhat.com
+ [10.36.117.49])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id BF8B91DD;
+ Tue, 19 Nov 2019 14:51:39 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
+Date: Tue, 19 Nov 2019 15:51:38 +0100
+Message-Id: <20191119145138.59162-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <1574172508-26546-7-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9445
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-1911190133
-X-Proofpoint-Virus-Version: vendor=nai engine=6000 definitions=9445
- signatures=668685
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 malwarescore=0
- suspectscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- lowpriorityscore=0 mlxscore=0 impostorscore=0 mlxlogscore=999 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.0.1-1911140001
- definitions=main-1911190133
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- djkurtz@google.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Alexander.Deucher@amd.com, Colin Ian King <colin.king@canonical.com>,
- Akshu.Agrawal@amd.com
-Subject: Re: [alsa-devel] [PATCH v10 6/6] ASoC: amd: Added ACP3x system
- resume and runtime pm
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-MC-Unique: 0lmXF69XO7-5ed0j65aUtA-1
+X-Mimecast-Spam-Score: 0
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>
+Subject: [alsa-devel] [PATCH] ASoC: Intel: bytcr_rt5640: Update quirk for
+	Acer Switch 10 SW5-012 2-in-1
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,10 +94,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This is improved.  Thanks!
+When the Acer Switch 10 SW5-012 quirk was added we did not have
+jack-detection support yet; and the builtin microphone selection of
+the original quirk is wrong too.
 
-regards,
-dan carpenter
+Fix the microphone-input quirk and add jack-detection info so that the
+internal-microphone and headphone/set jack on the Switch 10 work properly.
+
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ sound/soc/intel/boards/bytcr_rt5640.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 9c1aa4ec9cba..dd2b5ad08659 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -405,10 +405,12 @@ static const struct dmi_system_id byt_rt5640_quirk_table[] = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "Acer"),
+ 			DMI_MATCH(DMI_PRODUCT_NAME, "Aspire SW5-012"),
+ 		},
+-		.driver_data = (void *)(BYT_RT5640_IN1_MAP |
+-						 BYT_RT5640_MCLK_EN |
+-						 BYT_RT5640_SSP0_AIF1),
+-
++		.driver_data = (void *)(BYT_RT5640_DMIC1_MAP |
++					BYT_RT5640_JD_SRC_JD2_IN4N |
++					BYT_RT5640_OVCD_TH_2000UA |
++					BYT_RT5640_OVCD_SF_0P75 |
++					BYT_RT5640_SSP0_AIF1 |
++					BYT_RT5640_MCLK_EN),
+ 	},
+ 	{
+ 		.matches = {
+-- 
+2.23.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

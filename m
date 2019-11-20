@@ -2,56 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ECB6E1041FC
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 18:21:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2673A1041FD
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 18:22:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EC3B172D;
-	Wed, 20 Nov 2019 18:21:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EC3B172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5865A173B;
+	Wed, 20 Nov 2019 18:21:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5865A173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574270515;
-	bh=fg/IgLZiqYurjzWXivQTyU/qE4Ut90PBgJ8Cl9doRBs=;
+	s=default; t=1574270550;
+	bh=6eU+RziTSYM25wgV7+gkz0a68v2v2G2Qg2271gZB9ns=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=AqFHzpTQazYhjAplXnuO7XFSN7+qW/6jeOi1dmRgyf4GW5113x4Gsq2QzISMh0oZc
-	 x3YpZkXOn18Vaw9LhcQurP9p+wHodLrrULc6qTQ3MFnv1WC6G/XBaY9GTs5GzFsUcb
-	 XmvocIE8P+wtxoMnEtKdIU4ALLw455W8Oic/qdH0=
+	b=ptiwIJo/i+MkLW6TGrlV1xBHcgNnU/gMkVjDeqrWbE03UXfoRdnmk4wTMj6wI57o8
+	 hnpaHOx9Hn414028tD+ryil4xuZoPktT/KGgvO8oW9eY6f9oG/jr78GWXL0b/gDwID
+	 1gWxbS4zP/fVuaEBmAVYE/njlx0gPTYOavd0bDak=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BF661F80171;
-	Wed, 20 Nov 2019 18:18:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40CCBF801ED;
+	Wed, 20 Nov 2019 18:18:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B70DF8014F; Wed, 20 Nov 2019 18:18:13 +0100 (CET)
+ id B7424F8014F; Wed, 20 Nov 2019 18:18:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 3414EF800C1
- for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 18:18:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3414EF800C1
+ by alsa1.perex.cz (Postfix) with ESMTP id 1E364F8014D
+ for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 18:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E364F8014D
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C2AD1063;
- Wed, 20 Nov 2019 09:18:09 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 090B51045;
+ Wed, 20 Nov 2019 09:18:12 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EF07A3F703;
- Wed, 20 Nov 2019 09:18:08 -0800 (PST)
-Date: Wed, 20 Nov 2019 17:18:07 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7BD1E3F703;
+ Wed, 20 Nov 2019 09:18:11 -0800 (PST)
+Date: Wed, 20 Nov 2019 17:18:09 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-In-Reply-To: <20191120131753.6831-2-peter.ujfalusi@ti.com>
-Message-Id: <applied-20191120131753.6831-2-peter.ujfalusi@ti.com>
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20191120060844.224607-2-tzungbi@google.com>
+Message-Id: <applied-20191120060844.224607-2-tzungbi@google.com>
 X-Patchwork-Hint: ignore
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, linus.walleij@linaro.org,
- lgirdwood@gmail.com, robh+dt@kernel.org, linux-kernel@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: dt-bindings: pcm3168a: Update the
-	optional RST gpio for clarity" to the asoc tree
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, dgreid@google.com, cychiang@google.com
+Subject: [alsa-devel] Applied "ASoC: core: add SND_SOC_BYTES_E" to the asoc
+	tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,7 +69,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: dt-bindings: pcm3168a: Update the optional RST gpio for clarity
+   ASoC: core: add SND_SOC_BYTES_E
 
 has been applied to the asoc tree at
 
@@ -97,51 +94,37 @@ to this mail.
 Thanks,
 Mark
 
-From 103e5d734ae28fc1ccd80d1df9d33f44536d74a4 Mon Sep 17 00:00:00 2001
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Date: Wed, 20 Nov 2019 15:17:52 +0200
-Subject: [PATCH] ASoC: dt-bindings: pcm3168a: Update the optional RST gpio for
- clarity
+From fb5126778333d289b2623a7e6260beeb1ac1b819 Mon Sep 17 00:00:00 2001
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Wed, 20 Nov 2019 14:08:43 +0800
+Subject: [PATCH] ASoC: core: add SND_SOC_BYTES_E
 
-Use the standard name for the gpion in DT: reset-gpios
+Add SND_SOC_BYTES_E to accept getter and putter.
 
-Document that the RST line is low active and update the example
-accordingly.
-
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Link: https://lore.kernel.org/r/20191120131753.6831-2-peter.ujfalusi@ti.com
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+Link: https://lore.kernel.org/r/20191120060844.224607-2-tzungbi@google.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- Documentation/devicetree/bindings/sound/ti,pcm3168a.txt | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ include/sound/soc.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/ti,pcm3168a.txt b/Documentation/devicetree/bindings/sound/ti,pcm3168a.txt
-index f30aebc7603a..a02ecaab5183 100644
---- a/Documentation/devicetree/bindings/sound/ti,pcm3168a.txt
-+++ b/Documentation/devicetree/bindings/sound/ti,pcm3168a.txt
-@@ -27,9 +27,10 @@ For required properties on SPI/I2C, consult SPI/I2C device tree documentation
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index bd943b5d7d45..c28a1ed5e8df 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -299,6 +299,12 @@
+ 	.put = snd_soc_bytes_put, .private_value =	      \
+ 		((unsigned long)&(struct soc_bytes)           \
+ 		{.base = xbase, .num_regs = xregs }) }
++#define SND_SOC_BYTES_E(xname, xbase, xregs, xhandler_get, xhandler_put) \
++{	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = xname, \
++	.info = snd_soc_bytes_info, .get = xhandler_get, \
++	.put = xhandler_put, .private_value = \
++		((unsigned long)&(struct soc_bytes) \
++		{.base = xbase, .num_regs = xregs }) }
  
- Optional properties:
- 
--  - rst-gpios : Optional RST gpio line for the codec
--		RST = low: device power-down
--		RST = high: device is enabled
-+  - reset-gpios : Optional reset gpio line connected to RST pin of the codec.
-+		  The RST line is low active:
-+		  RST = low: device power-down
-+		  RST = high: device is enabled
- 
- Examples:
- 
-@@ -40,7 +41,7 @@ i2c0: i2c0@0 {
- 	pcm3168a: audio-codec@44 {
- 		compatible = "ti,pcm3168a";
- 		reg = <0x44>;
--		rst-gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&gpio0 4 GPIO_ACTIVE_LOW>;
- 		clocks = <&clk_core CLK_AUDIO>;
- 		clock-names = "scki";
- 		VDD1-supply = <&supply3v3>;
+ #define SND_SOC_BYTES_MASK(xname, xbase, xregs, xmask)	      \
+ {	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = xname,   \
 -- 
 2.20.1
 

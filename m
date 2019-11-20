@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DC2C1042C7
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 19:01:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE631042CB
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 19:03:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05BEF1751;
-	Wed, 20 Nov 2019 19:00:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05BEF1751
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CF801763;
+	Wed, 20 Nov 2019 19:02:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CF801763
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574272902;
-	bh=AksdySU5Qws3HE/U1EDWS+u5FKg02+rrMRPpkwTg1OQ=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574272983;
+	bh=uxbXy9/iJgLQOv01+SxGY5d2Ybfhcti8BjVvQ5tIGT0=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZS0rOIWvM07lFxulTwBxlZdFUf4XqHSXtzvRIFHpficaof8iLrNDb8IgICzZO3SOW
-	 8UXOqdMzxj9+0JRXL/iA/GldiJL0VMwjX3P0PWC5FDQPe+mMTPyjq+avDefy+3OwIq
-	 NZINpaaJN64ZVEzbxljK1dj/fZVdRiX2WDv2PB+k=
+	b=SGwM3zyP0hpXjmVDj4UbCcI3E9O4tyaGotspZafeU1jl3Awd3tjGe5+WRXDpQPrGF
+	 LzgEZHF4W0oA8oT73SBk4a705K2MDjp3lbF/6LFyo6HOXxkl+RwyMiJOnrde/f0FO5
+	 M4ws+KllgzwcsJg9whajolDlMZQZwZEjDDxyixjI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B11EEF80162;
-	Wed, 20 Nov 2019 18:57:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 75B4CF8021C;
+	Wed, 20 Nov 2019 18:57:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4E98F801F2; Wed, 20 Nov 2019 18:57:01 +0100 (CET)
+ id 7047CF80217; Wed, 20 Nov 2019 18:57:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,35 +34,38 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C81D1F80162
- for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 18:56:58 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C4762F8020C
+ for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 18:57:33 +0100 (CET)
 Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 61B68A003F;
- Wed, 20 Nov 2019 18:56:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 61B68A003F
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 67EFFA0047;
+ Wed, 20 Nov 2019 18:57:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 67EFFA0047
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1574272618; bh=xFun+Ie79Vi+9onsdjOXH1j8M0vtiTw//HtvmorTP70=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=xF9b+XrSy2GnU9daJPOZM6CLLKQiOSDEUnY+W9ZafUdHldL9Fvb1pGDCTwevdyxa/
- Uro4igocdoX9K1yRU+o2LWXQa6J4BbaDQV5g5uBv3LgJeHnuT3OCUYDfA3/T4kMzIT
- 2+uhQXLhDq4/gjYWab0KWNQlZtpeVIrC2axNMqe0=
+ t=1574272653; bh=/6d09bopjOQk6yTxYG/bAw2SIn2ob3JhQ0vFTccW9YM=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=tNBRwtTHy6m6xafHotzjnlUOatm6QcJiPNAE0H69tUXWIufSKbf++rnUfmvwQRc6h
+ Q3rQtEc3xYLLZta9Mihi+DenfxterMI8jC36W/LgCmqdK3KoK+0/H7yxPBPw2mZjuK
+ CrGTp1j3nKU0ZpSIGc/WIphUlqQx8iB5bIckR+y4=
 Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested) (Authenticated sender: perex)
  by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed, 20 Nov 2019 18:56:53 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
+ Wed, 20 Nov 2019 18:57:29 +0100 (CET)
 To: ALSA development <alsa-devel@alsa-project.org>
-Date: Wed, 20 Nov 2019 18:56:44 +0100
-Message-Id: <20191120175644.31839-2-perex@perex.cz>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191120175644.31839-1-perex@perex.cz>
-References: <20191120175644.31839-1-perex@perex.cz>
+References: <20191120175411.31619-1-perex@perex.cz>
+ <20191120175411.31619-2-perex@perex.cz>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <cdbba225-f622-4e4c-1132-850b94fcb004@perex.cz>
+Date: Wed, 20 Nov 2019 18:57:28 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
+In-Reply-To: <20191120175411.31619-2-perex@perex.cz>
+Content-Language: en-US
 Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH v4 2/2] ASoC: Intel - do not describe I/O
-	configuration in the long card name
+Subject: Re: [alsa-devel] [PATCH v3 2/2] ASoC: Intel - do not describe I/O
+ configuration in the long card name
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,137 +78,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The long card name might be used in GUI. This information should be hidden.
+Dne 20. 11. 19 v 18:54 Jaroslav Kysela napsal(a):
+> The long card name might be used in GUI. This information should be hidden.
+> 
+> Add CONFIG_SND_SOC_INTEL_USER_FRIENDLY_NAMES configuration option.
 
-Add CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES configuration option.
+Grr. It should be CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES. v4 patches
+were sent.
 
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Mark Brown <broonie@kernel.org>
----
- sound/soc/intel/boards/Kconfig         | 13 +++++++++++++
- sound/soc/intel/boards/bytcht_es8316.c |  4 ++++
- sound/soc/intel/boards/bytcr_rt5640.c  |  4 ++++
- sound/soc/intel/boards/bytcr_rt5651.c  |  4 ++++
- 4 files changed, 25 insertions(+)
+				Jaroslav
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 2702aefee775..16c77718700f 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -13,6 +13,19 @@ menuconfig SND_SOC_INTEL_MACH
- 
- if SND_SOC_INTEL_MACH
- 
-+config SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES
-+	bool "Use more user friendly long card names"
-+	help
-+	  Some drivers report the I/O configuration to userspace through the
-+	  soundcard's long card name in the control user space AP. An unfortunate
-+	  side effect is that this long name may also be used by the GUI,
-+	  confusing users with information they don't need.
-+	  This option prevents the long name from being modified, and the I/O
-+	  configuration will be provided through a different component interface.
-+	  Select Y if userspace like UCM (Use Case Manager) uses the component
-+	  interface.
-+	  If unsure select N.
-+
- if SND_SOC_INTEL_HASWELL
- 
- config SND_SOC_INTEL_HASWELL_MACH
-diff --git a/sound/soc/intel/boards/bytcht_es8316.c b/sound/soc/intel/boards/bytcht_es8316.c
-index 4090550f0fe1..42ce94ed7080 100644
---- a/sound/soc/intel/boards/bytcht_es8316.c
-+++ b/sound/soc/intel/boards/bytcht_es8316.c
-@@ -360,7 +360,9 @@ static struct snd_soc_dai_link byt_cht_es8316_dais[] = {
- 
- /* SoC card */
- static char codec_name[SND_ACPI_I2C_ID_LEN];
-+#if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
- static char long_name[50]; /* = "bytcht-es8316-*-spk-*-mic" */
-+#endif
- static char components_string[32]; /* = "cfg-spk:* cfg-mic:* */
- 
- static int byt_cht_es8316_suspend(struct snd_soc_card *card)
-@@ -578,10 +580,12 @@ static int snd_byt_cht_es8316_mc_probe(struct platform_device *pdev)
- 		 (quirk & BYT_CHT_ES8316_MONO_SPEAKER) ? "1" : "2",
- 		 mic_name[BYT_CHT_ES8316_MAP(quirk)]);
- 	byt_cht_es8316_card.components = components_string;
-+#if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
- 	snprintf(long_name, sizeof(long_name), "bytcht-es8316-%s-spk-%s-mic",
- 		 (quirk & BYT_CHT_ES8316_MONO_SPEAKER) ? "mono" : "stereo",
- 		 mic_name[BYT_CHT_ES8316_MAP(quirk)]);
- 	byt_cht_es8316_card.long_name = long_name;
-+#endif
- 
- 	/* register the soc card */
- 	snd_soc_card_set_drvdata(&byt_cht_es8316_card, priv);
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 0170d31e691a..fd4088db2fd4 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -1080,7 +1080,9 @@ static struct snd_soc_dai_link byt_rt5640_dais[] = {
- static char byt_rt5640_codec_name[SND_ACPI_I2C_ID_LEN];
- static char byt_rt5640_codec_aif_name[12]; /*  = "rt5640-aif[1|2]" */
- static char byt_rt5640_cpu_dai_name[10]; /*  = "ssp[0|2]-port" */
-+#if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
- static char byt_rt5640_long_name[40]; /* = "bytcr-rt5640-*-spk-*-mic" */
-+#endif
- static char byt_rt5640_components[32]; /* = "cfg-spk:* cfg-mic:*" */
- 
- static int byt_rt5640_suspend(struct snd_soc_card *card)
-@@ -1309,12 +1311,14 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 		 (byt_rt5640_quirk & BYT_RT5640_MONO_SPEAKER) ? "1" : "2",
- 		 map_name[BYT_RT5640_MAP(byt_rt5640_quirk)]);
- 	byt_rt5640_card.components = byt_rt5640_components;
-+#if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
- 	snprintf(byt_rt5640_long_name, sizeof(byt_rt5640_long_name),
- 		 "bytcr-rt5640-%s-spk-%s-mic",
- 		 (byt_rt5640_quirk & BYT_RT5640_MONO_SPEAKER) ?
- 			"mono" : "stereo",
- 		 map_name[BYT_RT5640_MAP(byt_rt5640_quirk)]);
- 	byt_rt5640_card.long_name = byt_rt5640_long_name;
-+#endif
- 
- 	/* override plaform name, if required */
- 	platform_name = mach->mach_params.platform;
-diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
-index 80a5674ddb1b..c0d322a859f7 100644
---- a/sound/soc/intel/boards/bytcr_rt5651.c
-+++ b/sound/soc/intel/boards/bytcr_rt5651.c
-@@ -797,7 +797,9 @@ static struct snd_soc_dai_link byt_rt5651_dais[] = {
- static char byt_rt5651_codec_name[SND_ACPI_I2C_ID_LEN];
- static char byt_rt5651_codec_aif_name[12]; /*  = "rt5651-aif[1|2]" */
- static char byt_rt5651_cpu_dai_name[10]; /*  = "ssp[0|2]-port" */
-+#if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
- static char byt_rt5651_long_name[50]; /* = "bytcr-rt5651-*-spk-*-mic[-swapped-hp]" */
-+#endif
- static char byt_rt5651_components[50]; /* = "cfg-spk:* cfg-mic:*" */
- 
- static int byt_rt5651_suspend(struct snd_soc_card *card)
-@@ -1087,6 +1089,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 		 (byt_rt5651_quirk & BYT_RT5651_HP_LR_SWAPPED) ?
- 			" cfg-hp:lrswap" : "");
- 	byt_rt5651_card.components = byt_rt5651_components;
-+#if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
- 	snprintf(byt_rt5651_long_name, sizeof(byt_rt5651_long_name),
- 		 "bytcr-rt5651-%s-spk-%s-mic%s",
- 		 (byt_rt5651_quirk & BYT_RT5651_MONO_SPEAKER) ?
-@@ -1095,6 +1098,7 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
- 		 (byt_rt5651_quirk & BYT_RT5651_HP_LR_SWAPPED) ?
- 			"-hp-swapped" : "");
- 	byt_rt5651_card.long_name = byt_rt5651_long_name;
-+#endif
- 
- 	/* override plaform name, if required */
- 	platform_name = mach->mach_params.platform;
 -- 
-2.20.1
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

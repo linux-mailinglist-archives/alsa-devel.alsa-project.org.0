@@ -2,85 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5E40103457
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 07:38:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25181103496
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 07:50:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6984F168D;
-	Wed, 20 Nov 2019 07:37:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6984F168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 955681694;
+	Wed, 20 Nov 2019 07:49:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 955681694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574231902;
-	bh=5GzD2ZH/1h9XgAHmcHrlkO8MkWA9xSPcnTEhsbLNueg=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1574232634;
+	bh=g+PEqVNPiHWMcDoRJ6e757PFguH+dJHRD0xOREqHycI=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ng4Dl8rm0UM7wUiPAqrTQ0Ss7swZI9Uh5DXLBkWrIi6bGU7yYbVkAWufByMEwR4Bi
-	 8NlvAgItOX0Fb/f7QprmRDpMS9Q9BjO93jPeOKxW16Ml4ti4HFY3jOqCajSqySsRVi
-	 umSgca7KZ95gtD8VARb6gx40eF+WQNHDb7n3H6EY=
+	b=W7gUoby+Xz9T71TBn3HGeBSX++A+lE5Pu2SnNfDMagtCcqUa/dLsuG+SP/hhOGGdn
+	 wxV4i9HiEE/BY+hvjcZWoQXVv9X/sIDlNw00CCIplsZxKbxle3Rge5bozRlrQUiyW7
+	 T6K5wDSbYjX5WeCLCQfaqGkCRvrIRXLqrFqAMGTE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B1E94F8013C;
-	Wed, 20 Nov 2019 07:36:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB706F8013D;
+	Wed, 20 Nov 2019 07:48:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8BE43F8013D; Wed, 20 Nov 2019 07:36:35 +0100 (CET)
+ id 1EF14F8013D; Wed, 20 Nov 2019 07:48:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
- [IPv6:2607:f8b0:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CFACBF800F0
- for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 07:36:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CFACBF800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="sNZtLV2I"
-Received: by mail-ot1-x343.google.com with SMTP id n23so20228939otr.13
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 22:36:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Qz8K1NegNb60DTp2Com7mCQE4UT33oZDNN0Nv6Xc5SA=;
- b=sNZtLV2IBQzUsPjrX6v1xYqtvginEM91OU8HfHPwaVyUzVak26TcG6M84g2XdQAOG9
- T+ZhR+3PTJXrja/qs78ll42pyZjmGF+c7IXhoicUMVeUISViMogwez8ENR1anTcx0nKA
- g0IUbMzExF6UIu/qIuBw+9IuQNqe1ZtwVIyssB2L0fo3j8H7rZGHJDutn+r108pbCnj6
- Iu6BlplY4vZb0M/apuxyzOe0MUoO0ch1Pm8Jm+lQcUGYzWQG0te7bCces4nbZTlEck+D
- T9JTYz0BUMx7h5B8Rfv386MFk4nBGWAS6wwb4C4Cmr4PIb5/OIV7SlMwaedIn+CYZuGy
- HkVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Qz8K1NegNb60DTp2Com7mCQE4UT33oZDNN0Nv6Xc5SA=;
- b=EeR07Zb7tTCJgvf2ebIgx1lUZFwl5lqrkzRc4uV52a7SFEGcts6KW2XpxXzrjLVmZH
- qfxo2mAmrbw1FKAZQJUifun1vX8ZNe7VKTz5WTevorp02rdxR/d1qevovXknfozELktZ
- pOQxxbNnyPovtWT5utvrpJnAVfvLkyE4IN3r72x32Mgpq6BJp72C41jbiFjnqQsiKKoB
- 2Q2BV6ZD2f0glPcJIweKJps5T/30LasLQLyP9n7hs7BU7e2GvE+DKTRmW6fwJwnoQm7d
- q78EbGW8PmC6o6k/MLsmZJO1s8GSBYDREoXrPF049QGZPy2uDerSb9S0EuzjiJjoghvX
- +JgA==
-X-Gm-Message-State: APjAAAWx1ORT9j8ApVUiUUQshn8vHxcVH3i8IRixSNxCT/sWfODSZIhA
- JHARsy+7JA/qiVx63yBUtsNsbOJg8/KAaeQvxRKL8Hu4
-X-Google-Smtp-Source: APXvYqzx8NcPauifXzKQ0lp8kieTXNYDRIVLFF68DzbkhUfUnq7HXiL3eC4qqfa9IiS5EhaOSNaaG3/ig2U4vhCywV8=
-X-Received: by 2002:a05:6830:1149:: with SMTP id
- x9mr702697otq.47.1574231790429; 
- Tue, 19 Nov 2019 22:36:30 -0800 (PST)
-MIME-Version: 1.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4A56DF800FF
+ for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 07:48:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A56DF800FF
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 14E03AC7D;
+ Wed, 20 Nov 2019 06:48:45 +0000 (UTC)
+Date: Wed, 20 Nov 2019 07:48:44 +0100
+Message-ID: <s5hh82zvy9f.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Rosen Penev <rosenp@gmail.com>
+In-Reply-To: <CAKxU2N_2yLB3g9UqXzkRQ1NNNyfXPKXRLP6A3pMHV+Vkpz5QSw@mail.gmail.com>
 References: <20191120042856.415854-1-rosenp@gmail.com>
  <20191120042856.415854-4-rosenp@gmail.com>
  <s5hlfsbvzb9.wl-tiwai@suse.de>
-In-Reply-To: <s5hlfsbvzb9.wl-tiwai@suse.de>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Tue, 19 Nov 2019 22:36:19 -0800
-Message-ID: <CAKxU2N_2yLB3g9UqXzkRQ1NNNyfXPKXRLP6A3pMHV+Vkpz5QSw@mail.gmail.com>
-To: Takashi Iwai <tiwai@suse.de>
+ <CAKxU2N_2yLB3g9UqXzkRQ1NNNyfXPKXRLP6A3pMHV+Vkpz5QSw@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Cc: alsa-devel@alsa-project.org
 Subject: Re: [alsa-devel] [PATCH 4/4] aplay: Limit VUMeter progress bar to
- 100 for negative as well
+	100 for negative as well
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,63 +73,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Nov 19, 2019 at 10:26 PM Takashi Iwai <tiwai@suse.de> wrote:
->
-> On Wed, 20 Nov 2019 05:28:56 +0100,
-> Rosen Penev wrote:
+On Wed, 20 Nov 2019 07:36:19 +0100,
+Rosen Penev wrote:
+> 
+> On Tue, Nov 19, 2019 at 10:26 PM Takashi Iwai <tiwai@suse.de> wrote:
 > >
-> > If the progress bar somehow becomes negative, it ends up overwritting
-> > tmp. Fixes this GCC warning:
+> > On Wed, 20 Nov 2019 05:28:56 +0100,
+> > Rosen Penev wrote:
+> > >
+> > > If the progress bar somehow becomes negative, it ends up overwritting
+> > > tmp. Fixes this GCC warning:
+> > >
+> > > aplay.c:1747:18: warning: '%02d' directive writing between 2 and 11 bytes
+> > >  into a region of size 4 [-Wformat-overflow=]
+> > >  1747 |    sprintf(tmp, "%02d%%", maxperc[c]);
 > >
-> > aplay.c:1747:18: warning: '%02d' directive writing between 2 and 11 bytes
-> >  into a region of size 4 [-Wformat-overflow=]
-> >  1747 |    sprintf(tmp, "%02d%%", maxperc[c]);
->
-> This is false-positive.  The value passed there is guaranteed to be a
-> positive integer at the calculation time.
-Sure. But best to silence GCC. It probably optimizes better this way.
->
->
-> thanks,
->
-> Takashi
->
+> > This is false-positive.  The value passed there is guaranteed to be a
+> > positive integer at the calculation time.
+> Sure. But best to silence GCC. It probably optimizes better this way.
+
+I guess this adds more code in binary.  Comparing with 99U would work?
+
+
+Takashi
+
+
 > >
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >  aplay/aplay.c | 4 +++-
-> >  1 file changed, 3 insertions(+), 1 deletion(-)
 > >
-> > diff --git a/aplay/aplay.c b/aplay/aplay.c
-> > index 72fa567..9c5a11b 100644
-> > --- a/aplay/aplay.c
-> > +++ b/aplay/aplay.c
-> > @@ -54,6 +54,8 @@
-> >  #include "formats.h"
-> >  #include "version.h"
+> > thanks,
 > >
-> > +#define ABS(a)  (a) < 0 ? -(a) : (a)
-> > +
-> >  #ifdef SND_CHMAP_API_VERSION
-> >  #define CONFIG_SUPPORT_CHMAP 1
-> >  #endif
-> > @@ -1741,7 +1743,7 @@ static void print_vu_meter_stereo(int *perc, int *maxperc)
-> >                       line[bar_length + 6 + 1 + p] = '+';
-> >               else
-> >                       line[bar_length - p - 1] = '+';
-> > -             if (maxperc[c] > 99)
-> > +             if (ABS(maxperc[c]) > 99)
-> >                       sprintf(tmp, "MAX");
-> >               else
-> >                       sprintf(tmp, "%02d%%", maxperc[c]);
-> > --
-> > 2.23.0
+> > Takashi
 > >
-> > _______________________________________________
-> > Alsa-devel mailing list
-> > Alsa-devel@alsa-project.org
-> > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-> >
+> > >
+> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > ---
+> > >  aplay/aplay.c | 4 +++-
+> > >  1 file changed, 3 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/aplay/aplay.c b/aplay/aplay.c
+> > > index 72fa567..9c5a11b 100644
+> > > --- a/aplay/aplay.c
+> > > +++ b/aplay/aplay.c
+> > > @@ -54,6 +54,8 @@
+> > >  #include "formats.h"
+> > >  #include "version.h"
+> > >
+> > > +#define ABS(a)  (a) < 0 ? -(a) : (a)
+> > > +
+> > >  #ifdef SND_CHMAP_API_VERSION
+> > >  #define CONFIG_SUPPORT_CHMAP 1
+> > >  #endif
+> > > @@ -1741,7 +1743,7 @@ static void print_vu_meter_stereo(int *perc, int *maxperc)
+> > >                       line[bar_length + 6 + 1 + p] = '+';
+> > >               else
+> > >                       line[bar_length - p - 1] = '+';
+> > > -             if (maxperc[c] > 99)
+> > > +             if (ABS(maxperc[c]) > 99)
+> > >                       sprintf(tmp, "MAX");
+> > >               else
+> > >                       sprintf(tmp, "%02d%%", maxperc[c]);
+> > > --
+> > > 2.23.0
+> > >
+> > > _______________________________________________
+> > > Alsa-devel mailing list
+> > > Alsa-devel@alsa-project.org
+> > > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+> > >
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,67 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 998601041B3
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 18:04:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 960EF1041E0
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 18:18:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12A4C1716;
-	Wed, 20 Nov 2019 18:03:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12A4C1716
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2FAA171D;
+	Wed, 20 Nov 2019 18:17:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2FAA171D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574269482;
-	bh=gQvf4Ge+1qrOagQHnXOwlWlHASH3AlB14yFVwkZYTcI=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574270284;
+	bh=ijrQPcbzlT5NF/eDcqxiKvSbRYD5HgnpvT0Gs3xf5vg=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ef0TI8+3ztqQOcMz6oOe+KmeOrqmxITICHV/MgoEbVtmRYg8VtVNA1ahvnVyAq9yz
-	 ZAwCL7qFru9j2u6IC6fPPJtZCKI/DqG8305IvKdA4UuQo4IdtQmjdg938bRTHv3Emt
-	 r0bhGs1uHSh5HzRHxnxoJ2g0Nay+Rb2Q76IVPhvA=
+	b=aOPCWUT5S5OKEKS1KS9H1tdPzkoXKQUJRQCzipy7Dbzvp+BPxSDnLjrP0rmC8YY/Y
+	 82XX1K36K9Bz3tcJ7fxknz1SzRJk4w5eBGhU6FWtj8dGMU0wYZK+XK8MHPriIzYEDB
+	 ZcuXo8LSytEzgwmX6YKpBESiChSL4goXZd7lhzgk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA731F8013D;
-	Wed, 20 Nov 2019 18:02:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F34B0F8013F;
+	Wed, 20 Nov 2019 18:16:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 190A8F8013D; Wed, 20 Nov 2019 18:02:55 +0100 (CET)
+ id 0A68CF8013D; Wed, 20 Nov 2019 18:16:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
- SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from smtprelay.hostedemail.com (smtprelay0120.hostedemail.com
- [216.40.44.120])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48695F800FF
- for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 18:02:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48695F800FF
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay08.hostedemail.com (Postfix) with ESMTP id A23C6182CED5B;
- Wed, 20 Nov 2019 17:02:46 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: dolls67_351a93e0e3454
-X-Filterd-Recvd-Size: 1742
-Received: from XPS-9350.home (unknown [47.151.135.224])
- (Authenticated sender: joe@perches.com)
- by omf18.hostedemail.com (Postfix) with ESMTPA;
- Wed, 20 Nov 2019 17:02:44 +0000 (UTC)
-Message-ID: <ce1787fcb5fcb8f2aba8fbc6ab95dec7e43c98ba.camel@perches.com>
-From: Joe Perches <joe@perches.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, Krzysztof
- Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org
-Date: Wed, 20 Nov 2019 09:02:22 -0800
-In-Reply-To: <c58df5a9-216f-2f4c-5afe-23866875a168@linux.intel.com>
-References: <20191120133252.6365-1-krzk@kernel.org>
- <c58df5a9-216f-2f4c-5afe-23866875a168@linux.intel.com>
-User-Agent: Evolution 3.34.1-2 
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 651DFF800FF
+ for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 18:16:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 651DFF800FF
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 116AE1FB;
+ Wed, 20 Nov 2019 09:16:12 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 82B343F703;
+ Wed, 20 Nov 2019 09:16:11 -0800 (PST)
+Date: Wed, 20 Nov 2019 17:16:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Message-ID: <20191120171609.GB5705@sirena.org.uk>
+References: <20191120060844.224607-1-tzungbi@google.com>
+ <20191120060844.224607-3-tzungbi@google.com>
 MIME-Version: 1.0
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Fix Kconfig indentation
+In-Reply-To: <20191120060844.224607-3-tzungbi@google.com>
+X-Cookie: Best if used before date on carton.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, dgreid@google.com, cychiang@google.com
+Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: max98090: save and restore SHDN
+ when changing sensitive registers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,29 +65,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1426483883964284124=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2019-11-20 at 09:02 -0600, Pierre-Louis Bossart wrote:
-> 
-> On 11/20/19 7:32 AM, Krzysztof Kozlowski wrote:
-> > Adjust indentation from spaces to tab (+optional two spaces) as in
-> > coding style with command like:
-> > 	$ sed -e 's/^        /\t/' -i */Kconfig
-> Thanks for the changes, is there a way for checkpatch.pl or some tool to 
-> detect this?
 
-Sure, if you want to stick a Kconfig grammar parser into
-checkpatch and validate any Kconfig file content.
+--===============1426483883964284124==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="98e8jtXdkpgskNou"
+Content-Disposition: inline
 
-Otherwise, maybe improve scripts/kconfig/lexer.l and
-(optionally?) emit a message whenever the line's content
-doesn't fit some preferred style.
 
+--98e8jtXdkpgskNou
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Wed, Nov 20, 2019 at 02:08:44PM +0800, Tzung-Bi Shih wrote:
+> According to the datasheet, there are some registers can only be changed
+> when SHDN is 0.  Chaning these settings during SHDN = 1 can compromise
+> device stability and performance specifications.
+
+This doesn't apply against current code, please check and resend.
+
+--98e8jtXdkpgskNou
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3VdNkACgkQJNaLcl1U
+h9AB1gf6A8Kv/6joSm8eQOdj0uGXJfFgEGVLx3agP1UAMIaJ4dJ4Ss/F9wyLylOT
+RpA/Wudc6usgxo+7Nd+KlGkuXgFkRai8uqNoKIfisrBaw5W9jbiyslOg5l/gCWS7
+N4tCzY+qZqdA6hFzXR1pXPgfPjgY9Lk+aNpErtl0KBx5dEGUUcrCPOeIl/gHQKiM
+oNG6oDsa62ImFxJyf1N+Laj+x0OHHVzFdW+qymzbXGgOk5pjcb4yBfB0VdtgLZ6L
+tIW+3rMZRmURRe3ecGnxFgkawmETpeOPt81sWdrFXXfE56A1EmuarJgBF7rwLQ0X
+zCWu9qgXz2wG+0IKT15PfpbNSIfFfw==
+=Dvgx
+-----END PGP SIGNATURE-----
+
+--98e8jtXdkpgskNou--
+
+--===============1426483883964284124==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1426483883964284124==--

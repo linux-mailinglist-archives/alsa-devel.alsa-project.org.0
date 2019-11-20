@@ -2,80 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE9D8103419
-	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 07:06:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FE91103413
+	for <lists+alsa-devel@lfdr.de>; Wed, 20 Nov 2019 07:05:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6CAB916A0;
-	Wed, 20 Nov 2019 07:05:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CAB916A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A28741693;
+	Wed, 20 Nov 2019 07:04:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A28741693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574229981;
-	bh=TLir7EbzxKPU5fan+Q2ALrOph1dQSAQLh/ZG9IS35Oo=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Ftjnhhw9H+j6+T4uYrIDjPI3lCgwvHCw/2rlNh4nsPgfh7cXSjFMrLFFjiqEh/qMA
-	 ICK2k1Pn+5OB+BI0R7Z8pqWjN2ihV6dhGIxihFNl0JxypAZYhxwBa8sU9ckAAyE0bj
-	 BIIomiyuwF8cv/i3bovMRUSygAzSwxMKEv/wOhgo=
+	s=default; t=1574229934;
+	bh=+Ch4s5U+4hNoWFsNuBsF22JYB3mK/00zDULitv5b/kw=;
+	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Mjbf8l0lEi436Dd5mobul/ko5OwafBKwulAUL2h1Flh05hbVdsX2oQv+mak3KRJXP
+	 dSc45C1s8ISWqbyLKKxTR4aHS1kDoOjQn2nOsGFMzhTcTQZvHTMimKjOJnqxIAcDa2
+	 ZclKGcVZ6q74aZntR4FZ1DFk1P5WSXIdA/WcqFaU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5B0E9F8014D;
-	Wed, 20 Nov 2019 07:03:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ADB66F8013E;
+	Wed, 20 Nov 2019 07:03:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52012F8013E; Wed, 20 Nov 2019 07:03:33 +0100 (CET)
+ id 2811FF80140; Wed, 20 Nov 2019 07:03:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, SPF_HELO_NONE,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-qt1-x84a.google.com (mail-qt1-x84a.google.com
- [IPv6:2607:f8b0:4864:20::84a])
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,USER_IN_DEF_DKIM_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
+ [IPv6:2607:f8b0:4864:20::104a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D4E9F800F0
- for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 07:03:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D4E9F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D14A3F8013C
+ for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 07:03:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D14A3F8013C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="bLwyLz6U"
-Received: by mail-qt1-x84a.google.com with SMTP id e2so16333358qtq.11
- for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 22:03:16 -0800 (PST)
+ header.b="csjy0tOc"
+Received: by mail-pj1-x104a.google.com with SMTP id d21so2012867pjs.21
+ for <alsa-devel@alsa-project.org>; Tue, 19 Nov 2019 22:03:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=8MYuolI8aNoMSFCP1AwyHMmHRc0NA8RsCzdbjlIuoLk=;
- b=bLwyLz6UY1a8OncKVJSh4G/20yZzwdpJQ6jT5L1AOBa1MrwW/ov0yQAHtgsTF8u4YA
- RpGFHKNHFnA9/vhKJD796r2OLPZvEO3ZUp6PITcJVE3C1r2SfmkGR4GHGgJm261RqSdw
- Zh2LDCmYOtNFynb+jh/Kdvutig2NVB4CFMMl0NDH/Wm2LanHORhabbdktE2gOkVOtAg6
- ziNJCUvk76ZkR3dg43GOHLYiyZJVB9w/QHj5BHcIQMqXIP1fQJgWoS/j6X185uY167NP
- te1BKNYNS7K8Ch0j7kUKD2jIqRFl4mI820aqZ4bjD6uIs2JVZNktFYrxgu3jHHG8jf+/
- s8Ng==
+ h=date:in-reply-to:message-id:mime-version:references:subject:from:to
+ :cc; bh=rHvSP+r9Lb+DeD2PMrAaobDRLM7O+VFG6q0IT34Km/U=;
+ b=csjy0tOcIwufMLaU5xSZtfs0SGJF+nnovtK9gquaBsQ7B7+f5sYTLiVgImOrMBJWPa
+ TBP4MiaR94snITMt1g7oOOLleVUuuzE05yKqCgPYS1HmDNGlANjOKoAGUoToCBByMfFK
+ OhmcNv5WbZvYcvuth85LAaNoJ74kryn0/F6fpIce33r/VQwSyleIrXTlOwsvcMvBsN5I
+ z7VsP1GBr3orbBioPL+RYH2bfKNklUg8jTroGjGHdynMBwp+Ewfqe5pX9U5ehYhz3ahC
+ OOtM6qy2QSpodxqzmpXn4rZQOWiO72LbnZNS2g7Z7GmJYgLpKKktY6OY31OcMLHfrpzG
+ LgNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=8MYuolI8aNoMSFCP1AwyHMmHRc0NA8RsCzdbjlIuoLk=;
- b=EuGh6o+jDMhdLQbYr/xxVc+CZhTm9MMju//flUsLGSzf0eZyObeuMxye41oLrKK44K
- noBOso6sZG7yJc9HRVWcczXZJWl/YaXCvP3MS0GTS+3wtCdlJr/JwlEdCyD4K5LqGcRV
- EV5+32lB72bu6xYmrsJzU9W0LJHdfUJ4e35F8kRtMGSd8qhcGJyUx4jG5W2uCDUh9vdV
- 9HYLzxr3B9Qt4ZPOMGu3f5y7kAVf9wSNmWG7rufQr9CgyPv9TuHNZWr+S4KA7kdkctA1
- vkAq07thrZej9Pyr/QIsAL1ruEm6JOsp2egsHwwRBlZQ6UuiTnnqylSB8dj3Udp842/q
- sWsw==
-X-Gm-Message-State: APjAAAUEnMz6TuY0DekfwI+LHG9kOiHcE/OpVLeawrJxfcZ+BX/4b4mo
- uoA0fDv5zMPOEWm22icPR8I2+H/yo62J
-X-Google-Smtp-Source: APXvYqzNWM8KxdMNI0JnW86UN+aL7oqTPc7kUntok3h3+1m+E1TCDzxJa1Zoe/9XFQwd+U8cnSGVVleL6xKr
-X-Received: by 2002:ac8:424d:: with SMTP id r13mr1049178qtm.111.1574229789647; 
- Tue, 19 Nov 2019 22:03:09 -0800 (PST)
-Date: Wed, 20 Nov 2019 14:02:53 +0800
-Message-Id: <20191120060256.212818-1-tzungbi@google.com>
+ h=x-gm-message-state:date:in-reply-to:message-id:mime-version
+ :references:subject:from:to:cc;
+ bh=rHvSP+r9Lb+DeD2PMrAaobDRLM7O+VFG6q0IT34Km/U=;
+ b=D3AVO5EnDU8KDU5cxxejJoLkhTag5MxTIrRvLaECWrMHBx3Csahu45lexsnNSMsKkH
+ N2XIs66Mkq49aXE+Z9kp/DvHaGOXZ52SWA5Gqgh28FxcrlawzIFidLC+ivS2Qcro3i+Y
+ cseY+qAZY5H1Gp53c1iJKzt2hM5pr9hr/gG0W9E6oy78VuLWuejsXMTKLmORnJ24cUS8
+ +Ym8sWUijXAER+NpHwekLQJ3nAnZgdx7TDFBHt5qjgkXGAwKaP9Ppo2u5gGA8tZXNuZf
+ PhZFQbUG6LN6DGens6bJngJDxNMKIr7+rJ2UV6IKgK9WTuePvQGpn+tLdkQwiJCblUe/
+ ipVA==
+X-Gm-Message-State: APjAAAVTiR8sdRd19md/XTCjMA3t860Qp3liznSkdUZvwYXUPAwolC6z
+ pj4EdUif1/uCFolgWGk/Vna24OXtcHL3
+X-Google-Smtp-Source: APXvYqyncm8dq+VdWQeOLEhiBIBHzjAAKv8i0ywII1O6PqXBzGB57jT4OPrmP+RVdhz7/LzIi7VIBmtvCc7o
+X-Received: by 2002:a63:3144:: with SMTP id x65mr1196978pgx.283.1574229794345; 
+ Tue, 19 Nov 2019 22:03:14 -0800 (PST)
+Date: Wed, 20 Nov 2019 14:02:54 +0800
+In-Reply-To: <20191120060256.212818-1-tzungbi@google.com>
+Message-Id: <20191120060256.212818-2-tzungbi@google.com>
 Mime-Version: 1.0
+References: <20191120060256.212818-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.24.0.432.g9d3f5f5b63-goog
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
  cychiang@google.com
-Subject: [alsa-devel] [PATCH 0/3] ASoC: max98090: fix PLL unlocked
-	workaround-related
+Subject: [alsa-devel] [PATCH 1/3] ASoC: max98090: remove msleep in PLL
+	unlocked workaround
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,18 +97,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This series is a follow up fix for the question:
-https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/157364.html
+It was observed Baytrail-based chromebooks could cause continuous PLL
+unlocked when using playback stream and capture stream simultaneously.
+Specifically, starting a capture stream after started a playback stream.
+As a result, the audio data could corrupt or turn completely silent.
 
-Tzung-Bi Shih (3):
-  ASoC: max98090: remove msleep in PLL unlocked workaround
-  ASoC: max98090: exit workaround earlier if PLL is locked
-  ASoC: max98090: fix possible race conditions
+As the datasheet suggested, the maximum PLL lock time should be 7 msec.
+The workaround resets the codec softly by toggling SHDN off and on if
+PLL failed to lock for 10 msec.  Notably, there is no suggested hold
+time for SHDN off.
 
- sound/soc/codecs/max98090.c | 23 ++++++++++++++---------
- sound/soc/codecs/max98090.h |  1 -
- 2 files changed, 14 insertions(+), 10 deletions(-)
+On Baytrail-based chromebooks, it would easily happen continuous PLL
+unlocked if there is a 10 msec delay between SHDN off and on.  Removes
+the msleep().
 
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+ sound/soc/codecs/max98090.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index f6bf4cfbea23..8382a77586ee 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -2117,7 +2117,6 @@ static void max98090_pll_work(struct work_struct *work)
+ 	/* Toggle shutdown OFF then ON */
+ 	snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
+ 			    M98090_SHDNN_MASK, 0);
+-	msleep(10);
+ 	snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
+ 			    M98090_SHDNN_MASK, M98090_SHDNN_MASK);
+ 
 -- 
 2.24.0.432.g9d3f5f5b63-goog
 

@@ -2,73 +2,131 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EED23105150
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 12:20:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 227121051A8
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 12:49:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D3A6175D;
-	Thu, 21 Nov 2019 12:19:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D3A6175D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8ADF5175F;
+	Thu, 21 Nov 2019 12:48:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ADF5175F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574335213;
-	bh=m1q+Ir9G5/QfY6hK9FvecGrbCAN345IYy+MCe6lh2AQ=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574336953;
+	bh=2tjOGhu9mZjH2fWHN713Zq+t6Jt3/gQmJ8STUjZ0fRc=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=L6zZa2QOkkZIh6lUNNC5C+Q4ly/yQblAWHMhRY8TOpV9JqbOKBeQPb1BtDlbmWWlx
-	 UfHkS3jw2R9NRCFbuX2WjAdoiAP+y4m0AtLYevPMAiHvCOeuh147z48jkzCmwex9/v
-	 evOvdfRUJF7/Xr5Rk64NbhCmQ3CX6pzKkEyDGfgg=
+	b=QPtm/AVpLj6cD7biBGD+bDIPbMqin+aur8ZGbEqt7OulM5JfmLn9dFHJK0OVl4Qhk
+	 48SNpSYTZp/ZbRbZ5DFLGvYzm5zpInaSEMYwcbHJq7NC4oX2KRhYlRYWA7uoQ2iy0K
+	 yosW8+DbPhfBHAFmhCvADj9OHuVYvXWTM9VvvuHI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B7A8DF8014C;
-	Thu, 21 Nov 2019 12:18:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2DF0F80145;
+	Thu, 21 Nov 2019 12:47:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ADB3DF80146; Thu, 21 Nov 2019 12:18:27 +0100 (CET)
+ id 30620F80146; Thu, 21 Nov 2019 12:47:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from smtp1.de.adit-jv.com (smtp1.de.adit-jv.com [93.241.18.167])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com
+ (mail-eopbgr740058.outbound.protection.outlook.com [40.107.74.58])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 636BCF800C1
- for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 12:18:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 636BCF800C1
-Received: from localhost (smtp1.de.adit-jv.com [127.0.0.1])
- by smtp1.de.adit-jv.com (Postfix) with ESMTP id E397E3C0579;
- Thu, 21 Nov 2019 12:18:21 +0100 (CET)
-Received: from smtp1.de.adit-jv.com ([127.0.0.1])
- by localhost (smtp1.de.adit-jv.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id j3j6zWReGeb2; Thu, 21 Nov 2019 12:18:17 +0100 (CET)
-Received: from HI2EXCH01.adit-jv.com (hi2exch01.adit-jv.com [10.72.92.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by smtp1.de.adit-jv.com (Postfix) with ESMTPS id 00F4B3C0022;
- Thu, 21 Nov 2019 12:18:17 +0100 (CET)
-Received: from vmlxhi-102.adit-jv.com (10.72.93.184) by HI2EXCH01.adit-jv.com
- (10.72.92.24) with Microsoft SMTP Server (TLS) id 14.3.468.0;
- Thu, 21 Nov 2019 12:18:16 +0100
-Date: Thu, 21 Nov 2019 12:18:13 +0100
-From: Eugeniu Rosca <erosca@de.adit-jv.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Message-ID: <20191121111813.GA11061@vmlxhi-102.adit-jv.com>
-References: <20191118140126.23596-1-erosca@de.adit-jv.com>
- <8736ek7kx8.wl-kuninori.morimoto.gx@renesas.com>
- <20191119104312.GA15556@vmlxhi-102.adit-jv.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAFA5F800C1
+ for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 12:47:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAFA5F800C1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="yzty9kIp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=M677T7kNDGEjq3FedMJ/5/gUjwcSF8CyveYY6xeoc2ISTwaecI6cEwercjFARk5HSYliQyKJH7oykNpQHqMwTVxa7eW9fZsbem31rS4ujU8ErCcG9NBWFFrml0cvwOxyPtGJWWS75b36LzPaKLvS3wr66k+uil8zcShCR15XZrx6WB6ZeBczPh/zPAolJJMnQGz9ly6lmZW6Gpfsy3fYyVxOWM72gfNApIaQ4Wf+cbs4g4kQ1verfuKbHHQJ7AqNk+rQJURnBLvvLir/dLP96pLoZfD06eCNnSlei6ekCCft6HDYyngYfjxQ9EUPCHWAVpBPbMZU8gynHnQ/1UBo4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+fz1dqtk8WvUjuLkBhg/qwGWrrmk8haUxZMDbwSv0hk=;
+ b=UIGx5E6PJzGzYkwMvnBOHEvE4KddKXgXd5iTjQW1PIM+e1dzCwvxc+JhohgSGEdID9OFPy7aTNAljeivH6p2ofwZjABoL9AiHWfY2XegpY69qXDHoOGXN0jplzmmyOeyJSNRBP7o47t3OgZmtpLZdJuoDq/e94/RRX4Eg82LJgOR4cmG98s72/5gmhysWWmKg4bOKKLCKzvW1mwF28KUNtPuZlhSX579T4l5VOrLyAolOsIRM0HGCSrAyQwkTdecOtbqNL6XUU5PjslSqFeU7VvupFFCzDoxvZlV8aI6gW3Zsr0J7cDipvSQ/gNYIwJxNwMvzFVVJqrvVSG0q/L/Pw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com;
+ dmarc=permerror action=none header.from=amd.com; dkim=none (message not
+ signed); arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+fz1dqtk8WvUjuLkBhg/qwGWrrmk8haUxZMDbwSv0hk=;
+ b=yzty9kIpVyt9asNQlGEV359Dn+qndbaXPjLqqvB84fw89hpZ3MeAjvuuRT4DuzBCFo8jd05jXnvWKO2VNPEGVVHM4+qRyCgkVODveruQnFAkyD4BeY77mP6cewG0EYOMwAs9wYZL+FxA8YZkRMZKvob5jxPu7Z9fbSgWSFf4gFg=
+Received: from BN8PR12CA0019.namprd12.prod.outlook.com (2603:10b6:408:60::32)
+ by BN6PR12MB1762.namprd12.prod.outlook.com (2603:10b6:404:fe::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2474.19; Thu, 21 Nov
+ 2019 11:47:18 +0000
+Received: from DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
+ (2a01:111:f400:7eaa::207) by BN8PR12CA0019.outlook.office365.com
+ (2603:10b6:408:60::32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2474.18 via Frontend
+ Transport; Thu, 21 Nov 2019 11:47:17 +0000
+Authentication-Results: spf=none (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=permerror action=none header.from=amd.com;
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+Received: from SATLEXMB01.amd.com (165.204.84.17) by
+ DM6NAM11FT049.mail.protection.outlook.com (10.13.172.188) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.20.2451.23 via Frontend Transport; Thu, 21 Nov 2019 11:47:17 +0000
+Received: from SATLEXMB05.amd.com (10.181.40.146) by SATLEXMB01.amd.com
+ (10.181.40.142) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 21 Nov
+ 2019 05:47:17 -0600
+Received: from SATLEXMB02.amd.com (10.181.40.143) by SATLEXMB05.amd.com
+ (10.181.40.146) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 21 Nov
+ 2019 05:47:16 -0600
+Received: from vishnu-All-Series.amd.com (10.180.168.240) by
+ SATLEXMB02.amd.com (10.181.40.143) with Microsoft SMTP Server id 15.1.1713.5
+ via Frontend Transport; Thu, 21 Nov 2019 05:47:13 -0600
+From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+To: 
+Date: Thu, 21 Nov 2019 17:15:56 +0530
+Message-ID: <1574336761-16717-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1574336761-16717-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+References: <1574336761-16717-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191119104312.GA15556@vmlxhi-102.adit-jv.com>
-User-Agent: Mutt/1.12.1+40 (7f8642d4ee82) (2019-06-28)
-X-Originating-IP: [10.72.93.184]
-Cc: Nilkanth Ahirrao <external.anilkanth@jp.adit-jv.com>,
- alsa-devel@alsa-project.org, Andrew Gabbasov <andrew_gabbasov@mentor.com>,
- Eugeniu Rosca <roscaeugeniu@gmail.com>, Jiada Wang <jiada_wang@mentor.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Eugeniu Rosca <erosca@de.adit-jv.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: rsnd: fix DALIGN register for SSIU
+X-EOPAttributedMessage: 0
+X-MS-Office365-Filtering-HT: Tenant
+X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:NLI; CTRY:US; EFV:NLI;
+ SFV:NSPM;
+ SFS:(10009020)(4636009)(396003)(376002)(346002)(39850400004)(136003)(428003)(199004)(189003)(70206006)(70586007)(8936002)(48376002)(11346002)(446003)(2616005)(50466002)(50226002)(81156014)(81166006)(8676002)(109986005)(356004)(6666004)(47776003)(305945005)(54906003)(478600001)(7696005)(2906002)(51416003)(76176011)(426003)(4326008)(1671002)(26005)(316002)(36756003)(53416004)(16586007)(86362001)(336012)(186003)(5660300002)(266003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:BN6PR12MB1762; H:SATLEXMB01.amd.com; FPR:;
+ SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: ac5517b4-0e81-49e4-d9e1-08d76e788f75
+X-MS-TrafficTypeDiagnostic: BN6PR12MB1762:
+X-Microsoft-Antispam-PRVS: <BN6PR12MB1762573B221027E442FECD21E74E0@BN6PR12MB1762.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:182;
+X-Forefront-PRVS: 0228DDDDD7
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RkFJKRrsP7E62OF3A0gF8rk3A20bcYWMe9uToR66ycgn+Q7Psk3dDFZguQgRi9n0OkzUtWvhev/rDBOOPQBVCdEk/uPp6q0V43c77PjmvUbsUVzgIfbaiKUOlCNQCO70qvPO/tjnhgSXlXd8uagUFCQyKxGZEAOEbzXHZbvOuMSSjgSDiUmQcy7MnqJg4c2BStqx5oD0aGOQGZaqjaVmllb6uellX0bCqHXEtQJaRP8cvcFn8YuIELhSMLZ0VuIeg6UtqHKL3NHVLzeFxiAFZA73PFz/VLQegVXxRQnrEk48QvqkgWyKiM+6TcUHP0xwLJYT1NKhcD9vxiznbFsAK7JvFzOepJqG7RLGXENxljobDmF0Ld63scGDGoJeTOlQhJXUkuOzv8lZuPayrMZ1+xgwzp9shys8z0Z8bAEI60u70TcLJ6ZaZYyGmNspJRdE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Nov 2019 11:47:17.7300 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac5517b4-0e81-49e4-d9e1-08d76e788f75
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[SATLEXMB01.amd.com]
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN6PR12MB1762
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO
+ POWER MANAGEM..." <alsa-devel@alsa-project.org>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, pierre-louis.bossart@linux.intel.com,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ Mark Brown <broonie@kernel.org>, djkurtz@google.com, Alexander.Deucher@amd.com,
+ Akshu.Agrawal@amd.com, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [alsa-devel] [RESEND PATCH v11 1/6] ASoC: amd:Create multiple I2S
+	platform device endpoints
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,12 +144,207 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Superseded by v2:
-https://lore.kernel.org/alsa-devel/20191121111023.10976-1-erosca@de.adit-jv.com/
+Creates Platform Device endpoints for multiple
+I2S instances: SP and  BT endpoints device.
+Pass PCI resources like MMIO, irq to the platform devices.
 
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Reviewed-by: Dan Carpenter <dan.carpenter@oracle.com>
+---
+ sound/soc/amd/raven/acp3x.h     |  5 +++
+ sound/soc/amd/raven/pci-acp3x.c | 95 +++++++++++++++++++++++++++--------------
+ 2 files changed, 68 insertions(+), 32 deletions(-)
+
+diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
+index 4f2cadd..2f15fe1 100644
+--- a/sound/soc/amd/raven/acp3x.h
++++ b/sound/soc/amd/raven/acp3x.h
+@@ -7,10 +7,15 @@
+ 
+ #include "chip_offset_byte.h"
+ 
++#define ACP3x_DEVS		3
+ #define ACP3x_PHY_BASE_ADDRESS 0x1240000
+ #define	ACP3x_I2S_MODE	0
+ #define	ACP3x_REG_START	0x1240000
+ #define	ACP3x_REG_END	0x1250200
++#define ACP3x_I2STDM_REG_START	0x1242400
++#define ACP3x_I2STDM_REG_END	0x1242410
++#define ACP3x_BT_TDM_REG_START	0x1242800
++#define ACP3x_BT_TDM_REG_END	0x1242810
+ #define I2S_MODE	0x04
+ #define	BT_TX_THRESHOLD 26
+ #define	BT_RX_THRESHOLD 25
+diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
+index facec24..94f5f21 100644
+--- a/sound/soc/amd/raven/pci-acp3x.c
++++ b/sound/soc/amd/raven/pci-acp3x.c
+@@ -16,17 +16,17 @@ struct acp3x_dev_data {
+ 	void __iomem *acp3x_base;
+ 	bool acp3x_audio_mode;
+ 	struct resource *res;
+-	struct platform_device *pdev;
++	struct platform_device *pdev[ACP3x_DEVS];
+ };
+ 
+ static int snd_acp3x_probe(struct pci_dev *pci,
+ 			   const struct pci_device_id *pci_id)
+ {
+-	int ret;
+-	u32 addr, val;
+ 	struct acp3x_dev_data *adata;
+-	struct platform_device_info pdevinfo;
++	struct platform_device_info pdevinfo[ACP3x_DEVS];
+ 	unsigned int irqflags;
++	int ret, i;
++	u32 addr, val;
+ 
+ 	if (pci_enable_device(pci)) {
+ 		dev_err(&pci->dev, "pci_enable_device failed\n");
+@@ -56,10 +56,11 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		irqflags = 0;
+ 
+ 	addr = pci_resource_start(pci, 0);
+-	adata->acp3x_base = ioremap(addr, pci_resource_len(pci, 0));
++	adata->acp3x_base = devm_ioremap(&pci->dev, addr,
++					pci_resource_len(pci, 0));
+ 	if (!adata->acp3x_base) {
+ 		ret = -ENOMEM;
+-		goto release_regions;
++		goto disable_msi;
+ 	}
+ 	pci_set_master(pci);
+ 	pci_set_drvdata(pci, adata);
+@@ -68,11 +69,11 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 	switch (val) {
+ 	case I2S_MODE:
+ 		adata->res = devm_kzalloc(&pci->dev,
+-					  sizeof(struct resource) * 2,
++					  sizeof(struct resource) * 4,
+ 					  GFP_KERNEL);
+ 		if (!adata->res) {
+ 			ret = -ENOMEM;
+-			goto unmap_mmio;
++			goto disable_msi;
+ 		}
+ 
+ 		adata->res[0].name = "acp3x_i2s_iomem";
+@@ -80,40 +81,67 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		adata->res[0].start = addr;
+ 		adata->res[0].end = addr + (ACP3x_REG_END - ACP3x_REG_START);
+ 
+-		adata->res[1].name = "acp3x_i2s_irq";
+-		adata->res[1].flags = IORESOURCE_IRQ;
+-		adata->res[1].start = pci->irq;
+-		adata->res[1].end = pci->irq;
++		adata->res[1].name = "acp3x_i2s_sp";
++		adata->res[1].flags = IORESOURCE_MEM;
++		adata->res[1].start = addr + ACP3x_I2STDM_REG_START;
++		adata->res[1].end = addr + ACP3x_I2STDM_REG_END;
++
++		adata->res[2].name = "acp3x_i2s_bt";
++		adata->res[2].flags = IORESOURCE_MEM;
++		adata->res[2].start = addr + ACP3x_BT_TDM_REG_START;
++		adata->res[2].end = addr + ACP3x_BT_TDM_REG_END;
++
++		adata->res[3].name = "acp3x_i2s_irq";
++		adata->res[3].flags = IORESOURCE_IRQ;
++		adata->res[3].start = pci->irq;
++		adata->res[3].end = adata->res[3].start;
+ 
+ 		adata->acp3x_audio_mode = ACP3x_I2S_MODE;
+ 
+ 		memset(&pdevinfo, 0, sizeof(pdevinfo));
+-		pdevinfo.name = "acp3x_rv_i2s";
+-		pdevinfo.id = 0;
+-		pdevinfo.parent = &pci->dev;
+-		pdevinfo.num_res = 2;
+-		pdevinfo.res = adata->res;
+-		pdevinfo.data = &irqflags;
+-		pdevinfo.size_data = sizeof(irqflags);
+-
+-		adata->pdev = platform_device_register_full(&pdevinfo);
+-		if (IS_ERR(adata->pdev)) {
+-			dev_err(&pci->dev, "cannot register %s device\n",
+-				pdevinfo.name);
+-			ret = PTR_ERR(adata->pdev);
+-			goto unmap_mmio;
++		pdevinfo[0].name = "acp3x_rv_i2s_dma";
++		pdevinfo[0].id = 0;
++		pdevinfo[0].parent = &pci->dev;
++		pdevinfo[0].num_res = 4;
++		pdevinfo[0].res = &adata->res[0];
++		pdevinfo[0].data = &irqflags;
++		pdevinfo[0].size_data = sizeof(irqflags);
++
++		pdevinfo[1].name = "acp3x_i2s_playcap";
++		pdevinfo[1].id = 0;
++		pdevinfo[1].parent = &pci->dev;
++		pdevinfo[1].num_res = 1;
++		pdevinfo[1].res = &adata->res[1];
++
++		pdevinfo[2].name = "acp3x_i2s_playcap";
++		pdevinfo[2].id = 1;
++		pdevinfo[2].parent = &pci->dev;
++		pdevinfo[2].num_res = 1;
++		pdevinfo[2].res = &adata->res[2];
++		for (i = 0; i < ACP3x_DEVS ; i++) {
++			adata->pdev[i] =
++				platform_device_register_full(&pdevinfo[i]);
++			if (IS_ERR(adata->pdev[i])) {
++				dev_err(&pci->dev, "cannot register %s device\n",
++					pdevinfo[i].name);
++				ret = PTR_ERR(adata->pdev[i]);
++				goto unregister_devs;
++			}
+ 		}
+ 		break;
+ 	default:
+ 		dev_err(&pci->dev, "Invalid ACP audio mode : %d\n", val);
+ 		ret = -ENODEV;
+-		goto unmap_mmio;
++		goto disable_msi;
+ 	}
+ 	return 0;
+ 
+-unmap_mmio:
++unregister_devs:
++	if (val == I2S_MODE)
++		for (i = 0 ; i < ACP3x_DEVS ; i++)
++			platform_device_unregister(adata->pdev[i]);
++disable_msi:
+ 	pci_disable_msi(pci);
+-	iounmap(adata->acp3x_base);
+ release_regions:
+ 	pci_release_regions(pci);
+ disable_pci:
+@@ -125,10 +153,12 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ static void snd_acp3x_remove(struct pci_dev *pci)
+ {
+ 	struct acp3x_dev_data *adata = pci_get_drvdata(pci);
++	int i;
+ 
+-	platform_device_unregister(adata->pdev);
+-	iounmap(adata->acp3x_base);
+-
++	if (adata->acp3x_audio_mode == ACP3x_I2S_MODE) {
++		for (i = 0 ; i <  ACP3x_DEVS ; i++)
++			platform_device_unregister(adata->pdev[i]);
++	}
+ 	pci_disable_msi(pci);
+ 	pci_release_regions(pci);
+ 	pci_disable_device(pci);
+@@ -151,6 +181,7 @@ static struct pci_driver acp3x_driver  = {
+ 
+ module_pci_driver(acp3x_driver);
+ 
++MODULE_AUTHOR("Vishnuvardhanrao.Ravulapati@amd.com");
+ MODULE_AUTHOR("Maruthi.Bayyavarapu@amd.com");
+ MODULE_DESCRIPTION("AMD ACP3x PCI driver");
+ MODULE_LICENSE("GPL v2");
 -- 
-Best Regards,
-Eugeniu
+2.7.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

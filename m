@@ -2,60 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEA6410521A
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 13:13:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 528931054A9
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 15:39:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 625FB177B;
-	Thu, 21 Nov 2019 13:12:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 625FB177B
+	by alsa0.perex.cz (Postfix) with ESMTPS id CBEA41772;
+	Thu, 21 Nov 2019 15:38:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBEA41772
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574338409;
-	bh=aBt8ooNtHo7yT5mQWRdwc8m0VQUNqF3fsywrOlgyDok=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574347177;
+	bh=ELgCA4KYLiuBA2AeXSVx0j+4LRrf8zgDV5x3RFV9jPQ=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QECx+SzadJs8t4AHr2sKIhGQOd10AOpPvH9/W9x4HFBiNW2LK4ua9FYnT6YgbozYo
-	 clrJN7fMLYERm7xOZnCLQYIChVrYOKm+7z58D982MtgkCVyEm77a682lYofWgLWu/N
-	 j354ZheU7maGVRIWbTkZ3G56fB3dVKTv9b2TiW1Y=
+	b=rsDRXLBC1P2OutP22ApKM+xXS82OPQKu3zkU/qO0uFb+w4KK4xJwh+8ouBf3C5Jis
+	 OQ7GFxcbDvUsMcBKiO7SoFo1XAvw0ZPnX0xTgYX0zuT2bEeIepWu6eXGU7K6993291
+	 f39e8WMq8lKnEF37f38jLnU2nCv2MJ+97K2g6UUU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2D69F8014C;
-	Thu, 21 Nov 2019 13:11:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34CF0F80146;
+	Thu, 21 Nov 2019 15:37:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFBCAF80146; Thu, 21 Nov 2019 13:11:43 +0100 (CET)
+ id A17FAF80146; Thu, 21 Nov 2019 15:37:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 51BB4F800F0
- for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 13:11:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51BB4F800F0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BD655328;
- Thu, 21 Nov 2019 04:11:38 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B6FC3F703;
- Thu, 21 Nov 2019 04:11:38 -0800 (PST)
-Date: Thu, 21 Nov 2019 12:11:36 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <20191121121136.GB4071@sirena.org.uk>
-References: <20191120174435.30920-1-perex@perex.cz>
- <20191121115124.GA4071@sirena.org.uk>
- <7a527497-6132-c1df-d083-6cd27361eb08@perex.cz>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.lixid.net (lixid.tarent.de [193.107.123.118])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 197AFF800C1
+ for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 15:37:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 197AFF800C1
+Received: from localhost (localhost [127.0.0.1])
+ by mail.lixid.net (MTA) with ESMTP id 7409D140B77;
+ Thu, 21 Nov 2019 15:37:48 +0100 (CET)
+Received: from mail.lixid.net ([127.0.0.1])
+ by localhost (mail.lixid.net [127.0.0.1]) (MFA, port 10024) with LMTP
+ id 2yf71HB2ip94; Thu, 21 Nov 2019 15:37:48 +0100 (CET)
+Received: from tglase-nb.lan.tarent.de (vpn-172-28-0-27.dynamic.tarent.de
+ [172.28.0.27])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.lixid.net (MTA) with ESMTPS id C87F614018F;
+ Thu, 21 Nov 2019 15:37:47 +0100 (CET)
+Received: by tglase-nb.lan.tarent.de (Postfix, from userid 1000)
+ id 5DB9852059C; Thu, 21 Nov 2019 15:37:46 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by tglase-nb.lan.tarent.de (Postfix) with ESMTP id 5AB09520438;
+ Thu, 21 Nov 2019 15:37:46 +0100 (CET)
+Date: Thu, 21 Nov 2019 15:37:46 +0100 (CET)
+From: Thorsten Glaser <t.glaser@tarent.de>
+X-X-Sender: tglase@tglase-nb.lan.tarent.de
+To: Takashi Iwai <tiwai@suse.de>
+In-Reply-To: <s5hzhgpsl7b.wl-tiwai@suse.de>
+Message-ID: <alpine.DEB.2.21.1911211536340.23653@tglase-nb.lan.tarent.de>
+References: <alpine.DEB.2.21.1911202147000.2011@tglase.lan.tarent.de>
+ <s5hzhgpsl7b.wl-tiwai@suse.de>
+User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
+Content-Language: de-DE-1901
 MIME-Version: 1.0
-In-Reply-To: <7a527497-6132-c1df-d083-6cd27361eb08@perex.cz>
-X-Cookie: When in doubt, lead trump.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v2 1/2] ASoC: improve the DMI long card
-	code in asoc-core
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] fix segfault on x32,
+ 64-bit time_t-related format strings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,65 +79,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4220369229724339670=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---===============4220369229724339670==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FkmkrVfFsRoUs1wW"
-Content-Disposition: inline
-
-
---FkmkrVfFsRoUs1wW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Thu, Nov 21, 2019 at 01:02:38PM +0100, Jaroslav Kysela wrote:
-> Dne 21. 11. 19 v 12:51 Mark Brown napsal(a):
-> > On Wed, Nov 20, 2019 at 06:44:34PM +0100, Jaroslav Kysela wrote:
-
-> > > -	/* make up dmi long name as: vendor.product.version.board */
-> > > +	/* make up dmi long name as: vendor-product-version-board */
-
-> > I'm worried about this from an ABI point of view with people's UCM
-> > files.  But perhaps I'm worrying about nothing?
-
->   this is just the C comment fix. The long name is already in
-> vendor-product-version-board - no dots as delimiters (but does are allowed
-> in the fields like version strings). This code improvement does not change
-> the format of the generated long name string from the DMI information.
-
-Ah, it looked from my initial scan like it was being changed as a result
-of the factoring out of the append code.
-
---FkmkrVfFsRoUs1wW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3WfvcACgkQJNaLcl1U
-h9AnAQf/Q28saI/oWHoPQGZXRvisdTSPEi0zrybEZFJVqedibtaCUobZCyBN071q
-ZEsLt0cq/B/pvn294BTYlLqKnc1oh6m+s0o7gc+q8hbiSRrLQ/9dkxeUVIYVHzRq
-SVlUIw3WjkQTXnZCLEwmO4VFA1z0cMqTXGis6P+TzAh0VLVmRfVdxY4UAw2twYi6
-9qqK8KGpyxkHS0/QyH3WxhpIuCyM/WLTIgXMWuwBx5c6K8GpBuLe22jlkQN8AvwS
-lnrOQONkinI5dZDIttFF//CPbMBMu8mguq77VN6dEnMZgNkUtE4Tehr8E+oUXYWC
-NtjhWuUJSCOhsxjxSF9J5wzl9LVZ5w==
-=KM+O
------END PGP SIGNATURE-----
-
---FkmkrVfFsRoUs1wW--
-
---===============4220369229724339670==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4220369229724339670==--
+T24gVGh1LCAyMSBOb3YgMjAxOSwgVGFrYXNoaSBJd2FpIHdyb3RlOgoKPiBDb3VsZCB5b3Ugc3Bs
+aXQgdGhlc2UgY2hhbmdlcyB0byBzZXBhcmF0ZSBwYXRjaGVzPyAgVGhleSBhcmUgZm9yCj4gZGlm
+ZmVyZW50IHB1cnBvc2VzLgoKSeKAmXZlIHNlbnQgdGhlbSBhcyB0d28gc2VwYXJhdGUgcGF0Y2gg
+ZmlsZXMgYXR0YWNobWVudHMuCgo+IEFsc28sIHVzaW5nIHRpbWVfdCB3b3VsZCBiZSBiZXR0ZXIg
+aWYgcG9zc2libGUuICBVbmZvcnR1bmF0ZWx5IGEgY2FzdAo+IGlzIG5lZWRlZCBmb3IgcHJpbnRm
+IHVzYWdlLCBidXQgb3RoZXIgdGhhbiB0aGF0LCB0aW1lX3Qgd291bGQgbGVhdmUgdXMKPiB0aGUg
+cmlnaHQgc2l6ZS4KCkluIHRpbWVkaWZmKCkgeW91IG1lYW4/IEhybSwgaW5kZWVkLiBJIHRyaWVk
+IHRvIGJlIG1pbmltYWwtaW52YXNpdmUKYXQgZmlyc3QuCgpieWUsCi8vbWlyYWJpbG9zCi0tIAp0
+YXJlbnQgc29sdXRpb25zIEdtYkgKUm9jaHVzc3RyYcOfZSAyLTQsIEQtNTMxMjMgQm9ubiDigKIg
+aHR0cDovL3d3dy50YXJlbnQuZGUvClRlbDogKzQ5IDIyOCA1NDg4MS0zOTMg4oCiIEZheDogKzQ5
+IDIyOCA1NDg4MS0yMzUKSFJCIDUxNjggKEFHIEJvbm4pIOKAoiBVU3QtSUQgKFZBVCk6IERFMTIy
+MjY0OTQxCkdlc2Now6RmdHNmw7xocmVyOiBEci4gU3RlZmFuIEJhcnRoLCBLYWkgRWJlbnJldHQs
+IEJvcmlzIEVzc2VyLCBBbGV4YW5kZXIgU3RlZWcKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBh
+bHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4v
+bGlzdGluZm8vYWxzYS1kZXZlbAo=

@@ -2,45 +2,45 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D45105BE9
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 22:26:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A40FD105BED
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 22:27:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8536417C0;
-	Thu, 21 Nov 2019 22:25:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8536417C0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2330B1668;
+	Thu, 21 Nov 2019 22:26:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2330B1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574371600;
-	bh=R3gcYYOC2mej595fKd+fSMIbO0O9d3DQ1bBb38iGcz0=;
+	s=default; t=1574371651;
+	bh=imAsPFXNyowjA2JQ8r9Oyxco8nZXnr1ljSATSmS2DOw=;
 	h=From:To:In-Reply-To:References:Date:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TaqPJnjydHKPvtDf0J3Q6tLeh9E4cuRLV0veN6lU/+tO57a4f5Az5KpknsvRwevGF
-	 qFr1SMBTuZRKBUxH8kJQt821Gt92Nwx7nAxYSa1csFA5LBQ+AebLQD1bP+5muDmerg
-	 7/eIk5UbY/mC6QOiuhZP12PD0QRnvnU+dc/0Gjic=
+	b=FZNUcFRJsjC1ln3/Wti0qGGKbGxYo4Lfudzo8m8Z7Jnc4+GEFzuDDxyKVyfjR+Z/B
+	 BxK4c+TR8Q4XjKn0l1FEwJSqbDP0ACZmoMHz5WzMRd7AOQDBbRt3HLvTJMrpyMsXMW
+	 a//00/wAM/mzJN0iIze1j5Mezc/QR5ivYcr4MGhc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C4A90F8014C;
-	Thu, 21 Nov 2019 22:24:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6129F80147;
+	Thu, 21 Nov 2019 22:26:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1295BF80146; Thu, 21 Nov 2019 22:24:55 +0100 (CET)
+ id B238BF80147; Thu, 21 Nov 2019 22:26:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: **
 X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
  SPF_FAIL,SPF_HELO_NONE,SURBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 8A91BF800C1
- for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 22:24:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A91BF800C1
+ by alsa1.perex.cz (Postfix) with ESMTP id 374F1F80145
+ for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 22:26:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 374F1F80145
 MIME-Version: 1.0
-From: GitHub issues - opened <github@alsa-project.org>
+From: GitHub issues - edited <github@alsa-project.org>
 To: alsa-devel@alsa-project.org
-In-Reply-To: <1574371491782548904-webhooks-bot@alsa-project.org>
-References: <1574371491782548904-webhooks-bot@alsa-project.org>
-Message-Id: <20191121212455.1295BF80146@alsa1.perex.cz>
-Date: Thu, 21 Nov 2019 22:24:55 +0100 (CET)
+In-Reply-To: <1574371594062711000-webhooks-bot@alsa-project.org>
+References: <1574371594062711000-webhooks-bot@alsa-project.org>
+Message-Id: <20191121212636.B238BF80147@alsa1.perex.cz>
+Date: Thu, 21 Nov 2019 22:26:36 +0100 (CET)
 Subject: [alsa-devel] alsa-lib Plugin: File deadlock when piping to shell
 	command
 X-BeenThere: alsa-devel@alsa-project.org
@@ -60,7 +60,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #14 was opened from bharris6:
+alsa-project/alsa-lib issue #14 was edited from bharris6:
 
 When using the [ALSA File plugin](https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html) you can tell it to pipe playback data to either a file or a program/shell command.
 
@@ -184,7 +184,7 @@ I've tested an alternative method to simulate the popen and pipe into their STDI
 
     head -c 500 /dev/urandom | sh -c safe_fifo_alt  
 
-It appears this was changed in revision 022c790aabc300eabad4da8947a3f2bdadce41e1, where the `dup()` and `pclose()` calls were added and introduced the deadlock.
+It appears this was changed in revision 22ade9b8c150240a960ca683ee6d8f53ce8bc6ea, where the `dup()` and `pclose()` calls were added and introduced the deadlock.
 
 Issue URL     : https://github.com/alsa-project/alsa-lib/issues/14
 Repository URL: https://github.com/alsa-project/alsa-lib

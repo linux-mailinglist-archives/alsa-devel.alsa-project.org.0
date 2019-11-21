@@ -2,47 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A40FD105BED
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 22:27:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCC7E105BFA
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 22:30:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2330B1668;
-	Thu, 21 Nov 2019 22:26:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2330B1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4E3B917C1;
+	Thu, 21 Nov 2019 22:29:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4E3B917C1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574371651;
-	bh=imAsPFXNyowjA2JQ8r9Oyxco8nZXnr1ljSATSmS2DOw=;
-	h=From:To:In-Reply-To:References:Date:Subject:List-Id:
+	s=default; t=1574371828;
+	bh=I1wn47+wQUrjodVolDKsNL3t6wAyK/md0bnnzfVdzwo=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FZNUcFRJsjC1ln3/Wti0qGGKbGxYo4Lfudzo8m8Z7Jnc4+GEFzuDDxyKVyfjR+Z/B
-	 BxK4c+TR8Q4XjKn0l1FEwJSqbDP0ACZmoMHz5WzMRd7AOQDBbRt3HLvTJMrpyMsXMW
-	 a//00/wAM/mzJN0iIze1j5Mezc/QR5ivYcr4MGhc=
+	b=P0XI0OUHU+p922w5eNy7ZaFdy+bfS/tLBHs8GCdAKTcs+N7+VBd1PDmQSPHhme2zX
+	 63kg2iZYDPOTQ8ex3PrEDrTuFh1fYpREfTLPaLdrBrKqOStZycCYkXfWPxzhFItlRY
+	 yxwcB1vUB/RgOgkzC9ySTkwDdCXyoJqOqCMeqQRI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6129F80147;
-	Thu, 21 Nov 2019 22:26:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B2C52F8014C;
+	Thu, 21 Nov 2019 22:28:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B238BF80147; Thu, 21 Nov 2019 22:26:36 +0100 (CET)
+ id 90A74F800C1; Thu, 21 Nov 2019 22:28:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
- SPF_FAIL,SPF_HELO_NONE,SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
- by alsa1.perex.cz (Postfix) with ESMTP id 374F1F80145
- for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 22:26:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 374F1F80145
-MIME-Version: 1.0
-From: GitHub issues - edited <github@alsa-project.org>
-To: alsa-devel@alsa-project.org
-In-Reply-To: <1574371594062711000-webhooks-bot@alsa-project.org>
-References: <1574371594062711000-webhooks-bot@alsa-project.org>
-Message-Id: <20191121212636.B238BF80147@alsa1.perex.cz>
-Date: Thu, 21 Nov 2019 22:26:36 +0100 (CET)
-Subject: [alsa-devel] alsa-lib Plugin: File deadlock when piping to shell
-	command
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 30EA5F800C1
+ for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 22:28:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 30EA5F800C1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 364DEB468;
+ Thu, 21 Nov 2019 21:28:38 +0000 (UTC)
+Date: Thu, 21 Nov 2019 22:28:37 +0100
+Message-ID: <s5hd0dksyuy.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+In-Reply-To: <CAFQqKeU4pA_t=veRm0635pZmxpn=C9sNPPUEHkgavynPYxqwFg@mail.gmail.com>
+References: <20191117085308.23915-1-tiwai@suse.de>
+ <20191117085308.23915-8-tiwai@suse.de>
+ <3b407a02-b791-52a4-2335-e21d8ab732dd@linux.intel.com>
+ <s5hy2wdyq3t.wl-tiwai@suse.de>
+ <CAFQqKeWgqHwrCSSbLrkuCHkBww2g4dsBcF93SDN_ZK_-KSe5tg@mail.gmail.com>
+ <s5hpnhpyng6.wl-tiwai@suse.de>
+ <CAFQqKeWPgPWpDgZUPvOqSFUY2Zq=8zW-=LhYimtg0S0Hqpc43A@mail.gmail.com>
+ <s5hmucszzni.wl-tiwai@suse.de>
+ <3fc820272992362a56881abf7230f1500fdfdd2a.camel@linux.intel.com>
+ <s5hblt8z7ow.wl-tiwai@suse.de>
+ <030249cd63d754bd70ce5de5c58e04784eecebff.camel@linux.intel.com>
+ <s5hv9rgxohq.wl-tiwai@suse.de>
+ <ce61828881dea0fffd2c26a92ad2571ab3565404.camel@linux.intel.com>
+ <s5hy2wbwo8c.wl-tiwai@suse.de>
+ <CAFQqKeVsQ1AjjKgS-HJ0-mg7JbbmMVjJcUB7wbvsbyz9e2TqLg@mail.gmail.com>
+ <CAFQqKeWVuJs+bnZsrYAHdke0pZpBSmP71RFVrfwVE3=P4A7hsw@mail.gmail.com>
+ <s5himndrmsv.wl-tiwai@suse.de>
+ <CAFQqKeUimt32z1myzL+JOXoCUhn7jU1=Mj8e6egQKs+c5CY0pA@mail.gmail.com>
+ <s5hftihrkzs.wl-tiwai@suse.de>
+ <CAFQqKeU4pA_t=veRm0635pZmxpn=C9sNPPUEHkgavynPYxqwFg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH 7/8] ALSA: pcm: Add card sync_irq field
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -55,140 +85,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-alsa-project/alsa-lib issue #14 was edited from bharris6:
-
-When using the [ALSA File plugin](https://www.alsa-project.org/alsa-doc/alsa-lib/pcm_plugins.html) you can tell it to pipe playback data to either a file or a program/shell command.
-
->Output filename (or shell command the stream will be piped to if STR starts with the pipe char).  
-
-Piping to a shell command (as shown below) causes a deadlock where alsa waits for the shell command to return at the same time that the shell command is waiting for alsa to write to its STDIN.
-
->From the [source code](https://github.com/alsa-project/alsa-lib/blob/master/src/pcm/pcm_file.c), it appears that [popen](https://pubs.opengroup.org/onlinepubs/009695399/functions/popen.html) is being used to initialize/open the output file specified in configuration:  
-
-    static int snd_pcm_file_open_output_file(snd_pcm_file_t *file)
-    {
-        int err, fd;
-    
-        /* fname can contain keys, generating final_fname */
-        err = snd_pcm_file_replace_fname(file, &(file->final_fname));
-        if (err < 0)
-            return err;
-        /*printf("DEBUG - original fname: %s, final fname: %s\n",
-          file->fname, file->final_fname);*/
-    
-        if (file->final_fname[0] == '|') {
-            /* pipe mode */
-            FILE *pipe;
-            /* clearing */
-            pipe = popen(file->final_fname + 1, "w");
-            if (!pipe) {
-                SYSERR("running %s for writing failed",
-                        file->final_fname);
-                return -errno;
-            }
-            fd = dup(fileno(pipe));
-            err = -errno;
-            pclose(pipe);
-            if (fd < 0) {
-                SYSERR("unable to dup pipe file handle for command %s",
-                        file->final_fname);
-                return err;  
-
-Although I can confirm the file I pass in my ALSA configuration gets started fine, it never receives anything on its `stdin` like ALSA's (and popen's) documentation states it should:  
-
->If mode is w, *when the child process is started its file descriptor STDIN_FILENO shall be the readable end of the pipe*, and the file descriptor fileno(stream) in the calling process, where stream is the stream pointer returned by popen(), shall be the writable end of the pipe.
-
-My /etc/asound.conf: 
-
-    pcm.!default {
-        type plug
-        slave.pcm "duplicator
-    }
-    
-    pcm.default {
-        type plug
-        slave.pcm "duplicator"
-    }
-    
-    pcm.dmixer {
-        type dmix
-        ipc_key 1024
-        ipc_key_add_uid false
-        ipc_perm 0666
-        slave {
-            pcm "hw:0,0"
-            period_time 0
-            period_size 1024
-            buffer_size 8192
-            rate 44100
-        }
-    }    
-    
-    pcm.duplicator {
-        type plug
-        slave.pcm {
-            type multi
-            slave {
-                a { pcm "dmixer" channels 2 }
-                b { pcm "fileout" channels 2 }
-            }
-            bindings [
-                { slave a channel 0 }
-                { slave a channel 1 }
-                { slave b channel 0 }
-                { slave b channel 1 }
-            ]
-        }
-        ttable [
-            [ 1 0 1 0 ]
-            [ 0 1 0 1 ]
-        ]
-    }
-
-    pcm.fileout {
-        type file
-        slave.pcm "null"
-        file "|safe_fifo_alt"
-        format raw
-        perm 0666
-    }  
-
-safe_fifo_alt:  
-
-    #!/usr/bin/python3
-    import os, sys
-    
-    BUFFER_SIZE = 16384
-    
-    path = "/tmp/audio"
-    if not os.path.exists(path):
-        os.mkfifo(path)
-        
-    _fifo_in = os.open(path, os.O_RDONLY | os.O_NONBLOCK)
-    _fifo_out = os.open(path, os.WR_ONLY | os.O_NONBLOCK)
-    
-    for chunk in iter(lambda: sys.stdin.buffer.read(BUFFER_SIZE), b''):
-        os.write(_fifo_out, chunk)
-        
-    os.close(_fifo_in)
-    os.close(_fifo_out)  
-
-I based `safe_fifo_alt` on [safe_fifo](https://github.com/dpayne/cli-visualizer/blob/master/bin/safe_fifo.c) from `cli-visualizer`.  They both hang indefinitely on their STDIN read because alsa is hanging on its `pclose()`.  
-
-I've tested an alternative method to simulate the popen and pipe into their STDIN to make sure it worked, specifically:  
-
-    head -c 500 /dev/urandom | sh -c safe_fifo_alt  
-
-It appears this was changed in revision 22ade9b8c150240a960ca683ee6d8f53ce8bc6ea, where the `dup()` and `pclose()` calls were added and introduced the deadlock.
-
-Issue URL     : https://github.com/alsa-project/alsa-lib/issues/14
-Repository URL: https://github.com/alsa-project/alsa-lib
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVGh1LCAyMSBOb3YgMjAxOSAyMjoxNzo0MSArMDEwMCwKU3JpZGhhcmFuLCBSYW5qYW5pIHdy
+b3RlOgo+IAo+IE9uIFRodSwgTm92IDIxLCAyMDE5IGF0IDE6MTMgUE0gVGFrYXNoaSBJd2FpIDx0
+aXdhaUBzdXNlLmRlPiB3cm90ZToKPiAKPiAgICAgT24gVGh1LCAyMSBOb3YgMjAxOSAyMTo0Njox
+NyArMDEwMCwKPiAgICAgU3JpZGhhcmFuLCBSYW5qYW5pIHdyb3RlOgo+ICAgICA+Cj4gICAgID7C
+oCDCoCDCoD4KPiAgICAgPsKgIMKgIMKgPiBIaSBUYWthc2hpLAo+ICAgICA+wqAgwqAgwqA+Cj4g
+ICAgID7CoCDCoCDCoD4gU29ycnkgdGhlIHN0cmVzcyB0ZXN0cyB0b29rIGEgd2hpbGUuwqAKPiAg
+ICAgPsKgIMKgIMKgPiBBcyB3ZSBkaXNjdXNzZWQgZWFybGllciwgYWRkaW5nIHRoZSBzeW5jX3N0
+b3AoKSBvcCBkaWRudCBxdWl0ZQo+ICAgICBoZWxwIHRoZQo+ICAgICA+wqAgwqAgwqBTT0YKPiAg
+ICAgPsKgIMKgIMKgPiBkcml2ZXIgaW4gcmVtb3ZpbmcgdGhlIGRlbGF5ZWQgd29yayBmb3Igc25k
+X3BjbV9wZXJpb2RfZWxhcHNlZCgpLsKgCj4gICAgID7CoCDCoAo+ICAgICA+wqAgwqAgwqBZZWFo
+LCB0aGF0J3MgdW5kZXJzdGFuZGFibGUuwqAgSWYgdGhlIHN0b3Agb3BlcmF0aW9uIGl0c2VsZiBu
+ZWVkcwo+ICAgICBzb21lCj4gICAgID7CoCDCoCDCoHNlcmlhbGl6YXRpb24sIHN5bmNfc3RvcCgp
+IHdvbid0IGluZmx1ZW5jZSBhdCBhbGwuCj4gICAgID7CoCDCoAo+ICAgICA+wqAgwqAgwqBIb3dl
+dmVyLCBub3cgYWZ0ZXIgdGhlc2UgZGlzY3Vzc2lvbnMsIEkgaGF2ZSBzb21lIGNvbmNlcm5zIGlu
+IHRoZQo+ICAgICA+wqAgwqAgwqBjdXJyZW50IGNvZGU6Cj4gICAgID7CoCDCoAo+ICAgICA+wqAg
+wqAgwqAtIFRoZSBhc3luYyB3b3JrIHN0YXJ0ZWQgYnkgc2NoZWR1bGVfd29yaygpIG1heSBiZSBl
+eGVjdXRlZAo+ICAgICA+wqAgwqAgwqDCoCAobGl0ZXJhbGx5KSBpbW1lZGlhdGVseS7CoCBTbyBp
+ZiB0aGUgdGltaW5nIG9yIHRoZSBzZXJpYWxpemF0aW9uCj4gICAgID7CoCDCoCDCoMKgIG1hdHRl
+cnMsIGl0IGRvZXNuJ3QgZ3VhcmFudGVlIGF0IGFsbC7CoCBUaGUgc2FtZSBsZXZlbCBvZgo+ICAg
+ICBjb25jdXJyZW5jeQo+ICAgICA+wqAgwqAgwqDCoCBjYW4gaGFwcGVuIGF0IGFueSB0aW1lLgo+
+ICAgICA+wqAgwqAKPiAgICAgPsKgIMKgIMKgLSBUaGUgcGVyaW9kX2VsYXBzZWQgd29yayBtaWdo
+dCBiZSBwZW5kaW5nIGF0IHByZXBhcmUgb3Igb3RoZXIKPiAgICAgPsKgIMKgIMKgwqAgb3BlcmF0
+aW9uOwo+ICAgICA+wqAgwqAgwqDCoCB0aGUgYXN5bmMgd29yayBtZWFucyBhbHNvIHRoYXQgaXQg
+ZG9lc24ndCBndWFyYW50ZWUgaXRzIGV4ZWN1dGlvbgo+ICAgICBpbgo+ICAgICA+wqAgwqAgwqDC
+oCB0aW1lLCBhbmQgaXQgbWlnaHQgYmUgZGVsYXllZCBtdWNoLCBhbmQgdGhlIFBDTSBjb3JlIG1p
+Z2h0IGdvIHRvCj4gICAgID7CoCDCoCDCoMKgIHByZXBhcmUgb3Igb3RoZXIgc3RhdGUgZXZlbiBi
+ZWZvcmUgdGhlIHdvcmsgaXMgZXhlY3V0ZWQuCj4gICAgID7CoCDCoAo+ICAgICA+wqAgwqAgwqBU
+aGUgc2Vjb25kIHBvaW50IGNhbiBiZSBmaXhlZCBlYXNpbHkgbm93IHdpdGggc3luY19zdG9wLsKg
+IFlvdSBjYW4KPiAgICAganVzdAo+ICAgICA+wqAgwqAgwqBwdXQgZmx1c2hfd29yaygpIGluIHN5
+bmNfc3RvcCBpbiBhZGRpdGlvbiB0byBzeW5jaHJvbml6ZV9pcnEoKS4KPiAgICAgPsKgIMKgCj4g
+ICAgID7CoCDCoCDCoEJ1dCB0aGUgZmlyc3QgcG9pbnQgaXMgc3RpbGwgdW5jbGVhci7CoCBNb3Jl
+IGV4YWN0bHksIHdoaWNoIG9wZXJhdGlvbgo+ICAgICA+wqAgwqAgwqBkb2VzIGl0IGNvbmZsaWN0
+P8KgIERvZXMgaXQgdGhlIHBsYXliYWNrIGRyYWluP8KgIFRoZW4gaXQgbWlnaHQgdGFrZQo+ICAg
+ICA+wqAgwqAgwqB2ZXJ5IGxvbmcgKHVwIHRvIHNlY29uZHMpIHRvIGJsb2NrIHRoZSBuZXh0IG9w
+ZXJhdGlvbj8KPiAgICAgPgo+ICAgICA+IEhpIFRha2FzaGksCj4gICAgID4KPiAgICAgPiBBcyBJ
+IHVuZGVyc3RhbmQgdGhlIG9yaWdpbmFsIGludGVudGlvbiBmb3IgYWRkaW5nIHRoZQo+ICAgICBw
+ZXJpb2RfZWxhcHNlZF93b3JrKCkKPiAgICAgPiB3YXPCoCB0aGF0IHNuZF9wY21fcGVyaW9kX2Vs
+YXBzZWQoKSBjb3VsZCBjYXVzZSBhIFNUT1AgdHJpZ2dlciB3aGlsZSB0aGUKPiAgICAgPiBjdXJy
+ZW50IElQQyBpbnRlcnJ1cHQgaXMgc3RpbGwgYmVpbmcgaGFuZGxlZC4KPiAgICAgPiBJbiB0aGlz
+IGNhc2UsIHRoZSBTVE9QIHRyaWdnZXIgZ2VuZXJhdGVzIGFuIElQQyB0byB0aGUgRFNQIGJ1dCB0
+aGUgaG9zdAo+ICAgICBuZXZlcgo+ICAgICA+IG1pc3NlcyB0aGUgSVBDIHJlc3BvbnNlIGZyb20g
+dGhlIERTUCBiZWNhdXNlIGl0IGlzIHN0aWxsIGhhbmRsaW5nIHRoZQo+ICAgICBwcmV2aW91cwo+
+ICAgICA+IGludGVycnVwdC4KPiAgICAKPiAgICAgT0ssIHRoYXQgbWFrZXMgc2Vuc2UuwqAgU28g
+dGhlIGlzc3VlIGlzIHRoYXQgdGhlIHRyaWdnZXIgc3RvcCBpdHNlbGYKPiAgICAgcmVxdWlyZXMg
+dGhlIGFjayB2aWEgdGhlIGludGVycnVwdCBhbmQgaXQgY2FuJ3QgYmUgY2F1Z2h0IGJlY2F1c2Ug
+aXQncwo+ICAgICBiZWluZyBjYWxsZWQgZnJvbSB0aGUgaXJxIGhhbmRsZXIgaXRzZWxmLgo+ICAg
+IAo+ICAgICBJbiB0aGF0IGNhc2UsIHRob3VnaCwgYW5vdGhlciBzb2x1dGlvbiB3b3VsZCBiZSB0
+byBtYWtlIHRoZSB0cmlnZ2VyLQo+ICAgICBzdG9wIGFuIGFzeW5jIHdvcmsgKGJ1dCBjb25kaXRp
+b25hbGx5KSB3aGlsZSBwcm9jZXNzaW5nIHRoZSBub3JtYWwKPiAgICAgcGVyaW9kX2VsYXBzZWQg
+aW4gdGhlIGlycSBoYW5kbGVyLsKgIFRoYXQgaXMsIHNldCBzb21lIGZsYWcgYmVmb3JlCj4gICAg
+IGNhbGxpbmcgc25kX3BjbV9wZXJpb2RfZWxhcHNlZCgpLCBhbmQgaW4gdGhlIHRyaWdnZXItc3Rv
+cCwgY2hlY2sgdGhlCj4gICAgIGZsYWcuwqAgSWYgdGhlIGZsYWcgaXMgc2V0LCBzY2hlZHVsZSB0
+aGUgd29yayBhbmQgcmV0dXJuLsKgIEFuZCwgeW91J2xsCj4gICAgIHN5bmMgdGhpcyBhc3luYyB3
+b3JrIHdpdGggc3luY19zdG9wKCkuwqAgSW4gdGhhdCB3YXksIHRoZSBwZXJpb2QKPiAgICAgaGFu
+ZGxpbmcgaXMgcHJvY2Vzc2VkIHdpdGhvdXQgYW55IGRlbGF5IG1vcmUgbGlnaHRseS4KPiAKPiBP
+SywgdGhhdCBtYWtlcyBzZW5zZS4gVGhhbmtzIGZvciB0aGUgc3VnZ2VzdGlvbi4KPiBSZWdhcmRp
+bmcgeW91ciBwcmV2aW91cyBjb21tZW50IGFib3V0IGFkZGluZyBmbHVzaF93b3JrKCkgdG8gdGhl
+IHN5bmNfc3RvcCgpCj4gb3AsIHdvdWxkIHRoYXQgc3RpbGwgYmUgcmVxdWlyZWQ/CgpZZXMsIHRo
+YXQncyBuZWVkZWQgbm8gbWF0dGVyIHdoaWNoIHdheSBpcyB1c2VkOyB0aGUgcGVuZGluZyB3b3Jr
+IG11c3QKYmUgc3luY2VkIGF0IHNvbWUgcG9pbnQuCgoKVGFrYXNoaQpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApB
+bHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

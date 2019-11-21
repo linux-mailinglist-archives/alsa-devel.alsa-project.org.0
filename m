@@ -2,87 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1033104871
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 03:21:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAFD410487A
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 03:28:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F12F172A;
-	Thu, 21 Nov 2019 03:20:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F12F172A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A53A1735;
+	Thu, 21 Nov 2019 03:27:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A53A1735
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574302904;
-	bh=RwXqclZOQvLy+pdtmaodRhdVUvk8B993eFFsV7upRGk=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=IQDhd5c3nFh5L2WYjfQU7HYGCEbPoURd5MlivD6fcoHiYsskqnfmcj9rgCNQjYEyp
-	 y7YOcBsScLTZ91xM9/2NXWnQqi91sA0vYy4eyLTvE4gjTaIj+Qz+k40bej83wjsspQ
-	 FQtI3oxmEoYRvtZ/KUsPqYpNpeuk5qLKN/f0OrQs=
+	s=default; t=1574303321;
+	bh=Sion3EoNajj0oSJfLJdvMhGoQXJWAlq0GM6dgQmCr4A=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=f0QwV+3zYirVE7wKaDTkjwx9c6/xTQwYH2tt+9vXDYcnE3V/6vLVQJeUneVNQWFH5
+	 olaMrp7Z3QL256D4x2osatSLFW/p8qhNXsT2T3Dx0CLzvPIrziYCDA4xE1q/1+vrof
+	 zHNliU0X4m9XJM8uXRA9mCahufrMT39h1lZQZWRA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9FAACF8013E;
-	Thu, 21 Nov 2019 03:20:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8DC88F8014C;
+	Thu, 21 Nov 2019 03:26:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFC62F8013D; Thu, 21 Nov 2019 03:19:57 +0100 (CET)
+ id 6A637F800EF; Thu, 21 Nov 2019 03:26:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from youngberry.canonical.com (youngberry.canonical.com
+ [91.189.89.112])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9758F800FF
- for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 03:19:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9758F800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="GO9QctZd"
-Received: by mail-io1-xd43.google.com with SMTP id x21so1599119ior.2
- for <alsa-devel@alsa-project.org>; Wed, 20 Nov 2019 18:19:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qaihhKpnbvKXLn46y6C83O8J7yDbV2a09ptM8U0gXU4=;
- b=GO9QctZdcwIydheLfhmlzPMQc7irHdfoBzmEF8PRU41+E4f8bv9cjODfY1RPFZi/zh
- JUY4hbul8ySf/xK0mTSsvyujU1Duw9hbHlO8QZt65w147VwVXhh1T2fSJ8OV3Ti5t+iG
- djxfRRM6D8vzhu/Z2NaB7Pv7kg7igYwA6qIKs+EuxC7KI3ftZK0Sb22Lj8/Z/V/JUm2W
- MN2b9yrQ0ZS13b808hQWP5p+GY9L0Yr+egwOS4W8x4tvDR2iqf2EvdHXymBq3ROHLHb1
- nakhXjc8miij1easVAgjX4bs1hv/d3SMxdK0IL+XVIheoIxlgkzqOpqY9QrwQmNdnskG
- W7Yg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qaihhKpnbvKXLn46y6C83O8J7yDbV2a09ptM8U0gXU4=;
- b=jDdpqj+eF+hR6u2i2l3PHfdqCZh5qWnHQkRCc2qiiYIf1iPBZPwnfEHyvQ2haq0evU
- Pe4JMD1WMHJBR6HG+rZPGDPmIjJa+iVg8vah07quRBZPnsj5UPoVZOtGypIC3rQ2GHKf
- lEndXmkWcZygq7yrX+v2Qj3g6Y9sI2uLBAgewdKqGCfvlxKcsRdxD4FYmGKa6KCDTUA0
- jfjvtlFMA84XXn6EDDZ9ykqgFpvuQOM/8gnKbeYdIo/Av6c99/ufMJF2CdEcEK+fmL4N
- ihuqfXUCyT5kB5aJvPT71G6Ot20sl/D9HMB5aP1yGbT4FUoHpv8xjxEv3qOO6xGeBrab
- llSw==
-X-Gm-Message-State: APjAAAWC5Mihb6qD2Fzq8H2pa87jhESN/S9/Bexo8G7GRpFaIC7y5kiy
- qg3OuYY67dMx7vk7vOXmUYX7X1Od0KWS7EBg2p2JtQ==
-X-Google-Smtp-Source: APXvYqwif7tx9L8dO7JqMRXKC2G0LKsmkuk3CcloxjIKw3Z4D053KZA4YP6NN5P3iIQVLQhq5k4A04LV/GBJQ76y6no=
-X-Received: by 2002:a6b:ec08:: with SMTP id c8mr574574ioh.257.1574302792468;
- Wed, 20 Nov 2019 18:19:52 -0800 (PST)
-MIME-Version: 1.0
-References: <20191120060256.212818-1-tzungbi@google.com>
- <20191120060256.212818-4-tzungbi@google.com>
- <8273f728-3d4b-b0dc-03b7-6276c5ae4460@linux.intel.com>
-In-Reply-To: <8273f728-3d4b-b0dc-03b7-6276c5ae4460@linux.intel.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Thu, 21 Nov 2019 10:19:41 +0800
-Message-ID: <CA+Px+wWSajOFXwLAS+jrO9XUBeKaxjZaEOqng0YO9VmL3VXaSQ@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Dylan Reid <dgreid@google.com>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>
-Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: max98090: fix possible race
-	conditions
+ by alsa1.perex.cz (Postfix) with ESMTPS id E1085F800EF
+ for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 03:26:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E1085F800EF
+Received: from 61-220-137-34.hinet-ip.hinet.net ([61.220.137.34]
+ helo=localhost.localdomain) by youngberry.canonical.com with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
+ (envelope-from <hui.wang@canonical.com>)
+ id 1iXcBF-00025C-NB; Thu, 21 Nov 2019 02:26:50 +0000
+From: Hui Wang <hui.wang@canonical.com>
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de
+Date: Thu, 21 Nov 2019 10:26:43 +0800
+Message-Id: <20191121022644.8078-1-hui.wang@canonical.com>
+X-Mailer: git-send-email 2.17.1
+Subject: [alsa-devel] [PATCH 1/2] ALSA: hda/realtek - Move some alc256
+	pintbls to fallback table
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,79 +61,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Nov 21, 2019 at 12:10 AM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
-> On 11/20/19 12:02 AM, Tzung-Bi Shih wrote:
-> > max98090_interrupt() and max98090_pll_work() run in 2 different threads.
-> > There are 2 possible races:
-> >
-> > Note: M98090_REG_DEVICE_STATUS = 0x01.
-> > Note: ULK == 0, PLL is locked; ULK == 1, PLL is unlocked.
-> >
-> > max98090_interrupt      max98090_pll_work
-> > ----------------------------------------------
-> > schedule max98090_pll_work
-> >                          restart max98090 codec
-> > receive ULK INT
-> >                          assert ULK == 0
-> > schedule max98090_pll_work (1).
-> >
-> > In the case (1), the PLL is locked but max98090_interrupt unnecessarily
-> > schedules another max98090_pll_work.
->
-> if you re-test that the PLL is already running, then you can exit the
-> work function immediately without redoing the sequence?
+We have a new Dell machine which needs to apply the quirk
+ALC255_FIXUP_DELL1_MIC_NO_PRESENCE, try to use the fallback table
+to fix it this time. And we could remove all pintbls of alc256
+for applying DELL1_MIC_NO_PRESENCE on Dell machines.
 
-ACK.
+Signed-off-by: Hui Wang <hui.wang@canonical.com>
+---
+ sound/pci/hda/patch_realtek.c | 35 +++--------------------------------
+ 1 file changed, 3 insertions(+), 32 deletions(-)
 
-> maybe also play with the masks so that the PLL unlock is masked in the
-> interrupt and unmasked after the PLL locks?
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 80f66ba85f87..4c83ed4b0d5c 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -7608,38 +7608,6 @@ static const struct snd_hda_pin_quirk alc269_pin_fixup_tbl[] = {
+ 	SND_HDA_PIN_QUIRK(0x10ec0255, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+ 		{0x1b, 0x01011020},
+ 		{0x21, 0x02211010}),
+-	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+-		{0x12, 0x90a60130},
+-		{0x14, 0x90170110},
+-		{0x1b, 0x01011020},
+-		{0x21, 0x0221101f}),
+-	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+-		{0x12, 0x90a60160},
+-		{0x14, 0x90170120},
+-		{0x21, 0x02211030}),
+-	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+-		{0x12, 0x90a60170},
+-		{0x14, 0x90170120},
+-		{0x21, 0x02211030}),
+-	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell Inspiron 5468", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+-		{0x12, 0x90a60180},
+-		{0x14, 0x90170120},
+-		{0x21, 0x02211030}),
+-	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+-		{0x12, 0xb7a60130},
+-		{0x14, 0x90170110},
+-		{0x21, 0x02211020}),
+-	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+-		{0x12, 0x90a60130},
+-		{0x14, 0x90170110},
+-		{0x14, 0x01011020},
+-		{0x21, 0x0221101f}),
+-	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+-		ALC256_STANDARD_PINS),
+-	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
+-		{0x14, 0x90170110},
+-		{0x1b, 0x01011020},
+-		{0x21, 0x0221101f}),
+ 	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1043, "ASUS", ALC256_FIXUP_ASUS_MIC,
+ 		{0x14, 0x90170110},
+ 		{0x1b, 0x90a70130},
+@@ -7852,6 +7820,9 @@ static const struct snd_hda_pin_quirk alc269_fallback_pin_fixup_tbl[] = {
+ 	SND_HDA_PIN_QUIRK(0x10ec0289, 0x1028, "Dell", ALC269_FIXUP_DELL4_MIC_NO_PRESENCE,
+ 		{0x19, 0x40000000},
+ 		{0x1b, 0x40000000}),
++	SND_HDA_PIN_QUIRK(0x10ec0256, 0x1028, "Dell", ALC255_FIXUP_DELL1_MIC_NO_PRESENCE,
++		{0x19, 0x40000000},
++		{0x1a, 0x40000000}),
+ 	{}
+ };
+ 
+-- 
+2.17.1
 
-ACK, this is our option A mentioned below.
-
-> > max98090_interrupt      max98090_pll_work      max98090 codec
-> > ----------------------------------------------------------------------
-> >                                                 ULK = 1
-> > receive ULK INT
-> > read 0x01
-> >                                                 ULK = 0 (clear on read)
-> > schedule max98090_pll_work
-> >                          restart max98090 codec
-> >                                                 ULK = 1
-> > receive ULK INT
-> > read 0x01
-> >                                                 ULK = 0 (clear on read)
-> >                          read 0x1
-> >                          assert ULK == 0 (2).
->
-> what are those 0x01 and 0x1? is the second a typo possibly?
-
-ACK, a typo.
-
-> > In the case (2), both max98090_interrupt and max98090_pll_work read
-> > the same clear-on-read register.  max98090_pll_work would falsely
-> > thought PLL is locked.
-> >
-> > There are 2 possible options:
-> > A. turn off ULK interrupt before scheduling max98090_pll_work; and turn
-> > on again before exiting max98090_pll_work.
-> > B. remove the second thread of execution.
-> >
-> > Adopts option B which is more straightforward.
->
-> but has the side effect of possibly adding a 10ms delay in the interrupt
-> thread?
-
-(forgot to mention) Option A cannot fix the case (2) race condition:
-there would be 2 threads read the same clear-on-read register.  In
-theory, the hardware should faster than CPUs' accesses via I2C.
-max98090 should returns ULK=1 any time if PLL is unlocked.  Shall we
-ignore the case (2) and adopt option A?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

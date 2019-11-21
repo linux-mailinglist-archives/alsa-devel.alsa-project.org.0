@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7940A1055E1
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 16:43:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6073F1055EB
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 16:44:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D62D81778;
-	Thu, 21 Nov 2019 16:42:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D62D81778
+	by alsa0.perex.cz (Postfix) with ESMTPS id EBD91176F;
+	Thu, 21 Nov 2019 16:43:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EBD91176F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574351006;
-	bh=UiaQfOC3S1Kf5hwISOMu3NmdyNHCBgypkmgjs0a41ow=;
+	s=default; t=1574351054;
+	bh=+s2iO9e8lvLHT9afpXzoeUJ7L9Zgra2M6AeAS7fCj5Q=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QmnQej2hy0pcNuNG9g2XOTKyJXCGkw1oSyIs+gK+paugzb9dyThOj34ZCMrNHXJK8
-	 m+7NfwF4Hq2a5OWVzWE8n91GrpbKajlrAXgy6nJPK0FhhemOpQVn5bJTuE4GvWb1PR
-	 gaw/GfrfxF+kDA17FIiO1DBW0UD0JnTNuFP3S59s=
+	b=EZZGxuVLXB+efhxQC/3LTIkuI1D7N6/PgzepIahIcSe3+dScJz12uVsP0XkHA89Xd
+	 8QUS49duzVldXgbAzBMVIriNIG6RPAabUdCCzReeoVesUtyzLa/nQVUXeQRWGmJoLQ
+	 lipriqGMSra1ZYpdi59zZYzD9Sxnq+owcRXxCNR8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 113E0F8014E;
-	Thu, 21 Nov 2019 16:41:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B1451F800EF;
+	Thu, 21 Nov 2019 16:41:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 460F2F800C1; Thu, 21 Nov 2019 16:41:40 +0100 (CET)
+ id 6669BF80146; Thu, 21 Nov 2019 16:41:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,39 +33,36 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 225F7F800C1
- for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 16:41:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 225F7F800C1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 41F2CF80146
+ for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 16:41:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41F2CF80146
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Nov 2019 07:41:33 -0800
+ 21 Nov 2019 07:41:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,226,1571727600"; d="scan'208";a="205105002"
+X-IronPort-AV: E=Sophos;i="5.69,226,1571727600"; d="scan'208";a="205105013"
 Received: from ptan2-mobl1.amr.corp.intel.com (HELO [10.255.231.235])
  ([10.255.231.235])
- by fmsmga008.fm.intel.com with ESMTP; 21 Nov 2019 07:41:32 -0800
-To: Tzung-Bi Shih <tzungbi@google.com>
-References: <20191120060256.212818-1-tzungbi@google.com>
- <20191120060256.212818-4-tzungbi@google.com>
- <8273f728-3d4b-b0dc-03b7-6276c5ae4460@linux.intel.com>
- <CA+Px+wWSajOFXwLAS+jrO9XUBeKaxjZaEOqng0YO9VmL3VXaSQ@mail.gmail.com>
- <7f055263-01a6-e1cd-8085-1790222bb808@linux.intel.com>
- <CA+Px+wX2UtU3As-3Bf4rWn1kzqDMPw60xk508gDDaOPk6Q5dgw@mail.gmail.com>
+ by fmsmga008.fm.intel.com with ESMTP; 21 Nov 2019 07:41:33 -0800
+To: Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>
+References: <20191120174435.30920-1-perex@perex.cz>
+ <20191121115124.GA4071@sirena.org.uk>
+ <7a527497-6132-c1df-d083-6cd27361eb08@perex.cz>
+ <20191121121136.GB4071@sirena.org.uk>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d97b9724-27d0-f157-ce5d-ed6c75bafae8@linux.intel.com>
-Date: Thu, 21 Nov 2019 09:08:51 -0600
+Message-ID: <a08eb3a2-49d4-5637-256f-ac8a1debc305@linux.intel.com>
+Date: Thu, 21 Nov 2019 09:14:15 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.1.2
 MIME-Version: 1.0
-In-Reply-To: <CA+Px+wX2UtU3As-3Bf4rWn1kzqDMPw60xk508gDDaOPk6Q5dgw@mail.gmail.com>
+In-Reply-To: <20191121121136.GB4071@sirena.org.uk>
 Content-Language: en-US
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>, Dylan Reid <dgreid@google.com>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>
-Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: max98090: fix possible race
- conditions
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH v2 1/2] ASoC: improve the DMI long card
+ code in asoc-core
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,56 +82,31 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 11/21/19 12:17 AM, Tzung-Bi Shih wrote:
-> On Thu, Nov 21, 2019 at 11:20 AM Pierre-Louis Bossart
-> <pierre-louis.bossart@linux.intel.com> wrote:
->> Still you may want to clarify your second point and the commit message.
->> The first race condition was clear, the second one not so much.
->>
->> what did you mean with 'assert ULK == 0' and what does this map to in
->> pll_work
+On 11/21/19 6:11 AM, Mark Brown wrote:
+> On Thu, Nov 21, 2019 at 01:02:38PM +0100, Jaroslav Kysela wrote:
+>> Dne 21. 11. 19 v 12:51 Mark Brown napsal(a):
+>>> On Wed, Nov 20, 2019 at 06:44:34PM +0100, Jaroslav Kysela wrote:
 > 
-> The case (2) race condition is based on the previous patch:
-> https://mailman.alsa-project.org/pipermail/alsa-devel/2019-November/158852.html
-
-ah, ok, so that's a race you introduced :-)
-
+>>>> -	/* make up dmi long name as: vendor.product.version.board */
+>>>> +	/* make up dmi long name as: vendor-product-version-board */
 > 
-> After applying the patch, the code would be something like: (in the
-> case, two threads read 0x01.)
-> static void max98090_pll_work(struct work_struct *work)
-> {
-> [snip]
->          snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
->                              M98090_SHDNN_MASK, 0);
->          snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
->                              M98090_SHDNN_MASK, M98090_SHDNN_MASK);
+>>> I'm worried about this from an ABI point of view with people's UCM
+>>> files.  But perhaps I'm worrying about nothing?
 > 
->          for (i = 0; i < 10; ++i) {
->                  /* Check lock status */
->                  pll = snd_soc_component_read32(
->                                  component, M98090_REG_DEVICE_STATUS);
->                  if (!(pll & M98090_ULK_MASK))
->                          break;
+>>    this is just the C comment fix. The long name is already in
+>> vendor-product-version-board - no dots as delimiters (but does are allowed
+>> in the fields like version strings). This code improvement does not change
+>> the format of the generated long name string from the DMI information.
 > 
->                  /* Give PLL time to lock */
->                  usleep_range(1000, 1200);
->          }
-> }
+> Ah, it looked from my initial scan like it was being changed as a result
+> of the factoring out of the append code.
 
-Sorry, I don't see at what point the race happens.
+I had the same reaction on v1, it's just cleaning up a bad comment indeed.
 
-if your interrupt sees an ULK status, it will schedule the pll_work.
-You only test the status again *after* switching the device on/off, so 
-what is the side effect?
+This looks good to me, especially the removal of redundant parts, so for 
+the patch 1..2
 
-I am also wondering if you shouldn't sleep first in the loop, then check 
-the status?
-
-And in case you do have a side effect due to the clear on read, maybe 
-you could save the status in a context and retest in the workqueue, that 
-way you'd have a trace of the ULK event even if the register was cleared.
-
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

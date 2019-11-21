@@ -2,49 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1A7C6105B32
-	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 21:36:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BACE105B54
+	for <lists+alsa-devel@lfdr.de>; Thu, 21 Nov 2019 21:48:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8425317AE;
-	Thu, 21 Nov 2019 21:35:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8425317AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 06FA417B0;
+	Thu, 21 Nov 2019 21:47:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 06FA417B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574368576;
-	bh=GXIhs1rOto3lLpvMX7t/kZV2WO/cKfbO/OInz30QVUw=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574369301;
+	bh=xxNBzB7gYouzRDCSgik6Sxh/CeTX4HB/HIOCvNCyPXo=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Di4vfBqHykd5RJFEIotOaBlXv6IQPBWY8war9GwsbNuiCr1Hf5xVsylJmrGKAG1qz
-	 /PmDmsTS6uGf51cnYVbXsdvGDw2L4L6jsakuGam4t7EdaG90C5XawH3V0Xo+btabY7
-	 D/BAHq9+AvQi1LRXUxjudgv1I8nonkRo0KhNVpZM=
+	b=LBWN+xY8uLqu+xEHKl2WBbcGGknOf8z0kQoCSDgoKQMlNBP3s/+KcqtxCpsftl9R0
+	 64NKAvRa1JHdHvBiFNPqA9ll3bpsvhT4T4Sy5sJyahXYZ8J23IWz356S2UFJtVwVxf
+	 kO8lzfXYNaw9GOsObZ8PrXilVry3B3U4G+glvIyE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AD167F8014C;
-	Thu, 21 Nov 2019 21:34:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E292F80146;
+	Thu, 21 Nov 2019 21:46:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 573FBF80146; Thu, 21 Nov 2019 21:34:29 +0100 (CET)
+ id CD13AF80146; Thu, 21 Nov 2019 21:46:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7B24DF800EF
- for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 21:34:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B24DF800EF
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 4D669B216;
- Thu, 21 Nov 2019 20:34:25 +0000 (UTC)
-Date: Thu, 21 Nov 2019 21:34:24 +0100
-Message-ID: <s5himndrmsv.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
-In-Reply-To: <CAFQqKeWVuJs+bnZsrYAHdke0pZpBSmP71RFVrfwVE3=P4A7hsw@mail.gmail.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4BB71F800EF
+ for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 21:46:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4BB71F800EF
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="rcGUx83W"
+Received: by mail-io1-xd41.google.com with SMTP id v17so5066003iol.12
+ for <alsa-devel@alsa-project.org>; Thu, 21 Nov 2019 12:46:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=RKA5ZWfmWS+2Qc1T/gh5s52mBpii2iIDSwLFMOaYtLw=;
+ b=rcGUx83Wdj60b9PmHngt1yH/aC9pw6m5Z8F43IG0a3pnYtSg8rvcbQx9VKU7nOLQWz
+ cEeqoOSMFYgDaWsQeMmmAnjwTS96mmSg6Vrr4ugjmzDsLGQf2grjT/YbrRu+TB4k2cQA
+ 9e3CrNDRkWsLjI92isEkjFXD1rwhsFjJiN+F6PQPU6KkJ9r4KVTRHAcr6MXnV0f12U00
+ SQ7GyWY3tmO8GqtbalaGr/R5V2ArUCps2+5A0/YUPGrERXFR9dKvsDE0xiSy3QQVmAYI
+ pE5uoEPyXJucA6pMoComO1IXT0idoPebwhD29CCnJ+2NIp3sJ76UFgEHOixH5y5Ss9CM
+ hVcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=RKA5ZWfmWS+2Qc1T/gh5s52mBpii2iIDSwLFMOaYtLw=;
+ b=BbhHw/712ukAhhdA1cbMGR2ttcV/U37PdeRmRV4Qyg8E6A85AnU2oP59X5ehohHUNO
+ Z0BMQxRpIHz1pVE10TSqRLeMSt0kPxL0If5dbVkHUnohtSpVwND61qvXKYLT0mW9tCBo
+ 7WgxaWMmOvgZwbAm8Ble9H5s7O7NX7MoMwGBd4MAIDWwOc9Oa9pzLksiQOKe2Sk3gDUI
+ BNfIZtSL9X+M7qRVYiAA80iggiltrg+wSOd2BSsixr/free0/EwyNPImebzAkG3aVYsz
+ GXEvBXu7Hbg8QFaGjZrns2W2NldQxH8UwcpYUf2JC5rgFJvQj0RczYAgMlCpPfu/oO84
+ E2/w==
+X-Gm-Message-State: APjAAAWFxnMN1WvznNkFfXWBbcaYjHLOT/89+ffqcgngEqd3hqKkrexp
+ 5+Hs6TFVUBolczVnb/Ad1L04ina5TmZmfQmgaD0hhw==
+X-Google-Smtp-Source: APXvYqzYYkH/GRINU5bh1Nk6eh7d4ikmuEwH6vUWVXldP3VIgzB9r+Otj9VAtqrNYQof33OhD8I41LTKpPKQSYTAOoQ=
+X-Received: by 2002:a5d:97d9:: with SMTP id k25mr6792086ios.142.1574369188911; 
+ Thu, 21 Nov 2019 12:46:28 -0800 (PST)
+MIME-Version: 1.0
 References: <20191117085308.23915-1-tiwai@suse.de>
  <20191117085308.23915-8-tiwai@suse.de>
  <3b407a02-b791-52a4-2335-e21d8ab732dd@linux.intel.com>
@@ -61,10 +86,13 @@ References: <20191117085308.23915-1-tiwai@suse.de>
  <s5hy2wbwo8c.wl-tiwai@suse.de>
  <CAFQqKeVsQ1AjjKgS-HJ0-mg7JbbmMVjJcUB7wbvsbyz9e2TqLg@mail.gmail.com>
  <CAFQqKeWVuJs+bnZsrYAHdke0pZpBSmP71RFVrfwVE3=P4A7hsw@mail.gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+ <s5himndrmsv.wl-tiwai@suse.de>
+In-Reply-To: <s5himndrmsv.wl-tiwai@suse.de>
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Thu, 21 Nov 2019 12:46:17 -0800
+Message-ID: <CAFQqKeUimt32z1myzL+JOXoCUhn7jU1=Mj8e6egQKs+c5CY0pA@mail.gmail.com>
+To: Takashi Iwai <tiwai@suse.de>, "Jie, Yang" <yang.jie@intel.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -81,76 +109,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gVGh1LCAyMSBOb3YgMjAxOSAyMDoyMjowMyArMDEwMCwKU3JpZGhhcmFuLCBSYW5qYW5pIHdy
-b3RlOgo+IAo+ICAgICAgICAgPiA+Cj4gICAgICAgICA+ID4gSSBjb3VsZG4ndCBmaW5kIGFueXRo
-aW5nIG9idmlvdXMuwqAgQ291bGQgeW91IHRyeSB3aXRob3V0IGNoYW5naW5nCj4gICAgICAgICA+
-ID4gc25kX3NvZl9wY21fcGVyaW9kX2VsYXBzZWQoKSwgaS5lLiBvbmx5IGFkZGluZyB0aGUgc3R1
-ZmYgYW5kCj4gICAgICAgICBjYWxsaW5nCj4gICAgICAgICA+ID4gc3luY19zdG9wLCBpbiBvcmRl
-ciB0byBzZWUgd2hldGhlciB0aGUgYWRkaXRpb25hbCBzdHVmZiBicm9rZQo+ICAgICAgICAgPiA+
-IGFueXRoaW5nPwo+ICAgICAgICAgPiBJdCBpcyBpbmRlZWQgdGhlIHJlbW92YWwgb2Ygc25kX3Nv
-Zl9wY21fcGVyaW9kX2VsYXBzZWQoKSB0aGF0IG1ha2VzCj4gICAgICAgICB0aGUKPiAgICAgICAg
-ID4gZGV2aWNlIGhhbmcgd2hlbiB0aGUgc3RyZWFtIGlzIHN0b3BwcGVkLiBCdXQgdGhhdCdzIGEg
-Yml0IHN1cnByaXNpbmcKPiAgICAgICAgID4gZ2l2ZW4gdGhhdCBhbGwgSSB0cmllZCB3YXMgdXNp
-bmcgdGhlIHNuZF9wY21fcGVyaW9kX2VsYXBzZWQoKQo+ICAgICAgICAgZGlyZWN0bHkKPiAgICAg
-ICAgID4gaW5zdGVhZCBvZiBzY2hlZHVsaW5nIHRoZSBkZWxheWVkIHdvcmsgdG8gY2FsbCBpdC4K
-PiAgICAgICAgCj4gICAgICAgICBJZiBJIHJlYWQgdGhlIGNvZGUgY29ycmVjdGx5LCB0aGlzIGNh
-bid0IHdvcmsgaXJyZWxldmFudGx5IGZyb20gdGhlCj4gICAgICAgICBzeW5jX3N0b3Agc3R1ZmYu
-wqAgVGhlIGNhbGwgb2YgcGVyaW9kX2VsYXBzZWQgaXMgZnJvbQo+ICAgICAgICAgaGRhX2RzcF9z
-dHJlYW1fY2hlY2soKSB3aGljaCBpcyBwZXJmb3JtZWQgaW4gYnVzLT5yZWdfbG9jayBzcGlubG9j
-ayBpbgo+ICAgICAgICAgaGRhX2RzcF9zdHJlYW1fdGhyZWFkZWRfaGFuZGxlcigpLsKgIE1lYW53
-aGlsZSwgdGhlIFhSVU4gdHJpZ2dlciBnb2VzCj4gICAgICAgICB0byBoZGFfZHNwX3BjbV90cmln
-Z2VyKCkgdGhhdCBmb2xsb3dzIGhkYV9kc3Bfc3RyZWFtX3RyaWdnZXIoKSwgYW5kCj4gICAgICAg
-ICB0aGlzIGZ1bmN0aW9uIGV4cGVjdHMgdGhlIHNsZWVwYWJsZSBjb250ZXh0IGR1ZSB0bwo+ICAg
-ICAgICAgc25kX3NvZl9kc3BfcmVhZF9wb2xsX3RpbWVvdXQoKSBjYWxsLgo+ICAgICAgICAKPiAg
-ICAgICAgIFNvIHNvbWV0aGluZyBsaWtlIGJlbG93IHdvcmtzPwo+IAo+ICAgICAgICAgVGFrYXNo
-aQo+ICAgICAgICAKPiAgICAgICAgIC0tLSBhL3NvdW5kL3NvYy9zb2YvaW50ZWwvaGRhLXN0cmVh
-bS5jCj4gICAgICAgICArKysgYi9zb3VuZC9zb2Mvc29mL2ludGVsL2hkYS1zdHJlYW0uYwo+ICAg
-ICAgICAgQEAgLTU5Miw4ICs1OTIsMTEgQEAgc3RhdGljIGJvb2wgaGRhX2RzcF9zdHJlYW1fY2hl
-Y2soc3RydWN0IGhkYWNfYnVzCj4gICAgICAgICAqYnVzLCB1MzIgc3RhdHVzKQo+ICAgICAgICAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgY29udGludWU7
-Cj4gICAgICAgIAo+ICAgICAgICAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-LyogSW5mb3JtIEFMU0Egb25seSBpbiBjYXNlIG5vdCBkbyB0aGF0IHdpdGgKPiAgICAgICAgIElQ
-QyAqLwo+ICAgICAgICAgLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgaWYgKHNv
-Zl9oZGEtPm5vX2lwY19wb3NpdGlvbikKPiAgICAgICAgIC3CoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHNuZF9zb2ZfcGNtX3BlcmlvZF9lbGFwc2VkKHMtPgo+
-ICAgICAgICAgc3Vic3RyZWFtKTsKPiAgICAgICAgICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoGlmIChzb2ZfaGRhLT5ub19pcGNfcG9zaXRpb24pIHsKPiAgICAgICAgICvCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHNwaW5fdW5sb2NrX2ly
-cSgmYnVzLT5yZWdfbG9jayk7Cj4gICAgICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqBzbmRfcGNtX3BlcmlvZF9lbGFwc2VkKHMtPnN1YnN0cmVhbSk7
-Cj4gICAgICAgICArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqBzcGluX2xvY2tfaXJxKCZidXMtPnJlZ19sb2NrKTsKPiAgICAKPiAgICAgVGhhbmtzLCBUYWth
-c2hpLiBZZXMsIEkgcmVhbGl6ZWQgaXQgdGhpcyBtb3JuaW5nIGFzIHdlbGwgdGhhdCBpdCBpcyBk
-dWUgdG8KPiAgICAgdGhlIHJlZ19sb2NrLiBJdCBkb2VzIHdvcmsgd2l0aCB0aGlzIGNoYW5nZSBu
-b3cuIEkgd2lsbCBydW4gc29tZSBzdHJlc3MKPiAgICAgdGVzdHMgd2l0aCB0aGlzIGNoYW5nZSBh
-bmQgZ2V0IGJhY2sgd2l0aCB0aGUgcmVzdWx0cy4KPiAKPiBIaSBUYWthc2hpLAo+IAo+IFNvcnJ5
-IHRoZSBzdHJlc3MgdGVzdHMgdG9vayBhIHdoaWxlLsKgCj4gQXMgd2UgZGlzY3Vzc2VkIGVhcmxp
-ZXIsIGFkZGluZyB0aGUgc3luY19zdG9wKCkgb3AgZGlkbnQgcXVpdGUgaGVscCB0aGUgU09GCj4g
-ZHJpdmVyIGluIHJlbW92aW5nIHRoZSBkZWxheWVkIHdvcmsgZm9yIHNuZF9wY21fcGVyaW9kX2Vs
-YXBzZWQoKS7CoAoKWWVhaCwgdGhhdCdzIHVuZGVyc3RhbmRhYmxlLiAgSWYgdGhlIHN0b3Agb3Bl
-cmF0aW9uIGl0c2VsZiBuZWVkcyBzb21lCnNlcmlhbGl6YXRpb24sIHN5bmNfc3RvcCgpIHdvbid0
-IGluZmx1ZW5jZSBhdCBhbGwuCgpIb3dldmVyLCBub3cgYWZ0ZXIgdGhlc2UgZGlzY3Vzc2lvbnMs
-IEkgaGF2ZSBzb21lIGNvbmNlcm5zIGluIHRoZQpjdXJyZW50IGNvZGU6CgotIFRoZSBhc3luYyB3
-b3JrIHN0YXJ0ZWQgYnkgc2NoZWR1bGVfd29yaygpIG1heSBiZSBleGVjdXRlZAogIChsaXRlcmFs
-bHkpIGltbWVkaWF0ZWx5LiAgU28gaWYgdGhlIHRpbWluZyBvciB0aGUgc2VyaWFsaXphdGlvbgog
-IG1hdHRlcnMsIGl0IGRvZXNuJ3QgZ3VhcmFudGVlIGF0IGFsbC4gIFRoZSBzYW1lIGxldmVsIG9m
-IGNvbmN1cnJlbmN5CiAgY2FuIGhhcHBlbiBhdCBhbnkgdGltZS4KCi0gVGhlIHBlcmlvZF9lbGFw
-c2VkIHdvcmsgbWlnaHQgYmUgcGVuZGluZyBhdCBwcmVwYXJlIG9yIG90aGVyCiAgb3BlcmF0aW9u
-OwogIHRoZSBhc3luYyB3b3JrIG1lYW5zIGFsc28gdGhhdCBpdCBkb2Vzbid0IGd1YXJhbnRlZSBp
-dHMgZXhlY3V0aW9uIGluCiAgdGltZSwgYW5kIGl0IG1pZ2h0IGJlIGRlbGF5ZWQgbXVjaCwgYW5k
-IHRoZSBQQ00gY29yZSBtaWdodCBnbyB0bwogIHByZXBhcmUgb3Igb3RoZXIgc3RhdGUgZXZlbiBi
-ZWZvcmUgdGhlIHdvcmsgaXMgZXhlY3V0ZWQuCgpUaGUgc2Vjb25kIHBvaW50IGNhbiBiZSBmaXhl
-ZCBlYXNpbHkgbm93IHdpdGggc3luY19zdG9wLiAgWW91IGNhbiBqdXN0CnB1dCBmbHVzaF93b3Jr
-KCkgaW4gc3luY19zdG9wIGluIGFkZGl0aW9uIHRvIHN5bmNocm9uaXplX2lycSgpLgoKQnV0IHRo
-ZSBmaXJzdCBwb2ludCBpcyBzdGlsbCB1bmNsZWFyLiAgTW9yZSBleGFjdGx5LCB3aGljaCBvcGVy
-YXRpb24KZG9lcyBpdCBjb25mbGljdD8gIERvZXMgaXQgdGhlIHBsYXliYWNrIGRyYWluPyAgVGhl
-biBpdCBtaWdodCB0YWtlCnZlcnkgbG9uZyAodXAgdG8gc2Vjb25kcykgdG8gYmxvY2sgdGhlIG5l
-eHQgb3BlcmF0aW9uPwoKCnRoYW5rcywKClRha2FzaGkKX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZl
-bEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxt
-YW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+>
+>
+> >
+> > Hi Takashi,
+> >
+> > Sorry the stress tests took a while.
+> > As we discussed earlier, adding the sync_stop() op didnt quite help the
+> SOF
+> > driver in removing the delayed work for snd_pcm_period_elapsed().
+>
+> Yeah, that's understandable.  If the stop operation itself needs some
+> serialization, sync_stop() won't influence at all.
+>
+> However, now after these discussions, I have some concerns in the
+> current code:
+>
+> - The async work started by schedule_work() may be executed
+>   (literally) immediately.  So if the timing or the serialization
+>   matters, it doesn't guarantee at all.  The same level of concurrency
+>   can happen at any time.
+>
+> - The period_elapsed work might be pending at prepare or other
+>   operation;
+>   the async work means also that it doesn't guarantee its execution in
+>   time, and it might be delayed much, and the PCM core might go to
+>   prepare or other state even before the work is executed.
+>
+> The second point can be fixed easily now with sync_stop.  You can just
+> put flush_work() in sync_stop in addition to synchronize_irq().
+>
+> But the first point is still unclear.  More exactly, which operation
+> does it conflict?  Does it the playback drain?  Then it might take
+> very long (up to seconds) to block the next operation?
+>
+Hi Takashi,
+
+As I understand the original intention for adding the period_elapsed_work()
+was  that snd_pcm_period_elapsed() could cause a STOP trigger while the
+current IPC interrupt is still being handled.
+In this case, the STOP trigger generates an IPC to the DSP but the host
+never misses the IPC response from the DSP because it is still handling the
+previous interrupt.
+
+Adding Keyon who added this change to add more and clarify your concerns.
+
+Thanks,
+Ranjani
+
+>
+>
+> thanks,
+>
+> Takashi
+>
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

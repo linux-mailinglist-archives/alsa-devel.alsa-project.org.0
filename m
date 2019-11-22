@@ -2,156 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10522107686
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 18:38:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A441076C7
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 18:55:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88F77180B;
-	Fri, 22 Nov 2019 18:37:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88F77180B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 220551830;
+	Fri, 22 Nov 2019 18:54:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 220551830
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574444326;
-	bh=JEMXk+b9s2FL+rFAIQqWoVJc64O4i7cuJlLo/bapemw=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=QPWeTqv0i8lymGDDXwrdQ9vgFHzCYcHOD4/UU+SkLLMY+rA/N6V0MhWt9j5kv/Wbb
-	 gpl/ri7+qw3bEF39gY4bTdola1pTEWSYBgpUnI7mF4miBUY2GlYkkzGx1JjJQOX4fZ
-	 B95D18DA+nYDQgPYLa3V7ew7izCpT9sE8l6n+vHc=
+	s=default; t=1574445303;
+	bh=z5ymzH3Bxjp1709CohWAe5OrJLQEEdMA/RvFA3JmTTk=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jKp4eyWOIZYFvpUkPSD6oE6VdOYY3bc8uqAL3QjHwO+jTg4FdsQR5+aHmf6R+GFMG
+	 io2PtiRovFbNkDcJnUa4Du13SV7W51MQbnR/Mia5qrGF7sbHnyTbak0lcjRPWpirr4
+	 YO3CbyqUfRu91xzAOtiKvcd/dNZYKq6z30KXGsdk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F2D3FF800EE;
-	Fri, 22 Nov 2019 18:37:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F458F8014A;
+	Fri, 22 Nov 2019 18:53:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82F3BF8014A; Fri, 22 Nov 2019 18:36:57 +0100 (CET)
+ id 9BA58F800EF; Fri, 22 Nov 2019 18:53:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,HTML_MESSAGE,SPF_HELO_PASS,SPF_NONE,SURBL_BLOCKED,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700089.outbound.protection.outlook.com [40.107.70.89])
+Received: from esa2.mentor.iphmx.com (esa2.mentor.iphmx.com [68.232.141.98])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EBCDEF8013F
- for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 18:36:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBCDEF8013F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="ZphR0X08"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=G01iMf44inKjarSfQQNHG2R/IsZ9bhvX3hZVCzPAkHKDwESMbmcXV66xmyxMwGYiYArud3MsUG/i9vh2Xox9iyOLTIiNF50Qdspqc0UYVrBlkUzrToWsoPpHperqOpc+k2eIuiMb1fIpRn8Wy4TFLG77xUpkOwH0tCxlT01RkNnXFWgBvjQ7vgQaGbF0MQopWHtnQIYScrX0RHcp7UfaN9qW3WTT7vqdXt2y52xcISeiRLv5zrIDfVyVxFjDROLGZ/G3KeUDt3Df4PX4yZV4qGxT24of2l8CW1mli4xrRcsDzxcJwqe01EFz3//Ipcr0AAYDqnf1E9HgXIgzJtnWbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o4XydS+t1sAULUYAyK13kJ/u/SRSVdlPNTU+8xhFT8o=;
- b=caKzU8D0ccaCfQflv3efngiqRVvg/Nr5YxaDgOi19Ocp4nbh/oHLpu4I1RgNHjd49EO7XXf18BjrEy/Pln5C3ushcCwmUwU8J4dmewg23d1YvDSKKqq7bpvBDfPzHQg2m45oAv3Q+isT0rnrgf9TfYwhNHGi/GCIl7vFW21jsKFmhXLrWQLRNlIGDIQ1/h+VnYUHzWb20N2oGXp/mCBNoJaagD1geRs94oHV14Q+Bw4jtZGpCz0feY2S9UWYtId5sJ95LlfMA0w7fyVbcI790r1QwEQI7rkrSz1dJujW7SOD9D/JQoNEXTrCa2VkaYDWJ7qgPpMp6jFTzGgZK8e6DA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=o4XydS+t1sAULUYAyK13kJ/u/SRSVdlPNTU+8xhFT8o=;
- b=ZphR0X08h6qDvdDauhjis0moUo/8ILqSt5uOZB5keFdiJsAs06ToAvLQQXqKd1a5cDJX5igf5MK6wHGdTrPUgI09SosG4LUy8LG6xZBpGNEJvlUPnO2qFNFO1pVlW3HKOlpaSj1wALaHHnwwAdfeiX3Tf5uSgpJia1KT1pSHZi0=
-Received: from CH2PR12MB3862.namprd12.prod.outlook.com (52.132.231.219) by
- CH2PR12MB4280.namprd12.prod.outlook.com (20.180.7.139) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2474.16; Fri, 22 Nov 2019 17:36:49 +0000
-Received: from CH2PR12MB3862.namprd12.prod.outlook.com
- ([fe80::3d47:8737:20c4:1834]) by CH2PR12MB3862.namprd12.prod.outlook.com
- ([fe80::3d47:8737:20c4:1834%7]) with mapi id 15.20.2451.031; Fri, 22 Nov 2019
- 17:36:49 +0000
-From: "RAVULAPATI, VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>
-To: Mark Brown <broonie@kernel.org>
-Thread-Topic: [RESEND PATCH v11 1/6] ASoC: amd:Create multiple I2S platform
- device endpoints
-Thread-Index: AQHVoGFvooLcAR9FbkWxmTM8r5BbBqeXc0qAgAACk4M=
-Date: Fri, 22 Nov 2019 17:36:48 +0000
-Message-ID: <CH2PR12MB38623593EDE0846854AC8BEDE7490@CH2PR12MB3862.namprd12.prod.outlook.com>
-References: <1574336761-16717-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1574336761-16717-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>,
- <20191122172651.GF6849@sirena.org.uk>
-In-Reply-To: <20191122172651.GF6849@sirena.org.uk>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Vishnuvardhanrao.Ravulapati@amd.com; 
-x-originating-ip: [27.59.189.152]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 78eec788-b83e-42d0-b49a-08d76f728dae
-x-ms-traffictypediagnostic: CH2PR12MB4280:|CH2PR12MB4280:
-x-ms-exchange-purlcount: 1
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <CH2PR12MB42808240E85D049EB9F23C6DE7490@CH2PR12MB4280.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:5797;
-x-forefront-prvs: 02296943FF
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(376002)(136003)(366004)(396003)(39860400002)(346002)(189003)(199004)(316002)(6436002)(606006)(2906002)(54906003)(74316002)(6506007)(91956017)(66476007)(66556008)(64756008)(446003)(66446008)(26005)(6116002)(3846002)(236005)(76176011)(55016002)(14454004)(186003)(76116006)(4326008)(102836004)(6246003)(7696005)(52536014)(53546011)(256004)(229853002)(81166006)(66946007)(33656002)(81156014)(5660300002)(7736002)(478600001)(11346002)(71200400001)(99286004)(6306002)(54896002)(8676002)(66066001)(6916009)(25786009)(9686003)(8936002)(86362001)(45080400002)(71190400001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:CH2PR12MB4280;
- H:CH2PR12MB3862.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: =?us-ascii?Q?TVq7bxWKwKH/hEEEIepAR6nkXPgwN07UnQu8kqW7E7rhO3wcpAc9/Xiy3KLM?=
- =?us-ascii?Q?tZ+ooXmO5MRCXHs6kV3S1VfYf0PtbeyMhbVd8KzOGStrzIdNcP+UesPGOCL9?=
- =?us-ascii?Q?+wByHPnHGqfWZy4ktACoXDa13H7j8GdQIRk+Qnd6YyMVae+GRXQ5RgaXF5o6?=
- =?us-ascii?Q?mdvq/fWWOOsnV1fGlpy0K4erA9KE6cUjfLl23V2eWKKcwJL/5aB9tNLKXezK?=
- =?us-ascii?Q?gyxqYZtVrMDrNFvMVpLw7dGIzRKR8HLyGsIBlPGpm9kGjaDQeDw5Yksv6/zj?=
- =?us-ascii?Q?VpwAKSvLUZZIf7S+fBTXa6zPGO8IOuNTsomnQgtxkw4SiILLfu1/p7goaK3/?=
- =?us-ascii?Q?icLuNqjwxZV6z1de0A1FBSQ7S6Q3068W2EpeIDK+XQ8MdYa627Ex73oAreNH?=
- =?us-ascii?Q?NvmPMT9wHXTrxUiylG58dzPssX8SCFgEJuyDgBhwjjQj3KxxsdpeSza/PmV2?=
- =?us-ascii?Q?MToDksz2b0NtqsEusTwjbGoKzra+OapDZgBCtkhPop/lplOB2yIg7WqMJLcI?=
- =?us-ascii?Q?DsOzDZWuOb4XHMjKBIFm+0DDaAoIjxc0idsDIiHiryaM9zZpJb4FD+hWXQX8?=
- =?us-ascii?Q?8V8igE2FYykuzRuZX2zAtXA0QOtBDWCrC52wcsvxv0scuo2CpBXvV5A268Nt?=
- =?us-ascii?Q?RZDrxrWa+TI40TKY71DOZIwIuzbaU0+/NZCKNn+zYZl6wQOa3QTBUNgZvh8t?=
- =?us-ascii?Q?a60xfWGBHAzUlWxV9f9UPpSeoMchvrk4HCuiLXYFBX5EbjD4+pTKtoOcX8Sa?=
- =?us-ascii?Q?vYA0xQAN1o64/lbpYXj3P8vUA7Lo1iqytH2JbDrk1WCR2WGeqTCWDz4ySwvC?=
- =?us-ascii?Q?bQAOU6AoSztHtpQd+foQZRcFS47d8MHKrJenajJ+IRZNWWAOlnIw+q3TOSzH?=
- =?us-ascii?Q?P0QPvFSZqy3op5Us/IaAwRhEenjkJMwK3WNyND8tF2/enigneSkhwsz//TFT?=
- =?us-ascii?Q?xJlW8r8fXgoGMyo5ZPCTCfrID0uRebnBwz8SZLH2k5eHRfPce5J6VOP6mQsU?=
- =?us-ascii?Q?HRS7YhNT5kOSCPMSJWhsBE086qRtXCzFqw4dyH66hgqzq//i/cQxKMS6+k8O?=
- =?us-ascii?Q?chpMNsFjktfCIOrsdHbUWmxdnbiIhjqv8ScWrkC5of8drKxPxGjUnMAukSrr?=
- =?us-ascii?Q?LtGiMRCLsoUSWZgtErszYfmen3gXtmtJwLAlnEitxLM6ws7njBapBJ+LDzAC?=
- =?us-ascii?Q?GODbx+xbNA1rXZi23JShcbpLyMjCcXpRHzeLXH97UHkNQoW4t1uY8+KNrmAc?=
- =?us-ascii?Q?ylm/TP0JA8yopIYu+eeHEKQMTDy+cueiSJxeQoJjEhkiiVVZiUCnqv64YidW?=
- =?us-ascii?Q?OUeuwCny0Cet6G55FnUpXpFzY/N6a2LMUmibYlmpextrDNRON8SzxrBQq4EG?=
- =?us-ascii?Q?9qZsE5EqNGg5fzvX19g/ssC3fjZeaWJ2Nc/O27pZi4UY9XqAk+Nfhurlhjum?=
- =?us-ascii?Q?SIjk2Ou34kdRHz1ABEOCkMgIGf0ICg0a/Mb6VmmjLBoAC0iF+vjyuUxPFslo?=
- =?us-ascii?Q?PX7sUORDc5VcOYOPcnoyRBgDGa6Grjbx4VGU4EGaxn4owXnPbG9VxkxwL6/b?=
- =?us-ascii?Q?QT7wCmjtYBbnH3Gq+q613NwYrMLtK1whh7ya6pSyBNFJPzJ0Dvuc3QFqFgb+?=
- =?us-ascii?Q?LbcERYj8vl1hZ0NsJoxU9ILMb9A0vaT5NS3RMvWAoysOi/cwFQzGcsM6KooG?=
- =?us-ascii?Q?Z6kOY/aB3xqoTXIE3SpWVuO6iDqeKrUSXDGYHcizJQWNFxqg6CVpJaEHOZKh?=
- =?us-ascii?Q?N6o2JiOzY9jK5kTJnEmexL6Z+kno9ii4X3EtP0iPQ5WA5KmM3MeM4lqkFdZa?=
- =?us-ascii?Q?6hOTXOGi/eeTa3mNfrNVBI5jeOKYhE+14lmiv+ZdPwIxpPj2L+t4BKk9DHxj?=
- =?us-ascii?Q?JwMivXbkOqZqST5UfQ=3D=3D?=
+ by alsa1.perex.cz (Postfix) with ESMTPS id 71156F800EF
+ for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 18:53:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71156F800EF
+IronPort-SDR: 4EZfq6p9ngHgFGcN2Aoysp3vMnB21Uy35m/HOmMF7lWXxYqYEVh56wlSwQJ6pZ+XwmM0fpb/Oy
+ SQ3JtbItDLFjT6r3SliE4cI7axB1iTeg8bfIqT8EMoXWNVI5WOtK5q/y8Gj/URLzj2Upb1qmJ+
+ AKp9GyBxpi4Y7c1rDNbD0zC7iuarqLpLJDJyREE1qaU0NFSlUpXx3nYbdUL+DL6tKv1wS/u0Z0
+ RXNXCZ5KYj9f7kF+a+MePviDUzWLfiJNnmMeno3GC8tU6dOgMTuJDReZGW5TC9JbvZX+7T+7Qm
+ dLw=
+X-IronPort-AV: E=Sophos;i="5.69,230,1571731200"; d="scan'208";a="43373733"
+Received: from orw-gwy-02-in.mentorg.com ([192.94.38.167])
+ by esa2.mentor.iphmx.com with ESMTP; 22 Nov 2019 09:53:11 -0800
+IronPort-SDR: wF5LDk+dyX65opAPimVh69XX/p/Naarbwluir5E8WXg8Mh0HUe+SXC8pOKFVrRGqAOu3hN6cch
+ XJnpWvbXeMUYwWTrqBe8NoyKJhslb9l1EE/GHcqm3Kokds2pGICYJMBLZTDZy1j/D7jwwA9Lqp
+ ThFcxkRlL6LVOITHjJTADJcYLSL6xaAcmbN2fDh+hlVjtklIR58xN5LkhAfXMkPyuXbW0jU4wS
+ ZUAw361MxV7ZEZi7x9txEyBAA9noHSNzxH9ZeprSXCbWypQSPhZTYOuX4ZDuZ9eBJimjmfCTXf
+ /Go=
+From: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+To: <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>, Jaroslav
+ Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, Timo Wischer
+ <twischer@de.adit-jv.com>, Andrew Gabbasov <andrew_gabbasov@mentor.com>
+Date: Fri, 22 Nov 2019 11:52:17 -0600
+Message-ID: <20191122175218.17187-1-andrew_gabbasov@mentor.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 78eec788-b83e-42d0-b49a-08d76f728dae
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Nov 2019 17:36:48.8437 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Pal7VGvly3+BuI/KixeWsx4qfUXogobDHDtD9/seeKQzKBN2u8UevSU3XxVsakqh1fQap5WiEBXVq+cUwmH2hA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4280
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO
- POWER MANAGEM..." <alsa-devel@alsa-project.org>,
- open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, "djkurtz@google.com" <djkurtz@google.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Agrawal,
- Akshu" <Akshu.Agrawal@amd.com>, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel] [RESEND PATCH v11 1/6] ASoC: amd:Create multiple
- I2S platform device endpoints
+X-Originating-IP: [137.202.0.90]
+X-ClientProxiedBy: SVR-IES-MBX-09.mgc.mentorg.com (139.181.222.9) To
+ svr-ies-mbx-02.mgc.mentorg.com (139.181.222.2)
+Subject: [alsa-devel] [PATCH 1/2] ALSA: aloop: Remove redundant locking in
+	timer open function
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -169,29 +78,104 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ok Mark.
+loopback_parse_timer_id() uses snd_card_ref(), that can lock on mutex,
+also snd_timer_instance_new() uses non-atomic allocation, that can sleep.
+So, both functions can not be called from loopback_snd_timer_open()
+with cable->lock spinlock locked.
 
-Thank you,
-Vishnu
+Moreover, most part of loopback_snd_timer_open() function body works
+when the opposite stream of the same cable does not yet exist, and
+the current stream is not yet completely open and can't be running,
+so existing locking of loopback->cable_lock mutex is enough to protect
+from conflicts with simultaneous opening or closing.
+Locking of cable->lock spinlock is not needed in this case.
 
-Get Outlook for Android<https://aka.ms/ghei36>
+Fixes: 26c53379f98d ("ALSA: aloop: Support selection of snd_timer instead of jiffies")
+Signed-off-by: Andrew Gabbasov <andrew_gabbasov@mentor.com>
+---
+ sound/drivers/aloop.c | 23 ++++++++---------------
+ 1 file changed, 8 insertions(+), 15 deletions(-)
 
-________________________________
-From: Mark Brown <broonie@kernel.org>
-Sent: Friday, November 22, 2019 10:56:51 PM
-To: RAVULAPATI, VISHNU VARDHAN RAO <Vishnuvardhanrao.Ravulapati@amd.com>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; djkurtz@google.com <djkurtz@google.com>; pierre-louis.bossart@linux.intel.com <pierre-louis.bossart@linux.intel.com>; Agrawal, Akshu <Akshu.Agrawal@amd.com>; Liam Girdwood <lgirdwood@gmail.com>; Jaroslav Kysela <perex@perex.cz>; Takashi Iwai <tiwai@suse.com>; Dan Carpenter <dan.carpenter@oracle.com>; moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM... <alsa-devel@alsa-project.org>; open list <linux-kernel@vger.kernel.org>
-Subject: Re: [RESEND PATCH v11 1/6] ASoC: amd:Create multiple I2S platform device endpoints
+diff --git a/sound/drivers/aloop.c b/sound/drivers/aloop.c
+index 1408403f727a..6408932f5f72 100644
+--- a/sound/drivers/aloop.c
++++ b/sound/drivers/aloop.c
+@@ -1107,20 +1107,18 @@ static int loopback_snd_timer_open(struct loopback_pcm *dpcm)
+ 	struct snd_timer_instance *timeri;
+ 	struct loopback_cable *cable = dpcm->cable;
+ 
+-	spin_lock_irq(&cable->lock);
+-
+ 	/* check if timer was already opened. It is only opened once
+ 	 * per playback and capture subdevice (aka cable).
+ 	 */
+ 	if (cable->snd_timer.instance)
+-		goto unlock;
++		goto exit;
+ 
+ 	err = loopback_parse_timer_id(dpcm->loopback->timer_source, &tid);
+ 	if (err < 0) {
+ 		pcm_err(dpcm->substream->pcm,
+ 			"Parsing timer source \'%s\' failed with %d",
+ 			dpcm->loopback->timer_source, err);
+-		goto unlock;
++		goto exit;
+ 	}
+ 
+ 	cable->snd_timer.stream = dpcm->substream->stream;
+@@ -1129,7 +1127,7 @@ static int loopback_snd_timer_open(struct loopback_pcm *dpcm)
+ 	timeri = snd_timer_instance_new(dpcm->loopback->card->id);
+ 	if (!timeri) {
+ 		err = -ENOMEM;
+-		goto unlock;
++		goto exit;
+ 	}
+ 	/* The callback has to be called from another tasklet. If
+ 	 * SNDRV_TIMER_IFLG_FAST is specified it will be called from the
+@@ -1148,10 +1146,9 @@ static int loopback_snd_timer_open(struct loopback_pcm *dpcm)
+ 	tasklet_init(&cable->snd_timer.event_tasklet,
+ 		     loopback_snd_timer_tasklet, (unsigned long)timeri);
+ 
+-	/* snd_timer_close() and snd_timer_open() should not be called with
+-	 * locked spinlock because both functions can block on a mutex. The
+-	 * mutex loopback->cable_lock is kept locked. Therefore snd_timer_open()
+-	 * cannot be called a second time by the other device of the same cable.
++	/* The mutex loopback->cable_lock is kept locked.
++	 * Therefore snd_timer_open() cannot be called a second time
++	 * by the other device of the same cable.
+ 	 * Therefore the following issue cannot happen:
+ 	 * [proc1] Call loopback_timer_open() ->
+ 	 *	   Unlock cable->lock for snd_timer_close/open() call
+@@ -1160,9 +1157,7 @@ static int loopback_snd_timer_open(struct loopback_pcm *dpcm)
+ 	 * [proc1] Call snd_timer_open() and overwrite running timer
+ 	 *	   instance
+ 	 */
+-	spin_unlock_irq(&cable->lock);
+ 	err = snd_timer_open(timeri, &cable->snd_timer.id, current->pid);
+-	spin_lock_irq(&cable->lock);
+ 	if (err < 0) {
+ 		pcm_err(dpcm->substream->pcm,
+ 			"snd_timer_open (%d,%d,%d) failed with %d",
+@@ -1171,14 +1166,12 @@ static int loopback_snd_timer_open(struct loopback_pcm *dpcm)
+ 			cable->snd_timer.id.subdevice,
+ 			err);
+ 		snd_timer_instance_free(timeri);
+-		goto unlock;
++		goto exit;
+ 	}
+ 
+ 	cable->snd_timer.instance = timeri;
+ 
+-unlock:
+-	spin_unlock_irq(&cable->lock);
+-
++exit:
+ 	return err;
+ }
+ 
+-- 
+2.21.0
 
-On Thu, Nov 21, 2019 at 05:15:56PM +0530, Ravulapati Vishnu vardhan rao wrote:
-> Creates Platform Device endpoints for multiple
-> I2S instances: SP and  BT endpoints device.
-> Pass PCI resources like MMIO, irq to the platform devices.
-
-Please when you're posting stuff don't put these RESEND tags on some
-patches in the series, they're not helpful - having them in some but not
-all patches is inconsistent, you're sending a new version of the series
-here.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

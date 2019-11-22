@@ -2,87 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EB461107592
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 17:16:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F90B107646
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 18:11:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78FBD180B;
-	Fri, 22 Nov 2019 17:15:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78FBD180B
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC9D2846;
+	Fri, 22 Nov 2019 18:10:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC9D2846
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574439388;
-	bh=GSI8q4Ivdacbha5BBFqaMH9g5zXKpqBbn70ESMdvmt0=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=RIqtWd9nY03suybJj+eYj1vlIDRoVjAlmclSzIlaWXLrKc2aZm0hvg8WqJGBEqHoV
-	 QceKYPIK1XidUlDhCBxpBpPKjRtPdYluIZZrV8+9Gbuundj4S8KlxxPibB27yurIiv
-	 O2I3knU2i8C1XYbAm9jsDrN+Pvmg6u4sbEcE218k=
+	s=default; t=1574442699;
+	bh=ywYWRwPbrmDNT7M+j0z0fVbuTd+s1HTY6HgyatdE/HY=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=c14Es4lnDRaf+FhoEg7uYPI13ftEBhyzd+NQkRGT1d2E7VIXNyHQcOImcHZJXdle1
+	 Qb3vWHzPXV5CyrP/kM6HKW2LajY85M85q3BVPmrcbOhJ93SQiqyAYdT93jBviB4s7E
+	 xN+gG+aaU7+d5seVxF0GLRhMW7oyELzU9jWXODVY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1142F800EF;
-	Fri, 22 Nov 2019 17:14:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 73A69F8013F;
+	Fri, 22 Nov 2019 18:09:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 41123F80140; Fri, 22 Nov 2019 17:14:43 +0100 (CET)
+ id 17825F80140; Fri, 22 Nov 2019 18:09:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,
+ RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
+ [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A75AF800EE
- for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 17:14:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A75AF800EE
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="IxKyGc9o"
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xAMGD83m015416; Fri, 22 Nov 2019 17:14:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=q+AN9vpLp99KTf4oMHYu++uvf+aTBZJ7fWpmVfAwsSA=;
- b=IxKyGc9ou7D+Y0yLJolE3vkTsh6lhR8z5J9UPgqEeKf64aStCPXkdTCnuU8AteSIMwa0
- ys6FNaDyfM33C7PUQvv4QpfXhEg/YWtOb39Dhdg4ieDZ+YBzU+dGC/5pYri3CfptKsAw
- gj9xHv5Q5OVbK0EVg1O45F5JEXtb596YVGyLvTmmb9eXLIzIw98Jd6BjMk17LQObBRVr
- xL7CiX4AGyYQn2+jE+I1aP5RJ6eVBUsrScoWqxnbof2O2ZsC8ZkLIGklPJYkuLN0nUs9
- GnBQFoQW7IoXvSqF87hVh8RIq3z5H+qxPZ2TLD7XovJhGri/eD0W34UTJz1f8YJOYjy1 7A== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2wa9uvt3qk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 22 Nov 2019 17:14:39 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 8903B100034;
- Fri, 22 Nov 2019 17:14:38 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 1B9F92D378D;
- Fri, 22 Nov 2019 17:14:38 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Fri, 22 Nov 2019 17:14:37 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>,
- <arnaud.pouliquen@st.com>
-Date: Fri, 22 Nov 2019 17:14:23 +0100
-Message-ID: <20191122161423.8641-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 65757F800EF
+ for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 18:09:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 65757F800EF
+Received: from [127.0.0.1] (localhost [127.0.0.1]) (Authenticated sender: sre)
+ with ESMTPSA id 0139628FC9C
+Received: by earth.universe (Postfix, from userid 1000)
+ id E1EB43C0C71; Fri, 22 Nov 2019 18:09:46 +0100 (CET)
+Date: Fri, 22 Nov 2019 18:09:46 +0100
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+Message-ID: <20191122170946.kbodf45wa24jnz2n@earth.universe>
+References: <20191120152406.2744-1-sebastian.reichel@collabora.com>
+ <20191120152406.2744-3-sebastian.reichel@collabora.com>
+ <AM5PR1001MB09945AE319B4ED33C193ABE9804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-11-22_03:2019-11-21,2019-11-22 signatures=0
-Cc: srinivas.kandagatla@linaro.org, benjamin.gaignard@st.com
-Subject: [alsa-devel] [PATCH][RFC] ASoC: stm32: sai: manage rebind issue
+In-Reply-To: <AM5PR1001MB09945AE319B4ED33C193ABE9804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Support Opensource <Support.Opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ "kernel@collabora.com" <kernel@collabora.com>
+Subject: Re: [alsa-devel] [PATCHv2 2/6] ASoC: da7213: Add regulator support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,78 +70,312 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3419240049367347544=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The commit e894efef9ac7 ("ASoC: core: add support to card rebind")
-allows to rebind the sound card after a rebind of one of its component.
-With this commit, the sound card is actually rebound,
-but is no more functional.
 
-With the sound card rebind the simplified call sequence is:
-stm32_sai_sub_probe
-	snd_soc_register_component
-		snd_soc_try_rebind_card
-			snd_soc_instantiate_card
-	devm_snd_dmaengine_pcm_register
+--===============3419240049367347544==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="gk55dsxwjd3b4ywe"
+Content-Disposition: inline
 
-The problem occurs because the pcm must be registered,
-before snd_soc_instantiate_card() is called.
 
-Modify SAI driver, to change the call sequence as follows:
-stm32_sai_sub_probe
-	devm_snd_dmaengine_pcm_register
-	snd_soc_register_component
-		snd_soc_try_rebind_card
+--gk55dsxwjd3b4ywe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
----
-The current patch allows to fix the issue for STM SAI driver.
-However, most of the drivers register the component first.
-So, this solution is perhaps not the right way to manage the problem.
-This may probably be handled in ASoC framework instead.
----
+Hi,
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- sound/soc/stm/stm32_sai_sub.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+On Thu, Nov 21, 2019 at 09:15:02PM +0000, Adam Thomson wrote:
+> On 20 November 2019 15:24, Sebastian Reichel wrote:
+>=20
+> > This adds support for most regulators of da7212 for improved
+> > power management. The only thing skipped was the speaker supply,
+> > which has some undocumented dependencies. It's supposed to be
+> > either always-enabled or always-disabled.
+> >
+> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > ---
+> >  .../devicetree/bindings/sound/da7213.txt      |  4 +
+> >  sound/soc/codecs/da7213.c                     | 79 ++++++++++++++++++-
+> >  sound/soc/codecs/da7213.h                     |  9 +++
+> >  3 files changed, 91 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/sound/da7213.txt
+> > b/Documentation/devicetree/bindings/sound/da7213.txt
+> > index 759bb04e0283..cc8200b7d748 100644
+> > --- a/Documentation/devicetree/bindings/sound/da7213.txt
+> > +++ b/Documentation/devicetree/bindings/sound/da7213.txt
+> > @@ -21,6 +21,10 @@ Optional properties:
+> >  - dlg,dmic-clkrate : DMIC clock frequency (Hz).
+> >  	[<1500000>, <3000000>]
+> >
+> > + - VDDA-supply : Regulator phandle for Analogue power supply
+> > + - VDDMIC-supply : Regulator phandle for Mic Bias
+> > + - VDDIO-supply : Regulator phandle for I/O power supply
+> > +
+> >  =3D=3D=3D=3D=3D=3D
+> >
+> >  Example:
+> > diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
+> > index aff306bb58df..0359249118d0 100644
+> > --- a/sound/soc/codecs/da7213.c
+> > +++ b/sound/soc/codecs/da7213.c
+> > @@ -19,6 +19,7 @@
+> >  #include <linux/module.h>
+> >  #include <sound/pcm.h>
+> >  #include <sound/pcm_params.h>
+> > +#include <linux/pm_runtime.h>
+> >  #include <sound/soc.h>
+> >  #include <sound/initval.h>
+> >  #include <sound/tlv.h>
+> > @@ -806,6 +807,11 @@ static int da7213_dai_event(struct
+> > snd_soc_dapm_widget *w,
+> >   */
+> >
+> >  static const struct snd_soc_dapm_widget da7213_dapm_widgets[] =3D {
+> > +	/*
+> > +	 * Power Supply
+> > +	 */
+> > +	SND_SOC_DAPM_REGULATOR_SUPPLY("VDDMIC", 0, 0),
+> > +
+> >  	/*
+> >  	 * Input & Output
+> >  	 */
+> > @@ -932,6 +938,9 @@ static const struct snd_soc_dapm_route
+> > da7213_audio_map[] =3D {
+> >  	/* Dest       Connecting Widget    source */
+> >
+> >  	/* Input path */
+> > +	{"Mic Bias 1", NULL, "VDDMIC"},
+> > +	{"Mic Bias 2", NULL, "VDDMIC"},
+> > +
+> >  	{"MIC1", NULL, "Mic Bias 1"},
+> >  	{"MIC2", NULL, "Mic Bias 2"},
+> >
+> > @@ -1691,6 +1700,8 @@ static int da7213_probe(struct snd_soc_component
+> > *component)
+> >  {
+> >  	struct da7213_priv *da7213 =3D
+> > snd_soc_component_get_drvdata(component);
+> >
+> > +	pm_runtime_get_sync(component->dev);
+>=20
+> It seems that this function can return errors, although I do see lots of
+> instances of this being called where the return value isn't checked. Not =
+had
+> time to walk the code fully but are we sure no errors are going to happen=
+ here?
 
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 48e629ac2d88..eb35306a1232 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -1484,6 +1484,13 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
- 		return ret;
- 	}
- 
-+	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, conf, 0);
-+	if (ret) {
-+		dev_err(&pdev->dev, "Could not register pcm dma\n");
-+		return ret;
-+	}
-+
-+
- 	ret = devm_snd_soc_register_component(&pdev->dev, &stm32_component,
- 					      &sai->cpu_dai_drv, 1);
- 	if (ret)
-@@ -1492,11 +1499,6 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
- 	if (STM_SAI_PROTOCOL_IS_SPDIF(sai))
- 		conf = &stm32_sai_pcm_config_spdif;
- 
--	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, conf, 0);
--	if (ret) {
--		dev_err(&pdev->dev, "Could not register pcm dma\n");
--		return ret;
--	}
- 
- 	return 0;
- }
--- 
-2.17.1
+In this case, the runtime PM is already enabled because of
+pm_runtime_set_active() being called previously. So this only
+increases the usage counter.
+
+> > +
+> >  	/* Default to using ALC auto offset calibration mode. */
+> >  	snd_soc_component_update_bits(component, DA7213_ALC_CTRL1,
+> >  			    DA7213_ALC_CALIB_MODE_MAN, 0);
+> > @@ -1811,6 +1822,8 @@ static int da7213_probe(struct snd_soc_component
+> > *component)
+> >  				    DA7213_DMIC_CLK_RATE_MASK, dmic_cfg);
+> >  	}
+> >
+> > +	pm_runtime_put_sync(component->dev);
+>=20
+> Same question here.
+
+da7213_runtime_suspend() always returns 0.
+
+> > +
+> >  	/* Check if MCLK provided */
+> >  	da7213->mclk =3D devm_clk_get(component->dev, "mclk");
+> >  	if (IS_ERR(da7213->mclk)) {
+> > @@ -1848,11 +1861,22 @@ static const struct regmap_config
+> > da7213_regmap_config =3D {
+> >  	.cache_type =3D REGCACHE_RBTREE,
+> >  };
+> >
+> > +static void da7213_power_off(void *data)
+> > +{
+> > +	struct da7213_priv *da7213 =3D data;
+> > +	regulator_bulk_disable(DA7213_NUM_SUPPLIES, da7213->supplies);
+> > +}
+> > +
+> > +static const char *da7213_supply_names[DA7213_NUM_SUPPLIES] =3D {
+> > +	[DA7213_SUPPLY_VDDA] =3D "VDDA",
+> > +	[DA7213_SUPPLY_VDDIO] =3D "VDDIO",
+> > +};
+> > +
+> >  static int da7213_i2c_probe(struct i2c_client *i2c,
+> >  			    const struct i2c_device_id *id)
+> >  {
+> >  	struct da7213_priv *da7213;
+> > -	int ret;
+> > +	int i, ret;
+> >
+> >  	da7213 =3D devm_kzalloc(&i2c->dev, sizeof(*da7213), GFP_KERNEL);
+> >  	if (!da7213)
+> > @@ -1860,6 +1884,25 @@ static int da7213_i2c_probe(struct i2c_client *i=
+2c,
+> >
+> >  	i2c_set_clientdata(i2c, da7213);
+> >
+> > +	/* Get required supplies */
+> > +	for (i =3D 0; i < DA7213_NUM_SUPPLIES; ++i)
+> > +		da7213->supplies[i].supply =3D da7213_supply_names[i];
+> > +
+> > +	ret =3D devm_regulator_bulk_get(&i2c->dev, DA7213_NUM_SUPPLIES,
+> > +				      da7213->supplies);
+> > +	if (ret) {
+> > +		dev_err(&i2c->dev, "Failed to get supplies: %d\n", ret);
+> > +		return ret;
+> > +	}
+> > +
+> > +	ret =3D regulator_bulk_enable(DA7213_NUM_SUPPLIES, da7213-
+> > >supplies);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +
+> > +	ret =3D devm_add_action_or_reset(&i2c->dev, da7213_power_off,
+> > da7213);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +
+> >  	da7213->regmap =3D devm_regmap_init_i2c(i2c, &da7213_regmap_config);
+> >  	if (IS_ERR(da7213->regmap)) {
+> >  		ret =3D PTR_ERR(da7213->regmap);
+> > @@ -1867,6 +1910,11 @@ static int da7213_i2c_probe(struct i2c_client *i=
+2c,
+> >  		return ret;
+> >  	}
+> >
+> > +	pm_runtime_set_autosuspend_delay(&i2c->dev, 100);
+> > +	pm_runtime_use_autosuspend(&i2c->dev);
+> > +	pm_runtime_set_active(&i2c->dev);
+>=20
+> Again this can return an error. Are we certain this won't fail?
+
+This only provides the information, that the device is running. The
+parent might be affected, but that is running anyways since we are
+probing a child device.
+
+> > +	pm_runtime_enable(&i2c->dev);
+> > +
+> >  	ret =3D devm_snd_soc_register_component(&i2c->dev,
+> >  			&soc_component_dev_da7213, &da7213_dai, 1);
+> >  	if (ret < 0) {
+> > @@ -1876,6 +1924,34 @@ static int da7213_i2c_probe(struct i2c_client *i=
+2c,
+> >  	return ret;
+> >  }
+> >
+> > +static int __maybe_unused da7213_runtime_suspend(struct device *dev)
+> > +{
+> > +	struct da7213_priv *da7213 =3D dev_get_drvdata(dev);
+> > +
+> > +	regcache_cache_only(da7213->regmap, true);
+> > +	regcache_mark_dirty(da7213->regmap);
+> > +	regulator_bulk_disable(DA7213_NUM_SUPPLIES, da7213->supplies);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int __maybe_unused da7213_runtime_resume(struct device *dev)
+> > +{
+> > +	struct da7213_priv *da7213 =3D dev_get_drvdata(dev);
+> > +	int ret;
+> > +
+> > +	ret =3D regulator_bulk_enable(DA7213_NUM_SUPPLIES, da7213-
+> > >supplies);
+> > +	if (ret < 0)
+> > +		return ret;
+> > +	regcache_cache_only(da7213->regmap, false);
+> > +	regcache_sync(da7213->regmap);
+> > +	return 0;
+> > +}
+> > +
+> > +static const struct dev_pm_ops da7213_pm =3D {
+> > +	SET_RUNTIME_PM_OPS(da7213_runtime_suspend,
+> > da7213_runtime_resume, NULL)
+> > +};
+> > +
+> >  static const struct i2c_device_id da7213_i2c_id[] =3D {
+> >  	{ "da7213", 0 },
+> >  	{ }
+> > @@ -1888,6 +1964,7 @@ static struct i2c_driver da7213_i2c_driver =3D {
+> >  		.name =3D "da7213",
+> >  		.of_match_table =3D of_match_ptr(da7213_of_match),
+> >  		.acpi_match_table =3D ACPI_PTR(da7213_acpi_match),
+> > +		.pm =3D &da7213_pm,
+> >  	},
+> >  	.probe		=3D da7213_i2c_probe,
+> >  	.id_table	=3D da7213_i2c_id,
+> > diff --git a/sound/soc/codecs/da7213.h b/sound/soc/codecs/da7213.h
+> > index 3250a3821fcc..3890829dfb6e 100644
+> > --- a/sound/soc/codecs/da7213.h
+> > +++ b/sound/soc/codecs/da7213.h
+> > @@ -12,6 +12,7 @@
+> >
+> >  #include <linux/clk.h>
+> >  #include <linux/regmap.h>
+> > +#include <linux/regulator/consumer.h>
+> >  #include <sound/da7213.h>
+> >
+> >  /*
+> > @@ -521,9 +522,17 @@ enum da7213_sys_clk {
+> >  	DA7213_SYSCLK_PLL_32KHZ
+> >  };
+> >
+> > +/* Regulators */
+> > +enum da7213_supplies {
+> > +	DA7213_SUPPLY_VDDA =3D 0,
+> > +	DA7213_SUPPLY_VDDIO,
+> > +	DA7213_NUM_SUPPLIES,
+> > +};
+> > +
+> >  /* Codec private data */
+> >  struct da7213_priv {
+> >  	struct regmap *regmap;
+> > +	struct regulator_bulk_data supplies[DA7213_NUM_SUPPLIES];
+> >  	struct clk *mclk;
+> >  	unsigned int mclk_rate;
+> >  	int clk_src;
+> > --
+> > 2.24.0
+
+--gk55dsxwjd3b4ywe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAl3YFkUACgkQ2O7X88g7
++po30A//RCzD8tGjVb4d/G7dZdysRylbx7pg2UdoQzR3LORFcjK1Pi9cLaRERCIx
+Uqcw2MhtCb97uIYDRTWRL9h5KNO3q9szfnrbkQfvmxCvm5gRUqHWaPDH3yORB0Dc
+7rQClpdmm8IFWMNYlhL0m9R+3bmQ4973NsK/c6d9F24SB/wFd5RWhw+/9AjeRFOz
+2rj+840+KZJyz6RFCt8LhDIPyUi1MLxLGR924/itBUFZmqhNg34jr1eCGKD7UwFK
+h8qHMQdJ8Cc/XCTnLEbt4ndxoR2wAN+JamYefT30+GD+ghtoORHy9MfSpWZlfz69
+/3lGnX/VJ1/Md0HxTEWxFdQRkXAt9hzL0MpKiB++muyjyvExIkxv8esFDEm5R2VX
+TGFPcdR/TXAwi8ZX/MKrPulcRC9d33tyMninTOCztY+JEJ6mcP+WV2RGQQHlvjg7
+2gdOiNhUHveePebWhArJ6czAKIQIEjZLA0ka2mjOgMxafX/ODA34PhZ0K3YmAd2b
+8ztT//UYV+XM9vo6HPuqs/8auaX7zkoasHliZR8aijxGG66LMf66emCxuRRoAMXS
+vkQZzOCRyy0E/As0H4cjlR/4MbTpxpltszRBmmjYt6s8JrcGUr5xi6WArOeyhP43
+bXYYYrT1iRQ9ZqG9+TB3+RILy4NGuywmsl37wPN57t8PaqjCX3I=
+=1dJK
+-----END PGP SIGNATURE-----
+
+--gk55dsxwjd3b4ywe--
+
+--===============3419240049367347544==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3419240049367347544==--

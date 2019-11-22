@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEF7C107656
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 18:22:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C922410766C
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 18:28:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 44DB41811;
-	Fri, 22 Nov 2019 18:21:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44DB41811
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4052B1807;
+	Fri, 22 Nov 2019 18:27:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4052B1807
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574443341;
-	bh=6tuFx6Xs6Rdz8fdGCbs1PZJKF6lT1MCm2IC2HjnmKt0=;
+	s=default; t=1574443724;
+	bh=fA3P39ocJl0/qi7n6JEudWlZQkJjvnr5kwCX9h1DmtI=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UOeq1IxLZPGJABVlMP7Js5tgfFxBRMTgwSkWrfIJxstBAcAWDARojxNGColMhknaZ
-	 kdWO9vGJfh36mtXy2aRLW+oqFD5Gj9qUNLq51wbdwz0he+OviN0tBJuWzbCanCxy9Y
-	 7mb7CXEZNCsSJO98EoeGvb4r5mY/RS2nJJcRyti4=
+	b=sI5FMXYVE0qWBIQwmBs2L1JcKsuU6eurziq+lyFhEsdgPIwmZDnglF159CV82nRNs
+	 HAhFVP8OWFFhFYvUsQeC6ukMCG3qc2zOP2Ub/36WpYpTKvALYnh1KRyLZgfQzWFhSY
+	 0KKFtYxpAuTBu15MYSlQt7RXrcjldjfzJstVuIVo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F1295F80140;
-	Fri, 22 Nov 2019 18:20:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D54A8F8013F;
+	Fri, 22 Nov 2019 18:27:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82DDCF80140; Fri, 22 Nov 2019 18:20:35 +0100 (CET)
+ id 2B769F80140; Fri, 22 Nov 2019 18:26:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_PASS,SPF_PASS,UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from bhuna.collabora.co.uk (bhuna.collabora.co.uk
- [IPv6:2a00:1098:0:82:1000:25:2eeb:e3e3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15575F800EF
- for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 18:20:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15575F800EF
-Received: from [127.0.0.1] (localhost [127.0.0.1]) (Authenticated sender: sre)
- with ESMTPSA id DE6C2291D1A
-Received: by earth.universe (Postfix, from userid 1000)
- id 85EB63C0C71; Fri, 22 Nov 2019 18:20:29 +0100 (CET)
-Date: Fri, 22 Nov 2019 18:20:29 +0100
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-Message-ID: <20191122172029.spocjr762ojxie5n@earth.universe>
-References: <20191120152406.2744-1-sebastian.reichel@collabora.com>
- <20191120152406.2744-2-sebastian.reichel@collabora.com>
- <AM5PR1001MB0994D2F45FA75E8285938191804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id BE920F800EF
+ for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 18:26:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE920F800EF
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 85757FEC;
+ Fri, 22 Nov 2019 09:26:53 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 022DE3F6C4;
+ Fri, 22 Nov 2019 09:26:52 -0800 (PST)
+Date: Fri, 22 Nov 2019 17:26:51 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Message-ID: <20191122172651.GF6849@sirena.org.uk>
+References: <1574336761-16717-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <1574336761-16717-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <AM5PR1001MB0994D2F45FA75E8285938191804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Support Opensource <Support.Opensource@diasemi.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- "kernel@collabora.com" <kernel@collabora.com>
-Subject: Re: [alsa-devel] [PATCHv2 1/6] ASoC: da7213: Add da7212 DT
-	compatible
+In-Reply-To: <1574336761-16717-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Cookie: sillema sillema nika su
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: pierre-louis.bossart@linux.intel.com,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ djkurtz@google.com, Alexander.Deucher@amd.com, Akshu.Agrawal@amd.com,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [alsa-devel] [RESEND PATCH v11 1/6] ASoC: amd:Create multiple
+ I2S platform device endpoints
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,62 +70,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8684055170242120015=="
+Content-Type: multipart/mixed; boundary="===============1532514972150117955=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============8684055170242120015==
+--===============1532514972150117955==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="tysshi4s2jnkbg3v"
+	protocol="application/pgp-signature"; boundary="DO5DiztRLs659m5i"
 Content-Disposition: inline
 
 
---tysshi4s2jnkbg3v
+--DO5DiztRLs659m5i
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Thu, Nov 21, 2019 at 05:15:56PM +0530, Ravulapati Vishnu vardhan rao wrote:
+> Creates Platform Device endpoints for multiple
+> I2S instances: SP and  BT endpoints device.
+> Pass PCI resources like MMIO, irq to the platform devices.
 
-On Thu, Nov 21, 2019 at 08:10:30PM +0000, Adam Thomson wrote:
-> [...]
->
-> >  Required properties:
-> > -- compatible : Should be "dlg,da7213"
-> > +- compatible : Should be "dlg,da7212" or "dlg,7213"
->=20
-> Typo? "dlg,da7213"
+Please when you're posting stuff don't put these RESEND tags on some
+patches in the series, they're not helpful - having them in some but not
+all patches is inconsistent, you're sending a new version of the series
+here.
 
-Ack.
-
-> [...]
-
--- Sebastian
-
---tysshi4s2jnkbg3v
+--DO5DiztRLs659m5i
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAl3YGNcACgkQ2O7X88g7
-+prT3A//SdxIQx4L3dfQzpv+3LGWycvNn4B5b2ZV5zcwDVJV+vdONMLtwDR+2clL
-MDjh3nDty/JesN5L5pTB30e6zIAJB2fnbfpmIqzztW8xxOO/COc24T8Y1LYU68og
-VgaVTAPMY4O6zgF1th3FjLFC2h93vzvZZL69t+060bqbU5t+FFXopwOXpP4zby/S
-4C/VtljyTNiLtgq+f8nqnqVlSddM/gKMQeHnA2AeQL8n3AFHRmtFiv6kNp13N+1g
-FKisBHv/pwD7IPTvl7odDrYf2RWmptbVDGf5xFJl3SsbtwQ2zJfDHxQkcp1rfymZ
-TbQgKgRlzSyHQpBaJiBYvAR+KzHiI5fBrZhw5F4XDKxjxeg8G7F9DdWell9ZUkfL
-K0e6wVwGuntb/LXRo2TE3oDzXIJ9hzZwUeqCxxnOCR9pWRY2cp7tO3aaPpNa+DAg
-z63KpwTyBvOd0n8jb85BdhA2hABJBw9cffGjhUEOxMOhcb/ngFJlhxrY67IIS4o7
-2t9mZWmBcc9Y7BP2rSMGJsOnqJsD9EL6tFSkRlMbNovwBp7+eUgTG8AdrH7Iho0x
-4JLiBts0EO4XzsdYhtYbZcjzyCxBtj3tVWFBBU3VDSJp4eAxtVLoDalSYgY/+sJe
-BzY70BsifFGyR6EK1hSY3zGLUTNd5kfA3VXr5BYwcvgcKbtns58=
-=Hzv+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3YGloACgkQJNaLcl1U
+h9Cv0wf7BLPxHi6VlmnTYgV2HFFERU+rkkk/A78kSRLvCcFbJT+mzHY7PvqTNDSi
+G8OoUscWHgFVfVvsfGQV3fscMC9RFpQQJeKsw0/4Z9YPWhrkUZGlSnWJi0oW63oF
+lmhUmzsmhCgIlSPHFcDZcNTuY0prLy9zEfQqlnk2zVWBJ5TTpK94bzio19HYKCK2
+NgVJx8eFAyGRSDBC2hy2qxOYQ3gOARdwADsmq43KR1oVT2Ru66QZT6V6ZVgFurJr
+unKYQoLepbAC4SHNMrMGIvTAdVJKJfl5/8kuRaWOrUCw8XSjerYeG2g1WxJwm/TD
+u3Gnrw8NkkWUT3XcAFMbZ+vJcvokjw==
+=+sSD
 -----END PGP SIGNATURE-----
 
---tysshi4s2jnkbg3v--
+--DO5DiztRLs659m5i--
 
---===============8684055170242120015==
+--===============1532514972150117955==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -136,4 +123,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============8684055170242120015==--
+--===============1532514972150117955==--

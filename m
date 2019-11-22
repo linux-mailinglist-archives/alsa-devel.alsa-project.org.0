@@ -2,61 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB85E106A4D
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 11:33:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9C0A10715C
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 12:30:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A0DA17FC;
-	Fri, 22 Nov 2019 11:32:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A0DA17FC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5D6AA17F8;
+	Fri, 22 Nov 2019 12:29:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5D6AA17F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574418828;
-	bh=64NfzvPtOsWCau5qJgK5rhUAZYlF5qjoNMc12gplpvw=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=guUuhEY9zT3h6UNHDI3PI6VIyRbFDNHGREjyK6CA1llAj2NRRP2Q8ZutNXfBybEXt
-	 Jw/2hSs8/4kQniGnICfyR6N4USuTrmOZcBO4Zp6wWLxCnH1x76gyRtQeAJI3qK8y98
-	 FU9BQSaEk4sINL7bKcY1M9JDTmvjeD5wwc+i4/Es=
+	s=default; t=1574422201;
+	bh=b5IRJAFp++zuvmfCqDbrh5LiFzE+htfR0ypqVbYSlaE=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ew/C0BDymb4ZQOIk+fGe1VaB3nFhcQR4xHEMFPqKKmJMkWWgE7bXBFXtjyC6ZllWP
+	 V0HnAZZIzYPIYrun1ZJR4PF7XiUcD64M63oBhtGMk1Y4Xsj64wn16ItfpByIcqu5wD
+	 mLl/N7u1lf7PL39jm7Odbug05AJmYN0BD3+YL3GU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CFBFAF80150;
-	Fri, 22 Nov 2019 11:32:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A30F6F80140;
+	Fri, 22 Nov 2019 12:28:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7AD92F80140; Fri, 22 Nov 2019 11:32:02 +0100 (CET)
+ id C76C8F80140; Fri, 22 Nov 2019 12:28:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F727F800EF
- for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 11:31:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F727F800EF
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E259B1A00B2;
- Fri, 22 Nov 2019 11:31:57 +0100 (CET)
-Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
- [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 3903D1A01FD;
- Fri, 22 Nov 2019 11:31:52 +0100 (CET)
-Received: from localhost.localdomain (shlinux2.ap.freescale.net
- [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 0071B4027F;
- Fri, 22 Nov 2019 18:31:44 +0800 (SGT)
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- shengjiu.wang@nxp.com, kstewart@linuxfoundation.org,
- gregkh@linuxfoundation.org, allison@lohutok.net, tglx@linutronix.de,
- patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Date: Fri, 22 Nov 2019 18:30:13 +0800
-Message-Id: <cff745cc041c5208910821f0740f988926af8a66.1574418380.git.shengjiu.wang@nxp.com>
-X-Mailer: git-send-email 2.7.4
-X-Virus-Scanned: ClamAV using ClamSMTP
-Subject: [alsa-devel] [RESEND PATCH] ASoC: wm8524: Add support S32_LE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99249F800EE
+ for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 12:28:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99249F800EE
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id EB634AF19;
+ Fri, 22 Nov 2019 11:28:06 +0000 (UTC)
+Date: Fri, 22 Nov 2019 12:28:05 +0100
+Message-ID: <s5h4kyw5ewq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Dan Carpenter <dan.carpenter@oracle.com>
+In-Reply-To: <20191121204956.GE617@kadam>
+References: <0000000000002129080597dce70d@google.com>
+ <20191121204956.GE617@kadam>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, g@b4.vu, andreyknvl@google.com,
+ linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+ linux-kernel@vger.kernel.org,
+ syzbot <syzbot+a36ab65c6653d7ccdd62@syzkaller.appspotmail.com>,
+ gregkh@linuxfoundation.org, tiwai@suse.com, benquike@gmail.com,
+ wang6495@umn.edu
+Subject: Re: [alsa-devel] general protection fault in snd_usb_create_mixer
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,37 +70,105 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Allow 32bit sample with this codec.
+On Thu, 21 Nov 2019 21:49:56 +0100,
+Dan Carpenter wrote:
+> 
+> On Thu, Nov 21, 2019 at 07:25:09AM -0800, syzbot wrote:
+> > Hello,
+> > 
+> > syzbot found the following crash on:
+> > 
+> > HEAD commit:    46178223 usb: gadget: add raw-gadget interface
+> > git tree:       https://github.com/google/kasan.git usb-fuzzer
+> > console output: https://syzkaller.appspot.com/x/log.txt?x=176f9836e00000
+> > kernel config:  https://syzkaller.appspot.com/x/.config?x=99c88c44660624e7
+> > dashboard link: https://syzkaller.appspot.com/bug?extid=a36ab65c6653d7ccdd62
+> > compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+> > syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1447d3bae00000
+> > C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17ef3a86e00000
+> > 
+> > IMPORTANT: if you fix the bug, please add the following tag to the commit:
+> > Reported-by: syzbot+a36ab65c6653d7ccdd62@syzkaller.appspotmail.com
+> > 
+> > usb 1-1: 208:241 : does not exist
+> > usb 1-1: 208:242 : does not exist
+> > usb 1-1: 208:243 : does not exist
+> > usb 1-1: 208:244 : does not exist
+> > usb 1-1: 208:245 : does not exist
+> > usb 1-1: 208:246 : does not exist
+> > usb 1-1: 208:247 : does not exist
+> > usb 1-1: 208:248 : does not exist
+> > usb 1-1: 208:249 : does not exist
+> > usb 1-1: 208:250 : does not exist
+> 
+> These error messages are because:
+> 
+> sound/usb/card.c
+>    128  static int snd_usb_create_stream(struct snd_usb_audio *chip, int ctrlif, int interface)
+>    129  {
+>    130          struct usb_device *dev = chip->dev;
+>    131          struct usb_host_interface *alts;
+>    132          struct usb_interface_descriptor *altsd;
+>    133          struct usb_interface *iface = usb_ifnum_to_if(dev, interface);
+>    134  
+>    135          if (!iface) {
+>    136                  dev_err(&dev->dev, "%u:%d : does not exist\n",
+>    137                          ctrlif, interface);
+>    138                  return -EINVAL;
+>    139          }
+> 
+> "iface" is NULL.  The caller ignores the -EINVAL (correctly I think).
+> 
+> Then the NULL dereference happens in snd_usb_mixer_controls_badd()
+> 
+> sound/usb/mixer.c
+>   2903  static int snd_usb_mixer_controls_badd(struct usb_mixer_interface *mixer,
+>   2904                                         int ctrlif)
+>   2905  {
+>   2906          struct usb_device *dev = mixer->chip->dev;
+>   2907          struct usb_interface_assoc_descriptor *assoc;
+>   2908          int badd_profile = mixer->chip->badd_profile;
+>   2909          struct uac3_badd_profile *f;
+>   2910          const struct usbmix_ctl_map *map;
+>   2911          int p_chmask = 0, c_chmask = 0, st_chmask = 0;
+>   2912          int i;
+>   2913  
+>   2914          assoc = usb_ifnum_to_if(dev, ctrlif)->intf_assoc;
+>   2915  
+>   2916          /* Detect BADD capture/playback channels from AS EP descriptors */
+>   2917          for (i = 0; i < assoc->bInterfaceCount; i++) {
+>   2918                  int intf = assoc->bFirstInterface + i;
+>   2919  
+>   2920                  struct usb_interface *iface;
+>   2921                  struct usb_host_interface *alts;
+>   2922                  struct usb_interface_descriptor *altsd;
+>   2923                  unsigned int maxpacksize;
+>   2924                  char dir_in;
+>   2925                  int chmask, num;
+>   2926  
+>   2927                  if (intf == ctrlif)
+>   2928                          continue;
+>   2929  
+>   2930                  iface = usb_ifnum_to_if(dev, intf);
+>                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> iface is not checked.
+> 
+> Should it be "if (!iface) continue;?"
 
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/codecs/wm8524.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Right, that should fix the problem.  Although the interface number
+referred in snd_usb_mixer_controls_badd() can be different from the
+one checked in snd_usb_create_stream(), the culprit is the missing
+NULL check there.
 
-diff --git a/sound/soc/codecs/wm8524.c b/sound/soc/codecs/wm8524.c
-index 91e3d1570c45..4e9ab542f648 100644
---- a/sound/soc/codecs/wm8524.c
-+++ b/sound/soc/codecs/wm8524.c
-@@ -159,7 +159,9 @@ static int wm8524_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
- 
- #define WM8524_RATES SNDRV_PCM_RATE_8000_192000
- 
--#define WM8524_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE)
-+#define WM8524_FORMATS (SNDRV_PCM_FMTBIT_S16_LE |\
-+			SNDRV_PCM_FMTBIT_S24_LE |\
-+			SNDRV_PCM_FMTBIT_S32_LE)
- 
- static const struct snd_soc_dai_ops wm8524_dai_ops = {
- 	.startup	= wm8524_startup,
--- 
-2.21.0
 
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,71 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8446910784F
-	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 20:51:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3908107850
+	for <lists+alsa-devel@lfdr.de>; Fri, 22 Nov 2019 20:52:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0D5F6183E;
-	Fri, 22 Nov 2019 20:51:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D5F6183E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3D3261835;
+	Fri, 22 Nov 2019 20:51:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D3261835
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574452313;
-	bh=DgoLSwLW5fuzvZJucZ6FEnNcs/0OT4Y2IqZYc0gTkKg=;
+	s=default; t=1574452360;
+	bh=NSHstdce+Syj54Jh4uJ/1nLnUi1oMas8D4s/SwtvYEw=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bStVArP/wWNBYbTB87/zxTq3pooN6FLwEzJUz/Fxg4fNcDCiWNsEXd/WMfqwsFBLX
-	 A3vaizy5kwrxFXzVsWWtiIjdQN+g+QB/xnfUgQd/wxrnFYcPV3kNoGvwW9rrx5yggZ
-	 xi6qSKbIf/rSDgYnVto8pQ+Fi3hyMrJMfeB/5CsA=
+	b=nb+wTfMdTFWbPpqwUHgoKUubppE57em/qLuY5b4+Oj6Pjw26Moy2JlDsrUW62L5t5
+	 8VtyiPmnTxJIUUFePUurT6WTlvbe7ISddFLVmHGIKl4EFL1W6b/iOZfk4SWzeEKb1L
+	 CkLnFPcZfj/eiuJNYHkJE1Ii/wcu1lfPRTHrgRi8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07F7AF8015B;
-	Fri, 22 Nov 2019 20:49:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67516F80160;
+	Fri, 22 Nov 2019 20:50:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0706BF80159; Fri, 22 Nov 2019 20:49:50 +0100 (CET)
+ id 629B8F8015E; Fri, 22 Nov 2019 20:50:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35942F800EF
- for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 20:49:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35942F800EF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C40AF8015A
+ for <alsa-devel@alsa-project.org>; Fri, 22 Nov 2019 20:50:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C40AF8015A
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="e6fByvox"
+ header.b="Tlq4Gs0c"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9DFB620658;
- Fri, 22 Nov 2019 19:49:44 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id B7A542084D;
+ Fri, 22 Nov 2019 19:50:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1574452185;
- bh=C+M+dkqlPuWxaT4c3/MwIJpUvrvzuALHtnCxEPl+/7M=;
+ s=default; t=1574452206;
+ bh=vu3BNhVtu/OVi6DJ35glNw192nWK9hfAbzabOyJgl4w=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=e6fByvoxX1J3nSN+yW8EdvrxFu/sBLJCBifq1lk7fIvBRI9dOyROz7eJN1G96i/QZ
- 5kJRZqoQ06W2F9e6om/LyAjPFA9oK08a7K9UvBP1+HuLp/Mbg18p+2QBl6CZgpcxNr
- p6xZtVu0HsXHeTVN7PRWqEN6QAYgbkhbOSV+tqWI=
+ b=Tlq4Gs0c1zyTqLDLZL9jJR6lWtB2ErPwTVdQLLMgoZL5BqPTKMeyfJ87KNnngdHyc
+ 7Hu3hhd0WM1KwH5WTA7WHj77VM06xnXK6dsRlyE+z3tLlPrIWnL9Q/0QETMRv9X5VN
+ Gq5cPFlyEsWk99nkVTch0Ayff755dfL+Q7PaHO74=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 22 Nov 2019 14:49:21 -0500
-Message-Id: <20191122194931.24732-11-sashal@kernel.org>
+Date: Fri, 22 Nov 2019 14:49:52 -0500
+Message-Id: <20191122194958.24926-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191122194931.24732-1-sashal@kernel.org>
-References: <20191122194931.24732-1-sashal@kernel.org>
+In-Reply-To: <20191122194958.24926-1-sashal@kernel.org>
+References: <20191122194958.24926-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
  alsa-devel@alsa-project.org, paulhsia <paulhsia@chromium.org>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.14 11/21] ALSA: pcm: Fix stream lock
+Subject: [alsa-devel] [PATCH AUTOSEL 4.9 07/13] ALSA: pcm: Fix stream lock
 	usage in snd_pcm_period_elapsed()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -102,10 +102,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 729a85a6211d6..80453266a2def 100644
+index 3acb373674c37..f09ae7efc6957 100644
 --- a/sound/core/pcm_lib.c
 +++ b/sound/core/pcm_lib.c
-@@ -1803,11 +1803,14 @@ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream)
+@@ -1877,11 +1877,14 @@ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream)
  	struct snd_pcm_runtime *runtime;
  	unsigned long flags;
  
@@ -122,14 +122,14 @@ index 729a85a6211d6..80453266a2def 100644
  	if (!snd_pcm_running(substream) ||
  	    snd_pcm_update_hw_ptr0(substream, 1) < 0)
  		goto _end;
-@@ -1818,6 +1821,7 @@ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream)
+@@ -1892,6 +1895,7 @@ void snd_pcm_period_elapsed(struct snd_pcm_substream *substream)
  #endif
   _end:
  	kill_fasync(&runtime->fasync, SIGIO, POLL_IN);
 + _unlock:
  	snd_pcm_stream_unlock_irqrestore(substream, flags);
  }
- EXPORT_SYMBOL(snd_pcm_period_elapsed);
+ 
 -- 
 2.20.1
 

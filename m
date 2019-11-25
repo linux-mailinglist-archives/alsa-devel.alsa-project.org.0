@@ -2,60 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EAF5108AAF
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Nov 2019 10:21:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E93E7108B05
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Nov 2019 10:37:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 88BD0189D;
-	Mon, 25 Nov 2019 10:21:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88BD0189D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62CED18A3;
+	Mon, 25 Nov 2019 10:36:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62CED18A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574673711;
-	bh=nl4w9rypSShs2+i/AyOXTLJtdF3aeDm6IC3O7iW3wKk=;
+	s=default; t=1574674632;
+	bh=WZ6DSmWOu/LoZiW4OREfkQ8c49lkjdK07UvJwOaWGEk=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Cy3KzbmUowo4SqXjV9J9CExWvU2Nw5tpsd+Bic1at/LVW6TJ34WNlleZX28CMUv0Z
-	 PRaLn8nGkA2/K7bnTThJAvB7H7bEY1Hhyk6WAYr981w0PlDozuasfRnoahMhVwo30t
-	 SPAOGxjeCr9QTydiaQwUjfWuRUFX12eIERniJe40=
+	b=lhOPx173saqmc7KHb0NAr+I306unO3DUI6YvdlZpnr7yGcCvnn9Hdec5aiY6kjmkT
+	 XHBO4vPNqwihRYQimHxnYmkfwFigoofn7z9JHsXCA5bNPl9z7ME9z8kxQMeGy4mOtI
+	 3odSzU5McarlmOKXL8e8kUYXrlGPL1ebYVAalMC8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BDD1F8019B;
-	Mon, 25 Nov 2019 10:20:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C383F8014D;
+	Mon, 25 Nov 2019 10:35:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F76BF8016F; Mon, 25 Nov 2019 10:20:05 +0100 (CET)
+ id F18F2F8016F; Mon, 25 Nov 2019 10:35:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E64C5F800AB
- for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 10:19:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E64C5F800AB
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID xAP9JoDx008601,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCASV01.realtek.com.tw[172.21.6.18])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id xAP9JoDx008601
- (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
- Mon, 25 Nov 2019 17:19:50 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTITCASV01.realtek.com.tw (172.21.6.18) with Microsoft SMTP Server id
- 14.3.468.0; Mon, 25 Nov 2019 17:19:49 +0800
-From: <shumingf@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Date: Mon, 25 Nov 2019 17:19:40 +0800
-Message-ID: <20191125091940.11953-1-shumingf@realtek.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 837FDF800E5
+ for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 10:35:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 837FDF800E5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
+ header.i=@endlessm-com.20150623.gappssmtp.com header.b="Emq8bumT"
+Received: by mail-pf1-x441.google.com with SMTP id x28so7096181pfo.6
+ for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 01:35:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessm-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4/z6y/lM25UnwrOC7SJQVocxqxujjJ+VWEHPJueEijk=;
+ b=Emq8bumTRWRp4IfwHVIBioxstETvN2zCnvFpvuYDFD+VNDlXil2IIyFxjnw+XCmh0w
+ l3UyxtIg2AgMnP83Ef+GM4IoKNFnDvIz51MIlgr0mFNQ2UNPNZI8+aaUBD1feBCYkvHS
+ rtoBy+mUu08tugYNlD5wLTmILXyRfNyN8YSY2Zp81Vh+8IkHH5FHVblPO7usVcii+wLO
+ iU63I5N+JgPojMvFtPKHA5u51OT944+Yc7Qf+tuEhZv3ftUtegHhSn6Mx+vjuAX0QIeq
+ cx2N9Ji0/Qu4brX994RRM4Pi+CmVRXVuhgmuQObGJFWMQabWmZQ0wc+8rQ0fivuj7v0O
+ 9MsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=4/z6y/lM25UnwrOC7SJQVocxqxujjJ+VWEHPJueEijk=;
+ b=iXR/Iv4I261OB8r9s0H1Ma8qsvDj6nlBijwB7LtrV1k0d6IB+fzWkfmdJqVYzygUEC
+ ayD1g4G3y9tTehf85aAPA8mB0BMdyI4IygkXjN/ArJsxU0AfuihlTW1eittTnw0CIHcX
+ 4zl93105C7jUGqS2D0cQIlGljOGkYoLpMloYbm+jH56esxEmQepObBeMuzdeAYfEgtcc
+ oY0eg1ZN9D8u8cCcx0QMyolf29rqkHY76cZjKo7GIT0fnDTYje6clg2kl/zp6zPiZoYF
+ 6jnxa2Z8iQtw5auPXIb5pBcyBhPecYuoxbGXQmRT277xVkvN3KLM4dmf+SoYHMTrrCu1
+ pPmg==
+X-Gm-Message-State: APjAAAW4lP0xZqripjC5rdQZl/maO6Oc9kDxbykH47onLhUFnTWAwSw6
+ HRy8K43A22fxniTcAGDtCVLt6w==
+X-Google-Smtp-Source: APXvYqx1wUh4ZkMgMOZDf3dRtAJT4xi4XMxa2xxICe7xCOcPRD6k8ebBROgF9NQQtyiBzRobB+vZ4Q==
+X-Received: by 2002:aa7:982c:: with SMTP id q12mr33929274pfl.83.1574674519876; 
+ Mon, 25 Nov 2019 01:35:19 -0800 (PST)
+Received: from localhost.localdomain (123-204-46-122.static.seed.net.tw.
+ [123.204.46.122])
+ by smtp.gmail.com with ESMTPSA id f10sm7459009pfd.28.2019.11.25.01.35.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 25 Nov 2019 01:35:19 -0800 (PST)
+From: Jian-Hong Pan <jian-hong@endlessm.com>
+To: Takashi Iwai <tiwai@suse.com>
+Date: Mon, 25 Nov 2019 17:34:06 +0800
+Message-Id: <20191125093405.5702-1-jian-hong@endlessm.com>
 X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-X-Originating-IP: [172.22.102.1]
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, Shuming Fan <shumingf@realtek.com>, albertchen@realtek.com,
- derek.fang@realtek.com, sathya.prakash.m.r@intel.com, flove@realtek.com
-Subject: [alsa-devel] [PATCH] ASoC: rt5682: fix i2c arbitration lost issue
+Cc: Jian-Hong Pan <jian-hong@endlessm.com>, alsa-devel@alsa-project.org,
+ Kailang Yang <kailang@realtek.com>, linux@endlessm.com,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] ALSA: hda/realtek - Enable internal speaker of
+	ASUS UX431FLC
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,37 +102,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shuming Fan <shumingf@realtek.com>
+Laptops like ASUS UX431FLC and UX431FL can share the same audio quirks.
+But UX431FLC needs one more step to enable the internal speaker: Pull
+the GPIO from CODEC to initialize the AMP.
 
-This patch modified the HW initial setting to fix i2c arbitration lost issue.
-
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
+Fixes: 60083f9e94b2 ("ALSA: hda/realtek - Enable internal speaker & headset mic of ASUS UX431FL")
+Signed-off-by: Jian-Hong Pan <jian-hong@endlessm.com>
 ---
- sound/soc/codecs/rt5682.c | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/pci/hda/patch_realtek.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index b1713fffa3eb..ae6f6121bc1b 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -73,6 +73,7 @@ struct rt5682_priv {
- static const struct reg_sequence patch_list[] = {
- 	{RT5682_HP_IMP_SENS_CTRL_19, 0x1000},
- 	{RT5682_DAC_ADC_DIG_VOL1, 0xa020},
-+	{RT5682_I2C_CTRL, 0x000f},
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 80f66ba85f87..eb6894a67302 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -5892,6 +5892,7 @@ enum {
+ 	ALC299_FIXUP_PREDATOR_SPK,
+ 	ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC,
+ 	ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE,
++	ALC294_FIXUP_ASUS_INTSPK_GPIO,
  };
  
- static const struct reg_default rt5682_reg[] = {
-@@ -2474,6 +2475,7 @@ static void rt5682_calibrate(struct rt5682_priv *rt5682)
- 	mutex_lock(&rt5682->calibrate_mutex);
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -6982,6 +6983,13 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC256_FIXUP_ASUS_HEADSET_MODE
+ 	},
++	[ALC294_FIXUP_ASUS_INTSPK_GPIO] = {
++		.type = HDA_FIXUP_FUNC,
++		/* The GPIO must be pulled to initialize the AMP */
++		.v.func = alc_fixup_gpio4,
++		.chained = true,
++		.chain_id = ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC
++	},
+ };
  
- 	rt5682_reset(rt5682->regmap);
-+	regmap_write(rt5682->regmap, RT5682_I2C_CTRL, 0x000f);
- 	regmap_write(rt5682->regmap, RT5682_PWR_ANLG_1, 0xa2af);
- 	usleep_range(15000, 20000);
- 	regmap_write(rt5682->regmap, RT5682_PWR_ANLG_1, 0xf2af);
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -7141,7 +7149,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS_ZENBOOK),
+ 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
+ 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+-	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC),
++	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_INTSPK_GPIO),
+ 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
+ 	SND_PCI_QUIRK(0x1043, 0x1a30, "ASUS X705UD", ALC256_FIXUP_ASUS_MIC),
 -- 
-2.24.0
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

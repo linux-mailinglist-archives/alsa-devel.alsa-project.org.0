@@ -2,89 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E93E7108B05
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Nov 2019 10:37:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AFC2D108B38
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Nov 2019 10:53:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62CED18A3;
-	Mon, 25 Nov 2019 10:36:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62CED18A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id C41561895;
+	Mon, 25 Nov 2019 10:52:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C41561895
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574674632;
-	bh=WZ6DSmWOu/LoZiW4OREfkQ8c49lkjdK07UvJwOaWGEk=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=lhOPx173saqmc7KHb0NAr+I306unO3DUI6YvdlZpnr7yGcCvnn9Hdec5aiY6kjmkT
-	 XHBO4vPNqwihRYQimHxnYmkfwFigoofn7z9JHsXCA5bNPl9z7ME9z8kxQMeGy4mOtI
-	 3odSzU5McarlmOKXL8e8kUYXrlGPL1ebYVAalMC8=
+	s=default; t=1574675618;
+	bh=YfBZz2iitc/5Kdnxpr+C2BpQZyQfpPj33inkn+1HM0M=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=J4PNiPxmVGt+eAqWUKXsxpZr1cO53wMOQx8KYCJ3sOGsHWX87MCaJcx2ULCetX9K0
+	 Ov2yyluktp1PKAgoMQ2r3CbGbHol9IGnL/werIol86n4HhEgWKEGH0v+ZfOo1su7Ph
+	 JM/qhj0Xw6Mk9r8FiraPb/w48F8RJOPG0VHxFQjI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C383F8014D;
-	Mon, 25 Nov 2019 10:35:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5503CF800E5;
+	Mon, 25 Nov 2019 10:51:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F18F2F8016F; Mon, 25 Nov 2019 10:35:25 +0100 (CET)
+ id 7A4F2F800E5; Mon, 25 Nov 2019 10:51:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
+ [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 837FDF800E5
- for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 10:35:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 837FDF800E5
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
- header.i=@endlessm-com.20150623.gappssmtp.com header.b="Emq8bumT"
-Received: by mail-pf1-x441.google.com with SMTP id x28so7096181pfo.6
- for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 01:35:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessm-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4/z6y/lM25UnwrOC7SJQVocxqxujjJ+VWEHPJueEijk=;
- b=Emq8bumTRWRp4IfwHVIBioxstETvN2zCnvFpvuYDFD+VNDlXil2IIyFxjnw+XCmh0w
- l3UyxtIg2AgMnP83Ef+GM4IoKNFnDvIz51MIlgr0mFNQ2UNPNZI8+aaUBD1feBCYkvHS
- rtoBy+mUu08tugYNlD5wLTmILXyRfNyN8YSY2Zp81Vh+8IkHH5FHVblPO7usVcii+wLO
- iU63I5N+JgPojMvFtPKHA5u51OT944+Yc7Qf+tuEhZv3ftUtegHhSn6Mx+vjuAX0QIeq
- cx2N9Ji0/Qu4brX994RRM4Pi+CmVRXVuhgmuQObGJFWMQabWmZQ0wc+8rQ0fivuj7v0O
- 9MsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=4/z6y/lM25UnwrOC7SJQVocxqxujjJ+VWEHPJueEijk=;
- b=iXR/Iv4I261OB8r9s0H1Ma8qsvDj6nlBijwB7LtrV1k0d6IB+fzWkfmdJqVYzygUEC
- ayD1g4G3y9tTehf85aAPA8mB0BMdyI4IygkXjN/ArJsxU0AfuihlTW1eittTnw0CIHcX
- 4zl93105C7jUGqS2D0cQIlGljOGkYoLpMloYbm+jH56esxEmQepObBeMuzdeAYfEgtcc
- oY0eg1ZN9D8u8cCcx0QMyolf29rqkHY76cZjKo7GIT0fnDTYje6clg2kl/zp6zPiZoYF
- 6jnxa2Z8iQtw5auPXIb5pBcyBhPecYuoxbGXQmRT277xVkvN3KLM4dmf+SoYHMTrrCu1
- pPmg==
-X-Gm-Message-State: APjAAAW4lP0xZqripjC5rdQZl/maO6Oc9kDxbykH47onLhUFnTWAwSw6
- HRy8K43A22fxniTcAGDtCVLt6w==
-X-Google-Smtp-Source: APXvYqx1wUh4ZkMgMOZDf3dRtAJT4xi4XMxa2xxICe7xCOcPRD6k8ebBROgF9NQQtyiBzRobB+vZ4Q==
-X-Received: by 2002:aa7:982c:: with SMTP id q12mr33929274pfl.83.1574674519876; 
- Mon, 25 Nov 2019 01:35:19 -0800 (PST)
-Received: from localhost.localdomain (123-204-46-122.static.seed.net.tw.
- [123.204.46.122])
- by smtp.gmail.com with ESMTPSA id f10sm7459009pfd.28.2019.11.25.01.35.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 Nov 2019 01:35:19 -0800 (PST)
-From: Jian-Hong Pan <jian-hong@endlessm.com>
-To: Takashi Iwai <tiwai@suse.com>
-Date: Mon, 25 Nov 2019 17:34:06 +0800
-Message-Id: <20191125093405.5702-1-jian-hong@endlessm.com>
-X-Mailer: git-send-email 2.24.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id C3554F800E5
+ for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 10:51:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3554F800E5
+Received: from lupine.hi.pengutronix.de
+ ([2001:67c:670:100:3ad5:47ff:feaf:1a17] helo=lupine)
+ by metis.ext.pengutronix.de with esmtp (Exim 4.92)
+ (envelope-from <p.zabel@pengutronix.de>)
+ id 1iZB1g-0002hs-6C; Mon, 25 Nov 2019 10:51:24 +0100
+Message-ID: <e138b69efad563822da1db8e160d43458c21eae1.camel@pengutronix.de>
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Guenter Roeck <linux@roeck-us.net>, Jiaxin Yu <jiaxin.yu@mediatek.com>
+Date: Mon, 25 Nov 2019 10:51:20 +0100
+In-Reply-To: <20191125061627.GA7313@roeck-us.net>
+References: <20191125061627.GA7313@roeck-us.net>
+User-Agent: Evolution 3.30.5-1.1 
 MIME-Version: 1.0
-Cc: Jian-Hong Pan <jian-hong@endlessm.com>, alsa-devel@alsa-project.org,
- Kailang Yang <kailang@realtek.com>, linux@endlessm.com,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ALSA: hda/realtek - Enable internal speaker of
-	ASUS UX431FLC
+X-SA-Exim-Connect-IP: 2001:67c:670:100:3ad5:47ff:feaf:1a17
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
+ SAEximRunCond expanded to false
+X-PTX-Original-Recipient: alsa-devel@alsa-project.org
+Cc: mark.rutland@arm.com, alsa-devel@alsa-project.org, yong.liang@mediatek.com,
+ lgirdwood@gmail.com, robh+dt@kernel.org, tzungbi@google.com,
+ broonie@kernel.org, linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
+ yingjoe.chen@mediatek.com, wim@linux-watchdog.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v5 2/2] watchdog: mtk_wdt: mt8183: Add
+	reset controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,53 +79,203 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Laptops like ASUS UX431FLC and UX431FL can share the same audio quirks.
-But UX431FLC needs one more step to enable the internal speaker: Pull
-the GPIO from CODEC to initialize the AMP.
+Hi,
 
-Fixes: 60083f9e94b2 ("ALSA: hda/realtek - Enable internal speaker & headset mic of ASUS UX431FL")
-Signed-off-by: Jian-Hong Pan <jian-hong@endlessm.com>
----
- sound/pci/hda/patch_realtek.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+On Sun, 2019-11-24 at 22:16 -0800, Guenter Roeck wrote:
+> On Mon, Nov 25, 2019 at 11:03:50AM +0800, Jiaxin Yu wrote:
+> > From: "yong.liang" <yong.liang@mediatek.com>
+> > 
+> > Add reset controller API in watchdog driver.
+> > Besides watchdog, MTK toprgu module also provide sub-system (eg, audio,
+> > camera, codec and connectivity) software reset functionality.
+> > 
+> > Signed-off-by: yong.liang <yong.liang@mediatek.com>
+> > Signed-off-by: jiaxin.yu <jiaxin.yu@mediatek.com>
+> > Reviewed-by: Yingjoe Chen <yingjoe.chen@mediatek.com>
+> > ---
+> >  drivers/watchdog/Kconfig   |   1 +
+> >  drivers/watchdog/mtk_wdt.c | 111 ++++++++++++++++++++++++++++++++++++-
+> >  2 files changed, 111 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> > index 2e07caab9db2..629249fe5305 100644
+> > --- a/drivers/watchdog/Kconfig
+> > +++ b/drivers/watchdog/Kconfig
+> > @@ -717,6 +717,7 @@ config MEDIATEK_WATCHDOG
+> >  	tristate "Mediatek SoCs watchdog support"
+> >  	depends on ARCH_MEDIATEK || COMPILE_TEST
+> >  	select WATCHDOG_CORE
+> > +	select RESET_CONTROLLER
+> >  	help
+> >  	  Say Y here to include support for the watchdog timer
+> >  	  in Mediatek SoCs.
+> > diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
+> > index 9c3d0033260d..d29484c7940a 100644
+> > --- a/drivers/watchdog/mtk_wdt.c
+> > +++ b/drivers/watchdog/mtk_wdt.c
+> > @@ -9,6 +9,9 @@
+> >   * Based on sunxi_wdt.c
+> >   */
+> >  
+> > +#include <dt-bindings/reset-controller/mt2712-resets.h>
+> > +#include <dt-bindings/reset-controller/mt8183-resets.h>
+> > +#include <linux/delay.h>
+> >  #include <linux/err.h>
+> >  #include <linux/init.h>
+> >  #include <linux/io.h>
+> > @@ -16,10 +19,12 @@
+> >  #include <linux/module.h>
+> >  #include <linux/moduleparam.h>
+> >  #include <linux/of.h>
+> > +#include <linux/of_device.h>
+> >  #include <linux/platform_device.h>
+> > +#include <linux/reset-controller.h>
+> > +#include <linux/slab.h>
+> >  #include <linux/types.h>
+> >  #include <linux/watchdog.h>
+> > -#include <linux/delay.h>
+> >  
+> >  #define WDT_MAX_TIMEOUT		31
+> >  #define WDT_MIN_TIMEOUT		1
+> > @@ -44,6 +49,9 @@
+> >  #define WDT_SWRST		0x14
+> >  #define WDT_SWRST_KEY		0x1209
+> >  
+> > +#define WDT_SWSYSRST		0x18U
+> > +#define WDT_SWSYS_RST_KEY	0x88000000
+> > +
+> >  #define DRV_NAME		"mtk-wdt"
+> >  #define DRV_VERSION		"1.0"
+> >  
+> > @@ -53,8 +61,99 @@ static unsigned int timeout;
+> >  struct mtk_wdt_dev {
+> >  	struct watchdog_device wdt_dev;
+> >  	void __iomem *wdt_base;
+> > +	spinlock_t lock; /* protects WDT_SWSYSRST reg */
+> > +	struct reset_controller_dev rcdev;
+> > +};
+> > +
+> > +struct mtk_wdt_data {
+> > +	int sw_rst_num;
+> >  };
+> >  
+> > +static const struct mtk_wdt_data mt2712_data = {
+> > +	.sw_rst_num = MT2712_TOPRGU_SW_RST_NUM,
+> > +};
+> > +
+> > +static const struct mtk_wdt_data mt8183_data = {
+> > +	.sw_rst_num = MT8183_TOPRGU_SW_RST_NUM,
+> > +};
+> 
+> The number of resets can be set in .data directly; there is no need
+> for the structures.
+> 
+> > +
+> > +static int toprgu_reset_assert(struct reset_controller_dev *rcdev,
+> > +			       unsigned long id)
+> > +{
+> > +	unsigned int tmp;
+> > +	unsigned long flags;
+> > +	struct mtk_wdt_dev *data =
+> > +		 container_of(rcdev, struct mtk_wdt_dev, rcdev);
+> > +
+> > +	spin_lock_irqsave(&data->lock, flags);
+> > +
+> > +	tmp = __raw_readl(data->wdt_base + WDT_SWSYSRST);
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 80f66ba85f87..eb6894a67302 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -5892,6 +5892,7 @@ enum {
- 	ALC299_FIXUP_PREDATOR_SPK,
- 	ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC,
- 	ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE,
-+	ALC294_FIXUP_ASUS_INTSPK_GPIO,
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -6982,6 +6983,13 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC256_FIXUP_ASUS_HEADSET_MODE
- 	},
-+	[ALC294_FIXUP_ASUS_INTSPK_GPIO] = {
-+		.type = HDA_FIXUP_FUNC,
-+		/* The GPIO must be pulled to initialize the AMP */
-+		.v.func = alc_fixup_gpio4,
-+		.chained = true,
-+		.chain_id = ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -7141,7 +7149,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS_ZENBOOK),
- 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
--	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_INTSPK_GPIO),
- 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
- 	SND_PCI_QUIRK(0x1043, 0x1a30, "ASUS X705UD", ALC256_FIXUP_ASUS_MIC),
--- 
-2.20.1
+I think this should be readl_relaxed() instead. I don't expect this
+driver will ever be used on a big-endian architecture, but mixing
+__raw_readl() and writel() does look dangerous.
+
+> > +	tmp |= BIT(id);
+> > +	tmp |= WDT_SWSYS_RST_KEY;
+> > +	writel(tmp, data->wdt_base + WDT_SWSYSRST);
+> > +
+> > +	spin_unlock_irqrestore(&data->lock, flags);
+> > +
+> > +	return 0;
+> > +}
+> > +
+> > +static int toprgu_reset_deassert(struct reset_controller_dev *rcdev,
+> > +				 unsigned long id)
+> > +{
+> > +	unsigned int tmp;
+> > +	unsigned long flags;
+> > +	struct mtk_wdt_dev *data =
+> > +		 container_of(rcdev, struct mtk_wdt_dev, rcdev);
+> > +
+> > +	spin_lock_irqsave(&data->lock, flags);
+> > +
+> > +	tmp = __raw_readl(data->wdt_base + WDT_SWSYSRST);
+> > +	tmp &= ~BIT(id);
+> > +	tmp |= WDT_SWSYS_RST_KEY;
+> > +	writel(tmp, data->wdt_base + WDT_SWSYSRST);
+> > +
+> > +	spin_unlock_irqrestore(&data->lock, flags);
+> > +
+> > +	return 0;
+> > +}
+> 
+> There is a lot of duplication in those functions. Only one line
+> is different. I think this is a good example where a helper function
+> with an additional argument indicating set or reset would be helpful.
+> 
+> > +
+> > +static int toprgu_reset(struct reset_controller_dev *rcdev,
+> > +			unsigned long id)
+> > +{
+> > +	int ret;
+> > +
+> > +	ret = toprgu_reset_assert(rcdev, id);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return toprgu_reset_deassert(rcdev, id);
+> > +}
+> > +
+> > +static const struct reset_control_ops toprgu_reset_ops = {
+> > +	.assert = toprgu_reset_assert,
+> > +	.deassert = toprgu_reset_deassert,
+> > +	.reset = toprgu_reset,
+> > +};
+> > +
+> > +static int toprgu_register_reset_controller(struct platform_device *pdev,
+> > +					    int rst_num)
+> > +{
+> > +	int ret;
+> > +	struct mtk_wdt_dev *mtk_wdt = platform_get_drvdata(pdev);
+> > +
+> > +	spin_lock_init(&mtk_wdt->lock);
+> > +
+> > +	mtk_wdt->rcdev.owner = THIS_MODULE;
+> > +	mtk_wdt->rcdev.nr_resets = rst_num;
+> > +	mtk_wdt->rcdev.ops = &toprgu_reset_ops;
+> > +	mtk_wdt->rcdev.of_node = pdev->dev.of_node;
+> > +	ret = reset_controller_register(&mtk_wdt->rcdev);
+
+I see this driver uses devm_kzalloc() below. Should this be
+devm_reset_controller_register()?
+
+> > +	if (ret != 0)
+> > +		dev_err(&pdev->dev,
+> > +			"couldn't register wdt reset controller: %d\n", ret);
+> > +	return ret;
+> > +}
+> > +
+> >  static int mtk_wdt_restart(struct watchdog_device *wdt_dev,
+> >  			   unsigned long action, void *data)
+> >  {
+> > @@ -155,6 +254,7 @@ static int mtk_wdt_probe(struct platform_device *pdev)
+> >  {
+> >  	struct device *dev = &pdev->dev;
+> >  	struct mtk_wdt_dev *mtk_wdt;
+> > +	struct mtk_wdt_data *wdt_data;
+> >  	int err;
+> >  
+> >  	mtk_wdt = devm_kzalloc(dev, sizeof(*mtk_wdt), GFP_KERNEL);
+
+regards
+Philipp
 
 _______________________________________________
 Alsa-devel mailing list

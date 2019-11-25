@@ -2,67 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96182108B64
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Nov 2019 11:09:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6768A108B73
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Nov 2019 11:14:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15FAE18A4;
-	Mon, 25 Nov 2019 11:08:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15FAE18A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id F357D18A7;
+	Mon, 25 Nov 2019 11:13:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F357D18A7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574676588;
-	bh=75itRKrlXvhKh38bMPb4Eq3dT3YMzXnPBRM1Vk7ihNE=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574676868;
+	bh=jxqI4rsRDkTKoCk7aqtGyjXBIsgVs/wkm6qMBCAHPec=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n/yUQpUjXFj15V7eC9FW9s0zFmxAVVEIq4t6LWzLez+F8ft4Si9sUJCwp5/nFzWI3
-	 5WAZPKnT+hw9pToHm+9kPsTWI0DalZJbuFa4XVmPVD+BUxj99LnCj0pz5uBK7jPh/Q
-	 HCxWMWP0xVdKdOiclGk4a0iR8YHV44w6Gb6kfrJA=
+	b=HwakjOqZLIjB8EKaUFvfGLeoWGa0ntDOkquwkjcgzeca8LH/KbNcJuaG854VwX5UE
+	 DstevpDpjbK9jqnfljSebQC1D9fx7MryoU9XIYMah6PFFMhNEQhrdEOJ9rexjVZIqk
+	 OyBnc2s7fl5ajUyCJRyIDz/lUXriEeBBYT1Papq8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 79B12F8014D;
-	Mon, 25 Nov 2019 11:08:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00832F800E5;
+	Mon, 25 Nov 2019 11:12:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0A379F8016F; Mon, 25 Nov 2019 11:08:02 +0100 (CET)
+ id CCABDF8016F; Mon, 25 Nov 2019 11:12:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
- [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8462CF800AB
- for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 11:07:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8462CF800AB
-Received: from lupine.hi.pengutronix.de
- ([2001:67c:670:100:3ad5:47ff:feaf:1a17] helo=lupine)
- by metis.ext.pengutronix.de with esmtp (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1iZBHG-00050V-8t; Mon, 25 Nov 2019 11:07:30 +0100
-Message-ID: <49c94039ba327a1295fdfd5d74dca0b9805269b0.camel@pengutronix.de>
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org, 
- mark.rutland@arm.com, yingjoe.chen@mediatek.com, robh+dt@kernel.org, 
- linux@roeck-us.net, wim@linux-watchdog.org
-Date: Mon, 25 Nov 2019 11:07:25 +0100
-In-Reply-To: <1574651030-29519-2-git-send-email-jiaxin.yu@mediatek.com>
-References: <1574651030-29519-1-git-send-email-jiaxin.yu@mediatek.com>
- <1574651030-29519-2-git-send-email-jiaxin.yu@mediatek.com>
-User-Agent: Evolution 3.30.5-1.1 
-MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2001:67c:670:100:3ad5:47ff:feaf:1a17
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: alsa-devel@alsa-project.org, yong.liang@mediatek.com, lgirdwood@gmail.com,
- tzungbi@google.com, linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH v5 1/2] dt-bindings: mediatek: mt8183: Add
-	#reset-cells
+ by alsa1.perex.cz (Postfix) with ESMTPS id 70BF1F800AB
+ for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 11:12:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 70BF1F800AB
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id BA593AE78;
+ Mon, 25 Nov 2019 10:12:38 +0000 (UTC)
+Date: Mon, 25 Nov 2019 11:12:38 +0100
+Message-ID: <s5hlfs46z8p.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <13c01b25-809f-cbc7-8e5f-db3ac8e99172@redhat.com>
+References: <20191119104822.15053-1-hdegoede@redhat.com>
+ <3a473499-4fb2-dabd-3816-5edd1332f46e@perex.cz>
+ <56edc7da-ba0f-1ffe-6b31-6eb6b570580d@redhat.com>
+ <8d5a2fa8-9294-bee4-1cef-24bcf2c325a9@perex.cz>
+ <13c01b25-809f-cbc7-8e5f-db3ac8e99172@redhat.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH alsa-lib 1/4] ucm: Fix opening of
+	master-configs by the card's longname
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,118 +70,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, 2019-11-25 at 11:03 +0800, Jiaxin Yu wrote:
-> From: "yong.liang" <yong.liang@mediatek.com>
-> 
-> Add #reset-cells property and update example
-> 
-> Signed-off-by: yong.liang <yong.liang@mediatek.com>
-> Signed-off-by: jiaxin.yu <jiaxin.yu@mediatek.com>
-> Reviewed-by: Yingjoe Chen <yingjoe.chen@mediatek.com>
-> ---
->  .../devicetree/bindings/watchdog/mtk-wdt.txt  | 10 ++++++---
->  .../reset-controller/mt2712-resets.h          | 22 +++++++++++++++++++
->  .../reset-controller/mt8183-resets.h          | 15 +++++++++++++
->  3 files changed, 44 insertions(+), 3 deletions(-)
->  create mode 100644 include/dt-bindings/reset-controller/mt2712-resets.h
-> 
-> diff --git a/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt b/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
-> index 3ee625d0812f..4dd36bd3f1ad 100644
-> --- a/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
-> +++ b/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
-> @@ -4,6 +4,7 @@ Required properties:
->  
->  - compatible should contain:
->  	"mediatek,mt2701-wdt", "mediatek,mt6589-wdt": for MT2701
-> +	"mediatek,mt2712-wdt", "mediatek,mt6589-wdt": for MT2712
->  	"mediatek,mt6589-wdt": for MT6589
->  	"mediatek,mt6797-wdt", "mediatek,mt6589-wdt": for MT6797
->  	"mediatek,mt7622-wdt", "mediatek,mt6589-wdt": for MT7622
-> @@ -16,11 +17,14 @@ Required properties:
->  
->  Optional properties:
->  - timeout-sec: contains the watchdog timeout in seconds.
-> +- #reset-cells: Should be 1.
->  
->  Example:
->  
-> -wdt: watchdog@10000000 {
-> -	compatible = "mediatek,mt6589-wdt";
-> -	reg = <0x10000000 0x18>;
-> +watchdog: watchdog@10007000 {
-> +	compatible = "mediatek,mt8183-wdt",
-> +		     "mediatek,mt6589-wdt";
-> +	reg = <0 0x10007000 0 0x100>;
->  	timeout-sec = <10>;
-> +	#reset-cells = <1>;
->  };
-> diff --git a/include/dt-bindings/reset-controller/mt2712-resets.h b/include/dt-bindings/reset-controller/mt2712-resets.h
-> new file mode 100644
-> index 000000000000..e81c8bb311b7
-> --- /dev/null
-> +++ b/include/dt-bindings/reset-controller/mt2712-resets.h
-> @@ -0,0 +1,22 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Copyright (c) 2019 MediaTek Inc.
-> + * Author: Yong Liang <yong.liang@mediatek.com>
-> + */
-> +
-> +#ifndef _DT_BINDINGS_RESET_CONTROLLER_MT2712
-> +#define _DT_BINDINGS_RESET_CONTROLLER_MT2712
-> +
-> +#define MT2712_TOPRGU_INFRA_SW_RST				0
-> +#define MT2712_TOPRGU_MM_SW_RST					1
-> +#define MT2712_TOPRGU_MFG_SW_RST				2
-> +#define MT2712_TOPRGU_VENC_SW_RST				3
-> +#define MT2712_TOPRGU_VDEC_SW_RST				4
-> +#define MT2712_TOPRGU_IMG_SW_RST				5
-> +#define MT2712_TOPRGU_INFRA_AO_SW_RST				8
-> +#define MT2712_TOPRGU_USB_SW_RST				9
-> +#define MT2712_TOPRGU_APMIXED_SW_RST				10
-> +
-> +#define MT2712_TOPRGU_SW_RST_NUM				10
-
-Setting rcdev->nr_resets to 10 will make the check in
-of_reset_simple_xlate() fail for MT2712_TOPRGU_APMIXED_SW_RST.
-
-> +
-> +#endif  /* _DT_BINDINGS_RESET_CONTROLLER_MT2712 */
-> diff --git a/include/dt-bindings/reset-controller/mt8183-resets.h b/include/dt-bindings/reset-controller/mt8183-resets.h
-> index 8804e34ebdd4..d582da6bedae 100644
-> --- a/include/dt-bindings/reset-controller/mt8183-resets.h
-> +++ b/include/dt-bindings/reset-controller/mt8183-resets.h
-> @@ -78,4 +78,19 @@
->  #define MT8183_INFRACFG_AO_I2C7_SW_RST				126
->  #define MT8183_INFRACFG_AO_I2C8_SW_RST				127
->  
-> +#define MT8183_TOPRGU_MM_SW_RST					1
-> +#define MT8183_TOPRGU_MFG_SW_RST				2
-> +#define MT8183_TOPRGU_VENC_SW_RST				3
-> +#define MT8183_TOPRGU_VDEC_SW_RST				4
-> +#define MT8183_TOPRGU_IMG_SW_RST				5
-> +#define MT8183_TOPRGU_MD_SW_RST					7
-> +#define MT8183_TOPRGU_CONN_SW_RST				9
-> +#define MT8183_TOPRGU_CONN_MCU_SW_RST				12
-> +#define MT8183_TOPRGU_IPU0_SW_RST				14
-> +#define MT8183_TOPRGU_IPU1_SW_RST				15
-> +#define MT8183_TOPRGU_AUDIO_SW_RST				17
-> +#define MT8183_TOPRGU_CAMSYS_SW_RST				18
-> +
-> +#define MT8183_TOPRGU_SW_RST_NUM				18
-
-Same here. If the driver uses the default of_xlate function, this has to
-be larger than the index of the last reset.
-
-regards
-Philipp
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVHVlLCAxOSBOb3YgMjAxOSAxNjozMjowNyArMDEwMCwKSGFucyBkZSBHb2VkZSB3cm90ZToK
+PiAKPiBIaSwKPiAKPiBPbiAxOS0xMS0yMDE5IDE0OjIxLCBKYXJvc2xhdiBLeXNlbGEgd3JvdGU6
+Cj4gPiBEbmUgMTkuIDExLiAxOSB2IDEzOjQwIEhhbnMgZGUgR29lZGUgbmFwc2FsKGEpOgo+ID4+
+IEhpLAo+ID4+Cj4gPj4gT24gMTktMTEtMjAxOSAxMzoyMywgSmFyb3NsYXYgS3lzZWxhIHdyb3Rl
+Ogo+ID4+PiBEbmUgMTkuIDExLiAxOSB2IDExOjQ4IEhhbnMgZGUgR29lZGUgbmFwc2FsKGEpOgo+
+ID4+Pj4gUHJpb3IgdG8gY29tbWl0IGFiYTIyNjBhZTdiNSAoInVjbTogc3dpdGNoIHRvIHVjbTIg
+ZGlyZWN0b3J5IGFuZCB2MiBmb3JtYXQsCj4gPj4+PiBrZWVwIGJhY2t3YXJkIGNvbXBhdGliaWxp
+dHkiKS4KPiA+Pj4+Cj4gPj4+PiBUaGUgZmlsZW5hbWUgYnVpbGQgaW4gcGFyc2VfdmVyYl9maWxl
+KCkgd2FzIGJ1aWxkIGxpa2UgdGhpczoKPiA+Pj4+IDxwcmVmaXg+Lzx1Y19tZ3ItPmNvbmZfZmls
+ZV9uYW1lPi88ZmlsZT4KPiA+Pj4+Cj4gPj4+PiBXaGVyZSB1Y19tZ3ItPmNvbmZfZmlsZV9uYW1l
+IHdvdWxkIGNvbnRhaW4gZWl0aGVyIHRoZSBjYXJkX25hbWUgb3IgdGhlCj4gPj4+PiBjYXJkJ3Mg
+bG9uZ25hbWUgZGVwZW5kaW5nIG9uIHRoZSBkZXRlY3Rpb24gb2YgYSBsb25nbmFtZSBiYXNlZCBj
+b25maWcgaW4KPiA+Pj4+IHVjX21ncl9pbXBvcnRfbWFzdGVyX2NvbmZpZygpLgo+ID4+Pj4KPiA+
+Pj4+IFdoaWxlIHRoZSBmaWxlbmFtZSB1c2VkIGluIGxvYWRfbWFzdGVyX2NvbmZpZygpIHdhcyBi
+dWlsZCBsaWtlIHRoaXM6Cj4gPj4+PiA8cHJlZml4Pi88Y2FyZF9uYW1lPi88Y2FyZF9uYW1lPi5j
+b25mCj4gPj4+Pgo+ID4+Pj4gQW5kIHVjX21ncl9pbXBvcnRfbWFzdGVyX2NvbmZpZygpIGZpcnN0
+IGNhbGxzIGxvYWRfbWFzdGVyX2NvbmZpZygpCj4gPj4+PiB3aXRoIHRoZSBjYXJkJ3MgbG9uZ25h
+bWUgYW5kIGlmIHRoYXQgc3VjY2VlZHMgaXQgb3ZlcndyaXRlcwo+ID4+Pj4gdWNfbWdyLT5jb25m
+X2ZpbGVfbmFtZSB3aXRoIHRoZSBsb25nbmFtZSBzbyB0aGF0IHRoZSBzdWJzZXF1ZW50IHVzZXMK
+PiA+Pj4+IG9mIHVjX21nci0+Y29uZl9maWxlX25hbWUgaW4gcGFyc2VfdmVyYl9maWxlKCkgY29y
+cmVjdGx5IHVzZSB0aGUgbG9uZ25hbWUuCj4gPj4+Pgo+ID4+Pj4gQnV0IHRoZSBuZXcgY29uZmln
+dXJhdGlvbl9maWxlbmFtZSgpIGhlbHBlciBhZGRlZCBpbiBjb21taXQgYWJhMjI2MGFlN2I1Cj4g
+Pj4+PiBfYWx3YXlzXyBidWlsZHMgdGhlIGZpbGVuYW1lIGxpa2UgdGhpczoKPiA+Pj4+IDxwcmVm
+aXg+Lzx1Y19tZ3ItPmNvbmZfZmlsZV9uYW1lPi88ZmlsZT48c3VmZml4Pgo+ID4+Pj4KPiA+Pj4+
+IFRoaXMgYnJlYWtzIHRoZSBsb2FkaW5nIG9mIHRoZSBtYXN0ZXItY29uZmlnIGJ5IGl0cyBsb25n
+bmFtZSwgYXMgd2hlbgo+ID4+Pj4gdGhlIGxvbmduYW1lIGlzIHRyaWVkIHVjX21nci0+Y29uZl9m
+aWxlX25hbWUgc3RpbGwgY29udGFpbnMgdGhlIGNhcmRfbmFtZS4KPiA+Pj4KPiA+Pj4gSGkgSGFu
+cywKPiA+Pj4KPiA+Pj4gVGhpcyBuZXcgYmVoYXZpb3VyIHdhcyBpbnRlbmRlZCBmb3IgdWNtMi4g
+SSBhcHBsaWVkIGFsbCBmb3VyIHlvdXIgcGF0Y2hlcywgYW5kIGFkZGVkIDEwYTYzZTA5M2M0YTk4
+YWNmYTliY2RmZGQwNjkzOGJjZDg3NGIwMDggb24gdG9wIHdoaWNoIHNob3VsZCBrZWVwIHRoZQo+
+ID4+PiBuZXcgYmVoYXZpb3VyIGZvciB2MiBjb25maWdzLgo+ID4+Cj4gPj4gQWggSSBzZWUuCj4g
+Pj4KPiA+PiBUaGVyZSBpcyBhIGJ1ZyBpbiB0aGUgY29tbWl0IHlvdSBhZGRlZCBvbiB0b3AgdGhv
+dWdoLAo+ID4+IHdoZW4gbG9hZF9tYXN0ZXJfY29uZmlnKCkgZ2V0cyBjYWxsZWQgd2l0aCBsb25n
+bmFtZSA9PSAxCj4gPj4gYW5kIEFMU0FfQ09ORklHX1VDTTJfVkFSIGlzIG5vdCBzZXQgYW5kIEFM
+U0FfQ09ORklHX1VDTV9WQVIKPiA+PiBpcyBzZXQsIHRoZW4gdGhlIGlmIGNvbmRpdGlvbiBpbiB0
+aGUgYmxvY2sgaXMgZmFsc2UsIHNvIGl0IG5ldmVyIGV4ZWN1dGVzOgo+ID4+Cj4gPj4gK8KgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKGdldGVudihBTFNBX0NPTkZJR19VQ00yX1ZBUikg
+fHwgIWdldGVudihBTFNBX0NPTkZJR19VQ01fVkFSKSkgewo+ID4+ICvCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB1Y19tZ3ItPmNvbmZfZm9ybWF0ID0gMjsKPiA+
+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgY29uZmlndXJh
+dGlvbl9maWxlbmFtZSh1Y19tZ3IsIGZpbGVuYW1lLCBzaXplb2YoZmlsZW5hbWUpLAo+ID4+ICvC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgdWNfbWdyLT5jb25mX2ZpbGVfbmFtZSwg
+Y2FyZF9uYW1lLCAiLmNvbmYiKTsKPiA+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9
+Cj4gPj4KPiA+PiBDYXVzaW5nIHRoZSBuZXh0IGJsb2NrIHRvIGFsc28gbm90IGV4ZWN1dGU6Cj4g
+Pj4KPiA+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBpZiAodWNfbWdyLT5jb25mX2Zv
+cm1hdCA+PSAyICYmIGFjY2VzcyhmaWxlbmFtZSwgUl9PSykgIT0gMCkgewo+ID4+ICvCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCAvKiB0cnkgdGhlIG9sZCB1Y20g
+ZGlyZWN0b3J5ICovCj4gPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIHVjX21nci0+Y29uZl9mb3JtYXQgPSAxOwo+ID4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25maWd1cmF0aW9uX2ZpbGVuYW1lKHVjX21nciwg
+ZmlsZW5hbWUsIHNpemVvZihmaWxlbmFtZSksCj4gPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoCBjYXJkX25hbWUsIGNhcmRfbmFtZSwgIi5jb25mIik7Cj4gPj4gK8KgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGlmIChhY2Nlc3MoZmlsZW5hbWUs
+IFJfT0spICE9IDApCj4gPj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCByZXR1cm4gLUVOT0VOVDsKPiA+PiArwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCB9Cj4gPj4KPiA+PiBDYXVzaW5nIGxvYWRfbWFzdGVyX2NvbmZpZygp
+IHRvIGNvbnRpbnVlIHdpdGggYW4gdW5pbml0aWFsaXplZCBmaWxlbmFtZS4KPiA+Pgo+ID4+IEkg
+dGhpbmsgeW91IHdhbnRlZCB0aGUgZm9sbG93aW5nIGNvbmRpdGlvbiBmb3IgdGhlIHNlY29uZCBi
+bG9jazoKPiA+Pgo+ID4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKHVj
+X21nci0+Y29uZl9mb3JtYXQgPT0gMCB8fCBhY2Nlc3MoZmlsZW5hbWUsIFJfT0spICE9IDApIHsK
+PiA+Pgo+ID4+IEFsc28gZG9uJ3QgeW91IHdhbnQgdGhlIHNhbWUgYmVoYXZvciB3cnQgZm9yY2lu
+ZyB0aGUgY29uZl9mb3JtYXQgYmFzZWQKPiA+PiBvbiBlbnYuIHdoZW4gdHJ5aW5nIHRoZSBzaG9y
+dG5hbWUgPwo+ID4+Cj4gPj4gSSB0aGluayB5b3UgY2FuIG1vdmUgdGhlIGVudGlyZSBibG9jayB1
+bmRlciBpZiAobG9uZ25hbWUpIHRvIGJlIHVuY29uZGl0aW9uYWwsCj4gPj4gc2luY2UgY29uZl9m
+aWxlX25hbWUgPT0gY2FyZF9uYW1lIGZvciB0aGUgc2hvcnRuYW1lIGNhc2UgdXNpbmcgdGhlIGxv
+bmduYW1lCj4gPj4gcGF0aCBpbiB0aGUgc2hvcnRuYW1lIGNhc2UgdG9vIGlzIGZpbmUuIFRoZW4g
+eW91IGFsd2F5cyBjYWxsIGNvbmZpZ3VyYXRpb25fZmlsZW5hbWUKPiA+PiB3aXRoIGNvbmZfZm9y
+bWF0IHNldCBhbmQgYWxsIHRoZSBoYW5kbGluZyBmb3IgY29uZl9mb3JtYXQgbm90IGJlaW5nIHNl
+dCAoYW5kCj4gPj4gZm9yIG92ZXJyaWRpbmcgaXQpIGNhbiBiZSBkcm9wcGVkIGZyb20gY29uZmln
+dXJhdGlvbl9maWxlbmFtZSgpIHRoZW4uCj4gPgo+ID4gVGhhbmtzIGFnYWluLCBmaXhlZCBpbiAx
+ZDg0OGFiNzM5ZjBkMjA3MDk4NjI3ZDJiYTY2NDIxYjNlYzc1ZWViIC4KPiA+Cj4gPj4KPiA+Pj4g
+SXQncyB0aW1lIHRvIGNyZWF0ZSB0aGUgMS4yLjEuMSBidWdmaXggYWxzYS1saWIgcmVsZWFzZSwg
+SSBndWVzcy4KPiA+Pgo+ID4+IFllcyB0aGF0IGlzIGEgZ29vZCBpZGVhIChvbmNlIHRoZSBhYm92
+ZSBpcyByZXNvbHZlZCkuCj4gPgo+ID4gVGhlIHRhciBiYWxsIGlzIGluIGZ0cDovL2Z0cC5hbHNh
+LXByb2plY3Qub3JnL3B1Yi90ZXN0aW5nIC4KPiAKPiBUaGFua3MsIEkndmUgZ2l2ZW4gdGhpcyBh
+IHF1aWNrIHRlc3Qgc3BpbiwgdGhlIDEuMi4xLjEgdGFyYmFsIGxvb2tzIGdvb2QgdG8gbWUuCgpK
+YXJvc2xhdiwgd2hlbiB3aWxsIHRoaXMgdGFyYmFsbCByZWxlYXNlZCBvZmZpY2lhbGx5PwoKCnRo
+YW5rcywKClRha2FzaGkKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3Jn
+Cmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1k
+ZXZlbAo=

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC2D108B38
-	for <lists+alsa-devel@lfdr.de>; Mon, 25 Nov 2019 10:53:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96182108B64
+	for <lists+alsa-devel@lfdr.de>; Mon, 25 Nov 2019 11:09:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C41561895;
-	Mon, 25 Nov 2019 10:52:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C41561895
+	by alsa0.perex.cz (Postfix) with ESMTPS id 15FAE18A4;
+	Mon, 25 Nov 2019 11:08:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15FAE18A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574675618;
-	bh=YfBZz2iitc/5Kdnxpr+C2BpQZyQfpPj33inkn+1HM0M=;
+	s=default; t=1574676588;
+	bh=75itRKrlXvhKh38bMPb4Eq3dT3YMzXnPBRM1Vk7ihNE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=J4PNiPxmVGt+eAqWUKXsxpZr1cO53wMOQx8KYCJ3sOGsHWX87MCaJcx2ULCetX9K0
-	 Ov2yyluktp1PKAgoMQ2r3CbGbHol9IGnL/werIol86n4HhEgWKEGH0v+ZfOo1su7Ph
-	 JM/qhj0Xw6Mk9r8FiraPb/w48F8RJOPG0VHxFQjI=
+	b=n/yUQpUjXFj15V7eC9FW9s0zFmxAVVEIq4t6LWzLez+F8ft4Si9sUJCwp5/nFzWI3
+	 5WAZPKnT+hw9pToHm+9kPsTWI0DalZJbuFa4XVmPVD+BUxj99LnCj0pz5uBK7jPh/Q
+	 HCxWMWP0xVdKdOiclGk4a0iR8YHV44w6Gb6kfrJA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5503CF800E5;
-	Mon, 25 Nov 2019 10:51:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79B12F8014D;
+	Mon, 25 Nov 2019 11:08:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A4F2F800E5; Mon, 25 Nov 2019 10:51:51 +0100 (CET)
+ id 0A379F8016F; Mon, 25 Nov 2019 11:08:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
@@ -34,20 +34,23 @@ Received: from metis.ext.pengutronix.de (metis.ext.pengutronix.de
  [IPv6:2001:67c:670:201:290:27ff:fe1d:cc33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C3554F800E5
- for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 10:51:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C3554F800E5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8462CF800AB
+ for <alsa-devel@alsa-project.org>; Mon, 25 Nov 2019 11:07:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8462CF800AB
 Received: from lupine.hi.pengutronix.de
  ([2001:67c:670:100:3ad5:47ff:feaf:1a17] helo=lupine)
  by metis.ext.pengutronix.de with esmtp (Exim 4.92)
  (envelope-from <p.zabel@pengutronix.de>)
- id 1iZB1g-0002hs-6C; Mon, 25 Nov 2019 10:51:24 +0100
-Message-ID: <e138b69efad563822da1db8e160d43458c21eae1.camel@pengutronix.de>
+ id 1iZBHG-00050V-8t; Mon, 25 Nov 2019 11:07:30 +0100
+Message-ID: <49c94039ba327a1295fdfd5d74dca0b9805269b0.camel@pengutronix.de>
 From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Guenter Roeck <linux@roeck-us.net>, Jiaxin Yu <jiaxin.yu@mediatek.com>
-Date: Mon, 25 Nov 2019 10:51:20 +0100
-In-Reply-To: <20191125061627.GA7313@roeck-us.net>
-References: <20191125061627.GA7313@roeck-us.net>
+To: Jiaxin Yu <jiaxin.yu@mediatek.com>, broonie@kernel.org, 
+ mark.rutland@arm.com, yingjoe.chen@mediatek.com, robh+dt@kernel.org, 
+ linux@roeck-us.net, wim@linux-watchdog.org
+Date: Mon, 25 Nov 2019 11:07:25 +0100
+In-Reply-To: <1574651030-29519-2-git-send-email-jiaxin.yu@mediatek.com>
+References: <1574651030-29519-1-git-send-email-jiaxin.yu@mediatek.com>
+ <1574651030-29519-2-git-send-email-jiaxin.yu@mediatek.com>
 User-Agent: Evolution 3.30.5-1.1 
 MIME-Version: 1.0
 X-SA-Exim-Connect-IP: 2001:67c:670:100:3ad5:47ff:feaf:1a17
@@ -55,13 +58,11 @@ X-SA-Exim-Mail-From: p.zabel@pengutronix.de
 X-SA-Exim-Scanned: No (on metis.ext.pengutronix.de);
  SAEximRunCond expanded to false
 X-PTX-Original-Recipient: alsa-devel@alsa-project.org
-Cc: mark.rutland@arm.com, alsa-devel@alsa-project.org, yong.liang@mediatek.com,
- lgirdwood@gmail.com, robh+dt@kernel.org, tzungbi@google.com,
- broonie@kernel.org, linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
- yingjoe.chen@mediatek.com, wim@linux-watchdog.org,
+Cc: alsa-devel@alsa-project.org, yong.liang@mediatek.com, lgirdwood@gmail.com,
+ tzungbi@google.com, linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH v5 2/2] watchdog: mtk_wdt: mt8183: Add
-	reset controller
+Subject: Re: [alsa-devel] [PATCH v5 1/2] dt-bindings: mediatek: mt8183: Add
+	#reset-cells
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,200 +80,108 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Sun, 2019-11-24 at 22:16 -0800, Guenter Roeck wrote:
-> On Mon, Nov 25, 2019 at 11:03:50AM +0800, Jiaxin Yu wrote:
-> > From: "yong.liang" <yong.liang@mediatek.com>
-> > 
-> > Add reset controller API in watchdog driver.
-> > Besides watchdog, MTK toprgu module also provide sub-system (eg, audio,
-> > camera, codec and connectivity) software reset functionality.
-> > 
-> > Signed-off-by: yong.liang <yong.liang@mediatek.com>
-> > Signed-off-by: jiaxin.yu <jiaxin.yu@mediatek.com>
-> > Reviewed-by: Yingjoe Chen <yingjoe.chen@mediatek.com>
-> > ---
-> >  drivers/watchdog/Kconfig   |   1 +
-> >  drivers/watchdog/mtk_wdt.c | 111 ++++++++++++++++++++++++++++++++++++-
-> >  2 files changed, 111 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
-> > index 2e07caab9db2..629249fe5305 100644
-> > --- a/drivers/watchdog/Kconfig
-> > +++ b/drivers/watchdog/Kconfig
-> > @@ -717,6 +717,7 @@ config MEDIATEK_WATCHDOG
-> >  	tristate "Mediatek SoCs watchdog support"
-> >  	depends on ARCH_MEDIATEK || COMPILE_TEST
-> >  	select WATCHDOG_CORE
-> > +	select RESET_CONTROLLER
-> >  	help
-> >  	  Say Y here to include support for the watchdog timer
-> >  	  in Mediatek SoCs.
-> > diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
-> > index 9c3d0033260d..d29484c7940a 100644
-> > --- a/drivers/watchdog/mtk_wdt.c
-> > +++ b/drivers/watchdog/mtk_wdt.c
-> > @@ -9,6 +9,9 @@
-> >   * Based on sunxi_wdt.c
-> >   */
-> >  
-> > +#include <dt-bindings/reset-controller/mt2712-resets.h>
-> > +#include <dt-bindings/reset-controller/mt8183-resets.h>
-> > +#include <linux/delay.h>
-> >  #include <linux/err.h>
-> >  #include <linux/init.h>
-> >  #include <linux/io.h>
-> > @@ -16,10 +19,12 @@
-> >  #include <linux/module.h>
-> >  #include <linux/moduleparam.h>
-> >  #include <linux/of.h>
-> > +#include <linux/of_device.h>
-> >  #include <linux/platform_device.h>
-> > +#include <linux/reset-controller.h>
-> > +#include <linux/slab.h>
-> >  #include <linux/types.h>
-> >  #include <linux/watchdog.h>
-> > -#include <linux/delay.h>
-> >  
-> >  #define WDT_MAX_TIMEOUT		31
-> >  #define WDT_MIN_TIMEOUT		1
-> > @@ -44,6 +49,9 @@
-> >  #define WDT_SWRST		0x14
-> >  #define WDT_SWRST_KEY		0x1209
-> >  
-> > +#define WDT_SWSYSRST		0x18U
-> > +#define WDT_SWSYS_RST_KEY	0x88000000
-> > +
-> >  #define DRV_NAME		"mtk-wdt"
-> >  #define DRV_VERSION		"1.0"
-> >  
-> > @@ -53,8 +61,99 @@ static unsigned int timeout;
-> >  struct mtk_wdt_dev {
-> >  	struct watchdog_device wdt_dev;
-> >  	void __iomem *wdt_base;
-> > +	spinlock_t lock; /* protects WDT_SWSYSRST reg */
-> > +	struct reset_controller_dev rcdev;
-> > +};
-> > +
-> > +struct mtk_wdt_data {
-> > +	int sw_rst_num;
-> >  };
-> >  
-> > +static const struct mtk_wdt_data mt2712_data = {
-> > +	.sw_rst_num = MT2712_TOPRGU_SW_RST_NUM,
-> > +};
-> > +
-> > +static const struct mtk_wdt_data mt8183_data = {
-> > +	.sw_rst_num = MT8183_TOPRGU_SW_RST_NUM,
-> > +};
+On Mon, 2019-11-25 at 11:03 +0800, Jiaxin Yu wrote:
+> From: "yong.liang" <yong.liang@mediatek.com>
 > 
-> The number of resets can be set in .data directly; there is no need
-> for the structures.
+> Add #reset-cells property and update example
 > 
-> > +
-> > +static int toprgu_reset_assert(struct reset_controller_dev *rcdev,
-> > +			       unsigned long id)
-> > +{
-> > +	unsigned int tmp;
-> > +	unsigned long flags;
-> > +	struct mtk_wdt_dev *data =
-> > +		 container_of(rcdev, struct mtk_wdt_dev, rcdev);
-> > +
-> > +	spin_lock_irqsave(&data->lock, flags);
-> > +
-> > +	tmp = __raw_readl(data->wdt_base + WDT_SWSYSRST);
-
-I think this should be readl_relaxed() instead. I don't expect this
-driver will ever be used on a big-endian architecture, but mixing
-__raw_readl() and writel() does look dangerous.
-
-> > +	tmp |= BIT(id);
-> > +	tmp |= WDT_SWSYS_RST_KEY;
-> > +	writel(tmp, data->wdt_base + WDT_SWSYSRST);
-> > +
-> > +	spin_unlock_irqrestore(&data->lock, flags);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static int toprgu_reset_deassert(struct reset_controller_dev *rcdev,
-> > +				 unsigned long id)
-> > +{
-> > +	unsigned int tmp;
-> > +	unsigned long flags;
-> > +	struct mtk_wdt_dev *data =
-> > +		 container_of(rcdev, struct mtk_wdt_dev, rcdev);
-> > +
-> > +	spin_lock_irqsave(&data->lock, flags);
-> > +
-> > +	tmp = __raw_readl(data->wdt_base + WDT_SWSYSRST);
-> > +	tmp &= ~BIT(id);
-> > +	tmp |= WDT_SWSYS_RST_KEY;
-> > +	writel(tmp, data->wdt_base + WDT_SWSYSRST);
-> > +
-> > +	spin_unlock_irqrestore(&data->lock, flags);
-> > +
-> > +	return 0;
-> > +}
+> Signed-off-by: yong.liang <yong.liang@mediatek.com>
+> Signed-off-by: jiaxin.yu <jiaxin.yu@mediatek.com>
+> Reviewed-by: Yingjoe Chen <yingjoe.chen@mediatek.com>
+> ---
+>  .../devicetree/bindings/watchdog/mtk-wdt.txt  | 10 ++++++---
+>  .../reset-controller/mt2712-resets.h          | 22 +++++++++++++++++++
+>  .../reset-controller/mt8183-resets.h          | 15 +++++++++++++
+>  3 files changed, 44 insertions(+), 3 deletions(-)
+>  create mode 100644 include/dt-bindings/reset-controller/mt2712-resets.h
 > 
-> There is a lot of duplication in those functions. Only one line
-> is different. I think this is a good example where a helper function
-> with an additional argument indicating set or reset would be helpful.
-> 
-> > +
-> > +static int toprgu_reset(struct reset_controller_dev *rcdev,
-> > +			unsigned long id)
-> > +{
-> > +	int ret;
-> > +
-> > +	ret = toprgu_reset_assert(rcdev, id);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return toprgu_reset_deassert(rcdev, id);
-> > +}
-> > +
-> > +static const struct reset_control_ops toprgu_reset_ops = {
-> > +	.assert = toprgu_reset_assert,
-> > +	.deassert = toprgu_reset_deassert,
-> > +	.reset = toprgu_reset,
-> > +};
-> > +
-> > +static int toprgu_register_reset_controller(struct platform_device *pdev,
-> > +					    int rst_num)
-> > +{
-> > +	int ret;
-> > +	struct mtk_wdt_dev *mtk_wdt = platform_get_drvdata(pdev);
-> > +
-> > +	spin_lock_init(&mtk_wdt->lock);
-> > +
-> > +	mtk_wdt->rcdev.owner = THIS_MODULE;
-> > +	mtk_wdt->rcdev.nr_resets = rst_num;
-> > +	mtk_wdt->rcdev.ops = &toprgu_reset_ops;
-> > +	mtk_wdt->rcdev.of_node = pdev->dev.of_node;
-> > +	ret = reset_controller_register(&mtk_wdt->rcdev);
+> diff --git a/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt b/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
+> index 3ee625d0812f..4dd36bd3f1ad 100644
+> --- a/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
+> +++ b/Documentation/devicetree/bindings/watchdog/mtk-wdt.txt
+> @@ -4,6 +4,7 @@ Required properties:
+>  
+>  - compatible should contain:
+>  	"mediatek,mt2701-wdt", "mediatek,mt6589-wdt": for MT2701
+> +	"mediatek,mt2712-wdt", "mediatek,mt6589-wdt": for MT2712
+>  	"mediatek,mt6589-wdt": for MT6589
+>  	"mediatek,mt6797-wdt", "mediatek,mt6589-wdt": for MT6797
+>  	"mediatek,mt7622-wdt", "mediatek,mt6589-wdt": for MT7622
+> @@ -16,11 +17,14 @@ Required properties:
+>  
+>  Optional properties:
+>  - timeout-sec: contains the watchdog timeout in seconds.
+> +- #reset-cells: Should be 1.
+>  
+>  Example:
+>  
+> -wdt: watchdog@10000000 {
+> -	compatible = "mediatek,mt6589-wdt";
+> -	reg = <0x10000000 0x18>;
+> +watchdog: watchdog@10007000 {
+> +	compatible = "mediatek,mt8183-wdt",
+> +		     "mediatek,mt6589-wdt";
+> +	reg = <0 0x10007000 0 0x100>;
+>  	timeout-sec = <10>;
+> +	#reset-cells = <1>;
+>  };
+> diff --git a/include/dt-bindings/reset-controller/mt2712-resets.h b/include/dt-bindings/reset-controller/mt2712-resets.h
+> new file mode 100644
+> index 000000000000..e81c8bb311b7
+> --- /dev/null
+> +++ b/include/dt-bindings/reset-controller/mt2712-resets.h
+> @@ -0,0 +1,22 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (c) 2019 MediaTek Inc.
+> + * Author: Yong Liang <yong.liang@mediatek.com>
+> + */
+> +
+> +#ifndef _DT_BINDINGS_RESET_CONTROLLER_MT2712
+> +#define _DT_BINDINGS_RESET_CONTROLLER_MT2712
+> +
+> +#define MT2712_TOPRGU_INFRA_SW_RST				0
+> +#define MT2712_TOPRGU_MM_SW_RST					1
+> +#define MT2712_TOPRGU_MFG_SW_RST				2
+> +#define MT2712_TOPRGU_VENC_SW_RST				3
+> +#define MT2712_TOPRGU_VDEC_SW_RST				4
+> +#define MT2712_TOPRGU_IMG_SW_RST				5
+> +#define MT2712_TOPRGU_INFRA_AO_SW_RST				8
+> +#define MT2712_TOPRGU_USB_SW_RST				9
+> +#define MT2712_TOPRGU_APMIXED_SW_RST				10
+> +
+> +#define MT2712_TOPRGU_SW_RST_NUM				10
 
-I see this driver uses devm_kzalloc() below. Should this be
-devm_reset_controller_register()?
+Setting rcdev->nr_resets to 10 will make the check in
+of_reset_simple_xlate() fail for MT2712_TOPRGU_APMIXED_SW_RST.
 
-> > +	if (ret != 0)
-> > +		dev_err(&pdev->dev,
-> > +			"couldn't register wdt reset controller: %d\n", ret);
-> > +	return ret;
-> > +}
-> > +
-> >  static int mtk_wdt_restart(struct watchdog_device *wdt_dev,
-> >  			   unsigned long action, void *data)
-> >  {
-> > @@ -155,6 +254,7 @@ static int mtk_wdt_probe(struct platform_device *pdev)
-> >  {
-> >  	struct device *dev = &pdev->dev;
-> >  	struct mtk_wdt_dev *mtk_wdt;
-> > +	struct mtk_wdt_data *wdt_data;
-> >  	int err;
-> >  
-> >  	mtk_wdt = devm_kzalloc(dev, sizeof(*mtk_wdt), GFP_KERNEL);
+> +
+> +#endif  /* _DT_BINDINGS_RESET_CONTROLLER_MT2712 */
+> diff --git a/include/dt-bindings/reset-controller/mt8183-resets.h b/include/dt-bindings/reset-controller/mt8183-resets.h
+> index 8804e34ebdd4..d582da6bedae 100644
+> --- a/include/dt-bindings/reset-controller/mt8183-resets.h
+> +++ b/include/dt-bindings/reset-controller/mt8183-resets.h
+> @@ -78,4 +78,19 @@
+>  #define MT8183_INFRACFG_AO_I2C7_SW_RST				126
+>  #define MT8183_INFRACFG_AO_I2C8_SW_RST				127
+>  
+> +#define MT8183_TOPRGU_MM_SW_RST					1
+> +#define MT8183_TOPRGU_MFG_SW_RST				2
+> +#define MT8183_TOPRGU_VENC_SW_RST				3
+> +#define MT8183_TOPRGU_VDEC_SW_RST				4
+> +#define MT8183_TOPRGU_IMG_SW_RST				5
+> +#define MT8183_TOPRGU_MD_SW_RST					7
+> +#define MT8183_TOPRGU_CONN_SW_RST				9
+> +#define MT8183_TOPRGU_CONN_MCU_SW_RST				12
+> +#define MT8183_TOPRGU_IPU0_SW_RST				14
+> +#define MT8183_TOPRGU_IPU1_SW_RST				15
+> +#define MT8183_TOPRGU_AUDIO_SW_RST				17
+> +#define MT8183_TOPRGU_CAMSYS_SW_RST				18
+> +
+> +#define MT8183_TOPRGU_SW_RST_NUM				18
+
+Same here. If the driver uses the default of_xlate function, this has to
+be larger than the index of the last reset.
 
 regards
 Philipp

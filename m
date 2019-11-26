@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70DA410A055
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2019 15:33:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 961E110A06A
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2019 15:36:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1581616FB;
-	Tue, 26 Nov 2019 15:32:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1581616FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 288411750;
+	Tue, 26 Nov 2019 15:35:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 288411750
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574778827;
-	bh=FHKojyEvqE8awxPeZF7BnaWCZugoyTT4GMzelZMN6w0=;
+	s=default; t=1574778992;
+	bh=KveD6mqSS/pxGOh45tnENxikaFsexSNhJI6HxoDjqUM=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kGFLgS2qNNJikMGfBLavP9zt6o3HnLf7Dq7hJvTdFDYNhY7l+2e0H+6x4r1G5EiKJ
-	 6IBTO0ehuy8jj859Hp01jwXYLSwVAzILGGBK8rHh6sjBhWkhIeTdIbv93l3tHNl5/m
-	 xztWCsJxjPUNbVyQubTAE4gnsaJkEn1qp1A1a6nc=
+	b=Lq9Db7TUxECCwOOihxO+kliApiRl3cUQ9yBDWlmSEHujIB9P5ui9fE0jG7f9SIOCw
+	 xxnMDWcG40spOFg9meRcyKslnsZmeyGfoj1WwwPVeGtUcGaCh2+Xxsy7lAWzHefJKN
+	 nRR7MAJBYFcne/qaTO8+8BnDCNM43usT2O8R2QlM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 657AAF80247;
-	Tue, 26 Nov 2019 15:28:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39841F80276;
+	Tue, 26 Nov 2019 15:29:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E6A50F80217; Tue, 26 Nov 2019 15:28:43 +0100 (CET)
+ id 22F3CF80232; Tue, 26 Nov 2019 15:28:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,32 +33,32 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AEED5F800DD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DB0BF80149
  for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2019 15:28:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AEED5F800DD
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DB0BF80149
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
  by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2019 06:28:33 -0800
+ 26 Nov 2019 06:28:34 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,246,1571727600"; d="scan'208";a="206473476"
+X-IronPort-AV: E=Sophos;i="5.69,246,1571727600"; d="scan'208";a="206473479"
 Received: from vramali2-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.155.193])
- by fmsmga008.fm.intel.com with ESMTP; 26 Nov 2019 06:28:32 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 26 Nov 2019 06:28:33 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 26 Nov 2019 08:28:11 -0600
-Message-Id: <20191126142815.21856-7-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 26 Nov 2019 08:28:12 -0600
+Message-Id: <20191126142815.21856-8-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191126142815.21856-1-pierre-louis.bossart@linux.intel.com>
 References: <20191126142815.21856-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org,
+Cc: tiwai@suse.de, broonie@kernel.org, Daniel Baluta <daniel.baluta@nxp.com>,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 06/10] ASoC: SOF: intel: hda: Modify signature
-	for hda_codec_probe_bus()
+Subject: [alsa-devel] [PATCH 07/10] ASoC: SOF: Make creation of machine
+	device from SOF core optional
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,108 +76,917 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+From: Daniel Baluta <daniel.baluta@nxp.com>
 
-The machine driver selection for HDA platforms will be
-consolidated and moved out of the SOF DSP
-probe callback. In preparation for that, modify the
-signature for hda_codec_probe_bus() to pass the
-hda_codec_use_common_hdmi as a variable while probing the
-HDA codecs.
+Currently, SOF probes machine drivers by creating a platform device
+and passing the machine description as private data.
 
+This is driven by the ACPI restrictions. Ideally, ACPI tables
+should contain the description for the machine driver. This is
+not possible because ACPI tables are frozen and used on multiple
+OS-es (e.g Windows).
+
+In the case of Device Tree we don't have this restriction, so we
+choose to probe the machine drivers by creating a DT node as is
+the standard ALSA way.
+
+This patch makes the probing of machine drivers from SOF
+core optional allowing for Device Tree platforms to decouple
+the SOF core from machine driver probing.
+
+Along with this, it also consolidates the machine driver selection
+for Intel platforms by defining optional ops for selecting the machine
+driver based on the ACPI match for HDA and non-HDA platforms and
+setting the mach params.
+
+Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-codec.c | 16 ++++++----------
- sound/soc/sof/intel/hda.c       |  2 +-
- sound/soc/sof/intel/hda.h       |  3 ++-
- 3 files changed, 9 insertions(+), 12 deletions(-)
+ sound/soc/sof/core.c         |  59 +--------
+ sound/soc/sof/intel/apl.c    |   7 ++
+ sound/soc/sof/intel/bdw.c    |  33 +++++
+ sound/soc/sof/intel/byt.c    |  45 +++++++
+ sound/soc/sof/intel/cnl.c    |   7 ++
+ sound/soc/sof/intel/hda.c    | 225 ++++++++++++++++++++---------------
+ sound/soc/sof/intel/hda.h    |   5 +
+ sound/soc/sof/nocodec.c      |   1 -
+ sound/soc/sof/ops.h          |  34 ++++++
+ sound/soc/sof/sof-acpi-dev.c |  29 +----
+ sound/soc/sof/sof-audio.c    |  80 +++++++++++++
+ sound/soc/sof/sof-audio.h    |   4 +
+ sound/soc/sof/sof-of-dev.c   |  22 +---
+ sound/soc/sof/sof-pci-dev.c  |  28 +----
+ sound/soc/sof/sof-priv.h     |  11 ++
+ 15 files changed, 360 insertions(+), 230 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index 827f84a0722e..65761e095184 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -80,12 +80,11 @@ EXPORT_SYMBOL(hda_codec_jack_wake_enable);
- EXPORT_SYMBOL(hda_codec_jack_check);
+diff --git a/sound/soc/sof/core.c b/sound/soc/sof/core.c
+index 9832322adbec..e258f6a8e7a5 100644
+--- a/sound/soc/sof/core.c
++++ b/sound/soc/sof/core.c
+@@ -92,47 +92,9 @@ void snd_sof_get_status(struct snd_sof_dev *sdev, u32 panic_code,
+ }
+ EXPORT_SYMBOL(snd_sof_get_status);
  
- /* probe individual codec */
--static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
-+static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
-+			   bool hda_codec_use_common_hdmi)
+-/*
+- * SOF Driver enumeration.
+- */
+-static int sof_machine_check(struct snd_sof_dev *sdev)
+-{
+-	struct snd_sof_pdata *plat_data = sdev->pdata;
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)
+-	struct snd_soc_acpi_mach *machine;
+-	int ret;
+-#endif
+-
+-	if (plat_data->machine)
+-		return 0;
+-
+-#if !IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)
+-	dev_err(sdev->dev, "error: no matching ASoC machine driver found - aborting probe\n");
+-	return -ENODEV;
+-#else
+-	/* fallback to nocodec mode */
+-	dev_warn(sdev->dev, "No ASoC machine driver found - using nocodec\n");
+-	machine = devm_kzalloc(sdev->dev, sizeof(*machine), GFP_KERNEL);
+-	if (!machine)
+-		return -ENOMEM;
+-
+-	ret = sof_nocodec_setup(sdev->dev, plat_data, machine,
+-				plat_data->desc, plat_data->desc->ops);
+-	if (ret < 0)
+-		return ret;
+-
+-	plat_data->machine = machine;
+-
+-	return 0;
+-#endif
+-}
+-
+ static int sof_probe_continue(struct snd_sof_dev *sdev)
  {
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC)
- 	struct hdac_hda_priv *hda_priv;
--	struct snd_soc_acpi_mach_params *mach_params = NULL;
+ 	struct snd_sof_pdata *plat_data = sdev->pdata;
+-	const char *drv_name;
+-	const void *mach;
+-	int size;
+ 	int ret;
+ 
+ 	/* probe the DSP hardware */
+@@ -218,22 +180,9 @@ static int sof_probe_continue(struct snd_sof_dev *sdev)
+ 		goto fw_run_err;
+ 	}
+ 
+-	drv_name = plat_data->machine->drv_name;
+-	mach = (const void *)plat_data->machine;
+-	size = sizeof(*plat_data->machine);
+-
+-	/* register machine driver, pass machine info as pdata */
+-	plat_data->pdev_mach =
+-		platform_device_register_data(sdev->dev, drv_name,
+-					      PLATFORM_DEVID_NONE, mach, size);
+-
+-	if (IS_ERR(plat_data->pdev_mach)) {
+-		ret = PTR_ERR(plat_data->pdev_mach);
++	ret = snd_sof_machine_register(sdev, plat_data);
++	if (ret < 0)
+ 		goto fw_run_err;
+-	}
+-
+-	dev_dbg(sdev->dev, "created machine %s\n",
+-		dev_name(&plat_data->pdev_mach->dev));
+ 
+ 	/*
+ 	 * Some platforms in SOF, ex: BYT, may not have their platform PM
+@@ -363,9 +312,7 @@ int snd_sof_device_remove(struct device *dev)
+ 	 * will remove the component driver and unload the topology
+ 	 * before freeing the snd_card.
+ 	 */
+-	if (!IS_ERR_OR_NULL(pdata->pdev_mach))
+-		platform_device_unregister(pdata->pdev_mach);
+-
++	snd_sof_machine_unregister(sdev, pdata);
+ 	/*
+ 	 * Unregistering the machine driver results in unloading the topology.
+ 	 * Some widgets, ex: scheduler, attempt to power down the core they are
+diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
+index 7daa8eb456c8..9e4d859b4dba 100644
+--- a/sound/soc/sof/intel/apl.c
++++ b/sound/soc/sof/intel/apl.c
+@@ -17,6 +17,7 @@
+ 
+ #include "../sof-priv.h"
+ #include "hda.h"
++#include "../sof-audio.h"
+ 
+ static const struct snd_sof_debugfs_map apl_dsp_debugfs[] = {
+ 	{"hda", HDA_DSP_HDA_BAR, 0, 0x4000, SOF_DEBUGFS_ACCESS_ALWAYS},
+@@ -53,6 +54,12 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
+ 	.ipc_msg_data	= hda_ipc_msg_data,
+ 	.ipc_pcm_params	= hda_ipc_pcm_params,
+ 
++	/* machine driver */
++	.machine_select = hda_machine_select,
++	.machine_register = sof_machine_register,
++	.machine_unregister = sof_machine_unregister,
++	.set_mach_params = hda_set_mach_params,
++
+ 	/* debug */
+ 	.debug_map	= apl_dsp_debugfs,
+ 	.debug_map_count	= ARRAY_SIZE(apl_dsp_debugfs),
+diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
+index 141dad554764..c09885c0eb7d 100644
+--- a/sound/soc/sof/intel/bdw.c
++++ b/sound/soc/sof/intel/bdw.c
+@@ -17,6 +17,7 @@
+ #include <sound/sof/xtensa.h>
+ #include "../ops.h"
+ #include "shim.h"
++#include "../sof-audio.h"
+ 
+ /* BARs */
+ #define BDW_DSP_BAR 0
+@@ -536,6 +537,32 @@ static int bdw_probe(struct snd_sof_dev *sdev)
+ 	return ret;
+ }
+ 
++static void bdw_machine_select(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_pdata *sof_pdata = sdev->pdata;
++	const struct sof_dev_desc *desc = sof_pdata->desc;
++	struct snd_soc_acpi_mach *mach;
++
++	mach = snd_soc_acpi_find_machine(desc->machines);
++	if (!mach) {
++		dev_warn(sdev->dev, "warning: No matching ASoC machine driver found\n");
++		return;
++	}
++
++	sof_pdata->tplg_filename = mach->sof_tplg_filename;
++	mach->mach_params.acpi_ipc_irq_index = desc->irqindex_host_ipc;
++	sof_pdata->machine = mach;
++}
++
++static void bdw_set_mach_params(const struct snd_soc_acpi_mach *mach,
++				struct device *dev)
++{
++	struct snd_soc_acpi_mach_params *mach_params;
++
++	mach_params = (struct snd_soc_acpi_mach_params *)&mach->mach_params;
++	mach_params->platform = dev_name(dev);
++}
++
+ /* Broadwell DAIs */
+ static struct snd_soc_dai_driver bdw_dai[] = {
+ {
+@@ -574,6 +601,12 @@ const struct snd_sof_dsp_ops sof_bdw_ops = {
+ 	.ipc_msg_data	= intel_ipc_msg_data,
+ 	.ipc_pcm_params	= intel_ipc_pcm_params,
+ 
++	/* machine driver */
++	.machine_select = bdw_machine_select,
++	.machine_register = sof_machine_register,
++	.machine_unregister = sof_machine_unregister,
++	.set_mach_params = bdw_set_mach_params,
++
+ 	/* debug */
+ 	.debug_map  = bdw_debugfs,
+ 	.debug_map_count    = ARRAY_SIZE(bdw_debugfs),
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index b9061b79a57b..b3a40d9ef7ce 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -17,6 +17,7 @@
+ #include <sound/sof/xtensa.h>
+ #include "../ops.h"
+ #include "shim.h"
++#include "../sof-audio.h"
+ 
+ /* DSP memories */
+ #define IRAM_OFFSET		0x0C0000
+@@ -382,6 +383,32 @@ static int byt_reset(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
+ 
++static void byt_machine_select(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_pdata *sof_pdata = sdev->pdata;
++	const struct sof_dev_desc *desc = sof_pdata->desc;
++	struct snd_soc_acpi_mach *mach;
++
++	mach = snd_soc_acpi_find_machine(desc->machines);
++	if (!mach) {
++		dev_warn(sdev->dev, "warning: No matching ASoC machine driver found\n");
++		return;
++	}
++
++	sof_pdata->tplg_filename = mach->sof_tplg_filename;
++	mach->mach_params.acpi_ipc_irq_index = desc->irqindex_host_ipc;
++	sof_pdata->machine = mach;
++}
++
++static void byt_set_mach_params(const struct snd_soc_acpi_mach *mach,
++				struct device *dev)
++{
++	struct snd_soc_acpi_mach_params *mach_params;
++
++	mach_params = (struct snd_soc_acpi_mach_params *)&mach->mach_params;
++	mach_params->platform = dev_name(dev);
++}
++
+ /* Baytrail DAIs */
+ static struct snd_soc_dai_driver byt_dai[] = {
+ {
+@@ -514,6 +541,12 @@ const struct snd_sof_dsp_ops sof_tng_ops = {
+ 	.ipc_msg_data	= intel_ipc_msg_data,
+ 	.ipc_pcm_params	= intel_ipc_pcm_params,
+ 
++	/* machine driver */
++	.machine_select = byt_machine_select,
++	.machine_register = sof_machine_register,
++	.machine_unregister = sof_machine_unregister,
++	.set_mach_params = byt_set_mach_params,
++
+ 	/* debug */
+ 	.debug_map	= byt_debugfs,
+ 	.debug_map_count	= ARRAY_SIZE(byt_debugfs),
+@@ -682,6 +715,12 @@ const struct snd_sof_dsp_ops sof_byt_ops = {
+ 	.ipc_msg_data	= intel_ipc_msg_data,
+ 	.ipc_pcm_params	= intel_ipc_pcm_params,
+ 
++	/* machine driver */
++	.machine_select = byt_machine_select,
++	.machine_register = sof_machine_register,
++	.machine_unregister = sof_machine_unregister,
++	.set_mach_params = byt_set_mach_params,
++
+ 	/* debug */
+ 	.debug_map	= byt_debugfs,
+ 	.debug_map_count	= ARRAY_SIZE(byt_debugfs),
+@@ -748,6 +787,12 @@ const struct snd_sof_dsp_ops sof_cht_ops = {
+ 	.ipc_msg_data	= intel_ipc_msg_data,
+ 	.ipc_pcm_params	= intel_ipc_pcm_params,
+ 
++	/* machine driver */
++	.machine_select = byt_machine_select,
++	.machine_register = sof_machine_register,
++	.machine_unregister = sof_machine_unregister,
++	.set_mach_params = byt_set_mach_params,
++
+ 	/* debug */
+ 	.debug_map	= cht_debugfs,
+ 	.debug_map_count	= ARRAY_SIZE(cht_debugfs),
+diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
+index 0e1e265f3f3b..3541063ba84c 100644
+--- a/sound/soc/sof/intel/cnl.c
++++ b/sound/soc/sof/intel/cnl.c
+@@ -18,6 +18,7 @@
+ #include "../ops.h"
+ #include "hda.h"
+ #include "hda-ipc.h"
++#include "../sof-audio.h"
+ 
+ static const struct snd_sof_debugfs_map cnl_dsp_debugfs[] = {
+ 	{"hda", HDA_DSP_HDA_BAR, 0, 0x4000, SOF_DEBUGFS_ACCESS_ALWAYS},
+@@ -243,6 +244,12 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
+ 	.ipc_msg_data	= hda_ipc_msg_data,
+ 	.ipc_pcm_params	= hda_ipc_pcm_params,
+ 
++	/* machine driver */
++	.machine_select = hda_machine_select,
++	.machine_register = sof_machine_register,
++	.machine_unregister = sof_machine_unregister,
++	.set_mach_params = hda_set_mach_params,
++
+ 	/* debug */
+ 	.debug_map	= cnl_dsp_debugfs,
+ 	.debug_map_count	= ARRAY_SIZE(cnl_dsp_debugfs),
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 3ed0d847160c..4d35e03faef5 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -344,16 +344,6 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+ 	struct hdac_ext_link *hlink;
+-	struct snd_soc_acpi_mach_params *mach_params;
+-	struct snd_soc_acpi_mach *hda_mach;
 -	struct snd_sof_pdata *pdata = sdev->pdata;
+-	struct snd_soc_acpi_mach *mach;
+-	const char *tplg_filename;
+-	const char *idisp_str;
+-	const char *dmic_str;
+-	int dmic_num;
+-	int codec_num = 0;
+-	int i;
  #endif
- 	struct hda_bus *hbus = sof_to_hbus(sdev);
- 	struct hdac_device *hdev;
-@@ -115,10 +114,6 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
+ 	int ret = 0;
+ 
+@@ -387,93 +377,6 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 	if (bus->mlcap)
+ 		snd_hdac_ext_bus_get_ml_capabilities(bus);
+ 
+-	/* codec detection */
+-	if (!bus->codec_mask) {
+-		dev_info(bus->dev, "no hda codecs found!\n");
+-	} else {
+-		dev_info(bus->dev, "hda codecs found, mask %lx\n",
+-			 bus->codec_mask);
+-
+-		for (i = 0; i < HDA_MAX_CODECS; i++) {
+-			if (bus->codec_mask & (1 << i))
+-				codec_num++;
+-		}
+-
+-		/*
+-		 * If no machine driver is found, then:
+-		 *
+-		 * hda machine driver is used if :
+-		 * 1. there is one HDMI codec and one external HDAudio codec
+-		 * 2. only HDMI codec
+-		 */
+-		if (!pdata->machine && codec_num <= 2 &&
+-		    HDA_IDISP_CODEC(bus->codec_mask)) {
+-			hda_mach = snd_soc_acpi_intel_hda_machines;
+-			pdata->machine = hda_mach;
+-
+-			/* topology: use the info from hda_machines */
+-			pdata->tplg_filename =
+-				hda_mach->sof_tplg_filename;
+-
+-			/*
+-			 * firmware: pick the first in machine list,
+-			 * or use nocodec firmware name if list is empty
+-			 */
+-			mach = pdata->desc->machines;
+-			if (mach->id[0])
+-				pdata->fw_filename = mach->sof_fw_filename;
+-			else
+-				pdata->fw_filename =
+-					pdata->desc->nocodec_fw_filename;
+-
+-			dev_info(bus->dev, "using HDA machine driver %s now\n",
+-				 hda_mach->drv_name);
+-
+-			if (codec_num == 1)
+-				idisp_str = "-idisp";
+-			else
+-				idisp_str = "";
+-
+-			/* first check NHLT for DMICs */
+-			dmic_num = check_nhlt_dmic(sdev);
+-
+-			/* allow for module parameter override */
+-			if (hda_dmic_num != -1)
+-				dmic_num = hda_dmic_num;
+-
+-			switch (dmic_num) {
+-			case 2:
+-				dmic_str = "-2ch";
+-				break;
+-			case 4:
+-				dmic_str = "-4ch";
+-				break;
+-			default:
+-				dmic_num = 0;
+-				dmic_str = "";
+-				break;
+-			}
+-
+-			tplg_filename = pdata->tplg_filename;
+-			tplg_filename = fixup_tplg_name(sdev, tplg_filename,
+-							idisp_str, dmic_str);
+-			if (!tplg_filename) {
+-				hda_codec_i915_exit(sdev);
+-				return ret;
+-			}
+-			pdata->tplg_filename = tplg_filename;
+-		}
+-	}
+-
+-	/* used by hda machine driver to create dai links */
+-	if (pdata->machine) {
+-		mach_params = (struct snd_soc_acpi_mach_params *)
+-			&pdata->machine->mach_params;
+-		mach_params->codec_mask = bus->codec_mask;
+-		mach_params->platform = dev_name(sdev->dev);
+-		mach_params->common_hdmi_codec_drv = hda_codec_use_common_hdmi;
+-	}
+-
+ 	/* create codec instances */
+ 	hda_codec_probe_bus(sdev, hda_codec_use_common_hdmi);
+ 
+@@ -735,4 +638,132 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
+ 	return 0;
+ }
+ 
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
++static int hda_generic_machine_select(struct snd_sof_dev *sdev)
++{
++	struct hdac_bus *bus = sof_to_bus(sdev);
++	struct snd_soc_acpi_mach_params *mach_params;
++	struct snd_soc_acpi_mach *hda_mach;
++	struct snd_sof_pdata *pdata = sdev->pdata;
++	const char *tplg_filename;
++	const char *idisp_str;
++	const char *dmic_str;
++	int dmic_num;
++	int codec_num = 0;
++	int i;
++
++	/* codec detection */
++	if (!bus->codec_mask) {
++		dev_info(bus->dev, "no hda codecs found!\n");
++	} else {
++		dev_info(bus->dev, "hda codecs found, mask %lx\n",
++			 bus->codec_mask);
++
++		for (i = 0; i < HDA_MAX_CODECS; i++) {
++			if (bus->codec_mask & (1 << i))
++				codec_num++;
++		}
++
++		/*
++		 * If no machine driver is found, then:
++		 *
++		 * hda machine driver is used if :
++		 * 1. there is one HDMI codec and one external HDAudio codec
++		 * 2. only HDMI codec
++		 */
++		if (!pdata->machine && codec_num <= 2 &&
++		    HDA_IDISP_CODEC(bus->codec_mask)) {
++			hda_mach = snd_soc_acpi_intel_hda_machines;
++
++			/* topology: use the info from hda_machines */
++			pdata->tplg_filename =
++				hda_mach->sof_tplg_filename;
++
++			dev_info(bus->dev, "using HDA machine driver %s now\n",
++				 hda_mach->drv_name);
++
++			if (codec_num == 1)
++				idisp_str = "-idisp";
++			else
++				idisp_str = "";
++
++			/* first check NHLT for DMICs */
++			dmic_num = check_nhlt_dmic(sdev);
++
++			/* allow for module parameter override */
++			if (hda_dmic_num != -1)
++				dmic_num = hda_dmic_num;
++
++			switch (dmic_num) {
++			case 2:
++				dmic_str = "-2ch";
++				break;
++			case 4:
++				dmic_str = "-4ch";
++				break;
++			default:
++				dmic_num = 0;
++				dmic_str = "";
++				break;
++			}
++
++			tplg_filename = pdata->tplg_filename;
++			tplg_filename = fixup_tplg_name(sdev, tplg_filename,
++							idisp_str, dmic_str);
++			if (!tplg_filename)
++				return -EINVAL;
++
++			pdata->machine = hda_mach;
++			pdata->tplg_filename = tplg_filename;
++		}
++	}
++
++	/* used by hda machine driver to create dai links */
++	if (pdata->machine) {
++		mach_params = (struct snd_soc_acpi_mach_params *)
++			&pdata->machine->mach_params;
++		mach_params->codec_mask = bus->codec_mask;
++		mach_params->common_hdmi_codec_drv = hda_codec_use_common_hdmi;
++	}
++
++	return 0;
++}
++#else
++static int hda_generic_machine_select(struct snd_sof_dev *sdev)
++{
++	return 0;
++}
++#endif
++
++void hda_set_mach_params(const struct snd_soc_acpi_mach *mach,
++			 struct device *dev)
++{
++	struct snd_soc_acpi_mach_params *mach_params;
++
++	mach_params = (struct snd_soc_acpi_mach_params *)&mach->mach_params;
++	mach_params->platform = dev_name(dev);
++}
++
++void hda_machine_select(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_pdata *sof_pdata = sdev->pdata;
++	const struct sof_dev_desc *desc = sof_pdata->desc;
++	struct snd_soc_acpi_mach *mach;
++
++	mach = snd_soc_acpi_find_machine(desc->machines);
++	if (mach) {
++		sof_pdata->tplg_filename = mach->sof_tplg_filename;
++		sof_pdata->machine = mach;
++	}
++
++	/*
++	 * Choose HDA generic machine driver if mach is NULL.
++	 * Otherwise, set certain mach params.
++	 */
++	hda_generic_machine_select(sdev);
++
++	if (!sof_pdata->machine)
++		dev_warn(sdev->dev, "warning: No matching ASoC machine driver found\n");
++}
++
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index b7164a26984b..97c3fcb23d15 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -623,4 +623,9 @@ extern const struct sof_intel_dsp_desc tgl_chip_info;
+ extern const struct sof_intel_dsp_desc ehl_chip_info;
+ extern const struct sof_intel_dsp_desc jsl_chip_info;
+ 
++/* machine driver select */
++void hda_machine_select(struct snd_sof_dev *sdev);
++void hda_set_mach_params(const struct snd_soc_acpi_mach *mach,
++			 struct device *dev);
++
+ #endif
+diff --git a/sound/soc/sof/nocodec.c b/sound/soc/sof/nocodec.c
+index 3d128e5a132c..0a2167f19f25 100644
+--- a/sound/soc/sof/nocodec.c
++++ b/sound/soc/sof/nocodec.c
+@@ -77,7 +77,6 @@ int sof_nocodec_setup(struct device *dev,
+ 	sof_pdata->drv_name = "sof-nocodec";
+ 
+ 	mach->drv_name = "sof-nocodec";
+-	sof_pdata->fw_filename = desc->nocodec_fw_filename;
+ 	sof_pdata->tplg_filename = desc->nocodec_tplg_filename;
+ 
+ 	/* create dummy BE dai_links */
+diff --git a/sound/soc/sof/ops.h b/sound/soc/sof/ops.h
+index 93512dcbaacd..e929a6e0058f 100644
+--- a/sound/soc/sof/ops.h
++++ b/sound/soc/sof/ops.h
+@@ -391,6 +391,40 @@ snd_sof_pcm_platform_pointer(struct snd_sof_dev *sdev,
+ 	return 0;
+ }
+ 
++/* machine driver */
++static inline int
++snd_sof_machine_register(struct snd_sof_dev *sdev, void *pdata)
++{
++	if (sof_ops(sdev) && sof_ops(sdev)->machine_register)
++		return sof_ops(sdev)->machine_register(sdev, pdata);
++
++	return 0;
++}
++
++static inline void
++snd_sof_machine_unregister(struct snd_sof_dev *sdev, void *pdata)
++{
++	if (sof_ops(sdev) && sof_ops(sdev)->machine_unregister)
++		sof_ops(sdev)->machine_unregister(sdev, pdata);
++}
++
++static inline void
++snd_sof_machine_select(struct snd_sof_dev *sdev)
++{
++	if (sof_ops(sdev) && sof_ops(sdev)->machine_select)
++		sof_ops(sdev)->machine_select(sdev);
++}
++
++static inline void
++snd_sof_set_mach_params(const struct snd_soc_acpi_mach *mach,
++			struct device *dev)
++{
++	struct snd_sof_dev *sdev = dev_get_drvdata(dev);
++
++	if (sof_ops(sdev) && sof_ops(sdev)->set_mach_params)
++		sof_ops(sdev)->set_mach_params(mach, dev);
++}
++
+ static inline const struct snd_sof_dsp_ops
+ *sof_get_ops(const struct sof_dev_desc *d,
+ 	     const struct sof_ops_table mach_ops[], int asize)
+diff --git a/sound/soc/sof/sof-acpi-dev.c b/sound/soc/sof/sof-acpi-dev.c
+index 22e13ef09811..8174b9a7da95 100644
+--- a/sound/soc/sof/sof-acpi-dev.c
++++ b/sound/soc/sof/sof-acpi-dev.c
+@@ -145,7 +145,6 @@ static int sof_acpi_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	const struct sof_dev_desc *desc;
+-	struct snd_soc_acpi_mach *mach;
+ 	struct snd_sof_pdata *sof_pdata;
+ 	const struct snd_sof_dsp_ops *ops;
+ 	int ret;
+@@ -172,35 +171,9 @@ static int sof_acpi_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 	}
+ 
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)
+-	/* force nocodec mode */
+-	dev_warn(dev, "Force to use nocodec mode\n");
+-	mach = devm_kzalloc(dev, sizeof(*mach), GFP_KERNEL);
+-	if (!mach)
+-		return -ENOMEM;
+-	ret = sof_nocodec_setup(dev, sof_pdata, mach, desc, ops);
+-	if (ret < 0)
+-		return ret;
+-#else
+-	/* find machine */
+-	mach = snd_soc_acpi_find_machine(desc->machines);
+-	if (!mach) {
+-		dev_warn(dev, "warning: No matching ASoC machine driver found\n");
+-	} else {
+-		sof_pdata->fw_filename = mach->sof_fw_filename;
+-		sof_pdata->tplg_filename = mach->sof_tplg_filename;
+-	}
+-#endif
+-
+-	if (mach) {
+-		mach->mach_params.platform = dev_name(dev);
+-		mach->mach_params.acpi_ipc_irq_index = desc->irqindex_host_ipc;
+-	}
+-
+-	sof_pdata->machine = mach;
+ 	sof_pdata->desc = desc;
+ 	sof_pdata->dev = &pdev->dev;
+-	sof_pdata->platform = dev_name(dev);
++	sof_pdata->fw_filename = desc->default_fw_filename;
+ 
+ 	/* alternate fw and tplg filenames ? */
+ 	if (fw_path)
+diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
+index bf99d040c9c1..9c3851bfe788 100644
+--- a/sound/soc/sof/sof-audio.c
++++ b/sound/soc/sof/sof-audio.c
+@@ -360,3 +360,83 @@ struct snd_sof_dai *snd_sof_find_dai(struct snd_soc_component *scomp,
+ 	return NULL;
+ }
+ 
++/*
++ * SOF Driver enumeration.
++ */
++int sof_machine_check(struct snd_sof_dev *sdev)
++{
++	struct snd_sof_pdata *sof_pdata = sdev->pdata;
++	const struct sof_dev_desc *desc = sof_pdata->desc;
++	struct snd_soc_acpi_mach *mach;
++	int ret;
++
++	/* force nocodec mode */
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)
++		dev_warn(sdev->dev, "Force to use nocodec mode\n");
++		goto nocodec;
++#endif
++
++	/* find machine */
++	snd_sof_machine_select(sdev);
++	if (sof_pdata->machine) {
++		snd_sof_set_mach_params(sof_pdata->machine, sdev->dev);
++		return 0;
++	}
++
++#if !IS_ENABLED(CONFIG_SND_SOC_SOF_NOCODEC)
++	dev_err(sdev->dev, "error: no matching ASoC machine driver found - aborting probe\n");
++	return -ENODEV;
++#endif
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)
++nocodec:
++#endif
++	/* select nocodec mode */
++	dev_warn(sdev->dev, "Using nocodec machine driver\n");
++	mach = devm_kzalloc(sdev->dev, sizeof(*mach), GFP_KERNEL);
++	if (!mach)
++		return -ENOMEM;
++
++	ret = sof_nocodec_setup(sdev->dev, sof_pdata, mach, desc, desc->ops);
++	if (ret < 0)
++		return ret;
++
++	sof_pdata->machine = mach;
++	snd_sof_set_mach_params(sof_pdata->machine, sdev->dev);
++
++	return 0;
++}
++EXPORT_SYMBOL(sof_machine_check);
++
++int sof_machine_register(struct snd_sof_dev *sdev, void *pdata)
++{
++	struct snd_sof_pdata *plat_data = (struct snd_sof_pdata *)pdata;
++	const char *drv_name;
++	const void *mach;
++	int size;
++
++	drv_name = plat_data->machine->drv_name;
++	mach = (const void *)plat_data->machine;
++	size = sizeof(*plat_data->machine);
++
++	/* register machine driver, pass machine info as pdata */
++	plat_data->pdev_mach =
++		platform_device_register_data(sdev->dev, drv_name,
++					      PLATFORM_DEVID_NONE, mach, size);
++	if (IS_ERR(plat_data->pdev_mach))
++		return PTR_ERR(plat_data->pdev_mach);
++
++	dev_dbg(sdev->dev, "created machine %s\n",
++		dev_name(&plat_data->pdev_mach->dev));
++
++	return 0;
++}
++EXPORT_SYMBOL(sof_machine_register);
++
++void sof_machine_unregister(struct snd_sof_dev *sdev, void *pdata)
++{
++	struct snd_sof_pdata *plat_data = (struct snd_sof_pdata *)pdata;
++
++	if (!IS_ERR_OR_NULL(plat_data->pdev_mach))
++		platform_device_unregister(plat_data->pdev_mach);
++}
++EXPORT_SYMBOL(sof_machine_unregister);
+diff --git a/sound/soc/sof/sof-audio.h b/sound/soc/sof/sof-audio.h
+index 5703698633af..a62fb2da6a6e 100644
+--- a/sound/soc/sof/sof-audio.h
++++ b/sound/soc/sof/sof-audio.h
+@@ -204,4 +204,8 @@ int sof_restore_pipelines(struct device *dev);
+ int sof_set_hw_params_upon_resume(struct device *dev);
+ bool snd_sof_dsp_d0i3_on_suspend(struct snd_sof_dev *sdev);
+ 
++/* Machine driver enumeration */
++int sof_machine_register(struct snd_sof_dev *sdev, void *pdata);
++void sof_machine_unregister(struct snd_sof_dev *sdev, void *pdata);
++
+ #endif
+diff --git a/sound/soc/sof/sof-of-dev.c b/sound/soc/sof/sof-of-dev.c
+index 81deb5582d77..170a5839150f 100644
+--- a/sound/soc/sof/sof-of-dev.c
++++ b/sound/soc/sof/sof-of-dev.c
+@@ -44,8 +44,6 @@ static int sof_of_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	const struct sof_dev_desc *desc;
+-	/*TODO: create a generic snd_soc_xxx_mach */
+-	struct snd_soc_acpi_mach *mach;
+ 	struct snd_sof_pdata *sof_pdata;
+ 	const struct snd_sof_dsp_ops *ops;
+ 	int ret;
+@@ -67,27 +65,9 @@ static int sof_of_probe(struct platform_device *pdev)
+ 		return -ENODEV;
+ 	}
+ 
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)
+-	/* force nocodec mode */
+-	dev_warn(dev, "Force to use nocodec mode\n");
+-	mach = devm_kzalloc(dev, sizeof(*mach), GFP_KERNEL);
+-	if (!mach)
+-		return -ENOMEM;
+-	ret = sof_nocodec_setup(dev, sof_pdata, mach, desc, ops);
+-	if (ret < 0)
+-		return ret;
+-#else
+-	/* TODO: implement case where we actually have a codec */
+-	return -ENODEV;
+-#endif
+-
+-	if (mach)
+-		mach->mach_params.platform = dev_name(dev);
+-
+-	sof_pdata->machine = mach;
+ 	sof_pdata->desc = desc;
+ 	sof_pdata->dev = &pdev->dev;
+-	sof_pdata->platform = dev_name(dev);
++	sof_pdata->fw_filename = desc->default_fw_filename;
+ 
+ 	/* TODO: read alternate fw and tplg filenames from DT */
+ 	sof_pdata->fw_filename_prefix = sof_pdata->desc->default_fw_path;
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index 1ac184a9eb43..c835ee31b53f 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -275,7 +275,6 @@ static int sof_pci_probe(struct pci_dev *pci,
+ 	struct device *dev = &pci->dev;
+ 	const struct sof_dev_desc *desc =
+ 		(const struct sof_dev_desc *)pci_id->driver_data;
+-	struct snd_soc_acpi_mach *mach;
+ 	struct snd_sof_pdata *sof_pdata;
+ 	const struct snd_sof_dsp_ops *ops;
+ 	int ret;
+@@ -306,35 +305,10 @@ static int sof_pci_probe(struct pci_dev *pci,
  	if (ret < 0)
  		return ret;
  
--	if (pdata->machine)
--		mach_params = (struct snd_soc_acpi_mach_params *)
--			&pdata->machine->mach_params;
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE)
+-	/* force nocodec mode */
+-	dev_warn(dev, "Force to use nocodec mode\n");
+-	mach = devm_kzalloc(dev, sizeof(*mach), GFP_KERNEL);
+-	if (!mach) {
+-		ret = -ENOMEM;
+-		goto release_regions;
+-	}
+-	ret = sof_nocodec_setup(dev, sof_pdata, mach, desc, ops);
+-	if (ret < 0)
+-		goto release_regions;
 -
- 	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL)
- 		hda_priv->need_display_power = true;
+-#else
+-	/* find machine */
+-	mach = snd_soc_acpi_find_machine(desc->machines);
+-	if (!mach) {
+-		dev_warn(dev, "warning: No matching ASoC machine driver found\n");
+-	} else {
+-		mach->mach_params.platform = dev_name(dev);
+-		sof_pdata->fw_filename = mach->sof_fw_filename;
+-		sof_pdata->tplg_filename = mach->sof_tplg_filename;
+-	}
+-#endif /* CONFIG_SND_SOC_SOF_FORCE_NOCODEC_MODE */
+-
+ 	sof_pdata->name = pci_name(pci);
+-	sof_pdata->machine = mach;
+ 	sof_pdata->desc = (struct sof_dev_desc *)pci_id->driver_data;
+ 	sof_pdata->dev = dev;
+-	sof_pdata->platform = dev_name(dev);
++	sof_pdata->fw_filename = desc->default_fw_filename;
  
-@@ -126,7 +121,7 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
- 	 * if common HDMI codec driver is not used, codec load
- 	 * is skipped here and hdac_hdmi is used instead
- 	 */
--	if ((mach_params && mach_params->common_hdmi_codec_drv) ||
-+	if (hda_codec_use_common_hdmi ||
- 	    (resp & 0xFFFF0000) != IDISP_VID_INTEL) {
- 		hdev->type = HDA_DEV_LEGACY;
- 		hda_codec_load_module(&hda_priv->codec);
-@@ -145,7 +140,8 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address)
- }
+ 	/* alternate fw and tplg filenames ? */
+ 	if (fw_path)
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index eae1fc209a65..54dd6d4b4c12 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -202,6 +202,15 @@ struct snd_sof_dsp_ops {
+ 	int (*get_window_offset)(struct snd_sof_dev *sdev,
+ 				 u32 id);/* mandatory for common loader code */
  
- /* Codec initialization */
--int hda_codec_probe_bus(struct snd_sof_dev *sdev)
-+int hda_codec_probe_bus(struct snd_sof_dev *sdev,
-+			bool hda_codec_use_common_hdmi)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	int i, ret;
-@@ -156,7 +152,7 @@ int hda_codec_probe_bus(struct snd_sof_dev *sdev)
- 		if (!(bus->codec_mask & (1 << i)))
- 			continue;
++	/* machine driver ops */
++	int (*machine_register)(struct snd_sof_dev *sdev,
++				void *pdata); /* optional */
++	void (*machine_unregister)(struct snd_sof_dev *sdev,
++				   void *pdata); /* optional */
++	void (*machine_select)(struct snd_sof_dev *sdev); /* optional */
++	void (*set_mach_params)(const struct snd_soc_acpi_mach *mach,
++				struct device *dev); /* optional */
++
+ 	/* DAI ops */
+ 	struct snd_soc_dai_driver *drv;
+ 	int num_drv;
+@@ -511,4 +520,6 @@ int intel_pcm_open(struct snd_sof_dev *sdev,
+ int intel_pcm_close(struct snd_sof_dev *sdev,
+ 		    struct snd_pcm_substream *substream);
  
--		ret = hda_codec_probe(sdev, i);
-+		ret = hda_codec_probe(sdev, i, hda_codec_use_common_hdmi);
- 		if (ret < 0) {
- 			dev_err(bus->dev, "error: codec #%d probe error, ret: %d\n",
- 				i, ret);
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 91bd88fddac7..3ed0d847160c 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -475,7 +475,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
- 	}
- 
- 	/* create codec instances */
--	hda_codec_probe_bus(sdev);
-+	hda_codec_probe_bus(sdev, hda_codec_use_common_hdmi);
- 
- 	hda_codec_i915_put(sdev);
- 
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 18d7e72bf9b7..b7164a26984b 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -574,7 +574,8 @@ void sof_hda_bus_init(struct hdac_bus *bus, struct device *dev);
- /*
-  * HDA Codec operations.
-  */
--int hda_codec_probe_bus(struct snd_sof_dev *sdev);
-+int hda_codec_probe_bus(struct snd_sof_dev *sdev,
-+			bool hda_codec_use_common_hdmi);
- void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev);
- void hda_codec_jack_check(struct snd_sof_dev *sdev);
- 
++int sof_machine_check(struct snd_sof_dev *sdev);
++
+ #endif
 -- 
 2.20.1
 

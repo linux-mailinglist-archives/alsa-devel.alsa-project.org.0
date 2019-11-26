@@ -2,87 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64EA210A2DD
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2019 17:57:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2349710A2ED
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2019 18:04:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EADFD174C;
-	Tue, 26 Nov 2019 17:56:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EADFD174C
+	by alsa0.perex.cz (Postfix) with ESMTPS id A09731763;
+	Tue, 26 Nov 2019 18:03:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A09731763
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574787454;
-	bh=u85OMQvth/aOeZigsvZt6lTYTg2By1Am4W97f204kCw=;
+	s=default; t=1574787843;
+	bh=lfNxXYkIl/q/SGXYADh0MqsSAVZLEg47xrfZF7lix58=;
 	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uovK1Yq1/GfH7yCxi/IvjR1vVrUFdOiMfeFIAqNyBSSfTuWQXpReCrpWp1siIjq+B
-	 WLC6aAL70TZLmWqJeegLc6GqGqqntGpHGA74GVn495DO/gRk2CtnIIGEszhnnhFy3S
-	 jXDyuTPdB3yuz1VoiwODBnp2iwvmfYjCxpcwkW2I=
+	b=NlSy68PhEFkTQGfmuX6oyh0EzKNmtFZE6cpC5QaFgshsqpszPCSvoFLYu1mk0r8H1
+	 EHAddWxQ+IH+yBOwDXbs8KVIU2HBD8bAR9Vl7ZiOcsb15tHBb10LqSK7TGmIYn/ris
+	 lnC8v0Dlr1c4cwAwyp6S12w1Bp05aKvAmG/3FutM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D785F801ED;
-	Tue, 26 Nov 2019 17:55:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42D53F80149;
+	Tue, 26 Nov 2019 18:02:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7474AF80159; Tue, 26 Nov 2019 17:55:47 +0100 (CET)
+ id A9385F80159; Tue, 26 Nov 2019 18:02:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail1.bemta26.messagelabs.com (mail1.bemta26.messagelabs.com
- [85.158.142.3])
+ [85.158.142.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 283CDF80109
- for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2019 17:55:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 283CDF80109
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5C427F800DD
+ for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2019 18:02:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C427F800DD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
- header.i=@dialogsemiconductor.onmicrosoft.com header.b="GsMAlOj0"
+ header.i=@dialogsemiconductor.onmicrosoft.com header.b="eHLLCcN2"
 Received: from [85.158.142.108] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-3.bemta.az-a.eu-central-1.aws.symcld.net id 51/18-12307-E095DDD5;
- Tue, 26 Nov 2019 16:55:42 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrNJsWRWlGSWpSXmKPExsWSoc9rpssTeTf
- W4OV/a4srFw8xWUx9+ITNYvO5HlaLb1c6mCwu75rDZtG5q5/V4u5rP4sN39cyOnB4bPjcxOax
- 4+4SRo+ds+6ye2xa1cnmse/tMjaP9Vuusnh83iQXwB7FmpmXlF+RwJrRuXo5W8E1p4oJ57wbG
- CebdjFycTAKLGWWOLXlACuEc4xFYsr7WVDOZkaJ370/2UAcFoETzBJztz5iBHGEBKYxSTx9+x
- vKecgo0fr0CVAZJwebgIXE5BMPwFpEBF4ySnzdMpUZxGEW+MgoceTOOVaQKmEBZ4nZ/W3MILa
- IgIvEoc1NQB0cQLaVxIbtTiBhFgFVif6+FUwgNq9AosTz+etYIbZdYpQ4Pm8iO0iCUyBJYsmB
- zYwgNqOArMSXxtVgM5kFxCVuPZkP1iwhICCxZM95ZghbVOLl43+sEPWpEiebbjBCxHUkzl5/A
- mUrScybewTKlpW4NL8byvaVuPl+NjNM/Z6eM1DzLSSWdLeygNwvIaAi8e9QJUS4QOLn7h9QrW
- oSVz8dZYGwZSReHTzPBPKLhMAtVon1u38xT2DUn4XkbAhbR2LB7k9sELa2xLKFr5lngcNCUOL
- kzCcsCxhZVjFaJhVlpmeU5CZm5ugaGhjoGhoa6wJJY1O9xCrdRL3UUt3k1LySokSgrF5iebFe
- cWVuck6KXl5qySZGYIpLKWRo38F44utbvUOMkhxMSqK8gex3Y4X4kvJTKjMSizPii0pzUosPM
- cpwcChJ8EpFAOUEi1LTUyvSMnOA6RYmLcHBoyTC+zgcKM1bXJCYW5yZDpE6xWjMMeHl3EXMHJ
- vnLl3ELMSSl5+XKiXOuxikVACkNKM0D24QLA9cYpSVEuZlZGBgEOIpSC3KzSxBlX/FKM7BqCT
- MOwlkCk9mXgncvldApzABncI08xbIKSWJCCmpBqbqR7aRx5bkTuqXuSkYobRj564iNu2naxo6
- N8ToV0ru+ffS5XszJ+/Dw7mCJwqS/eL3l3ptUpUsb21IWRgbcWjXFpUYf/Wp/P1STGWGrDzL7
- HQKruzqvlXywuEjt8ujI3d2lT2+fOC+0JKtLh+WKC/cLLE6ZaZN1meD1gfpZ5ZM2BJqvHXx4Z
- 1XLPzZogIPHmFXj7p0zdS9ruBFl0q/itvDBeXv1Jj8WCqnKlxeMcPmyw7Bx5Mr2ScIRYcZpX3
- 8k8/k/+13mM7cDC21//fcndZaZimkdt/Ym+O1qP7rCeMn5/iOX7dfyLfoz9r/x2MO/r/v/D1P
- 402q+tkCy79tnI1VAnVPG7bIy7U5ctXMdlJiKc5INNRiLipOBADEXE79fgQAAA==
+ by server-4.bemta.az-a.eu-central-1.aws.symcld.net id 23/5F-19913-69A5DDD5;
+ Tue, 26 Nov 2019 17:02:14 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA1WSbUxTZxTHee69vb0gF68Fx1kn+9BBMnGtsLn
+ sYgYaNpc63yOJk0HGRS600pbSlwDL1jCQMGAFHEOBgYJWsmHG614AmRuVIAqIAkaD6dTJEqlR
+ pxZ1MnS3veC2L09+5/z/zzknJ4fCZb+TcorPtfAmA6dTkAGEZjX2prI60ZUcNdWwlp284MTY6
+ uvTJNt17gsJ+3Dyc4yd6K0n2ZLeCgnrurWVbX/0HVpPqdsfFJDqbpcDqXvqXFJ1Z0sJqT55u5
+ lUt31/kVA/6Hx5uzRRojWkZuWmSDROx13c2Lchdzb/tDQftb5VigIoxBzDYfTXeVwMBgkouDS
+ KxKALwZz9L7IU+VMEM4RD/my2V5AxBzCoszswMbiOoLv8HPK6SIaFqqFrvh8hjA5664/6TDhz
+ B4M5p90nBDNx4Cn8BYmmdVBy765U5HhwXz1BiO0ioNgxIPEyzXBQc7DD91fG7MOgvTXIy/5ML
+ HjOTvjyiAkDz2fHcS/jTChMTR/GvAwMA46+MVzk5TBz46lE9PNwpuAyEvOvweil6QVWwKGGgQ
+ UOg/HDZQu8Ba70H5Iu+hsn3ITILDjKigSmBA6Hp848EY1wr4MXMQIuTgaK5hXg7h/zbQSYKQn
+ 8WFIlqUSr6/4ztMhCgxP3SZFXQXPTLbzOt4hlcKZ2mmhERAuKSTVpMzQWPafVKaOjopTR0W8o
+ hTeGVXEfKzkVb1Xu4Q0WEyeoKi7HrDLn6ffo0lQG3tKJhHNLy/Yb7EZl92+rnOhFClMsp3dIX
+ cmyoNSstDwNZ9Z8ZLLqeLMTraAoBdDyDwRtmYnP4HPTtTrhaBdloAIVIbRqtyDTZiOnN2szRO
+ ksUlKVMw1HcBlhyDLw8lDa7q3BeE0aq+F5icXTH0dh8mAa+fn5yQKNvEmvtfxfd6NQCimCaYm
+ 3VaDWYHneyS0MgQlDYLVT3iEs3L+SPB/LKb2y89mALTEh7pXyl97ptA/G1vvvXAdN3yT9Oesp
+ PsmPBPH1rqFt1/5WpBjPv74/SX782LD61MBVuTFzq8S63t3oOuBcWaPdm/n4k+r3W4qPjqXP5
+ 0fm1CyxzZjtScX0kaLdTVq9/nFuQsjN5m9vxof3x2yOz64Jj+185Az4jfzh1cpIUwYYU37umL
+ F6tm30Hzff+PrDyw21B79MD2wMqXhY2DP/R+VKGlUErTEUJcR5ht/Oktk2EW0J5U92nS7re7L
+ FmgxtI5v2TW63hAV8NVf16VIbDHjoVRXNFV0Xct5NcI1seFaIvZcZsaZnbUDWxo5dp0JbG2LP
+ D/8UPGdb8sKdHXsVhFnDRUfiJjP3D3grI0J1BAAA
 X-Env-Sender: Adam.Thomson.Opensource@diasemi.com
-X-Msg-Ref: server-31.tower-233.messagelabs.com!1574787340!21545!1
-X-Originating-IP: [104.47.13.54]
+X-Msg-Ref: server-11.tower-233.messagelabs.com!1574787733!22037!1
+X-Originating-IP: [104.47.2.53]
 X-SYMC-ESS-Client-Auth: mailfrom-relay-check=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.44.22; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 8954 invoked from network); 26 Nov 2019 16:55:40 -0000
-Received: from mail-he1eur04lp2054.outbound.protection.outlook.com (HELO
- EUR04-HE1-obe.outbound.protection.outlook.com) (104.47.13.54)
- by server-31.tower-233.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 26 Nov 2019 16:55:40 -0000
+Received: (qmail 8162 invoked from network); 26 Nov 2019 17:02:13 -0000
+Received: from mail-db5eur01lp2053.outbound.protection.outlook.com (HELO
+ EUR01-DB5-obe.outbound.protection.outlook.com) (104.47.2.53)
+ by server-11.tower-233.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 26 Nov 2019 17:02:13 -0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=Oz0LnT2KsouVliV6D2mefpl6zfcQ5tcL4nW5otIZa7p6NMrHbb57+VvKElah8NNIsB/R1k8UAeGTyI+K4xpdIyL1ozQUQXFV+X0en5Bmwu/6kZ8TRPs+y9xOI9R4J0jz9GamayFJ5Ivsxx10K0ojq/zOmStny16yW8xY2FqiuWNsi7KBE3+uXaHbPxl9YgsB53dc0/72cb1jyTYxfnk8zl99JQdilu2UkWtKkHNRJdtMoBCOoq2++P3kxv90YxnmAophzow0gOStKKN0MX4VaoJVmS5aZXmxKvbpd3gCwqn9nvAXJ1K77ZG96OmBptJ6E+URGSfpKS+hcJ1076oe3Q==
+ b=aj3kOKKhXdqspBtJWUW2MXQhQmydgjOy90HZ/yvevd+dzJ4GEixkae2RI4Bo1dOofjp51dtsrct2bpe0Zj/kJy71ZkT/t5xJmu/T/VYpe9GE5bwj8aFQI9gXe1HgraQYRMZD0fv88fwRJTCb55ODuwcKg5ESGbwjiDGIyH1A/VcJHEINrRBzu9WY0v+xoucdypdt8L9y9CzilbOoGWdCyqEO5yugRqoKqN9qa7zMCaqjb2A0PE6CMsmJfTatmmp0+QZ+4mP0Pr8RF8wsEYr6TpsLM5QvD0YkeIgJq/HBGlVqF7EjNLmgbCaS/S1BORmusYgjUEUJkHoLYYxbsRksGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ha+r2ZcJwgMOpeXZqQzK9hAD36L8Emkhc8K65S9JdwM=;
- b=AlcR+QuqOQ9IPsY8vXy7zOVthgom8OHifCpfQdOOHUG3d71xSXnMFVLLNOk6W+PnV0BxXdVHNpnwnpfyLGTuvS1ilc4Hz1i0pO/JvoY2ZOEUnceR8C7gYjmogKcWHPAjP0XMpoDJEVV12rq+snHcMvbQEwY7699i2ucQFxqQcruPLc9onS34ezCFQWExrZD/DLMWl8pkWiIMaIyM3yuwgLTGL3npkpjwR4TPhW40/ODukFtuskopRkD6UvZ31ekE6EOtdGLI3Oi+gjICweaIq5jeUs8zkvC39VTnjgyjMNvEEP/voBn+hZZHYQNo/QjfrlVUVhLMzQHNPUKhK5OA9Q==
+ bh=2V0gz/tfXQyJZe3+mCkQjDXOpzMjnYkTppIKtgjiRgs=;
+ b=ZOGaCs8vAf85MNRCRhPqJvdZ6ctT3HNwofTxf50hwQFCS+B0hZ4KyoS4s3JyeKFw+oHu0wpyVSowFrNPc2H2UF21HRRMAjGm9XGBvXROP6jeSc5QoXl0O9P2EdN3S3MO1DXCnR3COKax6mt8+xWhRiFQhHiQzbzyP9B2354PuBMMZRvfKWE+g9ViUeXHtQV22W0c41BM+bdxqF8dp3/0XalCjzJXvhhpOoH52EbMgyvPFglKtXxdzx+f/trflTuj1Dt6jsxwmx2NysJpnywnBLVtcrXlj3FBPyLjUc59TVEkH2DlUgqeR85y8byJDyPBdVnlhjaKjTal9zWecKeiZw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
  dkim=pass header.d=diasemi.com; arc=none
@@ -90,29 +90,28 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=dialogsemiconductor.onmicrosoft.com;
  s=selector1-dialogsemiconductor-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ha+r2ZcJwgMOpeXZqQzK9hAD36L8Emkhc8K65S9JdwM=;
- b=GsMAlOj0FVRt9hbY3bEeWocZLDAWEWZZUiLcL2f9C4XJTnGt4VNVTvYfwxRRlQSJeeOOZ6K79+Dca7VtQRw8AW18xdhlHRbgEvI7ilOd7AtqfGpdPl25Iotb3odhRaX0nmtQOxi2Gv7KFlRNtXhBoxJcq+RwMEZOcY6g7fUmkIA=
+ bh=2V0gz/tfXQyJZe3+mCkQjDXOpzMjnYkTppIKtgjiRgs=;
+ b=eHLLCcN2e69i8Un1u/zcu6SXh7yNHRJQmrvgJsuWamnqByAeZxnhIM4rTDz9YYBFxjtTnD8xYvafYk3jQbfcNWHdB1ZpzcaOGJmBB7IeCbcguAT0f6eDqXzLvQPa5QNWLYTaVuA5Fv6YJX2iE2cvokltL8wJPPVhgTYu5G0i0pk=
 Received: from AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM (10.169.154.136) by
- AM5PR1001MB1108.EURPRD10.PROD.OUTLOOK.COM (10.169.155.136) with Microsoft
+ AM5PR1001MB1170.EURPRD10.PROD.OUTLOOK.COM (10.169.155.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2474.21; Tue, 26 Nov 2019 16:55:39 +0000
+ 15.20.2474.19; Tue, 26 Nov 2019 17:02:12 +0000
 Received: from AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM
  ([fe80::5525:87da:ca4:e8df]) by AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM
  ([fe80::5525:87da:ca4:e8df%7]) with mapi id 15.20.2474.023; Tue, 26 Nov 2019
- 16:55:39 +0000
+ 17:02:12 +0000
 From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>, Sebastian Reichel
- <sebastian.reichel@collabora.com>, Support Opensource
- <Support.Opensource@diasemi.com>, Liam Girdwood <lgirdwood@gmail.com>, Mark
- Brown <broonie@kernel.org>
-Thread-Topic: [PATCHv2 6/6] ASoC: da7213: Add default clock handling
-Thread-Index: AQHVn7aXMyQuMXvm70+jyJLut64noaeWIihwgAeSgIA=
-Date: Tue, 26 Nov 2019 16:55:39 +0000
-Message-ID: <AM5PR1001MB0994E628439F021F97B872D480450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+To: Sebastian Reichel <sebastian.reichel@collabora.com>, Adam Thomson
+ <Adam.Thomson.Opensource@diasemi.com>
+Thread-Topic: [PATCHv2 2/6] ASoC: da7213: Add regulator support
+Thread-Index: AQHVn7aUUebhVdnv70SSWjcAgccCf6eWEA7QgAFfzACABkV0cA==
+Date: Tue, 26 Nov 2019 17:02:12 +0000
+Message-ID: <AM5PR1001MB09941D80A91358F99189CB6D80450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
 References: <20191120152406.2744-1-sebastian.reichel@collabora.com>
- <20191120152406.2744-7-sebastian.reichel@collabora.com>
- <AM5PR1001MB0994720A0D615339A978E35C804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
-In-Reply-To: <AM5PR1001MB0994720A0D615339A978E35C804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <20191120152406.2744-3-sebastian.reichel@collabora.com>
+ <AM5PR1001MB09945AE319B4ED33C193ABE9804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <20191122170946.kbodf45wa24jnz2n@earth.universe>
+In-Reply-To: <20191122170946.kbodf45wa24jnz2n@earth.universe>
 Accept-Language: en-GB, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -120,37 +119,39 @@ X-MS-TNEF-Correlator:
 x-ms-exchange-messagesentrepresentingtype: 1
 x-originating-ip: [165.225.80.228]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 967a227b-82f8-4547-2c8a-08d77291773f
-x-ms-traffictypediagnostic: AM5PR1001MB1108:
+x-ms-office365-filtering-correlation-id: 7225f1b6-2e41-4163-3dfd-08d7729261b7
+x-ms-traffictypediagnostic: AM5PR1001MB1170:
 x-ms-exchange-sharedmailbox-routingagent-processed: True
 x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM5PR1001MB11089460F2AF587EB9768829A7450@AM5PR1001MB1108.EURPRD10.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
+x-microsoft-antispam-prvs: <AM5PR1001MB11702A790A80AFC3B6E4AC33A7450@AM5PR1001MB1170.EURPRD10.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:765;
 x-forefront-prvs: 0233768B38
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(136003)(376002)(346002)(396003)(39850400004)(366004)(189003)(199004)(54906003)(110136005)(76116006)(66946007)(11346002)(6436002)(6116002)(66476007)(14454004)(86362001)(3846002)(4326008)(446003)(25786009)(33656002)(102836004)(55016002)(2906002)(229853002)(74316002)(8676002)(7736002)(186003)(478600001)(305945005)(81156014)(9686003)(81166006)(8936002)(26005)(52536014)(99286004)(6246003)(66446008)(64756008)(316002)(66556008)(7696005)(6506007)(55236004)(71190400001)(71200400001)(5660300002)(76176011)(66066001)(256004)(53546011)(14444005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM5PR1001MB1108;
+ SFS:(10009020)(376002)(366004)(346002)(396003)(39860400002)(136003)(199004)(189003)(86362001)(52536014)(6506007)(55236004)(71200400001)(53546011)(26005)(76116006)(7696005)(71190400001)(6436002)(64756008)(66446008)(102836004)(9686003)(54906003)(25786009)(110136005)(55016002)(446003)(11346002)(8936002)(2906002)(186003)(6116002)(66476007)(99286004)(66946007)(3846002)(66556008)(5660300002)(66066001)(33656002)(6246003)(14444005)(256004)(74316002)(305945005)(7736002)(8676002)(81166006)(229853002)(81156014)(76176011)(316002)(478600001)(4326008)(14454004);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM5PR1001MB1170;
  H:AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:0; 
+ PTR:InfoNoRecords; A:0; MX:1; 
 received-spf: None (protection.outlook.com: diasemi.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: LDo9WF2XdptftbSTfcxJYUYXTrn70WDEPaOdx8ZNKfb0wjvmR4qGral9W564MtpDYFIyapNnB3n7HCOHo7f7nooAEF7iFA0ewHkA2ze24f3j8+rdrKMR4oWIKuQ1SOIlTCBGfwEWHYYLhGVE2R70JCx4mHoXr4KpiAUjXYz+M8cJbKB9tQP4Oon1rTp2egMsr+NUAnObz3wqDKgFgq2OYEEZZ0FM1PVMdO92/cm6Kd51i/A0RMTinxUyNyc6g7TCzYBohfYdBvwhFe3PH0oiX6l1onlC8Rbd00cMiOq8TIaRzJ5PI9TT1L7YzTbv05m4LhHa5+feXXog8Fv+sOF74e7VKbMBcePmA81Q8zIynDPswOye8rwGX0wJ5AK2uNT1oBW8YKtxCXEG8LQPhb1OPlN4En+aCzHzhxF4CUg1Lyk7QdFOkR1C7y1//f1gehy5
+x-microsoft-antispam-message-info: FuCtYvvOcm3csR2ks8ieiZpp3k+XpdID5p9KKV3RW53GJqDtxHmUmpsHDZ8WcKZ4QxV+MOKE5RMgXeq9lnTBsK/GNRBvFBEbR+ieHKi+Do6QwJNhf3vPIdPAJyXl5EFj9BOl99idXI3tJ/Rz/UiwWK2K/DkiNy2gcY/UtIwUaAW3BjDTmUSrGbhhmvM7PzmGvu2YUEwM0a4P82GwovwxJJ0aSOpPO2VgKLOR6PPj8lw0pkd05++rB8dy2NrklOLbaIFsOtqPxZQYrxbpggNBIwZ+431+cVuz9GYkyJd6laeIsRbMszraLSVCVB+myKZTYU4Wb5D9o+S8mMEaHg91Wy3n9ALnfM5rmJ9TdSN2bEJqWuGt1WAkh9xFxdZypc17fi5xyt8NYaI9coVaHY8SffraSHFQUTsPf0M5q+MpbcFzVk1OR41RkZ4H17ps8WFx
 MIME-Version: 1.0
 X-OriginatorOrg: diasemi.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 967a227b-82f8-4547-2c8a-08d77291773f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Nov 2019 16:55:39.0758 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7225f1b6-2e41-4163-3dfd-08d7729261b7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Nov 2019 17:02:12.5185 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: MZBcZqkJsWPLMvUHiBHXDNDji86xjE4cSvgeOHfVjpZxJ2uMCs85ZMhor6m5lLuDny8ttqY7IgAF45ZNplemL3HLTqLrmic14pO9EvMzwAc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR1001MB1108
-Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kernel@collabora.com" <kernel@collabora.com>, Takashi Iwai <tiwai@suse.com>
-Subject: Re: [alsa-devel] [PATCHv2 6/6] ASoC: da7213: Add default clock
-	handling
+X-MS-Exchange-CrossTenant-userprincipalname: TWOKvclp6Ff8AGuj97NglcBh1Gze/j2OY26YBUpm+FXIwTIPhdYRsOdfXtsbGgTYrHVyrrMxk1NW42oLu4nhCuabIyDO0zdeCYu8UFqUDYU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR1001MB1170
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Support Opensource <Support.Opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
+ "kernel@collabora.com" <kernel@collabora.com>
+Subject: Re: [alsa-devel] [PATCHv2 2/6] ASoC: da7213: Add regulator support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,251 +169,266 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 21 November 2019 21:49, Adam Thomson wrote:
+On 22 November 2019 17:10, Sebastian Reichel wrote:
 
-> On 20 November 2019 15:24, Sebastian Reichel wrote:
-> 
-> > This adds default clock/PLL configuration to the driver
-> > for usage with generic drivers like simple-card for usage
-> > with a fixed rate clock.
-> >
-> > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> > ---
-> >  sound/soc/codecs/da7213.c | 75
-> > ++++++++++++++++++++++++++++++++++++---
-> >  sound/soc/codecs/da7213.h |  2 ++
-> >  2 files changed, 73 insertions(+), 4 deletions(-)
-> >
-> > diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
-> > index 3e6ad996741b..ff1a936240be 100644
-> > --- a/sound/soc/codecs/da7213.c
-> > +++ b/sound/soc/codecs/da7213.c
-> > @@ -1156,6 +1156,7 @@ static int da7213_hw_params(struct
-> > snd_pcm_substream *substream,
-> >  			    struct snd_soc_dai *dai)
-> >  {
-> >  	struct snd_soc_component *component = dai->component;
-> > +	struct da7213_priv *da7213 =
-> > snd_soc_component_get_drvdata(component);
-> >  	u8 dai_ctrl = 0;
-> >  	u8 fs;
-> >
-> > @@ -1181,33 +1182,43 @@ static int da7213_hw_params(struct
-> > snd_pcm_substream *substream,
-> >  	switch (params_rate(params)) {
-> >  	case 8000:
-> >  		fs = DA7213_SR_8000;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
-> >  		break;
-> >  	case 11025:
-> >  		fs = DA7213_SR_11025;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_90316800;
-> >  		break;
-> >  	case 12000:
-> >  		fs = DA7213_SR_12000;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
-> >  		break;
-> >  	case 16000:
-> >  		fs = DA7213_SR_16000;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
-> >  		break;
-> >  	case 22050:
-> >  		fs = DA7213_SR_22050;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_90316800;
-> >  		break;
-> >  	case 32000:
-> >  		fs = DA7213_SR_32000;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
-> >  		break;
-> >  	case 44100:
-> >  		fs = DA7213_SR_44100;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_90316800;
-> >  		break;
-> >  	case 48000:
-> >  		fs = DA7213_SR_48000;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
-> >  		break;
-> >  	case 88200:
-> >  		fs = DA7213_SR_88200;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_90316800;
-> >  		break;
-> >  	case 96000:
-> >  		fs = DA7213_SR_96000;
-> > +		da7213->out_rate = DA7213_PLL_FREQ_OUT_98304000;
-> >  		break;
-> >  	default:
-> >  		return -EINVAL;
-> > @@ -1392,9 +1403,9 @@ static int da7213_set_component_sysclk(struct
-> > snd_soc_component *component,
-> >  }
-> >
-> >  /* Supported PLL input frequencies are 32KHz, 5MHz - 54MHz. */
-> > -static int da7213_set_component_pll(struct snd_soc_component
-> *component,
-> > -				    int pll_id, int source,
-> > -				    unsigned int fref, unsigned int fout)
-> > +static int _da7213_set_component_pll(struct snd_soc_component
-> > *component,
-> > +				     int pll_id, int source,
-> > +				     unsigned int fref, unsigned int fout)
-> >  {
-> >  	struct da7213_priv *da7213 =
-> > snd_soc_component_get_drvdata(component);
-> >
-> > @@ -1503,6 +1514,16 @@ static int da7213_set_component_pll(struct
-> > snd_soc_component *component,
-> >  	return 0;
-> >  }
-> >
-> > +static int da7213_set_component_pll(struct snd_soc_component
-> *component,
-> > +				    int pll_id, int source,
-> > +				    unsigned int fref, unsigned int fout)
-> > +{
-> > +	struct da7213_priv *da7213 =
-> > snd_soc_component_get_drvdata(component);
-> > +	da7213->fixed_clk_auto_pll = false;
-> > +
-> > +	return _da7213_set_component_pll(component, pll_id, source, fref,
-> > fout);
-> > +}
-> > +
-> >  /* DAI operations */
-> >  static const struct snd_soc_dai_ops da7213_dai_ops = {
-> >  	.hw_params	= da7213_hw_params,
-> > @@ -1532,6 +1553,43 @@ static struct snd_soc_dai_driver da7213_dai = {
-> >  	.symmetric_rates = 1,
-> >  };
-> >
-> > +static int da7213_set_auto_pll(struct snd_soc_component *component, bool
-> > enable)
-> > +{
-> > +	struct da7213_priv *da7213 =
-> > snd_soc_component_get_drvdata(component);
-> > +	int mode;
-> > +
-> > +	if (!da7213->fixed_clk_auto_pll)
-> > +		return 0;
-> > +
-> > +	da7213->mclk_rate = clk_get_rate(da7213->mclk);
-> > +
-> > +	if (enable)
-> > +		mode = DA7213_SYSCLK_PLL;
-> > +	else
-> > +		mode = DA7213_SYSCLK_MCLK;
-> 
-> If we're the clock slave, and we're using an MCLK that's not a harmonic then
-> SRM is required to synchronise the PLL to the incoming WCLK signal. I assume
-> simple sound card should allow for both master and slave modes? If so we'll
-> need to do something here to determine this as well.
-> 
-> > +
-> > +	switch (da7213->out_rate) {
-> > +	case DA7213_PLL_FREQ_OUT_90316800:
-> > +		if (da7213->mclk_rate == 11289600 ||
-> > +		    da7213->mclk_rate == 22579200 ||
-> > +		    da7213->mclk_rate == 45158400)
-> > +			mode = DA7213_SYSCLK_MCLK;
-> > +		break;
-> > +	case DA7213_PLL_FREQ_OUT_98304000:
-> > +		if (da7213->mclk_rate == 12288000 ||
-> > +		    da7213->mclk_rate == 24576000 ||
-> > +		    da7213->mclk_rate == 49152000)
-> > +			mode = DA7213_SYSCLK_MCLK;
-> > +
-> > +		break;
-> > +	default:
-> > +		return -1;
-> > +	}
-> > +
-> > +	return _da7213_set_component_pll(component, 0, mode,
-> > +					 da7213->mclk_rate, da7213->out_rate);
-> > +}
-> > +
-> >  static int da7213_set_bias_level(struct snd_soc_component *component,
-> >  				 enum snd_soc_bias_level level)
-> >  {
-> > @@ -1551,6 +1609,8 @@ static int da7213_set_bias_level(struct
-> > snd_soc_component *component,
-> >  						"Failed to enable mclk\n");
-> >  					return ret;
-> >  				}
-> > +
-> > +				da7213_set_auto_pll(component, true);
-> 
-> I've thought more about this and for the scenario where a machine driver
-> controls the PLL through a DAPM widget associated with this codec (like some
-> Intel boards do), then the PLL will be configured once here and then again
-> when the relevant widget is called. I don't think that will matter but I will
-> take a further look just in case this might cause some oddities.
+> Hi,
 
-So I don't see any issues per say with the PLL function being called twice in
-the example I mentioned. However it still feels a bit clunky; You either live
-with it or you have something in the machine driver to call the codec's PLL
-function early doors to prevent the bias_level() code of the codec controlling
-the PLL automatically. Am wondering though if there would be some use in having
-an indicator that simple-card is being used so we can avoid this? I guess we
-could check the parent sound card instance's OF node to look at the compatible
-string and see if it's a simple-card instantiation. Bit messy maybe.
-Alternatively would it be worthwhile storing in the snd_soc_card instance that
-this is a simple-card instantiation? We could then use that to determine
-whether the codec driver should automatically deal with the PLL or not. This
-would of course require an update to the snd_soc_card structure to add the new
-flag and then some update to simple-card.c to flag this.
+Ok, based on feedback I have no further comment so:
 
-I think relying on the timing of the call to the codec's PLL configuration
-function from a machine driver isn't ideal.
+Reviewed-by: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
 
 > 
-> >  			}
-> >  		}
-> >  		break;
-> > @@ -1562,8 +1622,10 @@ static int da7213_set_bias_level(struct
-> > snd_soc_component *component,
-> >  					    DA7213_VMID_EN | DA7213_BIAS_EN);
-> >  		} else {
-> >  			/* Remove MCLK */
-> > -			if (da7213->mclk)
-> > +			if (da7213->mclk) {
-> > +				da7213_set_auto_pll(component, false);
-> >  				clk_disable_unprepare(da7213->mclk);
-> > +			}
-> >  		}
-> >  		break;
-> >  	case SND_SOC_BIAS_OFF:
-> > @@ -1829,6 +1891,11 @@ static int da7213_probe(struct snd_soc_component
-> > *component)
-> >  			return PTR_ERR(da7213->mclk);
-> >  		else
-> >  			da7213->mclk = NULL;
-> > +	} else {
-> > +		/* Do automatic PLL handling assuming fixed clock until
-> > +		 * set_pll() has been called. This makes the codec usable
-> > +		 * with the simple-audio-card driver. */
-> > +		da7213->fixed_clk_auto_pll = true;
-> >  	}
+> On Thu, Nov 21, 2019 at 09:15:02PM +0000, Adam Thomson wrote:
+> > On 20 November 2019 15:24, Sebastian Reichel wrote:
 > >
-> >  	return 0;
-> > diff --git a/sound/soc/codecs/da7213.h b/sound/soc/codecs/da7213.h
-> > index 3890829dfb6e..97ccf0ddd2be 100644
-> > --- a/sound/soc/codecs/da7213.h
-> > +++ b/sound/soc/codecs/da7213.h
-> > @@ -535,10 +535,12 @@ struct da7213_priv {
-> >  	struct regulator_bulk_data supplies[DA7213_NUM_SUPPLIES];
-> >  	struct clk *mclk;
-> >  	unsigned int mclk_rate;
-> > +	unsigned int out_rate;
-> >  	int clk_src;
-> >  	bool master;
-> >  	bool alc_calib_auto;
-> >  	bool alc_en;
-> > +	bool fixed_clk_auto_pll;
-> >  	struct da7213_platform_data *pdata;
-> >  };
+> > > This adds support for most regulators of da7212 for improved
+> > > power management. The only thing skipped was the speaker supply,
+> > > which has some undocumented dependencies. It's supposed to be
+> > > either always-enabled or always-disabled.
+> > >
+> > > Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+> > > ---
+> > >  .../devicetree/bindings/sound/da7213.txt      |  4 +
+> > >  sound/soc/codecs/da7213.c                     | 79 ++++++++++++++++++-
+> > >  sound/soc/codecs/da7213.h                     |  9 +++
+> > >  3 files changed, 91 insertions(+), 1 deletion(-)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/sound/da7213.txt
+> > > b/Documentation/devicetree/bindings/sound/da7213.txt
+> > > index 759bb04e0283..cc8200b7d748 100644
+> > > --- a/Documentation/devicetree/bindings/sound/da7213.txt
+> > > +++ b/Documentation/devicetree/bindings/sound/da7213.txt
+> > > @@ -21,6 +21,10 @@ Optional properties:
+> > >  - dlg,dmic-clkrate : DMIC clock frequency (Hz).
+> > >  	[<1500000>, <3000000>]
+> > >
+> > > + - VDDA-supply : Regulator phandle for Analogue power supply
+> > > + - VDDMIC-supply : Regulator phandle for Mic Bias
+> > > + - VDDIO-supply : Regulator phandle for I/O power supply
+> > > +
+> > >  ======
+> > >
+> > >  Example:
+> > > diff --git a/sound/soc/codecs/da7213.c b/sound/soc/codecs/da7213.c
+> > > index aff306bb58df..0359249118d0 100644
+> > > --- a/sound/soc/codecs/da7213.c
+> > > +++ b/sound/soc/codecs/da7213.c
+> > > @@ -19,6 +19,7 @@
+> > >  #include <linux/module.h>
+> > >  #include <sound/pcm.h>
+> > >  #include <sound/pcm_params.h>
+> > > +#include <linux/pm_runtime.h>
+> > >  #include <sound/soc.h>
+> > >  #include <sound/initval.h>
+> > >  #include <sound/tlv.h>
+> > > @@ -806,6 +807,11 @@ static int da7213_dai_event(struct
+> > > snd_soc_dapm_widget *w,
+> > >   */
+> > >
+> > >  static const struct snd_soc_dapm_widget da7213_dapm_widgets[] = {
+> > > +	/*
+> > > +	 * Power Supply
+> > > +	 */
+> > > +	SND_SOC_DAPM_REGULATOR_SUPPLY("VDDMIC", 0, 0),
+> > > +
+> > >  	/*
+> > >  	 * Input & Output
+> > >  	 */
+> > > @@ -932,6 +938,9 @@ static const struct snd_soc_dapm_route
+> > > da7213_audio_map[] = {
+> > >  	/* Dest       Connecting Widget    source */
+> > >
+> > >  	/* Input path */
+> > > +	{"Mic Bias 1", NULL, "VDDMIC"},
+> > > +	{"Mic Bias 2", NULL, "VDDMIC"},
+> > > +
+> > >  	{"MIC1", NULL, "Mic Bias 1"},
+> > >  	{"MIC2", NULL, "Mic Bias 2"},
+> > >
+> > > @@ -1691,6 +1700,8 @@ static int da7213_probe(struct snd_soc_component
+> > > *component)
+> > >  {
+> > >  	struct da7213_priv *da7213 =
+> > > snd_soc_component_get_drvdata(component);
+> > >
+> > > +	pm_runtime_get_sync(component->dev);
 > >
-> > --
-> > 2.24.0
-
+> > It seems that this function can return errors, although I do see lots of
+> > instances of this being called where the return value isn't checked. Not had
+> > time to walk the code fully but are we sure no errors are going to happen here?
+> 
+> In this case, the runtime PM is already enabled because of
+> pm_runtime_set_active() being called previously. So this only
+> increases the usage counter.
+> 
+> > > +
+> > >  	/* Default to using ALC auto offset calibration mode. */
+> > >  	snd_soc_component_update_bits(component, DA7213_ALC_CTRL1,
+> > >  			    DA7213_ALC_CALIB_MODE_MAN, 0);
+> > > @@ -1811,6 +1822,8 @@ static int da7213_probe(struct snd_soc_component
+> > > *component)
+> > >  				    DA7213_DMIC_CLK_RATE_MASK, dmic_cfg);
+> > >  	}
+> > >
+> > > +	pm_runtime_put_sync(component->dev);
+> >
+> > Same question here.
+> 
+> da7213_runtime_suspend() always returns 0.
+> 
+> > > +
+> > >  	/* Check if MCLK provided */
+> > >  	da7213->mclk = devm_clk_get(component->dev, "mclk");
+> > >  	if (IS_ERR(da7213->mclk)) {
+> > > @@ -1848,11 +1861,22 @@ static const struct regmap_config
+> > > da7213_regmap_config = {
+> > >  	.cache_type = REGCACHE_RBTREE,
+> > >  };
+> > >
+> > > +static void da7213_power_off(void *data)
+> > > +{
+> > > +	struct da7213_priv *da7213 = data;
+> > > +	regulator_bulk_disable(DA7213_NUM_SUPPLIES, da7213->supplies);
+> > > +}
+> > > +
+> > > +static const char *da7213_supply_names[DA7213_NUM_SUPPLIES] = {
+> > > +	[DA7213_SUPPLY_VDDA] = "VDDA",
+> > > +	[DA7213_SUPPLY_VDDIO] = "VDDIO",
+> > > +};
+> > > +
+> > >  static int da7213_i2c_probe(struct i2c_client *i2c,
+> > >  			    const struct i2c_device_id *id)
+> > >  {
+> > >  	struct da7213_priv *da7213;
+> > > -	int ret;
+> > > +	int i, ret;
+> > >
+> > >  	da7213 = devm_kzalloc(&i2c->dev, sizeof(*da7213), GFP_KERNEL);
+> > >  	if (!da7213)
+> > > @@ -1860,6 +1884,25 @@ static int da7213_i2c_probe(struct i2c_client *i2c,
+> > >
+> > >  	i2c_set_clientdata(i2c, da7213);
+> > >
+> > > +	/* Get required supplies */
+> > > +	for (i = 0; i < DA7213_NUM_SUPPLIES; ++i)
+> > > +		da7213->supplies[i].supply = da7213_supply_names[i];
+> > > +
+> > > +	ret = devm_regulator_bulk_get(&i2c->dev, DA7213_NUM_SUPPLIES,
+> > > +				      da7213->supplies);
+> > > +	if (ret) {
+> > > +		dev_err(&i2c->dev, "Failed to get supplies: %d\n", ret);
+> > > +		return ret;
+> > > +	}
+> > > +
+> > > +	ret = regulator_bulk_enable(DA7213_NUM_SUPPLIES, da7213-
+> > > >supplies);
+> > > +	if (ret < 0)
+> > > +		return ret;
+> > > +
+> > > +	ret = devm_add_action_or_reset(&i2c->dev, da7213_power_off,
+> > > da7213);
+> > > +	if (ret < 0)
+> > > +		return ret;
+> > > +
+> > >  	da7213->regmap = devm_regmap_init_i2c(i2c, &da7213_regmap_config);
+> > >  	if (IS_ERR(da7213->regmap)) {
+> > >  		ret = PTR_ERR(da7213->regmap);
+> > > @@ -1867,6 +1910,11 @@ static int da7213_i2c_probe(struct i2c_client *i2c,
+> > >  		return ret;
+> > >  	}
+> > >
+> > > +	pm_runtime_set_autosuspend_delay(&i2c->dev, 100);
+> > > +	pm_runtime_use_autosuspend(&i2c->dev);
+> > > +	pm_runtime_set_active(&i2c->dev);
+> >
+> > Again this can return an error. Are we certain this won't fail?
+> 
+> This only provides the information, that the device is running. The
+> parent might be affected, but that is running anyways since we are
+> probing a child device.
+> 
+> > > +	pm_runtime_enable(&i2c->dev);
+> > > +
+> > >  	ret = devm_snd_soc_register_component(&i2c->dev,
+> > >  			&soc_component_dev_da7213, &da7213_dai, 1);
+> > >  	if (ret < 0) {
+> > > @@ -1876,6 +1924,34 @@ static int da7213_i2c_probe(struct i2c_client *i2c,
+> > >  	return ret;
+> > >  }
+> > >
+> > > +static int __maybe_unused da7213_runtime_suspend(struct device *dev)
+> > > +{
+> > > +	struct da7213_priv *da7213 = dev_get_drvdata(dev);
+> > > +
+> > > +	regcache_cache_only(da7213->regmap, true);
+> > > +	regcache_mark_dirty(da7213->regmap);
+> > > +	regulator_bulk_disable(DA7213_NUM_SUPPLIES, da7213->supplies);
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static int __maybe_unused da7213_runtime_resume(struct device *dev)
+> > > +{
+> > > +	struct da7213_priv *da7213 = dev_get_drvdata(dev);
+> > > +	int ret;
+> > > +
+> > > +	ret = regulator_bulk_enable(DA7213_NUM_SUPPLIES, da7213-
+> > > >supplies);
+> > > +	if (ret < 0)
+> > > +		return ret;
+> > > +	regcache_cache_only(da7213->regmap, false);
+> > > +	regcache_sync(da7213->regmap);
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static const struct dev_pm_ops da7213_pm = {
+> > > +	SET_RUNTIME_PM_OPS(da7213_runtime_suspend,
+> > > da7213_runtime_resume, NULL)
+> > > +};
+> > > +
+> > >  static const struct i2c_device_id da7213_i2c_id[] = {
+> > >  	{ "da7213", 0 },
+> > >  	{ }
+> > > @@ -1888,6 +1964,7 @@ static struct i2c_driver da7213_i2c_driver = {
+> > >  		.name = "da7213",
+> > >  		.of_match_table = of_match_ptr(da7213_of_match),
+> > >  		.acpi_match_table = ACPI_PTR(da7213_acpi_match),
+> > > +		.pm = &da7213_pm,
+> > >  	},
+> > >  	.probe		= da7213_i2c_probe,
+> > >  	.id_table	= da7213_i2c_id,
+> > > diff --git a/sound/soc/codecs/da7213.h b/sound/soc/codecs/da7213.h
+> > > index 3250a3821fcc..3890829dfb6e 100644
+> > > --- a/sound/soc/codecs/da7213.h
+> > > +++ b/sound/soc/codecs/da7213.h
+> > > @@ -12,6 +12,7 @@
+> > >
+> > >  #include <linux/clk.h>
+> > >  #include <linux/regmap.h>
+> > > +#include <linux/regulator/consumer.h>
+> > >  #include <sound/da7213.h>
+> > >
+> > >  /*
+> > > @@ -521,9 +522,17 @@ enum da7213_sys_clk {
+> > >  	DA7213_SYSCLK_PLL_32KHZ
+> > >  };
+> > >
+> > > +/* Regulators */
+> > > +enum da7213_supplies {
+> > > +	DA7213_SUPPLY_VDDA = 0,
+> > > +	DA7213_SUPPLY_VDDIO,
+> > > +	DA7213_NUM_SUPPLIES,
+> > > +};
+> > > +
+> > >  /* Codec private data */
+> > >  struct da7213_priv {
+> > >  	struct regmap *regmap;
+> > > +	struct regulator_bulk_data supplies[DA7213_NUM_SUPPLIES];
+> > >  	struct clk *mclk;
+> > >  	unsigned int mclk_rate;
+> > >  	int clk_src;
+> > > --
+> > > 2.24.0
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

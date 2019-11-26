@@ -2,58 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25D6810A014
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2019 15:16:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88E6010A019
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2019 15:17:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 914DF172C;
-	Tue, 26 Nov 2019 15:15:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 914DF172C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0149A1721;
+	Tue, 26 Nov 2019 15:16:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0149A1721
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574777782;
-	bh=OIuhVPDHaadUYHHJb7sZVg1+VN0+3nJoT3xCgzuolk0=;
+	s=default; t=1574777830;
+	bh=nb4tm1gXw6gkbEqljW+tqTYPZHGwgv/k65x4kag6i+0=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=YqOPGmyRLLEZ7T7XgN3hDOMTWB5utDOMoHKm5x2MFQ5+cKasxHmZ+LryYFU+76mC1
-	 kze6WyALPsvfbn78k/v2phVVK9+vTHqFT8xfIAaUNw8M8/FLmLR1vB4i+xHG9Sk+6b
-	 4SxpPE8IblkaAz7vJvGM9lXEpnVkSyQDJhwfNtK8=
+	b=K1FkO/jCJk5vQTOkgB/75CJUxWbkjLT/w6zQ+cgEPhuyo9RUX3aAvlj/dNvSnJPVQ
+	 XYY3/7Pqml2UmYNcEyRECLVbe8lynbUDQbU7tgi2yFGIfR6GH9muDtNETUWUE4YE+0
+	 6GBVAi/+hprssd4QMJCYNRm7IE/uviScnJSZoOOQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E6194F800AB;
-	Tue, 26 Nov 2019 15:14:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3219FF801F2;
+	Tue, 26 Nov 2019 15:15:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3878AF80159; Tue, 26 Nov 2019 15:14:37 +0100 (CET)
+ id 01FFEF801F2; Tue, 26 Nov 2019 15:15:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BDF6F800AB
- for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2019 15:14:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BDF6F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E5D9F80149
+ for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2019 15:15:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E5D9F80149
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2019 06:14:30 -0800
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Nov 2019 06:15:45 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,246,1571727600"; d="scan'208";a="409989865"
+X-IronPort-AV: E=Sophos;i="5.69,246,1571727600"; d="scan'208";a="206470123"
 Received: from vramali2-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.155.193])
- by fmsmga006.fm.intel.com with ESMTP; 26 Nov 2019 06:14:30 -0800
+ by fmsmga008.fm.intel.com with ESMTP; 26 Nov 2019 06:15:45 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 26 Nov 2019 08:14:23 -0600
-Message-Id: <20191126141423.21523-1-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 26 Nov 2019 08:15:33 -0600
+Message-Id: <20191126141533.21601-1-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org,
+Cc: tiwai@suse.de, broonie@kernel.org, Keyon Jie <yang.jie@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH] ASoC: SOF: Intel: add PCI ID for CometLake-S
+Subject: [alsa-devel] [PATCH] ASoC: SOF: Intel: BYT: fix a copy/paste
+	mistake in byt_dump()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,63 +72,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mirror ID added for legacy HDaudio
+From: Keyon Jie <yang.jie@linux.intel.com>
 
+The shim registers in BYT/CHT/BSW are 64bits based, correct the
+copy/paste (from bdw.c where the shim registers are 32bits based) error
+in byt_dump().
+
+Fixes: 3a9e204d4e36 ("ASoC: SOF: Intel: Add context data to any IPC timeout")
+Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/Kconfig | 16 ++++++++++++++++
- sound/soc/sof/sof-pci-dev.c |  4 ++++
- 2 files changed, 20 insertions(+)
+ sound/soc/sof/intel/byt.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index cc09bb606f7d..91c8bbcc015a 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -27,6 +27,7 @@ config SND_SOC_SOF_INTEL_PCI
- 	select SND_SOC_SOF_ICELAKE     if SND_SOC_SOF_ICELAKE_SUPPORT
- 	select SND_SOC_SOF_COMETLAKE_LP if SND_SOC_SOF_COMETLAKE_LP_SUPPORT
- 	select SND_SOC_SOF_COMETLAKE_H if SND_SOC_SOF_COMETLAKE_H_SUPPORT
-+	select SND_SOC_SOF_COMETLAKE_S if SND_SOC_SOF_COMETLAKE_S_SUPPORT
- 	select SND_SOC_SOF_TIGERLAKE   if SND_SOC_SOF_TIGERLAKE_SUPPORT
- 	select SND_SOC_SOF_ELKHARTLAKE if SND_SOC_SOF_ELKHARTLAKE_SUPPORT
- 	select SND_SOC_SOF_JASPERLAKE  if SND_SOC_SOF_JASPERLAKE_SUPPORT
-@@ -231,6 +232,21 @@ config SND_SOC_SOF_COMETLAKE_H_SUPPORT
- 	  Say Y if you have such a device.
- 	  If unsure select "N".
+diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
+index 2abf80b3eb52..b9061b79a57b 100644
+--- a/sound/soc/sof/intel/byt.c
++++ b/sound/soc/sof/intel/byt.c
+@@ -145,33 +145,33 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
+ 	struct sof_ipc_dsp_oops_xtensa xoops;
+ 	struct sof_ipc_panic_info panic_info;
+ 	u32 stack[BYT_STACK_DUMP_SIZE];
+-	u32 status, panic, imrd, imrx;
++	u64 status, panic, imrd, imrx;
  
-+config SND_SOC_SOF_COMETLAKE_S
-+	tristate
-+	select SND_SOC_SOF_HDA_COMMON
-+	help
-+	  This option is not user-selectable but automagically handled by
-+	  'select' statements at a higher level
-+
-+config SND_SOC_SOF_COMETLAKE_S_SUPPORT
-+	bool "SOF support for CometLake-S"
-+	help
-+	  This adds support for Sound Open Firmware for Intel(R) platforms
-+	  using the Cometlake-H processors.
-+	  Say Y if you have such a device.
-+	  If unsure select "N".
-+
- config SND_SOC_SOF_TIGERLAKE_SUPPORT
- 	bool "SOF support for Tigerlake"
- 	help
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index bbeffd932de7..0b39ea6117cf 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -417,6 +417,10 @@ static const struct pci_device_id sof_pci_ids[] = {
- 	{ PCI_DEVICE(0x8086, 0x06c8),
- 		.driver_data = (unsigned long)&cml_desc},
- #endif
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_S)
-+	{ PCI_DEVICE(0x8086, 0xa3f0),
-+		.driver_data = (unsigned long)&cml_desc},
-+#endif
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_TIGERLAKE)
- 	{ PCI_DEVICE(0x8086, 0xa0c8),
- 		.driver_data = (unsigned long)&tgl_desc},
+ 	/* now try generic SOF status messages */
+-	status = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IPCD);
+-	panic = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IPCX);
++	status = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCD);
++	panic = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCX);
+ 	byt_get_registers(sdev, &xoops, &panic_info, stack,
+ 			  BYT_STACK_DUMP_SIZE);
+ 	snd_sof_get_status(sdev, status, panic, &xoops, &panic_info, stack,
+ 			   BYT_STACK_DUMP_SIZE);
+ 
+ 	/* provide some context for firmware debug */
+-	imrx = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRX);
+-	imrd = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRD);
++	imrx = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IMRX);
++	imrd = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IMRD);
+ 	dev_err(sdev->dev,
+-		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
++		"error: ipc host -> DSP: pending %s complete %s raw 0x%llx\n",
+ 		(panic & SHIM_IPCX_BUSY) ? "yes" : "no",
+ 		(panic & SHIM_IPCX_DONE) ? "yes" : "no", panic);
+ 	dev_err(sdev->dev,
+-		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
++		"error: mask host: pending %s complete %s raw 0x%llx\n",
+ 		(imrx & SHIM_IMRX_BUSY) ? "yes" : "no",
+ 		(imrx & SHIM_IMRX_DONE) ? "yes" : "no", imrx);
+ 	dev_err(sdev->dev,
+-		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
++		"error: ipc DSP -> host: pending %s complete %s raw 0x%llx\n",
+ 		(status & SHIM_IPCD_BUSY) ? "yes" : "no",
+ 		(status & SHIM_IPCD_DONE) ? "yes" : "no", status);
+ 	dev_err(sdev->dev,
+-		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
++		"error: mask DSP: pending %s complete %s raw 0x%llx\n",
+ 		(imrd & SHIM_IMRD_BUSY) ? "yes" : "no",
+ 		(imrd & SHIM_IMRD_DONE) ? "yes" : "no", imrd);
+ 
 -- 
 2.20.1
 

@@ -2,62 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EE9010A0D3
-	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2019 15:57:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09D6C10A0D4
+	for <lists+alsa-devel@lfdr.de>; Tue, 26 Nov 2019 15:58:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 12F981776;
-	Tue, 26 Nov 2019 15:56:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12F981776
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9EE551766;
+	Tue, 26 Nov 2019 15:57:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9EE551766
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574780233;
-	bh=NNU4mIuXIqSWxvvb0rNRLpYWrHUQk1BqnU//q+jvv/c=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574780282;
+	bh=ViT0Tc7BTQR6pqchV5X5u1vdIzw4Z9RqZLlUfzBj6cU=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i2i9fWshd1pylyzWvWK5bzzU47Zwmf9rkL9hZ2mTpME/g4VIcHJxtpcd0D1OI5t1K
-	 37Yq/DjGirEU2NJGaBiqQZVBl+fXHxY98g94wYAw115axemZWsTNtuLEt8zl0qCVpY
-	 X1U0CItceWB37+7cGQ6CH+qviZyCp4X5hXuEZoh4=
+	b=ZbmmhnqPrcObw0mo8Fl5ZP6QUYV75frZhoOxgLnW2Ne9QypXUggRkJ7ZbudhFfwm5
+	 Y0BdBzonZRIq13Rr+C0uT5COloRtw9i7edJ4HuIIFLwn3vqjQKI1fNQ3o+uz3Ybp6h
+	 Iq2SFyJvYDpJQWTUwOMJYQT53WBBJc0ls50cJUxw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 57702F8021D;
-	Tue, 26 Nov 2019 15:53:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C871F8022D;
+	Tue, 26 Nov 2019 15:54:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACCD5F801F7; Tue, 26 Nov 2019 15:53:44 +0100 (CET)
+ id BD51FF80233; Tue, 26 Nov 2019 15:54:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67C51F800AB
- for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2019 15:53:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67C51F800AB
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2019 06:53:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,246,1571727600"; d="scan'208";a="239951784"
-Received: from vramali2-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.251.155.193])
- by fmsmga002.fm.intel.com with ESMTP; 26 Nov 2019 06:53:36 -0800
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue, 26 Nov 2019 08:53:04 -0600
-Message-Id: <20191126145304.24204-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191126145304.24204-1-pierre-louis.bossart@linux.intel.com>
-References: <20191126145304.24204-1-pierre-louis.bossart@linux.intel.com>
-MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: [alsa-devel] [PATCH 3/3] ASoC: hdac_hdmi: Drop support for Icelake
+ by alsa1.perex.cz (Postfix) with ESMTPS id 256C5F8022D
+ for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2019 15:53:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 256C5F8022D
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 4306AAC28;
+ Tue, 26 Nov 2019 14:53:57 +0000 (UTC)
+Date: Tue, 26 Nov 2019 15:53:57 +0100
+Message-ID: <s5hv9r6y9h6.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Alex Deucher <alexdeucher@gmail.com>
+In-Reply-To: <CADnq5_P7UA62+OfY+5q7re7na2V2Bc9_7XvZ3d5T9ovjMJVuLQ@mail.gmail.com>
+References: <20191122214353.582899-1-alexander.deucher@amd.com>
+ <s5hblt30y3j.wl-tiwai@suse.de>
+ <CADnq5_P7UA62+OfY+5q7re7na2V2Bc9_7XvZ3d5T9ovjMJVuLQ@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Alex Deucher <alexander.deucher@amd.com>, alsa-devel@alsa-project.org,
+ amd-gfx list <amd-gfx@lists.freedesktop.org>
+Subject: Re: [alsa-devel] [PATCH 0/4] add runtime pm support for AMD display
+	audio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,141 +73,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+On Mon, 25 Nov 2019 15:40:43 +0100,
+Alex Deucher wrote:
+> 
+> On Sat, Nov 23, 2019 at 3:57 AM Takashi Iwai <tiwai@suse.de> wrote:
+> >
+> > On Fri, 22 Nov 2019 22:43:49 +0100,
+> > Alex Deucher wrote:
+> > >
+> > > These patches were originally part of a larger set of patches
+> > > to enabled runtime pm support on the GPU side[1].  However, the
+> > > patches are useful on their own there are really no dependencies,
+> > > other than the fact that you need both for runtime pm to kick in
+> > > on the GPU side.  The GPU side will be landing for 5.6; I'd like
+> > > to land the audio side as well.
+> >
+> > Do you mean that these can go into 5.5-rc1, or they need waiting until
+> > 5.5-rc1 release?  I guess these won't break things even without the
+> > runtime PM support in GPU side, as the ELD notification is done via
+> > audio component, so I'm fine to apply them at any time.
+> 
+> Up to you.  I'm ok to wait for the next merge window if you'd prefer.
 
-This reverts commit 019033c854a2 ("ASoC: Intel: hdac_hdmi:
-add Icelake support").
+OK, I'm going to apply them for 5.5-rc1 inclusion.
 
-Icelake HDMI audio is supported by the HDMI codec driver,
-which can be used both in non-DSP (legacy HDA) and with
-DSP (SOF) configurations.
+BTW, should I apply these patches with your gmail address as author
+(while sign-off is AMD address)?  Or should I align both to your AMD
+address?
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/codecs/hdac_hdmi.c | 63 ++++++------------------------------
- 1 file changed, 9 insertions(+), 54 deletions(-)
+It's nothing wrong to have different addresses in the commit, but if
+unintended, it's better to align both.
 
-diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
-index 18c173e6a13b..e6558475e006 100644
---- a/sound/soc/codecs/hdac_hdmi.c
-+++ b/sound/soc/codecs/hdac_hdmi.c
-@@ -115,16 +115,8 @@ struct hdac_hdmi_dai_port_map {
- 	struct hdac_hdmi_cvt *cvt;
- };
- 
--/*
-- * pin to port mapping table where the value indicate the pin number and
-- * the index indicate the port number with 1 base.
-- */
--static const int icl_pin2port_map[] = {0x4, 0x6, 0x8, 0xa, 0xb};
--
- struct hdac_hdmi_drv_data {
- 	unsigned int vendor_nid;
--	const int *port_map; /* pin to port mapping table */
--	int port_num;
- };
- 
- struct hdac_hdmi_priv {
-@@ -1374,12 +1366,11 @@ static int hdac_hdmi_add_pin(struct hdac_device *hdev, hda_nid_t nid)
- 	return 0;
- }
- 
--#define INTEL_VENDOR_NID_0x2 0x02
--#define INTEL_VENDOR_NID_0x8 0x08
--#define INTEL_VENDOR_NID_0xb 0x0b
-+#define INTEL_VENDOR_NID 0x08
-+#define INTEL_GLK_VENDOR_NID 0x0b
- #define INTEL_GET_VENDOR_VERB 0xf81
- #define INTEL_SET_VENDOR_VERB 0x781
--#define INTEL_EN_DP12		0x02 /* enable DP 1.2 features */
-+#define INTEL_EN_DP12			0x02 /* enable DP 1.2 features */
- #define INTEL_EN_ALL_PIN_CVTS	0x01 /* enable 2nd & 3rd pins and convertors */
- 
- static void hdac_hdmi_skl_enable_all_pins(struct hdac_device *hdev)
-@@ -1566,26 +1557,7 @@ static int hdac_hdmi_parse_and_map_nid(struct hdac_device *hdev,
- 
- static int hdac_hdmi_pin2port(void *aptr, int pin)
- {
--	struct hdac_device *hdev = aptr;
--	struct hdac_hdmi_priv *hdmi = hdev_to_hdmi_priv(hdev);
--	const int *map = hdmi->drv_data->port_map;
--	int i;
--
--	if (!hdmi->drv_data->port_num)
--		return pin - 4; /* map NID 0x05 -> port #1 */
--
--	/*
--	 * looking for the pin number in the mapping table and return
--	 * the index which indicate the port number
--	 */
--	for (i = 0; i < hdmi->drv_data->port_num; i++) {
--		if (pin == map[i])
--			return i + 1;
--	}
--
--	/* return -1 if pin number exceeds our expectation */
--	dev_err(&hdev->dev, "Can't find the port for pin %d\n", pin);
--	return -1;
-+	return pin - 4; /* map NID 0x05 -> port #1 */
- }
- 
- static void hdac_hdmi_eld_notify_cb(void *aptr, int port, int pipe)
-@@ -1596,18 +1568,9 @@ static void hdac_hdmi_eld_notify_cb(void *aptr, int port, int pipe)
- 	struct hdac_hdmi_port *hport = NULL;
- 	struct snd_soc_component *component = hdmi->component;
- 	int i;
--	hda_nid_t pin_nid;
--
--	if (!hdmi->drv_data->port_num) {
--		/* for legacy platforms */
--		pin_nid = port + 0x04;
--	} else if (port < hdmi->drv_data->port_num) {
--		/* get pin number from the pin2port mapping table */
--		pin_nid = hdmi->drv_data->port_map[port - 1];
--	} else {
--		dev_err(&hdev->dev, "Can't find the pin for port %d\n", port);
--		return;
--	}
-+
-+	/* Don't know how this mapping is derived */
-+	hda_nid_t pin_nid = port + 0x04;
- 
- 	dev_dbg(&hdev->dev, "%s: for pin:%d port=%d\n", __func__,
- 							pin_nid, pipe);
-@@ -2025,18 +1988,12 @@ static int hdac_hdmi_get_spk_alloc(struct hdac_device *hdev, int pcm_idx)
- 	return port->eld.info.spk_alloc;
- }
- 
--static struct hdac_hdmi_drv_data intel_icl_drv_data  = {
--	.vendor_nid = INTEL_VENDOR_NID_0x2,
--	.port_map = icl_pin2port_map,
--	.port_num = ARRAY_SIZE(icl_pin2port_map),
--};
--
- static struct hdac_hdmi_drv_data intel_glk_drv_data  = {
--	.vendor_nid = INTEL_VENDOR_NID_0xb,
-+	.vendor_nid = INTEL_GLK_VENDOR_NID,
- };
- 
- static struct hdac_hdmi_drv_data intel_drv_data  = {
--	.vendor_nid = INTEL_VENDOR_NID_0x8,
-+	.vendor_nid = INTEL_VENDOR_NID,
- };
- 
- static int hdac_hdmi_dev_probe(struct hdac_device *hdev)
-@@ -2216,8 +2173,6 @@ static const struct hda_device_id hdmi_list[] = {
- 						   &intel_glk_drv_data),
- 	HDA_CODEC_EXT_ENTRY(0x8086280d, 0x100000, "Geminilake HDMI",
- 						   &intel_glk_drv_data),
--	HDA_CODEC_EXT_ENTRY(0x8086280f, 0x100000, "Icelake HDMI",
--						   &intel_icl_drv_data),
- 	{}
- };
- 
--- 
-2.20.1
 
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,63 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D99EF10AF6C
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 13:16:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A1D810AF9B
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 13:35:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5F71F1718;
-	Wed, 27 Nov 2019 13:15:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F71F1718
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEC491723;
+	Wed, 27 Nov 2019 13:34:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEC491723
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574856977;
-	bh=N7bJVISp7s4r9R7jV2nTO7VfeX0hVmApWMeWp0CHbeA=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574858110;
+	bh=dpJXRN9XpywbKpCfed3JCkc+zFpxzgGJveVzqPhW/iA=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s+jgjnumozvpnCFDH5xkKKlgD+zXjFEHdW5m3TxSNvAHZxp7meQoggG4GMdrwHGwQ
-	 gcK/iMVZ60v3Dna38SQY8/f8+IBCZqhjo7p8PMd2mlYM4yPsZaw7K8Y47oJYuZHY0R
-	 t3Nrxhs/O5PdBTFOZ5/ss/P2jqKrlBpMcJxrrjWw=
+	b=q8YEQCVA3id4rxULXxKnM1HQxrz2es68oyFMwAwqks3LsI59etgYlWe7HCUOqvu5Q
+	 jRIlq65bCjygVjQl0zs0G/gIunq60wHycw8mk5DJkHnWDJKW6zW2mpLfyxeU5VaINz
+	 ihu8GlDx1IHFm990rTOAnLEbsEk0a09jNJTPTRqI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9704F800CE;
-	Wed, 27 Nov 2019 13:14:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E28AF8013B;
+	Wed, 27 Nov 2019 13:33:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB207F8014D; Wed, 27 Nov 2019 13:14:31 +0100 (CET)
+ id 9A4B3F8014D; Wed, 27 Nov 2019 13:33:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E258F800CE
- for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 13:14:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E258F800CE
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2019 04:14:26 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,249,1571727600"; d="scan'208";a="383485947"
-Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by orsmga005.jf.intel.com with ESMTP; 27 Nov 2019 04:14:25 -0800
-Date: Wed, 27 Nov 2019 14:14:24 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@zeliteleevi
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <s5h1rtty1zs.wl-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.21.1911271411390.16459@zeliteleevi>
-References: <20191127112536.28791-1-kai.vehmanen@linux.intel.com>
- <s5h1rtty1zs.wl-tiwai@suse.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id D7D4EF800CE
+ for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 13:33:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7D4EF800CE
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3B9C30E;
+ Wed, 27 Nov 2019 04:33:19 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 70AFC3F6C4;
+ Wed, 27 Nov 2019 04:33:19 -0800 (PST)
+Date: Wed, 27 Nov 2019 12:33:17 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+Message-ID: <20191127123317.GA4879@sirena.org.uk>
+References: <20191120152406.2744-1-sebastian.reichel@collabora.com>
+ <20191120152406.2744-7-sebastian.reichel@collabora.com>
+ <AM5PR1001MB0994720A0D615339A978E35C804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <AM5PR1001MB0994E628439F021F97B872D480450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <20191126170841.GC4205@sirena.org.uk>
+ <AM5PR1001MB09949D557742E8817545637F80450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <20191126175040.GD4205@sirena.org.uk>
+ <AM5PR1001MB09940CF764711F1F13A6B37E80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Nikhil Mahale <nmahale@nvidia.com>
-Subject: Re: [alsa-devel] [PATCH] ALSA: hda: hdmi - fix regression in
- connect list handling
+In-Reply-To: <AM5PR1001MB09940CF764711F1F13A6B37E80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+X-Cookie: In the war of wits, he's unarmed.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "kernel@collabora.com" <kernel@collabora.com>,
+ Support Opensource <Support.Opensource@diasemi.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: [alsa-devel] [PATCHv2 6/6] ASoC: da7213: Add default clock
+	handling
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,56 +76,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5152261682617373311=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
 
-On Wed, 27 Nov 2019, Takashi Iwai wrote:
+--===============5152261682617373311==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GvXjxJ+pjyke8COw"
+Content-Disposition: inline
 
-> On Wed, 27 Nov 2019 12:25:36 +0100, Kai Vehmanen wrote:
-> > @@ -1312,10 +1316,19 @@ static int hdmi_read_pin_conn(struct hda_codec *codec, int pin_idx)
-[...]
-> > +	if (spec->intel_hsw_fixup) {
-> > +		intel_haswell_fixup_connect_list(codec, pin_nid);
-> > +		conns = snd_hda_get_connections(codec, pin_nid,
-> > +						per_pin->mux_nids,
-> > +						HDA_MAX_CONNECTIONS);
-> > +	} else {
-> > +		conns = snd_hda_get_raw_connections(codec, pin_nid,
-> > +						    per_pin->mux_nids,
-> > +						    HDA_MAX_CONNECTIONS);
-> > +	}
-> 
-> Actually intel_haswell_fixup_connect_list() doesn't influence on the
-> hardware setup but just updates the software cache.  So, basically we
-> can copy the values directly from spec->cvt_nids here without the
-> override hack as we have now.
-> 
-> That is, something like
-> 
-> 	if (spec->intel_hsw_fixup) {
-> 		conns = spec->cvt_nids;
-> 		memcpy(per_pin->mux_nids, spec->num_cvts,
-> 		       sizeof(hda_nid_t) * conns);
-> 	} else {
-> 	  	snd_hda_set_dev_select(codec, pin_nid, dev_id);
-> 		conns = snd_hda_get_raw_connections(codec, pin_nid,
-> 						    per_pin->mux_nids,
-> 						    HDA_MAX_CONNECTIONS);
-> 	}
-> 
-> Could you check whether this works?	
 
-hmm, you are right, this should work. spec->cvt_nids and spec->num_cvts 
-were reversed in the proto code :), but otherwise looks ok based on
-a few tests. I'll send a v2 patch shortly. This simplifies the code as 
-well.
+--GvXjxJ+pjyke8COw
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Br, Kai
+On Wed, Nov 27, 2019 at 11:32:54AM +0000, Adam Thomson wrote:
+
+> As I said it's a small thing and requires a specific use-case to occur, but
+> having the PLL configured twice for the very first stream in that scenario
+> seems messy. Regarding the SYSCLK approach you mention, I'm not clear how that
+> would work so I'm obviously missing something. If we had some init stage
+> indication though that auto PLL was required then we're golden.
+
+There's a bunch of other drivers using the SYSCLK thing, when you call
+set_sysclk() they provide a different SYSCLK number if they want to use
+manual mode.  If there's a concern about drivers doing stuff on init you
+could always ask them to set the PLL during init, even if only briefly.
+
+--GvXjxJ+pjyke8COw
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3ebQoACgkQJNaLcl1U
+h9BDaQf/ZAlgmS17icedamvRKebKOojZ+VtpiJMgMsOiLs1eMu10rJm/6XiCT5sh
+dvPRA9mGno4nal5L/s8UHj3CFPkHSYqPGI/uwY4Gf4Ek2B9cyMHiW3ht1MozjcDH
+I2QMxZxMhqHCf1p5a8fh+2jlyFfwC8lpluRg57rLT5PTdb27MBbrshYHlPuuxKtk
+p7U1irpsbnO6iW3CAp9N8kIc996SItJ7230JQCHXdLJ0X773ekOLQTSb5Ypn0Y/f
+kD+NRNoggRWJ70XZqm3DwMQRdGIW33IWR/nS+W0ncP93hfneMjYpp4byZ+BGWOwy
+CozlfXK15fWw/kq+9Gw1LGWv9CKSxw==
+=thrJ
+-----END PGP SIGNATURE-----
+
+--GvXjxJ+pjyke8COw--
+
+--===============5152261682617373311==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============5152261682617373311==--

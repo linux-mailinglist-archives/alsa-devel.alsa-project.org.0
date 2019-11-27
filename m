@@ -2,61 +2,163 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AD9210B313
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 17:19:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66E6710B37E
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 17:35:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0390C16FD;
-	Wed, 27 Nov 2019 17:18:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0390C16FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF2EB1707;
+	Wed, 27 Nov 2019 17:34:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF2EB1707
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574871589;
-	bh=W1hKSz0OP2TRcLNpNlWWbAsbUR78bHtiszJi8WolA3I=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574872505;
+	bh=MpLmio7AUDNiCeQkybcEowHLaAVtJMr3qPwj5hAIp6w=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YwKjRNg2fTer1f1Jn8AkFE9HtWFPsTqOXnlgwQFKsWisUQpR09c2LdN1qgsfP9Vo7
-	 9/uHRIAG6iNOcpu219yBHaaycIkj1nVwrrWwX9Nw0LWHToKPzBIPRw64rzAjbhGtjx
-	 iw9O11i79ST3vaJk5os8HxA8WkVr1PrirAmZl/QM=
+	b=rZr9YQKL5btZbBIJP+PXV6ruy1mnE0RQJb/cKAlpJLUiZnuDLlzOhiL9Nwg/zxbfr
+	 wgk7B25s3/4ZZvhlJ3+vvMpdZBUhxqcj29mwM+sMq8OJPKKZsolEeRablWkD5sPrWf
+	 TddeHgOETQu4NNi4aVZCD6OjvHkXML2HpcnK0Q7U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 785B3F80171;
-	Wed, 27 Nov 2019 17:18:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36B76F80171;
+	Wed, 27 Nov 2019 17:33:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A11D6F8014D; Wed, 27 Nov 2019 17:18:02 +0100 (CET)
+ id 7F72FF8014D; Wed, 27 Nov 2019 17:33:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail1.xn--80adja5bqm.su (xn--80adja5bqm.su [45.62.210.217])
- by alsa1.perex.cz (Postfix) with ESMTP id 636ECF80109
- for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 17:17:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 636ECF80109
-Received: by mail1.xn--80adja5bqm.su (Postfix, from userid 1000)
- id 46C3D20C5462; Wed, 27 Nov 2019 17:17:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail1.xn--80adja5bqm.su 46C3D20C5462
-Date: Wed, 27 Nov 2019 17:17:57 +0100
-From: Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>
-To: Takashi Iwai <tiwai@suse.de>
-Message-Id: <20191127161757.GC7065@xn--80adja5bqm.su>
-References: <20190720165435.GA5855@xn--80adja5bqm.su>
- <20190819195714.GA2737@xn--80adja5bqm.su>
- <s5hef1dthbk.wl-tiwai@suse.de>
- <20190822203031.GA22363@xn--80adja5bqm.su>
- <s5h5zmg48u2.wl-tiwai@suse.de>
- <20190829103805.GA1525@xn--80adja5bqm.su>
- <s5hsgpk2os6.wl-tiwai@suse.de>
- <20190830114510.GA10027@xn--80adja5bqm.su>
- <20191125173902.GA27981@xn--80adja5bqm.su>
- <s5h4kypy2v8.wl-tiwai@suse.de>
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ RCVD_IN_DNSWL_NONE,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail1.bemta25.messagelabs.com (mail1.bemta25.messagelabs.com
+ [195.245.230.70])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id BEC81F80109
+ for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 17:33:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BEC81F80109
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
+ header.i=@dialogsemiconductor.onmicrosoft.com header.b="pqGpWIEL"
+Received: from [46.226.52.194] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-6.bemta.az-b.eu-west-1.aws.symcld.net id BC/98-19153-C45AEDD5;
+ Wed, 27 Nov 2019 16:33:16 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrCJsWRWlGSWpSXmKPExsWSoc9hruu99F6
+ sQfsvU4srFw8xWUx9+ITNYvO5HlaLb1c6mCwu75rDZtG5q5/V4u5rP4sN39cyOnB4bPjcxOax
+ 4+4SRo+ds+6ye2xa1cnmse/tMjaP9Vuusnh83iQXwB7FmpmXlF+RwJqxeNtk9oL5XBXfjq5lb
+ 2BcydHFyMXBKLCUWWLRjKvMEM4xFomWq8egnM2MEr97f7J1MXJysAicACrbYwOSEBKYxiTxZU
+ oLI4TzkFHi16X7zCBVbAIWEpNPPADrEBGIkOi4d5kNpIhZoIlZ4v2qpYwgCWEBZ4nZ/W3MEEU
+ uEoc2N0E15Euc3PaAFWKdqsS/rSvAangFEiU2/tzCDLHtGKvEhkW/mUASnAJGErM2zGMBsRkF
+ ZCW+NK4Ga2AWEJe49WQ+WI2EgIDEkj3nmSFsUYmXj/+xQtSnSpxsusEIEdeROHv9CZStJDFv7
+ hEoW1bi0vxuKNtXYvr3+6ww9RunfoGaaSGxpLsV6AYOIFtF4t+hSohwgcSyZ7dYIGw1ie3Xzk
+ OdIyPR/rUT7BcJgQusEhdOnGaZwKg/C8nZELaOxILdn9ggbG2JZQtfM88Ch4WgxMmZT1gWMLK
+ sYrRIKspMzyjJTczM0TU0MNA1NDTSNbS00DUyMtBLrNJN0kst1S1PLS7RNdRLLC/WK67MTc5J
+ 0ctLLdnECExwKQXH7uxgbPvwVu8QoyQHk5Ior5/XvVghvqT8lMqMxOKM+KLSnNTiQ4wyHBxKE
+ ryaS4BygkWp6akVaZk5wGQLk5bg4FES4V28GCjNW1yQmFucmQ6ROsWoyzHh5dxFzEIsefl5qV
+ LivAcXARUJgBRllObBjYAl/kuMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHnPgKziycwrgdv
+ 0CugIJqAj9vWBHVGSiJCSamA6Gncou8snarXldj23iRZ8bxzvTi/J8H4/ca0YI8v9kuB9UdNu
+ 6n7de2BT/vdfG5lrTcSkH67WfCekl/Q5XutnkjqrUHlHX4PtRf35S654+LL8lzgWlMEy/8fcM
+ lcG9lLlBPbPafpFU2JSJAxPpVSXe9d9W3NbQTLb89/nLbZsuYKiS/ZMYD7hzPvzAkey9bxv4f
+ 6Gt5oPiR6K2/CBOer2mtIypuclxZ772KT5Xc486PnOoeF1PSJK4fnPTXZXF12Zx/HAaXZlxKx
+ PAeLZswROLzR73t1Ruu18Q7+71rXA4t02jRJLihK89Hdv5V8/1YBR63aYkYrEkSm2En8ilE3s
+ TI7kRv45uq4m/G3NPyWW4oxEQy3mouJEAKPR+Bx3BAAA
+X-Env-Sender: Adam.Thomson.Opensource@diasemi.com
+X-Msg-Ref: server-21.tower-282.messagelabs.com!1574872395!506323!1
+X-Originating-IP: [104.47.8.55]
+X-SYMC-ESS-Client-Auth: mailfrom-relay-check=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.44.22; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 10650 invoked from network); 27 Nov 2019 16:33:15 -0000
+Received: from mail-am5eur03lp2055.outbound.protection.outlook.com (HELO
+ EUR03-AM5-obe.outbound.protection.outlook.com) (104.47.8.55)
+ by server-21.tower-282.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 27 Nov 2019 16:33:15 -0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CDs4E/X6pJSVj/rD4GIMBg+fBJCMuo56bjUt9gvW7xm1PvFE4HnlZVGCExUjfO7Qk2CdzjIiSS5DbrztOWHy4J60KMaXpnMmuLFUBgqKUz49yVJb9ckW/s7tHrc3NZg6ttq6x1vrHvpJ+thXXvfCHOPL7YYIkydAtuujay6fL7EHlnaD0PcN3a0kXY/B0ciX25m+HWolht6G2nnjyxu5t3tF6EQD1U5eEgjvtQcNic34VIkMKZCpayE/kLVAzpg7+d3unAUoK2YAKQ576bWQqvD3LQ+45Xnt+YF1JFFx6O5wAmFknNG411hTqe+ylAsKh8vinx303Ju4xvaZQvTk8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XC6hUQu18x9cqFusYWJz3/n+9iEyYfJnNdxUlzp2JE4=;
+ b=EHIRSuempAGE/zvdPolzoXI8PfCTz/VVTwhn+54/pIUVmid1EhjEprh0t9MiVJUWHvdHWa6Yb+Q/tyyNFOOmjy4rK9RF8KYWrJiCEVcHRAXQl9du8DxFgfTU8TmhSvggcTHN0QrWTN6qxkNyp5R0n2N0LyfptuUrR4I1SJPt9R2c/snvc//T5s62aC2V3FUL5lEAomTF+BQMUiMjdyVT8K1/Z1jb2aje+/UaTD/2ztusNrXyPu2iUIxb9z+lyPzRUg9/klQFmPlvRnVEPpaa7epugVoa5O/2B+mLDut0+CvuWOQvtXsnuj5D8K0pKwRQTrYUmAlTjKp3KQUL8BpyIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
+ dkim=pass header.d=diasemi.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=dialogsemiconductor.onmicrosoft.com;
+ s=selector1-dialogsemiconductor-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XC6hUQu18x9cqFusYWJz3/n+9iEyYfJnNdxUlzp2JE4=;
+ b=pqGpWIELuERh8EorwCUyR0tqXX0PEvpB03rcOeWbBCKzL80sGi3z898PfkeFmk/V33x+IXHqIPaGMxbxCfRGY+U1upA/E9wJrQGWXQfc2w67UcUWr1QtP+6i7PTqhn7QGOVCjEKPs2q68mCA8hsLKs08CO4oSuy7+XhqfU0akQk=
+Received: from AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM (10.169.154.136) by
+ AM5PR1001MB0979.EURPRD10.PROD.OUTLOOK.COM (10.169.155.143) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2495.18; Wed, 27 Nov 2019 16:33:13 +0000
+Received: from AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::5525:87da:ca4:e8df]) by AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::5525:87da:ca4:e8df%7]) with mapi id 15.20.2474.023; Wed, 27 Nov 2019
+ 16:33:12 +0000
+From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
+To: Mark Brown <broonie@kernel.org>, Adam Thomson
+ <Adam.Thomson.Opensource@diasemi.com>
+Thread-Topic: [PATCHv2 6/6] ASoC: da7213: Add default clock handling
+Thread-Index: AQHVn7aXMyQuMXvm70+jyJLut64noaeWIihwgAeSgICAAAQ4gIAACJ3wgAADHgCAARqUMIAAHxOAgAAPlwCAACS4AIAADJyg
+Date: Wed, 27 Nov 2019 16:33:12 +0000
+Message-ID: <AM5PR1001MB099467ACADA4F7B6DDA5087480440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+References: <20191120152406.2744-1-sebastian.reichel@collabora.com>
+ <20191120152406.2744-7-sebastian.reichel@collabora.com>
+ <AM5PR1001MB0994720A0D615339A978E35C804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <AM5PR1001MB0994E628439F021F97B872D480450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <20191126170841.GC4205@sirena.org.uk>
+ <AM5PR1001MB09949D557742E8817545637F80450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <20191126175040.GD4205@sirena.org.uk>
+ <AM5PR1001MB09940CF764711F1F13A6B37E80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <20191127123317.GA4879@sirena.org.uk>
+ <AM5PR1001MB0994D842A2D7051F81A7765B80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+ <20191127154030.GD4879@sirena.org.uk>
+In-Reply-To: <20191127154030.GD4879@sirena.org.uk>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [165.225.80.228]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 4dc811cf-76c5-4f23-ea8a-08d773577f2f
+x-ms-traffictypediagnostic: AM5PR1001MB0979:
+x-ms-exchange-sharedmailbox-routingagent-processed: True
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <AM5PR1001MB09792B1A936E5D771A757619A7440@AM5PR1001MB0979.EURPRD10.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-forefront-prvs: 023495660C
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(39860400002)(376002)(346002)(366004)(396003)(136003)(189003)(199004)(446003)(11346002)(66946007)(66476007)(76116006)(66446008)(6246003)(66556008)(64756008)(5660300002)(52536014)(2906002)(66066001)(33656002)(25786009)(14454004)(55016002)(9686003)(6436002)(54906003)(110136005)(99286004)(316002)(3846002)(6116002)(478600001)(229853002)(71190400001)(71200400001)(256004)(81156014)(81166006)(8936002)(8676002)(305945005)(74316002)(7736002)(6506007)(55236004)(102836004)(26005)(76176011)(7696005)(53546011)(186003)(86362001)(4326008);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM5PR1001MB0979;
+ H:AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:0; 
+received-spf: None (protection.outlook.com: diasemi.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 7Udr+5b0wPR/GEj4BADfFayG96vCnZaDbZr0kYwBmCLkNLujw/Ij0qhvwFJs69FXKIY/dtQBaBQDVY1q76ZFHHDq7zzMNKMn5PUjt7gxG6m6GX5NGYM1etwHNTddJwVg/tYNCaigEHhl7T8j4/1qSOqNrsAtgkMorp6dm4SbLAdObaHzOtzselTsh/8hihLtJQ0LFvoP6yEmlY/3xtTJB3wvm9b2lvie/Pwnc4UIo7stcxb4zrQgTRlmrWv4p09eF99k6xYhIXgfsx2hE33MeRSmY+KBqXdrxu30l9VRgBQ1NWqtq11FmwlbRh6SCJQu1v2Ng3iUCZOxXHpP5o9MWtYjh9Hp+zuIMswA1yBDcqUzIhr2NGkZEOBlAxQrvzUxF0SHlT6DbEF4dn39j5t+9xnqQRSVQQEi5zZVadU+dAqmFmU14y+bwOOlt4bVewDI
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <s5h4kypy2v8.wl-tiwai@suse.de>
-User-Agent: Mutt/1.5.21 (2010-09-15)
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Surround speaker connection on Acer 8951G
+X-OriginatorOrg: diasemi.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4dc811cf-76c5-4f23-ea8a-08d773577f2f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2019 16:33:12.7800 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: rStooYcqh+zMnODB5AeulISbXGOri4ODkFw0TuYcD9wOkb37ie32M+rtt8Vk9nc5ga0C0wyCH65XwLcJ0RYUMF/d3krjIGY3V47EpmTd5UU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR1001MB0979
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "kernel@collabora.com" <kernel@collabora.com>,
+ Support Opensource <Support.Opensource@diasemi.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: Re: [alsa-devel] [PATCHv2 6/6] ASoC: da7213: Add default clock
+	handling
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,156 +176,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Takashi,
+On 27 November 2019 15:41, Mark Brown wrote:
 
-On Wed, Nov 27, 2019 at 12:28:59PM +0100, Takashi Iwai wrote:
-> > sorry - it's me again about the Acer 8951G LFE speaker.
-> > 
-> > On Fri, Aug 30, 2019 at 01:45:10PM +0200, Sergey 'Jin' Bostandzhyan wrote:
-> > > > > The below HDA_FIXUP_VERBS does the trick, so I do have all 6 speakers working, 
-> > > > > finally!
-> > > > > 
-> > > > > {0x01, AC_VERB_SET_GPIO_DIRECTION, 0x02}
-> > > > 
-> > > > Actually this must be paired with the corresponding bit of GPIO_DATA,
-> > > > too.  Is the bit 0x02 of GPIO_DATA set or cleared?  Usually setting it
-> > > > turns on the amp, but sometimes inverted.
-> > > 
-> > > If I understood everything correctly, then the bit is set, meaning that the
-> > > GPIO signal is configured as output. I'll be honest, I exported the
-> > > hda-analyzer setting as a python script (nice feature btw) and deducted the
-> > > fixup verb setting from there (relevant part of the hda-analyzer export below):
-> > > 
-> > > def set(nid, verb, param):
-> > >   verb = (nid << 24) | (verb << 8) | param
-> > >   res = ioctl(FD, IOCTL_VERB_WRITE, struct.pack('II', verb, 0))  
-> > > 
-> > > set(0x01, 0x717,   0x02) # 0x01071702 (SET_GPIO_DIRECTION)
-> > 
-> > it seems I indeed missed something here regarding GPIO_DATA, I really am
-> > not sure what the influence is, but after updating to Fedora 31 my LFE
-> > stopped working, even with the self compiled 5.4-rc8 kernel which I am running
-> > now (all the time before I was on Fedora 29 and I just backported my patch to 
-> > 5.2.x and compiled the modules outside the tree after being done with the 
-> > patch submission).
-> > 
-> > So ultimately, it seems I now need to do the following in my fixup
-> > (original commit was 00066e9733f629e536f6b7957de2ce11a85fe15a):
-> > 
-> > --- a/sound/pci/hda/patch_realtek.c
-> > +++ b/sound/pci/hda/patch_realtek.c
-> > @@ -8875,7 +8875,7 @@ static const struct hda_fixup alc662_fixups[] = {
-> >                 .v.verbs = (const struct hda_verb[]) {
-> >                         {0x01, AC_VERB_SET_GPIO_MASK, 0x02},
-> >                         {0x01, AC_VERB_SET_GPIO_DIRECTION, 0x02},
-> > -                       {0x01, AC_VERB_SET_GPIO_DATA, 0x00},
-> > +                       {0x01, AC_VERB_SET_GPIO_DATA, 0x02},
-> >                         { }
-> >                 },
-> >                 .chained = true,
+> On Wed, Nov 27, 2019 at 01:42:54PM +0000, Adam Thomson wrote:
 > 
-> That makes more sense.  Usually GPIO pin is off as default, and the
-> driver needs to turn it up manually for a special usage.
+> > nicest solution here though. I guess we're stuck with people having to manually
+> > configure the PLL for bypass when a non-generic machine driver inits, to avoid
+> > the initial double config, as I don't see other options unless you have
+> > something to specify at init that it's auto or manual, and this doesn't feel
+> > like a DT device specific property thing as it's more software than hardware.
+> > At least Sebastian's patch has a good comment block to highlight this.
 > 
-> > My question is: could something on the outside have influence on that? I am
-> > really very, very sure that I have tested LFE on kernel 5.4-rc before 
-> > submitting the original patch and it has been working as submitted.
-> > Why did the behavior change now? What else could I have missed?
-> 
-> Maybe the chip kept the GPIO pin on after warm boot from Windows or
-> such?
+> Not sure I follow here - if we're configuring the PLL explicitly then
+> I'd expect the PLL to be configured first, then the SYSCLK, so I'd
+> expect that the automatic PLL configuration wouldn't kick in.
 
-This is unlikely as I do not have Windows or any other OS installed on this
-system. I dug through the thread and found the following:
-
-> > > set(0x01, 0x717,   0x02) # 0x01071702 (SET_GPIO_DIRECTION)
-> >
-> > This needs the paired SET_GPIO_DATA for a proper operation.  Your
-> > analysis implicit assumes some default value that is already set by
-> > the hardware.
->
->If I understand it correctly, then "some value" is zero on my hardware:
->
-> # hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
-> nid = 0x1, verb = 0xf15, param = 0x2
-> value = 0x0
-> 
-> Meanwhile I also figured out that /proc/asound/card0/codec#0 is
-> providing this info as well:
->
->  IO[1]: enable=0, dir=1, wake=0, sticky=0, data=0, unsol=0
->
-> So the value seems to be 0 and I can add an explicit SET_GPIO_DATA verb quirk
-> to set it in addition to SET_GPIO_DIRECTION, right?
-
-You then helped me, explaining how I could properly initialize it, which I 
-incorporated in the original patch.
-
-So we did check that and I am positive that the LFE did work back then, which 
-really confuses me now.
-
-> Please make sure that which value actually is on and which is off.
-> You can change the GPIO bit dynamically via hda-verb, so you can check
-> whether the speaker works or not at each flip.
-
-OK, so the starting point (now with my local update to the driver):
-# hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
-nid = 0x1, verb = 0xf15, param = 0x2
-value = 0x2
-
-From /proc/asound/card0/codec#0:
-
-State of AFG node 0x01:
-  Power states:  D0 D1 D2 D3 CLKSTOP
-  Power: setting=D0, actual=D0
-GPIO: io=2, o=0, i=0, unsolicited=1, wake=0
-  IO[0]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
-  IO[1]: enable=1, dir=1, wake=0, sticky=0, data=1, unsol=0
-
-Pulse profile "Analog Surround 5.1 Output + Analog Stereo Input" is active,
-speaker test (via the pulse/sound applet UI) delives audible noise on the LFE.
-
-I'm flipping data in hda-analyzer now and rechecking afterwards:
-
-# hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
-nid = 0x1, verb = 0xf15, param = 0x2
-value = 0x0
-
-And:
-State of AFG node 0x01:
-  Power states:  D0 D1 D2 D3 CLKSTOP
-  Power: setting=D0, actual=D0
-GPIO: io=2, o=0, i=0, unsolicited=1, wake=0
-  IO[0]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
-  IO[1]: enable=1, dir=1, wake=0, sticky=0, data=0, unsol=0
-
-LFE is no longer audible in speaker test.
-
-Reenabling again, this time I just used hda-verb directly:
-# hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x02
-nid = 0x1, verb = 0x715, param = 0x2
-value = 0x0
-
-And checking:
-# hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
-nid = 0x1, verb = 0xf15, param = 0x2
-value = 0x2
-
-LFE becomes audible again.
-
-Now, if that would help, I could try to install Fedora 29 on some external
-harddrive and reproduce my summer setup, to confirm that it has been working 
-with data pin disabled. Alltough I am certain that it was the case, because
-I retested this several times prior to submitting the patch.
-
-Question is, if we would learn something from that?
-
-How should I proceed? Just submit an update to have the data pin active on
-init or is this weirdness worth debugging?
-
-Thanks,
-Jin
-
+The PLL in the codec relies on MCLK. The MCLK rate can be specified/configured
+by a machine driver using the relevant codec sysclk function, as is done in a
+number of drivers. Surely that has to happen first before we configure the PLL
+as the PLL functions needs to know what rate is coming in so the correct
+dividers can be applied for the required internal clocking to match up with the
+desired sample rates. I guess I'm still missing something regarding your
+discussion around SYSCLK?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

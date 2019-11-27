@@ -2,82 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 017EF10AACB
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 07:50:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23ED410AACD
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 07:52:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9893B1739;
-	Wed, 27 Nov 2019 07:49:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9893B1739
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FCBF1717;
+	Wed, 27 Nov 2019 07:51:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FCBF1717
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574837444;
-	bh=MjEgkD+eyhenGmr0xdHsBYw44WS7VkUDWh7xI/IDPE8=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1574837552;
+	bh=bUSEuca0aKhO2fcpFl/39eOevwsazD23GOO99JSjBOw=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MEohf0FEbIITn2csR87nEzuxmc4+EsAvyKfQR7iiWAYsjwRmYf0T5ehJGhhq5vvYx
-	 V3xfgieAwZzxWo8m7I405hUFIdKoEqIezBVYslBaQL+I6DNY8VSmo+VCDcBIn5S31P
-	 /ZRrX9HkaKm4IhjOW50clXQDmrk2S3G6TchBnSWM=
+	b=feF7d5joyswyEGEGlwclMwHFTwu3laPdX9l3VcH9Us7DWXHdeP52V2gvFqAXejsBr
+	 6WwRvd6AI0pgNfc3fhKHuXjsZMkg3wX691DUvAcIXjZAf3loHvzKGBXtYScAybI3pz
+	 wmavhrettsMpdBBt/tl/nzyiQsI85V5vORB82w/Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11A50F8029B;
-	Wed, 27 Nov 2019 07:39:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F145CF80171;
+	Wed, 27 Nov 2019 07:48:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4FB46F80149; Tue, 26 Nov 2019 17:55:00 +0100 (CET)
+ id 931D3F8014D; Wed, 27 Nov 2019 07:48:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 570BBF801F2
- for <alsa-devel@alsa-project.org>; Tue, 26 Nov 2019 17:54:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 570BBF801F2
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2019 08:54:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,246,1571727600"; d="scan'208";a="217197254"
-Received: from sjchrist-coffee.jf.intel.com ([10.54.74.41])
- by fmsmga001.fm.intel.com with ESMTP; 26 Nov 2019 08:54:55 -0800
-From: Sean Christopherson <sean.j.christopherson@intel.com>
-To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "Rafael J. Wysocki" <rjw@rjwysocki.net>, Len Brown <len.brown@intel.com>,
- Pavel Machek <pavel@ucw.cz>
-Date: Tue, 26 Nov 2019 08:54:17 -0800
-Message-Id: <20191126165417.22423-13-sean.j.christopherson@intel.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20191126165417.22423-1-sean.j.christopherson@intel.com>
-References: <20191126165417.22423-1-sean.j.christopherson@intel.com>
-MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 27 Nov 2019 07:39:10 +0100
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, linux-efi@vger.kernel.org,
- linux-ia64@vger.kernel.org, "VMware, Inc." <pv-drivers@vmware.com>,
- Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- "H. Peter Anvin" <hpa@zytor.com>, Nadav Amit <nadav.amit@gmail.com>,
- linux-acpi@vger.kernel.org, Jiri Olsa <jolsa@redhat.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Peter Zijlstra <peterz@infradead.org>, Darren Hart <dvhart@infradead.org>,
- Fenghua Yu <fenghua.yu@intel.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-pm@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Steven Rostedt <rostedt@goodmis.org>, Namhyung Kim <namhyung@kernel.org>,
- platform-driver-x86@vger.kernel.org, Tony Luck <tony.luck@intel.com>,
- Ard Biesheuvel <ard.biesheuvel@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Takashi Iwai <tiwai@suse.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- linux-kernel@vger.kernel.org, Andy Shevchenko <andy@infradead.org>
-Subject: [alsa-devel] [PATCH v2 12/12] x86/ACPI/sleep: Move
-	acpi_get_wakeup_address() into sleep.c,
-	remove <asm/realmode.h> from <asm/acpi.h>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9A52DF800E9
+ for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 07:48:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A52DF800E9
+Date: 27 Nov 2019 15:48:19 +0900
+X-IronPort-AV: E=Sophos;i="5.69,248,1571670000"; d="scan'208";a="32573211"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 27 Nov 2019 15:48:19 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 8F4A0400C44F;
+ Wed, 27 Nov 2019 15:48:19 +0900 (JST)
+Message-ID: <8736e93jd8.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <8b7a2bc1-6d89-ea18-0816-70448cbf9cb0@linux.intel.com>
+References: <877e3og50x.wl-kuninori.morimoto.gx@renesas.com>
+ <87pnhgeqc2.wl-kuninori.morimoto.gx@renesas.com>
+ <8b7a2bc1-6d89-ea18-0816-70448cbf9cb0@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH v2 12/15] ASoC: soc-core: add missing
+	return value check for soc_link_init()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,70 +71,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move the definition of acpi_get_wakeup_address() into sleep.c to break
-linux/acpi.h's dependency (by way of asm/acpi.h) on asm/realmode.h.
-Everyone and their mother includes linux/acpi.h, i.e. modifying
-realmode.h results in a full kernel rebuild, which makes the already
-inscrutable real mode boot code even more difficult to understand and is
-positively rage inducing when trying to make changes to x86's boot flow.
 
-No functional change intended.
+Hi Pierre-Louis
 
-Signed-off-by: Sean Christopherson <sean.j.christopherson@intel.com>
+> > diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+> > index 79a4753..bdae48e 100644
+> > --- a/sound/soc/soc-core.c
+> > +++ b/sound/soc/soc-core.c
+> > @@ -1983,8 +1983,11 @@ static int snd_soc_bind_card(struct snd_soc_card *card)
+> >   		goto probe_end;
+> >   	}
+> >   -	for_each_card_rtds(card, rtd)
+> > -		soc_link_init(card, rtd);
+> > +	for_each_card_rtds(card, rtd) {
+> > +		ret = soc_link_init(card, rtd);
+> > +		if (ret < 0)
+> > +			goto probe_end;
+> > +	}
+> 
+> Morimoto-san, this patch proves very useful to avoid a kernel oops
+> when a dailink init fails, but I still see a warning when cleaning-up.
+> 
+> I was experimenting with a topology file that wasn't complete and came
+> across the warning below, would you have any ideas/recommendations on
+> what might be missing? I am running out of time this week so thought I
+> would ask, in case this rings a bell.
+> 
+> Thanks!
+> 
+> [   21.098662] bytcr_rt5640 bytcr_rt5640: ASoC: no source widget found
+> for modem_out
+> [   21.098677] bytcr_rt5640 bytcr_rt5640: ASoC: Failed to add route
+> modem_out -> direct -> ssp0 Tx
+> [   21.098694] bytcr_rt5640 bytcr_rt5640: ASoC: no sink widget found
+> for modem_in
+> [   21.098703] bytcr_rt5640 bytcr_rt5640: ASoC: Failed to add route
+> ssp0 Rx -> direct -> modem_in
+> [   21.098732] bytcr_rt5640 bytcr_rt5640: ASoC: failed to init
+> SSP2-Codec: -19
+
+Do you mean, it could save you from Oops, but you still have warning ?
+
+It seems soc-dapm::snd_soc_dapm_add_routes() failed.
+Your kernel is missing widget route/path ?
+Or, sound card driver has some issue ?
+
+I have been faced this error many times.
+I don't remember detail, but, if my memory was correct,
+it was always card driver setup timing, or missing something, in my case.
+
+Thank you for your help !!
+Best regards
 ---
- arch/x86/include/asm/acpi.h  |  6 +-----
- arch/x86/kernel/acpi/sleep.c | 11 +++++++++++
- 2 files changed, 12 insertions(+), 5 deletions(-)
-
-diff --git a/arch/x86/include/asm/acpi.h b/arch/x86/include/asm/acpi.h
-index 23ffafd927a1..ca0976456a6b 100644
---- a/arch/x86/include/asm/acpi.h
-+++ b/arch/x86/include/asm/acpi.h
-@@ -13,7 +13,6 @@
- #include <asm/processor.h>
- #include <asm/mmu.h>
- #include <asm/mpspec.h>
--#include <asm/realmode.h>
- #include <asm/x86_init.h>
- 
- #ifdef CONFIG_ACPI_APEI
-@@ -62,10 +61,7 @@ static inline void acpi_disable_pci(void)
- extern int (*acpi_suspend_lowlevel)(void);
- 
- /* Physical address to resume after wakeup */
--static inline unsigned long acpi_get_wakeup_address(void)
--{
--	return ((unsigned long)(real_mode_header->wakeup_start));
--}
-+unsigned long acpi_get_wakeup_address(void);
- 
- /*
-  * Check if the CPU can handle C2 and deeper
-diff --git a/arch/x86/kernel/acpi/sleep.c b/arch/x86/kernel/acpi/sleep.c
-index ca13851f0570..26b7256f590f 100644
---- a/arch/x86/kernel/acpi/sleep.c
-+++ b/arch/x86/kernel/acpi/sleep.c
-@@ -26,6 +26,17 @@ unsigned long acpi_realmode_flags;
- static char temp_stack[4096];
- #endif
- 
-+/**
-+ * acpi_get_wakeup_address - provide physical address for S3 wakeup
-+ *
-+ * Returns the physical address where the kernel should be resumed after the
-+ * system awakes from S3, e.g. for programming into the firmware waking vector.
-+ */
-+unsigned long acpi_get_wakeup_address(void)
-+{
-+	return ((unsigned long)(real_mode_header->wakeup_start));
-+}
-+
- /**
-  * x86_acpi_enter_sleep_state - enter sleep state
-  * @state: Sleep state to enter.
--- 
-2.24.0
-
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

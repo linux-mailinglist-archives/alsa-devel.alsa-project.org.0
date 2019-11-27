@@ -2,163 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9617510B551
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 19:11:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 875EE10B62C
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 19:54:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2680E16F5;
-	Wed, 27 Nov 2019 19:11:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2680E16F5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0358F16E3;
+	Wed, 27 Nov 2019 19:53:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0358F16E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574878318;
-	bh=txYs2ZMcaABh31LTZURZPnOqS0LlJBdP1kBbQzKPtxs=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574880871;
+	bh=S6rYIa0W9djUkcFdG2NcZptMFZxN7Jh4YIITqEgmBP4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H//FIYfsgwxKF8+tpdlXKzTZIKl5EONO6ktjNGqMJCDexFkotiiuVoKvw/0TCYKQY
-	 YMsEY5Cci++oUw3tdaRhCqx+JdOyUwr1zSZcuNGBj1cuHE9iedJD8/ktoti48PAj6v
-	 XH1qgIsOKdzxioFvRt2NB39BeStcbb4xTL494aLk=
+	b=je5PxVwl4LeAxTNySNnYmHx9CrXSGYMMCe82d0JlYW53GSgT+lOPfnX8anf/PHLO/
+	 SDvGcDCudMfjA7agBZY4ElK4e+VFvedjTaVGYRauRprjA76uNO4qJtpIIcqLSewSL+
+	 +a1ccq1kmGRWKhu/sBVicrbXNRQYFTzI68RJtwjA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 89054F8013B;
-	Wed, 27 Nov 2019 19:10:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 44918F80109;
+	Wed, 27 Nov 2019 19:52:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D880CF8014D; Wed, 27 Nov 2019 19:10:11 +0100 (CET)
+ id 7554FF8014D; Wed, 27 Nov 2019 19:52:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail1.bemta25.messagelabs.com (mail1.bemta25.messagelabs.com
- [195.245.230.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
+ [IPv6:2a00:1450:4864:20::142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09D19F800CE
- for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 19:10:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09D19F800CE
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5107F800E9
+ for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 19:52:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5107F800E9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=dialogsemiconductor.onmicrosoft.com
- header.i=@dialogsemiconductor.onmicrosoft.com header.b="B2cF+7m7"
-Received: from [46.226.52.104] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-7.bemta.az-a.eu-west-1.aws.symcld.net id 78/A3-22091-EFBBEDD5;
- Wed, 27 Nov 2019 18:10:06 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrMJsWRWlGSWpSXmKPExsWSoc9mpvt3971
- Yg+9LbSyuXDzEZDH14RM2i83nelgtvl3pYLK4vGsOm0Xnrn5Wi7uv/Sw2fF/L6MDhseFzE5vH
- jrtLGD12zrrL7rFpVSebx763y9g81m+5yuLxeZNcAHsUa2ZeUn5FAmvG5EeHmApaeCuWHzrF3
- MB4jKuLkYuDUWAps8SaC0dYIJxjLBKXjtxnhXA2M0r87v3JBuKwCJxglri0/idYRkhgGpPE4Z
- 1/2CCch4wSx5d/Yexi5ORgE7CQmHziARuILSIQIdFx7zJYEbNAE7PE+1VLwYqEBZwlZve3MUM
- UuUgc2twEVMQBZNdL7N5fARJmEVCVOLZnPwuIzSuQKNF44ww7xLJLrBIvD68Gm8MpYCTx/OQ1
- dhCbUUBW4kvjarCZzALiEreezGcCsSUEBCSW7DnPDGGLSrx8/I8Voj5V4mTTDUaIuI7E2etPo
- GwliXlzj0DZshKX5ndD2b4Scx5dZgS5E6R+5i8hiLCFxJLuVhaIsIrEv0OVEOECiesz/0FdoC
- Zx400H1AUyEu1fO5lBXpEQmM0q8br1OMsERv1ZSK6GsHUkFuz+xAZha0ssW/iaeRY4KAQlTs5
- 8wrKAkWUVo0VSUWZ6RkluYmaOrqGBga6hoZGuoaUxEFvoJVbpJuqlluqWpxaX6BrqJZYX6xVX
- 5ibnpOjlpZZsYgSmt5SCg8d2MB75+lbvEKMkB5OSKK+f171YIb6k/JTKjMTijPii0pzU4kOMM
- hwcShK813YB5QSLUtNTK9Iyc4CpFiYtwcGjJMJ7CSTNW1yQmFucmQ6ROsWoyzHh5dxFzEIsef
- l5qVLivM0gRQIgRRmleXAjYGn/EqOslDAvIwMDgxBPQWpRbmYJqvwrRnEORiVh3gsgU3gy80r
- gNr0COoIJ6Ih9fWBHlCQipKQamG6Ivbw4b2Uf39UY5XdvVte0NWg23To7QXr1oampVYvLXt9m
- P7f4l97+6jtX/hl+8dF/zOCxP+T2jTXZC2LKLI3eVi1nM9JmPHv+xr9LC35O35EuJrt9z/Uor
- a1ZZxzPzFxudPXUJqFp/w+qqHLdj/8Qvv5r3cLyn65cr6xfFCUXWwTV3uLIY4pN/7ut/ltg4q
- 9KS+OJS5oLc456S27kOZe8aavN0rxnhc/lFglZxpo5HNv2Y1qQzFvpn+Z5XB1PNoQqXfi5qMR
- Wu8H8xp27kpLfA4y/SW3807xjil5QqVfrifglL6PLRQryv4oKBLHHLz6R8kCPv+2Jy3+35tC/
- JZNiMu+Z9DTO/mD0Ud5lz38lluKMREMt5qLiRACZpScXdgQAAA==
-X-Env-Sender: Adam.Thomson.Opensource@diasemi.com
-X-Msg-Ref: server-3.tower-268.messagelabs.com!1574878204!470562!1
-X-Originating-IP: [104.47.6.54]
-X-SYMC-ESS-Client-Auth: mailfrom-relay-check=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.44.22; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 27357 invoked from network); 27 Nov 2019 18:10:05 -0000
-Received: from mail-ve1eur02lp2054.outbound.protection.outlook.com (HELO
- EUR02-VE1-obe.outbound.protection.outlook.com) (104.47.6.54)
- by server-3.tower-268.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 27 Nov 2019 18:10:05 -0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=U8GVQY2FwQ6yQJn6W3Wx/6G76inXGOVYGnfT37dUNskDuhMC7l1mVbb28eAnKuj5iz4Uf4a26ylMQyBDZ6tlj5XKdSYqDa/IgH2NSx5H+y/X7csuaNFNee6jhiUSDTa5R7cYww9gCdDNO9sZ5JCMrD/+yDfsuDcvF7UsVyZhfF0PPHyBwrs6hm1Pce6pdjce19CJSoesaD4Esb7e38Sz5gKoE/Q1XSL4DFh3TFg9DOsApQPMmHbQFscj85/BXItiIkcDNvLrDyxNOAaBplPONkF9tqAXBy+9lhcyqPZUeLN3qaNwt5tIPtRxNPcB7dpqUUZxc6VXir9/oXdZUAJz5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m7p0SgyfOLFzbjLoO+Je/+jBuqL4X/3r28rlEoKLSP0=;
- b=Bx/U+Ixh2psMGdFQPqF3xRUlOeSmKGYEDK7sRB5IV0dXawL0bbgNZw6MljcMeomCuYMcbq8Fye9wJJ7AUPz3gVdanDn32D9+NnpIOG+lVq6e6IuzuSJ2JGnH2c1vjdQoU/F5asPDivrfD/d12CEqmdMBrYq3QNb9AMNqf4Gupm8/AYWWNksLSX6+V0W2TZ4IAAdx8fURP5Xdgn9zb/2RbRmcZTb8V65lhg5u7HL47LxL0CU2IFh1SSEDB46vFs9+aeib/t0hvoJgwuT7ZrZRuHiUCdHDeTIvZhfALQJFmj8uVI80oE1vjC/iHftP25iys0ZRegF7hQSGlnUTN9WnIg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=diasemi.com; dmarc=pass action=none header.from=diasemi.com;
- dkim=pass header.d=diasemi.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=dialogsemiconductor.onmicrosoft.com;
- s=selector1-dialogsemiconductor-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m7p0SgyfOLFzbjLoO+Je/+jBuqL4X/3r28rlEoKLSP0=;
- b=B2cF+7m7mVnGtTDHQQq1GL3Y8FFPUWM/UCSg/G6uY0JkatExrD5rn2WwZ2GFE9TGrm+firqNPAXxb1TljlCMhSMDTgoaQnLmSzN7GUdMgOcPeHibEbF+nwHAuK2LkBpLcup6mgzL9PR2WrmnGNJALCBsJio9rvYtyVhM0QJIHoI=
-Received: from AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM (10.169.154.136) by
- AM5PR1001MB1042.EURPRD10.PROD.OUTLOOK.COM (10.169.154.141) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2474.19; Wed, 27 Nov 2019 18:10:00 +0000
-Received: from AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::5525:87da:ca4:e8df]) by AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM
- ([fe80::5525:87da:ca4:e8df%7]) with mapi id 15.20.2474.023; Wed, 27 Nov 2019
- 18:10:00 +0000
-From: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-To: Mark Brown <broonie@kernel.org>, Adam Thomson
- <Adam.Thomson.Opensource@diasemi.com>
-Thread-Topic: [PATCHv2 6/6] ASoC: da7213: Add default clock handling
-Thread-Index: AQHVn7aXMyQuMXvm70+jyJLut64noaeWIihwgAeSgICAAAQ4gIAACJ3wgAADHgCAARqUMIAAHxOAgAAPlwCAACS4AIAADJyggAAEXwCAAA2x8A==
-Date: Wed, 27 Nov 2019 18:10:00 +0000
-Message-ID: <AM5PR1001MB099446A50351CC49478893D780440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
-References: <AM5PR1001MB0994720A0D615339A978E35C804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <AM5PR1001MB0994E628439F021F97B872D480450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191126170841.GC4205@sirena.org.uk>
- <AM5PR1001MB09949D557742E8817545637F80450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191126175040.GD4205@sirena.org.uk>
- <AM5PR1001MB09940CF764711F1F13A6B37E80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191127123317.GA4879@sirena.org.uk>
- <AM5PR1001MB0994D842A2D7051F81A7765B80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191127154030.GD4879@sirena.org.uk>
- <AM5PR1001MB099467ACADA4F7B6DDA5087480440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191127164116.GE4879@sirena.org.uk>
-In-Reply-To: <20191127164116.GE4879@sirena.org.uk>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [165.225.80.228]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ed15d1f2-f80c-4182-b934-08d7736504e3
-x-ms-traffictypediagnostic: AM5PR1001MB1042:
-x-ms-exchange-sharedmailbox-routingagent-processed: True
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AM5PR1001MB1042D500A75AFB174A4EB57EA7440@AM5PR1001MB1042.EURPRD10.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 023495660C
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(366004)(189003)(199004)(66066001)(8936002)(76176011)(7696005)(64756008)(66476007)(53546011)(102836004)(66556008)(7736002)(14454004)(256004)(446003)(11346002)(86362001)(66446008)(305945005)(55016002)(66946007)(4326008)(99286004)(9686003)(81166006)(71200400001)(71190400001)(52536014)(76116006)(6506007)(2906002)(33656002)(74316002)(55236004)(498600001)(110136005)(6116002)(26005)(25786009)(6246003)(5660300002)(81156014)(3846002)(186003)(6436002)(54906003)(229853002)(8676002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM5PR1001MB1042;
- H:AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:0; 
-received-spf: None (protection.outlook.com: diasemi.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 6SkZ1LSBhSQEsjInjN/6v3hO15KD3xx3q57eOz2aYJ5bM24KpaCajtK4Uv9QWZ5IjIZNgqXNVkDudbvZ+sNMOh+X5q+AOTR19wOdISiwqek/RfB9CLOk3+GBWTjZWdsmMMEXHYKBZTtMv1LwoqKMUXA6skpvTPbHgj0SsNgd5YQChx58gT8Z24whs9FBBO1tSqolOTI1xfjvKl2rRTq8II0kf0o+42RUNhW+wBeArJ3t93TE9HsfLgVeqBgpnDLh0L+P+qXeropgm882hgtOLn+sMHOF6aR5awW+5LnHkVwVnM5lDF0k/veYDHj5tSosBx0+AzaN2mNOk4xRdmTmWdZ61Ardw5HmwfLWFyYhsSwCq2PvaxkoTpjthKo0hDFunmuv/asMNULdxh8HKfTWkBupLY0j8WuSreGNQapMvTuanRVwaYqPRpmRN07P91M6
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="fYj+vaHo"
+Received: by mail-lf1-x142.google.com with SMTP id m30so16166082lfp.8
+ for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 10:52:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to;
+ bh=VQB5xOl6PUhSSXjIIKLgulble9hz5f4Kdt2ZdPl5E5s=;
+ b=fYj+vaHo195/TX+W6dM1du6nmYqbdHrNqtE+yrMCtygS0gQe9omdchlGMTZ3IK8cSS
+ 6ozgI4w1DHt5aOENwspQaYSmU03YJAb+tYInf4ddqm9YXfrJquV4MF9Mr3d4uWoxfwyZ
+ VNbc6g8HdrRRE19B+DkitedVqdahTLCqan9ps8zjlBmx/PDyK0DfGyMxmEKEqY+y0jQs
+ kolIX1Ow332DiRwT+hxp0Z8jpYCjqx5/dpX9t679Gq6gVGgUIrot5tuC3wKiI/Lr2kvY
+ h/jOAuiMseCffG9D3HS307axgqDpbkiYISDiG1V+ct76Z4Dig2np9QFKQ/FQwAUbr3/G
+ Vkdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=VQB5xOl6PUhSSXjIIKLgulble9hz5f4Kdt2ZdPl5E5s=;
+ b=lsOJOuyzLDke90WpxXouyxeDN/TqviwWtjUvAXkR4WOAQbb7cUpXacho1eculLYIIV
+ KRAsE7Y7rc3MZzz2EsXGMMF0u/zjMvAuJ4zO9WkeCwcncjiq1q/Gms/Mz82qa+gUWD3K
+ I43PQI6vZRTKHVzPtfdg4F9P6pgNP6Tlb7JFwJ0dF1N6GqKPUGTHsBonmk9FLhta347Y
+ yPaUhGQtDa6MWTMRSXp1bxW4quF8SjJmj+QG0bUmzfPUiFmI2f5Uh/xd41Jrom006cBp
+ YGqWFe/VbUCkeIpGuARc0cnMB8wTF+MHYqU8D3lhD2mClbN3kyCXy11n4KjXLQi9guQj
+ yK2Q==
+X-Gm-Message-State: APjAAAU7baRhNHcMfX9hHMRapx82SJlFdsdWAp0Nt93tTKK9QQW2AqnZ
+ wt9N/MUl68E9efKik4jpJ7c=
+X-Google-Smtp-Source: APXvYqw2wE4GlLAyoNQ0GjWCIULDVaUeZ24oBaMaA72cGFojO9FAUOKTKjO5y8n4C5+7AolIdKpkPQ==
+X-Received: by 2002:ac2:54b4:: with SMTP id w20mr19730210lfk.67.1574880760084; 
+ Wed, 27 Nov 2019 10:52:40 -0800 (PST)
+Received: from prime (host-178-216-91-25.sta.tvknaszapraca.pl. [178.216.91.25])
+ by smtp.gmail.com with ESMTPSA id w71sm8559515lff.0.2019.11.27.10.52.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 27 Nov 2019 10:52:39 -0800 (PST)
+Date: Wed, 27 Nov 2019 19:52:37 +0100
+From: =?utf-8?Q?Micha=C5=82?= Matysiak <matysiakmichal@gmail.com>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20191127185237.GA7486@prime>
+References: <20191127142637.GB33700@prime> <s5hd0ddwfhg.wl-tiwai@suse.de>
+ <8c22afa4-10ca-efc7-5a8c-b927a27959d6@redhat.com>
+ <s5hzhghuxbj.wl-tiwai@suse.de> <s5hlfs1uue6.wl-tiwai@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: diasemi.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ed15d1f2-f80c-4182-b934-08d7736504e3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2019 18:10:00.5999 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 511e3c0e-ee96-486e-a2ec-e272ffa37b7c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: EU7oW8aFw1LGyvj0ky3j5mYC4x6P1NIjsN+57gCa9h9yYOsYxXeoyRdxfuJJdr4o7q4/MP8K0+PzxPR15mTYY2aXLxXbNghfiJTVW7WwJeY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM5PR1001MB1042
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kernel@collabora.com" <kernel@collabora.com>,
- Support Opensource <Support.Opensource@diasemi.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [alsa-devel] [PATCHv2 6/6] ASoC: da7213: Add default clock
-	handling
+Content-Disposition: inline
+In-Reply-To: <s5hlfs1uue6.wl-tiwai@suse.de>
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
+Subject: Re: [alsa-devel] kernel oops related to the new HDA audio handling
+	for DP MST
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -171,40 +100,91 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 27 November 2019 16:41, Mark Brown wrote:
-
-> > The PLL in the codec relies on MCLK. The MCLK rate can be specified/configured
-> > by a machine driver using the relevant codec sysclk function, as is done in a
-> > number of drivers. Surely that has to happen first before we configure the PLL
-> > as the PLL functions needs to know what rate is coming in so the correct
-> > dividers can be applied for the required internal clocking to match up with the
-> > desired sample rates. I guess I'm still missing something regarding your
-> > discussion around SYSCLK?
->
-> The PLL configuration specifies both input and output clock rates (as
-> well as an input clock source) so if it's got to configure the MCLK I'd
-> expect the driver to figure that out without needing the caller to
-> separately set the MCLK rate.
-
-Yes it does but the name of the function implies it's setting the codec's PLL,
-not the system clock, whereas the other function implies setting the system
-clock and not the PLL. Also generally you're only setting the sysclk once
-whereas you may want to configure and enable/disable the PLL more dynamically,
-at least for devices which do have a built-in PLL. Of course that could still be
-handled through the single PLL function call.
-
-Just as an informational, what's the future for these two functions if
-essentially one is only really required and the other deemed redundant? I would
-just like to be clear so I'm not falling over things like this in the future,
-and wasting your time as well. Seems that the PLL call isn't part of simple
-generic card code so would the be deemed surplus to requirements some point down
-the line?
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gV2VkLCBOb3YgMjcsIDIwMTkgYXQgMDY6MDA6MTdQTSArMDEwMCwgVGFrYXNoaSBJd2FpIHdy
+b3RlOgo+IE9uIFdlZCwgMjcgTm92IDIwMTkgMTY6NTc6MDQgKzAxMDAsCj4gVGFrYXNoaSBJd2Fp
+IHdyb3RlOgo+ID4gCj4gPiBPbiBXZWQsIDI3IE5vdiAyMDE5IDE2OjQ2OjAwICswMTAwLAo+ID4g
+SGFucyBkZSBHb2VkZSB3cm90ZToKPiA+ID4gCj4gPiA+IEhpIFRha2FzaGksCj4gPiA+IAo+ID4g
+PiBPbiAyNy0xMS0yMDE5IDE1OjM5LCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4gPiA+ID4gT24gV2Vk
+LCAyNyBOb3YgMjAxOSAxNToyNjozNyArMDEwMCwKPiA+ID4gPiBNaWNoYcWCIE1hdHlzaWFrIHdy
+b3RlOgo+ID4gPiA+Pgo+ID4gPiA+PiBIaQo+ID4gPiA+Pgo+ID4gPiA+PiBSZWNlbnRseSBJJ3Zl
+IGVuY291bnRlcmVkIHRoaXMgZXJyb3IgYW5kIGFzIEhhbnMgZGUgR29lZGUncyByZXF1ZXN0IEkn
+bQo+ID4gPiA+PiByZXBvcnRpbmcgdGhpcyBiYWNrIHRvIHlvdS4gVGhpcyBoYXBwZW5zIHdoaWxl
+IGJvb3RpbmcgbXkgbGFwdG9wCj4gPiA+ID4+IGNvbm5lY3RlZCB0byBkb2NraW5nIHN0YXRpb24g
+YW5kIHdpdGhvdXQgdXNpbmcgb25lLgo+ID4gPiA+Pgo+ID4gPiA+PiBrZXJuZWw6IFdBUk5JTkc6
+IENQVTogMSBQSUQ6IDMzMCBhdCBzb3VuZC9oZGEvaGRhY19jb21wb25lbnQuYzoyOTAgc25kX2hk
+YWNfYWNvbXBfaW5pdCsweGRlLzB4MTMwIFtzbmRfaGRhX2NvcmVdCj4gPiA+ID4+IFRoZXJlIGFy
+ZSAyIG1vcmUgImN1dCBoZXJlIiwgYnV0IHRoZXkncmUgYWxtb3N0IGlkZW50aWNhbCBzbyBJJ3Zl
+IG9ubHkKPiA+ID4gPj4gaW5jbHVkZWQgb25lIGluIHRoaXMgZW1haWwuCj4gPiA+ID4+Cj4gPiA+
+ID4+IERvbid0IGtub3cgd2hhdCB3aWxsIGJlIHZhbHVhYmxlIHRvIHlvdSwgYnV0IEknbSB3aWxs
+aW5nIHRvIGhlbHAgdGVzdAo+ID4gPiA+PiB0aGlzIGFuZCBkbyB3aGF0IEknbSB0b2xkLiBTbywg
+aG93IGNhbiBJIGhlbHA/Cj4gPiA+ID4+Cj4gPiA+ID4+IE1vcmUgaW5mbyBhYm91dCB0aGlzIHBh
+cnRpY3VsYXIga2VybmVsIGFuZCBpc3N1ZSwgdGhhdCBsZWQgdG8gdGhpcyBpcyBhdDoKPiA+ID4g
+Pj4gaHR0cHM6Ly9idWd6aWxsYS5yZWRoYXQuY29tL3Nob3dfYnVnLmNnaT9pZD0xNzU3ODkxCj4g
+PiA+ID4+Cj4gPiA+ID4+IGRtZXNnIG91dHB1dDoKPiA+ID4gPj4KPiA+ID4gPj4gTm92IDI2IDE4
+OjA1OjQ1IGtlcm5lbDogbWljcm9jb2RlOiBtaWNyb2NvZGUgdXBkYXRlZCBlYXJseSB0byByZXZp
+c2lvbiAweDJmLCBkYXRlID0gMjAxOS0wMi0xNwo+ID4gPiA+PiBOb3YgMjYgMTg6MDU6NDUga2Vy
+bmVsOiBMaW51eCB2ZXJzaW9uIDUuNC4wLTAucmM4LmdpdDAuMS5yaGJ6MTc1Nzg5MS5mYzMxLng4
+Nl82NCAobW9ja2J1aWxkQGJ1aWxkaHctMTAucGh4Mi5mZWRvcmFwcm9qZWN0Lm9yZykgKGdjYyB2
+ZXJzaW9uIDkuMi4xIDIwMTkwODI3IChSZWQgSGF0IDkuMi4xLTEpIChHQ0MpKSAjMSBTTVAgV2Vk
+IE5vdiAyMCAxNDo1MDozNCBVVEMgMjAxOQo+ID4gPiA+PiBOb3YgMjYgMTg6MDU6NDUga2VybmVs
+OiBDb21tYW5kIGxpbmU6IEJPT1RfSU1BR0U9KGhkMCxncHQyKS92bWxpbnV6LTUuNC4wLTAucmM4
+LmdpdDAuMS5yaGJ6MTc1Nzg5MS5mYzMxLng4Nl82NCByb290PS9kZXYvbWFwcGVyL2ZlZG9yYS1y
+b290IHJvIHJlc3VtZT0vZGV2L21hcHBlci9mZWRvcmEtc3dhcCByZC5sdm0ubHY9ZmVkb3JhL3Jv
+b3QgcmQubHVrcy51dWlkPWx1a3MtZWZkOGI0MzgtOGY1Ni00MDVhLThjZWEtODhmODNjYTM4ZDJi
+IHJkLmx2bS5sdj1mZWRvcmEvc3dhcCByaGdiIHF1aWV0Cj4gPiA+ID4+IC4uLgo+ID4gPiA+PiAu
+Li4KPiA+ID4gPj4gLi4uCj4gPiA+ID4+IE5vdiAyNiAxODowNjoxNiBrZXJuZWw6IC0tLS0tLS0t
+LS0tLVsgY3V0IGhlcmUgXS0tLS0tLS0tLS0tLQo+ID4gPiA+PiBOb3YgMjYgMTg6MDY6MTYga2Vy
+bmVsOiBXQVJOSU5HOiBDUFU6IDAgUElEOiA0NjEgYXQgc291bmQvaGRhL2hkYWNfY29tcG9uZW50
+LmM6MjkwIHNuZF9oZGFjX2Fjb21wX2luaXQrMHhkZS8weDEzMCBbc25kX2hkYV9jb3JlXQo+ID4g
+PiA+Cj4gPiA+ID4gVGhpcyBzaG91bGQgaGF2ZSBiZWVuIGFscmVhZHkgZml4ZWQgYnkgdGhlIHJl
+Y2VudCBjb21taXQKPiA+ID4gPiA1YTg1OGU3OWM5MTEzMzA2NzhiNWE5YmU5MWEyNDgzMGU5NGEw
+ZGM5Cj4gPiA+ID4gICAgICBBTFNBOiBoZGEgLSBEaXNhYmxlIGF1ZGlvIGNvbXBvbmVudCBmb3Ig
+bGVnYWN5IE52aWRpYSBIRE1JIGNvZGVjcwo+ID4gPiA+IHdoaWNoIGlzIGFscmVhZHkgaW5jbHVk
+ZWQgaW4gTGludXMgdHJlZS4gIFBsZWFzZSBjaGVjayBpdC4KPiA+ID4gCj4gPiA+IFRoYW5rcywg
+SSd2ZSBzdGFydGVkIGEgc2NyYXRjaCBrZXJuZWwgYnVpbGQgd2l0aCB0aGUgcmVsZXZhbnQgcGF0
+Y2hlcyBhZGRlZCwKPiA+ID4gZm9yIHRoZSBGZWRvcmEgdXNlcnMgaGl0dGluZyB0aGlzIHRvIHRl
+c3QuCj4gPiA+IAo+ID4gPiBUaGUgcmVhc29uIHRoZXkgc3RhcnRlZCBsb29raW5nIGludG8gdGhl
+aXIgZG1lc2cgaXMgdGhhdCB0aGVpciBudmlkaWEgR1BVIChoeWJyaWQgZ2Z4IHNldHVwKQo+ID4g
+PiB3aWxsIG5vIGxvbmdlciBzdXNwZW5kIHdpdGggcmVjZW50IGtlcm5lbHMsIHRoaXMgaXMgd2l0
+aCBhIDUuNCBrZXJuZWwgd2hpY2ggYWxyZWFkeSBoYXMgdGhlCj4gPiA+IAo+ID4gPiAiQUxTQTog
+aGRhIC0gRm9yY2UgcnVudGltZSBQTSBvbiBOdmlkaWEgSERNSSBjb2RlY3MiCj4gPiA+IAo+ID4g
+PiBGaXggYW5kIGZvciBnb29kIG1lYXN1cmUgSSd2ZSBhbHJlYWR5IGdpdmVuIHRoZW0gYSB0ZXN0
+IGtlcm5lbCB3aXRoIHRoZToKPiA+ID4gIkFMU0E6IGhkYTogQWxsb3cgSERBIHRvIGJlIHJ1bnRp
+bWUgc3VzcGVuZGVkIHdoZW4gZEdQVSBpcyBub3QgYm91bmQgdG8gYSBkcml2ZSIKPiA+ID4gCj4g
+PiA+IHBhdGNoIGFkZGVkLiBCdXQgbG9va2luZyBhdCB0aGUgZml4IGZvciB0aGUgb29wcyBJJ20g
+bm90IHN1cmUgaWYgZml4aW5nCj4gPiA+IHRoZSBvb3BzIGlzIGFsc28gZ29pbmcgdG8gZml4IHRo
+ZSBpc3N1ZSB3aXRoIHRoZSBkR1BVIG5vIGxvbmdlciBzdXNwZW5kaW5nPwo+ID4gCj4gPiBJIGd1
+ZXNzIGl0J3MgaXJyZWxldmFudCB3aXRoIHRoYXQgcHJvYmxlbSwgYXMgdGhpcyBrZXJuZWwgd2Fy
+bmluZyAobm90Cj4gPiByZWFsbHkgYW4gT29wcykgaXMganVzdCBhYm91dCBza2lwcGluZyB0aGUg
+bXVsdGlwbGUgYXVkaW8gY29tcG9uZW50Cj4gPiByZWdpc3RyYXRpb24uICBBbmQgdGhlIGF1ZGlv
+IGNvbXBvbmVudCBpc24ndCB1c2VkIGluIG5vdXZlYXUgc2lkZSBvbgo+ID4gNS40LnggYXQgYWxs
+LCBhbmQgaXQncyBqdXN0IGEgcGxhY2Vob2xkZXIuICBCdXQgd2hvIGtub3dzIHRoZSBibGFjawo+
+ID4gbWFnaWMgYmVoaW5kIHRoZSBzY2VuZSA6KQo+IAo+IC4uLiBhbmQgaWYgdGhpcyBzdGlsbCBk
+b2Vzbid0IGZpeCB0aGUgcHJvYmxlbSwgcGxlYXNlIGNoZWNrIHRoZQo+IHJ1bnRpbWUgUE0gc3Rh
+dGUgb2YgYWxsIEhELWF1ZGlvIGNvZGVjIGRldmljZXMgYW5kIEhELWF1ZGlvIGNvbnRyb2xsZXIK
+PiBkZXZpY2UuICBEbyBhbGwgc2hvdyB0aGUgcnVudGltZS1zdXNwZW5kZWQgYnV0IHRoZSBwb3dl
+ciBjb25zdW1wdGlvbgo+IGlzIGhpZ2g/ICBPciBpcyBzb21lIGRldmljZSBibG9ja2VkPwo+IAo+
+IEJhc2ljYWxseSB0aGUgYXVkaW8gY29udHJvbGxlciBjb3JyZXNwb25kaW5nIHRvIHRoZSBkR1BV
+IHNob3VsZCBoYXZlCj4gY2hpcC0+YnVzLmtlZXBfcG93ZXIgPSAwLCB3aGljaCBhbGxvd3MgdGhl
+IHJ1bnRpbWUgUE0uICBUaGlzIGZsYWcgaXMKPiBjbGVhcmVkIGF0IGF6eF92eF9ncHVfYm91bmQo
+KSBvbmx5IGZvciB0aGUgZEdQVS4gIEZvciB0aGUgcHJpbWFyeSBHUFUsCj4gd2UgbmVlZCB0byBr
+ZWVwIHRoZSBsaW5rIHBvd2VyIHVubGVzcyB0aGUgbm90aWZpY2F0aW9uIGlzIGRvbmUgdmlhIHRo
+ZQo+IGF1ZGlvIGNvbXBvbmVudCAobGlrZSBpOTE1IG9yIGFtZGdwdSkuICBJIGFscmVhZHkgc3Vi
+bWl0dGVkIGEgcGF0Y2ggdG8KPiBlbmFibGUgdGhlIGF1ZGlvIGNvbXBvbmVudCBmb3Igbm91dmVh
+dSBpbiB0aGUgcGFzdCwgYnV0IGl0J3MgaWdub3JlZCwKPiBzbyBmYXIuCj4gCj4gCj4gdGhhbmtz
+LAo+IAo+IFRha2FzaGkKCkhpIFRha2FzaGkKCk9uIGxpbnV4LW5leHQtMjAxOTExMjcgd2Fybmlu
+ZyBpbmRlZWQgZGlzYXBwZWFyZWQuIFRoYW5rcyEKClJlc3Qgb2YgcHJvYmxlbXMgZGlkIG5vdC4g
+VGhpcyBpcyBteSBvdXRwdXQgZnJvbSBhbHNhLWluZm8uc2gKaHR0cDovL2Fsc2EtcHJvamVjdC5v
+cmcvZGIvP2Y9OTFiYjc4OWEwMWY5ZWVkOTJkMDUzNGZlODk1MTYxOTMxMmIzNTVkYQpEb24ndCBr
+bm93IGlmIGl0J3MgaGVscGZ1bCwgc28gSSdsbCBsZWF2ZSBpdCBoZXJlLiBQb3dlciBjb25zdW1w
+dGlvbiBpcwpoaWdoLCBiZWNhdXNlIHJ1bnRpbWUtc3VzcGVuZGVkIGlzIG5vdCBlbmFibGVkL2Fj
+dGl2ZSAoYW5kIGNhbm5vdCBiZQpmb3JjZWQpIHdpdGhvdXQgcmVtb3ZpbmcgbnZpZGlhJ3MgYXVk
+aW8uCgpSZWdhcmRzLApNaWNoYcWCIE1hdHlzaWFrCl9fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxA
+YWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFu
+L2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

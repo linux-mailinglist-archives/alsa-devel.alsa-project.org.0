@@ -2,70 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E610F10B3B2
-	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 17:43:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9FCF10B3B3
+	for <lists+alsa-devel@lfdr.de>; Wed, 27 Nov 2019 17:43:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F0B71712;
-	Wed, 27 Nov 2019 17:42:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F0B71712
+	by alsa0.perex.cz (Postfix) with ESMTPS id 746EB171B;
+	Wed, 27 Nov 2019 17:43:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 746EB171B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574872988;
-	bh=K0sknIIgZMudziZeTOAA2/lgDqY4pujmnzPn2qKKiR4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1574873034;
+	bh=/JyLw+Gt/Xjh26jySohnOcNAJQkTn0yuQd8sfzSPE2I=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Sb1p4RZQ/4PU6l7Q4naHHOiMW9Er9HxDB+hiq/lg7VTbRF9mzRjw5R60m92f2M3ML
-	 6WyIDodVZjDtRejvjoAz7YDjzCwiz2x9NKtlxeaoEY+9DOYJDDDcacwpvfxd3Nl1yp
-	 Pkt7jF5ep0NNgJtoN30r/QIFq+nhi+LwlAAMBF+w=
+	b=ZzGh/MKI4alp9hrUs36YAtpzXXJmyxykwsXIkWJHtyOwu70W3vFCojoOPdDMtknbL
+	 DhuV612s0mD+97h4CaNdLw952vza2NGeIJiCinX2hQFpuEVfSo6yhVxTt45HH9el48
+	 7yCZneBmZfzZgxv7XBlxYZWR6u/hXgUbeursXZCc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2A3AEF8014D;
-	Wed, 27 Nov 2019 17:41:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61B9BF80171;
+	Wed, 27 Nov 2019 17:41:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCF45F8014D; Wed, 27 Nov 2019 17:41:22 +0100 (CET)
+ id 0A52FF80171; Wed, 27 Nov 2019 17:41:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8A9DCF800E9
- for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 17:41:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A9DCF800E9
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A4B6B30E;
- Wed, 27 Nov 2019 08:41:18 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 201213F68E;
- Wed, 27 Nov 2019 08:41:17 -0800 (PST)
-Date: Wed, 27 Nov 2019 16:41:16 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-Message-ID: <20191127164116.GE4879@sirena.org.uk>
-References: <AM5PR1001MB0994720A0D615339A978E35C804E0@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <AM5PR1001MB0994E628439F021F97B872D480450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191126170841.GC4205@sirena.org.uk>
- <AM5PR1001MB09949D557742E8817545637F80450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191126175040.GD4205@sirena.org.uk>
- <AM5PR1001MB09940CF764711F1F13A6B37E80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191127123317.GA4879@sirena.org.uk>
- <AM5PR1001MB0994D842A2D7051F81A7765B80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191127154030.GD4879@sirena.org.uk>
- <AM5PR1001MB099467ACADA4F7B6DDA5087480440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
-MIME-Version: 1.0
-In-Reply-To: <AM5PR1001MB099467ACADA4F7B6DDA5087480440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
-X-Cookie: In the war of wits, he's unarmed.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kernel@collabora.com" <kernel@collabora.com>,
- Support Opensource <Support.Opensource@diasemi.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [alsa-devel] [PATCHv2 6/6] ASoC: da7213: Add default clock
-	handling
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id E7B44F8019B
+ for <alsa-devel@alsa-project.org>; Wed, 27 Nov 2019 17:41:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7B44F8019B
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 6ED2EAD54;
+ Wed, 27 Nov 2019 16:41:42 +0000 (UTC)
+Date: Wed, 27 Nov 2019 17:41:42 +0100
+Message-ID: <s5hpnhduv95.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Sergey 'Jin' Bostandzhyan <jin@mediatomb.cc>
+In-Reply-To: <20191127161757.GC7065@xn--80adja5bqm.su>
+References: <20190720165435.GA5855@xn--80adja5bqm.su>
+ <20190819195714.GA2737@xn--80adja5bqm.su>
+ <s5hef1dthbk.wl-tiwai@suse.de>
+ <20190822203031.GA22363@xn--80adja5bqm.su>
+ <s5h5zmg48u2.wl-tiwai@suse.de>
+ <20190829103805.GA1525@xn--80adja5bqm.su>
+ <s5hsgpk2os6.wl-tiwai@suse.de>
+ <20190830114510.GA10027@xn--80adja5bqm.su>
+ <20191125173902.GA27981@xn--80adja5bqm.su>
+ <s5h4kypy2v8.wl-tiwai@suse.de>
+ <20191127161757.GC7065@xn--80adja5bqm.su>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Surround speaker connection on Acer 8951G
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,67 +74,220 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8972454939037878004=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 27 Nov 2019 17:17:57 +0100,
+Sergey 'Jin' Bostandzhyan wrote:
+> 
+> Hi Takashi,
+> 
+> On Wed, Nov 27, 2019 at 12:28:59PM +0100, Takashi Iwai wrote:
+> > > sorry - it's me again about the Acer 8951G LFE speaker.
+> > > 
+> > > On Fri, Aug 30, 2019 at 01:45:10PM +0200, Sergey 'Jin' Bostandzhyan wrote:
+> > > > > > The below HDA_FIXUP_VERBS does the trick, so I do have all 6 speakers working, 
+> > > > > > finally!
+> > > > > > 
+> > > > > > {0x01, AC_VERB_SET_GPIO_DIRECTION, 0x02}
+> > > > > 
+> > > > > Actually this must be paired with the corresponding bit of GPIO_DATA,
+> > > > > too.  Is the bit 0x02 of GPIO_DATA set or cleared?  Usually setting it
+> > > > > turns on the amp, but sometimes inverted.
+> > > > 
+> > > > If I understood everything correctly, then the bit is set, meaning that the
+> > > > GPIO signal is configured as output. I'll be honest, I exported the
+> > > > hda-analyzer setting as a python script (nice feature btw) and deducted the
+> > > > fixup verb setting from there (relevant part of the hda-analyzer export below):
+> > > > 
+> > > > def set(nid, verb, param):
+> > > >   verb = (nid << 24) | (verb << 8) | param
+> > > >   res = ioctl(FD, IOCTL_VERB_WRITE, struct.pack('II', verb, 0))  
+> > > > 
+> > > > set(0x01, 0x717,   0x02) # 0x01071702 (SET_GPIO_DIRECTION)
+> > > 
+> > > it seems I indeed missed something here regarding GPIO_DATA, I really am
+> > > not sure what the influence is, but after updating to Fedora 31 my LFE
+> > > stopped working, even with the self compiled 5.4-rc8 kernel which I am running
+> > > now (all the time before I was on Fedora 29 and I just backported my patch to 
+> > > 5.2.x and compiled the modules outside the tree after being done with the 
+> > > patch submission).
+> > > 
+> > > So ultimately, it seems I now need to do the following in my fixup
+> > > (original commit was 00066e9733f629e536f6b7957de2ce11a85fe15a):
+> > > 
+> > > --- a/sound/pci/hda/patch_realtek.c
+> > > +++ b/sound/pci/hda/patch_realtek.c
+> > > @@ -8875,7 +8875,7 @@ static const struct hda_fixup alc662_fixups[] = {
+> > >                 .v.verbs = (const struct hda_verb[]) {
+> > >                         {0x01, AC_VERB_SET_GPIO_MASK, 0x02},
+> > >                         {0x01, AC_VERB_SET_GPIO_DIRECTION, 0x02},
+> > > -                       {0x01, AC_VERB_SET_GPIO_DATA, 0x00},
+> > > +                       {0x01, AC_VERB_SET_GPIO_DATA, 0x02},
+> > >                         { }
+> > >                 },
+> > >                 .chained = true,
+> > 
+> > That makes more sense.  Usually GPIO pin is off as default, and the
+> > driver needs to turn it up manually for a special usage.
+> > 
+> > > My question is: could something on the outside have influence on that? I am
+> > > really very, very sure that I have tested LFE on kernel 5.4-rc before 
+> > > submitting the original patch and it has been working as submitted.
+> > > Why did the behavior change now? What else could I have missed?
+> > 
+> > Maybe the chip kept the GPIO pin on after warm boot from Windows or
+> > such?
+> 
+> This is unlikely as I do not have Windows or any other OS installed on this
+> system. I dug through the thread and found the following:
+> 
+> > > > set(0x01, 0x717,   0x02) # 0x01071702 (SET_GPIO_DIRECTION)
+> > >
+> > > This needs the paired SET_GPIO_DATA for a proper operation.  Your
+> > > analysis implicit assumes some default value that is already set by
+> > > the hardware.
+> >
+> >If I understand it correctly, then "some value" is zero on my hardware:
+> >
+> > # hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
+> > nid = 0x1, verb = 0xf15, param = 0x2
+> > value = 0x0
+> > 
+> > Meanwhile I also figured out that /proc/asound/card0/codec#0 is
+> > providing this info as well:
+> >
+> >  IO[1]: enable=0, dir=1, wake=0, sticky=0, data=0, unsol=0
+> >
+> > So the value seems to be 0 and I can add an explicit SET_GPIO_DATA verb quirk
+> > to set it in addition to SET_GPIO_DIRECTION, right?
+> 
+> You then helped me, explaining how I could properly initialize it, which I 
+> incorporated in the original patch.
+> 
+> So we did check that and I am positive that the LFE did work back then, which 
+> really confuses me now.
 
---===============8972454939037878004==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="idY8LE8SD6/8DnRI"
-Content-Disposition: inline
+Hm, I don't know what happened then.  In most cases, the value wasn't
+correctly reflected when you actually checked (e.g. the runtime PM was
+triggered and it was cleared by some reason or such...)
+
+> > Please make sure that which value actually is on and which is off.
+> > You can change the GPIO bit dynamically via hda-verb, so you can check
+> > whether the speaker works or not at each flip.
+> 
+> OK, so the starting point (now with my local update to the driver):
+> # hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
+> nid = 0x1, verb = 0xf15, param = 0x2
+> value = 0x2
+> 
+> >From /proc/asound/card0/codec#0:
+> 
+> State of AFG node 0x01:
+>   Power states:  D0 D1 D2 D3 CLKSTOP
+>   Power: setting=D0, actual=D0
+> GPIO: io=2, o=0, i=0, unsolicited=1, wake=0
+>   IO[0]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+>   IO[1]: enable=1, dir=1, wake=0, sticky=0, data=1, unsol=0
+> 
+> Pulse profile "Analog Surround 5.1 Output + Analog Stereo Input" is active,
+> speaker test (via the pulse/sound applet UI) delives audible noise on the LFE.
+> 
+> I'm flipping data in hda-analyzer now and rechecking afterwards:
+> 
+> # hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
+> nid = 0x1, verb = 0xf15, param = 0x2
+> value = 0x0
+> 
+> And:
+> State of AFG node 0x01:
+>   Power states:  D0 D1 D2 D3 CLKSTOP
+>   Power: setting=D0, actual=D0
+> GPIO: io=2, o=0, i=0, unsolicited=1, wake=0
+>   IO[0]: enable=0, dir=0, wake=0, sticky=0, data=0, unsol=0
+>   IO[1]: enable=1, dir=1, wake=0, sticky=0, data=0, unsol=0
+> 
+> LFE is no longer audible in speaker test.
+> 
+> Reenabling again, this time I just used hda-verb directly:
+> # hda-verb /dev/snd/hwC0D0 0x01 SET_GPIO_DATA 0x02
+> nid = 0x1, verb = 0x715, param = 0x2
+> value = 0x0
+> 
+> And checking:
+> # hda-verb /dev/snd/hwC0D0 0x01 GET_GPIO_DATA 0x02
+> nid = 0x1, verb = 0xf15, param = 0x2
+> value = 0x2
+> 
+> LFE becomes audible again.
+
+OK, so it's clear now that the bit on turns on the LFE amp.
+
+> Now, if that would help, I could try to install Fedora 29 on some external
+> harddrive and reproduce my summer setup, to confirm that it has been working 
+> with data pin disabled. Alltough I am certain that it was the case, because
+> I retested this several times prior to submitting the patch.
+> 
+> Question is, if we would learn something from that?
+> 
+> How should I proceed? Just submit an update to have the data pin active on
+> init or is this weirdness worth debugging?
+
+The patch like below should work, I suppose?
 
 
---idY8LE8SD6/8DnRI
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Takashi
 
-On Wed, Nov 27, 2019 at 04:33:12PM +0000, Adam Thomson wrote:
-> On 27 November 2019 15:41, Mark Brown wrote:
-
-> > Not sure I follow here - if we're configuring the PLL explicitly then
-> > I'd expect the PLL to be configured first, then the SYSCLK, so I'd
-> > expect that the automatic PLL configuration wouldn't kick in.
-
-> The PLL in the codec relies on MCLK. The MCLK rate can be specified/configured
-> by a machine driver using the relevant codec sysclk function, as is done in a
-> number of drivers. Surely that has to happen first before we configure the PLL
-> as the PLL functions needs to know what rate is coming in so the correct
-> dividers can be applied for the required internal clocking to match up with the
-> desired sample rates. I guess I'm still missing something regarding your
-> discussion around SYSCLK?
-
-The PLL configuration specifies both input and output clock rates (as
-well as an input clock source) so if it's got to configure the MCLK I'd
-expect the driver to figure that out without needing the caller to
-separately set the MCLK rate.
-
---idY8LE8SD6/8DnRI
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3epysACgkQJNaLcl1U
-h9Ah8Af+Jkfk+6DCF4lg0qjlDTkm9J28Cp9C51qea8Lkj15D3QYxiCSIngIkcLDK
-84eJfTaOnIjDYOj8bMovS/ZNY/JlsT46Vq8tJ2fPnyy/ihAM9CwKeGjprpv6voik
-JZZ3pStVuiu3l7tVBLoaDLGCITJPuV1pqeq+bZtbHs8Axdx9xyG2MF1iAWo9lgDw
-YpiNzRe6AESbGV8Pun6PTdBa8rktnOiTyixjLaiUC/WnUAxqXkHw/dHMWjOtYfwk
-PMc6a5y4lCHqvEM+x4g3gE2Z0B+wCjpDd71c6qWIxyyzYLNL0geN6ogF91EVVyVO
-xoBoNjYno2poQcDELx6VE77/8mFKWw==
-=g6G7
------END PGP SIGNATURE-----
-
---idY8LE8SD6/8DnRI--
-
---===============8972454939037878004==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -8424,6 +8424,8 @@ static void alc662_fixup_aspire_ethos_hp(struct hda_codec *codec,
+ 	case HDA_FIXUP_ACT_PRE_PROBE:
+ 		snd_hda_jack_detect_enable_callback(codec, 0x1b,
+ 				alc662_aspire_ethos_mute_speakers);
++		/* subwoofer needs an extra GPIO setting to become audible */
++		alc_setup_gpio(codec, 0x02);
+ 		break;
+ 	case HDA_FIXUP_ACT_INIT:
+ 		/* Make sure to start in a correct state, i.e. if
+@@ -8506,7 +8508,6 @@ enum {
+ 	ALC662_FIXUP_USI_HEADSET_MODE,
+ 	ALC662_FIXUP_LENOVO_MULTI_CODECS,
+ 	ALC669_FIXUP_ACER_ASPIRE_ETHOS,
+-	ALC669_FIXUP_ACER_ASPIRE_ETHOS_SUBWOOFER,
+ 	ALC669_FIXUP_ACER_ASPIRE_ETHOS_HEADSET,
+ };
+ 
+@@ -8838,18 +8839,6 @@ static const struct hda_fixup alc662_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc662_fixup_aspire_ethos_hp,
+ 	},
+-	[ALC669_FIXUP_ACER_ASPIRE_ETHOS_SUBWOOFER] = {
+-		.type = HDA_FIXUP_VERBS,
+-		/* subwoofer needs an extra GPIO setting to become audible */
+-		.v.verbs = (const struct hda_verb[]) {
+-			{0x01, AC_VERB_SET_GPIO_MASK, 0x02},
+-			{0x01, AC_VERB_SET_GPIO_DIRECTION, 0x02},
+-			{0x01, AC_VERB_SET_GPIO_DATA, 0x00},
+-			{ }
+-		},
+-		.chained = true,
+-		.chain_id = ALC669_FIXUP_ACER_ASPIRE_ETHOS_HEADSET
+-	},
+ 	[ALC669_FIXUP_ACER_ASPIRE_ETHOS] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -8859,7 +8848,7 @@ static const struct hda_fixup alc662_fixups[] = {
+ 			{ }
+ 		},
+ 		.chained = true,
+-		.chain_id = ALC669_FIXUP_ACER_ASPIRE_ETHOS_SUBWOOFER
++		.chain_id = ALC669_FIXUP_ACER_ASPIRE_ETHOS_HEADSET
+ 	},
+ };
+ 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============8972454939037878004==--

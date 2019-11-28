@@ -2,56 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A119D10C96A
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 14:25:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8D0010C9D7
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 14:50:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 302DB16E0;
-	Thu, 28 Nov 2019 14:24:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 302DB16E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8453B16E0;
+	Thu, 28 Nov 2019 14:50:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8453B16E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574947532;
-	bh=J5kuzJ0YfljGWi/C2CCBwvVyQSro63oJoFE4RQvUIdk=;
-	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=C0cc+77SlCs/vS/YKsw9w0yqq6olXAfRZl4F4ydNS9rwOVtP/RXAyj9LD9/BWXglP
-	 F6C4H/4tcGZ4EhOtWXG9UToqy33aR8QxAUekqL/PqaAH2KWPEQBaglNXG1kPOMq7C2
-	 LeBRftKUgKpby6Ej4CXNMyXKe6N4EDO/2rzfZUlI=
+	s=default; t=1574949054;
+	bh=lheF6rymx5R3Q2ZmnWvH4b/79+TBDmKpXoD/uj/2h44=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=RQjbpweO8vBcMXBM2Lsjs7AbolM/LlVbq9Vbn+e25k7Dotf6oTzLIoC3nAAo0G84I
+	 n089KIb0vOICyT0rkqCA3PzfZn9BXycUsAhsnFIuI5CC5s0kRGmcDVUc2o1NE6rSKC
+	 jIB9yYpDf7lU3kMpRlnBYkN6NuVhLm4PqOywKkjw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95221F80260;
-	Thu, 28 Nov 2019 14:18:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4262F8013A;
+	Thu, 28 Nov 2019 14:49:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A6932F80256; Thu, 28 Nov 2019 14:18:46 +0100 (CET)
+ id 06981F80149; Thu, 28 Nov 2019 14:49:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id F1343F80245
- for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 14:18:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1343F80245
+ by alsa1.perex.cz (Postfix) with ESMTP id 5FE1CF800CB
+ for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 14:49:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FE1CF800CB
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CD8ED11FB;
- Thu, 28 Nov 2019 05:18:42 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 664DB30E;
+ Thu, 28 Nov 2019 05:49:03 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4CD713F52E;
- Thu, 28 Nov 2019 05:18:42 -0800 (PST)
-Date: Thu, 28 Nov 2019 13:18:40 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D823C3F52E;
+ Thu, 28 Nov 2019 05:49:02 -0800 (PST)
+Date: Thu, 28 Nov 2019 13:49:01 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Shuming Fan <shumingf@realtek.com>
-In-Reply-To: <20191125091940.11953-1-shumingf@realtek.com>
-Message-Id: <applied-20191125091940.11953-1-shumingf@realtek.com>
-X-Patchwork-Hint: ignore
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, lgirdwood@gmail.com, albertchen@realtek.com,
- Mark Brown <broonie@kernel.org>, derek.fang@realtek.com,
- sathya.prakash.m.r@intel.com, flove@realtek.com
-Subject: [alsa-devel] Applied "ASoC: rt5682: fix i2c arbitration lost issue"
-	to the asoc tree
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20191128134901.GE4210@sirena.org.uk>
+References: <20191128011358.39234-1-cujomalainey@chromium.org>
+ <s5hlfs0ld25.wl-tiwai@suse.de>
+MIME-Version: 1.0
+In-Reply-To: <s5hlfs0ld25.wl-tiwai@suse.de>
+X-Cookie: Do not dry clean.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+ Curtis Malainey <cujomalainey@chromium.org>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: core: only flush inited work during
+ free
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,77 +67,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============0176882342113950370=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: rt5682: fix i2c arbitration lost issue
+--===============0176882342113950370==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+JUInw4efm7IfTNU"
+Content-Disposition: inline
 
-has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+--+JUInw4efm7IfTNU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+On Thu, Nov 28, 2019 at 07:39:30AM +0100, Takashi Iwai wrote:
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> For this delayed_work, the situation is a bit complex, though.
+> Usually the work is set up to point to a fixed function, but in the
+> case of ASoC, it seems serving for different purposes depending on the
+> component type.  I guess the cleaner way would be a redirect call
+> like:
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+Yes, or just separate fields for each.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+--+JUInw4efm7IfTNU
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Thanks,
-Mark
+-----BEGIN PGP SIGNATURE-----
 
-From bc094709de0192a756c6946a7c89c543243ae609 Mon Sep 17 00:00:00 2001
-From: Shuming Fan <shumingf@realtek.com>
-Date: Mon, 25 Nov 2019 17:19:40 +0800
-Subject: [PATCH] ASoC: rt5682: fix i2c arbitration lost issue
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3f0EwACgkQJNaLcl1U
+h9DMvgf/ThfD5h2n/tywrBVjuD2ixPq+r4zzUZbU+ey/Im5JMI8jWsBvWmkcYh+C
+pcdzA+hmP9GA0Fg9UYm05a/w966P4ZuDNZRUoNx2/jyyDEIDL56abg6LDoa1yRVY
+GACxH+GcKooBEf3+EN864TxEZSXAzQ10eiK0Ng5v+zDlUE6mKJtO/2evTtbrIg2H
+rP85NNsWpKAC8z14DxW824iTjAlNh8ICCotJrEmxfzho3HPdANVwj50emFy6IoL2
+fDBBV1p1EKm9XRzx58Cl2fNEnkwKVgvd3dYzDLVU2npVXzj1InpEaoB1PW8+buBh
+VRlcF6/PX05HED6EYqdu5gKtMqY4fg==
+=x4VQ
+-----END PGP SIGNATURE-----
 
-This patch modified the HW initial setting to fix i2c arbitration lost issue.
+--+JUInw4efm7IfTNU--
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
-Link: https://lore.kernel.org/r/20191125091940.11953-1-shumingf@realtek.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/rt5682.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 35dcec135c8a..9feba9a24501 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -73,6 +73,7 @@ struct rt5682_priv {
- static const struct reg_sequence patch_list[] = {
- 	{RT5682_HP_IMP_SENS_CTRL_19, 0x1000},
- 	{RT5682_DAC_ADC_DIG_VOL1, 0xa020},
-+	{RT5682_I2C_CTRL, 0x000f},
- };
- 
- static const struct reg_default rt5682_reg[] = {
-@@ -2496,6 +2497,7 @@ static void rt5682_calibrate(struct rt5682_priv *rt5682)
- 	mutex_lock(&rt5682->calibrate_mutex);
- 
- 	rt5682_reset(rt5682->regmap);
-+	regmap_write(rt5682->regmap, RT5682_I2C_CTRL, 0x000f);
- 	regmap_write(rt5682->regmap, RT5682_PWR_ANLG_1, 0xa2af);
- 	usleep_range(15000, 20000);
- 	regmap_write(rt5682->regmap, RT5682_PWR_ANLG_1, 0xf2af);
--- 
-2.20.1
+--===============0176882342113950370==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============0176882342113950370==--

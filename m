@@ -2,54 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A471510C968
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 14:24:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 770A710C969
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 14:24:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33D3116E3;
-	Thu, 28 Nov 2019 14:23:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33D3116E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D09116EB;
+	Thu, 28 Nov 2019 14:24:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D09116EB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574947460;
-	bh=HOPN78iElmO4YpK5uG04ACg7kCTlYPMur5T2QJ9ZBSA=;
+	s=default; t=1574947496;
+	bh=/F0WemDcwsiaath2CE+VR0BUgU28n6yS+zS47Z7ekVA=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=uwnd5t+p78fWpGXOWmANCuY2l2z0EWyiD0i1TNTodOUu0xhCz15zuLuMXhhkdchPt
-	 gla8CTUNVxsKkaebDPsZzitXUZuCZo7TfMIpAqr51a0NpLUrB9cFrY0Js+J1AxSqWa
-	 H9SZuRedcyR5YJHOfw4lykzyM33XdCDv2D8JvUl0=
+	b=X/GwUrhCDhkaslgcMtoAiUViyNSub5MaXtmkX8tpvKu8Oa4AaVTUykod6iDAEAq75
+	 FBJGFnbAE/LpC868WG70W9lTJeKiVNBYyX+22FFeaczDCYNXKr8D0YpoZNM0DJ/mwZ
+	 QQzSgGNt/qMkba9Ga2BwVDrd6fkbIwhycmj217cs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77744F8024A;
-	Thu, 28 Nov 2019 14:18:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 938E1F80255;
+	Thu, 28 Nov 2019 14:18:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79EDEF80240; Thu, 28 Nov 2019 14:18:41 +0100 (CET)
+ id 2A71FF8024A; Thu, 28 Nov 2019 14:18:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8488BF80217
- for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 14:18:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8488BF80217
+ by alsa1.perex.cz (Postfix) with ESMTP id 665D0F80245
+ for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 14:18:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 665D0F80245
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DABB91045;
- Thu, 28 Nov 2019 05:18:37 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5D1531045;
+ Thu, 28 Nov 2019 05:18:40 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A2933F52E;
- Thu, 28 Nov 2019 05:18:37 -0800 (PST)
-Date: Thu, 28 Nov 2019 13:18:35 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CDCEC3F52E;
+ Thu, 28 Nov 2019 05:18:39 -0800 (PST)
+Date: Thu, 28 Nov 2019 13:18:38 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Keyon Jie <yang.jie@linux.intel.com>
-In-Reply-To: <20191126141533.21601-1-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191126141533.21601-1-pierre-louis.bossart@linux.intel.com>
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+In-Reply-To: <20191126075424.80668-1-yuhsuan@chromium.org>
+Message-Id: <applied-20191126075424.80668-1-yuhsuan@chromium.org>
 X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: BYT: fix a copy/paste
-	mistake in byt_dump()" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Andi Kleen <ak@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Tzung-Bi Shih <tzungbi@google.com>,
+ Mark Brown <broonie@kernel.org>, Akshu Agrawal <akshu.agarawal@amd.com>,
+ Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
+ Agrawal Akshu <Akshu.Agrawal@amd.com>
+Subject: [alsa-devel] Applied "ASoC: AMD: Enable clk in startup intead of
+	hw_params" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +75,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: BYT: fix a copy/paste mistake in byt_dump()
+   ASoC: AMD: Enable clk in startup intead of hw_params
 
 has been applied to the asoc tree at
 
@@ -95,71 +100,151 @@ to this mail.
 Thanks,
 Mark
 
-From b81eb73be03ac736f1f8d27d64a372c62c7159e5 Mon Sep 17 00:00:00 2001
-From: Keyon Jie <yang.jie@linux.intel.com>
-Date: Tue, 26 Nov 2019 08:15:33 -0600
-Subject: [PATCH] ASoC: SOF: Intel: BYT: fix a copy/paste mistake in byt_dump()
+From 756ae8f237e19a014a1c20ad5a51b0686463d1f7 Mon Sep 17 00:00:00 2001
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Tue, 26 Nov 2019 15:54:24 +0800
+Subject: [PATCH] ASoC: AMD: Enable clk in startup intead of hw_params
 
-The shim registers in BYT/CHT/BSW are 64bits based, correct the
-copy/paste (from bdw.c where the shim registers are 32bits based) error
-in byt_dump().
+Some usages only call startup and shutdown without setting hw_params
+(e.g. arecord --dump-hw-params). If we don't enable clk in startup, it
+will cause ref count error because the clk will be disabled in shutdown.
+For this reason, we should move enabling clk from hw_params to startup.
 
-Fixes: 3a9e204d4e36 ("ASoC: SOF: Intel: Add context data to any IPC timeout")
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191126141533.21601-1-pierre-louis.bossart@linux.intel.com
+In addition, the hw_params is fixed in this driver(48000 rate, 2
+channels, S16_LE format) so we don't need to change the clk rate after
+the hw_params is set.
+
+Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Acked-by: Akshu Agrawal <akshu.agarawal@amd.com>
+Link: https://lore.kernel.org/r/20191126075424.80668-1-yuhsuan@chromium.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/byt.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ sound/soc/amd/acp-da7219-max98357a.c | 46 +++++++++-------------------
+ 1 file changed, 14 insertions(+), 32 deletions(-)
 
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 2abf80b3eb52..b9061b79a57b 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -145,33 +145,33 @@ static void byt_dump(struct snd_sof_dev *sdev, u32 flags)
- 	struct sof_ipc_dsp_oops_xtensa xoops;
- 	struct sof_ipc_panic_info panic_info;
- 	u32 stack[BYT_STACK_DUMP_SIZE];
--	u32 status, panic, imrd, imrx;
-+	u64 status, panic, imrd, imrx;
+diff --git a/sound/soc/amd/acp-da7219-max98357a.c b/sound/soc/amd/acp-da7219-max98357a.c
+index f4ee6798154a..7a5621e5e233 100644
+--- a/sound/soc/amd/acp-da7219-max98357a.c
++++ b/sound/soc/amd/acp-da7219-max98357a.c
+@@ -96,14 +96,19 @@ static int cz_da7219_init(struct snd_soc_pcm_runtime *rtd)
+ 	return 0;
+ }
  
- 	/* now try generic SOF status messages */
--	status = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IPCD);
--	panic = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IPCX);
-+	status = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCD);
-+	panic = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IPCX);
- 	byt_get_registers(sdev, &xoops, &panic_info, stack,
- 			  BYT_STACK_DUMP_SIZE);
- 	snd_sof_get_status(sdev, status, panic, &xoops, &panic_info, stack,
- 			   BYT_STACK_DUMP_SIZE);
+-static int da7219_clk_enable(struct snd_pcm_substream *substream,
+-			     int wclk_rate, int bclk_rate)
++static int da7219_clk_enable(struct snd_pcm_substream *substream)
+ {
+ 	int ret = 0;
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
  
- 	/* provide some context for firmware debug */
--	imrx = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRX);
--	imrd = snd_sof_dsp_read(sdev, BYT_DSP_BAR, SHIM_IMRD);
-+	imrx = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IMRX);
-+	imrd = snd_sof_dsp_read64(sdev, BYT_DSP_BAR, SHIM_IMRD);
- 	dev_err(sdev->dev,
--		"error: ipc host -> DSP: pending %s complete %s raw 0x%8.8x\n",
-+		"error: ipc host -> DSP: pending %s complete %s raw 0x%llx\n",
- 		(panic & SHIM_IPCX_BUSY) ? "yes" : "no",
- 		(panic & SHIM_IPCX_DONE) ? "yes" : "no", panic);
- 	dev_err(sdev->dev,
--		"error: mask host: pending %s complete %s raw 0x%8.8x\n",
-+		"error: mask host: pending %s complete %s raw 0x%llx\n",
- 		(imrx & SHIM_IMRX_BUSY) ? "yes" : "no",
- 		(imrx & SHIM_IMRX_DONE) ? "yes" : "no", imrx);
- 	dev_err(sdev->dev,
--		"error: ipc DSP -> host: pending %s complete %s raw 0x%8.8x\n",
-+		"error: ipc DSP -> host: pending %s complete %s raw 0x%llx\n",
- 		(status & SHIM_IPCD_BUSY) ? "yes" : "no",
- 		(status & SHIM_IPCD_DONE) ? "yes" : "no", status);
- 	dev_err(sdev->dev,
--		"error: mask DSP: pending %s complete %s raw 0x%8.8x\n",
-+		"error: mask DSP: pending %s complete %s raw 0x%llx\n",
- 		(imrd & SHIM_IMRD_BUSY) ? "yes" : "no",
- 		(imrd & SHIM_IMRD_DONE) ? "yes" : "no", imrd);
+-	clk_set_rate(da7219_dai_wclk, wclk_rate);
+-	clk_set_rate(da7219_dai_bclk, bclk_rate);
++	/*
++	 * Set wclk to 48000 because the rate constraint of this driver is
++	 * 48000. ADAU7002 spec: "The ADAU7002 requires a BCLK rate that is
++	 * minimum of 64x the LRCLK sample rate." DA7219 is the only clk
++	 * source so for all codecs we have to limit bclk to 64X lrclk.
++	 */
++	clk_set_rate(da7219_dai_wclk, 48000);
++	clk_set_rate(da7219_dai_bclk, 48000 * 64);
+ 	ret = clk_prepare_enable(da7219_dai_bclk);
+ 	if (ret < 0) {
+ 		dev_err(rtd->dev, "can't enable master clock %d\n", ret);
+@@ -156,7 +161,7 @@ static int cz_da7219_play_startup(struct snd_pcm_substream *substream)
+ 				   &constraints_rates);
  
+ 	machine->play_i2s_instance = I2S_SP_INSTANCE;
+-	return 0;
++	return da7219_clk_enable(substream);
+ }
+ 
+ static int cz_da7219_cap_startup(struct snd_pcm_substream *substream)
+@@ -178,7 +183,7 @@ static int cz_da7219_cap_startup(struct snd_pcm_substream *substream)
+ 
+ 	machine->cap_i2s_instance = I2S_SP_INSTANCE;
+ 	machine->capture_channel = CAP_CHANNEL1;
+-	return 0;
++	return da7219_clk_enable(substream);
+ }
+ 
+ static int cz_max_startup(struct snd_pcm_substream *substream)
+@@ -199,7 +204,7 @@ static int cz_max_startup(struct snd_pcm_substream *substream)
+ 				   &constraints_rates);
+ 
+ 	machine->play_i2s_instance = I2S_BT_INSTANCE;
+-	return 0;
++	return da7219_clk_enable(substream);
+ }
+ 
+ static int cz_dmic0_startup(struct snd_pcm_substream *substream)
+@@ -220,7 +225,7 @@ static int cz_dmic0_startup(struct snd_pcm_substream *substream)
+ 				   &constraints_rates);
+ 
+ 	machine->cap_i2s_instance = I2S_BT_INSTANCE;
+-	return 0;
++	return da7219_clk_enable(substream);
+ }
+ 
+ static int cz_dmic1_startup(struct snd_pcm_substream *substream)
+@@ -242,25 +247,7 @@ static int cz_dmic1_startup(struct snd_pcm_substream *substream)
+ 
+ 	machine->cap_i2s_instance = I2S_SP_INSTANCE;
+ 	machine->capture_channel = CAP_CHANNEL0;
+-	return 0;
+-}
+-
+-static int cz_da7219_params(struct snd_pcm_substream *substream,
+-				      struct snd_pcm_hw_params *params)
+-{
+-	int wclk, bclk;
+-
+-	wclk = params_rate(params);
+-	bclk = wclk * params_channels(params) *
+-		snd_pcm_format_width(params_format(params));
+-	/* ADAU7002 spec: "The ADAU7002 requires a BCLK rate
+-	 * that is minimum of 64x the LRCLK sample rate."
+-	 * DA7219 is the only clk source so for all codecs
+-	 * we have to limit bclk to 64X lrclk.
+-	 */
+-	if (bclk < (wclk * 64))
+-		bclk = wclk * 64;
+-	return da7219_clk_enable(substream, wclk, bclk);
++	return da7219_clk_enable(substream);
+ }
+ 
+ static void cz_da7219_shutdown(struct snd_pcm_substream *substream)
+@@ -271,31 +258,26 @@ static void cz_da7219_shutdown(struct snd_pcm_substream *substream)
+ static const struct snd_soc_ops cz_da7219_play_ops = {
+ 	.startup = cz_da7219_play_startup,
+ 	.shutdown = cz_da7219_shutdown,
+-	.hw_params = cz_da7219_params,
+ };
+ 
+ static const struct snd_soc_ops cz_da7219_cap_ops = {
+ 	.startup = cz_da7219_cap_startup,
+ 	.shutdown = cz_da7219_shutdown,
+-	.hw_params = cz_da7219_params,
+ };
+ 
+ static const struct snd_soc_ops cz_max_play_ops = {
+ 	.startup = cz_max_startup,
+ 	.shutdown = cz_da7219_shutdown,
+-	.hw_params = cz_da7219_params,
+ };
+ 
+ static const struct snd_soc_ops cz_dmic0_cap_ops = {
+ 	.startup = cz_dmic0_startup,
+ 	.shutdown = cz_da7219_shutdown,
+-	.hw_params = cz_da7219_params,
+ };
+ 
+ static const struct snd_soc_ops cz_dmic1_cap_ops = {
+ 	.startup = cz_dmic1_startup,
+ 	.shutdown = cz_da7219_shutdown,
+-	.hw_params = cz_da7219_params,
+ };
+ 
+ SND_SOC_DAILINK_DEF(designware1,
 -- 
 2.20.1
 

@@ -2,78 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9B310C5BF
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 10:14:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4577310C61C
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 10:41:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 04A8716DC;
-	Thu, 28 Nov 2019 10:14:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04A8716DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 973C916E9;
+	Thu, 28 Nov 2019 10:41:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 973C916E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574932496;
-	bh=ly2T4bHpkOVcRuLcSj6S4P6lnoWadxuZmuTb1Zp2Lqs=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=TQP1B+YW1G1FNpTizs+kAXaGo2IkkdmupTumnbdIF1AVD7M75mPdVFQNCxUmvZ3J1
-	 1mjEoZPBZ8oV2xdLD21/rNsgVHjevX8YzHUl1q4XnOigjKRFAWKPenJSyo6k+LpFC+
-	 NK33tzZYoQuqj8ZUk73562PkvSecV+7HBZRELVw4=
+	s=default; t=1574934114;
+	bh=vNjh/v7tcFwK9qRu6rqEGVLYYjhpFT9/XpvrPGURpxs=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jh1Ah/wTqMAbzliGok4HZ4zFTxE2vhKGjWsgsMNJRIvzJgxq9avaeTHOQ82kegBSe
+	 VCZsHw3yx1T+ZD6XSjbJ1s/1l10tEmYlAsA/sM3C/vOBknmUhHti0TU8kwDU1QklAB
+	 RLkyrRkpgyan5we/hfztoFibxmwu5prjLfWciH/k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5E74BF80106;
-	Thu, 28 Nov 2019 10:13:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3E23F8013A;
+	Thu, 28 Nov 2019 10:40:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E48C7F80149; Thu, 28 Nov 2019 10:13:08 +0100 (CET)
+ id E6E93F80149; Thu, 28 Nov 2019 10:40:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.ab3.no (mail.ab3.no [176.58.113.160])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D69DF800CB
- for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 10:13:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D69DF800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 72B8CF80106
+ for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 10:40:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72B8CF80106
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ab3.no header.i=@ab3.no header.b="rF/jBokr"; 
- dkim=pass (1024-bit key) header.d=ab3.no header.i=@ab3.no header.b="WazuoEUr"; 
- dkim=pass (1024-bit key) header.d=ab3.no header.i=@ab3.no header.b="agt9Qho1"
-X-Virus-Scanned: amavisd-new at ab3.no
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ab3.no 17DF92A338D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ab3.no; s=default;
- t=1574932384; bh=X4zfm5Tf+sota8/ygXwyQDguOKOsZ2g+rAMxbLlNg94=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=rF/jBokrMJACtNgOf/oZ3J984tbbChzG3+oHANl5FKxWLOvXoUfjjA4HIQ1zA91eI
- qKfxNvvGyaBwFYXH5LxYRWX8tclDe80tO/sjBqDp+R5xxydajDU2iJVua8v/oLyRdl
- 8dBBgHajo8RXMSkreqzevqGgPe/9PAsfSXWje+l8=
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ab3.no D7F592A338E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ab3.no; s=default;
- t=1574932383; bh=X4zfm5Tf+sota8/ygXwyQDguOKOsZ2g+rAMxbLlNg94=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=WazuoEUr422zFd0IpPXHxXS5qF07Ue/Nq5tagXXQMWslo+lY2qMWtodLE9f0n4b8s
- Z+zX/D9y7CqiuJYMU814tQzpqG0KJkrAKs6QiZjolbn3ZZxVM0yLNvylwDMbbmp6x7
- nOZLWt0W0IBSPVjgizOXKxUxRevQy6CYAh+DcnCA=
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ab3.no 51E3B2A3336
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ab3.no; s=default;
- t=1574932382; bh=X4zfm5Tf+sota8/ygXwyQDguOKOsZ2g+rAMxbLlNg94=;
- h=To:Cc:References:From:Date:In-Reply-To:From;
- b=agt9Qho1yfuXmtUjfKKgWYkFxjV2JVQcFmoHeEdlDQ5oOi8fuJl947Nu+9vdtgLsL
- 6i4E9TZCZZzY7GUWXXHGoPb5y3zGlBzIhlztlqNH4mk4/18p6LDd1FDoyNYPU6Sy+E
- KIZh3pLqlB//T5BA3FltOtsrDj45Z15IpqY9l9Rs=
-To: Curtis Malainey <cujomalainey@google.com>
-References: <CAOReqxjFaWhYCzzyZ90Pc5EvzUky6kCYqakz2XBwSOii9d3maA@mail.gmail.com>
-From: =?UTF-8?Q?Mads_L=c3=b8nsethagen?= <mads@ab3.no>
-Message-ID: <6b310509-212e-b887-5e3a-483a740d2d1c@ab3.no>
-Date: Thu, 28 Nov 2019 10:12:58 +0100
+ dkim=pass (2048-bit key) header.d=cogentembedded-com.20150623.gappssmtp.com
+ header.i=@cogentembedded-com.20150623.gappssmtp.com header.b="wFhcln6M"
+Received: by mail-wr1-x444.google.com with SMTP id n1so30255202wra.10
+ for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 01:40:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cogentembedded-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/JTPZnckyzjgJEzpIRleuMXljaM0DFNZiV1GxL/alt8=;
+ b=wFhcln6M8qxf18N1O/bdB4MCLIw8mwWvsHlQJCgz+bkNzJ5TKu63c1aX109Yy0GTci
+ Irrx9dzqltC3ArhPSav2bCyG0L+eTVr8lNvEhb7eNstKT1Zyj6Vc9n72zpeyKrJdsuS0
+ 6bYbohiwF0D4Vl946uBLeLqIgUKHQjlgG5kA6oD7Ei7DcjEJvpX9+Ay00ONY1aEShlSC
+ KTTEmsZH71kbakbsWSd79pAft5+k/AYNVHNtgDoUV0e1awngaSdpRHINFE25dfQK3aLN
+ 5eYjABk8G7n617MEqZiStbaTxZqf77Q8SYETeUVVUFQv41pJIbTjQFqUi1jr13IUfzJ9
+ rhug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=/JTPZnckyzjgJEzpIRleuMXljaM0DFNZiV1GxL/alt8=;
+ b=kiaZmOXhp8yN4pfxfaD5yTCpodn5iqC/nSpFqwYuUWEmq1DtQ392VHSxmt+RBTBK46
+ l7im+MgE0dieu1JKbLxA+nCIlgv526SSgG3REpBLwws+CrB4m4tah/SyJZNijlBrBB13
+ EYvWu5yJ9GhgbsqkER8z0/itW1RIRzR/qo90gzu9JpR9Rdgr2TXjJtbtsrc8VbHpEC5E
+ MbLw0bwe6LFemSrMz4v+1p36Bq35zGt5D1KRVlxEFsqdkPLQCzxonb8LCyUeNzopQJT5
+ /7luvpZiI34/3R1+cfJG29FCEqOXFfzfpqPZknoRmaz1OImge4/XUr4ieHZw2GpfQwIB
+ Z0dw==
+X-Gm-Message-State: APjAAAULuvgnRdytu8eRvgNVrkud2Evqi4IGju8LnrYa2bYX+9NRc3K/
+ 2hCuaDf4FLUQ6AAWGjFPy2HZCg==
+X-Google-Smtp-Source: APXvYqwu1QjgKfwI4JCeQQx1SHzEZw7WIBYrq8BpklWehtaitBzDqcEh+OUYTfpGukVZw43XcCA6rw==
+X-Received: by 2002:a05:6000:149:: with SMTP id
+ r9mr7594495wrx.147.1574934004238; 
+ Thu, 28 Nov 2019 01:40:04 -0800 (PST)
+Received: from cobook.home (nikaet.starlink.ru. [94.141.168.29])
+ by smtp.gmail.com with ESMTPSA id f6sm23073673wrr.15.2019.11.28.01.40.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Nov 2019 01:40:03 -0800 (PST)
+From: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Lucas Stach <l.stach@pengutronix.de>, "Andrew F. Davis" <afd@ti.com>,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Date: Thu, 28 Nov 2019 12:39:55 +0300
+Message-Id: <20191128093955.29567-1-nikita.yoush@cogentembedded.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <CAOReqxjFaWhYCzzyZ90Pc5EvzUky6kCYqakz2XBwSOii9d3maA@mail.gmail.com>
-Content-Language: nb-NO
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Dylan Reid <dgreid@google.com>, Jimmy Cheng-Yi Chiang <cychiang@google.com>
-Subject: Re: [alsa-devel] Headset button mapping in the kernel
+Cc: Nikita Yushchenko <nikita.yoush@cogentembedded.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Chris Healy <cphealy@gmail.com>
+Subject: [alsa-devel] [PATCH] ASoC: tlv320aic31xx: Add HP output driver pop
+	reduction controls
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,44 +100,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 25.11.2019 20:25, Curtis Malainey wrote:
-> Hello ALSA Devs,
-> 
-> I am looking to get some feedback/ideas on a possible change to
-> headset button mapping. Locally we are carrying patches that implement
-> the mappings in the machine driver (which we understand you do not
-> want upstream.) We are looking to see if we can add a new API
-> (something like a sysfs path potentially) to have userspace pass in
-> the mapping, if it chooses to, so the mapping can still be done in the
-> kernel. That way we can carry just the config locally and remove some
-> of the kernel patches we are carrying locally. Thanks.
-> 
-> Curtis
-> 
+HP output driver has two parameters that can be configured to reduce
+pop noise: power-on delay and ramp-up step time. Two new kcontrols
+have been added to set these parameters.
 
-Sorry for the top posting in my last mail.
+Signed-off-by: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
+---
+ sound/soc/codecs/tlv320aic31xx.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-I just wondered, do this have anything to do with headphones that has 
-physical buttons on the headphone wire itself? E.g the Bose QC25 is a 
-pair of headphones that has four buttons on the wire, and as far as I 
-can see there's no way of getting those buttons to work in vanilla Linux 
-for now, but it works in Android and Windows 10.
+diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
+index 67323188afd2..740e75032f36 100644
+--- a/sound/soc/codecs/tlv320aic31xx.c
++++ b/sound/soc/codecs/tlv320aic31xx.c
+@@ -263,6 +263,19 @@ static SOC_ENUM_SINGLE_DECL(cm_m_enum, AIC31XX_MICPGAMI, 6, mic_select_text);
+ static SOC_ENUM_SINGLE_DECL(mic1lm_m_enum, AIC31XX_MICPGAMI, 4,
+ 	mic_select_text);
+ 
++static const char * const hp_poweron_time_text[] = {
++	"0us", "15.3us", "153us", "1.53ms", "15.3ms", "76.2ms",
++	"153ms", "304ms", "610ms", "1.22s", "3.04s", "6.1s" };
++
++static SOC_ENUM_SINGLE_DECL(hp_poweron_time_enum, AIC31XX_HPPOP, 3,
++	hp_poweron_time_text);
++
++static const char * const hp_rampup_step_text[] = {
++	"0ms", "0.98ms", "1.95ms", "3.9ms" };
++
++static SOC_ENUM_SINGLE_DECL(hp_rampup_step_enum, AIC31XX_HPPOP, 1,
++	hp_rampup_step_text);
++
+ static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -6350, 50, 0);
+ static const DECLARE_TLV_DB_SCALE(adc_fgain_tlv, 0, 10, 0);
+ static const DECLARE_TLV_DB_SCALE(adc_cgain_tlv, -2000, 50, 0);
+@@ -286,6 +299,9 @@ static const struct snd_kcontrol_new common31xx_snd_controls[] = {
+ 
+ 	SOC_DOUBLE_R_TLV("HP Analog Playback Volume", AIC31XX_LANALOGHPL,
+ 			 AIC31XX_RANALOGHPR, 0, 0x7F, 1, hp_vol_tlv),
++
++	SOC_ENUM("HP Output Driver Power-On time", hp_poweron_time_enum),
++	SOC_ENUM("HP Output Driver Ramp-up step", hp_rampup_step_enum),
+ };
+ 
+ static const struct snd_kcontrol_new aic31xx_snd_controls[] = {
+-- 
+2.20.1
 
-I asked about this on this mailing list before[1], because I don't even 
-know which component should be responsible for generating button events. 
-Should it have anything to do with alsa? Is the button mapping you're 
-asking about here about the same thing? Do anyone know how one should go 
-about supporting these kind of button events on desktop Linux?
-
-- Mads
-
-[1] 
-https://mailman.alsa-project.org/pipermail/alsa-devel/2019-October/157702.html
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

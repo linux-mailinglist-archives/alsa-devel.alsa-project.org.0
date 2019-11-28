@@ -2,60 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37E1310CA0A
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 15:02:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC75010CA5C
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 15:30:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDF9216EB;
-	Thu, 28 Nov 2019 15:01:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDF9216EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2906716E2;
+	Thu, 28 Nov 2019 15:29:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2906716E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574949758;
-	bh=hbkQbRo1mMgvpEaeIN4s7iQG44uBjin+RbynvvOZ5J8=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=A4vLrJ3U+Wwpa0xRajhePFCzjz35oo0dcghK72GyVLO5aDtbnoFXsBwH9QwYs9rFK
-	 d0PBrnz8sYBLTEc0CdkMTGOUuYXHD4RiuiZKkbHXLNWwimO5Hgvmz72r57Fp7mwlvB
-	 7IinCjb+EMcn01Zat0zUM3iV6TFeBA/2jQ+YCv54=
+	s=default; t=1574951418;
+	bh=eO5yL8kAd2KTh+U1QETCqlTOR8FBpq2bJpfy+3ymM2Y=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=i7V30jJc2JOJIo8c5n683niFkfz8g6csP+BOABFmhVGSzVshJd0C52+GrKKCSnt3u
+	 3ahOXYQMOxkrHzJ/axdwSaPEcBnxnUSumxz1U+UNzcXeDFTn1cfI0G4iu5/hzfoy9X
+	 Y+oueRMG2Qg4o0w5TspbehpZrnDsKgNCkQ+QMS2A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 32A83F8013A;
-	Thu, 28 Nov 2019 15:00:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CC40F80159;
+	Thu, 28 Nov 2019 15:28:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35EAEF80149; Thu, 28 Nov 2019 15:00:53 +0100 (CET)
+ id 4D38DF80149; Thu, 28 Nov 2019 15:28:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga05-in.huawei.com [45.249.212.191])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F9F7F800CE
- for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 15:00:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F9F7F800CE
-Received: from DGGEMS403-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 34BB265186D19FA1D158;
- Thu, 28 Nov 2019 22:00:46 +0800 (CST)
-Received: from localhost (10.133.213.239) by DGGEMS403-HUB.china.huawei.com
- (10.3.19.203) with Microsoft SMTP Server id 14.3.439.0; Thu, 28 Nov 2019
- 22:00:34 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <cezary.rojewski@intel.com>, <pierre-louis.bossart@linux.intel.com>,
- <liam.r.girdwood@linux.intel.com>, <yang.jie@linux.intel.com>,
- <broonie@kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
- <gregkh@linuxfoundation.org>, <allison@lohutok.net>, <yuehaibing@huawei.com>, 
- <tglx@linutronix.de>, <alexios.zavras@intel.com>
-Date: Thu, 28 Nov 2019 21:58:53 +0800
-Message-ID: <20191128135853.8360-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B332F800CE
+ for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 15:28:25 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 69878A0042;
+ Thu, 28 Nov 2019 15:28:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 69878A0042
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1574951304; bh=+5HDe1GJQQcveKIPfq3W6WhXMbjxAvn2IglImbrxg1s=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=aezBcLcFRY8+YvfddSscb8tuZkqzyCa7hIh9Gb5gIYeSDlNvLnofrpg0zMHiPbbin
+ m/8+b5NAgSl8JtCsOWJFhJrV3eGaGYt1cMmGj2AoneR84+5lbLmjgBsbbyrFOMAU2R
+ 1y8nd4+OFaXIwVu+G+KOBOpHcTTnY+yjNolrLYQ8=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu, 28 Nov 2019 15:28:20 +0100 (CET)
+To: Mark Brown <broonie@kernel.org>
+References: <20191126103404.29534-1-perex@perex.cz>
+ <dd238740-f154-a660-2a80-0ada80183dd2@linux.intel.com>
+ <32edec86-ec1c-1809-2278-fecac09ac321@perex.cz>
+ <20191126162935.GB4205@sirena.org.uk>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <48159775-bd7b-b473-7e02-3116ca8dee73@perex.cz>
+Date: Thu, 28 Nov 2019 15:28:19 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
-X-Originating-IP: [10.133.213.239]
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: Intel: sst: Add missing include
-	<linux/io.h>
+In-Reply-To: <20191126162935.GB4205@sirena.org.uk>
+Content-Language: en-US
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: intel/skl/hda - export number of
+ digital microphones via control components
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,42 +81,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix build error:
+Dne 26. 11. 19 v 17:29 Mark Brown napsal(a):
+> On Tue, Nov 26, 2019 at 02:51:19PM +0100, Jaroslav Kysela wrote:
+>> Dne 26. 11. 19 v 13:33 Pierre-Louis Bossart napsal(a):
+> 
+>>> Any objections if we take this patch into the SOF tree (without changes
+>>> to authorship) and provide it on alsa-devel next week with the cleanups,
+>>> so that we don't have any conflicts?
+> 
+>> I'm fine with that, if we don't miss the 5.5 merge window. Otherwise, you
+>> may rebase your changes on top. Mark?
+> 
+> You've missed the merge window already - it was open before this patch
+> was sent.
 
-sound/soc/intel/atom/sst/sst.c: In function intel_sst_interrupt_mrfld:
-sound/soc/intel/atom/sst/sst.c:93:5: error: implicit declaration of function memcpy_fromio;
- did you mean memcpy32_fromio? [-Werror=implicit-function-declaration]
-     memcpy_fromio(msg->mailbox_data,
-     ^~~~~~~~~~~~~
-     memcpy32_fromio
+So, what now? Rebase on top of Pierre patches? You added another patches to 
+your for-5.5 branch today.
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- sound/soc/intel/atom/sst/sst.c | 1 +
- 1 file changed, 1 insertion(+)
+I'd also merge the other two trivial component patches:
 
-diff --git a/sound/soc/intel/atom/sst/sst.c b/sound/soc/intel/atom/sst/sst.c
-index fbecbb7..68bcec5 100644
---- a/sound/soc/intel/atom/sst/sst.c
-+++ b/sound/soc/intel/atom/sst/sst.c
-@@ -14,6 +14,7 @@
- #include <linux/module.h>
- #include <linux/fs.h>
- #include <linux/interrupt.h>
-+#include <linux/io.h>
- #include <linux/firmware.h>
- #include <linux/pm_runtime.h>
- #include <linux/pm_qos.h>
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-November/thread.html#159158
+
+				Thanks,
+					Jaroslav
+
 -- 
-2.7.4
-
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

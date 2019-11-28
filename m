@@ -2,70 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E29E10C94D
-	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 14:15:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B550910C95E
+	for <lists+alsa-devel@lfdr.de>; Thu, 28 Nov 2019 14:20:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADFD816E6;
-	Thu, 28 Nov 2019 14:14:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADFD816E6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 435D116E4;
+	Thu, 28 Nov 2019 14:19:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 435D116E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1574946934;
-	bh=pk54otFlIXzVD5b3vhiTCbCHPLmOSxvRQ8DihdP7Dgc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cKj4JBE5upNSxiI3E+2u0ofLHuRHiA+WodSDqjEtMFtr0ANJDCULalKt1ts0egyh7
-	 L+VguOUJf30YEpV+ON/K2miNGFwfNzhxTFaUfX+/IWylpkVkUDR0IhH6GzRfFj9Aba
-	 ayBZse1uyIwgmdhThGecvJBSyTW9TmdZNaxjnT0g=
+	s=default; t=1574947212;
+	bh=ySvDVSZO2gi/P39Q0ifwfsNObAlrFz66XK303zjnekM=;
+	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=Yph/quvKQrMThBTYcn0tLGHe/29IOTGmBxvEuZWi6bLrT4GlgUC6pC4I9rrHcTf5a
+	 mjTfI/fPnulLFWcNlCCLD29bDHV4A1IXt146JSH8ukqUuzh66kqyun9qFFkG1utVLe
+	 zfZw9+kt1W4epKKryU+cSsXHeakJr0ilmuQo+C5k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 07929F80149;
-	Thu, 28 Nov 2019 14:13:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA419F80159;
+	Thu, 28 Nov 2019 14:18:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C37ABF80149; Thu, 28 Nov 2019 14:13:48 +0100 (CET)
+ id CBBCDF80149; Thu, 28 Nov 2019 14:18:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 09445F800CE
- for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 14:13:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09445F800CE
+ by alsa1.perex.cz (Postfix) with ESMTP id E71D0F800CE
+ for <alsa-devel@alsa-project.org>; Thu, 28 Nov 2019 14:18:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E71D0F800CE
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F23EF30E;
- Thu, 28 Nov 2019 05:13:43 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97EE330E;
+ Thu, 28 Nov 2019 05:18:22 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6FCA03F52E;
- Thu, 28 Nov 2019 05:13:43 -0800 (PST)
-Date: Thu, 28 Nov 2019 13:13:41 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 146E23F52E;
+ Thu, 28 Nov 2019 05:18:21 -0800 (PST)
+Date: Thu, 28 Nov 2019 13:18:20 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>
-Message-ID: <20191128131341.GD4210@sirena.org.uk>
-References: <20191126170841.GC4205@sirena.org.uk>
- <AM5PR1001MB09949D557742E8817545637F80450@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191126175040.GD4205@sirena.org.uk>
- <AM5PR1001MB09940CF764711F1F13A6B37E80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191127123317.GA4879@sirena.org.uk>
- <AM5PR1001MB0994D842A2D7051F81A7765B80440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191127154030.GD4879@sirena.org.uk>
- <AM5PR1001MB099467ACADA4F7B6DDA5087480440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
- <20191127164116.GE4879@sirena.org.uk>
- <AM5PR1001MB099446A50351CC49478893D780440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
-MIME-Version: 1.0
-In-Reply-To: <AM5PR1001MB099446A50351CC49478893D780440@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
-X-Cookie: Do not dry clean.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "kernel@collabora.com" <kernel@collabora.com>,
- Support Opensource <Support.Opensource@diasemi.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [alsa-devel] [PATCHv2 6/6] ASoC: da7213: Add default clock
-	handling
+To: Tzung-Bi Shih <tzungbi@google.com>
+In-Reply-To: <20191122073114.219945-4-tzungbi@google.com>
+Message-Id: <applied-20191122073114.219945-4-tzungbi@google.com>
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, cychiang@google.com,
+ pierre-louis.bossart@linux.intel.com, tzungbi@google.com,
+ Mark Brown <broonie@kernel.org>, dgreid@google.com
+Subject: [alsa-devel] Applied "ASoC: max98090: fix possible race conditions"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,80 +63,165 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2718556264782818635=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============2718556264782818635==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="veXX9dWIonWZEC6h"
-Content-Disposition: inline
+   ASoC: max98090: fix possible race conditions
 
+has been applied to the asoc tree at
 
---veXX9dWIonWZEC6h
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
 
-On Wed, Nov 27, 2019 at 06:10:00PM +0000, Adam Thomson wrote:
-> On 27 November 2019 16:41, Mark Brown wrote:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-> > The PLL configuration specifies both input and output clock rates (as
-> > well as an input clock source) so if it's got to configure the MCLK I'd
-> > expect the driver to figure that out without needing the caller to
-> > separately set the MCLK rate.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> Yes it does but the name of the function implies it's setting the codec's PLL,
-> not the system clock, whereas the other function implies setting the system
-> clock and not the PLL. Also generally you're only setting the sysclk once
-> whereas you may want to configure and enable/disable the PLL more dynamically,
-> at least for devices which do have a built-in PLL. Of course that could still be
-> handled through the single PLL function call.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-I wouldn't be so sure about only setting the SYSCLK once - if you've got
-an input clock you can configure then you might for example want to
-switch between 44.1kHz and 48kHz bases, and disable it or run it at very
-low frequency when idle.  In some systems it's as dynamic as a PLL is.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> Just as an informational, what's the future for these two functions if
-> essentially one is only really required and the other deemed redundant? I would
-> just like to be clear so I'm not falling over things like this in the future,
-> and wasting your time as well. Seems that the PLL call isn't part of simple
-> generic card code so would the be deemed surplus to requirements some point down
-> the line?
+Thanks,
+Mark
 
-Things like simple-card are good for 90% of systems but I'm fairly sure
-we'll never be able to handle more complex setups entirely
-automatically.  What we *should* be doing over time is transitioning all
-this clock stuff into the actual clock framework but that's a big, long
-term thing which nobody is currently actually working on.
+From 45dfbf56975994822cce00b7475732a49f8aefed Mon Sep 17 00:00:00 2001
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Fri, 22 Nov 2019 15:31:14 +0800
+Subject: [PATCH] ASoC: max98090: fix possible race conditions
 
---veXX9dWIonWZEC6h
-Content-Type: application/pgp-signature; name="signature.asc"
+max98090_interrupt() and max98090_pll_work() run in 2 different threads.
+There are 2 possible races:
 
------BEGIN PGP SIGNATURE-----
+Note: M98090_REG_DEVICE_STATUS = 0x01.
+Note: ULK == 0, PLL is locked; ULK == 1, PLL is unlocked.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3fyAUACgkQJNaLcl1U
-h9BbLwf/ZISsJtwJ0CU1vhbk43SAwt2M4uHor1sY0rCDrh6SnqvRGe6TMWOHvjHz
-9huuR+na9acBHQ5yOOiQn6fA9JGClPZNKN2HjgUOfZ28J1Qur+pNddbtTuy70xi4
-oOayq16CdAMqXwa7IPIjo3lL+LIJfBJun2XGUQlKByrLpON/y+9LRT+r8twRpFhu
-Ko0M4akmUEXodGJfWRPsoHXVDXRV9LMvKB8m5v9MwVSH4XHfzZCuf4XtlUIigztX
-MnlSv4fnVyoHpRUbjShEsq0TIvOOIgf01NIGNqhsBLUd4OUlRMX64/FHDOSuObEn
-n05/fdBhdXaCJRclImqdOUtFGdqHLA==
-=Y+sk
------END PGP SIGNATURE-----
+max98090_interrupt      max98090_pll_work
+----------------------------------------------
+schedule max98090_pll_work
+                        restart max98090 codec
+receive ULK INT
+                        assert ULK == 0
+schedule max98090_pll_work (1).
 
---veXX9dWIonWZEC6h--
+In the case (1), the PLL is locked but max98090_interrupt unnecessarily
+schedules another max98090_pll_work.
 
---===============2718556264782818635==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+max98090_interrupt      max98090_pll_work      max98090 codec
+----------------------------------------------------------------------
+                                               ULK = 1
+receive ULK INT
+read 0x01
+                                               ULK = 0 (clear on read)
+schedule max98090_pll_work
+                        restart max98090 codec
+                                               ULK = 1
+receive ULK INT
+read 0x01
+                                               ULK = 0 (clear on read)
+                        read 0x01
+                        assert ULK == 0 (2).
+
+In the case (2), both max98090_interrupt and max98090_pll_work read
+the same clear-on-read register.  max98090_pll_work would falsely
+thought PLL is locked.
+Note: the case (2) race is introduced by the previous commit ("ASoC:
+max98090: exit workaround earlier if PLL is locked") to check the status
+and exit the loop earlier in max98090_pll_work.
+
+There are 2 possible solution options:
+A. turn off ULK interrupt before scheduling max98090_pll_work; and turn
+on again before exiting max98090_pll_work.
+B. remove the second thread of execution.
+
+Option A cannot fix the case (2) race because it still has 2 threads
+access the same clear-on-read register simultaneously.  Although we
+could suppose the register is volatile and read the status via I2C could
+be much slower than the hardware raises the bits.
+
+Option B introduces a maximum 10~12 msec penalty delay in the interrupt
+handler.  However, it could only punish the jack detection by extra
+10~12 msec.
+
+Adopts option B which is the better solution overall.
+
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+Link: https://lore.kernel.org/r/20191122073114.219945-4-tzungbi@google.com
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/max98090.c | 8 ++------
+ sound/soc/codecs/max98090.h | 1 -
+ 2 files changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index f531e5a11bdd..e46b6ada13b1 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -2103,10 +2103,8 @@ static void max98090_pll_det_disable_work(struct work_struct *work)
+ 			    M98090_IULK_MASK, 0);
+ }
+ 
+-static void max98090_pll_work(struct work_struct *work)
++static void max98090_pll_work(struct max98090_priv *max98090)
+ {
+-	struct max98090_priv *max98090 =
+-		container_of(work, struct max98090_priv, pll_work);
+ 	struct snd_soc_component *component = max98090->component;
+ 	unsigned int pll;
+ 	int i;
+@@ -2275,7 +2273,7 @@ static irqreturn_t max98090_interrupt(int irq, void *data)
+ 
+ 	if (active & M98090_ULK_MASK) {
+ 		dev_dbg(component->dev, "M98090_ULK_MASK\n");
+-		schedule_work(&max98090->pll_work);
++		max98090_pll_work(max98090);
+ 	}
+ 
+ 	if (active & M98090_JDET_MASK) {
+@@ -2438,7 +2436,6 @@ static int max98090_probe(struct snd_soc_component *component)
+ 			  max98090_pll_det_enable_work);
+ 	INIT_WORK(&max98090->pll_det_disable_work,
+ 		  max98090_pll_det_disable_work);
+-	INIT_WORK(&max98090->pll_work, max98090_pll_work);
+ 
+ 	/* Enable jack detection */
+ 	snd_soc_component_write(component, M98090_REG_JACK_DETECT,
+@@ -2491,7 +2488,6 @@ static void max98090_remove(struct snd_soc_component *component)
+ 	cancel_delayed_work_sync(&max98090->jack_work);
+ 	cancel_delayed_work_sync(&max98090->pll_det_enable_work);
+ 	cancel_work_sync(&max98090->pll_det_disable_work);
+-	cancel_work_sync(&max98090->pll_work);
+ 	max98090->component = NULL;
+ }
+ 
+diff --git a/sound/soc/codecs/max98090.h b/sound/soc/codecs/max98090.h
+index 57965cd678b4..a197114b0dad 100644
+--- a/sound/soc/codecs/max98090.h
++++ b/sound/soc/codecs/max98090.h
+@@ -1530,7 +1530,6 @@ struct max98090_priv {
+ 	struct delayed_work jack_work;
+ 	struct delayed_work pll_det_enable_work;
+ 	struct work_struct pll_det_disable_work;
+-	struct work_struct pll_work;
+ 	struct snd_soc_jack *jack;
+ 	unsigned int dai_fmt;
+ 	int tdm_slots;
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2718556264782818635==--

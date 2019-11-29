@@ -2,84 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F63410DA2A
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Nov 2019 20:37:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5524910DA3D
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Nov 2019 20:52:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E75D3166D;
-	Fri, 29 Nov 2019 20:36:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E75D3166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBE2A16C7;
+	Fri, 29 Nov 2019 20:51:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBE2A16C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575056254;
-	bh=qIU6q83f9pTIXpfBD07yiaC+F/+OQfXESNeNOgGCRUA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kkhJ33hQLX1hO9fPvfoICpWLfr8OKUI3bbkLCiQHImvcsZo2sqeCdaR3dtMlyqyp6
-	 f023uPDqSfc7QHays+ly7kv2gtFcAO10z/20Oxfjn/X28xCIvhfI6epNiazyTIJpD7
-	 bPS9f917j0MMIjrUNJ/Nnm/2wMb6irzuGY8j81zk=
+	s=default; t=1575057126;
+	bh=0KT39f0zgnghxgLVo2+BwxtXk+O8IN9VO2o+n0728LA=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=iIguwPsvtDA2cDsnvwg91jzFx/5Eth8vnTsW+ZUhfNfAcow6wd8Q7N0mVHFcBeG9Z
+	 CGsDS4ahKn3GnwVm8NOa88Rbtkru4k6RbW8m32+UiVyX+Kdc4uT+0311NrsXlJxE29
+	 OJHDzA+PND+t2oM0av+jMBVuRhyNnnwlEeOVa+nU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3176DF800C2;
-	Fri, 29 Nov 2019 20:35:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7481DF800C2;
+	Fri, 29 Nov 2019 20:50:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 40351F8016F; Fri, 29 Nov 2019 20:35:48 +0100 (CET)
+ id BCCB7F8016F; Fri, 29 Nov 2019 20:50:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
- [IPv6:2607:f8b0:4864:20::1044])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 51E2AF800C2
- for <alsa-devel@alsa-project.org>; Fri, 29 Nov 2019 20:35:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51E2AF800C2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="n0KUy7AV"
-Received: by mail-pj1-x1044.google.com with SMTP id s8so13689105pji.2
- for <alsa-devel@alsa-project.org>; Fri, 29 Nov 2019 11:35:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=yOClwEBxwXObBV64/qIQddKfVVCljfJuY0r1InUxjoA=;
- b=n0KUy7AV66CDrovQFh+nkzwHwslqWVsqBQAWaDQyEfJu+0avl76YQ49I+n/x4rdKTs
- fJcZiRrSB6/wyy8g780dx/BcocwGyaOXAZcaGV3H3AkAC0ia6ZZNKT6X+z9hyVeIFfq3
- Bthbt2Hc6gHJiJqWvIeFvhOb+VFD0ayXgzzGo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=yOClwEBxwXObBV64/qIQddKfVVCljfJuY0r1InUxjoA=;
- b=lUIh6IWNPvYWObG9v/QHY77dFXv3qVKPPaAUAUYkZB6nYCVV+2nfjOC+xdI1MTN46N
- A8Oav3Beu3S7PYm8CViE8sCv9FclEptuI5RtwhGInf79RuA7rVgNDKpcPMK4NGao/jp4
- AHzrtLImy1dLwrAAYczBMglr1VfM1rH0YD+4Cuaf6EG4fp42676NnXrzC60gUCdHssHQ
- 9+qIQ2pc7VCyKgWGG1Uo6yt1kB6481UrS1nJtMfV475rh3gABKw1M65c4PZK+EsFqhum
- pFJudwIc/ij/pQmxzl68weY2HrwtD/n6io8W06SpHvZWrVNSXyGbOcwEyNOSsjLG7NGV
- puGg==
-X-Gm-Message-State: APjAAAXCa1sFJrXLKqUFrR6l19TFNaHJitbrtSWlL4TPVxGHYmkPryhs
- Z63+E2X/IZnGh3WRols26pbhTCjgXQQ=
-X-Google-Smtp-Source: APXvYqy5jbxqI3Yg4Ox2n+5/r1NOC5WMUrSf/SEV6mewD14rRAIg9WvK3pnZWYsXWTaJwIK/ML+lHw==
-X-Received: by 2002:a17:90a:db43:: with SMTP id
- u3mr20713554pjx.56.1575056143111; 
- Fri, 29 Nov 2019 11:35:43 -0800 (PST)
-Received: from localhost ([2401:fa00:1:10:521e:3469:803b:9ad6])
- by smtp.gmail.com with ESMTPSA id o67sm24734226pga.62.2019.11.29.11.35.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 29 Nov 2019 11:35:42 -0800 (PST)
-From: Chih-Yang Hsia <paulhsia@chromium.org>
-To: Mark Brown <broonie@kernel.org>,
-	Takashi Iwai <tiwai@suse.com>
-Date: Sat, 30 Nov 2019 03:35:30 +0800
-Message-Id: <20191129193530.51415-1-paulhsia@chromium.org>
-X-Mailer: git-send-email 2.24.0.393.g34dc348eaf-goog
+ by alsa1.perex.cz (Postfix) with ESMTPS id D9E20F800B3
+ for <alsa-devel@alsa-project.org>; Fri, 29 Nov 2019 20:50:17 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EAD0CA003F;
+ Fri, 29 Nov 2019 20:50:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EAD0CA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1575057016; bh=TXhyhFG869np/RZDjt16vMPrByBHtdZfxA4JFnAJTm4=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=VTk6GEzPaAzwCystgepHk/4T86KAHTWubYVzcQz7+mg1HcEPSq/QufFJdrefDUCPc
+ VQ6fkpxeX837FvIN8j8b1OwisJ6REtNqL0aWBeS/bHY1+smaX8ic19NRFlTyKQobhp
+ tvNITqC5RNAV7F/tXZ/hOEYIpTrZjsEfek2kBy0Q=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri, 29 Nov 2019 20:50:11 +0100 (CET)
+To: Chih-Yang Hsia <paulhsia@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20191129193530.51415-1-paulhsia@chromium.org>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <61a10081-d7d4-eae1-49ed-d3db96957db3@perex.cz>
+Date: Fri, 29 Nov 2019 20:50:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, paulhsia <paulhsia@chromium.org>
-Subject: [alsa-devel] [PATCH alsa-lib] ucm: Use strncmp to avoid
-	access-out-of-boundary
+In-Reply-To: <20191129193530.51415-1-paulhsia@chromium.org>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH alsa-lib] ucm: Use strncmp to avoid
+ access-out-of-boundary
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,45 +77,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: paulhsia <paulhsia@chromium.org>
+Dne 29. 11. 19 v 20:35 Chih-Yang Hsia napsal(a):
+> From: paulhsia <paulhsia@chromium.org>
+> 
+> If the length of the identifier is less than the length of the prefix,
+> access-out-of-boundary will occur in memcmp().
 
-If the length of the identifier is less than the length of the prefix,
-access-out-of-boundary will occur in memcmp().
+Applied. Thank you for your contribution.
 
-Signed-off-by: paulhsia <paulhsia@chromium.org>
----
- src/ucm/main.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+					Jaroslav
 
-diff --git a/src/ucm/main.c b/src/ucm/main.c
-index b0b6ffb3..252e50d9 100644
---- a/src/ucm/main.c
-+++ b/src/ucm/main.c
-@@ -61,11 +61,13 @@ static int check_identifier(const char *identifier, const char *prefix)
- {
- 	int len;
- 
--	if (strcmp(identifier, prefix) == 0)
--		return 1;
- 	len = strlen(prefix);
--	if (memcmp(identifier, prefix, len) == 0 && identifier[len] == '/')
-+	if (strncmp(identifier, prefix, len) != 0)
-+		return 0;
-+
-+	if (identifier[len] == 0 || identifier[len] == '/')
- 		return 1;
-+
- 	return 0;
- }
- 
 -- 
-2.24.0.393.g34dc348eaf-goog
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

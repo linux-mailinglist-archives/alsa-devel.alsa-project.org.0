@@ -2,60 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD52E10D731
-	for <lists+alsa-devel@lfdr.de>; Fri, 29 Nov 2019 15:40:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 16A6C10D739
+	for <lists+alsa-devel@lfdr.de>; Fri, 29 Nov 2019 15:42:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3EDF116D4;
-	Fri, 29 Nov 2019 15:39:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3EDF116D4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9962916D5;
+	Fri, 29 Nov 2019 15:42:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9962916D5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575038444;
-	bh=64un+oTE0YGBCfVrFVKsdmdT/OP2UTCJ7E4Cj3edvIc=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cTeSgLQk1PUxL522XfFzgTy1/vUI6603cGv8n4Q//EziR2/lLbVRQ6Q7ai/SUVYxN
-	 mhQF5ubTPOS6mUvn8ckZDVK02FWrJ+2FbtGZyw9+C8jMhg4f9LbqsVbw6poyDN0WFO
-	 KcUKLul5v8owg0OeUtRpLhVuENZhLp8j//9mpfG0=
+	s=default; t=1575038571;
+	bh=d68w+32GC9Fgb7MsvgnmaaIM6nCnOuwjmt+yLGOEhio=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NU0gOPal2JilqKPpu5x4jqloy5LHjIksEN0fMaoiZB2sjksUtLJ4XT6AQ0hG3Q9QV
+	 /FEA//xo8/+o7eyCWD93unaMq6BpQA097GIy3Br7QG4angDj17jAupEgEBQyy2pWbc
+	 e5JeeE38deyBJOGV5FSZ1W9hjTaJAU5v9dtdEXk8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8B31BF801F5;
-	Fri, 29 Nov 2019 15:38:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99133F8016F;
+	Fri, 29 Nov 2019 15:41:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1186FF801DB; Fri, 29 Nov 2019 15:38:17 +0100 (CET)
+ id 3B45DF80141; Fri, 29 Nov 2019 15:41:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5112BF8014D
- for <alsa-devel@alsa-project.org>; Fri, 29 Nov 2019 15:38:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5112BF8014D
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Nov 2019 06:38:10 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,257,1571727600"; d="scan'208";a="199826139"
-Received: from zeliteleevi.tm.intel.com ([10.237.55.130])
- by orsmga007.jf.intel.com with ESMTP; 29 Nov 2019 06:38:08 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org, tiwai@suse.de,
- Nikhil Mahale <nmahale@nvidia.com>
-Date: Fri, 29 Nov 2019 16:37:56 +0200
-Message-Id: <20191129143756.23941-2-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191129143756.23941-1-kai.vehmanen@linux.intel.com>
-References: <20191129143756.23941-1-kai.vehmanen@linux.intel.com>
-Cc: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: [alsa-devel] [PATCH 2/2] [RFC] ALSA: hda: hdmi - preserve non-MST
-	PCM routing for Intel platforms
+ by alsa1.perex.cz (Postfix) with ESMTPS id CAFDFF80106
+ for <alsa-devel@alsa-project.org>; Fri, 29 Nov 2019 15:41:02 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id EB1CCA0040;
+ Fri, 29 Nov 2019 15:41:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz EB1CCA0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1575038462; bh=w6O0vZI56T+78y+JXku/lkI7ucYY5A63AaGWkDCMjeU=;
+ h=From:To:Cc:Subject:Date:From;
+ b=Fdk/00cS9crQS+QOgAnu8QWY9EPD0+iIqKMH3Tzriz+cQbCSLDPW3rL4J8PloHEsz
+ Q2dDGN7lZXgRLz/D4vVmBGrm+8rB4/ieb8vidXPHgIjnKtF4/gCcrplu6dy9DuQRKs
+ PIuw7sXzBfmv9ceXkCXxLO0rk4pkKExZb3xG7SWw=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri, 29 Nov 2019 15:40:58 +0100 (CET)
+From: Jaroslav Kysela <perex@perex.cz>
+To: ALSA development <alsa-devel@alsa-project.org>
+Date: Fri, 29 Nov 2019 15:40:27 +0100
+Message-Id: <20191129144027.14765-1-perex@perex.cz>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Cc: Takashi Iwai <tiwai@suse.de>
+Subject: [alsa-devel] [PATCH] ALSA: hda - fixup for the bass speaker on
+	Lenovo Carbon X1 7th gen
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,50 +70,80 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit 5398e94fb753 ("ALSA: hda - Add DP-MST support for NVIDIA codecs")
-introduced a slight change of behaviour how non-MST monitors are
-assigned to PCMs on Intel platforms.
+The auto-parser assigns the bass speaker to DAC3 (NID 0x06) which
+is without the volume control. I do not see a reason to use DAC2,
+because the shared output to all speakers produces the sufficient
+and well balanced sound. The stereo support is enough for this
+purpose (laptop).
 
-In the drm_audio_component.h interface, the third parameter
-to pin_eld_notify() is pipe number. On Intel platforms, this value
-is -1 for MST. On other platforms, a non-zero pipe id is used to
-signal MST use.
-
-This difference leads to some subtle differences in hdmi_find_pcm_slot()
-with regards to how non-MST monitors are assigned to PCMs.
-This patch restores the original behaviour on Intel platforms while
-keeping the new allocation policy on other platforms.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Jaroslav Kysela <perex@perex.cz>
 ---
- sound/pci/hda/patch_hdmi.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/pci/hda/patch_realtek.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index c3940c197122..1dd4c92254a4 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1353,6 +1353,11 @@ static int hdmi_find_pcm_slot(struct hdmi_spec *spec,
- 		i = spec->num_nids + (per_pin->dev_id - 1);
- 		if (i < spec->pcm_used && !(test_bit(i, &spec->pcm_bitmap)))
- 			return i;
-+
-+		/* keep legacy assignment for dev_id>0 on Intel platforms */
-+		if (spec->intel_hsw_fixup)
-+			if (!test_bit(per_pin->pin_nid_idx, &spec->pcm_bitmap))
-+				return per_pin->pin_nid_idx;
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index d2bf70a1d2fd..a596790d4245 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -5544,6 +5544,16 @@ static void alc295_fixup_disable_dac3(struct hda_codec *codec,
  	}
+ }
  
- 	/* have a second try; check the area over num_nids */
++/* force NID 0x17 (Bass Speaker) to DAC1 to share it with the main speaker */
++static void alc285_fixup_speaker2_to_dac1(struct hda_codec *codec,
++					  const struct hda_fixup *fix, int action)
++{
++	if (action == HDA_FIXUP_ACT_PRE_PROBE) {
++		hda_nid_t conn[1] = { 0x02 };
++		snd_hda_override_conn_list(codec, 0x17, 1, conn);
++	}
++}
++
+ /* Hook to update amp GPIO4 for automute */
+ static void alc280_hp_gpio4_automute_hook(struct hda_codec *codec,
+ 					  struct hda_jack_callback *jack)
+@@ -5846,6 +5856,7 @@ enum {
+ 	ALC225_FIXUP_DISABLE_MIC_VREF,
+ 	ALC225_FIXUP_DELL1_MIC_NO_PRESENCE,
+ 	ALC295_FIXUP_DISABLE_DAC3,
++	ALC285_FIXUP_SPEAKER2_TO_DAC1,
+ 	ALC280_FIXUP_HP_HEADSET_MIC,
+ 	ALC221_FIXUP_HP_FRONT_MIC,
+ 	ALC292_FIXUP_TPT460,
+@@ -6646,6 +6657,10 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.type = HDA_FIXUP_FUNC,
+ 		.v.func = alc295_fixup_disable_dac3,
+ 	},
++	[ALC285_FIXUP_SPEAKER2_TO_DAC1] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc285_fixup_speaker2_to_dac1,
++	},
+ 	[ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -7221,6 +7236,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x17aa, 0x224c, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+ 	SND_PCI_QUIRK(0x17aa, 0x224d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
+ 	SND_PCI_QUIRK(0x17aa, 0x225d, "Thinkpad T480", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
++	SND_PCI_QUIRK(0x17aa, 0x2293, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
+ 	SND_PCI_QUIRK(0x17aa, 0x30bb, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
+ 	SND_PCI_QUIRK(0x17aa, 0x30e2, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
+ 	SND_PCI_QUIRK(0x17aa, 0x310c, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),
+@@ -7405,6 +7421,7 @@ static const struct hda_model_fixup alc269_fixup_models[] = {
+ 	{.id = ALC255_FIXUP_DELL_SPK_NOISE, .name = "dell-spk-noise"},
+ 	{.id = ALC225_FIXUP_DELL1_MIC_NO_PRESENCE, .name = "alc225-dell1"},
+ 	{.id = ALC295_FIXUP_DISABLE_DAC3, .name = "alc295-disable-dac3"},
++	{.id = ALC285_FIXUP_SPEAKER2_TO_DAC1, .name = "alc285-speaker2-to-dac1"},
+ 	{.id = ALC280_FIXUP_HP_HEADSET_MIC, .name = "alc280-hp-headset"},
+ 	{.id = ALC221_FIXUP_HP_FRONT_MIC, .name = "alc221-hp-mic"},
+ 	{.id = ALC298_FIXUP_SPK_VOLUME, .name = "alc298-spk-volume"},
 -- 
-2.17.1
-
+2.20.1
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

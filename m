@@ -2,95 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FF5C10E108
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Dec 2019 09:06:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37F7010E524
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2019 05:47:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A305A16AE;
-	Sun,  1 Dec 2019 09:06:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A305A16AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D3DE82B;
+	Mon,  2 Dec 2019 05:46:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D3DE82B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575187611;
-	bh=IF8+IRNPvT0Uh1WeM9q0NC33086xpfxyL7qNJnrDiYQ=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=B4mWIOv0cnDwiV2e2HpxvA2sy1b1ShA13VI43+uZ3eoYcWy/2/t+eTd9CbpLnK6W+
-	 4bwC2tLimp5yvwnRRsUzEHZwdUBTMJ0NFk1FZuq7Mh6loXOjhhK9K+KLAP6jtOU+nf
-	 h1IL4i+FPvTxJmZpzv834Ts4onagRmYAqqihmQ6Q=
+	s=default; t=1575262044;
+	bh=NIdb7Q/wxezJRYKt/foC6/9v8NURknI0axJVYUw67GE=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=G2jcHKt4KtgJRpKZ+40sPNSpeWzl2vYUMf7ydaTZMp1HSnTBDIFPVQD4TRP/wwuPx
+	 WgHZwzH/vctaHo70r6G4JfalgkwfshDQnZQBsyNSjUsQL4MZs1a2S8+yyzOnwKEdaB
+	 osqzfUB23j/92NDLRe9xlvBkPoiJ0vqdZpjrG6nw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BC831F80148;
-	Sun,  1 Dec 2019 09:05:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A741DF80214;
+	Mon,  2 Dec 2019 05:45:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19A56F80228; Sun,  1 Dec 2019 09:05:05 +0100 (CET)
+ id AC9BCF80214; Mon,  2 Dec 2019 05:45:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9FAFBF800B4
- for <alsa-devel@alsa-project.org>; Sun,  1 Dec 2019 09:04:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9FAFBF800B4
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqemgate15.nvidia.com (hqemgate15.nvidia.com [216.228.121.64])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26B00F800B4
+ for <alsa-devel@alsa-project.org>; Mon,  2 Dec 2019 05:45:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26B00F800B4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="tH190XQv"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="uGo1XhPE"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id AE7835F4;
- Sun,  1 Dec 2019 03:04:55 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Sun, 01 Dec 2019 03:04:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:mime-version:content-type;
- s=fm3; bh=0y0maplFhe2J/25HUABt7jpLjmUo0AX0r06aW/FewHU=; b=tH190
- XQvN5kFW9ZZ+IyI11+z0RR7XZUobhQvoy+I0Ia0+p22g7q58k7IzA87nDlSygnRt
- 2Ohpj+NHmxds74PVUmCyAy47iSoY1RLZyHy5duwQMX3GuXOmVrtc/UZ+kB30Pkib
- 4DWJvkqHmMTK1PXx6Rev9TOoYNkHTOqjmGBGzLDOOAKPbeKkPdj6g8HE5ucgxiWI
- z29ipmYTnuf5rxX4a3/nXicoptVesdjvwbBJLpIqY+vOCP5NikMc7frTAidXSWvu
- 13PweSTpqW0kDRQXO7OXvWkhymGR4IAKxlPtXg/Kr5aiGXHUoqYQfpPpUe1uABlf
- PY36xBGGIJQgZhPLg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm1; bh=0y0maplFhe2J/25HUABt7jpLjmUo0
- AX0r06aW/FewHU=; b=uGo1XhPEjW1IOqsMJcoXDfIc0TSssPTsKVVHloKtgtCj9
- JMW5j03C+56IZSH91O3yDMGGc56bOQyrvHJwPgE4XPZaIFZZdVY+ViCWL2n9H8Q9
- FPXQJKcwBAySOy7vszKi80BzokcziWrMeJh2xtSLqn3VQL7JtCiI+OUtSGbAKwNM
- vMEUj0VmzmyPd5hhg0GZK8jqmoJtenZHlLTGGkiM8NpbtoUZlT5e5Dpe2+2tWme1
- 1HhL+AJ4km9NNZlZhBgXitL3ywfuUB3UUnbTTRXYYEYqefn99+h0iyNkHNo/WUf3
- tjeikaLK7sqv2XKMVOV2WN2HsAtPQhQ9Z7Q6BkA5Q==
-X-ME-Sender: <xms:JnTjXYaS-JQS7TA8Hqh85FUrfz6m1os74xRCc-4NPnHNMbMmralIuA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrudejvddguddufecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfggtggufgesthdtre
- dttdervdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecuffhomhgrihhnpehmrghinhgtohhnth
- gvgihtrdhnvgifpdhgihhthhhusgdrtghomhdpmhgrihhnlhhoohhprdhnvgifnecukfhp
- pedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrg
- hshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:JnTjXVAmEk21lkpWWUyfAoLMstzvFZu8-dq3xPETnOgNxK70gEF_JA>
- <xmx:JnTjXRra13R9JasDZD6RLjMFeWkDf_V44oXwu9wZSVOFg9zU0qqlTA>
- <xmx:JnTjXbKQygGyvTnCVnXqHJ21EJ0X1U0hVyVfUqdNuUzSO0jCc_wr1Q>
- <xmx:J3TjXZfhm0nmRJi9YukeqUbnsPVmg-0cy4NGdLhHRwxjSzFlsF0w0w>
-Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id B4F1530600AD;
- Sun,  1 Dec 2019 03:04:53 -0500 (EST)
-Date: Sun, 1 Dec 2019 17:04:50 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: perex@perex.cz
-Message-ID: <20191201080449.GA408@workstation>
-Mail-Followup-To: perex@perex.cz, alsa-devel@alsa-project.org
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="oFIUw3+g"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqemgate15.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5de496c20000>; Sun, 01 Dec 2019 20:44:50 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Sun, 01 Dec 2019 20:44:58 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Sun, 01 Dec 2019 20:44:58 -0800
+Received: from [10.24.218.121] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 2 Dec
+ 2019 04:44:56 +0000
+To: Takashi Iwai <tiwai@suse.de>, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+References: <20191129143756.23941-1-kai.vehmanen@linux.intel.com>
+ <s5h36e6spxx.wl-tiwai@suse.de>
+From: Nikhil Mahale <nmahale@nvidia.com>
+Message-ID: <98f586e3-f3e1-81c1-108a-d829457fd8e3@nvidia.com>
+Date: Mon, 2 Dec 2019 10:14:53 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <s5h36e6spxx.wl-tiwai@suse.de>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1575261890; bh=qz31yz1o1JXsVTzvJM4xDp9vmEJUBgJZbBi8eIf6/7U=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=oFIUw3+gZzyyzhROfLA7LXy8e7LYb5gWKVD6ck7IOhnlOyvJ1sn/l53ZANBxEYReR
+ kGs9QL41BLuxZv/OLnuuN+qSswsDydHDXI9vEgFfoKhnqBN5WOef7bTu/Mjj25OL94
+ 3R2iWYMckw6sP6TQGhlH5SFcGOTP5PLXwqKWzh+cM5pwrj5KoESVbBsfHJlglDd0DH
+ +VYLYYpG3QSbedPOtiPC90fiwDmtIPu4P/Z3VUOO09u8KtC1u1dmIqro94xx2q1WlU
+ l8cl3hoUp8OX3B18vpCgRJOIBwFDXmx2yEndNN49Jp37hB5jOqEELFOJMWgyyE3K5D
+ F+50OLjP0l+qg==
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] Restart alsa-gi project as alsa-gobject project
+Subject: Re: [alsa-devel] [PATCH 1/2] ALSA: hda: hdmi - fix kernel oops
+ caused by invalid PCM idx
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,82 +97,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
+Oh sorry again for this regression, Kai.
 
-Since Audio Mini Conference 2018, I continued to work for alsa-gi[1] in
-my local to integrate toward better I/O libraries. However I realized
-that its basic design includes some disadvantages to produce useful APIs.
+Originally my patches were developed with slightly older code which doesn't have your commit 2a2edfbbfee4 (ALSA: hda/hdmi - implement mst_no_extra_pcms flag), when I merge them with tot I did not notice codec->mst_no_extra_pcms mode.
 
-I rethink the design and realize it better to wrap each of structures
-in <sound/asound.h> simply. Then, I restart it as alsa-gobject[2].
-At present, master branch includes a library, `libalsactl0` for the
-most of I/O features in ALSA control interface, which is compatible with
-GObject mechanism and GObject introspection.
+This patch looks good to me.
 
-Jaroslav, would you please delete the alsa-gi repository and fork
-the master branch from my alsa-gobject repository, then apply enough
-configurations to the new repository?
+Thanks,
+Nikhil Mahale
 
+On 11/29/19 8:13 PM, Takashi Iwai wrote:
+> On Fri, 29 Nov 2019 15:37:55 +0100,
+> Kai Vehmanen wrote:
+>>
+>> Add additional check in hdmi_find_pcm_slot() to not return
+>> a pcm index that points to unallocated pcm. This could happen
+>> if codec driver is set up in codec->mst_no_extra_pcms mode.
+>> On some platforms, this leads to a kernel oops in snd_ctl_notify(),
+>> called via update_eld().
+>>
+>> BugLink: https://github.com/thesofproject/linux/issues/1536
+>> Fixes: 5398e94fb753 ALSA: hda - Add DP-MST support for NVIDIA codecs
+>> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> 
+> Applied, thanks.
+> 
+> 
+> Takashi
+> 
 
-My repository includes four branches as well for ALSA
-hwdep/rawmidi/timer/seq interfaces. The most of features in each
-interface is already available via included libraries but under heavy
-development.
-
-I already start to test them with Python 3 (PyGObject) and they seem
-work well. I also test them with Rust bindings generated by gtk-rs/gir[3]
-tool. Near future I also publish Rust crates for further convenience.
-
-
-For your interests, this Python 3 script is a sample to listen one
-event from ALSA control character device. This simple program is not
-terminated voluntarily or by sending UNIX signal, thus please generate
-control event by alsamixer or amixer:
-
-```
-#!/usr/bin/env python3
-
-import gi
-gi.require_version('GLib', '2.0')
-gi.require_version('ALSACtl', '0.0')
-from gi.repository import GLib, ALSACtl
-
-class MyCard(ALSACtl.Card):
-    def __init__(self, card_id, ctx, dispatcher):
-        super().__init__()
-        self.open(card_id)
-
-        self.create_source().attach(ctx)
-
-        self.__dispatcher = dispatcher
-
-    def do_handle_disconnection(self):
-        self.__dispatcher.quit()
-
-    def do_handle_elem_event(self, elem_id, events):
-        # Print the first event and quit event loop.
-        print(elem_id.get_iface().value_nick,
-              elem_id.get_device_id(), elem_id.get_subdevice_id(),
-              elem_id.get_name(), elem_id.get_index(),
-              events.value_nicks)
-        self.__dispatcher.quit()
-
-
-ctx = GLib.MainContext.new()
-dispatcher = GLib.MainLoop.new(ctx, False)
-card = MyCard(0, ctx, dispatcher)
-
-dispatcher.run()
-```
-
-[1] https://github.com/alsa-project/alsa-gi
-[2] https://github.com/takaswie/alsa-gobject
-[3] https://github.com/gtk-rs/gir
-
-
-Regards
-
-Takashi Sakamoto
+-----------------------------------------------------------------------------------
+This email message is for the sole use of the intended recipient(s) and may contain
+confidential information.  Any unauthorized review, use, disclosure or distribution
+is prohibited.  If you are not the intended recipient, please contact the sender by
+reply email and destroy all copies of the original message.
+-----------------------------------------------------------------------------------
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

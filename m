@@ -2,67 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3DB4C10EEB0
-	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2019 18:43:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6042410EE9B
+	for <lists+alsa-devel@lfdr.de>; Mon,  2 Dec 2019 18:40:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6A61165E;
-	Mon,  2 Dec 2019 18:43:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6A61165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3D2F165F;
+	Mon,  2 Dec 2019 18:39:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3D2F165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575308633;
-	bh=H7e51Mheg3sWjLDoB5FqyFwPrNwzFcls/ZTlmACx0Ss=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575308432;
+	bh=E+5goV+ysdJ+VxLou/muJW4BA/bhwXXl3FwIIeGrzyk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HQ6S2j301KOtBPLmGMf8xX+HtKVSqeI6zRtc3ZcW+wgZGAS3rwZOzEsMJ6zy+aG8v
-	 XfLPfD4XPjVI9s0RZo3uJeCXonk9lZMpfxTSpO+IHhcachP2YMWyYQlaPiWNunOqqK
-	 QkXJ3VasCCEvuJ714EhGLKpTTQhssK/dMX11LpLc=
+	b=YCAuoYqYCewUuAvQYyumK9lO2RnoN3XdG0AJnVo8bJFSfsBFjOk1mP1pP9i/4VSEP
+	 L78IXFzNBuZ6CQ9EDgUAMntTb/ifgY1gTAbq5BrV4pGXz8en4NCkjbN6LKd/7DQ2LK
+	 CHDUOM2+xFKF7GZmcyZLZmQLIcIeOl2Ssgx1ooB0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 881F2F80240;
-	Mon,  2 Dec 2019 18:40:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10781F801D9;
+	Mon,  2 Dec 2019 18:38:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 678CEF8023F; Mon,  2 Dec 2019 18:40:40 +0100 (CET)
+ id B852EF80214; Mon,  2 Dec 2019 18:38:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp1.de.adit-jv.com (smtp1.de.adit-jv.com [93.241.18.167])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D23C1F800B4
- for <alsa-devel@alsa-project.org>; Mon,  2 Dec 2019 18:40:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D23C1F800B4
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2019 09:40:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,270,1571727600"; d="scan'208";a="208164928"
-Received: from svedurlx-mobl.amr.corp.intel.com (HELO [10.251.129.241])
- ([10.251.129.241])
- by fmsmga008.fm.intel.com with ESMTP; 02 Dec 2019 09:40:26 -0800
-To: YueHaibing <yuehaibing@huawei.com>, cezary.rojewski@intel.com,
- liam.r.girdwood@linux.intel.com, yang.jie@linux.intel.com,
- broonie@kernel.org, perex@perex.cz, tiwai@suse.com,
- gregkh@linuxfoundation.org, allison@lohutok.net, tglx@linutronix.de,
- alexios.zavras@intel.com
-References: <20191128135853.8360-1-yuehaibing@huawei.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <62e5bb2c-14a9-66d0-c89e-c38b5550fb86@linux.intel.com>
-Date: Mon, 2 Dec 2019 11:32:18 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62F8DF800B4
+ for <alsa-devel@alsa-project.org>; Mon,  2 Dec 2019 18:38:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62F8DF800B4
+Received: from localhost (smtp1.de.adit-jv.com [127.0.0.1])
+ by smtp1.de.adit-jv.com (Postfix) with ESMTP id F35B03C0597;
+ Mon,  2 Dec 2019 18:38:36 +0100 (CET)
+Received: from smtp1.de.adit-jv.com ([127.0.0.1])
+ by localhost (smtp1.de.adit-jv.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id LZ4Jx6L_J6h4; Mon,  2 Dec 2019 18:38:30 +0100 (CET)
+Received: from HI2EXCH01.adit-jv.com (hi2exch01.adit-jv.com [10.72.92.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by smtp1.de.adit-jv.com (Postfix) with ESMTPS id 648993C003B;
+ Mon,  2 Dec 2019 18:38:30 +0100 (CET)
+Received: from vmlxhi-102.adit-jv.com (10.72.93.184) by HI2EXCH01.adit-jv.com
+ (10.72.92.24) with Microsoft SMTP Server (TLS) id 14.3.468.0;
+ Mon, 2 Dec 2019 18:38:30 +0100
+Date: Mon, 2 Dec 2019 18:38:27 +0100
+From: Eugeniu Rosca <erosca@de.adit-jv.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Message-ID: <20191202173827.GA13630@vmlxhi-102.adit-jv.com>
+References: <20191202155834.22582-1-geert+renesas@glider.be>
 MIME-Version: 1.0
-In-Reply-To: <20191128135853.8360-1-yuehaibing@huawei.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: sst: Add missing include
- <linux/io.h>
+Content-Disposition: inline
+In-Reply-To: <20191202155834.22582-1-geert+renesas@glider.be>
+User-Agent: Mutt/1.12.1+40 (7f8642d4ee82) (2019-06-28)
+X-Originating-IP: [10.72.93.184]
+Cc: Nilkanth Ahirrao <external.anilkanth@jp.adit-jv.com>,
+ alsa-devel@alsa-project.org, Eugeniu Rosca <erosca@de.adit-jv.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Eugeniu Rosca <roscaeugeniu@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: rsnd: Calculate DALIGN inversion at
+	run-time
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,47 +80,104 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Geert,
 
-
-On 11/28/19 7:58 AM, YueHaibing wrote:
-> Fix build error:
+On Mon, Dec 02, 2019 at 04:58:34PM +0100, Geert Uytterhoeven wrote:
+> There is no need to store the inverted DALIGN values in the table, as
+> they can easily be calculated at run-time.  This also protects against
+> the introduction of inconsistencies between normal and inverted values
+> by a future table modification.
 > 
-> sound/soc/intel/atom/sst/sst.c: In function intel_sst_interrupt_mrfld:
-> sound/soc/intel/atom/sst/sst.c:93:5: error: implicit declaration of function memcpy_fromio;
->   did you mean memcpy32_fromio? [-Werror=implicit-function-declaration]
->       memcpy_fromio(msg->mailbox_data,
->       ^~~~~~~~~~~~~
->       memcpy32_fromio
+> Reorder the two subexpressions in the AND check, to perform the least
+> expensive check first.
 > 
-> Reported-by: Hulk Robot <hulkci@huawei.com>
-> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-that looks legit, we had similar reports for SoundWire.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Eugeniu Rosca <erosca@de.adit-jv.com>
 
 > ---
->   sound/soc/intel/atom/sst/sst.c | 1 +
->   1 file changed, 1 insertion(+)
+> Compile-tested only.
 > 
-> diff --git a/sound/soc/intel/atom/sst/sst.c b/sound/soc/intel/atom/sst/sst.c
-> index fbecbb7..68bcec5 100644
-> --- a/sound/soc/intel/atom/sst/sst.c
-> +++ b/sound/soc/intel/atom/sst/sst.c
-> @@ -14,6 +14,7 @@
->   #include <linux/module.h>
->   #include <linux/fs.h>
->   #include <linux/interrupt.h>
-> +#include <linux/io.h>
->   #include <linux/firmware.h>
->   #include <linux/pm_runtime.h>
->   #include <linux/pm_qos.h>
+> Interestingly, this decreases code size on arm64, but increases on arm32
+> (both gcc version 7.4.0 (Ubuntu/Linaro 7.4.0-1ubuntu1~18.04.1)).
 > 
+> arm32:
+> 
+>        text	   data	    bss	    dec	    hex	filename
+>       16186	    276	     84	  16546	   40a2	sound/soc/sh/rcar/core.o.orig
+>       16194	    276	     84	  16554	   40aa	sound/soc/sh/rcar/core.o
+> 
+> arm64:
+> 
+>        text	   data	    bss	    dec	    hex	filename
+>       17426	    392	    104	  17922	   4602	sound/soc/sh/rcar/core.o.orig
+>       17414	    392	    104	  17910	   45f6	sound/soc/sh/rcar/core.o
+> ---
+>  sound/soc/sh/rcar/core.c | 31 +++++++++++++------------------
+
+jFTR, using ARM's aarch64 gcc-8.3-2019.03 and v5.4-10271-g596cf45cbf6e:
+
+$ size sound/soc/sh/rcar/core.o.before sound/soc/sh/rcar/core.o.after
+   text	   data	    bss	    dec	    hex	filename
+  21433	    380	     88	  21901	   558d	sound/soc/sh/rcar/core.o.before
+  21505	    380	     88	  21973	   55d5	sound/soc/sh/rcar/core.o.after
+
+>  1 file changed, 13 insertions(+), 18 deletions(-)
+> 
+> diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
+> index 399dc6e9bde5b042..d20f03dfdee66643 100644
+> --- a/sound/soc/sh/rcar/core.c
+> +++ b/sound/soc/sh/rcar/core.c
+> @@ -376,20 +376,15 @@ u32 rsnd_get_adinr_bit(struct rsnd_mod *mod, struct rsnd_dai_stream *io)
+>   */
+>  u32 rsnd_get_dalign(struct rsnd_mod *mod, struct rsnd_dai_stream *io)
+>  {
+> -	static const u32 dalign_values[8][2] = {
+> -		{0x76543210, 0x67452301},
+> -		{0x00000032, 0x00000023},
+> -		{0x00007654, 0x00006745},
+> -		{0x00000076, 0x00000067},
+> -		{0xfedcba98, 0xefcdab89},
+> -		{0x000000ba, 0x000000ab},
+> -		{0x0000fedc, 0x0000efcd},
+> -		{0x000000fe, 0x000000ef},
+> +	static const u32 dalign_values[8] = {
+> +		0x76543210, 0x00000032, 0x00007654, 0x00000076,
+> +		0xfedcba98, 0x000000ba, 0x0000fedc, 0x000000fe,
+
+FWIW, using below test procedure, I can reconstruct the original
+two-dimensional dalign_values[8][2] array on the host:
+
+#include <stdio.h>
+#include <stdint.h>
+
+typedef uint32_t u32;
+
+void main(void)
+{
+	u32 dalign, i;
+
+	static const u32 dalign_values[8] = {
+		0x76543210, 0x00000032, 0x00007654, 0x00000076,
+		0xfedcba98, 0x000000ba, 0x0000fedc, 0x000000fe,
+	};
+
+	for (i = 0; i < 8; i++) {
+		u32 keep = dalign = dalign_values[i];
+		dalign = (dalign & 0xf0f0f0f0) >> 4 |
+			 (dalign & 0x0f0f0f0f) << 4;
+		printf("{0x%08x, 0x%08x},\n", keep, dalign);
+	}
+}
+
+-- 
+Best Regards,
+Eugeniu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

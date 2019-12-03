@@ -2,87 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4BD0F10FFF9
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2019 15:18:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41A5F11001D
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2019 15:29:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CDFD9847;
-	Tue,  3 Dec 2019 15:17:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDFD9847
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0B6B165E;
+	Tue,  3 Dec 2019 15:29:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0B6B165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575382718;
-	bh=NV45FUEagkoc9bzahBT0UUkS1RT4XjO9jonpFtG/jQc=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=HnxWyZ1Xto0rb5BdARl4hdkfHRtGcm4y1XQeTw0ZyXueB2UkIJdsTbopjfyJda8Up
-	 bRGvhBVCs1BdmI7ENLOiKsEs+76g0TrMR9250DwTj7JYX0q3ot9vwNmdp0IjYSOZlp
-	 TKnKesCsalZEeOycNJsltggwRxy6X9f3KA+2er2o=
+	s=default; t=1575383398;
+	bh=LlNuCkYm1pfseQzrWVM+cI4KDPkp9oZtElbk4c85ps0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=uiRm/fJbszhUvz+Kog7qiq0JUmDghxC87TwweaKhtbsdrZtc8ln1sPd/MH15cMq4d
+	 UwcrlI1YIphd0jzi0ucZDqMpJWyjcW54PrIdBnI0W1oWmLxw/1iXdH2rt+fBhuf/Bq
+	 f7Sh0k74T12i1vwt4f3+ijEJCQHzMHz7HRpyHu1w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 13714F80229;
-	Tue,  3 Dec 2019 15:16:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5683F8015A;
+	Tue,  3 Dec 2019 15:28:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3B033F80227; Tue,  3 Dec 2019 15:16:53 +0100 (CET)
+ id 5AFF3F80227; Tue,  3 Dec 2019 15:28:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC06EF800F0
- for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2019 15:16:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC06EF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6DF3F800ED
+ for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2019 15:28:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6DF3F800ED
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="WsOjrktz"
-Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
- by mx08-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xB3EGmgs011509; Tue, 3 Dec 2019 15:16:49 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=X6SFhefHKL3s7V39AZGDRkkqo5eWgLZZ/k9fvJmXZdc=;
- b=WsOjrktz1I6R+x2e8lc2wW3G6RrWTXVa8oaUQtj49yz4w/TRFctal/2qVRMWe3w2HiSS
- c9Zi+z73zkl5hCbbKDsjfLKuX/xPiN1GPL2T4uFMbOgc2liZyarg7giVujX6tNq7qBZS
- cUP+48nfFsXVmbowFStrOQ4US8AexhzuPeNvnT7bk3mcr79+RqAqYBnG3ZsDBW0sVKuS
- 5WF5qZ/ELzhK8lOK6pQjVQI5dO5xh6cF7Ah0JulW3SIArGLSYND4VCnlYrQpuAIIuXSJ
- 3IAgQ3S95e41ihJ3NNW/e6/zy2b+gi+Hb0ANH1Pvp1BT4CqMHRkCmPVHfT/aLobdvKDJ 2w== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx08-00178001.pphosted.com with ESMTP id 2wkeea010y-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 03 Dec 2019 15:16:49 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id B141E100042;
- Tue,  3 Dec 2019 15:16:46 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 6BD542B9F94;
- Tue,  3 Dec 2019 15:16:46 +0100 (CET)
-Received: from localhost (10.75.127.45) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Tue, 3 Dec 2019 15:16:45 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
-Date: Tue, 3 Dec 2019 15:16:27 +0100
-Message-ID: <20191203141627.29471-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="BXzB3IPm"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=VxYjLGtwCDTcs4bHOoBqIWPW0QFsGBkBnVZ5soEijWE=; b=BXzB3IPmvuG64kDV9JxcPH47i
+ /glTDJZBPWA2NVSO6v17ptumVhif/XbTMWuiKgdAQqEOA3HNTChL+nIvs8vamiueXHY+5Xty2C7tY
+ VUXZ1vOX6We3Q22QAhW35qO+tLrTgJHMg+XnTdhhZLIy49ZJXBBj7RgKWGHEDqBAhh1Tw=;
+Received: from fw-tnat-cam1.arm.com ([217.140.106.49]
+ helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1ic99j-0002jt-VK; Tue, 03 Dec 2019 14:28:00 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 7D184D002FA; Tue,  3 Dec 2019 14:27:59 +0000 (GMT)
+Date: Tue, 3 Dec 2019 14:27:59 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "Angus Ainslie (Purism)" <angus@akkea.ca>
+Message-ID: <20191203142759.GJ1998@sirena.org.uk>
+Mail-Followup-To: "Angus Ainslie (Purism)" <angus@akkea.ca>, kernel@puri.sm,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Allison Randal <allison@lohutok.net>,
+ Kate Stewart <kstewart@linuxfoundation.org>,
+ Enrico Weigelt <info@metux.net>, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20191202174831.13638-1-angus@akkea.ca>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.45]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-03_03:2019-12-02,2019-12-03 signatures=0
-Cc: apatard@mandriva.com
-Subject: [alsa-devel] [PATCH] ASoC: cs42l51: add dac mux widget in codec
-	routes
+In-Reply-To: <20191202174831.13638-1-angus@akkea.ca>
+X-Cookie: Cleanliness is next to impossible.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ Kate Stewart <kstewart@linuxfoundation.org>, alsa-devel@alsa-project.org,
+ kernel@puri.sm, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ devicetree@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Enrico Weigelt <info@metux.net>,
+ Allison Randal <allison@lohutok.net>
+Subject: Re: [alsa-devel] [PATCH 0/2] Add the broadmobi BM818
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,59 +96,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1616653767640598067=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add "DAC mux" DAPM widget in CS42l51 audio codec routes,
-to support DAC mux control and to remove error trace
-"DAC Mux has no paths" at widget creation.
-Note: ADC path of DAC mux is not routed in this patch.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
- sound/soc/codecs/cs42l51.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+--===============1616653767640598067==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ofZMSlrAVk9bLeVm"
+Content-Disposition: inline
 
-diff --git a/sound/soc/codecs/cs42l51.c b/sound/soc/codecs/cs42l51.c
-index 55408c8fcb4e..e47758e4fb36 100644
---- a/sound/soc/codecs/cs42l51.c
-+++ b/sound/soc/codecs/cs42l51.c
-@@ -214,12 +214,10 @@ static const struct snd_soc_dapm_widget cs42l51_dapm_widgets[] = {
- 	SND_SOC_DAPM_ADC_E("Right ADC", "Right HiFi Capture",
- 		CS42L51_POWER_CTL1, 2, 1,
- 		cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
--	SND_SOC_DAPM_DAC_E("Left DAC", "Left HiFi Playback",
--		CS42L51_POWER_CTL1, 5, 1,
--		cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
--	SND_SOC_DAPM_DAC_E("Right DAC", "Right HiFi Playback",
--		CS42L51_POWER_CTL1, 6, 1,
--		cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
-+	SND_SOC_DAPM_DAC_E("Left DAC", NULL, CS42L51_POWER_CTL1, 5, 1,
-+			   cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
-+	SND_SOC_DAPM_DAC_E("Right DAC", NULL, CS42L51_POWER_CTL1, 6, 1,
-+			   cs42l51_pdn_event, SND_SOC_DAPM_PRE_POST_PMD),
- 
- 	/* analog/mic */
- 	SND_SOC_DAPM_INPUT("AIN1L"),
-@@ -255,6 +253,12 @@ static const struct snd_soc_dapm_route cs42l51_routes[] = {
- 	{"HPL", NULL, "Left DAC"},
- 	{"HPR", NULL, "Right DAC"},
- 
-+	{"Right DAC", NULL, "DAC Mux"},
-+	{"Left DAC", NULL, "DAC Mux"},
-+
-+	{"DAC Mux", "Direct PCM", "Playback"},
-+	{"DAC Mux", "DSP PCM", "Playback"},
-+
- 	{"Left ADC", NULL, "Left PGA"},
- 	{"Right ADC", NULL, "Right PGA"},
- 
--- 
-2.17.1
+
+--ofZMSlrAVk9bLeVm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Dec 02, 2019 at 10:48:29AM -0700, Angus Ainslie (Purism) wrote:
+
+>   sound: codecs: gtm601: add Broadmobi bm818 sound profile
+>   ASoC: gtm601: add the broadmobi interface
+
+These subject styles don't even agree with each other :( - please
+try to be consistent with the style for the subsystem (the latter
+one matches, the first one doesn't).
+
+Please also try to think about your CC lists when sending
+patches, try to understand why everyone you're sending them to is
+getting a copy - kernel maintainers get a lot of mail and sending
+not obviously relevant patches to random people adds to that.
+
+--ofZMSlrAVk9bLeVm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3mcO4ACgkQJNaLcl1U
+h9DGXgf/SJ8t7hSPglwZzxnDVxAte2xNoAVezgY5OPF4s1sm2k7U/h+ivay63+br
+Yb0uVbL8I61TWMN8GAcMIRA2lsjzD20/oTcxPMamHvWE+91yTdxvBrWoRpqF3LcI
+P8a2CJx3PYIH4nbyML6r53ZnzIF2rc9pGLB3t740Yu3xU87iKqWBWO5Fw3bbA824
+BLl2+XQLYFPZ+oLLkpz6BR7xhDpgJ02aO2Fw3LlPtdD82VreneMOCmGYbavz26EN
+A9c7HPAiqsyAbJ/t2dHPpIoZ0wihaRr8gPKy4py1EH43ScBAVvWMT0ca+0zpWt++
+4aGCqa/WdIz0DOggZWP4JDtiux7z/Q==
+=Br5V
+-----END PGP SIGNATURE-----
+
+--ofZMSlrAVk9bLeVm--
+
+--===============1616653767640598067==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1616653767640598067==--

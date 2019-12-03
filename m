@@ -2,119 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06E2910FBCB
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2019 11:33:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C1210FBCC
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2019 11:34:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 786121660;
-	Tue,  3 Dec 2019 11:32:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 786121660
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6C1C1654;
+	Tue,  3 Dec 2019 11:33:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6C1C1654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575369228;
-	bh=6Ka1I8gRLYhz0gnsIz/3sxn67ZOH1D65/E8FWlrFrOk=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575369275;
+	bh=BDQhcTVY9jHOIDJ/Y13uyoQ9+v4QeBZGD1RPTzYkLKM=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GbxM4G+MFZI5xF9fEtyYczP/J5zgtmcS1z6EHVQmplzedGVHARxhHCfGcpSUU5FUn
-	 jiwSEyrO95nVyWk/56PFAeREUYZQ0qKtIh1UM5Mw8Jn7Iu6qI1JVzbvXil68dSZF/T
-	 6P+r9s0FIsikO03IkLNHrahQRuikNCnocbSRJuUA=
+	b=KWzzgxAXY/Jao4/OjyGBHUS+oZk4rqxQ5g7aWwkLMAGSUgedjljYnIIGSvh3E4LpV
+	 Lv0BrxRs3Cf76X7AgZx90vWGKQqjSnGeu/O/ZCVIYQ2LkWGPhAenmTY/cn9QrmPrzG
+	 5Bmex0hb8sCEgJ5HpYpeKxxpEJvLUTSqJLPPb2eo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E47BDF80228;
-	Tue,  3 Dec 2019 11:32:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F088F80227;
+	Tue,  3 Dec 2019 11:33:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ECECCF80227; Tue,  3 Dec 2019 11:32:01 +0100 (CET)
+ id 57C50F80229; Tue,  3 Dec 2019 11:33:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM01-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr820042.outbound.protection.outlook.com [40.107.82.42])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38245F800F0
- for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2019 11:31:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38245F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="bbNUoZb9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=NM18GkKKHCGY8z9viZiwq2AZEkRbn3ynkwh+j9toVXDB5uyWx3LLmEWI7zz3YVTJBgrw4nAO4BucdAx3JJ4VJp+fLYSWHF1iWBx4hap0W07oIYu1k7NLtQmVFr0i9pbmi16liSiDppwDe/72+f/v0NVspbU9wDN6vMuNkmNd4QlGqlOJ+I/FSX6oQ44pv41f7sqotZwvzHvp7U0F//fM9gpTwy7YsuAWQOb3pzh97NaSWBs6WX7mmB0EoqlPOLrjq41H1yPnWlm8imk+l3iMJ5myk5q/qGaFFCdakTeL4mQRyDX8NvyYUAc8AX6S3upNVuFN0zrOtLFMxDudT09htg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rbqo2Itu7FHm3Sds83bYUhjZm/pCw3/0AGD5vPeuKkc=;
- b=D7WnOi+2CEn0V27camWsHfYqDDxkpxzrWL+cVVRCL1z3t1u5MITcwi8L8ToGE2mqYzr2JukEeD1aZcIPVirBfHJWjqFXUYmJJP8Ul7tC2bY4/boVVF90D15XVQn3XHdLyw13a45QS20Yn6T6nS7yYjEoMPEIKNmf+4I91sOJMFYb8lGAQQyA5uYGq8+Y6REsvVJ7CGAuRans69kZfnNa3HLjQxygtKKGJSWqCXH0PpLk5f+U0cJYyKXIyIohldO1vF/K2XyY6boG60mr1Mq3zH9DMLDrEWEmkkpzeAe1yRzltrJyKrtHPEodEh9zdkZv4cRk92MV8P8CdRM5W3A40Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Rbqo2Itu7FHm3Sds83bYUhjZm/pCw3/0AGD5vPeuKkc=;
- b=bbNUoZb9xvXBicudguavUafrtZ94nBpTsOfQUdtj7/dfC+Z/ZesUvo3f36uWtwjeHyOGZBCFuCSg831C6Z1ec0SldrRFbuAMUJ/a0gPzM3fO9SNDD3Yr2ErgsMycYHRj7lP2q7Cvan/PmZmUhrHQ/YLjELfEGGoXR67fOoD13QI=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=Akshu.Agrawal@amd.com; 
-Received: from MN2PR12MB2878.namprd12.prod.outlook.com (20.179.80.143) by
- MN2PR12MB3309.namprd12.prod.outlook.com (20.179.83.157) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2495.20; Tue, 3 Dec 2019 10:31:54 +0000
-Received: from MN2PR12MB2878.namprd12.prod.outlook.com
- ([fe80::305d:cfb0:baaf:7008]) by MN2PR12MB2878.namprd12.prod.outlook.com
- ([fe80::305d:cfb0:baaf:7008%4]) with mapi id 15.20.2495.014; Tue, 3 Dec 2019
- 10:31:54 +0000
-To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-References: <1574415866-29715-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1574415866-29715-5-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-From: "Agrawal, Akshu" <aagrawal2@amd.com>
-Message-ID: <46263e01-fd7f-57c3-64f8-c48e01cdb79c@amd.com>
-Date: Tue, 3 Dec 2019 16:01:41 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-In-Reply-To: <1574415866-29715-5-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 86784F800F0
+ for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2019 11:32:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86784F800F0
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2019 02:32:56 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,272,1571727600"; d="scan'208";a="412136254"
+Received: from pgsmsx107.gar.corp.intel.com ([10.221.44.105])
+ by fmsmga006.fm.intel.com with ESMTP; 03 Dec 2019 02:32:54 -0800
+Received: from pgsmsx110.gar.corp.intel.com (10.221.44.111) by
+ PGSMSX107.gar.corp.intel.com (10.221.44.105) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Tue, 3 Dec 2019 18:32:53 +0800
+Received: from pgsmsx108.gar.corp.intel.com ([169.254.8.12]) by
+ PGSMSX110.gar.corp.intel.com ([10.221.44.111]) with mapi id 14.03.0439.000;
+ Tue, 3 Dec 2019 18:32:53 +0800
+From: "Lu, Brent" <brent.lu@intel.com>
+To: Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Thread-Topic: [PATCH] ASoC: da7219: remove SRM lock check retry
+Thread-Index: AQHVqaw+ii/fH1J6I0CEgpyDBLMztaeno36AgACHg7A=
+Date: Tue, 3 Dec 2019 10:32:52 +0000
+Message-ID: <CF33C36214C39B4496568E5578BE70C7403CA7B2@PGSMSX108.gar.corp.intel.com>
+References: <1575358265-17905-1-git-send-email-brent.lu@intel.com>
+ <AM5PR1001MB0994EB497D3BC7D0F4C6FD9080420@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+In-Reply-To: <AM5PR1001MB0994EB497D3BC7D0F4C6FD9080420@AM5PR1001MB0994.EURPRD10.PROD.OUTLOOK.COM>
+Accept-Language: en-US
 Content-Language: en-US
-X-ClientProxiedBy: MAXPR01CA0112.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a00:5d::30) To MN2PR12MB2878.namprd12.prod.outlook.com
- (2603:10b6:208:aa::15)
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOWVmODk2NjMtYmIxMi00NmE2LTk1ZTQtMzFhZWZhYjJmMzk3IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoicDgwQ21lR04zek40bDZzcjYrSVZMQSt1M1ptZEt1Q0gyMG0xdzVWY3hnZ3NQYU1tTDRuUTJBakZkNVlydXY0ZCJ9
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [172.30.20.206]
 MIME-Version: 1.0
-X-Originating-IP: [165.204.157.251]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 4e69dde5-dc49-4079-e787-08d777dc0429
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3309:|MN2PR12MB3309:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3309DA2CB2BAC34BB682BF21F8420@MN2PR12MB3309.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4502;
-X-Forefront-PRVS: 02408926C4
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(376002)(366004)(346002)(136003)(396003)(199004)(189003)(25786009)(99286004)(6512007)(2616005)(5660300002)(7736002)(305945005)(81166006)(52116002)(11346002)(81156014)(6436002)(446003)(186003)(76176011)(66556008)(66476007)(66946007)(478600001)(316002)(4326008)(31696002)(31686004)(14454004)(6506007)(8936002)(6666004)(386003)(53546011)(8676002)(37006003)(58126008)(6636002)(6486002)(2486003)(23676004)(6862004)(6116002)(6246003)(50466002)(230700001)(36756003)(229853002)(3846002)(54906003)(65956001)(2906002)(26005)(32563001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3309;
- H:MN2PR12MB2878.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1K0UlOu9u1c6aR6DLeMMkP+02q0m93ps7CsEt9SnV+z/LbKuQkuf+0lBCyvWOhrwW2Bl0AhWbp3WMEWsJa7hdYYGryitWJV4Kz527ubzY/W+/lhHV9G5YummmYtdHokL0ziO26/FqtchqIws2FUi0u1M4JLh0lN+Hkos409aOfKTWPzVbeA4AJ9x8NlIBJwkzRaxLP5p+ylFxT1PCG0ZOLNVnH/xTFY0MIm6CRqOe13rJDuycC1PHPsS8HXONX9yaMbsyT3HOH6AbYOJ9MR5o3SvYLfvkGFbkPYy3nrz5jm6x0j0x3Qa7Dz/rHWzLx/H00MmBiH4wJaZ7D9Wpu/r+l4zPFCm3JCed+Gpy0TowR4J2keJuJiYraeqFXnB65HYMhIalPyTMEmOnHPgVtGOmpNssUxuYEu0WwitxGOQOvKHAFuWyWjwDu6X4mPeLVzu
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4e69dde5-dc49-4079-e787-08d777dc0429
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Dec 2019 10:31:54.5028 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: dUDnyVMyli3J0lMDt4ZubvXi8STg436u2mJokoZIB+Y5dPsoTVSxbPEKJ2Ca9K7BQZ0c2xiBJ2Fku95PXcwbQQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3309
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- pierre-louis.bossart@linux.intel.com, Mark Brown <broonie@kernel.org>,
- djkurtz@google.com, Alexander.Deucher@amd.com, Akshu.Agrawal@amd.com,
- Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel] [RESEND PATCH v12 4/6] ASoC: amd: add ACP3x TDM
-	mode support
+Cc: Support Opensource <Support.Opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: da7219: remove SRM lock check retry
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,43 +89,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+> 
+> We can potentially reduce the timings here for something shorter although
+> I'd need to speak with the HW team as to what, if any reduction is feasible.
+> However this is not a real fix as there's potential for audible noises when you
+> don't enable WCLK first. As far as I can tell the Intel platforms are capable of
+> enabling clocks early, as can be seen in this board file with early SCLK enable:
+> 
+> https://elixir.bootlin.com/linux/latest/source/sound/soc/intel/boards/kbl_rt
+> 5663_max98927.c#L99
+> 
+> I think there's a need to find some method to enable the WCLK signal
+> otherwise there's the potential for audible artefacts when SRM finally locks
+> which is not going to be pleasant.
+> 
 
-On 11/22/2019 3:14 PM, Ravulapati Vishnu vardhan rao wrote:
-> ACP3x I2S (CPU DAI) can act in normal I2S and TDM modes. Added support
-> for TDM mode. Desired mode can be selected from ASoC machine driver.
->
-> Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-> ---
->   sound/soc/amd/raven/acp3x-i2s.c | 24 ++++++++++++++++++++----
->   sound/soc/amd/raven/acp3x.h     |  1 +
->   2 files changed, 21 insertions(+), 4 deletions(-)
->
-> diff --git a/sound/soc/amd/raven/acp3x-i2s.c b/sound/soc/amd/raven/acp3x-i2s.c
-> index 7f05782..cea7311 100644
-> --- a/sound/soc/amd/raven/acp3x-i2s.c
-> +++ b/sound/soc/amd/raven/acp3x-i2s.c
-> @@ -70,11 +70,27 @@ static int acp3x_i2s_set_tdm_slot(struct snd_soc_dai *cpu_dai,
->   
->   	frm_len = FRM_LEN | (slots << 15) | (slot_len << 18);
->   	if (adata->substream_type == SNDRV_PCM_STREAM_PLAYBACK) {
-> -		reg_val = mmACP_BTTDM_ITER;
-> -		frmt_val = mmACP_BTTDM_TXFRMT;
-> +		switch (adata->i2s_instance) {
-> +		case I2S_BT_INSTANCE:
-> +			reg_val = mmACP_BTTDM_ITER;
-> +			frmt_reg = mmACP_BTTDM_TXFRMT;
+Hi Adam,
 
-Patch 2 of this series declares frmt_val, frmt_reg should cause build 
-errors.
+Thanks for reply. This patch is not fixing any bug. It just shorten the audio latency
+on our boards. Basically we are idling there for 400ms then print a warning message
+about SRM not being locked. It seems to me that 400ms is too much even for those
+platforms which are able to provide WCLK before calling snd_soc_dai_set_pll()
+function but it relies on your HW team to provide the number.
 
-Thanks,
+On KBL platform we have interface to control MCLK and I2S clocks like the link
+you mentioned but WCLK seems not working on my board. I can try to ask if
+someone is working on it but since we are moving to SOF. The chance is slim for
+legacy firmware.
 
-Akshu
+
+Regards,
+Brent
 
 _______________________________________________
 Alsa-devel mailing list

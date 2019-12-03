@@ -2,58 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D18F910F8EF
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2019 08:37:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44B4C10FA0E
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2019 09:41:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 517D9165E;
-	Tue,  3 Dec 2019 08:36:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 517D9165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB0241660;
+	Tue,  3 Dec 2019 09:40:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB0241660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575358644;
-	bh=Kue/0l66TdfLTYFnuijJq+3vidf1KUN2rJp+RgsSEiU=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=B6ndkvR8BJ4F3E/sNgl+HbX4/rydE3fVrwt03jY6cXj1nvK5pYHVh4tuOPNwUBTrS
-	 Mp2EDbhMCwELEMeNbB86uXSFyGmuCJugYvEkNHWtLZj3LCjIqeKmKBlhEEYH3LzlVD
-	 BWCTElANnOUg5IxMzxCae5gZRAZVRM4RJJtKC55c=
+	s=default; t=1575362500;
+	bh=Ta4bqQVrB4X6ZZQojXp06N96lnp5MHt87bR1KINZqJU=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=IpCOtNVCZnIqEbmbBK6eH/M5z8ae6y8u74xyeqJvcxKMCKP+jA4qdJWIS2ie1uB5z
+	 EVnV2IQRtefnPT81/OHaEpPJqiwNNuVlUm/ArDdT4ilNHAuEc86DafL9mZTnGw42+y
+	 Su6BwN9LBrCtYGRN7bqj5NqH1giT9LWaukgSJOio=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0EC9F8015A;
-	Tue,  3 Dec 2019 08:35:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 38282F80227;
+	Tue,  3 Dec 2019 09:39:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9E85F80227; Tue,  3 Dec 2019 08:35:36 +0100 (CET)
+ id 31C46F80227; Tue,  3 Dec 2019 09:39:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08508F800B4
- for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2019 08:35:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08508F800B4
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Dec 2019 23:35:29 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,272,1571727600"; d="scan'208";a="235778260"
-Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
- by fmsmga004.fm.intel.com with ESMTP; 02 Dec 2019 23:35:27 -0800
-From: Brent Lu <brent.lu@intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue,  3 Dec 2019 15:31:05 +0800
-Message-Id: <1575358265-17905-1-git-send-email-brent.lu@intel.com>
-X-Mailer: git-send-email 2.7.4
-Cc: Support Opensource <support.opensource@diasemi.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Brent Lu <brent.lu@intel.com>
-Subject: [alsa-devel] [PATCH] ASoC: da7219: remove SRM lock check retry
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57951F800ED
+ for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2019 09:39:51 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 5D4B9A0040;
+ Tue,  3 Dec 2019 09:39:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 5D4B9A0040
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1575362391; bh=MKwmXGXatxkvsB+38042zUiCViITHjwUADunOU9mPdY=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=tgpIxB3dFX4uS7Vf1IqxSJ1lasijD2lsL7pI0ckO4pned291ARjadUgIsbzjScvAM
+ u5pC8sO5W1/8HdRUFQS6me4eOgYgRBWPnSxj5AOF9rz4/uJk0x6sZe/mamS4CIbhwy
+ bmTi2D91PWx1RHRtvEecNn/VmZc303b/02r7e5yA=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue,  3 Dec 2019 09:39:48 +0100 (CET)
+To: Curtis Malainey <cujomalainey@google.com>
+References: <20191107015808.26844-1-cujomalainey@chromium.org>
+ <20191107015808.26844-2-cujomalainey@chromium.org>
+ <4b378b2c-fea2-5d77-26ff-0ff409d8e527@perex.cz>
+ <0626a79d-4950-ab27-d10a-366cd74da332@perex.cz>
+ <CAOReqxiCDP4ByX4P4ROmfQmjTREJenzyQNaOT=Go+4ctN5j_hg@mail.gmail.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <eab09c08-4e63-3f25-b39e-72472dac8cd5@perex.cz>
+Date: Tue, 3 Dec 2019 09:39:47 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
+MIME-Version: 1.0
+In-Reply-To: <CAOReqxiCDP4ByX4P4ROmfQmjTREJenzyQNaOT=Go+4ctN5j_hg@mail.gmail.com>
+Content-Language: en-US
+Cc: Curtis Malainey <cujomalainey@chromium.org>,
+ ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH 02/11] ucm: docs: Add JackType value
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,58 +80,77 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For platforms not able to provide WCLK in the PREPARED runtime state, it
-takes 400ms for codec driver to print the message "SRM failed to lock" in
-the da7219_dai_event() function which is called when DAPM widgets are
-powering up. The latency penalty to audio input/output is too much so the
-retry (8 times) and delay (50ms each retry) are removed.
+Dne 03. 12. 19 v 4:22 Curtis Malainey napsal(a):
+> On Fri, Nov 29, 2019 at 8:01 AM Jaroslav Kysela <perex@perex.cz> wrote:
+>>
+>> Dne 11. 11. 19 v 14:39 Jaroslav Kysela napsal(a):
+>>> Dne 07. 11. 19 v 2:57 Curtis Malainey napsal(a):
+>>>> Identifies the type of jack and how it should be accessed
+>>>>
+>>>> Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+>>>> ---
+>>>>     include/use-case.h | 3 +++
+>>>>     1 file changed, 3 insertions(+)
+>>>>
+>>>> diff --git a/include/use-case.h b/include/use-case.h
+>>>> index 2051bd40..3208cc30 100644
+>>>> --- a/include/use-case.h
+>>>> +++ b/include/use-case.h
+>>>> @@ -322,6 +322,9 @@ int snd_use_case_get_list(snd_use_case_mgr_t *uc_mgr,
+>>>>      *        configuration that doesn't belong to UCM configuration files.
+>>>>      *   - JackName
+>>>>      *      - Input name is the input device name for the jack
+>>>> + *   - JackType
+>>>> + *      - Specifies whether the jack is accessed via hctl or gpio and therefore
+>>>> + *        only carries the possible values of "gpio" or "hctl"
+>>>>      */
+>>>>     int snd_use_case_get(snd_use_case_mgr_t *uc_mgr,
+>>>>                          const char *identifier,
+>>>>
+>>>
+>>> What is meant with the "gpio" type? The standard input device interface? I
+>>> believe it should be "inputdev" and "ctl" (hctl is just interface on top of
+>>> ctl and the application can access the jack through snd_ctl functions, too.
+>>
+>> I see (when I was cleaning this extra Chrome stuff in the ucm profiles) that
+>> it's related to the gpio (general purpose i/o pin interface) in the linux
+>> kernel. The JackSwitch is probably also related and defines the pin number
+>> where the application should watch for the jack state. In this case, it would
+>> be probably more nice to follow the JackControl and JackDev and define the pin
+>> number through JackGPIO or something like that. We will cover all three
+>> posibilities: ALSA control interface, Input interface, GPIO interface .
+>>
+>>                                          Jaroslav
+> Initially that was our thoughts too but then we realized that in the
+> event of a new theoretical input subsystem "foo" that can be used for
+> jack detect then we would need to create another field for that as
+> well. This reduces the need for having a field for every theoretical
+> subsystem in the future and only then requires a new value.
 
-Another reason is current Cold output latency requirement in Android CDD is
-500ms but will be reduced to 200ms for 2021 platforms. With the 400ms
-latency it would be difficult to pass the Android CTS test.
+The JackDev and JackControl was defined in 2015. If we decide to switch to:
 
-Signed-off-by: Brent Lu <brent.lu@intel.com>
----
- sound/soc/codecs/da7219.c | 3 ++-
- sound/soc/codecs/da7219.h | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+JackType "(gpio|ctl|inputdev)"
+JackSwitch "(gpio pin|ctl jack control name|input device name)"
 
-diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
-index f83a6ea..042e701 100644
---- a/sound/soc/codecs/da7219.c
-+++ b/sound/soc/codecs/da7219.c
-@@ -833,7 +833,8 @@ static int da7219_dai_event(struct snd_soc_dapm_widget *w,
- 				srm_lock = true;
- 			} else {
- 				++i;
--				msleep(50);
-+				if (i < DA7219_SRM_CHECK_RETRIES)
-+					msleep(50);
- 			}
- 		} while ((i < DA7219_SRM_CHECK_RETRIES) && (!srm_lock));
- 
-diff --git a/sound/soc/codecs/da7219.h b/sound/soc/codecs/da7219.h
-index 88b67fe..3149986 100644
---- a/sound/soc/codecs/da7219.h
-+++ b/sound/soc/codecs/da7219.h
-@@ -770,7 +770,7 @@
- #define DA7219_PLL_INDIV_36_TO_54_MHZ_VAL	16
- 
- /* SRM */
--#define DA7219_SRM_CHECK_RETRIES	8
-+#define DA7219_SRM_CHECK_RETRIES	1
- 
- /* System Controller */
- #define DA7219_SYS_STAT_CHECK_RETRIES	6
+.. then we need to adapt pulseaudio, too.
+
+Anyway, JackDev/JackControl allows to use both definitions simultaneously, 
+thus the application can choose the interface as preferred (and available).
+
+The gpio looks like a hack for drivers which does not have this abstraction 
+(input device or ALSA's jack) implemented. The gpio pin value can be passed 
+using the device tree to the driver.
+
+					Jaroslav
+
 -- 
-2.7.4
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

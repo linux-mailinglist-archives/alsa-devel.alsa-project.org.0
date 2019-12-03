@@ -2,81 +2,46 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 070A6110516
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2019 20:30:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5E0911054D
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Dec 2019 20:40:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8240D165E;
-	Tue,  3 Dec 2019 20:29:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8240D165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F66C166E;
+	Tue,  3 Dec 2019 20:39:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F66C166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575401400;
-	bh=ssEIJh5lQa4bcYQXWXY+LRrjxvaiZlzWrRbqwmi6rgE=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575402015;
+	bh=549bxElXvOlmlFTMkEV2JKMbvBHH3NsKq5IoKqOpnQM=;
+	h=From:To:In-Reply-To:References:Date:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XcOp4vdUbbCBb8lQxgt89tauKlgqpAi7+aYELXc6+P8Qhch9kQAL4k7ET9aLmaUAL
-	 vaLLtnZtP/pAufvhqusLhFFN0QQ0s27X2q6Wo6hcry0z3DgES5ztsFGiT4asylhw5u
-	 09NADPP1hJrwgrK2aZDrU8NfJvcWkznnG6MnPAB0=
+	b=a8H1qgQQz9TtQhvznB34CC6BfhF/KU72LVOyy6SSeZpDNrdQaxWKZVMM9IsWR03aB
+	 0uuIBC8xANab7z/tuyjojOniiRsv3Zp33uUni4YRDYKpCVpUmJmXTNCNEo/FN2GpDM
+	 9WZVMc2pVLj7bc5v2MYFTBjy71h0BpUXB3CcBVZQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 207D2F80229;
-	Tue,  3 Dec 2019 20:28:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17060F80229;
+	Tue,  3 Dec 2019 20:38:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 79523F80227; Tue,  3 Dec 2019 20:28:08 +0100 (CET)
+ id 129BDF80227; Tue,  3 Dec 2019 20:38:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2C440F800F0
- for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2019 20:27:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C440F800F0
-Received: by mail-oi1-f195.google.com with SMTP id t25so2163134oij.10
- for <alsa-devel@alsa-project.org>; Tue, 03 Dec 2019 11:27:59 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=HP/XS4lIgFeGIfCqiXtNeLKC0699AGqVSeMl324T2Ik=;
- b=eU9astaJ5gsHaImEYOU6cjaDphb2g7VceGs2lEcbDdxuCvDXFKx0kr3jQ8dUARTOh5
- SoTtFFrbmBGgrN93p3k2ApCtMPkcUm+8N+415XTZkcquXII8CPyDQEczwXKTQ0TyAz47
- B3+vZUPkhgsgUGNgwTDqYKTJnKiaBu6PcOHI9IBssOwG2bEx7p/WQKsxqDpRyg05jht+
- KMiLuzG3bUpwVfjjP4crnWtHzlMVdU4O9fGumBJgKvSOFZAeuiAuS9V0l2CXoGNJAWKV
- ZhdKBW/GhRly2DxIkcqTAhoDrjx4TpA25CaE42ItOpJaGMAuvZeD6G97N/39MLy67RPp
- lPFg==
-X-Gm-Message-State: APjAAAWuZJpR0kOl8eMswFiL4OqIzO5No6SXCtSeUrJQ7+O+QNL2xvro
- 3QR4ftDDhjwhZyxtjBFSyg==
-X-Google-Smtp-Source: APXvYqy0KoeigJ/g+387l+3eFZkkjDJ1VN7OIPFFIQnkeaHpUi5XcqNurGlEInb0iPQfuiS5/pCQpg==
-X-Received: by 2002:a05:6808:8f9:: with SMTP id
- d25mr5062297oic.49.1575401278291; 
- Tue, 03 Dec 2019 11:27:58 -0800 (PST)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id f142sm1443810oig.48.2019.12.03.11.27.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Dec 2019 11:27:57 -0800 (PST)
-Date: Tue, 3 Dec 2019 13:27:57 -0600
-From: Rob Herring <robh@kernel.org>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Message-ID: <20191203192757.GA32491@bogus>
-References: <20191115160819.15557-1-m.felsch@pengutronix.de>
- <20191115160819.15557-2-m.felsch@pengutronix.de>
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id C0ECBF800F0
+ for <alsa-devel@alsa-project.org>; Tue,  3 Dec 2019 20:38:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0ECBF800F0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191115160819.15557-2-m.felsch@pengutronix.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, KCHSU0@nuvoton.com,
- robh+dt@kernel.org, broonie@kernel.org, kernel@pengutronix.de,
- thomas.fehrenbacher@siedle.de
-Subject: Re: [alsa-devel] [PATCH 1/3] dt-bindings: ASoC: add nau8812
-	documentation
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1575401900181029081-webhooks-bot@alsa-project.org>
+References: <1575401900181029081-webhooks-bot@alsa-project.org>
+Message-Id: <20191203193825.129BDF80227@alsa1.perex.cz>
+Date: Tue,  3 Dec 2019 20:38:25 +0100 (CET)
+Subject: [alsa-devel] Build failure without alsa-topology
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,16 +59,23 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, 15 Nov 2019 17:08:17 +0100, Marco Felsch wrote:
-> Add dt-bindings for the nau8812 device.
-> 
-> Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
-> ---
->  Documentation/devicetree/bindings/sound/nau8810.txt | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+alsa-project/alsa-utils issue #33 was opened from ffontaine:
 
-Acked-by: Rob Herring <robh@kernel.org>
+Commit c8fdd38c74de2e8b7b2b5a4576787d5e9b4ae807 breaks build of alsa-utils on buildroot because $(ALSA_TOPOLOGY_LIBS) is set to an empty value by https://github.com/alsa-project/alsa-lib/commits/master/utils/alsa.m4 if --enable-alsa-topology is not passed:
+```
+/home/br-user/autobuild/run/instance-0/output/host/bin/arm-linux-gnueabihf-gcc  -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64  -O2     -o alsatplg topology.o  -lasound -lm -ldl -lpthread
+topology.o: In function `main':
+topology.c:(.text.startup+0x184): undefined reference to `snd_tplg_new'
+topology.c:(.text.startup+0x194): undefined reference to `snd_tplg_verbose'
+topology.c:(.text.startup+0x1a4): undefined reference to `snd_tplg_build_file'
+topology.c:(.text.startup+0x1b4): undefined reference to `snd_tplg_free'
+topology.c:(.text.startup+0x218): undefined reference to `snd_tplg_free'
+```
+
+More information can be found here: http://autobuild.buildroot.org/results/d0f/d0fb760669b02b813115af04adcf24530d35f4e1/build-end.log
+
+Issue URL     : https://github.com/alsa-project/alsa-utils/issues/33
+Repository URL: https://github.com/alsa-project/alsa-utils
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

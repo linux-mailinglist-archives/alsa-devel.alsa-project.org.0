@@ -2,100 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00291120A9
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Dec 2019 01:35:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AD081120AA
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Dec 2019 01:36:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7075B165F;
-	Wed,  4 Dec 2019 01:34:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7075B165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B746B10E;
+	Wed,  4 Dec 2019 01:35:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B746B10E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575419737;
-	bh=ml1+S6PeDnLlNZ/LtnlAHT669aOzXdXGc2YUxn6WYes=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575419784;
+	bh=ore60bkNgH501LOOXAoKR0akN3SPqQFJKMcWhxAttco=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=i6BSsfHr0EjMvQQPyEGgBa7IjM9NfmsknKqGDSfUUtCyNrycnsZZEXjgWRDsAt/lH
-	 b9C5LtKyK+2tvDoMmTqNVebWgiOQ67kv2Gfjgzpv9kwTVHRChaOh0NzgYuw5HOycqU
-	 xDzjrz6OmOiO/tfe/kXwxGThNmUpTZUMneBrFFYg=
+	b=u240MLrDgdBNOFS/eOS/FV331QQNfZlYmpPmcryrJPc88mbGMaMh/1gflQXap2hkI
+	 vSbSI60lWERYffac5B40d+jc5OzdzWujZlmQMCRd4ZMWMt3ihiUX1HMds4xnisBORP
+	 arXGBvPrXpuBrpsoGR9wIZNTLUeYzm+KYj+1iiX0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D775BF800F0;
-	Wed,  4 Dec 2019 01:33:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B488FF80245;
+	Wed,  4 Dec 2019 01:34:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4ED47F80227; Wed,  4 Dec 2019 01:33:51 +0100 (CET)
+ id 2E5D3F8023F; Wed,  4 Dec 2019 01:34:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 042F1F800F0
- for <alsa-devel@alsa-project.org>; Wed,  4 Dec 2019 01:33:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 042F1F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="a/Owld5g"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="X27DFwuz"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id BE31D22411;
- Tue,  3 Dec 2019 19:33:44 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 03 Dec 2019 19:33:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=HoS5/hFr6r7FU+ju7/vGxzxB+Ty
- a/M3JfutX9u46Q2A=; b=a/Owld5gs+bJJaYuyHsqZ20YpkM3sKZX9ilkh2gbw77
- ooOk8aIdJRGH1pTYspWxbDbHojNGwQoGkDwooaUp+t0nBtk254ZAMeb/X9t4Uc8S
- tl+Pb53GBc7+zhzBXydkQ+kODxL4gvdgpxDnlVSg1C5akRLjuqv/f4j99dlBxi3X
- 4AxHJGtMsMf9o2+vSJvmCIh0alxekjt+4I5ulQ34mkRNjt5cC4VDN8eTnllsiVqn
- 9ZcqUvOqVzfOobdvnG6hQKkAPl5ks+JpjAZ2G1M0mb9Rh4Rm1Fjr+9pppm6YWXEd
- Lx9M3sGTxsppm9SpKjWMZIbEgAxLL9+hjpy1zsLp7xA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=HoS5/h
- Fr6r7FU+ju7/vGxzxB+Tya/M3JfutX9u46Q2A=; b=X27DFwuzjrXRgO7AMSGADF
- ivC12cMCfNwgu/Ym453eBJEigOKFd09+AfiWbvf5PK6oDBGFVSqjA+Vm7NU1ODgL
- SqbeCoHvD68lexwImjRV+Kq4Cm49IvXSg99Er/SNoKWCcDK7X0C28ssOq0V0GFMu
- +FMDJCiENaJoA0iGEZ0SHl7nUZMB3oUXWJtrZeYkkRC26ThBsVTtWMyMwEPk6QNT
- dqpyLwu/+MSpdapi5PkTBltu0MJYmESdkbXmyEtuNTS9C3hqtr179sdFQ19l07ER
- P0z27Ej7eHl5cNFNmqCnjVvT+Z99SXD0SfLclgGkOCxAP+D5+ElPIwkuQK+lTF8g
- ==
-X-ME-Sender: <xms:6P7mXQo2hw1qCAwm3ETB3YNhxfHzwSKDLbqiYFjGL_mL5bwBtdOJEA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrudejkedgvdefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujggfsehttd
- ertddtredvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
- rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucffohhmrghinhepmhgrihhntghonh
- htvgigthdrnhgvfidpghhithhhuhgsrdgtohhmpdhmrghinhhlohhophdrnhgvfienucfk
- phepudegrdefrdejhedrudekudenucfrrghrrghmpehmrghilhhfrhhomhepohdqthgrkh
- grshhhihesshgrkhgrmhhotggthhhirdhjphenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:6P7mXQSx65XUdm42pPmEJMfRhs4bA1-FKhXrba00le0-VQQfQ3CDnA>
- <xmx:6P7mXVPu5e-NVXC13kFyegi4by-fPUOA15eKyTJMiJOeCj3IyOREEg>
- <xmx:6P7mXbMTB5zIyj4gxvyYA6zNQxQDdFtn2BLjX03Rk5U4TwhXpM9UEA>
- <xmx:6P7mXYmXFiDKrc2Xelom5K1k2Knn4MS7OvKofgGCtXIC8V4xxYvbmQ>
-Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 43C498005B;
- Tue,  3 Dec 2019 19:33:43 -0500 (EST)
-Date: Wed, 4 Dec 2019 09:33:40 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: perex@perex.cz
-Message-ID: <20191204003339.GA2876@workstation>
-Mail-Followup-To: perex@perex.cz, alsa-devel@alsa-project.org
-References: <20191201080449.GA408@workstation>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F97CF800ED
+ for <alsa-devel@alsa-project.org>; Wed,  4 Dec 2019 01:34:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F97CF800ED
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 03 Dec 2019 16:34:34 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,275,1571727600"; d="scan'208";a="208627028"
+Received: from cakumnji-mobl.amr.corp.intel.com (HELO [10.254.102.10])
+ ([10.254.102.10])
+ by fmsmga008.fm.intel.com with ESMTP; 03 Dec 2019 16:34:33 -0800
+To: Jaroslav Kysela <perex@perex.cz>,
+ Curtis Malainey <cujomalainey@google.com>, =?UTF-8?Q?Mads_L=c3=b8nsethagen?=
+ <mads@ab3.no>
+References: <CAOReqxjFaWhYCzzyZ90Pc5EvzUky6kCYqakz2XBwSOii9d3maA@mail.gmail.com>
+ <6b310509-212e-b887-5e3a-483a740d2d1c@ab3.no>
+ <CAOReqxj3P4Kvf5YwTXoEzHd9hURBOP4ySEjURsO7LjK+vbpQTw@mail.gmail.com>
+ <2f0297fa-4aab-b463-4652-208ee77b6cb8@perex.cz>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <5985f899-82d0-cbb9-9981-1eb9aa5a935d@linux.intel.com>
+Date: Tue, 3 Dec 2019 18:34:32 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191201080449.GA408@workstation>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Restart alsa-gi project as alsa-gobject project
+In-Reply-To: <2f0297fa-4aab-b463-4652-208ee77b6cb8@perex.cz>
+Content-Language: en-US
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Dylan Reid <dgreid@google.com>, Jimmy Cheng-Yi Chiang <cychiang@google.com>
+Subject: Re: [alsa-devel] Headset button mapping in the kernel
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,91 +76,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Jaroslav,
-
-On Sun, Dec 01, 2019 at 05:04:50PM +0900, Takashi Sakamoto wrote:
-> Since Audio Mini Conference 2018, I continued to work for alsa-gi[1] in
-> my local to integrate toward better I/O libraries. However I realized
-> that its basic design includes some disadvantages to produce useful APIs.
-> 
-> I rethink the design and realize it better to wrap each of structures
-> in <sound/asound.h> simply. Then, I restart it as alsa-gobject[2].
-> At present, master branch includes a library, `libalsactl0` for the
-> most of I/O features in ALSA control interface, which is compatible with
-> GObject mechanism and GObject introspection.
-> 
-> Jaroslav, would you please delete the alsa-gi repository and fork
-> the master branch from my alsa-gobject repository, then apply enough
-> configurations to the new repository?
-> 
-> 
-> My repository includes four branches as well for ALSA
-> hwdep/rawmidi/timer/seq interfaces. The most of features in each
-> interface is already available via included libraries but under heavy
-> development.
-> 
-> I already start to test them with Python 3 (PyGObject) and they seem
-> work well. I also test them with Rust bindings generated by gtk-rs/gir[3]
-> tool. Near future I also publish Rust crates for further convenience.
-> 
-> 
-> For your interests, this Python 3 script is a sample to listen one
-> event from ALSA control character device. This simple program is not
-> terminated voluntarily or by sending UNIX signal, thus please generate
-> control event by alsamixer or amixer:
-> 
-> ```
-> #!/usr/bin/env python3
-> 
-> import gi
-> gi.require_version('GLib', '2.0')
-> gi.require_version('ALSACtl', '0.0')
-> from gi.repository import GLib, ALSACtl
-> 
-> class MyCard(ALSACtl.Card):
->     def __init__(self, card_id, ctx, dispatcher):
->         super().__init__()
->         self.open(card_id)
-> 
->         self.create_source().attach(ctx)
-> 
->         self.__dispatcher = dispatcher
-> 
->     def do_handle_disconnection(self):
->         self.__dispatcher.quit()
-> 
->     def do_handle_elem_event(self, elem_id, events):
->         # Print the first event and quit event loop.
->         print(elem_id.get_iface().value_nick,
->               elem_id.get_device_id(), elem_id.get_subdevice_id(),
->               elem_id.get_name(), elem_id.get_index(),
->               events.value_nicks)
->         self.__dispatcher.quit()
-> 
-> 
-> ctx = GLib.MainContext.new()
-> dispatcher = GLib.MainLoop.new(ctx, False)
-> card = MyCard(0, ctx, dispatcher)
-> 
-> dispatcher.run()
-> ```
-> 
-> [1] https://github.com/alsa-project/alsa-gi
-> [2] https://github.com/takaswie/alsa-gobject
-> [3] https://github.com/gtk-rs/gir
-
-Would I expect your arrangement for this project, or should I continue
-to develop it apart from alsa-project?
 
 
-Regards
 
-Takashi Sakamoto
+>> It appears some have started landing
+>> upstream ae09a4783b9caf9307f303ef039f8297ce0371fe ("ASoC: Intel: Headset
+>> button support in kabylake machine driver") but it would be great if 
+>> we had
+>> a way for userspace to configure these buttons similar to how we handle
+>> UCMs.
+> 
+> The question why you need to change this settings in the user space. I 
+> think that the device tree was designed exactly to describe this hw 
+> platform specific settings. Another possibility is to use the kernel 
+> module option to configure the settings from the user space. But it's 
+> just an idea. You are probably looking for an interface which can be 
+> used when the driver is running.
+
+I am also unclear on the ask.
+We've cleaned-up all machine drivers so that the mapping is identical, 
+except for the cases where the codec inverts the buttons.
+Are you saying you do an additional remapping of those buttons in 
+userpace? If yes, why not fix the machine driver? The mapping is 
+typically based on measured impedance, not really something userspace 
+should really know about.
+Or is this a case where the ChromeOS kernel has not yet seen the 
+upstream patches?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

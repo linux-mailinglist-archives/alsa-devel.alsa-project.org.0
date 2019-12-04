@@ -2,81 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 575A8112C6B
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Dec 2019 14:14:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D855112CB9
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Dec 2019 14:36:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D841E165F;
-	Wed,  4 Dec 2019 14:13:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D841E165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2937D1672;
+	Wed,  4 Dec 2019 14:36:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2937D1672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575465285;
-	bh=xTdKxVZjSarDkDNiYinOx6YIAKEhADync5LCFLami00=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575466613;
+	bh=GD3acRgDFmynAZQa+O0P7U5FLrHgqW67NXpp5PScdLk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nTX2/Kxm1a9KJUqAfuguhgXacI7leoYcU/wBCs0NBS1bupxReF3uTFYuBOl2r/L6q
-	 hDxu/76o19xh8KkOAOZpiy6ZHf891RPrEIhdd4bagyrDRJmxeesFTOnpu3KMKQfImJ
-	 VOMRcqUaMHT1TqlQ7amAhnUvEBdWa3hFJtZJwrvA=
+	b=KDiN/6SaYJf7vJOjto+UOnsEd0xLq+pU/Cj05I5mPj1BvWPN/j2QLv1uJ2F06MmDy
+	 7mNP0RJa1sIoZ14jWldIU2g/7IWSKhuqE9Rq+UChgmqrSahZzqaVjpIiM0qX4VHPuA
+	 qqju0aVPVrJ6S2ilFKw06w9YHOtTO54B874bBY80=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 43381F801D9;
-	Wed,  4 Dec 2019 14:13:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACE9CF8010F;
+	Wed,  4 Dec 2019 14:35:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9D57F801EC; Wed,  4 Dec 2019 14:12:58 +0100 (CET)
+ id 34556F801EC; Wed,  4 Dec 2019 14:35:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.ab3.no (mail.ab3.no [176.58.113.160])
+X-Spam-Status: No, score=-0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H2,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43FE0F800B4
- for <alsa-devel@alsa-project.org>; Wed,  4 Dec 2019 14:12:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43FE0F800B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B3FCF8010F
+ for <alsa-devel@alsa-project.org>; Wed,  4 Dec 2019 14:35:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B3FCF8010F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ab3.no header.i=@ab3.no header.b="fIAE0k0K"; 
- dkim=fail reason="signature verification failed" (1024-bit key)
- header.d=ab3.no header.i=@ab3.no header.b="BzRtcW8u"; 
- dkim=fail reason="signature verification failed" (1024-bit key)
- header.d=ab3.no header.i=@ab3.no header.b="PjUUEIah"
-X-Virus-Scanned: amavisd-new at ab3.no
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ab3.no C644A2A3BCA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ab3.no; s=default;
- t=1575465174; bh=Zt/grgNf4fy+cFv3761Fq2x6YT8ezWD+4NH/vQOH8GE=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=fIAE0k0Ko5mYDhq2DP70qDZq6FyxwI8h7jm6wijADucO1gdaEB6DkE1Mz3+3ZOdSR
- cXAbX6lmyFZtC7uQE8tbAtxFShlOybqUjXMAU6Xzu3uO4kBZQ+qsZ0MxH5tMQHRCOS
- XygS31KIS1CXR0+gboWWGdaR4DEV4p5woMs2zTY4=
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ab3.no B27D52A3BCD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ab3.no; s=default;
- t=1575465174; bh=5l6pBmNkoOtpZeGmwMRt+DRrx2q3MydvM4C5feEYUwI=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=BzRtcW8uOhUL0EHUMOtqg7kJm6b01S7rtk01pcfXG1SGpIIu0BlL7wResdRellE8X
- XZM+Sa/O2HOGL1y33wT6fv1lG8TUl5NqrXktUq3b/FmbHCMY6f+cXGmD3vLDTdnu5x
- U0VuSWQpH5mZRavmyhOL7pepxusG5EtuY/pazUGo=
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ab3.no 2E94D2A3BCA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ab3.no; s=default;
- t=1575465173; bh=5l6pBmNkoOtpZeGmwMRt+DRrx2q3MydvM4C5feEYUwI=;
- h=To:Cc:References:From:Date:In-Reply-To:From;
- b=PjUUEIah9rWZurXw+dIcOHugUpDQCpwzSnRx1maOmbQXulmaXCOJ7g+SmVUv4rEi0
- b8+0qGgLwlp1pXGes42HUU4Q8rKOR9fbCuyxYc1NP+bb2HtZl6lD4FKgAEcYlHSVTm
- DoCVTZrOlfurQMhUlnNHAk+DaCTugFBQXmb/v32w=
-To: Curtis Malainey <cujomalainey@google.com>
-References: <CAOReqxjFaWhYCzzyZ90Pc5EvzUky6kCYqakz2XBwSOii9d3maA@mail.gmail.com>
- <6b310509-212e-b887-5e3a-483a740d2d1c@ab3.no>
- <CAOReqxj3P4Kvf5YwTXoEzHd9hURBOP4ySEjURsO7LjK+vbpQTw@mail.gmail.com>
-From: =?UTF-8?Q?Mads_L=c3=b8nsethagen?= <mads@ab3.no>
-Message-ID: <54e497c2-1266-c4fc-8474-ad8a9cac70bb@ab3.no>
-Date: Wed, 4 Dec 2019 14:12:51 +0100
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="WC6lCTOg"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="NVHYB6PL"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id 102CF22668;
+ Wed,  4 Dec 2019 08:34:59 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Wed, 04 Dec 2019 08:34:59 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=6AjFW+e5QrXYHnXK8jIRCF2gG8e
+ MPaX9knwwsCzr0zA=; b=WC6lCTOgg7DyBHmqs6wj6e2ePomfPmIBUx+po7y4cRg
+ /bcx1pkOiNXwHHEn4IJYwgSGtEAkgNiAuecQVpWZ/AyZsnDitbdDG4/Oi7aLqY+Y
+ Y97ZXV3xLPkmfd5q+SMTLFrlb2IDWN50EYgZMjO68bt35P8nPz12KFPbxcYO7zw0
+ vTKmnwZmOBD75S+5QROr6Eq/i7xze/tvejrSDpD5BoWKlR4B4TKT7o4WRhBDpF1s
+ KdKWyn2DSvBzm+YghzthWets84fCRZYXPinqtF4KF2yu0CsoduKCaCimTmuO3DPT
+ hu2MfagBPzJYTGIoBFnS3xnVRL5r4v2df4+z9FFNl8Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=6AjFW+
+ e5QrXYHnXK8jIRCF2gG8eMPaX9knwwsCzr0zA=; b=NVHYB6PLWE1hfvm4R26I36
+ /x0reCHtMvOnySZtPrbt5fBdMPKiqlCRNr7v/1nEjWusdpQX2XCN2Fi4JPNIfwPe
+ bPcLZrWcQAtSp2O3kPlZTE4CLQoZ9J/r6dzMON6FXetJVPcrXRudP7RFMELWHgjM
+ m9WzerjnCNF3wpy0uewNGwa/IFoO/9Cid5MzBcZPu7hNE893pdcUOmuC6i7qcF3j
+ wDN+VhY2LH7WMvwLSHvTolvOlHH8ra4KBNjH1gYT24m7k/WqVgcnL8yvz7RgAFsY
+ XdSay4sqQe8svSRm6Zi4mQ0owLJnTd87h5tW5CnmVlyWrvn6AGIZ+WA62zS6uPow
+ ==
+X-ME-Sender: <xms:ArbnXf3CG09jx99NyNIYzXYtanLAY5HD379ALHxAvw189Qnq6Btvbg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrudejledghedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujggfsehttd
+ ertddtredvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
+ rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucffohhmrghinhepghhithhhuhgsrd
+ gtohhmnecukfhppedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhm
+ pehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuih
+ iivgeptd
+X-ME-Proxy: <xmx:ArbnXfpPRJA21SJ14GulEAwI0qC8svtYAH9itbQOhNw8-4176vstCQ>
+ <xmx:ArbnXWOQNMtsRXxbCmVw4O-YU3n6Qpt_mIuVbNSt46pegd1EAJCGYg>
+ <xmx:ArbnXQqlBCheZ7iFRFQpvqD-9H0twkz8akFJAqOMpLf7V4EU5rsA0g>
+ <xmx:A7bnXXpvG7dy73WLraU9jjzD9rv3XJ6GPN5LXtEEoLCNwjwl_28lbg>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 78D2C30600A8;
+ Wed,  4 Dec 2019 08:34:57 -0500 (EST)
+Date: Wed, 4 Dec 2019 22:34:54 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <20191204133454.GA2578@workstation>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+References: <20191201080449.GA408@workstation>
+ <20191204003339.GA2876@workstation>
+ <d0172374-857c-7663-1afc-acaf1a5d023d@perex.cz>
 MIME-Version: 1.0
-In-Reply-To: <CAOReqxj3P4Kvf5YwTXoEzHd9hURBOP4ySEjURsO7LjK+vbpQTw@mail.gmail.com>
-Content-Language: nb-NO
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Dylan Reid <dgreid@google.com>, Jimmy Cheng-Yi Chiang <cychiang@google.com>
-Subject: Re: [alsa-devel] Headset button mapping in the kernel
+Content-Disposition: inline
+In-Reply-To: <d0172374-857c-7663-1afc-acaf1a5d023d@perex.cz>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Restart alsa-gi project as alsa-gobject project
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,18 +110,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ck9uIDAzLjEyLjIwMTkgMjE6NDMsIEN1cnRpcyBNYWxhaW5leSB3cm90ZToKCj4gSGkgTWFkcyzC
-oAo+IAo+IC4uLgo+IAo+IFRoaXMgcHJvamVjdCB3aWxsIGhhdmUgdG8gYmUgdGllZCB0byBBTFNB
-IGluIHNvbWUgZmFzaGlvbiAoYXMgeW91IGNhbgo+IHNlZSBpdCBpcyB0aWVkIHRvIHRoZSBqYWNr
-IHdoaWNoIGlzIGFuIEFMU0HCoGNvbmNlcHQpLCBidXQgSSBzdGlsbCBoYXZlCj4gdG8gZG8gdGhl
-IGRlc2lnbiBkb2NzLiBJbiB0aGVvcnksIHRoaXMgd2lsbCBlbmFibGUgdmFuaWxsYSBsaW51eCB0
-byBiZQo+IGNvbmZpZ3VyZWQgZm9yIGFueSBoZWFkc2V0IGJ1dHRvbnMgb25jZSBkb25lLsKgCj4g
-CgpUaGFuayB5b3UgZm9yIHJlcGx5aW5nLCBpdCdzIG5pY2UgdG8ga25vdyBhYm91dCB0aGlzIDop
-CgotIE1hZHMKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-QWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBz
-Oi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+Hi Jaroslav,
+
+On Wed, Dec 04, 2019 at 10:10:49AM +0100, Jaroslav Kysela wrote:
+> Dne 04. 12. 19 v 1:33 Takashi Sakamoto napsal(a):
+> > Would I expect your arrangement for this project, or should I continue
+> > to develop it apart from alsa-project?
+> 
+> You're the only developer for this thus I'll shift the repos in the ALSA
+> project on github. You should also write to README that this project is not
+> using alsa-lib, thus the extra abstraction interfaces from alsa-lib cannot
+> be used. Or do you plan to build gobjects on top of alsa-lib, too?
+
+Mmm. I guess that there's miscommunication about the design of alsa-gi
+project at first place. I remember you were not at the same room in the
+audio mini conf.
+
+The original alsa-gi is independent of alsa-lib[1]. This has been
+immutable since I mentioned about the project in the audio miniconf[2],
+thus alsa-gobject is just on <sound/asound.h> and <sound/asequencer.h> as
+well. The project is thin layer between produced API and character devices
+for applications to execute I/O as easy as possible. This point is
+important to write tests and to implement some ctl/sequencer drivers in
+userland.
+
+For the design, at present, I have no plan to be on alsa-lib. Especially,
+the combination of configuration space and domain specific language is
+not surely supported. The below features of alsa-lib are not supported
+by alsa-gobject:
+
+ * text files for configuration space
+ * parser of domain specific language
+ * plug-in mechanism for all interfaces
+ * hctrl interface
+ * mixer interface and sctl plug-in mechanism
+ * plug-in SDK for pcm/ctl interfaces
+
+I think it possible to implement the equivalents by high-level
+programming languages as well as the below features:
+
+ * Parser/builder for Type-Length-Value array for ctl interface
+ * Converter between MIDI messages and ALSA sequencer events
+ * topology interface
+ * ucm interface
+
+But at present my concern is I/O between user/kernel space, thus I have
+no plan to work for the above items now, except for TLV parser/builder.
+
+[1] You can find no strings for 'alsa-lib' in meson.build.
+https://github.com/takaswie/alsa-gi/blob/master/src/meson.build
+[2] https://github.com/takaswie/presentations/blob/master/20181021/contents.md#mockup-alsa-gi
+
+
+Regards
+
+Takashi Sakamoto
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

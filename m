@@ -2,67 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E26781126B3
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Dec 2019 10:12:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80392112AE9
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Dec 2019 13:04:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 57CA11661;
-	Wed,  4 Dec 2019 10:11:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 57CA11661
+	by alsa0.perex.cz (Postfix) with ESMTPS id DFD581660;
+	Wed,  4 Dec 2019 13:03:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DFD581660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575450761;
-	bh=1WaQ9ue8iE7zj5G8FfUXJix/5nYXBrWhwnNZScZfI54=;
-	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fSNnbEmVWP7NMTkBiqnkj2Fm9WSwJyI+wxUyZBo/uPXwPgdVy+R0slGpFkTImvsCP
-	 0gjdMY313JRxbKN9VtdAjmSy3LchzbGfZBv8tc9LQWlu1i2FEkoixvkNyBRLvDhhq3
-	 K+EysF9jKEc2sp6nZ2X5YztsgvF6Jk4OpMGvbaAM=
+	s=default; t=1575461068;
+	bh=K9ad+Vj5TT+WJiG6W7RdsnquS7LiuRO+bP3MhKTo7i8=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HSu3jHQ9pPjJscggz7p7Zdx8MQIs+aOZOZHzfwLO+nW1wQq6iMwkRnsed5uov8uEv
+	 7fW6W0WquYDE6pGEtGRcQTSdTB2W1SjT2f7Ych25iEDHw/k42oknhfHmfvGRo3AcOE
+	 SJY2tAlTvjh1HKbtlsZsmzH4c2CKrliyPlTe/04M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A75D4F801D9;
-	Wed,  4 Dec 2019 10:10:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CF269F80216;
+	Wed,  4 Dec 2019 13:02:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 20A45F801EC; Wed,  4 Dec 2019 10:10:55 +0100 (CET)
+ id 66115F80214; Wed,  4 Dec 2019 13:02:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 83A91F800B4
- for <alsa-devel@alsa-project.org>; Wed,  4 Dec 2019 10:10:52 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A38FFA0046;
- Wed,  4 Dec 2019 10:10:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A38FFA0046
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1575450651; bh=os9zWSsog2dQj519rttkiDhfkBMkhYLsoYmcu0gi8Uo=;
- h=Subject:To:References:Cc:From:Date:In-Reply-To:From;
- b=X/VcJ7jZF3NQEHTu2tsdj/OcZj4d1KCIsnq7EVVouGnow8v4cNJlEpwS4f7Mm95ZC
- t8R1dCWaWI2ohVZd2jcje6yZtZRHOnH4+N+IBhJfhh29ItP4kGZLYrZlYtmmLZT86X
- /vb3VNPmnI9QynQMuxaWsOwTkOpskA0ZTEqGDurI=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed,  4 Dec 2019 10:10:49 +0100 (CET)
-To: alsa-devel@alsa-project.org
-References: <20191201080449.GA408@workstation>
- <20191204003339.GA2876@workstation>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <d0172374-857c-7663-1afc-acaf1a5d023d@perex.cz>
-Date: Wed, 4 Dec 2019 10:10:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
-MIME-Version: 1.0
-In-Reply-To: <20191204003339.GA2876@workstation>
-Content-Language: en-US
-Subject: Re: [alsa-devel] Restart alsa-gi project as alsa-gobject project
+ by alsa1.perex.cz (Postfix) with ESMTPS id CF792F800B4
+ for <alsa-devel@alsa-project.org>; Wed,  4 Dec 2019 13:02:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF792F800B4
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 79266200421;
+ Wed,  4 Dec 2019 13:02:36 +0100 (CET)
+Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
+ [165.114.16.14])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 69C7F20010B;
+ Wed,  4 Dec 2019 13:02:30 +0100 (CET)
+Received: from localhost.localdomain (shlinux2.ap.freescale.net
+ [10.192.224.44])
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 086AC402AD;
+ Wed,  4 Dec 2019 20:02:22 +0800 (SGT)
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
+ festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
+ lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, robh+dt@kernel.org,
+ mark.rutland@arm.com, devicetree@vger.kernel.org
+Date: Wed,  4 Dec 2019 20:00:18 +0800
+Message-Id: <b9352edb014c1ee8530c0fd8829c2b044b3da649.1575452454.git.shengjiu.wang@nxp.com>
+X-Mailer: git-send-email 2.7.4
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH v5 1/2] ASoC: dt-bindings: fsl_asrc: add
+	compatible string for imx8qm & imx8qxp
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,107 +70,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 04. 12. 19 v 1:33 Takashi Sakamoto napsal(a):
-> Hi Jaroslav,
-> 
-> On Sun, Dec 01, 2019 at 05:04:50PM +0900, Takashi Sakamoto wrote:
->> Since Audio Mini Conference 2018, I continued to work for alsa-gi[1] in
->> my local to integrate toward better I/O libraries. However I realized
->> that its basic design includes some disadvantages to produce useful APIs.
->>
->> I rethink the design and realize it better to wrap each of structures
->> in <sound/asound.h> simply. Then, I restart it as alsa-gobject[2].
->> At present, master branch includes a library, `libalsactl0` for the
->> most of I/O features in ALSA control interface, which is compatible with
->> GObject mechanism and GObject introspection.
->>
->> Jaroslav, would you please delete the alsa-gi repository and fork
->> the master branch from my alsa-gobject repository, then apply enough
->> configurations to the new repository?
->>
->>
->> My repository includes four branches as well for ALSA
->> hwdep/rawmidi/timer/seq interfaces. The most of features in each
->> interface is already available via included libraries but under heavy
->> development.
->>
->> I already start to test them with Python 3 (PyGObject) and they seem
->> work well. I also test them with Rust bindings generated by gtk-rs/gir[3]
->> tool. Near future I also publish Rust crates for further convenience.
->>
->>
->> For your interests, this Python 3 script is a sample to listen one
->> event from ALSA control character device. This simple program is not
->> terminated voluntarily or by sending UNIX signal, thus please generate
->> control event by alsamixer or amixer:
->>
->> ```
->> #!/usr/bin/env python3
->>
->> import gi
->> gi.require_version('GLib', '2.0')
->> gi.require_version('ALSACtl', '0.0')
->> from gi.repository import GLib, ALSACtl
->>
->> class MyCard(ALSACtl.Card):
->>      def __init__(self, card_id, ctx, dispatcher):
->>          super().__init__()
->>          self.open(card_id)
->>
->>          self.create_source().attach(ctx)
->>
->>          self.__dispatcher = dispatcher
->>
->>      def do_handle_disconnection(self):
->>          self.__dispatcher.quit()
->>
->>      def do_handle_elem_event(self, elem_id, events):
->>          # Print the first event and quit event loop.
->>          print(elem_id.get_iface().value_nick,
->>                elem_id.get_device_id(), elem_id.get_subdevice_id(),
->>                elem_id.get_name(), elem_id.get_index(),
->>                events.value_nicks)
->>          self.__dispatcher.quit()
->>
->>
->> ctx = GLib.MainContext.new()
->> dispatcher = GLib.MainLoop.new(ctx, False)
->> card = MyCard(0, ctx, dispatcher)
->>
->> dispatcher.run()
->> ```
->>
->> [1] https://github.com/alsa-project/alsa-gi
->> [2] https://github.com/takaswie/alsa-gobject
->> [3] https://github.com/gtk-rs/gir
-> 
-> Would I expect your arrangement for this project, or should I continue
-> to develop it apart from alsa-project?
+Add compatible string "fsl,imx8qm-asrc" for imx8qm platform,
+"fsl,imx8qxp-asrc" for imx8qxp platform.
 
-You're the only developer for this thus I'll shift the repos in the ALSA 
-project on github. You should also write to README that this project is not 
-using alsa-lib, thus the extra abstraction interfaces from alsa-lib cannot be 
-used. Or do you plan to build gobjects on top of alsa-lib, too?
+There are two asrc modules in imx8qm & imx8qxp, the clock mapping is
+different for each other, so add new property "fsl,asrc-clk-map"
+to distinguish them.
 
-				Thanks,
-					Jaroslav
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+---
+changes in v2
+-none
 
-> 
-> 
-> Regards
-> 
-> Takashi Sakamoto
-> 
+changes in v3
+-use only one compatible string "fsl,imx8qm-asrc",
+-add new property "fsl,asrc-clk-map".
 
+changes in v4
+-add "fsl,imx8qxp-asrc"
 
+changes in v5
+-refine the comments for compatible
+
+ Documentation/devicetree/bindings/sound/fsl,asrc.txt | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/fsl,asrc.txt b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+index 1d4d9f938689..cb9a25165503 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,asrc.txt
++++ b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+@@ -8,7 +8,12 @@ three substreams within totally 10 channels.
+ 
+ Required properties:
+ 
+-  - compatible		: Contains "fsl,imx35-asrc" or "fsl,imx53-asrc".
++  - compatible		: Compatible list, should contain one of the following
++			  compatibles:
++			  "fsl,imx35-asrc",
++			  "fsl,imx53-asrc",
++			  "fsl,imx8qm-asrc",
++			  "fsl,imx8qxp-asrc",
+ 
+   - reg			: Offset and length of the register set for the device.
+ 
+@@ -35,6 +40,11 @@ Required properties:
+ 
+    - fsl,asrc-width	: Defines a mutual sample width used by DPCM Back Ends.
+ 
++   - fsl,asrc-clk-map   : Defines clock map used in driver. which is required
++			  by imx8qm/imx8qxp platform
++			  <0> - select the map for asrc0 in imx8qm/imx8qxp
++			  <1> - select the map for asrc1 in imx8qm/imx8qxp
++
+ Optional properties:
+ 
+    - big-endian		: If this property is absent, the little endian mode
 -- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+2.21.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

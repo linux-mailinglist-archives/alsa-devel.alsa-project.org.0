@@ -2,60 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8B171136E3
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Dec 2019 22:07:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28F7F1136E7
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Dec 2019 22:09:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 857401671;
-	Wed,  4 Dec 2019 22:06:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 857401671
+	by alsa0.perex.cz (Postfix) with ESMTPS id B09AF1668;
+	Wed,  4 Dec 2019 22:08:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B09AF1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575493626;
-	bh=X58DpMGSAEexSsUl9g4jXdUGWqM7cgmjjvHI7IWmh8c=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=E7EutVZkl6iPP1V41poL9c61XF173B/072rynIgUzq2iIlOAC+57XA+7i7/O2hSII
-	 rowkvAKcMxd8S8ZmgihbR3R0gGEkZ+XAB6Xu+AxaLLXOtVRkMX92RUev49OBGBVihH
-	 TNcBqNpye+gRb/EOwRAI2C9SrRKpRrTExEiCRuDg=
+	s=default; t=1575493743;
+	bh=VrwSOu3tQYXSnE9A3VwbnM0hmbJVYhmd+ffQAYDgNjk=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XXAZCJneQfEDejpOody9X+3TbdK0p1+10s9MdGsS3qpjkfNSFGS3W3OQt2hVgt6pl
+	 qKgLye+B1tPbBpHqb2hB/jyjO6VgyQgloNuXT0duSPEOU2GRBoWxE2miNFl2G0FOyw
+	 9zlZ11m1c5K1+mL9wzctP+hD8HNSTqVKPOgFLgMo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9CB5EF80234;
-	Wed,  4 Dec 2019 22:05:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A59B4F80247;
+	Wed,  4 Dec 2019 22:06:05 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 38E01F80214; Wed,  4 Dec 2019 22:05:13 +0100 (CET)
+ id 677DDF80248; Wed,  4 Dec 2019 22:05:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E4CEF800F0
- for <alsa-devel@alsa-project.org>; Wed,  4 Dec 2019 22:05:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E4CEF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 77867F800B4
+ for <alsa-devel@alsa-project.org>; Wed,  4 Dec 2019 22:05:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77867F800B4
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Dec 2019 13:05:03 -0800
+ 04 Dec 2019 13:05:04 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,278,1571727600"; d="scan'208";a="208958073"
+X-IronPort-AV: E=Sophos;i="5.69,278,1571727600"; d="scan'208";a="208958079"
 Received: from rgolani-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.153.236])
- by fmsmga007.fm.intel.com with ESMTP; 04 Dec 2019 13:05:02 -0800
+ by fmsmga007.fm.intel.com with ESMTP; 04 Dec 2019 13:05:03 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Wed,  4 Dec 2019 15:04:44 -0600
-Message-Id: <20191204210447.11701-1-pierre-louis.bossart@linux.intel.com>
+Date: Wed,  4 Dec 2019 15:04:45 -0600
+Message-Id: <20191204210447.11701-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20191204210447.11701-1-pierre-louis.bossart@linux.intel.com>
+References: <20191204210447.11701-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [alsa-devel] [PATCH 0/3] ASoC: SOF: fixes for kernel
-	oopses/use-after-free
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [PATCH 1/3] ASoC: SOF: fix fault at driver unload
+	after failed probe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,28 +77,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-More stability fixes for corner cases.
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-It wasn't straightforward to add a Fixes tag for the two Intel
-patches, it's likely issues that can be applied to 5.3, possibly
-earlier. For Dragos' patch Ranjani mentioned this may be due to
-da704f26ba376 ('ASoC: soc-core: merge snd_soc_remove_dai_link() and
-soc_unbind_dai_link()'), but Morimoto-san may need to confirm.
+If sof_machine_check() fails during driver probe, the IPC
+state is not initialized and this will lead to a NULL
+dereference at driver unload. Example log is as follows:
 
-Dragos Tarcatu (1):
-  ASoC: topology: Prevent use-after-free in snd_soc_get_pcm_runtime()
+[ 1535.980630] sof-audio-pci 0000:00:1f.3: error: no matching ASoC machine driver found - aborting probe
+[ 1535.980631] sof-audio-pci 0000:00:1f.3: error: failed to get machine info -19
+[ 1535.980632] sof-audio-pci 0000:00:1f.3: error: sof_probe_work failed err: -19
+[ 1550.798373] BUG: kernel NULL pointer dereference, address: 0000000000000008
+...
+[ 1550.798393] Call Trace:
+[ 1550.798397]  snd_sof_ipc_free+0x15/0x30 [snd_sof]
+[ 1550.798399]  snd_sof_device_remove+0x29/0xa0 [snd_sof]
+[ 1550.798400]  sof_pci_remove+0x10/0x30 [snd_sof_pci]
 
-Kai Vehmanen (1):
-  ASoC: SOF: fix fault at driver unload after failed probe
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/ipc.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Pierre-Louis Bossart (1):
-  ASoC: SOF: Intel: hda: hda-dai: fix oops on hda_link .hw_free
-
- sound/soc/soc-topology.c      |  6 +++---
- sound/soc/sof/intel/hda-dai.c | 11 +++++++++--
- sound/soc/sof/ipc.c           |  3 +++
- 3 files changed, 15 insertions(+), 5 deletions(-)
-
+diff --git a/sound/soc/sof/ipc.c b/sound/soc/sof/ipc.c
+index 5994e1073364..5fdfbaa8c4ed 100644
+--- a/sound/soc/sof/ipc.c
++++ b/sound/soc/sof/ipc.c
+@@ -826,6 +826,9 @@ void snd_sof_ipc_free(struct snd_sof_dev *sdev)
+ {
+ 	struct snd_sof_ipc *ipc = sdev->ipc;
+ 
++	if (!ipc)
++		return;
++
+ 	/* disable sending of ipc's */
+ 	mutex_lock(&ipc->tx_mutex);
+ 	ipc->disable_ipc_tx = true;
 -- 
 2.20.1
 

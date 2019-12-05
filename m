@@ -2,52 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66F0E113DBC
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Dec 2019 10:24:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AADEB113E7C
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Dec 2019 10:47:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 013911675;
-	Thu,  5 Dec 2019 10:23:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 013911675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 338171667;
+	Thu,  5 Dec 2019 10:46:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 338171667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575537852;
-	bh=J9wSr8144pCiOeS9DZQ//GK73IimkuPsPA1k5Xv1Suo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1575539253;
+	bh=7aLdWrG3EiyoimNWqBpRV53fg7vlKMNmwwqOca4RNYg=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jFPBKDcbVk6EsQ7+Mv1bVaCfVN1C9LUXreLzdyVmlruHnO/PRq7Tc3K4sdTnnJzmT
-	 wrZir/RnPtb3S/Zihi7sD+6sEIILSu/PKY2r7CQba6ATrMpdxTVrektuW77ulIhrRJ
-	 LHINldKc9f3iImFt4R4wv/g6wQX2AIQ1s6SVl8fI=
+	b=r8dRt2txyTY5gEbtDyMrlDMctoqVjcOiVZDWg2PjkwMcmmVxpUfbYpB/qWaUHGXK7
+	 /lS3v35Q/5h0ldeokGZ6ibW32BLckmn+ufrpXFzU6LO3xaCKWP489Kem65fS4tk6Ey
+	 CXC4EvSJ4v+IXcGdL2oCpwuNgiiGlEhtk12pvcq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 351D3F80249;
-	Thu,  5 Dec 2019 10:21:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7837AF801F8;
+	Thu,  5 Dec 2019 10:45:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7D67F80252; Thu,  5 Dec 2019 10:21:40 +0100 (CET)
+ id 2E826F801F8; Thu,  5 Dec 2019 10:45:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
- by alsa1.perex.cz (Postfix) with ESMTP id 6D712F8023E
- for <alsa-devel@alsa-project.org>; Thu,  5 Dec 2019 10:21:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D712F8023E
-Received: from zenbar.localdomain (unknown [194.162.236.226])
- by mail.bugwerft.de (Postfix) with ESMTPSA id 7976B2E4FA6;
- Thu,  5 Dec 2019 09:15:26 +0000 (UTC)
-From: Daniel Mack <daniel@zonque.org>
-To: alsa-devel@alsa-project.org
-Date: Thu,  5 Dec 2019 10:21:29 +0100
-Message-Id: <20191205092129.692520-2-daniel@zonque.org>
-X-Mailer: git-send-email 2.23.0
-In-Reply-To: <20191205092129.692520-1-daniel@zonque.org>
-References: <20191205092129.692520-1-daniel@zonque.org>
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_FROM, PRX_BODY_30, SPF_HELO_NONE, SPF_PASS,
+ SURBL_BLOCKED, URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id F283AF800B4
+ for <alsa-devel@alsa-project.org>; Thu,  5 Dec 2019 10:45:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F283AF800B4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="A/uquqn7"
+Received: by mail-wm1-x341.google.com with SMTP id g206so2889686wme.1
+ for <alsa-devel@alsa-project.org>; Thu, 05 Dec 2019 01:45:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=IAHAPcfNyYPZewTfBhsG7qwba+YQCk2356CRIqll3K8=;
+ b=A/uquqn7fzUQpqmYGO+PEXKF1NoPRxYMZ0y2sW+aDKN2NiVkv7K16K/R63JFJt3fdo
+ PAqzhlml/ixjVKxynF0FGEbQBpjyn/orMffUA7RtohOKEsDFu0I2e/m4o3RSxCMcHRPl
+ WxFBf9N9tp3la/OS19JL1VNiHJKI3y4h+yBPMpEsRQkJuXKF10bWuSYlx8+xHkw3mGwu
+ CgsV630jVK1HXVfmmOrNxjhvEIF/6CNZuTECWJ6ux4arJzFKOk9C+ztBFKrFZ5gFiQkG
+ qHjrP2okiVzBNHwpyOOJH+7tZvfC46DiMArQ1geFD4nelFOWtjAoXRxpDUIjaPrhLngI
+ kI9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=IAHAPcfNyYPZewTfBhsG7qwba+YQCk2356CRIqll3K8=;
+ b=bgkhjjR58GLCJYVE7z9S0jDUyjDc/OTCoqyNIFpubWXnufFC43YxOLNouIYeATHjWO
+ F8sww1SmJEFU0x2SypWG6L0StGlEcBgwLxIPnEvaAm2dLO7PYwe7LlzPBRTJpZCJADbY
+ ws7DFgE1l791o1oVIXsSI9UvizuApV6L3qvT8Ra3JKQurv/pd+2EjJlBWLevQ422lWuz
+ KkvMi049p+0ZjLtUbTqgj3dUXA7GvvmUTzYlQilGthx0H/mcqgwyJa9YgWgE7CCjsei4
+ V5UyAtCRxXN2cPx+FYy4Cd+FjkJ/kegJCx6d8lR5ULc0bCC1y7/0Ve6FjZuE2g/5BuCl
+ ey5g==
+X-Gm-Message-State: APjAAAUOgEFHwucZKYrix1EVFg2k6JCQp5tXPZSgFv0yAvjuhQY3uQMq
+ HBb3lYHhApppEMz+szmEaYoIsSUYZy2lOL1BVEg=
+X-Google-Smtp-Source: APXvYqwcYRc0fuaLRFVleqfgSmiyl3I2fPNK6AKFa5K8/dfNSEFtx+axt8WpebIoZlIVYXmSl6OmkUOLn9wJyytUYes=
+X-Received: by 2002:a1c:4944:: with SMTP id w65mr4047032wma.39.1575539141872; 
+ Thu, 05 Dec 2019 01:45:41 -0800 (PST)
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org, Daniel Mack <daniel@zonque.org>
-Subject: [alsa-devel] [PATCH v2 2/2] ASoC: simple-card: add support for
-	codec-to-codec links
+References: <20191128223802.18228-1-michael@walle.cc>
+ <CAEnQRZCnQAUVowOJw5aPe9rYWU5DKR4bFbmQLYV2BzYqOhRJmQ@mail.gmail.com>
+ <a5accae02f840f7e25099c2ccd7b02ff@walle.cc>
+In-Reply-To: <a5accae02f840f7e25099c2ccd7b02ff@walle.cc>
+From: Daniel Baluta <daniel.baluta@gmail.com>
+Date: Thu, 5 Dec 2019 11:45:30 +0200
+Message-ID: <CAEnQRZBm2=BrQ2VQW6ZNYSshNi_90-RdHKCYbtXi0=u3oxG3SA@mail.gmail.com>
+To: Michael Walle <michael@walle.cc>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: fsl_sai: add IRQF_SHARED
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,149 +101,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-DAI links in ASoC can be turned into codec-to-codec links by populating
-the .params field. This patch adds support for this to the simple-card
-driver and exposes the feature via three new device-tree properties that
-configure the pcm format, the sampling rate and the channel count.
+On Thu, Dec 5, 2019 at 11:18 AM Michael Walle <michael@walle.cc> wrote:
+>
+> Hi Daniel,
+>
+> Am 2019-12-05 09:43, schrieb Daniel Baluta:
+> > On Fri, Nov 29, 2019 at 12:40 AM Michael Walle <michael@walle.cc>
+> > wrote:
+> >>
+> >> The LS1028A SoC uses the same interrupt line for adjacent SAIs. Use
+> >> IRQF_SHARED to be able to use these SAIs simultaneously.
+> >
+> > Hi Michael,
+> >
+> > Thanks for the patch. We have a similar change inside our internal tree
+> > (it is on my long TODO list to upstream :D).
+> >
+> > We add the shared flag conditionally on a dts property.
+> >
+> > Do you think it is a good idea to always add shared flag? I'm thinking
+> > on SAI IP integrations where the interrupt is edge triggered.
+>
+> Mhh, I don't really get the point to make the flag conditionally. If
+> there is only one user, the flag won't hurt, correct?
+>
+> If there are two users, we need the flag anyway.
+>
+> > AFAIK edge triggered interrupts do not get along very well
+> > with sharing an interrupt line.
+>
+> So in that case you shouldn't use shared edge triggered interrupts in
+> the
+> SoC in the first place, I guess.
 
-Signed-off-by: Daniel Mack <daniel@zonque.org>
----
- .../devicetree/bindings/sound/simple-card.txt | 10 ++++++
- include/sound/simple_card_utils.h             |  6 +++-
- sound/soc/generic/simple-card-utils.c         | 34 +++++++++++++++++++
- sound/soc/generic/simple-card.c               | 19 +++++++++++
- 4 files changed, 68 insertions(+), 1 deletion(-)
+I think you make a good point. I was thinking that it would hurt the single
+user case. But it is fine.
 
-diff --git a/Documentation/devicetree/bindings/sound/simple-card.txt b/Documentation/devicetree/bindings/sound/simple-card.txt
-index 79954cd6e37b..13f0c0da8b53 100644
---- a/Documentation/devicetree/bindings/sound/simple-card.txt
-+++ b/Documentation/devicetree/bindings/sound/simple-card.txt
-@@ -27,6 +27,16 @@ Optional properties:
- - simple-audio-card,pin-switches	: List of strings containing the widget names for
- 					  which pin switches must be created.
- 
-+Optional dai-link properies for CODEC-to-CODEC links:
-+
-+- codec-to-codec-format			: Format to configure
-+					  "s16_le"; "s24_le", "s32_le", ...
-+- codec-to-codec-rate			: Sample rate to configure
-+- codec-to-codec-channels		: Number of channels to configure
-+
-+Note that for a CODEC-to-CODEC link to be activated, you also need to provide a
-+valid DAPM path that connects the two components.
-+
- Optional subnodes:
- 
- - simple-audio-card,dai-link		: Container for dai-link level
-diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index bbdd1542d6f1..a170f0656c1f 100644
---- a/include/sound/simple_card_utils.h
-+++ b/include/sound/simple_card_utils.h
-@@ -48,6 +48,7 @@ struct asoc_simple_priv {
- 		struct snd_soc_dai_link_component platforms;
- 		struct asoc_simple_data adata;
- 		struct snd_soc_codec_conf *codec_conf;
-+		struct snd_soc_pcm_stream c2c_params;
- 		unsigned int mclk_fs;
- 	} *dai_props;
- 	struct asoc_simple_jack hp_jack;
-@@ -121,7 +122,10 @@ void asoc_simple_convert_fixup(struct asoc_simple_data *data,
- void asoc_simple_parse_convert(struct device *dev,
- 			       struct device_node *np, char *prefix,
- 			       struct asoc_simple_data *data);
--
-+void asoc_simple_parse_c2c_params(struct device *dev,
-+				  struct device_node *np,
-+				  char *prefix,
-+				  struct snd_soc_pcm_stream *dest);
- int asoc_simple_parse_routing(struct snd_soc_card *card,
- 				      char *prefix);
- int asoc_simple_parse_widgets(struct snd_soc_card *card,
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 9b794775df53..73e09b790040 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -52,6 +52,40 @@ void asoc_simple_parse_convert(struct device *dev,
- }
- EXPORT_SYMBOL_GPL(asoc_simple_parse_convert);
- 
-+void asoc_simple_parse_c2c_params(struct device *dev,
-+				  struct device_node *np,
-+				  char *prefix,
-+				  struct snd_soc_pcm_stream *dest)
-+{
-+	unsigned int rate, channels;
-+	const char *format_string;
-+	snd_pcm_format_t format;
-+	char prop[128];
-+	int ret;
-+
-+	if (!prefix)
-+		prefix = "";
-+
-+	snprintf(prop, sizeof(prop), "%s%s", prefix, "codec-to-codec-rate");
-+	of_property_read_u32(np, prop, &rate);
-+
-+	snprintf(prop, sizeof(prop), "%s%s", prefix, "codec-to-codec-channels");
-+	of_property_read_u32(np, prop, &channels);
-+
-+	snprintf(prop, sizeof(prop), "%s%s", prefix, "codec-to-codec-format");
-+	if (!of_property_read_string(np, prop, &format_string)) {
-+		ret = snd_pcm_format_by_name(format_string, &format);
-+		if (ret == 0) {
-+			dest->formats = 1ULL << format;
-+			dest->channels_min = dest->channels_max = channels;
-+			dest->rate_min = dest->rate_max = rate;
-+		} else {
-+			dev_err(dev, "unknown dai format %s\n", format_string);
-+		}
-+	}
-+}
-+EXPORT_SYMBOL_GPL(asoc_simple_parse_c2c_params);
-+
- int asoc_simple_parse_daifmt(struct device *dev,
- 			     struct device_node *node,
- 			     struct device_node *codec,
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index cbda6455d9c7..2aab1c9ebc4a 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -94,6 +94,21 @@ static void simple_parse_convert(struct device *dev,
- 	of_node_put(node);
- }
- 
-+static void simple_parse_c2c_params(struct device *dev,
-+				    struct device_node *np,
-+				    struct snd_soc_pcm_stream *dest)
-+{
-+	struct device_node *top = dev->of_node;
-+	struct device_node *node = of_get_parent(np);
-+
-+	asoc_simple_parse_c2c_params(dev, top,  PREFIX, dest);
-+	asoc_simple_parse_c2c_params(dev, node, PREFIX, dest);
-+	asoc_simple_parse_c2c_params(dev, node, NULL,   dest);
-+	asoc_simple_parse_c2c_params(dev, np,   NULL,   dest);
-+
-+	of_node_put(node);
-+}
-+
- static void simple_parse_mclk_fs(struct device_node *top,
- 				 struct device_node *cpu,
- 				 struct device_node *codec,
-@@ -334,6 +349,10 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- 	dai_link->ops = &simple_ops;
- 	dai_link->init = asoc_simple_dai_init;
- 
-+	simple_parse_c2c_params(dev, node, &dai_props->c2c_params);
-+	if (dai_props->c2c_params.formats != 0)
-+		dai_link->params = &dai_props->c2c_params;
-+
- 	asoc_simple_canonicalize_cpu(dai_link, single_cpu);
- 	asoc_simple_canonicalize_platform(dai_link);
- 
--- 
-2.23.0
+Thanks for the patch.
 
+Acked-by: Daniel Baluta <daniel.baluta@nxp.com>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,120 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 277AA11410D
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Dec 2019 13:56:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA05D114148
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Dec 2019 14:15:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A657C1669;
-	Thu,  5 Dec 2019 13:55:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A657C1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3DAE51668;
+	Thu,  5 Dec 2019 14:14:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DAE51668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575550605;
-	bh=akDWs+e/d6cH4S5HzMzrGpn3IeANLmUzxTViaNFf1WA=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575551730;
+	bh=GPf9uyQG3B0naHbXMhfy/GsT4DXqpZiTp7dB1EyCd4g=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TwKvWEQmAbkedvNHcV1n8fZlxPZqJMzGRBbWxOMlDHKbJJxlut1khZ2AbyRrqyz0K
-	 nAdGEDaKtZimYqnDlsNXM56VnMfdxWrepKdD0Jx0hW8UCknOmkqSQQSNshVyUFT+MV
-	 E8kxTTsYxsiQMqP88P5bSvhJy4ovkHfsRtEkqxPM=
+	b=f1FSOrnVE88L5ctFl/1ugLOwp08JwcuInyQpKA6v0gaoFpctOByZKr8/KFHDCSeAB
+	 UTA76f3y9KPTTtTm1Y4dOyXadZCArux3BCnv+u76qd3CAnpk+4TaTGfnmVVQuMbQWO
+	 QjUhsPOaUgA8dfWKMJd6WUgS1El0lavjFoUWv/Os=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D837AF80227;
-	Thu,  5 Dec 2019 13:55:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1178BF80228;
+	Thu,  5 Dec 2019 14:13:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB0BFF801F8; Thu,  5 Dec 2019 13:54:59 +0100 (CET)
+ id C069DF801F8; Thu,  5 Dec 2019 14:13:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
-Received: from EUR02-VE1-obe.outbound.protection.outlook.com
- (mail-eopbgr20056.outbound.protection.outlook.com [40.107.2.56])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from heaven.argudo.org (heaven.argudo.org [195.154.250.235])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F070CF8010F
- for <alsa-devel@alsa-project.org>; Thu,  5 Dec 2019 13:54:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F070CF8010F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="EvTd+nHx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TXCtBm/knlnQewLYXr45RVwRacV+l8Jqx1FaBjXmiI1yz4/LZXcVMwC+DfZ6CYHls6uZYylaL+c1eiI8U9YalNnOm4Lua9oo75iN0patBYXq6su/vCMxQY79OU3+/a7VkFLK25+Qo6+ACo+DN1qavJjdfBmlm9NKWWVGRWvQdeKDq61TMwDjaT55OBh7S0ultrr8aVQzRvI2cpFt0SE/vjd9Yz6k18nHISJSTz8Sx4vzex8z6d0dCR7fOhJPG+9DNm2QtM2uP2MQZMXKlb8wEtPnFEBKZ6ty9IyNRWWlqLcfcpGqcWApgalBsZWdj+JxUFnc1RyUC0bigZdpRI+INA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nkoi0UPW2bWZzOucL+LfDx+I5xcUtEDgvbF15TzJnM0=;
- b=ZFvoAIt+SPg8LOELm+zewSo9urC7iskVg64O++hcmshYVXYoIxkrbcSkpYiXFLBYHvtsU3eWJiFVTd9EO3iJMJndlFV2MpKlu37dmz2rUXDSmwoNIZbU96YjmWlwveOFwceAx9YTTXBvqxDFY6IrBdb/9r7NDrnqiDc2SPm2VdHLkuYyyAuYMRsnx39r6++yJUn2Z6TkIRWO38nQWNY7t8QpDqKP0NX3IYUjn4KXx5XyvEln0TutTW6qNFWQuW/DYSkeQZdj4ThfXUbrNaTh4EDCic/DytGDUwK++ll1lEEGVxsy4UVrRvpjZ5u7eQWTo2TvHWd5fEczX63dpFXepA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nkoi0UPW2bWZzOucL+LfDx+I5xcUtEDgvbF15TzJnM0=;
- b=EvTd+nHxLaWV7epk1Xxlul3HbwfIj17wy8ut6tGzjX+T1IlE3NClYJjZrMY+4RznzsyUolo8K+hvCN22kjwr90JKQjBAre+m09hZjZYlyHBudD3aFoD1png42xtKw6JupUgq/SB/Au8GhsT9hKjAX39Jp8+33e0Oz3rD0+0p3/E=
-Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com (52.134.16.147) by
- VI1PR0402MB3439.eurprd04.prod.outlook.com (52.134.2.13) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2516.13; Thu, 5 Dec 2019 12:54:53 +0000
-Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com
- ([fe80::453:3c87:9a9:d1ad]) by VI1PR0402MB3839.eurprd04.prod.outlook.com
- ([fe80::453:3c87:9a9:d1ad%4]) with mapi id 15.20.2495.026; Thu, 5 Dec 2019
- 12:54:53 +0000
-From: Daniel Baluta <daniel.baluta@nxp.com>
-To: "eballetbo@gmail.com" <eballetbo@gmail.com>,
- "kuninori.morimoto.gx@renesas.com" <kuninori.morimoto.gx@renesas.com>
-Thread-Topic: [alsa-devel] [PATCH 2/2] ASoC: soc-pcm: remove
- soc_pcm_private_free()
-Thread-Index: AQHVq2swVrWOWeHzHUOiI7TxgG5tCA==
-Date: Thu, 5 Dec 2019 12:54:53 +0000
-Message-ID: <7ed222a2289c8d6544098a2937ed4a7f6960bac2.camel@nxp.com>
-References: <87r226x8aq.wl-kuninori.morimoto.gx@renesas.com>
- <87o8xax88g.wl-kuninori.morimoto.gx@renesas.com>
- <CAFqH_536+0uuAzjXFPrS8OVeoqStSNZjz_rrSeqyh3dNuWBcbQ@mail.gmail.com>
-In-Reply-To: <CAFqH_536+0uuAzjXFPrS8OVeoqStSNZjz_rrSeqyh3dNuWBcbQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=daniel.baluta@nxp.com; 
-x-originating-ip: [89.37.124.34]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 2339e0fc-9b2a-4046-62b9-08d779825293
-x-ms-traffictypediagnostic: VI1PR0402MB3439:
-x-microsoft-antispam-prvs: <VI1PR0402MB34396D49AED2C20284E9BD92F95C0@VI1PR0402MB3439.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-forefront-prvs: 02426D11FE
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(346002)(396003)(39860400002)(376002)(366004)(199004)(189003)(4326008)(76176011)(4744005)(102836004)(186003)(66946007)(64756008)(66446008)(66556008)(66476007)(118296001)(5660300002)(71200400001)(316002)(86362001)(76116006)(71190400001)(14454004)(6486002)(91956017)(305945005)(36756003)(25786009)(99286004)(478600001)(229853002)(2906002)(6506007)(6512007)(81166006)(50226002)(11346002)(26005)(2616005)(54906003)(110136005)(8676002)(8936002)(966005)(44832011)(81156014)(99106002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR0402MB3439;
- H:VI1PR0402MB3839.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: R3ye5q1+4jt2M6VltlETweyZTT7HzD+Xlcdn0riDB6o6JZWjG4C7NGQ8UlcTcdxx+hbqTeO+XAuVx+Czd0sYcyjKRvdGKlfEBQ0/UhMuZ2MREL5ChmlwragvsUGz5Lg1Q1ToJZwT8x6lx2PmhiuzHP7rZFdy3OWj7FNdb1e6OujvztisvyQeLy5TamWJGK0N21IUBDcN6Th+J5RNoT6uGzDapR9LG1lK7g+RjcoSqQx39FNyCFouQ7w3dbckTgVmmTV5QO0I8I+dC17vtjt9tEmiSv71Z/xf7VmKDMuKjQPkq4oQzkAcvAvVdkPiLeEzZcESa/awZWXi2Jq3MdhEMzJUi7DCrUHuUjYPMISpnQbWoYkvOCDZMdTtaP3YmMNxRVCCs3nTQqtihAl9YKb8O9PtYLSYP2I57yuQdkVpdd6vBjBd34aQzeJEulG+DIj1595Apv0ZGL2N7CQLoISF6gd7sI3SiSevY9pHxknAtEwAkw0x3O6vvjq7ko5kHm4iFHzuDM8Rx+tsCrKmkhdUkg==
-x-ms-exchange-transport-forked: True
-Content-ID: <9170AE320BFA2D4493C9C634CD18F8E7@eurprd04.prod.outlook.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B77C2F8010F
+ for <alsa-devel@alsa-project.org>; Thu,  5 Dec 2019 14:13:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B77C2F8010F
+Received: by heaven.argudo.org (Postfix, from userid 1008)
+ id 44557150271F; Thu,  5 Dec 2019 14:13:10 +0100 (CET)
+Received: from deiphobe (maison [78.229.44.71]) (Authenticated sender: jpa)
+ by heaven.argudo.org (Postfix) with ESMTPSA id 0BB101501F81;
+ Thu,  5 Dec 2019 14:13:09 +0100 (CET)
+Message-ID: <1b39dd4025e812ed3bb6bd1c998bd75569293b49.camel@argudo.org>
+From: Jean-Paul Argudo <jpa@argudo.org>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Date: Thu, 05 Dec 2019 14:13:08 +0100
+In-Reply-To: <20191109123634.GA22893@workstation>
+References: <769b9f5dae864cf1eb433ab84eed385a161931c8.camel@argudo.org>
+ <20191030091540.GA1856@workstation>
+ <ad6f8c036538aa755017efe976ac223bb7c90be3.camel@argudo.org>
+ <c4b792255de178094fd53d80a25fc75b795e3acb.camel@argudo.org>
+ <20191030115001.GB6313@workstation>
+ <b5a6913851d53f19a892ee88042921a38b1a7628.camel@argudo.org>
+ <20191109123634.GA22893@workstation>
+Organization: PostgreSQL Fr
+User-Agent: Evolution 3.34.1-2 
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2339e0fc-9b2a-4046-62b9-08d779825293
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Dec 2019 12:54:53.3285 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tDHxjvrqMzlNWP/sNL6nYxcjuY4XONAaS/pNAuYZsJIc4VJp/ajuWLtmLAlb8d9D0HwhPwZjVu+Q7OZt4r/52A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3439
-Cc: "tiwai@suse.de" <tiwai@suse.de>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: soc-pcm: remove
- soc_pcm_private_free()
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] snd-bebob : from kernel 4.13 to 5.3.19 and .20
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,28 +70,168 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Takashi, Hi all,
 
-> I didn't look into detail yet, but after applying this patch my
-> Samsung Chromebook Plus started to show different warnings like this,
-> probably caused because in my case the driver is deferring?
-> 
-> I'll try to take a look, but if anyone already knows the cause,
-> please
-> let me know.
-> 
+Le samedi 09 novembre 2019 =E0 21:36 +0900, Takashi Sakamoto a =E9crit :
+> Hi,
+> =
 
-Hi Enric,
+> I'm sorry to be late for reply but I have a short vacation in this
+> week.
 
-Can you try:
+Same here, I was in vacation in Asia until late last week!
 
-https://patchwork.kernel.org/patch/11265061/
+> =
 
-It should be already in Mark's tree.
+> On Wed, Oct 30, 2019 at 03:40:03PM +0100, Jean-Paul Argudo wrote:
+> > >  * /proc/asound/cardX/firewire/firmware
+> > =
+
+> > $ cat /proc/asound/card3/firewire/firmware =
+
+> > Manufacturer:	bridgeCo
+> > Protocol Ver:	1
+> > Build Ver:	0
+> > GUID:		0x00130E010004394C
+> > Model ID:	0x02
+> > Model Rev:	1
+> > Firmware Date:	20061207
+> > Firmware Time:	140826
+> > Firmware ID:	0x0
+> > Firmware Ver:	16850194
+> > Base Addr:	0x20080000
+> > Max Size:	1572864
+> > Loader Date:	20051019
+> > Loader Time:	094952
+> =
+
+> Before vacation I made arrangement to buy Focusrite Saffire LE in
+> used
+> market and today it arrived. As long as I can see, the unit uses the
+> same
+> firmware which your unit uses.
+
+Great, thanks for that...
+
+> =
+
+> > > > At startup it lights green ok, but no sound is playable, then
+> > > > the
+> > > > lights turn orange (like it is when it's not working), I hear a
+> > > > "relay sound" (a electric clic of a relay), then, the Saffire
+> > > > LE
+> > > > disapears from the sound menu in Ubuntu sound menu.
+> =
+
+> I can regenerate this phenomena.
+
+Uff! :)
+
+> =
+
+> > > > I can see this in dmesg:
+> > > > =
+
+> > > > [   19.083583] snd-bebob fw1.0: Detect discontinuity of CIP: 10
+> > > > 50
+> > > > [   19.746665] snd-bebob fw1.0: Detect discontinuity of CIP: A0
+> > > > A8
+> > > > ...
+> > > > [  284.965508] snd-bebob fw1.0: Detect discontinuity of CIP: D0
+> > > > 10
+> > > > [  285.469348] snd-bebob fw1.0: Detect discontinuity of CIP: 68
+> > > > A8
+> > > > [  285.965174] snd-bebob fw1.0: Detect discontinuity of CIP: 20
+> > > > 60
+> > > > [  285.981618] firewire_core 0000:05:01.0: phy config: new
+> > > > root=3Dffc1,
+> > > > gap_count=3D5
+> > > > [  290.103982] firewire_core 0000:05:01.0: phy config: new
+> > > > root=3Dffc1, gap_count=3D5
+> =
+
+> I can see as well.
+> =
+
+> Then, I realized that these discontinuity occurs in packet streaming
+> of 'second or later'. In short, once disconnection of packet
+> streaming,
+> the unit transfers packets with discontinuity in packet streaming of
+> reconnection. Furthermore, the discontinuity is in the early isoc
+> cycles of packet streaming.
+> =
+
+> I've already commit to avoid the detection of discontinuity in recent
+> commit for v5.5 kernel (under development):
+> https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/commit/so=
+und/firewire/bebob?id=3Dacfedcbe1ce4c69e1da914f39c02d945c80198d4
+
+Thanks for the patch, unfortunately I don't have time until this week-
+end to test the linux kernel version of the patch..
+
+BUT:
+
+> =
+
+> =
+
+> In this patch, isoc packets from the device are captured enough after
+> connection to skip early cycles of packet streaming, thus the
+> discontinuity is not detected.
+> =
+
+> As long as I tested, this version of ALSA BeBoB driver works well
+> with
+> the device. I'd like you to test with backport drivers as well:
+> https://github.com/takaswie/snd-firewire-improve
+
+I tested this DKMS version, it's easier for me and with less impacts.
+
+What I can say is that my unit is running now normaly on my computer, =
+
+with =
+
+
+$ uname -a
+Linux deiphobe 5.3.0-20-lowlatency #21-Ubuntu SMP PREEMPT Wed Oct 23
+17:03:51 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+
+kernel, on Ubuntu 19.10
+
+Running the simple DKMS install version on the README of the snd-
+firewire-improve, with a recent git clone
+
+Tell me if you need more information so far.
+
+I continue on testing things, but for the moment, 0 problems (I also
+have a audio unit on USB (GTX headset on USB) for audioconferencing
+stuff (Zoom) and so far, no problem at all, I can use both.
+
+Same with the NVDIA output over HDMI, on my screen (with a crappy small
+stereo inside the screen). =
+
+
+Very cool to have the ADAM F7 monitors sound back!!!!!!
+
+
+**thanks**** !!
+
+> =
+
+> =
+
+> =
+
+> Regards
+> =
+
+> Takashi Sakamoto
+> =
 
 
 _______________________________________________

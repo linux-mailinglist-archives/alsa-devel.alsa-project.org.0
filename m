@@ -2,84 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CB64114ED4
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2019 11:13:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 60B3F114EE1
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2019 11:16:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C7B6C166C;
-	Fri,  6 Dec 2019 11:12:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7B6C166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0CDA16A4;
+	Fri,  6 Dec 2019 11:15:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0CDA16A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575627227;
-	bh=7aSuEaSwcmgeh48stExdrXoW4oYGnMgtW2w22yk8WYc=;
+	s=default; t=1575627380;
+	bh=dvA0DgME9cEaMRamH9+hDY3KmN6KNNH1NuVPPKFwgi8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Jr0RqsKdnqkoOtLXz19mud2aqQx+dVU+4DMJqzslWlNnQ9qKBjOO3wt7DMY5dE19c
-	 2XTqCVnVkkfnFUFzp9hx6Vf+LmT5sKegIQg0WsX3wotlxtnco3bNQIjaiXGigxRWwM
-	 XrZVQdbWgCv7GI5msXnnK4Kvfwj0ZE2nNEft0oxE=
+	b=FtW/pY+J/iTgCmjGEOYGDysuMmW3s+r9bUoKBJd5Jy7V4JmmuS+r3cNdmyuPmBSN4
+	 C6MXKOBFkVu+4rNOKAL/5DYdpgydxsqVPZ/F2QH7P5Z9K8A5r+8HSmx1qYYFogOxL9
+	 3LJ5uldx4TKvI4F4mI/vDZF/t3+/GWwIKdmrEmH0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E5950F80266;
-	Fri,  6 Dec 2019 11:08:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92625F8028F;
+	Fri,  6 Dec 2019 11:08:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BB9CF80216; Fri,  6 Dec 2019 03:49:16 +0100 (CET)
+ id B1244F80214; Fri,  6 Dec 2019 03:49:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqemgate16.nvidia.com (hqemgate16.nvidia.com [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BAD32F801F9
- for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 03:49:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAD32F801F9
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6E434F801D9
+ for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 03:49:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6E434F801D9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="cojyUFS2"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqemgate16.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5de9c1aa0001>; Thu, 05 Dec 2019 18:49:14 -0800
+ header.b="Rt/B9sJp"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5de9c1980000>; Thu, 05 Dec 2019 18:48:56 -0800
 Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Thu, 05 Dec 2019 18:49:10 -0800
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Thu, 05 Dec 2019 18:49:12 -0800
 X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Thu, 05 Dec 2019 18:49:10 -0800
-Received: from HQMAIL101.nvidia.com (172.20.187.10) by HQMAIL111.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec
- 2019 02:49:10 +0000
-Received: from rnnvemgw01.nvidia.com (10.128.109.123) by HQMAIL101.nvidia.com
- (172.20.187.10) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via
- Frontend Transport; Fri, 6 Dec 2019 02:49:10 +0000
+ by hqpgpgate101.nvidia.com on Thu, 05 Dec 2019 18:49:12 -0800
+Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL105.nvidia.com
+ (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec
+ 2019 02:49:11 +0000
+Received: from HQMAIL111.nvidia.com (172.20.187.18) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec
+ 2019 02:49:11 +0000
+Received: from rnnvemgw01.nvidia.com (10.128.109.123) by HQMAIL111.nvidia.com
+ (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via
+ Frontend Transport; Fri, 6 Dec 2019 02:49:11 +0000
 Received: from skomatineni-linux.nvidia.com (Not Verified[10.2.163.171]) by
  rnnvemgw01.nvidia.com with Trustwave SEG (v7, 5, 8, 10121)
- id <B5de9c1a40002>; Thu, 05 Dec 2019 18:49:09 -0800
+ id <B5de9c1a60000>; Thu, 05 Dec 2019 18:49:11 -0800
 From: Sowjanya Komatineni <skomatineni@nvidia.com>
 To: <skomatineni@nvidia.com>, <thierry.reding@gmail.com>,
  <jonathanh@nvidia.com>, <digetx@gmail.com>, <mperttunen@nvidia.com>,
  <gregkh@linuxfoundation.org>, <sboyd@kernel.org>, <tglx@linutronix.de>,
  <robh+dt@kernel.org>, <mark.rutland@arm.com>
-Date: Thu, 5 Dec 2019 18:48:49 -0800
-Message-ID: <1575600535-26877-10-git-send-email-skomatineni@nvidia.com>
+Date: Thu, 5 Dec 2019 18:48:50 -0800
+Message-ID: <1575600535-26877-11-git-send-email-skomatineni@nvidia.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1575600535-26877-1-git-send-email-skomatineni@nvidia.com>
 References: <1575600535-26877-1-git-send-email-skomatineni@nvidia.com>
 X-NVConfidentiality: public
 MIME-Version: 1.0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1575600555; bh=QpuTCwWQ7OA+cLjLXqsb+rGtt5ndNflALwObfnlfPq8=;
+ t=1575600536; bh=iSBAO4auyq2tYF1A9pztdK3nD0cVudD9yYPyVdJsf98=;
  h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
  In-Reply-To:References:X-NVConfidentiality:MIME-Version:
  Content-Type;
- b=cojyUFS2tKje+kPVeDyds/3HD82HQ0sRmRNmatwG60gi6wlvjAU6NYzeJpS1NteMD
- 0sLPPn0JNbRGgsqjJlMCWPYpUe0LCvhXAVOtOfurLVVXMJt8gdnUQApnp2kl48r9X5
- 2y4E8YpWtNBqgqR3e52V9gxHA5hjDRV6nKNuZVYzlbuW10esyHWRJqqL/2Tgb23fLt
- 1qlxpQcWIH0v5o/quppnK1wQifJx55xGMVNUcMKrvHXZxwbUTe99w6NlFn4tDip921
- n4i52QvZ6ltEpkNOeCRo8+wiTlkc68nczuD3y6iuNlIi65H+DSOgtoshje8X9Ht+/V
- j/1Raw4Xsg5hA==
+ b=Rt/B9sJpUtSXhL/O4AgJ1eVKWSOCEoE8FXgvgBWXRkpfvMQE45cb3t7j/6WNSuinB
+ fErCwmJx10fz5eEMdaS1aeBgkNCC9K//sWRyS4TzEKsMWYaMLGyS0bW7bBpURkqbW/
+ tAeujdpMZQL/V9Dkoh2yETQ4x0x1CDr0Z+cFZjQnpKoX/8RDhVto4IQrijLLsvwnDx
+ zlNrR4Y0QAfUMv9pnHlkolG+/bryuarTimMG2FkPo3d8whtH0ievE9dVcEIC+UzB5I
+ EuOP8+Mv8fcFhGatsA42+6X+T/v5LMFAV84spBGrqw8v2Qgqpf4GJwm6CatyJ5fL/3
+ 9hQjRs5oi932g==
 X-Mailman-Approved-At: Fri, 06 Dec 2019 11:07:58 +0100
 Cc: alsa-devel@alsa-project.org, pgaikwad@nvidia.com, spujar@nvidia.com,
  linux-kernel@vger.kernel.org, josephl@nvidia.com, linux-clk@vger.kernel.org,
@@ -89,8 +93,8 @@ Cc: alsa-devel@alsa-project.org, pgaikwad@nvidia.com, spujar@nvidia.com,
  linux-tegra@vger.kernel.org, horms+renesas@verge.net.au, tiwai@suse.com,
  allison@lohutok.net, pdeschrijver@nvidia.com, lgirdwood@gmail.com,
  vidyas@nvidia.com, Jisheng.Zhang@synaptics.com
-Subject: [alsa-devel] [PATCH v3 09/15] ASoC: tegra: Add fallback for audio
-	mclk
+Subject: [alsa-devel] [PATCH v3 10/15] clk: tegra: Remove extern1 and cdev1
+	from clocks inittable
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,43 +112,86 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-mclk is from clk_out_1 which is part of Tegra PMC block and pmc clocks
-are moved to Tegra PMC driver with pmc as clock provider and using pmc
-clock ids.
+Current clock driver enables cdev1 on Tegra20 and extern1 on Tegra30
+and above as a part of clocks init and there is no need to have this
+clock enabled during the boot.
 
-New device tree uses clk_out_1 from pmc clock provider.
+extern1 is used as parent for clk_out_1 and clk_out_1 is dedicated
+for audio mclk on Tegra30 and above Tegra platforms and these clocks
+are taken care by ASoC driver.
 
-So, this patch adds fallback to extern1 in case of retrieving mclk fails
-to be backward compatible of new device tree with older kernels.
-
-Cc: stable@vger.kernel.org
+So, this patch removes parenting and enabling extern1 from clock init
+of Tegra30 and above and removes enabling cdev1 from Tegra20 clock init.
 
 Signed-off-by: Sowjanya Komatineni <skomatineni@nvidia.com>
 ---
- sound/soc/tegra/tegra_asoc_utils.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/clk/tegra/clk-tegra114.c | 1 -
+ drivers/clk/tegra/clk-tegra124.c | 1 -
+ drivers/clk/tegra/clk-tegra20.c  | 1 -
+ drivers/clk/tegra/clk-tegra210.c | 1 -
+ drivers/clk/tegra/clk-tegra30.c  | 1 -
+ 5 files changed, 5 deletions(-)
 
-diff --git a/sound/soc/tegra/tegra_asoc_utils.c b/sound/soc/tegra/tegra_asoc_utils.c
-index 8e3a3740df7c..f7408d5240c0 100644
---- a/sound/soc/tegra/tegra_asoc_utils.c
-+++ b/sound/soc/tegra/tegra_asoc_utils.c
-@@ -211,8 +211,14 @@ int tegra_asoc_utils_init(struct tegra_asoc_utils_data *data,
- 	data->clk_cdev1 = clk_get(dev, "mclk");
- 	if (IS_ERR(data->clk_cdev1)) {
- 		dev_err(data->dev, "Can't retrieve clk cdev1\n");
--		ret = PTR_ERR(data->clk_cdev1);
--		goto err_put_pll_a_out0;
-+		data->clk_cdev1 = clk_get_sys("clk_out_1", "extern1");
-+		if (IS_ERR(data->clk_cdev1)) {
-+			dev_err(data->dev, "Can't retrieve clk extern1\n");
-+			ret = PTR_ERR(data->clk_cdev1);
-+			goto err_put_pll_a_out0;
-+		}
-+
-+		dev_err(data->dev, "Falling back to extern1\n");
- 	}
- 
- 	/*
+diff --git a/drivers/clk/tegra/clk-tegra114.c b/drivers/clk/tegra/clk-tegra114.c
+index 36ba1eb3dbe0..3c29896b19a7 100644
+--- a/drivers/clk/tegra/clk-tegra114.c
++++ b/drivers/clk/tegra/clk-tegra114.c
+@@ -1147,7 +1147,6 @@ static struct tegra_clk_init_table init_table[] __initdata = {
+ 	{ TEGRA114_CLK_UARTD, TEGRA114_CLK_PLL_P, 408000000, 0 },
+ 	{ TEGRA114_CLK_PLL_A, TEGRA114_CLK_CLK_MAX, 564480000, 1 },
+ 	{ TEGRA114_CLK_PLL_A_OUT0, TEGRA114_CLK_CLK_MAX, 11289600, 1 },
+-	{ TEGRA114_CLK_EXTERN1, TEGRA114_CLK_PLL_A_OUT0, 0, 1 },
+ 	{ TEGRA114_CLK_I2S0, TEGRA114_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA114_CLK_I2S1, TEGRA114_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA114_CLK_I2S2, TEGRA114_CLK_PLL_A_OUT0, 11289600, 0 },
+diff --git a/drivers/clk/tegra/clk-tegra124.c b/drivers/clk/tegra/clk-tegra124.c
+index 24532d70e469..6861ded135e0 100644
+--- a/drivers/clk/tegra/clk-tegra124.c
++++ b/drivers/clk/tegra/clk-tegra124.c
+@@ -1292,7 +1292,6 @@ static struct tegra_clk_init_table common_init_table[] __initdata = {
+ 	{ TEGRA124_CLK_UARTD, TEGRA124_CLK_PLL_P, 408000000, 0 },
+ 	{ TEGRA124_CLK_PLL_A, TEGRA124_CLK_CLK_MAX, 564480000, 1 },
+ 	{ TEGRA124_CLK_PLL_A_OUT0, TEGRA124_CLK_CLK_MAX, 11289600, 1 },
+-	{ TEGRA124_CLK_EXTERN1, TEGRA124_CLK_PLL_A_OUT0, 0, 1 },
+ 	{ TEGRA124_CLK_I2S0, TEGRA124_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA124_CLK_I2S1, TEGRA124_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA124_CLK_I2S2, TEGRA124_CLK_PLL_A_OUT0, 11289600, 0 },
+diff --git a/drivers/clk/tegra/clk-tegra20.c b/drivers/clk/tegra/clk-tegra20.c
+index fe536f1d770d..a552dafb8174 100644
+--- a/drivers/clk/tegra/clk-tegra20.c
++++ b/drivers/clk/tegra/clk-tegra20.c
+@@ -1031,7 +1031,6 @@ static struct tegra_clk_init_table init_table[] __initdata = {
+ 	{ TEGRA20_CLK_UARTE, TEGRA20_CLK_PLL_P, 0, 0 },
+ 	{ TEGRA20_CLK_PLL_A, TEGRA20_CLK_CLK_MAX, 56448000, 1 },
+ 	{ TEGRA20_CLK_PLL_A_OUT0, TEGRA20_CLK_CLK_MAX, 11289600, 1 },
+-	{ TEGRA20_CLK_CDEV1, TEGRA20_CLK_CLK_MAX, 0, 1 },
+ 	{ TEGRA20_CLK_I2S1, TEGRA20_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA20_CLK_I2S2, TEGRA20_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA20_CLK_SDMMC1, TEGRA20_CLK_PLL_P, 48000000, 0 },
+diff --git a/drivers/clk/tegra/clk-tegra210.c b/drivers/clk/tegra/clk-tegra210.c
+index af5119481d54..252859faeb4a 100644
+--- a/drivers/clk/tegra/clk-tegra210.c
++++ b/drivers/clk/tegra/clk-tegra210.c
+@@ -3442,7 +3442,6 @@ static struct tegra_clk_init_table init_table[] __initdata = {
+ 	{ TEGRA210_CLK_UARTD, TEGRA210_CLK_PLL_P, 408000000, 0 },
+ 	{ TEGRA210_CLK_PLL_A, TEGRA210_CLK_CLK_MAX, 564480000, 1 },
+ 	{ TEGRA210_CLK_PLL_A_OUT0, TEGRA210_CLK_CLK_MAX, 11289600, 1 },
+-	{ TEGRA210_CLK_EXTERN1, TEGRA210_CLK_PLL_A_OUT0, 0, 1 },
+ 	{ TEGRA210_CLK_I2S0, TEGRA210_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA210_CLK_I2S1, TEGRA210_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA210_CLK_I2S2, TEGRA210_CLK_PLL_A_OUT0, 11289600, 0 },
+diff --git a/drivers/clk/tegra/clk-tegra30.c b/drivers/clk/tegra/clk-tegra30.c
+index 24599ed2e6ff..65fdead2c764 100644
+--- a/drivers/clk/tegra/clk-tegra30.c
++++ b/drivers/clk/tegra/clk-tegra30.c
+@@ -1221,7 +1221,6 @@ static struct tegra_clk_init_table init_table[] __initdata = {
+ 	{ TEGRA30_CLK_UARTE, TEGRA30_CLK_PLL_P, 408000000, 0 },
+ 	{ TEGRA30_CLK_PLL_A, TEGRA30_CLK_CLK_MAX, 564480000, 1 },
+ 	{ TEGRA30_CLK_PLL_A_OUT0, TEGRA30_CLK_CLK_MAX, 11289600, 1 },
+-	{ TEGRA30_CLK_EXTERN1, TEGRA30_CLK_PLL_A_OUT0, 0, 1 },
+ 	{ TEGRA30_CLK_I2S0, TEGRA30_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA30_CLK_I2S1, TEGRA30_CLK_PLL_A_OUT0, 11289600, 0 },
+ 	{ TEGRA30_CLK_I2S2, TEGRA30_CLK_PLL_A_OUT0, 11289600, 0 },
 -- 
 2.7.4
 

@@ -2,81 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC7BA114EE6
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2019 11:17:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7A10114F1F
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2019 11:36:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7C4EF167D;
-	Fri,  6 Dec 2019 11:16:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C4EF167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BA7B1673;
+	Fri,  6 Dec 2019 11:36:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BA7B1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575627453;
-	bh=uNz3Spa1R8sG0Lz03oiTdWUA8CDMANpPvgkNe9S0jDo=;
-	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=gEO+hRSxqEnsIiS3WFZFqaDT8NxIzogxoSUbW/eEiKaW3OPRmZwbB0xxhK9ocEK4x
-	 GHnV25dfDQWgUy8kc0mtw95bkQciLsAgV2+AuBUBc0fMQAuMFoSErUmSqw0xOLltMx
-	 60+6dDq2qdD2JNzoHQGdHA3eKPLv0bLgUQ7//9XA=
+	s=default; t=1575628614;
+	bh=WlHqqJNOx45R3lGpShimml5DKklHX1EQz3t+2scix04=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ApnxOydA34buvzdZwL29HTfrinHfiU8/qRP3tPngQGn//hWrDrRuRP7fSAvg5QNOH
+	 b8b4zmBKa++i/esKbssPQOTRsAal4EUlbBZeGA75pqgBYY+0xflHso+Ahk+kO9ozjU
+	 7VjtTEkmBJeHZEDoQbtBBZcd32DnFRRqvJw6GdpQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF93AF802A7;
-	Fri,  6 Dec 2019 11:08:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78F54F80214;
+	Fri,  6 Dec 2019 11:35:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 256D0F80108; Fri,  6 Dec 2019 06:23:17 +0100 (CET)
+ id D8C64F801EC; Fri,  6 Dec 2019 11:35:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
- [IPv6:2607:f8b0:4864:20::330])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6F23FF80108
- for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 06:23:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F23FF80108
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB3FAF80108
+ for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 11:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB3FAF80108
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=vvdntech-in.20150623.gappssmtp.com
- header.i=@vvdntech-in.20150623.gappssmtp.com header.b="vmocgNii"
-Received: by mail-ot1-x330.google.com with SMTP id 59so4778219otp.12
- for <alsa-devel@alsa-project.org>; Thu, 05 Dec 2019 21:23:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=vvdntech-in.20150623.gappssmtp.com; s=20150623;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=jRbFxJ1BhRQ1lXq13rtOAs+WdVcnotWQ1v8QWmWlj3M=;
- b=vmocgNiiNynTR3MwQ0oCNhJoZJMA6NBJXyQocW0gVzRuEjjs9dVihvqvzdx+t2KU2a
- /fhbpgdKuB1cJq+QDKMi+8PGxr+g1ctBDE5w8r01U66smiBHMUxKKV+/e7vLOjZ+6Xqm
- y5msfX7j9gzPGu9j45WmAloTeCDMrTh5M0nwD9ImbMYnqD2nSSsDV0O06toM3/BDeLyH
- I4iLrNte4Tfyq5SxwomPmMbN2xoteR2Xv1lddiYTAVdVEAW2uIPy10Y2gwTAFtPqoaU+
- DLaERG0OfQ69cfpVYgrCyXsSmnmefp8M49adInbtU7yxmzSLbMj4FHkClin/ojCB8C8C
- yuPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=jRbFxJ1BhRQ1lXq13rtOAs+WdVcnotWQ1v8QWmWlj3M=;
- b=Ljk3g2zOVV5x3AYg/O89QVxNiAuXbP1U/9pkLnUlbQWczX2BWs4T3xOQUaVeUTsNqW
- oVQHD1hD1uYfEjhsKGI0QMxfvwASO48k7nZi77W7bMF0vs6aBYyYAfBkbT4yHPW71Jsw
- hKIcU9KbLu/pbLfBT/lwfbOLHbru+Zjzg7tXETnNi+zgkFfMvdxDWXJ4coMpMYd5/ujT
- dcxCViNYtjYzguEp4LVgHEOySZLrXMk7gIiCZtm/gaKKrjKpyBwPQk7DYTICjycUn1Xz
- zh0w8JsnCPOVhs8w5Hw3xEBtzFTo68h4mKiBE88a3G1NgLvzEyAOA6UpV+w93faR7/oe
- t4lQ==
-X-Gm-Message-State: APjAAAWurXR0tab012dj6DKxm1Quu+i9bTQ9nwX9wGM02yCM/SG/evM8
- XKaK1fZDyIDv53OqhriKEcOmW0HiXy6SLBF0LBjBomgTIizoinK5JOcsA6VchBtj51WL6XPw/pN
- aoRLPLpUnzeCDv5Qb2qnkduEUHxRA3ZVqy4I=
-X-Google-Smtp-Source: APXvYqwvP2PeR5FJr7eS4gNp6ioDpnXhz78e5NL0xvQTb7zsA4uwQy4HA7GPoyb0rYrB1EB9gcExZ5IoTSASoxmsqtA=
-X-Received: by 2002:a9d:74c7:: with SMTP id a7mr9996679otl.7.1575609789229;
- Thu, 05 Dec 2019 21:23:09 -0800 (PST)
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="JGYVJCRK"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xB6AXb4K012056; Fri, 6 Dec 2019 04:34:58 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=gODTI0lW1pdRgw8ARzPT2hG/hZAyqOBktg59aJ0itXo=;
+ b=JGYVJCRKfWlj4U1CRVRaNLheVAXMN0UpKhO5wWhF1OVVjzTtLapt6rXwRwuiQLvvWYOq
+ ZqzmENVuZie+QlP8jdkmkcrlsA5R9SKs49XH+Ko7CyKJQ0JfsWo9Lf6QfsVFpyHjcb+2
+ 6dZ7LTkDPM7fgSDWDvPQnpMd7Wg9c710J3WXJXOceQJ/k9+wC+s++QSfLq0h7Hn/IrwK
+ Y4Su51rR09YwwUzh7HxBBZDkJOSz8vCukobzSho6xbRMQq5jOvWbaK3GncRrWTZHS/Ez
+ Sjll2JKiW8K73nM/LPN0bGnhFRucaro9iU4jq//KRCfM034+IKggAlYHpq8vvia8JsBW hQ== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex01.ad.cirrus.com ([5.172.152.52])
+ by mx0b-001ae601.pphosted.com with ESMTP id 2wqmq101fa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Fri, 06 Dec 2019 04:34:57 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Fri, 6 Dec
+ 2019 10:34:53 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Fri, 6 Dec 2019 10:34:53 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id D991F2D1;
+ Fri,  6 Dec 2019 10:34:53 +0000 (UTC)
+Date: Fri, 6 Dec 2019 10:34:53 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Chuhong Yuan <hslester96@gmail.com>
+Message-ID: <20191206103453.GC10451@ediswmail.ad.cirrus.com>
+References: <20191206075300.18182-1-hslester96@gmail.com>
 MIME-Version: 1.0
-From: Mohan Prasath Ramamoorthy <mohan.prasath@vvdntech.in>
-Date: Fri, 6 Dec 2019 10:52:58 +0530
-Message-ID: <CAMM7-fe=NAH_tEFsE+RV-eA1KLkhaim_3w4YK3wjqDYea_2TtA@mail.gmail.com>
-To: alsa-devel@alsa-project.org
-X-Mailman-Approved-At: Fri, 06 Dec 2019 11:07:58 +0100
-Subject: [alsa-devel] Playback issue while recording simultaneously
+Content-Disposition: inline
+In-Reply-To: <20191206075300.18182-1-hslester96@gmail.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 bulkscore=0
+ suspectscore=2 spamscore=0 priorityscore=1501 phishscore=0 clxscore=1015
+ mlxscore=0 malwarescore=0 mlxlogscore=977 adultscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-1910280000
+ definitions=main-1912060091
+Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: wm5100: add missed
+	regulator_bulk_disable
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,45 +104,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RGVhciBBbGwsCgpXZSBhcmUgd29ya2luZyBvbiBleHRlcm5hbCBtb2R1bGVzIG9mIG1pY3JvcGhv
-bmUgYW5kIHNwZWFrZXIgYW5kIHdlCmFyZSB1c2luZyB0aGUga2VybmVsIHZlcnNpb24gMy4xMC45
-NgoKV2UgYXJlIHJlY29yZGluZyB3aXRoIGNvbW1hbmRzIGxpa2UgYXJlY29yZCBhbmQgYXBsYXkg
-Zm9yIHJlY29yZGluZwphbmQgcGxheWJhY2sgcmVzcGVjdGl2ZWx5LgoKV2hpbGUgZG9pbmcgdGhl
-IGJlbG93IGV4cGVyaW1lbnRzIHdlIGNvdWxkIGFibGUgdG8gb2JzZXJ2ZSBhbiBpc3N1ZSBhcyBi
-ZWxvdywKCjEuIFdpdGggb25seSByZWNvcmRpbmcgYW5kIG5vdCBwbGF5YmFjayB3ZSBoYXZlbid0
-IGZhY2VkIGFueSBpc3N1ZXMuCjIuIFdpdGggb25seSBwbGF5YmFjayBhbmQgbm90IHJlY29yZGlu
-ZyB3ZSBoYXZlbid0IGZhY2VkIGFueSBpc3N1ZXMuCgozLiBCeSBzdGFydGluZyBhbiBpbmZpbml0
-ZSByZWNvcmRpbmcgaW4gdGhlIGJhY2tncm91bmQgYW5kIGJ5IGRvaW5nIGEKcGxheWJhY2sgb2Yg
-dGhlIGF1ZGlvIGZpbGUoMzBzZWNvbmRzLCB0aGUgc2FtcGxpbmcgcmF0ZSBvZiAyMjA1MCwgdGhl
-CmNoYW5uZWwgaXMgc3RlcmVvKSwgYWZ0ZXIgc29tZSBpdGVyYXRpb25zLCB3ZSBhcmUgZmFjaW5n
-IGEgYmVsb3cgZXJyb3IKYW5kIHdlIGNvdWxkIG5vdCBhYmxlIHRvIGxpc3RlbiB0byB0aGUgYXVk
-aW8uCgpFcnJvcjogYXBsYXk6IHBjbV93cml0ZToxOTQwOiB3cml0ZSBlcnJvcjogSW5wdXQvb3V0
-cHV0IGVycm9yCgpCZWxvdyBhcmUgdGhlIHJlc3BlY3RpdmUgY29tbWFuZHMgZm9yIHJlY29yZGlu
-ZyBhbmQgcGxheWJhY2ssCgoxLiBhcmVjb3JkIC1EIGh3OjAsMCAtYyAyIC1mIHMxNl9sZSAtciA4
-MDAwIC9ob21lL3VidW50dS9taWNfdGVzdGluZy53YXYgJgoyLiBhcGxheSAtRCBodzowLDMgYXVk
-aW9fMjJrX2MyLndhdgoKQnV0IHdoZW4gdGhlIGlzc3VlcyBjb21lLCB3ZSBqdXN0IHN0b3BwZWQg
-cmVjb3JkaW5nIGFuZCByZXN0YXJ0ZWQgdGhlCnJlY29yZGluZyBpbiB0aGUgYmFja2dyb3VuZC4g
-QWZ0ZXIgdGhpcywgdGhlIHBsYXliYWNrIGlzIHdvcmtpbmcgZmluZS4KCkFsc28sIGR1cmluZyB0
-aGUgaXNzdWUgY2FtZSwgd2UgaGF2ZSBjaGVja2VkIGZvciB0aGUgYmVsb3cgcHJvcGVydGllcywK
-CjEuIEkyUyBoYXMgYmVlbiBlbmFibGVkLiBDaGVja2VkIHVuZGVyIHRoZSBmaWxlOgovc3lzL2tl
-cm5lbC9kZWJ1Zy9jbG9jay9jbG9ja190cmVlCjIuIERyaXZlciBjYWxsYmFja3MgaGF2ZSBiZWVu
-IGNhbGxlZC4gKENoZWNrZWQgd2l0aCB0aGUga2VybmVsIGxvZ3NbZG1lc2ddKQoKV2Ugd291bGQg
-bGlrZSB0byBrbm93IHRoZSByZWFzb24gYmVoaW5kIHRoaXMgZXJyb3IuPwoKLS0KCldpdGggQmVz
-dCBSZWdhcmRzLAoKTW9oYW4gUHJhc2F0aAoKVlZETiBUZWNobm9sb2dpZXMgUHZ0IEx0ZAoKQ2Vs
-bDogKzkxIDk2Mjk3Njg5MTkKCldlYjogd3d3LnZ2ZG50ZWNoLmNvbQoKLS0gCgoKX0Rpc2NsYWlt
-ZXI6wqBfwqkgMjAxOSBWVkROIFRlY2hub2xvZ2llcyBQdnQuIEx0ZC4gVGhpcyBlLW1haWwgY29u
-dGFpbnMgClBSSVZJTEVHRUQgQU5EIENPTkZJREVOVElBTCBJTkZPUk1BVElPTiBpbnRlbmRlZCBz
-b2xlbHkgZm9yIHRoZSB1c2Ugb2YgdGhlIAphZGRyZXNzZWUocykuIElmIHlvdSBhcmUgbm90IHRo
-ZSBpbnRlbmRlZCByZWNpcGllbnQsIHBsZWFzZSBub3RpZnkgdGhlIApzZW5kZXIgYnkgZS1tYWls
-IGFuZCBkZWxldGUgdGhlIG9yaWdpbmFsIG1lc3NhZ2UuIEZ1cnRoZXIsIHlvdSBhcmUgbm90IHRv
-IApjb3B5LCBkaXNjbG9zZSwgb3IgZGlzdHJpYnV0ZSB0aGlzIGUtbWFpbCBvciBpdHMgY29udGVu
-dHMgdG8gYW55IG90aGVyIApwZXJzb24gYW5kIGFueSBzdWNoIGFjdGlvbnMgYXJlIHVubGF3ZnVs
-Ll8KXwpfCl8KX18KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0
-dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZl
-bAo=
+On Fri, Dec 06, 2019 at 03:53:00PM +0800, Chuhong Yuan wrote:
+> The driver forgets to call regulator_bulk_disable() in remove like that
+> in probe failure.
+> Add the missed call to fix it.
+> 
+> Signed-off-by: Chuhong Yuan <hslester96@gmail.com>
+> ---
+>  sound/soc/codecs/wm5100.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/sound/soc/codecs/wm5100.c b/sound/soc/codecs/wm5100.c
+> index 91cc63c5a51f..d985b2061169 100644
+> --- a/sound/soc/codecs/wm5100.c
+> +++ b/sound/soc/codecs/wm5100.c
+> @@ -2653,6 +2653,8 @@ static int wm5100_i2c_remove(struct i2c_client *i2c)
+>  		gpio_set_value_cansleep(wm5100->pdata.ldo_ena, 0);
+>  		gpio_free(wm5100->pdata.ldo_ena);
+>  	}
+> +	regulator_bulk_disable(ARRAY_SIZE(wm5100->core_supplies),
+> +			       wm5100->core_supplies);
+>  
+
+This is a bit trickier than this since these regulators are being
+controlled by PM runtime, and it doesn't necessarily leave things
+in an enabled state when it is disabled.
+
+Thanks,
+Charles
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

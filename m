@@ -2,88 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 488DA114A99
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2019 02:48:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 583BF114CF1
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2019 08:53:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DD4A8166D;
-	Fri,  6 Dec 2019 02:47:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD4A8166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id CE8E01663;
+	Fri,  6 Dec 2019 08:53:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CE8E01663
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575596899;
-	bh=BHWvHzt2DwUSL+wyLBEKUUnmJ1Q1rWUjpNz1CUcSLag=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=SXpXmkdPKrGzZIOHnRMpNPKO58g8UZcms5C30NJOTxwUld3eO/iVtWbfuXE0zN0R3
-	 +FOZ+c4+g3z2rJ0Ak35s0pD0hfniBsBLFnZHt6JDOOsteI0GgFh7wsxZTdtRrIANdr
-	 KRQ4GI4QXimJrkEsDjVYTAw3Y6gf/8hQznxxN9E8=
+	s=default; t=1575618834;
+	bh=vNhgGI7mGd/fUHj/zp0KB8WLxuKzdL5LSTNWdJI0AYI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=kH98eRjzGcz81nAoKl8IQhAyNSBUoHIV/RWp5JD3iaJMfQ0WIXsyNLn7oe5fWBjrb
+	 8Bi7K+iZD5OMz/z5m7xM07e/ZXDypLQCQSI+e1/45/Oh5qog+RQ1hK9MFA90FrIyxs
+	 bAY/tpVyLfuyr96ZtX3qDzVHmN4bGSzUhdNBmjAs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24E98F801F8;
-	Fri,  6 Dec 2019 02:46:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1B78F801EC;
+	Fri,  6 Dec 2019 08:52:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D1D0F801F8; Fri,  6 Dec 2019 02:46:33 +0100 (CET)
+ id 45586F801EC; Fri,  6 Dec 2019 08:52:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,
- USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,RCVD_IN_SORBS_WEB,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 688BBF800F6
- for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 02:46:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 688BBF800F6
+ by alsa1.perex.cz (Postfix) with ESMTPS id D1FD9F8010F
+ for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 08:52:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1FD9F8010F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="RJjJ3wcj"
-Received: by mail-qt1-x842.google.com with SMTP id k11so5599485qtm.3
- for <alsa-devel@alsa-project.org>; Thu, 05 Dec 2019 17:46:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OWbR15S2RfRqJyFwqLxBwXeFj+8GFIYqLV64PVIuJyM=;
- b=RJjJ3wcj14dVHpVkD5y/VdYzM098tUTqND4K28eHNEvwqzNgDGlLTtMxMg+mgKaX/4
- 7OF3LV5xDPeoHfeAjJgLpOYgRqmQfbIp3dXN0n2VIOrTsCcKcU2lTqY4hgBXCQw0J9qB
- 5YYmz3wH/uXzQ4bzWY7fIZi1zrLpd1byzeYLWojHxkKd0bvMDfcdP0PYUGqC5ChpELXY
- H0p/tylfLIbnOywoplsQbXpyfBtYCglWp1q95slxGueeo6Jdiv4yA0h7bxIrHt71hAvx
- uDgCD4YBNXUNR2u4Cgl1Nyxs5NjKrDDHoabHUsjCOBvwQvRJ2HscveVyfpHjJfAz7fBN
- +/Bw==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="YS0AtrvR"
+Received: by mail-pj1-x1041.google.com with SMTP id v93so2401311pjb.6
+ for <alsa-devel@alsa-project.org>; Thu, 05 Dec 2019 23:52:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=esKX0yBbwLj9BsnY+YMN3L28an7nOLNJQ8QXI3FnKzU=;
+ b=YS0AtrvRaVMqAcGjqYDM24aoRhvIQBb5zpqO21B2dashN30BhoiGKYcTzMXptoQ8be
+ +bYlhz24lNesRSKIz7L37sCRkxl4dvWenJ7gZudcHO+/4dZb6OQfbVjU1em4N5vP3Q3E
+ EsIb6yWdDsR7PVIhWldvmL4oh6A5VVI0QYzsTBMbbq5QvYaxUj2aKhSZw+iU4ZYN/pju
+ A+GrNfKLEdAdylSd6t0C+sVlkgtm0KtQ8SmX1IIwK2s4cjCBucC7afYwYYQK6rvAKrgO
+ x7au5ci0aBRsJ/Pc2BklcnSrzE3CG9mrIrPmrqTpf85XLbl4OY613dMHj/l6eUGGYb9z
+ x1Nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OWbR15S2RfRqJyFwqLxBwXeFj+8GFIYqLV64PVIuJyM=;
- b=flwnNaLjbsQmj2lQqziL7tV8d1NIdTXZjv8Rc8K/RTstJRCYLSBIZU03j8yp7/rd4X
- ipcC9MzNqdLjxQ3NbvmKVw7CauAEp1lVyPbBdlkZ012YnhuaDYDCMrjI2Udf5LuJ+YJV
- p0EHphLG2oKPy3s1uyyjhKTLD7ziqbW3nQOcVx2MEd/K3aBxKZhT7xA26K1YGaqNanBQ
- opSjtdc79KcSpzfDmBoOzxSLc3WUot2NqBSzT3ERkkWygbKnPGtDhIvDuC7sJUOe8wMK
- WcKTBjD0Lb4EgUfP6+6opftfgtoqrQfvaVq51kJpFD86KJ62QuVLv1Ku4OkFQrnKavgJ
- T9vQ==
-X-Gm-Message-State: APjAAAWad8FNpUWsgptWY+ZAc8hE3xHYyMJ68jshj9Df5zklxrzQN0Cc
- BdWM7tpse8d/HqicXs++sl4rcoRaacCrBn479UggLg==
-X-Google-Smtp-Source: APXvYqwtg2K3Mzf77oJxzFBZgf+wjezo+Lbx4VT1iUQsHrH76010514gsaMvd+kVmMBWdRWQNgfWL1295KVZqcbNHME=
-X-Received: by 2002:ac8:6f75:: with SMTP id u21mr10913214qtv.52.1575596787983; 
- Thu, 05 Dec 2019 17:46:27 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=esKX0yBbwLj9BsnY+YMN3L28an7nOLNJQ8QXI3FnKzU=;
+ b=YGL+dcYN2fCUSfmmJoaCJXCBS+Jn8R+4dR7Poy5JxHMOETEah5Ot8PUm4n8Dle5MD/
+ tcJsd7OHpKRyHZjy4Ji0umFnJjCXkBgcmbyBoEwPOHZ68mqIEGNU1GN3w0g6Sp6iwbsS
+ ysoTMy19OCorgJoL0F1beNaj+AFO63pImHVTQzUtHIwgP+gx0oCo4iE3ht1kRMEZfVOK
+ 6YacK51XXCnbNw8zSQ3fAH4I8z8uINQv2f48owpyPwFtGUcxhrnPslXjM+qzGjYDm8/C
+ jD98fK7wLeb91DnGu5AY4uJDEf9Umm++otZW33+VSddLeek/wB6iJQ8jqMcX64udy5G5
+ KH5Q==
+X-Gm-Message-State: APjAAAWNebitOyNQtCICPsAhC8Yq+TN9y12EyNMbn1YuMhmvO1fna6gm
+ OIwfI2y4KqyshPw2ZJvyFZA=
+X-Google-Smtp-Source: APXvYqzieekhi5Z9FrgATSh+2vmlOhNrw5UgkDFtuTD9b6TCthRMcpcYDkwr/oJAQcbClGxXIXJ+DQ==
+X-Received: by 2002:a17:90a:610:: with SMTP id
+ j16mr14296932pjj.85.1575618721583; 
+ Thu, 05 Dec 2019 23:52:01 -0800 (PST)
+Received: from suzukaze.ipads-lab.se.sjtu.edu.cn ([202.120.40.82])
+ by smtp.gmail.com with ESMTPSA id 37sm12647639pgl.83.2019.12.05.23.51.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 05 Dec 2019 23:52:00 -0800 (PST)
+From: Chuhong Yuan <hslester96@gmail.com>
+To: 
+Date: Fri,  6 Dec 2019 15:51:46 +0800
+Message-Id: <20191206075146.18011-1-hslester96@gmail.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-References: <CAOReqxjFaWhYCzzyZ90Pc5EvzUky6kCYqakz2XBwSOii9d3maA@mail.gmail.com>
- <6b310509-212e-b887-5e3a-483a740d2d1c@ab3.no>
- <CAOReqxj3P4Kvf5YwTXoEzHd9hURBOP4ySEjURsO7LjK+vbpQTw@mail.gmail.com>
- <2f0297fa-4aab-b463-4652-208ee77b6cb8@perex.cz>
- <5985f899-82d0-cbb9-9981-1eb9aa5a935d@linux.intel.com>
-In-Reply-To: <5985f899-82d0-cbb9-9981-1eb9aa5a935d@linux.intel.com>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Thu, 5 Dec 2019 17:46:17 -0800
-Message-ID: <CAOReqxg2=e0b44Uxj2gfc+4aqKn6OBo6rCX4oGZLBvvpXci8HA@mail.gmail.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- =?UTF-8?Q?Mads_L=C3=B8nsethagen?= <mads@ab3.no>,
- Dylan Reid <dgreid@google.com>, Jimmy Cheng-Yi Chiang <cychiang@google.com>
-Subject: Re: [alsa-devel] Headset button mapping in the kernel
+Cc: Brian Austin <brian.austin@cirrus.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, Chuhong Yuan <hslester96@gmail.com>,
+ Takashi Iwai <tiwai@suse.com>, Paul Handrigan <Paul.Handrigan@cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] [PATCH] ASoC: cs35l32: add missed
+	regulator_bulk_disable in remove
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,38 +102,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Dec 3, 2019 at 4:34 PM Pierre-Louis Bossart
-<pierre-louis.bossart@linux.intel.com> wrote:
->
->
->
->
-> >> It appears some have started landing
-> >> upstream ae09a4783b9caf9307f303ef039f8297ce0371fe ("ASoC: Intel: Headset
-> >> button support in kabylake machine driver") but it would be great if
-> >> we had
-> >> a way for userspace to configure these buttons similar to how we handle
-> >> UCMs.
-> >
-> > The question why you need to change this settings in the user space. I
-> > think that the device tree was designed exactly to describe this hw
-> > platform specific settings. Another possibility is to use the kernel
-> > module option to configure the settings from the user space. But it's
-> > just an idea. You are probably looking for an interface which can be
-> > used when the driver is running.
->
-> I am also unclear on the ask.
-> We've cleaned-up all machine drivers so that the mapping is identical,
-> except for the cases where the codec inverts the buttons.
-> Are you saying you do an additional remapping of those buttons in
-> userpace? If yes, why not fix the machine driver? The mapping is
-> typically based on measured impedance, not really something userspace
-> should really know about.
-This is something we were under the impression upstream did not want.
-Dylan can you clarify our stance here? If we can just add the changes
-to the kernel then this would be a no-op.
-> Or is this a case where the ChromeOS kernel has not yet seen the
-> upstream patches?
+The driver forgets to call regulator_bulk_disable() in remove like that
+in probe failure.
+Add the missed call to fix it.
+
+Signed-off-by: Chuhong Yuan <hslester96@gmail.com>
+---
+ sound/soc/codecs/cs35l32.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/sound/soc/codecs/cs35l32.c b/sound/soc/codecs/cs35l32.c
+index 3a644a35c464..be8159bd8ec8 100644
+--- a/sound/soc/codecs/cs35l32.c
++++ b/sound/soc/codecs/cs35l32.c
+@@ -501,6 +501,8 @@ static int cs35l32_i2c_remove(struct i2c_client *i2c_client)
+ 	/* Hold down reset */
+ 	gpiod_set_value_cansleep(cs35l32->reset_gpio, 0);
+ 
++	regulator_bulk_disable(ARRAY_SIZE(cs35l32->supplies),
++			       cs35l32->supplies);
+ 	return 0;
+ }
+ 
+-- 
+2.24.0
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

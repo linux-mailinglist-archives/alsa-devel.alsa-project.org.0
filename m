@@ -2,96 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9647A116ABA
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:17:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 880D1116ABE
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:17:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 27BA51661;
-	Mon,  9 Dec 2019 11:16:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27BA51661
+	by alsa0.perex.cz (Postfix) with ESMTPS id 16E94167C;
+	Mon,  9 Dec 2019 11:16:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16E94167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575886625;
-	bh=ttgc3XDGZCm+TdF1yj+1WlcbzRJi05uzLS2/VI8IYQQ=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575886664;
+	bh=AGw6FkzGb2bZ+JYG1nkvSvKvJ5lMbAiidwtwSWBGMjQ=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GyrTiwwZEjtDd2Yh3Q0fJkSuLZv0dC0ibbhCzVLCljdnCIa679g6xqsmG1aTB6Gc+
-	 UMRgrgfgOMrOdTpkB6yyadCm6Tyyb/ap3vM9J8JSnmXjvNcwhrIOgzBk/oMuPZFf6K
-	 /o0ahIP7dg39DT0W1Klj3zqZbu9/NgWy4wQCzWH8=
+	b=feQ7yYn7G4KRnRWxGxlv9naoCSA3uLCIMhqr1nxV4oTYccR9urfwU+WpJSAqj4+Dv
+	 iFYSahgTlLKb50URzNXCa3mxLOAhsY9HbcMXrHXHdx/rzmrWzIe7+UKUCqKiVN+6p+
+	 1bVuV+u4DchvjWMmTiY3vxU0ipMGNSsviTtE39hc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 435BCF802FB;
-	Mon,  9 Dec 2019 10:52:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0C668F80447;
+	Mon,  9 Dec 2019 10:52:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31EE5F801EC; Fri,  6 Dec 2019 18:50:08 +0100 (CET)
+ id 80CE3F801EC; Fri,  6 Dec 2019 18:56:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99A5DF80135
+ for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 18:56:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99A5DF80135
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="GmWSJ3Me"
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD209F8010F
- for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 18:49:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD209F8010F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="cBmImDjj"
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5dea94be0000>; Fri, 06 Dec 2019 09:49:51 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 06 Dec 2019 09:49:55 -0800
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 06 Dec 2019 09:49:55 -0800
-Received: from DRHQMAIL107.nvidia.com (10.27.9.16) by HQMAIL111.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec
- 2019 17:49:55 +0000
-Received: from [10.2.168.155] (172.20.13.39) by DRHQMAIL107.nvidia.com
- (10.27.9.16) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec 2019
- 17:49:53 +0000
-To: <thierry.reding@gmail.com>, <jonathanh@nvidia.com>, <digetx@gmail.com>,
- <mperttunen@nvidia.com>, <gregkh@linuxfoundation.org>, <sboyd@kernel.org>,
- <tglx@linutronix.de>, <robh+dt@kernel.org>, <mark.rutland@arm.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id 4995D24673;
+ Fri,  6 Dec 2019 17:56:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1575654963;
+ bh=IeiSscRuUwpcU/kAIShm5XFn2jzqzIym266sdGO0B4g=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=GmWSJ3MeKrcW2bpYd6s3Ygl7u9mly6QPM3f4XROY8jlw4AVcf4PmijRTXrcumjVn3
+ lYNzDhug0GFgHPE8J11h8F8zat7IitFCbX2TfpLPciTwbO6D9osmqSTSQ5vdyqrizD
+ BXBh5PJqF4gMwHdVJGCDW9WIFSL/aLciWzy/S340=
+Date: Fri, 6 Dec 2019 18:56:00 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sowjanya Komatineni <skomatineni@nvidia.com>
+Message-ID: <20191206175600.GB186026@kroah.com>
 References: <1575600535-26877-1-git-send-email-skomatineni@nvidia.com>
  <1575600535-26877-10-git-send-email-skomatineni@nvidia.com>
-From: Sowjanya Komatineni <skomatineni@nvidia.com>
-Message-ID: <e94e56bc-2b4c-5d95-002a-073c9272537d@nvidia.com>
-Date: Fri, 6 Dec 2019 09:49:49 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+ <e94e56bc-2b4c-5d95-002a-073c9272537d@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <1575600535-26877-10-git-send-email-skomatineni@nvidia.com>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- DRHQMAIL107.nvidia.com (10.27.9.16)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1575654591; bh=YAKMdzUBMPWAB8WxEd9kdEtmiQZK+fcXFtpn3WK3zFI=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=cBmImDjj+dyCqtopez7WVPM/iJlu/l28OHqHjZChjD+Mp3OVTNm+RP4BLaBZxlohg
- jFLvRr6hs8CbAP4rCu9sBsol/cIJ+dbyjva75W8ULSHpS/Rvjq5GzesL+Mkyv4naYx
- kyfjyPy/qUh3C0V+QFgUfjGznstU32zWVzd63IucFk7Ur1IT6eBYp9mDP9u4hw8KP8
- VZ3xpAjo5jE+VbRZYIm7dbXZ0Dd74f3QkSWOl74lw+OfiDrxBRHjVctdtn1Ci5s/pk
- nJbKMH+1enbKMJpfYA9EsGB4KExgGuhOBCDBDNSX/4wJsj7F46XH41pBmMyIuTOlUm
- fcDubePTSjzBA==
+Content-Disposition: inline
+In-Reply-To: <e94e56bc-2b4c-5d95-002a-073c9272537d@nvidia.com>
 X-Mailman-Approved-At: Mon, 09 Dec 2019 10:51:21 +0100
-Cc: alsa-devel@alsa-project.org, pgaikwad@nvidia.com, spujar@nvidia.com,
- linux-kernel@vger.kernel.org, josephl@nvidia.com, linux-clk@vger.kernel.org,
- arnd@arndb.de, daniel.lezcano@linaro.org, krzk@kernel.org,
- mturquette@baylibre.com, devicetree@vger.kernel.org, mmaddireddy@nvidia.com,
- markz@nvidia.com, alexios.zavras@intel.com, broonie@kernel.org,
- linux-tegra@vger.kernel.org, horms+renesas@verge.net.au, tiwai@suse.com,
- allison@lohutok.net, pdeschrijver@nvidia.com, lgirdwood@gmail.com,
- vidyas@nvidia.com, Jisheng.Zhang@synaptics.com
+Cc: mark.rutland@arm.com, alsa-devel@alsa-project.org, pgaikwad@nvidia.com,
+ lgirdwood@gmail.com, mturquette@baylibre.com, mperttunen@nvidia.com,
+ thierry.reding@gmail.com, josephl@nvidia.com, digetx@gmail.com,
+ linux-clk@vger.kernel.org, mmaddireddy@nvidia.com, daniel.lezcano@linaro.org,
+ krzk@kernel.org, jonathanh@nvidia.com, spujar@nvidia.com,
+ devicetree@vger.kernel.org, arnd@arndb.de, markz@nvidia.com,
+ alexios.zavras@intel.com, robh+dt@kernel.org, tiwai@suse.com,
+ linux-tegra@vger.kernel.org, horms+renesas@verge.net.au, tglx@linutronix.de,
+ allison@lohutok.net, sboyd@kernel.org, pdeschrijver@nvidia.com,
+ linux-kernel@vger.kernel.org, vidyas@nvidia.com, Jisheng.Zhang@synaptics.com,
+ broonie@kernel.org
 Subject: Re: [alsa-devel] [PATCH v3 09/15] ASoC: tegra: Add fallback for
 	audio mclk
 X-BeenThere: alsa-devel@alsa-project.org
@@ -106,55 +88,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks Greg.
+On Fri, Dec 06, 2019 at 09:49:49AM -0800, Sowjanya Komatineni wrote:
+> Thanks Greg.
+> 
+> Sorry, Will send this patch separately (out of this series) with stable tag
+> to get this applied to stable kernels once review is done for this series.
 
-Sorry, Will send this patch separately (out of this series) with stable 
-tag to get this applied to stable kernels once review is done for this 
-series.
+Why not just properly add the tag in the original patch when it gets
+merged?  That's how everyone else does it :)
 
-On 12/5/19 6:48 PM, Sowjanya Komatineni wrote:
-> mclk is from clk_out_1 which is part of Tegra PMC block and pmc clocks
-> are moved to Tegra PMC driver with pmc as clock provider and using pmc
-> clock ids.
->
-> New device tree uses clk_out_1 from pmc clock provider.
->
-> So, this patch adds fallback to extern1 in case of retrieving mclk fails
-> to be backward compatible of new device tree with older kernels.
->
-> Cc: stable@vger.kernel.org
->
-> Signed-off-by: Sowjanya Komatineni <skomatineni@nvidia.com>
-> ---
->   sound/soc/tegra/tegra_asoc_utils.c | 10 ++++++++--
->   1 file changed, 8 insertions(+), 2 deletions(-)
->
-> diff --git a/sound/soc/tegra/tegra_asoc_utils.c b/sound/soc/tegra/tegra_asoc_utils.c
-> index 8e3a3740df7c..f7408d5240c0 100644
-> --- a/sound/soc/tegra/tegra_asoc_utils.c
-> +++ b/sound/soc/tegra/tegra_asoc_utils.c
-> @@ -211,8 +211,14 @@ int tegra_asoc_utils_init(struct tegra_asoc_utils_data *data,
->   	data->clk_cdev1 = clk_get(dev, "mclk");
->   	if (IS_ERR(data->clk_cdev1)) {
->   		dev_err(data->dev, "Can't retrieve clk cdev1\n");
-> -		ret = PTR_ERR(data->clk_cdev1);
-> -		goto err_put_pll_a_out0;
-> +		data->clk_cdev1 = clk_get_sys("clk_out_1", "extern1");
-> +		if (IS_ERR(data->clk_cdev1)) {
-> +			dev_err(data->dev, "Can't retrieve clk extern1\n");
-> +			ret = PTR_ERR(data->clk_cdev1);
-> +			goto err_put_pll_a_out0;
-> +		}
-> +
-> +		dev_err(data->dev, "Falling back to extern1\n");
->   	}
->   
->   	/*
+This isn't new, it's been happening this way for 12+ years now...
+
+thanks,
+
+greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

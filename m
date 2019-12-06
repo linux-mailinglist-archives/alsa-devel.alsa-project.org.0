@@ -2,85 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9654114ED8
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2019 11:14:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35DDA114ED9
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Dec 2019 11:14:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3654F1699;
-	Fri,  6 Dec 2019 11:13:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3654F1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id AF0AE1693;
+	Fri,  6 Dec 2019 11:14:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF0AE1693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575627256;
-	bh=eW7gkMu/YgQzdhMczBfZgz3DixBwLz8VqpNNO/z3b14=;
+	s=default; t=1575627294;
+	bh=AMrpi5231ZUJG74jPv07daBE0ZV86BO1AIPr0Tazl+c=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cGVKntlmqjnGKTrxRCaRQ7Gy+0yoPn7A+/Z8Io2YYHlfWRQ9rdnzz19vIUXe8eo2a
-	 58DkypIxIaVGx3xbUp5nSMyROfyVo5w+JBCn53v92OEG5MdsvgE0H4NZAoYBplHch/
-	 t1GhMIKygi1iRd7JHUbgO3x3h0EIku8AEF2DoubM=
+	b=Hzl/UsblvdkEGtCCHWXyAQefAn/jz8gHMSFcsvMDtWitoq4q8VTQz11hMYWkuNRoc
+	 aYrHPejMQRu7jZlIFo18LeFLvA6jjvblmGatDMWofX6W+A3IX+nt2t3+ycQnXtklP/
+	 tz1OjpDqTSUrq42HW4//ZkEFoCOEe7R1xgzurZXc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49CCEF80269;
-	Fri,  6 Dec 2019 11:08:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6AEBBF80274;
+	Fri,  6 Dec 2019 11:08:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B89E8F80216; Fri,  6 Dec 2019 03:49:18 +0100 (CET)
+ id 794A5F80214; Fri,  6 Dec 2019 03:49:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
  [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA6D8F80217
- for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 03:49:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA6D8F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0249BF80218
+ for <alsa-devel@alsa-project.org>; Fri,  6 Dec 2019 03:49:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0249BF80218
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="PMt+4B9m"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
+ header.b="Kbwn0bhF"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
  hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5de9c1940000>; Thu, 05 Dec 2019 18:48:52 -0800
+ id <B5de9c1950000>; Thu, 05 Dec 2019 18:48:53 -0800
 Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Thu, 05 Dec 2019 18:49:08 -0800
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Thu, 05 Dec 2019 18:49:10 -0800
 X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Thu, 05 Dec 2019 18:49:08 -0800
-Received: from HQMAIL111.nvidia.com (172.20.187.18) by HQMAIL105.nvidia.com
- (172.20.187.12) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec
- 2019 02:49:07 +0000
-Received: from rnnvemgw01.nvidia.com (10.128.109.123) by HQMAIL111.nvidia.com
- (172.20.187.18) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via
- Frontend Transport; Fri, 6 Dec 2019 02:49:07 +0000
+ by hqpgpgate101.nvidia.com on Thu, 05 Dec 2019 18:49:10 -0800
+Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec
+ 2019 02:49:09 +0000
+Received: from HQMAIL109.nvidia.com (172.20.187.15) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 6 Dec
+ 2019 02:49:09 +0000
+Received: from rnnvemgw01.nvidia.com (10.128.109.123) by HQMAIL109.nvidia.com
+ (172.20.187.15) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via
+ Frontend Transport; Fri, 6 Dec 2019 02:49:08 +0000
 Received: from skomatineni-linux.nvidia.com (Not Verified[10.2.163.171]) by
  rnnvemgw01.nvidia.com with Trustwave SEG (v7, 5, 8, 10121)
- id <B5de9c1a20000>; Thu, 05 Dec 2019 18:49:07 -0800
+ id <B5de9c1a30001>; Thu, 05 Dec 2019 18:49:08 -0800
 From: Sowjanya Komatineni <skomatineni@nvidia.com>
 To: <skomatineni@nvidia.com>, <thierry.reding@gmail.com>,
  <jonathanh@nvidia.com>, <digetx@gmail.com>, <mperttunen@nvidia.com>,
  <gregkh@linuxfoundation.org>, <sboyd@kernel.org>, <tglx@linutronix.de>,
  <robh+dt@kernel.org>, <mark.rutland@arm.com>
-Date: Thu, 5 Dec 2019 18:48:47 -0800
-Message-ID: <1575600535-26877-8-git-send-email-skomatineni@nvidia.com>
+Date: Thu, 5 Dec 2019 18:48:48 -0800
+Message-ID: <1575600535-26877-9-git-send-email-skomatineni@nvidia.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1575600535-26877-1-git-send-email-skomatineni@nvidia.com>
 References: <1575600535-26877-1-git-send-email-skomatineni@nvidia.com>
 X-NVConfidentiality: public
 MIME-Version: 1.0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1575600532; bh=AoUfZIY+YXf8dsokt7kEH2A0DDWvPIIhSwfR2b7pRwI=;
+ t=1575600533; bh=C8ogo7PFlkowNwgYuCMhfHS/nrwB/RSqHS/qmHQ/Fpc=;
  h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
  In-Reply-To:References:X-NVConfidentiality:MIME-Version:
  Content-Type;
- b=PMt+4B9mIZxzMa0VBHeuGsctDk7SkyMRGwHESkzdQMvb02IsUpMfGCfRqY5YUoOR0
- LJKK0/Lv1hx/zWXZNH8OQYQdMTL2kihWiO7K92N/gjaiSs47Hce9yU9MUgTwwFMDXc
- cbDScFHQi1wEC6a6Fehv3ZHUItHW6h9bfay0Zg+GsgASVy5atrhKYXZW+Vb0+Qos2p
- YFWmOjlWcLdpIZ6/11RailUL/qZ946A1PyebshPDigZ4CJ9GWtcQwWP3A2DY6JsUn3
- 6FHi/29NObfKm/z3Y1zSeyaUccc41ICo90kPwLxdXpj1JTLnsqx9pMX9KafF/93FY9
- ZG6BYRu1YcyFw==
+ b=Kbwn0bhFtW2q/rZt2u6MK8d0GQA1uRvGJ8F6mOd7tF2TI6Ab5yURb3EZ+I3QmMryp
+ J4UoIBKCwSoVlLAD3gbIrfduYvP//0bhzTJnNK2ihzLqeuDv4tTdPezMa44paPK0bv
+ GFvKko2N73YDVTK43OSxaN42E8wrZwZCKFZdVny8CEz15J7yYuDenTB4JRI47YZqzB
+ 7CveJHu3nvqZ10/8b75nfQ1Pb+E3j+l1uxvfxbI8oVe///DIwLMrzxS6xrUiGHFkxv
+ 5fFgBL6FaLlbOS8BhoE8agDv7MeNXj1AUvIbSt+0501wwAkFGJnNrWBfz3jQO9BUzO
+ JYjyy33X1u33w==
 X-Mailman-Approved-At: Fri, 06 Dec 2019 11:07:58 +0100
 Cc: alsa-devel@alsa-project.org, pgaikwad@nvidia.com, spujar@nvidia.com,
  linux-kernel@vger.kernel.org, josephl@nvidia.com, linux-clk@vger.kernel.org,
@@ -90,8 +93,8 @@ Cc: alsa-devel@alsa-project.org, pgaikwad@nvidia.com, spujar@nvidia.com,
  linux-tegra@vger.kernel.org, horms+renesas@verge.net.au, tiwai@suse.com,
  allison@lohutok.net, pdeschrijver@nvidia.com, lgirdwood@gmail.com,
  vidyas@nvidia.com, Jisheng.Zhang@synaptics.com
-Subject: [alsa-devel] [PATCH v3 07/15] dt-bindings: clock: tegra: Remove pmc
-	clock ids from clock dt-bindings
+Subject: [alsa-devel] [PATCH v3 08/15] ASoC: tegra: Add audio mclk control
+	through clk_out_1 and extern1
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,163 +112,163 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-clk_out_1, clk_out_2, clk_out_3, blink are part of Tegra PMC block and
-these clocks are moved to Tegra PMC driver with pmc as clock provider
-and uses clock ids from dt-bindings/soc/tegra-pmc.h
+Current ASoC driver uses extern1 as cdev1 clock from Tegra30 onwards
+through device tree.
 
-So, this patch removes ids for these clocks from Tegra clock dt-bindings.
+Actual audio mclk is clk_out_1 and to use PLLA for mclk rate control,
+need to clk_out_1_mux parent to extern1 and extern1 parent to PLLA_OUT0.
+
+Currently Tegra clock driver init sets the parents and enables both
+clk_out_1 and extern1 clocks. But these clocks parent and enables should
+be controlled by ASoC driver.
+
+Clock parents can be specified in device tree using assigned-clocks
+and assigned-clock-parents.
+
+To enable audio mclk, both clk_out_1 and extern1 clocks need to be
+enabled.
+
+This patch configures parents for clk_out_1 and extern1 clocks if device
+tree does not specify clock parents inorder to support old device tree
+and controls mclk using both clk_out_1 and extern1 clocks.
 
 Signed-off-by: Sowjanya Komatineni <skomatineni@nvidia.com>
 ---
- include/dt-bindings/clock/tegra114-car.h        | 14 +++++++-------
- include/dt-bindings/clock/tegra124-car-common.h | 14 +++++++-------
- include/dt-bindings/clock/tegra20-car.h         |  2 +-
- include/dt-bindings/clock/tegra210-car.h        | 14 +++++++-------
- include/dt-bindings/clock/tegra30-car.h         | 14 +++++++-------
- 5 files changed, 29 insertions(+), 29 deletions(-)
+ sound/soc/tegra/tegra_asoc_utils.c | 66 ++++++++++++++++++++++++++++++++++++++
+ sound/soc/tegra/tegra_asoc_utils.h |  1 +
+ 2 files changed, 67 insertions(+)
 
-diff --git a/include/dt-bindings/clock/tegra114-car.h b/include/dt-bindings/clock/tegra114-car.h
-index bb5c2c999c05..9175cd0571b5 100644
---- a/include/dt-bindings/clock/tegra114-car.h
-+++ b/include/dt-bindings/clock/tegra114-car.h
-@@ -270,10 +270,10 @@
- #define TEGRA114_CLK_AUDIO3 242
- #define TEGRA114_CLK_AUDIO4 243
- #define TEGRA114_CLK_SPDIF 244
--#define TEGRA114_CLK_CLK_OUT_1 245
--#define TEGRA114_CLK_CLK_OUT_2 246
--#define TEGRA114_CLK_CLK_OUT_3 247
--#define TEGRA114_CLK_BLINK 248
-+/* 245 */
-+/* 246 */
-+/* 247 */
-+/* 248 */
- /* 249 */
- /* 250 */
- /* 251 */
-@@ -333,9 +333,9 @@
- #define TEGRA114_CLK_AUDIO3_MUX 303
- #define TEGRA114_CLK_AUDIO4_MUX 304
- #define TEGRA114_CLK_SPDIF_MUX 305
--#define TEGRA114_CLK_CLK_OUT_1_MUX 306
--#define TEGRA114_CLK_CLK_OUT_2_MUX 307
--#define TEGRA114_CLK_CLK_OUT_3_MUX 308
-+/* 306 */
-+/* 307 */
-+/* 308 */
- #define TEGRA114_CLK_DSIA_MUX 309
- #define TEGRA114_CLK_DSIB_MUX 310
- #define TEGRA114_CLK_XUSB_SS_DIV2 311
-diff --git a/include/dt-bindings/clock/tegra124-car-common.h b/include/dt-bindings/clock/tegra124-car-common.h
-index 0c4f5be0a742..90a0c5e7eb5f 100644
---- a/include/dt-bindings/clock/tegra124-car-common.h
-+++ b/include/dt-bindings/clock/tegra124-car-common.h
-@@ -269,10 +269,10 @@
- #define TEGRA124_CLK_AUDIO3 242
- #define TEGRA124_CLK_AUDIO4 243
- #define TEGRA124_CLK_SPDIF 244
--#define TEGRA124_CLK_CLK_OUT_1 245
--#define TEGRA124_CLK_CLK_OUT_2 246
--#define TEGRA124_CLK_CLK_OUT_3 247
--#define TEGRA124_CLK_BLINK 248
-+/* 245 */
-+/* 246 */
-+/* 247 */
-+/* 248 */
- /* 249 */
- /* 250 */
- /* 251 */
-@@ -332,9 +332,9 @@
- #define TEGRA124_CLK_AUDIO3_MUX 303
- #define TEGRA124_CLK_AUDIO4_MUX 304
- #define TEGRA124_CLK_SPDIF_MUX 305
--#define TEGRA124_CLK_CLK_OUT_1_MUX 306
--#define TEGRA124_CLK_CLK_OUT_2_MUX 307
--#define TEGRA124_CLK_CLK_OUT_3_MUX 308
-+/* 306 */
-+/* 307 */
-+/* 308 */
- /* 309 */
- /* 310 */
- #define TEGRA124_CLK_SOR0_LVDS 311 /* deprecated */
-diff --git a/include/dt-bindings/clock/tegra20-car.h b/include/dt-bindings/clock/tegra20-car.h
-index b21a0eb32921..fe541f627965 100644
---- a/include/dt-bindings/clock/tegra20-car.h
-+++ b/include/dt-bindings/clock/tegra20-car.h
-@@ -131,7 +131,7 @@
- #define TEGRA20_CLK_CCLK 108
- #define TEGRA20_CLK_HCLK 109
- #define TEGRA20_CLK_PCLK 110
--#define TEGRA20_CLK_BLINK 111
-+/* 111 */
- #define TEGRA20_CLK_PLL_A 112
- #define TEGRA20_CLK_PLL_A_OUT0 113
- #define TEGRA20_CLK_PLL_C 114
-diff --git a/include/dt-bindings/clock/tegra210-car.h b/include/dt-bindings/clock/tegra210-car.h
-index 44f60623f99b..a3d8d3e75728 100644
---- a/include/dt-bindings/clock/tegra210-car.h
-+++ b/include/dt-bindings/clock/tegra210-car.h
-@@ -304,10 +304,10 @@
- #define TEGRA210_CLK_AUDIO3 274
- #define TEGRA210_CLK_AUDIO4 275
- #define TEGRA210_CLK_SPDIF 276
--#define TEGRA210_CLK_CLK_OUT_1 277
--#define TEGRA210_CLK_CLK_OUT_2 278
--#define TEGRA210_CLK_CLK_OUT_3 279
--#define TEGRA210_CLK_BLINK 280
-+/* 277 */
-+/* 278 */
-+/* 279 */
-+/* 280 */
- #define TEGRA210_CLK_SOR0_LVDS 281 /* deprecated */
- #define TEGRA210_CLK_SOR0_OUT 281
- #define TEGRA210_CLK_SOR1_OUT 282
-@@ -386,9 +386,9 @@
- #define TEGRA210_CLK_AUDIO3_MUX 353
- #define TEGRA210_CLK_AUDIO4_MUX 354
- #define TEGRA210_CLK_SPDIF_MUX 355
--#define TEGRA210_CLK_CLK_OUT_1_MUX 356
--#define TEGRA210_CLK_CLK_OUT_2_MUX 357
--#define TEGRA210_CLK_CLK_OUT_3_MUX 358
-+/* 356 */
-+/* 357 */
-+/* 358 */
- #define TEGRA210_CLK_DSIA_MUX 359
- #define TEGRA210_CLK_DSIB_MUX 360
- /* 361 */
-diff --git a/include/dt-bindings/clock/tegra30-car.h b/include/dt-bindings/clock/tegra30-car.h
-index 3c90f1535551..20ef2462d9e1 100644
---- a/include/dt-bindings/clock/tegra30-car.h
-+++ b/include/dt-bindings/clock/tegra30-car.h
-@@ -230,11 +230,11 @@
- #define TEGRA30_CLK_AUDIO3 204
- #define TEGRA30_CLK_AUDIO4 205
- #define TEGRA30_CLK_SPDIF 206
--#define TEGRA30_CLK_CLK_OUT_1 207 /* (extern1) */
--#define TEGRA30_CLK_CLK_OUT_2 208 /* (extern2) */
--#define TEGRA30_CLK_CLK_OUT_3 209 /* (extern3) */
-+/* 207 */
-+/* 208 */
-+/* 209 */
- #define TEGRA30_CLK_SCLK 210
--#define TEGRA30_CLK_BLINK 211
-+/* 211 */
- #define TEGRA30_CLK_CCLK_G 212
- #define TEGRA30_CLK_CCLK_LP 213
- #define TEGRA30_CLK_TWD 214
-@@ -260,9 +260,9 @@
- /* 297 */
- /* 298 */
- /* 299 */
--#define TEGRA30_CLK_CLK_OUT_1_MUX 300
--#define TEGRA30_CLK_CLK_OUT_2_MUX 301
--#define TEGRA30_CLK_CLK_OUT_3_MUX 302
-+/* 300 */
-+/* 301 */
-+/* 302 */
- #define TEGRA30_CLK_AUDIO0_MUX 303
- #define TEGRA30_CLK_AUDIO1_MUX 304
- #define TEGRA30_CLK_AUDIO2_MUX 305
+diff --git a/sound/soc/tegra/tegra_asoc_utils.c b/sound/soc/tegra/tegra_asoc_utils.c
+index 536a578e9512..8e3a3740df7c 100644
+--- a/sound/soc/tegra/tegra_asoc_utils.c
++++ b/sound/soc/tegra/tegra_asoc_utils.c
+@@ -60,6 +60,7 @@ int tegra_asoc_utils_set_rate(struct tegra_asoc_utils_data *data, int srate,
+ 	data->set_mclk = 0;
+ 
+ 	clk_disable_unprepare(data->clk_cdev1);
++	clk_disable_unprepare(data->clk_extern1);
+ 	clk_disable_unprepare(data->clk_pll_a_out0);
+ 	clk_disable_unprepare(data->clk_pll_a);
+ 
+@@ -89,6 +90,14 @@ int tegra_asoc_utils_set_rate(struct tegra_asoc_utils_data *data, int srate,
+ 		return err;
+ 	}
+ 
++	if (!IS_ERR_OR_NULL(data->clk_extern1)) {
++		err = clk_prepare_enable(data->clk_extern1);
++		if (err) {
++			dev_err(data->dev, "Can't enable extern1: %d\n", err);
++			return err;
++		}
++	}
++
+ 	err = clk_prepare_enable(data->clk_cdev1);
+ 	if (err) {
+ 		dev_err(data->dev, "Can't enable cdev1: %d\n", err);
+@@ -109,6 +118,7 @@ int tegra_asoc_utils_set_ac97_rate(struct tegra_asoc_utils_data *data)
+ 	int err;
+ 
+ 	clk_disable_unprepare(data->clk_cdev1);
++	clk_disable_unprepare(data->clk_extern1);
+ 	clk_disable_unprepare(data->clk_pll_a_out0);
+ 	clk_disable_unprepare(data->clk_pll_a);
+ 
+@@ -142,6 +152,14 @@ int tegra_asoc_utils_set_ac97_rate(struct tegra_asoc_utils_data *data)
+ 		return err;
+ 	}
+ 
++	if (!IS_ERR_OR_NULL(data->clk_extern1)) {
++		err = clk_prepare_enable(data->clk_extern1);
++		if (err) {
++			dev_err(data->dev, "Can't enable extern1: %d\n", err);
++			return err;
++		}
++	}
++
+ 	err = clk_prepare_enable(data->clk_cdev1);
+ 	if (err) {
+ 		dev_err(data->dev, "Can't enable cdev1: %d\n", err);
+@@ -158,6 +176,7 @@ EXPORT_SYMBOL_GPL(tegra_asoc_utils_set_ac97_rate);
+ int tegra_asoc_utils_init(struct tegra_asoc_utils_data *data,
+ 			  struct device *dev)
+ {
++	struct clk *clk_out_1_mux;
+ 	int ret;
+ 
+ 	data->dev = dev;
+@@ -196,6 +215,51 @@ int tegra_asoc_utils_init(struct tegra_asoc_utils_data *data,
+ 		goto err_put_pll_a_out0;
+ 	}
+ 
++	/*
++	 * If clock parents are not set in DT, configure here to use clk_out_1
++	 * as mclk and extern1 as parent for Tegra30 and higher.
++	 */
++	if (!of_find_property(dev->of_node, "assigned-clock-parents", NULL) &&
++	    data->soc > TEGRA_ASOC_UTILS_SOC_TEGRA20) {
++		data->clk_extern1 = clk_get_sys("clk_out_1", "extern1");
++		if (IS_ERR(data->clk_extern1)) {
++			dev_err(data->dev, "Can't retrieve clk extern1\n");
++			ret = PTR_ERR(data->clk_extern1);
++			goto err_put_cdev1;
++		}
++
++		ret = clk_set_parent(data->clk_extern1, data->clk_pll_a_out0);
++		if (ret < 0) {
++			dev_err(data->dev,
++				"Set parent failed for clk extern1: %d\n",
++				ret);
++			goto err_put_cdev1;
++		}
++
++		clk_out_1_mux = clk_get_sys(NULL, "clk_out_1_mux");
++		if (IS_ERR(clk_out_1_mux)) {
++			dev_err(data->dev, "Can't retrieve clk clk_out_1_mux\n");
++			ret = PTR_ERR(clk_out_1_mux);
++			goto err_put_cdev1;
++		}
++
++		ret = clk_set_parent(clk_out_1_mux, data->clk_extern1);
++		if (ret < 0) {
++			dev_err(data->dev,
++				"Set parent failed for clk_out_1_mux: %d\n",
++				ret);
++			clk_put(clk_out_1_mux);
++			goto err_put_cdev1;
++		}
++
++		data->clk_cdev1 = clk_get_sys(NULL, "clk_out_1");
++		if (IS_ERR(data->clk_cdev1)) {
++			dev_err(data->dev, "Can't retrieve clk clk_out_1\n");
++			ret = PTR_ERR(data->clk_cdev1);
++			goto err_put_cdev1;
++		}
++	}
++
+ 	ret = tegra_asoc_utils_set_rate(data, 44100, 256 * 44100);
+ 	if (ret)
+ 		goto err_put_cdev1;
+@@ -215,6 +279,8 @@ EXPORT_SYMBOL_GPL(tegra_asoc_utils_init);
+ 
+ void tegra_asoc_utils_fini(struct tegra_asoc_utils_data *data)
+ {
++	if (!IS_ERR_OR_NULL(data->clk_extern1))
++		clk_put(data->clk_extern1);
+ 	clk_put(data->clk_cdev1);
+ 	clk_put(data->clk_pll_a_out0);
+ 	clk_put(data->clk_pll_a);
+diff --git a/sound/soc/tegra/tegra_asoc_utils.h b/sound/soc/tegra/tegra_asoc_utils.h
+index 0c13818dee75..5f2b96478caf 100644
+--- a/sound/soc/tegra/tegra_asoc_utils.h
++++ b/sound/soc/tegra/tegra_asoc_utils.h
+@@ -25,6 +25,7 @@ struct tegra_asoc_utils_data {
+ 	struct clk *clk_pll_a;
+ 	struct clk *clk_pll_a_out0;
+ 	struct clk *clk_cdev1;
++	struct clk *clk_extern1;
+ 	int set_baseclock;
+ 	int set_mclk;
+ };
 -- 
 2.7.4
 

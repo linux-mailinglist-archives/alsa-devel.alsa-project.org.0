@@ -2,66 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03F2011614F
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Dec 2019 10:51:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3571116337
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Dec 2019 18:33:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 929421662;
-	Sun,  8 Dec 2019 10:50:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 929421662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C8251664;
+	Sun,  8 Dec 2019 18:32:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C8251664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575798703;
-	bh=jH6baPymFAZ0uiPVV4jeb4WNknF/HeaYlGfWsA804eY=;
+	s=default; t=1575826401;
+	bh=0iZXSPLxzPyZIDvtc1Q7KxVo9PVBMH0sw09cRusHkZw=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YtvA3Osry0gsmJnPc1A5d1pDlccfAWoJZURN1aUJ9eHaoRyNjM450NvAG6j4u0lav
-	 Rm/q4PTTbJnhZv0C999VHNIwU3eSR7fPnhEuC/eDgrklduxR7Eaj2ozfXYKyT/x+4H
-	 sqmgg1EW8lvOsimaWt1+ouemi4A9u6iqJtaAQwfI=
+	b=qXZPwi9hUnrteeJL3vRuM/iJGgnT4blU4/I2v3FNP+ImSnSJxfNRDVUKKW/i5OpSI
+	 OjZcW2HcthJPqaqvuXbH88c44nfYJqQK86cyyYrE+BbCTz0DCNe1HsCyHWfZZzmgn9
+	 RTuZuqxqLZb4R5XK5bXoJsUb01yA4+a23UrpteYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 05879F801D8;
-	Sun,  8 Dec 2019 10:50:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 65371F80248;
+	Sun,  8 Dec 2019 18:31:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 45FBFF80217; Sun,  8 Dec 2019 10:49:57 +0100 (CET)
+ id 5BD52F80217; Sun,  8 Dec 2019 18:31:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
- SPF_PASS,SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from tschil.ethgen.ch (tschil.ethgen.ch [5.9.7.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E97BBF8011E
- for <alsa-devel@alsa-project.org>; Sun,  8 Dec 2019 10:49:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E97BBF8011E
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Dec 2019 01:49:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,291,1571727600"; d="scan'208";a="209847408"
-Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
- by fmsmga007.fm.intel.com with ESMTP; 08 Dec 2019 01:49:49 -0800
-Received: from kbuild by lkp-server01 with local (Exim 4.89)
- (envelope-from <lkp@intel.com>)
- id 1idtCG-000DJo-NY; Sun, 08 Dec 2019 17:49:48 +0800
-Date: Sun, 8 Dec 2019 17:49:02 +0800
-From: kbuild test robot <lkp@intel.com>
-To: Daniel Mack <daniel@zonque.org>
-Message-ID: <201912081730.7HtJgBNH%lkp@intel.com>
-References: <20191205092129.692520-2-daniel@zonque.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5F0B0F800C4
+ for <alsa-devel@alsa-project.org>; Sun,  8 Dec 2019 18:31:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F0B0F800C4
+Received: from [192.168.17.4] (helo=ikki.ket)
+ by tschil.ethgen.ch with esmtpsa (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <klaus@ethgen.ch>)
+ id 1ie0P2-0006pa-25; Sun, 08 Dec 2019 18:31:28 +0100
+Received: from klaus by ikki.ket with local (Exim 4.93-RC7)
+ (envelope-from <klaus@ethgen.ch>)
+ id 1ie0P1-0005Zb-Kw; Sun, 08 Dec 2019 18:31:27 +0100
+Date: Sun, 8 Dec 2019 18:31:27 +0100
+From: Klaus Ethgen <Klaus@ethgen.ch>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20191208173127.GE4433@ikki.ethgen.ch>
+References: <20191202184759.GB29478@ikki.ethgen.ch>
+ <s5hy2vsjbm3.wl-tiwai@suse.de>
+ <20191207200643.GA10092@ikki.ethgen.ch>
+ <s5h4kybciir.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191205092129.692520-2-daniel@zonque.org>
-User-Agent: NeoMutt/20170113 (1.7.2)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- kbuild-all@lists.01.org, Daniel Mack <daniel@zonque.org>
-Subject: Re: [alsa-devel] [PATCH v2 2/2] ASoC: simple-card: add support
-	for	codec-to-codec links
+In-Reply-To: <s5h4kybciir.wl-tiwai@suse.de>
+OpenPGP: id=79D0B06F4E20AF1C;
+ url=http://www.ethgen.ch/~klaus/79D0B06F4E20AF1C.txt; preference=signencrypt
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] CPU hook snd_hda_intel
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,79 +70,83 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5976719492091187886=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Daniel,
 
-I love your patch! Perhaps something to improve:
-
-[auto build test WARNING on sound/for-next]
-[also build test WARNING on asoc/for-next v5.4 next-20191208]
-[if your patch is applied to the wrong git tree, please drop us a note to help
-improve the system. BTW, we also suggest to use '--base' option to specify the
-base tree in git format-patch, please see https://stackoverflow.com/a/37406982]
-
-url:    https://github.com/0day-ci/linux/commits/Daniel-Mack/ALSA-core-add-snd_pcm_format_by_name/20191207-084912
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-reproduce:
-        # apt-get install sparse
-        # sparse version: v0.6.1-91-g817270f-dirty
-        make ARCH=x86_64 allmodconfig
-        make C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__'
-
-If you fix the issue, kindly add following tag
-Reported-by: kbuild test robot <lkp@intel.com>
+--===============5976719492091187886==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hwvH6HDNit2nSK4j"
+Content-Disposition: inline
 
 
-sparse warnings: (new ones prefixed by >>)
+--hwvH6HDNit2nSK4j
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 
->> sound/soc/generic/simple-card-utils.c:79:49: sparse: sparse: restricted snd_pcm_format_t degrades to integer
+Hi Takashi,
 
-vim +79 sound/soc/generic/simple-card-utils.c
+Am So den  8. Dez 2019 um  9:45 schrieb Takashi Iwai:
+> On Sat, 07 Dec 2019 21:06:43 +0100,
+> > Find attached the perf output of the relevant event handler.
+> 
+> Thanks.  So it seems wasting in the busy loop for waiting for the
+> response from the codec.
+> 
+> How about a patch below?  It's untested, might break things, but at
+> least avoiding a busy loop.
 
-    54	
-    55	void asoc_simple_parse_c2c_params(struct device *dev,
-    56					  struct device_node *np,
-    57					  char *prefix,
-    58					  struct snd_soc_pcm_stream *dest)
-    59	{
-    60		unsigned int rate, channels;
-    61		const char *format_string;
-    62		snd_pcm_format_t format;
-    63		char prop[128];
-    64		int ret;
-    65	
-    66		if (!prefix)
-    67			prefix = "";
-    68	
-    69		snprintf(prop, sizeof(prop), "%s%s", prefix, "codec-to-codec-rate");
-    70		of_property_read_u32(np, prop, &rate);
-    71	
-    72		snprintf(prop, sizeof(prop), "%s%s", prefix, "codec-to-codec-channels");
-    73		of_property_read_u32(np, prop, &channels);
-    74	
-    75		snprintf(prop, sizeof(prop), "%s%s", prefix, "codec-to-codec-format");
-    76		if (!of_property_read_string(np, prop, &format_string)) {
-    77			ret = snd_pcm_format_by_name(format_string, &format);
-    78			if (ret == 0) {
-  > 79				dest->formats = 1ULL << format;
-    80				dest->channels_min = dest->channels_max = channels;
-    81				dest->rate_min = dest->rate_max = rate;
-    82			} else {
-    83				dev_err(dev, "unknown dai format %s\n", format_string);
-    84			}
-    85		}
-    86	}
-    87	EXPORT_SYMBOL_GPL(asoc_simple_parse_c2c_params);
-    88	
+I'll give it a try. Kernel is compiling right now. It might be hard to
+see if the patch is working but I suppose that it do when I don't have
+that trouble within a week or so.
 
----
-0-DAY kernel test infrastructure                 Open Source Technology Center
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org Intel Corporation
+> BTW, if your machine is Coffeelake or Cannonlake, this patch wont'
+> work on the old branch because of forced polling mode.  It was removed
+> in 5.5-rc1, so please test with Linus tree at best.
+
+I hardly have such new Architectures on that laptop. It is a lenovo x61s
+so it is from latest 2009. It has a Intel Core 2 Duo LV (Merom). :-)
+
+I actually check it with gentoo kernel source 5.4.2.
+
+Regards
+   Klaus
+-- 
+Klaus Ethgen                                       http://www.ethgen.ch/
+pub  4096R/4E20AF1C 2011-05-16            Klaus Ethgen <Klaus@Ethgen.ch>
+Fingerprint: 85D4 CA42 952C 949B 1753  62B3 79D0 B06F 4E20 AF1C
+
+--hwvH6HDNit2nSK4j
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Comment: Charset: ISO-8859-1
+
+iQGzBAABCgAdFiEEMWF28vh4/UMJJLQEpnwKsYAZ9qwFAl3tM2sACgkQpnwKsYAZ
+9qxezwv/TKUYdEQcfFaeoCICIpGGgCXJavMD79GEh/rFvr727HX4+oha4G7gFrOU
+93x93Bi5UyP9wSDZOlz5VcqnpsXu+/5n/HWS/FwYUGJ7GEuYT08JqEmu8N1Q4tiP
+UvgzeshLU4EazNdk2CAZmfnR9VlRCkD379MHeFQr4n9nSonSfhCQtiTPcaO5AqVm
+MRi+9s01t6e8za7LomtzzsoY7MkjX1S8eidKT8ZdLaJ+wLMQWLB/75jiKDDiKQca
+wcMmoocrJ/lr+jbzGCsSmBoAHC8FqPuJuBeGpaqtdBCK2MNL5iKSch4+3DeyilcI
+DC1wAaig4Xibw1lFN76uj4cK4wghGT7UHpNutVhUEQT3lxTBrLMXjT9hX+K2jD0m
+Lzsrx+MDIa4erViPOiuf/B+QMIg8/2J53BrmDgYkbA4M1kGJxdfHLxjTrflAR+Wj
+qHHUO94PnZtZymZHE0kiOajJmHFie9j005BofFjBXWpSzwj/QMHCZNgJlDuwljj7
+GLrPpDi3
+=3mAg
+-----END PGP SIGNATURE-----
+
+--hwvH6HDNit2nSK4j--
+
+--===============5976719492091187886==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============5976719492091187886==--

@@ -2,66 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FD94116112
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Dec 2019 07:41:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0428116135
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Dec 2019 09:47:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9184C1660;
-	Sun,  8 Dec 2019 07:41:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9184C1660
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6183C1666;
+	Sun,  8 Dec 2019 09:46:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6183C1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575787311;
-	bh=Q5st93JBsnGWr1tkQyFE7XBAStSva2/VXS25ydd4iOE=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575794860;
+	bh=VIkptO/iTvAJEyBBmaCbthanspHaVT3BCOL9wMidkCI=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iaB9XcWAKyhS9y32bh//aqFC02+uwCTSOIKIjQWtFH2JZJjwEKRyCJE+0QZIX/n6u
-	 Fg54FJ82vPZWE0uH3WBNbKNAN1G8VSDfCe8vJqLH6La8oT0NSMkyuxH95TtB3+oJa3
-	 Fgc6spXaBKmQQQnzCjHmzw51q5aCsXPxpLJ+wDxM=
+	b=ArAs8o9dKFLUjsjAm7CmHUfkTVNkUhRsgNXaDS+g8jPSmqfyc3aD7KWT544KAKl0B
+	 fIbz6XvS916pKmtQnQ274QjAiGYO/Cz7bJzhmchvXg2nDH2k6D2HPIEqRzGRaF6g/w
+	 va4YnkYntSj7gcZ2DLnb6681624roexQj4mdIMa4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CCE79F80249;
-	Sun,  8 Dec 2019 07:40:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C0AC8F80249;
+	Sun,  8 Dec 2019 09:45:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F008F80217; Sun,  8 Dec 2019 07:40:04 +0100 (CET)
+ id 57372F80217; Sun,  8 Dec 2019 09:45:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_14,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C2200F800C7
- for <alsa-devel@alsa-project.org>; Sun,  8 Dec 2019 07:39:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2200F800C7
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Dec 2019 22:39:53 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,291,1571727600"; d="scan'208";a="206567514"
-Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
- by orsmga008.jf.intel.com with ESMTP; 07 Dec 2019 22:39:51 -0800
-Received: from kbuild by lkp-server01 with local (Exim 4.89)
- (envelope-from <lkp@intel.com>)
- id 1idqER-0008pg-8W; Sun, 08 Dec 2019 14:39:51 +0800
-Date: Sun, 8 Dec 2019 14:39:16 +0800
-From: kbuild test robot <lkp@intel.com>
-To: Daniel Mack <daniel@zonque.org>
-Message-ID: <201912081414.jnn8qiwO%lkp@intel.com>
-References: <20191205092129.692520-1-daniel@zonque.org>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191205092129.692520-1-daniel@zonque.org>
-User-Agent: NeoMutt/20170113 (1.7.2)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
- kbuild-all@lists.01.org, Daniel Mack <daniel@zonque.org>
-Subject: Re: [alsa-devel] [PATCH v2 1/2] ALSA: core: add
- snd_pcm_format_by_name()
+ by alsa1.perex.cz (Postfix) with ESMTPS id 684DAF800C4
+ for <alsa-devel@alsa-project.org>; Sun,  8 Dec 2019 09:45:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 684DAF800C4
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 15AA8ABC4;
+ Sun,  8 Dec 2019 08:45:49 +0000 (UTC)
+Date: Sun, 08 Dec 2019 09:45:48 +0100
+Message-ID: <s5h4kybciir.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Klaus Ethgen <Klaus@ethgen.ch>
+In-Reply-To: <20191207200643.GA10092@ikki.ethgen.ch>
+References: <20191202184759.GB29478@ikki.ethgen.ch>
+ <s5hy2vsjbm3.wl-tiwai@suse.de>
+ <20191207200643.GA10092@ikki.ethgen.ch>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] CPU hook snd_hda_intel
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,65 +71,137 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Daniel,
+On Sat, 07 Dec 2019 21:06:43 +0100,
+Klaus Ethgen wrote:
+> 
+> Hi Takashi,
+> 
+> Am Mi den  4. Dez 2019 um 17:31 schrieb Takashi Iwai:
+> > I guess checking the perf output would give you more clue, e.g. which
+> > function is hogging the CPU.  Without such information, it's very hard
+> > to diagnose...
+> 
+> No problem, I just had the problem today again.
+> 
+> Find attached the perf output of the relevant event handler.
 
-I love your patch! Perhaps something to improve:
+Thanks.  So it seems wasting in the busy loop for waiting for the
+response from the codec.
 
-[auto build test WARNING on sound/for-next]
-[also build test WARNING on asoc/for-next v5.4 next-20191207]
-[if your patch is applied to the wrong git tree, please drop us a note to help
-improve the system. BTW, we also suggest to use '--base' option to specify the
-base tree in git format-patch, please see https://stackoverflow.com/a/37406982]
+How about a patch below?  It's untested, might break things, but at
+least avoiding a busy loop.
 
-url:    https://github.com/0day-ci/linux/commits/Daniel-Mack/ALSA-core-add-snd_pcm_format_by_name/20191207-084912
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git for-next
-reproduce:
-        # apt-get install sparse
-        # sparse version: v0.6.1-91-g817270f-dirty
-        make ARCH=x86_64 allmodconfig
-        make C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__'
-
-If you fix the issue, kindly add following tag
-Reported-by: kbuild test robot <lkp@intel.com>
+BTW, if your machine is Coffeelake or Cannonlake, this patch wont'
+work on the old branch because of forced polling mode.  It was removed
+in 5.5-rc1, so please test with Linus tree at best.
 
 
-sparse warnings: (new ones prefixed by >>)
+Takashi
 
->> sound/core/pcm.c:243:33: sparse: sparse: incorrect type in assignment (different base types) @@    expected restricted snd_pcm_format_t [usertype] @@    got t_t [usertype] @@
->> sound/core/pcm.c:243:33: sparse:    expected restricted snd_pcm_format_t [usertype]
->> sound/core/pcm.c:243:33: sparse:    got int [assigned] i
-   sound/core/pcm.c:1022:9: sparse: sparse: context imbalance in 'snd_pcm_detach_substream' - different lock contexts for basic block
-
-vim +243 sound/core/pcm.c
-
-   227	
-   228	/**
-   229	 * snd_pcm_format_by_name - Return the PCM format code for the given name
-   230	 * @name: PCM format name ('S16_LE', 'S24_3LE', ...)
-   231	 * @format: Pointer to returned PCM format code
-   232	 *
-   233	 * The string comparison is done in a case-insensitive way.
-   234	 *
-   235	 * Return: 0 on success, or -ENOENT if the given format is not valid.
-   236	 */
-   237	int snd_pcm_format_by_name(const char *name, snd_pcm_format_t *format)
-   238	{
-   239		int i;
-   240	
-   241		for (i = 0; i < ARRAY_SIZE(snd_pcm_format_names); i++)
-   242			if (strcasecmp(name, snd_pcm_format_names[i]) == 0) {
- > 243				*format = i;
-   244				return 0;
-   245			}
-   246	
-   247		return -ENOENT;
-   248	}
-   249	EXPORT_SYMBOL_GPL(snd_pcm_format_by_name);
-   250	
-
----
-0-DAY kernel test infrastructure                 Open Source Technology Center
-https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org Intel Corporation
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -317,6 +317,7 @@ struct hdac_bus {
+ 	struct hdac_rb corb;
+ 	struct hdac_rb rirb;
+ 	unsigned int last_cmd[HDA_MAX_CODECS];	/* last sent command */
++	wait_queue_head_t rirb_waitq;
+ 
+ 	/* CORB/RIRB and position buffers */
+ 	struct snd_dma_buffer rb;
+diff --git a/sound/hda/hdac_bus.c b/sound/hda/hdac_bus.c
+index 8f19876244eb..5eb58fce5353 100644
+--- a/sound/hda/hdac_bus.c
++++ b/sound/hda/hdac_bus.c
+@@ -43,6 +43,7 @@ int snd_hdac_bus_init(struct hdac_bus *bus, struct device *dev,
+ 	mutex_init(&bus->cmd_mutex);
+ 	mutex_init(&bus->lock);
+ 	INIT_LIST_HEAD(&bus->hlink_list);
++	init_waitqueue_head(&bus->rirb_waitq);
+ 	bus->irq = -1;
+ 	return 0;
+ }
+diff --git a/sound/hda/hdac_controller.c b/sound/hda/hdac_controller.c
+index 7e7be8e4dcf9..cd8fa9aa599d 100644
+--- a/sound/hda/hdac_controller.c
++++ b/sound/hda/hdac_controller.c
+@@ -216,6 +216,9 @@ void snd_hdac_bus_update_rirb(struct hdac_bus *bus)
+ 		else if (bus->rirb.cmds[addr]) {
+ 			bus->rirb.res[addr] = res;
+ 			bus->rirb.cmds[addr]--;
++			if (!bus->rirb.cmds[addr] &&
++			    waitqueue_active(&bus->rirb_waitq))
++				wake_up(&bus->rirb_waitq);
+ 		} else {
+ 			dev_err_ratelimited(bus->dev,
+ 				"spurious response %#x:%#x, last cmd=%#08x\n",
+diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+index 2f3b7a35f2d9..56cafd12fa8a 100644
+--- a/sound/pci/hda/hda_controller.c
++++ b/sound/pci/hda/hda_controller.c
+@@ -792,21 +792,25 @@ static int azx_rirb_get_response(struct hdac_bus *bus, unsigned int addr,
+ 	struct hda_bus *hbus = &chip->bus;
+ 	unsigned long timeout;
+ 	unsigned long loopcounter;
+-	int do_poll = 0;
++	wait_queue_entry_t wait;
+ 	bool warned = false;
+ 
++	init_wait_entry(&wait, 0);
+  again:
+ 	timeout = jiffies + msecs_to_jiffies(1000);
+ 
+ 	for (loopcounter = 0;; loopcounter++) {
+ 		spin_lock_irq(&bus->reg_lock);
+-		if (bus->polling_mode || do_poll)
++		if (!bus->polling_mode)
++			prepare_to_wait(&bus->rirb_waitq, &wait,
++					TASK_UNINTERRUPTIBLE);
++		if (bus->polling_mode)
+ 			snd_hdac_bus_update_rirb(bus);
+ 		if (!bus->rirb.cmds[addr]) {
+-			if (!do_poll)
+-				bus->poll_count = 0;
+ 			if (res)
+ 				*res = bus->rirb.res[addr]; /* the last value */
++			if (!bus->polling_mode)
++				finish_wait(&bus->rirb_waitq, &wait);
+ 			spin_unlock_irq(&bus->reg_lock);
+ 			return 0;
+ 		}
+@@ -814,7 +818,9 @@ static int azx_rirb_get_response(struct hdac_bus *bus, unsigned int addr,
+ 		if (time_after(jiffies, timeout))
+ 			break;
+ #define LOOP_COUNT_MAX	3000
+-		if (hbus->needs_damn_long_delay ||
++		if (!bus->polling_mode) {
++			schedule_timeout(msecs_to_jiffies(2));
++		} else if (hbus->needs_damn_long_delay ||
+ 		    loopcounter > LOOP_COUNT_MAX) {
+ 			if (loopcounter > LOOP_COUNT_MAX && !warned) {
+ 				dev_dbg_ratelimited(chip->card->dev,
+@@ -829,19 +835,12 @@ static int azx_rirb_get_response(struct hdac_bus *bus, unsigned int addr,
+ 		}
+ 	}
+ 
++	if (!bus->polling_mode)
++		finish_wait(&bus->rirb_waitq, &wait);
++
+ 	if (hbus->no_response_fallback)
+ 		return -EIO;
+ 
+-	if (!bus->polling_mode && bus->poll_count < 2) {
+-		dev_dbg(chip->card->dev,
+-			"azx_get_response timeout, polling the codec once: last cmd=0x%08x\n",
+-			bus->last_cmd[addr]);
+-		do_poll = 1;
+-		bus->poll_count++;
+-		goto again;
+-	}
+-
+-
+ 	if (!bus->polling_mode) {
+ 		dev_warn(chip->card->dev,
+ 			 "azx_get_response timeout, switching to polling mode: last cmd=0x%08x\n",
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

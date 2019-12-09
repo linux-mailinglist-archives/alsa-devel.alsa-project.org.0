@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A7AF117535
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:08:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D3AA117536
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:09:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 158E21698;
-	Mon,  9 Dec 2019 20:07:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 158E21698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 320DD16A0;
+	Mon,  9 Dec 2019 20:08:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 320DD16A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575918526;
-	bh=EN8zzzFIOu5gI1Gh0d4qlZgjdz4nDBf2Z6jTxu4qAtE=;
+	s=default; t=1575918567;
+	bh=Nj1SvI4KlFjxLuzkGrcekd/L18VB1XGTzNSmNn28084=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=guTyjTQO6zvsDkOnd6Z9Zf+Jg5FL9OpRb04jgPbjsokAsvNNycbB9TDGNlmWKOCs+
-	 rOUV+y+s41yC0sjOOIL3Z/IuEi5XW7FOPC1MM54VeD6Bp8GSkMbv+8brIf/HXxNFzd
-	 o2NZT9mIfuQtar61rgIHk79t0Beq/APXu9HR3Jcw=
+	b=FkpXgZ3sgfpKjhnx13Ev2RV7wleJNFdSyk7FASpAgR42GpNZvA86cRaQXFah8EAOw
+	 E6aYXE8JfotWFL+S/n+DmPFYhjlxUaEvUyA0wCP9eTP2DNBbrPSQyH5Lgj/9RI1bjX
+	 D9ZZ7Zt4hR+gRbE5bKjIUBdJNBzfOuNYlHNStyRw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BA69DF80305;
-	Mon,  9 Dec 2019 19:59:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7D52CF80308;
+	Mon,  9 Dec 2019 19:59:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 109D1F802A2; Mon,  9 Dec 2019 19:59:11 +0100 (CET)
+ id 35DADF802C3; Mon,  9 Dec 2019 19:59:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 17D73F8029A
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:59:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17D73F8029A
+ by alsa1.perex.cz (Postfix) with ESMTP id DD70AF802A0
+ for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:59:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD70AF802A0
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 30F741396;
- Mon,  9 Dec 2019 10:59:06 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9B4B311D4;
+ Mon,  9 Dec 2019 10:59:08 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A430C3F6CF;
- Mon,  9 Dec 2019 10:59:05 -0800 (PST)
-Date: Mon, 09 Dec 2019 18:59:04 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1B7B63F6CF;
+ Mon,  9 Dec 2019 10:59:07 -0800 (PST)
+Date: Mon, 09 Dec 2019 18:59:06 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Jaroslav Kysela <perex@perex.cz>
-In-Reply-To: <20191204211556.12671-2-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191204211556.12671-2-pierre-louis.bossart@linux.intel.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20191206103542.485224-1-jbrunet@baylibre.com>
+Message-Id: <applied-20191206103542.485224-1-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: intel/skl/hda - export number of
-	digital microphones via control components" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] Applied "ASoC: hdmi-codec: re-introduce mutex locking
+	again" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: intel/skl/hda - export number of digital microphones via control components
+   ASoC: hdmi-codec: re-introduce mutex locking again
 
 has been applied to the asoc tree at
 
@@ -95,71 +95,104 @@ to this mail.
 Thanks,
 Mark
 
-From 8cd9956f61c65022209ce6d1e55ed12aea12357d Mon Sep 17 00:00:00 2001
-From: Jaroslav Kysela <perex@perex.cz>
-Date: Wed, 4 Dec 2019 15:15:44 -0600
-Subject: [PATCH] ASoC: intel/skl/hda - export number of digital microphones
- via control components
+From 1442842952ccfe4178602c7a8459ac2ecb9d9e1a Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Fri, 6 Dec 2019 11:35:42 +0100
+Subject: [PATCH] ASoC: hdmi-codec: re-introduce mutex locking again
 
-It is required for the auto-detection in the user space (for UCM).
+The dai codec needs to ensure that on one dai is used at any time.
+This is currently protected by bit atomic operation. With this change,
+it done with a mutex instead.
 
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Mark Brown <broonie@kernel.org>
-Link: https://lore.kernel.org/r/20191204211556.12671-2-pierre-louis.bossart@linux.intel.com
+This change is not about functionality or efficiency. It is done with
+the hope that it help maintainability in the future.
+
+Suggested-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20191206103542.485224-1-jbrunet@baylibre.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/skl_hda_dsp_generic.c | 8 ++++++++
- sound/soc/sof/intel/hda.c                    | 3 ++-
- 2 files changed, 10 insertions(+), 1 deletion(-)
+ sound/soc/codecs/hdmi-codec.c | 32 +++++++++++++++++++-------------
+ 1 file changed, 19 insertions(+), 13 deletions(-)
 
-diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-index 4e45901e3a2f..11eaee9ae41f 100644
---- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
-+++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
-@@ -100,6 +100,8 @@ static struct snd_soc_card hda_soc_card = {
- 	.late_probe = skl_hda_card_late_probe,
+diff --git a/sound/soc/codecs/hdmi-codec.c b/sound/soc/codecs/hdmi-codec.c
+index f8b5b960e597..543363102d03 100644
+--- a/sound/soc/codecs/hdmi-codec.c
++++ b/sound/soc/codecs/hdmi-codec.c
+@@ -274,7 +274,8 @@ struct hdmi_codec_priv {
+ 	uint8_t eld[MAX_ELD_BYTES];
+ 	struct snd_pcm_chmap *chmap_info;
+ 	unsigned int chmap_idx;
+-	unsigned long busy;
++	struct mutex lock;
++	bool busy;
+ 	struct snd_soc_jack *jack;
+ 	unsigned int jack_status;
  };
+@@ -390,9 +391,10 @@ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
+ 	struct hdmi_codec_priv *hcp = snd_soc_dai_get_drvdata(dai);
+ 	int ret = 0;
  
-+static char hda_soc_components[30];
-+
- #define IDISP_DAI_COUNT		3
- #define HDAC_DAI_COUNT		2
- #define DMIC_DAI_COUNT		2
-@@ -183,6 +185,12 @@ static int skl_hda_audio_probe(struct platform_device *pdev)
- 	hda_soc_card.dev = &pdev->dev;
- 	snd_soc_card_set_drvdata(&hda_soc_card, ctx);
- 
-+	if (mach->mach_params.dmic_num > 0) {
-+		snprintf(hda_soc_components, sizeof(hda_soc_components),
-+				"cfg-dmics:%d", mach->mach_params.dmic_num);
-+		hda_soc_card.components = hda_soc_components;
-+	}
-+
- 	return devm_snd_soc_register_card(&pdev->dev, &hda_soc_card);
- }
- 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 4596239c63d8..98512a338748 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -351,7 +351,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
- 	const char *tplg_filename;
- 	const char *idisp_str;
- 	const char *dmic_str;
--	int dmic_num;
-+	int dmic_num = 0;
- 	int codec_num = 0;
- 	int i;
- #endif
-@@ -472,6 +472,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
- 		mach_params->codec_mask = bus->codec_mask;
- 		mach_params->platform = dev_name(sdev->dev);
- 		mach_params->common_hdmi_codec_drv = hda_codec_use_common_hdmi;
-+		mach_params->dmic_num = dmic_num;
+-	ret = test_and_set_bit(0, &hcp->busy);
+-	if (ret) {
++	mutex_lock(&hcp->lock);
++	if (hcp->busy) {
+ 		dev_err(dai->dev, "Only one simultaneous stream supported!\n");
++		mutex_unlock(&hcp->lock);
+ 		return -EINVAL;
  	}
  
- 	/* create codec instances */
+@@ -405,21 +407,21 @@ static int hdmi_codec_startup(struct snd_pcm_substream *substream,
+ 	if (hcp->hcd.ops->get_eld) {
+ 		ret = hcp->hcd.ops->get_eld(dai->dev->parent, hcp->hcd.data,
+ 					    hcp->eld, sizeof(hcp->eld));
++		if (ret)
++			goto err;
++
++		ret = snd_pcm_hw_constraint_eld(substream->runtime, hcp->eld);
++		if (ret)
++			goto err;
+ 
+-		if (!ret) {
+-			ret = snd_pcm_hw_constraint_eld(substream->runtime,
+-							hcp->eld);
+-			if (ret)
+-				goto err;
+-		}
+ 		/* Select chmap supported */
+ 		hdmi_codec_eld_chmap(hcp);
+ 	}
+-	return 0;
++
++	hcp->busy = true;
+ 
+ err:
+-	/* Release the exclusive lock on error */
+-	clear_bit(0, &hcp->busy);
++	mutex_unlock(&hcp->lock);
+ 	return ret;
+ }
+ 
+@@ -431,7 +433,9 @@ static void hdmi_codec_shutdown(struct snd_pcm_substream *substream,
+ 	hcp->chmap_idx = HDMI_CODEC_CHMAP_IDX_UNKNOWN;
+ 	hcp->hcd.ops->audio_shutdown(dai->dev->parent, hcp->hcd.data);
+ 
+-	clear_bit(0, &hcp->busy);
++	mutex_lock(&hcp->lock);
++	hcp->busy = false;
++	mutex_unlock(&hcp->lock);
+ }
+ 
+ static int hdmi_codec_hw_params(struct snd_pcm_substream *substream,
+@@ -811,6 +815,8 @@ static int hdmi_codec_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	hcp->hcd = *hcd;
++	mutex_init(&hcp->lock);
++
+ 	daidrv = devm_kcalloc(dev, dai_count, sizeof(*daidrv), GFP_KERNEL);
+ 	if (!daidrv)
+ 		return -ENOMEM;
 -- 
 2.20.1
 

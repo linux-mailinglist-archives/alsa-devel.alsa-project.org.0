@@ -2,54 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA289117515
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:00:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4530C117521
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:01:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A4671654;
-	Mon,  9 Dec 2019 19:59:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A4671654
+	by alsa0.perex.cz (Postfix) with ESMTPS id D03C51655;
+	Mon,  9 Dec 2019 20:00:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D03C51655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575918029;
-	bh=i3ipmh75mf6G/959hc4ho9EUBvWeWTU9DmnPn+5EQIw=;
+	s=default; t=1575918074;
+	bh=VNPHqC0NpKNnjSwPDqmbq2be0OABlTm4oRQI6+TW7Ic=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=aV2HqhfKMcUJz9u6j3gR/7UUl9wdwkGbkRCVE3pQiScFKb2nX6qklw0DiGRZNFNCn
-	 D3ZziO2nEeob0Qe9nHMHJEdoRFluaXnMmXJ6qQn39gVQrRjFsyT0AtXEy2SwQeOf1F
-	 +mpJA6Dz9Gru5Z1x1PDMvHFKXTrGUH/c8yLiB/QY=
+	b=hwD4YmF3uu6U4uclz+tXtAwRLz1xy7Fid7eCYLVcfZFPmFiz0dhjFtIQXqSqeT2Y+
+	 /yF/527wXcCdqD3VST4d/OTj9N67+C+E3ow76+pjye5peNquVPgqS5cIbV2aQ9Ww33
+	 Eexb+uB9Y9htw2egkDz2LBFrEEphqSGZBxLM+H2o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C39D0F8023F;
-	Mon,  9 Dec 2019 19:58:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 182BEF80240;
+	Mon,  9 Dec 2019 19:58:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 88926F8023E; Mon,  9 Dec 2019 19:58:42 +0100 (CET)
+ id DF7A2F800C4; Mon,  9 Dec 2019 19:58:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 06F8CF800C4
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:58:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06F8CF800C4
+ by alsa1.perex.cz (Postfix) with ESMTP id BFA32F8011E
+ for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:58:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BFA32F8011E
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E1B55328;
- Mon,  9 Dec 2019 10:58:35 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5838B1045;
+ Mon,  9 Dec 2019 10:58:38 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6272C3F6CF;
- Mon,  9 Dec 2019 10:58:35 -0800 (PST)
-Date: Mon, 09 Dec 2019 18:58:33 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CD5653F6CF;
+ Mon,  9 Dec 2019 10:58:37 -0800 (PST)
+Date: Mon, 09 Dec 2019 18:58:36 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-In-Reply-To: <20191204211556.12671-14-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191204211556.12671-14-pierre-louis.bossart@linux.intel.com>
+To: Daniel Baluta <daniel.baluta@nxp.com>
+In-Reply-To: <20191204211556.12671-13-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20191204211556.12671-13-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Daniel Baluta <daniel.baluta@nxp.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: nocodec: Amend arguments for
-	sof_nocodec_setup()" to the asoc tree
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: Remove unused drv_name in
+	sof_pdata" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +71,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: nocodec: Amend arguments for sof_nocodec_setup()
+   ASoC: SOF: Remove unused drv_name in sof_pdata
 
 has been applied to the asoc tree at
 
@@ -95,80 +96,48 @@ to this mail.
 Thanks,
 Mark
 
-From d612b455f120d05a42c95ccd7469fa13efb8d307 Mon Sep 17 00:00:00 2001
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Date: Wed, 4 Dec 2019 15:15:56 -0600
-Subject: [PATCH] ASoC: SOF: nocodec: Amend arguments for sof_nocodec_setup()
+From 5ad1cece81db9b389526499ae2e784013c85f136 Mon Sep 17 00:00:00 2001
+From: Daniel Baluta <daniel.baluta@nxp.com>
+Date: Wed, 4 Dec 2019 15:15:55 -0600
+Subject: [PATCH] ASoC: SOF: Remove unused drv_name in sof_pdata
 
-Set the drv_name and tplg_filename for nocodec
-machine driver in sof_machine_check().
-This means the sof_nocodec_setup() does not
-need the mach, plat_data or desc arguments any longer.
+This field is only set but never used. Let's remove
+it to make code cleaner.
 
 Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
 Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191204211556.12671-14-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191204211556.12671-13-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/sof.h       | 3 ---
- sound/soc/sof/nocodec.c   | 9 ---------
- sound/soc/sof/sof-audio.c | 5 ++++-
- 3 files changed, 4 insertions(+), 13 deletions(-)
+ include/sound/sof.h     | 1 -
+ sound/soc/sof/nocodec.c | 2 --
+ 2 files changed, 3 deletions(-)
 
 diff --git a/include/sound/sof.h b/include/sound/sof.h
-index 96625355aa94..6ea74f1a9ec2 100644
+index 98a757d3a67d..96625355aa94 100644
 --- a/include/sound/sof.h
 +++ b/include/sound/sof.h
-@@ -97,8 +97,5 @@ struct sof_dev_desc {
- };
+@@ -22,7 +22,6 @@ struct snd_sof_dsp_ops;
+  */
+ struct snd_sof_pdata {
+ 	const struct firmware *fw;
+-	const char *drv_name;
+ 	const char *name;
+ 	const char *platform;
  
- int sof_nocodec_setup(struct device *dev,
--		      struct snd_sof_pdata *sof_pdata,
--		      struct snd_soc_acpi_mach *mach,
--		      const struct sof_dev_desc *desc,
- 		      const struct snd_sof_dsp_ops *ops);
- #endif
 diff --git a/sound/soc/sof/nocodec.c b/sound/soc/sof/nocodec.c
-index 56d887545da3..2233146386cc 100644
+index 0a2167f19f25..56d887545da3 100644
 --- a/sound/soc/sof/nocodec.c
 +++ b/sound/soc/sof/nocodec.c
-@@ -63,20 +63,11 @@ static int sof_nocodec_bes_setup(struct device *dev,
- }
- 
- int sof_nocodec_setup(struct device *dev,
--		      struct snd_sof_pdata *sof_pdata,
--		      struct snd_soc_acpi_mach *mach,
--		      const struct sof_dev_desc *desc,
- 		      const struct snd_sof_dsp_ops *ops)
- {
- 	struct snd_soc_dai_link *links;
- 	int ret;
- 
--	if (!mach)
--		return -EINVAL;
--
--	mach->drv_name = "sof-nocodec";
--	sof_pdata->tplg_filename = desc->nocodec_tplg_filename;
--
- 	/* create dummy BE dai_links */
- 	links = devm_kzalloc(dev, sizeof(struct snd_soc_dai_link) *
- 			     ops->num_drv, GFP_KERNEL);
-diff --git a/sound/soc/sof/sof-audio.c b/sound/soc/sof/sof-audio.c
-index 9c3851bfe788..0d8f65b9ae25 100644
---- a/sound/soc/sof/sof-audio.c
-+++ b/sound/soc/sof/sof-audio.c
-@@ -396,7 +396,10 @@ int sof_machine_check(struct snd_sof_dev *sdev)
+@@ -74,8 +74,6 @@ int sof_nocodec_setup(struct device *dev,
  	if (!mach)
- 		return -ENOMEM;
+ 		return -EINVAL;
  
--	ret = sof_nocodec_setup(sdev->dev, sof_pdata, mach, desc, desc->ops);
-+	mach->drv_name = "sof-nocodec";
-+	sof_pdata->tplg_filename = desc->nocodec_tplg_filename;
-+
-+	ret = sof_nocodec_setup(sdev->dev, desc->ops);
- 	if (ret < 0)
- 		return ret;
+-	sof_pdata->drv_name = "sof-nocodec";
+-
+ 	mach->drv_name = "sof-nocodec";
+ 	sof_pdata->tplg_filename = desc->nocodec_tplg_filename;
  
 -- 
 2.20.1

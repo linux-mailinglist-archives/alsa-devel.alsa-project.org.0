@@ -2,61 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87363117256
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 18:02:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68EFB117460
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 19:37:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 014781655;
-	Mon,  9 Dec 2019 18:01:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 014781655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0857D14E;
+	Mon,  9 Dec 2019 19:37:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0857D14E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575910944;
-	bh=w0Ja1cHy9A4QOycX5u/Hkl33//m0WM119Cha1AQj8RA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rktwWND+6+C9Zzy1STDQ4P+1uzu8Wfss04h/3xsqDiEWWjQ6Uxrxk3ld9rud/te3S
-	 DtGjiuBiB1c28hk8PxAqg26N2pH8lqGkBbXuLfSWzrzDfIVzbLFqDiaPraNyhhvsls
-	 hLGxwOPjIbRP0Kd6zQqSoJJjXMumZJD/kXFHkqfI=
+	s=default; t=1575916679;
+	bh=i7/vGRFMHytq2YScyT0vothKr7biNbtdGAHalEgdQoQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MONMtrXOKPhsXCQOdWI1q0ixZvCZoPUGur2BrWFo5DVClGBVp09MDPJ7KjENfBeop
+	 bLNy5tt7XQimd6ddzt4yLlyAeOAGw5jEHMzhIvu1FD8jxOadGXuCTdTmOuzAhgdVKM
+	 hfXEm4SxeMaTskPddRYCPk5W9NzzO9F1DFdv4bCk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6D536F80234;
-	Mon,  9 Dec 2019 18:00:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 649F4F8025A;
+	Mon,  9 Dec 2019 19:35:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C609F80234; Mon,  9 Dec 2019 18:00:37 +0100 (CET)
+ id 294D8F80240; Mon,  9 Dec 2019 19:35:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 79E4CF800C4
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 18:00:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79E4CF800C4
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 418FA1FB;
- Mon,  9 Dec 2019 09:00:32 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B39F33F6CF;
- Mon,  9 Dec 2019 09:00:31 -0800 (PST)
-Date: Mon, 9 Dec 2019 17:00:30 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Chuhong Yuan <hslester96@gmail.com>
-Message-ID: <20191209170030.GH5483@sirena.org.uk>
-References: <20191206075209.18068-1-hslester96@gmail.com>
- <20191209162417.GD5483@sirena.org.uk>
- <CANhBUQ0zwQG-=C12v02cf5kfvJba=5_=0JkZA45DDhxOzTBY6A@mail.gmail.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
+ by alsa1.perex.cz (Postfix) with ESMTP id AFA9AF8011E
+ for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:35:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFA9AF8011E
+Received: from zenbar.fritz.box (pD95EF75D.dip0.t-ipconnect.de [217.94.247.93])
+ by mail.bugwerft.de (Postfix) with ESMTPSA id 3EC8A2E5CCC;
+ Mon,  9 Dec 2019 18:29:03 +0000 (UTC)
+From: Daniel Mack <daniel@zonque.org>
+To: linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, alsa-devel@alsa-project.org,
+ devicetree@vger.kernel.org, linux-clk@vger.kernel.org
+Date: Mon,  9 Dec 2019 19:35:00 +0100
+Message-Id: <20191209183511.3576038-1-daniel@zonque.org>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
-In-Reply-To: <CANhBUQ0zwQG-=C12v02cf5kfvJba=5_=0JkZA45DDhxOzTBY6A@mail.gmail.com>
-X-Cookie: We read to say that we have read.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Brian Austin <brian.austin@cirrus.com>, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Paul Handrigan <Paul.Handrigan@cirrus.com>,
- James Schulman <james.schulman@cirrus.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: cs42l42: add missed
- regulator_bulk_disable in remove and fix probe failure
+Cc: lars@metafoo.de, sboyd@kernel.org, mturquette@baylibre.com,
+ robh+dt@kernel.org, broonie@kernel.org, pascal.huerst@gmail.com,
+ lee.jones@linaro.org, Daniel Mack <daniel@zonque.org>
+Subject: [alsa-devel] [PATCH 00/10] mfd: Add support for Analog Devices A2B
+	transceiver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,61 +61,116 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7200643387463310536=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patch series adds support for Analog Device's AD242x A2B
+transceivers.
 
---===============7200643387463310536==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="WIIRZ1HQ6FgrlPgb"
-Content-Disposition: inline
+  https://www.analog.com/media/en/technical-documentation/user-guides/AD242x_TRM_Rev1.1.pdf
+
+These transceivers are used to form an audio network by connecting the
+parts in a daisy-chain. On top of audio, the devices expose some other
+functions such as GPIO, programmable clock outputs and remote-side I2C
+bus master. The first node in the chain is called the master node, and
+all other devices are called slave nodes. Up to 15 such devices can be
+connected this way.
+
+The master device responds on two addresses on the I2C bus. The primary
+one is used to access all registers in the master node itself, the
+secondary is for accessing remote nodes after prior setup through the
+master node. In the driver stack, these details are hidden behind
+specific regmap configs.
+
+The driver stack is implemented as MFD core and companion drivers that
+can be registered as sub-devices in DT. Drivers for these sub-devices
+can be used for both master and slave nodes, as they just interface
+with the node's regmap.
+
+The master node is responsible for discovering all the slave nodes at
+probe time, and it needs to take the used audio and routing modes in
+each of the slave devices into account in order to pre-calculate the
+bus-timings correctly. Hence, this bus is not hot-pluggable.
+
+Transceivers can both receive and provide audio, and streams can be
+routed from one node to any other, including many others. The tricky
+bit is how to expose the audio routing in DT in a sane way.
+The way it is implemented here, the slave nodes specify the number of
+slots they each consume and generate, and which thereof they forward
+from one side to the other. This mimics the internal register
+structure and should allow for even exotic setups.
+
+Please let me know what you think and what could be improved.
 
 
---WIIRZ1HQ6FgrlPgb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Thanks,
+Daniel
 
-On Tue, Dec 10, 2019 at 12:52:30AM +0800, Chuhong Yuan wrote:
 
-> I have a question that what if CONFIG_PM is not defined?
-> Since I have met runtime PM before in the patch
-> a31eda65ba21 ("net: fec: fix clock count mis-match").
-> I learned there that in some cases CONFIG_PM is not defined so runtime PM
-> cannot take effect.
-> Therefore, undo operations should still exist in remove functions.
+Daniel Mack (10):
+  dt-bindings: mfd: Add documentation for ad242x
+  dt-bindings: i2c: Add documentation for ad242x i2c controllers
+  dt-bindings: gpio: Add documentation for AD242x GPIO controllers
+  dt-bindings: clock: Add documentation for AD242x clock providers
+  dt-bindings: sound: Add documentation for AD242x codecs
+  mfd: Add core driver for AD242x A2B transceivers
+  i2c: Add driver for AD242x bus controller
+  gpio: Add driver for AD242x GPIO controllers
+  clk: Add support for AD242x clock output providers
+  ASoC: Add codec component for AD242x nodes
 
-There's also the case where runtime PM is there and the device is active
-at suspend - it's not that there isn't a problem, it's that we can't
-unconditionally do a disable because we don't know if there was a
-matching enable.  It'll need to be conditional on the runtime PM state.
+ .../bindings/clock/adi,ad242x-clk.yaml        |  32 +
+ .../bindings/gpio/adi,ad242x-gpio.yaml        |  65 ++
+ .../bindings/i2c/adi,ad242x-i2c.yaml          |  31 +
+ .../bindings/mfd/adi,ad242x-bus.yaml          |  29 +
+ .../bindings/mfd/adi,ad242x-master.yaml       | 235 +++++++
+ .../bindings/mfd/adi,ad242x-slave.yaml        | 108 ++++
+ .../bindings/sound/adi,ad242x-codec.yaml      |  31 +
+ drivers/clk/Kconfig                           |   6 +
+ drivers/clk/Makefile                          |   1 +
+ drivers/clk/clk-ad242x.c                      | 231 +++++++
+ drivers/gpio/Kconfig                          |   6 +
+ drivers/gpio/Makefile                         |   1 +
+ drivers/gpio/gpio-ad242x.c                    | 229 +++++++
+ drivers/i2c/busses/Kconfig                    |  10 +
+ drivers/i2c/busses/Makefile                   |   1 +
+ drivers/i2c/busses/i2c-ad242x.c               | 178 +++++
+ drivers/mfd/Kconfig                           |  11 +
+ drivers/mfd/Makefile                          |   1 +
+ drivers/mfd/ad242x-bus.c                      |  42 ++
+ drivers/mfd/ad242x-master.c                   | 611 ++++++++++++++++++
+ drivers/mfd/ad242x-node.c                     | 262 ++++++++
+ drivers/mfd/ad242x-slave.c                    | 234 +++++++
+ include/dt-bindings/clock/adi,ad242x.h        |   9 +
+ include/linux/mfd/ad242x.h                    | 400 ++++++++++++
+ sound/soc/codecs/Kconfig                      |   5 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/ad242x.c                     | 338 ++++++++++
+ 27 files changed, 3109 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/adi,ad242x-clk.yaml
+ create mode 100644 Documentation/devicetree/bindings/gpio/adi,ad242x-gpio.yaml
+ create mode 100644 Documentation/devicetree/bindings/i2c/adi,ad242x-i2c.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/adi,ad242x-bus.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/adi,ad242x-master.yaml
+ create mode 100644 Documentation/devicetree/bindings/mfd/adi,ad242x-slave.yaml
+ create mode 100644 Documentation/devicetree/bindings/sound/adi,ad242x-codec.yaml
+ create mode 100644 drivers/clk/clk-ad242x.c
+ create mode 100644 drivers/gpio/gpio-ad242x.c
+ create mode 100644 drivers/i2c/busses/i2c-ad242x.c
+ create mode 100644 drivers/mfd/ad242x-bus.c
+ create mode 100644 drivers/mfd/ad242x-master.c
+ create mode 100644 drivers/mfd/ad242x-node.c
+ create mode 100644 drivers/mfd/ad242x-slave.c
+ create mode 100644 include/dt-bindings/clock/adi,ad242x.h
+ create mode 100644 include/linux/mfd/ad242x.h
+ create mode 100644 sound/soc/codecs/ad242x.c
 
---WIIRZ1HQ6FgrlPgb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3ufa0ACgkQJNaLcl1U
-h9BFrgf+KMBI9l2Ruzln5WCg+/ELdsLj2dDgAlFZSOigICoPdgNnXzqk8gYIZxsb
-5y5Q4mUcWncbjNq7PuWG/ddIonFPKyPhKb/h/xrdgbTPfqqEekryLHW93SS+sAiG
-mLktyFWuPyvZOifDWfaFwYc1jzwsslgOweJOEoOw+fofsPlxe/3R8oom4zfpwdDV
-KUUxIC5hEKjUfPTpOVdw+7Ud7JpFm7uR1qtd6LptcIOb+UO7FPm6EQhrkl0thiGd
-fKGcPx/t3f/Xjn23+Nw3WmV+gSUX9t6wqsouwWB83Capsb4N3SMw7HFOPcy0S5vV
-rB45x3AzVSeKCCSIKs1IywlYcsUO7w==
-=feWL
------END PGP SIGNATURE-----
-
---WIIRZ1HQ6FgrlPgb--
-
---===============7200643387463310536==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+-- 
+2.23.0
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7200643387463310536==--

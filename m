@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E56DF116AEF
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:26:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22BCD116AFC
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:28:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B70916F6;
-	Mon,  9 Dec 2019 11:25:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B70916F6
+	by alsa0.perex.cz (Postfix) with ESMTPS id ABD8316D1;
+	Mon,  9 Dec 2019 11:27:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ABD8316D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575887179;
-	bh=Te4/1R/F+EKsLywLgj+miMZ4gu8O+Xn/rxElkzItGJQ=;
+	s=default; t=1575887299;
+	bh=mXnRigxV9aA8n4hi6H75XeqPu6VgRimhsiB9Qtvq7Pc=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UNf+SYDYbuKyvWI9vvSLatZvkLQvp8UQl0lK0rOEHjIt1oKhIswOYN+FP/sUoNKih
-	 wubUTIR5qBBoSFZZY9mC8JyiUQ4vyVnCIgYFGUimeuGodxRS5Eeh30zAuxG7ODouS0
-	 QVLYgaR28UA0wmEhmOnW5RRyibQWaCvSPplWPDCY=
+	b=PjAQf5a2lqmbJiVMtLvnRHhOmrAztN332OT6Pw+L8PAavNcGbSLv+0jQJYY2wi+WP
+	 94yvvXR6Hw/Z29OezGq7PhXPKJXjdaMOlB0B9AK7wFZofV6x6sqE94+LQNJN0BmSIq
+	 vN+AtWH7xtaLS/bTyDVSZ5w+XyFVrm56u4SZq7Nc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2D36F802EC;
-	Mon,  9 Dec 2019 10:52:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EFB77F80304;
+	Mon,  9 Dec 2019 10:52:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50E3FF8035F; Mon,  9 Dec 2019 10:50:57 +0100 (CET)
+ id C224FF80369; Mon,  9 Dec 2019 10:51:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 905E5F8028E
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8219F80292
  for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 10:49:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 905E5F8028E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8219F80292
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8418AB282
+ by mx1.suse.de (Postfix) with ESMTP id 9E575B28D
  for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 09:49:48 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Mon,  9 Dec 2019 10:49:13 +0100
-Message-Id: <20191209094943.14984-42-tiwai@suse.de>
+Date: Mon,  9 Dec 2019 10:49:15 +0100
+Message-Id: <20191209094943.14984-44-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191209094943.14984-1-tiwai@suse.de>
 References: <20191209094943.14984-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 5.6 41/71] ALSA: ice1712: Use managed buffer
+Subject: [alsa-devel] [PATCH 5.6 43/71] ALSA: intel8x0: Use managed buffer
 	allocation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -67,138 +67,107 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Clean up the driver with the new managed buffer allocation API.
+Clean up the drivers with the new managed buffer allocation API.
 The hw_params and hw_free callbacks became superfluous and got
 dropped.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/ice1712/ice1712.c | 42 ++++++++----------------------------------
- 1 file changed, 8 insertions(+), 34 deletions(-)
+ sound/pci/intel8x0.c  | 11 ++++-------
+ sound/pci/intel8x0m.c | 23 ++++-------------------
+ 2 files changed, 8 insertions(+), 26 deletions(-)
 
-diff --git a/sound/pci/ice1712/ice1712.c b/sound/pci/ice1712/ice1712.c
-index deadba40131c..1783584e90c5 100644
---- a/sound/pci/ice1712/ice1712.c
-+++ b/sound/pci/ice1712/ice1712.c
-@@ -479,21 +479,6 @@ static irqreturn_t snd_ice1712_interrupt(int irq, void *dev_id)
+diff --git a/sound/pci/intel8x0.c b/sound/pci/intel8x0.c
+index 12374ba08ca2..b171816e58a8 100644
+--- a/sound/pci/intel8x0.c
++++ b/sound/pci/intel8x0.c
+@@ -901,9 +901,6 @@ static int snd_intel8x0_hw_params(struct snd_pcm_substream *substream,
+ 	int dbl = params_rate(hw_params) > 48000;
+ 	int err;
+ 
+-	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
+-	if (err < 0)
+-		return err;
+ 	if (ichdev->pcm_open_flag) {
+ 		snd_ac97_pcm_close(ichdev->pcm);
+ 		ichdev->pcm_open_flag = 0;
+@@ -929,7 +926,7 @@ static int snd_intel8x0_hw_free(struct snd_pcm_substream *substream)
+ 		snd_ac97_pcm_close(ichdev->pcm);
+ 		ichdev->pcm_open_flag = 0;
+ 	}
+-	return snd_pcm_lib_free_pages(substream);
++	return 0;
  }
  
+ static void snd_intel8x0_setup_pcm_out(struct intel8x0 *chip,
+@@ -1487,9 +1484,9 @@ static int snd_intel8x0_pcm1(struct intel8x0 *chip, int device,
+ 		strcpy(pcm->name, chip->card->shortname);
+ 	chip->pcm[device] = pcm;
  
--/*
-- *  PCM part - misc
-- */
--
--static int snd_ice1712_hw_params(struct snd_pcm_substream *substream,
--				 struct snd_pcm_hw_params *hw_params)
+-	snd_pcm_lib_preallocate_pages_for_all(pcm, intel8x0_dma_type(chip),
+-					      &chip->pci->dev,
+-					      rec->prealloc_size, rec->prealloc_max_size);
++	snd_pcm_set_managed_buffer_all(pcm, intel8x0_dma_type(chip),
++				       &chip->pci->dev,
++				       rec->prealloc_size, rec->prealloc_max_size);
+ 
+ 	if (rec->playback_ops &&
+ 	    rec->playback_ops->open == snd_intel8x0_playback_open) {
+diff --git a/sound/pci/intel8x0m.c b/sound/pci/intel8x0m.c
+index a9add5fedfcb..897c989bedd1 100644
+--- a/sound/pci/intel8x0m.c
++++ b/sound/pci/intel8x0m.c
+@@ -553,17 +553,6 @@ static int snd_intel8x0m_pcm_trigger(struct snd_pcm_substream *substream, int cm
+ 	return 0;
+ }
+ 
+-static int snd_intel8x0m_hw_params(struct snd_pcm_substream *substream,
+-				  struct snd_pcm_hw_params *hw_params)
 -{
 -	return snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
 -}
 -
--static int snd_ice1712_hw_free(struct snd_pcm_substream *substream)
+-static int snd_intel8x0m_hw_free(struct snd_pcm_substream *substream)
 -{
 -	return snd_pcm_lib_free_pages(substream);
 -}
 -
- /*
-  *  PCM part - consumer I/O
-  */
-@@ -837,8 +822,6 @@ static const struct snd_pcm_ops snd_ice1712_playback_ops = {
- 	.open =		snd_ice1712_playback_open,
- 	.close =	snd_ice1712_playback_close,
+ static snd_pcm_uframes_t snd_intel8x0m_pcm_pointer(struct snd_pcm_substream *substream)
+ {
+ 	struct intel8x0m *chip = snd_pcm_substream_chip(substream);
+@@ -674,8 +663,6 @@ static const struct snd_pcm_ops snd_intel8x0m_playback_ops = {
+ 	.open =		snd_intel8x0m_playback_open,
+ 	.close =	snd_intel8x0m_playback_close,
  	.ioctl =	snd_pcm_lib_ioctl,
--	.hw_params =	snd_ice1712_hw_params,
--	.hw_free =	snd_ice1712_hw_free,
- 	.prepare =	snd_ice1712_playback_prepare,
- 	.trigger =	snd_ice1712_playback_trigger,
- 	.pointer =	snd_ice1712_playback_pointer,
-@@ -848,8 +831,6 @@ static const struct snd_pcm_ops snd_ice1712_playback_ds_ops = {
- 	.open =		snd_ice1712_playback_ds_open,
- 	.close =	snd_ice1712_playback_ds_close,
+-	.hw_params =	snd_intel8x0m_hw_params,
+-	.hw_free =	snd_intel8x0m_hw_free,
+ 	.prepare =	snd_intel8x0m_pcm_prepare,
+ 	.trigger =	snd_intel8x0m_pcm_trigger,
+ 	.pointer =	snd_intel8x0m_pcm_pointer,
+@@ -685,8 +672,6 @@ static const struct snd_pcm_ops snd_intel8x0m_capture_ops = {
+ 	.open =		snd_intel8x0m_capture_open,
+ 	.close =	snd_intel8x0m_capture_close,
  	.ioctl =	snd_pcm_lib_ioctl,
--	.hw_params =	snd_ice1712_hw_params,
--	.hw_free =	snd_ice1712_hw_free,
- 	.prepare =	snd_ice1712_playback_ds_prepare,
- 	.trigger =	snd_ice1712_playback_ds_trigger,
- 	.pointer =	snd_ice1712_playback_ds_pointer,
-@@ -859,8 +840,6 @@ static const struct snd_pcm_ops snd_ice1712_capture_ops = {
- 	.open =		snd_ice1712_capture_open,
- 	.close =	snd_ice1712_capture_close,
- 	.ioctl =	snd_pcm_lib_ioctl,
--	.hw_params =	snd_ice1712_hw_params,
--	.hw_free =	snd_ice1712_hw_free,
- 	.prepare =	snd_ice1712_capture_prepare,
- 	.trigger =	snd_ice1712_capture_trigger,
- 	.pointer =	snd_ice1712_capture_pointer,
-@@ -883,9 +862,8 @@ static int snd_ice1712_pcm(struct snd_ice1712 *ice, int device)
- 	strcpy(pcm->name, "ICE1712 consumer");
- 	ice->pcm = pcm;
+-	.hw_params =	snd_intel8x0m_hw_params,
+-	.hw_free =	snd_intel8x0m_hw_free,
+ 	.prepare =	snd_intel8x0m_pcm_prepare,
+ 	.trigger =	snd_intel8x0m_pcm_trigger,
+ 	.pointer =	snd_intel8x0m_pcm_pointer,
+@@ -733,10 +718,10 @@ static int snd_intel8x0m_pcm1(struct intel8x0m *chip, int device,
+ 		strcpy(pcm->name, chip->card->shortname);
+ 	chip->pcm[device] = pcm;
  
 -	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_DEV,
--					      &ice->pci->dev,
--					      64*1024, 64*1024);
+-					      &chip->pci->dev,
+-					      rec->prealloc_size,
+-					      rec->prealloc_max_size);
 +	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
-+				       &ice->pci->dev, 64*1024, 64*1024);
- 
- 	dev_warn(ice->card->dev,
- 		 "Consumer PCM code does not work well at the moment --jk\n");
-@@ -909,9 +887,8 @@ static int snd_ice1712_pcm_ds(struct snd_ice1712 *ice, int device)
- 	strcpy(pcm->name, "ICE1712 consumer (DS)");
- 	ice->pcm_ds = pcm;
- 
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_DEV,
--					      &ice->pci->dev,
--					      64*1024, 128*1024);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
-+				       &ice->pci->dev, 64*1024, 128*1024);
++				       &chip->pci->dev,
++				       rec->prealloc_size,
++				       rec->prealloc_max_size);
  
  	return 0;
  }
-@@ -1063,7 +1040,7 @@ static int snd_ice1712_playback_pro_hw_params(struct snd_pcm_substream *substrea
- 	struct snd_ice1712 *ice = snd_pcm_substream_chip(substream);
- 
- 	snd_ice1712_set_pro_rate(ice, params_rate(hw_params), 0);
--	return snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
-+	return 0;
- }
- 
- static int snd_ice1712_capture_pro_prepare(struct snd_pcm_substream *substream)
-@@ -1085,7 +1062,7 @@ static int snd_ice1712_capture_pro_hw_params(struct snd_pcm_substream *substream
- 	struct snd_ice1712 *ice = snd_pcm_substream_chip(substream);
- 
- 	snd_ice1712_set_pro_rate(ice, params_rate(hw_params), 0);
--	return snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
-+	return 0;
- }
- 
- static snd_pcm_uframes_t snd_ice1712_playback_pro_pointer(struct snd_pcm_substream *substream)
-@@ -1221,7 +1198,6 @@ static const struct snd_pcm_ops snd_ice1712_playback_pro_ops = {
- 	.close =	snd_ice1712_playback_pro_close,
- 	.ioctl =	snd_pcm_lib_ioctl,
- 	.hw_params =	snd_ice1712_playback_pro_hw_params,
--	.hw_free =	snd_ice1712_hw_free,
- 	.prepare =	snd_ice1712_playback_pro_prepare,
- 	.trigger =	snd_ice1712_pro_trigger,
- 	.pointer =	snd_ice1712_playback_pro_pointer,
-@@ -1232,7 +1208,6 @@ static const struct snd_pcm_ops snd_ice1712_capture_pro_ops = {
- 	.close =	snd_ice1712_capture_pro_close,
- 	.ioctl =	snd_pcm_lib_ioctl,
- 	.hw_params =	snd_ice1712_capture_pro_hw_params,
--	.hw_free =	snd_ice1712_hw_free,
- 	.prepare =	snd_ice1712_capture_pro_prepare,
- 	.trigger =	snd_ice1712_pro_trigger,
- 	.pointer =	snd_ice1712_capture_pro_pointer,
-@@ -1254,9 +1229,8 @@ static int snd_ice1712_pcm_profi(struct snd_ice1712 *ice, int device)
- 	pcm->info_flags = 0;
- 	strcpy(pcm->name, "ICE1712 multi");
- 
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_DEV,
--					      &ice->pci->dev,
--					      256*1024, 256*1024);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
-+				       &ice->pci->dev, 256*1024, 256*1024);
- 
- 	ice->pcm_pro = pcm;
- 
 -- 
 2.16.4
 

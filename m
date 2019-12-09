@@ -2,101 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B10811651F
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 03:53:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 677D71165DC
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 05:39:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C9C66165D;
-	Mon,  9 Dec 2019 03:52:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9C66165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3DDF1616;
+	Mon,  9 Dec 2019 05:38:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3DDF1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575860022;
-	bh=+xQ3VCDX9pQ1mBrq4WVBBUzcWtgQQKeBhuUgfEI4sXs=;
-	h=In-Reply-To:References:Date:From:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jUpj2oFAor6GQ6Wt4kewsAsFCzwyMlnsDXceWIhLdjv8Uj6qpLckL8rrHw+ru1PfO
-	 a/GmBsxNPx1x8hO3zPt87Di5/6gmFSafqiLC7IJPnBgHpjyZ5pfBBo0sAh6BJxJBE6
-	 pah2vImu6d3G5CRRx63qY+oCJjlotTWwejFrYdWc=
+	s=default; t=1575866342;
+	bh=sfGrF89s2FtM/rqE4BbjIXVHF6tbEXqgxrv2K61NcX0=;
+	h=To:From:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=J/laIeB3HSPiqICY/qYEznRT/msrP9RCk9kW3AaQV6aJ+fwzi3LUtPhtWELaq9VhX
+	 sNOsRioE/YHC0jyQj1PZ4o3zdoWySsNTosOv+5knhAOlyotOJJSn5aptXlvHIK1iun
+	 naPl+6mbgE5OLG3Fv/p27MxgUz2WHDp9BZtiszao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25AC7F80234;
-	Mon,  9 Dec 2019 03:51:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37E15F80234;
+	Mon,  9 Dec 2019 05:37:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 34902F80234; Mon,  9 Dec 2019 03:51:56 +0100 (CET)
+ id DD57EF80234; Mon,  9 Dec 2019 05:37:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D880EF8011E
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 03:51:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D880EF8011E
+ by alsa1.perex.cz (Postfix) with ESMTPS id EAFEDF800C4
+ for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 05:37:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EAFEDF800C4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="l/7fE7An"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="SOgexvJ7"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 6CFA4619;
- Sun,  8 Dec 2019 21:51:46 -0500 (EST)
-Received: from imap22 ([10.202.2.72])
- by compute1.internal (MEProxy); Sun, 08 Dec 2019 21:51:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=mime-version:message-id:in-reply-to:references:date:from:to
- :cc:subject:content-type; s=fm3; bh=pcqKjfeOwXQGUDLlWb6KIRcxCcpc
- Opx3e7tydYkfVOc=; b=l/7fE7Ansk2X6MzoRPt+1/f2BI3ZHDc6FccHUcI7JWUN
- IwnrpCpUhL50tSxZkx5IYgB4XVAzFn9krgslR58DUYuwBHtFVGpFoK2LEZMUcJ59
- kWQtTsnNqOIB2fW6yAr60SFNHGnEJCdwAZIl1dk3hA8jU2yXxblyR4oSpfKsvLqK
- hl96iaNTlgPL1zF6J+9pCO5NQYdd7VHnNzJpPsNARJolYeOqc0iCXQ8JOuNx8xPL
- uK0mb0Lz3JgcReK/RTAgrcMfGqPaZKOaT1gPlJfVESM24nxuGlHWbN/vMABoQGIV
- Rb58L5lsYHMXempzVYx2mrXaa6Fd09I9VwDyV6dkJw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=pcqKjf
- eOwXQGUDLlWb6KIRcxCcpcOpx3e7tydYkfVOc=; b=SOgexvJ7TmuxjeL4ZN60We
- FoP93aeknF1n+J6l0GHHqumOxxEpX/TSTczUxPiWS1KHY1GpKXguXwhye0XNEkV/
- TrdhHdCrouhHg07oQP78b1iBas/s1qn86LPBE+6z/PK0m1wjm9jxM2Aay7E3YTe1
- 6OLXqm8EWdlU7FLb92i5B5PKrDRh3B7wbEN6SAFZWLMCQbMU4/gU8MdDP6FgM2KE
- hgti8rr7MOAZj4FfmzcpH7Wvc8HhJ7SHLh5vTQhNcJNZVicT/kc2nsTvP607fIho
- e5wQwXf7rjsNEx45cZDNFA8h8QK2dlbGTWNxxn9nLi5W30Mx/6P4BZeE0NqA+4zA
- ==
-X-ME-Sender: <xms:wbbtXWMqJz5n635wVkp2WnhAJLO9eFlDRK2Hgto1zz6fASaYdFrLSw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrudekledggeekucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdfvrghk
- rghshhhiucfurghkrghmohhtohdfuceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthh
- hirdhjpheqnecuffhomhgrihhnpegrlhhsrgdqphhrohhjvggtthdrohhrghenucfrrghr
- rghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
- enucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:wbbtXXOqSpHPboj09npLoEGRcmcM5ct8o61tAbY2XnQRsCNmR7YFOA>
- <xmx:wbbtXdUDMexR_DYCgxReqxiMDAvgpTfTzDH19SOsDEAYF5ukEnWRoQ>
- <xmx:wbbtXfoFXQVE7P3PDAbEL291TpcvQvs7k4ZxPh0VlLifYDKl6u1xgg>
- <xmx:wrbtXX6FuFNFcvKk0x9XT7bDcbAwyoVNo0O15lyz-A7mVL9fngXF6w>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id EED6A668005F; Sun,  8 Dec 2019 21:51:44 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.7-612-g13027cc-fmstable-20191203v1
-Mime-Version: 1.0
-Message-Id: <e2d1e8dd-85aa-4d1a-ad8e-347dcc294404@www.fastmail.com>
-In-Reply-To: <20191208232226.6685-1-o-takashi@sakamocchi.jp>
-References: <20191208232226.6685-1-o-takashi@sakamocchi.jp>
-Date: Mon, 09 Dec 2019 11:51:24 +0900
-From: "Takashi Sakamoto" <o-takashi@sakamocchi.jp>
-To: "Clemens Ladisch" <clemens@ladisch.de>, "Takashi Iwai" <tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, kbuild test robot <lkp@intel.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel]
- =?utf-8?q?=5BPATCH=5D_firewire-motu=3A_fix_double_un?=
- =?utf-8?q?locked=09=27motu-=3Emutex=27?=
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="mqwyNEVD"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Date:Message-ID:Subject:From:Cc:To:Sender:Reply-To:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=MZaXJJ+0Us/9ZJLhvcDNPUmeTEawsBgwErdJM5IFJdQ=; b=mqwyNEVDcfc/b5Eu5EbdvPmT1
+ jaHjUVrqF2WMzTKglBkL3wjXjZwmvuXqmzGEWzEbm6Tg/IT3suAMSuqFrrRRrbZ++0j/oae6QDGC4
+ nNm423bVlGvnXMIOODXFY5q+FgT4Vn1xnX+vN53r63p0tf5phN8gzn+0Pp4DdBYtCq3Fd7BBznDx8
+ 4akKnXjqeg6se08sC8UjjaVmVoQuP0ZN++AVT+1/7qKfIKUaWVddsz8rbkbvdgNf3mZ2GKVBJlEKD
+ 1c/isI0zqomUQigh6Fyds/F8okQNwdcNt+8sIXpHNlrVu0qXFFoZdnMl8/dDpyAXixGUDQZd10ENM
+ 2nbkC6uTw==;
+Received: from [2601:1c0:6280:3f0::3deb]
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1ieAnA-0003up-KT; Mon, 09 Dec 2019 04:37:04 +0000
+To: LKML <linux-kernel@vger.kernel.org>,
+ moderated for non-subscribers <alsa-devel@alsa-project.org>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <2215ee04-e870-5eea-a00c-9a5caf06faae@infradead.org>
+Date: Sun, 8 Dec 2019 20:37:04 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.1
+MIME-Version: 1.0
+Content-Language: en-US
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>
+Subject: [alsa-devel] [PATCH] ASoC: fix soc-core.c kernel-doc warning
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,57 +83,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Oops. I forgot to add 'ALSA: ' prefix to the subject line. I'm sorry but would I
-request maintainers to add it when applying...
+From: Randy Dunlap <rdunlap@infradead.org>
 
-On Mon, Dec 9, 2019, at 08:22, Takashi Sakamoto wrote:
-> Mutex is doubly unlocked in some error path of pcm.open. This commit fixes
-> ALSA firewire-motu driver in Linux kernel v5.5.
-> 
-> Reported-by: kbuild test robot <lkp@intel.com>
-> Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
-> Fixes: 3fd80b200388 ("ALSA: firewire-motu: use the same size of period 
-> for PCM substream in AMDTP streams")
-> Fixes: 0f5482e7875b ("ALSA: firewire-motu: share PCM buffer size for 
-> both direction")
-> Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-> ---
->  sound/firewire/motu/motu-pcm.c | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
-> 
-> diff --git a/sound/firewire/motu/motu-pcm.c b/sound/firewire/motu/motu-pcm.c
-> index 349b4d09e84f..005970931030 100644
-> --- a/sound/firewire/motu/motu-pcm.c
-> +++ b/sound/firewire/motu/motu-pcm.c
-> @@ -177,18 +177,14 @@ static int pcm_open(struct snd_pcm_substream *substream)
->  			err = snd_pcm_hw_constraint_minmax(substream->runtime,
->  					SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
->  					frames_per_period, frames_per_period);
-> -			if (err < 0) {
-> -				mutex_unlock(&motu->mutex);
-> +			if (err < 0)
->  				goto err_locked;
-> -			}
->  
->  			err = snd_pcm_hw_constraint_minmax(substream->runtime,
->  					SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
->  					frames_per_buffer, frames_per_buffer);
-> -			if (err < 0) {
-> -				mutex_unlock(&motu->mutex);
-> +			if (err < 0)
->  				goto err_locked;
-> -			}
->  		}
->  	}
->  
-> -- 
-> 2.20.1
-> 
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
->
+Fix a kernel-doc warning in soc-core.c by adding notation for
+@legacy_dai_naming.
+
+../sound/soc/soc-core.c:2509: warning: Function parameter or member 'legacy_dai_naming' not described in 'snd_soc_register_dai'
+
+Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org
+---
+ sound/soc/soc-core.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+--- linux-next-20191209.orig/sound/soc/soc-core.c
++++ linux-next-20191209/sound/soc/soc-core.c
+@@ -2508,6 +2508,8 @@ EXPORT_SYMBOL_GPL(snd_soc_unregister_dai
+  *
+  * @component: The component the DAIs are registered for
+  * @dai_drv: DAI driver to use for the DAI
++ * @legacy_dai_naming: if %true, use legacy single-name format;
++ * 	if %false, use multiple-name format;
+  *
+  * Topology can use this API to register DAIs when probing a component.
+  * These DAIs's widgets will be freed in the card cleanup and the DAIs
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

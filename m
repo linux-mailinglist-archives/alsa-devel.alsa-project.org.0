@@ -2,53 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1482116B21
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:35:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 378FA116B29
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:37:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 58CDF16AE;
-	Mon,  9 Dec 2019 11:34:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 58CDF16AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9B7016CF;
+	Mon,  9 Dec 2019 11:36:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9B7016CF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575887706;
-	bh=iVKFuUABqsKpeL34i0GdgvlmVHX3y6olCRj/xLlKy+o=;
+	s=default; t=1575887821;
+	bh=qq8MDwnw0yB4E0SjX3jbKLiWP0XHCjbZbkzS6uDudMY=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ey3VA33XAXVURj8Hy8IJ1mo642nZo931mm7uxow2x+td6rRE5/t0OeM2CRoZejSv1
-	 zDU9HercVrxH0VsrthOWPtYOi4bb1AcTg5jUHVmD5f0O9KOMRrhTiI3ys15AHWIxnV
-	 n/t8jvyUWQffJ160vUb6Hmu4qAhDBoqZpXECNIJI=
+	b=h6F6jA1QXRy/Qyvnt/f1xKNyUNnMK/dAk2japjBVZbfLCbnSdMRSu8agcjTyYl0p5
+	 EWuOiMLgs7e0rs7XO99SX6tumbGbKLtu6lwWLAvGyYlTD4r7qWC/M+d07qw7nszjPA
+	 whag0/BkSFSUU2J4b4DJAySdZ+Pm7kn8VNdy8rAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67075F805C9;
-	Mon,  9 Dec 2019 10:52:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5EC8F805E8;
+	Mon,  9 Dec 2019 10:52:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BE7B0F802BD; Mon,  9 Dec 2019 10:51:18 +0100 (CET)
+ id 0F696F8038C; Mon,  9 Dec 2019 10:51:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7F208F802BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E3E4F802C3
  for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 10:49:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F208F802BD
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E3E4F802C3
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 40237B2DC
+ by mx1.suse.de (Postfix) with ESMTP id 4E395B2DE
  for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 09:49:49 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Mon,  9 Dec 2019 10:49:29 +0100
-Message-Id: <20191209094943.14984-58-tiwai@suse.de>
+Date: Mon,  9 Dec 2019 10:49:30 +0100
+Message-Id: <20191209094943.14984-59-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191209094943.14984-1-tiwai@suse.de>
 References: <20191209094943.14984-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 5.6 57/71] ALSA: pdaudiocf: Use managed buffer
+Subject: [alsa-devel] [PATCH 5.6 58/71] ALSA: pmac: Use managed buffer
 	allocation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -74,59 +73,69 @@ dropped.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pcmcia/pdaudiocf/pdaudiocf_pcm.c | 25 +++----------------------
- 1 file changed, 3 insertions(+), 22 deletions(-)
+ sound/ppc/pmac.c | 28 +++-------------------------
+ 1 file changed, 3 insertions(+), 25 deletions(-)
 
-diff --git a/sound/pcmcia/pdaudiocf/pdaudiocf_pcm.c b/sound/pcmcia/pdaudiocf/pdaudiocf_pcm.c
-index 067b1c3a3e02..a4be4d1b0f7d 100644
---- a/sound/pcmcia/pdaudiocf/pdaudiocf_pcm.c
-+++ b/sound/pcmcia/pdaudiocf/pdaudiocf_pcm.c
-@@ -83,23 +83,6 @@ static int pdacf_pcm_trigger(struct snd_pcm_substream *subs, int cmd)
- 	return ret;
+diff --git a/sound/ppc/pmac.c b/sound/ppc/pmac.c
+index 1b11e53f6a62..1629f91d7ae2 100644
+--- a/sound/ppc/pmac.c
++++ b/sound/ppc/pmac.c
+@@ -107,24 +107,6 @@ static inline int another_stream(int stream)
+ 		SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
  }
  
 -/*
-- * pdacf_pcm_hw_params - hw_params callback for playback and capture
+- * allocate buffers
 - */
--static int pdacf_pcm_hw_params(struct snd_pcm_substream *subs,
--				     struct snd_pcm_hw_params *hw_params)
+-static int snd_pmac_pcm_hw_params(struct snd_pcm_substream *subs,
+-				  struct snd_pcm_hw_params *hw_params)
 -{
 -	return snd_pcm_lib_malloc_pages(subs, params_buffer_bytes(hw_params));
 -}
 -
 -/*
-- * pdacf_pcm_hw_free - hw_free callback for playback and capture
+- * release buffers
 - */
--static int pdacf_pcm_hw_free(struct snd_pcm_substream *subs)
+-static int snd_pmac_pcm_hw_free(struct snd_pcm_substream *subs)
 -{
--	return snd_pcm_lib_free_pages(subs);
+-	snd_pcm_lib_free_pages(subs);
+-	return 0;
 -}
 -
  /*
-  * pdacf_pcm_prepare - prepare callback for playback and capture
+  * get a stream of the opposite direction
   */
-@@ -256,8 +239,6 @@ static const struct snd_pcm_ops pdacf_pcm_capture_ops = {
- 	.open =		pdacf_pcm_capture_open,
- 	.close =	pdacf_pcm_capture_close,
+@@ -672,8 +654,6 @@ static const struct snd_pcm_ops snd_pmac_playback_ops = {
+ 	.open =		snd_pmac_playback_open,
+ 	.close =	snd_pmac_playback_close,
  	.ioctl =	snd_pcm_lib_ioctl,
--	.hw_params =	pdacf_pcm_hw_params,
--	.hw_free =	pdacf_pcm_hw_free,
- 	.prepare =	pdacf_pcm_prepare,
- 	.trigger =	pdacf_pcm_trigger,
- 	.pointer =	pdacf_pcm_capture_pointer,
-@@ -277,9 +258,9 @@ int snd_pdacf_pcm_new(struct snd_pdacf *chip)
- 		return err;
- 		
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &pdacf_pcm_capture_ops);
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      snd_dma_continuous_data(GFP_KERNEL | GFP_DMA32),
--					      0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
-+				       snd_dma_continuous_data(GFP_KERNEL | GFP_DMA32),
-+				       0, 0);
+-	.hw_params =	snd_pmac_pcm_hw_params,
+-	.hw_free =	snd_pmac_pcm_hw_free,
+ 	.prepare =	snd_pmac_playback_prepare,
+ 	.trigger =	snd_pmac_playback_trigger,
+ 	.pointer =	snd_pmac_playback_pointer,
+@@ -683,8 +663,6 @@ static const struct snd_pcm_ops snd_pmac_capture_ops = {
+ 	.open =		snd_pmac_capture_open,
+ 	.close =	snd_pmac_capture_close,
+ 	.ioctl =	snd_pcm_lib_ioctl,
+-	.hw_params =	snd_pmac_pcm_hw_params,
+-	.hw_free =	snd_pmac_pcm_hw_free,
+ 	.prepare =	snd_pmac_capture_prepare,
+ 	.trigger =	snd_pmac_capture_trigger,
+ 	.pointer =	snd_pmac_capture_pointer,
+@@ -721,9 +699,9 @@ int snd_pmac_pcm_new(struct snd_pmac *chip)
+ 	chip->capture.cur_freqs = chip->freqs_ok;
  
- 	pcm->private_data = chip;
- 	pcm->info_flags = 0;
+ 	/* preallocate 64k buffer */
+-	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_DEV,
+-					      &chip->pdev->dev,
+-					      64 * 1024, 64 * 1024);
++	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
++				       &chip->pdev->dev,
++				       64 * 1024, 64 * 1024);
+ 
+ 	return 0;
+ }
 -- 
 2.16.4
 

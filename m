@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64C4F116AF0
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:27:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45450116AA8
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:15:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 003DD166E;
-	Mon,  9 Dec 2019 11:26:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 003DD166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE92B16B4;
+	Mon,  9 Dec 2019 11:14:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE92B16B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575887220;
-	bh=7r13dP6/RX4n4kl9kBEo6j3Y12Y7hiNl8HLCHNmRLVM=;
+	s=default; t=1575886507;
+	bh=nZa9/veZ4Myv/F8ME8NDDiww/rUWqCKzLqTEwn1159g=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VaOzXCCZ6FpVgsIgWN/k4MsmkdwPROHzRVQkye/Dcz4iccxquIXlaDChIyiOj3xxK
-	 84iMVq/Fxa8jDDnzC5hyLH5Uvb3jafKmaMUgF8QLqhIJFFNyPsf5giOtsU6+mtjXsS
-	 rouJZMQ3Isp9F6pDhRlMtjlEEXYDffSBpd6KKu/4=
+	b=b9yFONIgTCuMUsmP1KKWH2fcLJcnraze9hEtGVqTwBnYtlCGL9zVG6chsTyoD+2cK
+	 fUZ4pwk/5ThwbyYkQ15D8n/A6qrhao6CtSQj+LNmbf2vvi3Y0kMSwnKXxzXohR646h
+	 Mxne5NXAsmYEL1Sex743QVJoyp0wr68UStUlXyrc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C440BF804E4;
-	Mon,  9 Dec 2019 10:52:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BACD0F803FD;
+	Mon,  9 Dec 2019 10:51:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 67FE2F80367; Mon,  9 Dec 2019 10:50:59 +0100 (CET)
+ id 15CC7F8034B; Mon,  9 Dec 2019 10:50:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A08BEF8028F
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 10:49:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A08BEF8028F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 064F9F8027D
+ for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 10:49:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 064F9F8027D
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 67252B298
+ by mx1.suse.de (Postfix) with ESMTP id 7603BB2CE
  for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 09:49:48 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Mon,  9 Dec 2019 10:49:11 +0100
-Message-Id: <20191209094943.14984-40-tiwai@suse.de>
+Date: Mon,  9 Dec 2019 10:49:12 +0100
+Message-Id: <20191209094943.14984-41-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191209094943.14984-1-tiwai@suse.de>
 References: <20191209094943.14984-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 5.6 39/71] ALSA: fm801: Use managed buffer
+Subject: [alsa-devel] [PATCH 5.6 40/71] ALSA: hda: Use managed buffer
 	allocation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -67,67 +67,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Clean up the driver with the new managed buffer allocation API.
-The hw_params and hw_free callbacks became superfluous and got
-dropped.
+Clean up the common driver module with the new managed buffer
+allocation API.  The superfluous snd_pcm_lib_malloc_pages() and
+snd_pcm_lib_free_pages() calls are dropped.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/fm801.c | 20 ++------------------
- 1 file changed, 2 insertions(+), 18 deletions(-)
+ sound/pci/hda/hda_controller.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/sound/pci/fm801.c b/sound/pci/fm801.c
-index a7f8109acced..707173254c55 100644
---- a/sound/pci/fm801.c
-+++ b/sound/pci/fm801.c
-@@ -435,17 +435,6 @@ static int snd_fm801_capture_trigger(struct snd_pcm_substream *substream,
+diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+index 2f3b7a35f2d9..eb0bb2265685 100644
+--- a/sound/pci/hda/hda_controller.c
++++ b/sound/pci/hda/hda_controller.c
+@@ -107,7 +107,7 @@ static int azx_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	struct azx_pcm *apcm = snd_pcm_substream_chip(substream);
+ 	struct azx *chip = apcm->chip;
+ 	struct azx_dev *azx_dev = get_azx_dev(substream);
+-	int ret;
++	int ret = 0;
+ 
+ 	trace_azx_pcm_hw_params(chip, azx_dev);
+ 	dsp_lock(azx_dev);
+@@ -119,8 +119,6 @@ static int azx_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	azx_dev->core.bufsize = 0;
+ 	azx_dev->core.period_bytes = 0;
+ 	azx_dev->core.format_val = 0;
+-	ret = snd_pcm_lib_malloc_pages(substream,
+-				       params_buffer_bytes(hw_params));
+ 
+ unlock:
+ 	dsp_unlock(azx_dev);
+@@ -132,7 +130,6 @@ static int azx_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	struct azx_pcm *apcm = snd_pcm_substream_chip(substream);
+ 	struct azx_dev *azx_dev = get_azx_dev(substream);
+ 	struct hda_pcm_stream *hinfo = to_hda_pcm_stream(substream);
+-	int err;
+ 
+ 	/* reset BDL address */
+ 	dsp_lock(azx_dev);
+@@ -141,10 +138,9 @@ static int azx_pcm_hw_free(struct snd_pcm_substream *substream)
+ 
+ 	snd_hda_codec_cleanup(apcm->codec, hinfo, substream);
+ 
+-	err = snd_pcm_lib_free_pages(substream);
+ 	azx_stream(azx_dev)->prepared = 0;
+ 	dsp_unlock(azx_dev);
+-	return err;
++	return 0;
+ }
+ 
+ static int azx_pcm_prepare(struct snd_pcm_substream *substream)
+@@ -766,9 +762,8 @@ int snd_hda_attach_pcm_stream(struct hda_bus *_bus, struct hda_codec *codec,
+ 		size = MAX_PREALLOC_SIZE;
+ 	if (chip->uc_buffer)
+ 		type = SNDRV_DMA_TYPE_DEV_UC_SG;
+-	snd_pcm_lib_preallocate_pages_for_all(pcm, type,
+-					      chip->card->dev,
+-					      size, MAX_PREALLOC_SIZE);
++	snd_pcm_set_managed_buffer_all(pcm, type, chip->card->dev,
++				       size, MAX_PREALLOC_SIZE);
  	return 0;
  }
  
--static int snd_fm801_hw_params(struct snd_pcm_substream *substream,
--			       struct snd_pcm_hw_params *hw_params)
--{
--	return snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--}
--
--static int snd_fm801_hw_free(struct snd_pcm_substream *substream)
--{
--	return snd_pcm_lib_free_pages(substream);
--}
--
- static int snd_fm801_playback_prepare(struct snd_pcm_substream *substream)
- {
- 	struct fm801 *chip = snd_pcm_substream_chip(substream);
-@@ -685,8 +674,6 @@ static const struct snd_pcm_ops snd_fm801_playback_ops = {
- 	.open =		snd_fm801_playback_open,
- 	.close =	snd_fm801_playback_close,
- 	.ioctl =	snd_pcm_lib_ioctl,
--	.hw_params =	snd_fm801_hw_params,
--	.hw_free =	snd_fm801_hw_free,
- 	.prepare =	snd_fm801_playback_prepare,
- 	.trigger =	snd_fm801_playback_trigger,
- 	.pointer =	snd_fm801_playback_pointer,
-@@ -696,8 +683,6 @@ static const struct snd_pcm_ops snd_fm801_capture_ops = {
- 	.open =		snd_fm801_capture_open,
- 	.close =	snd_fm801_capture_close,
- 	.ioctl =	snd_pcm_lib_ioctl,
--	.hw_params =	snd_fm801_hw_params,
--	.hw_free =	snd_fm801_hw_free,
- 	.prepare =	snd_fm801_capture_prepare,
- 	.trigger =	snd_fm801_capture_trigger,
- 	.pointer =	snd_fm801_capture_pointer,
-@@ -720,9 +705,8 @@ static int snd_fm801_pcm(struct fm801 *chip, int device)
- 	strcpy(pcm->name, "FM801");
- 	chip->pcm = pcm;
- 
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_DEV,
--					      &pdev->dev,
--					      chip->multichannel ? 128*1024 : 64*1024, 128*1024);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV, &pdev->dev,
-+				       chip->multichannel ? 128*1024 : 64*1024, 128*1024);
- 
- 	return snd_pcm_add_chmap_ctls(pcm, SNDRV_PCM_STREAM_PLAYBACK,
- 				     snd_pcm_alt_chmaps,
 -- 
 2.16.4
 

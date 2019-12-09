@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87EFB117579
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:17:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E58D11757D
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:18:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1D19516B4;
-	Mon,  9 Dec 2019 20:16:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D19516B4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 04EEF16E5;
+	Mon,  9 Dec 2019 20:17:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 04EEF16E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575919051;
-	bh=wAsuSWTxxO1vOjRQ/kBRsPlu0DgM19SOluL9XnvqMWI=;
+	s=default; t=1575919100;
+	bh=Kyf3QNCzq3/yCbznBdLwS8y+wkrDHsGChRXu/WY61BM=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=bYrsETWIhshdLedYXuhgggShLRXCUPp/MmQr0toIFGc3MEsCaKbq5EhnFI2nnL5PM
-	 VgrWq0XvqEqXxRBH40CSonsBGEFIsHS0UukzKZg13+hqcDhhne/44fWXjqCFBZih4B
-	 zvR3kQafdDZTxK+EhH0xjLIZqA14hK0T/NbFGlZ8=
+	b=bh8mxWzKpJLeABuiQvb8tVOXoSk2NZmMFz9npp+O6b91FieSmvHwbiOLogp95hh8N
+	 DyOgoNRWwRZxcDu08334UaZ5l0SzUDjY9JB9/ow6ywkPE2WQPA9ndQwRBUQCd490kw
+	 J8MiRz/m963wkwGTzm9/xugUBNH7vjZZVTAhgSGk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3DEA8F8036A;
-	Mon,  9 Dec 2019 19:59:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 569ABF803CA;
+	Mon,  9 Dec 2019 20:00:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2F04F80349; Mon,  9 Dec 2019 19:59:44 +0100 (CET)
+ id BBE06F8034A; Mon,  9 Dec 2019 19:59:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C7FBBF8033F
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:59:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C7FBBF8033F
+ by alsa1.perex.cz (Postfix) with ESMTP id 1ABC2F801F4
+ for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:59:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ABC2F801F4
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D63B911B3;
- Mon,  9 Dec 2019 10:59:38 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4E1131396;
+ Mon,  9 Dec 2019 10:59:41 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 56DED3F6CF;
- Mon,  9 Dec 2019 10:59:38 -0800 (PST)
-Date: Mon, 09 Dec 2019 18:59:36 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C1C853F6CF;
+ Mon,  9 Dec 2019 10:59:40 -0800 (PST)
+Date: Mon, 09 Dec 2019 18:59:39 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20191126145304.24204-4-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191126145304.24204-4-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191126145304.24204-3-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20191126145304.24204-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: hdac_hdmi: Drop support for Icelake" to
-	the asoc tree
+Subject: [alsa-devel] Applied "ASoC: Intel: boards: make common HDMI driver
+	the default for SOF" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: hdac_hdmi: Drop support for Icelake
+   ASoC: Intel: boards: make common HDMI driver the default for SOF
 
 has been applied to the asoc tree at
 
@@ -95,143 +95,69 @@ to this mail.
 Thanks,
 Mark
 
-From 573892b6e66114898a1e3838c74603dba6bf0fbc Mon Sep 17 00:00:00 2001
+From e3d8f8ae5b1ef0d470b70f65174bbf670bc74130 Mon Sep 17 00:00:00 2001
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Tue, 26 Nov 2019 08:53:04 -0600
-Subject: [PATCH] ASoC: hdac_hdmi: Drop support for Icelake
+Date: Tue, 26 Nov 2019 08:53:03 -0600
+Subject: [PATCH] ASoC: Intel: boards: make common HDMI driver the default for
+ SOF
 
-This reverts commit 019033c854a2 ("ASoC: Intel: hdac_hdmi:
-add Icelake support").
-
-Icelake HDMI audio is supported by the HDMI codec driver,
-which can be used both in non-DSP (legacy HDA) and with
-DSP (SOF) configurations.
+Modify Kconfig rules for machine drivers used by SOF to pick
+SND_HDA_CODEC_HDMI by default if other conditions are met. For
+shared machine drivers used also by older SST driver, keep using
+HDAC_HDMI.
 
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191126145304.24204-4-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191126145304.24204-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/hdac_hdmi.c | 63 ++++++------------------------------
- 1 file changed, 9 insertions(+), 54 deletions(-)
+ sound/soc/intel/boards/Kconfig | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
-index 18c173e6a13b..e6558475e006 100644
---- a/sound/soc/codecs/hdac_hdmi.c
-+++ b/sound/soc/codecs/hdac_hdmi.c
-@@ -115,16 +115,8 @@ struct hdac_hdmi_dai_port_map {
- 	struct hdac_hdmi_cvt *cvt;
- };
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index ef20316e83d1..575064b315ef 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -261,6 +261,7 @@ config SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
+ 	select SND_SOC_DA7219
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_DMIC
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
+ 	select SND_SOC_HDAC_HDMI
  
--/*
-- * pin to port mapping table where the value indicate the pin number and
-- * the index indicate the port number with 1 base.
-- */
--static const int icl_pin2port_map[] = {0x4, 0x6, 0x8, 0xa, 0xb};
--
- struct hdac_hdmi_drv_data {
- 	unsigned int vendor_nid;
--	const int *port_map; /* pin to port mapping table */
--	int port_num;
- };
+ config SND_SOC_INTEL_BXT_DA7219_MAX98357A_COMMON
+@@ -387,6 +388,7 @@ config SND_SOC_INTEL_GLK_RT5682_MAX98357A_MACH
+ 	select SND_SOC_RT5682
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_DMIC
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
+ 	select SND_SOC_HDAC_HDMI
+ 	help
+ 	   This adds support for ASoC machine driver for Geminilake platforms
+@@ -400,6 +402,7 @@ if SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
  
- struct hdac_hdmi_priv {
-@@ -1374,12 +1366,11 @@ static int hdac_hdmi_add_pin(struct hdac_device *hdev, hda_nid_t nid)
- 	return 0;
- }
- 
--#define INTEL_VENDOR_NID_0x2 0x02
--#define INTEL_VENDOR_NID_0x8 0x08
--#define INTEL_VENDOR_NID_0xb 0x0b
-+#define INTEL_VENDOR_NID 0x08
-+#define INTEL_GLK_VENDOR_NID 0x0b
- #define INTEL_GET_VENDOR_VERB 0xf81
- #define INTEL_SET_VENDOR_VERB 0x781
--#define INTEL_EN_DP12		0x02 /* enable DP 1.2 features */
-+#define INTEL_EN_DP12			0x02 /* enable DP 1.2 features */
- #define INTEL_EN_ALL_PIN_CVTS	0x01 /* enable 2nd & 3rd pins and convertors */
- 
- static void hdac_hdmi_skl_enable_all_pins(struct hdac_device *hdev)
-@@ -1566,26 +1557,7 @@ static int hdac_hdmi_parse_and_map_nid(struct hdac_device *hdev,
- 
- static int hdac_hdmi_pin2port(void *aptr, int pin)
- {
--	struct hdac_device *hdev = aptr;
--	struct hdac_hdmi_priv *hdmi = hdev_to_hdmi_priv(hdev);
--	const int *map = hdmi->drv_data->port_map;
--	int i;
--
--	if (!hdmi->drv_data->port_num)
--		return pin - 4; /* map NID 0x05 -> port #1 */
--
--	/*
--	 * looking for the pin number in the mapping table and return
--	 * the index which indicate the port number
--	 */
--	for (i = 0; i < hdmi->drv_data->port_num; i++) {
--		if (pin == map[i])
--			return i + 1;
--	}
--
--	/* return -1 if pin number exceeds our expectation */
--	dev_err(&hdev->dev, "Can't find the port for pin %d\n", pin);
--	return -1;
-+	return pin - 4; /* map NID 0x05 -> port #1 */
- }
- 
- static void hdac_hdmi_eld_notify_cb(void *aptr, int port, int pipe)
-@@ -1596,18 +1568,9 @@ static void hdac_hdmi_eld_notify_cb(void *aptr, int port, int pipe)
- 	struct hdac_hdmi_port *hport = NULL;
- 	struct snd_soc_component *component = hdmi->component;
- 	int i;
--	hda_nid_t pin_nid;
--
--	if (!hdmi->drv_data->port_num) {
--		/* for legacy platforms */
--		pin_nid = port + 0x04;
--	} else if (port < hdmi->drv_data->port_num) {
--		/* get pin number from the pin2port mapping table */
--		pin_nid = hdmi->drv_data->port_map[port - 1];
--	} else {
--		dev_err(&hdev->dev, "Can't find the pin for port %d\n", port);
--		return;
--	}
-+
-+	/* Don't know how this mapping is derived */
-+	hda_nid_t pin_nid = port + 0x04;
- 
- 	dev_dbg(&hdev->dev, "%s: for pin:%d port=%d\n", __func__,
- 							pin_nid, pipe);
-@@ -2025,18 +1988,12 @@ static int hdac_hdmi_get_spk_alloc(struct hdac_device *hdev, int pcm_idx)
- 	return port->eld.info.spk_alloc;
- }
- 
--static struct hdac_hdmi_drv_data intel_icl_drv_data  = {
--	.vendor_nid = INTEL_VENDOR_NID_0x2,
--	.port_map = icl_pin2port_map,
--	.port_num = ARRAY_SIZE(icl_pin2port_map),
--};
--
- static struct hdac_hdmi_drv_data intel_glk_drv_data  = {
--	.vendor_nid = INTEL_VENDOR_NID_0xb,
-+	.vendor_nid = INTEL_GLK_VENDOR_NID,
- };
- 
- static struct hdac_hdmi_drv_data intel_drv_data  = {
--	.vendor_nid = INTEL_VENDOR_NID_0x8,
-+	.vendor_nid = INTEL_VENDOR_NID,
- };
- 
- static int hdac_hdmi_dev_probe(struct hdac_device *hdev)
-@@ -2216,8 +2173,6 @@ static const struct hda_device_id hdmi_list[] = {
- 						   &intel_glk_drv_data),
- 	HDA_CODEC_EXT_ENTRY(0x8086280d, 0x100000, "Geminilake HDMI",
- 						   &intel_glk_drv_data),
--	HDA_CODEC_EXT_ENTRY(0x8086280f, 0x100000, "Icelake HDMI",
--						   &intel_icl_drv_data),
- 	{}
- };
- 
+ config SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
+ 	tristate "SKL/KBL/BXT/APL with HDA Codecs"
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
+ 	select SND_SOC_HDAC_HDMI
+ 	select SND_SOC_DMIC
+ 	# SND_SOC_HDAC_HDA is already selected
+@@ -419,6 +422,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
+ 		   (SND_SOC_SOF_BAYTRAIL && (X86_INTEL_LPSS || COMPILE_TEST))
+ 	select SND_SOC_RT5682
+ 	select SND_SOC_DMIC
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
+ 	select SND_SOC_HDAC_HDMI
+ 	help
+ 	   This adds support for ASoC machine driver for SOF platforms
+@@ -448,6 +452,7 @@ config SND_SOC_INTEL_SOF_CML_RT1011_RT5682_MACH
+ 	select SND_SOC_RT5682
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_HDAC_HDMI
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
+ 	help
+ 	  This adds support for ASoC machine driver for SOF platform with
+ 	  RT1011 + RT5682 I2S codec.
 -- 
 2.20.1
 

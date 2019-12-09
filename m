@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 547BC116B38
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:39:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BC5F116B2F
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 11:39:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D92B81701;
-	Mon,  9 Dec 2019 11:38:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D92B81701
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BCA216E1;
+	Mon,  9 Dec 2019 11:38:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BCA216E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575887979;
-	bh=1tmQyCar1HlXMa0lWg5fAnOpH1DaueVHq2TotXRluFY=;
+	s=default; t=1575887939;
+	bh=+MTKAuv2f17G7jfuGT5RxobePnOnFugurAt1unCjxN8=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=F9AmKb/1Gn775e0SlfHnvM6nY+wc4hE6UJk99ZYqXoy7a45tzUee4ZjR+uTfMcO72
-	 XuwFXePHppRHHnNwF869Bypee5lWmxYI7/NsClLMPjxPpd5N8gOou2Fm83h2uch/p7
-	 VjvCkrHnkd61IGcIJhdvzpjb6nzE7K1ORvWyh0+E=
+	b=pBGcZ4ix4fvEo/rf/3FAfMLVXqp87x50kdNdXiQ/Jr3pGtjsi60OoP/ZH+YofkyDQ
+	 eqYW0AcMPezUDFc4DPSJPnLShJd4G28/KGQ14tTvr/JDcbK2ieWWaveBVbKv6bq2jt
+	 YeeLybQxASHhnanKkrHboxEWJJWZ6iOUkYpU0GvM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 970E0F805FA;
-	Mon,  9 Dec 2019 10:52:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A83CBF805F4;
+	Mon,  9 Dec 2019 10:52:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE542F80392; Mon,  9 Dec 2019 10:51:30 +0100 (CET)
+ id 62F38F80390; Mon,  9 Dec 2019 10:51:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DA393F802D2
+ by alsa1.perex.cz (Postfix) with ESMTPS id C75BCF802A8
  for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 10:49:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DA393F802D2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C75BCF802A8
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 5B14AB2DF
+ by mx1.suse.de (Postfix) with ESMTP id 68D34B2E0
  for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 09:49:49 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Mon,  9 Dec 2019 10:49:31 +0100
-Message-Id: <20191209094943.14984-60-tiwai@suse.de>
+Date: Mon,  9 Dec 2019 10:49:32 +0100
+Message-Id: <20191209094943.14984-61-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191209094943.14984-1-tiwai@suse.de>
 References: <20191209094943.14984-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 5.6 59/71] ALSA: ps3: Use managed buffer
+Subject: [alsa-devel] [PATCH 5.6 60/71] ALSA: aica: Use managed buffer
 	allocation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -73,62 +73,63 @@ dropped.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/ppc/snd_ps3.c | 28 +++++-----------------------
- 1 file changed, 5 insertions(+), 23 deletions(-)
+ sound/sh/aica.c | 29 +++++------------------------
+ 1 file changed, 5 insertions(+), 24 deletions(-)
 
-diff --git a/sound/ppc/snd_ps3.c b/sound/ppc/snd_ps3.c
-index c213eb7ca23c..c6c004958e6f 100644
---- a/sound/ppc/snd_ps3.c
-+++ b/sound/ppc/snd_ps3.c
-@@ -535,22 +535,6 @@ static int snd_ps3_pcm_close(struct snd_pcm_substream *substream)
+diff --git a/sound/sh/aica.c b/sound/sh/aica.c
+index bf1fb0d8a930..8ff88d71439e 100644
+--- a/sound/sh/aica.c
++++ b/sound/sh/aica.c
+@@ -363,23 +363,6 @@ static int snd_aicapcm_pcm_close(struct snd_pcm_substream
  	return 0;
- };
+ }
  
--static int snd_ps3_pcm_hw_params(struct snd_pcm_substream *substream,
--				 struct snd_pcm_hw_params *hw_params)
+-static int snd_aicapcm_pcm_hw_free(struct snd_pcm_substream
+-				   *substream)
 -{
--	size_t size;
--
--	/* alloc transport buffer */
--	size = params_buffer_bytes(hw_params);
--	snd_pcm_lib_malloc_pages(substream, size);
--	return 0;
--};
--
--static int snd_ps3_pcm_hw_free(struct snd_pcm_substream *substream)
--{
+-	/* Free the DMA buffer */
 -	return snd_pcm_lib_free_pages(substream);
--};
+-}
 -
- static int snd_ps3_delay_to_bytes(struct snd_pcm_substream *substream,
- 				  unsigned int delay_ms)
+-static int snd_aicapcm_pcm_hw_params(struct snd_pcm_substream
+-				     *substream, struct snd_pcm_hw_params
+-				     *hw_params)
+-{
+-	/* Allocate a DMA buffer using ALSA built-ins */
+-	return
+-	    snd_pcm_lib_malloc_pages(substream,
+-				     params_buffer_bytes(hw_params));
+-}
+-
+ static int snd_aicapcm_pcm_prepare(struct snd_pcm_substream
+ 				   *substream)
  {
-@@ -759,8 +743,6 @@ static const struct snd_pcm_ops snd_ps3_pcm_spdif_ops = {
- 	.open = snd_ps3_pcm_open,
- 	.close = snd_ps3_pcm_close,
+@@ -417,8 +400,6 @@ static const struct snd_pcm_ops snd_aicapcm_playback_ops = {
+ 	.open = snd_aicapcm_pcm_open,
+ 	.close = snd_aicapcm_pcm_close,
  	.ioctl = snd_pcm_lib_ioctl,
--	.hw_params = snd_ps3_pcm_hw_params,
--	.hw_free = snd_ps3_pcm_hw_free,
- 	.prepare = snd_ps3_pcm_prepare,
- 	.trigger = snd_ps3_pcm_trigger,
- 	.pointer = snd_ps3_pcm_pointer,
-@@ -1007,11 +989,11 @@ static int snd_ps3_driver_probe(struct ps3_system_bus_device *dev)
+-	.hw_params = snd_aicapcm_pcm_hw_params,
+-	.hw_free = snd_aicapcm_pcm_hw_free,
+ 	.prepare = snd_aicapcm_pcm_prepare,
+ 	.trigger = snd_aicapcm_pcm_trigger,
+ 	.pointer = snd_aicapcm_pcm_pointer,
+@@ -441,11 +422,11 @@ static int __init snd_aicapcmchip(struct snd_card_aica
+ 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK,
+ 			&snd_aicapcm_playback_ops);
+ 	/* Allocate the DMA buffers */
+-	snd_pcm_lib_preallocate_pages_for_all(pcm,
+-					      SNDRV_DMA_TYPE_CONTINUOUS,
+-					      NULL,
+-					      AICA_BUFFER_SIZE,
+-					      AICA_BUFFER_SIZE);
++	snd_pcm_set_managed_buffer_all(pcm,
++				       SNDRV_DMA_TYPE_CONTINUOUS,
++				       NULL,
++				       AICA_BUFFER_SIZE,
++				       AICA_BUFFER_SIZE);
+ 	return 0;
+ }
  
- 	the_card.pcm->info_flags = SNDRV_PCM_INFO_NONINTERLEAVED;
- 	/* pre-alloc PCM DMA buffer*/
--	snd_pcm_lib_preallocate_pages_for_all(the_card.pcm,
--					SNDRV_DMA_TYPE_DEV,
--					&dev->core,
--					SND_PS3_PCM_PREALLOC_SIZE,
--					SND_PS3_PCM_PREALLOC_SIZE);
-+	snd_pcm_set_managed_buffer_all(the_card.pcm,
-+				       SNDRV_DMA_TYPE_DEV,
-+				       &dev->core,
-+				       SND_PS3_PCM_PREALLOC_SIZE,
-+				       SND_PS3_PCM_PREALLOC_SIZE);
- 
- 	/*
- 	 * allocate null buffer
 -- 
 2.16.4
 

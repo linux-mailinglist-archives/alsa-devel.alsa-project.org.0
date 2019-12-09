@@ -2,57 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C2F6117545
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:12:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46D2C117546
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:13:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0FAC916AD;
-	Mon,  9 Dec 2019 20:11:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0FAC916AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id DE9FA16B5;
+	Mon,  9 Dec 2019 20:12:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE9FA16B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575918769;
-	bh=30Nm2kIaJPRnBVDcPyIXNB8pwp/au6W/PbYFKu0GeOU=;
+	s=default; t=1575918810;
+	bh=NrdlkeNEyv37uoLIMWxD0a+Cq8H3iag1/C5ZPQyRFf0=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Ikkq5bFji1Sx/hzD9sN9RIKyMkzOR2DF5yZIxIQVDVphhSFLZ+cnBuMPbrT6Yoef3
-	 F1Noi1Lu8HEA4H6O8AIegWExM7hBqRgl89qvGgz9GscDkP77dVYJsjZDr3EVXz8O29
-	 4U8mXSrgoBotNVBLx5HpxaYhQQ5ChXvDAclF4A+M=
+	b=mlJSJCqPZYdh8H/+uq9SVk5RKtFy2BUc8o6db4ItXgMUNB3UQhLPh8V1lmbYW6pN0
+	 36y4BkfF+ML+DUfCxlU2UlpJieL2YkhL9Al0LAohos2tOlkgPh/Kq5+27NgU/9Asd2
+	 gJFss3/OAiMycwpA1EsrttdM/5EP3UzGiTgQzVJQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FA7DF8033F;
-	Mon,  9 Dec 2019 19:59:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1121F80346;
+	Mon,  9 Dec 2019 19:59:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 290BEF80316; Mon,  9 Dec 2019 19:59:27 +0100 (CET)
+ id 9F0CBF80321; Mon,  9 Dec 2019 19:59:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+X-Spam-Level: 
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 00CB6F80303
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:59:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00CB6F80303
+ by alsa1.perex.cz (Postfix) with ESMTP id 2ECE6F80304
+ for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:59:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2ECE6F80304
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E9D79328;
- Mon,  9 Dec 2019 10:59:20 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6975F13A1;
+ Mon,  9 Dec 2019 10:59:23 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6653F3F6CF;
- Mon,  9 Dec 2019 10:59:20 -0800 (PST)
-Date: Mon, 09 Dec 2019 18:59:18 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DD8FF3F6CF;
+ Mon,  9 Dec 2019 10:59:22 -0800 (PST)
+Date: Mon, 09 Dec 2019 18:59:21 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Geert Uytterhoeven <geert+renesas@glider.be>
-In-Reply-To: <20191202155834.22582-1-geert+renesas@glider.be>
-Message-Id: <applied-20191202155834.22582-1-geert+renesas@glider.be>
+To: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
+In-Reply-To: <20191129132719.11603-1-nikita.yoush@cogentembedded.com>
+Message-Id: <applied-20191129132719.11603-1-nikita.yoush@cogentembedded.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Takashi Iwai <tiwai@suse.com>, Nilkanth Ahirrao <anilkanth@jp.adit-jv.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-renesas-soc@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Eugeniu Rosca <erosca@de.adit-jv.com>
-Subject: [alsa-devel] Applied "ASoC: rsnd: Calculate DALIGN inversion at
-	run-time" to the asoc tree
+Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, "Andrew F. Davis" <afd@ti.com>,
+ Chris Healy <cphealy@gmail.com>, Lucas Stach <l.stach@pengutronix.de>
+Subject: [alsa-devel] Applied "ASoC: tlv320aic31xx: Add Volume Soft Stepping
+	control" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,7 +73,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rsnd: Calculate DALIGN inversion at run-time
+   ASoC: tlv320aic31xx: Add Volume Soft Stepping control
 
 has been applied to the asoc tree at
 
@@ -98,82 +98,65 @@ to this mail.
 Thanks,
 Mark
 
-From 49df1e3925824cf44e590daac635974270185841 Mon Sep 17 00:00:00 2001
-From: Geert Uytterhoeven <geert+renesas@glider.be>
-Date: Mon, 2 Dec 2019 16:58:34 +0100
-Subject: [PATCH] ASoC: rsnd: Calculate DALIGN inversion at run-time
+From 3176f94c467cf89f74120c34a3ddd9aaf8941be2 Mon Sep 17 00:00:00 2001
+From: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
+Date: Fri, 29 Nov 2019 16:27:19 +0300
+Subject: [PATCH] ASoC: tlv320aic31xx: Add Volume Soft Stepping control
 
-There is no need to store the inverted DALIGN values in the table, as
-they can easily be calculated at run-time.  This also protects against
-the introduction of inconsistencies between normal and inverted values
-by a future table modification.
+Chip supports soft stepping of volume changes and it is enabled by
+default.
 
-Reorder the two subexpressions in the AND check, to perform the least
-expensive check first.
+This patch adds a control for it, so it could be either made slower
+(two sample periods per step instead of one), or disabled.
 
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Reviewed-by: Eugeniu Rosca <erosca@de.adit-jv.com>
-Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/20191202155834.22582-1-geert+renesas@glider.be
+Signed-off-by: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
+Link: https://lore.kernel.org/r/20191129132719.11603-1-nikita.yoush@cogentembedded.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sh/rcar/core.c | 31 +++++++++++++------------------
- 1 file changed, 13 insertions(+), 18 deletions(-)
+ sound/soc/codecs/tlv320aic31xx.c | 8 ++++++++
+ sound/soc/codecs/tlv320aic31xx.h | 3 ---
+ 2 files changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index 399dc6e9bde5..d20f03dfdee6 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -376,20 +376,15 @@ u32 rsnd_get_adinr_bit(struct rsnd_mod *mod, struct rsnd_dai_stream *io)
-  */
- u32 rsnd_get_dalign(struct rsnd_mod *mod, struct rsnd_dai_stream *io)
- {
--	static const u32 dalign_values[8][2] = {
--		{0x76543210, 0x67452301},
--		{0x00000032, 0x00000023},
--		{0x00007654, 0x00006745},
--		{0x00000076, 0x00000067},
--		{0xfedcba98, 0xefcdab89},
--		{0x000000ba, 0x000000ab},
--		{0x0000fedc, 0x0000efcd},
--		{0x000000fe, 0x000000ef},
-+	static const u32 dalign_values[8] = {
-+		0x76543210, 0x00000032, 0x00007654, 0x00000076,
-+		0xfedcba98, 0x000000ba, 0x0000fedc, 0x000000fe,
- 	};
--	int id = 0, inv;
-+	int id = 0;
- 	struct rsnd_mod *ssiu = rsnd_io_to_mod_ssiu(io);
- 	struct rsnd_mod *target;
- 	struct snd_pcm_runtime *runtime = rsnd_io_to_runtime(io);
-+	u32 dalign;
+diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
+index d6c462f21370..31daa60695bd 100644
+--- a/sound/soc/codecs/tlv320aic31xx.c
++++ b/sound/soc/codecs/tlv320aic31xx.c
+@@ -275,6 +275,12 @@ static const char * const hp_rampup_step_text[] = {
+ static SOC_ENUM_SINGLE_DECL(hp_rampup_step_enum, AIC31XX_HPPOP, 1,
+ 	hp_rampup_step_text);
  
- 	/*
- 	 * *Hardware* L/R and *Software* L/R are inverted for 16bit data.
-@@ -425,15 +420,15 @@ u32 rsnd_get_dalign(struct rsnd_mod *mod, struct rsnd_dai_stream *io)
- 	if (mod == ssiu)
- 		id = rsnd_mod_id_sub(mod);
- 
--	/* Non target mod or non 16bit needs normal DALIGN */
--	if ((snd_pcm_format_width(runtime->format) != 16) ||
--	    (mod != target))
--		inv = 0;
--	/* Target mod needs inverted DALIGN when 16bit */
--	else
--		inv = 1;
-+	dalign = dalign_values[id];
++static const char * const vol_soft_step_mode_text[] = {
++	"fast", "slow", "disabled" };
 +
-+	if (mod == target && snd_pcm_format_width(runtime->format) == 16) {
-+		/* Target mod needs inverted DALIGN when 16bit */
-+		dalign = (dalign & 0xf0f0f0f0) >> 4 |
-+			 (dalign & 0x0f0f0f0f) << 4;
-+	}
++static SOC_ENUM_SINGLE_DECL(vol_soft_step_mode_enum, AIC31XX_DACSETUP, 0,
++	vol_soft_step_mode_text);
++
+ static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -6350, 50, 0);
+ static const DECLARE_TLV_DB_SCALE(adc_fgain_tlv, 0, 10, 0);
+ static const DECLARE_TLV_DB_SCALE(adc_cgain_tlv, -2000, 50, 0);
+@@ -306,6 +312,8 @@ static const struct snd_kcontrol_new common31xx_snd_controls[] = {
+ 	 */
+ 	SOC_ENUM("HP Output Driver Power-On time", hp_poweron_time_enum),
+ 	SOC_ENUM("HP Output Driver Ramp-up step", hp_rampup_step_enum),
++
++	SOC_ENUM("Volume Soft Stepping", vol_soft_step_mode_enum),
+ };
  
--	return dalign_values[id][inv];
-+	return dalign;
- }
+ static const struct snd_kcontrol_new aic31xx_snd_controls[] = {
+diff --git a/sound/soc/codecs/tlv320aic31xx.h b/sound/soc/codecs/tlv320aic31xx.h
+index 83a8c7604cc3..0523884cee74 100644
+--- a/sound/soc/codecs/tlv320aic31xx.h
++++ b/sound/soc/codecs/tlv320aic31xx.h
+@@ -218,9 +218,6 @@ struct aic31xx_pdata {
+ #define AIC31XX_GPIO1_ADC_MOD_CLK	0x10
+ #define AIC31XX_GPIO1_SDOUT		0x11
  
- u32 rsnd_get_busif_shift(struct rsnd_dai_stream *io, struct rsnd_mod *mod)
+-/* AIC31XX_DACSETUP */
+-#define AIC31XX_SOFTSTEP_MASK		GENMASK(1, 0)
+-
+ /* AIC31XX_DACMUTE */
+ #define AIC31XX_DACMUTE_MASK		GENMASK(3, 2)
+ 
 -- 
 2.20.1
 

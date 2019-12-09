@@ -2,56 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DCD4A117570
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:15:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07AA5117573
+	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:16:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7103616BF;
-	Mon,  9 Dec 2019 20:14:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7103616BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9165F16B6;
+	Mon,  9 Dec 2019 20:15:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9165F16B6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575918924;
-	bh=M5TpFlIPr4OjJjyVsT9/DsAd19wEN0vFpDbacIWEdto=;
+	s=default; t=1575918962;
+	bh=uKIIW4YpabTyQTnh8p9BbLSsCU5AJugjSu4XlEAxDaQ=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ta2jh6M74cNLI4RspOP+DEEO0adlIUauMMKDIX/u6prbA29pMiUcin/lnkVY2Asol
-	 EVBbiLKqg6uivs/2XxmMG8qXghofiTqGBtvPEwNSsxZ8NB6mQd9dxEUM5sN4ckzlX2
-	 PEmRGsAxZ1EbxA98LjtfLh3q5XndefEXrrqOSImA=
+	b=sNA1kjFo/RY+qG9zhaR77k2NNcSy4ksHzEinFoFjm30nh9Fy8LcXYw/L+sW3TIdt7
+	 OnC1hmL560+H8FX42RbAS0nua38Pe2/eG3AAiBsPdJs0nB3Cj9WMzbwlDhxgqwf4OS
+	 IDRnu8AJHKFUfK2KlBeGlpHIaWMV9oWn5/CSJAYo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECAE4F8036B;
-	Mon,  9 Dec 2019 19:59:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4995BF8036F;
+	Mon,  9 Dec 2019 19:59:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A95DF80338; Mon,  9 Dec 2019 19:59:37 +0100 (CET)
+ id 5ED26F80340; Mon,  9 Dec 2019 19:59:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 19BC9F80328
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:59:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19BC9F80328
+ by alsa1.perex.cz (Postfix) with ESMTP id 72626F80337
+ for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 19:59:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72626F80337
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6F495113E;
- Mon,  9 Dec 2019 10:59:31 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E75E313A1;
+ Mon,  9 Dec 2019 10:59:33 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E36B93F6CF;
- Mon,  9 Dec 2019 10:59:30 -0800 (PST)
-Date: Mon, 09 Dec 2019 18:59:28 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6489C3F6CF;
+ Mon,  9 Dec 2019 10:59:33 -0800 (PST)
+Date: Mon, 09 Dec 2019 18:59:31 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
-In-Reply-To: <20191128135447.26458-1-nikita.yoush@cogentembedded.com>
-Message-Id: <applied-20191128135447.26458-1-nikita.yoush@cogentembedded.com>
+To: Eason Yen <eason.yen@mediatek.com>
+In-Reply-To: <1573814926-15805-3-git-send-email-eason.yen@mediatek.com>
+Message-Id: <applied-1573814926-15805-3-git-send-email-eason.yen@mediatek.com>
 X-Patchwork-Hint: ignore
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, "Andrew F. Davis" <afd@ti.com>,
- Chris Healy <cphealy@gmail.com>, Lucas Stach <l.stach@pengutronix.de>
-Subject: [alsa-devel] Applied "ASoC: tlv320aic31xx: Add HP output driver pop
-	reduction controls" to the asoc tree
+Cc: alsa-devel@alsa-project.org, chipeng.chang@mediatek.com,
+ jiaxin.yu@mediatek.com, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, eason.yen@mediatek.com,
+ matthias.bgg@gmail.com
+Subject: [alsa-devel] Applied "ASoC: mediatek: common: refine hw_params and
+	hw_prepare" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,7 +72,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: tlv320aic31xx: Add HP output driver pop reduction controls
+   ASoC: mediatek: common: refine hw_params and hw_prepare
 
 has been applied to the asoc tree at
 
@@ -97,101 +97,252 @@ to this mail.
 Thanks,
 Mark
 
-From 0bb1306f22fb8da72f3d1ba63854489cc8cfe0dd Mon Sep 17 00:00:00 2001
-From: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
-Date: Thu, 28 Nov 2019 16:54:47 +0300
-Subject: [PATCH] ASoC: tlv320aic31xx: Add HP output driver pop reduction
- controls
+From df799b9502edf84a6f5bf2476917ce1ebdead4a2 Mon Sep 17 00:00:00 2001
+From: Eason Yen <eason.yen@mediatek.com>
+Date: Fri, 15 Nov 2019 18:48:46 +0800
+Subject: [PATCH] ASoC: mediatek: common: refine hw_params and hw_prepare
 
-HP output driver has two parameters that can be configured to reduce
-pop noise: power-on delay and ramp-up step time. Two new kcontrols
-have been added to set these parameters.
+Refine mtk_afe_fe_hw_params and mtk_afe_fe_prepare by
+these helpers.
+- mtk_memif_set_enable
+- mtk_memif_set_disable
+- mtk_memif_set_addr
+- mtk_memif_set_channel
+- mtk_memif_set_rate
+- mtk_memif_set_rate_substream
+- mtk_memif_set_format
+- mtk_memif_set_pbuf_size
 
-Also have to alter timeout in aic31xx_dapm_power_event() because default
-timeout does fire when higher supported power-on delay are configured.
-
-Signed-off-by: Nikita Yushchenko <nikita.yoush@cogentembedded.com>
-Link: https://lore.kernel.org/r/20191128135447.26458-1-nikita.yoush@cogentembedded.com
+Signed-off-by: Eason Yen <eason.yen@mediatek.com>
+Link: https://lore.kernel.org/r/1573814926-15805-3-git-send-email-eason.yen@mediatek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tlv320aic31xx.c | 32 ++++++++++++++++++++++++++++++--
- 1 file changed, 30 insertions(+), 2 deletions(-)
+ sound/soc/mediatek/common/mtk-afe-fe-dai.c | 143 +++++++++++----------
+ 1 file changed, 77 insertions(+), 66 deletions(-)
 
-diff --git a/sound/soc/codecs/tlv320aic31xx.c b/sound/soc/codecs/tlv320aic31xx.c
-index f6f19fdc72f5..d6c462f21370 100644
---- a/sound/soc/codecs/tlv320aic31xx.c
-+++ b/sound/soc/codecs/tlv320aic31xx.c
-@@ -262,6 +262,19 @@ static SOC_ENUM_SINGLE_DECL(mic1lm_p_enum, AIC31XX_MICPGAPI, 2,
- static SOC_ENUM_SINGLE_DECL(mic1lm_m_enum, AIC31XX_MICPGAMI, 4,
- 	mic_select_text);
+diff --git a/sound/soc/mediatek/common/mtk-afe-fe-dai.c b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
+index 309dc1ef6841..e761cb66be5d 100644
+--- a/sound/soc/mediatek/common/mtk-afe-fe-dai.c
++++ b/sound/soc/mediatek/common/mtk-afe-fe-dai.c
+@@ -6,11 +6,13 @@
+  * Author: Garlic Tseng <garlic.tseng@mediatek.com>
+  */
  
-+static const char * const hp_poweron_time_text[] = {
-+	"0us", "15.3us", "153us", "1.53ms", "15.3ms", "76.2ms",
-+	"153ms", "304ms", "610ms", "1.22s", "3.04s", "6.1s" };
-+
-+static SOC_ENUM_SINGLE_DECL(hp_poweron_time_enum, AIC31XX_HPPOP, 3,
-+	hp_poweron_time_text);
-+
-+static const char * const hp_rampup_step_text[] = {
-+	"0ms", "0.98ms", "1.95ms", "3.9ms" };
-+
-+static SOC_ENUM_SINGLE_DECL(hp_rampup_step_enum, AIC31XX_HPPOP, 1,
-+	hp_rampup_step_text);
-+
- static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -6350, 50, 0);
- static const DECLARE_TLV_DB_SCALE(adc_fgain_tlv, 0, 10, 0);
- static const DECLARE_TLV_DB_SCALE(adc_cgain_tlv, -2000, 50, 0);
-@@ -285,6 +298,14 @@ static const struct snd_kcontrol_new common31xx_snd_controls[] = {
++#include <linux/io.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <sound/soc.h>
+ #include "mtk-afe-platform-driver.h"
++#include <sound/pcm_params.h>
+ #include "mtk-afe-fe-dai.h"
+ #include "mtk-base-afe.h"
  
- 	SOC_DOUBLE_R_TLV("HP Analog Playback Volume", AIC31XX_LANALOGHPL,
- 			 AIC31XX_RANALOGHPR, 0, 0x7F, 1, hp_vol_tlv),
+@@ -120,50 +122,64 @@ int mtk_afe_fe_hw_params(struct snd_pcm_substream *substream,
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+-	struct mtk_base_afe_memif *memif = &afe->memif[rtd->cpu_dai->id];
+-	int msb_at_bit33 = 0;
+-	int ret, fs = 0;
++	int id = rtd->cpu_dai->id;
++	struct mtk_base_afe_memif *memif = &afe->memif[id];
++	int ret;
++	unsigned int channels = params_channels(params);
++	unsigned int rate = params_rate(params);
++	snd_pcm_format_t format = params_format(params);
+ 
+ 	ret = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(params));
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	msb_at_bit33 = upper_32_bits(substream->runtime->dma_addr) ? 1 : 0;
+-	memif->phys_buf_addr = lower_32_bits(substream->runtime->dma_addr);
+-	memif->buffer_size = substream->runtime->dma_bytes;
+-
+-	/* start */
+-	mtk_regmap_write(afe->regmap, memif->data->reg_ofs_base,
+-			 memif->phys_buf_addr);
+-	/* end */
+-	mtk_regmap_write(afe->regmap,
+-			 memif->data->reg_ofs_base + AFE_BASE_END_OFFSET,
+-			 memif->phys_buf_addr + memif->buffer_size - 1);
+-
+-	/* set MSB to 33-bit */
+-	mtk_regmap_update_bits(afe->regmap, memif->data->msb_reg,
+-			       1, msb_at_bit33, memif->data->msb_shift);
++	if (afe->request_dram_resource)
++		afe->request_dram_resource(afe->dev);
 +
-+	/* HP de-pop control: apply power not immediately but via ramp
-+	 * function with these psarameters. Note that power up sequence
-+	 * has to wait for this to complete; this is implemented by
-+	 * polling HP driver status in aic31xx_dapm_power_event()
-+	 */
-+	SOC_ENUM("HP Output Driver Power-On time", hp_poweron_time_enum),
-+	SOC_ENUM("HP Output Driver Ramp-up step", hp_rampup_step_enum),
- };
++	dev_dbg(afe->dev, "%s(), %s, ch %d, rate %d, fmt %d, dma_addr %pad, dma_area %p, dma_bytes 0x%zx\n",
++		__func__, memif->data->name,
++		channels, rate, format,
++		&substream->runtime->dma_addr,
++		substream->runtime->dma_area,
++		substream->runtime->dma_bytes);
++
++	memset_io(substream->runtime->dma_area, 0,
++		  substream->runtime->dma_bytes);
++
++	/* set addr */
++	ret = mtk_memif_set_addr(afe, id,
++				 substream->runtime->dma_area,
++				 substream->runtime->dma_addr,
++				 substream->runtime->dma_bytes);
++	if (ret) {
++		dev_err(afe->dev, "%s(), error, id %d, set addr, ret %d\n",
++			__func__, id, ret);
++		return ret;
++	}
  
- static const struct snd_kcontrol_new aic31xx_snd_controls[] = {
-@@ -357,6 +378,7 @@ static int aic31xx_dapm_power_event(struct snd_soc_dapm_widget *w,
- 	struct aic31xx_priv *aic31xx = snd_soc_component_get_drvdata(component);
- 	unsigned int reg = AIC31XX_DACFLAG1;
- 	unsigned int mask;
-+	unsigned int timeout = 500 * USEC_PER_MSEC;
+ 	/* set channel */
+-	if (memif->data->mono_shift >= 0) {
+-		unsigned int mono = (params_channels(params) == 1) ? 1 : 0;
+-
+-		mtk_regmap_update_bits(afe->regmap, memif->data->mono_reg,
+-				       1, mono, memif->data->mono_shift);
++	ret = mtk_memif_set_channel(afe, id, channels);
++	if (ret) {
++		dev_err(afe->dev, "%s(), error, id %d, set channel %d, ret %d\n",
++			__func__, id, channels, ret);
++		return ret;
+ 	}
  
- 	switch (WIDGET_BIT(w->reg, w->shift)) {
- 	case WIDGET_BIT(AIC31XX_DACSETUP, 7):
-@@ -367,9 +389,13 @@ static int aic31xx_dapm_power_event(struct snd_soc_dapm_widget *w,
- 		break;
- 	case WIDGET_BIT(AIC31XX_HPDRIVER, 7):
- 		mask = AIC31XX_HPLDRVPWRSTATUS_MASK;
-+		if (event == SND_SOC_DAPM_POST_PMU)
-+			timeout = 7 * USEC_PER_SEC;
- 		break;
- 	case WIDGET_BIT(AIC31XX_HPDRIVER, 6):
- 		mask = AIC31XX_HPRDRVPWRSTATUS_MASK;
-+		if (event == SND_SOC_DAPM_POST_PMU)
-+			timeout = 7 * USEC_PER_SEC;
- 		break;
- 	case WIDGET_BIT(AIC31XX_SPKAMP, 7):
- 		mask = AIC31XX_SPLDRVPWRSTATUS_MASK;
-@@ -389,9 +415,11 @@ static int aic31xx_dapm_power_event(struct snd_soc_dapm_widget *w,
+ 	/* set rate */
+-	if (memif->data->fs_shift < 0)
+-		return 0;
+-
+-	fs = afe->memif_fs(substream, params_rate(params));
+-
+-	if (fs < 0)
+-		return -EINVAL;
++	ret = mtk_memif_set_rate_substream(substream, id, rate);
++	if (ret) {
++		dev_err(afe->dev, "%s(), error, id %d, set rate %d, ret %d\n",
++			__func__, id, rate, ret);
++		return ret;
++	}
  
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
--		return aic31xx_wait_bits(aic31xx, reg, mask, mask, 5000, 100);
-+		return aic31xx_wait_bits(aic31xx, reg, mask, mask,
-+				5000, timeout / 5000);
- 	case SND_SOC_DAPM_POST_PMD:
--		return aic31xx_wait_bits(aic31xx, reg, mask, 0, 5000, 100);
-+		return aic31xx_wait_bits(aic31xx, reg, mask, 0,
-+				5000, timeout / 5000);
+-	mtk_regmap_update_bits(afe->regmap, memif->data->fs_reg,
+-			       memif->data->fs_maskbit, fs,
+-			       memif->data->fs_shift);
++	/* set format */
++	ret = mtk_memif_set_format(afe, id, format);
++	if (ret) {
++		dev_err(afe->dev, "%s(), error, id %d, set format %d, ret %d\n",
++			__func__, id, format, ret);
++		return ret;
++	}
+ 
+ 	return 0;
+ }
+@@ -172,6 +188,11 @@ EXPORT_SYMBOL_GPL(mtk_afe_fe_hw_params);
+ int mtk_afe_fe_hw_free(struct snd_pcm_substream *substream,
+ 		       struct snd_soc_dai *dai)
+ {
++	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
++
++	if (afe->release_dram_resource)
++		afe->release_dram_resource(afe->dev);
++
+ 	return snd_pcm_lib_free_pages(substream);
+ }
+ EXPORT_SYMBOL_GPL(mtk_afe_fe_hw_free);
+@@ -182,20 +203,25 @@ int mtk_afe_fe_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_pcm_runtime * const runtime = substream->runtime;
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+-	struct mtk_base_afe_memif *memif = &afe->memif[rtd->cpu_dai->id];
++	int id = rtd->cpu_dai->id;
++	struct mtk_base_afe_memif *memif = &afe->memif[id];
+ 	struct mtk_base_afe_irq *irqs = &afe->irqs[memif->irq_usage];
+ 	const struct mtk_base_irq_data *irq_data = irqs->irq_data;
+ 	unsigned int counter = runtime->period_size;
+ 	int fs;
++	int ret;
+ 
+ 	dev_dbg(afe->dev, "%s %s cmd=%d\n", __func__, memif->data->name, cmd);
+ 
+ 	switch (cmd) {
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+-		mtk_regmap_update_bits(afe->regmap,
+-				       memif->data->enable_reg,
+-				       1, 1, memif->data->enable_shift);
++		ret = mtk_memif_set_enable(afe, id);
++		if (ret) {
++			dev_err(afe->dev, "%s(), error, id %d, memif enable, ret %d\n",
++				__func__, id, ret);
++			return ret;
++		}
+ 
+ 		/* set irq counter */
+ 		mtk_regmap_update_bits(afe->regmap, irq_data->irq_cnt_reg,
+@@ -219,15 +245,19 @@ int mtk_afe_fe_trigger(struct snd_pcm_substream *substream, int cmd,
+ 		return 0;
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+-		mtk_regmap_update_bits(afe->regmap, memif->data->enable_reg,
+-				       1, 0, memif->data->enable_shift);
++		ret = mtk_memif_set_disable(afe, id);
++		if (ret) {
++			dev_err(afe->dev, "%s(), error, id %d, memif enable, ret %d\n",
++				__func__, id, ret);
++		}
++
+ 		/* disable interrupt */
+ 		mtk_regmap_update_bits(afe->regmap, irq_data->irq_en_reg,
+ 				       1, 0, irq_data->irq_en_shift);
+ 		/* and clear pending IRQ */
+ 		mtk_regmap_write(afe->regmap, irq_data->irq_clr_reg,
+ 				 1 << irq_data->irq_clr_shift);
+-		return 0;
++		return ret;
  	default:
- 		dev_dbg(component->dev,
- 			"Unhandled dapm widget event %d from %s\n",
+ 		return -EINVAL;
+ 	}
+@@ -239,34 +269,15 @@ int mtk_afe_fe_prepare(struct snd_pcm_substream *substream,
+ {
+ 	struct snd_soc_pcm_runtime *rtd  = substream->private_data;
+ 	struct mtk_base_afe *afe = snd_soc_dai_get_drvdata(dai);
+-	struct mtk_base_afe_memif *memif = &afe->memif[rtd->cpu_dai->id];
+-	int hd_audio = 0;
+-	int hd_align = 0;
++	int id = rtd->cpu_dai->id;
++	int pbuf_size;
+ 
+-	/* set hd mode */
+-	switch (substream->runtime->format) {
+-	case SNDRV_PCM_FORMAT_S16_LE:
+-		hd_audio = 0;
+-		break;
+-	case SNDRV_PCM_FORMAT_S32_LE:
+-		hd_audio = 1;
+-		hd_align = 1;
+-		break;
+-	case SNDRV_PCM_FORMAT_S24_LE:
+-		hd_audio = 1;
+-		break;
+-	default:
+-		dev_err(afe->dev, "%s() error: unsupported format %d\n",
+-			__func__, substream->runtime->format);
+-		break;
++	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
++		if (afe->get_memif_pbuf_size) {
++			pbuf_size = afe->get_memif_pbuf_size(substream);
++			mtk_memif_set_pbuf_size(afe, id, pbuf_size);
++		}
+ 	}
+-
+-	mtk_regmap_update_bits(afe->regmap, memif->data->hd_reg,
+-			       1, hd_audio, memif->data->hd_shift);
+-
+-	mtk_regmap_update_bits(afe->regmap, memif->data->hd_align_reg,
+-			       1, hd_align, memif->data->hd_align_mshift);
+-
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(mtk_afe_fe_prepare);
 -- 
 2.20.1
 

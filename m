@@ -2,53 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FA2C1175A5
-	for <lists+alsa-devel@lfdr.de>; Mon,  9 Dec 2019 20:26:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11427117BF0
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 00:57:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DC83F16EF;
-	Mon,  9 Dec 2019 20:25:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC83F16EF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66F7415F9;
+	Tue, 10 Dec 2019 00:56:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66F7415F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575919577;
-	bh=LZHgRvV2l3tObdOLYFvgggAICzTzYQlzT8vaYAoXmF8=;
-	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mw2bdfr0uYbF50It1wTgemRB8uaMOblpiUGFjJ7WOvJpMydnfJYqOgVvWAIYkdnSO
-	 W49mI+CDe2SY8YoBgDjM1HqFts9CRhJyGV3Z0ZNtrh47UpDxNWygprx0dU6XpRRnX4
-	 jXVhdJdcIpMDulwUK0yrdrzOz8GHxO5MtLGIpab8=
+	s=default; t=1575935841;
+	bh=ZoYoRuesN/RyAeSAWlC1dneY6FgsI9faa+dzFVT4oAw=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=YbxkBHSN6NmRHjG93V6XCUtHMnwA/YOpjq2qd2eWD7VLgQObfcOCrsQgRZigvFuEu
+	 r+hnM+KhEiAFtx02vHXwmEXgrfEh7oq2+O7oxrbXzAMSL9N2QIRkZQX+MbtbeiQWqw
+	 UhJ0E2HAgz3C/ZyHRkfS5QaqH/wMPvaXT0C1DCqc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9EA1AF80234;
-	Mon,  9 Dec 2019 20:24:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CA498F80240;
+	Tue, 10 Dec 2019 00:55:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C9931F800C4; Mon,  9 Dec 2019 20:24:30 +0100 (CET)
+ id 41C08F800C4; Tue, 10 Dec 2019 00:55:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8D27CF800C4
- for <alsa-devel@alsa-project.org>; Mon,  9 Dec 2019 20:24:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D27CF800C4
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 6A307ACC4;
- Mon,  9 Dec 2019 19:24:26 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00589F800C4
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 00:55:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00589F800C4
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 09 Dec 2019 15:55:27 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,297,1571727600"; d="scan'208";a="210273596"
+Received: from bbower-mobl.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.254.65.172])
+ by fmsmga008.fm.intel.com with ESMTP; 09 Dec 2019 15:55:25 -0800
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Mon,  9 Dec 2019 20:24:22 +0100
-Message-Id: <20191209192422.23902-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <s5hy2vl9v1f.wl-tiwai@suse.de>
-References: <s5hy2vl9v1f.wl-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH v2] ALSA: firewire: Use managed buffer
-	allocation
+Date: Mon,  9 Dec 2019 17:55:08 -0600
+Message-Id: <20191209235520.18727-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
+MIME-Version: 1.0
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: [alsa-devel] [PATCH v4 00/11] soundwire: update ASoC interfaces
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,383 +70,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Clean up the drivers with the new managed buffer allocation API.
-The superfluous snd_pcm_lib_malloc_pages() and
-snd_pcm_lib_free_pages() calls are dropped.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
-v1->v2: corrected the return value to propate the error
-        initialize err variable for covering uninitialized compiler errors
-
- sound/firewire/bebob/bebob_pcm.c         | 11 +++--------
- sound/firewire/dice/dice-pcm.c           | 13 ++++---------
- sound/firewire/digi00x/digi00x-pcm.c     | 11 +++--------
- sound/firewire/fireface/ff-pcm.c         | 11 +++--------
- sound/firewire/fireworks/fireworks_pcm.c | 11 +++--------
- sound/firewire/isight.c                  | 10 ++--------
- sound/firewire/motu/motu-pcm.c           | 11 +++--------
- sound/firewire/oxfw/oxfw-pcm.c           | 19 +++++--------------
- sound/firewire/tascam/tascam-pcm.c       | 11 +++--------
- 9 files changed, 29 insertions(+), 79 deletions(-)
-
-diff --git a/sound/firewire/bebob/bebob_pcm.c b/sound/firewire/bebob/bebob_pcm.c
-index d4edd06d32cf..5fbf1d74c544 100644
---- a/sound/firewire/bebob/bebob_pcm.c
-+++ b/sound/firewire/bebob/bebob_pcm.c
-@@ -212,11 +212,7 @@ static int pcm_hw_params(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_bebob *bebob = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -247,7 +243,7 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&bebob->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int
-@@ -377,8 +373,7 @@ int snd_bebob_create_pcm_devices(struct snd_bebob *bebob)
- 		 "%s PCM", bebob->card->shortname);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &playback_ops);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &capture_ops);
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      NULL, 0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
- end:
- 	return err;
- }
-diff --git a/sound/firewire/dice/dice-pcm.c b/sound/firewire/dice/dice-pcm.c
-index be79d659eedf..2700f7f6f754 100644
---- a/sound/firewire/dice/dice-pcm.c
-+++ b/sound/firewire/dice/dice-pcm.c
-@@ -264,11 +264,7 @@ static int pcm_hw_params(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_dice *dice = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -304,7 +300,7 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&dice->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int capture_prepare(struct snd_pcm_substream *substream)
-@@ -457,9 +453,8 @@ int snd_dice_create_pcm(struct snd_dice *dice)
- 			snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK,
- 					&playback_ops);
- 
--		snd_pcm_lib_preallocate_pages_for_all(pcm,
--						      SNDRV_DMA_TYPE_VMALLOC,
--						      NULL, 0, 0);
-+		snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
-+					       NULL, 0, 0);
- 	}
- 
- 	return 0;
-diff --git a/sound/firewire/digi00x/digi00x-pcm.c b/sound/firewire/digi00x/digi00x-pcm.c
-index 57cbce4fd836..bacf9b860f3f 100644
---- a/sound/firewire/digi00x/digi00x-pcm.c
-+++ b/sound/firewire/digi00x/digi00x-pcm.c
-@@ -188,11 +188,7 @@ static int pcm_hw_params(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_dg00x *dg00x = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -223,7 +219,7 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&dg00x->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int pcm_capture_prepare(struct snd_pcm_substream *substream)
-@@ -360,8 +356,7 @@ int snd_dg00x_create_pcm_devices(struct snd_dg00x *dg00x)
- 		 "%s PCM", dg00x->card->shortname);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &playback_ops);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &capture_ops);
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      NULL, 0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
- 
- 	return 0;
- }
-diff --git a/sound/firewire/fireface/ff-pcm.c b/sound/firewire/fireface/ff-pcm.c
-index bd91c6ecb112..a52a4344ec6f 100644
---- a/sound/firewire/fireface/ff-pcm.c
-+++ b/sound/firewire/fireface/ff-pcm.c
-@@ -228,11 +228,7 @@ static int pcm_hw_params(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_ff *ff = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -263,7 +259,7 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&ff->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int pcm_capture_prepare(struct snd_pcm_substream *substream)
-@@ -400,8 +396,7 @@ int snd_ff_create_pcm_devices(struct snd_ff *ff)
- 		 "%s PCM", ff->card->shortname);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &pcm_playback_ops);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &pcm_capture_ops);
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      NULL, 0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
- 
- 	return 0;
- }
-diff --git a/sound/firewire/fireworks/fireworks_pcm.c b/sound/firewire/fireworks/fireworks_pcm.c
-index e69896d748df..8e60d22acbcc 100644
---- a/sound/firewire/fireworks/fireworks_pcm.c
-+++ b/sound/firewire/fireworks/fireworks_pcm.c
-@@ -248,11 +248,7 @@ static int pcm_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_efw *efw = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -283,7 +279,7 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&efw->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int pcm_capture_prepare(struct snd_pcm_substream *substream)
-@@ -406,8 +402,7 @@ int snd_efw_create_pcm_devices(struct snd_efw *efw)
- 	snprintf(pcm->name, sizeof(pcm->name), "%s PCM", efw->card->shortname);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &playback_ops);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &capture_ops);
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      NULL, 0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
- end:
- 	return err;
- }
-diff --git a/sound/firewire/isight.c b/sound/firewire/isight.c
-index d9f1b962bfef..214f77b0e8b7 100644
---- a/sound/firewire/isight.c
-+++ b/sound/firewire/isight.c
-@@ -286,11 +286,6 @@ static int isight_hw_params(struct snd_pcm_substream *substream,
- 			    struct snd_pcm_hw_params *hw_params)
- {
- 	struct isight *isight = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
- 
- 	WRITE_ONCE(isight->pcm_active, true);
- 
-@@ -336,7 +331,7 @@ static int isight_hw_free(struct snd_pcm_substream *substream)
- 	isight_stop_streaming(isight);
- 	mutex_unlock(&isight->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int isight_start_streaming(struct isight *isight)
-@@ -463,8 +458,7 @@ static int isight_create_pcm(struct isight *isight)
- 	strcpy(pcm->name, "iSight");
- 	isight->pcm = pcm->streams[SNDRV_PCM_STREAM_CAPTURE].substream;
- 	isight->pcm->ops = &ops;
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      NULL, 0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
- 
- 	return 0;
- }
-diff --git a/sound/firewire/motu/motu-pcm.c b/sound/firewire/motu/motu-pcm.c
-index 005970931030..931978eb30c9 100644
---- a/sound/firewire/motu/motu-pcm.c
-+++ b/sound/firewire/motu/motu-pcm.c
-@@ -212,11 +212,7 @@ static int pcm_hw_params(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_motu *motu = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -247,7 +243,7 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&motu->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int capture_prepare(struct snd_pcm_substream *substream)
-@@ -374,8 +370,7 @@ int snd_motu_create_pcm_devices(struct snd_motu *motu)
- 
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &capture_ops);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &playback_ops);
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      NULL, 0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
- 
- 	return 0;
- }
-diff --git a/sound/firewire/oxfw/oxfw-pcm.c b/sound/firewire/oxfw/oxfw-pcm.c
-index 67fd3e844dd6..974e53bbae10 100644
---- a/sound/firewire/oxfw/oxfw-pcm.c
-+++ b/sound/firewire/oxfw/oxfw-pcm.c
-@@ -237,11 +237,7 @@ static int pcm_capture_hw_params(struct snd_pcm_substream *substream,
- 				 struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_oxfw *oxfw = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -264,11 +260,7 @@ static int pcm_playback_hw_params(struct snd_pcm_substream *substream,
- 				  struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_oxfw *oxfw = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -301,7 +293,7 @@ static int pcm_capture_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&oxfw->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- static int pcm_playback_hw_free(struct snd_pcm_substream *substream)
- {
-@@ -316,7 +308,7 @@ static int pcm_playback_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&oxfw->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int pcm_capture_prepare(struct snd_pcm_substream *substream)
-@@ -454,8 +446,7 @@ int snd_oxfw_create_pcm(struct snd_oxfw *oxfw)
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &playback_ops);
- 	if (cap > 0)
- 		snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &capture_ops);
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      NULL, 0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
- 
- 	return 0;
- }
-diff --git a/sound/firewire/tascam/tascam-pcm.c b/sound/firewire/tascam/tascam-pcm.c
-index 8e9b444c8bff..92551ca3460c 100644
---- a/sound/firewire/tascam/tascam-pcm.c
-+++ b/sound/firewire/tascam/tascam-pcm.c
-@@ -117,11 +117,7 @@ static int pcm_hw_params(struct snd_pcm_substream *substream,
- 			 struct snd_pcm_hw_params *hw_params)
- {
- 	struct snd_tscm *tscm = substream->private_data;
--	int err;
--
--	err = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(hw_params));
--	if (err < 0)
--		return err;
-+	int err = 0;
- 
- 	if (substream->runtime->status->state == SNDRV_PCM_STATE_OPEN) {
- 		unsigned int rate = params_rate(hw_params);
-@@ -152,7 +148,7 @@ static int pcm_hw_free(struct snd_pcm_substream *substream)
- 
- 	mutex_unlock(&tscm->mutex);
- 
--	return snd_pcm_lib_free_pages(substream);
-+	return 0;
- }
- 
- static int pcm_capture_prepare(struct snd_pcm_substream *substream)
-@@ -289,8 +285,7 @@ int snd_tscm_create_pcm_devices(struct snd_tscm *tscm)
- 		 "%s PCM", tscm->card->shortname);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_PLAYBACK, &playback_ops);
- 	snd_pcm_set_ops(pcm, SNDRV_PCM_STREAM_CAPTURE, &capture_ops);
--	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_VMALLOC,
--					      NULL, 0, 0);
-+	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_VMALLOC, NULL, 0, 0);
- 
- 	return 0;
- }
--- 
-2.16.4
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+V2UgbmVlZCBuZXcgZmllbGRzIGluIGV4aXN0aW5nIHN0cnVjdHVyZXMgdG8KYSkgZGVhbCB3aXRo
+IHJhY2UgY29uZGl0aW9ucyBvbiBjb2RlYyBwcm9iZS9lbnVtZXJhdGlvbgpiKSBhbGxvdyBmb3Ig
+bXVsdGktc3RlcCBBQ1BJIHNjYW4vcHJvYmUvc3RhcnR1cCBvbiBJbnRlbCBwbGFmb3JtcwpjKSBk
+ZWFsIHdpdGggTVNJIGlzc3VlcyB1c2luZyBhIHNpbmdsZSBoYW5kbGVyL3RocmVhZHMgZm9yIGFs
+bCBhdWRpbwppbnRlcnJ1cHRzCmQpIGRlYWwgd2l0aCBhY2Nlc3MgdG8gcmVnaXN0ZXJzIHNoYXJl
+ZCBhY3Jvc3MgbXVsdGlwbGUgbGlua3Mgb24gSW50ZWwKcGxhdGZvcm1zCgpUaGVzZSBzdHJ1Y3R1
+cmVzIGZvciBhKSB3aWxsIGJlIHVzZWQgYnkgdGhlIFNPRiBkcml2ZXIgYXMgd2VsbCBhcwpjb2Rl
+YyBkcml2ZXJzLiBUaGUgYikgYykgYW5kIGQpIGNhc2VzIGFyZSBvbmx5IGZvciB0aGUgSW50ZWwt
+c3BlY2lmaWMKaW1wbGVtZW50YXRpb24uCgpUbyBhdm9pZCBjb25mbGljdHMgYmV0d2VlbiBBU29D
+IGFuZCBTb3VuZHdpcmUgdHJlZXMsIHRoZXNlIDExIHBhdGNoZXMKYXJlIHByb3ZpZGVkIG91dC1v
+Zi1vcmRlciwgYmVmb3JlIHRoZSBmdW5jdGlvbmFsaXR5IGVuYWJsZWQgaW4gdGhlc2UKaGVhZGVy
+IGZpbGVzIGlzIGFkZGVkIGluIGZvbGxvdy11cCBwYXRjaCBzZXJpZXMgd2hpY2ggY2FuIGJlIGFw
+cGxpZWQKc2VwYXJhdGVseSBpbiB0aGUgQVNvQyBhbmQgU291bmR3aXJlIHRyZWVzLiBBcyBkaXNj
+dXNzZWQgZWFybGllciwKVmlub2Qgd291bGQgbmVlZCB0byBwcm92aWRlIGFuIGltbXV0YWJsZSB0
+YWcgZm9yIE1hcmsgQnJvd24sIGFuZCB0aGUKaW50ZWdyYXRpb24gb24gdGhlIEFTb0Mgc2lkZSBv
+ZiBTT0YgY2hhbmdlcyBhbmQgbmV3IGNvZGVjcyBkcml2ZXJzIGNhbgpwcm9jZWVkIGluIHBhcmFs
+bGVsIHdpdGggU291bmRXaXJlIGNvcmUgY2hhbmdlcy4KCkkgaGFkIG11bHRpcGxlIG9mZmxpbmUg
+ZGlzY3Vzc2lvbnMgd2l0aCBWaW5vZC9NYXJrL1Rha2FzaGkgb24gaG93IHRvCnByb2NlZWQgd2l0
+aGUgdm9sdW1lIG9mIFNvdW5kV2lyZSBjaGFuZ2VzLiBOb3cgdGhhdCB2NS41LXJjMSBpcyBvdXQg
+d2UKc2hvdWxkIGdvIGFoZWFkIHdpdGggdGhlc2UgaW50ZXJmYWNlIGNoYW5nZXMuIFRoZSBuZXh0
+IHBhdGNoc2V0IGhhcwpub3QgY2hhbmdlZCwgdGhlIHNlcmllcyAiW1BBVENIIHYzIDAwLzE1XSBz
+b3VuZHdpcmU6IGludGVsOiBpbXBsZW1lbnQKbmV3IEFTb0MgaW50ZXJmYWNlc+KAiyIgY2FuIHN0
+aWxsIGJlIHJldmlld2VkLgoKQW4gdXBkYXRlIGZvciB0aGUgc2VyaWVzICJbUEFUQ0ggdjMgMDAv
+MjJdIHNvdW5kd2lyZTogY29kZSBoYXJkZW5pbmcKYW5kIHN1c3BlbmQtcmVzdW1lIHN1cHBvcnQi
+IHdpbGwgYmUgcHJvdmlkZWQgbGF0ZXIgdGhpcyB3ZWVrIChvbmUgbGFzdAptaW51dGUgaXNzdWUg
+dG8gZml4KQoKQ29tbWVudHMgYW5kIGZlZWRiYWNrIHdlbGNvbWUKflBpZXJyZQoKQ2hhbmdlcyBz
+aW5jZSB2MzoKUmVvcmRlcmVkIGNvZGUgYW5kIGFkZGVkIGtlcm5lbCBkb2MgY29tbWVudHMKQWRk
+ZWQgcHJvdG90eXBlcyBhbmQgZmllbGRzIG5lZWRlZCB0byBkZWFsIHdpdGggU291bmRXaXJlIGlu
+dGVycnVwdHMKaW4gYSBzaW5nbGUgaGFuZGxlci90aHJlYWQsIGZvbGxvd2luZyB3aGF0IGlzIGFs
+cmVhZHkgZG9uZSBvbiB0aGUgRFNQCnNpZGUuCkFkZGVkIG11dGV4IHRvIGNvbnRyb2wgYWNjZXNz
+IHRvIHJlZ2lzdGVycyBzaGFyZWQgYWNyb3NzIGxpbmtzCkFkZGVkIGluaXRpYWwgZGVmaW5pdGlv
+bnMgZm9yIGNsb2NrIHN0b3Agc3VwcG9ydCBvbiBJbnRlbApwbGF0Zm9ybXMuIERlcGVuZGluZyBv
+biBwb3dlciBhbmQgbGF0ZW5jeSByZXF1aXJlbWVudHMsIGRpZmZlcmVudAoicXVpcmtzIiBjYW4g
+YmUgc3VwcG9ydGVkLgoKQ2hhbmdlcyBzaW5jZSB2MjoKQWRkZWQgbmV3IGZpZWxkIHRvIGRlYWwg
+d2l0aCBhIHJhY2UgY29uZGl0aW9uIGxlYWRpbmcgdG8gYSB0aW1lb3V0CndoZW4gdGhlIGNvZGVj
+IGdvZXMgdGhyb3VnaCBhIHBtX3J1bnRpbWUgc3VzcGVuZC9yZXN1bWUgdHJhbnNpdGlvbgp3aGls
+ZSB0aGUgTWFzdGVyIHJlbWFpbnMgYWN0aXZlLgpDbGFyaWZpZWQgY29tbWl0IG1lc3NhZ2VzIHdp
+dGggZGV0YWlsZWQgZXhwbGFuYXRpb25zIHdoYXQgdGhvc2UgcmFjZQpjb25kaXRpb25zIGFyZSBh
+bmQgd2h5IHRoZSBjaGFuZ2VzIHdlcmUgaW50cm9kdWNlZC4KUmVvcmRlcmVkIGZpZWxkcyBmb3Ig
+SW50ZWwgcm91dGluZXMKQWRkZWQga2VybmVsLWRvYyBkZWZpbml0aW9ucyBmb3Igc3RydWN0dXJl
+cwpNb2RpZmllZCB0aGUgcGF0Y2ggc3ViamVjdHMgdG8gbWFrZSB0aGUgbWFwcGluZyBiZXR3ZWVu
+IGludGVyZmFjZSBkZWZpbml0aW9uCmFuZCBpbXBsZW1lbnRhdGlvbiBzdHJhaWdodGZvcndhcmQu
+CgpDaGFuZ2VzIHNpbmNlIHYxIChubyBmZWVkYmFjayByZWNlaXZlZCBzaW5jZSBPY3RvYmVyIDIz
+KQphZGRpdGlvbmFsIGluaXRpYWxpemF0aW9uX2NvbXBsZXRlIHV0aWxpdHkgdG8gaGVscCBjb2Rl
+YyBkcml2ZXJzIHdpdGgKdGhlaXIgcmVzdW1lIG9wZXJhdGlvbiwgd2FpdGluZyBmb3IgdGhlIGVu
+dW1lcmF0aW9uIHRvIGNvbXBsZXRlIGlzIG5vdAphbHdheXMgZW5vdWdoLgoKQmFyZCBMaWFvICgy
+KToKICBzb3VuZHdpcmU6IGludGVsOiB1cGRhdGUgaGVhZGVycyBmb3IgaW50ZXJydXB0cwogIHNv
+dW5kd2lyZTogaW50ZWw6IGFkZCBsaW5rX2xpc3QgdG8gaGFuZGxlIGludGVycnVwdHMgd2l0aCBh
+IHNpbmdsZQogICAgdGhyZWFkCgpQaWVycmUtTG91aXMgQm9zc2FydCAoNyk6CiAgc291bmR3aXJl
+OiBzZHdfc2xhdmU6IGFkZCBwcm9iZV9jb21wbGV0ZSBzdHJ1Y3R1cmUgYW5kIG5ldyBmaWVsZHMK
+ICBzb3VuZHdpcmU6IHNkd19zbGF2ZTogYWRkIGVudW1lcmF0aW9uX2NvbXBsZXRlIHN0cnVjdHVy
+ZQogIHNvdW5kd2lyZTogc2R3X3NsYXZlOiBhZGQgaW5pdGlhbGl6YXRpb25fY29tcGxldGUgZGVm
+aW5pdGlvbgogIHNvdW5kd2lyZTogc2R3X3NsYXZlOiB0cmFjayB1bmF0dGFjaF9yZXF1ZXN0IHRv
+IGhhbmRsZSBhbGwgaW5pdAogICAgc2VxdWVuY2VzCiAgc291bmR3aXJlOiBpbnRlbDogdXBkYXRl
+IGludGVyZmFjZXMgYmV0d2VlbiBBU29DIGFuZCBTb3VuZFdpcmUKICBzb3VuZHdpcmU6IGludGVs
+OiBhZGQgbXV0ZXggZm9yIHNoYXJlZCBTSElNIHJlZ2lzdGVyIGFjY2VzcwogIHNvdW5kd2lyZTog
+aW50ZWw6IGFkZCBjbG9jayBzdG9wIHF1aXJrcwoKUmFuZGVyIFdhbmcgKDIpOgogIHNvdW5kd2ly
+ZTogaW50ZWw6IHVwZGF0ZSBzdHJlYW0gY2FsbGJhY2tzIGZvciBod3BhcmFtcy9mcmVlIHN0cmVh
+bQogICAgb3BlcmF0aW9ucwogIHNvdW5kd2lyZTogaW50ZWw6IGFkZCBwcm90b3R5cGUgZm9yIFdB
+S0VFTiBpbnRlcnJ1cHQgcHJvY2Vzc2luZwoKIGRyaXZlcnMvc291bmR3aXJlL2ludGVsLmMgICAg
+ICAgICAgIHwgIDIwICsrLS0KIGRyaXZlcnMvc291bmR3aXJlL2ludGVsLmggICAgICAgICAgIHwg
+IDEzICsrLQogZHJpdmVycy9zb3VuZHdpcmUvaW50ZWxfaW5pdC5jICAgICAgfCAgMzEgKystLS0t
+CiBpbmNsdWRlL2xpbnV4L3NvdW5kd2lyZS9zZHcuaCAgICAgICB8ICAxOSArKysrCiBpbmNsdWRl
+L2xpbnV4L3NvdW5kd2lyZS9zZHdfaW50ZWwuaCB8IDE1NCArKysrKysrKysrKysrKysrKysrKysr
+KysrKy0tCiA1IGZpbGVzIGNoYW5nZWQsIDE5NCBpbnNlcnRpb25zKCspLCA0MyBkZWxldGlvbnMo
+LSkKCgpiYXNlLWNvbW1pdDogZTQyNjE3YjgyNWY4MDczNTY5ZGE3NmRjNDUxMGJmYTAxOWIxYzM1
+YQotLSAKMi4yMC4xCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcK
+aHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRl
+dmVsCg==

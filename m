@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF1541180FD
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 08:00:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26E9B11811D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 08:13:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6CBCC16F2;
-	Tue, 10 Dec 2019 07:59:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6CBCC16F2
+	by alsa0.perex.cz (Postfix) with ESMTPS id C12EE173B;
+	Tue, 10 Dec 2019 08:12:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C12EE173B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575961242;
-	bh=W/IbDiwQ2OogDy/mB9Z44eawLTnX4/qcngkh5HMiNl4=;
+	s=default; t=1575961998;
+	bh=hSpBs3EVPB2kOnaNifBOw71uNIhSA2jozkiuag/VFDc=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YBmuHfNle/KZKSgST5xyeqW2Ogrm5HKiRKKzE8edejVwGh0fFjjSgIvrGfvCnbl2f
-	 1NhANyCKObHV4DgQU8Jz2q72Y+QWVtHIiLvKu/c5dA0XEa1s9MnhrwvvKAzIV00kmm
-	 tznAuLsdZBdHQBG9igUWpcwKE8zEIA8yFt+g/VHY=
+	b=KdP9A1LcKJiny83Qb+g2v1VfkRaAB3O4KaZ4WVNxZPE2EUw43RTw/FGYPDzjMSBCp
+	 SMZt+t9aAXeWJVCXtj6qExmCRT+qpmbTcuNhhf3d//fK+JryCiA6Bqj8/8ehJgtyuL
+	 EJ+4gD8AYVF47OItxt229i5MWYEpsVKJJSRbeLSM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06F5CF803F5;
-	Tue, 10 Dec 2019 07:37:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5B33DF8051B;
+	Tue, 10 Dec 2019 07:37:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED21DF80338; Tue, 10 Dec 2019 07:36:20 +0100 (CET)
+ id 0DB48F80363; Tue, 10 Dec 2019 07:37:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A2B1F8027C
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 07:35:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A2B1F8027C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7EAF2F802A7
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 07:35:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7EAF2F802A7
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id A4543B28A
+ by mx1.suse.de (Postfix) with ESMTP id DA530B310
  for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 06:35:00 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Tue, 10 Dec 2019 07:34:30 +0100
-Message-Id: <20191210063454.31603-32-tiwai@suse.de>
+Date: Tue, 10 Dec 2019 07:34:34 +0100
+Message-Id: <20191210063454.31603-36-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191210063454.31603-1-tiwai@suse.de>
 References: <20191210063454.31603-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 31/55] ALSA: rme32: Support PCM sync_stop
+Subject: [alsa-devel] [PATCH 35/55] ALSA: sonicvibes: Support PCM sync_stop
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,21 +72,21 @@ operation.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/rme32.c | 1 +
+ sound/pci/sonicvibes.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/sound/pci/rme32.c b/sound/pci/rme32.c
-index 849eede15f8e..15029b2be233 100644
---- a/sound/pci/rme32.c
-+++ b/sound/pci/rme32.c
-@@ -1330,6 +1330,7 @@ static int snd_rme32_create(struct rme32 *rme32)
+diff --git a/sound/pci/sonicvibes.c b/sound/pci/sonicvibes.c
+index bc650c8e85b0..a2bff9431512 100644
+--- a/sound/pci/sonicvibes.c
++++ b/sound/pci/sonicvibes.c
+@@ -1267,6 +1267,7 @@ static int snd_sonicvibes_create(struct snd_card *card,
  		return -EBUSY;
  	}
- 	rme32->irq = pci->irq;
-+	rme32->card->sync_irq = rme32->irq;
+ 	sonic->irq = pci->irq;
++	card->sync_irq = sonic->irq;
  
- 	/* read the card's revision number */
- 	pci_read_config_byte(pci, 8, &rme32->rev);
+ 	pci_read_config_dword(pci, 0x40, &dmaa);
+ 	pci_read_config_dword(pci, 0x48, &dmac);
 -- 
 2.16.4
 

@@ -2,62 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F101118AD7
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 15:29:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7261E118ACF
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 15:28:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 40A641698;
-	Tue, 10 Dec 2019 15:28:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40A641698
+	by alsa0.perex.cz (Postfix) with ESMTPS id D0D5D16A4;
+	Tue, 10 Dec 2019 15:27:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D0D5D16A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575988187;
-	bh=ScF1lMIuyoR1neTpyqTbl/Da+4GJePLaGCiLFDG9LsA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YVlMzJsvi41BmHsO6y4DIrGpqkATm1gSngvUJ/eNriw9mZND81ZzcCrgHiFD4bY26
-	 vfGS6GS2ntLcrCY0CCq7EtisHjyxst/RlEpoRVVAVIT5VCH0YW7HGXBJP8SwKNhJMH
-	 m/fOs1T+bhqO3S9oj9ZGmrmf4ZyWbgSsWqEd18ME=
+	s=default; t=1575988096;
+	bh=P615hHRL+H8qTMWSY4fCMow4Us/2mfZaiIUfw9XOzyw=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mxwWJCpd8v+8pEJ+Lux+qhtSmt9yE/Sc55bj+OGwF0Pr2fcjH5YSObM0xY2O8K+UU
+	 dS/D5l/unWHgAU0um/Bn93ymp2gy5vEZasB0gIq0NnROlSp9V0top8ikYnic3tYfa2
+	 QMjYZyBJaE7gyGMQFpSmpPvx5Ngcet9lIJbFiuTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DD34FF801D8;
-	Tue, 10 Dec 2019 15:26:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4EC0AF8026F;
+	Tue, 10 Dec 2019 15:26:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E7B6F80278; Tue, 10 Dec 2019 15:26:35 +0100 (CET)
+ id D46D3F8025F; Tue, 10 Dec 2019 15:26:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6464FF80217
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 15:26:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6464FF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CB24F800B4
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 15:26:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CB24F800B4
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8E985ABC6;
+ by mx1.suse.de (Postfix) with ESMTP id 9CDE8AF86;
  Tue, 10 Dec 2019 14:26:25 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
-Date: Tue, 10 Dec 2019 15:25:51 +0100
-Message-Id: <20191210142614.19405-1-tiwai@suse.de>
+Date: Tue, 10 Dec 2019 15:25:52 +0100
+Message-Id: <20191210142614.19405-2-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
-Cc: Oder Chiou <oder_chiou@realtek.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Lars-Peter Clausen <lars@metafoo.de>,
- Olivier Moysan <olivier.moysan@st.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- Arnaud Pouliquen <arnaud.pouliquen@st.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Masahiro Yamada <yamada.masahiro@socionext.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Kevin Hilman <khilman@baylibre.com>, Cheng-Yi Chiang <cychiang@chromium.org>,
- Benson Leung <bleung@chromium.org>, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH for-5.6 00/23] ASoC: PCM API updates (part I)
+In-Reply-To: <20191210142614.19405-1-tiwai@suse.de>
+References: <20191210142614.19405-1-tiwai@suse.de>
+Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH for-5.6 01/23] ASoC: amd: Use managed buffer
+	allocation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,82 +68,176 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Clean up the drivers with the new managed buffer allocation API.
+The superfluous snd_pcm_lib_malloc_pages() and
+snd_pcm_lib_free_pages() calls are dropped.
 
-this is a patch set to adapt the recent PCM API updates to ASoC
-drivers.  This is the first half of the whole changes, just for
-updating the buffer allocation code with the new API.  There should be
-no functional changes.
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/soc/amd/acp-pcm-dma.c         | 58 +++++++++++++------------------------
+ sound/soc/amd/raven/acp3x-pcm-dma.c | 30 ++++---------------
+ 2 files changed, 26 insertions(+), 62 deletions(-)
 
-The ASoC core changes are already found in 5.5-rc1, so please merge
-these onto 5.5-rc1 or later branch.  Or I can merge through my tree,
-too, just let me know.
-
-
-thanks,
-
-Takashi
-
-===
-
-Takashi Iwai (23):
-  ASoC: amd: Use managed buffer allocation
-  ASoC: au1x: Use managed buffer allocation
-  ASoC: dwc: Use managed buffer allocation
-  ASoC: mediatek: Use managed buffer allocation
-  ASoC: meson: Use managed buffer allocation
-  ASoC: dma-sh7760: Use managed buffer allocation
-  ASoC: fsi: Use managed buffer allocation
-  ASoC: rcar: Use managed buffer allocation
-  ASoC: siu_pcm: Use managed buffer allocation
-  ASoC: generic-dmaengine-pcm: Use managed buffer allocation
-  ASoC: SOF: Use managed buffer allocation
-  ASoC: stm32: Use managed buffer allocation
-  ASoC: txx9: Use managed buffer allocation
-  ASoC: uniphier: Use managed buffer allocation
-  ASoC: xilinx: Use managed buffer allocation
-  ASoC: xtensa: Use managed buffer allocation
-  ASoC: cros_ec_codec: Use managed buffer allocation
-  ASoC: rt5514-spi: Use managed buffer allocation
-  ASoC: rt5677-spi: Use managed buffer allocation
-  ASoC: intel: atom: Use managed buffer allocation
-  ASoC: intel: baytrail: Use managed buffer allocation
-  ASoC: intel: haswell: Use managed buffer allocation
-  ASoC: intel: skylake: Use managed buffer allocation
-
- sound/soc/amd/acp-pcm-dma.c                        | 58 ++++++++--------------
- sound/soc/amd/raven/acp3x-pcm-dma.c                | 30 +++--------
- sound/soc/au1x/dbdma2.c                            | 14 +-----
- sound/soc/au1x/dma.c                               | 21 +++-----
- sound/soc/codecs/cros_ec_codec.c                   |  8 +--
- sound/soc/codecs/rt5514-spi.c                      | 10 ++--
- sound/soc/codecs/rt5677-spi.c                      | 10 ++--
- sound/soc/dwc/dwc-pcm.c                            | 24 +--------
- sound/soc/intel/atom/sst-mfld-platform-pcm.c       | 25 +---------
- sound/soc/intel/baytrail/sst-baytrail-pcm.c        | 19 +------
- sound/soc/intel/haswell/sst-haswell-pcm.c          | 17 +------
- sound/soc/intel/skylake/skl-pcm.c                  | 26 +++-------
- sound/soc/mediatek/common/mtk-afe-fe-dai.c         | 14 +-----
- sound/soc/mediatek/common/mtk-afe-fe-dai.h         |  2 -
- .../soc/mediatek/common/mtk-afe-platform-driver.c  | 12 +----
- .../soc/mediatek/common/mtk-afe-platform-driver.h  |  2 -
- sound/soc/mediatek/mt2701/mt2701-afe-pcm.c         |  2 -
- sound/soc/mediatek/mt6797/mt6797-afe-pcm.c         |  1 -
- sound/soc/mediatek/mt8183/mt8183-afe-pcm.c         |  1 -
- sound/soc/meson/axg-fifo.c                         | 13 ++---
- sound/soc/sh/dma-sh7760.c                          | 14 +-----
- sound/soc/sh/fsi.c                                 | 18 +------
- sound/soc/sh/rcar/core.c                           | 23 +++------
- sound/soc/sh/siu_pcm.c                             | 39 +--------------
- sound/soc/soc-generic-dmaengine-pcm.c              | 12 +----
- sound/soc/sof/pcm.c                                | 34 ++++---------
- sound/soc/stm/stm32_adfsdm.c                       | 29 +----------
- sound/soc/txx9/txx9aclc.c                          | 14 +-----
- sound/soc/uniphier/aio-dma.c                       | 30 +----------
- sound/soc/xilinx/xlnx_formatter_pcm.c              | 13 +----
- sound/soc/xtensa/xtfpga-i2s.c                      |  9 ++--
- 31 files changed, 93 insertions(+), 451 deletions(-)
-
+diff --git a/sound/soc/amd/acp-pcm-dma.c b/sound/soc/amd/acp-pcm-dma.c
+index 4b9a27e25206..98400aaf0305 100644
+--- a/sound/soc/amd/acp-pcm-dma.c
++++ b/sound/soc/amd/acp-pcm-dma.c
+@@ -836,7 +836,6 @@ static int acp_dma_hw_params(struct snd_soc_component *component,
+ 			     struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+-	int status;
+ 	uint64_t size;
+ 	u32 val = 0;
+ 	struct snd_pcm_runtime *runtime;
+@@ -967,35 +966,19 @@ static int acp_dma_hw_params(struct snd_soc_component *component,
+ 	}
+ 
+ 	size = params_buffer_bytes(params);
+-	status = snd_pcm_lib_malloc_pages(substream, size);
+-	if (status < 0)
+-		return status;
+-
+-	memset(substream->runtime->dma_area, 0, params_buffer_bytes(params));
+ 
+-	if (substream->dma_buffer.area) {
+-		acp_set_sram_bank_state(rtd->acp_mmio, 0, true);
+-		/* Save for runtime private data */
+-		rtd->dma_addr = substream->dma_buffer.addr;
+-		rtd->order = get_order(size);
++	acp_set_sram_bank_state(rtd->acp_mmio, 0, true);
++	/* Save for runtime private data */
++	rtd->dma_addr = substream->dma_buffer.addr;
++	rtd->order = get_order(size);
+ 
+-		/* Fill the page table entries in ACP SRAM */
+-		rtd->size = size;
+-		rtd->num_of_pages = PAGE_ALIGN(size) >> PAGE_SHIFT;
+-		rtd->direction = substream->stream;
++	/* Fill the page table entries in ACP SRAM */
++	rtd->size = size;
++	rtd->num_of_pages = PAGE_ALIGN(size) >> PAGE_SHIFT;
++	rtd->direction = substream->stream;
+ 
+-		config_acp_dma(rtd->acp_mmio, rtd, adata->asic_type);
+-		status = 0;
+-	} else {
+-		status = -ENOMEM;
+-	}
+-	return status;
+-}
+-
+-static int acp_dma_hw_free(struct snd_soc_component *component,
+-			   struct snd_pcm_substream *substream)
+-{
+-	return snd_pcm_lib_free_pages(substream);
++	config_acp_dma(rtd->acp_mmio, rtd, adata->asic_type);
++	return 0;
+ }
+ 
+ static u64 acp_get_byte_count(struct audio_substream_data *rtd)
+@@ -1142,18 +1125,18 @@ static int acp_dma_new(struct snd_soc_component *component,
+ 
+ 	switch (adata->asic_type) {
+ 	case CHIP_STONEY:
+-		snd_pcm_lib_preallocate_pages_for_all(rtd->pcm,
+-						      SNDRV_DMA_TYPE_DEV,
+-						      parent,
+-						      ST_MIN_BUFFER,
+-						      ST_MAX_BUFFER);
++		snd_pcm_set_managed_buffer_all(rtd->pcm,
++					       SNDRV_DMA_TYPE_DEV,
++					       parent,
++					       ST_MIN_BUFFER,
++					       ST_MAX_BUFFER);
+ 		break;
+ 	default:
+-		snd_pcm_lib_preallocate_pages_for_all(rtd->pcm,
+-						      SNDRV_DMA_TYPE_DEV,
+-						      parent,
+-						      MIN_BUFFER,
+-						      MAX_BUFFER);
++		snd_pcm_set_managed_buffer_all(rtd->pcm,
++					       SNDRV_DMA_TYPE_DEV,
++					       parent,
++					       MIN_BUFFER,
++					       MAX_BUFFER);
+ 		break;
+ 	}
+ 	return 0;
+@@ -1221,7 +1204,6 @@ static const struct snd_soc_component_driver acp_asoc_platform = {
+ 	.close		= acp_dma_close,
+ 	.ioctl		= snd_soc_pcm_lib_ioctl,
+ 	.hw_params	= acp_dma_hw_params,
+-	.hw_free	= acp_dma_hw_free,
+ 	.trigger	= acp_dma_trigger,
+ 	.pointer	= acp_dma_pointer,
+ 	.mmap		= acp_dma_mmap,
+diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
+index 60709e3ba99d..98b76c38dae0 100644
+--- a/sound/soc/amd/raven/acp3x-pcm-dma.c
++++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
+@@ -334,7 +334,6 @@ static int acp3x_dma_hw_params(struct snd_soc_component *component,
+ 			       struct snd_pcm_substream *substream,
+ 			       struct snd_pcm_hw_params *params)
+ {
+-	int status;
+ 	u64 size;
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct i2s_stream_instance *rtd = runtime->private_data;
+@@ -343,20 +342,10 @@ static int acp3x_dma_hw_params(struct snd_soc_component *component,
+ 		return -EINVAL;
+ 
+ 	size = params_buffer_bytes(params);
+-	status = snd_pcm_lib_malloc_pages(substream, size);
+-	if (status < 0)
+-		return status;
+-
+-	memset(substream->runtime->dma_area, 0, params_buffer_bytes(params));
+-	if (substream->dma_buffer.area) {
+-		rtd->dma_addr = substream->dma_buffer.addr;
+-		rtd->num_pages = (PAGE_ALIGN(size) >> PAGE_SHIFT);
+-		config_acp3x_dma(rtd, substream->stream);
+-		status = 0;
+-	} else {
+-		status = -ENOMEM;
+-	}
+-	return status;
++	rtd->dma_addr = substream->dma_buffer.addr;
++	rtd->num_pages = (PAGE_ALIGN(size) >> PAGE_SHIFT);
++	config_acp3x_dma(rtd, substream->stream);
++	return 0;
+ }
+ 
+ static snd_pcm_uframes_t acp3x_dma_pointer(struct snd_soc_component *component,
+@@ -381,17 +370,11 @@ static int acp3x_dma_new(struct snd_soc_component *component,
+ 			 struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct device *parent = component->dev->parent;
+-	snd_pcm_lib_preallocate_pages_for_all(rtd->pcm, SNDRV_DMA_TYPE_DEV,
+-					      parent, MIN_BUFFER, MAX_BUFFER);
++	snd_pcm_set_managed_buffer_all(rtd->pcm, SNDRV_DMA_TYPE_DEV,
++				       parent, MIN_BUFFER, MAX_BUFFER);
+ 	return 0;
+ }
+ 
+-static int acp3x_dma_hw_free(struct snd_soc_component *component,
+-			     struct snd_pcm_substream *substream)
+-{
+-	return snd_pcm_lib_free_pages(substream);
+-}
+-
+ static int acp3x_dma_mmap(struct snd_soc_component *component,
+ 			  struct snd_pcm_substream *substream,
+ 			  struct vm_area_struct *vma)
+@@ -601,7 +584,6 @@ static const struct snd_soc_component_driver acp3x_i2s_component = {
+ 	.close		= acp3x_dma_close,
+ 	.ioctl		= snd_soc_pcm_lib_ioctl,
+ 	.hw_params	= acp3x_dma_hw_params,
+-	.hw_free	= acp3x_dma_hw_free,
+ 	.pointer	= acp3x_dma_pointer,
+ 	.mmap		= acp3x_dma_mmap,
+ 	.pcm_construct	= acp3x_dma_new,
 -- 
 2.16.4
 

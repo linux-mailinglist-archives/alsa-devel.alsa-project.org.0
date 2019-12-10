@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90C2E11982C
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:39:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 117E4119878
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:40:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 156A5165F;
-	Tue, 10 Dec 2019 22:38:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 156A5165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9AD7A166B;
+	Tue, 10 Dec 2019 22:39:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9AD7A166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576013958;
-	bh=7tlhmB60cg/Xo6FF2vy7RFEzmq1CZu6X3I7q2sWrbzk=;
+	s=default; t=1576014001;
+	bh=eAv3Ug7fR0tMRbzeUeJE4m1AMGpt4bB+e//PaBo2mRk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KrREyMs8r71Ah7jj6I9L+D7JrozWGV51Q+0zmlyQqCX39kxMD2mGgo5YOdlpzU7T6
-	 IhuP37A6lu8vGW7KvvulxvoZYD6x1G7uiq+7tKe/VnQj3bs+whDDH4KVRuBGJsqIwm
-	 GdxPFMbqomJCwI1l9e9xSMWyRywJaov9NRUfgsac=
+	b=usJSV8BaVUeJ8jvR9MpJCp4+6bxKG87oAXFxD4avfSsPJth/x4CN/7Na3KALkvZko
+	 XEJPlw3VsZnYjq65M8Rbqnuj3+IDtz/rdML5J8OUl8Px7ASAQVkcsNpXod2s4aldOg
+	 Dm0GkCYRw8O5t2F4hrgqoFCJNBhTLS+LEuzVlyGM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD042F80278;
-	Tue, 10 Dec 2019 22:35:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AFF3DF8028A;
+	Tue, 10 Dec 2019 22:35:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14328F80276; Tue, 10 Dec 2019 22:35:15 +0100 (CET)
+ id 94A82F8027C; Tue, 10 Dec 2019 22:35:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2F4D2F80269
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:35:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F4D2F80269
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F882F80279
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:35:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F882F80279
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="XaejIitR"
+ header.b="YnvQNwCT"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 97E422073B;
- Tue, 10 Dec 2019 21:35:09 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 107A32467C;
+ Tue, 10 Dec 2019 21:35:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576013710;
- bh=WPxvOS/kH3aZi2NYePpEzYQQxpdiVSswPQURmT2MVhY=;
+ s=default; t=1576013725;
+ bh=i3d+Mr7rCrKOrMGOgnBR7oNXe8BKKYWyKMgjuthYFnU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=XaejIitRQy1USJwqAvgtlxewdBc9PKEmn8gQViNgsPaq2hp1NFhaLoSYE9KQGY8Me
- rlE7sLgytTxRR4w911AHQeGZtjt1yNceETSv6ySnUI24jUc2AlBrvzBJa+Aui26bDy
- sKWYfd15S0TQ5jHEaUWPA1pVd/quEF3wBVDW41BI=
+ b=YnvQNwCToURXhFUJUnUdVgER5FqGyv+Z5ExRWrCXNwPGcq8ctG051nVqBg1XGxA3f
+ 0sL8tb0pRtiHl0LVFGS8Wvk8eOWTF1glmmXYo0+DSgAiVpKQDGEeTijp9WF69h7bT2
+ +Ys7N91r4yebSyK7Kn3TFczynT8MMygyKfWnZEMQ=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 16:31:42 -0500
-Message-Id: <20191210213221.11921-138-sashal@kernel.org>
+Date: Tue, 10 Dec 2019 16:31:55 -0500
+Message-Id: <20191210213221.11921-151-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210213221.11921-1-sashal@kernel.org>
 References: <20191210213221.11921-1-sashal@kernel.org>
@@ -65,10 +65,10 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 138/177] ASoC: Intel:
-	kbl_rt5663_rt5514_max98927: Add dmic format constraint
+ Charles Keepax <ckeepax@opensource.cirrus.com>, patches@opensource.cirrus.com,
+ Michael Walle <michael@walle.cc>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.19 151/177] ASoC: wm8904: fix
+	regcache handling
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,38 +86,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+From: Michael Walle <michael@walle.cc>
 
-[ Upstream commit e2db787bdcb4f2722ecf410168f0583764634e45 ]
+[ Upstream commit e9149b8c00d25dbaef1aa174fc604bed207e576d ]
 
-On KBL platform, the microphone is attached to external codec(rt5514)
-instead of PCH. However, TDM slot between PCH and codec is 16 bits only.
-In order to avoid setting wrong format, we should add a constraint to
-force to use 16 bits format forever.
+The current code assumes that the power is turned off in
+SND_SOC_BIAS_OFF. If there are no actual regulator the codec isn't
+turned off and the registers are not reset to their default values but
+the regcache is still marked as dirty. Thus a value might not be written
+to the hardware if it is set to the default value. Do a software reset
+before turning off the power to make sure the registers are always reset
+to their default states.
 
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20190923162940.199580-1-yuhsuan@chromium.org
+Signed-off-by: Michael Walle <michael@walle.cc>
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20191112223629.21867-1-michael@walle.cc
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/codecs/wm8904.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-index b8a03f58ac8cc..f36e33a147287 100644
---- a/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-+++ b/sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c
-@@ -423,6 +423,9 @@ static int kabylake_dmic_startup(struct snd_pcm_substream *substream)
- 	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
- 			dmic_constraints);
+diff --git a/sound/soc/codecs/wm8904.c b/sound/soc/codecs/wm8904.c
+index 1965635ec07c7..d14e851b91605 100644
+--- a/sound/soc/codecs/wm8904.c
++++ b/sound/soc/codecs/wm8904.c
+@@ -1902,6 +1902,7 @@ static int wm8904_set_bias_level(struct snd_soc_component *component,
+ 		snd_soc_component_update_bits(component, WM8904_BIAS_CONTROL_0,
+ 				    WM8904_BIAS_ENA, 0);
  
-+	runtime->hw.formats = SNDRV_PCM_FMTBIT_S16_LE;
-+	snd_pcm_hw_constraint_msbits(runtime, 0, 16, 16);
-+
- 	return snd_pcm_hw_constraint_list(substream->runtime, 0,
- 			SNDRV_PCM_HW_PARAM_RATE, &constraints_rates);
- }
++		snd_soc_component_write(component, WM8904_SW_RESET_AND_ID, 0);
+ 		regcache_cache_only(wm8904->regmap, true);
+ 		regcache_mark_dirty(wm8904->regmap);
+ 
 -- 
 2.20.1
 

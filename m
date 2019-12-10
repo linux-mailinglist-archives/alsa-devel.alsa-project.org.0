@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92455119CD1
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 23:34:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C495A119CD4
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 23:35:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 160571616;
-	Tue, 10 Dec 2019 23:34:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 160571616
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC1C315E0;
+	Tue, 10 Dec 2019 23:34:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC1C315E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576017294;
-	bh=GnQNAVMnZEGUb+qWG8+izJnLaezxbQSaJW8HyaiJBoI=;
+	s=default; t=1576017307;
+	bh=XAJHfGQEYHZSUr6M90+9oB13bM9Veg5fYdUMmIPSRIA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mjzgfvCjzy6q8lSheA8HsR9r1JXRdY+Wx9WmkhrsHOq64vTRbepnssev4phdqQxLu
-	 /ZgMiycGeVRxF/D2xjUt+EX8oQsuJ/UVLYrddYIK3oNdV83/Du4aZmEm0LkL/XZHho
-	 MTk/CcATKF8udltGZRBcMTeRES8MvpWiuu3XqNaA=
+	b=IvLXAoIhacHrR2BwRDTe+cWM090mpu8UmF4uQQyuy7x0ewN4J/xivC8Cmk0F3kApT
+	 2R1/2gkIURMXLO/smIUYKkwicUg54OQT3mIRgzxaJfC9ZJaO/qJ2UCMJ9wauoRMCuG
+	 ZFrSrSj2cIV5KwEGqN1GuuOwpGqbtLtz2pWYO37M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 95563F80256;
-	Tue, 10 Dec 2019 23:32:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 24A1FF80249;
+	Tue, 10 Dec 2019 23:34:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 183F5F80256; Tue, 10 Dec 2019 23:32:02 +0100 (CET)
+ id 5FDF4F8020C; Tue, 10 Dec 2019 23:34:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1A961F80255
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 23:31:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A961F80255
+ by alsa1.perex.cz (Postfix) with ESMTPS id AB407F800B4
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 23:33:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB407F800B4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="cFUy24Lw"
+ header.b="n+NvDoks"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AB78F206EC;
- Tue, 10 Dec 2019 22:31:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 5DA682073D;
+ Tue, 10 Dec 2019 22:33:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576017117;
- bh=MvssEjwJnh3VVajzPGoLHSWU+szWHgDoAPcp1b0ZPVM=;
+ s=default; t=1576017236;
+ bh=MfkPB+3mgjzOlIIfBKi6A47gBvuFAvcm/AU/f2h8Kzc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cFUy24LwWYw1aeHbDzu9J/pypcUIkMD4OhjW+eDWhngXgJGZUa5oEcuyL2nw6LtJO
- hfhrU9BvX3CPEnZFQw899zr/LN0a0WAtWEGAb0QKChth/uLiB47x3NnCWmW+8kStDL
- nW1zH15TbakuWA45oRLmDWFPz1l2q1W1OEWL6IKA=
+ b=n+NvDoksCZttz1LjPGXoUkKkDtMpF4Q1zTamhLCanVkFJH7f6rAg4zySa+u6H9Mgk
+ 1Jow17LEeLSzWxyevGtwDQ0+QuGUhmorPAH6nHsWyRAML5ujpVKY/85FlHwBSGZD7Z
+ m13Ktq4eSoW1iIuuBUeJ7TVzuA8ntNLwgBqbBQZw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 17:30:13 -0500
-Message-Id: <20191210223035.14270-69-sashal@kernel.org>
+Date: Tue, 10 Dec 2019 17:32:38 -0500
+Message-Id: <20191210223316.14988-33-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191210223035.14270-1-sashal@kernel.org>
-References: <20191210223035.14270-1-sashal@kernel.org>
+In-Reply-To: <20191210223316.14988-1-sashal@kernel.org>
+References: <20191210223316.14988-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Ben Zhang <benzh@chromium.org>,
- Curtis Malainey <cujomalainey@chromium.org>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 4.9 69/91] ASoC: rt5677: Mark reg
-	RT5677_PWR_ANLG2 as volatile
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Chris Wilson <chris@chris-wilson.co.uk>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.4 33/71] ALSA: hda - Fix pending
+	unsol events at shutdown
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,41 +85,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ben Zhang <benzh@chromium.org>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit eabf424f7b60246c76dcb0ea6f1e83ef9abbeaa6 ]
+[ Upstream commit ca58f55108fee41d87c9123f85ad4863e5de7f45 ]
 
-The codec dies when RT5677_PWR_ANLG2(MX-64h) is set to 0xACE1
-while it's streaming audio over SPI. The DSP firmware turns
-on PLL2 (MX-64 bit 8) when SPI streaming starts.  However regmap
-does not believe that register can change by itself. When
-BST1 (bit 15) is turned on with regmap_update_bits(), it doesn't
-read the register first before write, so PLL2 power bit is
-cleared by accident.
+This is an alternative fix attemp for the issue reported in the commit
+caa8422d01e9 ("ALSA: hda: Flush interrupts on disabling") that was
+reverted later due to regressions.  Instead of tweaking the hardware
+disablement order and the enforced irq flushing, do calling
+cancel_work_sync() of the unsol work early enough, and explicitly
+ignore the unsol events during the shutdown by checking the
+bus->shutdown flag.
 
-Marking MX-64h as volatile in regmap solved the issue.
-
-Signed-off-by: Ben Zhang <benzh@chromium.org>
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Link: https://lore.kernel.org/r/20191106011335.223061-6-cujomalainey@chromium.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: caa8422d01e9 ("ALSA: hda: Flush interrupts on disabling")
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Link: https://lore.kernel.org/r/s5h1ruxt9cz.wl-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/rt5677.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/pci/hda/hda_bind.c  | 4 ++++
+ sound/pci/hda/hda_intel.c | 3 +++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index 65ac4518ad060..49ab26e69f2fc 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -305,6 +305,7 @@ static bool rt5677_volatile_register(struct device *dev, unsigned int reg)
- 	case RT5677_I2C_MASTER_CTRL7:
- 	case RT5677_I2C_MASTER_CTRL8:
- 	case RT5677_HAP_GENE_CTRL2:
-+	case RT5677_PWR_ANLG2: /* Modified by DSP firmware */
- 	case RT5677_PWR_DSP_ST:
- 	case RT5677_PRIV_DATA:
- 	case RT5677_ASRC_22:
+diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
+index 7ea201c05e5da..d0d6dfbfcfdf8 100644
+--- a/sound/pci/hda/hda_bind.c
++++ b/sound/pci/hda/hda_bind.c
+@@ -42,6 +42,10 @@ static void hda_codec_unsol_event(struct hdac_device *dev, unsigned int ev)
+ {
+ 	struct hda_codec *codec = container_of(dev, struct hda_codec, core);
+ 
++	/* ignore unsol events during shutdown */
++	if (codec->bus->shutdown)
++		return;
++
+ 	if (codec->patch_ops.unsol_event)
+ 		codec->patch_ops.unsol_event(codec, ev);
+ }
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index ef8955abd9186..3e3277100f08a 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1310,8 +1310,11 @@ static int azx_free(struct azx *chip)
+ static int azx_dev_disconnect(struct snd_device *device)
+ {
+ 	struct azx *chip = device->device_data;
++	struct hdac_bus *bus = azx_bus(chip);
+ 
+ 	chip->bus.shutdown = 1;
++	cancel_work_sync(&bus->unsol_work);
++
+ 	return 0;
+ }
+ 
 -- 
 2.20.1
 

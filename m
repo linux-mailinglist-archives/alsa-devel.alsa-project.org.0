@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76C9D118BDA
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 16:01:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFD01118BD8
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 16:00:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C49116DF;
-	Tue, 10 Dec 2019 16:00:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C49116DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6C11B843;
+	Tue, 10 Dec 2019 15:59:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6C11B843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575990081;
-	bh=4UZXgs/23W5IiHXMn4fy9kPtB6cT0sRLWTk2JOCr0d4=;
+	s=default; t=1575990039;
+	bh=hreNZq425k/EmlbM3iRz3vHJrw+5SbE0DDDi5UJngR8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cODlpUTYZbxgHaFbtw8PSCy/vm3Wwu1pina+2QV+W7E039OqlJBT9IP3NhTghcSrv
-	 kzTlyfuHyl1yqJWLR5lQSiDeupikNGpKY0gtAoXu//zemlrKWifYdKxGKCsaxYTJ4v
-	 c5tHKPd3t4B00TRTRZgItdVTYKjD6Ak0R8yIQt40=
+	b=T+GXZ3BhXW7fP7ioowK38zMU7z5GvHf8RHJKpPISwc9wFiFamp/Ay5s3+rG8NU4NW
+	 6iZg7Csuf8my3AERjSpDc9QfzOvgnyn0gbvD3/NCA+CbQaxMkHYt+UVCHlOEuFU4gv
+	 99CN0F0H9mTVOMj6jrRlCSI54nT2o8Q3FI8axMsY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8EFBF80264;
-	Tue, 10 Dec 2019 15:54:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5073F8025E;
+	Tue, 10 Dec 2019 15:54:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 028B0F80254; Tue, 10 Dec 2019 15:54:30 +0100 (CET)
+ id 62B7DF8028A; Tue, 10 Dec 2019 15:54:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,26 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78DDAF80248
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0AE7BF80254
  for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 15:54:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78DDAF80248
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AE7BF80254
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8CEE6AE09;
+ by mx1.suse.de (Postfix) with ESMTP id 9B8BAAE2E;
  Tue, 10 Dec 2019 14:54:12 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: Mark Brown <broonie@kernel.org>
-Date: Tue, 10 Dec 2019 15:53:50 +0100
-Message-Id: <20191210145406.21419-8-tiwai@suse.de>
+Date: Tue, 10 Dec 2019 15:53:52 +0100
+Message-Id: <20191210145406.21419-10-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191210145406.21419-1-tiwai@suse.de>
 References: <20191210145406.21419-1-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
- Jie Yang <yang.jie@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Subject: [alsa-devel] [PATCH for-5.6 07/23] ASoC: intel: Drop superfluous
+Cc: Matthias Brugger <matthias.bgg@gmail.com>, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH for-5.6 09/23] ASoC: mediatek: Drop superfluous
 	ioctl PCM ops
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -75,66 +72,63 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 ASoC PCM core deals the empty ioctl field now as default.
 Let's kill the redundant lines.
 
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Cc: Jie Yang <yang.jie@linux.intel.com>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/soc/intel/atom/sst-mfld-platform-pcm.c | 1 -
- sound/soc/intel/baytrail/sst-baytrail-pcm.c  | 1 -
- sound/soc/intel/haswell/sst-haswell-pcm.c    | 1 -
- sound/soc/intel/skylake/skl-pcm.c            | 1 -
+ sound/soc/mediatek/common/mtk-afe-platform-driver.c | 1 -
+ sound/soc/mediatek/common/mtk-btcvsd.c              | 1 -
+ sound/soc/mediatek/mt6797/mt6797-afe-pcm.c          | 1 -
+ sound/soc/mediatek/mt8183/mt8183-afe-pcm.c          | 1 -
  4 files changed, 4 deletions(-)
 
-diff --git a/sound/soc/intel/atom/sst-mfld-platform-pcm.c b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-index 08aa46ba5b07..340bd2be39a7 100644
---- a/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-+++ b/sound/soc/intel/atom/sst-mfld-platform-pcm.c
-@@ -682,7 +682,6 @@ static const struct snd_soc_component_driver sst_soc_platform_drv  = {
- 	.probe		= sst_soc_probe,
- 	.remove		= sst_soc_remove,
- 	.open		= sst_soc_open,
+diff --git a/sound/soc/mediatek/common/mtk-afe-platform-driver.c b/sound/soc/mediatek/common/mtk-afe-platform-driver.c
+index 719d43bb0b8f..44dfef713905 100644
+--- a/sound/soc/mediatek/common/mtk-afe-platform-driver.c
++++ b/sound/soc/mediatek/common/mtk-afe-platform-driver.c
+@@ -128,7 +128,6 @@ EXPORT_SYMBOL_GPL(mtk_afe_pcm_new);
+ 
+ const struct snd_soc_component_driver mtk_afe_pcm_platform = {
+ 	.name		= AFE_PCM_NAME,
 -	.ioctl		= snd_soc_pcm_lib_ioctl,
- 	.trigger	= sst_soc_trigger,
- 	.pointer	= sst_soc_pointer,
- 	.compr_ops	= &sst_platform_compr_ops,
-diff --git a/sound/soc/intel/baytrail/sst-baytrail-pcm.c b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-index a4435306325a..53383055c8dc 100644
---- a/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-+++ b/sound/soc/intel/baytrail/sst-baytrail-pcm.c
-@@ -359,7 +359,6 @@ static const struct snd_soc_component_driver byt_dai_component = {
- 	.probe		= sst_byt_pcm_probe,
- 	.open		= sst_byt_pcm_open,
- 	.close		= sst_byt_pcm_close,
+ 	.pointer	= mtk_afe_pcm_pointer,
+ 	.pcm_construct	= mtk_afe_pcm_new,
+ };
+diff --git a/sound/soc/mediatek/common/mtk-btcvsd.c b/sound/soc/mediatek/common/mtk-btcvsd.c
+index 2b490ae2e642..668fef3e319a 100644
+--- a/sound/soc/mediatek/common/mtk-btcvsd.c
++++ b/sound/soc/mediatek/common/mtk-btcvsd.c
+@@ -1271,7 +1271,6 @@ static const struct snd_soc_component_driver mtk_btcvsd_snd_platform = {
+ 	.probe		= mtk_btcvsd_snd_component_probe,
+ 	.open		= mtk_pcm_btcvsd_open,
+ 	.close		= mtk_pcm_btcvsd_close,
 -	.ioctl		= snd_soc_pcm_lib_ioctl,
- 	.hw_params	= sst_byt_pcm_hw_params,
- 	.trigger	= sst_byt_pcm_trigger,
- 	.pointer	= sst_byt_pcm_pointer,
-diff --git a/sound/soc/intel/haswell/sst-haswell-pcm.c b/sound/soc/intel/haswell/sst-haswell-pcm.c
-index 59c63ccc7bb3..033d7c05d7fb 100644
---- a/sound/soc/intel/haswell/sst-haswell-pcm.c
-+++ b/sound/soc/intel/haswell/sst-haswell-pcm.c
-@@ -1102,7 +1102,6 @@ static const struct snd_soc_component_driver hsw_dai_component = {
- 	.hw_params	= hsw_pcm_hw_params,
- 	.trigger	= hsw_pcm_trigger,
- 	.pointer	= hsw_pcm_pointer,
+ 	.hw_params	= mtk_pcm_btcvsd_hw_params,
+ 	.hw_free	= mtk_pcm_btcvsd_hw_free,
+ 	.prepare	= mtk_pcm_btcvsd_prepare,
+diff --git a/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c b/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
+index 0743c699d8c1..378bfc16ef52 100644
+--- a/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
++++ b/sound/soc/mediatek/mt6797/mt6797-afe-pcm.c
+@@ -712,7 +712,6 @@ static int mt6797_afe_component_probe(struct snd_soc_component *component)
+ static const struct snd_soc_component_driver mt6797_afe_component = {
+ 	.name		= AFE_PCM_NAME,
+ 	.probe		= mt6797_afe_component_probe,
 -	.ioctl		= snd_soc_pcm_lib_ioctl,
- 	.pcm_construct	= hsw_pcm_new,
- 	.controls	= hsw_volume_controls,
- 	.num_controls	= ARRAY_SIZE(hsw_volume_controls),
-diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
-index ce14fa735d73..355165fd6b6a 100644
---- a/sound/soc/intel/skylake/skl-pcm.c
-+++ b/sound/soc/intel/skylake/skl-pcm.c
-@@ -1464,7 +1464,6 @@ static const struct snd_soc_component_driver skl_component  = {
- 	.probe		= skl_platform_soc_probe,
- 	.remove		= skl_platform_soc_remove,
- 	.open		= skl_platform_soc_open,
+ 	.pointer	= mtk_afe_pcm_pointer,
+ 	.pcm_construct	= mtk_afe_pcm_new,
+ };
+diff --git a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+index 6b5f407de3d0..6e2270bbb10e 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
++++ b/sound/soc/mediatek/mt8183/mt8183-afe-pcm.c
+@@ -1050,7 +1050,6 @@ static int mt8183_afe_component_probe(struct snd_soc_component *component)
+ static const struct snd_soc_component_driver mt8183_afe_component = {
+ 	.name		= AFE_PCM_NAME,
+ 	.probe		= mt8183_afe_component_probe,
 -	.ioctl		= snd_soc_pcm_lib_ioctl,
- 	.trigger	= skl_platform_soc_trigger,
- 	.pointer	= skl_platform_soc_pointer,
- 	.get_time_info	= skl_platform_soc_get_time_info,
+ 	.pointer	= mtk_afe_pcm_pointer,
+ 	.pcm_construct	= mtk_afe_pcm_new,
+ };
 -- 
 2.16.4
 

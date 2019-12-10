@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D75811948A
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:16:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50A9D119494
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:17:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2EB515E0;
-	Tue, 10 Dec 2019 22:15:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2EB515E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id D66C81671;
+	Tue, 10 Dec 2019 22:16:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D66C81671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576012589;
-	bh=HkKOe0gZW8pqU9G8Ntlzl4dOJSFW+IAiCnelzba1BIk=;
+	s=default; t=1576012630;
+	bh=tn/uyhSBlakvMX888kVWidSSpVqMzimA02sXh17Td8I=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BWMLMDIC39G0F+525CmsqQW++HK4lP3lOE9t08WLy4kEsAEpV4Y414MnVoHEzgkoY
-	 E1VV1cIwmLkRbTu3izjRaH/gGgLyBGTtjhaYVDDfON5mYv7cQb2xXuVJ6jHK6ywgCp
-	 j7wPh3Q761MqN8XH7yPurAF+xLrEg4bzhVkUj9i0=
+	b=h/BK05NLde5nhLBYL6juBPVYvVa3/kpFNz+XEfKu95dkHj36q+I6TSQui/0Nc1KnB
+	 Kg+TGjWws+ilAEpsaVmYYGwru/RTOQItk4u2IHLvOdBBN89HAykt0Y9W1Fffu1n96M
+	 Kb7YpXx1mnJHC7sHw22/EBdFTAnnnhjhWU8gCJpk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93812F80256;
-	Tue, 10 Dec 2019 22:12:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E5994F8027C;
+	Tue, 10 Dec 2019 22:12:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7746F80254; Tue, 10 Dec 2019 22:12:04 +0100 (CET)
+ id 2A6F9F8028E; Tue, 10 Dec 2019 22:12:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 42B3DF800F3
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:12:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42B3DF800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 15B12F80252
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:12:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15B12F80252
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="CxX7crp+"
+ header.b="cvpuciCK"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E848E246B5;
- Tue, 10 Dec 2019 21:11:58 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A6C11246A2;
+ Tue, 10 Dec 2019 21:12:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012319;
- bh=UMpGuVvlVQ1bxIgcuXYUIwPC5nEb2CXC5Q+/LiSkbro=;
+ s=default; t=1576012333;
+ bh=cfQ2nqGrWxtGiskZ6WAxffq0rW5Dkzqs5Z9jI+PNfG4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=CxX7crp+LKl5/IqWMeJoJ7Colkkjh5uR1s2p58ms3fZd0jY0121DYCts40CoxSLgh
- w3O33Yhyu2swX7j8uuW475Dmk7lZg4fsKbr/nBCx5FO/nRgJqHnFVLI+lqCdBnA0LO
- KmIVSkywFuCKwVa1GdADG3Ahv3m4YNV2qyk13HVQ=
+ b=cvpuciCK+W/zZi6hXx29PalWWqMFYKVGpJGqt/JxMdHlUr8AijBtwajCdudVrNXlU
+ C786ZB4XasfdV88rd9V+3IEYUYvmw9/0biU7D90qqVNzu59n8VXFQO+wjX/5KxVJ9A
+ a9tVzLn3D0OXJy/QrAgTbY6iKgluIw7q0PF+dlgg=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 16:05:58 -0500
-Message-Id: <20191210210735.9077-214-sashal@kernel.org>
+Date: Tue, 10 Dec 2019 16:06:10 -0500
+Message-Id: <20191210210735.9077-226-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
 References: <20191210210735.9077-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+Cc: Sasha Levin <sashal@kernel.org>, Ben Zhang <benzh@chromium.org>,
+ Curtis Malainey <cujomalainey@chromium.org>, Mark Brown <broonie@kernel.org>,
  alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 253/350] soundwire: intel: fix
-	PDI/stream mapping for Bulk
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 265/350] ASoC: rt5677: Mark reg
+	RT5677_PWR_ANLG2 as volatile
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,51 +86,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Ben Zhang <benzh@chromium.org>
 
-[ Upstream commit c134f914e9f55b7817e2bae625ec0e5f1379f7cd ]
+[ Upstream commit eabf424f7b60246c76dcb0ea6f1e83ef9abbeaa6 ]
 
-The previous formula is incorrect for PDI0/1, the mapping is not
-linear but has a discontinuity between PDI1 and PDI2.
+The codec dies when RT5677_PWR_ANLG2(MX-64h) is set to 0xACE1
+while it's streaming audio over SPI. The DSP firmware turns
+on PLL2 (MX-64 bit 8) when SPI streaming starts.  However regmap
+does not believe that register can change by itself. When
+BST1 (bit 15) is turned on with regmap_update_bits(), it doesn't
+read the register first before write, so PLL2 power bit is
+cleared by accident.
 
-This change has no effect on PCM PDIs (same mapping).
+Marking MX-64h as volatile in regmap solved the issue.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191022232948.17156-1-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Ben Zhang <benzh@chromium.org>
+Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+Link: https://lore.kernel.org/r/20191106011335.223061-6-cujomalainey@chromium.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soundwire/intel.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ sound/soc/codecs/rt5677.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 13c54eac0cc3e..d1839707128a8 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -479,7 +479,10 @@ intel_pdi_shim_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
- 	unsigned int link_id = sdw->instance;
- 	int pdi_conf = 0;
- 
--	pdi->intel_alh_id = (link_id * 16) + pdi->num + 5;
-+	/* the Bulk and PCM streams are not contiguous */
-+	pdi->intel_alh_id = (link_id * 16) + pdi->num + 3;
-+	if (pdi->num >= 2)
-+		pdi->intel_alh_id += 2;
- 
- 	/*
- 	 * Program stream parameters to stream SHIM register
-@@ -508,7 +511,10 @@ intel_pdi_alh_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
- 	unsigned int link_id = sdw->instance;
- 	unsigned int conf;
- 
--	pdi->intel_alh_id = (link_id * 16) + pdi->num + 5;
-+	/* the Bulk and PCM streams are not contiguous */
-+	pdi->intel_alh_id = (link_id * 16) + pdi->num + 3;
-+	if (pdi->num >= 2)
-+		pdi->intel_alh_id += 2;
- 
- 	/* Program Stream config ALH register */
- 	conf = intel_readl(alh, SDW_ALH_STRMZCFG(pdi->intel_alh_id));
+diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
+index 315a3d39bc091..8bc9450da79cf 100644
+--- a/sound/soc/codecs/rt5677.c
++++ b/sound/soc/codecs/rt5677.c
+@@ -298,6 +298,7 @@ static bool rt5677_volatile_register(struct device *dev, unsigned int reg)
+ 	case RT5677_I2C_MASTER_CTRL7:
+ 	case RT5677_I2C_MASTER_CTRL8:
+ 	case RT5677_HAP_GENE_CTRL2:
++	case RT5677_PWR_ANLG2: /* Modified by DSP firmware */
+ 	case RT5677_PWR_DSP_ST:
+ 	case RT5677_PRIV_DATA:
+ 	case RT5677_ASRC_22:
 -- 
 2.20.1
 

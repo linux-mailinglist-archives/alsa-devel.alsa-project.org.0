@@ -2,63 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AE7F7118D4D
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 17:12:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E5C3118D5D
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 17:15:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A7161678;
-	Tue, 10 Dec 2019 17:11:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A7161678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 128341674;
+	Tue, 10 Dec 2019 17:14:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 128341674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575994352;
-	bh=Asg0nNQFAaKrdWwnz3Wp2a7Vy7IBe4Z7BaSeDyQ6ESE=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1575994535;
+	bh=Eoe0g+CZlvUOHt+51ALamy81fyo5nbnne7OX2gNTPPE=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UPL6admsiol5tymB4bEoxFXaYCK9qOUpWXKRZQeiY4DLgiM/VUhF/ec1PDY1gTGcW
-	 kHM4oolgGCzvEsfv/by6McxskU2nuMy6T7l3135i+MEg/AQMG0w5Px76sjvzIoTK/r
-	 7Vy9Sv6CAdmkL5DP0BuYbWKKXSUXpPVpQrLka5TM=
+	b=NS2aeBM4E1O4FQOZKSMPWjlzbWYZSPcvHeqXPbDHyEKIjH5vugzYT5WTpl8CgSiyE
+	 EkUq0CEPUrv5XZXwYoNtpjfKPt5MKTVkMKc1n8CKgNygLdJ1vXt4ljOJlpyPLHWAae
+	 wbR9gV7av6j0CS6nml0BxnYY19h6+3P1ps+VjVA4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E49A3F8020C;
-	Tue, 10 Dec 2019 17:10:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F19CF80248;
+	Tue, 10 Dec 2019 17:13:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C997F8020C; Tue, 10 Dec 2019 17:10:46 +0100 (CET)
+ id BF0E1F800B4; Tue, 10 Dec 2019 17:13:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from bmailout2.hostsharing.net (bmailout2.hostsharing.net
+ [IPv6:2a01:37:3000::53df:4ef0:0])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9302F800B4
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 17:10:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9302F800B4
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id CF0E5B089;
- Tue, 10 Dec 2019 16:10:41 +0000 (UTC)
-Date: Tue, 10 Dec 2019 17:10:40 +0100
-Message-ID: <s5h4ky8w48v.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61E5FF800B4
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 17:13:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61E5FF800B4
+Received: from h08.hostsharing.net (h08.hostsharing.net
+ [IPv6:2a01:37:1000::53df:5f1c:0])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (Client CN "*.hostsharing.net",
+ Issuer "COMODO RSA Domain Validation Secure Server CA" (not verified))
+ by bmailout2.hostsharing.net (Postfix) with ESMTPS id 1C60C28022E40;
+ Tue, 10 Dec 2019 17:13:46 +0100 (CET)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+ id D7EF5CD0; Tue, 10 Dec 2019 17:13:45 +0100 (CET)
+Date: Tue, 10 Dec 2019 17:13:45 +0100
+From: Lukas Wunner <lukas@wunner.de>
 To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-In-Reply-To: <MWHPR12MB1358449C677259C848AAB11EF75B0@MWHPR12MB1358.namprd12.prod.outlook.com>
+Message-ID: <20191210161345.apz4aixgszcd6vco@wunner.de>
 References: <PSXP216MB0438BFEAA0617283A834E11580580@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
  <77aa6c01aefe1ebc4004e87b0bc714f2759f15c4.1575985006.git.lukas@wunner.de>
  <MWHPR12MB1358AEEBD730A4EDA78894E6F75B0@MWHPR12MB1358.namprd12.prod.outlook.com>
  <20191210154649.o3vsqzrtofhvcjrl@wunner.de>
  <MWHPR12MB1358449C677259C848AAB11EF75B0@MWHPR12MB1358.namprd12.prod.outlook.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <MWHPR12MB1358449C677259C848AAB11EF75B0@MWHPR12MB1358.namprd12.prod.outlook.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
 Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
+ Takashi Iwai <tiwai@suse.de>,
  "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Lukas Wunner <lukas@wunner.de>, Bjorn Helgaas <helgaas@kernel.org>,
+ Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
+ Bjorn Helgaas <helgaas@kernel.org>,
  Mika Westerberg <mika.westerberg@linux.intel.com>
 Subject: Re: [alsa-devel] [PATCH] ALSA: hda/hdmi - Fix duplicate unref of
 	pci_dev
@@ -79,20 +85,7 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, 10 Dec 2019 16:53:20 +0100,
-Deucher, Alexander wrote:
-> 
-> > -----Original Message-----
-> > From: Lukas Wunner <lukas@wunner.de>
-> > Sent: Tuesday, December 10, 2019 10:47 AM
-> > To: Deucher, Alexander <Alexander.Deucher@amd.com>
-> > Cc: Takashi Iwai <tiwai@suse.de>; Jaroslav Kysela <perex@perex.cz>; Mika
-> > Westerberg <mika.westerberg@linux.intel.com>; Bjorn Helgaas
-> > <helgaas@kernel.org>; Nicholas Johnson <nicholas.johnson-
-> > opensource@outlook.com.au>; alsa-devel@alsa-project.org; linux-
-> > kernel@vger.kernel.org; linux-pci@vger.kernel.org
-> > Subject: Re: [PATCH] ALSA: hda/hdmi - Fix duplicate unref of pci_dev
-> > 
+On Tue, Dec 10, 2019 at 03:53:20PM +0000, Deucher, Alexander wrote:
 > > On Tue, Dec 10, 2019 at 03:34:27PM +0000, Deucher, Alexander wrote:
 > > > > Nicholas Johnson reports a null pointer deref as well as a refcount
 > > > > underflow upon hot-removal of a Thunderbolt-attached AMD eGPU.
@@ -110,25 +103,22 @@ Deucher, Alexander wrote:
 > > again in atpx_present() via pci_get_class().  It needs to be decremented in
 > > atpx_present() to avoid leaking a ref.
 > 
-> I'm not following.  This is part of the same loop as the one you removed.  All we are doing is checking whether the ATPX method exists or not om the platform.  The pdev may not be the same one as the one in pci_get_domain_bus_and_slot().  The APTX method in the APU's ACPI namespace, not the dGPUs.
+> I'm not following.  This is part of the same loop as the one you removed.
+> All we are doing is checking whether the ATPX method exists or not om the
+> platform.  The pdev may not be the same one as the one in
+> pci_get_domain_bus_and_slot().  The APTX method in the APU's ACPI namespace,
+> not the dGPUs.
 
-Well, the tricky part is that pci_get_class() itself does
-unrefeference the old object and reference the new object (if found).
-At the end of the loop, nothing is referenced, so it's fine.
-OTOH, if you go out of the loop in the middle, you're still keeping
-the pdev object reference, so you need to manually unreference it.
+Okay.  Still, atpx_present() doesn't pass the found pci_dev back to the
+caller, so it would be leaked if the ref isn't returned.
 
+The situation is different for the pci_dev_put() I removed:  The ref is
+returned by pci_get_class() on the next loop iteration.
 
-Takashi
+Thanks,
 
-> 
-> Alex
-> 
-> > 
-> > Thanks,
-> > 
-> > Lukas
-> > 
+Lukas
+
 > > > > diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
 > > > > index 35b4526f0d28..b856b89378ac 100644
 > > > > --- a/sound/pci/hda/hda_intel.c
@@ -143,7 +133,6 @@ Takashi
 > > > >  }
 > > > > --
 > > > > 2.24.0
-> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

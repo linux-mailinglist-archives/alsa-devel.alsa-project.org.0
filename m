@@ -2,52 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 500C611809F
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 07:41:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E33641180AB
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 07:44:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1E291674;
-	Tue, 10 Dec 2019 07:40:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1E291674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79CCB1685;
+	Tue, 10 Dec 2019 07:43:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79CCB1685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575960089;
-	bh=ZqPjxAQzaKQ/uVtOVehKeOMJ+WqklDbj6mUFAqilmaE=;
+	s=default; t=1575960254;
+	bh=tMSwX7KJ3AZq0JGb+Kv53dQ5q9KPhxyrdmgoTe6mWes=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pWMfDQ/c2wbcM01DToKt8/UJ1zgMq9WvcCod2vpViLWpp7MEjBM1ODNVgg7i2jpeu
-	 0V8vYloMPipJYcEzmUcVMNosV1sO6NK0w/VRtA5gG/26wHPj+Xf7fAw9nAevx0zTCy
-	 S8yjND415wdCeyoB+sysEMs2uqhuXu1EzuFDJ/cQ=
+	b=hEWbDGpI2HYcONkKgqEI1bVVDO4Bkd6qtQaJPnVSQalYeBaewkFNS3xq99FodRFwA
+	 h+5RrrXk2Mf8DrqjQncHI3+iW8G+gQtN5qZ6mEYZUOJDCKsqbu0iRL1gxsj3MB+iPZ
+	 06Y3A/NeUmZLrau6qE3GwqGOdxy5++PGbnjF0UoQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16059F80265;
-	Tue, 10 Dec 2019 07:35:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 381FFF8026A;
+	Tue, 10 Dec 2019 07:36:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4CE15F802E7; Tue, 10 Dec 2019 07:35:18 +0100 (CET)
+ id 6330EF80254; Tue, 10 Dec 2019 07:35:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7AF5AF80248
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18E61F80252
  for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 07:35:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AF5AF80248
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18E61F80252
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 6BBD7B169
+ by mx1.suse.de (Postfix) with ESMTP id 7AF1DB186
  for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 06:34:59 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Tue, 10 Dec 2019 07:34:06 +0100
-Message-Id: <20191210063454.31603-8-tiwai@suse.de>
+Date: Tue, 10 Dec 2019 07:34:07 +0100
+Message-Id: <20191210063454.31603-9-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191210063454.31603-1-tiwai@suse.de>
 References: <20191210063454.31603-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 07/55] ALSA: azt3328: Support PCM sync_stop
+Subject: [alsa-devel] [PATCH 08/55] ALSA: bt87x: Support PCM sync_stop
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,23 +74,23 @@ call.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/azt3328.c | 2 +-
+ sound/pci/bt87x.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/azt3328.c b/sound/pci/azt3328.c
-index 1a852d893e98..b36e7a64e268 100644
---- a/sound/pci/azt3328.c
-+++ b/sound/pci/azt3328.c
-@@ -2423,8 +2423,8 @@ snd_azf3328_create(struct snd_card *card,
- 		goto out_err;
+diff --git a/sound/pci/bt87x.c b/sound/pci/bt87x.c
+index de4af1ab87c6..2e16604c31ce 100644
+--- a/sound/pci/bt87x.c
++++ b/sound/pci/bt87x.c
+@@ -751,8 +751,8 @@ static int snd_bt87x_create(struct snd_card *card,
+ 		goto fail;
  	}
  	chip->irq = pci->irq;
 +	card->sync_irq = chip->irq;
  	pci_set_master(pci);
 -	synchronize_irq(chip->irq);
  
- 	snd_azf3328_debug_show_ports(chip);
- 
+ 	err = snd_device_new(card, SNDRV_DEV_LOWLEVEL, chip, &ops);
+ 	if (err < 0)
 -- 
 2.16.4
 

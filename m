@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF17A11803B
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 07:15:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88FDA11803C
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 07:15:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 783691615;
-	Tue, 10 Dec 2019 07:14:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 783691615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B15C166B;
+	Tue, 10 Dec 2019 07:14:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B15C166B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575958520;
-	bh=S3YoXji4yTxRV4BKR1E3EzvmP1m9Yo2vbw7/M/CT+q0=;
+	s=default; t=1575958532;
+	bh=K7ljatrVyTGvgdSAQzpFu3vBYsxInyS4oBfoC51vED0=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dPm/HXeldJrJtRa2ncYIVrFG+UJfYYK78c3J1vH+I5/agQXsfnXI/c2xv5+NMgMKZ
-	 3aA/FapKlCPuZS9QrQYOn6Z0N093vq6SrKVqlxaTGk2n6B0R+5LVg3TT92wa/dWYsb
-	 XAmPqPsH8bP2dgnxb32w7SyjHhnjTeiZ9Gkyu5V8=
+	b=L9rRHBYBg0Dmuo9SV+4PO/5Wd9cecmbYSWcGvhs4Vw4MoVuR49Npktot9SdWcsc2H
+	 cG+Slia2h4ukHS560ZBXUgOvKh8oD9nRnZdkvbXoaAfGjvewqRU6yi1fESQphGs1g2
+	 Wtkuky3MpGzGpOd+ExKwLMdkuffbfIfEcd4zarbU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6922EF80217;
-	Tue, 10 Dec 2019 07:12:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BB4C1F80257;
+	Tue, 10 Dec 2019 07:12:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9C3FF80277; Tue, 10 Dec 2019 07:12:10 +0100 (CET)
+ id E842EF80277; Tue, 10 Dec 2019 07:12:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 907F2F800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8192F8011E
  for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 07:11:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 907F2F800F3
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8192F8011E
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 7BA58B1B7
+ by mx1.suse.de (Postfix) with ESMTP id 7DA11B1BA
  for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 06:11:51 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Tue, 10 Dec 2019 07:11:23 +0100
-Message-Id: <20191210061145.24641-2-tiwai@suse.de>
+Date: Tue, 10 Dec 2019 07:11:24 +0100
+Message-Id: <20191210061145.24641-3-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191210061145.24641-1-tiwai@suse.de>
 References: <20191210061145.24641-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 01/23] ALSA: aoa: Drop superfluous ioctl PCM ops
+Subject: [alsa-devel] [PATCH 02/23] ALSA: arm: Drop superfluous ioctl PCM ops
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,29 +71,42 @@ Let's kill the redundant lines.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/aoa/soundbus/i2sbus/pcm.c | 2 --
- 1 file changed, 2 deletions(-)
+ sound/arm/aaci.c        | 2 --
+ sound/arm/pxa2xx-ac97.c | 1 -
+ 2 files changed, 3 deletions(-)
 
-diff --git a/sound/aoa/soundbus/i2sbus/pcm.c b/sound/aoa/soundbus/i2sbus/pcm.c
-index 44397e72c868..d350dbd24305 100644
---- a/sound/aoa/soundbus/i2sbus/pcm.c
-+++ b/sound/aoa/soundbus/i2sbus/pcm.c
-@@ -773,7 +773,6 @@ static snd_pcm_uframes_t i2sbus_playback_pointer(struct snd_pcm_substream
- static const struct snd_pcm_ops i2sbus_playback_ops = {
- 	.open =		i2sbus_playback_open,
- 	.close =	i2sbus_playback_close,
--	.ioctl =	snd_pcm_lib_ioctl,
- 	.hw_free =	i2sbus_playback_hw_free,
- 	.prepare =	i2sbus_playback_prepare,
- 	.trigger =	i2sbus_playback_trigger,
-@@ -842,7 +841,6 @@ static snd_pcm_uframes_t i2sbus_record_pointer(struct snd_pcm_substream
- static const struct snd_pcm_ops i2sbus_record_ops = {
- 	.open =		i2sbus_record_open,
- 	.close =	i2sbus_record_close,
--	.ioctl =	snd_pcm_lib_ioctl,
- 	.hw_free =	i2sbus_record_hw_free,
- 	.prepare =	i2sbus_record_prepare,
- 	.trigger =	i2sbus_record_trigger,
+diff --git a/sound/arm/aaci.c b/sound/arm/aaci.c
+index 1e9ea0fe4f49..d1b5dbcd9e87 100644
+--- a/sound/arm/aaci.c
++++ b/sound/arm/aaci.c
+@@ -625,7 +625,6 @@ static int aaci_pcm_playback_trigger(struct snd_pcm_substream *substream, int cm
+ static const struct snd_pcm_ops aaci_playback_ops = {
+ 	.open		= aaci_pcm_open,
+ 	.close		= aaci_pcm_close,
+-	.ioctl		= snd_pcm_lib_ioctl,
+ 	.hw_params	= aaci_pcm_hw_params,
+ 	.hw_free	= aaci_pcm_hw_free,
+ 	.prepare	= aaci_pcm_prepare,
+@@ -728,7 +727,6 @@ static int aaci_pcm_capture_prepare(struct snd_pcm_substream *substream)
+ static const struct snd_pcm_ops aaci_capture_ops = {
+ 	.open		= aaci_pcm_open,
+ 	.close		= aaci_pcm_close,
+-	.ioctl		= snd_pcm_lib_ioctl,
+ 	.hw_params	= aaci_pcm_hw_params,
+ 	.hw_free	= aaci_pcm_hw_free,
+ 	.prepare	= aaci_pcm_capture_prepare,
+diff --git a/sound/arm/pxa2xx-ac97.c b/sound/arm/pxa2xx-ac97.c
+index acfaf1d4ec25..08ae55166890 100644
+--- a/sound/arm/pxa2xx-ac97.c
++++ b/sound/arm/pxa2xx-ac97.c
+@@ -173,7 +173,6 @@ static SIMPLE_DEV_PM_OPS(pxa2xx_ac97_pm_ops, pxa2xx_ac97_suspend, pxa2xx_ac97_re
+ static const struct snd_pcm_ops pxa2xx_ac97_pcm_ops = {
+ 	.open		= pxa2xx_ac97_pcm_open,
+ 	.close		= pxa2xx_ac97_pcm_close,
+-	.ioctl		= snd_pcm_lib_ioctl,
+ 	.hw_params	= pxa2xx_pcm_hw_params,
+ 	.hw_free	= pxa2xx_pcm_hw_free,
+ 	.prepare	= pxa2xx_ac97_pcm_prepare,
 -- 
 2.16.4
 

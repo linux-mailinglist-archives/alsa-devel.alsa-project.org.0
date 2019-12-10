@@ -2,119 +2,102 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C5753118CA1
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 16:36:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F2FB118CCB
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 16:42:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6355C1669;
-	Tue, 10 Dec 2019 16:35:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6355C1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id C570486F;
+	Tue, 10 Dec 2019 16:41:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C570486F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575992180;
-	bh=heCyy/sy0THeoImPejmv+STNFwjNZ3jPl4rUeO1kNxw=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575992551;
+	bh=Bpv91dx0mkntZeuD2wtrNIJ6H3AsXjAAzQT1aUD+Mi4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=httEDoO4LD/mlbKtZgVs6tMgBS3Pd0O2Wzd0c0QiLvz3q5JBXCt7dYzZixmSZYh9D
-	 TJzMZ32i+uuee5aseSXPTsSwj7xgsEAbHOJXyB/tizHUhyXb4eopDnBpzBI/V7fLtS
-	 rueR5k2TIoJrb5rcMCNAHooMHkTOdwdl9g+buV0k=
+	b=lWzQQHt9ZD6eQ5UXd5HY6NYiuZ8CVaiwb2CyVMwKQUkVXna9KbQNlmSoZu/nhK2po
+	 1mRxXX7La8AkofuyeopU3N+CXE2+24K2nluABZ9KpsoeQbVAoA2uu/TzfhCrpIOmRp
+	 mv9hsLxVgz0U8MST8AgIuwQ2yxQ9eQtfqyk6JTaE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4DCBEF80217;
-	Tue, 10 Dec 2019 16:34:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE0ABF801D8;
+	Tue, 10 Dec 2019 16:40:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 642CCF8020C; Tue, 10 Dec 2019 16:34:35 +0100 (CET)
+ id A266AF8020C; Tue, 10 Dec 2019 16:40:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12on2052.outbound.protection.outlook.com [40.107.244.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2289BF800F3
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 16:34:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2289BF800F3
+ by alsa1.perex.cz (Postfix) with ESMTPS id E60A0F800F3
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 16:40:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E60A0F800F3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="OtG+4jRN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HFywqhqtkuan3OpDSk4j53D4yXr4wi5/FVYHIAXtVL9Rlz0uVB5ky/LEL30d3zxTkHmcSBZgan8dM5kZhj5CHP1auG4sqyKqm9OGMPAFUgXqqbNoUnCAJ19OmOwbcRhG5J+7X1flU0pOvdBEI7YdwC9DWrHzPC0jQ1PL8EEgKl55Y2V0ofWHzX5/rl7MZhlNwZ8wbkzxIV8rouraST/krWWs9adxFMNUFgPf3SATayYFqi8/95z6LegXTAaGoMXCnl4cL66NX/89c9ZbD99jV72GH3euL64yVBPa09Wmva/d0SKzFVSQnQIDBmtGl4cHy7osRIddd+t/gS7BmrN18Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EleMNlWPnGEcQxM7/lvjWRLop0GAmc/hPoYPp6c7Waw=;
- b=ODoFr5kI/FrobLAxSP+9DAXFMgHf0y3yibjpYMRHZqKxNYydCY33drNhHD8MrZkBo5X26L0r16lwRKOTqD7jKS+DfPEIyckpeVK9Z2gzpV6dR1rRV/GdjohuHkmA3Qllr+B/Z/aokuWBayAtG+2yXp9uCJBRyZFD+Qy7FBNxGxfrW8TGtEK+pMaEVtt9Qt1hCuRDwfdf9MeCVTcibt0fO4DoyA6Yo6IKumdrcn9s1H7nu6QkDgj1nYg5F9eWfrNzjuUrmWs+S0a/ed8qv0qLiM3xpC3J8Nylrh6WwoJNLkwbfH2G/P1q7Q67PGmbp2TUvTW4CpeaEHu197suEGJZpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EleMNlWPnGEcQxM7/lvjWRLop0GAmc/hPoYPp6c7Waw=;
- b=OtG+4jRNR6jKCbOOUU9LxP8qwqnLLJiM0sM3b7g6J5MPYcP4PEbAfvDTf/xP2fecyShuwLKF0IWVd331a7IakxYxDKpnRNOng2i3jjC/QuHXrnKjmqAt0OBj6BHQvReqNjkcSRCWkrOoIPwnrrptCf/LGb8jUz4eIXQYsVPn7AE=
-Received: from MWHPR12MB1358.namprd12.prod.outlook.com (10.169.203.148) by
- MWHPR12MB1277.namprd12.prod.outlook.com (10.169.204.144) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2516.12; Tue, 10 Dec 2019 15:34:27 +0000
-Received: from MWHPR12MB1358.namprd12.prod.outlook.com
- ([fe80::b94d:fcd8:729d:a94f]) by MWHPR12MB1358.namprd12.prod.outlook.com
- ([fe80::b94d:fcd8:729d:a94f%3]) with mapi id 15.20.2538.012; Tue, 10 Dec 2019
- 15:34:27 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: Lukas Wunner <lukas@wunner.de>, Takashi Iwai <tiwai@suse.de>
-Thread-Topic: [PATCH] ALSA: hda/hdmi - Fix duplicate unref of pci_dev
-Thread-Index: AQHVr19R5YQIlg2NqEC5WtHx1mfv7qezf2rg
-Date: Tue, 10 Dec 2019 15:34:27 +0000
-Message-ID: <MWHPR12MB1358AEEBD730A4EDA78894E6F75B0@MWHPR12MB1358.namprd12.prod.outlook.com>
-References: <PSXP216MB0438BFEAA0617283A834E11580580@PSXP216MB0438.KORP216.PROD.OUTLOOK.COM>
- <77aa6c01aefe1ebc4004e87b0bc714f2759f15c4.1575985006.git.lukas@wunner.de>
-In-Reply-To: <77aa6c01aefe1ebc4004e87b0bc714f2759f15c4.1575985006.git.lukas@wunner.de>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Alexander.Deucher@amd.com; 
-x-originating-ip: [165.204.11.250]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 29d545a7-65a9-42d7-1dc3-08d77d867113
-x-ms-traffictypediagnostic: MWHPR12MB1277:
-x-microsoft-antispam-prvs: <MWHPR12MB12770C7F1A5C42B790521932F75B0@MWHPR12MB1277.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:267;
-x-forefront-prvs: 02475B2A01
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(366004)(39860400002)(346002)(396003)(376002)(13464003)(199004)(189003)(7696005)(5660300002)(53546011)(8676002)(33656002)(9686003)(55016002)(186003)(26005)(71200400001)(76116006)(81156014)(8936002)(66946007)(6506007)(4326008)(66556008)(66476007)(478600001)(52536014)(86362001)(66446008)(966005)(81166006)(45080400002)(316002)(54906003)(64756008)(2906002)(110136005);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MWHPR12MB1277;
- H:MWHPR12MB1358.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: u6n44VLSDe+iGpx8gueue1lBO1zY8uFp7JZyz3WRas+RHwTQCzWBw5Qm6L+LFKiWIx84SAG1vfSpVLoD5vuAww2pwkgHwRTOistEYtIn/Gn+1+OBiW9qsIfut147xN5IFwjjjFF0c+dUVEPO86wY2N3YfDo1Qu6XicTFJm2J9rmxJFabxufmhfySwACZOmsWjBE3ksgmH51qclprDBTtgMicVguK/EstMbsRAPsRw9GCc81jO34oVXOPQnRJ5c1J2ZEqdN/ibzJYieZlDXWlsTLybf24ui9Vd2JA+q9ZDe6ROzAYR3jSAiwOSrnGJt6WRLR3LPPTVkYATRUrd0hWW9P+PnJB1xoEfoosECEGR8OHVbHrWs0g5zvxxUYpaTcSpXZDaz2qs+CrDwRvslPUprty6uYos5OlqWNrzEM8D0p+QVX+RfJNixqRS3Ebg5CJBVdy9yONy+pmyt6W4olB4FoTqMfvZ899N562RS9bdX6syvxYFaNbxvjWxijyxU/q
-x-ms-exchange-transport-forked: True
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="Mtef67jF"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="NozJjZIT"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id D78E3222E3;
+ Tue, 10 Dec 2019 10:40:38 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Tue, 10 Dec 2019 10:40:38 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=4/JyOWR8I3UkmBDZvYWSdZBCZtu
+ cdHErchTguOG3sSM=; b=Mtef67jFaN0PhRwfxOIx8WjidfQ23ZjIWYDDFRrN4u2
+ tAWpcgaL/BDMqIEtsELlvt8fuXxREHzI9YPUBljoxHlhs0BVff8dT0Km/CXBU158
+ Ox3pOwZnu0Kh8JjePLXjP9s2FKiOkU1q3omxUVPqk1UvnpMi9T1jGnhcQq7pnzMm
+ CTtVQRNarsLAFMWBKLYETVKHPRsVpjN7gVrLRL+0qKkMT3oMea10Xg1HlmGtRPcm
+ DJ+jHMpCmSUy+urEu8HK86i2JRK7B69ISoHY/3f6//Zj9XTu+coVDGmRvUBffNm+
+ CpaXGiN2goeSgDWd1h9nUXU6v9E5iZkFSmwkMR9U+NA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=4/JyOW
+ R8I3UkmBDZvYWSdZBCZtucdHErchTguOG3sSM=; b=NozJjZITe+S8kdR1xQ/Sug
+ e9w7VDJ/8HRLM1qeytf7kT5C8VNRq3sju5i1gCkaW6yGiWEEmmfzm4Ok9f4zjc5z
+ TY+joc3nK5CdLZiJxphjaZK/yKyRfjRs287S2eQuEIhB6+dEorhQwHYVzOsuY4sh
+ PDXaX5p5+6tZgYt1m5Sph7F/W3mEuJRFTLEsepeUWNl7jDTXMikvi/bvanfg+bC7
+ 7D29aCyh+w4YubiME04+iDoooJJQFerWHpoor1PHt+UY+DYrpyYNMKeV2kegILlc
+ jRFo5nj6s4gEWKXckKVCN7qMUvzGncj5jQDOlNwQoX+MuGP9lfVrvtVAUgEpb0uQ
+ ==
+X-ME-Sender: <xms:drzvXfS8k-cs60U1JV7_MHWYh0p1mEar1FMG57GyLXioD95gSxZe3Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrudelfedgjeekucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjfgesthdtredttdervdenucfhrhhomhepvfgrkhgr
+ shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+ hjpheqnecukfhppedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhm
+ pehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuih
+ iivgeptd
+X-ME-Proxy: <xmx:drzvXWm-82NM-wM64NrB-v3n_y0cIS8CJRqTa0HJAHNiFYD8dZzBJQ>
+ <xmx:drzvXaKiJmqdhwyuS8cJTbCFszZfFlguJMqGFeeROkyz4jLgNi_99g>
+ <xmx:drzvXZUQxBRqC3vvapThTZmc9h_eqSfXVmayoxkw3LooOfwTK066rA>
+ <xmx:drzvXfjF8JOsy3SVnIZD277NZK7HBgglFwffl3UukmpWsotUB0-JUg>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 35EE630600AB;
+ Tue, 10 Dec 2019 10:40:37 -0500 (EST)
+Date: Wed, 11 Dec 2019 00:40:34 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20191210154033.GA30661@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <s5hy2vl9v1f.wl-tiwai@suse.de>
+ <20191209192422.23902-1-tiwai@suse.de>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 29d545a7-65a9-42d7-1dc3-08d77d867113
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Dec 2019 15:34:27.1332 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ybL+Ngih2HbsR6iY/nj+DKS2KwJgv6YGXv2Nv8BCZ0fJteeERd/Dvxdbz9MZdgvfJU+DTlETZsrKQfzFg/WO0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR12MB1277
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Bjorn Helgaas <helgaas@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ALSA: hda/hdmi - Fix duplicate unref of
-	pci_dev
+Content-Disposition: inline
+In-Reply-To: <20191209192422.23902-1-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH v2] ALSA: firewire: Use managed buffer
+	allocation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,67 +115,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-> -----Original Message-----
-> From: Lukas Wunner <lukas@wunner.de>
-> Sent: Tuesday, December 10, 2019 8:40 AM
-> To: Takashi Iwai <tiwai@suse.de>
-> Cc: Jaroslav Kysela <perex@perex.cz>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>; Mika Westerberg
-> <mika.westerberg@linux.intel.com>; Bjorn Helgaas <helgaas@kernel.org>;
-> Nicholas Johnson <nicholas.johnson-opensource@outlook.com.au>; alsa-
-> devel@alsa-project.org; linux-kernel@vger.kernel.org; linux-
-> pci@vger.kernel.org
-> Subject: [PATCH] ALSA: hda/hdmi - Fix duplicate unref of pci_dev
-> 
-> Nicholas Johnson reports a null pointer deref as well as a refcount underflow
-> upon hot-removal of a Thunderbolt-attached AMD eGPU.
-> He's bisected the issue down to commit 586bc4aab878 ("ALSA: hda/hdmi - fix
-> vgaswitcheroo detection for AMD").
-> 
-> The commit iterates over PCI devices using pci_get_class() and unreferences
-> each device found, even though pci_get_class() subsequently unreferences
-> the device as well.  Fix it.
+Hi,
 
-The pci_dev_put() a few lines above should probably be dropped as well.
-
-Alex
-
+On Mon, Dec 09, 2019 at 08:24:22PM +0100, Takashi Iwai wrote:
+> Clean up the drivers with the new managed buffer allocation API.
+> The superfluous snd_pcm_lib_malloc_pages() and
+> snd_pcm_lib_free_pages() calls are dropped.
 > 
-> Fixes: 586bc4aab878 ("ALSA: hda/hdmi - fix vgaswitcheroo detection for
-> AMD")
-> Link:
-> https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Flore.
-> kernel.org%2Fr%2FPSXP216MB0438BFEAA0617283A834E11580580%40PSXP2
-> 16MB0438.KORP216.PROD.OUTLOOK.COM%2F&amp;data=02%7C01%7Calex
-> ander.deucher%40amd.com%7C254649b79a6240f3a8aa08d77d76715f%7C3d
-> d8961fe4884e608e11a82d994e183d%7C0%7C0%7C637115819998031934&amp
-> ;sdata=qI%2B%2FJv3Z6pvwN7gQFSnZiP31YUAvd%2BKjo0ZqMERFbYU%3D&a
-> mp;reserved=0
-> Reported-and-tested-by: Nicholas Johnson <nicholas.johnson-
-> opensource@outlook.com.au>
-> Signed-off-by: Lukas Wunner <lukas@wunner.de>
-> Cc: Mika Westerberg <mika.westerberg@linux.intel.com>
-> Cc: Alexander Deucher <alexander.deucher@amd.com>
-> Cc: Bjorn Helgaas <helgaas@kernel.org>
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
 > ---
->  sound/pci/hda/hda_intel.c | 1 -
->  1 file changed, 1 deletion(-)
+> v1->v2: corrected the return value to propate the error
+>         initialize err variable for covering uninitialized compiler errors
 > 
-> diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c index
-> 35b4526f0d28..b856b89378ac 100644
-> --- a/sound/pci/hda/hda_intel.c
-> +++ b/sound/pci/hda/hda_intel.c
-> @@ -1419,7 +1419,6 @@ static bool atpx_present(void)
->  				return true;
->  			}
->  		}
-> -		pci_dev_put(pdev);
->  	}
->  	return false;
->  }
-> --
-> 2.24.0
+>  sound/firewire/bebob/bebob_pcm.c         | 11 +++--------
+>  sound/firewire/dice/dice-pcm.c           | 13 ++++---------
+>  sound/firewire/digi00x/digi00x-pcm.c     | 11 +++--------
+>  sound/firewire/fireface/ff-pcm.c         | 11 +++--------
+>  sound/firewire/fireworks/fireworks_pcm.c | 11 +++--------
+>  sound/firewire/isight.c                  | 10 ++--------
+>  sound/firewire/motu/motu-pcm.c           | 11 +++--------
+>  sound/firewire/oxfw/oxfw-pcm.c           | 19 +++++--------------
+>  sound/firewire/tascam/tascam-pcm.c       | 11 +++--------
+>  9 files changed, 29 insertions(+), 79 deletions(-)
 
+These changes are fine to me.
+
+Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+
+
+Regards
+
+Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

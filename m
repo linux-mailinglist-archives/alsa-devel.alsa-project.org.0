@@ -2,50 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C4AE118919
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 14:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86C0B118943
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 14:09:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B0CA638;
-	Tue, 10 Dec 2019 14:03:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0CA638
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F8FA1655;
+	Tue, 10 Dec 2019 14:09:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F8FA1655
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575983051;
-	bh=04kmEUnwuNTfxEtN1ui4P4+TinyR2fiv+1TNL9DWHno=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=DdjGJ9ky8hPpj+oJSSnUHRk9DSrZjWqHaPi58h5Mn7RrZ3ogZgmXdm9KNBujb6Ljg
-	 YpHHlNcDr9D9xcwfP2/lcpUk3oBIQXiCoIP4WF3/ZBcI2IDEPOapEtxesCfnzY3xMT
-	 RkpKfTWWA8s4PCIQ5DY4wpYJOiRrTYVRsJvNsQo0=
+	s=default; t=1575983395;
+	bh=6TDzPtrXaxbyH3kOcVwnGdV8WVEoWdvoGhwQY5pibw0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bRm3LpHVhP6SQ4GDwsrGFCYWEQMtXBEpKKeqQdBE6twynA+2y4+pJkNitH980L5Wv
+	 2EX1Mhla1sWyiA3FyxV+HJktmmrBWPccrtuQl3kWIUV66RkZjt83I3pTJTjy+Ny9Vp
+	 SlDta1H8/NJ9fHpIxPQYeQ4BJMhDaEVsOlve4YAI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8A033F8020C;
-	Tue, 10 Dec 2019 14:02:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4CA3DF80248;
+	Tue, 10 Dec 2019 14:08:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 87CEFF8020C; Tue, 10 Dec 2019 14:02:25 +0100 (CET)
+ id B5AEAF8020C; Tue, 10 Dec 2019 14:08:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0938F8011E
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 14:02:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0938F8011E
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 8FF7BAC6F;
- Tue, 10 Dec 2019 13:02:21 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Tue, 10 Dec 2019 14:02:19 +0100
-Message-Id: <20191210130219.27919-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-Cc: Lionel Koenig <lionel.koenig@gmail.com>
-Subject: [alsa-devel] [PATCH] ALSA: pcm: Fill silence on buffers at hw_params
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 148E9F800F3
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 14:08:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 148E9F800F3
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 68BFA328;
+ Tue, 10 Dec 2019 05:08:03 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D28A73F52E;
+ Tue, 10 Dec 2019 05:08:02 -0800 (PST)
+Date: Tue, 10 Dec 2019 13:08:01 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "kernelci.org bot" <bot@kernelci.org>
+Message-ID: <20191210130801.GF6110@sirena.org.uk>
+References: <5def94e7.1c69fb81.2751f.190a@mx.google.com>
+MIME-Version: 1.0
+In-Reply-To: <5def94e7.1c69fb81.2751f.190a@mx.google.com>
+X-Cookie: We have ears, earther...FOUR OF THEM!
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Brian Austin <brian.austin@cirrus.com>,
+ Olivier Moysan <olivier.moysan@st.com>, tomeu.vizoso@collabora.com,
+ Liam Girdwood <lgirdwood@gmail.com>, khilman@baylibre.com,
+ mgalka@collabora.com, Takashi Iwai <tiwai@suse.com>,
+ Paul Handrigan <Paul.Handrigan@cirrus.com>, guillaume.tucker@collabora.com,
+ enric.balletbo@collabora.com, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] broonie-sound/for-next bisection: boot on
+	rk3399-gru-kevin
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,108 +71,60 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6318893684301404653=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The current PCM code doesn't initialize explicitly the buffers
-allocated for PCM streams, hence it might leak some uninitialized
-kernel data by mmapping or reading the buffer before actually reading
-or writing.
 
-Since this is a common problem, let's initialize the data on the
-buffers each hw_params properly.  For that, an existing helper
-function is exposed as snd_pcm_fill_silence_frames() and call it from
-snd_pcm_hw_params().
+--===============6318893684301404653==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QNDPHrPUIc00TOLW"
+Content-Disposition: inline
 
-Reported-and-tested-by: Lionel Koenig <lionel.koenig@gmail.com>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/core/pcm_lib.c    | 13 ++++---------
- sound/core/pcm_local.h  |  2 ++
- sound/core/pcm_native.c |  3 +++
- 3 files changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 2236b5e0c1f2..3c63324b8bb7 100644
---- a/sound/core/pcm_lib.c
-+++ b/sound/core/pcm_lib.c
-@@ -30,9 +30,6 @@
- #define trace_applptr(substream, prev, curr)
- #endif
- 
--static int fill_silence_frames(struct snd_pcm_substream *substream,
--			       snd_pcm_uframes_t off, snd_pcm_uframes_t frames);
--
- /*
-  * fill ring buffer with silence
-  * runtime->silence_start: starting pointer to silence area
-@@ -100,7 +97,7 @@ void snd_pcm_playback_silence(struct snd_pcm_substream *substream, snd_pcm_ufram
- 	ofs = runtime->silence_start % runtime->buffer_size;
- 	while (frames > 0) {
- 		transfer = ofs + frames > runtime->buffer_size ? runtime->buffer_size - ofs : frames;
--		err = fill_silence_frames(substream, ofs, transfer);
-+		err = snd_pcm_fill_silence_frames(substream, ofs, transfer);
- 		snd_BUG_ON(err < 0);
- 		runtime->silence_filled += transfer;
- 		frames -= transfer;
-@@ -1945,8 +1942,6 @@ static int fill_silence(struct snd_pcm_substream *substream, int channel,
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 
--	if (substream->stream != SNDRV_PCM_STREAM_PLAYBACK)
--		return 0;
- 	if (substream->ops->fill_silence)
- 		return substream->ops->fill_silence(substream, channel,
- 						    hwoff, bytes);
-@@ -2030,10 +2025,10 @@ static int noninterleaved_copy(struct snd_pcm_substream *substream,
- }
- 
- /* fill silence on the given buffer position;
-- * called from snd_pcm_playback_silence()
-+ * called from snd_pcm_playback_silence() and snd_pcm_hw_params()
-  */
--static int fill_silence_frames(struct snd_pcm_substream *substream,
--			       snd_pcm_uframes_t off, snd_pcm_uframes_t frames)
-+int snd_pcm_fill_silence_frames(struct snd_pcm_substream *substream,
-+				snd_pcm_uframes_t off, snd_pcm_uframes_t frames)
- {
- 	if (substream->runtime->access == SNDRV_PCM_ACCESS_RW_INTERLEAVED ||
- 	    substream->runtime->access == SNDRV_PCM_ACCESS_MMAP_INTERLEAVED)
-diff --git a/sound/core/pcm_local.h b/sound/core/pcm_local.h
-index 384efd002984..ac4f455b1fff 100644
---- a/sound/core/pcm_local.h
-+++ b/sound/core/pcm_local.h
-@@ -34,6 +34,8 @@ int snd_pcm_update_hw_ptr(struct snd_pcm_substream *substream);
- 
- void snd_pcm_playback_silence(struct snd_pcm_substream *substream,
- 			      snd_pcm_uframes_t new_hw_ptr);
-+int snd_pcm_fill_silence_frames(struct snd_pcm_substream *substream,
-+				snd_pcm_uframes_t off, snd_pcm_uframes_t frames);
- 
- static inline snd_pcm_uframes_t
- snd_pcm_avail(struct snd_pcm_substream *substream)
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 1fe581167b7b..d6f270c639b4 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -739,6 +739,9 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
- 	while (runtime->boundary * 2 <= LONG_MAX - runtime->buffer_size)
- 		runtime->boundary *= 2;
- 
-+	/* clear the buffer once for avoiding information leaks */
-+	snd_pcm_fill_silence_frames(substream, 0, runtime->period_size);
-+
- 	snd_pcm_timer_resolution_change(substream);
- 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_SETUP);
- 
--- 
-2.16.4
+--QNDPHrPUIc00TOLW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Dec 10, 2019 at 04:51:51AM -0800, kernelci.org bot wrote:
+>     ASoC: cs42l51: add dac mux widget in codec routes
+>    =20
+>     Add "DAC mux" DAPM widget in CS42l51 audio codec routes,
+>     to support DAC mux control and to remove error trace
+>     "DAC Mux has no paths" at widget creation.
+>     Note: ADC path of DAC mux is not routed in this patch.
+
+This doesn't seem right, as far as I can see this device is not present
+on that board (it uses some Realtek and Maxim devices AFAICT).  Is it
+some sort of timing thing?
+
+--QNDPHrPUIc00TOLW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3vmLAACgkQJNaLcl1U
+h9DAzwf/Vl72koOz78QabTLK3qKjJ8J8uxgv87Zxb3NykzHxogKhBYdzFKfA0EpV
+xqY1oCamb7cgAnfGFc8t2WAGC6jhqCZZxmHUQCh74Iy1rh7vJxg2NhuPhAzn6TZX
+S6iprOJsY2QAFVpLJfHmC/Yl55EGihn22H/CO+PaspbCuyGPc2TwwTxnyLQeqFCx
+r1PojQwIdk3VJSTZf4GOfd8ufsPM7K4psVJbtoKCQ3xXkre1j2CszTPv4jso1tGw
+W9YR5uLNxS3rjueAJI56FBNYV48WK3rq9hVgyx9Z5Tc9cynx93aO5cu9n5Midy7W
+lmaqK3rj9MbjHWjhIHmbteP634uwHA==
+=okLz
+-----END PGP SIGNATURE-----
+
+--QNDPHrPUIc00TOLW--
+
+--===============6318893684301404653==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6318893684301404653==--

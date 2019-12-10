@@ -2,63 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F456117CC0
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 01:56:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14B0B117D35
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 02:34:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A308C74C;
-	Tue, 10 Dec 2019 01:55:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A308C74C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 92A671615;
+	Tue, 10 Dec 2019 02:33:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92A671615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575939371;
-	bh=T4x2K4RhuP+FWCrtkbESnqDQwoiTzjan5Q83ANHSx+E=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1575941653;
+	bh=bNwUO3UHsD2JLvP84ikF3A6E7gL/t9g+lyOVEN6KAlg=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WkFODDI0duSYGSX75kuzo+xKcl6SVRFot9zVfTkrZY3ywTlOTt36ZChDOi/nsoL4O
-	 7th3F7SxC5ZEzJrg0zxFx4Moez6LSNtx3oTg9dLI8MMcNVA/rJHVxqmFhJL6LrsD1v
-	 qO1oxUAIHgXXIEZg4bb+ZkGaHee6ttX/tJ/36PJA=
+	b=heVPwT8nIuDgJHl7SOycjuIN5o9YkZtyzRVwW6Nz+qjNjJVldUAOSlExifjmOdVgf
+	 cV3nhiD/MY7RhD/Ow/uMhwAX2q1BFDxNbDhBH8fjAycoQMjMQWYL6t2QSFnrAo26q+
+	 oJSgsqg+oPi1yRllpQRteKs28bpwCb8DjnUUPssg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 30C44F8029B;
-	Tue, 10 Dec 2019 01:49:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECBD9F8023E;
+	Tue, 10 Dec 2019 02:32:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52251F8023E; Tue, 10 Dec 2019 01:49:21 +0100 (CET)
+ id BB64EF80234; Tue, 10 Dec 2019 02:32:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 186D8F80254
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 01:49:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 186D8F80254
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 09 Dec 2019 16:49:10 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,297,1571727600"; d="scan'208";a="215398977"
-Received: from sneuhier-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.254.188.78])
- by orsmga003.jf.intel.com with ESMTP; 09 Dec 2019 16:49:10 -0800
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Mon,  9 Dec 2019 18:48:54 -0600
-Message-Id: <20191210004854.16845-9-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191210004854.16845-1-pierre-louis.bossart@linux.intel.com>
-References: <20191210004854.16845-1-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 96281F800E1
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 02:32:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96281F800E1
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="bc1Zhe8i"
+Received: by mail-ed1-x544.google.com with SMTP id j17so14514193edp.3
+ for <alsa-devel@alsa-project.org>; Mon, 09 Dec 2019 17:32:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UqpJfCF3D37VJfuOPskNhpW2JeHH9pFB4KOKdtTwdyQ=;
+ b=bc1Zhe8iLIdRObEFSjlQQuOohVLEC8vKyYzA1AhMpnkg23ydBYOsTXGqxbFY2BnzZv
+ sDJHcRuH1dvhGlYTlPEewsWKTo2ey87r/5x/TgaLjuTIdd98v3lyMyQ90PqM1ccoTEXM
+ ez06WR/C+KGLRP5Kkh2nSd12PRi9jGaxnX7Q65kagz5nGUJxFc2j2cf33vOdjVgwCtsE
+ SdeC3hWh4UqeV4QiaW7rfTJYI+mlbJ8V/4J7YDVC/EL4JK8XOZISzqQhgtbulLgWi+Ph
+ X2sZAh3bFx7U1xwuf4u4XDsMeHYLQ4WXI/dOF2/7VmXvL9NXOo4AS3FMruNACmkup0PA
+ LJYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UqpJfCF3D37VJfuOPskNhpW2JeHH9pFB4KOKdtTwdyQ=;
+ b=iq9pn1Lp+EVbbqjVtgjvWPIGEPetmLGHKsmp/ceIv9wn3kryVjmrVeSVLV0+Sn9ES6
+ bv6RtHltr2xBq/rnE3vLVvQ46Z1+t8n3/nhtfJbTT2oi+GNRNk1fc/ATXvuitQ9RPoGd
+ 6mwW3SSerPmkJiHIRQ927zSt4nUCmNkS4vjvrhwsp+7Em1dPJdxP80WTOfBx/vftmmiB
+ TbDK/OGsetO4pMf5zOJkYtQhNiFj9CjkzQEM+mU6+j6EVxdnn5ebfGoPOy5che3b/PtI
+ dsNoGAgMVjEXZV3jDX5Dhg4H1irg53BVyCtt6GStHElUpzsONCISI6tRE8D6j84IoPwN
+ nK6g==
+X-Gm-Message-State: APjAAAUULyAW2OQbcR7YjHufc+1GzlB6BYCM4W7JDO0sG3U68EXSRtx+
+ dn40SW/pxXDAWAYrZqKgHMf1KGSXIwqhFHVWA5w=
+X-Google-Smtp-Source: APXvYqzoQKcEO+//0TtUd5SF6PyfOZAfzGEaD7PMtndDhtaaPIzXRivESHfO0JOWC2PfFXQDLLBG/Nu+5s9k46RmiOs=
+X-Received: by 2002:aa7:d345:: with SMTP id m5mr36626481edr.149.1575941542654; 
+ Mon, 09 Dec 2019 17:32:22 -0800 (PST)
 MIME-Version: 1.0
-Cc: tiwai@suse.de, Amery Song <chao.song@intel.com>, broonie@kernel.org,
- Keyon Jie <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 8/8] ASoC: Intel: common: work-around incorrect
-	ACPI HID for CML boards
+References: <20191206075209.18068-1-hslester96@gmail.com>
+ <20191209162417.GD5483@sirena.org.uk>
+ <CANhBUQ0zwQG-=C12v02cf5kfvJba=5_=0JkZA45DDhxOzTBY6A@mail.gmail.com>
+ <20191209170030.GH5483@sirena.org.uk>
+In-Reply-To: <20191209170030.GH5483@sirena.org.uk>
+From: Chuhong Yuan <hslester96@gmail.com>
+Date: Tue, 10 Dec 2019 09:32:12 +0800
+Message-ID: <CANhBUQ0-jEG2W=sby1SyPphxK3CSPinFF5zkLq9jsKCZM5hYjw@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Brian Austin <brian.austin@cirrus.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Paul Handrigan <Paul.Handrigan@cirrus.com>,
+ James Schulman <james.schulman@cirrus.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: cs42l42: add missed
+ regulator_bulk_disable in remove and fix probe failure
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,102 +101,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Amery Song <chao.song@intel.com>
+On Tue, Dec 10, 2019 at 1:00 AM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Tue, Dec 10, 2019 at 12:52:30AM +0800, Chuhong Yuan wrote:
+>
+> > I have a question that what if CONFIG_PM is not defined?
+> > Since I have met runtime PM before in the patch
+> > a31eda65ba21 ("net: fec: fix clock count mis-match").
+> > I learned there that in some cases CONFIG_PM is not defined so runtime PM
+> > cannot take effect.
+> > Therefore, undo operations should still exist in remove functions.
+>
+> There's also the case where runtime PM is there and the device is active
+> at suspend - it's not that there isn't a problem, it's that we can't
+> unconditionally do a disable because we don't know if there was a
+> matching enable.  It'll need to be conditional on the runtime PM state.
 
-On CML boards with the RT5682 headset codec and RT1011 speaker
-amplifier, the platform firmware exposes three ACPI HIDs
-(10EC5682, 10EC1011 and MX98357A). The last HID is a mistake in
-DSDT tables, which causes the wrong machine driver to be loaded.
-
-This patch changes the key used to identify boards and changes the
-order of entries in the table to load the correct machine driver.
-The order does matter and should not be modified to work-around this
-firmware issue.
-
-Signed-off-by: Amery Song <chao.song@intel.com>
-Signed-off-by: Keyon Jie <yang.jie@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- .../intel/common/soc-acpi-intel-cml-match.c   | 41 +++++++++++--------
- 1 file changed, 24 insertions(+), 17 deletions(-)
-
-diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-index 5d08ae066738..fb9ba8819706 100644
---- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
-@@ -9,45 +9,52 @@
- #include <sound/soc-acpi.h>
- #include <sound/soc-acpi-intel-match.h>
- 
--static struct snd_soc_acpi_codecs cml_codecs = {
-+static struct snd_soc_acpi_codecs rt1011_spk_codecs = {
- 	.num_codecs = 1,
--	.codecs = {"10EC5682"}
-+	.codecs = {"10EC1011"}
- };
- 
--static struct snd_soc_acpi_codecs cml_spk_codecs = {
-+static struct snd_soc_acpi_codecs max98357a_spk_codecs = {
- 	.num_codecs = 1,
- 	.codecs = {"MX98357A"}
- };
- 
-+/*
-+ * The order of the three entries with .id = "10EC5682" matters
-+ * here, because DSDT tables expose an ACPI HID for the MAX98357A
-+ * speaker amplifier which is not populated on the board.
-+ */
- struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
- 	{
--		.id = "DLGS7219",
--		.drv_name = "cml_da7219_max98357a",
--		.quirk_data = &cml_spk_codecs,
-+		.id = "10EC5682",
-+		.drv_name = "cml_rt1011_rt5682",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &rt1011_spk_codecs,
- 		.sof_fw_filename = "sof-cml.ri",
--		.sof_tplg_filename = "sof-cml-da7219-max98357a.tplg",
-+		.sof_tplg_filename = "sof-cml-rt1011-rt5682.tplg",
- 	},
- 	{
--		.id = "MX98357A",
-+		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
--		.quirk_data = &cml_codecs,
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &max98357a_spk_codecs,
- 		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt5682-max98357a.tplg",
- 	},
--	{
--		.id = "10EC1011",
--		.drv_name = "cml_rt1011_rt5682",
--		.quirk_data = &cml_codecs,
--		.sof_fw_filename = "sof-cml.ri",
--		.sof_tplg_filename = "sof-cml-rt1011-rt5682.tplg",
--	},
- 	{
- 		.id = "10EC5682",
- 		.drv_name = "sof_rt5682",
- 		.sof_fw_filename = "sof-cml.ri",
- 		.sof_tplg_filename = "sof-cml-rt5682.tplg",
- 	},
--
-+	{
-+		.id = "DLGS7219",
-+		.drv_name = "cml_da7219_max98357a",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &max98357a_spk_codecs,
-+		.sof_fw_filename = "sof-cml.ri",
-+		.sof_tplg_filename = "sof-cml-da7219-max98357a.tplg",
-+	},
- 	{},
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cml_machines);
--- 
-2.20.1
-
+How about adding a check like #ifndef CONFIG_PM?
+I use this in an old version of the mentioned patch.
+However, that is not accepted since it seems not symmetric with enable
+in the probe.
+But I don't find an explicit runtime PM call in the probe here so the
+revision pattern of
+("net: fec: fix clock count mis-match") seems not applicable.
+So I think adding a check is acceptable here, at least it solves the problem.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

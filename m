@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9EE171189E7
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 14:33:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 493041189ED
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 14:34:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D6A7166F;
-	Tue, 10 Dec 2019 14:33:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D6A7166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC75B1662;
+	Tue, 10 Dec 2019 14:33:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC75B1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575984832;
-	bh=u3gEP4z7rYrmaYDK6fhnpii/Ec5KaejvTZIXmFQUbKA=;
+	s=default; t=1575984876;
+	bh=6LIiLJjGQ3YAegw233Ho8Z5U/31l1TitZos7wJbLYE4=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=gI0p+ndBQijq/2WCErxB0dxyHVaPX4Mew4zSpST2HkiY68F+CMPu+v5G0uCKo65LG
-	 HRwgWRTyXw74yivSUOTtRskHT643B7MdRrvMiPhOswSgi9UoxhdA+gIu0VKC/gsuam
-	 2xNYtjwhnHSASFRzfHTp16b/PE/Krrfl7Hpp5K/A=
+	b=VvEtu0+hyZ+EY9Ulk9Gv8ftgP2iruZTjMWqfNCpBu4MIPCcPwbCqn03gAC4hUa8+l
+	 XTmeWXQ0BIe1hlOeRg8emca4eFU8Vb6PmS2qPxmV+0fwCVVyp776PQAg0q8rM2jKFB
+	 bDoG3Be/tbesThIfLKsDSKukLebFmRJbFcmqXCa0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB673F80317;
-	Tue, 10 Dec 2019 14:23:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AB294F8032A;
+	Tue, 10 Dec 2019 14:23:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 511CCF802FE; Tue, 10 Dec 2019 14:23:12 +0100 (CET)
+ id 7F1E6F80306; Tue, 10 Dec 2019 14:23:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 1008CF802E8
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 14:23:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1008CF802E8
+ by alsa1.perex.cz (Postfix) with ESMTP id 22F04F802F7
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 14:23:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22F04F802F7
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 26C23328;
- Tue, 10 Dec 2019 05:23:07 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98C411045;
+ Tue, 10 Dec 2019 05:23:09 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9B2173F52E;
- Tue, 10 Dec 2019 05:23:06 -0800 (PST)
-Date: Tue, 10 Dec 2019 13:23:05 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 184543F52E;
+ Tue, 10 Dec 2019 05:23:08 -0800 (PST)
+Date: Tue, 10 Dec 2019 13:23:07 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87eexdyq6p.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-87eexdyq6p.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87fthtyq6z.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-87fthtyq6z.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: soc-core: remove
-	snd_soc_disconnect_sync()" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: remove dai_link_list" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: remove snd_soc_disconnect_sync()
+   ASoC: soc-core: remove dai_link_list
 
 has been applied to the asoc tree at
 
@@ -95,71 +95,134 @@ to this mail.
 Thanks,
 Mark
 
-From b553bd238da23041bf39110e58ee80f8efe034e0 Mon Sep 17 00:00:00 2001
+From cc73390008c9a47c49ad73c459b5590fd4c4c890 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Tue, 10 Dec 2019 09:33:50 +0900
-Subject: [PATCH] ASoC: soc-core: remove snd_soc_disconnect_sync()
+Date: Tue, 10 Dec 2019 09:33:40 +0900
+Subject: [PATCH] ASoC: soc-core: remove dai_link_list
 
-Sound card disconnecting operation was needed when "sound driver" was
-unbinded without unbinding "sound card".
-In such case, sound driver should be stopped even though it was
-playbacking/capturing. Otherwise clock open/close counter mismatch happen.
+ASoC is using many lists.
+Now, used dai_link is listed to card as dai_link_list.
 
-One headache was that we can't skip unbind in error case because unbind
-operation doesn't check return value from each drivers.
-snd_soc_disconnect_sync() was added for these purpose, and Renesas
-sound card only is used it.
+	[card]->[dai_link]->[dai_link]->...
 
-But now, ALSA SoC automatically disconnect sound card when sound driver
-was unbinded. Thus, snd_soc_disconnect_sync() is no longer needed.
-This patch removes it.
+BTW, this "dai_link" is used to create "rtd".
+And this rtd is listed to card as rtd_list.
+
+	[card]->[rtd]->[rtd]->...
+
+Here, each rtd has dai_link. This means, we can track all dai_link via
+rtd list. This patch removes card dai_link_list, and uses rtd_list
+instead of it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/87eexdyq6p.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87fthtyq6z.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sh/rcar/core.c |  2 --
- sound/soc/soc-core.c     | 12 ------------
- 2 files changed, 14 deletions(-)
+ include/sound/soc.h  |  7 -------
+ sound/soc/soc-core.c | 17 +++++++----------
+ 2 files changed, 7 insertions(+), 17 deletions(-)
 
-diff --git a/sound/soc/sh/rcar/core.c b/sound/soc/sh/rcar/core.c
-index d20f03dfdee6..6aac25095218 100644
---- a/sound/soc/sh/rcar/core.c
-+++ b/sound/soc/sh/rcar/core.c
-@@ -1819,8 +1819,6 @@ static int rsnd_remove(struct platform_device *pdev)
- 	};
- 	int ret = 0, i;
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index c28a1ed5e8df..b7ba3b91d080 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -852,7 +852,6 @@ struct snd_soc_dai_link {
+ 	/* Do not create a PCM for this DAI link (Backend link) */
+ 	unsigned int ignore:1;
  
--	snd_soc_disconnect_sync(&pdev->dev);
+-	struct list_head list; /* DAI link list of the soc card */
+ #ifdef CONFIG_SND_SOC_TOPOLOGY
+ 	struct snd_soc_dobj dobj; /* For topology */
+ #endif
+@@ -1037,7 +1036,6 @@ struct snd_soc_card {
+ 	/* CPU <--> Codec DAI links  */
+ 	struct snd_soc_dai_link *dai_link;  /* predefined links only */
+ 	int num_links;  /* predefined links only */
+-	struct list_head dai_link_list; /* all links */
+ 
+ 	struct list_head rtd_list;
+ 	int num_rtd;
+@@ -1107,11 +1105,6 @@ struct snd_soc_card {
+ 	     ((i) < (card)->num_aux_devs) && ((aux) = &(card)->aux_dev[i]); \
+ 	     (i)++)
+ 
+-#define for_each_card_links(card, link)				\
+-	list_for_each_entry(link, &(card)->dai_link_list, list)
+-#define for_each_card_links_safe(card, link, _link)			\
+-	list_for_each_entry_safe(link, _link, &(card)->dai_link_list, list)
 -
- 	pm_runtime_disable(&pdev->dev);
- 
- 	for_each_rsnd_dai(rdai, priv, i) {
+ #define for_each_card_rtds(card, rtd)			\
+ 	list_for_each_entry(rtd, &(card)->rtd_list, list)
+ #define for_each_card_rtds_safe(card, rtd, _rtd)	\
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 9483bfe17260..0d436a2560e4 100644
+index 1a362a799dbb..9483bfe17260 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -1444,18 +1444,6 @@ static int soc_probe_link_components(struct snd_soc_card *card)
- 	return 0;
- }
- 
--void snd_soc_disconnect_sync(struct device *dev)
--{
--	struct snd_soc_component *component =
--			snd_soc_lookup_component(dev, NULL);
--
--	if (!component || !component->card)
--		return;
--
--	snd_card_disconnect_sync(component->card->snd_card);
--}
--EXPORT_SYMBOL_GPL(snd_soc_disconnect_sync);
--
- static int soc_link_dai_pcm_new(struct snd_soc_dai **dais, int num_dais,
- 				struct snd_soc_pcm_runtime *rtd)
+@@ -934,11 +934,14 @@ struct snd_soc_dai_link *snd_soc_find_dai_link(struct snd_soc_card *card,
+ 					       int id, const char *name,
+ 					       const char *stream_name)
  {
++	struct snd_soc_pcm_runtime *rtd;
+ 	struct snd_soc_dai_link *link;
+ 
+ 	lockdep_assert_held(&client_mutex);
+ 
+-	for_each_card_links(card, link) {
++	for_each_card_rtds(card, rtd) {
++		link = rtd->dai_link;
++
+ 		if (link->id != id)
+ 			continue;
+ 
+@@ -1075,8 +1078,6 @@ void snd_soc_remove_dai_link(struct snd_soc_card *card,
+ 	if (card->remove_dai_link)
+ 		card->remove_dai_link(card, dai_link);
+ 
+-	list_del(&dai_link->list);
+-
+ 	rtd = snd_soc_get_pcm_runtime(card, dai_link->name);
+ 	if (rtd)
+ 		soc_free_pcm_runtime(rtd);
+@@ -1158,9 +1159,6 @@ int snd_soc_add_dai_link(struct snd_soc_card *card,
+ 		}
+ 	}
+ 
+-	/* see for_each_card_links */
+-	list_add_tail(&dai_link->list, &card->dai_link_list);
+-
+ 	return 0;
+ 
+ _err_defer:
+@@ -1931,7 +1929,7 @@ static void __soc_setup_card_name(char *name, int len,
+ static void soc_cleanup_card_resources(struct snd_soc_card *card,
+ 				       int card_probed)
+ {
+-	struct snd_soc_dai_link *link, *_link;
++	struct snd_soc_pcm_runtime *rtd, *n;
+ 
+ 	if (card->snd_card)
+ 		snd_card_disconnect_sync(card->snd_card);
+@@ -1942,8 +1940,8 @@ static void soc_cleanup_card_resources(struct snd_soc_card *card,
+ 	soc_remove_link_dais(card);
+ 	soc_remove_link_components(card);
+ 
+-	for_each_card_links_safe(card, link, _link)
+-		snd_soc_remove_dai_link(card, link);
++	for_each_card_rtds_safe(card, rtd, n)
++		snd_soc_remove_dai_link(card, rtd->dai_link);
+ 
+ 	/* remove auxiliary devices */
+ 	soc_remove_aux_devices(card);
+@@ -2393,7 +2391,6 @@ int snd_soc_register_card(struct snd_soc_card *card)
+ 	INIT_LIST_HEAD(&card->aux_comp_list);
+ 	INIT_LIST_HEAD(&card->component_dev_list);
+ 	INIT_LIST_HEAD(&card->list);
+-	INIT_LIST_HEAD(&card->dai_link_list);
+ 	INIT_LIST_HEAD(&card->rtd_list);
+ 	INIT_LIST_HEAD(&card->dapm_dirty);
+ 	INIT_LIST_HEAD(&card->dobj_list);
 -- 
 2.20.1
 

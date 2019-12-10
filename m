@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C11811939D
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:14:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9D051193D9
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:15:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DE37E1614;
-	Tue, 10 Dec 2019 22:13:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DE37E1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B0A41671;
+	Tue, 10 Dec 2019 22:14:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B0A41671
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576012476;
-	bh=viCBgm1TxqZnoDCYDidxbh79bziSubAp+okVcoY4OoE=;
+	s=default; t=1576012511;
+	bh=Pl1y9xp9a7IsTbWewUu60PZ9ClyBeky35L/NIAp64qc=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HhNtxlbGdDgL6ZjhSayBQs9/zRmPBy6ryoQXfxpRyqEnYzeVyhb6IfOUTtLppWU22
-	 HBfPTbYzwUKcxgxTqz/KMv0GfOsFXY2FVyn2OEeYsP7GnDWb4atnZydyEKDuKrqVaO
-	 DJH5Y3xrp1ECJ7LB3kL6LcVyOaGElJaGTmXYDRKY=
+	b=qN6+I1Xlx+6XdmGp8g81HsJzDEbViU/FTx/cdVDWH6wKHWEk29rzjAjDDA1Gn33yG
+	 0aB6dPixjmZ5BWeqKMjMoBUGFCFX+bs66qCUqORAIjvkv6KrG2SefEB3oBh7DmG1nm
+	 8m61U8cvrcJxkJOvd3dJapxjSXAFb/T7EaTdPYAA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C421EF80278;
-	Tue, 10 Dec 2019 22:10:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5D5AFF8027D;
+	Tue, 10 Dec 2019 22:11:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8ED56F80273; Tue, 10 Dec 2019 22:10:54 +0100 (CET)
+ id 7F131F8027C; Tue, 10 Dec 2019 22:11:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DBD2F80266
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:10:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DBD2F80266
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8C522F80277
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:11:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C522F80277
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dlbFKKgn"
+ header.b="F3330VBD"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E5C0D246AE;
- Tue, 10 Dec 2019 21:10:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2B407246A8;
+ Tue, 10 Dec 2019 21:11:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012249;
- bh=stqJirSBigCjUNifC1OoMutB1fJmmXeU1I9ydq6AYUs=;
+ s=default; t=1576012262;
+ bh=nuqvFH6o9KTF0TEHIY1C0M5A+8Bghp+L12mrY80vDl4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dlbFKKgn2thnft8UuIIwlYj0GXTEJh2YQtSYCnf+aKbhjhyW9qagx12qytufVjgOD
- VkMg/oCjnsM+sW+3nYq9VxNqjzswS2vyUi9QQHJJeG6PuHZeHrPNMnxeJv+bq9lesl
- Jde12IFb8TKLFNHQkNw78PYreD3oqSM+rwjSs/rA=
+ b=F3330VBDkI55YiODWR+yShfqNpLluAq4hcmmm3w9S3K4+PDSm4Ndz4Dwy1BiT/EXG
+ J0xgg66YM3vBX08sb4pX7F9gPCbwqYx08rpsCyFp2VTvBHVxLqf5CfqNj1I243THn4
+ 1aaEJu9zBVHdh/dyJKxrwTpAn9gFNppqUR3mrqvg=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 16:05:02 -0500
-Message-Id: <20191210210735.9077-158-sashal@kernel.org>
+Date: Tue, 10 Dec 2019 16:05:13 -0500
+Message-Id: <20191210210735.9077-169-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
 References: <20191210210735.9077-1-sashal@kernel.org>
@@ -65,11 +65,11 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Arnd Bergmann <arnd@arndb.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 197/350] ASoC: SOF: imx: fix
-	reverse CONFIG_SND_SOC_SOF_OF dependency
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 208/350] ASoC: SOF: topology: set
+	trigger order for FE DAI link
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,56 +87,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
-[ Upstream commit f9ad75468453b019b92c5296e6a04bf7c37f49e4 ]
+[ Upstream commit 5eee2b3f60065a2530d13f28e771be48b989eb4c ]
 
-updated solution to the problem reported with randconfig:
+Set trigger order for FE DAI links to SND_SOC_DPCM_TRIGGER_POST
+to trigger the BE DAI's before the FE DAI's. This prevents the
+xruns seen on playback pipelines using the link DMA.
 
-CONFIG_SND_SOC_SOF_IMX depends on CONFIG_SND_SOC_SOF, but is in
-turn referenced by the sof-of-dev driver. This creates a reverse
-dependency that manifests in a link error when CONFIG_SND_SOC_SOF_OF
-is built-in but CONFIG_SND_SOC_SOF_IMX=m:
-
-sound/soc/sof/sof-of-dev.o:(.data+0x118): undefined reference to `sof_imx8_ops'
-
-use def_trisate to propagate the right settings without select.
-
-Fixes: f4df4e4042b0 ("ASoC: SOF: imx8: Fix COMPILE_TEST error")
-Fixes: 202acc565a1f ("ASoC: SOF: imx: Add i.MX8 HW support")
-Suggested-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191101173045.27099-6-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191104224812.3393-3-ranjani.sridharan@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/sof/imx/Kconfig | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ sound/soc/sof/topology.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/sof/imx/Kconfig b/sound/soc/sof/imx/Kconfig
-index 5acae75f5750d..71f318bc2c74f 100644
---- a/sound/soc/sof/imx/Kconfig
-+++ b/sound/soc/sof/imx/Kconfig
-@@ -11,8 +11,8 @@ config SND_SOC_SOF_IMX_TOPLEVEL
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 4452594c2e17a..fa299e0781561 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -2828,6 +2828,10 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
+ 	if (!link->no_pcm) {
+ 		link->nonatomic = true;
  
- if SND_SOC_SOF_IMX_TOPLEVEL
- 
--config SND_SOC_SOF_IMX8
--	tristate "SOF support for i.MX8"
-+config SND_SOC_SOF_IMX8_SUPPORT
-+	bool "SOF support for i.MX8"
- 	depends on IMX_SCU
- 	depends on IMX_DSP
- 	help
-@@ -20,4 +20,8 @@ config SND_SOC_SOF_IMX8
-           Say Y if you have such a device.
-           If unsure select "N".
- 
-+config SND_SOC_SOF_IMX8
-+	def_tristate SND_SOC_SOF_OF
-+	depends on SND_SOC_SOF_IMX8_SUPPORT
++		/* set trigger order */
++		link->trigger[0] = SND_SOC_DPCM_TRIGGER_POST;
++		link->trigger[1] = SND_SOC_DPCM_TRIGGER_POST;
 +
- endif ## SND_SOC_SOF_IMX_IMX_TOPLEVEL
+ 		/* nothing more to do for FE dai links */
+ 		return 0;
+ 	}
 -- 
 2.20.1
 

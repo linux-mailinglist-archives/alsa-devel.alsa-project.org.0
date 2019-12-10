@@ -2,69 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AD4F118B62
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 15:45:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F321118B68
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 15:46:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97F2D16A9;
-	Tue, 10 Dec 2019 15:44:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97F2D16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id A749516CC;
+	Tue, 10 Dec 2019 15:45:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A749516CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575989140;
-	bh=R+xbGQAgwuweIKB49TToNb3HlqbcyFzYkylRS+10+7s=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575989182;
+	bh=b0cgbTCJ+/7kg77IeUnNnQrNqka+XupaT5iyrMhXVx4=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XUzH2os8anVes5x9cxBp+7Y4WEEn8Od9+DBJQ2SZAyrdC9+NKGRL0t80jIkGgOmne
-	 VAwrG9bzgs2t6defi1eLtVdtZ25WzYwOuGEk4tjKsWOYDV4EF1nY/1xbSQFjcMjInM
-	 QVQDt5u6I9qwE3jxOT7KcEpFxe/BJftogZZV/L6o=
+	b=JHeYH44Bjxkbj3bMJ8zRpUl0bSILOmM+Hflqk04V8qCmu01j/r+B9LmWRgkY3c6n0
+	 nMAxfjOn5ohsQOPs2jFFvUrnCHumifBmAWbNtHml96Y1X0NnlTRB/znugdDLGypeDh
+	 FkLqjJhjo/H9awuuptQ65W5z83kHYP0HfZvcjlZ4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3F6CF80266;
-	Tue, 10 Dec 2019 15:42:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CF57F800B4;
+	Tue, 10 Dec 2019 15:43:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EB490F80264; Tue, 10 Dec 2019 15:42:35 +0100 (CET)
+ id 7CDFEF80269; Tue, 10 Dec 2019 15:43:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 171E9F8025E
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 15:42:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 171E9F8025E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="QINYYuE1"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 0CD3720828;
- Tue, 10 Dec 2019 14:42:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1575988950;
- bh=fo4Ig2GCo7sLhJYHhhz6hQKFMZeSD+SQc5ZCTQZ7Fn0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=QINYYuE12L3diIi6rGVdGnWyLYKBuPqFUs0uVK/eE9fFntivkXgtFqNJz79s/Amzo
- CP/k3h66us6DwLCAGXrdMFcLzNJRccUJEh/gm/Oqlu80FRmNIB7jVrVGh1LZbvZM4V
- E05DjsWMZiF+6Gcm61gok6fQPnYpSfyei6rLgvQc=
-Date: Tue, 10 Dec 2019 15:42:28 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20191210144228.GA3937513@kroah.com>
-References: <20191210141356.18074-1-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191210141356.18074-1-tiwai@suse.de>
-Cc: devel@driverdev.osuosl.org, alsa-devel@alsa-project.org,
- Florian Fainelli <f.fainelli@gmail.com>, Scott Branden <sbranden@broadcom.com>,
- Ray Jui <rjui@broadcom.com>, linux-kernel@vger.kernel.org,
- bcm-kernel-feedback-list@broadcom.com
-Subject: Re: [alsa-devel] [PATCH for-5.6 0/4] staging: ALSA PCM API updates
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF34DF80265
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 15:43:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF34DF80265
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 5FA88ABC6;
+ Tue, 10 Dec 2019 14:43:12 +0000 (UTC)
+Date: Tue, 10 Dec 2019 15:43:12 +0100
+Message-ID: <s5ho8wgw8an.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Klaus Ethgen <Klaus@ethgen.ch>
+In-Reply-To: <20191210143245.GA30160@ikki.ethgen.ch>
+ <20191210143543.GA30935@ikki.ethgen.ch>
+References: <20191202184759.GB29478@ikki.ethgen.ch>
+ <s5hy2vsjbm3.wl-tiwai@suse.de>
+ <20191207200643.GA10092@ikki.ethgen.ch>
+ <s5h4kybciir.wl-tiwai@suse.de>
+ <20191208173127.GE4433@ikki.ethgen.ch>
+ <s5hmuc2asa7.wl-tiwai@suse.de>
+ <20191209085716.GA12935@ikki.ethgen.ch>
+ <s5h4ky9hmro.wl-tiwai@suse.de>
+ <20191210143245.GA30160@ikki.ethgen.ch>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] CPU hook snd_hda_intel
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,22 +78,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Dec 10, 2019 at 03:13:52PM +0100, Takashi Iwai wrote:
-> Hi,
+On Tue, 10 Dec 2019 15:32:45 +0100,
+Klaus Ethgen wrote:
 > 
-> this is a patch set to adapt the latest ALSA PCM API to staging
-> drivers.  Basically these are merely cleanups, as shown in diffstat,
-> and there should be no functional changes.
+> Hi Takashi,
 > 
-> As the corresponding ALSA PCM API change is found in 5.5-rc1, please
-> apply these on 5.5-rc1 or later.  Or if you prefer, I can merge them
-> through sound tree, too.  Let me know.
+> Unfortunately it is not successful. See the attached output of perf.
+> 
+> There is also a issue with a swapper thread in ath9k code but the one
+> with the biggest CPU hook is still alsa.
 
-Because of some future most driver changes that will be happening
-(hopefully soon), I'll just take all of these in the staging tree now,
-thanks!
+Do you see the relevant kernel messages, e.g. switch to polling mode?
+If that happens, it means that the communication with the chip got
+broken by some reason.  And...
 
-greg k-h
+On Tue, 10 Dec 2019 15:35:44 +0100,
+Klaus Ethgen wrote:
+> 
+> Let me add that this time I encountered the issue after taking the
+> laptop from the docking station.
+
+... this can be the cause: the hardware doesn't react to the pin jack
+sense request for the dock that isn't present any longer.
+Or something goes wrong here, repeating, etc.
+
+> After sending it to sleep and waking it up again, the problem is gone
+> (as it often can be solved).
+
+So the problem is very likely some flaky hardware response.
+
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

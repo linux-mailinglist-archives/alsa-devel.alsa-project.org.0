@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 27CE911938C
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:13:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1ADB1119397
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:13:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 966921670;
-	Tue, 10 Dec 2019 22:12:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 966921670
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC0DB1669;
+	Tue, 10 Dec 2019 22:13:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC0DB1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576012388;
-	bh=YFa3fhlmboKxUyBVzBvCUwtgdPUZrncmdZjTG103BK8=;
+	s=default; t=1576012432;
+	bh=vGaT4X/CbbO06ApbVVIsuoREQjnR7cayIaMijzC7xVM=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GsRuM/PHWHg9rZIZuUlM2JxnXe+Drju1331ZX0k1BJRNvROm7oM5SJWxHu2ucnSQU
-	 Ty/98P1gjk9xCrVkgoWmdG8EiIyFSnjTcco7xg6IA1jxKH2nD9Ckj9l1uoh48TTbJ/
-	 pJgp0sFqGnhYaKd+JQzUEeJ2b+E22znqtKPVJfoQ=
+	b=Cab+52OMaO4mgGjacCt5wgmTs8jkqOX9J6FQJDvYBxmbj63qr2lTU55bB48QFA0JJ
+	 pyvHtfT3UCn+H/oc9pS91BFygYJAxLl+MTL919lo3Su/v0lU6T0uQxJyZmyL6TUEC/
+	 oYk6AG/YiXoMI6drmpQgsiSFvd0yN+Uoio29xAMk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E436AF80259;
-	Tue, 10 Dec 2019 22:10:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7755CF80272;
+	Tue, 10 Dec 2019 22:10:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 72AD5F80259; Tue, 10 Dec 2019 22:10:47 +0100 (CET)
+ id 94E2AF80271; Tue, 10 Dec 2019 22:10:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EA28F80257
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:10:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EA28F80257
+ by alsa1.perex.cz (Postfix) with ESMTPS id B081CF80268
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:10:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B081CF80268
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="oVq0i3pV"
+ header.b="nyASVQNi"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 574EC246AA;
- Tue, 10 Dec 2019 21:10:42 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id C691324680;
+ Tue, 10 Dec 2019 21:10:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012243;
- bh=lODidp+xqeK9X0+Fcutlh0HKg83nX1UWyAhTUhsKRRM=;
+ s=default; t=1576012247;
+ bh=rwRuxKl4wtv89HyUaQghbveRZ1eF/vZ80lSEysd1yrE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=oVq0i3pVVAaFpHGbzhUH+8gFURWcMe7rGIGdWto9Pri8uALQj9zyLMVnW5Cwmndep
- DXUc/0LSSbYjsfGeI1oEK1+Ut2etfTZ4tPvNCwAYkU1Orw/DR2W60z635S1bmGWgPa
- FPfqY2BREGEXjv8XcSmfKMUrzSWwBjpNb6lsjA6w=
+ b=nyASVQNiWzYQc+Ng6KrcidsG7svF0H+iMDxF+pxT8UhWFzrkBjxZWYDGDXwjjKhbR
+ h03NvsvUdVPfHDqcAxNWIA2pqmb24ZibGjWZfbymA/uYQC27yfWQ8CTcx6WjQjqbq6
+ XasLOGciwaDyG14SjFtg23kCalV8DNtS7y8aslLM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 16:04:56 -0500
-Message-Id: <20191210210735.9077-152-sashal@kernel.org>
+Date: Tue, 10 Dec 2019 16:05:00 -0500
+Message-Id: <20191210210735.9077-156-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
 References: <20191210210735.9077-1-sashal@kernel.org>
@@ -66,8 +66,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
  alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 191/350] ALSA: bebob: expand sleep
-	just after breaking connections for protocol version 1
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 195/350] ALSA: pcm: Fix missing
+	check of the new non-cached buffer type
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,61 +85,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit d3eabe939aee3ffd5b133766a932629a9746298c ]
+[ Upstream commit 6111fd2370eecae9f11bfdc08ba097e0b51fcfd3 ]
 
-As long as I investigated, some devices with BeBoB protocol version 1
-can be freezed during several hundreds milliseconds after breaking
-connections. When accessing during the freezed time, any transaction
-is corrupted. In the worst case, the device is going to reboot.
+The check for the mmap support via hw_support_mmap() function misses
+the case where the device is with SNDRV_DMA_TYPE_DEV_UC, which should
+have been treated equally as SNDRV_DMA_TYPE_DEV.  Let's fix it.
 
-I can see this issue in:
- * Roland FA-66
- * M-Audio FireWire Solo
+Note that this bug doesn't hit any practical problem, because
+SNDRV_DMA_TYPE_DEV_UC is used only for x86-specific drivers
+(snd-hda-intel and snd-intel8x0) for the specific platforms that need
+the non-cached buffers.  And, on such platforms, hw_support_mmap()
+already returns true in anyway.  That's the reason I didn't put
+Cc-to-stable mark here.  This is only for any theoretical future
+extension.
 
-This commit expands sleep just after breaking connections to avoid
-the freezed time as much as possible. I note that the freeze/reboot
-behaviour is similar to below models:
- * Focusrite Saffire Pro 10 I/O
- * Focusrite Saffire Pro 26 I/O
-
-The above models certainly reboot after breaking connections.
-
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Link: https://lore.kernel.org/r/20191101131323.17300-2-o-takashi@sakamocchi.jp
+Fixes: 425da159707b ("ALSA: pcm: use dma_can_mmap() to check if a device supports dma_mmap_*")
+Fixes: 42e748a0b325 ("ALSA: memalloc: Add non-cached buffer type")
+Link: https://lore.kernel.org/r/20191104101115.27311-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/firewire/bebob/bebob_stream.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ sound/core/pcm_native.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/firewire/bebob/bebob_stream.c b/sound/firewire/bebob/bebob_stream.c
-index 6c1497d9f52ba..ce07ea0d4e71d 100644
---- a/sound/firewire/bebob/bebob_stream.c
-+++ b/sound/firewire/bebob/bebob_stream.c
-@@ -415,15 +415,16 @@ static int make_both_connections(struct snd_bebob *bebob)
- 	return 0;
- }
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 91c6ad58729fe..c3a139436ac26 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -222,7 +222,8 @@ static bool hw_support_mmap(struct snd_pcm_substream *substream)
+ 		return false;
  
--static void
--break_both_connections(struct snd_bebob *bebob)
-+static void break_both_connections(struct snd_bebob *bebob)
- {
- 	cmp_connection_break(&bebob->in_conn);
- 	cmp_connection_break(&bebob->out_conn);
+ 	if (substream->ops->mmap ||
+-	    substream->dma_buffer.dev.type != SNDRV_DMA_TYPE_DEV)
++	    (substream->dma_buffer.dev.type != SNDRV_DMA_TYPE_DEV &&
++	     substream->dma_buffer.dev.type != SNDRV_DMA_TYPE_DEV_UC))
+ 		return true;
  
--	/* These models seems to be in transition state for a longer time. */
--	if (bebob->maudio_special_quirk != NULL)
--		msleep(200);
-+	// These models seem to be in transition state for a longer time. When
-+	// accessing in the state, any transactions is corrupted. In the worst
-+	// case, the device is going to reboot.
-+	if (bebob->version < 2)
-+		msleep(600);
- }
- 
- static int
+ 	return dma_can_mmap(substream->dma_buffer.dev.dev);
 -- 
 2.20.1
 

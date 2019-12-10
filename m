@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D7A8119364
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:11:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E92511936F
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 22:12:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFB0B1614;
-	Tue, 10 Dec 2019 22:10:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFB0B1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 96DEE166C;
+	Tue, 10 Dec 2019 22:11:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96DEE166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576012276;
-	bh=69Xmydp4hCatMxbMzSZmo2uHqZc7EEbZLo1UFv7cAms=;
+	s=default; t=1576012319;
+	bh=VtapHsD2bWmH5OEE/ldyou6DEWzWukoZ+LiBaUkGYms=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eiAE+rqjrWOozlJhUfXNRsVpd5HvrCbdJeCA5Cgo2AFM8RVQyRLOfje7tFMKlRowP
-	 K9pgdvPOliswcraEALV3sr81wXDlDHG79+XQogMp42+NydzX2MvhH74tMMdKzVXqWX
-	 60ubzQoZ1KBbUp7MPGYc/J7brNCehunkt0t6dcb0=
+	b=ZOr36F4VaODdneUQhCGYTIh1IetB+fjpUTrpYJx5+KhE88wX6adsylpHB6TYjiD2w
+	 EI5E4rV9Ziek+/mVWI1VIaqEyylYv7X5K3JJE9YHTb/ottcHSQTHhbSYR2UadnYkRA
+	 3PfuMzYq0OzQ8pQpvsfEgEQ7k2Junzq9TDG/8SBg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CCA4F80249;
-	Tue, 10 Dec 2019 22:09:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35B33F80255;
+	Tue, 10 Dec 2019 22:10:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3678DF80248; Tue, 10 Dec 2019 22:09:45 +0100 (CET)
+ id 90D47F80254; Tue, 10 Dec 2019 22:10:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 625A6F800B4
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:09:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 625A6F800B4
+ by alsa1.perex.cz (Postfix) with ESMTPS id BDD4FF800F3
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 22:10:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDD4FF800F3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rEJmvFdh"
+ header.b="EB3oeAZH"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 15D06246A7;
- Tue, 10 Dec 2019 21:09:40 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 78F1E246AD;
+ Tue, 10 Dec 2019 21:10:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576012180;
- bh=ExUDjvtm01aCy1m6j1T8rrhTrcy9sZWU0k3WFEOT2v8=;
+ s=default; t=1576012220;
+ bh=QLCQh0vfV7h/ZjC9RNBV9ppkij/a1m7fig8tN2/1+Dc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rEJmvFdh7D3Faqw/zNynkcPmUu4kDNzD1pCTBwaaNoU3a53QyXtuS7pejAqMSXtrq
- gLHUtguuNCKI0lsIcZVtXCtizjzeX5Sop+wKfnBxi/KmgApiCUY8WEbTwQHTAj17Yy
- queCkgydcRpcmEda5zXdkJ8M9uesDCMg1scM2YVs=
+ b=EB3oeAZHDppBQIVMS7t9sdZ/KMxxloRuZ6AJ5TpyRFjrIjfe9+v7F+cBNMRcREiiL
+ JXd/+VnS64mDU1QhA199ALrfoDncOmSShZXomajMKSj5cVLKahfFu3R3aT2vpqIM28
+ qFGlHUOrj96paTx2GRl8SrZSkjhYns2YP1qWyXKY=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 16:04:03 -0500
-Message-Id: <20191210210735.9077-99-sashal@kernel.org>
+Date: Tue, 10 Dec 2019 16:04:35 -0500
+Message-Id: <20191210210735.9077-131-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191210210735.9077-1-sashal@kernel.org>
 References: <20191210210735.9077-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 138/350] ASoC: soc-pcm: fixup
-	dpcm_prune_paths() loop continue
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Chris Wilson <chris@chris-wilson.co.uk>
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 170/350] ALSA: hda - Fix pending
+	unsol events at shutdown
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,75 +85,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit bed646dc3f7bcec91178c278deaf969cce0700a8 ]
+[ Upstream commit ca58f55108fee41d87c9123f85ad4863e5de7f45 ]
 
-dpcm_prune_paths() is checking widget at 2 parts.
-(A) is for CPU, (B) is for Codec.
-If we focus to (A) part, continue at (a) is for (1) loop. But,
-if we focus to (B) part, continue at (b) is for (2) loop, not for (1).
-This is bug.
-This patch fixup this issue.
+This is an alternative fix attemp for the issue reported in the commit
+caa8422d01e9 ("ALSA: hda: Flush interrupts on disabling") that was
+reverted later due to regressions.  Instead of tweaking the hardware
+disablement order and the enforced irq flushing, do calling
+cancel_work_sync() of the unsol work early enough, and explicitly
+ignore the unsol events during the shutdown by checking the
+bus->shutdown flag.
 
-	static int dpcm_prune_paths(...)
-	{
-		...
-   (1)		for_each_dpcm_be(fe, stream, dpcm) {
-			...
-
- ^			widget = dai_get_widget(...);
- |
-(A)			if (widget && widget_in_list(...))
- | (a)				continue;
- v
- ^ (2)			for_each_rtd_codec_dai(...) {
- |				widget = dai_get_widget(...);
-(B)
- |				if (widget && widget_in_list(...))
- v (b)					continue;
-			}
-			...
-
-Fixes: 2e5894d73789 ("ASoC: pcm: Add support for DAI multicodec")
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87blui64mf.wl-kuninori.morimoto.gx@renesas.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: caa8422d01e9 ("ALSA: hda: Flush interrupts on disabling")
+Cc: Chris Wilson <chris@chris-wilson.co.uk>
+Link: https://lore.kernel.org/r/s5h1ruxt9cz.wl-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-pcm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/pci/hda/hda_bind.c  | 4 ++++
+ sound/pci/hda/hda_intel.c | 3 +++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index b600d3eaaf5cd..cdce96a3051bf 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1385,6 +1385,7 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 	struct snd_soc_dapm_widget *widget;
- 	struct snd_soc_dai *dai;
- 	int prune = 0;
-+	int do_prune;
+diff --git a/sound/pci/hda/hda_bind.c b/sound/pci/hda/hda_bind.c
+index 8272b50b83493..6a85645663759 100644
+--- a/sound/pci/hda/hda_bind.c
++++ b/sound/pci/hda/hda_bind.c
+@@ -43,6 +43,10 @@ static void hda_codec_unsol_event(struct hdac_device *dev, unsigned int ev)
+ {
+ 	struct hda_codec *codec = container_of(dev, struct hda_codec, core);
  
- 	/* Destroy any old FE <--> BE connections */
- 	for_each_dpcm_be(fe, stream, dpcm) {
-@@ -1398,13 +1399,16 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 			continue;
++	/* ignore unsol events during shutdown */
++	if (codec->bus->shutdown)
++		return;
++
+ 	if (codec->patch_ops.unsol_event)
+ 		codec->patch_ops.unsol_event(codec, ev);
+ }
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index c52419376c748..86a416cdeb296 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -1382,8 +1382,11 @@ static int azx_free(struct azx *chip)
+ static int azx_dev_disconnect(struct snd_device *device)
+ {
+ 	struct azx *chip = device->device_data;
++	struct hdac_bus *bus = azx_bus(chip);
  
- 		/* is there a valid CODEC DAI widget for this BE */
-+		do_prune = 1;
- 		for_each_rtd_codec_dai(dpcm->be, i, dai) {
- 			widget = dai_get_widget(dai, stream);
+ 	chip->bus.shutdown = 1;
++	cancel_work_sync(&bus->unsol_work);
++
+ 	return 0;
+ }
  
- 			/* prune the BE if it's no longer in our active list */
- 			if (widget && widget_in_list(list, widget))
--				continue;
-+				do_prune = 0;
- 		}
-+		if (!do_prune)
-+			continue;
- 
- 		dev_dbg(fe->dev, "ASoC: pruning %s BE %s for %s\n",
- 			stream ? "capture" : "playback",
 -- 
 2.20.1
 

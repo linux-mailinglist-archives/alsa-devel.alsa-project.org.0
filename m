@@ -2,73 +2,104 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FF55119D0B
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 23:35:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 807AC119FA0
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2019 00:43:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDF081663;
-	Tue, 10 Dec 2019 23:35:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDF081663
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5EF7843;
+	Wed, 11 Dec 2019 00:42:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5EF7843
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576017354;
-	bh=QkQReDWYviUMoNi8MtuVAVERfUcW5pr6ZGtEjDtxouo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1576021422;
+	bh=T67/kAvAOyTbLyq3/9D3Jl5/kyk+0JkWves37qcNeOs=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BI7ayVOmtsaCiOn5x2242IUrr8eNFabsY03XZVuOsmMwnJWH7EZf/fUJnYXwGV4Ta
-	 xX2+MLBwXR16+tQA5Y2xBsGkZFVPw5/d6hiNVyz9vFRWDbfIzRS9t1fP8altUIK6Hy
-	 ulX3oJEtw36WCbLU8HPfEbJ4BqE2EK6I7ytcA84w=
+	b=q0KK/UpVcAV4NsfZ4xalhxz4stj9h6uUlgByJ4bnC3Wrt86uiCrCqElZyHPYgwjdz
+	 0OQ3gi/U9AJ96K/CNjBkmvvUiIk0DlMEVVAAgRF3YEGCPHirqidAM2DdfU/iPr3Qll
+	 4nr4Hel3NDXl/Z/DsD9P8+fprZ9naD/7kX1FlSww=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 600C9F80248;
-	Tue, 10 Dec 2019 23:34:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 99C2EF80248;
+	Wed, 11 Dec 2019 00:41:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 82A49F8024A; Tue, 10 Dec 2019 23:34:27 +0100 (CET)
+ id 8006FF8020C; Wed, 11 Dec 2019 00:41:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C0FB7F80217
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 23:34:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0FB7F80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5270F800F3
+ for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 00:41:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5270F800F3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VLEV48Kz"
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 040EB208C3;
- Tue, 10 Dec 2019 22:34:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576017262;
- bh=OogEJvpxW3riCL+s3n2+MjLSanOC0jBMKeUmyIoWezg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VLEV48KzEYeg/0zGoqgk1xWmJfo03tsJaPwuIzGzCpAhlFka5v+fcwVaC6PkAELDH
- 6N7jc+D4Z8P5Lmfa9BCeelzDSnp3NJs9SJz4IpSZpRRwBekOubZ3lf6/hXYZuyNsjp
- EWFIIG5spPxp4BcSpi7q/+EUvb0T1afcJAz/skCo=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Tue, 10 Dec 2019 17:33:01 -0500
-Message-Id: <20191210223316.14988-56-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191210223316.14988-1-sashal@kernel.org>
-References: <20191210223316.14988-1-sashal@kernel.org>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="IMnoiDkC"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="sFe0EMqX"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 01C63C9B;
+ Tue, 10 Dec 2019 18:41:45 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Tue, 10 Dec 2019 18:41:46 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=URH7LDtpX1TbMnrXLT3Ogjau2SE
+ UWeBlUa6E10ktDTU=; b=IMnoiDkC24taaib3yDMhYlAeUvrTmF6iwMwYWooeiBd
+ ibo2u2qBnJw7X2b/Xh31X9hWMxkUrazp3gYCxmQRm2kdhnib4ZnHA/APFI/8B6pr
+ jVIluSJ9EzpcYQjzixRdva/5tG8nbW4zghV/rm0a49l3DWPpiaTZfqjtz3dvaPzn
+ eCWimbhTqFZofA3t5V6/MHp7et4aGv68kvDnnI+QkhUhB1bLY1oHwXLSXWt4lJW9
+ 2gdIzEBZ+SwRG7gKROYoRhttC6wT/oexqgDHSV/YxSoU79h7BqfE1YaTgQj2C2aA
+ KOoX1oabD1I7NQDfseCQMV9cI020U4R++5BVVuEqgwA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=URH7LD
+ tpX1TbMnrXLT3Ogjau2SEUWeBlUa6E10ktDTU=; b=sFe0EMqXj+I8zqrLFcXsnF
+ OubjtmFBVdnmHQXFr89mUzftUXL81Hn0x6+I7MQBtlgZ4LiW1XX/KORFcIIl1sIv
+ k3q3VvXce28WSKMUX69T3uVNd/5vAKvtFOzZNbzKzTWIdwH13Zbhw0TkuO7ihdz8
+ YSXZFkqr4hJjJPnfTNajmvCVhRfwjMflILSnP59bIaZefeRsluumBW7pYuM44ZXu
+ 8b785quf6r9dcCHi3QxEMm9c1CqWcaLrdsYkW33Gn2BWzDcd4bfHzxdCxMbyR5Xe
+ og9vko02fxD9c7N0lCzVd7Shzb494x3nm4k82MpEe6kmBBXOoz563QKP8F3fA6/w
+ ==
+X-ME-Sender: <xms:OC3wXQfCqv4Nfg2V_NeQFAc5NewUmHxi7pJ2bZqy0LkZj2dYZNdnbA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrudelgedgtdejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtuggjfgesthdtredttdervdenucfhrhhomhepvfgrkhgr
+ shhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhird
+ hjpheqnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdprghlshgrqdhprhhojhgvtght
+ rdhorhhgnecukfhppedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhroh
+ hmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfu
+ ihiivgeptd
+X-ME-Proxy: <xmx:OC3wXWfcn2p68YMB5Ny0KbuZRliCTI4tf6BM6R34uMzMoc3m0HGhhA>
+ <xmx:OC3wXchOtEh7BqMvO6sp3XGHnE_BXGVQrnTTG-24bD2BXP6n8qGJFw>
+ <xmx:OC3wXaRE7BIhSeZtFglxIHzke48ODOrVCifYRxTCpaNDQOYUHggarQ>
+ <xmx:OS3wXbp5LShiviVIZNYqr8_2L6lB-0LDP0M_3emGcD4G6qIoz44zOA>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0984230600D4;
+ Tue, 10 Dec 2019 18:41:43 -0500 (EST)
+Date: Wed, 11 Dec 2019 08:41:41 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20191210234140.GA3344@workstation>
+Mail-Followup-To: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org
+References: <20191210061145.24641-1-tiwai@suse.de>
+ <20191210061145.24641-6-tiwai@suse.de>
+ <20191210154927.GA31637@workstation> <s5h5ziow4sy.wl-tiwai@suse.de>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Ben Zhang <benzh@chromium.org>,
- Curtis Malainey <cujomalainey@chromium.org>, Mark Brown <broonie@kernel.org>,
- alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 4.4 56/71] ASoC: rt5677: Mark reg
-	RT5677_PWR_ANLG2 as volatile
+Content-Disposition: inline
+In-Reply-To: <s5h5ziow4sy.wl-tiwai@suse.de>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH 05/23] ALSA: firewire: Drop superfluous
+	ioctl PCM ops
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,44 +117,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ben Zhang <benzh@chromium.org>
+On Tue, Dec 10, 2019 at 04:58:37PM +0100, Takashi Iwai wrote:
+> On Tue, 10 Dec 2019 16:49:28 +0100,
+> Takashi Sakamoto wrote:
+> > 
+> > Hi,
+> > 
+> > On Tue, Dec 10, 2019 at 07:11:27AM +0100, Takashi Iwai wrote:
+> > > Signed-off-by: Takashi Iwai <tiwai@suse.de>
+> > > ---
+> > >  sound/firewire/bebob/bebob_pcm.c         | 2 --
+> > >  sound/firewire/dice/dice-pcm.c           | 2 --
+> > >  sound/firewire/digi00x/digi00x-pcm.c     | 2 --
+> > >  sound/firewire/fireface/ff-pcm.c         | 2 --
+> > >  sound/firewire/fireworks/fireworks_pcm.c | 2 --
+> > >  sound/firewire/isight.c                  | 1 -
+> > >  sound/firewire/motu/motu-pcm.c           | 2 --
+> > >  sound/firewire/oxfw/oxfw-pcm.c           | 2 --
+> > >  sound/firewire/tascam/tascam-pcm.c       | 2 --
+> > >  9 files changed, 17 deletions(-)
+> > 
+> > I understand that this patch is based on the below commit:
+> >  * fc033cbf6fb7("ALSA: pcm: Allow NULL ioctl ops")[1]
+> > 
+> > All of the changes are fine to me.
+> > 
+> > Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> > 
+> > [1] https://mailman.alsa-project.org/pipermail/alsa-devel/2019-November/158692.html 
+> 
+> Thanks.  It's good idea to put the background information.  I'll add
+> it to the changelog.
+> 
+> Actually I seem to have forgotten to fill the changelog text in this
+> commit.  Below is the revised patch to be committed.
+> 
+> 
+> Takashi
+> 
+> -- 8< --
+> Subject: [PATCH] ALSA: firewire: Drop superfluous ioctl PCM ops
+> 
+> All the PCM ioctl ops of ALSA FireWire drivers do nothing but calling
+> the default handler.
+> 
+> Now PCM core accepts NULL as the default ioctl ops(*), so let's drop
+> altogether.
+> 
+> (*) commit fc033cbf6fb7 ("ALSA: pcm: Allow NULL ioctl ops")
+> 
+> Acked-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+> Link: https://lore.kernel.org/r/20191210061145.24641-6-tiwai@suse.de
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit eabf424f7b60246c76dcb0ea6f1e83ef9abbeaa6 ]
+It's preferrable. Thanks for your extra work ;)
 
-The codec dies when RT5677_PWR_ANLG2(MX-64h) is set to 0xACE1
-while it's streaming audio over SPI. The DSP firmware turns
-on PLL2 (MX-64 bit 8) when SPI streaming starts.  However regmap
-does not believe that register can change by itself. When
-BST1 (bit 15) is turned on with regmap_update_bits(), it doesn't
-read the register first before write, so PLL2 power bit is
-cleared by accident.
 
-Marking MX-64h as volatile in regmap solved the issue.
+Thanks
 
-Signed-off-by: Ben Zhang <benzh@chromium.org>
-Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-Link: https://lore.kernel.org/r/20191106011335.223061-6-cujomalainey@chromium.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/rt5677.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/sound/soc/codecs/rt5677.c b/sound/soc/codecs/rt5677.c
-index 69d987a9935c9..90f8173123f6c 100644
---- a/sound/soc/codecs/rt5677.c
-+++ b/sound/soc/codecs/rt5677.c
-@@ -295,6 +295,7 @@ static bool rt5677_volatile_register(struct device *dev, unsigned int reg)
- 	case RT5677_I2C_MASTER_CTRL7:
- 	case RT5677_I2C_MASTER_CTRL8:
- 	case RT5677_HAP_GENE_CTRL2:
-+	case RT5677_PWR_ANLG2: /* Modified by DSP firmware */
- 	case RT5677_PWR_DSP_ST:
- 	case RT5677_PRIV_DATA:
- 	case RT5677_PLL1_CTRL2:
--- 
-2.20.1
-
+Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

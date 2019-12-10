@@ -2,62 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CBBB118C43
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 16:15:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26010118C60
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 16:21:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E90C31714;
-	Tue, 10 Dec 2019 16:14:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E90C31714
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9C9316E3;
+	Tue, 10 Dec 2019 16:20:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9C9316E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575990921;
-	bh=hGkkIhokgAOrI5s5UrZSrQ7CKv7EciZwwT6A2pSxDEw=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1575991261;
+	bh=NPWqu6C5pFOB2cqUbqjyHU1HrOqhFXrStfFkZhB791o=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qMkLxaZ5dcCvPC52OSWpEqIRNVLDkKa+Qfnvwv4I0BqmMGuk/8/yfqNe0z76qCKJP
-	 5VTHIdaLJtS9juCnhgYaNw7fU/e2DOeRo4upCOpjd+Air+hUseZiovg4TDMKX4y7JQ
-	 jP0W4GGMfMxYjwa/kO9EqKnaWGgtGtOQLk8G5uN4=
+	b=SsXBSQXFX5uSt6I/A5F+bJe8QZA7YfinXQG7ET86pmkf1F7CHU9uZbs230ycif5IY
+	 Sz5qTwtQH41P1FCxYxkk+kPTVz3xVbofxgmS9oC3cf6ACvVgvQtCGjVFXzL0SYizgk
+	 Xtvsfv765ep8NkmTP1erzqDqoewG8HhBLqM7O9Rc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 879ACF8020C;
-	Tue, 10 Dec 2019 16:13:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8EBB8F80248;
+	Tue, 10 Dec 2019 16:19:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CA1BF8020C; Tue, 10 Dec 2019 16:13:35 +0100 (CET)
+ id 63141F8020C; Tue, 10 Dec 2019 16:19:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net
- [217.70.183.194])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8A66DF800F3
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 16:13:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8A66DF800F3
-X-Originating-IP: 90.182.112.136
-Received: from localhost (136.112.broadband15.iol.cz [90.182.112.136])
- (Authenticated sender: alexandre.belloni@bootlin.com)
- by relay2-d.mail.gandi.net (Postfix) with ESMTPSA id E678840011;
- Tue, 10 Dec 2019 15:13:30 +0000 (UTC)
-Date: Tue, 10 Dec 2019 16:13:27 +0100
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20191210151327.GO1463890@piout.net>
-References: <20191210145406.21419-1-tiwai@suse.de>
- <20191210145406.21419-3-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191210145406.21419-3-tiwai@suse.de>
-User-Agent: Mutt/1.12.1 (2019-06-15)
-Cc: Ludovic Desroches <ludovic.desroches@microchip.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-Subject: Re: [alsa-devel] [PATCH for-5.6 02/23] ASoC: atmel: Drop
-	superfluous ioctl PCM ops
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60C34F800F3
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 16:19:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60C34F800F3
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx1.suse.de (Postfix) with ESMTP id 21DC9AE07;
+ Tue, 10 Dec 2019 15:19:11 +0000 (UTC)
+Date: Tue, 10 Dec 2019 16:19:11 +0100
+Message-ID: <s5hfthsw6mo.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Klaus Ethgen <Klaus@ethgen.ch>
+In-Reply-To: <20191210151036.GB23758@ikki.ethgen.ch>
+References: <20191202184759.GB29478@ikki.ethgen.ch>
+ <s5hy2vsjbm3.wl-tiwai@suse.de>
+ <20191207200643.GA10092@ikki.ethgen.ch>
+ <s5h4kybciir.wl-tiwai@suse.de>
+ <20191208173127.GE4433@ikki.ethgen.ch>
+ <s5hmuc2asa7.wl-tiwai@suse.de>
+ <20191209085716.GA12935@ikki.ethgen.ch>
+ <s5h4ky9hmro.wl-tiwai@suse.de>
+ <20191210143245.GA30160@ikki.ethgen.ch>
+ <s5ho8wgw8an.wl-tiwai@suse.de>
+ <20191210151036.GB23758@ikki.ethgen.ch>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] CPU hook snd_hda_intel
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,40 +79,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 10/12/2019 15:53:45+0100, Takashi Iwai wrote:
-> ASoC PCM core deals the empty ioctl field now as default.
-> Let's kill the redundant lines.
+On Tue, 10 Dec 2019 16:10:37 +0100,
+Klaus Ethgen wrote:
 > 
-> Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
-> Cc: Ludovic Desroches <ludovic.desroches@microchip.com>
-> Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> ---
->  sound/soc/atmel/atmel-pcm-pdc.c | 1 -
->  1 file changed, 1 deletion(-)
+> Hi Takashi,
 > 
-Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Am Di den 10. Dez 2019 um 15:43 schrieb Takashi Iwai:
+> > > There is also a issue with a swapper thread in ath9k code but the one
+> > > with the biggest CPU hook is still alsa.
+> > 
+> > Do you see the relevant kernel messages, e.g. switch to polling mode?
+> 
+> Nope.
+> 
+> Here is the relevant logs starting from undocking event up to the sleep
+> that I mentioned fixing the issue:
+....
+>    Dec 10 15:33:55 chua kernel: [15488.497441] snd_hdac_bus_update_rirb: 58 callbacks suppressed
+>    Dec 10 15:33:55 chua kernel: [15488.497449] snd_hda_intel 0000:00:1b.0: spurious response 0x0:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497453] snd_hda_intel 0000:00:1b.0: spurious response 0x7fffffff:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497457] snd_hda_intel 0000:00:1b.0: spurious response 0x0:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497461] snd_hda_intel 0000:00:1b.0: spurious response 0x0:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497464] snd_hda_intel 0000:00:1b.0: spurious response 0x0:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497468] snd_hda_intel 0000:00:1b.0: spurious response 0x0:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497471] snd_hda_intel 0000:00:1b.0: spurious response 0x7fffffff:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497475] snd_hda_intel 0000:00:1b.0: spurious response 0x0:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497478] snd_hda_intel 0000:00:1b.0: spurious response 0x0:0x0, last cmd=0x11f0900
+>    Dec 10 15:33:55 chua kernel: [15488.497481] snd_hda_intel 0000:00:1b.0: spurious response 0x0:0x0, last cmd=0x11f0900
 
-> diff --git a/sound/soc/atmel/atmel-pcm-pdc.c b/sound/soc/atmel/atmel-pcm-pdc.c
-> index 18a2fd02fffe..59c1331a6984 100644
-> --- a/sound/soc/atmel/atmel-pcm-pdc.c
-> +++ b/sound/soc/atmel/atmel-pcm-pdc.c
-> @@ -379,7 +379,6 @@ static int atmel_pcm_close(struct snd_soc_component *component,
->  static const struct snd_soc_component_driver atmel_soc_platform = {
->  	.open		= atmel_pcm_open,
->  	.close		= atmel_pcm_close,
-> -	.ioctl		= snd_soc_pcm_lib_ioctl,
->  	.hw_params	= atmel_pcm_hw_params,
->  	.hw_free	= atmel_pcm_hw_free,
->  	.prepare	= atmel_pcm_prepare,
-> -- 
-> 2.16.4
-> 
+OK, these lines look already suspicious.
+The driver gets stuck at executing the same verb and repeated it until
+it gets some result.  This verb is GET_PIN_SENSE to the pin 0x11, as I
+somehow expected.
+However, the pin 0x11 is the headphone pin, and this should work even
+after the undock, but by some reason, it screws up.  Or it might be
+the read of the previous one (that doesn't appear here) that stalls
+the communication.
 
--- 
-Alexandre Belloni, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> > > Let me add that this time I encountered the issue after taking the
+> > > laptop from the docking station.
+> > 
+> > ... this can be the cause: the hardware doesn't react to the pin jack
+> > sense request for the dock that isn't present any longer.
+> > Or something goes wrong here, repeating, etc.
+> 
+> I think, it might have to do with that as I often use the dock.
+> 
+> However, I think, I even seen the problem after I did a fresh boot far
+> away from the dock.
+
+Then it might be a problem of the headphone jack detection in
+general.  It happens at undock because the jack detection is performed
+on all pins.
+
+But, the same is true for the suspend/resume, even for runtime PM, so
+this might hit even more often.  Hmm.
+
+> > > After sending it to sleep and waking it up again, the problem is gone
+> > > (as it often can be solved).
+> > 
+> > So the problem is very likely some flaky hardware response.
+> 
+> Anything you think can be done against that?
+
+Could you try the patch below in addition to the previous one?
+The similar trick was applied to the recent Intel chips for the
+unreliable communications, and the same might work for older chips,
+too.
+
+
+thanks,
+
+Takashi
+
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -282,7 +282,7 @@ enum {
+ 
+ /* quirks for old Intel chipsets */
+ #define AZX_DCAPS_INTEL_ICH \
+-	(AZX_DCAPS_OLD_SSYNC | AZX_DCAPS_NO_ALIGN_BUFSIZE)
++	(AZX_DCAPS_SYNC_WRITE | AZX_DCAPS_OLD_SSYNC | AZX_DCAPS_NO_ALIGN_BUFSIZE)
+ 
+ /* quirks for Intel PCH */
+ #define AZX_DCAPS_INTEL_PCH_BASE \
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

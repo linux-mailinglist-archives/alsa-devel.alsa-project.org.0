@@ -2,54 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 068D81189F0
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 14:35:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A58B1189F1
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 14:35:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9C92F165F;
-	Tue, 10 Dec 2019 14:34:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C92F165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23DBF1673;
+	Tue, 10 Dec 2019 14:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23DBF1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575984916;
-	bh=x7DNL0H7KIreqHka0KdL1J6mp2tql1UqPisIeYAzLKw=;
+	s=default; t=1575984952;
+	bh=KHM4ELKPsFlBOhyiSrLETiiLsMNuEfPBDgm9Bfqs9Yc=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Y99JG931ugLW/lfNLYAIx6BLvQOhvJOA/s+ElNzwLPx1XHEuGoeoulD/sUBWiBT6p
-	 mdBGlu0NeNJPMkbo3tqZs5YoQ+OPX2tDKH90l6CtFcrOk33Zgf2JvKF3qTgkLqRLgi
-	 AkAQTeRF6gbvmoTA1sHFp+VxS0GQ6XzM4ENcx1+c=
+	b=BrbhW/sCH+E5qQPPqNPri7RNljHyqHMLaOjAq0XsihTMjH8ZYnHcWyNHE7SyLkbtf
+	 7JEhYgFxWKOE5JucxKATCaIEaWeRaXDc9+fg+/sdZqiMne7jCg86edMwy/4rxU+kTm
+	 b1UfPUjBaLUQvHoLErfGUGOC8+Q6rs+k6Y3xEBno=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1997CF80323;
-	Tue, 10 Dec 2019 14:23:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E62EF80338;
+	Tue, 10 Dec 2019 14:23:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5988CF80317; Tue, 10 Dec 2019 14:23:15 +0100 (CET)
+ id 4B07FF80337; Tue, 10 Dec 2019 14:23:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D8F6EF802F7
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 14:23:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8F6EF802F7
+ by alsa1.perex.cz (Postfix) with ESMTP id 1335FF80323
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 14:23:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1335FF80323
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 14F151045;
- Tue, 10 Dec 2019 05:23:12 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8F5AF113E;
+ Tue, 10 Dec 2019 05:23:15 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 891CA3F52E;
- Tue, 10 Dec 2019 05:23:11 -0800 (PST)
-Date: Tue, 10 Dec 2019 13:23:10 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F79E3F52E;
+ Tue, 10 Dec 2019 05:23:14 -0800 (PST)
+Date: Tue, 10 Dec 2019 13:23:12 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20191210004854.16845-6-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191210004854.16845-6-pierre-louis.bossart@linux.intel.com>
+To: Slawomir Blauciak <slawomir.blauciak@linux.intel.com>
+In-Reply-To: <20191210004854.16845-5-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20191210004854.16845-5-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: add codec_mask module
-	parameter" to the asoc tree
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: ipc: channel map structures" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +71,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: add codec_mask module parameter
+   ASoC: SOF: ipc: channel map structures
 
 has been applied to the asoc tree at
 
@@ -95,62 +96,91 @@ to this mail.
 Thanks,
 Mark
 
-From 4f6250b82cb8f950a1b1bea62843a88bbb208187 Mon Sep 17 00:00:00 2001
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Mon, 9 Dec 2019 18:48:51 -0600
-Subject: [PATCH] ASoC: SOF: Intel: add codec_mask module parameter
+From b7c5986489b5c55ebebc430037dd4691a6bbc99c Mon Sep 17 00:00:00 2001
+From: Slawomir Blauciak <slawomir.blauciak@linux.intel.com>
+Date: Mon, 9 Dec 2019 18:48:50 -0600
+Subject: [PATCH] ASoC: SOF: ipc: channel map structures
 
-Add a module parameter 'codec_mask' to filter out unwanted
-HDA codecs from driver probe. E.g. on most systems,
-codec_mask=4 will limit to HDMI audio and exclude any
-external HDA codecs.
+This change adds stream map and channel map structures
+used for channel re-routing and stream aggregation.
 
-Similar to 'probe_mask' module parameter of snd-hda-intel.
-
+Signed-off-by: Slawomir Blauciak <slawomir.blauciak@linux.intel.com>
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191210004854.16845-6-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191210004854.16845-5-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-ctrl.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ include/sound/sof/channel_map.h | 61 +++++++++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
+ create mode 100644 include/sound/sof/channel_map.h
 
-diff --git a/sound/soc/sof/intel/hda-ctrl.c b/sound/soc/sof/intel/hda-ctrl.c
-index df1909e1d950..871b71a15a63 100644
---- a/sound/soc/sof/intel/hda-ctrl.c
-+++ b/sound/soc/sof/intel/hda-ctrl.c
-@@ -15,11 +15,18 @@
-  * Hardware interface for generic Intel audio DSP HDA IP
-  */
- 
-+#include <linux/module.h>
- #include <sound/hdaudio_ext.h>
- #include <sound/hda_register.h>
- #include "../ops.h"
- #include "hda.h"
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
-+static int hda_codec_mask = -1;
-+module_param_named(codec_mask, hda_codec_mask, int, 0444);
-+MODULE_PARM_DESC(codec_mask, "SOF HDA codec mask for probing");
-+#endif
+diff --git a/include/sound/sof/channel_map.h b/include/sound/sof/channel_map.h
+new file mode 100644
+index 000000000000..21044eb5f377
+--- /dev/null
++++ b/include/sound/sof/channel_map.h
+@@ -0,0 +1,61 @@
++/* SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause) */
++/*
++ * This file is provided under a dual BSD/GPLv2 license.  When using or
++ * redistributing this file, you may do so under either license.
++ *
++ * Copyright(c) 2019 Intel Corporation. All rights reserved.
++ */
 +
- /*
-  * HDA Operations.
-  */
-@@ -206,6 +213,12 @@ int hda_dsp_ctrl_init_chip(struct snd_sof_dev *sdev, bool full_reset)
- 		bus->codec_mask = snd_hdac_chip_readw(bus, STATESTS);
- 		dev_dbg(bus->dev, "codec_mask = 0x%lx\n", bus->codec_mask);
- 	}
++#ifndef __IPC_CHANNEL_MAP_H__
++#define __IPC_CHANNEL_MAP_H__
 +
-+	if (hda_codec_mask != -1) {
-+		bus->codec_mask &= hda_codec_mask;
-+		dev_dbg(bus->dev, "filtered codec_mask = 0x%lx\n",
-+			bus->codec_mask);
-+	}
- #endif
- 
- 	/* clear stream status */
++#include <uapi/sound/sof/header.h>
++#include <sound/sof/header.h>
++
++/**
++ * \brief Channel map, specifies transformation of one-to-many or many-to-one.
++ *
++ * In case of one-to-many specifies how the output channels are computed out of
++ * a single source channel,
++ * in case of many-to-one specifies how a single target channel is computed
++ * from a multichannel input stream.
++ *
++ * Channel index specifies position of the channel in the stream on the 'one'
++ * side.
++ *
++ * Ext ID is the identifier of external part of the transformation. Depending
++ * on the context, it may be pipeline ID, dai ID, ...
++ *
++ * Channel mask describes which channels are taken into account on the "many"
++ * side. Bit[i] set to 1 means that i-th channel is used for computation
++ * (either as source or as a target).
++ *
++ * Channel mask is followed by array of coefficients in Q2.30 format,
++ * one per each channel set in the mask (left to right, LS bit set in the
++ * mask corresponds to ch_coeffs[0]).
++ */
++struct sof_ipc_channel_map {
++	uint32_t ch_index;
++	uint32_t ext_id;
++	uint32_t ch_mask;
++	uint32_t reserved;
++	int32_t ch_coeffs[0];
++} __packed;
++
++/**
++ * \brief Complete map for each channel of a multichannel stream.
++ *
++ * num_ch_map Specifies number of items in the ch_map.
++ * More than one transformation per a single channel is allowed (in case
++ * multiple external entities are transformed).
++ * A channel may be skipped in the transformation list, then it is filled
++ * with 0's by the transformation function.
++ */
++struct sof_ipc_stream_map {
++	struct sof_ipc_cmd_hdr hdr;
++	uint32_t num_ch_map;
++	uint32_t reserved[3];
++	struct sof_ipc_channel_map ch_map[0];
++} __packed;
++
++#endif /* __IPC_CHANNEL_MAP_H__ */
 -- 
 2.20.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACECA118040
-	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 07:17:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE8AF118050
+	for <lists+alsa-devel@lfdr.de>; Tue, 10 Dec 2019 07:21:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 421C085D;
-	Tue, 10 Dec 2019 07:16:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 421C085D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4B2071660;
+	Tue, 10 Dec 2019 07:20:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B2071660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1575958626;
-	bh=mJZlxsAKAy5a4TNM3ug7fHe7lr32921452/6l4pevQs=;
+	s=default; t=1575958874;
+	bh=0tcEqTkP2VHHGhkbKySrswevi2EdlhJxA5gxflEL/08=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pD2Wff1f/W97hG0mLG0rYy8sEsi6WkXtzeew+PwapwOpbgG/E+2IO0/JQEXNI/pMF
-	 RA74pl6LC5K7DReI53yufKDqh/5XT6/e1t/BSfLdZBWvy7WlzzIgBO+LLVxbKTPwCj
-	 s39Xo2S0c0//ge6iEQ38TqqwIDEu6yqRKmqCUzVA=
+	b=b1cjQcLJrVMWX0+myvWVkW8Sy/AZjn4Fu6cIhTm3FUg7csoXPrB81vOBxMNzqLESz
+	 VnTXWQTqNvaxCZIqIDfppOEM1KjwBxkjLYqak5jNG/rLf7WVyl5/ankJVsBxqmp2if
+	 3LhhRjiOdjHy3ccqvWJhxIY6+WAMt/p7mBbTpNmU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 309D9F8028F;
-	Tue, 10 Dec 2019 07:12:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1821F8025F;
+	Tue, 10 Dec 2019 07:13:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7DC6F80276; Tue, 10 Dec 2019 07:12:14 +0100 (CET)
+ id 81EE8F80299; Tue, 10 Dec 2019 07:12:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,21 +33,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED3CFF80217
- for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 07:11:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED3CFF80217
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F10AF80256
+ for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 07:11:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F10AF80256
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id C5D35B1DA
+ by mx1.suse.de (Postfix) with ESMTP id D3206B1DB
  for <alsa-devel@alsa-project.org>; Tue, 10 Dec 2019 06:11:51 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Tue, 10 Dec 2019 07:11:30 +0100
-Message-Id: <20191210061145.24641-9-tiwai@suse.de>
+Date: Tue, 10 Dec 2019 07:11:31 +0100
+Message-Id: <20191210061145.24641-10-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20191210061145.24641-1-tiwai@suse.de>
 References: <20191210061145.24641-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 08/23] ALSA: mips: Drop superfluous ioctl PCM
+Subject: [alsa-devel] [PATCH 09/23] ALSA: parisc: Drop superfluous ioctl PCM
 	ops
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -67,63 +67,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PCM core deals the empty ioctl field now as default.
-Let's kill the redundant lines.
-
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/mips/hal2.c       | 2 --
- sound/mips/sgio2audio.c | 3 ---
- 2 files changed, 5 deletions(-)
+ sound/parisc/harmony.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/sound/mips/hal2.c b/sound/mips/hal2.c
-index e80ebe521218..db44d9d691db 100644
---- a/sound/mips/hal2.c
-+++ b/sound/mips/hal2.c
-@@ -684,7 +684,6 @@ static int hal2_capture_ack(struct snd_pcm_substream *substream)
- static const struct snd_pcm_ops hal2_playback_ops = {
- 	.open =        hal2_playback_open,
- 	.close =       hal2_playback_close,
--	.ioctl =       snd_pcm_lib_ioctl,
- 	.prepare =     hal2_playback_prepare,
- 	.trigger =     hal2_playback_trigger,
- 	.pointer =     hal2_playback_pointer,
-@@ -694,7 +693,6 @@ static const struct snd_pcm_ops hal2_playback_ops = {
- static const struct snd_pcm_ops hal2_capture_ops = {
- 	.open =        hal2_capture_open,
- 	.close =       hal2_capture_close,
--	.ioctl =       snd_pcm_lib_ioctl,
- 	.prepare =     hal2_capture_prepare,
- 	.trigger =     hal2_capture_trigger,
- 	.pointer =     hal2_capture_pointer,
-diff --git a/sound/mips/sgio2audio.c b/sound/mips/sgio2audio.c
-index 481f5ffff61b..f10a08a8777f 100644
---- a/sound/mips/sgio2audio.c
-+++ b/sound/mips/sgio2audio.c
-@@ -649,7 +649,6 @@ snd_sgio2audio_pcm_pointer(struct snd_pcm_substream *substream)
- static const struct snd_pcm_ops snd_sgio2audio_playback1_ops = {
- 	.open =        snd_sgio2audio_playback1_open,
- 	.close =       snd_sgio2audio_pcm_close,
--	.ioctl =       snd_pcm_lib_ioctl,
- 	.hw_params =   snd_sgio2audio_pcm_hw_params,
- 	.hw_free =     snd_sgio2audio_pcm_hw_free,
- 	.prepare =     snd_sgio2audio_pcm_prepare,
-@@ -660,7 +659,6 @@ static const struct snd_pcm_ops snd_sgio2audio_playback1_ops = {
- static const struct snd_pcm_ops snd_sgio2audio_playback2_ops = {
- 	.open =        snd_sgio2audio_playback2_open,
- 	.close =       snd_sgio2audio_pcm_close,
--	.ioctl =       snd_pcm_lib_ioctl,
- 	.hw_params =   snd_sgio2audio_pcm_hw_params,
- 	.hw_free =     snd_sgio2audio_pcm_hw_free,
- 	.prepare =     snd_sgio2audio_pcm_prepare,
-@@ -671,7 +669,6 @@ static const struct snd_pcm_ops snd_sgio2audio_playback2_ops = {
- static const struct snd_pcm_ops snd_sgio2audio_capture_ops = {
- 	.open =        snd_sgio2audio_capture_open,
- 	.close =       snd_sgio2audio_pcm_close,
--	.ioctl =       snd_pcm_lib_ioctl,
- 	.hw_params =   snd_sgio2audio_pcm_hw_params,
- 	.hw_free =     snd_sgio2audio_pcm_hw_free,
- 	.prepare =     snd_sgio2audio_pcm_prepare,
+diff --git a/sound/parisc/harmony.c b/sound/parisc/harmony.c
+index 1a4c40aafcbe..ea3630217d39 100644
+--- a/sound/parisc/harmony.c
++++ b/sound/parisc/harmony.c
+@@ -578,7 +578,6 @@ snd_harmony_hw_params(struct snd_pcm_substream *ss,
+ static const struct snd_pcm_ops snd_harmony_playback_ops = {
+ 	.open =	snd_harmony_playback_open,
+ 	.close = snd_harmony_playback_close,
+-	.ioctl = snd_pcm_lib_ioctl,
+ 	.hw_params = snd_harmony_hw_params,
+ 	.prepare = snd_harmony_playback_prepare,
+ 	.trigger = snd_harmony_playback_trigger,
+@@ -588,7 +587,6 @@ static const struct snd_pcm_ops snd_harmony_playback_ops = {
+ static const struct snd_pcm_ops snd_harmony_capture_ops = {
+         .open = snd_harmony_capture_open,
+         .close = snd_harmony_capture_close,
+-        .ioctl = snd_pcm_lib_ioctl,
+         .hw_params = snd_harmony_hw_params,
+         .prepare = snd_harmony_capture_prepare,
+         .trigger = snd_harmony_capture_trigger,
 -- 
 2.16.4
 

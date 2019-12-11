@@ -2,118 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B981411CFA2
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 15:21:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80EC811CFA7
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 15:22:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 487D616D8;
-	Thu, 12 Dec 2019 15:20:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 487D616D8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3B3516E1;
+	Thu, 12 Dec 2019 15:21:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3B3516E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576160480;
-	bh=FOdq7nBSQLNYjZVwR2vQjazAp7FSGxy9Tll///hnl7E=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576160525;
+	bh=sSfUSoKiC21aW9KwtzbCesGKbGN+wb6DR3clwkNpcCs=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=SqkHSiw+s7Tk8DM428Ehi2zsmu23xWDVNIC2DyQYdqxxE1DGIavHKGFSI7wC0wNMa
-	 ryShHZrPEX23St9Mbt+faPXbCV1vvJnRi5O4q1eAJWWpqbueIqJx0uZ0qeIcbnIJa+
-	 d5Ce0sO1JXoo6jEWjK5xIMJOtP8xhXNRh3Koj17g=
+	b=TkDCsYrXMiI454pbXLV8VrtZ9OmCAmKIdiotzkub2QvMhcWem+GXQ1RNQBw6qQ45w
+	 FAqqqXDRDsz0RJisVWs7N/P3Vx73bRS77ITzHLXzh2UTLS3Gx6LQ1Ohsg/aW7aOZDF
+	 o5hUtCWGu7EZ3RCBpEXvvp/FvMn6/eSUQEMT4W4g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF385F8020C;
-	Thu, 12 Dec 2019 15:19:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56D0FF80249;
+	Thu, 12 Dec 2019 15:19:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C998DF801F4; Wed, 11 Dec 2019 08:59:29 +0100 (CET)
+ id BA793F801F4; Wed, 11 Dec 2019 16:10:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr30040.outbound.protection.outlook.com [40.107.3.40])
+Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
+ [216.228.121.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79F13F800EC
- for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 08:59:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79F13F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id 29326F8011E
+ for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 16:10:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29326F8011E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="V3zhuLS/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MiYuAmxNH8wm9yrO5AoVbdAf4kcSVAmAA06mSkTetBs4KV3/m5mJLC1yX66HtjDh9wi36GQalbGOAGnzyqWVsck3w2RAMbpPUPnyS+6AUaYAx3hUkT7H3YijYKAc40BoozDyThbZf+XVfSxwXCWue52bS81IL/47VFt73x4kqAAH6fslDTk8FkEiUZLQ7t96XffOlstZtaW6xlNYUl7Ue9Wb2vVZe45niaoADYR6Hs63/VVl4/lsgVbeM6RuNGG99cygaw+LhNaiPB8zxWnwVsnVCytgI7IxXhIn1Q46wNidqsAJkZIIZJeA+t7prkr5ScDbxdSM4ilERVsJI8fhqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tIM7lbDD9F5e6lQRoV8744G5mHLv1GLTU4ehOBOTeao=;
- b=ECfOS/Ha3KdR1oSzCszjQXD/rbBIjXW2w6gHphJsBRHCTydW8GGuCoS7IhW64K1WEPaG6MuoYLhe4swqb+K0+ntgM9eheOae8kG7e4Vy4axsyD4BitV5TutbzFmTmL4BPMGDVJzdDjhKrYuzMn1q4zgKDolp39SHxWqzEF+TmfefVAJBcPuppQ85HPlFYCb8IFkqYx5aa5y1RwLA8C895exwoKJBnK9bmqARPN1naJ9Vk3FdeaTWAGOoAZfcQdIOiOF8C5EXJQ6bRV7/cvKPaNjSrboIBym7ZuwFhtKfrSVRWkyxX7WFqX28c1DIKTHCVqgvsl3JhaCQH8mtBpj9Yw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tIM7lbDD9F5e6lQRoV8744G5mHLv1GLTU4ehOBOTeao=;
- b=V3zhuLS/JJIesT9nUqa6GqKixXcxsgSZdiwE0kbKzUKnYmkbtfaycSjsrZUA9kl4okMms/gIoconUtgLEKLYzEfbqGmRggv4s4+a240ZPG20JFhvP6M4i+LOSuW7yGIpnR96YafYVvefiK9bxN5Wcid1gpeSSamypzZ9rE+xme4=
-Received: from VI1PR04MB4062.eurprd04.prod.outlook.com (52.133.12.32) by
- VI1PR04MB5839.eurprd04.prod.outlook.com (20.178.126.23) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2516.14; Wed, 11 Dec 2019 07:59:23 +0000
-Received: from VI1PR04MB4062.eurprd04.prod.outlook.com
- ([fe80::20fe:3e38:4eec:ea03]) by VI1PR04MB4062.eurprd04.prod.outlook.com
- ([fe80::20fe:3e38:4eec:ea03%7]) with mapi id 15.20.2516.018; Wed, 11 Dec 2019
- 07:59:23 +0000
-From: Alison Wang <alison.wang@nxp.com>
-To: "oleksandr.suvorov@toradex.com" <oleksandr.suvorov@toradex.com>, Marcel
- Ziswiler <marcel.ziswiler@toradex.com>, "igor.opaniuk@toradex.com"
- <igor.opaniuk@toradex.com>, Fabio Estevam <festevam@gmail.com>,
- "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>
-Thread-Topic: [v6,5/6] ASoC: sgtl5000: Fix of unmute outputs on probe
-Thread-Index: AdWv8c/6ILgEMkLmRYinQyj4db74kQAAAgFQ
-Date: Wed, 11 Dec 2019 07:59:23 +0000
-Message-ID: <VI1PR04MB4062BD2BB10ADE4EB0DF9C37F45A0@VI1PR04MB4062.eurprd04.prod.outlook.com>
-References: <VI1PR04MB4062948CF9A3C420C6345A7DF45A0@VI1PR04MB4062.eurprd04.prod.outlook.com>
-In-Reply-To: <VI1PR04MB4062948CF9A3C420C6345A7DF45A0@VI1PR04MB4062.eurprd04.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=alison.wang@nxp.com; 
-x-originating-ip: [119.31.174.73]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: a8a5f9b0-2e61-4064-30e0-08d77e1008fa
-x-ms-traffictypediagnostic: VI1PR04MB5839:|VI1PR04MB5839:
-x-ld-processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-x-microsoft-antispam-prvs: <VI1PR04MB58392F1947557573AB075306F45A0@VI1PR04MB5839.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
-x-forefront-prvs: 024847EE92
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(39860400002)(346002)(366004)(376002)(396003)(189003)(199004)(81156014)(6506007)(316002)(4326008)(64756008)(8676002)(2940100002)(9686003)(66556008)(66476007)(26005)(81166006)(71200400001)(66446008)(66946007)(55016002)(76116006)(7696005)(478600001)(8936002)(52536014)(33656002)(5660300002)(186003)(44832011)(110136005)(86362001)(2906002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR04MB5839;
- H:VI1PR04MB4062.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 5hwK+AmIwFA1Iwtl23StpAEEhuQlykXE1TgHxLHlmj3gbVy8itvQoa0M8yqTt7YRkO6nThHTcD6HpSsBpH0tQ6i9SUF5hpuSDc3DXBM55X7vdKGeITcTt4rfjxAcWCGqUuiBDcLa7WQ3+tfAFeF52VZdoISGaXiIo9orRexpe9dV5vEppgqZ1seNtAI6tsgu11nhi0WurQimuoq92ZDzLJDtoCq/YH0ezBDW4PsC/piQCehxbTjZgwn7A1Vkp4moKb0gh+j2ygNZzoN8LGuLCnecNGvj2g8Y8c2dHdDl8UPWdW8P4W7G39kARb9iDqP5clz/4LvBxN8PZMDsZ9j2ECTW1EIX4n8j3Y77QHai1pehRQG7PCqqZLLgktbMtolTRYnjUvezi23JlXUrssIN2Nrp8hgJSsTbVVoGgCwTxINWA5fWq5imrn/tsA+idqfq
-x-ms-exchange-transport-forked: True
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="Lm5F6nqi"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5df106e40000>; Wed, 11 Dec 2019 07:10:28 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Wed, 11 Dec 2019 07:10:34 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Wed, 11 Dec 2019 07:10:34 -0800
+Received: from DRHQMAIL107.nvidia.com (10.27.9.16) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 11 Dec
+ 2019 15:10:31 +0000
+Received: from tbergstrom-lnx.Nvidia.com (10.124.1.5) by
+ DRHQMAIL107.nvidia.com (10.27.9.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1473.3; Wed, 11 Dec 2019 15:10:30 +0000
+Received: by tbergstrom-lnx.Nvidia.com (Postfix, from userid 1000)
+ id 66AC6447B2; Wed, 11 Dec 2019 17:10:28 +0200 (EET)
+Date: Wed, 11 Dec 2019 17:10:28 +0200
+From: Peter De Schrijver <pdeschrijver@nvidia.com>
+To: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <20191211151028.GZ28289@pdeschrijver-desktop.Nvidia.com>
+References: <ad3a6743-4b36-fa25-9cc7-72803038ecc5@gmail.com>
+ <dc7a057a-0bed-0e6f-0987-edcfec47f867@gmail.com>
+ <288a1701-def6-d628-26bc-a305f817bdb1@gmail.com>
+ <78644d45-2ae3-121f-99fc-0a46f205907d@nvidia.com>
+ <b35916e1-c6ee-52ca-9111-5ae109437b6e@nvidia.com>
+ <ccb715cc-c927-ea91-a26e-24d6eeeeef1a@gmail.com>
+ <ee1d39d4-9a57-da9b-fce6-8130dac1d2fd@nvidia.com>
+ <49da77dc-b346-68eb-9ef8-42cfb3221489@nvidia.com>
+ <3f1c9325-3017-62be-1e3b-82fd28540fdf@nvidia.com>
+ <6fcbff3d-8695-7cd0-60de-6eb523b6964c@gmail.com>
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a8a5f9b0-2e61-4064-30e0-08d77e1008fa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Dec 2019 07:59:23.0495 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PNvxiUwsm3uKfK+YKWpfEn2t6ThVBNQOXZBrpUjzuUBHR7tRrkbkDFqGWESsIeqcAKldmVB21iBKywsuIjjPLQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB5839
+Content-Disposition: inline
+In-Reply-To: <6fcbff3d-8695-7cd0-60de-6eb523b6964c@gmail.com>
+X-NVConfidentiality: public
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ DRHQMAIL107.nvidia.com (10.27.9.16)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1576077028; bh=VvDMrUYT7taYzbMa3m3Y5QwG5+rFZtiGCZ+lwUnZ+H4=;
+ h=X-PGP-Universal:Date:From:To:CC:Subject:Message-ID:References:
+ MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+ X-NVConfidentiality:User-Agent:X-Originating-IP:X-ClientProxiedBy;
+ b=Lm5F6nqi5lm9oF3AFvMVlJyM+vsVmkKVxMC3aCEATgZO2h7/YDOmlhxTh16jJsYJc
+ RiTDpkOAGndf7f5g1VHhTGp0uN0v291Ea9MpN52Vs9fo5PtJEB6Zx5z61K91j3ytjq
+ mff6ObVy21nYWvLr+C7tSIvriqp0/PQ0hSigNsBE/FlJGH+QmpZXlRv7KroBogN+1w
+ Cz7mjfNTukwY2nltQx3atJPxUyEKwDEJnOP/0N6zXKUqC2iRiQJTV8QETKFJ8qqemu
+ yrIV5TJcqcqdsN6mPTX3i85m8T+/UOb2TOeAfLfE+x5CnmT8RyiTFIDmSn7YykhuIu
+ 1ZWP3M73v2MFg==
 X-Mailman-Approved-At: Thu, 12 Dec 2019 15:19:27 +0100
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [v6,
-	5/6] ASoC: sgtl5000: Fix of unmute outputs on probe
+Cc: mark.rutland@arm.com, alsa-devel@alsa-project.org, pgaikwad@nvidia.com,
+ lgirdwood@gmail.com, mturquette@baylibre.com, mperttunen@nvidia.com,
+ thierry.reding@gmail.com, josephl@nvidia.com, linux-clk@vger.kernel.org,
+ mmaddireddy@nvidia.com, daniel.lezcano@linaro.org, krzk@kernel.org,
+ jonathanh@nvidia.com, spujar@nvidia.com, devicetree@vger.kernel.org,
+ arnd@arndb.de, markz@nvidia.com, alexios.zavras@intel.com, robh+dt@kernel.org,
+ tiwai@suse.com, linux-tegra@vger.kernel.org, horms+renesas@verge.net.au,
+ tglx@linutronix.de, allison@lohutok.net, sboyd@kernel.org,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
+ Jisheng.Zhang@synaptics.com, broonie@kernel.org,
+ Sowjanya Komatineni <skomatineni@nvidia.com>
+Subject: Re: [alsa-devel] [PATCH v3 03/15] soc: tegra: Add Tegra PMC clock
+ registrations into PMC driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,74 +121,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, Oleksandr,
+On Tue, Dec 10, 2019 at 08:41:56PM +0300, Dmitry Osipenko wrote:
 
-I have a question about this patch. Could you give me some ideas? Thanks.
+..
 
-In this patch, snd_soc_component_update_bits is used instead of snd_soc_component_write. Although EN_HP_ZCD and EN_ADC_ZCD are enabled in ANA_CTRL register, MUTE_LO, MUTE_HP and MUTE_ADC bits are remained as the default value. It causes LO, HP and ADC are all muted after driver probe. BTW, in the original code, snd_soc_component_write is used and MUTE_LO, MUTE_HP and MUTE_ADC are all set as zero (unmute).
+> >
+> > PMC clock gate is based on the state of CLKx_ACCEPT_REQ and FORCE_EN
+> > like explained above.
+> >
+> > CLKx_ACCEPT_REQ is 0 default and FORCE_EN acts as gate to enable/disable
+> > EXTPERIPH clock output to PMC CLK_OUT_1/2/3.
+> 
+> [and to enable OSC as well]
+> 
+> > So I believe we need to register as MUX and Gate rather than as a single
+> > clock. Please confirm.
+> 
+> 1. The force-enabling is applied to both OSC and EXTERN sources of
+> PMC_CLK_OUT_x by PMC at once.
+> 
+> 2. Both of PMC's force-enabling and OSC/EXTERN selection is internal to PMC.
+> 
+> Should be better to define it as a single "pmc_clk_out_x". I don't see
+> any good reasons for differentiating PMC's Gate from the MUX, it's a
+> single hardware unit from a point of view of the rest of the system.
+> 
+> Peter, do you have any objections?
 
-I saw the above phenomenon on the latest linux-next. For LO and HP are muted, no sound can be heard.
+The reason to have separate gate and mux clocks, is to preserve compatibility
+with existing users.
+Otherwise the current users would need to figure out if there's a
+single clock or 2 clocks to configure. I don't think adding that code in
+each user is worth it only to have a sligthly nicer modelling of the
+hardware.
 
+Cheers,
 
-Best Regards,
-Alison Wang
-
-> Subject: [v6,5/6] ASoC: sgtl5000: Fix of unmute outputs on probe
-> 
-> To enable "zero cross detect" for ADC/HP, change HP_ZCD_EN/ADC_ZCD_EN
-> bits only instead of writing the whole CHIP_ANA_CTRL register.
-> 
-> Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-> Reviewed-by: Marcel Ziswiler <marcel.ziswiler@toradex.com>
-> Reviewed-by: Igor Opaniuk <igor.opaniuk@toradex.com>
-> Reviewed-by: Fabio Estevam <festevam@gmail.com>
-> 
-> ---
-> 
-> Changes in v6: None
-> Changes in v5: None
-> Changes in v4: None
-> Changes in v3: None
-> Changes in v2:
-> - Fix patch formatting
-> 
->  sound/soc/codecs/sgtl5000.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> 
-> diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c index
-> b65232521ea8..23f4ae2f0723 100644
-> --- a/sound/soc/codecs/sgtl5000.c
-> +++ b/sound/soc/codecs/sgtl5000.c
-> @@ -1453,6 +1453,7 @@  static int sgtl5000_probe(struct
-> snd_soc_component *component)
->  	int ret;
->  	u16 reg;
->  	struct sgtl5000_priv *sgtl5000 =
-> snd_soc_component_get_drvdata(component);
-> +	unsigned int zcd_mask = SGTL5000_HP_ZCD_EN |
-> SGTL5000_ADC_ZCD_EN;
-> 
->  	/* power up sgtl5000 */
->  	ret = sgtl5000_set_power_regs(component);
-> @@ -1480,9 +1481,8 @@  static int sgtl5000_probe(struct
-> snd_soc_component *component)
->  	       0x1f);
->  	snd_soc_component_write(component, SGTL5000_CHIP_PAD_STRENGTH,
-> reg);
-> 
-> -	snd_soc_component_write(component, SGTL5000_CHIP_ANA_CTRL,
-> -			SGTL5000_HP_ZCD_EN |
-> -			SGTL5000_ADC_ZCD_EN);
-> +	snd_soc_component_update_bits(component,
-> SGTL5000_CHIP_ANA_CTRL,
-> +		zcd_mask, zcd_mask);
-> 
->  	snd_soc_component_update_bits(component,
-> SGTL5000_CHIP_MIC_CTRL,
->  			SGTL5000_BIAS_R_MASK,
-> 
-
+Peter.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

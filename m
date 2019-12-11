@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2028811B99B
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2019 18:07:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C37FF11B9A6
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2019 18:09:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A38D1687;
-	Wed, 11 Dec 2019 18:06:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A38D1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 501551669;
+	Wed, 11 Dec 2019 18:08:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 501551669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576084040;
-	bh=pTzug3gFubAHhAk/pOG330T9tGL1rHQiKB4LDOc+LWY=;
+	s=default; t=1576084153;
+	bh=3uj7sY7BBxmr3I3qDbelB2syB1YByuK1CZzhyJbFGCg=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=rtZmVRuNx3P1OjaGctGmrhcWAZkOrw8x50gnytwWCwv04ydeYDjj0ZsvFBzgfCkFd
-	 DVG8lNcBjtaP+GA2oE1nkp9zDYg6Dpbe2EflP6Ps9tjI0XqMcrR2ejimBEOz1NxkIs
-	 fNGcjsNfz21b4ZEmN57lD4TkMOSz3h09XpPoDgb8=
+	b=eIVNbcPUxiu1GzRFp7fVjuyJR+qr4pLavY9FaRVi6Q2qlDuEDJHxPfpr3b2Rs0pDA
+	 BAaUVPm7TgSq6dmCJ39m60Bb2Zv38VVap/hsJkv9mkGL+9cotuPoI7HSgB9OC13wA3
+	 +SfPlhMjFwOrt/g6y2DGgfoBXEemGhkYBLiyCayE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 941FFF80348;
-	Wed, 11 Dec 2019 17:54:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A3CFBF8034E;
+	Wed, 11 Dec 2019 17:54:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 541CCF80341; Wed, 11 Dec 2019 17:54:01 +0100 (CET)
+ id CBF4AF80345; Wed, 11 Dec 2019 17:54:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E7C3DF80329
- for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 17:53:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7C3DF80329
+ by alsa1.perex.cz (Postfix) with ESMTP id 77911F80338
+ for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 17:53:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 77911F80338
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 59EE731B;
- Wed, 11 Dec 2019 08:53:56 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C74B330E;
+ Wed, 11 Dec 2019 08:53:58 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CB08A3F52E;
- Wed, 11 Dec 2019 08:53:55 -0800 (PST)
-Date: Wed, 11 Dec 2019 16:53:54 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 427593F52E;
+ Wed, 11 Dec 2019 08:53:58 -0800 (PST)
+Date: Wed, 11 Dec 2019 16:53:56 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20191210142614.19405-4-tiwai@suse.de>
-Message-Id: <applied-20191210142614.19405-4-tiwai@suse.de>
+In-Reply-To: <20191210142614.19405-3-tiwai@suse.de>
+Message-Id: <applied-20191210142614.19405-3-tiwai@suse.de>
 X-Patchwork-Hint: ignore
 Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: dwc: Use managed buffer allocation" to
+Subject: [alsa-devel] Applied "ASoC: au1x: Use managed buffer allocation" to
 	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -69,7 +69,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: dwc: Use managed buffer allocation
+   ASoC: au1x: Use managed buffer allocation
 
 has been applied to the asoc tree at
 
@@ -94,85 +94,116 @@ to this mail.
 Thanks,
 Mark
 
-From fcf306efab32975e4f8bdf5e9d3e7c34fe4ce48c Mon Sep 17 00:00:00 2001
+From fe9912ac58e4fa205faabcccc980eb834cc5f1aa Mon Sep 17 00:00:00 2001
 From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 10 Dec 2019 15:25:54 +0100
-Subject: [PATCH] ASoC: dwc: Use managed buffer allocation
+Date: Tue, 10 Dec 2019 15:25:53 +0100
+Subject: [PATCH] ASoC: au1x: Use managed buffer allocation
 
 Clean up the drivers with the new managed buffer allocation API.
 The superfluous snd_pcm_lib_malloc_pages() and
-snd_pcm_lib_free_pages() calls are dropped, as well as the superfluous
-snd_pcm_lib_preallocate_free_for_all() call.  As of the result,
-hw_free and pcm_destruct ops became empty and got removed.
+snd_pcm_lib_free_pages() calls are dropped.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20191210142614.19405-4-tiwai@suse.de
+Link: https://lore.kernel.org/r/20191210142614.19405-3-tiwai@suse.de
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/dwc/dwc-pcm.c | 24 ++----------------------
- 1 file changed, 2 insertions(+), 22 deletions(-)
+ sound/soc/au1x/dbdma2.c | 14 +-------------
+ sound/soc/au1x/dma.c    | 21 ++++++---------------
+ 2 files changed, 7 insertions(+), 28 deletions(-)
 
-diff --git a/sound/soc/dwc/dwc-pcm.c b/sound/soc/dwc/dwc-pcm.c
-index bf36c1d29642..4b25aca3804f 100644
---- a/sound/soc/dwc/dwc-pcm.c
-+++ b/sound/soc/dwc/dwc-pcm.c
-@@ -162,7 +162,6 @@ static int dw_pcm_hw_params(struct snd_soc_component *component,
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct dw_i2s_dev *dev = runtime->private_data;
--	int ret;
+diff --git a/sound/soc/au1x/dbdma2.c b/sound/soc/au1x/dbdma2.c
+index 4c74698d31b3..8f855644c6b4 100644
+--- a/sound/soc/au1x/dbdma2.c
++++ b/sound/soc/au1x/dbdma2.c
+@@ -197,10 +197,6 @@ static int au1xpsc_pcm_hw_params(struct snd_soc_component *component,
+ 	struct au1xpsc_audio_dmadata *pcd;
+ 	int stype, ret;
  
- 	switch (params_channels(hw_params)) {
- 	case 2:
-@@ -187,18 +186,7 @@ static int dw_pcm_hw_params(struct snd_soc_component *component,
- 		return -EINVAL;
- 	}
- 
--	ret = snd_pcm_lib_malloc_pages(substream,
--			params_buffer_bytes(hw_params));
+-	ret = snd_pcm_lib_malloc_pages(substream, params_buffer_bytes(params));
 -	if (ret < 0)
--		return ret;
--	else
--		return 0;
+-		goto out;
+-
+ 	stype = substream->stream;
+ 	pcd = to_dmadata(substream, component);
+ 
+@@ -232,13 +228,6 @@ static int au1xpsc_pcm_hw_params(struct snd_soc_component *component,
+ 	return ret;
+ }
+ 
+-static int au1xpsc_pcm_hw_free(struct snd_soc_component *component,
+-			       struct snd_pcm_substream *substream)
+-{
+-	snd_pcm_lib_free_pages(substream);
+-	return 0;
 -}
 -
--static int dw_pcm_hw_free(struct snd_soc_component *component,
--			  struct snd_pcm_substream *substream)
--{
+ static int au1xpsc_pcm_prepare(struct snd_soc_component *component,
+ 			       struct snd_pcm_substream *substream)
+ {
+@@ -315,7 +304,7 @@ static int au1xpsc_pcm_new(struct snd_soc_component *component,
+ 	struct snd_card *card = rtd->card->snd_card;
+ 	struct snd_pcm *pcm = rtd->pcm;
+ 
+-	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_DEV,
++	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_DEV,
+ 		card->dev, AU1XPSC_BUFFER_MIN_BYTES, (4096 * 1024) - 1);
+ 
+ 	return 0;
+@@ -327,7 +316,6 @@ static struct snd_soc_component_driver au1xpsc_soc_component = {
+ 	.open		= au1xpsc_pcm_open,
+ 	.close		= au1xpsc_pcm_close,
+ 	.hw_params	= au1xpsc_pcm_hw_params,
+-	.hw_free	= au1xpsc_pcm_hw_free,
+ 	.prepare	= au1xpsc_pcm_prepare,
+ 	.trigger	= au1xpsc_pcm_trigger,
+ 	.pointer	= au1xpsc_pcm_pointer,
+diff --git a/sound/soc/au1x/dma.c b/sound/soc/au1x/dma.c
+index 520eb7b24a92..c9a038a5e2d3 100644
+--- a/sound/soc/au1x/dma.c
++++ b/sound/soc/au1x/dma.c
+@@ -231,19 +231,10 @@ static int alchemy_pcm_hw_params(struct snd_soc_component *component,
+ 				 struct snd_pcm_hw_params *hw_params)
+ {
+ 	struct audio_stream *stream = ss_to_as(substream, component);
+-	int err;
+-
+-	err = snd_pcm_lib_malloc_pages(substream,
+-				       params_buffer_bytes(hw_params));
+-	if (err < 0)
+-		return err;
+-	err = au1000_setup_dma_link(stream,
+-				    params_period_bytes(hw_params),
+-				    params_periods(hw_params));
+-	if (err)
+-		snd_pcm_lib_free_pages(substream);
+ 
+-	return err;
++	return au1000_setup_dma_link(stream,
++				     params_period_bytes(hw_params),
++				     params_periods(hw_params));
+ }
+ 
+ static int alchemy_pcm_hw_free(struct snd_soc_component *component,
+@@ -251,7 +242,7 @@ static int alchemy_pcm_hw_free(struct snd_soc_component *component,
+ {
+ 	struct audio_stream *stream = ss_to_as(substream, component);
+ 	au1000_release_dma_link(stream);
 -	return snd_pcm_lib_free_pages(substream);
 +	return 0;
  }
  
- static int dw_pcm_trigger(struct snd_soc_component *component,
-@@ -256,27 +244,19 @@ static int dw_pcm_new(struct snd_soc_component *component,
+ static int alchemy_pcm_trigger(struct snd_soc_component *component,
+@@ -292,8 +283,8 @@ static int alchemy_pcm_new(struct snd_soc_component *component,
  {
- 	size_t size = dw_pcm_hardware.buffer_bytes_max;
+ 	struct snd_pcm *pcm = rtd->pcm;
  
--	snd_pcm_lib_preallocate_pages_for_all(rtd->pcm,
-+	snd_pcm_set_managed_buffer_all(rtd->pcm,
- 			SNDRV_DMA_TYPE_CONTINUOUS,
- 			NULL, size, size);
+-	snd_pcm_lib_preallocate_pages_for_all(pcm, SNDRV_DMA_TYPE_CONTINUOUS,
+-					      NULL, 65536, (4096 * 1024) - 1);
++	snd_pcm_set_managed_buffer_all(pcm, SNDRV_DMA_TYPE_CONTINUOUS,
++				       NULL, 65536, (4096 * 1024) - 1);
+ 
  	return 0;
  }
- 
--static void dw_pcm_free(struct snd_soc_component *component,
--			struct snd_pcm *pcm)
--{
--	snd_pcm_lib_preallocate_free_for_all(pcm);
--}
--
- static const struct snd_soc_component_driver dw_pcm_component = {
- 	.open		= dw_pcm_open,
- 	.close		= dw_pcm_close,
- 	.hw_params	= dw_pcm_hw_params,
--	.hw_free	= dw_pcm_hw_free,
- 	.trigger	= dw_pcm_trigger,
- 	.pointer	= dw_pcm_pointer,
- 	.pcm_construct	= dw_pcm_new,
--	.pcm_destruct	= dw_pcm_free,
- };
- 
- int dw_pcm_register(struct platform_device *pdev)
 -- 
 2.20.1
 

@@ -2,55 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF47A11B9DB
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2019 18:16:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9151111B9DD
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2019 18:17:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4F699168F;
-	Wed, 11 Dec 2019 18:15:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F699168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E56ED1689;
+	Wed, 11 Dec 2019 18:16:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E56ED1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576084600;
-	bh=h32bPJGIVLZhlDqw5AiNtrUpnJUTalMDs90/lVGjet4=;
+	s=default; t=1576084637;
+	bh=xmEi9kY3vXFSYYR5ILFjCZkjkkYCyIQLyAn18LQIC2I=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=EYCoYoHIUssDyB5j82FT8ZhoDIrok7ZCHr+na4ZPKsorLW75I7n9j56MUQrIMy4DK
-	 Ljnj0FWqoCXtui+TV75nC9lmRCSRWB3RGBJ1+dYD9cD0XhR48RmqvHSwfKgsxFeR/B
-	 ZgaTRU4YyO1sMZDWOCFpFTx1x/V3g+FOpXqFIb5k=
+	b=iy4igg8dlCKcfEEluo3ketvT3BSKvRXZ3/3/Ch+KVEAbRApJAXfa6c3c+26o1hJQ0
+	 qXZVTbOx4X6OzXPSoq1exAK43LohlkELN30vIgsqnazm62e1cyGtzgRH5WBTpAyjj3
+	 ew4VcQ0LS67UEqpae5eN7onkYg4xkyJmxfEURvgs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6CD06F803FC;
-	Wed, 11 Dec 2019 17:54:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61388F80406;
+	Wed, 11 Dec 2019 17:54:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 81F4BF803CB; Wed, 11 Dec 2019 17:54:30 +0100 (CET)
+ id 36776F803CE; Wed, 11 Dec 2019 17:54:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D0DABF8038C
- for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 17:54:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0DABF8038C
+ by alsa1.perex.cz (Postfix) with ESMTP id 87199F803CE
+ for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 17:54:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87199F803CE
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2EC8A31B;
- Wed, 11 Dec 2019 08:54:26 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 937F031B;
+ Wed, 11 Dec 2019 08:54:28 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A31103F52E;
- Wed, 11 Dec 2019 08:54:25 -0800 (PST)
-Date: Wed, 11 Dec 2019 16:54:24 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 132293F52E;
+ Wed, 11 Dec 2019 08:54:27 -0800 (PST)
+Date: Wed, 11 Dec 2019 16:54:26 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20191210145406.21419-14-tiwai@suse.de>
-Message-Id: <applied-20191210145406.21419-14-tiwai@suse.de>
+In-Reply-To: <20191210145406.21419-13-tiwai@suse.de>
+Message-Id: <applied-20191210145406.21419-13-tiwai@suse.de>
 X-Patchwork-Hint: ignore
-Cc: Sangbeom Kim <sbkim73@samsung.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: samsung: Drop superfluous ioctl PCM
-	ops" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
+ Mark Brown <broonie@kernel.org>, Patrick Lai <plai@codeaurora.org>
+Subject: [alsa-devel] Applied "ASoC: qcom: Drop superfluous ioctl PCM ops"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: samsung: Drop superfluous ioctl PCM ops
+   ASoC: qcom: Drop superfluous ioctl PCM ops
 
 has been applied to the asoc tree at
 
@@ -96,36 +95,48 @@ to this mail.
 Thanks,
 Mark
 
-From c4d14046650087f6495ab6855cf1a0090325c48a Mon Sep 17 00:00:00 2001
+From 29da4698399eceaac0bfcf1f180e21a51d5d7aed Mon Sep 17 00:00:00 2001
 From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 10 Dec 2019 15:53:56 +0100
-Subject: [PATCH] ASoC: samsung: Drop superfluous ioctl PCM ops
+Date: Tue, 10 Dec 2019 15:53:55 +0100
+Subject: [PATCH] ASoC: qcom: Drop superfluous ioctl PCM ops
 
 ASoC PCM core deals the empty ioctl field now as default.
 Let's kill the redundant lines.
 
-Cc: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sangbeom Kim <sbkim73@samsung.com>
-Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Cc: Patrick Lai <plai@codeaurora.org>
+Cc: Banajit Goswami <bgoswami@codeaurora.org>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20191210145406.21419-14-tiwai@suse.de
+Link: https://lore.kernel.org/r/20191210145406.21419-13-tiwai@suse.de
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/samsung/idma.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/qcom/lpass-platform.c  | 1 -
+ sound/soc/qcom/qdsp6/q6asm-dai.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-diff --git a/sound/soc/samsung/idma.c b/sound/soc/samsung/idma.c
-index 294dce111b05..66bcc2f97544 100644
---- a/sound/soc/samsung/idma.c
-+++ b/sound/soc/samsung/idma.c
-@@ -394,7 +394,6 @@ EXPORT_SYMBOL_GPL(idma_reg_addr_init);
- static const struct snd_soc_component_driver asoc_idma_platform = {
- 	.open		= idma_open,
- 	.close		= idma_close,
+diff --git a/sound/soc/qcom/lpass-platform.c b/sound/soc/qcom/lpass-platform.c
+index 2e8892316423..b05091c283b7 100644
+--- a/sound/soc/qcom/lpass-platform.c
++++ b/sound/soc/qcom/lpass-platform.c
+@@ -543,7 +543,6 @@ static const struct snd_soc_component_driver lpass_component_driver = {
+ 	.name		= DRV_NAME,
+ 	.open		= lpass_platform_pcmops_open,
+ 	.close		= lpass_platform_pcmops_close,
 -	.ioctl		= snd_soc_pcm_lib_ioctl,
- 	.trigger	= idma_trigger,
- 	.pointer	= idma_pointer,
- 	.mmap		= idma_mmap,
+ 	.hw_params	= lpass_platform_pcmops_hw_params,
+ 	.hw_free	= lpass_platform_pcmops_hw_free,
+ 	.prepare	= lpass_platform_pcmops_prepare,
+diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
+index 8150c10f081e..5e2327708772 100644
+--- a/sound/soc/qcom/qdsp6/q6asm-dai.c
++++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
+@@ -880,7 +880,6 @@ static const struct snd_soc_component_driver q6asm_fe_dai_component = {
+ 	.open		= q6asm_dai_open,
+ 	.hw_params	= q6asm_dai_hw_params,
+ 	.close		= q6asm_dai_close,
+-	.ioctl		= snd_soc_pcm_lib_ioctl,
+ 	.prepare	= q6asm_dai_prepare,
+ 	.trigger	= q6asm_dai_trigger,
+ 	.pointer	= q6asm_dai_pointer,
 -- 
 2.20.1
 

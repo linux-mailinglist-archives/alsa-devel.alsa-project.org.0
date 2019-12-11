@@ -2,52 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EA3611BA1E
-	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2019 18:22:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B66EE11BA35
+	for <lists+alsa-devel@lfdr.de>; Wed, 11 Dec 2019 18:24:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 851A016B0;
-	Wed, 11 Dec 2019 18:21:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 851A016B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4531F16A4;
+	Wed, 11 Dec 2019 18:23:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4531F16A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576084966;
-	bh=ekT03mQZBGCVa8SK5NcJwMQdo8b5XNDLVmORSXhqu6U=;
+	s=default; t=1576085088;
+	bh=xe8bR8O3ohJfQzmxbE+RH/WrL41LPpxmcUWWHw8qMDU=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=BBeMTR4jaWBh8fzY2/Jhkt6sDs/sV/UygNDGuZ/t+dKGCCXaHBeiXqOF9iRKDzXLV
-	 iHNFQ3O9MBkpbT8eqe7o8nTte12gm4JWCuvGfy3QCxmSo+LUQHOBx/nh0CL3B7jdn3
-	 KyrN5ZYZLvPYBCqEDiqtbY905lQcF1zuYNJHBDes=
+	b=AQICRCtqseONoib6wjsX94klH/qApIGCu3iOKv+m4hJ7WPNhEJA3a6pl65b29rW5m
+	 5JTBCUJNrGJ4oNjrm+1GABcuEkhTaITGcu3RbAxk4B1tKio+AHZKApQsOX27pfIt4c
+	 /SWQPJRYeIhJ6YJzsgmXzcyPe9X/gFugQvWZz5rk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70C53F80257;
-	Wed, 11 Dec 2019 17:55:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ABEE4F804BB;
+	Wed, 11 Dec 2019 17:55:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0913F8047A; Wed, 11 Dec 2019 17:54:54 +0100 (CET)
+ id 29151F803CD; Wed, 11 Dec 2019 17:55:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 11BE5F80471
- for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 17:54:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 11BE5F80471
+ by alsa1.perex.cz (Postfix) with ESMTP id 8169BF80477
+ for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 17:54:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8169BF80477
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F2BE30E;
- Wed, 11 Dec 2019 08:54:50 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E9EC131B;
+ Wed, 11 Dec 2019 08:54:52 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F41193F52E;
- Wed, 11 Dec 2019 08:54:49 -0800 (PST)
-Date: Wed, 11 Dec 2019 16:54:48 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 69AFB3F52E;
+ Wed, 11 Dec 2019 08:54:52 -0800 (PST)
+Date: Wed, 11 Dec 2019 16:54:50 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20191210145406.21419-4-tiwai@suse.de>
-Message-Id: <applied-20191210145406.21419-4-tiwai@suse.de>
+In-Reply-To: <20191210145406.21419-3-tiwai@suse.de>
+Message-Id: <applied-20191210145406.21419-3-tiwai@suse.de>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: au1x: Drop superfluous ioctl PCM ops"
+Cc: Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Codrin Ciubotariu <codrin.ciubotariu@microchip.com>,
+ Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
+Subject: [alsa-devel] Applied "ASoC: atmel: Drop superfluous ioctl PCM ops"
 	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -69,7 +72,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: au1x: Drop superfluous ioctl PCM ops
+   ASoC: atmel: Drop superfluous ioctl PCM ops
 
 has been applied to the asoc tree at
 
@@ -94,46 +97,37 @@ to this mail.
 Thanks,
 Mark
 
-From 4000fc0b5a7f277ed6f83b1673a833b67a4cfa71 Mon Sep 17 00:00:00 2001
+From 7aff4224ff6b603c432de56139b621d68e0307fb Mon Sep 17 00:00:00 2001
 From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 10 Dec 2019 15:53:46 +0100
-Subject: [PATCH] ASoC: au1x: Drop superfluous ioctl PCM ops
+Date: Tue, 10 Dec 2019 15:53:45 +0100
+Subject: [PATCH] ASoC: atmel: Drop superfluous ioctl PCM ops
 
 ASoC PCM core deals the empty ioctl field now as default.
 Let's kill the redundant lines.
 
+Cc: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Ludovic Desroches <ludovic.desroches@microchip.com>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20191210145406.21419-4-tiwai@suse.de
+Acked-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Link: https://lore.kernel.org/r/20191210145406.21419-3-tiwai@suse.de
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/au1x/dbdma2.c | 1 -
- sound/soc/au1x/dma.c    | 1 -
- 2 files changed, 2 deletions(-)
+ sound/soc/atmel/atmel-pcm-pdc.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/au1x/dbdma2.c b/sound/soc/au1x/dbdma2.c
-index 4553108ec92a..4c74698d31b3 100644
---- a/sound/soc/au1x/dbdma2.c
-+++ b/sound/soc/au1x/dbdma2.c
-@@ -326,7 +326,6 @@ static struct snd_soc_component_driver au1xpsc_soc_component = {
- 	.name		= DRV_NAME,
- 	.open		= au1xpsc_pcm_open,
- 	.close		= au1xpsc_pcm_close,
+diff --git a/sound/soc/atmel/atmel-pcm-pdc.c b/sound/soc/atmel/atmel-pcm-pdc.c
+index 18a2fd02fffe..59c1331a6984 100644
+--- a/sound/soc/atmel/atmel-pcm-pdc.c
++++ b/sound/soc/atmel/atmel-pcm-pdc.c
+@@ -379,7 +379,6 @@ static int atmel_pcm_close(struct snd_soc_component *component,
+ static const struct snd_soc_component_driver atmel_soc_platform = {
+ 	.open		= atmel_pcm_open,
+ 	.close		= atmel_pcm_close,
 -	.ioctl		= snd_soc_pcm_lib_ioctl,
- 	.hw_params	= au1xpsc_pcm_hw_params,
- 	.hw_free	= au1xpsc_pcm_hw_free,
- 	.prepare	= au1xpsc_pcm_prepare,
-diff --git a/sound/soc/au1x/dma.c b/sound/soc/au1x/dma.c
-index 054dfda89d3e..520eb7b24a92 100644
---- a/sound/soc/au1x/dma.c
-+++ b/sound/soc/au1x/dma.c
-@@ -302,7 +302,6 @@ static struct snd_soc_component_driver alchemy_pcm_soc_component = {
- 	.name		= DRV_NAME,
- 	.open		= alchemy_pcm_open,
- 	.close		= alchemy_pcm_close,
--	.ioctl		= snd_soc_pcm_lib_ioctl,
- 	.hw_params	= alchemy_pcm_hw_params,
- 	.hw_free	= alchemy_pcm_hw_free,
- 	.trigger	= alchemy_pcm_trigger,
+ 	.hw_params	= atmel_pcm_hw_params,
+ 	.hw_free	= atmel_pcm_hw_free,
+ 	.prepare	= atmel_pcm_prepare,
 -- 
 2.20.1
 

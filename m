@@ -2,110 +2,123 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A69511CFB1
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 15:23:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7770411CFB8
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 15:24:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1897F16F3;
-	Thu, 12 Dec 2019 15:23:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1897F16F3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B7B116EE;
+	Thu, 12 Dec 2019 15:23:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B7B116EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576160632;
-	bh=zHUs8C13mxcnHIbm7nn5cqR95SVeyCmfqnh7LBbOxno=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lCCK7LUvczCeVA/0DPm6Tv2maBU+CfGwMoBJF2pd0JEm0brRZGWw5FLoFBRZAdh9f
-	 xn4fkWDmuzYIZokQeuu1hAuOcXCxVzO+wSb96eT+SmYC5Nnj8EgKM5mM+uAJblL837
-	 fajButAbQ0t1akvD+Jolt5trg7PEUPdpR3HKP/MU=
+	s=default; t=1576160679;
+	bh=zt4zx2Tkc4FSqstMSfh7OmjgJMv0ZtaNKjouWBkJT1M=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=DayxuH/KI6+VJLO13SbKlPD7L8Nf6hmX4xzj5s9SPuLOcpSh1C9pI3ddqzKCi4TvL
+	 qarkkUqHqzaxcGLuC43WHrIuq6UJnBDIbeCdWTp5mo+/gcU+Srse7SB6y15ENnV5Iq
+	 1B2ctXL4Kh5lNq3VUCNvRWTEZMVOtzbosQcXQJac=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BAF5F8026A;
-	Thu, 12 Dec 2019 15:19:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 180E8F8026F;
+	Thu, 12 Dec 2019 15:19:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFF9FF801F4; Thu, 12 Dec 2019 03:17:18 +0100 (CET)
+ id 3B650F8020C; Thu, 12 Dec 2019 08:19:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from EUR03-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr30060.outbound.protection.outlook.com [40.107.3.60])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D850FF8011E
- for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 03:17:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D850FF8011E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66AA8F800EC
+ for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 08:19:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66AA8F800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="Gzoy0jSI"
-Received: by mail-lj1-x242.google.com with SMTP id z17so380586ljk.13
- for <alsa-devel@alsa-project.org>; Wed, 11 Dec 2019 18:17:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=KdekJit4TR3IPCfvOdjWaldHsRv3CP6xyOWik6J728U=;
- b=Gzoy0jSIMfRnlkLFprOT/8bSftgaE1XGMH2S11/bQyAYAgPyGLv7UfA3to2mBC9ahw
- lasT8Xz3//jxRU/sg1UwEqg/4uO/pMXddC8R6YpL2xv3nsNj/3Y2vkY7uXyAsAgJStyQ
- hejzY/DNisbA6BelKCv50AYKV8pkdocUm84rCnjpy/22lN4Bl5cdV0ea7n3hD9dh1gf/
- 129rWL67ghxxsR7YAyw5UNsWuHCfbxHZmoweiwrnS20wIiWM5FN6Hnj9bclUIFxemkA9
- DRct4rFSvRA+zbkw7T2j7ectI//ARXOvmkDeG002BMved3WIj+FEXxsUKt0FCxl+J+KN
- LnaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=KdekJit4TR3IPCfvOdjWaldHsRv3CP6xyOWik6J728U=;
- b=GYaiwtJIoIMvPJWsTJFRvNBdnrZTJbpJD10GCt07lQaJprNzP7KTd3dvqjDywyKGX4
- ZZgxxcCBFpfyp62zz88U3Jk4k4ZpyBoRWvhpySXHa9uavVtTpghRNfsKBbq6T/NyfOUZ
- shueFrCwV3ta1ScCes5mu6pVl0m6xQvi2J74jIcmudQLqlLSU21zEBmAV1KszgBBvxXH
- IfzbImlk+/gFb8rUIwSj8xSQRZDiXO0PePClZeDzj0kFXP9xnc1Cbla+ZNnUIAOZDp4x
- SHwasf2VhG6GjTltJbtNj3U1gMi6x2n2OIeoImrrPQVHJQhnFkJwxOtzZQlFtCkL3Bxl
- /bhg==
-X-Gm-Message-State: APjAAAW28wNvnrCmhjqjDDaHYbPFHp38UEN5srnqApRhhNVJvPfbzdiy
- ndSuqq1blj960X7ffnqcV4J8Uu7j
-X-Google-Smtp-Source: APXvYqxocQ3Qzqf1VktbMSvmfBoQQJvSlcA7ebJXnc2n/qMpwM8OtMrx9qViLmWIbhcJSRtMR7Gk2w==
-X-Received: by 2002:a05:651c:111a:: with SMTP id
- d26mr3878082ljo.153.1576117032279; 
- Wed, 11 Dec 2019 18:17:12 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.googlemail.com with ESMTPSA id u21sm2041632ljl.93.2019.12.11.18.17.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 11 Dec 2019 18:17:11 -0800 (PST)
-To: Mark Brown <broonie@kernel.org>
-References: <1575600535-26877-1-git-send-email-skomatineni@nvidia.com>
- <1575600535-26877-10-git-send-email-skomatineni@nvidia.com>
- <20191209164027.GG5483@sirena.org.uk>
- <7fe879fd-dae3-1e64-1031-cd9f00e31552@gmail.com>
- <20191209204735.GK5483@sirena.org.uk>
- <560185d9-32fd-a85e-5feb-105f79b953c6@gmail.com>
- <20191210185933.GJ6110@sirena.org.uk>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <17cb9e87-e1bd-93a0-aa9c-0f30c2263ec0@gmail.com>
-Date: Thu, 12 Dec 2019 05:17:10 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
-MIME-Version: 1.0
-In-Reply-To: <20191210185933.GJ6110@sirena.org.uk>
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="DwhqQs+h"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=RRHotmC4zMtgJMsxsJ9ANRiJ85JPJD5SP6bN6m8Rk1nU8SSlNVIVaOphasEjv4aANJHASJ7Rdwrpm2ZPcH5qCG5QaKdUFVvT3xFDc+7yK122RQZvOHRUp4/PTjr7FeLd7UPTOPOFzywll2tpY6NVdiGBODZPv/ac+Lh1T99rnB8hJLjz/+QAAIuNUnehhXR6b/pPxAFNxhwma+Y024hIjdwMLj4BVRu2XjljC02pCWbSSgkWlx9tb/J+wglxVDluU8cE+MMluBDogaHkg/oY8Ahw1clbfrTYyTsJTnw/iAB2FgP3oSDOLkxC6p57PegPCxUoI+Ddla6SIddfoktD3Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d9aBIVTacYsMdaN01HP8pPUXzfZlkCetyBhNdjp4vPU=;
+ b=W9kYU+GChoy6/3xz0tCFsW47vcv9XU/GaF8eGCTO8DdC6VnyCBKZgswpGVajHTbV0SFw+wHqHwGyGNhFyDNrLIUoArO+YlGs7t8ymXAKOaAngFF0NXZDMOCkSLOMHCFnQAwYPvhyOSMQQ/RYaTEKmEIpeg8xbhwYQBm85rk/aio+6jvPazFWHSob2jztvJIG8DvHW0eCb+da8sZOthZ5Y3GRUJaquQzPeWM+2oyq1xV206lGEjG4yrTH2H/Map53uZNb+deiYo/50hxTc9437jvycpJuWF1Ruvxyt74yaFieDHxr/KWoGAHtMvUNhBwT8m74crlbJqsEEc8nsOgAzw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d9aBIVTacYsMdaN01HP8pPUXzfZlkCetyBhNdjp4vPU=;
+ b=DwhqQs+hJKBGLSC5wnLRbdnbkVB3w9vfZiAC0ZbhmTC+NXEExvspkvtl4UzfTNdtOk1bN7z/yoJG9Ud2pTrMRzhTP3bY+9RyTKEAbAc8LLqi6IKaBEm8c7OS2MA2sHvFVbmQpv+2Q0lHbjq+SzK0Zcsf87zkEVEhA5GRFxHLe/4=
+Received: from VI1PR04MB4062.eurprd04.prod.outlook.com (52.133.12.32) by
+ VI1PR04MB3023.eurprd04.prod.outlook.com (10.170.228.29) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.17; Thu, 12 Dec 2019 07:19:47 +0000
+Received: from VI1PR04MB4062.eurprd04.prod.outlook.com
+ ([fe80::20fe:3e38:4eec:ea03]) by VI1PR04MB4062.eurprd04.prod.outlook.com
+ ([fe80::20fe:3e38:4eec:ea03%7]) with mapi id 15.20.2516.018; Thu, 12 Dec 2019
+ 07:19:46 +0000
+From: Alison Wang <alison.wang@nxp.com>
+To: Marcel Ziswiler <marcel.ziswiler@toradex.com>, "igor.opaniuk@toradex.com"
+ <igor.opaniuk@toradex.com>, "festevam@gmail.com" <festevam@gmail.com>,
+ "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
+ <lgirdwood@gmail.com>, "oleksandr.suvorov@toradex.com"
+ <oleksandr.suvorov@toradex.com>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Thread-Topic: [PATCH] ASoC: sgtl5000: Revert "ASoC: sgtl5000: Fix of unmute
+ outputs on probe"
+Thread-Index: AQHVsLyIRDFbzLs7vEuxsFkXl6DgTA==
+Date: Thu, 12 Dec 2019 07:19:46 +0000
+Message-ID: <20191212071847.45561-1-alison.wang@nxp.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-X-Mailman-Approved-At: Thu, 12 Dec 2019 15:19:28 +0100
-Cc: mark.rutland@arm.com, alsa-devel@alsa-project.org, pgaikwad@nvidia.com,
- lgirdwood@gmail.com, spujar@nvidia.com, mperttunen@nvidia.com,
- thierry.reding@gmail.com, josephl@nvidia.com, linux-clk@vger.kernel.org,
- mmaddireddy@nvidia.com, daniel.lezcano@linaro.org, krzk@kernel.org,
- jonathanh@nvidia.com, mturquette@baylibre.com, devicetree@vger.kernel.org,
- arnd@arndb.de, markz@nvidia.com, alexios.zavras@intel.com, robh+dt@kernel.org,
- tiwai@suse.com, linux-tegra@vger.kernel.org, horms+renesas@verge.net.au,
- tglx@linutronix.de, allison@lohutok.net, sboyd@kernel.org,
- gregkh@linuxfoundation.org, pdeschrijver@nvidia.com,
- linux-kernel@vger.kernel.org, vidyas@nvidia.com, Jisheng.Zhang@synaptics.com,
- Sowjanya Komatineni <skomatineni@nvidia.com>
-Subject: Re: [alsa-devel] [PATCH v3 09/15] ASoC: tegra: Add fallback for
-	audio mclk
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: HK2PR02CA0149.apcprd02.prod.outlook.com
+ (2603:1096:202:16::33) To VI1PR04MB4062.eurprd04.prod.outlook.com
+ (2603:10a6:803:40::32)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=alison.wang@nxp.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-mailer: git-send-email 2.17.1
+x-originating-ip: [119.31.174.73]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 46bd6296-15a6-41a9-8d44-08d77ed3aae0
+x-ms-traffictypediagnostic: VI1PR04MB3023:|VI1PR04MB3023:|VI1PR04MB3023:
+x-ld-processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <VI1PR04MB302364BC9B193283C54078F2F4550@VI1PR04MB3023.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:356;
+x-forefront-prvs: 0249EFCB0B
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(136003)(366004)(39860400002)(376002)(396003)(199004)(189003)(52116002)(66446008)(5660300002)(316002)(110136005)(6506007)(2906002)(4326008)(86362001)(66946007)(36756003)(66476007)(66556008)(64756008)(186003)(44832011)(26005)(2616005)(8676002)(6512007)(8936002)(71200400001)(6486002)(81156014)(81166006)(1076003)(478600001);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR04MB3023;
+ H:VI1PR04MB4062.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 9cGBAOtMIlMP3R1QkZ0ifqKRsj6xXzP/apxaHTZRbJ3Ks2QEVRg0nk6cjqSFyc8l9Q3LtTjMTMAG7C90HCtZWUAwfpo/m/I+Ts7yYdNwS+QGBgmJoeRazMGzh8gr2KfGxOGAQQYy81zW8kmYuPS3Qfj4axnA/lPkEAbFLAdh0pyCOAFqoCwL5KhfHJ1bcIL5zrjNXtlz5zV8mzshctiz/9Ywnwqbdmlix4aTxz9e4vF1WaB8+RrZHcM6Z2iebf7T58Yq9uH2c3lqaRAiMbuaZsPzDWtLzRJ+aG5/nv96l8B+wGQ8SB1EheqtSssT3qqKtE1I6laMV+V0xX+XSTawzZ13+VctQ5rRj7DxG3g+LOHsyriICc+POffJFZVQ3k3SDl3PywNQbCFKOvBkFTX+75ibZ+QTKnRYDwIia5MBRMWGUnGumxeaULYtwikCG6yf
+MIME-Version: 1.0
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46bd6296-15a6-41a9-8d44-08d77ed3aae0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Dec 2019 07:19:46.8605 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LrQJ1DkNLq44XWw5XOIIB1S04BmfJul4822A9+JmH39SSv/l0UyjyaR/L6wmxe4/RN/IgQvNsGNv70FVX6NZ0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB3023
+X-Mailman-Approved-At: Thu, 12 Dec 2019 15:19:27 +0100
+Cc: Alison Wang <alison.wang@nxp.com>
+Subject: [alsa-devel] [PATCH] ASoC: sgtl5000: Revert "ASoC: sgtl5000: Fix of
+ unmute outputs on probe"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,28 +131,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MTAuMTIuMjAxOSAyMTo1OSwgTWFyayBCcm93biDQv9C40YjQtdGCOgo+IE9uIFR1ZSwgRGVjIDEw
-LCAyMDE5IGF0IDA5OjI0OjQzUE0gKzAzMDAsIERtaXRyeSBPc2lwZW5rbyB3cm90ZToKPiAKPj4g
-SW4gc29tZSBjYXNlcyBpdCBjb3VsZCBiZSBwYWluZnVsIHRvIG1haW50YWluIGRldmljZS10cmVl
-IGNvbXBhdGliaWxpdHkKPj4gZm9yIHBsYXRmb3JtcyBsaWtlIE5WSURJQSBUZWdyYSBTb0NzIGJl
-Y2F1c2UgaGFyZHdhcmUgd2Fzbid0IG1vZGVsZWQKPj4gY29ycmVjdGx5IGZyb20gdGhlIHN0YXJ0
-Lgo+IAo+PiBJIGFncmVlIHRoYXQgcGVvcGxlIHNob3VsZCB1c2UgcmVsZXZhbnQgZGV2aWNlLXRy
-ZWVzLiBJdCdzIHF1aXRlIGEgbG90Cj4+IG9mIGhhc3NsZSB0byBjYXJlIGFib3V0IGNvbXBhdGli
-aWxpdHkgZm9yIHBsYXRmb3JtcyB0aGF0IGFyZSBwZXJtYW5lbnRseQo+PiBpbiBhIGRldmVsb3Bt
-ZW50IHN0YXRlLiBJdCBjb3VsZCBiZSBtb3JlIHJlYXNvbmFibGUgdG8gZ28gdGhyb3VnaCB0aGUK
-Pj4gcGFpbiBpZiBrZXJuZWwgcmVxdWlyZWQgYSBmdWxsLWZlYXR1cmVkIGRldmljZSB0cmVlIGZv
-ciBldmVyeSBTb0MgZnJvbQo+PiB0aGUgc3RhcnQuCj4gCj4gV2UgYWJzb2x1dGVseSBzaG91bGQg
-c3VwcG9ydCB0aGUgbmV3ZXIga2VybmVsIHdpdGggb2xkZXIgZGV2aWNlIHRyZWUKPiBjYXNlLCB3
-aGF0J3MgbGVzcyBjbGVhciB0byBtZSBpcyB0aGUgbmV3IGRldmljZSB0cmVlIHdpdGggb2xkIGtl
-cm5lbAo+IHdoaWNoIGlzIGFwcGx5aW5nIExUUyB1cGRhdGVzIGNhc2UuICBUaGF0IGRvZXMgc2Vl
-bSBpbmNyZWRpYmx5Cj4gc3BlY2lhbGlzdCAtIEknZCBob25lc3RseSBuZXZlciBoZWFyZCBvZiBw
-ZW9wbGUgZG9pbmcgdGhhdCBiZWZvcmUgdGhpcwo+IHRocmVhZC4KPiAKClRoZXJlIHdhcyBhIHBy
-ZWNlZGVudCBpbiB0aGUgcGFzdCBbMV0uCgpbMV0gaHR0cHM6Ly9sa21sLm9yZy9sa21sLzIwMTgv
-OC8yMC80OTcKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-QWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBz
-Oi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+This reverts commit 631bc8f0134ae9620d86a96b8c5f9445d91a2dca.
+
+In commit 631bc8f0134a, snd_soc_component_update_bits is used instead of
+snd_soc_component_write. Although EN_HP_ZCD and EN_ADC_ZCD are enabled
+in ANA_CTRL register, MUTE_LO, MUTE_HP and MUTE_ADC bits are remained as
+the default value. It causes LO, HP and ADC are all muted after driver
+probe.
+
+The patch is to revert this commit, snd_soc_component_write is still
+used and MUTE_LO, MUTE_HP and MUTE_ADC are set as zero (unmuted).
+
+Signed-off-by: Alison Wang <alison.wang@nxp.com>
+---
+ sound/soc/codecs/sgtl5000.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index aa1f963..0b35fca 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -1458,7 +1458,6 @@ static int sgtl5000_probe(struct snd_soc_component *component)
+ 	int ret;
+ 	u16 reg;
+ 	struct sgtl5000_priv *sgtl5000 = snd_soc_component_get_drvdata(component);
+-	unsigned int zcd_mask = SGTL5000_HP_ZCD_EN | SGTL5000_ADC_ZCD_EN;
+ 
+ 	/* power up sgtl5000 */
+ 	ret = sgtl5000_set_power_regs(component);
+@@ -1486,8 +1485,9 @@ static int sgtl5000_probe(struct snd_soc_component *component)
+ 	       0x1f);
+ 	snd_soc_component_write(component, SGTL5000_CHIP_PAD_STRENGTH, reg);
+ 
+-	snd_soc_component_update_bits(component, SGTL5000_CHIP_ANA_CTRL,
+-		zcd_mask, zcd_mask);
++	snd_soc_component_write(component, SGTL5000_CHIP_ANA_CTRL,
++			SGTL5000_HP_ZCD_EN |
++			SGTL5000_ADC_ZCD_EN);
+ 
+ 	snd_soc_component_update_bits(component, SGTL5000_CHIP_MIC_CTRL,
+ 			SGTL5000_BIAS_R_MASK,
+-- 
+2.9.5
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

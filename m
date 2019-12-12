@@ -2,89 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D23011D4E3
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 19:07:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FE5E11D60D
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 19:43:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4BB11700;
-	Thu, 12 Dec 2019 19:06:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4BB11700
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3758116EE;
+	Thu, 12 Dec 2019 19:42:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3758116EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576174055;
-	bh=ZbQ+Mlj1mfwKPBO7mHt2eDqZ0MRssvimzRorn5+Tkes=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1576176218;
+	bh=R+Kk70/sV0RWbWhAigmFxL9qYDPaRKnrGWCh2vJ6atI=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pkou4GxyBeDz7LzZtvtWP89Z6YVhjkCHk0L2tnTU2YyvPTgJIK8cHQv351i34F68g
-	 FinPwEKMyNoYNAsCT8DuB+gSpMPWW7y2axizUQndfQxSJUjXAgMlanRMOoC+/a0OS9
-	 jZnmNWi+gjg9tXlF9Or8tdgvayEJVMXez6eXHgCw=
+	b=tR8FpV+gCN3H3pVdIVT6OMNKmdj/zqApRNZGpAIEk8fzookwj84uJxeTNHKuaZ0oz
+	 mR2tteQ+RVGXj2fEtNug95J5iPJX6PFcIZiMYpCic0qtLyLU8lEd6+JJ+iw/7Vm6Nu
+	 eyV6BV1p3YHjN/b97H4fuSkTIOTgVS687bhecCb0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2ED23F801D8;
-	Thu, 12 Dec 2019 19:05:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CF3BF801D8;
+	Thu, 12 Dec 2019 19:41:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 83A57F8020C; Thu, 12 Dec 2019 19:05:50 +0100 (CET)
+ id A7B30F8020C; Thu, 12 Dec 2019 19:41:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- autolearn=disabled version=3.4.0
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,MIME_QP_LONG_LINE,SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A198F800EC
- for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 19:05:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A198F800EC
+ by alsa1.perex.cz (Postfix) with ESMTPS id AFC2FF800EC
+ for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 19:41:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFC2FF800EC
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="uGZeFuek"
-Received: by mail-io1-xd42.google.com with SMTP id b10so2980379iof.11
- for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 10:05:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=h1PVTShbmTWPWoLzVKljKHRYw3rcqIPLwvlis0wSDhc=;
- b=uGZeFuekrv7Zc4MOO091PIYsKXyeF/FwZfUf/VmtefCFnn3KJuevQ9b60DYdCvVANm
- YBcNPL8S18NsVx5OehjETWmnBCr9ClopD0+tYCggVhw8nb5V/aDb9hTxM2FGbaI/8EZa
- YVt1Lsdqbw8s8P8O9f+owG//TiP/QV8bqIl1MIu/BbdJi7vFA8tZCGDu1tZ26OZs5PQm
- ipJRSK7FQGpgqpAIpMdteIJFpm0yMC8nXzV4V8+JBoLubSmQvU74ibd69tlx2GsfMxxs
- rg2dremhaK3wWiRDM0WvEBj4Ew10byui7WDibVI5AF3QfeRZ6MD/RDo4J9kysPzbDFAn
- D/Ng==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="jNYnQoHT"
+Received: by mail-wr1-x444.google.com with SMTP id c14so3860316wrn.7
+ for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 10:41:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:mime-version:message-id:in-reply-to
+ :references:user-agent:content-transfer-encoding;
+ bh=72YajA1rnf1+0GYcRZg+w7DqemoBrj7bzh2eLFUJiCE=;
+ b=jNYnQoHT9D/iVwOUAeI1nYXpjIriEoi9Dw5l2o9FH2p/aEb+0YBuSa9axL/yreKfaq
+ di+zCTiZj7gbHshdS5Y93GwwfD+rw3u9hwsdKLLlXyPe6zNVmCpaM6zIgdU+T61xCM3c
+ QYv9CuD4Q6beHt6nMaR8GNpKLwk7obh9YzSAUv8VeCaG7hmhxaanGMcrSYbV7p9nQtHD
+ UVDWO+7uAryoOkuMcvyKqw2rhgfRREpsAwjdP9T4wxgCQygIN5MAaPN0Fb8g/chmATOv
+ 06WVcz23ABetfzmtG5CA+MjyvkWTR9T0uJgs9jT7ZMiv96jiGpktQluK+X/M1YQ5U8Uh
+ YVHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=h1PVTShbmTWPWoLzVKljKHRYw3rcqIPLwvlis0wSDhc=;
- b=BEu9aH/z76J55ivPi+iQol57otRZrTzFU81xPu3+NRFcS1MM5seBa1qdR/OIeSjwWi
- azn3I7iJv0bgTCXasxhEzgIEEnxCTbQCXL7Bi3hgK8BB107bZUsaVo9LXAKAmfPq5gOF
- qimlpDAca4Zzs1dLpGrFZKIyovNAtqaIoFM6Cm9wzMv11BLy/m8mgBFlhAKCW39jDHlP
- afwhgmYVRzvONEe0aMVjp+4pmMbhMECgO0ZLxBFRfXocA2hW+0CNdVeTbnXk//Q7uJhG
- ZY69AOCqwNwWrbehjp/bRDdsDWx7RtTRdouamKpmT9g7N2uNCs15EcIsWVu8xELxAtov
- Iy3Q==
-X-Gm-Message-State: APjAAAUih4guRq74A5gwT81pJoyvydk7gDxIKIZFLqUbhZGFO/A7rJQM
- /a8v49PTDaJVH9cdu3Ae674wrw/2T72BR3wx8t4Eaw==
-X-Google-Smtp-Source: APXvYqwk0AUqlLisz5L1ubxtjt4aBWDgQPfRFolNYD7szCHBfjyDpPgFqHnAhng0q0VqeOrf2zrZi/b9oaSoCMmcH0M=
-X-Received: by 2002:a5d:9953:: with SMTP id v19mr4153981ios.118.1576173945200; 
- Thu, 12 Dec 2019 10:05:45 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:mime-version:message-id
+ :in-reply-to:references:user-agent:content-transfer-encoding;
+ bh=72YajA1rnf1+0GYcRZg+w7DqemoBrj7bzh2eLFUJiCE=;
+ b=f6Qt1KUz/tZr6z5oP72SXT5LY4K1AXedPaxLy/gYw+v0CZX6baEeqztIRZAwIe3rCU
+ ico+DLKjcASbQTDOidIxXwNeecjKE+/bQAtb+Gi2GL3iWX5c23Qrn0V6d8+iewfGZnby
+ k46biwiBKCNiLEP9vPtNrpFxALRLVYkjcE49oUW11n49E+EXPu6LMuhJl/2M6PLtonxG
+ +iKL1tMIFP7jriCEXxNJ0b0tPZ6DPpjlmOPa8GVNBBi6RYe7CZD9fQABphJyFFHxN/Ci
+ 8FdwPjHMwRimSxbNtr6KIIZtylXtQYfUTnyOodDCNieLGhYfzhhUGz8b9n+1mf/FYM6J
+ EmTg==
+X-Gm-Message-State: APjAAAXCeerAmZhNjtsb1ja8EqAA2RopA7jCA5SJI608zvtqCTCzS3OM
+ 0QtWAKJAxosZjC7OXbRYbtg=
+X-Google-Smtp-Source: APXvYqx8ZThmxV87EE0UzwxMrK2+QTlXaMc9wq2IkRJkHgaXl++grGfqBwQvYlBMrQV4hI1I2Y1oUw==
+X-Received: by 2002:adf:f58a:: with SMTP id f10mr8246259wro.105.1576176108476; 
+ Thu, 12 Dec 2019 10:41:48 -0800 (PST)
+Received: from localhost ([5.59.90.131])
+ by smtp.gmail.com with ESMTPSA id k8sm7056412wrl.3.2019.12.12.10.41.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 12 Dec 2019 10:41:47 -0800 (PST)
+From: Vicente Bergas <vicencb@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+Date: Thu, 12 Dec 2019 19:41:46 +0100
 MIME-Version: 1.0
-References: <CGME20191128152110epcas3p2b205b4b55f6d8bfac42fcb8faaade93c@epcas3p2.samsung.com>
- <20191128151908.180871-1-tzungbi@google.com>
- <8aceb9ec-aa6e-1fa4-cee9-e22084c141e8@samsung.com>
-In-Reply-To: <8aceb9ec-aa6e-1fa4-cee9-e22084c141e8@samsung.com>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Fri, 13 Dec 2019 02:05:32 +0800
-Message-ID: <CA+Px+wXPa_cwdZUQfCx4jAhhj4Q9b7bNABUGazLKOJ7U5ae-mA@mail.gmail.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Dylan Reid <dgreid@google.com>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: max98090: save and restore SHDN
- when changing sensitive registers
+Message-ID: <8dec2d95-f483-44a9-8223-0f8f3de33238@gmail.com>
+In-Reply-To: <5708082a-680f-4107-aaf8-a39d76037d77@gmail.com>
+References: <5708082a-680f-4107-aaf8-a39d76037d77@gmail.com>
+User-Agent: Trojita
+Cc: alsa-devel@alsa-project.org, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ linux-rockchip@lists.infradead.org, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel]
+	=?iso-8859-1?q?WARNING=3A_CPU=3A_3_PID=3A_1_at_=5F?=
+	=?iso-8859-1?q?=5Fflush=5Fwork=2Eisra=2E47+0x22c/0x248?=
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,59 +100,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 12, 2019 at 10:09 PM Marek Szyprowski
-<m.szyprowski@samsung.com> wrote:
-> -> #1 (&card->controls_rwsem){++++}:
->         snd_ctl_add_replace+0x3c/0x84
->         dapm_create_or_share_kcontrol+0x24c/0x2e0
->         snd_soc_dapm_new_widgets+0x308/0x594
->         snd_soc_bind_card+0x80c/0xac8
->         devm_snd_soc_register_card+0x34/0x6c
->         asoc_simple_probe+0x244/0x4a0
->         platform_drv_probe+0x6c/0xa4
->         really_probe+0x200/0x490
->         driver_probe_device+0x78/0x1f8
->         bus_for_each_drv+0x74/0xb8
->         __device_attach+0xd4/0x16c
->         bus_probe_device+0x88/0x90
->         deferred_probe_work_func+0x3c/0xd0
->         process_one_work+0x22c/0x7c4
->         worker_thread+0x44/0x524
->         kthread+0x130/0x164
->         ret_from_fork+0x14/0x20
->         0x0
-A key observation here is: the card registration got deferred.
-
->
-> -> #0 (&card->dapm_mutex){+.+.}:
->         lock_acquire+0xe8/0x270
->         __mutex_lock+0x9c/0xb18
->         mutex_lock_nested+0x1c/0x24
->         max98090_shdn_save+0x1c/0x28
->         max98090_put_enum_double+0x20/0x40
->         snd_ctl_ioctl+0x190/0xbb8
->         do_vfs_ioctl+0xb0/0xab0
->         ksys_ioctl+0x34/0x5c
->         ret_fast_syscall+0x0/0x28
->         0xbe9094dc
-And this is an ioctl( ) on a control (e.g. controlC0).
-
-I have no enough resources to test and trace the code temporarily.
-But is it possible:
-- snd_card_new( ) succeed in snd_soc_bind_card( ), so that userspace
-can see the control
-- code in later snd_soc_bind_card( ) decided to defer the probe
-- soc_cleanup_card_resources( ) may forget to clean the control?  (not
-sure about this)
-Then, when the card is instantiating next time, some userspace program
-tries to ioctl( ) to get the deadlock possibility and the NULL
-dereference.
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVGh1cnNkYXksIERlY2VtYmVyIDEyLCAyMDE5IDEyOjA5OjIxIEFNIENFVCwgVmljZW50ZSBC
+ZXJnYXMgd3JvdGU6Cj4gSGksCj4gc2luY2UgdjUuNS1yYzEgZm91ciBlcXVhbCBjb25zZWN1dGl2
+ZSB0cmFjZXMgYXBwZWFyZWQgdGhhdCBzZWVtIHJlbGF0ZWQgdG8KPiByb2NrY2hpcCBzb3VuZC4g
+QXMgaSB3YXNuJ3Qgc3VyZSB0byB3aG9tIHNlbnQgdGhlIHJlcG9ydCBqdXN0IGFkZGVkCj4gZXZl
+cnlib2R5IGZyb20KPiAuL3NjcmlwdHMvZ2V0X21haW50YWluZXIucGwgc291bmQvc29jL3JvY2tj
+aGlwL3JrMzM5OV9ncnVfc291bmQuYwo+IHdoaWNoIGlzIHRoZSBmaWxlIGNvbnRhaW5nIG9uZSBv
+ZiB0aGUgZnVuY3Rpb25zIGluIHRoZSB0cmFjZS4KPgo+IEJ5IHRoZSB3YXksIHNvdW5kIHdvcmtz
+IGZpbmUuIEFmdGVyIGFsbCB0cmFjZXMsIHRoZXJlIGlzIHRoaXMgbWVzc2FnZSB0aGF0Cj4gY291
+bGQgYWxzbyBiZSByZWxhdGVkOgo+IFsgICAgMC42MjUzNTRdIGRhNzIxOSA4LTAwMWE6IFVzaW5n
+IGRlZmF1bHQgREFJIGNsayBuYW1lczogCj4gZGE3MjE5LWRhaS13Y2xrLCBkYTcyMTktZGFpLWJj
+bGsKPgo+IFJlZ2FyZHMsCj4gIFZpY2VudGUuCgpQbGVhc2UsIGlnbm9yZSB0aGlzIGVtYWlsLiBU
+aGUgaXNzdWUgaGFzIGFscmVhZHkgYmVlbiBzb2x2ZWQgd2l0aApodHRwczovL2dpdC5rZXJuZWwu
+b3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC9icm9vbmllL3NvdW5kLmdpdC9jb21taXQvP2g9
+Zm9yLTUuNSZpZD00YmYyZTM4NWFhNTljMmZhZTVmODgwYWEyNWNmZDJiNDcwMTA5MDkzCgpSZWdh
+cmRzLAogIFZpY2Vuw6cuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5v
+cmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNh
+LWRldmVsCg==

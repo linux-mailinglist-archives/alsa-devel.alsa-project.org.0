@@ -2,58 +2,129 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98A1411D043
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 15:55:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB28111D0A0
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 16:13:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC66216F0;
-	Thu, 12 Dec 2019 15:54:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC66216F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6150F16F5;
+	Thu, 12 Dec 2019 16:12:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6150F16F5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576162523;
-	bh=qUOpyEFVwKp5c2seOir2AF+LnbEHJHM5oErmWETGZDM=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576163597;
+	bh=N3YBrwEGsSjbCqv7wOjmFD5Tx5g20c6IknAkMdF46rI=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=QGMFnA65aD9TlX8LJdgE4Cl6RyVl1peB3xN24wh0HxeRf7iop3CniDGDxORZFeabK
-	 u2CJ6FOmf5Kc4ugKm3I3fft9p76U75FhIfole4gl2sJfiAqtviLUgllP/2on+CVqqB
-	 Aonb3XC2uAqvYBdQEpPEmePAYouYsr+N4um9qrVo=
+	b=Yq2JtgzIKkIklNfkaxjP1C1rEPjfI2ZGZ42lUGFpUhfgAZbsrrMgwm3gHNFa/Swfw
+	 HqN9O6yodwMZ/RGxzTWnmZNcBLdgHSwdR8PD/oiATPYgnHW0d5AdAj9PYPyJL8Fgw8
+	 zXjQ4qbLIWkFM3JoTpcPx8XAzTo5NMcs2gxFaZqU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDBA2F800EC;
-	Thu, 12 Dec 2019 15:53:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE0B6F801D8;
+	Thu, 12 Dec 2019 16:11:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5AC8CF8020C; Thu, 12 Dec 2019 15:53:38 +0100 (CET)
+ id 85E34F8020C; Thu, 12 Dec 2019 16:11:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C96E4F800EC
- for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 15:53:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C96E4F800EC
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AEE1CDA7;
- Thu, 12 Dec 2019 06:53:32 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2E5B03F6CF;
- Thu, 12 Dec 2019 06:53:32 -0800 (PST)
-Date: Thu, 12 Dec 2019 14:53:30 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jeff Chang <richtek.jeff.chang@gmail.com>
-Message-ID: <20191212145330.GC4310@sirena.org.uk>
-References: <1576152740-11979-1-git-send-email-richtek.jeff.chang@gmail.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HTML_MESSAGE,SPF_HELO_PASS,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from EUR02-AM5-obe.outbound.protection.outlook.com
+ (mail-eopbgr00074.outbound.protection.outlook.com [40.107.0.74])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3FDFEF80089
+ for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 16:11:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FDFEF80089
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="r6AngJXb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=oFQkA2r70DYjpKtLHGpPfsJyFoSxQ98e+raGFbRjsFbmkCwDKhquKiDWDRFc0xISvgIQ+dKUmvdCDx6i+agxRR7+qNx7eon7AflcOINWOA+BpVh1XD+H7H0aiW0umkafFqqb4nABwlSPvgad4bRJ45WX3lKWLj4/xbWUNztkeY+SEwuDPryYjVMod9j7HXe7kXxj0zTGpJPdefU5mqkYCZJtunG4h+6UAHLzPIcEu7T+QD6/Uh/qxaxQJHP5QA05F7gbvMCW8yFWq6XI0Tt7C2wNrpSrsQUxPNxuwrTaMmThLr4AZFHLn0xK1/W5qts4TUvAPxsazM7YCfeIQbgdjg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NQxR2DrpnoE0P+8pbX2YRQ+BLw+gXVeGiupicA2EdsU=;
+ b=McNJtmPJh9cWTNj8rFZjg2KYEM2UeK55aEPbjzzREOPPjXCBtP5eBMyl7GVex9ASBoV60IkA09HXzi3If5JzXmXHlBYF6PFXKQJ4VERGwgHqMbH/eWtE2KGHSrvmI5E93sUjWIWjIAPt2aaq3cNco9DQ5o7SYE63JqCs8P9nJzgbFxwxFsoLStxdCqU3MTEgICe468+y2hP02RyF+/MADc46CdFuxBzRIdYTcG+oBkTO6Z5DOijfP2A4AkUgTvDEVIJZIKlLN29TnV90aTdm0ruwaiLQWNSJOMELZy3HhndMlweIQoYy2YLZZVwen3yXTPch5b25/lppHHKyNbTRBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NQxR2DrpnoE0P+8pbX2YRQ+BLw+gXVeGiupicA2EdsU=;
+ b=r6AngJXbCwOMK7Dg+AHI+4ZyIS/+gWwIDR0/VTxcNmv2GznXsPCH4avjUT9XSlG2UmqD4aijmxnl9PIYOEcCKi5Sl/+vmoNMbpLuxmHBBcgVN38qJJAnZfOrNW2PGSZPI2UrC23U/sAD8GZA+H/HK7X9uowvU5BnMIY19ZnH/4g=
+Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com (52.134.16.147) by
+ VI1PR0402MB3565.eurprd04.prod.outlook.com (52.134.9.10) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2538.18; Thu, 12 Dec 2019 15:11:24 +0000
+Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com
+ ([fe80::453:3c87:9a9:d1ad]) by VI1PR0402MB3839.eurprd04.prod.outlook.com
+ ([fe80::453:3c87:9a9:d1ad%4]) with mapi id 15.20.2516.018; Thu, 12 Dec 2019
+ 15:11:24 +0000
+From: Daniel Baluta <daniel.baluta@nxp.com>
+To: Alison Wang <alison.wang@nxp.com>, "broonie@kernel.org"
+ <broonie@kernel.org>
+Thread-Topic: [alsa-devel] [EXT] Re: [PATCH] ASoC: sgtl5000: Revert "ASoC:
+ sgtl5000: Fix of unmute outputs on probe"
+Thread-Index: AQHVsLyIRDFbzLs7vEuxsFkXl6DgTKe2NokAgAAA1bCAAAyIYIAABwsAgAAh+quAAC5xAA==
+Date: Thu, 12 Dec 2019 15:11:24 +0000
+Message-ID: <0705e7e703b9ff110ad9465ee9e06c9db76fd998.camel@nxp.com>
+References: <20191212071847.45561-1-alison.wang@nxp.com>
+ <CAGgjyvHHzPWjRTqxYmGCmk3qa6=kOezHywVDFomgD6UNj-zwpQ@mail.gmail.com>
+ <VI1PR04MB40627CDD5F0C17D8DCDCFFE2F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
+ <VI1PR04MB4062C67906888DA8142C17E1F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
+ <CAGgjyvGAjx1SV=K66AM24DxMTA_sAF2uhhDw5gXCFTGNZi8E7Q@mail.gmail.com>
+ <VI1PR04MB40620DD55D5ED0FDC3E94C2BF4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
+ <20191212122318.GB4310@sirena.org.uk>
+In-Reply-To: <20191212122318.GB4310@sirena.org.uk>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=daniel.baluta@nxp.com; 
+x-originating-ip: [89.37.124.34]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: d87bdf34-29a9-4af4-b7c2-08d77f158df0
+x-ms-traffictypediagnostic: VI1PR0402MB3565:|VI1PR0402MB3565:|VI1PR0402MB3565:
+x-ld-processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <VI1PR0402MB35657DCDF12F3CFA88118F9FF9550@VI1PR0402MB3565.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:1265;
+x-forefront-prvs: 0249EFCB0B
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(136003)(396003)(376002)(346002)(366004)(39860400002)(189003)(199004)(71200400001)(6506007)(4326008)(5660300002)(6486002)(110136005)(54906003)(316002)(4744005)(86362001)(26005)(81166006)(8936002)(81156014)(4001150100001)(8676002)(2616005)(66446008)(64756008)(2906002)(478600001)(76116006)(36756003)(186003)(66946007)(91956017)(66556008)(66476007)(6512007)(44832011)(99106002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR0402MB3565;
+ H:VI1PR0402MB3839.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: +yW+6zGZI2NMAG9oAMXB2HDijHObklxKrbruK1cWTsrxH3FiapZTOjzg0BxoC93Cj1t1S3mJBwazyW3+R6HPMX7sxqRjAifTE8xWkwrrQbbpFauAf9ParBtbMJwHVQJlUTKoACgV8lAEtklb6bvXomvUg72R9lwRCdKf/Wx/e1ce31nYRdKrJW0ANkV5PG3YaPkB9d8cbBPmDQ7Tpb55iMKZYnmGyX/L/VmNbXRk+doYN4wXU2OF3YUl351DvCJheIDn2W+rTT2Igs38pN5zMOo094p/IOWZ/+6HIUsnnDHLkCq62jI3S9ONrCELtdu8qbOhwsjsz68bG6qFP9xDQHEtJFc9QLbVPvgMAKH6V8IhWch4ad4qSqXdZpo7vUn5ak+h8shBStOCPLVps8QJDlSIaqYFTaL2HGEtbZM8ZLWdI9pUF/d1qA7HR99kgQtQdoBXjvhNym3vVQOfpbRCx0Wpbm4fIb8/bnMD8KQUFkebXc4Px2KoI5CqAC17PN6a
 MIME-Version: 1.0
-In-Reply-To: <1576152740-11979-1-git-send-email-richtek.jeff.chang@gmail.com>
-X-Cookie: We have DIFFERENT amounts of HAIR --
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, jeff_chang@richtek.com, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: Add MediaTek MT6660 Speaker Amp
-	Driver
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d87bdf34-29a9-4af4-b7c2-08d77f158df0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Dec 2019 15:11:24.6869 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YVBWRUSvxx1i8p8KGOZpB2Mj3H3THhCzLbUECxLfgBFXUpLaBBlfWfRPp1QkLhy4NzgdsGxVBhrEDwCn1R7K6g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3565
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "igor.opaniuk@toradex.com" <igor.opaniuk@toradex.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "oleksandr.suvorov@toradex.com" <oleksandr.suvorov@toradex.com>,
+ "festevam@gmail.com" <festevam@gmail.com>
+Subject: Re: [alsa-devel] [EXT] Re: [PATCH] ASoC: sgtl5000: Revert "ASoC:
+ sgtl5000: Fix of unmute outputs on probe"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,191 +137,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0700892921981797468=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, 2019-12-12 at 12:23 +0000, Mark Brown wrote:
+On Thu, Dec 12, 2019 at 10:46:31AM +0000, Alison Wang wrote:
 
---===============0700892921981797468==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gr/z0/N6AeWAPJVB"
-Content-Disposition: inline
+> We tested this standard solution using gstreamer and standard ALSA
+> tools like aplay, arecord and all these tools unmute needed blocks
+> successfully.
 
+> [Alison Wang] I am using aplay. Do you mean I need to add some parameters for aplay or others to unmute the outputs?
 
---gr/z0/N6AeWAPJVB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Alison,
 
-On Thu, Dec 12, 2019 at 08:12:20PM +0800, Jeff Chang wrote:
-
-> sense, which are able to be monitored via DATAO through proper
->=20
-> ---
->=20
-> [PATCH v2] :
-> 	1. remove unnecessary space from commit message
-> 	2. add Signed-off-by info
->=20
-> Signed-off-by: Jeff Chang <richtek.jeff.chang@gmail.com>
-> ---
-
-You should place the Signed-off-by before the first --- as covered by
-submitting-patches.rst.  Please, slow down a bit before resending and
-make sure you've checked what you're doing thoroughly.  Look at what
-you're sending and how it compares to what others are sending.
-
-> +config SND_SOC_MT6660
-> +	tristate "Mediatek MT6660 Speaker Amplifier"
-> +	depends on I2C
-> +	select CRC32
-> +	select CRYPTO_SHA256
-> +	select CRYTO_RSA
-> +	help
-
-These selects of crypto stuf appear entirely unrelated to anything in
-the driver?
-
-> +++ b/sound/soc/codecs/mt6660.c
-> @@ -0,0 +1,1063 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (c) 2019 MediaTek Inc.
-> + */
-
-Please make the entire comment a C++ one so things look more
-intentional.
-
-> +static int mt6660_dbg_io_write(void *drvdata, u16 reg,
-> +			       const void *val, u16 size)
-> +{
-> +	struct mt6660_chip *chip =3D (struct mt6660_chip *)drvdata;
-> +	int reg_size =3D mt6660_get_reg_size(reg);
-> +	int i =3D 0;
-> +	unsigned int regval =3D 0;
-> +	u8 *_val =3D (u8 *)val;
-
-This is duplicating standard regmap functionality.
-
-> +static bool mt6660_volatile_reg(struct device *dev, unsigned int reg)
-> +{
-> +	return true;
-> +}
-
-There's no need to do this, there's no cache configured.
-
-> +static unsigned int mt6660_component_io_read(
-> +	struct snd_soc_component *component, unsigned int reg)
-> +{
-> +	struct mt6660_chip *chip =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	ret =3D regmap_read(chip->regmap, reg, &val);
-> +	if (ret < 0) /* ret success -> >=3D 0, fail -> < - */
-> +		return ret;
-> +	pr_err("%s val =3D 0x%x\n", __func__, val);
-> +	return val;
-> +}
-
-This function appears to be redunddant, ASoC has wrappers for I/O on
-components, same for writes.
-
-> +static int data_debug_show(struct seq_file *s, void *data)
-> +{
-> +	struct dbg_info *di =3D s->private;
-> +	struct dbg_internal *d =3D &di->internal;
-
-regmap has standard support for dumping the register map via debugfs, no
-need to write your own.  You should be able to just remove all the
-debugfs code.
-
-> +/*
-> + * MT6660 Generic Setting make this chip work normally.
-> + * it is tuned by Richtek RDs.
-> + */
-> +static const struct codec_reg_val generic_reg_inits[] =3D {
-> +	{ MT6660_REG_WDT_CTRL, 0x80, 0x00 },
-> +	{ MT6660_REG_SPS_CTRL, 0x01, 0x00 },
-> +	{ MT6660_REG_AUDIO_IN2_SEL, 0x1c, 0x04 },
-
-The writes to reserved registers should be fine but things like this
-which looks like it's configuring the input path should just be left at
-the chip default, we don't want to be configuring for particular boards
-since the same driver will be used for every board with the chip.
-
-> +	{ MT6660_REG_HPF1_COEF, 0xffffffff, 0x7fdb7ffe },
-> +	{ MT6660_REG_HPF2_COEF, 0xffffffff, 0x7fdb7ffe },
-
-Similarly here.
-
-> +static int mt6660_component_init_setting(struct snd_soc_component *compo=
-nent)
-> +{
-> +	int i, len, ret;
-> +	const struct codec_reg_val *init_table;
-> +
-> +	pr_info("%s start\n", __func__);
-
-These pr_info() calls are going to be too noisy.
-
-> +	switch (level) {
-> +	case SND_SOC_BIAS_OFF:
-> +		ret =3D regmap_read(chip->regmap, MT6660_REG_IRQ_STATUS1, &val);
-> +		dev_info(component->dev,
-> +			"%s reg0x05 =3D 0x%x\n", __func__, val);
-> +		break;
-
-This is just making noise, it looks like there's nothing to do in this
-function at all and the above is only for debugging.  There's lots of
-these throughout the driver.
-
-> +static int mt6660_component_put_volsw(struct snd_kcontrol *kcontrol,
-> +				  struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *component =3D
-> +		snd_soc_kcontrol_component(kcontrol);
-> +	int put_ret =3D 0;
-> +
-> +	pm_runtime_get_sync(component->dev);
-> +	put_ret =3D snd_soc_put_volsw(kcontrol, ucontrol);
-> +	if (put_ret < 0)
-> +		return put_ret;
-> +	pm_runtime_put(component->dev);
-> +	return put_ret;
-> +}
-
-It would be *much* better to just use a register cache here rather than
-open code like this, and given that the device is suspended via the
-register map it is more than a little surprising that there's any need
-to do anything special here.
-
---gr/z0/N6AeWAPJVB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3yVGkACgkQJNaLcl1U
-h9AdBgf/Txq2F8UErlJS7V2ETpVBmA7z2H4huGjRBF5D9tDQD5uNbT/pA25/Oe5D
-VFt+1dRHKpk3TU3MUFiIwkZNH0UzD2MC8RmK3UvxGZP51HCE9R8SkleH8cDoSbJc
-aZqys/4lsz0DVc+qzhyuxHA2dckYOyqRTrn+4RNT1Q3reiJfYDDk5ziZRpqohril
-8e9lNqyTewpob7SrL5zUtHbn0cIGuSFt/mo6Iweocy6+J7hYMEZEBb7kd84LAhRP
-H3S3ggEEGC32CS0ez0Qdgm+tq6DF2+UGkZOU6AGk9aOgjbGoBZxvWlXTQS/qPX1C
-04OcQ5JFv5kv6Sr/okYs23KuYYQrLg==
-=2dQa
------END PGP SIGNATURE-----
-
---gr/z0/N6AeWAPJVB--
-
---===============0700892921981797468==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+You can also update your asound.state file with default state for your controls.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0700892921981797468==--

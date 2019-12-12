@@ -2,87 +2,134 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F4FF11CA0C
-	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 10:59:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07EE511CAA2
+	for <lists+alsa-devel@lfdr.de>; Thu, 12 Dec 2019 11:25:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FFAE16B8;
-	Thu, 12 Dec 2019 10:58:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FFAE16B8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9023B1667;
+	Thu, 12 Dec 2019 11:24:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9023B1667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576144755;
-	bh=4UKxoN+h+58H8wr0GNg/75BWnJhm0MSTPjRGbp9L7i4=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1576146339;
+	bh=33DxYKgHCfUxyF+4CZD4sWx0+11bxq5UZ7phkc3b380=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GQodGUH42d4mgzBaK85xOdC/3I2i3utB+I1YTbFhU0pacaATCocm+kmO4TAkPJtrm
-	 Uk//tQLjpzfxQ7WHRb39MGWLeyQOE1n2Hf4QlBjDTjQ54yySKo+1raidlAPxhLArss
-	 T5usQfvlagxnSfDYCb+dinqcJY9e2yuQgj796T84=
+	b=si5E9m5KN6wDfKoP9RoOPUG1WspuRqlqjYAF98vtpCi1EOEhzMmBrZapPUlEd0/y4
+	 Pm/lb02ZtEIx7OUa0qZAHoe+AmVDAqPWWZ3oMu9OyJP5eZtYy/6yavXPor1NC7A9KD
+	 obes2ftwKdCIBVzMWAaxg88qwT5Gl1CrbhnHlpqc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97667F8020C;
-	Thu, 12 Dec 2019 10:57:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 08A99F801D8;
+	Thu, 12 Dec 2019 11:23:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A88EF8020C; Thu, 12 Dec 2019 10:57:30 +0100 (CET)
+ id 9C48AF8020C; Thu, 12 Dec 2019 11:23:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr20130.outbound.protection.outlook.com [40.107.2.130])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14F97F80139
- for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 10:57:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14F97F80139
-Received: from mail-qt1-f169.google.com ([209.85.160.169]) by
- mrelayeu.kundenserver.de (mreue010 [212.227.15.129]) with ESMTPSA (Nemesis)
- id 1MTR6K-1iIKjZ3WX6-00TldT for <alsa-devel@alsa-project.org>; Thu, 12 Dec
- 2019 10:57:26 +0100
-Received: by mail-qt1-f169.google.com with SMTP id w47so1779099qtk.4
- for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 01:57:25 -0800 (PST)
-X-Gm-Message-State: APjAAAXaE7ZPqKIwAtwj+5CFpTavhRtooIjX9pdfZiTGqouRR1+wkI8z
- jUt18zLrvTGCPUYJk/xpEA+8+XzZ/i19PrvRzZM=
-X-Google-Smtp-Source: APXvYqySu7GXnA9SrOroD1q2eVTNcjWP56SoafCFroL7BaN9dVrcc8omb3UCvrZHcQjvG3mzebBDmgSbnzSei1XdhZo=
-X-Received: by 2002:ac8:709a:: with SMTP id y26mr6678881qto.304.1576144644683; 
- Thu, 12 Dec 2019 01:57:24 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 821ACF80139
+ for <alsa-devel@alsa-project.org>; Thu, 12 Dec 2019 11:23:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 821ACF80139
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
+ header.b="sYwqdpGr"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=ZAwEkmlduOM9lPkfGRpxiKYo7ogR2Gt9wDjkptkvPOoNEdooAuPVAXCIbtVP4PQeF0ATtOTBmNuApXDhvicPfe3WXMq+zuQ6CdcdRr3sN44G1kAV6/xmuel3oPjikDBL09Xaob73h6gc9qJNmDAX3VE6Pw6PcHQ+smr7SbsiLjDJzdqugvxP9x2FpETPZBbVRtgvk3hu64IiHZFmFmnZPwvXEZk/GDd+QaJgWkQ9F0dFNs7ZVx9hkjO4gFGn2YP4FCbI52MPuqC+u8ZV7u3IESKUcRywcrBCc3Qe/aRwIT+CaPfFk5lghJ9Ce7PyzHg6li381Nso0yWAHy2lZI9dLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lDTuJuwidxTew9MufapxdOmHT5aegh40dF4S7K2S9R0=;
+ b=hGm9xnGzE1hACHUfvt++17xgo/XquWPAZFxPv4rNWMkOzkTheQRSlthP8UgbYCPDXB8+Z7z2PQgHgDITL4Eq2oW5DC/eNtoy9T3puUAdyYwsm8B5mryx7DAR5lLgSY3teSv0fuKIz6WmkyKJO7hNXw4LZinik4TBM28lZAmD75RC0qGMtm3WKJ3qWt3cSlKKIjqhoHLEXo8mlhaR7tg/GBnigmOvyZ9T1SoqkLCa7GasWSzgbTnNVCiYzaEo9sy0FjKBruT8YMdk8V+gGsTlFcFjlRGSv7+Tl7y3vk6IjT9y+LxlAbwv43g+R8qM9boYDpMk8CtIawOh4A+SupBpAw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=toradex.com; dmarc=pass action=none header.from=toradex.com;
+ dkim=pass header.d=toradex.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lDTuJuwidxTew9MufapxdOmHT5aegh40dF4S7K2S9R0=;
+ b=sYwqdpGrsR0CFO96043M1cYl8RjfLqX9DBkNbDmFu45sf1QPmkMYxTwxhrvfyru3Oa7IhtGkkYx/3CctEpzoBPrfLZmlxuUQixmEfwjORL4lTHUq2gkGJJHPhpmyNw2LVWZ4B3cjLHGtapAfdPgS/ZoZOQtzf3bWfMFz8zSeR0g=
+Received: from AM6PR0502MB3702.eurprd05.prod.outlook.com (52.133.24.15) by
+ AM6PR0502MB3687.eurprd05.prod.outlook.com (52.133.20.17) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2516.13; Thu, 12 Dec 2019 10:23:49 +0000
+Received: from AM6PR0502MB3702.eurprd05.prod.outlook.com
+ ([fe80::859e:e6e6:4de3:55a9]) by AM6PR0502MB3702.eurprd05.prod.outlook.com
+ ([fe80::859e:e6e6:4de3:55a9%6]) with mapi id 15.20.2516.018; Thu, 12 Dec 2019
+ 10:23:49 +0000
+From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+To: Alison Wang <alison.wang@nxp.com>
+Thread-Topic: [EXT] Re: [PATCH] ASoC: sgtl5000: Revert "ASoC: sgtl5000: Fix of
+ unmute outputs on probe"
+Thread-Index: AQHVsLyIRDFbzLs7vEuxsFkXl6DgTKe2NokAgAAA1bCAAAyIYIAABwsA
+Date: Thu, 12 Dec 2019 10:23:49 +0000
+Message-ID: <CAGgjyvGAjx1SV=K66AM24DxMTA_sAF2uhhDw5gXCFTGNZi8E7Q@mail.gmail.com>
+References: <20191212071847.45561-1-alison.wang@nxp.com>
+ <CAGgjyvHHzPWjRTqxYmGCmk3qa6=kOezHywVDFomgD6UNj-zwpQ@mail.gmail.com>
+ <VI1PR04MB40627CDD5F0C17D8DCDCFFE2F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
+ <VI1PR04MB4062C67906888DA8142C17E1F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
+In-Reply-To: <VI1PR04MB4062C67906888DA8142C17E1F4550@VI1PR04MB4062.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: MN2PR04CA0017.namprd04.prod.outlook.com
+ (2603:10b6:208:d4::30) To AM6PR0502MB3702.eurprd05.prod.outlook.com
+ (2603:10a6:209:10::15)
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=oleksandr.suvorov@toradex.com; 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-gm-message-state: APjAAAUjwdopt98tYu81LdaELKL21/04+ld3VjOUpl6+jJfOGbBIuiG0
+ 5q4yR3FycN+J30lA/+Ytlo31BTpcwoULx1MFNqA=
+x-google-smtp-source: APXvYqzCKNlggHGHxjigKZmCUVgZ+cip+vMnJTOoLKhRoOGQy0ad43JDjmtQNArXx1kh3+4ZLk8QYR6o+8xZQWPIAVU=
+x-received: by 2002:a05:620a:21d4:: with SMTP id
+ h20mr6976008qka.468.1576146225713; Thu, 12 Dec 2019 02:23:45 -0800 (PST)
+x-gmail-original-message-id: <CAGgjyvGAjx1SV=K66AM24DxMTA_sAF2uhhDw5gXCFTGNZi8E7Q@mail.gmail.com>
+x-originating-ip: [209.85.222.174]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 12833b7a-0449-42d3-e659-08d77eed60c6
+x-ms-traffictypediagnostic: AM6PR0502MB3687:
+x-microsoft-antispam-prvs: <AM6PR0502MB3687880F163087683993BE96F9550@AM6PR0502MB3687.eurprd05.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6790;
+x-forefront-prvs: 0249EFCB0B
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(346002)(39850400004)(396003)(366004)(376002)(136003)(13464003)(189003)(199004)(66556008)(316002)(66476007)(66946007)(8676002)(107886003)(64756008)(52116002)(26005)(5660300002)(66446008)(44832011)(53546011)(6512007)(9686003)(4326008)(186003)(478600001)(6506007)(55446002)(2906002)(6486002)(81166006)(71200400001)(54906003)(86362001)(6862004)(81156014)(8936002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:AM6PR0502MB3687;
+ H:AM6PR0502MB3702.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: toradex.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: FHQro30ppUGYEJ0sX8l/CNlKfk9MDpP4M91yADg4oe79JsP/vvc1EnxKDH4avEzQq3x9QmrbI6hhv+sCvFUSYkDPZ3LIDmV5dmuW0N9Q4mYugsrs0LzLb3NYtZ3lb+J4ESVlTEKJPVNOufY5U3M6Gq7wvJ7kamDBu52kVhqv4IqUWwyJLTJCGmJFFKHM2Qw0QNmKr7/lFPwn2Pi4yEcH6+QOhjoEQgIMq6YNuuCPcV4NOBS5NsfY+dT9JhFsUgKuKzu/LxXYQDs9dXzoCEXzy1J6luincRu8JVxpRKzup/uOsx5ioK7QjWBc9vHQIt8V2rwtK+qRqt5u0BED3kmhVl3eOvunQOkum2d35xc8vkXNJS2wqoELrNtiUSwKRpRTXHOBEonqWLvQXkYAKX1+/SoNxBKIc96YcO6GyHq8o62UlhuIa215tyvSCf22NKxp9i9jquU/Lljrkyv/Lo35pBEUqIbQkEkBBSyw2tMzd56VRPyHDfyBwezNzXL64wkb
+x-ms-exchange-transport-forked: True
+Content-ID: <66BFCD98B6F5D94995B2F43B51E48B05@eurprd05.prod.outlook.com>
 MIME-Version: 1.0
-References: <20191211212025.1981822-1-arnd@arndb.de>
- <20191211212025.1981822-7-arnd@arndb.de>
- <0e00090ef6fcf310159d6ce23f2c92f511dd01de.camel@codethink.co.uk>
-In-Reply-To: <0e00090ef6fcf310159d6ce23f2c92f511dd01de.camel@codethink.co.uk>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Thu, 12 Dec 2019 10:57:08 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a2-5qNsy0cbxmLYfgwtbdSp4e4XXQ+gAAh0X+Kr1F-4sw@mail.gmail.com>
-Message-ID: <CAK8P3a2-5qNsy0cbxmLYfgwtbdSp4e4XXQ+gAAh0X+Kr1F-4sw@mail.gmail.com>
-To: Ben Hutchings <ben.hutchings@codethink.co.uk>
-X-Provags-ID: V03:K1:2/M9okMWxoe1dJFizDSq/WuD9hCKvzgkuVmuiGzu8YeBYDiLXdi
- hl7qxXJjlveIKyPmtHT2W1ic1LkKDnwoD+0aRC+98JNlhS9DBddURB42xbzWNPgWYElSqTv
- sk6wvfO/lzH+b/jDvEX54rcqoCSSe3t1IkGwArtXhVAAsnljCOP9kXWAjh2KFxRPXZPOeQt
- ySp70682ali0Qah4qg1oA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:iq5IgIJ3PDw=:WGNwTNdN9Twsl5e5oC2Jfz
- IwADwfB+LaL63EilPL9bt3TOl8cLklSYXf3sdmXIkPfnLbH1hFfduoWSV6pA5VALJ+t4MqwfI
- 14BonGHiLpYoV6+aQ1Ug5yjHnVKWGuxhC5gul8VEPSDFhihQuHK7nPYcJmHEdEa8XK7FLgV44
- RCghGN3TOPFwQLU0GkEODoB+n0M47YSMaFpcUABMYyjkmYCBwiSPOlChqOjuoP2W27AZEjTUC
- MkhGSPA0uu96WsxWR6yCDMXcPHnQPXxZ/TOgEMhQ5e4NjqL69xjFR7U3scQkUhBI58Xmh8nmy
- 1Lun/q4SK5zGmud2R0oZHxH4siCkt0lKfXwtpW5aW8YTGrX9DFJuOTlgtaA9Zg/vw4jOHcFeR
- UpC6+EBxD28V2mAo3FbZu/Fsb0/Gkumo3GVOtBjELzhZdPD5OtOrv5gWBogVt5pHT0ukhVPym
- O/kfvdDFsSQ/E1NiqgqtjkTNOijF5BQK8s83P4K/j8h9QDyk/5etfpRWyB/HSsGqrbtG/PMuX
- mhOMCkmqVOOsKWNg87uacWaAdTsCEzsLDNRz3vvYsAVUgeXDmfzh4X4G8XPtknr3iYkcZ8i1u
- +uSBdFLLPYvOYYqjnBlNQ61n2wAjFsnt0LHnFMSddItKwPk2HgvxWPcYI/x2PKUqIO9uLqD5x
- zqrt2cOa8lpqzJlD76ES0B0piQMUI868OYLnxKZxKeAPXqGeDmOI89t9cmZudk0OrfZTCI6qH
- KilJMZ3DnHY7fVR7WEW89BL7bd4ybPPvG+d1WneBL1RRgV3dCeryKkCcrk03XSnOW01c8tWI2
- bEEITO0C7zU/XU0wDk5tZv6uA0Ylzfq3UGnDqJiWMRbRpSFLFxtU+Sz45KYhhdHsIhw70wr2X
- MXDffzZp/VeEBmoYus4A==
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Baolin Wang <baolin.wang@linaro.org>,
- y2038 Mailman List <y2038@lists.linaro.org>, Takashi Iwai <tiwai@suse.com>,
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 12833b7a-0449-42d3-e659-08d77eed60c6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Dec 2019 10:23:49.3460 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: LHFf0OyDfGcMa98N85Zu+bzjlwK4E/pQsJpEYVRit2+d2EZ0dmSAez6WoZR4vZu966AkBz+UWxOp5mvdb3B+Ts2cGoF7smE0nwnoVfZ3ISw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM6PR0502MB3687
+Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>
-Subject: Re: [alsa-devel] [Y2038] [PATCH v7 6/9] ALSA: Avoid using timespec
-	for struct snd_timer_tread
+ Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "festevam@gmail.com" <festevam@gmail.com>
+Subject: Re: [alsa-devel] [EXT] Re: [PATCH] ASoC: sgtl5000: Revert "ASoC:
+ sgtl5000: Fix of unmute outputs on probe"
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,50 +147,153 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 12, 2019 at 1:14 AM Ben Hutchings
-<ben.hutchings@codethink.co.uk> wrote:
+They unmute with standard sound controls:
+static const struct snd_kcontrol_new sgtl5000_snd_controls[] = {
+...
+SOC_SINGLE("Capture Switch", SGTL5000_CHIP_ANA_CTRL, 0, 1, 1),
+...
+SOC_SINGLE("Headphone Playback Switch", SGTL5000_CHIP_ANA_CTRL, 4, 1, 1),
+...
+SOC_SINGLE("Lineout Playback Switch", SGTL5000_CHIP_ANA_CTRL, 8, 1, 1),
+...
+
+We tested this standard solution using gstreamer and standard ALSA
+tools like aplay, arecord and all these tools unmute needed blocks
+successfully.
+
+On Thu, Dec 12, 2019 at 12:08 PM Alison Wang <alison.wang@nxp.com> wrote:
 >
-> On Wed, 2019-12-11 at 22:20 +0100, Arnd Bergmann wrote:
-> [...]
-> > +static int snd_timer_user_tread(void __user *argp, struct snd_timer_user *tu,
-> > +                             unsigned int cmd, bool compat)
-> > +{
-> > +     int __user *p = argp;
-> > +     int xarg, old_tread;
-> > +
-> > +     if (tu->timeri) /* too late */
-> > +             return -EBUSY;
-> > +     if (get_user(xarg, p))
-> > +             return -EFAULT;
-> > +
-> > +     old_tread = tu->tread;
-> > +
-> > +     if (!xarg)
-> > +             tu->tread = TREAD_FORMAT_NONE;
-> > +     else if (cmd == SNDRV_TIMER_IOCTL_TREAD64 ||
-> > +              (IS_ENABLED(CONFIG_64BITS) && !compat))
+> Hi, Oleksandr,
 >
-> This needs to check for CONFIG_64BIT not CONFIG_64BITS.
-
-Fixed now, good catch!
-
-> > @@ -2145,14 +2202,34 @@ static ssize_t snd_timer_user_read(struct file *file, char __user *buffer,
-> > +             case TREAD_FORMAT_NONE:
-> >                       if (copy_to_user(buffer, &tu->queue[qhead],
-> >                                        sizeof(struct snd_timer_read)))
-> >                               err = -EFAULT;
-> > +                     break;
-> > +             default:
-> > +                     err = -ENOTSUPP;
-> [...]
+> In your patch, outputs and ADC are muted on driver probing. I don't know when and
+> where they can be unmuted in the kernel before playing in the application.
 >
-> This is not a valid error code for returning to user-space, but this
-> case should be impossible so I don't think it matters.
+> Could you please give me some ideas?
+>
+>
+> Best Regards,
+> Alison Wang
+>
+> > -----Original Message-----
+> > From: Alison Wang
+> > Sent: Thursday, December 12, 2019 5:25 PM
+> > To: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+> > Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>; Igor Opaniuk
+> > <igor.opaniuk@toradex.com>; festevam@gmail.com; broonie@kernel.org;
+> > lgirdwood@gmail.com; alsa-devel@alsa-project.org;
+> > linux-kernel@vger.kernel.org
+> > Subject: RE: [EXT] Re: [PATCH] ASoC: sgtl5000: Revert "ASoC: sgtl5000: Fix of
+> > unmute outputs on probe"
+> >
+> > Hi, Oleksandr,
+> >
+> > I think I have explained the reason in my email which sent to you yesterday. I
+> > attached it too.
+> > According to my test on the boards, MUTE_LO, MUTE_HP and MUTE_ADC are
+> > all muted when playing the sound.
+> >
+> > Could you give me some ideas about this issue?
+> >
+> >
+> > Best Regards,I
+> > Alison Wang
+> >
+> >
+> > > -----Original Message-----
+> > > From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+> > > Sent: Thursday, December 12, 2019 5:11 PM
+> > > To: Alison Wang <alison.wang@nxp.com>
+> > > Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>; Igor Opaniuk
+> > > <igor.opaniuk@toradex.com>; festevam@gmail.com; broonie@kernel.org;
+> > > lgirdwood@gmail.com; Oleksandr Suvorov
+> > <oleksandr.suvorov@toradex.com>;
+> > > alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org
+> > > Subject: [EXT] Re: [PATCH] ASoC: sgtl5000: Revert "ASoC: sgtl5000: Fix of
+> > > unmute outputs on probe"
+> > >
+> > > Caution: EXT Email
+> > >
+> > > Alison, could you please explain, what reason to revert this fix? All these
+> > blocks
+> > > have their own control and unmute on demand.
+> > > Why do you stand on unconditional unmuting of outputs and ADC on driver
+> > > probing?
+> > >
+> > > On Thu, Dec 12, 2019 at 9:20 AM Alison Wang <alison.wang@nxp.com>
+> > > wrote:
+> > > >
+> > > > This reverts commit 631bc8f0134ae9620d86a96b8c5f9445d91a2dca.
+> > > >
+> > > > In commit 631bc8f0134a, snd_soc_component_update_bits is used instead
+> > > > of snd_soc_component_write. Although EN_HP_ZCD and EN_ADC_ZCD are
+> > > > enabled in ANA_CTRL register, MUTE_LO, MUTE_HP and MUTE_ADC bits
+> > are
+> > > > remained as the default value. It causes LO, HP and ADC are all muted
+> > > > after driver probe.
+> > > >
+> > > > The patch is to revert this commit, snd_soc_component_write is still
+> > > > used and MUTE_LO, MUTE_HP and MUTE_ADC are set as zero (unmuted).
+> > > >
+> > > > Signed-off-by: Alison Wang <alison.wang@nxp.com>
+> > > > ---
+> > > >  sound/soc/codecs/sgtl5000.c | 6 +++---
+> > > >  1 file changed, 3 insertions(+), 3 deletions(-)
+> > > >
+> > > > diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+> > > > index aa1f963..0b35fca 100644
+> > > > --- a/sound/soc/codecs/sgtl5000.c
+> > > > +++ b/sound/soc/codecs/sgtl5000.c
+> > > > @@ -1458,7 +1458,6 @@ static int sgtl5000_probe(struct
+> > > snd_soc_component *component)
+> > > >         int ret;
+> > > >         u16 reg;
+> > > >         struct sgtl5000_priv *sgtl5000 =
+> > > snd_soc_component_get_drvdata(component);
+> > > > -       unsigned int zcd_mask = SGTL5000_HP_ZCD_EN |
+> > > SGTL5000_ADC_ZCD_EN;
+> > > >
+> > > >         /* power up sgtl5000 */
+> > > >         ret = sgtl5000_set_power_regs(component);
+> > > > @@ -1486,8 +1485,9 @@ static int sgtl5000_probe(struct
+> > > snd_soc_component *component)
+> > > >                0x1f);
+> > > >         snd_soc_component_write(component,
+> > > SGTL5000_CHIP_PAD_STRENGTH,
+> > > > reg);
+> > > >
+> > > > -       snd_soc_component_update_bits(component,
+> > > SGTL5000_CHIP_ANA_CTRL,
+> > > > -               zcd_mask, zcd_mask);
+> > > > +       snd_soc_component_write(component,
+> > > SGTL5000_CHIP_ANA_CTRL,
+> > > > +                       SGTL5000_HP_ZCD_EN |
+> > > > +                       SGTL5000_ADC_ZCD_EN);
+> > > >
+> > > >         snd_soc_component_update_bits(component,
+> > > SGTL5000_CHIP_MIC_CTRL,
+> > > >                         SGTL5000_BIAS_R_MASK,
+> > > > --
+> > > > 2.9.5
+> > > >
+> > >
+> > >
+> > > --
+> > > Best regards
+> > > Oleksandr Suvorov
+> > >
+> > > Toradex AG
+> > > Altsagenstrasse 5 | 6048 Horw/Luzern | Switzerland | T: +41 41 500
+> > > 4800 (main line)
 
-Agreed. Maybe it should also WARN_ON(1), as there getting here
-would indicate a bug in the kernel.
 
-    Arnd
+
+-- 
+Best regards
+Oleksandr Suvorov
+
+Toradex AG
+Altsagenstrasse 5 | 6048 Horw/Luzern | Switzerland | T: +41 41 500
+4800 (main line)
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

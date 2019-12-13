@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 93FDD11DD6C
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 06:08:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5965E11DD6A
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 06:07:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E79F31731;
-	Fri, 13 Dec 2019 06:07:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E79F31731
+	by alsa0.perex.cz (Postfix) with ESMTPS id F23D41614;
+	Fri, 13 Dec 2019 06:06:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F23D41614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576213730;
-	bh=8jIAkIekH+gx8sAV9PUhUKjhZ6Q52xI3RUnx9lxdEzY=;
+	s=default; t=1576213667;
+	bh=ZXSF/1Ta2HM61IjXtNqR7CUKufsi8YX5YmDrKKjqZi8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=P5kwD7+F1zw198gQH9J2spb3O9kGC3snZ0Ycra0GX75oSOnud6Ud2ekAyegGTH0lc
-	 QX+m5GTeH7hfWrNjhthk8r0GWDKAwE2A49dCIYj5Qx/gNOQw/tf3bMn8f5kgzgrfZX
-	 bXZN1iCHnW2PphGYrRfr8KE1IPnsEsyGGS4flrYQ=
+	b=phRHjKXMHXle2NbCOdIeJg4i4PXfiCOtrWC/0lulia9EtzV1kCz2mdjmuhUT8mk9E
+	 Ktx+eq0bH5RYgP6h/EH9CmjFlwa+ApXOmc6l9F6pmezrYVPzM16IYBB7v76qP9kz4R
+	 wcV+0GpqKv/nbJrt0kArTlGvaLmKce2/HX60WD9Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F93CF80279;
-	Fri, 13 Dec 2019 06:04:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0411FF80265;
+	Fri, 13 Dec 2019 06:04:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 049F5F80258; Fri, 13 Dec 2019 06:04:37 +0100 (CET)
+ id B2D74F80258; Fri, 13 Dec 2019 06:04:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,36 +33,36 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9F917F8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 06:04:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F917F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id DABD6F801F4
+ for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 06:04:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DABD6F801F4
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2019 21:04:18 -0800
+ 12 Dec 2019 21:04:20 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,308,1571727600"; d="scan'208";a="208340683"
+X-IronPort-AV: E=Sophos;i="5.69,308,1571727600"; d="scan'208";a="208340693"
 Received: from vbagrodi-mobl2.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.130.70])
- by orsmga008.jf.intel.com with ESMTP; 12 Dec 2019 21:04:16 -0800
+ by orsmga008.jf.intel.com with ESMTP; 12 Dec 2019 21:04:18 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Thu, 12 Dec 2019 23:03:56 -0600
-Message-Id: <20191213050409.12776-3-pierre-louis.bossart@linux.intel.com>
+Date: Thu, 12 Dec 2019 23:03:57 -0600
+Message-Id: <20191213050409.12776-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191213050409.12776-1-pierre-louis.bossart@linux.intel.com>
 References: <20191213050409.12776-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, tiwai@suse.de,
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
  broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
  slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
  Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
-Subject: [alsa-devel] [PATCH v4 02/15] soundwire: rename dev_to_sdw_dev macro
+Subject: [alsa-devel] [PATCH v4 03/15] soundwire: rename
+	drv_to_sdw_slave_driver macro
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,132 +80,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Since we want to introduce master devices, rename macro so that we
-have consistency between slave and master device access, following the
-Grey Bus example.
+Align with previous renames and shorten macro
+
+No functionality change
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/base/regmap/regmap-sdw.c |  4 ++--
- drivers/soundwire/bus.c          |  2 +-
- drivers/soundwire/bus_type.c     | 11 ++++++-----
- drivers/soundwire/slave.c        |  2 +-
- include/linux/soundwire/sdw.h    |  3 ++-
- 5 files changed, 12 insertions(+), 10 deletions(-)
+ drivers/soundwire/bus_type.c       | 9 ++++-----
+ include/linux/soundwire/sdw_type.h | 3 ++-
+ 2 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/base/regmap/regmap-sdw.c b/drivers/base/regmap/regmap-sdw.c
-index 50a66382d87d..d1fc0c22180a 100644
---- a/drivers/base/regmap/regmap-sdw.c
-+++ b/drivers/base/regmap/regmap-sdw.c
-@@ -10,7 +10,7 @@
- static int regmap_sdw_write(void *context, unsigned int reg, unsigned int val)
- {
- 	struct device *dev = context;
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
- 
- 	return sdw_write(slave, reg, val);
- }
-@@ -18,7 +18,7 @@ static int regmap_sdw_write(void *context, unsigned int reg, unsigned int val)
- static int regmap_sdw_read(void *context, unsigned int reg, unsigned int *val)
- {
- 	struct device *dev = context;
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
- 	int read;
- 
- 	read = sdw_read(slave, reg);
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index be5d437058ed..4b22ee996a65 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -110,7 +110,7 @@ EXPORT_SYMBOL(sdw_add_bus_master);
- 
- static int sdw_delete_slave(struct device *dev, void *data)
- {
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
- 	struct sdw_bus *bus = slave->bus;
- 
- 	sdw_slave_debugfs_exit(slave);
 diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
-index 370b94752662..c0585bcc8a41 100644
+index c0585bcc8a41..2b2830b622fa 100644
 --- a/drivers/soundwire/bus_type.c
 +++ b/drivers/soundwire/bus_type.c
-@@ -33,7 +33,7 @@ sdw_get_device_id(struct sdw_slave *slave, struct sdw_driver *drv)
- 
+@@ -34,7 +34,7 @@ sdw_get_device_id(struct sdw_slave *slave, struct sdw_driver *drv)
  static int sdw_bus_match(struct device *dev, struct device_driver *ddrv)
  {
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
- 	struct sdw_driver *drv = drv_to_sdw_slave_driver(ddrv);
+ 	struct sdw_slave *slave = to_sdw_slave_device(dev);
+-	struct sdw_driver *drv = drv_to_sdw_slave_driver(ddrv);
++	struct sdw_driver *drv = to_sdw_slave_driver(ddrv);
  
  	return !!sdw_get_device_id(slave, drv);
-@@ -49,7 +49,7 @@ int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size)
- 
- static int sdw_uevent(struct device *dev, struct kobj_uevent_env *env)
- {
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
- 	char modalias[32];
- 
- 	sdw_slave_modalias(slave, modalias, sizeof(modalias));
-@@ -69,7 +69,7 @@ EXPORT_SYMBOL_GPL(sdw_bus_type);
- 
+ }
+@@ -70,7 +70,7 @@ EXPORT_SYMBOL_GPL(sdw_bus_type);
  static int sdw_drv_probe(struct device *dev)
  {
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
- 	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
+ 	struct sdw_slave *slave = to_sdw_slave_device(dev);
+-	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
++	struct sdw_driver *drv = to_sdw_slave_driver(dev->driver);
  	const struct sdw_device_id *id;
  	int ret;
-@@ -115,8 +115,9 @@ static int sdw_drv_probe(struct device *dev)
  
+@@ -116,8 +116,7 @@ static int sdw_drv_probe(struct device *dev)
  static int sdw_drv_remove(struct device *dev)
  {
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
- 	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
-+
+ 	struct sdw_slave *slave = to_sdw_slave_device(dev);
+-	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
+-
++	struct sdw_driver *drv = to_sdw_slave_driver(dev->driver);
  	int ret = 0;
  
  	if (drv->remove)
-@@ -129,7 +130,7 @@ static int sdw_drv_remove(struct device *dev)
- 
+@@ -131,7 +130,7 @@ static int sdw_drv_remove(struct device *dev)
  static void sdw_drv_shutdown(struct device *dev)
  {
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
- 	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
+ 	struct sdw_slave *slave = to_sdw_slave_device(dev);
+-	struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
++	struct sdw_driver *drv = to_sdw_slave_driver(dev->driver);
  
  	if (drv->shutdown)
-diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
-index 19919975bb6d..48a513680db6 100644
---- a/drivers/soundwire/slave.c
-+++ b/drivers/soundwire/slave.c
-@@ -9,7 +9,7 @@
+ 		drv->shutdown(slave);
+diff --git a/include/linux/soundwire/sdw_type.h b/include/linux/soundwire/sdw_type.h
+index abaa21278152..7d4bc6a979bf 100644
+--- a/include/linux/soundwire/sdw_type.h
++++ b/include/linux/soundwire/sdw_type.h
+@@ -6,7 +6,7 @@
  
- static void sdw_slave_release(struct device *dev)
- {
--	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
+ extern struct bus_type sdw_bus_type;
  
- 	kfree(slave);
- }
-diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index b7c9eca4332a..5b1180f1e6b5 100644
---- a/include/linux/soundwire/sdw.h
-+++ b/include/linux/soundwire/sdw.h
-@@ -582,7 +582,8 @@ struct sdw_slave {
- 	u32 unattach_request;
- };
+-#define drv_to_sdw_slave_driver(_drv) \
++#define to_sdw_slave_driver(_drv) \
+ 	container_of(_drv, struct sdw_driver, driver)
  
--#define dev_to_sdw_dev(_dev) container_of(_dev, struct sdw_slave, dev)
-+#define to_sdw_slave_device(d) \
-+	container_of(d, struct sdw_slave, dev)
- 
- struct sdw_driver {
- 	const char *name;
+ #define sdw_register_slave_driver(drv) \
+@@ -29,4 +29,5 @@ int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size);
+ #define module_sdw_driver(__sdw_slave_driver) \
+ 	module_driver(__sdw_slave_driver, sdw_register_slave_driver, \
+ 			sdw_unregister_slave_driver)
++
+ #endif /* __SOUNDWIRE_TYPES_H */
 -- 
 2.20.1
 

@@ -2,53 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 380B911DFF5
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 09:53:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4233B11E1EA
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 11:27:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A1F16176A;
-	Fri, 13 Dec 2019 09:53:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A1F16176A
+	by alsa0.perex.cz (Postfix) with ESMTPS id B21F616EA;
+	Fri, 13 Dec 2019 11:26:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B21F616EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576227231;
-	bh=naiIj3iC5ax8J12A0MTj4nQ7LQ3t7PIyiskL3g/YAFA=;
-	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
+	s=default; t=1576232867;
+	bh=5L7yauyh3aXxYODQ7La3EvGKQaJpITBZdfe5zdydnY4=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MXAqSPp216M1mstxBqLmKZHyVbRaXs2/8leaF3RzgJXUWfpJkn0Hvre6lBkiGeSEF
-	 5JOueASbw8wTNCalGqtolkg1qVOyOXnkiN6VEJKBRRpeGVUXVDMa/E7sSPXPxlNbP3
-	 oyieyUvykIUbp3v6trKgARb9xOOwlSX2voNGlc1E=
+	b=Uy8+8XjFyFuOsSjBZkzwBaWHx0c4BPFFHtPyWA5axS9EGuXtLkTBU05SunTCetB2A
+	 a61TaQReRR2DRffZY4wnro6G2jzHyg9zbGlCn86C0PHiBOuqoKju1WeWcTR3ZQbB9n
+	 n7NC/o8iIYrJ4j2tBfKinaNHNiFrihhcr/E7wu90=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB75BF8025A;
-	Fri, 13 Dec 2019 09:51:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B5E5AF8021E;
+	Fri, 13 Dec 2019 11:26:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CE8BF8021E; Fri, 13 Dec 2019 09:51:19 +0100 (CET)
+ id 76111F801F4; Fri, 13 Dec 2019 11:26:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mx1.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
+ SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.73])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C05AF8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 09:51:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C05AF8019B
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx1.suse.de (Postfix) with ESMTP id 653EFAEFB
- for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 08:51:13 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Fri, 13 Dec 2019 09:51:11 +0100
-Message-Id: <20191213085111.22855-4-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20191213085111.22855-1-tiwai@suse.de>
-References: <20191213085111.22855-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 3/3] ALSA: hda/ca0132 - Fix work handling in
-	delayed HP detection
+ by alsa1.perex.cz (Postfix) with ESMTPS id 99FFEF800AB
+ for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 11:25:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 99FFEF800AB
+Received: from mail-qt1-f170.google.com ([209.85.160.170]) by
+ mrelayeu.kundenserver.de (mreue107 [212.227.15.145]) with ESMTPSA (Nemesis)
+ id 1M5PRT-1igWxM1ywH-001Sk1 for <alsa-devel@alsa-project.org>; Fri, 13 Dec
+ 2019 11:25:57 +0100
+Received: by mail-qt1-f170.google.com with SMTP id 38so1814416qtb.13
+ for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 02:25:57 -0800 (PST)
+X-Gm-Message-State: APjAAAVQbZzc7IP6kMnmw2Otmn52mpEiToaBEKHNmcYkI1gBgVEDc52p
+ oOPcChu2OMSctm8kzZOtJouHdOkF/thIbSesm+w=
+X-Google-Smtp-Source: APXvYqzQbLZzun4UPMcyYud1qq2XcN6i6bQrSev+tzenclZnUxptcZ8EZKr8KndoQJUpiIybOxbQeNJCn8vGS4FD6jo=
+X-Received: by 2002:ac8:3a27:: with SMTP id w36mr11551312qte.204.1576232756266; 
+ Fri, 13 Dec 2019 02:25:56 -0800 (PST)
+MIME-Version: 1.0
+References: <20191211212025.1981822-1-arnd@arndb.de>
+ <20191211212025.1981822-7-arnd@arndb.de>
+ <0e00090ef6fcf310159d6ce23f2c92f511dd01de.camel@codethink.co.uk>
+ <CAK8P3a2-5qNsy0cbxmLYfgwtbdSp4e4XXQ+gAAh0X+Kr1F-4sw@mail.gmail.com>
+ <b937b99c9843ae5daa3bdf84929b325f05ecab8f.camel@codethink.co.uk>
+In-Reply-To: <b937b99c9843ae5daa3bdf84929b325f05ecab8f.camel@codethink.co.uk>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 13 Dec 2019 11:25:40 +0100
+X-Gmail-Original-Message-ID: <CAK8P3a2BwA-wnxRPLgLrb9e2HpnrhXXyNyLfn4sOpSOjiJ3oEw@mail.gmail.com>
+Message-ID: <CAK8P3a2BwA-wnxRPLgLrb9e2HpnrhXXyNyLfn4sOpSOjiJ3oEw@mail.gmail.com>
+To: Ben Hutchings <ben.hutchings@codethink.co.uk>
+X-Provags-ID: V03:K1:tSFlHh/bUHJGyCZOIXacgcz0Yb0i3PCtcY/Dgjzweltx7E4qAAU
+ At8YLjURAs7MIx0oCwfRCSQ03AMiiFQv0/9bc5U4pgJT7ejQAOdEZL64Basx8lefWihAxyE
+ cHDSQGBv0mK+ZFWTRcHZUOdYWssSrRppHzbYRXtgDr+3zQNkC0NCmwJZWR+3sDUo+fFKgHw
+ RM7W43MZuMLw16rn9t8sA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:X6qdoxPEOZM=:F1o1ur3+ffcE8k8pbLMrSG
+ ctKIIWz3+HAY8+ZfrkkXJK6y4eSWOacQ+/L84of+sRanGh6zXn9rNsendy1DoSLSeqpU5cNEm
+ nSGZ/OspzHmNU/JZhFoMf1ISSFk00pxQO+YCOpHsuQNmQBV0V+V52W8fojnyglsDYu+BEZvWA
+ fnFOnBS9PMv3I1AApLYiOSGfHnI1+PS/imMF7GClpQKV15D3Mn8HMGzJIy8G1NbeQT2VVzgXr
+ STrsNJ4iL3gJ8ybLbfXjqtj2aYJWMAJ60HttOcFNJ88dq7vEEwRiUZlyGmZkRaqnk0YiWr+Sx
+ 1s2QAPqsEEA4oW+3zr8zHd3DBf5jUNm45bcdrISEUzvsMzeQcYTwtr2uF6k0ffdPwn39vVyc1
+ bTJCVqH+4fScA5STWO/IIbP7nW8jJAQLQlRKZDjuMboOxLbWVLVnQrJ7OsoTQNNj6cbg/ttmN
+ 0w6DvqDlEuFHx+/4AXQmO2hlfZluWD07fBSMup9xFmAgzHm1Ak6ofOz0wGDmlbX59ScSd9bEl
+ Na2+2l79eC45cGn1hkHC3bng4tXyhtn8rikNvI8m8yB3TFwOQz5eNvlo7fEZ9ykUCuvUrCkWd
+ l2nsW4W+JbJDvTNg7MyNIO0fQIpiAUDfg5zUZbJJ1VHf4Ysw3ItFQD1mXWMaRn7VkqSc8A7Vn
+ Nx37RUsKri4Qqei7+rO4GVFquCRYka7MZE56lXcoKmD7lQCguxmFhrn5BUw6msLy7jwICvLDS
+ 7EpgON1bQ7MsO5Hn2zn3iJ7kwjZEVxXnGVPBeSsvXBZjlDAVTel5xX1TbFVZ2e+nfPKTLL1g9
+ 5uUuqTYQYG78qHpIoPlgV1IX6L02Z5qpcE2jevXbwEBp+tlvVjliB+6zzirpOwEdBsvAMmTQY
+ o7iYfIho0VlwozIPoRBA==
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Baolin Wang <baolin.wang@linaro.org>,
+ y2038 Mailman List <y2038@lists.linaro.org>, Takashi Iwai <tiwai@suse.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang7@gmail.com>
+Subject: Re: [alsa-devel] [Y2038] [PATCH v7 6/9] ALSA: Avoid using timespec
+	for struct snd_timer_tread
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,70 +97,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CA0132 has the delayed HP jack detection code that is invoked from the
-unsol handler, but it does a few weird things: it contains the cancel
-of a work inside the work handler, and yet it misses the cancel-sync
-call at (runtime-)suspend.  This patch addresses those issues.
+On Thu, Dec 12, 2019 at 3:27 PM Ben Hutchings
+<ben.hutchings@codethink.co.uk> wrote:
+> On Thu, 2019-12-12 at 10:57 +0100, Arnd Bergmann wrote:
+> > On Thu, Dec 12, 2019 at 1:14 AM Ben Hutchings
+> > <ben.hutchings@codethink.co.uk> wrote:
+> > > On Wed, 2019-12-11 at 22:20 +0100, Arnd Bergmann wrote:
+> > > > @@ -2145,14 +2202,34 @@ static ssize_t snd_timer_user_read(struct file *file, char __user *buffer,
+> > > > +             case TREAD_FORMAT_NONE:
+> > > >                       if (copy_to_user(buffer, &tu->queue[qhead],
+> > > >                                        sizeof(struct snd_timer_read)))
+> > > >                               err = -EFAULT;
+> > > > +                     break;
+> > > > +             default:
+> > > > +                     err = -ENOTSUPP;
+> > > [...]
+> > >
+> > > This is not a valid error code for returning to user-space, but this
+> > > case should be impossible so I don't think it matters.
+> >
+> > Agreed. Maybe it should also WARN_ON(1), as there getting here
+> > would indicate a bug in the kernel.
+>
+> Yes, WARN_ON() or WARN_ON_ONCE() would make sense.
 
-Fixes: 15c2b3cc09a3 ("ALSA: hda/ca0132 - Fix possible workqueue stall")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_ca0132.c | 16 ++++++++++++++--
- 1 file changed, 14 insertions(+), 2 deletions(-)
+This is what I added now:
 
-diff --git a/sound/pci/hda/patch_ca0132.c b/sound/pci/hda/patch_ca0132.c
-index 8d0209fff8f5..32ed46464af7 100644
---- a/sound/pci/hda/patch_ca0132.c
-+++ b/sound/pci/hda/patch_ca0132.c
-@@ -7607,11 +7607,10 @@ static void hp_callback(struct hda_codec *codec, struct hda_jack_callback *cb)
- 	/* Delay enabling the HP amp, to let the mic-detection
- 	 * state machine run.
- 	 */
--	cancel_delayed_work(&spec->unsol_hp_work);
--	schedule_delayed_work(&spec->unsol_hp_work, msecs_to_jiffies(500));
- 	tbl = snd_hda_jack_tbl_get(codec, cb->nid);
- 	if (tbl)
- 		tbl->block_report = 1;
-+	schedule_delayed_work(&spec->unsol_hp_work, msecs_to_jiffies(500));
- }
- 
- static void amic_callback(struct hda_codec *codec, struct hda_jack_callback *cb)
-@@ -8457,12 +8456,25 @@ static void ca0132_reboot_notify(struct hda_codec *codec)
- 	codec->patch_ops.free(codec);
- }
- 
-+#ifdef CONFIG_PM
-+static int ca0132_suspend(struct hda_codec *codec)
-+{
-+	struct ca0132_spec *spec = codec->spec;
-+
-+	cancel_delayed_work_sync(&spec->unsol_hp_work);
-+	return 0;
-+}
-+#endif
-+
- static const struct hda_codec_ops ca0132_patch_ops = {
- 	.build_controls = ca0132_build_controls,
- 	.build_pcms = ca0132_build_pcms,
- 	.init = ca0132_init,
- 	.free = ca0132_free,
- 	.unsol_event = snd_hda_jack_unsol_event,
-+#ifdef CONFIG_PM
-+	.suspend = ca0132_suspend,
-+#endif
- 	.reboot_notify = ca0132_reboot_notify,
- };
- 
--- 
-2.16.4
+--- a/sound/core/timer.c
++++ b/sound/core/timer.c
+@@ -2161,6 +2161,7 @@ static ssize_t snd_timer_user_read(struct file
+*file, char __user *buffer,
+                unit = sizeof(struct snd_timer_read);
+                break;
+        default:
++               WARN_ONCE(1, "Corrupt snd_timer_user\n");
+                return -ENOTSUPP;
+        }
 
+         Arnd
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

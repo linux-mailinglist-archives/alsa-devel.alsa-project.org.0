@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0452311DD84
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 06:17:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED24011DD67
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 06:06:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8ABE8178D;
-	Fri, 13 Dec 2019 06:16:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ABE8178D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 593AA1744;
+	Fri, 13 Dec 2019 06:05:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 593AA1744
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576214223;
-	bh=i6kAhyZ+cPU90JyIdkYnVz03YJBU7vRvrC8F7Njyxi4=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jfivnPTXjDPmcMPX6Ua80Ui4bhGiCw8SK7hUELbSk3/IaoZWnhMF2/isFBcTgBBgX
-	 wqjo55bDahitg5HQkPZfn+Mo2QC/jhOdcq0d546TUAHnc/2o5GyD0YDcQt70pb3nde
-	 zgK6OMBIsU1oY1s6gThazTTPGBWklrcvQTmzqeZ0=
+	s=default; t=1576213575;
+	bh=PY0uTe1wD4ARIZowmWxwxEwMtuyUZ4x3+wgrfyWDS1g=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=FzWKM2Ek8qdpcSs+nllPIaubIqKhPU277C6F8vleQyXdWQp2XB8v7Gl7+2ETurx2y
+	 et7SlQ/tFzFzU4SS0VV128exmCIFD8GfYS7vyZ3A76z27xjZVDAecjSoYP9SykHi0O
+	 galKaDZlwqQcTrO6KrrO9NUz49LfsoH+RZhher6o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E8249F80240;
-	Fri, 13 Dec 2019 06:07:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8A398F80256;
+	Fri, 13 Dec 2019 06:04:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CC88F8021D; Fri, 13 Dec 2019 06:07:24 +0100 (CET)
+ id 89C2BF80252; Fri, 13 Dec 2019 06:04:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6EDDBF8019B
- for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 06:07:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EDDBF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id D93C6F800AB
+ for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 06:04:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D93C6F800AB
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2019 21:07:18 -0800
+ 12 Dec 2019 21:04:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,308,1571727600"; d="scan'208";a="204212406"
-Received: from vbagrodi-mobl2.amr.corp.intel.com (HELO [10.251.130.70])
- ([10.251.130.70])
- by orsmga007.jf.intel.com with ESMTP; 12 Dec 2019 21:07:18 -0800
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Mark Brown <broonie@kernel.org>
-References: <87mubx59la.wl-kuninori.morimoto.gx@renesas.com>
+X-IronPort-AV: E=Sophos;i="5.69,308,1571727600"; d="scan'208";a="208340668"
+Received: from vbagrodi-mobl2.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.251.130.70])
+ by orsmga008.jf.intel.com with ESMTP; 12 Dec 2019 21:04:12 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <15d4ac12-1216-43ab-ce6d-67927392434d@linux.intel.com>
-Date: Thu, 12 Dec 2019 21:49:21 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+To: alsa-devel@alsa-project.org
+Date: Thu, 12 Dec 2019 23:03:54 -0600
+Message-Id: <20191213050409.12776-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <87mubx59la.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH v2 00/15] ASoC: soc-core cleanup step7
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: [alsa-devel] [PATCH v4 00/15] soundwire: intel: implement new ASoC
+	interfaces
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,68 +71,79 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patchset applies on top of soundwire/next, now that the interface
+definitions are merged.
 
+The changes are essentially a removal of the platform devices and the
+implementation of the new interfaces required to scan the ACPI tables,
+probe the links and start them.
 
-On 12/12/19 6:54 PM, Kuninori Morimoto wrote:
-> 
-> Hi Mark
-> 
-> These are v2 of codec_conf cleanup.
-> 
-> ASoC has codec_conf, and we are using original
-> dev_name, of_node for it to finding codec.
-> But, we already have snd_soc_dai_link_component method.
-> We can reuse it for codec_conf, too.
-> This patches are for it.
+The missing prepare, trigger and setup ASoC callbacks are also
+implemented. The hw_params and free callbacks use the new interfaces
+as well.
 
-Looks good to me
+While there are quite a few lines of code changed, this is mostly
+about interface changes. The next series will contain more functional
+changes and deal with race conditions on probe, enumeration and
+suspend/resume issues.
 
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Changes since v3:
+One line change to re-add EXPORT_SYMBOL
+Add missing driver_registration 
 
-> Big change from v1 is
-> 
-> 	- COMP_CODEC_CNF(_name)
-> 	+ COMP_CODEC_CONF(_name)
-> 
-> Kuninori Morimoto (15):
->    ASoC: soc-core: support snd_soc_dai_link_component for codec_conf
->    ASoC: fsl: imx-audmix: use snd_soc_dai_link_component for codec_conf
->    ASoC: intel: kbl_da7219_max98927: use snd_soc_dai_link_component for codec_conf
->    ASoC: intel: kbl_rt5663_max98927: use snd_soc_dai_link_component for codec_conf
->    ASoC: intel: kbl_rt5663_rt5514_max98927: use snd_soc_dai_link_component for codec_conf
->    ASoC: intel: skl_nau88l25_ssm4567: use snd_soc_dai_link_component for codec_conf
->    ASoC: mediatek: mt8173-rt5650-rt5514: use snd_soc_dai_link_component for codec_conf
->    ASoC: mediatek: mt8173-rt5650-rt5676: use snd_soc_dai_link_component for codec_conf
->    ASoC: mediatek: mt8183-da7219-max98357: use snd_soc_dai_link_component for codec_conf
->    ASoC: samsung: bells: use snd_soc_dai_link_component for codec_conf
->    ASoC: samsung: lowland: use snd_soc_dai_link_component for codec_conf
->    ASoC: samsung: neo1973_wm8753: use snd_soc_dai_link_component for codec_conf
->    ASoC: samsung: speyside: use snd_soc_dai_link_component for codec_conf
->    ASoC: ti: rx51: use snd_soc_dai_link_component for codec_conf
->    ASoC: soc-core: remove legacy style of codec_conf
-> 
->   include/sound/soc.h                                 |  4 ++--
->   sound/soc/fsl/imx-audmix.c                          |  2 +-
->   sound/soc/intel/boards/kbl_da7219_max98927.c        |  8 ++++----
->   sound/soc/intel/boards/kbl_rt5663_max98927.c        |  4 ++--
->   sound/soc/intel/boards/kbl_rt5663_rt5514_max98927.c |  4 ++--
->   sound/soc/intel/boards/skl_nau88l25_ssm4567.c       |  4 ++--
->   sound/soc/mediatek/mt8173/mt8173-rt5650-rt5514.c    |  2 +-
->   sound/soc/mediatek/mt8173/mt8173-rt5650-rt5676.c    |  2 +-
->   sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c  |  2 +-
->   sound/soc/samsung/bells.c                           |  2 +-
->   sound/soc/samsung/lowland.c                         |  2 +-
->   sound/soc/samsung/neo1973_wm8753.c                  |  2 +-
->   sound/soc/samsung/speyside.c                        |  2 +-
->   sound/soc/soc-core.c                                | 12 +++++-------
->   sound/soc/ti/rx51.c                                 | 12 ++++++------
->   15 files changed, 31 insertions(+), 33 deletions(-)
-> 
+Changes since v2:
+moved uevent handling to slave_type (Vinod)
+
+Changes since v1:
+fix typo (Vinod)
+removed uevent open for Master (Vinod)
+clarified commit messages (Cezary)
+no functionality change
+
+Bard Liao (1):
+  soundwire: register master device driver
+
+Pierre-Louis Bossart (11):
+  soundwire: renames to prepare support for master drivers/devices
+  soundwire: rename dev_to_sdw_dev macro
+  soundwire: rename drv_to_sdw_slave_driver macro
+  soundwire: bus_type: rename sdw_drv_ to sdw_slave_drv
+  soundwire: intel: rename res field as link_res
+  soundwire: add support for sdw_slave_type
+  soundwire: slave: move uevent handling to slave
+  soundwire: add initial definitions for sdw_master_device
+  soundwire: intel: remove platform devices and provide new interface
+  soundwire: intel: free all resources on hw_free()
+  soundwire: intel_init: add implementation of sdw_intel_enable_irq()
+
+Rander Wang (3):
+  soundwire: intel: add prepare support in sdw dai driver
+  soundwire: intel: add trigger support in sdw dai driver
+  soundwire: intel: add sdw_stream_setup helper for .startup callback
+
+ drivers/base/regmap/regmap-sdw.c   |   4 +-
+ drivers/soundwire/Makefile         |   2 +-
+ drivers/soundwire/bus.c            |   2 +-
+ drivers/soundwire/bus.h            |   2 +
+ drivers/soundwire/bus_type.c       |  63 +++---
+ drivers/soundwire/intel.c          | 282 +++++++++++++++++++++-----
+ drivers/soundwire/intel.h          |   8 +-
+ drivers/soundwire/intel_init.c     | 309 ++++++++++++++++++++++-------
+ drivers/soundwire/master.c         |  63 ++++++
+ drivers/soundwire/slave.c          |  10 +-
+ include/linux/soundwire/sdw.h      |  39 +++-
+ include/linux/soundwire/sdw_type.h |  34 +++-
+ 12 files changed, 657 insertions(+), 161 deletions(-)
+ create mode 100644 drivers/soundwire/master.c
+
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,73 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAFA211DEAB
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 08:30:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 027F511DEBF
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 08:39:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4994E1769;
-	Fri, 13 Dec 2019 08:29:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4994E1769
+	by alsa0.perex.cz (Postfix) with ESMTPS id 897551764;
+	Fri, 13 Dec 2019 08:38:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 897551764
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576222240;
-	bh=IuJzB9XvY3m04FXZ2zkC6IgrpgZOMjCqkLqRGv++Cqs=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576222750;
+	bh=I+NYdOAAF/EgywMWjq78TAA1uymPWH6eGxL4oBmlp/A=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jAXUjPb0HsFORS7MBhx2VddqNuVPPBB3gLRRuXjdFdDnLsyQA1ZC+jjSKhz/TYBnI
-	 EWosuexcUiOv88bFXCrcnAhrA4Z90yc0J/597OVgfyOwIFoKRz0Rkx69JH++Z/EIzs
-	 EpxES2EYHoCau2z27PH0Pg+k/pU0LH+TI2CHQ0ec=
+	b=Ah/Fgk3FDkN6L10SZWkiep3rSOLAxx2BPAfHVAs1Tv7iqkyaDmMZP6vcP4CSZjzVr
+	 jkwix9SYgXfp9UP5AscMgib+/53oTx0vbsP/I/INCD/5Y9w3oFKUhwcbKfU7CndJ6E
+	 hrDcIO9s19tWWkxNujQMcvJMNE3vA+SL7GtmTxbc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99542F80139;
-	Fri, 13 Dec 2019 08:28:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF2A1F8021E;
+	Fri, 13 Dec 2019 08:37:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3D0D9F801F4; Fri, 13 Dec 2019 08:28:54 +0100 (CET)
+ id 16BC1F801F4; Fri, 13 Dec 2019 08:37:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,T_KAM_HTML_FONT_INVALID,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A146EF80139
- for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 08:28:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A146EF80139
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sYKrOiMI"
-Received: from localhost (unknown [84.241.199.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2C5F622527;
- Fri, 13 Dec 2019 07:28:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576222128;
- bh=+niX70uV+yPF/oKnmdkLlo2kitdtTy/DXb5H25cB5w0=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sYKrOiMI/Nqdsc/Xg42qiUTyoR+F/KAKK6aIRJsw0OlRDnLTDvIHSicpVWFTDy1He
- wL3Vjx6+f1sN0VP2LfFbWUgFlUFUN16ROzbnuRNydtuILYWcJpVKU2QR1jKXPzS/MC
- pdlOJk3LwOAPsEQybRoqFOFoGTqZSfuSX11nkFPg=
-Date: Fri, 13 Dec 2019 08:28:44 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20191213072844.GF1750354@kroah.com>
-References: <20191213050409.12776-1-pierre-louis.bossart@linux.intel.com>
- <20191213050409.12776-9-pierre-louis.bossart@linux.intel.com>
+Received: from mg.richtek.com (mg.richtek.com [220.130.44.152])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5EB56F800AB
+ for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 08:37:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5EB56F800AB
+X-MailGates: (flag:4,DYNAMIC,BADHELO,RELAY,NOHOST:PASS)(compute_score:DE
+ LIVER,40,3)
+Received: from 192.168.8.45
+ by mg.richtek.com with MailGates ESMTP Server V5.0(11228:0:AUTH_RELAY)
+ (envelope-from <jeff_chang@richtek.com>); Fri, 13 Dec 2019 15:36:16 +0800 (CST)
+Received: from ex1.rt.l (192.168.8.44) by ex2.rt.l (192.168.8.45) with
+ Microsoft SMTP Server (TLS) id 15.0.1497.2; Fri, 13 Dec 2019 15:36:15 +0800
+Received: from ex1.rt.l ([fe80::557d:30f0:a3f8:3efc]) by ex1.rt.l
+ ([fe80::557d:30f0:a3f8:3efc%15]) with mapi id 15.00.1497.000; Fri, 13 Dec
+ 2019 15:36:15 +0800
+From: =?iso-2022-jp?B?amVmZl9jaGFuZygbJEJEJUAkMkIbKEIp?=
+ <jeff_chang@richtek.com>
+To: Mark Brown <broonie@kernel.org>, Jeff Chang <richtek.jeff.chang@gmail.com>
+Thread-Topic: [PATCH] ASoC: Add MediaTek MT6660 Speaker Amp Driver
+Thread-Index: AQHVsOVt/MvWyMS0RU6kROmZJiU4Tae2D+4AgAGWZxA=
+Date: Fri, 13 Dec 2019 07:36:15 +0000
+Message-ID: <b0f4c1afd1d341b49b87b7b5cda5ea4d@ex1.rt.l>
+References: <1576152740-11979-1-git-send-email-richtek.jeff.chang@gmail.com>
+ <20191212145330.GC4310@sirena.org.uk>
+In-Reply-To: <20191212145330.GC4310@sirena.org.uk>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [192.168.95.168]
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20191213050409.12776-9-pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v4 08/15] soundwire: add initial
- definitions for sdw_master_device
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Add MediaTek MT6660 Speaker Amp
+	Driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,222 +82,327 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
+Content-Type: text/plain; charset="iso-2022-jp"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Dec 12, 2019 at 11:04:02PM -0600, Pierre-Louis Bossart wrote:
-> Since we want an explicit support for the SoundWire Master device, add
-> the definitions, following the Grey Bus example.
+Dear Mark:
 
-"Greybus"  All one word please.
 
-> 
-> Unlike for the Slave device, we do not set a variable when dealing
-> with the master uevent.
-> 
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+
+        Thanks for your replying. I consider that there was only one item I should modify. So I kept resending.
+
+
+
+        Please refer my red comment after your comment.
+
+
+
+        Thanks a lot!
+
+
+
+Thanks & BRs
+
+Jeff
+
+
+
+
+
+-----Original Message-----
+From: Mark Brown [mailto:broonie@kernel.org]
+Sent: Thursday, December 12, 2019 10:54 PM
+To: Jeff Chang <richtek.jeff.chang@gmail.com>
+Cc: lgirdwood@gmail.com; perex@perex.cz; tiwai@suse.com; matthias.bgg@gmail.com; alsa-devel@alsa-project.org; linux-arm-kernel@lists.infradead.org; linux-kernel@vger.kernel.org; jeff_chang(張世佳) <jeff_chang@richtek.com>
+Subject: Re: [PATCH] ASoC: Add MediaTek MT6660 Speaker Amp Driver
+
+
+
+On Thu, Dec 12, 2019 at 08:12:20PM +0800, Jeff Chang wrote:
+
+
+
+> sense, which are able to be monitored via DATAO through proper
+
+>
+
 > ---
->  drivers/soundwire/Makefile         |  2 +-
->  drivers/soundwire/bus_type.c       |  7 +++-
->  drivers/soundwire/master.c         | 62 ++++++++++++++++++++++++++++++
->  include/linux/soundwire/sdw.h      | 35 +++++++++++++++++
->  include/linux/soundwire/sdw_type.h |  9 +++++
->  5 files changed, 112 insertions(+), 3 deletions(-)
->  create mode 100644 drivers/soundwire/master.c
-> 
-> diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
-> index 563894e5ecaf..89b29819dd3a 100644
-> --- a/drivers/soundwire/Makefile
-> +++ b/drivers/soundwire/Makefile
-> @@ -4,7 +4,7 @@
->  #
->  
->  #Bus Objs
-> -soundwire-bus-objs := bus_type.o bus.o slave.o mipi_disco.o stream.o
-> +soundwire-bus-objs := bus_type.o bus.o master.o slave.o mipi_disco.o stream.o
->  obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
->  
->  ifdef CONFIG_DEBUG_FS
-> diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
-> index 5c18c21545b5..df1271f6db61 100644
-> --- a/drivers/soundwire/bus_type.c
-> +++ b/drivers/soundwire/bus_type.c
-> @@ -59,9 +59,12 @@ int sdw_uevent(struct device *dev, struct kobj_uevent_env *env)
->  
->  		if (add_uevent_var(env, "MODALIAS=%s", modalias))
->  			return -ENOMEM;
-> +	} else if (is_sdw_md(dev)) {
 
-Ok, "is_sdw_md()" is a horrid function name.  Spell it out please, this
-ends up in the global namespace.
+>
 
-Actually, why are you not using module namespaces here for this new
-code?  That would help you out a lot.
+> [PATCH v2] :
+
+>     1. remove unnecessary space from commit message
+
+>     2. add Signed-off-by info
+
+>
+
+> Signed-off-by: Jeff Chang <richtek.jeff.chang@gmail.com<mailto:richtek.jeff.chang@gmail.com>>
+
+> ---
 
 
-> +		/* this should not happen but throw an error */
-> +		dev_warn(dev, "uevent for Master device, unsupported\n");
 
-Um, what?  This is supported as it will happen when you create such a
-device.  It's an issue of "I didn't write the code yet", not that it is
-not "supported".
+You should place the Signed-off-by before the first --- as covered by submitting-patches.rst.  Please, slow down a bit before resending and make sure you've checked what you're doing thoroughly.  Look at what you're sending and how it compares to what others are sending.
 
-> +		return -EINVAL;
->  	} else {
-> -		/* only Slave device type supported */
-> -		dev_warn(dev, "uevent for unknown Soundwire type\n");
-> +		dev_warn(dev, "uevent for unknown device\n");
->  		return -EINVAL;
->  	}
->  
-> diff --git a/drivers/soundwire/master.c b/drivers/soundwire/master.c
-> new file mode 100644
-> index 000000000000..6210098c892b
-> --- /dev/null
-> +++ b/drivers/soundwire/master.c
-> @@ -0,0 +1,62 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
 
-Still with the crazy dual license?  I thought we went over this all
-before.
 
-You can not do this for code that touches driver core stuff, like this.
-Please stop and just make all of this GPLv2 like we discussed months
-ago.
+        OK! I will do it at next patch!
 
-> +// Copyright(c) 2019 Intel Corporation.
-> +
-> +#include <linux/device.h>
-> +#include <linux/acpi.h>
-> +#include <linux/soundwire/sdw.h>
-> +#include <linux/soundwire/sdw_type.h>
-> +#include "bus.h"
-> +
-> +static void sdw_md_release(struct device *dev)
+
+
+> +config SND_SOC_MT6660
+
+> +   tristate "Mediatek MT6660 Speaker Amplifier"
+
+> +   depends on I2C
+
+> +   select CRC32
+
+> +   select CRYPTO_SHA256
+
+> +   select CRYTO_RSA
+
+> +   help
+
+
+
+These selects of crypto stuf appear entirely unrelated to anything in the driver?
+
+
+
+        I will remove it.
+
+
+
+> +++ b/sound/soc/codecs/mt6660.c
+
+> @@ -0,0 +1,1063 @@
+
+> +// SPDX-License-Identifier: GPL-2.0
+
+> +/*
+
+> + * Copyright (c) 2019 MediaTek Inc.
+
+> + */
+
+
+
+Please make the entire comment a C++ one so things look more intentional.
+
+
+
+        OK!
+
+
+
+> +static int mt6660_dbg_io_write(void *drvdata, u16 reg,
+
+> +                          const void *val, u16 size)
+
 > +{
-> +	struct sdw_master_device *md = to_sdw_master_device(dev);
-> +
-> +	kfree(md);
-> +}
-> +
-> +struct device_type sdw_md_type = {
-> +	.name =		"soundwire_master",
-> +	.release =	sdw_md_release,
-> +};
-> +
-> +struct sdw_master_device *sdw_md_add(struct sdw_md_driver *driver,
 
-Bad function names, please spell things out, you have plenty of
-characters to go around.
+> +   struct mt6660_chip *chip = (struct mt6660_chip *)drvdata;
+
+> +   int reg_size = mt6660_get_reg_size(reg);
+
+> +   int i = 0;
+
+> +   unsigned int regval = 0;
+
+> +   u8 *_val = (u8 *)val;
 
 
-> +				     struct device *parent,
-> +				     struct fwnode_handle *fwnode,
-> +				     int link_id)
+
+This is duplicating standard regmap functionality.
+
+
+
+> +static bool mt6660_volatile_reg(struct device *dev, unsigned int reg)
+
 > +{
-> +	struct sdw_master_device *md;
-> +	int ret;
-> +
-> +	if (!driver->probe) {
-> +		dev_err(parent, "mandatory probe callback missing\n");
 
-The callback is missing for the driver you passed in, not for the
-parent, right?
+> +   return true;
 
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	md = kzalloc(sizeof(*md), GFP_KERNEL);
-> +	if (!md)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	md->link_id = link_id;
-> +
-> +	md->driver = driver;
-> +
-> +	md->dev.parent = parent;
-> +	md->dev.fwnode = fwnode;
-> +	md->dev.bus = &sdw_bus_type;
-> +	md->dev.type = &sdw_md_type;
-> +	md->dev.dma_mask = md->dev.parent->dma_mask;
-> +	dev_set_name(&md->dev, "sdw-master-%d", md->link_id);
-> +
-> +	ret = device_register(&md->dev);
-> +	if (ret) {
-> +		dev_err(parent, "Failed to add master: ret %d\n", ret);
-> +		/*
-> +		 * On err, don't free but drop ref as this will be freed
-> +		 * when release method is invoked.
-> +		 */
-> +		put_device(&md->dev);
-
-But you still return a valid pointer?  Why????
-
-> +	}
-> +
-> +	return md;
 > +}
-> +EXPORT_SYMBOL(sdw_md_add);
-
-EXPORT_SYMBOL_GPL()?
 
 
-> diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-> index 5b1180f1e6b5..af0a72e7afdf 100644
-> --- a/include/linux/soundwire/sdw.h
-> +++ b/include/linux/soundwire/sdw.h
-> @@ -585,6 +585,16 @@ struct sdw_slave {
->  #define to_sdw_slave_device(d) \
->  	container_of(d, struct sdw_slave, dev)
->  
-> +struct sdw_master_device {
-> +	struct device dev;
-> +	int link_id;
-> +	struct sdw_md_driver *driver;
-> +	void *pdata; /* core does not touch */
 
-Core of what?
+There's no need to do this, there's no cache configured.
 
-> +};
+
+
+        OK!
+
+
+
+> +static unsigned int mt6660_component_io_read(
+
+> +   struct snd_soc_component *component, unsigned int reg) {
+
+> +   struct mt6660_chip *chip = snd_soc_component_get_drvdata(component);
+
+> +   unsigned int val;
+
+> +   int ret;
+
 > +
-> +#define to_sdw_master_device(d)	\
-> +	container_of(d, struct sdw_master_device, dev)
+
+> +   ret = regmap_read(chip->regmap, reg, &val);
+
+> +   if (ret < 0) /* ret success -> >= 0, fail -> < - */
+
+> +           return ret;
+
+> +   pr_err("%s val = 0x%x\n", __func__, val);
+
+> +   return val;
+
+> +}
+
+
+
+This function appears to be redunddant, ASoC has wrappers for I/O on components, same for writes.
+
+
+
+        OK!
+
+
+
+> +static int data_debug_show(struct seq_file *s, void *data) {
+
+> +   struct dbg_info *di = s->private;
+
+> +   struct dbg_internal *d = &di->internal;
+
+
+
+regmap has standard support for dumping the register map via debugfs, no need to write your own.  You should be able to just remove all the debugfs code.
+
+
+
+> +/*
+
+> + * MT6660 Generic Setting make this chip work normally.
+
+> + * it is tuned by Richtek RDs.
+
+> + */
+
+> +static const struct codec_reg_val generic_reg_inits[] = {
+
+> +   { MT6660_REG_WDT_CTRL, 0x80, 0x00 },
+
+> +   { MT6660_REG_SPS_CTRL, 0x01, 0x00 },
+
+> +   { MT6660_REG_AUDIO_IN2_SEL, 0x1c, 0x04 },
+
+
+
+The writes to reserved registers should be fine but things like this which looks like it's configuring the input path should just be left at the chip default, we don't want to be configuring for particular boards since the same driver will be used for every board with the chip.
+
+
+
+        The chip default cannot be modified anymore. How can I do if I really need write these setting in our drivers?
+
+
+
+> +   { MT6660_REG_HPF1_COEF, 0xffffffff, 0x7fdb7ffe },
+
+> +   { MT6660_REG_HPF2_COEF, 0xffffffff, 0x7fdb7ffe },
+
+
+
+Similarly here.
+
+
+
+> +static int mt6660_component_init_setting(struct snd_soc_component
+
+> +*component) {
+
+> +   int i, len, ret;
+
+> +   const struct codec_reg_val *init_table;
+
 > +
->  struct sdw_driver {
->  	const char *name;
->  
-> @@ -599,6 +609,26 @@ struct sdw_driver {
->  	struct device_driver driver;
->  };
->  
-> +struct sdw_md_driver {
-> +	/* initializations and allocations */
-> +	int (*probe)(struct sdw_master_device *md, void *link_ctx);
-> +	/* hardware enablement, all clock/power dependencies are available */
-> +	int (*startup)(struct sdw_master_device *md);
-> +	/* hardware disabled */
-> +	int (*shutdown)(struct sdw_master_device *md);
-> +	/* free all resources */
-> +	int (*remove)(struct sdw_master_device *md);
-> +	/*
-> +	 * enable/disable driver control while in clock-stop mode,
-> +	 * typically in always-on/D0ix modes. When the driver yields
-> +	 * control, another entity in the system (typically firmware
-> +	 * running on an always-on microprocessor) is responsible to
-> +	 * tracking Slave-initiated wakes
-> +	 */
-> +	int (*autonomous_clock_stop_enable)(struct sdw_master_device *md,
-> +					    bool state);
-> +};
 
-Use kerneldoc comments for this to make it easier to understand and for
-others to read?
+> +   pr_info("%s start\n", __func__);
 
-thanks,
 
-greg k-h
+
+These pr_info() calls are going to be too noisy.
+
+
+
+        OK! I will remove it.
+
+
+
+> +   switch (level) {
+
+> +   case SND_SOC_BIAS_OFF:
+
+> +           ret = regmap_read(chip->regmap, MT6660_REG_IRQ_STATUS1, &val);
+
+> +           dev_info(component->dev,
+
+> +                   "%s reg0x05 = 0x%x\n", __func__, val);
+
+> +           break;
+
+
+
+This is just making noise, it looks like there's nothing to do in this function at all and the above is only for debugging.  There's lots of these throughout the driver.
+
+
+
+        It is prepare for more flexible using. Anyway, I will remove it.
+
+
+
+> +static int mt6660_component_put_volsw(struct snd_kcontrol *kcontrol,
+
+> +                             struct snd_ctl_elem_value *ucontrol) {
+
+> +   struct snd_soc_component *component =
+
+> +           snd_soc_kcontrol_component(kcontrol);
+
+> +   int put_ret = 0;
+
+> +
+
+> +   pm_runtime_get_sync(component->dev);
+
+> +   put_ret = snd_soc_put_volsw(kcontrol, ucontrol);
+
+> +   if (put_ret < 0)
+
+> +           return put_ret;
+
+> +   pm_runtime_put(component->dev);
+
+> +   return put_ret;
+
+> +}
+
+
+
+It would be *much* better to just use a register cache here rather than open code like this, and given that the device is suspended via the register map it is more than a little surprising that there's any need to do anything special here.
+
+
+
+        Ok!
+
+************* Email Confidentiality Notice ********************
+
+The information contained in this e-mail message (including any attachments) may be confidential, proprietary, privileged, or otherwise exempt from disclosure under applicable laws. It is intended to be conveyed only to the designated recipient(s). Any use, dissemination, distribution, printing, retaining or copying of this e-mail (including its attachments) by unintended recipient(s) is strictly prohibited and may be unlawful. If you are not an intended recipient of this e-mail, or believe that you have received this e-mail in error, please notify the sender immediately (by replying to this e-mail), delete any and all copies of this e-mail (including any attachments) from your system, and do not disclose the content of this e-mail to any other person. Thank you!
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

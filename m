@@ -2,67 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 813DF11E2A7
-	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 12:19:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5E0611E2D8
+	for <lists+alsa-devel@lfdr.de>; Fri, 13 Dec 2019 12:34:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E09F9176F;
-	Fri, 13 Dec 2019 12:18:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E09F9176F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1C0B11781;
+	Fri, 13 Dec 2019 12:33:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C0B11781
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576235944;
-	bh=dQ90D4BnsAnwXkYO8JdOAmybozAkuQCU2BrGjfPvems=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576236879;
+	bh=TYvdw6dOPVb3ilJ0H47pLeyvzAkjlWXe6H6AD0qSlgU=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hu6fPt904zACC7pJ2YwLSsrDBQGPnEcGBsGnc8WkRPghVUtqufIadnrk3Sqj8tbJf
-	 y2/AA9O7sJBDgo6J6UUFLqbRD3eoD5sM/cHV+mRmQpot7z6fvtxoE0Sl8z7ifzpTJ6
-	 SeU+CDf/w7KT7UY4g/LJvLe4oYHO1AkuN6+NVx3k=
+	b=LZ+bzRMeLOChqr9HvpexEM0IUjJy56lvdKZDwmk7hsVDV2fn/2gkbaqwjhTKBrnHX
+	 JdlMLA/NsbbQxNmo/SOE0YzMyNp+ToGJgxIASi2QxHPrSusXxy8W8WjTUCGwY78qPP
+	 rz6DrU+0SgqnekPNl9klk0GPHzYXf5uO7fYhg6oQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44B5FF8021E;
-	Fri, 13 Dec 2019 12:17:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56EE2F801F4;
+	Fri, 13 Dec 2019 12:32:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0FEAF801F4; Fri, 13 Dec 2019 12:17:18 +0100 (CET)
+ id E9253F801F4; Fri, 13 Dec 2019 12:32:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8F6CF800AB
- for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 12:17:15 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9D76DA003F;
- Fri, 13 Dec 2019 12:17:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9D76DA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1576235834; bh=MmVlyHvVCcPYgRjOzSeGupfCfmXIMVzaIJb1kmDObU0=;
- h=Subject:To:References:From:Cc:Date:In-Reply-To:From;
- b=1g6VNHxcVqNDkNMJ/tLOMPWavMVGkcGAx9uqFA51dspAFQ7XjPf+oZO6upvlPmFXk
- cuBF2VDBRgOehtfCCFlL2bqNlTmkNIURqLXgITNwJXhmBbYTCHpxoMbf4c9MCDZBUF
- CLRIQsIN1tT64D96EEVAeAJy2aYeNqHmbYI5HERY=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 13 Dec 2019 12:17:12 +0100 (CET)
-To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-References: <20191201080449.GA408@workstation>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <b121b3eb-3bb8-7efc-d5e1-f470049899b7@perex.cz>
-Date: Fri, 13 Dec 2019 12:17:12 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id CF409F800AB
+ for <alsa-devel@alsa-project.org>; Fri, 13 Dec 2019 12:32:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CF409F800AB
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4EA11045;
+ Fri, 13 Dec 2019 03:32:43 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 30B113F718;
+ Fri, 13 Dec 2019 03:32:43 -0800 (PST)
+Date: Fri, 13 Dec 2019 11:32:41 +0000
+From: Mark Brown <broonie@kernel.org>
+To: =?utf-8?B?amVmZl9jaGFuZyjlvLXkuJbkvbMp?= <jeff_chang@richtek.com>
+Message-ID: <20191213113241.GA4644@sirena.org.uk>
+References: <1576152740-11979-1-git-send-email-richtek.jeff.chang@gmail.com>
+ <20191212145330.GC4310@sirena.org.uk>
+ <b0f4c1afd1d341b49b87b7b5cda5ea4d@ex1.rt.l>
 MIME-Version: 1.0
-In-Reply-To: <20191201080449.GA408@workstation>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Restart alsa-gi project as alsa-gobject project
+In-Reply-To: <b0f4c1afd1d341b49b87b7b5cda5ea4d@ex1.rt.l>
+X-Cookie: Life exists for no known purpose.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ Jeff Chang <richtek.jeff.chang@gmail.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Add MediaTek MT6660 Speaker Amp
+	Driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,50 +71,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============2120516141434417198=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 01. 12. 19 v 9:04 Takashi Sakamoto napsal(a):
-> Hi Jaroslav,
-> 
-> Since Audio Mini Conference 2018, I continued to work for alsa-gi[1] in
-> my local to integrate toward better I/O libraries. However I realized
-> that its basic design includes some disadvantages to produce useful APIs.
-> 
-> I rethink the design and realize it better to wrap each of structures
-> in <sound/asound.h> simply. Then, I restart it as alsa-gobject[2].
-> At present, master branch includes a library, `libalsactl0` for the
-> most of I/O features in ALSA control interface, which is compatible with
-> GObject mechanism and GObject introspection.
-> 
-> Jaroslav, would you please delete the alsa-gi repository and fork
-> the master branch from my alsa-gobject repository, then apply enough
-> configurations to the new repository?
 
-Hi Takashi,
+--===============2120516141434417198==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="AhhlLboLdkugWU4S"
+Content-Disposition: inline
 
-I am sorry that it took so long but I was really busy with other things.
-The alsa-gobject repository is set, synced with git.alsa-project.org now like 
-other repos. The settings should be similar to alsa-gi, so you should have 
-write permissions. If you hit any issue, just let me know.
 
-The original alsa-gi repository was archived and I will remove it later.
+--AhhlLboLdkugWU4S
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-There is only one difference - I did not clone this repo from yours via 
-github. It might make sense, if you fork the alsa-project repo to your github 
-repository and push your changes back (alsa-project/alsa-gobject -> 
-takaswie/alsa-gobject), so the fork link system on github will be updated 
-properly.
+On Fri, Dec 13, 2019 at 07:36:15AM +0000, jeff_chang(=E5=BC=B5=E4=B8=96=E4=
+=BD=B3) wrote:
+> Dear Mark:
+>=20
+>=20
+>=20
+>         Thanks for your replying. I consider that there was only one item=
+ I should modify. So I kept resending.
+>=20
+>=20
+>=20
+>         Please refer my red comment after your comment.
 
-				Thank you,
-					Jaroslav
+I can't tell what's in red or not, kernel development gets done with
+plain text e-mail.  Please fix your mail configuration, it is extremely
+difficult to read your messages for this and other reasons.
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> The writes to reserved registers should be fine but things like this whic=
+h looks like it's configuring the input path should just be left at the chi=
+p default, we don't want to be configuring for particular boards since the =
+same driver will be used for every board with the chip.
+>=20
+>=20
+>=20
+>         The chip default cannot be modified anymore. How can I do if I re=
+ally need write these setting in our drivers?
+
+Settings should be done through some combination of userspace
+configuration at runtime and device tree or ACPI properties.
+
+--AhhlLboLdkugWU4S
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl3zdtYACgkQJNaLcl1U
+h9B8kwf+IpjaEaGa2G/sBNA8Uba5iLxJH77tx+EkitOF1sumwNDj1XNcuYqb9lDl
+ak4VjrPpISMuFyn2bA1jcGMDT9Kt7Iu9Ho2H/trihujQasAESaDskolv4ePg0XVV
+azTK7X98WsarZRy6EpuWWSCmF1ePPpA60fHtM3rjQbKDhAb+6VVIl6kDEeWvhwtt
+aPl5Twi1fjMqgPtqSdCe/aREpmiREG19zoTy/M/INreV7T5KY4ndfV/m6YNnBVss
+T0ambE+xjV94LIULzEsa5fno9DKIgGOmrKxunAXswLk8B4Za0Auhv7E3XBvc/CpR
+7kTt0mjLMsVXjv75mbnn2BKi7Zdovw==
+=PyY0
+-----END PGP SIGNATURE-----
+
+--AhhlLboLdkugWU4S--
+
+--===============2120516141434417198==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============2120516141434417198==--

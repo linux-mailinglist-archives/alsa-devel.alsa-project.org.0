@@ -2,79 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B50120F5A
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Dec 2019 17:27:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73B5E121036
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Dec 2019 17:55:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78F191658;
-	Mon, 16 Dec 2019 17:26:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78F191658
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDCBE1666;
+	Mon, 16 Dec 2019 17:54:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDCBE1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576513630;
-	bh=h4KceFw2tLPYbj7eX/9X+DksY8x2LaGnA18aSeQWSo4=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576515338;
+	bh=enebr5DJcXPUkP0eA8FXLQzwtu5vUzO8yFiYchkOgOQ=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Q3h23KDFqmh+2WfjwWKvCZRjEgYzKTJRW05SyulIH/AdfU7ndUaLINqYMuqyUN1gm
-	 KY+wRoGu22udTx+RzkIpX/qVFJOCiEADjvMErAK6WHPIJW+BPiZPpeQsaK9iVuzKMD
-	 RCoDTGoRPTFMDx+6E+vUMFLwxcIjsOP/8hDO7pG4=
+	b=cz65EQ4sUA6m2kFPhtPnioaqPHduk0iUqaKA7fd0PQZWQbUU5G4bC/P/0YN+eLjRe
+	 VoMVzmQwBZv+O2BivFy1Sn1QGc4eKav8qVlqayFmE5MTnm6+ygGKspyd8+njWcaKB4
+	 3bf5hevXuFnZ6zawDFcz8Jess5bzxfaKHqK9wtUM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08138F80257;
-	Mon, 16 Dec 2019 17:25:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26A47F80255;
+	Mon, 16 Dec 2019 17:53:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A911EF80255; Mon, 16 Dec 2019 17:25:25 +0100 (CET)
+ id 67FD3F80255; Mon, 16 Dec 2019 17:53:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from node.akkea.ca (node.akkea.ca [192.155.83.177])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1ED2F800B2
- for <alsa-devel@alsa-project.org>; Mon, 16 Dec 2019 17:25:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1ED2F800B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95520F800B2
+ for <alsa-devel@alsa-project.org>; Mon, 16 Dec 2019 17:53:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95520F800B2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="B4XeOd/H"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A1DAC206D7;
- Mon, 16 Dec 2019 16:25:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1576513520;
- bh=BIgz88Jxh/hhpFVygPCWmHqmEervhbpVfOW1PXEq/4Y=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=B4XeOd/HNIJ2fz7+62Ywopnp31Jw6v6HijzywYRXZ0y0D/DI43NS4vJvB0ehaiYPh
- ClkfRA0zvLMsi4qgnA0rfEbhQlBJ1uB7QcUQboJJBbNVSarne4UDToy0caYNHvn/RP
- IR87HXp2GWbxzucsyhC1aV2blpQZNRJUlRRUkRjo=
-Date: Mon, 16 Dec 2019 17:25:17 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20191216162517.GA2258618@kroah.com>
-References: <20191213050409.12776-1-pierre-louis.bossart@linux.intel.com>
- <20191213050409.12776-9-pierre-louis.bossart@linux.intel.com>
- <20191213072844.GF1750354@kroah.com>
- <7431d8cf-4a09-42af-14f5-01ab3b15b47b@linux.intel.com>
- <20191213161046.GA2653074@kroah.com>
- <20728848-e0ae-01f6-1c45-c8eef6a6a1f4@linux.intel.com>
- <20191214082742.GA3318534@kroah.com>
- <e9d77c58-e0bd-010c-bbc8-b54c82f065fd@linux.intel.com>
+ dkim=pass (1024-bit key) header.d=akkea.ca header.i=@akkea.ca
+ header.b="InUpgdik"; 
+ dkim=pass (1024-bit key) header.d=akkea.ca header.i=@akkea.ca
+ header.b="InUpgdik"
+Received: from localhost (localhost [127.0.0.1])
+ by node.akkea.ca (Postfix) with ESMTP id DE9014E2006;
+ Mon, 16 Dec 2019 16:53:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akkea.ca; s=mail;
+ t=1576515227; bh=PDG4xILM0ggz//+/yPEhO7+YPyNm+jyBiOoMiKrGSH8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=InUpgdik2rw3RH9CAtDXLPzGZbi+Mj1zDS30acc3jowFAyTe3WnxZqWlBIz3jqTKP
+ AQX4vJEMDoswjIXvOI5uwt+LRYip/IvOHB+5wb1gzX2ObciSlG/vu7EdXXQPwmOlv0
+ A+8EBtIqugoP69y/EA4r5qWpBrUVXMydcOU6Mjuo=
+X-Virus-Scanned: Debian amavisd-new at mail.akkea.ca
+Received: from node.akkea.ca ([127.0.0.1])
+ by localhost (mail.akkea.ca [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 5XS3_Gd8CFnQ; Mon, 16 Dec 2019 16:53:47 +0000 (UTC)
+Received: from www.akkea.ca (node.akkea.ca [192.155.83.177])
+ by node.akkea.ca (Postfix) with ESMTPSA id 725604E2003;
+ Mon, 16 Dec 2019 16:53:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=akkea.ca; s=mail;
+ t=1576515227; bh=PDG4xILM0ggz//+/yPEhO7+YPyNm+jyBiOoMiKrGSH8=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=InUpgdik2rw3RH9CAtDXLPzGZbi+Mj1zDS30acc3jowFAyTe3WnxZqWlBIz3jqTKP
+ AQX4vJEMDoswjIXvOI5uwt+LRYip/IvOHB+5wb1gzX2ObciSlG/vu7EdXXQPwmOlv0
+ A+8EBtIqugoP69y/EA4r5qWpBrUVXMydcOU6Mjuo=
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <e9d77c58-e0bd-010c-bbc8-b54c82f065fd@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v4 08/15] soundwire: add initial
- definitions for sdw_master_device
+Date: Mon, 16 Dec 2019 08:53:47 -0800
+From: Angus Ainslie <angus@akkea.ca>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20191216122258.GC4161@sirena.org.uk>
+References: <20191214235550.31257-1-angus@akkea.ca>
+ <20191216122258.GC4161@sirena.org.uk>
+Message-ID: <3b7f47120df1d63747788bf9de16392c@akkea.ca>
+X-Sender: angus@akkea.ca
+User-Agent: Roundcube Webmail/1.3.6
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, kernel@puri.sm,
+ linux-kernel-owner@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>
+Subject: Re: [alsa-devel] [PATCH v2 0/2] Add the broadmobi BM818
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,69 +88,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Dec 16, 2019 at 09:02:01AM -0600, Pierre-Louis Bossart wrote:
+On 2019-12-16 04:22, Mark Brown wrote:
+> On Sat, Dec 14, 2019 at 03:55:48PM -0800, Angus Ainslie (Purism) wrote:
 > 
+>> Angus Ainslie (Purism) (2):
+>>   sound: codecs: gtm601: add Broadmobi bm818 sound profile
+>>   dt-bindings: sound: gtm601: add the broadmobi interface
 > 
-> On 12/14/19 2:27 AM, Greg KH wrote:
-> > On Fri, Dec 13, 2019 at 05:25:23PM -0600, Pierre-Louis Bossart wrote:
-> > > 
-> > > > No, I mean the new MODULE_NAMESPACE() support that is in the kernel.
-> > > > I'll move the greybus code to use it too, but when you are adding new
-> > > > apis, it just makes sense to use it then as well.
-> > > 
-> > > Greg, would the patch below be what you had in mind?
-> > > Thanks
-> > > -Pierre
-> > > 
-> > > 
-> > > diff --git a/drivers/soundwire/Makefile b/drivers/soundwire/Makefile
-> > > index 76a5c52b12b4..5bad8422887e 100644
-> > > --- a/drivers/soundwire/Makefile
-> > > +++ b/drivers/soundwire/Makefile
-> > > @@ -7,9 +7,11 @@ ccflags-y += -DDEBUG
-> > >   #Bus Objs
-> > >   soundwire-bus-objs := bus_type.o bus.o master.o slave.o mipi_disco.o
-> > > stream.o
-> > >   obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
-> > > +ccflags-$(CONFIG_SOUNDWIRE) += -DDEFAULT_SYMBOL_NAMESPACE=SDW_CORE
-> > > 
-> > >   soundwire-generic-allocation-objs := generic_bandwidth_allocation.o
-> > >   obj-$(CONFIG_SOUNDWIRE_GENERIC_ALLOCATION) +=
-> > > soundwire-generic-allocation.o
-> > > +ccflags-$(CONFIG_SOUNDWIRE_GENERIC_ALLOCATION) +=
-> > > -DDEFAULT_SYMBOL_NAMESPACE=SDW_CORE
-> > 
-> > Don't use ccflags, just use the correct MODULE_EXPORT_NS() tag instead.
+> As I said in reply to v1:
 > 
-> The documentation [1] states
-> 
-> "
-> Defining namespaces for all symbols of a subsystem can be very verbose and
-> may become hard to maintain. Therefore a default define
-> (DEFAULT_SYMBOL_NAMESPACE) is been provided, that, if set, will become the
-> default for all EXPORT_SYMBOL() and EXPORT_SYMBOL_GPL() macro expansions
-> that do not specify a namespace.
-> "
-> 
-> If the ccflags option is not supported or no longer desired, it'd be worth
-> updating the documentation for dummies like me. I took the wording as a hint
-> to avoid using MODULE_EXPORT_NS.
+> | These subject styles don't even agree with each other :( - please
+> | try to be consistent with the style for the subsystem (the latter
+> | one matches, the first one doesn't).
 
-It's supported, and works just fine.  It's just that you really don't
-have a ton of exports, right?  What's wrong with manually marking them?
+Sorry I missed fixing that. I will re-submit.
 
-> > And "SDW_CORE" is odd, "SOUNDWIRE" instead?
-> 
-> 'sdw' is the prefix used everywhere for SoundWire symbols.
+Do you have any comments on the code changes I made in v2 ?
 
-Ok, I guess that ship has sailed :(
-
-greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

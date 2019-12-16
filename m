@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F09D1204F7
-	for <lists+alsa-devel@lfdr.de>; Mon, 16 Dec 2019 13:08:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DD91120505
+	for <lists+alsa-devel@lfdr.de>; Mon, 16 Dec 2019 13:09:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEF5B1672;
-	Mon, 16 Dec 2019 13:07:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEF5B1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA80B1673;
+	Mon, 16 Dec 2019 13:08:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA80B1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576498117;
-	bh=WxkP/LI2BbDed+Wk5VHvHk/GbKEzaf47n3OHdMq1cKU=;
+	s=default; t=1576498166;
+	bh=nRq07p8ybxsY13vWY0DTUh11eIrDqHYkX/y+ZAq7EKk=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=RtVS41t4ZEJ0rznhLPI3CJJiMRLfHhuzK6HEW/WOrzwOjhIap89Z3oEGkachIqYM5
-	 Km+YPbhgdtq7CQ8fAO515NHystnbOOIif60vAHExsOPQXuaK1KQJBsQ9jxzMYTRwng
-	 n9756GJbva3p6L4+GY/dnE7GkoVFXcAtnyIEO4YE=
+	b=kjFkFtYE9xVq9Br4zi7Qbhrkp5n/GEyvkWeaUS/ZdItqpRM0O/d5rT/gT5qpaQhvf
+	 enQs88fGiRq27ISy7pVP4axZbW/gL+043zlKwUiWUS8T9vAO7pZQwrF7CH8iE00E0k
+	 fp4QB/eQptVO/Uh78zZTVDKcIpdzaVuOlg5MWWm8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C40BF8026F;
-	Mon, 16 Dec 2019 13:05:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4140F80273;
+	Mon, 16 Dec 2019 13:05:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B8BFF8022C; Mon, 16 Dec 2019 13:05:13 +0100 (CET)
+ id 77AE6F8026A; Mon, 16 Dec 2019 13:05:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 1CE25F80259
- for <alsa-devel@alsa-project.org>; Mon, 16 Dec 2019 13:05:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CE25F80259
+ by alsa1.perex.cz (Postfix) with ESMTP id B5D79F80259
+ for <alsa-devel@alsa-project.org>; Mon, 16 Dec 2019 13:05:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5D79F80259
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5687E1045;
- Mon, 16 Dec 2019 04:05:09 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C1B661FB;
+ Mon, 16 Dec 2019 04:05:11 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CB69C3F719;
- Mon, 16 Dec 2019 04:05:08 -0800 (PST)
-Date: Mon, 16 Dec 2019 12:05:07 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4150E3F719;
+ Mon, 16 Dec 2019 04:05:11 -0800 (PST)
+Date: Mon, 16 Dec 2019 12:05:09 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <875zil59is.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-875zil59is.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <877e3159ix.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-877e3159ix.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: samsung: neo1973_wm8753: use
+Subject: [alsa-devel] Applied "ASoC: samsung: lowland: use
 	snd_soc_dai_link_component for codec_conf" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -70,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: samsung: neo1973_wm8753: use snd_soc_dai_link_component for codec_conf
+   ASoC: samsung: lowland: use snd_soc_dai_link_component for codec_conf
 
 has been applied to the asoc tree at
 
@@ -95,35 +95,35 @@ to this mail.
 Thanks,
 Mark
 
-From 1762d3a5fd69ad3b38713f9e6144c3e32279d8bf Mon Sep 17 00:00:00 2001
+From bfc5b22c7181b39cb106ae5c2fb1dfb6ad53a724 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 13 Dec 2019 09:55:39 +0900
-Subject: [PATCH] ASoC: samsung: neo1973_wm8753: use snd_soc_dai_link_component
- for codec_conf
+Date: Fri, 13 Dec 2019 09:55:34 +0900
+Subject: [PATCH] ASoC: samsung: lowland: use snd_soc_dai_link_component for
+ codec_conf
 
 We can use snd_soc_dai_link_component to specify codec_conf.
 Let's use it.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/875zil59is.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/877e3159ix.wl-kuninori.morimoto.gx@renesas.com
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/samsung/neo1973_wm8753.c | 2 +-
+ sound/soc/samsung/lowland.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/samsung/neo1973_wm8753.c b/sound/soc/samsung/neo1973_wm8753.c
-index 38f536bafa09..1339e41e9860 100644
---- a/sound/soc/samsung/neo1973_wm8753.c
-+++ b/sound/soc/samsung/neo1973_wm8753.c
-@@ -303,7 +303,7 @@ static struct snd_soc_aux_dev neo1973_aux_devs[] = {
+diff --git a/sound/soc/samsung/lowland.c b/sound/soc/samsung/lowland.c
+index 973f22bcc747..098eefc764db 100644
+--- a/sound/soc/samsung/lowland.c
++++ b/sound/soc/samsung/lowland.c
+@@ -126,7 +126,7 @@ static struct snd_soc_dai_link lowland_dai[] = {
  
- static struct snd_soc_codec_conf neo1973_codec_conf[] = {
+ static struct snd_soc_codec_conf lowland_codec_conf[] = {
  	{
--		.dev_name = "lm4857.0-007c",
-+		.dlc = COMP_CODEC_CONF("lm4857.0-007c"),
- 		.name_prefix = "Amp",
+-		.dev_name = "wm9081.1-006c",
++		.dlc = COMP_CODEC_CONF("wm9081.1-006c"),
+ 		.name_prefix = "Sub",
  	},
  };
 -- 

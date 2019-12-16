@@ -2,83 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4EB6D122D27
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 14:41:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE24122D2A
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 14:42:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA1711658;
-	Tue, 17 Dec 2019 14:40:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA1711658
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD445166E;
+	Tue, 17 Dec 2019 14:41:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD445166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576590104;
-	bh=6Vtb9AVaxrHXlC5OyOSrCXM1wl8ENQgIEEGBeEbtmGA=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576590148;
+	bh=SIwNNY/FSpYcCVsdzVjiZ7mA9X/cm+qYatG74nNCXWo=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DJLJnFQmSeO+tCJqWsn/gSvy4eHFOSTbDwPaiXmk9BmmXoO+7epxRasGv1JZl0DmD
-	 nODNuYWw0WrVyK7tNPwUFcV6DiDllVyTr2V5sgFp+ucn6u7iXSTjTlVgIIGy8mgl1M
-	 06XNuw56vrp1vh7+Ets35WM1aGLsmQgtOV94xulk=
+	b=U0aGdl9cXtukKJfpM69kuB+Dbx3+lW1jkfwaz3RGN5fCG0QDemnv9qXHRuGD/nNUJ
+	 p4+ri80nmHOJHpySwuy7fol3A8TIHQw6iHEKeg6lBh1IM9eTcT81pyH+3r6pdYIknJ
+	 kB031gJ7DjrGYsZbLWe+6cDN8hFqQLy8vCdGlKVc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6AF66F8026F;
-	Tue, 17 Dec 2019 14:39:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7474F80279;
+	Tue, 17 Dec 2019 14:39:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2A8BF80259; Mon, 16 Dec 2019 15:23:29 +0100 (CET)
+ id EC947F80255; Mon, 16 Dec 2019 16:11:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
- [IPv6:2a00:1450:4864:20::144])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E4958F80257
- for <alsa-devel@alsa-project.org>; Mon, 16 Dec 2019 15:23:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4958F80257
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0868F800B2
+ for <alsa-devel@alsa-project.org>; Mon, 16 Dec 2019 16:11:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0868F800B2
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="QSKs5fDu"
-Received: by mail-lf1-x144.google.com with SMTP id r14so4372947lfm.5
- for <alsa-devel@alsa-project.org>; Mon, 16 Dec 2019 06:23:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=SDz/eeiUYW00uzzbWG7DKDZnUYir/tuNRcDkO6zwBsY=;
- b=QSKs5fDuzVkdH3m7fH8YkBd2PodkArxmfGtpqkuhuHCEVIp44IPGrWiUNbPNyXUmLD
- oSHUzqxTaiFBb6jPo1aKzD2rTL9ojEqbf5svoH5nxZ3IXiNAytr/ZoFCSKwRMPjHK0AS
- VT53eJgj9gMFfhc8TrEZZmPCIY3/4aD5AEJnsnqtICB+d4kXxpkYChbX6m4gYHiNoNgN
- 3lQBVP3TF/xAnM5T0HqA0Fl6XY2exCS26s/auhrVPYFHtIKP4Y/WWPB9PHeqB1tnTF7O
- vPP1joK9iNxxU2KYaly0vR3sCwNXTHtMkMPBFzwGHAEeHKQI7rxEnM/hpZqrhD5n/bLk
- 3nrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=SDz/eeiUYW00uzzbWG7DKDZnUYir/tuNRcDkO6zwBsY=;
- b=OD8YjyYpB/4uhDbccsUSZ8dqUlb3SYy4Sw+V0tv1ZyUjTMyowt7loVA1TLom181UPo
- aolbf6gZAARESF9gw7tIzkb+97CiwJySvnXppBAvzjwMJxr+EIdZKirZffpunJwdLVbC
- P2jF61lP8d6p7b4h5QOFclTwEG07r3gvX0Mb5xPHXcEYb2iI/eYE5tVWCvv5CGQU2zZC
- nsJEfgYQtiF0AhrJQXBMDNqtml17c+tUV36ClcGdHP8Bk2xftLpjizuIpXz4Ao10YsVK
- VY+oZ42AutYOvj7/vQy0TnptGZcl3M1hfU/JoBvg31rB+9wYww6f1Ctf+i4VOUJ3AXN5
- K45w==
-X-Gm-Message-State: APjAAAXEM0LLB1xQMfvh5nBJcLcQ4k+urxxUBzrn0ol+9bKPyK2gH5Rl
- vSElDA+O9pfz/4ndI5Y1SCjvSDoV
-X-Google-Smtp-Source: APXvYqzMOp3oG1zDPBMq6S4CYV0V+gLdClhVaX0UoySeNVrCOjjJid4LlJ3k7mjrc3KHQBTL0oZ4VA==
-X-Received: by 2002:ac2:4194:: with SMTP id z20mr17309513lfh.20.1576506205560; 
- Mon, 16 Dec 2019 06:23:25 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.googlemail.com with ESMTPSA id q10sm10729440ljj.60.2019.12.16.06.23.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 16 Dec 2019 06:23:24 -0800 (PST)
-To: Peter De Schrijver <pdeschrijver@nvidia.com>
-References: <288a1701-def6-d628-26bc-a305f817bdb1@gmail.com>
- <78644d45-2ae3-121f-99fc-0a46f205907d@nvidia.com>
- <b35916e1-c6ee-52ca-9111-5ae109437b6e@nvidia.com>
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="QGhs5FcV"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5df79e8c0000>; Mon, 16 Dec 2019 07:11:08 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Mon, 16 Dec 2019 07:11:35 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Mon, 16 Dec 2019 07:11:35 -0800
+Received: from tbergstrom-lnx.Nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Mon, 16 Dec 2019 15:11:35 +0000
+Received: by tbergstrom-lnx.Nvidia.com (Postfix, from userid 1000)
+ id 9ECB942762; Mon, 16 Dec 2019 17:11:32 +0200 (EET)
+Date: Mon, 16 Dec 2019 17:11:32 +0200
+From: Peter De Schrijver <pdeschrijver@nvidia.com>
+To: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <20191216151132.GC28289@pdeschrijver-desktop.Nvidia.com>
+References: <b35916e1-c6ee-52ca-9111-5ae109437b6e@nvidia.com>
  <ccb715cc-c927-ea91-a26e-24d6eeeeef1a@gmail.com>
  <ee1d39d4-9a57-da9b-fce6-8130dac1d2fd@nvidia.com>
  <49da77dc-b346-68eb-9ef8-42cfb3221489@nvidia.com>
@@ -87,14 +67,26 @@ References: <288a1701-def6-d628-26bc-a305f817bdb1@gmail.com>
  <20191211151028.GZ28289@pdeschrijver-desktop.Nvidia.com>
  <0930a710-174b-859b-294c-e9f81f6a3b5e@gmail.com>
  <20191216122005.GB28289@pdeschrijver-desktop.Nvidia.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <53653719-f8e5-f6d1-a1d1-e53c7ccd7636@gmail.com>
-Date: Mon, 16 Dec 2019 17:23:23 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
+ <53653719-f8e5-f6d1-a1d1-e53c7ccd7636@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <20191216122005.GB28289@pdeschrijver-desktop.Nvidia.com>
-Content-Language: en-US
+Content-Disposition: inline
+In-Reply-To: <53653719-f8e5-f6d1-a1d1-e53c7ccd7636@gmail.com>
+X-NVConfidentiality: public
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1576509068; bh=I1odfwufiuiQcheICSY0jJckHTKldkWpkyjJ/8Oh1yo=;
+ h=X-PGP-Universal:Date:From:To:CC:Subject:Message-ID:References:
+ MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+ X-NVConfidentiality:User-Agent:X-Originating-IP:X-ClientProxiedBy;
+ b=QGhs5FcVVC9cXcbG8mVyS/58pX1r9J7lPBVu+qYUczhyUutwmKxk8BXjKOEodxPNq
+ SWD/7lfvn0vVj63lQtSz/LTeCpmW3oOLm40rb50bGYyapKrR38KFLMyHk6YHSsMq+t
+ 3jOta+DeLHkCU5w2PV0nwAXaZU9yl4IXPPTD/iHHdykkOKP3t87ZEXA6ePfHJ+yAwm
+ 9DP4WpRbkkOz1TriLmktw3gt/+rLw0QCapYDSoP2PYj5fjSr68r8kAG8nM5FbdyJU6
+ b4gp9q43RHeA/M4kHxjl/pbJ88VhM28ga3/0q1niS8ZqLtJeJd7vZQ0aTI+/Q26dcF
+ xjIM8Izf/qTRw==
 X-Mailman-Approved-At: Tue, 17 Dec 2019 14:39:17 +0100
 Cc: mark.rutland@arm.com, alsa-devel@alsa-project.org, pgaikwad@nvidia.com,
  lgirdwood@gmail.com, mturquette@baylibre.com, mperttunen@nvidia.com,
@@ -121,52 +113,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MTYuMTIuMjAxOSAxNToyMCwgUGV0ZXIgRGUgU2NocmlqdmVyINC/0LjRiNC10YI6Cj4gT24gVGh1
-LCBEZWMgMTIsIDIwMTkgYXQgMDQ6NDM6NTNBTSArMDMwMCwgRG1pdHJ5IE9zaXBlbmtvIHdyb3Rl
-Ogo+PiBFeHRlcm5hbCBlbWFpbDogVXNlIGNhdXRpb24gb3BlbmluZyBsaW5rcyBvciBhdHRhY2ht
-ZW50cwo+Pgo+Pgo+PiAxMS4xMi4yMDE5IDE4OjEwLCBQZXRlciBEZSBTY2hyaWp2ZXIg0L/QuNGI
-0LXRgjoKPj4+IE9uIFR1ZSwgRGVjIDEwLCAyMDE5IGF0IDA4OjQxOjU2UE0gKzAzMDAsIERtaXRy
-eSBPc2lwZW5rbyB3cm90ZToKPj4+Cj4+PiAuLgo+Pj4KPj4+Pj4KPj4+Pj4gUE1DIGNsb2NrIGdh
-dGUgaXMgYmFzZWQgb24gdGhlIHN0YXRlIG9mIENMS3hfQUNDRVBUX1JFUSBhbmQgRk9SQ0VfRU4K
-Pj4+Pj4gbGlrZSBleHBsYWluZWQgYWJvdmUuCj4+Pj4+Cj4+Pj4+IENMS3hfQUNDRVBUX1JFUSBp
-cyAwIGRlZmF1bHQgYW5kIEZPUkNFX0VOIGFjdHMgYXMgZ2F0ZSB0byBlbmFibGUvZGlzYWJsZQo+
-Pj4+PiBFWFRQRVJJUEggY2xvY2sgb3V0cHV0IHRvIFBNQyBDTEtfT1VUXzEvMi8zLgo+Pj4+Cj4+
-Pj4gW2FuZCB0byBlbmFibGUgT1NDIGFzIHdlbGxdCj4+Pj4KPj4+Pj4gU28gSSBiZWxpZXZlIHdl
-IG5lZWQgdG8gcmVnaXN0ZXIgYXMgTVVYIGFuZCBHYXRlIHJhdGhlciB0aGFuIGFzIGEgc2luZ2xl
-Cj4+Pj4+IGNsb2NrLiBQbGVhc2UgY29uZmlybS4KPj4+Pgo+Pj4+IDEuIFRoZSBmb3JjZS1lbmFi
-bGluZyBpcyBhcHBsaWVkIHRvIGJvdGggT1NDIGFuZCBFWFRFUk4gc291cmNlcyBvZgo+Pj4+IFBN
-Q19DTEtfT1VUX3ggYnkgUE1DIGF0IG9uY2UuCj4+Pj4KPj4+PiAyLiBCb3RoIG9mIFBNQydzIGZv
-cmNlLWVuYWJsaW5nIGFuZCBPU0MvRVhURVJOIHNlbGVjdGlvbiBpcyBpbnRlcm5hbCB0byBQTUMu
-Cj4+Pj4KPj4+PiBTaG91bGQgYmUgYmV0dGVyIHRvIGRlZmluZSBpdCBhcyBhIHNpbmdsZSAicG1j
-X2Nsa19vdXRfeCIuIEkgZG9uJ3Qgc2VlCj4+Pj4gYW55IGdvb2QgcmVhc29ucyBmb3IgZGlmZmVy
-ZW50aWF0aW5nIFBNQydzIEdhdGUgZnJvbSB0aGUgTVVYLCBpdCdzIGEKPj4+PiBzaW5nbGUgaGFy
-ZHdhcmUgdW5pdCBmcm9tIGEgcG9pbnQgb2YgdmlldyBvZiB0aGUgcmVzdCBvZiB0aGUgc3lzdGVt
-Lgo+Pj4+Cj4+Pj4gUGV0ZXIsIGRvIHlvdSBoYXZlIGFueSBvYmplY3Rpb25zPwo+Pj4KPj4+IFRo
-ZSByZWFzb24gdG8gaGF2ZSBzZXBhcmF0ZSBnYXRlIGFuZCBtdXggY2xvY2tzLCBpcyB0byBwcmVz
-ZXJ2ZSBjb21wYXRpYmlsaXR5Cj4+PiB3aXRoIGV4aXN0aW5nIHVzZXJzLgo+Pj4gT3RoZXJ3aXNl
-IHRoZSBjdXJyZW50IHVzZXJzIHdvdWxkIG5lZWQgdG8gZmlndXJlIG91dCBpZiB0aGVyZSdzIGEK
-Pj4+IHNpbmdsZSBjbG9jayBvciAyIGNsb2NrcyB0byBjb25maWd1cmUuIEkgZG9uJ3QgdGhpbmsg
-YWRkaW5nIHRoYXQgY29kZSBpbgo+Pj4gZWFjaCB1c2VyIGlzIHdvcnRoIGl0IG9ubHkgdG8gaGF2
-ZSBhIHNsaWd0aGx5IG5pY2VyIG1vZGVsbGluZyBvZiB0aGUKPj4+IGhhcmR3YXJlLgo+Pgo+PiBD
-b3VsZCB5b3UgcGxlYXNlIGNsYXJpZnkgd2hhdCBkbyB5b3UgbWVhbiBieSB0aGUgImV4aXN0aW5n
-IHVzZXJzIj8KPj4gQUZBSUssIG5vdGhpbmcgaW4ga2VybmVsIHVzZXMgbXV4IGNsb2Nrcy4KPiAK
-PiBUaGUgRFQgY2xrIGJpbmRpbmdzIGFsbG93IGZvciBwYXJlbnQgaW5pdGlhbGl6YXRpb24sIHNv
-IGl0J3MgY2VydGFpbmx5Cj4gcG9zc2libGUgdGhlcmUgYXJlIHNvbWUgRFRzIHdoaWNoIHJlbHkg
-b24gdGhpcy4gV2UgcHJvbWlzZWQgdG8gbmV2ZXIKPiBicmVhayB0aGUgYmluZGluZ3MsIHdoaWNo
-IGNoYW5naW5nIHRvIDEgY2xvY2sgd291bGQgZG8uIAoKV2hhdCBhYm91dCB0aGlzIHZhcmlhbnQ6
-CgogIDEuIEtlZXAgdGhlIG9sZCBDYVIgY29kZSBpbiBwbGFjZS4KCiAgMi4gTWFrZSBDYVIgZHJp
-dmVyIHRvIHNjYW4gd2hvbGUgZGV2aWNlLXRyZWUgZm9yIHRoZSBsZWdhY3kgUE1DIGNsb2Nrcy4K
-CiAgMy4gSWYgbGVnYWN5IGNsb2NrIGlzIGZvdW5kLCB0aGVuIHJlZ2lzdGVyIFBNQyBjbG9ja3Mg
-ZnJvbSBDYVIuCgogIDQuIElmIGxlZ2FjeSBjbG9ja3MgYXJlIG5vdCBmb3VuZCwgdGhlbiBkb24n
-dCByZWdpc3RlciBQTUMgY2xvY2tzIGZyb20KQ2FSLgoKICA1LiBBZGQgY2xvY2tzIHN1cHBvcnQg
-dG8gdGhlIFBNQyBkcml2ZXIgYW5kIG9ubHkgcmVnaXN0ZXIgdGhlbSBpZgpsZWdhY3kgY2xvY2tz
-IGFyZSBub3QgcmVnaXN0ZXJlZCBieSBDYVIuCgpOb3cgYm90aCBvbGQgYW5kIG5ldyBEVEJzIGNh
-biBjby1leGlzdCBhbmQgd29yaywgZXZlcnlvbmUgaGFwcHkuCl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2Et
-ZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9t
-YWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+On Mon, Dec 16, 2019 at 05:23:23PM +0300, Dmitry Osipenko wrote:
+> >> Could you please clarify what do you mean by the "existing users"?
+> >> AFAIK, nothing in kernel uses mux clocks.
+> >
+> > The DT clk bindings allow for parent initialization, so it's certainly
+> > possible there are some DTs which rely on this. We promised to never
+> > break the bindings, which changing to 1 clock would do.
+> 
+> What about this variant:
+> 
+>   1. Keep the old CaR code in place.
+> 
+>   2. Make CaR driver to scan whole device-tree for the legacy PMC clocks.
+> 
+>   3. If legacy clock is found, then register PMC clocks from CaR.
+> 
+>   4. If legacy clocks are not found, then don't register PMC clocks from
+> CaR.
+> 
+>   5. Add clocks support to the PMC driver and only register them if
+> legacy clocks are not registered by CaR.
+> 
+> Now both old and new DTBs can co-exist and work, everyone happy.
+
+That seems even more work.. Today the only upstream user is audio. 
+Currently these clocks are setup by the CAR clock driver. However
+as they will move to the PMC driver, this mechanism cannot be used.
+Hence the plan is to modify the audio driver to check for the PMC clocks
+in DT and if they are not available use the CAR clocks as fallback.
+The whole reason the clocks move to the PMC driver, is that when PMC
+becomes secure, all accesses have to go via an SMC. Given that we don't
+want SMCs all over the Tegra drivers, it's a good opportunity to move
+the PMC clock handling into the PMC driver. PMC can be secure with both
+'new' and old DTs, so just registering the PMC clocks in the CAR driver
+if legacy clocks are found in the DT, won't always work.
+
+Peter.
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

@@ -2,79 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DAB4123117
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 17:06:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2275D12323A
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 17:21:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0AB841666;
-	Tue, 17 Dec 2019 17:05:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0AB841666
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF9231669;
+	Tue, 17 Dec 2019 17:20:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF9231669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576598781;
-	bh=sjeSlBMvaekf8VDxFzm9eJUcqUIPgxiSoOQFfS9+Bu8=;
+	s=default; t=1576599676;
+	bh=vWbFntBaXA8oqpF9fDtV4+b4HHKcFjXmNlvJd3632Bw=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CTIUvDHEB+uODhOZQO8XbDw6VR+lUX0QNFJVEw9f0Km6BqCm24NUdWxPfcWUa55B7
-	 PPXfN+u2sV7r98PuWiM5tRYjPNG4vrsVLedpFpNE4LmtKh3H9l1VTdbB88DHhcYd9A
-	 UorhJrgHzBMuQQqdacasYCHcD1etb9QyFNv0Yc+E=
+	b=dsv+/1W3jZz4TG3PD0MwCSXSCAeoZ832nmg7mcnZugGxjpStHjtSTt1o350fytVLS
+	 GwNVfFSrkGWLOvjtPMyLZPQEceMgU1udN5+SLtgI6vN/saXNFq+QfBayS4UKJakVQ7
+	 swNkypCMlfWeNCpIS5OUuqopSmciga+Ap1Jm0p/A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65C89F80234;
-	Tue, 17 Dec 2019 17:04:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5BA30F80256;
+	Tue, 17 Dec 2019 17:19:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3EC93F80234; Tue, 17 Dec 2019 17:04:36 +0100 (CET)
+ id 10085F80100; Tue, 17 Dec 2019 17:19:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_NONE,
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from webclient5.webclient5.de (webclient5.webclient5.de
+ [136.243.32.184])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFC7DF80088
- for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 17:04:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFC7DF80088
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="ghEfgYlh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
- Subject:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=8pz2TWNx/nYHSnb/3v/c/XUDOnHlIu5NwAdxkQteJrQ=; b=ghEfgYlhDr7qiiNNbCkaK1FGg
- Bh+3P6BA8Uvi66XxHM6UyhadULk5T9fu+dMgimux+e/KPIbYTv/vvIB4M4Rgs3kV2uBaRGe9JL7DX
- T/mmRCI3DGEPyQBdClpL6FLBtHimCtpDAneO+AzQaJBF8PcS1tMxffLIuxFzjbBysOjZD2P6gjImW
- 1dws1VEHxdiyXAzLPuBkfd0mS1CvqNaun0mUR6gA+4AXjF0VyRdXTXIkQIWbvssSlxhv/MJ66sY2C
- ouYIv5QVzw4Yi8wihvqpZYhzpqNTaQ2ZdhvgEKpkaOKyquYEmy8L/2UkMUx6W31UAGLJHA7dzGX4q
- ibKKSvEqg==;
-Received: from [2601:1c0:6280:3f0::fee9]
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1ihFKj-00034V-UO; Tue, 17 Dec 2019 16:04:25 +0000
-To: Stephen Rothwell <sfr@canb.auug.org.au>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <20191217130829.6a66b404@canb.auug.org.au>
-From: Randy Dunlap <rdunlap@infradead.org>
-Message-ID: <c4fd86fb-586a-0fbc-74b0-97e6b99ef2ca@infradead.org>
-Date: Tue, 17 Dec 2019 08:04:25 -0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id DFA6AF80100
+ for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 17:19:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFA6AF80100
+Received: from aquila.ladisch.de (unknown [46.114.35.235])
+ by webclient5.webclient5.de (Postfix) with ESMTPSA id 79D9D55969B1;
+ Tue, 17 Dec 2019 17:19:26 +0100 (CET)
+To: Takashi Iwai <tiwai@suse.de>
+References: <20191217081448.1144-1-tiwai@suse.de>
+From: Clemens Ladisch <clemens@ladisch.de>
+Message-ID: <37690bd6-8fbf-8bdf-b1d8-bedf5d633a36@ladisch.de>
+Date: Tue, 17 Dec 2019 17:18:54 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.1
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20191217130829.6a66b404@canb.auug.org.au>
+In-Reply-To: <20191217081448.1144-1-tiwai@suse.de>
 Content-Language: en-US
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Jie Yang <yang.jie@linux.intel.com>,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>
-Subject: Re: [alsa-devel] linux-next: Tree for Dec 17
- (sound/soc/intel/boards/cml_rt1011_rt5682.o)
+X-Virus-Scanned: clamav-milter 0.101.4 at webclient5
+X-Virus-Status: Clean
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] ALSA: cmipci: Allow disabling MPU port via
+ module option
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,108 +68,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12/16/19 6:08 PM, Stephen Rothwell wrote:
-> Hi all,
-> =
+Takashi Iwai wrote:
+> Patrick May reported that his sound card with CMI8378 chip causes a
+> crash / reboot when accessing the MIDI port that isn't actually
+> present on the board.  [...]
+> Although fixing the unexpected reboot would be the best solution, it's
+> not so trivial to identify the cause.
 
-> Changes since 20191216:
-> =
+There was a similar problem in the CMI8788 driver:
+https://git.kernel.org/linus/f1bc07af9a9e
+https://bugtrack.alsa-project.org/alsa-bug/view.php?id=4496 (does this still exist?)
 
+When reading a register repeatedly, the chip sometimes does not
+complete the PCI transaction.  Apparently, mainboard PCI chipsets
+ignore this error, but PCIe/PCI bridges generate a machine check
+exception in this case.
 
-on x86_64:
+When writing MIDI data to a MPU-401-like device, the driver regularly
+polls the status register.  I expect that this will blow up with any
+C-Media chip on a card with a PCIe/PCI bridge, regardless of whether
+a MIDI port exists.
 
-  CC      sound/soc/intel/boards/cml_rt1011_rt5682.o
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:409:4: error: =91struct snd_s=
-oc_codec_conf=92 has no member named =91dev_name=92
-   .dev_name =3D "i2c-10EC1011:00",
-    ^~~~~~~~
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:407:50: warning: missing brac=
-es around initializer [-Wmissing-braces]
- static struct snd_soc_codec_conf rt1011_conf[] =3D {
-                                                  ^
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:409:15:
-   .dev_name =3D "i2c-10EC1011:00",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:413:4: error: =91struct snd_s=
-oc_codec_conf=92 has no member named =91dev_name=92
-   .dev_name =3D "i2c-10EC1011:01",
-    ^~~~~~~~
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:407:50: warning: missing brac=
-es around initializer [-Wmissing-braces]
- static struct snd_soc_codec_conf rt1011_conf[] =3D {
-                                                  ^
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:409:15:
-   .dev_name =3D "i2c-10EC1011:00",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:413:15:
-   .dev_name =3D "i2c-10EC1011:01",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:417:4: error: =91struct snd_s=
-oc_codec_conf=92 has no member named =91dev_name=92
-   .dev_name =3D "i2c-10EC1011:02",
-    ^~~~~~~~
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:407:50: warning: missing brac=
-es around initializer [-Wmissing-braces]
- static struct snd_soc_codec_conf rt1011_conf[] =3D {
-                                                  ^
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:409:15:
-   .dev_name =3D "i2c-10EC1011:00",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:413:15:
-   .dev_name =3D "i2c-10EC1011:01",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:417:15:
-   .dev_name =3D "i2c-10EC1011:02",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:421:4: error: =91struct snd_s=
-oc_codec_conf=92 has no member named =91dev_name=92
-   .dev_name =3D "i2c-10EC1011:03",
-    ^~~~~~~~
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:407:50: warning: missing brac=
-es around initializer [-Wmissing-braces]
- static struct snd_soc_codec_conf rt1011_conf[] =3D {
-                                                  ^
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:409:15:
-   .dev_name =3D "i2c-10EC1011:00",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:413:15:
-   .dev_name =3D "i2c-10EC1011:01",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:417:15:
-   .dev_name =3D "i2c-10EC1011:02",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:421:15:
-   .dev_name =3D "i2c-10EC1011:03",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:407:50: warning: missing brac=
-es around initializer [-Wmissing-braces]
- static struct snd_soc_codec_conf rt1011_conf[] =3D {
-                                                  ^
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:409:15:
-   .dev_name =3D "i2c-10EC1011:00",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:413:15:
-   .dev_name =3D "i2c-10EC1011:01",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:417:15:
-   .dev_name =3D "i2c-10EC1011:02",
-               {                }
-../sound/soc/intel/boards/cml_rt1011_rt5682.c:421:15:
-   .dev_name =3D "i2c-10EC1011:03",
-               {                }
-make[5]: *** [../scripts/Makefile.build:266: sound/soc/intel/boards/cml_rt1=
-011_rt5682.o] Error 1
+(I wonder if this can be triggered with snd_pcm_avail() in a loop.
+Maybe it happens only for byte accesses, or nobody has yet found out.)
+
+> As default, the MPU port is still enabled
+
+It might be a good idea to disable it by default if the parent
+bridge is an ASM1083.
 
 
--- =
-
-~Randy
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Regards,
+Clemens
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

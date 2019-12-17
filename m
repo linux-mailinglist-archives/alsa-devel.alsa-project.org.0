@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 215B7123878
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 22:13:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19F8C12387B
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 22:14:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AFF8B15F9;
-	Tue, 17 Dec 2019 22:12:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFF8B15F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A35A1677;
+	Tue, 17 Dec 2019 22:13:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A35A1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576617183;
-	bh=HkFeKCu2XhWNgyZWuFRzCGxHZm0PhQZ/Sjj3gSbBU+w=;
+	s=default; t=1576617275;
+	bh=EBNrIhkCRtfsJszS3vtxi6D/uydjnqTOaK+by65W/GY=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pFqUvkq+yDsrz8KcbB2+qzsdZvHVyn7Eto/jtTuc1pxqUY15UipYKc0fBm4qB0iMi
-	 ml+neMyZ3mtVw+NxFSWK21g8SX7EY5DrLHuQzvqNWQo5Pjn+8ezd4Sl+kKPmWnAyI7
-	 Yk3MnAgzQw3gz+4U8esTJ+1rm4a+YGoKGPjDqU6k=
+	b=RS5RuZgXoSDyOUdchFUgKRRqF/s5TrLVaChokZaRGYIu7SKgB2IEJCgsyVxzOl2eP
+	 0EABAhsv7vYhugBvheXaWNtoywXnbTR3YjEozowAVw9ZEEnPA2Q43xFBPLeyPWwjtf
+	 wauvf3njinADGrYNK+jBpXx5S5nypCwv4wOrpnpU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A03F6F80303;
-	Tue, 17 Dec 2019 22:04:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD329F80338;
+	Tue, 17 Dec 2019 22:04:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B34A5F8028A; Tue, 17 Dec 2019 22:03:47 +0100 (CET)
+ id 61104F80292; Tue, 17 Dec 2019 22:03:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
@@ -33,23 +33,23 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3E7BBF80269
- for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 22:03:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E7BBF80269
+ by alsa1.perex.cz (Postfix) with ESMTPS id C79F2F8026F
+ for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 22:03:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C79F2F8026F
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 13:03:41 -0800
+ 17 Dec 2019 13:03:42 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,326,1571727600"; d="scan'208";a="240561067"
+X-IronPort-AV: E=Sophos;i="5.69,326,1571727600"; d="scan'208";a="240561075"
 Received: from smcdonal-mobl2.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.255.83.42])
- by fmsmga004.fm.intel.com with ESMTP; 17 Dec 2019 13:03:40 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 17 Dec 2019 13:03:42 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 17 Dec 2019 15:03:11 -0600
-Message-Id: <20191217210314.20410-15-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 17 Dec 2019 15:03:12 -0600
+Message-Id: <20191217210314.20410-16-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
 References: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
@@ -61,8 +61,8 @@ Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
  Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
-Subject: [alsa-devel] [PATCH v5 14/17] soundwire: intel: free all resources
-	on hw_free()
+Subject: [alsa-devel] [PATCH v5 15/17] soundwire: intel_init: add
+	implementation of sdw_intel_enable_irq()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,84 +80,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Make sure all calls to the SoundWire stream API are done and involve
-callback
+This function is required to enable all interrupts across all links.
 
-Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/intel.c | 40 +++++++++++++++++++++++++++++++++++++--
- 1 file changed, 38 insertions(+), 2 deletions(-)
+ drivers/soundwire/intel_init.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index b4a9337b64d2..0e77df0a7760 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -549,6 +549,25 @@ static int intel_params_stream(struct sdw_intel *sdw,
- 	return -EIO;
+diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
+index a30d95ee71b7..391e8763638f 100644
+--- a/drivers/soundwire/intel_init.c
++++ b/drivers/soundwire/intel_init.c
+@@ -137,6 +137,30 @@ sdw_intel_scan_controller(struct sdw_intel_acpi_info *info)
+ 	return 0;
  }
  
-+static int intel_free_stream(struct sdw_intel *sdw,
-+			     struct snd_pcm_substream *substream,
-+			     struct snd_soc_dai *dai,
-+			     int link_id)
++#define HDA_DSP_REG_ADSPIC2             (0x10)
++#define HDA_DSP_REG_ADSPIS2             (0x14)
++#define HDA_DSP_REG_ADSPIC2_SNDW        BIT(5)
++
++/**
++ * sdw_intel_enable_irq() - enable/disable Intel SoundWire IRQ
++ * @mmio_base: The mmio base of the control register
++ * @enable: true if enable
++ */
++void sdw_intel_enable_irq(void __iomem *mmio_base, bool enable)
 +{
-+	struct sdw_intel_link_res *res = sdw->link_res;
-+	struct sdw_intel_stream_free_data free_data;
++	u32 val;
 +
-+	free_data.substream = substream;
-+	free_data.dai = dai;
-+	free_data.link_id = link_id;
++	val = readl(mmio_base + HDA_DSP_REG_ADSPIC2);
 +
-+	if (res->ops && res->ops->free_stream && res->dev)
-+		return res->ops->free_stream(res->dev,
-+					     &free_data);
++	if (enable)
++		val |= HDA_DSP_REG_ADSPIC2_SNDW;
++	else
++		val &= ~HDA_DSP_REG_ADSPIC2_SNDW;
 +
-+	return 0;
++	writel(val, mmio_base + HDA_DSP_REG_ADSPIC2);
 +}
++EXPORT_SYMBOL(sdw_intel_enable_irq);
 +
- /*
-  * bank switch routines
-  */
-@@ -817,6 +836,7 @@ static int
- intel_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
+ static struct sdw_intel_ctx
+ *sdw_intel_probe_controller(struct sdw_intel_res *res)
  {
- 	struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
-+	struct sdw_intel *sdw = cdns_to_intel(cdns);
- 	struct sdw_cdns_dma_data *dma;
- 	int ret;
- 
-@@ -824,12 +844,28 @@ intel_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
- 	if (!dma)
- 		return -EIO;
- 
-+	ret = sdw_deprepare_stream(dma->stream);
-+	if (ret) {
-+		dev_err(dai->dev, "sdw_deprepare_stream: failed %d", ret);
-+		return ret;
-+	}
-+
- 	ret = sdw_stream_remove_master(&cdns->bus, dma->stream);
--	if (ret < 0)
-+	if (ret < 0) {
- 		dev_err(dai->dev, "remove master from stream %s failed: %d\n",
- 			dma->stream->name, ret);
-+		return ret;
-+	}
- 
--	return ret;
-+	ret = intel_free_stream(sdw, substream, dai, sdw->instance);
-+	if (ret < 0) {
-+		dev_err(dai->dev, "intel_free_stream: failed %d", ret);
-+		return ret;
-+	}
-+
-+	sdw_release_stream(dma->stream);
-+
-+	return 0;
- }
- 
- static void intel_shutdown(struct snd_pcm_substream *substream,
 -- 
 2.20.1
 

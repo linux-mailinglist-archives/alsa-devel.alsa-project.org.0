@@ -2,68 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D91712361B
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 20:57:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 580421235D0
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 20:38:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4F4E1655;
-	Tue, 17 Dec 2019 20:56:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4F4E1655
+	by alsa0.perex.cz (Postfix) with ESMTPS id D644082A;
+	Tue, 17 Dec 2019 20:37:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D644082A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576612646;
-	bh=CzsYBOuj/092iHL2hCcolPwr7APMrtJxNJ4AUZU62SU=;
+	s=default; t=1576611515;
+	bh=Jqwp7uOvtBjaiaGlvagFwatNdk3mi3Ixx6Yw7v0NY8Y=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=e5DRjQ77sJroKKzdPoKzKqgUzvW2iBQpH6cRqouwI/B5vfdG6iz6wdfkp4X3IuSW7
-	 LE8+75GTnwSF8qKWyxqiwaypFZi8TOgOupiP78XSW+CcqT2VduT2rQc+SXH2c4c9Iz
-	 E0r4Pg+By1iHuhSbhio6nab+pkcz+9H4zJk9/9hI=
+	b=hdSQB3TGWfkOEblDkzV3yTGsKHXh3tEjDgMUnPOq/bGY+LvXQdEhOv45Y1VixSBXL
+	 F9Gj2mcLLCOOaj+nk27DAyjprN7NpW1NSsYibxlJJLkgB9FD7pKgI2unLKo5Bk7M0q
+	 wy1pmH3hrRQkilmqhLqgk0dh+G+GC57aZooGmjFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5C828F80271;
-	Tue, 17 Dec 2019 20:54:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 05084F80256;
+	Tue, 17 Dec 2019 20:36:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 783F5F8025A; Tue, 17 Dec 2019 20:54:12 +0100 (CET)
+ id 07311F80234; Tue, 17 Dec 2019 20:36:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 13D28F80088
- for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 20:54:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13D28F80088
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 11:54:07 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,326,1571727600"; d="scan'208";a="389942477"
-Received: from vramados-mobl.amr.corp.intel.com (HELO [10.254.1.250])
- ([10.254.1.250])
- by orsmga005.jf.intel.com with ESMTP; 17 Dec 2019 11:54:05 -0800
-To: Daniel Mack <daniel@zonque.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org
+Received: from mail.bugwerft.de (mail.bugwerft.de [IPv6:2a03:6000:1011::59])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7F0B3F80100
+ for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 20:36:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F0B3F80100
+Received: from [192.168.178.106] (pD95EF574.dip0.t-ipconnect.de
+ [217.94.245.116])
+ by mail.bugwerft.de (Postfix) with ESMTPSA id 2FC83281AEB;
+ Tue, 17 Dec 2019 19:30:17 +0000 (UTC)
+To: Lee Jones <lee.jones@linaro.org>
 References: <20191209183511.3576038-1-daniel@zonque.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <cb86a793-014a-1acf-c144-f9014ac0a0ac@linux.intel.com>
-Date: Tue, 17 Dec 2019 13:29:20 -0600
+ <20191209183511.3576038-8-daniel@zonque.org> <20191217133952.GJ18955@dell>
+ <20191217134617.GK18955@dell>
+From: Daniel Mack <daniel@zonque.org>
+Message-ID: <ff062a37-e07d-3d6c-7fa5-9e6dc74b1aa9@zonque.org>
+Date: Tue, 17 Dec 2019 20:36:40 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20191209183511.3576038-1-daniel@zonque.org>
+In-Reply-To: <20191217134617.GK18955@dell>
 Content-Language: en-US
-Cc: lars@metafoo.de, sboyd@kernel.org, mturquette@baylibre.com,
- robh+dt@kernel.org, broonie@kernel.org, pascal.huerst@gmail.com,
- lee.jones@linaro.org
-Subject: Re: [alsa-devel] [PATCH 00/10] mfd: Add support for Analog Devices
- A2B transceiver
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, lars@metafoo.de,
+ sboyd@kernel.org, mturquette@baylibre.com, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, robh+dt@kernel.org, broonie@kernel.org,
+ linux-i2c@vger.kernel.org, pascal.huerst@gmail.com, linux-clk@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 06/10] mfd: Add core driver for AD242x A2B
+	transceivers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,19 +73,32 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Lee,
 
-> Transceivers can both receive and provide audio, and streams can be
-> routed from one node to any other, including many others. The tricky
-> bit is how to expose the audio routing in DT in a sane way.
-> The way it is implemented here, the slave nodes specify the number of
-> slots they each consume and generate, and which thereof they forward
-> from one side to the other. This mimics the internal register
-> structure and should allow for even exotic setups.
+On 12/17/19 2:46 PM, Lee Jones wrote:
+> One thing I should mention upfront; there is too much code "doing
+> things" in here for it to be an MFD.  MFDs don't care about; syncs,
+> slots, TDM, inverting lines, upstreams, downstreams, etc etc etc.
+> Anything remotely technical or functional, the code that "does things"
+> should be moved out to the relevant areas.  In the case of this
+> device, that's looking like one of the Audio related subsystems.
 
-It was my understanding that the A2B bus is bidirectional but with 
-separate time windows allocated for host->device and device->host 
-transmission. The wording seems to hint at device-to-device 
-communication but I wonder if this is really what you meant.
+Okay, that's good to know.
+
+I in fact considered that when I started working on it; after all, A2B 
+stands for "automotive audio bus". The reason why I didn't do it was the 
+fact that these devices certainly do have multiple functions, where 
+audio is just one of them, and there needs to be a 'top-level' layer 
+that enables all these functions and does the node discovery etc. Hence 
+I thought it's cleaner to separate things that way.
+
+I can move things over to the ASoC layer for the next iteration, and 
+then maybe also merge the codec driver with the baseline drivers. Let's 
+see how this looks like then.
+
+
+Thanks,
+Daniel
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

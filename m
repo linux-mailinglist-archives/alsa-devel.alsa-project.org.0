@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 637AB122843
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 11:05:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4F3B122849
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 11:05:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E723F1616;
-	Tue, 17 Dec 2019 11:04:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E723F1616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B682166C;
+	Tue, 17 Dec 2019 11:04:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B682166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576577116;
-	bh=LDXSHzbdkUNM1BhOf3Znweu8BaqCaBnrT/nNtqByuHQ=;
+	s=default; t=1576577147;
+	bh=XeZ32v0e6KMZtok/ShOFqwUaQ/d8Y/F5lL6Qp5hfrIU=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ITylFd0BbNPmxB7dGuyaIT2HpjpA4IbzguQY2h4Mfi3I/4vziqrCHRtyDwisNVc82
-	 iEvr6qMatVVgEsRxg+tG+idwEnzTOh7UlbzZEWcP3BqZwg6UvWmfWpjgaGTiv2lukj
-	 EH+RKA4KK/5mYkO8VB5/LGmZMHXSXPbImfmczEmg=
+	b=eFQeHqnXI0A9xbiaibVnCd+RC0lq1t/HTbLUFeIye7Bzk33qFg0uE2XP2SSDVTo6R
+	 729Jpb7SuNAL2NBbAmoxpKCX3Wj6HtXO052jcch7UJQU7yZndQyJxKW2AN6xgFbA83
+	 g4+HlYIbzVq4EIWvw6VxFtUHf7ohDIkCiQ1pFP6k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 512F8F802A7;
-	Tue, 17 Dec 2019 10:59:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5186DF802C2;
+	Tue, 17 Dec 2019 10:59:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0850BF80276; Tue, 17 Dec 2019 10:59:35 +0100 (CET)
+ id CE494F8028B; Tue, 17 Dec 2019 10:59:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
@@ -33,28 +33,29 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCC3AF80218
- for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 10:59:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCC3AF80218
+ by alsa1.perex.cz (Postfix) with ESMTPS id EEB37F80234
+ for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 10:59:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EEB37F80234
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 01:59:28 -0800
+ 17 Dec 2019 01:59:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,325,1571727600"; d="scan'208";a="221717024"
+X-IronPort-AV: E=Sophos;i="5.69,325,1571727600"; d="scan'208";a="221717027"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga001.fm.intel.com with ESMTP; 17 Dec 2019 01:59:26 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 17 Dec 2019 01:59:28 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 17 Dec 2019 10:58:50 +0100
-Message-Id: <20191217095851.19629-7-cezary.rojewski@intel.com>
+Date: Tue, 17 Dec 2019 10:58:51 +0100
+Message-Id: <20191217095851.19629-8-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191217095851.19629-1-cezary.rojewski@intel.com>
 References: <20191217095851.19629-1-cezary.rojewski@intel.com>
 Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
  broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] [PATCH 6/7] ASoC: compress: Add pm_runtime support
+Subject: [alsa-devel] [PATCH 7/7] ASoC: SOF: Intel: Account for compress
+	streams when servicing IRQs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,86 +74,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For some devices, components need to be powered-up before stream startup
-sequence commences. Update soc_compr_open to provide such functionality.
-Based on soc_pcm_open. Adjust soc_compr_free accordingly to power down
-components once compress stream is closed.
+Update stream irq handler definition to correctly set hdac_stream
+current position when servicing stream interrupts for compress streams.
 
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
- sound/soc/soc-compress.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+ include/sound/hdaudio.h          |  1 +
+ sound/soc/sof/intel/hda-stream.c | 26 ++++++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 6615ef64c7f5..b2a5351b1a11 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -19,6 +19,7 @@
- #include <sound/soc.h>
- #include <sound/initval.h>
- #include <sound/soc-dpcm.h>
-+#include <linux/pm_runtime.h>
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index 9a8bf1eb7d69..9a24d57f0cf2 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -496,6 +496,7 @@ struct hdac_stream {
+ 	bool locked:1;
+ 	bool stripe:1;			/* apply stripe control */
  
- static int soc_compr_components_open(struct snd_compr_stream *cstream,
- 				     struct snd_soc_component **last)
-@@ -72,10 +73,20 @@ static int soc_compr_components_free(struct snd_compr_stream *cstream,
- static int soc_compr_open(struct snd_compr_stream *cstream)
- {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
--	struct snd_soc_component *component;
-+	struct snd_soc_component *component, *save = NULL;
-+	struct snd_soc_rtdcom_list *rtdcom;
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
- 	int ret;
- 
-+	for_each_rtd_components(rtd, rtdcom, component) {
-+		ret = pm_runtime_get_sync(component->dev);
-+		if (ret < 0 && ret != -EACCES) {
-+			pm_runtime_put_noidle(component->dev);
-+			save = component;
-+			goto pm_err;
-+		}
-+	}
-+
- 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
- 
- 	if (cpu_dai->driver->cops && cpu_dai->driver->cops->startup) {
-@@ -115,6 +126,14 @@ static int soc_compr_open(struct snd_compr_stream *cstream)
- 		cpu_dai->driver->cops->shutdown(cstream, cpu_dai);
- out:
- 	mutex_unlock(&rtd->card->pcm_mutex);
-+pm_err:
-+	for_each_rtd_components(rtd, rtdcom, component) {
-+		if (component == save)
-+			break;
-+		pm_runtime_mark_last_busy(component->dev);
-+		pm_runtime_put_autosuspend(component->dev);
-+	}
-+
++	unsigned long curr_pos;
+ 	/* timestamp */
+ 	unsigned long start_wallclk;	/* start + minimum wallclk */
+ 	unsigned long period_wallclk;	/* wallclk for period */
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index c0ab9bb2a797..ddf755a5a730 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -571,6 +571,23 @@ bool hda_dsp_check_stream_irq(struct snd_sof_dev *sdev)
  	return ret;
  }
  
-@@ -239,6 +258,8 @@ static void close_delayed_work(struct snd_soc_pcm_runtime *rtd)
- static int soc_compr_free(struct snd_compr_stream *cstream)
++static void hda_dsp_update_bytes_transferred(struct hdac_stream *hstream,
++					     u64 buffer_size)
++{
++	unsigned int prev_pos;
++	int pos, num_bytes;
++
++	div_u64_rem(hstream->curr_pos, buffer_size, &prev_pos);
++	pos = snd_hdac_stream_get_pos_posbuf(hstream);
++
++	if (pos < prev_pos)
++		num_bytes = (buffer_size - prev_pos) +  pos;
++	else
++		num_bytes = pos - prev_pos;
++
++	hstream->curr_pos += num_bytes;
++}
++
+ static bool hda_dsp_stream_check(struct hdac_bus *bus, u32 status)
  {
- 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
-+	struct snd_soc_component *component;
-+	struct snd_soc_rtdcom_list *rtdcom;
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
- 	struct snd_soc_dai *codec_dai = rtd->codec_dai;
- 	int stream;
-@@ -287,6 +308,12 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
- 	}
+ 	struct sof_intel_hda_dev *sof_hda = bus_to_sof_hda(bus);
+@@ -588,14 +605,19 @@ static bool hda_dsp_stream_check(struct hdac_bus *bus, u32 status)
+ 			snd_hdac_stream_writeb(s, SD_STS, sd_status);
  
- 	mutex_unlock(&rtd->card->pcm_mutex);
-+
-+	for_each_rtd_components(rtd, rtdcom, component) {
-+		pm_runtime_mark_last_busy(component->dev);
-+		pm_runtime_put_autosuspend(component->dev);
-+	}
-+
- 	return 0;
- }
+ 			active = true;
+-			if (!s->substream ||
++			if ((!s->substream && !s->cstream) ||
+ 			    !s->running ||
+ 			    (sd_status & SOF_HDA_CL_DMA_SD_INT_COMPLETE) == 0)
+ 				continue;
+ 
+ 			/* Inform ALSA only in case not do that with IPC */
+-			if (sof_hda->no_ipc_position)
++			if (s->substream && sof_hda->no_ipc_position) {
+ 				snd_sof_pcm_period_elapsed(s->substream);
++			} else if (s->cstream) {
++				hda_dsp_update_bytes_transferred(s,
++					s->cstream->runtime->buffer_size);
++				snd_compr_fragment_elapsed(s->cstream);
++			}
+ 		}
+ 	}
  
 -- 
 2.17.1

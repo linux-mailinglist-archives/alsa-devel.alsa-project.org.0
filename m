@@ -2,54 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3582312386D
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 22:09:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7778512386B
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 22:08:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BC1A71655;
-	Tue, 17 Dec 2019 22:08:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BC1A71655
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0F5DD166C;
+	Tue, 17 Dec 2019 22:07:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F5DD166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576616956;
-	bh=1uBqwPpPdJHkLknq4DOyDC/R5FXPB3pdwGMXo0se/aI=;
+	s=default; t=1576616915;
+	bh=qpezYtZO4AxB1fUOPscxg5w/1M4DLo74hltxqfS1eZc=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BXtubfFsTa5GJIBYXZgjbxVm/qQ1wAOTYJSDwEwBewBUaWaLAzINM3HL6/jWBLgYh
-	 qGIIIPOKblZ+3Uw9A3Sk5Rlf2tezfuidxcMvZbQDf5zrUq+cappKkQM36G0xaGB4yq
-	 5UJoz18/hv+xMVRrQHzkOKoegVuIKKd675l0Do2k=
+	b=BTqokYBMjk+nhrrQeqazuQbch3hnbsXhJW822YAyZRgq9OfbtGqYawtOnH1/hRBS9
+	 Hhx/4pKAwuyuhWLJWOh4Dv8aYhjIw338VagzKvvIiDA5JSQMSw++KFLhj5iljj8gcQ
+	 NUh0J1cQEmarO+i6Fj9iU+NaabpVrcLb9NqvfvCg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A73BFF802A7;
-	Tue, 17 Dec 2019 22:03:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3DA56F8029A;
+	Tue, 17 Dec 2019 22:03:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69DBCF80269; Tue, 17 Dec 2019 22:03:34 +0100 (CET)
+ id F05F6F80268; Tue, 17 Dec 2019 22:03:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D45AFF80266
- for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 22:03:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D45AFF80266
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7CFF6F8025F
+ for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 22:03:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CFF6F8025F
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 13:03:26 -0800
+ 17 Dec 2019 13:03:27 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,326,1571727600"; d="scan'208";a="240560968"
+X-IronPort-AV: E=Sophos;i="5.69,326,1571727600"; d="scan'208";a="240560973"
 Received: from smcdonal-mobl2.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.255.83.42])
- by fmsmga004.fm.intel.com with ESMTP; 17 Dec 2019 13:03:25 -0800
+ by fmsmga004.fm.intel.com with ESMTP; 17 Dec 2019 13:03:26 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 17 Dec 2019 15:03:02 -0600
-Message-Id: <20191217210314.20410-6-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 17 Dec 2019 15:03:03 -0600
+Message-Id: <20191217210314.20410-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
 References: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
@@ -61,8 +62,8 @@ Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  slawomir.blauciak@intel.com, Sanyog Kale <sanyog.r.kale@intel.com>,
  Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
-Subject: [alsa-devel] [PATCH v5 05/17] soundwire: intel: rename res field as
-	link_res
+Subject: [alsa-devel] [PATCH v5 06/17] soundwire: add support for
+	sdw_slave_type
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,166 +81,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-There are too many fields called 'res' so add prefix to make it easier
-to track what the structures are.
+In the existing SoundWire code, the bus does not have any explicit
+representation for Master Devices - only SoundWire Slaves are exposed.
 
-Pure rename, no functionality change
+In SoundWire, the Master Device provides the clock, synchronization
+information and command/control channels. When multiple links are
+supported, a Controller may expose more than one Master Device; they
+are typically embedded inside a larger audio cluster (be it in an
+SOC/chipset or an external audio codec), and we need to describe it
+using the Linux device and driver model.  This will allow for
+configuration functions to account for external dependencies such as
+power rails, clock sources or wake-up mechanisms. This transition will
+also allow for better sysfs support without the reference count issues
+mentioned in the initial reviews.
+
+In this patch, we first convert the existing code to use an explicit
+sdw_slave_type and add error checks if this type is not set.
+
+In follow-up patches we can add support for the sdw_master_type.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/intel.c | 37 +++++++++++++++++++------------------
- 1 file changed, 19 insertions(+), 18 deletions(-)
+ drivers/soundwire/bus_type.c       | 23 ++++++++++++++++++-----
+ drivers/soundwire/slave.c          |  7 ++++++-
+ include/linux/soundwire/sdw_type.h |  6 ++++++
+ 3 files changed, 30 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-index 0371d3d5501a..64f97bb1a135 100644
---- a/drivers/soundwire/intel.c
-+++ b/drivers/soundwire/intel.c
-@@ -103,7 +103,7 @@ enum intel_pdi_type {
- struct sdw_intel {
- 	struct sdw_cdns cdns;
- 	int instance;
--	struct sdw_intel_link_res *res;
-+	struct sdw_intel_link_res *link_res;
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *debugfs;
- #endif
-@@ -193,8 +193,8 @@ static ssize_t intel_sprintf(void __iomem *mem, bool l,
- static int intel_reg_show(struct seq_file *s_file, void *data)
+diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+index 9a0fd3ee1014..9719680a1e48 100644
+--- a/drivers/soundwire/bus_type.c
++++ b/drivers/soundwire/bus_type.c
+@@ -49,13 +49,26 @@ int sdw_slave_modalias(const struct sdw_slave *slave, char *buf, size_t size)
+ 
+ static int sdw_uevent(struct device *dev, struct kobj_uevent_env *env)
  {
- 	struct sdw_intel *sdw = s_file->private;
--	void __iomem *s = sdw->res->shim;
--	void __iomem *a = sdw->res->alh;
-+	void __iomem *s = sdw->link_res->shim;
-+	void __iomem *a = sdw->link_res->alh;
- 	char *buf;
- 	ssize_t ret;
- 	int i, j;
-@@ -289,7 +289,7 @@ static void intel_debugfs_exit(struct sdw_intel *sdw) {}
- static int intel_link_power_up(struct sdw_intel *sdw)
+-	struct sdw_slave *slave = to_sdw_slave_device(dev);
++	struct sdw_slave *slave;
+ 	char modalias[32];
+ 
+-	sdw_slave_modalias(slave, modalias, sizeof(modalias));
+-
+-	if (add_uevent_var(env, "MODALIAS=%s", modalias))
+-		return -ENOMEM;
++	if (is_sdw_slave(dev)) {
++		slave = to_sdw_slave_device(dev);
++
++		sdw_slave_modalias(slave, modalias, sizeof(modalias));
++
++		if (add_uevent_var(env, "MODALIAS=%s", modalias))
++			return -ENOMEM;
++	} else {
++		/*
++		 * We only need to handle uevents for the Slave device
++		 * type. This error cannot happen unless the .uevent
++		 * callback is set to use this function for a
++		 * different device type (e.g. Master or Monitor)
++		 */
++		dev_err(dev, "uevent for unknown Soundwire type\n");
++		return -EINVAL;
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/soundwire/slave.c b/drivers/soundwire/slave.c
+index 48a513680db6..c87267f12a3b 100644
+--- a/drivers/soundwire/slave.c
++++ b/drivers/soundwire/slave.c
+@@ -14,6 +14,11 @@ static void sdw_slave_release(struct device *dev)
+ 	kfree(slave);
+ }
+ 
++struct device_type sdw_slave_type = {
++	.name =		"sdw_slave",
++	.release =	sdw_slave_release,
++};
++
+ static int sdw_slave_add(struct sdw_bus *bus,
+ 			 struct sdw_slave_id *id, struct fwnode_handle *fwnode)
  {
- 	unsigned int link_id = sdw->instance;
--	void __iomem *shim = sdw->res->shim;
-+	void __iomem *shim = sdw->link_res->shim;
- 	int spa_mask, cpa_mask;
- 	int link_control, ret;
- 
-@@ -309,7 +309,7 @@ static int intel_link_power_up(struct sdw_intel *sdw)
- 
- static int intel_shim_init(struct sdw_intel *sdw)
- {
--	void __iomem *shim = sdw->res->shim;
-+	void __iomem *shim = sdw->link_res->shim;
- 	unsigned int link_id = sdw->instance;
- 	int sync_reg, ret;
- 	u16 ioctl = 0, act = 0;
-@@ -370,7 +370,7 @@ static int intel_shim_init(struct sdw_intel *sdw)
- static void intel_pdi_init(struct sdw_intel *sdw,
- 			   struct sdw_cdns_stream_config *config)
- {
--	void __iomem *shim = sdw->res->shim;
-+	void __iomem *shim = sdw->link_res->shim;
- 	unsigned int link_id = sdw->instance;
- 	int pcm_cap, pdm_cap;
- 
-@@ -404,7 +404,7 @@ static void intel_pdi_init(struct sdw_intel *sdw,
- static int
- intel_pdi_get_ch_cap(struct sdw_intel *sdw, unsigned int pdi_num, bool pcm)
- {
--	void __iomem *shim = sdw->res->shim;
-+	void __iomem *shim = sdw->link_res->shim;
- 	unsigned int link_id = sdw->instance;
- 	int count;
- 
-@@ -476,7 +476,7 @@ static int intel_pdi_ch_update(struct sdw_intel *sdw)
- static void
- intel_pdi_shim_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
- {
--	void __iomem *shim = sdw->res->shim;
-+	void __iomem *shim = sdw->link_res->shim;
- 	unsigned int link_id = sdw->instance;
- 	int pdi_conf = 0;
- 
-@@ -508,7 +508,7 @@ intel_pdi_shim_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
- static void
- intel_pdi_alh_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
- {
--	void __iomem *alh = sdw->res->alh;
-+	void __iomem *alh = sdw->link_res->alh;
- 	unsigned int link_id = sdw->instance;
- 	unsigned int conf;
- 
-@@ -535,7 +535,7 @@ static int intel_params_stream(struct sdw_intel *sdw,
- 			       struct snd_pcm_hw_params *hw_params,
- 			       int link_id, int alh_stream_id)
- {
--	struct sdw_intel_link_res *res = sdw->res;
-+	struct sdw_intel_link_res *res = sdw->link_res;
- 	struct sdw_intel_stream_params_data params_data;
- 
- 	params_data.substream = substream;
-@@ -558,7 +558,7 @@ static int intel_pre_bank_switch(struct sdw_bus *bus)
- {
- 	struct sdw_cdns *cdns = bus_to_cdns(bus);
- 	struct sdw_intel *sdw = cdns_to_intel(cdns);
--	void __iomem *shim = sdw->res->shim;
-+	void __iomem *shim = sdw->link_res->shim;
- 	int sync_reg;
- 
- 	/* Write to register only for multi-link */
-@@ -577,7 +577,7 @@ static int intel_post_bank_switch(struct sdw_bus *bus)
- {
- 	struct sdw_cdns *cdns = bus_to_cdns(bus);
- 	struct sdw_intel *sdw = cdns_to_intel(cdns);
--	void __iomem *shim = sdw->res->shim;
-+	void __iomem *shim = sdw->link_res->shim;
- 	int sync_reg, ret;
- 
- 	/* Write to register only for multi-link */
-@@ -934,9 +934,9 @@ static int intel_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	sdw->instance = pdev->id;
--	sdw->res = dev_get_platdata(&pdev->dev);
-+	sdw->link_res = dev_get_platdata(&pdev->dev);
- 	sdw->cdns.dev = &pdev->dev;
--	sdw->cdns.registers = sdw->res->registers;
-+	sdw->cdns.registers = sdw->link_res->registers;
- 	sdw->cdns.instance = sdw->instance;
- 	sdw->cdns.msg_count = 0;
- 	sdw->cdns.bus.dev = &pdev->dev;
-@@ -976,11 +976,12 @@ static int intel_probe(struct platform_device *pdev)
- 	intel_pdi_ch_update(sdw);
- 
- 	/* Acquire IRQ */
--	ret = request_threaded_irq(sdw->res->irq, sdw_cdns_irq, sdw_cdns_thread,
-+	ret = request_threaded_irq(sdw->link_res->irq,
-+				   sdw_cdns_irq, sdw_cdns_thread,
- 				   IRQF_SHARED, KBUILD_MODNAME, &sdw->cdns);
- 	if (ret < 0) {
- 		dev_err(sdw->cdns.dev, "unable to grab IRQ %d, disabling device\n",
--			sdw->res->irq);
-+			sdw->link_res->irq);
- 		goto err_init;
+@@ -41,9 +46,9 @@ static int sdw_slave_add(struct sdw_bus *bus,
+ 			     id->class_id, id->unique_id);
  	}
  
-@@ -1010,7 +1011,7 @@ static int intel_probe(struct platform_device *pdev)
+-	slave->dev.release = sdw_slave_release;
+ 	slave->dev.bus = &sdw_bus_type;
+ 	slave->dev.of_node = of_node_get(to_of_node(fwnode));
++	slave->dev.type = &sdw_slave_type;
+ 	slave->bus = bus;
+ 	slave->status = SDW_SLAVE_UNATTACHED;
+ 	slave->dev_num = 0;
+diff --git a/include/linux/soundwire/sdw_type.h b/include/linux/soundwire/sdw_type.h
+index 7d4bc6a979bf..c681b3426478 100644
+--- a/include/linux/soundwire/sdw_type.h
++++ b/include/linux/soundwire/sdw_type.h
+@@ -5,6 +5,12 @@
+ #define __SOUNDWIRE_TYPES_H
  
- err_interrupt:
- 	sdw_cdns_enable_interrupt(&sdw->cdns, false);
--	free_irq(sdw->res->irq, sdw);
-+	free_irq(sdw->link_res->irq, sdw);
- err_init:
- 	sdw_delete_bus_master(&sdw->cdns.bus);
- 	return ret;
-@@ -1025,7 +1026,7 @@ static int intel_remove(struct platform_device *pdev)
- 	if (!sdw->cdns.bus.prop.hw_disabled) {
- 		intel_debugfs_exit(sdw);
- 		sdw_cdns_enable_interrupt(&sdw->cdns, false);
--		free_irq(sdw->res->irq, sdw);
-+		free_irq(sdw->link_res->irq, sdw);
- 		snd_soc_unregister_component(sdw->cdns.dev);
- 	}
- 	sdw_delete_bus_master(&sdw->cdns.bus);
+ extern struct bus_type sdw_bus_type;
++extern struct device_type sdw_slave_type;
++
++static inline int is_sdw_slave(const struct device *dev)
++{
++	return dev->type == &sdw_slave_type;
++}
+ 
+ #define to_sdw_slave_driver(_drv) \
+ 	container_of(_drv, struct sdw_driver, driver)
 -- 
 2.20.1
 

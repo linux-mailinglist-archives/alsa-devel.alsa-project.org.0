@@ -2,64 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30531123314
-	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 17:59:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FE5A123498
+	for <lists+alsa-devel@lfdr.de>; Tue, 17 Dec 2019 19:19:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A75FA1614;
-	Tue, 17 Dec 2019 17:58:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A75FA1614
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8128E1666;
+	Tue, 17 Dec 2019 19:18:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8128E1666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576601970;
-	bh=5mnoTxmoL65aGZUUTNEAyChqlQR3mDZjN2TzyPt7+bw=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1576606758;
+	bh=tSPwUhU6Cf29OkCTZ67YmrS0sZv4D0LiaRwBaO1QDn8=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pDZ42RZk/52YOVLUQj7BeqgmCNyWyUdkWLyzgM+9mD4pkSb3sNjSDjL9co6/5Er/f
-	 QwBP2Enf9BxbCMputEVXyPX0mnQRuHd3ae1YeMqsOEb1/h9HJAaQYLtehlyuZUbXO1
-	 DZGpWL0GcTGttg2aIclTUhii5Z9K4MLdG228eyNc=
+	b=i30Xs6fA5RBn46rZ95jEI/CMBFF2JCm0oVBd81MM3Fdjkj0ky7p4Apb+ocRg2wghs
+	 kmQbGyNC0DecadNBJE7RU8aH8UdTd+a5JeM5yXDccDPFEFtbtzoncHeiLiQHX8fmNc
+	 O4oAvAIjnI7vWtqL/HG+JoSjhlUgQkc5x1rn6omE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CF20FF80266;
-	Tue, 17 Dec 2019 17:57:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF4BCF80218;
+	Tue, 17 Dec 2019 19:17:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1C9AF8025A; Tue, 17 Dec 2019 17:57:04 +0100 (CET)
+ id C18CAF80234; Tue, 17 Dec 2019 19:17:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79341F80100
- for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 17:57:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79341F80100
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 08:56:54 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,326,1571727600"; d="scan'208";a="416903359"
-Received: from krose-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.254.184.73])
- by fmsmga006.fm.intel.com with ESMTP; 17 Dec 2019 08:56:54 -0800
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue, 17 Dec 2019 10:56:49 -0600
-Message-Id: <20191217165649.12091-2-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191217165649.12091-1-pierre-louis.bossart@linux.intel.com>
-References: <20191217165649.12091-1-pierre-louis.bossart@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.bugwerft.de (mail.bugwerft.de [46.23.86.59])
+ by alsa1.perex.cz (Postfix) with ESMTP id 7D821F8020B
+ for <alsa-devel@alsa-project.org>; Tue, 17 Dec 2019 19:17:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D821F8020B
+Received: from [192.168.178.106] (pD95EF574.dip0.t-ipconnect.de
+ [217.94.245.116])
+ by mail.bugwerft.de (Postfix) with ESMTPSA id 6E681281A97;
+ Tue, 17 Dec 2019 18:11:03 +0000 (UTC)
+To: Luca Ceresoli <luca@lucaceresoli.net>, Wolfram Sang <wsa@the-dreams.de>
+References: <20191209183511.3576038-1-daniel@zonque.org>
+ <20191209183511.3576038-9-daniel@zonque.org>
+ <64adf5d7-754a-f1da-aa9b-11579c5a2780@lucaceresoli.net>
+ <20191212163315.GA3932@kunai>
+ <482316ef-775a-cb7b-015e-e00463503e6b@zonque.org>
+ <4f2e1332-eac3-e54d-5de8-b84a76cb1a34@lucaceresoli.net>
+From: Daniel Mack <daniel@zonque.org>
+Message-ID: <a55f7642-3ea1-e762-b5fc-8ff10b83ccc7@zonque.org>
+Date: Tue, 17 Dec 2019 19:17:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org, Randy Dunlap <rdunlap@infradead.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [alsa-devel] [PATCH] ASoC: Intel: cml_rt1011_rt5682: use
-	snd_soc_dai_link_component for codec_conf
+In-Reply-To: <4f2e1332-eac3-e54d-5de8-b84a76cb1a34@lucaceresoli.net>
+Content-Language: en-US
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, lars@metafoo.de,
+ sboyd@kernel.org, mturquette@baylibre.com, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, robh+dt@kernel.org, broonie@kernel.org,
+ linux-i2c@vger.kernel.org, pascal.huerst@gmail.com, lee.jones@linaro.org,
+ linux-clk@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 07/10] i2c: Add driver for AD242x bus
+	controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,53 +72,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We can use snd_soc_dai_link_component to specify codec_conf.
-Let's use it.
+Hi Luca,
 
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Fixes: ee8f537fd8b71c ("ASoC: soc-core: remove legacy style of codec_conf")
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/intel/boards/cml_rt1011_rt5682.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+On 12/17/19 9:35 AM, Luca Ceresoli wrote:
+> On 15/12/19 21:27, Daniel Mack wrote:
 
-diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
-index a22f97234201..ab1196108d23 100644
---- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
-+++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
-@@ -406,19 +406,19 @@ static struct snd_soc_dai_link cml_rt1011_rt5682_dailink[] = {
- 
- static struct snd_soc_codec_conf rt1011_conf[] = {
- 	{
--		.dev_name = "i2c-10EC1011:00",
-+		.dlc = COMP_CODEC_CONF("i2c-10EC1011:00"),
- 		.name_prefix = "WL",
- 	},
- 	{
--		.dev_name = "i2c-10EC1011:01",
-+		.dlc = COMP_CODEC_CONF("i2c-10EC1011:01"),
- 		.name_prefix = "WR",
- 	},
- 	{
--		.dev_name = "i2c-10EC1011:02",
-+		.dlc = COMP_CODEC_CONF("i2c-10EC1011:02"),
- 		.name_prefix = "TL",
- 	},
- 	{
--		.dev_name = "i2c-10EC1011:03",
-+		.dlc = COMP_CODEC_CONF("i2c-10EC1011:03"),
- 		.name_prefix = "TR",
- 	},
- };
--- 
-2.20.1
+>> The a2b code has to tell the 'master node' the final destination of the
+>> payload by programming registers on its primary i2c address, and then
+>> forwards the messages to its secondary i2c address. The layout of the
+>> messages don't change, and neither do the flags; i2c messages are being
+>> sent as i2c messages, except their addresses are changed, a bit like NAT
+>> in networking. That procedure is described on page 3-4 of the TRM,
+>> "Remote Peripheral I2C Accesses".
+>>
+>> The 'real' i2c master that handles the hardware bus is responsible for
+>> adding start conditions, and as the messages as such are untouched, I
+>> believe it should do the right thing. The code in my xfer functions
+>> merely suppresses reprogramming remote addresses by remembering the last
+>> one that was used, but that is independent of the start conditions on
+>> the wire.
+> 
+> My concern is not about the start condition, it's about the *repeated*
+> start condition.
+> 
+> The first question is whether the A2B chips can do it. What if the host
+> processor sets a slave chip address and then issues two messages
+> separated by a repeated start condition? Will the slave transceiver emit
+> a repeated start condition too?
 
+Ah, alright. Thanks for taking the time to explain. I'll have to do some 
+measurements with a hardware analyzer. Will revisit this then, and 
+either provide an implementation that handles such cases correctly, or a 
+comment to explain that the hardware can't do it.
+
+
+Best regards,
+Daniel
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

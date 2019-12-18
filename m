@@ -2,86 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693A2124950
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 15:20:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2BA712494E
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 15:19:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ECF5B166C;
-	Wed, 18 Dec 2019 15:19:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECF5B166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85E54165E;
+	Wed, 18 Dec 2019 15:18:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85E54165E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576678805;
-	bh=oCPp5MJFALt3LAElmq4GoQQO+cHmOvrsn+MfVceeQe0=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Q7f3+w4mpl5b1ItbsXEpJip8eAw+nuyDbvHlYG4mkk/JZkUF2i1e6sddBm4VcHdzT
-	 tOE7mZS3s3h51o90AwwIcvdH4WUKJU5W5BYnMGc4UjZVHtxyCR1gjsB9pDpCStb7UN
-	 D6F3JYeukfLDMQt78hd3UoGpAxOR3yuevYmoWdFs=
+	s=default; t=1576678761;
+	bh=BVfHBMDOqDhBIJUF2CMJrNmZQ6AnjTNTx+twe70W4Mg=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=V8Bfk/LXjiafqRmCfA2C6qOBxLtJ7UjZVTfAuK30hPkG5peRvk8OqUTTcqIFBj+FL
+	 sri88Q6jpkgINQ6/8wMjTzi2A4Zdd2pU1giJQmeJU99KBvkTAX8N72WGPGl2Lo6JCJ
+	 xW2Brnb6lGcI6OlwlJR5pWnLmPLyu0b13MOw/gnY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E70CF80259;
-	Wed, 18 Dec 2019 15:18:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BD49BF8015A;
+	Wed, 18 Dec 2019 15:17:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6FEF0F80258; Wed, 18 Dec 2019 15:18:20 +0100 (CET)
+ id 65649F8022C; Wed, 18 Dec 2019 15:17:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 736CCF8014C
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 15:18:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 736CCF8014C
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE52AF80096
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 15:17:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE52AF80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="kNlkEtLS"
-Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- xBIEIF4E006567; Wed, 18 Dec 2019 15:18:16 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=VkB1F9j4Bc2882ixkvjF3/YhIbvozsdCU4TfcGwrFI4=;
- b=kNlkEtLSNW+jito3GFcNjm/sDFWH6hj6tulB7EUTOT7R8nKigUr9I+aNUmO/JTcM2m61
- SXbi0X1pLqkdcpeasKFt2DgBAZhbLMgk/NDtyV+Y1ryqgiKamQ2MxAHceYSUNeQ8URRU
- 7UX2HX914cxki2JimUHPgSMZOcy3ajS+CIk6IT0t7rjvGQ3q1kIZJXrPqiXaV3hNpSJb
- h2Kiwt1GrxydNRuU2WAzOd4aR6dFoGmyWqW+MBg22xzZZSjyT0OaJzrrPSa4uNeavmUG
- vXboDxvkn9yM2Hh1QCr2DzIWXdI8r3NSxX6+QC1SNLm6H2uVr0KWpD4MLVxDpfiXcuLy qw== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2wvp374uak-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 18 Dec 2019 15:18:16 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F88D10003A;
- Wed, 18 Dec 2019 15:18:10 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 508D72BEAD4;
- Wed, 18 Dec 2019 15:18:10 +0100 (CET)
-Received: from localhost (10.75.127.44) by SFHDAG3NODE1.st.com (10.75.127.7)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 18 Dec 2019 15:18:09
- +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-To: <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>, Liam
- Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
- Iwai <tiwai@suse.com>, Jia-Ju Bai <baijiaju1990@gmail.com>
-Date: Wed, 18 Dec 2019 15:16:46 +0100
-Message-ID: <20191218141646.23256-1-arnaud.pouliquen@st.com>
-X-Mailer: git-send-email 2.17.1
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="Or5kzB4B"
+Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5dfa34de0000>; Wed, 18 Dec 2019 06:17:02 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate102.nvidia.com (PGP Universal service);
+ Wed, 18 Dec 2019 06:17:30 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate102.nvidia.com on Wed, 18 Dec 2019 06:17:30 -0800
+Received: from [10.21.133.51] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 18 Dec
+ 2019 14:17:29 +0000
+To: Takashi Iwai <tiwai@suse.de>, <alsa-devel@alsa-project.org>, linux-tegra
+ <linux-tegra@vger.kernel.org>
+References: <20191210145727.22054-1-tiwai@suse.de>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <53562c71-4d81-1580-f311-971ceb029431@nvidia.com>
+Date: Wed, 18 Dec 2019 14:17:27 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.44]
-X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE1.st.com
- (10.75.127.7)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
- definitions=2019-12-18_04:2019-12-17,2019-12-18 signatures=0
-Cc: arnaud.pouliquen@st.com, Olivier Moysan <olivier.moysan@st.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [INTERNAL REVIEW] asoc: sti: fix possible
-	sleep-in-atomic
+In-Reply-To: <20191210145727.22054-1-tiwai@suse.de>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-US
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1576678622; bh=ttBXWiRp+M4718kAAsDcfDS1d4d3FxcEEPyLMsuz4iM=;
+ h=X-PGP-Universal:Subject:To:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=Or5kzB4BMfnC50madLTDz/10s8nfe/EVmMyucCaKFsWXLNRpvZjIerdCn8hjiz5Cg
+ OULD3kTM9LaKv/Hc3+TlGiTFe9qk3LHDm2puQUliu7SnU2UnDghNEDkRZ9Znf9wWvu
+ 9vSFFf5fc5p+NjpvJ4yz/zUY1RdJUs6bZJmZzyCrB7n0GzQUIQAOxB7eUormEMcXdt
+ N7X94PGuRNyeobyKpwhhpQBt5aK6s/My4MklZCoCoPEFKkpr9pLddb8FvIWIKY8sSz
+ VkmNOLHI3bx7++Tie0MlVI2OGxW5E7VPVsDAG2JXQ/2MsEnd5TTfR099iuZQ5KghaI
+ xUu42aXYn42Rg==
+Subject: Re: [alsa-devel] [PATCH] ALSA: hda: Use standard waitqueue for RIRB
+ wakeup
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,65 +97,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change mutex and spinlock management to avoid sleep
-in atomic issue.
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
----
- sound/soc/sti/uniperif_player.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+On 10/12/2019 14:57, Takashi Iwai wrote:
+> The HD-audio CORB/RIRB communication was programmed in a way that was
+> documented in the reference in decades ago, which is essentially a
+> polling in the waiter side.  It's working fine but costs CPU cycles on
+> some platforms that support only slow communications.  Also, for some
+> platforms that had unreliable communications, we put longer wait time
+> (2 ms), which accumulate quite long time if you execute many verbs in
+> a shot (e.g. at the initialization or resume phase).
+> 
+> This patch attempts to improve the situation by introducing the
+> standard waitqueue in the RIRB waiter side instead of polling.  The
+> test results on my machine show significant improvements.  The time
+> spent for "cat /proc/asound/card*/codec#*" were changed like:
+> 
+> * Intel SKL + Realtek codec
+>   before the patch:
+>    0.00user 0.04system 0:00.10elapsed 40.0%CPU
+>   after the patch:
+>    0.00user 0.01system 0:00.10elapsed 10.0%CPU
+> 
+> * Nvidia GP107GL + Nvidia HDMI codec
+>   before the patch:
+>    0.00user 0.00system 0:02.76elapsed 0.0%CPU
+>   after the patch:
+>    0.00user 0.00system 0:00.01elapsed 17.0%CPU
+> 
+> So, for Intel chips, the total time is same, while the total time is
+> greatly reduced (from 2.76 to 0.01s) for Nvidia chips.
+> The only negative data here is the increase of CPU time for Nvidia,
+> but this is the unavoidable cost for faster wakeups, supposedly.
+> 
+> Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Starting with next-20191217 I am seeing the following error on one of
+our Tegra platforms ...
 
-diff --git a/sound/soc/sti/uniperif_player.c b/sound/soc/sti/uniperif_player.c
-index 48ea915b24ba..2ed92c990b97 100644
---- a/sound/soc/sti/uniperif_player.c
-+++ b/sound/soc/sti/uniperif_player.c
-@@ -226,7 +226,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
- 	 * sampling frequency. If no sample rate is already specified, then
- 	 * set one.
- 	 */
--	mutex_lock(&player->ctrl_lock);
- 	if (runtime) {
- 		switch (runtime->rate) {
- 		case 22050:
-@@ -303,7 +302,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
- 		player->stream_settings.iec958.status[3 + (n * 4)] << 24;
- 		SET_UNIPERIF_CHANNEL_STA_REGN(player, n, status);
- 	}
--	mutex_unlock(&player->ctrl_lock);
- 
- 	/* Update the channel status */
- 	if (player->ver < SND_ST_UNIPERIF_VERSION_UNI_PLR_TOP_1_0)
-@@ -365,8 +363,10 @@ static int uni_player_prepare_iec958(struct uniperif *player,
- 
- 	SET_UNIPERIF_CTRL_ZERO_STUFF_HW(player);
- 
-+	mutex_lock(&player->ctrl_lock);
- 	/* Update the channel status */
- 	uni_player_set_channel_status(player, runtime);
-+	mutex_unlock(&player->ctrl_lock);
- 
- 	/* Clear the user validity user bits */
- 	SET_UNIPERIF_USER_VALIDITY_VALIDITY_LR(player, 0);
-@@ -598,7 +598,6 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
- 	iec958->status[1] = ucontrol->value.iec958.status[1];
- 	iec958->status[2] = ucontrol->value.iec958.status[2];
- 	iec958->status[3] = ucontrol->value.iec958.status[3];
--	mutex_unlock(&player->ctrl_lock);
- 
- 	spin_lock_irqsave(&player->irq_lock, flags);
- 	if (player->substream && player->substream->runtime)
-@@ -608,6 +607,8 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
- 		uni_player_set_channel_status(player, NULL);
- 
- 	spin_unlock_irqrestore(&player->irq_lock, flags);
-+	mutex_unlock(&player->ctrl_lock);
-+
- 	return 0;
- }
- 
+tegra-hda 3510000.hda: azx_get_response timeout, switching to polling
+mode: last cmd=0x404f2d00
+
+Bisect is point to this commit and although it does not cleanly revert,
+if I revert this and a couple dependencies on top of -next the issue
+goes away. Any thoughts on what could be going on here?
+
+Cheers
+Jon
+
 -- 
-2.17.1
-
+nvpublic
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

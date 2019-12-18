@@ -2,71 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B8C124D7C
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 17:27:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B07D124D84
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 17:28:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8AF41674;
-	Wed, 18 Dec 2019 17:26:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8AF41674
+	by alsa0.perex.cz (Postfix) with ESMTPS id BCDA0166A;
+	Wed, 18 Dec 2019 17:27:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCDA0166A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576686440;
-	bh=nJSpS3KGCZEIRl7LwLq8GAXZKnxRumABd8pYBGw7LTc=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576686489;
+	bh=+hxa0CRFJDp8TIBMPFNna38Ryv3qH93BxkFj8XnDYWk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H/G7BU+bDiJ5F8jB6wutGuHcqnMKZ57LEhRoz4soquJXf12izl//fsbI4EOLrCFZ3
-	 MPxuFYtZGRA1/8jhVOOZIg5nskqA9Ts4g1zLFBIHrRdymNK1lVxIlKeJqPam1fRUD2
-	 kWIICJs0hepObEfzCg4IYPDDB3o4hPPoQGbi9x3M=
+	b=l8YInRGDGJzuSpO/DdZetJOG/m4aCgNpQlc7A8Og9Hd08lHOiUzY21O0hu1YDfzOm
+	 tNUsD8eEPFICO/V2G72u1w4oyPrAOF5EmqkD5LazXqCfrAAlsCxZv6u2O/+jALKDgm
+	 IkrovHr8QBd90yqj/v2Hj/KXw7Ob02ghztHthByI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2E62F80277;
-	Wed, 18 Dec 2019 17:24:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77FE5F8027B;
+	Wed, 18 Dec 2019 17:24:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0C77F80096; Wed, 18 Dec 2019 17:23:57 +0100 (CET)
+ id 76FE5F8027B; Wed, 18 Dec 2019 17:24:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A18C0F80258
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 17:23:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A18C0F80258
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2019 08:23:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,330,1571727600"; d="scan'208";a="415881663"
-Received: from dshoemak-mobl.amr.corp.intel.com (HELO [10.251.3.243])
- ([10.251.3.243])
- by fmsmga005.fm.intel.com with ESMTP; 18 Dec 2019 08:23:47 -0800
-To: Daniel Mack <daniel@zonque.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
- alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
- linux-clk@vger.kernel.org
-References: <20191209183511.3576038-1-daniel@zonque.org>
- <20191209183511.3576038-12-daniel@zonque.org>
- <0565e5cd-9a6e-db65-0632-0bc1aa1d79db@linux.intel.com>
- <35e7e6e7-7c70-785c-bdf3-79089134699e@zonque.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <ff0e2420-a2c6-17e7-2761-f6544e2c0cb7@linux.intel.com>
-Date: Wed, 18 Dec 2019 09:32:40 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id D13EBF80278
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 17:24:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D13EBF80278
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ACAAC31B;
+ Wed, 18 Dec 2019 08:24:24 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2934F3F85C;
+ Wed, 18 Dec 2019 08:24:24 -0800 (PST)
+Date: Wed, 18 Dec 2019 16:24:22 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <20191218162422.GG3219@sirena.org.uk>
+References: <CGME20191128152110epcas3p2b205b4b55f6d8bfac42fcb8faaade93c@epcas3p2.samsung.com>
+ <20191128151908.180871-1-tzungbi@google.com>
+ <8aceb9ec-aa6e-1fa4-cee9-e22084c141e8@samsung.com>
+ <CA+Px+wXPa_cwdZUQfCx4jAhhj4Q9b7bNABUGazLKOJ7U5ae-mA@mail.gmail.com>
+ <20191218132620.GE3219@sirena.org.uk>
+ <f6453e48-cd95-6471-8945-4cc0ab3d04d9@samsung.com>
 MIME-Version: 1.0
-In-Reply-To: <35e7e6e7-7c70-785c-bdf3-79089134699e@zonque.org>
-Content-Language: en-US
-Cc: lars@metafoo.de, sboyd@kernel.org, mturquette@baylibre.com,
- robh+dt@kernel.org, broonie@kernel.org, pascal.huerst@gmail.com,
- lee.jones@linaro.org
-Subject: Re: [alsa-devel] [PATCH 10/10] ASoC: Add codec component for AD242x
- nodes
+In-Reply-To: <f6453e48-cd95-6471-8945-4cc0ab3d04d9@samsung.com>
+X-Cookie: Power is poison.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>, Takashi Iwai <tiwai@suse.de>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Dylan Reid <dgreid@google.com>
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: max98090: save and restore SHDN
+ when changing sensitive registers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,35 +74,84 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============8941421874702308507=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiAxMi8xOC8xOSAzOjQ5IEFNLCBEYW5pZWwgTWFjayB3cm90ZToKPiBIaSwKPiAKPiBPbiAx
-Mi8xNy8xOSA4OjI4IFBNLCBQaWVycmUtTG91aXMgQm9zc2FydCB3cm90ZToKPj4gT24gMTIvOS8x
-OSAxMjozNSBQTSwgRGFuaWVsIE1hY2sgd3JvdGU6Cj4gCj4+PiArwqDCoMKgIGlmICghYWQyNDJ4
-X25vZGVfaXNfbWFzdGVyKHByaXYtPm5vZGUpICYmCj4+PiArwqDCoMKgwqDCoMKgICgoZm9ybWF0
-ICYgU05EX1NPQ19EQUlGTVRfTUFTVEVSX01BU0spICE9Cj4+PiBTTkRfU09DX0RBSUZNVF9DQk1f
-Q0ZNKSkgewo+Pj4gK8KgwqDCoMKgwqDCoMKgIGRldl9lcnIoY29tcG9uZW50LT5kZXYsICJzbGF2
-ZSBub2RlIG11c3QgYmUgY2xvY2sgbWFzdGVyXG4iKTsKPj4+ICvCoMKgwqDCoMKgwqDCoCByZXR1
-cm4gLUVJTlZBTDsKPj4+ICvCoMKgwqAgfQo+Pgo+PiBJdCB3YXMgbXkgdW5kZXJzdGFuZGluZyB0
-aGF0IHRoZSBtYXN0ZXIgbm9kZSBwcm92aWRlcyB0aGUgY2xvY2sgdG8gdGhlCj4+IGJ1cywgc28g
-bm90IHN1cmUgaG93IGl0IGNvdWxkIGJlIGEgY2xvY2sgc2xhdmUsIGFuZCBjb252ZXJzZWx5IGhv
-dyBhCj4+IHNsYXZlIG5vZGUgY291bGQgcHJvdmlkZSBhIGNsb2NrIHRvIHRoZSBidXM/Cj4gCj4g
-VGhlIHNsYXZlIG5vZGVzIHJlY2VpdmUgdGhlIEEyQiBjbG9jayBmcm9tIHRoZSBtYXN0ZXIgbm9k
-ZSBhbmQgdGhlbgo+IHByb2R1Y2UgZGlnaXRhbCBhdWRpbyBvdXRwdXQgdGhhdCBpcyBzZW50IHRv
-IG90aGVyIGNvbXBvbmVudHMgc3VjaCBhcwo+IGNvZGVjcy4gSGVuY2UsIGluIEFTb0MgdGVybXMs
-IHRoZXkgYXJlIHRoZSBjbG9jayBtYXN0ZXIuCj4gCj4gTGlrZXdpc2UsIGFzIHRoZSBtYXN0ZXIg
-bm9kZSBpcyByZWNlaXZpbmcgaXRzIGNsb2NrIGZyb20gb3RoZXIKPiBjb21wb25lbnRzLCBpdCBo
-YXMgdG8gYmUgYSBjbG9jayBzbGF2ZSBpbiB0aGUgYXVkaW8gbmV0d29yay4KPiAKPiBEb2VzIHRo
-YXQgbWFrZSBzZW5zZT8KCllvdXIgc2xhdmUgbm9kZSBhY3RzIGFzIGEgYnJpZGdlIHRoZW4sIGJ1
-dCBpdCBzZWVtcyB5b3UgZG9uJ3QgbW9kZWwgdGhlIApidXMtZmFjaW5nIGludGVyZmFjZSwgd2hp
-Y2ggaGFzIHRvIGZvbGxvdyB0aGUgbWFzdGVyIGNsb2NrLiBPciBkbyB5b3U/CgpMaWtld2lzZSB0
-aGUgbWFzdGVyIGhhcyBhbiAnU09DLWZhY2luZycgaW50ZXJmYWNlIGFuZCBhIGJ1cy1mYWNpbmcg
-CmludGVyZmFjZS4gaXQgKmNvdWxkKiBiZSBtYXN0ZXIgb24gYm90aCBpZiBBU1JDIHdhcyBzdXBw
-b3J0ZWQuIFRoZSBwb2ludCAKaXMgdGhhdCB0aGUgYnVzLWZhY2luZyBpbnRlcmZhY2UgaXMgbm90
-IGNsb2NrIHNsYXZlLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcK
-aHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRl
-dmVsCg==
+
+--===============8941421874702308507==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4eRLI4hEmsdu6Npr"
+Content-Disposition: inline
+
+
+--4eRLI4hEmsdu6Npr
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Dec 18, 2019 at 03:48:14PM +0100, Marek Szyprowski wrote:
+> On 18.12.2019 14:26, Mark Brown wrote:
+
+> >> - snd_card_new( ) succeed in snd_soc_bind_card( ), so that userspace
+> >> can see the control
+
+> > This feels like snd_card_new() is being overly enthusiastic here, I'd
+> > expect that we might have other problems elsewhere with that.  I'd not
+> > expect userspace to see things until snd_card_register() since between
+> > _new() and that we're in the process of building the card up.  Given
+> > this we *will* need to handle partially constructed cards after all,
+> > unless we change the ALSA core.  Takashi?
+>=20
+> I'm not sure if this is an issue about partially registered card. Here=20
+> is the boot log:
+>=20
+> https://paste.debian.net/1121543/
+
+> This oops happens when udev tries to do its job. The card is earlier=20
+> fully registered and advertised by alsa:
+
+> [=A0=A0=A0 3.501198] ALSA device list:
+> [=A0=A0=A0 3.501300]=A0=A0 #0: Odroid-U3
+
+That's not what the analysis I was replying to said :(
+
+This log makes no sense to me, if this is the same card that was
+registered and announced earlier what caused it to become unregistered
+so that we are registering it now?
+
+> If there are any useful logs for tracking this issue, let me know how to
+> enable them, so I will provide more logs.
+
+It'd be good to understand this unregistration/probe deferral for a
+start...  when did the card get unregistered and why?
+
+--4eRLI4hEmsdu6Npr
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl36UrUACgkQJNaLcl1U
+h9AdvQf/d6VYqwcgXnuFMs3zAieeQ+JuTqPm7FiB6AbcjqPAmL/PxvH+MArujCqk
+WkeMBpwfCZpkhXspVR/yKG8maniKAmoV38Z/cBmcGv+aQrGmEuDzmLeidngPPr1H
+DmyG9uZ3T1bz+zqnGmGid2lPN54VeEGgsdiO/u1Fh1EUHZ0Vej5UA9UPmtTWxzrN
+lSp/mQE9ZJiqr8YhZtkUaRm2EU7tosw3RUnq2CjYg2faor9yZRFFa83+rSpojhCT
+0I3DhUvxHw0QRo6bGMvR1RaGE+oeGHGVTtXO/BJk4r/IXOUXNC6ilVKQVamLnUbV
+O6IFY/Q0mtgGEANxTjS/4F7HiO9piQ==
+=BA/X
+-----END PGP SIGNATURE-----
+
+--4eRLI4hEmsdu6Npr--
+
+--===============8941421874702308507==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8941421874702308507==--

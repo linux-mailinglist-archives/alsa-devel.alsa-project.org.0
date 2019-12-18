@@ -2,63 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 706D6124623
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 12:52:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 67A8F1246C7
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 13:27:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F01A31615;
-	Wed, 18 Dec 2019 12:51:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F01A31615
+	by alsa0.perex.cz (Postfix) with ESMTPS id E14A6886;
+	Wed, 18 Dec 2019 13:26:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E14A6886
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576669944;
-	bh=dn9AThII9ytKWUYzrltMuIAUx1qScuGVBidehAMDqMg=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=s2xYx5uS6HrQt+fjtDyZmyV3WZJcXLBy28Aq+LUclLFcmpdIH9uEbjM8sqgU0pjeu
-	 O9yFpFkkT72oukTabkH36H89rK8r6r60mCPYJ+ucRHjx87sNOtexAi7RtVu41JJxC4
-	 ixSwtIqiupEsj1kk/PD1sLeMLjt+gqOc5Kj7UEdA=
+	s=default; t=1576672053;
+	bh=erSnzyi03FWjwAa164jmddaIgbET/9rd/5cZAcpd5Rk=;
+	h=To:From:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=SCSs1/txTE8dUyclHQqlhINx9Xxm727jsOAzNuuNysIN08mj3+XSCv2reBfszvFMn
+	 H+GDM2bNY0B+JY77O1INZXNHuUpyz36BGdybDGnF0YM6e4QAYhkBQZBuceiON5/g+T
+	 1zcXf1/SqZn0lhzeKd5+4TTl0iLD4oDjaBZizA/M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 50845F8022C;
-	Wed, 18 Dec 2019 12:50:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1DD91F8022C;
+	Wed, 18 Dec 2019 13:25:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2380EF8022C; Wed, 18 Dec 2019 12:50:39 +0100 (CET)
+ id F1BFBF8022C; Wed, 18 Dec 2019 13:25:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 90A32F80059
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 12:50:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 90A32F80059
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8ADD430E;
- Wed, 18 Dec 2019 03:50:34 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 091F93F6CF;
- Wed, 18 Dec 2019 03:50:33 -0800 (PST)
-Date: Wed, 18 Dec 2019 11:50:32 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20191218115032.GC3219@sirena.org.uk>
-References: <87woavhhfi.wl-kuninori.morimoto.gx@renesas.com>
- <87o8w7hhds.wl-kuninori.morimoto.gx@renesas.com>
- <01e4157a-d4b7-8bb2-d3bf-957d47e3e5f9@linux.intel.com>
- <87lfrbhajp.wl-kuninori.morimoto.gx@renesas.com>
- <87k16vh8d6.wl-kuninori.morimoto.gx@renesas.com>
- <20191217121308.GC4755@sirena.org.uk>
- <124fd50c-db99-7a4a-9e35-ad69b5e16abc@linux.intel.com>
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU, FREEMAIL_ENVFROM_END_DIGIT, FREEMAIL_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 73FA4F80059
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 13:25:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73FA4F80059
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="C1lvp6e1"
+Received: by mail-pj1-x1030.google.com with SMTP id s7so813190pjc.0
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 04:25:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:from:subject:cc:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=5X2o0mtDaERgT2mi7QtDjqxir4Hltz6BheIiDggcalE=;
+ b=C1lvp6e1959g84uBTVL9ZEeOP3twcpBoXR1aBegCslQX3dQTehr1X8RgrlPR6fqSI+
+ gSJRj+dwhgzYLtJvWQwZxBPxyhoPq4K6yXQ6hxr/i7MgLw2bWv7Lj3K7hZUfh2Ce9xZF
+ sHveRKWXluiVMfnQr1pThWf2cssgtcWAMF3eIcTirAOxRmONLiI+xKsGiPXbVQdz4KfB
+ 9jtzDRdtjiOSzHrMsDvI82k28SgmtfZhAdNgIfnop7jD5BsvhpxUyW70o9qeC6EtGqmQ
+ Z/Hkj0twHrFPcwNb37HZtQIEVhvcTx1yFGQgFtSdCLvhzTvbdglPoFUMroEheCr7nM12
+ 6VAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:from:subject:cc:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=5X2o0mtDaERgT2mi7QtDjqxir4Hltz6BheIiDggcalE=;
+ b=Uz8yBb0XOM7ZD6yrz13EjSA4FnJoj2fKMSJC5bojz7q/qQ3yDL0heDrjEzAoWA2CDn
+ 8eDvKz7xlB0B3crkKXS3Iyn6SzdwMU14BkQiE2Zflxy6hL4ll5fVLJpqdyXVqbX0BOWN
+ qCopd1EtFaSNNN4Ae0xmscneoFw4KgVveR001pGIIK49IFVaoWQ/w+HLkgEZ1/6Lsd6L
+ +7q68OGU1xTXvhUVW2soFy20LutKW1NNdigLe/RObR45ZEqbCCuDSn/lsFCYI478UDQC
+ NPVntTZFx9D/xN893oHHSblj5VyoBGZijuBaIg6pnNDMOlqxt4KFNxSAXMfIG8rYGIAc
+ t3Iw==
+X-Gm-Message-State: APjAAAUud/UGnBz6A76/f71LpMSYUk4aWH4f/Gp4s1ydnB1SfqPe94hM
+ yMCJWLIZr3V+k0sStWf23Y8=
+X-Google-Smtp-Source: APXvYqwbC1IbmRPDA7MJjUt4vm4EWmMotYWecwAI3UiaYVbgeJ2IHzaMRJUsXUkN30ZyxejyzmfAlg==
+X-Received: by 2002:a17:902:aa96:: with SMTP id
+ d22mr2499281plr.218.1576671942944; 
+ Wed, 18 Dec 2019 04:25:42 -0800 (PST)
+Received: from ?IPv6:2402:f000:1:1501:200:5efe:166.111.139.103?
+ ([2402:f000:1:1501:200:5efe:a66f:8b67])
+ by smtp.gmail.com with ESMTPSA id g18sm3115695pfo.123.2019.12.18.04.25.40
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 18 Dec 2019 04:25:42 -0800 (PST)
+To: perex@perex.cz, tiwai@suse.com, allison@lohutok.net, rfontana@redhat.com, 
+ tglx@linutronix.de
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+Message-ID: <5d43135e-73b9-a46a-2155-9e91d0dcdf83@gmail.com>
+Date: Wed, 18 Dec 2019 20:25:42 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.1
 MIME-Version: 1.0
-In-Reply-To: <124fd50c-db99-7a4a-9e35-ad69b5e16abc@linux.intel.com>
-X-Cookie: Power is poison.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [alsa-devel] [PATCH 6/6] ASoC: soc-core: add
- snd_soc_stream_stop()
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, LKML <linux-kernel@vger.kernel.org>
+Subject: [alsa-devel] [BUG] ALSA: ice1712: a possible
+ sleep-in-atomic-context bug in snd_vt1724_set_pro_rate()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,69 +98,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8016553187941923391=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---===============8016553187941923391==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mvpLiMfbWzRoNl4x"
-Content-Disposition: inline
-
-
---mvpLiMfbWzRoNl4x
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Tue, Dec 17, 2019 at 07:56:28AM -0600, Pierre-Louis Bossart wrote:
-> On 12/17/19 6:13 AM, Mark Brown wrote:
-> > On Tue, Dec 17, 2019 at 01:41:09PM +0900, Kuninori Morimoto wrote:
-
-> > > Can we use snd_soc_dapm_stream_stop() for these, too ?
-
-> > That does seem like an oversight...
-
-> What would the rationale for deferring a FE shutdown though?
-
-> IIRC in the Intel machine drivers we only use .pm_ignore_downtime to
-> backends to keep some clocks on, and even that is questionable (the clock
-> dependencies should be properly modeled instead of hidden with an obscure
-> dailink setting). When I asked why exactly this flag was set in most cases
-> the reason why 'because others did so in the past'...
-
-It's there as a hack to keep clocks live or to avoid pops and clicks as
-the datastream goes to zero during shutdown if the CODEC doesn't support
-mute or otherwise handle the input going away cleanly (which is just a
-more general case of keeping the clocks live usually).  You'd do it for
-front ends as well to make sure things are consistent.
-
---mvpLiMfbWzRoNl4x
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl36EocACgkQJNaLcl1U
-h9CTfwf8C0b0qJ0PzxqTHM8nI57pG3y1kApCIRAPoQK6pCvi9d3JLPYnSDzMctEA
-dFLVwfxmVUa8/b+EoKgKegL7ntWmF7zGHm6vb9KCcQSC/Czm91Rp1/ugItEnEcWf
-P1AFUDjW4kgiYyTvpfchh1U/TD+fIRE24H/AX6mAkx6wAzd7Wsk5p3oihRstoO+z
-ukKdWKsKZOOTPDw6cxTlpPtoZIdXSjXVFNI8M+OGWpZMj7q+hgkCkbFi6RBIPi/Q
-8PXVw1Sox7HHd5Qc23FbnPc7Jm57DRdZZE5Kjk8z12H25gRmX6cW0mQJFq6q+bxi
-zVWgPDBnHH38omWDpwycrtWqJjgH7A==
-=H9bI
------END PGP SIGNATURE-----
-
---mvpLiMfbWzRoNl4x--
-
---===============8016553187941923391==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============8016553187941923391==--
+VGhlIGRyaXZlciBtYXkgc2xlZXAgd2hpbGUgaG9sZGluZyBhIHJlYWQgbG9jay4KVGhlIGZ1bmN0
+aW9uIGNhbGwgcGF0aCAoZnJvbSBib3R0b20gdG8gdG9wKSBpbiBMaW51eCA0LjE5IGlzOgoKc291
+bmQvcGNpL2ljZTE3MTIvcXVhcnRldC5jLCA0MTQ6CiDCoMKgwqAgbXV0ZXhfbG9jayBpbiByZWdf
+d3JpdGUKc291bmQvcGNpL2ljZTE3MTIvcXVhcnRldC5jLCA0ODU6CiDCoMKgwqAgcmVnX3dyaXRl
+IGluIHNldF9jcGxkCnNvdW5kL3BjaS9pY2UxNzEyL3F1YXJ0ZXQuYywgODc2OgogwqDCoMKgIHNl
+dF9jcGxkIGluIHF0ZXRfc2V0X3JhdGUKc291bmQvcGNpL2ljZTE3MTIvaWNlMTcyNC5jLCA2ODc6
+CiDCoMKgwqAgKEZVTkNfUFRSKSBxdGV0X3NldF9yYXRlIGluIHNuZF92dDE3MjRfc2V0X3Byb19y
+YXRlCnNvdW5kL3BjaS9pY2UxNzEyL2ljZTE3MjQuYywgNjY4OgogwqDCoMKgIF9yYXdfc3Bpbl9s
+b2NrX2lycXNhdmUgaW4gc25kX3Z0MTcyNF9zZXRfcHJvX3JhdGUKCihGVU5DX1BUUikgbWVhbnMg
+YSBmdW5jdGlvbiBwb2ludGVyIGlzIGNhbGxlZC4KbXV0ZXhfbG9jaygpIGNhbiBzbGVlcCBhdCBy
+dW50aW1lLgoKSSBhbSBub3Qgc3VyZSBob3cgdG8gcHJvcGVybHkgZml4IHRoaXMgcG9zc2libGUg
+YnVnLCBzbyBJIG9ubHkgcmVwb3J0IGl0LgoKVGhpcyBidWcgaXMgZm91bmQgYnkgYSBzdGF0aWMg
+YW5hbHlzaXMgdG9vbCBTVENoZWNrIHdyaXR0ZW4gYnkgbXlzZWxmLgoKCkJlc3Qgd2lzaGVzLApK
+aWEtSnUgQmFpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRw
+czovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 086DD1252B4
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:08:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5FEF1252B7
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:08:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8AFC61669;
-	Wed, 18 Dec 2019 21:07:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AFC61669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 448E41616;
+	Wed, 18 Dec 2019 21:08:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 448E41616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576699687;
-	bh=MbDFUeYEn/PSQl3V6B7wjyTb1iVVG0o8QkmfJl9nVfc=;
+	s=default; t=1576699730;
+	bh=E7jpZdZvOhYeneQSK7AoZX6XcINwKCjm04mrKOkE+1E=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ZLvRGDW1Q5CN2YaTHYXtWo3kMBgbtDBd+KuRxD5GFZ+KFdJ73c2GELkLHDmabjCFb
-	 IToqGSpLBRNc/Py8q4FRtshCQxfSTG7gYKMu4T7S2tzVdjR8gPkafu1utqT+5xtTsg
-	 imdYmUQRJgAuhaCNN8jau8W5KO6R/JqJw+bby07w=
+	b=ppfafpuL3nM0hRiTRBqyK/Q2+wryOd36UGzL1vH08ngKZo6i2Nvoel1IAC1249jWL
+	 ADiBSN5+2ghPko5YHwkErdfw0z1gkgm/5sGcAJSfq4Pyl/sNKzrhMhyMMNaXyTNh78
+	 vIGtdQ3IRKxdfAjZPc7PFlZsEwSxWcwsg4AzqHgA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90064F80266;
-	Wed, 18 Dec 2019 21:05:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 92639F80272;
+	Wed, 18 Dec 2019 21:05:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 73DC6F8015A; Wed, 18 Dec 2019 21:05:35 +0100 (CET)
+ id B3774F80269; Wed, 18 Dec 2019 21:05:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 9229AF8014C
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:05:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9229AF8014C
+ by alsa1.perex.cz (Postfix) with ESMTP id 693B3F80255
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:05:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 693B3F80255
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B841731B;
- Wed, 18 Dec 2019 12:05:30 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D16A11B3;
+ Wed, 18 Dec 2019 12:05:33 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 36D0C3F67D;
- Wed, 18 Dec 2019 12:05:30 -0800 (PST)
-Date: Wed, 18 Dec 2019 20:05:28 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AD7E13F67D;
+ Wed, 18 Dec 2019 12:05:32 -0800 (PST)
+Date: Wed, 18 Dec 2019 20:05:31 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20191217202231.18259-9-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191217202231.18259-9-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191217202231.18259-8-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20191217202231.18259-8-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: tiwai@suse.de, gregkh@linuxfoundation.org, alsa-devel@alsa-project.org,
  Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: add namespace for XTENSA"
-	to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: move arch_ops under ops" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: add namespace for XTENSA
+   ASoC: SOF: move arch_ops under ops
 
 has been applied to the asoc tree at
 
@@ -95,64 +95,256 @@ to this mail.
 Thanks,
 Mark
 
-From 068ac0db8637d3c188010ab8b9cc136f98fcd3df Mon Sep 17 00:00:00 2001
+From 0f501c7cde4086d15c396a95c59631b05dbc0351 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 17 Dec 2019 14:22:31 -0600
-Subject: [PATCH] ASoC: SOF: Intel: add namespace for XTENSA
+Date: Tue, 17 Dec 2019 14:22:30 -0600
+Subject: [PATCH] ASoC: SOF: move arch_ops under ops
 
-Now that Xtensa stuff is only referenced in Intel stuff, define
-namespace and import it in Intel BYT/BDW/HDaudio modules
+The current structures are not well designed. We include Xtensa
+information from the ACPI and PCI levels, but at the Kconfig/module
+level everything Xtensa related is included at the sof/intel level.
+
+Move the arch_ops under ops so that Xtensa is hidden in the DSP ops,
+with a structure that follows the Kconfig/module partition.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191217202231.18259-9-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191217202231.18259-8-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/bdw.c   | 1 +
- sound/soc/sof/intel/byt.c   | 1 +
- sound/soc/sof/intel/hda.c   | 1 +
- sound/soc/sof/xtensa/core.c | 2 +-
- 4 files changed, 4 insertions(+), 1 deletion(-)
+ include/sound/sof.h          |  1 -
+ sound/soc/sof/intel/apl.c    |  2 ++
+ sound/soc/sof/intel/bdw.c    |  2 ++
+ sound/soc/sof/intel/byt.c    |  6 ++++++
+ sound/soc/sof/intel/cnl.c    |  2 ++
+ sound/soc/sof/sof-acpi-dev.c |  4 ----
+ sound/soc/sof/sof-pci-dev.c  | 10 ----------
+ sound/soc/sof/sof-priv.h     |  4 +++-
+ 8 files changed, 15 insertions(+), 16 deletions(-)
 
+diff --git a/include/sound/sof.h b/include/sound/sof.h
+index 6ea74f1a9ec2..a0cbca021230 100644
+--- a/include/sound/sof.h
++++ b/include/sound/sof.h
+@@ -93,7 +93,6 @@ struct sof_dev_desc {
+ 	const char *default_fw_filename;
+ 
+ 	const struct snd_sof_dsp_ops *ops;
+-	const struct sof_arch_ops *arch_ops;
+ };
+ 
+ int sof_nocodec_setup(struct device *dev,
+diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
+index 97831d2c9df6..2483b15699e7 100644
+--- a/sound/soc/sof/intel/apl.c
++++ b/sound/soc/sof/intel/apl.c
+@@ -111,6 +111,8 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
+ 			SNDRV_PCM_INFO_INTERLEAVED |
+ 			SNDRV_PCM_INFO_PAUSE |
+ 			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
++
++	.arch_ops = &sof_xtensa_arch_ops,
+ };
+ EXPORT_SYMBOL_NS(sof_apl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 
 diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-index 4d45b54a0f8b..6c23c5769330 100644
+index f017089c7b2d..4d45b54a0f8b 100644
 --- a/sound/soc/sof/intel/bdw.c
 +++ b/sound/soc/sof/intel/bdw.c
-@@ -645,3 +645,4 @@ EXPORT_SYMBOL_NS(bdw_chip_info, SND_SOC_SOF_BROADWELL);
+@@ -632,6 +632,8 @@ const struct snd_sof_dsp_ops sof_bdw_ops = {
+ 			SNDRV_PCM_INFO_INTERLEAVED |
+ 			SNDRV_PCM_INFO_PAUSE |
+ 			SNDRV_PCM_INFO_BATCH,
++
++	.arch_ops = &sof_xtensa_arch_ops,
+ };
+ EXPORT_SYMBOL_NS(sof_bdw_ops, SND_SOC_SOF_BROADWELL);
  
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HIFI_EP_IPC);
-+MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
 diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index 08193882f91f..f84391294f12 100644
+index 07634873deb6..08193882f91f 100644
 --- a/sound/soc/sof/intel/byt.c
 +++ b/sound/soc/sof/intel/byt.c
-@@ -884,3 +884,4 @@ EXPORT_SYMBOL_NS(cht_chip_info, SND_SOC_SOF_BAYTRAIL);
- 
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HIFI_EP_IPC);
-+MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index adb842ed6b26..d08462f481de 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -797,3 +797,4 @@ void hda_machine_select(struct snd_sof_dev *sdev)
- MODULE_LICENSE("Dual BSD/GPL");
- MODULE_IMPORT_NS(SND_SOC_SOF_HDA_AUDIO_CODEC);
- MODULE_IMPORT_NS(SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
-+MODULE_IMPORT_NS(SND_SOC_SOF_XTENSA);
-diff --git a/sound/soc/sof/xtensa/core.c b/sound/soc/sof/xtensa/core.c
-index 46a4905a9dce..ea08651f0bb3 100644
---- a/sound/soc/sof/xtensa/core.c
-+++ b/sound/soc/sof/xtensa/core.c
-@@ -132,7 +132,7 @@ const struct sof_arch_ops sof_xtensa_arch_ops = {
- 	.dsp_oops = xtensa_dsp_oops,
- 	.dsp_stack = xtensa_stack,
+@@ -618,6 +618,8 @@ const struct snd_sof_dsp_ops sof_tng_ops = {
+ 			SNDRV_PCM_INFO_INTERLEAVED |
+ 			SNDRV_PCM_INFO_PAUSE |
+ 			SNDRV_PCM_INFO_BATCH,
++
++	.arch_ops = &sof_xtensa_arch_ops,
  };
--EXPORT_SYMBOL(sof_xtensa_arch_ops);
-+EXPORT_SYMBOL_NS(sof_xtensa_arch_ops, SND_SOC_SOF_XTENSA);
+ EXPORT_SYMBOL_NS(sof_tng_ops, SND_SOC_SOF_MERRIFIELD);
  
- MODULE_DESCRIPTION("SOF Xtensa DSP support");
- MODULE_LICENSE("Dual BSD/GPL");
+@@ -792,6 +794,8 @@ const struct snd_sof_dsp_ops sof_byt_ops = {
+ 			SNDRV_PCM_INFO_INTERLEAVED |
+ 			SNDRV_PCM_INFO_PAUSE |
+ 			SNDRV_PCM_INFO_BATCH,
++
++	.arch_ops = &sof_xtensa_arch_ops,
+ };
+ EXPORT_SYMBOL_NS(sof_byt_ops, SND_SOC_SOF_BAYTRAIL);
+ 
+@@ -865,6 +869,8 @@ const struct snd_sof_dsp_ops sof_cht_ops = {
+ 			SNDRV_PCM_INFO_INTERLEAVED |
+ 			SNDRV_PCM_INFO_PAUSE |
+ 			SNDRV_PCM_INFO_BATCH,
++
++	.arch_ops = &sof_xtensa_arch_ops,
+ };
+ EXPORT_SYMBOL_NS(sof_cht_ops, SND_SOC_SOF_BAYTRAIL);
+ 
+diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
+index b27088e67c7b..9e2d8afe0535 100644
+--- a/sound/soc/sof/intel/cnl.c
++++ b/sound/soc/sof/intel/cnl.c
+@@ -297,6 +297,8 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
+ 			SNDRV_PCM_INFO_INTERLEAVED |
+ 			SNDRV_PCM_INFO_PAUSE |
+ 			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP,
++
++	.arch_ops = &sof_xtensa_arch_ops,
+ };
+ EXPORT_SYMBOL_NS(sof_cnl_ops, SND_SOC_SOF_INTEL_HDA_COMMON);
+ 
+diff --git a/sound/soc/sof/sof-acpi-dev.c b/sound/soc/sof/sof-acpi-dev.c
+index 9100d7c70bb2..1278aa95effa 100644
+--- a/sound/soc/sof/sof-acpi-dev.c
++++ b/sound/soc/sof/sof-acpi-dev.c
+@@ -48,7 +48,6 @@ static const struct sof_dev_desc sof_acpi_broadwell_desc = {
+ 	.default_fw_filename = "sof-bdw.ri",
+ 	.nocodec_tplg_filename = "sof-bdw-nocodec.tplg",
+ 	.ops = &sof_bdw_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -67,7 +66,6 @@ static const struct sof_dev_desc sof_acpi_baytrailcr_desc = {
+ 	.default_fw_filename = "sof-byt.ri",
+ 	.nocodec_tplg_filename = "sof-byt-nocodec.tplg",
+ 	.ops = &sof_byt_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ 
+ static const struct sof_dev_desc sof_acpi_baytrail_desc = {
+@@ -82,7 +80,6 @@ static const struct sof_dev_desc sof_acpi_baytrail_desc = {
+ 	.default_fw_filename = "sof-byt.ri",
+ 	.nocodec_tplg_filename = "sof-byt-nocodec.tplg",
+ 	.ops = &sof_byt_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ 
+ static const struct sof_dev_desc sof_acpi_cherrytrail_desc = {
+@@ -97,7 +94,6 @@ static const struct sof_dev_desc sof_acpi_cherrytrail_desc = {
+ 	.default_fw_filename = "sof-cht.ri",
+ 	.nocodec_tplg_filename = "sof-cht-nocodec.tplg",
+ 	.ops = &sof_cht_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ 
+ #endif
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index 20638f666189..da7b17e5177b 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -50,7 +50,6 @@ static const struct sof_dev_desc bxt_desc = {
+ 	.default_fw_filename = "sof-apl.ri",
+ 	.nocodec_tplg_filename = "sof-apl-nocodec.tplg",
+ 	.ops = &sof_apl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -68,7 +67,6 @@ static const struct sof_dev_desc glk_desc = {
+ 	.default_fw_filename = "sof-glk.ri",
+ 	.nocodec_tplg_filename = "sof-glk-nocodec.tplg",
+ 	.ops = &sof_apl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -96,7 +94,6 @@ static const struct sof_dev_desc tng_desc = {
+ 	.default_fw_filename = "sof-byt.ri",
+ 	.nocodec_tplg_filename = "sof-byt.tplg",
+ 	.ops = &sof_tng_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -114,7 +111,6 @@ static const struct sof_dev_desc cnl_desc = {
+ 	.default_fw_filename = "sof-cnl.ri",
+ 	.nocodec_tplg_filename = "sof-cnl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -132,7 +128,6 @@ static const struct sof_dev_desc cfl_desc = {
+ 	.default_fw_filename = "sof-cfl.ri",
+ 	.nocodec_tplg_filename = "sof-cnl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -152,7 +147,6 @@ static const struct sof_dev_desc cml_desc = {
+ 	.default_fw_filename = "sof-cml.ri",
+ 	.nocodec_tplg_filename = "sof-cnl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -170,7 +164,6 @@ static const struct sof_dev_desc icl_desc = {
+ 	.default_fw_filename = "sof-icl.ri",
+ 	.nocodec_tplg_filename = "sof-icl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -188,7 +181,6 @@ static const struct sof_dev_desc tgl_desc = {
+ 	.default_fw_filename = "sof-tgl.ri",
+ 	.nocodec_tplg_filename = "sof-tgl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -206,7 +198,6 @@ static const struct sof_dev_desc ehl_desc = {
+ 	.default_fw_filename = "sof-ehl.ri",
+ 	.nocodec_tplg_filename = "sof-ehl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+@@ -223,7 +214,6 @@ static const struct sof_dev_desc jsl_desc = {
+ 	.default_tplg_path = "intel/sof-tplg",
+ 	.nocodec_tplg_filename = "sof-jsl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
+-	.arch_ops = &sof_xtensa_arch_ops
+ };
+ #endif
+ 
+diff --git a/sound/soc/sof/sof-priv.h b/sound/soc/sof/sof-priv.h
+index 3f1e1eb7c55f..bc2337cf1142 100644
+--- a/sound/soc/sof/sof-priv.h
++++ b/sound/soc/sof/sof-priv.h
+@@ -217,6 +217,8 @@ struct snd_sof_dsp_ops {
+ 
+ 	/* ALSA HW info flags, will be stored in snd_pcm_runtime.hw.info */
+ 	u32 hw_info;
++
++	const struct sof_arch_ops *arch_ops;
+ };
+ 
+ /* DSP architecture specific callbacks for oops and stack dumps */
+@@ -226,7 +228,7 @@ struct sof_arch_ops {
+ 			  u32 *stack, u32 stack_words);
+ };
+ 
+-#define sof_arch_ops(sdev) ((sdev)->pdata->desc->arch_ops)
++#define sof_arch_ops(sdev) ((sdev)->pdata->desc->ops->arch_ops)
+ 
+ /* DSP device HW descriptor mapping between bus ID and ops */
+ struct sof_ops_table {
 -- 
 2.20.1
 

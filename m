@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58CD0123B5A
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 01:09:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99C76123B57
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 01:08:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCD421675;
-	Wed, 18 Dec 2019 01:08:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCD421675
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1B7C21657;
+	Wed, 18 Dec 2019 01:08:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B7C21657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576627748;
-	bh=oVwD9NoJdoeSb+VCMe/0RPrnebnOCxUbApeYevKeuaM=;
+	s=default; t=1576627735;
+	bh=zpM4asH930XV8j7Xlw7Y6iI0xa5tkLYHuUb15mfz3QE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PyO5yCdcnaK1/+YVnPHnoiZuxFf0CSY5IlpWQMBYt5iMp/9PubY31cRYuPH/9M3nq
-	 rMjig4kzPhmwxAZ+3Csn7NYmpSq5TVzUNM60EO3xADbqsUj5pTJfmDCBXk29m+T6WD
-	 Gsz4fq8lblS3zzFx6V7SvtLI29w//46UecQ6VPXI=
+	b=WuV6UtC8/dgqSYvC5F9l9CLy0BVkgccdPSyAPHoU7jzKZBaHH7ZWkNr4QvamiOyxb
+	 ctiFWlCbjI+pPaSEHBt32mYBMl7k0+5/o0FUHmgqPX3Mt9QPeusTDSPjFF7sjPxI+n
+	 rhBYvnuS0Hz9Fjaxb8pj8ufWsUlVVZbWQLC2RroI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72A07F80277;
-	Wed, 18 Dec 2019 01:05:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DD63F80271;
+	Wed, 18 Dec 2019 01:05:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B038F8025F; Wed, 18 Dec 2019 01:05:41 +0100 (CET)
+ id 41A82F80260; Wed, 18 Dec 2019 01:05:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,33 +33,34 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28B5FF80234
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12D4FF80218
  for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 01:05:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28B5FF80234
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12D4FF80218
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 16:05:31 -0800
+ 17 Dec 2019 16:05:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="266723543"
+X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="266723547"
 Received: from dshoemak-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.3.243])
- by FMSMGA003.fm.intel.com with ESMTP; 17 Dec 2019 16:05:30 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 17 Dec 2019 16:05:31 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 17 Dec 2019 18:05:17 -0600
-Message-Id: <20191218000518.5830-3-pierre-louis.bossart@linux.intel.com>
+Date: Tue, 17 Dec 2019 18:05:18 -0600
+Message-Id: <20191218000518.5830-4-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191218000518.5830-1-pierre-louis.bossart@linux.intel.com>
 References: <20191218000518.5830-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, tiwai@suse.de,
+Cc: Dragos Tarcatu <dragos_tarcatu@mentor.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tiwai@suse.de,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org
-Subject: [alsa-devel] [PATCH v2 2/3] ASoC: SOF: Intel: hda: hda-dai: fix
-	oops on hda_link .hw_free
+ broonie@kernel.org
+Subject: [alsa-devel] [PATCH v2 3/3] ASoC: topology: Prevent use-after-free
+	in snd_soc_get_pcm_runtime()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,62 +78,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When the PCM_PARAM IPC fails while configuring the FE, the kernel
-oopses in the HDaudio link DMA .hw_free operation. The root cause is a
-NULL dma_data since the BE .hw_params was never called by the SOC
-core.
+From: Dragos Tarcatu <dragos_tarcatu@mentor.com>
 
-This error can also happen if the HDaudio link DMA configuration IPC
-fails in the BE .hw_params.
-
-This patches makes sure the dma_data is properly saved in .hw_params,
-and tested before being use in hw_free.
-
-GitHub issue: https://github.com/thesofproject/linux/issues/1417
+remove_link() is currently calling snd_soc_remove_pcm_runtime() after
+it has already freed the memory for the link name. But this is later
+read from snd_soc_get_pcm_runtime() causing a KASAN use-after-free
+warning. Reorder the cleanups to fix this issue.
 
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Dragos Tarcatu <dragos_tarcatu@mentor.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-dai.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ sound/soc/soc-topology.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
-index 2d9ac0035bd2..7d2903a67503 100644
---- a/sound/soc/sof/intel/hda-dai.c
-+++ b/sound/soc/sof/intel/hda-dai.c
-@@ -217,6 +217,8 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
- 		link_dev = hda_link_stream_assign(bus, substream);
- 		if (!link_dev)
- 			return -EBUSY;
-+
-+		snd_soc_dai_set_dma_data(dai, substream, (void *)link_dev);
- 	}
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index f8bd406c6198..2b3c74a0b126 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -548,14 +548,14 @@ static void remove_link(struct snd_soc_component *comp,
+ 	if (dobj->ops && dobj->ops->link_unload)
+ 		dobj->ops->link_unload(comp, dobj);
  
- 	stream_tag = hdac_stream(link_dev)->stream_tag;
-@@ -229,8 +231,6 @@ static int hda_link_hw_params(struct snd_pcm_substream *substream,
- 	if (ret < 0)
- 		return ret;
- 
--	snd_soc_dai_set_dma_data(dai, substream, (void *)link_dev);
+-	kfree(link->name);
+-	kfree(link->stream_name);
+-	kfree(link->cpus->dai_name);
 -
- 	link = snd_hdac_ext_bus_get_link(bus, codec_dai->component->name);
- 	if (!link)
- 		return -EINVAL;
-@@ -362,6 +362,13 @@ static int hda_link_hw_free(struct snd_pcm_substream *substream,
- 	bus = hstream->bus;
- 	rtd = snd_pcm_substream_chip(substream);
- 	link_dev = snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!link_dev) {
-+		dev_dbg(dai->dev,
-+			"%s: link_dev is not assigned\n", __func__);
-+		return -EINVAL;
-+	}
-+
- 	hda_stream = hstream_to_sof_hda_stream(link_dev);
+ 	list_del(&dobj->list);
  
- 	/* free the link DMA channel in the FW */
+ 	snd_soc_remove_pcm_runtime(comp->card,
+ 			snd_soc_get_pcm_runtime(comp->card, link));
++
++	kfree(link->name);
++	kfree(link->stream_name);
++	kfree(link->cpus->dai_name);
+ 	kfree(link);
+ }
+ 
 -- 
 2.20.1
 

@@ -2,54 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F17112485E
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 14:29:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 693A2124950
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 15:20:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D10DF1669;
-	Wed, 18 Dec 2019 14:28:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D10DF1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECF5B166C;
+	Wed, 18 Dec 2019 15:19:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECF5B166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576675741;
-	bh=3zqFtXn5mxlPKaEmivO2Ba8cGwwGN8oDuezL/gbirrw=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1576678805;
+	bh=oCPp5MJFALt3LAElmq4GoQQO+cHmOvrsn+MfVceeQe0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Mpj4SQmzbSRyyb1sOxCQS0Loo5Jv9OJmtMPrDRdhJnxAcbnXX9XMJN0aNH5jpi+JO
-	 HDnDN4XDidfoqCPzOdSx49kvOTnmXBkgLl5WPODNsNizb2EVXWZCSFMIqzNkE71g7s
-	 B50YJ5w+y1ciBA5vXuZy7lwL3+7QJo8h/bn7uoHk=
+	b=Q7f3+w4mpl5b1ItbsXEpJip8eAw+nuyDbvHlYG4mkk/JZkUF2i1e6sddBm4VcHdzT
+	 tOE7mZS3s3h51o90AwwIcvdH4WUKJU5W5BYnMGc4UjZVHtxyCR1gjsB9pDpCStb7UN
+	 D6F3JYeukfLDMQt78hd3UoGpAxOR3yuevYmoWdFs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0BD0F80271;
-	Wed, 18 Dec 2019 14:27:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E70CF80259;
+	Wed, 18 Dec 2019 15:18:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8FD8FF8026A; Wed, 18 Dec 2019 14:27:16 +0100 (CET)
+ id 6FEF0F80258; Wed, 18 Dec 2019 15:18:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [62.209.51.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE706F80059
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 14:27:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE706F80059
-Received: from [123.114.41.248] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1ihZM7-0003N1-D6; Wed, 18 Dec 2019 13:27:12 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Date: Wed, 18 Dec 2019 21:26:50 +0800
-Message-Id: <20191218132650.6303-1-hui.wang@canonical.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 736CCF8014C
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 15:18:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 736CCF8014C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="kNlkEtLS"
+Received: from pps.filterd (m0046668.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xBIEIF4E006567; Wed, 18 Dec 2019 15:18:16 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=VkB1F9j4Bc2882ixkvjF3/YhIbvozsdCU4TfcGwrFI4=;
+ b=kNlkEtLSNW+jito3GFcNjm/sDFWH6hj6tulB7EUTOT7R8nKigUr9I+aNUmO/JTcM2m61
+ SXbi0X1pLqkdcpeasKFt2DgBAZhbLMgk/NDtyV+Y1ryqgiKamQ2MxAHceYSUNeQ8URRU
+ 7UX2HX914cxki2JimUHPgSMZOcy3ajS+CIk6IT0t7rjvGQ3q1kIZJXrPqiXaV3hNpSJb
+ h2Kiwt1GrxydNRuU2WAzOd4aR6dFoGmyWqW+MBg22xzZZSjyT0OaJzrrPSa4uNeavmUG
+ vXboDxvkn9yM2Hh1QCr2DzIWXdI8r3NSxX6+QC1SNLm6H2uVr0KWpD4MLVxDpfiXcuLy qw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2wvp374uak-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 18 Dec 2019 15:18:16 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7F88D10003A;
+ Wed, 18 Dec 2019 15:18:10 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag3node1.st.com [10.75.127.7])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 508D72BEAD4;
+ Wed, 18 Dec 2019 15:18:10 +0100 (CET)
+Received: from localhost (10.75.127.44) by SFHDAG3NODE1.st.com (10.75.127.7)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 18 Dec 2019 15:18:09
+ +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
+To: <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi
+ Iwai <tiwai@suse.com>, Jia-Ju Bai <baijiaju1990@gmail.com>
+Date: Wed, 18 Dec 2019 15:16:46 +0100
+Message-ID: <20191218141646.23256-1-arnaud.pouliquen@st.com>
 X-Mailer: git-send-email 2.17.1
-Subject: [alsa-devel] [PATCH] ALSA: usb-audio: set the interface format
-	after resume on Dell WD19
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.44]
+X-ClientProxiedBy: SFHDAG7NODE1.st.com (10.75.127.19) To SFHDAG3NODE1.st.com
+ (10.75.127.7)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-12-18_04:2019-12-17,2019-12-18 signatures=0
+Cc: arnaud.pouliquen@st.com, Olivier Moysan <olivier.moysan@st.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [INTERNAL REVIEW] asoc: sti: fix possible
+	sleep-in-atomic
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,169 +94,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Recently we found the headset-mic on the Dell Dock WD19 doesn't work
-anymore after s3 (s2i or deep), this problem could be workarounded by
-closeing (pcm_close) the app and then reopening (pcm_open) the app, so
-this bug is not easy to be detected by users.
+Change mutex and spinlock management to avoid sleep
+in atomic issue.
 
-When problem happens, retire_capture_urb() could still be called
-periodically, but the size of captured data is always 0, it could be
-a firmware bug on the dock. Anyway I found after resuming, the
-snd_usb_pcm_prepare() will be called, and if we forcibly run
-set_format() to set the interface and its endpoint, the capture
-size will be normal again. This problem and workaound also apply to
-playback.
-
-To fix it in the kernel, add a quirk to let set_format() run
-forcibly once after resume.
-
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
+Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
 ---
- sound/usb/card.h         |  1 +
- sound/usb/pcm.c          | 21 +++++++++++++++++++--
- sound/usb/quirks-table.h |  3 ++-
- sound/usb/quirks.c       | 11 +++++++++++
- sound/usb/usbaudio.h     |  3 ++-
- 5 files changed, 35 insertions(+), 4 deletions(-)
+ sound/soc/sti/uniperif_player.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/sound/usb/card.h b/sound/usb/card.h
-index 2991b9986f66..395403a2d33f 100644
---- a/sound/usb/card.h
-+++ b/sound/usb/card.h
-@@ -145,6 +145,7 @@ struct snd_usb_substream {
- 	struct snd_usb_endpoint *sync_endpoint;
- 	unsigned long flags;
- 	bool need_setup_ep;		/* (re)configure EP at prepare? */
-+	bool need_setup_fmt;		/* (re)configure fmt after resume? */
- 	unsigned int speed;		/* USB_SPEED_XXX */
- 
- 	u64 formats;			/* format bitmasks (all or'ed) */
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 8a52996041e9..4ac571b2e9a6 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -523,11 +523,11 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
- 	if (WARN_ON(altsd->bAlternateSetting != fmt->altsetting))
- 		return -EINVAL;
- 
--	if (fmt == subs->cur_audiofmt)
-+	if (fmt == subs->cur_audiofmt && !subs->need_setup_fmt)
- 		return 0;
- 
- 	/* close the old interface */
--	if (subs->interface >= 0 && subs->interface != fmt->iface) {
-+	if (subs->interface >= 0 && (subs->interface != fmt->iface || subs->need_setup_fmt)) {
- 		if (!subs->stream->chip->keep_iface) {
- 			err = usb_set_interface(subs->dev, subs->interface, 0);
- 			if (err < 0) {
-@@ -541,6 +541,9 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
- 		subs->altset_idx = 0;
+diff --git a/sound/soc/sti/uniperif_player.c b/sound/soc/sti/uniperif_player.c
+index 48ea915b24ba..2ed92c990b97 100644
+--- a/sound/soc/sti/uniperif_player.c
++++ b/sound/soc/sti/uniperif_player.c
+@@ -226,7 +226,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
+ 	 * sampling frequency. If no sample rate is already specified, then
+ 	 * set one.
+ 	 */
+-	mutex_lock(&player->ctrl_lock);
+ 	if (runtime) {
+ 		switch (runtime->rate) {
+ 		case 22050:
+@@ -303,7 +302,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
+ 		player->stream_settings.iec958.status[3 + (n * 4)] << 24;
+ 		SET_UNIPERIF_CHANNEL_STA_REGN(player, n, status);
  	}
+-	mutex_unlock(&player->ctrl_lock);
  
-+	if (subs->need_setup_fmt)
-+		subs->need_setup_fmt = false;
+ 	/* Update the channel status */
+ 	if (player->ver < SND_ST_UNIPERIF_VERSION_UNI_PLR_TOP_1_0)
+@@ -365,8 +363,10 @@ static int uni_player_prepare_iec958(struct uniperif *player,
+ 
+ 	SET_UNIPERIF_CTRL_ZERO_STUFF_HW(player);
+ 
++	mutex_lock(&player->ctrl_lock);
+ 	/* Update the channel status */
+ 	uni_player_set_channel_status(player, runtime);
++	mutex_unlock(&player->ctrl_lock);
+ 
+ 	/* Clear the user validity user bits */
+ 	SET_UNIPERIF_USER_VALIDITY_VALIDITY_LR(player, 0);
+@@ -598,7 +598,6 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
+ 	iec958->status[1] = ucontrol->value.iec958.status[1];
+ 	iec958->status[2] = ucontrol->value.iec958.status[2];
+ 	iec958->status[3] = ucontrol->value.iec958.status[3];
+-	mutex_unlock(&player->ctrl_lock);
+ 
+ 	spin_lock_irqsave(&player->irq_lock, flags);
+ 	if (player->substream && player->substream->runtime)
+@@ -608,6 +607,8 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
+ 		uni_player_set_channel_status(player, NULL);
+ 
+ 	spin_unlock_irqrestore(&player->irq_lock, flags);
++	mutex_unlock(&player->ctrl_lock);
 +
- 	/* set interface */
- 	if (iface->cur_altsetting != alts) {
- 		err = snd_usb_select_mode_quirk(subs, fmt);
-@@ -1734,6 +1737,13 @@ static int snd_usb_substream_playback_trigger(struct snd_pcm_substream *substrea
- 		subs->data_endpoint->retire_data_urb = retire_playback_urb;
- 		subs->running = 0;
- 		return 0;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+		if (subs->stream->chip->setup_fmt_after_resume_quirk) {
-+			stop_endpoints(subs, true);
-+			subs->need_setup_fmt = true;
-+			return 0;
-+		}
-+		break;
- 	}
- 
- 	return -EINVAL;
-@@ -1766,6 +1776,13 @@ static int snd_usb_substream_capture_trigger(struct snd_pcm_substream *substream
- 		subs->data_endpoint->retire_data_urb = retire_capture_urb;
- 		subs->running = 1;
- 		return 0;
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+		if (subs->stream->chip->setup_fmt_after_resume_quirk) {
-+			stop_endpoints(subs, true);
-+			subs->need_setup_fmt = true;
-+			return 0;
-+		}
-+		break;
- 	}
- 
- 	return -EINVAL;
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 70c338f3ae24..d187aa6d50db 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3466,7 +3466,8 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
- 		.vendor_name = "Dell",
- 		.product_name = "WD19 Dock",
- 		.profile_name = "Dell-WD15-Dock",
--		.ifnum = QUIRK_NO_INTERFACE
-+		.ifnum = QUIRK_ANY_INTERFACE,
-+		.type = QUIRK_SETUP_FMT_AFTER_RESUME
- 	}
- },
- /* MOTU Microbook II */
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 349e1e52996d..a81c2066499f 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -508,6 +508,16 @@ static int create_standard_mixer_quirk(struct snd_usb_audio *chip,
- 	return snd_usb_create_mixer(chip, quirk->ifnum, 0);
+ 	return 0;
  }
  
-+
-+static int setup_fmt_after_resume_quirk(struct snd_usb_audio *chip,
-+				       struct usb_interface *iface,
-+				       struct usb_driver *driver,
-+				       const struct snd_usb_audio_quirk *quirk)
-+{
-+	chip->setup_fmt_after_resume_quirk = 1;
-+	return 1;	/* Continue with creating streams and mixer */
-+}
-+
- /*
-  * audio-interface quirks
-  *
-@@ -546,6 +556,7 @@ int snd_usb_create_quirk(struct snd_usb_audio *chip,
- 		[QUIRK_AUDIO_EDIROL_UAXX] = create_uaxx_quirk,
- 		[QUIRK_AUDIO_ALIGN_TRANSFER] = create_align_transfer_quirk,
- 		[QUIRK_AUDIO_STANDARD_MIXER] = create_standard_mixer_quirk,
-+		[QUIRK_SETUP_FMT_AFTER_RESUME] = setup_fmt_after_resume_quirk,
- 	};
- 
- 	if (quirk->type < QUIRK_TYPE_COUNT) {
-diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index ff3cbf653de8..6fe3ab582ec6 100644
---- a/sound/usb/usbaudio.h
-+++ b/sound/usb/usbaudio.h
-@@ -33,7 +33,7 @@ struct snd_usb_audio {
- 	wait_queue_head_t shutdown_wait;
- 	unsigned int txfr_quirk:1; /* Subframe boundaries on transfers */
- 	unsigned int tx_length_quirk:1; /* Put length specifier in transfers */
--	
-+	unsigned int setup_fmt_after_resume_quirk:1; /* setup the format to interface after resume */
- 	int num_interfaces;
- 	int num_suspended_intf;
- 	int sample_rate_read_error;
-@@ -98,6 +98,7 @@ enum quirk_type {
- 	QUIRK_AUDIO_EDIROL_UAXX,
- 	QUIRK_AUDIO_ALIGN_TRANSFER,
- 	QUIRK_AUDIO_STANDARD_MIXER,
-+	QUIRK_SETUP_FMT_AFTER_RESUME,
- 
- 	QUIRK_TYPE_COUNT
- };
 -- 
 2.17.1
 

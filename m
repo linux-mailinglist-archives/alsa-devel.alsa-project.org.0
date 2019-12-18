@@ -2,76 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 008FF1245B2
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 12:22:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BDAD9124612
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 12:48:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 971D8839;
-	Wed, 18 Dec 2019 12:22:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 971D8839
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40FA615F9;
+	Wed, 18 Dec 2019 12:47:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40FA615F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576668170;
-	bh=Ml+y6uDuJZWy8S6kGD01iyqpDH2XNS/MEJrvlMXVRWY=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576669700;
+	bh=p7VfBKoCKZXAzFXv4tR9JRvyaF+150/1PnHeQOEjfF0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aEVbKtG/lbt1Tb/0lugIYsD6uIBfo96fJbPEtE9jEYnDF36g8zecLudcSzC8mEZ6K
-	 TSAdVRnItXqaB5K0GnyUBqdyNO8uJffnsMC4Sf96KsPBr2H5FNmG0bTolgKnyEHSj6
-	 alTK8Dn9yamN7iV7lpUE3joHvVwF1tvOQfiiLb4w=
+	b=ufPQctRPnRPofGidg90a3UPFbWijZe0igceYi3ggTmAGvUdB1DO7VCLW8etB7ibGH
+	 6YuScMrK6KjpA48aGGg9VxEWPgvpye8wY2PWdnHhUncim8XuB2NaIcr0LZWG9dAWIG
+	 /vPV7L+iAGA+yjne8nlnHy+wqWLxU50MikyiyqbM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4D09CF80247;
-	Wed, 18 Dec 2019 12:21:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D99A1F8015A;
+	Wed, 18 Dec 2019 12:46:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE6FAF8022C; Wed, 18 Dec 2019 12:21:04 +0100 (CET)
+ id 13FE4F8022C; Wed, 18 Dec 2019 12:46:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from hostingweb31-40.netsons.net (hostingweb31-40.netsons.net
- [89.40.174.40])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0E5E8F80059
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 12:21:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E5E8F80059
-Received: from [37.162.94.155] (port=27596 helo=[192.168.43.3])
- by hostingweb31.netsons.net with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.92)
- (envelope-from <luca@lucaceresoli.net>)
- id 1ihXNz-00B31J-Q6; Wed, 18 Dec 2019 12:20:59 +0100
-To: Daniel Mack <daniel@zonque.org>, Lee Jones <lee.jones@linaro.org>
-References: <20191209183511.3576038-1-daniel@zonque.org>
- <20191209183511.3576038-8-daniel@zonque.org> <20191217133952.GJ18955@dell>
- <ce6e0b19-ec40-c17b-cee6-05eca52d5df3@zonque.org>
-From: Luca Ceresoli <luca@lucaceresoli.net>
-Message-ID: <e288a6e1-a967-d7cd-72fc-d190819953e3@lucaceresoli.net>
-Date: Wed, 18 Dec 2019 12:20:58 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 4B8F9F80088
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 12:46:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B8F9F80088
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F0DC430E;
+ Wed, 18 Dec 2019 03:46:26 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4AE713F6CF;
+ Wed, 18 Dec 2019 03:46:26 -0800 (PST)
+Date: Wed, 18 Dec 2019 11:46:24 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <20191218114624.GB3219@sirena.org.uk>
+References: <20191217121642.28534-1-srinivas.kandagatla@linaro.org>
+ <20191217121642.28534-4-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <ce6e0b19-ec40-c17b-cee6-05eca52d5df3@zonque.org>
-Content-Language: en-US
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - hostingweb31.netsons.net
-X-AntiAbuse: Original Domain - alsa-project.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lucaceresoli.net
-X-Get-Message-Sender-Via: hostingweb31.netsons.net: authenticated_id:
- luca@lucaceresoli.net
-X-Authenticated-Sender: hostingweb31.netsons.net: luca@lucaceresoli.net
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, lars@metafoo.de,
- sboyd@kernel.org, mturquette@baylibre.com, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, robh+dt@kernel.org, broonie@kernel.org,
- linux-i2c@vger.kernel.org, pascal.huerst@gmail.com, linux-clk@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH 06/10] mfd: Add core driver for AD242x A2B
-	transceivers
+In-Reply-To: <20191217121642.28534-4-srinivas.kandagatla@linaro.org>
+X-Cookie: Power is poison.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ vinod.koul@linaro.org, devicetree@vger.kernel.org, linus.walleij@linaro.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, lee.jones@linaro.org,
+ spapothi@codeaurora.org
+Subject: Re: [alsa-devel] [PATCH v5 03/11] ASoC: wcd934x: add support to
+ wcd9340/wcd9341 codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,36 +68,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============1427201724637989686=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-SGkgRGFuaWVsLAoKT24gMTcvMTIvMTkgMjA6MjQsIERhbmllbCBNYWNrIHdyb3RlOgo+Pj4gKysr
-IGIvZHJpdmVycy9tZmQvYWQyNDJ4LWJ1cy5jCj4+PiBAQCAtMCwwICsxLDQyIEBACj4+PiArLy8g
-U1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seQo+Pj4gKwo+Pj4gKyNpbmNsdWRl
-IDxsaW51eC9pMmMuaD4KPj4+ICsjaW5jbHVkZSA8bGludXgvaW5pdC5oPgo+Pj4gKyNpbmNsdWRl
-IDxsaW51eC9tZmQvYWQyNDJ4Lmg+Cj4+PiArI2luY2x1ZGUgPGxpbnV4L21vZHVsZS5oPgo+Pj4g
-KyNpbmNsdWRlIDxsaW51eC9vZi5oPgo+Pj4gKwo+Pj4gK3N0YXRpYyBpbnQgYWQyNDJ4X2J1c19p
-MmNfcHJvYmUoc3RydWN0IGkyY19jbGllbnQgKmkyYywKPj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgY29uc3Qgc3RydWN0IGkyY19kZXZpY2VfaWQgKmlkKQo+Pj4gK3sKPj4+ICvC
-oMKgwqAgZGV2X3NldF9kcnZkYXRhKCZpMmMtPmRldiwgaTJjKTsKPj4+ICvCoMKgwqAgaTJjX3Nl
-dF9jbGllbnRkYXRhKGkyYywgJmkyYy0+ZGV2KTsKPj4KPj4gUGxlYXNlIGV4cGxhaW4gdG8gbWUg
-d2hhdCB5b3UgdGhpbmsgaXMgaGFwcGVuaW5nIGhlcmUuCj4+Cj4+PiArwqDCoMKgIHJldHVybiAw
-Owo+Pj4gK30KPj4KPj4gV2hhdCBkb2VzIHRoaXMgZHJpdmVyIGRvP8KgIFNlZW1zIGtpbmRhIHBv
-aW50bGVzcz8KPiAKPiBBcyBleHBsYWluZWQgaW4gdGhlIGNvbW1pdCBsb2csIHRoZXNlIGRldmlj
-ZXMgZXhwb3NlIHR3byBhZGRyZXNzZXMgb24KPiB0aGUgaTJjIGJ1cywgYW5kIGVhY2ggb2Ygd2hp
-Y2ggZXhpc3RzIGZvciBhIGRpc3RpbmN0IHB1cnBvc2UuIFRoZQo+IHByaW1hcnkgb25lIGlzIHVz
-ZWQgdG8gYWNjZXNzIHJlZ2lzdGVycyBvbiB0aGUgbWFzdGVyIG5vZGUgaXRzZWxmLCB0aGUKPiBz
-ZWNvbmQgb25lIGlzIHByb3h5aW5nIHRyYWZmaWMgdG8gcmVtb3RlIG5vZGVzLgo+IAo+IE5vdywg
-dGhlIHF1ZXN0aW9uIGlzIGhvdyB0byBzdXBwb3J0IHRoYXQsIGFuZCB0aGUgYXBwcm9hY2ggY2hv
-c2VuIGhlcmUKPiBpcyB0byBoYXZlIGEgZHVtbXkgZHJpdmVyIHNpdHRpbmcgb24gdGhlIDJuZCBh
-ZGRyZXNzLCBhbmQgdG8gcmVhY2ggb3V0Cj4gdG8gaXQgdmlhIGEgRFQgcGhhbmRsZSBmcm9tIHRo
-ZSBtYXN0ZXIgbm9kZS4gSSBkb24ndCBsaWtlIHRoYXQgbXVjaAo+IGVpdGhlciwgYnV0IEknbSBu
-b3QgYXdhcmUgb2YgYSBjbGVhbmVyIHdheSB0byBiaW5kIHR3byBhZGRyZXNzZXMgd2l0aAo+IG9u
-ZSBkcml2ZXIuIElmIHRoZXJlIGlzIGFueSwgSSdkIGJlIGhhcHB5IHRvIGNoYW5nZSB0aGF0LgoK
-SGF2ZSBhIGxvb2sgYXQgaTJjX25ld19kdW1teV9kZXZpY2UoKSwgcGVyaGFwcyBpdCBpcyB3aGF0
-IHlvdSBuZWVkIGhlcmUuCgotLSAKTHVjYQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNh
-LXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlz
-dGluZm8vYWxzYS1kZXZlbAo=
+
+--===============1427201724637989686==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="uQr8t48UFsdbeI+V"
+Content-Disposition: inline
+
+
+--uQr8t48UFsdbeI+V
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Dec 17, 2019 at 12:16:34PM +0000, Srinivas Kandagatla wrote:
+
+> +config SND_SOC_WCD934X
+> +	tristate "WCD9340/WCD9341 Codec"
+> +	depends on SLIMBUS
+> +	select REGMAP_SLIMBUS
+> +	select REGMAP_IRQ
+> +	help
+
+Why does this not depend on the MFD change?
+
+--uQr8t48UFsdbeI+V
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl36EY8ACgkQJNaLcl1U
+h9CJewf/UNyw0O0xrJ7lqLqOtpx2X0NT8thQQh2NcyNp4m8qbmYDJ15qmTMAM+yj
+mP+3wP/Qf8hD8sTAidpOg9krTC5rCGi8k7lHizePkZEkmxilFp6IEr4xPSFimHhR
+bp2p/9XvAgJcXlsDTaRRknBtErDfSIfcNmPjC9Lz0Q9jAlQKMjPVj9K7Wm4o96zQ
+L/Cz3jQOHeNSRCBQKjkMDUSesDQIzZUAAEShRq82RT+dxa8K531f8AoFQKf+D2KZ
+3EmrYGye3MJgMTZ+8elie/8uBaRKqhCei3zZecF05lN43KThV/U5aEGY/p/RW6O4
+xnnuzr+hkC5Hu7jMR8DbzcNHfEuS+g==
+=vos4
+-----END PGP SIGNATURE-----
+
+--uQr8t48UFsdbeI+V--
+
+--===============1427201724637989686==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1427201724637989686==--

@@ -2,66 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B07D124D84
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 17:28:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CBCC124D99
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 17:30:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BCDA0166A;
-	Wed, 18 Dec 2019 17:27:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BCDA0166A
+	by alsa0.perex.cz (Postfix) with ESMTPS id C7785826;
+	Wed, 18 Dec 2019 17:29:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C7785826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576686489;
-	bh=+hxa0CRFJDp8TIBMPFNna38Ryv3qH93BxkFj8XnDYWk=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576686616;
+	bh=8WxhUXCm8Hw98+BXcd9NP23LR7cUKassvhJ/ix7cAfI=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=l8YInRGDGJzuSpO/DdZetJOG/m4aCgNpQlc7A8Og9Hd08lHOiUzY21O0hu1YDfzOm
-	 tNUsD8eEPFICO/V2G72u1w4oyPrAOF5EmqkD5LazXqCfrAAlsCxZv6u2O/+jALKDgm
-	 IkrovHr8QBd90yqj/v2Hj/KXw7Ob02ghztHthByI=
+	b=Y3WGTkilOldp0PeAs0hlMoNXilZ89PDbAOXHlPN9XhRAAXcIimv/rJmQUSHp6I1+R
+	 bAlgFelThdOmNeotYUsSOE0h4Z+Rfy8Xn34VPssbtTBGyHgq7rlQJheDi1OOXnwOOt
+	 PpahmvJqb6da49IudXLVXKqEhUinpoWujDOs5e58=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77FE5F8027B;
-	Wed, 18 Dec 2019 17:24:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4F22FF8022C;
+	Wed, 18 Dec 2019 17:28:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76FE5F8027B; Wed, 18 Dec 2019 17:24:29 +0100 (CET)
+ id 99F1BF8022C; Wed, 18 Dec 2019 17:28:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D13EBF80278
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 17:24:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D13EBF80278
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ACAAC31B;
- Wed, 18 Dec 2019 08:24:24 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2934F3F85C;
- Wed, 18 Dec 2019 08:24:24 -0800 (PST)
-Date: Wed, 18 Dec 2019 16:24:22 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Message-ID: <20191218162422.GG3219@sirena.org.uk>
-References: <CGME20191128152110epcas3p2b205b4b55f6d8bfac42fcb8faaade93c@epcas3p2.samsung.com>
- <20191128151908.180871-1-tzungbi@google.com>
- <8aceb9ec-aa6e-1fa4-cee9-e22084c141e8@samsung.com>
- <CA+Px+wXPa_cwdZUQfCx4jAhhj4Q9b7bNABUGazLKOJ7U5ae-mA@mail.gmail.com>
- <20191218132620.GE3219@sirena.org.uk>
- <f6453e48-cd95-6471-8945-4cc0ab3d04d9@samsung.com>
-MIME-Version: 1.0
-In-Reply-To: <f6453e48-cd95-6471-8945-4cc0ab3d04d9@samsung.com>
-X-Cookie: Power is poison.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>, Takashi Iwai <tiwai@suse.de>,
- Krzysztof Kozlowski <krzk@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Dylan Reid <dgreid@google.com>
-Subject: Re: [alsa-devel] [PATCH v2] ASoC: max98090: save and restore SHDN
- when changing sensitive registers
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C73BF80059
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 17:28:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C73BF80059
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id ABCB4B18B;
+ Wed, 18 Dec 2019 16:28:28 +0000 (UTC)
+Date: Wed, 18 Dec 2019 17:28:28 +0100
+Message-ID: <s5hbls57g43.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <f442ed39-1a86-28fb-b42c-b0e5273cd79a@linux.intel.com>
+References: <20191126141423.21523-1-pierre-louis.bossart@linux.intel.com>
+ <s5h4kyqzpge.wl-tiwai@suse.de>
+ <0131b134-46dc-991f-230b-fe843f43f078@linux.intel.com>
+ <s5hd0cm16vf.wl-tiwai@suse.de>
+ <f442ed39-1a86-28fb-b42c-b0e5273cd79a@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: Intel: add PCI ID for
+	CometLake-S
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,84 +69,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8941421874702308507=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, 18 Dec 2019 16:21:22 +0100,
+Pierre-Louis Bossart wrote:
+> 
+> >>> Also, can we reduce even the ifdef around sof_dev_desc definitions by
+> >>> __maybe_unused atttribute?
+> >>
+> >> Sorry, I am not following your suggestion. I would really like to keep
+> >> the ifdefs for now, and while it can be seen as overkill to have
+> >> descriptors that are identical in some cases the past experience shows
+> >> it's useful when we have to add quirks for specific 'hardware
+> >> recommended programming sequences'.
+> >
+> > What I suggested was simple, just dropping ifdef by something like
+> >
+> > diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+> > index bbeffd932de7..297632a54f1b 100644
+> > --- a/sound/soc/sof/sof-pci-dev.c
+> > +++ b/sound/soc/sof/sof-pci-dev.c
+> > @@ -36,8 +36,7 @@ MODULE_PARM_DESC(sof_pci_debug, "SOF PCI debug options (0x0 all off)");
+> >     #define SOF_PCI_DISABLE_PM_RUNTIME BIT(0)
+> >   -#if IS_ENABLED(CONFIG_SND_SOC_SOF_APOLLOLAKE)
+> > -static const struct sof_dev_desc bxt_desc = {
+> > +static const struct sof_dev_desc __maybe_unused bxt_desc = {
+> >   	.machines		= snd_soc_acpi_intel_bxt_machines,
+> >   	.resindex_lpe_base	= 0,
+> >   	.resindex_pcicfg_base	= -1,
+> > @@ -52,10 +51,8 @@ static const struct sof_dev_desc bxt_desc = {
+> >   	.ops = &sof_apl_ops,
+> >   	.arch_ops = &sof_xtensa_arch_ops
+> >   };
+> > -#endif
+> >   -#if IS_ENABLED(CONFIG_SND_SOC_SOF_GEMINILAKE)
+> > -static const struct sof_dev_desc glk_desc = {
+> > +static const struct sof_dev_desc __maybe_unused glk_desc = {
+> >   	.machines		= snd_soc_acpi_intel_glk_machines,
+> >   	.resindex_lpe_base	= 0,
+> >   	.resindex_pcicfg_base	= -1,
+> > @@ -70,10 +67,8 @@ static const struct sof_dev_desc glk_desc = {
+> >   	.ops = &sof_apl_ops,
+> >   	.arch_ops = &sof_xtensa_arch_ops
+> >   };
+> > -#endif
+> > .....
+> >   
+> >
+> > Then the issue I pointed above can be solved as well.
+> 
+> The ifdefs are still needed in the PCI IDs tables
 
---===============8941421874702308507==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4eRLI4hEmsdu6Npr"
-Content-Disposition: inline
+Yes, but it halves the messes :)
 
 
---4eRLI4hEmsdu6Npr
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Takashi
 
-On Wed, Dec 18, 2019 at 03:48:14PM +0100, Marek Szyprowski wrote:
-> On 18.12.2019 14:26, Mark Brown wrote:
-
-> >> - snd_card_new( ) succeed in snd_soc_bind_card( ), so that userspace
-> >> can see the control
-
-> > This feels like snd_card_new() is being overly enthusiastic here, I'd
-> > expect that we might have other problems elsewhere with that.  I'd not
-> > expect userspace to see things until snd_card_register() since between
-> > _new() and that we're in the process of building the card up.  Given
-> > this we *will* need to handle partially constructed cards after all,
-> > unless we change the ALSA core.  Takashi?
->=20
-> I'm not sure if this is an issue about partially registered card. Here=20
-> is the boot log:
->=20
-> https://paste.debian.net/1121543/
-
-> This oops happens when udev tries to do its job. The card is earlier=20
-> fully registered and advertised by alsa:
-
-> [=A0=A0=A0 3.501198] ALSA device list:
-> [=A0=A0=A0 3.501300]=A0=A0 #0: Odroid-U3
-
-That's not what the analysis I was replying to said :(
-
-This log makes no sense to me, if this is the same card that was
-registered and announced earlier what caused it to become unregistered
-so that we are registering it now?
-
-> If there are any useful logs for tracking this issue, let me know how to
-> enable them, so I will provide more logs.
-
-It'd be good to understand this unregistration/probe deferral for a
-start...  when did the card get unregistered and why?
-
---4eRLI4hEmsdu6Npr
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl36UrUACgkQJNaLcl1U
-h9AdvQf/d6VYqwcgXnuFMs3zAieeQ+JuTqPm7FiB6AbcjqPAmL/PxvH+MArujCqk
-WkeMBpwfCZpkhXspVR/yKG8maniKAmoV38Z/cBmcGv+aQrGmEuDzmLeidngPPr1H
-DmyG9uZ3T1bz+zqnGmGid2lPN54VeEGgsdiO/u1Fh1EUHZ0Vej5UA9UPmtTWxzrN
-lSp/mQE9ZJiqr8YhZtkUaRm2EU7tosw3RUnq2CjYg2faor9yZRFFa83+rSpojhCT
-0I3DhUvxHw0QRo6bGMvR1RaGE+oeGHGVTtXO/BJk4r/IXOUXNC6ilVKQVamLnUbV
-O6IFY/Q0mtgGEANxTjS/4F7HiO9piQ==
-=BA/X
------END PGP SIGNATURE-----
-
---4eRLI4hEmsdu6Npr--
-
---===============8941421874702308507==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> 
+> static const struct pci_device_id sof_pci_ids[] = {
+> #if IS_ENABLED(CONFIG_SND_SOC_SOF_MERRIFIELD)
+> 	{ PCI_DEVICE(0x8086, 0x119a),
+> 		.driver_data = (unsigned long)&tng_desc},
+> #endif
+> #if IS_ENABLED(CONFIG_SND_SOC_SOF_APOLLOLAKE)
+> 	/* BXT-P & Apollolake */
+> 	{ PCI_DEVICE(0x8086, 0x5a98),
+> 		.driver_data = (unsigned long)&bxt_desc},
+> 	{ PCI_DEVICE(0x8086, 0x1a98),
+> 		.driver_data = (unsigned long)&bxt_desc},
+> #endif
+> #if IS_ENABLED(CONFIG_SND_SOC_SOF_GEMINILAKE)
+> 	{ PCI_DEVICE(0x8086, 0x3198),
+> 		.driver_data = (unsigned long)&glk_desc},
+> #endif
+> 
+> so for consistency I personally prefer the matching ifdef for the
+> descriptors.
+> 
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============8941421874702308507==--

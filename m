@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C59341252D9
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:11:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F1D321252E2
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:12:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5576D886;
-	Wed, 18 Dec 2019 21:11:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5576D886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7A3811666;
+	Wed, 18 Dec 2019 21:11:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A3811666
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576699919;
-	bh=AppBRkK2d47hvbX3oWWJWNnxzceng8xPFmJ08Nc0WyE=;
+	s=default; t=1576699959;
+	bh=PQL0FQ8AWDg9D99j7f1qcMDMrEOYenPDdOlFYjmlMB8=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=uOkOgSbVS/O1RtRyABQT9rIVdGw6DTAyIu8fyixK9Rtf9map8eHMg3uY1cn9B4nwk
-	 qwUZD+l/wkyhhCytdlhVYXMvhDkFh/9Vb+cCG78mYuWzB+4lpkPocHGCrWSHdl/FCy
-	 sGOg6lVKNs7FuMcAl0bXObw87TEUhknh1GNoKzJQ=
+	b=JJ6qOQY4sYWy753fUu4hu4YIsVArmp2d6AFZwwEd/LlWK8WzWWtNn61mhumGIpZg7
+	 1YyLDqclLCCBZfF/m5JUTDwuB0CzOVhZMrz8bnOc/dvqBbBvdMfa458tlLwCV9+TuU
+	 aJvmgdZNvu5ukSrqrt2i0F/2stM1CFJNNMshc91Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D1A5F802DC;
-	Wed, 18 Dec 2019 21:05:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D475AF802E9;
+	Wed, 18 Dec 2019 21:05:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 288E5F802C2; Wed, 18 Dec 2019 21:05:50 +0100 (CET)
+ id E6B0DF802D2; Wed, 18 Dec 2019 21:05:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C1CD1F80291
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:05:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1CD1F80291
+ by alsa1.perex.cz (Postfix) with ESMTP id 055C8F802BC
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:05:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 055C8F802BC
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74A0411FB;
- Wed, 18 Dec 2019 12:05:45 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E714811B3;
+ Wed, 18 Dec 2019 12:05:47 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E57F33F67D;
- Wed, 18 Dec 2019 12:05:44 -0800 (PST)
-Date: Wed, 18 Dec 2019 20:05:43 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 65D8D3F67D;
+ Wed, 18 Dec 2019 12:05:47 -0800 (PST)
+Date: Wed, 18 Dec 2019 20:05:45 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Dragos Tarcatu <dragos_tarcatu@mentor.com>
-In-Reply-To: <20191218000518.5830-4-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191218000518.5830-4-pierre-louis.bossart@linux.intel.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20191218172420.1199117-3-jbrunet@baylibre.com>
+Message-Id: <applied-20191218172420.1199117-3-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, tiwai@suse.de,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: topology: Prevent use-after-free in
-	snd_soc_get_pcm_runtime()" to the asoc tree
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: meson: axg-fifo: add fifo depth to the
+	bindings documentation" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,7 +72,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: topology: Prevent use-after-free in snd_soc_get_pcm_runtime()
+   ASoC: meson: axg-fifo: add fifo depth to the bindings documentation
 
 has been applied to the asoc tree at
 
@@ -98,50 +97,43 @@ to this mail.
 Thanks,
 Mark
 
-From 72b46612d06b83851e2e4f7b538a0bbeb69c10de Mon Sep 17 00:00:00 2001
-From: Dragos Tarcatu <dragos_tarcatu@mentor.com>
-Date: Tue, 17 Dec 2019 18:05:18 -0600
-Subject: [PATCH] ASoC: topology: Prevent use-after-free in
- snd_soc_get_pcm_runtime()
+From fb522dbb4531c14193115a09905c6c31b37dbfc5 Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Wed, 18 Dec 2019 18:24:18 +0100
+Subject: [PATCH] ASoC: meson: axg-fifo: add fifo depth to the bindings
+ documentation
 
-remove_link() is currently calling snd_soc_remove_pcm_runtime() after
-it has already freed the memory for the link name. But this is later
-read from snd_soc_get_pcm_runtime() causing a KASAN use-after-free
-warning. Reorder the cleanups to fix this issue.
+Add a new property with the depth of the fifo in bytes. This is useful
+since some instance of the fifo, even on the same SoC, may have different
+depth. The depth is useful is set some parameters of the fifo.
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Signed-off-by: Dragos Tarcatu <dragos_tarcatu@mentor.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/20191218000518.5830-4-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20191218172420.1199117-3-jbrunet@baylibre.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-topology.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
-index f8bd406c6198..2b3c74a0b126 100644
---- a/sound/soc/soc-topology.c
-+++ b/sound/soc/soc-topology.c
-@@ -548,14 +548,14 @@ static void remove_link(struct snd_soc_component *comp,
- 	if (dobj->ops && dobj->ops->link_unload)
- 		dobj->ops->link_unload(comp, dobj);
+diff --git a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
+index 3080979350a0..fa4545ed81ca 100644
+--- a/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
++++ b/Documentation/devicetree/bindings/sound/amlogic,axg-fifo.txt
+@@ -17,6 +17,9 @@ Required properties:
+   * "arb" : memory ARB line (required)
+   * "rst" : dedicated device reset line (optional)
+ - #sound-dai-cells: must be 0.
++- amlogic,fifo-depth: The size of the controller's fifo in bytes. This
++  		      is useful for determining certain configuration such
++		      as the flush threshold of the fifo
  
--	kfree(link->name);
--	kfree(link->stream_name);
--	kfree(link->cpus->dai_name);
--
- 	list_del(&dobj->list);
+ Example of FRDDR A on the A113 SoC:
  
- 	snd_soc_remove_pcm_runtime(comp->card,
- 			snd_soc_get_pcm_runtime(comp->card, link));
-+
-+	kfree(link->name);
-+	kfree(link->stream_name);
-+	kfree(link->cpus->dai_name);
- 	kfree(link);
- }
- 
+@@ -27,4 +30,5 @@ frddr_a: audio-controller@1c0 {
+ 	interrupts = <GIC_SPI 88 IRQ_TYPE_EDGE_RISING>;
+ 	clocks = <&clkc_audio AUD_CLKID_FRDDR_A>;
+ 	resets = <&arb AXG_ARB_FRDDR_A>;
++	fifo-depth = <512>;
+ };
 -- 
 2.20.1
 

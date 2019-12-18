@@ -2,52 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7F541251D3
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 20:27:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52F3712520C
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 20:43:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 838711673;
-	Wed, 18 Dec 2019 20:26:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 838711673
+	by alsa0.perex.cz (Postfix) with ESMTPS id D4A1D950;
+	Wed, 18 Dec 2019 20:42:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4A1D950
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576697236;
-	bh=7rgmESWhrbn1TiXTBmJoWP4q+GzQgEztERRN0uq6vXw=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=b4x1UAMfgN33L2B8Kuhrk5Ic42V6omcR7H5BdvOz79h51+JPA04yipo7JUct5hAJB
-	 BaZRV76U8d36/ihIhtd+corlZUQB0qSGPymGqiC1CLxsulfanw3pLc5CrVjJtf5kSg
-	 OLX0saLG6GIeueHx/AfhnXIUENgwK0zt6ppJwjn4=
+	s=default; t=1576698208;
+	bh=F02dl5RkrdEry6mI0NcK2qcrFm6GcytEjpwPLjrFnIM=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=AkXqWFCDn/QOq/druoISypOxzg59QtV1nuGEpfrunRBmZQyTXGW3MsBJpYI+6DSx6
+	 c8dMmX5hHAVPj4Ot627IKgk5KKqUwImaxgwXgHXLwO07u/Xm+vunS+9r/cBhAgiDgS
+	 6HH8H0F95fhoMcHxAYfG6v67OlK8qefJIn16Y6YA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66765F80257;
-	Wed, 18 Dec 2019 20:26:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64285F80255;
+	Wed, 18 Dec 2019 20:41:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B118F80247; Wed, 18 Dec 2019 20:26:13 +0100 (CET)
+ id 6DA50F8022C; Wed, 18 Dec 2019 20:41:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E311F8014C
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 20:26:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E311F8014C
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 78AC7ADEF;
- Wed, 18 Dec 2019 19:26:09 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Wed, 18 Dec 2019 20:26:06 +0100
-Message-Id: <20191218192606.12866-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
-Subject: [alsa-devel] [PATCH] ALSA: ice1724: Fix sleep-in-atomic in
-	Infrasonic Quartet support code
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5DF0DF80096
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 20:41:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5DF0DF80096
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Dec 2019 11:41:34 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,330,1571727600"; d="scan'208";a="415942791"
+Received: from dshoemak-mobl.amr.corp.intel.com (HELO [10.251.3.243])
+ ([10.251.3.243])
+ by fmsmga005.fm.intel.com with ESMTP; 18 Dec 2019 11:41:33 -0800
+To: Takashi Iwai <tiwai@suse.de>
+References: <20191126141423.21523-1-pierre-louis.bossart@linux.intel.com>
+ <s5h4kyqzpge.wl-tiwai@suse.de>
+ <0131b134-46dc-991f-230b-fe843f43f078@linux.intel.com>
+ <s5hd0cm16vf.wl-tiwai@suse.de>
+ <f442ed39-1a86-28fb-b42c-b0e5273cd79a@linux.intel.com>
+ <s5hbls57g43.wl-tiwai@suse.de>
+ <a90e86ce-b468-28b2-f0a8-30f66429d921@linux.intel.com>
+ <s5hr211zd4q.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <828b260d-a22a-4c44-4a0b-644057336b67@linux.intel.com>
+Date: Wed, 18 Dec 2019 13:01:55 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
+MIME-Version: 1.0
+In-Reply-To: <s5hr211zd4q.wl-tiwai@suse.de>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: Intel: add PCI ID for
+	CometLake-S
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,69 +78,42 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Jia-Ju Bai reported a possible sleep-in-atomic scenario in the ice1724
-driver with Infrasonic Quartet support code: namely, ice->set_rate
-callback gets called inside ice->reg_lock spinlock, while the callback
-in quartet.c holds ice->gpio_mutex.
 
-This patch fixes the invalid call: it simply moves the calls of
-ice->set_rate and ice->set_mclk callbacks outside the spinlock.
 
-Reported-by: Jia-Ju Bai <baijiaju1990@gmail.com>
-Cc: <stable@vger.kernel.org>
-Link: https://lore.kernel.org/r/5d43135e-73b9-a46a-2155-9e91d0dcdf83@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/ice1712/ice1724.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+>>>>> Then the issue I pointed above can be solved as well.
+>>>>
+>>>> The ifdefs are still needed in the PCI IDs tables
+>>>
+>>> Yes, but it halves the messes :)
+>>
+>> I wish it was true :-)
+>>
+>> In reality having buildbots play with kconfig options does help
+>> identify issues at the code level, just like the namespace use helped
+>> identify the .arch_ops just above did not belong here.
+>> I find it's a constant battle to avoid accumulated crud in the wrong
+>> places when dealing with multiple platforms, and when looking at
+>> patches it's very hard (at least for me) to realize where the code
+>> gets added and the implications.
+> 
+> But how it can be worse than ifdef...?  From the resultant code POV,
+> it's same, the redundant objects are dropped automatically, while you
+> can avoid a pitfall like this case to forget the counter-part ifdef,
+> which could be identified at first by some randconfig tests.
 
-diff --git a/sound/pci/ice1712/ice1724.c b/sound/pci/ice1712/ice1724.c
-index c80a16ee6e76..242542e23d28 100644
---- a/sound/pci/ice1712/ice1724.c
-+++ b/sound/pci/ice1712/ice1724.c
-@@ -647,6 +647,7 @@ static int snd_vt1724_set_pro_rate(struct snd_ice1712 *ice, unsigned int rate,
- 	unsigned long flags;
- 	unsigned char mclk_change;
- 	unsigned int i, old_rate;
-+	bool call_set_rate = false;
- 
- 	if (rate > ice->hw_rates->list[ice->hw_rates->count - 1])
- 		return -EINVAL;
-@@ -670,7 +671,7 @@ static int snd_vt1724_set_pro_rate(struct snd_ice1712 *ice, unsigned int rate,
- 		 * setting clock rate for internal clock mode */
- 		old_rate = ice->get_rate(ice);
- 		if (force || (old_rate != rate))
--			ice->set_rate(ice, rate);
-+			call_set_rate = true;
- 		else if (rate == ice->cur_rate) {
- 			spin_unlock_irqrestore(&ice->reg_lock, flags);
- 			return 0;
-@@ -678,12 +679,14 @@ static int snd_vt1724_set_pro_rate(struct snd_ice1712 *ice, unsigned int rate,
- 	}
- 
- 	ice->cur_rate = rate;
-+	spin_unlock_irqrestore(&ice->reg_lock, flags);
-+
-+	if (call_set_rate)
-+		ice->set_rate(ice, rate);
- 
- 	/* setting master clock */
- 	mclk_change = ice->set_mclk(ice, rate);
- 
--	spin_unlock_irqrestore(&ice->reg_lock, flags);
--
- 	if (mclk_change && ice->gpio.i2s_mclk_changed)
- 		ice->gpio.i2s_mclk_changed(ice);
- 	if (ice->gpio.set_pro_rate)
--- 
-2.16.4
-
+In a perfect world it'd be fine.
+But the reviews are not perfect and it happens that we let things go 
+through.
+With the _maybe_unused proposal, I would not know which objects are not 
+necessary for a specific config, they would be silently removed by a 
+tool. Issues reported by randconfig or 'unused variable' warnings are 
+painful but at least they do provide a clear hint that something's not 
+right (including in my own code).
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

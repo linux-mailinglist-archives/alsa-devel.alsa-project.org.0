@@ -2,54 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D67C1252E9
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:14:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B43DE1252F2
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:14:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0C0DB166D;
-	Wed, 18 Dec 2019 21:13:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0C0DB166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C1B11695;
+	Wed, 18 Dec 2019 21:13:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C1B11695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576700041;
-	bh=XyD47VUrhwLD1RfBmnIW5hFeAgBKciGM6/tUNxBNV+4=;
+	s=default; t=1576700080;
+	bh=bg9crQAGl6Y/9COzvIhE9SlEdHm4wHNO+Di23uvt7ag=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=oTbK3f0IIfqbTBUqfAr5OPhNWmkuHRNSYU6QPfQZ6KqhJhOP/Dhr9B0E/0KtCVTSc
-	 YrShJZ3vrth9qOL1fo6eechdFH01i2sOpgy17NFCWTkuJj9IwgxqeYQnd0mFYps7pm
-	 FcrlR0LW1uf4xSe34YhID5B3nI0FDNixOUGBVZPI=
+	b=vRgfYSL/RfgGI1tR0Jc/fKzLawUvmxe7MEwiaK7HMy8teA8whayXzRP63TVFjyHDv
+	 QrIQS5XwR9/7QPId6dVg8ZRNEVW1jZ/hdcyqHTf+iKxJBsuG66kEJG+gpZcTq9KJnw
+	 bvUKAN81Uws5rA9GFopdLDYp/KZW+IBU/at7q0qI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 829F1F802FB;
-	Wed, 18 Dec 2019 21:06:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93956F80305;
+	Wed, 18 Dec 2019 21:06:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 087ECF802E7; Wed, 18 Dec 2019 21:05:57 +0100 (CET)
+ id BFCCDF802EC; Wed, 18 Dec 2019 21:05:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id AF162F802E0
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:05:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AF162F802E0
+ by alsa1.perex.cz (Postfix) with ESMTP id 091F7F802E8
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:05:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 091F7F802E8
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9DF411FB;
- Wed, 18 Dec 2019 12:05:52 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5B64911B3;
+ Wed, 18 Dec 2019 12:05:55 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 57DA83F67D;
- Wed, 18 Dec 2019 12:05:52 -0800 (PST)
-Date: Wed, 18 Dec 2019 20:05:50 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CBAEA3F67D;
+ Wed, 18 Dec 2019 12:05:54 -0800 (PST)
+Date: Wed, 18 Dec 2019 20:05:53 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Guido Roncarolo <guido.roncarolo@nxp.com>
-In-Reply-To: <20191218002616.7652-8-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191218002616.7652-8-pierre-louis.bossart@linux.intel.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <20191218002616.7652-7-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20191218002616.7652-7-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: imx: Describe SAI parameters to be
-	sent to DSP" to the asoc tree
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Yong Zhi <yong.zhi@intel.com>
+Subject: [alsa-devel] Applied "ASoC: Intel: boards: fix incorrect HDMI
+	Kconfig dependency" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +71,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: imx: Describe SAI parameters to be sent to DSP
+   ASoC: Intel: boards: fix incorrect HDMI Kconfig dependency
 
 has been applied to the asoc tree at
 
@@ -95,81 +96,73 @@ to this mail.
 Thanks,
 Mark
 
-From 9c1d4cf6ac26f890d82278326f6c7552c53ffb65 Mon Sep 17 00:00:00 2001
-From: Guido Roncarolo <guido.roncarolo@nxp.com>
-Date: Tue, 17 Dec 2019 18:26:15 -0600
-Subject: [PATCH] ASoC: SOF: imx: Describe SAI parameters to be sent to DSP
+From aa2b4a59871a0528bccb91ad94768c9dc2b7bb3d Mon Sep 17 00:00:00 2001
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Date: Tue, 17 Dec 2019 18:26:14 -0600
+Subject: [PATCH] ASoC: Intel: boards: fix incorrect HDMI Kconfig dependency
 
-Introduce sof_ipc_dai_sai_params to keep information that
-we get from topology and we send to DSP FW.
-For the moment it is identical to ESAI one but it will
-evolve shortly independently
+Fix typo in Kconfig dependencies. The correct dependency
+for HDMI is SND_SOC_SOF_HDA_AUDIO_CODEC.
 
-Signed-off-by: Guido Roncarolo <guido.roncarolo@nxp.com>
+Reported-by: Yong Zhi <yong.zhi@intel.com>
+Fixes: e3d8f8ae5b1e ("ASoC: Intel: boards: make common HDMI driver the default for SOF")
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191218002616.7652-8-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20191218002616.7652-7-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/sof/dai-imx.h     | 20 ++++++++++++++++++++
- include/sound/sof/dai.h         |  1 +
- include/uapi/sound/sof/tokens.h |  3 +--
- 3 files changed, 22 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/Kconfig | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/include/sound/sof/dai-imx.h b/include/sound/sof/dai-imx.h
-index e02fb0b0fae1..ff9088dcc6f2 100644
---- a/include/sound/sof/dai-imx.h
-+++ b/include/sound/sof/dai-imx.h
-@@ -31,4 +31,24 @@ struct sof_ipc_dai_esai_params {
- 	uint16_t reserved2;	/* alignment */
- } __packed;
+diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
+index b922596cf1e8..11dbc59046f8 100644
+--- a/sound/soc/intel/boards/Kconfig
++++ b/sound/soc/intel/boards/Kconfig
+@@ -274,7 +274,7 @@ config SND_SOC_INTEL_DA7219_MAX98357A_GENERIC
+ 	select SND_SOC_DA7219
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_DMIC
+-	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_AUDIO_CODEC
+ 	select SND_SOC_HDAC_HDMI
  
-+/* SAI Configuration Request - SOF_IPC_DAI_SAI_CONFIG */
-+struct sof_ipc_dai_sai_params {
-+	struct sof_ipc_hdr hdr;
-+
-+	/* MCLK */
-+	uint16_t reserved1;
-+	uint16_t mclk_id;
-+	uint32_t mclk_direction;
-+
-+	uint32_t mclk_rate;	/* MCLK frequency in Hz */
-+	uint32_t fsync_rate;	/* FSYNC frequency in Hz */
-+	uint32_t bclk_rate;	/* BCLK frequency in Hz */
-+
-+	/* TDM */
-+	uint32_t tdm_slots;
-+	uint32_t rx_slots;
-+	uint32_t tx_slots;
-+	uint16_t tdm_slot_width;
-+	uint16_t reserved2;	/* alignment */
-+} __packed;
- #endif
-diff --git a/include/sound/sof/dai.h b/include/sound/sof/dai.h
-index c229565767e5..2565edd336f1 100644
---- a/include/sound/sof/dai.h
-+++ b/include/sound/sof/dai.h
-@@ -75,6 +75,7 @@ struct sof_ipc_dai_config {
- 		struct sof_ipc_dai_hda_params hda;
- 		struct sof_ipc_dai_alh_params alh;
- 		struct sof_ipc_dai_esai_params esai;
-+		struct sof_ipc_dai_sai_params sai;
- 	};
- } __packed;
+ config SND_SOC_INTEL_BXT_DA7219_MAX98357A_COMMON
+@@ -401,7 +401,7 @@ config SND_SOC_INTEL_GLK_RT5682_MAX98357A_MACH
+ 	select SND_SOC_RT5682
+ 	select SND_SOC_MAX98357A
+ 	select SND_SOC_DMIC
+-	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_AUDIO_CODEC
+ 	select SND_SOC_HDAC_HDMI
+ 	help
+ 	   This adds support for ASoC machine driver for Geminilake platforms
+@@ -415,7 +415,7 @@ if SND_SOC_INTEL_SKYLAKE_HDAUDIO_CODEC || SND_SOC_SOF_HDA_AUDIO_CODEC
  
-diff --git a/include/uapi/sound/sof/tokens.h b/include/uapi/sound/sof/tokens.h
-index a9a5c4d0a892..2a25cd8da503 100644
---- a/include/uapi/sound/sof/tokens.h
-+++ b/include/uapi/sound/sof/tokens.h
-@@ -113,8 +113,7 @@
- #define SOF_TKN_EFFECT_TYPE	SOF_TKN_PROCESS_TYPE
- 
- /* SAI */
--#define SOF_TKN_IMX_SAI_FIRST_TOKEN		1000
--/* TODO: Add SAI tokens */
-+#define SOF_TKN_IMX_SAI_MCLK_ID			1000
- 
- /* ESAI */
- #define SOF_TKN_IMX_ESAI_MCLK_ID		1100
+ config SND_SOC_INTEL_SKL_HDA_DSP_GENERIC_MACH
+ 	tristate "SKL/KBL/BXT/APL with HDA Codecs"
+-	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_AUDIO_CODEC
+ 	select SND_SOC_HDAC_HDMI
+ 	select SND_SOC_DMIC
+ 	# SND_SOC_HDAC_HDA is already selected
+@@ -435,7 +435,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
+ 		   (SND_SOC_SOF_BAYTRAIL && (X86_INTEL_LPSS || COMPILE_TEST))
+ 	select SND_SOC_RT5682
+ 	select SND_SOC_DMIC
+-	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_AUDIO_CODEC
+ 	select SND_SOC_HDAC_HDMI
+ 	help
+ 	   This adds support for ASoC machine driver for SOF platforms
+@@ -465,7 +465,7 @@ config SND_SOC_INTEL_SOF_CML_RT1011_RT5682_MACH
+ 	select SND_SOC_RT5682
+ 	select SND_SOC_DMIC
+ 	select SND_SOC_HDAC_HDMI
+-	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_CODEC
++	select SND_HDA_CODEC_HDMI if SND_SOC_SOF_HDA_AUDIO_CODEC
+ 	help
+ 	  This adds support for ASoC machine driver for SOF platform with
+ 	  RT1011 + RT5682 I2S codec.
 -- 
 2.20.1
 

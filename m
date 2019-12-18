@@ -2,54 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F182912531D
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:21:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1191E125329
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:22:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F5BC839;
-	Wed, 18 Dec 2019 21:20:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F5BC839
+	by alsa0.perex.cz (Postfix) with ESMTPS id A17A585D;
+	Wed, 18 Dec 2019 21:21:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A17A585D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576700490;
-	bh=uoerMkbsKekb0vn7UKHZ3fnARgbMdPaBxHn4hcMVQ1E=;
+	s=default; t=1576700530;
+	bh=hfXKwT7pz/LeBH2LBE4bu0rcvZAtU8mUevWC586NcvE=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=KSCc2mvJly1g0eW2Bgrcug1+cuLD/no2mA3bu+dTnrB2kNUA8LAwHJjIQCpsfE7Kg
-	 +1GKQ6gw7R5yKSEFlwc3jPmkGeo9Wxl+gpUuvLG7L+1zCbZQqg3VoRIpUX53jX1SHy
-	 5tSMxtP/ambDMIAj5kWZtZcr2p196zyDlOilypqQ=
+	b=bCGcA9cLrOIXBT1LAm/uj2LHqr/Mc38764MGhp8aJN2TObOKsuFuFqD9GvtzalwT+
+	 Ssu6WcT/3jqiRb7sEOKk5eu4GU26lau8PABqNAA3kKJp2dOSIhNQFg4FYSyjIiWC15
+	 +GVa+Rjzu6NSh2ULcY0r0Igocr5QYUriWTRK3s6k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 02E9FF8036C;
-	Wed, 18 Dec 2019 21:06:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BED4F80255;
+	Wed, 18 Dec 2019 21:06:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CCF8BF8037E; Wed, 18 Dec 2019 21:06:25 +0100 (CET)
+ id 7E124F8037D; Wed, 18 Dec 2019 21:06:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 95003F8036C
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:06:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95003F8036C
+ by alsa1.perex.cz (Postfix) with ESMTP id D2218F80370
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:06:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2218F80370
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A8D4931B;
- Wed, 18 Dec 2019 12:06:20 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2883A31B;
+ Wed, 18 Dec 2019 12:06:23 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 250F13F67D;
- Wed, 18 Dec 2019 12:06:19 -0800 (PST)
-Date: Wed, 18 Dec 2019 20:06:18 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9C3DC3F67D;
+ Wed, 18 Dec 2019 12:06:22 -0800 (PST)
+Date: Wed, 18 Dec 2019 20:06:21 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20191217202231.18259-2-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191217202231.18259-2-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20191217165649.12091-1-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20191217165649.12091-1-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: add module namespace for
-	legacy IPC" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: [alsa-devel] Applied "ASoC: Intel: cml_rt1011_rt5682: fix
+	codec_conf by removing legacy style" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +71,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: add module namespace for legacy IPC
+   ASoC: Intel: cml_rt1011_rt5682: fix codec_conf by removing legacy style
 
 has been applied to the asoc tree at
 
@@ -95,81 +96,56 @@ to this mail.
 Thanks,
 Mark
 
-From f4483a0fda1df3e5b4f25de647b8777d2481f08c Mon Sep 17 00:00:00 2001
+From 5610b90e6bb21ca31caa635bf0c17c1ee6cf1c08 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 17 Dec 2019 14:22:24 -0600
-Subject: [PATCH] ASoC: SOF: Intel: add module namespace for legacy IPC
+Date: Tue, 17 Dec 2019 10:56:48 -0600
+Subject: [PATCH] ASoC: Intel: cml_rt1011_rt5682: fix codec_conf by removing
+ legacy style
 
-The legacy IPC routines are only used by broadwell and baytrail
-modules, import them as needed and make sure other modules cannot load
-them.
+Now that the legacy style is removed, we have to use the new macros
+for the codec configuration. This change was missed in the initial
+series.
 
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Fixes: ee8f537fd8b71c ("ASoC: soc-core: remove legacy style of codec_conf")
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191217202231.18259-2-pierre-louis.bossart@linux.intel.com
+Acked-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/20191217165649.12091-1-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/bdw.c       | 1 +
- sound/soc/sof/intel/byt.c       | 1 +
- sound/soc/sof/intel/intel-ipc.c | 8 ++++----
- 3 files changed, 6 insertions(+), 4 deletions(-)
+ sound/soc/intel/boards/cml_rt1011_rt5682.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/sof/intel/bdw.c b/sound/soc/sof/intel/bdw.c
-index c09885c0eb7d..39d1c8c7cddf 100644
---- a/sound/soc/sof/intel/bdw.c
-+++ b/sound/soc/sof/intel/bdw.c
-@@ -642,3 +642,4 @@ const struct sof_intel_dsp_desc bdw_chip_info = {
- EXPORT_SYMBOL(bdw_chip_info);
+diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+index a22f97234201..ab1196108d23 100644
+--- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
++++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+@@ -406,19 +406,19 @@ static struct snd_soc_dai_link cml_rt1011_rt5682_dailink[] = {
  
- MODULE_LICENSE("Dual BSD/GPL");
-+MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HIFI_EP_IPC);
-diff --git a/sound/soc/sof/intel/byt.c b/sound/soc/sof/intel/byt.c
-index d43098a962c0..b214b12fdcda 100644
---- a/sound/soc/sof/intel/byt.c
-+++ b/sound/soc/sof/intel/byt.c
-@@ -877,3 +877,4 @@ EXPORT_SYMBOL(cht_chip_info);
- #endif /* CONFIG_SND_SOC_SOF_BAYTRAIL */
- 
- MODULE_LICENSE("Dual BSD/GPL");
-+MODULE_IMPORT_NS(SND_SOC_SOF_INTEL_HIFI_EP_IPC);
-diff --git a/sound/soc/sof/intel/intel-ipc.c b/sound/soc/sof/intel/intel-ipc.c
-index 4edd92151fd5..e935f70d611b 100644
---- a/sound/soc/sof/intel/intel-ipc.c
-+++ b/sound/soc/sof/intel/intel-ipc.c
-@@ -39,7 +39,7 @@ void intel_ipc_msg_data(struct snd_sof_dev *sdev,
- 			sof_mailbox_read(sdev, stream->posn_offset, p, sz);
- 	}
- }
--EXPORT_SYMBOL(intel_ipc_msg_data);
-+EXPORT_SYMBOL_NS(intel_ipc_msg_data, SND_SOC_SOF_INTEL_HIFI_EP_IPC);
- 
- int intel_ipc_pcm_params(struct snd_sof_dev *sdev,
- 			 struct snd_pcm_substream *substream,
-@@ -60,7 +60,7 @@ int intel_ipc_pcm_params(struct snd_sof_dev *sdev,
- 
- 	return 0;
- }
--EXPORT_SYMBOL(intel_ipc_pcm_params);
-+EXPORT_SYMBOL_NS(intel_ipc_pcm_params, SND_SOC_SOF_INTEL_HIFI_EP_IPC);
- 
- int intel_pcm_open(struct snd_sof_dev *sdev,
- 		   struct snd_pcm_substream *substream)
-@@ -75,7 +75,7 @@ int intel_pcm_open(struct snd_sof_dev *sdev,
- 
- 	return 0;
- }
--EXPORT_SYMBOL(intel_pcm_open);
-+EXPORT_SYMBOL_NS(intel_pcm_open, SND_SOC_SOF_INTEL_HIFI_EP_IPC);
- 
- int intel_pcm_close(struct snd_sof_dev *sdev,
- 		    struct snd_pcm_substream *substream)
-@@ -87,6 +87,6 @@ int intel_pcm_close(struct snd_sof_dev *sdev,
- 
- 	return 0;
- }
--EXPORT_SYMBOL(intel_pcm_close);
-+EXPORT_SYMBOL_NS(intel_pcm_close, SND_SOC_SOF_INTEL_HIFI_EP_IPC);
- 
- MODULE_LICENSE("Dual BSD/GPL");
+ static struct snd_soc_codec_conf rt1011_conf[] = {
+ 	{
+-		.dev_name = "i2c-10EC1011:00",
++		.dlc = COMP_CODEC_CONF("i2c-10EC1011:00"),
+ 		.name_prefix = "WL",
+ 	},
+ 	{
+-		.dev_name = "i2c-10EC1011:01",
++		.dlc = COMP_CODEC_CONF("i2c-10EC1011:01"),
+ 		.name_prefix = "WR",
+ 	},
+ 	{
+-		.dev_name = "i2c-10EC1011:02",
++		.dlc = COMP_CODEC_CONF("i2c-10EC1011:02"),
+ 		.name_prefix = "TL",
+ 	},
+ 	{
+-		.dev_name = "i2c-10EC1011:03",
++		.dlc = COMP_CODEC_CONF("i2c-10EC1011:03"),
+ 		.name_prefix = "TR",
+ 	},
+ };
 -- 
 2.20.1
 

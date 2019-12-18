@@ -2,63 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7BC4123B9A
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 01:31:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB70C123BFA
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 01:52:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6D5B3166B;
-	Wed, 18 Dec 2019 01:30:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D5B3166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 76DBD1615;
+	Wed, 18 Dec 2019 01:51:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 76DBD1615
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576629105;
-	bh=nGNT/7ogrRiM39xPp9Jh9VvJg3Z36di7Qo6y/ZcBBDE=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1576630354;
+	bh=YSdwp4s1PohdXI4hkYriPJnBZYv5uH3nwJMfTvK1S10=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JcD8uB+3wowDv/WpUITwrw/QZ8HRYOEm6CwPHicESZRlvdfwwit5r9B1KIVs9Chyp
-	 DexG80o/Ocg19sKdkEyan7jqjztvVtUqtDlBLTfgzd5Xwe1b6FNdhAiCQEaMBB+8qn
-	 HUM0gFSq4/wkyh197IGfLEM93qqwUoGnmgMOWrl8=
+	b=AW/oqCmHmXizjBkdXvzHt0KDFmZoYAxRhl3qalQVA/Wb8uo7POnZ3wPJHqxiaBAgo
+	 4gRL2gH22rhDruFCys2I2s81supcaCrIgV5Eiqif7lQjgQQ9f4Pds4cdkNL71CbRnL
+	 y1dDSZszkY13ROvILPEQ1EFDqZq8urvAlUfT8lOA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 000EEF802A1;
-	Wed, 18 Dec 2019 01:26:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CEA4FF80234;
+	Wed, 18 Dec 2019 01:50:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BFDB0F80274; Wed, 18 Dec 2019 01:26:44 +0100 (CET)
+ id F2242F80234; Wed, 18 Dec 2019 01:50:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+X-Spam-Status: No, score=0.3 required=5.0 tests=PRX_BODY_65,
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F5FFF80266
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 01:26:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F5FFF80266
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5655FF80100
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 01:50:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5655FF80100
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 16:26:36 -0800
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2019 16:50:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="217974253"
-Received: from dshoemak-mobl.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.251.3.243])
- by orsmga003.jf.intel.com with ESMTP; 17 Dec 2019 16:26:35 -0800
+X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="209904154"
+Received: from dshoemak-mobl.amr.corp.intel.com (HELO [10.251.3.243])
+ ([10.251.3.243])
+ by orsmga008.jf.intel.com with ESMTP; 17 Dec 2019 16:50:42 -0800
+To: Takashi Iwai <tiwai@suse.de>
+References: <20191126141423.21523-1-pierre-louis.bossart@linux.intel.com>
+ <s5h4kyqzpge.wl-tiwai@suse.de>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Date: Tue, 17 Dec 2019 18:26:16 -0600
-Message-Id: <20191218002616.7652-9-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191218002616.7652-1-pierre-louis.bossart@linux.intel.com>
-References: <20191218002616.7652-1-pierre-louis.bossart@linux.intel.com>
+Message-ID: <0131b134-46dc-991f-230b-fe843f43f078@linux.intel.com>
+Date: Tue, 17 Dec 2019 18:50:42 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Guido Roncarolo <guido.roncarolo@nxp.com>
-Subject: [alsa-devel] [PATCH 8/8] ASoC: SOF: imx: Read SAI parameters and
-	send them to DSP
+In-Reply-To: <s5h4kyqzpge.wl-tiwai@suse.de>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: Intel: add PCI ID for
+	CometLake-S
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,131 +72,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Guido Roncarolo <guido.roncarolo@nxp.com>
 
-Follow example from Intel SSP.
+>> diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+>> index bbeffd932de7..0b39ea6117cf 100644
+>> --- a/sound/soc/sof/sof-pci-dev.c
+>> +++ b/sound/soc/sof/sof-pci-dev.c
+>> @@ -417,6 +417,10 @@ static const struct pci_device_id sof_pci_ids[] = {
+>>   	{ PCI_DEVICE(0x8086, 0x06c8),
+>>   		.driver_data = (unsigned long)&cml_desc},
+>>   #endif
+>> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_S)
+>> +	{ PCI_DEVICE(0x8086, 0xa3f0),
+>> +		.driver_data = (unsigned long)&cml_desc},
+>> +#endif
+>>   #if IS_ENABLED(CONFIG_SND_SOC_SOF_TIGERLAKE)
+>>   	{ PCI_DEVICE(0x8086, 0xa0c8),
+>>   		.driver_data = (unsigned long)&tgl_desc},
 
-Signed-off-by: Guido Roncarolo <guido.roncarolo@nxp.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/pcm.c      |  8 +++++
- sound/soc/sof/topology.c | 69 ++++++++++++++++++++++++++++++++++++++--
- 2 files changed, 75 insertions(+), 2 deletions(-)
+Sorry Takashi, I was checking why this patch wasn't merged and only 
+realized now that I missed your feedback (likely an effect of the 
+Thanksgiving holiday).
 
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index 86829e5bd62d..9bb6388742e1 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -693,6 +693,14 @@ static int sof_pcm_dai_link_fixup(struct snd_soc_pcm_runtime *rtd,
- 		channels->min = dai->dai_config->esai.tdm_slots;
- 		channels->max = dai->dai_config->esai.tdm_slots;
- 
-+		dev_dbg(component->dev,
-+			"channels_min: %d channels_max: %d\n",
-+			channels->min, channels->max);
-+		break;
-+	case SOF_DAI_IMX_SAI:
-+		channels->min = dai->dai_config->sai.tdm_slots;
-+		channels->max = dai->dai_config->sai.tdm_slots;
-+
- 		dev_dbg(component->dev,
- 			"channels_min: %d channels_max: %d\n",
- 			channels->min, channels->max);
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index e06fa7c7e502..9f4f8868b386 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -695,6 +695,13 @@ static const struct sof_topology_token esai_tokens[] = {
- 		offsetof(struct sof_ipc_dai_esai_params, mclk_id), 0},
- };
- 
-+/* SAI */
-+static const struct sof_topology_token sai_tokens[] = {
-+	{SOF_TKN_IMX_SAI_MCLK_ID,
-+		SND_SOC_TPLG_TUPLE_TYPE_SHORT, get_token_u16,
-+		offsetof(struct sof_ipc_dai_sai_params, mclk_id), 0},
-+};
-+
- /*
-  * DMIC PDM Tokens
-  * SOF_TKN_INTEL_DMIC_PDM_CTRL_ID should be the first token
-@@ -2704,8 +2711,66 @@ static int sof_link_sai_load(struct snd_soc_component *scomp, int index,
- 			     struct snd_soc_tplg_hw_config *hw_config,
- 			     struct sof_ipc_dai_config *config)
- {
--	/*TODO: Add implementation */
--	return 0;
-+	struct snd_sof_dev *sdev = snd_soc_component_get_drvdata(scomp);
-+	struct snd_soc_tplg_private *private = &cfg->priv;
-+	struct sof_ipc_reply reply;
-+	u32 size = sizeof(*config);
-+	int ret;
-+
-+	/* handle master/slave and inverted clocks */
-+	sof_dai_set_format(hw_config, config);
-+
-+	/* init IPC */
-+	memset(&config->sai, 0, sizeof(struct sof_ipc_dai_sai_params));
-+	config->hdr.size = size;
-+
-+	ret = sof_parse_tokens(scomp, &config->sai, sai_tokens,
-+			       ARRAY_SIZE(sai_tokens), private->array,
-+			       le32_to_cpu(private->size));
-+	if (ret != 0) {
-+		dev_err(scomp->dev, "error: parse sai tokens failed %d\n",
-+			le32_to_cpu(private->size));
-+		return ret;
-+	}
-+
-+	config->sai.mclk_rate = le32_to_cpu(hw_config->mclk_rate);
-+	config->sai.mclk_direction = hw_config->mclk_direction;
-+
-+	config->sai.tdm_slots = le32_to_cpu(hw_config->tdm_slots);
-+	config->sai.tdm_slot_width = le32_to_cpu(hw_config->tdm_slot_width);
-+	config->sai.rx_slots = le32_to_cpu(hw_config->rx_slots);
-+	config->sai.tx_slots = le32_to_cpu(hw_config->tx_slots);
-+
-+	dev_info(scomp->dev,
-+		 "tplg: config SAI%d fmt 0x%x mclk %d width %d slots %d mclk id %d\n",
-+		config->dai_index, config->format,
-+		config->sai.mclk_rate, config->sai.tdm_slot_width,
-+		config->sai.tdm_slots, config->sai.mclk_id);
-+
-+	if (config->sai.tdm_slots < 1 || config->sai.tdm_slots > 8) {
-+		dev_err(scomp->dev, "error: invalid channel count for SAI%d\n",
-+			config->dai_index);
-+		return -EINVAL;
-+	}
-+
-+	/* send message to DSP */
-+	ret = sof_ipc_tx_message(sdev->ipc,
-+				 config->hdr.cmd, config, size, &reply,
-+				 sizeof(reply));
-+
-+	if (ret < 0) {
-+		dev_err(scomp->dev, "error: failed to set DAI config for SAI%d\n",
-+			config->dai_index);
-+		return ret;
-+	}
-+
-+	/* set config for all DAI's with name matching the link name */
-+	ret = sof_set_dai_config(sdev, size, link, config);
-+	if (ret < 0)
-+		dev_err(scomp->dev, "error: failed to save DAI config for SAI%d\n",
-+			config->dai_index);
-+
-+	return ret;
- }
- 
- static int sof_link_esai_load(struct snd_soc_component *scomp, int index,
--- 
-2.20.1
+> I guess the change in ifdef for cml_desc definition is still missing.
 
+Not sure what change you are referring to?
+
+> But, I wonder whether it'd be simpler to have Kconfigs only per
+> sof_dev_desc?  That is, have CONFIG_SND_SOC_SOF_COMETLAKE, and all CML
+> model PCI entries are enabled by that as long as they use the same
+> cml_desc definition.
+
+it's difficult to have a classification that's complete and accurate, 
+some PCH versions are reused in products that use a different family 
+name. For example you will find the same PCI ID for CNL and WHL, and in 
+others the -H, -U and -Y skews are not identical. Even Intel folks get 
+lost at times, myself included.
+
+For now we prefer having one Kconfig per PCI ID, and we try to provide a 
+name for the Kconfig that is the most accurate without being cryptic. 
+One of the reasons for having different Kconfigs is that we have 
+multiple versions of the audio IP, and the ability to narrow the 
+selection to a single device helps make sure the code is in the right 
+place/module and dependencies are correct.
+
+> Also, can we reduce even the ifdef around sof_dev_desc definitions by
+> __maybe_unused atttribute?
+
+Sorry, I am not following your suggestion. I would really like to keep 
+the ifdefs for now, and while it can be seen as overkill to have 
+descriptors that are identical in some cases the past experience shows 
+it's useful when we have to add quirks for specific 'hardware 
+recommended programming sequences'.
+
+Thanks,
+-Pierre
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

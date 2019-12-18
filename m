@@ -2,54 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57D821252BF
-	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:09:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3216D1252C2
+	for <lists+alsa-devel@lfdr.de>; Wed, 18 Dec 2019 21:09:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E2ADA165E;
-	Wed, 18 Dec 2019 21:08:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2ADA165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id BF8821616;
+	Wed, 18 Dec 2019 21:09:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BF8821616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576699751;
-	bh=vE4Yw7hoHmXcl3CANO1XXPeHfAuk44DqEh9IAK1mKXI=;
+	s=default; t=1576699798;
+	bh=MtnPYTKkMqoZbPMkFfpdswe/+Y5nmrKnOzfWffF4FcQ=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=VCavZy+Uh3PoHsQ+48Yq0KG/gMT1d3CRUNIp+xe1dL7ZM/O4+iR434FjSif7Lqu3A
-	 q0WHpYSirYQTPjr7DISColEUdi3g9DLd6gB2lkYY5ejRNf0r19iOE/1YPqYD4iC+Vo
-	 c5K/CJ67KCJ1XwaLbKHTNiEW0XAg1mUWQtXFOIow=
+	b=VsPpVJJwEDSJ9DLj6XPY0wHQpO35G4tMYEvZJUHqTZWLgbpZooaRoy68Rb9gjyRHU
+	 BsLe46muy/8pa+jtrM9Wq3KhAnD7i7CDw74fDspGk0adIDw0ghSjBFapFA1aCVzNp7
+	 VnaDSz8MhrPUFLKWPkAjudYX2BgkqnCAPZzoQ7j8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 23EC2F8027D;
-	Wed, 18 Dec 2019 21:05:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F759F8028E;
+	Wed, 18 Dec 2019 21:05:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8300DF80273; Wed, 18 Dec 2019 21:05:39 +0100 (CET)
+ id 181F1F8027B; Wed, 18 Dec 2019 21:05:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A01A6F80266
- for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:05:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A01A6F80266
+ by alsa1.perex.cz (Postfix) with ESMTP id B2A9DF80272
+ for <alsa-devel@alsa-project.org>; Wed, 18 Dec 2019 21:05:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2A9DF80272
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8EE7331B;
- Wed, 18 Dec 2019 12:05:35 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0CD7311B3;
+ Wed, 18 Dec 2019 12:05:38 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3248B3F67D;
- Wed, 18 Dec 2019 12:05:35 -0800 (PST)
-Date: Wed, 18 Dec 2019 20:05:33 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7FC0D3F67D;
+ Wed, 18 Dec 2019 12:05:37 -0800 (PST)
+Date: Wed, 18 Dec 2019 20:05:35 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20191217202231.18259-7-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20191217202231.18259-7-pierre-louis.bossart@linux.intel.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20191218172420.1199117-5-jbrunet@baylibre.com>
+Message-Id: <applied-20191218172420.1199117-5-jbrunet@baylibre.com>
 X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, gregkh@linuxfoundation.org, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: hda: add namespace for
-	hda-codec functionality" to the asoc tree
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: meson: axg-fifo: relax period size
+	constraints" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +72,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: hda: add namespace for hda-codec functionality
+   ASoC: meson: axg-fifo: relax period size constraints
 
 has been applied to the asoc tree at
 
@@ -95,93 +97,70 @@ to this mail.
 Thanks,
 Mark
 
-From 5bd216c6a6b48d8ed0b3283bf7ba84fc3a566b25 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Tue, 17 Dec 2019 14:22:29 -0600
-Subject: [PATCH] ASoC: SOF: Intel: hda: add namespace for hda-codec
- functionality
+From 42b5ac832b0c3bf5b0bf98ea6d99efa5fb5d5075 Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Wed, 18 Dec 2019 18:24:20 +0100
+Subject: [PATCH] ASoC: meson: axg-fifo: relax period size constraints
 
-Define namespaces (one generic and one dedicated for i915) and include
-them in HDaudio top-level module.
+Now that the fifo depths and thresholds are properly in the axg-fifo
+driver, we can relax the constraints on period. As long as the period is a
+multiple of the fifo burst size (8 bytes) things should be OK.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191217202231.18259-7-pierre-louis.bossart@linux.intel.com
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20191218172420.1199117-5-jbrunet@baylibre.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-codec.c | 14 +++++++-------
- sound/soc/sof/intel/hda.c       |  2 ++
- 2 files changed, 9 insertions(+), 7 deletions(-)
+ sound/soc/meson/axg-fifo.c | 8 ++++----
+ sound/soc/meson/axg-fifo.h | 2 --
+ 2 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index d7855b1f8e2e..5514e6191ba4 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -76,8 +76,8 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev)
- void hda_codec_jack_wake_enable(struct snd_sof_dev *sdev) {}
- void hda_codec_jack_check(struct snd_sof_dev *sdev) {}
- #endif /* CONFIG_SND_SOC_SOF_HDA_AUDIO_CODEC */
--EXPORT_SYMBOL(hda_codec_jack_wake_enable);
--EXPORT_SYMBOL(hda_codec_jack_check);
-+EXPORT_SYMBOL_NS(hda_codec_jack_wake_enable, SND_SOC_SOF_HDA_AUDIO_CODEC);
-+EXPORT_SYMBOL_NS(hda_codec_jack_check, SND_SOC_SOF_HDA_AUDIO_CODEC);
+diff --git a/sound/soc/meson/axg-fifo.c b/sound/soc/meson/axg-fifo.c
+index c2742a02d866..c12b0d5e8ebf 100644
+--- a/sound/soc/meson/axg-fifo.c
++++ b/sound/soc/meson/axg-fifo.c
+@@ -34,7 +34,7 @@ static struct snd_pcm_hardware axg_fifo_hw = {
+ 	.rate_max = 192000,
+ 	.channels_min = 1,
+ 	.channels_max = AXG_FIFO_CH_MAX,
+-	.period_bytes_min = AXG_FIFO_MIN_DEPTH,
++	.period_bytes_min = AXG_FIFO_BURST,
+ 	.period_bytes_max = UINT_MAX,
+ 	.periods_min = 2,
+ 	.periods_max = UINT_MAX,
+@@ -227,17 +227,17 @@ int axg_fifo_pcm_open(struct snd_soc_component *component,
  
- /* probe individual codec */
- static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
-@@ -160,7 +160,7 @@ void hda_codec_probe_bus(struct snd_sof_dev *sdev,
- 		}
- 	}
- }
--EXPORT_SYMBOL(hda_codec_probe_bus);
-+EXPORT_SYMBOL_NS(hda_codec_probe_bus, SND_SOC_SOF_HDA_AUDIO_CODEC);
+ 	/*
+ 	 * Make sure the buffer and period size are multiple of the FIFO
+-	 * minimum depth size
++	 * burst
+ 	 */
+ 	ret = snd_pcm_hw_constraint_step(ss->runtime, 0,
+ 					 SNDRV_PCM_HW_PARAM_BUFFER_BYTES,
+-					 AXG_FIFO_MIN_DEPTH);
++					 AXG_FIFO_BURST);
+ 	if (ret)
+ 		return ret;
  
- #if IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI) || \
- 	IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
-@@ -172,7 +172,7 @@ void hda_codec_i915_get(struct snd_sof_dev *sdev)
- 	dev_dbg(bus->dev, "Turning i915 HDAC power on\n");
- 	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, true);
- }
--EXPORT_SYMBOL(hda_codec_i915_get);
-+EXPORT_SYMBOL_NS(hda_codec_i915_get, SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
+ 	ret = snd_pcm_hw_constraint_step(ss->runtime, 0,
+ 					 SNDRV_PCM_HW_PARAM_PERIOD_BYTES,
+-					 AXG_FIFO_MIN_DEPTH);
++					 AXG_FIFO_BURST);
+ 	if (ret)
+ 		return ret;
  
- void hda_codec_i915_put(struct snd_sof_dev *sdev)
- {
-@@ -181,7 +181,7 @@ void hda_codec_i915_put(struct snd_sof_dev *sdev)
- 	dev_dbg(bus->dev, "Turning i915 HDAC power off\n");
- 	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
- }
--EXPORT_SYMBOL(hda_codec_i915_put);
-+EXPORT_SYMBOL_NS(hda_codec_i915_put, SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
+diff --git a/sound/soc/meson/axg-fifo.h b/sound/soc/meson/axg-fifo.h
+index 521b54e98fd3..b63acd723c87 100644
+--- a/sound/soc/meson/axg-fifo.h
++++ b/sound/soc/meson/axg-fifo.h
+@@ -31,8 +31,6 @@ struct snd_soc_pcm_runtime;
+ 					 SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE)
  
- int hda_codec_i915_init(struct snd_sof_dev *sdev)
- {
-@@ -197,7 +197,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
+ #define AXG_FIFO_BURST			8
+-#define AXG_FIFO_MIN_CNT		64
+-#define AXG_FIFO_MIN_DEPTH		(AXG_FIFO_BURST * AXG_FIFO_MIN_CNT)
  
- 	return 0;
- }
--EXPORT_SYMBOL(hda_codec_i915_init);
-+EXPORT_SYMBOL_NS(hda_codec_i915_init, SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
- 
- int hda_codec_i915_exit(struct snd_sof_dev *sdev)
- {
-@@ -210,7 +210,7 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev)
- 
- 	return ret;
- }
--EXPORT_SYMBOL(hda_codec_i915_exit);
-+EXPORT_SYMBOL_NS(hda_codec_i915_exit, SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
- 
- #endif
- 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 3335e0076180..adb842ed6b26 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -795,3 +795,5 @@ void hda_machine_select(struct snd_sof_dev *sdev)
- }
- 
- MODULE_LICENSE("Dual BSD/GPL");
-+MODULE_IMPORT_NS(SND_SOC_SOF_HDA_AUDIO_CODEC);
-+MODULE_IMPORT_NS(SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
+ #define FIFO_INT_ADDR_FINISH		BIT(0)
+ #define FIFO_INT_ADDR_INT		BIT(1)
 -- 
 2.20.1
 

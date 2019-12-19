@@ -2,88 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2339E125DAF
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2019 10:30:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 84E63125DB2
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2019 10:31:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A268915E0;
-	Thu, 19 Dec 2019 10:29:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A268915E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0D6AD82A;
+	Thu, 19 Dec 2019 10:30:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0D6AD82A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576747839;
-	bh=MQEpWU4nG4njhrLNb9Zx6V28WtjjTlc6YSCYoFfqLFQ=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=R/X37Ng1oNwX/sbOrtfZ2m6A84JbQETvFMJhLjNRWL+8OFbIhXyURpeOws3rb0+c6
-	 DDJz+gY4bu9fb2pyGkiHVFtBBUkZW3QTs98+EAIcLScBwxfAfjcuAYAMVnEM/Q/+Vx
-	 2xItg15md5+eDzQS8IE74jKgpogL/VYRzLoeIu+8=
+	s=default; t=1576747884;
+	bh=MJNgI5oUy1aP35x9RvOXY+IE4496Cd6lGLC8NHEcllg=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=pn/G1dRI7VZ1yijjs0WoMAYuFyw/8mXZm1eQMwvAUfESg9HSxUWG+LQ1Grg4fhUe7
+	 wJIZMY2ilvJjAFDRDXHSdHsvY8lR7kjLAgz6vivv1yZzvPDG3p7Lntp8kmDYcD94S6
+	 eBEIxug5FifVS0f/EwQgTJM9gsMLGYAs2G/aIxZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68694F80253;
-	Thu, 19 Dec 2019 10:29:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B0475F80218;
+	Thu, 19 Dec 2019 10:29:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DD00FF80256; Thu, 19 Dec 2019 10:29:04 +0100 (CET)
+ id C65CFF8025A; Thu, 19 Dec 2019 10:29:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3DEF3F8014F
- for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 10:29:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3DEF3F8014F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 812DDF80234
+ for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 10:29:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 812DDF80234
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="srWIczF+"
-Received: by mail-wm1-x342.google.com with SMTP id p17so4854707wmb.0
- for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 01:29:01 -0800 (PST)
+ header.b="EF25ASGM"
+Received: by mail-wr1-x442.google.com with SMTP id q10so5196879wrm.11
+ for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 01:29:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AwcynCAB8dmhDVrPZzNhCAtkvCBJgVaLCigdZVhu4dI=;
- b=srWIczF+g/KZIcwnNxAcr05vmE5y1j1isQTSU8xSC0bnypoPSXtRS5nYWyD/w1tGnH
- sgWwM5VXdGF+v0DetE0l0Awa46q562zigMi1bsFlEsbfpXjw6qx81NaVj7fqnCmM8JGS
- Ge1O2FAchSvZcTvMp4HTB3eX5zRex92sJQrgoZI+O2PfPDG6+8/W+7eKoXRbGD7JRwdl
- fepNQvdjsFMwX9vQEtKOCQD6ZyEthF4p/E1ZZnbyEngW80Hl9bDfz6XCmE8twr05Ixbw
- Gco9hufwR4t28tIrxVoL/gvqpLZcm3vHtjg3pJgAwWm5pNqZqCYwesgkudFUBuAljeG/
- gRWg==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=D/zgSAoCVsSdiweHMVDrK8nA0R60nkQkJQGcdVDh1og=;
+ b=EF25ASGMiO9o9j2iG0RLEisgHqXZp7NRwFunGlFbYn8GG0t7TwSN4Dm0k03OX95VHe
+ T25N5TQtJ8B5oxflT2RObxZlksD7Rm6sq3ou77lJPrlWVq5Q5pADNzSeT66QqXmMLplj
+ Rk5D0t7FAa1D5C+TL7plL5X0uOtLi7qfvDmobXBYoOx07dt7Sfa6p5sgNm5/Z81nC7/h
+ N9CdxWD0UST/KVpu7LJ340A31H2m6d+Ib/VcVY21G/GlPRTEFvSzLEIeNbYKMzR/NA9h
+ zU7Q/lSDLjjZm1ZB/frDRkmOJ2O65o5sWFSplsbUMAylSTvJggS8gfJdWnQqTk7AanFd
+ feXQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=AwcynCAB8dmhDVrPZzNhCAtkvCBJgVaLCigdZVhu4dI=;
- b=dJH8kHoNIK8Ps/5lfixIl5Uoq+VvyoZxy0K43+4Imtabr38oD0IjUA3TK7zkt1mxte
- E9z3ooEib3yj+QU70esGGJLov0/slOLhiMfJHeMhK5a+t6xKW0nvhewqaGigrjz2qFWl
- JelWgvscEVuE4iZC/U4PYCdzT5zPuNaQdMaDh549UULhIZ7qwBPFrL6MGP7IqXqNnAHv
- d76NtivCq6J86W9iiuPU+JYjTPkq/9Q/N9S5NhGUQytX3V79N/zA2fai9k3fp5fcRvgA
- jCGuAQpTVqxpLu7+5NJ8q3JeAJX4p/6Dn+0fSQWQ6UQjP4rDCkLoW7aP/YbwO2Nb6+rh
- mSlw==
-X-Gm-Message-State: APjAAAUva8qopbyw9+W18pVN1Ixr0UAJiZ0a5cdhELH/pnx/6k/aESZ2
- MV0VRI9xdHu59hcmZbR9VnmMSw==
-X-Google-Smtp-Source: APXvYqyZvNDj+IC2Bkj9K9Nk41cpwvkkMxBfTULUwaN7stMhyACDzuUZKubB++Qm1tIFf+FaSdxq6g==
-X-Received: by 2002:a1c:f416:: with SMTP id z22mr8492440wma.72.1576747741029; 
- Thu, 19 Dec 2019 01:29:01 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=D/zgSAoCVsSdiweHMVDrK8nA0R60nkQkJQGcdVDh1og=;
+ b=m0FoUw5Gs7swxVBkn0IJ8rW8JIhLgGQOsS3Ckch7FzcoW9Icmy4DlZyBxHvxGJdaNW
+ qob93QCuj01i+7edQb2YPqSD5kMoZM8HAlXULeD9F98bZ7gb1gNZOD5WVCTxIoHcxh9n
+ tZ9Eurv60h1jwxEQ/LsFnhoVnLNcY2lYfsRaKQT8u5jR0wBqZ2RZ4co2btLJeUu8KCsr
+ AfSmp9ztchrSEULdp6scGtdNpplJ7dNvkEZArm5UocYeibaIaKNVF9xomUpNl3tHX+Yt
+ 5Kt36RQSaD/HXR72FcXomf8k9oVak4CsfZVep17/FcYI1D4F3jWWNlf00AchF0U2K66o
+ nlCg==
+X-Gm-Message-State: APjAAAXaWXPABcw45RbzVfaUxgLI3Ye4YZBUY3fAXKfOW31ln18FJopS
+ VlKfpnpJdLWkFr6NFeN3DQ/s5w==
+X-Google-Smtp-Source: APXvYqzLLr8iXOqv4fxdXSc0kDWoKj4xJ4MIR6ix+tIwu1rk1T9aqfQVmC/zYPcEyHFIy1Xm0WxhRA==
+X-Received: by 2002:adf:fe86:: with SMTP id l6mr8010528wrr.252.1576747742561; 
+ Thu, 19 Dec 2019 01:29:02 -0800 (PST)
 Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id s1sm5627356wmc.23.2019.12.19.01.28.59
+ by smtp.gmail.com with ESMTPSA id s1sm5627356wmc.23.2019.12.19.01.29.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2019 01:29:00 -0800 (PST)
+ Thu, 19 Dec 2019 01:29:01 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
 To: vkoul@kernel.org
-Date: Thu, 19 Dec 2019 09:28:40 +0000
-Message-Id: <20191219092842.10885-1-srinivas.kandagatla@linaro.org>
+Date: Thu, 19 Dec 2019 09:28:41 +0000
+Message-Id: <20191219092842.10885-2-srinivas.kandagatla@linaro.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20191219092842.10885-1-srinivas.kandagatla@linaro.org>
+References: <20191219092842.10885-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
  linux-kernel@vger.kernel.org, spapothi@codeaurora.org,
  pierre-louis.bossart@linux.intel.com, lgirdwood@gmail.com, broonie@kernel.org,
  Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] [PATCH v5 0/2] soundwire: Add support to Qualcomm
-	SoundWire master
+Subject: [alsa-devel] [PATCH v5 1/2] dt-bindings: soundwire: add bindings
+	for Qcom controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,49 +105,192 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for reviewing the v4 patchset.
-Here is new patchset addressing all the comments from v3
+This patch adds bindings for Qualcomm soundwire controller.
 
-This patchset adds support for Qualcomm SoundWire Master Controller
-found in most of Qualcomm SoCs and WCD audio codecs.
+Qualcomm SoundWire Master controller is present in most Qualcomm SoCs
+either integrated as part of WCD audio codecs via slimbus or
+as part of SOC I/O.
 
-This driver along with WCD934x codec and WSA881x Class-D Smart Speaker
-Amplifier drivers is tested on on DragonBoard DB845c based of SDM845
-SoC and Lenovo YOGA C630 Laptop based on SDM850.
-
-SoundWire controller on SDM845 is integrated in WCD934x audio codec via
-SlimBus interface.
-
-Currently this driver is very minimal and only supports PDM.
-
-Most of the code in this driver is rework of Qualcomm downstream drivers
-used in Andriod. Credits to Banajit Goswami and Patrick Lai's Team.
-
-TODO:
-	Test and add PCM support.
-
-Thanks,
-srini
-
-Changes since v4:
-	- moved stream handling to codec as there is a strong hw requirements
-	 on port and PA enable sequence on codec side
-	- removed dummy runtime pm 
-	- cleaned up code as suggested by Pierre
-
-
-Srinivas Kandagatla (2):
-  dt-bindings: soundwire: add bindings for Qcom controller
-  soundwire: qcom: add support for SoundWire controller
-
- .../bindings/soundwire/qcom,sdw.txt           | 167 ++++
- drivers/soundwire/Kconfig                     |   9 +
- drivers/soundwire/Makefile                    |   4 +
- drivers/soundwire/qcom.c                      | 856 ++++++++++++++++++
- 4 files changed, 1036 insertions(+)
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reviewed-by: Rob Herring <robh@kernel.org>
+---
+ .../bindings/soundwire/qcom,sdw.txt           | 167 ++++++++++++++++++
+ 1 file changed, 167 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
- create mode 100644 drivers/soundwire/qcom.c
 
+diff --git a/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+new file mode 100644
+index 000000000000..436547f3b155
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soundwire/qcom,sdw.txt
+@@ -0,0 +1,167 @@
++Qualcomm SoundWire Controller Bindings
++
++
++This binding describes the Qualcomm SoundWire Controller along with its
++board specific bus parameters.
++
++- compatible:
++	Usage: required
++	Value type: <stringlist>
++	Definition: must be "qcom,soundwire-v<MAJOR>.<MINOR>.<STEP>",
++		    Example:
++			"qcom,soundwire-v1.3.0"
++			"qcom,soundwire-v1.5.0"
++			"qcom,soundwire-v1.6.0"
++- reg:
++	Usage: required
++	Value type: <prop-encoded-array>
++	Definition: the base address and size of SoundWire controller
++		    address space.
++
++- interrupts:
++	Usage: required
++	Value type: <prop-encoded-array>
++	Definition: should specify the SoundWire Controller IRQ
++
++- clock-names:
++	Usage: required
++	Value type: <stringlist>
++	Definition: should be "iface" for SoundWire Controller interface clock
++
++- clocks:
++	Usage: required
++	Value type: <prop-encoded-array>
++	Definition: should specify the SoundWire Controller interface clock
++
++- #sound-dai-cells:
++	Usage: required
++	Value type: <u32>
++	Definition: must be 1 for digital audio interfaces on the controller.
++
++- qcom,dout-ports:
++	Usage: required
++	Value type: <u32>
++	Definition: must be count of data out ports
++
++- qcom,din-ports:
++	Usage: required
++	Value type: <u32>
++	Definition: must be count of data in ports
++
++- qcom,ports-offset1:
++	Usage: required
++	Value type: <prop-encoded-array>
++	Definition: should specify payload transport window offset1 of each
++		    data port. Out ports followed by In ports.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,ports-offset2:
++	Usage: required
++	Value type: <prop-encoded-array>
++	Definition: should specify payload transport window offset2 of each
++		    data port. Out ports followed by In ports.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,ports-sinterval-low:
++	Usage: required
++	Value type: <prop-encoded-array>
++	Definition: should be sample interval low of each data port.
++		    Out ports followed by In ports. Used for Sample Interval
++		    calculation.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,ports-word-length:
++	Usage: optional
++	Value type: <prop-encoded-array>
++	Definition: should be size of payload channel sample.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,ports-block-pack-mode:
++	Usage: optional
++	Value type: <prop-encoded-array>
++	Definition: should be 0 or 1 to indicate the block packing mode.
++		    0 to indicate Blocks are per Channel
++		    1 to indicate Blocks are per Port.
++		    Out ports followed by In ports.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,ports-block-group-count:
++	Usage: optional
++	Value type: <prop-encoded-array>
++	Definition: should be in range 1 to 4 to indicate how many sample
++		    intervals are combined into a payload.
++		    Out ports followed by In ports.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,ports-lane-control:
++	Usage: optional
++	Value type: <prop-encoded-array>
++	Definition: should be in range 0 to 7 to identify which	data lane
++		    the data port uses.
++		    Out ports followed by In ports.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,ports-hstart:
++	Usage: optional
++	Value type: <prop-encoded-array>
++	Definition: should be number identifying lowerst numbered coloum in
++		    SoundWire Frame, i.e. left edge of the Transport sub-frame
++		    for each port. Values between 0 and 15 are valid.
++		    Out ports followed by In ports.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,ports-hstop:
++	Usage: optional
++	Value type: <prop-encoded-array>
++	Definition: should be number identifying highest numbered coloum in
++		    SoundWire Frame, i.e. the right edge of the Transport
++		    sub-frame for each port. Values between 0 and 15 are valid.
++		    Out ports followed by In ports.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++- qcom,dports-type:
++	Usage: optional
++	Value type: <prop-encoded-array>
++	Definition: should be one of the following types
++		    0 for reduced port
++		    1 for simple ports
++		    2 for full port
++		    Out ports followed by In ports.
++		    More info in MIPI Alliance SoundWire 1.0 Specifications.
++
++Note:
++	More Information on detail of encoding of these fields can be
++found in MIPI Alliance SoundWire 1.0 Specifications.
++
++= SoundWire devices
++Each subnode of the bus represents SoundWire device attached to it.
++The properties of these nodes are defined by the individual bindings.
++
++= EXAMPLE
++The following example represents a SoundWire controller on DB845c board
++which has controller integrated inside WCD934x codec on SDM845 SoC.
++
++soundwire: soundwire@c85 {
++	compatible = "qcom,soundwire-v1.3.0";
++	reg = <0xc85 0x20>;
++	interrupts = <20 IRQ_TYPE_EDGE_RISING>;
++	clocks = <&wcc>;
++	clock-names = "iface";
++	#sound-dai-cells = <1>;
++	qcom,dports-type = <0>;
++	qcom,dout-ports	= <6>;
++	qcom,din-ports	= <2>;
++	qcom,ports-sinterval-low = /bits/ 8  <0x07 0x1F 0x3F 0x7 0x1F 0x3F 0x0F 0x0F>;
++	qcom,ports-offset1 = /bits/ 8 <0x01 0x02 0x0C 0x6 0x12 0x0D 0x07 0x0A >;
++	qcom,ports-offset2 = /bits/ 8 <0x00 0x00 0x1F 0x00 0x00 0x1F 0x00 0x00>;
++
++	/* Left Speaker */
++	left{
++		....
++	};
++
++	/* Right Speaker */
++	right{
++		....
++	};
++};
 -- 
 2.21.0
 

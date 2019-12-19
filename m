@@ -2,95 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248BC125F57
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2019 11:41:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3813212603A
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2019 12:00:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B8EB11668;
-	Thu, 19 Dec 2019 11:40:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8EB11668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9FDA785D;
+	Thu, 19 Dec 2019 11:59:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FDA785D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576752063;
-	bh=yYiYJawoLi7g55qVzzcp3WpY2UQWX4jUTxgn/nDGkJ4=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1576753220;
+	bh=pEQA8We7HEptWMOnvg1sYMkQIautbQxBeCIFO/uZQVw=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MZNNck+XXWACtT5SIZ/gq4lY9jCB1exieZpmMMmbAXEZAHjBwIHrIDau+KX/nBf/5
-	 Q5I7hl0yA9HyvXhkGCGcOoEY58CK8w6WkaGJEwGE2XoZpemmFDPLUalDMkbtgErOgS
-	 e2AH7h0kqSLqtZZNCt2/NMrQqqBKr1sqD1yzvk10=
+	b=TBs/0UCk73ytvJFkGUsl31Xq/Y0ilQIgVujF8Ma7a44HLZ5ekSZyu2AQqcMO/f0Eo
+	 JgGFnCarckUT0ljjhwDeSnHsaE3MNnYyfMesdOrs6Xft3Uy/+0QxMwXdONNoFQE41P
+	 JQiIQHiHEU9hN6PBZKSBsLZHTs00MoJCEfGEhy+w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5FC7FF802FB;
-	Thu, 19 Dec 2019 11:33:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3A2F2F80234;
+	Thu, 19 Dec 2019 11:58:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22437F802BC; Thu, 19 Dec 2019 11:33:29 +0100 (CET)
+ id 33D0EF80234; Thu, 19 Dec 2019 11:58:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 38ECAF8027C
- for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 11:33:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38ECAF8027C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 48EEBF8013E
+ for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 11:58:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48EEBF8013E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Jq/RoVBQ"
-Received: by mail-wm1-x342.google.com with SMTP id t14so5037949wmi.5
- for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 02:33:17 -0800 (PST)
+ header.b="yhr1ZjMO"
+Received: by mail-wr1-x441.google.com with SMTP id c9so5499987wrw.8
+ for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 02:58:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=UpfkndITw/1h6ZYfXIWQrUX2mzHma7l6m7IK0V8q2nM=;
- b=Jq/RoVBQUdYougVCwhsmeMWjBjrNCV266LCRZYiOKSQCC+HXqnkdyFQNLqbV3MQfjk
- t4Ro8rV3EKvd4KHJqxr8Ldmg6vZxVW18xqPRqQ5+YdNa6aT/IVZjHV/M3/VUMo4XXImK
- BFeXhpMFYhwAY5fqnVWVHs+holLoSXbry+uDxP7kjoMd8l33khaUEtoP7rHWELMiaMfy
- ZNx6rE0HyNd9nKxLTtTg8m2CPnrZ9lINMdS05P3Z+H7wR/KyXAqCyu4wbwbNYuTORc6k
- Cdq3snOBdrvb5cHDDxDwpa1yt3c1FQYnDhJhViq3v8DtUHkje3sFj0OdZSw/NmgjfrKk
- FoHQ==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=LOOsEyvuasBLr3yvzRlpYBFKNpQOIsg2Ax8aja0jnrY=;
+ b=yhr1ZjMOsQqXqHsILFXcqatMCvF/ZDmFxSvKD1L8H+K8GLS+/5QDFqfRvsc2CXQFe7
+ MN9rTxDI7kZaM92BKsGytik2Y7UK5f3AsWw8X/lT24REN4JmS9ZrVaTq6Sr7rRDyeQo9
+ 1gRCJr20NNQpcxkUYo+hTc7aaGMnuHswv93eeBwusOHhT8j9cLzegTFmaH9A1hLvflb/
+ IWAn7+xHWcvTVZWIQJg8U44AEWRsEmMIAY5pjl5xmkA82sLgMqme0acOXG3PTELobbVv
+ KHbO/IEHiTmABkV/YUpa22EsG2ta671r+1bkEMvRzXbwK7PoT+l/N/Bf76YOxeJiZyBT
+ MQSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=UpfkndITw/1h6ZYfXIWQrUX2mzHma7l6m7IK0V8q2nM=;
- b=T9j7fv5c2xBwFczBNL4FixlW8+jG8SKQPeGunMJf9Jm+lux/bifeXSxvuH19MMjIZU
- WwC8ghWTB15kicZ2U3Zej83RDaIU50+i4VNza0WhLP7EVXy+Tp2diZQSrO87w1J7ag9I
- UjCmFuICYxcbjBTS9eGWu04ol5EBYT2AdjA8nbij5li5QGe0MTZgCPjsLNx4PdUffsjB
- fw2K+uc4TDlFWElLAZAvEugd3LHaB84sFK+DUjKgQ4G1AUMd12AMb2ILGP7IcqrJH0jV
- qNEL8MMKg619s0X6MNK9jTur1Gvkq1VePLwYcY+pXEMac7g5fbu4ntk+/TXDJGTpweNY
- tf3A==
-X-Gm-Message-State: APjAAAWOK9yvVMsn8jQ16nEFy4J1t+dc0OiMJzIzEugDXwQ9L+abPLKi
- 8DCqvscldgDWD9GRbsdtEBcVZw==
-X-Google-Smtp-Source: APXvYqwl6PRQmxRp2FeaUrF1dSbhoP+n1mCs6HIPNucmAod9GoKn3RCFhO9Un5ocsWwCOZY6wlcBjA==
-X-Received: by 2002:a05:600c:2207:: with SMTP id
- z7mr8847992wml.138.1576751596755; 
- Thu, 19 Dec 2019 02:33:16 -0800 (PST)
-Received: from srini-hackbox.lan
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=LOOsEyvuasBLr3yvzRlpYBFKNpQOIsg2Ax8aja0jnrY=;
+ b=pMDv1uc+fIvL64l6NE4zu4Vm/wOu8jQ5Gx9o8qPAxmF24ijRcTC5sZ10JzMlBzbxkv
+ cBsiIwsYyzJa4rgFhnuzElOZrvO3nV8lkeaUJbznIWVjb58T6dY4P/6vHwByThyoS0i8
+ QlCQgAHGYSG1WLBQKTFR6A6/1dVn7W3QYQ+5zyIdnaAEfW/f7LPYqmjR3wRPn7CHaruA
+ UAO0fK4SXehpeu7upvzAp62CKqFf5dIfu78AZu5eGt8sBMiOTRNiTlR4oOGdvtKH9PrE
+ jjXO8qZXZL4JIBpxn7DE74hlLIAZkyzNBDb6/pNzTkPfMIRIvJsJoG1kT1sZpKtQpLzz
+ 67kw==
+X-Gm-Message-State: APjAAAVL84RbSepgvu5Njlf3ArDpy7Zj78XnqaSJCbB92rBPFtY/JMvW
+ eYQHOHBhOlPgQi/aQH1nZaWh8A==
+X-Google-Smtp-Source: APXvYqwUw4nBzvJG6W7Ot6OE7z+N85JhMh19YIzO5YKGLoeCcKnDhKV5FIeSRUYPB8ceaij4DGeyoQ==
+X-Received: by 2002:adf:e683:: with SMTP id r3mr8690894wrm.38.1576753111420;
+ Thu, 19 Dec 2019 02:58:31 -0800 (PST)
+Received: from [192.168.86.34]
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.gmail.com with ESMTPSA id i11sm5962942wrs.10.2019.12.19.02.33.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Dec 2019 02:33:15 -0800 (PST)
+ by smtp.googlemail.com with ESMTPSA id v22sm5504084wml.11.2019.12.19.02.58.30
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 19 Dec 2019 02:58:30 -0800 (PST)
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>, agross@kernel.org,
+ bjorn.andersson@linaro.org
+References: <20191217104629.24590-1-peter.ujfalusi@ti.com>
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: broonie@kernel.org,
-	lee.jones@linaro.org,
-	linus.walleij@linaro.org
-Date: Thu, 19 Dec 2019 10:31:53 +0000
-Message-Id: <20191219103153.14875-12-srinivas.kandagatla@linaro.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20191219103153.14875-1-srinivas.kandagatla@linaro.org>
-References: <20191219103153.14875-1-srinivas.kandagatla@linaro.org>
+Message-ID: <2a2c444a-178b-b813-d329-49abbf099381@linaro.org>
+Date: Thu, 19 Dec 2019 10:58:29 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- vinod.koul@linaro.org, devicetree@vger.kernel.org, spapothi@codeaurora.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] [PATCH v6 11/11] ASoC: qcom: sdm845: add support to
-	DB845c and Lenovo Yoga
+In-Reply-To: <20191217104629.24590-1-peter.ujfalusi@ti.com>
+Content-Language: en-US
+Cc: linux-arm-msm@vger.kernel.org, vkoul@kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] slimbus: qcom-ngd-ctrl: Use
+ dma_request_chan() instead dma_request_slave_channel()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,175 +102,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds support to Lenovo Yoga c630 compatible strings
-and related setup to the sound machine driver.
 
-Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
----
- sound/soc/qcom/sdm845.c | 86 ++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 85 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 28f3cef696e6..3b5547a27aad 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -24,6 +24,9 @@
- #define RIGHT_SPK_TDM_TX_MASK   0xC0
- #define SPK_TDM_RX_MASK         0x03
- #define NUM_TDM_SLOTS           8
-+#define SLIM_MAX_TX_PORTS 16
-+#define SLIM_MAX_RX_PORTS 16
-+#define WCD934X_DEFAULT_MCLK_RATE	9600000
- 
- struct sdm845_snd_data {
- 	struct snd_soc_jack jack;
-@@ -36,6 +39,39 @@ struct sdm845_snd_data {
- 
- static unsigned int tdm_slot_offset[8] = {0, 4, 8, 12, 16, 20, 24, 28};
- 
-+static int sdm845_slim_snd_hw_params(struct snd_pcm_substream *substream,
-+				     struct snd_pcm_hw_params *params)
-+{
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-+	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	u32 rx_ch[SLIM_MAX_RX_PORTS], tx_ch[SLIM_MAX_TX_PORTS];
-+	u32 rx_ch_cnt = 0, tx_ch_cnt = 0;
-+	int ret = 0, i;
-+
-+	for (i = 0 ; i < dai_link->num_codecs; i++) {
-+		ret = snd_soc_dai_get_channel_map(rtd->codec_dais[i],
-+				&tx_ch_cnt, tx_ch, &rx_ch_cnt, rx_ch);
-+
-+		if (ret != 0 && ret != -ENOTSUPP) {
-+			pr_err("failed to get codec chan map, err:%d\n", ret);
-+			return ret;
-+		} else if (ret == -ENOTSUPP) {
-+			/* Ignore unsupported */
-+			continue;
-+		}
-+
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			ret = snd_soc_dai_set_channel_map(cpu_dai, 0, NULL,
-+							  rx_ch_cnt, rx_ch);
-+		else
-+			ret = snd_soc_dai_set_channel_map(cpu_dai, tx_ch_cnt,
-+							  tx_ch, 0, NULL);
-+	}
-+
-+	return 0;
-+}
-+
- static int sdm845_tdm_snd_hw_params(struct snd_pcm_substream *substream,
- 					struct snd_pcm_hw_params *params)
- {
-@@ -151,6 +187,11 @@ static int sdm845_snd_hw_params(struct snd_pcm_substream *substream,
- 	case QUATERNARY_TDM_TX_0:
- 		ret = sdm845_tdm_snd_hw_params(substream, params);
- 		break;
-+	case SLIMBUS_0_RX...SLIMBUS_6_TX:
-+		ret = sdm845_slim_snd_hw_params(substream, params);
-+		break;
-+	case QUATERNARY_MI2S_RX:
-+		break;
- 	default:
- 		pr_err("%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
- 		break;
-@@ -173,7 +214,20 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
- 	struct sdm845_snd_data *pdata = snd_soc_card_get_drvdata(card);
- 	struct snd_jack *jack;
--	int rval;
-+	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-+	/*
-+	 * Codec SLIMBUS configuration
-+	 * RX1, RX2, RX3, RX4, RX5, RX6, RX7, RX8, RX9, RX10, RX11, RX12, RX13
-+	 * TX1, TX2, TX3, TX4, TX5, TX6, TX7, TX8, TX9, TX10, TX11, TX12, TX13
-+	 * TX14, TX15, TX16
-+	 */
-+	unsigned int rx_ch[SLIM_MAX_RX_PORTS] = {144, 145, 146, 147, 148, 149,
-+					150, 151, 152, 153, 154, 155, 156};
-+	unsigned int tx_ch[SLIM_MAX_TX_PORTS] = {128, 129, 130, 131, 132, 133,
-+					    134, 135, 136, 137, 138, 139,
-+					    140, 141, 142, 143};
-+	int rval, i;
-+
- 
- 	if (!pdata->jack_setup) {
- 		rval = snd_soc_card_jack_new(card, "Headset Jack",
-@@ -211,6 +265,21 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 			return rval;
- 		}
- 		break;
-+	case SLIMBUS_0_RX...SLIMBUS_6_TX:
-+		for (i = 0 ; i < dai_link->num_codecs; i++) {
-+			rval = snd_soc_dai_set_channel_map(rtd->codec_dais[i],
-+							  ARRAY_SIZE(tx_ch),
-+							  tx_ch,
-+							  ARRAY_SIZE(rx_ch),
-+							  rx_ch);
-+			if (rval != 0 && rval != -ENOTSUPP)
-+				return rval;
-+
-+			snd_soc_dai_set_sysclk(rtd->codec_dais[i], 0,
-+					       WCD934X_DEFAULT_MCLK_RATE,
-+					       SNDRV_PCM_STREAM_PLAYBACK);
-+		}
-+		break;
- 	default:
- 		break;
- 	}
-@@ -256,6 +325,14 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
- 		}
- 		snd_soc_dai_set_fmt(cpu_dai, fmt);
- 		snd_soc_dai_set_fmt(codec_dai, codec_dai_fmt);
-+		break;
-+	case QUATERNARY_MI2S_RX:
-+		snd_soc_dai_set_sysclk(cpu_dai,
-+			Q6AFE_LPASS_CLK_ID_QUAD_MI2S_IBIT,
-+			MI2S_BCLK_RATE, SNDRV_PCM_STREAM_PLAYBACK);
-+		snd_soc_dai_set_fmt(cpu_dai, SND_SOC_DAIFMT_CBS_CFS);
-+
-+
- 		break;
- 
- 	case QUATERNARY_TDM_RX_0:
-@@ -294,6 +371,8 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
- 			}
- 		}
- 		break;
-+	case SLIMBUS_0_RX...SLIMBUS_6_TX:
-+		break;
- 
- 	default:
- 		pr_err("%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-@@ -338,6 +417,9 @@ static void  sdm845_snd_shutdown(struct snd_pcm_substream *substream)
- 				0, SNDRV_PCM_STREAM_PLAYBACK);
- 		}
- 		break;
-+	case SLIMBUS_0_RX...SLIMBUS_6_TX:
-+	case QUATERNARY_MI2S_RX:
-+		break;
- 
- 	default:
- 		pr_err("%s: invalid dai id 0x%x\n", __func__, cpu_dai->id);
-@@ -451,6 +533,8 @@ static int sdm845_snd_platform_remove(struct platform_device *pdev)
- 
- static const struct of_device_id sdm845_snd_device_id[]  = {
- 	{ .compatible = "qcom,sdm845-sndcard" },
-+	{ .compatible = "qcom,db845c-sndcard" },
-+	{ .compatible = "lenovo,yoga-c630-sndcard" },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, sdm845_snd_device_id);
--- 
-2.21.0
+On 17/12/2019 10:46, Peter Ujfalusi wrote:
+> dma_request_slave_channel() is a wrapper on top of dma_request_chan()
+> eating up the error code.
+> 
+> By using dma_request_chan() directly the driver can support deferred
+> probing against DMA.
+> 
+> Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+> ---
+>   drivers/slimbus/qcom-ngd-ctrl.c | 20 ++++++++++++--------
+>   1 file changed, 12 insertions(+), 8 deletions(-)
 
+
+Applied thanks,
+srini
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

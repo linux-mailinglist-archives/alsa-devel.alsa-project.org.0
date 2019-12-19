@@ -2,67 +2,143 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 721D8126348
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2019 14:17:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A2A61263CA
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2019 14:43:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C6AE5826;
-	Thu, 19 Dec 2019 14:16:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C6AE5826
+	by alsa0.perex.cz (Postfix) with ESMTPS id B9CF01614;
+	Thu, 19 Dec 2019 14:42:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B9CF01614
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576761468;
-	bh=qwCVA0yll8zX1ldSYS5eFSoYPA2O1ei1e84bbJHMKQc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576762990;
+	bh=z1yzRs0tLWcOG89S1nJdzNnoUEj5nxl9VPdPGgFxGRQ=;
+	h=To:From:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IWKvB8OAlIPVuFV7ptBxOkHwwpqccLoOClZVF/UOdRjMI0C4L7VFtcgXpPyIixDF8
-	 guWqqxBvEg0W3PrTnWTmFsn3Rd2iYlK34sKikdsvx0DJ+sfMTqA6sKEG5moTycPKqt
-	 6/VAUVB788i+njefr9or76Ja++oQtspVWZmCT3qE=
+	b=PHbyqkvadR0FBxOSsZw1PmiRYgSf58gDS5tKuJGoo3BIG2hdQQva0MUYSP1c/lWvy
+	 Fh7v9UwpDmYb4HWhJW/PRJ1xUmY8+NkILXRScRC5eJUlyzzwkU6iZzf3//x6maFSV4
+	 wNio4iOvvk9wrs0qQb6RK1iASQyzfnh+sYeolTeg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8C4EBF80218;
-	Thu, 19 Dec 2019 14:16:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D8F5FF80218;
+	Thu, 19 Dec 2019 14:41:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 85F01F80234; Thu, 19 Dec 2019 14:16:02 +0100 (CET)
+ id 7AEF9F80234; Thu, 19 Dec 2019 14:41:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 6B216F8014F
- for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 14:15:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B216F8014F
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A9FC5328;
- Thu, 19 Dec 2019 05:15:57 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D56373F67D;
- Thu, 19 Dec 2019 05:15:56 -0800 (PST)
-Date: Thu, 19 Dec 2019 13:15:54 +0000
-From: Mark Brown <broonie@kernel.org>
-To: vishnu <vravulap@amd.com>
-Message-ID: <20191219131554.GF5047@sirena.org.uk>
-References: <1575553053-18344-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1575553053-18344-8-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <3688990f-0ac3-08bf-20b8-93a4ab17441e@amd.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 61605F80059
+ for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 14:41:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61605F80059
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
+ header.b="P57IyR6e"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20191219134118euoutp024df9a56fbb95d858d849058a57d52a30~hyXvwAE4Q2663026630euoutp02K
+ for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 13:41:18 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20191219134118euoutp024df9a56fbb95d858d849058a57d52a30~hyXvwAE4Q2663026630euoutp02K
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1576762878;
+ bh=0+bhEYmmShhkGih1TvIRBXxyncmEzRWx7fx8oj2UNiE=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=P57IyR6eRONAKv6Yw5W5c/z5E4VSTUpktWXiHcwLte9BxCGGWDz+hM3tCe7yD2Ab2
+ AZvw0k4ceWPh20FQ+LXGEH8oppKax3lxNFTo+Zxc3+qnxhpC52lgAQWE7+D7wxdEA9
+ 2zBM54Ygc96vURPURQzmP3x63KcMOaZbsXLoiH6A=
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTP id
+ 20191219134118eucas1p21c6a9e9c76c40062b7d1c2a63285e4e4~hyXvmGmAC2022720227eucas1p2o;
+ Thu, 19 Dec 2019 13:41:18 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id 66.84.61286.EFD7BFD5; Thu, 19
+ Dec 2019 13:41:18 +0000 (GMT)
+Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20191219134118eucas1p1c41633ba54b742365ce73face4e33e9b~hyXvVk_sT2305123051eucas1p18;
+ Thu, 19 Dec 2019 13:41:18 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
+ 20191219134118eusmtrp25ea486dc1295596662fffc2da8ee0c95~hyXvU9hvC1783117831eusmtrp2N;
+ Thu, 19 Dec 2019 13:41:18 +0000 (GMT)
+X-AuditID: cbfec7f2-f0bff7000001ef66-46-5dfb7dfe16a8
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 5E.61.08375.EFD7BFD5; Thu, 19
+ Dec 2019 13:41:18 +0000 (GMT)
+Received: from [106.120.51.15] (unknown [106.120.51.15]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20191219134117eusmtip22c98e75f2dbe257d3b3e567006195c09~hyXuykVTn1986919869eusmtip2n;
+ Thu, 19 Dec 2019 13:41:17 +0000 (GMT)
+To: Mark Brown <broonie@kernel.org>
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Message-ID: <a10269be-8caf-6e07-71c6-582a1d2c1458@samsung.com>
+Date: Thu, 19 Dec 2019 14:41:17 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.1
 MIME-Version: 1.0
-In-Reply-To: <3688990f-0ac3-08bf-20b8-93a4ab17441e@amd.com>
-X-Cookie: I smell a RANCID CORN DOG!
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
+In-Reply-To: <20191219130559.GE5047@sirena.org.uk>
+Content-Language: en-US
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrEKsWRmVeSWpSXmKPExsWy7djPc7r/an/HGkzcKG9x5eIhJoupD5+w
+ WZw43Mhs0T6zg9Hi/PkN7BavDu9itJhxfh+TxeE37awWLze/YbLYc/EVuwOXx4bPTWweCzaV
+ emxa1cnm8e3MRBaPvi2rGD02n672+LxJLoA9issmJTUnsyy1SN8ugSvj9qlXjAVTWSsO3/nK
+ 3MDYwdLFyMkhIWAi0XV8HlsXIxeHkMAKRomWf5OhnC+MEtt2nWWEcD4zSny6c4wNpmX6l/tQ
+ VcsZJea13YeqessosXjhEnaQKmGBPImDS1aDdYgIKEtc/b6XBaSIWaCPWeLUmxtgCTYBQ4mu
+ t11gNq+AnURv809WEJtFQFXi6rIWoAYODlGBWImO5RkQJYISJ2c+AQtzChhJvFlZAxJmFpCX
+ 2P52DjOELS5x68l8JpBVEgKX2CUevZkBdbWLxKJjF6BsYYlXx7ewQ9gyEv93wjQ0M0o8PLeW
+ HcLpYZS43DSDEaLKWuLw8YusIJuZBTQl1u/Shwg7Ssy+95kZJCwhwCdx460gxBF8EpO2TYcK
+ 80p0tAlBVKtJzDq+Dm7twQuXmCcwKs1C8tksJO/MQvLOLIS9CxhZVjGKp5YW56anFhvmpZbr
+ FSfmFpfmpesl5+duYgSmrNP/jn/awfj1UtIhRgEORiUeXoe037FCrIllxZW5hxglOJiVRHhv
+ d/yMFeJNSaysSi3Kjy8qzUktPsQozcGiJM5rvOhlrJBAemJJanZqakFqEUyWiYNTqoHRWuV5
+ T4nu+2axtbue7Z1jdnvOQp23a5VeyqvPW2xhdWVRVo1O/LQDi9bzn5v5S/7klGUZjzjYYhcw
+ ee7XedZcuf26Zbv/8XutvhH7r1r6pG5jcFzrrL5Pr7h27ibb32q+n8v9hIVtg1gy6l1uve80
+ 1VOY1LYx1zLO9++c6g9ONkIfPlVv72BTYinOSDTUYi4qTgQAbqUZ+lUDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrCIsWRmVeSWpSXmKPExsVy+t/xe7r/an/HGsxr47W4cvEQk8XUh0/Y
+ LE4cbmS2aJ/ZwWhx/vwGdotXh3cxWsw4v4/J4vCbdlaLl5vfMFnsufiK3YHLY8PnJjaPBZtK
+ PTat6mTz+HZmIotH35ZVjB6bT1d7fN4kF8AepWdTlF9akqqQkV9cYqsUbWhhpGdoaaFnZGKp
+ Z2hsHmtlZKqkb2eTkpqTWZZapG+XoJdx+9QrxoKprBWH73xlbmDsYOli5OSQEDCRmP7lPlsX
+ IxeHkMBSRomP/d+ZIBIyEienNbBC2MISf651QRW9ZpToXrgeLCEskCdxcMlqNhBbREBZ4ur3
+ vSwgRcwCfcwSOy7PASsSEjjOIvFlShqIzSZgKNH1tgusgVfATqK3+SdYDYuAqsTVZS1gJ4kK
+ xEp8X/mJEaJGUOLkzCdAcQ4OTgEjiTcra0DCzAJmEvM2P2SGsOUltr+dA2WLS9x6Mp9pAqPQ
+ LCTds5C0zELSMgtJywJGllWMIqmlxbnpucWGesWJucWleel6yfm5mxiBMbrt2M/NOxgvbQw+
+ xCjAwajEw/sy+XesEGtiWXFl7iFGCQ5mJRHe2x0/Y4V4UxIrq1KL8uOLSnNSiw8xmgL9NpFZ
+ SjQ5H5g+8kriDU0NzS0sDc2NzY3NLJTEeTsEDsYICaQnlqRmp6YWpBbB9DFxcEo1ME76sWKn
+ x7Rd+o495j84Tk5bcaQoyMFG+L5WoLtY5rLM9h2OskYq7xIuzPU/FLZTwsCB54ij+oLtfy1v
+ n3gknLTt21Z1Od7YnQv2NMSoPTbgaw28+FIxL321+9nGNqY/QmxO9/UOzH5opTW941HyM7mY
+ tLcazVplxscsZrSrp520lchPvi70T4mlOCPRUIu5qDgRADxLJ1vnAgAA
+X-CMS-MailID: 20191219134118eucas1p1c41633ba54b742365ce73face4e33e9b
+X-Msg-Generator: CA
+X-RootMTR: 20191128152110epcas3p2b205b4b55f6d8bfac42fcb8faaade93c
+X-EPHeader: CA
+CMS-TYPE: 201P
+X-CMS-RootMailID: 20191128152110epcas3p2b205b4b55f6d8bfac42fcb8faaade93c
+References: <CGME20191128152110epcas3p2b205b4b55f6d8bfac42fcb8faaade93c@epcas3p2.samsung.com>
+ <20191128151908.180871-1-tzungbi@google.com>
+ <8aceb9ec-aa6e-1fa4-cee9-e22084c141e8@samsung.com>
+ <CA+Px+wXPa_cwdZUQfCx4jAhhj4Q9b7bNABUGazLKOJ7U5ae-mA@mail.gmail.com>
+ <20191218132620.GE3219@sirena.org.uk>
+ <f6453e48-cd95-6471-8945-4cc0ab3d04d9@samsung.com>
+ <20191218162422.GG3219@sirena.org.uk>
+ <ef908cb8-875e-4339-33bd-5997b594f022@samsung.com>
+ <20191219123709.GB5047@sirena.org.uk>
+ <aba9f63c-d993-e54e-4daa-9dbc35d0683b@samsung.com>
+ <20191219130559.GE5047@sirena.org.uk>
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
- pierre-louis.bossart@linux.intel.com,
- "Gustavo A. R. Silva" <gustavo@embeddedor.com>, Alexander.Deucher@amd.com,
- djkurtz@google.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>, "Tabian,
- Reza" <Reza.Tabian@amd.com>
-Subject: Re: [alsa-devel] [PATCH v14 7/7] ASoC: amd MMAP_INTERLEAVED Support
+ Takashi Iwai <tiwai@suse.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Tzung-Bi Shih <tzungbi@google.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Dylan Reid <dgreid@google.com>
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: max98090: save and restore SHDN
+ when changing sensitive registers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,73 +151,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6467988475995695344=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Mark,
 
---===============6467988475995695344==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sDKAb4OeUBrWWL6P"
-Content-Disposition: inline
+On 19.12.2019 14:05, Mark Brown wrote:
+> On Thu, Dec 19, 2019 at 01:54:37PM +0100, Marek Szyprowski wrote:
+>
+>> I can do the bisect, but please let me know exactly what to bisect.
+>> The initial bisection I did was from v5.5-rc1 to linux-next and pointed
+>> to the $subject commit.
+> You can't trigger this via any other mechanism, all the other controls
+> are fine?  There's *clearly* no issue with what the commit is doing,
+> it's just flagging up that the card is not set.
 
+I've cherrypicked the $subject commit onto vanilla v5.5-rc1 and the 
+issue is same.
 
---sDKAb4OeUBrWWL6P
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Wed, Dec 18, 2019 at 11:59:56AM +0530, vishnu wrote:
-> Hi Mark,
->=20
-> Patches have been reviewed by Dan and pierre-louis.bossart@linux.intel.com
-
-I see no reviewed-by tags on most of this.
-
-> Please can you upstream these please.
-
-No, I will review them first.  Given the problems that have been seen on
-previous reviews I don't intend to rush that.
-
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
-
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
-
---sDKAb4OeUBrWWL6P
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl37eAkACgkQJNaLcl1U
-h9CVpAf+K32nHGUcXJWEpJjWpcGVQiWjEjbsF9z+jhCBspPCGKsl08RI1cXbo87P
-/OjYMebtkwJqflBz5c947lIF2SA9ofMD6uu4y+C5/JfaSDkz2XtRElnRNQq568rz
-CsuEikfk3MDeZ8atNXGeh/U/qT5QnJT/9pjUSTiQv0E1dn/fnke715mrjuMLuGGa
-WSfl5qgHp7mOF5rGb63PcI4pWK0vo+fs8X+pbOOrR1+IluSE6qSU1aqdggo/4mTA
-rzGDIb2FyaMSmhL5muM4atXu02VHkosSZ4Ae9nqY8rWQta9a2tkKyzF+rqJmJTjd
-CfpApBIsMtlhkNb4gQ/rAPtXJBkrAQ==
-=XtBZ
------END PGP SIGNATURE-----
-
---sDKAb4OeUBrWWL6P--
-
---===============6467988475995695344==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============6467988475995695344==--

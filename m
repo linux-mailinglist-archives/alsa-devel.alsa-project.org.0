@@ -2,68 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB77A126FC5
-	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2019 22:35:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FA2A12709A
+	for <lists+alsa-devel@lfdr.de>; Thu, 19 Dec 2019 23:23:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3320784F;
-	Thu, 19 Dec 2019 22:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3320784F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 870E11654;
+	Thu, 19 Dec 2019 23:22:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 870E11654
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576791312;
-	bh=H8fla0FY3adt+Xx3j4t1l1iBtGz9k/bC6kPpTkLbXDM=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=peRfTbJh0pNpvWK6tmT0CpGKtw/tYIDkGSvoDE/su8nHfOrZGJYckaZvrF+diY+tl
-	 azqYwo7o2cgw/kzKT3xBmCmhdYZbGKK0gE2+jWgSHPdSzrpjdFB+CyXcrcv50h2GEI
-	 NlTbR/FNjjEQoNYn/2R//JmgpNKeUdjpTcX/Z3Pg=
+	s=default; t=1576794215;
+	bh=YoOm/Qvoq0K7USvfUCDAl4BMSOHtUibpz649OAya7Oc=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=huvEznyAzO82LWx98QrKLnnPJQNNDiglfigcGrWhHY428snJZfPwyl8Uh0mfwIoIg
+	 YGAYdA84uGHKcz8cc6xhY/50PrWPN7bCUt3j1J0KwZyPdtQwvxU5aBDCfvz38h0zxq
+	 JwKf52QdVUVz3das8bpxS+0/bHX8hfZ8PV1UEyWY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B10AF80266;
-	Thu, 19 Dec 2019 22:33:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 52466F80234;
+	Thu, 19 Dec 2019 23:21:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA183F80259; Thu, 19 Dec 2019 22:33:03 +0100 (CET)
+ id DB9D2F80234; Thu, 19 Dec 2019 23:21:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-out.m-online.net (mail-out.m-online.net
- [IPv6:2001:a60:0:28:0:1:25:1])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=PRX_BODY_21, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3A172F8013E
- for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 22:33:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3A172F8013E
-Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
- by mail-out.m-online.net (Postfix) with ESMTP id 47f4qJ1dwxz1rgD3;
- Thu, 19 Dec 2019 22:33:00 +0100 (CET)
-Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
- by mail.m-online.net (Postfix) with ESMTP id 47f4qJ13Wgz1qr2L;
- Thu, 19 Dec 2019 22:33:00 +0100 (CET)
-X-Virus-Scanned: amavisd-new at mnet-online.de
-Received: from mail.mnet-online.de ([192.168.8.182])
- by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
- port 10024)
- with ESMTP id RHVTxaXA_q6W; Thu, 19 Dec 2019 22:32:59 +0100 (CET)
-X-Auth-Info: Q2TjMNxd4xR94wHv4FBSGwJKrL3sd3PZQJKHzOCY//U=
-Received: from desktop.lan (ip-86-49-35-8.net.upcbroadband.cz [86.49.35.8])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.mnet-online.de (Postfix) with ESMTPSA;
- Thu, 19 Dec 2019 22:32:59 +0100 (CET)
-From: Marek Vasut <marex@denx.de>
-To: alsa-devel@alsa-project.org
-Date: Thu, 19 Dec 2019 22:32:57 +0100
-Message-Id: <20191219213257.366145-1-marex@denx.de>
-X-Mailer: git-send-email 2.24.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id AAFF6F8013E
+ for <alsa-devel@alsa-project.org>; Thu, 19 Dec 2019 23:21:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AAFF6F8013E
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 19 Dec 2019 14:21:33 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,333,1571727600"; d="scan'208";a="267347305"
+Received: from dmulla-mobl.amr.corp.intel.com (HELO [10.254.112.28])
+ ([10.254.112.28])
+ by FMSMGA003.fm.intel.com with ESMTP; 19 Dec 2019 14:21:32 -0800
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>, broonie@kernel.org, 
+ lee.jones@linaro.org, linus.walleij@linaro.org
+References: <20191219103153.14875-1-srinivas.kandagatla@linaro.org>
+ <20191219103153.14875-3-srinivas.kandagatla@linaro.org>
+ <af48cd71-fa1a-dbc5-0e88-e315ea13c28c@linux.intel.com>
+ <db36d6d7-40a2-bbd2-f299-838abf4d92cc@linaro.org>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <4492b71e-9923-365c-f22c-3766e2d5bae2@linux.intel.com>
+Date: Thu, 19 Dec 2019 14:05:48 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-Cc: Marek Vasut <marex@denx.de>, Igor Opaniuk <igor.opaniuk@toradex.com>,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
- Mark Brown <broonie@kernel.org>, festevam@gmail.com
-Subject: [alsa-devel] [PATCH] ASoC: sgtl5000: Fix VDDA and VDDIO comparison
+In-Reply-To: <db36d6d7-40a2-bbd2-f299-838abf4d92cc@linaro.org>
+Content-Language: en-US
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ vinod.koul@linaro.org, devicetree@vger.kernel.org, spapothi@codeaurora.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v6 02/11] mfd: wcd934x: add support to
+ wcd9340/wcd9341 codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,55 +77,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Comparing the voltage of VDDA and VDDIO to determine whether or not to
-enable VDDC manual override is insufficient. This is a problem in case
-the VDDA is supplied from different regulator than VDDIO, while both
-report the same voltage to the regulator framework. In that case where
-VDDA and VDDIO is supplied by different regulators, the VDDC manual
-override must not be applied.
 
-Fixes: b6319b061ba2 ("ASoC: sgtl5000: Fix charge pump source assignment")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Igor Opaniuk <igor.opaniuk@toradex.com>
-Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
----
- sound/soc/codecs/sgtl5000.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
-index 93da6b58c97df..b4568f417d78e 100644
---- a/sound/soc/codecs/sgtl5000.c
-+++ b/sound/soc/codecs/sgtl5000.c
-@@ -28,6 +28,8 @@
- 
- #include "sgtl5000.h"
- 
-+#include "../../../drivers/regulator/internal.h"
-+
- #define SGTL5000_DAP_REG_OFFSET	0x0100
- #define SGTL5000_MAX_REG_OFFSET	0x013A
- 
-@@ -1344,7 +1346,8 @@ static int sgtl5000_set_power_regs(struct snd_soc_component *component)
- 		 * if vddio == vdda the source of charge pump should be
- 		 * assigned manually to VDDIO
- 		 */
--		if (vddio == vdda) {
-+		if (sgtl5000->supplies[VDDA].consumer->rdev ==
-+		    sgtl5000->supplies[VDDIO].consumer->rdev) {
- 			lreg_ctrl |= SGTL5000_VDDC_ASSN_OVRD;
- 			lreg_ctrl |= SGTL5000_VDDC_MAN_ASSN_VDDIO <<
- 				    SGTL5000_VDDC_MAN_ASSN_SHIFT;
--- 
-2.24.1
+>> It was my understanding that in SLIMbus the Linux devices are created 
+>> at probe time, and when the device reports present this 
+>> 'device_status' callback is used to notify the codec driver of a 
+>> change. The rationale for this was that the codec driver may control 
+>> power switches/gpios that are necessary for the device to appear on 
+>> the bus.
+> 
+> We use same rational here to power switch and flip reset pins in device 
+> probe to power up the actual SLIMBus device in device probe.
+> 
+> Only difference here is that the actual SLIMBus device itself is 
+> represented as many child devices based on there functionality.
+> 
+> SLIMBus parent device in this case is MFD device which is created at 
+> probe time. However child devices for that device like gpio controller, 
+> codec, clock controller and soundwire controller are created only after 
+> the device is enumerated on the bus. Before that none of these devices 
+> will be in a position to talk on the bus.
+> 
+> 
+>>
+>> This argument was used to require an change in the SoundWire 
+>> implementation, so we followed this model of creating devices at probe 
+>> time based on information reported by ACPI/DT, and used the 
+>> 'update_status' callback when the device is present on the bus (which 
+>> may happen after a delay or controlled by an external power switch). 
+>> This approach can lead to 'ghost devices' described in firmware but 
+>> not populated in hardware, and power management opens on how long a 
+>> bus needs to remain active if no devices report present.
+>>
+>> What I understand from the code above is that the devices are actually 
+>> created when the SLIMbus device reports PRESENT, which seems a 180 
+>> degree change in directions?
+>>
+> Note these are the child devices of the MFD SLIMBus device.
 
+Ah ok. I guess the creation of those child devices when the parent 
+SLIMbus device reports PRESENT initially if fine, it's the part where 
+you remove them if the device loses sync or gets powered off which is 
+odd. And I guess technically you could still have race conditions where 
+a child device starts a transaction just as the parent is no longer 
+attached to the bus.
+
+>> I would however not remove the devices when the status is down but 
+>> only on an explicit .remove.
+> 
+> Am open for suggestions but I would not like the child devices to talk 
+> on the bus once the SLIMbus device is down! Only way to ensure or make 
+> it silent is to remove.
+
+it's as if you are missing a mechanism to forward the parent status to 
+the children so use remove() for lack of a better solution?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

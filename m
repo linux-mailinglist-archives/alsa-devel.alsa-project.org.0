@@ -2,99 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38D6012794C
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Dec 2019 11:29:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4988127976
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Dec 2019 11:34:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B28B01615;
-	Fri, 20 Dec 2019 11:28:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B28B01615
+	by alsa0.perex.cz (Postfix) with ESMTPS id 25E801616;
+	Fri, 20 Dec 2019 11:33:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25E801616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576837752;
-	bh=NDFyiS9cnyNg6W1mlihXcR0yp60Yi3SKcV/JRagTfmQ=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576838079;
+	bh=L2A2W5DpEOE3XetnkhyZTttfFuomdnQSLmO6bgWBnRQ=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kBpwMdPz8aHSZjb88Ct5/xq1cQ8xLr5v0WKjhs15fHie0mLTREnIapFBehNZK3dLD
-	 H1nKu7B2vkjXh3lYaAKAI5V7A+grrIrmBgZ57JaCV4O2HYGYNJDdIRkKBintZOddNx
-	 TYEsj40oBlxSiR5SK6YJwfGnlsL0Grgzdru1EdMY=
+	b=iZkKnGbvzGQiWosSJujaY2jpyx4OYP3KtAuMHGU+cXWrXgQtTolKBp+VBHxnI4DD1
+	 6EWIu3GTllDeqFzAyYcoJ4ZvQTlpRLOMDPu+TSdExZpApa+vzQ57w/AwdUHNGu7azO
+	 wOTh9ZmcaHgFGfaN0fTIOwJtgKZPeZVghT+yZahs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4291BF8015A;
-	Fri, 20 Dec 2019 11:27:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 90DA0F8014C;
+	Fri, 20 Dec 2019 11:32:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2E3AF80059; Fri, 20 Dec 2019 11:27:26 +0100 (CET)
+ id D0F64F8015A; Fri, 20 Dec 2019 11:32:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 29843F80059
- for <alsa-devel@alsa-project.org>; Fri, 20 Dec 2019 11:27:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 29843F80059
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="vLmOQumr"
-Received: by mail-wm1-x342.google.com with SMTP id 20so8533521wmj.4
- for <alsa-devel@alsa-project.org>; Fri, 20 Dec 2019 02:27:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=n0d7A9vcdYOjJrptRZ7l/Py3puK9fLPBMNKquvCDBS8=;
- b=vLmOQumrckuy/uRuCU6yj4xJmKBQPT49yE9Lmv9XbT/e4gBL/sCo8bZKZcNnCad6h0
- EzThNeJ09aW/PlljQ59lBAJU4BTFH/sJ04aytmPiYK8I+kWIlRR7MA+jfxfIdYPt0QA+
- nWQBF3Yni8tdLR3XUHykRBHWmfvqVXQaGhEGSRHgOQSSpQYvqCdZLAV47obw4KLsYyi9
- 53sRvzHkBz6I54lzaP/B2akmRLThzlzDdlRePi86UJs02KQobisvc7mvwOLdjBx6VCTX
- 127qaleSFwWS0mM1so33m0aD7tPk56PVtyMWniexnnQ7x7CARkRBFdSJ9Z+wu8UimdzM
- 7p3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=n0d7A9vcdYOjJrptRZ7l/Py3puK9fLPBMNKquvCDBS8=;
- b=Hf8XkTKI1DKD9yFolCt0Zly6RVQ28V2yKBY5mUn9c2Ii0QVoDYg9BQG45LWsDzaNPp
- NdmIAq4uF4AyDpnhdzLn8ql7uUfAbsUu+leVl0GlqUQKO7PmU4dZ0dug0Rl29yp5d+hm
- 5pRYpeDpnLWzbUdjpOgvgjQ3p8s4SdQZ4rjOQB2bTjbcnz1kRojFzQoh2StDdZr9TdlI
- Mglp8/iWxXH3u9cYEXUwsm4PFbUhGX6dLQzXaMsgxzWdHVDBl6dYLwJXolbkDxAFRhgp
- y2KCO70xwXclkk9CSy6+m3PCFnUEsOhwyb9IgeUAqhfRuCp0s8pBaSNycwnW3iLVdMMH
- pVDA==
-X-Gm-Message-State: APjAAAWEh6ahhdqv4gE/BqOZDwkWtktVNh5ni+r+AHr1FEJ17yK4cpJu
- TrWDXdY82cFln98S5+czsPG0ulsYjfg=
-X-Google-Smtp-Source: APXvYqyVpEoQ0ffKKhojLArPhnqkXcZq4Qsi1o1iUUiVSKzewceGkEew3wQ3Hvpb8P8F0HzsUlM/ag==
-X-Received: by 2002:a7b:c246:: with SMTP id b6mr15254728wmj.75.1576837643320; 
- Fri, 20 Dec 2019 02:27:23 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id r68sm9232066wmr.43.2019.12.20.02.27.21
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 20 Dec 2019 02:27:22 -0800 (PST)
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- broonie@kernel.org, lee.jones@linaro.org, linus.walleij@linaro.org
-References: <20191219103153.14875-1-srinivas.kandagatla@linaro.org>
- <20191219103153.14875-3-srinivas.kandagatla@linaro.org>
- <af48cd71-fa1a-dbc5-0e88-e315ea13c28c@linux.intel.com>
- <db36d6d7-40a2-bbd2-f299-838abf4d92cc@linaro.org>
- <4492b71e-9923-365c-f22c-3766e2d5bae2@linux.intel.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <3fa4997f-4409-97f6-ba10-a87013383eb7@linaro.org>
-Date: Fri, 20 Dec 2019 10:27:21 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <4492b71e-9923-365c-f22c-3766e2d5bae2@linux.intel.com>
-Content-Language: en-US
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- vinod.koul@linaro.org, devicetree@vger.kernel.org, spapothi@codeaurora.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH v6 02/11] mfd: wcd934x: add support to
- wcd9340/wcd9341 codec
+ by alsa1.perex.cz (Postfix) with ESMTPS id 209C1F8014C
+ for <alsa-devel@alsa-project.org>; Fri, 20 Dec 2019 11:32:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 209C1F8014C
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 30C51AAC3;
+ Fri, 20 Dec 2019 10:32:50 +0000 (UTC)
+Date: Fri, 20 Dec 2019 11:32:49 +0100
+Message-ID: <s5h4kxv5lta.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Johan Hovold <johan@kernel.org>
+In-Reply-To: <20191220102315.GU22665@localhost>
+References: <20191220093134.1248-1-johan@kernel.org>
+ <s5hbls35nxx.wl-tiwai@suse.de> <20191220102315.GU22665@localhost>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ stable <stable@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: fix set_format altsetting
+	sanity check
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,46 +67,66 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 19/12/2019 20:05, Pierre-Louis Bossart wrote:
->>>
->> Note these are the child devices of the MFD SLIMBus device.
+On Fri, 20 Dec 2019 11:23:15 +0100,
+Johan Hovold wrote:
 > 
-> Ah ok. I guess the creation of those child devices when the parent 
-> SLIMbus device reports PRESENT initially if fine, it's the part where 
-> you remove them if the device loses sync or gets powered off which is 
-> odd. And I guess technically you could still have race conditions where 
-> a child device starts a transaction just as the parent is no longer 
-> attached to the bus.
-
-Losing power to SLIMBus device is very odd usecase and if it happens 
-suggests that threre are bigger issues on the board design itself. This 
-case should never happen. Even if it happens we would get timeout errors 
-on every SLIMbus transactions.
-
+> On Fri, Dec 20, 2019 at 10:46:50AM +0100, Takashi Iwai wrote:
+> > On Fri, 20 Dec 2019 10:31:34 +0100,
+> > Johan Hovold wrote:
+> > > 
+> > > Make sure to check the return value of usb_altnum_to_altsetting() to
+> > > avoid dereferencing a NULL pointer when the requested alternate settings
+> > > is missing.
+> > > 
+> > > The format altsetting number may come from a quirk table and there does
+> > > not seem to be any other validation of it (the corresponding index is
+> > > checked however).
+> > > 
+> > > Fixes: b099b9693d23 ("ALSA: usb-audio: Avoid superfluous usb_set_interface() calls")
+> > > Cc: stable <stable@vger.kernel.org>     # 4.18
+> > > Signed-off-by: Johan Hovold <johan@kernel.org>
+> > > ---
+> > >  sound/usb/pcm.c | 4 ++--
+> > >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > > 
+> > > diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
+> > > index 9c8930bb00c8..73dd9d21bb42 100644
+> > > --- a/sound/usb/pcm.c
+> > > +++ b/sound/usb/pcm.c
+> > > @@ -506,9 +506,9 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+> > >  	if (WARN_ON(!iface))
+> > >  		return -EINVAL;
+> > >  	alts = usb_altnum_to_altsetting(iface, fmt->altsetting);
+> > > -	altsd = get_iface_desc(alts);
+> > > -	if (WARN_ON(altsd->bAlternateSetting != fmt->altsetting))
+> > > +	if (WARN_ON(!alts))
+> > >  		return -EINVAL;
+> > 
+> > Do we need WARN_ON() here?  If this may hit on syzbot, it'll stop at
+> > this point because of panic_on_warn.
 > 
->>> I would however not remove the devices when the status is down but 
->>> only on an explicit .remove.
->>
->> Am open for suggestions but I would not like the child devices to talk 
->> on the bus once the SLIMbus device is down! Only way to ensure or make 
->> it silent is to remove.
+> Yeah, I considered that too and decided to leave it in. Just like for
+> the WARN_ON(iface), those numbers should be verified at probe.
 > 
-> it's as if you are missing a mechanism to forward the parent status to 
-> the children so use remove() for lack of a better solution?
-That is true. This gives bit more control on the slave device lifecycle.
-Current solution works fine for now with less complexities across 
-multiple drivers. I also agree that there is scope of improvement in 
-future for this.
+> I tried tracking where fmt->altsetting comes from, and it seems like
+> a sanity check needs to be added at least to create_fixed_stream_quirk()
+> where, for example, fmt->iface, fmt->altset_idx and the number of
+> endpoints are verified.
+> 
+> If there are other paths that can end up setting these fields to invalid
+> values, we want that WARN_ON() in there so we can fix those.
 
-Thanks,
-srini
+Fair enough.
+
+I applied now as-is.  Thanks!
+
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

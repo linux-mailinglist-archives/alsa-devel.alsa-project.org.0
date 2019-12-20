@@ -2,60 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B27C127B78
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Dec 2019 14:04:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A85FB127B8A
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Dec 2019 14:11:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 98ADE1677;
-	Fri, 20 Dec 2019 14:03:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98ADE1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C517167B;
+	Fri, 20 Dec 2019 14:10:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C517167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576847049;
-	bh=ge2tUOuWEwlw16XBSjqAEGXBerJ+zLprB1syiih9pBQ=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=h3D1hUQXg0HKrOiPjIW4qhACuvOegHNGmGjCXapbIWZrYk8TZyUhg+bNMk2XyTviN
-	 /Hs627GM4JIAyNixV5U7axiTz6DHFmMss3ARzE1iiUbjk0uQ/xQluILn/yosbw0W+w
-	 c54LAKfW3Kq4T7766Wm5tvQSnX7bXkpNgMaWrTw4=
+	s=default; t=1576847465;
+	bh=yMTkoitaELxO1vcwvQLk9VSVVh47uFGBQolXedfQXSY=;
+	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=cFfT69uzrvQ1gTasjHRDfLiyUqOXi5zJDoUrBF2a+xz0XJvR281iWZiCLBOScSP3i
+	 LqP5xels4tWNwlUVhgYw+PvSzNvSZ7whZ3EqrlHXcvMVpSwk8m4JMw4Lf33RFa6ssw
+	 FWfkIzrdANFu+Ksz0H8gqwE2TDfvbdYwY0nIluhA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4AB8F8022C;
-	Fri, 20 Dec 2019 14:02:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B68FDF8022C;
+	Fri, 20 Dec 2019 14:09:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C374FF8014F; Fri, 20 Dec 2019 14:02:56 +0100 (CET)
+ id 8C955F8014F; Fri, 20 Dec 2019 14:09:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 64A2CF800B5
- for <alsa-devel@alsa-project.org>; Fri, 20 Dec 2019 14:02:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 64A2CF800B5
+ by alsa1.perex.cz (Postfix) with ESMTP id C62DFF800B5
+ for <alsa-devel@alsa-project.org>; Fri, 20 Dec 2019 14:09:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C62DFF800B5
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 011D630E;
- Fri, 20 Dec 2019 05:02:53 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D144430E;
+ Fri, 20 Dec 2019 05:09:14 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 72F493F719;
- Fri, 20 Dec 2019 05:02:52 -0800 (PST)
-Date: Fri, 20 Dec 2019 13:02:50 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4EBF63F719;
+ Fri, 20 Dec 2019 05:09:14 -0800 (PST)
+Date: Fri, 20 Dec 2019 13:09:12 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <20191220130250.GG4790@sirena.org.uk>
-References: <20191219213257.366145-1-marex@denx.de>
- <20191220130030.GE4790@sirena.org.uk>
- <8769149d-99c4-f577-bc9b-c621c4f3eba4@denx.de>
-MIME-Version: 1.0
-In-Reply-To: <8769149d-99c4-f577-bc9b-c621c4f3eba4@denx.de>
-X-Cookie: I think we're in trouble.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- Oleksandr Suvorov <oleksandr.suvorov@toradex.com>, alsa-devel@alsa-project.org,
- festevam@gmail.com, Igor Opaniuk <igor.opaniuk@toradex.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: sgtl5000: Fix VDDA and VDDIO
-	comparison
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20191219125140.47689-1-broonie@kernel.org>
+Message-Id: <applied-20191219125140.47689-1-broonie@kernel.org>
+X-Patchwork-Hint: ignore
+Cc: Tzung-Bi Shih <tzungbi@google.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>
+Subject: [alsa-devel] Applied "ASoC: max98090: Remove empty suspend
+	function" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,58 +61,81 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7514268705244091333=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============7514268705244091333==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qoTlaiD+Y2fIM3Ll"
-Content-Disposition: inline
+   ASoC: max98090: Remove empty suspend function
 
+has been applied to the asoc tree at
 
---qoTlaiD+Y2fIM3Ll
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
 
-On Fri, Dec 20, 2019 at 02:01:30PM +0100, Marek Vasut wrote:
-> On 12/20/19 2:00 PM, Mark Brown wrote:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-> > This sort of peering inside the internals of the framework is obviously
-> > not OK, please add an interface for this if it's needed.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> It's needed, unless there is a better way to compare two regulators in
-> the driver already. Is there ?
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Like I said above "please add an interface for this if it's needed".
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---qoTlaiD+Y2fIM3Ll
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks,
+Mark
 
------BEGIN PGP SIGNATURE-----
+From d24a70636b8b2b41bf983e89bbaaaf301bb80de4 Mon Sep 17 00:00:00 2001
+From: Mark Brown <broonie@kernel.org>
+Date: Thu, 19 Dec 2019 12:51:40 +0000
+Subject: [PATCH] ASoC: max98090: Remove empty suspend function
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl38xnoACgkQJNaLcl1U
-h9DbHAf+Lb8bH/E5V9i6sONFGHgv7D/obMUEdh8/Vq01umFyJSgmUmm9tmc97Yfv
-FhGEgS1+Aj7vJ09bk0UHzqle2BH0YoSgwj5lTNznVsf4WZBKmpgnsXWVHSXMTZQc
-uNgyMl10txZ7ebtxRXBc87fgC81ynFvbwI+CrZJXm0qu40xzZQ18WwYD586BgNw7
-v5+zHYv1Qm6ZWpAYFdFKMcdwqegSgDkdiFQpShUvRxmMZeHUsYMpaFdxTVNlSEbc
-Q486xRRAAgMHhjB3a+lzA4KjU2Eh0dWI6nnzbuMqEhCzv9Kouoou28iMPzbAQMFc
-s1RS/Ve+fTK/4jP+LitKqeBg6xRwEw==
-=YH8u
------END PGP SIGNATURE-----
+The suspend function is empty so can be removed.
 
---qoTlaiD+Y2fIM3Ll--
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
+Link: https://lore.kernel.org/r/20191219125140.47689-1-broonie@kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/max98090.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
---===============7514268705244091333==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index da23810f958e..4c7b16d557e2 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -2838,17 +2838,12 @@ static int max98090_resume(struct device *dev)
+ 
+ 	return 0;
+ }
+-
+-static int max98090_suspend(struct device *dev)
+-{
+-	return 0;
+-}
+ #endif
+ 
+ static const struct dev_pm_ops max98090_pm = {
+ 	SET_RUNTIME_PM_OPS(max98090_runtime_suspend,
+ 		max98090_runtime_resume, NULL)
+-	SET_SYSTEM_SLEEP_PM_OPS(max98090_suspend, max98090_resume)
++	SET_SYSTEM_SLEEP_PM_OPS(NULL, max98090_resume)
+ };
+ 
+ static const struct i2c_device_id max98090_i2c_id[] = {
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============7514268705244091333==--

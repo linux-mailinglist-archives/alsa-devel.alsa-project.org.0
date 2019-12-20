@@ -2,53 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25610127B73
-	for <lists+alsa-devel@lfdr.de>; Fri, 20 Dec 2019 14:01:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D733127B75
+	for <lists+alsa-devel@lfdr.de>; Fri, 20 Dec 2019 14:02:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B878F1670;
-	Fri, 20 Dec 2019 14:00:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B878F1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 306A9168E;
+	Fri, 20 Dec 2019 14:01:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 306A9168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1576846907;
-	bh=K+rgoa8zN4AIQVXlsBMoYQKdArBhlEwuQQyKZH4cDP8=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1576846949;
+	bh=0D2/eAPwERXpsbqYALxLbrnd9Se3MjfPk7VGE3tnw64=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=esv8ad1Ee1JUWGJtjb6NR3WrVkMqOvzGpVtQz3Ox3qvlK9mMJHcNfVh5qmFLpu2eG
-	 khLXUm82MESucbSyhGihfqhvxpKP073yqOZn+6dZfM9gMkfe/n/ewFO7u5ZdM9dPkz
-	 +mcx4ZJsNq5/qrByPDomHjnGWm5eZqC1ms5K6I7w=
+	b=Sq0JqooUdx4PsKvvM0VvGBN2Fdeog77x79tRSohX9EkWgGyHXULnnV1c8QDBPMd3S
+	 t56zTootXLTMxX0i7Miqz3odX6NtPOnTG4ZngkpJAczIAQcS6Of3nG2RcMDmdN5lgJ
+	 UhY2yQhCyM0xfIFn2+u2LQZ2+9R69DeeotiVklJo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80BDCF80257;
-	Fri, 20 Dec 2019 14:00:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF04EF8014F;
+	Fri, 20 Dec 2019 14:01:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8B69CF8022C; Fri, 20 Dec 2019 14:00:37 +0100 (CET)
+ id 9CA2BF8015A; Fri, 20 Dec 2019 14:01:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E209BF80059
- for <alsa-devel@alsa-project.org>; Fri, 20 Dec 2019 14:00:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E209BF80059
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D408430E;
- Fri, 20 Dec 2019 05:00:32 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 53B4F3F719;
- Fri, 20 Dec 2019 05:00:32 -0800 (PST)
-Date: Fri, 20 Dec 2019 13:00:30 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Marek Vasut <marex@denx.de>
-Message-ID: <20191220130030.GE4790@sirena.org.uk>
+X-Spam-Status: No, score=-0.7 required=5.0 tests=RCVD_IN_DNSWL_LOW,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6CA02F800B5
+ for <alsa-devel@alsa-project.org>; Fri, 20 Dec 2019 14:01:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6CA02F800B5
+Received: from frontend01.mail.m-online.net (unknown [192.168.8.182])
+ by mail-out.m-online.net (Postfix) with ESMTP id 47fTQh3DlNz1rhZr;
+ Fri, 20 Dec 2019 14:01:32 +0100 (CET)
+Received: from localhost (dynscan1.mnet-online.de [192.168.6.70])
+ by mail.m-online.net (Postfix) with ESMTP id 47fTQh1j3Sz1rYZN;
+ Fri, 20 Dec 2019 14:01:32 +0100 (CET)
+X-Virus-Scanned: amavisd-new at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.8.182])
+ by localhost (dynscan1.mail.m-online.net [192.168.6.70]) (amavisd-new,
+ port 10024)
+ with ESMTP id Ykk33nqTz-H8; Fri, 20 Dec 2019 14:01:30 +0100 (CET)
+X-Auth-Info: jxv/HLLFfqHyKNojEYvmaHSkEtVrSr+mHmu7W+pQUcE=
+Received: from [IPv6:::1] (unknown [195.140.253.167])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.mnet-online.de (Postfix) with ESMTPSA;
+ Fri, 20 Dec 2019 14:01:30 +0100 (CET)
+To: Mark Brown <broonie@kernel.org>
 References: <20191219213257.366145-1-marex@denx.de>
+ <20191220130030.GE4790@sirena.org.uk>
+From: Marek Vasut <marex@denx.de>
+Message-ID: <8769149d-99c4-f577-bc9b-c621c4f3eba4@denx.de>
+Date: Fri, 20 Dec 2019 14:01:30 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20191219213257.366145-1-marex@denx.de>
-X-Cookie: I think we're in trouble.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20191220130030.GE4790@sirena.org.uk>
+Content-Language: en-US
 Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>,
  Oleksandr Suvorov <oleksandr.suvorov@toradex.com>, alsa-devel@alsa-project.org,
  festevam@gmail.com, Igor Opaniuk <igor.opaniuk@toradex.com>
@@ -66,58 +82,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2721814942742187495=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 12/20/19 2:00 PM, Mark Brown wrote:
+> On Thu, Dec 19, 2019 at 10:32:57PM +0100, Marek Vasut wrote:
+> 
+>>  #include "sgtl5000.h"
+>>  
+>> +#include "../../../drivers/regulator/internal.h"
+>> +
+> 
+> This sort of peering inside the internals of the framework is obviously
+> not OK, please add an interface for this if it's needed.
 
---===============2721814942742187495==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nHwqXXcoX0o6fKCv"
-Content-Disposition: inline
-
-
---nHwqXXcoX0o6fKCv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Dec 19, 2019 at 10:32:57PM +0100, Marek Vasut wrote:
-
->  #include "sgtl5000.h"
-> =20
-> +#include "../../../drivers/regulator/internal.h"
-> +
-
-This sort of peering inside the internals of the framework is obviously
-not OK, please add an interface for this if it's needed.
-
---nHwqXXcoX0o6fKCv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl38xe4ACgkQJNaLcl1U
-h9CnbAf/QhNG7otRihP4TheQyGNOeGGPK6YAS1/FJYJX56rqaxVUUuTfY3Kh+4ez
-MMaiODkz1qb7jS0AIjmmBX7/q5ip8Ww4JTd4YyGc8UU7I4fb1MeW4TMwpnGC5wow
-50Bkcbe1Y23YDAjqh3+J/BKDHiZcaeNW4p+GlZy2Q2psr5WXmC0D/Bgn43DplpZ+
-Rs4DjBFuOvgzC293U+gGvYqDzGfXapKjLacPyX0VvHyd6ZypemgbKmykw0IPSpYo
-7N8Pco8kmy6vRJennngwUxMkG5mjrdt6mM3miG6Ws2JwOkAiJExShPFX5q2HU6wr
-W8Wv88Zqv5bprM6yNuQt5ScZpHM02g==
-=hD8x
------END PGP SIGNATURE-----
-
---nHwqXXcoX0o6fKCv--
-
---===============2721814942742187495==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+It's needed, unless there is a better way to compare two regulators in
+the driver already. Is there ?
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2721814942742187495==--

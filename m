@@ -2,94 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D86861293AF
-	for <lists+alsa-devel@lfdr.de>; Mon, 23 Dec 2019 10:35:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 651391293B7
+	for <lists+alsa-devel@lfdr.de>; Mon, 23 Dec 2019 10:44:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 487B31681;
-	Mon, 23 Dec 2019 10:34:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 487B31681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 01D981675;
+	Mon, 23 Dec 2019 10:43:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 01D981675
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577093745;
-	bh=CwFPeRimQ7t3Bv58GMD9i2/R+7qw15uchSH0X/04HY4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ID/YMbf0aD5WlZx9KasLcTXAj5RJ9f/gJPV7mRuYFGytIJWA3ftb3KayuoN2OQbzH
-	 +Ai3c7mIRlnuvKjCJpwmDgkuWrmrmq2GSs0OiNqvxSofcc0hyFGHYS1b9SrtAcBoVp
-	 tACbfhRODRcGrGYVurG8R5dV9Fohelu8vBDSvv7k=
+	s=default; t=1577094271;
+	bh=BNTMe2UBHjNy/LOuDXl14hR8UP6FOI+Zos4bTAYvUl0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=I9Dbt/ol7J7QoJBlb+ILFZXjrQPqJM9B+4vut9AWOJ7C0lu7VZTDD0jhvh+uD0Ib5
+	 qCBLUSZ9t5sX6rKiaJZhnnAvK2HbEpiRBIm7JxMN2fsLXE3FPoJ7d3xtZ9dbhE0QG7
+	 qTsA3b499rcOnMtfDK15852cTKAtNhLpJVD+pQ2E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7B014F80130;
-	Mon, 23 Dec 2019 10:34:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 79EB5F80132;
+	Mon, 23 Dec 2019 10:42:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A215F80130; Mon, 23 Dec 2019 10:33:59 +0100 (CET)
+ id A5F7EF80130; Mon, 23 Dec 2019 10:42:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED autolearn=disabled
+ version=3.4.0
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
  [64.147.123.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5B80F80087
- for <alsa-devel@alsa-project.org>; Mon, 23 Dec 2019 10:33:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5B80F80087
+ by alsa1.perex.cz (Postfix) with ESMTPS id 14CB9F800AD
+ for <alsa-devel@alsa-project.org>; Mon, 23 Dec 2019 10:42:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14CB9F800AD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="PK0yd5bM"; 
+ header.b="7LnUOXDr"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="aTsSFP2k"
+ header.i=@messagingengine.com header.b="FSa7JQLH"
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 0C8A7418;
- Mon, 23 Dec 2019 04:33:51 -0500 (EST)
+ by mailout.west.internal (Postfix) with ESMTP id 8BBE26DA;
+ Mon, 23 Dec 2019 04:42:38 -0500 (EST)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Mon, 23 Dec 2019 04:33:52 -0500
+ by compute1.internal (MEProxy); Mon, 23 Dec 2019 04:42:38 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=xPta1XNidzF35p51P4vuWxHsOt
- 8PxiI4r2lRRbJpcTg=; b=PK0yd5bMy0rnGEf+SK2Cd3+fIQ5czAfySAmceaHPPz
- 4ZQ/cFWcOfxHy84k+LGiNnYoLz1GvsVFqPSjelUS+mo1F3RzSB1UzoohGfDZWXcL
- 8CczF9R5SUyt6RkowTEiXGNGfh8DH7qOXvGE3zhd7vprfzv9g1hdR07awcjIcLJJ
- rE9vQODGjKqOO4feNdfivvSEyAHEyq7oN0lfhY9ViWVAMeQQGdA0uWxvZ5fqJ3Bz
- +rna/v5LAmrheCG7konhAvMUvUTMPtZzZ5TDwA3bGbi1yx2WPtsb3YgP3AqFCMpC
- ty0dD4ic0Shr9WfqH2MXrmoxiYbr/d7EJKtkMR3og62w==
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=+fLWAYPWZIaw1Zqkpb8XGCayYGJ
+ T5gTpaf5XnI0uavY=; b=7LnUOXDrm0KSpq3537DPy4fY+/PmWZn0XfMkaGa3fkw
+ RnrrlI/rM9nnJQTZKuzfLXGTCjYHa9OdGMSx9WIRffgM6d2YpdPWywwijJr+vUXm
+ TFb9T7Sna3sudKurD1B2GHIW+I/kMGu/ilReHY+rrOp2MqAdGQeo/b+LQuR0Amtg
+ gWpoiSmpeYVK2ncS34m/MpHwpAH0l/mYnkMVzlXAEV60h4l3vtKLzQ8lY4NctP1Q
+ jQxIYt9tU7zErI1KRj2zmsDWduuNqKk8JOaH5JYE0x2ZPLJwliNYao3iDVzq2Q40
+ 7wK73+kTuw7CcklTqF+Y8FzmuSza7pzwhekvmEGMuOQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=xPta1XNidzF35p51P
- 4vuWxHsOt8PxiI4r2lRRbJpcTg=; b=aTsSFP2kL51h/WC+qLYZkM+yoqqXlxOYs
- EftxEOJiLbUr/hiAc9n5ow5XmqP1m/hVxvlhngg0TSoGqWRYe6FFBScPCjKx2jcl
- uh7OFcHO8Gu/X09TgkPry3MKZ5B4pZSol+VtcPZuhO6Gk82PmybH10dAqMEzz9qW
- lJLK9lbdisreFvNKRzvQfjOKs2zIeFIY19SGoWXtN0yngFGLXR8SD14l4iGxLgoA
- gNcoQgymSZ/uVofnRxh42HDTrO4Pbdx6x7nWz4U1VUo2Y5kE33befK7RnzRRF3Q1
- GKNh3aEJBRQvxOEBBX4oU8SLbEd/I2szcStNSet9/RQMpPMiQ2TOg==
-X-ME-Sender: <xms:_4kAXmjuGUmTfb9_5cpH_VoZ43OxUs6vRafh4kq0gm90ubLFQ0YVvA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvddvtddgtdehucetufdoteggodetrfdotf
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=+fLWAY
+ PWZIaw1Zqkpb8XGCayYGJT5gTpaf5XnI0uavY=; b=FSa7JQLHmeCXswNlvtI/jb
+ CqMnS1sC3xfFEDW54vusdQegD3INMp4NZr+s5+O6FJ2m7mbWxkIqKKYaZJlNYOAz
+ vCN24eZ34nWasGihR8/NQ1yizPhd54JJbndkCrBUqDaSxATX1BUWk4a/ho8E7hkM
+ VqGdOs4Otxrtqt7AAGUhzcYb2ahBczkiOGffYvv9j5WLVQrAmFpiDfVZmzRdBCTi
+ ufrYC53Scvui3NIhnqnht2Eb+ZTL1F1RJTtl1Yt6RKX6yU77DYkPnAo+Y3BEOJVH
+ dE4vZRZW3onW27Bpalo0Iru5Ga6zNIqB4slT8n0vj9N4zDZWsHzLVMnEAtTtfWIw
+ ==
+X-ME-Sender: <xms:DYwAXs7gsONTH7-C55VyQN2HULCBEL1EwD2hpaKxBlmNiu1zf8aIlg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvddvtddgtdejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgrshhh
- ihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedugedrfedrjeehrddukedunecurf
- grrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdr
- jhhpnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:_4kAXqjX3cocU6O2ux-rMrcrcs6LuXLeaTf5oY5Qt0zcRnHQ0t6TJQ>
- <xmx:_4kAXmlpJ_W6lKe7DYygl_IKrxcXavLE7w8ZJkvhBS-2hPDSyxZCZg>
- <xmx:_4kAXiHUQtO4b07YL_7Gp_pL8T8qLzafuSyPCGDEG7dQDjobADPAnA>
- <xmx:_4kAXhKt2AkWPgva47sN9ObsGtfhWedL9D-JlkfyW-GXOHkEqQJJEA>
-Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6E51580062;
- Mon, 23 Dec 2019 04:33:50 -0500 (EST)
+ uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujggfsehttd
+ ertddtredvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
+ rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucffohhmrghinheptggrrhgurdhnvg
+ ifpdhgihhthhhusgdrtghomhdprhgvrgguthhhvgguohgtshdrihhonecukfhppedugedr
+ fedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhise
+ hsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:DYwAXln79euuizoFoA_20A1478VD5ks6_VEszxuJC5MTRxicvUr4GA>
+ <xmx:DYwAXhSROKGhSqX0_cNtUMbLz6odmjEYda6dvJh3pEGhdI7LyvZlMA>
+ <xmx:DYwAXigAsGiBSC2avAkR62DeeEKD-93O1yRy_4LE9MogddWiNS2FNQ>
+ <xmx:DowAXoXA9Gp0K-pnJH9fdlPDNO15QiAq89ZrFgu21wAwx3vAOIkNdA>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id D882180062;
+ Mon, 23 Dec 2019 04:42:36 -0500 (EST)
+Date: Mon, 23 Dec 2019 18:42:34 +0900
 From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 To: tiwai@suse.de
-Date: Mon, 23 Dec 2019 18:33:47 +0900
-Message-Id: <20191223093347.15279-1-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
+Message-ID: <20191223094233.GA15438@workstation>
+Mail-Followup-To: tiwai@suse.de, alsa-devel@alsa-project.org
+References: <20191223093347.15279-1-o-takashi@sakamocchi.jp>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191223093347.15279-1-o-takashi@sakamocchi.jp>
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH] ALSA: ctl: allow TLV read operation for
-	callback type of element in locked case
+Subject: Re: [alsa-devel] [PATCH] ALSA: ctl: allow TLV read operation for
+ callback type of element in locked case
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,51 +114,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A design of ALSA control core allows applications to execute three
-operations for TLV feature; read, write and command. Furthermore, it
-allows driver developers to process the operations by two ways; allocated
-array or callback function. In the former, read operation is just allowed,
-thus developers uses the latter when device driver supports variety of
-models or the target model is expected to dynamically change information
-stored in TLV container.
+On Mon, Dec 23, 2019 at 06:33:47PM +0900, Takashi Sakamoto wrote:
+> At present, when an element has callback function for TLV information,
+> TLV read operation returns EPERM if the element is locked. On the
+> other hand, the read operation is success when an element has allocated
+> array for TLV information. In both cases, read operation is success for
+> element value expectedly.
 
-The core also allows applications to lock any element so that the other
-applications can't perform write operation to the element for element
-value and TLV information. When the element is locked, write and command
-operation for TLV information are prohibited as well as element value.
-Any read operation should be allowed in the case.
+You can regenerate the issue by executing below Python 3 scripts:
+(Installation of alsa-gobject[1], PyGObject[2] and amixer(1) in
+alsa-utils is required.)
 
-At present, when an element has callback function for TLV information,
-TLV read operation returns EPERM if the element is locked. On the
-other hand, the read operation is success when an element has allocated
-array for TLV information. In both cases, read operation is success for
-element value expectedly.
+After element is locked, amixer reports EPERM for any read operation of
+TLV information.
 
-This commit fixes the bug. This change can be backported to v4.14
-kernel or later.
----
- sound/core/control.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+```
+#########after locked#########
+numid=28,iface=PCM,name='Playback Channel Map'
+  ; type=INTEGER,access=r---lR--,values=6,min=0,max=36,step=0
+  : values=0,0,0,0,0,0
+amixer: Control hw:1 element TLV read error: Operation not permitted
+```
 
-diff --git a/sound/core/control.c b/sound/core/control.c
-index 3fa1171dc1c2..49f3428dfacb 100644
---- a/sound/core/control.c
-+++ b/sound/core/control.c
-@@ -1398,8 +1398,9 @@ static int call_tlv_handler(struct snd_ctl_file *file, int op_flag,
- 	if (kctl->tlv.c == NULL)
- 		return -ENXIO;
- 
--	/* When locked, this is unavailable. */
--	if (vd->owner != NULL && vd->owner != file)
-+	// Write and command operations are not allowed for locked element.
-+	if (op_flag != SNDRV_CTL_TLV_OP_READ &&
-+	    vd->owner != NULL && vd->owner != file)
- 		return -EPERM;
- 
- 	return kctl->tlv.c(kctl, op_flag, size, buf);
--- 
-2.20.1
+======== 8< --------
+#!/usr/bin/env python3
 
+from sys import argv,exit
+import subprocess
+
+import gi
+gi.require_version('ALSACtl', '0.0')
+from gi.repository import ALSACtl
+
+def lock_elems(card, targets, locked):
+    for target in targets:
+        card.lock_elem(target, locked)
+
+
+def run_amixer(label, targets):
+    print('{:#^30}'.format(label))
+    args = ['amixer', '-c', str(card_id), 'cget', '(placeholder)']
+    for target in targets:
+        args[4] = "iface=PCM,name='{}'".format(target.get_name())
+        subprocess.run(args)
+
+
+if len(argv) < 2:
+    print('One argument is required for the numerical ID of soundcard.')
+    exit(1)
+card_id = int(argv[1])
+
+card = ALSACtl.Card.new()
+card.open(card_id)
+
+targets = list(filter(lambda e: e.get_name().find("Channel Map") >= 0,
+                  card.get_elem_id_list()))
+run_amixer('before locked', targets)
+
+lock_elems(card, targets, True)
+run_amixer('after locked', targets)
+
+lock_elems(card, targets, False)
+run_amixer('after released', targets)
+
+# The lock is surely released automatically when control character device is
+# released. Thus it's safe to terminate the above codes in its middle.
+======== 8< --------
+
+[1] https://github.com/alsa-project/alsa-gobject/
+[2] https://pygobject.readthedocs.io/en/latest/
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

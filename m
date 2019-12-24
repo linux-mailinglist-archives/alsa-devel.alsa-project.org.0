@@ -2,58 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C1DB129BDA
-	for <lists+alsa-devel@lfdr.de>; Tue, 24 Dec 2019 00:39:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CE0E129C10
+	for <lists+alsa-devel@lfdr.de>; Tue, 24 Dec 2019 01:29:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C80DF1697;
-	Tue, 24 Dec 2019 00:38:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C80DF1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id D7B9E169F;
+	Tue, 24 Dec 2019 01:28:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D7B9E169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577144357;
-	bh=I0I9lKHKw0cEEpNtJeaIqLQ27n3LydJNjsQRl7RPOhQ=;
+	s=default; t=1577147344;
+	bh=4eHHu9VOipG5/ts3Dhb50UbIU+FRnPSo3Hk+n2WKv54=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=odNdnpeaZrNxWtBXqEcOP423nYGU0iGbnjMR74Iovc30gbiFcgLBDnZ9jRQgA3qok
-	 x8e/+BIK+3xVmaxfvhUp1vkLKwhKjf2P1Tf7IXBqBAVY05aoTL/6GxwHCGUFhqDjz0
-	 0t3ntJonOxjR1KdKbm9r15+vc6uZXmTPW0v7cPCM=
+	b=k1rkQ/0AdkXGjMZkyjpYtAFXcgEYrLc1jJsqEPZYF0QGf0N4cjPNT69zrPT+lrBMD
+	 1MdPP9gmYneAHAHicapyg84SiozL0LzwY/5m0mSZJ+7731TMvU45gUX+eLni2huRSn
+	 0VNdoLL1Tn4GVSvGBE/yUQ5h0KgIicf4R94dPcRQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D2FAF80130;
-	Tue, 24 Dec 2019 00:37:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8302CF80132;
+	Tue, 24 Dec 2019 01:27:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2173F80130; Tue, 24 Dec 2019 00:37:30 +0100 (CET)
+ id 2C6C5F80130; Tue, 24 Dec 2019 01:27:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from llmx3.ll.mit.edu (llmx3.ll.mit.edu [129.55.12.49])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from crapouillou.net (outils.crapouillou.net [89.234.176.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D214F800AD
- for <alsa-devel@alsa-project.org>; Tue, 24 Dec 2019 00:37:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D214F800AD
-Received: from LLE2K16-MBX04.mitll.ad.local (LLE2K16-MBX04.mitll.ad.local) by
- llmx3.ll.mit.edu (unknown) with ESMTPS id xBNKPwfY013295 for
- <alsa-devel@alsa-project.org>; Mon, 23 Dec 2019 15:25:59 -0500
-From: David Ward <david.ward@ll.mit.edu>
-To: <alsa-devel@alsa-project.org>
-Date: Mon, 23 Dec 2019 15:25:28 -0500
-Message-ID: <1577132728-12705-1-git-send-email-david.ward@ll.mit.edu>
-X-Mailer: git-send-email 1.8.3.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7854FF800E8
+ for <alsa-devel@alsa-project.org>; Tue, 24 Dec 2019 01:27:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7854FF800E8
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=crapouillou.net header.i=@crapouillou.net
+ header.b="iBUc0x4v"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1577147234; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:references; bh=fNIZfTznwRicv1L3tfCg8DVacLlI9bpQ8BJN1yvLWCU=;
+ b=iBUc0x4vbq+4lSji13z2d+saT7tVMXDrBcYb1Mj1lT1mD7lBmiXT5dbD4coZWZLN/2PWdb
+ w5xk54yGkUIvZyEz/v/FeI0qcWGwXmgBT5EVS6R8tMR+lEPmUpxPPuUtUDIuuotgfLHta2
+ ZVYMPE6m2L9hpT4daVCC9TWV7Wgj9Cw=
+From: Paul Cercueil <paul@crapouillou.net>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Date: Tue, 24 Dec 2019 01:27:07 +0100
+Message-Id: <20191224002708.1207884-1-paul@crapouillou.net>
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-12-23_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=1
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-1912230176
-Cc: David Ward <david.ward@ll.mit.edu>
-Subject: [alsa-devel] [PATCH alsa-lib,
-	alsa-plugins] Update the attributes.m4 macro file from xine
+Cc: Paul Cercueil <paul@crapouillou.net>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, od@zcrc.me, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH 1/2] dt-bindings: sound: Convert jz47*-codec
+	doc to YAML
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,97 +70,143 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhpcyBmaWxlIHdhcyBpbXBvcnRlZCBmcm9tIHRoZSB4aW5lIHByb2plY3QuIFVwZGF0ZSBpdCB0
-byB0aGUgY3VycmVudApyZXZpc2lvbiwgd2hpY2ggcmVzb2x2ZXMgdGhlICJubyBBQ19MQU5HX1NP
-VVJDRSBjYWxsIGRldGVjdGVkIGluIGJvZHkiCndhcm5pbmdzIHdpdGggQXV0b2NvbmYgMi42OCBv
-ciBsYXRlci4KClNpZ25lZC1vZmYtYnk6IERhdmlkIFdhcmQgPGRhdmlkLndhcmRAbGwubWl0LmVk
-dT4KLS0tCiBtNC9hdHRyaWJ1dGVzLm00IHwgMzMgKysrKysrKysrKysrKysrKysrKystLS0tLS0t
-LS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMjAgaW5zZXJ0aW9ucygrKSwgMTMgZGVsZXRpb25zKC0p
-CgpkaWZmIC0tZ2l0IGEvbTQvYXR0cmlidXRlcy5tNCBiL200L2F0dHJpYnV0ZXMubTQKaW5kZXgg
-ZTg2NDU2YS4uM2Q5YzI1NiAxMDA2NDQKLS0tIGEvbTQvYXR0cmlidXRlcy5tNAorKysgYi9tNC9h
-dHRyaWJ1dGVzLm00CkBAIC0xLDYgKzEsNiBAQAogZG5sIE1hY3JvcyB0byBjaGVjayB0aGUgcHJl
-c2VuY2Ugb2YgZ2VuZXJpYyAobm9uLXR5cGVkKSBzeW1ib2xzLgotZG5sIENvcHlyaWdodCAoYykg
-MjAwNi0yMDA3IERpZWdvIFBldHRlbsOyIDxmbGFtZWV5ZXNAZ21haWwuY29tPgotZG5sIENvcHly
-aWdodCAoYykgMjAwNi0yMDA3IHhpbmUgcHJvamVjdAorZG5sIENvcHlyaWdodCAoYykgMjAwNi0y
-MDA4IERpZWdvIFBldHRlbsOyIDxmbGFtZWV5ZXNAZ21haWwuY29tPgorZG5sIENvcHlyaWdodCAo
-YykgMjAwNi0yMDA4IHhpbmUgcHJvamVjdAogZG5sCiBkbmwgVGhpcyBwcm9ncmFtIGlzIGZyZWUg
-c29mdHdhcmU7IHlvdSBjYW4gcmVkaXN0cmlidXRlIGl0IGFuZC9vciBtb2RpZnkKIGRubCBpdCB1
-bmRlciB0aGUgdGVybXMgb2YgdGhlIEdOVSBHZW5lcmFsIFB1YmxpYyBMaWNlbnNlIGFzIHB1Ymxp
-c2hlZCBieQpAQCAtMjUsNyArMjUsNyBAQCBkbmwgTGljZW5zZSB3aGVuIHVzaW5nIG9yIGRpc3Ry
-aWJ1dGluZyBzdWNoIHNjcmlwdHMsIGV2ZW4gdGhvdWdoIHBvcnRpb25zCiBkbmwgb2YgdGhlIHRl
-eHQgb2YgdGhlIE1hY3JvIGFwcGVhciBpbiB0aGVtLiBUaGUgR05VIEdlbmVyYWwgUHVibGljCiBk
-bmwgTGljZW5zZSAoR1BMKSBkb2VzIGdvdmVybiBhbGwgb3RoZXIgdXNlIG9mIHRoZSBtYXRlcmlh
-bCB0aGF0CiBkbmwgY29uc3RpdHV0ZXMgdGhlIEF1dG9jb25mIE1hY3JvLgotZG5sIAorZG5sCiBk
-bmwgVGhpcyBzcGVjaWFsIGV4Y2VwdGlvbiB0byB0aGUgR1BMIGFwcGxpZXMgdG8gdmVyc2lvbnMg
-b2YgdGhlCiBkbmwgQXV0b2NvbmYgTWFjcm8gcmVsZWFzZWQgYnkgdGhpcyBwcm9qZWN0LiBXaGVu
-IHlvdSBtYWtlIGFuZAogZG5sIGRpc3RyaWJ1dGUgYSBtb2RpZmllZCB2ZXJzaW9uIG9mIHRoZSBB
-dXRvY29uZiBNYWNybywgeW91IG1heSBleHRlbmQKQEAgLTM5LDcgKzM5LDcgQEAgQUNfREVGVU4o
-W0NDX0NIRUNLX0NGTEFHU19TSUxFTlRdLCBbCiAgIEFDX0NBQ0hFX1ZBTChBU19UUl9TSChbY2Nf
-Y3ZfY2ZsYWdzXyQxXSksCiAgICAgW2FjX3NhdmVfQ0ZMQUdTPSIkQ0ZMQUdTIgogICAgICBDRkxB
-R1M9IiRDRkxBR1MgJDEiCi0gICAgIEFDX0NPTVBJTEVfSUZFTFNFKFtpbnQgYTtdLAorICAgICBB
-Q19DT01QSUxFX0lGRUxTRShbQUNfTEFOR19TT1VSQ0UoW2ludCBhO10pXSwKICAgICAgICBbZXZh
-bCAiQVNfVFJfU0goW2NjX2N2X2NmbGFnc18kMV0pPSd5ZXMnIl0sCiAgICAgICAgW2V2YWwgIkFT
-X1RSX1NIKFtjY19jdl9jZmxhZ3NfJDFdKT0nbm8nIl0pCiAgICAgIENGTEFHUz0iJGFjX3NhdmVf
-Q0ZMQUdTIgpAQCAtNzEsNyArNzEsNyBAQCBBQ19ERUZVTihbQ0NfQ0hFQ0tfQ0ZMQUdfQVBQRU5E
-XSwgWwogICApCiAKICAgQVNfSUYoW2V2YWwgdGVzdCB4JF1BU19UUl9TSChbY2NfY3ZfY2ZsYWdz
-XyQxXSlbID0geHllc10sCi0gICAgW0NGTEFHUz0iJENGTEFHUyAkMSI7ICQyXSwgWyQzXSkKKyAg
-ICBbQ0ZMQUdTPSIkQ0ZMQUdTICQxIjsgREVCVUdfQ0ZMQUdTPSIkREVCVUdfQ0ZMQUdTICQxIjsg
-JDJdLCBbJDNdKQogXSkKIAogZG5sIENDX0NIRUNLX0NGTEFHU19BUFBFTkQoW0ZMQUcxIEZMQUcy
-XSwgW2FjdGlvbi1pZi1mb3VuZF0sIFthY3Rpb24taWYtbm90XSkKQEAgLTg5LDcgKzg5LDcgQEAg
-QUNfREVGVU4oW0NDX0NIRUNLX0xERkxBR1NdLCBbCiAgICAgQVNfVFJfU0goW2NjX2N2X2xkZmxh
-Z3NfJDFdKSwKICAgICBbYWNfc2F2ZV9MREZMQUdTPSIkTERGTEFHUyIKICAgICAgTERGTEFHUz0i
-JExERkxBR1MgJDEiCi0gICAgIEFDX0xJTktfSUZFTFNFKFtpbnQgbWFpbigpIHsgcmV0dXJuIDE7
-IH1dLAorICAgICBBQ19MSU5LX0lGRUxTRShbQUNfTEFOR19TT1VSQ0UoW2ludCBtYWluKCkgeyBy
-ZXR1cm4gMTsgfV0pXSwKICAgICAgICBbZXZhbCAiQVNfVFJfU0goW2NjX2N2X2xkZmxhZ3NfJDFd
-KT0neWVzJyJdLAogICAgICAgIFtldmFsICJBU19UUl9TSChbY2NfY3ZfbGRmbGFnc18kMV0pPSJd
-KQogICAgICBMREZMQUdTPSIkYWNfc2F2ZV9MREZMQUdTIgpAQCAtMTA5LDE0ICsxMDksMjEgQEAg
-QUNfREVGVU4oW0NDX05PVU5ERUZJTkVEXSwgWwogICAgICBkbmwgRnJlZUJTRCAoZXQgYWwuKSBk
-b2VzIG5vdCBjb21wbGV0ZSBsaW5raW5nIGZvciBzaGFyZWQgb2JqZWN0cyB3aGVuIHB0aHJlYWRz
-CiAgICAgIGRubCBhcmUgcmVxdWVzdGVkLCBhcyBkaWZmZXJlbnQgaW1wbGVtZW50YXRpb25zIGFy
-ZSBwcmVzZW50OyB0byBhdm9pZCBwcm9ibGVtcwogICAgICBkbmwgdXNlIC1XbCwteixkZWZzIG9u
-bHkgZm9yIHRob3NlIHBsYXRmb3JtIG5vdCBiZWhhdmluZyB0aGlzIHdheS4KLSAgICAgKi1mcmVl
-YnNkKikgOzsKKyAgICAgZG5sCisgICAgIGRubCBNaW5HVyBwbGF0Zm9ybXM6IGZvciBsaWJyYXJp
-ZXMgcmVxdWlyZWQgLW5vLXVuZGVmaW5lZCwKKyAgICAgZG5sIHVzZSBpdCBvbmx5IGZvciBsaWJy
-YXJpZXMgaW4gbWluZ3czMi13NjQgCisKKyAgICAgKi1mcmVlYnNkKiB8ICotb3BlbmJzZCopIDs7
-CisgICAgICotbWluZ3cqKQorICAgICAgICBMREZMQUdTX05PVU5ERUZJTkVEPSItbm8tdW5kZWZp
-bmVkIgorICAgICAgICA7OwogICAgICAqKQogICAgICAgICBkbmwgRmlyc3Qgb2YgYWxsIGNoZWNr
-IGZvciB0aGUgLS1uby11bmRlZmluZWQgdmFyaWFudCBvZiBHTlUgbGQuIFRoaXMgYWxsb3dzCiAg
-ICAgICAgIGRubCBmb3IgYSBtdWNoIG1vcmUgcmVhZGFibGUgY29tbWFuZGxpbmUsIHNvIHRoYXQg
-cGVvcGxlIGNhbiB1bmRlcnN0YW5kIHdoYXQKICAgICAgICAgZG5sIGl0IGRvZXMgd2l0aG91dCBn
-b2luZyB0byBsb29rIGZvciB3aGF0IHRoZSBoZWNrIC16IGRlZnMgZG9lcy4KLSAgIAlmb3IgcG9z
-c2libGVfZmxhZ3MgaW4gIi1XbCwtLW5vLXVuZGVmaW5lZCIgIi1XbCwteixkZWZzIjsgZG8KKwlm
-b3IgcG9zc2libGVfZmxhZ3MgaW4gIi1XbCwtLW5vLXVuZGVmaW5lZCIgIi1XbCwteixkZWZzIjsg
-ZG8KICAgICAgICAgICBDQ19DSEVDS19MREZMQUdTKFskcG9zc2libGVfZmxhZ3NdLCBbTERGTEFH
-U19OT1VOREVGSU5FRD0iJHBvc3NpYmxlX2ZsYWdzIl0pCi0JICBicmVhaworCSAgaWYgdGVzdCAi
-eCRMREZMQUdTX05PVU5ERUZJTkVEIiA9ICJ4IjsgdGhlbiBicmVhazsgZmkKICAgICAgICAgZG9u
-ZQogCTs7CiAgIGVzYWMKQEAgLTE0Nyw3ICsxNTQsNyBAQCBBQ19ERUZVTihbQ0NfQ0hFQ0tfQVRU
-UklCVVRFXSwgWwogICAgIEFTX1RSX1NIKFtjY19jdl9hdHRyaWJ1dGVfJDFdKSwKICAgICBbYWNf
-c2F2ZV9DRkxBR1M9IiRDRkxBR1MiCiAgICAgIENGTEFHUz0iJENGTEFHUyAkY2NfY3Zfd2Vycm9y
-IgotICAgICBBQ19DT01QSUxFX0lGRUxTRShbJDNdLAorICAgICBBQ19DT01QSUxFX0lGRUxTRShb
-QUNfTEFOR19TT1VSQ0UoWyQzXSldLAogICAgICAgIFtldmFsICJBU19UUl9TSChbY2NfY3ZfYXR0
-cmlidXRlXyQxXSk9J3llcyciXSwKICAgICAgICBbZXZhbCAiQVNfVFJfU0goW2NjX2N2X2F0dHJp
-YnV0ZV8kMV0pPSdubyciXSkKICAgICAgQ0ZMQUdTPSIkYWNfc2F2ZV9DRkxBR1MiCkBAIC0yNTcs
-NyArMjY0LDcgQEAgQUNfREVGVU4oW0NDX0ZMQUdfVklTSUJJTElUWV0sIFsKIAljY19jdl9mbGFn
-X3Zpc2liaWxpdHk9J3llcycsCiAJY2NfY3ZfZmxhZ192aXNpYmlsaXR5PSdubycpCiAgICAgIENG
-TEFHUz0iJGNjX2ZsYWdfdmlzaWJpbGl0eV9zYXZlX0NGTEFHUyJdKQotICAKKwogICBBU19JRihb
-dGVzdCAieCRjY19jdl9mbGFnX3Zpc2liaWxpdHkiID0gInh5ZXMiXSwKICAgICBbQUNfREVGSU5F
-KFtTVVBQT1JUX0ZMQUdfVklTSUJJTElUWV0sIDEsCiAgICAgICAgW0RlZmluZSB0aGlzIGlmIHRo
-ZSBjb21waWxlciBzdXBwb3J0cyB0aGUgLWZ2aXNpYmlsaXR5IGZsYWddKQpAQCAtMjk1LDExICsz
-MDIsMTEgQEAgQUNfREVGVU4oW0NDX0FUVFJJQlVURV9BTElHTkVEXSwgWwogICAgIFthY19zYXZl
-X0NGTEFHUz0iJENGTEFHUyIKICAgICAgQ0ZMQUdTPSIkQ0ZMQUdTICRjY19jdl93ZXJyb3IiCiAg
-ICAgIGZvciBjY19hdHRyaWJ1dGVfYWxpZ25fdHJ5IGluIDY0IDMyIDE2IDggNCAyOyBkbwotICAg
-ICAgICBBQ19DT01QSUxFX0lGRUxTRShbCisgICAgICAgIEFDX0NPTVBJTEVfSUZFTFNFKFtBQ19M
-QU5HX1NPVVJDRShbCiAgICAgICAgICAgaW50IG1haW4oKSB7CiAgICAgICAgICAgICBzdGF0aWMg
-Y2hhciBjIF9fYXR0cmlidXRlX18gKChhbGlnbmVkKCRjY19hdHRyaWJ1dGVfYWxpZ25fdHJ5KSkp
-ID0gMDsKICAgICAgICAgICAgIHJldHVybiBjOwotICAgICAgICAgIH1dLCBbY2NfY3ZfYXR0cmli
-dXRlX2FsaWduZWQ9JGNjX2F0dHJpYnV0ZV9hbGlnbl90cnk7IGJyZWFrXSkKKyAgICAgICAgICB9
-XSldLCBbY2NfY3ZfYXR0cmlidXRlX2FsaWduZWQ9JGNjX2F0dHJpYnV0ZV9hbGlnbl90cnk7IGJy
-ZWFrXSkKICAgICAgZG9uZQogICAgICBDRkxBR1M9IiRhY19zYXZlX0NGTEFHUyIKICAgXSkKLS0g
-CjEuOC4zLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRw
-czovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+Convert ingenic,jz4740-codec.txt and ingenic,jz4725b-codec.txt to one
+single ingenic,codec.yaml file, since they share the same binding.
+
+Add the ingenic,jz4770-codec compatible string in the process.
+
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+---
+ .../bindings/sound/ingenic,codec.yaml         | 55 +++++++++++++++++++
+ .../bindings/sound/ingenic,jz4725b-codec.txt  | 20 -------
+ .../bindings/sound/ingenic,jz4740-codec.txt   | 20 -------
+ 3 files changed, 55 insertions(+), 40 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/ingenic,codec.yaml
+ delete mode 100644 Documentation/devicetree/bindings/sound/ingenic,jz4725b-codec.txt
+ delete mode 100644 Documentation/devicetree/bindings/sound/ingenic,jz4740-codec.txt
+
+diff --git a/Documentation/devicetree/bindings/sound/ingenic,codec.yaml b/Documentation/devicetree/bindings/sound/ingenic,codec.yaml
+new file mode 100644
+index 000000000000..eb4be86464bb
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/ingenic,codec.yaml
+@@ -0,0 +1,55 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/ingenic,codec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ingenic JZ47xx internal codec DT bindings
++
++maintainers:
++  - Paul Cercueil <paul@crapouillou.net>
++
++properties:
++  $nodename:
++    pattern: '^audio-codec@.*'
++
++  compatible:
++    oneOf:
++      - const: ingenic,jz4770-codec
++      - const: ingenic,jz4725b-codec
++      - const: ingenic,jz4740-codec
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    items:
++      - const: aic
++
++  '#sound-dai-cells':
++    const: 0
++
++additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - '#sound-dai-cells'
++
++examples:
++  - |
++    #include <dt-bindings/clock/jz4740-cgu.h>
++    codec: audio-codec@10020080 {
++      compatible = "ingenic,jz4740-codec";
++      reg = <0x10020080 0x8>;
++      #sound-dai-cells = <0>;
++      clocks = <&cgu JZ4740_CLK_AIC>;
++      clock-names = "aic";
++    };
++
++...
+diff --git a/Documentation/devicetree/bindings/sound/ingenic,jz4725b-codec.txt b/Documentation/devicetree/bindings/sound/ingenic,jz4725b-codec.txt
+deleted file mode 100644
+index 05adc0d47b13..000000000000
+--- a/Documentation/devicetree/bindings/sound/ingenic,jz4725b-codec.txt
++++ /dev/null
+@@ -1,20 +0,0 @@
+-Ingenic JZ4725B codec controller
+-
+-Required properties:
+-- compatible : "ingenic,jz4725b-codec"
+-- reg : codec registers location and length
+-- clocks : phandle to the AIC clock.
+-- clock-names: must be set to "aic".
+-- #sound-dai-cells: Must be set to 0.
+-
+-Example:
+-
+-codec: audio-codec@100200a4 {
+-	compatible = "ingenic,jz4725b-codec";
+-	reg = <0x100200a4 0x8>;
+-
+-	#sound-dai-cells = <0>;
+-
+-	clocks = <&cgu JZ4725B_CLK_AIC>;
+-	clock-names = "aic";
+-};
+diff --git a/Documentation/devicetree/bindings/sound/ingenic,jz4740-codec.txt b/Documentation/devicetree/bindings/sound/ingenic,jz4740-codec.txt
+deleted file mode 100644
+index 1ffcade87e7b..000000000000
+--- a/Documentation/devicetree/bindings/sound/ingenic,jz4740-codec.txt
++++ /dev/null
+@@ -1,20 +0,0 @@
+-Ingenic JZ4740 codec controller
+-
+-Required properties:
+-- compatible : "ingenic,jz4740-codec"
+-- reg : codec registers location and length
+-- clocks : phandle to the AIC clock.
+-- clock-names: must be set to "aic".
+-- #sound-dai-cells: Must be set to 0.
+-
+-Example:
+-
+-codec: audio-codec@10020080 {
+-	compatible = "ingenic,jz4740-codec";
+-	reg = <0x10020080 0x8>;
+-
+-	#sound-dai-cells = <0>;
+-
+-	clocks = <&cgu JZ4740_CLK_AIC>;
+-	clock-names = "aic";
+-};
+-- 
+2.24.0
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

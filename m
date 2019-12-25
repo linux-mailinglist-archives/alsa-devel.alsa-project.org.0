@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83FD312AADE
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Dec 2019 09:08:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53D1D12AADF
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Dec 2019 09:09:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDFA716E5;
-	Thu, 26 Dec 2019 09:07:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDFA716E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3E1016FD;
+	Thu, 26 Dec 2019 09:08:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3E1016FD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577347725;
+	s=default; t=1577347772;
 	bh=BNgvS61hkvQppMXlbS88mUOss4X7BX4/mF2llM6ip1Y=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Ve93i15gYWiV65RxMhfg5XDpEq3U41WedmBGs0a4vaGggAG8GOgy49dpYRLgh34HO
-	 1rfo952IHUYbXLMkl0kOEHI0Qi6f9pQkH6ipSxUtNfOgULedHnxO01hSiD+qpJpUVe
-	 qhyUTwunmbE3PQMsRKG+sqvEmWdTGZ0q6GtlrkzE=
+	b=SDdqMhm2TxkKhOV6LFkiaf9Z81YU2D/i0zMKPNrt/rC+LehC9+5OAoDfNa7wlSNPM
+	 mrEkEQmD+ifwjb0jGI7ZUWQ+TP75pDnMya9jFMeLtmOrtM69xzGWRo3DhPlTejUTaN
+	 8I/opeJj9AkHPCHQ7/uKxqaRe+aKTgbE6eYaSx3o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1CFBAF800E3;
-	Thu, 26 Dec 2019 09:07:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2192F80264;
+	Thu, 26 Dec 2019 09:07:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2DFC7F80138; Wed, 25 Dec 2019 03:22:07 +0100 (CET)
+ id 1EB16F80138; Wed, 25 Dec 2019 03:34:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,58 +34,59 @@ Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
  [IPv6:2a00:1450:4864:20::341])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57783F800E3
- for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 03:22:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57783F800E3
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E918F800E3
+ for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 03:34:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E918F800E3
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="j2Rs4ozr"
-Received: by mail-wm1-x341.google.com with SMTP id b19so3474666wmj.4
- for <alsa-devel@alsa-project.org>; Tue, 24 Dec 2019 18:22:02 -0800 (PST)
+ header.b="CqU06Iq8"
+Received: by mail-wm1-x341.google.com with SMTP id c127so2885450wme.1
+ for <alsa-devel@alsa-project.org>; Tue, 24 Dec 2019 18:34:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=message-id:from:to:cc:subject:date:mime-version
  :content-transfer-encoding;
  bh=rJ+8IH18zzODLKaNgkx0pG4CqT3ZWdQ3iFDsdDHCiFw=;
- b=j2Rs4ozrsy3uKCrnhOgJ7kmGSecpmduNqNFVRDxcdiU0F5dtPHdx0WFl9ngePW/mZL
- M76vjk9LS+bjm2IROBaTbDl2H3TJNl8nFMUNnYxQx081pYo/76zituHfT+q3AVicFEzo
- 2pRBd8BN8j7SwX7g6DnzWipQmnYoQn98/EsebMAmrpEzjptlm+x1TQJF2ZD72q33iGhV
- xkCcnrC+y7pycvSog6qfrbAmJJGiuOMceeFuCO9fkzqz7GjkvEcjEaX2XZ7ve1pbGoWF
- 8NuJ82au3vBxyiqo1+ymF+CEET7M7hu4/EpgEtzoVX3WYjzIzgmo2gOvpZhJ36jkQoxw
- dXIw==
+ b=CqU06Iq8cWki7B5jned3VxSOvam0iUgmSP34y0mcpTY+Q9A/OCbbZkfoV1bruluoI/
+ EwkQOfcg6JLxsRqcB8IegDo3OhfgW2guWLfutHMgzsPf7PzwL7PBhymg1rcMa5ts0dTp
+ 963u6ArSt60boD4lnZx4pzUNdZxxRheGGPm6aabG39YEcMLCg907Sd4IGTzsagyYHylb
+ Lf1gAKA/nSqyEaVmlD3Hs7AEvLyKtMikNcOtT/yDo4BHyCF+QgfnGfgzjm9Miz+B54hY
+ Qq8UnuFIl9EiMjRxR7aUBRtDDNZCe5knUC9/V01h3B62EXx1SIEosUVTWDUeNe0NqgeN
+ 0bRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:message-id:from:to:cc:subject:date:mime-version
  :content-transfer-encoding;
  bh=rJ+8IH18zzODLKaNgkx0pG4CqT3ZWdQ3iFDsdDHCiFw=;
- b=Skf59snhi9JHWROQJvqmqyel3wz6wvGSac2ntU4E1ABbMDbbGwxAiDze6+6KG/gZxu
- +X8Q+x3Zd+BSDxkF7Kqc3daMc3XxXn6eM6+9XYhWvhh6aQKU+h2zK8N9J+yYj9opxAYx
- ciIxNf7JVWvEWp3pJPgd1mIYcpaHqIyy6DoLPg9Iz33aWjBIbQ04qZv/fFB/AUzU8drd
- CtHkC4UD+YvQWDg+ejPCIL/GM2Jkh9dRe9F32lqqmzH4x5kK1+KSqz8a4AF+wLoMm+ct
- +fK7HuKj6ZgLn/4wJ+l9/ww0p39t+QLa/l0RBewT9/oqTt4JUX7sSZfswF2F00dYqFET
- kNIw==
-X-Gm-Message-State: APjAAAW1TdT964a+/vSB+Z+r8z3NZMb0/8/w7KXhn7gRDXke3dtcryZt
- klFoSLTBMWQUfv2oHArZ11KkDeoG
-X-Google-Smtp-Source: APXvYqyNAAOz/zHJVxC6ssknHm19poi2Uj2328qfDd5a1JMsaspSQrMvm+jFqhD7qPJgFtO2ziFQqg==
-X-Received: by 2002:a1c:6389:: with SMTP id x131mr6254983wmb.155.1577240521677; 
- Tue, 24 Dec 2019 18:22:01 -0800 (PST)
+ b=Uzy0SB/+D1ZToCnp85vj/7vHvTGSzbT1iYieIE7HYwZaD64GS+2I1yf0KpcPlU3WGx
+ pXPQuizWCUsx8+P0n3c6rZKwn77yjAlYMLrIirEoteQ9voiSJDCAWnjdyYum5BjJm5Bw
+ hq8d/b5iuQJno564DCxSNgitvyJugz2sOD3u90nAFclO6tcv/8Gl9DSwBLnfG2iCHJJ3
+ 6RcsLfp8/F5K1R9+2vivhNX8gH4LFAede3geydfge3VotN0LChKeu/eyQZrMc+xJsM8L
+ 9BOZ9zNYhFFtrkYQsl2s6MD0z2il4Z3u7tps3fO+ThvdhOLLhr3+RRQA6427AQ6bdICX
+ CPMA==
+X-Gm-Message-State: APjAAAXCXuA8tLio30Ix4GSYvLFKMHqKnzORmcLm1frVyq0eVHHnRTIo
+ tZJRamhGN99fCM43/075vNl3+UzL
+X-Google-Smtp-Source: APXvYqzEziEMXnTc91pTnQ+hI2ibbbM3BoNveTvL0dIn1UtwkqmW5yG8fqRm3xySa66n4mAHT4G80g==
+X-Received: by 2002:a05:600c:210b:: with SMTP id
+ u11mr6760815wml.43.1577241269221; 
+ Tue, 24 Dec 2019 18:34:29 -0800 (PST)
 Received: from localhost.localdomain ([139.91.73.37])
- by smtp.gmail.com with ESMTPSA id x1sm25596709wru.50.2019.12.24.18.22.00
+ by smtp.gmail.com with ESMTPSA id a1sm25918891wrr.80.2019.12.24.18.34.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Dec 2019 18:22:00 -0800 (PST)
-Message-ID: <5e02c7c8.1c69fb81.19960.dbd7@mx.google.com>
-X-Google-Original-Message-ID: <20191225022157.51843-1---help>
+ Tue, 24 Dec 2019 18:34:28 -0800 (PST)
+Message-ID: <5e02cab4.1c69fb81.83bec.f334@mx.google.com>
+X-Google-Original-Message-ID: <20191225023424.52146-1---help>
 From: mickflemm@gmail.com
 X-Google-Original-From: --help
 To: alsa-devel@alsa-project.org,
 	tiwai@suse.de,
 	perex@perex.cz
-Date: Wed, 25 Dec 2019 04:21:57 +0200
+Date: Wed, 25 Dec 2019 04:34:24 +0200
 X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 26 Dec 2019 09:06:58 +0100
 Cc: Nick Kossifidis <mickflemm@gmail.com>
-Subject: [alsa-devel] [PATCH 1/1] [PATCH] ALSA: usb-audio: Add support for
-	Presonus Studio 1810c
+Subject: [alsa-devel] [PATCH] ALSA: usb-audio: Add support for Presonus
+	Studio 1810c
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list

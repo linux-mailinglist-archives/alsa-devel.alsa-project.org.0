@@ -2,62 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D4F9E12AAC4
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Dec 2019 08:15:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83FD312AADE
+	for <lists+alsa-devel@lfdr.de>; Thu, 26 Dec 2019 09:08:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 71BAD16EB;
-	Thu, 26 Dec 2019 08:14:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 71BAD16EB
+	by alsa0.perex.cz (Postfix) with ESMTPS id DDFA716E5;
+	Thu, 26 Dec 2019 09:07:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDFA716E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577344511;
-	bh=myDtofkBTLODNrxwGL+QX+yW3te+a8y2x1694yl0cQk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Dw89Y0+kPCswIpRgD7t+SEahu8Tqzu0RppZ3IOEq4reAYRcHPkoHCBNE2SHL18VGZ
-	 tNtqNIyXNhutRWO+STgu+1djmIzyaNFwuu9K/FsQtpCXTD2mqFINCEeo8Wgxjdlbx0
-	 40qaDeT9OPeqI3pcNuCSYwD35nS+d+VwyJV5zGL4=
+	s=default; t=1577347725;
+	bh=BNgvS61hkvQppMXlbS88mUOss4X7BX4/mF2llM6ip1Y=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ve93i15gYWiV65RxMhfg5XDpEq3U41WedmBGs0a4vaGggAG8GOgy49dpYRLgh34HO
+	 1rfo952IHUYbXLMkl0kOEHI0Qi6f9pQkH6ipSxUtNfOgULedHnxO01hSiD+qpJpUVe
+	 qhyUTwunmbE3PQMsRKG+sqvEmWdTGZ0q6GtlrkzE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2291F80271;
-	Thu, 26 Dec 2019 08:12:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CFBAF800E3;
+	Thu, 26 Dec 2019 09:07:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 949B2F80264; Thu, 26 Dec 2019 08:12:03 +0100 (CET)
+ id 2DFC7F80138; Wed, 25 Dec 2019 03:22:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODY_65,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C44CF80138
- for <alsa-devel@alsa-project.org>; Thu, 26 Dec 2019 08:11:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C44CF80138
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Dec 2019 23:11:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,358,1571727600"; d="scan'208";a="300327229"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by orsmga001.jf.intel.com with ESMTP; 25 Dec 2019 23:11:54 -0800
-From: Bard liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org
-Date: Thu, 26 Dec 2019 03:15:01 +0800
-Message-Id: <20191225191501.23848-4-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20191225191501.23848-1-yung-chuan.liao@linux.intel.com>
-References: <20191225191501.23848-1-yung-chuan.liao@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- tiwai@suse.de, pierre-louis.bossart@linux.intel.com,
- liam.r.girdwood@linux.intel.com, bard.liao@intel.com
-Subject: [alsa-devel] [PATCH RFC 3/3] ASoC: Add multiple CPU DAI support in
-	DAPM
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57783F800E3
+ for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 03:22:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57783F800E3
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="j2Rs4ozr"
+Received: by mail-wm1-x341.google.com with SMTP id b19so3474666wmj.4
+ for <alsa-devel@alsa-project.org>; Tue, 24 Dec 2019 18:22:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:from:to:cc:subject:date:mime-version
+ :content-transfer-encoding;
+ bh=rJ+8IH18zzODLKaNgkx0pG4CqT3ZWdQ3iFDsdDHCiFw=;
+ b=j2Rs4ozrsy3uKCrnhOgJ7kmGSecpmduNqNFVRDxcdiU0F5dtPHdx0WFl9ngePW/mZL
+ M76vjk9LS+bjm2IROBaTbDl2H3TJNl8nFMUNnYxQx081pYo/76zituHfT+q3AVicFEzo
+ 2pRBd8BN8j7SwX7g6DnzWipQmnYoQn98/EsebMAmrpEzjptlm+x1TQJF2ZD72q33iGhV
+ xkCcnrC+y7pycvSog6qfrbAmJJGiuOMceeFuCO9fkzqz7GjkvEcjEaX2XZ7ve1pbGoWF
+ 8NuJ82au3vBxyiqo1+ymF+CEET7M7hu4/EpgEtzoVX3WYjzIzgmo2gOvpZhJ36jkQoxw
+ dXIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:from:to:cc:subject:date:mime-version
+ :content-transfer-encoding;
+ bh=rJ+8IH18zzODLKaNgkx0pG4CqT3ZWdQ3iFDsdDHCiFw=;
+ b=Skf59snhi9JHWROQJvqmqyel3wz6wvGSac2ntU4E1ABbMDbbGwxAiDze6+6KG/gZxu
+ +X8Q+x3Zd+BSDxkF7Kqc3daMc3XxXn6eM6+9XYhWvhh6aQKU+h2zK8N9J+yYj9opxAYx
+ ciIxNf7JVWvEWp3pJPgd1mIYcpaHqIyy6DoLPg9Iz33aWjBIbQ04qZv/fFB/AUzU8drd
+ CtHkC4UD+YvQWDg+ejPCIL/GM2Jkh9dRe9F32lqqmzH4x5kK1+KSqz8a4AF+wLoMm+ct
+ +fK7HuKj6ZgLn/4wJ+l9/ww0p39t+QLa/l0RBewT9/oqTt4JUX7sSZfswF2F00dYqFET
+ kNIw==
+X-Gm-Message-State: APjAAAW1TdT964a+/vSB+Z+r8z3NZMb0/8/w7KXhn7gRDXke3dtcryZt
+ klFoSLTBMWQUfv2oHArZ11KkDeoG
+X-Google-Smtp-Source: APXvYqyNAAOz/zHJVxC6ssknHm19poi2Uj2328qfDd5a1JMsaspSQrMvm+jFqhD7qPJgFtO2ziFQqg==
+X-Received: by 2002:a1c:6389:: with SMTP id x131mr6254983wmb.155.1577240521677; 
+ Tue, 24 Dec 2019 18:22:01 -0800 (PST)
+Received: from localhost.localdomain ([139.91.73.37])
+ by smtp.gmail.com with ESMTPSA id x1sm25596709wru.50.2019.12.24.18.22.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Dec 2019 18:22:00 -0800 (PST)
+Message-ID: <5e02c7c8.1c69fb81.19960.dbd7@mx.google.com>
+X-Google-Original-Message-ID: <20191225022157.51843-1---help>
+From: mickflemm@gmail.com
+X-Google-Original-From: --help
+To: alsa-devel@alsa-project.org,
+	tiwai@suse.de,
+	perex@perex.cz
+Date: Wed, 25 Dec 2019 04:21:57 +0200
+X-Mailer: git-send-email 2.23.0
+MIME-Version: 1.0
+X-Mailman-Approved-At: Thu, 26 Dec 2019 09:06:58 +0100
+Cc: Nick Kossifidis <mickflemm@gmail.com>
+Subject: [alsa-devel] [PATCH 1/1] [PATCH] ALSA: usb-audio: Add support for
+	Presonus Studio 1810c
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,200 +98,736 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shreyas NC <shreyas.nc@intel.com>
+This patch adds support for Presonus Studio 1810c, a usb interface
+that's UAC2 compliant with a few quirks and a few extra hw-specific
+controls. I've tested all 3 altsettings and the added switch
+controls and they work as expected.
 
-DAPM handles DAIs during soc_dapm_stream_event() and during addition
-and creation of DAI widgets i.e., dapm_add_valid_dai_widget() and
-dapm_connect_dai_link_widgets().
+More infos on the card:
+https://www.presonus.com/products/Studio-1810c
 
-Extend these functions to handle multiple cpu dai.
+Note that this work is based on packet inspection with
+usbmon. I just wanted to get this card to work for using
+it on our open-source radio station:
+https://github.com/UoC-Radio
 
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Shreyas NC <shreyas.nc@intel.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Nick Kossifidis <mickflemm@gmail.com>
 ---
- sound/soc/soc-dapm.c | 131 +++++++++++++++++++++++++------------------
- 1 file changed, 76 insertions(+), 55 deletions(-)
+ sound/usb/Makefile       |   1 +
+ sound/usb/format.c       |  17 ++
+ sound/usb/mixer_quirks.c |   5 +
+ sound/usb/mixer_s1810c.c | 565 +++++++++++++++++++++++++++++++++++++++
+ sound/usb/mixer_s1810c.h |   6 +
+ sound/usb/quirks.c       |  34 +++
+ 6 files changed, 628 insertions(+)
+ create mode 100644 sound/usb/mixer_s1810c.c
+ create mode 100644 sound/usb/mixer_s1810c.h
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index b6378f025836..bf0789b4cdcd 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -4274,16 +4274,15 @@ int snd_soc_dapm_link_dai_widgets(struct snd_soc_card *card)
- 	return 0;
- }
- 
--static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
--					  struct snd_soc_pcm_runtime *rtd)
-+static void dapm_add_valid_dai_widget(struct snd_soc_card *card,
-+				      struct snd_soc_pcm_runtime *rtd,
-+				      struct snd_soc_dai *codec_dai,
-+				      struct snd_soc_dai *cpu_dai)
- {
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
--	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_dapm_widget *playback = NULL, *capture = NULL;
- 	struct snd_soc_dapm_widget *codec, *playback_cpu, *capture_cpu;
- 	struct snd_pcm_substream *substream;
- 	struct snd_pcm_str *streams = rtd->pcm->streams;
--	int i;
- 
- 	if (rtd->dai_link->params) {
- 		playback_cpu = cpu_dai->capture_widget;
-@@ -4295,63 +4294,83 @@ static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
- 		capture_cpu = capture;
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
--		/* connect BE DAI playback if widgets are valid */
--		codec = codec_dai->playback_widget;
--
--		if (playback_cpu && codec) {
--			if (!playback) {
--				substream = streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
--				playback = snd_soc_dapm_new_dai(card, substream,
--								"playback");
--				if (IS_ERR(playback)) {
--					dev_err(rtd->dev,
--						"ASoC: Failed to create DAI %s: %ld\n",
--						codec_dai->name,
--						PTR_ERR(playback));
--					continue;
--				}
--
--				snd_soc_dapm_add_path(&card->dapm, playback_cpu,
--						      playback, NULL, NULL);
-+	/* connect BE DAI playback if widgets are valid */
-+	codec = codec_dai->playback_widget;
-+
-+	if (playback_cpu && codec) {
-+		if (!playback) {
-+			substream = streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
-+			playback = snd_soc_dapm_new_dai(card, substream,
-+							"playback");
-+			if (IS_ERR(playback)) {
-+				dev_err(rtd->dev,
-+					"ASoC: Failed to create DAI %s: %ld\n",
-+					codec_dai->name,
-+					PTR_ERR(playback));
-+				return;
- 			}
- 
--			dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
--				cpu_dai->component->name, playback_cpu->name,
--				codec_dai->component->name, codec->name);
--
--			snd_soc_dapm_add_path(&card->dapm, playback, codec,
--					      NULL, NULL);
-+			snd_soc_dapm_add_path(&card->dapm, playback_cpu,
-+					      playback, NULL, NULL);
+diff --git a/sound/usb/Makefile b/sound/usb/Makefile
+index 78edd7d2f..56031026b 100644
+--- a/sound/usb/Makefile
++++ b/sound/usb/Makefile
+@@ -13,6 +13,7 @@ snd-usb-audio-objs := 	card.o \
+ 			mixer_scarlett.o \
+ 			mixer_scarlett_gen2.o \
+ 			mixer_us16x08.o \
++			mixer_s1810c.o \
+ 			pcm.o \
+ 			power.o \
+ 			proc.o \
+diff --git a/sound/usb/format.c b/sound/usb/format.c
+index d79db7130..edf3f2a55 100644
+--- a/sound/usb/format.c
++++ b/sound/usb/format.c
+@@ -262,6 +262,23 @@ static int parse_uac2_sample_rate_range(struct snd_usb_audio *chip,
  		}
+ 
+ 		for (rate = min; rate <= max; rate += res) {
 +
-+		dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
-+			cpu_dai->component->name, playback_cpu->name,
-+			codec_dai->component->name, codec->name);
++			/*
++			 * Presonus Studio 1810c anounces invalid
++			 * sampling rates for its streams.
++			 */
++			if (chip->usb_id == USB_ID(0x0194f, 0x010c) &&
++			((rate > 48000 && fp->altsetting == 1) ||
++			 ((rate < 88200 || rate > 96000)
++			  && fp->altsetting == 2) ||
++			 ((rate < 176400 || rate > 192000)
++			  && fp->altsetting == 3))) {
++				if (res)
++					continue;
++				else
++					break;
++			}
 +
-+		snd_soc_dapm_add_path(&card->dapm, playback, codec,
-+				      NULL, NULL);
+ 			if (fp->rate_table)
+ 				fp->rate_table[nr_rates] = rate;
+ 			if (!fp->rate_min || rate < fp->rate_min)
+diff --git a/sound/usb/mixer_quirks.c b/sound/usb/mixer_quirks.c
+index 39e27ae6c..71e705fab 100644
+--- a/sound/usb/mixer_quirks.c
++++ b/sound/usb/mixer_quirks.c
+@@ -34,6 +34,7 @@
+ #include "mixer_scarlett.h"
+ #include "mixer_scarlett_gen2.h"
+ #include "mixer_us16x08.h"
++#include "mixer_s1810c.h"
+ #include "helper.h"
+ 
+ struct std_mono_table {
+@@ -2277,6 +2278,10 @@ int snd_usb_mixer_apply_create_quirk(struct usb_mixer_interface *mixer)
+ 	case USB_ID(0x2a39, 0x3fd4): /* RME */
+ 		err = snd_rme_controls_create(mixer);
+ 		break;
++
++	case USB_ID(0x0194f, 0x010c): /* Presonus Studio 1810c */
++		err = snd_sc1810_init_mixer(mixer);
++		break;
  	}
  
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
--		/* connect BE DAI capture if widgets are valid */
--		codec = codec_dai->capture_widget;
--
--		if (codec && capture_cpu) {
--			if (!capture) {
--				substream = streams[SNDRV_PCM_STREAM_CAPTURE].substream;
--				capture = snd_soc_dapm_new_dai(card, substream,
--							       "capture");
--				if (IS_ERR(capture)) {
--					dev_err(rtd->dev,
--						"ASoC: Failed to create DAI %s: %ld\n",
--						codec_dai->name,
--						PTR_ERR(capture));
--					continue;
--				}
--
--				snd_soc_dapm_add_path(&card->dapm, capture,
--						      capture_cpu, NULL, NULL);
-+	/* connect BE DAI capture if widgets are valid */
-+	codec = codec_dai->capture_widget;
+ 	return err;
+diff --git a/sound/usb/mixer_s1810c.c b/sound/usb/mixer_s1810c.c
+new file mode 100644
+index 000000000..ff86e4aab
+--- /dev/null
++++ b/sound/usb/mixer_s1810c.c
+@@ -0,0 +1,565 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Presonus Studio 1810c driver for ALSA
++ * Copyright (C) 2019 Nick Kossifidis <mickflemm@gmail.com>
++ *
++ * Based on reverse engineering of the communication protocol
++ * between the windows driver / Univeral Control (UC) program
++ * and the device, through usbmon.
++ *
++ * For now this bypasses the mixer, with all channels split,
++ * so that the software can mix with greater flexibility.
++ * It also adds controls for the 4 buttons on the front of
++ * the device.
++ */
++#include <linux/usb.h>
++#include <linux/usb/audio-v2.h>
++#include <sound/control.h>
++#include <linux/slab.h>
 +
-+	if (codec && capture_cpu) {
-+		if (!capture) {
-+			substream = streams[SNDRV_PCM_STREAM_CAPTURE].substream;
-+			capture = snd_soc_dapm_new_dai(card, substream,
-+						       "capture");
-+			if (IS_ERR(capture)) {
-+				dev_err(rtd->dev,
-+					"ASoC: Failed to create DAI %s: %ld\n",
-+					codec_dai->name,
-+					PTR_ERR(capture));
-+				return;
- 			}
- 
--			dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
--				codec_dai->component->name, codec->name,
--				cpu_dai->component->name, capture_cpu->name);
-+			snd_soc_dapm_add_path(&card->dapm, capture,
-+					      capture_cpu, NULL, NULL);
-+		}
++#include "usbaudio.h"
++#include "mixer.h"
++#include "mixer_quirks.h"
++#include "helper.h"
 +
-+		dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
-+			codec_dai->component->name, codec->name,
-+			cpu_dai->component->name, capture_cpu->name);
- 
--			snd_soc_dapm_add_path(&card->dapm, codec, capture,
--					      NULL, NULL);
-+		snd_soc_dapm_add_path(&card->dapm, codec, capture,
-+				      NULL, NULL);
++#define SC1810C_CMD_REQ	160
++#define SC1810C_CMD_REQTYPE \
++	(USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_OUT)
++#define SC1810C_CMD_F1	0x50617269
++#define SC1810C_CMD_F2	0x14
++
++/*
++ * DISCLAIMER: These are just guesses based on the
++ * dumps I got.
++ *
++ * It seems like a selects between
++ * device (0), mixer (0x64) and output (0x65)
++ *
++ * For mixer (0x64):
++ *  * b selects an input channel (see below).
++ *  * c selects an output channel pair (see below).
++ *  * d selects left (0) or right (1) of that pair.
++ *  * e 0-> disconnect, 0x01000000-> connect,
++ *	0x0109-> used for stereo-linking channels,
++ *	e is also used for setting volume levels
++ *	in which case b is also set so I guess
++ *	this way it is possible to set the volume
++ *	level from the specified input to the
++ *	specified output.
++ *
++ * IN Channels:
++ * 0 - 7   Mic/Inst/Line (Analog inputs)
++ * 8 - 9   S/PDIF
++ * 10 - 17 ADAT
++ * 18 - 35 DAW (Inputs from the host)
++ *
++ * OUT Channels (pairs):
++ * 0 -> Main out
++ * 1 -> Line1/2
++ * 2 -> Line3/4
++ * 3 -> S/PDIF
++ * 4 -> ADAT?
++ *
++ * For device (0):
++ *  * b and c are not used, at least not on the
++ *    dumps I got.
++ *  * d sets the control id to be modified
++ *    (see below).
++ *  * e sets the setting for that control.
++ *    (so for the switches I was interested
++ *    in it's 0/1)
++ *
++ * For output (0x65):
++ *   * b is the output channel (see above).
++ *   * c is zero.
++ *   * e I guess the same as with mixer except 0x0109
++ *	 which I didn't see in my dumps.
++ *
++ * The two fixed fields have the same values for
++ * mixer and output but a different set for device.
++ */
++struct s1810c_ctl_packet {
++	uint32_t a;
++	uint32_t b;
++	uint32_t fixed1;
++	uint32_t fixed2;
++	uint32_t c;
++	uint32_t d;
++	uint32_t e;
++};
++
++#define SC1810C_CTL_LINE_SW	0
++#define SC1810C_CTL_MUTE_SW	1
++#define SC1810C_CTL_AB_SW	3
++#define SC1810C_CTL_48V_SW	4
++
++#define SC1810C_SET_STATE_REQ 161
++#define SC1810C_SET_STATE_REQTYPE SC1810C_CMD_REQTYPE
++#define SC1810C_SET_STATE_F1 0x64656D73
++#define SC1810C_SET_STATE_F2 0xF4
++
++#define SC1810C_GET_STATE_REQ 162
++#define SC1810C_GET_STATE_REQTYPE \
++	(USB_TYPE_VENDOR | USB_RECIP_DEVICE | USB_DIR_IN)
++#define SC1810C_GET_STATE_F1 SC1810C_SET_STATE_F1
++#define SC1810C_GET_STATE_F2 SC1810C_SET_STATE_F2
++
++#define SC1810C_STATE_F1_IDX	2
++#define SC1810C_STATE_F2_IDX	3
++
++/*
++ * This packet includes mixer volumes and
++ * various other fields, it's an extended
++ * version of ctl_packet, with a and b
++ * being zero and different f1/f2.
++ */
++struct s1810c_state_packet {
++	uint32_t fields[63];
++};
++
++#define SC1810C_STATE_48V_SW	58
++#define SC1810C_STATE_LINE_SW	59
++#define SC1810C_STATE_MUTE_SW	60
++#define SC1810C_STATE_AB_SW	62
++
++struct s1810_mixer_state {
++	uint16_t seqnum;
++	struct mutex usb_mutex;
++};
++
++static int
++snd_s1810c_send_ctl_packet(struct usb_device *dev, uint32_t a,
++			   uint32_t b, uint32_t c, uint32_t d, uint32_t e)
++{
++	struct s1810c_ctl_packet pkt = { 0 };
++	int ret = 0;
++
++	pkt.fixed1 = SC1810C_CMD_F1;
++	pkt.fixed2 = SC1810C_CMD_F2;
++
++	pkt.a = a;
++	pkt.b = b;
++	pkt.c = c;
++	pkt.d = d;
++	/*
++	 * Value for settings 0/1 for this
++	 * output channel is always 0 (probably because
++	 * there is no ADAT output on 1810c)
++	 */
++	pkt.e = (c == 4) ? 0 : e;
++
++	ret = snd_usb_ctl_msg(dev, usb_sndctrlpipe(dev, 0),
++			      SC1810C_CMD_REQ,
++			      SC1810C_CMD_REQTYPE, 0, 0, &pkt, sizeof(pkt));
++	if (ret < 0) {
++		dev_warn(&dev->dev, "could not send ctl packet\n");
++		return ret;
 +	}
++	return 0;
 +}
 +
-+static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
-+					  struct snd_soc_pcm_runtime *rtd)
++/*
++ * When opening Universal Control the program periodicaly
++ * sends and receives state packets for syncinc state between
++ * the device and the host.
++ *
++ * Note that if we send only the request to get data back we'll
++ * get an error, we need to first send an empty state packet and
++ * then ask to receive a filled. Their seqnumbers must also match.
++ */
++static int
++snd_sc1810c_get_status_field(struct usb_device *dev,
++			     uint32_t *field, int field_idx, uint16_t *seqnum)
 +{
-+	struct snd_soc_dai *codec_dai;
-+	int i;
++	struct s1810c_state_packet pkt_out = { 0 };
++	struct s1810c_state_packet pkt_in = { 0 };
++	int ret = 0;
 +
-+	if (rtd->num_cpu_dai > 1) {
-+		if (rtd->num_codecs == rtd->num_cpu_dai)
-+			for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+				dapm_add_valid_dai_widget(card, rtd,
-+							  codec_dai,
-+							  rtd->cpu_dais[i]);
++	pkt_out.fields[SC1810C_STATE_F1_IDX] = SC1810C_SET_STATE_F1;
++	pkt_out.fields[SC1810C_STATE_F2_IDX] = SC1810C_SET_STATE_F2;
++	ret = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0),
++			      SC1810C_SET_STATE_REQ,
++			      SC1810C_SET_STATE_REQTYPE,
++			      (*seqnum), 0, &pkt_out, sizeof(pkt_out));
++	if (ret < 0) {
++		dev_warn(&dev->dev, "could not send state packet (%d)\n", ret);
++		return ret;
++	}
++
++	ret = snd_usb_ctl_msg(dev, usb_rcvctrlpipe(dev, 0),
++			      SC1810C_GET_STATE_REQ,
++			      SC1810C_GET_STATE_REQTYPE,
++			      (*seqnum), 0, &pkt_in, sizeof(pkt_in));
++	if (ret < 0) {
++		dev_warn(&dev->dev, "could not get state field %u (%d)\n",
++			 field_idx, ret);
++		return ret;
++	}
++
++	(*field) = pkt_in.fields[field_idx];
++	(*seqnum)++;
++	return 0;
++}
++
++/*
++ * This is what I got when bypassing the mixer with
++ * all channels split. I'm not 100% sure of what's going
++ * on, I could probably clean this up based on my observations
++ * but I prefer to keep the same behavior as the windows driver.
++ */
++static int snd_s1810c_init_mixer_maps(struct snd_usb_audio *chip)
++{
++	uint32_t a, b, c, e, n, off;
++	struct usb_device *dev = chip->dev;
++
++	/* Set initial volume levels ? */
++	a = 0x64;
++	e = 0xbc;
++	for (n = 0; n < 2; n++) {
++		off = n * 18;
++		for (b = off, c = 0; b < 18 + off; b++) {
++			/* This channel to all outputs ? */
++			for (c = 0; c <= 8; c++) {
++				snd_s1810c_send_ctl_packet(dev, a, b, c, 0, e);
++				snd_s1810c_send_ctl_packet(dev, a, b, c, 1, e);
 +			}
-+		else
-+			dev_err(card->dev,
-+				"N cpus to M codecs link is not supported yet\n");
-+	} else {
-+		for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+			dapm_add_valid_dai_widget(card, rtd,
-+						  codec_dai, rtd->cpu_dais[0]);
- 		}
- 	}
++			/* This channel to main output (again) */
++			snd_s1810c_send_ctl_packet(dev, a, b, 0, 0, e);
++			snd_s1810c_send_ctl_packet(dev, a, b, 0, 1, e);
++		}
++		/*
++		 * I noticed on UC that DAW channels have different
++		 * initial volumes (they can go both above and below
++		 * 0db), so this makes sense.
++		 */
++		e = 0xb53bf0;
++	}
++
++	/* Connect analog outputs ? */
++	a = 0x65;
++	e = 0x01000000;
++	for (b = 1; b < 3; b++) {
++		snd_s1810c_send_ctl_packet(dev, a, b, 0, 0, e);
++		snd_s1810c_send_ctl_packet(dev, a, b, 0, 1, e);
++	}
++	snd_s1810c_send_ctl_packet(dev, a, 0, 0, 0, e);
++	snd_s1810c_send_ctl_packet(dev, a, 0, 0, 1, e);
++
++	/* Set initial volume levels for S/PDIF mappings ? */
++	a = 0x64;
++	e = 0xbc;
++	c = 3;
++	for (n = 0; n < 2; n++) {
++		off = n * 18;
++		for (b = off; b < 18 + off; b++) {
++			snd_s1810c_send_ctl_packet(dev, a, b, c, 0, e);
++			snd_s1810c_send_ctl_packet(dev, a, b, c, 1, e);
++		}
++		e = 0xb53bf0;
++	}
++
++	/* Connect S/PDIF output ? */
++	a = 0x65;
++	e = 0x01000000;
++	snd_s1810c_send_ctl_packet(dev, a, 3, 0, 0, e);
++	snd_s1810c_send_ctl_packet(dev, a, 3, 0, 1, e);
++
++	/* Connect all outputs (again) ? */
++	a = 0x65;
++	e = 0x01000000;
++	for (b = 0; b < 4; b++) {
++		snd_s1810c_send_ctl_packet(dev, a, b, 0, 0, e);
++		snd_s1810c_send_ctl_packet(dev, a, b, 0, 1, e);
++	}
++
++	/* Basic routing to get sound out of the device */
++	a = 0x64;
++	e = 0x01000000;
++	for (c = 0; c < 4; c++) {
++		for (b = 0; b < 36; b++) {
++			if ((c == 0 && b == 18) ||	/* DAW1/2 -> Main */
++			    (c == 1 && b == 20) ||	/* DAW3/4 -> Line3/4 */
++			    (c == 2 && b == 22) ||	/* DAW4/5 -> Line5/4 */
++			    (c == 3 && b == 24)) {	/* DAW5/6 -> S/PDIF */
++				/* Left */
++				snd_s1810c_send_ctl_packet(dev, a, b, c, 0, e);
++				snd_s1810c_send_ctl_packet(dev, a, b, c, 1, 0);
++				b++;
++				/* Right */
++				snd_s1810c_send_ctl_packet(dev, a, b, c, 0, 0);
++				snd_s1810c_send_ctl_packet(dev, a, b, c, 1, e);
++			} else {
++				/* Leave the rest disconnected */
++				snd_s1810c_send_ctl_packet(dev, a, b, c, 0, 0);
++				snd_s1810c_send_ctl_packet(dev, a, b, c, 1, 0);
++			}
++		}
++	}
++
++	/* Set initial volume levels for S/PDIF (again) ? */
++	a = 0x64;
++	e = 0xbc;
++	c = 3;
++	for (n = 0; n < 2; n++) {
++		off = n * 18;
++		for (b = off; b < 18 + off; b++) {
++			snd_s1810c_send_ctl_packet(dev, a, b, c, 0, e);
++			snd_s1810c_send_ctl_packet(dev, a, b, c, 1, e);
++		}
++		e = 0xb53bf0;
++	}
++
++	/* Connect S/PDIF outputs (again) ? */
++	a = 0x65;
++	e = 0x01000000;
++	snd_s1810c_send_ctl_packet(dev, a, 3, 0, 0, e);
++	snd_s1810c_send_ctl_packet(dev, a, 3, 0, 1, e);
++
++	/* Again ? */
++	snd_s1810c_send_ctl_packet(dev, a, 3, 0, 0, e);
++	snd_s1810c_send_ctl_packet(dev, a, 3, 0, 1, e);
++
++	return 0;
++}
++
++/*
++ * Sync state with the device and retrieve the requested field,
++ * whose index is specified in (kctl->private_value & 0xFF),
++ * from the received fields array.
++ */
++static int
++snd_s1810c_get_switch_state(struct usb_mixer_interface *mixer,
++			    struct snd_kcontrol *kctl, uint32_t *state)
++{
++	struct snd_usb_audio *chip = mixer->chip;
++	struct s1810_mixer_state *private = mixer->private_data;
++	uint32_t field = 0;
++	uint32_t ctl_idx = (uint32_t) (kctl->private_value & 0xFF);
++	int ret = 0;
++
++	mutex_lock(&private->usb_mutex);
++	ret = snd_sc1810c_get_status_field(chip->dev, &field,
++					   ctl_idx, &private->seqnum);
++	if (ret < 0)
++		goto unlock;
++
++	*state = field;
++ unlock:
++	mutex_unlock(&private->usb_mutex);
++	return ret ? ret : 0;
++}
++
++/*
++ * Send a control packet to the device for the control id
++ * specified in (kctl->private_value >> 8) with value
++ * specified in (kctl->private_value >> 16).
++ */
++static int
++snd_s1810c_set_switch_state(struct usb_mixer_interface *mixer,
++			    struct snd_kcontrol *kctl)
++{
++	struct snd_usb_audio *chip = mixer->chip;
++	struct s1810_mixer_state *private = mixer->private_data;
++	uint32_t pval = (uint32_t) kctl->private_value;
++	uint32_t ctl_id = (pval >> 8) & 0xFF;
++	uint32_t ctl_val = (pval >> 16) & 0x1;
++	int ret = 0;
++
++	mutex_lock(&private->usb_mutex);
++	ret = snd_s1810c_send_ctl_packet(chip->dev, 0, 0, 0, ctl_id, ctl_val);
++	mutex_unlock(&private->usb_mutex);
++	return ret;
++}
++
++/* Generic get/set/init functions for switch controls */
++
++static int
++snd_s1810c_switch_get(struct snd_kcontrol *kctl,
++		      struct snd_ctl_elem_value *ctl_elem)
++{
++	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kctl);
++	struct usb_mixer_interface *mixer = list->mixer;
++	uint32_t state = 0;
++	int ret = 0;
++
++	ret = snd_s1810c_get_switch_state(mixer, kctl, &state);
++	if (ret < 0)
++		return ret;
++
++	ctl_elem->value.integer.value[0] = (long)state;
++
++	return 0;
++}
++
++static int
++snd_s1810c_switch_set(struct snd_kcontrol *kctl,
++		      struct snd_ctl_elem_value *ctl_elem)
++{
++	struct usb_mixer_elem_list *list = snd_kcontrol_chip(kctl);
++	struct usb_mixer_interface *mixer = list->mixer;
++	uint32_t curval = 0;
++	uint32_t newval = (uint32_t) ctl_elem->value.integer.value[0];
++	int ret = 0;
++
++	ret = snd_s1810c_get_switch_state(mixer, kctl, &curval);
++	if (ret < 0)
++		return 0;
++
++	if (curval == newval)
++		return 0;
++
++	kctl->private_value &= ~(0x1 << 16);
++	kctl->private_value |= (unsigned int)(newval & 0x1) << 16;
++	ret = snd_s1810c_set_switch_state(mixer, kctl);
++	if (ret < 0)
++		return 0;
++
++	return 1;
++}
++
++static int
++snd_s1810c_switch_init(struct usb_mixer_interface *mixer,
++		       const struct snd_kcontrol_new *new_kctl)
++{
++	struct snd_kcontrol *kctl;
++	struct usb_mixer_elem_info *elem;
++
++	elem = kzalloc(sizeof(struct usb_mixer_elem_info), GFP_KERNEL);
++	if (!elem)
++		return -ENOMEM;
++
++	elem->head.mixer = mixer;
++	elem->control = 0;
++	elem->head.id = 0;
++	elem->channels = 1;
++
++	kctl = snd_ctl_new1(new_kctl, elem);
++	if (!kctl) {
++		kfree(elem);
++		return -ENOMEM;
++	}
++	kctl->private_free = snd_usb_mixer_elem_free;
++
++	return snd_usb_mixer_add_control(&elem->head, kctl);
++}
++
++static int
++snd_s1810c_line_sw_info(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_info *uinfo)
++{
++	static const char *const texts[2] = { "Preamp on (Mic/Inst)",
++		"Preamp off (Line in)"
++	};
++
++	return snd_ctl_enum_info(uinfo, 1, ARRAY_SIZE(texts), texts);
++}
++
++static struct snd_kcontrol_new snd_s1810c_line_sw = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.name = "Line 1/2 source type",
++	.info = snd_s1810c_line_sw_info,
++	.get = snd_s1810c_switch_get,
++	.put = snd_s1810c_switch_set,
++	.private_value = (SC1810C_STATE_LINE_SW | SC1810C_CTL_LINE_SW << 8)
++};
++
++static struct snd_kcontrol_new snd_s1810c_mute_sw = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.name = "Mute Main Out",
++	.info = snd_ctl_boolean_mono_info,
++	.get = snd_s1810c_switch_get,
++	.put = snd_s1810c_switch_set,
++	.private_value = (SC1810C_STATE_MUTE_SW | SC1810C_CTL_MUTE_SW << 8)
++};
++
++static struct snd_kcontrol_new snd_s1810c_48v_sw = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.name = "48V Phantom power on Mic inputs",
++	.info = snd_ctl_boolean_mono_info,
++	.get = snd_s1810c_switch_get,
++	.put = snd_s1810c_switch_set,
++	.private_value = (SC1810C_STATE_48V_SW | SC1810C_CTL_48V_SW << 8)
++};
++
++static int
++snd_s1810c_ab_sw_info(struct snd_kcontrol *kctl,
++		      struct snd_ctl_elem_info *uinfo)
++{
++	static const char *const texts[2] = { "1/2",
++		"3/4"
++	};
++
++	return snd_ctl_enum_info(uinfo, 1, ARRAY_SIZE(texts), texts);
++}
++
++static struct snd_kcontrol_new snd_s1810c_ab_sw = {
++	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
++	.name = "Headphone 1 source selector",
++	.info = snd_s1810c_ab_sw_info,
++	.get = snd_s1810c_switch_get,
++	.put = snd_s1810c_switch_set,
++	.private_value = (SC1810C_STATE_AB_SW | SC1810C_CTL_AB_SW << 8)
++};
++
++static void snd_sc1810_mixer_state_free(struct usb_mixer_interface *mixer)
++{
++	struct s1810_mixer_state *private = mixer->private_data;
++	vfree(private);
++	mixer->private_data = NULL;
++}
++
++/* Entry point, called from mixer_quirks.c */
++int snd_sc1810_init_mixer(struct usb_mixer_interface *mixer)
++{
++	struct s1810_mixer_state *private = NULL;
++	struct snd_usb_audio *chip = mixer->chip;
++	struct usb_device *dev = chip->dev;
++	int ret = 0;
++
++	/* Run this only once */
++	if (!list_empty(&chip->mixer_list))
++		return 0;
++
++	dev_info(&dev->dev,
++		 "Presonus Studio 1810c, device_setup: %u\n", chip->setup);
++	if (chip->setup == 1)
++		dev_info(&dev->dev, "(8out/18in @ 48KHz)\n");
++	else if (chip->setup == 2)
++		dev_info(&dev->dev, "(6out/8in @ 192KHz)\n");
++	else
++		dev_info(&dev->dev, "(8out/14in @ 96KHz)\n");
++
++	ret = snd_s1810c_init_mixer_maps(chip);
++	if (ret < 0)
++		return ret;
++
++	private = vzalloc(sizeof(struct s1810_mixer_state));
++	if (!private) {
++		dev_err(&dev->dev, "could not allocate mixer state\n");
++		return -ENOMEM;
++	}
++
++	mutex_init(&private->usb_mutex);
++
++	mixer->private_data = private;
++	mixer->private_free = snd_sc1810_mixer_state_free;
++
++	private->seqnum = 1;
++
++	ret = snd_s1810c_switch_init(mixer, &snd_s1810c_line_sw);
++	if (ret < 0)
++		return ret;
++
++	ret = snd_s1810c_switch_init(mixer, &snd_s1810c_mute_sw);
++	if (ret < 0)
++		return ret;
++
++	ret = snd_s1810c_switch_init(mixer, &snd_s1810c_48v_sw);
++	if (ret < 0)
++		return ret;
++
++	ret = snd_s1810c_switch_init(mixer, &snd_s1810c_ab_sw);
++	if (ret < 0)
++		return ret;
++	return ret;
++}
+diff --git a/sound/usb/mixer_s1810c.h b/sound/usb/mixer_s1810c.h
+new file mode 100644
+index 000000000..2a9ae0922
+--- /dev/null
++++ b/sound/usb/mixer_s1810c.h
+@@ -0,0 +1,6 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Presonus Studio 1810c driver for ALSA
++ * Copyright (C) 2019 Nick Kossifidis <mickflemm@gmail.com>
++ */
++int snd_sc1810_init_mixer(struct usb_mixer_interface *mixer);
+diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
+index 349e1e529..9a0ceaaf9 100644
+--- a/sound/usb/quirks.c
++++ b/sound/usb/quirks.c
+@@ -1216,6 +1216,36 @@ static int fasttrackpro_skip_setting_quirk(struct snd_usb_audio *chip,
+ 	return 0; /* keep this altsetting */
  }
-@@ -4417,9 +4436,11 @@ static void soc_dapm_stream_event(struct snd_soc_pcm_runtime *rtd, int stream,
- 	int event)
- {
- 	struct snd_soc_dai *codec_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	int i;
  
--	soc_dapm_dai_stream_event(rtd->cpu_dai, stream, event);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		soc_dapm_dai_stream_event(cpu_dai, stream, event);
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		soc_dapm_dai_stream_event(codec_dai, stream, event);
++static int s1810c_skip_setting_quirk(struct snd_usb_audio *chip,
++					   int iface, int altno)
++{
++	/*
++	 * Playback:
++	 * 1: 6 Analog + 2 S/PDIF
++	 * 2: 6 Analog + 2 S/PDIF
++	 * 3: 6 Analog
++	 *
++	 * Capture:
++	 * 1: 8 Analog + 2 S/PDIF + 8 ADAT
++	 * 2: 8 Analog + 2 S/PDIF + 4 ADAT
++	 * 3: 8 Analog
++	 */
++
++	/*
++	 * I'll leave 2 as the default one and
++	 * use device_setup to switch to the
++	 * other two.
++	 */
++	if (chip->setup == 1 && altno != 1)
++		return 1;
++	else if (chip->setup == 2 && altno != 3)
++		return 1;
++	else if (altno != 2)
++		return 1;
++
++	return 0;
++}
++
+ int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
+ 				  int iface,
+ 				  int altno)
+@@ -1229,6 +1259,10 @@ int snd_usb_apply_interface_quirk(struct snd_usb_audio *chip,
+ 	/* fasttrackpro usb: skip altsets incompatible with device_setup */
+ 	if (chip->usb_id == USB_ID(0x0763, 0x2012))
+ 		return fasttrackpro_skip_setting_quirk(chip, iface, altno);
++	/* presonus studio 1810c: skip altsets incompatible with device_setup */
++	if (chip->usb_id == USB_ID(0x0194f, 0x010c))
++		return s1810c_skip_setting_quirk(chip, iface, altno);
++
  
+ 	return 0;
+ }
 -- 
-2.17.1
+2.23.0
 
 _______________________________________________
 Alsa-devel mailing list

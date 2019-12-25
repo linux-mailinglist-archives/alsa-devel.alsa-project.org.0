@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3AA812A529
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Dec 2019 01:11:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AFDC12A52E
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Dec 2019 01:14:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6972416B0;
-	Wed, 25 Dec 2019 01:10:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6972416B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8866D16B0;
+	Wed, 25 Dec 2019 01:13:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8866D16B0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577232691;
-	bh=tvFL48ycq6kwsBUKngVhHemqxAhVePzhR1KAFAi87L4=;
+	s=default; t=1577232852;
+	bh=jFhIC3cf4Gy0NzW3zQSBMIwZBwtoqWwzQ/zqiDVhAeE=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=UfF7AbxZR/qubK7sFeELKHJjKozzZgg424qfJN+jWdsTCrg+DCb1Qtye9TDZhOTG8
-	 KV5X0j92Jh7JI30qPpk8WnCJj6DJNlPP+bSVxYkYFDAbLCGGvMdzJ4V3fXNvrUkEuQ
-	 v7mOh+PV/q6PMORQV6qM4+lW1kbHY8YB8PcZ1Dng=
+	b=SE+xJ8U0xRE0SOdGoA8MPloKuAv8K7dE8ojcDWSuDorGrDz8EqZdpLMMaH0YSxUSC
+	 G9+o8DbFq5uyTGgrSkq8Os8JV8QcRhkibEbLccnDxue3AgehHXt7QRpaHOlD9tfEfq
+	 d06jL+8dlTWJG3FKQcW9AH50KbnHy9owFFk73bIk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D8E3F80136;
-	Wed, 25 Dec 2019 01:09:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B518BF80291;
+	Wed, 25 Dec 2019 01:09:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF885F8024A; Wed, 25 Dec 2019 01:09:03 +0100 (CET)
+ id B0FCAF80274; Wed, 25 Dec 2019 01:09:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC705F800AD
- for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 01:08:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC705F800AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C73FF80136
+ for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 01:08:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C73FF80136
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="dSZPcGaE"
+ header.b="uc+NypEq"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Gqo4W2wd35PTMFOufRK6Qz2Gfto+Ek4gloQMq8zY+Ng=; b=dSZPcGaEp3QD
- frXPhyYkTGldb1XSOdbyRTh8CmK5SCkscXIJZMqDyuDGbTuc+0nFvw9FHnphK/qLG/MybG6N71waL
- KH1UGHOuqikocrnHDgpS2vQiGYo/Qwm/C1vUlMyqFIwZUBsnnRP3trXhrhfNjUvRJ8fn6g0rAWsfm
- bGhX8=;
+ List-Archive; bh=p26wgisYxxYMSvvPgu9UbmNcMRVE/Th6vTcPV+OsQJw=; b=uc+NypEqzyEH
+ a/y3n70VYmrfyw0xoV9fXTRRzr8AdE5JrJgqd/SMmC9nbPVxPJBTE17J3JvfDvBsNMgaBJFMjzT2n
+ zRfNWiGYAizT4dCr9lYUqH1hZGNkXG1lnK5jTs3K2oLfBPasmIdvpqC1aJDZrey9KmzG2k9ZuM1s6
+ NjyZM=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ijuET-0007KX-Rj; Wed, 25 Dec 2019 00:08:57 +0000
+ id 1ijuET-0007KY-Rf; Wed, 25 Dec 2019 00:08:57 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 38262D01957; Wed, 25 Dec 2019 00:08:57 +0000 (GMT)
+ id 5140BD01963; Wed, 25 Dec 2019 00:08:57 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Angus Ainslie (Purism) <angus@akkea.ca>
-In-Reply-To: <20191223154712.18581-3-angus@akkea.ca>
-Message-Id: <applied-20191223154712.18581-3-angus@akkea.ca>
+In-Reply-To: <20191223154712.18581-2-angus@akkea.ca>
+Message-Id: <applied-20191223154712.18581-2-angus@akkea.ca>
 X-Patchwork-Hint: ignore
 Date: Wed, 25 Dec 2019 00:08:57 +0000 (GMT)
 Cc: robh@kernel.org, alsa-devel@alsa-project.org, kernel@puri.sm,
  linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "dt-bindings: sound: gtm601: add the broadmobi
-	interface" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: gtm601: add Broadmobi bm818 sound
+	profile" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   dt-bindings: sound: gtm601: add the broadmobi interface
+   ASoC: gtm601: add Broadmobi bm818 sound profile
 
 has been applied to the asoc tree at
 
@@ -114,45 +114,80 @@ to this mail.
 Thanks,
 Mark
 
-From bb9ee1eacb2dfcdf419f14c739b866c3eba4dc1f Mon Sep 17 00:00:00 2001
+From 057a317a8d94136b76a3cc6f7be53ee2b85dc115 Mon Sep 17 00:00:00 2001
 From: "Angus Ainslie (Purism)" <angus@akkea.ca>
-Date: Mon, 23 Dec 2019 07:47:12 -0800
-Subject: [PATCH] dt-bindings: sound: gtm601: add the broadmobi interface
+Date: Mon, 23 Dec 2019 07:47:11 -0800
+Subject: [PATCH] ASoC: gtm601: add Broadmobi bm818 sound profile
 
-The Broadmobi BM818 uses a different sample rate and channels from the
-option modem.
+The Broadmobi bm818 uses stereo sound at 48Khz sample rate
 
 Signed-off-by: Angus Ainslie (Purism) <angus@akkea.ca>
-Reviewed-by: Rob Herring <robh@kernel.org>
-Link: https://lore.kernel.org/r/20191223154712.18581-3-angus@akkea.ca
+Link: https://lore.kernel.org/r/20191223154712.18581-2-angus@akkea.ca
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- Documentation/devicetree/bindings/sound/gtm601.txt | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ sound/soc/codecs/gtm601.c | 30 +++++++++++++++++++++++++++---
+ 1 file changed, 27 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/gtm601.txt b/Documentation/devicetree/bindings/sound/gtm601.txt
-index 5efc8c068de0..efa32a486c4a 100644
---- a/Documentation/devicetree/bindings/sound/gtm601.txt
-+++ b/Documentation/devicetree/bindings/sound/gtm601.txt
-@@ -1,10 +1,16 @@
- GTM601 UMTS modem audio interface CODEC
+diff --git a/sound/soc/codecs/gtm601.c b/sound/soc/codecs/gtm601.c
+index d454294c8d06..7f05ebcb88d1 100644
+--- a/sound/soc/codecs/gtm601.c
++++ b/sound/soc/codecs/gtm601.c
+@@ -13,7 +13,7 @@
+ #include <linux/slab.h>
+ #include <linux/module.h>
+ #include <linux/kernel.h>
+-#include <linux/device.h>
++#include <linux/of_device.h>
+ #include <sound/core.h>
+ #include <sound/pcm.h>
+ #include <sound/initval.h>
+@@ -47,6 +47,24 @@ static struct snd_soc_dai_driver gtm601_dai = {
+ 	},
+ };
  
--This device has no configuration interface. Sample rate is fixed - 8kHz.
-+This device has no configuration interface. The sample rate and channels are
-+based on the compatible string
-+	"option,gtm601" = 8kHz mono
-+	"broadmobi,bm818" = 48KHz stereo
- 
- Required properties:
- 
--  - compatible : "option,gtm601"
-+  - compatible : one of
-+	"option,gtm601"
-+	"broadmobi,bm818"
++static struct snd_soc_dai_driver bm818_dai = {
++	.name = "bm818",
++	.playback = {
++		.stream_name = "Playback",
++		.channels_min = 2,
++		.channels_max = 2,
++		.rates = SNDRV_PCM_RATE_48000,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE,
++	},
++	.capture = {
++		.stream_name = "Capture",
++		.channels_min = 2,
++		.channels_max = 2,
++		.rates = SNDRV_PCM_RATE_48000,
++		.formats = SNDRV_PCM_FMTBIT_S16_LE,
++	},
++};
 +
+ static const struct snd_soc_component_driver soc_component_dev_gtm601 = {
+ 	.dapm_widgets		= gtm601_dapm_widgets,
+ 	.num_dapm_widgets	= ARRAY_SIZE(gtm601_dapm_widgets),
+@@ -60,13 +78,19 @@ static const struct snd_soc_component_driver soc_component_dev_gtm601 = {
  
- Example:
+ static int gtm601_platform_probe(struct platform_device *pdev)
+ {
++	const struct snd_soc_dai_driver *dai_driver;
++
++	dai_driver = of_device_get_match_data(&pdev->dev);
++
+ 	return devm_snd_soc_register_component(&pdev->dev,
+-			&soc_component_dev_gtm601, &gtm601_dai, 1);
++			&soc_component_dev_gtm601,
++			(struct snd_soc_dai_driver *)dai_driver, 1);
+ }
  
+ #if defined(CONFIG_OF)
+ static const struct of_device_id gtm601_codec_of_match[] = {
+-	{ .compatible = "option,gtm601", },
++	{ .compatible = "option,gtm601", .data = (void *)&gtm601_dai },
++	{ .compatible = "broadmobi,bm818", .data = (void *)&bm818_dai },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, gtm601_codec_of_match);
 -- 
 2.20.1
 

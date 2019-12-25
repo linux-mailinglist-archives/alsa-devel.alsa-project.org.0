@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40BED12A4C4
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Dec 2019 00:53:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F7F312A52B
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Dec 2019 01:12:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C2BFA16AA;
-	Wed, 25 Dec 2019 00:52:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C2BFA16AA
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0A8016AA;
+	Wed, 25 Dec 2019 01:11:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0A8016AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577231623;
-	bh=KNGfgoGfyt8X/4Qzo2a6wehFh9WuJ9kTzJYcFcpmDFU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ToG3D4A96/yJRGheROFv4jo9h0g0+p1GvanKrrIa0hEelZu4tcJ61f77TFoHzt+0V
-	 nsHizzAdCb6vYgZmY57KOlmHJwjT+aIFUkMSUZTRKCwE4mX1wGS5fnKH/PQcxwnKPH
-	 XRiurdtnyiouT4OaCpm7wgGuVBvd4Y8vqmgmakZ4=
+	s=default; t=1577232770;
+	bh=0qXut1EWq9dY3Q/blbLowt0VsgniReobZbXcwgS1zOs=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=MqNUt4HmKl0SP/yYSqklZzymmWQT7dNADZhEldtiNm3hQ43TqsWiR2ciog33+kcN/
+	 +AVe5mCYwhxbZuT5GZe1T53cTnyiz61vNO/Q19n6/jDTrpl9hSc/fMk36LFBeR5Jan
+	 sU2MjjdEF05B2c2M2d18+nTzk8r4c7AWkcMmYsec=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 271B1F8014C;
-	Wed, 25 Dec 2019 00:52:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BCCDF8028A;
+	Wed, 25 Dec 2019 01:09:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 569F9F80138; Wed, 25 Dec 2019 00:51:56 +0100 (CET)
+ id 2C8C4F80273; Wed, 25 Dec 2019 01:09:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,48 +34,44 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B7203F800E8
- for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 00:51:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7203F800E8
+ by alsa1.perex.cz (Postfix) with ESMTPS id E4788F801F4
+ for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 01:09:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E4788F801F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Qqn84oRL"
+ header.b="YlNAef+d"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=wVeG4o2wMLfWamY/spW73kzHgOHGF8sCfwGnxV1QecY=; b=Qqn84oRLhfEoicUtxn8KgThtq
- ekIL2BYMpXYFkDWCTQa3OkwsKbFICnezYVm5bxWhwismS5YCDkoRJSK3Gjt4AzP0ZPqHh7GgBJ90Z
- 1OjPgDhJpjrvi/XL0xlQRXwvVd91R79HneYLVJhdhyFMiEm9G14s5vKQgfqcz29GZO954=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=mvceb9SyiTUP4LHcW1D/15nGZh8U8azDo/ToabGUuI0=; b=YlNAef+dA9GF
+ /WDH90F83142fJnUkxKWS+Uz0ehvTPS6PU7UmWA479jIlMSHP3Y3JQFugFn04gzr79rgV9BRiX1Kq
+ Olkz3tKJUstNGQmsqi23x56Ys1vqug9DSjjL5fHA+ufLXPwbOaUBSoLyVQhT+xgMI2z8m6ftjamiB
+ sk+50=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ijtxr-0007BU-Pt; Tue, 24 Dec 2019 23:51:47 +0000
+ id 1ijuET-0007KZ-Sp; Wed, 25 Dec 2019 00:08:57 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 9EAB1D01938; Tue, 24 Dec 2019 23:51:45 +0000 (GMT)
-Date: Tue, 24 Dec 2019 23:51:45 +0000
+ id 6D527D01A1C; Wed, 25 Dec 2019 00:08:57 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: =?utf-8?B?amVmZl9jaGFuZyjlvLXkuJbkvbMp?= <jeff_chang@richtek.com>
-Message-ID: <20191224235145.GA27497@sirena.org.uk>
-References: <1576836934-5370-1-git-send-email-richtek.jeff.chang@gmail.com>
- <20191220121152.GC4790@sirena.org.uk>
- <7a9bcf5d414c4a74ae8e101c54c9e46f@ex1.rt.l>
-MIME-Version: 1.0
-In-Reply-To: <7a9bcf5d414c4a74ae8e101c54c9e46f@ex1.rt.l>
-X-Cookie: I have many CHARTS and DIAGRAMS..
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- Jeff Chang <richtek.jeff.chang@gmail.com>,
- "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: Add MediaTek MT6660 Speaker Amp
-	Driver
+To: YueHaibing <yuehaibing@huawei.com>
+In-Reply-To: <20191224140237.36732-1-yuehaibing@huawei.com>
+Message-Id: <applied-20191224140237.36732-1-yuehaibing@huawei.com>
+X-Patchwork-Hint: ignore
+Date: Wed, 25 Dec 2019 00:08:57 +0000 (GMT)
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ kuninori.morimoto.gx@renesas.com, yuehaibing@huawei.com, tiwai@suse.com,
+ yang.jie@linux.intel.com, cezary.rojewski@intel.com,
+ linux-kernel@vger.kernel.org, liam.r.girdwood@linux.intel.com,
+ Hulk Robot <hulkci@huawei.com>, mac.chiang@intel.com,
+ Mark Brown <broonie@kernel.org>, bleung@chromium.org
+Subject: [alsa-devel] Applied "ASoC: Intel: kbl_da7219_max98357a: remove
+	unused variable 'constraints_16000' and 'ch_mono'" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,60 +84,88 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8322270374942053586=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============8322270374942053586==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SLDf9lqlvOQaIe6s"
-Content-Disposition: inline
+   ASoC: Intel: kbl_da7219_max98357a: remove unused variable 'constraints_16000' and 'ch_mono'
 
+has been applied to the asoc tree at
 
---SLDf9lqlvOQaIe6s
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
 
-On Mon, Dec 23, 2019 at 02:10:12AM +0000, jeff_chang(=E5=BC=B5=E4=B8=96=E4=
-=BD=B3) wrote:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-> --> When I check other driver at sound/soc/codecs/ folder, I just follow =
-what others do.
-> It seems in .h --> /* SPDX-Liencese-Identifier: GPL-2.0 */
->    In .c --> // SPDK-Liencese-Identifier: GPL-2.0
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> Is it correct?
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Yes, headers use C style comments and source files use C++ style.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---SLDf9lqlvOQaIe6s
-Content-Type: application/pgp-signature; name="signature.asc"
+Thanks,
+Mark
 
------BEGIN PGP SIGNATURE-----
+From c5614fb8e3d13be7bba79f71b798468a3a6224f7 Mon Sep 17 00:00:00 2001
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Tue, 24 Dec 2019 22:02:37 +0800
+Subject: [PATCH] ASoC: Intel: kbl_da7219_max98357a: remove unused variable
+ 'constraints_16000' and 'ch_mono'
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4CpI4ACgkQJNaLcl1U
-h9DFVwf7Bvj8SH/istxSwNkLQ2Tr1SMqR95oagZSg6cNQ4V31uLCUSK/oD+TYaO/
-4JjGHrPKLlwBKweT/nJ6nOX9/YcS1N7hvb5bOwK2dbcpsNb0BmkuDC+fy4sEXqfY
-KyMmaYgN7+lkV2bYC7Y+x3FtZHs3IScuvGLk5pDp4NqXJddKTMEljQRdegtPDP3N
-sAzfTrBMczPhnb320cF+yBQk5xSGCrez8FAJPlpGiaS1TkuHMr4CczYtSgO2qCKW
-DYRLizqBUbJ0l8FkHW87f1YY8KdF4GKig5ihIiF8BQ4Vz7IiNTXiDC9eaayD/V71
-hchxd/+izG1UhhEmm6NiVOIuyyUl9w==
-=YYW7
------END PGP SIGNATURE-----
+sound/soc/intel/boards/kbl_da7219_max98357a.c:343:48:
+ warning: constraints_16000 defined but not used [-Wunused-const-variable=]
+sound/soc/intel/boards/kbl_da7219_max98357a.c:348:27:
+ warning: ch_mono defined but not used [-Wunused-const-variable=]
 
---SLDf9lqlvOQaIe6s--
+They are never used, so can be removed.
 
---===============8322270374942053586==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Link: https://lore.kernel.org/r/20191224140237.36732-1-yuehaibing@huawei.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/intel/boards/kbl_da7219_max98357a.c | 13 -------------
+ 1 file changed, 13 deletions(-)
+
+diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+index 537a88932bb6..0d55319a0773 100644
+--- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
++++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
+@@ -336,19 +336,6 @@ static struct snd_soc_ops kabylake_dmic_ops = {
+ 	.startup = kabylake_dmic_startup,
+ };
+ 
+-static const unsigned int rates_16000[] = {
+-	16000,
+-};
+-
+-static const struct snd_pcm_hw_constraint_list constraints_16000 = {
+-	.count = ARRAY_SIZE(rates_16000),
+-	.list  = rates_16000,
+-};
+-
+-static const unsigned int ch_mono[] = {
+-	1,
+-};
+-
+ SND_SOC_DAILINK_DEF(dummy,
+ 	DAILINK_COMP_ARRAY(COMP_DUMMY()));
+ 
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============8322270374942053586==--

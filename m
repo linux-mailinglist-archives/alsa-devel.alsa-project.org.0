@@ -2,79 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C372A12A53F
-	for <lists+alsa-devel@lfdr.de>; Wed, 25 Dec 2019 01:19:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6944112A573
+	for <lists+alsa-devel@lfdr.de>; Wed, 25 Dec 2019 02:48:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6094C16C6;
-	Wed, 25 Dec 2019 01:18:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6094C16C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id E07A916C5;
+	Wed, 25 Dec 2019 02:47:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E07A916C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577233169;
-	bh=dV/iBA7r1fZZvJkyON9gi4Ur3GnnqgxbL3Bjs+iLSJc=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=evBwRMpvllvWf804ou0mIT+vOfuOEnvPtBhO3jC6UafeleBjGc2WjyGDURov/bMAL
-	 tFyZzTLLuR29ICcESX2P61glXTw/COpMMMmVTMUzcA4Qvnp+HWupeLCCmHRmeRzScq
-	 F5YCVoAslpoDTm5dqPcTf3wnkPIP4JeF6cW1LOGM=
+	s=default; t=1577238517;
+	bh=Ep+Cbk5BU2u8kNjHju82C6aO6OC+vSq5G8nDfrHs5Ss=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=EqcRKWVh84t6A/j6ww54foizdo7u9u2sSvcssJC2U1QQz8x1TMm6oGIFGFacS6hWw
+	 l3P4fmewGQIIzQ2JrPovJaBMlaumOMKw2NZSuCAc5/QgVEYbBy9FaD43SEFvsOpK62
+	 mxURUdX+4BQkyR7/BfJm3BzX9ahpMrkJK/JhLou0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 82CFAF80321;
-	Wed, 25 Dec 2019 01:10:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55733F80138;
+	Wed, 25 Dec 2019 02:46:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AF52F80148; Wed, 25 Dec 2019 01:09:26 +0100 (CET)
+ id 264B7F80138; Wed, 25 Dec 2019 02:46:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 484E4F80148
- for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 01:09:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 484E4F80148
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="PZktTYDu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=bEZvX6CrllH0JlHEqZn5tWeyLbTXuuTkTNuWN7wm62Q=; b=PZktTYDu3E3y
- x1C1fcnOVPvjuJcW0KWfuKhwpnfEqBi5T1FkLy5PUYaty5bTUxz4BLFDfOmy2hOZvj1H3OOQwXpAo
- iyexXvFcsE9U8PWC5aK2t91qTdWPoXoSzhzCzTSwOQklGEG5Mx1QdAY+j6U08rXwy5Q3Q0cH6AdhW
- JXgVg=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=fitzroy.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1ijuEj-0007Mf-Qr; Wed, 25 Dec 2019 00:09:13 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 58ABCD01957; Wed, 25 Dec 2019 00:09:13 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Colin Ian King <colin.king@canonical.com>
-In-Reply-To: <20191204124816.1415359-1-colin.king@canonical.com>
-Message-Id: <applied-20191204124816.1415359-1-colin.king@canonical.com>
-X-Patchwork-Hint: ignore
-Date: Wed, 25 Dec 2019 00:09:13 +0000 (GMT)
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Daniel Baluta <daniel.baluta@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- NXP Linux Team <linux-imx@nxp.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: SOF: imx8: fix memory allocation
-	failure check on priv->pd_dev" to the asoc tree
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mg.richtek.com (mg.richtek.com [220.130.44.152])
+ by alsa1.perex.cz (Postfix) with ESMTP id 414C8F800E8
+ for <alsa-devel@alsa-project.org>; Wed, 25 Dec 2019 02:46:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 414C8F800E8
+X-MailGates: (flag:4,DYNAMIC,BADHELO,RELAY,NOHOST:PASS)(compute_score:DE
+ LIVER,40,3)
+Received: from 192.168.8.45
+ by mg.richtek.com with MailGates ESMTP Server V5.0(11229:0:AUTH_RELAY)
+ (envelope-from <jeff_chang@richtek.com>); Wed, 25 Dec 2019 09:45:44 +0800 (CST)
+Received: from ex1.rt.l (192.168.8.44) by ex2.rt.l (192.168.8.45) with
+ Microsoft SMTP Server (TLS) id 15.0.1497.2; Wed, 25 Dec 2019 09:45:43 +0800
+Received: from ex1.rt.l ([fe80::557d:30f0:a3f8:3efc]) by ex1.rt.l
+ ([fe80::557d:30f0:a3f8:3efc%15]) with mapi id 15.00.1497.000; Wed, 25 Dec
+ 2019 09:45:43 +0800
+From: =?utf-8?B?amVmZl9jaGFuZyjlvLXkuJbkvbMp?= <jeff_chang@richtek.com>
+To: Mark Brown <broonie@kernel.org>
+Thread-Topic: [PATCH] ASoC: Add MediaTek MT6660 Speaker Amp Driver
+Thread-Index: AQHVtx5xY4OlmY1OS02nOllbj/O4KqfCaPoAgAST0kCAAnkNgIAApP4g
+Date: Wed, 25 Dec 2019 01:45:43 +0000
+Message-ID: <938f562e322849328d5a7782b2c1de97@ex1.rt.l>
+References: <1576836934-5370-1-git-send-email-richtek.jeff.chang@gmail.com>
+ <20191220121152.GC4790@sirena.org.uk>
+ <7a9bcf5d414c4a74ae8e101c54c9e46f@ex1.rt.l>
+ <20191224235145.GA27497@sirena.org.uk>
+In-Reply-To: <20191224235145.GA27497@sirena.org.uk>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [192.168.95.168]
+MIME-Version: 1.0
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ Jeff Chang <richtek.jeff.chang@gmail.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: Add MediaTek MT6660 Speaker Amp
+	Driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,76 +82,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
-
-   ASoC: SOF: imx8: fix memory allocation failure check on priv->pd_dev
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 98910e1d61384430a080b4bcf986c3b0cf3fdf46 Mon Sep 17 00:00:00 2001
-From: Colin Ian King <colin.king@canonical.com>
-Date: Wed, 4 Dec 2019 12:48:16 +0000
-Subject: [PATCH] ASoC: SOF: imx8: fix memory allocation failure check on
- priv->pd_dev
-
-The memory allocation failure check for priv->pd_dev is incorrectly
-pointer checking priv instead of priv->pd_dev. Fix this.
-
-Addresses-Coverity: ("Logically dead code")
-Fixes: 202acc565a1f ("ASoC: SOF: imx: Add i.MX8 HW support")
-Signed-off-by: Colin Ian King <colin.king@canonical.com>
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191204124816.1415359-1-colin.king@canonical.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sof/imx/imx8.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index cfefcfd92798..9d926b1df0d7 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -209,7 +209,7 @@ static int imx8_probe(struct snd_sof_dev *sdev)
- 
- 	priv->pd_dev = devm_kmalloc_array(&pdev->dev, priv->num_domains,
- 					  sizeof(*priv->pd_dev), GFP_KERNEL);
--	if (!priv)
-+	if (!priv->pd_dev)
- 		return -ENOMEM;
- 
- 	priv->link = devm_kmalloc_array(&pdev->dev, priv->num_domains,
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+RGVhciBNYXJrOg0KDQpJIG5lZWQgdG8gY29uZmlybSBpdCBhZ2Fpbi4NCg0KVGhpcyBpcyBhZGF1
+MTk5NyBkcml2ZXIgb24gdXBzdHJlYW0gYnJhbmNoDQoNCkAgc291bmQvc29jL2NvZGVjcy9hZGF1
+MTk5Ny5jDQoNCi8vIFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9ubHkNCi8qDQog
+KiBBREFVMTk3Ny9BREFVMTk3OC9BREFVMTk3OSBkcml2ZXINCiAqDQogKiBDb3B5cmlnaHQgMjAx
+NCBBbmFsb2cgRGV2aWNlcyBJbmMuDQogKiAgQXV0aG9yOiBMYXJzLVBldGVyIENsYXVzZW4gPGxh
+cnNAbWV0YWZvby5kZT4NCiAqLw0KDQpAc291bmQvc29jL2NvZGVjcy9hZGF1MTk5Ny5oDQoNCi8q
+IFNQRFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wLW9ubHkgKi8NCi8qDQogKiBBREFVMTk3
+Ny9BREFVMTk3OC9BREFVMTk3OSBkcml2ZXINCiAqDQogKiBDb3B5cmlnaHQgMjAxNCBBbmFsb2cg
+RGV2aWNlcyBJbmMuDQogKiAgQXV0aG9yOiBMYXJzLVBldGVyIENsYXVzZW4gPGxhcnNAbWV0YWZv
+by5kZT4NCiAqLw0KDQoNCkl0IHNlZW1zIG5vdCB3aG9sZSBjb21tZW50IHVzZSBjKysuIE9ubHkg
+Zmlyc3QgbGluZSBhdCBzb3VyY2UgZmlsZSwgUmlnaHQ/DQoNClRoYW5rcyBhIGxvdC4NCg0KDQpU
+aGFua3MgJiBCUnMNCkplZmYgQ2hhbmcNClRlbCA4ODYtMy01NTI2Nzg5IEV4dCAyMzU3DQoxNEYs
+IE5vLiA4LCBUYWl5dWVuIDFzdCBzdC4sIFpodWJlaSBDaXR5LA0KSHNpbmNodSBDb3VudHksIFRh
+aXdhbiAzMDI4OA0KDQoNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTWFy
+ayBCcm93biBbbWFpbHRvOmJyb29uaWVAa2VybmVsLm9yZ10NClNlbnQ6IFdlZG5lc2RheSwgRGVj
+ZW1iZXIgMjUsIDIwMTkgNzo1MiBBTQ0KVG86IGplZmZfY2hhbmco5by15LiW5L2zKSA8amVmZl9j
+aGFuZ0ByaWNodGVrLmNvbT4NCkNjOiBKZWZmIENoYW5nIDxyaWNodGVrLmplZmYuY2hhbmdAZ21h
+aWwuY29tPjsgbGdpcmR3b29kQGdtYWlsLmNvbTsgcGVyZXhAcGVyZXguY3o7IHRpd2FpQHN1c2Uu
+Y29tOyBtYXR0aGlhcy5iZ2dAZ21haWwuY29tOyBhbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmc7
+IGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZzsgbGludXgta2VybmVsQHZnZXIu
+a2VybmVsLm9yZw0KU3ViamVjdDogUmU6IFtQQVRDSF0gQVNvQzogQWRkIE1lZGlhVGVrIE1UNjY2
+MCBTcGVha2VyIEFtcCBEcml2ZXINCg0KT24gTW9uLCBEZWMgMjMsIDIwMTkgYXQgMDI6MTA6MTJB
+TSArMDAwMCwgamVmZl9jaGFuZyjlvLXkuJbkvbMpIHdyb3RlOg0KDQo+IC0tPiBXaGVuIEkgY2hl
+Y2sgb3RoZXIgZHJpdmVyIGF0IHNvdW5kL3NvYy9jb2RlY3MvIGZvbGRlciwgSSBqdXN0IGZvbGxv
+dyB3aGF0IG90aGVycyBkby4NCj4gSXQgc2VlbXMgaW4gLmggLS0+IC8qIFNQRFgtTGllbmNlc2Ut
+SWRlbnRpZmllcjogR1BMLTIuMCAqLw0KPiAgICBJbiAuYyAtLT4gLy8gU1BESy1MaWVuY2VzZS1J
+ZGVudGlmaWVyOiBHUEwtMi4wDQoNCj4gSXMgaXQgY29ycmVjdD8NCg0KWWVzLCBoZWFkZXJzIHVz
+ZSBDIHN0eWxlIGNvbW1lbnRzIGFuZCBzb3VyY2UgZmlsZXMgdXNlIEMrKyBzdHlsZS4NCioqKioq
+KioqKioqKiogRW1haWwgQ29uZmlkZW50aWFsaXR5IE5vdGljZSAqKioqKioqKioqKioqKioqKioq
+Kg0KDQpUaGUgaW5mb3JtYXRpb24gY29udGFpbmVkIGluIHRoaXMgZS1tYWlsIG1lc3NhZ2UgKGlu
+Y2x1ZGluZyBhbnkgYXR0YWNobWVudHMpIG1heSBiZSBjb25maWRlbnRpYWwsIHByb3ByaWV0YXJ5
+LCBwcml2aWxlZ2VkLCBvciBvdGhlcndpc2UgZXhlbXB0IGZyb20gZGlzY2xvc3VyZSB1bmRlciBh
+cHBsaWNhYmxlIGxhd3MuIEl0IGlzIGludGVuZGVkIHRvIGJlIGNvbnZleWVkIG9ubHkgdG8gdGhl
+IGRlc2lnbmF0ZWQgcmVjaXBpZW50KHMpLiBBbnkgdXNlLCBkaXNzZW1pbmF0aW9uLCBkaXN0cmli
+dXRpb24sIHByaW50aW5nLCByZXRhaW5pbmcgb3IgY29weWluZyBvZiB0aGlzIGUtbWFpbCAoaW5j
+bHVkaW5nIGl0cyBhdHRhY2htZW50cykgYnkgdW5pbnRlbmRlZCByZWNpcGllbnQocykgaXMgc3Ry
+aWN0bHkgcHJvaGliaXRlZCBhbmQgbWF5IGJlIHVubGF3ZnVsLiBJZiB5b3UgYXJlIG5vdCBhbiBp
+bnRlbmRlZCByZWNpcGllbnQgb2YgdGhpcyBlLW1haWwsIG9yIGJlbGlldmUgdGhhdCB5b3UgaGF2
+ZSByZWNlaXZlZCB0aGlzIGUtbWFpbCBpbiBlcnJvciwgcGxlYXNlIG5vdGlmeSB0aGUgc2VuZGVy
+IGltbWVkaWF0ZWx5IChieSByZXBseWluZyB0byB0aGlzIGUtbWFpbCksIGRlbGV0ZSBhbnkgYW5k
+IGFsbCBjb3BpZXMgb2YgdGhpcyBlLW1haWwgKGluY2x1ZGluZyBhbnkgYXR0YWNobWVudHMpIGZy
+b20geW91ciBzeXN0ZW0sIGFuZCBkbyBub3QgZGlzY2xvc2UgdGhlIGNvbnRlbnQgb2YgdGhpcyBl
+LW1haWwgdG8gYW55IG90aGVyIHBlcnNvbi4gVGhhbmsgeW91IQ0KX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxz
+YS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3Jn
+L21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

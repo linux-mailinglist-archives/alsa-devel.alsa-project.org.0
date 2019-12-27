@@ -2,59 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 021A812AD7A
-	for <lists+alsa-devel@lfdr.de>; Thu, 26 Dec 2019 17:33:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A41A512AFDF
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Dec 2019 01:10:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 62B7C1701;
-	Thu, 26 Dec 2019 17:32:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62B7C1701
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13E171708;
+	Fri, 27 Dec 2019 01:09:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E171708
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577377982;
-	bh=J5EnA8AouA8kJBellF3P/hL7CBK/TUzrTCa66zMWRPo=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=s6RNSdnLcHT3V5RExDMvFreHUIt3qiXdQ2CLcxHZ6a9A7cpAtIVcxkksFPtFLqyfh
-	 r/ci64HgMFXuQGeny7K6FZLEoQyFOLOMWzEWqbK7KKZMZSf5RzE2FlYlDVxxRhHJDe
-	 Ha9g+WcxO23wCpfrd0XzKRVBvKEDakJ6JJ3eweHE=
+	s=default; t=1577405409;
+	bh=aiLRiDE4nf1dwG77jb2tZqd+76wRg0uaLlZ3ELg5Cro=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=N5wMEBrb1D6V/FNbrkS3vXEjEDeppXibdtJeiO93NRtOBMFhT6f5P/LKGKXsprFex
+	 z60alZmGadoZLpiNU49htPT8e9vLY9Ps0CP6VQpaYkU1Js1bvepJPEqhhP/WCiJ5u+
+	 YHFDBFDTg7YvZPA/fzFdKndn/typebe7wu3yCM4U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BE002F8014C;
-	Thu, 26 Dec 2019 17:31:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25BCCF80139;
+	Fri, 27 Dec 2019 01:08:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91BE4F80139; Thu, 26 Dec 2019 17:31:16 +0100 (CET)
+ id 0AE71F80139; Fri, 27 Dec 2019 01:08:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from smtp.smtpout.orange.fr (smtp05.smtpout.orange.fr
- [80.12.242.127])
- (using TLSv1 with cipher DHE-RSA-AES128-SHA (128/128 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A027F8012E
- for <alsa-devel@alsa-project.org>; Thu, 26 Dec 2019 17:31:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A027F8012E
-Received: from localhost.localdomain ([90.40.29.152]) by mwinf5d81 with ME
- id igX92100B3Gv28S03gX9u9; Thu, 26 Dec 2019 17:31:12 +0100
-X-ME-Helo: localhost.localdomain
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Thu, 26 Dec 2019 17:31:12 +0100
-X-ME-IP: 90.40.29.152
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: brian.austin@cirrus.com, Paul.Handrigan@cirrus.com,
- ckeepax@opensource.cirrus.com, rf@opensource.cirrus.com,
- lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
-Date: Thu, 26 Dec 2019 17:29:07 +0100
-Message-Id: <20191226162907.9490-1-christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35A08F8012D
+ for <alsa-devel@alsa-project.org>; Fri, 27 Dec 2019 01:08:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35A08F8012D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="pHCrQKqQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=uE4qWh5/0WKxsEHSPif5/olJ2P833zcR/Gusr/zxliw=; b=pHCrQKqQajN2UwNqWVriS5fi/
+ bdxgs3o8iPcRjRcmkMIHbdNgMkmwfJ+WAkJowZEAhG1vR/rdhY5zHioqTSzw2ASI/EO1SpoPGEM0E
+ X7M+37n1D9at5RB0qNblVkv8ZbFpcmsPity/LBRp10f5Gk+nAh5FUgWdUDv/BYrrWkyGk=;
+Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
+ ([82.37.168.47] helo=fitzroy.sirena.org.uk)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1ikdAx-00042P-2i; Fri, 27 Dec 2019 00:08:19 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 5036CD01A24; Fri, 27 Dec 2019 00:08:18 +0000 (GMT)
+Date: Fri, 27 Dec 2019 00:08:18 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20191227000818.GF27497@sirena.org.uk>
+References: <20191204151454.21643-1-tiwai@suse.de>
+ <s5h8smz79o8.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: cs47l92: Simplify error handling code in
-	'cs47l92_probe()'
+In-Reply-To: <s5h8smz79o8.wl-tiwai@suse.de>
+X-Cookie: I have many CHARTS and DIAGRAMS..
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: core: Fix access to uninitialized
+	list heads
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,41 +83,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1691018219276091991=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If 'madera_init_bus_error_irq()' fails,
-'wm_adsp2_remove(&cs47l92->core.adsp[0])' will be called twice.
-Once in the 'if' block, and once in the error handling path.
-This is harmless, but one of this call can be axed.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
----
- sound/soc/codecs/cs47l92.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+--===============1691018219276091991==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="SxgehGEc6vB0cZwN"
+Content-Disposition: inline
 
-diff --git a/sound/soc/codecs/cs47l92.c b/sound/soc/codecs/cs47l92.c
-index d50f75f3b3e4..536b7d35d6b2 100644
---- a/sound/soc/codecs/cs47l92.c
-+++ b/sound/soc/codecs/cs47l92.c
-@@ -1959,10 +1959,8 @@ static int cs47l92_probe(struct platform_device *pdev)
- 		goto error_dsp_irq;
- 
- 	ret = madera_init_bus_error_irq(&cs47l92->core, 0, wm_adsp2_bus_error);
--	if (ret != 0) {
--		wm_adsp2_remove(&cs47l92->core.adsp[0]);
-+	if (ret != 0)
- 		goto error_adsp;
--	}
- 
- 	madera_init_fll(madera, 1, MADERA_FLL1_CONTROL_1 - 1,
- 			&cs47l92->fll[0]);
--- 
-2.20.1
+
+--SxgehGEc6vB0cZwN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Dec 26, 2019 at 09:50:15AM +0100, Takashi Iwai wrote:
+
+> This patch seems forgotten?  5.5 still suffers from the mentioned
+> bug.
+
+It's in my fixes branch.
+
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
+
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
+
+--SxgehGEc6vB0cZwN
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4FS28ACgkQJNaLcl1U
+h9CnaAf+NmqfgaPDUvSElwOgXbJCgCvUAIVvP935miAfBa9bcPyP12mZA5JXGbSC
++MvVl+bfUey4Z1mLdbiHyj2YRCkurhAF3kPnCWjh6quB0HxE8opvWdCsP4n8Q++N
+tlMpovKwO/dg2q1FDQ0ZwpKe2RN9nr5yZThdIpmLJaPHYzap0pEloaA8OnS096NA
+t1Xg5F0BqoYeC7i9UeANOREMeVQ31G/9ueyHZhXlNw398zR4GU+vqQTSNMPL6h+R
+RA7v16X8Lt8eci66zUGmnXNdZodB7zRjxlFL0tlpU8Zd4WECnYinxV84tKpMDCDL
+Iq4wmcs2pzFKulDYvLhDNfPvu1aG+A==
+=bJGg
+-----END PGP SIGNATURE-----
+
+--SxgehGEc6vB0cZwN--
+
+--===============1691018219276091991==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1691018219276091991==--

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A41A512AFDF
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Dec 2019 01:10:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C41012B01B
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Dec 2019 02:08:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13E171708;
-	Fri, 27 Dec 2019 01:09:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E171708
+	by alsa0.perex.cz (Postfix) with ESMTPS id EB2091706;
+	Fri, 27 Dec 2019 02:08:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EB2091706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577405409;
-	bh=aiLRiDE4nf1dwG77jb2tZqd+76wRg0uaLlZ3ELg5Cro=;
+	s=default; t=1577408935;
+	bh=MQ8oQH9F3jpdLicmLFWnKNPz3qZNvqXY+06K3JwXRz0=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=N5wMEBrb1D6V/FNbrkS3vXEjEDeppXibdtJeiO93NRtOBMFhT6f5P/LKGKXsprFex
-	 z60alZmGadoZLpiNU49htPT8e9vLY9Ps0CP6VQpaYkU1Js1bvepJPEqhhP/WCiJ5u+
-	 YHFDBFDTg7YvZPA/fzFdKndn/typebe7wu3yCM4U=
+	b=Z/2CwAkC1xFMi2nhpobqZcwYUzEyktawlY2VRUHL3NA7Ie72BNuGYiQ/rGVPLLWMr
+	 wSsDrqRrd46Rm2PrbUCtGCYJsWrBMdOcNUmRl3y0MOYEMBFxS0VXrcKbeOElRVU5ND
+	 /Dx6bir3+V4ZJMHTUj7W2LNjXii3+h2723DaQFTQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 25BCCF80139;
-	Fri, 27 Dec 2019 01:08:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4B606F80138;
+	Fri, 27 Dec 2019 02:07:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0AE71F80139; Fri, 27 Dec 2019 01:08:23 +0100 (CET)
+ id 9B6ADF80139; Fri, 27 Dec 2019 02:07:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,42 +35,51 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 35A08F8012D
- for <alsa-devel@alsa-project.org>; Fri, 27 Dec 2019 01:08:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35A08F8012D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89A80F8012D
+ for <alsa-devel@alsa-project.org>; Fri, 27 Dec 2019 02:07:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89A80F8012D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="pHCrQKqQ"
+ header.b="HpW7TGec"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=uE4qWh5/0WKxsEHSPif5/olJ2P833zcR/Gusr/zxliw=; b=pHCrQKqQajN2UwNqWVriS5fi/
- bdxgs3o8iPcRjRcmkMIHbdNgMkmwfJ+WAkJowZEAhG1vR/rdhY5zHioqTSzw2ASI/EO1SpoPGEM0E
- X7M+37n1D9at5RB0qNblVkv8ZbFpcmsPity/LBRp10f5Gk+nAh5FUgWdUDv/BYrrWkyGk=;
+ bh=C6uqv3n6xouQOgZTOjhS0LjqoNmIDYF5KwS2ioU6ARY=; b=HpW7TGec6HMWofJqvOYl3go7F
+ PPRQFn1JYJINXbp7Uz9UxjR3Rlxj0YTv6KYf0cU7UiFbtMhrhe2E5+ZcWWcyl1zgZRxxlfaGovcPY
+ eMa0U9m3JBEsHsb9nX5BLjWjOEv6MFsJQ17V9u2ylQRx861l+f5qoO1+eqRnQlhpeJoqc=;
 Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
  ([82.37.168.47] helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ikdAx-00042P-2i; Fri, 27 Dec 2019 00:08:19 +0000
+ id 1ike5m-00049F-BN; Fri, 27 Dec 2019 01:07:02 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 5036CD01A24; Fri, 27 Dec 2019 00:08:18 +0000 (GMT)
-Date: Fri, 27 Dec 2019 00:08:18 +0000
+ id B8BD3D01A22; Fri, 27 Dec 2019 01:07:01 +0000 (GMT)
+Date: Fri, 27 Dec 2019 01:07:01 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20191227000818.GF27497@sirena.org.uk>
-References: <20191204151454.21643-1-tiwai@suse.de>
- <s5h8smz79o8.wl-tiwai@suse.de>
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Message-ID: <20191227010701.GK27497@sirena.org.uk>
+References: <1575553053-18344-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ <1575553053-18344-3-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <s5h8smz79o8.wl-tiwai@suse.de>
+In-Reply-To: <1575553053-18344-3-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 X-Cookie: I have many CHARTS and DIAGRAMS..
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: core: Fix access to uninitialized
-	list heads
+Cc: pierre-louis.bossart@linux.intel.com,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>,
+ YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ djkurtz@google.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
+ Alexander.Deucher@amd.com, Colin Ian King <colin.king@canonical.com>,
+ Dan Carpenter <dan.carpenter@oracle.com>
+Subject: Re: [alsa-devel] [PATCH v14 2/7] ASoC: amd: Refactoring of DAI from
+	DMA driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,60 +92,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1691018219276091991=="
+Content-Type: multipart/mixed; boundary="===============4963867770619669193=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============1691018219276091991==
+--===============4963867770619669193==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SxgehGEc6vB0cZwN"
+	protocol="application/pgp-signature"; boundary="ogUXNSQj4OI1q3LQ"
 Content-Disposition: inline
 
 
---SxgehGEc6vB0cZwN
+--ogUXNSQj4OI1q3LQ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Dec 26, 2019 at 09:50:15AM +0100, Takashi Iwai wrote:
+On Thu, Dec 05, 2019 at 07:07:27PM +0530, Ravulapati Vishnu vardhan rao wrote:
+> ASoC: PCM DMA driver should only have dma ops.
+> So Removed all DAI related functionality.Refactoring
+> the PCM DMA diver code.Added new file containing only DAI ops
 
-> This patch seems forgotten?  5.5 still suffers from the mentioned
-> bug.
+This doesn't apply against current code, please check and resend.
 
-It's in my fixes branch.
-
-Please don't send content free pings and please allow a reasonable time
-for review.  People get busy, go on holiday, attend conferences and so=20
-on so unless there is some reason for urgency (like critical bug fixes)
-please allow at least a couple of weeks for review.  If there have been
-review comments then people may be waiting for those to be addressed.
-
-Sending content free pings adds to the mail volume (if they are seen at
-all) which is often the problem and since they can't be reviewed
-directly if something has gone wrong you'll have to resend the patches
-anyway, so sending again is generally a better approach though there are
-some other maintainers who like them - if in doubt look at how patches
-for the subsystem are normally handled.
-
---SxgehGEc6vB0cZwN
+--ogUXNSQj4OI1q3LQ
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4FS28ACgkQJNaLcl1U
-h9CnaAf+NmqfgaPDUvSElwOgXbJCgCvUAIVvP935miAfBa9bcPyP12mZA5JXGbSC
-+MvVl+bfUey4Z1mLdbiHyj2YRCkurhAF3kPnCWjh6quB0HxE8opvWdCsP4n8Q++N
-tlMpovKwO/dg2q1FDQ0ZwpKe2RN9nr5yZThdIpmLJaPHYzap0pEloaA8OnS096NA
-t1Xg5F0BqoYeC7i9UeANOREMeVQ31G/9ueyHZhXlNw398zR4GU+vqQTSNMPL6h+R
-RA7v16X8Lt8eci66zUGmnXNdZodB7zRjxlFL0tlpU8Zd4WECnYinxV84tKpMDCDL
-Iq4wmcs2pzFKulDYvLhDNfPvu1aG+A==
-=bJGg
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4FWTQACgkQJNaLcl1U
+h9C6Qgf/YaesCjRBOBWjivS9T9BLZkRe0qF/Ot4xyMlnIT8zYH/XQOQWfdZhzmGO
+wB/fxqKJRXnbupS3ynhCzNHGbl9Uhj+AuFy9Fb8vFYbVwRuHYckTxBRI2ohK6OA9
+/0KDeoGqC7nKKzlYY+R6Z2cBzxNACiVjYPtR/MIrXmjS4GAZ8Lbgdx3pVvA1HDmS
+36fr79im8RG4QFlmeIVUl/ZH+9hOoBa3IcxGPA4Qtie/+KJ1j/0gxwUd5wCWnx1E
+i9rLojdohEqrM1nvw8oy9QZ35qgkylMPClguzkSPmH2xslXaJgKfaTUd7L+ia07N
+sPJt+6bI3gDjJdifhjKOuwUtZ7FiVg==
+=mUn1
 -----END PGP SIGNATURE-----
 
---SxgehGEc6vB0cZwN--
+--ogUXNSQj4OI1q3LQ--
 
---===============1691018219276091991==
+--===============4963867770619669193==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -147,4 +142,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============1691018219276091991==--
+--===============4963867770619669193==--

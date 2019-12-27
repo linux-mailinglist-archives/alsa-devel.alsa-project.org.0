@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8011212B626
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Dec 2019 18:31:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69AEB12B66B
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Dec 2019 18:42:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CC9C51724;
-	Fri, 27 Dec 2019 18:30:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC9C51724
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDA001721;
+	Fri, 27 Dec 2019 18:41:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDA001721
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577467866;
+	s=default; t=1577468570;
 	bh=sW8gPA828F1+uv0XTT5mcZyx4QZtf/sVrcVFOPNJILo=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=lQS2BASJN6jfKBeuQRyIYp/pXQJPniv5A9s7ydFRIhx5M90vp29hgU7ddEFx5OZMC
-	 kuIt1tr7qDRxbnXgUD765p4bDlNy2Btif9GmVMT7XMsIpbzYYD+UM79ghfpzAg62aT
-	 Oojj7dOow4qOocmJzr7FRYhgUH2g6VJh1ImrcDtM=
+	b=arzrq5h3LgivRreCcK/DhLPWsiN5UvlkUUgFmCSLQGZq0Qv21VyjUqnHm+UlTjnn+
+	 eRQqjIDihsaG+iFrWQ6ssSNoWCogOrr3qz80K7jr5NhiAAzqEIYHZVvVus5BQEBMIr
+	 m/Pb1GqsgXFehAinqExCrD7NzCKAbZu6+bnIm2YY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24E1AF80145;
-	Fri, 27 Dec 2019 18:29:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5156CF8013D;
+	Fri, 27 Dec 2019 18:41:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 91029F80132; Fri, 27 Dec 2019 18:29:19 +0100 (CET)
+ id 6DF28F80132; Fri, 27 Dec 2019 18:41:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -33,30 +33,30 @@ X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 888EBF800AE
- for <alsa-devel@alsa-project.org>; Fri, 27 Dec 2019 18:29:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 888EBF800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id A36A6F800CD
+ for <alsa-devel@alsa-project.org>; Fri, 27 Dec 2019 18:41:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A36A6F800CD
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="w/odNDt2"
+ header.b="bGYbuKlc"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 95EA920882;
- Fri, 27 Dec 2019 17:29:12 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DC30120740;
+ Fri, 27 Dec 2019 17:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1577467753;
+ s=default; t=1577468458;
  bh=iWH0MFW5TIsBkDItbrtJZGgrfm8ntD5+Gb/OZCOoeX8=;
  h=From:To:Cc:Subject:Date:From;
- b=w/odNDt2mh58np8SzGlCt06+tOPHNI8o48vwuH9aDAVF2RWjjlaciIN1NeSa0Horc
- U7EsEUmnCkzUprtp8s98j4osUeWuWGK4mZkFE6G3SO73qp9c2uFK/t2vIm/sko2bTw
- rs6GxcL01XNO07ZR9Nxz0I5feIlBilB2T67WtwWM=
+ b=bGYbuKlc1zLBFKdxCDkoz1fwXmc2MrTmVmuJC4XsccDqSvz3L+ZvXibzDC0C+THHS
+ HQTJTzGKmBpv/NepUQtpqUPWm2O8NtDy9PpvE59x27lpis0X4V2bmdhTOOhZmkXhFM
+ idnfzI7QiaF5vPsYsl+TZD21vtf01F0eS0uN8hfs=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 27 Dec 2019 12:26:05 -0500
-Message-Id: <20191227172911.4430-1-sashal@kernel.org>
+Date: Fri, 27 Dec 2019 12:37:49 -0500
+Message-Id: <20191227174055.4923-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 X-stable: review

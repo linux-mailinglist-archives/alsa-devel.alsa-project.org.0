@@ -2,130 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8528112B4AA
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Dec 2019 13:58:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ACAA12B592
+	for <lists+alsa-devel@lfdr.de>; Fri, 27 Dec 2019 16:23:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2759E173D;
-	Fri, 27 Dec 2019 13:57:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2759E173D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9B24E1725;
+	Fri, 27 Dec 2019 16:22:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9B24E1725
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577451502;
-	bh=tRBO8hRHMfefj+aJ6WkF+peZIbfXXC43uVYD1xk+ypI=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rQL8PXpy8ICC0FUQeCs2VJBJp0fo0GbBoKSnnGXVzEMNa68sVco/HgIs1GqEVrXtD
-	 oBO/YQZK9+VPSd09TF3C7AFap6JOpNuckcuRkNeE8cdhbSXEsr2T5P06oiQhJQ86mX
-	 Y8AYwQapLZUzFew2zmr7MQpafcB/RKfbHVvGBjhw=
+	s=default; t=1577460198;
+	bh=p/8gPAUMPwuMS0bHdHFy11C08dqlv8THAW4d4R+gYCk=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=uV0JMjSgAiLY6DIZIvqz0imEldluVS0US+uuCLKF/z4d1kf84ybZ3UckJfXTuCXHJ
+	 oX+Xi2mlcX/1Ws5mJPIZMuRcJgd24zXUxHxZJZjyDcvWk/0lzjx6Sj8Tjzu4H1EgIe
+	 sJIUZt6EVCl0uodSQvODZJB1pve9/wyl928CIYJI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC31DF802C4;
-	Fri, 27 Dec 2019 13:53:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE880F800E3;
+	Fri, 27 Dec 2019 16:21:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 54056F802A1; Fri, 27 Dec 2019 13:53:37 +0100 (CET)
+ id B5951F80132; Fri, 27 Dec 2019 16:21:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.8 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,SURBL_BLOCKED,UPPERCASE_50_75,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-eopbgr680081.outbound.protection.outlook.com [40.107.68.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,MIME_BASE64_TEXT,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1CBCFF80291
- for <alsa-devel@alsa-project.org>; Fri, 27 Dec 2019 13:53:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1CBCFF80291
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1A061F800E3
+ for <alsa-devel@alsa-project.org>; Fri, 27 Dec 2019 16:21:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1A061F800E3
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="F7E/yyUB"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=K2kwRSOaQ30a9jvNsjT9N9RYR4AyypRm2/yD9FUPb6xnnvUFsn8oPCT88IvicyXmkueoBTkBvZ/M6oZWNhzFVxSRbdOmE55EhwfozSZJ4EDd3GS4edGcePl8cZUFNXV1J+u86YP/j+51xuvzT51D+jnermSF9T96oFMcqHTjXAIrJ0XcOxeXGXP16Xu2iKjMNIBxOAItrY7c0Ik0JGBmmgxyMzsh9SSKHeFjA7iDnEeKtigBU2VECmmGkutBAbi1ugENnfCJzDApytmqsa4TE8/cG5n9nX8HlUizNj6AEsoxZ03fbNSjNsdzvul+seXdVAeQYqVggqnci3RWPp4fyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ApmNX5ikvgoKwJVRrmgjW5z/ed9zionyy6WDW7x9I6s=;
- b=C0dfzB1GCWFn4OrDP5t6J8+3h1xGIdaCPy8TFk9WtKlhBrfwiLF7Ky2n2jyYi1GPAb/FLhuHDdt4pua8oS1puFGsAvHClRASQFdgzBqWg6BDfzP4GqgAJshnKpLBve8Xal+CBEI5AbiREbQGcxWH45R0pMJbsb0n0fR5HjiezHwcn/M5ZEDMhK5i0qv+GThJ85XsGLxxlCxpUgMhnpGkS214WUZxT6DhejR3UCfjZm2ipSSrTd+4jEahgdwEp9+JCnvE0pX6r+g96x96QwZJdcuBD5U7t2p39Jr0muZ7ZjsVApds2XcSMft2Rm0HkCs6QQFStSyHrG0ZENUHbk5WCQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com;
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ApmNX5ikvgoKwJVRrmgjW5z/ed9zionyy6WDW7x9I6s=;
- b=F7E/yyUBsm31zZ1lZrpfcEMiJGSQdpO/0TNQlzoMPzjiSfkXl+bnK7gcnoXz0l9wnNB6mvxMHohpzo6o1GTJ9nGYTgalEb2yOGLhXvrU03nhCy4yR2hp7qutCE0+eu7IZXR/FOD/NASiBqUG/4db1gWhSMG+yUQ2cIQnsCtEfYw=
-Received: from DM3PR12CA0118.namprd12.prod.outlook.com (2603:10b6:0:51::14) by
- BN8PR12MB3091.namprd12.prod.outlook.com (2603:10b6:408:44::29) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2559.14; Fri, 27 Dec 2019 12:53:29 +0000
-Received: from CO1NAM11FT010.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::206) by DM3PR12CA0118.outlook.office365.com
- (2603:10b6:0:51::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2581.11 via Frontend
- Transport; Fri, 27 Dec 2019 12:53:29 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; google.com; dkim=none (message not signed)
- header.d=none;google.com; dmarc=permerror action=none header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT010.mail.protection.outlook.com (10.13.175.88) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2581.11 via Frontend Transport; Fri, 27 Dec 2019 12:53:29 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 27 Dec
- 2019 06:53:28 -0600
-Received: from vishnu-All-Series.amd.com (10.180.168.240) by
- SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Fri, 27 Dec 2019 06:53:24 -0600
-From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-To: 
-Date: Fri, 27 Dec 2019 18:20:55 +0530
-Message-ID: <1577451055-9182-7-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1577451055-9182-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-References: <1577451055-9182-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
+ header.b="Mbj9NLOp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1577460081;
+ bh=v3G485xxBEo3Cum4SQHR6DjKkNv1OjWEtlHcjeyT33o=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=Mbj9NLOppltN6yvIvUfj6khIv4KYpcSGxS9QhXn2KTtgtij3z5d9f783Z+e3rdV3k
+ Yf9mbbbMum6w2xwKaL5TM8dbq4SxXf2KJcIhv/782qoSbIC/M4uJZMLfn9FeZ544nI
+ vmYMCO3OOTMwLUg56qr6+d4Zu8YdVIiP2yLmcCBA=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from localhost.fritz.box ([62.216.209.247]) by mail.gmx.com
+ (mrgmx005 [212.227.17.190]) with ESMTPSA (Nemesis) id
+ 1MS3ir-1jDEAl40dP-00TQeZ; Fri, 27 Dec 2019 16:21:21 +0100
+From: Peter Seiderer <ps.report@gmx.net>
+To: linux-kernel@vger.kernel.org
+Date: Fri, 27 Dec 2019 16:20:56 +0100
+Message-Id: <20191227152056.9903-1-ps.report@gmx.net>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(396003)(136003)(346002)(39860400002)(376002)(428003)(189003)(199004)(8676002)(2616005)(81166006)(36756003)(86362001)(478600001)(6666004)(81156014)(356004)(8936002)(426003)(336012)(316002)(70206006)(70586007)(54906003)(4326008)(7696005)(2906002)(7416002)(26005)(186003)(5660300002)(109986005)(266003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:BN8PR12MB3091; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 228b49d0-4c54-41b5-a74a-08d78acbc59f
-X-MS-TrafficTypeDiagnostic: BN8PR12MB3091:|BN8PR12MB3091:
-X-Microsoft-Antispam-PRVS: <BN8PR12MB3091B13531A31768EEABBDF9E72A0@BN8PR12MB3091.namprd12.prod.outlook.com>
-X-MS-Exchange-Transport-Forked: True
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-Forefront-PRVS: 0264FEA5C3
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: E1E+LiyBP5wL+rSvDx3Yr6JPpGQ0W89hqV8bBbH2orrPZavZP94hbFOHn1rRYAjqcEAg9kpy2v4FU/E7kt41xz7wqYhHaNQjILaObEOUIGjU3lo498thww1TBhA1YztjjFD8srIfj1cG5bFwQqnkKK/n/0EyXc+wW/2JUg+U3Tx5hWGV8BAtO1E3fe+UCCiTBHi3Kk0XbXBCULSH/OA9chK5hDXtyzUvei9QE2+FfeE1goXMudg6DePv1Z4oOWHlEMEUCvAj0k28Uok5OTBSNfI1fdL5Uj0y1K2m6Zisi0BMbl07lPiqq1y25zUXsR7u6xfr37nGUFgLiyL0g2xf0zsJKYOkYkViBOY5cVwzl99hEfcxok0tXUGc3JrQ6SetxPTPIeANh+CtyFVlJArLGSJ5YvglvM+PRyJag6HrKi/b9jNUV2RHIewl4AkI0cceiejjzzbqTmjhmeYAdB6XAjvd4sF47c/KXjLYP/0Jum8=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Dec 2019 12:53:29.3182 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 228b49d0-4c54-41b5-a74a-08d78acbc59f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN8PR12MB3091
-Cc: "moderated list:SOUND - SOC
- LAYER / DYNAMIC AUDIO POWER MANAGEM..." <alsa-devel@alsa-project.org>, Kuninori
- Morimoto <kuninori.morimoto.gx@renesas.com>, open
- list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- YueHaibing <yuehaibing@huawei.com>, pierre-louis.bossart@linux.intel.com,
- Liam Girdwood <lgirdwood@gmail.com>, Ravulapati
- Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>, broonie@kernel.org,
- djkurtz@google.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Alexander.Deucher@amd.com, Colin Ian King <colin.king@canonical.com>
-Subject: [alsa-devel] [PATCH 6/6] ASoC: amd MMAP_INTERLEAVED Support
+X-Provags-ID: V03:K1:JPR7Yh/nE2L7BcQ/QhBP0f+6BAatPm4RrsDC8Faa/IZBqz+5LK9
+ 0Tz3d0ZdtzhqK6gKdD6/NL6QfPdwx02dYu8hSr85SISdb2haDdW8SAol8bCUsvGStOPtmSD
+ w/+TVwT+6kxlR96bCDTU+GZCf11jFHm+n0//HVe7wtGR49DJuIOR9FLaIHMLuj+2qysM76S
+ MQXAvGNi+kRploBjMqpbw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:M04zpNXRc+4=:pFARzSYrMSaSWj3JOUjzDD
+ zZKAnBVEfh0UdbxhIUWxUPUyanSDuFF/PVULmGgGCv3+dqybsMe6Byzw/DUClwQ8n4r+j329c
+ R0QD/mDb1eXztoA36kKN3on9Zqr4SX5b57xQVzNjZ8NVRqZvcBUbbELWnBIPQ0vwMTNr7zdiX
+ mNgrDg/f/m99Eo/m32y744ygiwuZn4ymkCl9BJF9JcDz6d1jkzOF1ApdA5zot+I1jJIoIcMMy
+ cREdP6hnJZFJCZrQeT8wlTGqwG1nSjvFn8JMNO/ebpmrQOiB6ArFAUzOzC/aYW7Yqn9V72hLU
+ LT+vFxrsoqIdsfGTe5kWLRUE/etTZAbMu4/KMBD7+3g//3O1PjYnRERuq6hrmzLa38B/NqpZG
+ TbBrPhdQCX7E3yLgdHcqvAgHLTkHuFJWDIzHukxGglBCepGto5ujZZHNAuihfTtV48dPA4koA
+ YlaQ5VaWg5Fa1ySKMsmumEH+jcsJI92P2T0aehGhkXFWJQqQNZGLg//qPgYjuHPYB4PXRWqdW
+ lRPgkph9xCviRCagVqHlllWguRMsTe8J6i9JYlEHxz+eQXkdz5IM4Ur1+l0Gyr7X5zt93RY0i
+ XVZktxwqxNL7YFXxKt5VajeRwgi/oK18RlOdDPGUHDfXKpg16alo0+aNu2bcMW1lTQEQL6ePO
+ JayOqgeKuCv78rUGA0GHRiPBvjN4Nup/5DMD/GEY6KV/OO/AlGtOSH0Hv02Pu9EHmp63BsUh1
+ 0DfDctW3Td+OfcfgWwa6Mj9syY2Me8jmVylUBzYCtqcZk1B40CcbvODCCCVwfPINilH3jw9Kn
+ cQ8OXWHXduD12f9xuQZeTtNeU9C2nWcCPyEtAS7LkpgUKVye9RYDA+sxoN2E+eV5tLqCFwvxF
+ OIFJoh/dT6JUyCr1/kkY7IJtTqHAMZBFVCvuNnLdlM40yQMkS941sKliHJlawOsd3ccHgobX2
+ I93+hitZ0Q0zf59VXWWK0pESWOcE6+h2sa9QlrVnU5pr8yWCAZ2acUqDcIZdnQPJw+RK5uAAs
+ FYtBeGavyABpc3grY2TkH+P2Yp4dIBNHpk7q4xkNLHJ4Z+sZMXEUP84buR6rtx87Wz/M0E7ga
+ SCcgKQ50TBlSW7git9DY1nl4N8BdtK0TfC83mpgw13KF+7jdy1M01EQjZlwUJx6p7C4vROXGH
+ MsNoDmMTblz2SS6huC9eGWHXgFvrtTLLTB2sppax5qbwI1m6M1nthGuuW4EowY1/XbOBNYdS2
+ LYxq3Ywcke7vqQlRhOfvRuwgcFVvCsqRcTEl5fw==
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Annaliese McDermond <nh6z@nh6z.net>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>, Peter Seiderer <ps.report@gmx.net>
+Subject: [alsa-devel] [PATCH v1] ASoC: tlv320aic32x4: handle regmap_read
+	error gracefully
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,38 +101,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-ACP-I2S device support MMAP_INTERLEAVED.
-Added support for the same.
+Fixes:
 
-Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+[    5.169310] Division by zero in kernel.
+[    5.200998] CPU: 1 PID: 1 Comm: swapper/0 Not tainted 5.3.18-20191021-1+ #14
+[    5.203049] cdc_acm 2-1.6:1.0: ttyACM0: USB ACM device
+[    5.208198] Hardware name: Freescale i.MX6 Quad/DualLite (Device Tree)
+[    5.220084] Backtrace:
+[    5.222628] [<8010f60c>] (dump_backtrace) from [<8010f9a8>] (show_stack+0x20/0x24)
+[    5.230348]  r7:810a1c6c r6:00000000 r5:60000013 r4:810a1c6c
+[    5.236097] [<8010f988>] (show_stack) from [<809e06a0>] (dump_stack+0xac/0xd8)
+[    5.243469] [<809e05f4>] (dump_stack) from [<8010f780>] (__div0+0x24/0x28)
+[    5.250431]  r9:8111adc8 r8:ae631180 r7:aebd27c0 r6:ae631e40 r5:00000000 r4:81006508
+[    5.258325] [<8010f75c>] (__div0) from [<809de7ac>] (Ldiv0+0x8/0x10)
+[    5.264841] [<8085c7e0>] (clk_aic32x4_div_recalc_rate) from [<805ba70c>] (__clk_register+0x2f8/0x7e4)
+[    5.274141]  r5:80dd065c r4:ae6bd480
+[    5.277869] [<805ba414>] (__clk_register) from [<805bace0>] (devm_clk_register+0x58/0x8c)
+[    5.286130]  r10:81006508 r9:810946d4 r8:00000000 r7:ae8de1c0 r6:ae631ac0 r5:ae631e40
+[    5.294103]  r4:ae8d8020
+[    5.296724] [<805bac88>] (devm_clk_register) from [<8085cea8>] (aic32x4_register_clocks+0x120/0x14c)
+[    5.306004]  r7:ae8de1c0 r6:ae8d8020 r5:ae631e40 r4:810946c0
+[    5.311818] [<8085cd88>] (aic32x4_register_clocks) from [<8085bf60>] (aic32x4_probe+0x94/0x468)
+[    5.320602]  r10:81094730 r9:00000000 r8:af361fc0 r7:bfd6d040 r6:00000000 r5:ae8d8020
+[    5.328574]  r4:af361e40
+[    5.331195] [<8085becc>] (aic32x4_probe) from [<8085cf60>] (aic32x4_i2c_probe+0x6c/0x88)
+[    5.339434]  r8:00000000 r7:ae8d8000 r6:81094730 r5:ae8d8000 r4:81006508
+[    5.346288] [<8085cef4>] (aic32x4_i2c_probe) from [<807554b0>] (i2c_device_probe+0x2ac/0x2f0)
+[    5.354894]  r5:8085cef4 r4:ae8d8020
+[    5.358625] [<80755204>] (i2c_device_probe) from [<80678e34>] (really_probe+0x11c/0x428)
+[    5.366802]  r9:00000000 r8:810b3e78 r7:00000000 r6:8111e020 r5:ae8d8020 r4:8111e01c
+[    5.374694] [<80678d18>] (really_probe) from [<80679388>] (driver_probe_device+0x88/0x1e0)
+[    5.383106]  r10:80f63860 r9:ffffe000 r8:ffffe000 r7:80679794 r6:81094730 r5:81094730
+[    5.391080]  r4:ae8d8020
+[    5.393702] [<80679300>] (driver_probe_device) from [<8067978c>] (device_driver_attach+0x68/0x70)
+[    5.402724]  r9:ffffe000 r8:ffffe000 r7:80679794 r6:81094730 r5:00000000 r4:ae8d8020
+[    5.410555] [<80679724>] (device_driver_attach) from [<80679858>] (__driver_attach+0xc4/0x164)
+[    5.419313]  r7:80679794 r6:ae8d8020 r5:81094730 r4:00000000
+[    5.425123] [<80679794>] (__driver_attach) from [<80676a14>] (bus_for_each_dev+0x84/0xc4)
+[    5.433384]  r7:80679794 r6:81094730 r5:81006508 r4:ae8dc0c0
+[    5.439192] [<80676990>] (bus_for_each_dev) from [<80678668>] (driver_attach+0x2c/0x30)
+[    5.447279]  r7:00000000 r6:af361500 r5:8107fd94 r4:81094730
+[    5.453087] [<8067863c>] (driver_attach) from [<80677fc4>] (bus_add_driver+0x1d0/0x210)
+[    5.461240] [<80677df4>] (bus_add_driver) from [<80679f34>] (driver_register+0x84/0x118)
+[    5.469414]  r7:00000000 r6:80f4ac9c r5:81006508 r4:81094730
+[    5.475224] [<80679eb0>] (driver_register) from [<80755dfc>] (i2c_register_driver+0x4c/0xb8)
+[    5.483807]  r5:81006508 r4:81094714
+[    5.487472] [<80755db0>] (i2c_register_driver) from [<80f4acc0>] (aic32x4_i2c_driver_init+0x24/0x28)
+[    5.496750]  r5:81006508 r4:810a7180
+[    5.500415] [<80f4ac9c>] (aic32x4_i2c_driver_init) from [<80103288>] (do_one_initcall+0x64/0x2d0)
+[    5.509442] [<80103224>] (do_one_initcall) from [<80f014a8>] (kernel_init_freeable+0x300/0x390)
+[    5.518287]  r8:810c7300 r7:810c7300 r6:00000007 r5:80f920c4 r4:80f63840
+[    5.525079] [<80f011a8>] (kernel_init_freeable) from [<809f892c>] (kernel_init+0x18/0x124)
+[    5.533490]  r10:00000000 r9:00000000 r8:00000000 r7:00000000 r6:00000000 r5:809f8914
+[    5.541461]  r4:00000000
+[    5.544084] [<809f8914>] (kernel_init) from [<801010b4>] (ret_from_fork+0x14/0x20)
+[    5.551800] Exception stack(0xaf115fb0 to 0xaf115ff8)
+[    5.556935] 5fa0:                                     00000000 00000000 00000000 00000000
+[    5.565262] 5fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+[    5.573522] 5fe0: 00000000 00000000 00000000 00000000 00000013 00000000
+[    5.580283]  r5:809f8914 r4:00000000
+
+Signed-off-by: Peter Seiderer <ps.report@gmx.net>
 ---
- sound/soc/amd/raven/acp3x-pcm-dma.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/codecs/tlv320aic32x4-clk.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
-index 7045a34..aae7ec6 100644
---- a/sound/soc/amd/raven/acp3x-pcm-dma.c
-+++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
-@@ -22,6 +22,7 @@ static const struct snd_pcm_hardware acp3x_pcm_hardware_playback = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED |
- 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_BATCH |
-+		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
- 		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
- 	.formats = SNDRV_PCM_FMTBIT_S16_LE |  SNDRV_PCM_FMTBIT_S8 |
- 		   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S24_LE |
-@@ -42,7 +43,8 @@ static const struct snd_pcm_hardware acp3x_pcm_hardware_capture = {
- 	.info = SNDRV_PCM_INFO_INTERLEAVED |
- 		SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 		SNDRV_PCM_INFO_BATCH |
--	    SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
-+		SNDRV_PCM_INFO_MMAP | SNDRV_PCM_INFO_MMAP_VALID |
-+		SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME,
- 	.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S8 |
- 		   SNDRV_PCM_FMTBIT_U8 | SNDRV_PCM_FMTBIT_S24_LE |
- 		   SNDRV_PCM_FMTBIT_S32_LE,
+diff --git a/sound/soc/codecs/tlv320aic32x4-clk.c b/sound/soc/codecs/tlv320aic32x4-clk.c
+index 156c153c12ab..7a82e3448780 100644
+--- a/sound/soc/codecs/tlv320aic32x4-clk.c
++++ b/sound/soc/codecs/tlv320aic32x4-clk.c
+@@ -338,7 +338,8 @@ static unsigned long clk_aic32x4_div_recalc_rate(struct clk_hw *hw,
+ 
+ 	unsigned int val;
+ 
+-	regmap_read(div->regmap, div->reg, &val);
++	if (regmap_read(div->regmap, div->reg, &val))
++		return 0;
+ 
+ 	return DIV_ROUND_UP(parent_rate, val & AIC32X4_DIV_MASK);
+ }
 -- 
-2.7.4
+2.24.0
 
 _______________________________________________
 Alsa-devel mailing list

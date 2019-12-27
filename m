@@ -2,82 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4281C12BBB9
-	for <lists+alsa-devel@lfdr.de>; Fri, 27 Dec 2019 23:57:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EE3712BBE2
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Dec 2019 01:18:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B36401762;
-	Fri, 27 Dec 2019 23:56:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B36401762
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5A761762;
+	Sat, 28 Dec 2019 01:17:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5A761762
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577487466;
-	bh=UIhwTa0wSvgI5uhTtypl5RkqptmfQsy9RHjzQhxi2b0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1577492281;
+	bh=YNHnNyztT7YnJKBNcIH4DfTmLDcAMzVayb4Lw1quyn0=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IvbkOesIT/RbgfoczUl3BC0HJTpAM7BQ/n+uhTqOmh6KEhlDtkVWeYF0mW2aWHEKN
-	 bTBLmnGfgGe1xyHSGBK6QSkrvby2/qliWOj16cuECFRhG8WpXwRxnZcdM+AgxUukRT
-	 eZdQfMdX6X3z5dfcD/fg4upoFuhxxpQJH5yptWPY=
+	b=JFAAtcKIQ/0y/FYLqzd2De9PCmhFJdOVcraPUKrUv1j3AemUSrE8V864AkX4qx/Eb
+	 VU6jJLargBHcRNYdKOc69VXM5YITJCU7ktrXkKgextIXtiKrd3Z48v4e1v1obPomg9
+	 XyLl788YasZYeJ4UP5t6MdMgneNaBW4hnYLahCNE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D474DF80145;
-	Fri, 27 Dec 2019 23:56:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28933F800AE;
+	Sat, 28 Dec 2019 01:16:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35870F80132; Fri, 27 Dec 2019 23:56:01 +0100 (CET)
+ id C8944F8013D; Sat, 28 Dec 2019 01:16:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AE181F800E3
- for <alsa-devel@alsa-project.org>; Fri, 27 Dec 2019 23:55:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE181F800E3
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="t/3p7NnT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=2Me3W1CcQYRUaMjjW7RP9yGrYFxAf8aGHpvTMfD4pMI=; b=t/3p7NnTTB+32zGkG70ymdoQV
- nQXEGjm2MkflE9oplm5CNCG0kaF53p7x1nn2jFgiFahN/KxZW9Ivu4LWDzpZ6T1SEHun+d8TUOK9j
- i8cq1IiJPOW4gfIQf3WT5wt9kY1XkpegDiWEok1y1xA0oktZsWRYKKTZdAWnH/Cn1Jzck=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=fitzroy.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1ikyWS-0006bi-9H; Fri, 27 Dec 2019 22:55:56 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id AD55FD01A22; Fri, 27 Dec 2019 22:55:55 +0000 (GMT)
-Date: Fri, 27 Dec 2019 22:55:55 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-Message-ID: <20191227225555.GA3897@sirena.org.uk>
-References: <1577451055-9182-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1577451055-9182-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2DF0FF800CD
+ for <alsa-devel@alsa-project.org>; Sat, 28 Dec 2019 01:16:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DF0FF800CD
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Dec 2019 16:16:07 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,364,1571727600"; d="scan'208";a="243364207"
+Received: from vdoan2-mobl.ccr.corp.intel.com (HELO [10.251.152.151])
+ ([10.251.152.151])
+ by fmsmga004.fm.intel.com with ESMTP; 27 Dec 2019 16:16:06 -0800
+To: Vinod Koul <vkoul@kernel.org>
+References: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
+ <20191217210314.20410-4-pierre-louis.bossart@linux.intel.com>
+ <20191227070011.GJ3006@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <e5b45832-6a7e-1538-8069-ef366b87a8b7@linux.intel.com>
+Date: Fri, 27 Dec 2019 17:23:42 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <1577451055-9182-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-X-Cookie: Programming is an unnatural act.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: pierre-louis.bossart@linux.intel.com,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
- djkurtz@google.com, Vijendar Mukunda <Vijendar.Mukunda@amd.com>,
- Alexander.Deucher@amd.com, Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel] [PATCH 1/6] ASoC: amd: Refactoring of DAI from DMA
-	driver
+In-Reply-To: <20191227070011.GJ3006@vkoul-mobl>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v5 03/17] soundwire: rename
+ drv_to_sdw_slave_driver macro
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,67 +80,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5794372588989260403=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============5794372588989260403==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VS++wcV0S1rZb1Fb"
-Content-Disposition: inline
 
+On 12/27/19 1:00 AM, Vinod Koul wrote:
+> On 17-12-19, 15:03, Pierre-Louis Bossart wrote:
+>> Align with previous renames and shorten macro
+>>
+>> No functionality change
+>>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> ---
+>>   drivers/soundwire/bus_type.c       | 9 ++++-----
+>>   include/linux/soundwire/sdw_type.h | 3 ++-
+>>   2 files changed, 6 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/drivers/soundwire/bus_type.c b/drivers/soundwire/bus_type.c
+>> index c0585bcc8a41..2b2830b622fa 100644
+>> --- a/drivers/soundwire/bus_type.c
+>> +++ b/drivers/soundwire/bus_type.c
+>> @@ -34,7 +34,7 @@ sdw_get_device_id(struct sdw_slave *slave, struct sdw_driver *drv)
+>>   static int sdw_bus_match(struct device *dev, struct device_driver *ddrv)
+>>   {
+>>   	struct sdw_slave *slave = to_sdw_slave_device(dev);
+>> -	struct sdw_driver *drv = drv_to_sdw_slave_driver(ddrv);
+>> +	struct sdw_driver *drv = to_sdw_slave_driver(ddrv);
+> 
+> so patch 1 does:
+> 
+> -       struct sdw_driver *drv = drv_to_sdw_driver(dev->driver);
+> +       struct sdw_driver *drv = drv_to_sdw_slave_driver(dev->driver);
+> 
+> and here we move drv_to_sdw_slave_driver to to_sdw_slave_driver... why
+> not do this in first patch and save step1... or did i miss something??
 
---VS++wcV0S1rZb1Fb
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+because patch1 introduces replaces 'sdw_' by 'sdw_slave_' in several 
+places, not just for drv_to_sdw_driver()
 
-On Fri, Dec 27, 2019 at 06:20:50PM +0530, Ravulapati Vishnu vardhan rao wro=
-te:
-> ASoC: PCM DMA driver should only have dma ops.
-> So Removed all DAI related functionality.Refactoring
-> the PCM DMA diver code.Added new file containing only DAI ops
-
-This breaks the build:
-
-  CC      sound/soc/amd/raven/acp3x-i2s.o
-In file included from sound/soc/amd/raven/pci-acp3x.c:13:
-sound/soc/amd/raven/acp3x.h: In function =E2=80=98acp_get_byte_count=E2=80=
-=99:
-sound/soc/amd/raven/acp3x.h:94:19: error: =E2=80=98SNDRV_PCM_STREAM_PLAYBAC=
-K=E2=80=99 undeclared (first use in this function)
-  if (direction =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-                   ^~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/amd/raven/acp3x.h:94:19: note: each undeclared identifier is repo=
-rted only once for each function it appears in
-
---VS++wcV0S1rZb1Fb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4Gi/oACgkQJNaLcl1U
-h9BQiQf+New8Dfm5hPPcu9h4aqIHcTz0z6dH4Zl6/A44Bhe0czd13P/r9M/6mFVu
-radVO29d8A7ntQzZBxk5hXN/z5mt2OdXSknoE8tGnr+PTl7h3V+iPMGgOnK3KzRv
-KnbUDB1FRdBMlS+y9SrSDMZ01rqmf59d++wmaXLb/hSyycjTcGcFbD8Y0VtcboeN
-QcbcqfHLyneiWOfGzlEPl9EiYK5l8qVHiN8Ey/O6kCvIJS+bXjXwB1/uS7DY/MzM
-s0aSahTt8CaOCTimfp7QvBmfxW7gXiGKcaVp+dk/DVnDRJ5UOf8JNiCl26boFKJh
-72JSSFqQywYn0Qf7LcjiYQGNqmH0EQ==
-=QKCx
------END PGP SIGNATURE-----
-
---VS++wcV0S1rZb1Fb--
-
---===============5794372588989260403==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+I can squash all these patches if you want to but then you'll tell me 
+one step at a time...
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============5794372588989260403==--

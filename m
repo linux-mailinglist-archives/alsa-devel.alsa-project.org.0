@@ -2,131 +2,105 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F25F712BC32
-	for <lists+alsa-devel@lfdr.de>; Sat, 28 Dec 2019 03:03:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E0F212BC89
+	for <lists+alsa-devel@lfdr.de>; Sat, 28 Dec 2019 05:32:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BE151775;
-	Sat, 28 Dec 2019 03:02:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BE151775
+	by alsa0.perex.cz (Postfix) with ESMTPS id B32CB1767;
+	Sat, 28 Dec 2019 05:31:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B32CB1767
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577498601;
-	bh=zxMXoZ51fAweKdv4c1dOzCkFPvTAQxgiCC4ZVDhPpHY=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1577507568;
+	bh=8FucFkrsIH3tBK4b99b8RtMV9eOmdveWPbhXkwlgVZk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=iUiVNiOyuSKDHGkT/+aP0FXBHCGTdKrNB1hoa0s0g5pxrbXaeW4Ugqdt+lHghOp1o
-	 Kl8TfKw8KIjssfcZJPkDH+5hCR/Yv+9NU3JasCH0CIt98UIDCm2LkRU59aH1KsneQy
-	 ZjMMB2QCQN/dsKqh/+I/NaQ6MTnsMcmEgV4RrPCM=
+	b=JCsG8oYvwCb+D2Qc25aqeIyqO0wWR69DT3v3WB3AuFXdhM1HxQGc0xGhQ0P28+azW
+	 0NGZG+/TZZ6C+NnLStEOrRSQTWtekcuGx516W/+MSm/MZ7IZoMQLo+ctTPoXQzKj9+
+	 dWRhCZpu8/O5ymgLxfcAnL80yqp4ul1EwHTr25vI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2C9AF80145;
-	Sat, 28 Dec 2019 03:01:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DAD0CF80148;
+	Sat, 28 Dec 2019 05:31:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EA139F80132; Sat, 28 Dec 2019 03:01:34 +0100 (CET)
+ id 60516F80139; Sat, 28 Dec 2019 05:31:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,HTML_MESSAGE,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_PASS,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2043.outbound.protection.outlook.com [40.107.236.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6AD60F800AE
- for <alsa-devel@alsa-project.org>; Sat, 28 Dec 2019 03:01:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6AD60F800AE
+ by alsa1.perex.cz (Postfix) with ESMTPS id D38A0F800AE
+ for <alsa-devel@alsa-project.org>; Sat, 28 Dec 2019 05:30:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D38A0F800AE
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="C4e48G01"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=QIe1nrJ16mw4B9fxNaBgzQrFW6pSXW2fVhz9PM0CSykqvhzWhZqKDgkrHyu9Z+Sk9RYYh7GN+PVQ8gy3Xbmp9sFbjffaUuUPWLneZdPMKNDk1qx46UTqye5shzn60PRaOHsF+jXmwtEkwQZm++QgnnJAudYdQPvpgLbreFr6vdassWf5iK9msLW8ZDuvDxoz+/Wd8/zh2hM+efgHQcap9SCf7e+76fHuffawPVD4VCHzXaB9ykK617Hui2J8HVS4YC1TS1ypJuWLOD4+QyY6N4A9WdpOhZnARJimS6ja2cJge/hFJ0M2BqC1sMTA76bKF+xwGQQydaDBfGN4MwWx3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nh33SX++3lPfRwKN4FAL6KpFEuS3wdc4dp1s19d41j4=;
- b=PGc6keE9yHJLq1fcUeqTu9xU+GlnnXGhKL0Ll3yFh6TyeuRPHev0mvYzaFGqqpHmL27zFR3O3uMEm0A4gR/jO4HNerGmSU0wjH+WgfN4rOf9iuLGQQvBDK1uSbhu3Wr8pajgrFVMfkqnSuSsLAmWUD7GflEHYuA6/rgf63yj6xknQv4LyRPEhvXJEGJRc9gS3xMo7Zu05lmXBLEi1BypUP5ywXHrWDyaTij9r/TgNwxgf+m/masiJFOMQQd0xRvYvLCXPEBe5ACwpSqOR29FK09qq3E261Vax1RYuXzz2oICyPMzPUcYRF8T9R1NOBqtCLmY558h1NyFrT7lWzbP7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nh33SX++3lPfRwKN4FAL6KpFEuS3wdc4dp1s19d41j4=;
- b=C4e48G01L7NGK48D0/YfRCAFl/hIw4VaJCXlhhi2jWhzqp7jhq4+GMdMnn6U9w9NqRvROptf0NbNS485z1vC8RxvWizXnoZzPziaiUlK1rAHlbBZbuBj8E7XPnJCScyJyI/c7TJLHdbUIbYfkVENU8AEX693EsApV933iPgYYEs=
-Received: from DM6PR12MB3868.namprd12.prod.outlook.com (10.255.173.213) by
- DM6PR12MB2953.namprd12.prod.outlook.com (20.179.106.88) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2581.11; Sat, 28 Dec 2019 02:01:27 +0000
-Received: from DM6PR12MB3868.namprd12.prod.outlook.com
- ([fe80::b13a:2561:f1ed:c80f]) by DM6PR12MB3868.namprd12.prod.outlook.com
- ([fe80::b13a:2561:f1ed:c80f%7]) with mapi id 15.20.2581.007; Sat, 28 Dec 2019
- 02:01:27 +0000
-From: "RAVULAPATI, VISHNU VARDHAN RAO" <Vishnuvardhanrao.Ravulapati@amd.com>
-To: Mark Brown <broonie@kernel.org>
-Thread-Topic: [PATCH 1/6] ASoC: amd: Refactoring of DAI from DMA driver
-Thread-Index: AQHVvLSViN6h4Te/+0+5WbRd50rpzafOmC2AgAAxEns=
-Date: Sat, 28 Dec 2019 02:01:27 +0000
-Message-ID: <DM6PR12MB3868304F748AD00C4AEF8688E7250@DM6PR12MB3868.namprd12.prod.outlook.com>
-References: <1577451055-9182-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
- <1577451055-9182-2-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>,
- <20191227225555.GA3897@sirena.org.uk>
-In-Reply-To: <20191227225555.GA3897@sirena.org.uk>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Enabled=True;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_SetDate=2019-12-28T01:51:31.4265872Z;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_ContentBits=0;
- MSIP_Label_76546daa-41b6-470c-bb85-f6f40f044d7f_Method=Privileged
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Vishnuvardhanrao.Ravulapati@amd.com; 
-x-originating-ip: [27.59.166.133]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1f756d9b-9e89-4434-46d7-08d78b39d99b
-x-ms-traffictypediagnostic: DM6PR12MB2953:|DM6PR12MB2953:|DM6PR12MB2953:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM6PR12MB2953B89EA20F698FCC363ECBE7250@DM6PR12MB2953.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:1751;
-x-forefront-prvs: 02652BD10A
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(366004)(136003)(39850400004)(346002)(376002)(396003)(189003)(199004)(76116006)(5660300002)(66446008)(33656002)(55016002)(478600001)(45080400002)(26005)(2906002)(52536014)(9686003)(66476007)(91956017)(7416002)(66946007)(64756008)(66556008)(71200400001)(86362001)(6916009)(8936002)(53546011)(7696005)(6506007)(81156014)(81166006)(4326008)(8676002)(54906003)(186003)(316002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM6PR12MB2953;
- H:DM6PR12MB3868.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: qt1ImhJpVC6QCe9lUs/kkpEMFT+mzEIB4EXpd+ESV1n/v9nOTodFQFf5EHKHxb/A3Cqe5Y9/VUkQVgBl9WKpYgaPbZvmWrwuyYpApBhgixoiqAwMfl/KWFUeigiF3XUKrepeVOTbXkL8q1693M1Aj3KkO+Ce6IJ7J8vv7BHHEd38qkQ32zVpgZ4J/GKZ/blzXowysDMbUiT9HJ17okjH8GZoAGtNS5Qg8F1NY0EUjL37iVrWv8oh+TtBvv819gJ4McLNHuZsJHBavPyMQrTt+2tZyrfKIlyH57q8m676SOOBaZXl/fBxgiNkpbCgEG35mnwj6RKrmbc9d0jRtcTZ6GH54eguy1wiLg6TS2KZneMo/mmgysWFaYtJHwjuIxuUWPMlcw+8hCVsO61go6swFmdT6OwmKRnTF0SwJfD0buJBgJNVeSwtckyEzn1fRq1VhFLb5QlSv47vgJ3XDT/fwv591KZYqyyifQH0s+JB1Nw=
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="SwQtv5Ap"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="KVhwh8Ga"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id DC6D321FBC;
+ Fri, 27 Dec 2019 23:30:53 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute1.internal (MEProxy); Fri, 27 Dec 2019 23:30:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=PaQDAHhjXUo39+y0gVQQpanUNqe
+ ZRlMvPA+pjy+L5Z4=; b=SwQtv5Ap/xgS7dZRb1ZqrJMG6l72FoMDPayXtNQ3V8z
+ tjb5iFO5RFrptLfGYxx1oCYrOca4vPcKIQfdygKAL52+WkNZsfwJ5UtcoQGXClky
+ 8hy00ouLg1iUrFcjiyRlfK3DNomo3EWc/T458qfhJEnxl2n3ySKZGjMR+QVj0mBi
+ /PYWmOnNMrA2s1sJdHNy4dipqz/nPkvBfEC0jncU5ktu6kq1SfHiDBtSLH5Hs/HD
+ 3YGq2UKy9Aq2tSUpkD2oOpXLuYkXqbNoZI/rCUgziIL/PPNAqGnCuNteBTspjMfm
+ qCnceUmPLQ6ziQy651hBMCP0u3C0LvxXP7KdhkdejeQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=PaQDAH
+ hjXUo39+y0gVQQpanUNqeZRlMvPA+pjy+L5Z4=; b=KVhwh8GaJrrhJ1voJRS2e+
+ IMUf6FFrvE3hAsr4EmnCgSfi/PGgjnhyjgvIBxuW7b6XjkX7eLK5U146w4VM+AIr
+ Yvt1o51sny8/aqgu60ZzIYJDv8jJECVGiRtFyD+tUPiZPiUYbgv+fY8H1bFaI62c
+ aRvn67bXZkNlkL3PzwoEXZJ+ktSk5zU4OWryJcHVp6CbwMN5QKAK36fQxKzFbPMO
+ xHI5PHrF1CbjNJ9k9wODK2/b4sDC/OGLYXvjgcyi6YzefqHAmMCBbBUitzXDtS68
+ lsq+gwedKiQduEh2YLuEHfi8WPK1iRLLJDxj0gS2qP5OAlmLbCmKUHn03SFdsYXw
+ ==
+X-ME-Sender: <xms:fdoGXsJdU9v3Vsc-0tjVgWeb5YVsI85nWcUMXdqqYxzv-gEqACuQUA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvddvledgjedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujggfsehttd
+ ertddtredvnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
+ rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucffohhmrghinhepghhithhhuhgsrd
+ gtohhmnecukfhppedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgrihhlfhhrohhm
+ pehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluhhsthgvrhfuih
+ iivgeptd
+X-ME-Proxy: <xmx:fdoGXrMy_IFcdgj9ScaA6lu-xTk0XOb86yM8hPwSZqdwjuP_fY9Lhg>
+ <xmx:fdoGXi4mf3gqKxGQjKyD2EsE4xxdLU8duO4lBYzM_TtZVqpRfajb4g>
+ <xmx:fdoGXl6zwRXMJdjbETF6VVKId4qO2pOd_H0H44YB-8TdmrWVsgSxFg>
+ <xmx:fdoGXsBvfkGilOrc4BQqWMaXy8w5YC7KlV8eyvkyStegKuBj0Ga07g>
+Received: from workstation (ae075181.dynamic.ppp.asahi-net.or.jp [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 79BE330607D5;
+ Fri, 27 Dec 2019 23:30:52 -0500 (EST)
+Date: Sat, 28 Dec 2019 13:30:50 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <20191228043049.GA23459@workstation>
+Mail-Followup-To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+References: <20191201080449.GA408@workstation>
+ <b121b3eb-3bb8-7efc-d5e1-f470049899b7@perex.cz>
+ <20191214165242.GA32025@workstation>
+ <a63e0b6b-b1c6-3044-cbd0-7fad47b78f35@perex.cz>
+ <20191222080454.GA16605@workstation>
+ <7a871b7b-a36d-db9c-5b40-ccfdc2373400@perex.cz>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f756d9b-9e89-4434-46d7-08d78b39d99b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Dec 2019 02:01:27.5094 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PjklCUFFp0OW9YtxWQ+OsiIPmSJx8YnfZUaoQsq8XDZkazSxS+bS+Vq2IsZEnHD7rZNeN1lXb5bXjzDAFxPqdA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB2953
-X-Content-Filtered-By: Mailman/MimeDel 2.1.15
-Cc: "pierre-louis.bossart@linux.intel.com"
- <pierre-louis.bossart@linux.intel.com>,
- "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
- YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
- "djkurtz@google.com" <djkurtz@google.com>, "Mukunda, 
- Vijendar" <Vijendar.Mukunda@amd.com>, "Deucher,
- Alexander" <Alexander.Deucher@amd.com>,
- Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [alsa-devel] [PATCH 1/6] ASoC: amd: Refactoring of DAI from DMA
-	driver
+Content-Disposition: inline
+In-Reply-To: <7a871b7b-a36d-db9c-5b40-ccfdc2373400@perex.cz>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Restart alsa-gi project as alsa-gobject project
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -139,48 +113,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="windows-1252"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[AMD Official Use Only - Internal Distribution Only]
+Hi Jaroslav,
+
+On Wed, Dec 25, 2019 at 12:11:29PM +0100, Jaroslav Kysela wrote:
+> > For alsa-gobject repository, I file two PRs for improvements:
+> >   * https://github.com/alsa-project/alsa-gobject/pull/1
+> >   * https://github.com/alsa-project/alsa-gobject/pull/2
+> > 
+> > I'm glad if you grant these requests and merge. Or would I
+> > merge them by myself? I think that we have no concrete policy
+> > to maintain the repository.
+> 
+> Could you keep to maintain this repository? You should have all rights set
+> on github.
+
+Thanks for your arrangement. I merged the PRs.
+
+Well, now I'm working for userspace services to add/maintain control
+elements for sound cards bound to audio and music units on IEEE 1394
+bus. The services listen application's events from ALSA control character
+device to control internal DSP on the units. The services are programmed
+with libraries of alsa-gobject and libhinawa by Rust languages. For
+this work, I generate Rust crates for these libraries by gtk-rs/gir[1].
+
+Next year, I'd like to add repositories for the crates, listed
+below:
+
+ * alsa-gobject-rs-sys
+   * sys crates for libraries in alsa-gobject
+ * alsactl-rs
+   * safe API crate for libalsactl0
+ * alsaseq-rs
+   * safe API crate for libalsaseq0
+
+Additionally, I'll push libhinawa v2 release to GObject Introspection
+team of github.com/alsa-project and corresponding Rust crates. Thus
+below repositories will be added:
+
+ * libhinawa
+ * hinawa-rs-sys
+   * sys crate for libhinawa2
+ * hinawa-rs
+   * safe API crate for libhinawa2
+
+I'm glad if you accept my proposal for the above repositories next year.
+Have a great holidays.
+
+[1] https://github.com/gtk-rs/gir
 
 
-
-Get Outlook for Android<https://aka.ms/ghei36>
-
-________________________________
-From: Mark Brown <broonie@kernel.org>
-Sent: Saturday 28 December 2019, 4:26 AM
-To: RAVULAPATI, VISHNU VARDHAN RAO
-Cc: Deucher, Alexander; djkurtz@google.com; pierre-louis.bossart@linux.inte=
-l.com; Liam Girdwood; Jaroslav Kysela; Takashi Iwai; Mukunda, Vijendar; Yue=
-Haibing; Kuninori Morimoto; Dan Carpenter; open list; moderated list:SOUND =
-- SOC LAYER / DYNAMIC AUDIO POWER MANAGEM...
-Subject: Re: [PATCH 1/6] ASoC: amd: Refactoring of DAI from DMA driver
-
-On Fri, Dec 27, 2019 at 06:20:50PM +0530, Ravulapati Vishnu vardhan rao wro=
-te:
-> ASoC: PCM DMA driver should only have dma ops.
-> So Removed all DAI related functionality.Refactoring
-> the PCM DMA diver code.Added new file containing only DAI ops
-
-This breaks the build:
-
-It's unfortunate.i noticed but applied the same in 2/6 assuming that the sa=
-me as 1/6.
-
-  CC      sound/soc/amd/raven/acp3x-i2s.o
-In file included from sound/soc/amd/raven/pci-acp3x.c:13:
-sound/soc/amd/raven/acp3x.h: In function =91acp_get_byte_count=92:
-sound/soc/amd/raven/acp3x.h:94:19: error: =91SNDRV_PCM_STREAM_PLAYBACK=92 u=
-ndeclared (first use in this function)
-  if (direction =3D=3D SNDRV_PCM_STREAM_PLAYBACK) {
-                   ^~~~~~~~~~~~~~~~~~~~~~~~~
-sound/soc/amd/raven/acp3x.h:94:19: note: each undeclared identifier is repo=
-rted only once for each function it appears in
-
+Takashi Sakamoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

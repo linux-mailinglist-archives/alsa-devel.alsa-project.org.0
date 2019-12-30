@@ -2,91 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2A8412C30E
-	for <lists+alsa-devel@lfdr.de>; Sun, 29 Dec 2019 16:07:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF89D12CC13
+	for <lists+alsa-devel@lfdr.de>; Mon, 30 Dec 2019 04:11:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C625F1761;
-	Sun, 29 Dec 2019 16:06:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C625F1761
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1229416D2;
+	Mon, 30 Dec 2019 04:10:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1229416D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577632055;
-	bh=oN7u5UzxhApK3oYjJJ5IWnkoo/6p9pHFHGmpUoTG0SY=;
+	s=default; t=1577675476;
+	bh=FusdmIvZtJwNbO3h8eeZAHwCzv78MiJoTMafvqk8eVs=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=bXpOn6SY9nsC9o7cdJJW3mmnLj/83hvfU0KyJkfIiJnbDqz3AW+Woe+cb/aVvu8U0
-	 WcR2Ows3VB4czuoKuxwR6wKIEbrWc8tYJzZ+DrmLsj01I6xwsXNqgp5myLQXoJo0oo
-	 zCkYV00jog9E3ek7POArMIzmBrbD1PlTSwpyg+Bs=
+	b=sZ5wXRZhmpxXHyvSjepp1ZyRzHiMS8tDEt7D0ax13OlO3w9utuikxTGrxN7JHKLZ8
+	 /AKr9tUoFOANapFvDSAS49py+Y5pr5TNxqQOkuogkN8cuLOruAVvffMn2BlUQKzlZ/
+	 RP97C3LvNtXB6wBgxO8Y8sa+ZoRmrbnNm7OfG254=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1FA0F80158;
-	Sun, 29 Dec 2019 16:05:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5FB99F8015C;
+	Mon, 30 Dec 2019 04:09:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B104BF8014F; Sun, 29 Dec 2019 16:05:50 +0100 (CET)
+ id 6BACAF8015D; Mon, 30 Dec 2019 04:09:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
- [IPv6:2a00:1450:4864:20::243])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 321F0F8011E
- for <alsa-devel@alsa-project.org>; Sun, 29 Dec 2019 16:05:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 321F0F8011E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 87071F80126
+ for <alsa-devel@alsa-project.org>; Mon, 30 Dec 2019 04:09:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87071F80126
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HgHR3+f5"
-Received: by mail-lj1-x243.google.com with SMTP id m26so28663614ljc.13
- for <alsa-devel@alsa-project.org>; Sun, 29 Dec 2019 07:05:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
+ header.i=@endlessm-com.20150623.gappssmtp.com header.b="xhvr6vb2"
+Received: by mail-pf1-x441.google.com with SMTP id 4so17608488pfz.9
+ for <alsa-devel@alsa-project.org>; Sun, 29 Dec 2019 19:09:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=endlessm-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=RJFIpVK2l7JXb5O04n2/M1EaQnjqMlSNsPUjZ7jwbQg=;
- b=HgHR3+f5o25GXaOkOvlHmxuo1Bpvp6kkFLcbq666Z3/HlmCnCYnZzNCqKTxrMEzedU
- 2VY8KPlckXzrh1PWs3kjkvEFSHkDjb3pp0FeuahToE+h6nA+u0D/AeYwX+L5Xxg7RHne
- 5MObwlJrqutFM9qqw+fte556N7rci3/oKYmYljMf30u216eWu1VhEO+5DYnDh+qluQPj
- V0Y3iR9VrGrSoEmyKNf72sPOKCBF/8BfJKokB0AIRJWEbgeiu/Nt/vixARJDNwvXLl8z
- HpKoJNg6Vjn/WWEQMzfchTsJfRL7bjddFrwpsH9q4mkIV66/EV4ufWyf1zOOWkCUCsNY
- 2nEg==
+ bh=upEp8hl/kvhyOaP5IttMFvt3fWm36jVnMskRhcv5Zsk=;
+ b=xhvr6vb2vZ0nn9EkANyBeJ5qsjBOHgXsLHVLUI8feB/l9fEpSQ8CzFPbJ2j+XgOIIR
+ iTiPa3GdPHp13L2XH3BipCwvkZBJVaS7hNXn5OEoHTB7iAwgNr92Vf0REjYzyrDsivTX
+ 5Mf6DbwoQBgpgqIJfd+nHGqOxkehd0/5Tg94GwBXiXXmAD71fA2eWOu1uweHQnW/DJSO
+ dwoEHY72JAtx70KLly+5E+1XP23IYi32uoEsdivHV7VSWvCkoATuCOYqbsWO2LsvbA9M
+ btV+3V170bxvckTDFUlFXLaXC3NiXtaimZG1+ZzgtXouulwKL599jDeExJIg7gA34Z9s
+ l6zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=RJFIpVK2l7JXb5O04n2/M1EaQnjqMlSNsPUjZ7jwbQg=;
- b=cr3bKEbCb1uHGXATfrgcbqeqEnpNfP4zK7QFw+IrxH0OuxF5Xe87McVSq7PKeLxYPk
- vCjjmfMCupUJyHlTKya9GV7wF/S+R08qB9tS+v1Q3yeAWjebUZOqBZA0H1SL0c+EW6ij
- Q6V5ctUdZd9wX7tGYTz50onp8hwizcoDM+G1P+2xNH07RWri46s24OtqPluG9jjiz3H9
- o8RJo9cs9FVhigMde1trEX9PFcrA1z7OxYxyKP+JUI0rYhNw8UpSmam0AMSeHcLA0hwj
- k7OhWz5BWPoA2OSAQ+vpLSw0LzxZR8tqCa/RJlmZyr/XOdiKzq2JTLBE5y3BbpxOUoec
- t7Rg==
-X-Gm-Message-State: APjAAAUjKwB7Kv+sE2TONRE/sxW+5vg8hFI9Utl0ksMBz/ioyoZwvdGh
- X21stYvMInRBm6vJaH4BkLs=
-X-Google-Smtp-Source: APXvYqxUYqdjm3+Kq4VoxnGBV1ftdbjy1Hm09N0pSP0z+s/IcVyFV6uvWfnNZngH3u5evG0k3D6ifQ==
-X-Received: by 2002:a2e:844e:: with SMTP id u14mr34903503ljh.183.1577631946992; 
- Sun, 29 Dec 2019 07:05:46 -0800 (PST)
-Received: from localhost.localdomain (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.gmail.com with ESMTPSA id d24sm16169472lja.82.2019.12.29.07.05.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 29 Dec 2019 07:05:46 -0800 (PST)
-From: Dmitry Osipenko <digetx@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Bard Liao <bardliao@realtek.com>,
- Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
-Date: Sun, 29 Dec 2019 18:04:54 +0300
-Message-Id: <20191229150454.2127-1-digetx@gmail.com>
-X-Mailer: git-send-email 2.24.0
+ bh=upEp8hl/kvhyOaP5IttMFvt3fWm36jVnMskRhcv5Zsk=;
+ b=BaiWnRDhe184mQNj4R9FCtz1xnGGPGud2M/8sWdZCuDhtpSu49/iNbZ0CBHqavibzn
+ XBMKJ0PqYATJOzSOErPThQAN0s9xiziILfRdA0fNpENNlS6Ie9vTBo3PzgkteW3BkAoE
+ 5qcBykL+hSoedRIHbzVeIdJluJCtoAKVr4Rv1QkwOPVppo/ML6nkYsslZrucPYEmOXlJ
+ Ki7POATkgJEz+6GiPTMPP2pir8Khn8+pcTBZJIRwW5teoaerdCRiQuvxNqcgLaLTQWPo
+ j53JHyQFgEMMVZSN04/4bVqqFgDpPx2EC1cbJBQ7WKuPnUKZ+w5WPdXnhDU97pbjQFIG
+ 4n7w==
+X-Gm-Message-State: APjAAAXnzQhzHsRM/R+GkYHsdu9QFkfo7yUPheBRT05CLH11vocRvATb
+ TDyjEWas7nsVeD9ymP5uylDaeQ==
+X-Google-Smtp-Source: APXvYqyVElD4pB1vEk1hC+Kw8wCBz6j5MXcKPX1pbthfR5Z1vmDdVDy68/M3hAyrbQ6slwFEa26nLw==
+X-Received: by 2002:a63:6d0e:: with SMTP id i14mr71335137pgc.12.1577675364836; 
+ Sun, 29 Dec 2019 19:09:24 -0800 (PST)
+Received: from localhost.localdomain (59-127-47-126.HINET-IP.hinet.net.
+ [59.127.47.126])
+ by smtp.gmail.com with ESMTPSA id a23sm50434516pfg.82.2019.12.29.19.09.22
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 29 Dec 2019 19:09:24 -0800 (PST)
+From: Chris Chiu <chiu@endlessm.com>
+To: perex@perex.cz, tiwai@suse.com, kailang@realtek.com,
+ hui.wang@canonical.com, tomas.espeleta@gmail.com
+Date: Mon, 30 Dec 2019 11:11:18 +0800
+Message-Id: <20191230031118.95076-1-chiu@endlessm.com>
+X-Mailer: git-send-email 2.21.0 (Apple Git-122)
 MIME-Version: 1.0
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v1] ASoC: rt5640: Fix NULL dereference on
-	module unload
+Cc: Jian-Hong Pan <jian-hong@endlessm.com>, alsa-devel@alsa-project.org,
+ linux@endlessm.com, linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH v3] ALSA: hda/realtek - Enable the bass speaker
+	of ASUS UX431FLC
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,66 +101,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The rt5640->jack is NULL if jack is already disabled at the time of
-driver's module unloading.
+ASUS reported that there's an bass speaker in addition to internal
+speaker and it uses DAC 0x02. It was not enabled in the commit
+436e25505f34 ("ALSA: hda/realtek - Enable internal speaker of ASUS
+UX431FLC") which only enables the amplifier and the front speaker.
+This commit enables the bass speaker on top of the aforementioned
+work to improve the acoustic experience.
 
- Unable to handle kernel NULL pointer dereference at virtual address 00000024
- ...
- (rt5640_set_jack [snd_soc_rt5640]) from [<bf86f7ed>] (snd_soc_component_set_jack+0x11/0x1c [snd_soc_core])
- (snd_soc_component_set_jack [snd_soc_core]) from [<bf8675cf>] (soc_remove_component+0x1b/0x54 [snd_soc_core])
- (soc_remove_component [snd_soc_core]) from [<bf868859>] (soc_cleanup_card_resources+0xad/0x1cc [snd_soc_core])
- (soc_cleanup_card_resources [snd_soc_core]) from [<bf86945f>] (snd_soc_unregister_card+0x47/0x78 [snd_soc_core])
- (snd_soc_unregister_card [snd_soc_core]) from [<bf8b4013>] (tegra_rt5640_remove+0x13/0x1c [snd_soc_tegra_rt5640])
- (tegra_rt5640_remove [snd_soc_tegra_rt5640]) from [<c0516d2f>] (platform_drv_remove+0x17/0x24)
- (platform_drv_remove) from [<c0515aed>] (device_release_driver_internal+0x95/0x114)
- (device_release_driver_internal) from [<c0515bd9>] (driver_detach+0x4d/0x90)
- (driver_detach) from [<c0514d59>] (bus_remove_driver+0x31/0x70)
- (bus_remove_driver) from [<bf8b4215>] (tegra_rt5640_driver_exit+0x9/0xdf4 [snd_soc_tegra_rt5640])
- (tegra_rt5640_driver_exit [snd_soc_tegra_rt5640]) from [<c019336f>] (sys_delete_module+0xe7/0x184)
- (sys_delete_module) from [<c0101001>] (ret_fast_syscall+0x1/0x28)
-
-Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
+Signed-off-by: Chris Chiu <chiu@endlessm.com>
+Signed-off-by: Jian-Hong Pan <jian-hong@endlessm.com>
 ---
- sound/soc/codecs/rt5640.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index adbae1f36a8a..b245c44cafbc 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -2432,16 +2432,22 @@ static void rt5640_disable_jack_detect(struct snd_soc_component *component)
- {
- 	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
+
+Notes:
+  v2:
+   - Use existing alc285_fixup_speaker2_to_dac1 instead of new fixup function
+   - Correct the commit hash number in the commit message
+   - Remove the redundant fixup ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC
+  v3:
+   - Rename the fixup to align with the naming of ALC289_FIXUP_DUAL_SPK
+
+
+ sound/pci/hda/patch_realtek.c | 38 +++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 20 deletions(-)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 2ee703c2da78..1cd4906a67e1 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -5905,11 +5905,12 @@ enum {
+ 	ALC256_FIXUP_ASUS_HEADSET_MIC,
+ 	ALC256_FIXUP_ASUS_MIC_NO_PRESENCE,
+ 	ALC299_FIXUP_PREDATOR_SPK,
+-	ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC,
+ 	ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE,
+-	ALC294_FIXUP_ASUS_INTSPK_GPIO,
+ 	ALC289_FIXUP_DELL_SPK2,
+ 	ALC289_FIXUP_DUAL_SPK,
++	ALC294_FIXUP_SPK2_TO_DAC1,
++	ALC294_FIXUP_ASUS_DUAL_SPK,
++
+ };
  
--	disable_irq(rt5640->irq);
--	rt5640_cancel_work(rt5640);
-+	/*
-+	 * soc_remove_component() force-disables jack and thus rt5640->jack
-+	 * could be NULL at the time of driver's module unloading.
-+	 */
-+	if (rt5640->jack) {
-+		disable_irq(rt5640->irq);
-+		rt5640_cancel_work(rt5640);
+ static const struct hda_fixup alc269_fixups[] = {
+@@ -6984,16 +6985,6 @@ static const struct hda_fixup alc269_fixups[] = {
+ 			{ }
+ 		}
+ 	},
+-	[ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC] = {
+-		.type = HDA_FIXUP_PINS,
+-		.v.pins = (const struct hda_pintbl[]) {
+-			{ 0x14, 0x411111f0 }, /* disable confusing internal speaker */
+-			{ 0x19, 0x04a11150 }, /* use as headset mic, without its own jack detect */
+-			{ }
+-		},
+-		.chained = true,
+-		.chain_id = ALC269_FIXUP_HEADSET_MODE_NO_HP_MIC
+-	},
+ 	[ALC256_FIXUP_MEDION_HEADSET_NO_PRESENCE] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -7004,13 +6995,6 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC256_FIXUP_ASUS_HEADSET_MODE
+ 	},
+-	[ALC294_FIXUP_ASUS_INTSPK_GPIO] = {
+-		.type = HDA_FIXUP_FUNC,
+-		/* The GPIO must be pulled to initialize the AMP */
+-		.v.func = alc_fixup_gpio4,
+-		.chained = true,
+-		.chain_id = ALC294_FIXUP_ASUS_INTSPK_HEADSET_MIC
+-	},
+ 	[ALC289_FIXUP_DELL_SPK2] = {
+ 		.type = HDA_FIXUP_PINS,
+ 		.v.pins = (const struct hda_pintbl[]) {
+@@ -7026,6 +7010,20 @@ static const struct hda_fixup alc269_fixups[] = {
+ 		.chained = true,
+ 		.chain_id = ALC289_FIXUP_DELL_SPK2
+ 	},
++	[ALC294_FIXUP_SPK2_TO_DAC1] = {
++		.type = HDA_FIXUP_FUNC,
++		.v.func = alc285_fixup_speaker2_to_dac1,
++		.chained = true,
++		.chain_id = ALC294_FIXUP_ASUS_HEADSET_MIC
++	},
++	[ALC294_FIXUP_ASUS_DUAL_SPK] = {
++		.type = HDA_FIXUP_FUNC,
++		/* The GPIO must be pulled to initialize the AMP */
++		.v.func = alc_fixup_gpio4,
++		.chained = true,
++		.chain_id = ALC294_FIXUP_SPK2_TO_DAC1
++	},
++
+ };
  
--	if (rt5640->jack->status & SND_JACK_MICROPHONE) {
--		rt5640_disable_micbias1_ovcd_irq(component);
--		rt5640_disable_micbias1_for_ovcd(component);
--		snd_soc_jack_report(rt5640->jack, 0, SND_JACK_BTN_0);
--	}
-+		if (rt5640->jack->status & SND_JACK_MICROPHONE) {
-+			rt5640_disable_micbias1_ovcd_irq(component);
-+			rt5640_disable_micbias1_for_ovcd(component);
-+			snd_soc_jack_report(rt5640->jack, 0, SND_JACK_BTN_0);
-+		}
- 
--	rt5640->jack = NULL;
-+		rt5640->jack = NULL;
-+	}
- }
- 
- static int rt5640_set_jack(struct snd_soc_component *component,
+ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -7187,7 +7185,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1043, 0x1427, "Asus Zenbook UX31E", ALC269VB_FIXUP_ASUS_ZENBOOK),
+ 	SND_PCI_QUIRK(0x1043, 0x1517, "Asus Zenbook UX31A", ALC269VB_FIXUP_ASUS_ZENBOOK_UX31A),
+ 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
+-	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_INTSPK_GPIO),
++	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
+ 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
+ 	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
+ 	SND_PCI_QUIRK(0x1043, 0x1a30, "ASUS X705UD", ALC256_FIXUP_ASUS_MIC),
 -- 
-2.24.0
+2.23.0
 
 _______________________________________________
 Alsa-devel mailing list

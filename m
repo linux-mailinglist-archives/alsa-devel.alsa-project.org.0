@@ -2,67 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D182E12DF56
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jan 2020 16:59:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C30CA12DF5A
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jan 2020 17:01:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66A0F16CA;
-	Wed,  1 Jan 2020 16:59:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66A0F16CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C02B16DE;
+	Wed,  1 Jan 2020 17:00:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C02B16DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577894398;
-	bh=MdPNMtC3YEg/t61bwo0lXJ1pssRr8fHf111h+Wpa4uk=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1577894488;
+	bh=HwWz/FXW/vcWgLNfyrJnCqBrpsM1bDw109ijsoWogOU=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=SqCxnshYVkVX35CRayGOAsssNEG/8jC2sS1gTAApoMazff2HG0VOVyuUtGxlq4HIv
-	 ht/2CSPjHIpGxAaYKZLtznQWdAaNKPvrJ1OVdRcKCLaciGa7mVyGEjb54hiTXOPi9t
-	 SS/UNqcYKgB/RU7MlUhyICX6mWhKGdHojB+e5+H8=
+	b=ml1raJeiZI0DDEJq4tN58jrK9yYBwrYKttb1+w9aFLFzFHhaDGDWIgbFDH2DLdQYj
+	 xE79QMM7NlQPcCA5j/EKDacDtiIoMYg0A6GxRnPgOgwPYqY2jT0KpeOnAv2iVowOzl
+	 aZtlz0ssEPsCNTHaEdmsiM2PsTaB1YlCpwGUaJc8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E95FF8015F;
-	Wed,  1 Jan 2020 16:58:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 036DAF80271;
+	Wed,  1 Jan 2020 16:58:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5F6FF8014F; Mon, 30 Dec 2019 01:15:43 +0100 (CET)
+ id 07852F8015F; Wed,  1 Jan 2020 09:20:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from neo.develer.net (neo.develer.net [IPv6:2001:b02:400:1::10])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail2-relais-roc.national.inria.fr
+ (mail2-relais-roc.national.inria.fr [192.134.164.83])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B75D9F800CC
- for <alsa-devel@alsa-project.org>; Mon, 30 Dec 2019 01:15:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B75D9F800CC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=codewiz.org header.i=@codewiz.org
- header.b="noGsX2o9"
-Received: from [192.168.1.128] (unknown [151.40.164.50])
- (Authenticated sender: bernie)
- by neo.develer.net (Postfix) with ESMTPSA id 057255E4383;
- Mon, 30 Dec 2019 01:15:37 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codewiz.org; s=mail;
- t=1577664938; bh=zUjurhKy+ccxe41aeAWvwisMNy2LhlPP0FCwhmMqkqI=;
- h=From:Subject:To:Date:From;
- b=noGsX2o9Gyx6v3Yl10azRitOyKb0Ymc3CkhTJ6+9mD0p3iseZIwrL43fQl2Kbz0AS
- ljtEgnQdlBJbTq1Yrwlsp5kL/TBR1rOCVkzSawqnrE2B1xfLR4lJdmVjjxePP0GgLS
- 1GycDYpZN/TAcBJvdC/tKnFMtd1tzBc6tc4IYkgk=
-From: Bernie Innocenti <bernie@codewiz.org>
-Organization: Codewiz - http://codewiz.org/
-To: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org
-Message-ID: <1ae8f294-a6c7-d104-8e57-a86cf5b9b07c@codewiz.org>
-Date: Mon, 30 Dec 2019 01:15:36 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:72.0) Gecko/20100101
- Thunderbird/72.0
-MIME-Version: 1.0
-Content-Language: en-US
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1361FF8015C
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jan 2020 09:20:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1361FF8015C
+X-IronPort-AV: E=Sophos;i="5.69,382,1571695200"; d="scan'208";a="429578748"
+Received: from palace.rsr.lip6.fr (HELO palace.lip6.fr) ([132.227.105.202])
+ by mail2-relais-roc.national.inria.fr with ESMTP/TLS/AES128-SHA256;
+ 01 Jan 2020 09:20:08 +0100
+From: Julia Lawall <Julia.Lawall@inria.fr>
+To: Jernej Skrabec <jernej.skrabec@siol.net>
+Date: Wed,  1 Jan 2020 08:43:18 +0100
+Message-Id: <1577864614-5543-1-git-send-email-Julia.Lawall@inria.fr>
+X-Mailer: git-send-email 1.9.1
 X-Mailman-Approved-At: Wed, 01 Jan 2020 16:58:14 +0100
-Subject: Re: [alsa-devel] [PATCH 2/3] ASoC: SOF: Intel: Fix CFL and CML FW
- nocodec binary names.
+Cc: linux-fbdev@vger.kernel.org, alsa-devel@alsa-project.org,
+ Jonas Karlman <jonas@kwiboo.se>, linux-arm-msm@vger.kernel.org,
+ linux-usb@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-gpio@vger.kernel.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, netdev@vger.kernel.org,
+ linuxppc-dev@lists.ozlabs.org, linux-nfs@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org
+Subject: [alsa-devel] [PATCH 00/16] constify copied structure
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,39 +67,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Greetings Liam and Pierre,
+Make const static structures that are just copied into other structures.
 
- > @@ -149,7 +149,7 @@ static const struct sof_dev_desc cml_desc = {
- > 	.chip_info = &cnl_chip_info,
- > 	.default_fw_path = "intel/sof",
- > 	.default_tplg_path = "intel/sof-tplg",
- >-	.nocodec_fw_filename = "sof-cnl.ri",
- >+	.nocodec_fw_filename = "sof-cml.ri",
+The semantic patch that detects the opportunity for this change is as
+follows: (http://coccinelle.lip6.fr/)
 
-Where is this new firmware file? This patch has flown into Fedora 
-kernels 5.4.5-301.fc31 and 5.5.0-0.rc3.git0.1.fc32, and now I'm getting 
-this error when the module loads on a Thinkpad X1 Gen 7:
+<smpl>
+@r disable optional_qualifier@
+identifier i,j;
+position p;
+@@
+static struct i j@p = { ... };
 
-   sof-audio-pci 0000:00:1f.3: Direct firmware load for 
-intel/sof/sof-cml.ri failed with error -2
+@upd@
+position p1;
+identifier r.j;
+expression e;
+@@
+e = j@p1
 
-The other .ri files come with alsa-firmware, but sof-cml.ri is absent in 
-the latest upstream release (alsa-firmware-1.2.1).
+@ref@
+position p2 != {r.p,upd.p1};
+identifier r.j;
+@@
+j@p2
 
-The only reference I could find is this symlink, but it's not clear to 
-me how and when it will get into distributions:
+@script:ocaml depends on upd && !ref@
+i << r.i;
+j << r.j;
+p << r.p;
+@@
+if j = (List.hd p).current_element
+then Coccilib.print_main i p
+</smpl>
 
- 
-https://github.com/thesofproject/linux-firmware/commit/beff732e6642bd77dac5dd08514264f055fc4d10#diff-76c141712563cc9d4730eb63acb36ad5R3807-R3808
+---
 
--- 
-_ // Bernie Innocenti
-\X/  https://codewiz.org/
+ arch/powerpc/sysdev/mpic.c                          |    4 ++--
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c |    2 +-
+ drivers/media/i2c/mt9v111.c                         |    2 +-
+ drivers/media/platform/davinci/isif.c               |    2 +-
+ drivers/media/usb/cx231xx/cx231xx-dvb.c             |    2 +-
+ drivers/media/usb/dvb-usb-v2/anysee.c               |    4 ++--
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c           |    2 +-
+ drivers/pinctrl/qcom/pinctrl-ssbi-gpio.c            |    2 +-
+ drivers/pinctrl/qcom/pinctrl-ssbi-mpp.c             |    2 +-
+ drivers/ptp/ptp_clockmatrix.c                       |    2 +-
+ drivers/usb/gadget/udc/atmel_usba_udc.c             |    2 +-
+ drivers/video/fbdev/sa1100fb.c                      |    2 +-
+ net/sunrpc/xdr.c                                    |    2 +-
+ sound/isa/ad1816a/ad1816a_lib.c                     |    2 +-
+ sound/pci/hda/hda_controller.c                      |    2 +-
+ sound/soc/qcom/qdsp6/q6asm-dai.c                    |    2 +-
+ 16 files changed, 18 insertions(+), 18 deletions(-)
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

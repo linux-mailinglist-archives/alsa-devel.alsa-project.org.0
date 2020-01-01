@@ -2,59 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8DF512DF5C
-	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jan 2020 17:01:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5786812E013
+	for <lists+alsa-devel@lfdr.de>; Wed,  1 Jan 2020 19:28:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 143AD16F9;
-	Wed,  1 Jan 2020 17:00:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 143AD16F9
+	by alsa0.perex.cz (Postfix) with ESMTPS id D702916AE;
+	Wed,  1 Jan 2020 19:28:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D702916AE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577894503;
-	bh=KUa8RY0cG7zs0TlywHB0xRW+c9hb7eEP/FOg3rkzhdI=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BCDAmQ9F3Ov35iloSelhGjBHxSrTvlNu8PGoq3tyC94Yp3Dx/HhWTRaqdizk4qgia
-	 yb6G+opZtvXxaMJKTiG3IOiTlaTQv4ImdBNvl1yAsohKaSV7D2g7ulJgRRKCWwNj2D
-	 29edHNto+/1ZIdsyeiAjwEMm8aFOefO0v++4av+U=
+	s=default; t=1577903337;
+	bh=PRU91rJXmjsN1+qdWx52adeSBmC5TvEzT3hUFfC11TU=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jqb8tqc6oulmzqaU9QdnbnFCgD8J3yBPSr1kQUtoWJaN0ebg4tJFMDNLjGpj9o8Fi
+	 GlZ9nw9lqm+9bxdPUClEyjPOeRspoJ67SfByQkksMOhce2B+hh2bRbtZTMAKXXQnoZ
+	 WAnYRjIas4sEEe5s5f9HZ0XpZCmi8XdtlNQPxXD4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0D0B4F80279;
-	Wed,  1 Jan 2020 16:58:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3144F80265;
+	Wed,  1 Jan 2020 19:26:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 737C6F8015F; Wed,  1 Jan 2020 09:20:15 +0100 (CET)
+ id CE6DBF8015E; Wed,  1 Jan 2020 19:26:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail2-relais-roc.national.inria.fr
- (mail2-relais-roc.national.inria.fr [192.134.164.83])
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail3-relais-sop.national.inria.fr
+ (mail3-relais-sop.national.inria.fr [192.134.164.104])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C94BF80123
- for <alsa-devel@alsa-project.org>; Wed,  1 Jan 2020 09:20:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C94BF80123
-X-IronPort-AV: E=Sophos;i="5.69,382,1571695200"; d="scan'208";a="429578760"
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3ECDF8011E
+ for <alsa-devel@alsa-project.org>; Wed,  1 Jan 2020 19:26:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3ECDF8011E
+X-IronPort-AV: E=Sophos;i="5.69,382,1571695200"; d="scan'208";a="334542271"
 Received: from palace.rsr.lip6.fr (HELO palace.lip6.fr) ([132.227.105.202])
- by mail2-relais-roc.national.inria.fr with ESMTP/TLS/AES128-SHA256;
- 01 Jan 2020 09:20:08 +0100
+ by mail3-relais-sop.national.inria.fr with ESMTP/TLS/AES128-SHA256;
+ 01 Jan 2020 19:26:23 +0100
 From: Julia Lawall <Julia.Lawall@inria.fr>
-To: Patrick Lai <plai@codeaurora.org>
-Date: Wed,  1 Jan 2020 08:43:28 +0100
-Message-Id: <1577864614-5543-11-git-send-email-Julia.Lawall@inria.fr>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Date: Wed,  1 Jan 2020 18:49:40 +0100
+Message-Id: <1577900990-8588-1-git-send-email-Julia.Lawall@inria.fr>
 X-Mailer: git-send-email 1.9.1
-In-Reply-To: <1577864614-5543-1-git-send-email-Julia.Lawall@inria.fr>
-References: <1577864614-5543-1-git-send-email-Julia.Lawall@inria.fr>
-X-Mailman-Approved-At: Wed, 01 Jan 2020 16:58:14 +0100
-Cc: alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH 10/16] ASoC: qdsp6: q6asm-dai: constify copied
-	structure
+Cc: linux-fbdev@vger.kernel.org, Fabio Estevam <festevam@gmail.com>,
+ alsa-devel@alsa-project.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ NXP Linux Team <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, linuxppc-dev@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH 00/10] use resource_size
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,31 +72,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The q6asm_dai_hardware_capture structure is only copied into another
-structure, so make it const.
+Use resource_size rather than a verbose computation on
+the end and start fields.
 
-The opportunity for this change was found using Coccinelle.
+The semantic patch that makes these changes is as follows:
+(http://coccinelle.lip6.fr/)
 
-Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
+<smpl>
+@@
+struct resource ptr;
+@@
+
+- ((ptr.end) - (ptr.start) + 1)
++ resource_size(&ptr)
+
+@@
+struct resource *ptr;
+@@
+
+- ((ptr->end) - (ptr->start) + 1)
++ resource_size(ptr)
+
+@@
+struct resource ptr;
+@@
+
+- ((ptr.end) + 1 - (ptr.start))
++ resource_size(&ptr)
+
+@@
+struct resource *ptr;
+@@
+
+- ((ptr->end) + 1 - (ptr->start))
++ resource_size(ptr)
+</smpl>
 
 ---
- sound/soc/qcom/qdsp6/q6asm-dai.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 5e2327708772..c0d422d0ab94 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -72,7 +72,7 @@ struct q6asm_dai_data {
- 	long long int sid;
- };
- 
--static struct snd_pcm_hardware q6asm_dai_hardware_capture = {
-+static const struct snd_pcm_hardware q6asm_dai_hardware_capture = {
- 	.info =                 (SNDRV_PCM_INFO_MMAP |
- 				SNDRV_PCM_INFO_BLOCK_TRANSFER |
- 				SNDRV_PCM_INFO_MMAP_VALID |
-
+ arch/mips/kernel/setup.c                  |    6 ++----
+ arch/powerpc/platforms/83xx/km83xx.c      |    2 +-
+ arch/powerpc/platforms/powernv/pci-ioda.c |    4 ++--
+ arch/x86/kernel/crash.c                   |    2 +-
+ drivers/net/ethernet/freescale/fman/mac.c |    4 ++--
+ drivers/usb/gadget/udc/omap_udc.c         |    6 +++---
+ drivers/video/fbdev/cg14.c                |    3 +--
+ drivers/video/fbdev/s1d13xxxfb.c          |   16 ++++++++--------
+ sound/drivers/ml403-ac97cr.c              |    4 +---
+ sound/soc/sof/imx/imx8.c                  |    3 +--
+ 10 files changed, 22 insertions(+), 28 deletions(-)
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

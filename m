@@ -2,77 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C427312E6F6
-	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jan 2020 14:55:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AE8712E7F6
+	for <lists+alsa-devel@lfdr.de>; Thu,  2 Jan 2020 16:15:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 51E0316A0;
-	Thu,  2 Jan 2020 14:54:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51E0316A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 093DF16A2;
+	Thu,  2 Jan 2020 16:14:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093DF16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1577973331;
-	bh=5HoUBDrzIr/2DgJiZoN6hOXlAw/D2naoE7cXLiXpNNA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=lKvmR7q1SmPw1y2QG9svifkD7HkToNN1YbtpPNYJA6qmFrg7dmsA2htaeJsH52ZJ5
-	 16dSwSDD9mOVkrV7LgQust9hmdnO0pswRN4TXZM7MR1KVY4tXrLeckl4GnN12zOkC8
-	 kp5rNmyUurYGK+e8tLwgrdrLjZJJVu68cJZVT1Hk=
+	s=default; t=1577978112;
+	bh=99oZdNGsjGd2xzvt95kNcH39SkkYsqschDs5Rx2w90Q=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=RvdHrAw4Wp9Rr9zHfJb8NjCu7mqCQUd00YQjeGAPHtUYXdMXuYEHoOCDSIpQe463Z
+	 SqO6lwLVE4JfthgjYf9HvpdIu4r7GEQ5s46yvrsW/f57MH+8pPxKkeM/mA7gqAteRE
+	 rgAvzjn+ARwYypJD7iBnLLUkDXq/PP1qG54Dpmhw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47B27F8014F;
-	Thu,  2 Jan 2020 14:53:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 36D0BF8014F;
+	Thu,  2 Jan 2020 16:13:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3FD64F80157; Thu,  2 Jan 2020 14:53:46 +0100 (CET)
+ id 72AF7F80157; Thu,  2 Jan 2020 16:13:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 577F9F8011F
- for <alsa-devel@alsa-project.org>; Thu,  2 Jan 2020 14:53:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 577F9F8011F
-Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
- (mreue010 [212.227.15.129]) with ESMTPA (Nemesis) id
- 1Mz9pT-1jiGIP0xBz-00wBuB; Thu, 02 Jan 2020 14:53:26 +0100
-From: Arnd Bergmann <arnd@arndb.de>
-To: Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>
-Date: Thu,  2 Jan 2020 14:52:55 +0100
-Message-Id: <20200102135322.1841053-1-arnd@arndb.de>
-X-Mailer: git-send-email 2.20.0
-MIME-Version: 1.0
-X-Provags-ID: V03:K1:zxRcnJYM3Qwzugm8PjSAcZhaHwSkpBGtFfHipa588cNnptL2qON
- NSD9i7Qg/kZPN617VR9sOzheMm2RYqcM3nybT8U9auEe4SXnAWg2PIDbYTRvXuNVgL8MM/h
- hOHQdhTLQB3rxThMssg/aqy5TMs4OFxtvMeIzodOFBTnozUp48zN5rn5PiMNUrrgV1K1SKG
- prSoLK4CbtvFyqyFpX03A==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:bEdlaOzjlc4=:Rlb5ilrlSlSqshcCQuCuTW
- BzyisJQmkkEAA9eevZIA8cW7rwyN1A/6V3ZJjvyWSKSomEVuzw27CS+piy7o+v8J1BVD4uH4C
- i9okx2bEx6iOmdvPiktk9ek1RwJF+3TC5uJnsMzXBD1r4L+Y4x/zdi5cYapmXBfKZcrz7Nswo
- 67qs1iFcCijMdTRFK3S1X0tp1iGOdt3kQMA995Mnwzz7xgos+DFpxvVtV/YMm/ZOGUEcJeDct
- X6FC0QqxUDmqOgaaI+bJJbaFdG7001rMc/IXxYVgwMuUMRUWoheozga9LBpa8RIoFks6Cji3q
- /VyPve6BUbSneIjhjFZO2hIlpbAhQIeL6pJbBJGBDJyuA7h/iaZag8EoQXvC6HHSWemxwl/2V
- dc4Vo2VlgCxrIuFEnwcGn3a9FfDKuw+Z+HqE4tcEZPkstnIIVd3pmWS27ESezqHGGSEyOWOHY
- IEMuKQmaFSDsCxNuQqTZUDFbsezR2+P02U8sC3RM4H2SMl7t/jZ2Wgvkc302gpYLMJK+eae2N
- 0CmuYuD6XOszSyfA/VdkRCStuqSiZTou8yg7G4iQMqPxyrBtBnFRaKkLA8Q9qTKVunPHXSG1j
- EWvIvhuiYgYSGjaeplMv5glG0Ku+1HW523OhJGxTm6bHlY5cs2Yia20P3Vj/h7S0MlvIPOAkE
- NQZ7Mx1pZcpgsY/dz+UavTiY+C8IcnLvpiB4OU2BNuFFmI01YFzHXQ57+DuJp9lluUCn57L9K
- 2Vb47OXSeMWL+wrPNZkLjjMs8JOl8eufizUqum7QqVGFt2llvXGZFzUpFcajXXu3olLXfm34S
- ZMRN6P8NC4G1syIun+MiDSFO0AzqetX8GR0GhSC1ZJ21WT1JFh2Wox7hgTfh01/GmO9LbGVvg
- rhW/LNNkbQApzDsZfFkw==
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>,
- Sathya Prakash M R <sathya.prakash.m.r@intel.com>,
- Naveen Manohar <naveen.m@intel.com>
-Subject: [alsa-devel] [PATCH] ASoC: Intel: boards: Fix compile-testing
-	RT1011/RT5682
+ by alsa1.perex.cz (Postfix) with ESMTPS id B1549F8013E
+ for <alsa-devel@alsa-project.org>; Thu,  2 Jan 2020 16:13:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1549F8013E
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 021ECB0BE;
+ Thu,  2 Jan 2020 15:13:22 +0000 (UTC)
+Date: Thu, 02 Jan 2020 16:13:21 +0100
+Message-ID: <s5hd0c1opri.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Julia Lawall <julia.lawall@inria.fr>
+In-Reply-To: <alpine.DEB.2.21.2001012022380.3262@hadrien>
+References: <1577900990-8588-1-git-send-email-Julia.Lawall@inria.fr>
+ <1577900990-8588-3-git-send-email-Julia.Lawall@inria.fr>
+ <s5hmub72dh3.wl-tiwai@suse.de>
+ <alpine.DEB.2.21.2001012022380.3262@hadrien>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ kernel-janitors@vger.kernel.org, Takashi Iwai <tiwai@suse.com>
+Subject: Re: [alsa-devel] [PATCH 02/10] ALSA: ml403-ac97cr: use resource_size
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,39 +74,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On non-x86, the new driver results in a build failure:
+On Wed, 01 Jan 2020 20:23:24 +0100,
+Julia Lawall wrote:
+> 
+> On Wed, 1 Jan 2020, Takashi Iwai wrote:
+> 
+> > On Wed, 01 Jan 2020 18:49:42 +0100,
+> > Julia Lawall wrote:
+> > >
+> > > Use resource_size rather than a verbose computation on
+> > > the end and start fields.
+> > >
+> > > The semantic patch that makes this change is as follows:
+> > > (http://coccinelle.lip6.fr/)
+> > >
+> > > <smpl>
+> > > @@ struct resource *ptr; @@
+> > > - ((ptr->end) - (ptr->start) + 1)
+> > > + resource_size(ptr)
+> > > </smpl>
+> > >
+> > > Signed-off-by: Julia Lawall <Julia.Lawall@inria.fr>
+> >
+> > Unfortunately this doesn't apply cleanly on my tree.  I guess you
+> > worked on linux-next which contains a change outside the sound git
+> > tree that converts ioremap_nocache() to ioremap().
+> >
+> > We may apply it in sound git tree and let conflicts resolved at the
+> > merge time.  OTOH, it's no urgent fix at all and can be postponed
+> > after 5.6-rc1 merge, too -- then everything can be applied in a
+> > cleaner way.
+> >
+> > Let me know your preference.
+> 
+> It's from linux-next.  No hurry.  Postponing it is fine.
 
-sound/soc/intel/boards/cml_rt1011_rt5682.c:14:10: fatal error: asm/cpu_device_id.h: No such file or directory
-
-The asm/cpu_device_id.h header is not actually needed here,
-so don't include it.
-
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-I found this last week, but the patch still seems to be needed
-as I could not find a fix in mainline or -next.
-
-Please ignore if there is already a fix in some other tree.
+OK, let's postpone this.  Thanks.
 
 
- sound/soc/intel/boards/cml_rt1011_rt5682.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
-index a22f97234201..5f1bf6d3800c 100644
---- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
-+++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
-@@ -11,7 +11,6 @@
- #include <linux/clk.h>
- #include <linux/dmi.h>
- #include <linux/slab.h>
--#include <asm/cpu_device_id.h>
- #include <linux/acpi.h>
- #include <sound/core.h>
- #include <sound/jack.h>
--- 
-2.20.0
-
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

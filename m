@@ -2,59 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B51D12FC16
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jan 2020 19:07:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A3C3312FC28
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jan 2020 19:17:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6F99C17AF;
-	Fri,  3 Jan 2020 19:07:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F99C17AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3059D179E;
+	Fri,  3 Jan 2020 19:16:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3059D179E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578074872;
-	bh=I5Hu6r512TpmGtd7BARVusTkupTDH72xXc7F+9d/2tI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=D/TPAfPKrrTEcHzkpIBfD9mRXKa41saEQMdVwI1o7WlLhqsqHJvEi2MUfblmkvvW6
-	 X7nMhX179qzg0Cf1MBi1C1aUa1sUyxuZaxXYAJeIhWuq194c7oamSoeHr5aZ2M1f5+
-	 q6RiSqyuwkEJKqoUE1fqAEtmxLK4/Eg7N/5LhwK8=
+	s=default; t=1578075421;
+	bh=VfYW9OmtFoJb3wEdGQd/0YFQ7nQEKNeB16MQ44nCN0I=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kOfb5eYjPbkfKaXefjmoosoWJlSFVba7Yjg7gRXTbZ7T43WHnWxEWkFma7/2ehKlm
+	 IjQAMHWB4cu0LkA92TJhL0dZWdbmqSyHhzCX5Pvtm6pQw5i7YnSiM7qH7JnjK6ddQf
+	 F4deXl2KaOaO6O0uA8Gz2Mc0t+xPDg+eeAma77Ok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC338F8015C;
-	Fri,  3 Jan 2020 19:06:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AF8FBF8015E;
+	Fri,  3 Jan 2020 19:15:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7D84F8015D; Fri,  3 Jan 2020 19:06:08 +0100 (CET)
+ id E29C0F8015D; Fri,  3 Jan 2020 19:15:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from llmx2.ll.mit.edu (llmx2.ll.mit.edu [129.55.12.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7E969F8013E
- for <alsa-devel@alsa-project.org>; Fri,  3 Jan 2020 19:06:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E969F8013E
-Received: from LLE2K16-MBX03.mitll.ad.local (LLE2K16-MBX03.mitll.ad.local) by
- llmx2.ll.mit.edu (unknown) with ESMTPS id 003I632n031387;
- Fri, 3 Jan 2020 13:06:03 -0500
-From: David Ward <david.ward@ll.mit.edu>
-To: Takashi Iwai <tiwai@suse.de>, <alsa-devel@alsa-project.org>
-Date: Fri, 3 Jan 2020 13:05:51 -0500
-Message-ID: <1578074751-31462-1-git-send-email-david.ward@ll.mit.edu>
-X-Mailer: git-send-email 1.8.3.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0A4BF800FE
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jan 2020 19:15:14 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9E25BA003F;
+ Fri,  3 Jan 2020 19:15:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9E25BA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1578075313; bh=hQiiSETa/BhafPxdPk2EJRi3YZI9ITOtZh17M1EpmKA=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=UjAZxMtd0k9yo/5gPYdp/QAIl3zjBMu5Su7dX9yT8VeaIHehhBKRKqkHMOLn6tXk/
+ knM7n53Z1LXOfqHJG3csGw6AsGqRPViu8U/r3Ce1zFgc/Ysk+SMv7+5+rBz4Pl7Hr5
+ 0lqX/ZwjjyRkkyuLhlkxJzukDPcKKtbseeymMKEo=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Fri,  3 Jan 2020 19:15:09 +0100 (CET)
+To: David Ward <david.ward@ll.mit.edu>, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org
+References: <1578074751-31462-1-git-send-email-david.ward@ll.mit.edu>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <18135209-abc9-ca1c-84e0-8ac3e75caaf1@perex.cz>
+Date: Fri, 3 Jan 2020 19:15:09 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2020-01-03_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- malwarescore=0
- phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-2001030166
-Cc: =?UTF-8?q?Diego=20Petten=C3=B2?= <flameeyes@gmail.com>,
- David Ward <david.ward@ll.mit.edu>
-Subject: [alsa-devel] [PATCH alsa-lib,
-	alsa-plugins] Update the attributes.m4 macro file from xine
+In-Reply-To: <1578074751-31462-1-git-send-email-david.ward@ll.mit.edu>
+Content-Language: en-US
+Cc: =?UTF-8?Q?Diego_Petten=c3=b2?= <flameeyes@gmail.com>
+Subject: Re: [alsa-devel] [PATCH alsa-lib,
+ alsa-plugins] Update the attributes.m4 macro file from xine
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,98 +77,24 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhpcyBmaWxlIHdhcyBpbXBvcnRlZCBmcm9tIHRoZSB4aW5lIHByb2plY3QuIFVwZGF0ZSBpdCB0
-byB0aGUgY3VycmVudApyZXZpc2lvbiwgd2hpY2ggcmVzb2x2ZXMgdGhlICJubyBBQ19MQU5HX1NP
-VVJDRSBjYWxsIGRldGVjdGVkIGluIGJvZHkiCndhcm5pbmdzIHdpdGggQXV0b2NvbmYgMi42OCBv
-ciBsYXRlci4KCkNjOiBEaWVnbyBQZXR0ZW7DsiA8ZmxhbWVleWVzQGdtYWlsLmNvbT4KU2lnbmVk
-LW9mZi1ieTogRGF2aWQgV2FyZCA8ZGF2aWQud2FyZEBsbC5taXQuZWR1PgotLS0KIG00L2F0dHJp
-YnV0ZXMubTQgfCAzMyArKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0KIDEgZmlsZSBj
-aGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9t
-NC9hdHRyaWJ1dGVzLm00IGIvbTQvYXR0cmlidXRlcy5tNAppbmRleCBlODY0NTZhLi4zZDljMjU2
-IDEwMDY0NAotLS0gYS9tNC9hdHRyaWJ1dGVzLm00CisrKyBiL200L2F0dHJpYnV0ZXMubTQKQEAg
-LTEsNiArMSw2IEBACiBkbmwgTWFjcm9zIHRvIGNoZWNrIHRoZSBwcmVzZW5jZSBvZiBnZW5lcmlj
-IChub24tdHlwZWQpIHN5bWJvbHMuCi1kbmwgQ29weXJpZ2h0IChjKSAyMDA2LTIwMDcgRGllZ28g
-UGV0dGVuw7IgPGZsYW1lZXllc0BnbWFpbC5jb20+Ci1kbmwgQ29weXJpZ2h0IChjKSAyMDA2LTIw
-MDcgeGluZSBwcm9qZWN0CitkbmwgQ29weXJpZ2h0IChjKSAyMDA2LTIwMDggRGllZ28gUGV0dGVu
-w7IgPGZsYW1lZXllc0BnbWFpbC5jb20+CitkbmwgQ29weXJpZ2h0IChjKSAyMDA2LTIwMDggeGlu
-ZSBwcm9qZWN0CiBkbmwKIGRubCBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91IGNh
-biByZWRpc3RyaWJ1dGUgaXQgYW5kL29yIG1vZGlmeQogZG5sIGl0IHVuZGVyIHRoZSB0ZXJtcyBv
-ZiB0aGUgR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYXMgcHVibGlzaGVkIGJ5CkBAIC0yNSw3
-ICsyNSw3IEBAIGRubCBMaWNlbnNlIHdoZW4gdXNpbmcgb3IgZGlzdHJpYnV0aW5nIHN1Y2ggc2Ny
-aXB0cywgZXZlbiB0aG91Z2ggcG9ydGlvbnMKIGRubCBvZiB0aGUgdGV4dCBvZiB0aGUgTWFjcm8g
-YXBwZWFyIGluIHRoZW0uIFRoZSBHTlUgR2VuZXJhbCBQdWJsaWMKIGRubCBMaWNlbnNlIChHUEwp
-IGRvZXMgZ292ZXJuIGFsbCBvdGhlciB1c2Ugb2YgdGhlIG1hdGVyaWFsIHRoYXQKIGRubCBjb25z
-dGl0dXRlcyB0aGUgQXV0b2NvbmYgTWFjcm8uCi1kbmwgCitkbmwKIGRubCBUaGlzIHNwZWNpYWwg
-ZXhjZXB0aW9uIHRvIHRoZSBHUEwgYXBwbGllcyB0byB2ZXJzaW9ucyBvZiB0aGUKIGRubCBBdXRv
-Y29uZiBNYWNybyByZWxlYXNlZCBieSB0aGlzIHByb2plY3QuIFdoZW4geW91IG1ha2UgYW5kCiBk
-bmwgZGlzdHJpYnV0ZSBhIG1vZGlmaWVkIHZlcnNpb24gb2YgdGhlIEF1dG9jb25mIE1hY3JvLCB5
-b3UgbWF5IGV4dGVuZApAQCAtMzksNyArMzksNyBAQCBBQ19ERUZVTihbQ0NfQ0hFQ0tfQ0ZMQUdT
-X1NJTEVOVF0sIFsKICAgQUNfQ0FDSEVfVkFMKEFTX1RSX1NIKFtjY19jdl9jZmxhZ3NfJDFdKSwK
-ICAgICBbYWNfc2F2ZV9DRkxBR1M9IiRDRkxBR1MiCiAgICAgIENGTEFHUz0iJENGTEFHUyAkMSIK
-LSAgICAgQUNfQ09NUElMRV9JRkVMU0UoW2ludCBhO10sCisgICAgIEFDX0NPTVBJTEVfSUZFTFNF
-KFtBQ19MQU5HX1NPVVJDRShbaW50IGE7XSldLAogICAgICAgIFtldmFsICJBU19UUl9TSChbY2Nf
-Y3ZfY2ZsYWdzXyQxXSk9J3llcyciXSwKICAgICAgICBbZXZhbCAiQVNfVFJfU0goW2NjX2N2X2Nm
-bGFnc18kMV0pPSdubyciXSkKICAgICAgQ0ZMQUdTPSIkYWNfc2F2ZV9DRkxBR1MiCkBAIC03MSw3
-ICs3MSw3IEBAIEFDX0RFRlVOKFtDQ19DSEVDS19DRkxBR19BUFBFTkRdLCBbCiAgICkKIAogICBB
-U19JRihbZXZhbCB0ZXN0IHgkXUFTX1RSX1NIKFtjY19jdl9jZmxhZ3NfJDFdKVsgPSB4eWVzXSwK
-LSAgICBbQ0ZMQUdTPSIkQ0ZMQUdTICQxIjsgJDJdLCBbJDNdKQorICAgIFtDRkxBR1M9IiRDRkxB
-R1MgJDEiOyBERUJVR19DRkxBR1M9IiRERUJVR19DRkxBR1MgJDEiOyAkMl0sIFskM10pCiBdKQog
-CiBkbmwgQ0NfQ0hFQ0tfQ0ZMQUdTX0FQUEVORChbRkxBRzEgRkxBRzJdLCBbYWN0aW9uLWlmLWZv
-dW5kXSwgW2FjdGlvbi1pZi1ub3RdKQpAQCAtODksNyArODksNyBAQCBBQ19ERUZVTihbQ0NfQ0hF
-Q0tfTERGTEFHU10sIFsKICAgICBBU19UUl9TSChbY2NfY3ZfbGRmbGFnc18kMV0pLAogICAgIFth
-Y19zYXZlX0xERkxBR1M9IiRMREZMQUdTIgogICAgICBMREZMQUdTPSIkTERGTEFHUyAkMSIKLSAg
-ICAgQUNfTElOS19JRkVMU0UoW2ludCBtYWluKCkgeyByZXR1cm4gMTsgfV0sCisgICAgIEFDX0xJ
-TktfSUZFTFNFKFtBQ19MQU5HX1NPVVJDRShbaW50IG1haW4oKSB7IHJldHVybiAxOyB9XSldLAog
-ICAgICAgIFtldmFsICJBU19UUl9TSChbY2NfY3ZfbGRmbGFnc18kMV0pPSd5ZXMnIl0sCiAgICAg
-ICAgW2V2YWwgIkFTX1RSX1NIKFtjY19jdl9sZGZsYWdzXyQxXSk9Il0pCiAgICAgIExERkxBR1M9
-IiRhY19zYXZlX0xERkxBR1MiCkBAIC0xMDksMTQgKzEwOSwyMSBAQCBBQ19ERUZVTihbQ0NfTk9V
-TkRFRklORURdLCBbCiAgICAgIGRubCBGcmVlQlNEIChldCBhbC4pIGRvZXMgbm90IGNvbXBsZXRl
-IGxpbmtpbmcgZm9yIHNoYXJlZCBvYmplY3RzIHdoZW4gcHRocmVhZHMKICAgICAgZG5sIGFyZSBy
-ZXF1ZXN0ZWQsIGFzIGRpZmZlcmVudCBpbXBsZW1lbnRhdGlvbnMgYXJlIHByZXNlbnQ7IHRvIGF2
-b2lkIHByb2JsZW1zCiAgICAgIGRubCB1c2UgLVdsLC16LGRlZnMgb25seSBmb3IgdGhvc2UgcGxh
-dGZvcm0gbm90IGJlaGF2aW5nIHRoaXMgd2F5LgotICAgICAqLWZyZWVic2QqKSA7OworICAgICBk
-bmwKKyAgICAgZG5sIE1pbkdXIHBsYXRmb3JtczogZm9yIGxpYnJhcmllcyByZXF1aXJlZCAtbm8t
-dW5kZWZpbmVkLAorICAgICBkbmwgdXNlIGl0IG9ubHkgZm9yIGxpYnJhcmllcyBpbiBtaW5ndzMy
-LXc2NCAKKworICAgICAqLWZyZWVic2QqIHwgKi1vcGVuYnNkKikgOzsKKyAgICAgKi1taW5ndyop
-CisgICAgICAgIExERkxBR1NfTk9VTkRFRklORUQ9Ii1uby11bmRlZmluZWQiCisgICAgICAgIDs7
-CiAgICAgICopCiAgICAgICAgIGRubCBGaXJzdCBvZiBhbGwgY2hlY2sgZm9yIHRoZSAtLW5vLXVu
-ZGVmaW5lZCB2YXJpYW50IG9mIEdOVSBsZC4gVGhpcyBhbGxvd3MKICAgICAgICAgZG5sIGZvciBh
-IG11Y2ggbW9yZSByZWFkYWJsZSBjb21tYW5kbGluZSwgc28gdGhhdCBwZW9wbGUgY2FuIHVuZGVy
-c3RhbmQgd2hhdAogICAgICAgICBkbmwgaXQgZG9lcyB3aXRob3V0IGdvaW5nIHRvIGxvb2sgZm9y
-IHdoYXQgdGhlIGhlY2sgLXogZGVmcyBkb2VzLgotICAgCWZvciBwb3NzaWJsZV9mbGFncyBpbiAi
-LVdsLC0tbm8tdW5kZWZpbmVkIiAiLVdsLC16LGRlZnMiOyBkbworCWZvciBwb3NzaWJsZV9mbGFn
-cyBpbiAiLVdsLC0tbm8tdW5kZWZpbmVkIiAiLVdsLC16LGRlZnMiOyBkbwogICAgICAgICAgIEND
-X0NIRUNLX0xERkxBR1MoWyRwb3NzaWJsZV9mbGFnc10sIFtMREZMQUdTX05PVU5ERUZJTkVEPSIk
-cG9zc2libGVfZmxhZ3MiXSkKLQkgIGJyZWFrCisJICBpZiB0ZXN0ICJ4JExERkxBR1NfTk9VTkRF
-RklORUQiID0gIngiOyB0aGVuIGJyZWFrOyBmaQogICAgICAgICBkb25lCiAJOzsKICAgZXNhYwpA
-QCAtMTQ3LDcgKzE1NCw3IEBAIEFDX0RFRlVOKFtDQ19DSEVDS19BVFRSSUJVVEVdLCBbCiAgICAg
-QVNfVFJfU0goW2NjX2N2X2F0dHJpYnV0ZV8kMV0pLAogICAgIFthY19zYXZlX0NGTEFHUz0iJENG
-TEFHUyIKICAgICAgQ0ZMQUdTPSIkQ0ZMQUdTICRjY19jdl93ZXJyb3IiCi0gICAgIEFDX0NPTVBJ
-TEVfSUZFTFNFKFskM10sCisgICAgIEFDX0NPTVBJTEVfSUZFTFNFKFtBQ19MQU5HX1NPVVJDRShb
-JDNdKV0sCiAgICAgICAgW2V2YWwgIkFTX1RSX1NIKFtjY19jdl9hdHRyaWJ1dGVfJDFdKT0neWVz
-JyJdLAogICAgICAgIFtldmFsICJBU19UUl9TSChbY2NfY3ZfYXR0cmlidXRlXyQxXSk9J25vJyJd
-KQogICAgICBDRkxBR1M9IiRhY19zYXZlX0NGTEFHUyIKQEAgLTI1Nyw3ICsyNjQsNyBAQCBBQ19E
-RUZVTihbQ0NfRkxBR19WSVNJQklMSVRZXSwgWwogCWNjX2N2X2ZsYWdfdmlzaWJpbGl0eT0neWVz
-JywKIAljY19jdl9mbGFnX3Zpc2liaWxpdHk9J25vJykKICAgICAgQ0ZMQUdTPSIkY2NfZmxhZ192
-aXNpYmlsaXR5X3NhdmVfQ0ZMQUdTIl0pCi0gIAorCiAgIEFTX0lGKFt0ZXN0ICJ4JGNjX2N2X2Zs
-YWdfdmlzaWJpbGl0eSIgPSAieHllcyJdLAogICAgIFtBQ19ERUZJTkUoW1NVUFBPUlRfRkxBR19W
-SVNJQklMSVRZXSwgMSwKICAgICAgICBbRGVmaW5lIHRoaXMgaWYgdGhlIGNvbXBpbGVyIHN1cHBv
-cnRzIHRoZSAtZnZpc2liaWxpdHkgZmxhZ10pCkBAIC0yOTUsMTEgKzMwMiwxMSBAQCBBQ19ERUZV
-TihbQ0NfQVRUUklCVVRFX0FMSUdORURdLCBbCiAgICAgW2FjX3NhdmVfQ0ZMQUdTPSIkQ0ZMQUdT
-IgogICAgICBDRkxBR1M9IiRDRkxBR1MgJGNjX2N2X3dlcnJvciIKICAgICAgZm9yIGNjX2F0dHJp
-YnV0ZV9hbGlnbl90cnkgaW4gNjQgMzIgMTYgOCA0IDI7IGRvCi0gICAgICAgIEFDX0NPTVBJTEVf
-SUZFTFNFKFsKKyAgICAgICAgQUNfQ09NUElMRV9JRkVMU0UoW0FDX0xBTkdfU09VUkNFKFsKICAg
-ICAgICAgICBpbnQgbWFpbigpIHsKICAgICAgICAgICAgIHN0YXRpYyBjaGFyIGMgX19hdHRyaWJ1
-dGVfXyAoKGFsaWduZWQoJGNjX2F0dHJpYnV0ZV9hbGlnbl90cnkpKSkgPSAwOwogICAgICAgICAg
-ICAgcmV0dXJuIGM7Ci0gICAgICAgICAgfV0sIFtjY19jdl9hdHRyaWJ1dGVfYWxpZ25lZD0kY2Nf
-YXR0cmlidXRlX2FsaWduX3RyeTsgYnJlYWtdKQorICAgICAgICAgIH1dKV0sIFtjY19jdl9hdHRy
-aWJ1dGVfYWxpZ25lZD0kY2NfYXR0cmlidXRlX2FsaWduX3RyeTsgYnJlYWtdKQogICAgICBkb25l
-CiAgICAgIENGTEFHUz0iJGFjX3NhdmVfQ0ZMQUdTIgogICBdKQotLSAKMS44LjMuMQoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWls
-aW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNh
-LXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+Dne 03. 01. 20 v 19:05 David Ward napsal(a):
+> This file was imported from the xine project. Update it to the current
+> revision, which resolves the "no AC_LANG_SOURCE call detected in body"
+> warnings with Autoconf 2.68 or later.
+
+Applied. Thanks.
+
+				Jaroslav
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

@@ -2,51 +2,47 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CF6512FC10
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jan 2020 19:05:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B51D12FC16
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jan 2020 19:07:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C096017AC;
-	Fri,  3 Jan 2020 19:04:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C096017AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6F99C17AF;
+	Fri,  3 Jan 2020 19:07:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6F99C17AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578074714;
-	bh=aMuhIELzZOoqx9CqpWKImnjrwZAL6wiy1GlRS9QhSn0=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Gje2STfuknO/5+d/pxJ3aKDInHHCeKfmd5OWnF1RhIvGYnR2QeO+WbMXIetNst37H
-	 9dFVd1TWgQw3+in8CWIdvG8ICjwtxfT8LL3FuhlJcSwYGMf4CQmVPVMxmODl8Vvo05
-	 OH9IbLRFB3/aTArn6O7vmqkc+TxvRlJ2wG+2eZw0=
+	s=default; t=1578074872;
+	bh=I5Hu6r512TpmGtd7BARVusTkupTDH72xXc7F+9d/2tI=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=D/TPAfPKrrTEcHzkpIBfD9mRXKa41saEQMdVwI1o7WlLhqsqHJvEi2MUfblmkvvW6
+	 X7nMhX179qzg0Cf1MBi1C1aUa1sUyxuZaxXYAJeIhWuq194c7oamSoeHr5aZ2M1f5+
+	 q6RiSqyuwkEJKqoUE1fqAEtmxLK4/Eg7N/5LhwK8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E2489F802FD;
-	Fri,  3 Jan 2020 18:56:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CC338F8015C;
+	Fri,  3 Jan 2020 19:06:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42C8EF802A2; Fri,  3 Jan 2020 18:56:33 +0100 (CET)
+ id C7D84F8015D; Fri,  3 Jan 2020 19:06:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED, UNPARSEABLE_RELAY,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from llmx3.ll.mit.edu (llmx3.ll.mit.edu [129.55.12.49])
+ UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
+Received: from llmx2.ll.mit.edu (llmx2.ll.mit.edu [129.55.12.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD731F8028D
- for <alsa-devel@alsa-project.org>; Fri,  3 Jan 2020 18:56:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD731F8028D
-Received: from LLE2K16-MBX01.mitll.ad.local (LLE2K16-MBX01.mitll.ad.local) by
- llmx3.ll.mit.edu (unknown) with ESMTPS id 003HuRPV011874;
- Fri, 3 Jan 2020 12:56:28 -0500
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7E969F8013E
+ for <alsa-devel@alsa-project.org>; Fri,  3 Jan 2020 19:06:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7E969F8013E
+Received: from LLE2K16-MBX03.mitll.ad.local (LLE2K16-MBX03.mitll.ad.local) by
+ llmx2.ll.mit.edu (unknown) with ESMTPS id 003I632n031387;
+ Fri, 3 Jan 2020 13:06:03 -0500
 From: David Ward <david.ward@ll.mit.edu>
 To: Takashi Iwai <tiwai@suse.de>, <alsa-devel@alsa-project.org>
-Date: Fri, 3 Jan 2020 12:55:58 -0500
-Message-ID: <1578074158-30328-12-git-send-email-david.ward@ll.mit.edu>
+Date: Fri, 3 Jan 2020 13:05:51 -0500
+Message-ID: <1578074751-31462-1-git-send-email-david.ward@ll.mit.edu>
 X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1578074158-30328-1-git-send-email-david.ward@ll.mit.edu>
-References: <1578074158-30328-1-git-send-email-david.ward@ll.mit.edu>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2020-01-03_05:, , signatures=0
@@ -54,10 +50,11 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
  malwarescore=0
  phishscore=0 bulkscore=0 spamscore=0 mlxscore=0 mlxlogscore=999
  adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.0.1-1911140001 definitions=main-2001030164
-Cc: David Ward <david.ward@ll.mit.edu>
-Subject: [alsa-devel] [PATCH v2 alsa-utils 11/11] alsa-info.sh: Warn after
-	actual upload failure; do not ping server
+ engine=8.0.1-1911140001 definitions=main-2001030166
+Cc: =?UTF-8?q?Diego=20Petten=C3=B2?= <flameeyes@gmail.com>,
+ David Ward <david.ward@ll.mit.edu>
+Subject: [alsa-devel] [PATCH alsa-lib,
+	alsa-plugins] Update the attributes.m4 macro file from xine
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,133 +67,98 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Check the output from wget to determine if the file upload failed.
-If it did, display the message about upload failure and exit.
-
-Do not ping the web server; the result does not indicate whether a
-file upload will succeed or not.
-
-Signed-off-by: David Ward <david.ward@ll.mit.edu>
----
- alsa-info/alsa-info.sh | 57 +++++++++++++++++++++-----------------------------
- 1 file changed, 24 insertions(+), 33 deletions(-)
-
-diff --git a/alsa-info/alsa-info.sh b/alsa-info/alsa-info.sh
-index 445e2cb..7cab649 100755
---- a/alsa-info/alsa-info.sh
-+++ b/alsa-info/alsa-info.sh
-@@ -35,22 +35,12 @@ BGTITLE="ALSA-Info v $SCRIPT_VERSION"
- PASTEBINKEY="C9cRIO8m/9y8Cs0nVs0FraRx7U0pHsuc"
- 
- WGET=$(which wget 2>/dev/null | sed 's|^[^/]*||' 2>/dev/null)
--REQUIRES="mktemp grep pgrep whereis ping awk date uname cat sort dmesg amixer alsactl"
-+REQUIRES="mktemp grep pgrep whereis awk date uname cat sort dmesg amixer alsactl"
- 
- #
- # Define some simple functions
- #
- 
--pbcheck() {
--	[[ $UPLOAD = "no" ]] && return
--
--	if [[ -z $PASTEBIN ]]; then
--		[[ $(ping -c1 www.alsa-project.org) ]] || KEEP_FILES="yes" UPLOAD="no" PBERROR="yes"
--	else
--		[[ $(ping -c1 www.pastebin.ca) ]] || KEEP_FILES="yes" UPLOAD="no" PBERROR="yes"
--	fi
--}
--
- update() {
- 	test -z "$WGET" -o ! -x "$WGET" && return
- 
-@@ -648,7 +638,6 @@ fi
- #If no command line options are specified, then run as though --with-all was specified
- if [ -z "$1" ]; then
- 	update
--	pbcheck	
- fi
- 
- fi # proceed
-@@ -660,7 +649,6 @@ if [ -n "$1" ]; then
- 	case "$1" in
- 		--pastebin)
- 		        update
--        		pbcheck
- 			;;
- 		--update)
- 			update
-@@ -830,25 +818,11 @@ if [ "$UPLOAD" = "no" ]; then
- 
- 	if [[ -n $DIALOG ]]
- 	then
--		if [[ -n $PBERROR ]]; then
--			dialog --backtitle "$BGTITLE" --title "Information collected" --msgbox "An error occurred while contacting the $WWWSERVICE.\n Your information was NOT automatically uploaded.\n\nYour ALSA information is in $NFILE" 10 100
--		else
--			dialog --backtitle "$BGTITLE" --title "Information collected" --msgbox "\n\nYour ALSA information is in $NFILE" 10 60
--		fi
-+		dialog --backtitle "$BGTITLE" --title "Information collected" --msgbox "\n\nYour ALSA information is in $NFILE" 10 60
- 	else
--		echo
--
--		if [[ -n $PBERROR ]]; then
--			echo "An error occurred while contacting the $WWWSERVICE."
--			echo "Your information was NOT automatically uploaded."
--			echo ""
--			echo "Your ALSA information is in $NFILE"
--			echo ""
--		else
--			echo ""
--			echo "Your ALSA information is in $NFILE"
--			echo ""
--		fi
-+		echo ""
-+		echo "Your ALSA information is in $NFILE"
-+		echo ""
- 	fi
- 
- 	exit
-@@ -863,13 +837,30 @@ else
- fi
- 
- if [[ -z $PASTEBIN ]]; then
--	wget -O - --tries=5 --timeout=60 --post-file=$FILE "http://www.alsa-project.org/cardinfo-db/" &>$TEMPDIR/wget.tmp || echo "Upload failed; exit"
-+	wget -O - --tries=5 --timeout=60 --post-file=$FILE "http://www.alsa-project.org/cardinfo-db/" &>$TEMPDIR/wget.tmp
- 	FINAL_URL=$(grep "SUCCESS:" $TEMPDIR/wget.tmp | cut -d ' ' -f 2)
- else
--	wget -O - --tries=5 --timeout=60 --post-file=$FILE "http://pastebin.ca/quiet-paste.php?api=$PASTEBINKEY&encrypt=t&encryptpw=blahblah" &>$TEMPDIR/wget.tmp || echo "Upload failed; exit"
-+	wget -O - --tries=5 --timeout=60 --post-file=$FILE "http://pastebin.ca/quiet-paste.php?api=$PASTEBINKEY&encrypt=t&encryptpw=blahblah" &>$TEMPDIR/wget.tmp
- 	FINAL_URL=$(grep "SUCCESS:" $TEMPDIR/wget.tmp | sed -n 's/.*\:\([0-9]\+\).*/http:\/\/pastebin.ca\/\1/p')
- fi
- 
-+if [ -z "$FINAL_URL" ]; then
-+	mv -f $FILE $NFILE || exit 1
-+	KEEP_OUTPUT="yes"
-+
-+	if [ -n "$DIALOG" ]; then
-+		dialog --backtitle "$BGTITLE" --title "Information not uploaded" --msgbox "An error occurred while contacting $WWWSERVICE.\n Your information was NOT automatically uploaded.\n\nYour ALSA information is in $NFILE" 10 100
-+	else
-+		echo "An error occurred while contacting $WWWSERVICE."
-+		echo "Your information was NOT automatically uploaded."
-+		echo ""
-+		echo "Your ALSA information is in $NFILE"
-+		echo ""
-+	fi
-+
-+	exit
-+fi
-+
- if [ -n "$DIALOG" ]; then
- 
- dialog --backtitle "$BGTITLE" --title "Information uploaded" --yesno "Would you like to see the uploaded information?" 5 100 
--- 
-1.8.3.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+VGhpcyBmaWxlIHdhcyBpbXBvcnRlZCBmcm9tIHRoZSB4aW5lIHByb2plY3QuIFVwZGF0ZSBpdCB0
+byB0aGUgY3VycmVudApyZXZpc2lvbiwgd2hpY2ggcmVzb2x2ZXMgdGhlICJubyBBQ19MQU5HX1NP
+VVJDRSBjYWxsIGRldGVjdGVkIGluIGJvZHkiCndhcm5pbmdzIHdpdGggQXV0b2NvbmYgMi42OCBv
+ciBsYXRlci4KCkNjOiBEaWVnbyBQZXR0ZW7DsiA8ZmxhbWVleWVzQGdtYWlsLmNvbT4KU2lnbmVk
+LW9mZi1ieTogRGF2aWQgV2FyZCA8ZGF2aWQud2FyZEBsbC5taXQuZWR1PgotLS0KIG00L2F0dHJp
+YnV0ZXMubTQgfCAzMyArKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0KIDEgZmlsZSBj
+aGFuZ2VkLCAyMCBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9t
+NC9hdHRyaWJ1dGVzLm00IGIvbTQvYXR0cmlidXRlcy5tNAppbmRleCBlODY0NTZhLi4zZDljMjU2
+IDEwMDY0NAotLS0gYS9tNC9hdHRyaWJ1dGVzLm00CisrKyBiL200L2F0dHJpYnV0ZXMubTQKQEAg
+LTEsNiArMSw2IEBACiBkbmwgTWFjcm9zIHRvIGNoZWNrIHRoZSBwcmVzZW5jZSBvZiBnZW5lcmlj
+IChub24tdHlwZWQpIHN5bWJvbHMuCi1kbmwgQ29weXJpZ2h0IChjKSAyMDA2LTIwMDcgRGllZ28g
+UGV0dGVuw7IgPGZsYW1lZXllc0BnbWFpbC5jb20+Ci1kbmwgQ29weXJpZ2h0IChjKSAyMDA2LTIw
+MDcgeGluZSBwcm9qZWN0CitkbmwgQ29weXJpZ2h0IChjKSAyMDA2LTIwMDggRGllZ28gUGV0dGVu
+w7IgPGZsYW1lZXllc0BnbWFpbC5jb20+CitkbmwgQ29weXJpZ2h0IChjKSAyMDA2LTIwMDggeGlu
+ZSBwcm9qZWN0CiBkbmwKIGRubCBUaGlzIHByb2dyYW0gaXMgZnJlZSBzb2Z0d2FyZTsgeW91IGNh
+biByZWRpc3RyaWJ1dGUgaXQgYW5kL29yIG1vZGlmeQogZG5sIGl0IHVuZGVyIHRoZSB0ZXJtcyBv
+ZiB0aGUgR05VIEdlbmVyYWwgUHVibGljIExpY2Vuc2UgYXMgcHVibGlzaGVkIGJ5CkBAIC0yNSw3
+ICsyNSw3IEBAIGRubCBMaWNlbnNlIHdoZW4gdXNpbmcgb3IgZGlzdHJpYnV0aW5nIHN1Y2ggc2Ny
+aXB0cywgZXZlbiB0aG91Z2ggcG9ydGlvbnMKIGRubCBvZiB0aGUgdGV4dCBvZiB0aGUgTWFjcm8g
+YXBwZWFyIGluIHRoZW0uIFRoZSBHTlUgR2VuZXJhbCBQdWJsaWMKIGRubCBMaWNlbnNlIChHUEwp
+IGRvZXMgZ292ZXJuIGFsbCBvdGhlciB1c2Ugb2YgdGhlIG1hdGVyaWFsIHRoYXQKIGRubCBjb25z
+dGl0dXRlcyB0aGUgQXV0b2NvbmYgTWFjcm8uCi1kbmwgCitkbmwKIGRubCBUaGlzIHNwZWNpYWwg
+ZXhjZXB0aW9uIHRvIHRoZSBHUEwgYXBwbGllcyB0byB2ZXJzaW9ucyBvZiB0aGUKIGRubCBBdXRv
+Y29uZiBNYWNybyByZWxlYXNlZCBieSB0aGlzIHByb2plY3QuIFdoZW4geW91IG1ha2UgYW5kCiBk
+bmwgZGlzdHJpYnV0ZSBhIG1vZGlmaWVkIHZlcnNpb24gb2YgdGhlIEF1dG9jb25mIE1hY3JvLCB5
+b3UgbWF5IGV4dGVuZApAQCAtMzksNyArMzksNyBAQCBBQ19ERUZVTihbQ0NfQ0hFQ0tfQ0ZMQUdT
+X1NJTEVOVF0sIFsKICAgQUNfQ0FDSEVfVkFMKEFTX1RSX1NIKFtjY19jdl9jZmxhZ3NfJDFdKSwK
+ICAgICBbYWNfc2F2ZV9DRkxBR1M9IiRDRkxBR1MiCiAgICAgIENGTEFHUz0iJENGTEFHUyAkMSIK
+LSAgICAgQUNfQ09NUElMRV9JRkVMU0UoW2ludCBhO10sCisgICAgIEFDX0NPTVBJTEVfSUZFTFNF
+KFtBQ19MQU5HX1NPVVJDRShbaW50IGE7XSldLAogICAgICAgIFtldmFsICJBU19UUl9TSChbY2Nf
+Y3ZfY2ZsYWdzXyQxXSk9J3llcyciXSwKICAgICAgICBbZXZhbCAiQVNfVFJfU0goW2NjX2N2X2Nm
+bGFnc18kMV0pPSdubyciXSkKICAgICAgQ0ZMQUdTPSIkYWNfc2F2ZV9DRkxBR1MiCkBAIC03MSw3
+ICs3MSw3IEBAIEFDX0RFRlVOKFtDQ19DSEVDS19DRkxBR19BUFBFTkRdLCBbCiAgICkKIAogICBB
+U19JRihbZXZhbCB0ZXN0IHgkXUFTX1RSX1NIKFtjY19jdl9jZmxhZ3NfJDFdKVsgPSB4eWVzXSwK
+LSAgICBbQ0ZMQUdTPSIkQ0ZMQUdTICQxIjsgJDJdLCBbJDNdKQorICAgIFtDRkxBR1M9IiRDRkxB
+R1MgJDEiOyBERUJVR19DRkxBR1M9IiRERUJVR19DRkxBR1MgJDEiOyAkMl0sIFskM10pCiBdKQog
+CiBkbmwgQ0NfQ0hFQ0tfQ0ZMQUdTX0FQUEVORChbRkxBRzEgRkxBRzJdLCBbYWN0aW9uLWlmLWZv
+dW5kXSwgW2FjdGlvbi1pZi1ub3RdKQpAQCAtODksNyArODksNyBAQCBBQ19ERUZVTihbQ0NfQ0hF
+Q0tfTERGTEFHU10sIFsKICAgICBBU19UUl9TSChbY2NfY3ZfbGRmbGFnc18kMV0pLAogICAgIFth
+Y19zYXZlX0xERkxBR1M9IiRMREZMQUdTIgogICAgICBMREZMQUdTPSIkTERGTEFHUyAkMSIKLSAg
+ICAgQUNfTElOS19JRkVMU0UoW2ludCBtYWluKCkgeyByZXR1cm4gMTsgfV0sCisgICAgIEFDX0xJ
+TktfSUZFTFNFKFtBQ19MQU5HX1NPVVJDRShbaW50IG1haW4oKSB7IHJldHVybiAxOyB9XSldLAog
+ICAgICAgIFtldmFsICJBU19UUl9TSChbY2NfY3ZfbGRmbGFnc18kMV0pPSd5ZXMnIl0sCiAgICAg
+ICAgW2V2YWwgIkFTX1RSX1NIKFtjY19jdl9sZGZsYWdzXyQxXSk9Il0pCiAgICAgIExERkxBR1M9
+IiRhY19zYXZlX0xERkxBR1MiCkBAIC0xMDksMTQgKzEwOSwyMSBAQCBBQ19ERUZVTihbQ0NfTk9V
+TkRFRklORURdLCBbCiAgICAgIGRubCBGcmVlQlNEIChldCBhbC4pIGRvZXMgbm90IGNvbXBsZXRl
+IGxpbmtpbmcgZm9yIHNoYXJlZCBvYmplY3RzIHdoZW4gcHRocmVhZHMKICAgICAgZG5sIGFyZSBy
+ZXF1ZXN0ZWQsIGFzIGRpZmZlcmVudCBpbXBsZW1lbnRhdGlvbnMgYXJlIHByZXNlbnQ7IHRvIGF2
+b2lkIHByb2JsZW1zCiAgICAgIGRubCB1c2UgLVdsLC16LGRlZnMgb25seSBmb3IgdGhvc2UgcGxh
+dGZvcm0gbm90IGJlaGF2aW5nIHRoaXMgd2F5LgotICAgICAqLWZyZWVic2QqKSA7OworICAgICBk
+bmwKKyAgICAgZG5sIE1pbkdXIHBsYXRmb3JtczogZm9yIGxpYnJhcmllcyByZXF1aXJlZCAtbm8t
+dW5kZWZpbmVkLAorICAgICBkbmwgdXNlIGl0IG9ubHkgZm9yIGxpYnJhcmllcyBpbiBtaW5ndzMy
+LXc2NCAKKworICAgICAqLWZyZWVic2QqIHwgKi1vcGVuYnNkKikgOzsKKyAgICAgKi1taW5ndyop
+CisgICAgICAgIExERkxBR1NfTk9VTkRFRklORUQ9Ii1uby11bmRlZmluZWQiCisgICAgICAgIDs7
+CiAgICAgICopCiAgICAgICAgIGRubCBGaXJzdCBvZiBhbGwgY2hlY2sgZm9yIHRoZSAtLW5vLXVu
+ZGVmaW5lZCB2YXJpYW50IG9mIEdOVSBsZC4gVGhpcyBhbGxvd3MKICAgICAgICAgZG5sIGZvciBh
+IG11Y2ggbW9yZSByZWFkYWJsZSBjb21tYW5kbGluZSwgc28gdGhhdCBwZW9wbGUgY2FuIHVuZGVy
+c3RhbmQgd2hhdAogICAgICAgICBkbmwgaXQgZG9lcyB3aXRob3V0IGdvaW5nIHRvIGxvb2sgZm9y
+IHdoYXQgdGhlIGhlY2sgLXogZGVmcyBkb2VzLgotICAgCWZvciBwb3NzaWJsZV9mbGFncyBpbiAi
+LVdsLC0tbm8tdW5kZWZpbmVkIiAiLVdsLC16LGRlZnMiOyBkbworCWZvciBwb3NzaWJsZV9mbGFn
+cyBpbiAiLVdsLC0tbm8tdW5kZWZpbmVkIiAiLVdsLC16LGRlZnMiOyBkbwogICAgICAgICAgIEND
+X0NIRUNLX0xERkxBR1MoWyRwb3NzaWJsZV9mbGFnc10sIFtMREZMQUdTX05PVU5ERUZJTkVEPSIk
+cG9zc2libGVfZmxhZ3MiXSkKLQkgIGJyZWFrCisJICBpZiB0ZXN0ICJ4JExERkxBR1NfTk9VTkRF
+RklORUQiID0gIngiOyB0aGVuIGJyZWFrOyBmaQogICAgICAgICBkb25lCiAJOzsKICAgZXNhYwpA
+QCAtMTQ3LDcgKzE1NCw3IEBAIEFDX0RFRlVOKFtDQ19DSEVDS19BVFRSSUJVVEVdLCBbCiAgICAg
+QVNfVFJfU0goW2NjX2N2X2F0dHJpYnV0ZV8kMV0pLAogICAgIFthY19zYXZlX0NGTEFHUz0iJENG
+TEFHUyIKICAgICAgQ0ZMQUdTPSIkQ0ZMQUdTICRjY19jdl93ZXJyb3IiCi0gICAgIEFDX0NPTVBJ
+TEVfSUZFTFNFKFskM10sCisgICAgIEFDX0NPTVBJTEVfSUZFTFNFKFtBQ19MQU5HX1NPVVJDRShb
+JDNdKV0sCiAgICAgICAgW2V2YWwgIkFTX1RSX1NIKFtjY19jdl9hdHRyaWJ1dGVfJDFdKT0neWVz
+JyJdLAogICAgICAgIFtldmFsICJBU19UUl9TSChbY2NfY3ZfYXR0cmlidXRlXyQxXSk9J25vJyJd
+KQogICAgICBDRkxBR1M9IiRhY19zYXZlX0NGTEFHUyIKQEAgLTI1Nyw3ICsyNjQsNyBAQCBBQ19E
+RUZVTihbQ0NfRkxBR19WSVNJQklMSVRZXSwgWwogCWNjX2N2X2ZsYWdfdmlzaWJpbGl0eT0neWVz
+JywKIAljY19jdl9mbGFnX3Zpc2liaWxpdHk9J25vJykKICAgICAgQ0ZMQUdTPSIkY2NfZmxhZ192
+aXNpYmlsaXR5X3NhdmVfQ0ZMQUdTIl0pCi0gIAorCiAgIEFTX0lGKFt0ZXN0ICJ4JGNjX2N2X2Zs
+YWdfdmlzaWJpbGl0eSIgPSAieHllcyJdLAogICAgIFtBQ19ERUZJTkUoW1NVUFBPUlRfRkxBR19W
+SVNJQklMSVRZXSwgMSwKICAgICAgICBbRGVmaW5lIHRoaXMgaWYgdGhlIGNvbXBpbGVyIHN1cHBv
+cnRzIHRoZSAtZnZpc2liaWxpdHkgZmxhZ10pCkBAIC0yOTUsMTEgKzMwMiwxMSBAQCBBQ19ERUZV
+TihbQ0NfQVRUUklCVVRFX0FMSUdORURdLCBbCiAgICAgW2FjX3NhdmVfQ0ZMQUdTPSIkQ0ZMQUdT
+IgogICAgICBDRkxBR1M9IiRDRkxBR1MgJGNjX2N2X3dlcnJvciIKICAgICAgZm9yIGNjX2F0dHJp
+YnV0ZV9hbGlnbl90cnkgaW4gNjQgMzIgMTYgOCA0IDI7IGRvCi0gICAgICAgIEFDX0NPTVBJTEVf
+SUZFTFNFKFsKKyAgICAgICAgQUNfQ09NUElMRV9JRkVMU0UoW0FDX0xBTkdfU09VUkNFKFsKICAg
+ICAgICAgICBpbnQgbWFpbigpIHsKICAgICAgICAgICAgIHN0YXRpYyBjaGFyIGMgX19hdHRyaWJ1
+dGVfXyAoKGFsaWduZWQoJGNjX2F0dHJpYnV0ZV9hbGlnbl90cnkpKSkgPSAwOwogICAgICAgICAg
+ICAgcmV0dXJuIGM7Ci0gICAgICAgICAgfV0sIFtjY19jdl9hdHRyaWJ1dGVfYWxpZ25lZD0kY2Nf
+YXR0cmlidXRlX2FsaWduX3RyeTsgYnJlYWtdKQorICAgICAgICAgIH1dKV0sIFtjY19jdl9hdHRy
+aWJ1dGVfYWxpZ25lZD0kY2NfYXR0cmlidXRlX2FsaWduX3RyeTsgYnJlYWtdKQogICAgICBkb25l
+CiAgICAgIENGTEFHUz0iJGFjX3NhdmVfQ0ZMQUdTIgogICBdKQotLSAKMS44LjMuMQoKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWls
+aW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNh
+LXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

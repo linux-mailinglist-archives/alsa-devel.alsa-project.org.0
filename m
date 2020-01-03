@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AA0312F595
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jan 2020 09:39:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AD3E12F58C
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jan 2020 09:36:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D187176D;
-	Fri,  3 Jan 2020 09:38:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D187176D
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDCAB1753;
+	Fri,  3 Jan 2020 09:35:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDCAB1753
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578040740;
-	bh=eu6weXSOr97qIQt5rhiVQHFLC980dIbjNtbyUB5nVcM=;
+	s=default; t=1578040588;
+	bh=muqudHSv8MBs4fiqG8H5FWwdJRhgpG1V5/yNsZ1SVVw=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZSjdKPvmNFFvnMzNqMELPDWnibndBBhDMuBz7lsqn+ZpdATB0TGvuxqHfL1L0HZvE
-	 mI3czozjgKvMqqf3dxeYTOONQmJjMrVnK7PYGC0ZYUWoJKAyMxEny8LXgBLSbbv89g
-	 0f3hoZ7UWho57QW/tj4EPLuxpjN4/3ngRikCOW9Q=
+	b=DIPbYq0vIehVa+7pNDxvKuq/nsFdVQnDWAa1rt8+b+u1QHYQCE2PHVQdIkKOQv82p
+	 m3tum+6K50SecgsNLcv1KHhCTcKYtqOZD6AESbO1o7pkvspuWoUi+/CBhH8vuLXVXL
+	 IdXZiSmJeIiclYW9r4Hxjdit2GpWCZBeuYAdXKmU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCAE6F803EB;
-	Fri,  3 Jan 2020 09:19:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF6ADF802DF;
+	Fri,  3 Jan 2020 09:18:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5316CF802C2; Fri,  3 Jan 2020 09:18:19 +0100 (CET)
+ id EF1E3F8034E; Fri,  3 Jan 2020 09:18:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
@@ -34,22 +34,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E411F8028A
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7F31BF80299
  for <alsa-devel@alsa-project.org>; Fri,  3 Jan 2020 09:17:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E411F8028A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7F31BF80299
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 29FA8B273
+ by mx2.suse.de (Postfix) with ESMTP id 2CB39B274
  for <alsa-devel@alsa-project.org>; Fri,  3 Jan 2020 08:17:21 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Fri,  3 Jan 2020 09:16:47 +0100
-Message-Id: <20200103081714.9560-32-tiwai@suse.de>
+Date: Fri,  3 Jan 2020 09:16:48 +0100
+Message-Id: <20200103081714.9560-33-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200103081714.9560-1-tiwai@suse.de>
 References: <20200103081714.9560-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 31/58] ALSA: mixer: oss: Constify
-	snd_mixer_oss_assign_table definition
+Subject: [alsa-devel] [PATCH 32/58] ALSA: aoa: Constify snd_kcontrol_new
+	items
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,69 +68,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The snd_mixer_oss_assign_table is read-only, and can it be declared as
-const.
+Most of snd_kcontrol_new definitions are read-only and passed as-is.
+Let's declare them as const for further optimization.
 
 There should be no functional changes by this patch.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/core/oss/mixer_oss.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ sound/aoa/codecs/onyx.c    | 2 +-
+ sound/aoa/codecs/tas.c     | 2 +-
+ sound/aoa/fabrics/layout.c | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/core/oss/mixer_oss.c b/sound/core/oss/mixer_oss.c
-index 7eb54df5556d..26502294f7d8 100644
---- a/sound/core/oss/mixer_oss.c
-+++ b/sound/core/oss/mixer_oss.c
-@@ -486,7 +486,7 @@ struct slot {
- 	unsigned int channels;
- 	unsigned int numid[SNDRV_MIXER_OSS_ITEM_COUNT];
- 	unsigned int capture_item;
--	struct snd_mixer_oss_assign_table *assigned;
-+	const struct snd_mixer_oss_assign_table *assigned;
- 	unsigned int allocated: 1;
- };
+diff --git a/sound/aoa/codecs/onyx.c b/sound/aoa/codecs/onyx.c
+index 83ab3e58a0d3..f85bc8a1e2a6 100644
+--- a/sound/aoa/codecs/onyx.c
++++ b/sound/aoa/codecs/onyx.c
+@@ -413,7 +413,7 @@ static int onyx_snd_single_bit_put(struct snd_kcontrol *kcontrol,
+ }
  
-@@ -934,8 +934,8 @@ static void snd_mixer_oss_slot_free(struct snd_mixer_oss_slot *chn)
- 	struct slot *p = chn->private_data;
- 	if (p) {
- 		if (p->allocated && p->assigned) {
--			kfree(p->assigned->name);
--			kfree(p->assigned);
-+			kfree_const(p->assigned->name);
-+			kfree_const(p->assigned);
- 		}
- 		kfree(p);
- 	}
-@@ -953,7 +953,7 @@ static void mixer_slot_clear(struct snd_mixer_oss_slot *rslot)
- /* In a separate function to keep gcc 3.2 happy - do NOT merge this in
-    snd_mixer_oss_build_input! */
- static int snd_mixer_oss_build_test_all(struct snd_mixer_oss *mixer,
--					struct snd_mixer_oss_assign_table *ptr,
-+					const struct snd_mixer_oss_assign_table *ptr,
- 					struct slot *slot)
- {
- 	char str[64];
-@@ -1017,7 +1017,9 @@ static int snd_mixer_oss_build_test_all(struct snd_mixer_oss *mixer,
-  * ptr_allocated means the entry is dynamically allocated (change via proc file).
-  * when replace_old = 1, the old entry is replaced with the new one.
-  */
--static int snd_mixer_oss_build_input(struct snd_mixer_oss *mixer, struct snd_mixer_oss_assign_table *ptr, int ptr_allocated, int replace_old)
-+static int snd_mixer_oss_build_input(struct snd_mixer_oss *mixer,
-+				     const struct snd_mixer_oss_assign_table *ptr,
-+				     int ptr_allocated, int replace_old)
- {
- 	struct slot slot;
- 	struct slot *pslot;
-@@ -1255,7 +1257,7 @@ static void snd_mixer_oss_proc_done(struct snd_mixer_oss *mixer)
+ #define SINGLE_BIT(n, type, description, address, mask, flags)	 	\
+-static struct snd_kcontrol_new n##_control = {				\
++static const struct snd_kcontrol_new n##_control = {			\
+ 	.iface = SNDRV_CTL_ELEM_IFACE_##type,				\
+ 	.name = description,						\
+ 	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,			\
+diff --git a/sound/aoa/codecs/tas.c b/sound/aoa/codecs/tas.c
+index c60b78367fc9..d3e37577b529 100644
+--- a/sound/aoa/codecs/tas.c
++++ b/sound/aoa/codecs/tas.c
+@@ -369,7 +369,7 @@ static int tas_snd_mixer_put(struct snd_kcontrol *kcontrol,
+ }
  
- static void snd_mixer_oss_build(struct snd_mixer_oss *mixer)
- {
--	static struct snd_mixer_oss_assign_table table[] = {
-+	static const struct snd_mixer_oss_assign_table table[] = {
- 		{ SOUND_MIXER_VOLUME, 	"Master",		0 },
- 		{ SOUND_MIXER_VOLUME, 	"Front",		0 }, /* fallback */
- 		{ SOUND_MIXER_BASS,	"Tone Control - Bass",	0 },
+ #define MIXER_CONTROL(n,descr,idx)			\
+-static struct snd_kcontrol_new n##_control = {		\
++static const struct snd_kcontrol_new n##_control = {	\
+ 	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,		\
+ 	.name = descr " Playback Volume",		\
+ 	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,	\
+diff --git a/sound/aoa/fabrics/layout.c b/sound/aoa/fabrics/layout.c
+index 801b2f7699c2..d2e85b83f7ed 100644
+--- a/sound/aoa/fabrics/layout.c
++++ b/sound/aoa/fabrics/layout.c
+@@ -655,7 +655,7 @@ static int n##_control_put(struct snd_kcontrol *kcontrol,		\
+ 			!!ucontrol->value.integer.value[0]);		\
+ 	return 1;							\
+ }									\
+-static struct snd_kcontrol_new n##_ctl = {				\
++static const struct snd_kcontrol_new n##_ctl = {			\
+ 	.iface = SNDRV_CTL_ELEM_IFACE_MIXER,				\
+ 	.name = description,						\
+ 	.access = SNDRV_CTL_ELEM_ACCESS_READWRITE,                      \
 -- 
 2.16.4
 

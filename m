@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0146C12F5C3
-	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jan 2020 09:55:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B9D712F5BF
+	for <lists+alsa-devel@lfdr.de>; Fri,  3 Jan 2020 09:52:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85B9217CF;
-	Fri,  3 Jan 2020 09:54:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85B9217CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CDC871799;
+	Fri,  3 Jan 2020 09:51:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CDC871799
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578041709;
-	bh=caHLSYPXCFrTZbm550fLufCBu2RmlfsO2coouyz+MTA=;
+	s=default; t=1578041555;
+	bh=0mEQifAWxygZYxt0kHzfdq++ZpR+PsP9jV2li1YorC0=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=d3GNsCrp+OljqmdK0ABv+X64YR0wEB8UfwekdQfrQ9EsnJIRfNAIXYBAHGbwrCIvG
-	 iB3ymJXdo6AsyIWCZKhBRjGXOTZzUjBnCiXwApNRAQf3Qmpu/cQe7w1DmGmPGI/67r
-	 taP8qJ8U5JpErmaGwxBgxRPAp0FiUkMG89UNIYdE=
+	b=g8nhNYFuyuxb7l1tbEd0JWCzpIgZTizXS4Uqr8iIQNr/5T5mCu+wIunXJEp0Pk4bz
+	 wXbLig5S6ndhMaxbVLJ4+ScP4TggF2N7ERjSfMKRo/pbYOMQz4hlM7FvY4ajTtQ8q4
+	 SuH/M/cUkSNpnCO3wyL1ydRbhqU73Ip9rsc4On7U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0CCFF80551;
-	Fri,  3 Jan 2020 09:19:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F63BF8051F;
+	Fri,  3 Jan 2020 09:19:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 22BE1F803DE; Fri,  3 Jan 2020 09:18:58 +0100 (CET)
+ id B2998F803CC; Fri,  3 Jan 2020 09:18:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,22 +34,22 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 09339F802E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id C0A13F802E0
  for <alsa-devel@alsa-project.org>; Fri,  3 Jan 2020 09:17:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09339F802E7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C0A13F802E0
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 08EF1B284
+ by mx2.suse.de (Postfix) with ESMTP id 09946B285
  for <alsa-devel@alsa-project.org>; Fri,  3 Jan 2020 08:17:22 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Fri,  3 Jan 2020 09:17:04 +0100
-Message-Id: <20200103081714.9560-49-tiwai@suse.de>
+Date: Fri,  3 Jan 2020 09:17:05 +0100
+Message-Id: <20200103081714.9560-50-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200103081714.9560-1-tiwai@suse.de>
 References: <20200103081714.9560-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 48/58] ALSA: ice17xx: Constify
-	snd_ice1712_card_info
+Subject: [alsa-devel] [PATCH 49/58] ALSA: ice1712: Constify wm-specific
+	tables
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,118 +68,43 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The snd_ice1712_card_info objects are referred only as read-only.
-Let's make them const for further optimization.
+The tables defined in wm8766.c and wm8776.c are referred as read-only,
+hence they can be declared as const gracefully.
 
 There should be no functional changes by this patch.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/ice1712/ice1712.c |  6 +++---
- sound/pci/ice1712/ice1712.h |  2 +-
- sound/pci/ice1712/ice1724.c | 12 ++++++------
- 3 files changed, 10 insertions(+), 10 deletions(-)
+ sound/pci/ice1712/wm8766.c | 2 +-
+ sound/pci/ice1712/wm8776.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/ice1712/ice1712.c b/sound/pci/ice1712/ice1712.c
-index 5202e4c06fc4..884d0cdec08c 100644
---- a/sound/pci/ice1712/ice1712.c
-+++ b/sound/pci/ice1712/ice1712.c
-@@ -2218,7 +2218,7 @@ static const struct snd_kcontrol_new snd_ice1712_mixer_pro_peak = {
- /*
-  * list of available boards
-  */
--static struct snd_ice1712_card_info *card_tables[] = {
-+static const struct snd_ice1712_card_info *card_tables[] = {
- 	snd_ice1712_hoontech_cards,
- 	snd_ice1712_delta_cards,
- 	snd_ice1712_ews_cards,
-@@ -2242,7 +2242,7 @@ static int snd_ice1712_read_eeprom(struct snd_ice1712 *ice,
- {
- 	int dev = ICE_I2C_EEPROM_ADDR;	/* I2C EEPROM device address */
- 	unsigned int i, size;
--	struct snd_ice1712_card_info * const *tbl, *c;
-+	const struct snd_ice1712_card_info * const *tbl, *c;
+diff --git a/sound/pci/ice1712/wm8766.c b/sound/pci/ice1712/wm8766.c
+index 0943f9ef73cf..fe3e243b3854 100644
+--- a/sound/pci/ice1712/wm8766.c
++++ b/sound/pci/ice1712/wm8766.c
+@@ -26,7 +26,7 @@ static void snd_wm8766_write(struct snd_wm8766 *wm, u16 addr, u16 data)
  
- 	if (!modelname || !*modelname) {
- 		ice->eeprom.subvendor = 0;
-@@ -2587,7 +2587,7 @@ static int snd_ice1712_probe(struct pci_dev *pci,
- 	struct snd_card *card;
- 	struct snd_ice1712 *ice;
- 	int pcm_dev = 0, err;
--	struct snd_ice1712_card_info * const *tbl, *c;
-+	const struct snd_ice1712_card_info * const *tbl, *c;
+ static const DECLARE_TLV_DB_SCALE(wm8766_tlv, -12750, 50, 1);
  
- 	if (dev >= SNDRV_CARDS)
- 		return -ENODEV;
-diff --git a/sound/pci/ice1712/ice1712.h b/sound/pci/ice1712/ice1712.h
-index 88145708a8a7..cd02710d8271 100644
---- a/sound/pci/ice1712/ice1712.h
-+++ b/sound/pci/ice1712/ice1712.h
-@@ -316,7 +316,7 @@ struct snd_ice1712 {
- 	struct snd_info_entry *proc_entry;
+-static struct snd_wm8766_ctl snd_wm8766_default_ctl[WM8766_CTL_COUNT] = {
++static const struct snd_wm8766_ctl snd_wm8766_default_ctl[WM8766_CTL_COUNT] = {
+ 	[WM8766_CTL_CH1_VOL] = {
+ 		.name = "Channel 1 Playback Volume",
+ 		.type = SNDRV_CTL_ELEM_TYPE_INTEGER,
+diff --git a/sound/pci/ice1712/wm8776.c b/sound/pci/ice1712/wm8776.c
+index d696a7c29f7e..d96008df880d 100644
+--- a/sound/pci/ice1712/wm8776.c
++++ b/sound/pci/ice1712/wm8776.c
+@@ -129,7 +129,7 @@ static const DECLARE_TLV_DB_SCALE(wm8776_ngth_tlv, -7800, 600, 0);
+ static const DECLARE_TLV_DB_SCALE(wm8776_maxatten_lim_tlv, -1200, 100, 0);
+ static const DECLARE_TLV_DB_SCALE(wm8776_maxatten_alc_tlv, -2100, 400, 0);
  
- 	struct snd_ice1712_eeprom eeprom;
--	struct snd_ice1712_card_info *card_info;
-+	const struct snd_ice1712_card_info *card_info;
- 
- 	unsigned int pro_volumes[20];
- 	unsigned int omni:1;		/* Delta Omni I/O */
-diff --git a/sound/pci/ice1712/ice1724.c b/sound/pci/ice1712/ice1724.c
-index 4630a8c42aa9..f4d69b8197ed 100644
---- a/sound/pci/ice1712/ice1724.c
-+++ b/sound/pci/ice1712/ice1724.c
-@@ -2170,13 +2170,13 @@ static const struct snd_kcontrol_new snd_vt1724_mixer_pro_peak = {
-  *
-  */
- 
--static struct snd_ice1712_card_info no_matched;
-+static const struct snd_ice1712_card_info no_matched;
- 
- 
- /*
-   ooAoo cards with no controls
- */
--static unsigned char ooaoo_sq210_eeprom[] = {
-+static const unsigned char ooaoo_sq210_eeprom[] = {
- 	[ICE_EEP2_SYSCONF]     = 0x4c,	/* 49MHz crystal, no mpu401, no ADC,
- 					   1xDACs */
- 	[ICE_EEP2_ACLINK]      = 0x80,	/* I2S */
-@@ -2196,7 +2196,7 @@ static unsigned char ooaoo_sq210_eeprom[] = {
- };
- 
- 
--static struct snd_ice1712_card_info snd_vt1724_ooaoo_cards[] = {
-+static const struct snd_ice1712_card_info snd_vt1724_ooaoo_cards[] = {
- 	{
- 		.name = "ooAoo SQ210a",
- 		.model = "sq210a",
-@@ -2206,7 +2206,7 @@ static struct snd_ice1712_card_info snd_vt1724_ooaoo_cards[] = {
- 	{ } /* terminator */
- };
- 
--static struct snd_ice1712_card_info *card_tables[] = {
-+static const struct snd_ice1712_card_info *card_tables[] = {
- 	snd_vt1724_revo_cards,
- 	snd_vt1724_amp_cards,
- 	snd_vt1724_aureon_cards,
-@@ -2276,7 +2276,7 @@ static int snd_vt1724_read_eeprom(struct snd_ice1712 *ice,
- {
- 	const int dev = 0xa0;		/* EEPROM device address */
- 	unsigned int i, size;
--	struct snd_ice1712_card_info * const *tbl, *c;
-+	const struct snd_ice1712_card_info * const *tbl, *c;
- 
- 	if (!modelname || !*modelname) {
- 		ice->eeprom.subvendor = 0;
-@@ -2590,7 +2590,7 @@ static int snd_vt1724_probe(struct pci_dev *pci,
- 	struct snd_card *card;
- 	struct snd_ice1712 *ice;
- 	int pcm_dev = 0, err;
--	struct snd_ice1712_card_info * const *tbl, *c;
-+	const struct snd_ice1712_card_info * const *tbl, *c;
- 
- 	if (dev >= SNDRV_CARDS)
- 		return -ENODEV;
+-static struct snd_wm8776_ctl snd_wm8776_default_ctl[WM8776_CTL_COUNT] = {
++static const struct snd_wm8776_ctl snd_wm8776_default_ctl[WM8776_CTL_COUNT] = {
+ 	[WM8776_CTL_DAC_VOL] = {
+ 		.name = "Master Playback Volume",
+ 		.type = SNDRV_CTL_ELEM_TYPE_INTEGER,
 -- 
 2.16.4
 

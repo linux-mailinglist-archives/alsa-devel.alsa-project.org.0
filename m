@@ -2,70 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F0B513001E
-	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jan 2020 03:31:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32F38130166
+	for <lists+alsa-devel@lfdr.de>; Sat,  4 Jan 2020 09:25:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C8A1179B;
-	Sat,  4 Jan 2020 03:30:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C8A1179B
+	by alsa0.perex.cz (Postfix) with ESMTPS id BA4951789;
+	Sat,  4 Jan 2020 09:24:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA4951789
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578105076;
-	bh=vzjhD0/tmEzyLYsIyg5F8ZiWRa2GzooVLjr9d/X6NIA=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1578126337;
+	bh=NlqM80ZtEDxORkiUncgoyD8DknOViBwC2MKVfzZ56Hc=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Lbzdm8z/H8kzDN1Ia1ywf28E2rvMa4jeTmFWlqrOEiIsh+Yj/H8yDBWwwqOeFl4PF
-	 7K3TTNQcyRl+uvRQgvdxRWC1so6zlLDaQko9UkCTaNDwC5+/OZYUis1J67lKaURN2d
-	 eYFWygX4wKj/z7fZqMokNVx+IaArBIhKNq6PmLyM=
+	b=FSo77/h8+i4YcYeuFTHuzLAP+yiEN3D1cLQAMlFjmi4G3kjR3gRUMfTapWiB6KH+q
+	 MiTfPWZvg3Pzdrfxky8NhuC0xLK95DQ3u+6oLCpQoJ8tp4cEwfoDr7m3T4LgvBTFoW
+	 e1Gd/NFQ6BXnQKc0Ip8mPDGk7E23Xx+605oxIp24=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4CED8F8020B;
-	Sat,  4 Jan 2020 03:29:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F91AF8014F;
+	Sat,  4 Jan 2020 09:23:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C5F4F80157; Sat,  4 Jan 2020 03:29:30 +0100 (CET)
+ id D674BF80157; Sat,  4 Jan 2020 09:23:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 880F6F80100
- for <alsa-devel@alsa-project.org>; Sat,  4 Jan 2020 03:29:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 880F6F80100
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Jan 2020 18:29:22 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,393,1571727600"; d="scan'208";a="221781424"
-Received: from dwedney-mobl2.amr.corp.intel.com (HELO [10.251.140.10])
- ([10.251.140.10])
- by orsmga006.jf.intel.com with ESMTP; 03 Jan 2020 18:29:21 -0800
-To: Curtis Malainey <cujomalainey@chromium.org>, alsa-devel@alsa-project.org
-References: <20200103233401.160654-1-cujomalainey@chromium.org>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <f7420fdd-2591-225e-55e4-34e69ac5292c@linux.intel.com>
-Date: Fri, 3 Jan 2020 20:29:20 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-MIME-Version: 1.0
-In-Reply-To: <20200103233401.160654-1-cujomalainey@chromium.org>
-Content-Language: en-US
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Ben Zhang <benzh@chromium.org>, Pan Xiuli <xiuli.pan@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Alexios Zavras <alexios.zavras@intel.com>, Mark Brown <broonie@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [alsa-devel] [PATCH] ASoC: bdw-rt5677: add spi driver compile
- switches
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18A56F80100
+ for <alsa-devel@alsa-project.org>; Sat,  4 Jan 2020 09:23:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18A56F80100
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7DCEFAD00;
+ Sat,  4 Jan 2020 08:23:48 +0000 (UTC)
+Date: Sat, 04 Jan 2020 09:23:47 +0100
+Message-ID: <s5hh81biq98.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kailang <kailang@realtek.com>
+In-Reply-To: <a9bd3cdaa02d4fa197623448d5c51e50@realtek.com>
+References: <44114db7-21cf-b6e5-e836-7a85dbec9777@gmail.com>
+ <s5himlu2i58.wl-tiwai@suse.de>
+ <22b6489cfe664d83836733cdaa19007e@realtek.com>
+ <s5h1rshj5d8.wl-tiwai@suse.de>
+ <a9bd3cdaa02d4fa197623448d5c51e50@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>,
+ Lee Harris <lee.r.harris@gmail.com>
+Subject: Re: [alsa-devel] Realtek ALC S1200A
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,71 +69,99 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, 03 Jan 2020 09:46:55 +0100,
+Kailang wrote:
+> 
+> CC alsa-devel.
+
+Now applied, thanks.
 
 
-On 1/3/20 5:34 PM, Curtis Malainey wrote:
-> If the SPI driver is not compiled in then the RT5677_SPI driver will not
-> be included as well which will cause the bdw-rt5677 driver to fail to
-> probe since the DSP components are managed by the RT5677_SPI driver. The
-> solution is to remove them when the driver is not present as part of the
-> build.
-
-it should be the other way around, this machine driver should have a 
-dependency on SPI and select RT5677_SPI?
-
-That said, even with this fix, I still see issues, somehow the 
-spi-RT5677AA component does not probe/register, see 
-https://github.com/thesofproject/linux/pull/1659
-
-There must be an additional issue with SPI support here.
+Takashi
 
 > 
-> Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> CC: Pan Xiuli <xiuli.pan@linux.intel.com>
-> ---
->   sound/soc/intel/boards/bdw-rt5677.c | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
-> index 2af8e5a62da84..d5ded2c545d2c 100644
-> --- a/sound/soc/intel/boards/bdw-rt5677.c
-> +++ b/sound/soc/intel/boards/bdw-rt5677.c
-> @@ -74,11 +74,13 @@ static const struct snd_soc_dapm_route bdw_rt5677_map[] = {
->   	/* CODEC BE connections */
->   	{"SSP0 CODEC IN", NULL, "AIF1 Capture"},
->   	{"AIF1 Playback", NULL, "SSP0 CODEC OUT"},
-> +#if IS_ENABLED(CONFIG_SND_SOC_RT5677_SPI)
->   	{"DSP Capture", NULL, "DSP Buffer"},
->   
->   	/* DSP Clock Connections */
->   	{ "DSP Buffer", NULL, "SSP0 CODEC IN" },
->   	{ "SSP0 CODEC IN", NULL, "DSPTX" },
-> +#endif
->   };
->   
->   static const struct snd_kcontrol_new bdw_rt5677_controls[] = {
-> @@ -319,6 +321,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
->   		SND_SOC_DAILINK_REG(fe, dummy, platform),
->   	},
->   
-> +#if IS_ENABLED(CONFIG_SND_SOC_RT5677_SPI)
->   	/* Non-DPCM links */
->   	{
->   		.name = "Codec DSP",
-> @@ -326,6 +329,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
->   		.ops = &bdw_rt5677_dsp_ops,
->   		SND_SOC_DAILINK_REG(dsp),
->   	},
-> +#endif
->   
->   	/* Back End DAI links */
->   	{
+> > -----Original Message-----
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Sent: Friday, January 3, 2020 4:45 PM
+> > To: Kailang <kailang@realtek.com>
+> > Cc: Lee Harris <lee.r.harris@gmail.com>
+> > Subject: Re: Realtek ALC S1200A
+> > 
+> > On Fri, 03 Jan 2020 09:29:59 +0100,
+> > Kailang wrote:
+> > >
+> > > Hi Takashi,
+> > >
+> > > Attach was supported patch.
+> > 
+> > Care to submit to alsa-devel ML?  Thanks!
+> > 
+> > 
+> > Takashi
+> > 
+> > >
+> > > BR,
+> > > Kailang
+> > >
+> > > > -----Original Message-----
+> > > > From: Takashi Iwai <tiwai@suse.de>
+> > > > Sent: Thursday, January 2, 2020 7:49 PM
+> > > > To: Lee Harris <lee.r.harris@gmail.com>
+> > > > Cc: Kailang <kailang@realtek.com>
+> > > > Subject: Re: Realtek ALC S1200A
+> > > >
+> > > > On Thu, 02 Jan 2020 12:41:08 +0100,
+> > > > Lee Harris wrote:
+> > > > >
+> > > >
+> > > > > Hi Takashi
+> > > > >
+> > > > > I saw you had made the changes to sound/pci/hda/patch_realtek.c to
+> > > > > enable support for the Realtek ALC S1200.
+> > > > > I hope you don't mind me emailing you?
+> > > > > My motherboard is an Asus TUF-GAMING-X570-PLUS. The vendors
+> > > > > product page states it has an Realtek ALC S1200A.
+> > > > >
+> > > > > cat /proc/asound/card0/codec#0 shows the following vendor ID
+> > > > >
+> > > > > Vendor Id: 0x10ec0b00
+> > > > > Subsystem Id: 0x10438797
+> > > > > Revision Id: 0x100001
+> > > > >
+> > > > > As standard the sound works but the snd_hda_codec_realtek module
+> > > > > is not loaded, and the codec is reported as 'Realtek Generic'. I
+> > > > > can add
+> > > > > 0x10ec0b00 into patch_realtek.c (just replaced 0x10ec1168 wherever
+> > > > > it
+> > > > > occurred!) and the snd_hda_codec_realtek module is loaded, sound
+> > > > > still
+> > > > works. Possibly better ?
+> > > > > No idea If I've done it close to right ? I'm not a programmer,
+> > > > > just experimenting.
+> > > > >
+> > > > > If you need anymore info just let me know.
+> > > > > Happy new year :)
+> > > > >
+> > > > > Regards
+> > > > > Lee Harris
+> > > >
+> > > > Thanks for the report.
+> > > >
+> > > > I'd like to hear from Realtek people at first (now Cc'ed).
+> > > > Kailang, could you check for this new codec?
+> > > >
+> > > >
+> > > > Takashi
+> > > >
+> > > > ------Please consider the environment before printing this e-mail.
+> > > [2 0000-alcs1200a-supported.patch <application/octet-stream (base64)>]
+> > >
+> [2 0000-alcs1200a-supported.patch <application/octet-stream (base64)>]
 > 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 523CE130878
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 15:56:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9655413087E
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 15:59:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1F40176E;
-	Sun,  5 Jan 2020 15:56:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1F40176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2BDA317B8;
+	Sun,  5 Jan 2020 15:59:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BDA317B8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578236215;
-	bh=LHNM6QwOomgNhDkFZJlh/bSPjjSJPAcnA1f6dF8cgFs=;
+	s=default; t=1578236390;
+	bh=nBLsi82AVbsqlMwKxIm5imtc1/4BIvCziHL3HDTNMjY=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jfdCOqJQMSgyL8rcbPtOZYZ9f05hV2DyNDLTNHRKjET3+3/oJ8Dn+K54b3684BRoJ
-	 SXYUVCq+GeMKQJfSD9ZyiToqhIjFU8puGAyYdVu+sX3ydscwyr3fEA2X2qsQB9BkMR
-	 u3oRvm8HBtUsUmsVtqWui/IPd6WrXOY0FEw1hYXo=
+	b=miGNUn3pU7Y4Rz1WaO5K88hVAFX9MS7Q4+hdQSbZFyXWdhlkmx6Mvl3eaJDAWPlsT
+	 RTDDPVzA/fFggNziUJ7BoSP9eYrNOThLy4C1MVJPucBARJTFRs1ykEUHtn9wayWr7g
+	 bsrIKcoElBhK0F66hSZQmkB9st0fidozw0Sa08Tk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EDD35F80345;
-	Sun,  5 Jan 2020 15:49:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEEFDF80290;
+	Sun,  5 Jan 2020 15:49:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7169F80323; Sun,  5 Jan 2020 15:48:50 +0100 (CET)
+ id B997FF80333; Sun,  5 Jan 2020 15:48:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E37BF80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id C9021F80276
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 15:48:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E37BF80271
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9021F80276
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 30ED6B1CF
+ by mx2.suse.de (Postfix) with ESMTP id 3EC0CB1D1
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 14:48:32 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Sun,  5 Jan 2020 15:47:27 +0100
-Message-Id: <20200105144823.29547-13-tiwai@suse.de>
+Date: Sun,  5 Jan 2020 15:47:28 +0100
+Message-Id: <20200105144823.29547-14-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200105144823.29547-1-tiwai@suse.de>
 References: <20200105144823.29547-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 12/68] ALSA: caiaq: More constifications
+Subject: [alsa-devel] [PATCH 13/68] ALSA: au88x0: More constifications
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,151 +67,232 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Apply const prefix to each possible place: the rate table, the
-controller tables, and the key tables.
+Apply const prefix to each possible place: the static register tables,
+the coef tables, the string arrays, etc.
 
 Just for minor optimization and no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/usb/caiaq/audio.c   |  2 +-
- sound/usb/caiaq/control.c | 20 ++++++++++----------
- sound/usb/caiaq/input.c   | 10 +++++-----
- 3 files changed, 16 insertions(+), 16 deletions(-)
+ sound/pci/au88x0/au88x0_core.c   |  2 +-
+ sound/pci/au88x0/au88x0_eq.c     | 22 +++++++++++-----------
+ sound/pci/au88x0/au88x0_eqdata.c | 18 +++++++++---------
+ sound/pci/au88x0/au88x0_pcm.c    |  4 ++--
+ 4 files changed, 23 insertions(+), 23 deletions(-)
 
-diff --git a/sound/usb/caiaq/audio.c b/sound/usb/caiaq/audio.c
-index 41993a5c0537..e9243d53a107 100644
---- a/sound/usb/caiaq/audio.c
-+++ b/sound/usb/caiaq/audio.c
-@@ -179,7 +179,7 @@ static int snd_usb_caiaq_pcm_hw_free(struct snd_pcm_substream *sub)
- #error "Change this table"
- #endif
+diff --git a/sound/pci/au88x0/au88x0_core.c b/sound/pci/au88x0/au88x0_core.c
+index ce0564c5392a..f5512b72b3e0 100644
+--- a/sound/pci/au88x0/au88x0_core.c
++++ b/sound/pci/au88x0/au88x0_core.c
+@@ -1989,7 +1989,7 @@ vortex_connect_codecrec(vortex_t * vortex, int en, unsigned char mixin0,
+ // Higher level ADB audio path (de)allocator.
  
--static unsigned int rates[] = { 5512, 8000, 11025, 16000, 22050, 32000, 44100,
-+static const unsigned int rates[] = { 5512, 8000, 11025, 16000, 22050, 32000, 44100,
- 				48000, 64000, 88200, 96000, 176400, 192000 };
+ /* Resource manager */
+-static int resnum[VORTEX_RESOURCE_LAST] =
++static const int resnum[VORTEX_RESOURCE_LAST] =
+     { NR_ADB, NR_SRC, NR_MIXIN, NR_MIXOUT, NR_A3D };
+ /*
+  Checkout/Checkin resource of given type. 
+diff --git a/sound/pci/au88x0/au88x0_eq.c b/sound/pci/au88x0/au88x0_eq.c
+index abaf9f912784..58e92f2a72c0 100644
+--- a/sound/pci/au88x0/au88x0_eq.c
++++ b/sound/pci/au88x0/au88x0_eq.c
+@@ -51,7 +51,7 @@ static inline u16 sign_invert(u16 a)
+ 		return -a;
+ }
  
- static int snd_usb_caiaq_pcm_prepare(struct snd_pcm_substream *substream)
-diff --git a/sound/usb/caiaq/control.c b/sound/usb/caiaq/control.c
-index 532e354f6124..af459c49baf4 100644
---- a/sound/usb/caiaq/control.c
-+++ b/sound/usb/caiaq/control.c
-@@ -163,14 +163,14 @@ struct caiaq_controller {
- 	int index;
- };
- 
--static struct caiaq_controller ak1_controller[] = {
-+static const struct caiaq_controller ak1_controller[] = {
- 	{ "LED left", 	2 },
- 	{ "LED middle", 1 },
- 	{ "LED right", 	0 },
- 	{ "LED ring", 	3 }
- };
- 
--static struct caiaq_controller rk2_controller[] = {
-+static const struct caiaq_controller rk2_controller[] = {
- 	{ "LED 1",		5  },
- 	{ "LED 2",		4  },
- 	{ "LED 3",		3  },
-@@ -196,7 +196,7 @@ static struct caiaq_controller rk2_controller[] = {
- 	{ "LED 7seg_3g",	23 }
- };
- 
--static struct caiaq_controller rk3_controller[] = {
-+static const struct caiaq_controller rk3_controller[] = {
- 	{ "LED 7seg_1a",        0 + 0 },
- 	{ "LED 7seg_1b",        0 + 1 },
- 	{ "LED 7seg_1c",        0 + 2 },
-@@ -244,7 +244,7 @@ static struct caiaq_controller rk3_controller[] = {
- 	{ "LED pedal",		32 + 8 }
- };
- 
--static struct caiaq_controller kore_controller[] = {
-+static const struct caiaq_controller kore_controller[] = {
- 	{ "LED F1",		8   | CNT_INTVAL },
- 	{ "LED F2",		12  | CNT_INTVAL },
- 	{ "LED F3",		0   | CNT_INTVAL },
-@@ -278,7 +278,7 @@ static struct caiaq_controller kore_controller[] = {
- 	{ "LED control",	26  | CNT_INTVAL }
- };
- 
--static struct caiaq_controller a8dj_controller[] = {
-+static const struct caiaq_controller a8dj_controller[] = {
- 	{ "Current input mode",			0 | CNT_INTVAL 	},
- 	{ "GND lift for TC Vinyl mode", 	24 + 0 		},
- 	{ "GND lift for TC CD/Line mode", 	24 + 1 		},
-@@ -286,11 +286,11 @@ static struct caiaq_controller a8dj_controller[] = {
- 	{ "Software lock", 			40 		}
- };
- 
--static struct caiaq_controller a4dj_controller[] = {
-+static const struct caiaq_controller a4dj_controller[] = {
- 	{ "Current input mode",	0 | CNT_INTVAL 	}
- };
- 
--static struct caiaq_controller kontrolx1_controller[] = {
-+static const struct caiaq_controller kontrolx1_controller[] = {
- 	{ "LED FX A: ON",		7 | CNT_INTVAL	},
- 	{ "LED FX A: 1",		6 | CNT_INTVAL	},
- 	{ "LED FX A: 2",		5 | CNT_INTVAL	},
-@@ -327,7 +327,7 @@ static struct caiaq_controller kontrolx1_controller[] = {
- 	{ "LED Deck B: SYNC",		8  | CNT_INTVAL	},
- };
- 
--static struct caiaq_controller kontrols4_controller[] = {
-+static const struct caiaq_controller kontrols4_controller[] = {
- 	{ "LED: Master: Quant",			10  | CNT_INTVAL },
- 	{ "LED: Master: Headphone",		11  | CNT_INTVAL },
- 	{ "LED: Master: Master",		12  | CNT_INTVAL },
-@@ -500,7 +500,7 @@ static struct caiaq_controller kontrols4_controller[] = {
- 	{ "LED: FX2: Mode",			133 | CNT_INTVAL },
- };
- 
--static struct caiaq_controller maschine_controller[] = {
-+static const struct caiaq_controller maschine_controller[] = {
- 	{ "LED: Pad 1",				3  | CNT_INTVAL },
- 	{ "LED: Pad 2",				2  | CNT_INTVAL },
- 	{ "LED: Pad 3",				1  | CNT_INTVAL },
-@@ -568,7 +568,7 @@ static struct caiaq_controller maschine_controller[] = {
- 	{ "Backlight Display",			59 | CNT_INTVAL }
- };
- 
--static int add_controls(struct caiaq_controller *c, int num,
-+static int add_controls(const struct caiaq_controller *c, int num,
- 			struct snd_usb_caiaqdev *cdev)
+-static void vortex_EqHw_SetLeftCoefs(vortex_t * vortex, u16 coefs[])
++static void vortex_EqHw_SetLeftCoefs(vortex_t *vortex, const u16 coefs[])
  {
- 	int i, ret;
-diff --git a/sound/usb/caiaq/input.c b/sound/usb/caiaq/input.c
-index 533eb69fe4e6..1e2cf2f08eec 100644
---- a/sound/usb/caiaq/input.c
-+++ b/sound/usb/caiaq/input.c
-@@ -14,13 +14,13 @@
- #include "device.h"
- #include "input.h"
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int i = 0, n /*esp2c */;
+@@ -73,7 +73,7 @@ static void vortex_EqHw_SetLeftCoefs(vortex_t * vortex, u16 coefs[])
+ 	}
+ }
  
--static unsigned short keycode_ak1[] =  { KEY_C, KEY_B, KEY_A };
--static unsigned short keycode_rk2[] =  { KEY_1, KEY_2, KEY_3, KEY_4,
-+static const unsigned short keycode_ak1[] =  { KEY_C, KEY_B, KEY_A };
-+static const unsigned short keycode_rk2[] =  { KEY_1, KEY_2, KEY_3, KEY_4,
- 					 KEY_5, KEY_6, KEY_7 };
--static unsigned short keycode_rk3[] =  { KEY_1, KEY_2, KEY_3, KEY_4,
-+static const unsigned short keycode_rk3[] =  { KEY_1, KEY_2, KEY_3, KEY_4,
- 					 KEY_5, KEY_6, KEY_7, KEY_8, KEY_9 };
+-static void vortex_EqHw_SetRightCoefs(vortex_t * vortex, u16 coefs[])
++static void vortex_EqHw_SetRightCoefs(vortex_t *vortex, const u16 coefs[])
+ {
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int i = 0, n /*esp2c */;
+@@ -96,7 +96,7 @@ static void vortex_EqHw_SetRightCoefs(vortex_t * vortex, u16 coefs[])
  
--static unsigned short keycode_kore[] = {
-+static const unsigned short keycode_kore[] = {
- 	KEY_FN_F1,      /* "menu"               */
- 	KEY_FN_F7,      /* "lcd backlight       */
- 	KEY_FN_F2,      /* "control"            */
-@@ -60,7 +60,7 @@ static unsigned short keycode_kore[] = {
- #define MASCHINE_PADS      (16)
- #define MASCHINE_PAD(X)    ((X) + ABS_PRESSURE)
+ }
  
--static unsigned short keycode_maschine[] = {
-+static const unsigned short keycode_maschine[] = {
- 	MASCHINE_BUTTON(40), /* mute       */
- 	MASCHINE_BUTTON(39), /* solo       */
- 	MASCHINE_BUTTON(38), /* select     */
+-static void vortex_EqHw_SetLeftStates(vortex_t * vortex, u16 a[], u16 b[])
++static void vortex_EqHw_SetLeftStates(vortex_t *vortex, const u16 a[], const u16 b[])
+ {
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int i = 0, ebx;
+@@ -113,7 +113,7 @@ static void vortex_EqHw_SetLeftStates(vortex_t * vortex, u16 a[], u16 b[])
+ 	}
+ }
+ 
+-static void vortex_EqHw_SetRightStates(vortex_t * vortex, u16 a[], u16 b[])
++static void vortex_EqHw_SetRightStates(vortex_t *vortex, const u16 a[], const u16 b[])
+ {
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int i = 0, ebx;
+@@ -206,7 +206,7 @@ vortex_EqHw_SetRightGainsSingleTarget(vortex_t * vortex, u16 index, u16 b)
+ 	hwwrite(vortex->mmio, 0x2b20c + (index * 0x30), b);
+ }
+ 
+-static void vortex_EqHw_SetLeftGainsTarget(vortex_t * vortex, u16 a[])
++static void vortex_EqHw_SetLeftGainsTarget(vortex_t *vortex, const u16 a[])
+ {
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int ebx;
+@@ -216,7 +216,7 @@ static void vortex_EqHw_SetLeftGainsTarget(vortex_t * vortex, u16 a[])
+ 	}
+ }
+ 
+-static void vortex_EqHw_SetRightGainsTarget(vortex_t * vortex, u16 a[])
++static void vortex_EqHw_SetRightGainsTarget(vortex_t *vortex, const u16 a[])
+ {
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int ebx;
+@@ -226,7 +226,7 @@ static void vortex_EqHw_SetRightGainsTarget(vortex_t * vortex, u16 a[])
+ 	}
+ }
+ 
+-static void vortex_EqHw_SetLeftGainsCurrent(vortex_t * vortex, u16 a[])
++static void vortex_EqHw_SetLeftGainsCurrent(vortex_t *vortex, const u16 a[])
+ {
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int ebx;
+@@ -236,7 +236,7 @@ static void vortex_EqHw_SetLeftGainsCurrent(vortex_t * vortex, u16 a[])
+ 	}
+ }
+ 
+-static void vortex_EqHw_SetRightGainsCurrent(vortex_t * vortex, u16 a[])
++static void vortex_EqHw_SetRightGainsCurrent(vortex_t *vortex, const u16 a[])
+ {
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int ebx;
+@@ -309,7 +309,7 @@ static void vortex_EqHw_GetRightGainsCurrent(vortex_t * vortex, u16 a[])
+ 
+ #endif
+ /* EQ band levels settings */
+-static void vortex_EqHw_SetLevels(vortex_t * vortex, u16 peaks[])
++static void vortex_EqHw_SetLevels(vortex_t *vortex, const u16 peaks[])
+ {
+ 	eqhw_t *eqhw = &(vortex->eq.this04);
+ 	int i;
+@@ -574,7 +574,7 @@ static int vortex_Eqlzr_SetAllBandsFromActiveCoeffSet(vortex_t * vortex)
+ }
+ 
+ static int
+-vortex_Eqlzr_SetAllBands(vortex_t * vortex, u16 gains[], s32 count)
++vortex_Eqlzr_SetAllBands(vortex_t *vortex, const u16 gains[], s32 count)
+ {
+ 	eqlzr_t *eq = &(vortex->eq);
+ 	int i;
+@@ -852,7 +852,7 @@ static const struct snd_kcontrol_new vortex_levels_kcontrol = {
+ };
+ 
+ /* EQ band gain labels. */
+-static char *EqBandLabels[10] = {
++static const char * const EqBandLabels[10] = {
+ 	"EQ0 31Hz\0",
+ 	"EQ1 63Hz\0",
+ 	"EQ2 125Hz\0",
+diff --git a/sound/pci/au88x0/au88x0_eqdata.c b/sound/pci/au88x0/au88x0_eqdata.c
+index 49a52d298b1a..a74f266f0bd0 100644
+--- a/sound/pci/au88x0/au88x0_eqdata.c
++++ b/sound/pci/au88x0/au88x0_eqdata.c
+@@ -1,7 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0
+ /* Data structs */
+ 
+-static u16 asEqCoefsZeros[50] = {
++static const u16 asEqCoefsZeros[50] = {
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+@@ -14,7 +14,7 @@ static u16 asEqCoefsZeros[50] = {
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ };
+ 
+-static u16 asEqCoefsPipes[64] = {
++static const u16 asEqCoefsPipes[64] = {
+ 	0x0000, 0x0000,
+ 	0x0000, 0x0666, 0x0000, 0x0000, 0x0666,
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+@@ -33,7 +33,7 @@ static u16 asEqCoefsPipes[64] = {
+ };
+ 
+ /* More coef sets can be found in the win2k "inf" file. */
+-static auxxEqCoeffSet_t asEqCoefsNormal = {
++static const auxxEqCoeffSet_t asEqCoefsNormal = {
+ 	.LeftCoefs = {
+ 		      0x7e60, 0xc19e, 0x0001, 0x0002, 0x0001,
+ 		      0x7fa0, 0xc05f, 0x004f, 0x0000, 0xffb1,
+@@ -66,7 +66,7 @@ static auxxEqCoeffSet_t asEqCoefsNormal = {
+ 		       0x3e96, 0x3e96, 0x3e96, 0x3e96, 0x3e96}
+ };
+ 
+-static u16 eq_gains_normal[20] = {
++static const u16 eq_gains_normal[20] = {
+ 	0x3e96, 0x3e96, 0x3e96, 0x3e96, 0x3e96,
+ 	0x3e96, 0x3e96, 0x3e96, 0x3e96, 0x3e96,
+ 	0x3e96, 0x3e96, 0x3e96, 0x3e96, 0x3e96,
+@@ -74,22 +74,22 @@ static u16 eq_gains_normal[20] = {
+ };
+ 
+ /* _rodatab60 */
+-static u16 eq_gains_zero[10] = {
++static const u16 eq_gains_zero[10] = {
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000
+ };
+ 
+ /* _rodatab7c:  ProgramPipe */
+-static u16 eq_gains_current[12] = {
++static const u16 eq_gains_current[12] = {
+ 	0x7fff, 0x7fff, 0x7fff, 0x7fff, 0x7fff, 0x7fff, 0x7fff, 0x7fff,
+ 	0x7fff,
+ 	0x7fff, 0x7fff, 0x7fff
+ };
+ 
+ /* _rodatab78 */
+-static u16 eq_states_zero[2] = { 0x0000, 0x0000 };
++static const u16 eq_states_zero[2] = { 0x0000, 0x0000 };
+ 
+-static u16 asEqOutStateZeros[48] = {
++static const u16 asEqOutStateZeros[48] = {
+ 	0x0000, 0x0000, 0x0000, 0x0000,
+ 	0x0000, 0x0000, 0x0000, 0x0000,
+ 	0x0000, 0x0000, 0x0000, 0x0000,
+@@ -105,7 +105,7 @@ static u16 asEqOutStateZeros[48] = {
+ };
+ 
+ /*_rodataba0:*/
+-static u16 eq_levels[64] = {
++static const u16 eq_levels[64] = {
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+ 	0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000,
+diff --git a/sound/pci/au88x0/au88x0_pcm.c b/sound/pci/au88x0/au88x0_pcm.c
+index 2cdb7845f651..d019aa566de3 100644
+--- a/sound/pci/au88x0/au88x0_pcm.c
++++ b/sound/pci/au88x0/au88x0_pcm.c
+@@ -433,14 +433,14 @@ static const struct snd_pcm_ops snd_vortex_playback_ops = {
+ *  definitions of capture are omitted here...
+ */
+ 
+-static char *vortex_pcm_prettyname[VORTEX_PCM_LAST] = {
++static const char * const vortex_pcm_prettyname[VORTEX_PCM_LAST] = {
+ 	CARD_NAME " ADB",
+ 	CARD_NAME " SPDIF",
+ 	CARD_NAME " A3D",
+ 	CARD_NAME " WT",
+ 	CARD_NAME " I2S",
+ };
+-static char *vortex_pcm_name[VORTEX_PCM_LAST] = {
++static const char * const vortex_pcm_name[VORTEX_PCM_LAST] = {
+ 	"adb",
+ 	"spdif",
+ 	"a3d",
 -- 
 2.16.4
 

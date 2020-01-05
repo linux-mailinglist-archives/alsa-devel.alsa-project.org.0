@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A481613088F
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 16:09:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89CBF130893
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 16:11:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C13B17D7;
-	Sun,  5 Jan 2020 16:08:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C13B17D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 33D2117F2;
+	Sun,  5 Jan 2020 16:11:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33D2117F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578236958;
-	bh=JWZ7fbSwux910SmxdY0oywtBDIZmjufBr04yEzsLpzI=;
+	s=default; t=1578237111;
+	bh=6YU8EZyUKbwOTTiZW0C4PhvW6Y4uj9hpPr/BqEROwGs=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GnM7EEfWo3OQV3yAJOn3pV2SPjQayhD9oBPPiv9jRzLS0f662XVD793Xf5/dPa7Mc
-	 yBTo+tXQVT9RAeQWjUzgeKEsCJvMretRQxRpvnb31sg6QtakVQYl3bSIHabW12oab3
-	 uIp8qEBsL8VsjkkIEdyFjg3Z80Fed00AQl1++434=
+	b=Z1utKs6TPnNnLV85q4k/PjiAuuRg4yDiEFE0vWaEH80kM/JsUf3iudmzbN836K8VV
+	 o0pr8i+GqSJJKMknZDCvnHx3qsL6Qcbz+A9aoP71obZnjJHm6sI/xQlqlfO7UhLmGQ
+	 e0GLXWaRsu+X8tredZ+YFxraJV//SoZzTN9D10vI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BCC3EF802FF;
-	Sun,  5 Jan 2020 15:50:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3F21CF80436;
+	Sun,  5 Jan 2020 15:50:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 78731F8028D; Sun,  5 Jan 2020 15:49:18 +0100 (CET)
+ id C941EF8036F; Sun,  5 Jan 2020 15:49:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A859CF80292
+ by alsa1.perex.cz (Postfix) with ESMTPS id B7260F8029A
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 15:48:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A859CF80292
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7260F8029A
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 39D9CB28C
+ by mx2.suse.de (Postfix) with ESMTP id 467F4B29F
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 14:48:33 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Sun,  5 Jan 2020 15:47:47 +0100
-Message-Id: <20200105144823.29547-33-tiwai@suse.de>
+Date: Sun,  5 Jan 2020 15:47:48 +0100
+Message-Id: <20200105144823.29547-34-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200105144823.29547-1-tiwai@suse.de>
 References: <20200105144823.29547-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 32/68] ALSA: asihpi: More constifications
+Subject: [alsa-devel] [PATCH 33/68] ALSA: atiixp: More constifications
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,52 +67,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Apply const prefix to each possible place: the static tables for
-formats, parameters, etc.
+Apply const prefix to the static register tables.
 
 Just for minor optimization and no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/asihpi/asihpi.c  | 4 ++--
- sound/pci/asihpi/hpimsgx.c | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ sound/pci/atiixp.c       | 2 +-
+ sound/pci/atiixp_modem.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
-index 1fdb9f9f0ae0..a9540c2c4a1a 100644
---- a/sound/pci/asihpi/asihpi.c
-+++ b/sound/pci/asihpi/asihpi.c
-@@ -300,7 +300,7 @@ static void print_hwparams(struct snd_pcm_substream *substream,
- 
- #define INVALID_FORMAT	(__force snd_pcm_format_t)(-1)
- 
--static snd_pcm_format_t hpi_to_alsa_formats[] = {
-+static const snd_pcm_format_t hpi_to_alsa_formats[] = {
- 	INVALID_FORMAT,		/* INVALID */
- 	SNDRV_PCM_FORMAT_U8,	/* HPI_FORMAT_PCM8_UNSIGNED        1 */
- 	SNDRV_PCM_FORMAT_S16,	/* HPI_FORMAT_PCM16_SIGNED         2 */
-@@ -2073,7 +2073,7 @@ static int snd_asihpi_meter_info(struct snd_kcontrol *kcontrol,
- }
- 
- /* linear values for 10dB steps */
--static int log2lin[] = {
-+static const int log2lin[] = {
- 	0x7FFFFFFF, /* 0dB */
- 	679093956,
- 	214748365,
-diff --git a/sound/pci/asihpi/hpimsgx.c b/sound/pci/asihpi/hpimsgx.c
-index 5fb0b98bec30..f7427f8eb630 100644
---- a/sound/pci/asihpi/hpimsgx.c
-+++ b/sound/pci/asihpi/hpimsgx.c
-@@ -17,7 +17,7 @@ Extended Message Function With Response Caching
- #include "hpimsgx.h"
- #include "hpidebug.h"
- 
--static struct pci_device_id asihpi_pci_tbl[] = {
-+static const struct pci_device_id asihpi_pci_tbl[] = {
- #include "hpipcida.h"
- };
- 
+diff --git a/sound/pci/atiixp.c b/sound/pci/atiixp.c
+index 4a840734e7a7..85d3b4e95489 100644
+--- a/sound/pci/atiixp.c
++++ b/sound/pci/atiixp.c
+@@ -1407,7 +1407,7 @@ static int snd_atiixp_mixer_new(struct atiixp *chip, int clock,
+ 		.write = snd_atiixp_ac97_write,
+ 		.read = snd_atiixp_ac97_read,
+ 	};
+-	static unsigned int codec_skip[NUM_ATI_CODECS] = {
++	static const unsigned int codec_skip[NUM_ATI_CODECS] = {
+ 		ATI_REG_ISR_CODEC0_NOT_READY,
+ 		ATI_REG_ISR_CODEC1_NOT_READY,
+ 		ATI_REG_ISR_CODEC2_NOT_READY,
+diff --git a/sound/pci/atiixp_modem.c b/sound/pci/atiixp_modem.c
+index 3ec34e78ffef..ae88217d685a 100644
+--- a/sound/pci/atiixp_modem.c
++++ b/sound/pci/atiixp_modem.c
+@@ -1050,7 +1050,7 @@ static int snd_atiixp_mixer_new(struct atiixp_modem *chip, int clock)
+ 		.write = snd_atiixp_ac97_write,
+ 		.read = snd_atiixp_ac97_read,
+ 	};
+-	static unsigned int codec_skip[NUM_ATI_CODECS] = {
++	static const unsigned int codec_skip[NUM_ATI_CODECS] = {
+ 		ATI_REG_ISR_CODEC0_NOT_READY,
+ 		ATI_REG_ISR_CODEC1_NOT_READY,
+ 		ATI_REG_ISR_CODEC2_NOT_READY,
 -- 
 2.16.4
 

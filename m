@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06F8E130888
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 16:05:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A481613088F
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 16:09:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83D5217C1;
-	Sun,  5 Jan 2020 16:04:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83D5217C1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C13B17D7;
+	Sun,  5 Jan 2020 16:08:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C13B17D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578236715;
-	bh=drCvC+ft9dW9ssTQ1L+XVhYrfGgixwegwcKJR1byJCw=;
+	s=default; t=1578236958;
+	bh=JWZ7fbSwux910SmxdY0oywtBDIZmjufBr04yEzsLpzI=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RtK+jqjKZqJJnohjP471+a2ga9WezCav3ISBhfi56lFYzptIztfYcnc3BVB/xJOkI
-	 xf1HuRkqtQbxCsx+26g14XuJ4momKGteRYbbYxKzLfgbf59ja+LxOAEYtA0h4O+DEU
-	 AwJywWDpYdWZ6F3TY8EXyjjgV7ahLYrGCTCs1fvU=
+	b=GnM7EEfWo3OQV3yAJOn3pV2SPjQayhD9oBPPiv9jRzLS0f662XVD793Xf5/dPa7Mc
+	 yBTo+tXQVT9RAeQWjUzgeKEsCJvMretRQxRpvnb31sg6QtakVQYl3bSIHabW12oab3
+	 uIp8qEBsL8VsjkkIEdyFjg3Z80Fed00AQl1++434=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B9FCCF803BE;
-	Sun,  5 Jan 2020 15:49:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCC3EF802FF;
+	Sun,  5 Jan 2020 15:50:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7F0DDF8028F; Sun,  5 Jan 2020 15:49:10 +0100 (CET)
+ id 78731F8028D; Sun,  5 Jan 2020 15:49:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23BF0F8028F
+ by alsa1.perex.cz (Postfix) with ESMTPS id A859CF80292
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 15:48:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23BF0F8028F
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A859CF80292
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 2C725B286
+ by mx2.suse.de (Postfix) with ESMTP id 39D9CB28C
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 14:48:33 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Sun,  5 Jan 2020 15:47:46 +0100
-Message-Id: <20200105144823.29547-32-tiwai@suse.de>
+Date: Sun,  5 Jan 2020 15:47:47 +0100
+Message-Id: <20200105144823.29547-33-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200105144823.29547-1-tiwai@suse.de>
 References: <20200105144823.29547-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 31/68] ALSA: ctxfi: More constifications
+Subject: [alsa-devel] [PATCH 32/68] ALSA: asihpi: More constifications
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,52 +67,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Apply const prefix to each possible place: the DAIO tables and the
-register offset table.
+Apply const prefix to each possible place: the static tables for
+formats, parameters, etc.
 
 Just for minor optimization and no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/ctxfi/ctdaio.c     | 4 ++--
- sound/pci/ctxfi/ctresource.c | 2 +-
+ sound/pci/asihpi/asihpi.c  | 4 ++--
+ sound/pci/asihpi/hpimsgx.c | 2 +-
  2 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/pci/ctxfi/ctdaio.c b/sound/pci/ctxfi/ctdaio.c
-index 27441d498968..4cb47b5a792c 100644
---- a/sound/pci/ctxfi/ctdaio.c
-+++ b/sound/pci/ctxfi/ctdaio.c
-@@ -29,7 +29,7 @@ struct daio_rsc_idx {
- 	unsigned short right;
- };
+diff --git a/sound/pci/asihpi/asihpi.c b/sound/pci/asihpi/asihpi.c
+index 1fdb9f9f0ae0..a9540c2c4a1a 100644
+--- a/sound/pci/asihpi/asihpi.c
++++ b/sound/pci/asihpi/asihpi.c
+@@ -300,7 +300,7 @@ static void print_hwparams(struct snd_pcm_substream *substream,
  
--static struct daio_rsc_idx idx_20k1[NUM_DAIOTYP] = {
-+static const struct daio_rsc_idx idx_20k1[NUM_DAIOTYP] = {
- 	[LINEO1] = {.left = 0x00, .right = 0x01},
- 	[LINEO2] = {.left = 0x18, .right = 0x19},
- 	[LINEO3] = {.left = 0x08, .right = 0x09},
-@@ -40,7 +40,7 @@ static struct daio_rsc_idx idx_20k1[NUM_DAIOTYP] = {
- 	[SPDIFI1] = {.left = 0x95, .right = 0x9d},
- };
+ #define INVALID_FORMAT	(__force snd_pcm_format_t)(-1)
  
--static struct daio_rsc_idx idx_20k2[NUM_DAIOTYP] = {
-+static const struct daio_rsc_idx idx_20k2[NUM_DAIOTYP] = {
- 	[LINEO1] = {.left = 0x40, .right = 0x41},
- 	[LINEO2] = {.left = 0x60, .right = 0x61},
- 	[LINEO3] = {.left = 0x50, .right = 0x51},
-diff --git a/sound/pci/ctxfi/ctresource.c b/sound/pci/ctxfi/ctresource.c
-index 0bb5696e44b3..61e51e35ba16 100644
---- a/sound/pci/ctxfi/ctresource.c
-+++ b/sound/pci/ctxfi/ctresource.c
-@@ -92,7 +92,7 @@ int mgr_put_resource(struct rsc_mgr *mgr, unsigned int n, unsigned int idx)
- 	return 0;
+-static snd_pcm_format_t hpi_to_alsa_formats[] = {
++static const snd_pcm_format_t hpi_to_alsa_formats[] = {
+ 	INVALID_FORMAT,		/* INVALID */
+ 	SNDRV_PCM_FORMAT_U8,	/* HPI_FORMAT_PCM8_UNSIGNED        1 */
+ 	SNDRV_PCM_FORMAT_S16,	/* HPI_FORMAT_PCM16_SIGNED         2 */
+@@ -2073,7 +2073,7 @@ static int snd_asihpi_meter_info(struct snd_kcontrol *kcontrol,
  }
  
--static unsigned char offset_in_audio_slot_block[NUM_RSCTYP] = {
-+static const unsigned char offset_in_audio_slot_block[NUM_RSCTYP] = {
- 	/* SRC channel is at Audio Ring slot 1 every 16 slots. */
- 	[SRC]		= 0x1,
- 	[AMIXER]	= 0x4,
+ /* linear values for 10dB steps */
+-static int log2lin[] = {
++static const int log2lin[] = {
+ 	0x7FFFFFFF, /* 0dB */
+ 	679093956,
+ 	214748365,
+diff --git a/sound/pci/asihpi/hpimsgx.c b/sound/pci/asihpi/hpimsgx.c
+index 5fb0b98bec30..f7427f8eb630 100644
+--- a/sound/pci/asihpi/hpimsgx.c
++++ b/sound/pci/asihpi/hpimsgx.c
+@@ -17,7 +17,7 @@ Extended Message Function With Response Caching
+ #include "hpimsgx.h"
+ #include "hpidebug.h"
+ 
+-static struct pci_device_id asihpi_pci_tbl[] = {
++static const struct pci_device_id asihpi_pci_tbl[] = {
+ #include "hpipcida.h"
+ };
+ 
 -- 
 2.16.4
 

@@ -2,89 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE2A51306F6
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 10:42:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE10A13070F
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 11:32:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 25CB61758;
-	Sun,  5 Jan 2020 10:41:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 25CB61758
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22B1D175B;
+	Sun,  5 Jan 2020 11:31:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22B1D175B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578217325;
-	bh=cqdtjZ9R2AWoyyPQ+q8KSsQGZaXfvU+eFYR7tZKQllw=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1578220331;
+	bh=PrhBcYIrBEUIMLXonM5zdimcVnWxWebDxGO1Sel1JyQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=CbYj4etnD1Fu50M4hIxpjAwME8USWpsKMFqNL0XYl9EG7l0qnAyoK0uSvoV3KJwMr
-	 Ri6/CYVWBpNleGU+Ye6axG46qDlS6s5ZXGhCebDW+KBuYsjk8XvlfVCT+ayBpq19Kj
-	 hVQJjLWs4EKdYC4LED4btTZCD34nRMIx9xrdPBwY=
+	b=Trnyp0qCYK3rB2fcQo76AjVGUkZoW0Tjs3TjBbFa/UuC5XxNkQZuLy+WotFZRH4qG
+	 WsPz+YZBRpa98IZpTR25BlobWEOQy2lHC5j12L2TCE6h3OKRZxebkMGbP1B3pUJIcu
+	 CeyTq7B3po8vlJoXPrFtOnWaX3yOPpmP8+6h+31o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 500F6F80172;
-	Sun,  5 Jan 2020 10:40:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46145F80140;
+	Sun,  5 Jan 2020 11:30:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9CA6F80157; Sat,  4 Jan 2020 15:14:48 +0100 (CET)
+ id 07E6EF8014A; Sun,  5 Jan 2020 11:30:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mo6-p01-ob.smtp.rzone.de (mo6-p01-ob.smtp.rzone.de
+ [IPv6:2a01:238:20a:202:5301::9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82866F80105
- for <alsa-devel@alsa-project.org>; Sat,  4 Jan 2020 15:14:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82866F80105
+ by alsa1.perex.cz (Postfix) with ESMTPS id 21AC8F80116
+ for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 11:30:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 21AC8F80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="pTAE/TWG"
-Received: by mail-pg1-x543.google.com with SMTP id s64so24706795pgb.9
- for <alsa-devel@alsa-project.org>; Sat, 04 Jan 2020 06:14:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=N1zAzNFuGiZZLxkXFIxcCFopAhIskKxqeAZ70oWHN78=;
- b=pTAE/TWGL4KOmpshoapLVk4oal5VsWsqN1WERVXpTbb8CJqLFoY773wx3GEKbJSYp5
- oiIYqn8PaoCJyi7gxGY4he4K3s9jQEjPSMIEjHIFkSqoJ0Rb5/tGkf/4MnJwgIqo8clL
- EJLXW/eP2Ckycm0sQFudGQ47S/yXCa9wzc0lcTbl8//LDupJ7NV8ynqvmPk5qklZ0a0Y
- /1C1cdDwtdgADigLLn6cfdtOnBGVGuH6O/tG5zP3pFEnRrNm2T+EEOqlEk6WxAolC+eR
- NKMQIKVgdPVNexnTbpD0OVpP4NoJLXPWdFlPrRz7MJL0vEqB1dR9PPUows/WfmG3msuT
- 56IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=N1zAzNFuGiZZLxkXFIxcCFopAhIskKxqeAZ70oWHN78=;
- b=ZBxgaekb6LCd7aPqoyUJ/x/w8NoqsRPFRwWewA/WvOaDpN7LNfqzvGFU+4YkFHMLg7
- iZCoZsaWaRFYSS/sIF8Hv0sfn8jaUHjIspvadnwYQWhbXRCYo2rek+71qRqy9demcUxR
- 0QD1qcyQ7U4rAfSgMqVz/vaxW9RU4OP0OObAzbIqbZkfHinO7JwNXcUhLHYrmWBJ73U4
- +eK6TJWj1JAD9pBzHDoF6EblLURY1oMg1BI87N1g8f0ESuwkhLD5rGEhVa9Tee7Kxzwz
- aYQwDGCVzkEB1oOiu2Tr3sIQorkdkye6X3d16wyPu25CEyxGn20gYkHB0w91U6axHg5+
- heHQ==
-X-Gm-Message-State: APjAAAXXtlQBTctlPYD1UozfgeqI1AwxQ06EAQj9US8Mpw0dnGyWzspl
- yVx9lPj3lu1Vhu8t48R50WIb/zO6mRA=
-X-Google-Smtp-Source: APXvYqxXOCrgGL6D/EiQqmJ8Z0X+5hRA7oPRVgi4k2IF91Zl4z7AINE3kaOaDElLnzGCqpXfSWuaKA==
-X-Received: by 2002:a63:ff5c:: with SMTP id s28mr99938380pgk.196.1578147283228; 
- Sat, 04 Jan 2020 06:14:43 -0800 (PST)
-Received: from nishad ([106.51.232.103])
- by smtp.gmail.com with ESMTPSA id m6sm18310663pjn.21.2020.01.04.06.14.40
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Sat, 04 Jan 2020 06:14:42 -0800 (PST)
-Date: Sat, 4 Jan 2020 19:44:36 +0530
-From: Nishad Kamdar <nishadkamdar@gmail.com>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Joe Perches <joe@perches.com>
-Message-ID: <20200104141433.GA3684@nishad>
+ dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
+ header.b="YZEUAcn0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1578220218;
+ s=strato-dkim-0002; d=gerhold.net;
+ h=Message-Id:Date:Subject:Cc:To:From:X-RZG-CLASS-ID:X-RZG-AUTH:From:
+ Subject:Sender;
+ bh=gQC4SVtvG3w+YvT0dKEUIxZ7DERKWyeqx0P+BgLZnic=;
+ b=YZEUAcn0y1L9UeZouiol6tEYgzjxWioc7eqxN8jWtiTP7dOYlUW5PjiwFT1wVMNO9h
+ ZY+xg/EFe4asOjLX3VRCt/tcfIXtBSa/BYVz11Y7FSpX99UjjZ68IvjDtpoPCBet2oZJ
+ 55eMxbRtTWZT04Wb/LG9A8qEJ2mBxjPW3hp7f8LQyT7ESAdei9R8NuThJsGYPdO5RogA
+ FVUPftUzTyR2yx2LrUlxdGNf268lWDBXT/TmJNuBWkxHKbt0B0+lcw/Sa6N8en2Z6gcd
+ pA4wzyGqpgTxFinp15yE0ZDzhKnQpb/kyzu/1C+mSNQSNEoOAwMWMN6jhZrL2N5Tx6oK
+ +PLg==
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVORvLd4SsytBXQrEOHTIXs8/vtBE1"
+X-RZG-CLASS-ID: mo00
+Received: from localhost.localdomain by smtp.strato.de (RZmta 46.1.3 AUTH)
+ with ESMTPSA id z012abw05AUFikw
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Sun, 5 Jan 2020 11:30:15 +0100 (CET)
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Mark Brown <broonie@kernel.org>
+Date: Sun,  5 Jan 2020 11:27:53 +0100
+Message-Id: <20200105102753.83108-1-stephan@gerhold.net>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Content-Disposition: inline
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Sun, 05 Jan 2020 10:40:18 +0100
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] slimbus: Use the correct style for SPDX
-	License Identifier
+Cc: alsa-devel@alsa-project.org, Stephan Gerhold <stephan@gerhold.net>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ ~postmarketos/upstreaming@lists.sr.ht
+Subject: [alsa-devel] [PATCH] ASoC: msm8916-wcd-digital: Reset RX
+	interpolation path after use
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,33 +86,53 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch corrects the SPDX License Identifier style in
-header file related to SLIMbus driver.
-For C header files Documentation/process/license-rules.rst
-mandates C-like comments (opposed to C source files where
-C++ style should be used).
+For some reason, attempting to route audio through QDSP6 on MSM8916
+causes the RX interpolation path to get "stuck" after playing audio
+a few times. In this situation, the analog codec part is still working,
+but the RX path in the digital codec stops working, so you only hear
+the analog parts powering up. After a reboot everything works again.
 
-Changes made by using a script provided by Joe Perches here:
-https://lkml.org/lkml/2019/2/7/46.
+So far I was not able to reproduce the problem when using lpass-cpu.
 
-Suggested-by: Joe Perches <joe@perches.com>
-Signed-off-by: Nishad Kamdar <nishadkamdar@gmail.com>
+The downstream kernel driver avoids this by resetting the RX
+interpolation path after use. In mainline we do something similar
+for the TX decimator (LPASS_CDC_CLK_TX_RESET_B1_CTL), but the
+interpolator reset (LPASS_CDC_CLK_RX_RESET_CTL) got lost when the
+msm8916-wcd driver was split into analog and digital.
+
+Fix this problem by adding the reset to
+msm8916_wcd_digital_enable_interpolator().
+
+Fixes: 150db8c5afa1 ("ASoC: codecs: Add msm8916-wcd digital codec")
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
 ---
- drivers/slimbus/slimbus.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Tested on msm8916-samsung-a5u:
+  - qdsp6 does no longer stop working after playing audio a few times
+  - lpass-cpu is still working fine (no difference)
+---
+ sound/soc/codecs/msm8916-wcd-digital.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/slimbus/slimbus.h b/drivers/slimbus/slimbus.h
-index b2f013bfe42e..c73035915f1d 100644
---- a/drivers/slimbus/slimbus.h
-+++ b/drivers/slimbus/slimbus.h
-@@ -1,4 +1,4 @@
--// SPDX-License-Identifier: GPL-2.0
-+/* SPDX-License-Identifier: GPL-2.0 */
- /*
-  * Copyright (c) 2011-2017, The Linux Foundation
-  */
+diff --git a/sound/soc/codecs/msm8916-wcd-digital.c b/sound/soc/codecs/msm8916-wcd-digital.c
+index 58b2468fb2a7..09fccacadd6b 100644
+--- a/sound/soc/codecs/msm8916-wcd-digital.c
++++ b/sound/soc/codecs/msm8916-wcd-digital.c
+@@ -586,6 +586,12 @@ static int msm8916_wcd_digital_enable_interpolator(
+ 		snd_soc_component_write(component, rx_gain_reg[w->shift],
+ 			      snd_soc_component_read32(component, rx_gain_reg[w->shift]));
+ 		break;
++	case SND_SOC_DAPM_POST_PMD:
++		snd_soc_component_update_bits(component, LPASS_CDC_CLK_RX_RESET_CTL,
++					      1 << w->shift, 1 << w->shift);
++		snd_soc_component_update_bits(component, LPASS_CDC_CLK_RX_RESET_CTL,
++					      1 << w->shift, 0x0);
++		break;
+ 	}
+ 	return 0;
+ }
 -- 
-2.17.1
+2.24.1
 
 _______________________________________________
 Alsa-devel mailing list

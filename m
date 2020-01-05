@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEC3B130883
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 16:01:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5D5013088B
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 16:07:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 699F71764;
-	Sun,  5 Jan 2020 16:01:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 699F71764
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C30217DC;
+	Sun,  5 Jan 2020 16:06:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C30217DC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578236513;
-	bh=KC9jwusZhj5a48iBsG3toGJ/nmy/SaQpwJH3eYvz2wM=;
+	s=default; t=1578236834;
+	bh=5LEn2xb4PPbH/GTZTHH6CkJTRo4dYi953JehT5PlvYs=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=a1g2VjJgvJt+xk0C0Nfl/PzdFPLZ8Vk7r8PbnXz8ChtNfAUkeByNYZcUGsFhsNaYP
-	 7UVCYSr4rN4iFdOj46691CkSrQ2TI29JfKWE/G5Np7OPPm3exqVgYsKkVKzOp5HBX6
-	 hAHxwni01QSx5QGmRk3V8cndpQQr1z9OlmvxgNB8=
+	b=OTVAkxZXxCnNFZXD0Lir5Lk4XYllgmLJLnqojXwmdIsngdrNCVF7Dk61v2iX8T3ev
+	 bLrkP8TP+OjARkQgGUdG7PLn7h9dQYsM1lGkE4UIG0RwVviJ2P+2Yy41OzopzxOTcT
+	 OopQPp22XHw9LnYSVUa7kw8xufKUjVADcVKuoY3M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7414CF802A2;
-	Sun,  5 Jan 2020 15:49:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6E322F802EA;
+	Sun,  5 Jan 2020 15:49:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7DBDF8033E; Sun,  5 Jan 2020 15:49:04 +0100 (CET)
+ id 02048F8028B; Sun,  5 Jan 2020 15:49:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A592FF8027B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 210D0F8028E
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 15:48:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A592FF8027B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 210D0F8028E
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 98CBDB1EC
+ by mx2.suse.de (Postfix) with ESMTP id B51A2B230
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 14:48:32 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Sun,  5 Jan 2020 15:47:34 +0100
-Message-Id: <20200105144823.29547-20-tiwai@suse.de>
+Date: Sun,  5 Jan 2020 15:47:36 +0100
+Message-Id: <20200105144823.29547-22-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200105144823.29547-1-tiwai@suse.de>
 References: <20200105144823.29547-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 19/68] ALSA: hdspm: More constifications
+Subject: [alsa-devel] [PATCH 21/68] ALSA: emux: More constifications
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,257 +67,129 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Apply const prefix to each possible place: the string arrays, the
-channel map tables and callers.
+Apply const prefix to each possible place: the MIDI data definitions,
+the static tables for volume parameters, etc.
 
 Just for minor optimization and no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/rme9652/hdspm.c | 66 +++++++++++++++++++++++++----------------------
- 1 file changed, 35 insertions(+), 31 deletions(-)
+ sound/synth/emux/emux_nrpn.c  |  4 ++--
+ sound/synth/emux/emux_synth.c | 10 +++++-----
+ sound/synth/emux/soundfont.c  |  8 ++++----
+ 3 files changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/sound/pci/rme9652/hdspm.c b/sound/pci/rme9652/hdspm.c
-index f926899e4755..2212d5799151 100644
---- a/sound/pci/rme9652/hdspm.c
-+++ b/sound/pci/rme9652/hdspm.c
-@@ -637,7 +637,7 @@ MODULE_SUPPORTED_DEVICE("{{RME HDSPM-MADI}}");
- #define HDSPM_SPEED_QUAD   2
+diff --git a/sound/synth/emux/emux_nrpn.c b/sound/synth/emux/emux_nrpn.c
+index 1ac22676d464..7eed5791972c 100644
+--- a/sound/synth/emux/emux_nrpn.c
++++ b/sound/synth/emux/emux_nrpn.c
+@@ -63,7 +63,7 @@ static int send_converted_effect(const struct nrpn_conv_table *table,
+ /* effect sensitivities for GS NRPN:
+  *  adjusted for chaos 8MB soundfonts
+  */
+-static int gs_sense[] = 
++static const int gs_sense[] =
+ {
+ 	DEF_FX_CUTOFF, DEF_FX_RESONANCE, DEF_FX_ATTACK, DEF_FX_RELEASE,
+ 	DEF_FX_VIBRATE, DEF_FX_VIBDEPTH, DEF_FX_VIBDELAY
+@@ -72,7 +72,7 @@ static int gs_sense[] =
+ /* effect sensitivies for XG controls:
+  * adjusted for chaos 8MB soundfonts
+  */
+-static int xg_sense[] = 
++static const int xg_sense[] =
+ {
+ 	DEF_FX_CUTOFF, DEF_FX_RESONANCE, DEF_FX_ATTACK, DEF_FX_RELEASE,
+ 	DEF_FX_VIBRATE, DEF_FX_VIBDEPTH, DEF_FX_VIBDELAY
+diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
+index 7c9eecd4d14e..a5385efcedb6 100644
+--- a/sound/synth/emux/emux_synth.c
++++ b/sound/synth/emux/emux_synth.c
+@@ -529,7 +529,7 @@ update_voice(struct snd_emux *emu, struct snd_emux_voice *vp, int update)
  
- /* names for speed modes */
--static char *hdspm_speed_names[] = { "single", "double", "quad" };
-+static const char * const hdspm_speed_names[] = { "single", "double", "quad" };
+ #if 0 // not used
+ /* table for volume target calculation */
+-static unsigned short voltarget[16] = { 
++static const unsigned short voltarget[16] = {
+ 	0xEAC0, 0xE0C8, 0xD740, 0xCE20, 0xC560, 0xBD08, 0xB500, 0xAD58,
+ 	0xA5F8, 0x9EF0, 0x9830, 0x91C0, 0x8B90, 0x85A8, 0x8000, 0x7A90
+ };
+@@ -616,7 +616,7 @@ setup_voice(struct snd_emux_voice *vp)
+ /*
+  * calculate pitch parameter
+  */
+-static unsigned char pan_volumes[256] = {
++static const unsigned char pan_volumes[256] = {
+ 0x00,0x03,0x06,0x09,0x0c,0x0f,0x12,0x14,0x17,0x1a,0x1d,0x20,0x22,0x25,0x28,0x2a,
+ 0x2d,0x30,0x32,0x35,0x37,0x3a,0x3c,0x3f,0x41,0x44,0x46,0x49,0x4b,0x4d,0x50,0x52,
+ 0x54,0x57,0x59,0x5b,0x5d,0x60,0x62,0x64,0x66,0x68,0x6a,0x6c,0x6f,0x71,0x73,0x75,
+@@ -684,7 +684,7 @@ calc_pan(struct snd_emux_voice *vp)
+  */
  
- static const char *const texts_autosync_aes_tco[] = { "Word Clock",
- 					  "AES1", "AES2", "AES3", "AES4",
-@@ -684,7 +684,7 @@ static const char *const texts_freq[] = {
- 	"192 kHz"
+ /* tables for volume->attenuation calculation */
+-static unsigned char voltab1[128] = {
++static const unsigned char voltab1[128] = {
+    0x63, 0x63, 0x63, 0x63, 0x63, 0x63, 0x63, 0x63, 0x63, 0x63,
+    0x63, 0x2b, 0x29, 0x28, 0x27, 0x26, 0x25, 0x24, 0x23, 0x22,
+    0x21, 0x20, 0x1f, 0x1e, 0x1e, 0x1d, 0x1c, 0x1b, 0x1b, 0x1a,
+@@ -700,7 +700,7 @@ static unsigned char voltab1[128] = {
+    0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
  };
  
--static char *texts_ports_madi[] = {
-+static const char * const texts_ports_madi[] = {
- 	"MADI.1", "MADI.2", "MADI.3", "MADI.4", "MADI.5", "MADI.6",
- 	"MADI.7", "MADI.8", "MADI.9", "MADI.10", "MADI.11", "MADI.12",
- 	"MADI.13", "MADI.14", "MADI.15", "MADI.16", "MADI.17", "MADI.18",
-@@ -699,7 +699,7 @@ static char *texts_ports_madi[] = {
+-static unsigned char voltab2[128] = {
++static const unsigned char voltab2[128] = {
+    0x32, 0x31, 0x30, 0x2f, 0x2e, 0x2d, 0x2c, 0x2b, 0x2a, 0x2a,
+    0x29, 0x28, 0x27, 0x26, 0x25, 0x24, 0x24, 0x23, 0x22, 0x21,
+    0x21, 0x20, 0x1f, 0x1e, 0x1e, 0x1d, 0x1c, 0x1c, 0x1b, 0x1a,
+@@ -716,7 +716,7 @@ static unsigned char voltab2[128] = {
+    0x01, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00
  };
  
+-static unsigned char expressiontab[128] = {
++static const unsigned char expressiontab[128] = {
+    0x7f, 0x6c, 0x62, 0x5a, 0x54, 0x50, 0x4b, 0x48, 0x45, 0x42,
+    0x40, 0x3d, 0x3b, 0x39, 0x38, 0x36, 0x34, 0x33, 0x31, 0x30,
+    0x2f, 0x2d, 0x2c, 0x2b, 0x2a, 0x29, 0x28, 0x27, 0x26, 0x25,
+diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
+index dcc6a925a03e..9ebc711afa6b 100644
+--- a/sound/synth/emux/soundfont.c
++++ b/sound/synth/emux/soundfont.c
+@@ -751,7 +751,7 @@ load_data(struct snd_sf_list *sflist, const void __user *data, long count)
  
--static char *texts_ports_raydat_ss[] = {
-+static const char * const texts_ports_raydat_ss[] = {
- 	"ADAT1.1", "ADAT1.2", "ADAT1.3", "ADAT1.4", "ADAT1.5", "ADAT1.6",
- 	"ADAT1.7", "ADAT1.8", "ADAT2.1", "ADAT2.2", "ADAT2.3", "ADAT2.4",
- 	"ADAT2.5", "ADAT2.6", "ADAT2.7", "ADAT2.8", "ADAT3.1", "ADAT3.2",
-@@ -710,7 +710,7 @@ static char *texts_ports_raydat_ss[] = {
- 	"SPDIF.L", "SPDIF.R"
+ 
+ /* log2_tbl[i] = log2(i+128) * 0x10000 */
+-static int log_tbl[129] = {
++static const int log_tbl[129] = {
+ 	0x70000, 0x702df, 0x705b9, 0x7088e, 0x70b5d, 0x70e26, 0x710eb, 0x713aa,
+ 	0x71663, 0x71918, 0x71bc8, 0x71e72, 0x72118, 0x723b9, 0x72655, 0x728ed,
+ 	0x72b80, 0x72e0e, 0x73098, 0x7331d, 0x7359e, 0x7381b, 0x73a93, 0x73d08,
+@@ -857,7 +857,7 @@ calc_gus_envelope_time(int rate, int start, int end)
+ /* convert envelope time parameter to soundfont parameters */
+ 
+ /* attack & decay/release time table (msec) */
+-static short attack_time_tbl[128] = {
++static const short attack_time_tbl[128] = {
+ 32767, 32767, 5989, 4235, 2994, 2518, 2117, 1780, 1497, 1373, 1259, 1154, 1058, 970, 890, 816,
+ 707, 691, 662, 634, 607, 581, 557, 533, 510, 489, 468, 448, 429, 411, 393, 377,
+ 361, 345, 331, 317, 303, 290, 278, 266, 255, 244, 234, 224, 214, 205, 196, 188,
+@@ -868,7 +868,7 @@ static short attack_time_tbl[128] = {
+ 11, 11, 10, 10, 10, 9, 9, 8, 8, 8, 8, 7, 7, 7, 6, 0,
  };
  
--static char *texts_ports_raydat_ds[] = {
-+static const char * const texts_ports_raydat_ds[] = {
- 	"ADAT1.1", "ADAT1.2", "ADAT1.3", "ADAT1.4",
- 	"ADAT2.1", "ADAT2.2", "ADAT2.3", "ADAT2.4",
- 	"ADAT3.1", "ADAT3.2", "ADAT3.3", "ADAT3.4",
-@@ -719,7 +719,7 @@ static char *texts_ports_raydat_ds[] = {
- 	"SPDIF.L", "SPDIF.R"
- };
+-static short decay_time_tbl[128] = {
++static const short decay_time_tbl[128] = {
+ 32767, 32767, 22614, 15990, 11307, 9508, 7995, 6723, 5653, 5184, 4754, 4359, 3997, 3665, 3361, 3082,
+ 2828, 2765, 2648, 2535, 2428, 2325, 2226, 2132, 2042, 1955, 1872, 1793, 1717, 1644, 1574, 1507,
+ 1443, 1382, 1324, 1267, 1214, 1162, 1113, 1066, 978, 936, 897, 859, 822, 787, 754, 722,
+@@ -891,7 +891,7 @@ snd_sf_calc_parm_hold(int msec)
  
--static char *texts_ports_raydat_qs[] = {
-+static const char * const texts_ports_raydat_qs[] = {
- 	"ADAT1.1", "ADAT1.2",
- 	"ADAT2.1", "ADAT2.2",
- 	"ADAT3.1", "ADAT3.2",
-@@ -729,7 +729,7 @@ static char *texts_ports_raydat_qs[] = {
- };
- 
- 
--static char *texts_ports_aio_in_ss[] = {
-+static const char * const texts_ports_aio_in_ss[] = {
- 	"Analogue.L", "Analogue.R",
- 	"AES.L", "AES.R",
- 	"SPDIF.L", "SPDIF.R",
-@@ -738,7 +738,7 @@ static char *texts_ports_aio_in_ss[] = {
- 	"AEB.1", "AEB.2", "AEB.3", "AEB.4"
- };
- 
--static char *texts_ports_aio_out_ss[] = {
-+static const char * const texts_ports_aio_out_ss[] = {
- 	"Analogue.L", "Analogue.R",
- 	"AES.L", "AES.R",
- 	"SPDIF.L", "SPDIF.R",
-@@ -748,7 +748,7 @@ static char *texts_ports_aio_out_ss[] = {
- 	"AEB.1", "AEB.2", "AEB.3", "AEB.4"
- };
- 
--static char *texts_ports_aio_in_ds[] = {
-+static const char * const texts_ports_aio_in_ds[] = {
- 	"Analogue.L", "Analogue.R",
- 	"AES.L", "AES.R",
- 	"SPDIF.L", "SPDIF.R",
-@@ -756,7 +756,7 @@ static char *texts_ports_aio_in_ds[] = {
- 	"AEB.1", "AEB.2", "AEB.3", "AEB.4"
- };
- 
--static char *texts_ports_aio_out_ds[] = {
-+static const char * const texts_ports_aio_out_ds[] = {
- 	"Analogue.L", "Analogue.R",
- 	"AES.L", "AES.R",
- 	"SPDIF.L", "SPDIF.R",
-@@ -765,7 +765,7 @@ static char *texts_ports_aio_out_ds[] = {
- 	"AEB.1", "AEB.2", "AEB.3", "AEB.4"
- };
- 
--static char *texts_ports_aio_in_qs[] = {
-+static const char * const texts_ports_aio_in_qs[] = {
- 	"Analogue.L", "Analogue.R",
- 	"AES.L", "AES.R",
- 	"SPDIF.L", "SPDIF.R",
-@@ -773,7 +773,7 @@ static char *texts_ports_aio_in_qs[] = {
- 	"AEB.1", "AEB.2", "AEB.3", "AEB.4"
- };
- 
--static char *texts_ports_aio_out_qs[] = {
-+static const char * const texts_ports_aio_out_qs[] = {
- 	"Analogue.L", "Analogue.R",
- 	"AES.L", "AES.R",
- 	"SPDIF.L", "SPDIF.R",
-@@ -782,7 +782,7 @@ static char *texts_ports_aio_out_qs[] = {
- 	"AEB.1", "AEB.2", "AEB.3", "AEB.4"
- };
- 
--static char *texts_ports_aes32[] = {
-+static const char * const texts_ports_aes32[] = {
- 	"AES.1", "AES.2", "AES.3", "AES.4", "AES.5", "AES.6", "AES.7",
- 	"AES.8", "AES.9.", "AES.10", "AES.11", "AES.12", "AES.13", "AES.14",
- 	"AES.15", "AES.16"
-@@ -796,7 +796,7 @@ static char *texts_ports_aes32[] = {
-    where the data for that channel can be read/written from/to.
- */
- 
--static char channel_map_unity_ss[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_unity_ss[HDSPM_MAX_CHANNELS] = {
- 	0, 1, 2, 3, 4, 5, 6, 7,
- 	8, 9, 10, 11, 12, 13, 14, 15,
- 	16, 17, 18, 19, 20, 21, 22, 23,
-@@ -807,7 +807,7 @@ static char channel_map_unity_ss[HDSPM_MAX_CHANNELS] = {
- 	56, 57, 58, 59, 60, 61, 62, 63
- };
- 
--static char channel_map_raydat_ss[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_raydat_ss[HDSPM_MAX_CHANNELS] = {
- 	4, 5, 6, 7, 8, 9, 10, 11,	/* ADAT 1 */
- 	12, 13, 14, 15, 16, 17, 18, 19,	/* ADAT 2 */
- 	20, 21, 22, 23, 24, 25, 26, 27,	/* ADAT 3 */
-@@ -820,7 +820,7 @@ static char channel_map_raydat_ss[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1,
- };
- 
--static char channel_map_raydat_ds[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_raydat_ds[HDSPM_MAX_CHANNELS] = {
- 	4, 5, 6, 7,		/* ADAT 1 */
- 	8, 9, 10, 11,		/* ADAT 2 */
- 	12, 13, 14, 15,		/* ADAT 3 */
-@@ -835,7 +835,7 @@ static char channel_map_raydat_ds[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1,
- };
- 
--static char channel_map_raydat_qs[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_raydat_qs[HDSPM_MAX_CHANNELS] = {
- 	4, 5,			/* ADAT 1 */
- 	6, 7,			/* ADAT 2 */
- 	8, 9,			/* ADAT 3 */
-@@ -851,7 +851,7 @@ static char channel_map_raydat_qs[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1,
- };
- 
--static char channel_map_aio_in_ss[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_aio_in_ss[HDSPM_MAX_CHANNELS] = {
- 	0, 1,			/* line in */
- 	8, 9,			/* aes in, */
- 	10, 11,			/* spdif in */
-@@ -865,7 +865,7 @@ static char channel_map_aio_in_ss[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1,
- };
- 
--static char channel_map_aio_out_ss[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_aio_out_ss[HDSPM_MAX_CHANNELS] = {
- 	0, 1,			/* line out */
- 	8, 9,			/* aes out */
- 	10, 11,			/* spdif out */
-@@ -880,7 +880,7 @@ static char channel_map_aio_out_ss[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1,
- };
- 
--static char channel_map_aio_in_ds[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_aio_in_ds[HDSPM_MAX_CHANNELS] = {
- 	0, 1,			/* line in */
- 	8, 9,			/* aes in */
- 	10, 11,			/* spdif in */
-@@ -895,7 +895,7 @@ static char channel_map_aio_in_ds[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1
- };
- 
--static char channel_map_aio_out_ds[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_aio_out_ds[HDSPM_MAX_CHANNELS] = {
- 	0, 1,			/* line out */
- 	8, 9,			/* aes out */
- 	10, 11,			/* spdif out */
-@@ -910,7 +910,7 @@ static char channel_map_aio_out_ds[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1
- };
- 
--static char channel_map_aio_in_qs[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_aio_in_qs[HDSPM_MAX_CHANNELS] = {
- 	0, 1,			/* line in */
- 	8, 9,			/* aes in */
- 	10, 11,			/* spdif in */
-@@ -925,7 +925,7 @@ static char channel_map_aio_in_qs[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1
- };
- 
--static char channel_map_aio_out_qs[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_aio_out_qs[HDSPM_MAX_CHANNELS] = {
- 	0, 1,			/* line out */
- 	8, 9,			/* aes out */
- 	10, 11,			/* spdif out */
-@@ -941,7 +941,7 @@ static char channel_map_aio_out_qs[HDSPM_MAX_CHANNELS] = {
- 	-1, -1, -1, -1, -1, -1, -1, -1
- };
- 
--static char channel_map_aes32[HDSPM_MAX_CHANNELS] = {
-+static const char channel_map_aes32[HDSPM_MAX_CHANNELS] = {
- 	0, 1, 2, 3, 4, 5, 6, 7,
- 	8, 9, 10, 11, 12, 13, 14, 15,
- 	-1, -1, -1, -1, -1, -1, -1, -1,
-@@ -1010,17 +1010,21 @@ struct hdspm {
- 	unsigned char max_channels_in;
- 	unsigned char max_channels_out;
- 
--	signed char *channel_map_in;
--	signed char *channel_map_out;
-+	const signed char *channel_map_in;
-+	const signed char *channel_map_out;
- 
--	signed char *channel_map_in_ss, *channel_map_in_ds, *channel_map_in_qs;
--	signed char *channel_map_out_ss, *channel_map_out_ds, *channel_map_out_qs;
-+	const signed char *channel_map_in_ss, *channel_map_in_ds, *channel_map_in_qs;
-+	const signed char *channel_map_out_ss, *channel_map_out_ds, *channel_map_out_qs;
- 
--	char **port_names_in;
--	char **port_names_out;
-+	const char * const *port_names_in;
-+	const char * const *port_names_out;
- 
--	char **port_names_in_ss, **port_names_in_ds, **port_names_in_qs;
--	char **port_names_out_ss, **port_names_out_ds, **port_names_out_qs;
-+	const char * const *port_names_in_ss;
-+	const char * const *port_names_in_ds;
-+	const char * const *port_names_in_qs;
-+	const char * const *port_names_out_ss;
-+	const char * const *port_names_out_ds;
-+	const char * const *port_names_out_qs;
- 
- 	unsigned char *playback_buffer;	/* suitably aligned address */
- 	unsigned char *capture_buffer;	/* suitably aligned address */
+ /* search an index for specified time from given time table */
+ static int
+-calc_parm_search(int msec, short *table)
++calc_parm_search(int msec, const short *table)
+ {
+ 	int left = 1, right = 127, mid;
+ 	while (left < right) {
 -- 
 2.16.4
 

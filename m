@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 045E71308C5
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 16:31:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFD661308C1
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 16:30:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97C241818;
-	Sun,  5 Jan 2020 16:30:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97C241818
+	by alsa0.perex.cz (Postfix) with ESMTPS id 80685181F;
+	Sun,  5 Jan 2020 16:29:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80685181F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578238302;
-	bh=ALYRSDPCGzEUEL8xOcDLrYxefJ6DYU6E3oPl1HQdw+8=;
+	s=default; t=1578238227;
+	bh=/DDIBMefje2SxifJtdfnsAWfKoSTPkGG6R4NQTQNKoI=;
 	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AzILHuJl58dDRhX8mu3sMQdSeo9ZLze0GXjwt6q7Rr/EJ8tM4l9XX9tqmmVxAvwhp
-	 c7a5x4HZdjOBRpY6L9CP2uUzXP3Tp3EdVJfA0XdL4B2sS2huTGscgBqDvcjADMTL/C
-	 yR647ObwYRvTKqEmd7WZ3Xd0KY5mY+h1wyqWCgdM=
+	b=qEdCXW471mwO2dps1B9VKP1NRih8AKd1yUIL5M0KgXsgr87zhLnu+qGvAAtXcC3Pl
+	 fNm1caos0w5GUWrf1clZV+UIdkHKaIc8VQhCdmz9zRDLHWimeUWG/wxF8xGgfrDEhY
+	 h5Y/uaAsbSrXdEqG+kmFguHEA9NR/8mcAfIOPPDU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFD13F805DA;
-	Sun,  5 Jan 2020 15:50:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C9AC1F805CA;
+	Sun,  5 Jan 2020 15:50:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABEEEF803F3; Sun,  5 Jan 2020 15:50:01 +0100 (CET)
+ id A44E3F803EA; Sun,  5 Jan 2020 15:49:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,21 +34,21 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 68226F802F8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 63DFEF802F7
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 15:48:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 68226F802F8
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 63DFEF802F7
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id BD09CB2CD
+ by mx2.suse.de (Postfix) with ESMTP id CAF97B2CE
  for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 14:48:34 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Sun,  5 Jan 2020 15:48:17 +0100
-Message-Id: <20200105144823.29547-63-tiwai@suse.de>
+Date: Sun,  5 Jan 2020 15:48:18 +0100
+Message-Id: <20200105144823.29547-64-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
 In-Reply-To: <20200105144823.29547-1-tiwai@suse.de>
 References: <20200105144823.29547-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 62/68] ALSA: echoaudio: More constification
+Subject: [alsa-devel] [PATCH 63/68] ALSA: ens137x: More constification
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,28 +67,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Apply const prefix to the static channel list table.
+Apply const prefix to the quirk entry, forgotten in the previous fix.
 
 Just for minor optimization and no functional changes.
 
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 ---
- sound/pci/echoaudio/echoaudio.c | 2 +-
+ sound/pci/ens1370.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/echoaudio/echoaudio.c b/sound/pci/echoaudio/echoaudio.c
-index dae3a853a6e1..994ed51f813f 100644
---- a/sound/pci/echoaudio/echoaudio.c
-+++ b/sound/pci/echoaudio/echoaudio.c
-@@ -23,7 +23,7 @@ MODULE_PARM_DESC(id, "ID string for " ECHOCARD_NAME " soundcard.");
- module_param_array(enable, bool, NULL, 0444);
- MODULE_PARM_DESC(enable, "Enable " ECHOCARD_NAME " soundcard.");
+diff --git a/sound/pci/ens1370.c b/sound/pci/ens1370.c
+index 7ef9b7a1b2e6..d9acef0826a9 100644
+--- a/sound/pci/ens1370.c
++++ b/sound/pci/ens1370.c
+@@ -1574,7 +1574,7 @@ static int es1371_quirk_lookup(struct ensoniq *ensoniq,
+ 	return 0;
+ }
  
--static unsigned int channels_list[10] = {1, 2, 4, 6, 8, 10, 12, 14, 16, 999999};
-+static const unsigned int channels_list[10] = {1, 2, 4, 6, 8, 10, 12, 14, 16, 999999};
- static const DECLARE_TLV_DB_SCALE(db_scale_output_gain, -12800, 100, 1);
- 
- 
+-static struct es1371_quirk es1371_spdif_present[] = {
++static const struct es1371_quirk es1371_spdif_present[] = {
+ 	{ .vid = PCI_VENDOR_ID_ENSONIQ, .did = PCI_DEVICE_ID_ENSONIQ_CT5880, .rev = CT5880REV_CT5880_C },
+ 	{ .vid = PCI_VENDOR_ID_ENSONIQ, .did = PCI_DEVICE_ID_ENSONIQ_CT5880, .rev = CT5880REV_CT5880_D },
+ 	{ .vid = PCI_VENDOR_ID_ENSONIQ, .did = PCI_DEVICE_ID_ENSONIQ_CT5880, .rev = CT5880REV_CT5880_E },
 -- 
 2.16.4
 

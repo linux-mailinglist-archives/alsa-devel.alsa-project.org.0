@@ -2,77 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBD7813076B
-	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 11:55:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 503DF13086F
+	for <lists+alsa-devel@lfdr.de>; Sun,  5 Jan 2020 15:51:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2256D1764;
-	Sun,  5 Jan 2020 11:55:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2256D1764
+	by alsa0.perex.cz (Postfix) with ESMTPS id D5D94171E;
+	Sun,  5 Jan 2020 15:50:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D5D94171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578221755;
-	bh=WXeNOVF+HRfW2WgYqxUqJOw25nVe/0bop+3+foKBkZ4=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=p2UBO4y3Gc69ITlcDb2YvQ9f2fUOVSCDMndtjLlFeXKA0LEz/eiF14AcRV6DQEuBj
-	 hvgh+wkPuRpv7BbAhiOev13zRGQ1MLLvL7N6G/Hnh8TxNlVixUFA3ZFiuIMfYfz5fy
-	 0CjbKtFaOp4UFFV7DwWWX8DDvS7ykqY3f8cCMfNY=
+	s=default; t=1578235871;
+	bh=ojYi14+LcQkJuJ6wU4zi3JvYnCS96GEQdFi5HRei4GA=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=fRxsk6IeEUkdAmixukg0Q69VVYcjPuKyBdPMtJaqVLE8vMPVEPjXmaBIOuauXTPS1
+	 dUIrZmVVlrMYbogIkzHv/SXqQCJ97qvvDBBUuzoBLnJER7BT8JXHDY8NiY+n86Txs3
+	 btLsuHEQD9F0PTlvzUsVeIaABgvVuPm0by/TofX8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 55C74F80140;
-	Sun,  5 Jan 2020 11:54:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3D930F802D2;
+	Sun,  5 Jan 2020 15:48:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8188CF80140; Sun,  5 Jan 2020 11:54:09 +0100 (CET)
+ id 1C131F8028C; Sun,  5 Jan 2020 15:48:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk
- [78.40.148.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B5634F8013F
- for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 11:54:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B5634F8013F
-Received: from [78.40.148.177] (helo=localhost)
- by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
- id 1io3Xg-0007jP-TJ; Sun, 05 Jan 2020 10:53:57 +0000
-MIME-Version: 1.0
-Date: Sun, 05 Jan 2020 10:53:56 +0000
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-To: Dmitry Osipenko <digetx@gmail.com>
-In-Reply-To: <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
-References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
- <20191018154833.7560-3-ben.dooks@codethink.co.uk>
- <d2110a1f-c1de-e2c5-a1ff-5eb4c5d3e1da@gmail.com>
- <b4e2ec44-bc89-b5ca-cfa7-a6d5c45a9c94@codethink.co.uk>
- <a11ba33e-5ffb-c5c6-04f5-0e031877c55f@gmail.com>
- <621fa27d-9259-2949-9cf5-d2eda5cb0677@gmail.com>
- <a0f027d9-e9e0-d76c-1e40-002fdc37eb5f@nvidia.com>
- <d43d518d-9336-a011-2a69-3f9331f6d0b4@codethink.co.uk>
- <aba4edd6-0ea5-5e95-c5a0-9e749587c763@nvidia.com>
- <449bdc3c-bf82-7cc4-6704-440dd100ca3a@gmail.com>
- <5d3ae629-5d30-0930-5dd1-15161e64926e@codethink.co.uk>
- <9daeeb94-2b90-18b8-2e1e-daae5acf079d@gmail.com>
- <fd73f68c-80f5-ac80-f6e4-42256d3df76d@codethink.co.uk>
- <37beb96a-a525-c72f-a7e1-e9ef5d61f3b2@gmail.com>
- <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
- <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
- <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
- <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
-User-Agent: Roundcube Webmail/1.4.2
-Message-ID: <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
-X-Sender: ben.dooks@codethink.co.uk
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org,
- Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [alsa-devel] [PATCH v5 2/7] ASoC: tegra: Allow 24bit and 32bit
-	samples
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA88AF80140
+ for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 15:48:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA88AF80140
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 9ABAEAD5F
+ for <alsa-devel@alsa-project.org>; Sun,  5 Jan 2020 14:48:31 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Date: Sun,  5 Jan 2020 15:47:15 +0100
+Message-Id: <20200105144823.29547-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Subject: [alsa-devel] [PATCH 00/68] ALSA: Constifications, take #2
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,24 +57,248 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiAyMDIwLTAxLTA1IDAxOjQ4LCBEbWl0cnkgT3NpcGVua28gd3JvdGU6Cj4gMDUuMDEuMjAy
-MCAwMzowNCwgQmVuIERvb2tzINC/0LjRiNC10YI6Cj4+IFtzbmlwXQo+PiAKPj4gSSd2ZSBqdXN0
-IGdvbmUgdGhyb3VnaCB0ZXN0aW5nLgo+PiAKPj4gU29tZSBzaW1wbGUgZGF0YSB0ZXN0cyBzaG93
-IDE2IGFuZCAzMi1iaXRzIHdvcmsuCj4+IAo+PiBUaGUgMjQgYml0IGNhc2Ugc2VlbXMgdG8gYmUg
-d2VpcmQsIGl0IGxvb2tzIGxpa2UgdGhlIDI0LWJpdCBleHBlY3RzCj4+IDI0IGJpdCBzYW1wbGVz
-IGluIDMyIGJpdCB3b3Jkcy4gSSBjYW4ndCBzZWUgYW55IHBhY2tpbmcgb3B0aW9ucyB0bwo+PiBk
-byAyNCBiaXQgaW4gMjQgYml0LCBzbyB3ZSBtYXkgaGF2ZSB0byByZW1vdmUgMjQgYml0IHNhbXBs
-ZSBzdXBwb3J0Cj4+ICh3aGljaCBpcyBhIHNoYW1lKQo+PiAKPj4gTXkgcHJlZmVyZW5jZSBpcyB0
-byByZW1vdmUgdGhlIDI0LWJpdCBzdXBwb3J0IGFuZCBrZWVwIHRoZSAzMiBiaXQgaW4uCj4+IAo+
-IAo+IEludGVyZXN0aW5nLi4gSm9uLCBjb3VsZCB5b3UgcGxlYXNlIGNvbmZpcm0gdGhhdCAyNGJp
-dCBmb3JtYXQgaXNuJ3QKPiB1c2FibGUgb24gVDMwPwoKSWYgdGhlcmUgaXMgYW4gb3B0aW9uIG9m
-IDI0IHBhY2tlZCBpbnRvIDMyLCB0aGVuIEkgdGhpbmsgdGhhdCB3b3VsZCAKd29yay4KCkkgY2Fu
-IHRyeSB0ZXN0aW5nIHRoYXQgd2l0aCByYXcgZGF0YSBvbiBNb25kYXkuCgotLSAKQmVuCgpfX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1h
-aWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFs
-c2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+Hi,
+
+this is the next series of patches for adding more const prefix
+allover the places.  They do just nothing but adding cost.
+
+
+Takashi
+
+===
+
+Takashi Iwai (68):
+  ALSA: Allow const arrays for legacy resource management helpers
+  ALSA: aoa: More constifications
+  ALSA: hda/realtek - More constifications
+  ALSA: dummy: More constifications
+  ALSA: pcm: More constifications
+  ALSA: seq: More constifications
+  ALSA: vx: More constifications
+  ALSA: intel8x0: More constifications
+  ALSA: hda: More constifications
+  ALSA: ac97: More constifications
+  ALSA: usb-audio: More constifications
+  ALSA: caiaq: More constifications
+  ALSA: au88x0: More constifications
+  ALSA: emu10k1: More constifications
+  ALSA: riptide: More constifications
+  ALSA: ice1712: More constifications
+  ALSA: ppc: More constifications
+  ALSA: hdsp: More constifications
+  ALSA: hdspm: More constifications
+  ALSA: rme9652: More constifications
+  ALSA: emux: More constifications
+  ALSA: usx2y: More constifications
+  ALSA: pcxhr: More constifications
+  ALSA: mixart: More constifications
+  ALSA: ymfpci: More constifications
+  ALSA: bcd2000: More constifications
+  ALSA: nm256: More constifications
+  ALSA: korg1212: More constifications
+  ALSA: cs46xx: More constifications
+  ALSA: ca0106: More constifications
+  ALSA: ctxfi: More constifications
+  ALSA: asihpi: More constifications
+  ALSA: atiixp: More constifications
+  ALSA: es1938: More constifications
+  ALSA: es1968: More constifications
+  ALSA: cmipci: More constifications
+  ALSA: sparc: More constifications
+  ALSA: info: More constifications
+  ALSA: jack: More constification
+  ALSA: oss: More constifications
+  ALSA: rawmidi: More constification
+  ALSA: opl3: More constifications
+  ALSA: cmi8328: More constifications
+  ALSA: cs423x: More constification
+  ALSA: sb: More constifications
+  ALSA: cmi8330: More constifications
+  ALSA: es1688: More constifications
+  ALSA: es18xx: More constifications
+  ALSA: gus: More constifications
+  ALSA: opti9xx: More constifications
+  ALSA: wss: More constifications
+  ALSA: sc6000: More constification
+  ALSA: mts64: More constifications
+  ALSA: aw2: More constifications
+  ALSA: lx6464es: More constifications
+  ALSA: arm: More constification
+  ALSA: opl4: More constification
+  ALSA: serial-u16550: More constification
+  ALSA: ak4531: More constification
+  ALSA: azt3328: More constification
+  ALSA: cs4281: More constification
+  ALSA: echoaudio: More constification
+  ALSA: ens137x: More constification
+  ALSA: fm801: More constification
+  ALSA: via82xx: More constification
+  ALSA: pdaudiocf: More constification
+  ALSA: spi: More constification
+  ALSA: sh: Fix compile warning wrt const
+
+ include/sound/initval.h                 |   6 +-
+ sound/aoa/codecs/onyx.c                 |   4 +-
+ sound/aoa/codecs/tas-basstreble.h       |   4 +-
+ sound/aoa/codecs/tas-gain-table.h       |   2 +-
+ sound/aoa/soundbus/i2sbus/core.c        |   2 +-
+ sound/arm/aaci.c                        |   2 +-
+ sound/core/info.c                       |   4 +-
+ sound/core/jack.c                       |   2 +-
+ sound/core/oss/mixer_oss.c              |   2 +-
+ sound/core/oss/pcm_plugin.c             |   2 +-
+ sound/core/pcm.c                        |  12 ++--
+ sound/core/pcm_lib.c                    |   2 +-
+ sound/core/pcm_misc.c                   |   5 +-
+ sound/core/rawmidi.c                    |   2 +-
+ sound/core/seq/oss/seq_oss_init.c       |   4 +-
+ sound/core/seq/seq_midi_emul.c          |   6 +-
+ sound/core/seq/seq_midi_event.c         |   6 +-
+ sound/drivers/dummy.c                   |  24 +++----
+ sound/drivers/mts64.c                   |   4 +-
+ sound/drivers/opl3/opl3_drums.c         |   2 +-
+ sound/drivers/opl3/opl3_midi.c          |   6 +-
+ sound/drivers/opl4/opl4_synth.c         |   2 +-
+ sound/drivers/serial-u16550.c           |   2 +-
+ sound/drivers/vx/vx_cmd.c               |   2 +-
+ sound/drivers/vx/vx_core.c              |  12 ++--
+ sound/drivers/vx/vx_hwdep.c             |   2 +-
+ sound/drivers/vx/vx_mixer.c             |   2 +-
+ sound/hda/hdac_device.c                 |   4 +-
+ sound/hda/hdmi_chmap.c                  |   2 +-
+ sound/hda/intel-nhlt.c                  |   2 +-
+ sound/isa/cmi8328.c                     |  24 +++----
+ sound/isa/cmi8330.c                     |   8 +--
+ sound/isa/cs423x/cs4236_lib.c           |   2 +-
+ sound/isa/es1688/es1688.c               |   6 +-
+ sound/isa/es1688/es1688_lib.c           |   4 +-
+ sound/isa/es18xx.c                      |  10 +--
+ sound/isa/gus/gus_io.c                  |   2 +-
+ sound/isa/gus/gus_main.c                |   4 +-
+ sound/isa/gus/gus_volume.c              |   9 +--
+ sound/isa/gus/gusclassic.c              |   6 +-
+ sound/isa/gus/gusextreme.c              |  10 +--
+ sound/isa/gus/gusmax.c                  |   6 +-
+ sound/isa/gus/interwave.c               |  10 +--
+ sound/isa/opti9xx/miro.c                |  18 ++---
+ sound/isa/opti9xx/opti92x-ad1848.c      |  18 ++---
+ sound/isa/sb/emu8000.c                  |  16 ++---
+ sound/isa/sb/jazz16.c                   |  10 +--
+ sound/isa/sb/sb16.c                     |   8 +--
+ sound/isa/sb/sb8.c                      |   2 +-
+ sound/isa/sb/sb_mixer.c                 |  38 +++++-----
+ sound/isa/sc6000.c                      |   4 +-
+ sound/isa/wss/wss_lib.c                 |   6 +-
+ sound/pci/ac97/ac97_codec.c             |  10 +--
+ sound/pci/ac97/ac97_patch.c             |  26 +++----
+ sound/pci/ac97/ac97_pcm.c               |   4 +-
+ sound/pci/ak4531_codec.c                |   2 +-
+ sound/pci/asihpi/asihpi.c               |   4 +-
+ sound/pci/asihpi/hpimsgx.c              |   2 +-
+ sound/pci/atiixp.c                      |   2 +-
+ sound/pci/atiixp_modem.c                |   2 +-
+ sound/pci/au88x0/au88x0_core.c          |   2 +-
+ sound/pci/au88x0/au88x0_eq.c            |  22 +++---
+ sound/pci/au88x0/au88x0_eqdata.c        |  18 ++---
+ sound/pci/au88x0/au88x0_pcm.c           |   4 +-
+ sound/pci/aw2/aw2-tsl.c                 |   4 +-
+ sound/pci/azt3328.c                     |   2 +-
+ sound/pci/ca0106/ca0106_main.c          |   4 +-
+ sound/pci/ca0106/ca0106_mixer.c         |  14 ++--
+ sound/pci/cmipci.c                      |   8 +--
+ sound/pci/cs4281.c                      |   2 +-
+ sound/pci/cs46xx/cs46xx_lib.c           |   2 +-
+ sound/pci/cs46xx/dsp_spos.c             |   4 +-
+ sound/pci/cs46xx/dsp_spos_scb_lib.c     |   6 +-
+ sound/pci/ctxfi/ctdaio.c                |   4 +-
+ sound/pci/ctxfi/ctresource.c            |   2 +-
+ sound/pci/echoaudio/echoaudio.c         |   2 +-
+ sound/pci/emu10k1/emu10k1_main.c        |  12 ++--
+ sound/pci/emu10k1/emufx.c               |  14 ++--
+ sound/pci/emu10k1/emumixer.c            |  28 ++++----
+ sound/pci/emu10k1/emuproc.c             |  16 ++---
+ sound/pci/emu10k1/io.c                  |   4 +-
+ sound/pci/ens1370.c                     |   2 +-
+ sound/pci/es1938.c                      |   8 ++-
+ sound/pci/es1968.c                      |   4 +-
+ sound/pci/fm801.c                       |   2 +-
+ sound/pci/hda/hda_codec.c               |   6 +-
+ sound/pci/hda/hda_eld.c                 |   6 +-
+ sound/pci/hda/hda_intel.c               |   8 +--
+ sound/pci/hda/hda_proc.c                |   2 +-
+ sound/pci/hda/hda_sysfs.c               |   2 +-
+ sound/pci/hda/patch_analog.c            |   2 +-
+ sound/pci/hda/patch_ca0132.c            |  18 ++---
+ sound/pci/hda/patch_realtek.c           | 118 ++++++++++++++++----------------
+ sound/pci/ice1712/aureon.c              |   8 +--
+ sound/pci/ice1712/juli.c                |   6 +-
+ sound/pci/ice1712/maya44.c              |  10 +--
+ sound/pci/ice1712/phase.c               |   4 +-
+ sound/pci/ice1712/pontis.c              |   2 +-
+ sound/pci/ice1712/prodigy192.c          |   2 +-
+ sound/pci/ice1712/prodigy_hifi.c        |  16 ++---
+ sound/pci/ice1712/psc724.c              |   2 +-
+ sound/pci/ice1712/quartet.c             |   8 +--
+ sound/pci/ice1712/se.c                  |   8 +--
+ sound/pci/ice1712/vt1720_mobo.c         |   4 +-
+ sound/pci/ice1712/wtm.c                 |   6 +-
+ sound/pci/intel8x0.c                    |  28 ++++----
+ sound/pci/intel8x0m.c                   |  12 ++--
+ sound/pci/korg1212/korg1212.c           |   8 +--
+ sound/pci/lx6464es/lx_core.c            |   4 +-
+ sound/pci/mixart/mixart_hwdep.c         |   2 +-
+ sound/pci/mixart/mixart_mixer.c         |   4 +-
+ sound/pci/nm256/nm256.c                 |   4 +-
+ sound/pci/nm256/nm256_coef.c            |   4 +-
+ sound/pci/pcxhr/pcxhr.c                 |   2 +-
+ sound/pci/pcxhr/pcxhr_core.c            |   6 +-
+ sound/pci/pcxhr/pcxhr_hwdep.c           |   2 +-
+ sound/pci/riptide/riptide.c             |  60 ++++++++--------
+ sound/pci/rme9652/hdsp.c                |  14 ++--
+ sound/pci/rme9652/hdspm.c               |  66 +++++++++---------
+ sound/pci/rme9652/rme9652.c             |  10 +--
+ sound/pci/via82xx.c                     |   2 +-
+ sound/pci/vx222/vx222_ops.c             |   4 +-
+ sound/pci/ymfpci/ymfpci_main.c          |   8 +--
+ sound/pcmcia/pdaudiocf/pdaudiocf_core.c |   2 +-
+ sound/pcmcia/vx/vxp_ops.c               |   2 +-
+ sound/ppc/beep.c                        |   2 +-
+ sound/ppc/pmac.c                        |   8 +--
+ sound/ppc/pmac.h                        |   2 +-
+ sound/ppc/tumbler.c                     |  20 +++---
+ sound/ppc/tumbler_volume.h              |  12 ++--
+ sound/sh/aica.c                         |   4 +-
+ sound/sparc/cs4231.c                    |   4 +-
+ sound/sparc/dbri.c                      |   2 +-
+ sound/spi/at73c213.c                    |   2 +-
+ sound/synth/emux/emux_nrpn.c            |   4 +-
+ sound/synth/emux/emux_synth.c           |  10 +--
+ sound/synth/emux/soundfont.c            |   8 +--
+ sound/usb/bcd2000/bcd2000.c             |   4 +-
+ sound/usb/caiaq/audio.c                 |   2 +-
+ sound/usb/caiaq/control.c               |  20 +++---
+ sound/usb/caiaq/input.c                 |  10 +--
+ sound/usb/mixer.c                       |  60 ++++++++--------
+ sound/usb/mixer_maps.c                  |  56 +++++++--------
+ sound/usb/mixer_quirks.c                |   6 +-
+ sound/usb/mixer_scarlett.c              |  14 ++--
+ sound/usb/proc.c                        |   2 +-
+ sound/usb/stream.c                      |   4 +-
+ sound/usb/usx2y/usX2Yhwdep.c            |   2 +-
+ sound/usb/usx2y/usbusx2yaudio.c         |   6 +-
+ sound/usb/validate.c                    |   4 +-
+ 150 files changed, 677 insertions(+), 669 deletions(-)
+
+-- 
+2.16.4
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

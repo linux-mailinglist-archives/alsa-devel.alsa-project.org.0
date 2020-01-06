@@ -2,73 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96344130D60
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 07:04:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3769130EA6
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 09:30:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 299B517ED;
-	Mon,  6 Jan 2020 07:03:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 299B517ED
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39B7A17EA;
+	Mon,  6 Jan 2020 09:29:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39B7A17EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578290679;
-	bh=xELEvbf8aaPBXrW/o4tp99EQFJduNpclqGOcuyWVWgU=;
-	h=In-Reply-To:References:To:From:Date:Cc:Subject:List-Id:
+	s=default; t=1578299406;
+	bh=Jd3qd89M40XIVik42pQk5z4cobVuygriXcwSF6d245Q=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=K6hZ5esOvr+eDbSGifEwi7NXqZ5ey2eYhlqjW2o2Gmcp1zdLZpKPp1Ke1akobi10u
-	 +T+humPdhOFK+Yl0EUw0GzdxiKkax1dCE3kPCPVq6dC9in8qjuIqtMQDAobHBqDHSK
-	 u0l9G3kYIBOXm0E1jFPp1D9gxkhirRC+EaLvODco=
+	b=s+AzQsyNFTZjNQvZUw7Z9Xwqbo10nD6HnijoaYdj2KpM7Lbm5cdsnWhlRtBU3lWb0
+	 Z3xvBy+neVIu+9mZ4mXGwqgj/PIuEFEEEbyiag/LtDDR0R6Y9zqesMhQnMO8PSWSIu
+	 +iStRv1kUe+WHDIc7effZY2F0x3JCubOiUNpIS6I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5110F8010D;
-	Mon,  6 Jan 2020 07:02:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4BBE1F801ED;
+	Mon,  6 Jan 2020 09:28:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F336F80159; Mon,  6 Jan 2020 07:02:53 +0100 (CET)
+ id 1AD02F80159; Mon,  6 Jan 2020 09:28:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00FC8F8010D
- for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 07:02:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00FC8F8010D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="eJpHhyL6"
-Received: from kernel.org (unknown [104.132.0.74])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 49A5720848;
- Mon,  6 Jan 2020 06:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1578290566;
- bh=5hxva25df32tAsqNh8cqFx9odnLgu5hRKNw8HZPCLjk=;
- h=In-Reply-To:References:Cc:To:Subject:From:Date:From;
- b=eJpHhyL6Zn+jn0TWh26dV/uWPfkkWmsibBqQhvb21LVcA6A7krW1p2EYvzXNOKOcK
- ZHOPLcOkOfPCnDSxRNQ3b9pxbUrX2wYkH4wWSFdwiASwgMB9KVTYbGmcU+0aeg6ay6
- vV9ndySbUZQE22ipz4z55cTxtK2FyQVvBOuHX2Vk=
-MIME-Version: 1.0
-In-Reply-To: <20200106045833.1725-1-masahiroy@kernel.org>
-References: <20200106045833.1725-1-masahiroy@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>,
- Masahiro Yamada <masahiroy@kernel.org>
-From: Stephen Boyd <sboyd@kernel.org>
-User-Agent: alot/0.8.1
-Date: Sun, 05 Jan 2020 22:02:45 -0800
-Message-Id: <20200106060246.49A5720848@mail.kernel.org>
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
- Masahiro Yamada <masahiroy@kernel.org>, linux-kernel@vger.kernel.org,
- Julia Lawall <julia.lawall@lip6.fr>, linux-mtd@lists.infradead.org,
- linux-crypto@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] treewide: remove redundent IS_ERR() before
-	error code check
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92D6EF80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 09:28:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92D6EF80116
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id E7A1AAED6;
+ Mon,  6 Jan 2020 08:28:12 +0000 (UTC)
+Date: Mon, 06 Jan 2020 09:28:12 +0100
+Message-ID: <s5hmub1gfab.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nick Kossifidis <mickflemm@gmail.com>
+In-Reply-To: <CAFtRNNwdf1PMJnmRDbtioUXRBGdLcPtNxrvQ+4X8WFVAvU1DKg@mail.gmail.com>
+References: <5e02cab4.1c69fb81.83bec.f334@mx.google.com>
+ <s5heewq5f3d.wl-tiwai@suse.de>
+ <CAFtRNNwdf1PMJnmRDbtioUXRBGdLcPtNxrvQ+4X8WFVAvU1DKg@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: Add support for Presonus
+	Studio 1810c
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,30 +73,147 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Quoting Masahiro Yamada (2020-01-05 20:58:33)
-> 'PTR_ERR(p) == -E*' is a stronger condition than IS_ERR(p).
-> Hence, IS_ERR(p) is unneeded.
+On Mon, 06 Jan 2020 02:00:39 +0100,
+Nick Kossifidis wrote:
 > 
-> The semantic patch that generates this commit is as follows:
+> Hello Takashi, happy new year and thanks for the feedback,
 > 
-> // <smpl>
-> @@
-> expression ptr;
-> constant error_code;
-> @@
-> -IS_ERR(ptr) && (PTR_ERR(ptr) == - error_code)
-> +PTR_ERR(ptr) == - error_code
-> // </smpl>
 > 
-> Signed-off-by: Masahiro Yamada <masahiroy@kernel.org>
-> ---
+> On Fri, Dec 27, 2019 at 10:48 AM Takashi Iwai <tiwai@suse.de> wrote:
+> > > diff --git a/sound/usb/format.c b/sound/usb/format.c
+> > > index d79db7130..edf3f2a55 100644
+> > > --- a/sound/usb/format.c
+> > > +++ b/sound/usb/format.c
+> > > @@ -262,6 +262,23 @@ static int parse_uac2_sample_rate_range(struct snd_usb_audio *chip,
+> > >               }
+> > >
+> > >               for (rate = min; rate <= max; rate += res) {
+> > > +
+> > > +                     /*
+> > > +                      * Presonus Studio 1810c anounces invalid
+> > > +                      * sampling rates for its streams.
+> > > +                      */
+> > > +                     if (chip->usb_id == USB_ID(0x0194f, 0x010c) &&
+> > > +                     ((rate > 48000 && fp->altsetting == 1) ||
+> > > +                      ((rate < 88200 || rate > 96000)
+> > > +                       && fp->altsetting == 2) ||
+> > > +                      ((rate < 176400 || rate > 192000)
+> > > +                       && fp->altsetting == 3))) {
+> > > +                             if (res)
+> > > +                                     continue;
+> > > +                             else
+> > > +                                     break;
+> > > +                     }
+> >
+> > It's hard to imagine what result this would lead to, because the
+> > conditions are so complex.
+> > Maybe better to prepare a fixed table instead?  Or, can we simply take
+> > a fixed quirk?
+> >
+> 
+> I thought of using a fixed table but on the other hand the card does
+> support reporting rates via the UAC2-compliant command and I noticed
+> there are similar quirks on parse_audio_format_rates_v1. Maybe have a
+> new quirk function that we can call from within the for loop for both
+> UAC1/2 to filter misreported rates in one place ? I think it'll be
+> cleaner that way.
 
-For
+Let's try in some different ways and compare how they look like.
+If the current code is the best in the end, we should give some more
+comments about the resultant rate tables.
 
->  drivers/clk/clk.c                    | 2 +-
+> 
+> > > +static int
+> > > +snd_s1810c_switch_set(struct snd_kcontrol *kctl,
+> > > +                   struct snd_ctl_elem_value *ctl_elem)
+> > > +{
+> > > +     struct usb_mixer_elem_list *list = snd_kcontrol_chip(kctl);
+> > > +     struct usb_mixer_interface *mixer = list->mixer;
+> > > +     uint32_t curval = 0;
+> > > +     uint32_t newval = (uint32_t) ctl_elem->value.integer.value[0];
+> > > +     int ret = 0;
+> > > +
+> > > +     ret = snd_s1810c_get_switch_state(mixer, kctl, &curval);
+> > > +     if (ret < 0)
+> > > +             return 0;
+> > > +
+> > > +     if (curval == newval)
+> > > +             return 0;
+> > > +
+> > > +     kctl->private_value &= ~(0x1 << 16);
+> > > +     kctl->private_value |= (unsigned int)(newval & 0x1) << 16;
+> > > +     ret = snd_s1810c_set_switch_state(mixer, kctl);
+> >
+> > Hm, this can be racy.  The control get/put isn't protected, so you
+> > might get the inconsistency here when multiple kctls are accessed
+> > concurrently.
+> >
+> 
+> There is a lock on get/set_switch_state to serialize access to the
+> card, it should take care of that.
 
-Acked-by: Stephen Boyd <sboyd@kernel.org>
+The lock doesn't cover the two lines above fiddling with
+kctl->private_value.  That's the racy point.
 
+
+> > > +     .iface = SNDRV_CTL_ELEM_IFACE_MIXER,
+> > > +     .name = "Line 1/2 source type",
+> >
+> > The control name should consist of words starting with a capital
+> > letter, so it should be "Line 1/2 Source Type".
+> > Also, usually a control name needs a standard suffix.  Though, this
+> > has a special return enum type, so it can be OK as is.
+> >
+> > However...
+> >
+> > > +     .info = snd_s1810c_line_sw_info,
+> > > +     .get = snd_s1810c_switch_get,
+> > > +     .put = snd_s1810c_switch_set,
+> >
+> > ... this shows that the combination is invalid.  The enum type doesn't
+> > get/put the values in integer fields.  It's incompatible.
+> >
+> 
+> I didn't get that one, isn't enum type an integer ?
+
+No, it takes a different type, value.enumerated.item[].  It's an int
+array, while value.integer.value[] (which is used for
+SNDRV_CTL_ELEM_TYPE_BOOLEAN and SNDRV_CTL_ELEM_TYPE_INTEGER) is a long
+array, hence the size differs on 64bit arch.
+
+
+> All controls added
+> here are on/off switches and use the same get/set functions, I just
+> wanted to provide some more info for some of them so I added custom
+> .info functions.
+> 
+> > > +     .private_value = (SC1810C_STATE_LINE_SW | SC1810C_CTL_LINE_SW << 8)
+> > > +};
+> > > +
+> > > +static struct snd_kcontrol_new snd_s1810c_mute_sw = {
+> > > +     .iface = SNDRV_CTL_ELEM_IFACE_MIXER,
+> > > +     .name = "Mute Main Out",
+> >
+> > ... and this one, for example, should deserve for "Switch" suffix, as
+> > it's a standard boolean switch (which use integer fields unlike
+> > enum).
+> >
+> 
+> Isn't "Switch" superfluous ? I don't see anything similar on the mixer
+> controls of my other sound cards, e.g. it says "Mic Boost" not "Switch
+> Mic Boost on". Also I still don't get the enum part, how can this be a
+> standard boolean switch and the others not ? You mean because it uses
+> snd_ctl_boolean_mono_info ?
+
+There is a standard control name definition, see
+Documentation/sound/designs/control-names.rst.  "Mic Boost" is one of
+standard names, hence it's OK.  Although many drivers already don't
+follow that rule, you'll still see some conceptual idea there.
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

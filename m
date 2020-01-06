@@ -2,80 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D161E13181B
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 20:03:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 468C5131961
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 21:29:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64B951800;
-	Mon,  6 Jan 2020 20:02:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64B951800
+	by alsa0.perex.cz (Postfix) with ESMTPS id D465417E9;
+	Mon,  6 Jan 2020 21:28:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D465417E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578337390;
-	bh=2kqPv24aoMVgiYuLkbEEfFe1KCqVGXJzoOS+paJ2Img=;
-	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1578342577;
+	bh=9uUjcQxnIpnTOp0ro5E1QxmF+mWCNeZmZ6UUccQqM4E=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fimp0Gk2PKYW7dxi6nbpk5GdGtz27W/fic4PXHyYbHpGh834im1pE9/rOCRGQnFGa
-	 DQ87SAETwNv5zf1bt4EqBQLesVDqSUwxrJmW57/CD25o/Oj6SuU1ei/IPlVofWmvxZ
-	 jirBie869CiNCdDvxCZRUs20aFT1+UAmm7GpauPY=
+	b=hx4U+UBSVmAEXIEC11w9yfXaFXte+A25pl2tQivDaBvuBxYt3JCoXA4A8qiwtd9XM
+	 1hv/pa6OO0gfQUHrHrGr8XeWOIJjyIDtVtlhA2lG3tlIK1z2KE0gDfk81JvCn8sQsm
+	 87QVDX2Zjiw9FwQWimsdDtcrugWzHQOn+5VOOwZs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB1B9F801ED;
-	Mon,  6 Jan 2020 20:01:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ACE7AF801ED;
+	Mon,  6 Jan 2020 21:27:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07F33F8010C; Mon,  6 Jan 2020 20:01:25 +0100 (CET)
+ id 03703F80159; Mon,  6 Jan 2020 21:27:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk
- [78.40.148.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-14.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
+ [IPv6:2607:f8b0:4864:20::f41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1502F8010C
- for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 20:01:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1502F8010C
-Received: from [167.98.27.226] (helo=[10.35.5.173])
- by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
- id 1ioXca-0002ox-LX; Mon, 06 Jan 2020 19:01:00 +0000
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-To: Dmitry Osipenko <digetx@gmail.com>
-References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
- <20191018154833.7560-3-ben.dooks@codethink.co.uk>
- <d2110a1f-c1de-e2c5-a1ff-5eb4c5d3e1da@gmail.com>
- <b4e2ec44-bc89-b5ca-cfa7-a6d5c45a9c94@codethink.co.uk>
- <a11ba33e-5ffb-c5c6-04f5-0e031877c55f@gmail.com>
- <621fa27d-9259-2949-9cf5-d2eda5cb0677@gmail.com>
- <a0f027d9-e9e0-d76c-1e40-002fdc37eb5f@nvidia.com>
- <d43d518d-9336-a011-2a69-3f9331f6d0b4@codethink.co.uk>
- <aba4edd6-0ea5-5e95-c5a0-9e749587c763@nvidia.com>
- <449bdc3c-bf82-7cc4-6704-440dd100ca3a@gmail.com>
- <5d3ae629-5d30-0930-5dd1-15161e64926e@codethink.co.uk>
- <9daeeb94-2b90-18b8-2e1e-daae5acf079d@gmail.com>
- <fd73f68c-80f5-ac80-f6e4-42256d3df76d@codethink.co.uk>
- <37beb96a-a525-c72f-a7e1-e9ef5d61f3b2@gmail.com>
- <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
- <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
- <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
- <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
- <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
-Organization: Codethink Limited.
-Message-ID: <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
-Date: Mon, 6 Jan 2020 19:00:59 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B7C0F80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 21:27:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B7C0F80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="LaRblfDw"
+Received: by mail-qv1-xf41.google.com with SMTP id dp13so19610952qvb.7
+ for <alsa-devel@alsa-project.org>; Mon, 06 Jan 2020 12:27:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Ehi3gR4/fTR5JVw77KNnf5PCLSqYwCvb6eTcSS6sxKU=;
+ b=LaRblfDwWhyEeztWHAQ7YhQ7yFi+cBQh6Xc0wIB8J1ytaJK0O5CIE9Hdc/q5Lg2OvT
+ k1aYsPnaPSRLRnLSBNkeHQJ7h8QlQOvYjPyfQxzbBj4/rsCcZyZghOh+4tevKld8S4aR
+ ANOtHUVDX6AWEoMQlPvveD9mdUsGkX2YoL9OsofV2JNdpJCqdi8azXKet1GzQpWMCyre
+ Aa+irCCI13VQiVz5WMDkX5jmGhQ9F4AGXGMbADIsmKnCZun8dXJYrUB1PQn2BA1VzTaT
+ yLP6Tddmr/+OZb1m/0eWroxd0+1cKh2MQ1jkkGDYgltZVziXq8oYIcLCCdvUW85BDMEu
+ 6Ovg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Ehi3gR4/fTR5JVw77KNnf5PCLSqYwCvb6eTcSS6sxKU=;
+ b=qlhkqL5Ig8uSSlGV1u4UyFJxkLbiANJiEeTU0ls2QQba2NVtIT06azvRpxh7y75UUD
+ LPw+bZeDFr98TlVLf8m/onP0rC3tFupdk8I6UyNPFgBpguiw8TbcTMs+ZD2uFqvjf7mB
+ +o+wFL50um4ehF4VqvawEI6Li7eIApFffWsRiP+3M9j3+aB/UPz9tT8/+1JqEd7egE5Y
+ HeWtphqD2KUsZOJAptm/gw1IQwapBDUPPREYTJ4w2Hgf5sHimTs9ESKdXht6Zcr3nfQc
+ i4DCxEotMC6LTBhcfI3J11Oedf+cypz+hBCmf+9AYCWhpzaz0LhvvajhoF791PCAz0Q/
+ PQ/g==
+X-Gm-Message-State: APjAAAUy1IoVl+UNbj3e6w9AgCkmxelrqVsGSEeWUgLJF2rJaVMSymhX
+ F5QPKNGQ7LvssxqXiWN5XMhncq3Vfoz/OyuVHyf5xA==
+X-Google-Smtp-Source: APXvYqzZv2Ge5EK+fYUN2iqnW4gL7wkrDtCBc7s73GJ78KnuHLzTUj80kt8NJWz9477wUn159ke1jZh3auzfnSaeZNk=
+X-Received: by 2002:a05:6214:1907:: with SMTP id
+ er7mr80801732qvb.199.1578342466332; 
+ Mon, 06 Jan 2020 12:27:46 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
-Content-Language: en-GB
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org,
- Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
- 24bit and 32bit samples
+References: <20200103233401.160654-1-cujomalainey@chromium.org>
+ <f7420fdd-2591-225e-55e4-34e69ac5292c@linux.intel.com>
+In-Reply-To: <f7420fdd-2591-225e-55e4-34e69ac5292c@linux.intel.com>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Mon, 6 Jan 2020 12:27:35 -0800
+Message-ID: <CAOReqxio6Y6uDaa1fPnFTwm+5ynNk92ibYY8UT_PCsfJJUEJeA@mail.gmail.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Ben Zhang <benzh@chromium.org>, Jie Yang <yang.jie@linux.intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Pan Xiuli <xiuli.pan@linux.intel.com>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Alexios Zavras <alexios.zavras@intel.com>, Mark Brown <broonie@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Curtis Malainey <cujomalainey@chromium.org>,
+ Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [alsa-devel] [PATCH] ASoC: bdw-rt5677: add spi driver compile
+	switches
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,32 +102,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMDUvMDEvMjAyMCAxMDo1MywgQmVuIERvb2tzIHdyb3RlOgo+IAo+IAo+IE9uIDIwMjAtMDEt
-MDUgMDE6NDgsIERtaXRyeSBPc2lwZW5rbyB3cm90ZToKPj4gMDUuMDEuMjAyMCAwMzowNCwgQmVu
-IERvb2tzINC/0LjRiNC10YI6Cj4+PiBbc25pcF0KPj4+Cj4+PiBJJ3ZlIGp1c3QgZ29uZSB0aHJv
-dWdoIHRlc3RpbmcuCj4+Pgo+Pj4gU29tZSBzaW1wbGUgZGF0YSB0ZXN0cyBzaG93IDE2IGFuZCAz
-Mi1iaXRzIHdvcmsuCj4+Pgo+Pj4gVGhlIDI0IGJpdCBjYXNlIHNlZW1zIHRvIGJlIHdlaXJkLCBp
-dCBsb29rcyBsaWtlIHRoZSAyNC1iaXQgZXhwZWN0cwo+Pj4gMjQgYml0IHNhbXBsZXMgaW4gMzIg
-Yml0IHdvcmRzLiBJIGNhbid0IHNlZSBhbnkgcGFja2luZyBvcHRpb25zIHRvCj4+PiBkbyAyNCBi
-aXQgaW4gMjQgYml0LCBzbyB3ZSBtYXkgaGF2ZSB0byByZW1vdmUgMjQgYml0IHNhbXBsZSBzdXBw
-b3J0Cj4+PiAod2hpY2ggaXMgYSBzaGFtZSkKPj4+Cj4+PiBNeSBwcmVmZXJlbmNlIGlzIHRvIHJl
-bW92ZSB0aGUgMjQtYml0IHN1cHBvcnQgYW5kIGtlZXAgdGhlIDMyIGJpdCBpbi4KPj4+Cj4+Cj4+
-IEludGVyZXN0aW5nLi4gSm9uLCBjb3VsZCB5b3UgcGxlYXNlIGNvbmZpcm0gdGhhdCAyNGJpdCBm
-b3JtYXQgaXNuJ3QKPj4gdXNhYmxlIG9uIFQzMD8KPiAKPiBJZiB0aGVyZSBpcyBhbiBvcHRpb24g
-b2YgMjQgcGFja2VkIGludG8gMzIsIHRoZW4gSSB0aGluayB0aGF0IHdvdWxkIHdvcmsuCj4gCj4g
-SSBjYW4gdHJ5IHRlc3RpbmcgdGhhdCB3aXRoIHJhdyBkYXRhIG9uIE1vbmRheS4KCkkgbmVlZCB0
-byBjaGVjayBzb21lIHRoaW5ncywgSSBhc3N1bWVkIDI0IHdhcyAyNCBwYWNrZWQgYml0cywgaXQg
-bG9va3MKbGlrZSB0aGUgZGVmYXVsdCBpcyAyNCBpbiAzMiBiaXRzIHNvIHdlIG1heSBiZSBvay4g
-SG93ZXZlciBJIG5lZWQgdG8KcmUtd3JpdGUgbXkgdGVzdCBjYXNlIHdoaWNoIGFzc3VtZWQgaXQg
-d2FzIDI0Yml0cyBpbiAzIGJ5dGVzIChTMjRfM0xFKS4KCkknbGwgZm9sbG93IHVwIGxhdGVyLAoK
-CgotLSAKQmVuIERvb2tzCQkJCWh0dHA6Ly93d3cuY29kZXRoaW5rLmNvLnVrLwpTZW5pb3IgRW5n
-aW5lZXIJCQkJQ29kZXRoaW5rIC0gUHJvdmlkaW5nIEdlbml1cwoKaHR0cHM6Ly93d3cuY29kZXRo
-aW5rLmNvLnVrL3ByaXZhY3kuaHRtbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJv
-amVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbHNhLWRldmVsCg==
+On Fri, Jan 3, 2020 at 6:29 PM Pierre-Louis Bossart
+<pierre-louis.bossart@linux.intel.com> wrote:
+>
+>
+>
+> On 1/3/20 5:34 PM, Curtis Malainey wrote:
+> > If the SPI driver is not compiled in then the RT5677_SPI driver will not
+> > be included as well which will cause the bdw-rt5677 driver to fail to
+> > probe since the DSP components are managed by the RT5677_SPI driver. The
+> > solution is to remove them when the driver is not present as part of the
+> > build.
+>
+> it should be the other way around, this machine driver should have a
+> dependency on SPI and select RT5677_SPI?
+>
+> That said, even with this fix, I still see issues, somehow the
+> spi-RT5677AA component does not probe/register, see
+> https://github.com/thesofproject/linux/pull/1659
+>
+> There must be an additional issue with SPI support here.
+>
+Good point, we should select the dependencies. I commented on your bug
+as to what the issue might be.
+> >
+> > Signed-off-by: Curtis Malainey <cujomalainey@chromium.org>
+> > Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> > CC: Pan Xiuli <xiuli.pan@linux.intel.com>
+> > ---
+> >   sound/soc/intel/boards/bdw-rt5677.c | 4 ++++
+> >   1 file changed, 4 insertions(+)
+> >
+> > diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+> > index 2af8e5a62da84..d5ded2c545d2c 100644
+> > --- a/sound/soc/intel/boards/bdw-rt5677.c
+> > +++ b/sound/soc/intel/boards/bdw-rt5677.c
+> > @@ -74,11 +74,13 @@ static const struct snd_soc_dapm_route bdw_rt5677_map[] = {
+> >       /* CODEC BE connections */
+> >       {"SSP0 CODEC IN", NULL, "AIF1 Capture"},
+> >       {"AIF1 Playback", NULL, "SSP0 CODEC OUT"},
+> > +#if IS_ENABLED(CONFIG_SND_SOC_RT5677_SPI)
+> >       {"DSP Capture", NULL, "DSP Buffer"},
+> >
+> >       /* DSP Clock Connections */
+> >       { "DSP Buffer", NULL, "SSP0 CODEC IN" },
+> >       { "SSP0 CODEC IN", NULL, "DSPTX" },
+> > +#endif
+> >   };
+> >
+> >   static const struct snd_kcontrol_new bdw_rt5677_controls[] = {
+> > @@ -319,6 +321,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+> >               SND_SOC_DAILINK_REG(fe, dummy, platform),
+> >       },
+> >
+> > +#if IS_ENABLED(CONFIG_SND_SOC_RT5677_SPI)
+> >       /* Non-DPCM links */
+> >       {
+> >               .name = "Codec DSP",
+> > @@ -326,6 +329,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+> >               .ops = &bdw_rt5677_dsp_ops,
+> >               SND_SOC_DAILINK_REG(dsp),
+> >       },
+> > +#endif
+> >
+> >       /* Back End DAI links */
+> >       {
+> >
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

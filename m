@@ -2,91 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F27B130BE3
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 02:50:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50827130D36
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 06:34:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9CBA417FD;
-	Mon,  6 Jan 2020 02:49:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9CBA417FD
+	by alsa0.perex.cz (Postfix) with ESMTPS id CC8AE17EA;
+	Mon,  6 Jan 2020 06:33:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CC8AE17EA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578275437;
-	bh=44+acSH2A7K85wWCq3JbaHGIasij7q7AdF61Dd04wiA=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YJlN2dTdLSbukANo6ScMU1VX90dr06YaM3+uW8H0FKO9dIKhu58GzDslERw2vinMd
-	 GbKeC8XeXd+JwQTAh05fTEandocEUY6rJlI9t4k1jlHriB2YqQ64WxcvNKBmxeAL44
-	 g2iNakjL1piXfaQi1Ufji7EPofS5sZJBiaGAulk0=
+	s=default; t=1578288869;
+	bh=RoaDNJFkzBi8fN8zZO2evt9/xdL9VAC9H1iu1EMl/xc=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XwHcfd6UMS4OQ19qHTUoRUmgvyiPlIVwT97PTOBXJ2mJYwo0q7mI0ToRn8MmSPug3
+	 UVLz0sADs9ZqwRhkKEHrMiD0Z0mxokaPpYSTIajWGyKWKYjngTu4+pvS0JD4W/Nx7/
+	 zeOE9BzmaobDy24KQj4vLvMoVuqcZiJus9t2Htas=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE295F80140;
-	Mon,  6 Jan 2020 02:48:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 25FAEF801DA;
+	Mon,  6 Jan 2020 06:32:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4B12EF8014A; Mon,  6 Jan 2020 02:48:52 +0100 (CET)
+ id AAF85F80159; Mon,  6 Jan 2020 06:32:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5F4DCF8010D
- for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 02:48:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F4DCF8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id A255BF8010C
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 06:32:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A255BF8010C
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="nWysjDEF"
-Received: by mail-lj1-x242.google.com with SMTP id y6so41311765lji.0
- for <alsa-devel@alsa-project.org>; Sun, 05 Jan 2020 17:48:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=iEBeBtX3D+FecxXDkPEiiIV4CkPQmZtOza+gbuFwJ6Q=;
- b=nWysjDEFnf1ZW1KuOOtMZR3c8DXFeGoQ7Pkf0QqGQyTgGE4bUjSsvLIglzOM/Embgd
- +G/Wy46pZx7Mh4lJuIHmrT7Yr/AiDzSHQDCLmJpFSasUdy0CEB8/PDY714n2OX2aP0Jk
- TBjnXkgFulCTksMF+sROlNYzGwjAChVcXgLAsAHgIPR0p1fjlSOtnvsf0JynHxVR9lqU
- zUbb7fGzTbZcchQ4XvAn+5JE+v1ffZ/QuhG6Qfec7SmR99EZs4oT8Fcne5abr6jGWham
- H2pG9P92gUI3yDMgt5GUJWxbYH8BMMZCJHo1vZPgZ5727Sjc6Kw7VuMDwPrsq86VyNNd
- FIzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=iEBeBtX3D+FecxXDkPEiiIV4CkPQmZtOza+gbuFwJ6Q=;
- b=rXSW0tHXwWpAJl1Dbhx2JxX1af6I7P4c3K9TMsAXVAtAvEGiUpz/SprEoKD+WphW6B
- AVmY9St9WXZUhLvXWYbOIp5FRpC9+dozGBQsnvgLOZ6LC3CTM+hzMJ1MyBxlOIdET4q7
- 3YnMJkMIEI3ZYj128wPbwEeLATb+h/LYJjGUHBxYDWxXq3DsP2HXzZsTBrZXLHAt3x1y
- 5OpoCHASPMbCEmXJzdeGYnPb8Y5zOU5yo3mPjpKsZbiHeeS1YLJZZv3GZn96jpNA0hqe
- 0wN+5wXwTmcgf186Y2XW+ZpMqCvkPVPr0sabgGwrneQlSoZMndY6JfN01mqVtGONM45X
- JkMQ==
-X-Gm-Message-State: APjAAAUAEwQnWPLWKRp7Jj9QABBpu2DHPlSSG9KxI4EiqQHWbuZ/2rzC
- UX8hCzyTNX7xrVNP3AOxm5A=
-X-Google-Smtp-Source: APXvYqwDJIKUFFtDFfKjMDK2pI9tL+4EGshl7DCfCiqzjicOIBaD27gA1g1LXj+YNFMyhi1mP5VFYg==
-X-Received: by 2002:a2e:9a01:: with SMTP id o1mr56311153lji.247.1578275327908; 
- Sun, 05 Jan 2020 17:48:47 -0800 (PST)
-Received: from localhost.localdomain (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.gmail.com with ESMTPSA id e17sm28369857ljg.101.2020.01.05.17.48.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 05 Jan 2020 17:48:47 -0800 (PST)
-From: Dmitry Osipenko <digetx@gmail.com>
-To: Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Bard Liao <bardliao@realtek.com>,
- Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Takashi Iwai <tiwai@suse.com>
-Date: Mon,  6 Jan 2020 04:47:07 +0300
-Message-Id: <20200106014707.11378-1-digetx@gmail.com>
-X-Mailer: git-send-email 2.24.0
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="PhGYzVtI"
+Received: from localhost (unknown [117.99.94.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 24DEF215A4;
+ Mon,  6 Jan 2020 05:32:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1578288759;
+ bh=ec9ZGMCF/7dfhER2aWnXsCMCvBv3Cw5Zbedx2vWhQ7U=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=PhGYzVtIn/DFhU30uV0fPfiiyIb3S+jFzuVyumq1Qzyg+9fMWa9IoR2Q8B12Rv2Sp
+ 0kha2EpCTe88rlkV225h4stHBySL8NJdkEir+Fmivx7NyzAuNSm/z7UNN+wWByBdX/
+ qfmLZJXns85b1Do1rj8LQdY5lkaZ5N2vXfrq3oZA=
+Date: Mon, 6 Jan 2020 11:02:34 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20200106053234.GM2818@vkoul-mobl>
+References: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
+ <20191217210314.20410-9-pierre-louis.bossart@linux.intel.com>
+ <20191227071433.GL3006@vkoul-mobl>
+ <1922c494-4641-8c40-192d-758b21014fbc@linux.intel.com>
+ <20191228120930.GR3006@vkoul-mobl>
+ <820dbbcd-1401-4382-f5a2-9cdba1d6fcd5@linux.intel.com>
 MIME-Version: 1.0
-Cc: linux-tegra@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v2] ASoC: rt5640: Fix NULL dereference on
-	module unload
+Content-Disposition: inline
+In-Reply-To: <820dbbcd-1401-4382-f5a2-9cdba1d6fcd5@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v5 08/17] soundwire: add initial
+ definitions for sdw_master_device
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,62 +91,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The rt5640->jack is NULL if jack is already disabled at the time of
-driver's module unloading.
+On 02-01-20, 11:36, Pierre-Louis Bossart wrote:
 
-Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
----
+> Would this work for you if we used the following names:
+> 
+> sdw_slave (legacy shortcut for sdw_slave_device, which could be removed in a
+> a future cleanup if desired).
+> sdw_slave_driver
+> sdw_master_device
+> sdw_master_driver
+> 
+> and all the 'md' replaced by the full 'master_device'.
 
-Changelog:
+That does sound nicer, thanks
 
-v2: - Addressed review comment from Takashi Iwai by making patch's diff a
-      bit cleaner and simpler.
-
-    - Addressed review comment from Mark Brown by removing noisy backtrace
-      from the commit's message and moving it after --- in order to keep it
-      discoverable in the ML archive.
-
-Backtrace:
-
- Unable to handle kernel NULL pointer dereference at virtual address 00000024
- ...
- (rt5640_set_jack [snd_soc_rt5640])
- (snd_soc_component_set_jack [snd_soc_core])
- (soc_remove_component [snd_soc_core])
- (soc_cleanup_card_resources [snd_soc_core])
- (snd_soc_unregister_card [snd_soc_core])
- (tegra_rt5640_remove [snd_soc_tegra_rt5640])
- (platform_drv_remove)
- (device_release_driver_internal)
- (driver_detach)
- (bus_remove_driver)
- (tegra_rt5640_driver_exit
- (sys_delete_module)
-
- sound/soc/codecs/rt5640.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index adbae1f36a8a..747ca248bf10 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -2432,6 +2432,13 @@ static void rt5640_disable_jack_detect(struct snd_soc_component *component)
- {
- 	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
- 
-+	/*
-+	 * soc_remove_component() force-disables jack and thus rt5640->jack
-+	 * could be NULL at the time of driver's module unloading.
-+	 */
-+	if (!rt5640->jack)
-+		return;
-+
- 	disable_irq(rt5640->irq);
- 	rt5640_cancel_work(rt5640);
- 
 -- 
-2.24.0
-
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

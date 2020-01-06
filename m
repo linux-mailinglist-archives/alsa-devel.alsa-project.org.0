@@ -2,52 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64A1F13127C
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 14:03:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 245911312A1
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 14:13:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 73CF117FE;
-	Mon,  6 Jan 2020 14:03:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 73CF117FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id A20B21802;
+	Mon,  6 Jan 2020 14:13:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A20B21802
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578315834;
-	bh=JQsX23FzCduqbTgNhniqE/PT42F00KH34hnUaeNjFV8=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1578316435;
+	bh=obUW4yuwlmiSsc/O82MNtnccANXhxRgTYuH0UUSlZfQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=oQM/8TpHF+z0dQKLYhD85QDgWYcyQYjQBQUPmNPlcoZ4kWaVtST0S7zlDgdAePFTx
-	 GGHN9rkRaV2kxcYJg7AukdHZi4SgKLdGkNk07K80cUPfH36JK3hmu95yUzbSRWsAz+
-	 rnjQ4AhB0m+Sqdmu8OyNV+3K7SjxgHsa5IPSCefE=
+	b=a74g3E782iAcUoBD8AjVOQjWJebE7Ge6i9CqDIpTzhOW9htp1BYZTZ1MBjNRrb60y
+	 FUtte9oRc9yvI1XMVDqcIBwwlD4A7sz4JvEMMQ5OP7kZZj266DXzZWbcVkDyFVFpTA
+	 Ya5lBwS0UImSy6kKlLWPDZZjZLo2wEeov6HTPU1g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB702F80159;
-	Mon,  6 Jan 2020 14:02:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BCF92F80116;
+	Mon,  6 Jan 2020 14:12:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F016F80159; Mon,  6 Jan 2020 14:02:09 +0100 (CET)
+ id B9B1AF80159; Mon,  6 Jan 2020 14:12:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0E47FF8010C
- for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 14:02:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E47FF8010C
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F34C2328;
- Mon,  6 Jan 2020 05:02:03 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 784ED3F534;
- Mon,  6 Jan 2020 05:02:03 -0800 (PST)
-Date: Mon, 6 Jan 2020 13:02:02 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20200106130202.GA6448@sirena.org.uk>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 063E7F80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 14:12:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 063E7F80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="fe3L7AmN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1578316326;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=SC/5k3jXloywAD+A5e5Kko/Zr6C5D3RsCItukIr+alM=;
+ b=fe3L7AmNj8vHtGEzB4HaZyofG//8lRYoVqk9Aizsw0kAIdkTrUhSfnLjRhu8TiJ1Y+W5j4
+ nMioaFE9twRpr3KtqvrCyEBHLVGgPSi1bmzcaydGJ+aJHjjjYU/2+Cx8LPd3ZH55TgZNjM
+ +kOQwU2gh54H8JT6id26IKxb8HANABc=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-96-MRlefAt6Mp2S3nH70UYnbQ-1; Mon, 06 Jan 2020 08:12:04 -0500
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+ [10.5.11.14])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0DE0C8024D4;
+ Mon,  6 Jan 2020 13:12:03 +0000 (UTC)
+Received: from shalem.localdomain.com (ovpn-116-130.ams2.redhat.com
+ [10.36.116.130])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 74C065D9CA;
+ Mon,  6 Jan 2020 13:12:01 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Jaroslav Kysela <perex@perex.cz>
+Date: Mon,  6 Jan 2020 14:11:59 +0100
+Message-Id: <20200106131159.476744-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-X-Cookie: It's later than you think.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>
-Subject: [alsa-devel] [GIT PULL] ASoC fixes for v5.5
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-MC-Unique: MRlefAt6Mp2S3nH70UYnbQ-1
+X-Mimecast-Spam-Score: 0
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ youling 257 <youling257@gmail.com>
+Subject: [alsa-devel] [PATCH alsa-ucm-conf] bytcht-es8316: Fix missing
+	including of HeadPhones.conf after ucm2 conversion
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,107 +87,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5084857113339622359=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The conversion to ucm2 format missed adding an include for:
 
---===============5084857113339622359==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="VS++wcV0S1rZb1Fb"
-Content-Disposition: inline
+codecs/es8316/HeadPhones.conf
 
+Leading to no sound on the headphones output, this commit adds the missing
+include fixing this.
 
---VS++wcV0S1rZb1Fb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Cc: youling 257 <youling257@gmail.com>
+Reported-by: youling 257 <youling257@gmail.com>
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+---
+ ucm2/bytcht-es8316/HiFi-Components.conf | 2 ++
+ ucm2/bytcht-es8316/HiFi-LongName.conf   | 2 ++
+ 2 files changed, 4 insertions(+)
 
-The following changes since commit 556672d75ff486e0b6786056da624131679e0576:
-
-  ASoC: wm8962: fix lambda value (2019-12-16 11:47:28 +0000)
-
-are available in the Git repository at:
-
-  https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git tags/asoc-fix-v5.5-rc5
-
-for you to fetch changes up to ff3b57417012fcc963ec281f5705bed837e4b1ac:
-
-  ASoC: Intel: boards: Fix compile-testing RT1011/RT5682 (2020-01-03 00:56:47 +0000)
-
-----------------------------------------------------------------
-ASoC: Fixes for v5.5
-
-More fixes that have been collected, nothing super remarkable here - the
-few core fixes are mainly error handling related as are many of the
-driver fixes.
-
-----------------------------------------------------------------
-Arnd Bergmann (1):
-      ASoC: Intel: boards: Fix compile-testing RT1011/RT5682
-
-Chuhong Yuan (1):
-      ASoC: fsl_audmix: add missed pm_runtime_disable
-
-Colin Ian King (1):
-      ASoC: SOF: imx8: fix memory allocation failure check on priv->pd_dev
-
-Daniel Baluta (2):
-      ASoC: soc-core: Set dpcm_playback / dpcm_capture
-      ASoC: SOF: imx8: Fix dsp_box offset
-
-Dragos Tarcatu (1):
-      ASoC: topology: Prevent use-after-free in snd_soc_get_pcm_runtime()
-
-Kai Vehmanen (1):
-      ASoC: SOF: fix fault at driver unload after failed probe
-
-Olivier Moysan (3):
-      ASoC: stm32: spdifrx: fix inconsistent lock state
-      ASoC: stm32: spdifrx: fix race condition in irq handler
-      ASoC: stm32: spdifrx: fix input pin state management
-
-Pierre-Louis Bossart (1):
-      ASoC: SOF: Intel: hda: hda-dai: fix oops on hda_link .hw_free
-
-Takashi Iwai (1):
-      ASoC: core: Fix access to uninitialized list heads
-
- sound/soc/fsl/fsl_audmix.c                 |  9 ++++++-
- sound/soc/intel/boards/cml_rt1011_rt5682.c |  1 -
- sound/soc/soc-core.c                       | 14 ++++++-----
- sound/soc/soc-topology.c                   |  6 ++---
- sound/soc/sof/imx/imx8.c                   |  5 +++-
- sound/soc/sof/intel/hda-dai.c              | 11 ++++++--
- sound/soc/sof/ipc.c                        |  3 +++
- sound/soc/stm/stm32_spdifrx.c              | 40 +++++++++++++++++++-----------
- 8 files changed, 61 insertions(+), 28 deletions(-)
-
---VS++wcV0S1rZb1Fb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4TL8kACgkQJNaLcl1U
-h9Dorgf+P7tk1hvYIA7ejrrUXYuu3J6jDFTlRHIWUk8CFkyHSFgm6K371YjrEZn7
-aKMvn98NMjWZ5+pdsaWRcxUPHdIzrJo1xeCYu7U8CH82nNMESqswtH53L5HTYpB9
-JAiRmSVWg3ZmkndBdZAWPjUjwsSYPPVERAukdtVwuNUfywR/ZsLgoLUqwa4K+HPh
-0KOSPu57rp7npror0QX3Zthr43l6mQ5qFGE0fSEihPEBYcpq5kosjBZWe0aWzKcR
-3pMKoqsLan6i4T75bfGO1820eOtI3X0s1eV/cKnmtvWaYAoBFbXQw+r+2bFDY2Ig
-HNPjfrctaptbG/zeCg9VEez2YsRm9g==
-=A9dP
------END PGP SIGNATURE-----
-
---VS++wcV0S1rZb1Fb--
-
---===============5084857113339622359==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/ucm2/bytcht-es8316/HiFi-Components.conf b/ucm2/bytcht-es8316/HiFi-Components.conf
+index 314d355..c40bd49 100644
+--- a/ucm2/bytcht-es8316/HiFi-Components.conf
++++ b/ucm2/bytcht-es8316/HiFi-Components.conf
+@@ -20,6 +20,8 @@ If.mono {
+ 	}
+ }
+ 
++<codecs/es8316/HeadPhones.conf>
++
+ If.in1 {
+ 	Condition {
+ 		Type String
+diff --git a/ucm2/bytcht-es8316/HiFi-LongName.conf b/ucm2/bytcht-es8316/HiFi-LongName.conf
+index ea7d1c3..03cf17b 100644
+--- a/ucm2/bytcht-es8316/HiFi-LongName.conf
++++ b/ucm2/bytcht-es8316/HiFi-LongName.conf
+@@ -20,6 +20,8 @@ If.mono {
+ 	}
+ }
+ 
++<codecs/es8316/HeadPhones.conf>
++
+ If.in1 {
+ 	Condition {
+ 		Type String
+-- 
+2.24.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============5084857113339622359==--

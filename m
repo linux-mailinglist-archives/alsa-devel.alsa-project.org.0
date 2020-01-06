@@ -2,72 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 140AD131AD4
-	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 22:57:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0552131BDE
+	for <lists+alsa-devel@lfdr.de>; Mon,  6 Jan 2020 23:54:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB2A01802;
-	Mon,  6 Jan 2020 22:56:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB2A01802
+	by alsa0.perex.cz (Postfix) with ESMTPS id 12E8D180A;
+	Mon,  6 Jan 2020 23:53:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 12E8D180A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578347868;
-	bh=GwxpxZg1yYr/ro+YZH/wxPUx6WROYwycKmKrjk0kTLE=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1578351260;
+	bh=HtQoJhUpQ190zAoJ8t5NQ4fsVv5y53wKnTEmDrOhIJM=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DTHCAUB4E5ubDp536nYk6OpjDlU9+gPfBQW0gNSTds5hK5qJLTocAQMz2hk6qEiqq
-	 Mu89wAFYD+f6Z5Di/Gqo8Q6nPHEwJPkm9r80ZEjuEi+8YbfWj4FsJJ9WGE2ewwaDZw
-	 eU4ha1VK4wz3pAC2I34TEyeU2RgfwKR7PLimDKtM=
+	b=bYFIZcw7ECEpFMs74sno1YnVCWwG65y1CDIH8x9j1iG7c18LgHuYZkGRqS8Lo4vou
+	 3uzCDJI1lZhrvQCEJklkyqMc+qRPahV8Cuom8mROYyx2XBJPhnLIEkHh0iYPgyy33F
+	 f28hULcdhm3QYof30yFaOrSL/Ch8tU0nWZElcR8M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1A532F80159;
-	Mon,  6 Jan 2020 22:56:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A6E6F801ED;
+	Mon,  6 Jan 2020 23:52:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ABA67F80116; Mon,  6 Jan 2020 22:56:03 +0100 (CET)
+ id 0A604F80159; Mon,  6 Jan 2020 23:52:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x435.google.com (mail-wr1-x435.google.com
+ [IPv6:2a00:1450:4864:20::435])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE338F80116
- for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 22:55:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE338F80116
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Jan 2020 13:55:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,403,1571727600"; d="scan'208";a="245719807"
-Received: from chewang-mobl.amr.corp.intel.com (HELO [10.254.185.10])
- ([10.254.185.10])
- by fmsmga004.fm.intel.com with ESMTP; 06 Jan 2020 13:55:53 -0800
-To: Jon Hunter <jonathanh@nvidia.com>, Arnd Bergmann <arnd@arndb.de>,
- Mark Brown <broonie@kernel.org>
-References: <20191210195333.648018-1-arnd@arndb.de>
- <d739240f-aaa6-c310-9c68-16c1a08ce759@nvidia.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9c9169cc-0da5-f247-c8f7-f6913ca2bfb5@linux.intel.com>
-Date: Mon, 6 Jan 2020 15:55:53 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id B8051F8010C
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 23:52:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B8051F8010C
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="DbB7eUCM"
+Received: by mail-wr1-x435.google.com with SMTP id j42so51702994wrj.12
+ for <alsa-devel@alsa-project.org>; Mon, 06 Jan 2020 14:52:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=D1j8jZVUSsBQvFFq7ND5bKifuO7/9j3R8mpqNXycss8=;
+ b=DbB7eUCMydaveFkWM03gVSUnTMY8fOlyY3tl/v+jtsNqxM5s7SKdK0PaCB7z5ZLy6p
+ 6W9dAydfQ5Pw4W60mGjJOlFgfP6rG3NMy0c0TGJ8Srqpd2h/UinRaYAJ77fi2OyZT1GT
+ 8O9tR5fAUStqvqNnPTmS6mmzapuiCosTZw8rSawRufU4ZvpSo+uk9f7MjWd83DLkYUWZ
+ /5X9Y0VHHHMH7oNu/8/rmD5PyIKbM75HCIHlIGUfcBss6ya9oZ/2wy7a1l7NsAYqDQWB
+ bh9sCEX1E6GfkEovLKlresTMbRBbpqFn0m1qt9JeW8k14LdCPuduNeAXtMGnHqNz98j8
+ eXTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=D1j8jZVUSsBQvFFq7ND5bKifuO7/9j3R8mpqNXycss8=;
+ b=BbMgK3sxCHqVk4WFdTpFLxs6/wJ8/dq6JKfo2fAZuHoibhS7tzqZ6CxPwnssc5T3FX
+ zI+XaxvbIMGLeLL3/OHHT8Pr1wdJg7F8CVEPkrqyNPz7drBCNM1z5+Mw+HmrzUuO30UG
+ qdioffnjzljd68oCYHoLUZ1/6k3xvX3uVWn0DqcgnPgO7ZtYd7fwUDHriaCwVie25LH5
+ HjgAuCXLEUsoDWey80zfiwbE2Pb/UuwX3svfHJDBrXaqob1LWxQ0a6zbyIdj9EEWrVT9
+ IL2OGcULznwsAJ9K9fre7yoo4V2dgteOD/AMcIIQOJsim0MP6lVJB+c5pVzwfl6BVxZ4
+ TC1Q==
+X-Gm-Message-State: APjAAAWeGkstmc6JHZOkMjesljDcfyQoB/CS1yg22qLCyXfY8KAljlwD
+ T+eetLMq//LmbSbByydiaf8=
+X-Google-Smtp-Source: APXvYqw/dUShK5hUfS+L2LHeI4OXMrtKaD+p66I9kevOgRq4PEXFaQeZtaiYPEsKO11laLafTf3tOA==
+X-Received: by 2002:adf:a746:: with SMTP id e6mr110131971wrd.329.1578351146663; 
+ Mon, 06 Jan 2020 14:52:26 -0800 (PST)
+Received: from localhost.localdomain ([46.216.160.87])
+ by smtp.gmail.com with ESMTPSA id b10sm76576468wrt.90.2020.01.06.14.52.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jan 2020 14:52:26 -0800 (PST)
+Received: from [127.0.0.1] (helo=jeknote.loshitsa1.net)
+ by localhost.localdomain with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <jekhor@gmail.com>)
+ id 1iobEW-0002Ec-NL; Tue, 07 Jan 2020 01:52:24 +0300
+Date: Tue, 7 Jan 2020 01:52:20 +0300
+From: Yauhen Kharuzhy <jekhor@gmail.com>
+To: Hans de Goede <hdegoede@redhat.com>
+Message-ID: <20200106225217.GA5999@jeknote.loshitsa1.net>
+References: <20200106102116.GA96770@jeknote.loshitsa1.net>
+ <4cb71b85-f296-1276-06a9-53ef9c1f2909@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <d739240f-aaa6-c310-9c68-16c1a08ce759@nvidia.com>
-Content-Language: en-US
-Cc: Cezary Rojewski <cezary.rojewski@intel.com>, linux-tegra@vger.kernel.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, Jie Yang <yang.jie@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ben Zhang <benzh@chromium.org>, Thierry Reding <thierry.reding@gmail.com>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Curtis Malainey <cujomalainey@chromium.org>,
- linux-arm-kernel@lists.infradead.org,
- KaiChieh Chuang <kaichieh.chuang@mediatek.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: rt5677: add SPI_MASTER dependency
+Content-Disposition: inline
+In-Reply-To: <4cb71b85-f296-1276-06a9-53ef9c1f2909@redhat.com>
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Right place for defining ACPI GPIO mapping for
+	codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,79 +102,87 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 12/11/19 4:59 AM, Jon Hunter wrote:
+On Mon, Jan 06, 2020 at 12:09:32PM +0100, Hans de Goede wrote:
+> Hi,
 > 
-> On 10/12/2019 19:52, Arnd Bergmann wrote:
->> When CONFIG_SPI is disabled, the newly added code for the DSP
->> firmware loading fails to link:
->>
->> ERROR: "rt5677_spi_hotword_detected" [sound/soc/codecs/snd-soc-rt5677.ko] undefined!
->> ERROR: "rt5677_spi_write" [sound/soc/codecs/snd-soc-rt5677.ko] undefined!
+> On 06-01-2020 11:21, Yauhen Kharuzhy wrote:
+> > Hello,
+> > 
+> > I am working now to get sound working at Lenovo Yoga Book tablet. It is
+> > Intel CherryTrail-based device and has RT5677 sound codec.
+> > 
+> > The RT5677 codec driver uses two GPIOs to reset and enable the codec,
+> > with names 'realtek,reset' and 'realtek,pow-ldo2'. The ACPI definition lacks a
+> >   _DSD section with GPIO name->CRS ID definition, so I need to manually
+> > define this mapping somewhere using existing
+> > devm_acpi_dev_add_driver_gpios() method (various devices has various _CRS
+> >   definitions order and content, so this is cannot be placed into
+> > rt5677.c codec driver).
+> > 
+> > The most obvious place for this is ASoC machine driver for my device, but the
+> > codec driver is binded to the ACPI device and initializes before machine
+> > driver.
+> > 
+> > Can somebody advice how to define such GPIOs mapping for codec in my
+> > case?
 > 
-> Would it be better if the above functions or the functions that call
-> these are conditional on CONFIG_SND_SOC_RT5677_SPI?
+> Hmm, so normally I would say to move the devm_gpiod_get_optional calls
+> into the component probe part of the codec driver (rt5677_probe) which
+> does run after the machine driver, but it seems that the GPIOs must
+> be driven to the correct values before we can do any i2c transfers.
+> 
+> You could move everything below (and including) the devm_gpiod_get_optional calls
+> from rt5677_i2c_probe to the top of rt5677_probe, but then you will also
+> be moving these calls:
+> 
+>         rt5677_init_gpio(i2c);
+>         ret = rt5677_init_irq(i2c);
+> 
+> Which register a GPIO chip themselves, which may be a dependency for probing
+> other bits of the sound stack so moving those 2 calls is a bad idea.
+> 
+> This means that the codec-driver itself and specifically the  rt5677_i2c_probe()
+> function is pretty much the only remaining place where you can add the
+> devm_acpi_dev_add_driver_gpios() call. Note that you may also need to set some
+> pdata settings. For the rt5640 and rt5651 drivers we set some device properties
+> from the machine driver and check those in the component probe function. But
+> rt5677 already depends on various props inside the i2c probe function.
+> 
+> Note that taking care of machine specific bits in the codec driver is not
+> unheard of, the rt5645.c also does this and includes a DMI table for this
+> even though typically this would be more appropriate for the machine driver.
+> 
+> So in this case given the constraints I think it is fine to de a DMI match
+> and add the devm_acpi_dev_add_driver_gpios() call based on that to the
+> codec driver itself, like we are doing in sound/soc/codecs/rt5645.c, you
+> can then also set some of the pdata based on the DMI match as needed.
+> 
+> For now I would not worry about making this generic, my suggestion would
+> be to add a "rt5677_lenovo_yogabook_fixup" function which stars with the
+> DMI check (and bails if it fails) and then does whatever you need wrt
+> both the devm_acpi_dev_add_driver_gpios() call and the pdata settings.
+> 
+> And then add a call to rt5677_lenovo_yogabook_fixup() directly under the
+> rt5677_read_device_properties() call in rt5677_i2c_probe().
+> 
+> We can worry about making the X86 machine specific fixups more generic
+> when we need to add them for a second X86 device.
+> 
+> Regards,
+> 
+> Hans
 
-they are already conditional, with a fallback provided:
+OK, thanks for the answer. This sounds not ideal but reasonable, I will go
+by such way.
 
-#if IS_ENABLED(CONFIG_SND_SOC_RT5677_SPI)
-int rt5677_spi_read(u32 addr, void *rxbuf, size_t len);
-int rt5677_spi_write(u32 addr, const void *txbuf, size_t len);
-int rt5677_spi_write_firmware(u32 addr, const struct firmware *fw);
-void rt5677_spi_hotword_detected(void);
-#else
-static inline int rt5677_spi_read(u32 addr, void *rxbuf, size_t len)
-{
-	return -EINVAL;
-}
-static inline int rt5677_spi_write(u32 addr, const void *txbuf, size_t len)
-{
-	return -EINVAL;
-}
-static inline int rt5677_spi_write_firmware(u32 addr, const struct 
-firmware *fw)
-{
-	return -EINVAL;
-}
-static inline void rt5677_spi_hotword_detected(void){}
-#endif
 
-and since we have the following definition
-
-config SND_SOC_RT5677_SPI
-	tristate
-	default SND_SOC_RT5677 && SPI
-
-in theory if SPI is not enabled the fallback static inlines would always 
-be selected?
-
-Arnd, if you can share the .config that exposes this problem it'd be nice
-
-FWIW, there are other missing dependencies, the SPI controller was not 
-explicitly enabled so depending on the Kconfigs used by a distro the 
-machine driver probe could fail with the spi-RT5677AA component never 
-registered. The patch below seems to work for me (more testing needed)
-
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index b149e28a2076..cf1a2fde4c47 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -50,6 +50,9 @@ config SND_SOC_INTEL_BDW_RT5677_MACH
-         depends on I2C_DESIGNWARE_PLATFORM || COMPILE_TEST
-         depends on GPIOLIB || COMPILE_TEST
-         depends on X86_INTEL_LPSS || COMPILE_TEST
-+       depends on SPI_MASTER
-+       select SPI_PXA2XX
-+       select SND_SOC_RT5677_SPI
-         select SND_SOC_RT5677
-         help
-           This adds support for Intel Broadwell platform based boards with
+-- 
+Yauhen Kharuzhy
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

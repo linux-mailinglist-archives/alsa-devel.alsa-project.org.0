@@ -2,93 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B48F7132434
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2020 11:55:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8BD613243C
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2020 11:55:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41468182F;
-	Tue,  7 Jan 2020 11:54:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41468182F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 540421839;
+	Tue,  7 Jan 2020 11:55:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 540421839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578394507;
-	bh=l2uTm09tGGniZdFtHt8leF9rfIm4mL2UdO9/OH9mdRQ=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MHii3bvBkwtw+Wu1+AHQS+L9xLjwjT+A+UdSISoHGYQqtDpdUQGVpPppbF45oN1FL
-	 XmUnh4D8/zE0s/ojHgMGVSG8uIqZxleBvv+7PwRt9ojt43PGETiQXmtTRqn/H4Alyo
-	 8YwH+DMHNkgMkonpE1Bbl42HKIcAE+ANIXMELCiQ=
+	s=default; t=1578394551;
+	bh=LVVmxriyPEk98OAH97e2X8i3fpwFytEhtGX8KaRyS/Y=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZIZ7bSWS8SUDQJqCS7E/y+IGVQjMTuxqwh8Z8pisfhbzwgwIZLW7Rdit79nvU3ijd
+	 FJ4xY3TVBEbXKiSwiGTsyoUhLgfclvgrsiwBD/07g9KWKTrHeg2B49376u4IbCwgLV
+	 h0q8WK4Sm8s+TPpMt76jmbwoEpc5dtxK4yNZ+vUo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 56617F8014A;
-	Tue,  7 Jan 2020 11:53:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86975F801F5;
+	Tue,  7 Jan 2020 11:53:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F7F8F80149; Mon,  6 Jan 2020 10:38:22 +0100 (CET)
+ id 17DF5F80159; Mon,  6 Jan 2020 11:21:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x42f.google.com (mail-wr1-x42f.google.com
+ [IPv6:2a00:1450:4864:20::42f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D26F1F8010D
- for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 10:38:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D26F1F8010D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 673BAF80116
+ for <alsa-devel@alsa-project.org>; Mon,  6 Jan 2020 11:21:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 673BAF80116
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=bgdev-pl.20150623.gappssmtp.com
- header.i=@bgdev-pl.20150623.gappssmtp.com header.b="D1o966Mx"
-Received: by mail-io1-xd41.google.com with SMTP id t26so47961624ioi.13
- for <alsa-devel@alsa-project.org>; Mon, 06 Jan 2020 01:38:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bgdev-pl.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=k2+obkL6rebOtdriVSVT+QmM5oPrNk9dBLg/jYY+wfo=;
- b=D1o966MxyHxQctJ7rWTwJMt3NjGv7Dvvox7er9lgSNNvWFHHGJwcWONCfWtZi6gN+G
- sRs4vR0DB2EcpFyAOnNBrO6Ga7QtFeR72FBTF9427T+497Qzcfm+8pl2pbBszlc9JvVQ
- 5lkYYgLVWA+odDpMbgsGqK5RaUIs7BmqtrPT75mjcq5Cps8QL2hw57ZZN4r24h+9vHFL
- a+0FUA2QZ2/EndxTc3PDJardW9IZ7lhDOn+2+dkqYDe/IvqXD733Uy0eoMyHFCObNslD
- T6Kj74zvZbASdqOn7QT7jqwZ2Hbx2etpk6CtUIx5rIfvpbv2lv5teqA/qj36BoqxsUw4
- LIzg==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="G4O8qzKx"
+Received: by mail-wr1-x42f.google.com with SMTP id q10so10051293wrm.11
+ for <alsa-devel@alsa-project.org>; Mon, 06 Jan 2020 02:21:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:subject:message-id:mime-version:content-disposition;
+ bh=U78EkAreQ2rmU9b/KhWK5Or4TUfnpuLAcwK2R/08pig=;
+ b=G4O8qzKx661V/bQtdGiuVLG1Sqi2x1v366H1ps/EJHY6NmiOUKh9H10Y+Nqcjp3ms7
+ Jtj8NorhAws3OQpkDPwiTX7iwP9sY779/opjWhm0lx5KECmX26999J8jbHcta0aqCvIl
+ 2nqLlZo5WiiYPQaXgOrzUFXvSAP1yrI+V3taGuQl8CUHkzIDCGKLtdtGtJ3YQkiTNgMx
+ lRlmqPrngACIvk0wRnIa96/toMRP+dLXTOc3wJ/8XOJp+4ntxuMmG59tqo20G8rhKunY
+ VbUyrf8jPJK0QiF9k9+iFeIbSZrcVHMXOu6QtKmgVjhx+OuDxcsTGH02CDhjGjtkVuao
+ fTKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=k2+obkL6rebOtdriVSVT+QmM5oPrNk9dBLg/jYY+wfo=;
- b=rCEo0YPYubxjUz/BXzeXdgpUiD95U++z901p4ZSTOwoyFSic1qSpBj3s1s378WYzk9
- ZGrV9Sh+9sW2hPeJZRjwFvCTpkizP6VnB75KjxVgts9pPeuogZ/iV6JpvirmcJWVIoIr
- NJs20lg6a2hOQE+Ta7LbfNg3pE12fwDQwf7D5f5vCbe3khAM4OreClThZwil2bpBgtDO
- jHnZGWcgmF4QOy9zsT8be3U9XkEGZew6XWjUIKSuomk36WwkpUvT+nM2i310TFEi6aNV
- pbkKx/yWNev7aaRJ6Ho0IJgjsBMa9dMggmTJTpXllcTjbHXd7yebK9vY7oEHbjRV6ysJ
- gm/g==
-X-Gm-Message-State: APjAAAVRDDwcukzThH3RUdKuj7Fu7mCw6cmEO3ujbynJAhNac9AMTOQU
- HmXwc/l/d5+GnIvf6v3uVl2c3LD1yEHJhm9LHD6FVA==
-X-Google-Smtp-Source: APXvYqzE32XYz3+At4KghXnJsLBu7odv7vp28Pnk5lZat2Vp4MBrZzHnDvUV6gAXMdReOEfzJCGFp0QdxKmkLf29OSM=
-X-Received: by 2002:a5d:9dd9:: with SMTP id 25mr58696986ioo.287.1578303496369; 
- Mon, 06 Jan 2020 01:38:16 -0800 (PST)
+ h=x-gm-message-state:date:from:to:subject:message-id:mime-version
+ :content-disposition;
+ bh=U78EkAreQ2rmU9b/KhWK5Or4TUfnpuLAcwK2R/08pig=;
+ b=DlI6Af72+3G3O8Qny54Pzb3PRTbJaPxOFez+NvbxaPcAUlrd0v7cjHoHTHKdmNchQ2
+ pqoZhO97IDHjEkQJMh7w8Z6PdDapqVGUrFl7DBncYOMVyvxhANp7oURIm4Ny0PLpW5h+
+ gKiPPYW0frpOj1fhl63jBos/5SeUSkQorpC1kU08kI77alrV32e8AOV12cdcXBztFXW0
+ /MFrLMmqetRZLmPBrDTzWWk19u6NBvYPzf9EeW5eWdoXuH1Od2Y4rYao2MA8mAxKwpYj
+ 27pzR36jAIY49KqKwoUxLDOuZtm9gNIlHUQ/iR8ULe9RIu5gKPAlaqvSTde7Wrehzuvw
+ ozPA==
+X-Gm-Message-State: APjAAAU/y0Q46PG1Zp5jw6Oy2p359SSQa7g5hS9WNZNlKLdTZuna48AZ
+ awvxoWTAbawZSLzQPsdp+VjSqTmg
+X-Google-Smtp-Source: APXvYqw8R6VNgiMvp+K7bl0O7U2PmxT3NUdut2T4BhLETatUWmDt0hLfTPsWo//80KpN5nnhPke1qg==
+X-Received: by 2002:adf:e290:: with SMTP id v16mr106380379wri.16.1578306085919; 
+ Mon, 06 Jan 2020 02:21:25 -0800 (PST)
+Received: from localhost.localdomain ([46.216.160.87])
+ by smtp.gmail.com with ESMTPSA id x18sm71909850wrr.75.2020.01.06.02.21.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 06 Jan 2020 02:21:25 -0800 (PST)
+Received: from [127.0.0.1] (helo=jeknote.loshitsa1.net)
+ by localhost.localdomain with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.93)
+ (envelope-from <jekhor@gmail.com>)
+ id 1ioPVj-000PMt-Hn; Mon, 06 Jan 2020 13:21:23 +0300
+Date: Mon, 6 Jan 2020 13:21:16 +0300
+From: Yauhen Kharuzhy <jekhor@gmail.com>
+To: alsa-devel@alsa-project.org, Hans de Goede <hdegoede@redhat.com>
+Message-ID: <20200106102116.GA96770@jeknote.loshitsa1.net>
 MIME-Version: 1.0
-References: <20200106045833.1725-1-masahiroy@kernel.org>
-In-Reply-To: <20200106045833.1725-1-masahiroy@kernel.org>
-From: Bartosz Golaszewski <brgl@bgdev.pl>
-Date: Mon, 6 Jan 2020 10:38:05 +0100
-Message-ID: <CAMRc=MeTC8X9wDV7bowEvjPxjUNH8hXSJC79iy9s9W9Yn6Fh8A@mail.gmail.com>
-To: Masahiro Yamada <masahiroy@kernel.org>
+Content-Disposition: inline
 X-Mailman-Approved-At: Tue, 07 Jan 2020 11:53:23 +0100
-Cc: devicetree <devicetree@vger.kernel.org>, alsa-devel@alsa-project.org,
- Julia Lawall <julia.lawall@lip6.fr>, linux-acpi@vger.kernel.org,
- netdev <netdev@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- "open list:MEMORY TECHNOLOGY..." <linux-mtd@lists.infradead.org>,
- linux-crypto@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
- linux-clk <linux-clk@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- linux-i2c <linux-i2c@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH] treewide: remove redundent IS_ERR() before
-	error code check
+Subject: [alsa-devel] Right place for defining ACPI GPIO mapping for codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,21 +96,117 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-cG9uLiwgNiBzdHkgMjAyMCBvIDA2OjAwIE1hc2FoaXJvIFlhbWFkYSA8bWFzYWhpcm95QGtlcm5l
-bC5vcmc+IG5hcGlzYcWCKGEpOgo+Cj4gJ1BUUl9FUlIocCkgPT0gLUUqJyBpcyBhIHN0cm9uZ2Vy
-IGNvbmRpdGlvbiB0aGFuIElTX0VSUihwKS4KPiBIZW5jZSwgSVNfRVJSKHApIGlzIHVubmVlZGVk
-Lgo+Cj4gVGhlIHNlbWFudGljIHBhdGNoIHRoYXQgZ2VuZXJhdGVzIHRoaXMgY29tbWl0IGlzIGFz
-IGZvbGxvd3M6Cj4KPiAvLyA8c21wbD4KPiBAQAo+IGV4cHJlc3Npb24gcHRyOwo+IGNvbnN0YW50
-IGVycm9yX2NvZGU7Cj4gQEAKPiAtSVNfRVJSKHB0cikgJiYgKFBUUl9FUlIocHRyKSA9PSAtIGVy
-cm9yX2NvZGUpCj4gK1BUUl9FUlIocHRyKSA9PSAtIGVycm9yX2NvZGUKPiAvLyA8L3NtcGw+Cj4K
-PiBTaWduZWQtb2ZmLWJ5OiBNYXNhaGlybyBZYW1hZGEgPG1hc2FoaXJveUBrZXJuZWwub3JnPgoK
-Rm9yIEdQSU86CgpBY2tlZC1ieTogQmFydG9zeiBHb2xhc3pld3NraSA8YmdvbGFzemV3c2tpQGJh
-eWxpYnJlLmNvbT4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0
-dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZl
-bAo=
+Hello,
+
+I am working now to get sound working at Lenovo Yoga Book tablet. It is
+Intel CherryTrail-based device and has RT5677 sound codec.
+
+The RT5677 codec driver uses two GPIOs to reset and enable the codec,
+with names 'realtek,reset' and 'realtek,pow-ldo2'. The ACPI definition lacks a
+ _DSD section with GPIO name->CRS ID definition, so I need to manually
+define this mapping somewhere using existing
+devm_acpi_dev_add_driver_gpios() method (various devices has various _CRS
+ definitions order and content, so this is cannot be placed into
+rt5677.c codec driver).
+
+The most obvious place for this is ASoC machine driver for my device, but the
+codec driver is binded to the ACPI device and initializes before machine
+driver.
+
+Can somebody advice how to define such GPIOs mapping for codec in my
+case?
+
+
+The ACPI definition of sound device is below. Second I2C address
+definition is for TS3A277E jack detector. The first GPIO in the _CRS is
+codec reset, the second is pow-ldo2.
+
+Device (RTEK)
+{
+    Name (_ADR, Zero)  // _ADR: Address
+    Name (_HID, "10EC5677")  // _HID: Hardware ID
+    Name (_CID, "10EC5677")  // _CID: Compatible ID
+    Name (_DDN, "Realtek IIS Audio Codec")  // _DDN: DOS Device Name
+    Name (_SUB, "17AA7005")  // _SUB: Subsystem ID
+    Name (_UID, One)  // _UID: Unique ID
+    Name (_PR0, Package (0x01)  // _PR0: Power Resources for D0
+    {
+        CLK3
+    })
+    Name (CHAN, Package (0x02)
+    {
+        One, 
+        0x0124F800
+    })
+    Method (_CRS, 0, NotSerialized)  // _CRS: Current Resource Settings
+    {
+        Name (SBUF, ResourceTemplate ()
+        {
+            I2cSerialBusV2 (0x002C, ControllerInitiated, 0x000186A0,
+                AddressingMode7Bit, "\\_SB.PCI0.I2C1",
+                0x00, ResourceConsumer, , Exclusive,
+                )
+            I2cSerialBusV2 (0x003B, ControllerInitiated, 0x000186A0,
+                AddressingMode7Bit, "\\_SB.PCI0.I2C1",
+                0x00, ResourceConsumer, , Exclusive,
+                )
+            GpioIo (Exclusive, PullDefault, 0x0000, 0x0000, IoRestrictionOutputOnly,
+                "\\_SB.GPO3", 0x00, ResourceConsumer, ,
+                )
+                {   // Pin list
+                    0x0019
+                }
+            GpioIo (Exclusive, PullDefault, 0x0000, 0x0000, IoRestrictionOutputOnly,
+                "\\_SB.GPO3", 0x00, ResourceConsumer, ,
+                )
+                {   // Pin list
+                    0x0012
+                }
+            GpioIo (Exclusive, PullDefault, 0x0000, 0x0000, IoRestrictionOutputOnly,
+                "\\_SB.GPO3", 0x00, ResourceConsumer, ,
+                )
+                {   // Pin list
+                    0x0030
+                }
+            GpioInt (Edge, ActiveLow, Exclusive, PullNone, 0x0000,
+                "\\_SB.GPO0", 0x00, ResourceConsumer, ,
+                )
+                {   // Pin list
+                    0x005B
+                }
+            GpioInt (Edge, ActiveLow, Exclusive, PullNone, 0x0000,
+                "\\_SB.GPO0", 0x00, ResourceConsumer, ,
+                )
+                {   // Pin list
+                    0x004D
+                }
+            SpiSerialBusV2 (0x0001, PolarityLow, FourWireMode, 0x08,
+                ControllerInitiated, 0x003D0900, ClockPolarityHigh,
+                ClockPhaseSecond, "\\_SB.PCI0.SPI1",
+                0x00, ResourceConsumer, , Exclusive,
+                )
+        })
+        Return (SBUF) /* \_SB_.PCI0.I2C1.RTEK._CRS.SBUF */
+    }
+
+    Method (_STA, 0, NotSerialized)  // _STA: Status
+    {
+        Return (0x0F)
+    }
+
+    Method (_DIS, 0, NotSerialized)  // _DIS: Disable Device
+    {
+    }
+}
+
+-- 
+Yauhen Kharuzhy
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

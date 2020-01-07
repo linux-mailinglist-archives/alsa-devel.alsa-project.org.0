@@ -2,72 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8A3B133537
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2020 22:50:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 265DF1335BE
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2020 23:30:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1930E1833;
-	Tue,  7 Jan 2020 22:49:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1930E1833
+	by alsa0.perex.cz (Postfix) with ESMTPS id A20F51835;
+	Tue,  7 Jan 2020 23:29:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A20F51835
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578433847;
-	bh=lQNUQvV7INsB/vZ+y77ZZ6nfNBONHtEaD8bXkVXWOh8=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ARsJkDjn3rBMpX1tNPeOLIXdlS9BQ7Vi4P6XLCgjHyEyVLKAJRADyeEQarP4JUlJJ
-	 wRcY5A4My3NE6uv0OLjQ36Npx+TC+TAg/QBUCA2d+dMF3m/donbkiCbdBGNQyK4Cjt
-	 +YAk7DJ6m7HBQBLm+7SfZik9PpUOLoovEsAzTCrQ=
+	s=default; t=1578436216;
+	bh=J4aZ/nXOkbLBis1ACdCjVuNFrZo/Jvbt9Wz9zUUFjVk=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ObCuj47IJRfnd504NLOlR/Ifox7Tj1toZaYNnkIOk3ekm6WmetTGDOtcou4Wi8VQD
+	 3Q7Weh5Jdio2zzrMqxsq+vK3z74jiYKSes1iVqUSzK+/8krPZ9r242HjviurGgMHj+
+	 gNzvs5i9uzrcf3jwSCJb3ZPyVPmYaKpoJDUyGIYc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 276DBF801EB;
-	Tue,  7 Jan 2020 22:49:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BC5C7F8010B;
+	Tue,  7 Jan 2020 23:28:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF49EF8010B; Tue,  7 Jan 2020 22:49:02 +0100 (CET)
+ id 63EA5F8014A; Tue,  7 Jan 2020 23:28:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2F3EF8010B
- for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2020 22:48:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2F3EF8010B
-Received: from threadripper.lan ([149.172.19.189]) by mrelayeu.kundenserver.de
- (mreue010 [212.227.15.129]) with ESMTPA (Nemesis) id
- 1MhDIw-1jK8o71gSg-00eM6j; Tue, 07 Jan 2020 22:48:49 +0100
-From: Arnd Bergmann <arnd@arndb.de>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- "Angus Ainslie (Purism)" <angus@akkea.ca>
-Date: Tue,  7 Jan 2020 22:48:35 +0100
-Message-Id: <20200107214846.1284981-1-arnd@arndb.de>
-X-Mailer: git-send-email 2.20.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18ED8F8010B
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2020 23:28:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18ED8F8010B
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YmOBvRNw"
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 627A520715
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2020 22:28:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1578436102;
+ bh=Ng4X0689ET8txDYg+HTSgh4A/4430emIWmGDU7xejoo=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=YmOBvRNwxn2p4VVNlN1mtPMiHLf88IILl9CU5zsl8oDc2tEKa1JDkDCVyO4Wy/9qd
+ Yw8vOC7S8QS09Rv6JU0fD4t8I+ojDUHRjDHedmMf3Oi43gBxQs2Q98Q6n0QgUy6HIQ
+ OHTtvmHiGFEn6GyDZhW85HM98ibHSVCqqa6rv8CU=
+Received: by mail-qk1-f175.google.com with SMTP id z14so918863qkg.9
+ for <alsa-devel@alsa-project.org>; Tue, 07 Jan 2020 14:28:22 -0800 (PST)
+X-Gm-Message-State: APjAAAXvUp2uzsqyOESnbl9IoD4VHqtpBdn+6KS7jBOfsC0hRtxBqZ1U
+ WLC6sy9NthFdv0Rkh/eRb5TVnnvHNllxFmuXnA==
+X-Google-Smtp-Source: APXvYqxoOQxfocQW4kA6khk+aHJU2pwVfyqaD/KAMlGk5ufz1LIdR6mv3ZWKi1+rUBmcLJKspMa+7b9aCsoIRm4X5cM=
+X-Received: by 2002:a05:620a:1eb:: with SMTP id
+ x11mr1635519qkn.254.1578436101562; 
+ Tue, 07 Jan 2020 14:28:21 -0800 (PST)
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:hgbuQXLAyzDG0JLdaoMrLoDWbahmQuVhsc4uo1Y42HSztF/U8X6
- ljgOSi6NbIyjXc8pJuuPyyWWjY072XKl1nZa7gRqaSj3b4pZgsBevH/oICmQTvNFF9RE+UY
- Yt/NlSvRPQ5SU/coEP7/isRi1nD3iTQ1/xutnEX1rWhdL8H9l3g4n8rxw3IdBgwzi/ZyyHL
- nU2NpbirZydu/iaPee/Kw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:jDD5zrkTayQ=:EN/mtN5KHU2cVxtZeZDCMk
- xgZ8H2BYL/ixmxZ21NFKyG8bp3R+i/nAS3f2NjnUeasNXyDUXajUdENyH3nmi6yTtt3Dhvgre
- Poh/0wVsfsDZ4DK9V4TnRa6Z68admVkVOfm0g1ek52Tu0+bRvK7lcMxIYVEFf553fR0c23Bvs
- 86Gt00GpxtUp/oE7SckjPvm/uMZixOwkfIF4ZpGkWuvAuxdOaEPpdgm1nZuoVeDCGiydd+KOZ
- 5YfjJ1gm86kTl8lsA92siTw93yXTQ955iv8g0zqd7uw+bvH7aBsaKHD3zEs6sM3GnuWN3BAqL
- VRQbRvCmqm0ihoL8xVv3f/x4IeJOxSkt0ivi1akTjbnDTtvH/qQ6YlqGrgqMcmf5RD7jiIZ+l
- E7/fLjM1L/P6Gw3nbmsMw5MQ6TnjH/XX7pt8EgvrFcRS7uT7vXBolHHTcwTDt4SGCdl/JHw7e
- +oJ8ebXrMr+AP0RCNNANLnWpNuXAfMBnWXaumkfRKNRlpW72PdKAaPMoof/MxsdmSdCRuwQW2
- 8a/ESpXM4Enx7dQqwGZ7qmrQAr7j9/RPaLKmlxhbqqxxvtevQWwpIjEZv2i+CIM+aBalhIFzv
- 5VF69/WbcNqNGu/g0ANcsycf3hmgsb6p7KIqQHIQ95ifkcf7HWwbwf6Ej4iF/iqceGEVu370b
- yBEB/v9uLgQKHn2yMXUGpmltxwyQXGavNZqrNKey0t9cMhdqID8AGx+MYerkako8yxFKjyIUN
- OEn82awYzjE5t9T5Rd1L8qlkGeVaPelqx5rZGI8rQhCjeZz65uHTo0JXZHDIXTJ7s87lS3kIS
- FgidAOeuevJObQ50bHXv4L660UbaB6NlG1LAyBViHHO+b6q9gwVkwRvlgR+gGpsPxvqsgIW8l
- 6RkABryq024BZXlNUo7A==
-Cc: alsa-devel@alsa-project.org, Arnd Bergmann <arnd@arndb.de>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Thomas Gleixner <tglx@linutronix.de>, Enrico Weigelt <info@metux.net>,
- Allison Randal <allison@lohutok.net>
-Subject: [alsa-devel] [PATCH] ASoC: gtm601: fix build warning
+References: <20191219103153.14875-1-srinivas.kandagatla@linaro.org>
+ <20191219103153.14875-9-srinivas.kandagatla@linaro.org>
+ <CACRpkdYc-kB4Kx690FnU=3CwnjFdQhdxofGguFAAs_j==C=nmQ@mail.gmail.com>
+ <1a027d45-6082-1697-ccf2-4a5be9a3591a@linaro.org>
+In-Reply-To: <1a027d45-6082-1697-ccf2-4a5be9a3591a@linaro.org>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 7 Jan 2020 16:28:09 -0600
+X-Gmail-Original-Message-ID: <CAL_JsqJksUGvLJeYbeP3zv_TtSe0NBWfrTmUsVes1KrwJW0Ahw@mail.gmail.com>
+Message-ID: <CAL_JsqJksUGvLJeYbeP3zv_TtSe0NBWfrTmUsVes1KrwJW0Ahw@mail.gmail.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Banajit Goswami <bgoswami@codeaurora.org>,
+ Vinod Koul <vinod.koul@linaro.org>, Linus Walleij <linus.walleij@linaro.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>,
+ spapothi@codeaurora.org
+Subject: Re: [alsa-devel] [PATCH v6 08/11] dt-bindings: gpio: wcd934x: Add
+	bindings for gpio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,46 +100,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The driver produces warnings without CONFIG_OF, and makes
-no sense without it either:
+On Tue, Jan 7, 2020 at 4:17 AM Srinivas Kandagatla
+<srinivas.kandagatla@linaro.org> wrote:
+>
+>
+>
+> On 07/01/2020 09:47, Linus Walleij wrote:
+> > On Thu, Dec 19, 2019 at 11:33 AM Srinivas Kandagatla
+> > <srinivas.kandagatla@linaro.org> wrote:
+> >
+> >> Qualcomm Technologies Inc WCD9340/WCD9341 Audio Codec has integrated
+> >> gpio controller to control 5 gpios on the chip. This patch adds
+> >> required device tree bindings for it.
+> >>
+> >> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+> >> Reviewed-by: Rob Herring <robh@kernel.org>
+> >
+> > Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+> >
+> > Tell me if you want me to merge this patch through the GPIO tree.
+> >
+> Yes that would be great!. gpio bindings and gpio driver can go via gpio
+> tree as there is no compile time dependency. Also Mark has already
+> merged the audio codec side of it.
 
-sound/soc/codecs/gtm601.c:50:34: error: 'bm818_dai' defined but not used [-Werror=unused-variable]
- static struct snd_soc_dai_driver bm818_dai = {
-                                  ^~~~~~~~~
-sound/soc/codecs/gtm601.c:32:34: error: 'gtm601_dai' defined but not used [-Werror=unused-variable]
- static struct snd_soc_dai_driver gtm601_dai = {
-                                  ^~~~~~~~~~
+But there is a dependency because dt_binding_check is now broken as
+the codec schema references this GPIO schema. Not much to do about
+this now other than get the GPIO schema into -next.
 
-Remove the #ifdef check to avoid the warning.
-
-Fixes: 057a317a8d94 ("ASoC: gtm601: add Broadmobi bm818 sound profile")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
- sound/soc/codecs/gtm601.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/sound/soc/codecs/gtm601.c b/sound/soc/codecs/gtm601.c
-index 7f05ebcb88d1..ae9e1c70ca57 100644
---- a/sound/soc/codecs/gtm601.c
-+++ b/sound/soc/codecs/gtm601.c
-@@ -87,14 +87,12 @@ static int gtm601_platform_probe(struct platform_device *pdev)
- 			(struct snd_soc_dai_driver *)dai_driver, 1);
- }
- 
--#if defined(CONFIG_OF)
- static const struct of_device_id gtm601_codec_of_match[] = {
- 	{ .compatible = "option,gtm601", .data = (void *)&gtm601_dai },
- 	{ .compatible = "broadmobi,bm818", .data = (void *)&bm818_dai },
- 	{},
- };
- MODULE_DEVICE_TABLE(of, gtm601_codec_of_match);
--#endif
- 
- static struct platform_driver gtm601_codec_driver = {
- 	.driver = {
--- 
-2.20.0
-
+Rob
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

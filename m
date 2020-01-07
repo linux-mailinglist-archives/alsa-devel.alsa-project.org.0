@@ -2,86 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B3D1323EC
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2020 11:41:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE760132560
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2020 12:56:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 500D7181D;
-	Tue,  7 Jan 2020 11:40:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 500D7181D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5E06E182B;
+	Tue,  7 Jan 2020 12:55:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E06E182B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578393666;
-	bh=47prFzq6NQSAomil+gbOKDA8itgTtQ1MwRHfj9I4scE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1578398178;
+	bh=/GpLyHNFT6WtYTrz0bP3rVCrrKmAXb2g7QU2yiqrpuk=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KfctIQlyxP20/OBUrcDey7fSQg+YPvbJjzbfT1liTn2592B2LKy3DfMkYboC4LcD5
-	 Ye1wByPRWICvg6aLbaCFSpdrA14TGveNddWrialHLgHDKS6RMUdHujCCaJHCz30V5N
-	 +7xP+ysPND1z98J8zq+H3rZr4kciz1vBdlMVWubI=
+	b=VHksuGtdoKUMcf1OZMnsj09+uymMbHTYdeLsEaGhya0z3gMnjKxF3wFP/Q0Wv5iLW
+	 koyi2VUhLAq+7+6wNsd5vES9ufp+4BMQQj2nncbmPudUJKWzhcu0cqchklJbldXwK6
+	 X1h0bpHFXLZ3RVxNXoRRPxW/4pk+h8c9h194ZQqk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5470F8010D;
-	Tue,  7 Jan 2020 11:39:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7E884F801EB;
+	Tue,  7 Jan 2020 12:54:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36F86F8014A; Tue,  7 Jan 2020 11:39:23 +0100 (CET)
+ id F0EA5F8014A; Tue,  7 Jan 2020 12:54:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_NONE,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AA65BF8010B
- for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2020 11:39:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AA65BF8010B
-Received: from mail-qt1-f181.google.com ([209.85.160.181]) by
- mrelayeu.kundenserver.de (mreue106 [212.227.15.145]) with ESMTPSA (Nemesis)
- id 1MuDsZ-1jh0FX2AqT-00uXdS for <alsa-devel@alsa-project.org>; Tue, 07 Jan
- 2020 11:39:18 +0100
-Received: by mail-qt1-f181.google.com with SMTP id g1so4556497qtr.13
- for <alsa-devel@alsa-project.org>; Tue, 07 Jan 2020 02:39:18 -0800 (PST)
-X-Gm-Message-State: APjAAAWsvTd3rlDK2rH77TPGUai4S58LeIvX/0wNBRsr/yrEFph0xNVb
- WXJpyO3nTnekQLu3zPImdyf86gH0OgMS6KFTxiw=
-X-Google-Smtp-Source: APXvYqyZhmN1eLl6pt96KksAU6g7g17LqbBD1ix7k6Tl4UknhAbwyEGN+KnksbzRm55kVluXwuoazvSU6xkSWIKNn+U=
-X-Received: by 2002:ac8:47d3:: with SMTP id d19mr77340587qtr.142.1578393557482; 
- Tue, 07 Jan 2020 02:39:17 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78E2CF8010D
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2020 12:54:30 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 68C32A003F;
+ Tue,  7 Jan 2020 12:54:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 68C32A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1578398070; bh=izrHSAxfOMBujDEpmws/4YpRYbdRqfoTtmBuUugHreY=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=jjYEdiq7utC3TxRG9GdRTMhO31uv0H6qUGkufOdBuZjox6eW0sSAr1DWswqu5WjIE
+ z9CC2/Mt5X9myZcYcBxuNOcK5pvc17EFmcpkULDjrnLSDJtUQUmNhTTdax0YWtHAOQ
+ XKrMhiQs7ia8AwrpSuGANPFNoUC4RlSplo57DWpg=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue,  7 Jan 2020 12:54:26 +0100 (CET)
+To: Hans de Goede <hdegoede@redhat.com>
+References: <20200106131159.476744-1-hdegoede@redhat.com>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <9f6ffcbe-10fe-91fa-3998-029c2837a39d@perex.cz>
+Date: Tue, 7 Jan 2020 12:54:25 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-References: <20191218163701.171914-1-arnd@arndb.de>
- <CACRpkdbqzLUNUjx_kt3-7JLZym2RZ47edW5qp0MgXmpW4-Xf9Q@mail.gmail.com>
-In-Reply-To: <CACRpkdbqzLUNUjx_kt3-7JLZym2RZ47edW5qp0MgXmpW4-Xf9Q@mail.gmail.com>
-From: Arnd Bergmann <arnd@arndb.de>
-Date: Tue, 7 Jan 2020 11:39:01 +0100
-X-Gmail-Original-Message-ID: <CAK8P3a2BoVcdgRZqYutA=_SVHLtJwQzP3mKKN-q8n1ROj_iPgw@mail.gmail.com>
-Message-ID: <CAK8P3a2BoVcdgRZqYutA=_SVHLtJwQzP3mKKN-q8n1ROj_iPgw@mail.gmail.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-X-Provags-ID: V03:K1:KzwVab4sF4ncM0UCr0rZa1TgG8j6hLpw21yFIqfGz575Cvog3KI
- 4i+O4pYkFMAebrVpBlpAADXKeQ56+L/zVn8R2rktOB9TFm6uNIgugTLASDvNq9GCvl9h0H5
- +vJyUfRxAlEBPOn8CS3BChs5NAHSBK3T49PslKvCYAvE9sLml1dtNWBXnAWNIAGJjReo6kJ
- RYjFRzqKoNoZdE8tmZAMQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:GfQP1XaPnZk=:Je5LX+G7indbKnesktahR4
- 2e1lZakdP4rSTTk6P60F6YZDY1XHJrqPLZhMYx9aQhLODaFNoVe0ot2j0h/P1yelS9viN5HTS
- QfgpZBYUDgXQtXbT1I9xOWXjH69W27jpVAdHVNqH60uMjtYotahvU80H5uM8yuyWUUj0MizZL
- hzx9k4SnWTkTI1CM57ol1vftn4JVGAbiqk5QAQrWWWnItietTrjF2fs8TckRxFnI0OjhDe2t+
- l+9R34n5fSTufyRMSctjeD2iEcomCsQUsUHUFXPjNqtwV6frgzN6JkB9qeqg9G4ltEIXHfsgm
- q0kMOt975Rw8UxoUpVXgm5cJfuNkdCxiwKiPyPM2eRycB8faidWmWvfePvI6G1w3eIywuiHKJ
- GO7feR4sfhWjtsO1a5uA0FyU6FUSdZXmRaruH70wo5zYR79pX7JDj2x0xGvD7Q27BGTuf3iQC
- 4YQqzid/BCWEmm9p/WW5haMoC0Bke7taB7JK8FHpfgg9IjoaJdIzZ1wPhrPZrUG0uo0Pnxol6
- tria9+5tB6qKG/peoFc6ftfnaRTWThKCeOCNaFOYJseVRxbqNTaIQApoNH27Kn8xbw9IeWdqg
- mq/bkAvmSHPbyJxQ5qv4L3HrCZgp16r6EdFF359pj05eb6bWK18HdMjGr+KDuhTSQca+6KOVQ
- xDliMKRgutUgaFsJhp+WMZInDyHA0IcnQLa0DB5yOc1Bj8S3bnc36A5y2OmvzMnGSUAgwZr56
- gRd3hMjp0AIum48RIqyozHt46er/oAlwwueimbaMcbzoiJvtptLX8j3AtCoopB3pjIKrRsR6O
- 9/H1p6Xw5XqG3BHnDz0cNii7xUVEqfZDzNXioK6gvy6UDccFcOnj9wgvEaIoipF56tG3ui2Ny
- y2iehlTgRgUMWAu+fImg==
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, Charles Keepax <ckeepax@opensource.cirrus.com>,
- patches@opensource.cirrus.com,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Richard Fitzgerald <rf@opensource.cirrus.com>
-Subject: Re: [alsa-devel] [PATCH] pinctrl: lochnagar: select GPIOLIB
+In-Reply-To: <20200106131159.476744-1-hdegoede@redhat.com>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ youling 257 <youling257@gmail.com>
+Subject: Re: [alsa-devel] [PATCH alsa-ucm-conf] bytcht-es8316: Fix missing
+ including of HeadPhones.conf after ucm2 conversion
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,24 +78,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jan 7, 2020 at 10:45 AM Linus Walleij <linus.walleij@linaro.org> wrote:
-> On Wed, Dec 18, 2019 at 5:37 PM Arnd Bergmann <arnd@arndb.de> wrote:
-> > I wonder if GPIOLIB should just become mandatory when enabling the pinctrl
-> > subsystem, or if there are still good reasons for leaving it disabled
-> > on any machine that uses CONFIG_PINCTRL.
->
-> Hm that is a tricky question, they almost always come in pair but are
-> technically speaking separate subsystems.
+Dne 06. 01. 20 v 14:11 Hans de Goede napsal(a):
+> The conversion to ucm2 format missed adding an include for:
+> 
+> codecs/es8316/HeadPhones.conf
+> 
+> Leading to no sound on the headphones output, this commit adds the missing
+> include fixing this.
 
-I think there are a number of use cases for GPIOLIB drivers without PINCTRL, but
-are there any examples of the reverse?
+Applied. Thank you for the fix.
 
-       Arnd
+					Jaroslav
+
+> 
+> Cc: youling 257 <youling257@gmail.com>
+> Reported-by: youling 257 <youling257@gmail.com>
+> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
+> ---
+>   ucm2/bytcht-es8316/HiFi-Components.conf | 2 ++
+>   ucm2/bytcht-es8316/HiFi-LongName.conf   | 2 ++
+>   2 files changed, 4 insertions(+)
+> 
+> diff --git a/ucm2/bytcht-es8316/HiFi-Components.conf b/ucm2/bytcht-es8316/HiFi-Components.conf
+> index 314d355..c40bd49 100644
+> --- a/ucm2/bytcht-es8316/HiFi-Components.conf
+> +++ b/ucm2/bytcht-es8316/HiFi-Components.conf
+> @@ -20,6 +20,8 @@ If.mono {
+>   	}
+>   }
+>   
+> +<codecs/es8316/HeadPhones.conf>
+> +
+>   If.in1 {
+>   	Condition {
+>   		Type String
+> diff --git a/ucm2/bytcht-es8316/HiFi-LongName.conf b/ucm2/bytcht-es8316/HiFi-LongName.conf
+> index ea7d1c3..03cf17b 100644
+> --- a/ucm2/bytcht-es8316/HiFi-LongName.conf
+> +++ b/ucm2/bytcht-es8316/HiFi-LongName.conf
+> @@ -20,6 +20,8 @@ If.mono {
+>   	}
+>   }
+>   
+> +<codecs/es8316/HeadPhones.conf>
+> +
+>   If.in1 {
+>   	Condition {
+>   		Type String
+> 
+
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

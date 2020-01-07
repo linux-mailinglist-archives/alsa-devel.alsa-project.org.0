@@ -2,70 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE760132560
-	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2020 12:56:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17647132582
+	for <lists+alsa-devel@lfdr.de>; Tue,  7 Jan 2020 13:00:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E06E182B;
-	Tue,  7 Jan 2020 12:55:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E06E182B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 466DF1835;
+	Tue,  7 Jan 2020 12:59:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 466DF1835
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578398178;
-	bh=/GpLyHNFT6WtYTrz0bP3rVCrrKmAXb2g7QU2yiqrpuk=;
+	s=default; t=1578398414;
+	bh=sRMJ/Fa9e1+q5R99MFUolKOUvG1PC8f6KBc9FzKZ6+0=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VHksuGtdoKUMcf1OZMnsj09+uymMbHTYdeLsEaGhya0z3gMnjKxF3wFP/Q0Wv5iLW
-	 koyi2VUhLAq+7+6wNsd5vES9ufp+4BMQQj2nncbmPudUJKWzhcu0cqchklJbldXwK6
-	 X1h0bpHFXLZ3RVxNXoRRPxW/4pk+h8c9h194ZQqk=
+	b=Q1d+tAEA2sWdODEbtibqtS+z3drNokTX+Rx1jWiwOYVIN+yiv8ZBgaHNL+APhGEBD
+	 slMzRIW94fn7w8AQWAbg0qKjZvzpF8PyoxpYL0KML2bnW+ZwQh46YTMLauzQPGW9Ry
+	 L7lDW3NgrKmvaFB4EKSzatOu5gwqmG9UngUV+Isw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E884F801EB;
-	Tue,  7 Jan 2020 12:54:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 394F3F801EB;
+	Tue,  7 Jan 2020 12:58:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F0EA5F8014A; Tue,  7 Jan 2020 12:54:33 +0100 (CET)
+ id 462C2F8014A; Tue,  7 Jan 2020 12:58:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78E2CF8010D
- for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2020 12:54:30 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 68C32A003F;
- Tue,  7 Jan 2020 12:54:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 68C32A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1578398070; bh=izrHSAxfOMBujDEpmws/4YpRYbdRqfoTtmBuUugHreY=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=jjYEdiq7utC3TxRG9GdRTMhO31uv0H6qUGkufOdBuZjox6eW0sSAr1DWswqu5WjIE
- z9CC2/Mt5X9myZcYcBxuNOcK5pvc17EFmcpkULDjrnLSDJtUQUmNhTTdax0YWtHAOQ
- XKrMhiQs7ia8AwrpSuGANPFNoUC4RlSplo57DWpg=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue,  7 Jan 2020 12:54:26 +0100 (CET)
-To: Hans de Goede <hdegoede@redhat.com>
-References: <20200106131159.476744-1-hdegoede@redhat.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <9f6ffcbe-10fe-91fa-3998-029c2837a39d@perex.cz>
-Date: Tue, 7 Jan 2020 12:54:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 51706F80116
+ for <alsa-devel@alsa-project.org>; Tue,  7 Jan 2020 12:58:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 51706F80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="NxEljdX0"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 007BvGbt026141; Tue, 7 Jan 2020 05:58:24 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=PODMain02222019;
+ bh=cLhF3qKf38jGY8av3O6TIut/RMEI7A1bYJ0WOXmAxts=;
+ b=NxEljdX0syV1zKOU1Z+dfQDWPd81WEAQe2vmdebPIwjYWy0XA9PsR3k5xBCJk8Cm0BxR
+ aVzo8oRa2xLeZKsF0mbcHgQPJk6kYI4/hzaFIvGo6QkAqZ4cso54bw7mtvcqyVSkK+nG
+ XZDBwvfbMH7nI/dcC7iQ4G9oCNippIAtM66BJzOzFaz5z6L7F6IAokJztCP/O3fdWEdS
+ H8v1PYIoCZ2UbBNGkDMdpp76R43itToHfn5/QjR5nPhozEVQBWF6lEGETMMaPDlt2fR/
+ 2odkDmR+/Goa1cOvMHZtnWjNTpvbBfPLM3WdH3XFRXv8dko/PH/eId8BQlZpU9cUcfEE 7g== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=rf@opensource.cirrus.com
+Received: from ediex01.ad.cirrus.com ([5.172.152.52])
+ by mx0b-001ae601.pphosted.com with ESMTP id 2xar0tbe23-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 07 Jan 2020 05:58:24 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Tue, 7 Jan
+ 2020 11:58:22 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Tue, 7 Jan 2020 11:58:22 +0000
+Received: from [198.90.251.123] (edi-sw-dsktp006.ad.cirrus.com
+ [198.90.251.123])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 57C6E2B1;
+ Tue,  7 Jan 2020 11:58:22 +0000 (UTC)
+To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linus.walleij@linaro.org>
+References: <20191218163701.171914-1-arnd@arndb.de>
+ <CACRpkdbqzLUNUjx_kt3-7JLZym2RZ47edW5qp0MgXmpW4-Xf9Q@mail.gmail.com>
+ <CAK8P3a2BoVcdgRZqYutA=_SVHLtJwQzP3mKKN-q8n1ROj_iPgw@mail.gmail.com>
+From: Richard Fitzgerald <rf@opensource.cirrus.com>
+Message-ID: <322b5fbe-e9ca-99cd-80d0-000a5464b37a@opensource.cirrus.com>
+Date: Tue, 7 Jan 2020 11:58:22 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200106131159.476744-1-hdegoede@redhat.com>
+In-Reply-To: <CAK8P3a2BoVcdgRZqYutA=_SVHLtJwQzP3mKKN-q8n1ROj_iPgw@mail.gmail.com>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- youling 257 <youling257@gmail.com>
-Subject: Re: [alsa-devel] [PATCH alsa-ucm-conf] bytcht-es8316: Fix missing
- including of HeadPhones.conf after ucm2 conversion
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 suspectscore=0
+ clxscore=1011 priorityscore=1501 bulkscore=0 adultscore=0 mlxlogscore=950
+ impostorscore=0 spamscore=0 mlxscore=0 phishscore=0 malwarescore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-1910280000
+ definitions=main-2001070098
+Cc: patches@opensource.cirrus.com, "moderated list:SOUND -
+ SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..." <alsa-devel@alsa-project.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH] pinctrl: lochnagar: select GPIOLIB
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,59 +114,24 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 06. 01. 20 v 14:11 Hans de Goede napsal(a):
-> The conversion to ucm2 format missed adding an include for:
+On 07/01/2020 10:39, Arnd Bergmann wrote:
+> On Tue, Jan 7, 2020 at 10:45 AM Linus Walleij <linus.walleij@linaro.org> wrote:
+>> On Wed, Dec 18, 2019 at 5:37 PM Arnd Bergmann <arnd@arndb.de> wrote:
+>>> I wonder if GPIOLIB should just become mandatory when enabling the pinctrl
+>>> subsystem, or if there are still good reasons for leaving it disabled
+>>> on any machine that uses CONFIG_PINCTRL.
+>>
+>> Hm that is a tricky question, they almost always come in pair but are
+>> technically speaking separate subsystems.
 > 
-> codecs/es8316/HeadPhones.conf
+> I think there are a number of use cases for GPIOLIB drivers without PINCTRL, but
+> are there any examples of the reverse?
 > 
-> Leading to no sound on the headphones output, this commit adds the missing
-> include fixing this.
-
-Applied. Thank you for the fix.
-
-					Jaroslav
-
-> 
-> Cc: youling 257 <youling257@gmail.com>
-> Reported-by: youling 257 <youling257@gmail.com>
-> Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-> ---
->   ucm2/bytcht-es8316/HiFi-Components.conf | 2 ++
->   ucm2/bytcht-es8316/HiFi-LongName.conf   | 2 ++
->   2 files changed, 4 insertions(+)
-> 
-> diff --git a/ucm2/bytcht-es8316/HiFi-Components.conf b/ucm2/bytcht-es8316/HiFi-Components.conf
-> index 314d355..c40bd49 100644
-> --- a/ucm2/bytcht-es8316/HiFi-Components.conf
-> +++ b/ucm2/bytcht-es8316/HiFi-Components.conf
-> @@ -20,6 +20,8 @@ If.mono {
->   	}
->   }
->   
-> +<codecs/es8316/HeadPhones.conf>
-> +
->   If.in1 {
->   	Condition {
->   		Type String
-> diff --git a/ucm2/bytcht-es8316/HiFi-LongName.conf b/ucm2/bytcht-es8316/HiFi-LongName.conf
-> index ea7d1c3..03cf17b 100644
-> --- a/ucm2/bytcht-es8316/HiFi-LongName.conf
-> +++ b/ucm2/bytcht-es8316/HiFi-LongName.conf
-> @@ -20,6 +20,8 @@ If.mono {
->   	}
->   }
->   
-> +<codecs/es8316/HeadPhones.conf>
-> +
->   If.in1 {
->   	Condition {
->   		Type String
+>         Arnd
 > 
 
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+You could have muxable pins that aren't gpios. For example muxing 
+between i2c/spi signals. So a pinctrl driver doesn't imply gpio.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

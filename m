@@ -2,56 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D51A134705
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jan 2020 17:02:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E6D221347F8
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jan 2020 17:29:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7F3D11766;
-	Wed,  8 Jan 2020 17:01:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F3D11766
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AEE3174A;
+	Wed,  8 Jan 2020 17:28:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AEE3174A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578499333;
-	bh=wqv3ZqA99nwQQZMfrD/GOf1vqpf9J3mtZdVLNAGZdnI=;
-	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=fykyxDwpKwIS0GrEI5xykfK7aorMR/+Y4VrxStrzYTHNSkPXOAdbRF8EJywCnLGg2
-	 vhVacEXCjtM3JqMLTH0cdVc3FXPoj6f9iduteJFtE/ojE2xsf/oEKDbraejcgTnJKK
-	 61zCjgnQ/ynPJritUY9NH/fBIOJ6gsrCNM+DUqTs=
+	s=default; t=1578500961;
+	bh=UnfQHgw8Qpsxdm9ItdZ0tbA+qelQSG5MdLrX+i/mRtg=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=tBUqXV/WqsfZpOSN0o28hXJb6Jv6BmixewJIrpuJUXLDKqmkM7N+d5JFz0tHZ6UDN
+	 Jg5U1MtFrp+/5+9hfkB+TljbX/clsJMslCzIoqZ5Hrp5jc7+LqM9M0Oym+lHYsEze0
+	 Y37wK02b9yG5ww23ScrZEA1CY5pF7tp7Ws3zOBwI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 985C0F80277;
-	Wed,  8 Jan 2020 16:58:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 95DAEF80161;
+	Wed,  8 Jan 2020 17:27:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9AFD3F80271; Wed,  8 Jan 2020 16:58:49 +0100 (CET)
+ id 60767F80116; Wed,  8 Jan 2020 17:27:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,UNPARSEABLE_RELAY,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 6FBF1F801DA
- for <alsa-devel@alsa-project.org>; Wed,  8 Jan 2020 16:58:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6FBF1F801DA
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 00FFD328;
- Wed,  8 Jan 2020 07:58:45 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 80E213F534;
- Wed,  8 Jan 2020 07:58:44 -0800 (PST)
-Date: Wed, 08 Jan 2020 15:58:43 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20200107070956.15807-1-tiwai@suse.de>
-Message-Id: <applied-20200107070956.15807-1-tiwai@suse.de>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Ben Ho <Ben.Ho@mediatek.com>, Mark Brown <broonie@kernel.org>,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>
-Subject: [alsa-devel] Applied "ASoC: Fix NULL dereference at freeing" to the
-	asoc tree
+Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
+ [209.85.167.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 84331F80116
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jan 2020 17:27:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84331F80116
+Received: by mail-oi1-f195.google.com with SMTP id z64so3147539oia.4
+ for <alsa-devel@alsa-project.org>; Wed, 08 Jan 2020 08:27:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=hlPj6SA9VOkT0SEDoGb32WMgkDWrYAi1UZe0L9iyH6k=;
+ b=covkn7bKi4yDHkZfetXicxEJugEdjQOuZIknHv0mbh2M1Lcx2/yXoitiwApaII337G
+ nZWQ0ekmfxt06k4pkbl5jwmmFhXSoFPFDgWoPKyai0B0zezXiu13L10dz2O8hPawDHfE
+ yc0L2ft2wPiI0xAJxWPyPnA5qEM52dVYdI8e4QyNSDt2aZn6M7TalNhKumSYocZWw4ZB
+ wpHfI+wHTjzUBmNQkRvumllA7bT8XG7iE24Y+hRDvvr0D0Hln3jSIrJS7/O4y/RfgVzg
+ zUKxfCsBO91gpFkdyiKD9Ms5s7hm8+L4Nss6fzdCyA7SS4lch0Z7yhBQGtuA7VIzoFlu
+ 6TFg==
+X-Gm-Message-State: APjAAAUO5JwlC2OD4SDITnjqf4g2ZizxyuYE7SacI+AZSOrVaBTL/QX8
+ apYdxtqFKeK3aX+8k0zwLhnoaCk=
+X-Google-Smtp-Source: APXvYqzpwUQqAYnj36SR6Bq8nFY6JrTNRmQ5Nqzoly58zw90m+0TNGJrnPeQp+UdhA41rh2rDtUj/A==
+X-Received: by 2002:aca:1c0d:: with SMTP id c13mr3585776oic.44.1578500851673; 
+ Wed, 08 Jan 2020 08:27:31 -0800 (PST)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id m185sm1227650oia.26.2020.01.08.08.27.29
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Jan 2020 08:27:30 -0800 (PST)
+Received: from rob (uid 1000) (envelope-from rob@rob-hp-laptop) id 220adc
+ by rob-hp-laptop (DragonFly Mail Agent v0.11);
+ Wed, 08 Jan 2020 10:27:29 -0600
+Date: Wed, 8 Jan 2020 10:27:29 -0600
+From: Rob Herring <robh@kernel.org>
+To: Paul Cercueil <paul@crapouillou.net>
+Message-ID: <20200108162729.GA26720@bogus>
+References: <20191224002708.1207884-1-paul@crapouillou.net>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20191224002708.1207884-1-paul@crapouillou.net>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, od@zcrc.me, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Paul Cercueil <paul@crapouillou.net>, Mark Brown <broonie@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 1/2] dt-bindings: sound: Convert
+	jz47*-codec doc to YAML
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,78 +93,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Tue, 24 Dec 2019 01:27:07 +0100, Paul Cercueil wrote:
+> Convert ingenic,jz4740-codec.txt and ingenic,jz4725b-codec.txt to one
+> single ingenic,codec.yaml file, since they share the same binding.
+> 
+> Add the ingenic,jz4770-codec compatible string in the process.
+> 
+> Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+> ---
+>  .../bindings/sound/ingenic,codec.yaml         | 55 +++++++++++++++++++
+>  .../bindings/sound/ingenic,jz4725b-codec.txt  | 20 -------
+>  .../bindings/sound/ingenic,jz4740-codec.txt   | 20 -------
+>  3 files changed, 55 insertions(+), 40 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/sound/ingenic,codec.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/sound/ingenic,jz4725b-codec.txt
+>  delete mode 100644 Documentation/devicetree/bindings/sound/ingenic,jz4740-codec.txt
+> 
 
-   ASoC: Fix NULL dereference at freeing
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 8e3366cad2bfe4e669bfd3758110be90b1dc75aa Mon Sep 17 00:00:00 2001
-From: Takashi Iwai <tiwai@suse.de>
-Date: Tue, 7 Jan 2020 08:09:56 +0100
-Subject: [PATCH] ASoC: Fix NULL dereference at freeing
-
-When an ASoC driver with pcm_destruct component ops is freed before
-the PCM object instantiation (e.g. deferring the probe), it hits an
-Oops at snd_soc_pcm_component_free() that calls the pcm_destruct ops
-unconditionally.
-
-Fix it by adding a NULL-check of rtd->pcm before calling callbacks.
-
-Fixes: c64bfc906600 ("ASoC: soc-core: add new pcm_construct/pcm_destruct")
-Reported-by: Matthias Brugger <matthias.bgg@gmail.com>
-Tested-by: Ben Ho <ben.ho@mediatek.com>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20200107070956.15807-1-tiwai@suse.de
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-component.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 1590e805d016..6a8f26bf09ba 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -520,6 +520,9 @@ void snd_soc_pcm_component_free(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_rtdcom_list *rtdcom;
- 	struct snd_soc_component *component;
- 
-+	if (!rtd->pcm)
-+		return;
-+
- 	for_each_rtd_components(rtd, rtdcom, component)
- 		if (component->driver->pcm_destruct)
- 			component->driver->pcm_destruct(component, rtd->pcm);
--- 
-2.20.1
-
+Reviewed-by: Rob Herring <robh@kernel.org>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

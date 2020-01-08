@@ -2,128 +2,144 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F651134139
-	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jan 2020 12:53:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57EFA134147
+	for <lists+alsa-devel@lfdr.de>; Wed,  8 Jan 2020 12:56:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97744173B;
-	Wed,  8 Jan 2020 12:52:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97744173B
+	by alsa0.perex.cz (Postfix) with ESMTPS id E30C4171F;
+	Wed,  8 Jan 2020 12:55:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E30C4171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578484381;
-	bh=GW72vant9q/lje30JiFF4dK140NQaAEkAI0YUOXGR5U=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1578484583;
+	bh=fppWTsRxkkLRUK6DmdfvLWZLOJLM7veGAWDvaY38PUM=;
+	h=To:From:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=cnrr33WNcfGyl6YvUuFhnc5z2u+xNxV5TUpzU7u5Giu02A3BmNoI+4rRgqQCEnDZJ
-	 A06ox1IKSdlTwPCNd9NWwoB+y9E8Sj0M+QSrp2Bbs4TDBPUEJVUEWCnkHgOLRifEm3
-	 66mnXIwF91uuhOOQfsK44WOOdNuwCxcN6pshpIyk=
+	b=i/sdtTWcU2FBC9+Xm2gMn/ixa7Gcl+nAeIbxBBtS2hAI/FzCHZGkZ7vbZzckSs6Ic
+	 1LHWPjMQMdgRxx2f+58FSXacgSLw9QLA/D2ztOJ6mQFqIaU359U7iCqylH6hIyA8t6
+	 IS20wV4n5ZJd+fnolHUKvtEoL3DsAQVBzv6L3CAQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8D5EF8026F;
-	Wed,  8 Jan 2020 12:50:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4A659F8010B;
+	Wed,  8 Jan 2020 12:54:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97F1EF80159; Wed,  8 Jan 2020 12:50:32 +0100 (CET)
+ id 3B420F80159; Wed,  8 Jan 2020 12:54:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-5.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID, DKIM_VALID_AU, RCVD_IN_DNSWL_HI, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL, 
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
  [210.118.77.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A7F0F8010B
- for <alsa-devel@alsa-project.org>; Wed,  8 Jan 2020 12:50:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A7F0F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id AD8E2F8010B
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jan 2020 12:54:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AD8E2F8010B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="Le4Zpk76"
+ header.b="qvA+Z8V4"
 Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
  by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200108115028euoutp0159b57c3ae19f151f96ed2f95e86b9e08~n5wrxRVyc0535205352euoutp01T
- for <alsa-devel@alsa-project.org>; Wed,  8 Jan 2020 11:50:28 +0000 (GMT)
+ 20200108115432euoutp011cbb2c2d98d4f218c115055bef7f712b~n50O5lJdN0850808508euoutp01c
+ for <alsa-devel@alsa-project.org>; Wed,  8 Jan 2020 11:54:32 +0000 (GMT)
 DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200108115028euoutp0159b57c3ae19f151f96ed2f95e86b9e08~n5wrxRVyc0535205352euoutp01T
+ 20200108115432euoutp011cbb2c2d98d4f218c115055bef7f712b~n50O5lJdN0850808508euoutp01c
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1578484228;
- bh=+tf4GNTb84v10z63faMIMGJF9BpS6VYqSHVRHe4D8GQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Le4Zpk76bIibTVmOwU78VHbBOtjpJ6lrVCygD6Kr6b2Tt876+PZ1fnfnkXP9WJD9P
- Xn4LU01uOR2awCY8ECTVU25vcT572IRVXF3VCIxEYR8sVHDvFuqmIA2trQZqj0z53q
- +rmJvMsUyuvBiKuw/M6Hf+kkNDzWxbjJMq9NPr90=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
+ s=mail20170921; t=1578484472;
+ bh=S7Fy11AC/q5Y/YYr5eYfAY4T3HeQUsLZyyIfA2EOGFk=;
+ h=Subject:To:Cc:From:Date:In-Reply-To:References:From;
+ b=qvA+Z8V4YWmKcvMamraub7nWWAKcJAmeEqq7vaV6YyVbIAtaF0wUD1J7QYTa1NyJC
+ OKVnOim05CLnMVWYrFOP6CXvo0oEBJK/HV4Uadv3kmbL/7VYbnODxyN5//0yRnqYF4
+ a0FSadQ7sqdOZ+Zm06qaFuwhcqCPe/2eM0xxMfZM=
+Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
  eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200108115028eucas1p16b28b9fc0c43953728d94c2f857fd01f~n5wrORNFD2632626326eucas1p18;
- Wed,  8 Jan 2020 11:50:28 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id 46.A5.60679.302C51E5; Wed,  8
- Jan 2020 11:50:27 +0000 (GMT)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
+ 20200108115432eucas1p1b303a2a01beb91c9df71be8b68f98dc7~n50OssV_o2629826298eucas1p14;
+ Wed,  8 Jan 2020 11:54:32 +0000 (GMT)
+Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
+ eusmges3new.samsung.com (EUCPMTA) with SMTP id 7F.A3.60698.8F2C51E5; Wed,  8
+ Jan 2020 11:54:32 +0000 (GMT)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
  eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200108115027eucas1p1d3645ba53703780679c662921efbca78~n5wq2ZUJc0954609546eucas1p1D;
- Wed,  8 Jan 2020 11:50:27 +0000 (GMT)
+ 20200108115431eucas1p1098698b3784ebaf88d5935bb594effe1~n50OYuvd62548525485eucas1p13;
+ Wed,  8 Jan 2020 11:54:31 +0000 (GMT)
 Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20200108115027eusmtrp2440bee433050820256d5907847ffbc3b~n5wq1vIf-1831018310eusmtrp2d;
- Wed,  8 Jan 2020 11:50:27 +0000 (GMT)
-X-AuditID: cbfec7f4-0e5ff7000001ed07-4e-5e15c2038a2d
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20200108115431eusmtrp18f8db22203da6678ac10eb4f8c7a8536~n50OYGdp22175621756eusmtrp1e;
+ Wed,  8 Jan 2020 11:54:31 +0000 (GMT)
+X-AuditID: cbfec7f5-a29ff7000001ed1a-ce-5e15c2f8d174
 Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 0F.16.08375.302C51E5; Wed,  8
- Jan 2020 11:50:27 +0000 (GMT)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id E8.96.08375.7F2C51E5; Wed,  8
+ Jan 2020 11:54:31 +0000 (GMT)
+Received: from [106.120.51.15] (unknown [106.120.51.15]) by
  eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20200108115027eusmtip130fdd566eb8e26c80f969ea589089877~n5wqXbJew1795217952eusmtip18;
- Wed,  8 Jan 2020 11:50:27 +0000 (GMT)
+ 20200108115431eusmtip1391481d5edb32f44859f5fe3206e6f80~n50N1VZ2B1978219782eusmtip1J;
+ Wed,  8 Jan 2020 11:54:31 +0000 (GMT)
+To: Mark Brown <broonie@kernel.org>
 From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org
-Date: Wed,  8 Jan 2020 12:50:07 +0100
-Message-Id: <20200108115007.31095-2-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200108115007.31095-1-m.szyprowski@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupjleLIzCtJLcpLzFFi42LZduznOV3mQ6JxBltvW1hcuXiIyWLjjPWs
- FlMfPmGzOHG4kdmifWYHo8X58xvYLS7vmsNmMeP8PiaLtUfuslscftPOarHn4it2B26PDZ+b
- 2DwWbCr12LSqk82jb8sqRo/Pm+QCWKO4bFJSczLLUov07RK4Mt7+vcBaMFuvYsO2IywNjFPU
- uhg5OSQETCQudM5h7GLk4hASWMEocezwdRYI5wujxOGn19ghnM+MEkdevWaFafn64xorRGI5
- o8TmDYtY4Vo237zOBlLFJmAo0fW2C8wWEUiSOL/gNjNIEbPAZSaJ1Y39zCAJYQELiWffvwPZ
- HBwsAqoS9xurQMK8ArYSB2a8YYbYJi+xesMBsBJOATuJR0ug7m5nlzixIQzCdpG4daUZqlxY
- 4tXxLewQtozE/53zmUDWSgg0M0o8PLeWHcLpYZS43DSDEaLKWuLOuV9sIAuYBTQl1u/Shwg7
- Smza/J4dJCwhwCdx460gSJgZyJy0bTozRJhXoqNNCKJaTWLW8XVwaw9euAR1jofE87MzoME7
- kVFi7ZPnrBMY5WchLFvAyLiKUTy1tDg3PbXYKC+1XK84Mbe4NC9dLzk/dxMjMJWc/nf8yw7G
- XX+SDjEKcDAq8fD+WCwSJ8SaWFZcmXuIUYKDWUmEV0sHKMSbklhZlVqUH19UmpNafIhRmoNF
- SZzXeNHLWCGB9MSS1OzU1ILUIpgsEwenVAOj0Zq7R3M5ZbfVl1c2F3ZVtP+Rctpg97Rnwfzc
- p6uTJC73xa+SsG6J6O7W8mMM+XhBq/HD1n/n1T60Vh/gP27gM92XS+Lm59tdj5/KTdVV2d+Q
- GvS89JdZruy8BaaPn5oUy+8pXR+uUt3qsHH+lsDSP+6Gsb/mnJoVEG7qXJnYacCwZJrP8g9K
- LMUZiYZazEXFiQCSPfbeIQMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrHLMWRmVeSWpSXmKPExsVy+t/xu7rMh0TjDJbdULa4cvEQk8XGGetZ
- LaY+fMJmceJwI7NF+8wORovz5zewW1zeNYfNYsb5fUwWa4/cZbc4/Kad1WLPxVfsDtweGz43
- sXks2FTqsWlVJ5tH35ZVjB6fN8kFsEbp2RTll5akKmTkF5fYKkUbWhjpGVpa6BmZWOoZGpvH
- WhmZKunb2aSk5mSWpRbp2yXoZbz9e4G1YLZexYZtR1gaGKeodTFyckgImEh8/XGNFcQWEljK
- KLF7HhdEXEbi5LQGVghbWOLPtS62LkYuoJpPjBJ/ln4AS7AJGEp0vQVJcHKICKRI/JyxjhGk
- iFngJpPEj8XLmUESwgIWEs++fweyOThYBFQl7jdWgYR5BWwlDsx4wwyxQF5i9YYDYCWcAnYS
- j5aoQdxjK7H76ATmCYx8CxgZVjGKpJYW56bnFhvqFSfmFpfmpesl5+duYgSG9bZjPzfvYLy0
- MfgQowAHoxIP74/FInFCrIllxZW5hxglOJiVRHi1dIBCvCmJlVWpRfnxRaU5qcWHGE2BTprI
- LCWanA+MubySeENTQ3MLS0NzY3NjMwslcd4OgYMxQgLpiSWp2ampBalFMH1MHJxSDYxCk0x2
- Vi8o2OReIHbsw1rf3dYhOWmd6cI501Pj2247hcQvuHA6QqYzad1GkVde2Q0xvAqr6zqvN7ye
- liC4sf3M4zfml9c8qolbHTYvrapukdCvk/VtgZIVTxbdyTx5VVxN69D1X70zmWxt7bJYA+1y
- 5wgKHU9W/vabM5+Z55RHdl5MrKPpcSWW4oxEQy3mouJEAM1aaCyBAgAA
-X-CMS-MailID: 20200108115027eucas1p1d3645ba53703780679c662921efbca78
+Message-ID: <aed6ff4e-1c04-e20c-aa55-4f2b05952f38@samsung.com>
+Date: Wed, 8 Jan 2020 12:54:30 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
+MIME-Version: 1.0
+In-Reply-To: <20191220120154.GB4790@sirena.org.uk>
+Content-Language: en-US
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0hTcRjG+e+cnR2XG8c58c3CcIWUpGYKHbxlYLD85IeiiDSXnqblpuw4
+ 0y7khdSmrDItHV3EWZaXMm+lmeG85QznNZz5xTBImURYqRHZ5tHy2+99nufl+b/wJzFJD9+D
+ TFKnMRq1IllGCPHWvhWL77LJLXZfdb+IHh8x8ejSmVmCftedjdH55QWItlgaBPR8dzuiyyyd
+ PLrbls+n55psPLpjZF4QIZQ3LOYQ8opGrbyx5joh//n+Fi7XN9cgedPgJflio2e04KQwNIFJ
+ TkpnNP7hccLEsbJaLLVJmNG5VIqy0AtSh5xIoIJg6tEMoUNCUkI9QWAz1/K54TuCiaGVdWcR
+ wWN9C7axUjPUIOCMagTXlvowblhA0Hdfv5ZypdTQVVVLOFhK7YSJpTe4I4RRegzMtsk1g6AC
+ QLegW2MRFQ6GwhKeg3FqFzy4UYIc7EbFwGp5C4/LuMBA+SzuYCdqP1R9bFsrw6gd8HLh3jq7
+ w9TsQ56jDKhRAbR/nRVw746EL9YPBMeuMN/fvK5vh8HbRTi3kItgZqhewA1FCMZyyhCXCoHp
+ oV/2bdJesQeet/tz8iHoqO8WOGSgxDC54MI9QgzFrXcxThZBQZ6ES3uDof/Zv9qu4VHsJpIZ
+ Np1m2HSOYdM5hv+9FQivQe6MllUpGTZQzVzwYxUqVqtW+sWnqBqR/W8N/un/8Qp1/j5jQhSJ
+ ZM6iZaM0VsJXpLOZKhMCEpNJRT577ZIoQZF5kdGknNZokxnWhLaRuMxdFFg5FyOhlIo05jzD
+ pDKaDZdHOnlkoTB9R2Rv4VjQt61Cr6XK1w1hUVdlOdbRz+IodlXjdG44Ol55kO8pNV4+nGbq
+ 9R+vi6t7GpxjNXtZt7yVR5x11nufMO1uy/YszDvq4Rt8SmzMP6asKOCHTkPfiPSO0ZxrjjlS
+ JSsmbJ8OZPQkeJeGHNccw4ZjrizOWJsHcqHcLMPZREWAD6ZhFX8BqyTJ+1cDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrKIsWRmVeSWpSXmKPExsVy+t/xu7rfD4nGGRzpNba4cvEQk8XUh0/Y
+ LE4cbmS2aJ/ZwWhx/vwGdotXh3cxWsw4v4/J4vCbdlaLl5vfMFnsufiK3YHLY8PnJjaPBZtK
+ PTat6mTz+HZmIotH35ZVjB6bT1d7fN4kF8AepWdTlF9akqqQkV9cYqsUbWhhpGdoaaFnZGKp
+ Z2hsHmtlZKqkb2eTkpqTWZZapG+XoJdxecZq5oLNXBX7vk9lbGDcyNHFyMkhIWAisercBvYu
+ Ri4OIYGljBLXrr1igUjISJyc1sAKYQtL/LnWxQZR9JpRYsfi52BFwgJ5EgeXrGYDsUUElCWu
+ ft/LAlLELNDHLLHj8hywbiGBdSwSl98JgthsAoYSXW+7wBp4BewkZnVPYQKxWQRUJOb1T2EE
+ sUUFYiW2b37IDFEjKHFy5hOwZZwCRhJLbu8EizMLmEnMg6phFpCX2P52DpQtLnHryXymCYxC
+ s5C0z0LSMgtJyywkLQsYWVYxiqSWFuem5xYb6hUn5haX5qXrJefnbmIERum2Yz8372C8tDH4
+ EKMAB6MSD++PxSJxQqyJZcWVuYcYJTiYlUR4tXSAQrwpiZVVqUX58UWlOanFhxhNgZ6byCwl
+ mpwPTCB5JfGGpobmFpaG5sbmxmYWSuK8HQIHY4QE0hNLUrNTUwtSi2D6mDg4pRoYqz8q/fOW
+ P29qcHh3Yut/7blLeec/XbfQ/WWO6UJOa6kpOx1fMxlwhKsefaC/3LBuV8r1r+8+qm5ldOj+
+ pLan4eb01B1/lp2cfHRJ1QQzXpN3FbedVq/nyXkdV3lc6Ej8Msl3FrfeTZ6g6rQkdjILj4dQ
+ 9FqLoxsPNP2QePOLkXu3SoLIhMVx05VYijMSDbWYi4oTAUinNCDoAgAA
+X-CMS-MailID: 20200108115431eucas1p1098698b3784ebaf88d5935bb594effe1
 X-Msg-Generator: CA
-X-RootMTR: 20200108115027eucas1p1d3645ba53703780679c662921efbca78
+X-RootMTR: 20191219191651epcas5p2ab8031875093df401d9182e7c491eb3d
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20200108115027eucas1p1d3645ba53703780679c662921efbca78
-References: <20200108115007.31095-1-m.szyprowski@samsung.com>
- <CGME20200108115027eucas1p1d3645ba53703780679c662921efbca78@eucas1p1.samsung.com>
-Cc: Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Tzung-Bi Shih <tzungbi@google.com>,
- Mark Brown <broonie@kernel.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Dylan Reid <dgreid@google.com>, Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [alsa-devel] [PATCH 2/2] ASoC: max98090: fix lockdep warning
+X-CMS-RootMailID: 20191219191651epcas5p2ab8031875093df401d9182e7c491eb3d
+References: <20191218162422.GG3219@sirena.org.uk>
+ <ef908cb8-875e-4339-33bd-5997b594f022@samsung.com>
+ <20191219123709.GB5047@sirena.org.uk>
+ <aba9f63c-d993-e54e-4daa-9dbc35d0683b@samsung.com>
+ <20191219130559.GE5047@sirena.org.uk>
+ <a10269be-8caf-6e07-71c6-582a1d2c1458@samsung.com>
+ <CGME20191219191651epcas5p2ab8031875093df401d9182e7c491eb3d@epcas5p2.samsung.com>
+ <20191219191646.GH5047@sirena.org.uk>
+ <b0e57646-8a14-e6c0-9daa-28c353dcb77a@samsung.com>
+ <31bde14e-1fef-264a-ba1e-fc3051506bf3@samsung.com>
+ <20191220120154.GB4790@sirena.org.uk>
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Tzung-Bi Shih <tzungbi@google.com>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Dylan Reid <dgreid@google.com>
+Subject: Re: [alsa-devel] [PATCH v2] ASoC: max98090: save and restore SHDN
+ when changing sensitive registers
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,167 +152,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when changing
-sensitive registers") extended the code for handling many controls by
-adding a custom put function to them. That new custom put function
-properly handles relations between codec's hardware registers. However
-they used card->dapm_mutex to properly serialize those operations. This
-in turn triggers a lockdep warning about possible circular dependency.
-Fix this by introducing a separate mutex only for serializing the SHDN
-hardware register related operations.
+Hi Mark,
 
-This fixes the following lockdep warning observed on Exynos4412-based
-Odroid U3 board:
-======================================================
-WARNING: possible circular locking dependency detected
-5.5.0-rc5-next-20200107 #166 Not tainted
-------------------------------------------------------
-alsactl/1104 is trying to acquire lock:
-ed0d50f4 (&card->dapm_mutex){+.+.}, at: max98090_shdn_save+0x1c/0x28
+On 20.12.2019 13:01, Mark Brown wrote:
+> On Fri, Dec 20, 2019 at 10:05:52AM +0100, Marek Szyprowski wrote:
+>> On 20.12.2019 09:28, Marek Szyprowski wrote:
+>>> I've tried initially to cherry-pick it to v5.4, but the the code
+>>> didn't compile due to lack of some macros, so I've gave up trying. I
+>>> will check that now and backport needed macros too if you think this
+>>> would help.
+>> Same issue. I've tried backporting it to each kernel release: 5.4, 5.3,
+>> 5.2, 5.1 and 5.0 (with additional backporting "ASoC: core: add
+>> SND_SOC_BYTES_E" and "ASoC: Define a set of DAPM pre/post-up events").
+>> In all cases the lockdep warning and oops is the same. Backporting to
+>> v4.9 requires more changes to get it even compiled, so I gave up.
+> OK, thanks - that's definitely not the recent refactorings then but
+> something that's been a problem for a long time.  I'm surprised nobody
+> else ran into anything if that's the case...
 
-but task is already holding lock:
-edb4b49c (&card->controls_rwsem){++++}, at: snd_ctl_ioctl+0xcc/0xbb8
+It took me a while to get back into this issue and investigate it in 
+details. It turned out to be an incorrect helper to get component object 
+in max98090_dapm_put_enum_double() function. Following patches: 
+https://lkml.org/lkml/2020/1/8/358 fix this and (independent) lockdep 
+issues.
 
-which lock already depends on the new lock.
-
-the existing dependency chain (in reverse order) is:
-
--> #1 (&card->controls_rwsem){++++}:
-       snd_ctl_add_replace+0x3c/0x84
-       dapm_create_or_share_kcontrol+0x24c/0x2e0
-       snd_soc_dapm_new_widgets+0x308/0x594
-       snd_soc_bind_card+0x80c/0xad4
-       devm_snd_soc_register_card+0x34/0x6c
-       odroid_audio_probe+0x288/0x34c
-       platform_drv_probe+0x6c/0xa4
-       really_probe+0x200/0x490
-       driver_probe_device+0x78/0x1f8
-       bus_for_each_drv+0x74/0xb8
-       __device_attach+0xd4/0x16c
-       bus_probe_device+0x88/0x90
-       deferred_probe_work_func+0x3c/0xd0
-       process_one_work+0x22c/0x7c4
-       worker_thread+0x44/0x524
-       kthread+0x130/0x164
-       ret_from_fork+0x14/0x20
-       0x0
-
--> #0 (&card->dapm_mutex){+.+.}:
-       lock_acquire+0xe8/0x270
-       __mutex_lock+0x9c/0xb18
-       mutex_lock_nested+0x1c/0x24
-       max98090_shdn_save+0x1c/0x28
-       max98090_put_enum_double+0x20/0x40
-       snd_ctl_ioctl+0x190/0xbb8
-       ksys_ioctl+0x470/0xaf8
-       ret_fast_syscall+0x0/0x28
-       0xbefaa564
-
-other info that might help us debug this:
-
- Possible unsafe locking scenario:
-
-       CPU0                    CPU1
-       ----                    ----
-  lock(&card->controls_rwsem);
-                               lock(&card->dapm_mutex);
-                               lock(&card->controls_rwsem);
-  lock(&card->dapm_mutex);
-
- *** DEADLOCK ***
-
-1 lock held by alsactl/1104:
- #0: edb4b49c (&card->controls_rwsem){++++}, at: snd_ctl_ioctl+0xcc/0xbb8
-
-stack backtrace:
-CPU: 0 PID: 1104 Comm: alsactl Not tainted 5.5.0-rc5-next-20200107 #166
-Hardware name: SAMSUNG EXYNOS (Flattened Device Tree)
-(unwind_backtrace) from [<c010e180>] (show_stack+0x10/0x14)
-(show_stack) from [<c0b2a09c>] (dump_stack+0xb4/0xe0)
-(dump_stack) from [<c018a1c0>] (check_noncircular+0x1ec/0x208)
-(check_noncircular) from [<c018c5dc>] (__lock_acquire+0x1210/0x25ec)
-(__lock_acquire) from [<c018e2d8>] (lock_acquire+0xe8/0x270)
-(lock_acquire) from [<c0b49678>] (__mutex_lock+0x9c/0xb18)
-(__mutex_lock) from [<c0b4a110>] (mutex_lock_nested+0x1c/0x24)
-(mutex_lock_nested) from [<c0839b3c>] (max98090_shdn_save+0x1c/0x28)
-(max98090_shdn_save) from [<c083a5b8>] (max98090_put_enum_double+0x20/0x40)
-(max98090_put_enum_double) from [<c080d0e8>] (snd_ctl_ioctl+0x190/0xbb8)
-(snd_ctl_ioctl) from [<c02cafec>] (ksys_ioctl+0x470/0xaf8)
-(ksys_ioctl) from [<c0101000>] (ret_fast_syscall+0x0/0x28)
-...
-
-Fixes: 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when changing sensitive registers")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- sound/soc/codecs/max98090.c | 10 ++++++----
- sound/soc/codecs/max98090.h |  1 +
- 2 files changed, 7 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index c01ce4a3f86d..454cb8e5b0a1 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -52,14 +52,14 @@ static void max98090_shdn_restore_locked(struct max98090_priv *max98090)
- 
- static void max98090_shdn_save(struct max98090_priv *max98090)
- {
--	mutex_lock(&max98090->component->card->dapm_mutex);
-+	mutex_lock(&max98090->shdn_lock);
- 	max98090_shdn_save_locked(max98090);
- }
- 
- static void max98090_shdn_restore(struct max98090_priv *max98090)
- {
- 	max98090_shdn_restore_locked(max98090);
--	mutex_unlock(&max98090->component->card->dapm_mutex);
-+	mutex_unlock(&max98090->shdn_lock);
- }
- 
- static int max98090_put_volsw(struct snd_kcontrol *kcontrol,
-@@ -2313,12 +2313,12 @@ static void max98090_pll_work(struct max98090_priv *max98090)
- 	 */
- 
- 	/* Toggle shutdown OFF then ON */
--	mutex_lock(&component->card->dapm_mutex);
-+	mutex_lock(&max98090->shdn_lock);
- 	snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
- 			    M98090_SHDNN_MASK, 0);
- 	snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
- 			    M98090_SHDNN_MASK, M98090_SHDNN_MASK);
--	mutex_unlock(&component->card->dapm_mutex);
-+	mutex_unlock(&max98090->shdn_lock);
- 
- 	for (i = 0; i < 10; ++i) {
- 		/* Give PLL time to lock */
-@@ -2731,6 +2731,8 @@ static int max98090_i2c_probe(struct i2c_client *i2c,
- 	if (max98090 == NULL)
- 		return -ENOMEM;
- 
-+	mutex_init(&max98090->shdn_lock);
-+
- 	if (ACPI_HANDLE(&i2c->dev)) {
- 		acpi_id = acpi_match_device(i2c->dev.driver->acpi_match_table,
- 					    &i2c->dev);
-diff --git a/sound/soc/codecs/max98090.h b/sound/soc/codecs/max98090.h
-index 0a31708b7df7..dabd8be34a01 100644
---- a/sound/soc/codecs/max98090.h
-+++ b/sound/soc/codecs/max98090.h
-@@ -1539,6 +1539,7 @@ struct max98090_priv {
- 	unsigned int pa2en;
- 	unsigned int sidetone;
- 	bool master;
-+	struct mutex shdn_lock;
- 	int saved_count;
- 	int saved_shdn;
- };
+Best regards
 -- 
-2.17.1
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
 _______________________________________________
 Alsa-devel mailing list

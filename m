@@ -2,45 +2,45 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3F1813629F
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 22:33:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 843A11362A7
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 22:35:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 588981788;
-	Thu,  9 Jan 2020 22:33:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 588981788
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22A8617A9;
+	Thu,  9 Jan 2020 22:34:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22A8617A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578605633;
-	bh=PXCQZq5D1tFOdkxeh6QFPE7wO1rifktWUO6SzANgEZ4=;
+	s=default; t=1578605731;
+	bh=lHZY0Msf4kM9qZ9bsdk0rotRZ2IFZLMs6QTCiSHY6UQ=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=DfRRWM1WMJcwsz4N1t3eEqGGgn7O1BnGlVtclDsNfjDjc3o3dv9IVHMLkeli8rcYd
-	 JkM6CpHbBgHNTPejl6c7zAYIwLVEAJeB442qIyPwOR4rO9fLrzYzBfKG1D1NLEdAim
-	 m4pDq1Ruko8wxA+/OQ5gul5BLHrZv74TC6+V4UzY=
+	b=PP4cX8UZQtziqbeXV/XqW3IgsxWWTK8XVKPCXqY69/Q6a6/sklppqQwYtZ80qWrca
+	 wSVhByNRn9PsIdCopgd+GDnzqg4iFsFEMPDoWP+m7njRUuYFMdjmhvStnrYqkj8/hb
+	 E6bKp/nrgIVLXLdEu6NNBOAgPUO9GlkLouBuU4QQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 49946F8028B;
-	Thu,  9 Jan 2020 22:29:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF49EF802D2;
+	Thu,  9 Jan 2020 22:29:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 27830F8015B; Thu,  9 Jan 2020 22:29:32 +0100 (CET)
+ id B731BF802A2; Thu,  9 Jan 2020 22:29:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id EECEFF80101
- for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 22:29:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EECEFF80101
+ by alsa1.perex.cz (Postfix) with ESMTP id 0D9CCF8015B
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 22:29:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D9CCF8015B
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0993631B;
- Thu,  9 Jan 2020 13:29:28 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3F39B31B;
+ Thu,  9 Jan 2020 13:29:32 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 850BF3F534;
- Thu,  9 Jan 2020 13:29:27 -0800 (PST)
-Date: Thu, 09 Jan 2020 21:29:26 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BB9863F534;
+ Thu,  9 Jan 2020 13:29:31 -0800 (PST)
+Date: Thu, 09 Jan 2020 21:29:30 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Marek Szyprowski <m.szyprowski@samsung.com>
 In-Reply-To: <20200108115007.31095-1-m.szyprowski@samsung.com>
@@ -78,7 +78,7 @@ The patch
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -99,7 +99,7 @@ to this mail.
 Thanks,
 Mark
 
-From 4e93c1294f4b051d574d6bc59755d2863286990e Mon Sep 17 00:00:00 2001
+From 1d7b051891722a36ee0b228bc940dd245f161ab1 Mon Sep 17 00:00:00 2001
 From: Marek Szyprowski <m.szyprowski@samsung.com>
 Date: Wed, 8 Jan 2020 12:50:06 +0100
 Subject: [PATCH] ASoC: max98090: fix incorrect helper in
@@ -146,10 +146,10 @@ Signed-off-by: Mark Brown <broonie@kernel.org>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index c01ce4a3f86d..ede03663cbed 100644
+index 4c7b16d557e2..c01ce4a3f86d 100644
 --- a/sound/soc/codecs/max98090.c
 +++ b/sound/soc/codecs/max98090.c
-@@ -98,7 +98,7 @@ static int max98090_put_enum_double(struct snd_kcontrol *kcontrol,
+@@ -82,7 +82,7 @@ static int max98090_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
  	struct snd_ctl_elem_value *ucontrol)
  {
  	struct snd_soc_component *component =

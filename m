@@ -2,58 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 843A11362A7
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 22:35:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90B68136333
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 23:23:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 22A8617A9;
-	Thu,  9 Jan 2020 22:34:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22A8617A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24D78179C;
+	Thu,  9 Jan 2020 23:22:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24D78179C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578605731;
-	bh=lHZY0Msf4kM9qZ9bsdk0rotRZ2IFZLMs6QTCiSHY6UQ=;
-	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=PP4cX8UZQtziqbeXV/XqW3IgsxWWTK8XVKPCXqY69/Q6a6/sklppqQwYtZ80qWrca
-	 wSVhByNRn9PsIdCopgd+GDnzqg4iFsFEMPDoWP+m7njRUuYFMdjmhvStnrYqkj8/hb
-	 E6bKp/nrgIVLXLdEu6NNBOAgPUO9GlkLouBuU4QQ=
+	s=default; t=1578608605;
+	bh=mAXzb03zvqt9Ii3+rhttR91qA856aVprQC50U+f5Tuo=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=sY2CP4J47AtFIiMCoxiD2fMB9ZDbIzBJ9aoSeQsP2jnvuFv9VbWkWUxqWHr+Vq19G
+	 RHXs312frxIEB+UNjsCfHMfcU9xow/xTEiLWzZ/HeHPpOTmmDgOXux3g6/7PEr6UiM
+	 sG1RiCa0A9JO+FG7B1MWXO4tHMRh8X449ieMzvIg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DF49EF802D2;
-	Thu,  9 Jan 2020 22:29:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C888EF8014E;
+	Thu,  9 Jan 2020 23:21:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B731BF802A2; Thu,  9 Jan 2020 22:29:41 +0100 (CET)
+ id E4187F8015B; Thu,  9 Jan 2020 23:21:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0D9CCF8015B
- for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 22:29:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D9CCF8015B
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3F39B31B;
- Thu,  9 Jan 2020 13:29:32 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BB9863F534;
- Thu,  9 Jan 2020 13:29:31 -0800 (PST)
-Date: Thu, 09 Jan 2020 21:29:30 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20200108115007.31095-1-m.szyprowski@samsung.com>
-Message-Id: <applied-20200108115007.31095-1-m.szyprowski@samsung.com>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>, Dylan Reid <dgreid@google.com>
-Subject: [alsa-devel] Applied "ASoC: max98090: fix incorrect helper in
-	max98090_dapm_put_enum_double()" to the asoc tree
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7BA0EF80116
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 23:21:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7BA0EF80116
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
+ header.b="d3c9vnj7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1578608487;
+ bh=Th7DnPvuJhY/6sgGLmR9Zqhdkh3xhTX2Sv71iRDzhvk=;
+ h=X-UI-Sender-Class:Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=d3c9vnj7KpIMBzwB2eRa519+WeYvI8DLeFksCNp+N6MOMVgFEYXLKTSmMT2908b7b
+ h+ovhr0dvdSTvzMlIPLGCvt6TfaXLQ5BQwkP2rqzVwqgAnlDI1Mz+O+dtDTdp1Ci+v
+ tjrd6yBTxsqJpiO7n6r85eWDSUlBrr10NGMeR/Xg=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from localhost ([62.216.209.202]) by mail.gmx.com (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M6UZl-1inEHH3pcn-006zx4; Thu, 09
+ Jan 2020 23:21:27 +0100
+Date: Thu, 9 Jan 2020 23:21:25 +0100
+From: Peter Seiderer <ps.report@gmx.net>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20200109232125.6ecd6cf7@gmx.net>
+In-Reply-To: <20200109203819.GG3702@sirena.org.uk>
+References: <20191227152056.9903-1-ps.report@gmx.net>
+ <20200109203819.GG3702@sirena.org.uk>
+X-Mailer: Claws Mail 3.17.4 (GTK+ 2.24.32; x86_64-suse-linux-gnu)
+MIME-Version: 1.0
+X-Provags-ID: V03:K1:DjtTKNqMyIMnbsmFeAWk2Ki8Sa6uq3PTKJ8OS07PD+CGP4ZkvFP
+ Gr3Ogz07ggS+WCjJtVLhvY3bAARSkUvOWO7BKaaygw2GfFXf6oYMmWkzpOIUgY64y6B4jvZ
+ rGAIVGt7kobbSeBhtxlgRUzAoVyqqni7gQAHqplpqqroUJzbX8G7Ea+jQY5vmdUhz0f3L73
+ 5Nn900wbNP0Pb/ZDHayyA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:7TlgbhqVgX0=:6xHe2w0wZonEysTLqGmvsf
+ rI/9rFFBZzvHhvod0lYvlBsGZa1tGrYc31LOXxo8o36xy2czZWsDdpkuHO5eF00sXXRyCp5vP
+ 5ftBQi+K4UtJRlIe66DANLHq9PclZP6+YT/gXC+5eEL0JeSEmDHng27l1Pujj/yzPklUE6a3q
+ G0CDmw8SHKJ6+sDqEOQgQAy3EqDDgHt5M/G8IeWWaKAZebWyrDy1Vek7jaAszfGOT95VcwST3
+ x7jKYHEebdfTYE/iAJ0x7JbnxcJmBLVgIosO3TdbAVA8Gr6RGVx5Jln0EFaKJG33S9x9hUOgY
+ AiVxefCWpyAER/r9IGthxzEP1f9AR8kApgq/3D54+01zua587XJDVPPF2NPKTjcMi5opQOAbi
+ 2Ad1+5kxxwR1tWDHf0Zu8SWQ2WHIDjIYx4sGU9XJKVnY5T4VGeXTC2E3UqSQhK7Q0RhA9bHdP
+ rkqjf3cJrE+kcsZ1rTW2Hbc+pTuLagpE5aYhe7oXPYq+1kjwG5jA97AWXl+ZagQhgUth22aRa
+ S/Djy2ySXOzFjZHaxU5hc0bPobZ0iE6nuViuEZdJ4DR5NskaEJ1OpLWQsGR0LwGed1VDjgOO6
+ 3juSoMo5ahTQuO4BG0dFJCXwmjM+4fnJd705f5JdJ5VBwPAyN9PfGC8vvj6l4I5zG5Z7qDyyP
+ FnX4C3CfxsS8KhYO/YUkGMKhkcDMcV+dPgZlQ+Gj61SOqxfm8Jp4VfbC1nC2NjAQpzL9XeTnD
+ 3s654iBA53kvu174mrj+0tqETCs3gnWBHGhrO8RBZ1+YZ+g0gn5N5BZMmrbdG3ypvSjULxrDu
+ CqE5z/LI7XSVtQUXvEeGvKa0ChG22DwTjmf84QLqwlDUjhQLFdRsFTjIF6B2rDRvj2o2ld6pW
+ 7Xqa112L0aqHEsa9bL83nqzs/XsvOLt5HPme5AUkuicFs2Esdm9XkVV8xBRLUHBK8mBHBmySH
+ d978Kq4bfpXsglatC4RcSE11OfnX9sn38Ge7RBI5nvsP8QxTAlWDf9fEanlEVWHrFLpZQ0BEc
+ 5RPxs/3vHjMwoj7a6OdlmNpJ+DB8p7zUp7i9MkcfO6L9ej4Si0k9Y/FXvQgxQ1FB6aKo3G8Ag
+ rXc8C0nmsqgwl881lj65gg6JvpXRbfOgrgzq9WS114w1vDQR/Pd4E5Qm+GXba/1XZFJ5br00d
+ Yc75DRkjTQ8wadKGc9FqollVBddk3ddDFgB8P0CufVFV1U5PSOT2Q4MSito8PsMfZJv+jRhsY
+ 2IQ7Cv5GTuXD+uhAi08FKAxJQ5SnCNoEqG45Eknfq8hKMMbH06cYSm1aRykI=
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Annaliese McDermond <nh6z@nh6z.net>
+Subject: Re: [alsa-devel] [PATCH v1] ASoC: tlv320aic32x4: handle regmap_read
+ error gracefully
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,100 +100,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Hello Mark,
 
-   ASoC: max98090: fix incorrect helper in max98090_dapm_put_enum_double()
+On Thu, 9 Jan 2020 20:38:19 +0000, Mark Brown <broonie@kernel.org> wrote:
 
-has been applied to the asoc tree at
+> On Fri, Dec 27, 2019 at 04:20:56PM +0100, Peter Seiderer wrote:
+> > @@ -338,7 +338,8 @@ static unsigned long clk_aic32x4_div_recalc_rate(struct clk_hw *hw,
+>
+> >  	unsigned int val;
+>
+> > -	regmap_read(div->regmap, div->reg, &val);
+> > +	if (regmap_read(div->regmap, div->reg, &val))
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+Unrelated to your question, but I would change this line (on next patch
+iteration) to (as all other return value checked places for regmap_read
+in the same file):
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+	if (regmap_read(div->regmap, div->reg, &val) < 0)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+> > +		return 0;
+>
+> Is this the best fix - shouldn't we be returning an error here?  We
+> don't know what the value programmed into the device actually is so zero
+> might be wrong, and we still have the risk that the value we read from
+> the device may be zero if the device is misprogrammed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+clk_aic32x4_div_recalc_rate() is used for clk_ops aic32x4_div_ops.recalc_rate,
+did not check/or see on first sight if there is a error handling on the usage
+of recalc_rate, but did take a look at some other places where the error
+handling seems to be to return zero, e.g. sound/soc/codecs/da7219.c
+sound/soc/intel/skylake/skl-ssp-clk.c, etc.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+The error occurred with linux-5.3.18, with the earlier versions on regmap_read
+failure val was (by chance) near 2^31 and evaluated with (val & AIC32X4_DIV_MASK)
+to 96 (or similar)...but with 5.3.18 evaluated to 0 and the line
 
-Thanks,
-Mark
+	return DIV_ROUND_UP(parent_rate, val & AIC32X4_DIV_MASK);
 
-From 1d7b051891722a36ee0b228bc940dd245f161ab1 Mon Sep 17 00:00:00 2001
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Date: Wed, 8 Jan 2020 12:50:06 +0100
-Subject: [PATCH] ASoC: max98090: fix incorrect helper in
- max98090_dapm_put_enum_double()
+produced the 'Division by zero'...
 
-Commit 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when changing
-sensitive registers") extended the code for handling "LTENL Mux", "LTENR
-Mux", "LBENL Mux" and "LBENR Mux" controls by adding a custom
-max98090_dapm_put_enum_double() function to them. However that function
-used incorrect helper to get its component object. Fix this by using the
-proper snd_soc_dapm_* helper.
-
-This fixes the following NULL pointer exception observed on
-Exynos4412-based Odroid U3 board:
-8<--- cut here ---
-Unable to handle kernel NULL pointer dereference at virtual address 000000b0
-pgd = (ptrval)
-[000000b0] *pgd=00000000
-Internal error: Oops: 5 [#1] PREEMPT SMP ARM
-Modules linked in:
-CPU: 0 PID: 1104 Comm: alsactl Not tainted 5.5.0-rc5-next-20200107 #166
-Hardware name: SAMSUNG EXYNOS (Flattened Device Tree)
-PC is at __mutex_lock+0x54/0xb18
-LR is at ___might_sleep+0x3c/0x2e0
-...
-Process alsactl (pid: 1104, stack limit = 0x(ptrval))
-...
-[<c0b49630>] (__mutex_lock) from [<c0b4a110>] (mutex_lock_nested+0x1c/0x24)
-[<c0b4a110>] (mutex_lock_nested) from [<c0839b3c>] (max98090_shdn_save+0x1c/0x28)
-[<c0839b3c>] (max98090_shdn_save) from [<c083a4f8>] (max98090_dapm_put_enum_double+0x20/0x40)
-[<c083a4f8>] (max98090_dapm_put_enum_double) from [<c080d0e8>] (snd_ctl_ioctl+0x190/0xbb8)
-[<c080d0e8>] (snd_ctl_ioctl) from [<c02cafec>] (ksys_ioctl+0x470/0xaf8)
-[<c02cafec>] (ksys_ioctl) from [<c0101000>] (ret_fast_syscall+0x0/0x28)
-...
----[ end trace 0e93f0580f4b9241 ]---
-
-Fixes: 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when changing sensitive registers")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Reviewed-by: Tzung-Bi Shih <tzungbi@google.com>
-Link: https://lore.kernel.org/r/20200108115007.31095-1-m.szyprowski@samsung.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/max98090.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index 4c7b16d557e2..c01ce4a3f86d 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -82,7 +82,7 @@ static int max98090_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
- 	struct snd_ctl_elem_value *ucontrol)
- {
- 	struct snd_soc_component *component =
--		snd_soc_kcontrol_component(kcontrol);
-+		snd_soc_dapm_kcontrol_component(kcontrol);
- 	struct max98090_priv *max98090 =
- 		snd_soc_component_get_drvdata(component);
- 	int ret;
--- 
-2.20.1
+Regards,
+Peter
 
 _______________________________________________
 Alsa-devel mailing list

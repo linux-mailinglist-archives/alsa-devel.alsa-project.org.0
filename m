@@ -2,57 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26265136299
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 22:32:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EBB27136286
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 22:31:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 18A451798;
-	Thu,  9 Jan 2020 22:31:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 18A451798
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13B681784;
+	Thu,  9 Jan 2020 22:30:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13B681784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578605525;
-	bh=GQEnsWAV96By8KYDfqyPMOYJCJe5vNhRcNu6rkIagxE=;
+	s=default; t=1578605478;
+	bh=E8BeRz9JObfS7YO17ny2pYgeL+UP1E1bEcUP6hejJZU=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=eC8CTUzqW3OMkZscn5kzRx8cKShJBqSSxrCCB7cXouRi4gYxcpZa3fJPYmliDRgDR
-	 bezcfQbCWIrvoI0QZYpL4eCSb6gCW7D7u8wcsCTpCLwPBE1jods20hTTZWeQWPwhNJ
-	 R+azX4B3AsJ1WsMFoXGDeCDBUxYObJji6dpJxXvw=
+	b=CekJL7UCck0lVhAFywuE7bgJ4mPwyGNaNVa/OWzP6mEeuYeUaJ5Pc30K35JiZoz7N
+	 FBAE3s1Gl9juqqf7B8mUyXNQn1QybY7OycvapOuKQyhQ/25jx9xyTFUFwq6oifT7+R
+	 QdOHwcmYG0x1MHID7x8HT/A/V/8TTdNUhsDHa5VQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB158F8024A;
-	Thu,  9 Jan 2020 22:29:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41CE2F801F5;
+	Thu,  9 Jan 2020 22:29:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6191FF801F4; Thu,  9 Jan 2020 22:29:25 +0100 (CET)
+ id 5986BF801EB; Thu,  9 Jan 2020 22:29:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+X-Spam-Status: No, score=0.5 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ PRX_BODY_76, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C45CFF80101
- for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 22:29:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C45CFF80101
+ by alsa1.perex.cz (Postfix) with ESMTP id 43A76F800E4
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 22:29:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43A76F800E4
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 93FE231B;
- Thu,  9 Jan 2020 13:29:15 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9D3FF1007;
+ Thu,  9 Jan 2020 13:29:18 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C07B93F534;
- Thu,  9 Jan 2020 13:29:14 -0800 (PST)
-Date: Thu, 09 Jan 2020 21:29:13 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D039C3F534;
+ Thu,  9 Jan 2020 13:29:17 -0800 (PST)
+Date: Thu, 09 Jan 2020 21:29:16 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Shuming Fan <shumingf@realtek.com>
-In-Reply-To: <20191227054445.27223-1-shumingf@realtek.com>
-Message-Id: <applied-20191227054445.27223-1-shumingf@realtek.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+In-Reply-To: <20200107135929.3267-3-srinivas.kandagatla@linaro.org>
+Message-Id: <applied-20200107135929.3267-3-srinivas.kandagatla@linaro.org>
 X-Patchwork-Hint: ignore
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, lgirdwood@gmail.com,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, derek.fang@realtek.com, bard.liao@intel.com,
- flove@realtek.com, pierre-louis.bossart@intel.com
-Subject: [alsa-devel] Applied "ASoC: rt711: add rt711 codec driver" to the
-	asoc tree
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ spapothi@codeaurora.org, pierre-louis.bossart@linux.intel.com,
+ lgirdwood@gmail.com, vkoul@kernel.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: codecs: add wsa881x amplifier support"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,7 +71,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt711: add rt711 codec driver
+   ASoC: codecs: add wsa881x amplifier support
 
 has been applied to the asoc tree at
 
@@ -98,2455 +96,1270 @@ to this mail.
 Thanks,
 Mark
 
-From 320b8b0d13b81f3697acff5b6ddb47f88a09c118 Mon Sep 17 00:00:00 2001
-From: Shuming Fan <shumingf@realtek.com>
-Date: Fri, 27 Dec 2019 13:44:45 +0800
-Subject: [PATCH] ASoC: rt711: add rt711 codec driver
+From a0aab9e1404ac9f8a300b4546cac3c38e04d07bf Mon Sep 17 00:00:00 2001
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Date: Tue, 7 Jan 2020 13:59:29 +0000
+Subject: [PATCH] ASoC: codecs: add wsa881x amplifier support
 
-This is the initial codec driver for rt711.
+This patch adds support to WSA8810/WSA8815 Class-D Smart Speaker
+Amplifier. This Amplifier is primarily interfaced with SoundWire.
+One WSA is used for mono speaker configuration and second one
+would give stereo setup.
 
-Signed-off-by: Shuming Fan <shumingf@realtek.com>
-Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191227054445.27223-1-shumingf@realtek.com
+This patch is tested on SDM845 based DragonBoard DB845c and
+Lenovo YOGA C630 Laptop based on SDM850 with WSA8815
+speaker amplifiers.
+
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200107135929.3267-3-srinivas.kandagatla@linaro.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/Kconfig     |   10 +
- sound/soc/codecs/Makefile    |    2 +
- sound/soc/codecs/rt711-sdw.c |  552 +++++++++++++++
- sound/soc/codecs/rt711-sdw.h |  281 ++++++++
- sound/soc/codecs/rt711.c     | 1293 ++++++++++++++++++++++++++++++++++
- sound/soc/codecs/rt711.h     |  227 ++++++
- 6 files changed, 2365 insertions(+)
- create mode 100644 sound/soc/codecs/rt711-sdw.c
- create mode 100644 sound/soc/codecs/rt711-sdw.h
- create mode 100644 sound/soc/codecs/rt711.c
- create mode 100644 sound/soc/codecs/rt711.h
+ sound/soc/codecs/Kconfig   |   10 +
+ sound/soc/codecs/Makefile  |    2 +
+ sound/soc/codecs/wsa881x.c | 1185 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 1197 insertions(+)
+ create mode 100644 sound/soc/codecs/wsa881x.c
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 986a31c68992..65b81888ca3d 100644
+index 146682049007..986a31c68992 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
-@@ -165,6 +165,7 @@ config SND_SOC_ALL_CODECS
- 	select SND_SOC_RT5670 if I2C
- 	select SND_SOC_RT5677 if I2C && SPI_MASTER
- 	select SND_SOC_RT5682 if I2C
-+	select SND_SOC_RT711_SDW if SOUNDWIRE
- 	select SND_SOC_SGTL5000 if I2C
- 	select SND_SOC_SI476X if MFD_SI476X_CORE
- 	select SND_SOC_SIMPLE_AMPLIFIER
-@@ -1059,6 +1060,15 @@ config SND_SOC_RT5677_SPI
- config SND_SOC_RT5682
- 	tristate
+@@ -262,6 +262,7 @@ config SND_SOC_ALL_CODECS
+ 	select SND_SOC_WM9705 if (SND_SOC_AC97_BUS || SND_SOC_AC97_BUS_NEW)
+ 	select SND_SOC_WM9712 if (SND_SOC_AC97_BUS || SND_SOC_AC97_BUS_NEW)
+ 	select SND_SOC_WM9713 if (SND_SOC_AC97_BUS || SND_SOC_AC97_BUS_NEW)
++	select SND_SOC_WSA881X if SOUNDWIRE
+ 	help
+ 	  Normally ASoC codec drivers are only built if a machine driver which
+ 	  uses them is also built since they are only usable with a machine
+@@ -1481,6 +1482,15 @@ config SND_SOC_WM9713
+ 	select REGMAP_AC97
+ 	select AC97_BUS_COMPAT if AC97_BUS_NEW
  
-+config SND_SOC_RT711
-+	tristate
-+
-+config SND_SOC_RT711_SDW
-+	tristate "Realtek RT711 Codec - SDW"
++config SND_SOC_WSA881X
++	tristate "WSA881X Codec"
 +	depends on SOUNDWIRE
-+	select SND_SOC_RT711
 +	select REGMAP_SOUNDWIRE
++	tristate
++	help
++	  This enables support for Qualcomm WSA8810/WSA8815 Class-D
++	  Smart Speaker Amplifier.
 +
- #Freescale sgtl5000 codec
- config SND_SOC_SGTL5000
- 	tristate "Freescale SGTL5000 CODEC"
+ config SND_SOC_ZX_AUD96P22
+ 	tristate "ZTE ZX AUD96P22 CODEC"
+ 	depends on I2C
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 495f7e2f63eb..f4dfe033d120 100644
+index 0290fb389835..495f7e2f63eb 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
-@@ -173,6 +173,7 @@ snd-soc-rt5670-objs := rt5670.o
- snd-soc-rt5677-objs := rt5677.o
- snd-soc-rt5677-spi-objs := rt5677-spi.o
- snd-soc-rt5682-objs := rt5682.o
-+snd-soc-rt711-objs := rt711.o rt711-sdw.o
- snd-soc-sgtl5000-objs := sgtl5000.o
- snd-soc-alc5623-objs := alc5623.o
- snd-soc-alc5632-objs := alc5632.o
-@@ -465,6 +466,7 @@ obj-$(CONFIG_SND_SOC_RT5670)	+= snd-soc-rt5670.o
- obj-$(CONFIG_SND_SOC_RT5677)	+= snd-soc-rt5677.o
- obj-$(CONFIG_SND_SOC_RT5677_SPI)	+= snd-soc-rt5677-spi.o
- obj-$(CONFIG_SND_SOC_RT5682)	+= snd-soc-rt5682.o
-+obj-$(CONFIG_SND_SOC_RT711)     += snd-soc-rt711.o
- obj-$(CONFIG_SND_SOC_SGTL5000)  += snd-soc-sgtl5000.o
- obj-$(CONFIG_SND_SOC_SIGMADSP)	+= snd-soc-sigmadsp.o
- obj-$(CONFIG_SND_SOC_SIGMADSP_I2C)	+= snd-soc-sigmadsp-i2c.o
-diff --git a/sound/soc/codecs/rt711-sdw.c b/sound/soc/codecs/rt711-sdw.c
+@@ -278,6 +278,7 @@ snd-soc-wm9705-objs := wm9705.o
+ snd-soc-wm9712-objs := wm9712.o
+ snd-soc-wm9713-objs := wm9713.o
+ snd-soc-wm-hubs-objs := wm_hubs.o
++snd-soc-wsa881x-objs := wsa881x.o
+ snd-soc-zx-aud96p22-objs := zx_aud96p22.o
+ # Amp
+ snd-soc-max9877-objs := max9877.o
+@@ -568,6 +569,7 @@ obj-$(CONFIG_SND_SOC_WM9712)	+= snd-soc-wm9712.o
+ obj-$(CONFIG_SND_SOC_WM9713)	+= snd-soc-wm9713.o
+ obj-$(CONFIG_SND_SOC_WM_ADSP)	+= snd-soc-wm-adsp.o
+ obj-$(CONFIG_SND_SOC_WM_HUBS)	+= snd-soc-wm-hubs.o
++obj-$(CONFIG_SND_SOC_WSA881X)	+= snd-soc-wsa881x.o
+ obj-$(CONFIG_SND_SOC_ZX_AUD96P22) += snd-soc-zx-aud96p22.o
+ 
+ # Amp
+diff --git a/sound/soc/codecs/wsa881x.c b/sound/soc/codecs/wsa881x.c
 new file mode 100644
-index 000000000000..e28dc84ede5b
+index 000000000000..b59f1d0e7f84
 --- /dev/null
-+++ b/sound/soc/codecs/rt711-sdw.c
-@@ -0,0 +1,552 @@
++++ b/sound/soc/codecs/wsa881x.c
+@@ -0,0 +1,1185 @@
 +// SPDX-License-Identifier: GPL-2.0
-+//
-+// rt711-sdw.c -- rt711 ALSA SoC audio driver
-+//
-+// Copyright(c) 2019 Realtek Semiconductor Corp.
-+//
-+//
++// Copyright (c) 2015-2017, The Linux Foundation.
++// Copyright (c) 2019, Linaro Limited
 +
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_type.h>
++#include <linux/bitops.h>
++#include <linux/gpio.h>
++#include <linux/gpio/consumer.h>
++#include <linux/interrupt.h>
 +#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <sound/soc.h>
-+#include "rt711.h"
-+#include "rt711-sdw.h"
-+
-+static bool rt711_readable_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x00e0:
-+	case 0x00f0:
-+	case 0x2012 ... 0x2016:
-+	case 0x201a ... 0x2027:
-+	case 0x2029 ... 0x202a:
-+	case 0x202d ... 0x2034:
-+	case 0x2201 ... 0x2204:
-+	case 0x2206 ... 0x2212:
-+	case 0x2220 ... 0x2223:
-+	case 0x2230 ... 0x2239:
-+	case 0x2f01 ... 0x2f0f:
-+	case 0x3000 ... 0x3fff:
-+	case 0x7000 ... 0x7fff:
-+	case 0x8300 ... 0x83ff:
-+	case 0x9c00 ... 0x9cff:
-+	case 0xb900 ... 0xb9ff:
-+	case 0x752009:
-+	case 0x752011:
-+	case 0x75201a:
-+	case 0x752045:
-+	case 0x752046:
-+	case 0x752048:
-+	case 0x75204a:
-+	case 0x75206b:
-+	case 0x75206f:
-+	case 0x752080:
-+	case 0x752081:
-+	case 0x752091:
-+	case 0x755800:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool rt711_volatile_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x2016:
-+	case 0x201b:
-+	case 0x201c:
-+	case 0x201d:
-+	case 0x201f:
-+	case 0x2021:
-+	case 0x2023:
-+	case 0x2230:
-+	case 0x2012 ... 0x2015: /* HD-A read */
-+	case 0x202d ... 0x202f: /* BRA */
-+	case 0x2201 ... 0x2212: /* i2c debug */
-+	case 0x2220 ... 0x2223: /* decoded HD-A */
-+	case 0x9c00 ... 0x9cff:
-+	case 0xb900 ... 0xb9ff:
-+	case 0xff01:
-+	case 0x75201a:
-+	case 0x752046:
-+	case 0x752080:
-+	case 0x752081:
-+	case 0x755800:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static int rt711_sdw_read(void *context, unsigned int reg, unsigned int *val)
-+{
-+	struct device *dev = context;
-+	struct rt711_priv *rt711 = dev_get_drvdata(dev);
-+	unsigned int sdw_data_3, sdw_data_2, sdw_data_1, sdw_data_0;
-+	unsigned int reg2 = 0, reg3 = 0, reg4 = 0, mask, nid, val2;
-+	unsigned int is_hda_reg = 1, is_index_reg = 0;
-+	int ret;
-+
-+	if (reg > 0xffff)
-+		is_index_reg = 1;
-+
-+	mask = reg & 0xf000;
-+
-+	if (is_index_reg) { /* index registers */
-+		val2 = reg & 0xff;
-+		reg = reg >> 8;
-+		nid = reg & 0xff;
-+		ret = regmap_write(rt711->sdw_regmap, reg, 0);
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt711->sdw_regmap, reg2, val2);
-+		if (ret < 0)
-+			return ret;
-+
-+		reg3 = RT711_PRIV_DATA_R_H | nid;
-+		ret = regmap_write(rt711->sdw_regmap,
-+			reg3, ((*val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg4 = reg3 + 0x1000;
-+		reg4 |= 0x80;
-+		ret = regmap_write(rt711->sdw_regmap, reg4, (*val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask   == 0x3000) {
-+		reg += 0x8000;
-+		ret = regmap_write(rt711->sdw_regmap, reg, *val);
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask == 0x7000) {
-+		reg += 0x2000;
-+		reg |= 0x800;
-+		ret = regmap_write(rt711->sdw_regmap,
-+			reg, ((*val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt711->sdw_regmap, reg2, (*val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if ((reg & 0xff00) == 0x8300) { /* for R channel */
-+		reg2 = reg - 0x1000;
-+		reg2 &= ~0x80;
-+		ret = regmap_write(rt711->sdw_regmap,
-+			reg2, ((*val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_write(rt711->sdw_regmap, reg, (*val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask == 0x9000) {
-+		ret = regmap_write(rt711->sdw_regmap,
-+			reg, ((*val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt711->sdw_regmap, reg2, (*val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask == 0xb000) {
-+		ret = regmap_write(rt711->sdw_regmap, reg, *val);
-+		if (ret < 0)
-+			return ret;
-+	} else {
-+		ret = regmap_read(rt711->sdw_regmap, reg, val);
-+		if (ret < 0)
-+			return ret;
-+		is_hda_reg = 0;
-+	}
-+
-+	if (is_hda_reg || is_index_reg) {
-+		sdw_data_3 = 0;
-+		sdw_data_2 = 0;
-+		sdw_data_1 = 0;
-+		sdw_data_0 = 0;
-+		ret = regmap_read(rt711->sdw_regmap,
-+			RT711_READ_HDA_3, &sdw_data_3);
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_read(rt711->sdw_regmap,
-+			RT711_READ_HDA_2, &sdw_data_2);
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_read(rt711->sdw_regmap,
-+			RT711_READ_HDA_1, &sdw_data_1);
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_read(rt711->sdw_regmap,
-+			RT711_READ_HDA_0, &sdw_data_0);
-+		if (ret < 0)
-+			return ret;
-+		*val = ((sdw_data_3 & 0xff) << 24) |
-+			((sdw_data_2 & 0xff) << 16) |
-+			((sdw_data_1 & 0xff) << 8) | (sdw_data_0 & 0xff);
-+	}
-+
-+	if (is_hda_reg == 0)
-+		dev_dbg(dev, "[%s] %04x => %08x\n", __func__, reg, *val);
-+	else if (is_index_reg)
-+		dev_dbg(dev, "[%s] %04x %04x %04x %04x => %08x\n",
-+			__func__, reg, reg2, reg3, reg4, *val);
-+	else
-+		dev_dbg(dev, "[%s] %04x %04x => %08x\n",
-+			__func__, reg, reg2, *val);
-+
-+	return 0;
-+}
-+
-+static int rt711_sdw_write(void *context, unsigned int reg, unsigned int val)
-+{
-+	struct device *dev = context;
-+	struct rt711_priv *rt711 = dev_get_drvdata(dev);
-+	unsigned int reg2 = 0, reg3, reg4, nid, mask, val2;
-+	unsigned int is_index_reg = 0;
-+	int ret;
-+
-+	if (reg > 0xffff)
-+		is_index_reg = 1;
-+
-+	mask = reg & 0xf000;
-+
-+	if (is_index_reg) { /* index registers */
-+		val2 = reg & 0xff;
-+		reg = reg >> 8;
-+		nid = reg & 0xff;
-+		ret = regmap_write(rt711->sdw_regmap, reg, 0);
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt711->sdw_regmap, reg2, val2);
-+		if (ret < 0)
-+			return ret;
-+
-+		reg3 = RT711_PRIV_DATA_W_H | nid;
-+		ret = regmap_write(rt711->sdw_regmap,
-+			reg3, ((val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg4 = reg3 + 0x1000;
-+		reg4 |= 0x80;
-+		ret = regmap_write(rt711->sdw_regmap, reg4, (val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		is_index_reg = 1;
-+	} else if (reg < 0x4fff) {
-+		ret = regmap_write(rt711->sdw_regmap, reg, val);
-+		if (ret < 0)
-+			return ret;
-+	} else if (reg == RT711_FUNC_RESET) {
-+		ret = regmap_write(rt711->sdw_regmap, reg, val);
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask == 0x7000) {
-+		ret = regmap_write(rt711->sdw_regmap,
-+			reg, ((val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt711->sdw_regmap, reg2, (val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if ((reg & 0xff00) == 0x8300) {  /* for R channel */
-+		reg2 = reg - 0x1000;
-+		reg2 &= ~0x80;
-+		ret = regmap_write(rt711->sdw_regmap,
-+			reg2, ((val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_write(rt711->sdw_regmap, reg, (val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	if (reg2 == 0)
-+		dev_dbg(dev, "[%s] %04x <= %04x\n", __func__, reg, val);
-+	else if (is_index_reg)
-+		dev_dbg(dev, "[%s] %04x %04x %04x %04x <= %04x %04x\n",
-+			__func__, reg, reg2, reg3, reg4, val2, val);
-+	else
-+		dev_dbg(dev, "[%s] %04x %04x <= %04x\n",
-+			__func__, reg, reg2, val);
-+
-+	return 0;
-+}
-+
-+static const struct regmap_config rt711_regmap = {
-+	.reg_bits = 24,
-+	.val_bits = 32,
-+	.readable_reg = rt711_readable_register,
-+	.volatile_reg = rt711_volatile_register,
-+	.max_register = 0x755800,
-+	.reg_defaults = rt711_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(rt711_reg_defaults),
-+	.cache_type = REGCACHE_RBTREE,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+	.reg_read = rt711_sdw_read,
-+	.reg_write = rt711_sdw_write,
-+};
-+
-+static const struct regmap_config rt711_sdw_regmap = {
-+	.name = "sdw",
-+	.reg_bits = 32,
-+	.val_bits = 8,
-+	.readable_reg = rt711_readable_register,
-+	.max_register = 0xff01,
-+	.cache_type = REGCACHE_NONE,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+};
-+
-+static int rt711_update_status(struct sdw_slave *slave,
-+				enum sdw_slave_status status)
-+{
-+	struct rt711_priv *rt711 = dev_get_drvdata(&slave->dev);
-+
-+	/* Update the status */
-+	rt711->status = status;
-+
-+	if (status == SDW_SLAVE_UNATTACHED)
-+		rt711->hw_init = false;
-+
-+	/*
-+	 * Perform initialization only if slave status is present and
-+	 * hw_init flag is false
-+	 */
-+	if (rt711->hw_init || rt711->status != SDW_SLAVE_ATTACHED)
-+		return 0;
-+
-+	/* perform I/O transfers required for Slave initialization */
-+	return rt711_io_init(&slave->dev, slave);
-+}
-+
-+static int rt711_read_prop(struct sdw_slave *slave)
-+{
-+	struct sdw_slave_prop *prop = &slave->prop;
-+	int nval, i, num_of_ports = 1;
-+	u32 bit;
-+	unsigned long addr;
-+	struct sdw_dpn_prop *dpn;
-+
-+	prop->paging_support = false;
-+
-+	/* first we need to allocate memory for set bits in port lists */
-+	prop->source_ports = 0x14; /* BITMAP: 00010100 */
-+	prop->sink_ports = 0x8; /* BITMAP:  00001000 */
-+
-+	nval = hweight32(prop->source_ports);
-+	num_of_ports += nval;
-+	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+						sizeof(*prop->src_dpn_prop),
-+						GFP_KERNEL);
-+	if (!prop->src_dpn_prop)
-+		return -ENOMEM;
-+
-+	i = 0;
-+	dpn = prop->src_dpn_prop;
-+	addr = prop->source_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[i].num = bit;
-+		dpn[i].type = SDW_DPN_FULL;
-+		dpn[i].simple_ch_prep_sm = true;
-+		dpn[i].ch_prep_timeout = 10;
-+		i++;
-+	}
-+
-+	/* do this again for sink now */
-+	nval = hweight32(prop->sink_ports);
-+	num_of_ports += nval;
-+	prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+						sizeof(*prop->sink_dpn_prop),
-+						GFP_KERNEL);
-+	if (!prop->sink_dpn_prop)
-+		return -ENOMEM;
-+
-+	i = 0;
-+	dpn = prop->sink_dpn_prop;
-+	addr = prop->sink_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[i].num = bit;
-+		dpn[i].type = SDW_DPN_FULL;
-+		dpn[i].simple_ch_prep_sm = true;
-+		dpn[i].ch_prep_timeout = 10;
-+		i++;
-+	}
-+
-+	/* Allocate port_ready based on num_of_ports */
-+	slave->port_ready = devm_kcalloc(&slave->dev, num_of_ports,
-+					sizeof(*slave->port_ready),
-+					GFP_KERNEL);
-+	if (!slave->port_ready)
-+		return -ENOMEM;
-+
-+	/* Initialize completion */
-+	for (i = 0; i < num_of_ports; i++)
-+		init_completion(&slave->port_ready[i]);
-+
-+	/* set the timeout values */
-+	prop->clk_stop_timeout = 20;
-+
-+	/* wake-up event */
-+	prop->wake_capable = 1;
-+
-+	return 0;
-+}
-+
-+static int rt711_bus_config(struct sdw_slave *slave,
-+				struct sdw_bus_params *params)
-+{
-+	struct rt711_priv *rt711 = dev_get_drvdata(&slave->dev);
-+	int ret;
-+
-+	memcpy(&rt711->params, params, sizeof(*params));
-+
-+	ret = rt711_clock_config(&slave->dev);
-+	if (ret < 0)
-+		dev_err(&slave->dev, "Invalid clk config");
-+
-+	return ret;
-+}
-+
-+static int rt711_interrupt_callback(struct sdw_slave *slave,
-+					struct sdw_slave_intr_status *status)
-+{
-+	struct rt711_priv *rt711 = dev_get_drvdata(&slave->dev);
-+
-+	dev_dbg(&slave->dev,
-+		"%s control_port_stat=%x", __func__, status->control_port);
-+
-+	if (status->control_port & 0x4) {
-+		mod_delayed_work(system_power_efficient_wq,
-+			&rt711->jack_detect_work, msecs_to_jiffies(250));
-+	}
-+
-+	return 0;
-+}
-+
-+static struct sdw_slave_ops rt711_slave_ops = {
-+	.read_prop = rt711_read_prop,
-+	.interrupt_callback = rt711_interrupt_callback,
-+	.update_status = rt711_update_status,
-+	.bus_config = rt711_bus_config,
-+};
-+
-+static int rt711_sdw_probe(struct sdw_slave *slave,
-+				const struct sdw_device_id *id)
-+{
-+	struct regmap *sdw_regmap, *regmap;
-+
-+	/* Assign ops */
-+	slave->ops = &rt711_slave_ops;
-+
-+	/* Regmap Initialization */
-+	sdw_regmap = devm_regmap_init_sdw(slave, &rt711_sdw_regmap);
-+	if (!sdw_regmap)
-+		return -EINVAL;
-+
-+	regmap = devm_regmap_init(&slave->dev, NULL,
-+		&slave->dev, &rt711_regmap);
-+	if (!regmap)
-+		return -EINVAL;
-+
-+	rt711_init(&slave->dev, sdw_regmap, regmap, slave);
-+
-+	return 0;
-+}
-+
-+static int rt711_sdw_remove(struct sdw_slave *slave)
-+{
-+	struct rt711_priv *rt711 = dev_get_drvdata(&slave->dev);
-+
-+	if (rt711 && rt711->hw_init) {
-+		cancel_delayed_work(&rt711->jack_detect_work);
-+		cancel_delayed_work(&rt711->jack_btn_check_work);
-+		cancel_work_sync(&rt711->calibration_work);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct sdw_device_id rt711_id[] = {
-+	SDW_SLAVE_ENTRY(0x025d, 0x711, 0),
-+	{},
-+};
-+MODULE_DEVICE_TABLE(sdw, rt711_id);
-+
-+static int rt711_dev_suspend(struct device *dev)
-+{
-+	struct rt711_priv *rt711 = dev_get_drvdata(dev);
-+
-+	if (!rt711->hw_init)
-+		return 0;
-+
-+	regcache_cache_only(rt711->regmap, true);
-+
-+	return 0;
-+}
-+
-+#define RT711_PROBE_TIMEOUT 2000
-+
-+static int rt711_dev_resume(struct device *dev)
-+{
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct rt711_priv *rt711 = dev_get_drvdata(dev);
-+	unsigned long time;
-+
-+	if (!rt711->hw_init)
-+		return 0;
-+
-+	if (!slave->unattach_request)
-+		goto regmap_sync;
-+
-+	time = wait_for_completion_timeout(&slave->initialization_complete,
-+				msecs_to_jiffies(RT711_PROBE_TIMEOUT));
-+	if (!time) {
-+		dev_err(&slave->dev, "Initialization not complete, timed out\n");
-+		return -ETIMEDOUT;
-+	}
-+
-+regmap_sync:
-+	slave->unattach_request = 0;
-+	regcache_cache_only(rt711->regmap, false);
-+	regcache_sync_region(rt711->regmap, 0x3000, 0x8fff);
-+	regcache_sync_region(rt711->regmap, 0x752009, 0x752091);
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops rt711_pm = {
-+	SET_SYSTEM_SLEEP_PM_OPS(rt711_dev_suspend, rt711_dev_resume)
-+	SET_RUNTIME_PM_OPS(rt711_dev_suspend, rt711_dev_resume, NULL)
-+};
-+
-+static struct sdw_driver rt711_sdw_driver = {
-+	.driver = {
-+		.name = "rt711",
-+		.owner = THIS_MODULE,
-+		.pm = &rt711_pm,
-+	},
-+	.probe = rt711_sdw_probe,
-+	.remove = rt711_sdw_remove,
-+	.ops = &rt711_slave_ops,
-+	.id_table = rt711_id,
-+};
-+module_sdw_driver(rt711_sdw_driver);
-+
-+MODULE_DESCRIPTION("ASoC RT711 SDW driver");
-+MODULE_AUTHOR("Shuming Fan <shumingf@realtek.com>");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/rt711-sdw.h b/sound/soc/codecs/rt711-sdw.h
-new file mode 100644
-index 000000000000..43b2b984b29c
---- /dev/null
-+++ b/sound/soc/codecs/rt711-sdw.h
-@@ -0,0 +1,281 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * rt711-sdw.h -- RT711 ALSA SoC audio driver header
-+ *
-+ * Copyright(c) 2019 Realtek Semiconductor Corp.
-+ */
-+
-+#ifndef __RT711_SDW_H__
-+#define __RT711_SDW_H__
-+
-+static const struct reg_default rt711_reg_defaults[] = {
-+	{ 0x0000, 0x00 },
-+	{ 0x0001, 0x00 },
-+	{ 0x0002, 0x00 },
-+	{ 0x0003, 0x00 },
-+	{ 0x0004, 0x00 },
-+	{ 0x0005, 0x01 },
-+	{ 0x0020, 0x00 },
-+	{ 0x0022, 0x00 },
-+	{ 0x0023, 0x00 },
-+	{ 0x0024, 0x00 },
-+	{ 0x0025, 0x00 },
-+	{ 0x0026, 0x00 },
-+	{ 0x0030, 0x00 },
-+	{ 0x0032, 0x00 },
-+	{ 0x0033, 0x00 },
-+	{ 0x0034, 0x00 },
-+	{ 0x0035, 0x00 },
-+	{ 0x0036, 0x00 },
-+	{ 0x0040, 0x00 },
-+	{ 0x0041, 0x00 },
-+	{ 0x0042, 0x00 },
-+	{ 0x0043, 0x00 },
-+	{ 0x0044, 0x20 },
-+	{ 0x0045, 0x01 },
-+	{ 0x0046, 0x01 },
-+	{ 0x0050, 0x20 },
-+	{ 0x0051, 0x02 },
-+	{ 0x0052, 0x5d },
-+	{ 0x0053, 0x07 },
-+	{ 0x0054, 0x11 },
-+	{ 0x0055, 0x00 },
-+	{ 0x0060, 0x00 },
-+	{ 0x0070, 0x00 },
-+	{ 0x0080, 0xc0 },
-+	{ 0x0088, 0x00 },
-+	{ 0x00e0, 0x00 },
-+	{ 0x00e1, 0x00 },
-+	{ 0x00e2, 0x00 },
-+	{ 0x00e3, 0x00 },
-+	{ 0x00e5, 0x00 },
-+	{ 0x00ee, 0x00 },
-+	{ 0x00ef, 0x00 },
-+	{ 0x00f0, 0x00 },
-+	{ 0x00f1, 0x00 },
-+	{ 0x00f2, 0x00 },
-+	{ 0x00f3, 0x00 },
-+	{ 0x00f4, 0x00 },
-+	{ 0x00f5, 0x00 },
-+	{ 0x00fe, 0x00 },
-+	{ 0x00ff, 0x00 },
-+	{ 0x0100, 0x00 },
-+	{ 0x0101, 0x00 },
-+	{ 0x0102, 0x00 },
-+	{ 0x0103, 0x00 },
-+	{ 0x0104, 0x00 },
-+	{ 0x0105, 0x00 },
-+	{ 0x0120, 0x00 },
-+	{ 0x0122, 0x00 },
-+	{ 0x0123, 0x00 },
-+	{ 0x0124, 0x00 },
-+	{ 0x0125, 0x00 },
-+	{ 0x0126, 0x00 },
-+	{ 0x0127, 0x00 },
-+	{ 0x0130, 0x00 },
-+	{ 0x0132, 0x00 },
-+	{ 0x0133, 0x00 },
-+	{ 0x0134, 0x00 },
-+	{ 0x0135, 0x00 },
-+	{ 0x0136, 0x00 },
-+	{ 0x0137, 0x00 },
-+	{ 0x0200, 0x00 },
-+	{ 0x0201, 0x00 },
-+	{ 0x0202, 0x00 },
-+	{ 0x0203, 0x00 },
-+	{ 0x0204, 0x00 },
-+	{ 0x0205, 0x03 },
-+	{ 0x0220, 0x00 },
-+	{ 0x0222, 0x00 },
-+	{ 0x0223, 0x00 },
-+	{ 0x0224, 0x00 },
-+	{ 0x0225, 0x00 },
-+	{ 0x0226, 0x00 },
-+	{ 0x0227, 0x00 },
-+	{ 0x0230, 0x00 },
-+	{ 0x0232, 0x00 },
-+	{ 0x0233, 0x00 },
-+	{ 0x0234, 0x00 },
-+	{ 0x0235, 0x00 },
-+	{ 0x0236, 0x00 },
-+	{ 0x0237, 0x00 },
-+	{ 0x0300, 0x00 },
-+	{ 0x0301, 0x00 },
-+	{ 0x0302, 0x20 },
-+	{ 0x0303, 0x00 },
-+	{ 0x0304, 0x00 },
-+	{ 0x0305, 0x03 },
-+	{ 0x0320, 0x00 },
-+	{ 0x0322, 0x00 },
-+	{ 0x0323, 0x00 },
-+	{ 0x0324, 0x00 },
-+	{ 0x0325, 0x00 },
-+	{ 0x0326, 0x00 },
-+	{ 0x0327, 0x00 },
-+	{ 0x0330, 0x00 },
-+	{ 0x0332, 0x00 },
-+	{ 0x0333, 0x00 },
-+	{ 0x0334, 0x00 },
-+	{ 0x0335, 0x00 },
-+	{ 0x0336, 0x00 },
-+	{ 0x0337, 0x00 },
-+	{ 0x0400, 0x00 },
-+	{ 0x0401, 0x00 },
-+	{ 0x0402, 0x00 },
-+	{ 0x0403, 0x00 },
-+	{ 0x0404, 0x00 },
-+	{ 0x0405, 0x03 },
-+	{ 0x0420, 0x00 },
-+	{ 0x0422, 0x00 },
-+	{ 0x0423, 0x00 },
-+	{ 0x0424, 0x00 },
-+	{ 0x0425, 0x00 },
-+	{ 0x0426, 0x00 },
-+	{ 0x0427, 0x00 },
-+	{ 0x0430, 0x00 },
-+	{ 0x0432, 0x00 },
-+	{ 0x0433, 0x00 },
-+	{ 0x0434, 0x00 },
-+	{ 0x0435, 0x00 },
-+	{ 0x0436, 0x00 },
-+	{ 0x0437, 0x00 },
-+	{ 0x0f00, 0x00 },
-+	{ 0x0f01, 0x00 },
-+	{ 0x0f02, 0x20 },
-+	{ 0x0f03, 0x00 },
-+	{ 0x0f04, 0x00 },
-+	{ 0x0f05, 0x03 },
-+	{ 0x0f06, 0x00 },
-+	{ 0x0f07, 0x00 },
-+	{ 0x0f08, 0x00 },
-+	{ 0x0f09, 0x00 },
-+	{ 0x0f10, 0x00 },
-+	{ 0x0f11, 0x00 },
-+	{ 0x0f12, 0x00 },
-+	{ 0x0f13, 0x00 },
-+	{ 0x0f14, 0x00 },
-+	{ 0x0f15, 0x00 },
-+	{ 0x0f16, 0x00 },
-+	{ 0x0f17, 0x00 },
-+	{ 0x0f18, 0x00 },
-+	{ 0x0f19, 0x00 },
-+	{ 0x0f1a, 0x00 },
-+	{ 0x0f1b, 0x00 },
-+	{ 0x0f1c, 0x00 },
-+	{ 0x0f1d, 0x00 },
-+	{ 0x0f1e, 0x00 },
-+	{ 0x0f1f, 0x00 },
-+	{ 0x0f20, 0x00 },
-+	{ 0x0f22, 0x00 },
-+	{ 0x0f23, 0x00 },
-+	{ 0x0f24, 0x00 },
-+	{ 0x0f25, 0x00 },
-+	{ 0x0f26, 0x00 },
-+	{ 0x0f27, 0x00 },
-+	{ 0x0f30, 0x00 },
-+	{ 0x0f32, 0x00 },
-+	{ 0x0f33, 0x00 },
-+	{ 0x0f34, 0x00 },
-+	{ 0x0f35, 0x00 },
-+	{ 0x0f36, 0x00 },
-+	{ 0x0f37, 0x00 },
-+	{ 0x2012, 0x00 },
-+	{ 0x2013, 0x00 },
-+	{ 0x2014, 0x00 },
-+	{ 0x2015, 0x00 },
-+	{ 0x2016, 0x00 },
-+	{ 0x201a, 0x00 },
-+	{ 0x201b, 0x00 },
-+	{ 0x201c, 0x0c },
-+	{ 0x201d, 0x00 },
-+	{ 0x201e, 0x00 },
-+	{ 0x201f, 0x00 },
-+	{ 0x2020, 0x00 },
-+	{ 0x2021, 0x00 },
-+	{ 0x2022, 0x00 },
-+	{ 0x2023, 0x00 },
-+	{ 0x2024, 0x00 },
-+	{ 0x2025, 0x01 },
-+	{ 0x2026, 0x00 },
-+	{ 0x2027, 0x00 },
-+	{ 0x2029, 0x00 },
-+	{ 0x202a, 0x00 },
-+	{ 0x202d, 0x00 },
-+	{ 0x202e, 0x00 },
-+	{ 0x202f, 0x00 },
-+	{ 0x2030, 0x00 },
-+	{ 0x2031, 0x00 },
-+	{ 0x2032, 0x00 },
-+	{ 0x2033, 0x00 },
-+	{ 0x2034, 0x00 },
-+	{ 0x2201, 0xc7 },
-+	{ 0x2202, 0x0c },
-+	{ 0x2203, 0x22 },
-+	{ 0x2204, 0x04 },
-+	{ 0x2206, 0x00 },
-+	{ 0x2207, 0x00 },
-+	{ 0x2208, 0x00 },
-+	{ 0x2209, 0x00 },
-+	{ 0x220a, 0x00 },
-+	{ 0x220b, 0x00 },
-+	{ 0x220c, 0x00 },
-+	{ 0x220d, 0x04 },
-+	{ 0x220e, 0x00 },
-+	{ 0x220f, 0x00 },
-+	{ 0x2211, 0x01 },
-+	{ 0x2212, 0x00 },
-+	{ 0x2220, 0x00 },
-+	{ 0x2221, 0x00 },
-+	{ 0x2222, 0x00 },
-+	{ 0x2223, 0x00 },
-+	{ 0x2230, 0x00 },
-+	{ 0x2231, 0x2f },
-+	{ 0x2232, 0x80 },
-+	{ 0x2233, 0x00 },
-+	{ 0x2234, 0x00 },
-+	{ 0x2235, 0x00 },
-+	{ 0x2236, 0x00 },
-+	{ 0x2237, 0x00 },
-+	{ 0x2238, 0x00 },
-+	{ 0x2239, 0x00 },
-+	{ 0x2f01, 0x00 },
-+	{ 0x2f02, 0x09 },
-+	{ 0x2f03, 0x00 },
-+	{ 0x2f04, 0x00 },
-+	{ 0x2f05, 0x0b },
-+	{ 0x2f06, 0x01 },
-+	{ 0x2f07, 0xcf },
-+	{ 0x2f08, 0x00 },
-+	{ 0x2f09, 0x00 },
-+	{ 0x2f0a, 0x00 },
-+	{ 0x2f0b, 0x00 },
-+	{ 0x2f0c, 0x00 },
-+	{ 0x2f0d, 0x00 },
-+	{ 0x2f0e, 0x00 },
-+	{ 0x2f0f, 0x00 },
-+	{ 0x3122, 0x00 },
-+	{ 0x3123, 0x00 },
-+	{ 0x7303, 0x57 },
-+	{ 0x8383, 0x57 },
-+	{ 0x7308, 0x97 },
-+	{ 0x8388, 0x97 },
-+	{ 0x7309, 0x97 },
-+	{ 0x8389, 0x97 },
-+	{ 0x7312, 0x00 },
-+	{ 0x8392, 0x00 },
-+	{ 0x7313, 0x00 },
-+	{ 0x8393, 0x00 },
-+	{ 0x7319, 0x00 },
-+	{ 0x8399, 0x00 },
-+	{ 0x752009, 0x1029 },
-+	{ 0x752011, 0x007a },
-+	{ 0x75201a, 0x8003 },
-+	{ 0x752045, 0x5289 },
-+	{ 0x752048, 0xd049 },
-+	{ 0x75204a, 0xa83b },
-+	{ 0x75206b, 0x5064 },
-+	{ 0x75206f, 0x058b },
-+	{ 0x752091, 0x0000 },
-+};
-+
-+#endif /* __RT711_SDW_H__ */
-diff --git a/sound/soc/codecs/rt711.c b/sound/soc/codecs/rt711.c
-new file mode 100644
-index 000000000000..3bebba7a63be
---- /dev/null
-+++ b/sound/soc/codecs/rt711.c
-@@ -0,0 +1,1293 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// rt711.c -- rt711 ALSA SoC audio driver
-+//
-+// Copyright(c) 2019 Realtek Semiconductor Corp.
-+//
-+//
-+
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/version.h>
-+#include <linux/kernel.h>
-+#include <linux/init.h>
-+#include <linux/delay.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/pm.h>
-+#include <linux/soundwire/sdw.h>
++#include <linux/of.h>
++#include <linux/of_gpio.h>
 +#include <linux/regmap.h>
 +#include <linux/slab.h>
-+#include <sound/core.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
++#include <linux/soundwire/sdw.h>
++#include <linux/soundwire/sdw_registers.h>
++#include <linux/soundwire/sdw_type.h>
 +#include <sound/soc.h>
-+#include <sound/soc-dapm.h>
-+#include <sound/initval.h>
 +#include <sound/tlv.h>
-+#include <sound/hda_verbs.h>
-+#include <sound/jack.h>
 +
-+#include "rt711.h"
-+
-+static int rt711_index_write(struct regmap *regmap,
-+		unsigned int nid, unsigned int reg, unsigned int value)
-+{
-+	int ret;
-+	unsigned int addr = ((RT711_PRIV_INDEX_W_H | nid) << 8) | reg;
-+
-+	ret = regmap_write(regmap, addr, value);
-+	if (ret < 0)
-+		pr_err("Failed to set private value: %06x <= %04x ret=%d\n",
-+			addr, value, ret);
-+
-+	return ret;
-+}
-+
-+static int rt711_index_read(struct regmap *regmap,
-+		unsigned int nid, unsigned int reg, unsigned int *value)
-+{
-+	int ret;
-+	unsigned int addr = ((RT711_PRIV_INDEX_W_H | nid) << 8) | reg;
-+
-+	*value = 0;
-+	ret = regmap_read(regmap, addr, value);
-+	if (ret < 0)
-+		pr_err("Failed to get private value: %06x => %04x ret=%d\n",
-+			addr, *value, ret);
-+
-+	return ret;
-+}
-+
-+static int rt711_index_update_bits(struct regmap *regmap, unsigned int nid,
-+			unsigned int reg, unsigned int mask, unsigned int val)
-+{
-+	unsigned int tmp, orig;
-+	int ret;
-+
-+	ret = rt711_index_read(regmap, nid, reg, &orig);
-+	if (ret < 0)
-+		return ret;
-+
-+	tmp = orig & ~mask;
-+	tmp |= val & mask;
-+
-+	return rt711_index_write(regmap, nid, reg, tmp);
-+}
-+
-+static void rt711_reset(struct regmap *regmap)
-+{
-+	regmap_write(regmap, RT711_FUNC_RESET, 0);
-+	rt711_index_update_bits(regmap, RT711_VENDOR_REG,
-+		RT711_PARA_VERB_CTL, RT711_HIDDEN_REG_SW_RESET,
-+		RT711_HIDDEN_REG_SW_RESET);
-+}
-+
-+static int rt711_calibration(struct rt711_priv *rt711)
-+{
-+	unsigned int val, loop = 0;
-+	struct device *dev;
-+	struct regmap *regmap = rt711->regmap;
-+	int ret = 0;
-+
-+	mutex_lock(&rt711->calibrate_mutex);
-+	regmap_write(rt711->regmap,
-+		RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D0);
-+
-+	dev = regmap_get_device(regmap);
-+
-+	/* Calibration manual mode */
-+	rt711_index_update_bits(regmap, RT711_VENDOR_REG, RT711_FSM_CTL,
-+		0xf, 0x0);
-+
-+	/* trigger */
-+	rt711_index_update_bits(regmap, RT711_VENDOR_CALI,
-+		RT711_DAC_DC_CALI_CTL1, RT711_DAC_DC_CALI_TRIGGER,
-+		RT711_DAC_DC_CALI_TRIGGER);
-+
-+	/* wait for calibration process */
-+	rt711_index_read(regmap, RT711_VENDOR_CALI,
-+		RT711_DAC_DC_CALI_CTL1, &val);
-+
-+	while (val & RT711_DAC_DC_CALI_TRIGGER) {
-+		if (loop >= 500) {
-+			pr_err("%s, calibration time-out!\n",
-+							__func__);
-+			ret = -ETIMEDOUT;
-+			break;
-+		}
-+		loop++;
-+
-+		usleep_range(10000, 11000);
-+		rt711_index_read(regmap, RT711_VENDOR_CALI,
-+			RT711_DAC_DC_CALI_CTL1, &val);
-+	}
-+
-+	/* depop mode */
-+	rt711_index_update_bits(regmap, RT711_VENDOR_REG,
-+		RT711_FSM_CTL, 0xf, RT711_DEPOP_CTL);
-+
-+	regmap_write(rt711->regmap,
-+		RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D3);
-+	mutex_unlock(&rt711->calibrate_mutex);
-+
-+	dev_dbg(dev, "%s calibration complete, ret=%d\n", __func__, ret);
-+	return ret;
-+}
-+
-+static unsigned int rt711_button_detect(struct rt711_priv *rt711)
-+{
-+	unsigned int btn_type = 0, val80, val81;
-+	int ret;
-+
-+	ret = rt711_index_read(rt711->regmap, RT711_VENDOR_REG,
-+				RT711_IRQ_FLAG_TABLE1, &val80);
-+	if (ret < 0)
-+		goto read_error;
-+	ret = rt711_index_read(rt711->regmap, RT711_VENDOR_REG,
-+					RT711_IRQ_FLAG_TABLE2, &val81);
-+	if (ret < 0)
-+		goto read_error;
-+
-+	val80 &= 0x0381;
-+	val81 &= 0xff00;
-+
-+	switch (val80) {
-+	case 0x0200:
-+	case 0x0100:
-+	case 0x0080:
-+		btn_type |= SND_JACK_BTN_0;
-+		break;
-+	case 0x0001:
-+		btn_type |= SND_JACK_BTN_3;
-+		break;
-+	}
-+	switch (val81) {
-+	case 0x8000:
-+	case 0x4000:
-+	case 0x2000:
-+		btn_type |= SND_JACK_BTN_1;
-+		break;
-+	case 0x1000:
-+	case 0x0800:
-+	case 0x0400:
-+		btn_type |= SND_JACK_BTN_2;
-+		break;
-+	case 0x0200:
-+	case 0x0100:
-+		btn_type |= SND_JACK_BTN_3;
-+		break;
-+	}
-+read_error:
-+	return btn_type;
-+}
-+
-+static int rt711_headset_detect(struct rt711_priv *rt711)
-+{
-+	unsigned int buf, loop = 0;
-+	int ret;
-+	unsigned int jack_status = 0, reg;
-+
-+	ret = rt711_index_read(rt711->regmap, RT711_VENDOR_REG,
-+				RT711_COMBO_JACK_AUTO_CTL2, &buf);
-+	if (ret < 0)
-+		goto io_error;
-+
-+	while (loop < 500 &&
-+		(buf & RT711_COMBOJACK_AUTO_DET_STATUS) == 0) {
-+		loop++;
-+
-+		usleep_range(9000, 10000);
-+		ret = rt711_index_read(rt711->regmap, RT711_VENDOR_REG,
-+					RT711_COMBO_JACK_AUTO_CTL2, &buf);
-+		if (ret < 0)
-+			goto io_error;
-+
-+		reg = RT711_VERB_GET_PIN_SENSE | RT711_HP_OUT;
-+		ret = regmap_read(rt711->regmap, reg, &jack_status);
-+		if (ret < 0)
-+			goto io_error;
-+		if ((jack_status & (1 << 31)) == 0)
-+			goto remove_error;
-+	}
-+
-+	if (loop >= 500)
-+		goto to_error;
-+
-+	if (buf & RT711_COMBOJACK_AUTO_DET_TRS)
-+		rt711->jack_type = SND_JACK_HEADPHONE;
-+	else if ((buf & RT711_COMBOJACK_AUTO_DET_CTIA) ||
-+		(buf & RT711_COMBOJACK_AUTO_DET_OMTP))
-+		rt711->jack_type = SND_JACK_HEADSET;
-+
-+	return 0;
-+
-+to_error:
-+	ret = -ETIMEDOUT;
-+	pr_err_ratelimited("Time-out error in %s\n", __func__);
-+	return ret;
-+io_error:
-+	pr_err_ratelimited("IO error in %s, ret %d\n", __func__, ret);
-+	return ret;
-+remove_error:
-+	pr_err_ratelimited("Jack removal in %s\n", __func__);
-+	return -ENODEV;
-+}
-+
-+static void rt711_jack_detect_handler(struct work_struct *work)
-+{
-+	struct rt711_priv *rt711 =
-+		container_of(work, struct rt711_priv, jack_detect_work.work);
-+	int btn_type = 0, ret;
-+	unsigned int jack_status = 0, reg;
-+
-+	if (!rt711->hs_jack)
-+		return;
-+
-+	if (!rt711->component->card->instantiated)
-+		return;
-+
-+	reg = RT711_VERB_GET_PIN_SENSE | RT711_HP_OUT;
-+	ret = regmap_read(rt711->regmap, reg, &jack_status);
-+	if (ret < 0)
-+		goto io_error;
-+
-+	/* pin attached */
-+	if (jack_status & (1 << 31)) {
-+		/* jack in */
-+		if (rt711->jack_type == 0) {
-+			ret = rt711_headset_detect(rt711);
-+			if (ret < 0)
-+				return;
-+			if (rt711->jack_type == SND_JACK_HEADSET)
-+				btn_type = rt711_button_detect(rt711);
-+		} else if (rt711->jack_type == SND_JACK_HEADSET) {
-+			/* jack is already in, report button event */
-+			btn_type = rt711_button_detect(rt711);
-+		}
-+	} else {
-+		/* jack out */
-+		rt711->jack_type = 0;
-+	}
-+
-+	dev_dbg(&rt711->slave->dev,
-+		"in %s, jack_type=0x%x\n", __func__, rt711->jack_type);
-+	dev_dbg(&rt711->slave->dev,
-+		"in %s, btn_type=0x%x\n", __func__, btn_type);
-+
-+	snd_soc_jack_report(rt711->hs_jack, rt711->jack_type | btn_type,
-+			SND_JACK_HEADSET |
-+			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+			SND_JACK_BTN_2 | SND_JACK_BTN_3);
-+
-+	if (btn_type) {
-+		/* button released */
-+		snd_soc_jack_report(rt711->hs_jack, rt711->jack_type,
-+			SND_JACK_HEADSET |
-+			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+			SND_JACK_BTN_2 | SND_JACK_BTN_3);
-+
-+		mod_delayed_work(system_power_efficient_wq,
-+			&rt711->jack_btn_check_work, msecs_to_jiffies(200));
-+	}
-+
-+	return;
-+
-+io_error:
-+	pr_err_ratelimited("IO error in %s, ret %d\n", __func__, ret);
-+}
-+
-+static void rt711_btn_check_handler(struct work_struct *work)
-+{
-+	struct rt711_priv *rt711 = container_of(work, struct rt711_priv,
-+		jack_btn_check_work.work);
-+	int btn_type = 0, ret;
-+	unsigned int jack_status = 0, reg;
-+
-+	reg = RT711_VERB_GET_PIN_SENSE | RT711_HP_OUT;
-+	ret = regmap_read(rt711->regmap, reg, &jack_status);
-+	if (ret < 0)
-+		goto io_error;
-+
-+	/* pin attached */
-+	if (jack_status & (1 << 31)) {
-+		if (rt711->jack_type == SND_JACK_HEADSET) {
-+			/* jack is already in, report button event */
-+			btn_type = rt711_button_detect(rt711);
-+		}
-+	} else {
-+		rt711->jack_type = 0;
-+	}
-+
-+	/* cbj comparator */
-+	ret = rt711_index_read(rt711->regmap, RT711_VENDOR_REG,
-+		RT711_COMBO_JACK_AUTO_CTL2, &reg);
-+	if (ret < 0)
-+		goto io_error;
-+
-+	if ((reg & 0xf0) == 0xf0)
-+		btn_type = 0;
-+
-+	dev_dbg(&rt711->slave->dev,
-+		"%s, btn_type=0x%x\n",	__func__, btn_type);
-+	snd_soc_jack_report(rt711->hs_jack, rt711->jack_type | btn_type,
-+			SND_JACK_HEADSET |
-+			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+			SND_JACK_BTN_2 | SND_JACK_BTN_3);
-+
-+	if (btn_type) {
-+		/* button released */
-+		snd_soc_jack_report(rt711->hs_jack, rt711->jack_type,
-+			SND_JACK_HEADSET |
-+			SND_JACK_BTN_0 | SND_JACK_BTN_1 |
-+			SND_JACK_BTN_2 | SND_JACK_BTN_3);
-+
-+		mod_delayed_work(system_power_efficient_wq,
-+			&rt711->jack_btn_check_work, msecs_to_jiffies(200));
-+	}
-+
-+	return;
-+
-+io_error:
-+	pr_err_ratelimited("IO error in %s, ret %d\n", __func__, ret);
-+}
-+
-+static void rt711_jack_init(struct rt711_priv *rt711)
-+{
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(rt711->component);
-+
-+	mutex_lock(&rt711->calibrate_mutex);
-+	/* power on */
-+	if (dapm->bias_level <= SND_SOC_BIAS_STANDBY)
-+		regmap_write(rt711->regmap,
-+			RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D0);
-+
-+	if (rt711->hs_jack) {
-+		/* unsolicited response & IRQ control */
-+		regmap_write(rt711->regmap,
-+			RT711_SET_MIC2_UNSOLICITED_ENABLE, 0x82);
-+		regmap_write(rt711->regmap,
-+			RT711_SET_HP_UNSOLICITED_ENABLE, 0x81);
-+		regmap_write(rt711->regmap,
-+			RT711_SET_INLINE_UNSOLICITED_ENABLE, 0x83);
-+		rt711_index_write(rt711->regmap, RT711_VENDOR_REG,
-+			0x10, 0x2420);
-+		rt711_index_write(rt711->regmap, RT711_VENDOR_REG,
-+			0x19, 0x2e11);
-+
-+		switch (rt711->jd_src) {
-+		case RT711_JD1:
-+			/* default settings was already for JD1 */
-+			break;
-+		case RT711_JD2:
-+			rt711_index_update_bits(rt711->regmap, RT711_VENDOR_REG,
-+				RT711_JD_CTL2, RT711_JD2_2PORT_200K_DECODE_HP |
-+				RT711_HP_JD_SEL_JD2,
-+				RT711_JD2_2PORT_200K_DECODE_HP |
-+				RT711_HP_JD_SEL_JD2);
-+			rt711_index_update_bits(rt711->regmap, RT711_VENDOR_REG,
-+				RT711_CC_DET1,
-+				RT711_HP_JD_FINAL_RESULT_CTL_JD12,
-+				RT711_HP_JD_FINAL_RESULT_CTL_JD12);
-+			break;
-+		default:
-+			dev_warn(rt711->component->dev, "Wrong JD source\n");
-+			break;
-+		}
-+
-+		dev_dbg(&rt711->slave->dev, "in %s enable\n", __func__);
-+
-+		mod_delayed_work(system_power_efficient_wq,
-+			&rt711->jack_detect_work, msecs_to_jiffies(250));
-+	} else {
-+		regmap_write(rt711->regmap,
-+			RT711_SET_MIC2_UNSOLICITED_ENABLE, 0x00);
-+		regmap_write(rt711->regmap,
-+			RT711_SET_HP_UNSOLICITED_ENABLE, 0x00);
-+		regmap_write(rt711->regmap,
-+			RT711_SET_INLINE_UNSOLICITED_ENABLE, 0x00);
-+
-+		dev_dbg(&rt711->slave->dev, "in %s disable\n", __func__);
-+	}
-+
-+	/* power off */
-+	if (dapm->bias_level <= SND_SOC_BIAS_STANDBY)
-+		regmap_write(rt711->regmap,
-+			RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D3);
-+	mutex_unlock(&rt711->calibrate_mutex);
-+}
-+
-+static int rt711_set_jack_detect(struct snd_soc_component *component,
-+	struct snd_soc_jack *hs_jack, void *data)
-+{
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+
-+	rt711->hs_jack = hs_jack;
-+
-+	if (!rt711->hw_init) {
-+		dev_dbg(&rt711->slave->dev,
-+			"%s hw_init not ready yet\n", __func__);
-+		return 0;
-+	}
-+
-+	rt711_jack_init(rt711);
-+
-+	return 0;
-+}
-+
-+static void rt711_get_gain(struct rt711_priv *rt711, unsigned int addr_h,
-+				unsigned int addr_l, unsigned int val_h,
-+				unsigned int *r_val, unsigned int *l_val)
-+{
-+	/* R Channel */
-+	*r_val = (val_h << 8);
-+	regmap_read(rt711->regmap, addr_l, r_val);
-+
-+	/* L Channel */
-+	val_h |= 0x20;
-+	*l_val = (val_h << 8);
-+	regmap_read(rt711->regmap, addr_h, l_val);
-+}
-+
-+/* For Verb-Set Amplifier Gain (Verb ID = 3h) */
-+static int rt711_set_amp_gain_put(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	unsigned int addr_h, addr_l, val_h, val_ll, val_lr;
-+	unsigned int read_ll, read_rl;
-+	int i;
-+
-+	/* Can't use update bit function, so read the original value first */
-+	addr_h = mc->reg;
-+	addr_l = mc->rreg;
-+	if (mc->shift == RT711_DIR_OUT_SFT) /* output */
-+		val_h = 0x80;
-+	else /* input */
-+		val_h = 0x0;
-+
-+	rt711_get_gain(rt711, addr_h, addr_l, val_h, &read_rl, &read_ll);
-+
-+	/* L Channel */
-+	if (mc->invert) {
-+		/* for mute/unmute */
-+		val_ll = (mc->max - ucontrol->value.integer.value[0])
-+					<< RT711_MUTE_SFT;
-+		/* keep gain */
-+		read_ll = read_ll & 0x7f;
-+		val_ll |= read_ll;
-+	} else {
-+		/* for gain */
-+		val_ll = ((ucontrol->value.integer.value[0]) & 0x7f);
-+		if (val_ll > mc->max)
-+			val_ll = mc->max;
-+		/* keep mute status */
-+		read_ll = read_ll & (1 << RT711_MUTE_SFT);
-+		val_ll |= read_ll;
-+	}
-+
-+	if (dapm->bias_level <= SND_SOC_BIAS_STANDBY)
-+		regmap_write(rt711->regmap,
-+				RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D0);
-+
-+	/* R Channel */
-+	if (mc->invert) {
-+		/* for mute/unmute */
-+		val_lr = (mc->max - ucontrol->value.integer.value[1])
-+					<< RT711_MUTE_SFT;
-+		/* keep gain */
-+		read_rl = read_rl & 0x7f;
-+		val_lr |= read_rl;
-+	} else {
-+		/* for gain */
-+		val_lr = ((ucontrol->value.integer.value[1]) & 0x7f);
-+		if (val_lr > mc->max)
-+			val_lr = mc->max;
-+		/* keep mute status */
-+		read_rl = read_rl & (1 << RT711_MUTE_SFT);
-+		val_lr |= read_rl;
-+	}
-+
-+	for (i = 0; i < 3; i++) { /* retry 3 times at most */
-+
-+		if (val_ll == val_lr) {
-+			/* Set both L/R channels at the same time */
-+			val_h = (1 << mc->shift) | (3 << 4);
-+			regmap_write(rt711->regmap,
-+				addr_h, (val_h << 8 | val_ll));
-+			regmap_write(rt711->regmap,
-+				addr_l, (val_h << 8 | val_ll));
-+		} else {
-+			/* Lch*/
-+			val_h = (1 << mc->shift) | (1 << 5);
-+			regmap_write(rt711->regmap,
-+				addr_h, (val_h << 8 | val_ll));
-+
-+			/* Rch */
-+			val_h = (1 << mc->shift) | (1 << 4);
-+			regmap_write(rt711->regmap,
-+				addr_l, (val_h << 8 | val_lr));
-+		}
-+		/* check result */
-+		if (mc->shift == RT711_DIR_OUT_SFT) /* output */
-+			val_h = 0x80;
-+		else /* input */
-+			val_h = 0x0;
-+
-+		rt711_get_gain(rt711, addr_h, addr_l, val_h,
-+					&read_rl, &read_ll);
-+		if (read_rl == val_lr && read_ll == val_ll)
-+			break;
-+	}
-+
-+	if (dapm->bias_level <= SND_SOC_BIAS_STANDBY)
-+		regmap_write(rt711->regmap,
-+				RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D3);
-+	return 0;
-+}
-+
-+static int rt711_set_amp_gain_get(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	unsigned int addr_h, addr_l, val_h;
-+	unsigned int read_ll, read_rl;
-+
-+	/* switch to get command */
-+	addr_h = mc->reg;
-+	addr_l = mc->rreg;
-+	if (mc->shift == RT711_DIR_OUT_SFT) /* output */
-+		val_h = 0x80;
-+	else /* input */
-+		val_h = 0x0;
-+
-+	rt711_get_gain(rt711, addr_h, addr_l, val_h, &read_rl, &read_ll);
-+
-+	if (mc->invert) {
-+		/* mute/unmute for switch controls */
-+		read_ll = !((read_ll & 0x80) >> RT711_MUTE_SFT);
-+		read_rl = !((read_rl & 0x80) >> RT711_MUTE_SFT);
-+	} else {
-+		/* for gain volume controls */
-+		read_ll = read_ll & 0x7f;
-+		read_rl = read_rl & 0x7f;
-+	}
-+	ucontrol->value.integer.value[0] = read_ll;
-+	ucontrol->value.integer.value[1] = read_rl;
-+
-+	return 0;
-+}
-+
-+static const DECLARE_TLV_DB_SCALE(out_vol_tlv, -6525, 75, 0);
-+static const DECLARE_TLV_DB_SCALE(in_vol_tlv, -1725, 75, 0);
-+static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, 0, 1000, 0);
-+
-+static const struct snd_kcontrol_new rt711_snd_controls[] = {
-+	SOC_DOUBLE_R_EXT_TLV("DAC Surr Playback Volume",
-+		RT711_SET_GAIN_DAC2_H, RT711_SET_GAIN_DAC2_L,
-+		RT711_DIR_OUT_SFT, 0x57, 0,
-+		rt711_set_amp_gain_get, rt711_set_amp_gain_put, out_vol_tlv),
-+	SOC_DOUBLE_R_EXT("ADC 08 Capture Switch",
-+		RT711_SET_GAIN_ADC2_H, RT711_SET_GAIN_ADC2_L,
-+		RT711_DIR_IN_SFT, 1, 1,
-+		rt711_set_amp_gain_get, rt711_set_amp_gain_put),
-+	SOC_DOUBLE_R_EXT("ADC 09 Capture Switch",
-+		RT711_SET_GAIN_ADC1_H, RT711_SET_GAIN_ADC1_L,
-+		RT711_DIR_IN_SFT, 1, 1,
-+		rt711_set_amp_gain_get, rt711_set_amp_gain_put),
-+	SOC_DOUBLE_R_EXT_TLV("ADC 08 Capture Volume",
-+		RT711_SET_GAIN_ADC2_H, RT711_SET_GAIN_ADC2_L,
-+		RT711_DIR_IN_SFT, 0x3f, 0,
-+		rt711_set_amp_gain_get, rt711_set_amp_gain_put, in_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("ADC 09 Capture Volume",
-+		RT711_SET_GAIN_ADC1_H, RT711_SET_GAIN_ADC1_L,
-+		RT711_DIR_IN_SFT, 0x3f, 0,
-+		rt711_set_amp_gain_get, rt711_set_amp_gain_put, in_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("AMIC Volume",
-+		RT711_SET_GAIN_AMIC_H, RT711_SET_GAIN_AMIC_L,
-+		RT711_DIR_IN_SFT, 3, 0,
-+		rt711_set_amp_gain_get, rt711_set_amp_gain_put, mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("DMIC1 Volume",
-+		RT711_SET_GAIN_DMIC1_H, RT711_SET_GAIN_DMIC1_L,
-+		RT711_DIR_IN_SFT, 3, 0,
-+		rt711_set_amp_gain_get, rt711_set_amp_gain_put, mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("DMIC2 Volume",
-+		RT711_SET_GAIN_DMIC2_H, RT711_SET_GAIN_DMIC2_L,
-+		RT711_DIR_IN_SFT, 3, 0,
-+		rt711_set_amp_gain_get, rt711_set_amp_gain_put, mic_vol_tlv),
++#define WSA881X_DIGITAL_BASE		0x3000
++#define WSA881X_ANALOG_BASE		0x3100
++
++/* Digital register address space */
++#define WSA881X_CHIP_ID0			(WSA881X_DIGITAL_BASE + 0x0000)
++#define WSA881X_CHIP_ID1			(WSA881X_DIGITAL_BASE + 0x0001)
++#define WSA881X_CHIP_ID2			(WSA881X_DIGITAL_BASE + 0x0002)
++#define WSA881X_CHIP_ID3			(WSA881X_DIGITAL_BASE + 0x0003)
++#define WSA881X_BUS_ID				(WSA881X_DIGITAL_BASE + 0x0004)
++#define WSA881X_CDC_RST_CTL			(WSA881X_DIGITAL_BASE + 0x0005)
++#define WSA881X_CDC_TOP_CLK_CTL			(WSA881X_DIGITAL_BASE + 0x0006)
++#define WSA881X_CDC_ANA_CLK_CTL			(WSA881X_DIGITAL_BASE + 0x0007)
++#define WSA881X_CDC_DIG_CLK_CTL			(WSA881X_DIGITAL_BASE + 0x0008)
++#define WSA881X_CLOCK_CONFIG			(WSA881X_DIGITAL_BASE + 0x0009)
++#define WSA881X_ANA_CTL				(WSA881X_DIGITAL_BASE + 0x000A)
++#define WSA881X_SWR_RESET_EN			(WSA881X_DIGITAL_BASE + 0x000B)
++#define WSA881X_RESET_CTL			(WSA881X_DIGITAL_BASE + 0x000C)
++#define WSA881X_TADC_VALUE_CTL			(WSA881X_DIGITAL_BASE + 0x000F)
++#define WSA881X_TEMP_DETECT_CTL			(WSA881X_DIGITAL_BASE + 0x0010)
++#define WSA881X_TEMP_MSB			(WSA881X_DIGITAL_BASE + 0x0011)
++#define WSA881X_TEMP_LSB			(WSA881X_DIGITAL_BASE + 0x0012)
++#define WSA881X_TEMP_CONFIG0			(WSA881X_DIGITAL_BASE + 0x0013)
++#define WSA881X_TEMP_CONFIG1			(WSA881X_DIGITAL_BASE + 0x0014)
++#define WSA881X_CDC_CLIP_CTL			(WSA881X_DIGITAL_BASE + 0x0015)
++#define WSA881X_SDM_PDM9_LSB			(WSA881X_DIGITAL_BASE + 0x0016)
++#define WSA881X_SDM_PDM9_MSB			(WSA881X_DIGITAL_BASE + 0x0017)
++#define WSA881X_CDC_RX_CTL			(WSA881X_DIGITAL_BASE + 0x0018)
++#define WSA881X_DEM_BYPASS_DATA0		(WSA881X_DIGITAL_BASE + 0x0019)
++#define WSA881X_DEM_BYPASS_DATA1		(WSA881X_DIGITAL_BASE + 0x001A)
++#define WSA881X_DEM_BYPASS_DATA2		(WSA881X_DIGITAL_BASE + 0x001B)
++#define WSA881X_DEM_BYPASS_DATA3		(WSA881X_DIGITAL_BASE + 0x001C)
++#define WSA881X_OTP_CTRL0			(WSA881X_DIGITAL_BASE + 0x001D)
++#define WSA881X_OTP_CTRL1			(WSA881X_DIGITAL_BASE + 0x001E)
++#define WSA881X_HDRIVE_CTL_GROUP1		(WSA881X_DIGITAL_BASE + 0x001F)
++#define WSA881X_INTR_MODE			(WSA881X_DIGITAL_BASE + 0x0020)
++#define WSA881X_INTR_MASK			(WSA881X_DIGITAL_BASE + 0x0021)
++#define WSA881X_INTR_STATUS			(WSA881X_DIGITAL_BASE + 0x0022)
++#define WSA881X_INTR_CLEAR			(WSA881X_DIGITAL_BASE + 0x0023)
++#define WSA881X_INTR_LEVEL			(WSA881X_DIGITAL_BASE + 0x0024)
++#define WSA881X_INTR_SET			(WSA881X_DIGITAL_BASE + 0x0025)
++#define WSA881X_INTR_TEST			(WSA881X_DIGITAL_BASE + 0x0026)
++#define WSA881X_PDM_TEST_MODE			(WSA881X_DIGITAL_BASE + 0x0030)
++#define WSA881X_ATE_TEST_MODE			(WSA881X_DIGITAL_BASE + 0x0031)
++#define WSA881X_PIN_CTL_MODE			(WSA881X_DIGITAL_BASE + 0x0032)
++#define WSA881X_PIN_CTL_OE			(WSA881X_DIGITAL_BASE + 0x0033)
++#define WSA881X_PIN_WDATA_IOPAD			(WSA881X_DIGITAL_BASE + 0x0034)
++#define WSA881X_PIN_STATUS			(WSA881X_DIGITAL_BASE + 0x0035)
++#define WSA881X_DIG_DEBUG_MODE			(WSA881X_DIGITAL_BASE + 0x0037)
++#define WSA881X_DIG_DEBUG_SEL			(WSA881X_DIGITAL_BASE + 0x0038)
++#define WSA881X_DIG_DEBUG_EN			(WSA881X_DIGITAL_BASE + 0x0039)
++#define WSA881X_SWR_HM_TEST1			(WSA881X_DIGITAL_BASE + 0x003B)
++#define WSA881X_SWR_HM_TEST2			(WSA881X_DIGITAL_BASE + 0x003C)
++#define WSA881X_TEMP_DETECT_DBG_CTL		(WSA881X_DIGITAL_BASE + 0x003D)
++#define WSA881X_TEMP_DEBUG_MSB			(WSA881X_DIGITAL_BASE + 0x003E)
++#define WSA881X_TEMP_DEBUG_LSB			(WSA881X_DIGITAL_BASE + 0x003F)
++#define WSA881X_SAMPLE_EDGE_SEL			(WSA881X_DIGITAL_BASE + 0x0044)
++#define WSA881X_IOPAD_CTL			(WSA881X_DIGITAL_BASE + 0x0045)
++#define WSA881X_SPARE_0				(WSA881X_DIGITAL_BASE + 0x0050)
++#define WSA881X_SPARE_1				(WSA881X_DIGITAL_BASE + 0x0051)
++#define WSA881X_SPARE_2				(WSA881X_DIGITAL_BASE + 0x0052)
++#define WSA881X_OTP_REG_0			(WSA881X_DIGITAL_BASE + 0x0080)
++#define WSA881X_OTP_REG_1			(WSA881X_DIGITAL_BASE + 0x0081)
++#define WSA881X_OTP_REG_2			(WSA881X_DIGITAL_BASE + 0x0082)
++#define WSA881X_OTP_REG_3			(WSA881X_DIGITAL_BASE + 0x0083)
++#define WSA881X_OTP_REG_4			(WSA881X_DIGITAL_BASE + 0x0084)
++#define WSA881X_OTP_REG_5			(WSA881X_DIGITAL_BASE + 0x0085)
++#define WSA881X_OTP_REG_6			(WSA881X_DIGITAL_BASE + 0x0086)
++#define WSA881X_OTP_REG_7			(WSA881X_DIGITAL_BASE + 0x0087)
++#define WSA881X_OTP_REG_8			(WSA881X_DIGITAL_BASE + 0x0088)
++#define WSA881X_OTP_REG_9			(WSA881X_DIGITAL_BASE + 0x0089)
++#define WSA881X_OTP_REG_10			(WSA881X_DIGITAL_BASE + 0x008A)
++#define WSA881X_OTP_REG_11			(WSA881X_DIGITAL_BASE + 0x008B)
++#define WSA881X_OTP_REG_12			(WSA881X_DIGITAL_BASE + 0x008C)
++#define WSA881X_OTP_REG_13			(WSA881X_DIGITAL_BASE + 0x008D)
++#define WSA881X_OTP_REG_14			(WSA881X_DIGITAL_BASE + 0x008E)
++#define WSA881X_OTP_REG_15			(WSA881X_DIGITAL_BASE + 0x008F)
++#define WSA881X_OTP_REG_16			(WSA881X_DIGITAL_BASE + 0x0090)
++#define WSA881X_OTP_REG_17			(WSA881X_DIGITAL_BASE + 0x0091)
++#define WSA881X_OTP_REG_18			(WSA881X_DIGITAL_BASE + 0x0092)
++#define WSA881X_OTP_REG_19			(WSA881X_DIGITAL_BASE + 0x0093)
++#define WSA881X_OTP_REG_20			(WSA881X_DIGITAL_BASE + 0x0094)
++#define WSA881X_OTP_REG_21			(WSA881X_DIGITAL_BASE + 0x0095)
++#define WSA881X_OTP_REG_22			(WSA881X_DIGITAL_BASE + 0x0096)
++#define WSA881X_OTP_REG_23			(WSA881X_DIGITAL_BASE + 0x0097)
++#define WSA881X_OTP_REG_24			(WSA881X_DIGITAL_BASE + 0x0098)
++#define WSA881X_OTP_REG_25			(WSA881X_DIGITAL_BASE + 0x0099)
++#define WSA881X_OTP_REG_26			(WSA881X_DIGITAL_BASE + 0x009A)
++#define WSA881X_OTP_REG_27			(WSA881X_DIGITAL_BASE + 0x009B)
++#define WSA881X_OTP_REG_28			(WSA881X_DIGITAL_BASE + 0x009C)
++#define WSA881X_OTP_REG_29			(WSA881X_DIGITAL_BASE + 0x009D)
++#define WSA881X_OTP_REG_30			(WSA881X_DIGITAL_BASE + 0x009E)
++#define WSA881X_OTP_REG_31			(WSA881X_DIGITAL_BASE + 0x009F)
++#define WSA881X_OTP_REG_63			(WSA881X_DIGITAL_BASE + 0x00BF)
++
++/* Analog Register address space */
++#define WSA881X_BIAS_REF_CTRL			(WSA881X_ANALOG_BASE + 0x0000)
++#define WSA881X_BIAS_TEST			(WSA881X_ANALOG_BASE + 0x0001)
++#define WSA881X_BIAS_BIAS			(WSA881X_ANALOG_BASE + 0x0002)
++#define WSA881X_TEMP_OP				(WSA881X_ANALOG_BASE + 0x0003)
++#define WSA881X_TEMP_IREF_CTRL			(WSA881X_ANALOG_BASE + 0x0004)
++#define WSA881X_TEMP_ISENS_CTRL			(WSA881X_ANALOG_BASE + 0x0005)
++#define WSA881X_TEMP_CLK_CTRL			(WSA881X_ANALOG_BASE + 0x0006)
++#define WSA881X_TEMP_TEST			(WSA881X_ANALOG_BASE + 0x0007)
++#define WSA881X_TEMP_BIAS			(WSA881X_ANALOG_BASE + 0x0008)
++#define WSA881X_TEMP_ADC_CTRL			(WSA881X_ANALOG_BASE + 0x0009)
++#define WSA881X_TEMP_DOUT_MSB			(WSA881X_ANALOG_BASE + 0x000A)
++#define WSA881X_TEMP_DOUT_LSB			(WSA881X_ANALOG_BASE + 0x000B)
++#define WSA881X_ADC_EN_MODU_V			(WSA881X_ANALOG_BASE + 0x0010)
++#define WSA881X_ADC_EN_MODU_I			(WSA881X_ANALOG_BASE + 0x0011)
++#define WSA881X_ADC_EN_DET_TEST_V		(WSA881X_ANALOG_BASE + 0x0012)
++#define WSA881X_ADC_EN_DET_TEST_I		(WSA881X_ANALOG_BASE + 0x0013)
++#define WSA881X_ADC_SEL_IBIAS			(WSA881X_ANALOG_BASE + 0x0014)
++#define WSA881X_ADC_EN_SEL_IBAIS		(WSA881X_ANALOG_BASE + 0x0015)
++#define WSA881X_SPKR_DRV_EN			(WSA881X_ANALOG_BASE + 0x001A)
++#define WSA881X_SPKR_DRV_GAIN			(WSA881X_ANALOG_BASE + 0x001B)
++#define WSA881X_PA_GAIN_SEL_MASK		BIT(3)
++#define WSA881X_PA_GAIN_SEL_REG			BIT(3)
++#define WSA881X_PA_GAIN_SEL_DRE			0
++#define WSA881X_SPKR_PAG_GAIN_MASK		GENMASK(7, 4)
++#define WSA881X_SPKR_DAC_CTL			(WSA881X_ANALOG_BASE + 0x001C)
++#define WSA881X_SPKR_DRV_DBG			(WSA881X_ANALOG_BASE + 0x001D)
++#define WSA881X_SPKR_PWRSTG_DBG			(WSA881X_ANALOG_BASE + 0x001E)
++#define WSA881X_SPKR_OCP_CTL			(WSA881X_ANALOG_BASE + 0x001F)
++#define WSA881X_SPKR_OCP_MASK			GENMASK(7, 6)
++#define WSA881X_SPKR_OCP_EN			BIT(7)
++#define WSA881X_SPKR_OCP_HOLD			BIT(6)
++#define WSA881X_SPKR_CLIP_CTL			(WSA881X_ANALOG_BASE + 0x0020)
++#define WSA881X_SPKR_BBM_CTL			(WSA881X_ANALOG_BASE + 0x0021)
++#define WSA881X_SPKR_MISC_CTL1			(WSA881X_ANALOG_BASE + 0x0022)
++#define WSA881X_SPKR_MISC_CTL2			(WSA881X_ANALOG_BASE + 0x0023)
++#define WSA881X_SPKR_BIAS_INT			(WSA881X_ANALOG_BASE + 0x0024)
++#define WSA881X_SPKR_PA_INT			(WSA881X_ANALOG_BASE + 0x0025)
++#define WSA881X_SPKR_BIAS_CAL			(WSA881X_ANALOG_BASE + 0x0026)
++#define WSA881X_SPKR_BIAS_PSRR			(WSA881X_ANALOG_BASE + 0x0027)
++#define WSA881X_SPKR_STATUS1			(WSA881X_ANALOG_BASE + 0x0028)
++#define WSA881X_SPKR_STATUS2			(WSA881X_ANALOG_BASE + 0x0029)
++#define WSA881X_BOOST_EN_CTL			(WSA881X_ANALOG_BASE + 0x002A)
++#define WSA881X_BOOST_EN_MASK			BIT(7)
++#define WSA881X_BOOST_EN			BIT(7)
++#define WSA881X_BOOST_CURRENT_LIMIT		(WSA881X_ANALOG_BASE + 0x002B)
++#define WSA881X_BOOST_PS_CTL			(WSA881X_ANALOG_BASE + 0x002C)
++#define WSA881X_BOOST_PRESET_OUT1		(WSA881X_ANALOG_BASE + 0x002D)
++#define WSA881X_BOOST_PRESET_OUT2		(WSA881X_ANALOG_BASE + 0x002E)
++#define WSA881X_BOOST_FORCE_OUT			(WSA881X_ANALOG_BASE + 0x002F)
++#define WSA881X_BOOST_LDO_PROG			(WSA881X_ANALOG_BASE + 0x0030)
++#define WSA881X_BOOST_SLOPE_COMP_ISENSE_FB	(WSA881X_ANALOG_BASE + 0x0031)
++#define WSA881X_BOOST_RON_CTL			(WSA881X_ANALOG_BASE + 0x0032)
++#define WSA881X_BOOST_LOOP_STABILITY		(WSA881X_ANALOG_BASE + 0x0033)
++#define WSA881X_BOOST_ZX_CTL			(WSA881X_ANALOG_BASE + 0x0034)
++#define WSA881X_BOOST_START_CTL			(WSA881X_ANALOG_BASE + 0x0035)
++#define WSA881X_BOOST_MISC1_CTL			(WSA881X_ANALOG_BASE + 0x0036)
++#define WSA881X_BOOST_MISC2_CTL			(WSA881X_ANALOG_BASE + 0x0037)
++#define WSA881X_BOOST_MISC3_CTL			(WSA881X_ANALOG_BASE + 0x0038)
++#define WSA881X_BOOST_ATEST_CTL			(WSA881X_ANALOG_BASE + 0x0039)
++#define WSA881X_SPKR_PROT_FE_GAIN		(WSA881X_ANALOG_BASE + 0x003A)
++#define WSA881X_SPKR_PROT_FE_CM_LDO_SET		(WSA881X_ANALOG_BASE + 0x003B)
++#define WSA881X_SPKR_PROT_FE_ISENSE_BIAS_SET1	(WSA881X_ANALOG_BASE + 0x003C)
++#define WSA881X_SPKR_PROT_FE_ISENSE_BIAS_SET2	(WSA881X_ANALOG_BASE + 0x003D)
++#define WSA881X_SPKR_PROT_ATEST1		(WSA881X_ANALOG_BASE + 0x003E)
++#define WSA881X_SPKR_PROT_ATEST2		(WSA881X_ANALOG_BASE + 0x003F)
++#define WSA881X_SPKR_PROT_FE_VSENSE_VCM		(WSA881X_ANALOG_BASE + 0x0040)
++#define WSA881X_SPKR_PROT_FE_VSENSE_BIAS_SET1	(WSA881X_ANALOG_BASE + 0x0041)
++#define WSA881X_BONGO_RESRV_REG1		(WSA881X_ANALOG_BASE + 0x0042)
++#define WSA881X_BONGO_RESRV_REG2		(WSA881X_ANALOG_BASE + 0x0043)
++#define WSA881X_SPKR_PROT_SAR			(WSA881X_ANALOG_BASE + 0x0044)
++#define WSA881X_SPKR_STATUS3			(WSA881X_ANALOG_BASE + 0x0045)
++
++#define SWRS_SCP_FRAME_CTRL_BANK(m)		(0x60 + 0x10 * (m))
++#define SWRS_SCP_HOST_CLK_DIV2_CTL_BANK(m)	(0xE0 + 0x10 * (m))
++#define SWR_SLV_MAX_REG_ADDR	0x390
++#define SWR_SLV_START_REG_ADDR	0x40
++#define SWR_SLV_MAX_BUF_LEN	20
++#define BYTES_PER_LINE		12
++#define SWR_SLV_RD_BUF_LEN	8
++#define SWR_SLV_WR_BUF_LEN	32
++#define SWR_SLV_MAX_DEVICES	2
++#define WSA881X_MAX_SWR_PORTS   4
++#define WSA881X_VERSION_ENTRY_SIZE 27
++#define WSA881X_OCP_CTL_TIMER_SEC 2
++#define WSA881X_OCP_CTL_TEMP_CELSIUS 25
++#define WSA881X_OCP_CTL_POLL_TIMER_SEC 60
++
++#define WSA881X_PA_GAIN_TLV(xname, reg, shift, max, invert, tlv_array) \
++{	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = xname, \
++	.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ |\
++		 SNDRV_CTL_ELEM_ACCESS_READWRITE,\
++	.tlv.p = (tlv_array), \
++	.info = snd_soc_info_volsw, .get = snd_soc_get_volsw,\
++	.put = wsa881x_put_pa_gain, \
++	.private_value = SOC_SINGLE_VALUE(reg, shift, max, invert, 0) }
++
++static struct reg_default wsa881x_defaults[] = {
++	{ WSA881X_CHIP_ID0, 0x00 },
++	{ WSA881X_CHIP_ID1, 0x00 },
++	{ WSA881X_CHIP_ID2, 0x00 },
++	{ WSA881X_CHIP_ID3, 0x02 },
++	{ WSA881X_BUS_ID, 0x00 },
++	{ WSA881X_CDC_RST_CTL, 0x00 },
++	{ WSA881X_CDC_TOP_CLK_CTL, 0x03 },
++	{ WSA881X_CDC_ANA_CLK_CTL, 0x00 },
++	{ WSA881X_CDC_DIG_CLK_CTL, 0x00 },
++	{ WSA881X_CLOCK_CONFIG, 0x00 },
++	{ WSA881X_ANA_CTL, 0x08 },
++	{ WSA881X_SWR_RESET_EN, 0x00 },
++	{ WSA881X_TEMP_DETECT_CTL, 0x01 },
++	{ WSA881X_TEMP_MSB, 0x00 },
++	{ WSA881X_TEMP_LSB, 0x00 },
++	{ WSA881X_TEMP_CONFIG0, 0x00 },
++	{ WSA881X_TEMP_CONFIG1, 0x00 },
++	{ WSA881X_CDC_CLIP_CTL, 0x03 },
++	{ WSA881X_SDM_PDM9_LSB, 0x00 },
++	{ WSA881X_SDM_PDM9_MSB, 0x00 },
++	{ WSA881X_CDC_RX_CTL, 0x7E },
++	{ WSA881X_DEM_BYPASS_DATA0, 0x00 },
++	{ WSA881X_DEM_BYPASS_DATA1, 0x00 },
++	{ WSA881X_DEM_BYPASS_DATA2, 0x00 },
++	{ WSA881X_DEM_BYPASS_DATA3, 0x00 },
++	{ WSA881X_OTP_CTRL0, 0x00 },
++	{ WSA881X_OTP_CTRL1, 0x00 },
++	{ WSA881X_HDRIVE_CTL_GROUP1, 0x00 },
++	{ WSA881X_INTR_MODE, 0x00 },
++	{ WSA881X_INTR_STATUS, 0x00 },
++	{ WSA881X_INTR_CLEAR, 0x00 },
++	{ WSA881X_INTR_LEVEL, 0x00 },
++	{ WSA881X_INTR_SET, 0x00 },
++	{ WSA881X_INTR_TEST, 0x00 },
++	{ WSA881X_PDM_TEST_MODE, 0x00 },
++	{ WSA881X_ATE_TEST_MODE, 0x00 },
++	{ WSA881X_PIN_CTL_MODE, 0x00 },
++	{ WSA881X_PIN_CTL_OE, 0x00 },
++	{ WSA881X_PIN_WDATA_IOPAD, 0x00 },
++	{ WSA881X_PIN_STATUS, 0x00 },
++	{ WSA881X_DIG_DEBUG_MODE, 0x00 },
++	{ WSA881X_DIG_DEBUG_SEL, 0x00 },
++	{ WSA881X_DIG_DEBUG_EN, 0x00 },
++	{ WSA881X_SWR_HM_TEST1, 0x08 },
++	{ WSA881X_SWR_HM_TEST2, 0x00 },
++	{ WSA881X_TEMP_DETECT_DBG_CTL, 0x00 },
++	{ WSA881X_TEMP_DEBUG_MSB, 0x00 },
++	{ WSA881X_TEMP_DEBUG_LSB, 0x00 },
++	{ WSA881X_SAMPLE_EDGE_SEL, 0x0C },
++	{ WSA881X_SPARE_0, 0x00 },
++	{ WSA881X_SPARE_1, 0x00 },
++	{ WSA881X_SPARE_2, 0x00 },
++	{ WSA881X_OTP_REG_0, 0x01 },
++	{ WSA881X_OTP_REG_1, 0xFF },
++	{ WSA881X_OTP_REG_2, 0xC0 },
++	{ WSA881X_OTP_REG_3, 0xFF },
++	{ WSA881X_OTP_REG_4, 0xC0 },
++	{ WSA881X_OTP_REG_5, 0xFF },
++	{ WSA881X_OTP_REG_6, 0xFF },
++	{ WSA881X_OTP_REG_7, 0xFF },
++	{ WSA881X_OTP_REG_8, 0xFF },
++	{ WSA881X_OTP_REG_9, 0xFF },
++	{ WSA881X_OTP_REG_10, 0xFF },
++	{ WSA881X_OTP_REG_11, 0xFF },
++	{ WSA881X_OTP_REG_12, 0xFF },
++	{ WSA881X_OTP_REG_13, 0xFF },
++	{ WSA881X_OTP_REG_14, 0xFF },
++	{ WSA881X_OTP_REG_15, 0xFF },
++	{ WSA881X_OTP_REG_16, 0xFF },
++	{ WSA881X_OTP_REG_17, 0xFF },
++	{ WSA881X_OTP_REG_18, 0xFF },
++	{ WSA881X_OTP_REG_19, 0xFF },
++	{ WSA881X_OTP_REG_20, 0xFF },
++	{ WSA881X_OTP_REG_21, 0xFF },
++	{ WSA881X_OTP_REG_22, 0xFF },
++	{ WSA881X_OTP_REG_23, 0xFF },
++	{ WSA881X_OTP_REG_24, 0x03 },
++	{ WSA881X_OTP_REG_25, 0x01 },
++	{ WSA881X_OTP_REG_26, 0x03 },
++	{ WSA881X_OTP_REG_27, 0x11 },
++	{ WSA881X_OTP_REG_63, 0x40 },
++	/* WSA881x Analog registers */
++	{ WSA881X_BIAS_REF_CTRL, 0x6C },
++	{ WSA881X_BIAS_TEST, 0x16 },
++	{ WSA881X_BIAS_BIAS, 0xF0 },
++	{ WSA881X_TEMP_OP, 0x00 },
++	{ WSA881X_TEMP_IREF_CTRL, 0x56 },
++	{ WSA881X_TEMP_ISENS_CTRL, 0x47 },
++	{ WSA881X_TEMP_CLK_CTRL, 0x87 },
++	{ WSA881X_TEMP_TEST, 0x00 },
++	{ WSA881X_TEMP_BIAS, 0x51 },
++	{ WSA881X_TEMP_DOUT_MSB, 0x00 },
++	{ WSA881X_TEMP_DOUT_LSB, 0x00 },
++	{ WSA881X_ADC_EN_MODU_V, 0x00 },
++	{ WSA881X_ADC_EN_MODU_I, 0x00 },
++	{ WSA881X_ADC_EN_DET_TEST_V, 0x00 },
++	{ WSA881X_ADC_EN_DET_TEST_I, 0x00 },
++	{ WSA881X_ADC_EN_SEL_IBAIS, 0x10 },
++	{ WSA881X_SPKR_DRV_EN, 0x74 },
++	{ WSA881X_SPKR_DRV_DBG, 0x15 },
++	{ WSA881X_SPKR_PWRSTG_DBG, 0x00 },
++	{ WSA881X_SPKR_OCP_CTL, 0xD4 },
++	{ WSA881X_SPKR_CLIP_CTL, 0x90 },
++	{ WSA881X_SPKR_PA_INT, 0x54 },
++	{ WSA881X_SPKR_BIAS_CAL, 0xAC },
++	{ WSA881X_SPKR_STATUS1, 0x00 },
++	{ WSA881X_SPKR_STATUS2, 0x00 },
++	{ WSA881X_BOOST_EN_CTL, 0x18 },
++	{ WSA881X_BOOST_CURRENT_LIMIT, 0x7A },
++	{ WSA881X_BOOST_PRESET_OUT2, 0x70 },
++	{ WSA881X_BOOST_FORCE_OUT, 0x0E },
++	{ WSA881X_BOOST_LDO_PROG, 0x16 },
++	{ WSA881X_BOOST_SLOPE_COMP_ISENSE_FB, 0x71 },
++	{ WSA881X_BOOST_RON_CTL, 0x0F },
++	{ WSA881X_BOOST_ZX_CTL, 0x34 },
++	{ WSA881X_BOOST_START_CTL, 0x23 },
++	{ WSA881X_BOOST_MISC1_CTL, 0x80 },
++	{ WSA881X_BOOST_MISC2_CTL, 0x00 },
++	{ WSA881X_BOOST_MISC3_CTL, 0x00 },
++	{ WSA881X_BOOST_ATEST_CTL, 0x00 },
++	{ WSA881X_SPKR_PROT_FE_GAIN, 0x46 },
++	{ WSA881X_SPKR_PROT_FE_CM_LDO_SET, 0x3B },
++	{ WSA881X_SPKR_PROT_FE_ISENSE_BIAS_SET1, 0x8D },
++	{ WSA881X_SPKR_PROT_FE_ISENSE_BIAS_SET2, 0x8D },
++	{ WSA881X_SPKR_PROT_ATEST1, 0x01 },
++	{ WSA881X_SPKR_PROT_FE_VSENSE_VCM, 0x8D },
++	{ WSA881X_SPKR_PROT_FE_VSENSE_BIAS_SET1, 0x4D },
++	{ WSA881X_SPKR_PROT_SAR, 0x00 },
++	{ WSA881X_SPKR_STATUS3, 0x00 },
 +};
 +
-+static int rt711_mux_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_kcontrol_component(kcontrol);
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	unsigned int reg, val = 0, nid;
-+	int ret;
-+
-+	if (strstr(ucontrol->id.name, "ADC 22 Mux"))
-+		nid = RT711_MIXER_IN1;
-+	else if (strstr(ucontrol->id.name, "ADC 23 Mux"))
-+		nid = RT711_MIXER_IN2;
-+	else
-+		return -EINVAL;
-+
-+	/* vid = 0xf01 */
-+	reg = RT711_VERB_SET_CONNECT_SEL | nid;
-+	ret = regmap_read(rt711->regmap, reg, &val);
-+	if (ret < 0) {
-+		dev_err(component->dev, "%s: sdw read failed: %d\n",
-+			__func__, ret);
-+		return ret;
-+	}
-+
-+	ucontrol->value.enumerated.item[0] = val;
-+
-+	return 0;
-+}
-+
-+static int rt711_mux_put(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_kcontrol_component(kcontrol);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_dapm_kcontrol_dapm(kcontrol);
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-+	unsigned int *item = ucontrol->value.enumerated.item;
-+	unsigned int val, val2 = 0, change, reg, nid;
-+	int ret;
-+
-+	if (item[0] >= e->items)
-+		return -EINVAL;
-+
-+	if (strstr(ucontrol->id.name, "ADC 22 Mux"))
-+		nid = RT711_MIXER_IN1;
-+	else if (strstr(ucontrol->id.name, "ADC 23 Mux"))
-+		nid = RT711_MIXER_IN2;
-+	else
-+		return -EINVAL;
-+
-+	/* Verb ID = 0x701h */
-+	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
-+
-+	reg = RT711_VERB_SET_CONNECT_SEL | nid;
-+	ret = regmap_read(rt711->regmap, reg, &val2);
-+	if (ret < 0) {
-+		dev_err(component->dev, "%s: sdw read failed: %d\n",
-+			__func__, ret);
-+		return ret;
-+	}
-+
-+	if (val == val2)
-+		change = 0;
-+	else
-+		change = 1;
-+
-+	if (change) {
-+		reg = RT711_VERB_SET_CONNECT_SEL | nid;
-+		regmap_write(rt711->regmap, reg, val);
-+	}
-+
-+	snd_soc_dapm_mux_update_power(dapm, kcontrol,
-+						item[0], e, NULL);
-+
-+	return change;
-+}
-+
-+static const char * const adc_mux_text[] = {
-+	"MIC2",
-+	"LINE1",
-+	"LINE2",
-+	"DMIC",
++static const struct reg_sequence wsa881x_pre_pmu_pa_2_0[] = {
++	{ WSA881X_SPKR_DRV_GAIN, 0x41, 0 },
++	{ WSA881X_SPKR_MISC_CTL1, 0x87, 0 },
 +};
 +
-+static SOC_ENUM_SINGLE_DECL(
-+	rt711_adc22_enum, SND_SOC_NOPM, 0, adc_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(
-+	rt711_adc23_enum, SND_SOC_NOPM, 0, adc_mux_text);
-+
-+static const struct snd_kcontrol_new rt711_adc22_mux =
-+	SOC_DAPM_ENUM_EXT("ADC 22 Mux", rt711_adc22_enum,
-+			rt711_mux_get, rt711_mux_put);
-+
-+static const struct snd_kcontrol_new rt711_adc23_mux =
-+	SOC_DAPM_ENUM_EXT("ADC 23 Mux", rt711_adc23_enum,
-+			rt711_mux_get, rt711_mux_put);
-+
-+static int rt711_dac_surround_event(struct snd_soc_dapm_widget *w,
-+	struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	unsigned int val_h = (1 << RT711_DIR_OUT_SFT) | (0x3 << 4);
-+	unsigned int val_l;
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		regmap_write(rt711->regmap,
-+			RT711_SET_STREAMID_DAC2, 0x10);
-+
-+		val_l = 0x00;
-+		regmap_write(rt711->regmap,
-+			RT711_SET_GAIN_HP_H, (val_h << 8 | val_l));
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		val_l = (1 << RT711_MUTE_SFT);
-+		regmap_write(rt711->regmap,
-+			RT711_SET_GAIN_HP_H, (val_h << 8 | val_l));
-+		usleep_range(50000, 55000);
-+
-+		regmap_write(rt711->regmap,
-+			RT711_SET_STREAMID_DAC2, 0x00);
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static int rt711_adc_09_event(struct snd_soc_dapm_widget *w,
-+	struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		regmap_write(rt711->regmap,
-+			RT711_SET_STREAMID_ADC1, 0x10);
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		regmap_write(rt711->regmap,
-+			RT711_SET_STREAMID_ADC1, 0x00);
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static int rt711_adc_08_event(struct snd_soc_dapm_widget *w,
-+	struct snd_kcontrol *kcontrol, int event)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+
-+	switch (event) {
-+	case SND_SOC_DAPM_POST_PMU:
-+		regmap_write(rt711->regmap,
-+			RT711_SET_STREAMID_ADC2, 0x10);
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		regmap_write(rt711->regmap,
-+			RT711_SET_STREAMID_ADC2, 0x00);
-+		break;
-+	}
-+	return 0;
-+}
-+
-+static const struct snd_soc_dapm_widget rt711_dapm_widgets[] = {
-+	SND_SOC_DAPM_OUTPUT("HP"),
-+	SND_SOC_DAPM_INPUT("MIC2"),
-+	SND_SOC_DAPM_INPUT("DMIC1"),
-+	SND_SOC_DAPM_INPUT("DMIC2"),
-+	SND_SOC_DAPM_INPUT("LINE1"),
-+	SND_SOC_DAPM_INPUT("LINE2"),
-+
-+	SND_SOC_DAPM_DAC_E("DAC Surround", NULL, SND_SOC_NOPM, 0, 0,
-+		rt711_dac_surround_event,
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-+	SND_SOC_DAPM_ADC_E("ADC 09", NULL, SND_SOC_NOPM, 0, 0,
-+		rt711_adc_09_event,
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-+	SND_SOC_DAPM_ADC_E("ADC 08", NULL, SND_SOC_NOPM, 0, 0,
-+		rt711_adc_08_event,
-+		SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
-+	SND_SOC_DAPM_MUX("ADC 22 Mux", SND_SOC_NOPM, 0, 0,
-+		&rt711_adc22_mux),
-+	SND_SOC_DAPM_MUX("ADC 23 Mux", SND_SOC_NOPM, 0, 0,
-+		&rt711_adc23_mux),
-+
-+	SND_SOC_DAPM_AIF_IN("DP3RX", "DP3 Playback", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("DP2TX", "DP2 Capture", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("DP4TX", "DP4 Capture", 0, SND_SOC_NOPM, 0, 0),
++static const struct reg_sequence wsa881x_vi_txfe_en_2_0[] = {
++	{ WSA881X_SPKR_PROT_FE_VSENSE_VCM, 0x85, 0 },
++	{ WSA881X_SPKR_PROT_ATEST2, 0x0A, 0 },
++	{ WSA881X_SPKR_PROT_FE_GAIN, 0x47, 0 },
 +};
 +
-+static const struct snd_soc_dapm_route rt711_audio_map[] = {
-+	{"DAC Surround", NULL, "DP3RX"},
-+	{"DP2TX", NULL, "ADC 09"},
-+	{"DP4TX", NULL, "ADC 08"},
-+
-+	{"ADC 09", NULL, "ADC 22 Mux"},
-+	{"ADC 08", NULL, "ADC 23 Mux"},
-+	{"ADC 22 Mux", "DMIC", "DMIC1"},
-+	{"ADC 22 Mux", "LINE1", "LINE1"},
-+	{"ADC 22 Mux", "LINE2", "LINE2"},
-+	{"ADC 22 Mux", "MIC2", "MIC2"},
-+	{"ADC 23 Mux", "DMIC", "DMIC2"},
-+	{"ADC 23 Mux", "LINE1", "LINE1"},
-+	{"ADC 23 Mux", "LINE2", "LINE2"},
-+	{"ADC 23 Mux", "MIC2", "MIC2"},
-+
-+	{"HP", NULL, "DAC Surround"},
++/* Default register reset values for WSA881x rev 2.0 */
++static struct reg_sequence wsa881x_rev_2_0[] = {
++	{ WSA881X_RESET_CTL, 0x00, 0x00 },
++	{ WSA881X_TADC_VALUE_CTL, 0x01, 0x00 },
++	{ WSA881X_INTR_MASK, 0x1B, 0x00 },
++	{ WSA881X_IOPAD_CTL, 0x00, 0x00 },
++	{ WSA881X_OTP_REG_28, 0x3F, 0x00 },
++	{ WSA881X_OTP_REG_29, 0x3F, 0x00 },
++	{ WSA881X_OTP_REG_30, 0x01, 0x00 },
++	{ WSA881X_OTP_REG_31, 0x01, 0x00 },
++	{ WSA881X_TEMP_ADC_CTRL, 0x03, 0x00 },
++	{ WSA881X_ADC_SEL_IBIAS, 0x45, 0x00 },
++	{ WSA881X_SPKR_DRV_GAIN, 0xC1, 0x00 },
++	{ WSA881X_SPKR_DAC_CTL, 0x42, 0x00 },
++	{ WSA881X_SPKR_BBM_CTL, 0x02, 0x00 },
++	{ WSA881X_SPKR_MISC_CTL1, 0x40, 0x00 },
++	{ WSA881X_SPKR_MISC_CTL2, 0x07, 0x00 },
++	{ WSA881X_SPKR_BIAS_INT, 0x5F, 0x00 },
++	{ WSA881X_SPKR_BIAS_PSRR, 0x44, 0x00 },
++	{ WSA881X_BOOST_PS_CTL, 0xA0, 0x00 },
++	{ WSA881X_BOOST_PRESET_OUT1, 0xB7, 0x00 },
++	{ WSA881X_BOOST_LOOP_STABILITY, 0x8D, 0x00 },
++	{ WSA881X_SPKR_PROT_ATEST2, 0x02, 0x00 },
++	{ WSA881X_BONGO_RESRV_REG1, 0x5E, 0x00 },
++	{ WSA881X_BONGO_RESRV_REG2, 0x07, 0x00 },
 +};
 +
-+static int rt711_set_bias_level(struct snd_soc_component *component,
-+				enum snd_soc_bias_level level)
-+{
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+
-+	switch (level) {
-+	case SND_SOC_BIAS_PREPARE:
-+		if (dapm->bias_level == SND_SOC_BIAS_STANDBY) {
-+			regmap_write(rt711->regmap,
-+				RT711_SET_AUDIO_POWER_STATE,
-+				AC_PWRST_D0);
-+		}
-+		break;
-+
-+	case SND_SOC_BIAS_STANDBY:
-+		regmap_write(rt711->regmap,
-+			RT711_SET_AUDIO_POWER_STATE,
-+			AC_PWRST_D3);
-+		break;
-+
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int rt711_parse_dt(struct rt711_priv *rt711, struct device *dev)
-+{
-+	device_property_read_u32(dev, "realtek,jd-src",
-+		&rt711->jd_src);
-+
-+	return 0;
-+}
-+
-+static int rt711_probe(struct snd_soc_component *component)
-+{
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+
-+	rt711_parse_dt(rt711, &rt711->slave->dev);
-+	rt711->component = component;
-+
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver soc_codec_dev_rt711 = {
-+	.probe = rt711_probe,
-+	.set_bias_level = rt711_set_bias_level,
-+	.controls = rt711_snd_controls,
-+	.num_controls = ARRAY_SIZE(rt711_snd_controls),
-+	.dapm_widgets = rt711_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(rt711_dapm_widgets),
-+	.dapm_routes = rt711_audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(rt711_audio_map),
-+	.set_jack = rt711_set_jack_detect,
++enum wsa_port_ids {
++	WSA881X_PORT_DAC,
++	WSA881X_PORT_COMP,
++	WSA881X_PORT_BOOST,
++	WSA881X_PORT_VISENSE,
 +};
 +
-+static int rt711_set_sdw_stream(struct snd_soc_dai *dai, void *sdw_stream,
-+				int direction)
-+{
-+	struct sdw_stream_data *stream;
-+
-+	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
-+	if (!stream)
-+		return -ENOMEM;
-+
-+	stream->sdw_stream = (struct sdw_stream_runtime *)sdw_stream;
-+
-+	/* Use tx_mask or rx_mask to configure stream tag and set dma_data */
-+	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-+		dai->playback_dma_data = stream;
-+	else
-+		dai->capture_dma_data = stream;
-+
-+	return 0;
-+}
-+
-+static void rt711_shutdown(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct sdw_stream_data *stream;
-+
-+	stream = snd_soc_dai_get_dma_data(dai, substream);
-+	snd_soc_dai_set_dma_data(dai, substream, NULL);
-+	kfree(stream);
-+}
-+
-+static int rt711_pcm_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_config stream_config;
-+	struct sdw_port_config port_config;
-+	enum sdw_data_direction direction;
-+	struct sdw_stream_data *stream;
-+	int retval, port, num_channels;
-+	unsigned int val = 0;
-+
-+	dev_dbg(dai->dev, "%s %s", __func__, dai->name);
-+	stream = snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!stream)
-+		return -EINVAL;
-+
-+	if (!rt711->slave)
-+		return -EINVAL;
-+
-+	/* SoundWire specific configuration */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		direction = SDW_DATA_DIR_RX;
-+		port = 3;
-+	} else {
-+		direction = SDW_DATA_DIR_TX;
-+		if (dai->id == RT711_AIF1)
-+			port = 4;
-+		else if (dai->id == RT711_AIF2)
-+			port = 2;
-+		else
-+			return -EINVAL;
-+	}
-+
-+	stream_config.frame_rate = params_rate(params);
-+	stream_config.ch_count = params_channels(params);
-+	stream_config.bps = snd_pcm_format_width(params_format(params));
-+	stream_config.direction = direction;
-+
-+	num_channels = params_channels(params);
-+	port_config.ch_mask = (1 << (num_channels)) - 1;
-+	port_config.num = port;
-+
-+	retval = sdw_stream_add_slave(rt711->slave, &stream_config,
-+					&port_config, 1, stream->sdw_stream);
-+	if (retval) {
-+		dev_err(dai->dev, "Unable to configure port\n");
-+		return retval;
-+	}
-+
-+	if (params_channels(params) <= 16) {
-+		/* bit 3:0 Number of Channel */
-+		val |= (params_channels(params) - 1);
-+	} else {
-+		dev_err(component->dev, "Unsupported channels %d\n",
-+			params_channels(params));
-+		return -EINVAL;
-+	}
-+
-+	switch (params_width(params)) {
-+	/* bit 6:4 Bits per Sample */
-+	case 8:
-+		break;
-+	case 16:
-+		val |= (0x1 << 4);
-+		break;
-+	case 20:
-+		val |= (0x2 << 4);
-+		break;
-+	case 24:
-+		val |= (0x3 << 4);
-+		break;
-+	case 32:
-+		val |= (0x4 << 4);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	/* 48Khz */
-+	regmap_write(rt711->regmap, RT711_DAC_FORMAT_H, val);
-+	regmap_write(rt711->regmap, RT711_ADC1_FORMAT_H, val);
-+	regmap_write(rt711->regmap, RT711_ADC2_FORMAT_H, val);
-+
-+	return retval;
-+}
-+
-+static int rt711_pcm_hw_free(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct rt711_priv *rt711 = snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_data *stream =
-+		snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!rt711->slave)
-+		return -EINVAL;
-+
-+	sdw_stream_remove_slave(rt711->slave, stream->sdw_stream);
-+	return 0;
-+}
-+
-+#define RT711_STEREO_RATES (SNDRV_PCM_RATE_44100 | SNDRV_PCM_RATE_48000)
-+#define RT711_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
-+			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S8)
-+
-+static struct snd_soc_dai_ops rt711_ops = {
-+	.hw_params	= rt711_pcm_hw_params,
-+	.hw_free	= rt711_pcm_hw_free,
-+	.set_sdw_stream	= rt711_set_sdw_stream,
-+	.shutdown	= rt711_shutdown,
-+};
-+
-+static struct snd_soc_dai_driver rt711_dai[] = {
++/* 4 ports */
++static struct sdw_dpn_prop wsa_sink_dpn_prop[WSA881X_MAX_SWR_PORTS] = {
 +	{
-+		.name = "rt711-aif1",
-+		.id = RT711_AIF1,
-+		.playback = {
-+			.stream_name = "DP3 Playback",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = RT711_STEREO_RATES,
-+			.formats = RT711_FORMATS,
-+		},
-+		.capture = {
-+			.stream_name = "DP4 Capture",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = RT711_STEREO_RATES,
-+			.formats = RT711_FORMATS,
-+		},
-+		.ops = &rt711_ops,
++		/* DAC */
++		.num = 1,
++		.type = SDW_DPN_SIMPLE,
++		.min_ch = 1,
++		.max_ch = 1,
++		.simple_ch_prep_sm = true,
++	}, {
++		/* COMP */
++		.num = 2,
++		.type = SDW_DPN_SIMPLE,
++		.min_ch = 1,
++		.max_ch = 1,
++		.simple_ch_prep_sm = true,
++	}, {
++		/* BOOST */
++		.num = 3,
++		.type = SDW_DPN_SIMPLE,
++		.min_ch = 1,
++		.max_ch = 1,
++		.simple_ch_prep_sm = true,
++	}, {
++		/* VISENSE */
++		.num = 4,
++		.type = SDW_DPN_SIMPLE,
++		.min_ch = 1,
++		.max_ch = 1,
++		.simple_ch_prep_sm = true,
++	}
++};
++
++static struct sdw_port_config wsa881x_pconfig[WSA881X_MAX_SWR_PORTS] = {
++	{
++		.num = 1,
++		.ch_mask = 0x1,
++	}, {
++		.num = 2,
++		.ch_mask = 0xf,
++	}, {
++		.num = 3,
++		.ch_mask = 0x3,
++	}, {	/* IV feedback */
++		.num = 4,
++		.ch_mask = 0x3,
 +	},
-+	{
-+		.name = "rt711-aif2",
-+		.id = RT711_AIF2,
-+		.capture = {
-+			.stream_name = "DP2 Capture",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = RT711_STEREO_RATES,
-+			.formats = RT711_FORMATS,
-+		},
-+		.ops = &rt711_ops,
-+	}
 +};
 +
-+/* Bus clock frequency */
-+#define RT711_CLK_FREQ_9600000HZ 9600000
-+#define RT711_CLK_FREQ_12000000HZ 12000000
-+#define RT711_CLK_FREQ_6000000HZ 6000000
-+#define RT711_CLK_FREQ_4800000HZ 4800000
-+#define RT711_CLK_FREQ_2400000HZ 2400000
-+#define RT711_CLK_FREQ_12288000HZ 12288000
-+
-+int rt711_clock_config(struct device *dev)
++static bool wsa881x_readable_register(struct device *dev, unsigned int reg)
 +{
-+	struct rt711_priv *rt711 = dev_get_drvdata(dev);
-+	unsigned int clk_freq, value;
-+
-+	clk_freq = (rt711->params.curr_dr_freq >> 1);
-+
-+	switch (clk_freq) {
-+	case RT711_CLK_FREQ_12000000HZ:
-+		value = 0x0;
-+		break;
-+	case RT711_CLK_FREQ_6000000HZ:
-+		value = 0x1;
-+		break;
-+	case RT711_CLK_FREQ_9600000HZ:
-+		value = 0x2;
-+		break;
-+	case RT711_CLK_FREQ_4800000HZ:
-+		value = 0x3;
-+		break;
-+	case RT711_CLK_FREQ_2400000HZ:
-+		value = 0x4;
-+		break;
-+	case RT711_CLK_FREQ_12288000HZ:
-+		value = 0x5;
-+		break;
++	switch (reg) {
++	case WSA881X_CHIP_ID0:
++	case WSA881X_CHIP_ID1:
++	case WSA881X_CHIP_ID2:
++	case WSA881X_CHIP_ID3:
++	case WSA881X_BUS_ID:
++	case WSA881X_CDC_RST_CTL:
++	case WSA881X_CDC_TOP_CLK_CTL:
++	case WSA881X_CDC_ANA_CLK_CTL:
++	case WSA881X_CDC_DIG_CLK_CTL:
++	case WSA881X_CLOCK_CONFIG:
++	case WSA881X_ANA_CTL:
++	case WSA881X_SWR_RESET_EN:
++	case WSA881X_RESET_CTL:
++	case WSA881X_TADC_VALUE_CTL:
++	case WSA881X_TEMP_DETECT_CTL:
++	case WSA881X_TEMP_MSB:
++	case WSA881X_TEMP_LSB:
++	case WSA881X_TEMP_CONFIG0:
++	case WSA881X_TEMP_CONFIG1:
++	case WSA881X_CDC_CLIP_CTL:
++	case WSA881X_SDM_PDM9_LSB:
++	case WSA881X_SDM_PDM9_MSB:
++	case WSA881X_CDC_RX_CTL:
++	case WSA881X_DEM_BYPASS_DATA0:
++	case WSA881X_DEM_BYPASS_DATA1:
++	case WSA881X_DEM_BYPASS_DATA2:
++	case WSA881X_DEM_BYPASS_DATA3:
++	case WSA881X_OTP_CTRL0:
++	case WSA881X_OTP_CTRL1:
++	case WSA881X_HDRIVE_CTL_GROUP1:
++	case WSA881X_INTR_MODE:
++	case WSA881X_INTR_MASK:
++	case WSA881X_INTR_STATUS:
++	case WSA881X_INTR_CLEAR:
++	case WSA881X_INTR_LEVEL:
++	case WSA881X_INTR_SET:
++	case WSA881X_INTR_TEST:
++	case WSA881X_PDM_TEST_MODE:
++	case WSA881X_ATE_TEST_MODE:
++	case WSA881X_PIN_CTL_MODE:
++	case WSA881X_PIN_CTL_OE:
++	case WSA881X_PIN_WDATA_IOPAD:
++	case WSA881X_PIN_STATUS:
++	case WSA881X_DIG_DEBUG_MODE:
++	case WSA881X_DIG_DEBUG_SEL:
++	case WSA881X_DIG_DEBUG_EN:
++	case WSA881X_SWR_HM_TEST1:
++	case WSA881X_SWR_HM_TEST2:
++	case WSA881X_TEMP_DETECT_DBG_CTL:
++	case WSA881X_TEMP_DEBUG_MSB:
++	case WSA881X_TEMP_DEBUG_LSB:
++	case WSA881X_SAMPLE_EDGE_SEL:
++	case WSA881X_IOPAD_CTL:
++	case WSA881X_SPARE_0:
++	case WSA881X_SPARE_1:
++	case WSA881X_SPARE_2:
++	case WSA881X_OTP_REG_0:
++	case WSA881X_OTP_REG_1:
++	case WSA881X_OTP_REG_2:
++	case WSA881X_OTP_REG_3:
++	case WSA881X_OTP_REG_4:
++	case WSA881X_OTP_REG_5:
++	case WSA881X_OTP_REG_6:
++	case WSA881X_OTP_REG_7:
++	case WSA881X_OTP_REG_8:
++	case WSA881X_OTP_REG_9:
++	case WSA881X_OTP_REG_10:
++	case WSA881X_OTP_REG_11:
++	case WSA881X_OTP_REG_12:
++	case WSA881X_OTP_REG_13:
++	case WSA881X_OTP_REG_14:
++	case WSA881X_OTP_REG_15:
++	case WSA881X_OTP_REG_16:
++	case WSA881X_OTP_REG_17:
++	case WSA881X_OTP_REG_18:
++	case WSA881X_OTP_REG_19:
++	case WSA881X_OTP_REG_20:
++	case WSA881X_OTP_REG_21:
++	case WSA881X_OTP_REG_22:
++	case WSA881X_OTP_REG_23:
++	case WSA881X_OTP_REG_24:
++	case WSA881X_OTP_REG_25:
++	case WSA881X_OTP_REG_26:
++	case WSA881X_OTP_REG_27:
++	case WSA881X_OTP_REG_28:
++	case WSA881X_OTP_REG_29:
++	case WSA881X_OTP_REG_30:
++	case WSA881X_OTP_REG_31:
++	case WSA881X_OTP_REG_63:
++	case WSA881X_BIAS_REF_CTRL:
++	case WSA881X_BIAS_TEST:
++	case WSA881X_BIAS_BIAS:
++	case WSA881X_TEMP_OP:
++	case WSA881X_TEMP_IREF_CTRL:
++	case WSA881X_TEMP_ISENS_CTRL:
++	case WSA881X_TEMP_CLK_CTRL:
++	case WSA881X_TEMP_TEST:
++	case WSA881X_TEMP_BIAS:
++	case WSA881X_TEMP_ADC_CTRL:
++	case WSA881X_TEMP_DOUT_MSB:
++	case WSA881X_TEMP_DOUT_LSB:
++	case WSA881X_ADC_EN_MODU_V:
++	case WSA881X_ADC_EN_MODU_I:
++	case WSA881X_ADC_EN_DET_TEST_V:
++	case WSA881X_ADC_EN_DET_TEST_I:
++	case WSA881X_ADC_SEL_IBIAS:
++	case WSA881X_ADC_EN_SEL_IBAIS:
++	case WSA881X_SPKR_DRV_EN:
++	case WSA881X_SPKR_DRV_GAIN:
++	case WSA881X_SPKR_DAC_CTL:
++	case WSA881X_SPKR_DRV_DBG:
++	case WSA881X_SPKR_PWRSTG_DBG:
++	case WSA881X_SPKR_OCP_CTL:
++	case WSA881X_SPKR_CLIP_CTL:
++	case WSA881X_SPKR_BBM_CTL:
++	case WSA881X_SPKR_MISC_CTL1:
++	case WSA881X_SPKR_MISC_CTL2:
++	case WSA881X_SPKR_BIAS_INT:
++	case WSA881X_SPKR_PA_INT:
++	case WSA881X_SPKR_BIAS_CAL:
++	case WSA881X_SPKR_BIAS_PSRR:
++	case WSA881X_SPKR_STATUS1:
++	case WSA881X_SPKR_STATUS2:
++	case WSA881X_BOOST_EN_CTL:
++	case WSA881X_BOOST_CURRENT_LIMIT:
++	case WSA881X_BOOST_PS_CTL:
++	case WSA881X_BOOST_PRESET_OUT1:
++	case WSA881X_BOOST_PRESET_OUT2:
++	case WSA881X_BOOST_FORCE_OUT:
++	case WSA881X_BOOST_LDO_PROG:
++	case WSA881X_BOOST_SLOPE_COMP_ISENSE_FB:
++	case WSA881X_BOOST_RON_CTL:
++	case WSA881X_BOOST_LOOP_STABILITY:
++	case WSA881X_BOOST_ZX_CTL:
++	case WSA881X_BOOST_START_CTL:
++	case WSA881X_BOOST_MISC1_CTL:
++	case WSA881X_BOOST_MISC2_CTL:
++	case WSA881X_BOOST_MISC3_CTL:
++	case WSA881X_BOOST_ATEST_CTL:
++	case WSA881X_SPKR_PROT_FE_GAIN:
++	case WSA881X_SPKR_PROT_FE_CM_LDO_SET:
++	case WSA881X_SPKR_PROT_FE_ISENSE_BIAS_SET1:
++	case WSA881X_SPKR_PROT_FE_ISENSE_BIAS_SET2:
++	case WSA881X_SPKR_PROT_ATEST1:
++	case WSA881X_SPKR_PROT_ATEST2:
++	case WSA881X_SPKR_PROT_FE_VSENSE_VCM:
++	case WSA881X_SPKR_PROT_FE_VSENSE_BIAS_SET1:
++	case WSA881X_BONGO_RESRV_REG1:
++	case WSA881X_BONGO_RESRV_REG2:
++	case WSA881X_SPKR_PROT_SAR:
++	case WSA881X_SPKR_STATUS3:
++		return true;
 +	default:
-+		return -EINVAL;
++		return false;
 +	}
-+
-+	regmap_write(rt711->regmap, 0xe0, value);
-+	regmap_write(rt711->regmap, 0xf0, value);
-+
-+	dev_dbg(dev, "%s complete, clk_freq=%d\n", __func__, clk_freq);
-+
-+	return 0;
 +}
 +
-+static void rt711_calibration_work(struct work_struct *work)
++static bool wsa881x_volatile_register(struct device *dev, unsigned int reg)
 +{
-+	struct rt711_priv *rt711 =
-+		container_of(work, struct rt711_priv, calibration_work);
-+
-+	rt711_calibration(rt711);
++	switch (reg) {
++	case WSA881X_CHIP_ID0:
++	case WSA881X_CHIP_ID1:
++	case WSA881X_CHIP_ID2:
++	case WSA881X_CHIP_ID3:
++	case WSA881X_BUS_ID:
++	case WSA881X_TEMP_MSB:
++	case WSA881X_TEMP_LSB:
++	case WSA881X_SDM_PDM9_LSB:
++	case WSA881X_SDM_PDM9_MSB:
++	case WSA881X_OTP_CTRL1:
++	case WSA881X_INTR_STATUS:
++	case WSA881X_ATE_TEST_MODE:
++	case WSA881X_PIN_STATUS:
++	case WSA881X_SWR_HM_TEST2:
++	case WSA881X_SPKR_STATUS1:
++	case WSA881X_SPKR_STATUS2:
++	case WSA881X_SPKR_STATUS3:
++	case WSA881X_OTP_REG_0:
++	case WSA881X_OTP_REG_1:
++	case WSA881X_OTP_REG_2:
++	case WSA881X_OTP_REG_3:
++	case WSA881X_OTP_REG_4:
++	case WSA881X_OTP_REG_5:
++	case WSA881X_OTP_REG_31:
++	case WSA881X_TEMP_DOUT_MSB:
++	case WSA881X_TEMP_DOUT_LSB:
++	case WSA881X_TEMP_OP:
++	case WSA881X_SPKR_PROT_SAR:
++		return true;
++	default:
++		return false;
++	}
 +}
 +
-+int rt711_init(struct device *dev, struct regmap *sdw_regmap,
-+			struct regmap *regmap, struct sdw_slave *slave)
-+{
-+	struct rt711_priv *rt711;
-+	int ret;
-+
-+	rt711 = devm_kzalloc(dev, sizeof(*rt711), GFP_KERNEL);
-+	if (!rt711)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(dev, rt711);
-+	rt711->slave = slave;
-+	rt711->sdw_regmap = sdw_regmap;
-+	rt711->regmap = regmap;
-+
-+	/*
-+	 * Mark hw_init to false
-+	 * HW init will be performed when device reports present
-+	 */
-+	rt711->hw_init = false;
-+	rt711->first_hw_init = false;
-+
-+	/* JD source uses JD2 in default */
-+	rt711->jd_src = RT711_JD2;
-+
-+	ret =  devm_snd_soc_register_component(dev,
-+				&soc_codec_dev_rt711,
-+				rt711_dai,
-+				ARRAY_SIZE(rt711_dai));
-+
-+	dev_dbg(&slave->dev, "%s\n", __func__);
-+
-+	return ret;
-+}
-+
-+int rt711_io_init(struct device *dev, struct sdw_slave *slave)
-+{
-+	struct rt711_priv *rt711 = dev_get_drvdata(dev);
-+
-+	if (rt711->hw_init)
-+		return 0;
-+
-+	if (rt711->first_hw_init) {
-+		regcache_cache_only(rt711->regmap, false);
-+		regcache_cache_bypass(rt711->regmap, true);
-+	}
-+
-+	/*
-+	 * PM runtime is only enabled when a Slave reports as Attached
-+	 */
-+	if (!rt711->first_hw_init) {
-+		/* set autosuspend parameters */
-+		pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
-+		pm_runtime_use_autosuspend(&slave->dev);
-+
-+		/* update count of parent 'active' children */
-+		pm_runtime_set_active(&slave->dev);
-+
-+		/* make sure the device does not suspend immediately */
-+		pm_runtime_mark_last_busy(&slave->dev);
-+
-+		pm_runtime_enable(&slave->dev);
-+	}
-+
-+	pm_runtime_get_noresume(&slave->dev);
-+
-+	rt711_reset(rt711->regmap);
-+
-+	/* power on */
-+	regmap_write(rt711->regmap, RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D0);
-+
-+	/* Set Pin Widget */
-+	regmap_write(rt711->regmap, RT711_SET_PIN_MIC2, 0x25);
-+	regmap_write(rt711->regmap, RT711_SET_PIN_HP, 0xc0);
-+	regmap_write(rt711->regmap, RT711_SET_PIN_DMIC1, 0x20);
-+	regmap_write(rt711->regmap, RT711_SET_PIN_DMIC2, 0x20);
-+	regmap_write(rt711->regmap, RT711_SET_PIN_LINE1, 0x20);
-+	regmap_write(rt711->regmap, RT711_SET_PIN_LINE2, 0x20);
-+
-+	/* Mute HP/ADC1/ADC2 */
-+	regmap_write(rt711->regmap, RT711_SET_GAIN_HP_H, 0xa080);
-+	regmap_write(rt711->regmap, RT711_SET_GAIN_HP_H, 0x9080);
-+	regmap_write(rt711->regmap, RT711_SET_GAIN_ADC2_H, 0x6080);
-+	regmap_write(rt711->regmap, RT711_SET_GAIN_ADC2_H, 0x5080);
-+	regmap_write(rt711->regmap, RT711_SET_GAIN_ADC1_H, 0x6080);
-+	regmap_write(rt711->regmap, RT711_SET_GAIN_ADC1_H, 0x5080);
-+
-+	/* Set Configuration Default */
-+	regmap_write(rt711->regmap, 0x4f12, 0x91);
-+	regmap_write(rt711->regmap, 0x4e12, 0xd6);
-+	regmap_write(rt711->regmap, 0x4d12, 0x11);
-+	regmap_write(rt711->regmap, 0x4c12, 0x20);
-+	regmap_write(rt711->regmap, 0x4f13, 0x91);
-+	regmap_write(rt711->regmap, 0x4e13, 0xd6);
-+	regmap_write(rt711->regmap, 0x4d13, 0x11);
-+	regmap_write(rt711->regmap, 0x4c13, 0x21);
-+	regmap_write(rt711->regmap, 0x4c21, 0xf0);
-+	regmap_write(rt711->regmap, 0x4d21, 0x11);
-+	regmap_write(rt711->regmap, 0x4e21, 0x11);
-+	regmap_write(rt711->regmap, 0x4f21, 0x01);
-+
-+	/* Data port arrangement */
-+	rt711_index_write(rt711->regmap, RT711_VENDOR_REG,
-+		RT711_TX_RX_MUX_CTL, 0x0154);
-+
-+	/* Set index */
-+	rt711_index_write(rt711->regmap, RT711_VENDOR_REG,
-+		RT711_DIGITAL_MISC_CTRL4, 0x201b);
-+	rt711_index_write(rt711->regmap, RT711_VENDOR_REG,
-+		RT711_COMBO_JACK_AUTO_CTL1, 0x5089);
-+	rt711_index_write(rt711->regmap, RT711_VENDOR_REG,
-+		RT711_VREFOUT_CTL, 0x5064);
-+	rt711_index_write(rt711->regmap, RT711_VENDOR_REG,
-+		RT711_INLINE_CMD_CTL, 0xd249);
-+
-+	/* Finish Initial Settings, set power to D3 */
-+	regmap_write(rt711->regmap, RT711_SET_AUDIO_POWER_STATE, AC_PWRST_D3);
-+
-+	if (rt711->first_hw_init)
-+		rt711_calibration(rt711);
-+	else {
-+		INIT_DELAYED_WORK(&rt711->jack_detect_work,
-+			rt711_jack_detect_handler);
-+		INIT_DELAYED_WORK(&rt711->jack_btn_check_work,
-+			rt711_btn_check_handler);
-+		mutex_init(&rt711->calibrate_mutex);
-+		INIT_WORK(&rt711->calibration_work, rt711_calibration_work);
-+		schedule_work(&rt711->calibration_work);
-+	}
-+
-+	/*
-+	 * if set_jack callback occurred early than io_init,
-+	 * we set up the jack detection function now
-+	 */
-+	if (rt711->hs_jack)
-+		rt711_jack_init(rt711);
-+
-+	if (rt711->first_hw_init) {
-+		regcache_cache_bypass(rt711->regmap, false);
-+		regcache_mark_dirty(rt711->regmap);
-+	} else
-+		rt711->first_hw_init = true;
-+
-+	/* Mark Slave initialization complete */
-+	rt711->hw_init = true;
-+
-+	pm_runtime_mark_last_busy(&slave->dev);
-+	pm_runtime_put_autosuspend(&slave->dev);
-+
-+	dev_dbg(&slave->dev, "%s hw_init complete\n", __func__);
-+	return 0;
-+}
-+
-+MODULE_DESCRIPTION("ASoC RT711 SDW driver");
-+MODULE_AUTHOR("Shuming Fan <shumingf@realtek.com>");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/rt711.h b/sound/soc/codecs/rt711.h
-new file mode 100644
-index 000000000000..ca0f581feec7
---- /dev/null
-+++ b/sound/soc/codecs/rt711.h
-@@ -0,0 +1,227 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * rt711.h -- RT711 ALSA SoC audio driver header
-+ *
-+ * Copyright(c) 2019 Realtek Semiconductor Corp.
-+ */
-+
-+#ifndef __RT711_H__
-+#define __RT711_H__
-+
-+extern const struct dev_pm_ops rt711_runtime_pm;
-+
-+struct  rt711_priv {
-+	struct regmap *regmap;
-+	struct regmap *sdw_regmap;
-+	struct snd_soc_component *component;
-+	struct sdw_slave *slave;
-+	enum sdw_slave_status status;
-+	struct sdw_bus_params params;
-+	bool hw_init;
-+	bool first_hw_init;
-+	struct snd_soc_jack *hs_jack;
-+	struct delayed_work jack_detect_work;
-+	struct delayed_work jack_btn_check_work;
-+	struct work_struct calibration_work;
-+	struct mutex calibrate_mutex; /* for headset calibration */
-+	int jack_type, jd_src;
++static struct regmap_config wsa881x_regmap_config = {
++	.reg_bits = 32,
++	.val_bits = 8,
++	.cache_type = REGCACHE_RBTREE,
++	.reg_defaults = wsa881x_defaults,
++	.num_reg_defaults = ARRAY_SIZE(wsa881x_defaults),
++	.volatile_reg = wsa881x_volatile_register,
++	.readable_reg = wsa881x_readable_register,
++	.reg_format_endian = REGMAP_ENDIAN_NATIVE,
++	.val_format_endian = REGMAP_ENDIAN_NATIVE,
++	.can_multi_write = true,
 +};
-+
-+struct sdw_stream_data {
-+	struct sdw_stream_runtime *sdw_stream;
-+};
-+
-+/* NID */
-+#define RT711_AUDIO_FUNCTION_GROUP			0x01
-+#define RT711_DAC_OUT2					0x03
-+#define RT711_ADC_IN1					0x09
-+#define RT711_ADC_IN2					0x08
-+#define RT711_DMIC1					0x12
-+#define RT711_DMIC2					0x13
-+#define RT711_MIC2					0x19
-+#define RT711_LINE1					0x1a
-+#define RT711_LINE2					0x1b
-+#define RT711_BEEP					0x1d
-+#define RT711_VENDOR_REG				0x20
-+#define RT711_HP_OUT					0x21
-+#define RT711_MIXER_IN1					0x22
-+#define RT711_MIXER_IN2					0x23
-+#define RT711_INLINE_CMD				0x55
-+#define RT711_VENDOR_CALI				0x58
-+#define RT711_VENDOR_IMS_DRE			0x5b
-+
-+/* Index (NID:20h) */
-+#define RT711_DAC_DC_CALI_CTL1				0x00
-+#define RT711_JD_CTL2				0x09
-+#define RT711_CC_DET1				0x11
-+#define RT711_PARA_VERB_CTL				0x1a
-+#define RT711_COMBO_JACK_AUTO_CTL1				0x45
-+#define RT711_COMBO_JACK_AUTO_CTL2				0x46
-+#define RT711_INLINE_CMD_CTL				0x48
-+#define RT711_DIGITAL_MISC_CTRL4			0x4a
-+#define RT711_VREFOUT_CTL				0x6b
-+#define RT711_FSM_CTL				0x6f
-+#define RT711_IRQ_FLAG_TABLE1				0x80
-+#define RT711_IRQ_FLAG_TABLE2				0x81
-+#define RT711_IRQ_FLAG_TABLE3				0x82
-+#define RT711_TX_RX_MUX_CTL				0x91
-+
-+/* Index (NID:5bh) */
-+#define RT711_IMS_DIGITAL_CTL1				0x00
-+#define RT711_HP_IMS_RESULT_L				0x20
-+#define RT711_HP_IMS_RESULT_R				0x21
-+
-+/* Verb */
-+#define RT711_VERB_SET_CONNECT_SEL			0x3100
-+#define RT711_VERB_SET_EAPD_BTLENABLE			0x3c00
-+#define RT711_VERB_GET_CONNECT_SEL			0xb100
-+#define RT711_VERB_SET_POWER_STATE			0x3500
-+#define RT711_VERB_SET_CHANNEL_STREAMID			0x3600
-+#define RT711_VERB_SET_PIN_WIDGET_CONTROL		0x3700
-+#define RT711_VERB_SET_UNSOLICITED_ENABLE		0x3800
-+#define RT711_SET_AMP_GAIN_MUTE_H			0x7300
-+#define RT711_SET_AMP_GAIN_MUTE_L			0x8380
-+#define RT711_VERB_GET_POWER_STATE			0xb500
-+#define RT711_VERB_GET_CHANNEL_STREAMID			0xb600
-+#define RT711_VERB_GET_PIN_SENSE			0xb900
-+#define RT711_FUNC_RESET			0xff01
-+
-+#define RT711_READ_HDA_3				0x2012
-+#define RT711_READ_HDA_2				0x2013
-+#define RT711_READ_HDA_1				0x2014
-+#define RT711_READ_HDA_0				0x2015
-+#define RT711_PRIV_INDEX_W_H				0x7500
-+#define RT711_PRIV_INDEX_W_L				0x8580
-+#define RT711_PRIV_DATA_W_H				0x7400
-+#define RT711_PRIV_DATA_W_L				0x8480
-+#define RT711_PRIV_INDEX_R_H				0x9d00
-+#define RT711_PRIV_INDEX_R_L				0xad80
-+#define RT711_PRIV_DATA_R_H				0x9c00
-+#define RT711_PRIV_DATA_R_L				0xac80
-+#define RT711_DAC_FORMAT_H				0x7203
-+#define RT711_DAC_FORMAT_L				0x8283
-+#define RT711_ADC1_FORMAT_H				0x7209
-+#define RT711_ADC1_FORMAT_L				0x8289
-+#define RT711_ADC2_FORMAT_H				0x7208
-+#define RT711_ADC2_FORMAT_L				0x8288
-+
-+#define RT711_SET_AUDIO_POWER_STATE\
-+	(RT711_VERB_SET_POWER_STATE | RT711_AUDIO_FUNCTION_GROUP)
-+#define RT711_GET_AUDIO_POWER_STATE\
-+		(RT711_VERB_GET_POWER_STATE | RT711_AUDIO_FUNCTION_GROUP)
-+#define RT711_SET_PIN_DMIC1\
-+	(RT711_VERB_SET_PIN_WIDGET_CONTROL | RT711_DMIC1)
-+#define RT711_SET_PIN_DMIC2\
-+	(RT711_VERB_SET_PIN_WIDGET_CONTROL | RT711_DMIC2)
-+#define RT711_SET_PIN_HP\
-+	(RT711_VERB_SET_PIN_WIDGET_CONTROL | RT711_HP_OUT)
-+#define RT711_SET_PIN_MIC2\
-+	(RT711_VERB_SET_PIN_WIDGET_CONTROL | RT711_MIC2)
-+#define RT711_SET_PIN_LINE1\
-+	(RT711_VERB_SET_PIN_WIDGET_CONTROL | RT711_LINE1)
-+#define RT711_SET_PIN_LINE2\
-+	(RT711_VERB_SET_PIN_WIDGET_CONTROL | RT711_LINE2)
-+#define RT711_SET_MIC2_UNSOLICITED_ENABLE\
-+	(RT711_VERB_SET_UNSOLICITED_ENABLE | RT711_MIC2)
-+#define RT711_SET_HP_UNSOLICITED_ENABLE\
-+	(RT711_VERB_SET_UNSOLICITED_ENABLE | RT711_HP_OUT)
-+#define RT711_SET_INLINE_UNSOLICITED_ENABLE\
-+	(RT711_VERB_SET_UNSOLICITED_ENABLE | RT711_INLINE_CMD)
-+#define RT711_SET_STREAMID_DAC2\
-+	(RT711_VERB_SET_CHANNEL_STREAMID | RT711_DAC_OUT2)
-+#define RT711_SET_STREAMID_ADC1\
-+	(RT711_VERB_SET_CHANNEL_STREAMID | RT711_ADC_IN1)
-+#define RT711_SET_STREAMID_ADC2\
-+	(RT711_VERB_SET_CHANNEL_STREAMID | RT711_ADC_IN2)
-+#define RT711_GET_STREAMID_DAC2\
-+	(RT711_VERB_GET_CHANNEL_STREAMID | RT711_DAC_OUT2)
-+#define RT711_GET_STREAMID_ADC1\
-+	(RT711_VERB_GET_CHANNEL_STREAMID | RT711_ADC_IN1)
-+#define RT711_GET_STREAMID_ADC2\
-+	(RT711_VERB_GET_CHANNEL_STREAMID | RT711_ADC_IN2)
-+#define RT711_SET_GAIN_DAC2_L\
-+	(RT711_SET_AMP_GAIN_MUTE_L | RT711_DAC_OUT2)
-+#define RT711_SET_GAIN_DAC2_H\
-+	(RT711_SET_AMP_GAIN_MUTE_H | RT711_DAC_OUT2)
-+#define RT711_SET_GAIN_ADC1_L\
-+	(RT711_SET_AMP_GAIN_MUTE_L | RT711_ADC_IN1)
-+#define RT711_SET_GAIN_ADC1_H\
-+	(RT711_SET_AMP_GAIN_MUTE_H | RT711_ADC_IN1)
-+#define RT711_SET_GAIN_ADC2_L\
-+	(RT711_SET_AMP_GAIN_MUTE_L | RT711_ADC_IN2)
-+#define RT711_SET_GAIN_ADC2_H\
-+	(RT711_SET_AMP_GAIN_MUTE_H | RT711_ADC_IN2)
-+#define RT711_SET_GAIN_AMIC_L\
-+	(RT711_SET_AMP_GAIN_MUTE_L | RT711_MIC2)
-+#define RT711_SET_GAIN_AMIC_H\
-+	(RT711_SET_AMP_GAIN_MUTE_H | RT711_MIC2)
-+#define RT711_SET_GAIN_DMIC1_L\
-+	(RT711_SET_AMP_GAIN_MUTE_L | RT711_DMIC1)
-+#define RT711_SET_GAIN_DMIC1_H\
-+	(RT711_SET_AMP_GAIN_MUTE_H | RT711_DMIC1)
-+#define RT711_SET_GAIN_DMIC2_L\
-+	(RT711_SET_AMP_GAIN_MUTE_L | RT711_DMIC2)
-+#define RT711_SET_GAIN_DMIC2_H\
-+	(RT711_SET_AMP_GAIN_MUTE_H | RT711_DMIC2)
-+#define RT711_SET_GAIN_HP_L\
-+	(RT711_SET_AMP_GAIN_MUTE_L | RT711_HP_OUT)
-+#define RT711_SET_GAIN_HP_H\
-+	(RT711_SET_AMP_GAIN_MUTE_H | RT711_HP_OUT)
-+
-+/* DAC DC offset calibration control-1 (0x00)(NID:20h) */
-+#define RT711_DAC_DC_CALI_TRIGGER (0x1 << 15)
-+
-+/* jack detect control 2 (0x09)(NID:20h) */
-+#define RT711_JD2_2PORT_200K_DECODE_HP (0x1 << 13)
-+#define RT711_HP_JD_SEL_JD1 (0x0 << 1)
-+#define RT711_HP_JD_SEL_JD2 (0x1 << 1)
-+
-+/* CC DET1 (0x11)(NID:20h) */
-+#define RT711_HP_JD_FINAL_RESULT_CTL_JD12 (0x1 << 10)
-+#define RT711_HP_JD_FINAL_RESULT_CTL_CCDET (0x0 << 10)
-+
-+/* Parameter & Verb control (0x1a)(NID:20h) */
-+#define RT711_HIDDEN_REG_SW_RESET (0x1 << 14)
-+
-+/* combo jack auto switch control 2 (0x46)(NID:20h) */
-+#define RT711_COMBOJACK_AUTO_DET_STATUS			(0x1 << 11)
-+#define RT711_COMBOJACK_AUTO_DET_TRS			(0x1 << 10)
-+#define RT711_COMBOJACK_AUTO_DET_CTIA			(0x1 << 9)
-+#define RT711_COMBOJACK_AUTO_DET_OMTP			(0x1 << 8)
-+
-+/* FSM control (0x6f)(NID:20h) */
-+#define RT711_CALI_CTL			(0x0 << 0)
-+#define RT711_COMBOJACK_CTL			(0x1 << 0)
-+#define RT711_IMS_CTL			(0x2 << 0)
-+#define RT711_DEPOP_CTL			(0x3 << 0)
-+
-+/* Impedance Sense Digital Control 1 (0x00)(NID:5bh) */
-+#define RT711_TRIGGER_IMS			(0x1 << 15)
-+#define RT711_IMS_EN			(0x1 << 6)
-+
-+#define RT711_EAPD_HIGH					0x2
-+#define RT711_EAPD_LOW					0x0
-+#define RT711_MUTE_SFT					7
-+/* set input/output mapping to payload[14][15] separately */
-+#define RT711_DIR_IN_SFT				6
-+#define RT711_DIR_OUT_SFT				7
 +
 +enum {
-+	RT711_AIF1,
-+	RT711_AIF2,
-+	RT711_AIFS,
++	G_18DB = 0,
++	G_16P5DB,
++	G_15DB,
++	G_13P5DB,
++	G_12DB,
++	G_10P5DB,
++	G_9DB,
++	G_7P5DB,
++	G_6DB,
++	G_4P5DB,
++	G_3DB,
++	G_1P5DB,
++	G_0DB,
 +};
 +
-+enum rt711_jd_src {
-+	RT711_JD_NULL,
-+	RT711_JD1,
-+	RT711_JD2
++/*
++ * Private data Structure for wsa881x. All parameters related to
++ * WSA881X codec needs to be defined here.
++ */
++struct wsa881x_priv {
++	struct regmap *regmap;
++	struct device *dev;
++	struct sdw_slave *slave;
++	struct sdw_stream_config sconfig;
++	struct sdw_stream_runtime *sruntime;
++	struct sdw_port_config port_config[WSA881X_MAX_SWR_PORTS];
++	struct gpio_desc *sd_n;
++	int version;
++	int active_ports;
++	bool port_prepared[WSA881X_MAX_SWR_PORTS];
++	bool port_enable[WSA881X_MAX_SWR_PORTS];
++	bool stream_prepared;
 +};
 +
-+int rt711_io_init(struct device *dev, struct sdw_slave *slave);
-+int rt711_init(struct device *dev, struct regmap *sdw_regmap,
-+	       struct regmap *regmap, struct sdw_slave *slave);
++static void wsa881x_init(struct wsa881x_priv *wsa881x)
++{
++	struct regmap *rm = wsa881x->regmap;
++	unsigned int val = 0;
 +
-+int rt711_jack_detect(struct rt711_priv *rt711, bool *hp, bool *mic);
-+int rt711_clock_config(struct device *dev);
-+#endif /* __RT711_H__ */
++	regmap_read(rm, WSA881X_CHIP_ID1, &wsa881x->version);
++	regmap_register_patch(wsa881x->regmap, wsa881x_rev_2_0,
++			      ARRAY_SIZE(wsa881x_rev_2_0));
++
++	/* Enable software reset output from soundwire slave */
++	regmap_update_bits(rm, WSA881X_SWR_RESET_EN, 0x07, 0x07);
++
++	/* Bring out of analog reset */
++	regmap_update_bits(rm, WSA881X_CDC_RST_CTL, 0x02, 0x02);
++
++	/* Bring out of digital reset */
++	regmap_update_bits(rm, WSA881X_CDC_RST_CTL, 0x01, 0x01);
++	regmap_update_bits(rm, WSA881X_CLOCK_CONFIG, 0x10, 0x10);
++	regmap_update_bits(rm, WSA881X_SPKR_OCP_CTL, 0x02, 0x02);
++	regmap_update_bits(rm, WSA881X_SPKR_MISC_CTL1, 0xC0, 0x80);
++	regmap_update_bits(rm, WSA881X_SPKR_MISC_CTL1, 0x06, 0x06);
++	regmap_update_bits(rm, WSA881X_SPKR_BIAS_INT, 0xFF, 0x00);
++	regmap_update_bits(rm, WSA881X_SPKR_PA_INT, 0xF0, 0x40);
++	regmap_update_bits(rm, WSA881X_SPKR_PA_INT, 0x0E, 0x0E);
++	regmap_update_bits(rm, WSA881X_BOOST_LOOP_STABILITY, 0x03, 0x03);
++	regmap_update_bits(rm, WSA881X_BOOST_MISC2_CTL, 0xFF, 0x14);
++	regmap_update_bits(rm, WSA881X_BOOST_START_CTL, 0x80, 0x80);
++	regmap_update_bits(rm, WSA881X_BOOST_START_CTL, 0x03, 0x00);
++	regmap_update_bits(rm, WSA881X_BOOST_SLOPE_COMP_ISENSE_FB, 0x0C, 0x04);
++	regmap_update_bits(rm, WSA881X_BOOST_SLOPE_COMP_ISENSE_FB, 0x03, 0x00);
++
++	regmap_read(rm, WSA881X_OTP_REG_0, &val);
++	if (val)
++		regmap_update_bits(rm, WSA881X_BOOST_PRESET_OUT1, 0xF0, 0x70);
++
++	regmap_update_bits(rm, WSA881X_BOOST_PRESET_OUT2, 0xF0, 0x30);
++	regmap_update_bits(rm, WSA881X_SPKR_DRV_EN, 0x08, 0x08);
++	regmap_update_bits(rm, WSA881X_BOOST_CURRENT_LIMIT, 0x0F, 0x08);
++	regmap_update_bits(rm, WSA881X_SPKR_OCP_CTL, 0x30, 0x30);
++	regmap_update_bits(rm, WSA881X_SPKR_OCP_CTL, 0x0C, 0x00);
++	regmap_update_bits(rm, WSA881X_OTP_REG_28, 0x3F, 0x3A);
++	regmap_update_bits(rm, WSA881X_BONGO_RESRV_REG1, 0xFF, 0xB2);
++	regmap_update_bits(rm, WSA881X_BONGO_RESRV_REG2, 0xFF, 0x05);
++}
++
++static int wsa881x_component_probe(struct snd_soc_component *comp)
++{
++	struct wsa881x_priv *wsa881x = snd_soc_component_get_drvdata(comp);
++
++	snd_soc_component_init_regmap(comp, wsa881x->regmap);
++
++	return 0;
++}
++
++static int wsa881x_put_pa_gain(struct snd_kcontrol *kc,
++			       struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *comp = snd_soc_kcontrol_component(kc);
++	struct soc_mixer_control *mc =
++			(struct soc_mixer_control *)kc->private_value;
++	int max = mc->max;
++	unsigned int mask = (1 << fls(max)) - 1;
++	int val, ret, min_gain, max_gain;
++
++	max_gain = (max - ucontrol->value.integer.value[0]) & mask;
++	/*
++	 * Gain has to set incrementally in 4 steps
++	 * as per HW sequence
++	 */
++	if (max_gain > G_4P5DB)
++		min_gain = G_0DB;
++	else
++		min_gain = max_gain + 3;
++	/*
++	 * 1ms delay is needed before change in gain
++	 * as per HW requirement.
++	 */
++	usleep_range(1000, 1010);
++
++	for (val = min_gain; max_gain <= val; val--) {
++		ret = snd_soc_component_update_bits(comp,
++			      WSA881X_SPKR_DRV_GAIN,
++			      WSA881X_SPKR_PAG_GAIN_MASK,
++			      val << 4);
++		if (ret < 0)
++			dev_err(comp->dev, "Failed to change PA gain");
++
++		usleep_range(1000, 1010);
++	}
++	return 0;
++}
++
++static int wsa881x_get_port(struct snd_kcontrol *kcontrol,
++			    struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *comp = snd_soc_kcontrol_component(kcontrol);
++	struct wsa881x_priv *data = snd_soc_component_get_drvdata(comp);
++	struct soc_mixer_control *mixer =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	int portidx = mixer->reg;
++
++	ucontrol->value.integer.value[0] = data->port_enable[portidx];
++
++
++	return 0;
++}
++
++static int wsa881x_boost_ctrl(struct snd_soc_component *comp, bool enable)
++{
++	if (enable)
++		snd_soc_component_update_bits(comp, WSA881X_BOOST_EN_CTL,
++					      WSA881X_BOOST_EN_MASK,
++					      WSA881X_BOOST_EN);
++	else
++		snd_soc_component_update_bits(comp, WSA881X_BOOST_EN_CTL,
++					      WSA881X_BOOST_EN_MASK, 0);
++	/*
++	 * 1.5ms sleep is needed after boost enable/disable as per
++	 * HW requirement
++	 */
++	usleep_range(1500, 1510);
++	return 0;
++}
++
++static int wsa881x_set_port(struct snd_kcontrol *kcontrol,
++			    struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *comp = snd_soc_kcontrol_component(kcontrol);
++	struct wsa881x_priv *data = snd_soc_component_get_drvdata(comp);
++	struct soc_mixer_control *mixer =
++		(struct soc_mixer_control *)kcontrol->private_value;
++	int portidx = mixer->reg;
++
++	if (ucontrol->value.integer.value[0])
++		data->port_enable[portidx] = true;
++	else
++		data->port_enable[portidx] = false;
++
++	if (portidx == WSA881X_PORT_BOOST) /* Boost Switch */
++		wsa881x_boost_ctrl(comp, data->port_enable[portidx]);
++
++	return 0;
++}
++
++static const char * const smart_boost_lvl_text[] = {
++	"6.625 V", "6.750 V", "6.875 V", "7.000 V",
++	"7.125 V", "7.250 V", "7.375 V", "7.500 V",
++	"7.625 V", "7.750 V", "7.875 V", "8.000 V",
++	"8.125 V", "8.250 V", "8.375 V", "8.500 V"
++};
++
++static const struct soc_enum smart_boost_lvl_enum =
++	SOC_ENUM_SINGLE(WSA881X_BOOST_PRESET_OUT1, 0,
++			ARRAY_SIZE(smart_boost_lvl_text),
++			smart_boost_lvl_text);
++
++static const DECLARE_TLV_DB_SCALE(pa_gain, 0, 150, 0);
++
++static const struct snd_kcontrol_new wsa881x_snd_controls[] = {
++	SOC_ENUM("Smart Boost Level", smart_boost_lvl_enum),
++	WSA881X_PA_GAIN_TLV("PA Volume", WSA881X_SPKR_DRV_GAIN,
++			    4, 0xC, 1, pa_gain),
++	SOC_SINGLE_EXT("DAC Switch", WSA881X_PORT_DAC, 0, 1, 0,
++		       wsa881x_get_port, wsa881x_set_port),
++	SOC_SINGLE_EXT("COMP Switch", WSA881X_PORT_COMP, 0, 1, 0,
++		       wsa881x_get_port, wsa881x_set_port),
++	SOC_SINGLE_EXT("BOOST Switch", WSA881X_PORT_BOOST, 0, 1, 0,
++		       wsa881x_get_port, wsa881x_set_port),
++	SOC_SINGLE_EXT("VISENSE Switch", WSA881X_PORT_VISENSE, 0, 1, 0,
++		       wsa881x_get_port, wsa881x_set_port),
++};
++
++static const struct snd_soc_dapm_route wsa881x_audio_map[] = {
++	{ "RDAC", NULL, "IN" },
++	{ "RDAC", NULL, "DCLK" },
++	{ "RDAC", NULL, "ACLK" },
++	{ "RDAC", NULL, "Bandgap" },
++	{ "SPKR PGA", NULL, "RDAC" },
++	{ "SPKR", NULL, "SPKR PGA" },
++};
++
++static int wsa881x_visense_txfe_ctrl(struct snd_soc_component *comp,
++				     bool enable)
++{
++	struct wsa881x_priv *wsa881x = snd_soc_component_get_drvdata(comp);
++
++	if (enable) {
++		regmap_multi_reg_write(wsa881x->regmap, wsa881x_vi_txfe_en_2_0,
++				       ARRAY_SIZE(wsa881x_vi_txfe_en_2_0));
++	} else {
++		snd_soc_component_update_bits(comp,
++					      WSA881X_SPKR_PROT_FE_VSENSE_VCM,
++					      0x08, 0x08);
++		/*
++		 * 200us sleep is needed after visense txfe disable as per
++		 * HW requirement.
++		 */
++		usleep_range(200, 210);
++		snd_soc_component_update_bits(comp, WSA881X_SPKR_PROT_FE_GAIN,
++					      0x01, 0x00);
++	}
++	return 0;
++}
++
++static int wsa881x_visense_adc_ctrl(struct snd_soc_component *comp,
++				    bool enable)
++{
++	snd_soc_component_update_bits(comp, WSA881X_ADC_EN_MODU_V, BIT(7),
++				      (enable << 7));
++	snd_soc_component_update_bits(comp, WSA881X_ADC_EN_MODU_I, BIT(7),
++				      (enable << 7));
++	return 0;
++}
++
++static int wsa881x_spkr_pa_event(struct snd_soc_dapm_widget *w,
++				 struct snd_kcontrol *kcontrol, int event)
++{
++	struct snd_soc_component *comp = snd_soc_dapm_to_component(w->dapm);
++	struct wsa881x_priv *wsa881x = snd_soc_component_get_drvdata(comp);
++
++	switch (event) {
++	case SND_SOC_DAPM_PRE_PMU:
++		snd_soc_component_update_bits(comp, WSA881X_SPKR_OCP_CTL,
++					      WSA881X_SPKR_OCP_MASK,
++					      WSA881X_SPKR_OCP_EN);
++		regmap_multi_reg_write(wsa881x->regmap, wsa881x_pre_pmu_pa_2_0,
++				       ARRAY_SIZE(wsa881x_pre_pmu_pa_2_0));
++
++		snd_soc_component_update_bits(comp, WSA881X_SPKR_DRV_GAIN,
++					      WSA881X_PA_GAIN_SEL_MASK,
++					      WSA881X_PA_GAIN_SEL_REG);
++		break;
++	case SND_SOC_DAPM_POST_PMU:
++		if (wsa881x->port_prepared[WSA881X_PORT_VISENSE]) {
++			wsa881x_visense_txfe_ctrl(comp, true);
++			snd_soc_component_update_bits(comp,
++						      WSA881X_ADC_EN_SEL_IBAIS,
++						      0x07, 0x01);
++			wsa881x_visense_adc_ctrl(comp, true);
++		}
++
++		break;
++	case SND_SOC_DAPM_POST_PMD:
++		if (wsa881x->port_prepared[WSA881X_PORT_VISENSE]) {
++			wsa881x_visense_adc_ctrl(comp, false);
++			wsa881x_visense_txfe_ctrl(comp, false);
++		}
++
++		snd_soc_component_update_bits(comp, WSA881X_SPKR_OCP_CTL,
++					      WSA881X_SPKR_OCP_MASK,
++					      WSA881X_SPKR_OCP_EN |
++					      WSA881X_SPKR_OCP_HOLD);
++		break;
++	}
++	return 0;
++}
++
++static const struct snd_soc_dapm_widget wsa881x_dapm_widgets[] = {
++	SND_SOC_DAPM_INPUT("IN"),
++	SND_SOC_DAPM_DAC_E("RDAC", NULL, WSA881X_SPKR_DAC_CTL, 7, 0,
++			   NULL,
++			   SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_PGA_E("SPKR PGA", SND_SOC_NOPM, 0, 0, NULL, 0,
++			   wsa881x_spkr_pa_event, SND_SOC_DAPM_PRE_PMU |
++			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_SUPPLY("DCLK", WSA881X_CDC_DIG_CLK_CTL, 0, 0, NULL,
++			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_SUPPLY("ACLK", WSA881X_CDC_ANA_CLK_CTL, 0, 0, NULL,
++			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_SUPPLY("Bandgap", WSA881X_TEMP_OP, 3, 0,
++			    NULL,
++			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++	SND_SOC_DAPM_OUTPUT("SPKR"),
++};
++
++static int wsa881x_prepare(struct snd_pcm_substream *substream,
++			   struct snd_soc_dai *dai)
++{
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(dai->dev);
++	int ret;
++
++	if (wsa881x->stream_prepared) {
++		sdw_disable_stream(wsa881x->sruntime);
++		sdw_deprepare_stream(wsa881x->sruntime);
++		wsa881x->stream_prepared = false;
++	}
++
++
++	ret = sdw_prepare_stream(wsa881x->sruntime);
++	if (ret)
++		return ret;
++
++	/**
++	 * NOTE: there is a strict hw requirement about the ordering of port
++	 * enables and actual PA enable. PA enable should only happen after
++	 * soundwire ports are enabled if not DC on the line is accumulated
++	 * resulting in Click/Pop Noise
++	 * PA enable/mute are handled as part of DAPM and digital mute.
++	 */
++
++	ret = sdw_enable_stream(wsa881x->sruntime);
++	if (ret) {
++		sdw_deprepare_stream(wsa881x->sruntime);
++		return ret;
++	}
++	wsa881x->stream_prepared = true;
++
++	return ret;
++}
++
++static int wsa881x_hw_params(struct snd_pcm_substream *substream,
++			     struct snd_pcm_hw_params *params,
++			     struct snd_soc_dai *dai)
++{
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(dai->dev);
++	int i;
++
++	wsa881x->active_ports = 0;
++	for (i = 0; i < WSA881X_MAX_SWR_PORTS; i++) {
++		if (!wsa881x->port_enable[i])
++			continue;
++
++		wsa881x->port_config[wsa881x->active_ports] =
++							wsa881x_pconfig[i];
++		wsa881x->active_ports++;
++	}
++
++	return sdw_stream_add_slave(wsa881x->slave, &wsa881x->sconfig,
++				    wsa881x->port_config, wsa881x->active_ports,
++				    wsa881x->sruntime);
++}
++
++static int wsa881x_hw_free(struct snd_pcm_substream *substream,
++			   struct snd_soc_dai *dai)
++{
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(dai->dev);
++
++	if (wsa881x->stream_prepared) {
++		sdw_disable_stream(wsa881x->sruntime);
++		sdw_deprepare_stream(wsa881x->sruntime);
++		sdw_stream_remove_slave(wsa881x->slave, wsa881x->sruntime);
++		wsa881x->stream_prepared = false;
++	}
++
++	return 0;
++}
++
++static int wsa881x_set_sdw_stream(struct snd_soc_dai *dai,
++				  void *stream, int direction)
++{
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(dai->dev);
++
++	wsa881x->sruntime = stream;
++
++	return 0;
++}
++
++static int wsa881x_digital_mute(struct snd_soc_dai *dai, int mute, int stream)
++{
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(dai->dev);
++
++	if (mute)
++		regmap_update_bits(wsa881x->regmap, WSA881X_SPKR_DRV_EN, 0x80,
++				   0x00);
++	else
++		regmap_update_bits(wsa881x->regmap, WSA881X_SPKR_DRV_EN, 0x80,
++				   0x80);
++
++	return 0;
++}
++
++static struct snd_soc_dai_ops wsa881x_dai_ops = {
++	.hw_params = wsa881x_hw_params,
++	.prepare = wsa881x_prepare,
++	.hw_free = wsa881x_hw_free,
++	.mute_stream = wsa881x_digital_mute,
++	.set_sdw_stream = wsa881x_set_sdw_stream,
++};
++
++static struct snd_soc_dai_driver wsa881x_dais[] = {
++	{
++		.name = "SPKR",
++		.id = 0,
++		.playback = {
++			.stream_name = "SPKR Playback",
++			.rate_max = 48000,
++			.rate_min = 48000,
++			.channels_min = 1,
++			.channels_max = 1,
++		},
++		.ops = &wsa881x_dai_ops,
++	},
++};
++
++static const struct snd_soc_component_driver wsa881x_component_drv = {
++	.name = "WSA881x",
++	.probe = wsa881x_component_probe,
++	.controls = wsa881x_snd_controls,
++	.num_controls = ARRAY_SIZE(wsa881x_snd_controls),
++	.dapm_widgets = wsa881x_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(wsa881x_dapm_widgets),
++	.dapm_routes = wsa881x_audio_map,
++	.num_dapm_routes = ARRAY_SIZE(wsa881x_audio_map),
++};
++
++static int wsa881x_update_status(struct sdw_slave *slave,
++				 enum sdw_slave_status status)
++{
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(&slave->dev);
++
++	if (status == SDW_SLAVE_ATTACHED && slave->dev_num > 0)
++		wsa881x_init(wsa881x);
++
++	return 0;
++}
++
++static int wsa881x_port_prep(struct sdw_slave *slave,
++			     struct sdw_prepare_ch *prepare_ch,
++			     enum sdw_port_prep_ops state)
++{
++	struct wsa881x_priv *wsa881x = dev_get_drvdata(&slave->dev);
++
++	if (state == SDW_OPS_PORT_POST_PREP)
++		wsa881x->port_prepared[prepare_ch->num - 1] = true;
++	else
++		wsa881x->port_prepared[prepare_ch->num - 1] = false;
++
++	return 0;
++}
++
++static int wsa881x_bus_config(struct sdw_slave *slave,
++			      struct sdw_bus_params *params)
++{
++	sdw_write(slave, SWRS_SCP_HOST_CLK_DIV2_CTL_BANK(params->next_bank),
++		  0x01);
++
++	return 0;
++}
++
++static struct sdw_slave_ops wsa881x_slave_ops = {
++	.update_status = wsa881x_update_status,
++	.bus_config = wsa881x_bus_config,
++	.port_prep = wsa881x_port_prep,
++};
++
++static int wsa881x_probe(struct sdw_slave *pdev,
++			 const struct sdw_device_id *id)
++{
++	struct wsa881x_priv *wsa881x;
++
++	wsa881x = devm_kzalloc(&pdev->dev, sizeof(*wsa881x), GFP_KERNEL);
++	if (!wsa881x)
++		return -ENOMEM;
++
++	wsa881x->sd_n = devm_gpiod_get_optional(&pdev->dev, "powerdown",
++						GPIOD_FLAGS_BIT_NONEXCLUSIVE);
++	if (IS_ERR(wsa881x->sd_n)) {
++		dev_err(&pdev->dev, "Shutdown Control GPIO not found\n");
++		return PTR_ERR(wsa881x->sd_n);
++	}
++
++	dev_set_drvdata(&pdev->dev, wsa881x);
++	wsa881x->slave = pdev;
++	wsa881x->dev = &pdev->dev;
++	wsa881x->sconfig.ch_count = 1;
++	wsa881x->sconfig.bps = 1;
++	wsa881x->sconfig.frame_rate = 48000;
++	wsa881x->sconfig.direction = SDW_DATA_DIR_RX;
++	wsa881x->sconfig.type = SDW_STREAM_PDM;
++	pdev->prop.sink_ports = GENMASK(WSA881X_MAX_SWR_PORTS, 0);
++	pdev->prop.sink_dpn_prop = wsa_sink_dpn_prop;
++	gpiod_set_value(wsa881x->sd_n, 1);
++
++	wsa881x->regmap = devm_regmap_init_sdw(pdev, &wsa881x_regmap_config);
++	if (IS_ERR(wsa881x->regmap)) {
++		dev_err(&pdev->dev, "regmap_init failed\n");
++		return PTR_ERR(wsa881x->regmap);
++	}
++
++	return devm_snd_soc_register_component(&pdev->dev,
++					       &wsa881x_component_drv,
++					       wsa881x_dais,
++					       ARRAY_SIZE(wsa881x_dais));
++}
++
++static const struct sdw_device_id wsa881x_slave_id[] = {
++	SDW_SLAVE_ENTRY(0x0217, 0x2010, 0),
++	SDW_SLAVE_ENTRY(0x0217, 0x2110, 0),
++	{},
++};
++MODULE_DEVICE_TABLE(sdw, wsa881x_slave_id);
++
++static struct sdw_driver wsa881x_codec_driver = {
++	.probe	= wsa881x_probe,
++	.ops = &wsa881x_slave_ops,
++	.id_table = wsa881x_slave_id,
++	.driver = {
++		.name	= "wsa881x-codec",
++	}
++};
++module_sdw_driver(wsa881x_codec_driver);
++
++MODULE_DESCRIPTION("WSA881x codec driver");
++MODULE_LICENSE("GPL v2");
 -- 
 2.20.1
 

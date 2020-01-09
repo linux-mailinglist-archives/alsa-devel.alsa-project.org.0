@@ -2,56 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C2661362A6
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 22:34:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2BABC13629B
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 22:33:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF78516FF;
-	Thu,  9 Jan 2020 22:34:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF78516FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id C4B1E1784;
+	Thu,  9 Jan 2020 22:32:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4B1E1784
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578605694;
-	bh=9/hw3vjDGemAaVMYwkaKyNbywI2uZzojfIELow6v5Gs=;
+	s=default; t=1578605596;
+	bh=2EnFP2UqrLo8QcWz0/6DaeqzXRxiUcb4sSOXJoFFhv0=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=J+MTxjJTQPXQqfBDWepMb/SII3fFoNzLF5m5RHDcvbdRpA1Nng3iL9hXIJbARYZA8
-	 Xl89jXNmA99LPFFCelVa7GOXm41cjo2CtHmRX0j8kJeVHhEvUhJe5tTr4lWhDp2lEf
-	 f8wKf97ObAUwHehAEB9n2amWS2FK6za2RTWBfrQ4=
+	b=QdSLXwYrBHM49M4X31ZcrjDYvU6ZtiGRcfVgPZss8B6VljB6vusnP4ZvUP89fCZyH
+	 IjJrjJ0d1psu6ZI18yMxDQNSapPij61lRWDr7TUTbs0+Tq/NQ+S3e3g27zfCEcJh8L
+	 fSim7aENEWpuhaak6w2RagiLpN32lCWwlrBGJ9Ec=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5EF4F802BD;
-	Thu,  9 Jan 2020 22:29:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E339AF8027B;
+	Thu,  9 Jan 2020 22:29:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D3C3F8028A; Thu,  9 Jan 2020 22:29:38 +0100 (CET)
+ id 33A6EF800E4; Thu,  9 Jan 2020 22:29:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 069E7F8014E
- for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 22:29:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 069E7F8014E
+ by alsa1.perex.cz (Postfix) with ESMTP id D32CFF800E4
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 22:29:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D32CFF800E4
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 63D701007;
- Thu,  9 Jan 2020 13:29:23 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AFD9F1063;
+ Thu,  9 Jan 2020 13:29:25 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BC26A3F534;
- Thu,  9 Jan 2020 13:29:22 -0800 (PST)
-Date: Thu, 09 Jan 2020 21:29:21 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3763E3F534;
+ Thu,  9 Jan 2020 13:29:25 -0800 (PST)
+Date: Thu, 09 Jan 2020 21:29:23 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-In-Reply-To: <20200109083254.478-1-olivier.moysan@st.com>
-Message-Id: <applied-20200109083254.478-1-olivier.moysan@st.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20200108115007.31095-2-m.szyprowski@samsung.com>
+Message-Id: <applied-20200108115007.31095-2-m.szyprowski@samsung.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, olivier.moysan@st.com, alexandre.torgue@st.com,
- tiwai@suse.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] Applied "ASoC: stm32: sai: fix possible circular
-	locking" to the asoc tree
+Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ Tzung-Bi Shih <tzungbi@google.com>, Mark Brown <broonie@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Dylan Reid <dgreid@google.com>
+Subject: [alsa-devel] Applied "ASoC: max98090: fix lockdep warning" to the
+	asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,11 +74,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: stm32: sai: fix possible circular locking
+   ASoC: max98090: fix lockdep warning
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -97,457 +99,166 @@ to this mail.
 Thanks,
 Mark
 
-From a14bf98c045bf119b7e779f186528e38c6428830 Mon Sep 17 00:00:00 2001
-From: Olivier Moysan <olivier.moysan@st.com>
-Date: Thu, 9 Jan 2020 09:32:54 +0100
-Subject: [PATCH] ASoC: stm32: sai: fix possible circular locking
+From 2dc98af62c32ff6c8b9a32365346c5c407e291a8 Mon Sep 17 00:00:00 2001
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+Date: Wed, 8 Jan 2020 12:50:07 +0100
+Subject: [PATCH] ASoC: max98090: fix lockdep warning
 
-In current driver, locks can be taken as follows:
-- Register access: take a lock on regmap config and then on clock.
-- Master clock provider: take a lock on clock and then on regmap config.
-This can lead to the circular locking summarized below.
+Commit 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when changing
+sensitive registers") extended the code for handling many controls by
+adding a custom put function to them. That new custom put function
+properly handles relations between codec's hardware registers. However
+they used card->dapm_mutex to properly serialize those operations. This
+in turn triggers a lockdep warning about possible circular dependency.
+Fix this by introducing a separate mutex only for serializing the SHDN
+hardware register related operations.
 
-Remove peripheral clock management through regmap framework, and manage
-peripheral clock in driver instead. On register access, lock on clock
-is taken first, which allows to avoid possible locking issue.
+This fixes the following lockdep warning observed on Exynos4412-based
+Odroid U3 board:
+======================================================
+WARNING: possible circular locking dependency detected
+5.5.0-rc5-next-20200107 #166 Not tainted
+------------------------------------------------------
+alsactl/1104 is trying to acquire lock:
+ed0d50f4 (&card->dapm_mutex){+.+.}, at: max98090_shdn_save+0x1c/0x28
 
-[ 6696.561513] ======================================================
-[ 6696.567670] WARNING: possible circular locking dependency detected
-[ 6696.573842] 4.19.49 #866 Not tainted
-[ 6696.577397] ------------------------------------------------------
-[ 6696.583566] pulseaudio/6439 is trying to acquire lock:
-[ 6696.588697] 87b0a25b (enable_lock){..-.}, at: clk_enable_lock+0x64/0x128
-[ 6696.595377]
-[ 6696.595377] but task is already holding lock:
-[ 6696.601197] d858f825 (stm32_sai_sub:1342:(sai->regmap_config)->lock){....}
+but task is already holding lock:
+edb4b49c (&card->controls_rwsem){++++}, at: snd_ctl_ioctl+0xcc/0xbb8
+
+which lock already depends on the new lock.
+
+the existing dependency chain (in reverse order) is:
+
+-> #1 (&card->controls_rwsem){++++}:
+       snd_ctl_add_replace+0x3c/0x84
+       dapm_create_or_share_kcontrol+0x24c/0x2e0
+       snd_soc_dapm_new_widgets+0x308/0x594
+       snd_soc_bind_card+0x80c/0xad4
+       devm_snd_soc_register_card+0x34/0x6c
+       odroid_audio_probe+0x288/0x34c
+       platform_drv_probe+0x6c/0xa4
+       really_probe+0x200/0x490
+       driver_probe_device+0x78/0x1f8
+       bus_for_each_drv+0x74/0xb8
+       __device_attach+0xd4/0x16c
+       bus_probe_device+0x88/0x90
+       deferred_probe_work_func+0x3c/0xd0
+       process_one_work+0x22c/0x7c4
+       worker_thread+0x44/0x524
+       kthread+0x130/0x164
+       ret_from_fork+0x14/0x20
+       0x0
+
+-> #0 (&card->dapm_mutex){+.+.}:
+       lock_acquire+0xe8/0x270
+       __mutex_lock+0x9c/0xb18
+       mutex_lock_nested+0x1c/0x24
+       max98090_shdn_save+0x1c/0x28
+       max98090_put_enum_double+0x20/0x40
+       snd_ctl_ioctl+0x190/0xbb8
+       ksys_ioctl+0x470/0xaf8
+       ret_fast_syscall+0x0/0x28
+       0xbefaa564
+
+other info that might help us debug this:
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&card->controls_rwsem);
+                               lock(&card->dapm_mutex);
+                               lock(&card->controls_rwsem);
+  lock(&card->dapm_mutex);
+
+ *** DEADLOCK ***
+
+1 lock held by alsactl/1104:
+ #0: edb4b49c (&card->controls_rwsem){++++}, at: snd_ctl_ioctl+0xcc/0xbb8
+
+stack backtrace:
+CPU: 0 PID: 1104 Comm: alsactl Not tainted 5.5.0-rc5-next-20200107 #166
+Hardware name: SAMSUNG EXYNOS (Flattened Device Tree)
+(unwind_backtrace) from [<c010e180>] (show_stack+0x10/0x14)
+(show_stack) from [<c0b2a09c>] (dump_stack+0xb4/0xe0)
+(dump_stack) from [<c018a1c0>] (check_noncircular+0x1ec/0x208)
+(check_noncircular) from [<c018c5dc>] (__lock_acquire+0x1210/0x25ec)
+(__lock_acquire) from [<c018e2d8>] (lock_acquire+0xe8/0x270)
+(lock_acquire) from [<c0b49678>] (__mutex_lock+0x9c/0xb18)
+(__mutex_lock) from [<c0b4a110>] (mutex_lock_nested+0x1c/0x24)
+(mutex_lock_nested) from [<c0839b3c>] (max98090_shdn_save+0x1c/0x28)
+(max98090_shdn_save) from [<c083a5b8>] (max98090_put_enum_double+0x20/0x40)
+(max98090_put_enum_double) from [<c080d0e8>] (snd_ctl_ioctl+0x190/0xbb8)
+(snd_ctl_ioctl) from [<c02cafec>] (ksys_ioctl+0x470/0xaf8)
+(ksys_ioctl) from [<c0101000>] (ret_fast_syscall+0x0/0x28)
 ...
-[ 6696.812513]  Possible unsafe locking scenario:
-[ 6696.812513]
-[ 6696.818418]        CPU0                    CPU1
-[ 6696.822935]        ----                    ----
-[ 6696.827451]   lock(stm32_sai_sub:1342:(sai->regmap_config)->lock);
-[ 6696.833618]                                lock(enable_lock);
-[ 6696.839350]                                lock(stm32_sai_sub:1342:
-                                              (sai->regmap_config)->lock);
-[ 6696.848035]   lock(enable_lock);
 
-Fixes: 03e78a242a15 ("ASoC: stm32: sai: add h7 support")
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-Link: https://lore.kernel.org/r/20200109083254.478-1-olivier.moysan@st.com
+Fixes: 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when changing sensitive registers")
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Link: https://lore.kernel.org/r/20200108115007.31095-2-m.szyprowski@samsung.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/stm/stm32_sai_sub.c | 194 ++++++++++++++++++++++++----------
- 1 file changed, 140 insertions(+), 54 deletions(-)
+ sound/soc/codecs/max98090.c | 10 ++++++----
+ sound/soc/codecs/max98090.h |  1 +
+ 2 files changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 48e629ac2d88..30bcd5d3a32a 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -184,6 +184,56 @@ static bool stm32_sai_sub_writeable_reg(struct device *dev, unsigned int reg)
- 	}
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index ede03663cbed..ba0e3ba162f8 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -52,14 +52,14 @@ static void max98090_shdn_restore_locked(struct max98090_priv *max98090)
+ 
+ static void max98090_shdn_save(struct max98090_priv *max98090)
+ {
+-	mutex_lock(&max98090->component->card->dapm_mutex);
++	mutex_lock(&max98090->shdn_lock);
+ 	max98090_shdn_save_locked(max98090);
  }
  
-+static int stm32_sai_sub_reg_up(struct stm32_sai_sub_data *sai,
-+				unsigned int reg, unsigned int mask,
-+				unsigned int val)
-+{
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = regmap_update_bits(sai->regmap, reg, mask, val);
-+
-+	clk_disable(sai->pdata->pclk);
-+
-+	return ret;
-+}
-+
-+static int stm32_sai_sub_reg_wr(struct stm32_sai_sub_data *sai,
-+				unsigned int reg, unsigned int mask,
-+				unsigned int val)
-+{
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = regmap_write_bits(sai->regmap, reg, mask, val);
-+
-+	clk_disable(sai->pdata->pclk);
-+
-+	return ret;
-+}
-+
-+static int stm32_sai_sub_reg_rd(struct stm32_sai_sub_data *sai,
-+				unsigned int reg, unsigned int *val)
-+{
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = regmap_read(sai->regmap, reg, val);
-+
-+	clk_disable(sai->pdata->pclk);
-+
-+	return ret;
-+}
-+
- static const struct regmap_config stm32_sai_sub_regmap_config_f4 = {
- 	.reg_bits = 32,
- 	.reg_stride = 4,
-@@ -295,7 +345,7 @@ static int stm32_sai_set_clk_div(struct stm32_sai_sub_data *sai,
- 
- 	mask = SAI_XCR1_MCKDIV_MASK(SAI_XCR1_MCKDIV_WIDTH(version));
- 	cr1 = SAI_XCR1_MCKDIV_SET(div);
--	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, mask, cr1);
-+	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, mask, cr1);
- 	if (ret < 0)
- 		dev_err(&sai->pdev->dev, "Failed to update CR1 register\n");
- 
-@@ -372,8 +422,8 @@ static int stm32_sai_mclk_enable(struct clk_hw *hw)
- 
- 	dev_dbg(&sai->pdev->dev, "Enable master clock\n");
- 
--	return regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--				  SAI_XCR1_MCKEN, SAI_XCR1_MCKEN);
-+	return stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+				    SAI_XCR1_MCKEN, SAI_XCR1_MCKEN);
+ static void max98090_shdn_restore(struct max98090_priv *max98090)
+ {
+ 	max98090_shdn_restore_locked(max98090);
+-	mutex_unlock(&max98090->component->card->dapm_mutex);
++	mutex_unlock(&max98090->shdn_lock);
  }
  
- static void stm32_sai_mclk_disable(struct clk_hw *hw)
-@@ -383,7 +433,7 @@ static void stm32_sai_mclk_disable(struct clk_hw *hw)
- 
- 	dev_dbg(&sai->pdev->dev, "Disable master clock\n");
- 
--	regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, SAI_XCR1_MCKEN, 0);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, SAI_XCR1_MCKEN, 0);
- }
- 
- static const struct clk_ops mclk_ops = {
-@@ -446,15 +496,15 @@ static irqreturn_t stm32_sai_isr(int irq, void *devid)
- 	unsigned int sr, imr, flags;
- 	snd_pcm_state_t status = SNDRV_PCM_STATE_RUNNING;
- 
--	regmap_read(sai->regmap, STM_SAI_IMR_REGX, &imr);
--	regmap_read(sai->regmap, STM_SAI_SR_REGX, &sr);
-+	stm32_sai_sub_reg_rd(sai, STM_SAI_IMR_REGX, &imr);
-+	stm32_sai_sub_reg_rd(sai, STM_SAI_SR_REGX, &sr);
- 
- 	flags = sr & imr;
- 	if (!flags)
- 		return IRQ_NONE;
- 
--	regmap_write_bits(sai->regmap, STM_SAI_CLRFR_REGX, SAI_XCLRFR_MASK,
--			  SAI_XCLRFR_MASK);
-+	stm32_sai_sub_reg_wr(sai, STM_SAI_CLRFR_REGX, SAI_XCLRFR_MASK,
-+			     SAI_XCLRFR_MASK);
- 
- 	if (!sai->substream) {
- 		dev_err(&pdev->dev, "Device stopped. Spurious IRQ 0x%x\n", sr);
-@@ -503,8 +553,8 @@ static int stm32_sai_set_sysclk(struct snd_soc_dai *cpu_dai,
- 	int ret;
- 
- 	if (dir == SND_SOC_CLOCK_OUT && sai->sai_mclk) {
--		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--					 SAI_XCR1_NODIV,
-+		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+					   SAI_XCR1_NODIV,
- 					 freq ? 0 : SAI_XCR1_NODIV);
- 		if (ret < 0)
- 			return ret;
-@@ -583,7 +633,7 @@ static int stm32_sai_set_dai_tdm_slot(struct snd_soc_dai *cpu_dai, u32 tx_mask,
- 
- 	slotr_mask |= SAI_XSLOTR_SLOTEN_MASK;
- 
--	regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX, slotr_mask, slotr);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX, slotr_mask, slotr);
- 
- 	sai->slot_width = slot_width;
- 	sai->slots = slots;
-@@ -665,7 +715,7 @@ static int stm32_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- 	cr1_mask |= SAI_XCR1_CKSTR;
- 	frcr_mask |= SAI_XFRCR_FSPOL;
- 
--	regmap_update_bits(sai->regmap, STM_SAI_FRCR_REGX, frcr_mask, frcr);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_FRCR_REGX, frcr_mask, frcr);
- 
- 	/* DAI clock master masks */
- 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-@@ -693,7 +743,7 @@ static int stm32_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
- 	cr1_mask |= SAI_XCR1_SLAVE;
- 
- conf_update:
--	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
-+	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
- 	if (ret < 0) {
- 		dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
- 		return ret;
-@@ -730,12 +780,12 @@ static int stm32_sai_startup(struct snd_pcm_substream *substream,
- 	}
- 
- 	/* Enable ITs */
--	regmap_write_bits(sai->regmap, STM_SAI_CLRFR_REGX,
--			  SAI_XCLRFR_MASK, SAI_XCLRFR_MASK);
-+	stm32_sai_sub_reg_wr(sai, STM_SAI_CLRFR_REGX,
-+			     SAI_XCLRFR_MASK, SAI_XCLRFR_MASK);
- 
- 	imr = SAI_XIMR_OVRUDRIE;
- 	if (STM_SAI_IS_CAPTURE(sai)) {
--		regmap_read(sai->regmap, STM_SAI_CR2_REGX, &cr2);
-+		stm32_sai_sub_reg_rd(sai, STM_SAI_CR2_REGX, &cr2);
- 		if (cr2 & SAI_XCR2_MUTECNT_MASK)
- 			imr |= SAI_XIMR_MUTEDETIE;
- 	}
-@@ -745,8 +795,8 @@ static int stm32_sai_startup(struct snd_pcm_substream *substream,
- 	else
- 		imr |= SAI_XIMR_AFSDETIE | SAI_XIMR_LFSDETIE;
- 
--	regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX,
--			   SAI_XIMR_MASK, imr);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX,
-+			     SAI_XIMR_MASK, imr);
- 
- 	return 0;
- }
-@@ -763,10 +813,10 @@ static int stm32_sai_set_config(struct snd_soc_dai *cpu_dai,
- 	 * SAI fifo threshold is set to half fifo, to keep enough space
- 	 * for DMA incoming bursts.
+ static int max98090_put_volsw(struct snd_kcontrol *kcontrol,
+@@ -2313,12 +2313,12 @@ static void max98090_pll_work(struct max98090_priv *max98090)
  	 */
--	regmap_write_bits(sai->regmap, STM_SAI_CR2_REGX,
--			  SAI_XCR2_FFLUSH | SAI_XCR2_FTH_MASK,
--			  SAI_XCR2_FFLUSH |
--			  SAI_XCR2_FTH_SET(STM_SAI_FIFO_TH_HALF));
-+	stm32_sai_sub_reg_wr(sai, STM_SAI_CR2_REGX,
-+			     SAI_XCR2_FFLUSH | SAI_XCR2_FTH_MASK,
-+			     SAI_XCR2_FFLUSH |
-+			     SAI_XCR2_FTH_SET(STM_SAI_FIFO_TH_HALF));
  
- 	/* DS bits in CR1 not set for SPDIF (size forced to 24 bits).*/
- 	if (STM_SAI_PROTOCOL_IS_SPDIF(sai)) {
-@@ -795,7 +845,7 @@ static int stm32_sai_set_config(struct snd_soc_dai *cpu_dai,
- 	if ((sai->slots == 2) && (params_channels(params) == 1))
- 		cr1 |= SAI_XCR1_MONO;
+ 	/* Toggle shutdown OFF then ON */
+-	mutex_lock(&component->card->dapm_mutex);
++	mutex_lock(&max98090->shdn_lock);
+ 	snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
+ 			    M98090_SHDNN_MASK, 0);
+ 	snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
+ 			    M98090_SHDNN_MASK, M98090_SHDNN_MASK);
+-	mutex_unlock(&component->card->dapm_mutex);
++	mutex_unlock(&max98090->shdn_lock);
  
--	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
-+	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
- 	if (ret < 0) {
- 		dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
- 		return ret;
-@@ -809,7 +859,7 @@ static int stm32_sai_set_slots(struct snd_soc_dai *cpu_dai)
- 	struct stm32_sai_sub_data *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	int slotr, slot_sz;
+ 	for (i = 0; i < 10; ++i) {
+ 		/* Give PLL time to lock */
+@@ -2731,6 +2731,8 @@ static int max98090_i2c_probe(struct i2c_client *i2c,
+ 	if (max98090 == NULL)
+ 		return -ENOMEM;
  
--	regmap_read(sai->regmap, STM_SAI_SLOTR_REGX, &slotr);
-+	stm32_sai_sub_reg_rd(sai, STM_SAI_SLOTR_REGX, &slotr);
- 
- 	/*
- 	 * If SLOTSZ is set to auto in SLOTR, align slot width on data size
-@@ -831,16 +881,16 @@ static int stm32_sai_set_slots(struct snd_soc_dai *cpu_dai)
- 		sai->slots = 2;
- 
- 	/* The number of slots in the audio frame is equal to NBSLOT[3:0] + 1*/
--	regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX,
--			   SAI_XSLOTR_NBSLOT_MASK,
--			   SAI_XSLOTR_NBSLOT_SET((sai->slots - 1)));
-+	stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX,
-+			     SAI_XSLOTR_NBSLOT_MASK,
-+			     SAI_XSLOTR_NBSLOT_SET((sai->slots - 1)));
- 
- 	/* Set default slots mask if not already set from DT */
- 	if (!(slotr & SAI_XSLOTR_SLOTEN_MASK)) {
- 		sai->slot_mask = (1 << sai->slots) - 1;
--		regmap_update_bits(sai->regmap,
--				   STM_SAI_SLOTR_REGX, SAI_XSLOTR_SLOTEN_MASK,
--				   SAI_XSLOTR_SLOTEN_SET(sai->slot_mask));
-+		stm32_sai_sub_reg_up(sai,
-+				     STM_SAI_SLOTR_REGX, SAI_XSLOTR_SLOTEN_MASK,
-+				     SAI_XSLOTR_SLOTEN_SET(sai->slot_mask));
- 	}
- 
- 	dev_dbg(cpu_dai->dev, "Slots %d, slot width %d\n",
-@@ -870,14 +920,14 @@ static void stm32_sai_set_frame(struct snd_soc_dai *cpu_dai)
- 	dev_dbg(cpu_dai->dev, "Frame length %d, frame active %d\n",
- 		sai->fs_length, fs_active);
- 
--	regmap_update_bits(sai->regmap, STM_SAI_FRCR_REGX, frcr_mask, frcr);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_FRCR_REGX, frcr_mask, frcr);
- 
- 	if ((sai->fmt & SND_SOC_DAIFMT_FORMAT_MASK) == SND_SOC_DAIFMT_LSB) {
- 		offset = sai->slot_width - sai->data_size;
- 
--		regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX,
--				   SAI_XSLOTR_FBOFF_MASK,
--				   SAI_XSLOTR_FBOFF_SET(offset));
-+		stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX,
-+				     SAI_XSLOTR_FBOFF_MASK,
-+				     SAI_XSLOTR_FBOFF_SET(offset));
- 	}
- }
- 
-@@ -994,9 +1044,9 @@ static int stm32_sai_configure_clock(struct snd_soc_dai *cpu_dai,
- 					return -EINVAL;
- 				}
- 
--				regmap_update_bits(sai->regmap,
--						   STM_SAI_CR1_REGX,
--						   SAI_XCR1_OSR, cr1);
-+				stm32_sai_sub_reg_up(sai,
-+						     STM_SAI_CR1_REGX,
-+						     SAI_XCR1_OSR, cr1);
- 
- 				div = stm32_sai_get_clk_div(sai, sai_clk_rate,
- 							    sai->mclk_rate);
-@@ -1058,12 +1108,12 @@ static int stm32_sai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
- 		dev_dbg(cpu_dai->dev, "Enable DMA and SAI\n");
- 
--		regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--				   SAI_XCR1_DMAEN, SAI_XCR1_DMAEN);
-+		stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+				     SAI_XCR1_DMAEN, SAI_XCR1_DMAEN);
- 
- 		/* Enable SAI */
--		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--					 SAI_XCR1_SAIEN, SAI_XCR1_SAIEN);
-+		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+					   SAI_XCR1_SAIEN, SAI_XCR1_SAIEN);
- 		if (ret < 0)
- 			dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
- 		break;
-@@ -1072,16 +1122,16 @@ static int stm32_sai_trigger(struct snd_pcm_substream *substream, int cmd,
- 	case SNDRV_PCM_TRIGGER_STOP:
- 		dev_dbg(cpu_dai->dev, "Disable DMA and SAI\n");
- 
--		regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX,
--				   SAI_XIMR_MASK, 0);
-+		stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX,
-+				     SAI_XIMR_MASK, 0);
- 
--		regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--				   SAI_XCR1_SAIEN,
--				   (unsigned int)~SAI_XCR1_SAIEN);
-+		stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+				     SAI_XCR1_SAIEN,
-+				     (unsigned int)~SAI_XCR1_SAIEN);
- 
--		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
--					 SAI_XCR1_DMAEN,
--					 (unsigned int)~SAI_XCR1_DMAEN);
-+		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
-+					   SAI_XCR1_DMAEN,
-+					   (unsigned int)~SAI_XCR1_DMAEN);
- 		if (ret < 0)
- 			dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
- 
-@@ -1101,7 +1151,7 @@ static void stm32_sai_shutdown(struct snd_pcm_substream *substream,
- 	struct stm32_sai_sub_data *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	unsigned long flags;
- 
--	regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX, SAI_XIMR_MASK, 0);
-+	stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX, SAI_XIMR_MASK, 0);
- 
- 	clk_disable_unprepare(sai->sai_ck);
- 
-@@ -1169,7 +1219,7 @@ static int stm32_sai_dai_probe(struct snd_soc_dai *cpu_dai)
- 	cr1_mask |= SAI_XCR1_SYNCEN_MASK;
- 	cr1 |= SAI_XCR1_SYNCEN_SET(sai->sync);
- 
--	return regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
-+	return stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
- }
- 
- static const struct snd_soc_dai_ops stm32_sai_pcm_dai_ops = {
-@@ -1322,8 +1372,13 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- 	if (STM_SAI_HAS_PDM(sai) && STM_SAI_IS_SUB_A(sai))
- 		sai->regmap_config = &stm32_sai_sub_regmap_config_h7;
- 
--	sai->regmap = devm_regmap_init_mmio_clk(&pdev->dev, "sai_ck",
--						base, sai->regmap_config);
-+	/*
-+	 * Do not manage peripheral clock through regmap framework as this
-+	 * can lead to circular locking issue with sai master clock provider.
-+	 * Manage peripheral clock directly in driver instead.
-+	 */
-+	sai->regmap = devm_regmap_init_mmio(&pdev->dev, base,
-+					    sai->regmap_config);
- 	if (IS_ERR(sai->regmap)) {
- 		dev_err(&pdev->dev, "Failed to initialize MMIO\n");
- 		return PTR_ERR(sai->regmap);
-@@ -1420,6 +1475,10 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
- 		return PTR_ERR(sai->sai_ck);
- 	}
- 
-+	ret = clk_prepare(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
++	mutex_init(&max98090->shdn_lock);
 +
- 	if (STM_SAI_IS_F4(sai->pdata))
- 		return 0;
- 
-@@ -1501,22 +1560,48 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static int stm32_sai_sub_remove(struct platform_device *pdev)
-+{
-+	struct stm32_sai_sub_data *sai = dev_get_drvdata(&pdev->dev);
-+
-+	clk_unprepare(sai->pdata->pclk);
-+
-+	return 0;
-+}
-+
- #ifdef CONFIG_PM_SLEEP
- static int stm32_sai_sub_suspend(struct device *dev)
- {
- 	struct stm32_sai_sub_data *sai = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
- 
- 	regcache_cache_only(sai->regmap, true);
- 	regcache_mark_dirty(sai->regmap);
-+
-+	clk_disable(sai->pdata->pclk);
-+
- 	return 0;
- }
- 
- static int stm32_sai_sub_resume(struct device *dev)
- {
- 	struct stm32_sai_sub_data *sai = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_enable(sai->pdata->pclk);
-+	if (ret < 0)
-+		return ret;
- 
- 	regcache_cache_only(sai->regmap, false);
--	return regcache_sync(sai->regmap);
-+	ret = regcache_sync(sai->regmap);
-+
-+	clk_disable(sai->pdata->pclk);
-+
-+	return ret;
- }
- #endif /* CONFIG_PM_SLEEP */
- 
-@@ -1531,6 +1616,7 @@ static struct platform_driver stm32_sai_sub_driver = {
- 		.pm = &stm32_sai_sub_pm_ops,
- 	},
- 	.probe = stm32_sai_sub_probe,
-+	.remove = stm32_sai_sub_remove,
+ 	if (ACPI_HANDLE(&i2c->dev)) {
+ 		acpi_id = acpi_match_device(i2c->dev.driver->acpi_match_table,
+ 					    &i2c->dev);
+diff --git a/sound/soc/codecs/max98090.h b/sound/soc/codecs/max98090.h
+index 0a31708b7df7..dabd8be34a01 100644
+--- a/sound/soc/codecs/max98090.h
++++ b/sound/soc/codecs/max98090.h
+@@ -1539,6 +1539,7 @@ struct max98090_priv {
+ 	unsigned int pa2en;
+ 	unsigned int sidetone;
+ 	bool master;
++	struct mutex shdn_lock;
+ 	int saved_count;
+ 	int saved_shdn;
  };
- 
- module_platform_driver(stm32_sai_sub_driver);
 -- 
 2.20.1
 

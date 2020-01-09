@@ -2,82 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 545961356D4
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 11:28:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E893135791
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 12:01:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E1268176E;
-	Thu,  9 Jan 2020 11:27:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E1268176E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13E3D1779;
+	Thu,  9 Jan 2020 12:00:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13E3D1779
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578565689;
-	bh=NvDZcxn2AGnAAlLeCQ/bJQX5NN5aU+TSdumP3LZqn38=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1578567702;
+	bh=NCRVV0fJ3Vl0z1+Ar3x+pL7FHPM093cwtFDaOnSzTkA=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=s71nd3OcWZYn2wdqEDR6kMf7PQql9KxeGck6nUOc7WStj8SrPft1xfgeb23vyT+XF
-	 E1HyPKTWQFoWbG/h1owLJLQ5JVOBRYaJczgnBkKC8PaoqWH9kxFZbGg3YB+e6/cCyf
-	 2FD7nffgEuBHa3LF2aIRFvdoftN5GEIXP1JLOOf4=
+	b=FGSMz0tMtTfuDJPSSm5Q9qv31CBDaHEbOQTMyQbuEkEgI66BqX4UI+674GxnushHY
+	 79XS0DKlDIfZs3LS2tNCruseypskNfpZ4LYvdz/t1uJfV8FLJfoFrri1YN5NNabdQi
+	 ypfpu1t+OLUAxZYuCdK4kE/jBOJWtDB0EBgCa8E0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 544B9F8014E;
-	Thu,  9 Jan 2020 11:26:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 49D64F801EB;
+	Thu,  9 Jan 2020 11:59:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96C87F8015B; Thu,  9 Jan 2020 11:26:22 +0100 (CET)
+ id AF151F8015B; Thu,  9 Jan 2020 11:59:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
  autolearn=disabled version=3.4.0
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
+Received: from mail-io1-xd44.google.com (mail-io1-xd44.google.com
+ [IPv6:2607:f8b0:4864:20::d44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E6B7F80101
- for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 11:26:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E6B7F80101
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8638F800E4
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 11:59:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8638F800E4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=armlinux.org.uk header.i=@armlinux.org.uk
- header.b="hqrjw/g0"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=2ifsgOFP9dRKENq6DPhFUqeIHFL0U53qJ5HRzpA7dSI=; b=hqrjw/g0cwe8zg/PeusiRfssO
- rNc9cLJq49GDY3RYGCJIwB5srXePzk9KQJWlC/qDMGDyhHX6RGH2zii6g4RraFsBCzZp8o0JxAv8L
- WwAu85KzjtlmPGlyGVdgoi3HqVg2ThgomIQ53QJDiJoL6Qc5LLDECTO68f3xxX6NGM0jPz7l4ZLBq
- dfP30aDiqZwjpDfKwzyrajz3YMD8fJX3ipxptlcY8RIZcGgbIjY6KM0T9nNn4XueNfqVQQHxGPHEM
- oR61cA0QqqFoY63jGYkiacRDr5gxgafRm+mv0E/o+B0SNXSClaByaE3d1/lAEHii3A1ctuO1dT9qM
- /kWZ2h14A==;
-Received: from shell.armlinux.org.uk
- ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:52586)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <linux@armlinux.org.uk>)
- id 1ipV0f-0004Ov-DU; Thu, 09 Jan 2020 10:25:49 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.92)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1ipV0Z-0000QH-F2; Thu, 09 Jan 2020 10:25:43 +0000
-Date: Thu, 9 Jan 2020 10:25:43 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20200109102543.GN25745@shell.armlinux.org.uk>
-References: <20191210154536.29819-1-tiwai@suse.de>
- <s5h8smhm1vy.wl-tiwai@suse.de>
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="WxtF6rMh"
+Received: by mail-io1-xd44.google.com with SMTP id v3so6644374ioj.5
+ for <alsa-devel@alsa-project.org>; Thu, 09 Jan 2020 02:59:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=QPi6QnVXghXv8TY7JMc2BuYgut9DZveS4sz8HSAzzAE=;
+ b=WxtF6rMhat0yOMYOkIGw1PZioR964EQ0WGOdDWYoA4+TwrtGwcvF471ZdqnxorH+R6
+ JEi1bKDztJVqWgCIWLQ5bH80cEw5JZJak2XTFCVGavFicQZFC0I57NcUbrKpmb6LMCQn
+ Ho8KowQTK6vAx+J2SE9zTNXGo9yBrJlC0mrEXy3/BVPRJ4DQf73YsijLrIt2W1mKC36m
+ 1PsZ1RQk+yUVF1o3TrbcEtAyMCbPu5DHnO0G5bj4WPRbOMOcwwFVcIqYPfeUGYJuwM6E
+ 0RkxNn+bxdnC4UEb7Xa8B18mFIv4FyhYRvMzcTnft+1mPcfXVyjRGHYpwzd36Gc/cpzW
+ FTJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=QPi6QnVXghXv8TY7JMc2BuYgut9DZveS4sz8HSAzzAE=;
+ b=nQoAy4Oi4xZBF56xIEeBLdp3N45ynqv7aq/Mso6WqTfBlJuQRPbwlByGCU/A+m8id3
+ Lfm3n1+VCz7i8fuUUh3MmvhEsh5GNxaMWiBs4gv9V4rbno1KFmq8M7xVLnSydOX3gNrC
+ GI9H/JQMsRq8A6JkmsHX2bEZPratZIMXRsEmhXktACu3oNlRfxe8d+JdEfphTbHnBUiB
+ WQx90AnNUvzIzUfDqiMOXhRPbTKyXeN85qENsSGwN9bAOvGszkyvgN/IO74eGhV4cbbg
+ NL9cjRG1GgxYeHP3/viyO+J+uUlN77LWwo5GfcnLMbtlHbrxiwBV6r+dLTV975kgYK7T
+ sTuQ==
+X-Gm-Message-State: APjAAAUmUkMd9Ng/m6izIZKNrpHEDoGvhP+0jWCvsXAM7N7878VMlO46
+ kn275JoGTbMEbz3QAmA3CQ4RWCQ9cZIkSS60dW5a5u3DMzU=
+X-Google-Smtp-Source: APXvYqy5YRToV4ho+1HZN01NgOpFCbr14jsvMrxynyarJaFUyY1ek05rytw4zulCXWiF5tX1rdl3nX75mbjlAFbZqhc=
+X-Received: by 2002:a6b:8f41:: with SMTP id r62mr7053509iod.140.1578567590321; 
+ Thu, 09 Jan 2020 02:59:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <s5h8smhm1vy.wl-tiwai@suse.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Jernej Skrabec <jernej.skrabec@siol.net>, Jonas Karlman <jonas@kwiboo.se>,
- Neil Armstrong <narmstrong@baylibre.com>, alsa-devel@alsa-project.org,
- dri-devel@lists.freedesktop.org, Andrzej Hajda <a.hajda@samsung.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-Subject: Re: [alsa-devel] [PATCH for-5.6 0/2] drm/bridge: dw-hdmi: PCM API
-	updates
+References: <CGME20200108115027eucas1p1d3645ba53703780679c662921efbca78@eucas1p1.samsung.com>
+ <20200108115007.31095-1-m.szyprowski@samsung.com>
+ <20200108115007.31095-2-m.szyprowski@samsung.com>
+ <CA+Px+wXkFE5b_8bLz7-c95TvEdqHGD5s-XKRYMVr40xQkqTWxQ@mail.gmail.com>
+In-Reply-To: <CA+Px+wXkFE5b_8bLz7-c95TvEdqHGD5s-XKRYMVr40xQkqTWxQ@mail.gmail.com>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Thu, 9 Jan 2020 18:59:39 +0800
+Message-ID: <CA+Px+wWVhZn+UrX04bGMnR8J0XeR0+Oy1r0DD4Spm+i1WPZKqQ@mail.gmail.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Linux Samsung SOC <linux-samsung-soc@vger.kernel.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Dylan Reid <dgreid@google.com>
+Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: max98090: fix lockdep warning
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,54 +104,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 09, 2020 at 10:10:09AM +0100, Takashi Iwai wrote:
-> On Tue, 10 Dec 2019 16:45:34 +0100,
-> Takashi Iwai wrote:
-> > 
-> > Hi,
-> > 
-> > this is a patch set for updating ALSA PCM API usages in dw-hdmi
-> > driver.  I already tried to "fix" the driver some time ago but it was
-> > utterly wrong.  So this is a combination of the revised patch and
-> > another cleanup patch.
-> > 
-> > The first one is to change the buffer allocation mechanism in the
-> > driver to the manual allocation of the h/w buffer and the automatic
-> > allocation of PCM stream buffers via the new standard API.  The
-> > significant change is that size of the h/w buffer isn't no longer
-> > controlled via ALSA preallocation proc file but rather via the new
-> > module option (if any).
-> > 
-> > The second one is a oneliner patch just to remove the superfluous PCM
-> > ops.
-> > 
-> > Both need the ALSA PCM core changes in 5.5-rc1, so please apply them
-> > on top of 5.5-rc1 or later.  Or, just let me know if I should apply
-> > them through sound git tree.
-> > 
-> > 
-> > thanks,
-> > 
-> > Takashi
-> > 
-> > ===
-> > 
-> > Takashi Iwai (2):
-> >   drm/bridge: dw-hdmi: Follow the standard ALSA memalloc way
-> >   drm/bridge: dw-hdmi: Drop superfluous ioctl PCM ops
-> 
-> Any chance for reviewing these patches?
-> 
-> Since this driver is the only one who is still using the old ALSA
-> vmalloc API, I'd like to change it and drop the old API in 5.6.
+On Thu, Jan 9, 2020 at 1:36 PM Tzung-Bi Shih <tzungbi@google.com> wrote:
+> On Wed, Jan 8, 2020 at 7:50 PM Marek Szyprowski
+> <m.szyprowski@samsung.com> wrote:
+> > This fixes the following lockdep warning observed on Exynos4412-based
+> > Odroid U3 board:
+> > ======================================================
+> > -> #1 (&card->controls_rwsem){++++}:
+> >        snd_ctl_add_replace+0x3c/0x84
+> >        dapm_create_or_share_kcontrol+0x24c/0x2e0
+> >        snd_soc_dapm_new_widgets+0x308/0x594
+> >        snd_soc_bind_card+0x80c/0xad4
+> >        devm_snd_soc_register_card+0x34/0x6c
+> >        odroid_audio_probe+0x288/0x34c
+> >        platform_drv_probe+0x6c/0xa4
 
-It isn't something I can even test at the moment; I have the platforms
-but no TV to connect them to.
+I noticed the stack is a little different than the last time
+(odroid_audio_probe vs. asoc_simple_probe).  Did you use the same
+machine to test?
+>        asoc_simple_probe+0x244/0x4a0
+>        platform_drv_probe+0x6c/0xa4
+(https://mailman.alsa-project.org/pipermail/alsa-devel/2019-December/160142.html)
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-According to speedtest.net: 11.9Mbps down 500kbps up
+> I would like to spend some time to find the root cause.  It would be a
+> little challenging though (I have no real runtime to test...).
+
+After a few hours of study, I failed to find the reason to cause the
+possible circular locking.  And would need more of your input.
+
+Followed the information provided in the message
+(https://mailman.alsa-project.org/pipermail/alsa-devel/2019-December/160535.html).
+As the message said "snd_soc_of_get_dai_link_codecs() return
+-EPROBE_DEFER".  The snd_soc_of_get_dai_link_codecs( ) is before
+devm_snd_soc_register_card( ), and I didn't find any side effects in
+odroid_audio_probe( ).
+
+Only a very minor issue: snd_soc_of_put_dai_link_codecs(codec_link)
+will be called twice.  One in snd_soc_of_get_dai_link_codecs( ) when
+return -EPROBE_DEFER; another one is under the label
+"err_put_cpu_dai".
+(https://elixir.bootlin.com/linux/v5.5-rc5/source/sound/soc/samsung/odroid.c#L328)
+ The code doesn't generate any side effects because of
+snd_soc_of_put_dai_link_codecs( )'s robustness.
+
+Another minor thing: odroid_card_dais is not immutable but
+odroid_audio_probe( ) would try to modify it
+(https://elixir.bootlin.com/linux/v5.5-rc5/source/sound/soc/samsung/odroid.c#L295).
+Again, I don't think it would produce any troubles.  I guess no
+machine would have multiple sound cards, share the same machine
+driver, and unbind/bind in runtime.
+
+> It is weird: userspace should not see things (e.g. no controlC0) until
+> snd_card_register( ).
+
+(based on today's broonie/sound.git/for-next) I would like to provide
+you more information about this statement to help you find further
+information.
+When userspace can see the control device?  Ideally,
+snd_soc_bind_card( ) -> snd_card_register( ) ->
+snd_device_register_all( ) -> __snd_device_register( ) ->
+snd_ctl_dev_register( ) -> snd_register_device( ).
+If you look at the calling stack of possible circular locking,
+snd_soc_dapm_new_widgets( ) is before snd_card_register( ).  That's
+why we think userspace should not see control devices (i.e. controlC0,
+controlC1, ...) and should not be able to set mixer control via ioctl(
+).
+
+
+As this may not directly be related to the issue, could you share the
+init script of alsactl in your system?  Does it follow the convention?
+ (i.e. sound card is ready when receives controlC* changed event in
+udev rule 78-sound-card.rules)
+> 6. when userspace init scripts (alsactl) enumerates devices
+(https://mailman.alsa-project.org/pipermail/alsa-devel/2019-December/160535.html)
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

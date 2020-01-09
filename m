@@ -2,53 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 934C11361E1
-	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 21:37:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6EB1361E8
+	for <lists+alsa-devel@lfdr.de>; Thu,  9 Jan 2020 21:40:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 174501702;
-	Thu,  9 Jan 2020 21:36:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 174501702
+	by alsa0.perex.cz (Postfix) with ESMTPS id 949631788;
+	Thu,  9 Jan 2020 21:39:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 949631788
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578602261;
-	bh=gq6k6nOf5O1I5ajseT8sq9wcB3deZsMxTlPOn+TFL14=;
+	s=default; t=1578602411;
+	bh=s6v+aZoTtUf34wug+DWwfP0hl0U7/kZWWoNpWTMSuXo=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FgGaYxTiUc/Hit35vJaRK+rFYYoCyKvXRQIvFg6h/6nYo/cEJfEqvbmp4ua6yi7n5
-	 ytGJLoU12SE2gcgSaxmX9q+a6l3CPGd7is3jwMvveROoXT4fCkV/5wHBft+3oTOxXQ
-	 Qob5smU4crDvyiixeuk0Vj8GrxGhw6OVv8HV+vT8=
+	b=GHHt110jc2yEMZirTHpsbJdglZqhHdqghlgZsycYnKPzw+E/a50h1RlGftDWQ2mZ7
+	 iZX+pmJQpoe+2Xtp5wV4m9mevI2qOONmpX2j4jzXWJvyQBTlRKqmIDxCGw8WDUtltK
+	 NsXO5/lhaOMgAw/Bw/qmrjklC+Yqa2FYZEgzsiqc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45253F8014E;
-	Thu,  9 Jan 2020 21:35:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07AC6F8015B;
+	Thu,  9 Jan 2020 21:38:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4AEC8F8015B; Thu,  9 Jan 2020 21:35:54 +0100 (CET)
+ id 05DF4F8015B; Thu,  9 Jan 2020 21:38:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8283EF800E4
- for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 21:35:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8283EF800E4
+ by alsa1.perex.cz (Postfix) with ESMTP id 9B01AF800E4
+ for <alsa-devel@alsa-project.org>; Thu,  9 Jan 2020 21:38:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B01AF800E4
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 782AD31B;
- Thu,  9 Jan 2020 12:35:49 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9236331B;
+ Thu,  9 Jan 2020 12:38:21 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EDF083F534;
- Thu,  9 Jan 2020 12:35:48 -0800 (PST)
-Date: Thu, 9 Jan 2020 20:35:47 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 188F03F534;
+ Thu,  9 Jan 2020 12:38:20 -0800 (PST)
+Date: Thu, 9 Jan 2020 20:38:19 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Peter Seiderer <ps.report@gmx.net>
-Message-ID: <20200109203547.GF3702@sirena.org.uk>
+Message-ID: <20200109203819.GG3702@sirena.org.uk>
 References: <20191227152056.9903-1-ps.report@gmx.net>
- <20191227225204.GQ27497@sirena.org.uk>
- <20200106214534.39378927@gmx.net>
 MIME-Version: 1.0
-In-Reply-To: <20200106214534.39378927@gmx.net>
+In-Reply-To: <20191227152056.9903-1-ps.report@gmx.net>
 X-Cookie: Killing turkeys causes winter.
 User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
@@ -68,71 +66,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8675180160720614666=="
+Content-Type: multipart/mixed; boundary="===============5340220036409612527=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============8675180160720614666==
+--===============5340220036409612527==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cz6wLo+OExbGG7q/"
+	protocol="application/pgp-signature"; boundary="8bBEDOJVaa9YlTAt"
 Content-Disposition: inline
 
 
---cz6wLo+OExbGG7q/
+--8bBEDOJVaa9YlTAt
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Mon, Jan 06, 2020 at 09:45:34PM +0100, Peter Seiderer wrote:
-> On Fri, 27 Dec 2019 22:52:04 +0000, Mark Brown <broonie@kernel.org> wrote:
-> > On Fri, Dec 27, 2019 at 04:20:56PM +0100, Peter Seiderer wrote:
+On Fri, Dec 27, 2019 at 04:20:56PM +0100, Peter Seiderer wrote:
+> @@ -338,7 +338,8 @@ static unsigned long clk_aic32x4_div_recalc_rate(struct clk_hw *hw,
 
-> > Please think hard before including complete backtraces in upstream
-> > reports, they are very large and contain almost no useful information
-> > relative to their size so often obscure the relevant content in your
-> > message. If part of the backtrace is usefully illustrative then it's
-> > usually better to pull out the relevant sections.
+>  	unsigned int val;
 
-> Thanks for review..., but a little disagree here, do not know much which
-> is more informative than a complete back trace for a division by zero (and
-> which is the complete information/starting point for investigating the
-> reason therefore) and it would be a pity to loose this valuable information?
+> -	regmap_read(div->regmap, div->reg, &val);
+> +	if (regmap_read(div->regmap, div->reg, &val))
+> +		return 0;
 
-Right, some backtrace is definitely often useful for understanding where
-things broke and helping people search for problems - it's just
-providing the *full* backtrace that can be an issue as a lot of it can
-end up being redundant.  As a rule of thumb I'd tend to say that once
-you get out of the driver or subsystem you're starting to loose
-relevance.  For example with a probe failure like this once you get out
-of the driver probe function it almost never matters exactly what the
-stack in the device model core is, it's not adding anything and it's
-usually more than a screenful that needs to be paged through.  Cutting
-that out helps people focus on the bits that matter.
+Is this the best fix - shouldn't we be returning an error here?  We
+don't know what the value programmed into the device actually is so zero
+might be wrong, and we still have the risk that the value we read from
+the device may be zero if the device is misprogrammed.
 
-> Maybe I should have added more information about why and how the failing
-> regmap_read() call leads to a division by zero?
-
-Any analysis you've done about why things got confused and broken is
-definitely good to include!
-
---cz6wLo+OExbGG7q/
+--8bBEDOJVaa9YlTAt
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4XjqIACgkQJNaLcl1U
-h9Cp2wf/YJiRtkQvhbTHYFHL1Nxg5pueZnzeL+EEaSw+j+5E4OSX+sWbuf16NXYq
-k+HWa02py4PZcKYQVmxf9b4PTjmpqcGiMWOtjDVj6/TafOEs0ovOwLQLAwuUb9By
-oh/jsZ2VwIhBVTAKxmEOyFvy+eYBMonIv4QVAD9Mv8vLpuHGm9FUEPw3D2uy/33s
-1PFU4BscfvDufOHEIe3afqutQNzPYb2KTZXqmYuEw5hUgf1h0vxBIAtO5YTwhvGT
-cTCbYdzVq1cwTlzH3EpiQZGhXUJ11agI5gaNys662gzIvtq7kIpx20N2Kuy0+kif
-9L3c5IlUHB3yAzpoowuDrrRqIKWI+g==
-=VKVc
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4XjzoACgkQJNaLcl1U
+h9BsYwf9FFgKoSbL5lC50mSEVqCPZLbUHO3dBKRJnmTHcEUvNS5eWPVNpH+cT04y
+JmhyR9UvkDd0uD8uGILu33O7WQB2p+0vL++3ZNHxmiuPahdDQIsU4LSOd1KxECjK
+0CUOK7TRBEhrsDtzGRJASf+1DO8GRqs5abAjTRAkFPBG4mVUtDmPrIaaqxdrS8IG
+QX2WU53Ee3PidUrDbmVFC7LOxN93YlujLBKhuWwVuD2IvIfzYGmDPIsmUAvKX8wD
+/+cVC0PrjVec5we3himey5e5o1BwfO8IUK6Fshea6548M90d/oQCioPjxKvLjvNc
+B/udO2IZjDYCm1uIFshxEGTtGtQlQw==
+=A/xb
 -----END PGP SIGNATURE-----
 
---cz6wLo+OExbGG7q/--
+--8bBEDOJVaa9YlTAt--
 
---===============8675180160720614666==
+--===============5340220036409612527==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -143,4 +123,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============8675180160720614666==--
+--===============5340220036409612527==--

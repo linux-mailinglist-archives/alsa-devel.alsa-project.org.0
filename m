@@ -2,53 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E077A136E42
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jan 2020 14:40:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07FE6136E54
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jan 2020 14:41:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C4ED171F;
-	Fri, 10 Jan 2020 14:39:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C4ED171F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 980C61704;
+	Fri, 10 Jan 2020 14:40:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 980C61704
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578663618;
-	bh=sOHOOE49vzf2e93wRTj9QZgdTEb5tFcUyWEW4LN2u8c=;
+	s=default; t=1578663690;
+	bh=7u0IyDZLeaKgO+YzeXoLjdMCz3Bak5GaIq0xZL/HKN0=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=MhkZF/ezFBvvS6jtQDN/DhpZCD9wB0gbvOwCBXDKXmQdWQ7qnV4ECIeRS73e2OXY2
-	 zclki5mYC/N+rNc+BRu9xSZMS2zgP0d+KHjO2zg32rIihqn8Ln8swGGFT3AwZaG3M7
-	 WQVjDYtw+mieO3akVTxeElFBR45Cchvi8QVi+uu4=
+	b=Zh5YBCD+pLFxd/KEn7BzOK/atZsqLmFO9JwyDEBMM6/fdQ91PaC+kPp0Jskp2W21q
+	 te1QjB077kSYY8OESDKEzwq8pkG/AEU7UJqbM7Li0q9p/ci3iiRg5ZHoZPYGthaWFn
+	 rPUEVC/8yh/CnI88UTMhbXpW/bavnLxTo86yb0Zg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86A52F801EB;
-	Fri, 10 Jan 2020 14:37:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0954FF8011C;
+	Fri, 10 Jan 2020 14:37:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 68BC0F80130; Fri, 10 Jan 2020 14:37:46 +0100 (CET)
+ id B8DC0F80130; Fri, 10 Jan 2020 14:37:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 2EB93F800E4
- for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 14:37:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EB93F800E4
+ by alsa1.perex.cz (Postfix) with ESMTP id 1856CF80116
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 14:37:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1856CF80116
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 99B65DA7;
- Fri, 10 Jan 2020 05:37:41 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E01D81FB;
+ Fri, 10 Jan 2020 05:37:43 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 243583F534;
- Fri, 10 Jan 2020 05:37:41 -0800 (PST)
-Date: Fri, 10 Jan 2020 13:37:39 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 682FA3F534;
+ Fri, 10 Jan 2020 05:37:43 -0800 (PST)
+Date: Fri, 10 Jan 2020 13:37:42 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <871rs8t4uw.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-871rs8t4uw.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <8736cot4v2.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-8736cot4v2.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-dapm: add
-	snd_soc_dapm_stream_stop()" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: soc-core: add
+	snd_soc_close_delayed_work()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +69,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-dapm: add snd_soc_dapm_stream_stop()
+   ASoC: soc-core: add snd_soc_close_delayed_work()
 
 has been applied to the asoc tree at
 
@@ -94,134 +94,173 @@ to this mail.
 Thanks,
 Mark
 
-From 3f4cf797939cb3ccdb6f989da53f1899d30432dc Mon Sep 17 00:00:00 2001
+From 83f94a2e293d617a98e077680ea00b2830a9ca22 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 10 Jan 2020 11:36:23 +0900
-Subject: [PATCH] ASoC: soc-dapm: add snd_soc_dapm_stream_stop()
+Date: Fri, 10 Jan 2020 11:36:17 +0900
+Subject: [PATCH] ASoC: soc-core: add snd_soc_close_delayed_work()
 
-When we stop stream, if it was Playback, we might need to care
-about power down time. In such case, we need to use delayed work.
-
-We have same implementation for it at soc-pcm.c and soc-compress.c,
-but we don't want to have duplicate code.
-This patch adds snd_soc_dapm_stream_stop(), and share same code.
+We need to setup rtd->close_delayed_work_func.
+It will be set at snd_soc_dai_compress_new() or soc_new_pcm().
+But these setups close_delayed_work() which is same name /
+same implemantaion, but different local code.
+To reduce duplicate code, this patch moves it as
+snd_soc_close_delayed_work() and share same code.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-By: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/871rs8t4uw.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/8736cot4v2.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-dapm.h |  1 +
- sound/soc/soc-compress.c | 18 +-----------------
- sound/soc/soc-dapm.c     | 23 +++++++++++++++++++++++
- sound/soc/soc-pcm.c      | 19 +------------------
- 4 files changed, 26 insertions(+), 35 deletions(-)
+ include/sound/soc.h      |  1 +
+ sound/soc/soc-compress.c | 29 +----------------------------
+ sound/soc/soc-core.c     | 28 ++++++++++++++++++++++++++++
+ sound/soc/soc-pcm.c      | 28 +---------------------------
+ 4 files changed, 31 insertions(+), 55 deletions(-)
 
-diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
-index 6e8a31225383..1b6afbc1a4ed 100644
---- a/include/sound/soc-dapm.h
-+++ b/include/sound/soc-dapm.h
-@@ -434,6 +434,7 @@ void snd_soc_dapm_reset_cache(struct snd_soc_dapm_context *dapm);
- /* dapm events */
- void snd_soc_dapm_stream_event(struct snd_soc_pcm_runtime *rtd, int stream,
- 	int event);
-+void snd_soc_dapm_stream_stop(struct snd_soc_pcm_runtime *rtd, int stream);
- void snd_soc_dapm_shutdown(struct snd_soc_card *card);
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 0513f30a0209..f0e4f36f83bf 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1159,6 +1159,7 @@ struct snd_soc_pcm_runtime {
+ #define for_each_rtd_codec_dai_rollback(rtd, i, dai)		\
+ 	for (; ((--i) >= 0) && ((dai) = rtd->codec_dais[i]);)
  
- /* external DAPM widget events */
++void snd_soc_close_delayed_work(struct snd_soc_pcm_runtime *rtd);
+ 
+ /* mixer control */
+ struct soc_mixer_control {
 diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 72494717dde3..392a1c5b15d3 100644
+index 16fe08690cf5..72494717dde3 100644
 --- a/sound/soc/soc-compress.c
 +++ b/sound/soc/soc-compress.c
-@@ -259,23 +259,7 @@ static int soc_compr_free(struct snd_compr_stream *cstream)
- 	if (cpu_dai->driver->cops && cpu_dai->driver->cops->shutdown)
- 		cpu_dai->driver->cops->shutdown(cstream, cpu_dai);
- 
--	if (cstream->direction == SND_COMPRESS_PLAYBACK) {
--		if (snd_soc_runtime_ignore_pmdown_time(rtd)) {
--			snd_soc_dapm_stream_event(rtd,
--						  SNDRV_PCM_STREAM_PLAYBACK,
--						  SND_SOC_DAPM_STREAM_STOP);
--		} else {
--			rtd->pop_wait = 1;
--			queue_delayed_work(system_power_efficient_wq,
--					   &rtd->delayed_work,
--					   msecs_to_jiffies(rtd->pmdown_time));
--		}
--	} else {
--		/* capture streams can be powered down now */
--		snd_soc_dapm_stream_event(rtd,
--					  SNDRV_PCM_STREAM_CAPTURE,
--					  SND_SOC_DAPM_STREAM_STOP);
--	}
-+	snd_soc_dapm_stream_stop(rtd, stream);
- 
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index b6378f025836..442846f12cd4 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -4447,6 +4447,29 @@ void snd_soc_dapm_stream_event(struct snd_soc_pcm_runtime *rtd, int stream,
- 	mutex_unlock(&card->dapm_mutex);
+@@ -226,33 +226,6 @@ static int soc_compr_open_fe(struct snd_compr_stream *cstream)
+ 	return ret;
  }
  
-+void snd_soc_dapm_stream_stop(struct snd_soc_pcm_runtime *rtd, int stream)
-+{
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		if (snd_soc_runtime_ignore_pmdown_time(rtd)) {
-+			/* powered down playback stream now */
-+			snd_soc_dapm_stream_event(rtd,
-+						  SNDRV_PCM_STREAM_PLAYBACK,
-+						  SND_SOC_DAPM_STREAM_STOP);
-+		} else {
-+			/* start delayed pop wq here for playback streams */
-+			rtd->pop_wait = 1;
-+			queue_delayed_work(system_power_efficient_wq,
-+					   &rtd->delayed_work,
-+					   msecs_to_jiffies(rtd->pmdown_time));
-+		}
-+	} else {
-+		/* capture streams can be powered down now */
-+		snd_soc_dapm_stream_event(rtd, SNDRV_PCM_STREAM_CAPTURE,
-+					  SND_SOC_DAPM_STREAM_STOP);
-+	}
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_dapm_stream_stop);
-+
- /**
-  * snd_soc_dapm_enable_pin_unlocked - enable pin.
-  * @dapm: DAPM context
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index ad908e008b2f..dfff2ddb469a 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -672,24 +672,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
- 
- 	soc_pcm_components_close(substream, NULL);
- 
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		if (snd_soc_runtime_ignore_pmdown_time(rtd)) {
--			/* powered down playback stream now */
--			snd_soc_dapm_stream_event(rtd,
--						  SNDRV_PCM_STREAM_PLAYBACK,
--						  SND_SOC_DAPM_STREAM_STOP);
--		} else {
--			/* start delayed pop wq here for playback streams */
--			rtd->pop_wait = 1;
--			queue_delayed_work(system_power_efficient_wq,
--					   &rtd->delayed_work,
--					   msecs_to_jiffies(rtd->pmdown_time));
--		}
--	} else {
--		/* capture streams can be powered down now */
--		snd_soc_dapm_stream_event(rtd, SNDRV_PCM_STREAM_CAPTURE,
+-/*
+- * Power down the audio subsystem pmdown_time msecs after close is called.
+- * This is to ensure there are no pops or clicks in between any music tracks
+- * due to DAPM power cycling.
+- */
+-static void close_delayed_work(struct snd_soc_pcm_runtime *rtd)
+-{
+-	struct snd_soc_dai *codec_dai = rtd->codec_dai;
+-
+-	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+-
+-	dev_dbg(rtd->dev,
+-		"Compress ASoC: pop wq checking: %s status: %s waiting: %s\n",
+-		codec_dai->driver->playback.stream_name,
+-		codec_dai->playback_active ? "active" : "inactive",
+-		rtd->pop_wait ? "yes" : "no");
+-
+-	/* are we waiting on this codec DAI stream */
+-	if (rtd->pop_wait == 1) {
+-		rtd->pop_wait = 0;
+-		snd_soc_dapm_stream_event(rtd, SNDRV_PCM_STREAM_PLAYBACK,
 -					  SND_SOC_DAPM_STREAM_STOP);
 -	}
-+	snd_soc_dapm_stream_stop(rtd, substream->stream);
+-
+-	mutex_unlock(&rtd->card->pcm_mutex);
+-}
+-
+ static int soc_compr_free(struct snd_compr_stream *cstream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = cstream->private_data;
+@@ -941,7 +914,7 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
+ 	}
  
- 	mutex_unlock(&rtd->card->pcm_mutex);
+ 	/* DAPM dai link stream work */
+-	rtd->close_delayed_work_func = close_delayed_work;
++	rtd->close_delayed_work_func = snd_soc_close_delayed_work;
  
+ 	rtd->compr = compr;
+ 	compr->private_data = rtd;
+diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
+index 3c729eaf0bbf..acf6f141fd2d 100644
+--- a/sound/soc/soc-core.c
++++ b/sound/soc/soc-core.c
+@@ -359,6 +359,34 @@ struct snd_soc_pcm_runtime
+ }
+ EXPORT_SYMBOL_GPL(snd_soc_get_pcm_runtime);
+ 
++/*
++ * Power down the audio subsystem pmdown_time msecs after close is called.
++ * This is to ensure there are no pops or clicks in between any music tracks
++ * due to DAPM power cycling.
++ */
++void snd_soc_close_delayed_work(struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++
++	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
++
++	dev_dbg(rtd->dev,
++		"ASoC: pop wq checking: %s status: %s waiting: %s\n",
++		codec_dai->driver->playback.stream_name,
++		codec_dai->playback_active ? "active" : "inactive",
++		rtd->pop_wait ? "yes" : "no");
++
++	/* are we waiting on this codec DAI stream */
++	if (rtd->pop_wait == 1) {
++		rtd->pop_wait = 0;
++		snd_soc_dapm_stream_event(rtd, SNDRV_PCM_STREAM_PLAYBACK,
++					  SND_SOC_DAPM_STREAM_STOP);
++	}
++
++	mutex_unlock(&rtd->card->pcm_mutex);
++}
++EXPORT_SYMBOL_GPL(snd_soc_close_delayed_work);
++
+ static void soc_release_rtd_dev(struct device *dev)
+ {
+ 	/* "dev" means "rtd->dev" */
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 68f72051f8e3..ad908e008b2f 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -624,32 +624,6 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	return ret;
+ }
+ 
+-/*
+- * Power down the audio subsystem pmdown_time msecs after close is called.
+- * This is to ensure there are no pops or clicks in between any music tracks
+- * due to DAPM power cycling.
+- */
+-static void close_delayed_work(struct snd_soc_pcm_runtime *rtd)
+-{
+-	struct snd_soc_dai *codec_dai = rtd->codec_dais[0];
+-
+-	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
+-
+-	dev_dbg(rtd->dev, "ASoC: pop wq checking: %s status: %s waiting: %s\n",
+-		 codec_dai->driver->playback.stream_name,
+-		 codec_dai->playback_active ? "active" : "inactive",
+-		 rtd->pop_wait ? "yes" : "no");
+-
+-	/* are we waiting on this codec DAI stream */
+-	if (rtd->pop_wait == 1) {
+-		rtd->pop_wait = 0;
+-		snd_soc_dapm_stream_event(rtd, SNDRV_PCM_STREAM_PLAYBACK,
+-					  SND_SOC_DAPM_STREAM_STOP);
+-	}
+-
+-	mutex_unlock(&rtd->card->pcm_mutex);
+-}
+-
+ static void codec2codec_close_delayed_work(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	/*
+@@ -2956,7 +2930,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	if (rtd->dai_link->params)
+ 		rtd->close_delayed_work_func = codec2codec_close_delayed_work;
+ 	else
+-		rtd->close_delayed_work_func = close_delayed_work;
++		rtd->close_delayed_work_func = snd_soc_close_delayed_work;
+ 
+ 	pcm->nonatomic = rtd->dai_link->nonatomic;
+ 	rtd->pcm = pcm;
 -- 
 2.20.1
 

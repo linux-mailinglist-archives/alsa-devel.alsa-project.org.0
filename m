@@ -2,97 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62626136CD4
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jan 2020 13:14:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25590136D7C
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jan 2020 14:13:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF4A31718;
-	Fri, 10 Jan 2020 13:13:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF4A31718
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8BEF6171F;
+	Fri, 10 Jan 2020 14:12:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8BEF6171F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578658465;
-	bh=WcGU1Gb0tH+K57Jd3Yt08V4XtDeeP60UjfFZuDGHDNI=;
-	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=jk1p8tjtxlF8fm93DJvrKV4j6KVzb/7/2n58FRLIhlni1zgNIXezMHSjAPVThZaGu
-	 kPXce+N7apArEmfND/Cc5r5WvBchmSwHevKJGoBsi4XCXD90Cp/jwKDA7XrgLKWu6x
-	 +amJbtQWyw1Tr3aJrfwJBfMMajY3w3OKMQG4i4so=
+	s=default; t=1578662009;
+	bh=pIS7luT6h5dYlV8QWZBH0jIW1teGCqsajBJ3YzIrUOU=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=NAM1PK3pJQrZLpeLI4paupcmNaAz8E6SIkv5/ESerwUFyenOlwARpYct0hja+J5M3
+	 WwdvG4qasoGSEXoQ1eUAJfpbC9WbjP6BWy3xJY7+Csa3y/xLjhxBMSQ8Y/Tpogawqf
+	 wB4uBOWOrXDFPCB3Q9a+j4SoCdOAAMsV5iUuSBBY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BFF4F80116;
-	Fri, 10 Jan 2020 13:12:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EDE5DF8011C;
+	Fri, 10 Jan 2020 14:11:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EF102F8011C; Fri, 10 Jan 2020 13:12:37 +0100 (CET)
+ id 1C2E2F8011C; Fri, 10 Jan 2020 14:11:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BD7B4F8010B
- for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 13:12:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD7B4F8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 528ABF800E4
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 14:11:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 528ABF800E4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="dQfyW/TB"
-Received: by mail-wm1-x344.google.com with SMTP id f129so1736209wmf.2
- for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 04:12:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=PbLS8+CBS7HYER+f3f/RHxsRY9Q8q0B8TRW1+q98Z4A=;
- b=dQfyW/TB0LdtH31ZM/dsMU6OGeB9k8z8Upm5IgOBDNeDz+y8xV6T6aYpdGkgoIW3S5
- XCukLIzmrVXKDtYTZQhf1qYINfhSfklO6vcJUVBt19OMfRdfmDNMeJVdeqZZxDXJP/LA
- R6T3m2yEBU4dzHnNC4R+6dSXWGl2ZVJb8WhEq77eV1+KcIfgCHa5USib4fQiRAS1Gr24
- kkds2xe5tA+oZZwTde5hJ+JlXo3gFkXlgwP2bfMsiSrLoiIbKZkBvXIEfME7NDYRqp5/
- EIBirhm9EGHEjxTbVpHSGxO0elM8HnIOtJNc0BvSG5lxqRcne+lztEmRejNNCJCHBN44
- 8K+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=PbLS8+CBS7HYER+f3f/RHxsRY9Q8q0B8TRW1+q98Z4A=;
- b=SCd3+x2c1+T1bPMgTurxK4uooPXqyVyfqOGIQcaVYaqReS+wf2Q+TVclrviwnklSYO
- Yt91zaOXBTaLm1Hu/OhxUweHu6CwkWFSHDxkagyi9THxDQfj1IsPkeKwrHCsYee52+if
- b6abh3gG4COrktWej+iQcGSPyCLMTG1fV13OiR6H1szLZMYlWrIaVQBiX/CEVQsjPyjg
- bVaHhtVVE3rscHcYTEo3BD66qn0+bN8NjjcyOR0kTnI46Hiz7xhVTv/CmoBPj/ih+84h
- VA6eV6NKd3yvI+6TT4sr1nJPY0pT1B9BRM8bet3mqp71HYwzyHFnerAcxBYrU5vAvjv6
- 5RuQ==
-X-Gm-Message-State: APjAAAUN486OYR4hRH+PqutW4mSyUD7ZwxoEVwTGnJDfaLOB5JuZTUSv
- sE9EZGUyZAUZenJxNmtARzfqEg==
-X-Google-Smtp-Source: APXvYqzIASqp7May83PDLm1BQr+QIyfmrPfepqhskPM02Q4ODS5KUUSOL1TYCNsq/yO/UopKoKkKhA==
-X-Received: by 2002:a1c:486:: with SMTP id 128mr4066673wme.163.1578658353503; 
- Fri, 10 Jan 2020 04:12:33 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id q11sm2032269wrp.24.2020.01.10.04.12.32
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 10 Jan 2020 04:12:32 -0800 (PST)
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- vkoul@kernel.org
-References: <20191219092842.10885-1-srinivas.kandagatla@linaro.org>
- <20191219092842.10885-3-srinivas.kandagatla@linaro.org>
- <c791e241-cd71-4c05-dac5-04e3ecaaf995@linux.intel.com>
- <a5315861-d9b8-0852-8a3a-012f60cc3a44@linaro.org>
-Message-ID: <4dab7ee8-dc0e-bf61-24db-3e227c459575@linaro.org>
-Date: Fri, 10 Jan 2020 12:12:31 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="qOyO055n"
+Received: from pps.filterd (m0046660.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00AD86U6008915; Fri, 10 Jan 2020 14:11:39 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=haY87gSwex8rCh0FoiCdqRy2whnAZkCD7EIrYWg4L6k=;
+ b=qOyO055nx9VMMiP9IRWmPO2wbA8r4CSqjeVvgO1nCDHWhpUOdIiIr5lyjShgcOg7d5CM
+ XjlEQW9y8KOfw30+NLIQ8i60i+FVd69tstJoQWGgY+UhEjFHcLz2OlJtNQ3fP6Jq/slt
+ ZRgL+aFD0hzX+tLeyoa4nKXHttqbdSDldPTBb8C4KHKWSOOQXNY+LYk6ZY6rn5UMZiqM
+ LIiNKfkjzhFJlhh/fTV1zjNoMx2DxLppFSIYiAw3f3oBoJ3ZuOaaC1LWe8X6K6/9NPGp
+ MfL7EI3Ri++yw69vbWT0VZB1vvfaWDQTTHnU/5rHL3wfh7e/otFK8yOfW2CLTDcoto8B kw== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xakkb7rur-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Jan 2020 14:11:39 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7CE4A100034;
+ Fri, 10 Jan 2020 14:11:33 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 913662B7742;
+ Fri, 10 Jan 2020 14:11:33 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Fri, 10 Jan 2020 14:11:33 +0100
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
+Date: Fri, 10 Jan 2020 14:11:31 +0100
+Message-ID: <20200110131131.3191-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-In-Reply-To: <a5315861-d9b8-0852-8a3a-012f60cc3a44@linaro.org>
-Content-Language: en-US
-Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
- spapothi@codeaurora.org, lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- broonie@kernel.org
-Subject: Re: [alsa-devel] [PATCH v5 2/2] soundwire: qcom: add support for
- SoundWire controller
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG7NODE3.st.com (10.75.127.21) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-10_01:2020-01-10,
+ 2020-01-09 signatures=0
+Subject: [alsa-devel] [PATCH] ASoC: stm32: dfsdm: fix 16 bits record
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,44 +94,68 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiAxOS8xMi8yMDE5IDE3OjE0LCBTcmluaXZhcyBLYW5kYWdhdGxhIHdyb3RlOgo+Pj4gKwo+
-Pj4gK8KgwqDCoCBpZiAoc3RzICYgU1dSTV9JTlRFUlJVUFRfU1RBVFVTX0NNRF9FUlJPUikgewo+
-Pj4gK8KgwqDCoMKgwqDCoMKgIGN0cmwtPnJlZ19yZWFkKGN0cmwsIFNXUk1fQ01EX0ZJRk9fU1RB
-VFVTLCAmdmFsdWUpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGRldl9lcnJfcmF0ZWxpbWl0ZWQoY3Ry
-bC0+ZGV2LAo+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgICJDTUQg
-ZXJyb3IsIGZpZm8gc3RhdHVzIDB4JXhcbiIsCj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoCB2YWx1ZSk7Cj4+PiArwqDCoMKgwqDCoMKgwqAgY3RybC0+cmVnX3dy
-aXRlKGN0cmwsIFNXUk1fQ01EX0ZJRk9fQ01ELCAweDEpOwo+Pj4gK8KgwqDCoCB9Cj4+PiArCj4+
-PiArwqDCoMKgIGlmICgoc3RzICYgU1dSTV9JTlRFUlJVUFRfU1RBVFVTX05FV19TTEFWRV9BVFRB
-Q0hFRCkgfHwKPj4+ICvCoMKgwqDCoMKgwqDCoCBzdHMgJiBTV1JNX0lOVEVSUlVQVF9TVEFUVVNf
-Q0hBTkdFX0VOVU1fU0xBVkVfU1RBVFVTKQo+Pj4gK8KgwqDCoMKgwqDCoMKgIHNjaGVkdWxlX3dv
-cmsoJmN0cmwtPnNsYXZlX3dvcmspOwo+Pj4gKwo+Pj4gK8KgwqDCoCBjdHJsLT5yZWdfd3JpdGUo
-Y3RybCwgU1dSTV9JTlRFUlJVUFRfQ0xFQVIsIHN0cyk7Cj4+Cj4+IGlzIGl0IGludGVudGlvbmFs
-IHRvIGNsZWFyIHRoZSBpbnRlcnJ1cHRzIGZpcnN0LCBiZWZvcmUgZG9pbmcgCj4+IGFkZGl0aW9u
-YWwgY2hlY2tzPwo+Pgo+IAo+IE5vLCBJIGNhbiBtb3ZlIGl0IHRvIHJpZ2h0IHRvIHRoZSBlbmQh
-CgpSZWFzb24gd2h5IEkgZGlkIHRoaXMgd2FzIHRoYXQgaWYgd2UgcnVuIGNvbXBsZXRlKCkgYmVm
-b3JlIGlycSBpcyAKY2xlYXJlZCBjb21wbGV0ZSBtaWdodCB0cmlnZ2VyIGFub3RoZXIgcmVhZC93
-cml0ZSB3aGljaCBjYW4gcmFpc2UgYW4gCmludGVycnVwdC4gQW5kIHdpdGggaW50ZXJydXB0IHN0
-YXR1cyBub3QgY2xlYXJlZCB3ZSBtaWdodCBtaXNzIGl0LiBUaGlzIAppcyB2ZXJ5IG11Y2ggdGlt
-aW5nIGRlcGVuZGVudCBzcGVjaWFsbHkgd2l0aCB0aGUgdGhyZWFkZWQgaXJxLgoKU28gY29kZSBu
-ZWVkcyBubyBjaGFuZ2UgYXRtIQoKPiAKPj4gT3IgY291bGQgaXQgYmUgZG9uZSBpbW1lZGlhdGVs
-eSBhZnRlciByZWFkaW5nIHRoZSBzdGF0dXMuIEl0J3Mgbm90IAo+PiBjbGVhciB0byBtZSBpZiB0
-aGUgcG9zaXRpb24gb2YgdGhpcyBjbGVhciBtYXR0ZXJzLCBhbmQgaWYgeWVzIHlvdSAKPj4gc2hv
-dWxkIHByb2JhYmx5IGFkZCBhIGNvbW1lbnQ/Cj4gCj4gQW0gbm90IDEwMCUgaWYgaXQgbWF0dGVy
-cywgYnV0IElkZWFsbHkgSSB3b3VsZCBsaWtlIGNsZWFyIHRoZSBpbnRlcnJ1cHQgCj4gc291cmNl
-IGJlZm9yZSBjbGVhcmluZyB0aGUgaW50ZXJydXB0Lgo+IAo+IAo+Pgo+Pj4gKwo+Pj4gK8KgwqDC
-oCBpZiAoc3RzICYgU1dSTV9JTlRFUlJVUFRfU1RBVFVTX1NQRUNJQUxfQ01EX0lEX0ZJTklTSEVE
-KSB7Cj4+PiArwqDCoMKgwqDCoMKgwqAgc3Bpbl9sb2NrX2lycXNhdmUoJmN0cmwtPmNvbXBfbG9j
-aywgZmxhZ3MpOwo+Pj4gK8KgwqDCoMKgwqDCoMKgIGlmIChjdHJsLT5jb21wKQo+Pj4gK8KgwqDC
-oMKgwqDCoMKgwqDCoMKgwqAgY29tcGxldGUoY3RybC0+Y29tcCk7Cj4+PiArwqDCoMKgwqDCoMKg
-wqAgc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmY3RybC0+Y29tcF9sb2NrLCBmbGFncyk7Cj4+PiAr
-wqDCoMKgIH0KPj4+ICsKPj4+ICvCoMKgwqAgcmV0dXJuIElSUV9IQU5ETEVEOwo+PiBUaGUgcmVz
-dCBsb29rcyBmaW5lLiBuaWNlIHdvcmsuIAoKVGhhbmtzLApzcmluaQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApB
-bHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5v
-cmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+In stm32_afsdm_pcm_cb function, the transfer size is provided in bytes.
+However, samples are copied as 16 bits words from iio buffer.
+Divide by two the transfer size, to copy the right number of samples.
+
+Fixes: 1e7f6e1c69f0 ("ASoC: stm32: dfsdm: add 16 bits audio record support")
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+ sound/soc/stm/stm32_adfsdm.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/sound/soc/stm/stm32_adfsdm.c b/sound/soc/stm/stm32_adfsdm.c
+index 807fee1eac66..51407a21c440 100644
+--- a/sound/soc/stm/stm32_adfsdm.c
++++ b/sound/soc/stm/stm32_adfsdm.c
+@@ -153,13 +153,13 @@ static const struct snd_soc_component_driver stm32_adfsdm_dai_component = {
+ 	.name = "stm32_dfsdm_audio",
+ };
+ 
+-static void memcpy_32to16(void *dest, const void *src, size_t n)
++static void stm32_memcpy_32to16(void *dest, const void *src, size_t n)
+ {
+ 	unsigned int i = 0;
+ 	u16 *d = (u16 *)dest, *s = (u16 *)src;
+ 
+ 	s++;
+-	for (i = n; i > 0; i--) {
++	for (i = n >> 1; i > 0; i--) {
+ 		*d++ = *s++;
+ 		s++;
+ 	}
+@@ -186,8 +186,8 @@ static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
+ 
+ 	if ((priv->pos + src_size) > buff_size) {
+ 		if (format == SNDRV_PCM_FORMAT_S16_LE)
+-			memcpy_32to16(&pcm_buff[priv->pos], src_buff,
+-				      buff_size - priv->pos);
++			stm32_memcpy_32to16(&pcm_buff[priv->pos], src_buff,
++					    buff_size - priv->pos);
+ 		else
+ 			memcpy(&pcm_buff[priv->pos], src_buff,
+ 			       buff_size - priv->pos);
+@@ -196,8 +196,8 @@ static int stm32_afsdm_pcm_cb(const void *data, size_t size, void *private)
+ 	}
+ 
+ 	if (format == SNDRV_PCM_FORMAT_S16_LE)
+-		memcpy_32to16(&pcm_buff[priv->pos],
+-			      &src_buff[src_size - cur_size], cur_size);
++		stm32_memcpy_32to16(&pcm_buff[priv->pos],
++				    &src_buff[src_size - cur_size], cur_size);
+ 	else
+ 		memcpy(&pcm_buff[priv->pos], &src_buff[src_size - cur_size],
+ 		       cur_size);
+-- 
+2.17.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

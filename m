@@ -2,53 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F942136E5E
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jan 2020 14:42:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC87136E63
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jan 2020 14:43:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 89EE01730;
-	Fri, 10 Jan 2020 14:42:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 89EE01730
+	by alsa0.perex.cz (Postfix) with ESMTPS id 23CA716C7;
+	Fri, 10 Jan 2020 14:42:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23CA716C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578663773;
-	bh=fbsU3TYiTH0ty8lXHovR6hRoe5o8r8oM51TbDSfr4TY=;
+	s=default; t=1578663821;
+	bh=zrECUXXugoK/OC/1/7CGDLqWZWo9AhaaN5rk0oSjSJg=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=FOmCLblmOuAgGybWRXiwZB1nZXM5ZOIicf5ugxV3kE+hs963dhNG9Dqp06jl7eJKa
-	 EmSkDS0LYHzfNQMdWfb+3n+tbPNdL34ny9Rm/UQTjikkwkT6sYXEjCGwR/7BHQpWTN
-	 TPrg7cCDb2gqHyJcL7oU9GKxIuzbhDefovVQAtXc=
+	b=nuS9j2gWZS1R1A4Vj3auT29F3D8i1FhmBZ2jtMlt5kaghdMimsD3thnVfiXNL4nsk
+	 9NaN1JHctEpBgwmcrOPNPbykSS2s2vUy66zbaiUtvddWknM6YDL/M3Zy8YDE8QJds4
+	 ouxXPtqC5xvR78bX3fDJTFRDGE6NrouvxWq6qjoQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2D0A0F802A0;
-	Fri, 10 Jan 2020 14:38:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64728F802C2;
+	Fri, 10 Jan 2020 14:38:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9C3FF8028A; Fri, 10 Jan 2020 14:37:56 +0100 (CET)
+ id CEBB4F80290; Fri, 10 Jan 2020 14:37:58 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id EF4CFF8011C
- for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 14:37:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF4CFF8011C
+ by alsa1.perex.cz (Postfix) with ESMTP id F40E6F80273
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 14:37:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F40E6F80273
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BE8D41FB;
- Fri, 10 Jan 2020 05:37:51 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 10952DA7;
+ Fri, 10 Jan 2020 05:37:54 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 484A53F534;
- Fri, 10 Jan 2020 05:37:51 -0800 (PST)
-Date: Fri, 10 Jan 2020 13:37:48 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8FEE53F534;
+ Fri, 10 Jan 2020 05:37:53 -0800 (PST)
+Date: Fri, 10 Jan 2020 13:37:52 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <877e20t4vh.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-877e20t4vh.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <878smgt4vp.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-878smgt4vp.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: soc-core: care .ignore_suspend for
-	Component suspend" to the asoc tree
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Sridharan Ranjani <ranjani.sridharan@intel.com>
+Subject: [alsa-devel] Applied "ASoC: soc-core: rename snd_soc_rtdcom_add()
+	to snd_soc_rtd_add_component()" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-core: care .ignore_suspend for Component suspend
+   ASoC: soc-core: rename snd_soc_rtdcom_add() to snd_soc_rtd_add_component()
 
 has been applied to the asoc tree at
 
@@ -94,67 +95,66 @@ to this mail.
 Thanks,
 Mark
 
-From 1272063a7ee4e60ace4cf7cae621fb6f8cafaaba Mon Sep 17 00:00:00 2001
+From 12b052327dc2d9d4ca5146608aad1c42741df4fb Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 10 Jan 2020 11:36:02 +0900
-Subject: [PATCH] ASoC: soc-core: care .ignore_suspend for Component suspend
+Date: Fri, 10 Jan 2020 11:35:54 +0900
+Subject: [PATCH] ASoC: soc-core: rename snd_soc_rtdcom_add() to
+ snd_soc_rtd_add_component()
 
-Card dai_link has .ignore_suspend, and ALSA SoC cares it when suspend.
-For example, like this
+We don't have snd_soc_rtdcom_list anymore.
+Let's rename snd_soc_rtdcom_add() to more understandable
+snd_soc_rtd_add_component()
 
-	for_each_card_rtds(card, rtd) {
-		if (rtd->dai_link->ignore_suspend)
-			continue;
-		...
-	}
-
-But in snd_soc_suspend(), it doesn't care about
-it when suspending Component. This patch cares it.
-
+Reported-by: Sridharan, Ranjani <ranjani.sridharan@intel.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/877e20t4vh.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/878smgt4vp.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-core.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ sound/soc/soc-core.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 9a6d905cda43..8a1b4ffa6ca6 100644
+index c9daa63a339b..9a6d905cda43 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -562,15 +562,25 @@ int snd_soc_suspend(struct device *dev)
- 	snd_soc_dapm_sync(&card->dapm);
+@@ -258,8 +258,8 @@ static inline void snd_soc_debugfs_exit(void)
  
- 	/* suspend all COMPONENTs */
--	for_each_card_components(card, component) {
--		struct snd_soc_dapm_context *dapm =
-+	for_each_card_rtds(card, rtd) {
-+
-+		if (rtd->dai_link->ignore_suspend)
-+			continue;
-+
-+		for_each_rtd_components(rtd, i, component) {
-+			struct snd_soc_dapm_context *dapm =
- 				snd_soc_component_get_dapm(component);
+ #endif
  
--		/*
--		 * If there are paths active then the COMPONENT will be held
--		 * with bias _ON and should not be suspended.
--		 */
--		if (!snd_soc_component_is_suspended(component)) {
-+			/*
-+			 * ignore if component was already suspended
-+			 */
-+			if (snd_soc_component_is_suspended(component))
-+				continue;
-+
-+			/*
-+			 * If there are paths active then the COMPONENT will be
-+			 * held with bias _ON and should not be suspended.
-+			 */
- 			switch (snd_soc_dapm_get_bias_level(dapm)) {
- 			case SND_SOC_BIAS_STANDBY:
- 				/*
+-static int snd_soc_rtdcom_add(struct snd_soc_pcm_runtime *rtd,
+-			      struct snd_soc_component *component)
++static int snd_soc_rtd_add_component(struct snd_soc_pcm_runtime *rtd,
++				     struct snd_soc_component *component)
+ {
+ 	struct snd_soc_component *comp;
+ 	int i;
+@@ -1035,7 +1035,7 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+ 			 dai_link->cpus->dai_name);
+ 		goto _err_defer;
+ 	}
+-	snd_soc_rtdcom_add(rtd, rtd->cpu_dai->component);
++	snd_soc_rtd_add_component(rtd, rtd->cpu_dai->component);
+ 
+ 	/* Find CODEC from registered CODECs */
+ 	rtd->num_codecs = dai_link->num_codecs;
+@@ -1047,7 +1047,7 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+ 			goto _err_defer;
+ 		}
+ 
+-		snd_soc_rtdcom_add(rtd, rtd->codec_dais[i]->component);
++		snd_soc_rtd_add_component(rtd, rtd->codec_dais[i]->component);
+ 	}
+ 
+ 	/* Single codec links expect codec and codec_dai in runtime data */
+@@ -1059,7 +1059,7 @@ int snd_soc_add_pcm_runtime(struct snd_soc_card *card,
+ 			if (!snd_soc_is_matching_component(platform, component))
+ 				continue;
+ 
+-			snd_soc_rtdcom_add(rtd, component);
++			snd_soc_rtd_add_component(rtd, component);
+ 		}
+ 	}
+ 
 -- 
 2.20.1
 

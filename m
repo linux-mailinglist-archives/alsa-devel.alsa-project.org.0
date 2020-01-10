@@ -2,53 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46A37136E72
-	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jan 2020 14:46:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50A1F137287
+	for <lists+alsa-devel@lfdr.de>; Fri, 10 Jan 2020 17:10:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD83E172D;
-	Fri, 10 Jan 2020 14:45:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD83E172D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A6A4516CD;
+	Fri, 10 Jan 2020 17:09:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A6A4516CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578663986;
-	bh=KyuDcu5ngReGbJSeC7XFOev+MAKDLOm+Ldd8EAkWJwU=;
-	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=H9EiVpDfobTJY18d2vCECAK+9QVCnBVzZzJsi4TpcV41ZGhYkmYR9QatsKvjbBmgi
-	 iwpc9W4WUeG+7E8Gdzb6dda+aw5P0rPP6gwYQm4sX/Ef0Ar8rbm+wstRp7esl6SgaW
-	 S/DQkdXn4ObCsCag2yeXkGprP1iMxRLNA8Q+Iuj8=
+	s=default; t=1578672647;
+	bh=C3wIsxm4KmCfMLbk+eVgEUlDd37UXyAC9ia83VtBz4E=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=R7iFzSVgnnz/S0th/zw6t4gxPHkbLhL/i8sni6n0jZWeQ2hmPDStZGu09twDnp4k2
+	 6KwVcsmJBxEHmcvf7ywYYjFyj/9DsL9iKmezQO6oOaKtW5WScsws9DHEamqUZjKpMM
+	 8txkZmAhJhW+LfbJwKy75x9mR2kmJoW9G6taesfg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27775F80304;
-	Fri, 10 Jan 2020 14:38:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03560F80159;
+	Fri, 10 Jan 2020 17:09:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BEC9EF802F7; Fri, 10 Jan 2020 14:38:14 +0100 (CET)
+ id 6250AF8011C; Fri, 10 Jan 2020 17:09:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 8E805F802C4
- for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 14:38:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E805F802C4
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D74E3DA7;
- Fri, 10 Jan 2020 05:38:06 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 59C4B3F534;
- Fri, 10 Jan 2020 05:38:06 -0800 (PST)
-Date: Fri, 10 Jan 2020 13:38:04 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-In-Reply-To: 
-Message-Id: 
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [alsa-devel] Applied "ASoC: max98090: Drop incorrectly applied
-	duplicate commit" to the asoc tree
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8569FF800E4
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 17:08:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8569FF800E4
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Jan 2020 08:08:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,417,1571727600"; d="scan'208";a="224235858"
+Received: from nehudak-mobl1.amr.corp.intel.com (HELO [10.251.145.164])
+ ([10.251.145.164])
+ by orsmga003.jf.intel.com with ESMTP; 10 Jan 2020 08:08:52 -0800
+To: Vinod Koul <vkoul@kernel.org>
+References: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
+ <20191217210314.20410-10-pierre-louis.bossart@linux.intel.com>
+ <20191227090826.GM3006@vkoul-mobl>
+ <5be4d9df-0f46-d36f-471c-aae9e1f55cc0@linux.intel.com>
+ <20200106054221.GN2818@vkoul-mobl>
+ <32ae46a7-59ee-4815-270a-a519ff462345@linux.intel.com>
+ <20200110064303.GX2818@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <39000dd7-3f77-bc33-0ad3-aa47ba2360f7@linux.intel.com>
+Date: Fri, 10 Jan 2020 10:08:51 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
+MIME-Version: 1.0
+In-Reply-To: <20200110064303.GX2818@vkoul-mobl>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v5 09/17] soundwire: intel: remove platform
+ devices and use 'Master Devices' instead
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,68 +83,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: max98090: Drop incorrectly applied duplicate commit
+>>> The "big" difference is that probe is called by core (asoc) and not by
+>>> driver onto themselves.. IMO that needs to go away.
+>>
+>> What I did is not different from what existed already with platform devices.
+>> They were manually created, weren't they?
+> 
+> Manual creation of device based on a requirement is different, did I ask
+> you why you are creating device :)
+> 
+> I am simple asking you not to call probe in the driver. If you need
+> that, move it to core! We do not want these kind of things in the
+> drivers...
 
-has been applied to the asoc tree at
+What core are you talking about?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+The SOF intel driver needs to create a device, which will then be bound 
+with a SoundWire master driver.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+What I am doing is no different from what your team did with 
+platform_register_device, I am really lost on what you are asking.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+>>>> FWIW, the implementation here follows what was suggested for Greybus 'Host
+>>>> Devices' [1] [2], so it's not like I am creating any sort of dangerous
+>>>> precedent.
+>>>>
+>>>> [1]
+>>>> https://elixir.bootlin.com/linux/latest/source/drivers/greybus/es2.c#L1275
+>>>> [2] https://elixir.bootlin.com/linux/latest/source/drivers/greybus/hd.c#L124
+>>>
+>>> And if you look closely all this work is done by core not by drivers!
+>>> Drivers _should_ never do all this, it is the job of core to do that for
+>>> you.
+>>
+>> Please look at the code again, you have a USB probe that will manually call
+>> the GreyBus device creation.
+>>
+>> static int ap_probe(struct usb_interface *interface,
+>> 		    const struct usb_device_id *id)
+>> {
+>> 	hd = gb_hd_create(&es2_driver, &udev->dev, 	
+>>
+>>
+>> static struct usb_driver es2_ap_driver = {
+>> 	.name =		"es2_ap_driver",
+>> 	.probe =	ap_probe, <<< code above
+>> 	.disconnect =	ap_disconnect,
+>> 	.id_table =	id_table,
+>> 	.soft_unbind =	1,
+>> };
+> 
+> Look closely the driver es2 calls into greybus core hd.c and gets the
+> work done, subtle but a big differances in the approaches..
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+I am sorry, I have absolutely no idea what you are referring to.
 
-Thanks,
-Mark
-
-From a84188eced6109983af54f9435a26d21eac3f8cc Mon Sep 17 00:00:00 2001
-From: Mark Brown <broonie@kernel.org>
-Date: Fri, 10 Jan 2020 13:24:02 +0000
-Subject: [PATCH] ASoC: max98090: Drop incorrectly applied duplicate commit
-
-This reverts commit 4e93c1294f4b051 (ASoC: max98090: fix incorrect
-helper in max98090_dapm_put_enum_double()) which was misapplied.
-
-Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/max98090.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index ba0e3ba162f8..454cb8e5b0a1 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -98,7 +98,7 @@ static int max98090_put_enum_double(struct snd_kcontrol *kcontrol,
- 	struct snd_ctl_elem_value *ucontrol)
- {
- 	struct snd_soc_component *component =
--		snd_soc_dapm_kcontrol_component(kcontrol);
-+		snd_soc_kcontrol_component(kcontrol);
- 	struct max98090_priv *max98090 =
- 		snd_soc_component_get_drvdata(component);
- 	int ret;
--- 
-2.20.1
+The code I copy/pasted here makes no call to the greybus core, it's 
+ap_probe -> gb_hd_create. No core involved. If I am mistaken, please 
+show me what I got wrong.
 
 _______________________________________________
 Alsa-devel mailing list

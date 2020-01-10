@@ -2,63 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0AC8E137A6D
-	for <lists+alsa-devel@lfdr.de>; Sat, 11 Jan 2020 01:03:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A247137A73
+	for <lists+alsa-devel@lfdr.de>; Sat, 11 Jan 2020 01:05:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8F97216CD;
-	Sat, 11 Jan 2020 01:02:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F97216CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id CAF4016B9;
+	Sat, 11 Jan 2020 01:04:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CAF4016B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578701001;
-	bh=tXlGX68zrXI8OLfz6nJX0nv8+E2VV0sEiobIea5C0j8=;
+	s=default; t=1578701117;
+	bh=L1NWtnvAP8TpXFrbJXQjWctO7z4C+BWuHkVYFZvv8Z8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H9T2lZ0117CSbQXyssAxASvQ9sjLnftfcPT2yYrjfRWRhfsGnvDuU/2tAU6m3P5Kc
-	 9asazeOsq3YoYGt2VjzukjkZaBVv2SjqGkW9QvBrKdkYo/yC8AwfF/9gWQDRJUpbmy
-	 S+Qz9E5qHE0SOGcxKeYmI/1wpBzADdXjtUcJRgEw=
+	b=DSMEMHXXRisHz7Axhn0BaaMyTMHYakso8n6aToCoqBCR21PutNR7SXpGS24GD3FRG
+	 AZUwsFIThmPdUFd2W/pfqcADjW4fbkfD+L3T1/O35JDxZb3ktwWH4AxqVPll82Wl5C
+	 F6SExxMYsizw5uSY3N/bStU8FiIml5fydwU98Y8g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2C13CF80292;
-	Sat, 11 Jan 2020 00:58:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37037F802C4;
+	Sat, 11 Jan 2020 00:58:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8F6EF80161; Sat, 11 Jan 2020 00:58:18 +0100 (CET)
+ id 8F26CF8024A; Sat, 11 Jan 2020 00:58:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6983AF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id BF678F80116
  for <alsa-devel@alsa-project.org>; Sat, 11 Jan 2020 00:58:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6983AF8010B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF678F80116
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2020 15:58:10 -0800
+ 10 Jan 2020 15:58:11 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,418,1571727600"; d="scan'208";a="224345301"
+X-IronPort-AV: E=Sophos;i="5.69,418,1571727600"; d="scan'208";a="224345304"
 Received: from jrderube-mobl5.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.155.251])
- by orsmga003.jf.intel.com with ESMTP; 10 Jan 2020 15:58:09 -0800
+ by orsmga003.jf.intel.com with ESMTP; 10 Jan 2020 15:58:10 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Fri, 10 Jan 2020 17:57:48 -0600
-Message-Id: <20200110235751.3404-6-pierre-louis.bossart@linux.intel.com>
+Date: Fri, 10 Jan 2020 17:57:49 -0600
+Message-Id: <20200110235751.3404-7-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200110235751.3404-1-pierre-louis.bossart@linux.intel.com>
 References: <20200110235751.3404-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: tiwai@suse.de, broonie@kernel.org,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH 5/8] ASoC: SOF: Intel: lower print level to dbg
-	if we will reinit DSP
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: [alsa-devel] [PATCH 6/8] ASoC: SOF: fix PCM playback through ALSA
+	OSS emulation
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,39 +76,107 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard liao <yung-chuan.liao@linux.intel.com>
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-We will reinit DSP in a loop when it fails to initialize the first
-time, as recommended. So, it is not an error before we finally give
-up. And reorder the trace to make it more readable.
+Any app using ALSA OSS emulation on top of SOF will fail
+to error from OSS SNDCTL_DSP_SETFMT ioctl. Reported initially
+as an issue with xournalpp (application using PortAudio with
+an OSS backend), but applies more generally to other apps
+using OSS as well.
 
-Signed-off-by: Bard liao <yung-chuan.liao@linux.intel.com>
+Problem is caused by SOF PCM not supporting repeated calls
+to hw_params(), without matching calls to pcm_free(). This
+is however exactly what the ALSA OSS PCM code is doing when
+it is handling the OSS ioctls.
+
+The problem will lead to leaking of DSP resources and eventual
+failure of DSP PCM_PARAMS IPC.
+
+BugLink: https://github.com/thesofproject/linux/issues/1510
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-loader.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ sound/soc/sof/pcm.c | 53 ++++++++++++++++++++++++++-------------------
+ 1 file changed, 31 insertions(+), 22 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index 1782f5092639..8852184a2569 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -328,13 +328,13 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 		if (!ret)
- 			break;
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index 9bb6388742e1..314f3095c12f 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -92,7 +92,27 @@ void snd_sof_pcm_period_elapsed(struct snd_pcm_substream *substream)
+ }
+ EXPORT_SYMBOL(snd_sof_pcm_period_elapsed);
  
--		dev_err(sdev->dev, "error: Error code=0x%x: FW status=0x%x\n",
-+		dev_dbg(sdev->dev, "iteration %d of Core En/ROM load failed: %d\n",
-+			i, ret);
-+		dev_dbg(sdev->dev, "Error code=0x%x: FW status=0x%x\n",
- 			snd_sof_dsp_read(sdev, HDA_DSP_BAR,
- 					 HDA_DSP_SRAM_REG_ROM_ERROR),
- 			snd_sof_dsp_read(sdev, HDA_DSP_BAR,
- 					 HDA_DSP_SRAM_REG_ROM_STATUS));
--		dev_err(sdev->dev, "error: iteration %d of Core En/ROM load failed: %d\n",
--			i, ret);
- 	}
+-/* this may get called several times by oss emulation */
++static int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream,
++				struct snd_sof_dev *sdev,
++				struct snd_sof_pcm *spcm)
++{
++	struct sof_ipc_stream stream;
++	struct sof_ipc_reply reply;
++	int ret;
++
++	stream.hdr.size = sizeof(stream);
++	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
++	stream.comp_id = spcm->stream[substream->stream].comp_id;
++
++	/* send IPC to the DSP */
++	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
++				 sizeof(stream), &reply, sizeof(reply));
++	if (!ret)
++		spcm->prepared[substream->stream] = false;
++
++	return ret;
++}
++
+ static int sof_pcm_hw_params(struct snd_soc_component *component,
+ 			     struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+@@ -113,6 +133,16 @@ static int sof_pcm_hw_params(struct snd_soc_component *component,
+ 	if (!spcm)
+ 		return -EINVAL;
  
- 	if (i == HDA_FW_BOOT_ATTEMPTS) {
++	/*
++	 * Handle repeated calls to hw_params() without free_pcm() in
++	 * between. At least ALSA OSS emulation depends on this.
++	 */
++	if (spcm->prepared[substream->stream]) {
++		ret = sof_pcm_dsp_pcm_free(substream, sdev, spcm);
++		if (ret < 0)
++			return ret;
++	}
++
+ 	dev_dbg(component->dev, "pcm: hw params stream %d dir %d\n",
+ 		spcm->pcm.pcm_id, substream->stream);
+ 
+@@ -201,27 +231,6 @@ static int sof_pcm_hw_params(struct snd_soc_component *component,
+ 	return ret;
+ }
+ 
+-static int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream,
+-				struct snd_sof_dev *sdev,
+-				struct snd_sof_pcm *spcm)
+-{
+-	struct sof_ipc_stream stream;
+-	struct sof_ipc_reply reply;
+-	int ret;
+-
+-	stream.hdr.size = sizeof(stream);
+-	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
+-	stream.comp_id = spcm->stream[substream->stream].comp_id;
+-
+-	/* send IPC to the DSP */
+-	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
+-				 sizeof(stream), &reply, sizeof(reply));
+-	if (!ret)
+-		spcm->prepared[substream->stream] = false;
+-
+-	return ret;
+-}
+-
+ static int sof_pcm_hw_free(struct snd_soc_component *component,
+ 			   struct snd_pcm_substream *substream)
+ {
 -- 
 2.20.1
 

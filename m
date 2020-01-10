@@ -2,61 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C370138E59
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jan 2020 10:58:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 167CE138E5B
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jan 2020 10:58:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4A95165D;
-	Mon, 13 Jan 2020 10:57:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4A95165D
+	by alsa0.perex.cz (Postfix) with ESMTPS id AC7DB1616;
+	Mon, 13 Jan 2020 10:57:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC7DB1616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578909485;
-	bh=5YVO0Sb9QVgfBxPuvLTOpscGP1SU5iNaALiCVeUfT18=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1578909513;
+	bh=Zqj6eXSgApLV6KqFD71Ig9cnw0YVpnvi4tt58xFzhpo=;
+	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=HiDfyJG023/inGnXE1Dd2y57cjmj6pvLa2PVtNOE4hMynXw3xWt3UDhiHHQfs4Exs
-	 we34u3qWrgvfxPba+8AI741uD6k2S6Llcu3yIf5vSXaGhhSRcGyXw8jxYWkRwmrI0o
-	 80fHlSnz3achCbUd/hKuxFXs67SiRqFgBj0k4BS4=
+	b=rNkNonzmS41KgXIUPmGWRHkz845gn3Z5OPgVoYkWtrDxyncgeMepl0Jq+g5Mq8FNU
+	 3fnjzlC21TQgcKwLl74gPcK36H+6S2s/Scezt5sOgTmxDDTTCf4gXKEVz+UzAzfAy1
+	 a22Hz4pGMJOt8OsPIaQRCf7vlguJ3Z/9uB6Ku2Mw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B97DDF80149;
-	Mon, 13 Jan 2020 10:54:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1BD4AF80278;
+	Mon, 13 Jan 2020 10:54:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D46BF8015B; Fri, 10 Jan 2020 03:18:47 +0100 (CET)
+ id DBDDEF8011C; Fri, 10 Jan 2020 15:38:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,OBFU_TEXT_ATTACH,PRX_APP_ATTACH,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
+ [IPv6:2607:f8b0:4864:20::22a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14D75F80116
- for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 03:18:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14D75F80116
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 00A2ISpi024075,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCASV01.realtek.com.tw[172.21.6.18])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 00A2ISpi024075
- (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
- Fri, 10 Jan 2020 10:18:29 +0800
-Received: from localhost.localdomain (172.22.102.1) by
- RTITCASV01.realtek.com.tw (172.21.6.18) with Microsoft SMTP Server id
- 14.3.468.0; Fri, 10 Jan 2020 10:18:27 +0800
-From: <jack.yu@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Date: Fri, 10 Jan 2020 10:18:21 +0800
-Message-ID: <20200110021821.17843-1-jack.yu@realtek.com>
-X-Mailer: git-send-email 2.24.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 35857F800E4
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 15:38:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 35857F800E4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="M1UiQYi1"
+Received: by mail-oi1-x22a.google.com with SMTP id n16so1974084oie.12
+ for <alsa-devel@alsa-project.org>; Fri, 10 Jan 2020 06:38:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=0CLmWvlAes2sIKsam1kkM+9AaGpC12pPuxOsC7p5zTg=;
+ b=M1UiQYi1SSAX+hzlzrqN9MYGC6K4hROhpz6w+BBQrhwBgFERx/ybBFMM4jm7k3fqzk
+ AL/P/Je5CIwu93nZDYqkspd9pYysNSywf0gD3GbqM2hgIZh7g3gzNxKj+cPkmKJP7Jny
+ mD8ZzGz3tZqwz/Ca+BoYQexgmEEvg11e1jRn3QPQMVv/6tWf1+nKfxSIa2ymqbMKSoHY
+ c5oAZRnPXuSJygAjFmar8hXLEzICfVssCC5AueOVLOTw7ZTxqaXYnkMEUMn8juSUu6Zg
+ Ji2KROVZ0MvNri9iLTylP+xQHh7PcrdVt2TjUm7NimU2QGb9e1Xtu2DQErMFlZZGqE+C
+ 56YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=0CLmWvlAes2sIKsam1kkM+9AaGpC12pPuxOsC7p5zTg=;
+ b=edRrLd0v0OfklRTM5GVewrSDSKcNXzRcoOCfuO0WyhCB/05cop3fGtrFxrb95Lri+/
+ dZfutYkm8Be5REdOy5qyw5TEm91B30T5Qo80lpHiD6z0Zz9aNIrJ5uZUvSq6t3SOD+AX
+ kS3qohLQoZXa7Jlxja68YDGsCjhz8SjBAkXe/GgoyxzTkXT0zenR28cAhxhpiXUGrVDx
+ 5nhfH3Yvk+HM6loAC1Jkuv8BwZ0+sIYJSKDA4XBQb8S3pAhsnVkeNS9DkduVexXGGX1O
+ 3KMJws1h2Nv+PmrLVLTcw6enjdQdRlPvzW04OmxjVKF4HA6ES7BiHvqR6ed0ZjexaVvJ
+ M68Q==
+X-Gm-Message-State: APjAAAW3tgM6YNAAOtuzqHd7WNxmdr2q6J1l2DvrI3RRAdpyG7JnwUM6
+ 2EUdGIv/QUo8/TzZXwOe79t6Y6KDso4tP2mDrtwbSMiosRY=
+X-Google-Smtp-Source: APXvYqx8etT6gwoyeEcel2o1cGe3x+gHGLR0w7y8YggeluTChBfYjuttCpUE58hefPLFiTlbS5m6hB4bO74UDtBd4hM=
+X-Received: by 2002:a05:6808:3c2:: with SMTP id
+ o2mr2495958oie.45.1578667130590; 
+ Fri, 10 Jan 2020 06:38:50 -0800 (PST)
 MIME-Version: 1.0
-X-Originating-IP: [172.22.102.1]
+From: lazarenkovegor <lazarenkov.egor@gmail.com>
+Date: Fri, 10 Jan 2020 17:38:38 +0300
+Message-ID: <CADiv+EwQekqXU4ziW8af=dn2ymnsK8p4LFrBJb8NYtvePqxP3Q@mail.gmail.com>
+To: alsa-devel@alsa-project.org
+Content-Type: multipart/mixed; boundary="00000000000089c78f059bca1551"
 X-Mailman-Approved-At: Mon, 13 Jan 2020 10:54:48 +0100
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, derek.fang@realtek.com, flove@realtek.com,
- bard.liao@intel.com, pierre-louis.bossart@intel.com
-Subject: [alsa-devel] [PATCH] ASoC: rt715: add RT715 codec driver
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Subject: [alsa-devel] ALSA does not detect the built-in microphone on HP
+	EliteBook 850 G6
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,2147 +89,782 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jack Yu <jack.yu@realtek.com>
+--00000000000089c78f059bca1551
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
----
- sound/soc/codecs/Kconfig     |  10 +
- sound/soc/codecs/Makefile    |   2 +
- sound/soc/codecs/rt715-sdw.c | 613 ++++++++++++++++++++++++
- sound/soc/codecs/rt715-sdw.h | 337 ++++++++++++++
- sound/soc/codecs/rt715.c     | 873 +++++++++++++++++++++++++++++++++++
- sound/soc/codecs/rt715.h     | 221 +++++++++
- 6 files changed, 2056 insertions(+)
- create mode 100644 sound/soc/codecs/rt715-sdw.c
- create mode 100644 sound/soc/codecs/rt715-sdw.h
- create mode 100644 sound/soc/codecs/rt715.c
- create mode 100644 sound/soc/codecs/rt715.h
+Hello!
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 65b81888ca3d..cb27ab37a8db 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -166,6 +166,7 @@ config SND_SOC_ALL_CODECS
- 	select SND_SOC_RT5677 if I2C && SPI_MASTER
- 	select SND_SOC_RT5682 if I2C
- 	select SND_SOC_RT711_SDW if SOUNDWIRE
-+	select SND_SOC_RT715_SDW if SOUNDWIRE
- 	select SND_SOC_SGTL5000 if I2C
- 	select SND_SOC_SI476X if MFD_SI476X_CORE
- 	select SND_SOC_SIMPLE_AMPLIFIER
-@@ -1069,6 +1070,15 @@ config SND_SOC_RT711_SDW
- 	select SND_SOC_RT711
- 	select REGMAP_SOUNDWIRE
- 
-+config SND_SOC_RT715
-+	tristate
-+
-+config SND_SOC_RT715_SDW
-+	tristate "Realtek RT715 Codec - SDW"
-+	depends on SOUNDWIRE
-+	select SND_SOC_RT715
-+	select REGMAP_SOUNDWIRE
-+
- #Freescale sgtl5000 codec
- config SND_SOC_SGTL5000
- 	tristate "Freescale SGTL5000 CODEC"
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index f4dfe033d120..b1ac7461d7a0 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -174,6 +174,7 @@ snd-soc-rt5677-objs := rt5677.o
- snd-soc-rt5677-spi-objs := rt5677-spi.o
- snd-soc-rt5682-objs := rt5682.o
- snd-soc-rt711-objs := rt711.o rt711-sdw.o
-+snd-soc-rt715-objs := rt715.o rt715-sdw.o
- snd-soc-sgtl5000-objs := sgtl5000.o
- snd-soc-alc5623-objs := alc5623.o
- snd-soc-alc5632-objs := alc5632.o
-@@ -467,6 +468,7 @@ obj-$(CONFIG_SND_SOC_RT5677)	+= snd-soc-rt5677.o
- obj-$(CONFIG_SND_SOC_RT5677_SPI)	+= snd-soc-rt5677-spi.o
- obj-$(CONFIG_SND_SOC_RT5682)	+= snd-soc-rt5682.o
- obj-$(CONFIG_SND_SOC_RT711)     += snd-soc-rt711.o
-+obj-$(CONFIG_SND_SOC_RT715)     += snd-soc-rt715.o
- obj-$(CONFIG_SND_SOC_SGTL5000)  += snd-soc-sgtl5000.o
- obj-$(CONFIG_SND_SOC_SIGMADSP)	+= snd-soc-sigmadsp.o
- obj-$(CONFIG_SND_SOC_SIGMADSP_I2C)	+= snd-soc-sigmadsp-i2c.o
-diff --git a/sound/soc/codecs/rt715-sdw.c b/sound/soc/codecs/rt715-sdw.c
-new file mode 100644
-index 000000000000..c35591fd281b
---- /dev/null
-+++ b/sound/soc/codecs/rt715-sdw.c
-@@ -0,0 +1,613 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * rt715-sdw.c -- rt715 ALSA SoC audio driver
-+ *
-+ * Copyright(c) 2019 Realtek Semiconductor Corp.
-+ *
-+ * ALC715 ASoC Codec Driver based Intel Dummy SdW codec driver
-+ *
-+ */
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_type.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regmap.h>
-+#include <sound/soc.h>
-+#include "rt715.h"
-+#include "rt715-sdw.h"
-+
-+static bool rt715_readable_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x00e0 ... 0x00e5:
-+	case 0x00ee ... 0x00ef:
-+	case 0x00f0 ... 0x00f5:
-+	case 0x00fe ... 0x00ff:
-+	case 0x02e0:
-+	case 0x02f0:
-+	case 0x04e0:
-+	case 0x04f0:
-+	case 0x06e0:
-+	case 0x06f0:
-+	case 0x2000 ... 0x2016:
-+	case 0x201a ... 0x2027:
-+	case 0x2029 ... 0x202a:
-+	case 0x202d ... 0x2034:
-+	case 0x2200 ... 0x2204:
-+	case 0x2206 ... 0x2212:
-+	case 0x2220 ... 0x2223:
-+	case 0x2230 ... 0x2239:
-+	case 0x22f0 ... 0x22f3:
-+	case 0x3122:
-+	case 0x3123:
-+	case 0x3124:
-+	case 0x3125:
-+	case 0x3607:
-+	case 0x3608:
-+	case 0x3609:
-+	case 0x3610:
-+	case 0x3611:
-+	case 0x3627:
-+	case 0x3712:
-+	case 0x3713:
-+	case 0x3718:
-+	case 0x3719:
-+	case 0x371a:
-+	case 0x371b:
-+	case 0x371d:
-+	case 0x3729:
-+	case 0x385e:
-+	case 0x3859:
-+	case 0x4c12:
-+	case 0x4c13:
-+	case 0x4c1d:
-+	case 0x4c29:
-+	case 0x4d12:
-+	case 0x4d13:
-+	case 0x4d1d:
-+	case 0x4d29:
-+	case 0x4e12:
-+	case 0x4e13:
-+	case 0x4e1d:
-+	case 0x4e29:
-+	case 0x4f12:
-+	case 0x4f13:
-+	case 0x4f1d:
-+	case 0x4f29:
-+	case 0x7207:
-+	case 0x7208:
-+	case 0x7209:
-+	case 0x7227:
-+	case 0x7307:
-+	case 0x7308:
-+	case 0x7309:
-+	case 0x7312:
-+	case 0x7313:
-+	case 0x7318:
-+	case 0x7319:
-+	case 0x731a:
-+	case 0x731b:
-+	case 0x731d:
-+	case 0x7327:
-+	case 0x7329:
-+	case 0x8287:
-+	case 0x8288:
-+	case 0x8289:
-+	case 0x82a7:
-+	case 0x8387:
-+	case 0x8388:
-+	case 0x8389:
-+	case 0x8392:
-+	case 0x8393:
-+	case 0x8398:
-+	case 0x8399:
-+	case 0x839a:
-+	case 0x839b:
-+	case 0x839d:
-+	case 0x83a7:
-+	case 0x83a9:
-+	case 0x752039:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool rt715_volatile_register(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case 0x00e5:
-+	case 0x00f0:
-+	case 0x00f3:
-+	case 0x00f5:
-+	case 0x2009:
-+	case 0x2016:
-+	case 0x201b:
-+	case 0x201c:
-+	case 0x201d:
-+	case 0x201f:
-+	case 0x2023:
-+	case 0x2230:
-+	case 0x200b ... 0x200e: /* i2c read */
-+	case 0x2012 ... 0x2015: /* HD-A read */
-+	case 0x202d ... 0x202f: /* BRA */
-+	case 0x2201 ... 0x2212: /* i2c debug */
-+	case 0x2220 ... 0x2223: /* decoded HD-A */
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static int rt715_sdw_read(void *context, unsigned int reg, unsigned int *val)
-+{
-+	struct device *dev = context;
-+	struct rt715_priv *rt715 = dev_get_drvdata(dev);
-+	unsigned int sdw_data_3, sdw_data_2, sdw_data_1, sdw_data_0;
-+	unsigned int reg2 = 0, reg3 = 0, reg4 = 0, mask, nid, val2;
-+	unsigned int is_hda_reg = 1, is_index_reg = 0;
-+	int ret;
-+
-+	if (reg > 0xffff)
-+		is_index_reg = 1;
-+
-+	mask = reg & 0xf000;
-+
-+	if (is_index_reg) { /* index registers */
-+		val2 = reg & 0xff;
-+		reg = reg >> 8;
-+		nid = reg & 0xff;
-+		ret = regmap_write(rt715->sdw_regmap, reg, 0);
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg2, val2);
-+		if (ret < 0)
-+			return ret;
-+
-+		reg3 = RT715_PRIV_DATA_R_H | nid;
-+		ret = regmap_write(rt715->sdw_regmap, reg3,
-+			((*val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg4 = reg3 + 0x1000;
-+		reg4 |= 0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg4, (*val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask   == 0x3000) {
-+		reg += 0x8000;
-+		ret = regmap_write(rt715->sdw_regmap, reg, *val);
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask == 0x7000) {
-+		reg += 0x2000;
-+		reg |= 0x800;
-+		ret = regmap_write(rt715->sdw_regmap, reg,
-+			((*val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg2, (*val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if ((reg & 0xff00) == 0x8300) { /* for R channel */
-+		reg2 = reg - 0x1000;
-+		reg2 &= ~0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg2,
-+			((*val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_write(rt715->sdw_regmap, reg, (*val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask == 0x9000) {
-+		ret = regmap_write(rt715->sdw_regmap, reg,
-+			((*val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg2, (*val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask == 0xb000) {
-+		ret = regmap_write(rt715->sdw_regmap, reg, *val);
-+		if (ret < 0)
-+			return ret;
-+	} else {
-+		ret = regmap_read(rt715->sdw_regmap, reg, val);
-+		if (ret < 0)
-+			return ret;
-+		is_hda_reg = 0;
-+	}
-+
-+	if (is_hda_reg || is_index_reg) {
-+		sdw_data_3 = 0;
-+		sdw_data_2 = 0;
-+		sdw_data_1 = 0;
-+		sdw_data_0 = 0;
-+		ret = regmap_read(rt715->sdw_regmap, RT715_READ_HDA_3,
-+			&sdw_data_3);
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_read(rt715->sdw_regmap, RT715_READ_HDA_2,
-+			&sdw_data_2);
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_read(rt715->sdw_regmap, RT715_READ_HDA_1,
-+			&sdw_data_1);
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_read(rt715->sdw_regmap, RT715_READ_HDA_0,
-+			&sdw_data_0);
-+		if (ret < 0)
-+			return ret;
-+		*val = ((sdw_data_3 & 0xff) << 24) |
-+			((sdw_data_2 & 0xff) << 16) |
-+			((sdw_data_1 & 0xff) << 8) | (sdw_data_0 & 0xff);
-+	}
-+
-+	if (is_hda_reg == 0)
-+		dev_dbg(dev, "[%s] %04x => %08x\n", __func__, reg, *val);
-+	else if (is_index_reg)
-+		dev_dbg(dev, "[%s] %04x %04x %04x %04x => %08x\n", __func__,
-+			reg, reg2, reg3, reg4, *val);
-+	else
-+		dev_dbg(dev, "[%s] %04x %04x => %08x\n",
-+		__func__, reg, reg2, *val);
-+
-+	return 0;
-+}
-+
-+static int rt715_sdw_write(void *context, unsigned int reg, unsigned int val)
-+{
-+	struct device *dev = context;
-+	struct rt715_priv *rt715 = dev_get_drvdata(dev);
-+	unsigned int reg2 = 0, reg3, reg4, nid, mask, val2;
-+	unsigned int is_index_reg = 0;
-+	int ret;
-+
-+	if (reg > 0xffff)
-+		is_index_reg = 1;
-+
-+	mask = reg & 0xf000;
-+
-+	if (is_index_reg) { /* index registers */
-+		val2 = reg & 0xff;
-+		reg = reg >> 8;
-+		nid = reg & 0xff;
-+		ret = regmap_write(rt715->sdw_regmap, reg, 0);
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg2, val2);
-+		if (ret < 0)
-+			return ret;
-+
-+		reg3 = RT715_PRIV_DATA_W_H | nid;
-+		ret = regmap_write(rt715->sdw_regmap, reg3,
-+			((val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg4 = reg3 + 0x1000;
-+		reg4 |= 0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg4, (val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		is_index_reg = 1;
-+	} else if (reg < 0x4fff) {
-+		ret = regmap_write(rt715->sdw_regmap, reg, val);
-+		if (ret < 0)
-+			return ret;
-+	} else if (reg == RT715_FUNC_RESET) {
-+		ret = regmap_write(rt715->sdw_regmap, reg, val);
-+		if (ret < 0)
-+			return ret;
-+	} else if (mask == 0x7000) {
-+		ret = regmap_write(rt715->sdw_regmap, reg,
-+			((val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		reg2 = reg + 0x1000;
-+		reg2 |= 0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg2, (val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	} else if ((reg & 0xff00) == 0x8300) {  /* for R channel */
-+		reg2 = reg - 0x1000;
-+		reg2 &= ~0x80;
-+		ret = regmap_write(rt715->sdw_regmap, reg2,
-+			((val >> 8) & 0xff));
-+		if (ret < 0)
-+			return ret;
-+		ret = regmap_write(rt715->sdw_regmap, reg, (val & 0xff));
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	if (reg2 == 0)
-+		dev_dbg(dev, "[%s] %04x <= %04x\n", __func__, reg, val);
-+	else if (is_index_reg)
-+		dev_dbg(dev, "[%s] %04x %04x %04x %04x <= %04x %04x\n",
-+			__func__, reg, reg2, reg3, reg4, val2, val);
-+	else
-+		dev_dbg(dev, "[%s] %04x %04x <= %04x\n",
-+		__func__, reg, reg2, val);
-+
-+	return 0;
-+}
-+
-+static const struct regmap_config rt715_regmap = {
-+	.reg_bits = 24,
-+	.val_bits = 32,
-+	.readable_reg = rt715_readable_register, /* Readable registers */
-+	.volatile_reg = rt715_volatile_register, /* volatile register */
-+	.max_register = 0x752039, /* Maximum number of register */
-+	.reg_defaults = rt715_reg_defaults, /* Defaults */
-+	.num_reg_defaults = ARRAY_SIZE(rt715_reg_defaults),
-+	.cache_type = REGCACHE_RBTREE,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+	.reg_read = rt715_sdw_read,
-+	.reg_write = rt715_sdw_write,
-+};
-+
-+static const struct regmap_config rt715_sdw_regmap = {
-+	.name = "sdw",
-+	.reg_bits = 32, /* Total register space for SDW */
-+	.val_bits = 8, /* Total number of bits in register */
-+	.max_register = 0xff01, /* Maximum number of register */
-+	.cache_type = REGCACHE_NONE,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+};
-+
-+int hda_to_sdw(unsigned int nid, unsigned int verb, unsigned int payload,
-+	       unsigned int *sdw_addr_h, unsigned int *sdw_data_h,
-+	       unsigned int *sdw_addr_l, unsigned int *sdw_data_l)
-+{
-+	unsigned int offset_h, offset_l, e_verb;
-+
-+	if (((verb & 0xff) != 0) || verb == 0xf00) { /* 12 bits command */
-+		if (verb == 0x7ff) /* special case */
-+			offset_h = 0;
-+		else
-+			offset_h = 0x3000;
-+
-+		if (verb & 0x800) /* get command */
-+			e_verb = (verb - 0xf00) | 0x80;
-+		else /* set command */
-+			e_verb = (verb - 0x700);
-+
-+		*sdw_data_h = payload; /* 7 bits payload */
-+		*sdw_addr_l = *sdw_data_l = 0;
-+	} else { /* 4 bits command */
-+		if ((verb & 0x800) == 0x800) { /* read */
-+			offset_h = 0x9000;
-+			offset_l = 0xa000;
-+		} else { /* write */
-+			offset_h = 0x7000;
-+			offset_l = 0x8000;
-+		}
-+		e_verb = verb >> 8;
-+		*sdw_data_h = (payload >> 8); /* 16 bits payload [15:8] */
-+		*sdw_addr_l = (e_verb << 8) | nid | 0x80; /* 0x80: valid bit */
-+		*sdw_addr_l += offset_l;
-+		*sdw_data_l = payload & 0xff;
-+	}
-+
-+	*sdw_addr_h = (e_verb << 8) | nid;
-+	*sdw_addr_h += offset_h;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(hda_to_sdw);
-+
-+static int rt715_update_status(struct sdw_slave *slave,
-+				enum sdw_slave_status status)
-+{
-+	struct rt715_priv *rt715 = dev_get_drvdata(&slave->dev);
-+
-+	/* Update the status */
-+	rt715->status = status;
-+	/*
-+	 * Perform initialization only if slave status is present and
-+	 * hw_init flag is false
-+	 */
-+	if (rt715->hw_init || rt715->status != SDW_SLAVE_ATTACHED)
-+		return 0;
-+
-+	/* perform I/O transfers required for Slave initialization */
-+	return rt715_io_init(&slave->dev, slave);
-+}
-+
-+static int rt715_read_prop(struct sdw_slave *slave)
-+{
-+	struct sdw_slave_prop *prop = &slave->prop;
-+	int nval, i, num_of_ports = 1;
-+	u32 bit;
-+	unsigned long addr;
-+	struct sdw_dpn_prop *dpn;
-+
-+	prop->paging_support = false;
-+
-+	/* first we need to allocate memory for set bits in port lists */
-+	prop->source_ports = 0x50;/* BITMAP: 01010000 */
-+	prop->sink_ports = 0x0;	/* BITMAP:  00000000 */
-+
-+	nval = hweight32(prop->source_ports);
-+	num_of_ports += nval;
-+	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+					sizeof(*prop->src_dpn_prop),
-+					GFP_KERNEL);
-+	if (!prop->src_dpn_prop)
-+		return -ENOMEM;
-+
-+	dpn = prop->src_dpn_prop;
-+	i = 0;
-+	addr = prop->source_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[i].num = bit;
-+		dpn[i].simple_ch_prep_sm = true;
-+		dpn[i].ch_prep_timeout = 10;
-+		i++;
-+	}
-+
-+	/* do this again for sink now */
-+	nval = hweight32(prop->sink_ports);
-+	num_of_ports += nval;
-+	prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+					sizeof(*prop->sink_dpn_prop),
-+					GFP_KERNEL);
-+	if (!prop->sink_dpn_prop)
-+		return -ENOMEM;
-+
-+	dpn = prop->sink_dpn_prop;
-+	i = 0;
-+	addr = prop->sink_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[i].num = bit;
-+		dpn[i].simple_ch_prep_sm = true;
-+		dpn[i].ch_prep_timeout = 10;
-+		i++;
-+	}
-+
-+	/* Allocate port_ready based on num_of_ports */
-+	slave->port_ready = devm_kcalloc(&slave->dev, num_of_ports,
-+					sizeof(*slave->port_ready),
-+					GFP_KERNEL);
-+	if (!slave->port_ready)
-+		return -ENOMEM;
-+
-+	/* Initialize completion */
-+	for (i = 0; i < num_of_ports; i++)
-+		init_completion(&slave->port_ready[i]);
-+
-+	/* set the timeout values */
-+	prop->clk_stop_timeout = 20;
-+
-+	/* wake-up event */
-+	prop->wake_capable = 1;
-+
-+	return 0;
-+}
-+
-+static int rt715_bus_config(struct sdw_slave *slave,
-+				struct sdw_bus_params *params)
-+{
-+	struct rt715_priv *rt715 = dev_get_drvdata(&slave->dev);
-+	int ret;
-+
-+	memcpy(&rt715->params, params, sizeof(*params));
-+
-+	ret = rt715_clock_config(&slave->dev);
-+	if (ret < 0)
-+		dev_err(&slave->dev, "Invalid clk config");
-+
-+	return 0;
-+}
-+
-+static struct sdw_slave_ops rt715_slave_ops = {
-+	.read_prop = rt715_read_prop,
-+	.update_status = rt715_update_status,
-+	.bus_config = rt715_bus_config,
-+};
-+
-+static int rt715_sdw_probe(struct sdw_slave *slave,
-+			   const struct sdw_device_id *id)
-+{
-+	struct regmap *sdw_regmap, *regmap;
-+
-+	/* Assign ops */
-+	slave->ops = &rt715_slave_ops;
-+
-+	/* Regmap Initialization */
-+	sdw_regmap = devm_regmap_init_sdw(slave, &rt715_sdw_regmap);
-+	if (!sdw_regmap)
-+		return -EINVAL;
-+
-+	regmap = devm_regmap_init(&slave->dev, NULL, &slave->dev,
-+		&rt715_regmap);
-+	if (!regmap)
-+		return -EINVAL;
-+
-+	rt715_init(&slave->dev, sdw_regmap, regmap, slave);
-+
-+	return 0;
-+}
-+
-+static const struct sdw_device_id rt715_id[] = {
-+	SDW_SLAVE_ENTRY(0x025d, 0x715, 0),
-+	{},
-+};
-+MODULE_DEVICE_TABLE(sdw, rt715_id);
-+
-+static int rt715_dev_suspend(struct device *dev)
-+{
-+	struct rt715_priv *rt715 = dev_get_drvdata(dev);
-+
-+	if (!rt715->hw_init)
-+		return 0;
-+
-+	regcache_cache_only(rt715->regmap, true);
-+
-+	return 0;
-+}
-+
-+#define RT715_PROBE_TIMEOUT 2000
-+
-+static int rt715_dev_resume(struct device *dev)
-+{
-+	struct sdw_slave *slave = to_sdw_slave_device(dev);
-+	struct rt715_priv *rt715 = dev_get_drvdata(dev);
-+	unsigned long time;
-+
-+	if (!rt715->hw_init)
-+		return 0;
-+
-+	if (!slave->unattach_request)
-+		goto regmap_sync;
-+
-+	time = wait_for_completion_timeout(&slave->initialization_complete,
-+					   msecs_to_jiffies(RT715_PROBE_TIMEOUT));
-+	if (!time) {
-+		dev_err(&slave->dev, "Initialization not complete, timed out\n");
-+		return -ETIMEDOUT;
-+	}
-+
-+regmap_sync:
-+	slave->unattach_request = 0;
-+	regcache_cache_only(rt715->regmap, false);
-+	regcache_sync_region(rt715->regmap, 0x3000, 0x8fff);
-+	regcache_sync_region(rt715->regmap, 0x752039, 0x752039);
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops rt715_pm = {
-+	SET_SYSTEM_SLEEP_PM_OPS(rt715_dev_suspend, rt715_dev_resume)
-+	SET_RUNTIME_PM_OPS(rt715_dev_suspend, rt715_dev_resume, NULL)
-+};
-+
-+static struct sdw_driver rt715_sdw_driver = {
-+	.driver = {
-+		   .name = "rt715",
-+		   .owner = THIS_MODULE,
-+		   .pm = &rt715_pm,
-+		   },
-+	.probe = rt715_sdw_probe,
-+	.ops = &rt715_slave_ops,
-+	.id_table = rt715_id,
-+};
-+module_sdw_driver(rt715_sdw_driver);
-+
-+MODULE_DESCRIPTION("ASoC RT715 driver SDW");
-+MODULE_AUTHOR("Jack Yu <jack.yu@realtek.com>");
-+MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/codecs/rt715-sdw.h b/sound/soc/codecs/rt715-sdw.h
-new file mode 100644
-index 000000000000..5d7661e335ae
---- /dev/null
-+++ b/sound/soc/codecs/rt715-sdw.h
-@@ -0,0 +1,337 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * rt715-sdw.h -- RT715 ALSA SoC audio driver header
-+ *
-+ * Copyright(c) 2019 Realtek Semiconductor Corp.
-+ */
-+
-+#ifndef __RT715_SDW_H__
-+#define __RT715_SDW_H__
-+
-+static const struct reg_default rt715_reg_defaults[] = {
-+	{ 0x0000, 0x00 },
-+	{ 0x0001, 0x00 },
-+	{ 0x0002, 0x00 },
-+	{ 0x0003, 0x00 },
-+	{ 0x0004, 0x00 },
-+	{ 0x0005, 0x01 },
-+	{ 0x0020, 0x00 },
-+	{ 0x0022, 0x00 },
-+	{ 0x0023, 0x00 },
-+	{ 0x0024, 0x00 },
-+	{ 0x0025, 0x00 },
-+	{ 0x0026, 0x00 },
-+	{ 0x0030, 0x00 },
-+	{ 0x0032, 0x00 },
-+	{ 0x0033, 0x00 },
-+	{ 0x0034, 0x00 },
-+	{ 0x0035, 0x00 },
-+	{ 0x0036, 0x00 },
-+	{ 0x0040, 0x00 },
-+	{ 0x0041, 0x00 },
-+	{ 0x0042, 0x00 },
-+	{ 0x0043, 0x00 },
-+	{ 0x0044, 0x20 },
-+	{ 0x0045, 0x01 },
-+	{ 0x0046, 0x00 },
-+	{ 0x0050, 0x20 },
-+	{ 0x0051, 0x02 },
-+	{ 0x0052, 0x5d },
-+	{ 0x0053, 0x07 },
-+	{ 0x0054, 0x15 },
-+	{ 0x0055, 0x00 },
-+	{ 0x0060, 0x00 },
-+	{ 0x0070, 0x00 },
-+	{ 0x0080, 0x00 },
-+	{ 0x0088, 0x10 },
-+	{ 0x00e0, 0x00 },
-+	{ 0x00e1, 0x00 },
-+	{ 0x00e2, 0x00 },
-+	{ 0x00e3, 0x00 },
-+	{ 0x00e4, 0x00 },
-+	{ 0x00e5, 0x00 },
-+	{ 0x00ee, 0x00 },
-+	{ 0x00ef, 0x00 },
-+	{ 0x00f0, 0x00 },
-+	{ 0x00f1, 0x00 },
-+	{ 0x00f2, 0x00 },
-+	{ 0x00f3, 0x00 },
-+	{ 0x00f4, 0x00 },
-+	{ 0x00f5, 0x00 },
-+	{ 0x00fe, 0x00 },
-+	{ 0x00ff, 0x00 },
-+	{ 0x0200, 0x00 },
-+	{ 0x0201, 0x00 },
-+	{ 0x0202, 0x20 },
-+	{ 0x0203, 0x00 },
-+	{ 0x0204, 0x00 },
-+	{ 0x0205, 0x03 },
-+	{ 0x0220, 0x00 },
-+	{ 0x0221, 0x00 },
-+	{ 0x0222, 0x00 },
-+	{ 0x0223, 0x00 },
-+	{ 0x0224, 0x00 },
-+	{ 0x0225, 0x00 },
-+	{ 0x0226, 0x00 },
-+	{ 0x0227, 0x00 },
-+	{ 0x0230, 0x00 },
-+	{ 0x0231, 0x00 },
-+	{ 0x0232, 0x00 },
-+	{ 0x0233, 0x00 },
-+	{ 0x0234, 0x00 },
-+	{ 0x0235, 0x00 },
-+	{ 0x0236, 0x00 },
-+	{ 0x0237, 0x00 },
-+	{ 0x02e0, 0x00 },
-+	{ 0x02f0, 0x00 },
-+	{ 0x0400, 0x00 },
-+	{ 0x0401, 0x00 },
-+	{ 0x0402, 0x20 },
-+	{ 0x0403, 0x00 },
-+	{ 0x0404, 0x00 },
-+	{ 0x0405, 0x0f },
-+	{ 0x0420, 0x00 },
-+	{ 0x0421, 0x00 },
-+	{ 0x0422, 0x00 },
-+	{ 0x0423, 0x00 },
-+	{ 0x0424, 0x00 },
-+	{ 0x0425, 0x00 },
-+	{ 0x0426, 0x00 },
-+	{ 0x0427, 0x00 },
-+	{ 0x0430, 0x00 },
-+	{ 0x0431, 0x00 },
-+	{ 0x0432, 0x00 },
-+	{ 0x0433, 0x00 },
-+	{ 0x0434, 0x00 },
-+	{ 0x0435, 0x00 },
-+	{ 0x0436, 0x00 },
-+	{ 0x0437, 0x00 },
-+	{ 0x04e0, 0x00 },
-+	{ 0x04f0, 0x00 },
-+	{ 0x0600, 0x00 },
-+	{ 0x0601, 0x00 },
-+	{ 0x0602, 0x20 },
-+	{ 0x0603, 0x00 },
-+	{ 0x0604, 0x00 },
-+	{ 0x0605, 0xff },
-+	{ 0x0620, 0x00 },
-+	{ 0x0621, 0x00 },
-+	{ 0x0622, 0x00 },
-+	{ 0x0623, 0x00 },
-+	{ 0x0624, 0x00 },
-+	{ 0x0625, 0x00 },
-+	{ 0x0626, 0x00 },
-+	{ 0x0627, 0x00 },
-+	{ 0x0630, 0x00 },
-+	{ 0x0631, 0x00 },
-+	{ 0x0632, 0x00 },
-+	{ 0x0633, 0x00 },
-+	{ 0x0634, 0x00 },
-+	{ 0x0635, 0x00 },
-+	{ 0x0636, 0x00 },
-+	{ 0x0637, 0x00 },
-+	{ 0x06e0, 0x00 },
-+	{ 0x06f0, 0x00 },
-+	{ 0x0f00, 0x00 },
-+	{ 0x0f01, 0x00 },
-+	{ 0x0f02, 0x00 },
-+	{ 0x0f03, 0x00 },
-+	{ 0x0f04, 0x00 },
-+	{ 0x0f05, 0xff },
-+	{ 0x0f06, 0x00 },
-+	{ 0x0f07, 0x00 },
-+	{ 0x0f08, 0x00 },
-+	{ 0x0f09, 0x00 },
-+	{ 0x0f0a, 0x00 },
-+	{ 0x0f0b, 0x00 },
-+	{ 0x0f0c, 0x00 },
-+	{ 0x0f0d, 0x00 },
-+	{ 0x0f0e, 0x00 },
-+	{ 0x0f0f, 0x00 },
-+	{ 0x0f10, 0x00 },
-+	{ 0x0f11, 0x00 },
-+	{ 0x0f12, 0x00 },
-+	{ 0x0f13, 0x00 },
-+	{ 0x0f14, 0x00 },
-+	{ 0x0f15, 0x00 },
-+	{ 0x0f16, 0x00 },
-+	{ 0x0f17, 0x00 },
-+	{ 0x0f18, 0x00 },
-+	{ 0x0f19, 0x00 },
-+	{ 0x0f1a, 0x00 },
-+	{ 0x0f1b, 0x00 },
-+	{ 0x0f1c, 0x00 },
-+	{ 0x0f1d, 0x00 },
-+	{ 0x0f1e, 0x00 },
-+	{ 0x0f1f, 0x00 },
-+	{ 0x0f20, 0x00 },
-+	{ 0x0f21, 0x00 },
-+	{ 0x0f22, 0x00 },
-+	{ 0x0f23, 0x00 },
-+	{ 0x0f24, 0x00 },
-+	{ 0x0f25, 0x00 },
-+	{ 0x0f26, 0x00 },
-+	{ 0x0f27, 0x00 },
-+	{ 0x0f30, 0x00 },
-+	{ 0x0f31, 0x00 },
-+	{ 0x0f32, 0x00 },
-+	{ 0x0f33, 0x00 },
-+	{ 0x0f34, 0x00 },
-+	{ 0x0f35, 0x00 },
-+	{ 0x0f36, 0x00 },
-+	{ 0x0f37, 0x00 },
-+	{ 0x2000, 0x00 },
-+	{ 0x2001, 0x00 },
-+	{ 0x2002, 0x00 },
-+	{ 0x2003, 0x00 },
-+	{ 0x2004, 0x00 },
-+	{ 0x2005, 0x00 },
-+	{ 0x2006, 0x00 },
-+	{ 0x2007, 0x00 },
-+	{ 0x2008, 0x00 },
-+	{ 0x2009, 0x03 },
-+	{ 0x200a, 0x00 },
-+	{ 0x200b, 0x00 },
-+	{ 0x200c, 0x00 },
-+	{ 0x200d, 0x00 },
-+	{ 0x200e, 0x00 },
-+	{ 0x200f, 0x10 },
-+	{ 0x2010, 0x00 },
-+	{ 0x2011, 0x00 },
-+	{ 0x2012, 0x00 },
-+	{ 0x2013, 0x00 },
-+	{ 0x2014, 0x00 },
-+	{ 0x2015, 0x00 },
-+	{ 0x2016, 0x00 },
-+	{ 0x201a, 0x00 },
-+	{ 0x201b, 0x00 },
-+	{ 0x201c, 0x00 },
-+	{ 0x201d, 0x00 },
-+	{ 0x201e, 0x00 },
-+	{ 0x201f, 0x00 },
-+	{ 0x2020, 0x00 },
-+	{ 0x2021, 0x00 },
-+	{ 0x2022, 0x00 },
-+	{ 0x2023, 0x00 },
-+	{ 0x2024, 0x00 },
-+	{ 0x2025, 0x01 },
-+	{ 0x2026, 0x00 },
-+	{ 0x2027, 0x00 },
-+	{ 0x2029, 0x00 },
-+	{ 0x202a, 0x00 },
-+	{ 0x202d, 0x00 },
-+	{ 0x202e, 0x00 },
-+	{ 0x202f, 0x00 },
-+	{ 0x2030, 0x00 },
-+	{ 0x2031, 0x00 },
-+	{ 0x2032, 0x00 },
-+	{ 0x2033, 0x00 },
-+	{ 0x2034, 0x00 },
-+	{ 0x2200, 0x00 },
-+	{ 0x2201, 0x00 },
-+	{ 0x2202, 0x00 },
-+	{ 0x2203, 0x00 },
-+	{ 0x2204, 0x00 },
-+	{ 0x2206, 0x00 },
-+	{ 0x2207, 0x00 },
-+	{ 0x2208, 0x00 },
-+	{ 0x2209, 0x00 },
-+	{ 0x220a, 0x00 },
-+	{ 0x220b, 0x00 },
-+	{ 0x220c, 0x00 },
-+	{ 0x220d, 0x00 },
-+	{ 0x220e, 0x00 },
-+	{ 0x220f, 0x00 },
-+	{ 0x2210, 0x00 },
-+	{ 0x2211, 0x00 },
-+	{ 0x2212, 0x00 },
-+	{ 0x2220, 0x00 },
-+	{ 0x2221, 0x00 },
-+	{ 0x2222, 0x00 },
-+	{ 0x2223, 0x00 },
-+	{ 0x2230, 0x00 },
-+	{ 0x2231, 0x0f },
-+	{ 0x2232, 0x00 },
-+	{ 0x2233, 0x00 },
-+	{ 0x2234, 0x00 },
-+	{ 0x2235, 0x00 },
-+	{ 0x2236, 0x00 },
-+	{ 0x2237, 0x00 },
-+	{ 0x2238, 0x00 },
-+	{ 0x2239, 0x00 },
-+	{ 0x22f0, 0x00 },
-+	{ 0x22f1, 0x00 },
-+	{ 0x22f2, 0x00 },
-+	{ 0x22f3, 0x00 },
-+	{ 0x3122, 0x02 },
-+	{ 0x3123, 0x03 },
-+	{ 0x3124, 0x00 },
-+	{ 0x3125, 0x01 },
-+	{ 0x3607, 0x00 },
-+	{ 0x3608, 0x00 },
-+	{ 0x3609, 0x00 },
-+	{ 0x3610, 0x00 },
-+	{ 0x3611, 0x00 },
-+	{ 0x3627, 0x00 },
-+	{ 0x3712, 0x00 },
-+	{ 0x3713, 0x00 },
-+	{ 0x3718, 0x00 },
-+	{ 0x3719, 0x00 },
-+	{ 0x371a, 0x00 },
-+	{ 0x371b, 0x00 },
-+	{ 0x371d, 0x00 },
-+	{ 0x3729, 0x00 },
-+	{ 0x385e, 0x00 },
-+	{ 0x3859, 0x00 },
-+	{ 0x4c12, 0x411111f0 },
-+	{ 0x4c13, 0x411111f0 },
-+	{ 0x4c1d, 0x411111f0 },
-+	{ 0x4c29, 0x411111f0 },
-+	{ 0x4d12, 0x411111f0 },
-+	{ 0x4d13, 0x411111f0 },
-+	{ 0x4d1d, 0x411111f0 },
-+	{ 0x4d29, 0x411111f0 },
-+	{ 0x4e12, 0x411111f0 },
-+	{ 0x4e13, 0x411111f0 },
-+	{ 0x4e1d, 0x411111f0 },
-+	{ 0x4e29, 0x411111f0 },
-+	{ 0x4f12, 0x411111f0 },
-+	{ 0x4f13, 0x411111f0 },
-+	{ 0x4f1d, 0x411111f0 },
-+	{ 0x4f29, 0x411111f0 },
-+	{ 0x7207, 0x00 },
-+	{ 0x8287, 0x00 },
-+	{ 0x7208, 0x00 },
-+	{ 0x8288, 0x00 },
-+	{ 0x7209, 0x00 },
-+	{ 0x8289, 0x00 },
-+	{ 0x7227, 0x00 },
-+	{ 0x82a7, 0x00 },
-+	{ 0x7307, 0x97 },
-+	{ 0x8387, 0x97 },
-+	{ 0x7308, 0x97 },
-+	{ 0x8388, 0x97 },
-+	{ 0x7309, 0x97 },
-+	{ 0x8389, 0x97 },
-+	{ 0x7312, 0x00 },
-+	{ 0x8392, 0x00 },
-+	{ 0x7313, 0x00 },
-+	{ 0x8393, 0x00 },
-+	{ 0x7318, 0x00 },
-+	{ 0x8398, 0x00 },
-+	{ 0x7319, 0x00 },
-+	{ 0x8399, 0x00 },
-+	{ 0x731a, 0x00 },
-+	{ 0x839a, 0x00 },
-+	{ 0x731b, 0x00 },
-+	{ 0x839b, 0x00 },
-+	{ 0x731d, 0x00 },
-+	{ 0x839d, 0x00 },
-+	{ 0x7327, 0x97 },
-+	{ 0x83a7, 0x97 },
-+	{ 0x7329, 0x00 },
-+	{ 0x83a9, 0x00 },
-+	{ 0x752039, 0xa500 },
-+};
-+
-+#endif /* __RT715_H__ */
-diff --git a/sound/soc/codecs/rt715.c b/sound/soc/codecs/rt715.c
-new file mode 100644
-index 000000000000..5c6f05b8d8ab
---- /dev/null
-+++ b/sound/soc/codecs/rt715.c
-@@ -0,0 +1,873 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * rt715.c -- rt715 ALSA SoC audio driver
-+ *
-+ * Copyright(c) 2019 Realtek Semiconductor Corp.
-+ *
-+ * ALC715 ASoC Codec Driver based Intel Dummy SdW codec driver
-+ *
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/version.h>
-+#include <linux/kernel.h>
-+#include <linux/init.h>
-+#include <linux/delay.h>
-+#include <linux/i2c.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/pm.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/gpio.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+#include <linux/platform_device.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/of.h>
-+#include <linux/of_gpio.h>
-+#include <linux/of_device.h>
-+#include <sound/core.h>
-+#include <sound/pcm.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dapm.h>
-+#include <sound/initval.h>
-+#include <sound/tlv.h>
-+#include <sound/hda_verbs.h>
-+
-+#include "rt715.h"
-+
-+static int rt715_index_write(struct regmap *regmap, unsigned int reg,
-+		unsigned int value)
-+{
-+	int ret;
-+	unsigned int addr = ((RT715_PRIV_INDEX_W_H) << 8) | reg;
-+
-+	ret = regmap_write(regmap, addr, value);
-+	if (ret < 0) {
-+		pr_err("Failed to set private value: %08x <= %04x %d\n", ret,
-+			addr, value);
-+	}
-+
-+	return ret;
-+}
-+
-+static void rt715_get_gain(struct rt715_priv *rt715, unsigned int addr_h,
-+				unsigned int addr_l, unsigned int val_h,
-+				unsigned int *r_val, unsigned int *l_val)
-+{
-+	int ret;
-+	/* R Channel */
-+	*r_val = (val_h << 8);
-+	ret = regmap_read(rt715->regmap, addr_l, r_val);
-+	if (ret < 0)
-+		pr_err("Failed to get R channel gain.\n");
-+
-+	/* L Channel */
-+	val_h |= 0x20;
-+	*l_val = (val_h << 8);
-+	ret = regmap_read(rt715->regmap, addr_h, l_val);
-+	if (ret < 0)
-+		pr_err("Failed to get L channel gain.\n");
-+}
-+
-+/* For Verb-Set Amplifier Gain (Verb ID = 3h) */
-+static int rt715_set_amp_gain_put(struct snd_kcontrol *kcontrol,
-+					struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+	unsigned int addr_h, addr_l, val_h, val_ll, val_lr;
-+	unsigned int read_ll, read_rl;
-+	int i;
-+
-+	/* Can't use update bit function, so read the original value first */
-+	addr_h = mc->reg;
-+	addr_l = mc->rreg;
-+	if (mc->shift == RT715_DIR_OUT_SFT) /* output */
-+		val_h = 0x80;
-+	else /* input */
-+		val_h = 0x0;
-+
-+	rt715_get_gain(rt715, addr_h, addr_l, val_h, &read_rl, &read_ll);
-+
-+	/* L Channel */
-+	if (mc->invert) {
-+		/* for mute */
-+		val_ll = (mc->max - ucontrol->value.integer.value[0]) << 7;
-+		/* keep gain */
-+		read_ll = read_ll & 0x7f;
-+		val_ll |= read_ll;
-+	} else {
-+		/* for gain */
-+		val_ll = ((ucontrol->value.integer.value[0]) & 0x7f);
-+		if (val_ll > mc->max)
-+			val_ll = mc->max;
-+		/* keep mute status */
-+		read_ll = read_ll & 0x80;
-+		val_ll |= read_ll;
-+	}
-+
-+	/* R Channel */
-+	if (mc->invert) {
-+		regmap_write(rt715->regmap,
-+			     RT715_SET_AUDIO_POWER_STATE, AC_PWRST_D0);
-+		/* for mute */
-+		val_lr = (mc->max - ucontrol->value.integer.value[1]) << 7;
-+		/* keep gain */
-+		read_rl = read_rl & 0x7f;
-+		val_lr |= read_rl;
-+	} else {
-+		/* for gain */
-+		val_lr = ((ucontrol->value.integer.value[1]) & 0x7f);
-+		if (val_lr > mc->max)
-+			val_lr = mc->max;
-+		/* keep mute status */
-+		read_rl = read_rl & 0x80;
-+		val_lr |= read_rl;
-+	}
-+
-+	for (i = 0; i < 3; i++) { /* retry 3 times at most */
-+
-+		if (val_ll == val_lr) {
-+			/* Set both L/R channels at the same time */
-+			val_h = (1 << mc->shift) | (3 << 4);
-+			regmap_write(rt715->regmap, addr_h,
-+				(val_h << 8 | val_ll));
-+			regmap_write(rt715->regmap, addr_l,
-+				(val_h << 8 | val_ll));
-+		} else {
-+			/* Lch*/
-+			val_h = (1 << mc->shift) | (1 << 5);
-+			regmap_write(rt715->regmap, addr_h,
-+				(val_h << 8 | val_ll));
-+			/* Rch */
-+			val_h = (1 << mc->shift) | (1 << 4);
-+			regmap_write(rt715->regmap, addr_l,
-+				(val_h << 8 | val_lr));
-+		}
-+		/* check result */
-+		if (mc->shift == RT715_DIR_OUT_SFT) /* output */
-+			val_h = 0x80;
-+		else /* input */
-+			val_h = 0x0;
-+
-+		rt715_get_gain(rt715, addr_h, addr_l, val_h,
-+			       &read_rl, &read_ll);
-+		if (read_rl == val_lr && read_ll == val_ll)
-+			break;
-+	}
-+	/* D0:power on state, D3: power saving mode */
-+	if (dapm->bias_level <= SND_SOC_BIAS_STANDBY)
-+		regmap_write(rt715->regmap,
-+				RT715_SET_AUDIO_POWER_STATE, AC_PWRST_D3);
-+	return 0;
-+}
-+
-+static int rt715_set_amp_gain_get(struct snd_kcontrol *kcontrol,
-+				  struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
-+	struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+	struct soc_mixer_control *mc =
-+		(struct soc_mixer_control *)kcontrol->private_value;
-+	unsigned int addr_h, addr_l, val_h;
-+	unsigned int read_ll, read_rl;
-+
-+	addr_h = mc->reg;
-+	addr_l = mc->rreg;
-+	if (mc->shift == RT715_DIR_OUT_SFT) /* output */
-+		val_h = 0x80;
-+	else /* input */
-+		val_h = 0x0;
-+
-+	rt715_get_gain(rt715, addr_h, addr_l, val_h, &read_rl, &read_ll);
-+
-+	if (mc->invert) {
-+		/* for mute status */
-+		read_ll = !((read_ll & 0x80) >> RT715_MUTE_SFT);
-+		read_rl = !((read_rl & 0x80) >> RT715_MUTE_SFT);
-+	} else {
-+		/* for gain */
-+		read_ll = read_ll & 0x7f;
-+		read_rl = read_rl & 0x7f;
-+	}
-+	ucontrol->value.integer.value[0] = read_ll;
-+	ucontrol->value.integer.value[1] = read_rl;
-+
-+	return 0;
-+}
-+
-+static const DECLARE_TLV_DB_SCALE(out_vol_tlv, -6525, 75, 0);
-+static const DECLARE_TLV_DB_SCALE(in_vol_tlv, -1725, 75, 0);
-+static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, 0, 1000, 0);
-+
-+#define SOC_DOUBLE_R_EXT(xname, reg_left, reg_right, xshift, xmax, xinvert,\
-+	 xhandler_get, xhandler_put) \
-+{	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = (xname), \
-+	.info = snd_soc_info_volsw, \
-+	.get = xhandler_get, .put = xhandler_put, \
-+	.private_value = SOC_DOUBLE_R_VALUE(reg_left, reg_right, xshift, \
-+					    xmax, xinvert) }
-+
-+static const struct snd_kcontrol_new rt715_snd_controls[] = {
-+	/* Capture switch */
-+	SOC_DOUBLE_R_EXT("ADC 07 Capture Switch", RT715_SET_GAIN_MIC_ADC_H,
-+			RT715_SET_GAIN_MIC_ADC_L, RT715_DIR_IN_SFT, 1, 1,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put),
-+	SOC_DOUBLE_R_EXT("ADC 08 Capture Switch", RT715_SET_GAIN_LINE_ADC_H,
-+			RT715_SET_GAIN_LINE_ADC_L, RT715_DIR_IN_SFT, 1, 1,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put),
-+	SOC_DOUBLE_R_EXT("ADC 09 Capture Switch", RT715_SET_GAIN_MIX_ADC_H,
-+			RT715_SET_GAIN_MIX_ADC_L, RT715_DIR_IN_SFT, 1, 1,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put),
-+	SOC_DOUBLE_R_EXT("ADC 27 Capture Switch", RT715_SET_GAIN_MIX_ADC2_H,
-+			RT715_SET_GAIN_MIX_ADC2_L, RT715_DIR_IN_SFT, 1, 1,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put),
-+	/* Volume Control */
-+	SOC_DOUBLE_R_EXT_TLV("ADC 07 Capture Volume", RT715_SET_GAIN_MIC_ADC_H,
-+			RT715_SET_GAIN_MIC_ADC_L, RT715_DIR_IN_SFT, 0x3f, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			in_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("ADC 08 Capture Volume", RT715_SET_GAIN_LINE_ADC_H,
-+			RT715_SET_GAIN_LINE_ADC_L, RT715_DIR_IN_SFT, 0x3f, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			in_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("ADC 09 Capture Volume", RT715_SET_GAIN_MIX_ADC_H,
-+			RT715_SET_GAIN_MIX_ADC_L, RT715_DIR_IN_SFT, 0x3f, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			in_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("ADC 27 Capture Volume", RT715_SET_GAIN_MIX_ADC2_H,
-+			RT715_SET_GAIN_MIX_ADC2_L, RT715_DIR_IN_SFT, 0x3f, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			in_vol_tlv),
-+	/* MIC Boost Control */
-+	SOC_DOUBLE_R_EXT_TLV("DMIC1 Boost", RT715_SET_GAIN_DMIC1_H,
-+			RT715_SET_GAIN_DMIC1_L, RT715_DIR_IN_SFT, 3, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("DMIC2 Boost", RT715_SET_GAIN_DMIC2_H,
-+			RT715_SET_GAIN_DMIC2_L, RT715_DIR_IN_SFT, 3, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("DMIC3 Boost", RT715_SET_GAIN_DMIC3_H,
-+			RT715_SET_GAIN_DMIC3_L, RT715_DIR_IN_SFT, 3, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("DMIC4 Boost", RT715_SET_GAIN_DMIC4_H,
-+			RT715_SET_GAIN_DMIC4_L, RT715_DIR_IN_SFT, 3, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("MIC1 Boost", RT715_SET_GAIN_MIC1_H,
-+			RT715_SET_GAIN_MIC1_L, RT715_DIR_IN_SFT, 3, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("MIC2 Boost", RT715_SET_GAIN_MIC2_H,
-+			RT715_SET_GAIN_MIC2_L, RT715_DIR_IN_SFT, 3, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("LINE1 Boost", RT715_SET_GAIN_LINE1_H,
-+			RT715_SET_GAIN_LINE1_L, RT715_DIR_IN_SFT, 3, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			mic_vol_tlv),
-+	SOC_DOUBLE_R_EXT_TLV("LINE2 Boost", RT715_SET_GAIN_LINE2_H,
-+			RT715_SET_GAIN_LINE2_L, RT715_DIR_IN_SFT, 3, 0,
-+			rt715_set_amp_gain_get, rt715_set_amp_gain_put,
-+			mic_vol_tlv),
-+};
-+
-+static int rt715_mux_get(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_kcontrol_component(kcontrol);
-+	struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-+	unsigned int reg, val;
-+	int ret;
-+
-+	/* nid = e->reg, vid = 0xf01 */
-+	reg = RT715_VERB_SET_CONNECT_SEL | e->reg;
-+	ret = regmap_read(rt715->regmap, reg, &val);
-+	if (ret < 0) {
-+		dev_err(component->dev, "%s: sdw read failed: %d\n",
-+			__func__, ret);
-+		return ret;
-+	}
-+
-+	/*
-+	 * The first two indices of ADC Mux 24/25 are routed to the same
-+	 * hardware source. ie, ADC Mux 24 0/1 will both connect to MIC2.
-+	 * To have a unique set of inputs, we skip the index1 of the muxes.
-+	 */
-+	if ((e->reg == RT715_MUX_IN3 || e->reg == RT715_MUX_IN4) && (val > 0))
-+		val -= 1;
-+	ucontrol->value.enumerated.item[0] = val;
-+
-+	return 0;
-+}
-+
-+static int rt715_mux_put(struct snd_kcontrol *kcontrol,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_kcontrol_component(kcontrol);
-+	struct snd_soc_dapm_context *dapm =
-+				snd_soc_dapm_kcontrol_dapm(kcontrol);
-+	struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-+	unsigned int *item = ucontrol->value.enumerated.item;
-+	unsigned int val, val2 = 0, change, reg;
-+	int ret;
-+
-+	if (item[0] >= e->items)
-+		return -EINVAL;
-+
-+	/* Verb ID = 0x701h, nid = e->reg */
-+	val = snd_soc_enum_item_to_val(e, item[0]) << e->shift_l;
-+
-+	reg = RT715_VERB_SET_CONNECT_SEL | e->reg;
-+	ret = regmap_read(rt715->regmap, reg, &val2);
-+	if (ret < 0) {
-+		dev_err(component->dev, "%s: sdw read failed: %d\n",
-+			__func__, ret);
-+		return ret;
-+	}
-+
-+	if (val == val2)
-+		change = 0;
-+	else
-+		change = 1;
-+
-+	if (change) {
-+		reg = RT715_VERB_SET_CONNECT_SEL | e->reg;
-+		regmap_write(rt715->regmap, reg, val);
-+	}
-+
-+	snd_soc_dapm_mux_update_power(dapm, kcontrol,
-+						item[0], e, NULL);
-+
-+	return change;
-+}
-+
-+static const char * const adc_22_23_mux_text[] = {
-+	"MIC1",
-+	"MIC2",
-+	"LINE1",
-+	"LINE2",
-+	"DMIC1",
-+	"DMIC2",
-+	"DMIC3",
-+	"DMIC4",
-+};
-+
-+/**
-+ * Due to mux design for nid 24 (MUX_IN3)/25 (MUX_IN4), connection index 0 and
-+ * 1 will be connected to the same dmic source, therefore we skip index 1 to
-+ * avoid misunderstanding on usage of dapm routing.
-+ */
-+static const unsigned int rt715_adc_24_25_values[] = {
-+	0,
-+	2,
-+	3,
-+	4,
-+	5,
-+};
-+
-+static const char * const adc_24_mux_text[] = {
-+	"MIC2",
-+	"DMIC1",
-+	"DMIC2",
-+	"DMIC3",
-+	"DMIC4",
-+};
-+
-+static const char * const adc_25_mux_text[] = {
-+	"MIC1",
-+	"DMIC1",
-+	"DMIC2",
-+	"DMIC3",
-+	"DMIC4",
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(
-+	rt715_adc22_enum, RT715_MUX_IN1, 0, adc_22_23_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(
-+	rt715_adc23_enum, RT715_MUX_IN2, 0, adc_22_23_mux_text);
-+
-+static SOC_VALUE_ENUM_SINGLE_DECL(rt715_adc24_enum,
-+	RT715_MUX_IN3, 0, 0xf,
-+	adc_24_mux_text, rt715_adc_24_25_values);
-+static SOC_VALUE_ENUM_SINGLE_DECL(rt715_adc25_enum,
-+	RT715_MUX_IN4, 0, 0xf,
-+	adc_25_mux_text, rt715_adc_24_25_values);
-+
-+static const struct snd_kcontrol_new rt715_adc22_mux =
-+	SOC_DAPM_ENUM_EXT("ADC 22 Mux", rt715_adc22_enum,
-+			rt715_mux_get, rt715_mux_put);
-+
-+static const struct snd_kcontrol_new rt715_adc23_mux =
-+	SOC_DAPM_ENUM_EXT("ADC 23 Mux", rt715_adc23_enum,
-+			rt715_mux_get, rt715_mux_put);
-+
-+static const struct snd_kcontrol_new rt715_adc24_mux =
-+	SOC_DAPM_ENUM_EXT("ADC 24 Mux", rt715_adc24_enum,
-+			rt715_mux_get, rt715_mux_put);
-+
-+static const struct snd_kcontrol_new rt715_adc25_mux =
-+	SOC_DAPM_ENUM_EXT("ADC 25 Mux", rt715_adc25_enum,
-+			rt715_mux_get, rt715_mux_put);
-+
-+static const struct snd_soc_dapm_widget rt715_dapm_widgets[] = {
-+	SND_SOC_DAPM_INPUT("DMIC1"),
-+	SND_SOC_DAPM_INPUT("DMIC2"),
-+	SND_SOC_DAPM_INPUT("DMIC3"),
-+	SND_SOC_DAPM_INPUT("DMIC4"),
-+	SND_SOC_DAPM_INPUT("MIC1"),
-+	SND_SOC_DAPM_INPUT("MIC2"),
-+	SND_SOC_DAPM_INPUT("LINE1"),
-+	SND_SOC_DAPM_INPUT("LINE2"),
-+	SND_SOC_DAPM_ADC("ADC 07", NULL, RT715_SET_STREAMID_MIC_ADC, 4, 0),
-+	SND_SOC_DAPM_ADC("ADC 08", NULL, RT715_SET_STREAMID_LINE_ADC, 4, 0),
-+	SND_SOC_DAPM_ADC("ADC 09", NULL, RT715_SET_STREAMID_MIX_ADC, 4, 0),
-+	SND_SOC_DAPM_ADC("ADC 27", NULL, RT715_SET_STREAMID_MIX_ADC2, 4, 0),
-+	SND_SOC_DAPM_MUX("ADC 22 Mux", SND_SOC_NOPM, 0, 0,
-+		&rt715_adc22_mux),
-+	SND_SOC_DAPM_MUX("ADC 23 Mux", SND_SOC_NOPM, 0, 0,
-+		&rt715_adc23_mux),
-+	SND_SOC_DAPM_MUX("ADC 24 Mux", SND_SOC_NOPM, 0, 0,
-+		&rt715_adc24_mux),
-+	SND_SOC_DAPM_MUX("ADC 25 Mux", SND_SOC_NOPM, 0, 0,
-+		&rt715_adc25_mux),
-+	SND_SOC_DAPM_AIF_OUT("DP4TX", "DP4 Capture", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("DP6TX", "DP6 Capture", 0, SND_SOC_NOPM, 0, 0),
-+};
-+
-+static const struct snd_soc_dapm_route rt715_audio_map[] = {
-+	{"DP6TX", NULL, "ADC 09"},
-+	{"DP6TX", NULL, "ADC 08"},
-+	{"DP4TX", NULL, "ADC 07"},
-+	{"DP4TX", NULL, "ADC 27"},
-+	{"ADC 09", NULL, "ADC 22 Mux"},
-+	{"ADC 08", NULL, "ADC 23 Mux"},
-+	{"ADC 07", NULL, "ADC 24 Mux"},
-+	{"ADC 27", NULL, "ADC 25 Mux"},
-+	{"ADC 22 Mux", "MIC1", "MIC1"},
-+	{"ADC 22 Mux", "MIC2", "MIC2"},
-+	{"ADC 22 Mux", "LINE1", "LINE1"},
-+	{"ADC 22 Mux", "LINE2", "LINE2"},
-+	{"ADC 22 Mux", "DMIC1", "DMIC1"},
-+	{"ADC 22 Mux", "DMIC2", "DMIC2"},
-+	{"ADC 22 Mux", "DMIC3", "DMIC3"},
-+	{"ADC 22 Mux", "DMIC4", "DMIC4"},
-+	{"ADC 23 Mux", "MIC1", "MIC1"},
-+	{"ADC 23 Mux", "MIC2", "MIC2"},
-+	{"ADC 23 Mux", "LINE1", "LINE1"},
-+	{"ADC 23 Mux", "LINE2", "LINE2"},
-+	{"ADC 23 Mux", "DMIC1", "DMIC1"},
-+	{"ADC 23 Mux", "DMIC2", "DMIC2"},
-+	{"ADC 23 Mux", "DMIC3", "DMIC3"},
-+	{"ADC 23 Mux", "DMIC4", "DMIC4"},
-+	{"ADC 24 Mux", "MIC2", "MIC2"},
-+	{"ADC 24 Mux", "DMIC1", "DMIC1"},
-+	{"ADC 24 Mux", "DMIC2", "DMIC2"},
-+	{"ADC 24 Mux", "DMIC3", "DMIC3"},
-+	{"ADC 24 Mux", "DMIC4", "DMIC4"},
-+	{"ADC 25 Mux", "MIC1", "MIC1"},
-+	{"ADC 25 Mux", "DMIC1", "DMIC1"},
-+	{"ADC 25 Mux", "DMIC2", "DMIC2"},
-+	{"ADC 25 Mux", "DMIC3", "DMIC3"},
-+	{"ADC 25 Mux", "DMIC4", "DMIC4"},
-+};
-+
-+static int rt715_set_bias_level(struct snd_soc_component *component,
-+				enum snd_soc_bias_level level)
-+{
-+	struct snd_soc_dapm_context *dapm =
-+		snd_soc_component_get_dapm(component);
-+	struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+
-+	switch (level) {
-+	case SND_SOC_BIAS_PREPARE:
-+		if (dapm->bias_level == SND_SOC_BIAS_STANDBY) {
-+			regmap_write(rt715->regmap,
-+						RT715_SET_AUDIO_POWER_STATE,
-+						AC_PWRST_D0);
-+		}
-+		break;
-+
-+	case SND_SOC_BIAS_STANDBY:
-+		regmap_write(rt715->regmap,
-+					RT715_SET_AUDIO_POWER_STATE,
-+					AC_PWRST_D3);
-+		break;
-+
-+	default:
-+		break;
-+	}
-+	dapm->bias_level = level;
-+	return 0;
-+}
-+
-+static const struct snd_soc_component_driver soc_codec_dev_rt715 = {
-+	.set_bias_level = rt715_set_bias_level,
-+	.controls = rt715_snd_controls,
-+	.num_controls = ARRAY_SIZE(rt715_snd_controls),
-+	.dapm_widgets = rt715_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(rt715_dapm_widgets),
-+	.dapm_routes = rt715_audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(rt715_audio_map),
-+};
-+
-+static int rt715_set_sdw_stream(struct snd_soc_dai *dai, void *sdw_stream,
-+				int direction)
-+{
-+
-+	struct sdw_stream_data *stream;
-+
-+	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
-+	if (!stream)
-+		return -ENOMEM;
-+
-+	stream->sdw_stream = (struct sdw_stream_runtime *)sdw_stream;
-+
-+	/* Use tx_mask or rx_mask to configure stream tag and set dma_data */
-+	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-+		dai->playback_dma_data = stream;
-+	else
-+		dai->capture_dma_data = stream;
-+
-+	return 0;
-+}
-+
-+static void rt715_shutdown(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+
-+{
-+	struct sdw_stream_data *stream;
-+
-+	stream = snd_soc_dai_get_dma_data(dai, substream);
-+	snd_soc_dai_set_dma_data(dai, substream, NULL);
-+	kfree(stream);
-+}
-+
-+static int rt715_pcm_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_config stream_config;
-+	struct sdw_port_config port_config;
-+	enum sdw_data_direction direction;
-+	struct sdw_stream_data *stream;
-+	int retval, port, num_channels;
-+	unsigned int val = 0;
-+
-+	stream = snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!stream)
-+		return -EINVAL;
-+
-+	if (!rt715->slave)
-+		return -EINVAL;
-+
-+	switch (dai->id) {
-+	case RT715_AIF1:
-+		direction = SDW_DATA_DIR_TX;
-+		port = 6;
-+		rt715_index_write(rt715->regmap, RT715_SDW_INPUT_SEL, 0xa500);
-+		break;
-+	case RT715_AIF2:
-+		direction = SDW_DATA_DIR_TX;
-+		port = 4;
-+		rt715_index_write(rt715->regmap, RT715_SDW_INPUT_SEL, 0xa000);
-+		break;
-+	default:
-+		dev_err(component->dev, "Invalid DAI id %d\n", dai->id);
-+		return -EINVAL;
-+	}
-+
-+	stream_config.frame_rate =  params_rate(params);
-+	stream_config.ch_count = params_channels(params);
-+	stream_config.bps = snd_pcm_format_width(params_format(params));
-+	stream_config.direction = direction;
-+
-+	num_channels = params_channels(params);
-+	port_config.ch_mask = (1 << (num_channels)) - 1;
-+	port_config.num = port;
-+
-+	retval = sdw_stream_add_slave(rt715->slave, &stream_config,
-+					&port_config, 1, stream->sdw_stream);
-+	if (retval) {
-+		dev_err(dai->dev, "Unable to configure port\n");
-+		return retval;
-+	}
-+
-+	switch (params_rate(params)) {
-+	/* bit 14 0:48K 1:44.1K */
-+	/* bit 15 Stream Type 0:PCM 1:Non-PCM, should always be PCM */
-+	case 44100:
-+		val |= 0x40 << 8;
-+		break;
-+	case 48000:
-+		val |= 0x0 << 8;
-+		break;
-+	default:
-+		dev_err(component->dev, "Unsupported sample rate %d\n",
-+			params_rate(params));
-+		return -EINVAL;
-+	}
-+
-+	if (params_channels(params) <= 16) {
-+		/* bit 3:0 Number of Channel */
-+		val |= (params_channels(params) - 1);
-+	} else {
-+		dev_err(component->dev, "Unsupported channels %d\n",
-+			params_channels(params));
-+		return -EINVAL;
-+	}
-+
-+	switch (params_width(params)) {
-+	/* bit 6:4 Bits per Sample */
-+	case 8:
-+		break;
-+	case 16:
-+		val |= (0x1 << 4);
-+		break;
-+	case 20:
-+		val |= (0x2 << 4);
-+		break;
-+	case 24:
-+		val |= (0x3 << 4);
-+		break;
-+	case 32:
-+		val |= (0x4 << 4);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	regmap_write(rt715->regmap, RT715_MIC_ADC_FORMAT_H, val);
-+	regmap_write(rt715->regmap, RT715_MIC_LINE_FORMAT_H, val);
-+	regmap_write(rt715->regmap, RT715_MIX_ADC_FORMAT_H, val);
-+	regmap_write(rt715->regmap, RT715_MIX_ADC2_FORMAT_H, val);
-+
-+	return retval;
-+}
-+
-+static int rt715_pcm_hw_free(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct rt715_priv *rt715 = snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_data *stream =
-+		snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!rt715->slave)
-+		return -EINVAL;
-+
-+	sdw_stream_remove_slave(rt715->slave, stream->sdw_stream);
-+	return 0;
-+}
-+
-+#define RT715_STEREO_RATES (SNDRV_PCM_RATE_44100 | SNDRV_PCM_RATE_48000)
-+#define RT715_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
-+			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S8)
-+
-+static struct snd_soc_dai_ops rt715_ops = {
-+	.hw_params	= rt715_pcm_hw_params,
-+	.hw_free	= rt715_pcm_hw_free,
-+	.set_sdw_stream	= rt715_set_sdw_stream,
-+	.shutdown	= rt715_shutdown,
-+};
-+
-+static struct snd_soc_dai_driver rt715_dai[] = {
-+	{
-+		.name = "rt715-aif1",
-+		.id = RT715_AIF1,
-+		.capture = {
-+			.stream_name = "DP6 Capture",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = RT715_STEREO_RATES,
-+			.formats = RT715_FORMATS,
-+		},
-+		.ops = &rt715_ops,
-+	},
-+	{
-+		.name = "rt715-aif2",
-+		.id = RT715_AIF2,
-+		.capture = {
-+			.stream_name = "DP4 Capture",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = RT715_STEREO_RATES,
-+			.formats = RT715_FORMATS,
-+		},
-+		.ops = &rt715_ops,
-+	},
-+};
-+
-+/* Bus clock frequency */
-+#define RT715_CLK_FREQ_9600000HZ 9600000
-+#define RT715_CLK_FREQ_12000000HZ 12000000
-+#define RT715_CLK_FREQ_6000000HZ 6000000
-+#define RT715_CLK_FREQ_4800000HZ 4800000
-+#define RT715_CLK_FREQ_2400000HZ 2400000
-+#define RT715_CLK_FREQ_12288000HZ 12288000
-+
-+int rt715_clock_config(struct device *dev)
-+{
-+	struct rt715_priv *rt715 = dev_get_drvdata(dev);
-+	unsigned int clk_freq, value;
-+
-+	clk_freq = (rt715->params.curr_dr_freq >> 1);
-+
-+	switch (clk_freq) {
-+	case RT715_CLK_FREQ_12000000HZ:
-+		value = 0x0;
-+		break;
-+	case RT715_CLK_FREQ_6000000HZ:
-+		value = 0x1;
-+		break;
-+	case RT715_CLK_FREQ_9600000HZ:
-+		value = 0x2;
-+		break;
-+	case RT715_CLK_FREQ_4800000HZ:
-+		value = 0x3;
-+		break;
-+	case RT715_CLK_FREQ_2400000HZ:
-+		value = 0x4;
-+		break;
-+	case RT715_CLK_FREQ_12288000HZ:
-+		value = 0x5;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	regmap_write(rt715->regmap, 0xe0, value);
-+	regmap_write(rt715->regmap, 0xf0, value);
-+
-+	return 0;
-+}
-+
-+int rt715_init(struct device *dev, struct regmap *sdw_regmap,
-+	struct regmap *regmap, struct sdw_slave *slave)
-+{
-+	struct rt715_priv *rt715;
-+	int ret;
-+
-+	rt715 = devm_kzalloc(dev, sizeof(*rt715), GFP_KERNEL);
-+	if (!rt715)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(dev, rt715);
-+	rt715->slave = slave;
-+	rt715->regmap = regmap;
-+	rt715->sdw_regmap = sdw_regmap;
-+
-+	/*
-+	 * Mark hw_init to false
-+	 * HW init will be performed when device reports present
-+	 */
-+	rt715->hw_init = false;
-+	rt715->first_hw_init = false;
-+
-+	ret = devm_snd_soc_register_component(dev,
-+						&soc_codec_dev_rt715,
-+						rt715_dai,
-+						ARRAY_SIZE(rt715_dai));
-+
-+	return ret;
-+}
-+
-+int rt715_io_init(struct device *dev, struct sdw_slave *slave)
-+{
-+	struct rt715_priv *rt715 = dev_get_drvdata(dev);
-+
-+	if (rt715->hw_init)
-+		return 0;
-+
-+	/*
-+	 * PM runtime is only enabled when a Slave reports as Attached
-+	 */
-+	if (!rt715->first_hw_init) {
-+		/* set autosuspend parameters */
-+		pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
-+		pm_runtime_use_autosuspend(&slave->dev);
-+
-+		/* update count of parent 'active' children */
-+		pm_runtime_set_active(&slave->dev);
-+
-+		/* make sure the device does not suspend immediately */
-+		pm_runtime_mark_last_busy(&slave->dev);
-+
-+		pm_runtime_enable(&slave->dev);
-+	}
-+
-+	pm_runtime_get_noresume(&slave->dev);
-+
-+	/* Mute nid=08h/09h */
-+	regmap_write(rt715->regmap, RT715_SET_GAIN_LINE_ADC_H, 0xb080);
-+	regmap_write(rt715->regmap, RT715_SET_GAIN_MIX_ADC_H, 0xb080);
-+	/* Mute nid=07h/27h */
-+	regmap_write(rt715->regmap, RT715_SET_GAIN_MIC_ADC_H, 0xb080);
-+	regmap_write(rt715->regmap, RT715_SET_GAIN_MIX_ADC2_H, 0xb080);
-+
-+	/* Set Pin Widget */
-+	regmap_write(rt715->regmap, RT715_SET_PIN_DMIC1, 0x20);
-+	regmap_write(rt715->regmap, RT715_SET_PIN_DMIC2, 0x20);
-+	regmap_write(rt715->regmap, RT715_SET_PIN_DMIC3, 0x20);
-+	regmap_write(rt715->regmap, RT715_SET_PIN_DMIC4, 0x20);
-+	/* Set Converter Stream */
-+	regmap_write(rt715->regmap, RT715_SET_STREAMID_LINE_ADC, 0x10);
-+	regmap_write(rt715->regmap, RT715_SET_STREAMID_MIX_ADC, 0x10);
-+	regmap_write(rt715->regmap, RT715_SET_STREAMID_MIC_ADC, 0x10);
-+	regmap_write(rt715->regmap, RT715_SET_STREAMID_MIX_ADC2, 0x10);
-+	/* Set Configuration Default */
-+	regmap_write(rt715->regmap, RT715_SET_DMIC1_CONFIG_DEFAULT1, 0xd0);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC1_CONFIG_DEFAULT2, 0x11);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC1_CONFIG_DEFAULT3, 0xa1);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC1_CONFIG_DEFAULT4, 0x81);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC2_CONFIG_DEFAULT1, 0xd1);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC2_CONFIG_DEFAULT2, 0x11);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC2_CONFIG_DEFAULT3, 0xa1);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC2_CONFIG_DEFAULT4, 0x81);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC3_CONFIG_DEFAULT1, 0xd0);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC3_CONFIG_DEFAULT2, 0x11);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC3_CONFIG_DEFAULT3, 0xa1);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC3_CONFIG_DEFAULT4, 0x81);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC4_CONFIG_DEFAULT1, 0xd1);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC4_CONFIG_DEFAULT2, 0x11);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC4_CONFIG_DEFAULT3, 0xa1);
-+	regmap_write(rt715->regmap, RT715_SET_DMIC4_CONFIG_DEFAULT4, 0x81);
-+
-+	/* Finish Initial Settings, set power to D3 */
-+	regmap_write(rt715->regmap, RT715_SET_AUDIO_POWER_STATE, AC_PWRST_D3);
-+
-+	if (rt715->first_hw_init)
-+		regcache_mark_dirty(rt715->regmap);
-+	else
-+		rt715->first_hw_init = true;
-+
-+	/* Mark Slave initialization complete */
-+	rt715->hw_init = true;
-+
-+	pm_runtime_mark_last_busy(&slave->dev);
-+	pm_runtime_put_autosuspend(&slave->dev);
-+
-+	return 0;
-+}
-+
-+MODULE_DESCRIPTION("ASoC rt715 driver");
-+MODULE_DESCRIPTION("ASoC rt715 driver SDW");
-+MODULE_AUTHOR("Jack Yu <jack.yu@realtek.com>");
-+MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/codecs/rt715.h b/sound/soc/codecs/rt715.h
-new file mode 100644
-index 000000000000..df0f24f9bc0c
---- /dev/null
-+++ b/sound/soc/codecs/rt715.h
-@@ -0,0 +1,221 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * rt715.h -- RT715 ALSA SoC audio driver header
-+ *
-+ * Copyright(c) 2019 Realtek Semiconductor Corp.
-+ */
-+
-+#ifndef __RT715_H__
-+#define __RT715_H__
-+
-+#include <linux/regulator/consumer.h>
-+
-+struct rt715_priv {
-+	struct regmap *regmap;
-+	struct regmap *sdw_regmap;
-+	struct snd_soc_codec *codec;
-+	struct sdw_slave *slave;
-+	int dbg_nid;
-+	int dbg_vid;
-+	int dbg_payload;
-+	enum sdw_slave_status status;
-+	struct sdw_bus_params params;
-+	bool hw_init;
-+	bool first_hw_init;
-+};
-+
-+struct sdw_stream_data {
-+	struct sdw_stream_runtime *sdw_stream;
-+};
-+
-+/* NID */
-+#define RT715_AUDIO_FUNCTION_GROUP			0x01
-+#define RT715_MIC_ADC					0x07
-+#define RT715_LINE_ADC					0x08
-+#define RT715_MIX_ADC					0x09
-+#define RT715_DMIC1					0x12
-+#define RT715_DMIC2					0x13
-+#define RT715_MIC1					0x18
-+#define RT715_MIC2					0x19
-+#define RT715_LINE1					0x1a
-+#define RT715_LINE2					0x1b
-+#define RT715_DMIC3					0x1d
-+#define RT715_DMIC4					0x29
-+#define RT715_VENDOR_REGISTERS				0x20
-+#define RT715_MUX_IN1					0x22
-+#define RT715_MUX_IN2					0x23
-+#define RT715_MUX_IN3					0x24
-+#define RT715_MUX_IN4					0x25
-+#define RT715_MIX_ADC2					0x27
-+#define RT715_INLINE_CMD				0x55
-+
-+/* Index (NID:20h) */
-+#define RT715_SDW_INPUT_SEL				0x39
-+#define RT715_EXT_DMIC_CLK_CTRL2			0x54
-+
-+/* Verb */
-+#define RT715_VERB_SET_CONNECT_SEL			0x3100
-+#define RT715_VERB_GET_CONNECT_SEL			0xb100
-+#define RT715_VERB_SET_EAPD_BTLENABLE			0x3c00
-+#define RT715_VERB_SET_POWER_STATE			0x3500
-+#define RT715_VERB_SET_CHANNEL_STREAMID			0x3600
-+#define RT715_VERB_SET_PIN_WIDGET_CONTROL		0x3700
-+#define RT715_VERB_SET_CONFIG_DEFAULT1			0x4c00
-+#define RT715_VERB_SET_CONFIG_DEFAULT2			0x4d00
-+#define RT715_VERB_SET_CONFIG_DEFAULT3			0x4e00
-+#define RT715_VERB_SET_CONFIG_DEFAULT4			0x4f00
-+#define RT715_VERB_SET_UNSOLICITED_ENABLE		0x3800
-+#define RT715_SET_AMP_GAIN_MUTE_H			0x7300
-+#define RT715_SET_AMP_GAIN_MUTE_L			0x8380
-+#define RT715_READ_HDA_3				0x2012
-+#define RT715_READ_HDA_2				0x2013
-+#define RT715_READ_HDA_1				0x2014
-+#define RT715_READ_HDA_0				0x2015
-+#define RT715_PRIV_INDEX_W_H				0x7520
-+#define RT715_PRIV_INDEX_W_L				0x85a0
-+#define RT715_PRIV_DATA_W_H				0x7420
-+#define RT715_PRIV_DATA_W_L				0x84a0
-+#define RT715_PRIV_INDEX_R_H				0x9d20
-+#define RT715_PRIV_INDEX_R_L				0xada0
-+#define RT715_PRIV_DATA_R_H				0x9c20
-+#define RT715_PRIV_DATA_R_L				0xaca0
-+#define RT715_MIC_ADC_FORMAT_H				0x7207
-+#define RT715_MIC_ADC_FORMAT_L				0x8287
-+#define RT715_MIC_LINE_FORMAT_H				0x7208
-+#define RT715_MIC_LINE_FORMAT_L				0x8288
-+#define RT715_MIX_ADC_FORMAT_H				0x7209
-+#define RT715_MIX_ADC_FORMAT_L				0x8289
-+#define RT715_MIX_ADC2_FORMAT_H				0x7227
-+#define RT715_MIX_ADC2_FORMAT_L				0x82a7
-+#define RT715_FUNC_RESET				0xff01
-+
-+#define RT715_SET_AUDIO_POWER_STATE\
-+	(RT715_VERB_SET_POWER_STATE | RT715_AUDIO_FUNCTION_GROUP)
-+#define RT715_SET_PIN_DMIC1\
-+	(RT715_VERB_SET_PIN_WIDGET_CONTROL | RT715_DMIC1)
-+#define RT715_SET_PIN_DMIC2\
-+	(RT715_VERB_SET_PIN_WIDGET_CONTROL | RT715_DMIC2)
-+#define RT715_SET_PIN_DMIC3\
-+	(RT715_VERB_SET_PIN_WIDGET_CONTROL | RT715_DMIC3)
-+#define RT715_SET_PIN_DMIC4\
-+	(RT715_VERB_SET_PIN_WIDGET_CONTROL | RT715_DMIC4)
-+#define RT715_SET_PIN_MIC1\
-+	(RT715_VERB_SET_PIN_WIDGET_CONTROL | RT715_MIC1)
-+#define RT715_SET_PIN_MIC2\
-+	(RT715_VERB_SET_PIN_WIDGET_CONTROL | RT715_MIC2)
-+#define RT715_SET_PIN_LINE1\
-+	(RT715_VERB_SET_PIN_WIDGET_CONTROL | RT715_LINE1)
-+#define RT715_SET_PIN_LINE2\
-+	(RT715_VERB_SET_PIN_WIDGET_CONTROL | RT715_LINE2)
-+#define RT715_SET_MIC1_UNSOLICITED_ENABLE\
-+	(RT715_VERB_SET_UNSOLICITED_ENABLE | RT715_MIC1)
-+#define RT715_SET_MIC2_UNSOLICITED_ENABLE\
-+	(RT715_VERB_SET_UNSOLICITED_ENABLE | RT715_MIC2)
-+#define RT715_SET_STREAMID_MIC_ADC\
-+	(RT715_VERB_SET_CHANNEL_STREAMID | RT715_MIC_ADC)
-+#define RT715_SET_STREAMID_LINE_ADC\
-+	(RT715_VERB_SET_CHANNEL_STREAMID | RT715_LINE_ADC)
-+#define RT715_SET_STREAMID_MIX_ADC\
-+	(RT715_VERB_SET_CHANNEL_STREAMID | RT715_MIX_ADC)
-+#define RT715_SET_STREAMID_MIX_ADC2\
-+	(RT715_VERB_SET_CHANNEL_STREAMID | RT715_MIX_ADC2)
-+#define RT715_SET_GAIN_MIC_ADC_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_MIC_ADC)
-+#define RT715_SET_GAIN_MIC_ADC_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_MIC_ADC)
-+#define RT715_SET_GAIN_LINE_ADC_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_LINE_ADC)
-+#define RT715_SET_GAIN_LINE_ADC_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_LINE_ADC)
-+#define RT715_SET_GAIN_MIX_ADC_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_MIX_ADC)
-+#define RT715_SET_GAIN_MIX_ADC_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_MIX_ADC)
-+#define RT715_SET_GAIN_MIX_ADC2_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_MIX_ADC2)
-+#define RT715_SET_GAIN_MIX_ADC2_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_MIX_ADC2)
-+#define RT715_SET_GAIN_DMIC1_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_DMIC1)
-+#define RT715_SET_GAIN_DMIC1_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_DMIC1)
-+#define RT715_SET_GAIN_DMIC2_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_DMIC2)
-+#define RT715_SET_GAIN_DMIC2_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_DMIC2)
-+#define RT715_SET_GAIN_DMIC3_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_DMIC3)
-+#define RT715_SET_GAIN_DMIC3_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_DMIC3)
-+#define RT715_SET_GAIN_DMIC4_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_DMIC4)
-+#define RT715_SET_GAIN_DMIC4_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_DMIC4)
-+#define RT715_SET_GAIN_MIC1_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_MIC1)
-+#define RT715_SET_GAIN_MIC1_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_MIC1)
-+#define RT715_SET_GAIN_MIC2_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_MIC2)
-+#define RT715_SET_GAIN_MIC2_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_MIC2)
-+#define RT715_SET_GAIN_LINE1_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_LINE1)
-+#define RT715_SET_GAIN_LINE1_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_LINE1)
-+#define RT715_SET_GAIN_LINE2_L\
-+	(RT715_SET_AMP_GAIN_MUTE_L | RT715_LINE2)
-+#define RT715_SET_GAIN_LINE2_H\
-+	(RT715_SET_AMP_GAIN_MUTE_H | RT715_LINE2)
-+#define RT715_SET_DMIC1_CONFIG_DEFAULT1\
-+	(RT715_VERB_SET_CONFIG_DEFAULT1 | RT715_DMIC1)
-+#define RT715_SET_DMIC2_CONFIG_DEFAULT1\
-+	(RT715_VERB_SET_CONFIG_DEFAULT1 | RT715_DMIC2)
-+#define RT715_SET_DMIC1_CONFIG_DEFAULT2\
-+	(RT715_VERB_SET_CONFIG_DEFAULT2 | RT715_DMIC1)
-+#define RT715_SET_DMIC2_CONFIG_DEFAULT2\
-+	(RT715_VERB_SET_CONFIG_DEFAULT2 | RT715_DMIC2)
-+#define RT715_SET_DMIC1_CONFIG_DEFAULT3\
-+	(RT715_VERB_SET_CONFIG_DEFAULT3 | RT715_DMIC1)
-+#define RT715_SET_DMIC2_CONFIG_DEFAULT3\
-+	(RT715_VERB_SET_CONFIG_DEFAULT3 | RT715_DMIC2)
-+#define RT715_SET_DMIC1_CONFIG_DEFAULT4\
-+	(RT715_VERB_SET_CONFIG_DEFAULT4 | RT715_DMIC1)
-+#define RT715_SET_DMIC2_CONFIG_DEFAULT4\
-+	(RT715_VERB_SET_CONFIG_DEFAULT4 | RT715_DMIC2)
-+#define RT715_SET_DMIC3_CONFIG_DEFAULT1\
-+	(RT715_VERB_SET_CONFIG_DEFAULT1 | RT715_DMIC3)
-+#define RT715_SET_DMIC4_CONFIG_DEFAULT1\
-+	(RT715_VERB_SET_CONFIG_DEFAULT1 | RT715_DMIC4)
-+#define RT715_SET_DMIC3_CONFIG_DEFAULT2\
-+	(RT715_VERB_SET_CONFIG_DEFAULT2 | RT715_DMIC3)
-+#define RT715_SET_DMIC4_CONFIG_DEFAULT2\
-+	(RT715_VERB_SET_CONFIG_DEFAULT2 | RT715_DMIC4)
-+#define RT715_SET_DMIC3_CONFIG_DEFAULT3\
-+	(RT715_VERB_SET_CONFIG_DEFAULT3 | RT715_DMIC3)
-+#define RT715_SET_DMIC4_CONFIG_DEFAULT3\
-+	(RT715_VERB_SET_CONFIG_DEFAULT3 | RT715_DMIC4)
-+#define RT715_SET_DMIC3_CONFIG_DEFAULT4\
-+	(RT715_VERB_SET_CONFIG_DEFAULT4 | RT715_DMIC3)
-+#define RT715_SET_DMIC4_CONFIG_DEFAULT4\
-+	(RT715_VERB_SET_CONFIG_DEFAULT4 | RT715_DMIC4)
-+
-+#define RT715_MUTE_SFT					7
-+#define RT715_DIR_IN_SFT				6
-+#define RT715_DIR_OUT_SFT				7
-+
-+enum {
-+	RT715_AIF1,
-+	RT715_AIF2,
-+	RT715_AIFS,
-+};
-+
-+int rt715_io_init(struct device *dev, struct sdw_slave *slave);
-+int rt715_init(struct device *dev, struct regmap *sdw_regmap,
-+	struct regmap *regmap, struct sdw_slave *slave);
-+
-+int hda_to_sdw(unsigned int nid, unsigned int verb, unsigned int payload,
-+	       unsigned int *sdw_addr_h, unsigned int *sdw_data_h,
-+	       unsigned int *sdw_addr_l, unsigned int *sdw_data_l);
-+int rt715_clock_config(struct device *dev);
-+#endif /* __RT715_H__ */
--- 
-2.24.1
+ALSA does not detect the built-in microphone on HP EliteBook  850 G6 with
+Ubuntu 19.10 Kenrel 5.3.0-27-generic
+
+I tried to specify the following "options snd-hda-intel model" in
+/etc/modprobe.d/alsa-base.conf :
+
+   - *laptop-amic*,* laptop-dmic* - a recording device has appeared but it
+   does not work. LED of MicMute on hardware button is always ON
+   - *auto*, *3stack*,*  hp-gpio4*,* hp-gpio-led*, *hp-dock-pins*,
+   *hp-dock-gpio-mic*, *hp-9480m*, *alc280-hp-headset*,
+*alc221-hp-mic*, *hp-rp5800
+   *- there is no audio recorder in the system. LED of MicMute on hardware
+   button is always ON
+   - *hp-gpio2-hotkey *- there is no audio recorder in the system. LED of
+   MicMute on hardware button is always OFF
+
+
+Can you help set up ALSA to work with the specified laptop?
+If necessary, I can compile and install the necessary patches and send work
+logs.
+
+--00000000000089c78f059bca1551
+Content-Type: application/octet-stream; name="alsa-info.txt.dJM5q58L98"
+Content-Disposition: attachment; filename="alsa-info.txt.dJM5q58L98"
+Content-Transfer-Encoding: base64
+Content-ID: <f_k5892gy40>
+X-Attachment-Id: f_k5892gy40
+
+dXBsb2FkPXRydWUmc2NyaXB0PXRydWUmY2FyZGluZm89CiEhIyMjIyMjIyMjIyMjIyMjIyMjIyMj
+IyMjIyMjIyMjIyMKISFBTFNBIEluZm9ybWF0aW9uIFNjcmlwdCB2IDAuNC42NAohISMjIyMjIyMj
+IyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCgohIVNjcmlwdCByYW4gb246IEZyaSBKYW4gMTAgMTQ6
+MjE6NTAgVVRDIDIwMjAKCgohIUxpbnV4IERpc3RyaWJ1dGlvbgohIS0tLS0tLS0tLS0tLS0tLS0t
+LQoKVWJ1bnR1IDE5LjEwIFxuIFxsIERJU1RSSUJfSUQ9VWJ1bnR1IERJU1RSSUJfREVTQ1JJUFRJ
+T049IlVidW50dSAxOS4xMCIgTkFNRT0iVWJ1bnR1IiBJRD11YnVudHUgSURfTElLRT1kZWJpYW4g
+UFJFVFRZX05BTUU9IlVidW50dSAxOS4xMCIgSE9NRV9VUkw9Imh0dHBzOi8vd3d3LnVidW50dS5j
+b20vIiBTVVBQT1JUX1VSTD0iaHR0cHM6Ly9oZWxwLnVidW50dS5jb20vIiBCVUdfUkVQT1JUX1VS
+TD0iaHR0cHM6Ly9idWdzLmxhdW5jaHBhZC5uZXQvdWJ1bnR1LyIgUFJJVkFDWV9QT0xJQ1lfVVJM
+PSJodHRwczovL3d3dy51YnVudHUuY29tL2xlZ2FsL3Rlcm1zLWFuZC1wb2xpY2llcy9wcml2YWN5
+LXBvbGljeSIgVUJVTlRVX0NPREVOQU1FPWVvYW4KCgohIURNSSBJbmZvcm1hdGlvbgohIS0tLS0t
+LS0tLS0tLS0tLQoKTWFudWZhY3R1cmVyOiAgICAgIEhQClByb2R1Y3QgTmFtZTogICAgICBIUCBF
+bGl0ZUJvb2sgODUwIEc2ClByb2R1Y3QgVmVyc2lvbjogICAKRmlybXdhcmUgVmVyc2lvbjogIFI3
+MCBWZXIuIDAxLjAzLjAwCkJvYXJkIFZlbmRvcjogICAgICBIUApCb2FyZCBOYW1lOiAgICAgICAg
+ODU0OQoKCiEhQUNQSSBEZXZpY2UgU3RhdHVzIEluZm9ybWF0aW9uCiEhLS0tLS0tLS0tLS0tLS0t
+Cgovc3lzL2J1cy9hY3BpL2RldmljZXMvQUNQSTAwMEM6MDAvc3RhdHVzIAkgMTUKL3N5cy9idXMv
+YWNwaS9kZXZpY2VzL0hQSUMwMDBDOjAwL3N0YXR1cyAJIDE1Ci9zeXMvYnVzL2FjcGkvZGV2aWNl
+cy9IUFE2MDAxOjAwL3N0YXR1cyAJIDE1Ci9zeXMvYnVzL2FjcGkvZGV2aWNlcy9JRlgwNzg1OjAw
+L3N0YXR1cyAJIDE1Ci9zeXMvYnVzL2FjcGkvZGV2aWNlcy9JTlQzNDAwOjAwL3N0YXR1cyAJIDE1
+Ci9zeXMvYnVzL2FjcGkvZGV2aWNlcy9JTlQzNDAzOjAwL3N0YXR1cyAJIDE1Ci9zeXMvYnVzL2Fj
+cGkvZGV2aWNlcy9JTlQzNDAzOjAxL3N0YXR1cyAJIDE1Ci9zeXMvYnVzL2FjcGkvZGV2aWNlcy9J
+TlQzNDBFOjAwL3N0YXR1cyAJIDE1Ci9zeXMvYnVzL2FjcGkvZGV2aWNlcy9JTlQzNEJCOjAwL3N0
+YXR1cyAJIDE1Ci9zeXMvYnVzL2FjcGkvZGV2aWNlcy9JTlQzRjBEOjAwL3N0YXR1cyAJIDE1Ci9z
+eXMvYnVzL2FjcGkvZGV2aWNlcy9MTlhQT1dFUjowMC9zdGF0dXMgCSAxNQovc3lzL2J1cy9hY3Bp
+L2RldmljZXMvTE5YUE9XRVI6MDMvc3RhdHVzIAkgMQovc3lzL2J1cy9hY3BpL2RldmljZXMvTE5Y
+UE9XRVI6MDQvc3RhdHVzIAkgMQovc3lzL2J1cy9hY3BpL2RldmljZXMvTE5YUE9XRVI6MDUvc3Rh
+dHVzIAkgMQovc3lzL2J1cy9hY3BpL2RldmljZXMvTE5YUE9XRVI6MDYvc3RhdHVzIAkgMQovc3lz
+L2J1cy9hY3BpL2RldmljZXMvTE5YUE9XRVI6MDcvc3RhdHVzIAkgMQovc3lzL2J1cy9hY3BpL2Rl
+dmljZXMvUE5QMDEwMzowMC9zdGF0dXMgCSAxNQovc3lzL2J1cy9hY3BpL2RldmljZXMvUE5QMEIw
+MDowMC9zdGF0dXMgCSAxNQovc3lzL2J1cy9hY3BpL2RldmljZXMvUE5QMEMwMjowMC9zdGF0dXMg
+CSAzCi9zeXMvYnVzL2FjcGkvZGV2aWNlcy9QTlAwQzAyOjAxL3N0YXR1cyAJIDMKL3N5cy9idXMv
+YWNwaS9kZXZpY2VzL1BOUDBDMDI6MDUvc3RhdHVzIAkgMwovc3lzL2J1cy9hY3BpL2RldmljZXMv
+UE5QMEMwOTowMC9zdGF0dXMgCSAxNQovc3lzL2J1cy9hY3BpL2RldmljZXMvUE5QMEMwQTowMC9z
+dGF0dXMgCSAzMQovc3lzL2J1cy9hY3BpL2RldmljZXMvUE5QMEMwQzowMC9zdGF0dXMgCSAxMQov
+c3lzL2J1cy9hY3BpL2RldmljZXMvUFJQMDAwMDE6MDAvc3RhdHVzIAkgMTEKL3N5cy9idXMvYWNw
+aS9kZXZpY2VzL1NZTkEzMDkyOjAwL3N0YXR1cyAJIDE1Ci9zeXMvYnVzL2FjcGkvZGV2aWNlcy9V
+U0JDMDAwOjAwL3N0YXR1cyAJIDE1Ci9zeXMvYnVzL2FjcGkvZGV2aWNlcy9kZXZpY2U6MDQvc3Rh
+dHVzIAkgMTUKL3N5cy9idXMvYWNwaS9kZXZpY2VzL2RldmljZToyNy9zdGF0dXMgCSAxNQovc3lz
+L2J1cy9hY3BpL2RldmljZXMvZGV2aWNlOjI4L3N0YXR1cyAJIDE1CgoKISFLZXJuZWwgSW5mb3Jt
+YXRpb24KISEtLS0tLS0tLS0tLS0tLS0tLS0KCktlcm5lbCByZWxlYXNlOiAgICA1LjMuMC0yNy1n
+ZW5lcmljCk9wZXJhdGluZyBTeXN0ZW06ICBHTlUvTGludXgKQXJjaGl0ZWN0dXJlOiAgICAgIHg4
+Nl82NApQcm9jZXNzb3I6ICAgICAgICAgeDg2XzY0ClNNUCBFbmFibGVkOiAgICAgICBZZXMKCgoh
+IUFMU0EgVmVyc2lvbgohIS0tLS0tLS0tLS0tLQoKRHJpdmVyIHZlcnNpb246ICAgICBrNS4zLjAt
+MjctZ2VuZXJpYwpMaWJyYXJ5IHZlcnNpb246ICAgIDEuMS45ClV0aWxpdGllcyB2ZXJzaW9uOiAg
+MS4xLjkKCgohIUxvYWRlZCBBTFNBIG1vZHVsZXMKISEtLS0tLS0tLS0tLS0tLS0tLS0tCgpzbmRf
+aGRhX2ludGVsCgoKISFTb3VuZCBTZXJ2ZXJzIG9uIHRoaXMgc3lzdGVtCiEhLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLQoKUHVsc2VhdWRpbzoKICAgICAgSW5zdGFsbGVkIC0gWWVzICgvdXNy
+L2Jpbi9wdWxzZWF1ZGlvKQogICAgICBSdW5uaW5nIC0gWWVzCgoKISFTb3VuZGNhcmRzIHJlY29n
+bmlzZWQgYnkgQUxTQQohIS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgogMCBbUENIICAg
+ICAgICAgICAgXTogSERBLUludGVsIC0gSERBIEludGVsIFBDSAogICAgICAgICAgICAgICAgICAg
+ICAgSERBIEludGVsIFBDSCBhdCAweDQwMjIxMDgwMDAgaXJxIDE2OAoKCiEhUENJIFNvdW5kY2Fy
+ZHMgaW5zdGFsbGVkIGluIHRoZSBzeXN0ZW0KISEtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLQoKMDA6MWYuMyBNdWx0aW1lZGlhIGF1ZGlvIGNvbnRyb2xsZXIgWzA0MDFdOiBJ
+bnRlbCBDb3Jwb3JhdGlvbiBDYW5ub24gUG9pbnQtTFAgSGlnaCBEZWZpbml0aW9uIEF1ZGlvIENv
+bnRyb2xsZXIgWzgwODY6OWRjOF0gKHJldiAxMSkKCVN1YnN5c3RlbTogSGV3bGV0dC1QYWNrYXJk
+IENvbXBhbnkgQ2Fubm9uIFBvaW50LUxQIEhpZ2ggRGVmaW5pdGlvbiBBdWRpbyBDb250cm9sbGVy
+IFsxMDNjOjg1NDldCgoKISFNb2Rwcm9iZSBvcHRpb25zIChTb3VuZCByZWxhdGVkKQohIS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgpzbmRfcGNzcDogaW5kZXg9LTIKc25kX3VzYl9h
+dWRpbzogaW5kZXg9LTIKc25kX2F0aWl4cF9tb2RlbTogaW5kZXg9LTIKc25kX2ludGVsOHgwbTog
+aW5kZXg9LTIKc25kX3ZpYTgyeHhfbW9kZW06IGluZGV4PS0yCnNuZF9hdGlpeHBfbW9kZW06IGlu
+ZGV4PS0yCnNuZF9pbnRlbDh4MG06IGluZGV4PS0yCnNuZF92aWE4Mnh4X21vZGVtOiBpbmRleD0t
+MgpzbmRfdXNiX2F1ZGlvOiBpbmRleD0tMgpzbmRfdXNiX2NhaWFxOiBpbmRleD0tMgpzbmRfdXNi
+X3VhMTAxOiBpbmRleD0tMgpzbmRfdXNiX3VzMTIybDogaW5kZXg9LTIKc25kX3VzYl91c3gyeTog
+aW5kZXg9LTIKc25kX2NtaXBjaTogbXB1X3BvcnQ9MHgzMzAgZm1fcG9ydD0weDM4OApzbmRfcGNz
+cDogaW5kZXg9LTIKc25kX3VzYl9hdWRpbzogaW5kZXg9LTIKc25kX2hkYV9pbnRlbDogbW9kZWw9
+aHAtZ3BpbzItaG90a2V5CgoKISFMb2FkZWQgc291bmQgbW9kdWxlIG9wdGlvbnMKISEtLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0KCiEhTW9kdWxlOiBzbmRfaGRhX2ludGVsCglhbGlnbl9idWZm
+ZXJfc2l6ZSA6IC0xCgliZGxfcG9zX2FkaiA6IC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0x
+LC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0xLC0x
+LC0xLC0xLC0xCgliZWVwX21vZGUgOiBOLE4sTixOLE4sTixOLE4sTixOLE4sTixOLE4sTixOLE4s
+TixOLE4sTixOLE4sTixOLE4sTixOLE4sTixOLE4KCWVuYWJsZSA6IFksWSxZLFksWSxZLFksWSxZ
+LFksWSxZLFksWSxZLFksWSxZLFksWSxZLFksWSxZLFksWSxZLFksWSxZLFksWQoJZW5hYmxlX21z
+aSA6IC0xCglpZCA6IChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChu
+dWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51
+bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVs
+bCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxs
+KSwobnVsbCkKCWluZGV4IDogLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEs
+LTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEK
+CWphY2twb2xsX21zIDogMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAs
+MCwwLDAsMCwwLDAsMCwwLDAsMCwwCgltb2RlbCA6IGhwLWdwaW8yLWhvdGtleSwobnVsbCksKG51
+bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVs
+bCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxs
+KSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwp
+LChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCkKCXBhdGNoIDogKG51bGwpLChudWxs
+KSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwp
+LChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCks
+KG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKSwo
+bnVsbCksKG51bGwpLChudWxsKSwobnVsbCksKG51bGwpLChudWxsKQoJcG1fYmxhY2tsaXN0IDog
+WQoJcG9zaXRpb25fZml4IDogLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEs
+LTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEK
+CXBvd2VyX3NhdmUgOiAxCglwb3dlcl9zYXZlX2NvbnRyb2xsZXIgOiBZCglwcm9iZV9tYXNrIDog
+LTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEs
+LTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEsLTEKCXByb2JlX29ubHkgOiAwLDAs
+MCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCwwLDAsMCww
+LDAKCXNpbmdsZV9jbWQgOiAtMQoJc25vb3AgOiAtMQoKCiEhSERBLUludGVsIENvZGVjIGluZm9y
+bWF0aW9uCiEhLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCi0tc3RhcnRjb2xsYXBzZS0tCgpD
+b2RlYzogUmVhbHRlayBBTEMyMTUKQWRkcmVzczogMApBRkcgRnVuY3Rpb24gSWQ6IDB4MSAodW5z
+b2wgMSkKVmVuZG9yIElkOiAweDEwZWMwMjE1ClN1YnN5c3RlbSBJZDogMHgxMDNjODU0ZgpSZXZp
+c2lvbiBJZDogMHgxMDAwMDIKTm8gTW9kZW0gRnVuY3Rpb24gR3JvdXAgZm91bmQKRGVmYXVsdCBQ
+Q006CiAgICByYXRlcyBbMHg1NjBdOiA0NDEwMCA0ODAwMCA5NjAwMCAxOTIwMDAKICAgIGJpdHMg
+WzB4ZV06IDE2IDIwIDI0CiAgICBmb3JtYXRzIFsweDFdOiBQQ00KRGVmYXVsdCBBbXAtSW4gY2Fw
+czogTi9BCkRlZmF1bHQgQW1wLU91dCBjYXBzOiBOL0EKU3RhdGUgb2YgQUZHIG5vZGUgMHgwMToK
+ICBQb3dlciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBEM2NvbGQgQ0xLU1RPUCBFUFNTCiAgUG93ZXI6
+IHNldHRpbmc9RDAsIGFjdHVhbD1EMApHUElPOiBpbz0zLCBvPTAsIGk9MCwgdW5zb2xpY2l0ZWQ9
+MSwgd2FrZT0wCiAgSU9bMF06IGVuYWJsZT0wLCBkaXI9MCwgd2FrZT0wLCBzdGlja3k9MCwgZGF0
+YT0wLCB1bnNvbD0wCiAgSU9bMV06IGVuYWJsZT0xLCBkaXI9MSwgd2FrZT0wLCBzdGlja3k9MCwg
+ZGF0YT0xLCB1bnNvbD0wCiAgSU9bMl06IGVuYWJsZT0xLCBkaXI9MCwgd2FrZT0wLCBzdGlja3k9
+MCwgZGF0YT0wLCB1bnNvbD0xCk5vZGUgMHgwMiBbQXVkaW8gT3V0cHV0XSB3Y2FwcyAweDQxZDog
+U3RlcmVvIEFtcC1PdXQKICBDb250cm9sOiBuYW1lPSJTcGVha2VyIFBsYXliYWNrIFZvbHVtZSIs
+IGluZGV4PTAsIGRldmljZT0wCiAgICBDb250cm9sQW1wOiBjaHM9MywgZGlyPU91dCwgaWR4PTAs
+IG9mcz0wCiAgQW1wLU91dCBjYXBzOiBvZnM9MHg1NywgbnN0ZXBzPTB4NTcsIHN0ZXBzaXplPTB4
+MDIsIG11dGU9MAogIEFtcC1PdXQgdmFsczogIFsweDRiIDB4MDBdCiAgQ29udmVydGVyOiBzdHJl
+YW09MCwgY2hhbm5lbD0wCiAgUENNOgogICAgcmF0ZXMgWzB4NDBdOiA0ODAwMAogICAgYml0cyBb
+MHhlXTogMTYgMjAgMjQKICAgIGZvcm1hdHMgWzB4MV06IFBDTQogIFBvd2VyIHN0YXRlczogIEQw
+IEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCk5vZGUgMHgwMyBb
+QXVkaW8gT3V0cHV0XSB3Y2FwcyAweDQxZDogU3RlcmVvIEFtcC1PdXQKICBDb250cm9sOiBuYW1l
+PSJIZWFkcGhvbmUgUGxheWJhY2sgVm9sdW1lIiwgaW5kZXg9MCwgZGV2aWNlPTAKICAgIENvbnRy
+b2xBbXA6IGNocz0zLCBkaXI9T3V0LCBpZHg9MCwgb2ZzPTAKICBEZXZpY2U6IG5hbWU9IkFMQzIx
+NSBBbmFsb2ciLCB0eXBlPSJBdWRpbyIsIGRldmljZT0wCiAgQW1wLU91dCBjYXBzOiBvZnM9MHg1
+NywgbnN0ZXBzPTB4NTcsIHN0ZXBzaXplPTB4MDIsIG11dGU9MAogIEFtcC1PdXQgdmFsczogIFsw
+eDAwIDB4MDBdCiAgQ29udmVydGVyOiBzdHJlYW09MCwgY2hhbm5lbD0wCiAgUENNOgogICAgcmF0
+ZXMgWzB4NDBdOiA0ODAwMAogICAgYml0cyBbMHhlXTogMTYgMjAgMjQKICAgIGZvcm1hdHMgWzB4
+MV06IFBDTQogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGlu
+Zz1EMCwgYWN0dWFsPUQwCk5vZGUgMHgwNCBbVmVuZG9yIERlZmluZWQgV2lkZ2V0XSB3Y2FwcyAw
+eGYwMDAwMDogTW9ubwpOb2RlIDB4MDUgW1ZlbmRvciBEZWZpbmVkIFdpZGdldF0gd2NhcHMgMHhm
+MDAwMDA6IE1vbm8KTm9kZSAweDA2IFtBdWRpbyBPdXRwdXRdIHdjYXBzIDB4NDExOiBTdGVyZW8K
+ICBDb252ZXJ0ZXI6IHN0cmVhbT0wLCBjaGFubmVsPTAKICBQQ006CiAgICByYXRlcyBbMHg0MF06
+IDQ4MDAwCiAgICBiaXRzIFsweGVdOiAxNiAyMCAyNAogICAgZm9ybWF0cyBbMHgxXTogUENNCiAg
+UG93ZXIgc3RhdGVzOiAgRDAgRDEgRDIgRDMgRVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1
+YWw9RDAKTm9kZSAweDA3IFtBdWRpbyBJbnB1dF0gd2NhcHMgMHgxMDA1MWI6IFN0ZXJlbyBBbXAt
+SW4KICBBbXAtSW4gY2Fwczogb2ZzPTB4MTcsIG5zdGVwcz0weDNmLCBzdGVwc2l6ZT0weDAyLCBt
+dXRlPTEKICBBbXAtSW4gdmFsczogIFsweDk3IDB4OTddCiAgQ29udmVydGVyOiBzdHJlYW09MCwg
+Y2hhbm5lbD0wCiAgU0RJLVNlbGVjdDogMAogIFBDTToKICAgIHJhdGVzIFsweDQwXTogNDgwMDAK
+ICAgIGJpdHMgWzB4ZV06IDE2IDIwIDI0CiAgICBmb3JtYXRzIFsweDFdOiBQQ00KICBQb3dlciBz
+dGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1EMAog
+IENvbm5lY3Rpb246IDEKICAgICAweDI0Ck5vZGUgMHgwOCBbQXVkaW8gSW5wdXRdIHdjYXBzIDB4
+MTAwNTFiOiBTdGVyZW8gQW1wLUluCiAgQ29udHJvbDogbmFtZT0iQ2FwdHVyZSBWb2x1bWUiLCBp
+bmRleD0wLCBkZXZpY2U9MAogICAgQ29udHJvbEFtcDogY2hzPTMsIGRpcj1JbiwgaWR4PTAsIG9m
+cz0wCiAgQ29udHJvbDogbmFtZT0iQ2FwdHVyZSBTd2l0Y2giLCBpbmRleD0wLCBkZXZpY2U9MAog
+ICAgQ29udHJvbEFtcDogY2hzPTMsIGRpcj1JbiwgaWR4PTAsIG9mcz0wCiAgRGV2aWNlOiBuYW1l
+PSJBTEMyMTUgQW5hbG9nIiwgdHlwZT0iQXVkaW8iLCBkZXZpY2U9MAogIEFtcC1JbiBjYXBzOiBv
+ZnM9MHgxNywgbnN0ZXBzPTB4M2YsIHN0ZXBzaXplPTB4MDIsIG11dGU9MQogIEFtcC1JbiB2YWxz
+OiAgWzB4MjcgMHgyN10KICBDb252ZXJ0ZXI6IHN0cmVhbT0wLCBjaGFubmVsPTAKICBTREktU2Vs
+ZWN0OiAwCiAgUENNOgogICAgcmF0ZXMgWzB4NTYwXTogNDQxMDAgNDgwMDAgOTYwMDAgMTkyMDAw
+CiAgICBiaXRzIFsweGVdOiAxNiAyMCAyNAogICAgZm9ybWF0cyBbMHgxXTogUENNCiAgUG93ZXIg
+c3RhdGVzOiAgRDAgRDEgRDIgRDMgRVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAK
+ICBDb25uZWN0aW9uOiAxCiAgICAgMHgyMwpOb2RlIDB4MDkgW0F1ZGlvIElucHV0XSB3Y2FwcyAw
+eDEwMDUxYjogU3RlcmVvIEFtcC1JbgogIEFtcC1JbiBjYXBzOiBvZnM9MHgxNywgbnN0ZXBzPTB4
+M2YsIHN0ZXBzaXplPTB4MDIsIG11dGU9MQogIEFtcC1JbiB2YWxzOiAgWzB4OTcgMHg5N10KICBD
+b252ZXJ0ZXI6IHN0cmVhbT0wLCBjaGFubmVsPTAKICBTREktU2VsZWN0OiAwCiAgUENNOgogICAg
+cmF0ZXMgWzB4NTYwXTogNDQxMDAgNDgwMDAgOTYwMDAgMTkyMDAwCiAgICBiaXRzIFsweGVdOiAx
+NiAyMCAyNAogICAgZm9ybWF0cyBbMHgxXTogUENNCiAgUG93ZXIgc3RhdGVzOiAgRDAgRDEgRDIg
+RDMgRVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAKICBDb25uZWN0aW9uOiAxCiAg
+ICAgMHgyMgpOb2RlIDB4MGEgW1ZlbmRvciBEZWZpbmVkIFdpZGdldF0gd2NhcHMgMHhmMDAwMDA6
+IE1vbm8KTm9kZSAweDBiIFtWZW5kb3IgRGVmaW5lZCBXaWRnZXRdIHdjYXBzIDB4ZjAwMDAwOiBN
+b25vCk5vZGUgMHgwYyBbVmVuZG9yIERlZmluZWQgV2lkZ2V0XSB3Y2FwcyAweGYwMDAwMDogTW9u
+bwpOb2RlIDB4MGQgW1ZlbmRvciBEZWZpbmVkIFdpZGdldF0gd2NhcHMgMHhmMDAwMDA6IE1vbm8K
+Tm9kZSAweDBlIFtWZW5kb3IgRGVmaW5lZCBXaWRnZXRdIHdjYXBzIDB4ZjAwMDAwOiBNb25vCk5v
+ZGUgMHgwZiBbVmVuZG9yIERlZmluZWQgV2lkZ2V0XSB3Y2FwcyAweGYwMDAwMDogTW9ubwpOb2Rl
+IDB4MTAgW1ZlbmRvciBEZWZpbmVkIFdpZGdldF0gd2NhcHMgMHhmMDAwMDA6IE1vbm8KTm9kZSAw
+eDExIFtWZW5kb3IgRGVmaW5lZCBXaWRnZXRdIHdjYXBzIDB4ZjAwMDAwOiBNb25vCk5vZGUgMHgx
+MiBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAwNDBiOiBTdGVyZW8gQW1wLUluCiAgQW1wLUluIGNh
+cHM6IG9mcz0weDAwLCBuc3RlcHM9MHgwMywgc3RlcHNpemU9MHgyNywgbXV0ZT0wCiAgQW1wLUlu
+IHZhbHM6ICBbMHgwMCAweDAwXQogIFBpbmNhcCAweDAwMDAwMDIwOiBJTgogIFBpbiBEZWZhdWx0
+IDB4NDAwMDAwMDA6IFtOL0FdIExpbmUgT3V0IGF0IEV4dCBOL0EKICAgIENvbm4gPSBVbmtub3du
+LCBDb2xvciA9IFVua25vd24KICAgIERlZkFzc29jaWF0aW9uID0gMHgwLCBTZXF1ZW5jZSA9IDB4
+MAogIFBpbi1jdGxzOiAweDAwOgogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MKICBQ
+b3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCk5vZGUgMHgxMyBbUGluIENvbXBsZXhdIHdjYXBz
+IDB4NDAwNDBiOiBTdGVyZW8gQW1wLUluCiAgQW1wLUluIGNhcHM6IG9mcz0weDAwLCBuc3RlcHM9
+MHgwMywgc3RlcHNpemU9MHgyNywgbXV0ZT0wCiAgQW1wLUluIHZhbHM6ICBbMHgwMCAweDAwXQog
+IFBpbmNhcCAweDAwMDAwMDIwOiBJTgogIFBpbiBEZWZhdWx0IDB4NDExMTExZjA6IFtOL0FdIFNw
+ZWFrZXIgYXQgRXh0IFJlYXIKICAgIENvbm4gPSAxLzgsIENvbG9yID0gQmxhY2sKICAgIERlZkFz
+c29jaWF0aW9uID0gMHhmLCBTZXF1ZW5jZSA9IDB4MAogICAgTWlzYyA9IE5PX1BSRVNFTkNFCiAg
+UGluLWN0bHM6IDB4MDA6CiAgUG93ZXIgc3RhdGVzOiAgRDAgRDEgRDIgRDMgRVBTUwogIFBvd2Vy
+OiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAKTm9kZSAweDE0IFtQaW4gQ29tcGxleF0gd2NhcHMgMHg0
+MDA1OGQ6IFN0ZXJlbyBBbXAtT3V0CiAgQ29udHJvbDogbmFtZT0iU3BlYWtlciBQbGF5YmFjayBT
+d2l0Y2giLCBpbmRleD0wLCBkZXZpY2U9MAogICAgQ29udHJvbEFtcDogY2hzPTMsIGRpcj1PdXQs
+IGlkeD0wLCBvZnM9MAogIEFtcC1PdXQgY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAwLCBzdGVw
+c2l6ZT0weDAwLCBtdXRlPTEKICBBbXAtT3V0IHZhbHM6ICBbMHgwMCAweDAwXQogIFBpbmNhcCAw
+eDAwMDEwMDE0OiBPVVQgRUFQRCBEZXRlY3QKICBFQVBEIDB4MjogRUFQRAogIFBpbiBEZWZhdWx0
+IDB4OTAxNzAxMTA6IFtGaXhlZF0gU3BlYWtlciBhdCBJbnQgTi9BCiAgICBDb25uID0gQW5hbG9n
+LCBDb2xvciA9IFVua25vd24KICAgIERlZkFzc29jaWF0aW9uID0gMHgxLCBTZXF1ZW5jZSA9IDB4
+MAogICAgTWlzYyA9IE5PX1BSRVNFTkNFCiAgUGluLWN0bHM6IDB4NDA6IE9VVAogIFVuc29saWNp
+dGVkOiB0YWc9MDAsIGVuYWJsZWQ9MAogIFBvd2VyIHN0YXRlczogIEQwIEQxIEQyIEQzIEVQU1MK
+ICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCiAgQ29ubmVjdGlvbjogMQogICAgIDB4MDIK
+Tm9kZSAweDE1IFtWZW5kb3IgRGVmaW5lZCBXaWRnZXRdIHdjYXBzIDB4ZjAwMDAwOiBNb25vCk5v
+ZGUgMHgxNiBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAwNThkOiBTdGVyZW8gQW1wLU91dAogIEFt
+cC1PdXQgY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAwLCBzdGVwc2l6ZT0weDAwLCBtdXRlPTEK
+ICBBbXAtT3V0IHZhbHM6ICBbMHg4MCAweDgwXQogIFBpbmNhcCAweDAwMDAwMDFjOiBPVVQgSFAg
+RGV0ZWN0CiAgUGluIERlZmF1bHQgMHg0MTExMTFmMDogW04vQV0gU3BlYWtlciBhdCBFeHQgUmVh
+cgogICAgQ29ubiA9IDEvOCwgQ29sb3IgPSBCbGFjawogICAgRGVmQXNzb2NpYXRpb24gPSAweGYs
+IFNlcXVlbmNlID0gMHgwCiAgICBNaXNjID0gTk9fUFJFU0VOQ0UKICBQaW4tY3RsczogMHgwMDoK
+ICBVbnNvbGljaXRlZDogdGFnPTAwLCBlbmFibGVkPTAKICBQb3dlciBzdGF0ZXM6ICBEMCBEMSBE
+MiBEMyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1EMAogIENvbm5lY3Rpb246IDIK
+ICAgICAweDAyKiAweDAzCk5vZGUgMHgxNyBbUGluIENvbXBsZXhdIHdjYXBzIDB4NDAwNThkOiBT
+dGVyZW8gQW1wLU91dAogIEFtcC1PdXQgY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAwLCBzdGVw
+c2l6ZT0weDAwLCBtdXRlPTEKICBBbXAtT3V0IHZhbHM6ICBbMHg4MCAweDgwXQogIFBpbmNhcCAw
+eDAwMDAwMDFjOiBPVVQgSFAgRGV0ZWN0CiAgUGluIERlZmF1bHQgMHg0MTExMTFmMDogW04vQV0g
+U3BlYWtlciBhdCBFeHQgUmVhcgogICAgQ29ubiA9IDEvOCwgQ29sb3IgPSBCbGFjawogICAgRGVm
+QXNzb2NpYXRpb24gPSAweGYsIFNlcXVlbmNlID0gMHgwCiAgICBNaXNjID0gTk9fUFJFU0VOQ0UK
+ICBQaW4tY3RsczogMHgwMDoKICBVbnNvbGljaXRlZDogdGFnPTAwLCBlbmFibGVkPTAKICBQb3dl
+ciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1E
+MAogIENvbm5lY3Rpb246IDMKICAgICAweDAyKiAweDAzIDB4MDYKTm9kZSAweDE4IFtQaW4gQ29t
+cGxleF0gd2NhcHMgMHg0MDA0OGI6IFN0ZXJlbyBBbXAtSW4KICBBbXAtSW4gY2Fwczogb2ZzPTB4
+MDAsIG5zdGVwcz0weDAzLCBzdGVwc2l6ZT0weDI3LCBtdXRlPTAKICBBbXAtSW4gdmFsczogIFsw
+eDAwIDB4MDBdCiAgUGluY2FwIDB4MDAwMDAwMjQ6IElOIERldGVjdAogIFBpbiBEZWZhdWx0IDB4
+NDExMTExZjA6IFtOL0FdIFNwZWFrZXIgYXQgRXh0IFJlYXIKICAgIENvbm4gPSAxLzgsIENvbG9y
+ID0gQmxhY2sKICAgIERlZkFzc29jaWF0aW9uID0gMHhmLCBTZXF1ZW5jZSA9IDB4MAogICAgTWlz
+YyA9IE5PX1BSRVNFTkNFCiAgUGluLWN0bHM6IDB4MDA6CiAgVW5zb2xpY2l0ZWQ6IHRhZz0wMCwg
+ZW5hYmxlZD0wCiAgUG93ZXIgc3RhdGVzOiAgRDAgRDEgRDIgRDMgRVBTUwogIFBvd2VyOiBzZXR0
+aW5nPUQwLCBhY3R1YWw9RDAKTm9kZSAweDE5IFtQaW4gQ29tcGxleF0gd2NhcHMgMHg0MDA0OGI6
+IFN0ZXJlbyBBbXAtSW4KICBDb250cm9sOiBuYW1lPSJNaWMgQm9vc3QgVm9sdW1lIiwgaW5kZXg9
+MCwgZGV2aWNlPTAKICAgIENvbnRyb2xBbXA6IGNocz0zLCBkaXI9SW4sIGlkeD0wLCBvZnM9MAog
+IEFtcC1JbiBjYXBzOiBvZnM9MHgwMCwgbnN0ZXBzPTB4MDMsIHN0ZXBzaXplPTB4MjcsIG11dGU9
+MAogIEFtcC1JbiB2YWxzOiAgWzB4MDAgMHgwMF0KICBQaW5jYXAgMHgwMDAwMzcyNDogSU4gRGV0
+ZWN0CiAgICBWcmVmIGNhcHM6IEhJWiA1MCBHUkQgODAgMTAwCiAgUGluIERlZmF1bHQgMHgwNGEx
+MTA0MDogW0phY2tdIE1pYyBhdCBFeHQgUmlnaHQKICAgIENvbm4gPSAxLzgsIENvbG9yID0gQmxh
+Y2sKICAgIERlZkFzc29jaWF0aW9uID0gMHg0LCBTZXF1ZW5jZSA9IDB4MAogIFBpbi1jdGxzOiAw
+eDI0OiBJTiBWUkVGXzgwCiAgVW5zb2xpY2l0ZWQ6IHRhZz0wMywgZW5hYmxlZD0xCiAgUG93ZXIg
+c3RhdGVzOiAgRDAgRDEgRDIgRDMgRVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAK
+Tm9kZSAweDFhIFtQaW4gQ29tcGxleF0gd2NhcHMgMHg0MDA0OGI6IFN0ZXJlbyBBbXAtSW4KICBB
+bXAtSW4gY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAzLCBzdGVwc2l6ZT0weDI3LCBtdXRlPTAK
+ICBBbXAtSW4gdmFsczogIFsweDAwIDB4MDBdCiAgUGluY2FwIDB4MDAwMDM3MjQ6IElOIERldGVj
+dAogICAgVnJlZiBjYXBzOiBISVogNTAgR1JEIDgwIDEwMAogIFBpbiBEZWZhdWx0IDB4NDExMTEx
+ZjA6IFtOL0FdIFNwZWFrZXIgYXQgRXh0IFJlYXIKICAgIENvbm4gPSAxLzgsIENvbG9yID0gQmxh
+Y2sKICAgIERlZkFzc29jaWF0aW9uID0gMHhmLCBTZXF1ZW5jZSA9IDB4MAogICAgTWlzYyA9IE5P
+X1BSRVNFTkNFCiAgUGluLWN0bHM6IDB4MDA6IFZSRUZfSElaCiAgVW5zb2xpY2l0ZWQ6IHRhZz0w
+MCwgZW5hYmxlZD0wCiAgUG93ZXIgc3RhdGVzOiAgRDAgRDEgRDIgRDMgRVBTUwogIFBvd2VyOiBz
+ZXR0aW5nPUQwLCBhY3R1YWw9RDAKTm9kZSAweDFiIFtQaW4gQ29tcGxleF0gd2NhcHMgMHg0MDA1
+OGY6IFN0ZXJlbyBBbXAtSW4gQW1wLU91dAogIEFtcC1JbiBjYXBzOiBvZnM9MHgwMCwgbnN0ZXBz
+PTB4MDMsIHN0ZXBzaXplPTB4MjcsIG11dGU9MAogIEFtcC1JbiB2YWxzOiAgWzB4MDAgMHgwMF0K
+ICBBbXAtT3V0IGNhcHM6IG9mcz0weDAwLCBuc3RlcHM9MHgwMCwgc3RlcHNpemU9MHgwMCwgbXV0
+ZT0xCiAgQW1wLU91dCB2YWxzOiAgWzB4ODAgMHg4MF0KICBQaW5jYXAgMHgwMDAxMzczNDogSU4g
+T1VUIEVBUEQgRGV0ZWN0CiAgICBWcmVmIGNhcHM6IEhJWiA1MCBHUkQgODAgMTAwCiAgRUFQRCAw
+eDI6IEVBUEQKICBQaW4gRGVmYXVsdCAweDQxMTExMWYwOiBbTi9BXSBTcGVha2VyIGF0IEV4dCBS
+ZWFyCiAgICBDb25uID0gMS84LCBDb2xvciA9IEJsYWNrCiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4
+ZiwgU2VxdWVuY2UgPSAweDAKICAgIE1pc2MgPSBOT19QUkVTRU5DRQogIFBpbi1jdGxzOiAweDAw
+OiBWUkVGX0hJWgogIFVuc29saWNpdGVkOiB0YWc9MDAsIGVuYWJsZWQ9MAogIFBvd2VyIHN0YXRl
+czogIEQwIEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCiAgQ29u
+bmVjdGlvbjogMgogICAgIDB4MDIqIDB4MDMKTm9kZSAweDFjIFtWZW5kb3IgRGVmaW5lZCBXaWRn
+ZXRdIHdjYXBzIDB4ZjAwMDAwOiBNb25vCk5vZGUgMHgxZCBbUGluIENvbXBsZXhdIHdjYXBzIDB4
+NDAwNDAwOiBNb25vCiAgUGluY2FwIDB4MDAwMDAwMjA6IElOCiAgUGluIERlZmF1bHQgMHg0MDYw
+MDAwMTogW04vQV0gTW9kZW0gTGluZSBhdCBFeHQgTi9BCiAgICBDb25uID0gVW5rbm93biwgQ29s
+b3IgPSBVbmtub3duCiAgICBEZWZBc3NvY2lhdGlvbiA9IDB4MCwgU2VxdWVuY2UgPSAweDEKICBQ
+aW4tY3RsczogMHgyMDogSU4KICBQb3dlciBzdGF0ZXM6ICBEMCBEMSBEMiBEMyBFUFNTCiAgUG93
+ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1EMApOb2RlIDB4MWUgW1BpbiBDb21wbGV4XSB3Y2FwcyAw
+eDQwMDUwMTogU3RlcmVvCiAgUGluY2FwIDB4MDAwMDAwMTA6IE9VVAogIFBpbiBEZWZhdWx0IDB4
+NDExMTExZjA6IFtOL0FdIFNwZWFrZXIgYXQgRXh0IFJlYXIKICAgIENvbm4gPSAxLzgsIENvbG9y
+ID0gQmxhY2sKICAgIERlZkFzc29jaWF0aW9uID0gMHhmLCBTZXF1ZW5jZSA9IDB4MAogICAgTWlz
+YyA9IE5PX1BSRVNFTkNFCiAgUGluLWN0bHM6IDB4NDA6IE9VVAogIFBvd2VyIHN0YXRlczogIEQw
+IEQxIEQyIEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCiAgQ29ubmVjdGlv
+bjogMQogICAgIDB4MDYKTm9kZSAweDFmIFtWZW5kb3IgRGVmaW5lZCBXaWRnZXRdIHdjYXBzIDB4
+ZjAwMDAwOiBNb25vCk5vZGUgMHgyMCBbVmVuZG9yIERlZmluZWQgV2lkZ2V0XSB3Y2FwcyAweGYw
+MDA0MDogTW9ubwogIFByb2Nlc3NpbmcgY2FwczogYmVuaWduPTAsIG5jb2VmZj0xNDIKTm9kZSAw
+eDIxIFtQaW4gQ29tcGxleF0gd2NhcHMgMHg0MDA1OGQ6IFN0ZXJlbyBBbXAtT3V0CiAgQ29udHJv
+bDogbmFtZT0iSGVhZHBob25lIFBsYXliYWNrIFN3aXRjaCIsIGluZGV4PTAsIGRldmljZT0wCiAg
+ICBDb250cm9sQW1wOiBjaHM9MywgZGlyPU91dCwgaWR4PTAsIG9mcz0wCiAgQW1wLU91dCBjYXBz
+OiBvZnM9MHgwMCwgbnN0ZXBzPTB4MDAsIHN0ZXBzaXplPTB4MDAsIG11dGU9MQogIEFtcC1PdXQg
+dmFsczogIFsweDgwIDB4ODBdCiAgUGluY2FwIDB4MDAwMTAwMWM6IE9VVCBIUCBFQVBEIERldGVj
+dAogIEVBUEQgMHgyOiBFQVBECiAgUGluIERlZmF1bHQgMHgwNDIxMTAyMDogW0phY2tdIEhQIE91
+dCBhdCBFeHQgUmlnaHQKICAgIENvbm4gPSAxLzgsIENvbG9yID0gQmxhY2sKICAgIERlZkFzc29j
+aWF0aW9uID0gMHgyLCBTZXF1ZW5jZSA9IDB4MAogIFBpbi1jdGxzOiAweGMwOiBPVVQgSFAKICBV
+bnNvbGljaXRlZDogdGFnPTAyLCBlbmFibGVkPTEKICBQb3dlciBzdGF0ZXM6ICBEMCBEMSBEMiBE
+MyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1EMAogIENvbm5lY3Rpb246IDIKICAg
+ICAweDAyIDB4MDMqCk5vZGUgMHgyMiBbQXVkaW8gTWl4ZXJdIHdjYXBzIDB4MjAwMTBiOiBTdGVy
+ZW8gQW1wLUluCiAgQW1wLUluIGNhcHM6IG9mcz0weDAwLCBuc3RlcHM9MHgwMCwgc3RlcHNpemU9
+MHgwMCwgbXV0ZT0xCiAgQW1wLUluIHZhbHM6ICBbMHg4MCAweDgwXSBbMHg4MCAweDgwXSBbMHg4
+MCAweDgwXSBbMHg4MCAweDgwXSBbMHg4MCAweDgwXQogIENvbm5lY3Rpb246IDUKICAgICAweDE5
+IDB4MWEgMHgxYiAweDFkIDB4MTMKTm9kZSAweDIzIFtBdWRpbyBNaXhlcl0gd2NhcHMgMHgyMDAx
+MGI6IFN0ZXJlbyBBbXAtSW4KICBBbXAtSW4gY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAwLCBz
+dGVwc2l6ZT0weDAwLCBtdXRlPTEKICBBbXAtSW4gdmFsczogIFsweDAwIDB4MDBdIFsweDgwIDB4
+ODBdIFsweDgwIDB4ODBdIFsweDgwIDB4ODBdIFsweDgwIDB4ODBdCiAgQ29ubmVjdGlvbjogNQog
+ICAgIDB4MTkgMHgxYSAweDFiIDB4MWQgMHgxMgpOb2RlIDB4MjQgW0F1ZGlvIFNlbGVjdG9yXSB3
+Y2FwcyAweDMwMDEwMTogU3RlcmVvCiAgQ29ubmVjdGlvbjogMwogICAgIDB4MTIqIDB4MTMgMHgx
+OApDb2RlYzogSW50ZWwgS2FieWxha2UgSERNSQpBZGRyZXNzOiAyCkFGRyBGdW5jdGlvbiBJZDog
+MHgxICh1bnNvbCAwKQpWZW5kb3IgSWQ6IDB4ODA4NjI4MGIKU3Vic3lzdGVtIElkOiAweDgwODYw
+MTAxClJldmlzaW9uIElkOiAweDEwMDAwMApObyBNb2RlbSBGdW5jdGlvbiBHcm91cCBmb3VuZApE
+ZWZhdWx0IFBDTToKICAgIHJhdGVzIFsweDBdOgogICAgYml0cyBbMHgwXToKICAgIGZvcm1hdHMg
+WzB4MF06CkRlZmF1bHQgQW1wLUluIGNhcHM6IE4vQQpEZWZhdWx0IEFtcC1PdXQgY2FwczogTi9B
+ClN0YXRlIG9mIEFGRyBub2RlIDB4MDE6CiAgUG93ZXIgc3RhdGVzOiAgRDAgRDMgQ0xLU1RPUCBF
+UFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1EMCwgQ2xvY2stc3RvcC1PSwpHUElPOiBp
+bz0wLCBvPTAsIGk9MCwgdW5zb2xpY2l0ZWQ9MCwgd2FrZT0wCk5vZGUgMHgwMiBbQXVkaW8gT3V0
+cHV0XSB3Y2FwcyAweDY2MTE6IDgtQ2hhbm5lbHMgRGlnaXRhbAogIENvbnZlcnRlcjogc3RyZWFt
+PTAsIGNoYW5uZWw9MAogIERpZ2l0YWw6IEVuYWJsZWQgS0FFCiAgRGlnaXRhbCBjYXRlZ29yeTog
+MHgwCiAgSUVDIENvZGluZyBUeXBlOiAweDAKICBQQ006CiAgICByYXRlcyBbMHg3ZjBdOiAzMjAw
+MCA0NDEwMCA0ODAwMCA4ODIwMCA5NjAwMCAxNzY0MDAgMTkyMDAwCiAgICBiaXRzIFsweDFhXTog
+MTYgMjQgMzIKICAgIGZvcm1hdHMgWzB4NV06IFBDTSBBQzMKICBQb3dlciBzdGF0ZXM6ICBEMCBE
+MyBFUFNTCiAgUG93ZXI6IHNldHRpbmc9RDAsIGFjdHVhbD1EMApOb2RlIDB4MDMgW0F1ZGlvIE91
+dHB1dF0gd2NhcHMgMHg2NjExOiA4LUNoYW5uZWxzIERpZ2l0YWwKICBDb252ZXJ0ZXI6IHN0cmVh
+bT0wLCBjaGFubmVsPTAKICBEaWdpdGFsOiBFbmFibGVkIEtBRQogIERpZ2l0YWwgY2F0ZWdvcnk6
+IDB4MAogIElFQyBDb2RpbmcgVHlwZTogMHgwCiAgUENNOgogICAgcmF0ZXMgWzB4N2YwXTogMzIw
+MDAgNDQxMDAgNDgwMDAgODgyMDAgOTYwMDAgMTc2NDAwIDE5MjAwMAogICAgYml0cyBbMHgxYV06
+IDE2IDI0IDMyCiAgICBmb3JtYXRzIFsweDVdOiBQQ00gQUMzCiAgUG93ZXIgc3RhdGVzOiAgRDAg
+RDMgRVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAKTm9kZSAweDA0IFtBdWRpbyBP
+dXRwdXRdIHdjYXBzIDB4NjYxMTogOC1DaGFubmVscyBEaWdpdGFsCiAgQ29udmVydGVyOiBzdHJl
+YW09MCwgY2hhbm5lbD0wCiAgRGlnaXRhbDogRW5hYmxlZCBLQUUKICBEaWdpdGFsIGNhdGVnb3J5
+OiAweDAKICBJRUMgQ29kaW5nIFR5cGU6IDB4MAogIFBDTToKICAgIHJhdGVzIFsweDdmMF06IDMy
+MDAwIDQ0MTAwIDQ4MDAwIDg4MjAwIDk2MDAwIDE3NjQwMCAxOTIwMDAKICAgIGJpdHMgWzB4MWFd
+OiAxNiAyNCAzMgogICAgZm9ybWF0cyBbMHg1XTogUENNIEFDMwogIFBvd2VyIHN0YXRlczogIEQw
+IEQzIEVQU1MKICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCk5vZGUgMHgwNSBbUGluIENv
+bXBsZXhdIHdjYXBzIDB4NDA3NzhkOiA4LUNoYW5uZWxzIERpZ2l0YWwgQW1wLU91dCBDUAogIEFt
+cC1PdXQgY2Fwczogb2ZzPTB4MDAsIG5zdGVwcz0weDAwLCBzdGVwc2l6ZT0weDAwLCBtdXRlPTEK
+ICBBbXAtT3V0IHZhbHM6ICBbMHgwMCAweDAwXQogIFBpbmNhcCAweDBiMDAwMDk0OiBPVVQgRGV0
+ZWN0IEhCUiBIRE1JIERQCiAgUGluIERlZmF1bHQgMHgxODU2MDAxMDogW0phY2tdIERpZ2l0YWwg
+T3V0IGF0IEludCBIRE1JCiAgICBDb25uID0gRGlnaXRhbCwgQ29sb3IgPSBVbmtub3duCiAgICBE
+ZWZBc3NvY2lhdGlvbiA9IDB4MSwgU2VxdWVuY2UgPSAweDAKICBQaW4tY3RsczogMHg0MDogT1VU
+CiAgVW5zb2xpY2l0ZWQ6IHRhZz0wMCwgZW5hYmxlZD0wCiAgUG93ZXIgc3RhdGVzOiAgRDAgRDMg
+RVBTUwogIFBvd2VyOiBzZXR0aW5nPUQwLCBhY3R1YWw9RDAKICBEZXZpY2VzOiAwCiAgQ29ubmVj
+dGlvbjogMwogICAgIDB4MDIgMHgwMyogMHgwNApOb2RlIDB4MDYgW1BpbiBDb21wbGV4XSB3Y2Fw
+cyAweDQwNzc4ZDogOC1DaGFubmVscyBEaWdpdGFsIEFtcC1PdXQgQ1AKICBBbXAtT3V0IGNhcHM6
+IG9mcz0weDAwLCBuc3RlcHM9MHgwMCwgc3RlcHNpemU9MHgwMCwgbXV0ZT0xCiAgQW1wLU91dCB2
+YWxzOiAgWzB4MDAgMHgwMF0KICBQaW5jYXAgMHgwYjAwMDA5NDogT1VUIERldGVjdCBIQlIgSERN
+SSBEUAogIFBpbiBEZWZhdWx0IDB4MTg1NjAwMTA6IFtKYWNrXSBEaWdpdGFsIE91dCBhdCBJbnQg
+SERNSQogICAgQ29ubiA9IERpZ2l0YWwsIENvbG9yID0gVW5rbm93bgogICAgRGVmQXNzb2NpYXRp
+b24gPSAweDEsIFNlcXVlbmNlID0gMHgwCiAgUGluLWN0bHM6IDB4MDA6CiAgVW5zb2xpY2l0ZWQ6
+IHRhZz0wMCwgZW5hYmxlZD0wCiAgUG93ZXIgc3RhdGVzOiAgRDAgRDMgRVBTUwogIFBvd2VyOiBz
+ZXR0aW5nPUQwLCBhY3R1YWw9RDAKICBEZXZpY2VzOiAwCiAgQ29ubmVjdGlvbjogMAogIEluLWRy
+aXZlciBDb25uZWN0aW9uOiAzCiAgICAgMHgwMiAweDAzIDB4MDQKTm9kZSAweDA3IFtQaW4gQ29t
+cGxleF0gd2NhcHMgMHg0MDc3OGQ6IDgtQ2hhbm5lbHMgRGlnaXRhbCBBbXAtT3V0IENQCiAgQW1w
+LU91dCBjYXBzOiBvZnM9MHgwMCwgbnN0ZXBzPTB4MDAsIHN0ZXBzaXplPTB4MDAsIG11dGU9MQog
+IEFtcC1PdXQgdmFsczogIFsweDAwIDB4MDBdCiAgUGluY2FwIDB4MGIwMDAwOTQ6IE9VVCBEZXRl
+Y3QgSEJSIEhETUkgRFAKICBQaW4gRGVmYXVsdCAweDE4NTYwMDEwOiBbSmFja10gRGlnaXRhbCBP
+dXQgYXQgSW50IEhETUkKICAgIENvbm4gPSBEaWdpdGFsLCBDb2xvciA9IFVua25vd24KICAgIERl
+ZkFzc29jaWF0aW9uID0gMHgxLCBTZXF1ZW5jZSA9IDB4MAogIFBpbi1jdGxzOiAweDAwOgogIFVu
+c29saWNpdGVkOiB0YWc9MDAsIGVuYWJsZWQ9MAogIFBvd2VyIHN0YXRlczogIEQwIEQzIEVQU1MK
+ICBQb3dlcjogc2V0dGluZz1EMCwgYWN0dWFsPUQwCiAgRGV2aWNlczogMAogIENvbm5lY3Rpb246
+IDAKICBJbi1kcml2ZXIgQ29ubmVjdGlvbjogMwogICAgIDB4MDIgMHgwMyAweDA0Ck5vZGUgMHgw
+OCBbVmVuZG9yIERlZmluZWQgV2lkZ2V0XSB3Y2FwcyAweGYwMDAwMDogTW9ubwotLWVuZGNvbGxh
+cHNlLS0KCgohIUFMU0EgRGV2aWNlIG5vZGVzCiEhLS0tLS0tLS0tLS0tLS0tLS0KCmNydy1ydy0t
+LS0rIDEgcm9vdCBhdWRpbyAxMTYsIDExIEphbiAxMCAxNjoyOCAvZGV2L3NuZC9jb250cm9sQzAK
+Y3J3LXJ3LS0tLSsgMSByb290IGF1ZGlvIDExNiwgIDkgSmFuIDEwIDE2OjI4IC9kZXYvc25kL2h3
+QzBEMApjcnctcnctLS0tKyAxIHJvb3QgYXVkaW8gMTE2LCAxMCBKYW4gMTAgMTY6MjggL2Rldi9z
+bmQvaHdDMEQyCmNydy1ydy0tLS0rIDEgcm9vdCBhdWRpbyAxMTYsICAzIEphbiAxMCAxNjoyOCAv
+ZGV2L3NuZC9wY21DMEQwYwpjcnctcnctLS0tKyAxIHJvb3QgYXVkaW8gMTE2LCAgMiBKYW4gMTAg
+MTc6MjAgL2Rldi9zbmQvcGNtQzBEMHAKY3J3LXJ3LS0tLSsgMSByb290IGF1ZGlvIDExNiwgIDgg
+SmFuIDEwIDE2OjI4IC9kZXYvc25kL3BjbUMwRDEwcApjcnctcnctLS0tKyAxIHJvb3QgYXVkaW8g
+MTE2LCAgNCBKYW4gMTAgMTY6MjggL2Rldi9zbmQvcGNtQzBEM3AKY3J3LXJ3LS0tLSsgMSByb290
+IGF1ZGlvIDExNiwgIDUgSmFuIDEwIDE2OjI4IC9kZXYvc25kL3BjbUMwRDdwCmNydy1ydy0tLS0r
+IDEgcm9vdCBhdWRpbyAxMTYsICA2IEphbiAxMCAxNjoyOCAvZGV2L3NuZC9wY21DMEQ4cApjcnct
+cnctLS0tKyAxIHJvb3QgYXVkaW8gMTE2LCAgNyBKYW4gMTAgMTY6MjggL2Rldi9zbmQvcGNtQzBE
+OXAKY3J3LXJ3LS0tLSsgMSByb290IGF1ZGlvIDExNiwgIDEgSmFuIDEwIDE2OjI4IC9kZXYvc25k
+L3NlcQpjcnctcnctLS0tKyAxIHJvb3QgYXVkaW8gMTE2LCAzMyBKYW4gMTAgMTY6MjggL2Rldi9z
+bmQvdGltZXIKCi9kZXYvc25kL2J5LXBhdGg6CnRvdGFsIDAKZHJ3eHIteHIteCAyIHJvb3Qgcm9v
+dCAgNjAgSmFuIDEwIDE2OjI4IC4KZHJ3eHIteHIteCAzIHJvb3Qgcm9vdCAzMDAgSmFuIDEwIDE2
+OjI4IC4uCmxyd3hyd3hyd3ggMSByb290IHJvb3QgIDEyIEphbiAxMCAxNjoyOCBwY2ktMDAwMDow
+MDoxZi4zIC0+IC4uL2NvbnRyb2xDMAoKCiEhQXBsYXkvQXJlY29yZCBvdXRwdXQKISEtLS0tLS0t
+LS0tLS0tLS0tLS0tLQoKQVBMQVkKCioqKiogTGlzdCBvZiBQTEFZQkFDSyBIYXJkd2FyZSBEZXZp
+Y2VzICoqKioKY2FyZCAwOiBQQ0ggW0hEQSBJbnRlbCBQQ0hdLCBkZXZpY2UgMDogQUxDMjE1IEFu
+YWxvZyBbQUxDMjE1IEFuYWxvZ10KICBTdWJkZXZpY2VzOiAxLzEKICBTdWJkZXZpY2UgIzA6IHN1
+YmRldmljZSAjMApjYXJkIDA6IFBDSCBbSERBIEludGVsIFBDSF0sIGRldmljZSAzOiBIRE1JIDAg
+W0hETUkgMF0KICBTdWJkZXZpY2VzOiAxLzEKICBTdWJkZXZpY2UgIzA6IHN1YmRldmljZSAjMApj
+YXJkIDA6IFBDSCBbSERBIEludGVsIFBDSF0sIGRldmljZSA3OiBIRE1JIDEgW0hETUkgMV0KICBT
+dWJkZXZpY2VzOiAxLzEKICBTdWJkZXZpY2UgIzA6IHN1YmRldmljZSAjMApjYXJkIDA6IFBDSCBb
+SERBIEludGVsIFBDSF0sIGRldmljZSA4OiBIRE1JIDIgW0hETUkgMl0KICBTdWJkZXZpY2VzOiAx
+LzEKICBTdWJkZXZpY2UgIzA6IHN1YmRldmljZSAjMApjYXJkIDA6IFBDSCBbSERBIEludGVsIFBD
+SF0sIGRldmljZSA5OiBIRE1JIDMgW0hETUkgM10KICBTdWJkZXZpY2VzOiAxLzEKICBTdWJkZXZp
+Y2UgIzA6IHN1YmRldmljZSAjMApjYXJkIDA6IFBDSCBbSERBIEludGVsIFBDSF0sIGRldmljZSAx
+MDogSERNSSA0IFtIRE1JIDRdCiAgU3ViZGV2aWNlczogMS8xCiAgU3ViZGV2aWNlICMwOiBzdWJk
+ZXZpY2UgIzAKCkFSRUNPUkQKCioqKiogTGlzdCBvZiBDQVBUVVJFIEhhcmR3YXJlIERldmljZXMg
+KioqKgpjYXJkIDA6IFBDSCBbSERBIEludGVsIFBDSF0sIGRldmljZSAwOiBBTEMyMTUgQW5hbG9n
+IFtBTEMyMTUgQW5hbG9nXQogIFN1YmRldmljZXM6IDEvMQogIFN1YmRldmljZSAjMDogc3ViZGV2
+aWNlICMwCgohIUFtaXhlciBvdXRwdXQKISEtLS0tLS0tLS0tLS0tCgohIS0tLS0tLS1NaXhlciBj
+b250cm9scyBmb3IgY2FyZCBQQ0gKCkNhcmQgaHc6MCAnUENIJy8nSERBIEludGVsIFBDSCBhdCAw
+eDQwMjIxMDgwMDAgaXJxIDE2OCcKICBNaXhlciBuYW1lCTogJ1JlYWx0ZWsgQUxDMjE1JwogIENv
+bXBvbmVudHMJOiAnSERBOjEwZWMwMjE1LDEwM2M4NTRmLDAwMTAwMDAyIEhEQTo4MDg2MjgwYiw4
+MDg2MDEwMSwwMDEwMDAwMCcKICBDb250cm9scyAgICAgIDogNTIKICBTaW1wbGUgY3RybHMgIDog
+MTMKU2ltcGxlIG1peGVyIGNvbnRyb2wgJ01hc3RlcicsMAogIENhcGFiaWxpdGllczogcHZvbHVt
+ZSBwdm9sdW1lLWpvaW5lZCBwc3dpdGNoIHBzd2l0Y2gtam9pbmVkCiAgUGxheWJhY2sgY2hhbm5l
+bHM6IE1vbm8KICBMaW1pdHM6IFBsYXliYWNrIDAgLSA4NwogIE1vbm86IFBsYXliYWNrIDc1IFs4
+NiVdIFstOS4wMGRCXSBbb25dClNpbXBsZSBtaXhlciBjb250cm9sICdIZWFkcGhvbmUnLDAKICBD
+YXBhYmlsaXRpZXM6IHB2b2x1bWUgcHN3aXRjaAogIFBsYXliYWNrIGNoYW5uZWxzOiBGcm9udCBM
+ZWZ0IC0gRnJvbnQgUmlnaHQKICBMaW1pdHM6IFBsYXliYWNrIDAgLSA4NwogIE1vbm86CiAgRnJv
+bnQgTGVmdDogUGxheWJhY2sgMCBbMCVdIFstNjUuMjVkQl0gW29mZl0KICBGcm9udCBSaWdodDog
+UGxheWJhY2sgMCBbMCVdIFstNjUuMjVkQl0gW29mZl0KU2ltcGxlIG1peGVyIGNvbnRyb2wgJ1Nw
+ZWFrZXInLDAKICBDYXBhYmlsaXRpZXM6IHB2b2x1bWUgcHN3aXRjaAogIFBsYXliYWNrIGNoYW5u
+ZWxzOiBGcm9udCBMZWZ0IC0gRnJvbnQgUmlnaHQKICBMaW1pdHM6IFBsYXliYWNrIDAgLSA4Nwog
+IE1vbm86CiAgRnJvbnQgTGVmdDogUGxheWJhY2sgODcgWzEwMCVdIFswLjAwZEJdIFtvbl0KICBG
+cm9udCBSaWdodDogUGxheWJhY2sgMCBbMCVdIFstNjUuMjVkQl0gW29uXQpTaW1wbGUgbWl4ZXIg
+Y29udHJvbCAnUENNJywwCiAgQ2FwYWJpbGl0aWVzOiBwdm9sdW1lCiAgUGxheWJhY2sgY2hhbm5l
+bHM6IEZyb250IExlZnQgLSBGcm9udCBSaWdodAogIExpbWl0czogUGxheWJhY2sgMCAtIDI1NQog
+IE1vbm86CiAgRnJvbnQgTGVmdDogUGxheWJhY2sgMjU0IFsxMDAlXSBbLTAuMjBkQl0KICBGcm9u
+dCBSaWdodDogUGxheWJhY2sgMCBbMCVdIFstNTEuMDBkQl0KU2ltcGxlIG1peGVyIGNvbnRyb2wg
+J01pYyBCb29zdCcsMAogIENhcGFiaWxpdGllczogdm9sdW1lCiAgUGxheWJhY2sgY2hhbm5lbHM6
+IEZyb250IExlZnQgLSBGcm9udCBSaWdodAogIENhcHR1cmUgY2hhbm5lbHM6IEZyb250IExlZnQg
+LSBGcm9udCBSaWdodAogIExpbWl0czogMCAtIDMKICBGcm9udCBMZWZ0OiAwIFswJV0gWzAuMDBk
+Ql0KICBGcm9udCBSaWdodDogMCBbMCVdIFswLjAwZEJdClNpbXBsZSBtaXhlciBjb250cm9sICdN
+aWMgTXV0ZS1MRUQgTW9kZScsMAogIENhcGFiaWxpdGllczogZW51bQogIEl0ZW1zOiAnT24nICdP
+ZmYnICdGb2xsb3cgQ2FwdHVyZScgJ0ZvbGxvdyBNdXRlJwogIEl0ZW0wOiAnRm9sbG93IE11dGUn
+ClNpbXBsZSBtaXhlciBjb250cm9sICdJRUM5NTgnLDAKICBDYXBhYmlsaXRpZXM6IHBzd2l0Y2gg
+cHN3aXRjaC1qb2luZWQKICBQbGF5YmFjayBjaGFubmVsczogTW9ubwogIE1vbm86IFBsYXliYWNr
+IFtvZmZdClNpbXBsZSBtaXhlciBjb250cm9sICdJRUM5NTgnLDEKICBDYXBhYmlsaXRpZXM6IHBz
+d2l0Y2ggcHN3aXRjaC1qb2luZWQKICBQbGF5YmFjayBjaGFubmVsczogTW9ubwogIE1vbm86IFBs
+YXliYWNrIFtvbl0KU2ltcGxlIG1peGVyIGNvbnRyb2wgJ0lFQzk1OCcsMgogIENhcGFiaWxpdGll
+czogcHN3aXRjaCBwc3dpdGNoLWpvaW5lZAogIFBsYXliYWNrIGNoYW5uZWxzOiBNb25vCiAgTW9u
+bzogUGxheWJhY2sgW29uXQpTaW1wbGUgbWl4ZXIgY29udHJvbCAnSUVDOTU4JywzCiAgQ2FwYWJp
+bGl0aWVzOiBwc3dpdGNoIHBzd2l0Y2gtam9pbmVkCiAgUGxheWJhY2sgY2hhbm5lbHM6IE1vbm8K
+ICBNb25vOiBQbGF5YmFjayBbb25dClNpbXBsZSBtaXhlciBjb250cm9sICdJRUM5NTgnLDQKICBD
+YXBhYmlsaXRpZXM6IHBzd2l0Y2ggcHN3aXRjaC1qb2luZWQKICBQbGF5YmFjayBjaGFubmVsczog
+TW9ubwogIE1vbm86IFBsYXliYWNrIFtvbl0KU2ltcGxlIG1peGVyIGNvbnRyb2wgJ0NhcHR1cmUn
+LDAKICBDYXBhYmlsaXRpZXM6IGN2b2x1bWUgY3N3aXRjaAogIENhcHR1cmUgY2hhbm5lbHM6IEZy
+b250IExlZnQgLSBGcm9udCBSaWdodAogIExpbWl0czogQ2FwdHVyZSAwIC0gNjMKICBGcm9udCBM
+ZWZ0OiBDYXB0dXJlIDM5IFs2MiVdIFsxMi4wMGRCXSBbb25dCiAgRnJvbnQgUmlnaHQ6IENhcHR1
+cmUgMzkgWzYyJV0gWzEyLjAwZEJdIFtvbl0KU2ltcGxlIG1peGVyIGNvbnRyb2wgJ0F1dG8tTXV0
+ZSBNb2RlJywwCiAgQ2FwYWJpbGl0aWVzOiBlbnVtCiAgSXRlbXM6ICdEaXNhYmxlZCcgJ0VuYWJs
+ZWQnCiAgSXRlbTA6ICdFbmFibGVkJwoKCiEhQWxzYWN0bCBvdXRwdXQKISEtLS0tLS0tLS0tLS0t
+LQoKLS1zdGFydGNvbGxhcHNlLS0Kc3RhdGUuUENIIHsKCWNvbnRyb2wuMSB7CgkJaWZhY2UgTUlY
+RVIKCQluYW1lICdNaWMgTXV0ZS1MRUQgTW9kZScKCQl2YWx1ZSAnRm9sbG93IE11dGUnCgkJY29t
+bWVudCB7CgkJCWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBFTlVNRVJBVEVECgkJCWNvdW50
+IDEKCQkJaXRlbS4wIE9uCgkJCWl0ZW0uMSBPZmYKCQkJaXRlbS4yICdGb2xsb3cgQ2FwdHVyZScK
+CQkJaXRlbS4zICdGb2xsb3cgTXV0ZScKCQl9Cgl9Cgljb250cm9sLjIgewoJCWlmYWNlIE1JWEVS
+CgkJbmFtZSAnSGVhZHBob25lIFBsYXliYWNrIFZvbHVtZScKCQl2YWx1ZS4wIDAKCQl2YWx1ZS4x
+IDAKCQljb21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRlJwoJCQl0eXBlIElOVEVHRVIKCQkJ
+Y291bnQgMgoJCQlyYW5nZSAnMCAtIDg3JwoJCQlkYm1pbiAtNjUyNQoJCQlkYm1heCAwCgkJCWRi
+dmFsdWUuMCAtNjUyNQoJCQlkYnZhbHVlLjEgLTY1MjUKCQl9Cgl9Cgljb250cm9sLjMgewoJCWlm
+YWNlIE1JWEVSCgkJbmFtZSAnSGVhZHBob25lIFBsYXliYWNrIFN3aXRjaCcKCQl2YWx1ZS4wIGZh
+bHNlCgkJdmFsdWUuMSBmYWxzZQoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQgd3JpdGUnCgkJ
+CXR5cGUgQk9PTEVBTgoJCQljb3VudCAyCgkJfQoJfQoJY29udHJvbC40IHsKCQlpZmFjZSBNSVhF
+UgoJCW5hbWUgJ1NwZWFrZXIgUGxheWJhY2sgVm9sdW1lJwoJCXZhbHVlLjAgODcKCQl2YWx1ZS4x
+IDAKCQljb21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRlJwoJCQl0eXBlIElOVEVHRVIKCQkJ
+Y291bnQgMgoJCQlyYW5nZSAnMCAtIDg3JwoJCQlkYm1pbiAtNjUyNQoJCQlkYm1heCAwCgkJCWRi
+dmFsdWUuMCAwCgkJCWRidmFsdWUuMSAtNjUyNQoJCX0KCX0KCWNvbnRyb2wuNSB7CgkJaWZhY2Ug
+TUlYRVIKCQluYW1lICdTcGVha2VyIFBsYXliYWNrIFN3aXRjaCcKCQl2YWx1ZS4wIHRydWUKCQl2
+YWx1ZS4xIHRydWUKCQljb21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRlJwoJCQl0eXBlIEJP
+T0xFQU4KCQkJY291bnQgMgoJCX0KCX0KCWNvbnRyb2wuNiB7CgkJaWZhY2UgTUlYRVIKCQluYW1l
+ICdBdXRvLU11dGUgTW9kZScKCQl2YWx1ZSBFbmFibGVkCgkJY29tbWVudCB7CgkJCWFjY2VzcyAn
+cmVhZCB3cml0ZScKCQkJdHlwZSBFTlVNRVJBVEVECgkJCWNvdW50IDEKCQkJaXRlbS4wIERpc2Fi
+bGVkCgkJCWl0ZW0uMSBFbmFibGVkCgkJfQoJfQoJY29udHJvbC43IHsKCQlpZmFjZSBNSVhFUgoJ
+CW5hbWUgJ0NhcHR1cmUgVm9sdW1lJwoJCXZhbHVlLjAgMzkKCQl2YWx1ZS4xIDM5CgkJY29tbWVu
+dCB7CgkJCWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBJTlRFR0VSCgkJCWNvdW50IDIKCQkJ
+cmFuZ2UgJzAgLSA2MycKCQkJZGJtaW4gLTE3MjUKCQkJZGJtYXggMzAwMAoJCQlkYnZhbHVlLjAg
+MTIwMAoJCQlkYnZhbHVlLjEgMTIwMAoJCX0KCX0KCWNvbnRyb2wuOCB7CgkJaWZhY2UgTUlYRVIK
+CQluYW1lICdDYXB0dXJlIFN3aXRjaCcKCQl2YWx1ZS4wIHRydWUKCQl2YWx1ZS4xIHRydWUKCQlj
+b21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRlJwoJCQl0eXBlIEJPT0xFQU4KCQkJY291bnQg
+MgoJCX0KCX0KCWNvbnRyb2wuOSB7CgkJaWZhY2UgTUlYRVIKCQluYW1lICdNaWMgQm9vc3QgVm9s
+dW1lJwoJCXZhbHVlLjAgMAoJCXZhbHVlLjEgMAoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQg
+d3JpdGUnCgkJCXR5cGUgSU5URUdFUgoJCQljb3VudCAyCgkJCXJhbmdlICcwIC0gMycKCQkJZGJt
+aW4gMAoJCQlkYm1heCAzMDAwCgkJCWRidmFsdWUuMCAwCgkJCWRidmFsdWUuMSAwCgkJfQoJfQoJ
+Y29udHJvbC4xMCB7CgkJaWZhY2UgTUlYRVIKCQluYW1lICdNYXN0ZXIgUGxheWJhY2sgVm9sdW1l
+JwoJCXZhbHVlIDc1CgkJY29tbWVudCB7CgkJCWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBJ
+TlRFR0VSCgkJCWNvdW50IDEKCQkJcmFuZ2UgJzAgLSA4NycKCQkJZGJtaW4gLTY1MjUKCQkJZGJt
+YXggMAoJCQlkYnZhbHVlLjAgLTkwMAoJCX0KCX0KCWNvbnRyb2wuMTEgewoJCWlmYWNlIE1JWEVS
+CgkJbmFtZSAnTWFzdGVyIFBsYXliYWNrIFN3aXRjaCcKCQl2YWx1ZSB0cnVlCgkJY29tbWVudCB7
+CgkJCWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBCT09MRUFOCgkJCWNvdW50IDEKCQl9Cgl9
+Cgljb250cm9sLjEyIHsKCQlpZmFjZSBDQVJECgkJbmFtZSAnTWljIEphY2snCgkJdmFsdWUgZmFs
+c2UKCQljb21tZW50IHsKCQkJYWNjZXNzIHJlYWQKCQkJdHlwZSBCT09MRUFOCgkJCWNvdW50IDEK
+CQl9Cgl9Cgljb250cm9sLjEzIHsKCQlpZmFjZSBDQVJECgkJbmFtZSAnSGVhZHBob25lIEphY2sn
+CgkJdmFsdWUgZmFsc2UKCQljb21tZW50IHsKCQkJYWNjZXNzIHJlYWQKCQkJdHlwZSBCT09MRUFO
+CgkJCWNvdW50IDEKCQl9Cgl9Cgljb250cm9sLjE0IHsKCQlpZmFjZSBDQVJECgkJbmFtZSAnU3Bl
+YWtlciBQaGFudG9tIEphY2snCgkJdmFsdWUgdHJ1ZQoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgcmVh
+ZAoJCQl0eXBlIEJPT0xFQU4KCQkJY291bnQgMQoJCX0KCX0KCWNvbnRyb2wuMTUgewoJCWlmYWNl
+IFBDTQoJCW5hbWUgJ1BsYXliYWNrIENoYW5uZWwgTWFwJwoJCXZhbHVlLjAgMAoJCXZhbHVlLjEg
+MAoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgcmVhZAoJCQl0eXBlIElOVEVHRVIKCQkJY291bnQgMgoJ
+CQlyYW5nZSAnMCAtIDM2JwoJCX0KCX0KCWNvbnRyb2wuMTYgewoJCWlmYWNlIFBDTQoJCW5hbWUg
+J0NhcHR1cmUgQ2hhbm5lbCBNYXAnCgkJdmFsdWUuMCAwCgkJdmFsdWUuMSAwCgkJY29tbWVudCB7
+CgkJCWFjY2VzcyByZWFkCgkJCXR5cGUgSU5URUdFUgoJCQljb3VudCAyCgkJCXJhbmdlICcwIC0g
+MzYnCgkJfQoJfQoJY29udHJvbC4xNyB7CgkJaWZhY2UgQ0FSRAoJCW5hbWUgJ0hETUkvRFAscGNt
+PTMgSmFjaycKCQl2YWx1ZSB0cnVlCgkJY29tbWVudCB7CgkJCWFjY2VzcyByZWFkCgkJCXR5cGUg
+Qk9PTEVBTgoJCQljb3VudCAxCgkJfQoJfQoJY29udHJvbC4xOCB7CgkJaWZhY2UgTUlYRVIKCQlu
+YW1lICdJRUM5NTggUGxheWJhY2sgQ29uIE1hc2snCgkJdmFsdWUgJzBmZmYwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAnCgkJY29t
+bWVudCB7CgkJCWFjY2VzcyByZWFkCgkJCXR5cGUgSUVDOTU4CgkJCWNvdW50IDEKCQl9Cgl9Cglj
+b250cm9sLjE5IHsKCQlpZmFjZSBNSVhFUgoJCW5hbWUgJ0lFQzk1OCBQbGF5YmFjayBQcm8gTWFz
+aycKCQl2YWx1ZSAnMGYwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMCcKCQljb21tZW50IHsKCQkJYWNjZXNzIHJlYWQKCQkJdHlw
+ZSBJRUM5NTgKCQkJY291bnQgMQoJCX0KCX0KCWNvbnRyb2wuMjAgewoJCWlmYWNlIE1JWEVSCgkJ
+bmFtZSAnSUVDOTU4IFBsYXliYWNrIERlZmF1bHQnCgkJdmFsdWUgJzA0MDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAnCgkJY29t
+bWVudCB7CgkJCWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBJRUM5NTgKCQkJY291bnQgMQoJ
+CX0KCX0KCWNvbnRyb2wuMjEgewoJCWlmYWNlIE1JWEVSCgkJbmFtZSAnSUVDOTU4IFBsYXliYWNr
+IFN3aXRjaCcKCQl2YWx1ZSBmYWxzZQoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQgd3JpdGUn
+CgkJCXR5cGUgQk9PTEVBTgoJCQljb3VudCAxCgkJfQoJfQoJY29udHJvbC4yMiB7CgkJaWZhY2Ug
+UENNCgkJZGV2aWNlIDMKCQluYW1lIEVMRAoJCXZhbHVlICcxMDAwMDgwMDZjMTAwMDAxMDAwMDAw
+MDAwMDAwMDAwMDFlNmRmNjc2NGM0NzIwNTU0YzU0NTI0MTU3NDk0NDQ1MDkwNzA3MDAnCgkJY29t
+bWVudCB7CgkJCWFjY2VzcyAncmVhZCB2b2xhdGlsZScKCQkJdHlwZSBCWVRFUwoJCQljb3VudCAz
+NgoJCX0KCX0KCWNvbnRyb2wuMjMgewoJCWlmYWNlIENBUkQKCQluYW1lICdIRE1JL0RQLHBjbT03
+IEphY2snCgkJdmFsdWUgZmFsc2UKCQljb21tZW50IHsKCQkJYWNjZXNzIHJlYWQKCQkJdHlwZSBC
+T09MRUFOCgkJCWNvdW50IDEKCQl9Cgl9Cgljb250cm9sLjI0IHsKCQlpZmFjZSBNSVhFUgoJCW5h
+bWUgJ0lFQzk1OCBQbGF5YmFjayBDb24gTWFzaycKCQlpbmRleCAxCgkJdmFsdWUgJzBmZmYwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAnCgkJY29tbWVudCB7CgkJCWFjY2VzcyByZWFkCgkJCXR5cGUgSUVDOTU4CgkJCWNvdW50IDEK
+CQl9Cgl9Cgljb250cm9sLjI1IHsKCQlpZmFjZSBNSVhFUgoJCW5hbWUgJ0lFQzk1OCBQbGF5YmFj
+ayBQcm8gTWFzaycKCQlpbmRleCAxCgkJdmFsdWUgJzBmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAnCgkJY29tbWVudCB7CgkJ
+CWFjY2VzcyByZWFkCgkJCXR5cGUgSUVDOTU4CgkJCWNvdW50IDEKCQl9Cgl9Cgljb250cm9sLjI2
+IHsKCQlpZmFjZSBNSVhFUgoJCW5hbWUgJ0lFQzk1OCBQbGF5YmFjayBEZWZhdWx0JwoJCWluZGV4
+IDEKCQl2YWx1ZSAnMDQwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMCcKCQljb21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRl
+JwoJCQl0eXBlIElFQzk1OAoJCQljb3VudCAxCgkJfQoJfQoJY29udHJvbC4yNyB7CgkJaWZhY2Ug
+TUlYRVIKCQluYW1lICdJRUM5NTggUGxheWJhY2sgU3dpdGNoJwoJCWluZGV4IDEKCQl2YWx1ZSB0
+cnVlCgkJY29tbWVudCB7CgkJCWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBCT09MRUFOCgkJ
+CWNvdW50IDEKCQl9Cgl9Cgljb250cm9sLjI4IHsKCQlpZmFjZSBQQ00KCQlkZXZpY2UgNwoJCW5h
+bWUgRUxECgkJdmFsdWUgJycKCQljb21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHZvbGF0aWxlJwoJ
+CQl0eXBlIEJZVEVTCgkJCWNvdW50IDAKCQl9Cgl9Cgljb250cm9sLjI5IHsKCQlpZmFjZSBDQVJE
+CgkJbmFtZSAnSERNSS9EUCxwY209OCBKYWNrJwoJCXZhbHVlIGZhbHNlCgkJY29tbWVudCB7CgkJ
+CWFjY2VzcyByZWFkCgkJCXR5cGUgQk9PTEVBTgoJCQljb3VudCAxCgkJfQoJfQoJY29udHJvbC4z
+MCB7CgkJaWZhY2UgTUlYRVIKCQluYW1lICdJRUM5NTggUGxheWJhY2sgQ29uIE1hc2snCgkJaW5k
+ZXggMgoJCXZhbHVlICcwZmZmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwJwoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgcmVhZAoJCQl0
+eXBlIElFQzk1OAoJCQljb3VudCAxCgkJfQoJfQoJY29udHJvbC4zMSB7CgkJaWZhY2UgTUlYRVIK
+CQluYW1lICdJRUM5NTggUGxheWJhY2sgUHJvIE1hc2snCgkJaW5kZXggMgoJCXZhbHVlICcwZjAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwJwoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgcmVhZAoJCQl0eXBlIElFQzk1OAoJCQljb3Vu
+dCAxCgkJfQoJfQoJY29udHJvbC4zMiB7CgkJaWZhY2UgTUlYRVIKCQluYW1lICdJRUM5NTggUGxh
+eWJhY2sgRGVmYXVsdCcKCQlpbmRleCAyCgkJdmFsdWUgJzA0MDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAnCgkJY29tbWVudCB7
+CgkJCWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBJRUM5NTgKCQkJY291bnQgMQoJCX0KCX0K
+CWNvbnRyb2wuMzMgewoJCWlmYWNlIE1JWEVSCgkJbmFtZSAnSUVDOTU4IFBsYXliYWNrIFN3aXRj
+aCcKCQlpbmRleCAyCgkJdmFsdWUgdHJ1ZQoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQgd3Jp
+dGUnCgkJCXR5cGUgQk9PTEVBTgoJCQljb3VudCAxCgkJfQoJfQoJY29udHJvbC4zNCB7CgkJaWZh
+Y2UgUENNCgkJZGV2aWNlIDgKCQluYW1lIEVMRAoJCXZhbHVlICcnCgkJY29tbWVudCB7CgkJCWFj
+Y2VzcyAncmVhZCB2b2xhdGlsZScKCQkJdHlwZSBCWVRFUwoJCQljb3VudCAwCgkJfQoJfQoJY29u
+dHJvbC4zNSB7CgkJaWZhY2UgQ0FSRAoJCW5hbWUgJ0hETUkvRFAscGNtPTkgSmFjaycKCQl2YWx1
+ZSBmYWxzZQoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgcmVhZAoJCQl0eXBlIEJPT0xFQU4KCQkJY291
+bnQgMQoJCX0KCX0KCWNvbnRyb2wuMzYgewoJCWlmYWNlIE1JWEVSCgkJbmFtZSAnSUVDOTU4IFBs
+YXliYWNrIENvbiBNYXNrJwoJCWluZGV4IDMKCQl2YWx1ZSAnMGZmZjAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCcKCQljb21tZW50
+IHsKCQkJYWNjZXNzIHJlYWQKCQkJdHlwZSBJRUM5NTgKCQkJY291bnQgMQoJCX0KCX0KCWNvbnRy
+b2wuMzcgewoJCWlmYWNlIE1JWEVSCgkJbmFtZSAnSUVDOTU4IFBsYXliYWNrIFBybyBNYXNrJwoJ
+CWluZGV4IDMKCQl2YWx1ZSAnMGYwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCcKCQljb21tZW50IHsKCQkJYWNjZXNzIHJlYWQK
+CQkJdHlwZSBJRUM5NTgKCQkJY291bnQgMQoJCX0KCX0KCWNvbnRyb2wuMzggewoJCWlmYWNlIE1J
+WEVSCgkJbmFtZSAnSUVDOTU4IFBsYXliYWNrIERlZmF1bHQnCgkJaW5kZXggMwoJCXZhbHVlICcw
+NDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwJwoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQgd3JpdGUnCgkJCXR5cGUgSUVD
+OTU4CgkJCWNvdW50IDEKCQl9Cgl9Cgljb250cm9sLjM5IHsKCQlpZmFjZSBNSVhFUgoJCW5hbWUg
+J0lFQzk1OCBQbGF5YmFjayBTd2l0Y2gnCgkJaW5kZXggMwoJCXZhbHVlIHRydWUKCQljb21tZW50
+IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRlJwoJCQl0eXBlIEJPT0xFQU4KCQkJY291bnQgMQoJCX0K
+CX0KCWNvbnRyb2wuNDAgewoJCWlmYWNlIFBDTQoJCWRldmljZSA5CgkJbmFtZSBFTEQKCQl2YWx1
+ZSAnJwoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQgdm9sYXRpbGUnCgkJCXR5cGUgQllURVMK
+CQkJY291bnQgMAoJCX0KCX0KCWNvbnRyb2wuNDEgewoJCWlmYWNlIENBUkQKCQluYW1lICdIRE1J
+L0RQLHBjbT0xMCBKYWNrJwoJCXZhbHVlIGZhbHNlCgkJY29tbWVudCB7CgkJCWFjY2VzcyByZWFk
+CgkJCXR5cGUgQk9PTEVBTgoJCQljb3VudCAxCgkJfQoJfQoJY29udHJvbC40MiB7CgkJaWZhY2Ug
+TUlYRVIKCQluYW1lICdJRUM5NTggUGxheWJhY2sgQ29uIE1hc2snCgkJaW5kZXggNAoJCXZhbHVl
+ICcwZmZmMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwJwoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgcmVhZAoJCQl0eXBlIElFQzk1OAoJ
+CQljb3VudCAxCgkJfQoJfQoJY29udHJvbC40MyB7CgkJaWZhY2UgTUlYRVIKCQluYW1lICdJRUM5
+NTggUGxheWJhY2sgUHJvIE1hc2snCgkJaW5kZXggNAoJCXZhbHVlICcwZjAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwJwoJCWNv
+bW1lbnQgewoJCQlhY2Nlc3MgcmVhZAoJCQl0eXBlIElFQzk1OAoJCQljb3VudCAxCgkJfQoJfQoJ
+Y29udHJvbC40NCB7CgkJaWZhY2UgTUlYRVIKCQluYW1lICdJRUM5NTggUGxheWJhY2sgRGVmYXVs
+dCcKCQlpbmRleCA0CgkJdmFsdWUgJzA0MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw
+MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAnCgkJY29tbWVudCB7CgkJCWFjY2VzcyAn
+cmVhZCB3cml0ZScKCQkJdHlwZSBJRUM5NTgKCQkJY291bnQgMQoJCX0KCX0KCWNvbnRyb2wuNDUg
+ewoJCWlmYWNlIE1JWEVSCgkJbmFtZSAnSUVDOTU4IFBsYXliYWNrIFN3aXRjaCcKCQlpbmRleCA0
+CgkJdmFsdWUgdHJ1ZQoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQgd3JpdGUnCgkJCXR5cGUg
+Qk9PTEVBTgoJCQljb3VudCAxCgkJfQoJfQoJY29udHJvbC40NiB7CgkJaWZhY2UgUENNCgkJZGV2
+aWNlIDEwCgkJbmFtZSBFTEQKCQl2YWx1ZSAnJwoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQg
+dm9sYXRpbGUnCgkJCXR5cGUgQllURVMKCQkJY291bnQgMAoJCX0KCX0KCWNvbnRyb2wuNDcgewoJ
+CWlmYWNlIFBDTQoJCWRldmljZSAzCgkJbmFtZSAnUGxheWJhY2sgQ2hhbm5lbCBNYXAnCgkJdmFs
+dWUuMCAwCgkJdmFsdWUuMSAwCgkJdmFsdWUuMiAwCgkJdmFsdWUuMyAwCgkJdmFsdWUuNCAwCgkJ
+dmFsdWUuNSAwCgkJdmFsdWUuNiAwCgkJdmFsdWUuNyAwCgkJY29tbWVudCB7CgkJCWFjY2VzcyAn
+cmVhZCB3cml0ZScKCQkJdHlwZSBJTlRFR0VSCgkJCWNvdW50IDgKCQkJcmFuZ2UgJzAgLSAzNicK
+CQl9Cgl9Cgljb250cm9sLjQ4IHsKCQlpZmFjZSBQQ00KCQlkZXZpY2UgNwoJCW5hbWUgJ1BsYXli
+YWNrIENoYW5uZWwgTWFwJwoJCXZhbHVlLjAgMAoJCXZhbHVlLjEgMAoJCXZhbHVlLjIgMAoJCXZh
+bHVlLjMgMAoJCXZhbHVlLjQgMAoJCXZhbHVlLjUgMAoJCXZhbHVlLjYgMAoJCXZhbHVlLjcgMAoJ
+CWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQgd3JpdGUnCgkJCXR5cGUgSU5URUdFUgoJCQljb3Vu
+dCA4CgkJCXJhbmdlICcwIC0gMzYnCgkJfQoJfQoJY29udHJvbC40OSB7CgkJaWZhY2UgUENNCgkJ
+ZGV2aWNlIDgKCQluYW1lICdQbGF5YmFjayBDaGFubmVsIE1hcCcKCQl2YWx1ZS4wIDAKCQl2YWx1
+ZS4xIDAKCQl2YWx1ZS4yIDAKCQl2YWx1ZS4zIDAKCQl2YWx1ZS40IDAKCQl2YWx1ZS41IDAKCQl2
+YWx1ZS42IDAKCQl2YWx1ZS43IDAKCQljb21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRlJwoJ
+CQl0eXBlIElOVEVHRVIKCQkJY291bnQgOAoJCQlyYW5nZSAnMCAtIDM2JwoJCX0KCX0KCWNvbnRy
+b2wuNTAgewoJCWlmYWNlIFBDTQoJCWRldmljZSA5CgkJbmFtZSAnUGxheWJhY2sgQ2hhbm5lbCBN
+YXAnCgkJdmFsdWUuMCAwCgkJdmFsdWUuMSAwCgkJdmFsdWUuMiAwCgkJdmFsdWUuMyAwCgkJdmFs
+dWUuNCAwCgkJdmFsdWUuNSAwCgkJdmFsdWUuNiAwCgkJdmFsdWUuNyAwCgkJY29tbWVudCB7CgkJ
+CWFjY2VzcyAncmVhZCB3cml0ZScKCQkJdHlwZSBJTlRFR0VSCgkJCWNvdW50IDgKCQkJcmFuZ2Ug
+JzAgLSAzNicKCQl9Cgl9Cgljb250cm9sLjUxIHsKCQlpZmFjZSBQQ00KCQlkZXZpY2UgMTAKCQlu
+YW1lICdQbGF5YmFjayBDaGFubmVsIE1hcCcKCQl2YWx1ZS4wIDAKCQl2YWx1ZS4xIDAKCQl2YWx1
+ZS4yIDAKCQl2YWx1ZS4zIDAKCQl2YWx1ZS40IDAKCQl2YWx1ZS41IDAKCQl2YWx1ZS42IDAKCQl2
+YWx1ZS43IDAKCQljb21tZW50IHsKCQkJYWNjZXNzICdyZWFkIHdyaXRlJwoJCQl0eXBlIElOVEVH
+RVIKCQkJY291bnQgOAoJCQlyYW5nZSAnMCAtIDM2JwoJCX0KCX0KCWNvbnRyb2wuNTIgewoJCWlm
+YWNlIE1JWEVSCgkJbmFtZSAnUENNIFBsYXliYWNrIFZvbHVtZScKCQl2YWx1ZS4wIDI1NAoJCXZh
+bHVlLjEgMAoJCWNvbW1lbnQgewoJCQlhY2Nlc3MgJ3JlYWQgd3JpdGUgdXNlcicKCQkJdHlwZSBJ
+TlRFR0VSCgkJCWNvdW50IDIKCQkJcmFuZ2UgJzAgLSAyNTUnCgkJCXRsdiAnMDAwMDAwMDEwMDAw
+MDAwOGZmZmZlYzE0MDAwMDAwMTQnCgkJCWRibWluIC01MTAwCgkJCWRibWF4IDAKCQkJZGJ2YWx1
+ZS4wIC0yMAoJCQlkYnZhbHVlLjEgLTUxMDAKCQl9Cgl9Cn0KLS1lbmRjb2xsYXBzZS0tCgoKISFB
+bGwgTG9hZGVkIE1vZHVsZXMKISEtLS0tLS0tLS0tLS0tLS0tLS0KCmFjOTdfYnVzCmFjcGlfcGFk
+CmFjcGlfdGhlcm1hbF9yZWwKYWVzX3g4Nl82NAphZXNuaV9pbnRlbAphdWZzCmF1dG9mczQKYmlu
+Zm10X21pc2MKYmx1ZXRvb3RoCmJuZXAKYnBmaWx0ZXIKYnJfbmV0ZmlsdGVyCmJyaWRnZQpidGJj
+bQpidGludGVsCmJ0cnRsCmJ0dXNiCmNmZzgwMjExCmNtYWMKY29yZXRlbXAKY3JjMzJfcGNsbXVs
+CmNyY3QxMGRpZl9wY2xtdWwKY3J5cHRkCmNyeXB0b19zaW1kCmRybQpkcm1fa21zX2hlbHBlcgpl
+MTAwMGUKZWNjCmVjZGhfZ2VuZXJpYwpmYl9zeXNfZm9wcwpnaGFzaF9jbG11bG5pX2ludGVsCmds
+dWVfaGVscGVyCmhpZApoaWRfZ2VuZXJpYwpoaWRfbXVsdGl0b3VjaApocF93aXJlbGVzcwpocF93
+bWkKaTJjX2FsZ29fYml0CmkyY19oaWQKaTJjX2k4MDEKaTkxNQppZG1hNjQKaW5wdXRfbGVkcwpp
+bnQzNDAwX3RoZXJtYWwKaW50MzQwM190aGVybWFsCmludDM0MHhfdGhlcm1hbF96b25lCmludGVs
+X2NzdGF0ZQppbnRlbF9scHNzCmludGVsX2xwc3NfcGNpCmludGVsX3BjaF90aGVybWFsCmludGVs
+X3Bvd2VyY2xhbXAKaW50ZWxfcmFwbF9jb21tb24KaW50ZWxfcmFwbF9tc3IKaW50ZWxfcmFwbF9w
+ZXJmCmludGVsX3NvY19kdHNfaW9zZgppbnRlbF93bWlfdGh1bmRlcmJvbHQKaXBfdGFibGVzCmlw
+dGFibGVfZmlsdGVyCmlwdGFibGVfbmF0CmlycWJ5cGFzcwppd2xtdm0KaXdsd2lmaQpqb3lkZXYK
+a3ZtCmt2bV9pbnRlbApsZWR0cmlnX2F1ZGlvCmxpYmFyYzQKbGliY3JjMzJjCmxsYwpscAptYWM4
+MDIxMQptYWNfaGlkCm1jCm1laQptZWlfaGRjcAptZWlfbWUKbmZfY29ubnRyYWNrCm5mX2Nvbm50
+cmFja19uZXRsaW5rCm5mX2RlZnJhZ19pcHY0Cm5mX2RlZnJhZ19pcHY2Cm5mX25hdApuZm5ldGxp
+bmsKbmxzX2lzbzg4NTlfMQpudm1lCm52bWVfY29yZQpvdmVybGF5CnBhcnBvcnQKcGFycG9ydF9w
+YwpwaW5jdHJsX2Nhbm5vbmxha2UKcGluY3RybF9pbnRlbApwcGRldgpwcm9jZXNzb3JfdGhlcm1h
+bF9kZXZpY2UKcHNtb3VzZQpyZmNvbW0Kc2NoX2ZxX2NvZGVsCnNlcmlvX3JhdwpzbmQKc25kX2Nv
+bXByZXNzCnNuZF9oZGFfY29kZWMKc25kX2hkYV9jb2RlY19nZW5lcmljCnNuZF9oZGFfY29kZWNf
+aGRtaQpzbmRfaGRhX2NvZGVjX3JlYWx0ZWsKc25kX2hkYV9jb3JlCnNuZF9oZGFfZXh0X2NvcmUK
+c25kX2hkYV9pbnRlbApzbmRfaHdkZXAKc25kX3BjbQpzbmRfcGNtX2RtYWVuZ2luZQpzbmRfcmF3
+bWlkaQpzbmRfc2VxCnNuZF9zZXFfZGV2aWNlCnNuZF9zZXFfbWlkaQpzbmRfc2VxX21pZGlfZXZl
+bnQKc25kX3NvY19hY3BpCnNuZF9zb2NfYWNwaV9pbnRlbF9tYXRjaApzbmRfc29jX2NvcmUKc25k
+X3NvY19oZGFjX2hkYQpzbmRfc29jX3NrbApzbmRfc29jX3NrbF9pcGMKc25kX3NvY19zc3RfZHNw
+CnNuZF9zb2Nfc3N0X2lwYwpzbmRfc29mCnNuZF9zb2ZfaW50ZWxfYnl0CnNuZF9zb2ZfaW50ZWxf
+aGRhCnNuZF9zb2ZfaW50ZWxfaGRhX2NvbW1vbgpzbmRfc29mX2ludGVsX2lwYwpzbmRfc29mX3h0
+ZW5zYV9kc3AKc25kX3RpbWVyCnNvZl9wY2lfZGV2CnNvdW5kY29yZQpzcGFyc2Vfa2V5bWFwCnN0
+cApzeXNjb3B5YXJlYQpzeXNmaWxscmVjdApzeXNpbWdibHQKdGh1bmRlcmJvbHQKdHlwZWMKdHlw
+ZWNfdWNzaQp1Y3NpX2FjcGkKdXNiaGlkCnV2Y3ZpZGVvCnZpZGVvCnZpZGVvYnVmMl9jb21tb24K
+dmlkZW9idWYyX21lbW9wcwp2aWRlb2J1ZjJfdjRsMgp2aWRlb2J1ZjJfdm1hbGxvYwp2aWRlb2Rl
+dgp2aXJ0X2RtYQp3bWkKd21pX2Jtb2YKeDg2X3BrZ190ZW1wX3RoZXJtYWwKeF90YWJsZXMKeGZy
+bV9hbGdvCnhmcm1fdXNlcgp4dF9NQVNRVUVSQURFCnh0X2FkZHJ0eXBlCnh0X2Nvbm50cmFjawoK
+CiEhU3lzZnMgRmlsZXMKISEtLS0tLS0tLS0tLQoKL3N5cy9jbGFzcy9zb3VuZC9od0MwRDAvaW5p
+dF9waW5fY29uZmlnczoKMHgxMiAweDQwMDAwMDAwCjB4MTMgMHg0MTExMTFmMAoweDE0IDB4OTAx
+NzAxMTAKMHgxNiAweDQxMTExMWYwCjB4MTcgMHg0MTExMTFmMAoweDE4IDB4NDExMTExZjAKMHgx
+OSAweDA0YTExMDQwCjB4MWEgMHg0MTExMTFmMAoweDFiIDB4NDExMTExZjAKMHgxZCAweDQwNjAw
+MDAxCjB4MWUgMHg0MTExMTFmMAoweDIxIDB4MDQyMTEwMjAKCi9zeXMvY2xhc3Mvc291bmQvaHdD
+MEQwL2RyaXZlcl9waW5fY29uZmlnczoKCi9zeXMvY2xhc3Mvc291bmQvaHdDMEQwL3VzZXJfcGlu
+X2NvbmZpZ3M6Cgovc3lzL2NsYXNzL3NvdW5kL2h3QzBEMC9pbml0X3ZlcmJzOgoKL3N5cy9jbGFz
+cy9zb3VuZC9od0MwRDAvaGludHM6Cgovc3lzL2NsYXNzL3NvdW5kL2h3QzBEMi9pbml0X3Bpbl9j
+b25maWdzOgoweDA1IDB4MTg1NjAwMTAKMHgwNiAweDE4NTYwMDEwCjB4MDcgMHgxODU2MDAxMAoK
+L3N5cy9jbGFzcy9zb3VuZC9od0MwRDIvZHJpdmVyX3Bpbl9jb25maWdzOgoKL3N5cy9jbGFzcy9z
+b3VuZC9od0MwRDIvdXNlcl9waW5fY29uZmlnczoKCi9zeXMvY2xhc3Mvc291bmQvaHdDMEQyL2lu
+aXRfdmVyYnM6Cgovc3lzL2NsYXNzL3NvdW5kL2h3QzBEMi9oaW50czoKCgohIUFMU0EvSERBIGRt
+ZXNnCiEhLS0tLS0tLS0tLS0tLS0KClsgICAgMC4yMDg4NzZdIEFDUEk6IEFkZGVkIF9PU0koTGlu
+dXgtRGVsbC1WaWRlbykKWyAgICAwLjIwODg3N10gQUNQSTogQWRkZWQgX09TSShMaW51eC1MZW5v
+dm8tTlYtSERNSS1BdWRpbykKWyAgICAwLjIwODg3OF0gQUNQSTogQWRkZWQgX09TSShMaW51eC1I
+UEktSHlicmlkLUdyYXBoaWNzKQotLQpbICAgNDMuNTYwNzkzXSBpd2x3aWZpIDAwMDA6MDA6MTQu
+MzogYmFzZSBIVyBhZGRyZXNzOiA1MDplYjo3MTo4ZDozYTo0NwpbICAgNDMuNTg1NzgxXSBzbmRf
+aGRhX2ludGVsIDAwMDA6MDA6MWYuMzogZW5hYmxpbmcgZGV2aWNlICgwMDAwIC0+IDAwMDIpClsg
+ICA0My42MjkwMjFdIGllZWU4MDIxMSBwaHkwOiBTZWxlY3RlZCByYXRlIGNvbnRyb2wgYWxnb3Jp
+dGhtICdpd2wtbXZtLXJzJwotLQpbICAgNDMuNjQyOTU1XSBpd2x3aWZpIDAwMDA6MDA6MTQuMyB3
+bHAwczIwZjM6IHJlbmFtZWQgZnJvbSB3bGFuMApbICAgNDMuODY3NzQ3XSBzbmRfaGRhX2ludGVs
+IDAwMDA6MDA6MWYuMzogYm91bmQgMDAwMDowMDowMi4wIChvcHMgaTkxNV9hdWRpb19jb21wb25l
+bnRfYmluZF9vcHMgW2k5MTVdKQpbICAgNDMuODY3NzQ4XSBmYmNvbjogaTkxNWRybWZiIChmYjAp
+IGlzIHByaW1hcnkgZGV2aWNlCi0tClsgICA0My44OTQ0MDldIGlucHV0OiBNaWNyb3Bob25lIE11
+dGUgQnV0dG9uIGFzIC9kZXZpY2VzL3ZpcnR1YWwvaW5wdXQvaW5wdXQyNwpbICAgNDMuODk1MjMx
+XSBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgaGRhdWRpb0MwRDA6IGF1dG9jb25maWcgZm9yIEFMQzIx
+NTogbGluZV9vdXRzPTEgKDB4MTQvMHgwLzB4MC8weDAvMHgwKSB0eXBlOnNwZWFrZXIKWyAgIDQz
+Ljg5NTIzMl0gc25kX2hkYV9jb2RlY19yZWFsdGVrIGhkYXVkaW9DMEQwOiAgICBzcGVha2VyX291
+dHM9MCAoMHgwLzB4MC8weDAvMHgwLzB4MCkKWyAgIDQzLjg5NTIzM10gc25kX2hkYV9jb2RlY19y
+ZWFsdGVrIGhkYXVkaW9DMEQwOiAgICBocF9vdXRzPTEgKDB4MjEvMHgwLzB4MC8weDAvMHgwKQpb
+ICAgNDMuODk1MjM0XSBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgaGRhdWRpb0MwRDA6ICAgIG1vbm86
+IG1vbm9fb3V0PTB4MApbICAgNDMuODk1MjM0XSBzbmRfaGRhX2NvZGVjX3JlYWx0ZWsgaGRhdWRp
+b0MwRDA6ICAgIGlucHV0czoKWyAgIDQzLjg5NTIzNV0gc25kX2hkYV9jb2RlY19yZWFsdGVrIGhk
+YXVkaW9DMEQwOiAgICAgIE1pYz0weDE5ClsgICA0My45NTIxMTRdIGlucHV0OiBIREEgSW50ZWwg
+UENIIE1pYyBhcyAvZGV2aWNlcy9wY2kwMDAwOjAwLzAwMDA6MDA6MWYuMy9zb3VuZC9jYXJkMC9p
+bnB1dDI4ClsgICA0My45NTIxNzFdIGlucHV0OiBIREEgSW50ZWwgUENIIEhlYWRwaG9uZSBhcyAv
+ZGV2aWNlcy9wY2kwMDAwOjAwLzAwMDA6MDA6MWYuMy9zb3VuZC9jYXJkMC9pbnB1dDI5ClsgICA0
+My45NTIyMThdIGlucHV0OiBIREEgSW50ZWwgUENIIEhETUkvRFAscGNtPTMgYXMgL2RldmljZXMv
+cGNpMDAwMDowMC8wMDAwOjAwOjFmLjMvc291bmQvY2FyZDAvaW5wdXQzMApbICAgNDMuOTUyMjYx
+XSBpbnB1dDogSERBIEludGVsIFBDSCBIRE1JL0RQLHBjbT03IGFzIC9kZXZpY2VzL3BjaTAwMDA6
+MDAvMDAwMDowMDoxZi4zL3NvdW5kL2NhcmQwL2lucHV0MzEKWyAgIDQzLjk1MjMwNV0gaW5wdXQ6
+IEhEQSBJbnRlbCBQQ0ggSERNSS9EUCxwY209OCBhcyAvZGV2aWNlcy9wY2kwMDAwOjAwLzAwMDA6
+MDA6MWYuMy9zb3VuZC9jYXJkMC9pbnB1dDMyClsgICA0My45NTIzNDddIGlucHV0OiBIREEgSW50
+ZWwgUENIIEhETUkvRFAscGNtPTkgYXMgL2RldmljZXMvcGNpMDAwMDowMC8wMDAwOjAwOjFmLjMv
+c291bmQvY2FyZDAvaW5wdXQzMwpbICAgNDMuOTUyMzg1XSBpbnB1dDogSERBIEludGVsIFBDSCBI
+RE1JL0RQLHBjbT0xMCBhcyAvZGV2aWNlcy9wY2kwMDAwOjAwLzAwMDA6MDA6MWYuMy9zb3VuZC9j
+YXJkMC9pbnB1dDM0ClsgICA0My45Nzk1OTRdIEJsdWV0b290aDogQk5FUCAoRXRoZXJuZXQgRW11
+bGF0aW9uKSB2ZXIgMS4zCgoK
+--00000000000089c78f059bca1551
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--00000000000089c78f059bca1551--

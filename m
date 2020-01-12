@@ -2,66 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 026AF138406
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Jan 2020 00:36:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9894138537
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Jan 2020 06:51:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9856B1696;
-	Sun, 12 Jan 2020 00:35:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9856B1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46C5C16A0;
+	Sun, 12 Jan 2020 06:50:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46C5C16A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578785797;
-	bh=C3OBUy4WnJMI02DuF+k1wRE6BRPmJkUu16Ppt8cX8l8=;
+	s=default; t=1578808303;
+	bh=pF2/GLpDmmV6beRuO+1OcVBkbrkuZnPU3uj/gnVx0/o=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=Rh9OiVJ10/TqOg5XRDiEVGBQlgfbIDriG0CbsFMULbLTDQnO/uI9q5ehelON93DtT
-	 vDjqPoLrh5ETxF0ICPPrK4FxkZLpXXo1ZNlutBCD6ZDtmak6Ntb9Siybs7nU86Vn7/
-	 hN2y/L3xBpEPtXDREeMYl3QYbVS5C8ua4B6b79jg=
+	b=Dh04djS1AzepgxKgRzGpJlvb6w5Pi4MaxXrnOu8M0CaH/9x/SPNDGDDi40qD7ybvB
+	 OhnGI6wonULa5ejTQwMJM+kBDmHay1T0NSNN0oZBMQP0d+eQhKcuJziO36qaIa+HY1
+	 aaSJq8T+prfnACiiyrz1KT/uL/TXZCZG1yK2L91E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 026C8F801F4;
-	Sun, 12 Jan 2020 00:34:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 792EAF8012E;
+	Sun, 12 Jan 2020 06:49:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 18AABF801F4; Sun, 12 Jan 2020 00:34:52 +0100 (CET)
+ id E0B6FF8014E; Sun, 12 Jan 2020 06:49:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 261AEF8010B
- for <alsa-devel@alsa-project.org>; Sun, 12 Jan 2020 00:34:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 261AEF8010B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 07B10F8012E
+ for <alsa-devel@alsa-project.org>; Sun, 12 Jan 2020 06:49:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07B10F8012E
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="MxyTVggK"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
- Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:Content-Description:
- Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
- In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
- List-Post:List-Owner:List-Archive;
- bh=3QZ0I5pD5K/HCffVuVuB76vN0c9rDDP5IUOkMYf8Rks=; b=MxyTVggKtx1VcdcMEy1IUMxfnW
- svCKqAqnb69uBVKn5RMaNo3tt/jmntNenbUoyLwcOrpTfw4hVX8nf0ecIoE31XUasjYEsU8LclAqv
- qF2fgjSZQOIoJDrPxv2DMwYSjnpAQn/2ZEe1L+JAFdFkMa57KA4088r9aKndSsQRg3Ws=;
-Received: from [2a00:1370:8125:8203:1dce:4cab:baac:10ca]
- (helo=home.puleglot.ru)
- by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
- id 1iqQHH-000mFd-St; Sun, 12 Jan 2020 02:34:48 +0300
-From: Alexander Tsoy <alexander@tsoy.me>
-To: alsa-devel@alsa-project.org
-Date: Sun, 12 Jan 2020 02:34:46 +0300
-Message-Id: <20200111233446.72046-1-alexander@tsoy.me>
-X-Mailer: git-send-email 2.24.1
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="Hnjy/C9/"
+Received: by mail-pj1-x1041.google.com with SMTP id s94so2684546pjc.1
+ for <alsa-devel@alsa-project.org>; Sat, 11 Jan 2020 21:49:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yuiiLxis7UmO7qtPOBKseQeFyLzKkWcOkkI4cfgxzbE=;
+ b=Hnjy/C9/lwj/YKklYxYqjyFlS0dhjQpRJdoiGfZpQuJFrG1CepD+olnANXmyvYt9HK
+ IRL19y5/rQazLK5XRskk+rP51oky7FAFgyiPFNrOsrJfnEt9WhV6HMAFaQ1pEJEI6f3a
+ 686+XrmUmriSvDu2DbPi29ukU6EcAR2Wqs16w=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=yuiiLxis7UmO7qtPOBKseQeFyLzKkWcOkkI4cfgxzbE=;
+ b=rogDbkPdPbDz2efHMVE/T46gCUJ8s++Y8LxAXYK00B1YjPUvGurjVYUB7twSsSkl8R
+ yU1WLzscHXyQCtVDgPsy84bZNT9eB1f8srPxutMYkQhTsyQAT1Zr8B9BK+2ZO3qEnCpV
+ XxLVVMhbFgKDEwzyijtuVxvQHYD0hapqyEj0zrgA9qA/6Ph+Fwve2xdQVr3d7SfAPqe4
+ aIwEYkjgqFR9IimRU+2CH1N7yXbPKfSB4GX8dTtvXEuBvDEpBfifnOAIvtuKwbaFRnyW
+ LhSdkkD1QhwI4g5M+1Cr2NAGNBLWiRTtl5yi/SI3D68asusGKDUpFMgM1clBotTMw/0L
+ 75kg==
+X-Gm-Message-State: APjAAAXpqbjfiM0pUufM/hSw2QNFWjFf/7k+7IAPSvGSYLh7zy7XDYPd
+ AKcyvr04tWp6yXMIY3G6cjDQTQ==
+X-Google-Smtp-Source: APXvYqw8H+bveIPPoAnKYh5V1Z9dF/usIOThJroMZwLFSgEzbsKYs+qEUkX4u5ynq1X/6egf2QW76Q==
+X-Received: by 2002:a17:90a:3244:: with SMTP id
+ k62mr16102028pjb.43.1578808189512; 
+ Sat, 11 Jan 2020 21:49:49 -0800 (PST)
+Received: from localhost ([2401:fa00:1:10:845f:e35d:e30c:4b47])
+ by smtp.gmail.com with ESMTPSA id i127sm9575396pfe.54.2020.01.11.21.49.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sat, 11 Jan 2020 21:49:48 -0800 (PST)
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Sun, 12 Jan 2020 13:49:00 +0800
+Message-Id: <20200112054900.236576-1-yuhsuan@chromium.org>
+X-Mailer: git-send-email 2.25.0.rc1.283.g88dfdc4193-goog
 MIME-Version: 1.0
-Cc: Takashi Iwai <tiwai@suse.de>
-Subject: [alsa-devel] [PATCH] ALSA: usb-audio: Add boot quirk for MOTU M
-	Series
+Cc: alsa-devel@alsa-project.org, Tzung-Bi Shih <tzungbi@chromium.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Guenter Roeck <groeck@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Akshu Agrawal <akshu.agrawal@amd.com>, Benson Leung <bleung@chromium.org>,
+ Yu-Hsuan Hsu <yuhsuan@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: [alsa-devel] [PATCH] ASoC: cros_ec_codec: Make the device acpi
+	compatible
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,112 +101,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add delay to make sure that audio urbs are not sent too early.
-Otherwise the device hangs. Windows driver makes ~2s delay, so use
-about the same time delay value.
+Add ACPI entry for cros_ec_codec.
 
-snd_usb_apply_boot_quirk() is called 3 times for my MOTU M4, which
-is an overkill. Thus a quirk that is called only once is implemented.
-
-Also send two vendor-specific control messages before and after
-the delay. This behaviour is blindly copied from the Windows driver.
-
-Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
+Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
 ---
- sound/usb/card.c   |  4 ++++
- sound/usb/quirks.c | 38 ++++++++++++++++++++++++++++++++++++++
- sound/usb/quirks.h |  5 +++++
- 3 files changed, 47 insertions(+)
+ sound/soc/codecs/cros_ec_codec.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 9f743ebae615..2f582ac7cf78 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -600,6 +600,10 @@ static int usb_audio_probe(struct usb_interface *intf,
- 		}
- 	}
- 	if (! chip) {
-+		err = snd_usb_apply_boot_quirk_once(dev, intf, quirk, id);
-+		if (err < 0)
-+			return err;
-+
- 		/* it's a fresh one.
- 		 * now look for an empty slot and create a new card instance
- 		 */
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 82184036437b..c93c53126243 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1113,6 +1113,31 @@ static int snd_usb_motu_microbookii_boot_quirk(struct usb_device *dev)
- 	return err;
- }
+diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+index c81bbef2367a0f..6a24f570c5e86f 100644
+--- a/sound/soc/codecs/cros_ec_codec.c
++++ b/sound/soc/codecs/cros_ec_codec.c
+@@ -10,6 +10,7 @@
  
-+static int snd_usb_motu_m_series_boot_quirk(struct usb_device *dev)
-+{
-+	int ret;
-+
-+	if (snd_usb_pipe_sanity_check(dev, usb_sndctrlpipe(dev, 0)))
-+		return -EINVAL;
-+	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
-+			      1, USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-+			      0x0, 0, NULL, 0, 1000);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	msleep(2000);
-+
-+	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
-+			      1, USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-+			      0x20, 0, NULL, 0, 1000);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
- /*
-  * Setup quirks
-  */
-@@ -1297,6 +1322,19 @@ int snd_usb_apply_boot_quirk(struct usb_device *dev,
- 	return 0;
- }
+ #include <crypto/hash.h>
+ #include <crypto/sha.h>
++#include <linux/acpi.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/io.h>
+@@ -1047,10 +1048,17 @@ static const struct of_device_id cros_ec_codec_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cros_ec_codec_of_match);
+ #endif
  
-+int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
-+			          struct usb_interface *intf,
-+			          const struct snd_usb_audio_quirk *quirk,
-+			          unsigned int id)
-+{
-+	switch (id) {
-+	case USB_ID(0x07fd, 0x0008): /* MOTU M Series */
-+		return snd_usb_motu_m_series_boot_quirk(dev);
-+	}
++static const struct acpi_device_id cros_ec_codec_acpi_id[] = {
++	{ "GOOG0013", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, cros_ec_codec_acpi_id);
 +
-+	return 0;
-+}
-+
- /*
-  * check if the device uses big-endian samples
-  */
-diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
-index a80e0ddd0736..fa83a98ad7bb 100644
---- a/sound/usb/quirks.h
-+++ b/sound/usb/quirks.h
-@@ -20,6 +20,11 @@ int snd_usb_apply_boot_quirk(struct usb_device *dev,
- 			     const struct snd_usb_audio_quirk *quirk,
- 			     unsigned int usb_id);
- 
-+int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
-+			          struct usb_interface *intf,
-+			          const struct snd_usb_audio_quirk *quirk,
-+			          unsigned int usb_id);
-+
- void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
- 			      struct audioformat *fmt);
- 
+ static struct platform_driver cros_ec_codec_platform_driver = {
+ 	.driver = {
+ 		.name = "cros-ec-codec",
+ 		.of_match_table = of_match_ptr(cros_ec_codec_of_match),
++		.acpi_match_table = ACPI_PTR(cros_ec_codec_acpi_id),
+ 	},
+ 	.probe = cros_ec_codec_platform_probe,
+ };
 -- 
-2.24.1
+2.25.0.rc1.283.g88dfdc4193-goog
 
 _______________________________________________
 Alsa-devel mailing list

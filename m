@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CA1D81385C3
-	for <lists+alsa-devel@lfdr.de>; Sun, 12 Jan 2020 11:07:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB1A81385D3
+	for <lists+alsa-devel@lfdr.de>; Sun, 12 Jan 2020 11:25:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 641C8169E;
-	Sun, 12 Jan 2020 11:06:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 641C8169E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EA03167A;
+	Sun, 12 Jan 2020 11:24:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EA03167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578823649;
-	bh=XjX44ETR78pMdnW9NR1iJKLXuMWEeplS6cfr47eszjY=;
+	s=default; t=1578824749;
+	bh=WbP36HnSAAkI2qIV+Y/m09JHsPtA1O8KEd4Sv416Y3U=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=i3hd791T31/nOEL6OTQciREa6Vr/8dA3TCwK/I3hNyMBRI0HpfLgcollgeJ2Fsp3q
-	 KngfX+snYW1niXfZPzAvhqgIyf3UgKth2VUyQwLXLbWYr4t/wYwgli/Jf9QsNNPiAS
-	 u7a3PhkbCXprK0r0oZXtwtQ3gIK6Cc0v27IvVjjs=
+	b=RQWTMhO8sqscSgXfWXwoALwF0znQNGJZ0SwVJ8cC18xogF9ZvV9HRbtGNBoADFXDu
+	 lJlo7i7R5RRSK+AZiDbIguDhPNkNXLHFiT7KpxaWkN4E2rGjzzeP9Mwg+s5SY81vTq
+	 35LCKbSSGgXiPta8KBND41I77YHhn69rIOJuTWYM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAD1AF8014E;
-	Sun, 12 Jan 2020 11:05:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1C63AF8016F;
+	Sun, 12 Jan 2020 11:24:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E9B5F8014E; Sun, 12 Jan 2020 11:05:42 +0100 (CET)
+ id 965A6F8014E; Sun, 12 Jan 2020 11:24:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,34 +33,34 @@ X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D54C9F80103
- for <alsa-devel@alsa-project.org>; Sun, 12 Jan 2020 11:05:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D54C9F80103
+ by alsa1.perex.cz (Postfix) with ESMTPS id 727ACF8012E
+ for <alsa-devel@alsa-project.org>; Sun, 12 Jan 2020 11:24:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 727ACF8012E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="Tjv6Y002"
+ header.b="SZ1kCcrF"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
  s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Message-Id:Date:
  Subject:Cc:To:From:Reply-To:Content-Type:Content-ID:Content-Description:
  Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
  In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
  List-Post:List-Owner:List-Archive;
- bh=XRuQ1Ec43AOpcYkWIHpHMpSLiTLtzY5fULqhDCxhpxw=; b=Tjv6Y00277n60xxfahqpsf3Vq0
- xwdisgMW6WszCojDnD3/mBm03gF6MIzdC/to43KYiNJ+onriSa69O4kBCSwam5YT9K5lFQF6TDy/2
- c+vlXBUt9psalbFDqY+7imUMRlSJgDDcvWJ1kbfajWE9LIDpCrJIx7m74iFGUvpR5QP0=;
+ bh=dK431S3O7AAgm9RpJ+oQkojxtlhjUtDIZXAxvgxuEKg=; b=SZ1kCcrFamXMqvtixGxqfThqMU
+ IPpvph6smvMwkL/MY+DnXEVLs5EaYtF+EhKLfyFzPQghx361D0nJyG1TEbpMFBaKmB/RXSCIfnvMS
+ +dYdlV+VSEy4ZlD2XTHLxhwdpqrP4nWt/C5WejfZvjzeTPpBwYQsPYIaidpc68Bvnbtc=;
 Received: from [2a00:1370:8125:8203:1dce:4cab:baac:10ca]
  (helo=home.puleglot.ru)
  by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
- id 1iqa7m-000uTW-Fz; Sun, 12 Jan 2020 13:05:38 +0300
+ id 1iqaPX-000ufe-ES; Sun, 12 Jan 2020 13:23:59 +0300
 From: Alexander Tsoy <alexander@tsoy.me>
 To: alsa-devel@alsa-project.org
-Date: Sun, 12 Jan 2020 13:05:36 +0300
-Message-Id: <20200112100536.17326-1-alexander@tsoy.me>
+Date: Sun, 12 Jan 2020 13:23:58 +0300
+Message-Id: <20200112102358.18085-1-alexander@tsoy.me>
 X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
 Cc: Takashi Iwai <tiwai@suse.de>
-Subject: [alsa-devel] [PATCH v2] ALSA: usb-audio: Add boot quirk for MOTU M
+Subject: [alsa-devel] [PATCH v3] ALSA: usb-audio: Add boot quirk for MOTU M
 	Series
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -91,7 +91,7 @@ the delay. This behaviour is blindly copied from the Windows driver.
 
 Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
 ---
-v2 changes: indentation fixes
+v3 changes: fixed identations once more
 
  sound/usb/card.c   |  4 ++++
  sound/usb/quirks.c | 38 ++++++++++++++++++++++++++++++++++++++
@@ -170,7 +170,7 @@ index 82184036437b..0464df785f2e 100644
   * check if the device uses big-endian samples
   */
 diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
-index a80e0ddd0736..b46b108769e8 100644
+index a80e0ddd0736..df0355843a4c 100644
 --- a/sound/usb/quirks.h
 +++ b/sound/usb/quirks.h
 @@ -20,6 +20,11 @@ int snd_usb_apply_boot_quirk(struct usb_device *dev,
@@ -178,9 +178,9 @@ index a80e0ddd0736..b46b108769e8 100644
  			     unsigned int usb_id);
  
 +int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
-+			     struct usb_interface *intf,
-+			     const struct snd_usb_audio_quirk *quirk,
-+			     unsigned int usb_id);
++				  struct usb_interface *intf,
++				  const struct snd_usb_audio_quirk *quirk,
++				  unsigned int usb_id);
 +
  void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
  			      struct audioformat *fmt);

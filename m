@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95BCD13AA89
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:18:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36D8D13AAA4
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:21:28 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EC8612013;
-	Mon, 13 Jan 2020 16:23:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC8612013
+	by alsa0.perex.cz (Postfix) with ESMTPS id AEBE12037;
+	Mon, 13 Jan 2020 16:24:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEBE12037
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88E34F80329;
-	Mon, 13 Jan 2020 16:13:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 28B19F80338;
+	Mon, 13 Jan 2020 16:13:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C0468F8028E; Mon, 13 Jan 2020 16:13:32 +0100 (CET)
+ id 3DBE8F802E3; Mon, 13 Jan 2020 16:13:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -26,38 +26,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DC500F8028A
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0A98F8028B
  for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC500F8028A
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0A98F8028B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="CLR2mKUK"
+ header.b="OHGhhNg8"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=LPCjW3au/9uoDHGW66C7elmbY6P8km83nCYSFLpyvfg=; b=CLR2mKUKUpzU
- +ghO5tl597ux6s03xHRowhEeviSDoJCgcIgRIw1P9coQ1IB9JcbSaXl7oaNxbffi6dHhPA3vrc/kf
- lwt6EsIfnkOhySa0DG3TfYPqhoUHVVmdE59bhy1E97lXmn1wt2KSwP+8HLHtzfzllpZO0FEpiewkP
- QjwNw=;
+ List-Archive; bh=T46rJlJgnQyOnFDpzagkDgYhGedwltqq7zrT0QL01Q8=; b=OHGhhNg8NMG+
+ iI/cy/TsjqhtR8eqnd1VYeeqVTCutSmIkg9HLasC7fi58gC20Z4c0TMmjKwj2/fVC5EbZUC8bv5gf
+ 6H8iRaaGxHLVh6bgygpDFF52KDAlmR2fEoObITIqt5I3lmCPf34YuS40kDCCge4E6s9+Rg48LLDyW
+ o91bo=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ir1P2-0003MN-Qi; Mon, 13 Jan 2020 15:13:16 +0000
+ id 1ir1P3-0003Mg-9M; Mon, 13 Jan 2020 15:13:17 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 843A3D01ECC; Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
+ id 00C26D01ECC; Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200110235751.3404-2-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200110235751.3404-2-pierre-louis.bossart@linux.intel.com>
+To: Paul Burton <paulburton@kernel.org>
+In-Reply-To: <20200109191422.334516-1-paulburton@kernel.org>
+Message-Id: <applied-20200109191422.334516-1-paulburton@kernel.org>
 X-Patchwork-Hint: ignore
 Date: Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: Intel: bdw-rt5677: fix Kconfig
-	dependencies" to the asoc tree
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: txx9: Remove unused rtd variable" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,7 +81,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: bdw-rt5677: fix Kconfig dependencies
+   ASoC: txx9: Remove unused rtd variable
 
 has been applied to the asoc tree at
 
@@ -103,39 +106,50 @@ to this mail.
 Thanks,
 Mark
 
-From 630db1549356f64424b8f532c028e7894df8e40b Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Fri, 10 Jan 2020 17:57:44 -0600
-Subject: [PATCH] ASoC: Intel: bdw-rt5677: fix Kconfig dependencies
+From ec0f6a4c4a987aa20b2e77e0db2ae555276e45e6 Mon Sep 17 00:00:00 2001
+From: Paul Burton <paulburton@kernel.org>
+Date: Thu, 9 Jan 2020 11:14:22 -0800
+Subject: [PATCH] ASoC: txx9: Remove unused rtd variable
 
-The existing machine driver depends on SPI Master capabilities, but
-the Kconfig does not model this dependency and the SPI controller
-needs to be selected as well.
+Commit a857e073ffc6 ("ASoC: txx9: txx9aclc: remove snd_pcm_ops") removed
+the last use of the rtd variable but didn't remove its definition,
+leading to the following warning/error for MIPS rbtx49xx_defconfig
+builds:
 
-Without this patch the machine driver probe would fail with the
-spi-RT5677AA:00 component never registered by the ACPI/LPSS subsystem.
+sound/soc/txx9/txx9aclc.c: In function 'txx9aclc_pcm_hw_params':
+sound/soc/txx9/txx9aclc.c:54:30: error: unused variable 'rtd'
+    [-Werror=unused-variable]
+  struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
+                              ^~~
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200110235751.3404-2-pierre-louis.bossart@linux.intel.com
+Resolve this by removing the unused variable.
+
+Signed-off-by: Paul Burton <paulburton@kernel.org>
+Fixes: a857e073ffc6 ("ASoC: txx9: txx9aclc: remove snd_pcm_ops")
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>
+Cc: Jaroslav Kysela <perex@perex.cz>
+Cc: Takashi Iwai <tiwai@suse.com>
+Cc: alsa-devel@alsa-project.org
+Link: https://lore.kernel.org/r/20200109191422.334516-1-paulburton@kernel.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/Kconfig | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/txx9/txx9aclc.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index bddf04715f15..9ca2567d0059 100644
---- a/sound/soc/intel/boards/Kconfig
-+++ b/sound/soc/intel/boards/Kconfig
-@@ -62,6 +62,9 @@ config SND_SOC_INTEL_BDW_RT5677_MACH
- 	depends on I2C_DESIGNWARE_PLATFORM || COMPILE_TEST
- 	depends on GPIOLIB || COMPILE_TEST
- 	depends on X86_INTEL_LPSS || COMPILE_TEST
-+	depends on SPI_MASTER
-+	select SPI_PXA2XX
-+	select SND_SOC_RT5677_SPI
- 	select SND_SOC_RT5677
- 	help
- 	  This adds support for Intel Broadwell platform based boards with
+diff --git a/sound/soc/txx9/txx9aclc.c b/sound/soc/txx9/txx9aclc.c
+index dba13543911c..985487cc3a55 100644
+--- a/sound/soc/txx9/txx9aclc.c
++++ b/sound/soc/txx9/txx9aclc.c
+@@ -51,7 +51,6 @@ static int txx9aclc_pcm_hw_params(struct snd_soc_component *component,
+ 				  struct snd_pcm_substream *substream,
+ 				  struct snd_pcm_hw_params *params)
+ {
+-	struct snd_soc_pcm_runtime *rtd = snd_pcm_substream_chip(substream);
+ 	struct snd_pcm_runtime *runtime = substream->runtime;
+ 	struct txx9aclc_dmadata *dmadata = runtime->private_data;
+ 
 -- 
 2.20.1
 

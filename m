@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F293A13AB0E
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:28:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A7C813AA8C
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:18:59 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D4EFD1F88;
-	Mon, 13 Jan 2020 16:21:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D4EFD1F88
+	by alsa0.perex.cz (Postfix) with ESMTPS id E8E37209B;
+	Mon, 13 Jan 2020 16:26:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E8E37209B
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E96FF802FB;
-	Mon, 13 Jan 2020 16:13:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E644F801EB;
+	Mon, 13 Jan 2020 16:13:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 999A1F802BD; Mon, 13 Jan 2020 16:13:27 +0100 (CET)
+ id BACC8F80292; Mon, 13 Jan 2020 16:13:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -26,39 +26,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7D78CF8027D
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7D78CF8027D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9A949F80299
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A949F80299
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="bAhuEMFG"
+ header.b="oPcVr1n1"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=quzXsJn1UDuD0mZsuAs6hJrLvoZKfxTpBmKhlhWE+cw=; b=bAhuEMFGaj6Q
- /kofRum/OgDG9xlr9ePB5//EC7d8031Z3Tk9IXvUmVpFJ0sPc4SQp0JjAYumpCg8Z1oTYfn6jypv2
- cMuJxKHnqFAI+Ug5VRztJ2/dps4h2PwIf7LAnkBYK6VKAtjOZGClBYe6Uj+zpTxl9RrBeOEB0I8GC
- 9AaVA=;
+ List-Archive; bh=3zu6dTj/sd32hCPozZLFXVy73z4Ck7UQjRwNDruJ1jU=; b=oPcVr1n1vslT
+ VKg1GrPqg1tG9XKOvakZ4d01S5jCKrFIpnpxyQ/HxytVlwjrXdMWIdXFNw4lRWu1GNCF2JAU7fMAY
+ zEHpVtxWr3Z9K+TplaRZMY1cjb8A7s5YR2eWsb1eUkq6MxRdmIzn8bjNQ8026CCxMMwMkAUQKhRsE
+ sZlkA=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ir1P2-0003M5-7R; Mon, 13 Jan 2020 15:13:16 +0000
+ id 1ir1P2-0003MJ-O4; Mon, 13 Jan 2020 15:13:16 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id EF2A8D01AE4; Mon, 13 Jan 2020 15:13:15 +0000 (GMT)
+ id 643C5D01AE4; Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20200110235751.3404-7-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200110235751.3404-7-pierre-louis.bossart@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200110235751.3404-3-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200110235751.3404-3-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Date: Mon, 13 Jan 2020 15:13:15 +0000 (GMT)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: fix PCM playback through ALSA OSS
-	emulation" to the asoc tree
+Date: Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: Intel: bdw-rt5677: change cpu_dai and
+	platform components for SOF" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,7 +78,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: fix PCM playback through ALSA OSS emulation
+   ASoC: Intel: bdw-rt5677: change cpu_dai and platform components for SOF
 
 has been applied to the asoc tree at
 
@@ -104,112 +103,50 @@ to this mail.
 Thanks,
 Mark
 
-From cfe8191b1bbf2b41581b63eb97e56cd6bc3c34a1 Mon Sep 17 00:00:00 2001
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Fri, 10 Jan 2020 17:57:49 -0600
-Subject: [PATCH] ASoC: SOF: fix PCM playback through ALSA OSS emulation
+From 4865bde187b29e42b3f572d9610dfca9a57c30b9 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Fri, 10 Jan 2020 17:57:45 -0600
+Subject: [PATCH] ASoC: Intel: bdw-rt5677: change cpu_dai and platform
+ components for SOF
 
-Any app using ALSA OSS emulation on top of SOF will fail
-to error from OSS SNDCTL_DSP_SETFMT ioctl. Reported initially
-as an issue with xournalpp (application using PortAudio with
-an OSS backend), but applies more generally to other apps
-using OSS as well.
+The legacy driver uses dummy cpu_dai and platform, SOF requires actual
+values to bind.
 
-Problem is caused by SOF PCM not supporting repeated calls
-to hw_params(), without matching calls to pcm_free(). This
-is however exactly what the ALSA OSS PCM code is doing when
-it is handling the OSS ioctls.
-
-The problem will lead to leaking of DSP resources and eventual
-failure of DSP PCM_PARAMS IPC.
-
-BugLink: https://github.com/thesofproject/linux/issues/1510
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200110235751.3404-7-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200110235751.3404-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/pcm.c | 53 ++++++++++++++++++++++++++-------------------
- 1 file changed, 31 insertions(+), 22 deletions(-)
+ sound/soc/intel/boards/bdw-rt5677.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
-index 9bb6388742e1..314f3095c12f 100644
---- a/sound/soc/sof/pcm.c
-+++ b/sound/soc/sof/pcm.c
-@@ -92,7 +92,27 @@ void snd_sof_pcm_period_elapsed(struct snd_pcm_substream *substream)
- }
- EXPORT_SYMBOL(snd_sof_pcm_period_elapsed);
+diff --git a/sound/soc/intel/boards/bdw-rt5677.c b/sound/soc/intel/boards/bdw-rt5677.c
+index 2af8e5a62da8..bb643c99069d 100644
+--- a/sound/soc/intel/boards/bdw-rt5677.c
++++ b/sound/soc/intel/boards/bdw-rt5677.c
+@@ -295,6 +295,14 @@ SND_SOC_DAILINK_DEF(platform,
+ SND_SOC_DAILINK_DEF(be,
+ 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-RT5677CE:00", "rt5677-aif1")));
  
--/* this may get called several times by oss emulation */
-+static int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream,
-+				struct snd_sof_dev *sdev,
-+				struct snd_sof_pcm *spcm)
-+{
-+	struct sof_ipc_stream stream;
-+	struct sof_ipc_reply reply;
-+	int ret;
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
++SND_SOC_DAILINK_DEF(ssp0_port,
++	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
++#else
++SND_SOC_DAILINK_DEF(ssp0_port,
++	    DAILINK_COMP_ARRAY(COMP_DUMMY()));
++#endif
 +
-+	stream.hdr.size = sizeof(stream);
-+	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
-+	stream.comp_id = spcm->stream[substream->stream].comp_id;
-+
-+	/* send IPC to the DSP */
-+	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
-+				 sizeof(stream), &reply, sizeof(reply));
-+	if (!ret)
-+		spcm->prepared[substream->stream] = false;
-+
-+	return ret;
-+}
-+
- static int sof_pcm_hw_params(struct snd_soc_component *component,
- 			     struct snd_pcm_substream *substream,
- 			     struct snd_pcm_hw_params *params)
-@@ -113,6 +133,16 @@ static int sof_pcm_hw_params(struct snd_soc_component *component,
- 	if (!spcm)
- 		return -EINVAL;
+ /* Wake on voice interface */
+ SND_SOC_DAILINK_DEFS(dsp,
+ 	DAILINK_COMP_ARRAY(COMP_CPU("spi-RT5677AA:00")),
+@@ -342,7 +350,7 @@ static struct snd_soc_dai_link bdw_rt5677_dais[] = {
+ 		.dpcm_playback = 1,
+ 		.dpcm_capture = 1,
+ 		.init = bdw_rt5677_init,
+-		SND_SOC_DAILINK_REG(dummy, be, dummy),
++		SND_SOC_DAILINK_REG(ssp0_port, be, platform),
+ 	},
+ };
  
-+	/*
-+	 * Handle repeated calls to hw_params() without free_pcm() in
-+	 * between. At least ALSA OSS emulation depends on this.
-+	 */
-+	if (spcm->prepared[substream->stream]) {
-+		ret = sof_pcm_dsp_pcm_free(substream, sdev, spcm);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	dev_dbg(component->dev, "pcm: hw params stream %d dir %d\n",
- 		spcm->pcm.pcm_id, substream->stream);
- 
-@@ -201,27 +231,6 @@ static int sof_pcm_hw_params(struct snd_soc_component *component,
- 	return ret;
- }
- 
--static int sof_pcm_dsp_pcm_free(struct snd_pcm_substream *substream,
--				struct snd_sof_dev *sdev,
--				struct snd_sof_pcm *spcm)
--{
--	struct sof_ipc_stream stream;
--	struct sof_ipc_reply reply;
--	int ret;
--
--	stream.hdr.size = sizeof(stream);
--	stream.hdr.cmd = SOF_IPC_GLB_STREAM_MSG | SOF_IPC_STREAM_PCM_FREE;
--	stream.comp_id = spcm->stream[substream->stream].comp_id;
--
--	/* send IPC to the DSP */
--	ret = sof_ipc_tx_message(sdev->ipc, stream.hdr.cmd, &stream,
--				 sizeof(stream), &reply, sizeof(reply));
--	if (!ret)
--		spcm->prepared[substream->stream] = false;
--
--	return ret;
--}
--
- static int sof_pcm_hw_free(struct snd_soc_component *component,
- 			   struct snd_pcm_substream *substream)
- {
 -- 
 2.20.1
 

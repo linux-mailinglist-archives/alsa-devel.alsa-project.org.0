@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C480D13AABB
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:22:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B6EF213AAD6
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:25:02 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6E76A1F00;
-	Mon, 13 Jan 2020 16:18:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6E76A1F00
+	by alsa0.perex.cz (Postfix) with ESMTPS id 243B91F66;
+	Mon, 13 Jan 2020 16:20:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 243B91F66
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64EE7F8028E;
-	Mon, 13 Jan 2020 16:13:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 14146F802EC;
+	Mon, 13 Jan 2020 16:13:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86854F8029A; Mon, 13 Jan 2020 16:13:22 +0100 (CET)
+ id 76BADF802BC; Mon, 13 Jan 2020 16:13:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -26,39 +26,39 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 845C3F80271
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 845C3F80271
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9E1D0F80276
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E1D0F80276
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="LIh/VcLt"
+ header.b="NJ5ycc2C"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=COfGR94uPnv7jKIlAFQGeV9O8oa5cj23qPgkkjU30OM=; b=LIh/VcLtFd52
- 0eLQ3c1pvSPhD7EOODDosGc1g47YRqdlr+X3Yai+klaBHUzRqNTbZGjCK/aczRva+aklWaGGwXSFM
- knlUtXPjqiXoK8Qtdgt3uanArrgs0dw7yXPytA/zZ6dyFqPy+8MP8G2E7hv76cA7orRzGBIwoVPJB
- rjbDA=;
+ List-Archive; bh=LQ1X6Qf6cMDMtvhJHEFivDie9FfTlKLr75x0YeJgkNw=; b=NJ5ycc2CUVde
+ 6jzZICJH+YcfR9lyr58hvRXQV0iaoywhjVi6fOMMs9LEmYKLJa9YyICan+5uKV1Mmeic/3vaD42Ut
+ LOLE0+OgkFHCr4PMDiKQXmtjVw8MYaAuVOS8e77WTOUUsfzMeoWDTZWs2wJG1WqPE1CDxn87ziKSO
+ Vuuyw=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ir1P1-0003Li-8r; Mon, 13 Jan 2020 15:13:15 +0000
+ id 1ir1P1-0003Lu-Qk; Mon, 13 Jan 2020 15:13:15 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 02C7DD01965; Mon, 13 Jan 2020 15:13:14 +0000 (GMT)
+ id 8CE1CD01AE4; Mon, 13 Jan 2020 15:13:15 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Bard liao <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20200110235751.3404-6-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200110235751.3404-6-pierre-louis.bossart@linux.intel.com>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+In-Reply-To: <20200110222530.30303-4-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200110222530.30303-4-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Date: Mon, 13 Jan 2020 15:13:14 +0000 (GMT)
+Date: Mon, 13 Jan 2020 15:13:15 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: lower print level to dbg if
-	we will reinit DSP" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: Intel: common: add match tables for ICL
+	w/ SoundWire" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,11 +79,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: lower print level to dbg if we will reinit DSP
+   ASoC: Intel: common: add match tables for ICL w/ SoundWire
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -104,45 +104,131 @@ to this mail.
 Thanks,
 Mark
 
-From ceca2197b2f1af4cb6e3f32bb7bd2879943406ef Mon Sep 17 00:00:00 2001
-From: Bard liao <yung-chuan.liao@linux.intel.com>
-Date: Fri, 10 Jan 2020 17:57:48 -0600
-Subject: [PATCH] ASoC: SOF: Intel: lower print level to dbg if we will reinit
- DSP
+From 4313dd3efe5751238f85dd7069bee3a8bbcdbe2f Mon Sep 17 00:00:00 2001
+From: Bard Liao <yung-chuan.liao@linux.intel.com>
+Date: Fri, 10 Jan 2020 16:25:27 -0600
+Subject: [PATCH] ASoC: Intel: common: add match tables for ICL w/ SoundWire
 
-We will reinit DSP in a loop when it fails to initialize the first
-time, as recommended. So, it is not an error before we finally give
-up. And reorder the trace to make it more readable.
+The two configurations are with the Realtek 3-in-1 board requiring all
+4 links to be enabled, or basic configuration with the on-board RT700
+using link0.
 
-Signed-off-by: Bard liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200110235751.3404-6-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200110222530.30303-4-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-loader.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../intel/common/soc-acpi-intel-icl-match.c   | 98 +++++++++++++++++++
+ 1 file changed, 98 insertions(+)
 
-diff --git a/sound/soc/sof/intel/hda-loader.c b/sound/soc/sof/intel/hda-loader.c
-index b1783360fe10..bae7ac3581e5 100644
---- a/sound/soc/sof/intel/hda-loader.c
-+++ b/sound/soc/sof/intel/hda-loader.c
-@@ -329,13 +329,13 @@ int hda_dsp_cl_boot_firmware(struct snd_sof_dev *sdev)
- 		if (!ret)
- 			break;
+diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
+index 38977669b576..67e9da4635f2 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
+@@ -33,5 +33,103 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_machines[] = {
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_icl_machines);
  
--		dev_err(sdev->dev, "error: Error code=0x%x: FW status=0x%x\n",
-+		dev_dbg(sdev->dev, "iteration %d of Core En/ROM load failed: %d\n",
-+			i, ret);
-+		dev_dbg(sdev->dev, "Error code=0x%x: FW status=0x%x\n",
- 			snd_sof_dsp_read(sdev, HDA_DSP_BAR,
- 					 HDA_DSP_SRAM_REG_ROM_ERROR),
- 			snd_sof_dsp_read(sdev, HDA_DSP_BAR,
- 					 HDA_DSP_SRAM_REG_ROM_STATUS));
--		dev_err(sdev->dev, "error: iteration %d of Core En/ROM load failed: %d\n",
--			i, ret);
- 	}
- 
- 	if (i == HDA_FW_BOOT_ATTEMPTS) {
++static const u64 rt700_0_adr[] = {
++	0x000010025D070000
++};
++
++static const struct snd_soc_acpi_link_adr icl_rvp[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt700_0_adr),
++		.adr = rt700_0_adr,
++	},
++	{}
++};
++
++static const u64 rt711_0_adr[] = {
++	0x000010025D071100
++};
++
++static const u64 rt1308_1_adr[] = {
++	0x000110025D130800
++};
++
++static const u64 rt1308_2_adr[] = {
++	0x000210025D130800
++};
++
++static const u64 rt715_3_adr[] = {
++	0x000310025D715000
++};
++
++static const struct snd_soc_acpi_link_adr icl_3_in_1_default[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt711_0_adr),
++		.adr = rt711_0_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(rt1308_1_adr),
++		.adr = rt1308_1_adr,
++	},
++	{
++		.mask = BIT(2),
++		.num_adr = ARRAY_SIZE(rt1308_2_adr),
++		.adr = rt1308_2_adr,
++	},
++	{
++		.mask = BIT(3),
++		.num_adr = ARRAY_SIZE(rt715_3_adr),
++		.adr = rt715_3_adr,
++	},
++	{}
++};
++
++static const struct snd_soc_acpi_link_adr icl_3_in_1_mono_amp[] = {
++	{
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt711_0_adr),
++		.adr = rt711_0_adr,
++	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(rt1308_1_adr),
++		.adr = rt1308_1_adr,
++	},
++	{
++		.mask = BIT(3),
++		.num_adr = ARRAY_SIZE(rt715_3_adr),
++		.adr = rt715_3_adr,
++	},
++	{}
++};
++
++struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_sdw_machines[] = {
++	{
++		.link_mask = 0xF, /* 4 active links required */
++		.links = icl_3_in_1_default,
++		.drv_name = "sdw_rt711_rt1308_rt715",
++		.sof_fw_filename = "sof-icl.ri",
++		.sof_tplg_filename = "sof-icl-rt711-rt1308-rt715.tplg",
++	},
++	{
++		.link_mask = 0xB, /* 3 active links required */
++		.links = icl_3_in_1_mono_amp,
++		.drv_name = "sdw_rt711_rt1308_rt715",
++		.sof_fw_filename = "sof-icl.ri",
++		.sof_tplg_filename = "sof-icl-rt711-rt1308-rt715-mono.tplg",
++	},
++	{
++		.link_mask = 0x1, /* rt700 connected on link0 */
++		.links = icl_rvp,
++		.drv_name = "sdw_rt700",
++		.sof_fw_filename = "sof-icl.ri",
++		.sof_tplg_filename = "sof-icl-rt700.tplg",
++	},
++	{},
++};
++EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_icl_sdw_machines);
++
+ MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("Intel Common ACPI Match module");
 -- 
 2.20.1
 

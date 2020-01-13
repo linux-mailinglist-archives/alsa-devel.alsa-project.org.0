@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1518F13AACC
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:24:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A136713AB1A
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:29:39 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B95661AB2;
-	Mon, 13 Jan 2020 16:15:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B95661AB2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0B7271AD3;
+	Mon, 13 Jan 2020 16:16:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B7271AD3
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A168F80271;
-	Mon, 13 Jan 2020 16:13:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D163F8027C;
+	Mon, 13 Jan 2020 16:13:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 051E1F801F7; Mon, 13 Jan 2020 16:13:12 +0100 (CET)
+ id 7F728F80272; Mon, 13 Jan 2020 16:13:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -26,38 +26,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB0D6F80228
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB0D6F80228
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CB0AF800B9
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CB0AF800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="ojO4gmNB"
+ header.b="eOxgJ8Hw"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=Iy5cD4DUQqsz92dRX/VUa+WyGFLlB2ukYYEXq+sj6ik=; b=ojO4gmNBP0zn
- UhlTSY2XxeSV6BcHQS3EqVWXTKyGOp6MOhEG6ZISK7oGonVOpQ2L5lyX6tu7jMBJG7xZU4FfK4oNm
- z/ziikNBUZGujHiubOpDffJAUdOEknP1Y+jIzpu6TtGnyTauc0yh+ZyHIc+FxESL0qWwNA/eIIDro
- V2dCM=;
+ List-Archive; bh=aW5HL87eZl6hSdLRoNuUiGg2nj7va2ovemBzwoudHU0=; b=eOxgJ8HwDktL
+ XNhCK/rj7Qhs3PggwOkeR5NewugZQWNQ3gJ60KNqTZObVX6aqddgsWC2mRRoWJ6r/tx6uD5b9aiIM
+ JiNYpIHx3Y8GGT1TqThyHZ2NXJUVC5V3AKSdqrP3e2AZG7WOFWxYSfio0qeoG6UzLyAe4X5eqgHqo
+ Ss3dU=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ir1Ot-0003L8-Sl; Mon, 13 Jan 2020 15:13:07 +0000
+ id 1ir1Ov-0003LH-Nx; Mon, 13 Jan 2020 15:13:09 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 9A9AED01965; Mon, 13 Jan 2020 15:13:07 +0000 (GMT)
+ id 770AED01965; Mon, 13 Jan 2020 15:13:09 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-In-Reply-To: 
-Message-Id: 
+To: Stephan Gerhold <stephan@gerhold.net>
+In-Reply-To: <20200111164006.43074-2-stephan@gerhold.net>
+Message-Id: <applied-20200111164006.43074-2-stephan@gerhold.net>
 X-Patchwork-Hint: ignore
-Date: Mon, 13 Jan 2020 15:13:07 +0000 (GMT)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: sti: fix possible sleep-in-atomic" to
-	the asoc tree
+Date: Mon, 13 Jan 2020 15:13:09 +0000 (GMT)
+Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ ~postmarketos/upstreaming@lists.sr.ht
+Subject: [alsa-devel] Applied "ASoC: msm8916-wcd-analog: Fix selected events
+	for MIC BIAS External1" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,7 +81,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sti: fix possible sleep-in-atomic
+   ASoC: msm8916-wcd-analog: Fix selected events for MIC BIAS External1
 
 has been applied to the asoc tree at
 
@@ -103,69 +106,47 @@ to this mail.
 Thanks,
 Mark
 
-From ce780a47c3c01e1e179d0792df6b853a913928f1 Mon Sep 17 00:00:00 2001
-From: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-Date: Mon, 13 Jan 2020 11:04:00 +0100
-Subject: [PATCH] ASoC: sti: fix possible sleep-in-atomic
+From e0beec88397b163c7c4ea6fcfb67e8e07a2671dc Mon Sep 17 00:00:00 2001
+From: Stephan Gerhold <stephan@gerhold.net>
+Date: Sat, 11 Jan 2020 17:40:03 +0100
+Subject: [PATCH] ASoC: msm8916-wcd-analog: Fix selected events for MIC BIAS
+ External1
 
-Change mutex and spinlock management to avoid sleep
-in atomic issue.
+MIC BIAS External1 sets pm8916_wcd_analog_enable_micbias_ext1()
+as event handler, which ends up in pm8916_wcd_analog_enable_micbias_ext().
 
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@st.com>
-Link: https://lore.kernel.org/r/20200113100400.30472-1-arnaud.pouliquen@st.com
+But pm8916_wcd_analog_enable_micbias_ext() only handles the POST_PMU
+event, which is not specified in the event flags for MIC BIAS External1.
+This means that the code in the event handler is never actually run.
+
+Set SND_SOC_DAPM_POST_PMU as the only event for the handler to fix this.
+
+Fixes: 585e881e5b9e ("ASoC: codecs: Add msm8916-wcd analog codec")
+Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
+Link: https://lore.kernel.org/r/20200111164006.43074-2-stephan@gerhold.net
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sti/uniperif_player.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ sound/soc/codecs/msm8916-wcd-analog.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/sti/uniperif_player.c b/sound/soc/sti/uniperif_player.c
-index 48ea915b24ba..2ed92c990b97 100644
---- a/sound/soc/sti/uniperif_player.c
-+++ b/sound/soc/sti/uniperif_player.c
-@@ -226,7 +226,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
- 	 * sampling frequency. If no sample rate is already specified, then
- 	 * set one.
- 	 */
--	mutex_lock(&player->ctrl_lock);
- 	if (runtime) {
- 		switch (runtime->rate) {
- 		case 22050:
-@@ -303,7 +302,6 @@ static void uni_player_set_channel_status(struct uniperif *player,
- 		player->stream_settings.iec958.status[3 + (n * 4)] << 24;
- 		SET_UNIPERIF_CHANNEL_STA_REGN(player, n, status);
- 	}
--	mutex_unlock(&player->ctrl_lock);
+diff --git a/sound/soc/codecs/msm8916-wcd-analog.c b/sound/soc/codecs/msm8916-wcd-analog.c
+index f53235be77d9..30b19f12fabc 100644
+--- a/sound/soc/codecs/msm8916-wcd-analog.c
++++ b/sound/soc/codecs/msm8916-wcd-analog.c
+@@ -938,10 +938,10 @@ static const struct snd_soc_dapm_widget pm8916_wcd_analog_dapm_widgets[] = {
  
- 	/* Update the channel status */
- 	if (player->ver < SND_ST_UNIPERIF_VERSION_UNI_PLR_TOP_1_0)
-@@ -365,8 +363,10 @@ static int uni_player_prepare_iec958(struct uniperif *player,
+ 	SND_SOC_DAPM_SUPPLY("MIC BIAS External1", CDC_A_MICB_1_EN, 7, 0,
+ 			    pm8916_wcd_analog_enable_micbias_ext1,
+-			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++			    SND_SOC_DAPM_POST_PMU),
+ 	SND_SOC_DAPM_SUPPLY("MIC BIAS External2", CDC_A_MICB_2_EN, 7, 0,
+ 			    pm8916_wcd_analog_enable_micbias_ext2,
+-			    SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_POST_PMD),
++			    SND_SOC_DAPM_POST_PMU),
  
- 	SET_UNIPERIF_CTRL_ZERO_STUFF_HW(player);
- 
-+	mutex_lock(&player->ctrl_lock);
- 	/* Update the channel status */
- 	uni_player_set_channel_status(player, runtime);
-+	mutex_unlock(&player->ctrl_lock);
- 
- 	/* Clear the user validity user bits */
- 	SET_UNIPERIF_USER_VALIDITY_VALIDITY_LR(player, 0);
-@@ -598,7 +598,6 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
- 	iec958->status[1] = ucontrol->value.iec958.status[1];
- 	iec958->status[2] = ucontrol->value.iec958.status[2];
- 	iec958->status[3] = ucontrol->value.iec958.status[3];
--	mutex_unlock(&player->ctrl_lock);
- 
- 	spin_lock_irqsave(&player->irq_lock, flags);
- 	if (player->substream && player->substream->runtime)
-@@ -608,6 +607,8 @@ static int uni_player_ctl_iec958_put(struct snd_kcontrol *kcontrol,
- 		uni_player_set_channel_status(player, NULL);
- 
- 	spin_unlock_irqrestore(&player->irq_lock, flags);
-+	mutex_unlock(&player->ctrl_lock);
-+
- 	return 0;
- }
- 
+ 	SND_SOC_DAPM_ADC_E("ADC1", NULL, CDC_A_TX_1_EN, 7, 0,
+ 			   pm8916_wcd_analog_enable_adc,
 -- 
 2.20.1
 

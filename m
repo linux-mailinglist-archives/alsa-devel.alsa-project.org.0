@@ -2,53 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1556213AA74
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:15:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 03A8313AAAF
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:22:17 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 45D2D16FF;
-	Mon, 13 Jan 2020 13:34:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 45D2D16FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A5111726;
+	Mon, 13 Jan 2020 13:40:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A5111726
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 279B8F801F7;
-	Mon, 13 Jan 2020 13:33:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 089E8F8014B;
+	Mon, 13 Jan 2020 13:39:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E52C3F801EB; Mon, 13 Jan 2020 13:33:20 +0100 (CET)
+ id AA97DF801EB; Mon, 13 Jan 2020 13:39:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 43F62F80122
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 13:33:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43F62F80122
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2020 04:33:12 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,428,1571727600"; d="scan'208";a="424296222"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga006.fm.intel.com with ESMTP; 13 Jan 2020 04:33:10 -0800
-Date: Mon, 13 Jan 2020 14:33:10 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Takashi Iwai <tiwai@suse.de>
-In-Reply-To: <20200109090104.26073-1-tiwai@suse.de>
-Message-ID: <alpine.DEB.2.21.2001131425180.2957@eliteleevi.tm.intel.com>
-References: <20200109090104.26073-1-tiwai@suse.de>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD34BF80149
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 13:39:14 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id B629DA003F;
+ Mon, 13 Jan 2020 13:39:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz B629DA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1578919153; bh=1CxLvVRSdSf/MKE/Xwmi0zoBNBaBOwE7p9w8W9cTY34=;
+ h=Subject:To:References:Cc:From:Date:In-Reply-To:From;
+ b=ZoM2tRqkNnEkfTbXAFJJvVK1IseAk7LrXqO7RfsgOw5VD3AbkhLuNxcRMODKSgJRp
+ ykLsbgwijKyMHeSuMhyrB6mu71eFbnGxNApzVYVcX275k5KEkG66kmorsKznfrQSH4
+ GRXdhWMhBy2QZ/rOq7n2YwWiq+IuONHVgS8NLUDc=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 13 Jan 2020 13:39:11 +0100 (CET)
+To: alsa-devel@alsa-project.org
+References: <20200109221032.GA74081@impa>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <7294fce2-716e-00c2-665f-587424b96eb0@perex.cz>
+Date: Mon, 13 Jan 2020 13:39:11 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH for-5.6] ALSA: hda: Manage concurrent reg
- access more properly
+In-Reply-To: <20200109221032.GA74081@impa>
+Content-Language: en-US
+Cc: Tim Schumacher <tim@timakro.de>
+Subject: Re: [alsa-devel] Bug report for changes in ucm2 with chtrt5645 card
+ on Lenovo Miix 320
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,50 +67,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Dne 09. 01. 20 v 23:10 Tim Schumacher napsal(a):
+> Hi alsa devs,
+> 
+> I'm on Arch Linux on a rather uncommon laptop (Lenovo Miix 320) and my sound
+> stopped working on the upgrade from alsa-lib 1.1.9 to 1.2.1. wabbits on
+> IRC helped me track down the problem to a change in the
+> /usr/share/alsa/ucm (now /usr/share/alsa/ucm2) files. It seems like
+> /usr/share/alsa/ucm2/chtrt5645/HiFi-dmic2.conf and a symlink at
+> /usr/share/alsa/ucm2/chtrt5645/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
+> were specifically added for this laptop but in the contrary they break the
+> sound for me.
+> 
+> After the upgrade to alsa-lib 1.2.1 the sound is not working. The commands play no sound:
+> 
+>      pasuspender -- speaker-test --nloops=1 --channels=2 --test=wav --device=hw:0,0
+>      pasuspender -- speaker-test --nloops=1 --channels=2 --test=wav --device=hw:0,1
+> 
+> And this is the alsa-info.sh output http://alsa-project.org/db/?f=f883910a5c5101b4b1ea4202d1fe84ccd139f796
+> 
+> After deleting the /usr/share/alsa/ucm2/chtrt5645/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
+> symlink both commands from above play sound and this is the alsa-info.sh
+> output http://alsa-project.org/db/?f=e759eb9118a191b6c3b8c021fed58abc9cf95076
 
-On Thu, 9 Jan 2020, Takashi Iwai wrote:
+Thanks. I forgot to fix the file path in chtrt5645/chtrt5645-dmic2.conf . 
+Could you test this patch?
 
-> In the commit 8e85def5723e ("ALSA: hda: enable regmap internal
-> locking"), we re-enabled the regmap lock due to the reported
-> regression that showed the possible concurrent accesses.  It was a
-> temporary workaround, and there are still a few opened races even
-> after the revert.  In this patch, we cover those still opened windows
-> with a proper mutex lock and disable the regmap internal lock again.
+https://github.com/alsa-project/alsa-ucm-conf/commit/74f2a0f0884df7b9f2d08d07456a3bc37d1a512e
 
-I've been running tests on multiple HDA machines plus submitted the patch 
-through the GFX CI (that found the original problem) and no issues have 
-been found. So with that:
+				Jaroslav
 
-Tested-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-
-One minor nit from checkpatch:
-
-> +/* a helper macro to call @func_call; retry with power-up if failed */
-> +#define CALL_RAW_FUNC(codec, func_call)				\
-> +	({							\
-> +		int _err = func_call;				\
-> +		if (_err == -EAGAIN) {				\
-> +			_err = snd_hdac_power_up_pm(codec);	\
-> +			if (_err >= 0)				\
-> +				_err = func_call;		\
-> +			snd_hdac_power_down_pm(codec);		\
-> +		}						\
-> +		_err;})
-
-Checkpatch --strict doesn't like this:
-
-ERROR: space required after that ';' (ctx:VxV)
-#121: FILE: sound/hda/hdac_regmap.c:450:
-+               _err;})
-                    ^
-Br,
-Kai
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

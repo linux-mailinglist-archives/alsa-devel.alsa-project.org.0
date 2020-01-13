@@ -2,69 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D3D2B13AA80
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:17:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C60413AACB
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:24:13 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8011F2131;
-	Mon, 13 Jan 2020 16:28:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8011F2131
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8D042152;
+	Mon, 13 Jan 2020 16:29:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8D042152
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72AF6F8025A;
-	Mon, 13 Jan 2020 16:22:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8ECC1F80273;
+	Mon, 13 Jan 2020 16:22:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 777DFF80227; Mon, 13 Jan 2020 16:22:29 +0100 (CET)
+ id 2A5F4F80271; Mon, 13 Jan 2020 16:22:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1928F800B9
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:22:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1928F800B9
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 13 Jan 2020 07:22:17 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,429,1571727600"; d="scan'208";a="304865985"
-Received: from bcoogan-mobl1.amr.corp.intel.com (HELO [10.252.137.69])
- ([10.252.137.69])
- by orsmga001.jf.intel.com with ESMTP; 13 Jan 2020 07:22:15 -0800
-To: Vinod Koul <vkoul@kernel.org>
-References: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
- <20191217210314.20410-10-pierre-louis.bossart@linux.intel.com>
- <20191227090826.GM3006@vkoul-mobl>
- <5be4d9df-0f46-d36f-471c-aae9e1f55cc0@linux.intel.com>
- <20200106054221.GN2818@vkoul-mobl>
- <32ae46a7-59ee-4815-270a-a519ff462345@linux.intel.com>
- <20200110064303.GX2818@vkoul-mobl>
- <39000dd7-3f77-bc33-0ad3-aa47ba2360f7@linux.intel.com>
- <20200113051800.GP2818@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d77dcdfd-2b33-d533-e0b2-564c12223eec@linux.intel.com>
-Date: Mon, 13 Jan 2020 09:22:15 -0600
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80A03F8026A
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:22:47 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 73B1DA003F;
+ Mon, 13 Jan 2020 16:22:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 73B1DA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1578928967; bh=x8J2xsr4cqZCSOkoJ09KQur/D9Pi6/lWHpAUBPlMOVM=;
+ h=Subject:To:References:Cc:From:Date:In-Reply-To:From;
+ b=EhHHd/fu8+7facf0UHow2rFAGYc7EPNZg2wruIvuGuKfpjsp4x8xmZ2PKwes/TOIj
+ LbzymSqUbHqu2fbLTp9EF9H7N1n5etn17wu3YLwBGjdEBy99s2Ljh1h8MQCE7qP1o6
+ DFa8TIiKnDkLwSAuVkfeWNf4eBeSj8FEcRxNAqLI=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 13 Jan 2020 16:22:45 +0100 (CET)
+To: Tim Schumacher <tim@timakro.de>
+References: <20200109221032.GA74081@impa>
+ <7294fce2-716e-00c2-665f-587424b96eb0@perex.cz> <20200113142753.GA22538@impa>
+ <6d433182-fb2a-d883-a9b3-80110efb89c2@perex.cz> <20200113145904.GA30843@impa>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <17b002d5-2cc6-ba4a-1a92-4e9be2798f08@perex.cz>
+Date: Mon, 13 Jan 2020 16:22:45 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-In-Reply-To: <20200113051800.GP2818@vkoul-mobl>
+In-Reply-To: <20200113145904.GA30843@impa>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v5 09/17] soundwire: intel: remove platform
- devices and use 'Master Devices' instead
+Cc: ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] Bug report for changes in ucm2 with chtrt5645 card
+ on Lenovo Miix 320
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,136 +74,83 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Dne 13. 01. 20 v 15:59 Tim Schumacher napsal(a):
+> 'alsaucm set _verb HiFi' gives
+> 
+>      ALSA lib utils.c:261:(uc_mgr_config_load) could not open configuration file /usr/share/alsa/ucm2/HDA Intel PCH/HDA Intel PCH.conf
+>      alsaucm: unable to obtain card list: No such file or directory
+> 
+> but that seems unrelated to the problem because it's the same
+> output whether I delete LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
+> and the sound works or I try your patch.
 
+Ok, try 'alsaucm -c hw:0 set _verb HiFi'.
 
-On 1/12/20 11:18 PM, Vinod Koul wrote:
-> On 10-01-20, 10:08, Pierre-Louis Bossart wrote:
+					Jaroslav
+
+> 
+> - Tim
+> 
+> On 2020-01-13, Jaroslav Kysela wrote:
+>> Dne 13. 01. 20 v 15:27 Tim Schumacher napsal(a):
+>>> The patch doesn't help unfortunately. Deleting
+>>> LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf still works with the
+>>> patch installed. Can I help debug this somehow?
 >>
->>>>> The "big" difference is that probe is called by core (asoc) and not by
->>>>> driver onto themselves.. IMO that needs to go away.
->>>>
->>>> What I did is not different from what existed already with platform devices.
->>>> They were manually created, weren't they?
+>> If you have latest alsa-utils, the command 'alsaucm dump text' should work,
+>> otherwise try 'alsaucm set _verb HiFi'.
+>>
+>> 					Jaroslav
+>>
 >>>
->>> Manual creation of device based on a requirement is different, did I ask
->>> you why you are creating device :)
+>>> - Tim
 >>>
->>> I am simple asking you not to call probe in the driver. If you need
->>> that, move it to core! We do not want these kind of things in the
->>> drivers...
->>
->> What core are you talking about?
-> 
-> soundwire core ofcourse! IMO All that which goes into soundwire-bus-objs is
-> considered as soundwire core part and rest are drivers intel, qc, so on!
-This master code was added to the bus:   v
-                                          v
-soundwire-bus-objs := bus_type.o bus.o master.o slave.o mipi_disco.o 
-stream.o
-obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
-
-and the API is also part of the sdw.h include file. That seems to meet 
-exactly what you describe above, no?
-
-git grep sdw_master_device_add (reformatted output)
-
-drivers/soundwire/intel_init.c:
-md = sdw_master_device_add(&intel_sdw_driver,
-
-drivers/soundwire/master.c:
-*sdw_master_device_add(struct sdw_master_driver *driver,
-
-drivers/soundwire/master.c:
-EXPORT_SYMBOL_GPL(sdw_master_device_add);
-
-include/linux/soundwire/sdw.h:
-*sdw_master_device_add(struct sdw_master_driver *driver,
-
-So, what exactly is the issue?
-
-We are not 'calling the probe in the [Intel] driver' as you state it, we 
-use a SoundWire core API which in turn will create a device. The device 
-core takes care of calling the probe, see the master.c code which is NOT 
-Intel-specific.
-
->>
->> The SOF intel driver needs to create a device, which will then be bound with
->> a SoundWire master driver.
->>
->> What I am doing is no different from what your team did with
->> platform_register_device, I am really lost on what you are asking.
-> 
-> Again repeating myself, you call an API to do that is absolutely fine,
-> but we don't do that in drivers or open code these things
-That is still quite unclear, what 'open-coding' are you referring to?
-
-I am starting to wonder if you missed the addition of the master 
-functionality in the previous patch:
-
-[PATCH v5 08/17] soundwire: add initial definitions for sdw_master_device
-
-What this patch 9 does is call the core-defined API and implement the 
-intel-specific master driver.
-
-> 
->>>>>> FWIW, the implementation here follows what was suggested for Greybus 'Host
->>>>>> Devices' [1] [2], so it's not like I am creating any sort of dangerous
->>>>>> precedent.
->>>>>>
->>>>>> [1]
->>>>>> https://elixir.bootlin.com/linux/latest/source/drivers/greybus/es2.c#L1275
->>>>>> [2] https://elixir.bootlin.com/linux/latest/source/drivers/greybus/hd.c#L124
+>>> On 2020-01-13, Jaroslav Kysela wrote:
+>>>> Dne 09. 01. 20 v 23:10 Tim Schumacher napsal(a):
+>>>>> Hi alsa devs,
 >>>>>
->>>>> And if you look closely all this work is done by core not by drivers!
->>>>> Drivers _should_ never do all this, it is the job of core to do that for
->>>>> you.
+>>>>> I'm on Arch Linux on a rather uncommon laptop (Lenovo Miix 320) and my sound
+>>>>> stopped working on the upgrade from alsa-lib 1.1.9 to 1.2.1. wabbits on
+>>>>> IRC helped me track down the problem to a change in the
+>>>>> /usr/share/alsa/ucm (now /usr/share/alsa/ucm2) files. It seems like
+>>>>> /usr/share/alsa/ucm2/chtrt5645/HiFi-dmic2.conf and a symlink at
+>>>>> /usr/share/alsa/ucm2/chtrt5645/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
+>>>>> were specifically added for this laptop but in the contrary they break the
+>>>>> sound for me.
+>>>>>
+>>>>> After the upgrade to alsa-lib 1.2.1 the sound is not working. The commands play no sound:
+>>>>>
+>>>>>        pasuspender -- speaker-test --nloops=1 --channels=2 --test=wav --device=hw:0,0
+>>>>>        pasuspender -- speaker-test --nloops=1 --channels=2 --test=wav --device=hw:0,1
+>>>>>
+>>>>> And this is the alsa-info.sh output http://alsa-project.org/db/?f=f883910a5c5101b4b1ea4202d1fe84ccd139f796
+>>>>>
+>>>>> After deleting the /usr/share/alsa/ucm2/chtrt5645/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
+>>>>> symlink both commands from above play sound and this is the alsa-info.sh
+>>>>> output http://alsa-project.org/db/?f=e759eb9118a191b6c3b8c021fed58abc9cf95076
 >>>>
->>>> Please look at the code again, you have a USB probe that will manually call
->>>> the GreyBus device creation.
+>>>> Thanks. I forgot to fix the file path in chtrt5645/chtrt5645-dmic2.conf .
+>>>> Could you test this patch?
 >>>>
->>>> static int ap_probe(struct usb_interface *interface,
->>>> 		    const struct usb_device_id *id)
->>>> {
->>>> 	hd = gb_hd_create(&es2_driver, &udev->dev, 	
+>>>> https://github.com/alsa-project/alsa-ucm-conf/commit/74f2a0f0884df7b9f2d08d07456a3bc37d1a512e
 >>>>
+>>>> 				Jaroslav
 >>>>
->>>> static struct usb_driver es2_ap_driver = {
->>>> 	.name =		"es2_ap_driver",
->>>> 	.probe =	ap_probe, <<< code above
->>>> 	.disconnect =	ap_disconnect,
->>>> 	.id_table =	id_table,
->>>> 	.soft_unbind =	1,
->>>> };
->>>
->>> Look closely the driver es2 calls into greybus core hd.c and gets the
->>> work done, subtle but a big differances in the approaches..
+>>>> -- 
+>>>> Jaroslav Kysela <perex@perex.cz>
+>>>> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+>>>>
 >>
->> I am sorry, I have absolutely no idea what you are referring to.
 >>
->> The code I copy/pasted here makes no call to the greybus core, it's ap_probe
->> -> gb_hd_create. No core involved. If I am mistaken, please show me what I
->> got wrong.
-> 
-> 1. es2_ap_driver is host controller driver
-> 
-> 2. gb_hd_create() is an API provided by greybus core!
+>> -- 
+>> Jaroslav Kysela <perex@perex.cz>
+>> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+>>
 
-same in my code...
 
-> 
-> es2 driver doesn't open code creation like you are doing in intel driver,
-> it doesn't call probe on its own, greybus does that
-> 
-> This is very common pattern in linux kernel subsytems, drivers dont do
-> these things, the respective subsystem core does that... see about es2
-> driver and implementation of gb_hd_create(). See callers of
-> platform_register_device() and its implementation.
-> 
-> I don't know how else I can explain this to you, is something wrong in
-> how I conveyed this info or you... or something else, I dont know!!!
-the new 'master' functionality is part of the bus code, so please 
-clarify what you see as problematic for the partition.
-
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

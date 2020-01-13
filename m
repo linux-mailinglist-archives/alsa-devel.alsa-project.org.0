@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7CD6413AB0B
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:28:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0FF5D13AB0D
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:28:43 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D39A51FCC;
-	Mon, 13 Jan 2020 16:22:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D39A51FCC
+	by alsa0.perex.cz (Postfix) with ESMTPS id DCD5E1FF2;
+	Mon, 13 Jan 2020 16:23:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCD5E1FF2
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4E4BF80308;
-	Mon, 13 Jan 2020 16:13:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3050EF80322;
+	Mon, 13 Jan 2020 16:13:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7D880F802E0; Mon, 13 Jan 2020 16:13:31 +0100 (CET)
+ id A1320F802E2; Mon, 13 Jan 2020 16:13:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -26,39 +26,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A575EF8027B
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A575EF8027B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 719D0F8028E
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 719D0F8028E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="oZc69Drf"
+ header.b="vWj6l2ii"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=qH3wJVHNkevVt6wsdWBiypegSsCqb1gZ63agiI3Meio=; b=oZc69Drfv/kW
- TbzjvLOVWZjNR9s7QI+ZuC+rDe9tOf09EHXZHsU5X9f+QggKdyjWdmUOJkPxCXCPISj59ob+xj8DD
- iZPBQlR9EYRz1fws+OHVFjPQhlA4tgh3+xJVMWCYkc0AagEdlMLFnANwjKzt95C6ZnwRVSsBv9iCE
- 0tLSU=;
+ List-Archive; bh=Uds9IlvygoQkBb6AABSXjxIdm8TETD8gSOhUHY61HNw=; b=vWj6l2iiY9Ql
+ O99UW7WwqPWi/cZsfHGvUqZqxe5v9WFXHQdyOGY/VZAjquUR4Sx2AsTZn+iTuSY1oabF6UqjWWnRs
+ jW5mzwXkC3mKz0+xsFwCWyEDEF9r7WLnHNFuKYVw7CM0wogVutw8cpbL+oEdzKJboC79sZV5rjiGh
+ GKqsQ=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ir1P2-0003ME-HB; Mon, 13 Jan 2020 15:13:16 +0000
+ id 1ir1P2-0003MW-Vt; Mon, 13 Jan 2020 15:13:17 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 3FC83D01965; Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
+ id A6E79D01965; Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Pan Xiuli <xiuli.pan@linux.intel.com>
-In-Reply-To: <20200110235751.3404-4-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200110235751.3404-4-pierre-louis.bossart@linux.intel.com>
+To: YueHaibing <yuehaibing@huawei.com>
+In-Reply-To: <20200113013123.47561-1-yuehaibing@huawei.com>
+Message-Id: <applied-20200113013123.47561-1-yuehaibing@huawei.com>
 X-Patchwork-Hint: ignore
 Date: Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: broadwell: change cpu_dai and
-	platform components for SOF" to the asoc tree
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Shuming Fan <shumingf@realtek.com>
+Subject: [alsa-devel] Applied "ASoC: rt711: remove unused including
+	<linux/version.h>" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,7 +81,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: broadwell: change cpu_dai and platform components for SOF
+   ASoC: rt711: remove unused including <linux/version.h>
 
 has been applied to the asoc tree at
 
@@ -104,51 +106,32 @@ to this mail.
 Thanks,
 Mark
 
-From 64df6afa0dab5eda95cc4cc2269e3d4e83b6b6ce Mon Sep 17 00:00:00 2001
-From: Pan Xiuli <xiuli.pan@linux.intel.com>
-Date: Fri, 10 Jan 2020 17:57:46 -0600
-Subject: [PATCH] ASoC: Intel: broadwell: change cpu_dai and platform
- components for SOF
+From 62d28dcb65fd5ca12994207f17187545923d4f3d Mon Sep 17 00:00:00 2001
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Mon, 13 Jan 2020 01:31:23 +0000
+Subject: [PATCH] ASoC: rt711: remove unused including <linux/version.h>
 
-The legacy driver uses dummy cpu_dai and platform, SOF requires actual
-values to bind.
+Remove including <linux/version.h> that don't need it.
 
-Signed-off-by: Pan Xiuli <xiuli.pan@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200110235751.3404-4-pierre-louis.bossart@linux.intel.com
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Link: https://lore.kernel.org/r/20200113013123.47561-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/broadwell.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ sound/soc/codecs/rt711.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/broadwell.c b/sound/soc/intel/boards/broadwell.c
-index db7e1e87156d..b9c12e24c70b 100644
---- a/sound/soc/intel/boards/broadwell.c
-+++ b/sound/soc/intel/boards/broadwell.c
-@@ -164,6 +164,14 @@ SND_SOC_DAILINK_DEF(platform,
- SND_SOC_DAILINK_DEF(codec,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-INT343A:00", "rt286-aif1")));
+diff --git a/sound/soc/codecs/rt711.c b/sound/soc/codecs/rt711.c
+index 3bebba7a63be..2daed7692a3b 100644
+--- a/sound/soc/codecs/rt711.c
++++ b/sound/soc/codecs/rt711.c
+@@ -8,7 +8,6 @@
  
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
-+SND_SOC_DAILINK_DEF(ssp0_port,
-+	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
-+#else
-+SND_SOC_DAILINK_DEF(ssp0_port,
-+	    DAILINK_COMP_ARRAY(COMP_DUMMY()));
-+#endif
-+
- /* broadwell digital audio interface glue - connects codec <--> CPU */
- static struct snd_soc_dai_link broadwell_rt286_dais[] = {
- 	/* Front End DAI links */
-@@ -218,7 +226,7 @@ static struct snd_soc_dai_link broadwell_rt286_dais[] = {
- 		.ops = &broadwell_rt286_ops,
- 		.dpcm_playback = 1,
- 		.dpcm_capture = 1,
--		SND_SOC_DAILINK_REG(dummy, codec, dummy),
-+		SND_SOC_DAILINK_REG(ssp0_port, codec, platform),
- 	},
- };
- 
+ #include <linux/module.h>
+ #include <linux/moduleparam.h>
+-#include <linux/version.h>
+ #include <linux/kernel.h>
+ #include <linux/init.h>
+ #include <linux/delay.h>
 -- 
 2.20.1
 

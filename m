@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EFBA13AA62
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:13:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ABB3513AAE7
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:26:14 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 322F51A16;
-	Mon, 13 Jan 2020 16:15:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 322F51A16
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F4A21930;
+	Mon, 13 Jan 2020 16:14:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F4A21930
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2EB09F8028C;
-	Mon, 13 Jan 2020 16:13:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 30B05F800B9;
+	Mon, 13 Jan 2020 16:13:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A55B6F8025A; Mon, 13 Jan 2020 16:13:11 +0100 (CET)
+ id 0E59AF8026A; Mon, 13 Jan 2020 16:13:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -26,41 +26,43 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFBBEF800B9
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFBBEF800B9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0CD20F801F7
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0CD20F801F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="EoBk7b6s"
+ header.b="O+eep0PK"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=DKRb1YKPOfd0uXdy6IoYdUTbJ+/l2DprT+iIqLNsjfw=; b=EoBk7b6sFgmU
- X5GW/7tFSh/71rKuBOjyIKumxXtrnclWrIsdj4NiUPVKsJjEyUTUzplr+vayxgkWnBDScWe/e8CWR
- KOqNNqvZZdnYWRO4KbMm41aS0TvTpvq++0hVXw/UyMjLzGoZzyWcfVyvsMgTJ9lHz7A8eGCHbHZ6G
- OpCxE=;
+ List-Archive; bh=c5J9qc4h8pH18cTk38z36ZrKwJaZxSaR5F4bNDe5Ibk=; b=O+eep0PKHpkk
+ MYs62CvT7DKdaquFH0GeGkGyREC9ysyqdn00ZoJ3Hao+MyxNqxaCYHptfs0tznIKK2xaRoGiFxPdW
+ 4d7eBA364pw2xyQJWnNkuBtVby+Gs0hQHZ5PQMv89mG/PEW+oNrB5n/EJFk8qQGLzZlJ0D7pHNau0
+ raWYM=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ir1Oo-0003Kn-5b; Mon, 13 Jan 2020 15:13:02 +0000
+ id 1ir1Oq-0003Kz-U1; Mon, 13 Jan 2020 15:13:04 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id E183DD01965; Mon, 13 Jan 2020 15:13:01 +0000 (GMT)
+ id A6B71D01965; Mon, 13 Jan 2020 15:13:04 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Stephan Gerhold <stephan@gerhold.net>
-In-Reply-To: <20200111164006.43074-3-stephan@gerhold.net>
-Message-Id: <applied-20200111164006.43074-3-stephan@gerhold.net>
+To: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+In-Reply-To: <20200112054900.236576-1-yuhsuan@chromium.org>
+Message-Id: <applied-20200112054900.236576-1-yuhsuan@chromium.org>
 X-Patchwork-Hint: ignore
-Date: Mon, 13 Jan 2020 15:13:01 +0000 (GMT)
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- ~postmarketos/upstreaming@lists.sr.ht
-Subject: [alsa-devel] Applied "ASoC: msm8916-wcd-analog: Fix MIC BIAS
-	Internal1" to the asoc tree
+Date: Mon, 13 Jan 2020 15:13:04 +0000 (GMT)
+Cc: alsa-devel@alsa-project.org, Tzung-Bi Shih <tzungbi@chromium.org>,
+ linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Akshu Agrawal <akshu.agrawal@amd.com>,
+ Guenter Roeck <groeck@chromium.org>, Mark Brown <broonie@kernel.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: [alsa-devel] Applied "ASoC: cros_ec_codec: Make the device acpi
+	compatible" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,7 +83,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: msm8916-wcd-analog: Fix MIC BIAS Internal1
+   ASoC: cros_ec_codec: Make the device acpi compatible
 
 has been applied to the asoc tree at
 
@@ -106,69 +108,50 @@ to this mail.
 Thanks,
 Mark
 
-From 057efcf9faea4769cf1020677d93d040db9b23f3 Mon Sep 17 00:00:00 2001
-From: Stephan Gerhold <stephan@gerhold.net>
-Date: Sat, 11 Jan 2020 17:40:04 +0100
-Subject: [PATCH] ASoC: msm8916-wcd-analog: Fix MIC BIAS Internal1
+From 877167ef343de2a9be3d31cdd5c41122e61190dd Mon Sep 17 00:00:00 2001
+From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Date: Sun, 12 Jan 2020 13:49:00 +0800
+Subject: [PATCH] ASoC: cros_ec_codec: Make the device acpi compatible
 
-MIC BIAS Internal1 is broken at the moment because we always
-enable the internal rbias resistor to the TX2 line (connected to
-the headset microphone), rather than enabling the resistor connected
-to TX1.
+Add ACPI entry for cros_ec_codec.
 
-Move the RBIAS code to pm8916_wcd_analog_enable_micbias_int1/2()
-to fix this.
-
-Fixes: 585e881e5b9e ("ASoC: codecs: Add msm8916-wcd analog codec")
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
-Link: https://lore.kernel.org/r/20200111164006.43074-3-stephan@gerhold.net
+Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+Link: https://lore.kernel.org/r/20200112054900.236576-1-yuhsuan@chromium.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/msm8916-wcd-analog.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+ sound/soc/codecs/cros_ec_codec.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/sound/soc/codecs/msm8916-wcd-analog.c b/sound/soc/codecs/msm8916-wcd-analog.c
-index 30b19f12fabc..1f7964beb20c 100644
---- a/sound/soc/codecs/msm8916-wcd-analog.c
-+++ b/sound/soc/codecs/msm8916-wcd-analog.c
-@@ -396,9 +396,6 @@ static int pm8916_wcd_analog_enable_micbias_int(struct snd_soc_component
+diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+index dd14caf9091a..bc31e5a9a2a7 100644
+--- a/sound/soc/codecs/cros_ec_codec.c
++++ b/sound/soc/codecs/cros_ec_codec.c
+@@ -10,6 +10,7 @@
  
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		snd_soc_component_update_bits(component, CDC_A_MICB_1_INT_RBIAS,
--				    MICB_1_INT_TX2_INT_RBIAS_EN_MASK,
--				    MICB_1_INT_TX2_INT_RBIAS_EN_ENABLE);
- 		snd_soc_component_update_bits(component, reg, MICB_1_EN_PULL_DOWN_EN_MASK, 0);
- 		snd_soc_component_update_bits(component, CDC_A_MICB_1_EN,
- 				    MICB_1_EN_OPA_STG2_TAIL_CURR_MASK,
-@@ -448,6 +445,14 @@ static int pm8916_wcd_analog_enable_micbias_int1(struct
- 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
- 	struct pm8916_wcd_analog_priv *wcd = snd_soc_component_get_drvdata(component);
+ #include <crypto/hash.h>
+ #include <crypto/sha.h>
++#include <linux/acpi.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/io.h>
+@@ -1047,10 +1048,17 @@ static const struct of_device_id cros_ec_codec_of_match[] = {
+ MODULE_DEVICE_TABLE(of, cros_ec_codec_of_match);
+ #endif
  
-+	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		snd_soc_component_update_bits(component, CDC_A_MICB_1_INT_RBIAS,
-+				    MICB_1_INT_TX1_INT_RBIAS_EN_MASK,
-+				    MICB_1_INT_TX1_INT_RBIAS_EN_ENABLE);
-+		break;
-+	}
++static const struct acpi_device_id cros_ec_codec_acpi_id[] = {
++	{ "GOOG0013", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(acpi, cros_ec_codec_acpi_id);
 +
- 	return pm8916_wcd_analog_enable_micbias_int(component, event, w->reg,
- 						     wcd->micbias1_cap_mode);
- }
-@@ -558,6 +563,11 @@ static int pm8916_wcd_analog_enable_micbias_int2(struct
- 	struct pm8916_wcd_analog_priv *wcd = snd_soc_component_get_drvdata(component);
- 
- 	switch (event) {
-+	case SND_SOC_DAPM_PRE_PMU:
-+		snd_soc_component_update_bits(component, CDC_A_MICB_1_INT_RBIAS,
-+				    MICB_1_INT_TX2_INT_RBIAS_EN_MASK,
-+				    MICB_1_INT_TX2_INT_RBIAS_EN_ENABLE);
-+		break;
- 	case SND_SOC_DAPM_POST_PMU:
- 		pm8916_mbhc_configure_bias(wcd, true);
- 		break;
+ static struct platform_driver cros_ec_codec_platform_driver = {
+ 	.driver = {
+ 		.name = "cros-ec-codec",
+ 		.of_match_table = of_match_ptr(cros_ec_codec_of_match),
++		.acpi_match_table = ACPI_PTR(cros_ec_codec_acpi_id),
+ 	},
+ 	.probe = cros_ec_codec_platform_probe,
+ };
 -- 
 2.20.1
 

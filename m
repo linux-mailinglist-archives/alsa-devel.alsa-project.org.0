@@ -2,79 +2,93 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F3A3138AAF
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jan 2020 06:24:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88470138C69
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jan 2020 08:36:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DB8715E2;
-	Mon, 13 Jan 2020 06:23:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DB8715E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id E4A7515E0;
+	Mon, 13 Jan 2020 08:35:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4A7515E0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578893059;
-	bh=Ta4mCDzCVeUV9fRlbPuFgNZbXCzrLzEgPyTsJ5rsQqY=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=vpLcbpgcJosVfRYlOyLEcVniHct4urg4ahtyWFFWZR9b1E2FNsRAiQJN7tQw3asAu
-	 Sy6ndsdriaggcw/7yXhiY2U9h1+YoI1HMAB52qKJaL+FA77mGDAsxMb59bKcXlkC10
-	 prmrOLn/umQw5oUUu3pjD9swucWjgwbQ8f6oksFo=
+	s=default; t=1578900978;
+	bh=QnmmHXqXkQmdmdmxDjO30nOUI+9wtszixlIgp96wXFc=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=k7UEOgq9hKrbP4k368dxdLtD9fpnbKo+elOBWPpKFnmldwwNs1yZA3175n5viBxgE
+	 N2SY+LPZCamWfDTQLdnkKwUnHVXrkH8NQIQdEFUx3I3Ksr0oLq2HsDFexpoadnLwW6
+	 3cBiaVgW5alL6IImoaq2KRJsMiASZqaMtL6qRodc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 189BEF801EB;
-	Mon, 13 Jan 2020 06:22:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40E40F801F7;
+	Mon, 13 Jan 2020 08:34:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB6A3F801EB; Mon, 13 Jan 2020 06:22:32 +0100 (CET)
+ id B4EE2F80227; Mon, 13 Jan 2020 08:34:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_SORBS_WEB,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57F60F80122
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 06:22:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57F60F80122
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6972BF80122
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 08:34:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6972BF80122
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sXsnWQlS"
-Received: from localhost (unknown [106.200.247.255])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7A93121556;
- Mon, 13 Jan 2020 05:22:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1578892948;
- bh=pQmyxSK2rYvZKhrIwLap9VHfSzCEWZiVvINtuLhYf+8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=sXsnWQlS74pdFu0UVzYxpNsBcF1pjQrjT5BtFxF/taQ3HDzM842jYOvVocHdIWHG9
- J+i7dHx1rmbqKaLZExA0iZN52nxNbefaz3lsNVHM25Wj2b8b0dwwoSCDmehmjB0IRc
- dXZyIv9yOCMRN0Vz0016AX+lCzyP+cCrTUAuhMIM=
-Date: Mon, 13 Jan 2020 10:52:24 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20200113052224.GQ2818@vkoul-mobl>
-References: <20200108175438.13121-1-pierre-louis.bossart@linux.intel.com>
- <20200108175438.13121-3-pierre-louis.bossart@linux.intel.com>
- <20200110064838.GY2818@vkoul-mobl>
- <a18c668f-4628-0fb9-ffa0-b24cdad1cc8b@linux.intel.com>
- <69ad48b0-fa3c-904a-4106-5cd9bd18de5c@linux.intel.com>
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="Venis7p5"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="lXuOBLAa"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.nyi.internal (Postfix) with ESMTP id A1D3421CC3;
+ Mon, 13 Jan 2020 02:34:22 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Mon, 13 Jan 2020 02:34:22 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm3; bh=98UmuQXIx1mscEQsZmRjw6dYaR
+ ldAEL4UyVsbVbI05o=; b=Venis7p5M5BKQAesYC5NR99YH1gcs0u71bl0B5AqMP
+ FE4Q1xeBqlhGpSXOqOjcoTHzk/1xYL2PlntQeIC6auuSXe/kE86k76/9pbp50aBP
+ ocUUhpeb8Okhe2iDJkMyLeqPGpHJUttDkQ3mPMn99pfyI7v7+HNFsuTubsjxG/4y
+ vIQaaI3H5F5kIJDs7hxaNoKFbwVp6HKk1UtYYfIw/cW+LaeEgvWeT7l/zwu6Wx4j
+ dX7EFILoLjzEL3C5KRiaYloBl/VhEqgyquz3MvJQBWKpzPj+BuE68EJCseLmLSQP
+ HuYaoFuQWPXM1go26MQmeUIhfYQ8OEXt0NMh+IQl6EmA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=98UmuQXIx1mscEQsZ
+ mRjw6dYaRldAEL4UyVsbVbI05o=; b=lXuOBLAa2tEouOpDssMl8w578e8aBBHLC
+ 55urxPIDnswtjlJ5+ZSTg94W1LJQtj+7T/CqOp9dgb4Q5w06Qk55b3/7VK9vpgoC
+ yy5UN7nclGYalMypT7I+Frp1TD9QxwZ8If/cDcqxhpFrIcykBVJmS5N0MCjUbXNn
+ h7/51yZ6wVwFYJNd5TFBPZmwdPpMO3gS16BX1wMXd+Pmam/1civD2xTjLR5BVbBD
+ nYXAG1/7bKwS/dUcNvW3TxFr1EMsEsU1G8l0M5yrL70VrtIWxDPnFhXmZ+PlJp51
+ fQBNDKAwuzVhU5RkmbkJVfomcbjmHp25T+098YZQVhVp/9BrdBLUw==
+X-ME-Sender: <xms:fh0cXrIE3MF7I4quAi7Rdf6tJwG32Y4M5G0LffdUAs4XhSFwa0SKpQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdeiledgudduudcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghkrghs
+ hhhisehsrghkrghmohgttghhihdrjhhpqeenucfkphepudegrdefrdejhedrudekudenuc
+ frrghrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhi
+ rdhjphenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:fh0cXusqHIXWDrcr8OdO3oDfJSmLvgRgcmi53575eUy8ZaJDid_FqQ>
+ <xmx:fh0cXoD7rDiX6mnZB7JlHbzenYrkQ-K7RM9Cm5t8L-H8MZLT6C99BQ>
+ <xmx:fh0cXm6VfKaaV_YYbwVZqlqmFyhxKlQHm7Ukkge1-VQR8CNfXRqOPQ>
+ <xmx:fh0cXt2JgBK8wJ260ow-XuuafEaCjWz7CjAQBFNlIDZsBacqAitbnw>
+Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
+ [14.3.75.181])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4853680063;
+ Mon, 13 Jan 2020 02:34:21 -0500 (EST)
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: tiwai@suse.de
+Date: Mon, 13 Jan 2020 16:34:15 +0900
+Message-Id: <20200113073418.24622-1-o-takashi@sakamocchi.jp>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <69ad48b0-fa3c-904a-4106-5cd9bd18de5c@linux.intel.com>
-Cc: alsa-devel@alsa-project.org,
- "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>, tiwai@suse.de,
- gregkh@linuxfoundation.org, Jonathan Corbet <corbet@lwn.net>,
- linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 2/6] soundwire: stream: update state
- machine and add state checks
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 0/3] ALSA: oxfw: fixes for Stanton SCS.1d
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,62 +101,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 11-01-20, 05:30, Pierre-Louis Bossart wrote:
-> =
+Hi,
 
-> =
+ALSA oxfw driver includes functionality of former snd-scs1x implements.
+However, since it was merged in Linux v4.5, the driver can't add sound
+card instance for Stanton SCS.1d due to its quirk.
 
-> On 1/10/20 10:30 AM, Pierre-Louis Bossart wrote:
-> > =
+This patchset fixes the regression.
 
-> > > > -=A0 int sdw_prepare_stream(struct sdw_stream_runtime * stream);
-> > > > +=A0 int sdw_prepare_stream(struct sdw_stream_runtime * stream,
-> > > > bool resume);
-> > > =
+Takashi Sakamoto (3):
+  ALSA: oxfw: use ENXIO for not-supported cases
+  ALSA: oxfw: don't add MIDI/PCM interface when packet streaming is
+    unavailable
+  ALSA: oxfw: fix for Stanton SCS.1d
 
-> > > so what does the additional argument of resume do..?
-> > > =
+ sound/firewire/oxfw/oxfw-command.c |  6 +--
+ sound/firewire/oxfw/oxfw-stream.c  | 82 +++++++++++++++++-------------
+ sound/firewire/oxfw/oxfw.c         | 39 +++++++-------
+ sound/firewire/oxfw/oxfw.h         |  1 +
+ 4 files changed, 74 insertions(+), 54 deletions(-)
 
-> > > > diff --git a/drivers/soundwire/stream.c b/drivers/soundwire/stream.c
-> > > > index 178ae92b8cc1..6aa0b5d370c0 100644
-> > > > --- a/drivers/soundwire/stream.c
-> > > > +++ b/drivers/soundwire/stream.c
-> > > > @@ -1553,8 +1553,18 @@ int sdw_prepare_stream(struct
-> > > > sdw_stream_runtime *stream)
-> > > =
+-- 
+2.20.1
 
-> > > and it is not modified here, so is the doc correct or this..?
-> > =
-
-> > the doc is correct and the code is updated in
-> > =
-
-> > [PATCH 4/6] soundwire: stream: do not update parameters during
-> > DISABLED-PREPARED transition
-> =
-
-> Sorry, wrong answer, my bad. The code block in the documentation is
-> incorrect.
-> =
-
-> The Patch 4/6 implements the transition mentioned in the documentation, b=
-ut
-> the extra parameter is a left-over from an earlier version. This case is =
-now
-> handled internally. We did revert to the initial prototype after finding =
-out
-> that dealing with transitions in the caller is error-prone.
-
-Glad that you agree with me on something!
-
--- =
-
-~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

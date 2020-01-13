@@ -2,99 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04EAE138C71
-	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jan 2020 08:38:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFEF2138CC1
+	for <lists+alsa-devel@lfdr.de>; Mon, 13 Jan 2020 09:22:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A121B15E4;
-	Mon, 13 Jan 2020 08:37:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A121B15E4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8376E9F6;
+	Mon, 13 Jan 2020 09:21:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8376E9F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1578901096;
-	bh=PFRJqxxVnaG83k35LzZvOqF0rEYXzhZkMRsRi7MFfjY=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1578903746;
+	bh=BfGVhzIrlenT480Gc3CpMPsuqTOQh/eXvPP7I+6kIvo=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LH3+UCKSCNQ4R2d9Xr6Pp1OZuftz/jhfIH1WhfyvD37lqEVHZTZVlN0IqatEH7JGh
-	 /5D1YBdtZQbu+fJmrzi/Fn0wM5YOrL0n8XOzw5SabUMoVNK+T1vODDrNwW5vaIVLXZ
-	 VHMERMu1N/CgKOTGQXg+t94HjjlgSE8rJ8a5WemI=
+	b=N2vvbYLmOkhMIvluvbE0evqL7CrKcA8+z9m/vakYLYpP+Wh/66XbBZlch7OGrU/SN
+	 YK2U/ZFAtKhgh2h2Y9Ov1+hCrjkqmrbBOM4GBDGqyYQ2gA7sXsdKp5xXEue9q6b5iE
+	 UA0lKY1qWalTm6atnhaPL2XfFWZOAToWyheI4AQk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B028EF8027C;
-	Mon, 13 Jan 2020 08:34:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ECC12F801EB;
+	Mon, 13 Jan 2020 09:20:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D94C4F801F8; Mon, 13 Jan 2020 08:34:32 +0100 (CET)
+ id 221F5F801EB; Mon, 13 Jan 2020 09:20:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM,PRX_BODY_30,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A773F801EB
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 08:34:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A773F801EB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 28B8BF80149
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 09:20:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28B8BF80149
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="r63CuEuW"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="puqB9LUL"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 662BF21E95;
- Mon, 13 Jan 2020 02:34:25 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Mon, 13 Jan 2020 02:34:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=/cl4BTiaDBjfV
- NLf9u0q5/0FYOqIzefvqgjdiJccVkY=; b=r63CuEuWN2xRPwRvjwlKFt3SqIUil
- N9IZ+lwI1r1kBZAtJSCzjng7X/5+1YQ4mdC68YcH8SNevxsOgxLfTEdljaczl1vH
- 7J1hgDi3jvMT3masmR//6oMHM8Mg4Bm+kTgEeSgKXV9Kvtd2i+8EMm2yMTRbyAPz
- W4dPDjdriy1H3vNoKGi7iLBLCl32jcji3w7XSMT62YStU0rlivgM07AcOCYOIuYQ
- OAPJqoXwoZ14Sds3ix+y6GRcNLAUTgNKqV4qLRYshq/WkCZmJQC4PoYmIuGASMPm
- 4OnLrR1tE8ZULUi/IMrDo6IdzpUDaTZoUa9U4s3r73K7iNz8BqXiFE/lg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=/cl4BTiaDBjfVNLf9u0q5/0FYOqIzefvqgjdiJccVkY=; b=puqB9LUL
- /c11OpEARMWz2brA6CHLeiH21mzSDBc1VAa64DZY2mJv/5VBoaucqeX9DJYv9ytH
- zXasJawjmlPbPhrNw39WaAePmR9X1uDKSLXVIV6j55fXPmz1NCcVblALsgEySpuN
- cgvQ95mpQdf7X/AqsXrlx4CzHn+OvceDqWyj3ON6eYejJjGOCNje4S9sYRhEHXVZ
- le8wtKuDEMW0jqxva3CQRnW3hL8TutjFn1g0elevT9dtBpUUOyPxzw3oNHJsmVzF
- 7/ZwpxF4XXJeI9sKCOq0J7n9OnAafRkxe3fPon/euCFw8CVzEWxHypRhaq/BARQM
- 1ef98/gPHkBBuA==
-X-ME-Sender: <xms:gR0cXrla1nwO9F6qexJNLjShnboCipjrGop2jAvwAakn3NRgF4ylhA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdeiledgudduudcutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpefvrghkrghshhhiucfurghkrghmohhtohcuoehoqdhtrghk
- rghshhhisehsrghkrghmohgttghhihdrjhhpqeenucffohhmrghinheprghlshgrqdhprh
- hojhgvtghtrdhorhhgnecukfhppedugedrfedrjeehrddukedunecurfgrrhgrmhepmhgr
- ihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjhhpnecuvehluh
- hsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:gR0cXpGJEtqbfwgv4o_NDUCTwBL2_s_gGn-hYdAsUm2vxshlG4oUCA>
- <xmx:gR0cXnF0Ua7eKyBun4KzuiMQbkF3lwikJMSwgctnJg6WxIlSmtMvhA>
- <xmx:gR0cXp05FwjTtMO0jg31CeGRmwwfI9e6gUKJlop1J6BlekxNk6vIIQ>
- <xmx:gR0cXi3ekt-2ZurwuMpgsV_PjQMukWn5YS27CA3IG-eYNES8wrlPwg>
-Received: from workstation.flets-east.jp (ae075181.dynamic.ppp.asahi-net.or.jp
- [14.3.75.181])
- by mail.messagingengine.com (Postfix) with ESMTPA id 8220C80059;
- Mon, 13 Jan 2020 02:34:24 -0500 (EST)
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: tiwai@suse.de
-Date: Mon, 13 Jan 2020 16:34:18 +0900
-Message-Id: <20200113073418.24622-4-o-takashi@sakamocchi.jp>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200113073418.24622-1-o-takashi@sakamocchi.jp>
-References: <20200113073418.24622-1-o-takashi@sakamocchi.jp>
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="fpUiy3Xg"
+Received: by mail-pj1-x1044.google.com with SMTP id r67so3844504pjb.0
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 00:20:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=bMqucdvwW4DxJLa5hqSQSlZ+HKdfxlLmr5IwDINyABs=;
+ b=fpUiy3Xg2sDv9bf5OvF1hAah/1QRfWGgnppILok/K04EQDtG9R8vzvFWp4cJJKwGLz
+ NAKUewD9PkneM7K0lq/XVUrVVe2YZj3FXxwyi2gJMFc/Tu1EctP5uhoFSWDxgoxt/awA
+ mtI01TvYQOh3VqyTmS7ku9hk1TVXft8kUl1Fg48XO4QTe5wThfSIPsKwX17AlW9qmKSC
+ e4FKuRVBJFjWZKAvtU/pe3rGvgIarYB8fz0A/Z+k8gy9XjZO+lg0VM56D2D21k+fiq7+
+ kpeBO8Hg2XKDGFX82AXVVoq58alG+dpAO45W2ZKvWvKM8jWCDWB5ujkDx1ThFoiiQjdW
+ hYOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=bMqucdvwW4DxJLa5hqSQSlZ+HKdfxlLmr5IwDINyABs=;
+ b=k5qCNGmCdnHKqCOg2bRvjRcaqjhhfN/T9OdEYhrC/Esa9tjBr6OXGod9uJfjPICcyb
+ dzIH+SN+9ccucLw2YoVYnLBxsrcC9y9V5Epo8louW7t5rLqsX6vmcEr5VttOx93Vp0ru
+ ikQEBpzIzTFBwJK5Oa2vrrAwUNvqYh+2BI2z3vNhDMC8ZsIXaLYJEdR0beyXW9IPIlJ/
+ xUEZvIvAkORGSZ48jWZEMADlnV+wNoPJBfHNEDOQjxDYP0zqQMfNiqlr1CUVhDL4I/7i
+ grj08IP//MLPARsltu0uVAXENWmAfXhZPKlKsaE0biYf//Xvw1/hDC+K3hc5R2DDyyFD
+ O0hA==
+X-Gm-Message-State: APjAAAW3i2/c4TPL4liTjkcmRqd0iifZin+u1+C1mgy99iEMDgieUh7o
+ Za3CpXwR/Vl1r9RG7sv0qv0=
+X-Google-Smtp-Source: APXvYqzq8v/enDDBDTkt0OxdeBhm2NzezTQsHz2JVtReupHvyt0kSjM1nkMx9CUwKaZZe9bfqalBTQ==
+X-Received: by 2002:a17:902:694c:: with SMTP id
+ k12mr12673527plt.329.1578903635888; 
+ Mon, 13 Jan 2020 00:20:35 -0800 (PST)
+Received: from ?IPv6:2402:f000:1:1501:200:5efe:166.111.139.115?
+ ([2402:f000:1:1501:200:5efe:a66f:8b73])
+ by smtp.gmail.com with ESMTPSA id c22sm12668511pfo.50.2020.01.13.00.20.33
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 13 Jan 2020 00:20:35 -0800 (PST)
+To: Takashi Iwai <tiwai@suse.de>
+References: <20200111163027.27135-1-baijiaju1990@gmail.com>
+ <s5h5zhhkrwe.wl-tiwai@suse.de>
+From: Jia-Ju Bai <baijiaju1990@gmail.com>
+Message-ID: <de859611-4bd0-647f-61e9-7138425ed736@gmail.com>
+Date: Mon, 13 Jan 2020 16:20:37 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH 3/3] ALSA: oxfw: fix for Stanton SCS.1d
+In-Reply-To: <s5h5zhhkrwe.wl-tiwai@suse.de>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ rfontana@redhat.com, tglx@linutronix.de, allison@lohutok.net
+Subject: Re: [alsa-devel] [PATCH] ALSA: cmipci: Fix possible a data race in
+ snd_cmipci_interrupt()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,167 +103,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Stanton SCS.1d uses Oxford Semiconductor FW 971 ASIC (FW971) for
-communication. Although the unit is bound to ALSA oxfw driver, the instance
-of sound card can not be added due to its quirk of plug information. This
-bug was added when snd-scs1x is merged into snd-oxfw at commit
-9e2004f9cedf ("ALSA: oxfw: obsolete scs1x module").
-
-This commit fixes the driver for the quirk. In cases that the unit returns
-NOT IMPLEMENTED for some AV/C commands, the sound card is added without any
-PCM/MIDI interfaces for packet streaming. For SCS.1d, model dependent
-operation adds MIDI interface and applications can use it to operate
-according to HSS1394 protocol from reverse-engineering work by Sean M.
-Pappalardo.
-
-Plug Control Register (PCR) has information that the unit has a pair of
-plugs for isochronous communication:
-
-(oMPR)
-$ ./firewire-request /dev/fw1 read 0xfffff0000900
-result: 80ff0001
-(iMPR)
-$ ./firewire-request /dev/fw1 read 0xfffff0000980
-result: 80ff0001
-
-AV/C PLUG INFO also returns information that the unit has a pair of
-plugs for isochronous communication.
-
-(AV/C PLUG INFO command)
-$ ./firewire-request /dev/fw1 fcp 0x01ff0200ffffffff
-response: 000: 0c ff 02 00 01 01 02 02
-
-However, AV/C PLUG SIGNAL INFO command is rejected for both plugs.
-
-(AV/C OUTPUT PLUG SIGNAL INFO command)
-$ ./firewire-request /dev/fw1 fcp 0x01ff1800ffffffff
-response: 000: 0a ff 18 00 ff ff ff ff
-(AV/C INPUT PLUG SIGNAL INFO command)
-$ ./firewire-request /dev/fw1 fcp 0x01ff1900ffffffff
-response: 000: 0a ff 19 00 ff ff ff ff
-
-Furthermore, AV/C EXTENDED STREAM FORMAT INFO is not implemented.
-
-(AV/C EXTENDED STREAM FORMAT INFO list subfunction for input plug)
-$ ./firewire-request /dev/fw1 fcp 0x01ffbfc000000000ffff00ff
-response: 000: 08 ff bf c0 00 00 00 00 ff ff 00 ff
-(AV/C EXTENDED STREAM FORMAT INFO list subfunction for output plug)
-$ ./firewire-request /dev/fw1 fcp 0x01ffbfc001000000ffff00ff
-response: 000: 08 ff bf c0 01 00 00 00 ff ff 00 ff
-(AV/C EXTENDED STREAM FORMAT INFO single subfunction for input plug)
-$ ./firewire-request /dev/fw1 fcp 0x01ffbfc100000000ffffffff
-response: 000: 08 ff bf c1 00 00 00 00 ff ff ff ff
-(AV/C EXTENDED STREAM FORMAT INFO single subfunction for output plug)
-$ ./firewire-request /dev/fw1 fcp 0x01ffbfc101000000ffffffff
-response: 000: 08 ff bf c1 01 00 00 00 ff ff ff ff
-
-Reference: https://mailman.alsa-project.org/pipermail/alsa-devel/2012-May/052264.html
-Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
----
- sound/firewire/oxfw/oxfw-stream.c | 72 ++++++++++++++++++-------------
- 1 file changed, 42 insertions(+), 30 deletions(-)
-
-diff --git a/sound/firewire/oxfw/oxfw-stream.c b/sound/firewire/oxfw/oxfw-stream.c
-index 36c3dd84d189..80c9dc13f1b5 100644
---- a/sound/firewire/oxfw/oxfw-stream.c
-+++ b/sound/firewire/oxfw/oxfw-stream.c
-@@ -735,45 +735,57 @@ int snd_oxfw_stream_discover(struct snd_oxfw *oxfw)
- 	/* use oPCR[0] if exists */
- 	if (plugs[1] > 0) {
- 		err = fill_stream_formats(oxfw, AVC_GENERAL_PLUG_DIR_OUT, 0);
--		if (err < 0)
--			goto end;
-+		if (err < 0) {
-+			if (err != -ENXIO)
-+				return err;
- 
--		for (i = 0; i < SND_OXFW_STREAM_FORMAT_ENTRIES; i++) {
--			format = oxfw->tx_stream_formats[i];
--			if (format == NULL)
--				continue;
--			err = snd_oxfw_stream_parse_format(format, &formation);
--			if (err < 0)
--				continue;
--
--			/* Add one MIDI port. */
--			if (formation.midi > 0)
--				oxfw->midi_input_ports = 1;
--		}
-+			// The oPCR is not available for isoc communication.
-+			err = 0;
-+		} else {
-+			for (i = 0; i < SND_OXFW_STREAM_FORMAT_ENTRIES; i++) {
-+				format = oxfw->tx_stream_formats[i];
-+				if (format == NULL)
-+					continue;
-+				err = snd_oxfw_stream_parse_format(format,
-+								   &formation);
-+				if (err < 0)
-+					continue;
-+
-+				/* Add one MIDI port. */
-+				if (formation.midi > 0)
-+					oxfw->midi_input_ports = 1;
-+			}
- 
--		oxfw->has_output = true;
-+			oxfw->has_output = true;
-+		}
- 	}
- 
- 	/* use iPCR[0] if exists */
- 	if (plugs[0] > 0) {
- 		err = fill_stream_formats(oxfw, AVC_GENERAL_PLUG_DIR_IN, 0);
--		if (err < 0)
--			goto end;
-+		if (err < 0) {
-+			if (err != -ENXIO)
-+				return err;
- 
--		for (i = 0; i < SND_OXFW_STREAM_FORMAT_ENTRIES; i++) {
--			format = oxfw->rx_stream_formats[i];
--			if (format == NULL)
--				continue;
--			err = snd_oxfw_stream_parse_format(format, &formation);
--			if (err < 0)
--				continue;
--
--			/* Add one MIDI port. */
--			if (formation.midi > 0)
--				oxfw->midi_output_ports = 1;
--		}
-+			// The iPCR is not available for isoc communication.
-+			err = 0;
-+		} else {
-+			for (i = 0; i < SND_OXFW_STREAM_FORMAT_ENTRIES; i++) {
-+				format = oxfw->rx_stream_formats[i];
-+				if (format == NULL)
-+					continue;
-+				err = snd_oxfw_stream_parse_format(format,
-+								   &formation);
-+				if (err < 0)
-+					continue;
-+
-+				/* Add one MIDI port. */
-+				if (formation.midi > 0)
-+					oxfw->midi_output_ports = 1;
-+			}
- 
--		oxfw->has_input = true;
-+			oxfw->has_input = true;
-+		}
- 	}
- end:
- 	return err;
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+CgpPbiAyMDIwLzEvMTIgMTY6MjAsIFRha2FzaGkgSXdhaSB3cm90ZToKPiBPbiBTYXQsIDExIEph
+biAyMDIwIDE3OjMwOjI3ICswMTAwLAo+IEppYS1KdSBCYWkgd3JvdGU6Cj4+IFRoZSBmdW5jdGlv
+bnMgc25kX2NtaXBjaV9pbnRlcnJ1cHQoKSBhbmQgc25kX2NtaXBjaV9jYXB0dXJlX3RyaWdnZXIo
+KQo+PiBtYXkgYmUgY29uY3VycmVudGx5IGV4ZWN1dGVkLgo+Pgo+PiBUaGUgZnVuY3Rpb24gc25k
+X2NtaXBjaV9jYXB0dXJlX3RyaWdnZXIoKSBjYWxscwo+PiBzbmRfY21pcGNpX3BjbV90cmlnZ2Vy
+KCkuIEluIHNuZF9jbWlwY2lfcGNtX3RyaWdnZXIoKSwgdGhlIHZhcmlhYmxlCj4+IHJlYy0+cnVu
+bmluZyBpcyB3cml0dGVuIHdpdGggaG9sZGluZyBhIHNwaW5sb2NrIGNtLT5yZWdfbG9jay4gQnV0
+IGluCj4+IHNuZF9jbWlwY2lfaW50ZXJydXB0KCksIHRoZSBpZGVudGljYWwgdmFyaWFibGUgY20t
+PmNoYW5uZWxbMF0ucnVubmluZwo+PiBvciBjbS0+Y2hhbm5lbFsxXS5ydW5uaW5nIGlzIHJlYWQg
+d2l0aG91dCBob2xkaW5nIHRoaXMgc3BpbmxvY2suIFRodXMsCj4+IGEgcG9zc2libGUgZGF0YSBy
+YWNlIG1heSBvY2N1ci4KPj4KPj4gVG8gZml4IHRoaXMgZGF0YSByYWNlLCBpbiBzbmRfY21pcGNp
+X2ludGVycnVwdCgpLCB0aGUgdmFyaWFibGVzCj4+IGNtLT5jaGFubmVsWzBdLnJ1bm5pbmcgYW5k
+IGNtLT5jaGFubmVsWzFdLnJ1bm5pbmcgYXJlIHJlYWQgd2l0aCBob2xkaW5nCj4+IHRoZSBzcGlu
+bG9jayBjbS0+cmVnX2xvY2suCj4+Cj4+IFRoaXMgZGF0YSByYWNlIGlzIGZvdW5kIGJ5IHRoZSBy
+dW50aW1lIHRlc3Rpbmcgb2Ygb3VyIHRvb2wgRElMUC0yLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBK
+aWEtSnUgQmFpIDxiYWlqaWFqdTE5OTBAZ21haWwuY29tPgo+IFRoYW5rcyBmb3IgdGhlIHBhdGNo
+Lgo+Cj4gVGhhdCdzIGluZGVlZCBhIGtpbmQgb2YgcmFjZSwgYnV0IHRoaXMgY2hhbmdlIHdvbid0
+IGZpeCBhbnl0aGluZyBpbgo+IHByYWN0aWNlLCB0aG91Z2guICBUaGUgaW5jb25zaXN0ZW50IHJ1
+bm5pbmcgZmxhZyBiZXR3ZWVuIHRob3NlIHBsYWNlcywKPiB0aGVyZSBhcmUgdHdvIGNhc2VzOgo+
+Cj4gLSBydW5uaW5nIGJlY2FtZSAwIHRvIDE7IHRoaXMgY2Fubm90IGhhcHBlbiwgYXMgdGhlIGly
+cSBpc24ndCBpc3N1ZWQKPiAgICBiZWZvcmUgdGhlIHN0cmVhbSBnZXRzIHN0YXJ0ZWQKPgo+IC0g
+cnVubmluZyBiZWNhbWUgMSB0byAwOyB0aGlzIG1lYW5zIHRoYXQgdGhlIHN0cmVhbSBnZXRzIHN0
+b3BwZWQKPiAgICBiZXR3ZWVuIHR3byBwb2ludHMsIGFuZCBpdCdzIG5vdCBiZXR0ZXIgdG8gY2Fs
+bAo+ICAgIHNuZF9wY21fcGVyaW9kX2VsYXBzZWQoKSBmb3IgYW4gYWxyZWFkeSBzdG9wcGVkIHN0
+cmVhbS4KClRoYW5rcyBmb3IgdGhlIHJlcGx5IDopCgpJIGFtIG5vdCBzdXJlIHRvIHVuZGVyc3Rh
+bmQgeW91ciB3b3Jkcy4KCkRvIHlvdSBtZWFuIHRoYXQgdGhpcyBjb2RlIHNob3VsZCBiZSBhbHNv
+IHByb3RlY3RlZCBieSB0aGUgc3BpbmxvY2s/CiDCoMKgwqAgaWYgKGNtLT5wY20pIHsKIMKgwqDC
+oCDCoMKgwqAgaWYgKChzdGF0dXMgJiBDTV9DSElOVDApICYmIGNtLT5jaGFubmVsWzBdLnJ1bm5p
+bmcpCiDCoMKgwqAgwqDCoMKgIMKgwqDCoCBzbmRfcGNtX3BlcmlvZF9lbGFwc2VkKGNtLT5jaGFu
+bmVsWzBdLnN1YnN0cmVhbSk7CiDCoMKgwqAgwqDCoMKgIGlmICgoc3RhdHVzICYgQ01fQ0hJTlQx
+KSAmJiBjbS0+Y2hhbm5lbFsxXS5ydW5uaW5nKQogwqDCoMKgIMKgwqDCoCDCoMKgwqAgc25kX3Bj
+bV9wZXJpb2RfZWxhcHNlZChjbS0+Y2hhbm5lbFsxXS5zdWJzdHJlYW0pOwogwqDCoMKgIH0KCgpC
+ZXN0IHdpc2hlcywKSmlhLUp1IEJhaQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJv
+amVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
+by9hbHNhLWRldmVsCg==

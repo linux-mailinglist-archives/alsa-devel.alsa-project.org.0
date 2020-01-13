@@ -2,88 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4FDD13AACF
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:24:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADE2513AA6C
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:14:53 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2AF3D182F;
-	Mon, 13 Jan 2020 14:56:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2AF3D182F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C01E51853;
+	Mon, 13 Jan 2020 14:59:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C01E51853
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B960EF8014B;
-	Mon, 13 Jan 2020 14:55:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A026DF801F8;
+	Mon, 13 Jan 2020 14:59:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5C13EF801EB; Mon, 13 Jan 2020 14:55:26 +0100 (CET)
+ id 3CE44F801EB; Mon, 13 Jan 2020 14:59:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wm1-x342.google.com (mail-wm1-x342.google.com
- [IPv6:2a00:1450:4864:20::342])
+ DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from sonic307-53.consmr.mail.ir2.yahoo.com
+ (sonic307-53.consmr.mail.ir2.yahoo.com [87.248.110.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9C8E3F80149
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 14:55:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C8E3F80149
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6C9BF800B9
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 14:58:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6C9BF800B9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="Yjenwt8S"
-Received: by mail-wm1-x342.google.com with SMTP id t14so9727736wmi.5
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 05:55:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=DAexp0d6B1bggExrbLo8mbWnNme1hkuMZzELpad3p0s=;
- b=Yjenwt8SkaxPzUogrVO5FY29DaaLnVj+Con+sfXWA52iiu3jYFRvhk23/oOQAbjM5A
- mS6n25FCQm/q3b87RdpqhYdpSMCPQwyEwZkQ2D1EBADRk+S0tpUPWXu4fufcMS5PU5UY
- FUofKRfDOhP23u19DU8URhLdVfgBPnV6CHHE09jZoQ6UNO4+MzpT8Xqmjn9DA+wgGZQg
- oABFeKPJmW7RvOqNWrUc1I6XWj9nEPa/7UcaMZZdhbdYXq1M0nRm8rUzywWyXRV+Fg5m
- JOZPS8AqLXxXSdGVM9YTgYnAF9eJhVpRArsaDBZi1K+1YH6vQDtP2JSiKvNpDIXtGF1n
- 1vyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=DAexp0d6B1bggExrbLo8mbWnNme1hkuMZzELpad3p0s=;
- b=I1Rc/NJwvssEGUyiiAWyK8CtB+UEcodMHTyXq/Jh4QTHYaMb454kUd6Vn0UEXnWikm
- Fmhmv894G1LBN/rScnMb8cQKo9ZDAv0ln6GS0+UqYoA2AUTLYxWdeRXIDPBMJMiNaezx
- lzFFnhHhHiUwMQjx5dlCFUJ3HdbGgpIBszAmkjaxiakhy2hSvIKLDcNKV8oeMGAY1oXT
- 9tbkU0En40FnG7v8JtJHoINWST57eiBmIm0PjJRQ0OuHI7Zrf5idjCUplxijgb/tiZJE
- R5hNo+vQQv8c1mkjAQydUEQztIfRcnTQ4DGDe+UPs/fx6B9gfkVxfxYPnjsVC0mRuz53
- I00Q==
-X-Gm-Message-State: APjAAAXeBICCW/fQmmsPJdzZo8OYL3tayWrCTcADhSXx/H+JRpCzO82Q
- 5p7E9RclY+meocZybRyF2USb0Q==
-X-Google-Smtp-Source: APXvYqyssYiZoXQMR1s5H4JSjLQn/oQDa+GNGF1ugu2JIwep93zO18DDwRwzcWkQ3uNWr6kefCHUNQ==
-X-Received: by 2002:a05:600c:290f:: with SMTP id
- i15mr20798577wmd.115.1578923722519; 
- Mon, 13 Jan 2020 05:55:22 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id 18sm13785230wmf.1.2020.01.13.05.55.21
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 13 Jan 2020 05:55:21 -0800 (PST)
-To: Stephan Gerhold <stephan@gerhold.net>
-References: <20200105102753.83108-1-stephan@gerhold.net>
- <33e68247-ff11-6c0c-b91c-9b406f9607cd@linaro.org>
- <20200113131034.GA12166@gerhold.net>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <c977d98a-23be-983e-3d5a-c97ee53ce330@linaro.org>
-Date: Mon, 13 Jan 2020 13:55:21 +0000
+ dkim=pass (2048-bit key) header.d=yahoo.de header.i=@yahoo.de
+ header.b="iGY/ViGh"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.de; s=s2048;
+ t=1578923936; bh=N4wShNSwIN3DZVGJ1flJkDKgr5ceee1qifaGqxIzro8=;
+ h=Subject:From:To:References:Date:In-Reply-To:From:Subject;
+ b=iGY/ViGh0Gj8RZZDUGjodC5/x+eYuTc6tQENsiaITK6P031eJWNk0OKFKw4O6X9xyTyN02NNx9E47iz5/RkkXRYm3ST7e7ykCibQ9wI8Jbj6SJgaLCPlumsouowoRSR2iFhNWOZbZ/ELR2sQ9IAh1kJ4uTe/4H5Dk84VZ+6qr3+dMvVIJ0EvSAhZZYFk6vAmy+lhllCdIyLizdLgr31zpqyIET9JI6TK1okFjZ102nE28hBy9T4aeOtjYKYmTW3/psbsxtS1AL1u1vbS0eiNIb7zMNpz0uX65xRDwIMaFcqeRVi8srd1flXR8pPOnMSh/pXSVjdABcVg2p1eZb3ROg==
+X-YMail-OSG: F3tWKb4VM1k9Er6J_hPtkH0OYadxV.P8wRWMegepMjx7aIFtfRThGY6EjfHgfo2
+ 0PsNeVKlmNYQ92.Upu4WqaBdDIU6f6.uV_3ur5frOLR4CSlAfBMTO_zXTF44ZtXL3DS7BG2vT3XR
+ o4HjOjMWJPuYYN16mm2u4JvbOGsYKTm7NtdMFBUd_MDcMn7ZbndksyIWKAGKWdFqyjfb9wU1JTtj
+ hDicUvAseaOWY5_JUC8jx3ZVXLXqgjSkaY2SZK9cBFerhsmVYNgJD1kjlCs2LG9sW6wpe8Jo7Yvd
+ Zieh89LMX6gtf9A_HxfIGx9ZGeEzYaCmOTbk1lmX6UDm0Hf.i5UcPj4VJVt38Zf8KlVOVr.1J5yO
+ KdmBQyTNkHfeKcP_EppXucrIzvZ4vUMm6PnDaDzT44aN0Yy1oLCWcNfsHhkdq40SuleFBlbyAc.S
+ EQt.T6OdbEyJEHCtSETeVv0f4DuioedroggVmzXbtmW3_K1AFnzC9bTP7wyCIQrEt0Dtqcn6a_Zc
+ dCXPuJq2NGTfMw1rZ2kztFD1UE865lVCE45OUHybj3PVAAemsM8Cb92fBu2du7bCvVGaU.35Hq4R
+ 25k_ey1G7YYJ5J4ZqhjAVQvqpF3.d1PPYVUlwk.a0o.5KBT.og6PQjNbKWLmrIDnpD.94oO2aC67
+ fPO1dD488Oz.4Hyer.TzmHkFO5htFhEZN.lj3hBGspoLNqA5YixtTWUmoD1ujMEOLdFi.v0oeMmf
+ O2iV43xAwoBy2apL98OHee1trMe6GbdWM.Y3afKgjPQJHpQUNK2NMfImAG8Yu_zplDRsiDeE5y0x
+ 5fLjmqYM506sanfFRWuPSRyY0goPswF9EeOzIXuF7jAbf8oXNz426RZJCsvkPHHEQhpwFkS3twan
+ hhw5VRvPNs72gOeeqHE5j6Zap3YKZKOjtcBMchhZU6O7WsbUWwPN0xL03dwBT48oGX.sSmd59HRB
+ 0dOKGWfusjqGKZGsY6MLXAG5DqjYWPvrJiJXAKw3AJ883DuL50OfcAJBNQqyCargK9mJWlOQmQup
+ IFcazBjudiy1dRptKywh1aVBxO84cFl7ZWpXmqsu1hpYr2tq8FoNsVvgg46yB7zM1AHE0IzRN2Cg
+ lxEtPYvXtSi3E1.xLiRnU4CyosnfgN5XDSXpfOKDsSctCRvybJpNHLgsMrJbF4slW6jBrIv1T4yz
+ qCy15QG.SWNDedRdZXfobMcuEFcx1Ljakc17RMA_QSDulPIaXLzHNlX_2mqj1sumpcvHvYD_43Xe
+ I6e1JFsX76tYpD09SOJN_opIIU1ZU9ZXwGXrRmFDakAZOzMrChUETJD8sEpPXJBJZfzR.LQ2PVm9
+ 2niSFQq1GmsJ5ofwVnRnyhYegiH4DiT25hapxTz6gjSv7qeRyl274_Q19QGGVwnOubqUwbaPJM3Q
+ -
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic307.consmr.mail.ir2.yahoo.com with HTTP; Mon, 13 Jan 2020 13:58:56 +0000
+Received: by smtp413.mail.ir2.yahoo.com (Oath Hermes SMTP Server) with ESMTPA
+ ID 7f2295bad415329f1eee64ebe26b55bf; 
+ Mon, 13 Jan 2020 13:58:53 +0000 (UTC)
+From: Tobias <toszlanyi@yahoo.de>
+To: alsa-devel@alsa-project.org
+References: <9457db14-4084-c0dd-5c89-821b35c3db66@yahoo.de>
+Message-ID: <8653a13c-ef08-4e0f-8375-baa6a3b4faa8@yahoo.de>
+Date: Mon, 13 Jan 2020 14:58:53 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20200113131034.GA12166@gerhold.net>
+In-Reply-To: <9457db14-4084-c0dd-5c89-821b35c3db66@yahoo.de>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [alsa-devel] [PATCH] ASoC: msm8916-wcd-digital: Reset RX
- interpolation path after use
+X-Mailer: WebService/1.1.14873 hermes Apache-HttpAsyncClient/4.1.4
+ (Java/1.8.0_181)
+Subject: Re: [alsa-devel] USB Audio Interface / Denon MC7000 and MC8000
+	controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,78 +87,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 13/01/2020 13:10, Stephan Gerhold wrote:
-> On Mon, Jan 13, 2020 at 11:30:48AM +0000, Srinivas Kandagatla wrote:
->>
->>
->> On 05/01/2020 10:27, Stephan Gerhold wrote:
->>> For some reason, attempting to route audio through QDSP6 on MSM8916
->>> causes the RX interpolation path to get "stuck" after playing audio
->>> a few times. In this situation, the analog codec part is still working,
->>> but the RX path in the digital codec stops working, so you only hear
->>> the analog parts powering up. After a reboot everything works again.
->>>
->>> So far I was not able to reproduce the problem when using lpass-cpu.
->>>
->>> The downstream kernel driver avoids this by resetting the RX
->>> interpolation path after use. In mainline we do something similar
->>> for the TX decimator (LPASS_CDC_CLK_TX_RESET_B1_CTL), but the
->>> interpolator reset (LPASS_CDC_CLK_RX_RESET_CTL) got lost when the
->>> msm8916-wcd driver was split into analog and digital.
->>>
->>> Fix this problem by adding the reset to
->>> msm8916_wcd_digital_enable_interpolator().
->>>
->>> Fixes: 150db8c5afa1 ("ASoC: codecs: Add msm8916-wcd digital codec")
->>> Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->>> Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
->>
->> Thanks for the patch and testing it with QDSP6.
->>
->>> ---
->>> Tested on msm8916-samsung-a5u:
->>>     - qdsp6 does no longer stop working after playing audio a few times
->>>     - lpass-cpu is still working fine (no difference)
->>> ---
->>>    sound/soc/codecs/msm8916-wcd-digital.c | 6 ++++++
->>>    1 file changed, 6 insertions(+)
->>>
->>> diff --git a/sound/soc/codecs/msm8916-wcd-digital.c b/sound/soc/codecs/msm8916-wcd-digital.c
->>> index 58b2468fb2a7..09fccacadd6b 100644
->>> --- a/sound/soc/codecs/msm8916-wcd-digital.c
->>> +++ b/sound/soc/codecs/msm8916-wcd-digital.c
->>> @@ -586,6 +586,12 @@ static int msm8916_wcd_digital_enable_interpolator(
->>>    		snd_soc_component_write(component, rx_gain_reg[w->shift],
->>>    			      snd_soc_component_read32(component, rx_gain_reg[w->shift]));
->>>    		break;
->>> +	case SND_SOC_DAPM_POST_PMD:
->>
->> We should do this in SND_SOC_DAPM_PRE_PMU rather than in power down
->> sequence.
->>
-> 
-> Thanks for the suggestion! Any particular reason for this?
-> 
-> I used earlier versions of your msm8916-wcd patch series and the
-> downstream driver as a base, and it does this in POST_PMD:
-
-Normally I would have expected that we reset as part of up sequence and 
-continue rather than during down.
-Both of them will work!
-For consistency reasons as we did this in down path for TX.
-
-Reviewed-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-
-Thanks,
-srini
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGVsbG8gZGVhciBBTFNBIGRldmVsb3BlcnMgLSBpcyB0aGVyZSBhbnkgY2hhbmNlIHRvIGdldCB0
+aGUgRGVub24gTUM3MDAwIAphbmQgTUM4MDAwIFVTQiBBdWRpbyBkZXZpY2VzIHN1cHBvcnRlZD8g
+U2VlIHByZXZpb3VzIG1lc3NhZ2UgZm9yIGRldGFpbHMuCgpUaGFua3MgYSBsb3QKVG9iaWFzCgoK
+CkFtIDE0LjEyLjE5IHVtIDA5OjI0IHNjaHJpZWIgVG9iaWFzOgo+IEhlbGxvIGRlYXIgQUxTQSBk
+ZXZlbG9wZXJzLgo+Cj4gSSBoYXZlIHB1cmNoYXNlZCBhIE1DNzAwMCBjb250cm9sbGVyIGluIG9y
+ZGVyIHRvIGNvbnRyb2wgTUlYWFggb24gCj4gVWJ1bnR1IDE2LjA0LiBBY2NvcmRpbmcgdG8gdGhl
+IERlbm9uIHNwZWNpZmljYXRpb24gdGhlIGNvbnRyb2xsZXIgCj4gc2hvdWxkIGhhdmUgYmVlbiBj
+bGFzcyBjb21wbGlhbnQgYnV0IHRoZXJlIGlzIGFuIGlzc3VlIHdpdGggdGhlIEF1ZGlvIAo+IGlu
+dGVyZmFjZSB0byB3b3JrIHByb3Blcmx5IGdpdmluZyBmb2xsb3dpbmcgbWVzc2FnZSAuLi4KPgo+
+ICQgZG1lc2cKPiAuLi4KPiB8W8KgIMKgNzQuNTIyODMxXSB1c2IgMS0xLjM6IG5ldyBoaWdoLXNw
+ZWVkIFVTQiBkZXZpY2UgbnVtYmVyIDYgdXNpbmcgCj4geGhjaV9oY2QKPiBbwqAgwqA3NC42MjM3
+ODRdIHVzYiAxLTEuMzogTmV3IFVTQiBkZXZpY2UgZm91bmQsIGlkVmVuZG9yPTE1ZTQsIAo+IGlk
+UHJvZHVjdD04MDA0Cj4gW8KgIMKgNzQuNjIzNzg5XSB1c2IgMS0xLjM6IE5ldyBVU0IgZGV2aWNl
+IHN0cmluZ3M6IE1mcj0xLCBQcm9kdWN0PTIsIAo+IFNlcmlhbE51bWJlcj0zCj4gW8KgIMKgNzQu
+NjIzNzkzXSB1c2IgMS0xLjM6IFByb2R1Y3Q6IERFTk9OIERKIE1DNzAwMAo+IFvCoCDCoDc0LjYy
+Mzc5Nl0gdXNiIDEtMS4zOiBNYW51ZmFjdHVyZXI6IERFTk9OIERKCj4gW8KgIMKgNzQuNjIzNzk4
+XSB1c2IgMS0xLjM6IFNlcmlhbE51bWJlcjogMjAxNjAzCj4gW8KgIMKgNzQuNjI1MTM0XSB1c2Ig
+MS0xLjM6IGNsb2NrIHNvdXJjZSA2NSBpcyBub3QgdmFsaWQsIGNhbm5vdCB1c2UKPgo+ICJ8fHxj
+bG9jayBzb3VyY2UgNjUgaXMgbm90IHZhbGlkLCBjYW5ub3QgdXNlIiBpcyByZXBlYXRlZCB1bmNv
+dW50YWJsZSAKPiB0aW1lcyB0aGVuCj4KPgo+IHxJIGZvdW5kIGEgZGlzY3Vzc2lvbiBoZXJlIGZv
+ciB0aGUgTUM4MDAwIEF1ZGlvIGludGVyZmFjZSB3aGljaCB3YXMgCj4gbm90IHdvcmtpbmcgYW5k
+IHNob3dpbmcgdGhlIHNhbWUgZXJyb3IgbWVzc2FnZToKPgo+IGh0dHBzOi8vYWxzYS11c2VyLm5h
+cmtpdmUuY29tLzJ0REFPODdmL3Ryb3VibGVzaG9vdGluZy1uZXctdXNiLWF1ZGlvLWRldmljZSNw
+b3N0OCAKPgo+Cj4gVGhlIHNvbHV0aW9uIHdhcyB0byBjaGFuZ2Ugc291bmQvdXNiL2Nsb2NrLmMg
+YW5kIHJlY29tcGlsZSB0aGUga2VybmVsLgo+IFRoaXMgaXMgbm90IHByYWN0aWNhbCBmb3IgZGFp
+bHkgdXNlIGNhc2Ugc28gSSB3b3VsZCBsaWtlIHRvIGFzayBpZiB0aGUgCj4gQUxTQSB0ZWFtIGNv
+dWxkIHBvc3NpYmx5IGZpbmQgYSBwZXJtYW5lbnQgZml4IGZvciBvcmRpbmFyeSB1c2Vycy4KPgo+
+IFRvIGdldCBteSBvdXRwdXRzIGZvcgo+Cj4gYXBsYXkgLWwKPiBhcGxheSAtTAo+IHx8fGFwbGF5
+IC1EIHBsdWdodzpDQVJEPU1DNzAwMCxERVY9MCBHcmltbWFsZGlrYS1NYWtlQmVsaWV2ZS53YXYK
+PiB8bHN1c2IgLXYKPiBtaXh4eCAtLWNvbnRyb2xsZXJEZWJ1Z3x8Cj4gSmFja1NlcnZlciBlcnJv
+ciBtZXNzYWdlfAo+Cj4geW91IG1heSBoYXZlIGEgbG9vayBhdCB0aGUgTWl4eHggQ29tbXVuaXR5
+IEZvcnVtcyBoZXJlKGp1c3Qgb24gcGFnZSwgCj4geW91IGRvbid0IG5lZWQgdG8gZmluZCBhbmQg
+cmVhZCBvbiBtdWx0aXBsZSBwYWdlcykKPgo+IGh0dHBzOi8vd3d3Lm1peHh4Lm9yZy9mb3J1bXMv
+dmlld3RvcGljLnBocD9mPTcmdD0xMjk2MiZzdGFydD0xMAo+Cj4gSWYgeW91IG5lZWQgYW55IG1v
+cmUgaW5mb3JtYXRpb24gdGhlbiBwbGVhc2UgbGV0IG1lIGtub3cuCj4KPiBUaGFua3MgYSBsb3Qg
+Zm9yIHlvdXIgc3VwcG9ydCBvbiB0aGlzIG1hdHRlci4KPgo+IENoZWVycyEKPiBPc1oKPiB8fAoK
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZl
+bCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1h
+bi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

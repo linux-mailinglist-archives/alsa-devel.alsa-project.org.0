@@ -2,62 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2887213AA65
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:14:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3D2B13AA80
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:17:44 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 35ABD2057;
-	Mon, 13 Jan 2020 16:25:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35ABD2057
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8011F2131;
+	Mon, 13 Jan 2020 16:28:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8011F2131
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8D192F80340;
-	Mon, 13 Jan 2020 16:13:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 72AF6F8025A;
+	Mon, 13 Jan 2020 16:22:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7EB8CF802E2; Mon, 13 Jan 2020 16:13:36 +0100 (CET)
+ id 777DFF80227; Mon, 13 Jan 2020 16:22:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Level: 
+X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0EACBF80292
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0EACBF80292
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="TtbOqJCo"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=vqANW8NMcQQtkPv8FVoHp6MnMXFRJDsHayHdqXOfSeE=; b=TtbOqJCocItS
- +LrffmLe7GNtpFrmPr+HsRjsUWmoOtpgi2KeMqy8TNdKogjTFOq77EMJhwFtVmVBFZUQcudWKvPjv
- tPtNSMngxeEZTec2/BB8Aq+8JILiALawem7aGYDWnmP5/7FiP+bmieezhbI9GS18E/QWWumcBrBcH
- NYa60=;
-Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1ir1P2-0003M9-D7; Mon, 13 Jan 2020 15:13:16 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 1D00DD01F2F; Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200110235751.3404-5-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200110235751.3404-5-pierre-louis.bossart@linux.intel.com>
-X-Patchwork-Hint: ignore
-Date: Mon, 13 Jan 2020 15:13:16 +0000 (GMT)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: Intel: bdw-rt5650: change cpu_dai and
-	platform components for SOF" to the asoc tree
+ by alsa1.perex.cz (Postfix) with ESMTPS id F1928F800B9
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:22:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1928F800B9
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2020 07:22:17 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,429,1571727600"; d="scan'208";a="304865985"
+Received: from bcoogan-mobl1.amr.corp.intel.com (HELO [10.252.137.69])
+ ([10.252.137.69])
+ by orsmga001.jf.intel.com with ESMTP; 13 Jan 2020 07:22:15 -0800
+To: Vinod Koul <vkoul@kernel.org>
+References: <20191217210314.20410-1-pierre-louis.bossart@linux.intel.com>
+ <20191217210314.20410-10-pierre-louis.bossart@linux.intel.com>
+ <20191227090826.GM3006@vkoul-mobl>
+ <5be4d9df-0f46-d36f-471c-aae9e1f55cc0@linux.intel.com>
+ <20200106054221.GN2818@vkoul-mobl>
+ <32ae46a7-59ee-4815-270a-a519ff462345@linux.intel.com>
+ <20200110064303.GX2818@vkoul-mobl>
+ <39000dd7-3f77-bc33-0ad3-aa47ba2360f7@linux.intel.com>
+ <20200113051800.GP2818@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <d77dcdfd-2b33-d533-e0b2-564c12223eec@linux.intel.com>
+Date: Mon, 13 Jan 2020 09:22:15 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.2.2
+MIME-Version: 1.0
+In-Reply-To: <20200113051800.GP2818@vkoul-mobl>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v5 09/17] soundwire: intel: remove platform
+ devices and use 'Master Devices' instead
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,85 +77,140 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: Intel: bdw-rt5650: change cpu_dai and platform components for SOF
 
-has been applied to the asoc tree at
+On 1/12/20 11:18 PM, Vinod Koul wrote:
+> On 10-01-20, 10:08, Pierre-Louis Bossart wrote:
+>>
+>>>>> The "big" difference is that probe is called by core (asoc) and not by
+>>>>> driver onto themselves.. IMO that needs to go away.
+>>>>
+>>>> What I did is not different from what existed already with platform devices.
+>>>> They were manually created, weren't they?
+>>>
+>>> Manual creation of device based on a requirement is different, did I ask
+>>> you why you are creating device :)
+>>>
+>>> I am simple asking you not to call probe in the driver. If you need
+>>> that, move it to core! We do not want these kind of things in the
+>>> drivers...
+>>
+>> What core are you talking about?
+> 
+> soundwire core ofcourse! IMO All that which goes into soundwire-bus-objs is
+> considered as soundwire core part and rest are drivers intel, qc, so on!
+This master code was added to the bus:   v
+                                          v
+soundwire-bus-objs := bus_type.o bus.o master.o slave.o mipi_disco.o 
+stream.o
+obj-$(CONFIG_SOUNDWIRE) += soundwire-bus.o
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
+and the API is also part of the sdw.h include file. That seems to meet 
+exactly what you describe above, no?
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+git grep sdw_master_device_add (reformatted output)
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+drivers/soundwire/intel_init.c:
+md = sdw_master_device_add(&intel_sdw_driver,
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+drivers/soundwire/master.c:
+*sdw_master_device_add(struct sdw_master_driver *driver,
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+drivers/soundwire/master.c:
+EXPORT_SYMBOL_GPL(sdw_master_device_add);
 
-Thanks,
-Mark
+include/linux/soundwire/sdw.h:
+*sdw_master_device_add(struct sdw_master_driver *driver,
 
-From a40acc6bfcebb59fdf6a71c4740c46880ed5c0b4 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Fri, 10 Jan 2020 17:57:47 -0600
-Subject: [PATCH] ASoC: Intel: bdw-rt5650: change cpu_dai and platform
- components for SOF
+So, what exactly is the issue?
 
-The legacy driver uses dummy cpu_dai and platform, SOF requires actual
-values to bind.
+We are not 'calling the probe in the [Intel] driver' as you state it, we 
+use a SoundWire core API which in turn will create a device. The device 
+core takes care of calling the probe, see the master.c code which is NOT 
+Intel-specific.
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200110235751.3404-5-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/intel/boards/bdw-rt5650.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+>>
+>> The SOF intel driver needs to create a device, which will then be bound with
+>> a SoundWire master driver.
+>>
+>> What I am doing is no different from what your team did with
+>> platform_register_device, I am really lost on what you are asking.
+> 
+> Again repeating myself, you call an API to do that is absolutely fine,
+> but we don't do that in drivers or open code these things
+That is still quite unclear, what 'open-coding' are you referring to?
 
-diff --git a/sound/soc/intel/boards/bdw-rt5650.c b/sound/soc/intel/boards/bdw-rt5650.c
-index ba3fc1ef900a..1a302436d450 100644
---- a/sound/soc/intel/boards/bdw-rt5650.c
-+++ b/sound/soc/intel/boards/bdw-rt5650.c
-@@ -223,6 +223,14 @@ SND_SOC_DAILINK_DEF(platform,
- SND_SOC_DAILINK_DEF(be,
- 	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5650:00", "rt5645-aif1")));
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_BROADWELL)
-+SND_SOC_DAILINK_DEF(ssp0_port,
-+	    DAILINK_COMP_ARRAY(COMP_CPU("ssp0-port")));
-+#else
-+SND_SOC_DAILINK_DEF(ssp0_port,
-+	    DAILINK_COMP_ARRAY(COMP_DUMMY()));
-+#endif
-+
- static struct snd_soc_dai_link bdw_rt5650_dais[] = {
- 	/* Front End DAI links */
- 	{
-@@ -256,7 +264,7 @@ static struct snd_soc_dai_link bdw_rt5650_dais[] = {
- 		.dpcm_playback = 1,
- 		.dpcm_capture = 1,
- 		.init = bdw_rt5650_init,
--		SND_SOC_DAILINK_REG(dummy, be, dummy),
-+		SND_SOC_DAILINK_REG(ssp0_port, be, platform),
- 	},
- };
- 
--- 
-2.20.1
+I am starting to wonder if you missed the addition of the master 
+functionality in the previous patch:
+
+[PATCH v5 08/17] soundwire: add initial definitions for sdw_master_device
+
+What this patch 9 does is call the core-defined API and implement the 
+intel-specific master driver.
+
+> 
+>>>>>> FWIW, the implementation here follows what was suggested for Greybus 'Host
+>>>>>> Devices' [1] [2], so it's not like I am creating any sort of dangerous
+>>>>>> precedent.
+>>>>>>
+>>>>>> [1]
+>>>>>> https://elixir.bootlin.com/linux/latest/source/drivers/greybus/es2.c#L1275
+>>>>>> [2] https://elixir.bootlin.com/linux/latest/source/drivers/greybus/hd.c#L124
+>>>>>
+>>>>> And if you look closely all this work is done by core not by drivers!
+>>>>> Drivers _should_ never do all this, it is the job of core to do that for
+>>>>> you.
+>>>>
+>>>> Please look at the code again, you have a USB probe that will manually call
+>>>> the GreyBus device creation.
+>>>>
+>>>> static int ap_probe(struct usb_interface *interface,
+>>>> 		    const struct usb_device_id *id)
+>>>> {
+>>>> 	hd = gb_hd_create(&es2_driver, &udev->dev, 	
+>>>>
+>>>>
+>>>> static struct usb_driver es2_ap_driver = {
+>>>> 	.name =		"es2_ap_driver",
+>>>> 	.probe =	ap_probe, <<< code above
+>>>> 	.disconnect =	ap_disconnect,
+>>>> 	.id_table =	id_table,
+>>>> 	.soft_unbind =	1,
+>>>> };
+>>>
+>>> Look closely the driver es2 calls into greybus core hd.c and gets the
+>>> work done, subtle but a big differances in the approaches..
+>>
+>> I am sorry, I have absolutely no idea what you are referring to.
+>>
+>> The code I copy/pasted here makes no call to the greybus core, it's ap_probe
+>> -> gb_hd_create. No core involved. If I am mistaken, please show me what I
+>> got wrong.
+> 
+> 1. es2_ap_driver is host controller driver
+> 
+> 2. gb_hd_create() is an API provided by greybus core!
+
+same in my code...
+
+> 
+> es2 driver doesn't open code creation like you are doing in intel driver,
+> it doesn't call probe on its own, greybus does that
+> 
+> This is very common pattern in linux kernel subsytems, drivers dont do
+> these things, the respective subsystem core does that... see about es2
+> driver and implementation of gb_hd_create(). See callers of
+> platform_register_device() and its implementation.
+> 
+> I don't know how else I can explain this to you, is something wrong in
+> how I conveyed this info or you... or something else, I dont know!!!
+the new 'master' functionality is part of the bus code, so please 
+clarify what you see as problematic for the partition.
 
 _______________________________________________
 Alsa-devel mailing list

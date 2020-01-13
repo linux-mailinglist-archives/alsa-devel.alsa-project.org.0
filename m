@@ -2,21 +2,21 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 111D713AA68
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:14:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD83B13AABE
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:23:08 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3A2A120BD;
-	Mon, 13 Jan 2020 16:27:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A2A120BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 69B4D1FA9;
+	Mon, 13 Jan 2020 16:22:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 69B4D1FA9
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2463FF8034E;
-	Mon, 13 Jan 2020 16:14:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6F58EF80304;
+	Mon, 13 Jan 2020 16:13:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F319DF802E1; Mon, 13 Jan 2020 16:13:40 +0100 (CET)
+ id 071D9F802BE; Mon, 13 Jan 2020 16:13:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -26,39 +26,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 12532F8029B
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12532F8029B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C492F80277
+ for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 16:13:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C492F80277
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="tHh56mz5"
+ header.b="X6QSLXh+"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=P160kz5oOUxO24cjyirJQJ5SmvkB9iSYTMlT/Aswafs=; b=tHh56mz5r2q2
- ujDBPz+Vmc3GwqrIXPucDMxZiMCj+LXvJR//bbSTO4xrWx7n2Ww/w8VbQhbG2UdFNLyPskP5QYkCH
- aFKTNxPuMawROpL8dlnDuMq62lzxF6na602jvxXN6j/HattgOep4omB6fY9PR2Qjl45YfltMN2q/D
- e5ev0=;
+ List-Archive; bh=0re133n7XROeXu5TXZhs1mUxt+3hxGwPZlD/yIIrNGc=; b=X6QSLXh+8onS
+ f5ahp3EeW2fhxcMoxajqNRYwn+Dj3sfzko8EmSVurfIc2npdGdwRtwgUdqjD89MqeGSfjKpinST5K
+ Q+3IGxkoT60UVY9phCBhnJ/b9zEF8XyE/Pgg9/l4Lh7r8OaYm+l/aElLg0c13Z8JlocvVlHPk+Dmh
+ ZCASw=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1ir1P1-0003Lo-IB; Mon, 13 Jan 2020 15:13:15 +0000
+ id 1ir1P1-0003Lr-MV; Mon, 13 Jan 2020 15:13:15 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 45D05D01ECC; Mon, 13 Jan 2020 15:13:15 +0000 (GMT)
+ id 6B13CD01965; Mon, 13 Jan 2020 15:13:15 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200110222530.30303-6-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200110222530.30303-6-pierre-louis.bossart@linux.intel.com>
+To: Rander Wang <rander.wang@linux.intel.com>
+In-Reply-To: <20200110222530.30303-5-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200110222530.30303-5-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Date: Mon, 13 Jan 2020 15:13:15 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Rander Wang <rander.wang@intel.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: common: add match tables for TGL
-	w/ SoundWire" to the asoc tree
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: Intel: common: add match tables for
+	CNL/CFL/CML w/ SoundWire" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,7 +80,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: common: add match tables for TGL w/ SoundWire
+   ASoC: Intel: common: add match tables for CNL/CFL/CML w/ SoundWire
 
 has been applied to the asoc tree at
 
@@ -104,50 +105,70 @@ to this mail.
 Thanks,
 Mark
 
-From d985d208bf8f079979f284864a6d08900597ee04 Mon Sep 17 00:00:00 2001
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Fri, 10 Jan 2020 16:25:29 -0600
-Subject: [PATCH] ASoC: Intel: common: add match tables for TGL w/ SoundWire
+From db0b9efb989f01aa7145d30bcdbfb6b07e238875 Mon Sep 17 00:00:00 2001
+From: Rander Wang <rander.wang@linux.intel.com>
+Date: Fri, 10 Jan 2020 16:25:28 -0600
+Subject: [PATCH] ASoC: Intel: common: add match tables for CNL/CFL/CML w/
+ SoundWire
 
-RT711 is in SoundWire mode on link0.
-RT1308 is either on SSP2 or on SoundWire link1 (depending on hardware
-reworks).
+The two configurations are with the Realtek 3-in-1 board requiring all
+4 links to be enabled, or basic configuration with the on-board
+RT700 using link1.
 
-Signed-off-by: Rander Wang <rander.wang@intel.com>
+For now we only have definitions for CML. CNL and CFL are just
+placeholders.
+
+Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
+Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200110222530.30303-6-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200110222530.30303-5-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../intel/common/soc-acpi-intel-tgl-match.c   | 51 ++++++++++++++++++-
- 1 file changed, 49 insertions(+), 2 deletions(-)
+ .../intel/common/soc-acpi-intel-cfl-match.c   |  5 ++
+ .../intel/common/soc-acpi-intel-cml-match.c   | 89 +++++++++++++++++++
+ .../intel/common/soc-acpi-intel-cnl-match.c   |  5 ++
+ 3 files changed, 99 insertions(+)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-index b4687a5d1962..5984dd151f3e 100644
---- a/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-tgl-match.c
-@@ -14,12 +14,46 @@ static struct snd_soc_acpi_codecs tgl_codecs = {
- 	.codecs = {"MX98357A"}
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cfl-match.c b/sound/soc/intel/common/soc-acpi-intel-cfl-match.c
+index d6fd2026d0b8..ff9d6938b9f6 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cfl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cfl-match.c
+@@ -14,5 +14,10 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cfl_machines[] = {
  };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cfl_machines);
+ 
++struct snd_soc_acpi_mach snd_soc_acpi_intel_cfl_sdw_machines[] = {
++	{}
++};
++EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cfl_sdw_machines);
++
+ MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("Intel Common ACPI Match module");
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cml-match.c b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
+index fb9ba8819706..f55634c4c2e8 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cml-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cml-match.c
+@@ -59,5 +59,94 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = {
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cml_machines);
  
 +static const u64 rt711_0_adr[] = {
 +	0x000010025D071100
 +};
 +
 +static const u64 rt1308_1_adr[] = {
-+	0x000120025D130800,
-+	0x000122025D130800
++	0x000110025D130800
 +};
 +
-+static const struct snd_soc_acpi_link_adr tgl_i2s_rt1308[] = {
-+	{
-+		.mask = BIT(0),
-+		.num_adr = ARRAY_SIZE(rt711_0_adr),
-+		.adr = rt711_0_adr,
-+	},
-+	{}
++static const u64 rt1308_2_adr[] = {
++	0x000210025D130800
 +};
 +
-+static const struct snd_soc_acpi_link_adr tgl_rvp[] = {
++static const u64 rt715_3_adr[] = {
++	0x000310025D071500
++};
++
++static const struct snd_soc_acpi_link_adr cml_3_in_1_default[] = {
 +	{
 +		.mask = BIT(0),
 +		.num_adr = ARRAY_SIZE(rt711_0_adr),
@@ -158,38 +179,82 @@ index b4687a5d1962..5984dd151f3e 100644
 +		.num_adr = ARRAY_SIZE(rt1308_1_adr),
 +		.adr = rt1308_1_adr,
 +	},
++	{
++		.mask = BIT(2),
++		.num_adr = ARRAY_SIZE(rt1308_2_adr),
++		.adr = rt1308_2_adr,
++	},
++	{
++		.mask = BIT(3),
++		.num_adr = ARRAY_SIZE(rt715_3_adr),
++		.adr = rt715_3_adr,
++	},
 +	{}
 +};
 +
- struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
- 	{
- 		.id = "10EC1308",
--		.drv_name = "tgl_rt1308",
-+		.drv_name = "rt711_rt1308",
-+		.link_mask = 0x1, /* RT711 on SoundWire link0 */
-+		.links = tgl_i2s_rt1308,
- 		.sof_fw_filename = "sof-tgl.ri",
--		.sof_tplg_filename = "sof-tgl-rt1308.tplg",
-+		.sof_tplg_filename = "sof-tgl-rt711-rt1308.tplg",
- 	},
- 	{
- 		.id = "10EC5682",
-@@ -33,5 +67,18 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = {
- };
- EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_machines);
- 
-+/* this table is used when there is no I2S codec present */
-+struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_sdw_machines[] = {
++static const struct snd_soc_acpi_link_adr cml_3_in_1_mono_amp[] = {
 +	{
-+		.link_mask = 0x3, /* rt711 on link 0 and 2 rt1308s on link 1 */
-+		.links = tgl_rvp,
-+		.drv_name = "sdw_rt711_rt1308_rt715",
-+		.sof_fw_filename = "sof-tgl.ri",
-+		.sof_tplg_filename = "sof-tgl-rt711-rt1308.tplg",
++		.mask = BIT(0),
++		.num_adr = ARRAY_SIZE(rt711_0_adr),
++		.adr = rt711_0_adr,
 +	},
++	{
++		.mask = BIT(1),
++		.num_adr = ARRAY_SIZE(rt1308_1_adr),
++		.adr = rt1308_1_adr,
++	},
++	{
++		.mask = BIT(3),
++		.num_adr = ARRAY_SIZE(rt715_3_adr),
++		.adr = rt715_3_adr,
++	},
++	{}
++};
++
++struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_sdw_machines[] = {
++	{
++		.link_mask = 0xF, /* 4 active links required */
++		.links = cml_3_in_1_default,
++		.drv_name = "sdw_rt711_rt1308_rt715",
++		.sof_fw_filename = "sof-cml.ri",
++		.sof_tplg_filename = "sof-cml-rt711-rt1308-rt715.tplg",
++	},
++	{
++		/*
++		 * link_mask should be 0xB, but all links are enabled by BIOS.
++		 * This entry will be selected if there is no rt1308 exposed
++		 * on link2 since it will fail to match the above entry.
++		 */
++		.link_mask = 0xF,
++		.links = cml_3_in_1_mono_amp,
++		.drv_name = "sdw_rt711_rt1308_rt715",
++		.sof_fw_filename = "sof-cml.ri",
++		.sof_tplg_filename = "sof-cml-rt711-rt1308-mono-rt715.tplg",
++	},
++	{
++		.link_mask = 0x2, /* RT700 connected on Link1 */
++		.drv_name = "sdw_rt700",
++		.sof_fw_filename = "sof-cml.ri",
++		.sof_tplg_filename = "sof-cml-rt700.tplg",
++	},
++	{}
++};
++EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cml_sdw_machines);
++
+ MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("Intel Common ACPI Match module");
+diff --git a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
+index 27588841c8b0..828980d5630d 100644
+--- a/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
++++ b/sound/soc/intel/common/soc-acpi-intel-cnl-match.c
+@@ -27,5 +27,10 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = {
+ };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cnl_machines);
+ 
++struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_sdw_machines[] = {
 +	{},
 +};
-+EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_sdw_machines);
++EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cnl_sdw_machines);
 +
  MODULE_LICENSE("GPL v2");
  MODULE_DESCRIPTION("Intel Common ACPI Match module");

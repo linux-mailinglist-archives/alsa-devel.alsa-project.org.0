@@ -2,89 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7D4413AA97
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:20:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE31313AAB3
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:22:21 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 587E92DBF;
-	Tue, 14 Jan 2020 10:20:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 587E92DBF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6B2752DE2;
+	Tue, 14 Jan 2020 10:49:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B2752DE2
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FCC3F8014E;
-	Tue, 14 Jan 2020 10:19:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CAF90F8014E;
+	Tue, 14 Jan 2020 10:48:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4E97AF8014E; Tue, 14 Jan 2020 10:19:14 +0100 (CET)
+ id D85C0F8014E; Tue, 14 Jan 2020 10:48:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EA43EF800E9
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 10:19:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA43EF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id CD741F800E9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 10:48:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD741F800E9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="SOCELMni"
-Received: by mail-wr1-x443.google.com with SMTP id q6so11309471wro.9
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 01:19:07 -0800 (PST)
+ header.b="IQMFSASc"
+Received: by mail-wm1-x341.google.com with SMTP id d73so12954288wmd.1
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 01:48:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=YOrVjJzTSPNLaKDzebvrvQ3oKS4y3T6LB5qABZXNuT0=;
- b=SOCELMniRYZApsdX/b5gEl3ONlxVhOPDj078jtQJidUyDpI6nRkB1DNtvOMkMv2NtB
- ZD6DMc+zYkQwu1Zfk0kJZe5PhwzTQv10Ri6z7gsieIx+oyWtlqkc1zczZgQlmnV1BgGt
- FxlSlZjRCkxBanCXqURBUBzSts37SRKKa60CriomTlD5exhEEGub7HoH9cMLUDYp6vhw
- fj8w2mrz1Z6ms5+daXVHXoERbPtfGbu0jTHGhPlHTYunEE0CKt3lVdljRsrZFruyzrU4
- k5RtPPVWIdWNtEjarKrfNll0ZXKbQTWbpIpDYEVyZrFO1MtuXcZnLypRAd2AaNRY2w1z
- Iq8w==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Av6R897MwPJYaUFbeySb8X+lrEgD6Ka/Lapd1oVQYxQ=;
+ b=IQMFSAScN6150muQWE3TPyVLfIYy0czJHjwNWVAgkyvZgWPfBZ+eHuwWrjU1XkCaIP
+ DK/TXzdz1mtJgYtcji134GMFQefvifRjx7TqE8h36Lj4HSs/GsBOaYILyJehZmDsajIg
+ t9uAfiqDLs4MKErEtIrh9nKww4ji7pd2U1GEXPelhtjGAVG6ICG1HLRphdUhdUxFITFg
+ Z1BdJJu8eGpHBCF/WmOeTlFtACpLVc0Ue6IhkfuXapPqfUjR94BFfuGBrkLNGJiCO0Rk
+ 6+ZZBu7YwK982Nr0ckvTTz8CjmqNjbQ4TK77dvdEQJo2QWw0Zb4T0Z3ivkC4LyB/u3tC
+ FHMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=YOrVjJzTSPNLaKDzebvrvQ3oKS4y3T6LB5qABZXNuT0=;
- b=PZdIAN4b2Q6sQm6l0IFplcAbI4998bdKpZWTZIaEBqvDaR9vVidFvkCRfGe3jpyn9l
- fQ85M4xANFfvoDQjrGv5z8zA7T2nsgZP6yeGEsyNHZr46Ncte5NzodhJqYPGx9d/kmz9
- 9386p9uyp+XRnVO2p4N2ECD9br8liVnaI2yhkA69+Ni3kUqW86XHyktB1Nm//9C/ArjJ
- kcX4GisQX09DTQpnH0Zc+P53q7dxLC0aWTsFUwqFxZdh85cKz97+XkMSUXOB5mhFxREf
- 0CovxoYhPDbwTNx1vNOMySs0027fuolsq2VlZDls9oD1PDC/SE/ObUvjBW38hgw9ntxs
- zG+w==
-X-Gm-Message-State: APjAAAWd0zueCGEvRevm9tb82p8FTFLaZeNoNGzV98lCse+cgZws/ciE
- BWezxa6f374kQujF8RhKH8z3eQ==
-X-Google-Smtp-Source: APXvYqxmrnj2nMaK5aD2+Mcqio2NX+DQ58mqbtPmoUfvON5jSR65AKUq0E82HrNe5TJUMx9+Zcvdyw==
-X-Received: by 2002:a5d:53c1:: with SMTP id a1mr22992343wrw.373.1578993546494; 
- Tue, 14 Jan 2020 01:19:06 -0800 (PST)
-Received: from [192.168.86.34]
+ bh=Av6R897MwPJYaUFbeySb8X+lrEgD6Ka/Lapd1oVQYxQ=;
+ b=UqmYG4E3YC0fzthOejCqPtgfpVC7jmtvwTt5Wi91BIP2Uekv+Q2lsbdk+/MiTN1Ksj
+ fIunbWc/D69q+LrekRzE+7J31VlTfs2zhp/dgr+AWH+T3GzdVEwG8A5jIw/fTgDlE/aX
+ mT7WF/PDlX9f3y/Jcj2oGmL4qqHBtm3f6nLTsCN5lv79FaJYMH2JFO9SAFY23DJA2YL5
+ GCa7caHkKd2BibBO0hYKw68euiBwxHLaecg+p4oKoQNyP1FwsHbRDp3UmXfNG4ZOU2ZT
+ iFq3sLcWbJ5R87QunJRxoYGCyBKk7cmQ11RD/Gkuyk92y5ByaYRden3tG5mrQJ/7qbzN
+ Tw1w==
+X-Gm-Message-State: APjAAAUqSnpFO4lAyzBD2BlKNWjmiNEdVXkzXtEpcn/G8ZR9Yl5fMw3L
+ gLeZWUpXL5zpJIlI3J6WyGfHEA==
+X-Google-Smtp-Source: APXvYqxf5aQ6H3nRjfBxIr795lLJZTMPfkO87+3kIpo/fctg5qDkW97JHna4R1IxAedKKdSVGpwsXQ==
+X-Received: by 2002:a7b:c851:: with SMTP id c17mr26738795wml.71.1578995291824; 
+ Tue, 14 Jan 2020 01:48:11 -0800 (PST)
+Received: from srini-hackbox.lan
  (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id f1sm19000002wrp.93.2020.01.14.01.19.05
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 14 Jan 2020 01:19:05 -0800 (PST)
-To: Rob Herring <robh@kernel.org>
-References: <20200107135929.3267-1-srinivas.kandagatla@linaro.org>
- <20200107135929.3267-2-srinivas.kandagatla@linaro.org>
- <CAL_Jsq+a5idL=R88u=iHfiK_M9wCUn7MLcOJC1v0QXzYV7A-Lw@mail.gmail.com>
+ by smtp.gmail.com with ESMTPSA id k16sm19277659wru.0.2020.01.14.01.48.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jan 2020 01:48:11 -0800 (PST)
 From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <9345ae7e-bf1d-f541-6bcd-c3f1bb7a261a@linaro.org>
-Date: Tue, 14 Jan 2020 09:19:04 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+To: vkoul@kernel.org
+Date: Tue, 14 Jan 2020 09:48:06 +0000
+Message-Id: <20200114094806.15846-1-srinivas.kandagatla@linaro.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <CAL_Jsq+a5idL=R88u=iHfiK_M9wCUn7MLcOJC1v0QXzYV7A-Lw@mail.gmail.com>
-Content-Language: en-US
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Banajit Goswami <bgoswami@codeaurora.org>, spapothi@codeaurora.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Vinod <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH v11 1/2] dt-bindings: ASoC: Add WSA881x
-	bindings
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, broonie@kernel.org,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] dt-bindings: soundwire: fix example
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,43 +87,49 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+As wsa881x schema mentions #sound-dai-cells as required property,
+so update soundwire-controller.yaml example so that dt_bindings_check
+does not fail as below:
 
+Documentation/devicetree/bindings/soundwire/soundwire-controller.example.dt.yaml:
+speaker@0,1: '#sound-dai-cells' is a required property
+Documentation/devicetree/bindings/soundwire/soundwire-controller.example.dt.yaml:
+speaker@0,2: '#sound-dai-cells' is a required property
 
-On 13/01/2020 17:47, Rob Herring wrote:
-> On Tue, Jan 7, 2020 at 7:59 AM Srinivas Kandagatla
-> <srinivas.kandagatla@linaro.org> wrote:
->>
->> This patch adds bindings for WSA8810/WSA8815 Class-D Smart Speaker
->> Amplifier. This Amplifier also has a simple thermal sensor for
->> over temperature and speaker protection.
->>
->> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->> Reviewed-by: Rob Herring <robh@kernel.org>
->> ---
->>   .../bindings/sound/qcom,wsa881x.yaml          | 68 +++++++++++++++++++
->>   1 file changed, 68 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/sound/qcom,wsa881x.yaml
-> 
-> This schema now is applied to the soundwire-controller.yaml example and fails:
-> 
-> Documentation/devicetree/bindings/soundwire/soundwire-controller.example.dt.yaml:
-> speaker@0,1: '#sound-dai-cells' is a required property
-> Documentation/devicetree/bindings/soundwire/soundwire-controller.example.dt.yaml:
-> speaker@0,2: '#sound-dai-cells' is a required property
-> 
-> Please fix.
+Reported-by: Rob Herring <robh@kernel.org>
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+---
+ .../devicetree/bindings/soundwire/soundwire-controller.yaml     | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks Rob, I will send a patch to fix this.
+diff --git a/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml b/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
+index 1b43993bccdb..330924b8618e 100644
+--- a/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
++++ b/Documentation/devicetree/bindings/soundwire/soundwire-controller.yaml
+@@ -69,6 +69,7 @@ examples:
+             reg = <0 1>;
+             powerdown-gpios = <&wcdpinctrl 2 0>;
+             #thermal-sensor-cells = <0>;
++            #sound-dai-cells = <0>;
+         };
+ 
+         speaker@0,2 {
+@@ -76,6 +77,7 @@ examples:
+             reg = <0 2>;
+             powerdown-gpios = <&wcdpinctrl 2 0>;
+             #thermal-sensor-cells = <0>;
++            #sound-dai-cells = <0>;
+         };
+     };
+ 
+-- 
+2.21.0
 
---srini
-> 
-> Rob
-> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

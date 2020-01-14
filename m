@@ -2,73 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75FF713AF52
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:28:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4978E13AF71
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:32:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0955716BE;
-	Tue, 14 Jan 2020 17:27:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0955716BE
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA2961898;
+	Tue, 14 Jan 2020 17:31:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA2961898
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579019309;
-	bh=MpVwIfJsHuOug23PfyaTiEj38raIPP3xCRERLjRXthU=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ZsQizQdlPXvmjFYQPrXP/G+7y7YSpsToePiTAI3Q3lyMZPks3lFt7weyY8BsqtMTT
-	 m6pdrbirhNvyj2LVPc7/CAiWi5slB5nAQhqAF7XIYwqWXew3AFtXNgEx9m1Yb66X5U
-	 ZqiWwFKeSUN2LOHJBNE/4wduLm0UFUeKk6sfQK1M=
+	s=default; t=1579019564;
+	bh=ZImDRYb3Y2Id6BDX+e/HQUaTKDPMRJAxvPFjWq1kJ8s=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=d52twTfFhfiyd0/ioiBCSARsdeEHTwDcFysJs+6T52D9kAoIzOIdPmsx5TVSJfwiB
+	 irv1ApVhat0Rf9OGFFWXbP4qOTWOnAZMoJTDeUmQVVin9MwfmyD0pG4tYNEmrbYeLZ
+	 EB3kwOMzqdBGpUXZQP8bpGN9eWr/wTYGXCLBTAZM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4852BF803B2;
-	Tue, 14 Jan 2020 17:10:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B3CDF802A8;
+	Tue, 14 Jan 2020 17:19:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4AECF8034F; Tue, 14 Jan 2020 17:10:33 +0100 (CET)
+ id 80FF6F8026A; Tue, 14 Jan 2020 17:18:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9953EF80290
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 17:09:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9953EF80290
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6EA22F800B9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 17:18:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6EA22F800B9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="vbhqamHJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=lh+DEYlWEE8IeDo6mbUYEZA5GlV0CUS8nFY9iiqzleU=; b=vbhqamHJyj6s
- g7bTD5W9Mqkmww/8HP9nMEqje7ClX+fLpvxOFs/gWotdma/Eh/QQaklsbEx4+ea0s7JhoYZSwlSD6
- 97OXkh00fYl7FUfg5D66q8S0NUJbQVlDi9t7YVzF0UK6gm50hzdCNT1do5bZfxpcMsHAcj5n84pbO
- eESV4=;
-Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1irOkh-0001X4-IH; Tue, 14 Jan 2020 16:09:11 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 049C9D02C7F; Tue, 14 Jan 2020 16:09:11 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-In-Reply-To: <20200114011319.173401-1-yuehaibing@huawei.com>
-Message-Id: <applied-20200114011319.173401-1-yuehaibing@huawei.com>
-X-Patchwork-Hint: ignore
-Date: Tue, 14 Jan 2020 16:09:11 +0000 (GMT)
-Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
- linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Shuming Fan <shumingf@realtek.com>
-Subject: [alsa-devel] Applied "ASoC: rt700: remove unused including
-	<linux/version.h>" to the asoc tree
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="dko2t7vD"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00EG83Oq018646; Tue, 14 Jan 2020 10:18:45 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : mime-version : content-type;
+ s=PODMain02222019; bh=nJHfqdUKyvy0vEGXQvKAt1IgE3I/VmVTz+evXBdz+MA=;
+ b=dko2t7vD1Xr9N6NROYlxhFh6m6vh5NNIzqw5BMG9rbLBI3BC3EZxlOPhMjt7wFbU7o5A
+ pKjcUflh+eKDHTnPxH9TozIvwoNyNuCh+xh2L01jj65d9Jk3iovEGl/2Sn6pPySYfWqw
+ dMIpoe/ypat3cx/nZs0Tx/jx2nPhN+6EknxIB+xwdYkv5AGbzJUbKXmB5c4JQyIcq1NS
+ 2Y6x4WDuIykMS4Q1VI8zCeXbZq5sYYItP9wwQ4sAUbksMY+zADD8h4Vp1uCZ9ZeFCrhy
+ L/AjyT4TSd7caqFq5iM+BdKy5rBSSFIHBe2KggvbEIBo33mFWkdvME/jfBwrDItjK9R0 0g== 
+Authentication-Results: ppops.net;
+ spf=fail smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex01.ad.cirrus.com ([5.172.152.52])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2xfcn7vrvp-3
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 14 Jan 2020 10:18:45 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Tue, 14 Jan
+ 2020 16:18:41 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Tue, 14 Jan 2020 16:18:41 +0000
+Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 998EC2D1;
+ Tue, 14 Jan 2020 16:18:41 +0000 (UTC)
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: <broonie@kernel.org>
+Date: Tue, 14 Jan 2020 16:18:38 +0000
+Message-ID: <20200114161841.451-1-ckeepax@opensource.cirrus.com>
+X-Mailer: git-send-email 2.11.0
+MIME-Version: 1.0
+X-Proofpoint-SPF-Result: fail
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ lowpriorityscore=0 malwarescore=0
+ impostorscore=0 phishscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ adultscore=0 mlxlogscore=999 priorityscore=1501 mlxscore=0 suspectscore=1
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-1910280000
+ definitions=main-2001140137
+Cc: li.xu@cirrus.com, patches@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, lgirdwood@gmail.com, david.rhodes@cirrus.com
+Subject: [alsa-devel] [PATCH 1/4] ASoC: wm_adsp: Correct cache handling of
+	new kernel control API
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,67 +99,216 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+The recently added API that exposes firmware mixer controls to the
+kernel is missing cache handling and all writes bypass the cache, this
+obviously causes the cache to get out of sync with the hardware. Factor
+out the cache handling into two new helper functions and call those from
+both the normal ALSA control handlers and the new kernel API.
 
-   ASoC: rt700: remove unused including <linux/version.h>
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 5615b7a2784331d115e5774e80c1fb0c1ce80644 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Tue, 14 Jan 2020 01:13:19 +0000
-Subject: [PATCH] ASoC: rt700: remove unused including <linux/version.h>
-
-Remove including <linux/version.h> that don't need it.
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20200114011319.173401-1-yuehaibing@huawei.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: eb65ccdb0836 ("ASoC: wm_adsp: Expose mixer control API")
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 ---
- sound/soc/codecs/rt700.c | 1 -
- 1 file changed, 1 deletion(-)
+ sound/soc/codecs/wm_adsp.c | 98 ++++++++++++++++++++++++----------------------
+ 1 file changed, 51 insertions(+), 47 deletions(-)
 
-diff --git a/sound/soc/codecs/rt700.c b/sound/soc/codecs/rt700.c
-index b1830c1ebf8a..ff68f0e4f629 100644
---- a/sound/soc/codecs/rt700.c
-+++ b/sound/soc/codecs/rt700.c
-@@ -8,7 +8,6 @@
+diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
+index 2a9b610f6d435..d3d32b501acae 100644
+--- a/sound/soc/codecs/wm_adsp.c
++++ b/sound/soc/codecs/wm_adsp.c
+@@ -1030,8 +1030,8 @@ static int wm_coeff_write_acked_control(struct wm_coeff_ctl *ctl,
+ 	return -ETIMEDOUT;
+ }
  
- #include <linux/module.h>
- #include <linux/moduleparam.h>
--#include <linux/version.h>
- #include <linux/kernel.h>
- #include <linux/init.h>
- #include <linux/delay.h>
+-static int wm_coeff_write_control(struct wm_coeff_ctl *ctl,
+-				  const void *buf, size_t len)
++static int wm_coeff_write_ctrl_raw(struct wm_coeff_ctl *ctl,
++				   const void *buf, size_t len)
+ {
+ 	struct wm_adsp *dsp = ctl->dsp;
+ 	void *scratch;
+@@ -1061,6 +1061,23 @@ static int wm_coeff_write_control(struct wm_coeff_ctl *ctl,
+ 	return 0;
+ }
+ 
++static int wm_coeff_write_ctrl(struct wm_coeff_ctl *ctl,
++			       const void *buf, size_t len)
++{
++	int ret = 0;
++
++	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE)
++		ret = -EPERM;
++	else if (buf != ctl->cache)
++		memcpy(ctl->cache, buf, len);
++
++	ctl->set = 1;
++	if (ctl->enabled && ctl->dsp->running)
++		ret = wm_coeff_write_ctrl_raw(ctl, buf, len);
++
++	return ret;
++}
++
+ static int wm_coeff_put(struct snd_kcontrol *kctl,
+ 			struct snd_ctl_elem_value *ucontrol)
+ {
+@@ -1071,16 +1088,7 @@ static int wm_coeff_put(struct snd_kcontrol *kctl,
+ 	int ret = 0;
+ 
+ 	mutex_lock(&ctl->dsp->pwr_lock);
+-
+-	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE)
+-		ret = -EPERM;
+-	else
+-		memcpy(ctl->cache, p, ctl->len);
+-
+-	ctl->set = 1;
+-	if (ctl->enabled && ctl->dsp->running)
+-		ret = wm_coeff_write_control(ctl, p, ctl->len);
+-
++	ret = wm_coeff_write_ctrl(ctl, p, ctl->len);
+ 	mutex_unlock(&ctl->dsp->pwr_lock);
+ 
+ 	return ret;
+@@ -1096,15 +1104,10 @@ static int wm_coeff_tlv_put(struct snd_kcontrol *kctl,
+ 
+ 	mutex_lock(&ctl->dsp->pwr_lock);
+ 
+-	if (copy_from_user(ctl->cache, bytes, size)) {
++	if (copy_from_user(ctl->cache, bytes, size))
+ 		ret = -EFAULT;
+-	} else {
+-		ctl->set = 1;
+-		if (ctl->enabled && ctl->dsp->running)
+-			ret = wm_coeff_write_control(ctl, ctl->cache, size);
+-		else if (ctl->flags & WMFW_CTL_FLAG_VOLATILE)
+-			ret = -EPERM;
+-	}
++	else
++		ret = wm_coeff_write_ctrl(ctl, ctl->cache, size);
+ 
+ 	mutex_unlock(&ctl->dsp->pwr_lock);
+ 
+@@ -1135,8 +1138,8 @@ static int wm_coeff_put_acked(struct snd_kcontrol *kctl,
+ 	return ret;
+ }
+ 
+-static int wm_coeff_read_control(struct wm_coeff_ctl *ctl,
+-				 void *buf, size_t len)
++static int wm_coeff_read_ctrl_raw(struct wm_coeff_ctl *ctl,
++				  void *buf, size_t len)
+ {
+ 	struct wm_adsp *dsp = ctl->dsp;
+ 	void *scratch;
+@@ -1166,29 +1169,37 @@ static int wm_coeff_read_control(struct wm_coeff_ctl *ctl,
+ 	return 0;
+ }
+ 
+-static int wm_coeff_get(struct snd_kcontrol *kctl,
+-			struct snd_ctl_elem_value *ucontrol)
++static int wm_coeff_read_ctrl(struct wm_coeff_ctl *ctl, void *buf, size_t len)
+ {
+-	struct soc_bytes_ext *bytes_ext =
+-		(struct soc_bytes_ext *)kctl->private_value;
+-	struct wm_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
+-	char *p = ucontrol->value.bytes.data;
+ 	int ret = 0;
+ 
+-	mutex_lock(&ctl->dsp->pwr_lock);
+-
+ 	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE) {
+ 		if (ctl->enabled && ctl->dsp->running)
+-			ret = wm_coeff_read_control(ctl, p, ctl->len);
++			return wm_coeff_read_ctrl_raw(ctl, buf, len);
+ 		else
+-			ret = -EPERM;
++			return -EPERM;
+ 	} else {
+ 		if (!ctl->flags && ctl->enabled && ctl->dsp->running)
+-			ret = wm_coeff_read_control(ctl, ctl->cache, ctl->len);
++			ret = wm_coeff_read_ctrl_raw(ctl, ctl->cache, ctl->len);
+ 
+-		memcpy(p, ctl->cache, ctl->len);
++		if (buf != ctl->cache)
++			memcpy(buf, ctl->cache, len);
+ 	}
+ 
++	return ret;
++}
++
++static int wm_coeff_get(struct snd_kcontrol *kctl,
++			struct snd_ctl_elem_value *ucontrol)
++{
++	struct soc_bytes_ext *bytes_ext =
++		(struct soc_bytes_ext *)kctl->private_value;
++	struct wm_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
++	char *p = ucontrol->value.bytes.data;
++	int ret;
++
++	mutex_lock(&ctl->dsp->pwr_lock);
++	ret = wm_coeff_read_ctrl(ctl, p, ctl->len);
+ 	mutex_unlock(&ctl->dsp->pwr_lock);
+ 
+ 	return ret;
+@@ -1204,15 +1215,7 @@ static int wm_coeff_tlv_get(struct snd_kcontrol *kctl,
+ 
+ 	mutex_lock(&ctl->dsp->pwr_lock);
+ 
+-	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE) {
+-		if (ctl->enabled && ctl->dsp->running)
+-			ret = wm_coeff_read_control(ctl, ctl->cache, size);
+-		else
+-			ret = -EPERM;
+-	} else {
+-		if (!ctl->flags && ctl->enabled && ctl->dsp->running)
+-			ret = wm_coeff_read_control(ctl, ctl->cache, size);
+-	}
++	ret = wm_coeff_read_ctrl_raw(ctl, ctl->cache, size);
+ 
+ 	if (!ret && copy_to_user(bytes, ctl->cache, size))
+ 		ret = -EFAULT;
+@@ -1340,7 +1343,7 @@ static int wm_coeff_init_control_caches(struct wm_adsp *dsp)
+ 		 * created so we don't need to do anything.
+ 		 */
+ 		if (!ctl->flags || (ctl->flags & WMFW_CTL_FLAG_READABLE)) {
+-			ret = wm_coeff_read_control(ctl, ctl->cache, ctl->len);
++			ret = wm_coeff_read_ctrl_raw(ctl, ctl->cache, ctl->len);
+ 			if (ret < 0)
+ 				return ret;
+ 		}
+@@ -1358,7 +1361,8 @@ static int wm_coeff_sync_controls(struct wm_adsp *dsp)
+ 		if (!ctl->enabled)
+ 			continue;
+ 		if (ctl->set && !(ctl->flags & WMFW_CTL_FLAG_VOLATILE)) {
+-			ret = wm_coeff_write_control(ctl, ctl->cache, ctl->len);
++			ret = wm_coeff_write_ctrl_raw(ctl, ctl->cache,
++						      ctl->len);
+ 			if (ret < 0)
+ 				return ret;
+ 		}
+@@ -2048,7 +2052,7 @@ int wm_adsp_write_ctl(struct wm_adsp *dsp, const char *name, int type,
+ 	if (len > ctl->len)
+ 		return -EINVAL;
+ 
+-	ret = wm_coeff_write_control(ctl, buf, len);
++	ret = wm_coeff_write_ctrl(ctl, buf, len);
+ 
+ 	kcontrol = snd_soc_card_get_kcontrol(dsp->component->card, ctl->name);
+ 	snd_ctl_notify(dsp->component->card->snd_card,
+@@ -2070,7 +2074,7 @@ int wm_adsp_read_ctl(struct wm_adsp *dsp, const char *name, int type,
+ 	if (len > ctl->len)
+ 		return -EINVAL;
+ 
+-	return wm_coeff_read_control(ctl, buf, len);
++	return wm_coeff_read_ctrl(ctl, buf, len);
+ }
+ EXPORT_SYMBOL_GPL(wm_adsp_read_ctl);
+ 
 -- 
-2.20.1
+2.11.0
 
 _______________________________________________
 Alsa-devel mailing list

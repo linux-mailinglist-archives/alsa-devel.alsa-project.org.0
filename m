@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 582CB13AF2E
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:22:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB5C913AF33
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:23:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D8CF2183A;
-	Tue, 14 Jan 2020 17:21:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8CF2183A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 795C316BE;
+	Tue, 14 Jan 2020 17:22:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 795C316BE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579018962;
-	bh=sGPl0IoNbql6ypVGvZAixY2kBfcvyubYn0Np7QteESI=;
+	s=default; t=1579019002;
+	bh=HW82yudi8BxN6LQPwkGBYqSJLBwc1+boYvV7e9b9vfo=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=NyLL7dD7SUldy3JpFngcMkZLRXkzYyGpT+NxXB4MU2eX6JtjnRXVYHCy4SBogsyhh
-	 OYowpOUwyjmRLxfraL/fj33ZYymbnVJHALpfD3F/jPoIWMxB1+e2d0rrGmmbguIpbb
-	 Az6pq3GEE0Um5Zo3MPJuEfEahucV0blFsen5Ezv4=
+	b=TB0g3zqgR7odxXAmkholFiM9EojrmcySpcg4k2lXyJzKLPhVIZ0HmIT0H1r5QlyXW
+	 BWbZQ9MHEgV8cK4fSbqUp7FbV7bjOTgq5qVJHfM8MUG0vQwZ4YSY8jq6NsLfkMThPV
+	 0tahchoX+ErZkOIkzZ0GG1LWqeL3/ydbzQJrzgtc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 96852F8035F;
-	Tue, 14 Jan 2020 17:10:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E12ADF80351;
+	Tue, 14 Jan 2020 17:10:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ACEC5F80337; Tue, 14 Jan 2020 17:10:12 +0100 (CET)
+ id 55512F8033E; Tue, 14 Jan 2020 17:10:16 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04CBEF8027B
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD72DF80278
  for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 17:09:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04CBEF8027B
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD72DF80278
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="g5q3ORZJ"
+ header.b="Nj3d2E6V"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=+Cc9nFnKLrm9qvKs53my276YkWBMce0Dog73Pj7cAfw=; b=g5q3ORZJVIuO
- A7WIGv2U8RRTkLx00+59h/SCZugQ6DrLd+RGKqNMgihu8CYvfux/oZ5hzNNopLjNfAaSxt0dwjzyC
- 2Qma52ls80/fzNkdLwTxTnqOUU4YlvpLN+hzuPg++YzGY0jY4pmjsIMVzbjyuUXvBxj59uwvO0qAT
- Y7aRA=;
+ List-Archive; bh=MlQBms5K7n2o9ly8No6gPaxyTQ94tJLG6QGcSkHV538=; b=Nj3d2E6V5r5r
+ Df/USs7n/BY8a6xNHL5N7q9qzJJyenSUHsjCRPyMzLLNoz0nksxEQEYERPQHpMkCMkClJoKfu0/1a
+ rzMAei/riiLhlXcgTelZG4t/ybQH05k0KavmuTawpIU6nTklJ68VWcWxPwMqJths2zSBxgLd8V8/6
+ 3/3uY=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1irOkf-0001WG-PY; Tue, 14 Jan 2020 16:09:09 +0000
+ id 1irOkf-0001WA-LX; Tue, 14 Jan 2020 16:09:09 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 7C011D02C77; Tue, 14 Jan 2020 16:09:09 +0000 (GMT)
+ id 57A9DD02C7C; Tue, 14 Jan 2020 16:09:09 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200113210428.27457-8-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200113210428.27457-8-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200113210428.27457-9-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200113210428.27457-9-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Date: Tue, 14 Jan 2020 16:09:09 +0000 (GMT)
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: Intel: kbl_da7219_max98927: rename
-	shadowed variable" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: Intel: kbl_da7219_max98927: remove
+	unnecessary initialization" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: kbl_da7219_max98927: rename shadowed variable
+   ASoC: Intel: kbl_da7219_max98927: remove unnecessary initialization
 
 has been applied to the asoc tree at
 
@@ -111,80 +111,49 @@ to this mail.
 Thanks,
 Mark
 
-From 1a29c760663624b0160c0143819c70db99343904 Mon Sep 17 00:00:00 2001
+From 379336e30ff728c1c06e818ff4427dfe053f2102 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Mon, 13 Jan 2020 15:04:17 -0600
-Subject: [PATCH] ASoC: Intel: kbl_da7219_max98927: rename shadowed variable
+Date: Mon, 13 Jan 2020 15:04:18 -0600
+Subject: [PATCH] ASoC: Intel: kbl_da7219_max98927: remove unnecessary
+ initialization
 
-Fix cppcheck warning:
+Fix cppcheck warning
 
-[sound/soc/intel/boards/kbl_da7219_max98927.c:432] ->
-[sound/soc/intel/boards/kbl_da7219_max98927.c:282]: (style) Local
-variable 'channels' shadows outer variable
+[sound/soc/intel/boards/kbl_da7219_max98927.c:179]: (style) Variable
+'ret' is assigned a value that is never used.
 
-[sound/soc/intel/boards/kbl_da7219_max98927.c:432] ->
-[sound/soc/intel/boards/kbl_da7219_max98927.c:494]: (style) Local
-variable 'channels' shadows outer variable
+[sound/soc/intel/boards/kbl_da7219_max98927.c:1098]: (style) Variable
+'i' is assigned a value that is never used.
 
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200113210428.27457-8-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200113210428.27457-9-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/kbl_da7219_max98927.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ sound/soc/intel/boards/kbl_da7219_max98927.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
-index e8b2ec60fb03..f8cf5de5ba09 100644
+index f8cf5de5ba09..7a13e9b35187 100644
 --- a/sound/soc/intel/boards/kbl_da7219_max98927.c
 +++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
-@@ -279,7 +279,7 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+@@ -176,7 +176,7 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
+ 	struct snd_pcm_hw_params *params)
  {
- 	struct snd_interval *rate = hw_param_interval(params,
- 			SNDRV_PCM_HW_PARAM_RATE);
--	struct snd_interval *channels = hw_param_interval(params,
-+	struct snd_interval *chan = hw_param_interval(params,
- 			SNDRV_PCM_HW_PARAM_CHANNELS);
- 	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
- 	struct snd_soc_dpcm *dpcm = container_of(
-@@ -298,7 +298,7 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
- 		!strcmp(rtd->card->name, "kblmax98373")) {
- 		/* The ADSP will convert the FE rate to 48k, stereo */
- 		rate->min = rate->max = 48000;
--		channels->min = channels->max = DUAL_CHANNEL;
-+		chan->min = chan->max = DUAL_CHANNEL;
+ 	struct snd_soc_pcm_runtime *runtime = substream->private_data;
+-	int ret = 0, j;
++	int ret, j;
  
- 		/* set SSP to 24 bit */
- 		snd_mask_none(fmt);
-@@ -313,7 +313,7 @@ static int kabylake_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
- 	    !strcmp(fe_dai_link->name, "Kbl Audio Headset Playback") ||
- 	    !strcmp(fe_dai_link->name, "Kbl Audio Capture Port")) {
- 		rate->min = rate->max = 48000;
--		channels->min = channels->max = 2;
-+		chan->min = chan->max = 2;
- 		snd_mask_none(fmt);
- 		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
- 	}
-@@ -494,7 +494,7 @@ static const struct snd_soc_ops kabylake_da7219_fe_ops = {
- static int kabylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
- 		struct snd_pcm_hw_params *params)
- {
--	struct snd_interval *channels = hw_param_interval(params,
-+	struct snd_interval *chan = hw_param_interval(params,
- 				SNDRV_PCM_HW_PARAM_CHANNELS);
+ 	for (j = 0; j < runtime->num_codecs; j++) {
+ 		struct snd_soc_dai *codec_dai = runtime->codec_dais[j];
+@@ -1095,7 +1095,7 @@ static int kabylake_audio_probe(struct platform_device *pdev)
+ 	struct kbl_codec_private *ctx;
+ 	struct snd_soc_dai_link *kbl_dai_link;
+ 	struct snd_soc_dai_link_component **codecs;
+-	int i = 0;
++	int i;
  
- 	/*
-@@ -502,9 +502,9 @@ static int kabylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
- 	 */
- 
- 	if (params_channels(params) == 2)
--		channels->min = channels->max = 2;
-+		chan->min = chan->max = 2;
- 	else
--		channels->min = channels->max = 4;
-+		chan->min = chan->max = 4;
- 
- 	return 0;
- }
+ 	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
+ 	if (!ctx)
 -- 
 2.20.1
 

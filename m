@@ -2,71 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56E9813B124
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 18:40:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A48CC13B162
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 18:53:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA6511819;
-	Tue, 14 Jan 2020 18:39:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA6511819
+	by alsa0.perex.cz (Postfix) with ESMTPS id 862B11828;
+	Tue, 14 Jan 2020 18:52:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 862B11828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579023646;
-	bh=DceKehGXOIvt2jHh5Kdf3xxx8uRDWO7gLm+79PXEghQ=;
-	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=VZ0Tnn+iThp89ZxzMjnn1fd+mO/f11i2Wwj9LLCYesZbnQebGY/y3bj8luxN9Vxyn
-	 k2wXHcoK+UpBJSp3kgGavStg8bp5hAyCQqNhTj9mURy719wwPltzBmQVe0eyEBoMgj
-	 Obl5tAEZR4aLb0AZKOjzRsi52dtJjYPPTLBnjzm0=
+	s=default; t=1579024404;
+	bh=zdyO40yhXoE/V8VAqqR4iHDvbk7BKUiLAfm87zf24Ig=;
+	h=From:Date:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=IT6p5sWxn+SBJuXizjaMz8shE+apcM59pJA9IVJbiLW4PapUp0hYNl+pow2WxwjFj
+	 T+yF0NzzWg6Shk7fIrtrtGqEaRAR0r0PqJv917cnAL6i3y90/0LNZP+dOPvEyQn8Tc
+	 uJYkhLo6xBwF1vqfHv9bpWGgWkJPGviz42TAp5kc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2F01DF800E9;
-	Tue, 14 Jan 2020 18:39:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id ED364F8014E;
+	Tue, 14 Jan 2020 18:52:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D2E12F8014E; Tue, 14 Jan 2020 18:38:59 +0100 (CET)
+ id 41AAEF8014E; Tue, 14 Jan 2020 18:52:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5E715F800E9
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 18:38:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E715F800E9
-Received: from localhost ([130.83.5.183]) by mrelayeu.kundenserver.de
- (mreue107 [212.227.15.145]) with ESMTPSA (Nemesis) id
- 1MrxfX-1jTRza3v3l-00o1Nx; Tue, 14 Jan 2020 18:38:51 +0100
-Date: Tue, 14 Jan 2020 18:38:48 +0100
-From: Tim Schumacher <tim@timakro.de>
-To: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <20200114173848.GA28085@impa>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ECD57F80121
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 18:52:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ECD57F80121
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gateworks-com.20150623.gappssmtp.com
+ header.i=@gateworks-com.20150623.gappssmtp.com header.b="DD+Ohg+5"
+Received: by mail-ot1-x329.google.com with SMTP id r27so13457055otc.8
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 09:52:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gateworks-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=i3LxDiMV6aun6yiL6tjUXyDycZcUqNGEQFgaII9F85g=;
+ b=DD+Ohg+5kQOqsUeljospO9RVb+EX2MfwPFZhEtnIb08Ai4MethsvH5oXew93vd3xmk
+ BUYhPH08f6D6gmYKIW0H6+vKQO7FkOSU2yNg9VMQ7uoKwEWzL0/pbfR3wz+xDEcNe/8q
+ gEJyrwBUutf3G/XQb/vr5of66c7TGc22ChAV/aSJyVDhK2EWRP846EEL7kUJz7A82urE
+ gyk9QtdyblyS3CyubnPtcLo9R1gtQLekva2hijsVPe8AU3qumWOUXqr4Dvi20hTFEXOT
+ cApTYPKc/kCrmtf+Gg8RonkXC1r6gVbk2unB3XN5MtPLe4pXS+9Tw6HvJHviqkbGhvcq
+ HJKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=i3LxDiMV6aun6yiL6tjUXyDycZcUqNGEQFgaII9F85g=;
+ b=PX1zsRv5mI02rFc3nnoahe96X9dKOhhDnZ/1n1qHOUvDEcvxYYc7TC9sZvVuBIXzt3
+ 0NjlqDdwZMTiDIMWrmd+t6Lu1pqoeAe93BgUdhhvb0s+Sym3W4ehMXND120VywzxOlRi
+ Fj03EkD96GY2DLUfuwN8hhB+g2OLJbSoTvx/mNx0D0YjWZbx9Eza2d/tJSWdDkjntaFM
+ U3pfqORew7EcuCrt/dh3n1ZtUzTBS51BMWQM4z5pmU8JKkoowRXiUfE5z+Ek3eDeLEG/
+ kpLLgaG+bDhhznHIYh5M0ApA68uLEP4fyqMYcoDedO2nEjoJAyuW6+TT2s2+nLWvK+MA
+ LAEg==
+X-Gm-Message-State: APjAAAUh0ZDf5kwrrI2EqZC+22cuFrmPaeEnQl03VwgS1WbwVpUcC3/W
+ TzuAz2FesGJvaPYy+3hsalCP3AbJ8cB7vejQKoByV8nj
+X-Google-Smtp-Source: APXvYqx7CNFnCFuqK8gtbaEReOf7UoMLQ/rZLr4uJ9fVfXIYKprNB7sQjmz2QKK7iIV7IfJMhcn/PO+U09OxQwjL8hs=
+X-Received: by 2002:a9d:32c7:: with SMTP id u65mr18199936otb.224.1579024343245; 
+ Tue, 14 Jan 2020 09:52:23 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <6d433182-fb2a-d883-a9b3-80110efb89c2@perex.cz>
-X-Provags-ID: V03:K1:tYIhtaTngBD9x5FrtnmTsF8PSXOJVmZ69UESrYftf/5DMoYueL8
- dImVrnlou0N9l0T2oQWrxEBP+uItDAO5BU52NwNJ71JHLkT78oDIe8pueryKFEK5lp5QsUM
- rGAbArD8uUCX7qlHZLKNo9Phg3A9fjtk/OJEjCgS1GqVv6exzRgXa2Db2HmQXwBTSZlzaXu
- e4LNX7CWHepe/65ImmJ2g==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:MslzDjTGa3c=:KIHxw1NYD8SI6XHgfkPAyz
- 1JYxF3B48C/G6OWNlIljgIPHE8PK74B16/eGkk9v/xA1T+EA+htTdDy4K36ZoIitWTouWFn0i
- TUjHWw9lZYAv7vH8WAgVSODXk4N8Bcf1LlYlcni3swyJ6PMZu8ywxNN0V7Rc0mfuIeMSld8xJ
- C3DH9/zcau4DoE/E55mPynBnelsBRufifKa8ABhRrwP0mouHJHL/iYFhBQzbAGfCw6+U6B8E3
- TRezSrD5SFfcDvKq3pSlX7kAXRzReehqr8QUOSs9fSn4AFXndqRI/eWqbLMgn0dNKfzYVKXFi
- 2iVUd+VXYt+pPfUKldUsllwY+Etk+zlMHHv+VZVeMsBkQhjJ7oBgCBjQNCJBm5Ls3pBW4tfWD
- 07nICPhNvqiuccUj9az5RIb7b5kwtuYD9+DDazmUX2UowUHirTUSY5LXK45XxNbc4HopsH1/a
- 7oUeJY65I0gOqmI+i4H7mB4h44UkEOkkS2AWJo36pFge9oGlR7aR9ysD9QbB4iRPigWMV75aj
- e1S7rdHSodXgn5YpOvVmM7IeGUZNIpcYPDuZyuSKUiV0qXXUVnrGfyW89JYxjb5f+HzNmwF3j
- cJjMuHhDymYSm0VkeEJLyr5V94JKxcoIpaY6ItAXfuInnpt+K8Inv/f4rNVbHLA4jMDi/eNuM
- 80no5DuSWLWHG2j7qZpEb9utQF/GXvVE0egDlyJjCcrbC/+6rW21WT4Ah4ET4fvGy+/orCL8j
- QHtf9iacELXdjJ3uF2wXkHVzUDHUX7cTxdwZs3ovSd0Bs52caUbPCdL28upmPycO7lxk+sRXB
- DpA8Rogi+xCxSbSyxg6Fy74NJUDWIJsTd/dAOB25Dity3S/mP0f+jrJ9sOC9rpNEHc9PnturE
- fCeiJUA6MSbYOjdESKoA==
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Bug report for changes in ucm2 with chtrt5645 card
- on Lenovo Miix 320
+From: Tim Harvey <tharvey@gateworks.com>
+Date: Tue, 14 Jan 2020 09:52:12 -0800
+Message-ID: <CAJ+vNU2ArU4mo-9_SE_x-_AfdTNKvun=DpfxRsKRv20CaEKqSA@mail.gmail.com>
+To: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] how to use DPCM to alter audio path between headphones
+	and speaker
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,73 +90,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Greetings,
 
-sending the mail CC to the mailing list again because I messed this up
-last time. This is the output from 'alsaucm -c hw:0 set _verb HiFi'.
+I'm working with a board that has a TI TLV320AIC3105 codec connected
+to an IMX6 SSI with a headphone jack and a TS3A227E headphone detect
+chip (HPROUT/HPLOUT), mono speaker amp output (RIGHT_LOP/RIGHT_LOM),
+and mic in (MIC1L). It seems that Dynamic PCM allows for the automatic
+routing of audio to change between headphone out and speaker out
+depending on jack insertion/removal event but I'm not clear how to
+configure that. Can this be done via simple-audio-card bindings or
+does it require a modified machine driver?
 
-ALSA lib utils.c:261:(uc_mgr_config_load) could not open configuration file /usr/share/alsa/ucm2/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216/HiFi-dmic2.conf
-ALSA lib parser.c:1190:(parse_verb_file) error: failed to open verb file /usr/share/alsa/ucm2/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216/HiFi-dmic2.conf : -2
-ALSA lib main.c:960:(snd_use_case_mgr_open) error: failed to import hw:0 use case configuration -2
-alsaucm: error failed to open sound card hw:0: No such file or directory
+Any pointers or references are greatly appreciated!
 
-- Tim
+Best Regards,
 
-On 2020-01-13, Jaroslav Kysela wrote:
-> Dne 13. 01. 20 v 15:27 Tim Schumacher napsal(a):
-> > The patch doesn't help unfortunately. Deleting
-> > LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf still works with the
-> > patch installed. Can I help debug this somehow?
-> 
-> If you have latest alsa-utils, the command 'alsaucm dump text' should work,
-> otherwise try 'alsaucm set _verb HiFi'.
-> 
-> 					Jaroslav
-> 
-> > 
-> > - Tim
-> > 
-> > On 2020-01-13, Jaroslav Kysela wrote:
-> > > Dne 09. 01. 20 v 23:10 Tim Schumacher napsal(a):
-> > > > Hi alsa devs,
-> > > > 
-> > > > I'm on Arch Linux on a rather uncommon laptop (Lenovo Miix 320) and my sound
-> > > > stopped working on the upgrade from alsa-lib 1.1.9 to 1.2.1. wabbits on
-> > > > IRC helped me track down the problem to a change in the
-> > > > /usr/share/alsa/ucm (now /usr/share/alsa/ucm2) files. It seems like
-> > > > /usr/share/alsa/ucm2/chtrt5645/HiFi-dmic2.conf and a symlink at
-> > > > /usr/share/alsa/ucm2/chtrt5645/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
-> > > > were specifically added for this laptop but in the contrary they break the
-> > > > sound for me.
-> > > > 
-> > > > After the upgrade to alsa-lib 1.2.1 the sound is not working. The commands play no sound:
-> > > > 
-> > > >       pasuspender -- speaker-test --nloops=1 --channels=2 --test=wav --device=hw:0,0
-> > > >       pasuspender -- speaker-test --nloops=1 --channels=2 --test=wav --device=hw:0,1
-> > > > 
-> > > > And this is the alsa-info.sh output http://alsa-project.org/db/?f=f883910a5c5101b4b1ea4202d1fe84ccd139f796
-> > > > 
-> > > > After deleting the /usr/share/alsa/ucm2/chtrt5645/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
-> > > > symlink both commands from above play sound and this is the alsa-info.sh
-> > > > output http://alsa-project.org/db/?f=e759eb9118a191b6c3b8c021fed58abc9cf95076
-> > > 
-> > > Thanks. I forgot to fix the file path in chtrt5645/chtrt5645-dmic2.conf .
-> > > Could you test this patch?
-> > > 
-> > > https://github.com/alsa-project/alsa-ucm-conf/commit/74f2a0f0884df7b9f2d08d07456a3bc37d1a512e
-> > > 
-> > > 				Jaroslav
-> > > 
-> > > -- 
-> > > Jaroslav Kysela <perex@perex.cz>
-> > > Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-> > > 
-> 
-> 
-> -- 
-> Jaroslav Kysela <perex@perex.cz>
-> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
-> 
+Tim
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

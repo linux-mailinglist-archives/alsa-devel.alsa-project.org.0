@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37B013AF5D
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:29:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F265A13AF4F
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:27:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 541F7181F;
-	Tue, 14 Jan 2020 17:29:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 541F7181F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 88228184A;
+	Tue, 14 Jan 2020 17:26:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 88228184A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579019399;
-	bh=ubtFLXS3rebKm8IiFRV5jVVlrag3NnlOF60FmTwm/ek=;
+	s=default; t=1579019269;
+	bh=BxOAgC/yuPaGfHY+uFYLPQ598UQ8+fjMfDiphv3X1Js=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=FUgmG9yP+YYr+ACs27QYQCAqyhqfjccMdCSCfOiWBquIX3Aik4xrGn5dJurrrAzyH
-	 GDtO5TFTZWjpvZfQ/nfsLyoesCoZUuWjPLmgSusxhxbIO89axvq9EYLIe9ElNdme/k
-	 9wR9+/Na6NcHsiYo3kzrRTZczzfXPJ+RJ+o3ivFg=
+	b=u57EOh0H2BPA6sPflLnX6OvCaVyyV4gnw1nKQx9pMUWQWPQdshQknGeBJbbtLzBs7
+	 Uc66F2OvJO2xEUJu16gJp1riJmWm/zI32heymfYqtzbvzk9g2K4MrDVBHE58O6+QQc
+	 iHXQsKgZszN+Mz/jvyzIkAkzRZy6bimn7BlKTYoc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83A77F8029A;
-	Tue, 14 Jan 2020 17:10:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B6D0F803AF;
+	Tue, 14 Jan 2020 17:10:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 86937F8035E; Tue, 14 Jan 2020 17:10:36 +0100 (CET)
+ id 980E3F8034D; Tue, 14 Jan 2020 17:10:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,38 +34,38 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B413F8028E
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 17:09:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B413F8028E
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8DC1F8028F
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 17:09:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8DC1F8028F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="QD7qtdq0"
+ header.b="gcQjI3Qg"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=5gVGuMNMcEAQXGHHkly9WTjxDNYkcV113uzeDZ2hJ6o=; b=QD7qtdq0R3tv
- KULMEpMEUfOFPYtHfLcO9nyXooNL3oaP2JUMsFniMOZ76RAw4U6RRqFvnBBr2dGbi2s6HKclC5d3O
- n6i7Ogx9Gp8GjBJ5EjtzFGf54U9sBxeA1Dkge4XtvqD46giYhjnewKRGxU1mlnXyN5SRRork640Wv
- OULu8=;
+ List-Archive; bh=8/WqxFHy2Ytd5C4FKv/N0pMfrEZe2O729R2vIMu6ob4=; b=gcQjI3QgVBaT
+ XV8AOhwzfxJo1M/siUpxloNjSM14jjBldwx6YR7tKy97IUdJd/0uZZjBTPPO3z4Y8fGOY/HPCjKtt
+ aJhj2PEb6FOxLjQBrhknrV4JNv7iVWMwYzJPuisxJZqBlB9eYAQlAz8cQjdLKW7B4EVR1jpgYMpqy
+ 1d1ow=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1irOkh-0001Wv-DB; Tue, 14 Jan 2020 16:09:11 +0000
+ id 1irOkh-0001Wk-5m; Tue, 14 Jan 2020 16:09:11 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id B0296D02C7E; Tue, 14 Jan 2020 16:09:10 +0000 (GMT)
+ id 67D3ED02C7D; Tue, 14 Jan 2020 16:09:10 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <20200113223625.15995-1-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200113223625.15995-1-pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <20200113210428.27457-2-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200113210428.27457-2-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Date: Tue, 14 Jan 2020 16:09:10 +0000 (GMT)
-Cc: tiwai@suse.de, Jack Yu <jack.yu@realtek.com>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: rt715: remove warnings" to the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: Intel: bxt_da7219_max98357a: rename
+	shadowed variable" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,7 +86,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt715: remove warnings
+   ASoC: Intel: bxt_da7219_max98357a: rename shadowed variable
 
 has been applied to the asoc tree at
 
@@ -111,53 +111,64 @@ to this mail.
 Thanks,
 Mark
 
-From fed4383c4586a895dc8cd62e3a71814f16ba0e2d Mon Sep 17 00:00:00 2001
+From 01bfee0d1d945a24061b12b8a9268365fceef518 Mon Sep 17 00:00:00 2001
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Date: Mon, 13 Jan 2020 16:36:25 -0600
-Subject: [PATCH] ASoC: rt715: remove warnings
+Date: Mon, 13 Jan 2020 15:04:11 -0600
+Subject: [PATCH] ASoC: Intel: bxt_da7219_max98357a: rename shadowed variable
 
-make W=1 reports defined-but-not-used and kernel-doc formatting issues.
+Fix cppcheck warning:
 
-No functionality change.
+[sound/soc/intel/boards/bxt_da7219_max98357a.c:265] ->
+[sound/soc/intel/boards/bxt_da7219_max98357a.c:164]: (style) Local
+variable 'channels' shadows outer variable
 
-Fixes: d1ede0641b05e4 ("ASoC: rt715: add RT715 codec driver")
-Cc: Jack Yu <jack.yu@realtek.com>
+[sound/soc/intel/boards/bxt_da7219_max98357a.c:265] ->
+[sound/soc/intel/boards/bxt_da7219_max98357a.c:316]: (style) Local
+variable 'channels' shadows outer variable
+
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200113223625.15995-1-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200113210428.27457-2-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt715.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/bxt_da7219_max98357a.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/rt715.c b/sound/soc/codecs/rt715.c
-index 5c6f05b8d8ab..4c746938a062 100644
---- a/sound/soc/codecs/rt715.c
-+++ b/sound/soc/codecs/rt715.c
-@@ -203,7 +203,6 @@ static int rt715_set_amp_gain_get(struct snd_kcontrol *kcontrol,
+diff --git a/sound/soc/intel/boards/bxt_da7219_max98357a.c b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+index 5873abb46441..33b13f3ca152 100644
+--- a/sound/soc/intel/boards/bxt_da7219_max98357a.c
++++ b/sound/soc/intel/boards/bxt_da7219_max98357a.c
+@@ -161,13 +161,13 @@ static int broxton_ssp_fixup(struct snd_soc_pcm_runtime *rtd,
+ {
+ 	struct snd_interval *rate = hw_param_interval(params,
+ 			SNDRV_PCM_HW_PARAM_RATE);
+-	struct snd_interval *channels = hw_param_interval(params,
++	struct snd_interval *chan = hw_param_interval(params,
+ 			SNDRV_PCM_HW_PARAM_CHANNELS);
+ 	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
+ 
+ 	/* The ADSP will convert the FE rate to 48k, stereo */
+ 	rate->min = rate->max = 48000;
+-	channels->min = channels->max = DUAL_CHANNEL;
++	chan->min = chan->max = DUAL_CHANNEL;
+ 
+ 	/* set SSP to 24 bit */
+ 	snd_mask_none(fmt);
+@@ -313,12 +313,12 @@ static const struct snd_soc_ops broxton_da7219_fe_ops = {
+ static int broxton_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
+ 			struct snd_pcm_hw_params *params)
+ {
+-	struct snd_interval *channels = hw_param_interval(params,
++	struct snd_interval *chan = hw_param_interval(params,
+ 						SNDRV_PCM_HW_PARAM_CHANNELS);
+ 	if (params_channels(params) == 2)
+-		channels->min = channels->max = 2;
++		chan->min = chan->max = 2;
+ 	else
+-		channels->min = channels->max = 4;
++		chan->min = chan->max = 4;
+ 
  	return 0;
  }
- 
--static const DECLARE_TLV_DB_SCALE(out_vol_tlv, -6525, 75, 0);
- static const DECLARE_TLV_DB_SCALE(in_vol_tlv, -1725, 75, 0);
- static const DECLARE_TLV_DB_SCALE(mic_vol_tlv, 0, 1000, 0);
- 
-@@ -366,7 +365,7 @@ static const char * const adc_22_23_mux_text[] = {
- 	"DMIC4",
- };
- 
--/**
-+/*
-  * Due to mux design for nid 24 (MUX_IN3)/25 (MUX_IN4), connection index 0 and
-  * 1 will be connected to the same dmic source, therefore we skip index 1 to
-  * avoid misunderstanding on usage of dapm routing.
-@@ -404,6 +403,7 @@ static SOC_ENUM_SINGLE_DECL(
- static SOC_VALUE_ENUM_SINGLE_DECL(rt715_adc24_enum,
- 	RT715_MUX_IN3, 0, 0xf,
- 	adc_24_mux_text, rt715_adc_24_25_values);
-+
- static SOC_VALUE_ENUM_SINGLE_DECL(rt715_adc25_enum,
- 	RT715_MUX_IN4, 0, 0xf,
- 	adc_25_mux_text, rt715_adc_24_25_values);
 -- 
 2.20.1
 

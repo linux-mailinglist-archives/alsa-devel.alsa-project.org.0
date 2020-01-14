@@ -2,67 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C018613B33C
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 20:50:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6AD113B355
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 21:02:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 143F117E1;
-	Tue, 14 Jan 2020 20:50:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 143F117E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5083B17CC;
+	Tue, 14 Jan 2020 21:02:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5083B17CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579031451;
-	bh=4OQBtnoXWWveSc7opHZe1j5aRTotnuGiiZLC/DcEh7I=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579032179;
+	bh=AABfEat8B59DsxmgKfP3MPddft5Kx6nZzGP8eAMCx6E=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CDnsPrha+MfIOGOBnuOtcEoXTr8zBXCl1haBUrJgyV1cLTYGeIWwS1Pj4SIDlGy9M
-	 ywd2fURppHR2q6Oe5ygv9lnQeL1v3uOacxcgdV13rult62rXmBQPJCPoTIsB4T++Sv
-	 v0XPBQhmtWVA3rj6pDpvSNdLSxKGwXYiSyL1riS4=
+	b=XmotNj3v+Pf0W7zt1g6TSeo7VKADOQHkPmJ4rojXHTDCjYLj0cf4VJG4c0yqxLKQ5
+	 z1gN090OQYA5Ubps0MoenyFcinAAQv9RUOYkrpSJF+xPIuwicPAV3uWLX29MFCp5hC
+	 00Pf5jbtctc76aYz0UZ1BNIeJ715LSbouTQXGf2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DB685F80121;
-	Tue, 14 Jan 2020 20:49:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA8EFF80171;
+	Tue, 14 Jan 2020 21:01:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8556CF8014E; Tue, 14 Jan 2020 20:49:04 +0100 (CET)
+ id E109CF8014E; Tue, 14 Jan 2020 21:01:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B743AF80121
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 20:48:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B743AF80121
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2020 11:48:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,320,1574150400"; d="scan'208";a="248153170"
-Received: from cfrupp-mobl1.amr.corp.intel.com (HELO [10.252.130.148])
- ([10.252.130.148])
- by fmsmga004.fm.intel.com with ESMTP; 14 Jan 2020 11:48:53 -0800
-To: Marek Vasut <marex@denx.de>, alsa-devel@alsa-project.org
-References: <20191220164450.1395038-1-marex@denx.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9fd0bdd7-4599-a84d-9807-c33541035b4a@linux.intel.com>
-Date: Tue, 14 Jan 2020 13:48:53 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-MIME-Version: 1.0
-In-Reply-To: <20191220164450.1395038-1-marex@denx.de>
-Content-Language: en-US
-Cc: Igor Opaniuk <igor.opaniuk@toradex.com>,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
- Mark Brown <broonie@kernel.org>, festevam@gmail.com
-Subject: Re: [alsa-devel] [PATCH V2 1/2] regulator: core: Add
- regulator_is_equal() helper
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2A568F80121
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 21:01:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2A568F80121
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D270DAF63;
+ Tue, 14 Jan 2020 20:01:06 +0000 (UTC)
+Date: Tue, 14 Jan 2020 21:01:06 +0100
+Message-ID: <s5ho8v5renx.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Colin King <colin.king@canonical.com>
+In-Reply-To: <20200114154412.365395-1-colin.king@canonical.com>
+References: <20200114154412.365395-1-colin.king@canonical.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] ALSA: hda - fix out of bounds read on
+	spec->smux_paths
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,37 +67,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 14 Jan 2020 16:44:12 +0100,
+Colin King wrote:
+> 
+> From: Colin Ian King <colin.king@canonical.com>
+> 
+> It is possible for the call to snd_hda_get_num_conns to fail and return
+> a negative error code that gets assigned to num_conns. In that specific
+> case, the check of very large values of val against num_conns will not
+> fail the -EINVAL check and later on an out of bounds array read on
+> spec->smux_paths will occur.  Fix this by sanity checking for an error
+> return from the call to snd_hda_get_num_conns.
 
-> +static inline bool
-> +regulator_is_equal(struct regulator *reg1, struct regulator *reg2);
-> +{
-> +	return false;
-> +}
->   #endif
+Thanks for the patch, but this can't happen.
+The ad1988_auto_smux_enum_put() is used only for IEC958 Playback
+Source element, and it's added in ad1988_add_spdif_mux_ctl().  And
+there at the beginning, there is already a check of the value:
 
-this breaks my build... shouldn't this be:
+	num_conns = snd_hda_get_num_conns(codec, 0x0b) + 1;
+	if (num_conns != 3 && num_conns != 4)
+		return 0;
+				
+And the snd_hda_get_num_conns() function returns the cached value,
+hence it's always same at the second and later calls, so it can't be a
+negative error.
+
+That said, I don't think we need to apply the change as is.  But if we
+were to improve something, we can rather record this number more
+explicitly e.g. introduce a new field spec->num_spdif_mux_conns and
+keep there instead of calling snd_hda_get_num_conns() at each place.
 
 
-diff --git a/include/linux/regulator/consumer.h 
-b/include/linux/regulator/consumer.h
-index 2c89d886595c..6a92fd3105a3 100644
---- a/include/linux/regulator/consumer.h
-+++ b/include/linux/regulator/consumer.h
-@@ -596,7 +596,7 @@ regulator_bulk_set_supply_names(struct 
-regulator_bulk_data *consumers,
-  }
+thanks,
 
-  static inline bool
--regulator_is_equal(struct regulator *reg1, struct regulator *reg2);
-+regulator_is_equal(struct regulator *reg1, struct regulator *reg2)
-  {
-         return false;
-  }
+Takashi
+
+> 
+> Addresses-Coverity: ("Out-of-bounds read")
+> Fixes: 272f3ea31776 ("ALSA: hda - Add SPDIF mux control to AD codec auto-parser")
+> Signed-off-by: Colin Ian King <colin.king@canonical.com>
+> ---
+>  sound/pci/hda/patch_analog.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/pci/hda/patch_analog.c b/sound/pci/hda/patch_analog.c
+> index 88c46b051d14..399561369495 100644
+> --- a/sound/pci/hda/patch_analog.c
+> +++ b/sound/pci/hda/patch_analog.c
+> @@ -756,9 +756,11 @@ static int ad1988_auto_smux_enum_put(struct snd_kcontrol *kcontrol,
+>  	struct ad198x_spec *spec = codec->spec;
+>  	unsigned int val = ucontrol->value.enumerated.item[0];
+>  	struct nid_path *path;
+> -	int num_conns = snd_hda_get_num_conns(codec, 0x0b) + 1;
+> +	int num_conns = snd_hda_get_num_conns(codec, 0x0b);
+>  
+> -	if (val >= num_conns)
+> +	if (num_conns < 0)
+> +		return num_conns;
+> +	if (val >= num_conns + 1)
+>  		return -EINVAL;
+>  	if (spec->cur_smux == val)
+>  		return 0;
+> -- 
+> 2.24.0
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

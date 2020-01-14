@@ -2,77 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D5DD13AAE1
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:25:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F229913AB08
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:28:16 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7CD842A7E;
-	Tue, 14 Jan 2020 03:23:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CD842A7E
-Received: from vmi242170.contaboserver.net (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0799AF801F8;
-	Tue, 14 Jan 2020 03:22:45 +0100 (CET)
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3D992AAD;
+	Tue, 14 Jan 2020 03:57:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3D992AAD
+Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
+	by alsa1.perex.cz (Postfix) with ESMTP id 7C45BF8014E;
+	Tue, 14 Jan 2020 03:57:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2D8F5F801EB; Tue, 14 Jan 2020 03:22:37 +0100 (CET)
+ id 8A7D1F8014E; Tue, 14 Jan 2020 03:56:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
- [IPv6:2607:f8b0:4864:20::642])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14DEEF80149
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 03:22:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14DEEF80149
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="nvkGA+SH"
-Received: by mail-pl1-x642.google.com with SMTP id ay11so4605176plb.0
- for <alsa-devel@alsa-project.org>; Mon, 13 Jan 2020 18:22:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=CA0gQQz1peIt5ORw2SYXLgeVXbCwcvwX5CQRfJkJWNA=;
- b=nvkGA+SHXd7wG94tyAcEYOgvSdaCrc1QKbcV/jvaOLkod0d3P+MIVoGqHC++NMSeg9
- YH7uCFAtuTpjqaNYzJK9Zzom1ki1WEczyoWfnP2nynL+nq27FYtf+77s+ewyoUeDJnVD
- +gEmgs+u1cEAJdl7jFm47pR7hiw+S5L+fl4vSoUiG58SJ8HoQW3pIC6fP02oGOb1+9/P
- KrULUfbyU/W+FJ0MKQucgPjPGOgHK5YwhGV/8qvaCooBihkIVyqtVXoWC0dGCVrOWsag
- EhLJjXUnw88LnyZiv1U4whrmj/hWvheYKeJL+ujW93HoDY5po3c1VBBMbSzfUIawJ1JY
- Dg+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=CA0gQQz1peIt5ORw2SYXLgeVXbCwcvwX5CQRfJkJWNA=;
- b=FuqkQ6th7UWzlGxgC8wilPcy0qbyS+h3pYSWIn07G6DaNXkgWrqvQ1BqzKiYv7Tdpd
- LuT02ovwnqBU0Vdtrw8HJDBFb1qWY6AHulXHL0UucBA3HCJkwE6wjuXHZadxDPGO+13L
- 9so3ar7PhVUIKcE4RhXMdSoMkmdMMgU3IIE/Xr017/x6ew9ZT9mtOWLCNvzljuYbpD7p
- 8sdmNGh7sOuTbDgXolqiWByLl0bzuJ/POOyyDHcbly+ezBjgQiz380TCE9Eutc4hw2qz
- KBTFk5KNeIEsNaDL8LfgxPPjAO2+PVt3ZgzH8XKLeSKJzoQNl2wlpwhnPHAwT/ptnING
- r67w==
-X-Gm-Message-State: APjAAAWtuwa2BQXWf6LzBh8sf2iCMaDwpFNbY/9t/OYVFikRQnhFkkwb
- f5mYiP6z61XBkSzi2dH9dbM=
-X-Google-Smtp-Source: APXvYqwJngriEk6QV4ut0gh4Kn6bztf9lSvGQMZyS/4AJNnI8BN7IlDpHVAS4n0JpuGdwJvyS+VrsQ==
-X-Received: by 2002:a17:90b:941:: with SMTP id
- dw1mr25904052pjb.21.1578968549928; 
- Mon, 13 Jan 2020 18:22:29 -0800 (PST)
-Received: from localhost.localdomain ([101.12.40.97])
- by smtp.gmail.com with ESMTPSA id u20sm14643881pgf.29.2020.01.13.18.22.27
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Mon, 13 Jan 2020 18:22:29 -0800 (PST)
-From: Jeff Chang <richtek.jeff.chang@gmail.com>
-To: lgirdwood@gmail.com
-Date: Tue, 14 Jan 2020 10:22:06 +0800
-Message-Id: <1578968526-13191-1-git-send-email-richtek.jeff.chang@gmail.com>
-X-Mailer: git-send-email 2.7.4
-Cc: alsa-devel@alsa-project.org, richtek.jeff.chang@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, jeff_chang@richtek.com,
- broonie@kernel.org, matthias.bgg@gmail.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH v6] ASoC: Add MediaTek MT6660 Speaker Amp Driver
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26C71F800B9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 03:56:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26C71F800B9
+Authenticated-By: 
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 00E2ueLo002093,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (RTITCASV01.realtek.com.tw[172.21.6.18])
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 00E2ueLo002093
+ (version=TLSv1 cipher=DHE-RSA-AES256-SHA bits=256 verify=NOT);
+ Tue, 14 Jan 2020 10:56:40 +0800
+Received: from localhost.localdomain (172.22.102.1) by
+ RTITCASV01.realtek.com.tw (172.21.6.18) with Microsoft SMTP Server id
+ 14.3.468.0; Tue, 14 Jan 2020 10:56:39 +0800
+From: <jack.yu@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Date: Tue, 14 Jan 2020 10:56:28 +0800
+Message-ID: <20200114025628.4241-1-jack.yu@realtek.com>
+X-Mailer: git-send-email 2.24.1
+MIME-Version: 1.0
+X-Originating-IP: [172.22.102.1]
+Cc: Jack Yu <jack.yu@realtek.com>, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, mingjane_hsieh@realtek.com,
+ flove@realtek.com
+Subject: [alsa-devel] [PATCH] ASoC: rt1015: add rt1015 amplifier driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,735 +60,1506 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jeff Chang <jeff_chang@richtek.com>
+From: Jack Yu <jack.yu@realtek.com>
 
-The MT6660 is a boosted BTL class-D amplifier with V/I sensing.
-A built-in DC-DC step-up converter is used to provide efficient
-power for class-D amplifier with multi-level class-G operation.
-The digital audio interface supports I2S, left-justified,
-right-justified, TDM and DSP A/B format for audio in with a data
-out used for chip information like voltage sense and current
-sense, which are able to be monitored via DATAO through proper
+This is initial amplifier driver for rt1015.
 
-Signed-off-by: Jeff Chang <jeff_chang@richtek.com>
+Signed-off-by: Jack Yu <jack.yu@realtek.com>
 ---
- sound/soc/codecs/Kconfig  |  11 +
- sound/soc/codecs/Makefile |   2 +
- sound/soc/codecs/mt6660.c | 533 ++++++++++++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/mt6660.h |  77 +++++++
- 4 files changed, 623 insertions(+)
- create mode 100644 sound/soc/codecs/mt6660.c
- create mode 100644 sound/soc/codecs/mt6660.h
+ .../devicetree/bindings/sound/rt1015.txt      |   17 +
+ sound/soc/codecs/Kconfig                      |    6 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/rt1015.c                     | 1016 +++++++++++++++++
+ sound/soc/codecs/rt1015.h                     |  368 ++++++
+ 5 files changed, 1409 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/rt1015.txt
+ create mode 100644 sound/soc/codecs/rt1015.c
+ create mode 100644 sound/soc/codecs/rt1015.h
 
-
-changelogs between v6 & v5
-	- remove parse DT and apply function about Chip INIT SETTING.
-	- remove DT binding Documentation.
-
-changelogs between v5 & v4
-        - remove redundant initialization.
-        - use packed structures.
-        - remove useless switch case.
-        - take care of memory allocation failures.
-
-changelogs between v4 & v3
-        - remove unnecessary kcontrols.
-        - modify copy right header.
-        - use dev_dbg instead of dev_info.
-        - add necessary debug message.
-        - add DT binding documentation.
-        - add space before } at every table.
-
-changelogs between v3 & v2
-
-        - modify MT6660 Kconfig, remove unnecessary selection.
-        - remove my own debug io interface. use standard regmap for debugging.
-        - remove regmap volatile ops, we do not use cache.
-        - remove component io read/write function, use snd_soc_component_init_regmap.
-        - remove init setting write code. Using parsing dts to set them.
-        - remove unnecessary pr_info log message.
-        - remove mt6660_component_put_volsw. Using snd_soc_get_volsw.
-
-
+diff --git a/Documentation/devicetree/bindings/sound/rt1015.txt b/Documentation/devicetree/bindings/sound/rt1015.txt
+new file mode 100644
+index 000000000000..fcfd02d8d32f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/rt1015.txt
+@@ -0,0 +1,17 @@
++RT1015 Mono Class D Audio Amplifier
++
++This device supports I2C only.
++
++Required properties:
++
++- compatible : "realtek,rt1015".
++
++- reg : The I2C address of the device.
++
++
++Example:
++
++rt1015: codec@28 {
++	compatible = "realtek,rt1015";
++	reg = <0x28>;
++};
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 229cc89..f135fbb 100644
+index cdfd912d5f8f..d7475e06c3e6 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
-@@ -122,6 +122,7 @@ config SND_SOC_ALL_CODECS
- 	select SND_SOC_ML26124 if I2C
- 	select SND_SOC_MT6351 if MTK_PMIC_WRAP
- 	select SND_SOC_MT6358 if MTK_PMIC_WRAP
-+	select SND_SOC_MT6660 if I2C
- 	select SND_SOC_NAU8540 if I2C
- 	select SND_SOC_NAU8810 if I2C
- 	select SND_SOC_NAU8822 if I2C
-@@ -1465,6 +1466,16 @@ config SND_SOC_MT6358
- 	  Enable support for the platform which uses MT6358 as
- 	  external codec device.
+@@ -149,6 +149,7 @@ config SND_SOC_ALL_CODECS
+ 	select SND_SOC_RT286 if I2C
+ 	select SND_SOC_RT298 if I2C
+ 	select SND_SOC_RT1011 if I2C
++	select SND_SOC_RT1015 if I2C
+ 	select SND_SOC_RT1305 if I2C
+ 	select SND_SOC_RT1308 if I2C
+ 	select SND_SOC_RT5514 if I2C
+@@ -956,6 +957,7 @@ config SND_SOC_RL6231
+ 	default y if SND_SOC_RT5677=y
+ 	default y if SND_SOC_RT5682=y
+ 	default y if SND_SOC_RT1011=y
++	default y if SND_SOC_RT1015=y
+ 	default y if SND_SOC_RT1305=y
+ 	default y if SND_SOC_RT1308=y
+ 	default m if SND_SOC_RT5514=m
+@@ -972,6 +974,7 @@ config SND_SOC_RL6231
+ 	default m if SND_SOC_RT5677=m
+ 	default m if SND_SOC_RT5682=m
+ 	default m if SND_SOC_RT1011=m
++	default m if SND_SOC_RT1015=m
+ 	default m if SND_SOC_RT1305=m
+ 	default m if SND_SOC_RT1308=m
  
-+config SND_SOC_MT6660
-+	tristate "Mediatek MT6660 Speaker Amplifier"
-+	depends on I2C
-+	help
-+	  MediaTek MT6660 is a smart power amplifier which contain
-+	  speaker protection, multi-band DRC, equalizer functions.
-+	  Select N if you don't have MT6660 on board.
-+	  Select M to build this as module.
+@@ -999,6 +1002,9 @@ config SND_SOC_RT298
+ config SND_SOC_RT1011
+ 	tristate
+ 
++config SND_SOC_RT1015
++	tristate
 +
-+
- config SND_SOC_NAU8540
-        tristate "Nuvoton Technology Corporation NAU85L40 CODEC"
-        depends on I2C
+ config SND_SOC_RT1305
+ 	tristate
+ 
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index c498373..2b6814c 100644
+index ce285b33a806..3efe6a5797e2 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
-@@ -119,6 +119,7 @@ snd-soc-msm8916-analog-objs := msm8916-wcd-analog.o
- snd-soc-msm8916-digital-objs := msm8916-wcd-digital.o
- snd-soc-mt6351-objs := mt6351.o
- snd-soc-mt6358-objs := mt6358.o
-+snd-soc-mt6660-objs := mt6660.o
- snd-soc-nau8540-objs := nau8540.o
- snd-soc-nau8810-objs := nau8810.o
- snd-soc-nau8822-objs := nau8822.o
-@@ -403,6 +404,7 @@ obj-$(CONFIG_SND_SOC_MSM8916_WCD_ANALOG) +=snd-soc-msm8916-analog.o
- obj-$(CONFIG_SND_SOC_MSM8916_WCD_DIGITAL) +=snd-soc-msm8916-digital.o
- obj-$(CONFIG_SND_SOC_MT6351)	+= snd-soc-mt6351.o
- obj-$(CONFIG_SND_SOC_MT6358)	+= snd-soc-mt6358.o
-+obj-$(CONFIG_SND_SOC_MT6660)	+= snd-soc-mt6660.o
- obj-$(CONFIG_SND_SOC_NAU8540)   += snd-soc-nau8540.o
- obj-$(CONFIG_SND_SOC_NAU8810)   += snd-soc-nau8810.o
- obj-$(CONFIG_SND_SOC_NAU8822)   += snd-soc-nau8822.o
-diff --git a/sound/soc/codecs/mt6660.c b/sound/soc/codecs/mt6660.c
+@@ -152,6 +152,7 @@ snd-soc-rk3328-objs := rk3328_codec.o
+ snd-soc-rl6231-objs := rl6231.o
+ snd-soc-rl6347a-objs := rl6347a.o
+ snd-soc-rt1011-objs := rt1011.o
++snd-soc-rt1015-objs := rt1015.o
+ snd-soc-rt1305-objs := rt1305.o
+ snd-soc-rt1308-objs := rt1308.o
+ snd-soc-rt274-objs := rt274.o
+@@ -446,6 +447,7 @@ obj-$(CONFIG_SND_SOC_RK3328)	+= snd-soc-rk3328.o
+ obj-$(CONFIG_SND_SOC_RL6231)	+= snd-soc-rl6231.o
+ obj-$(CONFIG_SND_SOC_RL6347A)	+= snd-soc-rl6347a.o
+ obj-$(CONFIG_SND_SOC_RT1011)	+= snd-soc-rt1011.o
++obj-$(CONFIG_SND_SOC_RT1015)	+= snd-soc-rt1015.o
+ obj-$(CONFIG_SND_SOC_RT1305)	+= snd-soc-rt1305.o
+ obj-$(CONFIG_SND_SOC_RT1308)	+= snd-soc-rt1308.o
+ obj-$(CONFIG_SND_SOC_RT274)	+= snd-soc-rt274.o
+diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
 new file mode 100644
-index 0000000..b2523b3
+index 000000000000..317c914cbfc9
 --- /dev/null
-+++ b/sound/soc/codecs/mt6660.c
-@@ -0,0 +1,533 @@
-+// SPDX-License-Identifier: GPL-2.0 //
++++ b/sound/soc/codecs/rt1015.c
+@@ -0,0 +1,1016 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * rt1015.c  --  RT1015 ALSA SoC audio amplifier driver
++ *
++ * Copyright 2019 Realtek Semiconductor Corp.
++ * Author: Jack Yu <jack.yu@realtek.com>
++ *
++ */
 +
-+// Copyright (c) 2019 MediaTek Inc.
-+
++#include <linux/fs.h>
 +#include <linux/module.h>
-+#include <linux/kernel.h>
-+#include <linux/version.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/pm_runtime.h>
++#include <linux/moduleparam.h>
++#include <linux/init.h>
 +#include <linux/delay.h>
-+#include <sound/soc.h>
-+#include <sound/tlv.h>
++#include <linux/pm.h>
++#include <linux/regmap.h>
++#include <linux/i2c.h>
++#include <linux/platform_device.h>
++#include <linux/firmware.h>
++#include <linux/gpio.h>
++#include <sound/core.h>
++#include <sound/pcm.h>
 +#include <sound/pcm_params.h>
-+#include <linux/debugfs.h>
++#include <sound/soc.h>
++#include <sound/soc-dapm.h>
++#include <sound/initval.h>
++#include <sound/tlv.h>
 +
-+#include "mt6660.h"
++#include "rl6231.h"
++#include "rt1015.h"
 +
-+#pragma pack(push, 1)
-+struct codec_reg_val {
-+	u32 addr;
-+	u32 mask;
-+	u32 data;
++static const struct reg_sequence init_list[] = {
++	{ 0x0000, 0x0000 },
++	{ 0x0104, 0xA213 },
++	{ 0x010E, 0x0058 },
++	{ 0x0111, 0x2000 },
++	{ 0x0322, 0xF7DF },
++	{ 0x1302, 0x12F7 },
++	{ 0x0336, 0x0010 },
++	{ 0x04FC, 0x35CF },
++	{ 0x0102, 0xed02 },
++};
++#define RT1015_INIT_REG_LEN ARRAY_SIZE(init_list)
++
++static const struct reg_default rt1015_reg[] = {
++	{ 0x0000, 0x0000 },
++	{ 0x0004, 0xa000 },
++	{ 0x0006, 0x0003 },
++	{ 0x000a, 0x0802 },
++	{ 0x000c, 0x0020 },
++	{ 0x000e, 0x0000 },
++	{ 0x0010, 0x0000 },
++	{ 0x0012, 0x0000 },
++	{ 0x0020, 0x8000 },
++	{ 0x0022, 0x471b },
++	{ 0x006a, 0x0000 },
++	{ 0x006c, 0x4020 },
++	{ 0x0076, 0x0000 },
++	{ 0x0078, 0x0000 },
++	{ 0x007a, 0x0000 },
++	{ 0x007c, 0x10ec },
++	{ 0x007d, 0x1015 },
++	{ 0x00f0, 0x5000 },
++	{ 0x00f2, 0x0774 },
++	{ 0x00f3, 0x8400 },
++	{ 0x00f4, 0x0000 },
++	{ 0x0100, 0x0028 },
++	{ 0x0102, 0xff02 },
++	{ 0x0104, 0x8232 },
++	{ 0x0106, 0x200c },
++	{ 0x010c, 0x002f },
++	{ 0x010e, 0xc000 },
++	{ 0x0111, 0x0200 },
++	{ 0x0112, 0x0400 },
++	{ 0x0114, 0x0022 },
++	{ 0x0116, 0x0000 },
++	{ 0x0118, 0x0000 },
++	{ 0x011a, 0x0123 },
++	{ 0x011c, 0x4567 },
++	{ 0x0300, 0xdddd },
++	{ 0x0302, 0x0000 },
++	{ 0x0311, 0x9330 },
++	{ 0x0313, 0x0000 },
++	{ 0x0314, 0x0000 },
++	{ 0x031a, 0x00a0 },
++	{ 0x031c, 0x001f },
++	{ 0x031d, 0xffff },
++	{ 0x031e, 0x0000 },
++	{ 0x031f, 0x0000 },
++	{ 0x0321, 0x0000 },
++	{ 0x0322, 0x0000 },
++	{ 0x0328, 0x0000 },
++	{ 0x0329, 0x0000 },
++	{ 0x032a, 0x0000 },
++	{ 0x032b, 0x0000 },
++	{ 0x032c, 0x0000 },
++	{ 0x032d, 0x0000 },
++	{ 0x032e, 0x030e },
++	{ 0x0330, 0x0080 },
++	{ 0x0332, 0x0034 },
++	{ 0x0334, 0x0000 },
++	{ 0x0336, 0x0000 },
++	{ 0x0506, 0x04ff },
++	{ 0x0508, 0x0030 },
++	{ 0x050a, 0x0018 },
++	{ 0x0519, 0x307f },
++	{ 0x051a, 0xffff },
++	{ 0x051b, 0x4000 },
++	{ 0x051d, 0x0000 },
++	{ 0x051f, 0x0000 },
++	{ 0x0536, 0x1000 },
++	{ 0x0538, 0x0000 },
++	{ 0x053a, 0x0000 },
++	{ 0x053c, 0x0000 },
++	{ 0x053d, 0x0000 },
++	{ 0x053e, 0x0000 },
++	{ 0x053f, 0x0000 },
++	{ 0x0540, 0x0000 },
++	{ 0x0541, 0x0000 },
++	{ 0x0542, 0x0000 },
++	{ 0x0543, 0x0000 },
++	{ 0x0544, 0x0000 },
++	{ 0x0568, 0x0000 },
++	{ 0x056a, 0x0000 },
++	{ 0x1000, 0x0000 },
++	{ 0x1002, 0x6505 },
++	{ 0x1006, 0x5515 },
++	{ 0x1007, 0x003f },
++	{ 0x1009, 0x770f },
++	{ 0x100a, 0x01ff },
++	{ 0x100c, 0x0000 },
++	{ 0x100d, 0x0003 },
++	{ 0x1010, 0xa433 },
++	{ 0x1020, 0x0000 },
++	{ 0x1200, 0x3d02 },
++	{ 0x1202, 0x0813 },
++	{ 0x1204, 0x0211 },
++	{ 0x1206, 0x0000 },
++	{ 0x1208, 0x0000 },
++	{ 0x120a, 0x0000 },
++	{ 0x120c, 0x0000 },
++	{ 0x120e, 0x0000 },
++	{ 0x1210, 0x0000 },
++	{ 0x1212, 0x0000 },
++	{ 0x1300, 0x0701 },
++	{ 0x1302, 0x12f9 },
++	{ 0x1304, 0x3405 },
++	{ 0x1305, 0x0844 },
++	{ 0x1306, 0x1611 },
++	{ 0x1308, 0x555e },
++	{ 0x130a, 0x0000 },
++	{ 0x130c, 0x2400},
++	{ 0x130e, 0x7700 },
++	{ 0x130f, 0x0000 },
++	{ 0x1310, 0x0000 },
++	{ 0x1312, 0x0000 },
++	{ 0x1314, 0x0000 },
++	{ 0x1316, 0x0000 },
++	{ 0x1318, 0x0000 },
++	{ 0x131a, 0x0000 },
++	{ 0x1322, 0x0029 },
++	{ 0x1323, 0x4a52 },
++	{ 0x1324, 0x002c },
++	{ 0x1325, 0x0b02 },
++	{ 0x1326, 0x002d },
++	{ 0x1327, 0x6b5a },
++	{ 0x1328, 0x002e },
++	{ 0x1329, 0xcbb2 },
++	{ 0x132a, 0x0030 },
++	{ 0x132b, 0x2c0b },
++	{ 0x1330, 0x0031 },
++	{ 0x1331, 0x8c63 },
++	{ 0x1332, 0x0032 },
++	{ 0x1333, 0xecbb },
++	{ 0x1334, 0x0034 },
++	{ 0x1335, 0x4d13 },
++	{ 0x1336, 0x0037 },
++	{ 0x1337, 0x0dc3 },
++	{ 0x1338, 0x003d },
++	{ 0x1339, 0xef7b },
++	{ 0x133a, 0x0044 },
++	{ 0x133b, 0xd134 },
++	{ 0x133c, 0x0047 },
++	{ 0x133d, 0x91e4 },
++	{ 0x133e, 0x004d },
++	{ 0x133f, 0xc370 },
++	{ 0x1340, 0x0053 },
++	{ 0x1341, 0xf4fd },
++	{ 0x1342, 0x0060 },
++	{ 0x1343, 0x5816 },
++	{ 0x1344, 0x006c },
++	{ 0x1345, 0xbb2e },
++	{ 0x1346, 0x0072 },
++	{ 0x1347, 0xecbb },
++	{ 0x1348, 0x0076 },
++	{ 0x1349, 0x5d97 },
 +};
 +
-+struct reg_size_table {
-+	u32 addr;
-+	u8 size;
-+};
-+#pragma pack(pop)
-+
-+static const struct reg_size_table mt6660_reg_size_table[] = {
-+	{ MT6660_REG_HPF1_COEF, 4 },
-+	{ MT6660_REG_HPF2_COEF, 4 },
-+	{ MT6660_REG_TDM_CFG3, 2 },
-+	{ MT6660_REG_RESV17, 2 },
-+	{ MT6660_REG_RESV23, 2 },
-+	{ MT6660_REG_SIGMAX, 2 },
-+	{ MT6660_REG_DEVID, 2 },
-+	{ MT6660_REG_HCLIP_CTRL, 2 },
-+	{ MT6660_REG_DA_GAIN, 2 },
-+};
-+
-+static int mt6660_get_reg_size(uint32_t addr)
++static int rt1015_reg_init(struct snd_soc_component *component)
 +{
-+	int i;
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
 +
-+	for (i = 0; i < ARRAY_SIZE(mt6660_reg_size_table); i++) {
-+		if (mt6660_reg_size_table[i].addr == addr)
-+			return mt6660_reg_size_table[i].size;
-+	}
-+	return 1;
-+}
-+
-+static int mt6660_reg_write(void *context, unsigned int reg, unsigned int val)
-+{
-+	struct mt6660_chip *chip = context;
-+	int size = mt6660_get_reg_size(reg);
-+	u8 reg_data[4];
-+	int i, ret;
-+
-+	for (i = 0; i < size; i++)
-+		reg_data[size - i - 1] = (val >> (8 * i)) & 0xff;
-+
-+	ret = i2c_smbus_write_i2c_block_data(chip->i2c, reg, size, reg_data);
-+	return ret;
-+}
-+
-+static int mt6660_reg_read(void *context, unsigned int reg, unsigned int *val)
-+{
-+	struct mt6660_chip *chip = context;
-+	int size = mt6660_get_reg_size(reg);
-+	int i, ret;
-+	u8 data[4];
-+	u32 reg_data = 0;
-+
-+	ret = i2c_smbus_read_i2c_block_data(chip->i2c, reg, size, data);
-+	if (ret < 0)
-+		return ret;
-+	for (i = 0; i < size; i++) {
-+		reg_data <<= 8;
-+		reg_data |= data[i];
-+	}
-+	*val = reg_data;
++	regmap_multi_reg_write(rt1015->regmap, init_list, RT1015_INIT_REG_LEN);
 +	return 0;
 +}
 +
-+static struct regmap_config mt6660_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 32,
-+	.reg_write = mt6660_reg_write,
-+	.reg_read = mt6660_reg_read,
++static bool rt1015_volatile_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case RT1015_RESET:
++	case RT1015_CLK_DET:
++	case RT1015_SIL_DET:
++	case RT1015_VER_ID:
++	case RT1015_VENDOR_ID:
++	case RT1015_DEVICE_ID:
++	case RT1015_PRO_ALT:
++	case RT1015_DAC3:
++	case RT1015_VBAT_TEST_OUT1:
++	case RT1015_VBAT_TEST_OUT2:
++	case RT1015_VBAT_PROT_ATT:
++	case RT1015_VBAT_DET_CODE:
++	case RT1015_SMART_BST_CTRL1:
++	case RT1015_SPK_DC_DETECT1:
++	case RT1015_SPK_DC_DETECT4:
++	case RT1015_SPK_DC_DETECT5:
++	case RT1015_DC_CALIB_CLSD1:
++	case RT1015_DC_CALIB_CLSD5:
++	case RT1015_DC_CALIB_CLSD6:
++	case RT1015_DC_CALIB_CLSD7:
++	case RT1015_DC_CALIB_CLSD8:
++	case RT1015_S_BST_TIMING_INTER1:
++		return true;
++
++	default:
++		return false;
++	}
++}
++
++static bool rt1015_readable_register(struct device *dev, unsigned int reg)
++{
++	switch (reg) {
++	case RT1015_RESET:
++	case RT1015_CLK2:
++	case RT1015_CLK3:
++	case RT1015_PLL1:
++	case RT1015_PLL2:
++	case RT1015_CLK_DET:
++	case RT1015_SIL_DET:
++	case RT1015_CUSTOMER_ID:
++	case RT1015_PCODE_FWVER:
++	case RT1015_VER_ID:
++	case RT1015_VENDOR_ID:
++	case RT1015_DEVICE_ID:
++	case RT1015_PAD_DRV1:
++	case RT1015_PAD_DRV2:
++	case RT1015_GAT_BOOST:
++	case RT1015_PRO_ALT:
++	case RT1015_MAN_I2C:
++	case RT1015_DAC1:
++	case RT1015_DAC2:
++	case RT1015_DAC3:
++	case RT1015_ADC1:
++	case RT1015_ADC2:
++	case RT1015_TDM_MASTER:
++	case RT1015_TDM_TCON:
++	case RT1015_TDM1_1:
++	case RT1015_TDM1_2:
++	case RT1015_TDM1_3:
++	case RT1015_TDM1_4:
++	case RT1015_TDM1_5:
++	case RT1015_MIXER1:
++	case RT1015_MIXER2:
++	case RT1015_ANA_PROTECT1:
++	case RT1015_ANA_CTRL_SEQ1:
++	case RT1015_ANA_CTRL_SEQ2:
++	case RT1015_VBAT_DET_DEB:
++	case RT1015_VBAT_VOLT_DET1:
++	case RT1015_VBAT_VOLT_DET2:
++	case RT1015_VBAT_TEST_OUT1:
++	case RT1015_VBAT_TEST_OUT2:
++	case RT1015_VBAT_PROT_ATT:
++	case RT1015_VBAT_DET_CODE:
++	case RT1015_PWR1:
++	case RT1015_PWR4:
++	case RT1015_PWR5:
++	case RT1015_PWR6:
++	case RT1015_PWR7:
++	case RT1015_PWR8:
++	case RT1015_PWR9:
++	case RT1015_CLASSD_SEQ:
++	case RT1015_SMART_BST_CTRL1:
++	case RT1015_SMART_BST_CTRL2:
++	case RT1015_ANA_CTRL1:
++	case RT1015_ANA_CTRL2:
++	case RT1015_SPK_VOL:
++	case RT1015_SHORT_DETTOP1:
++	case RT1015_SHORT_DETTOP2:
++	case RT1015_SPK_DC_DETECT1:
++	case RT1015_SPK_DC_DETECT2:
++	case RT1015_SPK_DC_DETECT3:
++	case RT1015_SPK_DC_DETECT4:
++	case RT1015_SPK_DC_DETECT5:
++	case RT1015_BAT_RPO_STEP1:
++	case RT1015_BAT_RPO_STEP2:
++	case RT1015_BAT_RPO_STEP3:
++	case RT1015_BAT_RPO_STEP4:
++	case RT1015_BAT_RPO_STEP5:
++	case RT1015_BAT_RPO_STEP6:
++	case RT1015_BAT_RPO_STEP7:
++	case RT1015_BAT_RPO_STEP8:
++	case RT1015_BAT_RPO_STEP9:
++	case RT1015_BAT_RPO_STEP10:
++	case RT1015_BAT_RPO_STEP11:
++	case RT1015_BAT_RPO_STEP12:
++	case RT1015_SPREAD_SPEC1:
++	case RT1015_SPREAD_SPEC2:
++	case RT1015_PAD_STATUS:
++	case RT1015_PADS_PULLING_CTRL1:
++	case RT1015_PADS_DRIVING:
++	case RT1015_SYS_RST1:
++	case RT1015_SYS_RST2:
++	case RT1015_SYS_GATING1:
++	case RT1015_TEST_MODE1:
++	case RT1015_TEST_MODE2:
++	case RT1015_TIMING_CTRL1:
++	case RT1015_PLL_INT:
++	case RT1015_TEST_OUT1:
++	case RT1015_DC_CALIB_CLSD1:
++	case RT1015_DC_CALIB_CLSD2:
++	case RT1015_DC_CALIB_CLSD3:
++	case RT1015_DC_CALIB_CLSD4:
++	case RT1015_DC_CALIB_CLSD5:
++	case RT1015_DC_CALIB_CLSD6:
++	case RT1015_DC_CALIB_CLSD7:
++	case RT1015_DC_CALIB_CLSD8:
++	case RT1015_DC_CALIB_CLSD9:
++	case RT1015_DC_CALIB_CLSD10:
++	case RT1015_CLSD_INTERNAL1:
++	case RT1015_CLSD_INTERNAL2:
++	case RT1015_CLSD_INTERNAL3:
++	case RT1015_CLSD_INTERNAL4:
++	case RT1015_CLSD_INTERNAL5:
++	case RT1015_CLSD_INTERNAL6:
++	case RT1015_CLSD_INTERNAL7:
++	case RT1015_CLSD_INTERNAL8:
++	case RT1015_CLSD_INTERNAL9:
++	case RT1015_CLSD_OCP_CTRL:
++	case RT1015_VREF_LV:
++	case RT1015_MBIAS1:
++	case RT1015_MBIAS2:
++	case RT1015_MBIAS3:
++	case RT1015_MBIAS4:
++	case RT1015_VREF_LV1:
++	case RT1015_S_BST_TIMING_INTER1:
++	case RT1015_S_BST_TIMING_INTER2:
++	case RT1015_S_BST_TIMING_INTER3:
++	case RT1015_S_BST_TIMING_INTER4:
++	case RT1015_S_BST_TIMING_INTER5:
++	case RT1015_S_BST_TIMING_INTER6:
++	case RT1015_S_BST_TIMING_INTER7:
++	case RT1015_S_BST_TIMING_INTER8:
++	case RT1015_S_BST_TIMING_INTER9:
++	case RT1015_S_BST_TIMING_INTER10:
++	case RT1015_S_BST_TIMING_INTER11:
++	case RT1015_S_BST_TIMING_INTER12:
++	case RT1015_S_BST_TIMING_INTER13:
++	case RT1015_S_BST_TIMING_INTER14:
++	case RT1015_S_BST_TIMING_INTER15:
++	case RT1015_S_BST_TIMING_INTER16:
++	case RT1015_S_BST_TIMING_INTER17:
++	case RT1015_S_BST_TIMING_INTER18:
++	case RT1015_S_BST_TIMING_INTER19:
++	case RT1015_S_BST_TIMING_INTER20:
++	case RT1015_S_BST_TIMING_INTER21:
++	case RT1015_S_BST_TIMING_INTER22:
++	case RT1015_S_BST_TIMING_INTER23:
++	case RT1015_S_BST_TIMING_INTER24:
++	case RT1015_S_BST_TIMING_INTER25:
++	case RT1015_S_BST_TIMING_INTER26:
++	case RT1015_S_BST_TIMING_INTER27:
++	case RT1015_S_BST_TIMING_INTER28:
++	case RT1015_S_BST_TIMING_INTER29:
++	case RT1015_S_BST_TIMING_INTER30:
++	case RT1015_S_BST_TIMING_INTER31:
++	case RT1015_S_BST_TIMING_INTER32:
++	case RT1015_S_BST_TIMING_INTER33:
++	case RT1015_S_BST_TIMING_INTER34:
++	case RT1015_S_BST_TIMING_INTER35:
++	case RT1015_S_BST_TIMING_INTER36:
++		return true;
++
++	default:
++		return false;
++	}
++}
++
++static const DECLARE_TLV_DB_SCALE(dac_vol_tlv, -9525, 75, 0);
++
++static const char * const rt1015_din_source_select[] = {
++	"Left",
++	"Right",
++	"Left + Right average",
 +};
 +
-+static int mt6660_codec_dac_event(struct snd_soc_dapm_widget *w,
-+	struct snd_kcontrol *kcontrol, int event)
-+{
++static SOC_ENUM_SINGLE_DECL(rt1015_mono_lr_sel, RT1015_PAD_DRV2, 4,
++	rt1015_din_source_select);
 +
-+	if (event == SND_SOC_DAPM_POST_PMU)
-+		usleep_range(1000, 1100);
++static const char * const rt1015_boost_mode[] = {
++	"Bypass", "Adaptive", "Fixed Adaptive"
++};
++
++static const SOC_ENUM_SINGLE_DECL(rt1015_boost_mode_enum, 0, 0,
++	rt1015_boost_mode);
++
++static int rt1015_boost_mode_get(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct rt1015_priv *rt1015 =
++		snd_soc_component_get_drvdata(component);
++
++	ucontrol->value.integer.value[0] = rt1015->boost_mode;
++
 +	return 0;
 +}
 +
-+static int mt6660_codec_classd_event(struct snd_soc_dapm_widget *w,
++static int rt1015_boost_mode_put(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct rt1015_priv *rt1015 =
++		snd_soc_component_get_drvdata(component);
++
++	rt1015->boost_mode = ucontrol->value.integer.value[0];
++	if (rt1015->boost_mode == 0) {
++		/* Bypass */
++		snd_soc_component_update_bits(component,
++			RT1015_SMART_BST_CTRL1, RT1015_ABST_AUTO_EN_MASK |
++			RT1015_ABST_FIX_TGT_MASK | RT1015_BYPASS_SWR_REG_MASK,
++			RT1015_ABST_REG_MODE | RT1015_ABST_FIX_TGT_DIS |
++			RT1015_BYPASS_SWRREG_BYPASS);
++	} else if (rt1015->boost_mode == 1) {
++		/* Adaptive */
++		snd_soc_component_update_bits(component,
++			RT1015_SMART_BST_CTRL1, RT1015_ABST_AUTO_EN_MASK |
++			RT1015_ABST_FIX_TGT_MASK | RT1015_BYPASS_SWR_REG_MASK,
++			RT1015_ABST_AUTO_MODE | RT1015_ABST_FIX_TGT_DIS |
++			RT1015_BYPASS_SWRREG_PASS);
++	} else {
++		/* Fixed Adaptive */
++		snd_soc_component_update_bits(component,
++			RT1015_SMART_BST_CTRL1, RT1015_ABST_AUTO_EN_MASK |
++			RT1015_ABST_FIX_TGT_MASK | RT1015_BYPASS_SWR_REG_MASK,
++			RT1015_ABST_AUTO_MODE | RT1015_ABST_FIX_TGT_EN |
++			RT1015_BYPASS_SWRREG_PASS);
++	}
++
++	return 0;
++}
++
++static int rt5518_bypass_boost_get(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct rt1015_priv *rt1015 =
++		snd_soc_component_get_drvdata(component);
++
++	ucontrol->value.integer.value[0] = rt1015->bypass_boost;
++
++	return 0;
++}
++
++static int rt5518_bypass_boost_put(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct rt1015_priv *rt1015 =
++		snd_soc_component_get_drvdata(component);
++
++	rt1015->bypass_boost = ucontrol->value.integer.value[0];
++	if (rt1015->bypass_boost == 1) {
++		snd_soc_component_write(component,
++				RT1015_PWR4, 0x00b2);
++		snd_soc_component_write(component,
++				RT1015_CLSD_INTERNAL8, 0x2008);
++		snd_soc_component_write(component,
++				RT1015_CLSD_INTERNAL9, 0x0140);
++		snd_soc_component_write(component,
++				RT1015_GAT_BOOST, 0x00fe);
++		snd_soc_component_write(component,
++				RT1015_PWR_STATE_CTRL, 0x000d);
++		msleep(500);
++		snd_soc_component_write(component,
++			RT1015_PWR_STATE_CTRL, 0x000e);
++	}
++
++	return 0;
++}
++
++static const struct snd_kcontrol_new rt1015_snd_controls[] = {
++	SOC_SINGLE_TLV("DAC Playback Volume", RT1015_DAC1, RT1015_DAC_VOL_SFT,
++		127, 0, dac_vol_tlv),
++	SOC_DOUBLE("DAC Playback Switch", RT1015_DAC3,
++		RT1015_DA_MUTE_SFT, RT1015_DVOL_MUTE_FLAG_SFT, 1, 1),
++	SOC_ENUM_EXT("Boost Mode", rt1015_boost_mode_enum,
++		rt1015_boost_mode_get, rt1015_boost_mode_put),
++	SOC_ENUM("Mono LR Select", rt1015_mono_lr_sel),
++	SOC_SINGLE_EXT("Bypass Boost", SND_SOC_NOPM, 0, 1, 0,
++		rt5518_bypass_boost_get, rt5518_bypass_boost_put),
++};
++
++static int rt1015_is_sys_clk_from_pll(struct snd_soc_dapm_widget *source,
++			 struct snd_soc_dapm_widget *sink)
++{
++	struct snd_soc_component *component =
++		snd_soc_dapm_to_component(source->dapm);
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
++
++	if (rt1015->sysclk_src == RT1015_SCLK_S_PLL)
++		return 1;
++	else
++		return 0;
++}
++
++static int r1015_dac_event(struct snd_soc_dapm_widget *w,
 +	struct snd_kcontrol *kcontrol, int event)
 +{
 +	struct snd_soc_component *component =
 +		snd_soc_dapm_to_component(w->dapm);
-+	int ret;
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
 +
 +	switch (event) {
 +	case SND_SOC_DAPM_PRE_PMU:
-+		dev_dbg(component->dev,
-+			"%s: before classd turn on\n", __func__);
-+		/* config to adaptive mode */
-+		ret = snd_soc_component_update_bits(component,
-+			MT6660_REG_BST_CTRL, 0x03, 0x03);
-+		if (ret < 0) {
-+			dev_err(component->dev, "config mode adaptive fail\n");
-+			return ret;
++		if (rt1015->bypass_boost == 0) {
++			snd_soc_component_write(component,
++				RT1015_SYS_RST1, 0x05f7);
++			snd_soc_component_write(component,
++				RT1015_GAT_BOOST, 0xacfe);
++			snd_soc_component_write(component,
++				RT1015_PWR9, 0xaa00);
++			snd_soc_component_write(component,
++				RT1015_GAT_BOOST, 0xecfe);
++		} else {
++			snd_soc_component_write(component,
++				RT1015_SYS_RST1, 0x05f7);
++			snd_soc_component_write(component,
++				RT1015_PWR_STATE_CTRL, 0x026e);
 +		}
 +		break;
-+	case SND_SOC_DAPM_POST_PMU:
-+		/* voltage sensing enable */
-+		ret = snd_soc_component_update_bits(component,
-+			MT6660_REG_RESV7, 0x04, 0x04);
-+		if (ret < 0) {
-+			dev_err(component->dev,
-+				"enable voltage sensing fail\n");
-+			return ret;
-+		}
-+		dev_dbg(component->dev, "Amp on\n");
-+		break;
-+	case SND_SOC_DAPM_PRE_PMD:
-+		dev_dbg(component->dev, "Amp off\n");
-+		/* voltage sensing disable */
-+		ret = snd_soc_component_update_bits(component,
-+			MT6660_REG_RESV7, 0x04, 0x00);
-+		if (ret < 0) {
-+			dev_err(component->dev,
-+				"disable voltage sensing fail\n");
-+			return ret;
-+		}
-+		/* pop-noise improvement 1 */
-+		ret = snd_soc_component_update_bits(component,
-+			MT6660_REG_RESV10, 0x10, 0x10);
-+		if (ret < 0) {
-+			dev_err(component->dev,
-+				"pop-noise improvement 1 fail\n");
-+			return ret;
-+		}
-+		break;
++
 +	case SND_SOC_DAPM_POST_PMD:
-+		dev_dbg(component->dev,
-+			"%s: after classd turn off\n", __func__);
-+		/* pop-noise improvement 2 */
-+		ret = snd_soc_component_update_bits(component,
-+			MT6660_REG_RESV10, 0x10, 0x00);
-+		if (ret < 0) {
-+			dev_err(component->dev,
-+				"pop-noise improvement 2 fail\n");
-+			return ret;
++		if (rt1015->bypass_boost == 0) {
++			snd_soc_component_write(component,
++				RT1015_PWR9, 0xa800);
++			snd_soc_component_write(component,
++				RT1015_SYS_RST1, 0x05f5);
++		} else {
++			snd_soc_component_write(component,
++				RT1015_PWR_STATE_CTRL, 0x0268);
++			snd_soc_component_write(component,
++				RT1015_SYS_RST1, 0x05f5);
 +		}
-+		/* config to off mode */
-+		ret = snd_soc_component_update_bits(component,
-+			MT6660_REG_BST_CTRL, 0x03, 0x00);
-+		if (ret < 0) {
-+			dev_err(component->dev, "config mode off fail\n");
-+			return ret;
-+		}
++		break;
++
++	default:
 +		break;
 +	}
 +	return 0;
 +}
 +
-+static const struct snd_soc_dapm_widget mt6660_component_dapm_widgets[] = {
-+	SND_SOC_DAPM_DAC_E("DAC", NULL, MT6660_REG_PLL_CFG1,
-+		0, 1, mt6660_codec_dac_event, SND_SOC_DAPM_POST_PMU),
-+	SND_SOC_DAPM_ADC("VI ADC", NULL, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_PGA("PGA", SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_OUT_DRV_E("ClassD", MT6660_REG_SYSTEM_CTRL, 2, 0,
-+			       NULL, 0, mt6660_codec_classd_event,
-+			       SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-+			       SND_SOC_DAPM_PRE_PMD | SND_SOC_DAPM_POST_PMD),
-+	SND_SOC_DAPM_OUTPUT("OUTP"),
-+	SND_SOC_DAPM_OUTPUT("OUTN"),
++static const struct snd_soc_dapm_widget rt1015_dapm_widgets[] = {
++	SND_SOC_DAPM_SUPPLY("LDO2", RT1015_PWR1, RT1015_PWR_LDO2_BIT, 0,
++		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("INT RC CLK", RT1015_PWR1, RT1015_PWR_INTCLK_BIT,
++		0, NULL, 0),
++	SND_SOC_DAPM_SUPPLY("ISENSE", RT1015_PWR1, RT1015_PWR_ISENSE_BIT, 0,
++		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("VSENSE", RT1015_PWR1, RT1015_PWR_VSENSE_BIT, 0,
++		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("PLL", RT1015_PWR1, RT1015_PWR_PLL_BIT, 0,
++		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("BG1 BG2", RT1015_PWR1, RT1015_PWR_BG_1_2_BIT, 0,
++		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("MBIAS BG", RT1015_PWR1, RT1015_PWR_MBIAS_BG_BIT, 0,
++		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("VBAT", RT1015_PWR1, RT1015_PWR_VBAT_BIT, 0, NULL,
++		0),
++	SND_SOC_DAPM_SUPPLY("MBIAS", RT1015_PWR1, RT1015_PWR_MBIAS_BIT, 0,
++		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("ADCV", RT1015_PWR1, RT1015_PWR_ADCV_BIT, 0, NULL,
++		0),
++	SND_SOC_DAPM_SUPPLY("MIXERV", RT1015_PWR1, RT1015_PWR_MIXERV_BIT, 0,
++		NULL, 0),
++	SND_SOC_DAPM_SUPPLY("SUMV", RT1015_PWR1, RT1015_PWR_SUMV_BIT, 0, NULL,
++		0),
++	SND_SOC_DAPM_SUPPLY("VREFLV", RT1015_PWR1, RT1015_PWR_VREFLV_BIT, 0,
++		NULL, 0),
++
++	SND_SOC_DAPM_AIF_IN("AIFRX", "AIF Playback", 0, SND_SOC_NOPM, 0, 0),
++	SND_SOC_DAPM_DAC_E("DAC", NULL, RT1015_PWR1, RT1015_PWR_DAC_BIT, 0,
++		r1015_dac_event, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMD),
++
++	SND_SOC_DAPM_OUTPUT("SPO"),
 +};
 +
-+static const struct snd_soc_dapm_route mt6660_component_dapm_routes[] = {
-+	{ "DAC", NULL, "aif_playback" },
-+	{ "PGA", NULL, "DAC" },
-+	{ "ClassD", NULL, "PGA" },
-+	{ "OUTP", NULL, "ClassD" },
-+	{ "OUTN", NULL, "ClassD" },
-+	{ "VI ADC", NULL, "ClassD" },
-+	{ "aif_capture", NULL, "VI ADC" },
++static const struct snd_soc_dapm_route rt1015_dapm_routes[] = {
++	{ "DAC", NULL, "AIFRX" },
++	{ "DAC", NULL, "LDO2" },
++	{ "DAC", NULL, "PLL", rt1015_is_sys_clk_from_pll},
++	{ "DAC", NULL, "INT RC CLK" },
++	{ "DAC", NULL, "ISENSE" },
++	{ "DAC", NULL, "VSENSE" },
++	{ "DAC", NULL, "BG1 BG2" },
++	{ "DAC", NULL, "MBIAS BG" },
++	{ "DAC", NULL, "VBAT" },
++	{ "DAC", NULL, "MBIAS" },
++	{ "DAC", NULL, "ADCV" },
++	{ "DAC", NULL, "MIXERV" },
++	{ "DAC", NULL, "SUMV" },
++	{ "DAC", NULL, "VREFLV" },
++	{ "SPO", NULL, "DAC" },
 +};
 +
-+static int mt6660_component_get_volsw(struct snd_kcontrol *kcontrol,
-+				  struct snd_ctl_elem_value *ucontrol)
++static int rt1015_hw_params(struct snd_pcm_substream *substream,
++	struct snd_pcm_hw_params *params, struct snd_soc_dai *dai)
 +{
-+	struct snd_soc_component *component =
-+		snd_soc_kcontrol_component(kcontrol);
-+	struct mt6660_chip *chip = (struct mt6660_chip *)
-+		snd_soc_component_get_drvdata(component);
-+	int ret = -EINVAL;
++	struct snd_soc_component *component = dai->component;
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
++	int pre_div, bclk_ms, frame_size;
++	unsigned int val_len = 0;
 +
-+	if (!strcmp(kcontrol->id.name, "Chip Rev")) {
-+		ucontrol->value.integer.value[0] = chip->chip_rev & 0x0f;
-+		ret = 0;
++	rt1015->lrck = params_rate(params);
++	pre_div = rl6231_get_clk_info(rt1015->sysclk, rt1015->lrck);
++	if (pre_div < 0) {
++		dev_err(component->dev, "Unsupported clock rate\n");
++		return -EINVAL;
 +	}
-+	return ret;
-+}
 +
-+static const DECLARE_TLV_DB_SCALE(vol_ctl_tlv, -1155, 5, 0);
-+
-+static const struct snd_kcontrol_new mt6660_component_snd_controls[] = {
-+	SOC_SINGLE_TLV("Digital Volume", MT6660_REG_VOL_CTRL, 0, 255,
-+			   1, vol_ctl_tlv),
-+	SOC_SINGLE("Hard Clip Switch", MT6660_REG_HCLIP_CTRL, 8, 1, 0),
-+	SOC_SINGLE("Clip Switch", MT6660_REG_SPS_CTRL, 0, 1, 0),
-+	SOC_SINGLE("Boost Mode", MT6660_REG_BST_CTRL, 0, 3, 0),
-+	SOC_SINGLE("DRE Switch", MT6660_REG_DRE_CTRL, 0, 1, 0),
-+	SOC_SINGLE("DC Protect Switch",	MT6660_REG_DC_PROTECT_CTRL, 3, 1, 0),
-+	SOC_SINGLE("Data Output Left Channel Selection",
-+		   MT6660_REG_DATAO_SEL, 3, 7, 0),
-+	SOC_SINGLE("Data Output Right Channel Selection",
-+		   MT6660_REG_DATAO_SEL, 0, 7, 0),
-+	SOC_SINGLE_EXT("T0 SEL", MT6660_REG_CALI_T0, 0, 7, 0,
-+		       snd_soc_get_volsw, NULL),
-+	SOC_SINGLE_EXT("Chip Rev", MT6660_REG_DEVID, 8, 15, 0,
-+		       mt6660_component_get_volsw, NULL),
-+};
-+
-+static int _mt6660_chip_power_on(struct mt6660_chip *chip, int on_off)
-+{
-+	u8 reg_data;
-+	int ret;
-+
-+	ret = i2c_smbus_read_byte_data(chip->i2c, MT6660_REG_SYSTEM_CTRL);
-+	if (ret < 0)
-+		return ret;
-+	reg_data = (u8)ret;
-+	if (on_off)
-+		reg_data &= (~0x01);
-+	else
-+		reg_data |= 0x01;
-+	return regmap_write(chip->regmap, MT6660_REG_SYSTEM_CTRL, reg_data);
-+}
-+
-+static int mt6660_component_probe(struct snd_soc_component *component)
-+{
-+	struct mt6660_chip *chip = snd_soc_component_get_drvdata(component);
-+
-+	dev_dbg(component->dev, "%s\n", __func__);
-+	snd_soc_component_init_regmap(component, chip->regmap);
-+
-+	return 0;
-+}
-+
-+static void mt6660_component_remove(struct snd_soc_component *component)
-+{
-+	dev_dbg(component->dev, "%s\n", __func__);
-+	snd_soc_component_exit_regmap(component);
-+}
-+
-+static const struct snd_soc_component_driver mt6660_component_driver = {
-+	.probe = mt6660_component_probe,
-+	.remove = mt6660_component_remove,
-+
-+	.controls = mt6660_component_snd_controls,
-+	.num_controls = ARRAY_SIZE(mt6660_component_snd_controls),
-+	.dapm_widgets = mt6660_component_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(mt6660_component_dapm_widgets),
-+	.dapm_routes = mt6660_component_dapm_routes,
-+	.num_dapm_routes = ARRAY_SIZE(mt6660_component_dapm_routes),
-+
-+	.idle_bias_on = false, /* idle_bias_off = true */
-+};
-+
-+static int mt6660_component_aif_hw_params(struct snd_pcm_substream *substream,
-+	struct snd_pcm_hw_params *hw_params, struct snd_soc_dai *dai)
-+{
-+	int word_len = params_physical_width(hw_params);
-+	int aud_bit = params_width(hw_params);
-+	u16 reg_data = 0;
-+	int ret;
-+
-+	dev_dbg(dai->dev, "%s: ++\n", __func__);
-+	dev_dbg(dai->dev, "format: 0x%08x\n", params_format(hw_params));
-+	dev_dbg(dai->dev, "rate: 0x%08x\n", params_rate(hw_params));
-+	dev_dbg(dai->dev, "word_len: %d, aud_bit: %d\n", word_len, aud_bit);
-+	if (word_len > 32 || word_len < 16) {
-+		dev_err(dai->dev, "not supported word length\n");
-+		return -ENOTSUPP;
++	frame_size = snd_soc_params_to_frame_size(params);
++	if (frame_size < 0) {
++		dev_err(component->dev, "Unsupported frame size: %d\n",
++			frame_size);
++		return -EINVAL;
 +	}
-+	switch (aud_bit) {
++
++	bclk_ms = frame_size > 32;
++	rt1015->bclk = rt1015->lrck * (32 << bclk_ms);
++
++	dev_dbg(component->dev, "bclk_ms is %d and pre_div is %d for iis %d\n",
++				bclk_ms, pre_div, dai->id);
++
++	dev_dbg(component->dev, "lrck is %dHz and pre_div is %d for iis %d\n",
++				rt1015->lrck, pre_div, dai->id);
++
++	switch (params_width(params)) {
 +	case 16:
-+		reg_data = 3;
-+		break;
-+	case 18:
-+		reg_data = 2;
 +		break;
 +	case 20:
-+		reg_data = 1;
++		val_len = RT1015_I2S_DL_20;
 +		break;
 +	case 24:
-+	case 32:
-+		reg_data = 0;
++		val_len = RT1015_I2S_DL_24;
++		break;
++	case 8:
++		val_len = RT1015_I2S_DL_8;
 +		break;
 +	default:
-+		return -ENOTSUPP;
++		return -EINVAL;
 +	}
-+	ret = snd_soc_component_update_bits(dai->component,
-+		MT6660_REG_SERIAL_CFG1, 0xc0, (reg_data << 6));
-+	if (ret < 0) {
-+		dev_err(dai->dev, "config aud bit fail\n");
-+		return ret;
-+	}
-+	ret = snd_soc_component_update_bits(dai->component,
-+		MT6660_REG_TDM_CFG3, 0x3f0, word_len << 4);
-+	if (ret < 0) {
-+		dev_err(dai->dev, "config word len fail\n");
-+		return ret;
-+	}
-+	dev_dbg(dai->dev, "%s: --\n", __func__);
++
++	snd_soc_component_update_bits(component, RT1015_TDM_MASTER,
++		RT1015_I2S_DL_MASK, val_len);
++	snd_soc_component_update_bits(component, RT1015_CLK2,
++		RT1015_FS_PD_MASK, pre_div);
++
 +	return 0;
 +}
 +
-+static const struct snd_soc_dai_ops mt6660_component_aif_ops = {
-+	.hw_params = mt6660_component_aif_hw_params,
-+};
-+
-+#define STUB_RATES	SNDRV_PCM_RATE_8000_192000
-+#define STUB_FORMATS	(SNDRV_PCM_FMTBIT_S16_LE | \
-+			SNDRV_PCM_FMTBIT_U16_LE | \
-+			SNDRV_PCM_FMTBIT_S24_LE | \
-+			SNDRV_PCM_FMTBIT_U24_LE | \
-+			SNDRV_PCM_FMTBIT_S32_LE | \
-+			SNDRV_PCM_FMTBIT_U32_LE)
-+
-+static struct snd_soc_dai_driver mt6660_codec_dai = {
-+	.name = "mt6660-aif",
-+	.playback = {
-+		.stream_name	= "aif_playback",
-+		.channels_min	= 1,
-+		.channels_max	= 2,
-+		.rates		= STUB_RATES,
-+		.formats	= STUB_FORMATS,
-+	},
-+	.capture = {
-+		.stream_name	= "aif_capture",
-+		.channels_min	= 1,
-+		.channels_max	= 2,
-+		.rates = STUB_RATES,
-+		.formats = STUB_FORMATS,
-+	},
-+	/* dai properties */
-+	.symmetric_rates = 1,
-+	.symmetric_channels = 1,
-+	.symmetric_samplebits = 1,
-+	/* dai operations */
-+	.ops = &mt6660_component_aif_ops,
-+};
-+
-+static inline int _mt6660_chip_id_check(struct mt6660_chip *chip)
++static int rt1015_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
 +{
-+	u8 id[2];
++	struct snd_soc_component *component = dai->component;
++	unsigned int reg_val = 0, reg_val2 = 0;
++
++	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
++	case SND_SOC_DAIFMT_CBM_CFM:
++		reg_val |= RT1015_TCON_TDM_MS_M;
++		break;
++	case SND_SOC_DAIFMT_CBS_CFS:
++		reg_val |= RT1015_TCON_TDM_MS_S;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
++	case SND_SOC_DAIFMT_NB_NF:
++		break;
++	case SND_SOC_DAIFMT_IB_NF:
++		reg_val2 |= RT1015_TDM_INV_BCLK;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
++	case SND_SOC_DAIFMT_I2S:
++		break;
++
++	case SND_SOC_DAIFMT_LEFT_J:
++		reg_val |= RT1015_I2S_M_DF_LEFT;
++		break;
++
++	case SND_SOC_DAIFMT_DSP_A:
++		reg_val |= RT1015_I2S_M_DF_PCM_A;
++		break;
++
++	case SND_SOC_DAIFMT_DSP_B:
++		reg_val |= RT1015_I2S_M_DF_PCM_B;
++		break;
++
++	default:
++		return -EINVAL;
++	}
++
++	snd_soc_component_update_bits(component, RT1015_TDM_MASTER,
++			RT1015_TCON_TDM_MS_MASK | RT1015_I2S_M_DF_MASK,
++			reg_val);
++	snd_soc_component_update_bits(component, RT1015_TDM1_1,
++			RT1015_TDM_INV_BCLK_MASK, reg_val2);
++
++	return 0;
++}
++
++static int rt1015_set_component_sysclk(struct snd_soc_component *component,
++		int clk_id, int source, unsigned int freq, int dir)
++{
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
++	unsigned int reg_val = 0;
++
++	if (freq == rt1015->sysclk && clk_id == rt1015->sysclk_src)
++		return 0;
++
++	switch (clk_id) {
++	case RT1015_SCLK_S_MCLK:
++		reg_val |= RT1015_CLK_SYS_PRE_SEL_MCLK;
++		break;
++
++	case RT1015_SCLK_S_PLL:
++		reg_val |= RT1015_CLK_SYS_PRE_SEL_PLL;
++		break;
++
++	default:
++		dev_err(component->dev, "Invalid clock id (%d)\n", clk_id);
++		return -EINVAL;
++	}
++
++	rt1015->sysclk = freq;
++	rt1015->sysclk_src = clk_id;
++
++	dev_dbg(component->dev, "Sysclk is %dHz and clock id is %d\n",
++		freq, clk_id);
++
++	snd_soc_component_update_bits(component, RT1015_CLK2,
++			RT1015_CLK_SYS_PRE_SEL_MASK, reg_val);
++
++	return 0;
++}
++
++static int rt1015_set_component_pll(struct snd_soc_component *component,
++		int pll_id, int source, unsigned int freq_in,
++		unsigned int freq_out)
++{
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
++	struct rl6231_pll_code pll_code;
 +	int ret;
 +
-+	ret = i2c_smbus_read_i2c_block_data(chip->i2c, MT6660_REG_DEVID, 2, id);
-+	if (ret < 0)
++	if (!freq_in || !freq_out) {
++		dev_dbg(component->dev, "PLL disabled\n");
++
++		rt1015->pll_in = 0;
++		rt1015->pll_out = 0;
++
++		return 0;
++	}
++
++	if (source == rt1015->pll_src && freq_in == rt1015->pll_in &&
++		freq_out == rt1015->pll_out)
++		return 0;
++
++	switch (source) {
++	case RT1015_PLL_S_MCLK:
++		snd_soc_component_update_bits(component, RT1015_CLK2,
++			RT1015_PLL_SEL_MASK, RT1015_PLL_SEL_PLL_SRC2);
++		break;
++
++	case RT1015_PLL_S_BCLK:
++		snd_soc_component_update_bits(component, RT1015_CLK2,
++			RT1015_PLL_SEL_MASK, RT1015_PLL_SEL_BCLK);
++		break;
++
++	default:
++		dev_err(component->dev, "Unknown PLL Source %d\n", source);
++		return -EINVAL;
++	}
++
++	ret = rl6231_pll_calc(freq_in, freq_out, &pll_code);
++	if (ret < 0) {
++		dev_err(component->dev, "Unsupport input clock %d\n", freq_in);
 +		return ret;
-+	ret = (id[0] << 8) + id[1];
-+	ret &= 0x0ff0;
-+	if (ret != 0x00e0 && ret != 0x01e0) {
-+		dev_err(chip->dev, "%s id(%x) not match\n", __func__, ret);
++	}
++
++	dev_dbg(component->dev, "bypass=%d m=%d n=%d k=%d\n",
++		pll_code.m_bp, (pll_code.m_bp ? 0 : pll_code.m_code),
++		pll_code.n_code, pll_code.k_code);
++
++	snd_soc_component_write(component, RT1015_PLL1,
++		(pll_code.m_bp ? 0 : pll_code.m_code) << RT1015_PLL_M_SFT |
++		pll_code.m_bp << RT1015_PLL_M_BP_SFT | pll_code.n_code);
++	snd_soc_component_write(component, RT1015_PLL2,
++		pll_code.k_code);
++
++	rt1015->pll_in = freq_in;
++	rt1015->pll_out = freq_out;
++	rt1015->pll_src = source;
++
++	return 0;
++}
++
++static int rt1015_probe(struct snd_soc_component *component)
++{
++	struct rt1015_priv *rt1015 =
++		snd_soc_component_get_drvdata(component);
++
++	rt1015->component = component;
++
++	switch (snd_soc_component_read32(component, RT1015_VER_ID)
++		& RT1015_ID_MASK) {
++	case RT1015_ID_VERA:
++		rt1015_reg_init(component);
++		break;
++	case RT1015_ID_VERB:
++		snd_soc_component_write(component, RT1015_BAT_RPO_STEP1,
++			0x061c);
++		break;
++	default:
++		dev_err(component->dev, "Unknown version id!\n");
++	}
++
++	return 0;
++}
++
++static void rt1015_remove(struct snd_soc_component *component)
++{
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
++
++	regmap_write(rt1015->regmap, RT1015_RESET, 0);
++}
++
++#define RT1015_STEREO_RATES SNDRV_PCM_RATE_8000_192000
++#define RT1015_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
++			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S8)
++
++struct snd_soc_dai_ops rt1015_aif_dai_ops = {
++	.hw_params = rt1015_hw_params,
++	.set_fmt = rt1015_set_dai_fmt,
++};
++
++struct snd_soc_dai_driver rt1015_dai[] = {
++	{
++		.name = "rt1015-aif",
++		.id = 0,
++		.playback = {
++			.stream_name = "AIF Playback",
++			.channels_min = 1,
++			.channels_max = 4,
++			.rates = RT1015_STEREO_RATES,
++			.formats = RT1015_FORMATS,
++		},
++	}
++};
++
++#ifdef CONFIG_PM
++static int rt1015_suspend(struct snd_soc_component *component)
++{
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
++
++	regcache_cache_only(rt1015->regmap, true);
++	regcache_mark_dirty(rt1015->regmap);
++
++	return 0;
++}
++
++static int rt1015_resume(struct snd_soc_component *component)
++{
++	struct rt1015_priv *rt1015 = snd_soc_component_get_drvdata(component);
++
++	regcache_cache_only(rt1015->regmap, false);
++	regcache_sync(rt1015->regmap);
++	return 0;
++}
++#else
++#define rt1015_suspend NULL
++#define rt1015_resume NULL
++#endif
++
++static const struct snd_soc_component_driver soc_component_dev_rt1015 = {
++	.probe = rt1015_probe,
++	.remove = rt1015_remove,
++	.suspend = rt1015_suspend,
++	.resume = rt1015_resume,
++	.controls = rt1015_snd_controls,
++	.num_controls = ARRAY_SIZE(rt1015_snd_controls),
++	.dapm_widgets = rt1015_dapm_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(rt1015_dapm_widgets),
++	.dapm_routes = rt1015_dapm_routes,
++	.num_dapm_routes = ARRAY_SIZE(rt1015_dapm_routes),
++	.set_sysclk = rt1015_set_component_sysclk,
++	.set_pll = rt1015_set_component_pll,
++	.use_pmdown_time	= 1,
++	.endianness		= 1,
++	.non_legacy_dai_naming	= 1,
++};
++
++static const struct regmap_config rt1015_regmap = {
++	.reg_bits = 16,
++	.val_bits = 16,
++	.max_register = RT1015_S_BST_TIMING_INTER36,
++	.volatile_reg = rt1015_volatile_register,
++	.readable_reg = rt1015_readable_register,
++	.cache_type = REGCACHE_RBTREE,
++	.reg_defaults = rt1015_reg,
++	.num_reg_defaults = ARRAY_SIZE(rt1015_reg),
++};
++
++static const struct i2c_device_id rt1015_i2c_id[] = {
++	{ "rt1015", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, rt1015_i2c_id);
++
++#if defined(CONFIG_OF)
++static const struct of_device_id rt1015_of_match[] = {
++	{ .compatible = "realtek,rt1015", },
++	{},
++};
++MODULE_DEVICE_TABLE(of, rt1015_of_match);
++#endif
++
++#ifdef CONFIG_ACPI
++static struct acpi_device_id rt1015_acpi_match[] = {
++	{"10EC1015", 0,},
++	{},
++};
++MODULE_DEVICE_TABLE(acpi, rt1015_acpi_match);
++#endif
++
++static int rt1015_i2c_probe(struct i2c_client *i2c,
++	const struct i2c_device_id *id)
++{
++	struct rt1015_priv *rt1015;
++	int ret;
++	unsigned int val;
++
++	rt1015 = devm_kzalloc(&i2c->dev, sizeof(struct rt1015_priv),
++				GFP_KERNEL);
++	if (rt1015 == NULL)
++		return -ENOMEM;
++
++	i2c_set_clientdata(i2c, rt1015);
++
++	rt1015->regmap = devm_regmap_init_i2c(i2c, &rt1015_regmap);
++	if (IS_ERR(rt1015->regmap)) {
++		ret = PTR_ERR(rt1015->regmap);
++		dev_err(&i2c->dev, "Failed to allocate register map: %d\n",
++			ret);
++		return ret;
++	}
++
++	regmap_read(rt1015->regmap, RT1015_DEVICE_ID, &val);
++	if ((val != RT1015_DEVICE_ID_VAL) && (val != RT1015_DEVICE_ID_VAL2)) {
++		dev_err(&i2c->dev,
++			"Device with ID register %x is not rt1015\n", val);
 +		return -ENODEV;
 +	}
-+	return ret;
++
++	return devm_snd_soc_register_component(&i2c->dev,
++		&soc_component_dev_rt1015,
++		rt1015_dai, ARRAY_SIZE(rt1015_dai));
 +}
 +
-+static inline int _mt6660_chip_sw_reset(struct mt6660_chip *chip)
++static void rt1015_i2c_shutdown(struct i2c_client *client)
 +{
-+	int ret;
++	struct rt1015_priv *rt1015 = i2c_get_clientdata(client);
 +
-+	/* turn on main pll first, then trigger reset */
-+	ret = regmap_write(chip->regmap, 0x03, 0x00);
-+	if (ret < 0)
-+		return ret;
-+	ret = regmap_write(chip->regmap, MT6660_REG_SYSTEM_CTRL, 0x80);
-+	if (ret < 0)
-+		return ret;
-+	msleep(30);
-+	return 0;
++	regmap_write(rt1015->regmap, RT1015_RESET, 0);
 +}
 +
-+static inline int _mt6660_read_chip_revision(struct mt6660_chip *chip)
-+{
-+	u8 reg_data[2];
-+	int ret;
-+
-+	ret = i2c_smbus_read_i2c_block_data(
-+		chip->i2c, MT6660_REG_DEVID, 2, reg_data);
-+	if (ret < 0) {
-+		dev_err(chip->dev, "get chip revision fail\n");
-+		return ret;
-+	}
-+	chip->chip_rev = reg_data[1];
-+	return 0;
-+}
-+
-+static int mt6660_i2c_probe(struct i2c_client *client,
-+			    const struct i2c_device_id *id)
-+{
-+	struct mt6660_chip *chip = NULL;
-+	int ret;
-+
-+	dev_dbg(&client->dev, "%s\n", __func__);
-+	chip = devm_kzalloc(&client->dev, sizeof(*chip), GFP_KERNEL);
-+	if (!chip)
-+		return -ENOMEM;
-+	chip->i2c = client;
-+	chip->dev = &client->dev;
-+	mutex_init(&chip->io_lock);
-+	i2c_set_clientdata(client, chip);
-+
-+	chip->regmap = devm_regmap_init(&client->dev,
-+		NULL, chip, &mt6660_regmap_config);
-+	if (IS_ERR(chip->regmap)) {
-+		ret = PTR_ERR(chip->regmap);
-+		dev_err(&client->dev, "failed to initialise regmap: %d\n", ret);
-+		return ret;
-+	}
-+
-+	/* chip reset first */
-+	ret = _mt6660_chip_sw_reset(chip);
-+	if (ret < 0) {
-+		dev_err(chip->dev, "chip reset fail\n");
-+		goto probe_fail;
-+	}
-+	/* chip power on */
-+	ret = _mt6660_chip_power_on(chip, 1);
-+	if (ret < 0) {
-+		dev_err(chip->dev, "chip power on 2 fail\n");
-+		goto probe_fail;
-+	}
-+	/* chip devid check */
-+	ret = _mt6660_chip_id_check(chip);
-+	if (ret < 0) {
-+		dev_err(chip->dev, "chip id check fail\n");
-+		goto probe_fail;
-+	}
-+	/* chip revision get */
-+	ret = _mt6660_read_chip_revision(chip);
-+	if (ret < 0) {
-+		dev_err(chip->dev, "read chip revision fail\n");
-+		goto probe_fail;
-+	}
-+	pm_runtime_set_active(chip->dev);
-+	pm_runtime_enable(chip->dev);
-+
-+	ret = devm_snd_soc_register_component(chip->dev,
-+					       &mt6660_component_driver,
-+					       &mt6660_codec_dai, 1);
-+	return ret;
-+probe_fail:
-+	_mt6660_chip_power_on(chip, 0);
-+	mutex_destroy(&chip->io_lock);
-+	return ret;
-+}
-+
-+static int mt6660_i2c_remove(struct i2c_client *client)
-+{
-+	struct mt6660_chip *chip = i2c_get_clientdata(client);
-+
-+	pm_runtime_disable(chip->dev);
-+	pm_runtime_set_suspended(chip->dev);
-+	mutex_destroy(&chip->io_lock);
-+	return 0;
-+}
-+
-+static int __maybe_unused mt6660_i2c_runtime_suspend(struct device *dev)
-+{
-+	struct mt6660_chip *chip = dev_get_drvdata(dev);
-+
-+	dev_dbg(dev, "enter low power mode\n");
-+	return regmap_update_bits(chip->regmap,
-+		MT6660_REG_SYSTEM_CTRL, 0x01, 0x01);
-+}
-+
-+static int __maybe_unused mt6660_i2c_runtime_resume(struct device *dev)
-+{
-+	struct mt6660_chip *chip = dev_get_drvdata(dev);
-+
-+	dev_dbg(dev, "exit low power mode\n");
-+	return regmap_update_bits(chip->regmap,
-+		MT6660_REG_SYSTEM_CTRL, 0x01, 0x00);
-+}
-+
-+static const struct dev_pm_ops mt6660_dev_pm_ops = {
-+	SET_RUNTIME_PM_OPS(mt6660_i2c_runtime_suspend,
-+			   mt6660_i2c_runtime_resume, NULL)
-+};
-+
-+static const struct of_device_id __maybe_unused mt6660_of_id[] = {
-+	{ .compatible = "mediatek,mt6660",},
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, mt6660_of_id);
-+
-+static const struct i2c_device_id mt6660_i2c_id[] = {
-+	{"mt6660", 0 },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(i2c, mt6660_i2c_id);
-+
-+static struct i2c_driver mt6660_i2c_driver = {
++static struct i2c_driver rt1015_i2c_driver = {
 +	.driver = {
-+		.name = "mt6660",
-+		.of_match_table = of_match_ptr(mt6660_of_id),
-+		.pm = &mt6660_dev_pm_ops,
++		.name = "rt1015",
++		.of_match_table = of_match_ptr(rt1015_of_match),
++		.acpi_match_table = ACPI_PTR(rt1015_acpi_match),
 +	},
-+	.probe = mt6660_i2c_probe,
-+	.remove = mt6660_i2c_remove,
-+	.id_table = mt6660_i2c_id,
++	.probe = rt1015_i2c_probe,
++	.shutdown = rt1015_i2c_shutdown,
++	.id_table = rt1015_i2c_id,
 +};
-+module_i2c_driver(mt6660_i2c_driver);
++module_i2c_driver(rt1015_i2c_driver);
 +
-+MODULE_AUTHOR("Jeff Chang <jeff_chang@richtek.com>");
-+MODULE_DESCRIPTION("MT6660 SPKAMP Driver");
-+MODULE_LICENSE("GPL");
-+MODULE_VERSION("1.0.7_G");
-diff --git a/sound/soc/codecs/mt6660.h b/sound/soc/codecs/mt6660.h
++MODULE_DESCRIPTION("ASoC RT1015 driver");
++MODULE_AUTHOR("Jack Yu <jack.yu@realtek.com>");
++MODULE_LICENSE("GPL v2");
+diff --git a/sound/soc/codecs/rt1015.h b/sound/soc/codecs/rt1015.h
 new file mode 100644
-index 0000000..054a3c5
+index 000000000000..8d75cadaa0d5
 --- /dev/null
-+++ b/sound/soc/codecs/mt6660.h
-@@ -0,0 +1,77 @@
++++ b/sound/soc/codecs/rt1015.h
+@@ -0,0 +1,368 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
-+ * Copyright (c) 2019 MediaTek Inc.
++ * rt1015.h  --  RT1015 ALSA SoC audio amplifier driver
++ *
++ * Copyright 2019 Realtek Semiconductor Corp.
++ * Author: Jack Yu <jack.yu@realtek.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License version 2 as
++ * published by the Free Software Foundation.
 + */
 +
-+#ifndef __SND_SOC_MT6660_H
-+#define __SND_SOC_MT6660_H
++#ifndef __RT1015_H__
++#define __RT1015_H__
 +
-+#include <linux/mutex.h>
-+#include <linux/regmap.h>
++#define RT1015_DEVICE_ID_VAL			0x1011
++#define RT1015_DEVICE_ID_VAL2			0x1015
 +
-+#pragma pack(push, 1)
-+struct mt6660_platform_data {
-+	u8 init_setting_num;
-+	u32 *init_setting_addr;
-+	u32 *init_setting_mask;
-+	u32 *init_setting_val;
++#define RT1015_RESET				0x0000
++#define RT1015_CLK2				0x0004
++#define RT1015_CLK3				0x0006
++#define RT1015_PLL1				0x000a
++#define RT1015_PLL2				0x000c
++#define RT1015_CLK_DET				0x0020
++#define RT1015_SIL_DET				0x0022
++#define RT1015_CUSTOMER_ID			0x0076
++#define RT1015_PCODE_FWVER			0x0078
++#define RT1015_VER_ID				0x007a
++#define RT1015_VENDOR_ID			0x007c
++#define RT1015_DEVICE_ID			0x007d
++#define RT1015_PAD_DRV1				0x00f0
++#define RT1015_PAD_DRV2				0x00f2
++#define RT1015_GAT_BOOST			0x00f3
++#define RT1015_PRO_ALT				0x00f4
++#define RT1015_MAN_I2C				0x0100
++#define RT1015_DAC1				0x0102
++#define RT1015_DAC2				0x0104
++#define RT1015_DAC3				0x0106
++#define RT1015_ADC1				0x010c
++#define RT1015_ADC2				0x010e
++#define RT1015_TDM_MASTER			0x0111
++#define RT1015_TDM_TCON				0x0112
++#define RT1015_TDM1_1				0x0114
++#define RT1015_TDM1_2				0x0116
++#define RT1015_TDM1_3				0x0118
++#define RT1015_TDM1_4				0x011a
++#define RT1015_TDM1_5				0x011c
++#define RT1015_MIXER1				0x0300
++#define RT1015_MIXER2				0x0302
++#define RT1015_ANA_PROTECT1			0x0311
++#define RT1015_ANA_CTRL_SEQ1			0x0313
++#define RT1015_ANA_CTRL_SEQ2			0x0314
++#define RT1015_VBAT_DET_DEB			0x031a
++#define RT1015_VBAT_VOLT_DET1			0x031c
++#define RT1015_VBAT_VOLT_DET2			0x031d
++#define RT1015_VBAT_TEST_OUT1			0x031e
++#define RT1015_VBAT_TEST_OUT2			0x031f
++#define RT1015_VBAT_PROT_ATT			0x0320
++#define RT1015_VBAT_DET_CODE			0x0321
++#define RT1015_PWR1				0x0322
++#define RT1015_PWR4				0x0328
++#define RT1015_PWR5				0x0329
++#define RT1015_PWR6				0x032a
++#define RT1015_PWR7				0x032b
++#define RT1015_PWR8				0x032c
++#define RT1015_PWR9				0x032d
++#define RT1015_CLASSD_SEQ			0x032e
++#define RT1015_SMART_BST_CTRL1			0x0330
++#define RT1015_SMART_BST_CTRL2			0x0332
++#define RT1015_ANA_CTRL1			0x0334
++#define RT1015_ANA_CTRL2			0x0336
++#define RT1015_PWR_STATE_CTRL			0x0338
++#define RT1015_SPK_VOL				0x0506
++#define RT1015_SHORT_DETTOP1			0x0508
++#define RT1015_SHORT_DETTOP2			0x050a
++#define RT1015_SPK_DC_DETECT1			0x0519
++#define RT1015_SPK_DC_DETECT2			0x051a
++#define RT1015_SPK_DC_DETECT3			0x051b
++#define RT1015_SPK_DC_DETECT4			0x051d
++#define RT1015_SPK_DC_DETECT5			0x051f
++#define RT1015_BAT_RPO_STEP1			0x0536
++#define RT1015_BAT_RPO_STEP2			0x0538
++#define RT1015_BAT_RPO_STEP3			0x053a
++#define RT1015_BAT_RPO_STEP4			0x053c
++#define RT1015_BAT_RPO_STEP5			0x053d
++#define RT1015_BAT_RPO_STEP6			0x053e
++#define RT1015_BAT_RPO_STEP7			0x053f
++#define RT1015_BAT_RPO_STEP8			0x0540
++#define RT1015_BAT_RPO_STEP9			0x0541
++#define RT1015_BAT_RPO_STEP10			0x0542
++#define RT1015_BAT_RPO_STEP11			0x0543
++#define RT1015_BAT_RPO_STEP12			0x0544
++#define RT1015_SPREAD_SPEC1			0x0568
++#define RT1015_SPREAD_SPEC2			0x056a
++#define RT1015_PAD_STATUS			0x1000
++#define RT1015_PADS_PULLING_CTRL1		0x1002
++#define RT1015_PADS_DRIVING			0x1006
++#define RT1015_SYS_RST1				0x1007
++#define RT1015_SYS_RST2				0x1009
++#define RT1015_SYS_GATING1			0x100a
++#define RT1015_TEST_MODE1			0x100c
++#define RT1015_TEST_MODE2			0x100d
++#define RT1015_TIMING_CTRL1			0x100e
++#define RT1015_PLL_INT				0x1010
++#define RT1015_TEST_OUT1			0x1020
++#define RT1015_DC_CALIB_CLSD1			0x1200
++#define RT1015_DC_CALIB_CLSD2			0x1202
++#define RT1015_DC_CALIB_CLSD3			0x1204
++#define RT1015_DC_CALIB_CLSD4			0x1206
++#define RT1015_DC_CALIB_CLSD5			0x1208
++#define RT1015_DC_CALIB_CLSD6			0x120a
++#define RT1015_DC_CALIB_CLSD7			0x120c
++#define RT1015_DC_CALIB_CLSD8			0x120e
++#define RT1015_DC_CALIB_CLSD9			0x1210
++#define RT1015_DC_CALIB_CLSD10			0x1212
++#define RT1015_CLSD_INTERNAL1			0x1300
++#define RT1015_CLSD_INTERNAL2			0x1302
++#define RT1015_CLSD_INTERNAL3			0x1304
++#define RT1015_CLSD_INTERNAL4			0x1305
++#define RT1015_CLSD_INTERNAL5			0x1306
++#define RT1015_CLSD_INTERNAL6			0x1308
++#define RT1015_CLSD_INTERNAL7			0x130a
++#define RT1015_CLSD_INTERNAL8			0x130c
++#define RT1015_CLSD_INTERNAL9			0x130e
++#define RT1015_CLSD_OCP_CTRL			0x130f
++#define RT1015_VREF_LV				0x1310
++#define RT1015_MBIAS1				0x1312
++#define RT1015_MBIAS2				0x1314
++#define RT1015_MBIAS3				0x1316
++#define RT1015_MBIAS4				0x1318
++#define RT1015_VREF_LV1				0x131a
++#define RT1015_S_BST_TIMING_INTER1		0x1322
++#define RT1015_S_BST_TIMING_INTER2		0x1323
++#define RT1015_S_BST_TIMING_INTER3		0x1324
++#define RT1015_S_BST_TIMING_INTER4		0x1325
++#define RT1015_S_BST_TIMING_INTER5		0x1326
++#define RT1015_S_BST_TIMING_INTER6		0x1327
++#define RT1015_S_BST_TIMING_INTER7		0x1328
++#define RT1015_S_BST_TIMING_INTER8		0x1329
++#define RT1015_S_BST_TIMING_INTER9		0x132a
++#define RT1015_S_BST_TIMING_INTER10		0x132b
++#define RT1015_S_BST_TIMING_INTER11		0x1330
++#define RT1015_S_BST_TIMING_INTER12		0x1331
++#define RT1015_S_BST_TIMING_INTER13		0x1332
++#define RT1015_S_BST_TIMING_INTER14		0x1333
++#define RT1015_S_BST_TIMING_INTER15		0x1334
++#define RT1015_S_BST_TIMING_INTER16		0x1335
++#define RT1015_S_BST_TIMING_INTER17		0x1336
++#define RT1015_S_BST_TIMING_INTER18		0x1337
++#define RT1015_S_BST_TIMING_INTER19		0x1338
++#define RT1015_S_BST_TIMING_INTER20		0x1339
++#define RT1015_S_BST_TIMING_INTER21		0x133a
++#define RT1015_S_BST_TIMING_INTER22		0x133b
++#define RT1015_S_BST_TIMING_INTER23		0x133c
++#define RT1015_S_BST_TIMING_INTER24		0x133d
++#define RT1015_S_BST_TIMING_INTER25		0x133e
++#define RT1015_S_BST_TIMING_INTER26		0x133f
++#define RT1015_S_BST_TIMING_INTER27		0x1340
++#define RT1015_S_BST_TIMING_INTER28		0x1341
++#define RT1015_S_BST_TIMING_INTER29		0x1342
++#define RT1015_S_BST_TIMING_INTER30		0x1343
++#define RT1015_S_BST_TIMING_INTER31		0x1344
++#define RT1015_S_BST_TIMING_INTER32		0x1345
++#define RT1015_S_BST_TIMING_INTER33		0x1346
++#define RT1015_S_BST_TIMING_INTER34		0x1347
++#define RT1015_S_BST_TIMING_INTER35		0x1348
++#define RT1015_S_BST_TIMING_INTER36		0x1349
++
++/* 0x0004 */
++#define RT1015_CLK_SYS_PRE_SEL_MASK		(0x3 << 14)
++#define RT1015_CLK_SYS_PRE_SEL_SFT		14
++#define RT1015_CLK_SYS_PRE_SEL_MCLK		(0x0 << 14)
++#define RT1015_CLK_SYS_PRE_SEL_PLL		(0x2 << 14)
++#define RT1015_PLL_SEL_MASK			(0x1 << 13)
++#define RT1015_PLL_SEL_SFT			13
++#define RT1015_PLL_SEL_PLL_SRC2			(0x0 << 13)
++#define RT1015_PLL_SEL_BCLK			(0x1 << 13)
++#define RT1015_FS_PD_MASK			(0x7 << 4)
++#define RT1015_FS_PD_SFT			4
++
++/* 0x000a */
++#define RT1015_PLL_M_MAX			0xf
++#define RT1015_PLL_M_MASK			(RT1015_PLL_M_MAX << 12)
++#define RT1015_PLL_M_SFT			12
++#define RT1015_PLL_M_BP				(0x1 << 11)
++#define RT1015_PLL_M_BP_SFT			11
++#define RT1015_PLL_N_MAX			0x1ff
++#define RT1015_PLL_N_MASK			(RT1015_PLL_N_MAX << 0)
++#define RT1015_PLL_N_SFT			0
++
++/* 0x000c */
++#define RT1015_PLL_BPK_MASK			(0x1 << 5)
++#define RT1015_PLL_BPK				(0x0 << 5)
++#define RT1015_PLL_K_MAX			0x1f
++#define RT1015_PLL_K_MASK			(RT1015_PLL_K_MAX)
++#define RT1015_PLL_K_SFT			0
++
++/* 0x007a */
++#define RT1015_ID_MASK				0xff
++#define RT1015_ID_VERA				0x0
++#define RT1015_ID_VERB				0x1
++
++/* 0x0102 */
++#define RT1015_DAC_VOL_MASK			(0x7f << 9)
++#define RT1015_DAC_VOL_SFT			9
++
++/* 0x0104 */
++#define RT1015_DAC_CLK				(0x1 << 13)
++#define RT1015_DAC_CLK_BIT			13
++
++/* 0x0106 */
++#define RT1015_DAC_MUTE_MASK			(0x1 << 15)
++#define RT1015_DA_MUTE_SFT			15
++#define RT1015_DVOL_MUTE_FLAG_SFT		12
++
++/* 0x0111 */
++#define RT1015_TCON_TDM_MS_MASK			(0x1 << 14)
++#define RT1015_TCON_TDM_MS_SFT			14
++#define RT1015_TCON_TDM_MS_S			(0x0 << 14)
++#define RT1015_TCON_TDM_MS_M			(0x1 << 14)
++#define RT1015_I2S_DL_MASK			(0x7 << 8)
++#define RT1015_I2S_DL_SFT			8
++#define RT1015_I2S_DL_16			(0x0 << 8)
++#define RT1015_I2S_DL_20			(0x1 << 8)
++#define RT1015_I2S_DL_24			(0x2 << 8)
++#define RT1015_I2S_DL_8				(0x3 << 8)
++#define RT1015_I2S_M_DF_MASK			(0x7 << 0)
++#define RT1015_I2S_M_DF_SFT			0
++#define RT1015_I2S_M_DF_I2S			(0x0)
++#define RT1015_I2S_M_DF_LEFT			(0x1)
++#define RT1015_I2S_M_DF_PCM_A			(0x2)
++#define RT1015_I2S_M_DF_PCM_B			(0x3)
++#define RT1015_I2S_M_DF_PCM_A_N			(0x6)
++#define RT1015_I2S_M_DF_PCM_B_N			(0x7)
++
++/* TDM_tcon Setting (0x0112) */
++#define RT1015_I2S_TCON_DF_MASK			(0x7 << 13)
++#define RT1015_I2S_TCON_DF_SFT			13
++#define RT1015_I2S_TCON_DF_I2S			(0x0 << 13)
++#define RT1015_I2S_TCON_DF_LEFT			(0x1 << 13)
++#define RT1015_I2S_TCON_DF_PCM_A		(0x2 << 13)
++#define RT1015_I2S_TCON_DF_PCM_B		(0x3 << 13)
++#define RT1015_I2S_TCON_DF_PCM_A_N		(0x6 << 13)
++#define RT1015_I2S_TCON_DF_PCM_B_N		(0x7 << 13)
++#define RT1015_TCON_BCLK_SEL_MASK		(0x3 << 10)
++#define RT1015_TCON_BCLK_SEL_SFT		10
++#define RT1015_TCON_BCLK_SEL_32FS		(0x0 << 10)
++#define RT1015_TCON_BCLK_SEL_64FS		(0x1 << 10)
++#define RT1015_TCON_BCLK_SEL_128FS		(0x2 << 10)
++#define RT1015_TCON_BCLK_SEL_256FS		(0x3 << 10)
++#define RT1015_TCON_CH_LEN_MASK			(0x3 << 5)
++#define RT1015_TCON_CH_LEN_SFT			5
++#define RT1015_TCON_CH_LEN_16B			(0x0 << 5)
++#define RT1015_TCON_CH_LEN_20B			(0x1 << 5)
++#define RT1015_TCON_CH_LEN_24B			(0x2 << 5)
++#define RT1015_TCON_CH_LEN_32B			(0x3 << 5)
++#define RT1015_TCON_BCLK_MST_MASK			(0x1 << 4)
++#define RT1015_TCON_BCLK_MST_SFT			4
++#define RT1015_TCON_BCLK_MST_INV		(0x1 << 4)
++
++/* TDM1 Setting-1 (0x0114) */
++#define RT1015_TDM_INV_BCLK_MASK		(0x1 << 15)
++#define RT1015_TDM_INV_BCLK_SFT			15
++#define RT1015_TDM_INV_BCLK			(0x1 << 15)
++
++/* 0x0330 */
++#define RT1015_ABST_AUTO_EN_MASK		(0x1 << 13)
++#define RT1015_ABST_AUTO_MODE			(0x1 << 13)
++#define RT1015_ABST_REG_MODE			(0x0 << 13)
++#define RT1015_ABST_FIX_TGT_MASK		(0x1 << 12)
++#define RT1015_ABST_FIX_TGT_EN			(0x1 << 12)
++#define RT1015_ABST_FIX_TGT_DIS			(0x0 << 12)
++#define RT1015_BYPASS_SWR_REG_MASK		(0x1 << 7)
++#define RT1015_BYPASS_SWRREG_BYPASS		(0x1 << 7)
++#define RT1015_BYPASS_SWRREG_PASS		(0x0 << 7)
++
++/* 0x0322 */
++#define RT1015_PWR_LDO2				(0x1 << 15)
++#define RT1015_PWR_LDO2_BIT			15
++#define RT1015_PWR_DAC				(0x1 << 14)
++#define RT1015_PWR_DAC_BIT			14
++#define RT1015_PWR_INTCLK			(0x1 << 13)
++#define RT1015_PWR_INTCLK_BIT			13
++#define RT1015_PWR_ISENSE			(0x1 << 12)
++#define RT1015_PWR_ISENSE_BIT			12
++#define RT1015_PWR_VSENSE			(0x1 << 10)
++#define RT1015_PWR_VSENSE_BIT			10
++#define RT1015_PWR_PLL				(0x1 << 9)
++#define RT1015_PWR_PLL_BIT			9
++#define RT1015_PWR_BG_1_2			(0x1 << 8)
++#define RT1015_PWR_BG_1_2_BIT			8
++#define RT1015_PWR_MBIAS_BG			(0x1 << 7)
++#define RT1015_PWR_MBIAS_BG_BIT			7
++#define RT1015_PWR_VBAT				(0x1 << 6)
++#define RT1015_PWR_VBAT_BIT			6
++#define RT1015_PWR_MBIAS			(0x1 << 4)
++#define RT1015_PWR_MBIAS_BIT			4
++#define RT1015_PWR_ADCV				(0x1 << 3)
++#define RT1015_PWR_ADCV_BIT			3
++#define RT1015_PWR_MIXERV			(0x1 << 2)
++#define RT1015_PWR_MIXERV_BIT			2
++#define RT1015_PWR_SUMV				(0x1 << 1)
++#define RT1015_PWR_SUMV_BIT			1
++#define RT1015_PWR_VREFLV			(0x1 << 0)
++#define RT1015_PWR_VREFLV_BIT			0
++
++/* 0x0324 */
++#define RT1015_PWR_BASIC			(0x1 << 15)
++#define RT1015_PWR_BASIC_BIT			15
++#define RT1015_PWR_SD				(0x1 << 14)
++#define RT1015_PWR_SD_BIT			14
++#define RT1015_PWR_IBIAS			(0x1 << 13)
++#define RT1015_PWR_IBIAS_BIT			13
++#define RT1015_PWR_VCM				(0x1 << 11)
++#define RT1015_PWR_VCM_BIT			11
++
++/* 0x0328 */
++#define RT1015_PWR_SWR				(0x1 << 12)
++#define RT1015_PWR_SWR_BIT			12
++
++/* 0x1300 */
++#define RT1015_PWR_CLSD				(0x1 << 12)
++#define RT1015_PWR_CLSD_BIT			12
++
++/* 0x007a */
++#define RT1015_ID_MASK				0xff
++#define RT1015_ID_VERA				0x0
++#define RT1015_ID_VERB				0x1
++
++/* System Clock Source */
++enum {
++	RT1015_SCLK_S_MCLK,
++	RT1015_SCLK_S_PLL,
 +};
 +
-+struct mt6660_chip {
-+	struct i2c_client *i2c;
-+	struct device *dev;
-+	struct platform_device *param_dev;
-+	struct mt6660_platform_data plat_data;
-+	struct mutex io_lock;
++/* PLL1 Source */
++enum {
++	RT1015_PLL_S_MCLK,
++	RT1015_PLL_S_BCLK,
++};
++
++enum {
++	RT1015_AIF1,
++	RT1015_AIFS,
++};
++
++enum {
++	RT1015_VERA,
++	RT1015_VERB,
++};
++
++struct rt1015_priv {
++	struct snd_soc_component *component;
 +	struct regmap *regmap;
-+	u16 chip_rev;
++	int sysclk;
++	int sysclk_src;
++	int lrck;
++	int bclk;
++	int id;
++	int pll_src;
++	int pll_in;
++	int pll_out;
++	int boost_mode;
++	int bypass_boost;
++	int amp_ver;
 +};
-+#pragma pack(pop)
 +
-+#define MT6660_REG_DEVID		(0x00)
-+#define MT6660_REG_SYSTEM_CTRL		(0x03)
-+#define MT6660_REG_IRQ_STATUS1		(0x05)
-+#define MT6660_REG_ADDA_CLOCK		(0x07)
-+#define MT6660_REG_SERIAL_CFG1		(0x10)
-+#define MT6660_REG_DATAO_SEL		(0x12)
-+#define MT6660_REG_TDM_CFG3		(0x15)
-+#define MT6660_REG_HPF_CTRL		(0x18)
-+#define MT6660_REG_HPF1_COEF		(0x1A)
-+#define MT6660_REG_HPF2_COEF		(0x1B)
-+#define MT6660_REG_PATH_BYPASS		(0x1E)
-+#define MT6660_REG_WDT_CTRL		(0x20)
-+#define MT6660_REG_HCLIP_CTRL		(0x24)
-+#define MT6660_REG_VOL_CTRL		(0x29)
-+#define MT6660_REG_SPS_CTRL		(0x30)
-+#define MT6660_REG_SIGMAX		(0x33)
-+#define MT6660_REG_CALI_T0		(0x3F)
-+#define MT6660_REG_BST_CTRL		(0x40)
-+#define MT6660_REG_PROTECTION_CFG	(0x46)
-+#define MT6660_REG_DA_GAIN		(0x4c)
-+#define MT6660_REG_AUDIO_IN2_SEL	(0x50)
-+#define MT6660_REG_SIG_GAIN		(0x51)
-+#define MT6660_REG_PLL_CFG1		(0x60)
-+#define MT6660_REG_DRE_CTRL		(0x68)
-+#define MT6660_REG_DRE_THDMODE		(0x69)
-+#define MT6660_REG_DRE_CORASE		(0x6B)
-+#define MT6660_REG_PWM_CTRL		(0x70)
-+#define MT6660_REG_DC_PROTECT_CTRL	(0x74)
-+#define MT6660_REG_ADC_USB_MODE		(0x7c)
-+#define MT6660_REG_INTERNAL_CFG		(0x88)
-+#define MT6660_REG_RESV0		(0x98)
-+#define MT6660_REG_RESV1		(0x99)
-+#define MT6660_REG_RESV2		(0x9A)
-+#define MT6660_REG_RESV3		(0x9B)
-+#define MT6660_REG_RESV6		(0xA2)
-+#define MT6660_REG_RESV7		(0xA3)
-+#define MT6660_REG_RESV10		(0xB0)
-+#define MT6660_REG_RESV11		(0xB1)
-+#define MT6660_REG_RESV16		(0xB6)
-+#define MT6660_REG_RESV17		(0xB7)
-+#define MT6660_REG_RESV19		(0xB9)
-+#define MT6660_REG_RESV21		(0xBB)
-+#define MT6660_REG_RESV23		(0xBD)
-+#define MT6660_REG_RESV31		(0xD3)
-+#define MT6660_REG_RESV40		(0xE0)
-+
-+#endif /* __SND_SOC_MT6660_H */
++#endif /* __RT1015_H__ */
 -- 
-2.7.4
+2.24.1
 
 _______________________________________________
 Alsa-devel mailing list

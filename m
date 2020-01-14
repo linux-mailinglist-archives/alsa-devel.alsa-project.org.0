@@ -2,64 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C8FA13B15E
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 18:52:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56E9813B124
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 18:40:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 97A131821;
-	Tue, 14 Jan 2020 18:51:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 97A131821
+	by alsa0.perex.cz (Postfix) with ESMTPS id DA6511819;
+	Tue, 14 Jan 2020 18:39:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA6511819
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579024332;
-	bh=Ji9UJLEN6KApxu/eoSOfFx0JfcIRO5ZqPU0FpNtWzC8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=nLvVChsG0LaESVWiI7RXmZW5cYgVLC8lSij7/LyIHPjRN6hCwYLxH0+uFNFTMoNPq
-	 6evoUnDgMwgNbL5SE5UnCANxefM+dSOT95+xY5XAnLly7AYNUFKMmAFs6ddFUtUP90
-	 u85yrpkolcVnsRX6NRxF4DtKtAZ+15uouAtNI/Hs=
+	s=default; t=1579023646;
+	bh=DceKehGXOIvt2jHh5Kdf3xxx8uRDWO7gLm+79PXEghQ=;
+	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=VZ0Tnn+iThp89ZxzMjnn1fd+mO/f11i2Wwj9LLCYesZbnQebGY/y3bj8luxN9Vxyn
+	 k2wXHcoK+UpBJSp3kgGavStg8bp5hAyCQqNhTj9mURy719wwPltzBmQVe0eyEBoMgj
+	 Obl5tAEZR4aLb0AZKOjzRsi52dtJjYPPTLBnjzm0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E76EF80277;
-	Tue, 14 Jan 2020 18:48:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2F01DF800E9;
+	Tue, 14 Jan 2020 18:39:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76C8DF8014E; Tue, 14 Jan 2020 18:48:34 +0100 (CET)
+ id D2E12F8014E; Tue, 14 Jan 2020 18:38:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H2,
+ SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1C239F8014D
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 18:48:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1C239F8014D
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2020 09:48:26 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,319,1574150400"; d="scan'208";a="225285571"
-Received: from snathamg-mobl.amr.corp.intel.com (HELO [10.252.136.159])
- ([10.252.136.159])
- by orsmga003.jf.intel.com with ESMTP; 14 Jan 2020 09:48:26 -0800
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20200113114054.9716-1-cezary.rojewski@intel.com>
- <f8e6c1b8-5508-fc5e-57ce-fc2c54e23414@linux.intel.com>
- <6bf3ef29-aed8-d69d-8bb6-9e81253e5547@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2870108c-0484-ce5e-f04c-ce353f939e98@linux.intel.com>
-Date: Tue, 14 Jan 2020 10:13:20 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E715F800E9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 18:38:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E715F800E9
+Received: from localhost ([130.83.5.183]) by mrelayeu.kundenserver.de
+ (mreue107 [212.227.15.145]) with ESMTPSA (Nemesis) id
+ 1MrxfX-1jTRza3v3l-00o1Nx; Tue, 14 Jan 2020 18:38:51 +0100
+Date: Tue, 14 Jan 2020 18:38:48 +0100
+From: Tim Schumacher <tim@timakro.de>
+To: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <20200114173848.GA28085@impa>
 MIME-Version: 1.0
-In-Reply-To: <6bf3ef29-aed8-d69d-8bb6-9e81253e5547@intel.com>
-Content-Language: en-US
-Cc: broonie@kernel.org, tiwai@suse.com, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: Intel: hda: Fix SKL dai count
+Content-Disposition: inline
+In-Reply-To: <6d433182-fb2a-d883-a9b3-80110efb89c2@perex.cz>
+X-Provags-ID: V03:K1:tYIhtaTngBD9x5FrtnmTsF8PSXOJVmZ69UESrYftf/5DMoYueL8
+ dImVrnlou0N9l0T2oQWrxEBP+uItDAO5BU52NwNJ71JHLkT78oDIe8pueryKFEK5lp5QsUM
+ rGAbArD8uUCX7qlHZLKNo9Phg3A9fjtk/OJEjCgS1GqVv6exzRgXa2Db2HmQXwBTSZlzaXu
+ e4LNX7CWHepe/65ImmJ2g==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:MslzDjTGa3c=:KIHxw1NYD8SI6XHgfkPAyz
+ 1JYxF3B48C/G6OWNlIljgIPHE8PK74B16/eGkk9v/xA1T+EA+htTdDy4K36ZoIitWTouWFn0i
+ TUjHWw9lZYAv7vH8WAgVSODXk4N8Bcf1LlYlcni3swyJ6PMZu8ywxNN0V7Rc0mfuIeMSld8xJ
+ C3DH9/zcau4DoE/E55mPynBnelsBRufifKa8ABhRrwP0mouHJHL/iYFhBQzbAGfCw6+U6B8E3
+ TRezSrD5SFfcDvKq3pSlX7kAXRzReehqr8QUOSs9fSn4AFXndqRI/eWqbLMgn0dNKfzYVKXFi
+ 2iVUd+VXYt+pPfUKldUsllwY+Etk+zlMHHv+VZVeMsBkQhjJ7oBgCBjQNCJBm5Ls3pBW4tfWD
+ 07nICPhNvqiuccUj9az5RIb7b5kwtuYD9+DDazmUX2UowUHirTUSY5LXK45XxNbc4HopsH1/a
+ 7oUeJY65I0gOqmI+i4H7mB4h44UkEOkkS2AWJo36pFge9oGlR7aR9ysD9QbB4iRPigWMV75aj
+ e1S7rdHSodXgn5YpOvVmM7IeGUZNIpcYPDuZyuSKUiV0qXXUVnrGfyW89JYxjb5f+HzNmwF3j
+ cJjMuHhDymYSm0VkeEJLyr5V94JKxcoIpaY6ItAXfuInnpt+K8Inv/f4rNVbHLA4jMDi/eNuM
+ 80no5DuSWLWHG2j7qZpEb9utQF/GXvVE0egDlyJjCcrbC/+6rW21WT4Ah4ET4fvGy+/orCL8j
+ QHtf9iacELXdjJ3uF2wXkHVzUDHUX7cTxdwZs3ovSd0Bs52caUbPCdL28upmPycO7lxk+sRXB
+ DpA8Rogi+xCxSbSyxg6Fy74NJUDWIJsTd/dAOB25Dity3S/mP0f+jrJ9sOC9rpNEHc9PnturE
+ fCeiJUA6MSbYOjdESKoA==
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] Bug report for changes in ucm2 with chtrt5645 card
+ on Lenovo Miix 320
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,51 +79,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi,
 
+sending the mail CC to the mailing list again because I messed this up
+last time. This is the output from 'alsaucm -c hw:0 set _verb HiFi'.
 
-On 1/14/20 5:18 AM, Cezary Rojewski wrote:
-> On 2020-01-13 16:30, Pierre-Louis Bossart wrote:
->> On 1/13/20 5:40 AM, Cezary Rojewski wrote:
->>> With fourth pin added for iDisp for skl_dai, update SOF_SKL_DAI_NUM to
->>> account for the change. Without this, dais from the bottom of the list
->>> are skipped. In current state that's the case for 'Alt Analog CPU DAI'.
->>
->> Can you clarify if you are fixing an issue on TGL - which isn't 
->> supported in the mainline? Or fixing an issue with SKL w/ HDaudio 
->> support?
+ALSA lib utils.c:261:(uc_mgr_config_load) could not open configuration file /usr/share/alsa/ucm2/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216/HiFi-dmic2.conf
+ALSA lib parser.c:1190:(parse_verb_file) error: failed to open verb file /usr/share/alsa/ucm2/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216/HiFi-dmic2.conf : -2
+ALSA lib main.c:960:(snd_use_case_mgr_open) error: failed to import hw:0 use case configuration -2
+alsaucm: error failed to open sound card hw:0: No such file or directory
+
+- Tim
+
+On 2020-01-13, Jaroslav Kysela wrote:
+> Dne 13. 01. 20 v 15:27 Tim Schumacher napsal(a):
+> > The patch doesn't help unfortunately. Deleting
+> > LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf still works with the
+> > patch installed. Can I help debug this somehow?
 > 
-> This is not strictly connected to TGL but to any platform making use of 
-> 'skl_dai[]' within /sof/intel. Encountered this issue when playing with 
-> probes - my BEs added at the bottom of the list were omitted during 
-> component registration. Once debug flags in asoc were enabled, 
-> root-cause presented itself clearly.
-
-ok.
-
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
+> If you have latest alsa-utils, the command 'alsaucm dump text' should work,
+> otherwise try 'alsaucm set _verb HiFi'.
 > 
->> FWIW, I couldn't make HDaudio codec support work on KBL, with the 
->> changes in ASoC core, the HDaudio support is broken with the SKL 
->> driver (or depends on an unreleased topology). See traces at:
->>
->> https://github.com/thesofproject/linux/pull/1667/commits/ae584cf633f232d9cf828bb599a1b620cd0b4fe0 
->>
+> 					Jaroslav
 > 
-> We do have working cAVS 1.5 machines (e.g.: SKL, KBL, KBL-R, ABL..) with 
-> HDA on our end.
-> Will checkout the existing "vanilla skylake" to filter the least amount 
-> of changes needed to enable it. However, this can lead to topology 
-> binary needed to be updated.
-
-yes, that's the problem I faced, and since I don't have a clue how to 
-change the topology on SKL I commented out the hard-coded parts in the 
-machine driver.
+> > 
+> > - Tim
+> > 
+> > On 2020-01-13, Jaroslav Kysela wrote:
+> > > Dne 09. 01. 20 v 23:10 Tim Schumacher napsal(a):
+> > > > Hi alsa devs,
+> > > > 
+> > > > I'm on Arch Linux on a rather uncommon laptop (Lenovo Miix 320) and my sound
+> > > > stopped working on the upgrade from alsa-lib 1.1.9 to 1.2.1. wabbits on
+> > > > IRC helped me track down the problem to a change in the
+> > > > /usr/share/alsa/ucm (now /usr/share/alsa/ucm2) files. It seems like
+> > > > /usr/share/alsa/ucm2/chtrt5645/HiFi-dmic2.conf and a symlink at
+> > > > /usr/share/alsa/ucm2/chtrt5645/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
+> > > > were specifically added for this laptop but in the contrary they break the
+> > > > sound for me.
+> > > > 
+> > > > After the upgrade to alsa-lib 1.2.1 the sound is not working. The commands play no sound:
+> > > > 
+> > > >       pasuspender -- speaker-test --nloops=1 --channels=2 --test=wav --device=hw:0,0
+> > > >       pasuspender -- speaker-test --nloops=1 --channels=2 --test=wav --device=hw:0,1
+> > > > 
+> > > > And this is the alsa-info.sh output http://alsa-project.org/db/?f=f883910a5c5101b4b1ea4202d1fe84ccd139f796
+> > > > 
+> > > > After deleting the /usr/share/alsa/ucm2/chtrt5645/LENOVO-80XF-LenovoMIIX320_10ICR-LNVNB161216.conf
+> > > > symlink both commands from above play sound and this is the alsa-info.sh
+> > > > output http://alsa-project.org/db/?f=e759eb9118a191b6c3b8c021fed58abc9cf95076
+> > > 
+> > > Thanks. I forgot to fix the file path in chtrt5645/chtrt5645-dmic2.conf .
+> > > Could you test this patch?
+> > > 
+> > > https://github.com/alsa-project/alsa-ucm-conf/commit/74f2a0f0884df7b9f2d08d07456a3bc37d1a512e
+> > > 
+> > > 				Jaroslav
+> > > 
+> > > -- 
+> > > Jaroslav Kysela <perex@perex.cz>
+> > > Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> > > 
+> 
+> 
+> -- 
+> Jaroslav Kysela <perex@perex.cz>
+> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

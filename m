@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C7FC613ADFE
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 16:49:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D97C13AEA6
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:11:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5CCCF181B;
-	Tue, 14 Jan 2020 16:48:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CCCF181B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 66C17182D;
+	Tue, 14 Jan 2020 17:10:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66C17182D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579016969;
-	bh=1Y5O7Mv9balNtFqOkRHDWCqMrhRwVRQtQT48q9lQ4nM=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=L4ZIt3zrbqP/1sWhXB58XR/oCRnUm0gLoOoK5w1R9PtkMbRyoLgWXgJhO5AeGAFvX
-	 o0qnoUw1SfE8HVBxXsyMwvb7nuPo/XdOnfregihaJGJEtFmKyLjMG90OKUNGbEmHUH
-	 usxGHdVgkG0eYvkeNr1Vw7U0P4EYKOd3AgJOCsNM=
+	s=default; t=1579018260;
+	bh=UYZP13CMd6ap+H9S8AD6oDhGMmw0t1JsF4ET5Of3xl8=;
+	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=UONrZi7WiyHPp/wsfWDStwyulk8GSQhEXLC585KLO6YqXamrQ9CLuEIzc6vKjV4EM
+	 vKaTZQiHkclRpNwRU+WYANiOCwA0NtWjPZlxGR/ljQcKXg0lXXqMzcLclILz81uHtp
+	 m16XP3mXLnyaETptHjdw6mCNhz5aaJWvXNUenpTk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36DCFF80171;
-	Tue, 14 Jan 2020 16:47:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DDBABF8029B;
+	Tue, 14 Jan 2020 17:09:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43584F800E9; Tue, 14 Jan 2020 16:47:44 +0100 (CET)
+ id 252E7F80291; Tue, 14 Jan 2020 17:09:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,41 +34,41 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BCAB7F800E9
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 16:47:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCAB7F800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id D39D1F80121
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 17:09:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D39D1F80121
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="vHNXwfDL"
+ header.b="aBprcuUk"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=U2GRLT2Y1GTtPgMPfqBDKRnILV6O1Eygahoq8V/yKzs=; b=vHNXwfDL5Ffjqv/J0lNQa9KhQ
- Is3FqPW76Zh8j0rSV8lyjYiPJDAoPSZUozWZiia32AVCo9w/OoUImaepCBzFoho3KQz30t4Mfcwst
- frzoKk/p+ZeDWC8BUzRjwGqju0NysA2t8I9oF4dtWqOFuMcR353wLoL3yHCshTILbCeqY=;
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=GR2m+h1Fre9CAx3aNT1/AiDPFs3k+Q0Nr/y/ZD9aeyA=; b=aBprcuUkhPLO
+ Xs9CA8E7JQ7ROR2xudBf1CuwXQGDk+AienniCv0o9CfpOoPOuUVFjl8sNvhAhJC0nPOMUhBllV4BZ
+ 36Tgqx6Tbm8VTqVQv1bpXjvZL5kXf8oEu9ScCmJJptdmZcRaq31aHXS3j71jfy+Rlm+Eq5u/3SYAI
+ 5iPXo=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1irOPr-0000Ns-EO; Tue, 14 Jan 2020 15:47:39 +0000
+ id 1irOkb-0001Um-RQ; Tue, 14 Jan 2020 16:09:05 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 253C5D01965; Tue, 14 Jan 2020 15:47:39 +0000 (GMT)
-Date: Tue, 14 Jan 2020 15:47:39 +0000
+ id 66EE7D02C7C; Tue, 14 Jan 2020 16:09:05 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Bard liao <yung-chuan.liao@linux.intel.com>
-Message-ID: <20200114154739.GA3897@sirena.org.uk>
-References: <20191225191501.23848-1-yung-chuan.liao@linux.intel.com>
-MIME-Version: 1.0
-In-Reply-To: <20191225191501.23848-1-yung-chuan.liao@linux.intel.com>
-X-Cookie: Programming is an unnatural act.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- tiwai@suse.de, pierre-louis.bossart@linux.intel.com,
- liam.r.girdwood@linux.intel.com, bard.liao@intel.com
-Subject: Re: [alsa-devel] [PATCH RFC 0/3] ASoC: Add Multi CPU DAI support
+To: Marek Vasut <marex@denx.de>
+In-Reply-To: <20191220164450.1395038-2-marex@denx.de>
+Message-Id: <applied-20191220164450.1395038-2-marex@denx.de>
+X-Patchwork-Hint: ignore
+Date: Tue, 14 Jan 2020 16:09:05 +0000 (GMT)
+Cc: alsa-devel@alsa-project.org, Marcel Ziswiler <marcel.ziswiler@toradex.com>,
+ Igor Opaniuk <igor.opaniuk@toradex.com>,
+ Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
+ Mark Brown <broonie@kernel.org>, festevam@gmail.com
+Subject: [alsa-devel] Applied "ASoC: sgtl5000: Fix VDDA and VDDIO
+	comparison" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,57 +81,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0386175631192334453=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============0386175631192334453==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="UEW5kU42M6+IO/TD"
-Content-Disposition: inline
+   ASoC: sgtl5000: Fix VDDA and VDDIO comparison
 
+has been applied to the asoc tree at
 
---UEW5kU42M6+IO/TD
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
 
-On Thu, Dec 26, 2019 at 03:14:58AM +0800, Bard liao wrote:
-> From: Bard Liao <yung-chuan.liao@linux.intel.com>
->=20
-> As discussed in [1], ASoC core supports multi codec DAIs
-> on a DAI link. However it does not do so for CPU DAIs.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-This approach seems broadly fine - I see you'd already agreed
-some updates with Morimoto-san which look sensible.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---UEW5kU42M6+IO/TD
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4d4poACgkQJNaLcl1U
-h9DAgQf+J889Ggyc6CfzdY6wl9E0TeXAvuFyYFPr1pEsRZBxWPlK2AsKpdpbRTEZ
-WCtBQwAViycdVE42JRM+Cy02UUPxrlo2Uqatp1+9jQU+shj9QUo2/tWsPJZHSZUR
-65A+hkBCDHsBuW+9SmA7wjupNgCuaQ5ICez/hsjgZr64WazKAvns6cl/ZK8/4RIK
-Cj65eyb+kZw23xnI7FrOch4CQ9a54tnu0lL1VgAZ2wPbUB/jxNtBn4Kn8+apJIRW
-XevxuZbtkChF1cervOQcQI6LfWXKWVvB/07p2oa6csfHJyQx8f7sZhyNBerOPMW4
-UYRygPACtATr+UOcoZCLvuvetJ64Bw==
-=RKST
------END PGP SIGNATURE-----
+Thanks,
+Mark
 
---UEW5kU42M6+IO/TD--
+From e19ecbf105b236a6334fab64d8fd5437b12ee019 Mon Sep 17 00:00:00 2001
+From: Marek Vasut <marex@denx.de>
+Date: Fri, 20 Dec 2019 17:44:50 +0100
+Subject: [PATCH] ASoC: sgtl5000: Fix VDDA and VDDIO comparison
 
---===============0386175631192334453==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Comparing the voltage of VDDA and VDDIO to determine whether or not to
+enable VDDC manual override is insufficient. This is a problem in case
+the VDDA is supplied from different regulator than VDDIO, while both
+report the same voltage to the regulator framework. In that case where
+VDDA and VDDIO is supplied by different regulators, the VDDC manual
+override must not be applied.
+
+Fixes: b6319b061ba2 ("ASoC: sgtl5000: Fix charge pump source assignment")
+Signed-off-by: Marek Vasut <marex@denx.de>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Igor Opaniuk <igor.opaniuk@toradex.com>
+Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
+Link: https://lore.kernel.org/r/20191220164450.1395038-2-marex@denx.de
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/sgtl5000.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
+index aa1f9637d895..e949b372cead 100644
+--- a/sound/soc/codecs/sgtl5000.c
++++ b/sound/soc/codecs/sgtl5000.c
+@@ -1344,7 +1344,8 @@ static int sgtl5000_set_power_regs(struct snd_soc_component *component)
+ 		 * if vddio == vdda the source of charge pump should be
+ 		 * assigned manually to VDDIO
+ 		 */
+-		if (vddio == vdda) {
++		if (regulator_is_equal(sgtl5000->supplies[VDDA].consumer,
++				       sgtl5000->supplies[VDDIO].consumer)) {
+ 			lreg_ctrl |= SGTL5000_VDDC_ASSN_OVRD;
+ 			lreg_ctrl |= SGTL5000_VDDC_MAN_ASSN_VDDIO <<
+ 				    SGTL5000_VDDC_MAN_ASSN_SHIFT;
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0386175631192334453==--

@@ -2,69 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF2013AAE5
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:26:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3E8613AB04
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 14:28:04 +0100 (CET)
 Received: from alsa1.perex.cz (unknown [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77BE62FE7;
-	Tue, 14 Jan 2020 13:09:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77BE62FE7
+	by alsa0.perex.cz (Postfix) with ESMTPS id D67D93014;
+	Tue, 14 Jan 2020 13:48:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D67D93014
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E4C4F80171;
-	Tue, 14 Jan 2020 13:08:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE280F8014E;
+	Tue, 14 Jan 2020 13:48:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0577CF80121; Tue, 14 Jan 2020 13:08:35 +0100 (CET)
+ id 908FCF8014E; Tue, 14 Jan 2020 13:47:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mo6-p02-ob.smtp.rzone.de (mo6-p02-ob.smtp.rzone.de
- [IPv6:2a01:238:20a:202:5302::3])
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9D2FBF80121
- for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 13:08:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9D2FBF80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3E272F800B9
+ for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 13:47:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3E272F800B9
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gerhold.net header.i=@gerhold.net
- header.b="K7YmquUJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1579003707;
- s=strato-dkim-0002; d=gerhold.net;
- h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:
- X-RZG-CLASS-ID:X-RZG-AUTH:From:Subject:Sender;
- bh=w0hCOs0pUCXzBGfEbGi023I9TPLGyinZfevmistvGHE=;
- b=K7YmquUJH/3O2JtUBApy4XIloM5aUgfQ2WzZtbt6Qo9aiVCWoa+n2FRUiNvSlCX4to
- eRkb5T8HwqphpNXuKl39S3qELvdIlakdRkFnZdT/r3MWSYn8VNV3dC7JF93+qLDHby9R
- y8ZP+W/1NIAVqaiTrUxOPyJ8R24uGePZe2E7QJT8SwtY+xUMnZX2ZURRJRwsAPESqhJB
- 1qHQ2o3iOnRBQS983A6LWQUuF1TLQdL6v+a5ogUs4xeHBOXOdOh1ZWshjJwc44/EedMs
- WS2cPyuoTwfZ7BPcQHTFAmtjZ86vFlFrHj6Ypf5ZtQlmSRoGkyzjIj5heU5u2ek3rapD
- SyCw==
-X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u267EpF+OQRc4oDWF5yUxHE="
-X-RZG-CLASS-ID: mo00
-Received: from gerhold.net by smtp.strato.de (RZmta 46.1.4 AUTH)
- with ESMTPSA id h048a6w0EC8OUdL
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
- (Client did not present a certificate);
- Tue, 14 Jan 2020 13:08:24 +0100 (CET)
-Date: Tue, 14 Jan 2020 13:08:17 +0100
-From: Stephan Gerhold <stephan@gerhold.net>
-To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <20200114120817.GA52379@gerhold.net>
-References: <20200111164006.43074-1-stephan@gerhold.net>
- <20200111164006.43074-4-stephan@gerhold.net>
- <314b9a9b-13cd-94f5-0967-f0d4e66d65a1@linaro.org>
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="wuNFl2uW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4GqE2Lx+k2JThlIRuOZwkWMYwse09vSDmRyJ5N5ET+Y=; b=wuNFl2uWonj2S+6POiWKI5XZR
+ 4NUVe+SH2fp+SGWHoc8NPzlC26hmsxUaZuoImIWN0KxpfX4QevXRtioasxq8Ln8OPxr7lpqmc5BpO
+ ZQnXJIriMGj0VXxVl3aDQSJtgB19WAxawavOQcslxGV9YJnMy5C2sitp3Lj26Yw29NUfQ=;
+Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
+ helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1irLbl-00085w-9b; Tue, 14 Jan 2020 12:47:45 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id F3D37D01965; Tue, 14 Jan 2020 12:47:44 +0000 (GMT)
+Date: Tue, 14 Jan 2020 12:47:44 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20200114124744.GT3897@sirena.org.uk>
+References: <1578968526-13191-1-git-send-email-richtek.jeff.chang@gmail.com>
+ <s5htv4yfpnt.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <314b9a9b-13cd-94f5-0967-f0d4e66d65a1@linaro.org>
-Cc: alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- ~postmarketos/upstreaming@lists.sr.ht, Nikita Travkin <nikitos.tr@gmail.com>
-Subject: Re: [alsa-devel] [PATCH 3/4] ASoC: msm8916-wcd-analog: Simplify MIC
-	BIAS Internal
+In-Reply-To: <s5htv4yfpnt.wl-tiwai@suse.de>
+X-Cookie: Programming is an unnatural act.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, Jeff Chang <richtek.jeff.chang@gmail.com>,
+ jeff_chang@richtek.com, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v6] ASoC: Add MediaTek MT6660 Speaker Amp
+	Driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,203 +76,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7084482549366548392=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Jan 14, 2020 at 10:54:44AM +0000, Srinivas Kandagatla wrote:
-> 
-> 
-> On 11/01/2020 16:40, Stephan Gerhold wrote:
-> > At the moment, MIC BIAS Internal* and MIC BIAS External* both reference
-> > the same register, and have a part of their initialization sequence
-> > duplicated.
-> > 
-> > In general, the sequence for enabling MIC BIAS InternalX seems to be:
-> >    1. Enable MIC BIAS ExternalX
-> >    2. Enable internal RBIAS resistor
-> 
-> Does not sound correct to me.
-> 
-> What external means here is if the MICBIAS has external pull up resistor or
-> not. And this is very much board specific. In order for driver to
-> enable/disable internal pull up resistor in such cases we use two dapm paths
-> to differentiate it.
-> 
 
-You are right. Maybe the naming is a bit confusing here.
-Let me try to clarify it:
+--===============7084482549366548392==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="H88uUF932U8Oj0a6"
+Content-Disposition: inline
 
-If I understand it correctly, setting the MICB_EN bit in CDC_A_MICB_1_EN
-enables the MIC_BIAS1 supply. This supply can be either used with an
-external pull up resistor ("MIC BIAS External1") or with the internal
-pull up resistor ("MIC BIAS Internal1"). Which one of them, is board-specific.
 
-To use the internal pull up resistor, we need to set the TX1_INT_RBIAS_EN
-bit in CDC_A_MICB_1_INT_RBIAS additionally.
+--H88uUF932U8Oj0a6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-In other words, the sequence for enabling MIC BIAS Internal1 is:
-  I1. Enable MIC_BIAS1 supply (MICB_EN bit in CDC_A_MICB_1_EN)
-  I2. Enable internal RBIAS (TX1_INT_RBIAS_EN bit in CDC_A_MICB_1_INT_RBIAS)
+On Tue, Jan 14, 2020 at 08:44:22AM +0100, Takashi Iwai wrote:
+> Jeff Chang wrote:
 
-The sequence for enabling MIC BIAS External1 is:
-  E1. Enable MIC_BIAS1 supply (MICB_EN bit in CDC_A_MICB_1_EN)
+> > +	if (ret < 0)
+> > +		return ret;
+> > +	reg_data = (u8)ret;
+> > +	if (on_off)
+> > +		reg_data &= (~0x01);
+> > +	else
+> > +		reg_data |= 0x01;
+> > +	return regmap_write(chip->regmap, MT6660_REG_SYSTEM_CTRL, reg_data);
 
-Right now we have:
-  SND_SOC_DAPM_SUPPLY("MIC BIAS Internal1", CDC_A_MICB_1_EN, 7, 0, ...) // I1
-  SND_SOC_DAPM_SUPPLY("MIC BIAS External1", CDC_A_MICB_1_EN, 7, 0, ...) // E1
+> Hm, this looks like an open-code of forced update bits via regmap.
+> But interestingly there is no corresponding standard helper for that.
+> Essentially it should be regmap_update_bits_base() with force=1.
 
-I2 is done in the PM event handler (pm8916_wcd_analog_enable_micbias_int1).
+> Mark?
 
-The idea of this patch is to simplify this, and use one DAPM supply
-that handles the common (I1/E1), and one DAPM supply that handles (I2).
+regmap_write_bits().
 
-Translated to code we get:
-  SND_SOC_DAPM_SUPPLY("MIC BIAS1", CDC_A_MICB_1_EN, 7, 0, ...) // I1/E1
-  SND_SOC_DAPM_SUPPLY("MIC BIAS Internal1", CDC_A_MICB_1_INT_RBIAS, 7, 0, ...) // I2
-  SND_SOC_DAPM_SUPPLY("MIC BIAS External1", SND_SOC_NOPM, ...) // dummy
+--H88uUF932U8Oj0a6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-And the routes:
-  {"MIC BIAS Internal1", NULL, "MIC BIAS1"} // If I2, also do I1
-  {"MIC BIAS External1", NULL, "MIC BIAS1"} // Only do E1
+-----BEGIN PGP SIGNATURE-----
 
-As you can see, for "MIC BIAS External1" we just do "MIC BIAS1".
-The confusing element of this patch might be that I simplified it a bit
-further and combined "MIC BIAS1" with "MIC BIAS External1".
-This works because we don't do anything extra for "MIC BIAS External1".
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4duHAACgkQJNaLcl1U
+h9Buowf/UyFuv5m4kkR3mDh23iVqGGfCUbs52vx5O6dxillJ76kZ71N7Vg2LPrOq
+c9B8A7CLb2Ao2pTBr3o1ZONyZiRm1L+5OqyeZZzSnUnuECVsQASRgBpssbrUINHV
+p5rY6kKIF5dKZGOBjmZWHSNjZ8GgC0BW4Si0P5WH0k7xDHlUsXQHiz47YXWcHQ2d
+zjenB+X5Kg74bvJ6uh+5KM0kqhQPKSHw33HR7DejUQQMyQFQtNtQVkebVEXnMM6/
+sItgCSyukh8F9TTWI6StXdTeJvcveaa1VUAqu68nImD0VL2im79DbbPzoMks/29G
+GORmKiyK82lF0hw6y6zwOcga3GD/KQ==
+=xw93
+-----END PGP SIGNATURE-----
 
-Does that make sense?
+--H88uUF932U8Oj0a6--
 
-Thanks for taking the time to review all my patches.
-Stephan
+--===============7084482549366548392==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-> 
-> --srini
-> 
-> 
-> 
-> 
-> > 
-> > This means that we can simplify the code by modelling MIC BIAS InternalX
-> > as supply connected to MIC BIAS ExternalX. MIC BIAS InternalX is only
-> > responsible for enabling the internal RBIAS resistor (2). The DAPM enable
-> > sequence will automatically enable MIC BIAS ExternalX (1).
-> > 
-> > This makes it much easier to add support for MIC BIAS Internal3
-> > as a next step.
-> > 
-> > Tested-by: Nikita Travkin <nikitos.tr@gmail.com> # longcheer-l8150
-> > Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-> > Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
-> > ---
-> >   sound/soc/codecs/msm8916-wcd-analog.c | 57 ++++++---------------------
-> >   1 file changed, 13 insertions(+), 44 deletions(-)
-> > 
-> > diff --git a/sound/soc/codecs/msm8916-wcd-analog.c b/sound/soc/codecs/msm8916-wcd-analog.c
-> > index 1f7964beb20c..930baae6eff5 100644
-> > --- a/sound/soc/codecs/msm8916-wcd-analog.c
-> > +++ b/sound/soc/codecs/msm8916-wcd-analog.c
-> > @@ -389,23 +389,17 @@ static int pm8916_wcd_analog_enable_micbias_ext(struct snd_soc_component
-> >   	return 0;
-> >   }
-> > -static int pm8916_wcd_analog_enable_micbias_int(struct snd_soc_component
-> > -						 *component, int event,
-> > -						 int reg, u32 cap_mode)
-> > +static int pm8916_wcd_analog_enable_micbias_int(struct snd_soc_dapm_widget *w,
-> > +						struct snd_kcontrol *kcontrol,
-> > +						int event)
-> >   {
-> > +	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-> >   	switch (event) {
-> >   	case SND_SOC_DAPM_PRE_PMU:
-> > -		snd_soc_component_update_bits(component, reg, MICB_1_EN_PULL_DOWN_EN_MASK, 0);
-> >   		snd_soc_component_update_bits(component, CDC_A_MICB_1_EN,
-> >   				    MICB_1_EN_OPA_STG2_TAIL_CURR_MASK,
-> >   				    MICB_1_EN_OPA_STG2_TAIL_CURR_1_60UA);
-> > -
-> > -		break;
-> > -	case SND_SOC_DAPM_POST_PMU:
-> > -		pm8916_wcd_analog_micbias_enable(component);
-> > -		snd_soc_component_update_bits(component, CDC_A_MICB_1_EN,
-> > -				    MICB_1_EN_BYP_CAP_MASK, cap_mode);
-> >   		break;
-> >   	}
-> > @@ -437,26 +431,6 @@ static int pm8916_wcd_analog_enable_micbias_ext2(struct
-> >   }
-> > -static int pm8916_wcd_analog_enable_micbias_int1(struct
-> > -						  snd_soc_dapm_widget
-> > -						  *w, struct snd_kcontrol
-> > -						  *kcontrol, int event)
-> > -{
-> > -	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
-> > -	struct pm8916_wcd_analog_priv *wcd = snd_soc_component_get_drvdata(component);
-> > -
-> > -	switch (event) {
-> > -	case SND_SOC_DAPM_PRE_PMU:
-> > -		snd_soc_component_update_bits(component, CDC_A_MICB_1_INT_RBIAS,
-> > -				    MICB_1_INT_TX1_INT_RBIAS_EN_MASK,
-> > -				    MICB_1_INT_TX1_INT_RBIAS_EN_ENABLE);
-> > -		break;
-> > -	}
-> > -
-> > -	return pm8916_wcd_analog_enable_micbias_int(component, event, w->reg,
-> > -						     wcd->micbias1_cap_mode);
-> > -}
-> > -
-> >   static int pm8916_mbhc_configure_bias(struct pm8916_wcd_analog_priv *priv,
-> >   				      bool micbias2_enabled)
-> >   {
-> > @@ -564,9 +538,8 @@ static int pm8916_wcd_analog_enable_micbias_int2(struct
-> >   	switch (event) {
-> >   	case SND_SOC_DAPM_PRE_PMU:
-> > -		snd_soc_component_update_bits(component, CDC_A_MICB_1_INT_RBIAS,
-> > -				    MICB_1_INT_TX2_INT_RBIAS_EN_MASK,
-> > -				    MICB_1_INT_TX2_INT_RBIAS_EN_ENABLE);
-> > +		snd_soc_component_update_bits(component, CDC_A_MICB_2_EN,
-> > +					      CDC_A_MICB_2_PULL_DOWN_EN_MASK, 0);
-> >   		break;
-> >   	case SND_SOC_DAPM_POST_PMU:
-> >   		pm8916_mbhc_configure_bias(wcd, true);
-> > @@ -576,8 +549,7 @@ static int pm8916_wcd_analog_enable_micbias_int2(struct
-> >   		break;
-> >   	}
-> > -	return pm8916_wcd_analog_enable_micbias_int(component, event, w->reg,
-> > -						     wcd->micbias2_cap_mode);
-> > +	return pm8916_wcd_analog_enable_micbias_int(w, kcontrol, event);
-> >   }
-> >   static int pm8916_wcd_analog_enable_adc(struct snd_soc_dapm_widget *w,
-> > @@ -878,12 +850,10 @@ static const struct snd_soc_dapm_route pm8916_wcd_analog_audio_map[] = {
-> >   	{"SPK PA", NULL, "SPK DAC"},
-> >   	{"SPK DAC", "Switch", "PDM_RX3"},
-> > -	{"MIC BIAS Internal1", NULL, "INT_LDO_H"},
-> > -	{"MIC BIAS Internal2", NULL, "INT_LDO_H"},
-> > +	{"MIC BIAS Internal1", NULL, "MIC BIAS External1"},
-> > +	{"MIC BIAS Internal2", NULL, "MIC BIAS External2"},
-> >   	{"MIC BIAS External1", NULL, "INT_LDO_H"},
-> >   	{"MIC BIAS External2", NULL, "INT_LDO_H"},
-> > -	{"MIC BIAS Internal1", NULL, "vdd-micbias"},
-> > -	{"MIC BIAS Internal2", NULL, "vdd-micbias"},
-> >   	{"MIC BIAS External1", NULL, "vdd-micbias"},
-> >   	{"MIC BIAS External2", NULL, "vdd-micbias"},
-> >   };
-> > @@ -937,11 +907,10 @@ static const struct snd_soc_dapm_widget pm8916_wcd_analog_dapm_widgets[] = {
-> >   	SND_SOC_DAPM_SUPPLY("RX_BIAS", CDC_A_RX_COM_BIAS_DAC, 7, 0, NULL, 0),
-> >   	/* TX */
-> > -	SND_SOC_DAPM_SUPPLY("MIC BIAS Internal1", CDC_A_MICB_1_EN, 7, 0,
-> > -			    pm8916_wcd_analog_enable_micbias_int1,
-> > -			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-> > -			    SND_SOC_DAPM_POST_PMD),
-> > -	SND_SOC_DAPM_SUPPLY("MIC BIAS Internal2", CDC_A_MICB_2_EN, 7, 0,
-> > +	SND_SOC_DAPM_SUPPLY("MIC BIAS Internal1", CDC_A_MICB_1_INT_RBIAS, 7, 0,
-> > +			    pm8916_wcd_analog_enable_micbias_int,
-> > +			    SND_SOC_DAPM_PRE_PMU),
-> > +	SND_SOC_DAPM_SUPPLY("MIC BIAS Internal2", CDC_A_MICB_1_INT_RBIAS, 4, 0,
-> >   			    pm8916_wcd_analog_enable_micbias_int2,
-> >   			    SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU |
-> >   			    SND_SOC_DAPM_POST_PMD),
-> > 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============7084482549366548392==--

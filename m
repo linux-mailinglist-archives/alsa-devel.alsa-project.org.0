@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D97C13AEA6
-	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:11:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 294F613AEB1
+	for <lists+alsa-devel@lfdr.de>; Tue, 14 Jan 2020 17:12:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66C17182D;
-	Tue, 14 Jan 2020 17:10:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66C17182D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D2041833;
+	Tue, 14 Jan 2020 17:11:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D2041833
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579018260;
-	bh=UYZP13CMd6ap+H9S8AD6oDhGMmw0t1JsF4ET5Of3xl8=;
+	s=default; t=1579018357;
+	bh=c07fM4yNTXT64MDKLwMFKIUh2JWBYqpUYyRLu2RMbPM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=UONrZi7WiyHPp/wsfWDStwyulk8GSQhEXLC585KLO6YqXamrQ9CLuEIzc6vKjV4EM
-	 vKaTZQiHkclRpNwRU+WYANiOCwA0NtWjPZlxGR/ljQcKXg0lXXqMzcLclILz81uHtp
-	 m16XP3mXLnyaETptHjdw6mCNhz5aaJWvXNUenpTk=
+	b=RyAAbHwQK78GjLr9Thu4Vlk35crt4DUR3ruazkzvapWoGXU9o3eenXRcbxCD8sLhH
+	 5wRcfx/DffkrB/3BH16GcMDqE19e/CxMhTLbyizZ0CObXyGx+mp5JHE0Uxgo1Hq/oo
+	 7XsVF2Du+LnypW6DVbLnJheJ6KshSpwghlc6Liwc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DDBABF8029B;
-	Tue, 14 Jan 2020 17:09:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF48BF802BD;
+	Tue, 14 Jan 2020 17:09:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 252E7F80291; Tue, 14 Jan 2020 17:09:13 +0100 (CET)
+ id 8D19FF802C3; Tue, 14 Jan 2020 17:09:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,41 +34,42 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D39D1F80121
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4024EF8014D
  for <alsa-devel@alsa-project.org>; Tue, 14 Jan 2020 17:09:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D39D1F80121
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4024EF8014D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="aBprcuUk"
+ header.b="OHnhLjdj"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=GR2m+h1Fre9CAx3aNT1/AiDPFs3k+Q0Nr/y/ZD9aeyA=; b=aBprcuUkhPLO
- Xs9CA8E7JQ7ROR2xudBf1CuwXQGDk+AienniCv0o9CfpOoPOuUVFjl8sNvhAhJC0nPOMUhBllV4BZ
- 36Tgqx6Tbm8VTqVQv1bpXjvZL5kXf8oEu9ScCmJJptdmZcRaq31aHXS3j71jfy+Rlm+Eq5u/3SYAI
- 5iPXo=;
+ List-Archive; bh=Pq8REMESzpH6q41kFJ7Xdz/mnGbbiWifWQ5pOJY+B+Q=; b=OHnhLjdjRfDE
+ kHG9H27H5hJUUcJEp0KyT9sVJyzX6cjHyOJWj4gQGxmIj4whuU4H4uDSeymP86e03vIWog6BZzEaU
+ JgmQDDltYrFCLUFhX3chRHWM2fDzk+uSgUkfTIDNTxDCD3qz5p1m6f5NVvHJURx4hjjC3/Kh0W5Kf
+ on50A=;
 Received: from fw-tnat-cam7.arm.com ([217.140.106.55]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1irOkb-0001Um-RQ; Tue, 14 Jan 2020 16:09:05 +0000
+ id 1irOkb-0001Ul-Ic; Tue, 14 Jan 2020 16:09:05 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 66EE7D02C7C; Tue, 14 Jan 2020 16:09:05 +0000 (GMT)
+ id 40A1AD02C7B; Tue, 14 Jan 2020 16:09:05 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Marek Vasut <marex@denx.de>
-In-Reply-To: <20191220164450.1395038-2-marex@denx.de>
-Message-Id: <applied-20191220164450.1395038-2-marex@denx.de>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+In-Reply-To: <b9352edb014c1ee8530c0fd8829c2b044b3da649.1575452454.git.shengjiu.wang@nxp.com>
+Message-Id: <applied-b9352edb014c1ee8530c0fd8829c2b044b3da649.1575452454.git.shengjiu.wang@nxp.com>
 X-Patchwork-Hint: ignore
 Date: Tue, 14 Jan 2020 16:09:05 +0000 (GMT)
-Cc: alsa-devel@alsa-project.org, Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- Igor Opaniuk <igor.opaniuk@toradex.com>,
- Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
- Mark Brown <broonie@kernel.org>, festevam@gmail.com
-Subject: [alsa-devel] Applied "ASoC: sgtl5000: Fix VDDA and VDDIO
-	comparison" to the asoc tree
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, timur@kernel.org, Rob Herring <robh@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
+ robh+dt@kernel.org, linux-kernel@vger.kernel.org, nicoleotsuka@gmail.com,
+ Mark Brown <broonie@kernel.org>, Xiubo.Lee@gmail.com, festevam@gmail.com
+Subject: [alsa-devel] Applied "ASoC: dt-bindings: fsl_asrc: add compatible
+	string for imx8qm & imx8qxp" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +90,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: sgtl5000: Fix VDDA and VDDIO comparison
+   ASoC: dt-bindings: fsl_asrc: add compatible string for imx8qm & imx8qxp
 
 has been applied to the asoc tree at
 
@@ -114,45 +115,57 @@ to this mail.
 Thanks,
 Mark
 
-From e19ecbf105b236a6334fab64d8fd5437b12ee019 Mon Sep 17 00:00:00 2001
-From: Marek Vasut <marex@denx.de>
-Date: Fri, 20 Dec 2019 17:44:50 +0100
-Subject: [PATCH] ASoC: sgtl5000: Fix VDDA and VDDIO comparison
+From 8441f87eadf6d6bba542e7a5bf3888595248d888 Mon Sep 17 00:00:00 2001
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
+Date: Wed, 4 Dec 2019 20:00:18 +0800
+Subject: [PATCH] ASoC: dt-bindings: fsl_asrc: add compatible string for imx8qm
+ & imx8qxp
 
-Comparing the voltage of VDDA and VDDIO to determine whether or not to
-enable VDDC manual override is insufficient. This is a problem in case
-the VDDA is supplied from different regulator than VDDIO, while both
-report the same voltage to the regulator framework. In that case where
-VDDA and VDDIO is supplied by different regulators, the VDDC manual
-override must not be applied.
+Add compatible string "fsl,imx8qm-asrc" for imx8qm platform,
+"fsl,imx8qxp-asrc" for imx8qxp platform.
 
-Fixes: b6319b061ba2 ("ASoC: sgtl5000: Fix charge pump source assignment")
-Signed-off-by: Marek Vasut <marex@denx.de>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Igor Opaniuk <igor.opaniuk@toradex.com>
-Cc: Marcel Ziswiler <marcel.ziswiler@toradex.com>
-Cc: Mark Brown <broonie@kernel.org>
-Cc: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-Link: https://lore.kernel.org/r/20191220164450.1395038-2-marex@denx.de
+There are two asrc modules in imx8qm & imx8qxp, the clock mapping is
+different for each other, so add new property "fsl,asrc-clk-map"
+to distinguish them.
+
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Acked-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/b9352edb014c1ee8530c0fd8829c2b044b3da649.1575452454.git.shengjiu.wang@nxp.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/sgtl5000.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/fsl,asrc.txt | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/sgtl5000.c b/sound/soc/codecs/sgtl5000.c
-index aa1f9637d895..e949b372cead 100644
---- a/sound/soc/codecs/sgtl5000.c
-+++ b/sound/soc/codecs/sgtl5000.c
-@@ -1344,7 +1344,8 @@ static int sgtl5000_set_power_regs(struct snd_soc_component *component)
- 		 * if vddio == vdda the source of charge pump should be
- 		 * assigned manually to VDDIO
- 		 */
--		if (vddio == vdda) {
-+		if (regulator_is_equal(sgtl5000->supplies[VDDA].consumer,
-+				       sgtl5000->supplies[VDDIO].consumer)) {
- 			lreg_ctrl |= SGTL5000_VDDC_ASSN_OVRD;
- 			lreg_ctrl |= SGTL5000_VDDC_MAN_ASSN_VDDIO <<
- 				    SGTL5000_VDDC_MAN_ASSN_SHIFT;
+diff --git a/Documentation/devicetree/bindings/sound/fsl,asrc.txt b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+index 1d4d9f938689..cb9a25165503 100644
+--- a/Documentation/devicetree/bindings/sound/fsl,asrc.txt
++++ b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
+@@ -8,7 +8,12 @@ three substreams within totally 10 channels.
+ 
+ Required properties:
+ 
+-  - compatible		: Contains "fsl,imx35-asrc" or "fsl,imx53-asrc".
++  - compatible		: Compatible list, should contain one of the following
++			  compatibles:
++			  "fsl,imx35-asrc",
++			  "fsl,imx53-asrc",
++			  "fsl,imx8qm-asrc",
++			  "fsl,imx8qxp-asrc",
+ 
+   - reg			: Offset and length of the register set for the device.
+ 
+@@ -35,6 +40,11 @@ Required properties:
+ 
+    - fsl,asrc-width	: Defines a mutual sample width used by DPCM Back Ends.
+ 
++   - fsl,asrc-clk-map   : Defines clock map used in driver. which is required
++			  by imx8qm/imx8qxp platform
++			  <0> - select the map for asrc0 in imx8qm/imx8qxp
++			  <1> - select the map for asrc1 in imx8qm/imx8qxp
++
+ Optional properties:
+ 
+    - big-endian		: If this property is absent, the little endian mode
 -- 
 2.20.1
 

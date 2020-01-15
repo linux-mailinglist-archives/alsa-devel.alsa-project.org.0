@@ -2,72 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FA3813C7F1
-	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jan 2020 16:35:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F23E913C8D4
+	for <lists+alsa-devel@lfdr.de>; Wed, 15 Jan 2020 17:09:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8DC4917AF;
-	Wed, 15 Jan 2020 16:34:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DC4917AF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7472417A8;
+	Wed, 15 Jan 2020 17:08:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7472417A8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579102538;
-	bh=sV+CaPAtdJEmtlb1rjVSEijaBnjDN76s7QyvRXBKxGo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1579104578;
+	bh=0E333IZD00UXyPyAqkxkrfAw1rARyE0Smyxn0kN0PmA=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ga92abIP4aZU8T5RpJLBLKMKpH6PrcRUziKepA4SA+wfQJNn4OmEx4qsr23aM3zvW
-	 qKIqqakpSs7UBE5lUbVDqJcmfV9BA/U3Qn2ZvHHL1DlgVDfgJSCcWpC9jTqC3V0d1/
-	 r1CA4lYBvylzf9hJYPpn+PTYSqxQieTe1+dHRDU4=
+	b=FCBkSIFEtMwjQf943LWvIr4uEbHWHK+Bq1KZdoKkrtrkO4OCcxvvSMOT2z/ZpCubn
+	 1ovlEOzMsq5CT5HdHmKCAaivKNWV0rfAvelzsouPnbjQxaI/Io4jyV7Dgr6fSxp0hA
+	 YdbAPw1Z2KuRocr1lQ0QXCwPiYA8NUgxDd7OHDzQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99A1FF801F7;
-	Wed, 15 Jan 2020 16:33:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0CEB5F801EB;
+	Wed, 15 Jan 2020 17:07:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC202F801EB; Wed, 15 Jan 2020 16:33:50 +0100 (CET)
+ id AF85CF801EB; Wed, 15 Jan 2020 17:07:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ UNPARSEABLE_RELAY,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+ [209.85.210.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7FC72F800CC
- for <alsa-devel@alsa-project.org>; Wed, 15 Jan 2020 16:33:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7FC72F800CC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="SUGRu5OM"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=5QpAOiuXL0w06koWvSCpd7aO5OMVCafivpL9cXieuvw=; b=SUGRu5OMRGZ9wskrO80agFIHDB
- Ke+VxnAcHvx86JQg/+yMHVdWvXStxbq4aUomdynlWv5EYJDKxTcbWQOX+V2SdTIjphNj+GKjldLZw
- 50CHpT3aM9umwZqahOSRystQppZ8edvle8S2GreaEa90IJanh/5mrpiArx9TamWcjJVc=;
-Received: from [10.8.10.223] (helo=work)
- by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
- id 1irkft-0005P8-T7; Wed, 15 Jan 2020 18:33:41 +0300
-Message-ID: <9a0016059514fec8b8ae0e179c032cb2485df04d.camel@tsoy.me>
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Takashi Iwai <tiwai@suse.de>, Robert Giaraffa <Robert.Giaraffa@silabs.com>
-Date: Wed, 15 Jan 2020 18:33:40 +0300
-In-Reply-To: <s5hzhurfp5w.wl-tiwai@suse.de>
-References: <BN7PR11MB2755B1BC150703C0DFC2DA919CCC0@BN7PR11MB2755.namprd11.prod.outlook.com>
- <s5hy3aeuy4v.wl-tiwai@suse.de>
- <DM6PR11MB2761AF2D51CECFC2951C97259CCD0@DM6PR11MB2761.namprd11.prod.outlook.com>
- <s5hzhurfp5w.wl-tiwai@suse.de>
-User-Agent: Evolution 3.32.5 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 535DBF800CC
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jan 2020 17:07:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 535DBF800CC
+Received: by mail-ot1-f67.google.com with SMTP id z9so14427849oth.5
+ for <alsa-devel@alsa-project.org>; Wed, 15 Jan 2020 08:07:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=GgrG+HKS7SJS1YSumldfNDhrIEBU95RMvZklBq/bHds=;
+ b=aqx+QjSCmgdBe+NlElUHtQpHeM08qfNDVi71IctcmMNAcSWNW3uAVBl+vNDnuWFzCp
+ ZykDpgisWv2+ubmtzchLecAqu6AOMHpppfG6LidLQESUXhRXFlZElealgRagDnYHN4Tu
+ 4gQ/Vzs1xw4sbM+mmJpBkWOif+pifZEXWdDPMvXoDJtzCxWEjLWJ/l/nJoltfICUhjEa
+ IXNZPhfqhAVIEBktDwpVzuAqWwkY4aD5dwrr92S89/pEiYbaVCPUbvzI5DHct6OigeO4
+ fJ8qWy4LdcPkwWGCCyknqAoVYW5Uc1CKXjzQBp7ro/63qk659B/2IBfJ7MMnKiAd4VGx
+ pZ4A==
+X-Gm-Message-State: APjAAAWQarmCCKG5eYQ7wXq3CvRRKLBUkUHwBq+3qcbCuiZT1+Wdtvh6
+ 3ArLr+ahL72VP3+AsDMnJ0O3bVI=
+X-Google-Smtp-Source: APXvYqwZo9F+Cz+vJWZnKFupNXWNM4M/6MaJpSldcE6Rf9751rHLt4lfrgsiUz0907O+8lFXvaMv+A==
+X-Received: by 2002:a9d:5545:: with SMTP id h5mr3306203oti.296.1579104463751; 
+ Wed, 15 Jan 2020 08:07:43 -0800 (PST)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id l17sm6800696ota.27.2020.01.15.08.07.42
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 15 Jan 2020 08:07:42 -0800 (PST)
+Received: from rob (uid 1000) (envelope-from rob@rob-hp-laptop) id 220379
+ by rob-hp-laptop (DragonFly Mail Agent v0.11);
+ Wed, 15 Jan 2020 10:07:41 -0600
+Date: Wed, 15 Jan 2020 10:07:41 -0600
+From: Rob Herring <robh@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+Message-ID: <20200115160741.GA20174@bogus>
+References: <20200113161954.29779-1-olivier.moysan@st.com>
 MIME-Version: 1.0
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Daniel Mack <daniel@zonque.org>
-Subject: Re: [alsa-devel] [EXT] Re: Simultaneous play/record on implicit
- feedback device causes 'endpoint in use' error
+Content-Disposition: inline
+In-Reply-To: <20200113161954.29779-1-olivier.moysan@st.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, alexandre.torgue@st.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ broonie@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: dt-bindings: stm32: convert spdfirx
+	to json-schema
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,58 +94,183 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-0JIg0J/RgiwgMDIvMTEvMjAxOCDQsiAxNjo1NyArMDEwMCwgVGFrYXNoaSBJd2FpINC/0LjRiNC1
-0YI6Cj4gT24gV2VkLCAzMSBPY3QgMjAxOCAyMDo0NTowNyArMDEwMCwKPiBSb2JlcnQgR2lhcmFm
-ZmEgd3JvdGU6Cj4gPiBUaGFuayB5b3UgdmVyeSBtdWNoIGZvciB5b3VyIHByb21wdCByZXNwb25z
-ZS4KPiA+IAo+ID4gSSB0ZXN0ZWQgdGhlIENQMjYxNSBhbmQgRmFzdCBUcmFjayBVbHRyYSBieSBy
-dW5uaW5nIGFwbGF5IGFuZAo+ID4gYXJlY29yZAo+ID4gc2VxdWVudGlhbGx5IG9uIG15IFJQaTIg
-djQuMTQuNzIgKHdpdGggcGF0Y2hlZCBzbmQtdXNiLWF1ZGlvLmtvCj4gPiB0aGF0IGluY2x1ZGVz
-Cj4gPiBpbXBsaWNpdCBmZWVkYmFjayBxdWlyayBmb3IgQ1AyNjE1KS4gIEFsdGhvdWdoIHRoZXJl
-IHdlcmUgbWlub3IKPiA+IGRpZmZlcmVuY2VzIGluCj4gPiB0aGUgc3lzdGVtIGxvZ3MgZm9yIHRo
-ZSB0d28gZGV2aWNlcyAoZS5nLiDigJhjYW5ub3Qgc3VibWl0IHVyYuKAmSksIGJ1dAo+ID4gb3Ro
-ZXJ3aXNlCj4gPiBib3RoIGRldmljZXMgYmVoYXZlZCB0aGUgc2FtZTogd2hpY2hldmVyIG9wZXJh
-dGlvbiBpcyBzdGFydGVkIGxhc3QKPiA+IHJlc3VsdGVkIGluCj4gPiB0aGUgJ0VuZHBvaW50IGFs
-cmVhZHkgaW4gdXNlJyBlcnJvciwgcmVnYXJkbGVzcyBvZgo+ID4gc2VxdWVuY2UuICBEZXRhaWxl
-ZCBpbmZvCj4gPiBiZWxvdzoKPiAKPiBPSywgc28gd2Ugb2J2aW91c2x5IGRvbid0IHN1cHBvcnQg
-dGhlIGZ1bGwgZHVwbGV4IGluIHRoaXMgbW9kZS4KPiAKPiBBcyBhIGZpcnN0IHN0ZXAsIGNvdWxk
-IHlvdSB0cnkgdGhlIHNpbXBsZSBwYXRjaCBiZWxvdywgYW5kIHRlc3QgaW4gYQo+IHNlcXVlbmNl
-IHJlY29yZCAtPiBwbGF5YmFjaz8gIEF0IGxlYXN0IGl0IHNob3VsZCBza2lwIHRoZSBjaGVjaywg
-YW5kCj4gcHJvY2VlZCBmdXJ0aGVyLgo+IAo+IAo+IHRoYW5rcywKPiAKPiBUYWthc2hpCj4gCj4g
-LS0tIGEvc291bmQvdXNiL3BjbS5jCj4gKysrIGIvc291bmQvdXNiL3BjbS5jCj4gQEAgLTYzOSw2
-ICs2MzksMTAgQEAgc3RhdGljIGludCBjb25maWd1cmVfc3luY19lbmRwb2ludChzdHJ1Y3QKPiBz
-bmRfdXNiX3N1YnN0cmVhbSAqc3VicykKPiAgCQkJCQkJICAgc3Vicy0+Y3VyX2F1ZGlvZm10LAo+
-ICAJCQkJCQkgICBOVUxMKTsKPiAgCj4gKwlpZiAoc3Vicy0+c3luY19lbmRwb2ludC0+dHlwZSA9
-PSBTTkRfVVNCX0VORFBPSU5UX1RZUEVfREFUQSAmJgo+ICsJICAgIHN1YnMtPnN5bmNfZW5kcG9p
-bnQtPnVzZV9jb3VudCkKPiArCQlyZXR1cm4gMDsKPiArCj4gIAkvKiBUcnkgdG8gZmluZCB0aGUg
-YmVzdCBtYXRjaGluZyBhdWRpb2Zvcm1hdC4gKi8KPiAgCWxpc3RfZm9yX2VhY2hfZW50cnkoZnAs
-ICZzeW5jX3N1YnMtPmZtdF9saXN0LCBsaXN0KSB7Cj4gIAkJaW50IHNjb3JlID0gbWF0Y2hfZW5k
-cG9pbnRfYXVkaW9mb3JtYXRzKHN1YnMsCgpXZWxsLCB0aGlzIHdvcmtzLi4uIHNvcnQgb2Y6Cgpb
-ICAxMDcuMzY4MjE4XSB1c2IgNS0xOiBzZXR0aW5nIHVzYiBpbnRlcmZhY2UgMjoxClsgIDEwNy4z
-NjgyMjVdIHVzYiA1LTE6IENyZWF0aW5nIG5ldyBjYXB0dXJlIGRhdGEgZW5kcG9pbnQgIzgxClsg
-IDEwNy44MzQxMzldIHVzYiA1LTE6IFNldHRpbmcgcGFyYW1zIGZvciBlcCAjODEgKHR5cGUgMCwg
-MTIgdXJicyksCnJldD0wClsgIDEwNy44MzQyNzJdIHVzYiA1LTE6IFN0YXJ0aW5nIGRhdGEgRVAg
-QDAwMDAwMDAwYTgwMmI4ZWYKWyAgMTEwLjI5Njc3M10gdXNiIDUtMTogc2V0dGluZyB1c2IgaW50
-ZXJmYWNlIDE6MQpbICAxMTAuMjk2Nzc5XSB1c2IgNS0xOiBDcmVhdGluZyBuZXcgcGxheWJhY2sg
-ZGF0YSBlbmRwb2ludCAjMQpbICAxMTAuMjk2ODExXSB1c2IgNS0xOiBSZS11c2luZyBFUCA4MSBp
-biBpZmFjZSAyLDEgQDAwMDAwMDAwYTgwMmI4ZWYKWyAgMTEwLjI5ODM4MV0gdXNiIDUtMTogU2V0
-dGluZyBwYXJhbXMgZm9yIGVwICMxICh0eXBlIDAsIDEyIHVyYnMpLApyZXQ9MApbICAxMTAuMjk4
-Mzg1XSB1c2IgNS0xOiBTdGFydGluZyBkYXRhIEVQIEAwMDAwMDAwMGIyZTRmNTNmClsgIDExMC4z
-MDA1ODVdIHVzYiA1LTE6IFN0YXJ0aW5nIHN5bmMgRVAgQDAwMDAwMDAwYTgwMmI4ZWYKCgpidXQg
-YXBsYXkgYWJvcnRzIGFmdGVyIHNldmVyYWwgc2Vjb25kczoKCiQgTEFORz1DIGFwbGF5IC1jIDQg
-LXIgNDgwMDAgLWYgUzMyX0xFIC1EIGh3Ok00LDAgdGVzdDQ4MDAwLndhdiAKUGxheWluZyBXQVZF
-ICd0ZXN0NDgwMDAud2F2JyA6IFNpZ25lZCAzMiBiaXQgTGl0dGxlIEVuZGlhbiwgUmF0ZSA0ODAw
-MApIeiwgQ2hhbm5lbHMgNAphcGxheTogcGNtX3dyaXRlOjIwNTM6IHdyaXRlIGVycm9yOiBJbnB1
-dC9vdXRwdXQgZXJyb3IKCgoKQW5kIGFuIGludGVyZXN0aW5nIG5vdGU6IGphY2sgaXMgdGhlIG9u
-bHkgYXBwIHRoYXQgY2FuIHVzZSB0aGUgY2FyZAp3aXRoIGltcGxpY2l0IGZlZWRiYWNrIGluIGZ1
-bGwgZHVwbGV4IG1vZGUgZXZlbiB3aXRob3V0IHRoYXQgcGF0Y2guCgoKPiBfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwo+IEFsc2EtZGV2ZWwgbWFpbGluZyBs
-aXN0Cj4gQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCj4gaHR0cDovL21haWxtYW4uYWxzYS1w
-cm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFs
-c2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9y
-Zy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+On Mon, Jan 13, 2020 at 05:19:54PM +0100, Olivier Moysan wrote:
+> Convert the STM32 SPDIFRX bindings to DT schema format using json-schema.
+> 
+> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+> ---
+>  .../bindings/sound/st,stm32-spdifrx.txt       | 56 -------------
+>  .../bindings/sound/st,stm32-spdifrx.yaml      | 80 +++++++++++++++++++
+>  2 files changed, 80 insertions(+), 56 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+> deleted file mode 100644
+> index 33826f2459fa..000000000000
+> --- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+> +++ /dev/null
+> @@ -1,56 +0,0 @@
+> -STMicroelectronics STM32 S/PDIF receiver (SPDIFRX).
+> -
+> -The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
+> -IEC-60958 and IEC-61937.
+> -
+> -Required properties:
+> -  - compatible: should be "st,stm32h7-spdifrx"
+> -  - reg: cpu DAI IP base address and size
+> -  - clocks: must contain an entry for kclk (used as S/PDIF signal reference)
+> -  - clock-names: must contain "kclk"
+> -  - interrupts: cpu DAI interrupt line
+> -  - dmas: DMA specifiers for audio data DMA and iec control flow DMA
+> -    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt
+> -  - dma-names: two dmas have to be defined, "rx" and "rx-ctrl"
+> -
+> -Optional properties:
+> -  - resets: Reference to a reset controller asserting the SPDIFRX
+> -
+> -The device node should contain one 'port' child node with one child 'endpoint'
+> -node, according to the bindings defined in Documentation/devicetree/bindings/
+> -graph.txt.
+> -
+> -Example:
+> -spdifrx: spdifrx@40004000 {
+> -	compatible = "st,stm32h7-spdifrx";
+> -	reg = <0x40004000 0x400>;
+> -	clocks = <&rcc SPDIFRX_CK>;
+> -	clock-names = "kclk";
+> -	interrupts = <97>;
+> -	dmas = <&dmamux1 2 93 0x400 0x0>,
+> -	       <&dmamux1 3 94 0x400 0x0>;
+> -	dma-names = "rx", "rx-ctrl";
+> -	pinctrl-0 = <&spdifrx_pins>;
+> -	pinctrl-names = "default";
+> -
+> -	spdifrx_port: port {
+> -		cpu_endpoint: endpoint {
+> -			remote-endpoint = <&codec_endpoint>;
+> -		};
+> -	};
+> -};
+> -
+> -spdif_in: spdif-in {
+> -	compatible = "linux,spdif-dir";
+> -
+> -	codec_port: port {
+> -		codec_endpoint: endpoint {
+> -			remote-endpoint = <&cpu_endpoint>;
+> -		};
+> -	};
+> -};
+> -
+> -soundcard {
+> -	compatible = "audio-graph-card";
+> -	dais = <&spdifrx_port>;
+> -};
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> new file mode 100644
+> index 000000000000..ab8e9d74ac3c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+> @@ -0,0 +1,80 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/st,stm32-spdifrx.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 S/PDIF receiver (SPDIFRX)
+> +
+> +maintainers:
+> +  - Olivier Moysan <olivier.moysan@st.com>
+> +
+> +description: |
+> +  The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
+> +  IEC-60958 and IEC-61937.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - st,stm32h7-spdifrx
+> +
+> +  "#sound-dai-cells":
+> +    const: 0
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  clock-names:
+> +    items:
+> +      - const: kclk
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  dmas:
+> +    items:
+> +      - description: audio data capture DMA
+> +      - description: IEC status bits capture DMA
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  dma-names:
+> +    items:
+> +      - const: rx
+> +      - const: rx-ctrl
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - "#sound-dai-cells"
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - dmas
+> +  - dma-names
+
+Needs a:
+
+additionalProperties: false
+
+With that,
+
+Reviewed-by: Rob Herring <robh@kernel.org>
+
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/stm32mp1-clks.h>
+> +    spdifrx: spdifrx@40004000 {
+> +        compatible = "st,stm32h7-spdifrx";
+> +        #sound-dai-cells = <0>;
+> +        reg = <0x40004000 0x400>;
+> +        clocks = <&rcc SPDIF_K>;
+> +        clock-names = "kclk";
+> +        interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
+> +        dmas = <&dmamux1 2 93 0x400 0x0>,
+> +               <&dmamux1 3 94 0x400 0x0>;
+> +        dma-names = "rx", "rx-ctrl";
+> +        pinctrl-0 = <&spdifrx_pins>;
+> +        pinctrl-names = "default";
+> +    };
+> +
+> +...
+> -- 
+> 2.17.1
+> 
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

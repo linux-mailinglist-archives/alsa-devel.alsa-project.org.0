@@ -2,90 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 62ADC13D401
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 06:56:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAD3613D4CF
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 08:05:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E13C117AD;
-	Thu, 16 Jan 2020 06:56:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E13C117AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 27A2417A6;
+	Thu, 16 Jan 2020 08:04:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 27A2417A6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579154219;
-	bh=a7jgdBSVeZUVNKymftoAbihkcLLfEy2TSLzHMehcSjA=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1579158315;
+	bh=eLSrRSWmGoBk+2DNmN5jDmbpu2dNzPtlvxuiI0RGnAY=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ih7CUAekrTAY+0qzG8O6pVAzUDPo8UlnxWCl2woKqzd/7Un3N3i5FxHWnQcFN/nbH
-	 Q3CqUMvlUkD/16+vLZYEyhzgkyMCnaT2jla9/NsdyVsqhCmcJlp4Y9oLO8JgBQVISY
-	 /dVWPD1taCL7V0jTH3XchHfKsFSyAjYGi7dP9/2M=
+	b=vYh1R9U6vljrOtjTUdSNZq8nZuS3QU1mx0XdBcPLs2r9/h9LKB8OsTqcaI5ZKp1AG
+	 t6oSQC0scMBld70FBXbxWXi2Gdz43ImRfY4yu7g0zu33Omlb+TuBc0j7LklEBihQsp
+	 6EOLzXlEv67CNHOxPcYH1aDskd621jQV2tu9PFVw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C8054F8014E;
-	Thu, 16 Jan 2020 06:55:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D52BEF8014D;
+	Thu, 16 Jan 2020 08:03:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6353FF8014E; Thu, 16 Jan 2020 06:55:12 +0100 (CET)
+ id 18020F8014E; Thu, 16 Jan 2020 08:03:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x443.google.com (mail-wr1-x443.google.com
- [IPv6:2a00:1450:4864:20::443])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A28DEF800E9
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 06:55:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A28DEF800E9
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="FAPgEX95"
-Received: by mail-wr1-x443.google.com with SMTP id c9so17844247wrw.8
- for <alsa-devel@alsa-project.org>; Wed, 15 Jan 2020 21:55:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=NGGRCbRsjloWfYF2cHg3taqwmJTEu8ejz3Fhy/MiNIg=;
- b=FAPgEX95Okm1PYWx+lYdAYkeQZFYdkQpx4INTn3yuTeEPggTIkb+SSmpiN1DrTzTMR
- F8YAzV3LpIE8v/+DzLESZGFiolINqohluQXIo5pP4qfGoAv4WuvIl09MTLyH/FgA1uED
- xrvzH0NNnXsLoP7bi/MMapp889FaW2xsFrvqd9tgZSywMra+//L2O3Mv0Qxb5MadOSHP
- jz223DZjqzt/Nu4ZBN1vXyCUZyN/lHZMeD3lyK1qC5WaiY3J1zUCz+M5X+Kbrc/ZBLL7
- l6i3rSH3TITt2pQsDv9MJNDyHG9uJQQzOv14/uixxkDS9KoFz7btgVg7iRx2X6f/H1vU
- VCaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=NGGRCbRsjloWfYF2cHg3taqwmJTEu8ejz3Fhy/MiNIg=;
- b=WFKkc6k/3AfCHtp4KEQ3u/fx0RbxE8kI3gEE08zdY1vLIW3ndQf2j8GluJpAWfdqrc
- Nu36XhzuQM0jmLpA0B0XI6VB2iBtDg0vLiQtA0ZRauEQ+gIZl0hOkKvNuwo4+lkHjYtw
- g497hGlZOO2V/RUVxFPGuzWxJTBJ7dCvY4Gb/Tl0gZWVEVhgfHOsygC0MS5pM61OObCK
- G0oN/YRfYE2rwxV7nrWkNtK8dyQ9S/3b/Im63AYPcmJhG1vGWuJpIZY9BcuwcETs2oRf
- 4kAjRJyHwQoE0uyFljW/hnlwdVLEdlD82jhKadrzpc2WBO9+SpGQ/hYka/dgOZP2QITW
- HgHw==
-X-Gm-Message-State: APjAAAXoMMdPTeik5WfQMnnJOF91pzPGcP5NLl+cbXqjuabjtN2mMshb
- inRuiOvwN9VNyMSw0uPpxRO20MOmlMWW3oOkpdI=
-X-Google-Smtp-Source: APXvYqygaiL9IxcZBDeOlGW0IjTYd9QUt9aNCyzyH/CPff3tMmmEB2RiYIW6FqMd9/9j6NWJe0bNxet3KikGqZP6xRw=
-X-Received: by 2002:adf:d850:: with SMTP id k16mr1193679wrl.96.1579154104574; 
- Wed, 15 Jan 2020 21:55:04 -0800 (PST)
-MIME-Version: 1.0
-References: <cover.1569493933.git.shengjiu.wang@nxp.com>
- <d728f65194e9978cbec4132b522d4fed420d704a.1569493933.git.shengjiu.wang@nxp.com>
- <CANcMJZBy=yH+4YgZWwphiE-PO6d4hzhFK3XFtpN677ZAv_N4WQ@mail.gmail.com>
-In-Reply-To: <CANcMJZBy=yH+4YgZWwphiE-PO6d4hzhFK3XFtpN677ZAv_N4WQ@mail.gmail.com>
-From: John Stultz <john.stultz@linaro.org>
-Date: Wed, 15 Jan 2020 21:54:54 -0800
-Message-ID: <CANcMJZCuU_-Xii=YT5Rp5DAyxboptJCrpp51jForuYUpeMuhmQ@mail.gmail.com>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, lars@metafoo.de, timur@kernel.org,
- Xiubo.Lee@gmail.com, linuxppc-dev@lists.ozlabs.org, tiwai@suse.com,
- lgirdwood@gmail.com, Rob Herring <robh+dt@kernel.org>, nicoleotsuka@gmail.com,
- broonie@kernel.org, festevam@gmail.com,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH V6 3/4] ASoC: pcm_dmaengine: Extract
-	snd_dmaengine_pcm_refine_runtime_hwparams
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3B465F800B9
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 08:03:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3B465F800B9
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id ACC31AE39;
+ Thu, 16 Jan 2020 07:03:20 +0000 (UTC)
+Date: Thu, 16 Jan 2020 08:03:20 +0100
+Message-ID: <s5heevzq3wn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+In-Reply-To: <CAFQqKeWu+Xmg_j7CgETnu_Y-dcFMXWbC5jyaXR6N7v-d5GwzwA@mail.gmail.com>
+References: <CAFQqKeV3fG8=DaV4_rGDL3QH7gG9zEHwS9T41aOag+-cNN9wnQ@mail.gmail.com>
+ <s5hlfq8pkza.wl-tiwai@suse.de>
+ <CAFQqKeWu+Xmg_j7CgETnu_Y-dcFMXWbC5jyaXR6N7v-d5GwzwA@mail.gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: "Vehmanen, Kai" <kai.vehmanen@intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, "Uimonen,
+ Jaska" <jaska.uimonen@intel.com>,
+ Pierre-louis Bossart <pierre-louis.bossart@intel.com>
+Subject: Re: [alsa-devel] Question about runtime PM for HDA codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,132 +70,72 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 8, 2020 at 8:58 PM John Stultz <john.stultz@linaro.org> wrote:
-> On Thu, Sep 26, 2019 at 6:50 PM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
-> >
-> > When set the runtime hardware parameters, we may need to query
-> > the capability of DMA to complete the parameters.
-> >
-> > This patch is to Extract this operation from
-> > dmaengine_pcm_set_runtime_hwparams function to a separate function
-> > snd_dmaengine_pcm_refine_runtime_hwparams, that other components
-> > which need this feature can call this function.
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > Reviewed-by: Nicolin Chen <nicoleotsuka@gmail.com>
->
-> As a heads up, this patch seems to be causing a regression on the HiKey board.
->
-> On boot up I'm seeing:
-> [   17.721424] hi6210_i2s f7118000.i2s: ASoC: can't open component
-> f7118000.i2s: -6
->
-> And HDMI audio isn't working. With this patch reverted, audio works again.
->
->
-> > diff --git a/sound/core/pcm_dmaengine.c b/sound/core/pcm_dmaengine.c
-> > index 89a05926ac73..5749a8a49784 100644
-> > --- a/sound/core/pcm_dmaengine.c
-> > +++ b/sound/core/pcm_dmaengine.c
-> > @@ -369,4 +369,87 @@ int snd_dmaengine_pcm_close_release_chan(struct snd_pcm_substream *substream)
-> ...
-> > +       ret = dma_get_slave_caps(chan, &dma_caps);
-> > +       if (ret == 0) {
-> > +               if (dma_caps.cmd_pause && dma_caps.cmd_resume)
-> > +                       hw->info |= SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME;
-> > +               if (dma_caps.residue_granularity <= DMA_RESIDUE_GRANULARITY_SEGMENT)
-> > +                       hw->info |= SNDRV_PCM_INFO_BATCH;
-> > +
-> > +               if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> > +                       addr_widths = dma_caps.dst_addr_widths;
-> > +               else
-> > +                       addr_widths = dma_caps.src_addr_widths;
-> > +       }
->
-> It seems a failing ret from dma_get_slave_caps() here is being returned...
->
-> > +
-> > +       /*
-> > +        * If SND_DMAENGINE_PCM_DAI_FLAG_PACK is set keep
-> > +        * hw.formats set to 0, meaning no restrictions are in place.
-> > +        * In this case it's the responsibility of the DAI driver to
-> > +        * provide the supported format information.
-> > +        */
-> > +       if (!(dma_data->flags & SND_DMAENGINE_PCM_DAI_FLAG_PACK))
-> > +               /*
-> > +                * Prepare formats mask for valid/allowed sample types. If the
-> > +                * dma does not have support for the given physical word size,
-> > +                * it needs to be masked out so user space can not use the
-> > +                * format which produces corrupted audio.
-> > +                * In case the dma driver does not implement the slave_caps the
-> > +                * default assumption is that it supports 1, 2 and 4 bytes
-> > +                * widths.
-> > +                */
-> > +               for (i = SNDRV_PCM_FORMAT_FIRST; i <= SNDRV_PCM_FORMAT_LAST; i++) {
-> > +                       int bits = snd_pcm_format_physical_width(i);
-> > +
-> > +                       /*
-> > +                        * Enable only samples with DMA supported physical
-> > +                        * widths
-> > +                        */
-> > +                       switch (bits) {
-> > +                       case 8:
-> > +                       case 16:
-> > +                       case 24:
-> > +                       case 32:
-> > +                       case 64:
-> > +                               if (addr_widths & (1 << (bits / 8)))
-> > +                                       hw->formats |= pcm_format_to_bits(i);
-> > +                               break;
-> > +                       default:
-> > +                               /* Unsupported types */
-> > +                               break;
-> > +                       }
-> > +               }
-> > +
-> > +       return ret;
->
-> ... down here.
->
-> Where as in the old code...
->
-> > diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-> > index 748f5f641002..b9f147eaf7c4 100644
-> > --- a/sound/soc/soc-generic-dmaengine-pcm.c
-> > +++ b/sound/soc/soc-generic-dmaengine-pcm.c
->
-> > @@ -145,56 +140,12 @@ static int dmaengine_pcm_set_runtime_hwparams(struct snd_pcm_substream *substrea
-> >         if (pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_RESIDUE)
-> >                 hw.info |= SNDRV_PCM_INFO_BATCH;
-> >
-> > -       ret = dma_get_slave_caps(chan, &dma_caps);
-> > -       if (ret == 0) {
-> > -               if (dma_caps.cmd_pause && dma_caps.cmd_resume)
-> > -                       hw.info |= SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME;
-> > -               if (dma_caps.residue_granularity <= DMA_RESIDUE_GRANULARITY_SEGMENT)
-> > -                       hw.info |= SNDRV_PCM_INFO_BATCH;
-> > -
-> > -               if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-> > -                       addr_widths = dma_caps.dst_addr_widths;
-> > -               else
-> > -                       addr_widths = dma_caps.src_addr_widths;
-> > -       }
->
-> ...the ret from dma_get_slave_caps()  checked above, but is not
-> actually returned.
->
-> Suggestions on how to sort this out?
-
-Just wanted to check in on this, as I'm still seeing this regression with -rc6.
-
-thanks
--john
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gV2VkLCAxNSBKYW4gMjAyMCAyMToyODoyMCArMDEwMCwKU3JpZGhhcmFuLCBSYW5qYW5pIHdy
+b3RlOgo+IAo+IFsxICA8dGV4dC9wbGFpbjsgVVRGLTggKDdiaXQpPl0KPiAKPiBPbiBXZWQsIEph
+biAxNSwgMjAyMCBhdCAxMTo0MCBBTSBUYWthc2hpIEl3YWkgPHRpd2FpQHN1c2UuZGU+IHdyb3Rl
+Ogo+IAo+ICAgICBPbiBXZWQsIDE1IEphbiAyMDIwIDE5OjE1OjQwICswMTAwLAo+ICAgICBTcmlk
+aGFyYW4sIFJhbmphbmkgd3JvdGU6Cj4gICAgID4KPiAgICAgPiBIaSBUYWthc2hpLAo+ICAgICA+
+Cj4gICAgID4gQ2FuIEkgcGxlYXNlIGJvdGhlciB5b3Ugd2l0aCBhIHF1ZXN0aW9uIGFib3V0IGhv
+dyB0byBoYW5kbGUgdGhlCj4gICAgIHNpdHVhdGlvbgo+ICAgICA+IHdpdGggcnVudGltZSBQTSBm
+b3IgSERBIGNvZGVjIG9uIG9uZSBvZiB0aGUgSW50ZWwgQ01MLWJhc2VkIHBsYXRmb3Jtcwo+ICAg
+ICB3aXRoCj4gICAgID4gYW4gQUxDMjg1IGNvZGVjLgo+ICAgICA+IEJhc2ljYWxseSwgdGhlIHBy
+b2JsZW0gd2UncmUgZmFjaW5nIGlzIHRoYXQgd2hlbiB1c2luZyB0aGUgU09GIGRyaXZlciwKPiAg
+ICAgPiBqYWNrIGRldGVjdGlvbiBkb2Vzbid0IHNlZW0gdG8gd29yayBhcyBpbnRlbmRlZCBiZWNh
+dXNlIHRoZSBjb2RlYyBnZXRzCj4gICAgID4gc3VzcGVuZGVkIHJpZ2h0IGFmdGVyIHRoZSBoZWFk
+c2V0IGlzIHBsdWdnZWQgaW4uCj4gICAgCj4gICAgIFRoZSBjb2RlYyBnb2luZyB0byB0aGUgcnVu
+dGltZSBzdXNwZW5kIGlzIGFjdHVhbGx5IHRoZSByaWdodAo+ICAgICBiZWhhdmlvci7CoCBFdmVu
+IHRoZSBidXMgZ29lcyBkb3duIGlmIHRoZSBjb2RlYyBoYXMgQUNfUFdSU1RfQ0xLU1RPUAo+ICAg
+ICBhbmQgQUNfUFdSU1RfRVBTUyBjYXBhYmlsaXRpZXMsIHRoZSBsaW5rIGdvZXMgYWxzbyBkb3du
+LsKgIEJ1dCB0aGlzCj4gICAgIG1lYW5zIHRoYXQgdGhlIGlycSBpcyBzdGlsbCB0cmlnZ2VyZWQg
+dXBvbiB0aGUgamFjayBkZXRlY3Rpb24gZXZlbnQKPiAgICAgZXZlbiBpbiBEMyBzdGF0ZS4KPiAg
+ICAgSSBndWVzcyB0aGlzIGltcGxlbWVudGF0aW9uIGlzIG1pc3NpbmcgaW4gU09GIERTUCBzaWRl
+Lgo+IAo+IFdlIGRvIGhhdmUgdGhlIFdBS0VFTiBmZWF0dXJlIGltcGxlbWVudGVkIGluIFNPRiBm
+b3IgY2FwdHVyaW5nIHRoZSBqYWNrCj4gZGV0ZWN0aW5nIGV2ZW50cyB3aGVuIHRoZSBTT0YgZGV2
+aWNlIGlzIGluIEQzLiBXZSBoYXZlIHRoaXMgZmVhdHVyZSB3b3JraW5nIGFzCj4gZXhwZWN0ZWQg
+b24gc29tZSBwcmV2aW91cyBwbGF0Zm9ybXMuCgpXaGljaCBjb2RlYyB3YXMgaXQ/Cgo+IFRoZSBw
+cm9ibGVtIHNwZWNpZmljIHRvIHRoZSBBTEMyODUgY29kZWMuCgpBRkFJSywgdGhlcmUgaXMgbm8g
+c3BlY2lmaWMgY2hhbmdlIHRvIEFMQzI4NSB0aGF0IGlzIHJlbGV2YW50IHdpdGgKcnVudGltZSBQ
+TS4KCgo+ICAgICA+IEFmdGVyIGEgYml0IG9mIGV4cGVyaW1lbnRpbmcsIHdoYXQgd2UgZm91bmQg
+d2FzIHRoYXQgY2FsbGluZwo+ICAgICA+IHNuZF9oZGFfc2V0X3Bvd2VyX3NhdmUoKSB3aXRoIGEg
+ZGVsYXkgb2YgMCBvciBzb21ldGhpbmcgPiAwLCBib3RoIGhlbHAKPiAgICAgd2l0aAo+ICAgICA+
+IGZpeGluZyB0aGUgcHJvYmxlbS4KPiAgICAgPgo+ICAgICA+IEJ1dCwgSSBoYXZlIGEgYmFzaWMg
+cXVlc3Rpb24gYWJvdXQgdGhpcy4gV2hhdCBpcyB0aGUgZXhwZWN0YXRpb24gZm9yCj4gICAgID4g
+ZW5hYmxpbmcgdGhlIGNvZGVjIHJ1bnRpbWUgUE0/Cj4gICAgID4gSSBzZWUgdGhhdCB0aGUgbGVn
+YWN5IGRyaXZlciBjYWxscyBzbmRfaGRhX3NldF9wb3dlcl9zYXZlKCkgYmFzZWQgb24gdGhlCj4g
+ICAgID4gQ09ORklHX1NORF9IREFfUE9XRVJfU0FWRV9ERUZBVUxUIHZhbHVlLiBJbiB0aGUgY2Fz
+ZSBvZiBTT0YsIHdlIGRvIG5vdAo+ICAgICA+IGV4cGxpY2l0bHkgc2V0IHRoaXMgdmFsdWUgc28g
+aXQgaXMgMCBieSBkZWZhdWx0LiBBbHNvLCB3aGVuIHRoZSBjb2RlYyBpcwo+ICAgICA+IHJlZ2lz
+dGVyZWQsIHRoZSBydW50aW1lIFBNIGZvciB0aGUgY29kZWMgaXMgZW5hYmxlZCBieSBkZWZhdWx0
+IHdpdGhvdXQKPiAgICAgPiBjaGVja2luZyBpZiB0aGUgcG93ZXJfc2F2ZSBkZWxheSBpcyBzZXQg
+dG8gMCBvciBub3QuIEFuZCBsYXRlciB3aGVuIHRoZQo+ICAgICA+IHNuZF9oZGFfc2V0X3Bvd2Vy
+X3NhdmUoKSBpcyBjYWxsZWQgZnJvbSB0aGUgbGVnYWN5IEhEQSBkcml2ZXIgcHJvYmUsIGl0Cj4g
+ICAgID4gc2V0cyB0aGUgdXNlIG9mIGF1dG8gc3VzcGVuZCBhbmQgdGhlIGRlbGF5IHRvIGJlIHVz
+ZWQgYmFzZWQgb24gdGhlCj4gICAgIGNvbmZpZy4KPiAgICAKPiAgICAgVGhlIHJ1bnRpbWUgc2V0
+dXAgcHVyZWx5IGRlcGVuZHMgb24gdGhlIHVzZXIncyBjb25maWd1cmF0aW9uLsKgIEFzCj4gICAg
+IGRlZmF1bHQsIGtlcm5lbCBtYXkgc2V0IHRvIGNlcnRhaW4gdmFsdWUgdmlhIEtjb25maWcsIGFu
+ZCBzb21lIGNvZGVjcwo+ICAgICAoZS5nLiBIRE1JKSBwcmVmZXIgdGhlIHJ1bnRpbWUgUE0gZW5h
+YmxlbWVudCBhcyBkZWZhdWx0LsKgIE90aGVyIHRoYW4KPiAgICAgdGhhdCwgaXQncyBzdXBwb3Nl
+ZCB0byBiZSBzZXQgZXhwbGljaXRseSB2aWEgc3lzZnMsIHR5cGljYWxseSBmcm9tCj4gICAgIHVk
+ZXYgcnVsZXMuCj4gICAgCj4gICAgIFRoZSBkcml2ZXIgaW5pdGlhbCBjb2RlIGRvZXMgc2V0IHVw
+IHNvbWUgZGVmYXVsdCB2YWx1ZSBmcm9tIGhpc3RvcmljYWwKPiAgICAgcmVhc29ucywgYnV0IGJh
+c2ljYWxseSB0aGUgc2V0dXAgaXMgZG9uZSBmcm9tIHVzZXItc3BhY2UuCj4gICAgCj4gICAgID4g
+V291bGQgaXQgYmUgY29ycmVjdCB0byByZW1vdmUgdGhlIHBtX3J1bnRpbWVfZW5hYmxlKCkgY2Fs
+bAo+ICAgICA+IGluIHNuZF9oZGFfY29kZWNfcmVnaXN0ZXIoKSBhbmQgbGV0IHRoZSBjb2RlYyBy
+dW50aW1lIFBNIGVuYWJsaW5nIGJlIHNldAo+ICAgICA+IHdpdGggdGhlIGNhbGwgdG8gc25kX2hk
+YV9zZXRfcG93ZXJfc2F2ZSgpIGZvciBib3RoIHRoZSBsZWdhY3kgSERBIGRyaXZlcgo+ICAgICA+
+IGFuZCB0aGUgU09GIGRyaXZlcj8KPiAgICAKPiAgICAgVGhlIGJhc2ljIHByb2JsZW0gaXNuJ3Qg
+YWJvdXQgaG93IHRoZSBydW50aW1lIFBNIGlzIHNldC7CoCBJdCBjYW4gYmUKPiAgICAgY2hhbmdl
+ZCBhdCBhbnkgdGltZSwgYW5kIHRoZSBkcml2ZXIgc2hvdWxkIHdvcmsgbm8gbWF0dGVyIGhvdyBp
+dCBpcwo+ICAgICBzZXQuCj4gCj4gSW4gdGhpcyBjYXNlIHRoZW4sIEkgc3VwcG9zZSBpdCBpcyB1
+cCB0byB0aGUgU09GIGRyaXZlciB0byBzZXQgdGhlIGF1dG8KPiBzdXNwZW5kIGRlbGF5IHRvIGRl
+ZmluZSB0aGUgZXhwZWN0ZWQgZGVmYXVsdCBiZWhhdmlvdXI/CgpZZXMgYW5kIG5vLiAgVXNlciBj
+YW4gc3RpbGwgc2V0IHRoZSB2YWx1ZSBhbmQgdGhlIGRyaXZlciBzdGlsbCBuZWVkcwp0byBiZWhh
+dmUgY29ycmVjdGx5IG5vIG1hdHRlciB3aGF0IHZhbHVlIGlzIHNldC4KCgp0aGFua3MsCgpUYWth
+c2hpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2Et
+ZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21h
+aWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

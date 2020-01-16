@@ -2,66 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DD7613D16E
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 02:22:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 654E813D1A6
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 02:44:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D682B17AE;
-	Thu, 16 Jan 2020 02:21:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D682B17AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id CABB317AA;
+	Thu, 16 Jan 2020 02:44:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CABB317AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579137769;
-	bh=0KcciLQo15S7cwMB/XZIHj5Ve02ASRSJKnVeGQs0Qy0=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579139091;
+	bh=E+iVHS4aTVsJHEfSUO+iM+KvZpp5fCjrIK6FdpPww/U=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kwgnqMClNTcQljmK6+sO/51RMl04tL2kabAkW0B5Pb0nPoSyVdERUwELYuARA9/Y0
-	 FPD3INUa9DwrdwJSDGc4QzZQ0nrJDpf11Othalmp2i2CBp5HFqKxbPHE/+dW+fYXnw
-	 aRLDDE63i4Am52WljLH7x/Wx66IjXkdCBbddgi8M=
+	b=jnTYe3pa1dGDYf7N4n07O8EyZ7xXjR8aBH5owx5r0oQ9Xu1TqnVxtcRzOnLCx34BN
+	 TQZ9LnZHbiRIOCXRfOOMhWoGRNaUIBWGVjU9wjbGEsrIqocr1FrLzJ25bhWTaKyWVL
+	 C4HB3UO5S6M/CWAVfIjlonJXqWp9nuqwRjUxboT0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 72B5AF801EB;
-	Thu, 16 Jan 2020 02:21:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2CD65F801F8;
+	Thu, 16 Jan 2020 02:43:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 127E7F801EB; Thu, 16 Jan 2020 02:21:04 +0100 (CET)
+ id 570F4F801EB; Thu, 16 Jan 2020 02:43:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=PRX_BODY_76, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E1D8F800B9
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 02:20:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E1D8F800B9
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2020 17:20:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,323,1574150400"; d="scan'208";a="423832903"
-Received: from cecox1-mobl.amr.corp.intel.com (HELO [10.251.131.55])
- ([10.251.131.55])
- by fmsmga005.fm.intel.com with ESMTP; 15 Jan 2020 17:20:54 -0800
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <20200114175152.3291-1-yung-chuan.liao@linux.intel.com>
- <a1d68a98-adab-32e6-c837-165c135f83ef@linux.intel.com>
- <87pnfk1b2w.wl-kuninori.morimoto.gx@renesas.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <5f3318cd-4f9e-6c0f-b58f-53eb6271c69d@linux.intel.com>
-Date: Wed, 15 Jan 2020 19:20:54 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
-MIME-Version: 1.0
-In-Reply-To: <87pnfk1b2w.wl-kuninori.morimoto.gx@renesas.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, liam.r.girdwood@linux.intel.com,
- broonie@kernel.org, Bard liao <yung-chuan.liao@linux.intel.com>,
- bard.liao@intel.com
-Subject: Re: [alsa-devel] [PATCH RFC v2 0/4] ASoC: Add Multi CPU DAI support
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id BD181F800E9
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 02:43:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD181F800E9
+Date: 16 Jan 2020 10:42:57 +0900
+X-IronPort-AV: E=Sophos;i="5.70,323,1574089200"; d="scan'208";a="36791105"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie5.idc.renesas.com with ESMTP; 16 Jan 2020 10:42:57 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 418EF412BC6B;
+ Thu, 16 Jan 2020 10:42:57 +0900 (JST)
+Message-ID: <87lfq818im.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <6d0f1830-a2f0-997a-99cc-05c268acefc6@linux.intel.com>
+References: <CAKzrAgTD2oeyajKGOaPea98vZ-uKJOn6uOqABA+CKtpvYpWYvQ@mail.gmail.com>
+ <CAKzrAgTCE4btXr04pkvLUG6PPbtn9dm5h_9rjqDYG0HrTZ0zbg@mail.gmail.com>
+ <87h80x8t41.wl-kuninori.morimoto.gx@renesas.com>
+ <130af222-1086-ebcf-6a0f-9a390f9afbc3@linux.intel.com>
+ <CAKzrAgRJZd4UZjt411vA8WwUv1KyVahVTNyUS8nA1TbKsA57dg@mail.gmail.com>
+ <14259e97-72f5-439f-b2f1-356b6e45bcfb@linux.intel.com>
+ <CAKzrAgQR0iZWPCudQ6k+RNWGk3L-=UU792RW6s7LxF+8wOPDUw@mail.gmail.com>
+ <7de214eb-d6a0-3f86-9eb3-76488f0ec99f@linux.intel.com>
+ <87r2001bsi.wl-kuninori.morimoto.gx@renesas.com>
+ <6d0f1830-a2f0-997a-99cc-05c268acefc6@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ ojab // <ojab@ojab.ru>, Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [alsa-devel] No sound since 5.4 on skl_n88l25_s4567
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,42 +73,39 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+Hi Pierre-Louis, Mark
 
->> After this series of patches is applied, we have this in soc.h:
->>
->> 	struct snd_soc_dai *codec_dai;
->> 	struct snd_soc_dai *cpu_dai;
->>
->> 	struct snd_soc_dai **codec_dais;
->> 	unsigned int num_codecs;
->>
->> 	struct snd_soc_dai **cpu_dais;
->> 	unsigned int num_cpus;
->>
->> What is the intent behind keeping the two fields codec_dai and cpu_dai?
->>
->> Shouldn't we use the multi-dai structures in all cases, possible
->> degraded to a single element rather than maintaining what looks like
->> duplicate ways of accessing the same element?
->>
->> If removing these fields across all drivers is just too invasive for
->> now, shouldn't we start defining access macros so that those fields
->> can be deprecated and removed at a later time, platform-by-platform?
+> > Is it possible to *real* fixup in the future, some day ?
 > 
-> Actually, I have this patch (= remove cpu_dai/codec_dai from all drivers,
-> and use macro for it), and have plan to post it.
+> Quite unlikely I am afraid. This is a mismatch between topology and
+> machine driver, and there are no planned updates of those topologies
+> (which were never released for upstream use).
 > 
-> But, I have many extra cleanup patches in my tree,
-> and I want to post it before that
-> (to avoid extra re-ordering dpendency break).
+> In this case I guess the topology file was taken from a ChromeOS
+> distribution (based on v4.4 IIRC), so there's really no guarantee that
+> a fix would ever reach the user without a convoluted set of manual
+> updates.
+(snip)
+> Maybe we could have some sort of boolean flag in the component->driver
+> definition and explicitly request a backwards-compatible behavior
+> (e.g. for all SKL/KBL machine drivers) when that driver is known to be
+> flaky. There's already things like 'fully_routed', maybe we can add
+> something such as 'disable_route_check'?
 
-ok, thanks for the precisions!
+Hmm...
+I have no idea, but have no objection about this.
+
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

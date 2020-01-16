@@ -2,74 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 418FD13E7B7
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:27:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98AB613EA05
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:41:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B1C5517E3;
-	Thu, 16 Jan 2020 18:27:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B1C5517E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B4D317E8;
+	Thu, 16 Jan 2020 18:40:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B4D317E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579195670;
-	bh=HK7SYmqkPhv6MddUNKfDRMMeyWY/dR8Yy9kqMDdIkno=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579196500;
+	bh=/a968h2ySUGKmvmaYEq0uB5z7jLybuf0C2/Aaa1SrxM=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NqR7o6AnVrz9bD/Ix8dylPRP+Dm7sEwZnnn5RhiHyLpO5kZu/pW2PLHAyovOM6OvR
-	 RMFhawEBbZ7Ywv1bqWReHdKCY9nwFjGx2Zx7IPxGReqmeJJxbAtWAn1S8OXDvNGYOR
-	 JfvhEKB8mKypFeqb3D71CfGWQruAccVmrRtxaxc8=
+	b=BJG6DrBD2iokus/SI+2zWY8G10S3EMLVvTh3oDX14ABSNpUkZ6vCcpi235192KFvX
+	 +fWgwcuca1fPLHR08z+P9F5i0PjMytjzgc+ND1EAeujm1REMLq0w+OQkCeAYWM3CEV
+	 ZZwIiE1v1loDKqxWQ/7BaqGW1sw3qpMUmbxys3sw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A1643F80171;
-	Thu, 16 Jan 2020 18:26:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B4436F802BE;
+	Thu, 16 Jan 2020 18:36:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25E42F8014E; Thu, 16 Jan 2020 18:26:05 +0100 (CET)
+ id E9BA5F8028D; Thu, 16 Jan 2020 18:35:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=PRX_BODY_72, RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94CF6F800E9
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:25:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94CF6F800E9
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2020 09:25:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,327,1574150400"; d="scan'208";a="248886513"
-Received: from mrajwa-mobl.ger.corp.intel.com (HELO [10.249.152.103])
- ([10.249.152.103])
- by fmsmga004.fm.intel.com with ESMTP; 16 Jan 2020 09:25:53 -0800
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- "Jie, Yang" <yang.jie@intel.com>, Takashi Iwai <tiwai@suse.de>,
- Keyon Jie <yang.jie@linux.intel.com>
-References: <20200116045318.5498-1-yang.jie@linux.intel.com>
- <s5hd0bjq3cu.wl-tiwai@suse.de>
- <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
- <s5hsgkf7l2e.wl-tiwai@suse.de>
- <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
- <s5hh80v7h82.wl-tiwai@suse.de>
- <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
- <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
- <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
-From: "Rajwa, Marcin" <marcin.rajwa@linux.intel.com>
-Message-ID: <93ac843a-bad5-550e-f427-e2a94bd3e8ef@linux.intel.com>
-Date: Thu, 16 Jan 2020 18:25:52 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 26474F80273
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:35:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 26474F80273
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="SUntbJuU"
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 660EE246E1;
+ Thu, 16 Jan 2020 17:27:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1579195678;
+ bh=J6zFKzHIeidi6nmeByR1vyewnAIdLUrm5WXXVok04+I=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=SUntbJuUDikzbOeDbVlZJPSlJWWXObaY4yhIgxP0j+EOv37adprVmmZ1gdzoNHmyF
+ fCejT0wc6BIJzUQPoanT5wcQ2v7Qse57O4PJKTyvx5OyT2seatBzk3yf/mZTPjSIxu
+ ebQawoNIPYs8KkNV/jR5mgj+7AhGZ7SSmIEsimpY=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Thu, 16 Jan 2020 12:21:45 -0500
+Message-Id: <20200116172403.18149-176-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200116172403.18149-1-sashal@kernel.org>
+References: <20200116172403.18149-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
-Content-Language: en-US
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
- constrained by preallocated bytes issue
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.14 233/371] ASoC: ti: davinci-mcasp:
+	Fix slot mask settings when using multiple AXRs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,43 +80,56 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
 
-On 1/16/2020 5:39 PM, Pierre-Louis Bossart wrote:
->
->>> So, do you suggest not doing preallocation(or calling it with 0 
->>> size) for all
->>> driver with TYPE_SG? I am fine if this is the recommended method, I 
->>> can try
->>> this on SOF I2S platform to see if it can work as we required for 
->>> very large
->>> buffer size.
->
-> Keyon, for the rest of us to follow this patch, would you mind 
-> clarifying what drives the need for a 'very large buffer size', and 
-> what order of magnitude this very large size would be.
->
-> FWIW, we've measured consistently on different Windows/Linux 
-> platforms, maybe 10 years ago, that once you reach a buffer of 1s (384 
-> kB) the benefits from increasing that buffer size further are marginal 
-> in terms of power consumption, and generate all kinds of issues with 
-> volume updates and deferred routing changes.
->
-We need bigger buffer on host side to compensate the wake up time from 
-d0ix to d0 which takes ~2 seconds on my setup. So, wiith smaller buffer 
-sizes like < 2 seconds we overwrite data since FW keeps copping while 
-host doesn't read until its up and running again.
+[ Upstream commit fd14f4436fd47d5418023c90e933e66d3645552e ]
 
-> Thanks
-> -Pierre
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+If multiple serializers are connected in the system and the number of
+channels will need to use more than one serializer the mask to enable the
+serializers were left to 0 if tdm_mask is provided
+
+Fixes: dd55ff8346a97 ("ASoC: davinci-mcasp: Add set_tdm_slots() support")
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/davinci/davinci-mcasp.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+
+diff --git a/sound/soc/davinci/davinci-mcasp.c b/sound/soc/davinci/davinci-mcasp.c
+index 07bac9ea65c4..e10e03800cce 100644
+--- a/sound/soc/davinci/davinci-mcasp.c
++++ b/sound/soc/davinci/davinci-mcasp.c
+@@ -882,14 +882,13 @@ static int mcasp_i2s_hw_param(struct davinci_mcasp *mcasp, int stream,
+ 		active_slots = hweight32(mcasp->tdm_mask[stream]);
+ 		active_serializers = (channels + active_slots - 1) /
+ 			active_slots;
+-		if (active_serializers == 1) {
++		if (active_serializers == 1)
+ 			active_slots = channels;
+-			for (i = 0; i < total_slots; i++) {
+-				if ((1 << i) & mcasp->tdm_mask[stream]) {
+-					mask |= (1 << i);
+-					if (--active_slots <= 0)
+-						break;
+-				}
++		for (i = 0; i < total_slots; i++) {
++			if ((1 << i) & mcasp->tdm_mask[stream]) {
++				mask |= (1 << i);
++				if (--active_slots <= 0)
++					break;
+ 			}
+ 		}
+ 	} else {
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

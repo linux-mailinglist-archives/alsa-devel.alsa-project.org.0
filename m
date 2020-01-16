@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19D6913E3EB
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:05:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F18C13E4AA
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:10:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8FD0517E0;
-	Thu, 16 Jan 2020 18:04:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FD0517E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id EDF631732;
+	Thu, 16 Jan 2020 18:09:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EDF631732
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579194304;
-	bh=IY0y+ng/M5Gi2JR9qiN+Sxy0qKoxrURRoU4iIIifY9I=;
+	s=default; t=1579194608;
+	bh=DrUzWtzeNzOAOukDzW7g5nvbVy66KyEwwyOHqfypFlI=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uJIEbBkAQdufYmiSBEA/GUJVMg+ItHJtQoceigT0+7lIJbhwMZzd14TgkwKXOHzh+
-	 ROSIxlUK6pv8YwSMeuK/gCTMbCxyzJwEgrp7Y9NqyU6rOyPNG5Su8tOEH6xDTHGT2l
-	 wZGJVwk3Krq0Gx+z5gCO1N0uzti6qaurdrq1Bd38=
+	b=toPsjYpzHK+Ha63uQsdFhdhqZMpuRqkUCl0TMRaSmm4DXM1Y8+kzODsatoTsq2IDJ
+	 yCOHDQYRVe3Ztd9L8aVnqk76MRebiCo9TJOQwy8zNh0QJ2JSlLPBzYHfTcBaEp6dCL
+	 ytqnGKDbPxitFlccyUmXulRxLl5GFsWLSrJV6fWc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26D7EF800E9;
-	Thu, 16 Jan 2020 18:02:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 752FBF8028D;
+	Thu, 16 Jan 2020 18:06:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F3C63F80171; Thu, 16 Jan 2020 18:01:57 +0100 (CET)
+ id 396E8F8028B; Thu, 16 Jan 2020 18:06:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA330F8021E
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:01:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA330F8021E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 27311F8027D
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:06:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 27311F8027D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="x6jCbzHw"
+ header.b="u02kYy88"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 4B5B1207FF;
- Thu, 16 Jan 2020 17:01:48 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id DD3B72467E;
+ Thu, 16 Jan 2020 17:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579194109;
- bh=0HOxhgXjTtfHd52wQ4/17nUx4EhZOHQbdZ9+10cLDxI=;
+ s=default; t=1579194377;
+ bh=rmIYOVrInVtY/X4i4RXusQ8tbGpMEuAWcvDaBFWfCas=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=x6jCbzHwk4GN2gR10JFx5LQP30KvWQIKwiAt/WMEYk51X40S4jvBWX5MiuTB+o4rJ
- KTrTZ+dueGMTmxBkRTzz1QAkiRTv/36ufPubMmy1X57bdIQi2hJ+DFfJm8EtOGqGTq
- WsY/go8vJFkaLBLgNlPpW6CYP2l1N/GwLm6HiDXw=
+ b=u02kYy88PHUrRdU1lrkTZzrgWDNwbAzSdqlMF0XI2oz/yoGcz9JlW2dEmR0GEu/8K
+ pcOnd4SgvY9K1EUwSYSxwQXUJ/qZnqgHoq9lisQ3HG4dWQBgnG36FUgcKhtsQPUBTM
+ YdoU9ZtYAOC3r8AznFcc9S6DCr44isQWVDsvIpKw=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 11:51:55 -0500
-Message-Id: <20200116165940.10720-89-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 11:59:07 -0500
+Message-Id: <20200116170509.12787-46-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200116165940.10720-1-sashal@kernel.org>
-References: <20200116165940.10720-1-sashal@kernel.org>
+In-Reply-To: <20200116170509.12787-1-sashal@kernel.org>
+References: <20200116170509.12787-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Banajit Goswami <bgoswami@codeaurora.org>, Takashi Iwai <tiwai@suse.de>,
- Patrick Lai <plai@codeaurora.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 206/671] ASoC: qcom: Fix of-node
-	refcount unbalance in apq8016_sbc_parse_of()
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH AUTOSEL 4.19 309/671] ALSA: usb-audio: Handle
+	the error from snd_usb_mixer_apply_create_quirk()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,85 +87,34 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 8d1667200850f8753c0265fa4bd25c9a6e5f94ce ]
+[ Upstream commit 328e9f6973be2ee67862cb17bf6c0c5c5918cd72 ]
 
-The apq8016 driver leaves the of-node refcount at aborting from the
-loop of for_each_child_of_node() in the error path.  Not only the
-iterator node of for_each_child_of_node(), the children nodes referred
-from it for codec and cpu have to be properly unreferenced.
+The error from snd_usb_mixer_apply_create_quirk() is ignored in the
+current usb-audio driver code, which will continue the probing even
+after the error.  Let's take it more serious.
 
-Fixes: bdb052e81f62 ("ASoC: qcom: add apq8016 sound card support")
-Cc: Patrick Lai <plai@codeaurora.org>
-Cc: Banajit Goswami <bgoswami@codeaurora.org>
+Fixes: 7b1eda223deb ("ALSA: usb-mixer: factor out quirks")
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/qcom/apq8016_sbc.c | 21 ++++++++++++++++-----
- 1 file changed, 16 insertions(+), 5 deletions(-)
+ sound/usb/mixer.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
-index 1dd23bba1bed..4b559932adc3 100644
---- a/sound/soc/qcom/apq8016_sbc.c
-+++ b/sound/soc/qcom/apq8016_sbc.c
-@@ -164,41 +164,52 @@ static struct apq8016_sbc_data *apq8016_sbc_parse_of(struct snd_soc_card *card)
+diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
+index d7778f2bcbf8..6ac6a0980124 100644
+--- a/sound/usb/mixer.c
++++ b/sound/usb/mixer.c
+@@ -3480,7 +3480,9 @@ int snd_usb_create_mixer(struct snd_usb_audio *chip, int ctrlif,
+ 	if (err < 0)
+ 		goto _error;
  
- 		if (!cpu || !codec) {
- 			dev_err(dev, "Can't find cpu/codec DT node\n");
--			return ERR_PTR(-EINVAL);
-+			ret = -EINVAL;
-+			goto error;
- 		}
+-	snd_usb_mixer_apply_create_quirk(mixer);
++	err = snd_usb_mixer_apply_create_quirk(mixer);
++	if (err < 0)
++		goto _error;
  
- 		link->cpu_of_node = of_parse_phandle(cpu, "sound-dai", 0);
- 		if (!link->cpu_of_node) {
- 			dev_err(card->dev, "error getting cpu phandle\n");
--			return ERR_PTR(-EINVAL);
-+			ret = -EINVAL;
-+			goto error;
- 		}
- 
- 		ret = snd_soc_of_get_dai_name(cpu, &link->cpu_dai_name);
- 		if (ret) {
- 			dev_err(card->dev, "error getting cpu dai name\n");
--			return ERR_PTR(ret);
-+			goto error;
- 		}
- 
- 		ret = snd_soc_of_get_dai_link_codecs(dev, codec, link);
- 
- 		if (ret < 0) {
- 			dev_err(card->dev, "error getting codec dai name\n");
--			return ERR_PTR(ret);
-+			goto error;
- 		}
- 
- 		link->platform_of_node = link->cpu_of_node;
- 		ret = of_property_read_string(np, "link-name", &link->name);
- 		if (ret) {
- 			dev_err(card->dev, "error getting codec dai_link name\n");
--			return ERR_PTR(ret);
-+			goto error;
- 		}
- 
- 		link->stream_name = link->name;
- 		link->init = apq8016_sbc_dai_init;
- 		link++;
-+
-+		of_node_put(cpu);
-+		of_node_put(codec);
- 	}
- 
- 	return data;
-+
-+ error:
-+	of_node_put(np);
-+	of_node_put(cpu);
-+	of_node_put(codec);
-+	return ERR_PTR(ret);
- }
- 
- static const struct snd_soc_dapm_widget apq8016_sbc_dapm_widgets[] = {
+ 	err = snd_device_new(chip->card, SNDRV_DEV_CODEC, mixer, &dev_ops);
+ 	if (err < 0)
 -- 
 2.20.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6973013E443
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:07:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4199D13E496
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:09:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE31117D7;
-	Thu, 16 Jan 2020 18:06:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE31117D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB12A17D3;
+	Thu, 16 Jan 2020 18:08:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB12A17D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579194453;
-	bh=tQC6ZqkWR63OW+l2cLYDv0iNyrJZlx4eFBZJSfkWsik=;
+	s=default; t=1579194572;
+	bh=PBp4da67guPFPtYsmrSIQz2v7aFjJeAf5wBI0MWXLPQ=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Ui8NO842Sfkhmus5X/hs9lX8FFEuSQamQLNbQD5G/+YpooM2L+2r660jn9FZ5q2qQ
-	 FU3ZILpefwbv6QSrE0PH1LLz/mewHxgLczYzpC3L9IGGdNrNQXZvNHXf66diVe5IBH
-	 QUsBJ7hXaHqm/qEmradTH/uxWzYA9YWVAjBSQCRw=
+	b=Dc2UK+TssA5f/6i0aTCwhnpB9ywC7wExN+/BWTeuX0MFznnpQGNrfV3YsmwV14ncI
+	 c2/LRPCiPwplVN0o8jGl4i/mKFBPll94pwExFEgklzCzfD/3lWs9GT9JbSJz85XqGL
+	 QzSK5SG0XKtGFjhI2Vt7R0jwcRE5yeKTUm08TAkA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AFAD4F8014D;
-	Thu, 16 Jan 2020 18:05:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1D1EDF8027C;
+	Thu, 16 Jan 2020 18:05:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 786A2F80171; Thu, 16 Jan 2020 18:05:47 +0100 (CET)
+ id 4BE22F80276; Thu, 16 Jan 2020 18:05:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8909AF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id F0269F801F2
  for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:05:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8909AF800E9
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0269F801F2
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="l1uokLzt"
+ header.b="xRqA+u4g"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id BF6652467A;
- Thu, 16 Jan 2020 16:55:36 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 05C9322464;
+ Thu, 16 Jan 2020 16:55:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579193737;
- bh=x8IBTbMc7q0xygme5mT2prwtW8teTHQaE5Z0R5c1sgQ=;
+ s=default; t=1579193758;
+ bh=11vJ2iWscb0SmhSkKOQ1oeGWlh/TRBOPjsCEkWOXJB4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=l1uokLztaLSfQlxKIWgQwwbY7h1ETRJrYGBWSfn92GmyhGw2X5LHWzPlabJIycTXm
- Fm7OaBmQd5Y7CKoN6MJftXISn5mgwsOWB0XfsGp99pBpBDu0a1Mc8WWoxchtfpCh/i
- 4IFf1mN3G56wvLk7C+338ma0+DK4BtaQ9ZRd75E8=
+ b=xRqA+u4gJgbMOFpLGvJJMtrOsfbsIyejsDP8NAB7Zp+ADfpkSM2wAhZuEHFuZRO9x
+ tVgqWDl+0WxBrUoPOcHxvXgHxl7+38NgWra6w8Co+PseLLH2N/ImWdDlhzSyWGyP+q
+ n593+VT3XK7PQiGibph65LtmoOqhZs37jkr0KkHo=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 11:44:20 -0500
-Message-Id: <20200116165502.8838-29-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 11:44:37 -0500
+Message-Id: <20200116165502.8838-46-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116165502.8838-1-sashal@kernel.org>
 References: <20200116165502.8838-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Nicolas Huaman <nicolas@herochao.de>, Takashi Iwai <tiwai@suse.de>,
- alsa-devel@alsa-project.org, Sasha Levin <sashal@kernel.org>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 029/671] ALSA: usb-audio: update
-	quirk for B&W PX to remove microphone
+Cc: Sasha Levin <sashal@kernel.org>, patches@opensource.cirrus.com,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.19 046/671] ASoC: wm97xx: fix
+	uninitialized regmap pointer problem
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,62 +86,175 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Nicolas Huaman <nicolas@herochao.de>
+From: Arnd Bergmann <arnd@arndb.de>
 
-[ Upstream commit c369c8db15d51fa175d2ba85928f79d16af6b562 ]
+[ Upstream commit 576ce4075bfa0f03e0e91a89eecc539b3b828b08 ]
 
-A quirk in snd-usb-audio was added to automate setting sample rate to
-4800k and remove the previously exposed nonfunctional microphone for
-the Bowers & Wilkins PX:
-commit 240a8af929c7c57dcde28682725b29cf8474e8e5
-https://lore.kernel.org/patchwork/patch/919689/
+gcc notices that without either the ac97 bus or the pdata, we never
+initialize the regmap pointer, which leads to an uninitialized variable
+access:
 
-However the headphones where updated shortly after that to remove the
-unintentional microphone functionality. I guess because of this the
-headphones now crash when connecting them via USB while the quirk is
-active. Dmesg:
+sound/soc/codecs/wm9712.c: In function 'wm9712_soc_probe':
+sound/soc/codecs/wm9712.c:666:2: error: 'regmap' may be used uninitialized in this function [-Werror=maybe-uninitialized]
 
-snd-usb-audio: probe of 2-3:1.0 failed with error -22
-usb 2-3: 2:1: cannot get min/max values for control 2 (id 2)
+Since that configuration is invalid, it's better to return an error
+here. I tried to avoid adding complexity to the conditions, and turned
+the #ifdef into a regular if(IS_ENABLED()) check for readability.
+This in turn requires moving some header file declarations out of
+an #ifdef.
 
-This patch removes the microfone and allows the headphones to connect
-and work out of the box. It is based on the current mainline kernel
- and successfully applied an tested on my machine (4.18.10.arch1-1).
+The same code is used in three drivers, all of which I'm changing
+the same way.
 
-Fixes: 240a8af929c7 ("ALSA: usb-audio: Add a quirck for B&W PX headphones")
-Signed-off-by: Nicolas Huaman <nicolas@herochao.de>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: 2ed1a8e0ce8d ("ASoC: wm9712: add ac97 new bus support")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/quirks-table.h | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ include/sound/soc.h       |  2 +-
+ sound/soc/codecs/wm9705.c | 10 ++++------
+ sound/soc/codecs/wm9712.c | 10 ++++------
+ sound/soc/codecs/wm9713.c | 10 ++++------
+ 4 files changed, 13 insertions(+), 19 deletions(-)
 
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index 65f9c4ba62ee..90d4f61cc230 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -3349,19 +3349,14 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
- 				.ifnum = 0,
- 				.type = QUIRK_AUDIO_STANDARD_MIXER,
- 			},
--			/* Capture */
--			{
--				.ifnum = 1,
--				.type = QUIRK_IGNORE_INTERFACE,
--			},
- 			/* Playback */
- 			{
--				.ifnum = 2,
-+				.ifnum = 1,
- 				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
- 				.data = &(const struct audioformat) {
- 					.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 					.channels = 2,
--					.iface = 2,
-+					.iface = 1,
- 					.altsetting = 1,
- 					.altset_idx = 1,
- 					.attributes = UAC_EP_CS_ATTR_FILL_MAX |
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 41cec42fb456..88aa48e5485f 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -548,12 +548,12 @@ static inline void snd_soc_jack_free_gpios(struct snd_soc_jack *jack, int count,
+ }
+ #endif
+ 
+-#ifdef CONFIG_SND_SOC_AC97_BUS
+ struct snd_ac97 *snd_soc_alloc_ac97_component(struct snd_soc_component *component);
+ struct snd_ac97 *snd_soc_new_ac97_component(struct snd_soc_component *component,
+ 	unsigned int id, unsigned int id_mask);
+ void snd_soc_free_ac97_component(struct snd_ac97 *ac97);
+ 
++#ifdef CONFIG_SND_SOC_AC97_BUS
+ int snd_soc_set_ac97_ops(struct snd_ac97_bus_ops *ops);
+ int snd_soc_set_ac97_ops_of_reset(struct snd_ac97_bus_ops *ops,
+ 		struct platform_device *pdev);
+diff --git a/sound/soc/codecs/wm9705.c b/sound/soc/codecs/wm9705.c
+index ccdf088461b7..54c306707c02 100644
+--- a/sound/soc/codecs/wm9705.c
++++ b/sound/soc/codecs/wm9705.c
+@@ -325,8 +325,7 @@ static int wm9705_soc_probe(struct snd_soc_component *component)
+ 	if (wm9705->mfd_pdata) {
+ 		wm9705->ac97 = wm9705->mfd_pdata->ac97;
+ 		regmap = wm9705->mfd_pdata->regmap;
+-	} else {
+-#ifdef CONFIG_SND_SOC_AC97_BUS
++	} else if (IS_ENABLED(CONFIG_SND_SOC_AC97_BUS)) {
+ 		wm9705->ac97 = snd_soc_new_ac97_component(component, WM9705_VENDOR_ID,
+ 						      WM9705_VENDOR_ID_MASK);
+ 		if (IS_ERR(wm9705->ac97)) {
+@@ -339,7 +338,8 @@ static int wm9705_soc_probe(struct snd_soc_component *component)
+ 			snd_soc_free_ac97_component(wm9705->ac97);
+ 			return PTR_ERR(regmap);
+ 		}
+-#endif
++	} else {
++		return -ENXIO;
+ 	}
+ 
+ 	snd_soc_component_set_drvdata(component, wm9705->ac97);
+@@ -350,14 +350,12 @@ static int wm9705_soc_probe(struct snd_soc_component *component)
+ 
+ static void wm9705_soc_remove(struct snd_soc_component *component)
+ {
+-#ifdef CONFIG_SND_SOC_AC97_BUS
+ 	struct wm9705_priv *wm9705 = snd_soc_component_get_drvdata(component);
+ 
+-	if (!wm9705->mfd_pdata) {
++	if (IS_ENABLED(CONFIG_SND_SOC_AC97_BUS) && !wm9705->mfd_pdata) {
+ 		snd_soc_component_exit_regmap(component);
+ 		snd_soc_free_ac97_component(wm9705->ac97);
+ 	}
+-#endif
+ }
+ 
+ static const struct snd_soc_component_driver soc_component_dev_wm9705 = {
+diff --git a/sound/soc/codecs/wm9712.c b/sound/soc/codecs/wm9712.c
+index e873baa9e778..01949eaba4fd 100644
+--- a/sound/soc/codecs/wm9712.c
++++ b/sound/soc/codecs/wm9712.c
+@@ -642,8 +642,7 @@ static int wm9712_soc_probe(struct snd_soc_component *component)
+ 	if (wm9712->mfd_pdata) {
+ 		wm9712->ac97 = wm9712->mfd_pdata->ac97;
+ 		regmap = wm9712->mfd_pdata->regmap;
+-	} else {
+-#ifdef CONFIG_SND_SOC_AC97_BUS
++	} else if (IS_ENABLED(CONFIG_SND_SOC_AC97_BUS)) {
+ 		int ret;
+ 
+ 		wm9712->ac97 = snd_soc_new_ac97_component(component, WM9712_VENDOR_ID,
+@@ -660,7 +659,8 @@ static int wm9712_soc_probe(struct snd_soc_component *component)
+ 			snd_soc_free_ac97_component(wm9712->ac97);
+ 			return PTR_ERR(regmap);
+ 		}
+-#endif
++	} else {
++		return -ENXIO;
+ 	}
+ 
+ 	snd_soc_component_init_regmap(component, regmap);
+@@ -673,14 +673,12 @@ static int wm9712_soc_probe(struct snd_soc_component *component)
+ 
+ static void wm9712_soc_remove(struct snd_soc_component *component)
+ {
+-#ifdef CONFIG_SND_SOC_AC97_BUS
+ 	struct wm9712_priv *wm9712 = snd_soc_component_get_drvdata(component);
+ 
+-	if (!wm9712->mfd_pdata) {
++	if (IS_ENABLED(CONFIG_SND_SOC_AC97_BUS) && !wm9712->mfd_pdata) {
+ 		snd_soc_component_exit_regmap(component);
+ 		snd_soc_free_ac97_component(wm9712->ac97);
+ 	}
+-#endif
+ }
+ 
+ static const struct snd_soc_component_driver soc_component_dev_wm9712 = {
+diff --git a/sound/soc/codecs/wm9713.c b/sound/soc/codecs/wm9713.c
+index 643863bb32e0..5a2fdf4f69bf 100644
+--- a/sound/soc/codecs/wm9713.c
++++ b/sound/soc/codecs/wm9713.c
+@@ -1214,8 +1214,7 @@ static int wm9713_soc_probe(struct snd_soc_component *component)
+ 	if (wm9713->mfd_pdata) {
+ 		wm9713->ac97 = wm9713->mfd_pdata->ac97;
+ 		regmap = wm9713->mfd_pdata->regmap;
+-	} else {
+-#ifdef CONFIG_SND_SOC_AC97_BUS
++	} else if (IS_ENABLED(CONFIG_SND_SOC_AC97_BUS)) {
+ 		wm9713->ac97 = snd_soc_new_ac97_component(component, WM9713_VENDOR_ID,
+ 						      WM9713_VENDOR_ID_MASK);
+ 		if (IS_ERR(wm9713->ac97))
+@@ -1225,7 +1224,8 @@ static int wm9713_soc_probe(struct snd_soc_component *component)
+ 			snd_soc_free_ac97_component(wm9713->ac97);
+ 			return PTR_ERR(regmap);
+ 		}
+-#endif
++	} else {
++		return -ENXIO;
+ 	}
+ 
+ 	snd_soc_component_init_regmap(component, regmap);
+@@ -1238,14 +1238,12 @@ static int wm9713_soc_probe(struct snd_soc_component *component)
+ 
+ static void wm9713_soc_remove(struct snd_soc_component *component)
+ {
+-#ifdef CONFIG_SND_SOC_AC97_BUS
+ 	struct wm9713_priv *wm9713 = snd_soc_component_get_drvdata(component);
+ 
+-	if (!wm9713->mfd_pdata) {
++	if (IS_ENABLED(CONFIG_SND_SOC_AC97_BUS) && !wm9713->mfd_pdata) {
+ 		snd_soc_component_exit_regmap(component);
+ 		snd_soc_free_ac97_component(wm9713->ac97);
+ 	}
+-#endif
+ }
+ 
+ static const struct snd_soc_component_driver soc_component_dev_wm9713 = {
 -- 
 2.20.1
 

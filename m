@@ -2,63 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D934D13FAA2
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 21:30:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 036E613FAC2
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 21:39:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 13D4D17D9;
-	Thu, 16 Jan 2020 21:29:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13D4D17D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8157117DE;
+	Thu, 16 Jan 2020 21:38:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8157117DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579206623;
-	bh=tlSxt9cyR2McXFIhcppPFEKrXcRcvDKUw4MvIdZ1nNM=;
+	s=default; t=1579207168;
+	bh=eUlopDKBpBf+FR9/lWAXotpT9axoXR6eDj1350CZ1dg=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qwuG6OvAY7mIXb4IOJLJUbiNHXOoFbZ/FAzr+fWKKA16Sfikg7eLdPiboQiJQtDsO
-	 ED1chGJPsnqDrQQxUn1tJiTYulEAanhK4keFrSZ0Q3SAyEQY9JwBwLymQRq/rIlrQd
-	 IfMubulFGfKsQSWUWJp2bed4JlhJ6dFScV1qWH0Y=
+	b=b5tpEZu/wQNJ2wRnonkUfNlxyVfQs93sklLWbc4UvBRAiFrtVgmNXKpQE6VVdI0Mp
+	 qEn8E1zwB+gtwXjZtoEoRW9i0fsHtMrO5qs2Zx7Q9jPaRrIDyqNlGPMYWhTEg/1x+K
+	 9n32LmoP6tPvs3ax4giw/67v/DBmeEkOyjuC0Ii0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C5C7FF80171;
-	Thu, 16 Jan 2020 21:28:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98638F8014E;
+	Thu, 16 Jan 2020 21:37:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9203CF8014E; Thu, 16 Jan 2020 21:28:32 +0100 (CET)
+ id 2F31AF8014E; Thu, 16 Jan 2020 21:37:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.1 required=5.0 tests=PRX_BODY_72, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 15206F80086
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 21:28:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15206F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id C5ACFF800B9
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 21:37:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C5ACFF800B9
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id CE71CB233;
- Thu, 16 Jan 2020 20:28:24 +0000 (UTC)
-Date: Thu, 16 Jan 2020 21:28:24 +0100
-Message-ID: <s5h8sm7p2mv.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id 2FE6AC04B;
+ Thu, 16 Jan 2020 20:37:38 +0000 (UTC)
+Date: Thu, 16 Jan 2020 21:37:37 +0100
+Message-ID: <s5h5zhbp27i.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
-To: Tobias <toszlanyi@yahoo.de>
-In-Reply-To: <3987a58d-a4bd-374e-d177-99ad5949e664@yahoo.de>
-References: <9457db14-4084-c0dd-5c89-821b35c3db66@yahoo.de>
- <8653a13c-ef08-4e0f-8375-baa6a3b4faa8@yahoo.de>
- <s5hd0bmcedb.wl-tiwai@suse.de>
- <c3904fd3-5e02-fa20-bf82-46b7ee324245@yahoo.de>
- <s5h7e1r7btj.wl-tiwai@suse.de>
- <3987a58d-a4bd-374e-d177-99ad5949e664@yahoo.de>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <b6b55180-b846-96e7-4521-7d3b03881d06@linux.intel.com>
+References: <20200116045318.5498-1-yang.jie@linux.intel.com>
+ <s5hd0bjq3cu.wl-tiwai@suse.de>
+ <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
+ <s5hsgkf7l2e.wl-tiwai@suse.de>
+ <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
+ <s5hh80v7h82.wl-tiwai@suse.de>
+ <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
+ <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
+ <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
+ <93ac843a-bad5-550e-f427-e2a94bd3e8ef@linux.intel.com>
+ <b6b55180-b846-96e7-4521-7d3b03881d06@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] USB Audio Interface / Denon MC7000 and MC8000
-	controller
+Cc: Keyon Jie <yang.jie@linux.intel.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>, "Rajwa,
+ Marcin" <marcin.rajwa@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
+	constrained by preallocated bytes issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,24 +82,46 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 16 Jan 2020 18:45:28 +0100,
-Tobias wrote:
+On Thu, 16 Jan 2020 18:40:26 +0100,
+Pierre-Louis Bossart wrote:
 > 
-> I applied the patch and when connecting the Denon MC7000 the attached
-> is what dmesg shows...
-> Hope you can find something useful in there.
+> 
+> >>>> So, do you suggest not doing preallocation(or calling it with 0
+> >>>> size) for all
+> >>>> driver with TYPE_SG? I am fine if this is the recommended method,
+> >>>> I can try
+> >>>> this on SOF I2S platform to see if it can work as we required for
+> >>>> very large
+> >>>> buffer size.
+> >>
+> >> Keyon, for the rest of us to follow this patch, would you mind
+> >> clarifying what drives the need for a 'very large buffer size', and
+> >> what order of magnitude this very large size would be.
+> >>
+> >> FWIW, we've measured consistently on different Windows/Linux
+> >> platforms, maybe 10 years ago, that once you reach a buffer of 1s
+> >> (384 kB) the benefits from increasing that buffer size further are
+> >> marginal in terms of power consumption, and generate all kinds of
+> >> issues with volume updates and deferred routing changes.
+> >>
+> > We need bigger buffer on host side to compensate the wake up time
+> > from d0ix to d0 which takes ~2 seconds on my setup. So, wiith
+> > smaller buffer sizes like < 2 seconds we overwrite data since FW
+> > keeps copping while host doesn't read until its up and running
+> > again.
+> 
+> Right, that's a valid case, but that's 256 kB, not 'very large' or
+> likely to ever trigger an OOM case.
 
-Thanks.  This shows the validation error reported repeatedly at each
-access.  Hmm.
+That size shouldn't matter, and would work even with the
+preallocation.
 
-> Please let me know, if I can be of any more help.
-
-Please give lsusb -v output for the device, too, as well as
-alsa-info.sh output (run with --no-upload option).
-
-And, be prepared for building the more recent kernel.  At least, the
-latest 5.4.y would be good -- otherwise there can be a chance you
-overlook something that was fixed already.
+My concern is that removing the limitation would allow the allocation
+of too large sizes.  Even with dma_max limit, it can go up to 32MB
+physical pages per stream for HDA.  Depending on the hardware setup,
+there can be a lot of streams assignment (e.g. HDMI codecs) and
+multiple codecs / controllers, and imagine that all those allocated
+pages are pinned and can't be swapped out...
 
 
 Takashi

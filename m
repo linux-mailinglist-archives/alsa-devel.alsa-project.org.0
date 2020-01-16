@@ -2,71 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB9113E055
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 17:41:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD2AB13E467
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:08:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3067617C8;
-	Thu, 16 Jan 2020 17:41:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3067617C8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 44D2517C5;
+	Thu, 16 Jan 2020 18:07:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 44D2517C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579192914;
-	bh=xGmGCDwRi3zw+FLkM4K1M7gswC37lOnOr3eLvWQh92k=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579194500;
+	bh=DWluhN2ID0TZ6FOAw5L3wkdZWae07mSrM1Re7MyFa9w=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=TnBf7JACYNPCs9znlamYKwpMjqIkR43K/Fy/ymkLpelV6QqUWIjnECvbjZ2Nwzm+8
-	 3fapZ5TaZtTL0GzO2WpHf8kdgryS61IvwgMp9cLnMFKQLKmA+TAsf1Jsco57//4oB2
-	 dFkU6BQPzFFdabKd0nBJ5kZD2txAx5p0zDHKTNtw=
+	b=hi9WgR8yiln1TErk/EYcPgk0dx/NLvmdxT8xD7gqQPnkWVQy+E/PVKaZ9REqetSD5
+	 i/SGRxCctOIvqc9QyttKRg26TvdmXD8iQozERSyUQzsvcRVoQTJpW3qjldxDE5gmuh
+	 TJKJnBHjIZKdbDYEyP1q8vco/CCw5yYtMKxPuf3g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2387AF80171;
-	Thu, 16 Jan 2020 17:40:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7836DF800B9;
+	Thu, 16 Jan 2020 18:05:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4FB4F8014E; Thu, 16 Jan 2020 17:40:07 +0100 (CET)
+ id 08ED6F80216; Thu, 16 Jan 2020 18:05:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=PRX_BODY_72,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 308AFF800E9
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 17:39:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 308AFF800E9
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2020 08:39:57 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,326,1574150400"; d="scan'208";a="274058700"
-Received: from frederic-mobl1.amr.corp.intel.com (HELO [10.251.150.187])
- ([10.251.150.187])
- by FMSMGA003.fm.intel.com with ESMTP; 16 Jan 2020 08:39:56 -0800
-To: "Jie, Yang" <yang.jie@intel.com>, Takashi Iwai <tiwai@suse.de>,
- Keyon Jie <yang.jie@linux.intel.com>
-References: <20200116045318.5498-1-yang.jie@linux.intel.com>
- <s5hd0bjq3cu.wl-tiwai@suse.de>
- <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
- <s5hsgkf7l2e.wl-tiwai@suse.de>
- <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
- <s5hh80v7h82.wl-tiwai@suse.de>
- <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
- <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
-Date: Thu, 16 Jan 2020 10:39:56 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AF95F8014D
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:05:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AF95F8014D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="CCjhhJoc"
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1F579217F4;
+ Thu, 16 Jan 2020 16:48:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1579193312;
+ bh=Eb4Vx2wML0CMCDuQwZW50JnG/4Jh8yN2N0fN2PjlhQE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=CCjhhJoco2webzQpPlRQGrX/KPBcVI5f9M1cXZSQLRKWX1rcQ2Mic/FceHLa0M533
+ ZXVU2Hw9Cb06silmEQ96m/pP7DwLVIyjEd3oT/+bsi1x6rJR1HvM9fkplG7UBTGDyz
+ BOF4sOkVUjKOdMdy35nuISTRoKZoovhzveCYViBY=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Thu, 16 Jan 2020 11:40:47 -0500
+Message-Id: <20200116164300.6705-72-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200116164300.6705-1-sashal@kernel.org>
+References: <20200116164300.6705-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
-Content-Language: en-US
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
- constrained by preallocated bytes issue
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 072/205] ASoC: fsl_esai: Add spin
+	lock to protect reset, stop and start
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,29 +81,110 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Shengjiu Wang <shengjiu.wang@nxp.com>
 
->> So, do you suggest not doing preallocation(or calling it with 0 size) for all
->> driver with TYPE_SG? I am fine if this is the recommended method, I can try
->> this on SOF I2S platform to see if it can work as we required for very large
->> buffer size.
+[ Upstream commit 35dac627471938eda89fa39ee4ead1f7667e0f57 ]
 
-Keyon, for the rest of us to follow this patch, would you mind 
-clarifying what drives the need for a 'very large buffer size', and what 
-order of magnitude this very large size would be.
+xrun may happen at the end of stream, the
+trigger->fsl_esai_trigger_stop maybe called in the middle of
+fsl_esai_hw_reset, this may cause esai in wrong state
+after stop, and there may be endless xrun interrupt.
 
-FWIW, we've measured consistently on different Windows/Linux platforms, 
-maybe 10 years ago, that once you reach a buffer of 1s (384 kB) the 
-benefits from increasing that buffer size further are marginal in terms 
-of power consumption, and generate all kinds of issues with volume 
-updates and deferred routing changes.
+This issue may also happen with trigger->fsl_esai_trigger_start.
 
-Thanks
--Pierre
+So Add spin lock to lock those functions.
+
+Fixes: 7ccafa2b3879 ("ASoC: fsl_esai: recover the channel swap after xrun")
+Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Link: https://lore.kernel.org/r/52e92c4221a83e39a84a6cd92fc3d5479b44894c.1572252321.git.shengjiu.wang@nxp.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/fsl/fsl_esai.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/sound/soc/fsl/fsl_esai.c b/sound/soc/fsl/fsl_esai.c
+index a78e4ab478df..c7a49d03463a 100644
+--- a/sound/soc/fsl/fsl_esai.c
++++ b/sound/soc/fsl/fsl_esai.c
+@@ -33,6 +33,7 @@
+  * @fsysclk: system clock source to derive HCK, SCK and FS
+  * @spbaclk: SPBA clock (optional, depending on SoC design)
+  * @task: tasklet to handle the reset operation
++ * @lock: spin lock between hw_reset() and trigger()
+  * @fifo_depth: depth of tx/rx FIFO
+  * @slot_width: width of each DAI slot
+  * @slots: number of slots
+@@ -56,6 +57,7 @@ struct fsl_esai {
+ 	struct clk *fsysclk;
+ 	struct clk *spbaclk;
+ 	struct tasklet_struct task;
++	spinlock_t lock; /* Protect hw_reset and trigger */
+ 	u32 fifo_depth;
+ 	u32 slot_width;
+ 	u32 slots;
+@@ -676,8 +678,10 @@ static void fsl_esai_hw_reset(unsigned long arg)
+ {
+ 	struct fsl_esai *esai_priv = (struct fsl_esai *)arg;
+ 	bool tx = true, rx = false, enabled[2];
++	unsigned long lock_flags;
+ 	u32 tfcr, rfcr;
+ 
++	spin_lock_irqsave(&esai_priv->lock, lock_flags);
+ 	/* Save the registers */
+ 	regmap_read(esai_priv->regmap, REG_ESAI_TFCR, &tfcr);
+ 	regmap_read(esai_priv->regmap, REG_ESAI_RFCR, &rfcr);
+@@ -715,6 +719,8 @@ static void fsl_esai_hw_reset(unsigned long arg)
+ 		fsl_esai_trigger_start(esai_priv, tx);
+ 	if (enabled[rx])
+ 		fsl_esai_trigger_start(esai_priv, rx);
++
++	spin_unlock_irqrestore(&esai_priv->lock, lock_flags);
+ }
+ 
+ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
+@@ -722,6 +728,7 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
+ {
+ 	struct fsl_esai *esai_priv = snd_soc_dai_get_drvdata(dai);
+ 	bool tx = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
++	unsigned long lock_flags;
+ 
+ 	esai_priv->channels[tx] = substream->runtime->channels;
+ 
+@@ -729,12 +736,16 @@ static int fsl_esai_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	case SNDRV_PCM_TRIGGER_START:
+ 	case SNDRV_PCM_TRIGGER_RESUME:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++		spin_lock_irqsave(&esai_priv->lock, lock_flags);
+ 		fsl_esai_trigger_start(esai_priv, tx);
++		spin_unlock_irqrestore(&esai_priv->lock, lock_flags);
+ 		break;
+ 	case SNDRV_PCM_TRIGGER_SUSPEND:
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++		spin_lock_irqsave(&esai_priv->lock, lock_flags);
+ 		fsl_esai_trigger_stop(esai_priv, tx);
++		spin_unlock_irqrestore(&esai_priv->lock, lock_flags);
+ 		break;
+ 	default:
+ 		return -EINVAL;
+@@ -1002,6 +1013,7 @@ static int fsl_esai_probe(struct platform_device *pdev)
+ 
+ 	dev_set_drvdata(&pdev->dev, esai_priv);
+ 
++	spin_lock_init(&esai_priv->lock);
+ 	ret = fsl_esai_hw_init(esai_priv);
+ 	if (ret)
+ 		return ret;
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C65CF14056F
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 09:26:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EC56140571
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 09:27:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CD9A317D7;
-	Fri, 17 Jan 2020 09:26:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD9A317D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id D74BE17D0;
+	Fri, 17 Jan 2020 09:26:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D74BE17D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579249618;
-	bh=VymJA5byVHKpW5kDPdqq4ZWuXQrPtHMu7eONddyvpzM=;
+	s=default; t=1579249664;
+	bh=H7wL5g4X1CxhcxoDbgoCYT5XlMG2dRlkP6C62HUFHv0=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qht/BJfN0URC1P9VCEWeeYialIy6q6ejVJzJ/SAhqxE9ToBdAQdLsQXtAppaM/Nqj
-	 NptMiQI/2AncdP5etzECjQ1ufHhjaRRIpV3nO0jFAcsWZ+sglgcF8mLUjKzhbG3H/D
-	 lP72ZNw9xGEJ7kuXKG2ShU/bMQl7vtBcMgWiJoCg=
+	b=dlogNE/WoleuY1AnwolWujDyqd13EtOztR9wv6m5UZpEOsu9XHQK7WwyxT1t3iBy2
+	 Qm9puY5Mge2nithLn3/T9gmQ0nH1gLw1iI0h80COBOKOagxoeO+p7W/tnLUVO1mWO0
+	 GG1cM6l3kLAslXXl/ERY+XJ1vvKmHfCkcR8JUVe8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA85AF8028F;
-	Fri, 17 Jan 2020 09:23:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 139E2F802A7;
+	Fri, 17 Jan 2020 09:23:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 652A0F8029B; Fri, 17 Jan 2020 09:23:12 +0100 (CET)
+ id 7A403F801F7; Fri, 17 Jan 2020 09:23:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -34,31 +34,31 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94390F801F7
+ by alsa1.perex.cz (Postfix) with ESMTPS id D8FC9F801F8
  for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 09:22:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94390F801F7
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8FC9F801F8
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2020 00:22:38 -0800
+ 17 Jan 2020 00:22:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,329,1574150400"; d="scan'208";a="274295698"
+X-IronPort-AV: E=Sophos;i="5.70,329,1574150400"; d="scan'208";a="274295705"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by FMSMGA003.fm.intel.com with ESMTP; 17 Jan 2020 00:22:37 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 17 Jan 2020 00:22:38 -0800
 From: Bard liao <yung-chuan.liao@linux.intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.de
-Date: Fri, 17 Jan 2020 04:26:19 +0800
-Message-Id: <20200116202620.7401-4-yung-chuan.liao@linux.intel.com>
+Date: Fri, 17 Jan 2020 04:26:20 +0800
+Message-Id: <20200116202620.7401-5-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200116202620.7401-1-yung-chuan.liao@linux.intel.com>
 References: <20200116202620.7401-1-yung-chuan.liao@linux.intel.com>
 Cc: liam.r.girdwood@linux.intel.com, alsa-devel@alsa-project.org,
  bard.liao@intel.com, pierre-louis.bossart@linux.intel.com,
  kuninori.morimoto.gx@renesas.com
-Subject: [alsa-devel] [PATCH RFC v3 3/4] ASoC: Add multiple CPU DAI support
-	in DAPM
+Subject: [alsa-devel] [PATCH RFC v3 4/4] ASoC: return error if the function
+	is not support multi cpu yet.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,193 +77,120 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Shreyas NC <shreyas.nc@intel.com>
+Multi cpu is not supported by all functions yet. Add an error message
+and return.
 
-DAPM handles DAIs during soc_dapm_stream_event() and during addition
-and creation of DAI widgets i.e., dapm_add_valid_dai_widget() and
-dapm_connect_dai_link_widgets().
-
-Extend these functions to handle multiple cpu dai.
-
-Signed-off-by: Vinod Koul <vkoul@kernel.org>
-Signed-off-by: Shreyas NC <shreyas.nc@intel.com>
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Signed-off-by: Bard liao <yung-chuan.liao@linux.intel.com>
 ---
- sound/soc/soc-dapm.c | 131 +++++++++++++++++++++++++------------------
- 1 file changed, 75 insertions(+), 56 deletions(-)
+ sound/soc/soc-compress.c              |  5 +++--
+ sound/soc/soc-generic-dmaengine-pcm.c | 18 ++++++++++++++++++
+ sound/soc/soc-pcm.c                   | 18 ++++++++++++++++++
+ 3 files changed, 39 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 442846f12cd4..7a0538b45faf 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -4274,16 +4274,15 @@ int snd_soc_dapm_link_dai_widgets(struct snd_soc_card *card)
- 	return 0;
- }
- 
--static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
--					  struct snd_soc_pcm_runtime *rtd)
-+static void dapm_add_valid_dai_widget(struct snd_soc_card *card,
-+				      struct snd_soc_pcm_runtime *rtd,
-+				      struct snd_soc_dai *codec_dai,
-+				      struct snd_soc_dai *cpu_dai)
- {
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
--	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_dapm_widget *playback = NULL, *capture = NULL;
- 	struct snd_soc_dapm_widget *codec, *playback_cpu, *capture_cpu;
- 	struct snd_pcm_substream *substream;
- 	struct snd_pcm_str *streams = rtd->pcm->streams;
--	int i;
- 
- 	if (rtd->dai_link->params) {
- 		playback_cpu = cpu_dai->capture_widget;
-@@ -4295,64 +4294,82 @@ static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
- 		capture_cpu = capture;
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
--		/* connect BE DAI playback if widgets are valid */
--		codec = codec_dai->playback_widget;
--
--		if (playback_cpu && codec) {
--			if (!playback) {
--				substream = streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
--				playback = snd_soc_dapm_new_dai(card, substream,
--								"playback");
--				if (IS_ERR(playback)) {
--					dev_err(rtd->dev,
--						"ASoC: Failed to create DAI %s: %ld\n",
--						codec_dai->name,
--						PTR_ERR(playback));
--					continue;
--				}
--
--				snd_soc_dapm_add_path(&card->dapm, playback_cpu,
--						      playback, NULL, NULL);
-+	/* connect BE DAI playback if widgets are valid */
-+	codec = codec_dai->playback_widget;
-+
-+	if (playback_cpu && codec) {
-+		if (!playback) {
-+			substream = streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
-+			playback = snd_soc_dapm_new_dai(card, substream,
-+							"playback");
-+			if (IS_ERR(playback)) {
-+				dev_err(rtd->dev,
-+					"ASoC: Failed to create DAI %s: %ld\n",
-+					codec_dai->name,
-+					PTR_ERR(playback));
-+				return;
- 			}
- 
--			dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
--				cpu_dai->component->name, playback_cpu->name,
--				codec_dai->component->name, codec->name);
--
--			snd_soc_dapm_add_path(&card->dapm, playback, codec,
--					      NULL, NULL);
-+			snd_soc_dapm_add_path(&card->dapm, playback_cpu,
-+					      playback, NULL, NULL);
- 		}
-+
-+		dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
-+			cpu_dai->component->name, playback_cpu->name,
-+			codec_dai->component->name, codec->name);
-+
-+		snd_soc_dapm_add_path(&card->dapm, playback, codec,
-+				      NULL, NULL);
- 	}
- 
--	for_each_rtd_codec_dai(rtd, i, codec_dai) {
--		/* connect BE DAI capture if widgets are valid */
--		codec = codec_dai->capture_widget;
--
--		if (codec && capture_cpu) {
--			if (!capture) {
--				substream = streams[SNDRV_PCM_STREAM_CAPTURE].substream;
--				capture = snd_soc_dapm_new_dai(card, substream,
--							       "capture");
--				if (IS_ERR(capture)) {
--					dev_err(rtd->dev,
--						"ASoC: Failed to create DAI %s: %ld\n",
--						codec_dai->name,
--						PTR_ERR(capture));
--					continue;
--				}
--
--				snd_soc_dapm_add_path(&card->dapm, capture,
--						      capture_cpu, NULL, NULL);
--			}
-+	/* connect BE DAI capture if widgets are valid */
-+	codec = codec_dai->capture_widget;
- 
--			dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
--				codec_dai->component->name, codec->name,
--				cpu_dai->component->name, capture_cpu->name);
-+	if (codec && capture_cpu) {
-+		if (!capture) {
-+			substream = streams[SNDRV_PCM_STREAM_CAPTURE].substream;
-+			capture = snd_soc_dapm_new_dai(card, substream,
-+						       "capture");
-+			if (IS_ERR(capture)) {
-+				dev_err(rtd->dev,
-+					"ASoC: Failed to create DAI %s: %ld\n",
-+					codec_dai->name,
-+					PTR_ERR(capture));
-+				return;
-+			}
- 
--			snd_soc_dapm_add_path(&card->dapm, codec, capture,
--					      NULL, NULL);
-+			snd_soc_dapm_add_path(&card->dapm, capture,
-+					      capture_cpu, NULL, NULL);
- 		}
-+
-+		dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
-+			codec_dai->component->name, codec->name,
-+			cpu_dai->component->name, capture_cpu->name);
-+
-+		snd_soc_dapm_add_path(&card->dapm, codec, capture,
-+				      NULL, NULL);
-+	}
-+}
-+
-+static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
-+					  struct snd_soc_pcm_runtime *rtd)
-+{
-+	struct snd_soc_dai *codec_dai;
-+	int i;
-+
-+	if (rtd->num_cpus > 1) {
-+		if (rtd->num_codecs == rtd->num_cpus)
-+			for_each_rtd_codec_dai(rtd, i, codec_dai)
-+				dapm_add_valid_dai_widget(card, rtd,
-+							  codec_dai,
-+							  rtd->cpu_dais[i]);
-+		else
-+			dev_err(card->dev,
-+				"N cpus to M codecs link is not supported yet\n");
-+	} else {
-+		for_each_rtd_codec_dai(rtd, i, codec_dai)
-+			dapm_add_valid_dai_widget(card, rtd,
-+						  codec_dai, rtd->cpu_dais[0]);
- 	}
- }
- 
-@@ -4417,9 +4434,11 @@ static void soc_dapm_stream_event(struct snd_soc_pcm_runtime *rtd, int stream,
- 	int event)
- {
- 	struct snd_soc_dai *codec_dai;
-+	struct snd_soc_dai *cpu_dai;
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index 223cd045719e..4bdef7f6d968 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -810,9 +810,10 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
+ 	int playback = 0, capture = 0;
  	int i;
  
--	soc_dapm_dai_stream_event(rtd->cpu_dai, stream, event);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		soc_dapm_dai_stream_event(cpu_dai, stream, event);
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		soc_dapm_dai_stream_event(codec_dai, stream, event);
+-	if (rtd->num_codecs > 1) {
++	if (rtd->num_cpus > 1 ||
++	    rtd->num_codecs) {
+ 		dev_err(rtd->card->dev,
+-			"Compress ASoC: Multicodec not supported\n");
++			"Compress ASoC: Multi CPU/Codec not supported\n");
+ 		return -EINVAL;
+ 	}
  
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index df57ec47ad60..781752b67e90 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -62,6 +62,12 @@ int snd_dmaengine_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+ 	int ret;
+ 
++	if (rtd->num_cpus > 1) {
++		dev_err(rtd->dev,
++			 "%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
+ 
+ 	ret = snd_hwparams_to_dma_slave_config(substream, params, slave_config);
+@@ -119,6 +125,12 @@ dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
+ 	struct snd_pcm_hardware hw;
+ 	int ret;
+ 
++	if (rtd->num_cpus > 1) {
++		dev_err(rtd->dev,
++			 "%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	if (pcm->config && pcm->config->pcm_hardware)
+ 		return snd_soc_set_runtime_hwparams(substream,
+ 				pcm->config->pcm_hardware);
+@@ -183,6 +195,12 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+ 	dma_filter_fn fn = NULL;
+ 
++	if (rtd->num_cpus > 1) {
++		dev_err(rtd->dev,
++			 "%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
+ 
+ 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX) && pcm->chan[0])
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index ae1017637e86..1932115cf4ba 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1469,6 +1469,12 @@ int dpcm_path_get(struct snd_soc_pcm_runtime *fe,
+ 	struct snd_soc_dai *cpu_dai = fe->cpu_dai;
+ 	int paths;
+ 
++	if (fe->num_cpus > 1) {
++		dev_err(fe->dev,
++			 "%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	/* get number of valid DAI paths and their widgets */
+ 	paths = snd_soc_dapm_dai_get_connected_widgets(cpu_dai, stream, list,
+ 			dpcm_end_walk_at_be);
+@@ -2808,6 +2814,12 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 	struct snd_soc_dapm_widget_list *list;
+ 	int count, paths;
+ 
++	if (fe->num_cpus > 1) {
++		dev_err(fe->dev,
++			 "%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	if (!fe->dai_link->dynamic)
+ 		return 0;
+ 
+@@ -3364,6 +3376,12 @@ static ssize_t dpcm_state_read_file(struct file *file, char __user *user_buf,
+ 	ssize_t out_count = PAGE_SIZE, offset = 0, ret = 0;
+ 	char *buf;
+ 
++	if (fe->num_cpus > 1) {
++		dev_err(fe->dev,
++			 "%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	buf = kmalloc(out_count, GFP_KERNEL);
+ 	if (!buf)
+ 		return -ENOMEM;
 -- 
 2.17.1
 

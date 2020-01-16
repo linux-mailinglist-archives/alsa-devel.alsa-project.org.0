@@ -2,73 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB8BB13EB11
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:48:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 056E313EB53
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:49:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 61CE5181A;
-	Thu, 16 Jan 2020 18:47:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 61CE5181A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95F851824;
+	Thu, 16 Jan 2020 18:48:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95F851824
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579196893;
-	bh=Fwwz2ClBVcaBqPSdIdBt+m179oEDfWyoiVp8djLWAGA=;
+	s=default; t=1579196973;
+	bh=6DlNE6mdvKeNztF9sVEFB9P3QSphWeXAeqhOSJTPVOE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z4x8/FPO7rKJ5hD1JrDCFtCZ5Pvf3Hl5h/+PF1Zk7G4fPWvaFv6+jYg7d4mM3fgPw
-	 84cWCS6hpumcM1HcDCcNQqJZlfl5b6Z6chqJJE0CR4DvHVaSISBXgjjZpBKdrWEWvL
-	 s+uUQNnEA+u7nsG5xqhM4H5TvuJzzhfs9kKqtbTk=
+	b=qRWBwRq2/au216YMN1f+gemK0CujKw6rAUp78Oc7iQDhyt8Eqsu3AaaUZxCz6QJRc
+	 m9H/B0MOLcg85MF8c0mFJGr9l9RX4dUmpX6u/dbQj+HSXzW73jMtt40pbGOCFA1Xfu
+	 fd6AbB/OzAnh1rnWZKaXNgqLNHq/frEbR7u8M52M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AB1DAF802F9;
-	Thu, 16 Jan 2020 18:40:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F79BF8016F;
+	Thu, 16 Jan 2020 18:43:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A9E7F802F8; Thu, 16 Jan 2020 18:40:19 +0100 (CET)
+ id DCD01F8016F; Thu, 16 Jan 2020 18:43:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CFE9F802A0
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:40:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CFE9F802A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82899F80086
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:42:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82899F80086
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dGUZY0Jt"
+ header.b="BqchPcY/"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 6354E24705;
- Thu, 16 Jan 2020 17:40:10 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 3765F24695;
+ Thu, 16 Jan 2020 17:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579196411;
- bh=AiKD26N73+dcE/BuuQ0MMJHJKa0NJr0JAFQM6yaVb+M=;
+ s=default; t=1579196574;
+ bh=oxvTDftx1tbTSMTc3Vnyd0GHi7VxIP1tUq0pbm11jsQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dGUZY0JtOXbp5lvM/O/I7AhqCEmdFf0VYlRksCtJk0h1dO8TTjZrTO35iw7ioP322
- K/5D7G6QHfWZPp9rof/sr4adD9j7C3zRWd3fI4QT1cfrOZzT2iI9Ii2lCVFY1h9NBl
- wMvaMI/PAiOPJxxzJKAtE4DKaUqnMva3TWnNHeYg=
+ b=BqchPcY/xWG2pCQgYSh6auRvtV1xV2vuhlIi1iSvm27UsnfKCIE5qTvfUP8slE+k7
+ qUAy7zNqAAs+m9T60H7JuLdQXHYhWx5OSvv97lDtdlIax5zWl3CEVA0dHmBwwAG1tF
+ zsfM4/vusQFYtY52Y0gFkTlDm07SzJrR/Y2d1zB0=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:35:33 -0500
-Message-Id: <20200116173641.22137-144-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:39:59 -0500
+Message-Id: <20200116174251.24326-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200116173641.22137-1-sashal@kernel.org>
-References: <20200116173641.22137-1-sashal@kernel.org>
+In-Reply-To: <20200116174251.24326-1-sashal@kernel.org>
+References: <20200116174251.24326-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Maxime Ripard <maxime.ripard@bootlin.com>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH AUTOSEL 4.9 184/251] ASoC: sun4i-i2s: RX and TX
-	counter registers are swapped
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Anders Roxell <anders.roxell@linaro.org>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.4 002/174] ALSA: hda: fix unused
+	variable warning
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,45 +80,35 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Maxime Ripard <maxime.ripard@bootlin.com>
-
-[ Upstream commit cf2c0e1ce9544df42170fb921f12da82dc0cc8d6 ]
-
-The RX and TX counters registers offset have been swapped, fix that.
-
-Fixes: fa7c0d13cb26 ("ASoC: sunxi: Add Allwinner A10 Digital Audio driver")
-Signed-off-by: Maxime Ripard <maxime.ripard@bootlin.com>
-Link: https://lore.kernel.org/r/8b26477560ad5fd8f69e037b167c5e61de5c26a3.1566242458.git-series.maxime.ripard@bootlin.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/sunxi/sun4i-i2s.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/sunxi/sun4i-i2s.c b/sound/soc/sunxi/sun4i-i2s.c
-index 15c92400cea4..02c373c65e19 100644
---- a/sound/soc/sunxi/sun4i-i2s.c
-+++ b/sound/soc/sunxi/sun4i-i2s.c
-@@ -78,8 +78,8 @@
- #define SUN4I_I2S_CLK_DIV_MCLK_MASK		GENMASK(3, 0)
- #define SUN4I_I2S_CLK_DIV_MCLK(mclk)			((mclk) << 0)
- 
--#define SUN4I_I2S_RX_CNT_REG		0x28
--#define SUN4I_I2S_TX_CNT_REG		0x2c
-+#define SUN4I_I2S_TX_CNT_REG		0x28
-+#define SUN4I_I2S_RX_CNT_REG		0x2c
- 
- #define SUN4I_I2S_TX_CHAN_SEL_REG	0x30
- #define SUN4I_I2S_TX_CHAN_SEL(num_chan)		(((num_chan) - 1) << 0)
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+RnJvbTogQW5kZXJzIFJveGVsbCA8YW5kZXJzLnJveGVsbEBsaW5hcm8ub3JnPgoKWyBVcHN0cmVh
+bSBjb21taXQgNWIwMzAwNmQ1YzU4ZGRkMzFjYWY1NDJlZWY0ZDAyNjliY2YyNjViMyBdCgpXaGVu
+IENPTkZJR19YODY9biBmdW5jdGlvbiBhenhfc25vb3AgZG9lc24ndCB1c2UgdGhlIHZhcmlhYmxl
+IGNoaXAgaXQKb25seSByZXR1cm5zIHRydWUuCgpzb3VuZC9wY2kvaGRhL2hkYV9pbnRlbC5jOiBJ
+biBmdW5jdGlvbiDigJhkbWFfYWxsb2NfcGFnZXPigJk6CnNvdW5kL3BjaS9oZGEvaGRhX2ludGVs
+LmM6MjAwMjoxNDogd2FybmluZzogdW51c2VkIHZhcmlhYmxlIOKAmGNoaXDigJkgWy1XdW51c2Vk
+LXZhcmlhYmxlXQogIHN0cnVjdCBhenggKmNoaXAgPSBidXNfdG9fYXp4KGJ1cyk7CiAgICAgICAg
+ICAgICAgXn5+fgoKQ3JlYXRlIGEgaW5saW5lIGZ1bmN0aW9uIG9mIGF6eF9zbm9vcC4KCkZpeGVz
+OiBhNDFkMTIyNDQ5YmUgKCJBTFNBOiBoZGEgLSBFbWJlZCBidXMgaW50byBjb250cm9sbGVyIG9i
+amVjdCIpClNpZ25lZC1vZmYtYnk6IEFuZGVycyBSb3hlbGwgPGFuZGVycy5yb3hlbGxAbGluYXJv
+Lm9yZz4KU2lnbmVkLW9mZi1ieTogVGFrYXNoaSBJd2FpIDx0aXdhaUBzdXNlLmRlPgpTaWduZWQt
+b2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogc291bmQvcGNpL2hk
+YS9oZGFfY29udHJvbGxlci5oIHwgOSArKysrLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2Vy
+dGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9oZGFf
+Y29udHJvbGxlci5oIGIvc291bmQvcGNpL2hkYS9oZGFfY29udHJvbGxlci5oCmluZGV4IDU1ZWM0
+NDcwZjZiNi4uNDk5ODczZDI5Y2MxIDEwMDY0NAotLS0gYS9zb3VuZC9wY2kvaGRhL2hkYV9jb250
+cm9sbGVyLmgKKysrIGIvc291bmQvcGNpL2hkYS9oZGFfY29udHJvbGxlci5oCkBAIC0xNjQsMTEg
+KzE2NCwxMCBAQCBzdHJ1Y3QgYXp4IHsKICNkZWZpbmUgYXp4X2J1cyhjaGlwKQkoJihjaGlwKS0+
+YnVzLmNvcmUpCiAjZGVmaW5lIGJ1c190b19hengoX2J1cykJY29udGFpbmVyX29mKF9idXMsIHN0
+cnVjdCBhengsIGJ1cy5jb3JlKQogCi0jaWZkZWYgQ09ORklHX1g4NgotI2RlZmluZSBhenhfc25v
+b3AoY2hpcCkJCSgoY2hpcCktPnNub29wKQotI2Vsc2UKLSNkZWZpbmUgYXp4X3Nub29wKGNoaXAp
+CQl0cnVlCi0jZW5kaWYKK3N0YXRpYyBpbmxpbmUgYm9vbCBhenhfc25vb3Aoc3RydWN0IGF6eCAq
+Y2hpcCkKK3sKKwlyZXR1cm4gIUlTX0VOQUJMRUQoQ09ORklHX1g4NikgfHwgY2hpcC0+c25vb3A7
+Cit9CiAKIC8qCiAgKiBtYWNyb3MgZm9yIGVhc3kgdXNlCi0tIAoyLjIwLjEKCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBs
+aXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9q
+ZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

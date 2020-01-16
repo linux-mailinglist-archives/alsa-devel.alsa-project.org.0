@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA8DA13EBC3
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:52:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDC8B13EBDE
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:53:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 814B417F1;
-	Thu, 16 Jan 2020 18:51:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 814B417F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AEB71826;
+	Thu, 16 Jan 2020 18:52:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AEB71826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579197168;
-	bh=LzmhLDgAl5DIpFAgtcoyjlw8PQZIbja8EKugpOLjl2M=;
+	s=default; t=1579197207;
+	bh=2C0Fd/Jbi4ICyfBr3GVhP5atcIjpN7lOncaJnKduNOE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MD8Dznrm6suip3xllfB9S4or6BNEGGbZKR+LbcedJ6NwRZY752dE2AGjPV6gRorZb
-	 HuDUhqCFXbsDZ6oaWtT5X40lsHWvvsXlHzwhc7cMJ7NoqY8fYjr6WmrcLgT5bikiRv
-	 wXFvTi25/1aHalEF6ynRvoctBMgW9s2W7AtUBw5A=
+	b=fsqJuqRGP45NtH0iF9TbCyx+Yy3v/KXwSolCS+rV4Ac4j1eQzS9YOkzFz3mCUKoYQ
+	 14z09/f9PIHriip3MVytT0BNqh7d+9fSzi7z3VtHxiUqNWcEkfmGNAP+oohm695jA8
+	 85LGFvH3xQBM8FaBuZ1nAvjCFTehgFv2zBTXMwN0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D6617F802A2;
-	Thu, 16 Jan 2020 18:44:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0A8AFF802BD;
+	Thu, 16 Jan 2020 18:45:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 239ABF80299; Thu, 16 Jan 2020 18:44:54 +0100 (CET)
+ id B0293F802A8; Thu, 16 Jan 2020 18:45:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A64AF8028C
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:44:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A64AF8028C
+ by alsa1.perex.cz (Postfix) with ESMTPS id BB146F80290
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:45:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BB146F80290
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Zr0exkGm"
+ header.b="YTg7BDYf"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A7A4E2475A;
- Thu, 16 Jan 2020 17:44:45 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 22BEB2476E;
+ Thu, 16 Jan 2020 17:45:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579196686;
- bh=+4iWLMisGGOvW8hD5jsQgaUof1QaynPWaCGEVaH88rY=;
+ s=default; t=1579196715;
+ bh=Om9OS8yeIJC84xn8fWXWK4tzn/MLFB3gRUoN6Kp1y1I=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Zr0exkGmRtZeZ7k0l2wda/ezklgbepb0CLXEEY9UrscHvdCnBeIruaqMq75Uwz2+0
- 56DEDSA0rrMfFzZhz1KPqAYD6WvzMzmfEGWD5WXf/MNPfI37WYIPRIdMchrh/ltzSk
- qkwOgkqyyXfg1C/uvsGJegdu3FQZ6Q/mz/tjUPHg=
+ b=YTg7BDYfXFemzSGdoe8K2C6Iyd2MY1bc1V37PnUo13gLtY0URH5o4tWCaRJzasq9Z
+ m87ZFMePAdL9k3v5mNMENEwuzvTSyC2lrMATV6MbYJpr0mptNG6O1xy064vNKHbzR2
+ OHJys3yoxuFnTO5vOv576g/m7OUvj+1d8HctP61g=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:41:20 -0500
-Message-Id: <20200116174251.24326-83-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:41:40 -0500
+Message-Id: <20200116174251.24326-103-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116174251.24326-1-sashal@kernel.org>
 References: <20200116174251.24326-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.4 083/174] ASoC: fix valid stream
-	condition
+Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.4 103/174] ASoC: ti: davinci-mcasp:
+	Fix slot mask settings when using multiple AXRs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,38 +85,48 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jerome Brunet <jbrunet@baylibre.com>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
 
-[ Upstream commit 6a7c59c6d9f3b280e81d7a04bbe4e55e90152dce ]
+[ Upstream commit fd14f4436fd47d5418023c90e933e66d3645552e ]
 
-A stream may specify a rate range using 'rate_min' and 'rate_max', so a
-stream may be valid and not specify any rates. However, as stream cannot
-be valid and not have any channel. Let's use this condition instead to
-determine if a stream is valid or not.
+If multiple serializers are connected in the system and the number of
+channels will need to use more than one serializer the mask to enable the
+serializers were left to 0 if tdm_mask is provided
 
-Fixes: cde79035c6cf ("ASoC: Handle multiple codecs with split playback / capture")
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Fixes: dd55ff8346a97 ("ASoC: davinci-mcasp: Add set_tdm_slots() support")
+
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-pcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/davinci/davinci-mcasp.c | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 78813057167d..dbdea1975f90 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -48,8 +48,8 @@ static bool snd_soc_dai_stream_valid(struct snd_soc_dai *dai, int stream)
- 	else
- 		codec_stream = &dai->driver->capture;
- 
--	/* If the codec specifies any rate at all, it supports the stream. */
--	return codec_stream->rates;
-+	/* If the codec specifies any channels at all, it supports the stream */
-+	return codec_stream->channels_min;
- }
- 
- /**
+diff --git a/sound/soc/davinci/davinci-mcasp.c b/sound/soc/davinci/davinci-mcasp.c
+index 2f7be6cee98e..fc0a73227b02 100644
+--- a/sound/soc/davinci/davinci-mcasp.c
++++ b/sound/soc/davinci/davinci-mcasp.c
+@@ -875,14 +875,13 @@ static int mcasp_i2s_hw_param(struct davinci_mcasp *mcasp, int stream,
+ 		active_slots = hweight32(mcasp->tdm_mask[stream]);
+ 		active_serializers = (channels + active_slots - 1) /
+ 			active_slots;
+-		if (active_serializers == 1) {
++		if (active_serializers == 1)
+ 			active_slots = channels;
+-			for (i = 0; i < total_slots; i++) {
+-				if ((1 << i) & mcasp->tdm_mask[stream]) {
+-					mask |= (1 << i);
+-					if (--active_slots <= 0)
+-						break;
+-				}
++		for (i = 0; i < total_slots; i++) {
++			if ((1 << i) & mcasp->tdm_mask[stream]) {
++				mask |= (1 << i);
++				if (--active_slots <= 0)
++					break;
+ 			}
+ 		}
+ 	} else {
 -- 
 2.20.1
 

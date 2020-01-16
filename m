@@ -2,72 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0A9E13E4C7
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:10:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DAB313E4EA
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:11:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3AFFA17EC;
-	Thu, 16 Jan 2020 18:10:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3AFFA17EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0460317F9;
+	Thu, 16 Jan 2020 18:10:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0460317F9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579194652;
-	bh=4z7q+7VvAcjGrwi3nxqGkGVrcs3uToO4B2azdz8hsWA=;
+	s=default; t=1579194703;
+	bh=p3icqmvFgk8L5M1EcrMPGTJstz6T9ul5bxiq9jSMdsM=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=q6Bebi8rX3TN2/LfEsouRbE+BiehNrXbR/Gt2I42dC1FS1dMTkOA1c7EqJ63pAg0A
-	 s6XQlULM6XWlWN7MiHtSbk+0wNcdrNMnaLqu1vP//8AxT5q9KEHw9qlq+7nzrrmOHX
-	 eU6NKNlUotJ5F5PmpyK8IEdSvxr+56yXRn4l0mhs=
+	b=jZvlDQnyO+v57TDuCTOfHvdLjcIlV1A6LqVxZxxQY7DnV7RoGkJdSAw1ejV1bhb0c
+	 VCzZI+bBQaQtn5g0FGSYdY8+2bsBWXmJhd8iB4lCPHl3VYgDgNpp7aOGnIxDr9Hgov
+	 p6KTLIdYeprnTM1EurcxYY6Kl7B+et1TLinh2mwQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A22DDF8021E;
-	Thu, 16 Jan 2020 18:06:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8CCE4F802A8;
+	Thu, 16 Jan 2020 18:07:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 29C73F8028E; Thu, 16 Jan 2020 18:06:46 +0100 (CET)
+ id A8337F802A2; Thu, 16 Jan 2020 18:07:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0B8B3F8016F
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:06:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B8B3F8016F
+ by alsa1.perex.cz (Postfix) with ESMTPS id C286AF802A0
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:07:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C286AF802A0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="HIyGq3q+"
+ header.b="tuGnI9+c"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B6BCF20663;
- Thu, 16 Jan 2020 17:06:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 26D1A205F4;
+ Thu, 16 Jan 2020 17:07:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579194398;
- bh=KBiI/mXxZvZHLjI05KG9vEFVUmFKB4m2QAtN/vyAklQ=;
+ s=default; t=1579194427;
+ bh=bogbFyIWYY0db2aF3q1qJ65vkmKxitFEOw8bigE2K2Y=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=HIyGq3q+aJ2xHHnBIhpPOG7JOU6Wzhj49DUJ4bIZSXsrn2EIJDiN3dHwf+QzecVrp
- XhCwBvJDiINnOyRLH1rLvdXi6FdiRP+19lqMdzqMUqXQ2mhMjuK9uvqtcxVgWcGok5
- E4HxEo2EkUDaMr57hoDwTQDGQYhMSfoFZIaYbdr8=
+ b=tuGnI9+czYv1YxtcZIhxBfWZ7DHtTrQ9ehTc9NPg7xsXjqBqz7gloCuDHCPjX0MUT
+ C7zqO37tfqZmZfeFGszhapJhCVtKTwiEWZyTIdTr2sWI47jewm76XTHd163+mAz4oV
+ Zu/2iIFcb5j9nCg1+iEFbMTKolUOu5F/SSAGmXic=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 11:59:22 -0500
-Message-Id: <20200116170509.12787-61-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 11:59:42 -0500
+Message-Id: <20200116170509.12787-81-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116170509.12787-1-sashal@kernel.org>
 References: <20200116170509.12787-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 324/671] ASoC: fix valid stream
-	condition
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH AUTOSEL 4.19 344/671] ALSA: aica: Fix a
+	long-time build breakage
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,38 +85,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jerome Brunet <jbrunet@baylibre.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 6a7c59c6d9f3b280e81d7a04bbe4e55e90152dce ]
+[ Upstream commit 534420c6ff87d3052540f1fd346e0adcff440819 ]
 
-A stream may specify a rate range using 'rate_min' and 'rate_max', so a
-stream may be valid and not specify any rates. However, as stream cannot
-be valid and not have any channel. Let's use this condition instead to
-determine if a stream is valid or not.
+The build of aica sound driver has been broken since the timer API
+conversion and some code rewrite.  This patch fixes the breakage by
+using the common substream field, as well as a bit cleaning up wrt the
+timer handling in the code.
 
-Fixes: cde79035c6cf ("ASoC: Handle multiple codecs with split playback / capture")
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fixes: d522bb6a105f ("ALSA: sh: aica: Convert timers to use timer_setup()")
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-pcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/sh/aica.c | 14 ++++----------
+ 1 file changed, 4 insertions(+), 10 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 551bfc581fc1..53fefa7c982f 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -42,8 +42,8 @@ static bool snd_soc_dai_stream_valid(struct snd_soc_dai *dai, int stream)
- 	else
- 		codec_stream = &dai->driver->capture;
- 
--	/* If the codec specifies any rate at all, it supports the stream. */
--	return codec_stream->rates;
-+	/* If the codec specifies any channels at all, it supports the stream */
-+	return codec_stream->channels_min;
+diff --git a/sound/sh/aica.c b/sound/sh/aica.c
+index 2b26311405a4..ad3f71358486 100644
+--- a/sound/sh/aica.c
++++ b/sound/sh/aica.c
+@@ -303,7 +303,7 @@ static void aica_period_elapsed(struct timer_list *t)
+ {
+ 	struct snd_card_aica *dreamcastcard = from_timer(dreamcastcard,
+ 							      t, timer);
+-	struct snd_pcm_substream *substream = dreamcastcard->timer_substream;
++	struct snd_pcm_substream *substream = dreamcastcard->substream;
+ 	/*timer function - so cannot sleep */
+ 	int play_period;
+ 	struct snd_pcm_runtime *runtime;
+@@ -335,13 +335,6 @@ static void spu_begin_dma(struct snd_pcm_substream *substream)
+ 	dreamcastcard = substream->pcm->private_data;
+ 	/*get the queue to do the work */
+ 	schedule_work(&(dreamcastcard->spu_dma_work));
+-	/* Timer may already be running */
+-	if (unlikely(dreamcastcard->timer_substream)) {
+-		mod_timer(&dreamcastcard->timer, jiffies + 4);
+-		return;
+-	}
+-	timer_setup(&dreamcastcard->timer, aica_period_elapsed, 0);
+-	dreamcastcard->timer_substream = substream;
+ 	mod_timer(&dreamcastcard->timer, jiffies + 4);
  }
  
- /**
+@@ -379,8 +372,8 @@ static int snd_aicapcm_pcm_close(struct snd_pcm_substream
+ {
+ 	struct snd_card_aica *dreamcastcard = substream->pcm->private_data;
+ 	flush_work(&(dreamcastcard->spu_dma_work));
+-	if (dreamcastcard->timer_substream)
+-		del_timer(&dreamcastcard->timer);
++	del_timer(&dreamcastcard->timer);
++	dreamcastcard->substream = NULL;
+ 	kfree(dreamcastcard->channel);
+ 	spu_disable();
+ 	return 0;
+@@ -615,6 +608,7 @@ static int snd_aica_probe(struct platform_device *devptr)
+ 	       "Yamaha AICA Super Intelligent Sound Processor for SEGA Dreamcast");
+ 	/* Prepare to use the queue */
+ 	INIT_WORK(&(dreamcastcard->spu_dma_work), run_spu_dma);
++	timer_setup(&dreamcastcard->timer, aica_period_elapsed, 0);
+ 	/* Load the PCM 'chip' */
+ 	err = snd_aicapcmchip(dreamcastcard, 0);
+ 	if (unlikely(err < 0))
 -- 
 2.20.1
 

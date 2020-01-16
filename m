@@ -2,62 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D54C13DD0F
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 15:10:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE5B313DD2D
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 15:16:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C03A17CD;
-	Thu, 16 Jan 2020 15:09:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C03A17CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0CB61790;
+	Thu, 16 Jan 2020 15:15:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0CB61790
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579183834;
-	bh=3nmN9jXNH9tuOKgtGwqO+TgWJyFao9/p3WMYjeVlNlQ=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1579184186;
+	bh=YuxBHQYxqn8joLkn6cGOQF0iRJAlJJrfmQ5QEt2NvQc=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YLelJ4wdgPA3zHkFSk/1X44R5ZFr6CthaedrC/P9BgV93Y8+yAK8LyOafBYUk2hjx
-	 l14d6L092Ge/tKflE6Qgorbj4Oewla/5BGaPe9qsSZw2ltwFzRn0jy2v7VukEUxE+J
-	 umJSI4uMZvSkKUSh49WQqVPAMoY04IL/beEHNblQ=
+	b=c1Fysik3EkdUSHoJg9sJzDcejXypjw27GyvdhH7QKT3oanmyznTmWxTqdnNQjqf4I
+	 P1AzxIZ6gvOMiLin/dV48rOONFXHzJgZWqhMq8vH9r0n5Y71M7pbJ128iXOkOw1IvU
+	 CpZkz9SMQXMogrX7XZ+j9godjm/yUeXEH8AmIDwM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C1A8F8028B;
-	Thu, 16 Jan 2020 15:06:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 820AAF8014D;
+	Thu, 16 Jan 2020 15:14:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E526EF80278; Thu, 16 Jan 2020 15:06:30 +0100 (CET)
+ id 65DC6F8014E; Thu, 16 Jan 2020 15:14:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 96C63F80171
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 15:06:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96C63F80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7A5E1F80086
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 15:14:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A5E1F80086
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2020 06:06:24 -0800
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2020 06:14:31 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,326,1574150400"; d="scan'208";a="373319983"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga004.jf.intel.com with ESMTP; 16 Jan 2020 06:06:22 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de
-Date: Thu, 16 Jan 2020 16:06:10 +0200
-Message-Id: <20200116140610.7247-4-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200116140610.7247-1-kai.vehmanen@linux.intel.com>
-References: <20200116140610.7247-1-kai.vehmanen@linux.intel.com>
-Cc: cujomalainey@chromium.org, broonie@kernel.org,
- pierre-louis.bossart@linux.intel.com, kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [PATCH 3/3] ALSA: hda/hdmi - add retry logic to
-	parse_intel_hdmi()
+X-IronPort-AV: E=Sophos;i="5.70,326,1574150400"; d="scan'208";a="243284384"
+Received: from fmsmsx108.amr.corp.intel.com ([10.18.124.206])
+ by orsmga002.jf.intel.com with ESMTP; 16 Jan 2020 06:14:30 -0800
+Received: from fmsmsx157.amr.corp.intel.com (10.18.116.73) by
+ FMSMSX108.amr.corp.intel.com (10.18.124.206) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 16 Jan 2020 06:14:30 -0800
+Received: from shsmsx104.ccr.corp.intel.com (10.239.4.70) by
+ FMSMSX157.amr.corp.intel.com (10.18.116.73) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Thu, 16 Jan 2020 06:14:30 -0800
+Received: from shsmsx105.ccr.corp.intel.com ([169.254.11.28]) by
+ SHSMSX104.ccr.corp.intel.com ([169.254.5.197]) with mapi id 14.03.0439.000;
+ Thu, 16 Jan 2020 22:14:28 +0800
+From: "Jie, Yang" <yang.jie@intel.com>
+To: Takashi Iwai <tiwai@suse.de>, Keyon Jie <yang.jie@linux.intel.com>
+Thread-Topic: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
+ constrained by preallocated bytes issue
+Thread-Index: AQHVzGN6mc697fVomk2yCjUrm6hPFKftUbkw
+Date: Thu, 16 Jan 2020 14:14:28 +0000
+Message-ID: <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
+References: <20200116045318.5498-1-yang.jie@linux.intel.com>
+ <s5hd0bjq3cu.wl-tiwai@suse.de>
+ <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
+ <s5hsgkf7l2e.wl-tiwai@suse.de>
+ <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
+ <s5hh80v7h82.wl-tiwai@suse.de>
+In-Reply-To: <s5hh80v7h82.wl-tiwai@suse.de>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-product: dlpe-windows
+dlp-version: 11.2.0.6
+dlp-reaction: no-action
+x-originating-ip: [10.239.127.40]
+MIME-Version: 1.0
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes
+	max	constrained by preallocated bytes issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,51 +92,116 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The initial snd_hda_get_sub_node() can fail on certain
-devices (e.g. some Chromebook models using Intel GLK).
-The failure rate is very low, but as this is is part of
-the probe process, end-user impact is high.
+> -----Original Message-----
+> From: Alsa-devel <alsa-devel-bounces@alsa-project.org> On Behalf Of
+> Takashi Iwai
+> Sent: Thursday, January 16, 2020 7:51 PM
+> To: Keyon Jie <yang.jie@linux.intel.com>
+> Cc: alsa-devel@alsa-project.org
+> Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
+> constrained by preallocated bytes issue
+> 
+> On Thu, 16 Jan 2020 12:25:38 +0100,
+> Keyon Jie wrote:
+> >
+> > On Thu, 2020-01-16 at 11:27 +0100, Takashi Iwai wrote:
+> > > On Thu, 16 Jan 2020 10:50:33 +0100,
+> > >
+> > > Oh, you're right, and I completely misread the patch.
+> > >
+> > > Now I took a coffee and can tell you the story behind the scene.
+> > >
+> > > I believe the current code is intentionally limiting the size to the
+> > > preallocated size.  This limitation was brought for not trying to
+> > > allocate a larger buffer when the buffer has been preallocated.  In
+> > > the past, most hardware allocated the continuous pages for a buffer
+> > > and the allocation of a large buffer fails quite likely.  This was
+> > > the reason of the buffer preallocation.  So, the driver wanted to
+> > > tell the user-space the limit.  If user needs to have an extra large
+> > > buffer, they are supposed to fiddle with prealloc procfs (either
+> > > setting zero to clear the preallocation or setting a large enough
+> > > buffer beforehand).
+> >
+> > Thank you for the sharing, it is interesting and knowledge learned to
+> > me.
+> >
+> > >
+> > > For SG-buffers, though, limitation makes less sense than continuous
+> > > pages.  e.g. a patch below removes the limitation for SG-buffers.
+> > > But changing this would definitely cause the behavior difference,
+> > > and I don't know whether it's a reasonable move -- I'm afraid that
+> > > apps would start hogging too much memory if the limitation is gone.
+> >
+> > I just went through all invoking to snd_pcm_lib_preallocate_pages*(),
+> > for those SNDRV_DMA_TYPE_DEV, some of them set the *size* equal to
+> the
+> > *max*, some set the *max* several times to the *size*, IMHO, the
+> > *max*s are matched to those hardware's limiatation, comparing to the
+> > *size*s, aren't they?
+> >
+> > In this case, I still think my patch hanle all
+> > TYPE_DEV/SNDRV_DMA_TYPE_DEV/TYPE_SG/SNDRV_DMA_TYPE_DEV
+> cases more
+> > gracefully, we will still take the limitation from the specific driver
+> > set, from the *max* param, and the test results looks very nice here,
+> > we will take what the user space wanted for buffer-bytes via aply
+> > exactly, as long as it is suitable for the interval and constraints.
+> 
+> Well, I have a mixed feeling.  Certainly we'd need some better way to allow a
+> larger buffer allocation, especially for HDA.  OTOH, if the buffer was
+> preallocated, it's meant to be used actually.  That's the point of the
+> hw_constraint setup.
 
-In observed cases, related hardware status registers have
-expected values, but the node query still fails. Retrying
-the node query does seem to help, so fix the problem by
-adding retry logic to the query. This does not impact
-non-Intel platforms.
+So if the buffer was preallocated, it won't be re-allocated at hw_params() stage,
+is this conflict with the re-allocate logic in hw_params()?
 
-BugLink: https://github.com/thesofproject/linux/issues/1642
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
----
- sound/pci/hda/patch_hdmi.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+> 
+> And now thinking again after another cup of coffee, I wonder why we do
+> preallocate for HDA at all.  For HD-audio, the allocation of any large buffer
+> would succeed very likely because of SG-buffer.
+> 
+> So, just setting 0 to the preallocation size (but keeping else) would work, e.g.
+> something like below?  The help text needs adjustment, but you can see the
+> rough idea.
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index ce3c212ee467..48bddc218829 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -2833,9 +2833,12 @@ static int alloc_intel_hdmi(struct hda_codec *codec)
- /* parse and post-process for Intel codecs */
- static int parse_intel_hdmi(struct hda_codec *codec)
- {
--	int err;
-+	int err, retries = 3;
-+
-+	do {
-+		err = hdmi_parse_codec(codec);
-+	} while (err < 0 && retries--);
- 
--	err = hdmi_parse_codec(codec);
- 	if (err < 0) {
- 		generic_spec_free(codec);
- 		return err;
--- 
-2.17.1
+So, do you suggest not doing preallocation(or calling it with 0 size) for all driver
+with TYPE_SG? I am fine if this is the recommended method, I can try this on SOF
+I2S platform to see if it can work as we required for very large buffer size.
 
+Thanks,
+~Keyon
+
+> 
+> 
+> thanks,
+> 
+> Takashi
+> 
+> --- a/sound/hda/Kconfig
+> +++ b/sound/hda/Kconfig
+> @@ -21,9 +21,10 @@ config SND_HDA_EXT_CORE
+>         select SND_HDA_CORE
+> 
+>  config SND_HDA_PREALLOC_SIZE
+> -	int "Pre-allocated buffer size for HD-audio driver"
+> +	int "Pre-allocated buffer size for HD-audio driver"
+> if !SND_DMA_SGBUF
+>  	range 0 32768
+> -	default 64
+> +	default 64 if !SND_DMA_SGBUF
+> +	default 0 if SND_DMA_SGBUF
+>  	help
+>  	  Specifies the default pre-allocated buffer-size in kB for the
+>  	  HD-audio driver.  A larger buffer (e.g. 2048) is preferred
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

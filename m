@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 056E313EB53
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:49:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4471113EB6E
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:50:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95F851824;
-	Thu, 16 Jan 2020 18:48:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95F851824
+	by alsa0.perex.cz (Postfix) with ESMTPS id DB5821825;
+	Thu, 16 Jan 2020 18:49:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB5821825
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579196973;
-	bh=6DlNE6mdvKeNztF9sVEFB9P3QSphWeXAeqhOSJTPVOE=;
+	s=default; t=1579197012;
+	bh=QGbybOKOwNV+rb9HGKVKUirHaZdd3NHWJwLJ1Ho2AGk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qRWBwRq2/au216YMN1f+gemK0CujKw6rAUp78Oc7iQDhyt8Eqsu3AaaUZxCz6QJRc
-	 m9H/B0MOLcg85MF8c0mFJGr9l9RX4dUmpX6u/dbQj+HSXzW73jMtt40pbGOCFA1Xfu
-	 fd6AbB/OzAnh1rnWZKaXNgqLNHq/frEbR7u8M52M=
+	b=Jxpi1hQ3v+1jX0Ig3hrTDww38oKVeh9786zgTSrnPRR3TUBg/cls3Vt6OyRzy62Ii
+	 EoRN0TyTRho/JGH8F5hplyHKW5FAHmPSLlbhyJqEWvCcF3mgO4E6F12UR5C15wzP5w
+	 0dOJw94Xa/0IG97ZRleLg9WsamQPrTMmRC3wV79k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F79BF8016F;
-	Thu, 16 Jan 2020 18:43:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C87C7F80271;
+	Thu, 16 Jan 2020 18:43:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DCD01F8016F; Thu, 16 Jan 2020 18:43:00 +0100 (CET)
+ id 78796F8014E; Thu, 16 Jan 2020 18:43:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 82899F80086
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:42:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82899F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0FB2F800B9
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:42:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0FB2F800B9
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="BqchPcY/"
+ header.b="Uhx07Bv2"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3765F24695;
- Thu, 16 Jan 2020 17:42:54 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A29EB20728;
+ Thu, 16 Jan 2020 17:42:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579196574;
- bh=oxvTDftx1tbTSMTc3Vnyd0GHi7VxIP1tUq0pbm11jsQ=;
+ s=default; t=1579196577;
+ bh=OrMNX1uLlv82W6tGFkTa+kfFkYiYi9GgSKXUK6E0HIg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=BqchPcY/xWG2pCQgYSh6auRvtV1xV2vuhlIi1iSvm27UsnfKCIE5qTvfUP8slE+k7
- qUAy7zNqAAs+m9T60H7JuLdQXHYhWx5OSvv97lDtdlIax5zWl3CEVA0dHmBwwAG1tF
- zsfM4/vusQFYtY52Y0gFkTlDm07SzJrR/Y2d1zB0=
+ b=Uhx07Bv2J39zqCgIoKyMoRJyLjydvR1SF/RJCHAZEYokvIZx50ST1QuAU/Md5Mt3J
+ CiXDwmDCdQKnKm1xzjE7EOQTgb6pwgtJx49GR2NlARrI7WcKdqBavGoFHFAgFzI+qo
+ dEpxWdU/6X81wKaZEyGeOCTYPIw0ETcQkCbv+xwI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:39:59 -0500
-Message-Id: <20200116174251.24326-2-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:40:01 -0500
+Message-Id: <20200116174251.24326-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116174251.24326-1-sashal@kernel.org>
 References: <20200116174251.24326-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, Anders Roxell <anders.roxell@linaro.org>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.4 002/174] ALSA: hda: fix unused
-	variable warning
+Cc: Nicolas Huaman <nicolas@herochao.de>, Takashi Iwai <tiwai@suse.de>,
+ alsa-devel@alsa-project.org, Sasha Levin <sashal@kernel.org>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.4 004/174] ALSA: usb-audio: update
+	quirk for B&W PX to remove microphone
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,35 +80,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RnJvbTogQW5kZXJzIFJveGVsbCA8YW5kZXJzLnJveGVsbEBsaW5hcm8ub3JnPgoKWyBVcHN0cmVh
-bSBjb21taXQgNWIwMzAwNmQ1YzU4ZGRkMzFjYWY1NDJlZWY0ZDAyNjliY2YyNjViMyBdCgpXaGVu
-IENPTkZJR19YODY9biBmdW5jdGlvbiBhenhfc25vb3AgZG9lc24ndCB1c2UgdGhlIHZhcmlhYmxl
-IGNoaXAgaXQKb25seSByZXR1cm5zIHRydWUuCgpzb3VuZC9wY2kvaGRhL2hkYV9pbnRlbC5jOiBJ
-biBmdW5jdGlvbiDigJhkbWFfYWxsb2NfcGFnZXPigJk6CnNvdW5kL3BjaS9oZGEvaGRhX2ludGVs
-LmM6MjAwMjoxNDogd2FybmluZzogdW51c2VkIHZhcmlhYmxlIOKAmGNoaXDigJkgWy1XdW51c2Vk
-LXZhcmlhYmxlXQogIHN0cnVjdCBhenggKmNoaXAgPSBidXNfdG9fYXp4KGJ1cyk7CiAgICAgICAg
-ICAgICAgXn5+fgoKQ3JlYXRlIGEgaW5saW5lIGZ1bmN0aW9uIG9mIGF6eF9zbm9vcC4KCkZpeGVz
-OiBhNDFkMTIyNDQ5YmUgKCJBTFNBOiBoZGEgLSBFbWJlZCBidXMgaW50byBjb250cm9sbGVyIG9i
-amVjdCIpClNpZ25lZC1vZmYtYnk6IEFuZGVycyBSb3hlbGwgPGFuZGVycy5yb3hlbGxAbGluYXJv
-Lm9yZz4KU2lnbmVkLW9mZi1ieTogVGFrYXNoaSBJd2FpIDx0aXdhaUBzdXNlLmRlPgpTaWduZWQt
-b2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogc291bmQvcGNpL2hk
-YS9oZGFfY29udHJvbGxlci5oIHwgOSArKysrLS0tLS0KIDEgZmlsZSBjaGFuZ2VkLCA0IGluc2Vy
-dGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9oZGFf
-Y29udHJvbGxlci5oIGIvc291bmQvcGNpL2hkYS9oZGFfY29udHJvbGxlci5oCmluZGV4IDU1ZWM0
-NDcwZjZiNi4uNDk5ODczZDI5Y2MxIDEwMDY0NAotLS0gYS9zb3VuZC9wY2kvaGRhL2hkYV9jb250
-cm9sbGVyLmgKKysrIGIvc291bmQvcGNpL2hkYS9oZGFfY29udHJvbGxlci5oCkBAIC0xNjQsMTEg
-KzE2NCwxMCBAQCBzdHJ1Y3QgYXp4IHsKICNkZWZpbmUgYXp4X2J1cyhjaGlwKQkoJihjaGlwKS0+
-YnVzLmNvcmUpCiAjZGVmaW5lIGJ1c190b19hengoX2J1cykJY29udGFpbmVyX29mKF9idXMsIHN0
-cnVjdCBhengsIGJ1cy5jb3JlKQogCi0jaWZkZWYgQ09ORklHX1g4NgotI2RlZmluZSBhenhfc25v
-b3AoY2hpcCkJCSgoY2hpcCktPnNub29wKQotI2Vsc2UKLSNkZWZpbmUgYXp4X3Nub29wKGNoaXAp
-CQl0cnVlCi0jZW5kaWYKK3N0YXRpYyBpbmxpbmUgYm9vbCBhenhfc25vb3Aoc3RydWN0IGF6eCAq
-Y2hpcCkKK3sKKwlyZXR1cm4gIUlTX0VOQUJMRUQoQ09ORklHX1g4NikgfHwgY2hpcC0+c25vb3A7
-Cit9CiAKIC8qCiAgKiBtYWNyb3MgZm9yIGVhc3kgdXNlCi0tIAoyLjIwLjEKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBs
-aXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9q
-ZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+From: Nicolas Huaman <nicolas@herochao.de>
+
+[ Upstream commit c369c8db15d51fa175d2ba85928f79d16af6b562 ]
+
+A quirk in snd-usb-audio was added to automate setting sample rate to
+4800k and remove the previously exposed nonfunctional microphone for
+the Bowers & Wilkins PX:
+commit 240a8af929c7c57dcde28682725b29cf8474e8e5
+https://lore.kernel.org/patchwork/patch/919689/
+
+However the headphones where updated shortly after that to remove the
+unintentional microphone functionality. I guess because of this the
+headphones now crash when connecting them via USB while the quirk is
+active. Dmesg:
+
+snd-usb-audio: probe of 2-3:1.0 failed with error -22
+usb 2-3: 2:1: cannot get min/max values for control 2 (id 2)
+
+This patch removes the microfone and allows the headphones to connect
+and work out of the box. It is based on the current mainline kernel
+ and successfully applied an tested on my machine (4.18.10.arch1-1).
+
+Fixes: 240a8af929c7 ("ALSA: usb-audio: Add a quirck for B&W PX headphones")
+Signed-off-by: Nicolas Huaman <nicolas@herochao.de>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/quirks-table.h | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
+
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index d32727c74a16..c892b4d1e733 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -3293,19 +3293,14 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
+ 				.ifnum = 0,
+ 				.type = QUIRK_AUDIO_STANDARD_MIXER,
+ 			},
+-			/* Capture */
+-			{
+-				.ifnum = 1,
+-				.type = QUIRK_IGNORE_INTERFACE,
+-			},
+ 			/* Playback */
+ 			{
+-				.ifnum = 2,
++				.ifnum = 1,
+ 				.type = QUIRK_AUDIO_FIXED_ENDPOINT,
+ 				.data = &(const struct audioformat) {
+ 					.formats = SNDRV_PCM_FMTBIT_S16_LE,
+ 					.channels = 2,
+-					.iface = 2,
++					.iface = 1,
+ 					.altsetting = 1,
+ 					.altset_idx = 1,
+ 					.attributes = UAC_EP_CS_ATTR_FILL_MAX |
+-- 
+2.20.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

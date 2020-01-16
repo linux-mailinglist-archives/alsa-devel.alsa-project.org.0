@@ -2,77 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 996C413D982
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 13:01:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2407213D98C
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 13:05:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37ED817DA;
-	Thu, 16 Jan 2020 13:00:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37ED817DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 827F917C3;
+	Thu, 16 Jan 2020 13:04:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 827F917C3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579176091;
-	bh=hCkg3z6MmNrzW37TFX03M8zePfACEklva9kyzfacAko=;
+	s=default; t=1579176340;
+	bh=3yjZ7hHKPrQrN+IZTGGowCV6I0OCN6PrObOHbCQ87GM=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n28flfMIpYjwWqn9f/KkXZTW9ZHYqhzBGJski6YYVc3hLEemF4KkJD31ECtk1W0li
-	 yQx1pm8YEM2w1Kmh9NEfZ5ADhmk2233+omTghzZc6CkjD91LKxppXov9t/tMeW+foM
-	 AsIX7J2mFGwTulvJWHLzr3P2RoU+OoiTr82iC1nM=
+	b=m/+ny7xvv8Sd2nRh8jHQt680vALzgENXnDsTi6kHfI8tvDrAMp3/a1arg3ie8busY
+	 8rT2v5HyLBxh0MxfWSMX/MFZgPzzHIghhpncNpMS1tqJDsdguFjOl9UrKxLzqepm4L
+	 OLZwLxCMbAXKm/weSKzkYGmeFZ60HH3xRHN17Eq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CB30CF8016F;
-	Thu, 16 Jan 2020 12:59:52 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27D09F8014D;
+	Thu, 16 Jan 2020 13:03:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84A80F8022B; Thu, 16 Jan 2020 12:59:49 +0100 (CET)
+ id 51DEEF8014E; Thu, 16 Jan 2020 13:03:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
- version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 42BEEF800E9
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 13:03:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 42BEEF800E9
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="jKjXit/0"
+Received: from localhost (unknown [223.226.122.163])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7A2C5F80086
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 12:59:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7A2C5F80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="DO1Pwyf4"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=WY91Y1chO1rhlZsmlGv7hgBfHrAmdcvCGj5Bo1EdVbM=; b=DO1Pwyf41cTN/Qp9X4ESJMzW/
- N0ZqJD3VpX2hQ0DE+O9TuYvu9eOtU6z3aRqK+JyjROyspk6odeP0Ep9/LskbG/jkbSqIcYbDnRNu+
- vQChdt4mGyBr7J3mITLuCvnSJiHGgkIXx+1G4eEJ5ZZQhxO0sgTICV+0IXqyzPCRaS+fI=;
-Received: from [195.89.128.25] (helo=fitzroy.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1is3oP-00066D-4P; Thu, 16 Jan 2020 11:59:45 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id BDB48D02061; Thu, 16 Jan 2020 11:59:44 +0000 (GMT)
-Date: Thu, 16 Jan 2020 11:59:44 +0000
-From: Mark Brown <broonie@kernel.org>
+ by mail.kernel.org (Postfix) with ESMTPSA id 49FC920663;
+ Thu, 16 Jan 2020 12:03:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1579176230;
+ bh=KtX5tJKy5Hk3+x2VzUvP3+AgfvpKUSFz7vDwZZvkPO0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=jKjXit/0EUNKfr25VxztK6cSK/DlonwNmDSBhZMLAbORjYVE/+GZ3eAQs2zAAvjcU
+ Ch9tr6BUblYK4vlYJtdBjjVJw3fmV+RRQpruB/WUC69HKqCRJPnReedsfiSef+tx/S
+ e3F/mCoBt68OtSTFrdJytuEGq1NHpTqOxOvncTtw=
+Date: Thu, 16 Jan 2020 17:33:44 +0530
+From: Vinod Koul <vkoul@kernel.org>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20200116115944.GO3897@sirena.org.uk>
-References: <20191220164450.1395038-1-marex@denx.de>
- <9fd0bdd7-4599-a84d-9807-c33541035b4a@linux.intel.com>
+Message-ID: <20200116120344.GO2818@vkoul-mobl>
+References: <20200110220016.30887-1-pierre-louis.bossart@linux.intel.com>
+ <a70c54c0-c691-d8eb-4f99-da1bb9306c2f@linux.intel.com>
+ <20200114062605.GD2818@vkoul-mobl>
+ <7a2e514c-edd1-fbeb-3ebb-df289c7436e2@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <9fd0bdd7-4599-a84d-9807-c33541035b4a@linux.intel.com>
-X-Cookie: Programming is an unnatural act.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Marek Vasut <marex@denx.de>, alsa-devel@alsa-project.org,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- Igor Opaniuk <igor.opaniuk@toradex.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Oleksandr Suvorov <oleksandr.suvorov@toradex.com>, festevam@gmail.com
-Subject: Re: [alsa-devel] [PATCH V2 1/2] regulator: core: Add
- regulator_is_equal() helper
+Content-Disposition: inline
+In-Reply-To: <7a2e514c-edd1-fbeb-3ebb-df289c7436e2@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] soundwire: intel: report slave_ids for
+ each link to SOF driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,61 +84,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4259576196666125326=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 14-01-20, 10:05, Pierre-Louis Bossart wrote:
+> On 1/14/20 12:26 AM, Vinod Koul wrote:
+> > On 10-01-20, 16:31, Pierre-Louis Bossart wrote:
+> > > On 1/10/20 4:00 PM, Pierre-Louis Bossart wrote:
+> > > > From: Bard Liao <yung-chuan.liao@linux.intel.com>
+> > > > 
+> > > > The existing link_mask flag is no longer sufficient to detect the
+> > > > hardware and identify which topology file and a machine driver to load.
+> > > > 
+> > > > By reporting the slave_ids exposed in ACPI tables, the parent SOF
+> > > > driver will be able to compare against a set of static configurations.
+> > > > 
+> > > > This patch only adds the interface change, the functionality is added
+> > > > in future patches.
+> > > 
+> > > Vinod, this patch would need to be shared as an immutable tag for Mark, once
+> > > this is done I can share the SOF parts that make use of the information (cf.
+> > > https://github.com/thesofproject/linux/pull/1692 for reference)
+> > > 
+> > > Sorry we missed this in the earlier interface changes, we didn't think we
+> > > would have so many hardware variations so quickly.
+> > 
+> > do you want the tag now..? I can provide... We are already in -rc6
+> > and i will send PR to greg later this week...
+> 
+> yes please, I'd like to send the SOF patches this week as well.
 
---===============4259576196666125326==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MO4t1VgQTCtsHhID"
-Content-Disposition: inline
+Applied now and pushed tag 'sdw_interfaces_2_5.6' for this, thanks
 
-
---MO4t1VgQTCtsHhID
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Jan 14, 2020 at 01:48:53PM -0600, Pierre-Louis Bossart wrote:
->=20
-> > +static inline bool
-> > +regulator_is_equal(struct regulator *reg1, struct regulator *reg2);
-> > +{
-> > +	return false;
-> > +}
-> >   #endif
->=20
-> this breaks my build... shouldn't this be:
-
-Fixes were already sent for this.
-
---MO4t1VgQTCtsHhID
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4gUCYACgkQJNaLcl1U
-h9BoKgf/bcPq388rMC99d+nfH39WBap0tqO/tKOuPN1Wep0+J35vJ4h638+QBDt1
-imi6QCnG/IzxVLiv8UQZQQjCCJbxkd25pTe90z5UUV0gJRufRZ3FAG4vvPwO6MOr
-hb0I0FbjmEf4VMoWrJHB7peRp3EhSS+CLFR6bFyraGw9tIKFE7ya2vk7UgXPto0g
-nS2Hh7JmsCeePZQrBDXkp6LZlAspBTM493MFzb+bfRRinjWdHVZGEWQ5bcy/iyoq
-fytq/49GCCj6e8+oTrrbiPOpLqrcOhI0sY+p9awzmukYkcmNXhIZkJrNFOHnYMXt
-tTxga/63hMAXt7GLRa5x8qmW0TlcAg==
-=cd4J
------END PGP SIGNATURE-----
-
---MO4t1VgQTCtsHhID--
-
---===============4259576196666125326==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4259576196666125326==--

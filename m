@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E7D313EB2C
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:48:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75ED513EB8D
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:50:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 371A917F0;
-	Thu, 16 Jan 2020 18:47:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 371A917F0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1379917A2;
+	Thu, 16 Jan 2020 18:50:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1379917A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579196925;
-	bh=iea3bNSyuS50GMc7EUBQtru+cZ4Q5qJjMWbUt9LGFE8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579197056;
+	bh=xdx9AqM8kkJWrHZth0YPsBhI+7fi3DpvRG5ZFy1x8Ug=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CC1BUZNGhVflGgNvnKAx0CWVti5Jf9mPbe5wUQSMhCVnxx1qzv6Re9YdcRH/dJCUu
-	 /ZVXAwwvuHbB7t7jOqwvASQgScU7EMHKaFHV9C+o/o8eNwwWKFx2HXoHVpbognv5Tw
-	 ck9pzlxJvmMMNyCa9Mg/1ewXLkqEkOLHqpdcZ9aA=
+	b=L5p1wQRkyUOsEvpdo10JxAlqzT4pW60YQklOdimJf8FXTSXCtepNCapL874iBuvAG
+	 Fm9u89llSVImSSmG+piW9wSyY4p7i3A/YNAiKQS38JOCGiZ3Zz0D3kgWbHuokkloVj
+	 XnU0HQGlz5IIwUR6fZzWy7VX0UWVw6Kog7fIhTDg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 22ABCF802FE;
-	Thu, 16 Jan 2020 18:40:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 403B1F8027C;
+	Thu, 16 Jan 2020 18:43:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 36A32F802FE; Thu, 16 Jan 2020 18:40:38 +0100 (CET)
+ id 126C1F80278; Thu, 16 Jan 2020 18:43:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=PRX_BODY_72,SPF_HELO_NONE,
- SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CB17F802F7
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:40:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CB17F802F7
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2020 09:40:27 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,327,1574150400"; d="scan'208";a="274092350"
-Received: from frederic-mobl1.amr.corp.intel.com (HELO [10.251.150.187])
- ([10.251.150.187])
- by FMSMGA003.fm.intel.com with ESMTP; 16 Jan 2020 09:40:26 -0800
-To: "Rajwa, Marcin" <marcin.rajwa@linux.intel.com>,
- "Jie, Yang" <yang.jie@intel.com>, Takashi Iwai <tiwai@suse.de>,
- Keyon Jie <yang.jie@linux.intel.com>
-References: <20200116045318.5498-1-yang.jie@linux.intel.com>
- <s5hd0bjq3cu.wl-tiwai@suse.de>
- <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
- <s5hsgkf7l2e.wl-tiwai@suse.de>
- <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
- <s5hh80v7h82.wl-tiwai@suse.de>
- <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
- <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
- <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
- <93ac843a-bad5-550e-f427-e2a94bd3e8ef@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <b6b55180-b846-96e7-4521-7d3b03881d06@linux.intel.com>
-Date: Thu, 16 Jan 2020 11:40:26 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id A73C9F80272
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:43:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A73C9F80272
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="p+Z0oPUh"
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id D22BA246B6;
+ Thu, 16 Jan 2020 17:43:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1579196617;
+ bh=tdBSwxxCeitoPSZ6ScJGChgxmx8QvubbLNKi1Z1+VLQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=p+Z0oPUhZ5JVgelWW7wu+uAPuik7eljPUrHZIzDmQtexCKalAfHVNYKjNxnZ+dtry
+ TM/2JVsKQs0+WibkrrTzHJg/Uo5z93ebERPr8c30vifbT9xLAyoyc/Ri9/Hh0msYCA
+ fAZgivf3PhhobRhlZOIrQ7in/7PJeR8hK8qRe8d8=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Thu, 16 Jan 2020 12:40:31 -0500
+Message-Id: <20200116174251.24326-34-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200116174251.24326-1-sashal@kernel.org>
+References: <20200116174251.24326-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <93ac843a-bad5-550e-f427-e2a94bd3e8ef@linux.intel.com>
-Content-Language: en-US
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
- constrained by preallocated bytes issue
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Daniel Baluta <daniel.baluta@nxp.com>, linuxppc-dev@lists.ozlabs.org,
+ Stefan Agner <stefan@agner.ch>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH AUTOSEL 4.4 034/174] ASoC: imx-sgtl5000: put of
+	nodes if finding codec fails
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,37 +83,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+From: Stefan Agner <stefan@agner.ch>
 
->>>> So, do you suggest not doing preallocation(or calling it with 0 
->>>> size) for all
->>>> driver with TYPE_SG? I am fine if this is the recommended method, I 
->>>> can try
->>>> this on SOF I2S platform to see if it can work as we required for 
->>>> very large
->>>> buffer size.
->>
->> Keyon, for the rest of us to follow this patch, would you mind 
->> clarifying what drives the need for a 'very large buffer size', and 
->> what order of magnitude this very large size would be.
->>
->> FWIW, we've measured consistently on different Windows/Linux 
->> platforms, maybe 10 years ago, that once you reach a buffer of 1s (384 
->> kB) the benefits from increasing that buffer size further are marginal 
->> in terms of power consumption, and generate all kinds of issues with 
->> volume updates and deferred routing changes.
->>
-> We need bigger buffer on host side to compensate the wake up time from 
-> d0ix to d0 which takes ~2 seconds on my setup. So, wiith smaller buffer 
-> sizes like < 2 seconds we overwrite data since FW keeps copping while 
-> host doesn't read until its up and running again.
+[ Upstream commit d9866572486802bc598a3e8576a5231378d190de ]
 
-Right, that's a valid case, but that's 256 kB, not 'very large' or 
-likely to ever trigger an OOM case.
+Make sure to properly put the of node in case finding the codec
+fails.
+
+Fixes: 81e8e4926167 ("ASoC: fsl: add sgtl5000 clock support for imx-sgtl5000")
+Signed-off-by: Stefan Agner <stefan@agner.ch>
+Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+Acked-by: Nicolin Chen <nicoleotsuka@gmail.com>
+Reviewed-by: Fabio Estevam <festevam@gmail.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/soc/fsl/imx-sgtl5000.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/fsl/imx-sgtl5000.c b/sound/soc/fsl/imx-sgtl5000.c
+index 8e525f7ac08d..3d99a8579c99 100644
+--- a/sound/soc/fsl/imx-sgtl5000.c
++++ b/sound/soc/fsl/imx-sgtl5000.c
+@@ -119,7 +119,8 @@ static int imx_sgtl5000_probe(struct platform_device *pdev)
+ 	codec_dev = of_find_i2c_device_by_node(codec_np);
+ 	if (!codec_dev) {
+ 		dev_err(&pdev->dev, "failed to find codec platform device\n");
+-		return -EPROBE_DEFER;
++		ret = -EPROBE_DEFER;
++		goto fail;
+ 	}
+ 
+ 	data = devm_kzalloc(&pdev->dev, sizeof(*data), GFP_KERNEL);
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

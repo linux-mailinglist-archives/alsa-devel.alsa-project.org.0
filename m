@@ -2,63 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67FA013D8CF
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 12:18:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A4B113D954
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 12:52:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EFA8317B0;
-	Thu, 16 Jan 2020 12:17:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EFA8317B0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 94E2717A9;
+	Thu, 16 Jan 2020 12:51:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 94E2717A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579173508;
-	bh=0YRsQERHqQAcF02Yg/Yfkzk6XsVshnhSMX4OUtDz+K8=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1579175553;
+	bh=HatlDVikLNq1m3E7HbICu1joKXJ7SHheyWaIdvXzBrM=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RsEA+yGHVheMDth1f8AprmbHFqrLQmxWXvsBMPqQ6xIw46CyRKm2cv6iaOCYyZQa6
-	 hg++pkxF8hnDxow+w2uLbGNgBS+zOLSAE+GM+V7Yv1Qzq7ZYQJfGEvqmpPk7u7+sAN
-	 0yQ4SOvFWMlUwQONWeHGccId2E9jmVcmf4VitTdc=
+	b=Mu+qmoV5Z9LyDEc9dJ5E/5gO466HrjGrbQmp/NeRSAKF2pjuE3n9GG6ukyagMQvVe
+	 MActgAKVR9896IgSQGEQfcx9DAGQO7wDRIppEiHAUn3Xk6sIG+9vRJ10nZS8yZbRsX
+	 5tCAB3j4hfda2zanYu/hk+pa5LYCuviBmrdlbLmo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90849F8014D;
-	Thu, 16 Jan 2020 12:16:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00B5DF8014E;
+	Thu, 16 Jan 2020 12:50:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7E15CF8014E; Thu, 16 Jan 2020 12:16:41 +0100 (CET)
+ id 0412CF8014E; Thu, 16 Jan 2020 12:50:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_NONE,
- SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 03281F80086
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 12:16:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03281F80086
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Jan 2020 03:16:29 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,326,1574150400"; d="scan'208";a="218496747"
-Received: from unknown (HELO keyon-X299) ([10.239.159.75])
- by orsmga008.jf.intel.com with ESMTP; 16 Jan 2020 03:16:28 -0800
-Message-ID: <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
-From: Keyon Jie <yang.jie@linux.intel.com>
-To: Takashi Iwai <tiwai@suse.de>
-Date: Thu, 16 Jan 2020 19:25:38 +0800
-In-Reply-To: <s5hsgkf7l2e.wl-tiwai@suse.de>
+ by alsa1.perex.cz (Postfix) with ESMTPS id DEFBAF80086
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 12:50:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DEFBAF80086
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id AEA65AFCD;
+ Thu, 16 Jan 2020 11:50:38 +0000 (UTC)
+Date: Thu, 16 Jan 2020 12:50:37 +0100
+Message-ID: <s5hh80v7h82.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
 References: <20200116045318.5498-1-yang.jie@linux.intel.com>
  <s5hd0bjq3cu.wl-tiwai@suse.de>
  <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
  <s5hsgkf7l2e.wl-tiwai@suse.de>
-User-Agent: Evolution 3.34.1-2 
-MIME-Version: 1.0
+ <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
 Cc: alsa-devel@alsa-project.org
 Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
- constrained by preallocated bytes issue
+	constrained by preallocated bytes issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,135 +74,85 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, 2020-01-16 at 11:27 +0100, Takashi Iwai wrote:
-> On Thu, 16 Jan 2020 10:50:33 +0100,
+On Thu, 16 Jan 2020 12:25:38 +0100,
+Keyon Jie wrote:
 > 
-> Oh, you're right, and I completely misread the patch.
+> On Thu, 2020-01-16 at 11:27 +0100, Takashi Iwai wrote:
+> > On Thu, 16 Jan 2020 10:50:33 +0100,
+> > 
+> > Oh, you're right, and I completely misread the patch.
+> > 
+> > Now I took a coffee and can tell you the story behind the scene.
+> > 
+> > I believe the current code is intentionally limiting the size to the
+> > preallocated size.  This limitation was brought for not trying to
+> > allocate a larger buffer when the buffer has been preallocated.  In
+> > the past, most hardware allocated the continuous pages for a buffer
+> > and the allocation of a large buffer fails quite likely.  This was
+> > the
+> > reason of the buffer preallocation.  So, the driver wanted to tell
+> > the
+> > user-space the limit.  If user needs to have an extra large buffer,
+> > they are supposed to fiddle with prealloc procfs (either setting zero
+> > to clear the preallocation or setting a large enough buffer
+> > beforehand).
 > 
-> Now I took a coffee and can tell you the story behind the scene.
+> Thank you for the sharing, it is interesting and knowledge learned to
+> me.
 > 
-> I believe the current code is intentionally limiting the size to the
-> preallocated size.  This limitation was brought for not trying to
-> allocate a larger buffer when the buffer has been preallocated.  In
-> the past, most hardware allocated the continuous pages for a buffer
-> and the allocation of a large buffer fails quite likely.  This was
-> the
-> reason of the buffer preallocation.  So, the driver wanted to tell
-> the
-> user-space the limit.  If user needs to have an extra large buffer,
-> they are supposed to fiddle with prealloc procfs (either setting zero
-> to clear the preallocation or setting a large enough buffer
-> beforehand).
-
-Thank you for the sharing, it is interesting and knowledge learned to
-me.
-
+> > 
+> > For SG-buffers, though, limitation makes less sense than continuous
+> > pages.  e.g. a patch below removes the limitation for SG-buffers.
+> > But changing this would definitely cause the behavior difference, and
+> > I don't know whether it's a reasonable move -- I'm afraid that apps
+> > would start hogging too much memory if the limitation is gone.
 > 
-> For SG-buffers, though, limitation makes less sense than continuous
-> pages.  e.g. a patch below removes the limitation for SG-buffers.
-> But changing this would definitely cause the behavior difference, and
-> I don't know whether it's a reasonable move -- I'm afraid that apps
-> would start hogging too much memory if the limitation is gone.
-
-I just went through all invoking to snd_pcm_lib_preallocate_pages*(),
-for those SNDRV_DMA_TYPE_DEV, some of them set the *size* equal to the
-*max*, some set the *max* several times to the *size*, IMHO, the *max*s
-are matched to those hardware's limiatation, comparing to the *size*s,
-aren't they?
-
-In this case, I still think my patch hanle all
-TYPE_DEV/SNDRV_DMA_TYPE_DEV/TYPE_SG/SNDRV_DMA_TYPE_DEV cases more
-gracefully, we will still take the limitation from the specific driver
-set, from the *max* param, and the test results looks very nice here,
-we will take what the user space wanted for buffer-bytes via aply
-exactly, as long as it is suitable for the interval and constraints.
-
-What's your opinion about it?
-
+> I just went through all invoking to snd_pcm_lib_preallocate_pages*(),
+> for those SNDRV_DMA_TYPE_DEV, some of them set the *size* equal to the
+> *max*, some set the *max* several times to the *size*, IMHO, the *max*s
+> are matched to those hardware's limiatation, comparing to the *size*s,
+> aren't they?
 > 
-> 
-> thanks,
-> 
-> Takashi
-> 
-> ---
-> diff --git a/sound/core/pcm_memory.c b/sound/core/pcm_memory.c
-> index d4702cc1d376..6a6c3469bbcd 100644
-> --- a/sound/core/pcm_memory.c
-> +++ b/sound/core/pcm_memory.c
-> @@ -96,6 +96,29 @@ void snd_pcm_lib_preallocate_free_for_all(struct
-> snd_pcm *pcm)
->  }
->  EXPORT_SYMBOL(snd_pcm_lib_preallocate_free_for_all);
->  
-> +/* set up substream->buffer_bytes_max, which is used in
-> hw_constraint */
-> +static void set_buffer_bytes_max(struct snd_pcm_substream
-> *substream,
-> +				 size_t size)
-> +{
-> +	substream->buffer_bytes_max = UINT_MAX;
-> +
-> +	if (!size)
-> +		return; /* no preallocation */
-> +
-> +	/* for SG-buffers, no limitation is needed */
-> +	switch (substream->dma_buffer.dev.type) {
-> +#ifdef CONFIG_SND_DMA_SGBUF
-> +	case SNDRV_DMA_TYPE_DEV_SG:
-> +	case SNDRV_DMA_TYPE_DEV_UC_SG:
-> +#endif
-> +	case SNDRV_DMA_TYPE_VMALLOC:
-> +		return;
-> +	}
-> +
-> +	/* for continuous buffers, limit to the preallocated size */
-> +	substream->buffer_bytes_max = size;
-> +}
-> +
->  #ifdef CONFIG_SND_VERBOSE_PROCFS
->  /*
->   * read callback for prealloc proc file
-> @@ -156,10 +179,8 @@ static void
-> snd_pcm_lib_preallocate_proc_write(struct snd_info_entry *entry,
->  				buffer->error = -ENOMEM;
+> In this case, I still think my patch hanle all
+> TYPE_DEV/SNDRV_DMA_TYPE_DEV/TYPE_SG/SNDRV_DMA_TYPE_DEV cases more
+> gracefully, we will still take the limitation from the specific driver
+> set, from the *max* param, and the test results looks very nice here,
+> we will take what the user space wanted for buffer-bytes via aply
+> exactly, as long as it is suitable for the interval and constraints.
 
-if we won't take this change from user's fiddling for SG buffer, we
-should not reallocate dma pages here also?
+Well, I have a mixed feeling.  Certainly we'd need some better way to
+allow a larger buffer allocation, especially for HDA.  OTOH, if the
+buffer was preallocated, it's meant to be used actually.  That's the
+point of the hw_constraint setup.
 
-Thanks,
-~Keyon
+And now thinking again after another cup of coffee, I wonder why we do
+preallocate for HDA at all.  For HD-audio, the allocation of any large
+buffer would succeed very likely because of SG-buffer.
 
->  				return;
->  			}
-> -			substream->buffer_bytes_max = size;
-> -		} else {
-> -			substream->buffer_bytes_max = UINT_MAX;
->  		}
-> +		set_buffer_bytes_max(substream, size);
->  		if (substream->dma_buffer.area)
->  			snd_dma_free_pages(&substream->dma_buffer);
->  		substream->dma_buffer = new_dmab;
-> @@ -206,10 +227,8 @@ static void preallocate_pages(struct
-> snd_pcm_substream *substream,
->  
->  	if (size > 0 && preallocate_dma && substream->number <
-> maximum_substreams)
->  		preallocate_pcm_pages(substream, size);
-> -
-> -	if (substream->dma_buffer.bytes > 0)
-> -		substream->buffer_bytes_max = substream-
-> >dma_buffer.bytes;
->  	substream->dma_max = max;
-> +	set_buffer_bytes_max(substream, substream->dma_buffer.bytes);
->  	if (max > 0)
->  		preallocate_info_init(substream);
->  	if (managed)
-> _______________________________________________
-> Alsa-devel mailing list
-> Alsa-devel@alsa-project.org
-> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+So, just setting 0 to the preallocation size (but keeping else) would
+work, e.g. something like below?  The help text needs adjustment, but
+you can see the rough idea.
 
+
+thanks,
+
+Takashi
+
+--- a/sound/hda/Kconfig
++++ b/sound/hda/Kconfig
+@@ -21,9 +21,10 @@ config SND_HDA_EXT_CORE
+        select SND_HDA_CORE
+ 
+ config SND_HDA_PREALLOC_SIZE
+-	int "Pre-allocated buffer size for HD-audio driver"
++	int "Pre-allocated buffer size for HD-audio driver" if !SND_DMA_SGBUF
+ 	range 0 32768
+-	default 64
++	default 64 if !SND_DMA_SGBUF
++	default 0 if SND_DMA_SGBUF
+ 	help
+ 	  Specifies the default pre-allocated buffer-size in kB for the
+ 	  HD-audio driver.  A larger buffer (e.g. 2048) is preferred
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

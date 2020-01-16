@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB63B13E554
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:14:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF4D613E5A1
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:16:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 622E917C7;
-	Thu, 16 Jan 2020 18:13:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 622E917C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 80B9417FE;
+	Thu, 16 Jan 2020 18:15:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80B9417FE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579194855;
-	bh=sQ2E3lLey2WeXhpSMsvRcxOZ20QtziJpsbRffpRdUrw=;
+	s=default; t=1579194970;
+	bh=A4tBFImjKelPBjffczRdTsy/TUiKXYvXb4SqnUNQnp0=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DBPxxlC5P+nzusTQBwyzma7diKuChsBICcru4Pl+GRuZMnpVt5gA632oFtAqVaGMj
-	 aqq/Z7Cx/YT6Boczo6sIRob8Zk6psNm7l1YLb10nNk/fH5M4Obmvwvo/RfU7aB0P7O
-	 sQvtOeJOnR+zscSA2STLgTQJC/fh6+AoTcN6LHCI=
+	b=jdscfUkU+7vlcf8IPzUinusa3Q/rzmbdWYvBNI1dNEV2ojachL3X1QF52ozhaQSvn
+	 s2E+N74bbmGH+RPjg+2Y1eRlZEq6oRvYNDZpzqVdBlsfkMX3iE+tyDzDCyL1mOjX0H
+	 OXumuLr54ADur1rndAEqX4y/oh8sQbiLhVTN62F8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CAF9AF8027B;
-	Thu, 16 Jan 2020 18:10:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EF4CDF80299;
+	Thu, 16 Jan 2020 18:10:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42498F80276; Thu, 16 Jan 2020 18:10:14 +0100 (CET)
+ id 6710AF8028B; Thu, 16 Jan 2020 18:10:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F018DF800E9
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:10:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F018DF800E9
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D465F80277
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:10:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D465F80277
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="NSfAi41L"
+ header.b="rZKb/mhg"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 54A40206D9;
- Thu, 16 Jan 2020 17:10:08 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 00CAB24683;
+ Thu, 16 Jan 2020 17:10:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579194609;
- bh=VgOQDA71uRDSsos4UvyhHQ5aQa7agYA/TfWi29gk9ks=;
+ s=default; t=1579194630;
+ bh=QhRsUq9msnENjXA9Ib0cZ115aEFwzDmLlcwdVXqiUkY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NSfAi41LdOy5J5oEleyFYtRQfZiXQtVdkR5XNgSGjCpW6K7fpDQqD3a5OWODYgIZU
- sACp05xpJqmC2bdFePD/Hk0ziF80xDCkppITkC4KvwYRCJtDyYq8Y1LSS6eeKmIyMR
- Y7NK4PDt21DwYbWk//k3u/0fSZf/YovtD+X/ZHBs=
+ b=rZKb/mhg8C+6V+WNufOg4CeBXr1/rUtXmue4R+oECb8rU/kzvsO/raj7U0rFsKhma
+ NJwGChr6V2em1Imu3TozB2su14csAuRuOnpbUD73taKXQ1IH1iqqqRJUC9kREzB6/M
+ PA9wkxgWQeS8U2m/vBqPrJ6+Dcozk0YtmJhLA2Tg=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:01:53 -0500
-Message-Id: <20200116170509.12787-212-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:02:08 -0500
+Message-Id: <20200116170509.12787-227-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116170509.12787-1-sashal@kernel.org>
 References: <20200116170509.12787-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Stephen Rothwell <sfr@canb.auug.org.au>,
- alsa-devel@alsa-project.org, Takashi Iwai <tiwai@suse.de>,
- Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 475/671] ALSA: aoa: onyx: always
-	initialize register read value
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, YueHaibing <yuehaibing@huawei.com>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.19 490/671] ASoC: es8328: Fix
+	copy-paste error in es8328_right_line_controls
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,41 +85,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Johannes Berg <johannes@sipsolutions.net>
+From: YueHaibing <yuehaibing@huawei.com>
 
-[ Upstream commit f474808acb3c4b30552d9c59b181244e0300d218 ]
+[ Upstream commit 630742c296341a8cfe00dfd941392025ba8dd4e8 ]
 
-A lot of places in the driver use onyx_read_register() without
-checking the return value, and it's been working OK for ~10 years
-or so, so probably never fails ... Rather than trying to check the
-return value everywhere, which would be relatively intrusive, at
-least make sure we don't use an uninitialized value.
+It seems 'es8328_rline_enum' should be used
+in es8328_right_line_controls
 
-Fixes: f3d9478b2ce4 ("[ALSA] snd-aoa: add snd-aoa")
-Reported-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Signed-off-by: Johannes Berg <johannes@sipsolutions.net>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: 567e4f98922c ("ASoC: add es8328 codec driver")
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Link: https://lore.kernel.org/r/20190815092300.68712-1-yuehaibing@huawei.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/aoa/codecs/onyx.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/codecs/es8328.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/aoa/codecs/onyx.c b/sound/aoa/codecs/onyx.c
-index d2d96ca082b7..6224fd3bbf7c 100644
---- a/sound/aoa/codecs/onyx.c
-+++ b/sound/aoa/codecs/onyx.c
-@@ -74,8 +74,10 @@ static int onyx_read_register(struct onyx *onyx, u8 reg, u8 *value)
- 		return 0;
- 	}
- 	v = i2c_smbus_read_byte_data(onyx->i2c, reg);
--	if (v < 0)
-+	if (v < 0) {
-+		*value = 0;
- 		return -1;
-+	}
- 	*value = (u8)v;
- 	onyx->cache[ONYX_REG_CONTROL-FIRSTREGISTER] = *value;
- 	return 0;
+diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+index e9fc2fd97d2f..3afa163f7652 100644
+--- a/sound/soc/codecs/es8328.c
++++ b/sound/soc/codecs/es8328.c
+@@ -231,7 +231,7 @@ static const struct soc_enum es8328_rline_enum =
+ 			      ARRAY_SIZE(es8328_line_texts),
+ 			      es8328_line_texts);
+ static const struct snd_kcontrol_new es8328_right_line_controls =
+-	SOC_DAPM_ENUM("Route", es8328_lline_enum);
++	SOC_DAPM_ENUM("Route", es8328_rline_enum);
+ 
+ /* Left Mixer */
+ static const struct snd_kcontrol_new es8328_left_mixer_controls[] = {
 -- 
 2.20.1
 

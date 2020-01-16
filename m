@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF4D613E5A1
-	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:16:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B3AB13E573
+	for <lists+alsa-devel@lfdr.de>; Thu, 16 Jan 2020 18:15:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 80B9417FE;
-	Thu, 16 Jan 2020 18:15:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 80B9417FE
+	by alsa0.perex.cz (Postfix) with ESMTPS id AE04617E9;
+	Thu, 16 Jan 2020 18:14:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE04617E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579194970;
-	bh=A4tBFImjKelPBjffczRdTsy/TUiKXYvXb4SqnUNQnp0=;
+	s=default; t=1579194899;
+	bh=QpPnJKrEkqnsZURcRIB1JEd01JxMGdTnmAT8HdSbKlk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jdscfUkU+7vlcf8IPzUinusa3Q/rzmbdWYvBNI1dNEV2ojachL3X1QF52ozhaQSvn
-	 s2E+N74bbmGH+RPjg+2Y1eRlZEq6oRvYNDZpzqVdBlsfkMX3iE+tyDzDCyL1mOjX0H
-	 OXumuLr54ADur1rndAEqX4y/oh8sQbiLhVTN62F8=
+	b=UhDqqRfqVE0b1wXien12YSLkSCNe1RvPw0FWsDscwa4sR77rCsrqhG9PjMCYkjMDj
+	 QpRjDjM6i36O/28HNqLzSRfscTpnIz4nDD40MptH5IGztjwgmHCg5Hn8JupkVunEho
+	 2PbX94TS4H+alWIev5tKiHjlDAIV65PMXCExoXFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EF4CDF80299;
-	Thu, 16 Jan 2020 18:10:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6FD85F8028B;
+	Thu, 16 Jan 2020 18:10:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6710AF8028B; Thu, 16 Jan 2020 18:10:38 +0100 (CET)
+ id 3ADD7F8028B; Thu, 16 Jan 2020 18:10:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D465F80277
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:10:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D465F80277
+ by alsa1.perex.cz (Postfix) with ESMTPS id 784C8F8027C
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 18:10:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 784C8F8027C
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="rZKb/mhg"
+ header.b="HE5jKCIj"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 00CAB24683;
- Thu, 16 Jan 2020 17:10:29 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 12E262468A;
+ Thu, 16 Jan 2020 17:10:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579194630;
- bh=QhRsUq9msnENjXA9Ib0cZ115aEFwzDmLlcwdVXqiUkY=;
+ s=default; t=1579194631;
+ bh=NGYOXAqlPS4bqo7xOtMaITDjIpO5eesQycQgJxxykAU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=rZKb/mhg8C+6V+WNufOg4CeBXr1/rUtXmue4R+oECb8rU/kzvsO/raj7U0rFsKhma
- NJwGChr6V2em1Imu3TozB2su14csAuRuOnpbUD73taKXQ1IH1iqqqRJUC9kREzB6/M
- PA9wkxgWQeS8U2m/vBqPrJ6+Dcozk0YtmJhLA2Tg=
+ b=HE5jKCIj4N60r7Jbjo1LoFpnowUo98mUbYtWg/O726OHbsicOSUwjhXd4EGtKPK83
+ TeTjth5TRcjrZOyYyVVlK4eUI80OuuWKSI2fz9Cd8JWk7p8diH1p/PHnzk8G1xseVD
+ 2jZDDgJ+f+AtmgIenzHgHCCrY9iAT0lVIQ31Hoi0=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Thu, 16 Jan 2020 12:02:08 -0500
-Message-Id: <20200116170509.12787-227-sashal@kernel.org>
+Date: Thu, 16 Jan 2020 12:02:09 -0500
+Message-Id: <20200116170509.12787-228-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200116170509.12787-1-sashal@kernel.org>
 References: <20200116170509.12787-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, YueHaibing <yuehaibing@huawei.com>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 490/671] ASoC: es8328: Fix
-	copy-paste error in es8328_right_line_controls
+Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ YueHaibing <yuehaibing@huawei.com>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.19 491/671] ASoC: cs4349: Use PM ops
+	'cs4349_runtime_pm'
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,33 +88,36 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: YueHaibing <yuehaibing@huawei.com>
 
-[ Upstream commit 630742c296341a8cfe00dfd941392025ba8dd4e8 ]
+[ Upstream commit 9b4275c415acca6264a3d7f1182589959c93d530 ]
 
-It seems 'es8328_rline_enum' should be used
-in es8328_right_line_controls
+sound/soc/codecs/cs4349.c:358:32: warning:
+ cs4349_runtime_pm defined but not used [-Wunused-const-variable=]
 
-Fixes: 567e4f98922c ("ASoC: add es8328 codec driver")
+cs4349_runtime_pm ops already defined, it seems
+we should enable it.
+
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Fixes: e40da86 ("ASoC: cs4349: Add support for Cirrus Logic CS4349")
 Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20190815092300.68712-1-yuehaibing@huawei.com
+Link: https://lore.kernel.org/r/20190815090157.70036-1-yuehaibing@huawei.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/es8328.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/cs4349.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
-index e9fc2fd97d2f..3afa163f7652 100644
---- a/sound/soc/codecs/es8328.c
-+++ b/sound/soc/codecs/es8328.c
-@@ -231,7 +231,7 @@ static const struct soc_enum es8328_rline_enum =
- 			      ARRAY_SIZE(es8328_line_texts),
- 			      es8328_line_texts);
- static const struct snd_kcontrol_new es8328_right_line_controls =
--	SOC_DAPM_ENUM("Route", es8328_lline_enum);
-+	SOC_DAPM_ENUM("Route", es8328_rline_enum);
- 
- /* Left Mixer */
- static const struct snd_kcontrol_new es8328_left_mixer_controls[] = {
+diff --git a/sound/soc/codecs/cs4349.c b/sound/soc/codecs/cs4349.c
+index bee0e343723f..f08d7a296c0c 100644
+--- a/sound/soc/codecs/cs4349.c
++++ b/sound/soc/codecs/cs4349.c
+@@ -381,6 +381,7 @@ static struct i2c_driver cs4349_i2c_driver = {
+ 	.driver = {
+ 		.name		= "cs4349",
+ 		.of_match_table	= cs4349_of_match,
++		.pm = &cs4349_runtime_pm,
+ 	},
+ 	.id_table	= cs4349_i2c_id,
+ 	.probe		= cs4349_i2c_probe,
 -- 
 2.20.1
 

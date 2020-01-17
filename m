@@ -2,76 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCAE2140E3D
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 16:48:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99ECA140E55
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 16:53:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79D2517E0;
-	Fri, 17 Jan 2020 16:47:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D2517E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4841F1759;
+	Fri, 17 Jan 2020 16:52:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4841F1759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579276082;
-	bh=laLqFtp1aGngUfhMU1U7wzTnVlxwFx9IMeYjKRj6uPI=;
+	s=default; t=1579276389;
+	bh=DpwiwGNqGW8X/J8Qy+pxA7VFh3mZxW9K21mbipceqBM=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=tUPHS+3rAYnhS8nWppPqRf649X0RUug/37CvgcGum9RRevUrHTN6dkUFYpMOriEMo
-	 HwhY1ktd5R/e+JgbGtQhXkIwGYcuk9lEVrACbzfMopzGr4ammFVBt2AFKhIkPcjQVH
-	 NsEvokktBGY6Zl8/UoqKOyKqUsepQr12PaBKMi0E=
+	b=l1GaD9CJdFZGL6G0GBp1bxkUdRpqhHbSYlf47hNWSvDbz7fN/8Tq2p9lTNyXmwMHK
+	 YViMnP+wvLqzyKGx9NIPg7Tqk25FiloIqyYKnKHP8xRVniC/6Je/GHiqEGa7k5Tzjp
+	 ldVCkdPj9IV8SkwFGaXZzl0OMfD9lQ8m5xUsCWao=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80F10F8026F;
-	Fri, 17 Jan 2020 16:45:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B3187F802DF;
+	Fri, 17 Jan 2020 16:45:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6427F80228; Fri, 17 Jan 2020 16:44:14 +0100 (CET)
+ id F2E0EF801EB; Fri, 17 Jan 2020 16:44:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00AA6F8014B
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 16:44:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00AA6F8014B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00657F801F7
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 16:44:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00657F801F7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="fP0iV8qr"
+ header.b="bK8g+eoi"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=6b47MPUinwGNYPym4tHIes9gOEIse0VlGFZoaus3fGw=; b=fP0iV8qrtqxm
- E0JqklwjMn5L1wku9ZwyM0nQ/weZX3OUU88RhUUQahMDexA9aDuMvEU/crMpW8nCepFVC8kNxcXzU
- l6Ad9+D/SwGwXePC6nurUEbC9WjWfiSKN5brgjkHruMajUqYKh6n+NEyBrcGix1wDzU4bBpya7stA
- Lm1Vc=;
+ List-Archive; bh=nTgcYnW1bBqfkqgXrC6bADcDL5m+JJlT4b9lz90Hafo=; b=bK8g+eoibs1c
+ sshSw5ILQoPvUH2r+fGkJP36wgQioTIfHtdNDfPbwWA9DmXb/4rq0s+zW/8lr66WUmrgq4UzBGnrj
+ GBnZUn9FN81lrYV3PnDWFEtBW9Pb1HIP22SVx5Qbi4ooTjqCeBqgp46ujjrM/Ck9Vok6c6HgwOERw
+ Id7wc=;
 Received: from fw-tnat-cam4.arm.com ([217.140.106.52]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1isTn9-0006rp-9x; Fri, 17 Jan 2020 15:44:11 +0000
+ id 1isTn9-0006rx-Qz; Fri, 17 Jan 2020 15:44:11 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 04851D02A2A; Fri, 17 Jan 2020 15:44:11 +0000 (GMT)
+ id 83ED6D02C26; Fri, 17 Jan 2020 15:44:11 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Erik Bussing <eabbussing@outlook.com>
-In-Reply-To: <20200115164619.101705-2-hdegoede@redhat.com>
-Message-Id: <applied-20200115164619.101705-2-hdegoede@redhat.com>
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+In-Reply-To: <1579261510-12580-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+Message-Id: <applied-1579261510-12580-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 X-Patchwork-Hint: ignore
-Date: Fri, 17 Jan 2020 15:44:10 +0000 (GMT)
-Cc: Nariman Etemadi <narimantos@gmail.com>, alsa-devel@alsa-project.org,
- Jordy Ubink <jordyubink@hotmail.nl>, Jie Yang <yang.jie@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
- Damian van Soelen <dj.vsoelen@gmail.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: bytcr_rt5640: Remove code
-	duplication in byt_rt5640_codec_fixup" to the asoc tree
+Date: Fri, 17 Jan 2020 15:44:11 +0000 (GMT)
+Cc: alsa-devel@alsa-project.org, open list <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ moderated@sirena.org.uk, "Cc:"@sirena.org.uk, Mark Brown <broonie@kernel.org>,
+ Ravulapati@sirena.org.uk, Alexander.Deucher@amd.com,
+ Dan Carpenter <dan.carpenter@oracle.com>, Vishnu@sirena.org.uk
+Subject: [alsa-devel] Applied "ASoC: amd: Additional DAI for I2S SP
+	instance." to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,11 +90,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: bytcr_rt5640: Remove code duplication in byt_rt5640_codec_fixup
+   ASoC: amd: Additional DAI for I2S SP instance.
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -117,118 +115,54 @@ to this mail.
 Thanks,
 Mark
 
-From 332719b1840b9bf3e09938d1fda566f414fcf0e6 Mon Sep 17 00:00:00 2001
-From: Erik Bussing <eabbussing@outlook.com>
-Date: Wed, 15 Jan 2020 17:46:16 +0100
-Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Remove code duplication in
- byt_rt5640_codec_fixup
+From a174a6c226796824cb2f78157c0b183ed472fa3f Mon Sep 17 00:00:00 2001
+From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Date: Fri, 17 Jan 2020 17:15:09 +0530
+Subject: [PATCH] ASoC: amd: Additional DAI for I2S SP instance.
 
-The 16 and 24 bit paths in byt_rt5640_codec_fixup are mostly identical,
-introduce a local bits variable to address the only difference and move
-the common bits out of the if ... else ... .
+I2S SP instance has separate BCLK and LRCLK for Tx and Rx.
+Creating additional DAI for Rx.
 
-Signed-off-by: Erik Bussing <eabbussing@outlook.com>
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://lore.kernel.org/r/20200115164619.101705-2-hdegoede@redhat.com
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Link: https://lore.kernel.org/r/1579261510-12580-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 68 +++++++++------------------
- 1 file changed, 23 insertions(+), 45 deletions(-)
+ sound/soc/amd/raven/acp3x.h     | 2 +-
+ sound/soc/amd/raven/pci-acp3x.c | 8 +++++++-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index dd6310fe8914..c19ae4fbf955 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -940,65 +940,43 @@ static int byt_rt5640_codec_fixup(struct snd_soc_pcm_runtime *rtd,
- 			SNDRV_PCM_HW_PARAM_RATE);
- 	struct snd_interval *channels = hw_param_interval(params,
- 						SNDRV_PCM_HW_PARAM_CHANNELS);
--	int ret;
-+	int ret, bits;
+diff --git a/sound/soc/amd/raven/acp3x.h b/sound/soc/amd/raven/acp3x.h
+index b6a80dc0b641..21e7ac017f2b 100644
+--- a/sound/soc/amd/raven/acp3x.h
++++ b/sound/soc/amd/raven/acp3x.h
+@@ -13,7 +13,7 @@
+ #define TDM_ENABLE 1
+ #define TDM_DISABLE 0
  
- 	/* The DSP will covert the FE rate to 48k, stereo */
- 	rate->min = rate->max = 48000;
- 	channels->min = channels->max = 2;
- 
- 	if ((byt_rt5640_quirk & BYT_RT5640_SSP0_AIF1) ||
--		(byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2)) {
--
-+	    (byt_rt5640_quirk & BYT_RT5640_SSP0_AIF2)) {
- 		/* set SSP0 to 16-bit */
- 		params_set_format(params, SNDRV_PCM_FORMAT_S16_LE);
--
--		/*
--		 * Default mode for SSP configuration is TDM 4 slot, override config
--		 * with explicit setting to I2S 2ch 16-bit. The word length is set with
--		 * dai_set_tdm_slot() since there is no other API exposed
--		 */
--		ret = snd_soc_dai_set_fmt(rtd->cpu_dai,
--					SND_SOC_DAIFMT_I2S     |
--					SND_SOC_DAIFMT_NB_NF   |
--					SND_SOC_DAIFMT_CBS_CFS
--			);
--		if (ret < 0) {
--			dev_err(rtd->dev, "can't set format to I2S, err %d\n", ret);
--			return ret;
--		}
--
--		ret = snd_soc_dai_set_tdm_slot(rtd->cpu_dai, 0x3, 0x3, 2, 16);
--		if (ret < 0) {
--			dev_err(rtd->dev, "can't set I2S config, err %d\n", ret);
--			return ret;
--		}
--
-+		bits = 16;
- 	} else {
--
- 		/* set SSP2 to 24-bit */
- 		params_set_format(params, SNDRV_PCM_FORMAT_S24_LE);
-+		bits = 24;
-+	}
- 
--		/*
--		 * Default mode for SSP configuration is TDM 4 slot, override config
--		 * with explicit setting to I2S 2ch 24-bit. The word length is set with
--		 * dai_set_tdm_slot() since there is no other API exposed
--		 */
--		ret = snd_soc_dai_set_fmt(rtd->cpu_dai,
--					SND_SOC_DAIFMT_I2S     |
--					SND_SOC_DAIFMT_NB_NF   |
--					SND_SOC_DAIFMT_CBS_CFS
--			);
--		if (ret < 0) {
--			dev_err(rtd->dev, "can't set format to I2S, err %d\n", ret);
--			return ret;
--		}
-+	/*
-+	 * Default mode for SSP configuration is TDM 4 slot, override config
-+	 * with explicit setting to I2S 2ch. The word length is set with
-+	 * dai_set_tdm_slot() since there is no other API exposed
-+	 */
-+	ret = snd_soc_dai_set_fmt(rtd->cpu_dai,
-+				  SND_SOC_DAIFMT_I2S     |
-+				  SND_SOC_DAIFMT_NB_NF   |
-+				  SND_SOC_DAIFMT_CBS_CFS);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "can't set format to I2S, err %d\n", ret);
-+		return ret;
-+	}
- 
--		ret = snd_soc_dai_set_tdm_slot(rtd->cpu_dai, 0x3, 0x3, 2, 24);
--		if (ret < 0) {
--			dev_err(rtd->dev, "can't set I2S config, err %d\n", ret);
--			return ret;
--		}
-+	ret = snd_soc_dai_set_tdm_slot(rtd->cpu_dai, 0x3, 0x3, 2, bits);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "can't set I2S config, err %d\n", ret);
-+		return ret;
- 	}
+-#define ACP3x_DEVS		3
++#define ACP3x_DEVS		4
+ #define ACP3x_PHY_BASE_ADDRESS 0x1240000
+ #define	ACP3x_I2S_MODE	0
+ #define	ACP3x_REG_START	0x1240000
+diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
+index 2f9f52905853..65330bb50e74 100644
+--- a/sound/soc/amd/raven/pci-acp3x.c
++++ b/sound/soc/amd/raven/pci-acp3x.c
+@@ -225,7 +225,13 @@ static int snd_acp3x_probe(struct pci_dev *pci,
+ 		pdevinfo[2].id = 1;
+ 		pdevinfo[2].parent = &pci->dev;
+ 		pdevinfo[2].num_res = 1;
+-		pdevinfo[2].res = &adata->res[2];
++		pdevinfo[2].res = &adata->res[1];
 +
- 	return 0;
- }
- 
++		pdevinfo[3].name = "acp3x_i2s_playcap";
++		pdevinfo[3].id = 2;
++		pdevinfo[3].parent = &pci->dev;
++		pdevinfo[3].num_res = 1;
++		pdevinfo[3].res = &adata->res[2];
+ 		for (i = 0; i < ACP3x_DEVS; i++) {
+ 			adata->pdev[i] =
+ 				platform_device_register_full(&pdevinfo[i]);
 -- 
 2.20.1
 

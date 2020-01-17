@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C84AB140484
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 08:41:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B4E5140485
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 08:41:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AA3317E8;
-	Fri, 17 Jan 2020 08:40:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AA3317E8
+	by alsa0.perex.cz (Postfix) with ESMTPS id E646917DF;
+	Fri, 17 Jan 2020 08:41:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E646917DF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579246863;
-	bh=kH3S1hNPX2WgqRu2bOfyUG2U7ESZl+XV7WKERLt2VeA=;
+	s=default; t=1579246911;
+	bh=pgfXHy02GH4PLNUSufuM68Ba5ul9j4+w15Prdij8Pew=;
 	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BMqlM0MCNjUKq5agZQR3l2vG/AjXJfrJJOd/JDhAB0HYBHKud4dFymeNw32asCc9A
-	 RIH9svb3F1HrTAOVYaDQjLN4iKIHMRjdjxnk4eYa6Tjd+fS6BdPBx9wISzyVDsOtXo
-	 gr7Qq8V8ruEQPbgSdiSE/Or1hw4P8zFHW7R7Suxk=
+	b=m5H4M1szrPouNBIkgE8Q3cOdAX2RZIDK08LP8FBikqsjSOegqQAD3G3DxBaUabiix
+	 6Mh6eAsdf+ola1wohiIKOD4DjS+jcvDlRpD28OAx7R0S3J3ZZQpRM312RljMYDouAb
+	 MkCBX3Ag3bxfvfpj6h68sFpFKrklJbWn5OxA6o88=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8E4B8F80086;
-	Fri, 17 Jan 2020 08:38:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93FD9F80272;
+	Fri, 17 Jan 2020 08:38:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7242F80086; Fri, 17 Jan 2020 08:38:32 +0100 (CET)
+ id 674BCF80271; Fri, 17 Jan 2020 08:38:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
- [IPv6:2607:f8b0:4864:20::64a])
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-yw1-xc49.google.com (mail-yw1-xc49.google.com
+ [IPv6:2607:f8b0:4864:20::c49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C4BCBF80086
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 08:38:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C4BCBF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id B58C0F80086
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 08:38:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B58C0F80086
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="iDA3dCdl"
-Received: by mail-pl1-x64a.google.com with SMTP id t17so10249374plr.13
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 23:38:28 -0800 (PST)
+ header.b="OL2T1sop"
+Received: by mail-yw1-xc49.google.com with SMTP id y188so24606455ywa.4
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 23:38:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=Q6VMvQXl3ntEaugQBZeGMXtuJ5ruPKbwuALh9/4JADM=;
- b=iDA3dCdlSyFPdZFsuNMuDZh8czHH1fWDli7hph5DCeEHOIDYudjUxJOn+s8FwUfhZe
- cCvHeRIgHac7skhRrKqlAWtiVfJFCHVMqQKgTRJ1atwrW/WCVH/Cky763akD0Aw6/Z9h
- ecXXneEc4hrJZ7Guj7/Vcxi8xiyhkOkQkFosM06ggAt+CiDZ7pLJHaOacVSUjL5OJUPi
- oQcJH1XSLOQl1EpTDxkPlrRzpS7UtMM63jWogj/oTlbrkxkjC8fhQFhhvKtq9+GBXzHo
- ZG8G+C5KkPuPKTR72xjiaXtadKCptLnfEuIHmQCW0R+HATSZtnYBsaWh8TUt3RMTSN7w
- hT8g==
+ :cc; bh=ALWThFLzftaLoQOtE1JCuOa5AGHG1TvvmMLKcLHztMM=;
+ b=OL2T1sopnx6kT3Nl5K7X9J3JltuUQZvDXGF58EXeRWnQC6O0JHmTluUmqRcXU203TY
+ z9AWiWceiXWIF/5D4Ybg6ghjotEqPFeLcMC0S8iMKdogpYlsWOwQmPVZzVPe2hjIj33M
+ RGvOUoSLn1bFh3ozGh11+ELj6I1Hott1e5l1bukzM7Tp88+eAvYaARYk34tLwBGdleaQ
+ GwDnVN2o02VrFfLVulqCCs95K3ULudgtWZjp3ZC2sT0XwAkAU12u5FNZGCWfveLMC98w
+ ev40zaO/ttlY46J9EWpRmkmPrwS8qBdkmuAEDZyPkgv/DmJQORVV0tH259o5bdxYGbLD
+ VP/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=Q6VMvQXl3ntEaugQBZeGMXtuJ5ruPKbwuALh9/4JADM=;
- b=DXn1KotJnt2Dstmy4CrPm8H7nM8i9GbGX9AmjOgsq+qCEDtxgc3+K9YQRLxY+aCOyq
- 4uMUhpXPbPcw16huTgcehYtWMEoyGsXgWwCL64LVKKPAje9v5zSSp9IAvRJG6RzCXBrU
- nCL49VUJjcKadvfxYo+tAQbyze2mndR6y9HqWV0Y+uma3kp2/LpCBPSP7c1/tn7Ls1tZ
- G9egEyAwoCYSxu958eVMGdF8nr69xH/AHWi4KECNcrSwTsgg8CQURdsgF3AHbLSQtwzV
- yEI09oG52p3QGi6hgQpYBbkoTRA8GOwMHIBzx4svHNNCErSB/M7fXbm2/4ZGY9sEh/Zq
- RCeQ==
-X-Gm-Message-State: APjAAAXrXg4J5YERFFcmPm98QSJ7e8ODDGf9xfVZtfyN810M2oTZrFzO
- rIXG3f1EKkvsafRMxuXbxjbSjeCA7ALZ
-X-Google-Smtp-Source: APXvYqzsdehS35UwpPgad6zoj2fEa0aTRvJWAWeNLGg+mzEu80k6GGHfIqec9dT8W7FFnvk87hHnyS3XEspm
-X-Received: by 2002:a65:488f:: with SMTP id n15mr46107210pgs.61.1579246705490; 
- Thu, 16 Jan 2020 23:38:25 -0800 (PST)
-Date: Fri, 17 Jan 2020 15:38:12 +0800
+ bh=ALWThFLzftaLoQOtE1JCuOa5AGHG1TvvmMLKcLHztMM=;
+ b=mQ0i1jJq4mFJmD5lnuZ/6mMINFGgT0+wPB/2L0aXLae+e0HdYdl6xgwQIU4JD3FpFO
+ ed73LWRz3qviXg3U4GkAKwj3QITIGNeGvwHW4tpVjsl57uLkntp3HHsSxNb1BzUXIX3h
+ OKmFT03273enA4hlfaUrmycvMBCITAv4jY13tc6PVwgVNsyQU3jn1N3w4AYtVIEUcI48
+ r4Yl95DkLtZ0gsM96ClwIXXTGDWEZxSaMytqpGvRSXoOdfkBv90RAZmrRT7FMjAXa7jl
+ 5e05LNBviSiYzXX1jgWZKvB9iqYxu1WxnvGBgGNSazI4XqfEmHbTM7wj159fV9A3Q3I8
+ nugw==
+X-Gm-Message-State: APjAAAWA8qeqSiJSCQJI+qgpFgVPq7eLNXzlC3E8WQb9hZ2Q3YqPkerj
+ Bq24N0nXlN3wS/iWGFwTmk3TQI+RkHWc
+X-Google-Smtp-Source: APXvYqyaCPQTKW6JuTs+e+98DyCC0fziQ5pay5SAj8h4FxuzfD0L2Pxx0PdvJCL/KwRFXUyY+Da2rNo1k2bI
+X-Received: by 2002:a0d:ed05:: with SMTP id w5mr31042354ywe.378.1579246710505; 
+ Thu, 16 Jan 2020 23:38:30 -0800 (PST)
+Date: Fri, 17 Jan 2020 15:38:13 +0800
 In-Reply-To: <20200117073814.82441-1-tzungbi@google.com>
-Message-Id: <20200117073814.82441-2-tzungbi@google.com>
+Message-Id: <20200117073814.82441-3-tzungbi@google.com>
 Mime-Version: 1.0
 References: <20200117073814.82441-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
@@ -78,8 +78,8 @@ From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
  cychiang@google.com
-Subject: [alsa-devel] [PATCH 1/3] ASoC: max98090: revert "ASoC: max98090:
-	fix lockdep warning"
+Subject: [alsa-devel] [PATCH 2/3] ASoC: dapm: add
+	snd_soc_dapm_put_enum_double_locked
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,110 +97,115 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit 2dc98af62c32 ("ASoC: max98090: fix lockdep warning") introduced
-a helpful-less small lock: shdn_lock.  Reverts the commit.
+Adds snd_soc_dapm_put_enum_double_locked() for those use cases if
+dapm_mutex has already locked.
 
-Reasons:
-
-1. Lockdep should not be happy by either the original or current code.
-From lockdep's point of view, there is a lock inversion anyway.
-
-Let d = dapm_mutex, c = controls_rwsem, s = shdn_lock,
-
-From the reported calling stack: lock acquisition order of
-snd_soc_register_card() is: d -> c.
-> snd_ctl_add_replace+0x3c/0x84
-> dapm_create_or_share_kcontrol+0x24c/0x2e0
-> snd_soc_dapm_new_widgets+0x308/0x594
-> snd_soc_bind_card+0x80c/0xad4
-> devm_snd_soc_register_card+0x34/0x6c
-
-If calling snd_soc_dapm_put_enum_double() in kcontrol's put (e.g.
-SOC_DAPM_ENUM_EXT), lock acquisition order is: c -> d.  Note that,
-snd_soc_dapm_put_enum_double() acquires d.
-
-The possible lock inversion is always there if registering sound card
-and putting mixer control happen at the same time.  In fact, it never
-happens because the control device don't show up to the userspace until
-the sound card build success.
-
-Commit 2dc98af62c32 ("ASoC: max98090: fix lockdep warning") changes the
-order to: c -> s -> d.  The lock inversion is still there.
-
-2. Commit 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when
-changing sensitive registers SHDN bit") designed to use dapm_mutex to
-protect SHDN bit.  Use a separate lock breaks the protection.
-
-DAPM changes SHDN bit automatically when it finds the path.  Thus, any
-code wants to change the SHDN bit, need to acquire the dapm_mutex first.
-
-> SND_SOC_DAPM_SUPPLY("SHDN", M98090_REG_DEVICE_SHUTDOWN,
->        M98090_SHDNN_SHIFT, 0, NULL, 0),
-
-Fixes: 2dc98af62c32 ("ASoC: max98090: fix lockdep warning")
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/soc/codecs/max98090.c | 10 ++++------
- sound/soc/codecs/max98090.h |  1 -
- 2 files changed, 4 insertions(+), 7 deletions(-)
+ include/sound/soc-dapm.h |  2 ++
+ sound/soc/soc-dapm.c     | 54 ++++++++++++++++++++++++++++++----------
+ 2 files changed, 43 insertions(+), 13 deletions(-)
 
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index 454cb8e5b0a1..c01ce4a3f86d 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -52,14 +52,14 @@ static void max98090_shdn_restore_locked(struct max98090_priv *max98090)
- 
- static void max98090_shdn_save(struct max98090_priv *max98090)
- {
--	mutex_lock(&max98090->shdn_lock);
-+	mutex_lock(&max98090->component->card->dapm_mutex);
- 	max98090_shdn_save_locked(max98090);
+diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
+index 1b6afbc1a4ed..2a306c6f3fbc 100644
+--- a/include/sound/soc-dapm.h
++++ b/include/sound/soc-dapm.h
+@@ -392,6 +392,8 @@ int snd_soc_dapm_get_enum_double(struct snd_kcontrol *kcontrol,
+ 	struct snd_ctl_elem_value *ucontrol);
+ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+ 	struct snd_ctl_elem_value *ucontrol);
++int snd_soc_dapm_put_enum_double_locked(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol);
+ int snd_soc_dapm_info_pin_switch(struct snd_kcontrol *kcontrol,
+ 	struct snd_ctl_elem_info *uinfo);
+ int snd_soc_dapm_get_pin_switch(struct snd_kcontrol *kcontrol,
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 442846f12cd4..bc20ad9abf8b 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3441,17 +3441,8 @@ int snd_soc_dapm_get_enum_double(struct snd_kcontrol *kcontrol,
  }
+ EXPORT_SYMBOL_GPL(snd_soc_dapm_get_enum_double);
  
- static void max98090_shdn_restore(struct max98090_priv *max98090)
+-/**
+- * snd_soc_dapm_put_enum_double - dapm enumerated double mixer set callback
+- * @kcontrol: mixer control
+- * @ucontrol: control element information
+- *
+- * Callback to set the value of a dapm enumerated double mixer control.
+- *
+- * Returns 0 for success.
+- */
+-int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+-	struct snd_ctl_elem_value *ucontrol)
++static int __snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol, int locked)
  {
- 	max98090_shdn_restore_locked(max98090);
--	mutex_unlock(&max98090->shdn_lock);
-+	mutex_unlock(&max98090->component->card->dapm_mutex);
+ 	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
+ 	struct snd_soc_card *card = dapm->card;
+@@ -3474,7 +3465,9 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+ 		mask |= e->mask << e->shift_r;
+ 	}
+ 
+-	mutex_lock_nested(&card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
++	if (!locked)
++		mutex_lock_nested(&card->dapm_mutex,
++				  SND_SOC_DAPM_CLASS_RUNTIME);
+ 
+ 	change = dapm_kcontrol_set_value(kcontrol, val);
+ 
+@@ -3496,15 +3489,50 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+ 		card->update = NULL;
+ 	}
+ 
+-	mutex_unlock(&card->dapm_mutex);
++	if (!locked)
++		mutex_unlock(&card->dapm_mutex);
+ 
+ 	if (ret > 0)
+ 		soc_dpcm_runtime_update(card);
+ 
+ 	return change;
  }
++
++/**
++ * snd_soc_dapm_put_enum_double - dapm enumerated double mixer set callback
++ * @kcontrol: mixer control
++ * @ucontrol: control element information
++ *
++ * Callback to set the value of a dapm enumerated double mixer control.
++ *
++ * Returns 0 for success.
++ */
++int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol)
++{
++	return __snd_soc_dapm_put_enum_double(kcontrol, ucontrol, 0);
++}
+ EXPORT_SYMBOL_GPL(snd_soc_dapm_put_enum_double);
  
- static int max98090_put_volsw(struct snd_kcontrol *kcontrol,
-@@ -2313,12 +2313,12 @@ static void max98090_pll_work(struct max98090_priv *max98090)
- 	 */
- 
- 	/* Toggle shutdown OFF then ON */
--	mutex_lock(&max98090->shdn_lock);
-+	mutex_lock(&component->card->dapm_mutex);
- 	snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
- 			    M98090_SHDNN_MASK, 0);
- 	snd_soc_component_update_bits(component, M98090_REG_DEVICE_SHUTDOWN,
- 			    M98090_SHDNN_MASK, M98090_SHDNN_MASK);
--	mutex_unlock(&max98090->shdn_lock);
-+	mutex_unlock(&component->card->dapm_mutex);
- 
- 	for (i = 0; i < 10; ++i) {
- 		/* Give PLL time to lock */
-@@ -2731,8 +2731,6 @@ static int max98090_i2c_probe(struct i2c_client *i2c,
- 	if (max98090 == NULL)
- 		return -ENOMEM;
- 
--	mutex_init(&max98090->shdn_lock);
--
- 	if (ACPI_HANDLE(&i2c->dev)) {
- 		acpi_id = acpi_match_device(i2c->dev.driver->acpi_match_table,
- 					    &i2c->dev);
-diff --git a/sound/soc/codecs/max98090.h b/sound/soc/codecs/max98090.h
-index dabd8be34a01..0a31708b7df7 100644
---- a/sound/soc/codecs/max98090.h
-+++ b/sound/soc/codecs/max98090.h
-@@ -1539,7 +1539,6 @@ struct max98090_priv {
- 	unsigned int pa2en;
- 	unsigned int sidetone;
- 	bool master;
--	struct mutex shdn_lock;
- 	int saved_count;
- 	int saved_shdn;
- };
++/**
++ * snd_soc_dapm_put_enum_double_locked - dapm enumerated double mixer set
++ * callback
++ * @kcontrol: mixer control
++ * @ucontrol: control element information
++ *
++ * Callback to set the value of a dapm enumerated double mixer control.
++ * Must acquire dapm_mutex before calling the function.
++ *
++ * Returns 0 for success.
++ */
++int snd_soc_dapm_put_enum_double_locked(struct snd_kcontrol *kcontrol,
++	struct snd_ctl_elem_value *ucontrol)
++{
++	dapm_assert_locked(snd_soc_dapm_kcontrol_dapm(kcontrol));
++	return __snd_soc_dapm_put_enum_double(kcontrol, ucontrol, 1);
++}
++EXPORT_SYMBOL_GPL(snd_soc_dapm_put_enum_double_locked);
++
+ /**
+  * snd_soc_dapm_info_pin_switch - Info for a pin switch
+  *
 -- 
 2.25.0.341.g760bfbb309-goog
 

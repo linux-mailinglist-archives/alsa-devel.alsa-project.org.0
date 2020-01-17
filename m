@@ -2,72 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D161F140E65
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 16:56:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3D3A140FA1
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 18:05:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 797E91754;
-	Fri, 17 Jan 2020 16:55:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 797E91754
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38D8F17DE;
+	Fri, 17 Jan 2020 18:05:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38D8F17DE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579276585;
-	bh=DJnkFrFaueeJK2+P0TY4neLR1uyeuvUAlF1NBD553WA=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=GsgXV96sJbvNO56IXSRJ4elPVaVOWnQz5Fh2K0M7wyXkX+qks+4CHhvVGUiaWo3DL
-	 ApdU1FgeST3uaYDUT/32WaAGOOlLCKwjIw/PPfG9LZGj0LhrnRsbV8adPK8XEhm5m8
-	 SWqkAj4Y5yCMugcP5mrL4ekykuQ5dk1Tpa2JiL2s=
+	s=default; t=1579280758;
+	bh=RUHGciaZABHwEu0vgJNOarjNm80o6cQCK72HjhFeLgo=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=s0/R0U+DP+AXVRllCXnohSLcDCnTBM8r/bxSJcEPG/QRrw6olJWQnszTAUWvYFszC
+	 hde89ZcQTXuFSUZrZ3EquhxkF6Kxen7EGpbATVE7RTvgKwcBM8SwULmQambR4hPQoj
+	 4cT8/VzZtBcXYdsKKWn+OSnOX61VgvCEgzD2wAwQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E77AAF80316;
-	Fri, 17 Jan 2020 16:46:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78D71F801EB;
+	Fri, 17 Jan 2020 18:04:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E472F8014B; Fri, 17 Jan 2020 16:44:26 +0100 (CET)
+ id 422AEF801EB; Fri, 17 Jan 2020 18:04:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 40FC6F80272
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 16:44:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40FC6F80272
+ by alsa1.perex.cz (Postfix) with ESMTPS id 796A3F80086
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 18:04:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 796A3F80086
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="uURExAX8"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=dV0fjoYY7tLWGhUV1CdLE/kwDSlyncCacWZYqWOsxx0=; b=uURExAX8+Deo
- XG37ZaxnAVlIROX9TiXKHjFt55QgZQYpNp3Bv/kJ/kQBvn54FNRUc2Q9kS/IozzJ1EQ+9v824kTQ1
- f3Z6GqvRUfdNmtt2mFrLSPKafELQ3p+/u+H/2TzofWGkOuUf/2NWVaFzfa38lNvcufgDy8+AnpRl8
- 9i3m0=;
-Received: from fw-tnat-cam4.arm.com ([217.140.106.52]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1isTnB-0006sb-Ap; Fri, 17 Jan 2020 15:44:13 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 07E21D02BD9; Fri, 17 Jan 2020 15:44:13 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-In-Reply-To: <20200114161841.451-1-ckeepax@opensource.cirrus.com>
-Message-Id: <applied-20200114161841.451-1-ckeepax@opensource.cirrus.com>
-X-Patchwork-Hint: ignore
-Date: Fri, 17 Jan 2020 15:44:13 +0000 (GMT)
-Cc: alsa-devel@alsa-project.org, patches@opensource.cirrus.com,
- lgirdwood@gmail.com, david.rhodes@cirrus.com, Mark Brown <broonie@kernel.org>,
- li.xu@cirrus.com
-Subject: [alsa-devel] Applied "ASoC: wm_adsp: Correct cache handling of new
-	kernel control API" to the asoc tree
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="W3mHfGce"
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 00HH2uJ1009670; Fri, 17 Jan 2020 18:04:04 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : subject :
+ date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=2SUWeiNhV6oNErDN+s1Xmml+Kuc8NdnwiZ6aj9UFf4U=;
+ b=W3mHfGceOea4n98Lrzj+LiyDzCa5aICL0+rhY58p2pPGmoqJmfPKKcMB5xhmUchZv7iq
+ gFaq0hzj99NyKri4GS2528mFiW276I63t3w/afiKtkJQIdksHayrbQoQpNW1ICPDXpLd
+ rTesoHPFq4t7UeBbP2/Ze+0rYfcdYH0IksMbLKUGRbZBNcErU1LWRWWzsqz3BkPzNmyR
+ IStn8Ya2fQwQikP3SOxe9NUgsiXSPHWxyFibcXiZq+xgJ+p+mhHPDPnclzLM3o+9Px4z
+ xIRgfX2YW3WuZn/iX5aYidKR1LbsX754+/b1MMwYOmzU8LpW9dCutLHP4c7JVQKSmjkN gA== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2xk0qy4kcs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 17 Jan 2020 18:04:04 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7C198100038;
+ Fri, 17 Jan 2020 18:04:02 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C93BE22168E;
+ Fri, 17 Jan 2020 18:04:02 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Fri, 17 Jan 2020 18:04:02 +0100
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
+ <robh@kernel.org>, <mark.rutland@arm.com>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
+Date: Fri, 17 Jan 2020 18:03:52 +0100
+Message-ID: <20200117170352.16040-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
+MIME-Version: 1.0
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-01-17_04:2020-01-16,
+ 2020-01-17 signatures=0
+Subject: [alsa-devel] [PATCH v3] ASoC: dt-bindings: stm32: convert spdfirx
+	to json-schema
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,252 +96,178 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Convert the STM32 SPDIFRX bindings to DT schema format using json-schema.
 
-   ASoC: wm_adsp: Correct cache handling of new kernel control API
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 73ecf1a673d3502dff1445f06675aba65ff20ce7 Mon Sep 17 00:00:00 2001
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-Date: Tue, 14 Jan 2020 16:18:38 +0000
-Subject: [PATCH] ASoC: wm_adsp: Correct cache handling of new kernel control
- API
-
-The recently added API that exposes firmware mixer controls to the
-kernel is missing cache handling and all writes bypass the cache, this
-obviously causes the cache to get out of sync with the hardware. Factor
-out the cache handling into two new helper functions and call those from
-both the normal ALSA control handlers and the new kernel API.
-
-Fixes: eb65ccdb0836 ("ASoC: wm_adsp: Expose mixer control API")
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://lore.kernel.org/r/20200114161841.451-1-ckeepax@opensource.cirrus.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 ---
- sound/soc/codecs/wm_adsp.c | 98 ++++++++++++++++++++------------------
- 1 file changed, 51 insertions(+), 47 deletions(-)
+Changes in v2:
+- Add "additionalProperties: false"
+- Also change minItems to 2 for dmas property, as both DMAs are required.
 
-diff --git a/sound/soc/codecs/wm_adsp.c b/sound/soc/codecs/wm_adsp.c
-index 2a9b610f6d43..d3d32b501aca 100644
---- a/sound/soc/codecs/wm_adsp.c
-+++ b/sound/soc/codecs/wm_adsp.c
-@@ -1030,8 +1030,8 @@ static int wm_coeff_write_acked_control(struct wm_coeff_ctl *ctl,
- 	return -ETIMEDOUT;
- }
- 
--static int wm_coeff_write_control(struct wm_coeff_ctl *ctl,
--				  const void *buf, size_t len)
-+static int wm_coeff_write_ctrl_raw(struct wm_coeff_ctl *ctl,
-+				   const void *buf, size_t len)
- {
- 	struct wm_adsp *dsp = ctl->dsp;
- 	void *scratch;
-@@ -1061,6 +1061,23 @@ static int wm_coeff_write_control(struct wm_coeff_ctl *ctl,
- 	return 0;
- }
- 
-+static int wm_coeff_write_ctrl(struct wm_coeff_ctl *ctl,
-+			       const void *buf, size_t len)
-+{
-+	int ret = 0;
-+
-+	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE)
-+		ret = -EPERM;
-+	else if (buf != ctl->cache)
-+		memcpy(ctl->cache, buf, len);
-+
-+	ctl->set = 1;
-+	if (ctl->enabled && ctl->dsp->running)
-+		ret = wm_coeff_write_ctrl_raw(ctl, buf, len);
-+
-+	return ret;
-+}
-+
- static int wm_coeff_put(struct snd_kcontrol *kctl,
- 			struct snd_ctl_elem_value *ucontrol)
- {
-@@ -1071,16 +1088,7 @@ static int wm_coeff_put(struct snd_kcontrol *kctl,
- 	int ret = 0;
- 
- 	mutex_lock(&ctl->dsp->pwr_lock);
+Changes in v3:
+- Drop minItems/maxItems for dmas property, remove ref to stm32-dma.txt.
+---
+ .../bindings/sound/st,stm32-spdifrx.txt       | 56 -------------
+ .../bindings/sound/st,stm32-spdifrx.yaml      | 80 +++++++++++++++++++
+ 2 files changed, 80 insertions(+), 56 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
+deleted file mode 100644
+index 33826f2459fa..000000000000
+--- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
++++ /dev/null
+@@ -1,56 +0,0 @@
+-STMicroelectronics STM32 S/PDIF receiver (SPDIFRX).
 -
--	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE)
--		ret = -EPERM;
--	else
--		memcpy(ctl->cache, p, ctl->len);
+-The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
+-IEC-60958 and IEC-61937.
 -
--	ctl->set = 1;
--	if (ctl->enabled && ctl->dsp->running)
--		ret = wm_coeff_write_control(ctl, p, ctl->len);
+-Required properties:
+-  - compatible: should be "st,stm32h7-spdifrx"
+-  - reg: cpu DAI IP base address and size
+-  - clocks: must contain an entry for kclk (used as S/PDIF signal reference)
+-  - clock-names: must contain "kclk"
+-  - interrupts: cpu DAI interrupt line
+-  - dmas: DMA specifiers for audio data DMA and iec control flow DMA
+-    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt
+-  - dma-names: two dmas have to be defined, "rx" and "rx-ctrl"
 -
-+	ret = wm_coeff_write_ctrl(ctl, p, ctl->len);
- 	mutex_unlock(&ctl->dsp->pwr_lock);
- 
- 	return ret;
-@@ -1096,15 +1104,10 @@ static int wm_coeff_tlv_put(struct snd_kcontrol *kctl,
- 
- 	mutex_lock(&ctl->dsp->pwr_lock);
- 
--	if (copy_from_user(ctl->cache, bytes, size)) {
-+	if (copy_from_user(ctl->cache, bytes, size))
- 		ret = -EFAULT;
--	} else {
--		ctl->set = 1;
--		if (ctl->enabled && ctl->dsp->running)
--			ret = wm_coeff_write_control(ctl, ctl->cache, size);
--		else if (ctl->flags & WMFW_CTL_FLAG_VOLATILE)
--			ret = -EPERM;
--	}
-+	else
-+		ret = wm_coeff_write_ctrl(ctl, ctl->cache, size);
- 
- 	mutex_unlock(&ctl->dsp->pwr_lock);
- 
-@@ -1135,8 +1138,8 @@ static int wm_coeff_put_acked(struct snd_kcontrol *kctl,
- 	return ret;
- }
- 
--static int wm_coeff_read_control(struct wm_coeff_ctl *ctl,
--				 void *buf, size_t len)
-+static int wm_coeff_read_ctrl_raw(struct wm_coeff_ctl *ctl,
-+				  void *buf, size_t len)
- {
- 	struct wm_adsp *dsp = ctl->dsp;
- 	void *scratch;
-@@ -1166,29 +1169,37 @@ static int wm_coeff_read_control(struct wm_coeff_ctl *ctl,
- 	return 0;
- }
- 
--static int wm_coeff_get(struct snd_kcontrol *kctl,
--			struct snd_ctl_elem_value *ucontrol)
-+static int wm_coeff_read_ctrl(struct wm_coeff_ctl *ctl, void *buf, size_t len)
- {
--	struct soc_bytes_ext *bytes_ext =
--		(struct soc_bytes_ext *)kctl->private_value;
--	struct wm_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
--	char *p = ucontrol->value.bytes.data;
- 	int ret = 0;
- 
--	mutex_lock(&ctl->dsp->pwr_lock);
+-Optional properties:
+-  - resets: Reference to a reset controller asserting the SPDIFRX
 -
- 	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE) {
- 		if (ctl->enabled && ctl->dsp->running)
--			ret = wm_coeff_read_control(ctl, p, ctl->len);
-+			return wm_coeff_read_ctrl_raw(ctl, buf, len);
- 		else
--			ret = -EPERM;
-+			return -EPERM;
- 	} else {
- 		if (!ctl->flags && ctl->enabled && ctl->dsp->running)
--			ret = wm_coeff_read_control(ctl, ctl->cache, ctl->len);
-+			ret = wm_coeff_read_ctrl_raw(ctl, ctl->cache, ctl->len);
- 
--		memcpy(p, ctl->cache, ctl->len);
-+		if (buf != ctl->cache)
-+			memcpy(buf, ctl->cache, len);
- 	}
- 
-+	return ret;
-+}
+-The device node should contain one 'port' child node with one child 'endpoint'
+-node, according to the bindings defined in Documentation/devicetree/bindings/
+-graph.txt.
+-
+-Example:
+-spdifrx: spdifrx@40004000 {
+-	compatible = "st,stm32h7-spdifrx";
+-	reg = <0x40004000 0x400>;
+-	clocks = <&rcc SPDIFRX_CK>;
+-	clock-names = "kclk";
+-	interrupts = <97>;
+-	dmas = <&dmamux1 2 93 0x400 0x0>,
+-	       <&dmamux1 3 94 0x400 0x0>;
+-	dma-names = "rx", "rx-ctrl";
+-	pinctrl-0 = <&spdifrx_pins>;
+-	pinctrl-names = "default";
+-
+-	spdifrx_port: port {
+-		cpu_endpoint: endpoint {
+-			remote-endpoint = <&codec_endpoint>;
+-		};
+-	};
+-};
+-
+-spdif_in: spdif-in {
+-	compatible = "linux,spdif-dir";
+-
+-	codec_port: port {
+-		codec_endpoint: endpoint {
+-			remote-endpoint = <&cpu_endpoint>;
+-		};
+-	};
+-};
+-
+-soundcard {
+-	compatible = "audio-graph-card";
+-	dais = <&spdifrx_port>;
+-};
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+new file mode 100644
+index 000000000000..b7f7dc452231
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
+@@ -0,0 +1,80 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/st,stm32-spdifrx.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+static int wm_coeff_get(struct snd_kcontrol *kctl,
-+			struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct soc_bytes_ext *bytes_ext =
-+		(struct soc_bytes_ext *)kctl->private_value;
-+	struct wm_coeff_ctl *ctl = bytes_ext_to_ctl(bytes_ext);
-+	char *p = ucontrol->value.bytes.data;
-+	int ret;
++title: STMicroelectronics STM32 S/PDIF receiver (SPDIFRX)
 +
-+	mutex_lock(&ctl->dsp->pwr_lock);
-+	ret = wm_coeff_read_ctrl(ctl, p, ctl->len);
- 	mutex_unlock(&ctl->dsp->pwr_lock);
- 
- 	return ret;
-@@ -1204,15 +1215,7 @@ static int wm_coeff_tlv_get(struct snd_kcontrol *kctl,
- 
- 	mutex_lock(&ctl->dsp->pwr_lock);
- 
--	if (ctl->flags & WMFW_CTL_FLAG_VOLATILE) {
--		if (ctl->enabled && ctl->dsp->running)
--			ret = wm_coeff_read_control(ctl, ctl->cache, size);
--		else
--			ret = -EPERM;
--	} else {
--		if (!ctl->flags && ctl->enabled && ctl->dsp->running)
--			ret = wm_coeff_read_control(ctl, ctl->cache, size);
--	}
-+	ret = wm_coeff_read_ctrl_raw(ctl, ctl->cache, size);
- 
- 	if (!ret && copy_to_user(bytes, ctl->cache, size))
- 		ret = -EFAULT;
-@@ -1340,7 +1343,7 @@ static int wm_coeff_init_control_caches(struct wm_adsp *dsp)
- 		 * created so we don't need to do anything.
- 		 */
- 		if (!ctl->flags || (ctl->flags & WMFW_CTL_FLAG_READABLE)) {
--			ret = wm_coeff_read_control(ctl, ctl->cache, ctl->len);
-+			ret = wm_coeff_read_ctrl_raw(ctl, ctl->cache, ctl->len);
- 			if (ret < 0)
- 				return ret;
- 		}
-@@ -1358,7 +1361,8 @@ static int wm_coeff_sync_controls(struct wm_adsp *dsp)
- 		if (!ctl->enabled)
- 			continue;
- 		if (ctl->set && !(ctl->flags & WMFW_CTL_FLAG_VOLATILE)) {
--			ret = wm_coeff_write_control(ctl, ctl->cache, ctl->len);
-+			ret = wm_coeff_write_ctrl_raw(ctl, ctl->cache,
-+						      ctl->len);
- 			if (ret < 0)
- 				return ret;
- 		}
-@@ -2048,7 +2052,7 @@ int wm_adsp_write_ctl(struct wm_adsp *dsp, const char *name, int type,
- 	if (len > ctl->len)
- 		return -EINVAL;
- 
--	ret = wm_coeff_write_control(ctl, buf, len);
-+	ret = wm_coeff_write_ctrl(ctl, buf, len);
- 
- 	kcontrol = snd_soc_card_get_kcontrol(dsp->component->card, ctl->name);
- 	snd_ctl_notify(dsp->component->card->snd_card,
-@@ -2070,7 +2074,7 @@ int wm_adsp_read_ctl(struct wm_adsp *dsp, const char *name, int type,
- 	if (len > ctl->len)
- 		return -EINVAL;
- 
--	return wm_coeff_read_control(ctl, buf, len);
-+	return wm_coeff_read_ctrl(ctl, buf, len);
- }
- EXPORT_SYMBOL_GPL(wm_adsp_read_ctl);
- 
++maintainers:
++  - Olivier Moysan <olivier.moysan@st.com>
++
++description: |
++  The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
++  IEC-60958 and IEC-61937.
++
++properties:
++  compatible:
++    enum:
++      - st,stm32h7-spdifrx
++
++  "#sound-dai-cells":
++    const: 0
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    items:
++      - const: kclk
++
++  interrupts:
++    maxItems: 1
++
++  dmas:
++    items:
++      - description: audio data capture DMA
++      - description: IEC status bits capture DMA
++
++  dma-names:
++    items:
++      - const: rx
++      - const: rx-ctrl
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - "#sound-dai-cells"
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    spdifrx: spdifrx@40004000 {
++        compatible = "st,stm32h7-spdifrx";
++        #sound-dai-cells = <0>;
++        reg = <0x40004000 0x400>;
++        clocks = <&rcc SPDIF_K>;
++        clock-names = "kclk";
++        interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
++        dmas = <&dmamux1 2 93 0x400 0x0>,
++               <&dmamux1 3 94 0x400 0x0>;
++        dma-names = "rx", "rx-ctrl";
++        pinctrl-0 = <&spdifrx_pins>;
++        pinctrl-names = "default";
++    };
++
++...
 -- 
-2.20.1
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

@@ -2,88 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3D3A140FA1
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 18:05:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09145141059
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 18:59:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38D8F17DE;
-	Fri, 17 Jan 2020 18:05:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38D8F17DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90B3417EE;
+	Fri, 17 Jan 2020 18:58:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90B3417EE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579280758;
-	bh=RUHGciaZABHwEu0vgJNOarjNm80o6cQCK72HjhFeLgo=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=s0/R0U+DP+AXVRllCXnohSLcDCnTBM8r/bxSJcEPG/QRrw6olJWQnszTAUWvYFszC
-	 hde89ZcQTXuFSUZrZ3EquhxkF6Kxen7EGpbATVE7RTvgKwcBM8SwULmQambR4hPQoj
-	 4cT8/VzZtBcXYdsKKWn+OSnOX61VgvCEgzD2wAwQ=
+	s=default; t=1579283956;
+	bh=sWr48uJ5yYb4qJswdzQsrGBBErNdQpU79xPpawkNPwI=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=FCNoXqFmsqBcoqHLu0No1eVhuTNx715Myaykuif4lT9ZEEhegEmRFVdtWbINqaVR4
+	 oNO9IZo9YJp9L7o6S2p67wIuM6biCNgbpl0i7zQTsI0Y1o3bab0nEMrVTpOWc8KiXX
+	 EimPLZ1fAu/IqUg96//oess5jovf+0MlvGozY8W8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78D71F801EB;
-	Fri, 17 Jan 2020 18:04:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 341A1F8022B;
+	Fri, 17 Jan 2020 18:56:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 422AEF801EB; Fri, 17 Jan 2020 18:04:11 +0100 (CET)
+ id AB8DFF80228; Fri, 17 Jan 2020 18:56:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
- [91.207.212.93])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 796A3F80086
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 18:04:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 796A3F80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="W3mHfGce"
-Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00HH2uJ1009670; Fri, 17 Jan 2020 18:04:04 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : subject :
- date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=2SUWeiNhV6oNErDN+s1Xmml+Kuc8NdnwiZ6aj9UFf4U=;
- b=W3mHfGceOea4n98Lrzj+LiyDzCa5aICL0+rhY58p2pPGmoqJmfPKKcMB5xhmUchZv7iq
- gFaq0hzj99NyKri4GS2528mFiW276I63t3w/afiKtkJQIdksHayrbQoQpNW1ICPDXpLd
- rTesoHPFq4t7UeBbP2/Ze+0rYfcdYH0IksMbLKUGRbZBNcErU1LWRWWzsqz3BkPzNmyR
- IStn8Ya2fQwQikP3SOxe9NUgsiXSPHWxyFibcXiZq+xgJ+p+mhHPDPnclzLM3o+9Px4z
- xIRgfX2YW3WuZn/iX5aYidKR1LbsX754+/b1MMwYOmzU8LpW9dCutLHP4c7JVQKSmjkN gA== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xk0qy4kcs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 Jan 2020 18:04:04 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 7C198100038;
- Fri, 17 Jan 2020 18:04:02 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id C93BE22168E;
- Fri, 17 Jan 2020 18:04:02 +0100 (CET)
-Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Fri, 17 Jan 2020 18:04:02 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@st.com>, <alsa-devel@alsa-project.org>,
- <robh@kernel.org>, <mark.rutland@arm.com>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-kernel@vger.kernel.org>, <olivier.moysan@st.com>
-Date: Fri, 17 Jan 2020 18:03:52 +0100
-Message-ID: <20200117170352.16040-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31386F8014B
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 18:56:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31386F8014B
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Jan 2020 09:56:32 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,331,1574150400"; d="scan'208";a="243739495"
+Received: from black.fi.intel.com ([10.237.72.28])
+ by orsmga002.jf.intel.com with ESMTP; 17 Jan 2020 09:56:27 -0800
+Received: by black.fi.intel.com (Postfix, from userid 1003)
+ id 144BC1B4; Fri, 17 Jan 2020 19:56:27 +0200 (EET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ x86@kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ linux-rtc@vger.kernel.org,
+ "Guilherme G . Piccoli" <gpiccoli@canonical.com>,
+ linux-kernel@vger.kernel.org
+Date: Fri, 17 Jan 2020 19:56:23 +0200
+Message-Id: <20200117175626.56358-5-andriy.shevchenko@linux.intel.com>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200117175626.56358-1-andriy.shevchenko@linux.intel.com>
+References: <20200117175626.56358-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.47]
-X-ClientProxiedBy: SFHDAG6NODE2.st.com (10.75.127.17) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-17_04:2020-01-16,
- 2020-01-17 signatures=0
-Subject: [alsa-devel] [PATCH v3] ASoC: dt-bindings: stm32: convert spdfirx
-	to json-schema
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [alsa-devel] [PATCH v1 5/8] x86/quirks: Add a DMI quirk for
+	Microsoft Surface 3
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,173 +86,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the STM32 SPDIFRX bindings to DT schema format using json-schema.
+Add a DMI quirk for Microsoft Surface 3 which will be utilized by few drivers.
 
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Cc: Cezary Rojewski <cezary.rojewski@intel.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+Cc: Jie Yang <yang.jie@linux.intel.com>
+Cc: Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
-Changes in v2:
-- Add "additionalProperties: false"
-- Also change minItems to 2 for dmas property, as both DMAs are required.
+ arch/x86/kernel/quirks.c                  | 16 ++++++++++++++++
+ include/linux/platform_data/x86/machine.h |  5 +++++
+ 2 files changed, 21 insertions(+)
 
-Changes in v3:
-- Drop minItems/maxItems for dmas property, remove ref to stm32-dma.txt.
----
- .../bindings/sound/st,stm32-spdifrx.txt       | 56 -------------
- .../bindings/sound/st,stm32-spdifrx.yaml      | 80 +++++++++++++++++++
- 2 files changed, 80 insertions(+), 56 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
- create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
-
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-deleted file mode 100644
-index 33826f2459fa..000000000000
---- a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt
-+++ /dev/null
-@@ -1,56 +0,0 @@
--STMicroelectronics STM32 S/PDIF receiver (SPDIFRX).
--
--The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
--IEC-60958 and IEC-61937.
--
--Required properties:
--  - compatible: should be "st,stm32h7-spdifrx"
--  - reg: cpu DAI IP base address and size
--  - clocks: must contain an entry for kclk (used as S/PDIF signal reference)
--  - clock-names: must contain "kclk"
--  - interrupts: cpu DAI interrupt line
--  - dmas: DMA specifiers for audio data DMA and iec control flow DMA
--    See STM32 DMA bindings, Documentation/devicetree/bindings/dma/stm32-dma.txt
--  - dma-names: two dmas have to be defined, "rx" and "rx-ctrl"
--
--Optional properties:
--  - resets: Reference to a reset controller asserting the SPDIFRX
--
--The device node should contain one 'port' child node with one child 'endpoint'
--node, according to the bindings defined in Documentation/devicetree/bindings/
--graph.txt.
--
--Example:
--spdifrx: spdifrx@40004000 {
--	compatible = "st,stm32h7-spdifrx";
--	reg = <0x40004000 0x400>;
--	clocks = <&rcc SPDIFRX_CK>;
--	clock-names = "kclk";
--	interrupts = <97>;
--	dmas = <&dmamux1 2 93 0x400 0x0>,
--	       <&dmamux1 3 94 0x400 0x0>;
--	dma-names = "rx", "rx-ctrl";
--	pinctrl-0 = <&spdifrx_pins>;
--	pinctrl-names = "default";
--
--	spdifrx_port: port {
--		cpu_endpoint: endpoint {
--			remote-endpoint = <&codec_endpoint>;
--		};
--	};
--};
--
--spdif_in: spdif-in {
--	compatible = "linux,spdif-dir";
--
--	codec_port: port {
--		codec_endpoint: endpoint {
--			remote-endpoint = <&cpu_endpoint>;
--		};
--	};
--};
--
--soundcard {
--	compatible = "audio-graph-card";
--	dais = <&spdifrx_port>;
--};
-diff --git a/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
-new file mode 100644
-index 000000000000..b7f7dc452231
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/st,stm32-spdifrx.yaml
-@@ -0,0 +1,80 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/st,stm32-spdifrx.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/arch/x86/kernel/quirks.c b/arch/x86/kernel/quirks.c
+index 447d4fba8516..9574ef7eaa66 100644
+--- a/arch/x86/kernel/quirks.c
++++ b/arch/x86/kernel/quirks.c
+@@ -673,6 +673,15 @@ static int apple_machine_cb(const struct dmi_system_id *id)
+ 	return 1;
+ }
+ 
++bool x86_microsoft_surface_3_machine;
++EXPORT_SYMBOL(x86_microsoft_surface_3_machine);
 +
-+title: STMicroelectronics STM32 S/PDIF receiver (SPDIFRX)
++static int microsoft_surface_3_machine_cb(const struct dmi_system_id *id)
++{
++	x86_microsoft_surface_3_machine = true;
++	return 1;
++}
 +
-+maintainers:
-+  - Olivier Moysan <olivier.moysan@st.com>
-+
-+description: |
-+  The SPDIFRX peripheral, is designed to receive an S/PDIF flow compliant with
-+  IEC-60958 and IEC-61937.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32h7-spdifrx
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    items:
-+      - const: kclk
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  dmas:
-+    items:
-+      - description: audio data capture DMA
-+      - description: IEC status bits capture DMA
-+
-+  dma-names:
-+    items:
-+      - const: rx
-+      - const: rx-ctrl
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - compatible
-+  - "#sound-dai-cells"
-+  - reg
-+  - clocks
-+  - clock-names
-+  - interrupts
-+  - dmas
-+  - dma-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    spdifrx: spdifrx@40004000 {
-+        compatible = "st,stm32h7-spdifrx";
-+        #sound-dai-cells = <0>;
-+        reg = <0x40004000 0x400>;
-+        clocks = <&rcc SPDIF_K>;
-+        clock-names = "kclk";
-+        interrupts = <GIC_SPI 97 IRQ_TYPE_LEVEL_HIGH>;
-+        dmas = <&dmamux1 2 93 0x400 0x0>,
-+               <&dmamux1 3 94 0x400 0x0>;
-+        dma-names = "rx", "rx-ctrl";
-+        pinctrl-0 = <&spdifrx_pins>;
-+        pinctrl-names = "default";
-+    };
-+
-+...
+ static const struct dmi_system_id x86_machine_table[] = {
+ 	{
+ 		.ident = "x86 Apple Macintosh",
+@@ -688,6 +697,13 @@ static const struct dmi_system_id x86_machine_table[] = {
+ 		},
+ 		.callback = apple_machine_cb,
+ 	},
++	{
++		.ident = "Microsoft Surface 3",
++		.matches = {
++			DMI_MATCH(DMI_PRODUCT_NAME, "Surface 3"),
++		},
++		.callback = microsoft_surface_3_machine_cb,
++	},
+ 	{}
+ };
+ 
+diff --git a/include/linux/platform_data/x86/machine.h b/include/linux/platform_data/x86/machine.h
+index b1e7a560a046..9bdf5a06b490 100644
+--- a/include/linux/platform_data/x86/machine.h
++++ b/include/linux/platform_data/x86/machine.h
+@@ -8,8 +8,13 @@
+  * x86_apple_machine - whether the machine is an x86 Apple Macintosh
+  */
+ extern bool x86_apple_machine;
++/**
++ * x86_microsoft_surface_3_machine - whether the machine is Microsoft Surface 3
++ */
++extern bool x86_microsoft_surface_3_machine;
+ #else
+ #define x86_apple_machine			false
++#define x86_microsoft_surface_3_machine		false
+ #endif
+ 
+ #endif	/* PLATFORM_DATA_X86_MACHINE_H */
 -- 
-2.17.1
+2.24.1
 
 _______________________________________________
 Alsa-devel mailing list

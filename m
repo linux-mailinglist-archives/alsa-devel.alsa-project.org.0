@@ -2,63 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EC56140571
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 09:27:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 211351404C2
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 09:02:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D74BE17D0;
-	Fri, 17 Jan 2020 09:26:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D74BE17D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A17B17D3;
+	Fri, 17 Jan 2020 09:01:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A17B17D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579249664;
-	bh=H7wL5g4X1CxhcxoDbgoCYT5XlMG2dRlkP6C62HUFHv0=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1579248160;
+	bh=KzNr4IZLe40GPKbcCy1NVLf53GJ6IZKtn24ypwW5Whs=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dlogNE/WoleuY1AnwolWujDyqd13EtOztR9wv6m5UZpEOsu9XHQK7WwyxT1t3iBy2
-	 Qm9puY5Mge2nithLn3/T9gmQ0nH1gLw1iI0h80COBOKOagxoeO+p7W/tnLUVO1mWO0
-	 GG1cM6l3kLAslXXl/ERY+XJ1vvKmHfCkcR8JUVe8=
+	b=pDmKoNiSL0ro9s+NfVBUKDIsHXpa7LV+F8ti/ulG70mO0dvL3K0j7HFFpf0jzYT/k
+	 u415txQk/91iYvt8KirgxyMPdjP75+Y88LLxJriP2qplVgtLgtU+qkXz19zbIhyQSj
+	 qkqNjjbZCTWlD6Yf0bao4R3Jy6nznB/u/VV2cDHc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 139E2F802A7;
-	Fri, 17 Jan 2020 09:23:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5A42BF801EB;
+	Fri, 17 Jan 2020 09:00:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A403F801F7; Fri, 17 Jan 2020 09:23:12 +0100 (CET)
+ id 93E53F801EB; Fri, 17 Jan 2020 09:00:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
- SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=PRX_BODY_72, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D8FC9F801F8
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 09:22:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8FC9F801F8
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2020 00:22:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,329,1574150400"; d="scan'208";a="274295705"
-Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by FMSMGA003.fm.intel.com with ESMTP; 17 Jan 2020 00:22:38 -0800
-From: Bard liao <yung-chuan.liao@linux.intel.com>
-To: broonie@kernel.org,
-	tiwai@suse.de
-Date: Fri, 17 Jan 2020 04:26:20 +0800
-Message-Id: <20200116202620.7401-5-yung-chuan.liao@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200116202620.7401-1-yung-chuan.liao@linux.intel.com>
-References: <20200116202620.7401-1-yung-chuan.liao@linux.intel.com>
-Cc: liam.r.girdwood@linux.intel.com, alsa-devel@alsa-project.org,
- bard.liao@intel.com, pierre-louis.bossart@linux.intel.com,
- kuninori.morimoto.gx@renesas.com
-Subject: [alsa-devel] [PATCH RFC v3 4/4] ASoC: return error if the function
-	is not support multi cpu yet.
+ by alsa1.perex.cz (Postfix) with ESMTPS id D21B9F80086
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 09:00:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D21B9F80086
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 5C50EAD7F;
+ Fri, 17 Jan 2020 08:00:50 +0000 (UTC)
+Date: Fri, 17 Jan 2020 09:00:49 +0100
+Message-ID: <s5hzhemo6ku.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <3374dc7d-e969-5380-581a-f6801a2fe50f@linux.intel.com>
+References: <20200116045318.5498-1-yang.jie@linux.intel.com>
+ <s5hd0bjq3cu.wl-tiwai@suse.de>
+ <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
+ <s5hsgkf7l2e.wl-tiwai@suse.de>
+ <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
+ <s5hh80v7h82.wl-tiwai@suse.de>
+ <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
+ <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
+ <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
+ <93ac843a-bad5-550e-f427-e2a94bd3e8ef@linux.intel.com>
+ <b6b55180-b846-96e7-4521-7d3b03881d06@linux.intel.com>
+ <3374dc7d-e969-5380-581a-f6801a2fe50f@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "Rajwa,
+ Marcin" <marcin.rajwa@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
+	constrained by preallocated bytes issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,130 +78,46 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Multi cpu is not supported by all functions yet. Add an error message
-and return.
-
-Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Signed-off-by: Bard liao <yung-chuan.liao@linux.intel.com>
----
- sound/soc/soc-compress.c              |  5 +++--
- sound/soc/soc-generic-dmaengine-pcm.c | 18 ++++++++++++++++++
- sound/soc/soc-pcm.c                   | 18 ++++++++++++++++++
- 3 files changed, 39 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
-index 223cd045719e..4bdef7f6d968 100644
---- a/sound/soc/soc-compress.c
-+++ b/sound/soc/soc-compress.c
-@@ -810,9 +810,10 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
- 	int playback = 0, capture = 0;
- 	int i;
- 
--	if (rtd->num_codecs > 1) {
-+	if (rtd->num_cpus > 1 ||
-+	    rtd->num_codecs) {
- 		dev_err(rtd->card->dev,
--			"Compress ASoC: Multicodec not supported\n");
-+			"Compress ASoC: Multi CPU/Codec not supported\n");
- 		return -EINVAL;
- 	}
- 
-diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index df57ec47ad60..781752b67e90 100644
---- a/sound/soc/soc-generic-dmaengine-pcm.c
-+++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -62,6 +62,12 @@ int snd_dmaengine_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
- 	struct snd_dmaengine_dai_dma_data *dma_data;
- 	int ret;
- 
-+	if (rtd->num_cpus > 1) {
-+		dev_err(rtd->dev,
-+			 "%s doesn't support Multi CPU yet\n", __func__);
-+		return -EINVAL;
-+	}
-+
- 	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
- 
- 	ret = snd_hwparams_to_dma_slave_config(substream, params, slave_config);
-@@ -119,6 +125,12 @@ dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
- 	struct snd_pcm_hardware hw;
- 	int ret;
- 
-+	if (rtd->num_cpus > 1) {
-+		dev_err(rtd->dev,
-+			 "%s doesn't support Multi CPU yet\n", __func__);
-+		return -EINVAL;
-+	}
-+
- 	if (pcm->config && pcm->config->pcm_hardware)
- 		return snd_soc_set_runtime_hwparams(substream,
- 				pcm->config->pcm_hardware);
-@@ -183,6 +195,12 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
- 	struct snd_dmaengine_dai_dma_data *dma_data;
- 	dma_filter_fn fn = NULL;
- 
-+	if (rtd->num_cpus > 1) {
-+		dev_err(rtd->dev,
-+			 "%s doesn't support Multi CPU yet\n", __func__);
-+		return -EINVAL;
-+	}
-+
- 	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
- 
- 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX) && pcm->chan[0])
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index ae1017637e86..1932115cf4ba 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1469,6 +1469,12 @@ int dpcm_path_get(struct snd_soc_pcm_runtime *fe,
- 	struct snd_soc_dai *cpu_dai = fe->cpu_dai;
- 	int paths;
- 
-+	if (fe->num_cpus > 1) {
-+		dev_err(fe->dev,
-+			 "%s doesn't support Multi CPU yet\n", __func__);
-+		return -EINVAL;
-+	}
-+
- 	/* get number of valid DAI paths and their widgets */
- 	paths = snd_soc_dapm_dai_get_connected_widgets(cpu_dai, stream, list,
- 			dpcm_end_walk_at_be);
-@@ -2808,6 +2814,12 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
- 	struct snd_soc_dapm_widget_list *list;
- 	int count, paths;
- 
-+	if (fe->num_cpus > 1) {
-+		dev_err(fe->dev,
-+			 "%s doesn't support Multi CPU yet\n", __func__);
-+		return -EINVAL;
-+	}
-+
- 	if (!fe->dai_link->dynamic)
- 		return 0;
- 
-@@ -3364,6 +3376,12 @@ static ssize_t dpcm_state_read_file(struct file *file, char __user *user_buf,
- 	ssize_t out_count = PAGE_SIZE, offset = 0, ret = 0;
- 	char *buf;
- 
-+	if (fe->num_cpus > 1) {
-+		dev_err(fe->dev,
-+			 "%s doesn't support Multi CPU yet\n", __func__);
-+		return -EINVAL;
-+	}
-+
- 	buf = kmalloc(out_count, GFP_KERNEL);
- 	if (!buf)
- 		return -ENOMEM;
--- 
-2.17.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gRnJpLCAxNyBKYW4gMjAyMCAwNjozNzoxNiArMDEwMCwKS2V5b24gSmllIHdyb3RlOgo+IAo+
+IE9uIDIwMjAvMS8xNyDkuIrljYgxOjQwLCBQaWVycmUtTG91aXMgQm9zc2FydCB3cm90ZToKPiA+
+Cj4gPj4+Pj4gU28sIGRvIHlvdSBzdWdnZXN0IG5vdCBkb2luZyBwcmVhbGxvY2F0aW9uKG9yIGNh
+bGxpbmcgaXQgd2l0aCAwCj4gPj4+Pj4gc2l6ZSkgZm9yIGFsbAo+ID4+Pj4+IGRyaXZlciB3aXRo
+IFRZUEVfU0c/IEkgYW0gZmluZSBpZiB0aGlzIGlzIHRoZSByZWNvbW1lbmRlZAo+ID4+Pj4+IG1l
+dGhvZCwgSSBjYW4gdHJ5Cj4gPj4+Pj4gdGhpcyBvbiBTT0YgSTJTIHBsYXRmb3JtIHRvIHNlZSBp
+ZiBpdCBjYW4gd29yayBhcyB3ZSByZXF1aXJlZAo+ID4+Pj4+IGZvciB2ZXJ5IGxhcmdlCj4gPj4+
+Pj4gYnVmZmVyIHNpemUuCj4gPj4+Cj4gPj4+IEtleW9uLCBmb3IgdGhlIHJlc3Qgb2YgdXMgdG8g
+Zm9sbG93IHRoaXMgcGF0Y2gsIHdvdWxkIHlvdSBtaW5kCj4gPj4+IGNsYXJpZnlpbmcgd2hhdCBk
+cml2ZXMgdGhlIG5lZWQgZm9yIGEgJ3ZlcnkgbGFyZ2UgYnVmZmVyIHNpemUnLAo+ID4+PiBhbmQg
+d2hhdCBvcmRlciBvZiBtYWduaXR1ZGUgdGhpcyB2ZXJ5IGxhcmdlIHNpemUgd291bGQgYmUuCj4g
+Pj4+Cj4gPj4+IEZXSVcsIHdlJ3ZlIG1lYXN1cmVkIGNvbnNpc3RlbnRseSBvbiBkaWZmZXJlbnQg
+V2luZG93cy9MaW51eAo+ID4+PiBwbGF0Zm9ybXMsIG1heWJlIDEwIHllYXJzIGFnbywgdGhhdCBv
+bmNlIHlvdSByZWFjaCBhIGJ1ZmZlciBvZiAxcwo+ID4+PiAoMzg0IGtCKSB0aGUgYmVuZWZpdHMg
+ZnJvbSBpbmNyZWFzaW5nIHRoYXQgYnVmZmVyIHNpemUgZnVydGhlciBhcmUKPiA+Pj4gbWFyZ2lu
+YWwgaW4gdGVybXMgb2YgcG93ZXIgY29uc3VtcHRpb24sIGFuZCBnZW5lcmF0ZSBhbGwga2luZHMg
+b2YKPiA+Pj4gaXNzdWVzIHdpdGggdm9sdW1lIHVwZGF0ZXMgYW5kIGRlZmVycmVkIHJvdXRpbmcg
+Y2hhbmdlcy4KPiA+Pj4KPiA+PiBXZSBuZWVkIGJpZ2dlciBidWZmZXIgb24gaG9zdCBzaWRlIHRv
+IGNvbXBlbnNhdGUgdGhlIHdha2UgdXAgdGltZQo+ID4+IGZyb20gZDBpeCB0byBkMCB3aGljaCB0
+YWtlcyB+MiBzZWNvbmRzIG9uIG15IHNldHVwLiBTbywgd2lpdGgKPiA+PiBzbWFsbGVyIGJ1ZmZl
+ciBzaXplcyBsaWtlIDwgMiBzZWNvbmRzIHdlIG92ZXJ3cml0ZSBkYXRhIHNpbmNlIEZXCj4gPj4g
+a2VlcHMgY29wcGluZyB3aGlsZSBob3N0IGRvZXNuJ3QgcmVhZCB1bnRpbCBpdHMgdXAgYW5kIHJ1
+bm5pbmcKPiA+PiBhZ2Fpbi4KPiA+Cj4gPiBSaWdodCwgdGhhdCdzIGEgdmFsaWQgY2FzZSwgYnV0
+IHRoYXQncyAyNTYga0IsIG5vdCAndmVyeSBsYXJnZScgb3IKPiA+IGxpa2VseSB0byBldmVyIHRy
+aWdnZXIgYW4gT09NIGNhc2UuCj4gCj4gRm9yIFMyNF9MRSwgaXQgaXMgNTEyS0IsIHRoZSBwb2lu
+dCBpcyB0aGF0IGlmIHdlIGNhbid0IHJlLWFsbG9jYXRlCj4gYnVmZmVyIGF0IGh3X3BhcmFtcygp
+IHN0YWdlLCB0aGVuIHdlIG5lZWQgZm9sbG93IGEgQktNIHRoYXQgd2UgaGF2ZSB0bwo+IHByZWFs
+bG9jYXRlIHRoZSBsYXJnZXN0IERNQSBidWZmZXIgdGhhdCB3ZSBjbGFpbSB0byBzdXBwb3J0IGF0
+Cj4gcGNtX25ldygpLCBJIHRoaW5rIHRoaXMgaXMgYWN0dWFsbHkgYW5vdGhlciBraW5kIG9mIHdh
+c3Qgd2l0aCB0aGVzZQo+IGxhcmdlc3QgcGlubmVkIGJ1ZmZlciB0aGF0IGNhbid0IGJlIHN3YXBw
+ZWQgb3V0Li4uCgpXZWxsLCB0aGF0J3MgdGhlIGNhc2UgeW91J2QgbmVlZCBhIGxhcmdlciBwcmVh
+bGxvY2F0aW9uLgpJIGd1ZXNzIG1hbnkgZGlzdHJvcyBhbHJlYWR5IHNldCBpdCB0byBhIGhpZ2hl
+ciB2YWx1ZSBmb3IgUHVsc2VBdWRpby4KVGhlIGRlZmF1bHQgNjRrQiBpcyBqdXN0IGZyb20gaGlz
+dG9yaWNhbCBhbmQgY29tcGF0aWJpbGl0eSByZWFzb24sIGFuZAp3ZSBtYXkgZXh0ZW5kIGl0IHRv
+IDFNQiBvciBzbyBub3cuCgoKVGFrYXNoaQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2Et
+cHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0
+aW5mby9hbHNhLWRldmVsCg==

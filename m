@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B4E5140485
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 08:41:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2629A140486
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 08:42:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E646917DF;
-	Fri, 17 Jan 2020 08:41:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E646917DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9942917E1;
+	Fri, 17 Jan 2020 08:41:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9942917E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579246911;
-	bh=pgfXHy02GH4PLNUSufuM68Ba5ul9j4+w15Prdij8Pew=;
+	s=default; t=1579246935;
+	bh=n1gEAB8esWxh4DROqntOufoMT1Mlqq/7jfgjJl3r3do=;
 	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m5H4M1szrPouNBIkgE8Q3cOdAX2RZIDK08LP8FBikqsjSOegqQAD3G3DxBaUabiix
-	 6Mh6eAsdf+ola1wohiIKOD4DjS+jcvDlRpD28OAx7R0S3J3ZZQpRM312RljMYDouAb
-	 MkCBX3Ag3bxfvfpj6h68sFpFKrklJbWn5OxA6o88=
+	b=gukt4CZ98/rP8sHHKmod9gskVgghPX8t0NmG2m8DLJMfSjAjojs3N1dUGQu+T8UVL
+	 wCJRwpcBF5/Jz9FCHHje1/rvaDYfA+O4zj6ipS8efiVu2BUoSZVVxoyDXIXfpxAVtn
+	 Pb8VO7ToEmiAHTxP9NBDvTzwri5R/RzQ0ceG1rdk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 93FD9F80272;
-	Fri, 17 Jan 2020 08:38:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8230BF8027C;
+	Fri, 17 Jan 2020 08:38:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 674BCF80271; Fri, 17 Jan 2020 08:38:36 +0100 (CET)
+ id 61868F80278; Fri, 17 Jan 2020 08:38:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mail-yw1-xc49.google.com (mail-yw1-xc49.google.com
- [IPv6:2607:f8b0:4864:20::c49])
+Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
+ [IPv6:2607:f8b0:4864:20::104a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B58C0F80086
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 08:38:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B58C0F80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id 88D62F8022B
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 08:38:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88D62F8022B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="OL2T1sop"
-Received: by mail-yw1-xc49.google.com with SMTP id y188so24606455ywa.4
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 23:38:32 -0800 (PST)
+ header.b="PbAZkuBF"
+Received: by mail-pj1-x104a.google.com with SMTP id c67so3866138pje.4
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 23:38:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=ALWThFLzftaLoQOtE1JCuOa5AGHG1TvvmMLKcLHztMM=;
- b=OL2T1sopnx6kT3Nl5K7X9J3JltuUQZvDXGF58EXeRWnQC6O0JHmTluUmqRcXU203TY
- z9AWiWceiXWIF/5D4Ybg6ghjotEqPFeLcMC0S8iMKdogpYlsWOwQmPVZzVPe2hjIj33M
- RGvOUoSLn1bFh3ozGh11+ELj6I1Hott1e5l1bukzM7Tp88+eAvYaARYk34tLwBGdleaQ
- GwDnVN2o02VrFfLVulqCCs95K3ULudgtWZjp3ZC2sT0XwAkAU12u5FNZGCWfveLMC98w
- ev40zaO/ttlY46J9EWpRmkmPrwS8qBdkmuAEDZyPkgv/DmJQORVV0tH259o5bdxYGbLD
- VP/w==
+ :cc; bh=fEQgEpr0/A25/r1nOsA8ZhWThQeI4230hbMRX4R83Mo=;
+ b=PbAZkuBFURa/hveRCXlpL83F8tQ2IXzDfrzMRXg8qw8u2nmoyhgc9OZhfzW1pph2Dx
+ 0eZfAWq7XUQnomYPldGCGfY4i1DKydaQ84ffmHlCNgF2PxbsV+9t1HYv3sa8aJ1gSMvo
+ /N4LIQsyaiJjxyATvjlYZExSxdGQwTXPDQ8TWOJvogS5wGNplhEKsQil19hHpMwE6mHe
+ rMnLCzTonk/Yr2jNIGbExFpTBydvHzZAbGgjHGFBzXybrChMjmkZGFwwH03ywcxZqffw
+ kXP6nwXlAkwJElHhdVQdjNcRevWFryAmszkJB/QN2rlRUXl9u/knbW/g+i0YpiFRr82b
+ IVpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=ALWThFLzftaLoQOtE1JCuOa5AGHG1TvvmMLKcLHztMM=;
- b=mQ0i1jJq4mFJmD5lnuZ/6mMINFGgT0+wPB/2L0aXLae+e0HdYdl6xgwQIU4JD3FpFO
- ed73LWRz3qviXg3U4GkAKwj3QITIGNeGvwHW4tpVjsl57uLkntp3HHsSxNb1BzUXIX3h
- OKmFT03273enA4hlfaUrmycvMBCITAv4jY13tc6PVwgVNsyQU3jn1N3w4AYtVIEUcI48
- r4Yl95DkLtZ0gsM96ClwIXXTGDWEZxSaMytqpGvRSXoOdfkBv90RAZmrRT7FMjAXa7jl
- 5e05LNBviSiYzXX1jgWZKvB9iqYxu1WxnvGBgGNSazI4XqfEmHbTM7wj159fV9A3Q3I8
- nugw==
-X-Gm-Message-State: APjAAAWA8qeqSiJSCQJI+qgpFgVPq7eLNXzlC3E8WQb9hZ2Q3YqPkerj
- Bq24N0nXlN3wS/iWGFwTmk3TQI+RkHWc
-X-Google-Smtp-Source: APXvYqyaCPQTKW6JuTs+e+98DyCC0fziQ5pay5SAj8h4FxuzfD0L2Pxx0PdvJCL/KwRFXUyY+Da2rNo1k2bI
-X-Received: by 2002:a0d:ed05:: with SMTP id w5mr31042354ywe.378.1579246710505; 
- Thu, 16 Jan 2020 23:38:30 -0800 (PST)
-Date: Fri, 17 Jan 2020 15:38:13 +0800
+ bh=fEQgEpr0/A25/r1nOsA8ZhWThQeI4230hbMRX4R83Mo=;
+ b=mBmol7xKa+FH4izFu+ZnwqjKbJOSNZ1xuTNgcIG1u4u9ETz6hDHC/N9ZxC/3xRG7r5
+ f7uNcwotplt9imbq85weB7YOEZlijkV/RFVUXnEgjw9gz/GTfO0vT3TNNyUdIJSYnSu1
+ 7vgtnGekYw/mmjTIrQIexQmqI/PzLSsX3AoOyAJ+xgjB0+bRZRCs+maiVOh0MPlPgsnx
+ AC4pYKfTHfBMgqvKM5bqxiCKhymnxBI8rYYCJm0gtOQ6BVfdG6MC8dsrLIeW2ZlkWOpC
+ +eYYsYx4VLicsp/CTk1QieN6r93t3s2Q9HRO4ITtWbs6q4Rf11UvYejhbvYiTYOmG39y
+ Dlsw==
+X-Gm-Message-State: APjAAAXjNpS5B9Crz0c+dEHieby9/a8Mg7reCquwIOPK++7M8iDnl8yN
+ 5iMOrZ+kr8SyS8gNy+1QQN58SycCbk2v
+X-Google-Smtp-Source: APXvYqy6Pmu+s6quw7wUfHZScWLZXSCbWCBWS/cXxpUSiIFV1B+T5AwV8opAQtw4EMD4if58hO/u4uchgzHu
+X-Received: by 2002:a65:66c8:: with SMTP id c8mr45913038pgw.161.1579246715490; 
+ Thu, 16 Jan 2020 23:38:35 -0800 (PST)
+Date: Fri, 17 Jan 2020 15:38:14 +0800
 In-Reply-To: <20200117073814.82441-1-tzungbi@google.com>
-Message-Id: <20200117073814.82441-3-tzungbi@google.com>
+Message-Id: <20200117073814.82441-4-tzungbi@google.com>
 Mime-Version: 1.0
 References: <20200117073814.82441-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
@@ -78,8 +78,8 @@ From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
  cychiang@google.com
-Subject: [alsa-devel] [PATCH 2/3] ASoC: dapm: add
-	snd_soc_dapm_put_enum_double_locked
+Subject: [alsa-devel] [PATCH 3/3] ASoC: max98090: fix deadlock in
+	max98090_dapm_put_enum_double()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,115 +97,33 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Adds snd_soc_dapm_put_enum_double_locked() for those use cases if
-dapm_mutex has already locked.
+Commit 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when
+changing sensitive registers SHDN bit") uses dapm_mutex to protect SHDN
+bit.  However, snd_soc_dapm_put_enum_double() in
+max98090_dapm_put_enum_double() acquires the dapm_mutex again which
+cause a deadlock.
 
+Use snd_soc_dapm_put_enum_double_locked() instead to fix the deadlock.
+
+Fixes: 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when changing sensitive registers SHDN bit")
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- include/sound/soc-dapm.h |  2 ++
- sound/soc/soc-dapm.c     | 54 ++++++++++++++++++++++++++++++----------
- 2 files changed, 43 insertions(+), 13 deletions(-)
+ sound/soc/codecs/max98090.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
-index 1b6afbc1a4ed..2a306c6f3fbc 100644
---- a/include/sound/soc-dapm.h
-+++ b/include/sound/soc-dapm.h
-@@ -392,6 +392,8 @@ int snd_soc_dapm_get_enum_double(struct snd_kcontrol *kcontrol,
- 	struct snd_ctl_elem_value *ucontrol);
- int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
- 	struct snd_ctl_elem_value *ucontrol);
-+int snd_soc_dapm_put_enum_double_locked(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol);
- int snd_soc_dapm_info_pin_switch(struct snd_kcontrol *kcontrol,
- 	struct snd_ctl_elem_info *uinfo);
- int snd_soc_dapm_get_pin_switch(struct snd_kcontrol *kcontrol,
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 442846f12cd4..bc20ad9abf8b 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -3441,17 +3441,8 @@ int snd_soc_dapm_get_enum_double(struct snd_kcontrol *kcontrol,
- }
- EXPORT_SYMBOL_GPL(snd_soc_dapm_get_enum_double);
+diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
+index c01ce4a3f86d..0313e1183167 100644
+--- a/sound/soc/codecs/max98090.c
++++ b/sound/soc/codecs/max98090.c
+@@ -88,7 +88,7 @@ static int max98090_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
+ 	int ret;
  
--/**
-- * snd_soc_dapm_put_enum_double - dapm enumerated double mixer set callback
-- * @kcontrol: mixer control
-- * @ucontrol: control element information
-- *
-- * Callback to set the value of a dapm enumerated double mixer control.
-- *
-- * Returns 0 for success.
-- */
--int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
--	struct snd_ctl_elem_value *ucontrol)
-+static int __snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol, int locked)
- {
- 	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_dapm(kcontrol);
- 	struct snd_soc_card *card = dapm->card;
-@@ -3474,7 +3465,9 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
- 		mask |= e->mask << e->shift_r;
- 	}
+ 	max98090_shdn_save(max98090);
+-	ret = snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
++	ret = snd_soc_dapm_put_enum_double_locked(kcontrol, ucontrol);
+ 	max98090_shdn_restore(max98090);
  
--	mutex_lock_nested(&card->dapm_mutex, SND_SOC_DAPM_CLASS_RUNTIME);
-+	if (!locked)
-+		mutex_lock_nested(&card->dapm_mutex,
-+				  SND_SOC_DAPM_CLASS_RUNTIME);
- 
- 	change = dapm_kcontrol_set_value(kcontrol, val);
- 
-@@ -3496,15 +3489,50 @@ int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
- 		card->update = NULL;
- 	}
- 
--	mutex_unlock(&card->dapm_mutex);
-+	if (!locked)
-+		mutex_unlock(&card->dapm_mutex);
- 
- 	if (ret > 0)
- 		soc_dpcm_runtime_update(card);
- 
- 	return change;
- }
-+
-+/**
-+ * snd_soc_dapm_put_enum_double - dapm enumerated double mixer set callback
-+ * @kcontrol: mixer control
-+ * @ucontrol: control element information
-+ *
-+ * Callback to set the value of a dapm enumerated double mixer control.
-+ *
-+ * Returns 0 for success.
-+ */
-+int snd_soc_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	return __snd_soc_dapm_put_enum_double(kcontrol, ucontrol, 0);
-+}
- EXPORT_SYMBOL_GPL(snd_soc_dapm_put_enum_double);
- 
-+/**
-+ * snd_soc_dapm_put_enum_double_locked - dapm enumerated double mixer set
-+ * callback
-+ * @kcontrol: mixer control
-+ * @ucontrol: control element information
-+ *
-+ * Callback to set the value of a dapm enumerated double mixer control.
-+ * Must acquire dapm_mutex before calling the function.
-+ *
-+ * Returns 0 for success.
-+ */
-+int snd_soc_dapm_put_enum_double_locked(struct snd_kcontrol *kcontrol,
-+	struct snd_ctl_elem_value *ucontrol)
-+{
-+	dapm_assert_locked(snd_soc_dapm_kcontrol_dapm(kcontrol));
-+	return __snd_soc_dapm_put_enum_double(kcontrol, ucontrol, 1);
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_dapm_put_enum_double_locked);
-+
- /**
-  * snd_soc_dapm_info_pin_switch - Info for a pin switch
-  *
+ 	return ret;
 -- 
 2.25.0.341.g760bfbb309-goog
 

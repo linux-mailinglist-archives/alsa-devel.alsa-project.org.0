@@ -2,78 +2,107 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5801140519
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 09:14:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB331140585
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 09:34:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 56ACD17D9;
-	Fri, 17 Jan 2020 09:13:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 56ACD17D9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 629C717C9;
+	Fri, 17 Jan 2020 09:33:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 629C717C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579248870;
-	bh=o7fwDXLpajfuJIHDOm8Al0r0B8kCaThzEqGKmWL5r8c=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UBCGkezJoKs5lvmSeTeeTlJdMvlx0/KBzN5Ul1Kd5aTgXgvVW9qg68f/bUC0Zii/l
-	 fEwwWJy4v1LiEpGa7X7nfOkHyx2xKUgfgah8/kobfI4mAuAoqQqsJbBIY5VhJvk/cA
-	 iyIAP5prFW6iAbwwhEuKDuSdszl/re6jQ64P8KyM=
+	s=default; t=1579250083;
+	bh=ftumhCRVj9BE8C/cJgUv1uvN+AOPt3yMR9L1MdubgwE=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=H9QCnum7gIFI3EiBJwWxjzSdFYQDJ1G5c5Y4U26zC1+KOzDaUKo507mThU1+dmRsE
+	 0LAmlrt74Yl1pef2hbR9xZFD92TscqZbWjindTP7sUantSQrvR087FgA2jK4eB0AQ7
+	 x1Xekz1THS3fvXa5JJDm2yySVsWox9cWOXgo2G2U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ECF4AF801EB;
-	Fri, 17 Jan 2020 09:12:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 538D5F801EB;
+	Fri, 17 Jan 2020 09:33:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1C007F801EB; Fri, 17 Jan 2020 09:12:44 +0100 (CET)
+ id 2BA19F801EB; Fri, 17 Jan 2020 09:32:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
- SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2054.outbound.protection.outlook.com [40.107.22.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7693EF80086
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 09:12:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7693EF80086
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 00H8CWKh028814,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCAS11.realtek.com.tw[172.21.6.12])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 00H8CWKh028814
- (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 Jan 2020 16:12:32 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTITCAS11.realtek.com.tw (172.21.6.12) with Microsoft SMTP Server (TLS) id
- 14.3.468.0; Fri, 17 Jan 2020 16:12:32 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB01.realtek.com.tw (172.21.6.94) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Fri, 17 Jan 2020 16:12:32 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f]) by
- RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f%6]) with mapi id
- 15.01.1779.005; Fri, 17 Jan 2020 16:12:32 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>
-Thread-Topic: HP ALC671 support headset Mic
-Thread-Index: AdXM/TTMJmAkNHhOTauVerEQ1XfdLP//mGMA//93WUA=
-Date: Fri, 17 Jan 2020 08:12:32 +0000
-Message-ID: <06a9d2b176e14706976d6584cbe2d92a@realtek.com>
-References: <1afdc37edb8c4c6ca07b73322117cc7b@realtek.com>
- <s5hy2u6o6i5.wl-tiwai@suse.de>
-In-Reply-To: <s5hy2u6o6i5.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
+ by alsa1.perex.cz (Postfix) with ESMTPS id 399A4F800AA
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 09:32:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 399A4F800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
+ header.b="L32wOJpY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=PvxSGjBtAaXHLyktqaiw4XUYr75qloZYrEvpqSAfOtp3vZRQU4Nbt+UKGgQgV2EaxX1S7PKsaEW26pc9H/XhhYjGXPqKzq8mRVpSgVpSbIxzrimLAmE2L7VheXE8nTQ1Y7sojJNrDqNMLPjzxSkfwSUFW9kfuMv/y1MmQek5q/rgz+Ad9Vz/1zuLFHP8fisnsLARAwnh2X+BzBl3uLFe5RCgODAYrVVlAP3vUzJorJ/gwetVVR75O1nBWgaucfkfmThxC5OcGAjudGmdAnbd5sTJ+jPeGhYdyACMyy3kjnGXEPZRjmcjxDNG6CZck5raRPAlzdTJZk8pnTzqbHrY1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/UW+UfMph/ycEJJ4KCxHZtRxX8+udXquxuHfUCqXY+A=;
+ b=Z0M8VCUul+luG/lSUgST8iz0IG3JPvFDBZmXLNLOdd5k6Ra0NxcFZ1z6smrjUvGHEm5mfU+O+Pg+KkHzs2ZpQ+YHCCrmJTAKr4EJHKqi4aySnc+A4SfbnyCKPemKRBMfos4QNTlvRtAw5eA8029A4/BgrK2/c76RMGnMhCWqObrymzSjfUUilF7ZFnq/ArWiPJzUNJmbtXm+UG/muE4WnIVkKamxGamtM9J4vDBqz4ArhX3AMAwAdYOgs0ZJrNwHH1B+HWHJRYOYyEb6H3nSSzIh+uVbDqhVrzzDUeeON7ohs3a/XJmS8LCQLj9tnkQaDsC2j8HYT4SQRyZUmOfBMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/UW+UfMph/ycEJJ4KCxHZtRxX8+udXquxuHfUCqXY+A=;
+ b=L32wOJpYz4uHaAGZzM4/XCB85GM/jepDoucnQbkkardb5OXIb7G2tD1TCOOzas1xTi9Aa9O8yZdiYzsOUBQDpTzNl6J6U9IGAS1cFlcEo+Jd9oUur46dZO2qGxEorBJ/c9KkLZ0OjCyTa3MhJ/Spd9yDUdOegYe+3BRouQo1smo=
+Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com (52.134.16.147) by
+ VI1PR0402MB3584.eurprd04.prod.outlook.com (52.134.5.16) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2644.20; Fri, 17 Jan 2020 08:32:50 +0000
+Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com
+ ([fe80::8881:e155:f058:c0d1]) by VI1PR0402MB3839.eurprd04.prod.outlook.com
+ ([fe80::8881:e155:f058:c0d1%4]) with mapi id 15.20.2623.018; Fri, 17 Jan 2020
+ 08:32:50 +0000
+From: Daniel Baluta <daniel.baluta@nxp.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Thread-Topic: soc-core: Questions about cpus->name && cpus->of_node
+Thread-Index: AQHVzRBzEGrRZE7OyEypH5Ci95j5Gg==
+Date: Fri, 17 Jan 2020 08:32:50 +0000
+Message-ID: <VI1PR0402MB38390D33CFFE4CC0D6AD59AEF9310@VI1PR0402MB3839.eurprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.105.211]
-Content-Type: multipart/mixed;
- boundary="_002_06a9d2b176e14706976d6584cbe2d92arealtekcom_"
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=daniel.baluta@nxp.com; 
+x-originating-ip: [89.37.124.34]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 7a07db83-099d-45b4-e1dd-08d79b27d6bd
+x-ms-traffictypediagnostic: VI1PR0402MB3584:
+x-microsoft-antispam-prvs: <VI1PR0402MB358428CFEE9B008EF239D5AAF9310@VI1PR0402MB3584.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:9508;
+x-forefront-prvs: 0285201563
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(4636009)(346002)(376002)(39860400002)(396003)(136003)(366004)(199004)(189003)(6916009)(71200400001)(9686003)(55016002)(66476007)(26005)(2906002)(86362001)(66556008)(44832011)(6506007)(186003)(76116006)(66446008)(66946007)(64756008)(7696005)(478600001)(52536014)(4744005)(33656002)(4326008)(81156014)(8676002)(8936002)(5660300002)(316002)(81166006);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR0402MB3584;
+ H:VI1PR0402MB3839.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: nxp.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: N3QHKjxJS+ampqj4tdtEgJyvxnPKv7BkE0Q1Mp06yeSnxYQm3motzYUs2dLdTH2aZj4sOTDZi1fvP3ahUg1HfKKN5lF8Uhd1q6T7n1uNr4GIuuTk6fHdQWxHSRORYWWh6HrfRqYMW0xeJJtfvBIVCSorHKVdM+sYNUJ7WTpUgpnOw1PaWofGtzG1nRdw0hT4VcXUCKhq1ev25ITXbRSTe0I49by1/o1GYa79SbinTojMExL63Hckd3t4zh6y+/7hClnosZteUK8xfPTAI8Ht2mbicLmp9G2sfm3pETTKQlzgnKnYYlwrFHnsE2+g7R78JW48Gk4+BnWUBz7K4SPCvnHk3jQGyeVEJAkGZosI9kxeiSgxY1faXLb24mAe78RD+dmLKurclmlOEySbM1gildpHpRm9uC7etm1wVDQ3MtDXTZKBNLJM62lcl+sTNpQV
+x-ms-exchange-transport-forked: True
 MIME-Version: 1.0
-Cc: Hui Wang <hui.wang@canonical.com>, Chih-Hsyuan Ho <chih.ho@canonical.com>,
- " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
-Subject: Re: [alsa-devel] HP ALC671 support headset Mic
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7a07db83-099d-45b4-e1dd-08d79b27d6bd
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jan 2020 08:32:50.4223 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Q9pKyT0h8dmyAg/xiDCm5VdMpnR6FS/Yd8EbK9NmA1EtHnCc/BNafSDF6jGvzqNwZqnBTRnBq2I5vlpEDbRkHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3584
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] soc-core: Questions about cpus->name && cpus->of_node
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,120 +115,36 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_002_06a9d2b176e14706976d6584cbe2d92arealtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hello Morimoto-san,
 
+I have a question about this snippet from sound/soc/soc-core.c
 
+=BB       /*
+=BB        * CPU device may be specified by either name or OF node, but
+=BB        * can be left unspecified, and will be matched based on DAI
+=BB        * name alone..
+=BB        */
+=BB       if (link->cpus->name && link->cpus->of_node) {
+=BB       =BB       dev_err(card->dev,
+=BB       =BB       =BB       "ASoC: Neither/both cpu name/of_node are set =
+for %s\n",
+=BB       =BB       =BB       link->name);
+=BB       =BB       return -EINVAL;
+=BB       }
 
-> -----Original Message-----
-> From: Takashi Iwai <tiwai@suse.de>
-> Sent: Friday, January 17, 2020 4:02 PM
-> To: Kailang <kailang@realtek.com>
-> Cc: (alsa-devel@alsa-project.org) <alsa-devel@alsa-project.org>; Chih-Hsy=
-uan
-> Ho <chih.ho@canonical.com>; Hui Wang <hui.wang@canonical.com>
-> Subject: Re: HP ALC671 support headset Mic
->=20
-> On Fri, 17 Jan 2020 07:14:46 +0100,
-> Kailang wrote:
-> On Fri, 17 Jan 2020 07:14:46 +0100,
-> Kailang wrote:
-> >
-> > Hi Takashi,
-> >
-> > HP cPC need to support headset Mic.
-> > Attach patch was the support patch.
-> >
-> > BR,
-> > Kailang
-> > [2 0005-hp-alc671-headset-mic.patch <application/octet-stream (base64)>=
-]
->=20
-> Thanks, but the patch contains:
-> > Fixes: d2cd795c4ece ("ALSA: hda - fixup for the bass speaker on Lenovo
-> Carbon X1 7th gen")
->=20
-> This doesn't look correct to me.  It's not about Lenovo X1, right?
-Yes, it's typo.
-Attach again.
-Sorry.
->=20
->=20
-> Takashi
->=20
-> ------Please consider the environment before printing this e-mail.
+Here either the warning message is wrong OR the if () condition is wrong.
 
---_002_06a9d2b176e14706976d6584cbe2d92arealtekcom_
-Content-Type: application/octet-stream;
-	name="0005-hp-alc671-headset-mic.patch"
-Content-Description: 0005-hp-alc671-headset-mic.patch
-Content-Disposition: attachment;
-	filename="0005-hp-alc671-headset-mic.patch"; size=2673;
-	creation-date="Fri, 17 Jan 2020 06:07:32 GMT";
-	modification-date="Fri, 17 Jan 2020 08:11:10 GMT"
-Content-Transfer-Encoding: base64
+If the link->cpus->name =3D NULL && link->cpus->of_node =3D=3D NULL =
 
-RnJvbSBiOTdmOTRmYWRjZDFkYzFhMjBmY2ExOTg2NDBhZmY3MTVkOWIwNDY3IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IEZyaSwgMTcgSmFuIDIwMjAgMTQ6MDQ6MDEgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlayAtIEFkZCBIZWFkc2V0IE1pYyBzdXBwb3J0ZWQgZm9yIEhQIGNQQwoKSFAg
-QUxDNjcxIG5lZWQgdG8gc3VwcG9ydCBIZWFkc2V0IE1pYy4KClNpZ25lZC1vZmYtYnk6IEthaWxh
-bmcgWWFuZyA8a2FpbGFuZ0ByZWFsdGVrLmNvbT4KCmRpZmYgLS1naXQgYS9zb3VuZC9wY2kvaGRh
-L3BhdGNoX3JlYWx0ZWsuYyBiL3NvdW5kL3BjaS9oZGEvcGF0Y2hfcmVhbHRlay5jCmluZGV4IDcz
-NDA3YjI1YTc3Ny4uZTQ0NjlhMjU1NjBlIDEwMDY0NAotLS0gYS9zb3VuZC9wY2kvaGRhL3BhdGNo
-X3JlYWx0ZWsuYworKysgYi9zb3VuZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwpAQCAtODQ4Miw2
-ICs4NDgyLDI5IEBAIHN0YXRpYyB2b2lkIGFsYzY2Ml9maXh1cF9hc3BpcmVfZXRob3NfaHAoc3Ry
-dWN0IGhkYV9jb2RlYyAqY29kZWMsCiAJfQogfQogCitzdGF0aWMgdm9pZCBhbGM2NzFfZml4dXBf
-aHBfaGVhZHNldF9taWMyKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjLAorCQkJCQkgICAgIGNvbnN0
-IHN0cnVjdCBoZGFfZml4dXAgKmZpeCwgaW50IGFjdGlvbikKK3sKKwlzdHJ1Y3QgYWxjX3NwZWMg
-KnNwZWMgPSBjb2RlYy0+c3BlYzsKKworCXN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX3BpbnRibCBw
-aW5jZmdzW10gPSB7CisJCXsgMHgxOSwgMHgwMmExMTA0MCB9LCAvKiB1c2UgYXMgaGVhZHNldCBt
-aWMsIHdpdGggaXRzIG93biBqYWNrIGRldGVjdCAqLworCQl7IDB4MWIsIDB4MDE4MTMwNGYgfSwK
-KwkJeyB9CisJfTsKKworCXN3aXRjaCAoYWN0aW9uKSB7CisJY2FzZSBIREFfRklYVVBfQUNUX1BS
-RV9QUk9CRToKKwkJc3BlYy0+Z2VuLm1peGVyX25pZCA9IDA7CisJCXNwZWMtPnBhcnNlX2ZsYWdz
-IHw9IEhEQV9QSU5DRkdfSEVBRFNFVF9NSUM7CisJCXNuZF9oZGFfYXBwbHlfcGluY2Zncyhjb2Rl
-YywgcGluY2Zncyk7CisJCWJyZWFrOworCWNhc2UgSERBX0ZJWFVQX0FDVF9JTklUOgorCQlhbGNf
-d3JpdGVfY29lZl9pZHgoY29kZWMsIDB4MTksIDB4YTA1NCk7CisJCWJyZWFrOworCX0KK30KKwog
-c3RhdGljIGNvbnN0IHN0cnVjdCBjb2VmX2Z3IGFsYzY2OF9jb2Vmc1tdID0gewogCVdSSVRFX0NP
-RUYoMHgwMSwgMHhiZWJlKSwgV1JJVEVfQ09FRigweDAyLCAweGFhYWEpLCBXUklURV9DT0VGKDB4
-MDMsICAgIDB4MCksCiAJV1JJVEVfQ09FRigweDA0LCAweDAxODApLCBXUklURV9DT0VGKDB4MDYs
-ICAgIDB4MCksIFdSSVRFX0NPRUYoMHgwNywgMHgwZjgwKSwKQEAgLTg1NTUsNiArODU3OCw3IEBA
-IGVudW0gewogCUFMQzY2Ml9GSVhVUF9MRU5PVk9fTVVMVElfQ09ERUNTLAogCUFMQzY2OV9GSVhV
-UF9BQ0VSX0FTUElSRV9FVEhPUywKIAlBTEM2NjlfRklYVVBfQUNFUl9BU1BJUkVfRVRIT1NfSEVB
-RFNFVCwKKwlBTEM2NzFfRklYVVBfSFBfSEVBRFNFVF9NSUMyLAogfTsKIAogc3RhdGljIGNvbnN0
-IHN0cnVjdCBoZGFfZml4dXAgYWxjNjYyX2ZpeHVwc1tdID0gewpAQCAtODg5Niw2ICs4OTIwLDEw
-IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwIGFsYzY2Ml9maXh1cHNbXSA9IHsKIAkJ
-LmNoYWluZWQgPSB0cnVlLAogCQkuY2hhaW5faWQgPSBBTEM2NjlfRklYVVBfQUNFUl9BU1BJUkVf
-RVRIT1NfSEVBRFNFVAogCX0sCisJW0FMQzY3MV9GSVhVUF9IUF9IRUFEU0VUX01JQzJdID0gewor
-CQkudHlwZSA9IEhEQV9GSVhVUF9GVU5DLAorCQkudi5mdW5jID0gYWxjNjcxX2ZpeHVwX2hwX2hl
-YWRzZXRfbWljMiwKKwl9LAogfTsKIAogc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfcGNpX3F1aXJr
-IGFsYzY2Ml9maXh1cF90YmxbXSA9IHsKQEAgLTkwNzgsNiArOTEwNiwyMiBAQCBzdGF0aWMgY29u
-c3Qgc3RydWN0IHNuZF9oZGFfcGluX3F1aXJrIGFsYzY2Ml9waW5fZml4dXBfdGJsW10gPSB7CiAJ
-CXsweDEyLCAweDkwYTYwMTMwfSwKIAkJezB4MTQsIDB4OTAxNzAxMTB9LAogCQl7MHgxNSwgMHgw
-MzIxMTAxZn0pLAorCVNORF9IREFfUElOX1FVSVJLKDB4MTBlYzA2NzEsIDB4MTAzYywgIkhQIGNQ
-QyIsIEFMQzY3MV9GSVhVUF9IUF9IRUFEU0VUX01JQzIsCisJCXsweDE0LCAweDAxMDE0MDEwfSwK
-KwkJezB4MTcsIDB4OTAxNzAxNTB9LAorCQl7MHgxYiwgMHgwMTgxMzAzMH0sCisJCXsweDIxLCAw
-eDAyMjExMDIwfSksCisJU05EX0hEQV9QSU5fUVVJUksoMHgxMGVjMDY3MSwgMHgxMDNjLCAiSFAg
-Y1BDIiwgQUxDNjcxX0ZJWFVQX0hQX0hFQURTRVRfTUlDMiwKKwkJezB4MTQsIDB4MDEwMTQwMTB9
-LAorCQl7MHgxOCwgMHgwMWExOTA0MH0sCisJCXsweDFiLCAweDAxODEzMDMwfSwKKwkJezB4MjEs
-IDB4MDIyMTEwMjB9KSwKKwlTTkRfSERBX1BJTl9RVUlSSygweDEwZWMwNjcxLCAweDEwM2MsICJI
-UCBjUEMiLCBBTEM2NzFfRklYVVBfSFBfSEVBRFNFVF9NSUMyLAorCQl7MHgxNCwgMHgwMTAxNDAy
-MH0sCisJCXsweDE3LCAweDkwMTcwMTEwfSwKKwkJezB4MTgsIDB4MDFhMTkwNTB9LAorCQl7MHgx
-YiwgMHgwMTgxMzA0MH0sCisJCXsweDIxLCAweDAyMjExMDMwfSksCiAJe30KIH07CiAK
+the warning message will be not be printed. =
 
---_002_06a9d2b176e14706976d6584cbe2d92arealtekcom_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---_002_06a9d2b176e14706976d6584cbe2d92arealtekcom_--

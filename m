@@ -2,84 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2629A140486
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 08:42:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F44B1404BD
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 08:59:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9942917E1;
-	Fri, 17 Jan 2020 08:41:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9942917E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 126BE17D1;
+	Fri, 17 Jan 2020 08:58:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 126BE17D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579246935;
-	bh=n1gEAB8esWxh4DROqntOufoMT1Mlqq/7jfgjJl3r3do=;
-	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
+	s=default; t=1579247983;
+	bh=bBObLqfV3EBBY6yrXxBDQ9o7UwbJgMKi2zGZSopXpf0=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gukt4CZ98/rP8sHHKmod9gskVgghPX8t0NmG2m8DLJMfSjAjojs3N1dUGQu+T8UVL
-	 wCJRwpcBF5/Jz9FCHHje1/rvaDYfA+O4zj6ipS8efiVu2BUoSZVVxoyDXIXfpxAVtn
-	 Pb8VO7ToEmiAHTxP9NBDvTzwri5R/RzQ0ceG1rdk=
+	b=IJapa1t+OYgdv60dMbp9HVCppB+qYlropYg4CT+B9C/iqm1vhTQ+J3GF9Yqd6sud6
+	 xUgdd9TFR1PlVSaMEBSClY4cZ7vqu9ObhSk3QvFKw8GUe4gQCBDV69dSlPwOz0cU57
+	 jKxgvX0qtx21H9WLfU4bAzNZicwMuCp9CsGkxnTY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8230BF8027C;
-	Fri, 17 Jan 2020 08:38:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1122F801F8;
+	Fri, 17 Jan 2020 08:57:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 61868F80278; Fri, 17 Jan 2020 08:38:41 +0100 (CET)
+ id C20BBF801EB; Fri, 17 Jan 2020 08:57:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
- [IPv6:2607:f8b0:4864:20::104a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=PRX_BODY_30,PRX_BODY_72,
+ RCVD_IN_MSPIKE_H3, RCVD_IN_MSPIKE_WL, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88D62F8022B
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 08:38:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88D62F8022B
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="PbAZkuBF"
-Received: by mail-pj1-x104a.google.com with SMTP id c67so3866138pje.4
- for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 23:38:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=fEQgEpr0/A25/r1nOsA8ZhWThQeI4230hbMRX4R83Mo=;
- b=PbAZkuBFURa/hveRCXlpL83F8tQ2IXzDfrzMRXg8qw8u2nmoyhgc9OZhfzW1pph2Dx
- 0eZfAWq7XUQnomYPldGCGfY4i1DKydaQ84ffmHlCNgF2PxbsV+9t1HYv3sa8aJ1gSMvo
- /N4LIQsyaiJjxyATvjlYZExSxdGQwTXPDQ8TWOJvogS5wGNplhEKsQil19hHpMwE6mHe
- rMnLCzTonk/Yr2jNIGbExFpTBydvHzZAbGgjHGFBzXybrChMjmkZGFwwH03ywcxZqffw
- kXP6nwXlAkwJElHhdVQdjNcRevWFryAmszkJB/QN2rlRUXl9u/knbW/g+i0YpiFRr82b
- IVpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=fEQgEpr0/A25/r1nOsA8ZhWThQeI4230hbMRX4R83Mo=;
- b=mBmol7xKa+FH4izFu+ZnwqjKbJOSNZ1xuTNgcIG1u4u9ETz6hDHC/N9ZxC/3xRG7r5
- f7uNcwotplt9imbq85weB7YOEZlijkV/RFVUXnEgjw9gz/GTfO0vT3TNNyUdIJSYnSu1
- 7vgtnGekYw/mmjTIrQIexQmqI/PzLSsX3AoOyAJ+xgjB0+bRZRCs+maiVOh0MPlPgsnx
- AC4pYKfTHfBMgqvKM5bqxiCKhymnxBI8rYYCJm0gtOQ6BVfdG6MC8dsrLIeW2ZlkWOpC
- +eYYsYx4VLicsp/CTk1QieN6r93t3s2Q9HRO4ITtWbs6q4Rf11UvYejhbvYiTYOmG39y
- Dlsw==
-X-Gm-Message-State: APjAAAXjNpS5B9Crz0c+dEHieby9/a8Mg7reCquwIOPK++7M8iDnl8yN
- 5iMOrZ+kr8SyS8gNy+1QQN58SycCbk2v
-X-Google-Smtp-Source: APXvYqy6Pmu+s6quw7wUfHZScWLZXSCbWCBWS/cXxpUSiIFV1B+T5AwV8opAQtw4EMD4if58hO/u4uchgzHu
-X-Received: by 2002:a65:66c8:: with SMTP id c8mr45913038pgw.161.1579246715490; 
- Thu, 16 Jan 2020 23:38:35 -0800 (PST)
-Date: Fri, 17 Jan 2020 15:38:14 +0800
-In-Reply-To: <20200117073814.82441-1-tzungbi@google.com>
-Message-Id: <20200117073814.82441-4-tzungbi@google.com>
-Mime-Version: 1.0
-References: <20200117073814.82441-1-tzungbi@google.com>
-X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
- cychiang@google.com
-Subject: [alsa-devel] [PATCH 3/3] ASoC: max98090: fix deadlock in
-	max98090_dapm_put_enum_double()
+ by alsa1.perex.cz (Postfix) with ESMTPS id BAC93F800AA
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 08:57:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BAC93F800AA
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id ABB89ADC8;
+ Fri, 17 Jan 2020 07:57:50 +0000 (UTC)
+Date: Fri, 17 Jan 2020 08:57:50 +0100
+Message-ID: <s5h1rrypla9.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <a1b549b7-a902-b2ee-e2e4-53f73893def3@linux.intel.com>
+References: <20200116045318.5498-1-yang.jie@linux.intel.com>
+ <s5hd0bjq3cu.wl-tiwai@suse.de>
+ <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
+ <s5hsgkf7l2e.wl-tiwai@suse.de>
+ <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
+ <s5hh80v7h82.wl-tiwai@suse.de>
+ <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
+ <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
+ <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
+ <93ac843a-bad5-550e-f427-e2a94bd3e8ef@linux.intel.com>
+ <b6b55180-b846-96e7-4521-7d3b03881d06@linux.intel.com>
+ <s5h5zhbp27i.wl-tiwai@suse.de>
+ <a1b549b7-a902-b2ee-e2e4-53f73893def3@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "Rajwa,
+ Marcin" <marcin.rajwa@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
+	constrained by preallocated bytes issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,42 +80,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when
-changing sensitive registers SHDN bit") uses dapm_mutex to protect SHDN
-bit.  However, snd_soc_dapm_put_enum_double() in
-max98090_dapm_put_enum_double() acquires the dapm_mutex again which
-cause a deadlock.
-
-Use snd_soc_dapm_put_enum_double_locked() instead to fix the deadlock.
-
-Fixes: 62d5ae4cafb7 ("ASoC: max98090: save and restore SHDN when changing sensitive registers SHDN bit")
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- sound/soc/codecs/max98090.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/max98090.c b/sound/soc/codecs/max98090.c
-index c01ce4a3f86d..0313e1183167 100644
---- a/sound/soc/codecs/max98090.c
-+++ b/sound/soc/codecs/max98090.c
-@@ -88,7 +88,7 @@ static int max98090_dapm_put_enum_double(struct snd_kcontrol *kcontrol,
- 	int ret;
- 
- 	max98090_shdn_save(max98090);
--	ret = snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
-+	ret = snd_soc_dapm_put_enum_double_locked(kcontrol, ucontrol);
- 	max98090_shdn_restore(max98090);
- 
- 	return ret;
--- 
-2.25.0.341.g760bfbb309-goog
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gRnJpLCAxNyBKYW4gMjAyMCAwNjozMDoxOCArMDEwMCwKS2V5b24gSmllIHdyb3RlOgo+IAo+
+IE9uIDIwMjAvMS8xNyDkuIrljYg0OjM3LCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4gPiBPbiBUaHUs
+IDE2IEphbiAyMDIwIDE4OjQwOjI2ICswMTAwLAo+ID4gUGllcnJlLUxvdWlzIEJvc3NhcnQgd3Jv
+dGU6Cj4gPj4KPiA+Pgo+ID4+Pj4+PiBTbywgZG8geW91IHN1Z2dlc3Qgbm90IGRvaW5nIHByZWFs
+bG9jYXRpb24ob3IgY2FsbGluZyBpdCB3aXRoIDAKPiA+Pj4+Pj4gc2l6ZSkgZm9yIGFsbAo+ID4+
+Pj4+PiBkcml2ZXIgd2l0aCBUWVBFX1NHPyBJIGFtIGZpbmUgaWYgdGhpcyBpcyB0aGUgcmVjb21t
+ZW5kZWQgbWV0aG9kLAo+ID4+Pj4+PiBJIGNhbiB0cnkKPiA+Pj4+Pj4gdGhpcyBvbiBTT0YgSTJT
+IHBsYXRmb3JtIHRvIHNlZSBpZiBpdCBjYW4gd29yayBhcyB3ZSByZXF1aXJlZCBmb3IKPiA+Pj4+
+Pj4gdmVyeSBsYXJnZQo+ID4+Pj4+PiBidWZmZXIgc2l6ZS4KPiA+Pj4+Cj4gPj4+PiBLZXlvbiwg
+Zm9yIHRoZSByZXN0IG9mIHVzIHRvIGZvbGxvdyB0aGlzIHBhdGNoLCB3b3VsZCB5b3UgbWluZAo+
+ID4+Pj4gY2xhcmlmeWluZyB3aGF0IGRyaXZlcyB0aGUgbmVlZCBmb3IgYSAndmVyeSBsYXJnZSBi
+dWZmZXIgc2l6ZScsIGFuZAo+ID4+Pj4gd2hhdCBvcmRlciBvZiBtYWduaXR1ZGUgdGhpcyB2ZXJ5
+IGxhcmdlIHNpemUgd291bGQgYmUuCj4gPj4+Pgo+ID4+Pj4gRldJVywgd2UndmUgbWVhc3VyZWQg
+Y29uc2lzdGVudGx5IG9uIGRpZmZlcmVudCBXaW5kb3dzL0xpbnV4Cj4gPj4+PiBwbGF0Zm9ybXMs
+IG1heWJlIDEwIHllYXJzIGFnbywgdGhhdCBvbmNlIHlvdSByZWFjaCBhIGJ1ZmZlciBvZiAxcwo+
+ID4+Pj4gKDM4NCBrQikgdGhlIGJlbmVmaXRzIGZyb20gaW5jcmVhc2luZyB0aGF0IGJ1ZmZlciBz
+aXplIGZ1cnRoZXIgYXJlCj4gPj4+PiBtYXJnaW5hbCBpbiB0ZXJtcyBvZiBwb3dlciBjb25zdW1w
+dGlvbiwgYW5kIGdlbmVyYXRlIGFsbCBraW5kcyBvZgo+ID4+Pj4gaXNzdWVzIHdpdGggdm9sdW1l
+IHVwZGF0ZXMgYW5kIGRlZmVycmVkIHJvdXRpbmcgY2hhbmdlcy4KPiA+Pj4+Cj4gPj4+IFdlIG5l
+ZWQgYmlnZ2VyIGJ1ZmZlciBvbiBob3N0IHNpZGUgdG8gY29tcGVuc2F0ZSB0aGUgd2FrZSB1cCB0
+aW1lCj4gPj4+IGZyb20gZDBpeCB0byBkMCB3aGljaCB0YWtlcyB+MiBzZWNvbmRzIG9uIG15IHNl
+dHVwLiBTbywgd2lpdGgKPiA+Pj4gc21hbGxlciBidWZmZXIgc2l6ZXMgbGlrZSA8IDIgc2Vjb25k
+cyB3ZSBvdmVyd3JpdGUgZGF0YSBzaW5jZSBGVwo+ID4+PiBrZWVwcyBjb3BwaW5nIHdoaWxlIGhv
+c3QgZG9lc24ndCByZWFkIHVudGlsIGl0cyB1cCBhbmQgcnVubmluZwo+ID4+PiBhZ2Fpbi4KPiA+
+Pgo+ID4+IFJpZ2h0LCB0aGF0J3MgYSB2YWxpZCBjYXNlLCBidXQgdGhhdCdzIDI1NiBrQiwgbm90
+ICd2ZXJ5IGxhcmdlJyBvcgo+ID4+IGxpa2VseSB0byBldmVyIHRyaWdnZXIgYW4gT09NIGNhc2Uu
+Cj4gPgo+ID4gVGhhdCBzaXplIHNob3VsZG4ndCBtYXR0ZXIsIGFuZCB3b3VsZCB3b3JrIGV2ZW4g
+d2l0aCB0aGUKPiA+IHByZWFsbG9jYXRpb24uCj4gPgo+ID4gTXkgY29uY2VybiBpcyB0aGF0IHJl
+bW92aW5nIHRoZSBsaW1pdGF0aW9uIHdvdWxkIGFsbG93IHRoZSBhbGxvY2F0aW9uCj4gPiBvZiB0
+b28gbGFyZ2Ugc2l6ZXMuICBFdmVuIHdpdGggZG1hX21heCBsaW1pdCwgaXQgY2FuIGdvIHVwIHRv
+IDMyTUIKPiA+IHBoeXNpY2FsIHBhZ2VzIHBlciBzdHJlYW0gZm9yIEhEQS4gIERlcGVuZGluZyBv
+biB0aGUgaGFyZHdhcmUgc2V0dXAsCj4gPiB0aGVyZSBjYW4gYmUgYSBsb3Qgb2Ygc3RyZWFtcyBh
+c3NpZ25tZW50IChlLmcuIEhETUkgY29kZWNzKSBhbmQKPiA+IG11bHRpcGxlIGNvZGVjcyAvIGNv
+bnRyb2xsZXJzLCBhbmQgaW1hZ2luZSB0aGF0IGFsbCB0aG9zZSBhbGxvY2F0ZWQKPiA+IHBhZ2Vz
+IGFyZSBwaW5uZWQgYW5kIGNhbid0IGJlIHN3YXBwZWQgb3V0Li4uCj4gCj4gSGkgVGFrYXNoaSwg
+SSBnZXQgeW91ciBjb25jZXJuIGhlcmUsIGJ1dCBpZiB3ZSBzd2l0Y2ggdG8gdXNlIGRtYV9tYXgK
+PiBsaW1pdCwgd2Ugd29uJ3QgY2hhbmdlIHRoZSBwcmVhbGxvY2F0ZWQgYnVmZmVyLCBpdCB3aWxs
+IGJlIHN0aWxsIDY0S0IKPiBmb3IgZWFjaCBzdHJlYW0sIHVzZXIgc3BhY2UgY2FuIGFzayBmb3Ig
+cmUtYWxsb2NhdGUgYnVmZmVyIGZvciBlYWNoCj4gc3RyZWFtIHVwIHRvIDMyTUIsIGJ1dCB0aG9z
+ZSBwaW5uZWQgYW5kIGNhbid0IGJlIHN3YXBwZWQgb3V0IG9uZXMgYXJlCj4gdGhlIDY0S0IgcHJl
+YWxsb2NhdGVkIG9uZXMgb25seSwgYW0gSSB3cm9uZz8KCk5vLCBpbiBnZW5lcmFsLCBhbGwgc291
+bmQgaGFyZHdhcmUgYnVmZmVycyBhcmUgcGlubmVkLgoKClRha2FzaGkKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QK
+QWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qu
+b3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

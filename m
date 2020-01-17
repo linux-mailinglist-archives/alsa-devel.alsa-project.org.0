@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BB44140E31
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 16:47:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14E80140E5A
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 16:54:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8974317E3;
-	Fri, 17 Jan 2020 16:46:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8974317E3
+	by alsa0.perex.cz (Postfix) with ESMTPS id B78AC1759;
+	Fri, 17 Jan 2020 16:53:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B78AC1759
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579276035;
-	bh=uln8dGm1KldZytpJOm9jwnrqxZt7tnXZl6/uARjjXtg=;
+	s=default; t=1579276472;
+	bh=6ZegIluii0Y4jFV+lgw06OkxiED4qewT15pmho8Ys0M=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=lbOEprEPJgAG7bF6BYqI62JgBzm9YBrJBQwGCyHXeitgP1mSOPmdosaJ5xSisXwv3
-	 FCWnQ8GP0IVNNX4ZennqIzidH8hNF/ouq+T9ERbwcUvEsAg/ycOZaus7bVR4FoIhga
-	 kyGLjPp9sHnTwH/t2rj3BeO/X3EAJ/WbtZM6vs9M=
+	b=YPWXdNM0agN6sdMr9kzAaQVGb2TJ0jqIwAeR5ODiXN5ucx/K+I5qzj0jU8tlmRoCY
+	 3qs4Lol001E0HKr/hNuLhNVYPHLbcL70Vnx3+xPp1VqUcOj2lfSkRVi3hshMY4CqtB
+	 im1GsK4nxUTbmCxZm1zm5wiN473XEgrvzlBExJm4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACF34F801F8;
-	Fri, 17 Jan 2020 16:45:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 022EEF802EC;
+	Fri, 17 Jan 2020 16:45:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4E21F801F7; Fri, 17 Jan 2020 16:44:12 +0100 (CET)
+ id B7A03F8014B; Fri, 17 Jan 2020 16:44:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,44 +34,45 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D804F800AA
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 16:44:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D804F800AA
+ by alsa1.perex.cz (Postfix) with ESMTPS id EE771F8022B
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 16:44:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EE771F8022B
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="spE3q8AH"
+ header.b="ZK0ptVpi"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=2yzoAALneiFLsc2J9ePxVhLixhVbVsR363I/k1l+xK0=; b=spE3q8AHOsie
- q8mxmdAwPVyl7oOQYJ6n8ww5t+Io/GANxmVAD32AUdxUPBfrsTmwQH48FvdW1qdWrEzXXM8LnYQ7G
- i95o7UBqkH8LmH7sLKBYbhlXRkixQDzj9evUg4U5XjQR9iEssue/YfPpg4o8S210IBhYOigXhlfeQ
- TGnBg=;
+ List-Archive; bh=jGqngOh+Xf5gmoMJRDS9WQhgl46mcJ/CdI8nQzlJyzA=; b=ZK0ptVpiVb+R
+ MOJpsyulSCBAgtbEZKhG0ekOkAK4A4TrmKMZ0WnCc0GMPC7+TrixQzsj+0A1wli1Apyi96iMPn03Q
+ DOQdHFuYUj2UfQAwIFloEycEVz7wXmguxG0TbOkDcZ/Dqww1oKuh6z2x6T90x51AWUZn+WwIItXWu
+ evCpw=;
 Received: from fw-tnat-cam4.arm.com ([217.140.106.52]
  helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1isTn3-0006rU-HV; Fri, 17 Jan 2020 15:44:05 +0000
+ id 1isTn5-0006rX-OA; Fri, 17 Jan 2020 15:44:07 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 3250ED02A2A; Fri, 17 Jan 2020 15:44:05 +0000 (GMT)
+ id 35D99D02A2A; Fri, 17 Jan 2020 15:44:07 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Damian van Soelen <dj.vsoelen@gmail.com>
-In-Reply-To: <20200115164619.101705-5-hdegoede@redhat.com>
-Message-Id: <applied-20200115164619.101705-5-hdegoede@redhat.com>
+To: Jordy Ubink <jordyubink@hotmail.nl>
+In-Reply-To: <20200115164619.101705-4-hdegoede@redhat.com>
+Message-Id: <applied-20200115164619.101705-4-hdegoede@redhat.com>
 X-Patchwork-Hint: ignore
-Date: Fri, 17 Jan 2020 15:44:05 +0000 (GMT)
+Date: Fri, 17 Jan 2020 15:44:07 +0000 (GMT)
 Cc: Nariman Etemadi <narimantos@gmail.com>, alsa-devel@alsa-project.org,
- Jordy Ubink <jordyubink@hotmail.nl>, Jie Yang <yang.jie@linux.intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
  Cezary Rojewski <cezary.rojewski@intel.com>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Liam Girdwood <liam.r.girdwood@linux.intel.com>,
  Hans de Goede <hdegoede@redhat.com>, Mark Brown <broonie@kernel.org>,
+ Damian van Soelen <dj.vsoelen@gmail.com>,
  Erik Bussing <eabbussing@outlook.com>
-Subject: [alsa-devel] Applied "ASoC: Intel: cht_bsw_rt5645: Remove
-	unnecessary string buffers and snprintf calls" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: Intel: bytcr_rt5651: Remove unnecessary
+	string buffers and snprintf calls" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +93,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: Intel: cht_bsw_rt5645: Remove unnecessary string buffers and snprintf calls
+   ASoC: Intel: bytcr_rt5651: Remove unnecessary string buffers and snprintf calls
 
 has been applied to the asoc tree at
 
@@ -117,74 +118,71 @@ to this mail.
 Thanks,
 Mark
 
-From 791a0059e2585c094c2b8ff61983074c657dabf8 Mon Sep 17 00:00:00 2001
-From: Damian van Soelen <dj.vsoelen@gmail.com>
-Date: Wed, 15 Jan 2020 17:46:19 +0100
-Subject: [PATCH] ASoC: Intel: cht_bsw_rt5645: Remove unnecessary string
- buffers and snprintf calls
+From fcce38d85cb865346da9b8f2d87c9427153dc5ca Mon Sep 17 00:00:00 2001
+From: Jordy Ubink <jordyubink@hotmail.nl>
+Date: Wed, 15 Jan 2020 17:46:18 +0100
+Subject: [PATCH] ASoC: Intel: bytcr_rt5651: Remove unnecessary string buffers
+ and snprintf calls
 
-The snprintf calls filling cht_rt5645_cpu_dai_name /
-cht_rt5645_codec_aif_name always fill them with the same string
-("ssp0-port" resp "rt5645-aif2") so instead of keeping these buffers
-around and making cpus->dai_name / codecs->dai_name point to this,
-simply update the *->dai_name pointers to directly point to a string
-constant containing the desired string.
+The snprintf calls filling byt_rt56*_codec_aif_name/byt_rt56*_cpu_dai_name
+always fill them with the same string ("rt56*-aif2" resp. ssp0-port").
+So instead of keeping these buffers around and making codecs->dai_name /
+cpus->dai_name point to them, simply update the *->dai_name pointers to
+directly point to a string constant containing the desired string.
 
-Signed-off-by: Damian van Soelen <dj.vsoelen@gmail.com>
+Signed-off-by: Jordy Ubink <jordyubink@hotmail.nl>
 Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://lore.kernel.org/r/20200115164619.101705-5-hdegoede@redhat.com
+Link: https://lore.kernel.org/r/20200115164619.101705-4-hdegoede@redhat.com
 Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/boards/cht_bsw_rt5645.c | 26 ++++---------------------
- 1 file changed, 4 insertions(+), 22 deletions(-)
+ sound/soc/intel/boards/bytcr_rt5651.c | 24 ++++--------------------
+ 1 file changed, 4 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/intel/boards/cht_bsw_rt5645.c b/sound/soc/intel/boards/cht_bsw_rt5645.c
-index c68a5b85a4a0..b5b016d493f1 100644
---- a/sound/soc/intel/boards/cht_bsw_rt5645.c
-+++ b/sound/soc/intel/boards/cht_bsw_rt5645.c
-@@ -515,8 +515,6 @@ static struct cht_acpi_card snd_soc_cards[] = {
- };
+diff --git a/sound/soc/intel/boards/bytcr_rt5651.c b/sound/soc/intel/boards/bytcr_rt5651.c
+index 6d71352ea864..5074bb53f98e 100644
+--- a/sound/soc/intel/boards/bytcr_rt5651.c
++++ b/sound/soc/intel/boards/bytcr_rt5651.c
+@@ -787,8 +787,6 @@ static struct snd_soc_dai_link byt_rt5651_dais[] = {
  
- static char cht_rt5645_codec_name[SND_ACPI_I2C_ID_LEN];
--static char cht_rt5645_codec_aif_name[12]; /*  = "rt5645-aif[1|2]" */
--static char cht_rt5645_cpu_dai_name[10]; /*  = "ssp[0|2]-port" */
- 
- struct acpi_chan_package {   /* ACPICA seems to require 64 bit integers */
- 	u64 aif_value;       /* 1: AIF1, 2: AIF2 */
-@@ -641,28 +639,12 @@ static int snd_cht_mc_probe(struct platform_device *pdev)
+ /* SoC card */
+ static char byt_rt5651_codec_name[SND_ACPI_I2C_ID_LEN];
+-static char byt_rt5651_codec_aif_name[12]; /*  = "rt5651-aif[1|2]" */
+-static char byt_rt5651_cpu_dai_name[10]; /*  = "ssp[0|2]-port" */
+ #if !IS_ENABLED(CONFIG_SND_SOC_INTEL_USER_FRIENDLY_LONG_NAMES)
+ static char byt_rt5651_long_name[50]; /* = "bytcr-rt5651-*-spk-*-mic[-swapped-hp]" */
+ #endif
+@@ -1037,26 +1035,12 @@ static int snd_byt_rt5651_mc_probe(struct platform_device *pdev)
  	log_quirks(&pdev->dev);
  
- 	if ((cht_rt5645_quirk & CHT_RT5645_SSP2_AIF2) ||
--		(cht_rt5645_quirk & CHT_RT5645_SSP0_AIF2)) {
--
+ 	if ((byt_rt5651_quirk & BYT_RT5651_SSP2_AIF2) ||
+-	    (byt_rt5651_quirk & BYT_RT5651_SSP0_AIF2)) {
 -		/* fixup codec aif name */
--		snprintf(cht_rt5645_codec_aif_name,
--			sizeof(cht_rt5645_codec_aif_name),
--			"%s", "rt5645-aif2");
+-		snprintf(byt_rt5651_codec_aif_name,
+-			sizeof(byt_rt5651_codec_aif_name),
+-			"%s", "rt5651-aif2");
 -
--		cht_dailink[dai_index].codecs->dai_name =
--			cht_rt5645_codec_aif_name;
+-		byt_rt5651_dais[dai_index].codecs->dai_name =
+-			byt_rt5651_codec_aif_name;
 -	}
-+	    (cht_rt5645_quirk & CHT_RT5645_SSP0_AIF2))
-+		cht_dailink[dai_index].codecs->dai_name = "rt5645-aif2";
++	    (byt_rt5651_quirk & BYT_RT5651_SSP0_AIF2))
++		byt_rt5651_dais[dai_index].codecs->dai_name = "rt5651-aif2";
  
- 	if ((cht_rt5645_quirk & CHT_RT5645_SSP0_AIF1) ||
--		(cht_rt5645_quirk & CHT_RT5645_SSP0_AIF2)) {
--
+ 	if ((byt_rt5651_quirk & BYT_RT5651_SSP0_AIF1) ||
+-	    (byt_rt5651_quirk & BYT_RT5651_SSP0_AIF2)) {
 -		/* fixup cpu dai name name */
--		snprintf(cht_rt5645_cpu_dai_name,
--			sizeof(cht_rt5645_cpu_dai_name),
+-		snprintf(byt_rt5651_cpu_dai_name,
+-			sizeof(byt_rt5651_cpu_dai_name),
 -			"%s", "ssp0-port");
 -
--		cht_dailink[dai_index].cpus->dai_name =
--			cht_rt5645_cpu_dai_name;
+-		byt_rt5651_dais[dai_index].cpus->dai_name =
+-			byt_rt5651_cpu_dai_name;
 -	}
-+	    (cht_rt5645_quirk & CHT_RT5645_SSP0_AIF2))
-+		cht_dailink[dai_index].cpus->dai_name = "ssp0-port";
++	    (byt_rt5651_quirk & BYT_RT5651_SSP0_AIF2))
++		byt_rt5651_dais[dai_index].cpus->dai_name = "ssp0-port";
  
- 	/* override plaform name, if required */
- 	platform_name = mach->mach_params.platform;
+ 	if (byt_rt5651_quirk & BYT_RT5651_MCLK_EN) {
+ 		priv->mclk = devm_clk_get(&pdev->dev, "pmc_plt_clk_3");
 -- 
 2.20.1
 

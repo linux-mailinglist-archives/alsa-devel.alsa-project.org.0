@@ -2,73 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67C631403DB
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 07:16:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C023114045C
+	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 08:13:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6BB117BF;
-	Fri, 17 Jan 2020 07:16:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6BB117BF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9BE17D1;
+	Fri, 17 Jan 2020 08:12:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9BE17D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579241814;
-	bh=m5IsVExfSh3bpoRo+bqnq3Muv+TlPTFLCPmMFt2rIcE=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mq49NTMyU1/nkCxhX6A41bQ05jzVoy9aREE1q+5q91IXn78zUW3rNw8WfXcVWDkfA
-	 LBgPU0SPlFsseTC5bZhfjYg38ldmak/NnAKgmYkwOpUg/Qa/DWgGSlW3Lsviu9IM4L
-	 AQuXwopfm2ZY4mz7a44u7K53qA3qDg604ZELvnFQ=
+	s=default; t=1579245191;
+	bh=2mleZjr8G/S5mrcNX+Z0Tb9A6FuZ079qqzdqXAIwVQ8=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Hze1/Rt5CCwAws/1kwl++80Iac65wKkv+vam3WimM1qybeRWVanX2GdjG1G7E5Vse
+	 mNSHpVS1ev636RrzyJemM/xzKH2yCb6JAqh7S57ggIdAkqYuV+3F0pTLrLUuogQZIX
+	 ALa5caLlov6BVHpjUDN4NAq+kHsE3yqzC6a04Gy4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 16581F801F8;
-	Fri, 17 Jan 2020 07:15:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29E9EF801F8;
+	Fri, 17 Jan 2020 08:11:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 66534F801EB; Fri, 17 Jan 2020 07:15:03 +0100 (CET)
+ id 25136F801EB; Fri, 17 Jan 2020 08:11:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ***
-X-Spam-Status: No, score=3.0 required=5.0 tests=PRX_APP_ATTACH, SPF_HELO_NONE, 
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E397F800AA
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 07:14:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E397F800AA
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 00H6Elwm016526,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTITCAS11.realtek.com.tw[172.21.6.12])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 00H6Elwm016526
- (version=TLSv1.2 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 17 Jan 2020 14:14:47 +0800
-Received: from RTEXMB02.realtek.com.tw (172.21.6.95) by
- RTITCAS11.realtek.com.tw (172.21.6.12) with Microsoft SMTP Server (TLS) id
- 14.3.468.0; Fri, 17 Jan 2020 14:14:46 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Fri, 17 Jan 2020 14:14:46 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f]) by
- RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f%6]) with mapi id
- 15.01.1779.005; Fri, 17 Jan 2020 14:14:46 +0800
-From: Kailang <kailang@realtek.com>
-To: "Takashi Iwai (tiwai@suse.de)" <tiwai@suse.de>
-Thread-Topic: HP ALC671 support headset Mic
-Thread-Index: AdXM/TTMJmAkNHhOTauVerEQ1XfdLA==
-Date: Fri, 17 Jan 2020 06:14:46 +0000
-Message-ID: <1afdc37edb8c4c6ca07b73322117cc7b@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.105.211]
-Content-Type: multipart/mixed;
- boundary="_002_1afdc37edb8c4c6ca07b73322117cc7brealtekcom_"
+ by alsa1.perex.cz (Postfix) with ESMTPS id E2F80F800AA
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 08:11:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2F80F800AA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="lK/A5QUc"
+Received: by mail-qk1-x742.google.com with SMTP id a203so21805785qkc.3
+ for <alsa-devel@alsa-project.org>; Thu, 16 Jan 2020 23:11:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dD+bqe0OboIvDe7Tfhggx1v6hI7fKblqWVn9MXd+wok=;
+ b=lK/A5QUcLvbmKiyXEH4Kgl3BRQ0Bkz311hk3/Hmc5ukQy/WYQLXsiyxcpola18hAcv
+ tWWhk96wVTGiHmv7M8lX2JVfMkU72C9/VsKywzEfMgtIXPixPNRB5tYrwmJNd/m9PKx2
+ t3sC3KkpG4fU79UK3gnN+BJ3miybwpjHv0mbl2Yt8rWbLcxOocN8RqumOk9xx5NPYW/n
+ vSumxTygoymB2HvT6vaA11GglQlXbKc4WLF5LxpkxUeUk6tyjM50Wa5S1bORS2kknIsm
+ 1zwitC4hg7oRXqvj9fao+OsaExHr9o78IDI+hEl90ND2xDWUbFC+2lBpQdRjvWOpPxyh
+ X9HA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dD+bqe0OboIvDe7Tfhggx1v6hI7fKblqWVn9MXd+wok=;
+ b=dwFmZhR5jqiqVW4pMrQ502raQrSehePFmLZI1Amc8S0kLJTOgscgpMSOGG1E2UPpUB
+ u4BSyd1OH4p9u+4heDYmTl8J1lcM5bQL0LT3QII72RwH0X+hn9YJaA1HM0yfOGNOMc1J
+ pY+WPkp2Vh0lmD+NYGVYZTMb/v6JBC8Gri9uClFsBrfT68Nga2wocJ3r5o9JASfy5PEw
+ /EOWjynkGG5qNVci1/V8qGIuvhP9V42/uInmDx/uTQW5u0MNZVFTbglJz7jhyRhfyt//
+ Vv9lxCsiuGbbMaelGREXARR379IWOSfr8SxmVWKvuWq0HR7iaEAFP/jIz6I99FDY9uPU
+ hi/Q==
+X-Gm-Message-State: APjAAAU9hVc3I1YsrFUd6r8kBiutjJfp9btiiU6WiEeDGOtjbYgE8Qcq
+ hKhHjq/cvu2iPGQ9Qs9tSmL/i0wAaarjpjl2DyY=
+X-Google-Smtp-Source: APXvYqyjRZTGLo6wmcBob/iiFfwd3I+O6iRUPciXoph4+LN6FFWL7ri4y46ZvGr8nD5GWauJEepPSlWLvsegq97lPm4=
+X-Received: by 2002:a05:620a:166a:: with SMTP id
+ d10mr36014901qko.37.1579245075683; 
+ Thu, 16 Jan 2020 23:11:15 -0800 (PST)
 MIME-Version: 1.0
-Cc: Hui Wang <hui.wang@canonical.com>, Chih-Hsyuan Ho <chih.ho@canonical.com>,
- " \(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
-Subject: [alsa-devel] HP ALC671 support headset Mic
+References: <cover.1569493933.git.shengjiu.wang@nxp.com>
+ <d728f65194e9978cbec4132b522d4fed420d704a.1569493933.git.shengjiu.wang@nxp.com>
+ <CANcMJZBy=yH+4YgZWwphiE-PO6d4hzhFK3XFtpN677ZAv_N4WQ@mail.gmail.com>
+ <CANcMJZCuU_-Xii=YT5Rp5DAyxboptJCrpp51jForuYUpeMuhmQ@mail.gmail.com>
+In-Reply-To: <CANcMJZCuU_-Xii=YT5Rp5DAyxboptJCrpp51jForuYUpeMuhmQ@mail.gmail.com>
+From: Shengjiu Wang <shengjiu.wang@gmail.com>
+Date: Fri, 17 Jan 2020 15:11:04 +0800
+Message-ID: <CAA+D8AP39bo6EsHvWhVXvAYAho_xMnWmePPAK6dBsOh5wsz48Q@mail.gmail.com>
+To: John Stultz <john.stultz@linaro.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ lars@metafoo.de, Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, linuxppc-dev@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH V6 3/4] ASoC: pcm_dmaengine: Extract
+	snd_dmaengine_pcm_refine_runtime_hwparams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,90 +102,158 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_002_1afdc37edb8c4c6ca07b73322117cc7brealtekcom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi
 
-Hi Takashi,
+On Thu, Jan 16, 2020 at 1:56 PM John Stultz <john.stultz@linaro.org> wrote:
+>
+> On Wed, Jan 8, 2020 at 8:58 PM John Stultz <john.stultz@linaro.org> wrote:
+> > On Thu, Sep 26, 2019 at 6:50 PM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
+> > >
+> > > When set the runtime hardware parameters, we may need to query
+> > > the capability of DMA to complete the parameters.
+> > >
+> > > This patch is to Extract this operation from
+> > > dmaengine_pcm_set_runtime_hwparams function to a separate function
+> > > snd_dmaengine_pcm_refine_runtime_hwparams, that other components
+> > > which need this feature can call this function.
+> > >
+> > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > > Reviewed-by: Nicolin Chen <nicoleotsuka@gmail.com>
+> >
+> > As a heads up, this patch seems to be causing a regression on the HiKey board.
+> >
+> > On boot up I'm seeing:
+> > [   17.721424] hi6210_i2s f7118000.i2s: ASoC: can't open component
+> > f7118000.i2s: -6
+> >
+> > And HDMI audio isn't working. With this patch reverted, audio works again.
+> >
+> >
+> > > diff --git a/sound/core/pcm_dmaengine.c b/sound/core/pcm_dmaengine.c
+> > > index 89a05926ac73..5749a8a49784 100644
+> > > --- a/sound/core/pcm_dmaengine.c
+> > > +++ b/sound/core/pcm_dmaengine.c
+> > > @@ -369,4 +369,87 @@ int snd_dmaengine_pcm_close_release_chan(struct snd_pcm_substream *substream)
+> > ...
+> > > +       ret = dma_get_slave_caps(chan, &dma_caps);
+> > > +       if (ret == 0) {
+> > > +               if (dma_caps.cmd_pause && dma_caps.cmd_resume)
+> > > +                       hw->info |= SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME;
+> > > +               if (dma_caps.residue_granularity <= DMA_RESIDUE_GRANULARITY_SEGMENT)
+> > > +                       hw->info |= SNDRV_PCM_INFO_BATCH;
+> > > +
+> > > +               if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> > > +                       addr_widths = dma_caps.dst_addr_widths;
+> > > +               else
+> > > +                       addr_widths = dma_caps.src_addr_widths;
+> > > +       }
+> >
+> > It seems a failing ret from dma_get_slave_caps() here is being returned...
+> >
+> > > +
+> > > +       /*
+> > > +        * If SND_DMAENGINE_PCM_DAI_FLAG_PACK is set keep
+> > > +        * hw.formats set to 0, meaning no restrictions are in place.
+> > > +        * In this case it's the responsibility of the DAI driver to
+> > > +        * provide the supported format information.
+> > > +        */
+> > > +       if (!(dma_data->flags & SND_DMAENGINE_PCM_DAI_FLAG_PACK))
+> > > +               /*
+> > > +                * Prepare formats mask for valid/allowed sample types. If the
+> > > +                * dma does not have support for the given physical word size,
+> > > +                * it needs to be masked out so user space can not use the
+> > > +                * format which produces corrupted audio.
+> > > +                * In case the dma driver does not implement the slave_caps the
+> > > +                * default assumption is that it supports 1, 2 and 4 bytes
+> > > +                * widths.
+> > > +                */
+> > > +               for (i = SNDRV_PCM_FORMAT_FIRST; i <= SNDRV_PCM_FORMAT_LAST; i++) {
+> > > +                       int bits = snd_pcm_format_physical_width(i);
+> > > +
+> > > +                       /*
+> > > +                        * Enable only samples with DMA supported physical
+> > > +                        * widths
+> > > +                        */
+> > > +                       switch (bits) {
+> > > +                       case 8:
+> > > +                       case 16:
+> > > +                       case 24:
+> > > +                       case 32:
+> > > +                       case 64:
+> > > +                               if (addr_widths & (1 << (bits / 8)))
+> > > +                                       hw->formats |= pcm_format_to_bits(i);
+> > > +                               break;
+> > > +                       default:
+> > > +                               /* Unsupported types */
+> > > +                               break;
+> > > +                       }
+> > > +               }
+> > > +
+> > > +       return ret;
+> >
+> > ... down here.
+> >
+> > Where as in the old code...
+> >
+> > > diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+> > > index 748f5f641002..b9f147eaf7c4 100644
+> > > --- a/sound/soc/soc-generic-dmaengine-pcm.c
+> > > +++ b/sound/soc/soc-generic-dmaengine-pcm.c
+> >
+> > > @@ -145,56 +140,12 @@ static int dmaengine_pcm_set_runtime_hwparams(struct snd_pcm_substream *substrea
+> > >         if (pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_RESIDUE)
+> > >                 hw.info |= SNDRV_PCM_INFO_BATCH;
+> > >
+> > > -       ret = dma_get_slave_caps(chan, &dma_caps);
+> > > -       if (ret == 0) {
+> > > -               if (dma_caps.cmd_pause && dma_caps.cmd_resume)
+> > > -                       hw.info |= SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME;
+> > > -               if (dma_caps.residue_granularity <= DMA_RESIDUE_GRANULARITY_SEGMENT)
+> > > -                       hw.info |= SNDRV_PCM_INFO_BATCH;
+> > > -
+> > > -               if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> > > -                       addr_widths = dma_caps.dst_addr_widths;
+> > > -               else
+> > > -                       addr_widths = dma_caps.src_addr_widths;
+> > > -       }
+> >
+> > ...the ret from dma_get_slave_caps()  checked above, but is not
+> > actually returned.
+> >
+> > Suggestions on how to sort this out?
+>
+> Just wanted to check in on this, as I'm still seeing this regression with -rc6.
+>
+Compare with the old code. it seems that we shouldn't check the return value.
 
-HP cPC need to support headset Mic.
-Attach patch was the support patch.
+Could you help to test below changes?
 
-BR,
-Kailang
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -138,12 +138,10 @@ dmaengine_pcm_set_runtime_hwparams(struct
+snd_soc_component *component,
+        if (pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_RESIDUE)
+                hw.info |= SNDRV_PCM_INFO_BATCH;
 
---_002_1afdc37edb8c4c6ca07b73322117cc7brealtekcom_
-Content-Type: application/octet-stream;
-	name="0005-hp-alc671-headset-mic.patch"
-Content-Description: 0005-hp-alc671-headset-mic.patch
-Content-Disposition: attachment;
-	filename="0005-hp-alc671-headset-mic.patch"; size=2764;
-	creation-date="Fri, 17 Jan 2020 06:07:32 GMT";
-	modification-date="Fri, 17 Jan 2020 06:07:06 GMT"
-Content-Transfer-Encoding: base64
+-       ret = snd_dmaengine_pcm_refine_runtime_hwparams(substream,
++       snd_dmaengine_pcm_refine_runtime_hwparams(substream,
+                                                        dma_data,
+                                                        &hw,
+                                                        chan);
+-       if (ret)
+-               return ret;
 
-RnJvbSBiOTdmOTRmYWRjZDFkYzFhMjBmY2ExOTg2NDBhZmY3MTVkOWIwNDY3IE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRlay5jb20+CkRh
-dGU6IEZyaSwgMTcgSmFuIDIwMjAgMTQ6MDQ6MDEgKzA4MDAKU3ViamVjdDogW1BBVENIXSBBTFNB
-OiBoZGEvcmVhbHRlayAtIEFkZCBIZWFkc2V0IE1pYyBzdXBwb3J0ZWQgZm9yIEhQIGNQQwoKSFAg
-QUxDNjcxIG5lZWQgdG8gc3VwcG9ydCBIZWFkc2V0IE1pYy4KCkZpeGVzOiBkMmNkNzk1YzRlY2Ug
-KCJBTFNBOiBoZGEgLSBmaXh1cCBmb3IgdGhlIGJhc3Mgc3BlYWtlciBvbiBMZW5vdm8gQ2FyYm9u
-IFgxIDd0aCBnZW4iKQpTaWduZWQtb2ZmLWJ5OiBLYWlsYW5nIFlhbmcgPGthaWxhbmdAcmVhbHRl
-ay5jb20+CgpkaWZmIC0tZ2l0IGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMgYi9zb3Vu
-ZC9wY2kvaGRhL3BhdGNoX3JlYWx0ZWsuYwppbmRleCA3MzQwN2IyNWE3NzcuLmU0NDY5YTI1NTYw
-ZSAxMDA2NDQKLS0tIGEvc291bmQvcGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKKysrIGIvc291bmQv
-cGNpL2hkYS9wYXRjaF9yZWFsdGVrLmMKQEAgLTg0ODIsNiArODQ4MiwyOSBAQCBzdGF0aWMgdm9p
-ZCBhbGM2NjJfZml4dXBfYXNwaXJlX2V0aG9zX2hwKHN0cnVjdCBoZGFfY29kZWMgKmNvZGVjLAog
-CX0KIH0KIAorc3RhdGljIHZvaWQgYWxjNjcxX2ZpeHVwX2hwX2hlYWRzZXRfbWljMihzdHJ1Y3Qg
-aGRhX2NvZGVjICpjb2RlYywKKwkJCQkJICAgICBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwICpmaXgs
-IGludCBhY3Rpb24pCit7CisJc3RydWN0IGFsY19zcGVjICpzcGVjID0gY29kZWMtPnNwZWM7CisK
-KwlzdGF0aWMgY29uc3Qgc3RydWN0IGhkYV9waW50YmwgcGluY2Znc1tdID0geworCQl7IDB4MTks
-IDB4MDJhMTEwNDAgfSwgLyogdXNlIGFzIGhlYWRzZXQgbWljLCB3aXRoIGl0cyBvd24gamFjayBk
-ZXRlY3QgKi8KKwkJeyAweDFiLCAweDAxODEzMDRmIH0sCisJCXsgfQorCX07CisKKwlzd2l0Y2gg
-KGFjdGlvbikgeworCWNhc2UgSERBX0ZJWFVQX0FDVF9QUkVfUFJPQkU6CisJCXNwZWMtPmdlbi5t
-aXhlcl9uaWQgPSAwOworCQlzcGVjLT5wYXJzZV9mbGFncyB8PSBIREFfUElOQ0ZHX0hFQURTRVRf
-TUlDOworCQlzbmRfaGRhX2FwcGx5X3BpbmNmZ3MoY29kZWMsIHBpbmNmZ3MpOworCQlicmVhazsK
-KwljYXNlIEhEQV9GSVhVUF9BQ1RfSU5JVDoKKwkJYWxjX3dyaXRlX2NvZWZfaWR4KGNvZGVjLCAw
-eDE5LCAweGEwNTQpOworCQlicmVhazsKKwl9Cit9CisKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgY29l
-Zl9mdyBhbGM2NjhfY29lZnNbXSA9IHsKIAlXUklURV9DT0VGKDB4MDEsIDB4YmViZSksIFdSSVRF
-X0NPRUYoMHgwMiwgMHhhYWFhKSwgV1JJVEVfQ09FRigweDAzLCAgICAweDApLAogCVdSSVRFX0NP
-RUYoMHgwNCwgMHgwMTgwKSwgV1JJVEVfQ09FRigweDA2LCAgICAweDApLCBXUklURV9DT0VGKDB4
-MDcsIDB4MGY4MCksCkBAIC04NTU1LDYgKzg1NzgsNyBAQCBlbnVtIHsKIAlBTEM2NjJfRklYVVBf
-TEVOT1ZPX01VTFRJX0NPREVDUywKIAlBTEM2NjlfRklYVVBfQUNFUl9BU1BJUkVfRVRIT1MsCiAJ
-QUxDNjY5X0ZJWFVQX0FDRVJfQVNQSVJFX0VUSE9TX0hFQURTRVQsCisJQUxDNjcxX0ZJWFVQX0hQ
-X0hFQURTRVRfTUlDMiwKIH07CiAKIHN0YXRpYyBjb25zdCBzdHJ1Y3QgaGRhX2ZpeHVwIGFsYzY2
-Ml9maXh1cHNbXSA9IHsKQEAgLTg4OTYsNiArODkyMCwxMCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0
-IGhkYV9maXh1cCBhbGM2NjJfZml4dXBzW10gPSB7CiAJCS5jaGFpbmVkID0gdHJ1ZSwKIAkJLmNo
-YWluX2lkID0gQUxDNjY5X0ZJWFVQX0FDRVJfQVNQSVJFX0VUSE9TX0hFQURTRVQKIAl9LAorCVtB
-TEM2NzFfRklYVVBfSFBfSEVBRFNFVF9NSUMyXSA9IHsKKwkJLnR5cGUgPSBIREFfRklYVVBfRlVO
-QywKKwkJLnYuZnVuYyA9IGFsYzY3MV9maXh1cF9ocF9oZWFkc2V0X21pYzIsCisJfSwKIH07CiAK
-IHN0YXRpYyBjb25zdCBzdHJ1Y3Qgc25kX3BjaV9xdWlyayBhbGM2NjJfZml4dXBfdGJsW10gPSB7
-CkBAIC05MDc4LDYgKzkxMDYsMjIgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCBzbmRfaGRhX3Bpbl9x
-dWlyayBhbGM2NjJfcGluX2ZpeHVwX3RibFtdID0gewogCQl7MHgxMiwgMHg5MGE2MDEzMH0sCiAJ
-CXsweDE0LCAweDkwMTcwMTEwfSwKIAkJezB4MTUsIDB4MDMyMTEwMWZ9KSwKKwlTTkRfSERBX1BJ
-Tl9RVUlSSygweDEwZWMwNjcxLCAweDEwM2MsICJIUCBjUEMiLCBBTEM2NzFfRklYVVBfSFBfSEVB
-RFNFVF9NSUMyLAorCQl7MHgxNCwgMHgwMTAxNDAxMH0sCisJCXsweDE3LCAweDkwMTcwMTUwfSwK
-KwkJezB4MWIsIDB4MDE4MTMwMzB9LAorCQl7MHgyMSwgMHgwMjIxMTAyMH0pLAorCVNORF9IREFf
-UElOX1FVSVJLKDB4MTBlYzA2NzEsIDB4MTAzYywgIkhQIGNQQyIsIEFMQzY3MV9GSVhVUF9IUF9I
-RUFEU0VUX01JQzIsCisJCXsweDE0LCAweDAxMDE0MDEwfSwKKwkJezB4MTgsIDB4MDFhMTkwNDB9
-LAorCQl7MHgxYiwgMHgwMTgxMzAzMH0sCisJCXsweDIxLCAweDAyMjExMDIwfSksCisJU05EX0hE
-QV9QSU5fUVVJUksoMHgxMGVjMDY3MSwgMHgxMDNjLCAiSFAgY1BDIiwgQUxDNjcxX0ZJWFVQX0hQ
-X0hFQURTRVRfTUlDMiwKKwkJezB4MTQsIDB4MDEwMTQwMjB9LAorCQl7MHgxNywgMHg5MDE3MDEx
-MH0sCisJCXsweDE4LCAweDAxYTE5MDUwfSwKKwkJezB4MWIsIDB4MDE4MTMwNDB9LAorCQl7MHgy
-MSwgMHgwMjIxMTAzMH0pLAogCXt9CiB9OwogCg==
+        return snd_soc_set_runtime_hwparams(substream, &hw);
+ }
 
---_002_1afdc37edb8c4c6ca07b73322117cc7brealtekcom_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+Best regards
+Shengjiu Wang
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---_002_1afdc37edb8c4c6ca07b73322117cc7brealtekcom_--

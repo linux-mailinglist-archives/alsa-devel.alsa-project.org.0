@@ -2,72 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F49A141179
-	for <lists+alsa-devel@lfdr.de>; Fri, 17 Jan 2020 20:12:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E60591415C2
+	for <lists+alsa-devel@lfdr.de>; Sat, 18 Jan 2020 05:04:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E79D617DB;
-	Fri, 17 Jan 2020 20:12:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E79D617DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3FE8717D9;
+	Sat, 18 Jan 2020 05:03:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3FE8717D9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579288374;
-	bh=9tzMWt62d6sCxWyLNEgs7BYINNRTM7LEG2dSEw0sT5E=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579320252;
+	bh=gzRqiyXmjdvEqr9JpYGTaUOyPqedqRBMsW6qhJvATIE=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=H5fCFN2ZUNiJlTcqa2i0L/WRYzZuol7jEnsDPnnBinhLc1iLlhBLuHnp00j+1tBYo
-	 162P3JvtCc2xuGJohU1ujQyybwkG6+Tgb8OWObZsjRaut2FtxdkFhrqvpfE8HpdeNL
-	 AShifKsDpIkO3nq0+hzGQcssMhUiOrYRCt8Oi5ZI=
+	b=V7sR/jcqZ4mZBAIHHoFGuO7HUMTogfEJzvjQNyj65lL9lhNy5Z08/AVXcA5AFE/7M
+	 Gr1R2IcRGOMjLHAqJIPkgmuHEWPaZHmeIDVm2IaEtfNF4UN9JO3/B+VHvtvB1Sy+CE
+	 1M9UXg8PJvQbcxdZW21pwf4zHaUIh1WcDf/LeTi4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 649E3F801EB;
-	Fri, 17 Jan 2020 20:11:10 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4DA9CF8014E;
+	Sat, 18 Jan 2020 05:02:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BCC7F801EB; Fri, 17 Jan 2020 20:11:06 +0100 (CET)
+ id CF7A6F8014E; Sat, 18 Jan 2020 05:02:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
+ [IPv6:2607:f8b0:4864:20::341])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1BDAF800AA
- for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 20:11:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1BDAF800AA
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Jan 2020 11:10:58 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,331,1574150400"; d="scan'208";a="263269243"
-Received: from rakeshmi-mobl.gar.corp.intel.com (HELO [10.252.131.157])
- ([10.252.131.157])
- by fmsmga001.fm.intel.com with ESMTP; 17 Jan 2020 11:10:56 -0800
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
- x86@kernel.org, Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- linux-rtc@vger.kernel.org, "Guilherme G . Piccoli" <gpiccoli@canonical.com>,
- linux-kernel@vger.kernel.org
-References: <20200117175626.56358-1-andriy.shevchenko@linux.intel.com>
- <20200117175626.56358-7-andriy.shevchenko@linux.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <c92e0395-0a08-a400-eb48-0aa05e52cf30@linux.intel.com>
-Date: Fri, 17 Jan 2020 13:10:55 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3C876F80126
+ for <alsa-devel@alsa-project.org>; Sat, 18 Jan 2020 05:02:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3C876F80126
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="oJRPpWc8"
+Received: by mail-ot1-x341.google.com with SMTP id k14so24379290otn.4
+ for <alsa-devel@alsa-project.org>; Fri, 17 Jan 2020 20:02:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Vb5cyWLJV5ZR0F5iDmlf/8PvEYOZeZfUNSdNGtLvZJI=;
+ b=oJRPpWc86aW8ElClMpbeSmGps0a3/zd+opvvpOkEBC8hVNCtjdLp5PzynS4G4c56BU
+ 3VSWjMLxP2DgfZAY4Ynqq28PxgwynoAx/Ega1iY5vHADe1nx28Ss+oVjWt9i17loT/Tn
+ /hJnGFOj25AP5GZ9CftweA9mgLEHxvhOGHMWu4SjXw7OsNretKxT+LYInNxlwjS8R8tX
+ Kvx6LsE4imBsm/FB7RCiHcxLA7Gd4WNxHPzi9y/zW+G3PDYWzBmvAJI8YG+Bi4dU8j07
+ 3cRGWMsJ6Qcd04JnH4bRW0YK5AQHQQcVmjuz3NgVrXoa9eJdOhYIIChJqAExfXq0gD00
+ gpLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Vb5cyWLJV5ZR0F5iDmlf/8PvEYOZeZfUNSdNGtLvZJI=;
+ b=ncFXgN2cq0THxIx/Oxc6OVSqPKmYhNDnThtnffGk9a8Z/tyVARvhFVR759ITsrW7pW
+ /iaIZIzICva6uq9/x1nqCCvwKFvjLN8iqfBIzHD+VwuAiMxgPQCZVUlj972Ks3f+NjEH
+ dMO4dfbTqJmARQkAK85BzHodxIPZBMY5cOhVr0FAg9ztYXreWfJwThxVEnNcdtso5d6Z
+ k8WVXPztugJnnQB0XTWKWNBAmuUIwV1zf8UMmk7ELE+8cIbVpFqt7k2PaNNcQ83gKtJi
+ Ivv8Jb7tpnbJMPx2w8ayhcmRYZ6q3ZscPF70MPC3RUsVNkKWZQbXWJ4mGC5MDuagXI3z
+ apyw==
+X-Gm-Message-State: APjAAAUGzcagfg48/SmnyXXcrQ6J7H9YYTm1VZLIr4GDzy8Rmiw/nc2d
+ QIn6p3FJzl9mv7wjcBQWKQ0DyfSPW5iM9ZeAume8bQ==
+X-Google-Smtp-Source: APXvYqxzZjCff57xw2STewj8hvzXGMNapCy6Befwm57vvCLoE09f+Ii81TVHsJjBeSvPmeIU9AkG5ERsKsyGqT2FA8Q=
+X-Received: by 2002:a9d:66ca:: with SMTP id t10mr8495244otm.352.1579320135542; 
+ Fri, 17 Jan 2020 20:02:15 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200117175626.56358-7-andriy.shevchenko@linux.intel.com>
-Content-Language: en-US
-Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
- Jie Yang <yang.jie@linux.intel.com>, alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH v1 7/8] ASoC: Intel: Switch DMI table match
- to a test of variable
+References: <cover.1569493933.git.shengjiu.wang@nxp.com>
+ <d728f65194e9978cbec4132b522d4fed420d704a.1569493933.git.shengjiu.wang@nxp.com>
+ <CANcMJZBy=yH+4YgZWwphiE-PO6d4hzhFK3XFtpN677ZAv_N4WQ@mail.gmail.com>
+ <CANcMJZCuU_-Xii=YT5Rp5DAyxboptJCrpp51jForuYUpeMuhmQ@mail.gmail.com>
+ <CAA+D8AP39bo6EsHvWhVXvAYAho_xMnWmePPAK6dBsOh5wsz48Q@mail.gmail.com>
+In-Reply-To: <CAA+D8AP39bo6EsHvWhVXvAYAho_xMnWmePPAK6dBsOh5wsz48Q@mail.gmail.com>
+From: John Stultz <john.stultz@linaro.org>
+Date: Fri, 17 Jan 2020 20:02:04 -0800
+Message-ID: <CALAqxLVapiMC-qPX4fza9cPCKFqvoi2KWhZkJa42DiHwOqGe8Q@mail.gmail.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, Timur Tabi <timur@kernel.org>,
+ Xiubo Li <Xiubo.Lee@gmail.com>, Fabio Estevam <festevam@gmail.com>,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Nicolin Chen <nicoleotsuka@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linuxppc-dev@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH V6 3/4] ASoC: pcm_dmaengine: Extract
+	snd_dmaengine_pcm_refine_runtime_hwparams
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,83 +103,164 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Jan 16, 2020 at 11:11 PM Shengjiu Wang <shengjiu.wang@gmail.com> wrote:
+>
+> Hi
+>
+> On Thu, Jan 16, 2020 at 1:56 PM John Stultz <john.stultz@linaro.org> wrote:
+> >
+> > On Wed, Jan 8, 2020 at 8:58 PM John Stultz <john.stultz@linaro.org> wrote:
+> > > On Thu, Sep 26, 2019 at 6:50 PM Shengjiu Wang <shengjiu.wang@nxp.com> wrote:
+> > > >
+> > > > When set the runtime hardware parameters, we may need to query
+> > > > the capability of DMA to complete the parameters.
+> > > >
+> > > > This patch is to Extract this operation from
+> > > > dmaengine_pcm_set_runtime_hwparams function to a separate function
+> > > > snd_dmaengine_pcm_refine_runtime_hwparams, that other components
+> > > > which need this feature can call this function.
+> > > >
+> > > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > > > Reviewed-by: Nicolin Chen <nicoleotsuka@gmail.com>
+> > >
+> > > As a heads up, this patch seems to be causing a regression on the HiKey board.
+> > >
+> > > On boot up I'm seeing:
+> > > [   17.721424] hi6210_i2s f7118000.i2s: ASoC: can't open component
+> > > f7118000.i2s: -6
+> > >
+> > > And HDMI audio isn't working. With this patch reverted, audio works again.
+> > >
+> > >
+> > > > diff --git a/sound/core/pcm_dmaengine.c b/sound/core/pcm_dmaengine.c
+> > > > index 89a05926ac73..5749a8a49784 100644
+> > > > --- a/sound/core/pcm_dmaengine.c
+> > > > +++ b/sound/core/pcm_dmaengine.c
+> > > > @@ -369,4 +369,87 @@ int snd_dmaengine_pcm_close_release_chan(struct snd_pcm_substream *substream)
+> > > ...
+> > > > +       ret = dma_get_slave_caps(chan, &dma_caps);
+> > > > +       if (ret == 0) {
+> > > > +               if (dma_caps.cmd_pause && dma_caps.cmd_resume)
+> > > > +                       hw->info |= SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME;
+> > > > +               if (dma_caps.residue_granularity <= DMA_RESIDUE_GRANULARITY_SEGMENT)
+> > > > +                       hw->info |= SNDRV_PCM_INFO_BATCH;
+> > > > +
+> > > > +               if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> > > > +                       addr_widths = dma_caps.dst_addr_widths;
+> > > > +               else
+> > > > +                       addr_widths = dma_caps.src_addr_widths;
+> > > > +       }
+> > >
+> > > It seems a failing ret from dma_get_slave_caps() here is being returned...
+> > >
+> > > > +
+> > > > +       /*
+> > > > +        * If SND_DMAENGINE_PCM_DAI_FLAG_PACK is set keep
+> > > > +        * hw.formats set to 0, meaning no restrictions are in place.
+> > > > +        * In this case it's the responsibility of the DAI driver to
+> > > > +        * provide the supported format information.
+> > > > +        */
+> > > > +       if (!(dma_data->flags & SND_DMAENGINE_PCM_DAI_FLAG_PACK))
+> > > > +               /*
+> > > > +                * Prepare formats mask for valid/allowed sample types. If the
+> > > > +                * dma does not have support for the given physical word size,
+> > > > +                * it needs to be masked out so user space can not use the
+> > > > +                * format which produces corrupted audio.
+> > > > +                * In case the dma driver does not implement the slave_caps the
+> > > > +                * default assumption is that it supports 1, 2 and 4 bytes
+> > > > +                * widths.
+> > > > +                */
+> > > > +               for (i = SNDRV_PCM_FORMAT_FIRST; i <= SNDRV_PCM_FORMAT_LAST; i++) {
+> > > > +                       int bits = snd_pcm_format_physical_width(i);
+> > > > +
+> > > > +                       /*
+> > > > +                        * Enable only samples with DMA supported physical
+> > > > +                        * widths
+> > > > +                        */
+> > > > +                       switch (bits) {
+> > > > +                       case 8:
+> > > > +                       case 16:
+> > > > +                       case 24:
+> > > > +                       case 32:
+> > > > +                       case 64:
+> > > > +                               if (addr_widths & (1 << (bits / 8)))
+> > > > +                                       hw->formats |= pcm_format_to_bits(i);
+> > > > +                               break;
+> > > > +                       default:
+> > > > +                               /* Unsupported types */
+> > > > +                               break;
+> > > > +                       }
+> > > > +               }
+> > > > +
+> > > > +       return ret;
+> > >
+> > > ... down here.
+> > >
+> > > Where as in the old code...
+> > >
+> > > > diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+> > > > index 748f5f641002..b9f147eaf7c4 100644
+> > > > --- a/sound/soc/soc-generic-dmaengine-pcm.c
+> > > > +++ b/sound/soc/soc-generic-dmaengine-pcm.c
+> > >
+> > > > @@ -145,56 +140,12 @@ static int dmaengine_pcm_set_runtime_hwparams(struct snd_pcm_substream *substrea
+> > > >         if (pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_RESIDUE)
+> > > >                 hw.info |= SNDRV_PCM_INFO_BATCH;
+> > > >
+> > > > -       ret = dma_get_slave_caps(chan, &dma_caps);
+> > > > -       if (ret == 0) {
+> > > > -               if (dma_caps.cmd_pause && dma_caps.cmd_resume)
+> > > > -                       hw.info |= SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME;
+> > > > -               if (dma_caps.residue_granularity <= DMA_RESIDUE_GRANULARITY_SEGMENT)
+> > > > -                       hw.info |= SNDRV_PCM_INFO_BATCH;
+> > > > -
+> > > > -               if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+> > > > -                       addr_widths = dma_caps.dst_addr_widths;
+> > > > -               else
+> > > > -                       addr_widths = dma_caps.src_addr_widths;
+> > > > -       }
+> > >
+> > > ...the ret from dma_get_slave_caps()  checked above, but is not
+> > > actually returned.
+> > >
+> > > Suggestions on how to sort this out?
+> >
+> > Just wanted to check in on this, as I'm still seeing this regression with -rc6.
+> >
+> Compare with the old code. it seems that we shouldn't check the return value.
+>
+> Could you help to test below changes?
+>
+> --- a/sound/soc/soc-generic-dmaengine-pcm.c
+> +++ b/sound/soc/soc-generic-dmaengine-pcm.c
+> @@ -138,12 +138,10 @@ dmaengine_pcm_set_runtime_hwparams(struct
+> snd_soc_component *component,
+>         if (pcm->flags & SND_DMAENGINE_PCM_FLAG_NO_RESIDUE)
+>                 hw.info |= SNDRV_PCM_INFO_BATCH;
+>
+> -       ret = snd_dmaengine_pcm_refine_runtime_hwparams(substream,
+> +       snd_dmaengine_pcm_refine_runtime_hwparams(substream,
+>                                                         dma_data,
+>                                                         &hw,
+>                                                         chan);
+> -       if (ret)
+> -               return ret;
+>
+>         return snd_soc_set_runtime_hwparams(substream, &hw);
+>  }
 
+Yes, thanks for taking a look at this! Your patch does appear to avoid
+the regression.
+(Though you'll want to drop the ret declaration to avoid "warning:
+unused variable 'ret'" compiler warnings.)
 
-On 1/17/20 11:56 AM, Andy Shevchenko wrote:
-> Since we have a common x86 quirk that provides an exported variable,
-> use it instead of local DMI table match.
-> 
-> Cc: Cezary Rojewski <cezary.rojewski@intel.com>
-> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
-> Cc: Jie Yang <yang.jie@linux.intel.com>
-> Cc: Mark Brown <broonie@kernel.org>
-> Cc: alsa-devel@alsa-project.org
-> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
-Thanks Andy.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-> ---
->   .../intel/common/soc-acpi-intel-cht-match.c   | 28 ++-----------------
->   1 file changed, 3 insertions(+), 25 deletions(-)
-> 
-> diff --git a/sound/soc/intel/common/soc-acpi-intel-cht-match.c b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-> index d0fb43c2b9f6..833d2e130e6e 100644
-> --- a/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-> +++ b/sound/soc/intel/common/soc-acpi-intel-cht-match.c
-> @@ -5,31 +5,11 @@
->    * Copyright (c) 2017, Intel Corporation.
->    */
->   
-> -#include <linux/dmi.h>
-> +#include <linux/platform_data/x86/machine.h>
-> +
->   #include <sound/soc-acpi.h>
->   #include <sound/soc-acpi-intel-match.h>
->   
-> -static unsigned long cht_machine_id;
-> -
-> -#define CHT_SURFACE_MACH 1
-> -
-> -static int cht_surface_quirk_cb(const struct dmi_system_id *id)
-> -{
-> -	cht_machine_id = CHT_SURFACE_MACH;
-> -	return 1;
-> -}
-> -
-> -static const struct dmi_system_id cht_table[] = {
-> -	{
-> -		.callback = cht_surface_quirk_cb,
-> -		.matches = {
-> -			DMI_MATCH(DMI_SYS_VENDOR, "Microsoft Corporation"),
-> -			DMI_MATCH(DMI_PRODUCT_NAME, "Surface 3"),
-> -		},
-> -	},
-> -	{ }
-> -};
-> -
->   static struct snd_soc_acpi_mach cht_surface_mach = {
->   	.id = "10EC5640",
->   	.drv_name = "cht-bsw-rt5645",
-> @@ -43,9 +23,7 @@ static struct snd_soc_acpi_mach *cht_quirk(void *arg)
->   {
->   	struct snd_soc_acpi_mach *mach = arg;
->   
-> -	dmi_check_system(cht_table);
-> -
-> -	if (cht_machine_id == CHT_SURFACE_MACH)
-> +	if (x86_microsoft_surface_3_machine)
->   		return &cht_surface_mach;
->   	else
->   		return mach;
-> 
+thanks
+-john
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

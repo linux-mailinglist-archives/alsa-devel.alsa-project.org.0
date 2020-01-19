@@ -2,57 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F4142145A6E
-	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jan 2020 17:59:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 728C6145A91
+	for <lists+alsa-devel@lfdr.de>; Wed, 22 Jan 2020 18:06:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96A071698;
-	Wed, 22 Jan 2020 17:58:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96A071698
+	by alsa0.perex.cz (Postfix) with ESMTPS id C43BA16B4;
+	Wed, 22 Jan 2020 18:05:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C43BA16B4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579712346;
-	bh=1AsIlw/u82BQScSSwz0m6qQ2Kbi7KGRCy6+DiFvoFjU=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=PqilCYr+DWQXlvSg79RQEtGzx8Ojm1EsWV5hCZhutHA+pqBwhtqul1EFnsI1Ilmzl
-	 bAmw4UtMjBLjKf27Pg0q79ZQDdgWbhq/z4IAsciWIa277jVGQTVfdhfwiMFu5KBFy1
-	 UzcA+Fkhq4gDNk0Xf8jT4Kg7NniveZycFMQuzALQ=
+	s=default; t=1579712782;
+	bh=zrjuE50YEL9juF9kzH+fMWq04a35H8w21cwE9M1icY4=;
+	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Ai45oFrds9O22kiHiIoxInEPyo7yE/NzZhQclotPPvBVrEI4SpDFQfTlk3xTv9Qk9
+	 UMkUf4CvUBCG5M8V1k4ZZAcD1xVsPWy7P+3yWpbJK5EifUF1IyjAOZl/NsUtJEqf5k
+	 cXBY9Y5y9C6r2ohCo4tNpqhlG4xDOV1KenupB9Vo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44097F80229;
-	Wed, 22 Jan 2020 17:57:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C2A4F801D8;
+	Wed, 22 Jan 2020 18:04:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BDFB7F8020C; Wed, 22 Jan 2020 17:57:21 +0100 (CET)
+ id 0D7D4F8013E; Sun, 19 Jan 2020 21:43:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 346D7F800E7
- for <alsa-devel@alsa-project.org>; Wed, 22 Jan 2020 17:57:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 346D7F800E7
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F32E91FB;
- Wed, 22 Jan 2020 08:57:16 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7408B3F6C4;
- Wed, 22 Jan 2020 08:57:16 -0800 (PST)
-Date: Wed, 22 Jan 2020 16:57:14 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Message-ID: <20200122165714.GF3833@sirena.org.uk>
-References: <20200120132928.25257-1-yung-chuan.liao@linux.intel.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail-vs1-xe31.google.com (mail-vs1-xe31.google.com
+ [IPv6:2607:f8b0:4864:20::e31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3000CF8013E
+ for <alsa-devel@alsa-project.org>; Sun, 19 Jan 2020 21:43:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3000CF8013E
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="K6AewoE1"
+Received: by mail-vs1-xe31.google.com with SMTP id s16so17799756vsc.10
+ for <alsa-devel@alsa-project.org>; Sun, 19 Jan 2020 12:43:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=Ej6WEfoQ8weohvh3/wvbxn5dRqm9HKYPMOcapUGtArc=;
+ b=K6AewoE1DTG68Pnravc01UMS/U+BV7T96o/Ypkbxb2N93KyopYucX8LkNLmBiuHezX
+ EvI7u0oAeWvqX48lRG0xmBEKuTgsA4WwvrFxAuRIUMJStHD3wU2VbkTnjb+TUURom8Re
+ MbrFUIMXy3L9BQjJrwwaid+Wo3qIlLTjOGGz5cefpYAqyGgigtVoBSCOZD2ekAi9M5az
+ oBLYlF2x+Mgznck0aEk5iyGFtlU6mnxyBY9QZFPc7+f4KnSsuGrpRLKl6+a1lxFd390f
+ 1s8/+HtQ2xe+ycRrLkbIRoro2dRRWCH8m3K3WAAlLAMMQm7JUxjTXMvKpNVVYWt6a0zt
+ +AFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=Ej6WEfoQ8weohvh3/wvbxn5dRqm9HKYPMOcapUGtArc=;
+ b=Z4lWrw+sSpIA+3AxFJIYnVaM2IighfFhGALkYeO4amYcCxGmaFcpBgxS+b3DpFQ4Ml
+ InBR2XIPf1HJVxPK9zYrXwxb2/W7tWmJllkwg0TjrkR/KJskprDo0c7BJks2c86aXtZZ
+ RJGv5Fpvix+eZYREM78595MuFWzXYRRSJDWAOrrEOgJ53/Ai114WCMJcCIzzvTHB8MTw
+ 5WEggBMqMmrYpT6DlgZRsyd5GOJHA/HYzXO/Gwo3NdS7ksEEVD19KAan5MpNx9qyK1K8
+ 3CF411AxQ1WVpkijbK3LveJDjjp/8VpDIHUqM5bhWE60bEJBWLeaHE6sHOjfc5wogesl
+ CtSA==
+X-Gm-Message-State: APjAAAXA0DVc2PDTLJoF1uV9W1OYsX5CjaVMk00lbHQfk7UHMensGYei
+ SJFPobrb/9pTCloebcwkry63mJwS1qSns3u32fE=
+X-Google-Smtp-Source: APXvYqxziGUoZ3w2YRWZBDaOct4c8uEnKRTRRb7Z+Vo82M5nFtv6BE4vMh7g1sG99BrmGq8D9KAZUSO4fPoTsmQ4wjI=
+X-Received: by 2002:a67:89c4:: with SMTP id l187mr7809982vsd.31.1579466581216; 
+ Sun, 19 Jan 2020 12:43:01 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200120132928.25257-1-yung-chuan.liao@linux.intel.com>
-X-Cookie: Sorry.  Nice try.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
- tiwai@suse.de, pierre-louis.bossart@linux.intel.com,
- liam.r.girdwood@linux.intel.com, bard.liao@intel.com
-Subject: Re: [alsa-devel] [PATCH RFC v4 0/6] ASoC: Add Multi CPU DAI support
+From: Mihai Luizescu <m.luizescu@gmail.com>
+Date: Sun, 19 Jan 2020 21:42:50 +0100
+Message-ID: <CAKRdUfMby42E=5K94E8+m74iBv5UJEZ6JGWUz2NYGPTYYvuVCQ@mail.gmail.com>
+To: emilio.moretti@gmail.com
+X-Mailman-Approved-At: Wed, 22 Jan 2020 18:04:36 +0100
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: alsa-devel@alsa-project.org, tiwai@suse.com, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH 01/01] Add VID to support native DSD
+	reproduction on FiiO devices.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,58 +88,26 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4478691339690007055=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Tested-by: Mihai Luizescu <m.luizescu@gmail.com>
+---
 
---===============4478691339690007055==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eNMatiwYGLtwo1cJ"
-Content-Disposition: inline
+I tested the patch today on Archlinux and I can confirm that it is working.
 
+I am able to play DSD files up to DSD256, the maximum supported by the
+sound card.
 
---eNMatiwYGLtwo1cJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I only compiled the snd_usb_audio module with the patch and replaced
+the stock one.
 
-On Mon, Jan 20, 2020 at 09:29:22PM +0800, Bard Liao wrote:
-> As discussed in [1], ASoC core supports multi codec DAIs
-> on a DAI link. However it does not do so for CPU DAIs.
+DSD playback was confirmed by the green LED on the soundcard and by
 
-On a first, very high level, read through this makes sense to me (as did
-the earlier version I looked at) but it's quite late in the release
-cycle so I'll hold off actually doing anything until after the merge
-window, I'll try to look through it properly before then so it gets
-applied at -rc1 - hopefully other people will get a chance to too.
-Thanks for picking this work up!
-
---eNMatiwYGLtwo1cJ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4ofuoACgkQJNaLcl1U
-h9DAbQf/VYeZJLhXThX5ktenDql2hXsxXCaYMm14oAqHyqXgjeHhSfyUiFnh3QPj
-/P0JzVc5h9gGPu1u8nOSrrlE/oq6S+a4fjfvFv7q4fJFRciXjX2rGYVhpUVXJiGu
-VexzUq3UWJuV17xNzRqWMjAi0FHVESF4WP4P/tjdiJQVY+QPOYJ6jrLBQ1g9L3+R
-ptjj2KycKZPzAU9DNofplryceaTGpaVMnjCRm3szIH3ZHfLc/ocIPmwQxMXzwQPi
-dFF/eEdktquRGBwK9PhBROxljeOkpgZP8nIaJNkAYaI/zt1UEWZGu8aDhUYVEN+w
-fdmp3QaDKAFfevnoL6kdj64SS8hC/Q==
-=mH13
------END PGP SIGNATURE-----
-
---eNMatiwYGLtwo1cJ--
-
---===============4478691339690007055==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+checking /proc/asound (altset 3 is used during DSD playback).
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============4478691339690007055==--

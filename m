@@ -2,57 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6A40141CD6
-	for <lists+alsa-devel@lfdr.de>; Sun, 19 Jan 2020 08:21:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9869A141CB5
+	for <lists+alsa-devel@lfdr.de>; Sun, 19 Jan 2020 08:11:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4AB5916CD;
-	Sun, 19 Jan 2020 08:20:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4AB5916CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 624CB168C;
+	Sun, 19 Jan 2020 08:10:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 624CB168C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579418450;
-	bh=OIn7w66u2TeEoHy64YiN6hZTZHAw6Vp4ugqAm7/SyJg=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Qvxad1lw5fJZP+BgiZDkgk0cQg9t+SbXF2iNEXEnycpFi2D/y/siXMjaWrFcZBSn7
-	 EnMjdyTdTkl3mOHmwn5tpP+iPCL8Q21mfq73IUrDmCYcr5Sf/M/Yol6ygtmlNenmZQ
-	 /xLVaC6tRjSxDuym6D7FiSIcFSPU4092UVcF9G7Q=
+	s=default; t=1579417870;
+	bh=UChYZMkINO/v59AaJ/5F4RpOUNSJlAVaa6TccEDKX0w=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=LoB02K+jCLsSnw+C6EUDFx86a2TMa3kEGdQqRAtjmf9qPPW+KUdvd3CR/M2oRYLwL
+	 zMvd/pIuWxWPdphDwT6JI2rjeHJ/VUZobCD69fK6KwVTeX7N9hmPRBYxtssZzo7AWK
+	 wfWwlS0cMZsFQDJiknjWX0ZZcOVrdBcs64TY47yE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE038F802BC;
-	Sun, 19 Jan 2020 08:14:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 94CE7F801D9;
+	Sun, 19 Jan 2020 08:09:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BA62F80126; Sun, 19 Jan 2020 03:05:00 +0100 (CET)
+ id CCF26F801D9; Sun, 19 Jan 2020 08:09:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga04-in.huawei.com [45.249.212.190])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0A68DF80126
- for <alsa-devel@alsa-project.org>; Sun, 19 Jan 2020 03:04:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A68DF80126
-Received: from DGGEMS413-HUB.china.huawei.com (unknown [172.30.72.58])
- by Forcepoint Email with ESMTP id 5000E5E974F6F5BF8FB1;
- Sun, 19 Jan 2020 10:04:45 +0800 (CST)
-Received: from huawei.com (10.175.124.28) by DGGEMS413-HUB.china.huawei.com
- (10.3.19.213) with Microsoft SMTP Server id 14.3.439.0; Sun, 19 Jan 2020
- 10:04:38 +0800
-From: y00444492 <yebin10@huawei.com>
-To: <broonie@opensource.wolfsonmicro.com>, <codrin.ciubotariu@microchip.com>
-Date: Sun, 19 Jan 2020 10:03:20 +0800
-Message-ID: <20200119020320.27075-1-yebin10@huawei.com>
-X-Mailer: git-send-email 2.17.2
-MIME-Version: 1.0
-X-Originating-IP: [10.175.124.28]
-X-CFilter-Loop: Reflected
-X-Mailman-Approved-At: Sun, 19 Jan 2020 08:13:53 +0100
-Cc: alsa-devel@alsa-project.org, Ye Bin <yebin10@huawei.com>,
- linux-sound@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: atmel-pcm: Fix build error
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6D16F8013E
+ for <alsa-devel@alsa-project.org>; Sun, 19 Jan 2020 08:09:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6D16F8013E
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id E215AADE2;
+ Sun, 19 Jan 2020 07:09:15 +0000 (UTC)
+Date: Sun, 19 Jan 2020 08:09:15 +0100
+Message-ID: <s5himl7orc4.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Keyon Jie <yang.jie@linux.intel.com>
+In-Reply-To: <7c6bb315-1ffc-665d-ff5e-e5e440f3e609@linux.intel.com>
+References: <20200116045318.5498-1-yang.jie@linux.intel.com>
+ <s5hd0bjq3cu.wl-tiwai@suse.de>
+ <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
+ <s5hsgkf7l2e.wl-tiwai@suse.de>
+ <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
+ <s5hh80v7h82.wl-tiwai@suse.de>
+ <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
+ <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
+ <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
+ <93ac843a-bad5-550e-f427-e2a94bd3e8ef@linux.intel.com>
+ <b6b55180-b846-96e7-4521-7d3b03881d06@linux.intel.com>
+ <3374dc7d-e969-5380-581a-f6801a2fe50f@linux.intel.com>
+ <s5hzhemo6ku.wl-tiwai@suse.de>
+ <68e008e2-6796-f893-35ed-d76a2bf92587@linux.intel.com>
+ <s5ho8v249rk.wl-tiwai@suse.de>
+ <7c6bb315-1ffc-665d-ff5e-e5e440f3e609@linux.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "Rajwa,
+ Marcin" <marcin.rajwa@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
+	constrained by preallocated bytes issue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,47 +82,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ye Bin <yebin10@huawei.com>
-
-If SND_ATMEL_SOC_SSC is y and SND_ATMEL_SOC_PDC is m, building fails:
-sound/soc/atmel/atmel_ssc_dai.o: In function `atmel_ssc_set_audio':
-(.text+0x6f6): undefined reference to `atmel_pcm_pdc_platform_register'
-
-Select SND_ATMEL_SOC_PDC to fix this.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Fixes: 92dfa6198623 ("ASoC: atmel-pcm: split into two file")
-Signed-off-by: Ye Bin <yebin10@huawei.com>
----
- sound/soc/atmel/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
-index f118c229ed82..78e7d40c3c24 100644
---- a/sound/soc/atmel/Kconfig
-+++ b/sound/soc/atmel/Kconfig
-@@ -19,11 +19,11 @@ config SND_ATMEL_SOC_DMA
- 
- config SND_ATMEL_SOC_SSC
- 	tristate
-+	select SND_ATMEL_SOC_PDC
- 
- config SND_ATMEL_SOC_SSC_PDC
- 	tristate "SoC PCM DAI support for AT91 SSC controller using PDC"
- 	depends on ATMEL_SSC
--	select SND_ATMEL_SOC_PDC
- 	select SND_ATMEL_SOC_SSC
- 	help
- 	  Say Y or M if you want to add support for Atmel SSC interface
--- 
-2.17.2
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gU3VuLCAxOSBKYW4gMjAyMCAwNDo1Mjo1NSArMDEwMCwKS2V5b24gSmllIHdyb3RlOgo+IAo+
+IAo+IE9uIDIwMjAvMS8xNyDkuIvljYg3OjEyLCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4gPiBPbiBG
+cmksIDE3IEphbiAyMDIwIDExOjQzOjI0ICswMTAwLAo+ID4gS2V5b24gSmllIHdyb3RlOgo+ID4+
+Cj4gPj4gSW4gU09GIGRyaXZlciwgd2UgZG9uJ3QgdXNlIGtlcm5lbCBjb25maWcgaXRlbSBsaWtl
+Cj4gPj4gQ09ORklHX1NORF9IREFfUFJFQUxMT0NfU0laRSBmb3IgSERBLCB0aGUgY29kZSBmb3Ig
+aXQgaXM6Cj4gPj4KPiA+PiAJc25kX3BjbV9saWJfcHJlYWxsb2NhdGVfcGFnZXMocGNtLT5zdHJl
+YW1zW3N0cmVhbV0uc3Vic3RyZWFtLAo+ID4+IAkJCQkgICAgICBTTkRSVl9ETUFfVFlQRV9ERVZf
+U0csIHNkZXYtPmRldiwKPiA+PiAJCQkJbGUzMl90b19jcHUoY2Fwcy0+YnVmZmVyX3NpemVfbWlu
+KSwKPiA+PiAJCQkJbGUzMl90b19jcHUoY2Fwcy0+YnVmZmVyX3NpemVfbWF4KSk7Cj4gPj4KPiA+
+PiBTbyB0aGUgcHJlYWxsb2NhdGVkIHNpemUgaXMgY29uZmlndXJlZCB2aWEgdG9wb2xvZ3kgZmls
+ZSwgdGhhdCBpcwo+ID4+IGNhcHMtPmJ1ZmZlcl9zaXplX21pbiwgbm8gY2hhbmNlIGZvciBQdWxz
+ZUF1ZGlvIHRvIHJlY29uZmlndXJlIGl0Lgo+ID4+Cj4gPj4gU28sIGl0IGxvb2tzIGxpa2Ugd2Ug
+aGF2ZSB0byBjaGFuZ2UgaXQgdG8gdGhpcyBpZiB3ZSBkb24ndCBjaGFuZ2UgdGhlCj4gPj4gQUxT
+QSBjb3JlOgo+ID4+Cj4gPj4gCXNuZF9wY21fbGliX3ByZWFsbG9jYXRlX3BhZ2VzKHBjbS0+c3Ry
+ZWFtc1tzdHJlYW1dLnN1YnN0cmVhbSwKPiA+PiAJCQkJICAgICAgU05EUlZfRE1BX1RZUEVfREVW
+X1NHLCBzZGV2LT5kZXYsCj4gPj4gLQkJCQlsZTMyX3RvX2NwdShjYXBzLT5idWZmZXJfc2l6ZV9t
+aW4pLAo+ID4+ICsJCQkJbGUzMl90b19jcHUoY2Fwcy0+YnVmZmVyX3NpemVfbWF4KSwKPiA+PiAJ
+CQkJbGUzMl90b19jcHUoY2Fwcy0+YnVmZmVyX3NpemVfbWF4KSk7Cj4gPgo+ID4gWWVzLCBwYXNz
+aW5nIGJ1ZmZlcl9zaXplX21pbiBmb3IgdGhlIHByZWFsbG9jYXRpb24gc291bmRzIGFscmVhZHkK
+PiA+IGJhZC4gIFRoZSBkZWZhdWx0IHZhbHVlIHNob3VsZCBiZSBzdWZmaWNpZW50IGZvciB1c3Vh
+bCBvcGVyYXRpb25zLCBub3QKPiA+IHRoZSBjb3N0LWN1dHRpbmcgbWluaW11bS4gIE90aGVyd2lz
+ZSB0aGVyZSBpcyBubyBtZXJpdCBvZgo+ID4gcHJlYWxsb2NhdGlvbi4KPiA+Cj4gPiBBbHRlcm5h
+dGl2ZWx5LCB3ZSBtYXkgcGFzcyAwIHRoZXJlLCBpbmRpY2F0aW5nIG5vIGxpbWl0YXRpb24sIHRv
+by4KPiA+IEJ1dCwgdGhpcyB3b3VsZCBuZWVkIGEgYml0IG90aGVyIGFkanVzdG1lbnQsIGUuZy4g
+c25kX3BjbV9oYXJkd2FyZQo+ID4gc2hvdWxkIGhhdmUgbG93ZXIgYnVmZmVyX2J5dGVzX21heC4K
+PiAKPiBUaGFuayB5b3UgVGFrYXNoaSwgdGhlbiBsZXQncyBmb2xsb3cgaXQgdG8gcHJlLWFsbG9j
+YXRlIHdpdGgKPiBjYXBzLT5idWZmZXJfc2l6ZV9tYXgsIGFzIHdlIGRvbid0IHNwZWNpZnkgYW55
+IGxpbWl0YXRpb25zIGluCj4gc25kX3BjbV9oYXJkd2FyZSB0b2RheSwgd2Ugd2FudCB0byBsZWF2
+ZSBpdCBjb25maWd1cmFibGUgdG8gZWFjaAo+IHNwZWNpZmljIHRvcG9sb2d5IGZpbGUgZm9yIGRp
+ZmZlcmVudCBtYWNoaW5lcy4KCkhvdyBiaWcgaXMgY2Fwcy0+YnVmZmVyX3NpemVfbWF4PyAgUGFz
+c2luZyB0aGUgdmFsdWUgdGhlcmUgbWVhbnMKYWN0dWFsbHkgdHJ5aW5nIHRvIGFsbG9jYXRlIHRo
+ZSBnaXZlbiBzaXplIGFzIGRlZmF1bHQsIGFuZCBpdCdkIGJlIGEKbG90IG9mIHdhc3RlIGlmIGEg
+dG9vIGxhcmdlIHZhbHVlIChlLmcuIDMyTUIpIGlzIHBhc3NlZCB0aGVyZS4KCkkgdGhpbmsgd2Ug
+Y2FuIGdvIGZvciBwYXNzaW5nIHplcm8gYXMgZGVmYXVsdCwgd2hpY2ggbWVhbnMgc2tpcHBpbmcK
+cHJlYWxsb2NhdGlvbi4gIEluIGFkZGl0aW9uLCB3ZSBtYXkgYWRkIGFuIHVwcGVyIGxpbWl0IG9m
+IHRoZSB0b3RhbAphbW91bnQgb2YgYWxsb2NhdGlvbiBwZXIgY2FyZCwgY29udHJvbGxlZCBpbiBw
+Y21fbWVtb3J5LmMsIGZvcgpleGFtcGxlLiAgVGhpcyBsb2dpYyBjYW4gYmUgYXBwbGllZCB0byB0
+aGUgbGVnYWN5IEhEQSwgdG9vLgoKVGhpcyBzaG91bGQgYmUgcmVsYXRpdmVseSBlYXN5LCBhbmQg
+SSdsbCBwcm92aWRlIHRoZSBwYXRjaCBpbiB0aGUgbmV4dAp3ZWVrLgoKClRha2FzaGkKX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWls
+aW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNh
+LXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

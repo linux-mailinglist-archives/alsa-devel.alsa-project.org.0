@@ -2,84 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AE7514218F
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jan 2020 03:16:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B5A1142328
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jan 2020 07:19:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AADF11677;
-	Mon, 20 Jan 2020 03:15:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AADF11677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8B9111670;
+	Mon, 20 Jan 2020 07:19:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8B9111670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579486594;
-	bh=Fk6Qf7FwCfFBaioet1gt1U4eKxgM7SC6lBUTIv6xsMg=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=AQDSiro9SPajuARhLijsaJ6RKhQQ+/X0FAX8KyCn+iOlSxixgpAWOrJv9VI1xJKFr
-	 oFtOjpbGkI7pfbk35xtxyQSmyHOIzLhN0oFGkLuqk3x5145LYBi7EClzRMgxOKsbG4
-	 PgkeKHZBWfZZydKOh/xDNvxqYmucasRz3IMGuFV0=
+	s=default; t=1579501194;
+	bh=YAvOEiydysJbhkNPe5zkJ/pqFg8Y66TlldzFJGZj5JM=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=WnWYng6zB3LLBt2cg0aSW4z/EMLP4Ky9etg+M+zyZj8GuLzvJtnW+9iSRuO9F0ZU6
+	 JNHCqSeqHch1wQJ5lXLvTzh3AhnkJioxko+45GSKL7g3MTKPyWATaQ9L7oDDUnd84z
+	 Y+KOFbAp8NkTua+QTjEM1eADUP+CLaXtgXdxv73Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F17F8F8022D;
-	Mon, 20 Jan 2020 03:14:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BAFF9F800C6;
+	Mon, 20 Jan 2020 07:18:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 016CEF8020C; Mon, 20 Jan 2020 03:14:44 +0100 (CET)
+ id D2788F8020C; Mon, 20 Jan 2020 07:18:02 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6B22BF800C6
- for <alsa-devel@alsa-project.org>; Mon, 20 Jan 2020 03:14:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B22BF800C6
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Jan 2020 18:14:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,340,1574150400"; d="scan'208";a="215103580"
-Received: from keyon-x299.sh.intel.com (HELO [10.239.159.75]) ([10.239.159.75])
- by orsmga007.jf.intel.com with ESMTP; 19 Jan 2020 18:14:33 -0800
-To: Takashi Iwai <tiwai@suse.de>
-References: <20200116045318.5498-1-yang.jie@linux.intel.com>
- <97bbe88d1a6b63fe8e9b02bf0c5ce4a80553c48d.camel@linux.intel.com>
- <s5hsgkf7l2e.wl-tiwai@suse.de>
- <3c0a0067043d614cd4491b28acf6d49640746b15.camel@linux.intel.com>
- <s5hh80v7h82.wl-tiwai@suse.de>
- <E7B1D079BA13FB44A978CC8F69C7D6A96F98EDB4@SHSMSX105.ccr.corp.intel.com>
- <E7B1D079BA13FB44A978CC8F69C7D6A96F98EE27@SHSMSX105.ccr.corp.intel.com>
- <c70934a1-b838-5029-6573-bf76a34c4cb9@linux.intel.com>
- <93ac843a-bad5-550e-f427-e2a94bd3e8ef@linux.intel.com>
- <b6b55180-b846-96e7-4521-7d3b03881d06@linux.intel.com>
- <3374dc7d-e969-5380-581a-f6801a2fe50f@linux.intel.com>
- <s5hzhemo6ku.wl-tiwai@suse.de>
- <68e008e2-6796-f893-35ed-d76a2bf92587@linux.intel.com>
- <s5ho8v249rk.wl-tiwai@suse.de>
- <7c6bb315-1ffc-665d-ff5e-e5e440f3e609@linux.intel.com>
- <s5himl7orc4.wl-tiwai@suse.de>
- <c7a64462-1cc1-234b-ac96-7774e6116118@linux.intel.com>
- <s5hftgbom0p.wl-tiwai@suse.de>
- <ab37a499-305f-2ce8-9b29-1483ea473a57@linux.intel.com>
- <s5h7e1nohfl.wl-tiwai@suse.de>
-From: Keyon Jie <yang.jie@linux.intel.com>
-Message-ID: <ed005c51-ba2c-2162-c293-c1badf1d6b2b@linux.intel.com>
-Date: Mon, 20 Jan 2020 10:23:45 +0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id D6235F8012F
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jan 2020 07:17:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D6235F8012F
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="DPEN5idy"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e2545e80000>; Sun, 19 Jan 2020 22:17:12 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Sun, 19 Jan 2020 22:17:54 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Sun, 19 Jan 2020 22:17:54 -0800
+Received: from HQMAIL107.nvidia.com (172.20.187.13) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 20 Jan
+ 2020 06:17:53 +0000
+Received: from rnnvemgw01.nvidia.com (10.128.109.123) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3 via
+ Frontend Transport; Mon, 20 Jan 2020 06:17:53 +0000
+Received: from audio.nvidia.com (Not Verified[10.24.34.185]) by
+ rnnvemgw01.nvidia.com with Trustwave SEG (v7, 5, 8, 10121)
+ id <B5e25460f0000>; Sun, 19 Jan 2020 22:17:52 -0800
+From: Sameer Pujar <spujar@nvidia.com>
+To: <oder_chiou@realtek.com>, <bardliao@realtek.com>, <tiwai@suse.com>,
+ <perex@perex.cz>
+Date: Mon, 20 Jan 2020 11:47:39 +0530
+Message-ID: <1579501059-27936-1-git-send-email-spujar@nvidia.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-In-Reply-To: <s5h7e1nohfl.wl-tiwai@suse.de>
-Content-Language: en-US
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, "Rajwa,
- Marcin" <marcin.rajwa@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ALSA: pcm: fix buffer_bytes max
- constrained by preallocated bytes issue
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1579501032; bh=y0KuUHnikrqaYl+AkuZgAWArMBLX50J5YFwz5WfJk08=;
+ h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+ MIME-Version:Content-Type;
+ b=DPEN5idyJgzm2UDuPOm/OFoQREwFgQerUJtKuDcWM5En/svuJEE3lPbniYiVh6lTU
+ zOIPi3LEjcDeT42jhY+iQ724jJX/K24V2wezlqrSlN0tknEyYvoF27jOfiEgLNsuM+
+ xeRQBem8lqAp+SdfJCwBRGYomAwl1M1BlQ2CB4hLgmb76UF+1kFHepZcqYESjywQhB
+ eptOA3axpayafuiDhb+G4gORb+qWi73maMWfP93qjEc1NlARp7isRsf0RdEE6YLyw7
+ qbu/z8z0f0SLibcBZVFJ08KHzDaRI7derNbbVkUN7gm/QBsxxf2KlwqzoOw44r/Etd
+ gd1d5iAnsJoog==
+Cc: Sameer Pujar <spujar@nvidia.com>, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org
+Subject: [alsa-devel] [PATCH] ASoC: rt5659: add S32_LE format
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,67 +89,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMjAyMC8xLzE5IOS4i+WNiDY6NDMsIFRha2FzaGkgSXdhaSB3cm90ZToKPiBPbiBTdW4sIDE5
-IEphbiAyMDIwIDExOjE0OjU2ICswMTAwLAo+IEtleW9uIEppZSB3cm90ZToKPj4KPj4gT24gMjAy
-MC8xLzE5IOS4i+WNiDU6MDQsIFRha2FzaGkgSXdhaSB3cm90ZToKPj4+IE9uIFN1biwgMTkgSmFu
-IDIwMjAgMDk6MTE6MTcgKzAxMDAsCj4+PiBLZXlvbiBKaWUgd3JvdGU6Cj4+Pj4gT24gMjAyMC8x
-LzE5IOS4i+WNiDM6MDksIFRha2FzaGkgSXdhaSB3cm90ZToKPj4+PiBJdCB2YXJpZXMgZm9yIGVh
-Y2ggc3RyZWFtLCBtb3N0IG9mIHRoZW0gYXJlIDY1NTM2IEJ5dGVzIG9ubHksIHdoZXJlYXMKPj4+
-PiBvbmUgZm9yIFdha2UtT24tVm9pY2UgbWlnaHQgbmVlZCBhID4gNCBTZWNvbmRzIGJ1ZmZlciBj
-b3VsZCBiZSB1cCB0bwo+Pj4+IGFib3V0IDF+Mk1CeXRlcywgYW5kIGFub3RoZXIgb25lIGZvciBk
-ZWVwLWJ1ZmZlciBwbGF5YmFjayBjYW4gYmUgdXAgdG8KPj4+PiBhYm91dCA4TUJ5dGVzLgo+Pj4g
-SG0sIHNvIHRoaXMgdmFyaWVzIHNvIG11Y2ggZGVwZW5kaW5nIG9uIHRoZSB1c2UgY2FzZT8KPj4+
-IEkgdGhvdWdodCBpdCBjb21lcyBmcm9tIHRoZSB0b3BvbG9neSBmaWxlIGFuZCBpdCdzIGVzc2Vu
-dGlhbGx5Cj4+PiBjb25zaXN0ZW50IG92ZXIgdmFyaW91cyBwdXJwb3Nlcy4KPj4KPj4gWWVzLCB3
-ZSBhZGQgZGlmZmVyZW50IGJ1ZmZlcl9ieXRlc19tYXggbGltaXRhdGlvbiB0byBlYWNoIHN0cmVh
-bQo+PiBkZXBlbmRpbmcgb24gaXRzIHVzZSBjYXNlLCBiYXNpY2FsbHkgd2Ugc2V0IGl0IHRvIHRo
-ZSBtYXhpbXVtIHZhbHVlIHdlCj4+IGNsYWltIHRvIHN1cHBvcnQgb25seSwgd2UgZG9uJ3Qgd2Fu
-dCB0byB3YXN0ZSBhbnkgb2YgdGhlIHN5c3RlbQo+PiBtZW1vcnkuCj4+Cj4+Pgo+Pj4+PiBJIHRo
-aW5rIHdlIGNhbiBnbyBmb3IgcGFzc2luZyB6ZXJvIGFzIGRlZmF1bHQsIHdoaWNoIG1lYW5zIHNr
-aXBwaW5nCj4+Pj4+IHByZWFsbG9jYXRpb24uICBJbiBhZGRpdGlvbiwgd2UgbWF5IGFkZCBhbiB1
-cHBlciBsaW1pdCBvZiB0aGUgdG90YWwKPj4+PiBKdXN0IGRpZCBhbiBleHBlcmltZW50IGFuZCB0
-aGlzIHdvcmtzIGZvciBtZSwgSSBiZWxpZXZlIHdlIHN0aWxsIG5lZWQKPj4+PiB0byBjYWxsIHNu
-ZF9wY21fc2V0X21hbmFnZWRfYnVmZmVyKCkgdGhvdWdoIHRoZSBwcmVhbGxvY2F0aW9uIGlzCj4+
-Pj4gc2tpcHBlZCBpbiB0aGlzLCByaWdodD8KPj4+IE5vLCBzbmRfcGNtX3NldF9tYW5hZ2VkX2J1
-ZmZlcigpIGlzIHRoZSBuZXcgUENNIHByZWFsbG9jYXRpb24gQVBJLgo+Pj4gVGhlIG9sZCBzbmRf
-cGNtX2xpYl9wcmVhbGxvY2F0ZSooKSBpcyBhbG1vc3QgZ29uZS4KPj4KPj4gV2hhdCBJIGFza2Vk
-IGlzIGFjdHVhbGx5IHRoYXQgc2luY2UgdGhlIHByZWFsbG9jYXRpb24gd2lsbCBiZQo+PiBza2lw
-cGVkKHdpdGggcGFzc2luZyBzaXplPTApLCBjYW4gd2UganVzdCBub3QgY2FsbGluZwo+PiBzbmRf
-cGNtX3NldF9tYW5hZ2VkX2J1ZmZlcigpIG9yIHNuZF9wY21fbGliX3ByZWFsbG9jYXRlKigpIGlu
-IG91ciBTT0YKPj4gUENNIGRyaXZlcj8gSSBiZWxpZXZlIG5vKHdlIHN0aWxsIG5lZWQgdGhlIGlu
-dm9raW5nIHRvIGRvCj4+IGluaXRpYWxpemF0aW9uIGV4Y2VwdCBidWZmZXIgYWxsb2NhdGluZyk/
-Cj4gCj4gWW91IHN0aWxsIG5lZWQgdG8gY2FsbCBpdC4gIE90aGVyd2lzZSB0aGUgUENNIGNvcmUg
-ZG9lc24ndCBrbm93IHdoYXQKPiBraW5kIG9mIGJ1ZmZlciB0eXBlIGhhcyB0byBiZSBhbGxvY2F0
-ZWQuCj4gCj4gQmFzaWNhbGx5IHNuZF9wY21fc2V0X21hbmFnZWRfYnVmZmVyKCkgb3Igc25kX3Bj
-bV9saWJfcHJlYWxsb2NhdGUqKCkKPiBkb2VzIHR3byB0aGluZ3M6IHNldCB0aGUgYnVmZmVyIHR5
-cGUgYW5kIGl0cyBwcmVhbGxvY2F0aW9uIChkZWZhdWx0Cj4gYW5kIG1heCBzaXplKS4gIFRoZSBs
-YXR0ZXIgZGVmYXVsdCBzaXplIGNhbiBiZSAwLCBtZWFuaW5nIHRoYXQgbm8KPiBkZWZhdWx0IHBy
-ZWFsbG9jYXRpb24gaXMgcGVyZm9ybWVkLiAgQWxzbyB0aGUgbWF4IGNhbiBiZSAwLCBpLmUuIG5v
-Cj4gcHJlYWxsb2NhdGlvbiBpcyBuZWVkZWQgYXQgYWxsIGZvciB0aGUgYnVmZmVycyAoZS5nLiB2
-bWFsbG9jCj4gYnVmZmVycykuICBNZWFud2hpbGUgdGhlIGJ1ZmZlciB0eXBlIGFuZCBpdHMgZGV2
-aWNlIHBvaW50ZXIgYXJlCj4gbWFuZGF0b3J5IGFuZCBjYW4ndCBiZSBza2lwcGVkLgoKR290IGl0
-LCB0aGFua3MgZm9yIGd1aWRpbmcgb24gaXQgVGFrYXNoaS4KClRoYW5rcywKfktleW9uCgo+IAo+
-Pj4KPj4+Pj4gYW1vdW50IG9mIGFsbG9jYXRpb24gcGVyIGNhcmQsIGNvbnRyb2xsZWQgaW4gcGNt
-X21lbW9yeS5jLCBmb3IKPj4+Pj4gZXhhbXBsZS4gIFRoaXMgbG9naWMgY2FuIGJlIGFwcGxpZWQg
-dG8gdGhlIGxlZ2FjeSBIREEsIHRvby4KPj4+Pj4KPj4+Pj4gVGhpcyBzaG91bGQgYmUgcmVsYXRp
-dmVseSBlYXN5LCBhbmQgSSdsbCBwcm92aWRlIHRoZSBwYXRjaCBpbiB0aGUgbmV4dAo+Pj4+PiB3
-ZWVrLgo+Pj4+IE9LLCB0aGF0J3MgZmluZSBmb3IgbWUgYWxzbywgdGhhbmsgeW91Lgo+Pj4gQmVs
-b3cgaXMgYSBxdWljayBoYWNrIGZvciBIREEuICBXZSBzdGlsbCBuZWVkIHRoZSBjZXJ0YWluIGFt
-b3VudCBvZgo+Pj4gcHJlYWxsb2NhdGlvbiBmb3Igbm9uLXg4NiBzeXN0ZW1zIHRoYXQgZG9uJ3Qg
-c3VwcG9ydCBTRy1idWZmZXJzLCBzbwo+Pj4gYSBiaXQgb2YgdHJpY2sgaXMgYXBwbGllZCB0byBL
-Y29uZmlnLgo+Pj4KPj4+IFRvdGFsbHkgdW50ZXN0ZWQsIGFzIHVzdWFsLgo+Pgo+PiBEaWQgYSBx
-dWljayB0ZXN0KHBsdXMgcGFzc2luZyAwIHNpemUgZm9yIHByZWFsbG9jYXRlIGluIFNPRiBQQ00K
-Pj4gZHJpdmVyKSBhbmQgaXQgd29ya3MgZm9yIG15IHVzZSBjYXNlKG5vIHJlZ3Jlc3Npb24gY29t
-cGFyaW5nIHRoYXQKPj4gd2l0aG91dCBhcHBseWluZyB0aGlzIHBhdGNoKSwgVGhhbmsgeW91Lgo+
-IAo+IE9LLCB3aWxsIHRpZHkgdXAgYW5kIHN1Ym1pdCBsYXRlci4KPiAKPiAKPiBUYWthc2hpCj4g
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KPiBBbHNhLWRl
-dmVsIG1haWxpbmcgbGlzdAo+IEFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwo+IGh0dHBzOi8v
-bWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo+IApf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVs
-IG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFu
-LmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+ALC5659 supports maximum data length of 24-bit. Currently driver supports
+S24_LE which is a 32-bit container with valid data in [23:0] and 0s in MSB.
+S24_3LE is not commonly used and is hard to find audio streams with this
+format. Also many SoC HW do not support S24_LE and S32_LE is used in
+general. The 24-bit data can be represented in S32_LE [31:8] and 0s are
+padded in LSB.
+
+This patch adds S32_LE to ALC5659 driver and data length for this is set
+to 24 as per codec's maximum data length support. This helps to play
+24-bit audio, packed in S32_LE, on HW which do not support S24_LE.
+
+Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+---
+ sound/soc/codecs/rt5659.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
+index fc74dd63..f910ddf 100644
+--- a/sound/soc/codecs/rt5659.c
++++ b/sound/soc/codecs/rt5659.c
+@@ -3339,6 +3339,7 @@ static int rt5659_hw_params(struct snd_pcm_substream *substream,
+ 		val_len |= RT5659_I2S_DL_20;
+ 		break;
+ 	case 24:
++	case 32:
+ 		val_len |= RT5659_I2S_DL_24;
+ 		break;
+ 	case 8:
+@@ -3733,7 +3734,8 @@ static int rt5659_resume(struct snd_soc_component *component)
+ 
+ #define RT5659_STEREO_RATES SNDRV_PCM_RATE_8000_192000
+ #define RT5659_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
+-		SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S8)
++		SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S32_LE | \
++		SNDRV_PCM_FMTBIT_S8)
+ 
+ static const struct snd_soc_dai_ops rt5659_aif_dai_ops = {
+ 	.hw_params = rt5659_hw_params,
+-- 
+2.7.4
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

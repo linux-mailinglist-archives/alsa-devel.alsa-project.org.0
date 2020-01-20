@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C73E142F29
-	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jan 2020 17:03:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24634142F32
+	for <lists+alsa-devel@lfdr.de>; Mon, 20 Jan 2020 17:04:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EF4A61679;
-	Mon, 20 Jan 2020 17:02:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EF4A61679
+	by alsa0.perex.cz (Postfix) with ESMTPS id E0036167C;
+	Mon, 20 Jan 2020 17:04:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E0036167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579536196;
-	bh=BV6039R9TfrbNALQOajqzxzfejsJLvWb93qffKG5VV8=;
+	s=default; t=1579536291;
+	bh=erV3KlGrfyx3fbtbdILFWmM4gOYP1T8Eo8mhssW4jBk=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MD+M5kUSbiZxrQ5H10d+7bQqgUGgCr+QrzLHcCU1IcuIwnBvIDEBmu8BoVG7NPhQM
-	 15/SDYKmvPTLPSE6EmRasfH1J+f9y/CCdRyhnATgXhwMKg/Y2vFC8riIC7j6Fgo3UD
-	 WgqGigFYOQ4CyOTt8abSl+a00OXYTqpPE8B5VbSI=
+	b=kCz3R9xigjykly0TcTzRZAoxjGMjyOA6nOn58FmKPsha/bC7GRbmstH8xyaljAinI
+	 epuV5GSCc0Xn7VwIhrkILDdWgBcgzfrMhLzHnJsJ/ngLP9mnQNRiONsvqPz6Y2mnjD
+	 jUUvR8z8nmrfjC/Xlb78mxcUGFS9uoKY6Qz234co=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BC86F801D8;
-	Mon, 20 Jan 2020 17:01:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 64046F80276;
+	Mon, 20 Jan 2020 17:01:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98749F8022D; Mon, 20 Jan 2020 17:01:29 +0100 (CET)
+ id 44889F80217; Mon, 20 Jan 2020 17:01:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EFD57F8012F
- for <alsa-devel@alsa-project.org>; Mon, 20 Jan 2020 17:01:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EFD57F8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 94ABEF801D8
+ for <alsa-devel@alsa-project.org>; Mon, 20 Jan 2020 17:01:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94ABEF801D8
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Jan 2020 08:01:24 -0800
+ 20 Jan 2020 08:01:26 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,342,1574150400"; d="scan'208";a="258751436"
+X-IronPort-AV: E=Sophos;i="5.70,342,1574150400"; d="scan'208";a="258751454"
 Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga002.fm.intel.com with ESMTP; 20 Jan 2020 08:01:22 -0800
+ by fmsmga002.fm.intel.com with ESMTP; 20 Jan 2020 08:01:25 -0800
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 To: alsa-devel@alsa-project.org, broonie@kernel.org,
  pierre-louis.bossart@linux.intel.com
-Date: Mon, 20 Jan 2020 18:01:15 +0200
-Message-Id: <20200120160117.29130-2-kai.vehmanen@linux.intel.com>
+Date: Mon, 20 Jan 2020 18:01:16 +0200
+Message-Id: <20200120160117.29130-3-kai.vehmanen@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200120160117.29130-1-kai.vehmanen@linux.intel.com>
 References: <20200120160117.29130-1-kai.vehmanen@linux.intel.com>
 Cc: tiwai@suse.de, cujomalainey@chromium.org, kai.vehmanen@linux.intel.com
-Subject: [alsa-devel] [PATCH v2 1/3] ASoC: SOF: Intel: refactor i915_get/put
-	functions
+Subject: [alsa-devel] [PATCH v2 2/3] ASoC: SOF: Intel: do not disable i915
+	power during probe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,109 +74,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The current interface to control i915 display power is misleading.
-The hda_codec_i915_get() and hda_codec_i915_put() names suggest
-a refcounting based interface. This is confusing as no refcounting
-is done and the underlying HDAC library interface does not support
-refcounts eithers.
+Change HDA probe behaviour slightly so that i915 power is not
+turned off if i915 audio codecs are found in the initial probe done
+by SOF Intel driver, and power is kept on until HDA codec driver
+probe runs.
 
-Clarify the code by replacing the functions with a single
-hda_codec_i915_display_power() that is aligned with
-snd_hdac_display_power().
+This will reduce number of mode sets on platforms with low
+minimum CDCLK (like GLK) and brings the SOF probe sequence closer
+to legacy HDA driver in terms of i915 audio codec power management.
 
+BugLink: https://github.com/thesofproject/linux/issues/1642
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 ---
- sound/soc/sof/intel/hda-codec.c | 21 ++++++---------------
- sound/soc/sof/intel/hda.c       |  2 +-
- sound/soc/sof/intel/hda.h       |  7 +++----
- 3 files changed, 10 insertions(+), 20 deletions(-)
+ sound/soc/sof/intel/hda.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index 78dfd5f5c034..9106ab8dac6f 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -170,23 +170,14 @@ EXPORT_SYMBOL_NS(hda_codec_probe_bus, SND_SOC_SOF_HDA_AUDIO_CODEC);
- #if IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI) || \
- 	IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI)
- 
--void hda_codec_i915_get(struct snd_sof_dev *sdev)
-+void hda_codec_i915_display_power(struct snd_sof_dev *sdev, bool enable)
- {
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 
--	dev_dbg(bus->dev, "Turning i915 HDAC power on\n");
--	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, true);
-+	dev_dbg(bus->dev, "Turning i915 HDAC power %d\n", enable);
-+	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, enable);
- }
--EXPORT_SYMBOL_NS(hda_codec_i915_get, SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
--
--void hda_codec_i915_put(struct snd_sof_dev *sdev)
--{
--	struct hdac_bus *bus = sof_to_bus(sdev);
--
--	dev_dbg(bus->dev, "Turning i915 HDAC power off\n");
--	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
--}
--EXPORT_SYMBOL_NS(hda_codec_i915_put, SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
-+EXPORT_SYMBOL_NS(hda_codec_i915_display_power, SND_SOC_SOF_HDA_AUDIO_CODEC_I915);
- 
- int hda_codec_i915_init(struct snd_sof_dev *sdev)
- {
-@@ -198,7 +189,7 @@ int hda_codec_i915_init(struct snd_sof_dev *sdev)
- 	if (ret < 0)
- 		return ret;
- 
--	hda_codec_i915_get(sdev);
-+	hda_codec_i915_display_power(sdev, true);
- 
- 	return 0;
- }
-@@ -209,7 +200,7 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev)
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	int ret;
- 
--	hda_codec_i915_put(sdev);
-+	hda_codec_i915_display_power(sdev, false);
- 
- 	ret = snd_hdac_i915_exit(bus);
- 
 diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index d08462f481de..54a7ba881150 100644
+index 54a7ba881150..65b86dd044f1 100644
 --- a/sound/soc/sof/intel/hda.c
 +++ b/sound/soc/sof/intel/hda.c
-@@ -380,7 +380,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+@@ -380,7 +380,8 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
  	/* create codec instances */
  	hda_codec_probe_bus(sdev, hda_codec_use_common_hdmi);
  
--	hda_codec_i915_put(sdev);
-+	hda_codec_i915_display_power(sdev, false);
+-	hda_codec_i915_display_power(sdev, false);
++	if (!HDA_IDISP_CODEC(bus->codec_mask))
++		hda_codec_i915_display_power(sdev, false);
  
  	/*
  	 * we are done probing so decrement link counts
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index a4d030bfeee1..6191d9192fae 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -586,15 +586,14 @@ void hda_codec_jack_check(struct snd_sof_dev *sdev);
- 	(IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI) || \
- 	 IS_ENABLED(CONFIG_SND_SOC_HDAC_HDMI))
- 
--void hda_codec_i915_get(struct snd_sof_dev *sdev);
--void hda_codec_i915_put(struct snd_sof_dev *sdev);
-+void hda_codec_i915_display_power(struct snd_sof_dev *sdev, bool enable);
- int hda_codec_i915_init(struct snd_sof_dev *sdev);
- int hda_codec_i915_exit(struct snd_sof_dev *sdev);
- 
- #else
- 
--static inline void hda_codec_i915_get(struct snd_sof_dev *sdev)  { }
--static inline void hda_codec_i915_put(struct snd_sof_dev *sdev)  { }
-+static inline void hda_codec_i915_display_power(struct snd_sof_dev *sdev,
-+						bool enable) { }
- static inline int hda_codec_i915_init(struct snd_sof_dev *sdev) { return 0; }
- static inline int hda_codec_i915_exit(struct snd_sof_dev *sdev) { return 0; }
- 
 -- 
 2.17.1
 

@@ -2,126 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84BBA143B5A
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 11:47:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A321143B89
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 12:01:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C8CFC1680;
-	Tue, 21 Jan 2020 11:46:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8CFC1680
+	by alsa0.perex.cz (Postfix) with ESMTPS id 000691683;
+	Tue, 21 Jan 2020 12:00:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 000691683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579603659;
-	bh=KBPQ7+yARMufLu6SoClkqNxIgmt3SwM2H2pNEskh9lc=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=IliEQFs+Q7WjkJDcmEeQ74R+bi+213qDHXdqAXcMNfphJdEbuSdtUJ2mCwfk2AcUe
-	 S+VBtEL7ICu9OVeGJHTl81YOa+L2L7MnLSBnImHifUYGFGtNIGWHcVvISoM02ZHnID
-	 NsZcmOMD2feLRcIYYvBRMIicT9GzmKCKRyTWTdtQ=
+	s=default; t=1579604507;
+	bh=CgtlWSlujZZQqhfvC+wPOBkn6RjYcpX+BHyItDY0p8E=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=V/3AAnwHn1LxQqhQ9vlgoBaR2z30eDmPhPPA72R7HtYiH25txFCTSXeNThsBPzgkO
+	 KPTjEYTV7ZP6nQm4+E0D1kywmCNTX3LaiH975eyC55v02/LuUem66825SbFeJc0XEC
+	 Hll6M/JomWERSNh/ry9LM085mERch5uxOecLZm3E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44B60F8015B;
-	Tue, 21 Jan 2020 11:45:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 02A4BF8015B;
+	Tue, 21 Jan 2020 12:00:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 71265F801D9; Tue, 21 Jan 2020 11:45:52 +0100 (CET)
+ id C34FDF801ED; Tue, 21 Jan 2020 12:00:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2051.outbound.protection.outlook.com [40.107.236.51])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4A7EAF800CB
- for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 11:45:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4A7EAF800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9F2BBF8012F
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 11:59:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9F2BBF8012F
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="yjfJizql"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=bKEW2BLo3FqupHoGsrViGZ7m5OBazr2+4CotKRXkazitkoDP02fsm+woVyFUOSTX1egtS3zEATqvA5BmSeVxAgOeBH1pwKw45w5d4X87c6aMWBK/iLxh0pE7gP30u5yEIKKqulD8m5JLhBIkt89soBjvWdckflxsqHhC+M2ikQ04zw6X/F0R+9iWhUmAZ2Z5qfYEqPlpzYhI/deH8rsTfADCCtbo945J0AWze+3Fv+O493JhSyKxltfNZomq/q72ncwRRBc3b5B0lGSJPlKzPTr2MV35RpBHAtaaxRzNO/Reyi/9Tg9rremxXmvbpCPBRY5f0it6AIg6Z//XI4iNTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gsxLewS2dixLfjG50YVYM/MuaQAk7d0HQnNIliQqXg0=;
- b=iIwIUBYvbNAv9WivVP2DgcHIpHKwLuMmD5hPNx5POBPPRP/rjbe28TIsANU1tV/3Vp80zsCYF7qKkkxDs3c8i1MG64WVZKuC0CT+8WKksc9oTevLS4MvkRQsjtYM4FsHONffEN0EYUgxOqDEGdctX7hXgijCeXiprf2RMyCUp5jfRrb4vFSHfcxdH9vbeKth58PmxyhooE25ymPv1G/0OdWyPG7gI9JDuxD5o5/WipbFRLEnp4IZ33GkZkSodDT0sHMwbKL2loAtEWb1ti4Ee0AwI5sPH+CAW5qp2ayK49HEv1dlWtSQyPKdB2AqM0zzPVnN2liVgDuKyNQx8mr5gA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com;
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gsxLewS2dixLfjG50YVYM/MuaQAk7d0HQnNIliQqXg0=;
- b=yjfJizqlLk9240sV8PAoTN6hZgdGXRntScmVkdDfeBRPGL9am5FNw4aaE77enASqk1utPbeAi10D/LrS9VzDrWFQKJ4IBtJCP8Tr/w8bSWM3FoLupIKqUYNHXKwGfOmbTWqtuCxG0Ig1whC0K4ejzY9sk4gWaNsQR+60Be6+PZA=
-Received: from BN6PR1201CA0019.namprd12.prod.outlook.com
- (2603:10b6:405:4c::29) by MN2PR12MB3277.namprd12.prod.outlook.com
- (2603:10b6:208:103::28) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.20; Tue, 21 Jan
- 2020 10:45:40 +0000
-Received: from DM6NAM11FT049.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eaa::206) by BN6PR1201CA0019.outlook.office365.com
- (2603:10b6:405:4c::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.18 via Frontend
- Transport; Tue, 21 Jan 2020 10:45:40 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=permerror action=none header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- DM6NAM11FT049.mail.protection.outlook.com (10.13.172.188) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2644.19 via Frontend Transport; Tue, 21 Jan 2020 10:45:39 +0000
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 21 Jan
- 2020 04:45:37 -0600
-Received: from vishnu-All-Series.amd.com (10.180.168.240) by
- SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Tue, 21 Jan 2020 04:45:33 -0600
-From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-To: 
-Date: Tue, 21 Jan 2020 16:13:35 +0530
-Message-ID: <1579603421-24571-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-X-Mailer: git-send-email 2.7.4
+ dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
+ header.b="TRfYA+EJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
+ s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
+ References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
+ :List-Post:List-Owner:List-Archive;
+ bh=DRWn4/oyjvu9yg0fXuOpzvAmZIC+840Xa7G9eSFCcpM=; b=TRfYA+EJNOrozpXROLKwvE2s1+
+ yqjrM5NR8lTtV/4z/7RDt7Okk0dXInTmlzvX2Km/UlMMQ5WQJQQ0z7qxdDoeQtv6uw83RbXQa5G9G
+ 1e75NFhoLNyzB2U0dcwZI1MLAFjmDspCNQJfWsaA8ZChyYCjZMtElINOZoVtZSfiaadQ=;
+Received: from [10.8.10.223] (helo=work)
+ by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
+ id 1itrGJ-000EcW-2y; Tue, 21 Jan 2020 13:59:59 +0300
+Message-ID: <6a0079e3343a6bc860b495d9258fada061bf83ba.camel@tsoy.me>
+From: Alexander Tsoy <alexander@tsoy.me>
+To: Tobias <toszlanyi@yahoo.de>, alsa-devel@alsa-project.org
+Date: Tue, 21 Jan 2020 13:59:57 +0300
+In-Reply-To: <a0e87326-839d-76df-dfd1-6d571017fc27@yahoo.de>
+References: <9457db14-4084-c0dd-5c89-821b35c3db66.ref@yahoo.de>
+ <9457db14-4084-c0dd-5c89-821b35c3db66@yahoo.de>
+ <697208e751dcbcc70cf00af7b625a4109b9c66cb.camel@tsoy.me>
+ <a0e87326-839d-76df-dfd1-6d571017fc27@yahoo.de>
+User-Agent: Evolution 3.32.5 
 MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(39860400002)(396003)(346002)(376002)(428003)(199004)(189003)(426003)(26005)(316002)(54906003)(2906002)(86362001)(7696005)(8936002)(81156014)(81166006)(36756003)(186003)(8676002)(5660300002)(70586007)(70206006)(2616005)(4326008)(109986005)(478600001)(336012)(356004)(266003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3277; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; A:1; MX:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 6fe5831a-755b-46b9-457b-08d79e5f0e59
-X-MS-TrafficTypeDiagnostic: MN2PR12MB3277:
-X-Microsoft-Antispam-PRVS: <MN2PR12MB3277025A325CBC020C7DAB32E70D0@MN2PR12MB3277.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
-X-Forefront-PRVS: 0289B6431E
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: ckclESf3GrC4g5SiRonl4XQl90JDNW5BqPh6w3YsHLizPkgTuV8ih3o7YVDiJ+Bri0mqAAJuQWyeqMgGmaicrq/uFJ/h31QD1HKGm9ayYPN9m45+vgrR8STyTUVcat2Dvo9HFHznt6qTRkWocdYx3iafqI5GmbbGMPTPRNw2EtaYYdsnHhZoqtpCNvP7DC1qCSBbVonvpL3o+JkSWpL7B+2Nvm5WaI5SAVVuB59nWOrrsLuB2It4qx6xGbSVNIoZfkcXI8RouBEa/RjFer2R25SVZeDWrblvK1lmHCxO10vGQ99xWg5Lo9AO+Yno6Rl4fwCLj3jdJO4s5clFem3on3HKDfDz43Dli3Pg93DYqRfBsIsEe1KW+HvIyItmBZtWWidZ366I7SHPF6flcjJWWam6fK0ZAuZtLP6XV+YWDB2uzRWN/UaBCyGqmJMXaoQVFwAx2dzS1rC3ZA9GyvzBRGnkWduNqCTfa38L06xjkb8=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jan 2020 10:45:39.5045 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fe5831a-755b-46b9-457b-08d79e5f0e59
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3277
-Cc: "moderated list:SOUND - SOC
- LAYER / DYNAMIC AUDIO POWER MANAGEM..." <alsa-devel@alsa-project.org>, Kuninori
- Morimoto <kuninori.morimoto.gx@renesas.com>, open
- list <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ravulapati Vishnu
- vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>, broonie@kernel.org,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
- Colin Ian King <colin.king@canonical.com>
-Subject: [alsa-devel] [PATCH] ASoC: amd: Fix for Subsequent Playback issue.
+Cc: Takashi Iwai <tiwai@suse.de>
+Subject: Re: [alsa-devel] USB Audio Interface / Denon MC7000 and MC8000
+ controller
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,64 +79,54 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If we play audio back to back, which kills one playback
-and immediately start another, we can hear clicks.
-This patch fixes the issue.
-
-Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
----
- sound/soc/amd/raven/acp3x-pcm-dma.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
-index 5c3ec3c..916649a 100644
---- a/sound/soc/amd/raven/acp3x-pcm-dma.c
-+++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
-@@ -344,25 +344,28 @@ static int acp3x_dma_close(struct snd_soc_component *component,
- {
- 	struct snd_soc_pcm_runtime *prtd;
- 	struct i2s_dev_data *adata;
-+	struct i2s_stream_instance *rtd;
- 
- 	prtd = substream->private_data;
- 	component = snd_soc_rtdcom_lookup(prtd, DRV_NAME);
- 	adata = dev_get_drvdata(component->dev);
-+	rtd = substream->runtime->private_data;
- 
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		adata->play_stream = NULL;
--		adata->i2ssp_play_stream = NULL;
--	} else {
--		adata->capture_stream = NULL;
--		adata->i2ssp_capture_stream = NULL;
--	}
- 
- 	/* Disable ACP irq, when the current stream is being closed and
- 	 * another stream is also not active.
- 	 */
-+	kfree(rtd);
- 	if (!adata->play_stream && !adata->capture_stream &&
- 		!adata->i2ssp_play_stream && !adata->i2ssp_capture_stream)
- 		rv_writel(0, adata->acp3x_base + mmACP_EXTERNAL_INTR_ENB);
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		adata->play_stream = NULL;
-+		adata->i2ssp_play_stream = NULL;
-+	} else {
-+		adata->capture_stream = NULL;
-+		adata->i2ssp_capture_stream = NULL;
-+	}
- 	return 0;
- }
- 
--- 
-2.7.4
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+UGxlYXNlIHRyeSB0aGUgcGF0Y2ggYmVsb3cuIE1ha2Ugc3VyZSB0aGF0IG5vIG90aGVyIHBhdGNo
+ZXMgYXJlIGFwcGxpZWQuCgpkaWZmIC0tZ2l0IGEvc291bmQvdXNiL3F1aXJrcy5jIGIvc291bmQv
+dXNiL3F1aXJrcy5jCmluZGV4IDgyMTg0MDM2NDM3Yi4uNzI2NGY1N2QzMTg4IDEwMDY0NAotLS0g
+YS9zb3VuZC91c2IvcXVpcmtzLmMKKysrIGIvc291bmQvdXNiL3F1aXJrcy5jCkBAIC0xNTUzLDYg
+KzE1NTMsMTMgQEAgdm9pZCBzbmRfdXNiX2N0bF9tc2dfcXVpcmsoc3RydWN0IHVzYl9kZXZpY2Ug
+KmRldiwgdW5zaWduZWQgaW50IHBpcGUsCiAJICAgICYmIChyZXF1ZXN0dHlwZSAmIFVTQl9UWVBF
+X01BU0spID09IFVTQl9UWVBFX0NMQVNTKQogCQltc2xlZXAoMjApOwogCisJLyoKKwkgKiBEZW5v
+biBNQzcwMDAKKwkgKi8KKwlpZiAoY2hpcC0+dXNiX2lkID09IFVTQl9JRCgweDE1ZTQsIDB4ODAw
+NCkgJiYKKwkgICAgKHJlcXVlc3R0eXBlICYgVVNCX1RZUEVfTUFTSykgPT0gVVNCX1RZUEVfQ0xB
+U1MpCisJCW1zbGVlcCgyMCk7CisKIAkvKiBab29tIFIxNi8yNCwgTG9naXRlY2ggSDY1MGUsIEph
+YnJhIDU1MGEgbmVlZHMgYSB0aW55IGRlbGF5IGhlcmUsCiAJICogb3RoZXJ3aXNlIHJlcXVlc3Rz
+IGxpa2UgZ2V0L3NldCBmcmVxdWVuY3kgcmV0dXJuIGFzIGZhaWxlZCBkZXNwaXRlCiAJICogYWN0
+dWFsbHkgc3VjY2VlZGluZy4KCgrQkiDQktGCLCAyMS8wMS8yMDIwINCyIDA5OjE3ICswMTAwLCBU
+b2JpYXMg0L/QuNGI0LXRgjoKPiBUaGFua3MgYSBsb3QgZm9yIHRoZSBoaW50IEFsZXhhbmRlci4g
+QW55aG93LCBJIGFtIG5vdCBzdXJlIHdoZXJlIHRvIHB1dCAKPiB0aGF0Lgo+IEFsc28gVGFrYXNo
+aSBJd2FpIHdhcyBpbnZvbHZlZCBhbHJlYWR5IGFuZCBJIHdvdWxkIGxpa2UgdG8gcHJldmVudCAK
+PiBtaXhpbmcgdXAgdGhpbmdzIG9yIGRvdWJsZSB3b3JrLgo+IAo+IFBsZWFzZSBhZHZpc2UgaW4g
+ZGV0YWlsIHdoYXQgSSB3b3VsZCBuZWVkIHRvIGRvIGFzIEkgYW0gbm90IGEgcHJvZ3JhbW1lci4K
+PiAKPiBUaGFua3MgYSBsb3QuCj4gVG9iaWFzCj4gCj4gQW0gMjAuMDEuMjAgdW0gMDk6MjIgc2No
+cmllYiBBbGV4YW5kZXIgVHNveToKPiA+INCSINCh0LEsIDE0LzEyLzIwMTkg0LIgMDk6MjQgKzAx
+MDAsIFRvYmlhcyDQv9C40YjQtdGCOgo+ID4gPiBIZWxsbyBkZWFyIEFMU0EgZGV2ZWxvcGVycy4K
+PiA+ID4gCj4gPiA+IEkgaGF2ZSBwdXJjaGFzZWQgYSBNQzcwMDAgY29udHJvbGxlciBpbiBvcmRl
+ciB0byBjb250cm9sIE1JWFhYIG9uCj4gPiA+IFVidW50dQo+ID4gPiAxNi4wNC4gQWNjb3JkaW5n
+IHRvIHRoZSBEZW5vbiBzcGVjaWZpY2F0aW9uIHRoZSBjb250cm9sbGVyIHNob3VsZAo+ID4gPiBo
+YXZlCj4gPiA+IGJlZW4gY2xhc3MgY29tcGxpYW50IGJ1dCB0aGVyZSBpcyBhbiBpc3N1ZSB3aXRo
+IHRoZSBBdWRpbyBpbnRlcmZhY2UKPiA+ID4gdG8KPiA+ID4gd29yayBwcm9wZXJseSBnaXZpbmcg
+Zm9sbG93aW5nIG1lc3NhZ2UgLi4uCj4gPiA+IAo+ID4gPiAkIGRtZXNnCj4gPiA+IC4uLgo+ID4g
+PiA+IFsgICA3NC41MjI4MzFdIHVzYiAxLTEuMzogbmV3IGhpZ2gtc3BlZWQgVVNCIGRldmljZSBu
+dW1iZXIgNiB1c2luZwo+ID4gPiA+IHhoY2lfaGNkCj4gPiA+IFsgICA3NC42MjM3ODRdIHVzYiAx
+LTEuMzogTmV3IFVTQiBkZXZpY2UgZm91bmQsIGlkVmVuZG9yPTE1ZTQsCj4gPiA+IGlkUHJvZHVj
+dD04MDA0Cj4gPiA+IFsgICA3NC42MjM3ODldIHVzYiAxLTEuMzogTmV3IFVTQiBkZXZpY2Ugc3Ry
+aW5nczogTWZyPTEsIFByb2R1Y3Q9MiwKPiA+ID4gU2VyaWFsTnVtYmVyPTMKPiA+ID4gWyAgIDc0
+LjYyMzc5M10gdXNiIDEtMS4zOiBQcm9kdWN0OiBERU5PTiBESiBNQzcwMDAKPiA+ID4gWyAgIDc0
+LjYyMzc5Nl0gdXNiIDEtMS4zOiBNYW51ZmFjdHVyZXI6IERFTk9OIERKCj4gPiA+IFsgICA3NC42
+MjM3OThdIHVzYiAxLTEuMzogU2VyaWFsTnVtYmVyOiAyMDE2MDMKPiA+ID4gWyAgIDc0LjYyNTEz
+NF0gdXNiIDEtMS4zOiBjbG9jayBzb3VyY2UgNjUgaXMgbm90IHZhbGlkLCBjYW5ub3QgdXNlCj4g
+PiA+IAo+ID4gPiAifHx8Y2xvY2sgc291cmNlIDY1IGlzIG5vdCB2YWxpZCwgY2Fubm90IHVzZSIg
+aXMgcmVwZWF0ZWQKPiA+ID4gdW5jb3VudGFibGUKPiA+ID4gdGltZXMgdGhlbgo+ID4gPiAKPiA+
+IFBsZWFzZSB0cnkgdG8gYWRkIGRlbGF5IGFmdGVyIGVhY2ggY2xhc3MgY29udHJvbCByZXF1ZXN0
+IGluCj4gPiBzbmRfdXNiX2N0bF9tc2dfcXVpcmsoKToKPiA+IAo+ID4gICAgICBpZiAoY2hpcC0+
+dXNiX2lkID09IFVTQl9JRCgweDE1ZTQsIDB4ODAwNCkgJiYKPiA+ICAgICAgICAgIChyZXF1ZXN0
+dHlwZSAmIFVTQl9UWVBFX01BU0spID09IFVTQl9UWVBFX0NMQVNTKQo+ID4gICAgICAgICAgbXNs
+ZWVwKDIwKTsKPiA+IAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3Jn
+Cmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1k
+ZXZlbAo=

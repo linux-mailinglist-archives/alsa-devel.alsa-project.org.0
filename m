@@ -2,53 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 693CB144361
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 18:36:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B11A6144366
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 18:37:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E1931670;
-	Tue, 21 Jan 2020 18:35:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E1931670
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5F1F61683;
+	Tue, 21 Jan 2020 18:36:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5F1F61683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579628194;
-	bh=6PwclXlPInIJLdq3prNtFBMJ/Ur/uERGN4d1DUQ8C5w=;
+	s=default; t=1579628229;
+	bh=kpShmTPzvEBX1WnKiYwMwvz3vQ3vYXQTA/kdUrDR7oc=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=n6yTXYZcVo34sXG4HeJcR/bNL2ly4DZG1RNCus6/k1xulFONMhFOXF2RDheNyUZQo
-	 VVPg5JbgZqf44tuMosoxRTA14DE8D3h0w7gQrAzQBJO7KR2PqNwwXrgKkCUsbWIsDU
-	 kqYlexJDhK4rYvsOwL5JF7UPuIr+kbzjc6jA2u8M=
+	b=ioReo3qxVKeSVOxAdRot8oi8Yt60tOWjBkt7skgfth0JclCLJ+8SYGLSWCmlJq5ym
+	 7q3EHOPCwzmVM3C6m9R9XNTHTGTNjOvKhMmL++4dV/OruE3OMbj/m8KSJ+51vkJQvz
+	 P1C6QbyWWG3DGJ21IYkIbYVbNoBX0L1KzHerhC+c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3EC05F802F8;
-	Tue, 21 Jan 2020 18:28:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA0A3F802FB;
+	Tue, 21 Jan 2020 18:28:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 55265F802FB; Tue, 21 Jan 2020 18:28:40 +0100 (CET)
+ id 8F850F80315; Tue, 21 Jan 2020 18:28:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 2D90FF8028B
- for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 18:28:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D90FF8028B
+ by alsa1.perex.cz (Postfix) with ESMTP id 16275F802EC
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 18:28:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 16275F802EC
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F3025328;
- Tue, 21 Jan 2020 09:28:33 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7373830E;
+ Tue, 21 Jan 2020 09:28:36 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 70EC53F6C4;
- Tue, 21 Jan 2020 09:28:33 -0800 (PST)
-Date: Tue, 21 Jan 2020 17:28:31 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E602F3F6C4;
+ Tue, 21 Jan 2020 09:28:35 -0800 (PST)
+Date: Tue, 21 Jan 2020 17:28:34 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87zhejx7j4.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-87zhejx7j4.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <871rrvym3p.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-871rrvym3p.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: uniphier: move .suspend/.resume to
-	component" to the asoc tree
+Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: ti: omap-mcpdm: move .suspend/.resume
+	to component" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: uniphier: move .suspend/.resume to component
+   ASoC: ti: omap-mcpdm: move .suspend/.resume to component
 
 has been applied to the asoc tree at
 
@@ -94,10 +95,10 @@ to this mail.
 Thanks,
 Mark
 
-From 9b79b1cd164f4ec64dc0847b03297095e39cdee9 Mon Sep 17 00:00:00 2001
+From 78dbafbd04ddcc3a21879c4403c57d979689a3fe Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 20 Jan 2020 10:04:31 +0900
-Subject: [PATCH] ASoC: uniphier: move .suspend/.resume to component
+Date: Mon, 20 Jan 2020 10:04:26 +0900
+Subject: [PATCH] ASoC: ti: omap-mcpdm: move .suspend/.resume to component
 
 There is no big difference at implementation for .suspend/.resume
 between DAI driver and Component driver.
@@ -114,252 +115,69 @@ component->active if necessary.
 This patch moves DAI driver .suspend/.resume to Component driver
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87zhejx7j4.wl-kuninori.morimoto.gx@renesas.com
+Acked-by: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Link: https://lore.kernel.org/r/871rrvym3p.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/uniphier/aio-cpu.c  | 31 +++++++++++++++++++++++++++----
- sound/soc/uniphier/aio-ld11.c | 18 ------------------
- sound/soc/uniphier/aio-pxs2.c | 14 --------------
- sound/soc/uniphier/aio.h      |  2 --
- 4 files changed, 27 insertions(+), 38 deletions(-)
+ sound/soc/ti/omap-mcpdm.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/uniphier/aio-cpu.c b/sound/soc/uniphier/aio-cpu.c
-index 2ae582a99b63..fdaa6522720f 100644
---- a/sound/soc/uniphier/aio-cpu.c
-+++ b/sound/soc/uniphier/aio-cpu.c
-@@ -420,25 +420,37 @@ int uniphier_aio_dai_remove(struct snd_soc_dai *dai)
+diff --git a/sound/soc/ti/omap-mcpdm.c b/sound/soc/ti/omap-mcpdm.c
+index b8c8290265c7..a726cd7a8252 100644
+--- a/sound/soc/ti/omap-mcpdm.c
++++ b/sound/soc/ti/omap-mcpdm.c
+@@ -458,11 +458,11 @@ static int omap_mcpdm_remove(struct snd_soc_dai *dai)
  }
- EXPORT_SYMBOL_GPL(uniphier_aio_dai_remove);
  
--int uniphier_aio_dai_suspend(struct snd_soc_dai *dai)
-+static void uniphier_aio_dai_suspend(struct snd_soc_dai *dai)
+ #ifdef CONFIG_PM_SLEEP
+-static int omap_mcpdm_suspend(struct snd_soc_dai *dai)
++static int omap_mcpdm_suspend(struct snd_soc_component *component)
  {
- 	struct uniphier_aio *aio = uniphier_priv(dai);
+-	struct omap_mcpdm *mcpdm = snd_soc_dai_get_drvdata(dai);
++	struct omap_mcpdm *mcpdm = snd_soc_component_get_drvdata(component);
  
-+	if (!dai->active)
-+		return;
-+
- 	aio->chip->num_wup_aios--;
- 	if (!aio->chip->num_wup_aios) {
- 		reset_control_assert(aio->chip->rst);
- 		clk_disable_unprepare(aio->chip->clk);
+-	if (dai->active) {
++	if (component->active) {
+ 		omap_mcpdm_stop(mcpdm);
+ 		omap_mcpdm_close_streams(mcpdm);
  	}
-+}
-+
-+static int uniphier_aio_suspend(struct snd_soc_component *component)
-+{
-+	struct snd_soc_dai *dai;
- 
-+	for_each_component_dais(component, dai)
-+		uniphier_aio_dai_suspend(dai);
+@@ -476,15 +476,15 @@ static int omap_mcpdm_suspend(struct snd_soc_dai *dai)
  	return 0;
  }
--EXPORT_SYMBOL_GPL(uniphier_aio_dai_suspend);
  
--int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
-+static int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
+-static int omap_mcpdm_resume(struct snd_soc_dai *dai)
++static int omap_mcpdm_resume(struct snd_soc_component *component)
  {
- 	struct uniphier_aio *aio = uniphier_priv(dai);
- 	int ret, i;
+-	struct omap_mcpdm *mcpdm = snd_soc_dai_get_drvdata(dai);
++	struct omap_mcpdm *mcpdm = snd_soc_component_get_drvdata(component);
  
-+	if (!dai->active)
-+		return 0;
-+
- 	if (!aio->chip->active)
- 		return 0;
+ 	if (mcpdm->pm_active_count) {
+ 		while (mcpdm->pm_active_count--)
+ 			pm_runtime_get_sync(mcpdm->dev);
  
-@@ -484,7 +496,16 @@ int uniphier_aio_dai_resume(struct snd_soc_dai *dai)
+-		if (dai->active) {
++		if (component->active) {
+ 			omap_mcpdm_open_streams(mcpdm);
+ 			omap_mcpdm_start(mcpdm);
+ 		}
+@@ -504,8 +504,6 @@ static int omap_mcpdm_resume(struct snd_soc_dai *dai)
+ static struct snd_soc_dai_driver omap_mcpdm_dai = {
+ 	.probe = omap_mcpdm_probe,
+ 	.remove = omap_mcpdm_remove,
+-	.suspend = omap_mcpdm_suspend,
+-	.resume = omap_mcpdm_resume,
+ 	.probe_order = SND_SOC_COMP_ORDER_LATE,
+ 	.remove_order = SND_SOC_COMP_ORDER_EARLY,
+ 	.playback = {
+@@ -527,6 +525,8 @@ static struct snd_soc_dai_driver omap_mcpdm_dai = {
  
- 	return ret;
- }
--EXPORT_SYMBOL_GPL(uniphier_aio_dai_resume);
-+
-+static int uniphier_aio_resume(struct snd_soc_component *component)
-+{
-+	struct snd_soc_dai *dai;
-+	int ret = 0;
-+
-+	for_each_component_dais(component, dai)
-+		ret |= uniphier_aio_dai_resume(dai);
-+	return ret;
-+}
- 
- static int uniphier_aio_vol_info(struct snd_kcontrol *kcontrol,
- 				 struct snd_ctl_elem_info *uinfo)
-@@ -596,6 +617,8 @@ static const struct snd_soc_component_driver uniphier_aio_component = {
- 	.name = "uniphier-aio",
- 	.controls = uniphier_aio_controls,
- 	.num_controls = ARRAY_SIZE(uniphier_aio_controls),
-+	.suspend = uniphier_aio_suspend,
-+	.resume  = uniphier_aio_resume,
+ static const struct snd_soc_component_driver omap_mcpdm_component = {
+ 	.name		= "omap-mcpdm",
++	.suspend	= omap_mcpdm_suspend,
++	.resume		= omap_mcpdm_resume,
  };
  
- int uniphier_aio_probe(struct platform_device *pdev)
-diff --git a/sound/soc/uniphier/aio-ld11.c b/sound/soc/uniphier/aio-ld11.c
-index de962df245ba..8b44f8dc4970 100644
---- a/sound/soc/uniphier/aio-ld11.c
-+++ b/sound/soc/uniphier/aio-ld11.c
-@@ -218,8 +218,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_GNAME_HDMI,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -242,8 +240,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_NAME_PCMIN2,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.capture = {
- 			.stream_name = AUD_NAME_PCMIN2,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -257,8 +253,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_GNAME_LINE,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT2,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -279,8 +273,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_NAME_HPCMOUT1,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_HPCMOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -294,8 +286,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_NAME_PCMOUT3,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT3,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -309,8 +299,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_NAME_HIECOUT1,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_HIECOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -324,8 +312,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_NAME_EPCMOUT2,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_EPCMOUT2,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -341,8 +327,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_NAME_EPCMOUT3,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_EPCMOUT3,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -358,8 +342,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_ld11[] = {
- 		.name    = AUD_NAME_HIECCOMPOUT1,
- 		.probe   = uniphier_aio_ld11_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.compress_new = snd_soc_new_compress,
- 		.playback = {
- 			.stream_name = AUD_NAME_HIECCOMPOUT1,
-diff --git a/sound/soc/uniphier/aio-pxs2.c b/sound/soc/uniphier/aio-pxs2.c
-index 69cd5b0af948..a1d05fe9d3c2 100644
---- a/sound/soc/uniphier/aio-pxs2.c
-+++ b/sound/soc/uniphier/aio-pxs2.c
-@@ -171,8 +171,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 		.name    = AUD_GNAME_HDMI,
- 		.probe   = uniphier_aio_pxs2_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_HPCMOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -186,8 +184,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 		.name    = AUD_GNAME_LINE,
- 		.probe   = uniphier_aio_pxs2_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -208,8 +204,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 		.name    = AUD_GNAME_AUX,
- 		.probe   = uniphier_aio_pxs2_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_PCMOUT2,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -230,8 +224,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 		.name    = AUD_NAME_HIECOUT1,
- 		.probe   = uniphier_aio_pxs2_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_HIECOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -245,8 +237,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 		.name    = AUD_NAME_IECOUT1,
- 		.probe   = uniphier_aio_pxs2_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.playback = {
- 			.stream_name = AUD_NAME_IECOUT1,
- 			.formats     = SNDRV_PCM_FMTBIT_S32_LE,
-@@ -260,8 +250,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 		.name    = AUD_NAME_HIECCOMPOUT1,
- 		.probe   = uniphier_aio_pxs2_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.compress_new = snd_soc_new_compress,
- 		.playback = {
- 			.stream_name = AUD_NAME_HIECCOMPOUT1,
-@@ -274,8 +262,6 @@ static struct snd_soc_dai_driver uniphier_aio_dai_pxs2[] = {
- 		.name    = AUD_NAME_IECCOMPOUT1,
- 		.probe   = uniphier_aio_pxs2_probe,
- 		.remove  = uniphier_aio_dai_remove,
--		.suspend = uniphier_aio_dai_suspend,
--		.resume  = uniphier_aio_dai_resume,
- 		.compress_new = snd_soc_new_compress,
- 		.playback = {
- 			.stream_name = AUD_NAME_IECCOMPOUT1,
-diff --git a/sound/soc/uniphier/aio.h b/sound/soc/uniphier/aio.h
-index a7ff7e556429..694ac030950e 100644
---- a/sound/soc/uniphier/aio.h
-+++ b/sound/soc/uniphier/aio.h
-@@ -308,8 +308,6 @@ extern const struct snd_compr_ops uniphier_aio_compr_ops;
- 
- int uniphier_aio_dai_probe(struct snd_soc_dai *dai);
- int uniphier_aio_dai_remove(struct snd_soc_dai *dai);
--int uniphier_aio_dai_suspend(struct snd_soc_dai *dai);
--int uniphier_aio_dai_resume(struct snd_soc_dai *dai);
- int uniphier_aio_probe(struct platform_device *pdev);
- int uniphier_aio_remove(struct platform_device *pdev);
- extern const struct snd_soc_dai_ops uniphier_aio_i2s_ops;
+ void omap_mcpdm_configure_dn_offsets(struct snd_soc_pcm_runtime *rtd,
 -- 
 2.20.1
 

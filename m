@@ -2,100 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 696B114418B
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 17:05:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AB8C1442B3
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 18:01:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 070FF166F;
-	Tue, 21 Jan 2020 17:05:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 070FF166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8BCF1668;
+	Tue, 21 Jan 2020 18:00:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8BCF1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579622756;
-	bh=E2Zt16yWdQEroYNLP3O2RCrpvX2w5uP6eSh92DBw3KY=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579626084;
+	bh=nZ7dasIX6rwYCRq/VU2WN6jGwsCHNlLarYn8gMzLit8=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=lcGTclCJzJW7TdH9h+LYcXcdRXz6ktoKdTM9RuvqQh9ap27/EJ+6AN2MZ21K/Kcv6
-	 TNMFYG8BgRnJwjvn9RzwGiLNNMSV12qYZ8DhfNA9xoOTRuhG8Zr2M14EY3W2gGXB+d
-	 Bi5auLm0u69/D4gjpL/SpP9YjvlvhvftMEGhp424=
+	b=WojQbV2qZYlq5Mr/kal+ztIgxf/31E+fEdP1mkXSIEi2JFNnKnP+mzzVaCT0TdfxO
+	 3MxxqD/sOHG4f6VU9oAHV2z4jUfQ63r2ArOi1TF4ACD7Z5EG5HYUYNwoKYndjZ5Q6S
+	 hWhuXOcMxtQJ5CVEpWRLmvuKTZ9Lb56iZT2hQZS0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A8637F8021C;
-	Tue, 21 Jan 2020 17:04:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6BF0F801ED;
+	Tue, 21 Jan 2020 17:59:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A4B7F801ED; Tue, 21 Jan 2020 17:04:29 +0100 (CET)
+ id 3575AF800E7; Tue, 21 Jan 2020 17:59:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E126F8012F
- for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 17:04:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E126F8012F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="RIR8TO7s"
-Received: by mail-lf1-x141.google.com with SMTP id 203so2683709lfa.12
- for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 08:04:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=4QElD4aLgqnxIJYOw+6hd85zSf1XDYHPFQQs8FVOpM4=;
- b=RIR8TO7sH4q9qS6/bFOYNX7/b+ZDX2vFNdHP/g+lQB6/t8sLVO/BG/dOQK5bd4YkS9
- 3xUOVihE7L7weX1mW9pVZHpPTX8Khtm0hc+BXfTytT5F6A9ZEuKkwliKQoxHbgU87YJz
- eX0bCZH4JjFHyBoGPnUoH4r8Sjk6zc8Xe0dqe1P8OzP2eqyNAV8wSMLwz6Rbw03UBNxZ
- mUv81d8q3O1kvCcYE0pKMEnUypCOUgKMrAVfIIOHRyM3drDIDLC1lXDWx0jwKYQMnxIl
- CyOrsEwX5FoRyQGI29X3DrN31rN3VnpxB2XPF1kT0orssRzlu3C6xD4QruxVxdNql7V5
- Oj8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=4QElD4aLgqnxIJYOw+6hd85zSf1XDYHPFQQs8FVOpM4=;
- b=dLIs1mdSt4ULKqqj5vUm1qUUCi6mCM2ioVSBr7L3DqEWV4esF4lAsaVGtL7yZJBhpy
- tmtQTv2W7H1rLG6XsR5JoGSWHq+gjMEhd5ucRWXdbSRwXdHN4NhWz5DxR2D4hhZ0BoGl
- 3orRPam1A9DGUp/CXOmIW1tMNKTx2lHzrFSyO+lVcrdN/gemytcNRjkt/9wEs5Okymym
- 4ElRDHBdE0EWICLBACHXcKHpBXnBT8M/1NS+jVww6yWiZqKyz6hwFsaH731fPRgGG7dC
- ozcau9oL9WiCIDINn5n64cREJXxMnsBY1ramaujndjRR4H3nEPwP/BygeCVe1j6MKC4s
- pMUw==
-X-Gm-Message-State: APjAAAXjAQPlNnYYE2DUYTvrNUBemwWCrpk0FExIa933M+OP+wRcomqw
- yMz89nj1THj4R5znaJPIgYo=
-X-Google-Smtp-Source: APXvYqy7EtDOd9lxlMN59AeictrAoxR0wB9a8lavz+2thaHFgaRugWz3ll5Ecy/t12c/eutcaI9siw==
-X-Received: by 2002:a19:550d:: with SMTP id n13mr2212655lfe.48.1579622661898; 
- Tue, 21 Jan 2020 08:04:21 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.googlemail.com with ESMTPSA id f8sm1936176lfc.22.2020.01.21.08.04.20
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jan 2020 08:04:21 -0800 (PST)
-To: Sameer Pujar <spujar@nvidia.com>, perex@perex.cz, tiwai@suse.com,
- robh+dt@kernel.org
-References: <1579530198-13431-1-git-send-email-spujar@nvidia.com>
- <1579530198-13431-3-git-send-email-spujar@nvidia.com>
- <d01ed171-d949-19b2-3390-ee30eada2779@gmail.com>
- <a8409b81-7c6b-37a9-81fd-772eb2eca185@nvidia.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <229def08-6bd4-30d7-056b-92329e48c699@gmail.com>
-Date: Tue, 21 Jan 2020 19:04:20 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id BCA05F800E7
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 17:59:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCA05F800E7
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 38E9230E;
+ Tue, 21 Jan 2020 08:59:27 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ABA9D3F6C4;
+ Tue, 21 Jan 2020 08:59:26 -0800 (PST)
+Date: Tue, 21 Jan 2020 16:59:25 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Message-ID: <20200121165925.GH4656@sirena.org.uk>
+References: <1579603421-24571-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <a8409b81-7c6b-37a9-81fd-772eb2eca185@nvidia.com>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, jonathanh@nvidia.com,
- viswanathl@nvidia.com, linux-tegra@vger.kernel.org, broonie@kernel.org,
- atalambedu@nvidia.com, sharadg@nvidia.com, thierry.reding@gmail.com,
- rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
-Subject: Re: [alsa-devel] [PATCH 2/9] ASoC: tegra: add support for CIF
- programming
+In-Reply-To: <1579603421-24571-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Cookie: You too can wear a nose mitten.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ open list <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
+ Colin Ian King <colin.king@canonical.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: amd: Fix for Subsequent Playback
+	issue.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,38 +70,61 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============6558018729216936587=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MjEuMDEuMjAyMCAwNzo0MSwgU2FtZWVyIFB1amFyINC/0LjRiNC10YI6Cj4gCj4gT24gMS8yMC8y
-MDIwIDk6MjggUE0sIERtaXRyeSBPc2lwZW5rbyB3cm90ZToKPj4gRXh0ZXJuYWwgZW1haWw6IFVz
-ZSBjYXV0aW9uIG9wZW5pbmcgbGlua3Mgb3IgYXR0YWNobWVudHMKPj4KPj4KPj4gSGVsbG8gU2Ft
-ZWVyLAo+Pgo+PiAyMC4wMS4yMDIwIDE3OjIzLCBTYW1lZXIgUHVqYXIg0L/QuNGI0LXRgjoKPj4K
-Pj4gW3NuaXBdCj4+Cj4+PiBUZWdyYTMwIGFuZCBUZWdyYTEyNCBoYXZlIGFuIGlkZW50aWNhbCBD
-SUYgcHJvZ3JhbW1pbmcgaGVscGVyIGZ1bmN0aW9uLgo+PiBbc25pcF0KPj4KPj4+IC0jZGVmaW5l
-IFRFR1JBMTI0X0FVRElPQ0lGX0NUUkxfRklGT19USFJFU0hPTERfU0hJRlTCoCAyNAo+Pj4gLSNk
-ZWZpbmUgVEVHUkExMjRfQVVESU9DSUZfQ1RSTF9GSUZPX1RIUkVTSE9MRF9NQVNLX1VTwqDCoMKg
-wqDCoMKgwqAgMHgzZgo+Pj4gLSNkZWZpbmUgVEVHUkExMjRfQVVESU9DSUZfQ1RSTF9GSUZPX1RI
-UkVTSE9MRF9NQVNLwqDCoAo+Pj4gKFRFR1JBMTI0X0FVRElPQ0lGX0NUUkxfRklGT19USFJFU0hP
-TERfTUFTS19VUyA8PAo+Pj4gVEVHUkExMjRfQVVESU9DSUZfQ1RSTF9GSUZPX1RIUkVTSE9MRF9T
-SElGVCkKPj4+IC0KPj4+IC0vKiBDaGFubmVsIGNvdW50IG1pbnVzIDEgKi8KPj4+IC0jZGVmaW5l
-IFRFR1JBMzBfQVVESU9DSUZfQ1RSTF9BVURJT19DSEFOTkVMU19TSElGVMKgwqAgMjQKPj4+IC0j
-ZGVmaW5lIFRFR1JBMzBfQVVESU9DSUZfQ1RSTF9BVURJT19DSEFOTkVMU19NQVNLX1VTIDcKPj4+
-IC0jZGVmaW5lIFRFR1JBMzBfQVVESU9DSUZfQ1RSTF9BVURJT19DSEFOTkVMU19NQVNLwqDCoMKg
-Cj4+PiAoVEVHUkEzMF9BVURJT0NJRl9DVFJMX0FVRElPX0NIQU5ORUxTX01BU0tfVVMgPDwKPj4+
-IFRFR1JBMzBfQVVESU9DSUZfQ1RSTF9BVURJT19DSEFOTkVMU19TSElGVCkKPj4gVGhlIEFVRElP
-Q0lGX0NUUkwgYml0ZmllbGRzIGFyZSBub3QgdGhlIHNhbWUgb24gVDMwIGFuZCBUMTI0LCB3aHkg
-YXJlCj4+IHlvdSBjbGFpbWluZyB0aGF0IHByb2dyYW1taW5nIGlzIGlkZW50aWNhbD8gSGF2ZSB5
-b3UgYWN0dWFsbHkgdHJpZWQgdG8KPj4gdGVzdCB0aGVzZSBwYXRjaGVzIG9uIFQzMD8KPiAKPiBP
-aCB5ZXMhIHNlZW1zIGxpa2UgSSBvdmVybG9va2VkIHRoZSBtYWNybyB2YWx1ZXMuIFRoYW5rcyBm
-b3IgcG9pbnRpbmcKPiB0aGlzLiBJIHdpbGwgcmV0YWluIHNlcGFyYXRlIENJRiBmdW5jdGlvbiBm
-b3IgVGVncmEzMC4KPiBJIGRvIG5vdCBoYXZlIGEgVGVncmEzMCBib2FyZCB3aXRoIG1lIGFuZCBo
-ZW5jZSBjb3VsZCBub3QgdGVzdCBhbnl0aGluZwo+IHNwZWNpZmljIHRvIGl0IGFwYXJ0IGZyb20g
-YnVpbGQgc2FuaXR5Lgo+IElmIHNvbWVvbmUgY2FuIGhlbHAgbWUgdGVzdCBJIHdvdWxkIHJlYWxs
-eSBhcHByZWNpYXRlLgo+IAoKSSdsbCBoZWxwIHdpdGggdGhlIHRlc3Rpbmcgb25jZSBhbGwgb2J2
-aW91cyBwcm9ibGVtcyB3aWxsIGJlIGZpeGVkLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFs
-c2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9s
-aXN0aW5mby9hbHNhLWRldmVsCg==
+
+--===============6558018729216936587==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fmEUq8M7S0s+Fl0V"
+Content-Disposition: inline
+
+
+--fmEUq8M7S0s+Fl0V
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Jan 21, 2020 at 04:13:35PM +0530, Ravulapati Vishnu vardhan rao wrote:
+
+> If we play audio back to back, which kills one playback
+> and immediately start another, we can hear clicks.
+> This patch fixes the issue.
+
+>  	/* Disable ACP irq, when the current stream is being closed and
+>  	 * another stream is also not active.
+>  	 */
+> +	kfree(rtd);
+
+This free looks like a separate change which seems good and useful but
+should be in a separate patch?
+
+--fmEUq8M7S0s+Fl0V
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4nLewACgkQJNaLcl1U
+h9B1+gf8CwB3aqHMAKHEgAHRutMujXPYif+JPjkD1gl9Cp8EFmrOkjwAO8ADVa3U
+IhZonqAQvpX8nuRp2yq+GMTn0M3wKQHrZ8SZzFoY2az5dujgpV9shBrcSRAQa+vM
+rnYexlnHXPlr/FFYHhcSlqPFgglHcZLJUIuioBk3OxoPrlXxnAcbhBP9zCpSZex3
+mMwT3vlLmOTlhHkBhWNDGH7l3z5dd8N43iFMNCQP8zMEwggCkEPC4IYrLidXVORb
+YE7fkOtRgRKJQhDjKN7QaH8XRSbbGdGK+9FthNOJXteCkp/VkU2ne7Mt0etqKDa/
+ulqij1ZBM43yKQAhB8WIdYCQIw7oYw==
+=m2Ma
+-----END PGP SIGNATURE-----
+
+--fmEUq8M7S0s+Fl0V--
+
+--===============6558018729216936587==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6558018729216936587==--

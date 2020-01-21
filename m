@@ -2,114 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1166F1444A9
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 19:56:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D060014466A
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 22:29:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7D3B2847;
-	Tue, 21 Jan 2020 19:55:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D3B2847
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67D72165F;
+	Tue, 21 Jan 2020 22:28:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67D72165F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579632976;
-	bh=4xmmDVkLb1cNjqO8/YEfn4seA77SYUTJuKIuGIxJp8g=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=KsMnVPVeeq/kWPX9+Y56Vuoig6Q3un/ikEW41ocze4ZM3Xq7DLNhoIH1KiWD22/wH
-	 PvWbA0WC+xEEjWnuu7i87fezN8w8+u3NNmVik4YYc9LlWWPbaPHusI6M28A2VcqAo/
-	 cYrYBnNQ/IugXG8qjWOPrgJXSzclYAILt6iFhcD8=
+	s=default; t=1579642155;
+	bh=J/121S0M0SzxzTXfxkwdq1laAss6pBqAFrqPY3ghF4k=;
+	h=To:From:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ryU+YVGf1Gq8RfEDxNWp9NBYLqKD8zl2e+noEAb07shH+sCQql8tkqRQSx+m4Z8FH
+	 X/TCemd/jl4rvN8pgrH13T95lt+OoOCRYKF85VMXbYLK9lLKlE+OYY+VjZW9p2qiEe
+	 S5z/afBPtaCtGhUUV2F3av7VvqVGxyIW3F897CEE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0589EF801EC;
-	Tue, 21 Jan 2020 19:54:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFA8FF801EC;
+	Tue, 21 Jan 2020 22:27:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E5E3F801D9; Tue, 21 Jan 2020 19:54:30 +0100 (CET)
+ id A9898F801D9; Tue, 21 Jan 2020 22:27:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-ed1-x543.google.com (mail-ed1-x543.google.com
- [IPv6:2a00:1450:4864:20::543])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ FREEMAIL_FROM,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 87752F800CB
- for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 19:54:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 87752F800CB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B2F4F800E7
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 22:27:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B2F4F800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="DBize4MQ"
-Received: by mail-ed1-x543.google.com with SMTP id f8so4113019edv.2
- for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 10:54:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=5wQMTpimvaMznbvYI4EKz0kLTIVvcRzlxme+D5Y8GcY=;
- b=DBize4MQMnv3Ysj1ZktpwCNoe1WJDC7RbzwC954usMDvHcckIHSjCEXz5eXmBDeB+s
- V97xHmAtcjCist0T4VI5yAH5I9dbneqt8IAlpsCoYqE35vvSBDbq3u03Cx9DaFRt13xS
- Kbo3XkLYr0G/kLZcXxAcWYyPtc4+3r1DZbEuTMdHyFPjnBuToubz//YEHw238npUrr0i
- 82GAhRd7LcqCZefhm6F2ioFrn0nyDnt5SD7yCGBmJNd1rbG7gQdyfL7amRGpx2S4D20T
- /Na12JL3+X+as27RZ0gzw9rpeLrGmsWlrXzZuRgSpvpRoHkuVxLZAviNFtyx1UQzgTs/
- eYkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=5wQMTpimvaMznbvYI4EKz0kLTIVvcRzlxme+D5Y8GcY=;
- b=rTQR+WeHvcmELzeJtUDxsCcAvOGUqnhZdt7tDzJWzf7tMR2QjHhPd7+5hHoDxEFwrH
- nMvwWgf/mU3DNZSLJxG+VrYMnOwJuE2XHU70PBZrPpXgEWX7ZMz366YU1ol5DErKhY9n
- TtUKQiVbkVhEiVzs4tyLWUwPA+1gb+c4EH1SS8elBiB7TwIrlCj8CO8M2nbAj0EfKIYj
- 9pBMVpmNqigonLUAm/2K+3D4DZmiYGdnB1pTRUmyXjSOFVQxSRrzK6qorRwQlun9IMTq
- +1hBW8Sc+kfxQG3Pyp9jIWkcxkgjd4H0F04IgA6o/1FdUW7NKBmqtIK++zQuA6WqhbTy
- oeDw==
-X-Gm-Message-State: APjAAAXYezi73Y4MiZ0DDnONGZzu3OM8X5rWMzQx4GnOgezrUI2M8OcE
- PVZE3klt3XDBrishZthHRcKRsp6c
-X-Google-Smtp-Source: APXvYqyv9SiwDSHiz7Kv9vtIi33Q50o8KMKFstas+IBpjmjlZTguMS/DRKhqx9SlW2d+WdUEJkAldA==
-X-Received: by 2002:a17:906:a859:: with SMTP id
- dx25mr5713348ejb.226.1579632866508; 
- Tue, 21 Jan 2020 10:54:26 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.googlemail.com with ESMTPSA id j63sm1367192edd.81.2020.01.21.10.54.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jan 2020 10:54:26 -0800 (PST)
-To: Ben Dooks <ben.dooks@codethink.co.uk>, Jon Hunter <jonathanh@nvidia.com>
-References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
- <b4e2ec44-bc89-b5ca-cfa7-a6d5c45a9c94@codethink.co.uk>
- <a11ba33e-5ffb-c5c6-04f5-0e031877c55f@gmail.com>
- <621fa27d-9259-2949-9cf5-d2eda5cb0677@gmail.com>
- <a0f027d9-e9e0-d76c-1e40-002fdc37eb5f@nvidia.com>
- <d43d518d-9336-a011-2a69-3f9331f6d0b4@codethink.co.uk>
- <aba4edd6-0ea5-5e95-c5a0-9e749587c763@nvidia.com>
- <449bdc3c-bf82-7cc4-6704-440dd100ca3a@gmail.com>
- <5d3ae629-5d30-0930-5dd1-15161e64926e@codethink.co.uk>
- <9daeeb94-2b90-18b8-2e1e-daae5acf079d@gmail.com>
- <fd73f68c-80f5-ac80-f6e4-42256d3df76d@codethink.co.uk>
- <37beb96a-a525-c72f-a7e1-e9ef5d61f3b2@gmail.com>
- <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
- <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
- <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
- <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
- <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
- <eb90ee78-e462-401a-de60-4a9bfc2a00c4@nvidia.com>
- <9fc97644-b679-ef9f-41ca-1d3a5f296f3a@codethink.co.uk>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <01154788-89a6-8937-130c-4618c105d409@gmail.com>
-Date: Tue, 21 Jan 2020 21:54:24 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
+ dkim=pass (1024-bit key) header.d=gmx.net header.i=@gmx.net
+ header.b="JYH+X/QZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1579642042;
+ bh=MItQ0CGsT4fZJg0jqQ4F+6jtgl/6EP000c4bcNY3S5E=;
+ h=X-UI-Sender-Class:To:From:Subject:Date;
+ b=JYH+X/QZ++sUpDU+0fEMl/hu9lHes9dBJe2AXtBmCUvfma4ltMMpdJlJX9K3XMTDx
+ T8N6PMMKn/vkjXAcz/RcU+tzkQiV5F+Z7ah2TnXW8w0cSxnCX6vBcIzttoawNLg5dj
+ wtdcChJC+UZ9bR45YFThJ0A6f1otRehZJNTqUHj0=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [192.168.178.56] ([89.245.43.201]) by mail.gmx.com (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1N8ofO-1jeoP62Q6g-015of1 for
+ <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 22:27:22 +0100
+To: alsa-devel@alsa-project.org
+From: Florian Sauter <unknownstrangersmail@gmx.de>
+Message-ID: <952999ca-08a4-c71d-c269-5477854b2a92@gmx.de>
+Date: Tue, 21 Jan 2020 22:27:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <9fc97644-b679-ef9f-41ca-1d3a5f296f3a@codethink.co.uk>
 Content-Language: en-US
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH v5 2/7] ASoC: tegra: Allow 24bit and 32bit
- samples
+X-Provags-ID: V03:K1:QQMS5GSMMPljMGS0XO9MkuRZ4nr8MOqGbI4oXlhwprh0LL2c5AQ
+ xYa0W0RtaYMu5IJq4iWDfzIHJ4SdRmo+1Krf25I2H2WRBhE2fUNey9aLdL0iyyuy089xY+V
+ e+qVWkt4mEVr/x2naTJidE8Qe8bH+BUWsOMj18kVChYd4n1B664ub5QIH1nJAvtMUCeV+U6
+ XJ4UBoOCSDjU/vdhnwZoA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:41ygS6SZWYM=:bIZW9Lp31Tt2ERN9ww+WSn
+ gsDlBby+pr9YCGz+KcsjYAcydSbrYoYnSDd/9r/+H6E/sIBMyEQRCzzZOk+rQ27KXiTbEbWOd
+ f+Ws+Wz9MHIKQ1Q1axXMOFWx0zXfQlkmA4c4H7QUeP6v8meMVzf3+yafaaD0w2qz83nfvk6P3
+ 76s60yYdAqXvZi66O1sSMF9ofbLpO+LaK1AQpQpT/+e92kv3JLl3OsN5v7axu0DJDPgzAz6NY
+ Yv1tEqp+/d6aKDso+6N4RV5PKqZCgN6DnfBIHkQVEJ59eOuiC6WyVwSQHjU9IDB97ZTK333ur
+ bhZ5XLCtwYDz/YwS9neduT5IevroEBUwIgn7HKe3UZLFS2MqseC4ku9BhpbIE/Pt9A2cn225e
+ wVZ1wAxNqHb4W43buFRqf2p2DSvK6HjAcW3pvTfEtMUV97jwbVhMzwBp1j71pXyYN0ltRyAkr
+ JX86shUMc617+a093cGoVHkWMfoUNn+wnNn/U+iAW0KSGdcoAiC9y6KmUi7IdbZvycn5tVtZp
+ /HLgl+zSUUzTDrkJz2Pgk74Y16h1RdidgNBreOxWE4/P8uDrVrlvHEl6SZplcXr/TgU7YHUQ/
+ 0wYb5FSfE3zr3Yndjjh/4e4aniWhGAeQVWmla0l75/UPTL6IQsUeCboOZTZTw3Gjcq6FSE+Ns
+ gP+AQLqmePuxezMnleA+Ip2YLebUo/Kaj6/rk51YJE/lFfm+ejeY6JTEIXpfGTRQMuOy0E9RS
+ NYIo3YIBPouA17aH7XU0PJpyMyWZT7YghMIvogP1KbelbdnKvdtbPHFbLQd/r2fy2DIqY3ey8
+ iH89GbFKamv2dY0c8aMxkoE5ZGt0wFAam4MvXJSLHI3VsCTBRbLDI40Py+f/HmsqcjHKEZhqh
+ DfT6yRU8CWI47ZArg7rT851t+7agakiDa91JOedOT06BKr1Ew8gidjmDXIfGx3hzXsQx9HhDH
+ s6dSCN0MWJ+yexgcIXUx8l2YsoUOC6O//FXxjJfP98kIfGWcObjz3MrdCOVBwsXWwRygIDMeu
+ JYd3kW6/L8zglhfTcVno3fRdvJF4J6EykRx+2BMm5Oc/fFhVv6f8wSRL1Cflwuinly5DGjfb0
+ ylHSvq9LzbpldN+sFso0MnypgL5jxMYBiENuqytc3nZhtxGHUy1nmzlI8tJqLJL+94c1YafUb
+ O/xZTRa7X7/x9ojjkiMVtSLHFXnSdFRC15QxxHLeWJ92zOtDZ/muU+P25un8fUxexFD8kN5mr
+ gWuTSr7kijU2n70YjUscn0csQyueFdAC0MPHmAhXwnFjMIv3vJGNJWFCoUVY=
+Subject: [alsa-devel] Reloop Play is recognized and the ouput LED works but
+ i get no sound on my headphones
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,37 +95,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MjEuMDEuMjAyMCAyMToxNSwgQmVuIERvb2tzINC/0LjRiNC10YI6Cj4gT24gMDcvMDEvMjAyMCAx
-MDoyOSwgSm9uIEh1bnRlciB3cm90ZToKPj4KPj4gT24gMDUvMDEvMjAyMCAxMDo1MywgQmVuIERv
-b2tzIHdyb3RlOgo+Pj4KPj4+Cj4+PiBPbiAyMDIwLTAxLTA1IDAxOjQ4LCBEbWl0cnkgT3NpcGVu
-a28gd3JvdGU6Cj4+Pj4gMDUuMDEuMjAyMCAwMzowNCwgQmVuIERvb2tzINC/0LjRiNC10YI6Cj4+
-Pj4+IFtzbmlwXQo+Pj4+Pgo+Pj4+PiBJJ3ZlIGp1c3QgZ29uZSB0aHJvdWdoIHRlc3RpbmcuCj4+
-Pj4+Cj4+Pj4+IFNvbWUgc2ltcGxlIGRhdGEgdGVzdHMgc2hvdyAxNiBhbmQgMzItYml0cyB3b3Jr
-Lgo+Pj4+Pgo+Pj4+PiBUaGUgMjQgYml0IGNhc2Ugc2VlbXMgdG8gYmUgd2VpcmQsIGl0IGxvb2tz
-IGxpa2UgdGhlIDI0LWJpdCBleHBlY3RzCj4+Pj4+IDI0IGJpdCBzYW1wbGVzIGluIDMyIGJpdCB3
-b3Jkcy4gSSBjYW4ndCBzZWUgYW55IHBhY2tpbmcgb3B0aW9ucyB0bwo+Pj4+PiBkbyAyNCBiaXQg
-aW4gMjQgYml0LCBzbyB3ZSBtYXkgaGF2ZSB0byByZW1vdmUgMjQgYml0IHNhbXBsZSBzdXBwb3J0
-Cj4+Pj4+ICh3aGljaCBpcyBhIHNoYW1lKQo+Pj4+Pgo+Pj4+PiBNeSBwcmVmZXJlbmNlIGlzIHRv
-IHJlbW92ZSB0aGUgMjQtYml0IHN1cHBvcnQgYW5kIGtlZXAgdGhlIDMyIGJpdCBpbi4KPj4+Pj4K
-Pj4+Pgo+Pj4+IEludGVyZXN0aW5nLi4gSm9uLCBjb3VsZCB5b3UgcGxlYXNlIGNvbmZpcm0gdGhh
-dCAyNGJpdCBmb3JtYXQgaXNuJ3QKPj4+PiB1c2FibGUgb24gVDMwPwo+Pj4KPj4+IElmIHRoZXJl
-IGlzIGFuIG9wdGlvbiBvZiAyNCBwYWNrZWQgaW50byAzMiwgdGhlbiBJIHRoaW5rIHRoYXQgd291
-bGQKPj4+IHdvcmsuCj4+Pgo+Pj4gSSBjYW4gdHJ5IHRlc3RpbmcgdGhhdCB3aXRoIHJhdyBkYXRh
-IG9uIE1vbmRheS4KPj4KPj4gSSB3aWxsIGNoZWNrIG9uIHRoaXMuIEkgd291bGQgaGF2ZSB0aG91
-Z2h0IHRoYXQgUzI0X0xFICgyNC1iaXRzIHBhY2tlZAo+PiBpbnRvIDMyLWJpdCBlbGVtZW50cykg
-d291bGQgYmUgZmluZS4gVHlwaWNhbGx5IHdlIGRvbid0IHN1cHBvcnQgUzI0XzNMRQo+PiAoMjQt
-Yml0cyBpbiAyNC1iaXQgZWxlbWVudHMpLgo+Pgo+IAo+IEkndmUganVzdCBoYWQgdG8gc3BlbmQg
-dGltZSBmaXhpbmcgcHVsc2V2aWV3L3NpZ3JvaydzIGkycyBoYW5kbGluZyBmb3IKPiB0aGlzLCBi
-dXQgaGF2ZSBydW4gYSBzaW1wbGUgdGVzdCBvZiBTMjRfTEUgdXNpbmcgYSBwYXR0ZXJuIGdlbmVy
-YXRvcgo+IGFuZCB0aGUgbG93IGxldmVsIG91dHB1dCBsb29rcyBvay4KPiAKPiBJIHdpbGwgdGVz
-dCBhIGJpdCBtb3JlIHRvbW9ycm93LCBidXQgSSBzdXNwZWN0IHNvbWV0aGluZyBlbHNlIGlzIGVp
-dGhlcgo+IGdldHRpbmcgUzI0X0xFIHdyb25nIG9yIHdlIGhhdmUgc29tZSBvdGhlciBpc3N1ZS4K
-Ck9rYXksIHRoYW5rcyBmb3IgdGhlIHVwZGF0ZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBh
-bHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8vYWxzYS1kZXZlbAo=
+hi,
+
+i dont know what will happen to this mail but i'll give it a try anyway.
+i got this link after using alsa-info:
+
+http://alsa-project.org/db/?f=56880d275298302ba0a820c34cfc3a143dd3d4cf
+
+im not a total linux freshman but not a developer either. i found some 7
+year old quirks for making the reloop play card work but alsa seems to
+have changed a lot since then.
+
+sorry if i'm totaly at the wrong place here
+
+cheers
+
+flo
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

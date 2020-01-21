@@ -2,52 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA166144367
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 18:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F84B144359
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 18:35:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 566201682;
-	Tue, 21 Jan 2020 18:37:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 566201682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 42C6E167F;
+	Tue, 21 Jan 2020 18:34:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42C6E167F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579628270;
-	bh=6oxGSwZrISzIJupS1GTDU60sb88+K4G3M3BmaLyxQaU=;
+	s=default; t=1579628144;
+	bh=63SRxY8tHoaaKFpTrb0Y7q50CyypcoFHQT/vb4KyeJI=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=AAUiQCmSf9jnJKi2x+B0Z8wgRPGy4og2SkP3HhwZl5MVMcmdbKJKp4qrINHeeSVG4
-	 zUVIOoCSTqu8mEGhKyzdVDKE8KhwqBIuK/JB1+SfBTUODio3IS8OHoCC0iYuLpsPYc
-	 8QrEXgdhChSrJ3BC8UEOvoWxiR/6QeGi2a39znsU=
+	b=vMkfSqiOV+Ax/+fvDVwc6G4a5RZxPtIL0i3W3ZN2ttNud3XtsrJ2d/hagIYG46fHF
+	 AzVmiEU89T7CRuLTZ242WL4idL8c+smEkicJa/Po5xSZeM8DOVHAmB2LYlACBf3KIJ
+	 9g5Liutc222LB5Btr61U7cNQ5iS6mk/ncosvtx5Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7051F80332;
-	Tue, 21 Jan 2020 18:28:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 789CEF802FF;
+	Tue, 21 Jan 2020 18:28:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D7BEF802C2; Tue, 21 Jan 2020 18:28:44 +0100 (CET)
+ id 0572AF802E9; Tue, 21 Jan 2020 18:28:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0C840F802C2
- for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 18:28:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C840F802C2
+ by alsa1.perex.cz (Postfix) with ESMTP id 2D0A5F8028B
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 18:28:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D0A5F8028B
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0132630E;
- Tue, 21 Jan 2020 09:28:29 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7C0D530E;
+ Tue, 21 Jan 2020 09:28:31 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74F173F6C4;
- Tue, 21 Jan 2020 09:28:28 -0800 (PST)
-Date: Tue, 21 Jan 2020 17:28:26 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EF4D33F6C4;
+ Tue, 21 Jan 2020 09:28:30 -0800 (PST)
+Date: Tue, 21 Jan 2020 17:28:29 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <87wo9nx7it.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-87wo9nx7it.wl-kuninori.morimoto.gx@renesas.com>
+In-Reply-To: <87y2u3x7iy.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-87y2u3x7iy.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
-Subject: [alsa-devel] Applied "ASoC: samsung: i2s: move .suspend/.resume to
+Subject: [alsa-devel] Applied "ASoC: dwc: dwc-i2s: move .suspend/.resume to
 	component" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -69,7 +69,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: samsung: i2s: move .suspend/.resume to component
+   ASoC: dwc: dwc-i2s: move .suspend/.resume to component
 
 has been applied to the asoc tree at
 
@@ -94,10 +94,10 @@ to this mail.
 Thanks,
 Mark
 
-From 21385a4faa8469b129af56a8c5a9405e3189c787 Mon Sep 17 00:00:00 2001
+From ef20061a34e0e6822cbfd20c11667ae23a96798d Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 20 Jan 2020 10:04:42 +0900
-Subject: [PATCH] ASoC: samsung: i2s: move .suspend/.resume to component
+Date: Mon, 20 Jan 2020 10:04:37 +0900
+Subject: [PATCH] ASoC: dwc: dwc-i2s: move .suspend/.resume to component
 
 There is no big difference at implementation for .suspend/.resume
 between DAI driver and Component driver.
@@ -114,54 +114,88 @@ component->active if necessary.
 This patch moves DAI driver .suspend/.resume to Component driver
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87wo9nx7it.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87y2u3x7iy.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/samsung/i2s.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ sound/soc/dwc/dwc-i2s.c | 32 ++++++++++++++++++--------------
+ 1 file changed, 18 insertions(+), 14 deletions(-)
 
-diff --git a/sound/soc/samsung/i2s.c b/sound/soc/samsung/i2s.c
-index 9722940da6a4..a57bb989a0ef 100644
---- a/sound/soc/samsung/i2s.c
-+++ b/sound/soc/samsung/i2s.c
-@@ -1024,14 +1024,14 @@ i2s_delay(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
- }
- 
- #ifdef CONFIG_PM
--static int i2s_suspend(struct snd_soc_dai *dai)
-+static int i2s_suspend(struct snd_soc_component *component)
- {
--	return pm_runtime_force_suspend(dai->dev);
-+	return pm_runtime_force_suspend(component->dev);
- }
- 
--static int i2s_resume(struct snd_soc_dai *dai)
-+static int i2s_resume(struct snd_soc_component *component)
- {
--	return pm_runtime_force_resume(dai->dev);
-+	return pm_runtime_force_resume(component->dev);
- }
- #else
- #define i2s_suspend NULL
-@@ -1140,6 +1140,9 @@ static const struct snd_soc_component_driver samsung_i2s_component = {
- 
- 	.dapm_routes = samsung_i2s_dapm_routes,
- 	.num_dapm_routes = ARRAY_SIZE(samsung_i2s_dapm_routes),
-+
-+	.suspend = i2s_suspend,
-+	.resume = i2s_resume,
+diff --git a/sound/soc/dwc/dwc-i2s.c b/sound/soc/dwc/dwc-i2s.c
+index 65112b9d8588..7eeca2150b2d 100644
+--- a/sound/soc/dwc/dwc-i2s.c
++++ b/sound/soc/dwc/dwc-i2s.c
+@@ -390,10 +390,6 @@ static const struct snd_soc_dai_ops dw_i2s_dai_ops = {
+ 	.set_fmt	= dw_i2s_set_fmt,
  };
  
- #define SAMSUNG_I2S_FMTS (SNDRV_PCM_FMTBIT_S8 | SNDRV_PCM_FMTBIT_S16_LE | \
-@@ -1171,8 +1174,6 @@ static int i2s_alloc_dais(struct samsung_i2s_priv *priv,
+-static const struct snd_soc_component_driver dw_i2s_component = {
+-	.name		= "dw-i2s",
+-};
+-
+ #ifdef CONFIG_PM
+ static int dw_i2s_runtime_suspend(struct device *dev)
+ {
+@@ -413,26 +409,30 @@ static int dw_i2s_runtime_resume(struct device *dev)
+ 	return 0;
+ }
  
- 		dai_drv->probe = samsung_i2s_dai_probe;
- 		dai_drv->remove = samsung_i2s_dai_remove;
--		dai_drv->suspend = i2s_suspend;
--		dai_drv->resume = i2s_resume;
+-static int dw_i2s_suspend(struct snd_soc_dai *dai)
++static int dw_i2s_suspend(struct snd_soc_component *component)
+ {
+-	struct dw_i2s_dev *dev = snd_soc_dai_get_drvdata(dai);
++	struct dw_i2s_dev *dev = snd_soc_component_get_drvdata(component);
  
- 		dai_drv->symmetric_rates = 1;
- 		dai_drv->ops = &samsung_i2s_dai_ops;
+ 	if (dev->capability & DW_I2S_MASTER)
+ 		clk_disable(dev->clk);
+ 	return 0;
+ }
+ 
+-static int dw_i2s_resume(struct snd_soc_dai *dai)
++static int dw_i2s_resume(struct snd_soc_component *component)
+ {
+-	struct dw_i2s_dev *dev = snd_soc_dai_get_drvdata(dai);
++	struct dw_i2s_dev *dev = snd_soc_component_get_drvdata(component);
++	struct snd_soc_dai *dai;
+ 
+ 	if (dev->capability & DW_I2S_MASTER)
+ 		clk_enable(dev->clk);
+ 
+-	if (dai->playback_active)
+-		dw_i2s_config(dev, SNDRV_PCM_STREAM_PLAYBACK);
+-	if (dai->capture_active)
+-		dw_i2s_config(dev, SNDRV_PCM_STREAM_CAPTURE);
++	for_each_component_dais(component, dai) {
++		if (dai->playback_active)
++			dw_i2s_config(dev, SNDRV_PCM_STREAM_PLAYBACK);
++		if (dai->capture_active)
++			dw_i2s_config(dev, SNDRV_PCM_STREAM_CAPTURE);
++	}
++
+ 	return 0;
+ }
+ 
+@@ -441,6 +441,12 @@ static int dw_i2s_resume(struct snd_soc_dai *dai)
+ #define dw_i2s_resume	NULL
+ #endif
+ 
++static const struct snd_soc_component_driver dw_i2s_component = {
++	.name		= "dw-i2s",
++	.suspend	= dw_i2s_suspend,
++	.resume		= dw_i2s_resume,
++};
++
+ /*
+  * The following tables allow a direct lookup of various parameters
+  * defined in the I2S block's configuration in terms of sound system
+@@ -629,8 +635,6 @@ static int dw_i2s_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	dw_i2s_dai->ops = &dw_i2s_dai_ops;
+-	dw_i2s_dai->suspend = dw_i2s_suspend;
+-	dw_i2s_dai->resume = dw_i2s_resume;
+ 
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+ 	dev->i2s_base = devm_ioremap_resource(&pdev->dev, res);
 -- 
 2.20.1
 

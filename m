@@ -2,54 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91F0C144385
-	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 18:44:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE3F2144388
+	for <lists+alsa-devel@lfdr.de>; Tue, 21 Jan 2020 18:45:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 412511682;
-	Tue, 21 Jan 2020 18:43:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 412511682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9D72516C6;
+	Tue, 21 Jan 2020 18:44:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9D72516C6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579628669;
-	bh=Og7vRajscoNgaVNa1ZNgellb+feQajhqLtda3toGEIM=;
-	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=IkYZ4YU8J+7GJwDXNsdSrYH4Uny3MTVXfq66JSNGIThYofaR4aDMeITeDsvntLk92
-	 68QeI7Mh+DKk6gxAKGYb7/VisJCBRe84XhVfvjcjrGSE1MlIFbU5tOwS3Um+wXJt5z
-	 hbPLuvHjyLND/iePAzF3FYO9/XE0Mi3nhPjS4Lu4=
+	s=default; t=1579628709;
+	bh=P2Gn+W3PNOkdECrKMN54YrYXEc1WGsWfovZuxLCc/LY=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rLm1BRF/lzvdLwe1rmV4L/2AWJFg3X0BnGBiF06tXEs/M63gLLr8Wtvc19Q9r5Ucy
+	 TAS2lgDXPzS04KSEBnhEM6aTc2uWsRr4BRNkt4XWGH7oFt9QyNfkNXeMzohiMiZsgE
+	 NTLjsiBtoFjFnulEDAzeAitO05mN02QQ5qZ87SUk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3901BF8038E;
-	Tue, 21 Jan 2020 18:29:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06EE3F80271;
+	Tue, 21 Jan 2020 18:31:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7813F80350; Tue, 21 Jan 2020 18:29:10 +0100 (CET)
+ id BB4E3F8021D; Tue, 21 Jan 2020 18:31:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 10FD2F8033F
- for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 18:29:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10FD2F8033F
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 56D5D328;
- Tue, 21 Jan 2020 09:29:01 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C94B63F6C4;
- Tue, 21 Jan 2020 09:29:00 -0800 (PST)
-Date: Tue, 21 Jan 2020 17:28:59 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-In-Reply-To: <1579443563-12287-1-git-send-email-spujar@nvidia.com>
-Message-Id: <applied-1579443563-12287-1-git-send-email-spujar@nvidia.com>
-X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- tiwai@suse.com, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] Applied "ASoC: soc-pcm: crash in snd_soc_dapm_new_dai"
-	to the asoc tree
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 946D4F800CB
+ for <alsa-devel@alsa-project.org>; Tue, 21 Jan 2020 18:31:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 946D4F800CB
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Jan 2020 09:31:34 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,346,1574150400"; d="scan'208";a="307265038"
+Received: from kfang1-mobl.amr.corp.intel.com (HELO [10.251.147.146])
+ ([10.251.147.146])
+ by orsmga001.jf.intel.com with ESMTP; 21 Jan 2020 09:31:32 -0800
+To: Vinod Koul <vkoul@kernel.org>
+References: <20200114060959.GA2818@vkoul-mobl>
+ <6635bf0b-c20a-7561-bcbf-4a480a077ae4@linux.intel.com>
+ <20200118071257.GY2818@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <73907607-0763-576d-b24e-4773dfb15f0b@linux.intel.com>
+Date: Tue, 21 Jan 2020 11:31:32 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <20200118071257.GY2818@vkoul-mobl>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v5 09/17] soundwire: intel: remove platform
+ devices and use 'Master Devices' instead
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,86 +79,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: soc-pcm: crash in snd_soc_dapm_new_dai
+> A rename away from probe will certainly be very helpful as
+> you would also agree that terms 'probe' and 'remove' have a very
+> special meaning in kernel, so let us avoid these
 
-has been applied to the asoc tree at
+ok, so would the following be ok with you?
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From af4bac11531fbc0b5955fdccbe3f5ea265cd7374 Mon Sep 17 00:00:00 2001
-From: Sameer Pujar <spujar@nvidia.com>
-Date: Sun, 19 Jan 2020 19:49:23 +0530
-Subject: [PATCH] ASoC: soc-pcm: crash in snd_soc_dapm_new_dai
-
-Crash happens in snd_soc_dapm_new_dai() when substream->private_data
-access is made and substream is NULL here. This is seen for DAIs where
-only playback or capture stream is defined. This seems to be happening
-for codec2codec DAI link.
-
-Both playback and capture are 0 during soc_new_pcm(). This is probably
-happening because cpu_dai and codec_dai are both validated either for
-SNDRV_PCM_STREAM_PLAYBACK or SNDRV_PCM_STREAM_CAPTURE.
-
-Shouldn't be playback = 1 when,
- - playback stream is available for codec_dai AND
- - capture stream is available for cpu_dai
-
-and vice-versa for capture = 1?
-
-Signed-off-by: Sameer Pujar <spujar@nvidia.com>
-Link: https://lore.kernel.org/r/1579443563-12287-1-git-send-email-spujar@nvidia.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/soc-pcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index b78f6ff2b1d3..f70bec7815ee 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -2916,10 +2916,10 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 
- 		for_each_rtd_codec_dai(rtd, i, codec_dai) {
- 			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
--			    snd_soc_dai_stream_valid(cpu_dai,   SNDRV_PCM_STREAM_PLAYBACK))
-+			    snd_soc_dai_stream_valid(cpu_dai,   SNDRV_PCM_STREAM_CAPTURE))
- 				playback = 1;
- 			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_CAPTURE) &&
--			    snd_soc_dai_stream_valid(cpu_dai,   SNDRV_PCM_STREAM_CAPTURE))
-+			    snd_soc_dai_stream_valid(cpu_dai,   SNDRV_PCM_STREAM_PLAYBACK))
- 				capture = 1;
- 		}
- 
--- 
-2.20.1
-
+/**
+  * struct sdw_md_driver - SoundWire 'Master Device' driver
+  *
+  * @init: allocations and initializations (hardware may not be enabled yet)
+  * @startup: initialization handled after the hardware is enabled, all
+  * clock/power dependencies are available
+  * @shutdown: cleanups before hardware is disabled (optional)
+  * @exit: free all remaining resources
+  * @autonomous_clock_stop_enable: enable/disable driver control while
+  * in clock-stop mode, typically in always-on/D0ix modes. When the driver
+  * yields control, another entity in the system (typically firmware
+  * running on an always-on microprocessor) is responsible to tracking
+  * Slave-initiated wakes
+  */
+struct sdw_md_driver {
+	int (*init)(struct sdw_master_device *md, void *link_ctx);
+	int (*startup)(struct sdw_master_device *md);
+	int (*shutdown)(struct sdw_master_device *md);
+	int (*exit)(struct sdw_master_device *md);
+	int (*autonomous_clock_stop_enable)(struct sdw_master_device *md,
+					    bool state);
+};
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

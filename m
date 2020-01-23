@@ -2,50 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFD71146B24
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jan 2020 15:22:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32622146B2A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jan 2020 15:23:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4DDCA1696;
-	Thu, 23 Jan 2020 15:21:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DDCA1696
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9BCA16A2;
+	Thu, 23 Jan 2020 15:22:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9BCA16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579789342;
-	bh=8NT52fDFRa44j7U7TTokYEtBN1CxP8Zjt1B9fNhtkUc=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579789389;
+	bh=WHWR6T9ox+aSoorhjsj9+41bHcXwsEpDi4kVQSp2ThQ=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WzQr7eF5GGQLwPS4Aixyz0oOzeAbwluKbaVCQzfFbLLaf87fpVCc5th2tZhr14ljU
-	 SqN7hdRPZ+eSLVawnmhmmuK0tlj+sr20WriLW6w702kMsIUjdu7QDq6tmPsboIB18G
-	 MDxVEzLblDWqxMP5DiOn9zu8uteqofC89rzlfHb4=
+	b=Ob7wmV0e/VUQMjOwq6+DJA5JiHsGTFBX5mxPjeBaya2MY5ukHojcLwx9zNyU5Ooof
+	 2Ky8PI+m+rVo2SnKjXaLySt6Bx7dAOlbLHsIi9syYJutxF6CCj/SomGZfzDwILlCvC
+	 dLLa+Gl3y/3V7LtCBgV0YE0cGerAWnZf5WMYjjUY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6F93CF801D9;
-	Thu, 23 Jan 2020 15:20:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56961F80277;
+	Thu, 23 Jan 2020 15:20:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17CA1F801D9; Thu, 23 Jan 2020 15:20:37 +0100 (CET)
+ id 5365EF801F9; Thu, 23 Jan 2020 15:20:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from server.feix.family (server.feix.family [80.240.19.227])
- by alsa1.perex.cz (Postfix) with ESMTP id B6507F800E7
- for <alsa-devel@alsa-project.org>; Thu, 23 Jan 2020 15:20:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6507F800E7
-To: Jaroslav Kysela <perex@perex.cz>, alsa-devel@alsa-project.org
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 619BBF801F9
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jan 2020 15:20:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 619BBF801F9
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 Jan 2020 06:20:35 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,354,1574150400"; d="scan'208";a="288391289"
+Received: from mjyoun1x-mobl.amr.corp.intel.com (HELO [10.251.142.125])
+ ([10.251.142.125])
+ by fmsmga001.fm.intel.com with ESMTP; 23 Jan 2020 06:20:34 -0800
+To: Michal Feix <michal@feix.family>, alsa-devel@alsa-project.org
 References: <ebe959a0-5272-e7bd-6001-1ce598f7f6be@feix.family>
  <44ba763e-f3d2-3fa2-eea6-9ebb7317a3bd@linux.intel.com>
  <cc4fc82d-5b01-d5f9-7771-ba2b5daa5829@feix.family>
- <e45892ff-d142-33ef-ee3c-1ce2cc64a0ce@perex.cz>
-From: Michal Feix <michal@feix.family>
-Message-ID: <14ded854-55a2-931f-073a-23a15f745acb@feix.family>
-Date: Thu, 23 Jan 2020 15:20:32 +0100
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <103d4b4e-f234-5704-310d-ad6286575aa1@linux.intel.com>
+Date: Thu, 23 Jan 2020 08:20:34 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <e45892ff-d142-33ef-ee3c-1ce2cc64a0ce@perex.cz>
-Content-Language: cs
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+In-Reply-To: <cc4fc82d-5b01-d5f9-7771-ba2b5daa5829@feix.family>
+Content-Language: en-US
 Subject: Re: [alsa-devel] ASUS T100TAM UCM
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -59,65 +71,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-PiBEbmUgMjMuIDAxLiAyMCB2IDE1OjEwIE1pY2hhbCBGZWl4IG5hcHNhbChhKToKPj4+IE9uIDEv
-MjMvMjAgNjo0OSBBTSwgTWljaGFsIEZlaXggd3JvdGU6Cj4+Pj4gSGVsbG8sCj4+Pj4KPj4+PiB0
-aGVyZSBpcyBubyBzb3VuZCB3b3JraW5nIHZpYSBzcGVha2VycyBvciBoZWFkcGhvbmVzIGphY2sg
-b24gQXN1cyBUMTAwVEFNLiBTb3VuZCB3b3JrcyBjb3JyZWN0bHkgdmlhIEhETUkgb3IgQmx1ZXRv
-b3RoIGhlYWRwaG9uZXMuIFRoZSBjaGlwIG9uIHRoaXMgQmF5dHJhaWwgbWFjaGluZSBpcyBjb3Jy
-ZWN0bHkgcmVjb2duaXplZCBhcyBieXRjcl9ydDU2NDAuIMKgRnJvbSBkbWVzZzoKPj4+Pgo+Pj4+
-IGJ5dGNyX3J0NTY0MCBieXRjcl9ydDU2NDA6IHF1aXJrIERNSUMxX01BUCBlbmFibGVkCj4+Pj4g
-Ynl0Y3JfcnQ1NjQwIGJ5dGNyX3J0NTY0MDogcXVpcmsgcmVhbHRlayxqYWNrLWRldGVjdC1zb3Vy
-Y2UgMwo+Pj4+IGJ5dGNyX3J0NTY0MCBieXRjcl9ydDU2NDA6IHF1aXJrIHJlYWx0ZWssb3Zlci1j
-dXJyZW50LXRocmVzaG9sZC1taWNyb2FtcCAyMDAwCj4+Pj4gYnl0Y3JfcnQ1NjQwIGJ5dGNyX3J0
-NTY0MDogcXVpcmsgcmVhbHRlayxvdmVyLWN1cnJlbnQtc2NhbGUtZmFjdG9yIDEKPj4+PiBieXRj
-cl9ydDU2NDAgYnl0Y3JfcnQ1NjQwOiBxdWlyayBNQ0xLX0VOIGVuYWJsZWQKPj4+PiBieXRjcl9y
-dDU2NDAgYnl0Y3JfcnQ1NjQwOiBzbmQtc29jLWR1bW15LWRhaSA8LT4gbWVkaWEtY3B1LWRhaSBt
-YXBwaW5nIG9rCj4+Pj4gYnl0Y3JfcnQ1NjQwIGJ5dGNyX3J0NTY0MDogc25kLXNvYy1kdW1teS1k
-YWkgPC0+IGRlZXBidWZmZXItY3B1LWRhaSBtYXBwaW5nIG9rCj4+Pj4gYnl0Y3JfcnQ1NjQwIGJ5
-dGNyX3J0NTY0MDogcnQ1NjQwLWFpZjEgPC0+IHNzcDItcG9ydCBtYXBwaW5nIG9rCj4+Pj4gaW5w
-dXQ6IGJ5dGNyLXJ0NTY0MCBIZWFkc2V0IGFzIC9kZXZpY2VzL3BsYXRmb3JtLzgwODYwRjI4OjAw
-L2J5dGNyX3J0NTY0MC9zb3VuZC9jYXJkMC9pbnB1dDE3Cj4+Pj4KPj4+PiBBZnRlciBib290dXAs
-IGtlcm5lbCBsb2cgaXMgZmlsbGVkIHdpdGg6ICJCYXl0cmFpbCBBdWRpbyBQb3J0OiBBU29DOiBu
-byBiYWNrZW5kIERBSXMgZW5hYmxlZCBmb3IgQmF5dHJhaWwgQXVkaW8gUG9ydCIgbWVzc2FnZXMu
-IEkgZG8gdW5kZXJzdGFuZCB0aGlzIGlzIGR1ZSB0byB0aGUgbWlzc2luZyBVQ00gcHJvZmlsZSBm
-b3IgdGhlIG1hY2hpbmUuCj4+Pgo+Pj4gd2hhdCBkbyB5b3UgbWVhbiB3aXRoICdtaXNzaW5nIFVD
-TSBwcm9maWxlJz8gSXQncyBiZWVuIGF2YWlsYWJsZSBmb3IgbWFueSBtb29ucywgYW5kIHdlIHdv
-cmtlZCB3aXRoIEphcm9zbGF2L0hhbnMgdG8gdXBkYXRlIGZvciBVQ012Mi4KPj4+Cj4+PiBZb3Ug
-c2hvdWxkIGJlIGFibGUgdG8gdXNlIGFsc2EtdWNtIGFuZCBjb25maWd1cmUgdGhpbmdzIG1hbnVh
-bGx5LCBlLmcuCj4+Pgo+Pj4gYWxzYXVjbSAtYyBieXRjci1ydDU2NDAgc2V0IF92ZXJiIEhpRmkg
-c2V0IF9lbmFkZXYgSGVhZHBob25lcwo+Pj4KPj4+IGFsc2F1Y20gLWMgYnl0Y3ItcnQ1NjQwIHNl
-dCBfdmVyYiBIaUZpIHNldCBfZW5hZGV2IFNwZWFrZXIKPj4+Cj4+Cj4+IFRoYW5rcyBQaWVycmUu
-IEknbSBhd2FyZSBvZiB0aGUgd29yayBkb25lIHByZXZpb3VzbHkgb24gQXN1cyBUMTAwLiBOb3Qg
-c3VyZSwgaWYgQXN1cyBUMTAwVEFNIGlzIGFueSBzaWduaWZpY2FudGx5IGRpZmZlcmVudC4gSnVz
-dCB0cmllZCB5b3VyIHN1Z2dlc3RlZCBjb21tYW5kcyBhcyByb290IHVzZXI6Cj4+Cj4+ICMgYWxz
-YXVjbSAtYyBieXRjci1ydDU2NDAgc2V0IF92ZXJiIEhpRmkgc2V0IF9lbmFkZXYgSGVhZHBob25l
-cwo+PiBBTFNBIGxpYiB1Y21fc3Vicy5jOjIxNToodWNfbWdyX2dldF9zdWJzdGl0dXRlZF92YWx1
-ZSkgdmFyaWFibGUgJyR7Q2FyZENvbXBvbmVudHN9JyBpcyBub3QgZGVmaW5lZCBpbiB0aGlzIGNv
-bnRleHQhCj4+IEFMU0EgbGliIG1haW4uYzo5NjA6KHNuZF91c2VfY2FzZV9tZ3Jfb3BlbikgZXJy
-b3I6IGZhaWxlZCB0byBpbXBvcnQgYnl0Y3ItcnQ1NjQwIHVzZSBjYXNlIGNvbmZpZ3VyYXRpb24g
-LTIyCj4+IGFsc2F1Y206IGVycm9yIGZhaWxlZCB0byBvcGVuIHNvdW5kIGNhcmQgYnl0Y3ItcnQ1
-NjQwOiBJbnZhbGlkIGFyZ3VtZW50Cj4+Cj4+ICMgYWxzYXVjbSAtYyBieXRjci1ydDU2NDAgc2V0
-IF92ZXJiIEhpRmkgc2V0IF9lbmFkZXYgU3BlYWtlcgo+PiBBTFNBIGxpYiB1Y21fc3Vicy5jOjIx
-NToodWNfbWdyX2dldF9zdWJzdGl0dXRlZF92YWx1ZSkgdmFyaWFibGUgJyR7Q2FyZENvbXBvbmVu
-dHN9JyBpcyBub3QgZGVmaW5lZCBpbiB0aGlzIGNvbnRleHQhCj4+IEFMU0EgbGliIG1haW4uYzo5
-NjA6KHNuZF91c2VfY2FzZV9tZ3Jfb3BlbikgZXJyb3I6IGZhaWxlZCB0byBpbXBvcnQgYnl0Y3It
-cnQ1NjQwIHVzZSBjYXNlIGNvbmZpZ3VyYXRpb24gLTIyCj4+IGFsc2F1Y206IGVycm9yIGZhaWxl
-ZCB0byBvcGVuIHNvdW5kIGNhcmQgYnl0Y3ItcnQ1NjQwOiBJbnZhbGlkIGFyZ3VtZW50Cj4gCj4g
-VHJ5IHRoaXM6Cj4gCj4gYWxzYXVjbSAtYyBodzowIHNldCBfdmVyYiBIaUZpIHNldCBfZW5hZGV2
-IFNwZWFrZXIKPiAKPiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIFRoYW5rIHlvdSwK
-PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgSmFyb3NsYXYKPiAKCk5v
-IGx1Y2suCgojIGFsc2F1Y20gLWMgaHc6MCBzZXQgX3ZlcmIgSGlGaSBzZXQgX2VuYWRldiBTcGVh
-a2VyCkFMU0EgbGliIHVjbV9zdWJzLmM6MjE1Oih1Y19tZ3JfZ2V0X3N1YnN0aXR1dGVkX3ZhbHVl
-KSB2YXJpYWJsZSAnJHtDYXJkQ29tcG9uZW50c30nIGlzIG5vdCBkZWZpbmVkIGluIHRoaXMgY29u
-dGV4dCEKQUxTQSBsaWIgbWFpbi5jOjk2MDooc25kX3VzZV9jYXNlX21ncl9vcGVuKSBlcnJvcjog
-ZmFpbGVkIHRvIGltcG9ydCBodzowIHVzZSBjYXNlIGNvbmZpZ3VyYXRpb24gLTIyCmFsc2F1Y206
-IGVycm9yIGZhaWxlZCB0byBvcGVuIHNvdW5kIGNhcmQgaHc6MDogSW52YWxpZCBhcmd1bWVudAoK
-LS0KTWljaGFsIEZlaXgKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3Jn
-Cmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1k
-ZXZlbAo=
+
+> Thanks Pierre. I'm aware of the work done previously on Asus T100. Not 
+> sure, if Asus T100TAM is any significantly different. Just tried your 
+> suggested commands as root user:
+> 
+> # alsaucm -c bytcr-rt5640 set _verb HiFi set _enadev Headphones
+> ALSA lib ucm_subs.c:215:(uc_mgr_get_substituted_value) variable 
+> '${CardComponents}' is not defined in this context!
+> ALSA lib main.c:960:(snd_use_case_mgr_open) error: failed to import 
+> bytcr-rt5640 use case configuration -22
+> alsaucm: error failed to open sound card bytcr-rt5640: Invalid argument
+> 
+> # alsaucm -c bytcr-rt5640 set _verb HiFi set _enadev Speaker
+> ALSA lib ucm_subs.c:215:(uc_mgr_get_substituted_value) variable 
+> '${CardComponents}' is not defined in this context!
+> ALSA lib main.c:960:(snd_use_case_mgr_open) error: failed to import 
+> bytcr-rt5640 use case configuration -22
+> alsaucm: error failed to open sound card bytcr-rt5640: Invalid argument
+> 
+> I also tried this:
+> 
+> # alsaucm listcards
+> ALSA lib utils.c:261:(uc_mgr_config_load) could not open configuration 
+> file /usr/share/alsa/ucm2/HDA Intel PCH/HDA Intel PCH.conf
+> alsaucm: error failed to get card list: No such file or directory
+> 
+> There really is no such file "HDA Intel PCH.conf" in HDA Intel PCH 
+> directory, but I do not see any such file in the alsa-ucm-conf package 
+> downloaded from origin Alsa site.
+
+can you point us to the alsa-info results then? It could indeed be a 
+completely different hardware, where you only have HDaudio support (no 
+I2S codecs), in which case you shouldn't need UCM.
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

@@ -2,72 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89056146221
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jan 2020 07:45:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B0C414624A
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jan 2020 08:11:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0907E1681;
-	Thu, 23 Jan 2020 07:44:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0907E1681
+	by alsa0.perex.cz (Postfix) with ESMTPS id AFBB71685;
+	Thu, 23 Jan 2020 08:10:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AFBB71685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579761901;
-	bh=BmoIQNOCORmUCbDs5W8DADyK5hhc2lmoK3rAPlWrSzk=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=CM5Pyhj51s13LukTGl45TIZJtM8X1eTb0FI/0bWcDRP1+621/RG+r/codc2brfpNK
-	 ObGO3imTjdcuwRMyOitrzKvc6hEpa0VaY2zHubX3B/gbVguyJy6b08jUEZMlL0I9/x
-	 xXg0CNY0HzjjIC80IPC28n88788foQOjf69ikfQ0=
+	s=default; t=1579763478;
+	bh=zPvQ/dMXft3n+rdAED3JLjrryzjMwsdVoVFUgbGG4Tg=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=dPnoFCpwDTNUPZ95vXirew8dE9xgesVs3HD/rqBTI5045b5+qnva3RWiAYDhZfuUx
+	 MWbQtlw8LuDkwTAzLrOQxZyvxUejccA6GfNtDY6FMggQIiFI6l95anwc6F/ztxcJ8z
+	 ZTiS3cWoC40cEzYZ5ogkjfPopW7ogpn1v9jGc474=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8F197F801D9;
-	Thu, 23 Jan 2020 07:43:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4E02DF801ED;
+	Thu, 23 Jan 2020 08:09:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62C7BF801D9; Thu, 23 Jan 2020 07:43:14 +0100 (CET)
+ id 112FFF801D9; Thu, 23 Jan 2020 08:09:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4E66AF80112
- for <alsa-devel@alsa-project.org>; Thu, 23 Jan 2020 07:43:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E66AF80112
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="w1p1nQD4"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C1835217F4;
- Thu, 23 Jan 2020 06:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579761788;
- bh=xAQZj9tFY1FT0CiNNJlEJTsbJX8801qGcsw3AFIuivc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=w1p1nQD4PvUFTg70UDMsv9EfZ/21Xb6vHclyPaNttcT2tmD7Nkl/6CbAKlx5qkAJ9
- IW/7KPBbFReuNQLWbmkkfVtwEjSBeCcX1Uj/WQPg0Pb6f9RjRKYTpfjwtVmqj2VStA
- cn5Mk5b6cLr/6f3zZXgg4BX7uMkzS9J9srW/Y6Cg=
-Date: Thu, 23 Jan 2020 07:43:06 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20200123064306.GA124954@kroah.com>
-References: <20200122190752.3081016-1-perex@perex.cz>
- <26ae4dbd-b1b8-c640-0dc0-d8c2bbe666e2@linux.intel.com>
- <20200122202530.GG3833@sirena.org.uk>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200122202530.GG3833@sirena.org.uk>
-Cc: Dragos Tarcatu <dragos_tarcatu@mentor.com>, Sasha Levin <sashal@kernel.org>,
- ALSA development <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.de>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, stable@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: topology: fix
- soc_tplg_fe_link_create() - link->dobj initialization order
+X-Spam-Level: **
+X-Spam-Status: No, score=3.0 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 48C10F80112
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jan 2020 08:09:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48C10F80112
+Date: 23 Jan 2020 16:09:22 +0900
+X-IronPort-AV: E=Sophos;i="5.70,352,1574089200"; d="scan'208";a="37423706"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 23 Jan 2020 16:09:22 +0900
+Received: from morimoto-PC.renesas.com (unknown [10.166.18.140])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 8A2AF40065B1
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jan 2020 16:09:22 +0900 (JST)
+Message-ID: <87d0baps2l.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Linux-ALSA <alsa-devel@alsa-project.org>
+User-Agent: Wanderlust/2.15.9 Emacs/24.5 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Subject: [alsa-devel] Question about tx_mask/rx_mask
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,41 +64,68 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 22, 2020 at 08:25:30PM +0000, Mark Brown wrote:
-> On Wed, Jan 22, 2020 at 01:28:57PM -0600, Pierre-Louis Bossart wrote:
-> > On 1/22/20 1:07 PM, Jaroslav Kysela wrote:
-> 
-> > > The code which checks the return value for snd_soc_add_dai_link() call
-> > > in soc_tplg_fe_link_create() moved the snd_soc_add_dai_link() call before
-> > > link->dobj members initialization.
-> 
-> > > While it does not affect the latest kernels, the old soc-core.c code
-> > > in the stable kernels is affected. The snd_soc_add_dai_link() function uses
-> > > the link->dobj.type member to check, if the link structure is valid.
-> 
-> > > Reorder the link->dobj initialization to make things work again.
-> > > It's harmless for the recent code (and the structure should be properly
-> > > initialized before other calls anyway).
-> 
-> > > The problem is in stable linux-5.4.y since version 5.4.11 when the
-> > > upstream commit 76d270364932 was applied.
-> 
-> > I am not following. Is this a fix for linux-5.4-y only, or is it needed on
-> > Mark's tree? In the latter case, what is broken? We've been using Mark's
-> > tree without issues, wondering what we missed?
-> 
-> He's saying it's a fix for stable but it's just a cleanup and robustness
-> improvement in current kernels - when the patch 76d270364932 (ASoC:
-> topology: Check return value for snd_soc_add_dai_link()) was backported
-> by the bot the bot missed some other context which triggered bugs.
-> 
-> Copying in Sasha and Greg for stable (not sure if the list works by
-> itself).
 
-How this was marked-up is fine, our scripts can easily handle it,
-thanks.
+Hi ALSA ML
 
-greg k-h
+I want to ask about tx_mask / rx_mask.
+soc_pcm_open() is calling snd_soc_dai_startup() (= (A)), and then,
+it setup tx_mask / rx_mask.
+
+	static int soc_pcm_open(...)
+	{
+		...
+		for_each_rtd_codec_dai(rtd, i, codec_dai) {
+(A)			ret = snd_soc_dai_startup(codec_dai, substream);
+			if (ret < 0) {
+				dev_err(...)
+
+			if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
+=>				codec_dai->tx_mask = 0;
+			else
+=>				codec_dai->rx_mask = 0;
+		}
+		...
+	}
+
+snd_soc_dai_link_event_pre_pmu() also calling snd_soc_dai_startup(),
+but, it doesn't care about tx/rx_mask.
+Is this bug ?
+
+snd_soc_dai_link_event_pre_pmu(...)
+{
+	...
+	substream->stream = SNDRV_PCM_STREAM_CAPTURE;
+	snd_soc_dapm_widget_for_each_source_path(w, path) {
+		source = path->source->priv;
+
+(A)		ret = snd_soc_dai_startup(source, substream);
+		if (ret < 0) {
+			dev_err(source->dev,
+				"ASoC: startup() failed: %d\n", ret);
+			goto out;
+		}
+		source->active++;
+	}
+
+	substream->stream = SNDRV_PCM_STREAM_PLAYBACK;
+	snd_soc_dapm_widget_for_each_sink_path(w, path) {
+		sink = path->sink->priv;
+
+(A)		ret = snd_soc_dai_startup(sink, substream);
+		if (ret < 0) {
+			dev_err(sink->dev,
+				"ASoC: startup() failed: %d\n", ret);
+			goto out;
+		}
+		sink->active++;
+	}
+	...
+}
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,88 +2,98 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78C1814639E
-	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jan 2020 09:36:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EE52146487
+	for <lists+alsa-devel@lfdr.de>; Thu, 23 Jan 2020 10:24:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15B3D165E;
-	Thu, 23 Jan 2020 09:35:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15B3D165E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0A953168E;
+	Thu, 23 Jan 2020 10:23:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0A953168E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579768595;
-	bh=hTIL+HlgNftrpB88Ln60f6FRc3unaagRe/EhcsIi54Y=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=ZXVboofEpP80HOfltdHPdFw9mFJvelHiD8Bq1DmsxTrBJcrD3OR6y0OocoKyUGXFb
-	 hLHRrKmhqyNwgGkN2zkANJAga2BuaFmmV7sjUfDDmh0uDCV+ZIaetLueRUSWgCi5s4
-	 5imN9BglMnYm4dZtCiLUX5TPZt0DAA60mB2++RMs=
+	s=default; t=1579771454;
+	bh=H8qROHQHhqa0fxcMu0QOXWyKYGuhkH8DUFIN0oH+0oQ=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=dxbz5TebLdT90VAM5JHihyV2JphO9RFvGSOWu8K7Fe5N0a4gTJ5X80KvH6fh3lzMn
+	 vznu0ABXGDFG8CO/osmE9qns+ZJ4319iu938Goq1rDLNW2fsuqjyspjDUeUjQbQy2r
+	 G39KjlSZS+sG6L4C8PF7SA948wX/zUTPxasQ833g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A65C4F801EC;
-	Thu, 23 Jan 2020 09:34:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9BC1CF801ED;
+	Thu, 23 Jan 2020 10:22:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4233CF801D9; Thu, 23 Jan 2020 09:34:49 +0100 (CET)
+ id 668B1F801D9; Thu, 23 Jan 2020 10:22:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [62.209.51.94])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BC4B8F80112
- for <alsa-devel@alsa-project.org>; Thu, 23 Jan 2020 09:34:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BC4B8F80112
+ by alsa1.perex.cz (Postfix) with ESMTPS id 36407F800E7
+ for <alsa-devel@alsa-project.org>; Thu, 23 Jan 2020 10:22:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 36407F800E7
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="urfITx1u"
-Received: from pps.filterd (m0046037.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00N8SNPm018468; Thu, 23 Jan 2020 09:34:44 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=STMicroelectronics;
- bh=apHFLuLu3YXS+5uUuou1zCoK9krUcCjBR9YdOSKYOpE=;
- b=urfITx1uBk6CLUO/+Z4Md156405PuiKU0hd4owehru0R+ibjjwv1+Ic1oZnx09mBepAc
- KWw24hGuiuVWiFQPyaEp7IBixTiJCHFfOJSnAAhvCj299GM2A72UvpCyo29XPGWpIhYZ
- G8p82V4fOEa1vw2EnDEXQpg+BNm0SF5MwOhess6j+1VYEE7ptwgcnmHfE2M7o+9bhGQK
- fcH8D39KpUy9n6UBPvH666+AEtBpj0k01VAHr8o2fOp9n4L5q8CHvMwokILie1AWIS2X
- R1TvUax8dOg18nROtvOCNXy2eIHaJ4g0yRiPZodTqX47dtPqhceOuF10mdgxvGc0KFIV HQ== 
-Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
- by mx07-00178001.pphosted.com with ESMTP id 2xkrp2h24h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 23 Jan 2020 09:34:44 +0100
-Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
- by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id D87A310002A;
- Thu, 23 Jan 2020 09:34:43 +0100 (CET)
-Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
- by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 7B69920EDCB;
- Thu, 23 Jan 2020 09:34:43 +0100 (CET)
-Received: from localhost (10.75.127.46) by SFHDAG6NODE2.st.com (10.75.127.17)
- with Microsoft SMTP Server (TLS) id 15.0.1347.2;
- Thu, 23 Jan 2020 09:34:42 +0100
-From: Olivier Moysan <olivier.moysan@st.com>
-To: <jic23@kernel.org>, <robh+dt@kernel.org>, <olivier.moysan@st.com>,
- <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>, <alsa-devel@alsa-project.org>
-Date: Thu, 23 Jan 2020 09:34:31 +0100
-Message-ID: <20200123083432.21997-1-olivier.moysan@st.com>
-X-Mailer: git-send-email 2.17.1
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="CnIey0gh"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e2965a10000>; Thu, 23 Jan 2020 01:21:37 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Thu, 23 Jan 2020 01:22:22 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Thu, 23 Jan 2020 01:22:22 -0800
+Received: from [10.24.44.92] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Thu, 23 Jan
+ 2020 09:22:17 +0000
+To: Dmitry Osipenko <digetx@gmail.com>, Jon Hunter <jonathanh@nvidia.com>,
+ <perex@perex.cz>, <tiwai@suse.com>, <robh+dt@kernel.org>
+References: <1579530198-13431-1-git-send-email-spujar@nvidia.com>
+ <1579530198-13431-5-git-send-email-spujar@nvidia.com>
+ <a440d105-8db9-ecf1-3718-e58804ce14b8@gmail.com>
+ <0c571858-d72c-97c2-2d6a-ead6fdde06eb@nvidia.com>
+ <444731da-c4cd-8578-a732-c803eef31ef0@gmail.com>
+ <bdc749bc-b62c-a041-c17c-33fd49fe8e2e@nvidia.com>
+ <598fe377-5b95-d30a-eb64-89a645166d42@gmail.com>
+ <3f51939d-cf4b-f69b-728a-7eb99bbae458@nvidia.com>
+ <34ac1fd3-ae0f-07f2-555f-a55087a2c9dc@nvidia.com>
+ <1a84b393-938f-8bed-d08e-cc3bb6ed4844@gmail.com>
+From: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <0fc814c2-0dc6-7741-b954-463381ff7fb9@nvidia.com>
+Date: Thu, 23 Jan 2020 14:52:14 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Originating-IP: [10.75.127.46]
-X-ClientProxiedBy: SFHDAG2NODE2.st.com (10.75.127.5) To SFHDAG6NODE2.st.com
- (10.75.127.17)
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-22_08:2020-01-22,
- 2020-01-22 signatures=0
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org, lars@metafoo.de,
- pmeerw@pmeerw.net, linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, knaack.h@gmx.de, fabrice.gasnier@st.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH] dt-bindings: stm32: convert dfsdm to
-	json-schema
+In-Reply-To: <1a84b393-938f-8bed-d08e-cc3bb6ed4844@gmail.com>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Language: en-GB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1579771297; bh=W73gVUmkU4iyhPeM1GjN5RD8ETiMnoanQX2UieDd3Rw=;
+ h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
+ Content-Language;
+ b=CnIey0ghCRC/n4tFmo3bopQyZk5SDOV0BWv3LXEUuReEEwe10a/yb+43qvSNXNPXW
+ 62DxKirTbhxa1nkfJI+Z5pqNSob6hO4l5UzA/6Z9RFRUzes2XdT+VzfJaf3LoaNMgF
+ OCoTqniXGmAp7+9n0IOzEwThzzcFJpruKuO16EtOY9s9bFPRkIUKklDiprGDp/z1BV
+ AM13q7aA72hVd9wla4i4+k75NK157rsT5BfqoPqJPNu2u0sSlenmP8qyXqOGG6G/tm
+ z/3t6CJbNoLeIOOdxP/Ddq5zG4CLB89lgnLtLLhzl2Av2qzPncJEdcMvMLav7U/Ol4
+ NAHxD8YJxLOqw==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, spujar@nvidia.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org, viswanathl@nvidia.com,
+ linux-tegra@vger.kernel.org, broonie@kernel.org, atalambedu@nvidia.com,
+ sharadg@nvidia.com, thierry.reding@gmail.com, rlokhande@nvidia.com,
+ mkumard@nvidia.com, dramesh@nvidia.com
+Subject: Re: [alsa-devel] [PATCH 4/9] ASoC: tegra: add Tegra210 based I2S
+ driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,517 +106,71 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Convert the STM32 DFSDM bindings to DT schema format
-using json-schema.
-
-Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
----
-The DT check still returns some warnings on this bindings:
-dfsdm@4400d000: filter@4: 'st,adc-channels' is a required property
-dfsdm@4400d000: filter@5: 'st,adc-channels' is a required property ...
-
-These warnings occur because some disabled nodes do not provides the
-required properties. These nodes are included from SoC DT,
-and do not provides by default the properties which are board dependent.
-
-As workaround in DFSDM yaml bindings, the properties
-(like st,adc-channels) could be defined as required,
-only for the nodes which are in enabled state.
----
- .../bindings/iio/adc/st,stm32-dfsdm-adc.txt   | 135 -------
- .../bindings/iio/adc/st,stm32-dfsdm-adc.yaml  | 332 ++++++++++++++++++
- 2 files changed, 332 insertions(+), 135 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.txt
- create mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-
-diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.txt b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.txt
-deleted file mode 100644
-index 75ba25d062e1..000000000000
---- a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.txt
-+++ /dev/null
-@@ -1,135 +0,0 @@
--STMicroelectronics STM32 DFSDM ADC device driver
--
--
--STM32 DFSDM ADC is a sigma delta analog-to-digital converter dedicated to
--interface external sigma delta modulators to STM32 micro controllers.
--It is mainly targeted for:
--- Sigma delta modulators (motor control, metering...)
--- PDM microphones (audio digital microphone)
--
--It features up to 8 serial digital interfaces (SPI or Manchester) and
--up to 4 filters on stm32h7 or 6 filters on stm32mp1.
--
--Each child node match with a filter instance.
--
--Contents of a STM32 DFSDM root node:
--------------------------------------
--Required properties:
--- compatible: Should be one of:
--  "st,stm32h7-dfsdm"
--  "st,stm32mp1-dfsdm"
--- reg: Offset and length of the DFSDM block register set.
--- clocks: IP and serial interfaces clocking. Should be set according
--		to rcc clock ID and "clock-names".
--- clock-names: Input clock name "dfsdm" must be defined,
--		"audio" is optional. If defined CLKOUT is based on the audio
--		clock, else "dfsdm" is used.
--- #interrupt-cells = <1>;
--- #address-cells = <1>;
--- #size-cells = <0>;
--
--Optional properties:
--- spi-max-frequency: Requested only for SPI master mode.
--		  SPI clock OUT frequency (Hz). This clock must be set according
--		  to "clock" property. Frequency must be a multiple of the rcc
--		  clock frequency. If not, SPI CLKOUT frequency will not be
--		  accurate.
--- pinctrl-names:	Set to "default".
--- pinctrl-0:		List of phandles pointing to pin configuration
--			nodes to set pins in mode of operation for dfsdm
--			on external pin.
--
--Contents of a STM32 DFSDM child nodes:
----------------------------------------
--
--Required properties:
--- compatible: Must be:
--	"st,stm32-dfsdm-adc" for sigma delta ADCs
--	"st,stm32-dfsdm-dmic" for audio digital microphone.
--- reg: Specifies the DFSDM filter instance used.
--	Valid values are from 0 to 3 on stm32h7, 0 to 5 on stm32mp1.
--- interrupts: IRQ lines connected to each DFSDM filter instance.
--- st,adc-channels:	List of single-ended channels muxed for this ADC.
--			valid values:
--				"st,stm32h7-dfsdm" compatibility: 0 to 7.
--- st,adc-channel-names:	List of single-ended channel names.
--- st,filter-order:  SinC filter order from 0 to 5.
--			0: FastSinC
--			[1-5]: order 1 to 5.
--			For audio purpose it is recommended to use order 3 to 5.
--- #io-channel-cells = <1>: See the IIO bindings section "IIO consumers".
--
--Required properties for "st,stm32-dfsdm-adc" compatibility:
--- io-channels: From common IIO binding. Used to pipe external sigma delta
--		modulator or internal ADC output to DFSDM channel.
--		This is not required for "st,stm32-dfsdm-pdm" compatibility as
--		PDM microphone is binded in Audio DT node.
--
--Required properties for "st,stm32-dfsdm-pdm" compatibility:
--- #sound-dai-cells: Must be set to 0.
--- dma: DMA controller phandle and DMA request line associated to the
--		filter instance (specified by the field "reg")
--- dma-names: Must be "rx"
--
--Optional properties:
--- st,adc-channel-types:	Single-ended channel input type.
--			- "SPI_R": SPI with data on rising edge (default)
--			- "SPI_F": SPI with data on falling edge
--			- "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
--			- "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
--- st,adc-channel-clk-src: Conversion clock source.
--			  - "CLKIN": external SPI clock (CLKIN x)
--			  - "CLKOUT": internal SPI clock (CLKOUT) (default)
--			  - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
--			  - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
--
--- st,adc-alt-channel: Must be defined if two sigma delta modulator are
--			  connected on same SPI input.
--			  If not set, channel n is connected to SPI input n.
--			  If set, channel n is connected to SPI input n + 1.
--
--- st,filter0-sync: Set to 1 to synchronize with DFSDM filter instance 0.
--		   Used for multi microphones synchronization.
--
--Example of a sigma delta adc connected on DFSDM SPI port 0
--and a pdm microphone connected on DFSDM SPI port 1:
--
--	ads1202: simple_sd_adc@0 {
--		compatible = "ads1202";
--		#io-channel-cells = <1>;
--	};
--
--	dfsdm: dfsdm@40017000 {
--		compatible = "st,stm32h7-dfsdm";
--		reg = <0x40017000 0x400>;
--		clocks = <&rcc DFSDM1_CK>;
--		clock-names = "dfsdm";
--		#interrupt-cells = <1>;
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		dfsdm_adc0: filter@0 {
--			compatible = "st,stm32-dfsdm-adc";
--			#io-channel-cells = <1>;
--			reg = <0>;
--			interrupts = <110>;
--			st,adc-channels = <0>;
--			st,adc-channel-names = "sd_adc0";
--			st,adc-channel-types = "SPI_F";
--			st,adc-channel-clk-src = "CLKOUT";
--			io-channels = <&ads1202 0>;
--			st,filter-order = <3>;
--		};
--		dfsdm_pdm1: filter@1 {
--			compatible = "st,stm32-dfsdm-dmic";
--			reg = <1>;
--			interrupts = <111>;
--			dmas = <&dmamux1 102 0x400 0x00>;
--			dma-names = "rx";
--			st,adc-channels = <1>;
--			st,adc-channel-names = "dmic1";
--			st,adc-channel-types = "SPI_R";
--			st,adc-channel-clk-src = "CLKOUT";
--			st,filter-order = <5>;
--		};
--	}
-diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-new file mode 100644
-index 000000000000..c91407081aa5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-dfsdm-adc.yaml
-@@ -0,0 +1,332 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/st,stm32-dfsdm-adc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: STMicroelectronics STM32 DFSDM ADC device driver
-+
-+maintainers:
-+  - Fabrice Gasnier <fabrice.gasnier@st.com>
-+  - Olivier Moysan <olivier.moysan@st.com>
-+
-+description: |
-+  STM32 DFSDM ADC is a sigma delta analog-to-digital converter dedicated to
-+  interface external sigma delta modulators to STM32 micro controllers.
-+  It is mainly targeted for:
-+  - Sigma delta modulators (motor control, metering...)
-+  - PDM microphones (audio digital microphone)
-+
-+  It features up to 8 serial digital interfaces (SPI or Manchester) and
-+  up to 4 filters on stm32h7 or 6 filters on stm32mp1.
-+
-+  Each child node matches with a filter instance.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - st,stm32h7-dfsdm
-+      - st,stm32mp1-dfsdm
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description:
-+          Internal clock used for DFSDM digital processing and control blocks.
-+          dfsdm clock can also feed CLKOUT, when CLKOUT is used.
-+      - description: audio clock can be used as an alternate to feed CLKOUT.
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - const: dfsdm
-+      - const: audio
-+    minItems: 1
-+    maxItems: 2
-+
-+  "#address-cells":
-+    const: 1
-+
-+  "#size-cells":
-+    const: 0
-+
-+  spi-max-frequency:
-+    description:
-+      SPI clock OUT frequency (Hz). Requested only for SPI master mode.
-+      This clock must be set according to the "clock" property.
-+      Frequency must be a multiple of the rcc clock frequency.
-+      If not, SPI CLKOUT frequency will not be accurate.
-+    maximum: 20000000
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+patternProperties:
-+  "^filter@[0-9]+$":
-+    type: object
-+    description: child node
-+
-+    properties:
-+      compatible:
-+        enum:
-+          - st,stm32-dfsdm-adc
-+          - st,stm32-dfsdm-dmic
-+
-+      reg:
-+        description: Specifies the DFSDM filter instance used.
-+        maxItems: 1
-+
-+      interrupts:
-+        maxItems: 1
-+
-+      st,adc-channels:
-+        description: |
-+          List of single-ended channels muxed for this ADC.
-+          On stm32h7 and stm32mp1:
-+          - For st,stm32-dfsdm-adc: up to 8 channels numbered from 0 to 7.
-+          - For st,stm32-dfsdm-dmic: 1 channel numbered from 0 to 7.
-+        allOf:
-+          - $ref: /schemas/types.yaml#/definitions/uint32-array
-+          - items:
-+              minimum: 0
-+              maximum: 7
-+
-+      st,adc-channel-names:
-+        description: List of single-ended channel names.
-+        allOf:
-+          - $ref: /schemas/types.yaml#/definitions/string-array
-+
-+      st,filter-order:
-+        description: |
-+          SinC filter order from 0 to 5.
-+          - 0: FastSinC
-+          - [1-5]: order 1 to 5.
-+          For audio purpose it is recommended to use order 3 to 5.
-+        allOf:
-+          - $ref: /schemas/types.yaml#/definitions/uint32
-+          - items:
-+              minimum: 0
-+              maximum: 5
-+
-+      "#io-channel-cells":
-+        const: 1
-+
-+      st,adc-channel-types:
-+        description: |
-+          Single-ended channel input type.
-+          - "SPI_R": SPI with data on rising edge (default)
-+          - "SPI_F": SPI with data on falling edge
-+          - "MANCH_R": manchester codec, rising edge = logic 0, falling edge = logic 1
-+          - "MANCH_F": manchester codec, rising edge = logic 1, falling edge = logic 0
-+        items:
-+          enum: [ SPI_R, SPI_F, MANCH_R, MANCH_F ]
-+        allOf:
-+          - $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+
-+      st,adc-channel-clk-src:
-+        description: |
-+          Conversion clock source.
-+          - "CLKIN": external SPI clock (CLKIN x)
-+          - "CLKOUT": internal SPI clock (CLKOUT) (default)
-+          - "CLKOUT_F": internal SPI clock divided by 2 (falling edge).
-+          - "CLKOUT_R": internal SPI clock divided by 2 (rising edge).
-+        items:
-+          enum: [ CLKIN, CLKOUT, CLKOUT_F, CLKOUT_R ]
-+        allOf:
-+          - $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+
-+      st,adc-alt-channel:
-+        description:
-+          Must be defined if two sigma delta modulators are
-+          connected on same SPI input.
-+          If not set, channel n is connected to SPI input n.
-+          If set, channel n is connected to SPI input n + 1.
-+        type: boolean
-+
-+      st,filter0-sync:
-+        description:
-+          Set to 1 to synchronize with DFSDM filter instance 0.
-+          Used for multi microphones synchronization.
-+        type: boolean
-+
-+      dmas:
-+        maxItems: 1
-+
-+      dma-names:
-+        items:
-+          - const: rx
-+
-+    required:
-+      - compatible
-+      - reg
-+      - interrupts
-+      - st,adc-channels
-+      - st,adc-channel-names
-+      - st,filter-order
-+      - "#io-channel-cells"
-+
-+    allOf:
-+      - if:
-+          properties:
-+            compatible:
-+              contains:
-+                const: st,stm32-dfsdm-adc
-+
-+      - then:
-+          properties:
-+            st,adc-channels:
-+              minItems: 1
-+              maxItems: 8
-+
-+            st,adc-channel-names:
-+              minItems: 1
-+              maxItems: 8
-+
-+            st,adc-channel-types:
-+              minItems: 1
-+              maxItems: 8
-+
-+            st,adc-channel-clk-src:
-+              minItems: 1
-+              maxItems: 8
-+
-+            io-channels:
-+              description:
-+                From common IIO binding. Used to pipe external sigma delta
-+                modulator or internal ADC output to DFSDM channel.
-+                This is not required for "st,stm32-dfsdm-pdm" compatibility as
-+                PDM microphone is binded in Audio DT node.
-+
-+          required:
-+            - io-channels
-+
-+      - if:
-+          properties:
-+            compatible:
-+              contains:
-+                const: st,stm32-dfsdm-dmic
-+
-+      - then:
-+          properties:
-+            st,adc-channels:
-+              maxItems: 1
-+
-+            st,adc-channel-names:
-+              maxItems: 1
-+
-+            st,adc-channel-types:
-+              maxItems: 1
-+
-+            st,adc-channel-clk-src:
-+              maxItems: 1
-+
-+          required:
-+            - dmas
-+            - dma-names
-+
-+          patternProperties:
-+            "^dfsdm-dai+$":
-+              type: object
-+              description: child node
-+
-+              properties:
-+                "#sound-dai-cells":
-+                  const: 0
-+
-+                io-channels:
-+                  description:
-+                    From common IIO binding. Used to pipe external sigma delta
-+                    modulator or internal ADC output to DFSDM channel.
-+
-+              required:
-+                - "#sound-dai-cells"
-+                - io-channels
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32h7-dfsdm
-+
-+  - then:
-+      patternProperties:
-+        "^filter@[0-9]+$":
-+          properties:
-+            reg:
-+              items:
-+                minimum: 0
-+                maximum: 3
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: st,stm32mp1-dfsdm
-+
-+  - then:
-+      patternProperties:
-+        "^filter@[0-9]+$":
-+          properties:
-+            reg:
-+              items:
-+                minimum: 0
-+                maximum: 5
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    #include <dt-bindings/clock/stm32mp1-clks.h>
-+    dfsdm: dfsdm@4400d000 {
-+      compatible = "st,stm32mp1-dfsdm";
-+      reg = <0x4400d000 0x800>;
-+      clocks = <&rcc DFSDM_K>, <&rcc ADFSDM_K>;
-+      clock-names = "dfsdm", "audio";
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      dfsdm0: filter@0 {
-+        compatible = "st,stm32-dfsdm-dmic";
-+        reg = <0>;
-+        interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
-+        dmas = <&dmamux1 101 0x400 0x01>;
-+        dma-names = "rx";
-+        #io-channel-cells = <1>;
-+        st,adc-channels = <1>;
-+        st,adc-channel-names = "dmic0";
-+        st,adc-channel-types = "SPI_R";
-+        st,adc-channel-clk-src = "CLKOUT";
-+        st,filter-order = <5>;
-+
-+        asoc_pdm0: dfsdm-dai {
-+          compatible = "st,stm32h7-dfsdm-dai";
-+          #sound-dai-cells = <0>;
-+          io-channels = <&dfsdm0 0>;
-+        };
-+      };
-+
-+      dfsdm_pdm1: filter@1 {
-+        compatible = "st,stm32-dfsdm-adc";
-+        reg = <1>;
-+        interrupts = <GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
-+        dmas = <&dmamux1 102 0x400 0x01>;
-+        dma-names = "rx";
-+        #io-channel-cells = <1>;
-+        st,adc-channels = <2 3>;
-+        st,adc-channel-names = "in2", "in3";
-+        st,adc-channel-types = "SPI_R", "SPI_R";
-+        st,adc-channel-clk-src = "CLKOUT_F", "CLKOUT_F";
-+        io-channels = <&sd_adc2 &sd_adc3>;
-+        st,filter-order = <1>;
-+      };
-+    };
-+
-+...
--- 
-2.17.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+CgpPbiAxLzIyLzIwMjAgOTo1NyBQTSwgRG1pdHJ5IE9zaXBlbmtvIHdyb3RlOgo+IEV4dGVybmFs
+IGVtYWlsOiBVc2UgY2F1dGlvbiBvcGVuaW5nIGxpbmtzIG9yIGF0dGFjaG1lbnRzCj4KPgo+IDIy
+LjAxLjIwMjAgMTQ6NTIsIEpvbiBIdW50ZXIg0L/QuNGI0LXRgjoKPj4gT24gMjIvMDEvMjAyMCAw
+NzoxNiwgU2FtZWVyIFB1amFyIHdyb3RlOgo+Pgo+PiAuLi4KPj4KPj4+Pj4+Pj4+ICtzdGF0aWMg
+aW50IHRlZ3JhMjEwX2kyc19yZW1vdmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKPj4+
+Pj4+Pj4+ICt7Cj4+Pj4+Pj4+PiArICAgICBwbV9ydW50aW1lX2Rpc2FibGUoJnBkZXYtPmRldik7
+Cj4+Pj4+Pj4+PiArICAgICBpZiAoIXBtX3J1bnRpbWVfc3RhdHVzX3N1c3BlbmRlZCgmcGRldi0+
+ZGV2KSkKPj4+Pj4+Pj4+ICsgICAgICAgICAgICAgdGVncmEyMTBfaTJzX3J1bnRpbWVfc3VzcGVu
+ZCgmcGRldi0+ZGV2KTsKPj4+Pj4+Pj4gVGhpcyBicmVha3MgZGV2aWNlJ3MgUlBNIHJlZmNvdW50
+aW5nIGlmIGl0IHdhcyBkaXNhYmxlZCBpbiB0aGUgYWN0aXZlCj4+Pj4+Pj4+IHN0YXRlLiBUaGlz
+IGNvZGUgc2hvdWxkIGJlIHJlbW92ZWQuIEF0IG1vc3QgeW91IGNvdWxkIHdhcm4gYWJvdXQgdGhl
+Cj4+Pj4+Pj4+IHVueHBlY3RlZCBSUE0gc3RhdGUgaGVyZSwgYnV0IGl0IHNob3VsZG4ndCBiZSBu
+ZWNlc3NhcnkuCj4+Pj4+Pj4gSSBndWVzcyB0aGlzIHdhcyBhZGRlZCBmb3Igc2FmZXR5IGFuZCBl
+eHBsaWNpdCBzdXNwZW5kIGtlZXBzIGNsb2NrCj4+Pj4+Pj4gZGlzYWJsZWQuCj4+Pj4+Pj4gTm90
+IHN1cmUgaWYgcmVmLWNvdW50aW5nIG9mIHRoZSBkZXZpY2UgbWF0dGVycyB3aGVuIHJ1bnRpbWUg
+UE0gaXMKPj4+Pj4+PiBkaXNhYmxlZCBhbmQgZGV2aWNlIGlzIHJlbW92ZWQuCj4+Pj4+Pj4gSSBz
+ZWUgZmV3IGRyaXZlcnMgdXNpbmcgdGhpcyB3YXkuCj4+Pj4+PiBJdCBzaG91bGQgbWF0dGVyIChp
+ZiBJJ20gbm90IG1pc3Npbmcgc29tZXRoaW5nKSBiZWNhdXNlIFJQTSBzaG91bGQKPj4+Pj4+IGJl
+IGluCj4+Pj4+PiBhIHdyZWNrZWQgc3RhdGUgb25jZSB5b3UnbGwgdHJ5IHRvIHJlLWxvYWQgdGhl
+IGRyaXZlcidzIG1vZHVsZS4gTGlrZWx5Cj4+Pj4+PiB0aGF0IHRob3NlIGZldyBvdGhlciBkcml2
+ZXJzIGFyZSB3cm9uZy4KPj4+Pj4+Cj4+Pj4+PiBbc25pcF0KPj4+Pj4gT25jZSB0aGUgZHJpdmVy
+IGlzIHJlLWxvYWRlZCBhbmQgUlBNIGlzIGVuYWJsZWQsIEkgZG9uJ3QgdGhpbmsgaXQKPj4+Pj4g
+d291bGQgdXNlCj4+Pj4+IHRoZSBzYW1lICdkZXYnIGFuZCB0aGUgY29ycmVzcG9uZGluZyByZWYg
+Y291bnQuIERvZXNuJ3QgaXQgdXNlIHRoZSBuZXcKPj4+Pj4gY291bnRlcnM/Cj4+Pj4+IElmIFJQ
+TSBpcyBub3Qgd29ya2luZyBmb3Igc29tZSByZWFzb24sIG1vc3QgbGlrZWx5IGl0IHdvdWxkIGJl
+IHRoZSBjYXNlCj4+Pj4+IGZvciBvdGhlcgo+Pj4+PiBkZXZpY2VzLiBXaGF0IGJlc3QgZHJpdmVy
+IGNhbiBkbyBpcyBwcm9iYWJseSBkbyBhIGZvcmNlIHN1c3BlbmQgZHVyaW5nCj4+Pj4+IHJlbW92
+YWwgaWYKPj4+Pj4gYWxyZWFkeSBub3QgZG9uZS4gSSB3b3VsZCBwcmVmZXIgdG8ga2VlcCwgc2lu
+Y2UgbXVsdGlwbGUgZHJpdmVycyBzdGlsbAo+Pj4+PiBoYXZlIGl0LAo+Pj4+PiB1bmxlc3MgdGhl
+cmUgaXMgYSByZWFsIGhhcm0gaW4gZG9pbmcgc28uCj4+Pj4gSSB0b29rIGEgY2xvc2VyIGxvb2sg
+YW5kIGxvb2tzIGxpa2UgdGhlIGNvdW50ZXIgYWN0dWFsbHkgc2hvdWxkIGJlCj4+Pj4gcmVzZXQu
+IFN0aWxsIEkgZG9uJ3QgdGhpbmsgdGhhdCBpdCdzIGEgZ29vZCBwcmFjdGljZSB0byBtYWtlIGNo
+YW5nZXMKPj4+PiB1bmRlcm5lYXRoIG9mIFJQTSwgaXQgbWF5IHN0cmlrZSBiYWNrLgo+Pj4gSWYg
+UlBNIGlzIGJyb2tlbiwgaXQgcHJvYmFibHkgd291bGQgaGF2ZSBiZWVuIGNhdWdodCBkdXJpbmcg
+ZGV2aWNlIHVzYWdlLgo+Pj4gSSB3aWxsIHJlbW92ZSBleHBsaWNpdCBzdXNwZW5kIGhlcmUgaWYg
+bm8gYW55IGNvbmNlcm5zIGZyb20gb3RoZXIgZm9sa3MuCj4+PiBUaGFua3MuCj4+IEkgcmVjYWxs
+IHRoYXQgdGhpcyB3YXMgdGhlIHByZWZlcnJlZCB3YXkgb2YgZG9pbmcgdGhpcyBmcm9tIHRoZSBS
+UE0KPj4gZm9sa3MuIFRlZ3JhMzAgSTJTIGRyaXZlciBkb2VzIHRoZSBzYW1lIGFuZCBTdGVwaGVu
+IGhhZCBwb2ludGVkIG1lIHRvCj4+IHRoaXMgYXMgYSByZWZlcmVuY2UuCj4+IEkgYmVsaWV2ZSB0
+aGF0IHRoaXMgaXMgbWVhbnQgdG8gZW5zdXJlIHRoYXQgdGhlCj4+IGRldmljZSBpcyBhbHdheXMg
+cG93ZXJlZC1vZmYgcmVnYXJkbGVzcyBvZiBpdCBSUE0gaXMgZW5hYmxlZCBvciBub3QgYW5kCj4+
+IHdoYXQgdGhlIGN1cnJlbnQgc3RhdGUgaXMuCj4gWWVzLCBpdCB3YXMga2luZGEgYWN0dWFsIGZv
+ciB0aGUgY2FzZSBvZiB1bmF2YWlsYWJsZSBSUE0uCgo+IEFueXdheXMsIC9JIHRoaW5rLyB2YXJp
+YW50IGxpa2UgdGhpcyBzaG91bGQgaGF2ZSBiZWVuIG1vcmUgcHJlZmVycmVkOgo+Cj4gaWYgKCFw
+bV9ydW50aW1lX2VuYWJsZWQoJnBkZXYtPmRldikpCj4gICAgICAgICAgdGVncmEyMTBfaTJzX3J1
+bnRpbWVfc3VzcGVuZCgmcGRldi0+ZGV2KTsKPiBlbHNlCj4gICAgICAgICAgcG1fcnVudGltZV9k
+aXNhYmxlKCZwZGV2LT5kZXYpOwoKSSB0aGluayBpdCBsb29rcyB0byBiZSBzaW1pbGFyIHRvIHdo
+YXQgaXMgdGhlcmUgYWxyZWFkeS4KCnBtX3J1bnRpbWVfZGlzYWJsZSgmcGRldi0+ZGV2KTsgLy8g
+aXQgd291bGQgdHVybiBvdXQgdG8gYmUgYSBkdW1teSBjYWxsIAppZiAhUlBNCmlmICghcG1fcnVu
+dGltZV9zdGF0dXNfc3VzcGVuZGVkKCZwZGV2LT5kZXYpKSAvLyBpdCBpcyB0cnVlIGFsd2F5cyBp
+ZiAhUlBNCiDCoMKgwqDCoMKgwqDCoCB0ZWdyYTIxMF9pMnNfcnVudGltZV9zdXNwZW5kKCZwZGV2
+LT5kZXYpOwo+PiBOb3cgZm9yIFRlZ3JhMjEwIChvciBhY3R1YWxseSA2NC1iaXQgVGVncmEpIFJQ
+TSBpcyBhbHdheXMgZW5hYmxlZCBhbmQgc28KPj4gd2UgZG9uJ3QgbmVlZCB0byB3b3JyeSBhYm91
+dCB0aGUgIVJQTSBjYXNlLiBIb3dldmVyLCBJIHN0aWxsIGRvbid0IHNlZQo+PiB0aGUgaGFybSBp
+biB0aGlzLgo+IFRoZXJlIGlzIG5vIHJlYWwgaGFybSB0b2RheSwgYnV0Ogo+Cj4gMS4gSSdkIHBy
+ZWZlciB0byBiZSB2ZXJ5IGNhcmVmdWwgd2l0aCBSUE0gaW4gZ2VuZXJhbCwgYmFzZWQgb24KPiAg
+ICAgcHJldmlvdXMgZXhwZXJpZW5jZS4KPgo+IDIuIEl0IHNob3VsZCBiZSBhIGJ1ZyBpZiBkZXZp
+Y2UgaXNuJ3QgUlBNLXN1c3BlbmRlZCBkdXJpbmcKPiAgICAgb2YgZHJpdmVyJ3MgcmVtb3ZhbC4g
+VGh1cyB0aGUgcmVhbCBwcm9ibGVtIG5lZWRzIHRvIGJlIGZpeGVkCj4gICAgIHJhdGhlciB0aGFu
+IHdvcmtlZCBhcm91bmQuCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5v
+cmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNh
+LWRldmVsCg==

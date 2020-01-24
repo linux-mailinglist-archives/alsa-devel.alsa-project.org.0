@@ -2,114 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F33CC1477A9
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 05:33:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40147147A09
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 10:09:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A01D11681;
-	Fri, 24 Jan 2020 05:32:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A01D11681
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8A38D166F;
+	Fri, 24 Jan 2020 10:08:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8A38D166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579840405;
-	bh=y0KHDb1uGf7xjlx3HbwCZCDoeIiEzj7XjqLOI0H+gNA=;
-	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579856964;
+	bh=NcGkf0PE5e1m32HCwcT/1TWBHdjbIr/MAL1oMHFvDWM=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uBUeVmR9R86jgzgG840d5Z2QDdK+50sb5l45iwsc1HweXCoIs2EK3nPyjU5L4t3p8
-	 trf8n9tQW2CPpOtt+oRlHTnQYZCPWml3V8ng42HCXrM6wpUIUQ14j7jm3ZaQ6gF9v9
-	 9WngYt9cOGeP/DesQkwz774Ipp7B2Xk80HmBpA4Y=
+	b=kEvSrCtYSmDlzd5zFXix8CzxLg9QlDb/iEKjf+77r7OpwNW3ZJB+RjBmSaJO1H83u
+	 +eW0Ts5JI1ETG7i93IH7pEDeRT1Pyk+qJip3+Qey5ArglVWEUc0rIT6uKvSd3QKgYK
+	 753K3PuXi4/aq6s8t73LW77d3KCHDWOTNrXIPScQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70113F8020C;
-	Fri, 24 Jan 2020 05:31:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF34DF8020C;
+	Fri, 24 Jan 2020 10:07:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C90CF8020C; Fri, 24 Jan 2020 05:31:40 +0100 (CET)
+ id 7A582F8020C; Fri, 24 Jan 2020 10:07:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODYSUB_1,SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7448EF800F5
- for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 05:31:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7448EF800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id A5C71F800F5
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 10:07:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A5C71F800F5
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="epG+XVAk"
-Received: by mail-lf1-x143.google.com with SMTP id m30so293052lfp.8
- for <alsa-devel@alsa-project.org>; Thu, 23 Jan 2020 20:31:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:from:to:cc:references:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=QFhUPyp2ZW+gx1b8GFNsdGdbU9UNpOwTbLh46EfrnmI=;
- b=epG+XVAkiD9oQ3lcwZLBgL6LLkaxgV0E6tON9yY/XoTfqOzpeL2xU7auI8wRTtjaq3
- WpylvbwvZAX4WO4RGhaDWU3jclnhwNBOpYur762jcX0iv82/M9quQES1r8ZeJF+rsYDz
- ZsY1w4jrsUKzpMPueYCTS3SXHpll1YLpEU6OV2AGw0bv1/fzW0Xnf7tm5y9zPj+1jEVr
- B4pC92PGqwn5GJ11H2xGSF6GBM/sJm2a+jU5hialozktG4ouvPhFM7c7qNgQ/BnGtSd/
- /nZRl1X2yjj4+ZHh7T/q85Ws4ig9eSd+UqP3PlRHVyqqfAjSP0ifvDu/ORijjm0IOPyy
- GRHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:from:to:cc:references:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=QFhUPyp2ZW+gx1b8GFNsdGdbU9UNpOwTbLh46EfrnmI=;
- b=F+kE0gHmBpQ/CUV52I/qj5Hss6F5Jo3oc3GjSTf/9ytiYd34lokTboI5RIfWv4G9z6
- Ds6PFQBLs7WT/8YteFacwpZx6w0Jca/Np8ZhCGfdjolDI1Dq+FTw2cu6iLezDBsjsDao
- /YNeuuonwc0+rqOsV7tIFrnRHdXBUONLLGla9ZWIzMPnZr9lMfitY6VPR1sBvLGmST6V
- LnpuE7c35u2iju1hMugTfavghx/wMaVVKkhM8NCvWRJGV+ZnpfynT0wCoZo5dXfm7YHl
- s6aok5VSc3d1IXlGjwn3pSNvAcb1vzzigTBsOEMhYE0XlZHskJv6wK5pDJ41t2fE/xSj
- 6fNg==
-X-Gm-Message-State: APjAAAXjU6RcBAOLopu2fZM3APjw6HNUgQCxZocltlGiUKpoLH9f5cYX
- R8nEFYuCG1GnNLfoDywNf5F0c3zu
-X-Google-Smtp-Source: APXvYqwT8abn8Fp+QKQOj4+jB1AxghROOkbB5LFcdditta+/+kPJrUGZLN6SCGeomPVro2GcDO1xPg==
-X-Received: by 2002:ac2:58ea:: with SMTP id v10mr508226lfo.202.1579840296366; 
- Thu, 23 Jan 2020 20:31:36 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.googlemail.com with ESMTPSA id i4sm2267498ljg.102.2020.01.23.20.31.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 23 Jan 2020 20:31:35 -0800 (PST)
-From: Dmitry Osipenko <digetx@gmail.com>
-To: Ben Dooks <ben.dooks@codethink.co.uk>
-References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
- <a0f027d9-e9e0-d76c-1e40-002fdc37eb5f@nvidia.com>
- <d43d518d-9336-a011-2a69-3f9331f6d0b4@codethink.co.uk>
- <aba4edd6-0ea5-5e95-c5a0-9e749587c763@nvidia.com>
- <449bdc3c-bf82-7cc4-6704-440dd100ca3a@gmail.com>
- <5d3ae629-5d30-0930-5dd1-15161e64926e@codethink.co.uk>
- <9daeeb94-2b90-18b8-2e1e-daae5acf079d@gmail.com>
- <fd73f68c-80f5-ac80-f6e4-42256d3df76d@codethink.co.uk>
- <37beb96a-a525-c72f-a7e1-e9ef5d61f3b2@gmail.com>
- <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
- <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
- <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
- <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
- <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
- <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
- <a2744ea0-cf6d-d083-75e6-853746195001@gmail.com>
- <28cafc56-095b-68c6-638d-270608a2983f@codethink.co.uk>
- <9b3a0cdd-34c7-ecb4-4a26-268fd4a63041@codethink.co.uk>
- <76a6a818-ab60-45eb-a85e-fa3090266d6f@gmail.com>
-Message-ID: <20be0c65-1071-d24a-7e2d-1d30cbfec452@gmail.com>
-Date: Fri, 24 Jan 2020 07:31:34 +0300
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="QwVgTRUk"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e2ab3a20000>; Fri, 24 Jan 2020 01:06:46 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Fri, 24 Jan 2020 01:07:32 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Fri, 24 Jan 2020 01:07:32 -0800
+Received: from [10.21.133.51] (172.20.13.39) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 24 Jan
+ 2020 09:07:24 +0000
+To: Dmitry Osipenko <digetx@gmail.com>, Sameer Pujar <spujar@nvidia.com>
+References: <1579530198-13431-1-git-send-email-spujar@nvidia.com>
+ <1579530198-13431-5-git-send-email-spujar@nvidia.com>
+ <a440d105-8db9-ecf1-3718-e58804ce14b8@gmail.com>
+ <0c571858-d72c-97c2-2d6a-ead6fdde06eb@nvidia.com>
+ <444731da-c4cd-8578-a732-c803eef31ef0@gmail.com>
+ <bdc749bc-b62c-a041-c17c-33fd49fe8e2e@nvidia.com>
+ <598fe377-5b95-d30a-eb64-89a645166d42@gmail.com>
+ <3f51939d-cf4b-f69b-728a-7eb99bbae458@nvidia.com>
+ <34ac1fd3-ae0f-07f2-555f-a55087a2c9dc@nvidia.com>
+ <1a84b393-938f-8bed-d08e-cc3bb6ed4844@gmail.com>
+ <0fc814c2-0dc6-7741-b954-463381ff7fb9@nvidia.com>
+ <b5c581b9-17af-d004-33fb-2cc782ab820a@gmail.com>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <9f73afdf-1e9a-cdbd-f972-a022d503ef51@nvidia.com>
+Date: Fri, 24 Jan 2020 09:07:22 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <76a6a818-ab60-45eb-a85e-fa3090266d6f@gmail.com>
+In-Reply-To: <b5c581b9-17af-d004-33fb-2cc782ab820a@gmail.com>
+X-Originating-IP: [172.20.13.39]
+X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
+ HQMAIL107.nvidia.com (172.20.187.13)
 Content-Language: en-US
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org,
- Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
- 24bit and 32bit samples
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1579856806; bh=7aoEWgOMrsENsyCSERE4iOvClQ10ZBvAeKGx7j04F0Y=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=QwVgTRUkTeKYuVdIF7IWb8Lx6v4QxDRL3CI5bRnrYOJwXFYDVgMmPs5XFiEQ0Qfk4
+ wqx0DGl28wvYoC4xC0tkZah++mlIsfR8UrL12MvIgBntdJ0oA57208JrBcXNZRb2xF
+ bxrjLt4MAxLDlMn5/rcnn5er2CGH8stTdmDBAOImYAtrUnk2DOBgU7xWuuOyBrqesr
+ rOkiqEckCbQJwpbwZgu+MuDnK2VVPRFAAitb253LPKwCb3SFyUV1vjYzXrw2hosS7R
+ MZciu+P9Zy8jm+skB8HZ97Q2LK9OiU77dRSKfnIM4aQj72Mnb7bHsjN/hOgGr6jHGA
+ KVmJjRE4Uf0dA==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, atalambedu@nvidia.com,
+ robh+dt@kernel.org, lgirdwood@gmail.com, viswanathl@nvidia.com,
+ sharadg@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, rlokhande@nvidia.com, mkumard@nvidia.com,
+ dramesh@nvidia.com
+Subject: Re: [alsa-devel] [PATCH 4/9] ASoC: tegra: add Tegra210 based I2S
+ driver
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,56 +113,68 @@ Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MjQuMDEuMjAyMCAwMToxMSwgRG1pdHJ5IE9zaXBlbmtvINC/0LjRiNC10YI6Cj4gMjQuMDEuMjAy
-MCAwMDo1OSwgQmVuIERvb2tzINC/0LjRiNC10YI6Cj4+IE9uIDIzLzAxLzIwMjAgMTk6MzgsIEJl
-biBEb29rcyB3cm90ZToKPj4+IE9uIDA3LzAxLzIwMjAgMDE6MzksIERtaXRyeSBPc2lwZW5rbyB3
-cm90ZToKPj4+PiAwNi4wMS4yMDIwIDIyOjAwLCBCZW4gRG9va3Mg0L/QuNGI0LXRgjoKPj4+Pj4g
-T24gMDUvMDEvMjAyMCAxMDo1MywgQmVuIERvb2tzIHdyb3RlOgo+Pj4+Pj4KPj4+Pj4+Cj4+Pj4+
-PiBPbiAyMDIwLTAxLTA1IDAxOjQ4LCBEbWl0cnkgT3NpcGVua28gd3JvdGU6Cj4+Pj4+Pj4gMDUu
-MDEuMjAyMCAwMzowNCwgQmVuIERvb2tzINC/0LjRiNC10YI6Cj4+Pj4+Pj4+IFtzbmlwXQo+Pj4+
-Pj4+Pgo+Pj4+Pj4+PiBJJ3ZlIGp1c3QgZ29uZSB0aHJvdWdoIHRlc3RpbmcuCj4+Pj4+Pj4+Cj4+
-Pj4+Pj4+IFNvbWUgc2ltcGxlIGRhdGEgdGVzdHMgc2hvdyAxNiBhbmQgMzItYml0cyB3b3JrLgo+
-Pj4+Pj4+Pgo+Pj4+Pj4+PiBUaGUgMjQgYml0IGNhc2Ugc2VlbXMgdG8gYmUgd2VpcmQsIGl0IGxv
-b2tzIGxpa2UgdGhlIDI0LWJpdCBleHBlY3RzCj4+Pj4+Pj4+IDI0IGJpdCBzYW1wbGVzIGluIDMy
-IGJpdCB3b3Jkcy4gSSBjYW4ndCBzZWUgYW55IHBhY2tpbmcgb3B0aW9ucyB0bwo+Pj4+Pj4+PiBk
-byAyNCBiaXQgaW4gMjQgYml0LCBzbyB3ZSBtYXkgaGF2ZSB0byByZW1vdmUgMjQgYml0IHNhbXBs
-ZSBzdXBwb3J0Cj4+Pj4+Pj4+ICh3aGljaCBpcyBhIHNoYW1lKQo+Pj4+Pj4+Pgo+Pj4+Pj4+PiBN
-eSBwcmVmZXJlbmNlIGlzIHRvIHJlbW92ZSB0aGUgMjQtYml0IHN1cHBvcnQgYW5kIGtlZXAgdGhl
-IDMyIGJpdAo+Pj4+Pj4+PiBpbi4KPj4+Pj4+Pj4KPj4+Pj4+Pgo+Pj4+Pj4+IEludGVyZXN0aW5n
-Li4gSm9uLCBjb3VsZCB5b3UgcGxlYXNlIGNvbmZpcm0gdGhhdCAyNGJpdCBmb3JtYXQgaXNuJ3QK
-Pj4+Pj4+PiB1c2FibGUgb24gVDMwPwo+Pj4+Pj4KPj4+Pj4+IElmIHRoZXJlIGlzIGFuIG9wdGlv
-biBvZiAyNCBwYWNrZWQgaW50byAzMiwgdGhlbiBJIHRoaW5rIHRoYXQgd291bGQKPj4+Pj4+IHdv
-cmsuCj4+Pj4+Pgo+Pj4+Pj4gSSBjYW4gdHJ5IHRlc3RpbmcgdGhhdCB3aXRoIHJhdyBkYXRhIG9u
-IE1vbmRheS4KPj4+Pj4KPj4+Pj4gSSBuZWVkIHRvIGNoZWNrIHNvbWUgdGhpbmdzLCBJIGFzc3Vt
-ZWQgMjQgd2FzIDI0IHBhY2tlZCBiaXRzLCBpdCBsb29rcwo+Pj4+PiBsaWtlIHRoZSBkZWZhdWx0
-IGlzIDI0IGluIDMyIGJpdHMgc28gd2UgbWF5IGJlIG9rLiBIb3dldmVyIEkgbmVlZCB0bwo+Pj4+
-PiByZS13cml0ZSBteSB0ZXN0IGNhc2Ugd2hpY2ggYXNzdW1lZCBpdCB3YXMgMjRiaXRzIGluIDMg
-Ynl0ZXMgKFMyNF8zTEUpLgo+Pj4+Pgo+Pj4+PiBJJ2xsIGZvbGxvdyB1cCBsYXRlciwKPj4+Pgo+
-Pj4+IE9rYXksIHRoZSBTMjRfM0xFIGlzbid0IHN1cHBvcnRlZCBieSBSVDU2NDAgY29kZWMgaW4g
-bXkgY2FzZS4gSSBicmllZmx5Cj4+Pj4gbG9va2VkIHRocm91Z2ggdGhlIFRSTSBkb2MgYW5kIGdv
-dCBpbXByZXNzaW9uIHRoYXQgQUhVQiBjb3VsZCByZS1wYWNrCj4+Pj4gZGF0YSBzdHJlYW0gaW50
-byBzb21ldGhpbmcgdGhhdCBjb2RlYyBzdXBwb3J0cywgYnV0IG1heWJlIGl0J3MgYSB3cm9uZwo+
-Pj4+IGltcHJlc3Npb24uCj4+Pj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCj4+
-Pgo+Pj4gSSBkaWQgYSBxdWljayB0ZXN0IHdpdGggdGhlIGZvbGxvd2luZzoKPj4+Cj4+PiDCoMKg
-c294IC1uIC1iIDE2IC1jIDIgLXIgNDQxMDAgL3RtcC90bXAud2F2wqAgc3ludGggc2luZSA1MDAg
-dm9sIDAuNQo+Pj4gwqDCoHNveCAtbiAtYiAyNCAtYyAyIC1yIDQ0MTAwIC90bXAvdG1wLndhdsKg
-IHN5bnRoIHNpbmUgNTAwIHZvbCAwLjUKPj4+IMKgwqBzb3ggLW4gLWIgMzIgLWMgMiAtciA0NDEw
-MCAvdG1wL3RtcC53YXbCoCBzeW50aCBzaW5lIDUwMCB2b2wgMC41Cj4+Pgo+Pj4gVGhlIDE2IGFu
-ZCAzMiB3b3JrIGZpbmUsIHRoZSAyNCBpcyBzaG93aW5nIGEgcGxheWJhY2sgb3V0cHV0IGZyZXEK
-Pj4+IG9mIDQ0MEh6IGluc3RlYWQgb2YgNTAwSHouLi4gdGhpcyBzdWdnZXN0cyB0aGUgY2xvY2sg
-aXMgb2ZmLCBvciB0aGVyZQo+Pj4gaXMgc29tZXRoaW5nIGVsc2Ugd2VpcmQgZ29pbmcgb24uLi4K
-Pj4+Cj4+Cj4+IEkgc2hvdWxkIGhhdmUgY2hlY2tlZCBwbGxfYV9vdXQwIHJhdGUsIGZvciAyNGJp
-dCAyY2gsIEkgZ2V0Cj4+IHBsbF9hX291dCBhdCB3aGljaCBtYWtlczoKPj4KPj4gMTEyODk2MDAv
-KDI0KjIqNDQxMDApID0gNS4zMzMzMzMzMzMzCj4+Cj4+IEZvciBzb21lIHJlYXNvbiB0aGUgUExM
-IGNhbid0IGdldCBhIGRlY2VudCBkaXZpc29yIGZvciB0aGlzLgo+IAo+IEhhdmUgeW91IHRyaWVk
-IHRvIGFkanVzdCB0aGUgcHJlZGVmaW5lZCBQTExBIHJhdGU/IFBsZWFzZSBzZWUKPiB0ZWdyYV9j
-bGtfaW5pdF90YWJsZSBpbiBkcml2ZXJzL2Nsay90ZWdyYS9jbGstdGVncmEzMC5jLiBXaWxsIGJl
-Cj4gaW50ZXJlc3RpbmcgaWYgaXQgd29ya3Mgd2l0aCB0aGF0Lgo+IAo+IFNvd2phbnlhIHNhaWQg
-dGhhdCB0aGUgUExMQSByYXRlIHNldHVwIGlzIGdvaW5nIHRvIGJlIG1vdmVkIHRvIHRoZSBhdWRp
-bwo+IGRyaXZlciBbMV0sIG1heWJlIHRoYXQncyB3aGF0IHdlIGFscmVhZHkgbmVlZCBmb3IgMjRi
-aXQuCj4gCj4gWzFdIGh0dHBzOi8vbGttbC5vcmcvbGttbC8yMDIwLzEvMjEvNzQ0CgpBY3R1YWxs
-eSwgdGVncmFfYXNvY191dGlsc19zZXRfcmF0ZSgpIHNldHMgdGhlIFBMTEEgcmF0ZSwgYnV0IHRo
-ZSB2YWx1ZXMKYXJlIGhhcmRjb2RlZCB0aGVyZS4KX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBh
-bHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8vYWxzYS1kZXZlbAo=
+Ck9uIDIzLzAxLzIwMjAgMTU6MTYsIERtaXRyeSBPc2lwZW5rbyB3cm90ZToKPiAyMy4wMS4yMDIw
+IDEyOjIyLCBTYW1lZXIgUHVqYXIg0L/QuNGI0LXRgjoKPj4KPj4KPj4gT24gMS8yMi8yMDIwIDk6
+NTcgUE0sIERtaXRyeSBPc2lwZW5rbyB3cm90ZToKPj4+IEV4dGVybmFsIGVtYWlsOiBVc2UgY2F1
+dGlvbiBvcGVuaW5nIGxpbmtzIG9yIGF0dGFjaG1lbnRzCj4+Pgo+Pj4KPj4+IDIyLjAxLjIwMjAg
+MTQ6NTIsIEpvbiBIdW50ZXIg0L/QuNGI0LXRgjoKPj4+PiBPbiAyMi8wMS8yMDIwIDA3OjE2LCBT
+YW1lZXIgUHVqYXIgd3JvdGU6Cj4+Pj4KPj4+PiAuLi4KPj4+Pgo+Pj4+Pj4+Pj4+PiArc3RhdGlj
+IGludCB0ZWdyYTIxMF9pMnNfcmVtb3ZlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYpCj4+
+Pj4+Pj4+Pj4+ICt7Cj4+Pj4+Pj4+Pj4+ICvCoMKgwqDCoCBwbV9ydW50aW1lX2Rpc2FibGUoJnBk
+ZXYtPmRldik7Cj4+Pj4+Pj4+Pj4+ICvCoMKgwqDCoCBpZiAoIXBtX3J1bnRpbWVfc3RhdHVzX3N1
+c3BlbmRlZCgmcGRldi0+ZGV2KSkKPj4+Pj4+Pj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
+oCB0ZWdyYTIxMF9pMnNfcnVudGltZV9zdXNwZW5kKCZwZGV2LT5kZXYpOwo+Pj4+Pj4+Pj4+IFRo
+aXMgYnJlYWtzIGRldmljZSdzIFJQTSByZWZjb3VudGluZyBpZiBpdCB3YXMgZGlzYWJsZWQgaW4g
+dGhlCj4+Pj4+Pj4+Pj4gYWN0aXZlCj4+Pj4+Pj4+Pj4gc3RhdGUuIFRoaXMgY29kZSBzaG91bGQg
+YmUgcmVtb3ZlZC4gQXQgbW9zdCB5b3UgY291bGQgd2Fybgo+Pj4+Pj4+Pj4+IGFib3V0IHRoZQo+
+Pj4+Pj4+Pj4+IHVueHBlY3RlZCBSUE0gc3RhdGUgaGVyZSwgYnV0IGl0IHNob3VsZG4ndCBiZSBu
+ZWNlc3NhcnkuCj4+Pj4+Pj4+PiBJIGd1ZXNzIHRoaXMgd2FzIGFkZGVkIGZvciBzYWZldHkgYW5k
+IGV4cGxpY2l0IHN1c3BlbmQga2VlcHMgY2xvY2sKPj4+Pj4+Pj4+IGRpc2FibGVkLgo+Pj4+Pj4+
+Pj4gTm90IHN1cmUgaWYgcmVmLWNvdW50aW5nIG9mIHRoZSBkZXZpY2UgbWF0dGVycyB3aGVuIHJ1
+bnRpbWUgUE0gaXMKPj4+Pj4+Pj4+IGRpc2FibGVkIGFuZCBkZXZpY2UgaXMgcmVtb3ZlZC4KPj4+
+Pj4+Pj4+IEkgc2VlIGZldyBkcml2ZXJzIHVzaW5nIHRoaXMgd2F5Lgo+Pj4+Pj4+PiBJdCBzaG91
+bGQgbWF0dGVyIChpZiBJJ20gbm90IG1pc3Npbmcgc29tZXRoaW5nKSBiZWNhdXNlIFJQTSBzaG91
+bGQKPj4+Pj4+Pj4gYmUgaW4KPj4+Pj4+Pj4gYSB3cmVja2VkIHN0YXRlIG9uY2UgeW91J2xsIHRy
+eSB0byByZS1sb2FkIHRoZSBkcml2ZXIncyBtb2R1bGUuCj4+Pj4+Pj4+IExpa2VseQo+Pj4+Pj4+
+PiB0aGF0IHRob3NlIGZldyBvdGhlciBkcml2ZXJzIGFyZSB3cm9uZy4KPj4+Pj4+Pj4KPj4+Pj4+
+Pj4gW3NuaXBdCj4+Pj4+Pj4gT25jZSB0aGUgZHJpdmVyIGlzIHJlLWxvYWRlZCBhbmQgUlBNIGlz
+IGVuYWJsZWQsIEkgZG9uJ3QgdGhpbmsgaXQKPj4+Pj4+PiB3b3VsZCB1c2UKPj4+Pj4+PiB0aGUg
+c2FtZSAnZGV2JyBhbmQgdGhlIGNvcnJlc3BvbmRpbmcgcmVmIGNvdW50LiBEb2Vzbid0IGl0IHVz
+ZSB0aGUKPj4+Pj4+PiBuZXcKPj4+Pj4+PiBjb3VudGVycz8KPj4+Pj4+PiBJZiBSUE0gaXMgbm90
+IHdvcmtpbmcgZm9yIHNvbWUgcmVhc29uLCBtb3N0IGxpa2VseSBpdCB3b3VsZCBiZSB0aGUKPj4+
+Pj4+PiBjYXNlCj4+Pj4+Pj4gZm9yIG90aGVyCj4+Pj4+Pj4gZGV2aWNlcy4gV2hhdCBiZXN0IGRy
+aXZlciBjYW4gZG8gaXMgcHJvYmFibHkgZG8gYSBmb3JjZSBzdXNwZW5kCj4+Pj4+Pj4gZHVyaW5n
+Cj4+Pj4+Pj4gcmVtb3ZhbCBpZgo+Pj4+Pj4+IGFscmVhZHkgbm90IGRvbmUuIEkgd291bGQgcHJl
+ZmVyIHRvIGtlZXAsIHNpbmNlIG11bHRpcGxlIGRyaXZlcnMKPj4+Pj4+PiBzdGlsbAo+Pj4+Pj4+
+IGhhdmUgaXQsCj4+Pj4+Pj4gdW5sZXNzIHRoZXJlIGlzIGEgcmVhbCBoYXJtIGluIGRvaW5nIHNv
+Lgo+Pj4+Pj4gSSB0b29rIGEgY2xvc2VyIGxvb2sgYW5kIGxvb2tzIGxpa2UgdGhlIGNvdW50ZXIg
+YWN0dWFsbHkgc2hvdWxkIGJlCj4+Pj4+PiByZXNldC4gU3RpbGwgSSBkb24ndCB0aGluayB0aGF0
+IGl0J3MgYSBnb29kIHByYWN0aWNlIHRvIG1ha2UgY2hhbmdlcwo+Pj4+Pj4gdW5kZXJuZWF0aCBv
+ZiBSUE0sIGl0IG1heSBzdHJpa2UgYmFjay4KPj4+Pj4gSWYgUlBNIGlzIGJyb2tlbiwgaXQgcHJv
+YmFibHkgd291bGQgaGF2ZSBiZWVuIGNhdWdodCBkdXJpbmcgZGV2aWNlCj4+Pj4+IHVzYWdlLgo+
+Pj4+PiBJIHdpbGwgcmVtb3ZlIGV4cGxpY2l0IHN1c3BlbmQgaGVyZSBpZiBubyBhbnkgY29uY2Vy
+bnMgZnJvbSBvdGhlcgo+Pj4+PiBmb2xrcy4KPj4+Pj4gVGhhbmtzLgo+Pj4+IEkgcmVjYWxsIHRo
+YXQgdGhpcyB3YXMgdGhlIHByZWZlcnJlZCB3YXkgb2YgZG9pbmcgdGhpcyBmcm9tIHRoZSBSUE0K
+Pj4+PiBmb2xrcy4gVGVncmEzMCBJMlMgZHJpdmVyIGRvZXMgdGhlIHNhbWUgYW5kIFN0ZXBoZW4g
+aGFkIHBvaW50ZWQgbWUgdG8KPj4+PiB0aGlzIGFzIGEgcmVmZXJlbmNlLgo+Pj4+IEkgYmVsaWV2
+ZSB0aGF0IHRoaXMgaXMgbWVhbnQgdG8gZW5zdXJlIHRoYXQgdGhlCj4+Pj4gZGV2aWNlIGlzIGFs
+d2F5cyBwb3dlcmVkLW9mZiByZWdhcmRsZXNzIG9mIGl0IFJQTSBpcyBlbmFibGVkIG9yIG5vdCBh
+bmQKPj4+PiB3aGF0IHRoZSBjdXJyZW50IHN0YXRlIGlzLgo+Pj4gWWVzLCBpdCB3YXMga2luZGEg
+YWN0dWFsIGZvciB0aGUgY2FzZSBvZiB1bmF2YWlsYWJsZSBSUE0uCj4+Cj4+PiBBbnl3YXlzLCAv
+SSB0aGluay8gdmFyaWFudCBsaWtlIHRoaXMgc2hvdWxkIGhhdmUgYmVlbiBtb3JlIHByZWZlcnJl
+ZDoKPj4+Cj4+PiBpZiAoIXBtX3J1bnRpbWVfZW5hYmxlZCgmcGRldi0+ZGV2KSkKPj4+IMKgwqDC
+oMKgwqDCoMKgwqAgdGVncmEyMTBfaTJzX3J1bnRpbWVfc3VzcGVuZCgmcGRldi0+ZGV2KTsKPj4+
+IGVsc2UKPj4+IMKgwqDCoMKgwqDCoMKgwqAgcG1fcnVudGltZV9kaXNhYmxlKCZwZGV2LT5kZXYp
+Owo+Pgo+PiBJIHRoaW5rIGl0IGxvb2tzIHRvIGJlIHNpbWlsYXIgdG8gd2hhdCBpcyB0aGVyZSBh
+bHJlYWR5Lgo+Pgo+PiBwbV9ydW50aW1lX2Rpc2FibGUoJnBkZXYtPmRldik7IC8vIGl0IHdvdWxk
+IHR1cm4gb3V0IHRvIGJlIGEgZHVtbXkgY2FsbAo+PiBpZiAhUlBNCj4+IGlmICghcG1fcnVudGlt
+ZV9zdGF0dXNfc3VzcGVuZGVkKCZwZGV2LT5kZXYpKSAvLyBpdCBpcyB0cnVlIGFsd2F5cyBpZiAh
+UlBNCj4+IMKgwqDCoMKgwqDCoMKgIHRlZ3JhMjEwX2kyc19ydW50aW1lX3N1c3BlbmQoJnBkZXYt
+PmRldik7Cj4gCj4gTWF5YmUgdGhpcyBpcyBmaW5lIGZvciAhUlBNLCBidXQgbm90IHJlYWxseSBm
+aW5lIGluIGEgY2FzZSBvZiBlbmFibGVkCj4gUlBNLiBEZXZpY2UgY291bGQgYmUgaW4gcmVzdW1l
+ZCBzdGF0ZSBhZnRlciBwbV9ydW50aW1lX2Rpc2FibGUoKSBpZiBpdAo+IHdhc24ndCBzdXNwZW5k
+ZWQgYmVmb3JlIHRoZSBkaXNhYmxpbmcuCgpJIGRvbid0IHNlZSBhbnkgcHJvYmxlbSB3aXRoIHRo
+aXMgZm9yIHRoZSAhUlBNIGNhc2UuCgpKb24KCi0tIApudnB1YmxpYwpfX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApB
+bHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5v
+cmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

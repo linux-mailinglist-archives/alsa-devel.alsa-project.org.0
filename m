@@ -2,56 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1B95148CAD
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 18:02:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA069148CAE
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 18:02:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 59F251685;
-	Fri, 24 Jan 2020 18:01:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 59F251685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CDD51686;
+	Fri, 24 Jan 2020 18:02:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CDD51686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579885331;
-	bh=JwSikf9ItnjpJG+0hNYoDpdVYn7bQ6Hq3MkMIp50io0=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579885378;
+	bh=UqUy3a8Qu8yfOHlcDpr3NYAGYYppcHiH+BjyYFTbTLs=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XYFNrVmUip7+DbFg1BrmrTpgIq3GPP/pQAqkmdDsgwYYS2j9sASR5K59Ls8jDVA3A
-	 etZiwRtHFdbHdlQaabyBK+EuXs3Gxe86uCMbMujiIoOi+R8yafeBhAuzMnYIQgwwxt
-	 yog9hz2SRLd/A1wgFSDuC210o/sip5wtW2GUPI14=
+	b=O3rqON6WbQDL5chmTPqTdnRoDdi1gYnEhDjUI+zt6aqgry09pX1nh6gcgvYTxGLUO
+	 JJ51u0G5FGiaQOiZePPJ+18kPuAQJQsEK4EJWQme+/9SGQ+84o2fjIX5LC3U++E1Bw
+	 ZUR/PBPqAMxtM0zjLGlyrCNUo326A0JvjCoVeHQw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DAE5EF80229;
-	Fri, 24 Jan 2020 18:00:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 46938F8026F;
+	Fri, 24 Jan 2020 18:01:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 49C3DF8020C; Fri, 24 Jan 2020 18:00:26 +0100 (CET)
+ id D43F5F80245; Fri, 24 Jan 2020 18:01:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.2 required=5.0 tests=PRX_BODYSUB_1,SPF_HELO_PASS,
- SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk
- [78.40.148.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4D3FFF800DE
- for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 18:00:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D3FFF800DE
-Received: from [167.98.27.226] (helo=[10.35.5.173])
- by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
- id 1iv2JV-0005PN-Cz; Fri, 24 Jan 2020 17:00:09 +0000
-To: Jon Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>
-References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
- <621fa27d-9259-2949-9cf5-d2eda5cb0677@gmail.com>
- <a0f027d9-e9e0-d76c-1e40-002fdc37eb5f@nvidia.com>
- <d43d518d-9336-a011-2a69-3f9331f6d0b4@codethink.co.uk>
- <aba4edd6-0ea5-5e95-c5a0-9e749587c763@nvidia.com>
- <449bdc3c-bf82-7cc4-6704-440dd100ca3a@gmail.com>
- <5d3ae629-5d30-0930-5dd1-15161e64926e@codethink.co.uk>
- <9daeeb94-2b90-18b8-2e1e-daae5acf079d@gmail.com>
- <fd73f68c-80f5-ac80-f6e4-42256d3df76d@codethink.co.uk>
- <37beb96a-a525-c72f-a7e1-e9ef5d61f3b2@gmail.com>
- <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id D1031F80217
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 18:01:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1031F80217
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 761321FB;
+ Fri, 24 Jan 2020 09:01:01 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E8C5C3F6C4;
+ Fri, 24 Jan 2020 09:01:00 -0800 (PST)
+Date: Fri, 24 Jan 2020 17:00:59 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <20200124170059.GB4918@sirena.org.uk>
+References: <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
  <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
  <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
  <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
@@ -59,20 +52,18 @@ References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
  <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
  <a2744ea0-cf6d-d083-75e6-853746195001@gmail.com>
  <28cafc56-095b-68c6-638d-270608a2983f@codethink.co.uk>
- <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-Organization: Codethink Limited.
-Message-ID: <318f0256-fe6d-c34d-4deb-74540fca8d0d@codethink.co.uk>
-Date: Fri, 24 Jan 2020 17:00:08 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ <9b3a0cdd-34c7-ecb4-4a26-268fd4a63041@codethink.co.uk>
+ <26aeb591-e770-5e6a-5ee4-05414ae4ddc6@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
-Content-Language: en-GB
+In-Reply-To: <26aeb591-e770-5e6a-5ee4-05414ae4ddc6@nvidia.com>
+X-Cookie: Drop that pickle!
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Ben Dooks <ben.dooks@codethink.co.uk>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org,
+ Dmitry Osipenko <digetx@gmail.com>
 Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
  24bit and 32bit samples
 X-BeenThere: alsa-devel@alsa-project.org
@@ -87,62 +78,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============4252127267644949126=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMjQvMDEvMjAyMCAxNjo1MCwgSm9uIEh1bnRlciB3cm90ZToKPiAKPiBPbiAyMy8wMS8yMDIw
-IDE5OjM4LCBCZW4gRG9va3Mgd3JvdGU6Cj4+IE9uIDA3LzAxLzIwMjAgMDE6MzksIERtaXRyeSBP
-c2lwZW5rbyB3cm90ZToKPj4+IDA2LjAxLjIwMjAgMjI6MDAsIEJlbiBEb29rcyDQv9C40YjQtdGC
-Ogo+Pj4+IE9uIDA1LzAxLzIwMjAgMTA6NTMsIEJlbiBEb29rcyB3cm90ZToKPj4+Pj4KPj4+Pj4K
-Pj4+Pj4gT24gMjAyMC0wMS0wNSAwMTo0OCwgRG1pdHJ5IE9zaXBlbmtvIHdyb3RlOgo+Pj4+Pj4g
-MDUuMDEuMjAyMCAwMzowNCwgQmVuIERvb2tzINC/0LjRiNC10YI6Cj4+Pj4+Pj4gW3NuaXBdCj4+
-Pj4+Pj4KPj4+Pj4+PiBJJ3ZlIGp1c3QgZ29uZSB0aHJvdWdoIHRlc3RpbmcuCj4+Pj4+Pj4KPj4+
-Pj4+PiBTb21lIHNpbXBsZSBkYXRhIHRlc3RzIHNob3cgMTYgYW5kIDMyLWJpdHMgd29yay4KPj4+
-Pj4+Pgo+Pj4+Pj4+IFRoZSAyNCBiaXQgY2FzZSBzZWVtcyB0byBiZSB3ZWlyZCwgaXQgbG9va3Mg
-bGlrZSB0aGUgMjQtYml0IGV4cGVjdHMKPj4+Pj4+PiAyNCBiaXQgc2FtcGxlcyBpbiAzMiBiaXQg
-d29yZHMuIEkgY2FuJ3Qgc2VlIGFueSBwYWNraW5nIG9wdGlvbnMgdG8KPj4+Pj4+PiBkbyAyNCBi
-aXQgaW4gMjQgYml0LCBzbyB3ZSBtYXkgaGF2ZSB0byByZW1vdmUgMjQgYml0IHNhbXBsZSBzdXBw
-b3J0Cj4+Pj4+Pj4gKHdoaWNoIGlzIGEgc2hhbWUpCj4+Pj4+Pj4KPj4+Pj4+PiBNeSBwcmVmZXJl
-bmNlIGlzIHRvIHJlbW92ZSB0aGUgMjQtYml0IHN1cHBvcnQgYW5kIGtlZXAgdGhlIDMyIGJpdCBp
-bi4KPj4+Pj4+Pgo+Pj4+Pj4KPj4+Pj4+IEludGVyZXN0aW5nLi4gSm9uLCBjb3VsZCB5b3UgcGxl
-YXNlIGNvbmZpcm0gdGhhdCAyNGJpdCBmb3JtYXQgaXNuJ3QKPj4+Pj4+IHVzYWJsZSBvbiBUMzA/
-Cj4+Pj4+Cj4+Pj4+IElmIHRoZXJlIGlzIGFuIG9wdGlvbiBvZiAyNCBwYWNrZWQgaW50byAzMiwg
-dGhlbiBJIHRoaW5rIHRoYXQgd291bGQKPj4+Pj4gd29yay4KPj4+Pj4KPj4+Pj4gSSBjYW4gdHJ5
-IHRlc3RpbmcgdGhhdCB3aXRoIHJhdyBkYXRhIG9uIE1vbmRheS4KPj4+Pgo+Pj4+IEkgbmVlZCB0
-byBjaGVjayBzb21lIHRoaW5ncywgSSBhc3N1bWVkIDI0IHdhcyAyNCBwYWNrZWQgYml0cywgaXQg
-bG9va3MKPj4+PiBsaWtlIHRoZSBkZWZhdWx0IGlzIDI0IGluIDMyIGJpdHMgc28gd2UgbWF5IGJl
-IG9rLiBIb3dldmVyIEkgbmVlZCB0bwo+Pj4+IHJlLXdyaXRlIG15IHRlc3QgY2FzZSB3aGljaCBh
-c3N1bWVkIGl0IHdhcyAyNGJpdHMgaW4gMyBieXRlcyAoUzI0XzNMRSkuCj4+Pj4KPj4+PiBJJ2xs
-IGZvbGxvdyB1cCBsYXRlciwKPj4+Cj4+PiBPa2F5LCB0aGUgUzI0XzNMRSBpc24ndCBzdXBwb3J0
-ZWQgYnkgUlQ1NjQwIGNvZGVjIGluIG15IGNhc2UuIEkgYnJpZWZseQo+Pj4gbG9va2VkIHRocm91
-Z2ggdGhlIFRSTSBkb2MgYW5kIGdvdCBpbXByZXNzaW9uIHRoYXQgQUhVQiBjb3VsZCByZS1wYWNr
-Cj4+PiBkYXRhIHN0cmVhbSBpbnRvIHNvbWV0aGluZyB0aGF0IGNvZGVjIHN1cHBvcnRzLCBidXQg
-bWF5YmUgaXQncyBhIHdyb25nCj4+PiBpbXByZXNzaW9uLgo+Pj4gX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCj4+Cj4+IEkgZGlkIGEgcXVpY2sgdGVzdCB3aXRoIHRoZSBmb2xsb3dp
-bmc6Cj4+Cj4+ICDCoHNveCAtbiAtYiAxNiAtYyAyIC1yIDQ0MTAwIC90bXAvdG1wLndhdsKgIHN5
-bnRoIHNpbmUgNTAwIHZvbCAwLjUKPj4gIMKgc294IC1uIC1iIDI0IC1jIDIgLXIgNDQxMDAgL3Rt
-cC90bXAud2F2wqAgc3ludGggc2luZSA1MDAgdm9sIDAuNQo+PiAgwqBzb3ggLW4gLWIgMzIgLWMg
-MiAtciA0NDEwMCAvdG1wL3RtcC53YXbCoCBzeW50aCBzaW5lIDUwMCB2b2wgMC41Cj4+Cj4+IFRo
-ZSAxNiBhbmQgMzIgd29yayBmaW5lLCB0aGUgMjQgaXMgc2hvd2luZyBhIHBsYXliYWNrIG91dHB1
-dCBmcmVxCj4+IG9mIDQ0MEh6IGluc3RlYWQgb2YgNTAwSHouLi4gdGhpcyBzdWdnZXN0cyB0aGUg
-Y2xvY2sgaXMgb2ZmLCBvciB0aGVyZQo+PiBpcyBzb21ldGhpbmcgZWxzZSB3ZWlyZCBnb2luZyBv
-bi4uLgo+IAo+IEkgd2FzIGxvb2tpbmcgYXQgdXNpbmcgc294IHRvIGNyZWF0ZSBzdWNoIGFzIGZp
-bGUsIGJ1dCB0aGUgYWJvdmUgY29tbWFuZAo+IGdlbmVyYXRlcyBhIFMyNF8zTEUgZmlsZSBhbmQg
-bm90IFMyNF9MRSBmaWxlLiBUaGUgY29kZWMgb24gSmV0c29uLVRLMQo+IHN1cHBvcnRzIFMyNF9M
-RSBidXQgZG9lcyBub3Qgc3VwcG9ydCBTMjRfM0xFIGFuZCBzbyBJIGNhbm5vdCB0ZXN0IHRoaXMu
-Cj4gQW55d2F5LCB3ZSByZWFsbHkgbmVlZCB0byB0ZXN0IFMyNF9MRSBhbmQgbm90IFMyNF8zTEUg
-YmVjYXVzZSB0aGlzIGlzCj4gdGhlIHByb2JsZW0gdGhhdCBEbWl0cnkgaXMgaGF2aW5nLgo+IAo+
-IEJlbiBpcyBTMjRfM0xFIHdoYXQgeW91IHJlYWxseSBuZWVkIHRvIHN1cHBvcnQ/CgpObywgaXQg
-aXMgUzI0X0xFIHRoZSBmb3JtYXQgdGhpcyBoYXJkd2FyZSBzdXBwb3J0cy4gSSB3b25kZXIgaWYK
-YXBsYXkgaXMgdHJhbnNmb3JtaW5nIGl0LgoKUGx1ZyBQQ006IExpbmVhciBjb252ZXJzaW9uIFBD
-TSAoUzI0X0xFKQpJdHMgc2V0dXAgaXM6CiAgIHN0cmVhbSAgICAgICA6IFBMQVlCQUNLCiAgIGFj
-Y2VzcyAgICAgICA6IFJXX0lOVEVSTEVBVkVECiAgIGZvcm1hdCAgICAgICA6IFMyNF8zTEUKICAg
-c3ViZm9ybWF0ICAgIDogU1RECiAgIGNoYW5uZWxzICAgICA6IDIKClNvIEkgYXNzdW1lIGFwbGF5
-IGhhcyB0dXJuZWQgdGhlIFMyNF8zTEUgLT4gUzI0X0xFCgoKCi0tIApCZW4gRG9va3MJCQkJaHR0
-cDovL3d3dy5jb2RldGhpbmsuY28udWsvClNlbmlvciBFbmdpbmVlcgkJCQlDb2RldGhpbmsgLSBQ
-cm92aWRpbmcgR2VuaXVzCgpodHRwczovL3d3dy5jb2RldGhpbmsuY28udWsvcHJpdmFjeS5odG1s
-Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2
-ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxt
-YW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+
+--===============4252127267644949126==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="KFztAG8eRSV9hGtP"
+Content-Disposition: inline
+
+
+--KFztAG8eRSV9hGtP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Fri, Jan 24, 2020 at 04:56:41PM +0000, Jon Hunter wrote:
+
+> Yes that is going to be a problem. I assume that your codec wants a
+> 256*fs MCLK? Maybe in that case you are better off having the codec
+> drive the bit clock and fsync?
+
+> Is 24-bit critical to what you are doing?
+
+> Otherwise maybe we should drop the 24-bit support for now and just keep
+> 32-bit.
+
+Removing the support because one particular board has limited clocks
+isn't good - it'd be better to have components with clocking
+restrictions impose constraints as needed.
+
+--KFztAG8eRSV9hGtP
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4rIsoACgkQJNaLcl1U
+h9BwLQf+KKkWJLuGXicMjabWZuzPftSubNU2PI7YkuSc1kFDJAvcKRIwKwuVj4Se
+qgZrGUwWPyNruy3/LyZ0FxiAwGtAaOv5QngjdAzhpluSHy5ycBAoNw8ord1sFmt6
+WU7BkX5rDUqu+ME2KsZLzV5UX2+w0x12QSx1j6TjGDiW6vQYJTyXVj2AZuCbRoYx
+KrPdJPuoRM1qjGF/UGnNpoJ5vN4kzv8vRitbtAxOXT6ryMpUiVJWO8QlT2YlA3b3
+oJQ3OkrkseWWEI6UBddvxA0jkhDa44K5A4blwt67ueTpvBT4Sw3AvnpFWsJhpHNF
+VmXdypoMjQN21oIX3cAb3W6ph8ZudA==
+=G/Sk
+-----END PGP SIGNATURE-----
+
+--KFztAG8eRSV9hGtP--
+
+--===============4252127267644949126==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============4252127267644949126==--

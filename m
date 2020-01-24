@@ -2,30 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C359148F5D
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 21:29:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6352D14903F
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 22:39:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1C7C0166E;
-	Fri, 24 Jan 2020 21:28:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1C7C0166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECB591696;
+	Fri, 24 Jan 2020 22:38:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECB591696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579897764;
-	bh=lfoMnxilf2b8PApWl9LyUkrLTpI62WDu7uMOKPaNcM8=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=EzwfH/DVaEH7oKGEbvkU3qyl77o74JquqZqzFpA1zC5/Or5mzH88KcRzy0V2km71b
-	 Ag9sGdKIxLf6lCnCTUcqrTRiLWMEICkJskbhFubOQQ7dwJKpx3F6z9rZYYNvpCjqgq
-	 4OAQtNlDNbYdIVdMuwfPGcB3hsH9CFB/YXRZ1DCU=
+	s=default; t=1579901952;
+	bh=/8d6NxoMi5wKJhKk+Kw1mKIIlysqDrcX0AUB6ROfYNE=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=h5TKgsH7LyGz4xgEqFhtL1XmG+s+n8EqCgUMwQZO1fGNcTx4U63n/8qxw4hlOcGec
+	 ZqrxI8uQCpi+20HHRNSkVCxt66W/a4d4mmUV/+YHWx0BJPGeWvzs+foakQmbUy+ca8
+	 YEsFbjCh+dZkOl9uLXHhfbO3ROcFMASZN158xHjA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63E05F802A2;
-	Fri, 24 Jan 2020 21:24:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5377F80229;
+	Fri, 24 Jan 2020 22:36:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE118F8028C; Fri, 24 Jan 2020 21:24:26 +0100 (CET)
+ id 97392F8022D; Fri, 24 Jan 2020 22:36:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
@@ -33,33 +32,28 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
 Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6A1FCF80229
- for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 21:24:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6A1FCF80229
+ by alsa1.perex.cz (Postfix) with ESMTPS id D90C9F800DE
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 22:36:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D90C9F800DE
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Jan 2020 12:24:12 -0800
+ 24 Jan 2020 13:36:30 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,358,1574150400"; d="scan'208";a="400759981"
-Received: from iifeduba-mobl1.amr.corp.intel.com (HELO [10.254.110.26])
- ([10.254.110.26])
- by orsmga005.jf.intel.com with ESMTP; 24 Jan 2020 12:24:11 -0800
-To: Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org
-References: <20200124190413.18154-1-cezary.rojewski@intel.com>
- <20200124190413.18154-11-cezary.rojewski@intel.com>
+X-IronPort-AV: E=Sophos;i="5.70,359,1574150400"; d="scan'208";a="294313383"
+Received: from sascates-mobl2.amr.corp.intel.com (HELO
+ pbossart-mobl3.amr.corp.intel.com) ([10.251.4.164])
+ by fmsmga001.fm.intel.com with ESMTP; 24 Jan 2020 13:36:29 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <9edc0e32-b3af-3f98-613c-68ee7bcb80ed@linux.intel.com>
-Date: Fri, 24 Jan 2020 14:22:22 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+To: alsa-devel@alsa-project.org
+Date: Fri, 24 Jan 2020 15:36:18 -0600
+Message-Id: <20200124213625.30186-1-pierre-louis.bossart@linux.intel.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-In-Reply-To: <20200124190413.18154-11-cezary.rojewski@intel.com>
-Content-Language: en-US
-Cc: broonie@kernel.org, tiwai@suse.com, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH 10/12] ASoC: SOF: Provide probe debugfs
-	support
+Cc: tiwai@suse.de, broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [PATCH 0/7] ASoC: SOF: fixes for 5.6
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,40 +66,47 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-You should probably add a higher-level explanation in the commit message 
-that to make use of probes, the user needs to specific which buffers of 
-the firmware topology they want to extract data from, and that debugfs 
-is the configuration interface. The streaming part is handled via the 
-compressed interface.
+I know this is cutting it close to the merge window, but since Takashi
+suggested I provide the suspend bug he, Kai and I were working on, I
+decided to send a small batch of fixes.
 
-> Define debugfs subdirectory delegated for IPC communitation with DSP.
+Bard Liao (1):
+  ASoC: intel: soc-acpi-intel-icl-match: fix rt715 ADR
 
-communication.
+Guennadi Liakhovetski (2):
+  ASoC: SOF: fix an Oops, caused by invalid topology
+  ASoC: Intel: consistent HDMI codec probing code
 
-> Input format: uint,uint,(...) which are later translated into DWORDS
-> sequence and further into instances of struct of interest given the IPC
-> type.
+Kai Vehmanen (1):
+  ASoC: SOF: trace: fix unconditional free in trace release
 
-we should probably add a documentation part that specifies the values 
-expected, as you did some time back.
+Pan Xiuli (1):
+  ASoC: SOF: pci: add missing default_fw_name of JasperLake
 
-> For Extractor probes, following have been enabled:
-> - PROBE_POINT_ADD (echo <..> probe_points)
-> - PROBE_POINT_REMOVE (echo <..> probe_points_remove)
-> - PROBE_POINT_INFO (cat probe_points)
+Pierre-Louis Bossart (2):
+  ASoC: SOF: core: free trace on errors
+  ASoC: SOF: core: release resources on errors in probe_continue
 
-Doesn't appear very intuitive to me, is this the same as in previous 
-solutions or a new design of your own?
+ sound/soc/intel/boards/bxt_da7219_max98357a.c | 14 +++----
+ sound/soc/intel/boards/bxt_rt298.c            | 14 +++----
+ sound/soc/intel/boards/cml_rt1011_rt5682.c    | 13 ++++---
+ sound/soc/intel/boards/glk_rt5682_max98357a.c | 16 ++++----
+ sound/soc/intel/boards/sof_rt5682.c           | 15 ++++----
+ .../intel/common/soc-acpi-intel-icl-match.c   |  2 +-
+ sound/soc/sof/core.c                          | 38 ++++++++-----------
+ sound/soc/sof/pcm.c                           | 10 +++++
+ sound/soc/sof/pm.c                            |  4 ++
+ sound/soc/sof/sof-pci-dev.c                   |  1 +
+ sound/soc/sof/trace.c                         |  7 +++-
+ 11 files changed, 74 insertions(+), 60 deletions(-)
 
-> +static ssize_t ppoints_read(struct file *file,
-> +		char __user *to, size_t count, loff_t *ppos)
-
-avoid ppoints acronym, use probe_points_read? same in the rest of the patch.
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

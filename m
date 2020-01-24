@@ -2,79 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17603148CBE
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 18:08:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AF3E148D1B
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 18:41:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 92E841678;
-	Fri, 24 Jan 2020 18:07:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 92E841678
+	by alsa0.perex.cz (Postfix) with ESMTPS id DAAE81678;
+	Fri, 24 Jan 2020 18:41:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DAAE81678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579885691;
-	bh=hzPMIUDNwcnijeDw0EsJBdZWVkBrrM70Ex0C6dhThqk=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1579887711;
+	bh=ziCSHKn1MC1li1yMdx+C9wU/bH9EXw3ony90VTFz5Q0=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=aTWhAivrEYRMQbCKNLP6PW3hO6ilWNcd/PrhKpk5s2K3YK/JFQ4GjsaHboWpJAZjh
-	 Aoi1o1kQkbc+QDxmc4NqsJvaWw54L6hAyYNC2kPM6dXb6xNSIq2Cnzpr+EgFZxFPwN
-	 HLj8RO6+AN+ukR3rU+oC/CM/gmJuCxpHjQGCPR2E=
+	b=NwxLYxqQTCOuAsQUibDNtUh6JIAbRkJE46XeZ9OgPiWrqs4QT9QocA74rR0XpZiMx
+	 1sdtLVFzF3IUO3cu8HAl17gsi3+juG6QqNqelORkpu4jRzNU1jhQJ/AMun/owLVmnH
+	 tX5NWSCegJh6XEi7PduenWiJCeiNetn78zVu0cWM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 14B3FF800F5;
-	Fri, 24 Jan 2020 18:06:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7081CF80229;
+	Fri, 24 Jan 2020 18:40:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3066CF8020C; Fri, 24 Jan 2020 18:06:25 +0100 (CET)
+ id 47BDBF8020C; Fri, 24 Jan 2020 18:40:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.2 required=5.0 tests=PRX_BODYSUB_1,SPF_HELO_PASS,
- SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk
- [78.40.148.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2004CF800F5
- for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 18:06:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2004CF800F5
-Received: from [167.98.27.226] (helo=[10.35.5.173])
- by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
- id 1iv2PR-0005gi-J3; Fri, 24 Jan 2020 17:06:17 +0000
-To: Jon Hunter <jonathanh@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>
-References: <20191018154833.7560-1-ben.dooks@codethink.co.uk>
- <621fa27d-9259-2949-9cf5-d2eda5cb0677@gmail.com>
- <a0f027d9-e9e0-d76c-1e40-002fdc37eb5f@nvidia.com>
- <d43d518d-9336-a011-2a69-3f9331f6d0b4@codethink.co.uk>
- <aba4edd6-0ea5-5e95-c5a0-9e749587c763@nvidia.com>
- <449bdc3c-bf82-7cc4-6704-440dd100ca3a@gmail.com>
- <5d3ae629-5d30-0930-5dd1-15161e64926e@codethink.co.uk>
- <9daeeb94-2b90-18b8-2e1e-daae5acf079d@gmail.com>
- <fd73f68c-80f5-ac80-f6e4-42256d3df76d@codethink.co.uk>
- <37beb96a-a525-c72f-a7e1-e9ef5d61f3b2@gmail.com>
- <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
- <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
- <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
- <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
- <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
- <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
- <a2744ea0-cf6d-d083-75e6-853746195001@gmail.com>
- <28cafc56-095b-68c6-638d-270608a2983f@codethink.co.uk>
- <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-Organization: Codethink Limited.
-Message-ID: <fc919f80-46c0-78ef-15a3-ac287ba8ff2e@codethink.co.uk>
-Date: Fri, 24 Jan 2020 17:06:17 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C988F800F5
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 18:40:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C988F800F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="Xr9b25sd"
+Received: by mail-pj1-x1041.google.com with SMTP id n96so130013pjc.3
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 09:40:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8Fl9DtoEGdJPaF6wiMaulBg+k/QaiWHWReTuVYIV7lg=;
+ b=Xr9b25sdtL1HdTl6hIooGcqIRd77GjAUtxMUHXNaiCS1iSPex4xjnYaSAa7vjnBSwA
+ ugXGLMsg/kU5nG0Z4WxkDnFka5Iy3pai7Wq0DuQKHFoEKsHpqsF3bEH1+L9HK1J+DIGP
+ 7hu0Q2s9C5Dzf3hM3lR6FOFv/007cTLHNxSogaGt8jC5u1tNAOOqn1ye8RoaQjx6hNJT
+ pd1QmxvxE9zCPKaeOwUDAYXlclQbb3JRBsqU3PQdjG3zYTIHiJoMMnBr8t6PaB3AbWux
+ 8BNJPGoRCzK1reJUQL1aHxGkjnR728wbRC6FCyMaesHxw7p61aM0z6iXQVXJqsj6GTII
+ 1GPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8Fl9DtoEGdJPaF6wiMaulBg+k/QaiWHWReTuVYIV7lg=;
+ b=KI5ykulpOIKH6bgXemztsfRNz+i1Xs66tu6TRNhNtvSPcH7LIYV760AQUqTI7X/fji
+ rOQ51WQKqjYTDM9/3MdCzohCt5Zsqlz6aH38UXRymBcF+hZmVHgeygEnpjq2GIx0KEty
+ C5A09RMl9fNpx4wVw0OsOh52TEQyweGwCOmyvZB+Ym6pkOXD4ICnYKS9AAHLHGOTu+OC
+ eTLZnALbnduahauLINm+tj2dEWHE5HqcLigZTVUUUu6ZCTvrqCDbkGcRfVNDCOIZ51EW
+ ziKcdbIAdiQkk/rrIWUw8Qu/xE0881YEyzlEO8JHUEeeHxARbUQHQLotyLNhVdd0VhZ8
+ DWRA==
+X-Gm-Message-State: APjAAAWb8ofwDAoF45Lmc75pVRFtYJYRakbiPM/Qx/f2FIXhX3/8JDS7
+ RBkIt2b4sUMiWVnllP/zQt/36IYLv4m15aL7twLvqA==
+X-Google-Smtp-Source: APXvYqw2zvIPa/E8BPtiWkInChMYVaS/82b3KS2QfXEyshMm2NfjWPdDTnav/pt/y77redQAAMi2iysMW3m636r4Ioo=
+X-Received: by 2002:a17:902:6948:: with SMTP id
+ k8mr4558881plt.223.1579887599337; 
+ Fri, 24 Jan 2020 09:39:59 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
-Content-Language: en-GB
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Mark Brown <broonie@kernel.org>, Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org
-Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
- 24bit and 32bit samples
+References: <20200124155750.33753-1-natechancellor@gmail.com>
+In-Reply-To: <20200124155750.33753-1-natechancellor@gmail.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Fri, 24 Jan 2020 09:39:48 -0800
+Message-ID: <CAKwvOd=R6NrqAvQWdu3yZHFNPVqAMO=verL6gRDGprMjCDPGcQ@mail.gmail.com>
+To: Nathan Chancellor <natechancellor@gmail.com>
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, LKML <linux-kernel@vger.kernel.org>,
+ clang-built-linux <clang-built-linux@googlegroups.com>,
+ Mark Brown <broonie@kernel.org>, Bard Liao <bardliao@realtek.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: rt1015: Remove unnecessary const
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,59 +93,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMjQvMDEvMjAyMCAxNjo1MCwgSm9uIEh1bnRlciB3cm90ZToKPiAKPiBPbiAyMy8wMS8yMDIw
-IDE5OjM4LCBCZW4gRG9va3Mgd3JvdGU6Cj4+IE9uIDA3LzAxLzIwMjAgMDE6MzksIERtaXRyeSBP
-c2lwZW5rbyB3cm90ZToKPj4+IDA2LjAxLjIwMjAgMjI6MDAsIEJlbiBEb29rcyDQv9C40YjQtdGC
-Ogo+Pj4+IE9uIDA1LzAxLzIwMjAgMTA6NTMsIEJlbiBEb29rcyB3cm90ZToKPj4+Pj4KPj4+Pj4K
-Pj4+Pj4gT24gMjAyMC0wMS0wNSAwMTo0OCwgRG1pdHJ5IE9zaXBlbmtvIHdyb3RlOgo+Pj4+Pj4g
-MDUuMDEuMjAyMCAwMzowNCwgQmVuIERvb2tzINC/0LjRiNC10YI6Cj4+Pj4+Pj4gW3NuaXBdCj4+
-Pj4+Pj4KPj4+Pj4+PiBJJ3ZlIGp1c3QgZ29uZSB0aHJvdWdoIHRlc3RpbmcuCj4+Pj4+Pj4KPj4+
-Pj4+PiBTb21lIHNpbXBsZSBkYXRhIHRlc3RzIHNob3cgMTYgYW5kIDMyLWJpdHMgd29yay4KPj4+
-Pj4+Pgo+Pj4+Pj4+IFRoZSAyNCBiaXQgY2FzZSBzZWVtcyB0byBiZSB3ZWlyZCwgaXQgbG9va3Mg
-bGlrZSB0aGUgMjQtYml0IGV4cGVjdHMKPj4+Pj4+PiAyNCBiaXQgc2FtcGxlcyBpbiAzMiBiaXQg
-d29yZHMuIEkgY2FuJ3Qgc2VlIGFueSBwYWNraW5nIG9wdGlvbnMgdG8KPj4+Pj4+PiBkbyAyNCBi
-aXQgaW4gMjQgYml0LCBzbyB3ZSBtYXkgaGF2ZSB0byByZW1vdmUgMjQgYml0IHNhbXBsZSBzdXBw
-b3J0Cj4+Pj4+Pj4gKHdoaWNoIGlzIGEgc2hhbWUpCj4+Pj4+Pj4KPj4+Pj4+PiBNeSBwcmVmZXJl
-bmNlIGlzIHRvIHJlbW92ZSB0aGUgMjQtYml0IHN1cHBvcnQgYW5kIGtlZXAgdGhlIDMyIGJpdCBp
-bi4KPj4+Pj4+Pgo+Pj4+Pj4KPj4+Pj4+IEludGVyZXN0aW5nLi4gSm9uLCBjb3VsZCB5b3UgcGxl
-YXNlIGNvbmZpcm0gdGhhdCAyNGJpdCBmb3JtYXQgaXNuJ3QKPj4+Pj4+IHVzYWJsZSBvbiBUMzA/
-Cj4+Pj4+Cj4+Pj4+IElmIHRoZXJlIGlzIGFuIG9wdGlvbiBvZiAyNCBwYWNrZWQgaW50byAzMiwg
-dGhlbiBJIHRoaW5rIHRoYXQgd291bGQKPj4+Pj4gd29yay4KPj4+Pj4KPj4+Pj4gSSBjYW4gdHJ5
-IHRlc3RpbmcgdGhhdCB3aXRoIHJhdyBkYXRhIG9uIE1vbmRheS4KPj4+Pgo+Pj4+IEkgbmVlZCB0
-byBjaGVjayBzb21lIHRoaW5ncywgSSBhc3N1bWVkIDI0IHdhcyAyNCBwYWNrZWQgYml0cywgaXQg
-bG9va3MKPj4+PiBsaWtlIHRoZSBkZWZhdWx0IGlzIDI0IGluIDMyIGJpdHMgc28gd2UgbWF5IGJl
-IG9rLiBIb3dldmVyIEkgbmVlZCB0bwo+Pj4+IHJlLXdyaXRlIG15IHRlc3QgY2FzZSB3aGljaCBh
-c3N1bWVkIGl0IHdhcyAyNGJpdHMgaW4gMyBieXRlcyAoUzI0XzNMRSkuCj4+Pj4KPj4+PiBJJ2xs
-IGZvbGxvdyB1cCBsYXRlciwKPj4+Cj4+PiBPa2F5LCB0aGUgUzI0XzNMRSBpc24ndCBzdXBwb3J0
-ZWQgYnkgUlQ1NjQwIGNvZGVjIGluIG15IGNhc2UuIEkgYnJpZWZseQo+Pj4gbG9va2VkIHRocm91
-Z2ggdGhlIFRSTSBkb2MgYW5kIGdvdCBpbXByZXNzaW9uIHRoYXQgQUhVQiBjb3VsZCByZS1wYWNr
-Cj4+PiBkYXRhIHN0cmVhbSBpbnRvIHNvbWV0aGluZyB0aGF0IGNvZGVjIHN1cHBvcnRzLCBidXQg
-bWF5YmUgaXQncyBhIHdyb25nCj4+PiBpbXByZXNzaW9uLgo+Pj4gX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fCj4+Cj4+IEkgZGlkIGEgcXVpY2sgdGVzdCB3aXRoIHRoZSBmb2xsb3dp
-bmc6Cj4+Cj4+ICDCoHNveCAtbiAtYiAxNiAtYyAyIC1yIDQ0MTAwIC90bXAvdG1wLndhdsKgIHN5
-bnRoIHNpbmUgNTAwIHZvbCAwLjUKPj4gIMKgc294IC1uIC1iIDI0IC1jIDIgLXIgNDQxMDAgL3Rt
-cC90bXAud2F2wqAgc3ludGggc2luZSA1MDAgdm9sIDAuNQo+PiAgwqBzb3ggLW4gLWIgMzIgLWMg
-MiAtciA0NDEwMCAvdG1wL3RtcC53YXbCoCBzeW50aCBzaW5lIDUwMCB2b2wgMC41Cj4+Cj4+IFRo
-ZSAxNiBhbmQgMzIgd29yayBmaW5lLCB0aGUgMjQgaXMgc2hvd2luZyBhIHBsYXliYWNrIG91dHB1
-dCBmcmVxCj4+IG9mIDQ0MEh6IGluc3RlYWQgb2YgNTAwSHouLi4gdGhpcyBzdWdnZXN0cyB0aGUg
-Y2xvY2sgaXMgb2ZmLCBvciB0aGVyZQo+PiBpcyBzb21ldGhpbmcgZWxzZSB3ZWlyZCBnb2luZyBv
-bi4uLgo+IAo+IEkgd2FzIGxvb2tpbmcgYXQgdXNpbmcgc294IHRvIGNyZWF0ZSBzdWNoIGFzIGZp
-bGUsIGJ1dCB0aGUgYWJvdmUgY29tbWFuZAo+IGdlbmVyYXRlcyBhIFMyNF8zTEUgZmlsZSBhbmQg
-bm90IFMyNF9MRSBmaWxlLiBUaGUgY29kZWMgb24gSmV0c29uLVRLMQo+IHN1cHBvcnRzIFMyNF9M
-RSBidXQgZG9lcyBub3Qgc3VwcG9ydCBTMjRfM0xFIGFuZCBzbyBJIGNhbm5vdCB0ZXN0IHRoaXMu
-Cj4gQW55d2F5LCB3ZSByZWFsbHkgbmVlZCB0byB0ZXN0IFMyNF9MRSBhbmQgbm90IFMyNF8zTEUg
-YmVjYXVzZSB0aGlzIGlzCj4gdGhlIHByb2JsZW0gdGhhdCBEbWl0cnkgaXMgaGF2aW5nLgo+IAo+
-IEJlbiBpcyBTMjRfM0xFIHdoYXQgeW91IHJlYWxseSBuZWVkIHRvIHN1cHBvcnQ/CgpJIHdhcyBm
-YWlybHkgc3VyZSBpdCB3YXMgc2F5aW5nIFMyNCBmb3JtYXQsIHRoZSBhcGxheSBqdXN0IHByaW50
-cwpTMjRfTEUgKGJ1dCBzZWVtcyB0byBoaWRlIHRoZSBpbXBsZW1lbnR0am9uKQoKCgotLSAKQmVu
-IERvb2tzCQkJCWh0dHA6Ly93d3cuY29kZXRoaW5rLmNvLnVrLwpTZW5pb3IgRW5naW5lZXIJCQkJ
-Q29kZXRoaW5rIC0gUHJvdmlkaW5nIEdlbml1cwoKaHR0cHM6Ly93d3cuY29kZXRoaW5rLmNvLnVr
-L3ByaXZhY3kuaHRtbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcK
-aHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRl
-dmVsCg==
+On Fri, Jan 24, 2020 at 7:58 AM Nathan Chancellor
+<natechancellor@gmail.com> wrote:
+>
+> Clang warns:
+>
+> ../sound/soc/codecs/rt1015.c:392:14: warning: duplicate 'const'
+> declaration specifier [-Wduplicate-decl-specifier]
+> static const SOC_ENUM_SINGLE_DECL(rt1015_boost_mode_enum, 0, 0,
+>              ^
+> ../include/sound/soc.h:355:2: note: expanded from macro
+> 'SOC_ENUM_SINGLE_DECL'
+>         SOC_ENUM_DOUBLE_DECL(name, xreg, xshift, xshift, xtexts)
+>         ^
+> ../include/sound/soc.h:352:2: note: expanded from macro
+> 'SOC_ENUM_DOUBLE_DECL'
+>         const struct soc_enum name = SOC_ENUM_DOUBLE(xreg, xshift_l, xshift_r, \
+>         ^
+> 1 warning generated.
+>
+> Remove the const after static to fix it.
+>
+> Fixes: df31007400c3 ("ASoC: rt1015: add rt1015 amplifier driver")
+> Link: https://github.com/ClangBuiltLinux/linux/issues/845
+> Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+
+Thanks for the patch!
+
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+
+> ---
+>  sound/soc/codecs/rt1015.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
+> index 4a9c5b54008f..6d490e2dbc25 100644
+> --- a/sound/soc/codecs/rt1015.c
+> +++ b/sound/soc/codecs/rt1015.c
+> @@ -389,7 +389,7 @@ static const char * const rt1015_boost_mode[] = {
+>         "Bypass", "Adaptive", "Fixed Adaptive"
+>  };
+>
+> -static const SOC_ENUM_SINGLE_DECL(rt1015_boost_mode_enum, 0, 0,
+> +static SOC_ENUM_SINGLE_DECL(rt1015_boost_mode_enum, 0, 0,
+>         rt1015_boost_mode);
+>
+>  static int rt1015_boost_mode_get(struct snd_kcontrol *kcontrol,
+> --
+
+-- 
+Thanks,
+~Nick Desaulniers
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

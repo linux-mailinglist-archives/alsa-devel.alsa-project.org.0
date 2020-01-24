@@ -2,72 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C286214870D
-	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 15:20:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 043F8148729
+	for <lists+alsa-devel@lfdr.de>; Fri, 24 Jan 2020 15:21:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 767BA166C;
-	Fri, 24 Jan 2020 15:19:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 767BA166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 817F31689;
+	Fri, 24 Jan 2020 15:20:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 817F31689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579875641;
-	bh=zgw6DqWA6o/HMNrPIcZv7s4DaqbF0RZdDVhasPI2Vzw=;
+	s=default; t=1579875688;
+	bh=dIwq+5Ros0f5336ppS/GDL5zd6JGi8ztK6eaR1wf72s=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=pUUusaImH5GbkFIzE1KRoGOs/471lpkCqEdvu2ouDhTfAnMLp8z746xdV5yLl3MKR
-	 4do4iH9avW2M2PV5unsTdWVSun3ANoNkv9ta4zi4aqu6C8DdjdCdL1Gj8wHcupzchR
-	 +pubnePtuNFB9gywJrKgM/Q5Jcnm9oETgylU8yJc=
+	b=MdrpBbsSdBuyT2aBw5pslQp5MPVH9YhcCl8UXYuPS7tAtEfVe+flb0777UGwNCeEz
+	 tHK5KmpesN1oInvdOyQUlGsBGCpftfOGA2JU5J3YXnLfyhA6XEy82EYs2ue92vxo0O
+	 jTaujAhSpSPm7pdnfhAKkgcafmtBoiJbrRvfwh1s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C579AF801D8;
-	Fri, 24 Jan 2020 15:18:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 01FA9F8025A;
+	Fri, 24 Jan 2020 15:19:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 308B0F8020C; Fri, 24 Jan 2020 15:18:56 +0100 (CET)
+ id 8BD9CF80245; Fri, 24 Jan 2020 15:19:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D12C1F800DE
- for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 15:18:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D12C1F800DE
+ by alsa1.perex.cz (Postfix) with ESMTPS id 489EFF800F5
+ for <alsa-devel@alsa-project.org>; Fri, 24 Jan 2020 15:19:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 489EFF800F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="tAoRFBJD"
+ header.b="Ge+fDwFV"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E130622527;
- Fri, 24 Jan 2020 14:18:50 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 6D5F520838;
+ Fri, 24 Jan 2020 14:19:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1579875531;
- bh=9ty3tMdqE5fKLEoeDFTtG79USBsuNwJvzjucfUNDR0E=;
+ s=default; t=1579875548;
+ bh=Eh0YPQujQSxthXfbSaG/njeLzcez3x+nik6iFEfhvtM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=tAoRFBJDO+KJYVhQ4mXu1+X4q5ueRrCR1fujjSsNzjnSrXBJkOVAj2a05mLkKNakG
- K85KezOevp9Kr2EbpaU2JY8iih7dVMrbuUkbfcNtjyGENyYH3vKA4KgYe/lpaR3r4m
- KJwmB5Zz+9VZmQQhOoxicupLHDTH3kWnfVcxrZb0=
+ b=Ge+fDwFVt3MOzgbYKabOWz9pU7JE+pt46gg6QMa81lLUXB93e3e/+855Ge5DEcoaw
+ BgUmJ6O7IDI9hJwqcJYV1TviGd684kX0Iht/vpeiVHDQ+dTlBQqv/fW0mO8rMo/1fW
+ p2RYojM1bUkvjvUj+Qp0083GHHO3O0XTf09QazaM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 24 Jan 2020 09:16:59 -0500
-Message-Id: <20200124141817.28793-29-sashal@kernel.org>
+Date: Fri, 24 Jan 2020 09:17:13 -0500
+Message-Id: <20200124141817.28793-43-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200124141817.28793-1-sashal@kernel.org>
 References: <20200124141817.28793-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Dmitry Osipenko <digetx@gmail.com>,
- Mark Brown <broonie@kernel.org>, alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 029/107] ASoC: rt5640: Fix NULL
-	dereference on module unload
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, Olivier Moysan <olivier.moysan@st.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 043/107] ASoC: stm32: sai: fix
+	possible circular locking
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,39 +86,457 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Dmitry Osipenko <digetx@gmail.com>
+From: Olivier Moysan <olivier.moysan@st.com>
 
-[ Upstream commit 89b71b3f02d8ae5a08a1dd6f4a2098b7b868d498 ]
+[ Upstream commit a14bf98c045bf119b7e779f186528e38c6428830 ]
 
-The rt5640->jack is NULL if jack is already disabled at the time of
-driver's module unloading.
+In current driver, locks can be taken as follows:
+- Register access: take a lock on regmap config and then on clock.
+- Master clock provider: take a lock on clock and then on regmap config.
+This can lead to the circular locking summarized below.
 
-Signed-off-by: Dmitry Osipenko <digetx@gmail.com>
-Link: https://lore.kernel.org/r/20200106014707.11378-1-digetx@gmail.com
+Remove peripheral clock management through regmap framework, and manage
+peripheral clock in driver instead. On register access, lock on clock
+is taken first, which allows to avoid possible locking issue.
+
+[ 6696.561513] ======================================================
+[ 6696.567670] WARNING: possible circular locking dependency detected
+[ 6696.573842] 4.19.49 #866 Not tainted
+[ 6696.577397] ------------------------------------------------------
+[ 6696.583566] pulseaudio/6439 is trying to acquire lock:
+[ 6696.588697] 87b0a25b (enable_lock){..-.}, at: clk_enable_lock+0x64/0x128
+[ 6696.595377]
+[ 6696.595377] but task is already holding lock:
+[ 6696.601197] d858f825 (stm32_sai_sub:1342:(sai->regmap_config)->lock){....}
+...
+[ 6696.812513]  Possible unsafe locking scenario:
+[ 6696.812513]
+[ 6696.818418]        CPU0                    CPU1
+[ 6696.822935]        ----                    ----
+[ 6696.827451]   lock(stm32_sai_sub:1342:(sai->regmap_config)->lock);
+[ 6696.833618]                                lock(enable_lock);
+[ 6696.839350]                                lock(stm32_sai_sub:1342:
+                                              (sai->regmap_config)->lock);
+[ 6696.848035]   lock(enable_lock);
+
+Fixes: 03e78a242a15 ("ASoC: stm32: sai: add h7 support")
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Link: https://lore.kernel.org/r/20200109083254.478-1-olivier.moysan@st.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/rt5640.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ sound/soc/stm/stm32_sai_sub.c | 194 ++++++++++++++++++++++++----------
+ 1 file changed, 140 insertions(+), 54 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5640.c b/sound/soc/codecs/rt5640.c
-index adbae1f36a8af..747ca248bf10c 100644
---- a/sound/soc/codecs/rt5640.c
-+++ b/sound/soc/codecs/rt5640.c
-@@ -2432,6 +2432,13 @@ static void rt5640_disable_jack_detect(struct snd_soc_component *component)
- {
- 	struct rt5640_priv *rt5640 = snd_soc_component_get_drvdata(component);
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index 48e629ac2d88b..30bcd5d3a32a8 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -184,6 +184,56 @@ static bool stm32_sai_sub_writeable_reg(struct device *dev, unsigned int reg)
+ 	}
+ }
  
-+	/*
-+	 * soc_remove_component() force-disables jack and thus rt5640->jack
-+	 * could be NULL at the time of driver's module unloading.
-+	 */
-+	if (!rt5640->jack)
-+		return;
++static int stm32_sai_sub_reg_up(struct stm32_sai_sub_data *sai,
++				unsigned int reg, unsigned int mask,
++				unsigned int val)
++{
++	int ret;
 +
- 	disable_irq(rt5640->irq);
- 	rt5640_cancel_work(rt5640);
++	ret = clk_enable(sai->pdata->pclk);
++	if (ret < 0)
++		return ret;
++
++	ret = regmap_update_bits(sai->regmap, reg, mask, val);
++
++	clk_disable(sai->pdata->pclk);
++
++	return ret;
++}
++
++static int stm32_sai_sub_reg_wr(struct stm32_sai_sub_data *sai,
++				unsigned int reg, unsigned int mask,
++				unsigned int val)
++{
++	int ret;
++
++	ret = clk_enable(sai->pdata->pclk);
++	if (ret < 0)
++		return ret;
++
++	ret = regmap_write_bits(sai->regmap, reg, mask, val);
++
++	clk_disable(sai->pdata->pclk);
++
++	return ret;
++}
++
++static int stm32_sai_sub_reg_rd(struct stm32_sai_sub_data *sai,
++				unsigned int reg, unsigned int *val)
++{
++	int ret;
++
++	ret = clk_enable(sai->pdata->pclk);
++	if (ret < 0)
++		return ret;
++
++	ret = regmap_read(sai->regmap, reg, val);
++
++	clk_disable(sai->pdata->pclk);
++
++	return ret;
++}
++
+ static const struct regmap_config stm32_sai_sub_regmap_config_f4 = {
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+@@ -295,7 +345,7 @@ static int stm32_sai_set_clk_div(struct stm32_sai_sub_data *sai,
  
+ 	mask = SAI_XCR1_MCKDIV_MASK(SAI_XCR1_MCKDIV_WIDTH(version));
+ 	cr1 = SAI_XCR1_MCKDIV_SET(div);
+-	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, mask, cr1);
++	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, mask, cr1);
+ 	if (ret < 0)
+ 		dev_err(&sai->pdev->dev, "Failed to update CR1 register\n");
+ 
+@@ -372,8 +422,8 @@ static int stm32_sai_mclk_enable(struct clk_hw *hw)
+ 
+ 	dev_dbg(&sai->pdev->dev, "Enable master clock\n");
+ 
+-	return regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
+-				  SAI_XCR1_MCKEN, SAI_XCR1_MCKEN);
++	return stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
++				    SAI_XCR1_MCKEN, SAI_XCR1_MCKEN);
+ }
+ 
+ static void stm32_sai_mclk_disable(struct clk_hw *hw)
+@@ -383,7 +433,7 @@ static void stm32_sai_mclk_disable(struct clk_hw *hw)
+ 
+ 	dev_dbg(&sai->pdev->dev, "Disable master clock\n");
+ 
+-	regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, SAI_XCR1_MCKEN, 0);
++	stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, SAI_XCR1_MCKEN, 0);
+ }
+ 
+ static const struct clk_ops mclk_ops = {
+@@ -446,15 +496,15 @@ static irqreturn_t stm32_sai_isr(int irq, void *devid)
+ 	unsigned int sr, imr, flags;
+ 	snd_pcm_state_t status = SNDRV_PCM_STATE_RUNNING;
+ 
+-	regmap_read(sai->regmap, STM_SAI_IMR_REGX, &imr);
+-	regmap_read(sai->regmap, STM_SAI_SR_REGX, &sr);
++	stm32_sai_sub_reg_rd(sai, STM_SAI_IMR_REGX, &imr);
++	stm32_sai_sub_reg_rd(sai, STM_SAI_SR_REGX, &sr);
+ 
+ 	flags = sr & imr;
+ 	if (!flags)
+ 		return IRQ_NONE;
+ 
+-	regmap_write_bits(sai->regmap, STM_SAI_CLRFR_REGX, SAI_XCLRFR_MASK,
+-			  SAI_XCLRFR_MASK);
++	stm32_sai_sub_reg_wr(sai, STM_SAI_CLRFR_REGX, SAI_XCLRFR_MASK,
++			     SAI_XCLRFR_MASK);
+ 
+ 	if (!sai->substream) {
+ 		dev_err(&pdev->dev, "Device stopped. Spurious IRQ 0x%x\n", sr);
+@@ -503,8 +553,8 @@ static int stm32_sai_set_sysclk(struct snd_soc_dai *cpu_dai,
+ 	int ret;
+ 
+ 	if (dir == SND_SOC_CLOCK_OUT && sai->sai_mclk) {
+-		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
+-					 SAI_XCR1_NODIV,
++		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
++					   SAI_XCR1_NODIV,
+ 					 freq ? 0 : SAI_XCR1_NODIV);
+ 		if (ret < 0)
+ 			return ret;
+@@ -583,7 +633,7 @@ static int stm32_sai_set_dai_tdm_slot(struct snd_soc_dai *cpu_dai, u32 tx_mask,
+ 
+ 	slotr_mask |= SAI_XSLOTR_SLOTEN_MASK;
+ 
+-	regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX, slotr_mask, slotr);
++	stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX, slotr_mask, slotr);
+ 
+ 	sai->slot_width = slot_width;
+ 	sai->slots = slots;
+@@ -665,7 +715,7 @@ static int stm32_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
+ 	cr1_mask |= SAI_XCR1_CKSTR;
+ 	frcr_mask |= SAI_XFRCR_FSPOL;
+ 
+-	regmap_update_bits(sai->regmap, STM_SAI_FRCR_REGX, frcr_mask, frcr);
++	stm32_sai_sub_reg_up(sai, STM_SAI_FRCR_REGX, frcr_mask, frcr);
+ 
+ 	/* DAI clock master masks */
+ 	switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
+@@ -693,7 +743,7 @@ static int stm32_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
+ 	cr1_mask |= SAI_XCR1_SLAVE;
+ 
+ conf_update:
+-	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
++	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
+ 	if (ret < 0) {
+ 		dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
+ 		return ret;
+@@ -730,12 +780,12 @@ static int stm32_sai_startup(struct snd_pcm_substream *substream,
+ 	}
+ 
+ 	/* Enable ITs */
+-	regmap_write_bits(sai->regmap, STM_SAI_CLRFR_REGX,
+-			  SAI_XCLRFR_MASK, SAI_XCLRFR_MASK);
++	stm32_sai_sub_reg_wr(sai, STM_SAI_CLRFR_REGX,
++			     SAI_XCLRFR_MASK, SAI_XCLRFR_MASK);
+ 
+ 	imr = SAI_XIMR_OVRUDRIE;
+ 	if (STM_SAI_IS_CAPTURE(sai)) {
+-		regmap_read(sai->regmap, STM_SAI_CR2_REGX, &cr2);
++		stm32_sai_sub_reg_rd(sai, STM_SAI_CR2_REGX, &cr2);
+ 		if (cr2 & SAI_XCR2_MUTECNT_MASK)
+ 			imr |= SAI_XIMR_MUTEDETIE;
+ 	}
+@@ -745,8 +795,8 @@ static int stm32_sai_startup(struct snd_pcm_substream *substream,
+ 	else
+ 		imr |= SAI_XIMR_AFSDETIE | SAI_XIMR_LFSDETIE;
+ 
+-	regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX,
+-			   SAI_XIMR_MASK, imr);
++	stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX,
++			     SAI_XIMR_MASK, imr);
+ 
+ 	return 0;
+ }
+@@ -763,10 +813,10 @@ static int stm32_sai_set_config(struct snd_soc_dai *cpu_dai,
+ 	 * SAI fifo threshold is set to half fifo, to keep enough space
+ 	 * for DMA incoming bursts.
+ 	 */
+-	regmap_write_bits(sai->regmap, STM_SAI_CR2_REGX,
+-			  SAI_XCR2_FFLUSH | SAI_XCR2_FTH_MASK,
+-			  SAI_XCR2_FFLUSH |
+-			  SAI_XCR2_FTH_SET(STM_SAI_FIFO_TH_HALF));
++	stm32_sai_sub_reg_wr(sai, STM_SAI_CR2_REGX,
++			     SAI_XCR2_FFLUSH | SAI_XCR2_FTH_MASK,
++			     SAI_XCR2_FFLUSH |
++			     SAI_XCR2_FTH_SET(STM_SAI_FIFO_TH_HALF));
+ 
+ 	/* DS bits in CR1 not set for SPDIF (size forced to 24 bits).*/
+ 	if (STM_SAI_PROTOCOL_IS_SPDIF(sai)) {
+@@ -795,7 +845,7 @@ static int stm32_sai_set_config(struct snd_soc_dai *cpu_dai,
+ 	if ((sai->slots == 2) && (params_channels(params) == 1))
+ 		cr1 |= SAI_XCR1_MONO;
+ 
+-	ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
++	ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
+ 	if (ret < 0) {
+ 		dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
+ 		return ret;
+@@ -809,7 +859,7 @@ static int stm32_sai_set_slots(struct snd_soc_dai *cpu_dai)
+ 	struct stm32_sai_sub_data *sai = snd_soc_dai_get_drvdata(cpu_dai);
+ 	int slotr, slot_sz;
+ 
+-	regmap_read(sai->regmap, STM_SAI_SLOTR_REGX, &slotr);
++	stm32_sai_sub_reg_rd(sai, STM_SAI_SLOTR_REGX, &slotr);
+ 
+ 	/*
+ 	 * If SLOTSZ is set to auto in SLOTR, align slot width on data size
+@@ -831,16 +881,16 @@ static int stm32_sai_set_slots(struct snd_soc_dai *cpu_dai)
+ 		sai->slots = 2;
+ 
+ 	/* The number of slots in the audio frame is equal to NBSLOT[3:0] + 1*/
+-	regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX,
+-			   SAI_XSLOTR_NBSLOT_MASK,
+-			   SAI_XSLOTR_NBSLOT_SET((sai->slots - 1)));
++	stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX,
++			     SAI_XSLOTR_NBSLOT_MASK,
++			     SAI_XSLOTR_NBSLOT_SET((sai->slots - 1)));
+ 
+ 	/* Set default slots mask if not already set from DT */
+ 	if (!(slotr & SAI_XSLOTR_SLOTEN_MASK)) {
+ 		sai->slot_mask = (1 << sai->slots) - 1;
+-		regmap_update_bits(sai->regmap,
+-				   STM_SAI_SLOTR_REGX, SAI_XSLOTR_SLOTEN_MASK,
+-				   SAI_XSLOTR_SLOTEN_SET(sai->slot_mask));
++		stm32_sai_sub_reg_up(sai,
++				     STM_SAI_SLOTR_REGX, SAI_XSLOTR_SLOTEN_MASK,
++				     SAI_XSLOTR_SLOTEN_SET(sai->slot_mask));
+ 	}
+ 
+ 	dev_dbg(cpu_dai->dev, "Slots %d, slot width %d\n",
+@@ -870,14 +920,14 @@ static void stm32_sai_set_frame(struct snd_soc_dai *cpu_dai)
+ 	dev_dbg(cpu_dai->dev, "Frame length %d, frame active %d\n",
+ 		sai->fs_length, fs_active);
+ 
+-	regmap_update_bits(sai->regmap, STM_SAI_FRCR_REGX, frcr_mask, frcr);
++	stm32_sai_sub_reg_up(sai, STM_SAI_FRCR_REGX, frcr_mask, frcr);
+ 
+ 	if ((sai->fmt & SND_SOC_DAIFMT_FORMAT_MASK) == SND_SOC_DAIFMT_LSB) {
+ 		offset = sai->slot_width - sai->data_size;
+ 
+-		regmap_update_bits(sai->regmap, STM_SAI_SLOTR_REGX,
+-				   SAI_XSLOTR_FBOFF_MASK,
+-				   SAI_XSLOTR_FBOFF_SET(offset));
++		stm32_sai_sub_reg_up(sai, STM_SAI_SLOTR_REGX,
++				     SAI_XSLOTR_FBOFF_MASK,
++				     SAI_XSLOTR_FBOFF_SET(offset));
+ 	}
+ }
+ 
+@@ -994,9 +1044,9 @@ static int stm32_sai_configure_clock(struct snd_soc_dai *cpu_dai,
+ 					return -EINVAL;
+ 				}
+ 
+-				regmap_update_bits(sai->regmap,
+-						   STM_SAI_CR1_REGX,
+-						   SAI_XCR1_OSR, cr1);
++				stm32_sai_sub_reg_up(sai,
++						     STM_SAI_CR1_REGX,
++						     SAI_XCR1_OSR, cr1);
+ 
+ 				div = stm32_sai_get_clk_div(sai, sai_clk_rate,
+ 							    sai->mclk_rate);
+@@ -1058,12 +1108,12 @@ static int stm32_sai_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+ 		dev_dbg(cpu_dai->dev, "Enable DMA and SAI\n");
+ 
+-		regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
+-				   SAI_XCR1_DMAEN, SAI_XCR1_DMAEN);
++		stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
++				     SAI_XCR1_DMAEN, SAI_XCR1_DMAEN);
+ 
+ 		/* Enable SAI */
+-		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
+-					 SAI_XCR1_SAIEN, SAI_XCR1_SAIEN);
++		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
++					   SAI_XCR1_SAIEN, SAI_XCR1_SAIEN);
+ 		if (ret < 0)
+ 			dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
+ 		break;
+@@ -1072,16 +1122,16 @@ static int stm32_sai_trigger(struct snd_pcm_substream *substream, int cmd,
+ 	case SNDRV_PCM_TRIGGER_STOP:
+ 		dev_dbg(cpu_dai->dev, "Disable DMA and SAI\n");
+ 
+-		regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX,
+-				   SAI_XIMR_MASK, 0);
++		stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX,
++				     SAI_XIMR_MASK, 0);
+ 
+-		regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
+-				   SAI_XCR1_SAIEN,
+-				   (unsigned int)~SAI_XCR1_SAIEN);
++		stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
++				     SAI_XCR1_SAIEN,
++				     (unsigned int)~SAI_XCR1_SAIEN);
+ 
+-		ret = regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX,
+-					 SAI_XCR1_DMAEN,
+-					 (unsigned int)~SAI_XCR1_DMAEN);
++		ret = stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX,
++					   SAI_XCR1_DMAEN,
++					   (unsigned int)~SAI_XCR1_DMAEN);
+ 		if (ret < 0)
+ 			dev_err(cpu_dai->dev, "Failed to update CR1 register\n");
+ 
+@@ -1101,7 +1151,7 @@ static void stm32_sai_shutdown(struct snd_pcm_substream *substream,
+ 	struct stm32_sai_sub_data *sai = snd_soc_dai_get_drvdata(cpu_dai);
+ 	unsigned long flags;
+ 
+-	regmap_update_bits(sai->regmap, STM_SAI_IMR_REGX, SAI_XIMR_MASK, 0);
++	stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX, SAI_XIMR_MASK, 0);
+ 
+ 	clk_disable_unprepare(sai->sai_ck);
+ 
+@@ -1169,7 +1219,7 @@ static int stm32_sai_dai_probe(struct snd_soc_dai *cpu_dai)
+ 	cr1_mask |= SAI_XCR1_SYNCEN_MASK;
+ 	cr1 |= SAI_XCR1_SYNCEN_SET(sai->sync);
+ 
+-	return regmap_update_bits(sai->regmap, STM_SAI_CR1_REGX, cr1_mask, cr1);
++	return stm32_sai_sub_reg_up(sai, STM_SAI_CR1_REGX, cr1_mask, cr1);
+ }
+ 
+ static const struct snd_soc_dai_ops stm32_sai_pcm_dai_ops = {
+@@ -1322,8 +1372,13 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
+ 	if (STM_SAI_HAS_PDM(sai) && STM_SAI_IS_SUB_A(sai))
+ 		sai->regmap_config = &stm32_sai_sub_regmap_config_h7;
+ 
+-	sai->regmap = devm_regmap_init_mmio_clk(&pdev->dev, "sai_ck",
+-						base, sai->regmap_config);
++	/*
++	 * Do not manage peripheral clock through regmap framework as this
++	 * can lead to circular locking issue with sai master clock provider.
++	 * Manage peripheral clock directly in driver instead.
++	 */
++	sai->regmap = devm_regmap_init_mmio(&pdev->dev, base,
++					    sai->regmap_config);
+ 	if (IS_ERR(sai->regmap)) {
+ 		dev_err(&pdev->dev, "Failed to initialize MMIO\n");
+ 		return PTR_ERR(sai->regmap);
+@@ -1420,6 +1475,10 @@ static int stm32_sai_sub_parse_of(struct platform_device *pdev,
+ 		return PTR_ERR(sai->sai_ck);
+ 	}
+ 
++	ret = clk_prepare(sai->pdata->pclk);
++	if (ret < 0)
++		return ret;
++
+ 	if (STM_SAI_IS_F4(sai->pdata))
+ 		return 0;
+ 
+@@ -1501,22 +1560,48 @@ static int stm32_sai_sub_probe(struct platform_device *pdev)
+ 	return 0;
+ }
+ 
++static int stm32_sai_sub_remove(struct platform_device *pdev)
++{
++	struct stm32_sai_sub_data *sai = dev_get_drvdata(&pdev->dev);
++
++	clk_unprepare(sai->pdata->pclk);
++
++	return 0;
++}
++
+ #ifdef CONFIG_PM_SLEEP
+ static int stm32_sai_sub_suspend(struct device *dev)
+ {
+ 	struct stm32_sai_sub_data *sai = dev_get_drvdata(dev);
++	int ret;
++
++	ret = clk_enable(sai->pdata->pclk);
++	if (ret < 0)
++		return ret;
+ 
+ 	regcache_cache_only(sai->regmap, true);
+ 	regcache_mark_dirty(sai->regmap);
++
++	clk_disable(sai->pdata->pclk);
++
+ 	return 0;
+ }
+ 
+ static int stm32_sai_sub_resume(struct device *dev)
+ {
+ 	struct stm32_sai_sub_data *sai = dev_get_drvdata(dev);
++	int ret;
++
++	ret = clk_enable(sai->pdata->pclk);
++	if (ret < 0)
++		return ret;
+ 
+ 	regcache_cache_only(sai->regmap, false);
+-	return regcache_sync(sai->regmap);
++	ret = regcache_sync(sai->regmap);
++
++	clk_disable(sai->pdata->pclk);
++
++	return ret;
+ }
+ #endif /* CONFIG_PM_SLEEP */
+ 
+@@ -1531,6 +1616,7 @@ static struct platform_driver stm32_sai_sub_driver = {
+ 		.pm = &stm32_sai_sub_pm_ops,
+ 	},
+ 	.probe = stm32_sai_sub_probe,
++	.remove = stm32_sai_sub_remove,
+ };
+ 
+ module_platform_driver(stm32_sai_sub_driver);
 -- 
 2.20.1
 

@@ -2,88 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37BA21496A1
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jan 2020 17:31:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 826E0149718
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jan 2020 19:12:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 95A3E166F;
-	Sat, 25 Jan 2020 17:30:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95A3E166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 210AE166C;
+	Sat, 25 Jan 2020 19:11:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 210AE166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579969879;
-	bh=QdzY1nDWvRsD9p1UE+RNGMnPIngT/lnzJbzx0QegU1s=;
+	s=default; t=1579975951;
+	bh=aDIwBF2ANF0PqCUl191fgEAV3ZO/Mgz5XClYiYkrfUc=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=f4HTqGvlc9otHuN85tCF8FjIZx9J8RlGBWjBCk2cgccGRDohup9HDwUQgO9UtOhxX
-	 nPfIWYh1NDKJ1IhCxdEvKtnJaRhoI/6XDDM1qOtjWTM0+UurVA8gwUsfeRyNgAJi3v
-	 HVkw5Ko81S244hyc2l9nVbbt2O3LF2aqeW9VSufE=
+	b=rTv91+Si8oCsOS5h9zQMTwlEEQIhBlCjIkc6GEok+kIwanc9hpqoFMgOxy+2zAUrP
+	 W1dTppeuBfVSUDb4ifx5g3ualYw3bRGNl5UQHOY0s6A+oSdMxh2jFr3nQGwVivVRYK
+	 6IukW9E9cVryYYpNZRfDsh3PeaGszdoS7vwZYbPE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B6DE1F801D9;
-	Sat, 25 Jan 2020 17:29:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 803B6F800BA;
+	Sat, 25 Jan 2020 19:10:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9D8E9F801EC; Sat, 25 Jan 2020 17:29:30 +0100 (CET)
+ id 26C20F801EC; Sat, 25 Jan 2020 19:10:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
- [IPv6:2607:f8b0:4864:20::1041])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 536E4F800F5
- for <alsa-devel@alsa-project.org>; Sat, 25 Jan 2020 17:29:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 536E4F800F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23E38F800BA
+ for <alsa-devel@alsa-project.org>; Sat, 25 Jan 2020 19:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23E38F800BA
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="JvpSxx+9"
-Received: by mail-pj1-x1041.google.com with SMTP id m4so1250448pjv.3
- for <alsa-devel@alsa-project.org>; Sat, 25 Jan 2020 08:29:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=fXSQKIL0dD1lYRTOFFY91TxyyI+2c+Y8mAqJiNtHVic=;
- b=JvpSxx+9/xqNSJz/0zgTcvMvolZtJ36685E1qTXtSngk3q8URPaOJgMbUK4wc4RefI
- 42SkhywCIKUxSg74BRA6M+NjdT2S+rX5U/ET8beCzYf1XQ/Qw8057ridYk+PUMH0OsLy
- a7+NqmjzrpXp0ZjeLSEhXBcyHxBxhmfEsiBQc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=fXSQKIL0dD1lYRTOFFY91TxyyI+2c+Y8mAqJiNtHVic=;
- b=Glvv/68HetvcS/T7z8cCyegRXmoECbi+ITkHvJ7peFf13htbCGRzYJ8zhI/a3MdJvI
- Feklo6VqSbw93GciYRQlStytPR4DaR/phWbjc9filXE5OLTCKdqxIy0PY4L02vHP7hai
- MvsZKqw5wEeqLHXrjtWkX3uSibULyiJsV0bp/v559oZL1yK7uDV7lSd+Ix2SXgYH4Z71
- IKaWx3iELsIAXFmfDl9z+uRrTc7FqVRGQ6piK/rqVN7FIHR/xDhUtCNlYQ1MiaXtxo7M
- dwHVactMUnLf3EyP2jSaf/9KolG1lWeNaD5+Ci44OeqOeavgxgqH75a1TKcFqSB+vvOJ
- zaYg==
-X-Gm-Message-State: APjAAAWNeZ2Wgoqb4GgVEUCs0CPG3YxegXF8SRCaMXYNd6BTDvTajaIZ
- yMFfyLoyK6MGYgtlZM4Je+6BOQ==
-X-Google-Smtp-Source: APXvYqyjV2myEfqJK1IkglNqdu1mwxuHAB6eLXyslJQN4SjW4cncyTdA+1I5fvL709lRy4xbY9cnfA==
-X-Received: by 2002:a17:902:b107:: with SMTP id
- q7mr1935912plr.343.1579969764135; 
- Sat, 25 Jan 2020 08:29:24 -0800 (PST)
-Received: from localhost ([2401:fa00:1:10:845f:e35d:e30c:4b47])
- by smtp.gmail.com with ESMTPSA id r20sm10487339pgu.89.2020.01.25.08.29.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 25 Jan 2020 08:29:23 -0800 (PST)
-From: Yu-Hsuan Hsu <yuhsuan@chromium.org>
-To: linux-kernel@vger.kernel.org
-Date: Sun, 26 Jan 2020 00:29:17 +0800
-Message-Id: <20200125162917.247485-1-yuhsuan@chromium.org>
-X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
+ dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
+ header.b="VIcgFaCC"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1579975834;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=l5BsgYdFO1ghceyovlDf/lBvRehsk4J2RDjUF7pfet8=;
+ b=VIcgFaCCXhuHGfwdGkPd82tl7XHAY5TpMo6Pq1IcC+Uz2FHmOxVGmrzE5zMXBiEzN0wCpN
+ dEzZ7G9yOqeS48NXu+WCB4o8dATgRwmodAjYOLMwB7Q+dfz0Oj6gNUrreaLwoJHJ5irUey
+ +4joUF/xsLbFmgU5570RrHnz3U08wkQ=
+Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
+ [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-6-iimH4PKBM8u3Lqm5KX8HFw-1; Sat, 25 Jan 2020 13:10:31 -0500
+X-MC-Unique: iimH4PKBM8u3Lqm5KX8HFw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
+ [10.5.11.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76250107ACC4;
+ Sat, 25 Jan 2020 18:10:29 +0000 (UTC)
+Received: from dhcp-44-196.space.revspace.nl (unknown [10.36.112.14])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 1112260BEC;
+ Sat, 25 Jan 2020 18:10:26 +0000 (UTC)
+From: Hans de Goede <hdegoede@redhat.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Date: Sat, 25 Jan 2020 19:10:21 +0100
+Message-Id: <20200125181021.70446-1-hdegoede@redhat.com>
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Tzung-Bi Shih <tzungbi@chromium.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Guenter Roeck <groeck@chromium.org>, Mark Brown <broonie@kernel.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Yu-Hsuan Hsu <yuhsuan@chromium.org>,
- Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: [alsa-devel] [PATCH v2] ASoC: cros_ec_codec: Support setting bclk
-	ratio
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ stable@vger.kernel.org
+Subject: [alsa-devel] [PATCH] ALSA: hda: Add Clevo W65_67SB the power_save
+	blacklist
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,78 +89,34 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Support setting bclk ratio from machine drivers.
+Using HDA power-saving on the Clevo W65_67SB causes the first 0.5
+seconds of audio to be missing every time audio starts playing.
 
-Signed-off-by: Yu-Hsuan Hsu <yuhsuan@chromium.org>
+This commit adds the Clevo W65_67SB the power_save blacklist to avoid
+this issue.
+
+Cc: stable@vger.kernel.org
+BugLink: https://bugzilla.redhat.com/show_bug.cgi?id=1525104
+Signed-off-by: Hans de Goede <hdegoede@redhat.com>
 ---
- sound/soc/codecs/cros_ec_codec.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+ sound/pci/hda/hda_intel.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
-index 6a24f570c5e86f..d3dc42aa682565 100644
---- a/sound/soc/codecs/cros_ec_codec.c
-+++ b/sound/soc/codecs/cros_ec_codec.c
-@@ -45,6 +45,9 @@ struct cros_ec_codec_priv {
- 	/* DMIC */
- 	atomic_t dmic_probed;
- 
-+	/* I2S_RX */
-+	uint32_t i2s_rx_bclk_ratio;
-+
- 	/* WoV */
- 	bool wov_enabled;
- 	uint8_t *wov_audio_shm_p;
-@@ -259,6 +262,7 @@ static int i2s_rx_hw_params(struct snd_pcm_substream *substream,
- 		snd_soc_component_get_drvdata(component);
- 	struct ec_param_ec_codec_i2s_rx p;
- 	enum ec_codec_i2s_rx_sample_depth depth;
-+	uint32_t bclk;
- 	int ret;
- 
- 	if (params_rate(params) != 48000)
-@@ -284,15 +288,29 @@ static int i2s_rx_hw_params(struct snd_pcm_substream *substream,
- 	if (ret < 0)
- 		return ret;
- 
--	dev_dbg(component->dev, "set bclk to %u\n",
--		snd_soc_params_to_bclk(params));
-+	if (priv->i2s_rx_bclk_ratio)
-+		bclk = params_rate(params) * priv->i2s_rx_bclk_ratio;
-+	else
-+		bclk = snd_soc_params_to_bclk(params);
-+
-+	dev_dbg(component->dev, "set bclk to %u\n", bclk);
- 
- 	p.cmd = EC_CODEC_I2S_RX_SET_BCLK;
--	p.set_bclk_param.bclk = snd_soc_params_to_bclk(params);
-+	p.set_bclk_param.bclk = bclk;
- 	return send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
- 				    (uint8_t *)&p, sizeof(p), NULL, 0);
- }
- 
-+static int i2s_rx_set_bclk_ratio(struct snd_soc_dai *dai, unsigned int ratio)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct cros_ec_codec_priv *priv =
-+		snd_soc_component_get_drvdata(component);
-+
-+	priv->i2s_rx_bclk_ratio = ratio;
-+	return 0;
-+}
-+
- static int i2s_rx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- {
- 	struct snd_soc_component *component = dai->component;
-@@ -340,6 +358,7 @@ static int i2s_rx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
- static const struct snd_soc_dai_ops i2s_rx_dai_ops = {
- 	.hw_params = i2s_rx_hw_params,
- 	.set_fmt = i2s_rx_set_fmt,
-+	.set_bclk_ratio = i2s_rx_set_bclk_ratio,
- };
- 
- static int i2s_rx_event(struct snd_soc_dapm_widget *w,
+diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
+index 5b92f290cbb0..54d9ea1750f9 100644
+--- a/sound/pci/hda/hda_intel.c
++++ b/sound/pci/hda/hda_intel.c
+@@ -2185,6 +2185,8 @@ static struct snd_pci_quirk power_save_blacklist[] = {
+ 	/* https://bugzilla.redhat.com/show_bug.cgi?id=1581607 */
+ 	SND_PCI_QUIRK(0x1558, 0x3501, "Clevo W35xSS_370SS", 0),
+ 	/* https://bugzilla.redhat.com/show_bug.cgi?id=1525104 */
++	SND_PCI_QUIRK(0x1558, 0x6504, "Clevo W65_67SB", 0),
++	/* https://bugzilla.redhat.com/show_bug.cgi?id=1525104 */
+ 	SND_PCI_QUIRK(0x1028, 0x0497, "Dell Precision T3600", 0),
+ 	/* https://bugzilla.redhat.com/show_bug.cgi?id=1525104 */
+ 	/* Note the P55A-UD3 and Z87-D3HP share the subsys id for the HDA dev */
 -- 
-2.25.0.341.g760bfbb309-goog
+2.23.0
 
 _______________________________________________
 Alsa-devel mailing list

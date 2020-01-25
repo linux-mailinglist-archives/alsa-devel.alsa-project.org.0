@@ -2,69 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D468A14961B
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jan 2020 15:36:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B0ABE14961C
+	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jan 2020 15:40:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79C3B167F;
-	Sat, 25 Jan 2020 15:36:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79C3B167F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5A3891678;
+	Sat, 25 Jan 2020 15:39:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5A3891678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579963016;
-	bh=Ve1ROTl/jmAG5lWwmI+gvN7JxZTPlVntFdqHrGsJCM4=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1579963235;
+	bh=27fsQGvcKxo5RTm/GjAC965a/pvGMINC8uk9RokcuKw=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Gv9O1ZO2Qym/HkIZWE9GTPKVwxoJUukrLQX+3jCZxiyGIcylYDZLWKGX5crnZr6na
-	 xvJjAQ+8riPZRRbf1DRwTEA8/0XPWe9cgk3PBIYb4gYnEucjsswd+qNDXacgrEaOYr
-	 KbcXzoqaeVpHNMStunk2LD9uF+KcQVhISglEzfPc=
+	b=VfEPcq3R3kwgEPH/P2R6YgCc78ZibArDthB/F7VKckBHLtLl6nZk8GxpiehcV4oak
+	 JdCK/JBBIIhxLjQlw94qjiR1v+bJnrb0cthoGazUG1qtOqphcrzI2Q6hsC7FcNJXTc
+	 7Z7Zt3UKJ3hVoluR0jeg70aMZIFhLLBzFsvi6DVY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 739DCF801F9;
-	Sat, 25 Jan 2020 15:35:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0511AF801F9;
+	Sat, 25 Jan 2020 15:38:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CE483F801F9; Sat, 25 Jan 2020 15:35:44 +0100 (CET)
+ id 2D798F801EC; Sat, 25 Jan 2020 15:38:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.17.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 676AAF8012E
- for <alsa-devel@alsa-project.org>; Sat, 25 Jan 2020 15:35:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 676AAF8012E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="nsmgPtBc"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=aykVI1njaha3r3cgiP7K9CMwvkmi/Cra+mY5duZqvHA=; b=nsmgPtBcLsck50yL1eEIbQR2u9
- BzSpBo98TW3q/XxUP4MgnVT7TJHFjE5VbTFWAJ4HNSGTJNd3kuL+9Z2+TJSzbKR2mx4VCuRxz4iJY
- s7CYCiNFZ/08yklWAAMPbB9SGFYsmMSO4n13NbhT/l97e87N7XLU5ajijzioPLJS0KO4=;
-Received: from [2a00:1370:8125:a23e:55c9:2d3a:3db9:4bca] (helo=home)
- by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
- id 1ivMXD-0005yr-Ow; Sat, 25 Jan 2020 17:35:39 +0300
-Message-ID: <1c9ac8ab4d2e2897a351e7d03ae08f6d6e45c8bc.camel@tsoy.me>
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Takashi Iwai <tiwai@suse.de>, Jens Verwiebe <info@jensverwiebe.de>
-Date: Sat, 25 Jan 2020 17:35:38 +0300
-In-Reply-To: <s5hd0b71v0o.wl-tiwai@suse.de>
-References: <20200125132226.31277-1-nick83ola@gmail.com>
- <9b997da2-a292-9e4d-764e-ef3dedf0ce14@jensverwiebe.de>
- <s5hd0b71v0o.wl-tiwai@suse.de>
-User-Agent: Evolution 3.32.5 
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DE8FF8012E
+ for <alsa-devel@alsa-project.org>; Sat, 25 Jan 2020 15:38:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DE8FF8012E
+Received: from [192.168.178.21] ([77.10.30.73]) by mrelayeu.kundenserver.de
+ (mreue107 [212.227.15.183]) with ESMTPSA (Nemesis) id
+ 1N4h7p-1jdBtS2FJX-011j49 for <alsa-devel@alsa-project.org>; Sat, 25 Jan 2020
+ 15:38:45 +0100
+To: alsa-devel@alsa-project.org
+References: <s5hd0b71v0o.wl-tiwai@suse.de>
+From: Jens Verwiebe <info@jensverwiebe.de>
+Message-ID: <9f87437b-983c-01f8-60ec-e4c1f0ea3d7f@jensverwiebe.de>
+Date: Sat, 25 Jan 2020 15:38:45 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Carlo Calica <carlo@calica.com>,
- Nicola Lunghi <nick83ola@gmail.com>
+In-Reply-To: <s5hd0b71v0o.wl-tiwai@suse.de>
+Content-Language: de-DE
+X-Provags-ID: V03:K1:ja0Q7YR1uJ9Wzffngh1W1I4oImQ0HPHg4M+Q1RJGnpQFY56Ac17
+ +1eqTEAQBYze3xPzk/FERS15JbUUQy7qKmdzcYFHFDGgkewcNAy7BxA+MpcUngIduMPfIbF
+ k/rfVzwVNOtY+6OWsap7pl71Ll1gxbDtG+xYV7muuTyJqaJHk+IVTbWvSPWkliUCP6xYGZo
+ ts98W9KiYgyTRvoqlwQ/Q==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:UvEoJeQjEIw=:xSsFttbFEn/hRlndQE/utx
+ wDCIgIqqIFtP5Y5kY/eiVWTMEBkD1kPXE+gYDY6LslQEXCtJWbRal5wyYHEo9697vAvr36fle
+ XLg74N7xjih1tun8tvc2iJBj4MWuQr2FkjA31TANnReULWNf5xxnWoosxgjJBrfC34hfcKJP4
+ Ta4iYO+gcQPW60gYaelrNaWs4TxBmyYpNnIaZEXaj1NRWUM6NOHKpLqmc2BKXifRRyjRRo4qJ
+ M+kCPERK9HI8qtjAZeN/97cJ7lm3ixZaMrDukk0t6DPxZfB109rFfjJ28h9y91CYp5p7Qd3l3
+ tPIy1vfa2CXFGFHsr/3usTOxKVq0snSXvTEf8G/+i1XY74DqzzOCx9FPTmg/UABrKibsL1LDX
+ QteBAMluJpfNUwZKL0GhDIBIQPGvRb/4LEmlNgXYb5Uo7Wxyg1h+6/S3PfU6c79IDKJxHZ2Yl
+ nSdE12jsEG/zCAszuK9l02ZvobkPuM5d8kG3hp3zbPx9xl7XtcgFg7kb5ymup5cdvXnpw68zA
+ gwfav+Dx9odfhAyIgczXvwZ/OD8FwZru20eLOG9G7MVNSCdePpS6bZpA7juplO7MrFj9T/g5E
+ r5W2FP67NJqzi1PtIklMHXrjqLXxRsyICmCKgGdD3Fa027v4K/2Ly3DhbWWsMZw/HdBf7DTKc
+ KB7XyP46r1e1vJai/NcIxQySwMBntpXbn45bpT/PZw5q55fc2lppINWNpl+m//jwgoji5NdFR
+ dS9bjYt05cZwpBTx72iM2aK/QArdqFKxxj1RAJzR57Kpwy8ccneH3aeh2J4ICQGIiNVKzBU+U
+ XHnGdauFCgPVbXdlucIItC3ssV1bLkAwU8SjMpe//ReWFlkTitWISnnAzqxNcGN4iwElEHy
 Subject: Re: [alsa-devel] [PATCH] ALSA: usb-audio: add quirks for Line6
  Helix fw 2.82
 X-BeenThere: alsa-devel@alsa-project.org
@@ -79,25 +81,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-0JIg0KHQsSwgMjUvMDEvMjAyMCDQsiAxNToxNiArMDEwMCwgVGFrYXNoaSBJd2FpINC/0LjRiNC1
-0YI6Cj4gT24gU2F0LCAyNSBKYW4gMjAyMCAxNToxMjo0OCArMDEwMCwKPiBKZW5zIFZlcndpZWJl
-IHdyb3RlOgo+ID4gSGkKPiA+IAo+ID4gV2h5IHRoaXMgaW5jb21wbGV0ZSBwYXRjaCA/Pz8KPiA+
-IAo+ID4gSSBsb25nZXIgaW5mb3JtZWQgeW91IHRoYXQgd2l0aCBmdyA+PSAyLjggbG90IG9mIGhl
-bGl4IGtpbmQgZGV2aWNlcwo+ID4gZ290IGEgbmV3IElEOgo+ID4gCj4gPiBTbyB0aGlzIHBhdGNo
-IHNob3VsZCBpbmNsdWRlIGF0IGxlYXN0IHRoZSB3ZWxsIGtub3duL2NvbGxlY3RlZAo+ID4gZGF0
-YToKPiA+IAo+ID4gY2FzZSBVU0JfSUQoMHgwRTQxLCAweDQyNGEpOiAvKiBMaW5lNiBIZWxpeCBM
-VCAtIGZpcm13YXJlID49IDIuOCAqLwo+IAo+IE9oLCBzbyB0aGUgcGF0Y2ggZG9lc24ndCB3b3Jr
-IGFzIGlzPwo+IFRoZW4gSSBkcm9wIGl0IGFnYWluLgo+IAoKTm8sIEplbnMgY29tcGxhaW5lZCB0
-aGF0IHRoZSBxdWlyayBzaG91bGQgYWxzbyBiZSBhcHBsaWVkIHRvIG90aGVyCmRldmljZXMgZnJv
-bSB0aGUgSGVsaXggbGluZSB0aGF0IHJlY2lldmVkIG5ldyBmaXJtd2FyZS4gTm90IHN1cmUgd2hh
-dCdzCnRoZSBwcm9ibGVtIHdpdGggc3VibWl0dGluZyB0aGVtIGluIGEgZm9sbG93LXVwIHBhdGNo
-LgoKPiBJZiBhbnlvbmUgY2FuIHJlc3VibWl0IHRoZSBjb21wcmVoZW5zaXZlIG9uZSBhbmQgZ2l2
-ZSB0aGUgdGVzdGVkLWJ5Cj4gdGFnLCBJJ2xsIGhhcHBpbHkgYXBwbHkgaXQuCgoKX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5n
-IGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXBy
-b2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+Kinda
+
+Nicola made a request in the line6 forums and got at least helix lt 
+confirmed.
+
+As he took over my original patch + a fallback i want leave this to him to
+
+maintain all new ( core ) ID's now.
+
+Also i'd like to mention again that this "hardclocking" only makes helix 
+devices
+
+setup initially but does not prevent the sync shifting away after some time.
+
+I was hoping the solution Mike Oliphant found for the Boss device would 
+also fix the Helix sync,
+
+but there is a bit more todo i fear. ( implicit feedback not working )
+
+Still on that ....
+
+
+Jens
+
+-- 
+
+Jens Verwiebe
+Allerskehre 44 - 22309 Hamburg
+
+Tel.: +49 40 68 78 50
+mailto: info@jensverwiebe.de
+web: https://www.jensverwiebe.de
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

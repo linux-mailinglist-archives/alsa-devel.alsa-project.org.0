@@ -2,76 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 826E0149718
-	for <lists+alsa-devel@lfdr.de>; Sat, 25 Jan 2020 19:12:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2ABC149866
+	for <lists+alsa-devel@lfdr.de>; Sun, 26 Jan 2020 02:40:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 210AE166C;
-	Sat, 25 Jan 2020 19:11:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 210AE166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 79EE61667;
+	Sun, 26 Jan 2020 02:39:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79EE61667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1579975951;
-	bh=aDIwBF2ANF0PqCUl191fgEAV3ZO/Mgz5XClYiYkrfUc=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rTv91+Si8oCsOS5h9zQMTwlEEQIhBlCjIkc6GEok+kIwanc9hpqoFMgOxy+2zAUrP
-	 W1dTppeuBfVSUDb4ifx5g3ualYw3bRGNl5UQHOY0s6A+oSdMxh2jFr3nQGwVivVRYK
-	 6IukW9E9cVryYYpNZRfDsh3PeaGszdoS7vwZYbPE=
+	s=default; t=1580002828;
+	bh=7eC6uyBBXa3hBHKiuGOl7RRrJqryifTWdBO6eOs9wDk=;
+	h=Date:From:To:To:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=c3/udQuWjFL9MxLQu5Z5hWcXqyu8e6a+eyEZrfZdv5loFmzqH0dOehJZktQF7b/Gg
+	 vf6QKrFAfRSLWY21gSdtTMGj5kRSPNcNuS+1ZVASsgX8o8HS33zn6t3vk+LUezXxSA
+	 tSFUmK/Mek/aEzAnXaCVcVZJZVKY1ixkuS55tMN0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 803B6F800BA;
-	Sat, 25 Jan 2020 19:10:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AAEB6F8012E;
+	Sun, 26 Jan 2020 02:38:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 26C20F801EC; Sat, 25 Jan 2020 19:10:39 +0100 (CET)
+ id 3516BF801EC; Sun, 26 Jan 2020 02:38:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 23E38F800BA
- for <alsa-devel@alsa-project.org>; Sat, 25 Jan 2020 19:10:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23E38F800BA
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.b="VIcgFaCC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1579975834;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=l5BsgYdFO1ghceyovlDf/lBvRehsk4J2RDjUF7pfet8=;
- b=VIcgFaCCXhuHGfwdGkPd82tl7XHAY5TpMo6Pq1IcC+Uz2FHmOxVGmrzE5zMXBiEzN0wCpN
- dEzZ7G9yOqeS48NXu+WCB4o8dATgRwmodAjYOLMwB7Q+dfz0Oj6gNUrreaLwoJHJ5irUey
- +4joUF/xsLbFmgU5570RrHnz3U08wkQ=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-6-iimH4PKBM8u3Lqm5KX8HFw-1; Sat, 25 Jan 2020 13:10:31 -0500
-X-MC-Unique: iimH4PKBM8u3Lqm5KX8HFw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
- [10.5.11.12])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76250107ACC4;
- Sat, 25 Jan 2020 18:10:29 +0000 (UTC)
-Received: from dhcp-44-196.space.revspace.nl (unknown [10.36.112.14])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 1112260BEC;
- Sat, 25 Jan 2020 18:10:26 +0000 (UTC)
-From: Hans de Goede <hdegoede@redhat.com>
-To: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>
-Date: Sat, 25 Jan 2020 19:10:21 +0100
-Message-Id: <20200125181021.70446-1-hdegoede@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
-Cc: Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
+ by alsa1.perex.cz (Postfix) with ESMTPS id CBFBBF800BA
+ for <alsa-devel@alsa-project.org>; Sun, 26 Jan 2020 02:38:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CBFBBF800BA
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="gWIBpGW1"
+Received: from localhost (unknown [40.117.208.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 72B4D20709;
+ Sun, 26 Jan 2020 01:38:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1580002707;
+ bh=VUMnZTE3++sXHuN1mMO1cTsIJObtD4Up1q3F6LlHhCg=;
+ h=Date:From:To:To:To:Cc:Cc:Cc:Subject:In-Reply-To:References:From;
+ b=gWIBpGW1jFQ3lVYUsFZiMhfaUyDMOoPaayiz6J14yoIdCFHo5/iUXN9FgtQsPqZlc
+ isdB4I1UhDaBjzERrkm20yuWtjaSCpueWdoPWHaOeJZ4WqPym+iqO20VTMAuK9vlNd
+ 8Dlfc8c/G4Vnpn4/ecSJF3DOgItnJ1/zttVEu5A8=
+Date: Sun, 26 Jan 2020 01:38:26 +0000
+From: Sasha Levin <sashal@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+To: Hans de Goede <hdegoede@redhat.com>
+To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
+In-Reply-To: <20200125181021.70446-1-hdegoede@redhat.com>
+References: <20200125181021.70446-1-hdegoede@redhat.com>
+Message-Id: <20200126013827.72B4D20709@mail.kernel.org>
+Cc: , Hans de Goede <hdegoede@redhat.com>, alsa-devel@alsa-project.org,
  stable@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ALSA: hda: Add Clevo W65_67SB the power_save
-	blacklist
+Subject: Re: [alsa-devel] [PATCH] ALSA: hda: Add Clevo W65_67SB the
+	power_save blacklist
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,40 +76,52 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Using HDA power-saving on the Clevo W65_67SB causes the first 0.5
-seconds of audio to be missing every time audio starts playing.
+Hi,
 
-This commit adds the Clevo W65_67SB the power_save blacklist to avoid
-this issue.
+[This is an automated email]
 
-Cc: stable@vger.kernel.org
-BugLink: https://bugzilla.redhat.com/show_bug.cgi?id=1525104
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
----
- sound/pci/hda/hda_intel.c | 2 ++
- 1 file changed, 2 insertions(+)
+This commit has been processed because it contains a -stable tag.
+The stable tag indicates that it's relevant for the following trees: all
 
-diff --git a/sound/pci/hda/hda_intel.c b/sound/pci/hda/hda_intel.c
-index 5b92f290cbb0..54d9ea1750f9 100644
---- a/sound/pci/hda/hda_intel.c
-+++ b/sound/pci/hda/hda_intel.c
-@@ -2185,6 +2185,8 @@ static struct snd_pci_quirk power_save_blacklist[] = {
- 	/* https://bugzilla.redhat.com/show_bug.cgi?id=1581607 */
- 	SND_PCI_QUIRK(0x1558, 0x3501, "Clevo W35xSS_370SS", 0),
- 	/* https://bugzilla.redhat.com/show_bug.cgi?id=1525104 */
-+	SND_PCI_QUIRK(0x1558, 0x6504, "Clevo W65_67SB", 0),
-+	/* https://bugzilla.redhat.com/show_bug.cgi?id=1525104 */
- 	SND_PCI_QUIRK(0x1028, 0x0497, "Dell Precision T3600", 0),
- 	/* https://bugzilla.redhat.com/show_bug.cgi?id=1525104 */
- 	/* Note the P55A-UD3 and Z87-D3HP share the subsys id for the HDA dev */
+The bot has tested the following trees: v5.4.14, v4.19.98, v4.14.167, v4.9.211, v4.4.211.
+
+v5.4.14: Build OK!
+v4.19.98: Build OK!
+v4.14.167: Failed to apply! Possible dependencies:
+    38d9c12c0a6d ("ALSA: hda: Add Gigabyte P55A-UD3 and Z87-D3HP to the power_save blacklist")
+    5cb6b5fc013e ("ALSA: hda: Add 2 more models to the power_save blacklist")
+    b529ef2464ad ("ALSA: hda: Add Clevo W35xSS_370SS to the power_save blacklist")
+    dd6dd5365404 ("ALSA: hda: Add Intel NUC7i3BNB to the power_save blacklist")
+    f91f1806530d ("ALSA: hda: Add Intel NUC5i7RY to the power_save blacklist")
+
+v4.9.211: Failed to apply! Possible dependencies:
+    38d9c12c0a6d ("ALSA: hda: Add Gigabyte P55A-UD3 and Z87-D3HP to the power_save blacklist")
+    5cb6b5fc013e ("ALSA: hda: Add 2 more models to the power_save blacklist")
+    b529ef2464ad ("ALSA: hda: Add Clevo W35xSS_370SS to the power_save blacklist")
+    dd6dd5365404 ("ALSA: hda: Add Intel NUC7i3BNB to the power_save blacklist")
+    f91f1806530d ("ALSA: hda: Add Intel NUC5i7RY to the power_save blacklist")
+
+v4.4.211: Failed to apply! Possible dependencies:
+    38d9c12c0a6d ("ALSA: hda: Add Gigabyte P55A-UD3 and Z87-D3HP to the power_save blacklist")
+    5cb6b5fc013e ("ALSA: hda: Add 2 more models to the power_save blacklist")
+    b529ef2464ad ("ALSA: hda: Add Clevo W35xSS_370SS to the power_save blacklist")
+    dd6dd5365404 ("ALSA: hda: Add Intel NUC7i3BNB to the power_save blacklist")
+    f91f1806530d ("ALSA: hda: Add Intel NUC5i7RY to the power_save blacklist")
+
+
+NOTE: The patch will not be queued to stable trees until it is upstream.
+
+How should we proceed with this patch?
+
 -- 
-2.23.0
-
+Thanks,
+Sasha
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

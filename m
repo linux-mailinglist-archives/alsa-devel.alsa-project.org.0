@@ -2,70 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88B2714A7A6
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jan 2020 17:00:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DE9614A77F
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jan 2020 16:50:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 194CA86F;
-	Mon, 27 Jan 2020 16:59:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 194CA86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 018D983B;
+	Mon, 27 Jan 2020 16:49:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 018D983B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580140808;
-	bh=8BzVMQY/X7TDP06E/unIiHSeVMw+PTKcHHdfKCmsA6Q=;
+	s=default; t=1580140221;
+	bh=TD2sOsv5Pe6BZdsU8bzZMnA7Z4u1Vl11fDiF85pwHdg=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u3lUz/V+eFvA+AqfCBpngPW1ykkp0PKuUPIY+bpWq4e/aXHFt5K/8TQoTM6bp+J1B
-	 TUcm3xTN/TTePY15mRSQuJHDV1EJXLKr0KDv5a1fLxCRZtbjrJbkJEBS14feHRPCzo
-	 kPDM8c2I+zKuWMZuxXKWbPUAtc4gOGTPQknTKrYA=
+	b=iIGLOTHRj7qDtT/0xwYr5pW85KT2hjxBM0QEiP78vR3/zfDDqBP8q5npO3rSheJ7N
+	 hvR9Igit3rkYUuDUCgCNUWa89OGmbDyhWIfpfCMdGowSp1HECz4rHKpCheLIF9Qo+r
+	 Bqc0eRLXwUC89mhl2zyQYZk/M9Ab0DGdZSw0aZik=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E06BCF80218;
-	Mon, 27 Jan 2020 16:57:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AA5FDF80085;
+	Mon, 27 Jan 2020 16:48:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56F8FF80256; Mon, 27 Jan 2020 16:57:43 +0100 (CET)
+ id 20F20F8021E; Mon, 27 Jan 2020 16:48:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9C79F80082
- for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2020 16:57:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9C79F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4D51BF80085
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2020 16:48:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4D51BF80085
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2020 07:57:35 -0800
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2020 07:38:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,370,1574150400"; d="scan'208";a="223277230"
+X-IronPort-AV: E=Sophos;i="5.70,370,1574150400"; d="scan'208";a="223273245"
 Received: from vvaddepa-mobl.amr.corp.intel.com (HELO [10.252.204.5])
  ([10.252.204.5])
- by fmsmga008.fm.intel.com with ESMTP; 27 Jan 2020 07:57:34 -0800
-To: "Wasko, Michal" <michal.wasko@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
- tiwai@suse.com
-References: <20200122181254.22801-1-cezary.rojewski@intel.com>
- <9246ee43-ffec-2b28-3a56-211f08797342@intel.com>
- <a30fffb3-5f6b-eaa4-1684-3f19d973c54f@linux.intel.com>
- <013c7d4b-c08f-f476-50fe-70ae22580277@linux.intel.com>
- <5516562e-9f0c-55c8-a193-b1a80a341392@linux.intel.com>
- <1b8a4612-338e-0d75-57bb-6deb4055f45e@linux.intel.com>
+ by fmsmga008.fm.intel.com with ESMTP; 27 Jan 2020 07:38:02 -0800
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
+References: <20200120160117.29130-1-kai.vehmanen@linux.intel.com>
+ <20200120160117.29130-4-kai.vehmanen@linux.intel.com>
+ <s5hpnfe2hvb.wl-tiwai@suse.de> <20200120171718.GG6852@sirena.org.uk>
+ <alpine.DEB.2.21.2001201936540.2957@eliteleevi.tm.intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <803a0824-ed50-7b7c-ef15-c98cafef77e2@linux.intel.com>
-Date: Mon, 27 Jan 2020 09:30:40 -0600
+Message-ID: <35b2748b-661b-3e63-eb71-fc44fced0deb@linux.intel.com>
+Date: Mon, 27 Jan 2020 09:38:01 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <1b8a4612-338e-0d75-57bb-6deb4055f45e@linux.intel.com>
+In-Reply-To: <alpine.DEB.2.21.2001201936540.2957@eliteleevi.tm.intel.com>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: skl_hda_dsp_common: Fix
- global-out-of-bounds bug
+Cc: Takashi Iwai <tiwai@suse.de>, cujomalainey@chromium.org,
+ alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH v2 3/3] ALSA: hda/hdmi - add retry logic to
+ parse_intel_hdmi()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,47 +83,36 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
->>> As it was agreed with you Pierre the Skylake driver will be kept 
->>> under maintenance and the proposed changes are about to keep hda-dsp 
->>> configuration functional for anyone who would like to use it. Linus 
->>> laptop issue is actually one of the good reasons why we would like to 
->>> keep hda-dsp configuration functional
->>
->> We have to agree on what 'maintained' means then.
->>
->> I don't mind leaving the Skylake driver in the kernel and letting 
->> people who have access to Intel support use it. Cezary is listed as 
->> the maintainer as I suggested it, and this patch provides an necessary 
->> fix.
->>
->> But does this mean this Hdaudio option is usable by distributions and 
->> Linux users who don't have access to Intel support?
->>
->> I will assert that it's not, based on my own experience only 2 weeks 
->> ago. I tried to make audio work on a KBL NUC and had to comment stuff 
->> out due to an obsolete topology. see 
->> https://github.com/thesofproject/linux/pull/1667#issuecomment-572312157
-> That is exactly the reason why we would like to update the Skylake 
-> driver upstream code and it configuration files so that it will be 
-> usable by the community and not only keep it functional internally. As 
-> it was clarified by Cezary, we would like to make a minimum number of 
-> changes that are required.
+
+On 1/20/20 11:43 AM, Kai Vehmanen wrote:
+> Hi,
 > 
-> Is there Pierre any non-technical reason why we should not fix the 
-> Skylake driver code on the upstream?
+> On Mon, 20 Jan 2020, Mark Brown wrote:
+> 
+>> On Mon, Jan 20, 2020 at 05:49:12PM +0100, Takashi Iwai wrote:
+>>
+>>> It seems that this felt out of Mark's hands, so I picked up now to my
+>>> tree, as this doesn't seem depending on other changes.
+>>
+>> He only sent it on Thursday and Pierre hasn't reviewed any of this stuff
+>> yet.
+> 
+> sorry for the confusion guys. I checked with Pierre and he preferred for
+> this to be picked up by Mark directly. I noticed some rebase needed when
+> applying on top of Mark's, so thus I resent the patches as v2.
+> 
+> We did have initial review at (although no approvals):
+> https://github.com/thesofproject/linux/pull/1713
+> 
+> Maybe in future, better not to combine ASoC/SOF and generic HDA patches in
+> same series, but rather send in pieces via the proper subtrees...?
 
-My comment was only regarding support of HDaudio codecs w/ the Skylake 
-driver. I personally gave up trying to support this option after 1.5 yrs 
-of recurring issues. It will take a lot more than minimal patches I am 
-afraid if you want this option to work across all known commercial 
-devices, you will have to address race conditions such as the probe 
-failing when DRM is built as a module, or on specific SKL/APL devices.
+Sorry about the confusion, I thought Takashi took all of the 3 patches, 
+so didn't chime in, but only this one was applied while the 2 others are 
+still in the review queue, so for the series
 
-If you are signing-up to do this work I have no objections, and if in 
-addition you add support for DMICs you'd solve existing issues with 
-KBL/AmberLake for which users are left without a solution.
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-Just be aware of what you are signing up for, it's not a 'minimal' effort.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

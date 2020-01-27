@@ -2,69 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 930BC14A489
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jan 2020 14:07:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DB6714A79E
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jan 2020 16:59:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1B63286F;
-	Mon, 27 Jan 2020 14:06:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1B63286F
+	by alsa0.perex.cz (Postfix) with ESMTPS id E59A783D;
+	Mon, 27 Jan 2020 16:58:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E59A783D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580130456;
-	bh=2OQDIPN73+yLqaPz9j9aemIS7yPxhkzUL1tAdQCfO/k=;
+	s=default; t=1580140764;
+	bh=RdeHDUuarnTpFc1mcTRIp8COc2Y6EdlvxswQPpa4oj4=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dSqiy7itMvHcamaKGbE2E18ommTLabSO71UkGFqjK38DYG56KHaXm79jstG9YvoUQ
-	 d8X7hM4NVrKMV3pSupdws+dVMJxxhbQ//hz7655Yr4PnZN/rRYB0nBA5oLrzQG+oQ2
-	 pTDrDHM5gg5pJiJM3LHVfrAECAw6Yz5daKhTmU4A=
+	b=BV2rWgqyj3SlmNwa99hf3nZcX225+anWvDeRha02tui9rjXiogzfUgo73zI/y284m
+	 m3q5og0zq+CTHekuGbIxEtTi3T8m7c+VFjMKsXKV2jnaEmcnFzEz6tnZUxM1CSdnGN
+	 VpjimTJSUy2NaWHvA8LJJSriNXdn3jZvc7lyKc64=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3910AF80234;
-	Mon, 27 Jan 2020 14:05:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8468F8021E;
+	Mon, 27 Jan 2020 16:57:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 23D51F8021E; Mon, 27 Jan 2020 14:05:53 +0100 (CET)
+ id D4366F80085; Mon, 27 Jan 2020 16:57:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id ED230F800C8
- for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2020 14:05:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED230F800C8
+ by alsa1.perex.cz (Postfix) with ESMTPS id BA37BF80085
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2020 16:57:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BA37BF80085
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Jan 2020 05:05:47 -0800
-X-IronPort-AV: E=Sophos;i="5.70,369,1574150400"; d="scan'208";a="221728792"
-Received: from mwasko-mobl1.ger.corp.intel.com (HELO [10.252.50.227])
- ([10.252.50.227])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/AES256-SHA;
- 27 Jan 2020 05:05:43 -0800
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
- tiwai@suse.com
-References: <20200122181254.22801-1-cezary.rojewski@intel.com>
- <9246ee43-ffec-2b28-3a56-211f08797342@intel.com>
- <a30fffb3-5f6b-eaa4-1684-3f19d973c54f@linux.intel.com>
- <013c7d4b-c08f-f476-50fe-70ae22580277@linux.intel.com>
- <5516562e-9f0c-55c8-a193-b1a80a341392@linux.intel.com>
-From: "Wasko, Michal" <michal.wasko@linux.intel.com>
-Message-ID: <1b8a4612-338e-0d75-57bb-6deb4055f45e@linux.intel.com>
-Date: Mon, 27 Jan 2020 14:05:41 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2020 07:57:33 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,370,1574150400"; d="scan'208";a="223277221"
+Received: from vvaddepa-mobl.amr.corp.intel.com (HELO [10.252.204.5])
+ ([10.252.204.5])
+ by fmsmga008.fm.intel.com with ESMTP; 27 Jan 2020 07:57:32 -0800
+To: Takashi Iwai <tiwai@suse.de>
+References: <20200124213625.30186-1-pierre-louis.bossart@linux.intel.com>
+ <20200124213625.30186-4-pierre-louis.bossart@linux.intel.com>
+ <s5hpnf7251e.wl-tiwai@suse.de>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <8749c7b5-c3c3-aff7-ada7-2a4ab422dc94@linux.intel.com>
+Date: Mon, 27 Jan 2020 09:08:20 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <5516562e-9f0c-55c8-a193-b1a80a341392@linux.intel.com>
+In-Reply-To: <s5hpnf7251e.wl-tiwai@suse.de>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: skl_hda_dsp_common: Fix
- global-out-of-bounds bug
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH 3/7] ASoC: SOF: core: release resources on
+ errors in probe_continue
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,104 +74,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ck9uIDEvMjMvMjAyMCA3OjIyIFBNLCBQaWVycmUtTG91aXMgQm9zc2FydCB3cm90ZToKPgo+Cj4+
-Pj4gRm9yIHRoZSBsYXN0IGZldyBkYXlzIHdlIGhhdmUgYmVlbiBwbGF5aW5nIHdpdGggInZhbmls
-bGEiIDUuNSAKPj4+PiBrZXJuZWwgLSBvbmUgd2l0aG91dCB0b24gb2YgL3NreWxha2UgcGF0Y2hl
-cyAtIHRvIGZpbmQgb3V0IGhvdyAKPj4+PiBjb3VsZCBoZGEtZHNwIGJlIGVuYWJsZWQgb24gc2ts
-LyBrYmwrIHdpdGggdGhlIGxlYXN0IGFtb3VudCBvZiAKPj4+PiBjaGFuZ2VzIHB1bGxlZCBmcm9t
-IG91ciBicmFuY2ggcG9zc2libGUuCj4+Pj4KPj4+PiBUdXJuZWQgb3V0IHRoZSBhZGRpdGlvbiBv
-ZiB0aGlzIHNpbmdsZSBwYXRjaCBBTkQgdG9wb2xvZ3kgYmluYXJ5IAo+Pj4+IHVwZGF0ZSBnb3Qg
-dGhlIGpvYiBkb25lLgo+Pj4+Cj4+Pj4gTm93LCBob3cgY2FuIHdlIHByb2NlZWQgd2l0aCBzdWNo
-IHNvbHV0aW9uLiBDYW4gc2hhcmUgdGhlIHRvcG9sb2d5IAo+Pj4+IGJpbmFyeS8gLmNvbmYgaWYg
-bmVlZGVkLCBzbyBhbnlvbmUgaW50ZXJlc3RlZCBjYW4gY2hlY2sgaXQgb3V0Lgo+Pj4KPj4+IEkg
-YW0gcGVyc29uYWxseSBpbnRlcmVzdGVkIGZvciB0ZXN0cyBidXQgSSBkb3VidCB0aGlzIG9wdGlv
-biBpcyAKPj4+IHVzYWJsZSBieSBhbnlvbmUgb3V0c2lkZSBvZiBJbnRlbCAtIGFkZGl0aW9uYWwg
-aXNzdWVzIHdpdGggcHJvYmUgCj4+PiByYWNlIGNvbmRpdGlvbnMgd2l0aCBpOTE1LCBlLmcuIG9u
-IExpbnVzJyBEZWxsIFhQUyA5MzUwLCBubyBETUlDIAo+Pj4gc3VwcG9ydCBhbmQgbm90IHNlbGVj
-dGVkIGFueXdheXMgYnkgSmFyb3NsYXYncyBuZXcgbG9naWMsIG5vIFVDTSwgCj4+PiBhbmQgbm8g
-cGxhbnMgZm9yIHRoZSB1c2Ugb2YgdGhlIEhETUkgY29tbW9uIGNvZGVjLgo+Pgo+PiBUaGUgTGlu
-dXggU2t5bGFrZSBkcml2ZXIgb2ZmaWNpYWxseSBzdXBwb3J0IGF1ZGlvIG92ZXIgRFNQIG9uIElu
-dGVsIAo+PiBjQVZTIDEuNSsgYm9hcmRzLCB0aGF0IGluY2x1ZGUgU2t5bGFrZSBIVyB0YXJnZXQg
-d2l0aCBoZGEtZHNwIAo+PiBjb25maWd1cmF0aW9uLiBUaGUgY29uZmlndXJhdGlvbiBpcyByZWd1
-bGFybHkgdGVzdGVkIGJ5IEludGVsIEF1ZGlvIAo+PiBDSSB0ZWFtLgo+Pgo+PiBBcyBpdCB3YXMg
-YWdyZWVkIHdpdGggeW91IFBpZXJyZSB0aGUgU2t5bGFrZSBkcml2ZXIgd2lsbCBiZSBrZXB0IAo+
-PiB1bmRlciBtYWludGVuYW5jZSBhbmQgdGhlIHByb3Bvc2VkIGNoYW5nZXMgYXJlIGFib3V0IHRv
-IGtlZXAgaGRhLWRzcCAKPj4gY29uZmlndXJhdGlvbiBmdW5jdGlvbmFsIGZvciBhbnlvbmUgd2hv
-IHdvdWxkIGxpa2UgdG8gdXNlIGl0LiBMaW51cyAKPj4gbGFwdG9wIGlzc3VlIGlzIGFjdHVhbGx5
-IG9uZSBvZiB0aGUgZ29vZCByZWFzb25zIHdoeSB3ZSB3b3VsZCBsaWtlIHRvIAo+PiBrZWVwIGhk
-YS1kc3AgY29uZmlndXJhdGlvbiBmdW5jdGlvbmFsCj4KPiBXZSBoYXZlIHRvIGFncmVlIG9uIHdo
-YXQgJ21haW50YWluZWQnIG1lYW5zIHRoZW4uCj4KPiBJIGRvbid0IG1pbmQgbGVhdmluZyB0aGUg
-U2t5bGFrZSBkcml2ZXIgaW4gdGhlIGtlcm5lbCBhbmQgbGV0dGluZyAKPiBwZW9wbGUgd2hvIGhh
-dmUgYWNjZXNzIHRvIEludGVsIHN1cHBvcnQgdXNlIGl0LiBDZXphcnkgaXMgbGlzdGVkIGFzIAo+
-IHRoZSBtYWludGFpbmVyIGFzIEkgc3VnZ2VzdGVkIGl0LCBhbmQgdGhpcyBwYXRjaCBwcm92aWRl
-cyBhbiBuZWNlc3NhcnkgCj4gZml4Lgo+Cj4gQnV0IGRvZXMgdGhpcyBtZWFuIHRoaXMgSGRhdWRp
-byBvcHRpb24gaXMgdXNhYmxlIGJ5IGRpc3RyaWJ1dGlvbnMgYW5kIAo+IExpbnV4IHVzZXJzIHdo
-byBkb24ndCBoYXZlIGFjY2VzcyB0byBJbnRlbCBzdXBwb3J0Pwo+Cj4gSSB3aWxsIGFzc2VydCB0
-aGF0IGl0J3Mgbm90LCBiYXNlZCBvbiBteSBvd24gZXhwZXJpZW5jZSBvbmx5IDIgd2Vla3MgCj4g
-YWdvLiBJIHRyaWVkIHRvIG1ha2UgYXVkaW8gd29yayBvbiBhIEtCTCBOVUMgYW5kIGhhZCB0byBj
-b21tZW50IHN0dWZmIAo+IG91dCBkdWUgdG8gYW4gb2Jzb2xldGUgdG9wb2xvZ3kuIHNlZSAKPiBo
-dHRwczovL2dpdGh1Yi5jb20vdGhlc29mcHJvamVjdC9saW51eC9wdWxsLzE2NjcjaXNzdWVjb21t
-ZW50LTU3MjMxMjE1NwpUaGF0IGlzIGV4YWN0bHkgdGhlIHJlYXNvbiB3aHkgd2Ugd291bGQgbGlr
-ZSB0byB1cGRhdGUgdGhlIFNreWxha2UgCmRyaXZlciB1cHN0cmVhbSBjb2RlIGFuZCBpdCBjb25m
-aWd1cmF0aW9uIGZpbGVzIHNvIHRoYXQgaXQgd2lsbCBiZSAKdXNhYmxlIGJ5IHRoZSBjb21tdW5p
-dHkgYW5kIG5vdCBvbmx5IGtlZXAgaXQgZnVuY3Rpb25hbCBpbnRlcm5hbGx5LiBBcyAKaXQgd2Fz
-IGNsYXJpZmllZCBieSBDZXphcnksIHdlIHdvdWxkIGxpa2UgdG8gbWFrZSBhIG1pbmltdW0gbnVt
-YmVyIG9mIApjaGFuZ2VzIHRoYXQgYXJlIHJlcXVpcmVkLgoKSXMgdGhlcmUgUGllcnJlIGFueSBu
-b24tdGVjaG5pY2FsIHJlYXNvbiB3aHkgd2Ugc2hvdWxkIG5vdCBmaXggdGhlIApTa3lsYWtlIGRy
-aXZlciBjb2RlIG9uIHRoZSB1cHN0cmVhbT8KPgo+IFlvdSBzaG91bGQgYWxzbyBsb29rIGF0IHRo
-ZSBoZWxwIHRleHQgZm9yIHRoZSBvcHRpb246Cj4KPiBjb25maWcgU05EX1NPQ19JTlRFTF9TS1lM
-QUtFX0hEQVVESU9fQ09ERUMKPiDCoMKgwqDCoGJvb2wgIkhEQXVkaW8gY29kZWMgc3VwcG9ydCIK
-PiDCoMKgwqDCoGhlbHAKPiDCoMKgwqDCoMKgIFRoaXMgb3B0aW9uIGJyb2tlIGF1ZGlvIG9uIExp
-bnVzJyBTa3lsYWtlIGxhcHRvcCBpbiBEZWNlbWJlciAyMDE4Cj4gwqDCoMKgwqDCoCBhbmQgdGhl
-IHJhY2UgY29uZGl0aW9ucyBkdXJpbmcgdGhlIHByb2JlIHdlcmUgbm90IGZpeGVkIHNpbmNlLgo+
-IMKgwqDCoMKgwqAgVGhpcyBvcHRpb24gaXMgREVQUkVDQVRFRCwgYWxsIEhEYXVkaW8gY29kZWMg
-c3VwcG9ydCBuZWVkcwo+IMKgwqDCoMKgwqAgdG8gYmUgaGFuZGxlZCBieSB0aGUgU09GIGRyaXZl
-ci4KPiDCoMKgwqDCoMKgIERpc3RyaWJ1dGlvbnMgc2hvdWxkIG5vdCBlbmFibGUgdGhpcyBvcHRp
-b24gYW5kIHRoZXJlIGFyZSBubyBrbm93bgo+IMKgwqDCoMKgwqAgdXNlcnMgb2YgdGhpcyBjYXBh
-YmlsaXR5Lgo+Cj4gTm8gb25lIG9iamVjdGVkIHRvIHRoaXMgd29yZGluZyBiYWNrIGluIE9jdG9i
-ZXIsIGJ1dCB3ZSBzdGlsbCBzZWUgdGhpcyAKPiBvcHRpb24gc2VsZWN0ZWQgaW4gbXVsdGlwbGUg
-ZGlzdHJvcywgc28gdGhlIGxhc3Qgc3VnZ2VzdGlvbiBpcyB0byBtb3ZlIAo+IHRvIGFuIG9wdC1p
-biBzZWxlY3Rpb24gdG8gZ3VpZGUgZGlzdHJpYnV0aW9ucy4KPgo+PiBZb3VyIG90aGVyIHN0YXRl
-bWVudHMgUGllcnJlIGFyZSBxdWl0ZSBvdXRkYXRlZDoKPj4KPj4gwqDCoMKgwqAgLSBQcm9iZSBy
-YWNlIGNvbmRpdGlvbnMgd2l0aCBpOTE1IC0gcmVzb2x2ZWQgaW4gSERBCj4KPiBJIGNoZWNrZWQg
-bGFzdCBtb250aCBhbmQgdGhpbmdzIHN0aWxsIGJyZWFrIG9uIHRoZSBEZWxsIFhQUy4gVGhlcmUg
-YXJlIAo+IGNoYWxsZW5naW5nIHJhY2UgY29uZGl0aW9ucyB0aGF0IGFyZSBub3Qgc2VlbiBvbiBJ
-bnRlbCBSVlBzIGFuZCBOVUNzLCAKPiBidXQgYnJva2UgTGludXMnIGxhcHRvcCBhbmQgYSBzbGV3
-IG9mIG90aGVyczoKPgo+IGh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL3BpcGVybWFp
-bC9hbHNhLWRldmVsLzIwMTgtRGVjZW1iZXIvMTQzNTQ5Lmh0bWwgCj4KPgo+IGh0dHBzOi8vbWFp
-bG1hbi5hbHNhLXByb2plY3Qub3JnL3BpcGVybWFpbC9hbHNhLWRldmVsLzIwMTgtRGVjZW1iZXIv
-MTQzNTk2Lmh0bWwgCj4KPgo+IFVubGVzcyB5b3UndmUgdmVyaWZpZWQgU1NUIHN1cHBvcnQgb24g
-dGhvc2UgcGxhdGZvcm1zLCB5b3VyIGNsYWltIG9mIAo+ICdyZXNvbHZlZCcgaXMgaW52YWxpZC4K
-Pgo+PiDCoMKgwqDCoCAtIERNSUMgaXMgc3VwcG9ydGVkCj4KPiBUaGVyZSBpcyBubyB0b3BvbG9n
-eSBwcm92aWRlZCB3aXRoIERNSUMrSERhdWRpbyBzdXBwb3J0LiBJIGFza2VkIGZvciAKPiB0aGlz
-IG1vcmUgdGhhbiAxOCBtb250aHMgYWdvIGFuZCBpdCB3YXMgbmV2ZXIgbWFkZSBhdmFpbGFibGUs
-IGV2ZW4gdG8gCj4gbWUsIGFuZCBTT0YgYmVjb21lIHRoZSBkZWZhdWx0IHNvbHV0aW9uIGZvciBI
-REF1ZGlvK0RNSUMgY2FzZXMuCj4KPj4gwqDCoMKgwqAgLSBVQ00gaXMgbm90IGRpcmVjdGx5IGRy
-aXZlciByZWxhdGVkIGFuZCBjYW4gYmUgZWFzaWx5IHVwZGF0ZWQKPgo+ICJlYXNpbHkiLCBidXQg
-aGFzbid0IGJlZW4gZG9uZSBpbiAxOCBtb250aHMsIGFuZCBpdCBhY3R1YWxseSB0YWtlcyBhIAo+
-IGxvdCBvZiB3b3JrIHRvIGdldCB0aGluZ3MgcmlnaHQuIEVzcGVjaWFsbHkgd2l0aCB0aGUgU1NU
-IGRyaXZlciBhbmQgCj4gdGhlIG1peGVycyByZXF1aXJlZCBvbiB0aGUgcGxhdGZvcm0gc2lkZSBz
-aW5jZSBub3RoaW5nIGlzIGNvbm5lY3RlZCBieSAKPiBkZWZhdWx0Lgo+Cj4+IMKgwqDCoMKgIC0g
-SW50ZWwgQXVkaW8gQ0kgd2FzIGZvY3VzZWQgb24gY29tbW9uIEhELUEgY29kZWMgYnV0IHRoZSBI
-RE1JIAo+PiBjb21tb24gY29kZWMgaXMgc3VwcG9ydGVkIGFzIHdlbGwKPj4KPj4+IEluIGNhc2Ug
-eW91IGRpZG4ndCBzZWUgaXQsIHRoZSBTa3lsYWtlIGRyaXZlciAnSERhdWRpbyBjb2RlYycgb3B0
-aW9uIAo+Pj4gaXMgc3VnZ2VzdGVkIGFzIG9uZSBvZiB0aGUgJ3Vuc3VwcG9ydGVkJyBmZWF0dXJl
-cyBoZXJlOgo+Pj4gaHR0cHM6Ly9naXRodWIuY29tL3RoZXNvZnByb2plY3QvbGludXgvcHVsbC8x
-NzQyCj4+Pgo+Pj4gLVBpZXJyZQo+Pgo+PiBUaGUgc3VnZ2VzdGlvbiB0byBtYXJrIHRoZSBTa3ls
-YWtlIGRyaXZlciAnSERhdWRpbyBjb2RlYycgb3B0aW9uIGFzIAo+PiAndW5zdXBwb3J0ZWQnIGlz
-IGNvbWluZyBmcm9tIHlvdSBQaWVycmUgKHBhdGNoIGZyb20gdHdvIGRheXNhZ28/KSBhbmQgCj4+
-IEkgYmVsaWV2ZSB0aGF0IHlvdSBzaG91bGQgY29uc3VsdCBzdWNoIG9waW5pb24gd2l0aCBJbnRl
-bCBTa3lsYWtlIAo+PiBkcml2ZXIgbWFpbnRhaW5lcnMuCj4KPiBZb3Ugd2VyZSBpbiBjb3B5IGFu
-ZCBkaWQgbm90IGNvbW1lbnQsIHNhbWUgZm9yIENlemFyeS4KPgo+IE1heWJlICd1bnN1cHBvcnRl
-ZCcgaXMgdG9vIHN0cm9uZyBhIHdvcmQsIGJ1dCBpdCB3YXMgVGFrYXNoaSdzIAo+IHN1Z2dlc3Rp
-b24gOi0pCj4gX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18K
-PiBBbHNhLWRldmVsIG1haWxpbmcgbGlzdAo+IEFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwo+
-IGh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1k
-ZXZlbApfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNh
-LWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9t
-YWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+
+
+On 1/25/20 4:39 AM, Takashi Iwai wrote:
+> On Fri, 24 Jan 2020 22:36:21 +0100,
+> Pierre-Louis Bossart wrote:
+>>
+>> The initial intent of releasing resources in the .remove does not work
+>> well with HDaudio codecs. If the probe_continue() fails in a work
+>> queue, e.g. due to missing firmware or authentication issues, we don't
+>> release any resources, and as a result the kernel oopses during
+>> suspend operations.
+>>
+>> The suggested fix is to release all resources during errors in
+>> probe_continue(), and use fw_state to track resource allocation
+>> state, so that .remove does not attempt to release the same
+>> hardware resources twice. PM operations are also modified so that
+>> no action is done if DSP resources have been freed due to
+>> an error at probe.
+>>
+>> Reported-by: Takashi Iwai <tiwai@suse.de>
+>> Co-developed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+>> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+>> Bugzilla:  http://bugzilla.suse.com/show_bug.cgi?id=1161246
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> 
+> This deserves for Cc to stable, as the bug already hits on both 5.4
+> and 5.5 kernels.
+> 
+> Reviewed-by: Takashi Iwai <tiwai@suse.de>
+
+Patch 2 would need to be Cc:'ed to stable as well, otherwise this patch3 
+will not apply.
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

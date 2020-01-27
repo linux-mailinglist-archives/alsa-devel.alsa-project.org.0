@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C79B614A982
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jan 2020 19:13:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DC1C14A984
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jan 2020 19:14:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6614E86F;
-	Mon, 27 Jan 2020 19:13:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6614E86F
+	by alsa0.perex.cz (Postfix) with ESMTPS id D70AB822;
+	Mon, 27 Jan 2020 19:13:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D70AB822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580148834;
-	bh=Zd+cPQlDHN7uVMlMmutHL5wodzXT6zH6WCJwM0hk7eo=;
+	s=default; t=1580148857;
+	bh=RS+hf4hMaXgHEXhZlmEFL4x2r2D6NB272ol2cDGuaiM=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Fxc9fOGhTyUhU+HmzYeBNeIgTkL5z7PdvDHs+s+hujMbgbRTtTO1n75RHmWjSvObr
-	 wwRGZRGJXASjNt9ZaVv0MEeY/VOswelu+25K9N1L435Z1YBww5Ug3wkLZf9uO82aUA
-	 tdi9++AvlRtpVnkyDxBSG9z/WMNOpM6UDF7dquks=
+	b=cc2bgAv7kAm4V0SqGv6lcV9w38P18Z9W0phnIY4oxvDdSATgb9dBiU3qc5vsgsYg/
+	 M6C/AVmrkZ8thCJv5BzzMV4WrUHl5ZBqLTbwG8pOu0/JFj3dlQVV2xFdfcPERxAtMv
+	 wpM/Lz8koDlp2PVm6kMAq+1QjLVGrYJdzCFjJH6g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 984DEF80085;
-	Mon, 27 Jan 2020 19:11:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 23B71F80273;
+	Mon, 27 Jan 2020 19:11:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4F269F8023F; Mon, 27 Jan 2020 19:11:26 +0100 (CET)
+ id 72B30F80256; Mon, 27 Jan 2020 19:11:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 1ABFDF80218
- for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2020 19:11:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1ABFDF80218
+ by alsa1.perex.cz (Postfix) with ESMTP id 601B9F80218
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2020 19:11:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 601B9F80218
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0C870101E;
- Mon, 27 Jan 2020 10:11:21 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D0D511045;
+ Mon, 27 Jan 2020 10:11:23 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 81F6F3F67D;
- Mon, 27 Jan 2020 10:11:20 -0800 (PST)
-Date: Mon, 27 Jan 2020 18:11:19 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 59EAD3F67D;
+ Mon, 27 Jan 2020 10:11:22 -0800 (PST)
+Date: Mon, 27 Jan 2020 18:11:21 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Bard Liao <yung-chuan.liao@linux.intel.com>
-In-Reply-To: <20200124213625.30186-7-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200124213625.30186-7-pierre-louis.bossart@linux.intel.com>
+To: Pan Xiuli <xiuli.pan@linux.intel.com>
+In-Reply-To: <20200124213625.30186-6-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200124213625.30186-6-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
  Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: intel: soc-acpi-intel-icl-match: fix
-	rt715 ADR" to the asoc tree
+Subject: [alsa-devel] Applied "ASoC: SOF: pci: add missing default_fw_name
+	of JasperLake" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: intel: soc-acpi-intel-icl-match: fix rt715 ADR
+   ASoC: SOF: pci: add missing default_fw_name of JasperLake
 
 has been applied to the asoc tree at
 
@@ -95,34 +95,34 @@ to this mail.
 Thanks,
 Mark
 
-From bd01cf38eedceb87d43f9205a75b259361e056ea Mon Sep 17 00:00:00 2001
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
-Date: Fri, 24 Jan 2020 15:36:24 -0600
-Subject: [PATCH] ASoC: intel: soc-acpi-intel-icl-match: fix rt715 ADR
+From e3b9f5f4ef92801f62c58665283c61cece0af905 Mon Sep 17 00:00:00 2001
+From: Pan Xiuli <xiuli.pan@linux.intel.com>
+Date: Fri, 24 Jan 2020 15:36:23 -0600
+Subject: [PATCH] ASoC: SOF: pci: add missing default_fw_name of JasperLake
 
-Fix the part id of rt715 (typo with zero in the wrong place)
+jsl_desc missed default_fw_name, this will fail the probe in
+nocodec or generice HDA mode due the firmware path is intel/sof/(null)
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+Signed-off-by: Pan Xiuli <xiuli.pan@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200124213625.30186-7-pierre-louis.bossart@linux.intel.com
+Link: https://lore.kernel.org/r/20200124213625.30186-6-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/intel/common/soc-acpi-intel-icl-match.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/sof/sof-pci-dev.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/soc/intel/common/soc-acpi-intel-icl-match.c b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-index 67e9da4635f2..752733013d54 100644
---- a/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-+++ b/sound/soc/intel/common/soc-acpi-intel-icl-match.c
-@@ -59,7 +59,7 @@ static const u64 rt1308_2_adr[] = {
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index d855bc2b76ad..bf01b92f0dac 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -235,6 +235,7 @@ static const struct sof_dev_desc jsl_desc = {
+ 	.chip_info = &jsl_chip_info,
+ 	.default_fw_path = "intel/sof",
+ 	.default_tplg_path = "intel/sof-tplg",
++	.default_fw_filename = "sof-jsl.ri",
+ 	.nocodec_tplg_filename = "sof-jsl-nocodec.tplg",
+ 	.ops = &sof_cnl_ops,
  };
- 
- static const u64 rt715_3_adr[] = {
--	0x000310025D715000
-+	0x000310025D071500
- };
- 
- static const struct snd_soc_acpi_link_adr icl_3_in_1_default[] = {
 -- 
 2.20.1
 

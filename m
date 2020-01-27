@@ -2,129 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AC3314A30C
-	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jan 2020 12:30:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F24314A398
+	for <lists+alsa-devel@lfdr.de>; Mon, 27 Jan 2020 13:14:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B032983D;
-	Mon, 27 Jan 2020 12:29:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B032983D
+	by alsa0.perex.cz (Postfix) with ESMTPS id A0074822;
+	Mon, 27 Jan 2020 13:14:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0074822
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580124642;
-	bh=KaQl4KonaLElQZr1TUTFhEGe7NtFfr6KN77hze1Xi3M=;
+	s=default; t=1580127294;
+	bh=wK3G7cFYTJ6uIxo8K+M6ajKZtcCP41a67F1hLQ+jjSI=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=JQGQpe2O/gKlnZl5ePUz74y52+K52NoqG7K4z7CM5NK05LEnBprTLXEEThu67f2IE
-	 N/ChhNzcj1pAHvlBAFlLDjDoghsxb3tEvMIR0b0yOEXLYPhlbBJwSXkLaDw26YuQxN
-	 u6Xfn6tjVBw6RKp+wE+CkZY7eLCmlCXk5822Zxtg=
+	b=bXsuJj5QT2RmeFznY2N5sBpexcHW+Gij/6oYUGtCfrAldFln7kOH2D/3GfI6Q66PK
+	 qQfI/3IiWFKzvieS8C+e6I/k4a/mQ05a8LW4s97F5XQglEXTHjl2/djPnQ1/wWV1yf
+	 ilNp+9odMvyzNK5ydxA0/IJ2t9xtkq5V7yh3ziAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9027FF800C8;
-	Mon, 27 Jan 2020 12:29:01 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A60AEF80234;
+	Mon, 27 Jan 2020 13:13:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF482F8021E; Mon, 27 Jan 2020 12:28:52 +0100 (CET)
+ id 7E8C9F8021E; Mon, 27 Jan 2020 13:13:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FORGED_SPF_HELO,SPF_HELO_PASS,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2063.outbound.protection.outlook.com [40.107.223.63])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CD802F800C8
- for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2020 12:28:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CD802F800C8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
- header.i=@amdcloud.onmicrosoft.com header.b="ceiYlsjt"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=WEOephbBXL4NZMXKR6iScpUCvtWX3nJ118GJtkM2WMUXn1qa+k9TkrNcscatYpGIe/V3Ih5rOvMrKojvsAB5Z1SbHGBehH+BF/PEOP4SbkctIZRqj2r9k0ROAf3lNyJwtCTETalUq0yK8sXhjKnCA74s4KfjAjtLcoa9yLrde89Kxe7dlb62Bsz5LiaxG3oz3oOjMjnj6I5lnbu+yOsusPr8yvml4aRfsB6/Hp5ZuASXuxr64VgTK8UibcMw9+rOqJQwHCL/i1wSZ/M78aTSyQWxZUMCt4wBEGB989cLQL2WCBIHpBl4r3RsQd0oQK2FnfhOtsKlxupyIFz3RnTdWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m2x9/N2p+8jF2vK17XXB4h22BcoFcjkEK1yo28zsUbA=;
- b=BScMs3G8St4ngn8Wb61phbbVe69ZtfThh/mdHacCGC7HaN+2RZECAshkvgEd8qpRvhwh2QesPMphyCi8ODYFvI/GR0hryWiirXhMHeZRbuH4WPsEyKwbX7s5OMDx0VJ39EKHyeCzHKgu3RCpkDQajzM2wq77nX1tf/xN9NFg5RxN6cmBhFOjV1advDMxsUPaZsJf5MMY+0/+ucQS91IGxKO0mPKqrC6256rU4icmdgV/85dsdqMxPm5xaqsyDRmWwSp692zF6EOQ8IWS5/6DgXj0zfSXaWm20VDORxmwbImW7jOscqu90VfIMjEBZaXF8nsKTRfBllFHSM5v32bhHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com;
- dmarc=permerror action=none header.from=amd.com; dkim=none (message not
- signed); arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=m2x9/N2p+8jF2vK17XXB4h22BcoFcjkEK1yo28zsUbA=;
- b=ceiYlsjtBk6MpbGzrN6//cIwfwyyp3UByy1pRp3FWpAULJoIJshdlckVYcd53wnOK1IHMEVhRjhVDzrRmjN4uMR+XHFLjen7Rhs76es8h1FfYA8IFfn0hjLGRpnnq9epgOG/nWl7jACBOjAl9TGHkY4hoPbXS0X+kcYuByiMPvc=
-Received: from SN1PR12CA0047.namprd12.prod.outlook.com (2603:10b6:802:20::18)
- by DM5PR12MB1468.namprd12.prod.outlook.com (2603:10b6:4:10::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2665.24; Mon, 27 Jan
- 2020 11:28:41 +0000
-Received: from CO1NAM11FT057.eop-nam11.prod.protection.outlook.com
- (2a01:111:f400:7eab::208) by SN1PR12CA0047.outlook.office365.com
- (2603:10b6:802:20::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2644.21 via Frontend
- Transport; Mon, 27 Jan 2020 11:28:40 +0000
-Authentication-Results: spf=none (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; kernel.org; dkim=none (message not signed)
- header.d=none;kernel.org; dmarc=permerror action=none header.from=amd.com;
-Received-SPF: None (protection.outlook.com: amd.com does not designate
- permitted sender hosts)
-Received: from SATLEXMB02.amd.com (165.204.84.17) by
- CO1NAM11FT057.mail.protection.outlook.com (10.13.174.205) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.20.2665.18 via Frontend Transport; Mon, 27 Jan 2020 11:28:40 +0000
-Received: from SATLEXMB03.amd.com (10.181.40.144) by SATLEXMB02.amd.com
- (10.181.40.143) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 27 Jan
- 2020 05:28:39 -0600
-Received: from SATLEXMB01.amd.com (10.181.40.142) by SATLEXMB03.amd.com
- (10.181.40.144) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 27 Jan
- 2020 05:28:39 -0600
-Received: from vishnu-All-Series.amd.com (10.180.168.240) by
- SATLEXMB01.amd.com (10.181.40.142) with Microsoft SMTP Server id 15.1.1713.5
- via Frontend Transport; Mon, 27 Jan 2020 05:28:35 -0600
-From: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
-To: 
-Date: Mon, 27 Jan 2020 16:56:03 +0530
-Message-ID: <1580124397-19842-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
-X-Mailer: git-send-email 2.7.4
-MIME-Version: 1.0
-X-EOPAttributedMessage: 0
-X-MS-Office365-Filtering-HT: Tenant
-X-Forefront-Antispam-Report: CIP:165.204.84.17; IPV:; CTRY:US; EFV:NLI;
- SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(346002)(376002)(396003)(136003)(428003)(189003)(199004)(4326008)(36756003)(26005)(186003)(8936002)(7696005)(8676002)(54906003)(81166006)(81156014)(5660300002)(109986005)(356004)(316002)(6666004)(86362001)(478600001)(70206006)(70586007)(336012)(2906002)(426003)(2616005)(266003);
- DIR:OUT; SFP:1101; SCL:1; SRVR:DM5PR12MB1468; H:SATLEXMB02.amd.com; FPR:;
- SPF:None; LANG:en; PTR:InfoDomainNonexistent; MX:1; A:1; 
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 32bfbfd8-d1d8-4068-da6a-08d7a31c0f3e
-X-MS-TrafficTypeDiagnostic: DM5PR12MB1468:
-X-Microsoft-Antispam-PRVS: <DM5PR12MB14686A13952F5D6164023029E70B0@DM5PR12MB1468.namprd12.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
-X-Forefront-PRVS: 02951C14DC
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 1o2bHrFbRLrf3gHL/mRLo7O7pY00Y7s4PKS26RXjFjDD/uxa+a6xEcZSxWYWR0ezPtVBtapfJZj4khr9FKMs7n26sfNuAJEH4T/+UnMLam//uUxrKb++06wyy9462VZ6gFH+3yTMparuC7iSReRAMGq0BhbPFYmVJg89+RupmZgZWtg50lUfPvB+8xE92kPpk9qCuOKbBcX9Sks7DKu1nrJvh2R3mVn72HB6pTIUc7mFeVIWi5FwTy75ipskKNkrs2ymqGyTDy+itN+7Drnd6M+VRsS+4O7U7DxYeqbA0s3gDzg2a5D68Kz1jB/klZIhjOXhuYXiHnamh/YIQISR7OTa7AEVKtBm1naMxSINNYC+zyf72VT50b5y2IC/LiSm+RCaFyK4SZIQA3+XGotN7LgMZL5tWTmFPbj8GLm1ppBnrumBFjpBw0snONw1EYoOl0Fo1D6V/g1m6Ued6WqkUC6aGDff8TkGSiWcMIOGbUQ=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jan 2020 11:28:40.4838 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32bfbfd8-d1d8-4068-da6a-08d7a31c0f3e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[SATLEXMB02.amd.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR12MB1468
-Cc: "moderated list:SOUND - SOC LAYER /
- DYNAMIC AUDIO POWER MANAGEM..." <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- open list <linux-kernel@vger.kernel.org>, YueHaibing <yuehaibing@huawei.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Ravulapati Vishnu
- vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>, broonie@kernel.org,
- Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com
-Subject: [alsa-devel] [PATCH] ASoC: amd: Fix for Subsequent Playback issue.
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10CA1F80085
+ for <alsa-devel@alsa-project.org>; Mon, 27 Jan 2020 13:13:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10CA1F80085
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 27 Jan 2020 04:13:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,369,1574150400"; d="scan'208";a="261029499"
+Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
+ by fmsmga002.fm.intel.com with ESMTP; 27 Jan 2020 04:13:01 -0800
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+To: alsa-devel@alsa-project.org
+Date: Mon, 27 Jan 2020 13:12:32 +0100
+Message-Id: <20200127121243.15813-1-cezary.rojewski@intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
+ broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] [PATCH v2 00/11] ASoC: SOF: Data probing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -137,54 +64,103 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If we play audio back to back, which kills one playback
-and immediately start another, we can hear clicks.
-This patch fixes the issue.
+This set of patches achieves few goals in order to enable data probing
+feature for audio DSP.
 
-Signed-off-by: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
----
- sound/soc/amd/raven/acp3x-pcm-dma.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+First, provide new and alter existing interfaces (page allocation,
+runtime flow adjustments) to make them compress friendly.
 
-diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
-index 5c3ec3c..aecc3c0 100644
---- a/sound/soc/amd/raven/acp3x-pcm-dma.c
-+++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
-@@ -349,13 +349,6 @@ static int acp3x_dma_close(struct snd_soc_component *component,
- 	component = snd_soc_rtdcom_lookup(prtd, DRV_NAME);
- 	adata = dev_get_drvdata(component->dev);
- 
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
--		adata->play_stream = NULL;
--		adata->i2ssp_play_stream = NULL;
--	} else {
--		adata->capture_stream = NULL;
--		adata->i2ssp_capture_stream = NULL;
--	}
- 
- 	/* Disable ACP irq, when the current stream is being closed and
- 	 * another stream is also not active.
-@@ -363,6 +356,13 @@ static int acp3x_dma_close(struct snd_soc_component *component,
- 	if (!adata->play_stream && !adata->capture_stream &&
- 		!adata->i2ssp_play_stream && !adata->i2ssp_capture_stream)
- 		rv_writel(0, adata->acp3x_base + mmACP_EXTERNAL_INTR_ENB);
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		adata->play_stream = NULL;
-+		adata->i2ssp_play_stream = NULL;
-+	} else {
-+		adata->capture_stream = NULL;
-+		adata->i2ssp_capture_stream = NULL;
-+	}
- 	return 0;
- }
- 
+For HDA part, work has been done to account for compress streams when
+servicing IRQs, setting up BDLs and assigning DMAs.
+
+Finally, the end goal which are the probe APIs and usage itself. Probes
+can be treated as endpoints which allow for data extraction from or
+injection to target module - a great ally when debugging problematic
+audio issues such as distortions, glitches or gaps.
+Compress streams are a weapon of choice here to provide a lightweight
+implementation.
+
+While all available IPCs have been defined, current implementation
+covers extraction only, with injection scheduled for a later date.
+
+Initial review and development of probes can be found under:
+https://github.com/thesofproject/linux/pull/1276
+
+with the hda-compress-enable set of patches being separated and
+reviewed on:
+https://github.com/thesofproject/linux/pull/1571
+
+Tested on CML-U with rt5682 i2s board.
+
+Changes in v2:
+- No changes to ALSA core and hda patches
+
+- Removed "ASoC: Intel: sof_rt5682: Add compress probe DAI links" from
+  the patchset list as requested by Pierre
+- updated copyright header for newly added files (dates)
+- probes over HDA no longer require SND_SOC_SOF_HDA_LINK enabled
+- renamed debugfs probe functions as requested by Pierre
+
+- probe IPC API has been updated to align with newest SOF FW & probe
+  debug app (struct_size macro has been enlisted to make the size
+  calculations transparent). This targets only "ASoC: SOF: Implement
+  Probe IPC API" patch
+
+Cezary Rojewski (11):
+  ALSA: hda: Allow for compress stream to hdac_ext_stream assignment
+  ALSA: hda: Prepare for compress stream support
+  ALSA: hda: Interrupt servicing and BDL setup for compress streams
+  ALSA: core: Expand DMA buffer information
+  ALSA: core: Implement compress page allocation and free routines
+  ASoC: SOF: Intel: Account for compress streams when servicing IRQs
+  ASoC: SOF: Implement Probe IPC API
+  ASoC: SOF: Generic probe compress operations
+  ASoC: SOF: Intel: Probe compress operations
+  ASoC: SOF: Provide probe debugfs support
+  ASoC: SOF: Intel: Add Probe compress CPU DAIs
+
+ include/sound/compress_driver.h    |  40 +++-
+ include/sound/hdaudio.h            |   2 +
+ include/sound/hdaudio_ext.h        |   2 +
+ include/sound/sof/header.h         |  11 ++
+ sound/core/compress_offload.c      |  42 +++++
+ sound/hda/ext/hdac_ext_stream.c    |  49 ++++-
+ sound/hda/hdac_controller.c        |   4 +-
+ sound/hda/hdac_stream.c            |  52 ++++--
+ sound/soc/sof/Kconfig              |   9 +
+ sound/soc/sof/Makefile             |   3 +-
+ sound/soc/sof/compress.c           | 139 ++++++++++++++
+ sound/soc/sof/compress.h           |  29 +++
+ sound/soc/sof/debug.c              | 208 +++++++++++++++++++++
+ sound/soc/sof/intel/Kconfig        |   9 +
+ sound/soc/sof/intel/Makefile       |   1 +
+ sound/soc/sof/intel/apl.c          |   9 +
+ sound/soc/sof/intel/cnl.c          |   9 +
+ sound/soc/sof/intel/hda-compress.c | 132 +++++++++++++
+ sound/soc/sof/intel/hda-dai.c      |  28 +++
+ sound/soc/sof/intel/hda-ipc.c      |   4 +-
+ sound/soc/sof/intel/hda-stream.c   |  26 ++-
+ sound/soc/sof/intel/hda.h          |  30 +++
+ sound/soc/sof/ops.h                |  43 +++++
+ sound/soc/sof/pcm.c                |  11 +-
+ sound/soc/sof/probe.c              | 285 +++++++++++++++++++++++++++++
+ sound/soc/sof/probe.h              |  85 +++++++++
+ sound/soc/sof/sof-priv.h           |  24 +++
+ 27 files changed, 1245 insertions(+), 41 deletions(-)
+ create mode 100644 sound/soc/sof/compress.c
+ create mode 100644 sound/soc/sof/compress.h
+ create mode 100644 sound/soc/sof/intel/hda-compress.c
+ create mode 100644 sound/soc/sof/probe.c
+ create mode 100644 sound/soc/sof/probe.h
+
 -- 
-2.7.4
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

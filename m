@@ -2,71 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 041BE14C166
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 21:07:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 25E9114C1E8
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 22:13:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7A23B1671;
-	Tue, 28 Jan 2020 21:06:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7A23B1671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 83362165D;
+	Tue, 28 Jan 2020 22:12:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83362165D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580242023;
-	bh=BFH4bP0Ue2SzdNs02/El+uvhgPd2ThWS89pBLP4MVXQ=;
+	s=default; t=1580246019;
+	bh=Sk5TgSYoFadu8YlhLj7hfSJA5/KcGnktk0o3ThR+/1M=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=MvmDfw/qj9IFf9/YfKMLR+pzfpDrV//x1HSNNwH2BnbXRKRrc99ZBlPX8nAKa70hU
-	 xP5qNWOJe0UzQ46AJJsBuuX2PgBctY4eODcqGgBnDhSVL0M+mScOoUfYppXqD3ml+h
-	 6JHi+QtWpx9PfdF2V6oF907ZAUkKjVAVc/CRDQ+w=
+	b=b6hHtqGKvTGxKQGy80QVqdlpOiPNU4uEKntMd+nu4EgkTqudAUsy3ks1Qgv27QUgR
+	 mPwZ9s/TFcG0APa+GNgp3zae3JZ7JQkv/jqLoyV3Wg6r/G2eCbDFDIXRjrfg++CUqh
+	 7X7UtSH3/yB5lkjwXrK8ma+r8OBRd+fz3DgRBotg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86784F800FF;
-	Tue, 28 Jan 2020 21:05:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 940BEF80082;
+	Tue, 28 Jan 2020 22:11:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 35C52F80150; Tue, 28 Jan 2020 21:05:15 +0100 (CET)
+ id A13B8F80150; Tue, 28 Jan 2020 22:11:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
  RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 698E6F80123
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 21:05:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 698E6F80123
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4E679F800FF
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 22:11:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4E679F800FF
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2020 11:40:07 -0800
-X-IronPort-AV: E=Sophos;i="5.70,375,1574150400"; d="scan'208";a="222212463"
-Received: from mwasko-mobl1.ger.corp.intel.com (HELO [10.252.50.227])
- ([10.252.50.227])
- by orsmga008-auth.jf.intel.com with ESMTP/TLS/AES256-SHA;
- 28 Jan 2020 11:40:04 -0800
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>, broonie@kernel.org,
- tiwai@suse.com
-References: <20200122181254.22801-1-cezary.rojewski@intel.com>
- <9246ee43-ffec-2b28-3a56-211f08797342@intel.com>
- <a30fffb3-5f6b-eaa4-1684-3f19d973c54f@linux.intel.com>
- <013c7d4b-c08f-f476-50fe-70ae22580277@linux.intel.com>
- <5516562e-9f0c-55c8-a193-b1a80a341392@linux.intel.com>
- <1b8a4612-338e-0d75-57bb-6deb4055f45e@linux.intel.com>
- <803a0824-ed50-7b7c-ef15-c98cafef77e2@linux.intel.com>
-From: "Wasko, Michal" <michal.wasko@linux.intel.com>
-Message-ID: <b28853ed-f51b-a5a1-9ec7-d34bb6eea12e@linux.intel.com>
-Date: Tue, 28 Jan 2020 20:40:02 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Jan 2020 13:11:39 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,375,1574150400"; d="scan'208";a="261576935"
+Received: from lhan5-mobl.amr.corp.intel.com (HELO [10.254.38.242])
+ ([10.254.38.242])
+ by fmsmga002.fm.intel.com with ESMTP; 28 Jan 2020 13:11:39 -0800
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+References: <20200128104356.16570-1-cezary.rojewski@intel.com>
+ <7817f679-fb6f-ad36-aeee-5ee62034a735@linux.intel.com>
+ <462e700e-96e8-8941-5de1-fd8ef5f6c18f@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <450d7f9a-239a-0251-a58f-60591cc92736@linux.intel.com>
+Date: Tue, 28 Jan 2020 15:11:38 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <803a0824-ed50-7b7c-ef15-c98cafef77e2@linux.intel.com>
+In-Reply-To: <462e700e-96e8-8941-5de1-fd8ef5f6c18f@intel.com>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: skl_hda_dsp_common: Fix
- global-out-of-bounds bug
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com
+Subject: Re: [alsa-devel] [PATCH v3 00/11] ASoC: SOF: Data probing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,65 +73,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Ck9uIDEvMjcvMjAyMCA0OjMwIFBNLCBQaWVycmUtTG91aXMgQm9zc2FydCB3cm90ZToKPgo+Pj4+
-IEFzIGl0IHdhcyBhZ3JlZWQgd2l0aCB5b3UgUGllcnJlIHRoZSBTa3lsYWtlIGRyaXZlciB3aWxs
-IGJlIGtlcHQgCj4+Pj4gdW5kZXIgbWFpbnRlbmFuY2UgYW5kIHRoZSBwcm9wb3NlZCBjaGFuZ2Vz
-IGFyZSBhYm91dCB0byBrZWVwIAo+Pj4+IGhkYS1kc3AgY29uZmlndXJhdGlvbiBmdW5jdGlvbmFs
-IGZvciBhbnlvbmUgd2hvIHdvdWxkIGxpa2UgdG8gdXNlIAo+Pj4+IGl0LiBMaW51cyBsYXB0b3Ag
-aXNzdWUgaXMgYWN0dWFsbHkgb25lIG9mIHRoZSBnb29kIHJlYXNvbnMgd2h5IHdlIAo+Pj4+IHdv
-dWxkIGxpa2UgdG8ga2VlcCBoZGEtZHNwIGNvbmZpZ3VyYXRpb24gZnVuY3Rpb25hbAo+Pj4KPj4+
-IFdlIGhhdmUgdG8gYWdyZWUgb24gd2hhdCAnbWFpbnRhaW5lZCcgbWVhbnMgdGhlbi4KPj4+Cj4+
-PiBJIGRvbid0IG1pbmQgbGVhdmluZyB0aGUgU2t5bGFrZSBkcml2ZXIgaW4gdGhlIGtlcm5lbCBh
-bmQgbGV0dGluZyAKPj4+IHBlb3BsZSB3aG8gaGF2ZSBhY2Nlc3MgdG8gSW50ZWwgc3VwcG9ydCB1
-c2UgaXQuIENlemFyeSBpcyBsaXN0ZWQgYXMgCj4+PiB0aGUgbWFpbnRhaW5lciBhcyBJIHN1Z2dl
-c3RlZCBpdCwgYW5kIHRoaXMgcGF0Y2ggcHJvdmlkZXMgYW4gCj4+PiBuZWNlc3NhcnkgZml4Lgo+
-Pj4KPj4+IEJ1dCBkb2VzIHRoaXMgbWVhbiB0aGlzIEhkYXVkaW8gb3B0aW9uIGlzIHVzYWJsZSBi
-eSBkaXN0cmlidXRpb25zIAo+Pj4gYW5kIExpbnV4IHVzZXJzIHdobyBkb24ndCBoYXZlIGFjY2Vz
-cyB0byBJbnRlbCBzdXBwb3J0Pwo+Pj4KPj4+IEkgd2lsbCBhc3NlcnQgdGhhdCBpdCdzIG5vdCwg
-YmFzZWQgb24gbXkgb3duIGV4cGVyaWVuY2Ugb25seSAyIHdlZWtzIAo+Pj4gYWdvLiBJIHRyaWVk
-IHRvIG1ha2UgYXVkaW8gd29yayBvbiBhIEtCTCBOVUMgYW5kIGhhZCB0byBjb21tZW50IAo+Pj4g
-c3R1ZmYgb3V0IGR1ZSB0byBhbiBvYnNvbGV0ZSB0b3BvbG9neS4gc2VlIAo+Pj4gaHR0cHM6Ly9n
-aXRodWIuY29tL3RoZXNvZnByb2plY3QvbGludXgvcHVsbC8xNjY3I2lzc3VlY29tbWVudC01NzIz
-MTIxNTcKPj4gVGhhdCBpcyBleGFjdGx5IHRoZSByZWFzb24gd2h5IHdlIHdvdWxkIGxpa2UgdG8g
-dXBkYXRlIHRoZSBTa3lsYWtlIAo+PiBkcml2ZXIgdXBzdHJlYW0gY29kZSBhbmQgaXQgY29uZmln
-dXJhdGlvbiBmaWxlcyBzbyB0aGF0IGl0IHdpbGwgYmUgCj4+IHVzYWJsZSBieSB0aGUgY29tbXVu
-aXR5IGFuZCBub3Qgb25seSBrZWVwIGl0IGZ1bmN0aW9uYWwgaW50ZXJuYWxseS4gCj4+IEFzIGl0
-IHdhcyBjbGFyaWZpZWQgYnkgQ2V6YXJ5LCB3ZSB3b3VsZCBsaWtlIHRvIG1ha2UgYSBtaW5pbXVt
-IG51bWJlciAKPj4gb2YgY2hhbmdlcyB0aGF0IGFyZSByZXF1aXJlZC4KPj4KPj4gSXMgdGhlcmUg
-UGllcnJlIGFueSBub24tdGVjaG5pY2FsIHJlYXNvbiB3aHkgd2Ugc2hvdWxkIG5vdCBmaXggdGhl
-IAo+PiBTa3lsYWtlIGRyaXZlciBjb2RlIG9uIHRoZSB1cHN0cmVhbT8KPgo+IE15IGNvbW1lbnQg
-d2FzIG9ubHkgcmVnYXJkaW5nIHN1cHBvcnQgb2YgSERhdWRpbyBjb2RlY3Mgdy8gdGhlIFNreWxh
-a2UgCj4gZHJpdmVyLiBJIHBlcnNvbmFsbHkgZ2F2ZSB1cCB0cnlpbmcgdG8gc3VwcG9ydCB0aGlz
-IG9wdGlvbiBhZnRlciAxLjUgCj4geXJzIG9mIHJlY3VycmluZyBpc3N1ZXMuIEl0IHdpbGwgdGFr
-ZSBhIGxvdCBtb3JlIHRoYW4gbWluaW1hbCBwYXRjaGVzIAo+IEkgYW0gYWZyYWlkIGlmIHlvdSB3
-YW50IHRoaXMgb3B0aW9uIHRvIHdvcmsgYWNyb3NzIGFsbCBrbm93biAKPiBjb21tZXJjaWFsIGRl
-dmljZXMsIHlvdSB3aWxsIGhhdmUgdG8gYWRkcmVzcyByYWNlIGNvbmRpdGlvbnMgc3VjaCBhcyAK
-PiB0aGUgcHJvYmUgZmFpbGluZyB3aGVuIERSTSBpcyBidWlsdCBhcyBhIG1vZHVsZSwgb3Igb24g
-c3BlY2lmaWMgCj4gU0tML0FQTCBkZXZpY2VzLgo+Cj4gSWYgeW91IGFyZSBzaWduaW5nLXVwIHRv
-IGRvIHRoaXMgd29yayBJIGhhdmUgbm8gb2JqZWN0aW9ucywgYW5kIGlmIGluIAo+IGFkZGl0aW9u
-IHlvdSBhZGQgc3VwcG9ydCBmb3IgRE1JQ3MgeW91J2Qgc29sdmUgZXhpc3RpbmcgaXNzdWVzIHdp
-dGggCj4gS0JML0FtYmVyTGFrZSBmb3Igd2hpY2ggdXNlcnMgYXJlIGxlZnQgd2l0aG91dCBhIHNv
-bHV0aW9uLgo+Cj4gSnVzdCBiZSBhd2FyZSBvZiB3aGF0IHlvdSBhcmUgc2lnbmluZyB1cCBmb3Is
-IGl0J3Mgbm90IGEgJ21pbmltYWwnIAo+IGVmZm9ydC4KPgpUaGUgcHJvcG9zZWQgcGF0Y2gtc2V0
-IGlzIHRvIHJlc3RvcmUgdGhlIFNreWxha2UgZHJpdmVyIGZ1bmN0aW9uYWxpdHkgCmZvciBTa3ls
-YWtlIGJhc2UgdGFyZ2V0cy4gSSBjYWxsZWQgaXQg4oCYbWluaW1hbOKAmSBiZWNhdXNlIGxhc3Qg
-dGltZSB3aGVuIAp3ZSBoYXZlIHRyaWVkIHRvIHVwc3RyZWFtIHRoZSB3aWRlIHJhbmdlIG9mIHBh
-dGNoLXNldHMgd2l0aCBjb2RlIApyZWZhY3RvcnMgaXQgd2FzIHJlamVjdGVkIGJlY2F1c2Ugb2Yg
-4oCYbWFpbnRlbmFuY2XigJkgbWFyayBvbiB0aGUgZHJpdmVyLgoKQXMgd2UgZGlzY3Vzc2VkIG9u
-IHRoZSBjYWxsIHdlIHdpbGwgdGFrZSBhIGNsb3NlciBsb29rIG9uIHRoZSBIVyBib2FyZHMgCnRo
-YXQgY29udGludWUgdG8gcmVwcm9kdWNlIHRoZSByYWNlIGNvbmRpdGlvbiBpc3N1ZS4gSG93ZXZl
-ciB0aGUgZml4IG9uIAp0aGF0IHNwZWNpZmljIHByb2JsZW0gd2lsbCBiZSBhZGRyZXNzZWQgYXMg
-YSBzZXBhcmF0ZSBwYXRjaC1zZXQuCkFkZGl0aW9uYWxseSB3ZSB3aWxsIHdvcmsgb24gcHJvdmlk
-aW5nIHJlZmVyZW5jZSB0b3BvbG9neSBjb25maWd1cmF0aW9uIApmaWxlcyB0aGF0IHN1cHBvcnQg
-RE1JQ3MuCgpJIGNhbuKAmXQgY29tbWl0IGFueSB0aW1lZnJhbWUgYnV0IGFzIGxvbmcgYXMgd2Ug
-d2lsbCBiZSBtYWludGFpbmVycyBhbmQgCnRoZSBjaGFuZ2VzIHdpbGwgYmUgd2VsY29tZSBvbiB0
-aGUgdXBzdHJlYW0gd2Ugd2lsbCB3b3JrIG9uIGltcHJvdmluZyAKdGhlIGZ1bmN0aW9uYWxpdHkg
-b2YgdGhlIFNreWxha2UgZHJpdmVyLgoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXBy
-b2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYWxzYS1kZXZlbAo=
+
+>> I am fine with this update, but I just thought of an obscure case and 
+>> couldn't find the answer on my own.
+>>
+>> These probe points are enabled/disabled with direct IPC calls. Once 
+>> those routines have been called, I don't see any context maintained by 
+>> the driver (other than the stream tag for the extractor).
+> 
+> These do not need to be maintained by the driver at all, it's FW's job 
+> actually. Notice the existence of _INFO getters for probe_points and 
+> dmas. FW caches all the necessary info for us and when required, host 
+> can request for it via IPCs.
+
+D'oh. That's a major disconnect I am afraid.
+
+When the the PCI device enters D3 on APL+, the power rails are turned 
+off and the SOF firmware does not save any context. On D0 resume, the 
+power rails are turned back on, firmware is downloaded again, and 
+ALSA/ASoC/topology cores restore the context with a set of IPCs.
+
+The behavior you describe might be relevant for previous versions of the 
+closed-source firmware but not for SOF as of today. The 
+firmware-initiated context save/restore just does not exist.
+
+I also wonder if a firmware-only solution would work, the DMA stream 
+tags are allocated on the host side, so on resume you could have a 
+coherency issue with possibly mismatches.
+
+> Driver makes use of such operation during sof_probe_compr_free(). Before 
+> _probe_deinit() is called, all the probe_points should be disconnected 
+> and all the dmas detached. Since this patchset addresses extraction-only 
+> (from the runtime point of view), the later is ignored.
+> 
+>>
+>> So here's my question: what happens if there is a pm_runtime or system 
+>> suspend after playing with debugfs to configure those probes? Would 
+>> all context be lost and the user needs to re-enable all probes?
+>>
+>> Also what happens if there is a system suspend while an extractor is 
+>> opened, would it be restored? I imagine a pm_runtime suspend is not 
+>> possible since the device is active then.
+
+> As stated, there is no cache on the host side, caching is left up to FW 
+> alone. Debugfs files act only as a ipc-proxies. As probes require device 
+> to be up and running, suspend is not possible. After suspend, I believe 
+> FW context would be lost so all the actions had to be repeated.
+> 
+> I'd suggest consulting SOF FW team in regard to probes design if you 
+> want to pursue the suspend case - whether it is achievable or not.
+
+That team is in your building :-)
+
+suspend/resume support is a requirement for all SOF capabilities - no 
+exceptions. At minimum, you would want to do a pm_runtime_get_sync() to 
+prevent runtime_pm from kicking-in while probes are enabled.
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

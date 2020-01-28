@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 686CA14B307
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:51:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAB3F14B309
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:51:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 085DF1665;
-	Tue, 28 Jan 2020 11:50:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 085DF1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 62A64167D;
+	Tue, 28 Jan 2020 11:50:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 62A64167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580208667;
-	bh=R0gxYwXup/jFoQrgoY2SDqqpi/KjgAFsoSVRSpq92nI=;
+	s=default; t=1580208703;
+	bh=e0bUUhWx8l4rk4iWjbbfhBpcxR+X7TtamBS4fH+Wk2s=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YSDe7Yq8rZ4SYqnm7OIkeTrb/MOyGNGVGIPAnaFH9srLs+r6HN3dl7BCeEL0hFyhI
-	 8rVFwb92vUAel9zwtdMnWsYsfJRUYADq9s8Q/tnqQFKJRp5yYuDFgoOnoWhXnFALje
-	 l9fQKZUYDiCXO7PLDUyeuUV+hg4cJvqn7HOGicWA=
+	b=ISdh8ZdnjJplwGIZnM1dx93LvfoExFvlyVz+/mbWf1oc3GDK7t3xG6EhX0j2D/feZ
+	 d4pJeoXCstxMCMIwYdrRZzxkP/JSHkE8f/D9I/dFbZYq7Fd2qjRMcykldKy5a+Ibd/
+	 nGgeEC1PiENsGTg9wt4dRdQ/0up4qEg5dDJoqoLE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5D15DF802C4;
-	Tue, 28 Jan 2020 11:44:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6D64FF802DC;
+	Tue, 28 Jan 2020 11:44:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 17865F80299; Tue, 28 Jan 2020 11:44:30 +0100 (CET)
+ id 9A2CDF8029B; Tue, 28 Jan 2020 11:44:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
@@ -33,29 +33,29 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0AC9DF8027C
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:44:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0AC9DF8027C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 62835F8028A
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:44:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62835F8028A
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2020 02:44:22 -0800
+ 28 Jan 2020 02:44:24 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,373,1574150400"; d="scan'208";a="429292926"
+X-IronPort-AV: E=Sophos;i="5.70,373,1574150400"; d="scan'208";a="429292932"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga006.fm.intel.com with ESMTP; 28 Jan 2020 02:44:20 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 28 Jan 2020 02:44:22 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 28 Jan 2020 11:43:54 +0100
-Message-Id: <20200128104356.16570-10-cezary.rojewski@intel.com>
+Date: Tue, 28 Jan 2020 11:43:55 +0100
+Message-Id: <20200128104356.16570-11-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200128104356.16570-1-cezary.rojewski@intel.com>
 References: <20200128104356.16570-1-cezary.rojewski@intel.com>
 Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
  broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] [PATCH v3 09/11] ASoC: SOF: Intel: Probe compress
-	operations
+Subject: [alsa-devel] [PATCH v3 10/11] ASoC: SOF: Provide probe debugfs
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,279 +74,252 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add HDA handlers for soc_compr_ops and snd_compr_ops which cover probe
-related operations. Implementation supports both connection purposes.
-These merely define stream setups as core flow is covered by SOF
-compress core.
+Define debugfs subdirectory delegated for IPC communication with DSP.
+Input format: uint,uint,(...) which are later translated into DWORDS
+sequence and further into instances of struct of interest given the IPC
+type.
+
+For Extractor probes, following have been enabled:
+- PROBE_POINT_ADD (echo <..> probe_points)
+- PROBE_POINT_REMOVE (echo <..> probe_points_remove)
+- PROBE_POINT_INFO (cat probe_points)
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
 ---
 
 Changes in v2:
-- probes over HDA no longer require SND_SOC_SOF_HDA_LINK enabled
+- renamed debugfs probe functions as requested by Pierre
 
 
- sound/soc/sof/intel/Kconfig        |   9 ++
- sound/soc/sof/intel/Makefile       |   1 +
- sound/soc/sof/intel/apl.c          |   9 ++
- sound/soc/sof/intel/cnl.c          |   9 ++
- sound/soc/sof/intel/hda-compress.c | 132 +++++++++++++++++++++++++++++
- sound/soc/sof/intel/hda.h          |  24 ++++++
- 6 files changed, 184 insertions(+)
- create mode 100644 sound/soc/sof/intel/hda-compress.c
+ sound/soc/sof/debug.c | 208 ++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 208 insertions(+)
 
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 56a837d2cb95..3bc64dee7c39 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -305,6 +305,15 @@ config SND_SOC_SOF_HDA_AUDIO_CODEC
- 	  Say Y if you want to enable HDAudio codecs with SOF.
- 	  If unsure select "N".
+diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+index d2b3b99d3a20..d38ab59e9a98 100644
+--- a/sound/soc/sof/debug.c
++++ b/sound/soc/sof/debug.c
+@@ -17,6 +17,203 @@
+ #include "sof-priv.h"
+ #include "ops.h"
  
-+config SND_SOC_SOF_HDA_PROBES
-+	bool "SOF enable probes over HDA"
-+	depends on SND_SOC_SOF_DEBUG_PROBES
-+	help
-+	  This option enables the data probing for Intel(R).
-+		  Intel(R) Skylake and newer platforms.
-+	  Say Y if you want to enable probes.
-+	  If unsure, select "N".
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
++#include "probe.h"
 +
- config SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1
- 	bool "SOF enable DMI Link L1"
- 	help
-diff --git a/sound/soc/sof/intel/Makefile b/sound/soc/sof/intel/Makefile
-index b8f58e006e29..cee02a2e00f4 100644
---- a/sound/soc/sof/intel/Makefile
-+++ b/sound/soc/sof/intel/Makefile
-@@ -9,6 +9,7 @@ snd-sof-intel-hda-common-objs := hda.o hda-loader.o hda-stream.o hda-trace.o \
- 				 hda-dsp.o hda-ipc.o hda-ctrl.o hda-pcm.o \
- 				 hda-dai.o hda-bus.o \
- 				 apl.o cnl.o
-+snd-sof-intel-hda-common-$(CONFIG_SND_SOC_SOF_HDA_PROBES) += hda-compress.o
- 
- snd-sof-intel-hda-objs := hda-codec.o
- 
-diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index 2483b15699e7..02218d22e51f 100644
---- a/sound/soc/sof/intel/apl.c
-+++ b/sound/soc/sof/intel/apl.c
-@@ -73,6 +73,15 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
- 	.pcm_trigger	= hda_dsp_pcm_trigger,
- 	.pcm_pointer	= hda_dsp_pcm_pointer,
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
-+	/* probe callbacks */
-+	.probe_assign	= hda_probe_compr_assign,
-+	.probe_free	= hda_probe_compr_free,
-+	.probe_set_params	= hda_probe_compr_set_params,
-+	.probe_trigger	= hda_probe_compr_trigger,
-+	.probe_pointer	= hda_probe_compr_pointer,
-+#endif
-+
- 	/* firmware loading */
- 	.load_firmware = snd_sof_load_firmware_raw,
- 
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 9e2d8afe0535..74d07a7b5e34 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -259,6 +259,15 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
- 	.pcm_trigger	= hda_dsp_pcm_trigger,
- 	.pcm_pointer	= hda_dsp_pcm_pointer,
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
-+	/* probe callbacks */
-+	.probe_assign	= hda_probe_compr_assign,
-+	.probe_free	= hda_probe_compr_free,
-+	.probe_set_params	= hda_probe_compr_set_params,
-+	.probe_trigger	= hda_probe_compr_trigger,
-+	.probe_pointer	= hda_probe_compr_pointer,
-+#endif
-+
- 	/* firmware loading */
- 	.load_firmware = snd_sof_load_firmware_raw,
- 
-diff --git a/sound/soc/sof/intel/hda-compress.c b/sound/soc/sof/intel/hda-compress.c
-new file mode 100644
-index 000000000000..da7de867d0af
---- /dev/null
-+++ b/sound/soc/sof/intel/hda-compress.c
-@@ -0,0 +1,132 @@
-+// SPDX-License-Identifier: (GPL-2.0 OR BSD-3-Clause)
-+//
-+// This file is provided under a dual BSD/GPLv2 license.  When using or
-+// redistributing this file, you may do so under either license.
-+//
-+// Copyright(c) 2019-2020 Intel Corporation. All rights reserved.
-+//
-+// Author: Cezary Rojewski <cezary.rojewski@intel.com>
-+//
-+
-+#include <sound/hdaudio_ext.h>
-+#include <sound/soc.h>
-+#include "../sof-priv.h"
-+#include "hda.h"
-+
-+static inline struct hdac_ext_stream *
-+hda_compr_get_stream(struct snd_compr_stream *cstream)
++/**
++ * strsplit_u32 - Split string into sequence of u32 tokens
++ * @buf:	String to split into tokens.
++ * @delim:	String containing delimiter characters.
++ * @tkns:	Returned u32 sequence pointer.
++ * @num_tkns:	Returned number of tokens obtained.
++ */
++static int
++strsplit_u32(char **buf, const char *delim, u32 **tkns, size_t *num_tkns)
 +{
-+	return cstream->runtime->private_data;
-+}
++	char *s;
++	u32 *data, *tmp;
++	size_t count = 0;
++	size_t cap = 32;
++	int ret = 0;
 +
-+int hda_probe_compr_assign(struct snd_sof_dev *sdev,
-+			   struct snd_compr_stream *cstream,
-+			   struct snd_soc_dai *dai)
-+{
-+	struct hdac_ext_stream *stream;
-+	struct hdac_bus *bus = sof_to_bus(sdev);
++	*tkns = NULL;
++	*num_tkns = 0;
++	data = kcalloc(cap, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
 +
-+	stream = snd_hdac_ext_cstream_assign(bus, cstream);
-+	if (!stream)
-+		return -EBUSY;
-+
-+	hdac_stream(stream)->curr_pos = 0;
-+	cstream->runtime->private_data = stream;
-+
-+	return hdac_stream(stream)->stream_tag;
-+}
-+
-+int hda_probe_compr_free(struct snd_sof_dev *sdev,
-+			 struct snd_compr_stream *cstream,
-+			 struct snd_soc_dai *dai)
-+{
-+	struct hdac_ext_stream *stream = hda_compr_get_stream(cstream);
-+
-+	snd_hdac_stream_cleanup(hdac_stream(stream));
-+	hdac_stream(stream)->prepared = 0;
-+	snd_hdac_ext_stream_release(stream, HDAC_EXT_STREAM_TYPE_HOST);
-+
-+	return 0;
-+}
-+
-+int hda_probe_compr_set_params(struct snd_sof_dev *sdev,
-+			       struct snd_compr_stream *cstream,
-+			       struct snd_compr_params *params,
-+			       struct snd_soc_dai *dai)
-+{
-+	struct hdac_ext_stream *stream = hda_compr_get_stream(cstream);
-+	unsigned int format_val;
-+	int bps, ret;
-+	/* compr params do not store bit depth, default to S32_LE */
-+	snd_pcm_format_t format = SNDRV_PCM_FORMAT_S32_LE;
-+
-+	hdac_stream(stream)->bufsize = 0;
-+	hdac_stream(stream)->period_bytes = 0;
-+	hdac_stream(stream)->format_val = 0;
-+
-+	bps = snd_pcm_format_physical_width(format);
-+	if (bps < 0)
-+		return bps;
-+	format_val = snd_hdac_calc_stream_format(params->codec.sample_rate,
-+			params->codec.ch_out, format, bps, 0);
-+	ret = snd_hdac_stream_set_params(hdac_stream(stream), format_val);
-+	if (ret < 0)
-+		return ret;
-+	ret = snd_hdac_stream_setup(hdac_stream(stream));
-+	if (ret < 0)
-+		return ret;
-+
-+	hdac_stream(stream)->prepared = 1;
-+
-+	return 0;
-+}
-+
-+int hda_probe_compr_trigger(struct snd_sof_dev *sdev,
-+			    struct snd_compr_stream *cstream, int cmd,
-+			    struct snd_soc_dai *dai)
-+{
-+	struct hdac_ext_stream *stream = hda_compr_get_stream(cstream);
-+	struct hdac_bus *bus = sof_to_bus(sdev);
-+	unsigned long cookie;
-+
-+	if (!hdac_stream(stream)->prepared)
-+		return -EPIPE;
-+
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+		spin_lock_irqsave(&bus->reg_lock, cookie);
-+		snd_hdac_stream_start(hdac_stream(stream), true);
-+		spin_unlock_irqrestore(&bus->reg_lock, cookie);
-+		break;
-+
-+	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+	case SNDRV_PCM_TRIGGER_SUSPEND:
-+	case SNDRV_PCM_TRIGGER_STOP:
-+		spin_lock_irqsave(&bus->reg_lock, cookie);
-+		snd_hdac_stream_stop(hdac_stream(stream));
-+		spin_unlock_irqrestore(&bus->reg_lock, cookie);
-+		break;
-+
-+	default:
-+		return -EINVAL;
++	while ((s = strsep(buf, delim)) != NULL) {
++		ret = kstrtouint(s, 0, data + count);
++		if (ret)
++			goto exit;
++		if (++count >= cap) {
++			cap *= 2;
++			tmp = krealloc(data, cap * sizeof(*data), GFP_KERNEL);
++			if (!tmp) {
++				ret = -ENOMEM;
++				goto exit;
++			}
++			data = tmp;
++		}
 +	}
 +
-+	return 0;
++	if (!count)
++		goto exit;
++	*tkns = kmemdup(data, count * sizeof(*data), GFP_KERNEL);
++	if (*tkns == NULL) {
++		ret = -ENOMEM;
++		goto exit;
++	}
++	*num_tkns = count;
++
++exit:
++	kfree(data);
++	return ret;
 +}
 +
-+int hda_probe_compr_pointer(struct snd_sof_dev *sdev,
-+			    struct snd_compr_stream *cstream,
-+			    struct snd_compr_tstamp *tstamp,
-+			    struct snd_soc_dai *dai)
++static int tokenize_input(const char __user *from, size_t count,
++		loff_t *ppos, u32 **tkns, size_t *num_tkns)
 +{
-+	struct hdac_ext_stream *stream = hda_compr_get_stream(cstream);
-+	struct snd_soc_pcm_stream *pstream;
++	char *buf;
++	int ret;
 +
-+	pstream = &dai->driver->capture;
-+	tstamp->copied_total = hdac_stream(stream)->curr_pos;
-+	tstamp->sampling_rate = snd_pcm_rate_bit_to_rate(pstream->rates);
++	buf = kmalloc(count + 1, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	ret = simple_write_to_buffer(buf, count, ppos, from, count);
++	if (ret != count) {
++		ret = ret >= 0 ? -EIO : ret;
++		goto exit;
++	}
++
++	buf[count] = '\0';
++	ret = strsplit_u32((char **)&buf, ",", tkns, num_tkns);
++exit:
++	kfree(buf);
++	return ret;
++}
++
++static ssize_t probe_points_read(struct file *file,
++		char __user *to, size_t count, loff_t *ppos)
++{
++	struct snd_sof_dfsentry *dfse = file->private_data;
++	struct sof_probe_point_desc *desc;
++	size_t num_desc, len = 0;
++	char *buf;
++	int i, ret;
++
++	buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
++	if (!buf)
++		return -ENOMEM;
++
++	ret = sof_ipc_probe_points_info(dfse->sdev, &desc, &num_desc);
++	if (ret < 0)
++		goto exit;
++
++	for (i = 0; i < num_desc; i++) {
++		ret = snprintf(buf + len, PAGE_SIZE - len,
++			"Id: %#010x  Purpose: %d  Node id: %#x\n",
++			desc[i].buffer_id, desc[i].purpose, desc[i].stream_tag);
++		if (ret < 0)
++			goto free_desc;
++		len += ret;
++	}
++
++	ret = simple_read_from_buffer(to, count, ppos, buf, len);
++free_desc:
++	kfree(desc);
++exit:
++	kfree(buf);
++	return ret;
++}
++
++static ssize_t probe_points_write(struct file *file,
++		const char __user *from, size_t count, loff_t *ppos)
++{
++	struct snd_sof_dfsentry *dfse = file->private_data;
++	struct sof_probe_point_desc *desc;
++	size_t num_tkns, bytes;
++	u32 *tkns;
++	int ret;
++
++	ret = tokenize_input(from, count, ppos, &tkns, &num_tkns);
++	if (ret < 0)
++		return ret;
++	bytes = sizeof(*tkns) * num_tkns;
++	if (!num_tkns || (bytes % sizeof(*desc))) {
++		ret = -EINVAL;
++		goto exit;
++	}
++
++	desc = (struct sof_probe_point_desc *)tkns;
++	ret = sof_ipc_probe_points_add(dfse->sdev,
++			desc, bytes / sizeof(*desc));
++	if (!ret)
++		ret = count;
++exit:
++	kfree(tkns);
++	return ret;
++}
++
++static const struct file_operations probe_points_fops = {
++	.open = simple_open,
++	.read = probe_points_read,
++	.write = probe_points_write,
++	.llseek = default_llseek,
++};
++
++static ssize_t probe_points_remove_write(struct file *file,
++		const char __user *from, size_t count, loff_t *ppos)
++{
++	struct snd_sof_dfsentry *dfse = file->private_data;
++	size_t num_tkns;
++	u32 *tkns;
++	int ret;
++
++	ret = tokenize_input(from, count, ppos, &tkns, &num_tkns);
++	if (ret < 0)
++		return ret;
++	if (!num_tkns) {
++		ret = -EINVAL;
++		goto exit;
++	}
++
++	ret = sof_ipc_probe_points_remove(dfse->sdev, tkns, num_tkns);
++	if (!ret)
++		ret = count;
++exit:
++	kfree(tkns);
++	return ret;
++}
++
++static const struct file_operations probe_points_remove_fops = {
++	.open = simple_open,
++	.write = probe_points_remove_write,
++	.llseek = default_llseek,
++};
++
++static int snd_sof_debugfs_probe_item(struct snd_sof_dev *sdev,
++				 const char *name, mode_t mode,
++				 const struct file_operations *fops)
++{
++	struct snd_sof_dfsentry *dfse;
++
++	dfse = devm_kzalloc(sdev->dev, sizeof(*dfse), GFP_KERNEL);
++	if (!dfse)
++		return -ENOMEM;
++
++	dfse->type = SOF_DFSENTRY_TYPE_BUF;
++	dfse->sdev = sdev;
++
++	debugfs_create_file(name, mode, sdev->debugfs_root, dfse, fops);
++	/* add to dfsentry list */
++	list_add(&dfse->list, &sdev->dfsentry_list);
 +
 +	return 0;
 +}
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index a4d030bfeee1..80aaf4172e34 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -11,6 +11,7 @@
- #ifndef __SOF_INTEL_HDA_H
- #define __SOF_INTEL_HDA_H
- 
-+#include <sound/compress_driver.h>
- #include <sound/hda_codec.h>
- #include <sound/hdaudio_ext.h>
- #include "shim.h"
-@@ -533,6 +534,29 @@ int hda_ipc_pcm_params(struct snd_sof_dev *sdev,
- 		       struct snd_pcm_substream *substream,
- 		       const struct sof_ipc_pcm_params_reply *reply);
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
-+/*
-+ * Probe Compress Operations.
-+ */
-+int hda_probe_compr_assign(struct snd_sof_dev *sdev,
-+			   struct snd_compr_stream *cstream,
-+			   struct snd_soc_dai *dai);
-+int hda_probe_compr_free(struct snd_sof_dev *sdev,
-+			 struct snd_compr_stream *cstream,
-+			 struct snd_soc_dai *dai);
-+int hda_probe_compr_set_params(struct snd_sof_dev *sdev,
-+			       struct snd_compr_stream *cstream,
-+			       struct snd_compr_params *params,
-+			       struct snd_soc_dai *dai);
-+int hda_probe_compr_trigger(struct snd_sof_dev *sdev,
-+			    struct snd_compr_stream *cstream, int cmd,
-+			    struct snd_soc_dai *dai);
-+int hda_probe_compr_pointer(struct snd_sof_dev *sdev,
-+			    struct snd_compr_stream *cstream,
-+			    struct snd_compr_tstamp *tstamp,
-+			    struct snd_soc_dai *dai);
 +#endif
 +
- /*
-  * DSP IPC Operations.
-  */
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST)
+ #define MAX_IPC_FLOOD_DURATION_MS 1000
+ #define MAX_IPC_FLOOD_COUNT 10000
+@@ -436,6 +633,17 @@ int snd_sof_dbg_init(struct snd_sof_dev *sdev)
+ 			return err;
+ 	}
+ 
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
++	err = snd_sof_debugfs_probe_item(sdev, "probe_points",
++			0644, &probe_points_fops);
++	if (err < 0)
++		return err;
++	err = snd_sof_debugfs_probe_item(sdev, "probe_points_remove",
++			0200, &probe_points_remove_fops);
++	if (err < 0)
++		return err;
++#endif
++
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_IPC_FLOOD_TEST)
+ 	/* create read-write ipc_flood_count debugfs entry */
+ 	err = snd_sof_debugfs_buf_item(sdev, NULL, 0,
 -- 
 2.17.1
 

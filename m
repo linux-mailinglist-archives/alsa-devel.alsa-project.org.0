@@ -2,88 +2,76 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4493E14B312
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:54:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A8EB14B315
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:54:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E658F167A;
-	Tue, 28 Jan 2020 11:53:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E658F167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D5DF167C;
+	Tue, 28 Jan 2020 11:53:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D5DF167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580208852;
-	bh=VtYw28CQBsprO1rps+szL8/MrZwP3JXSmoQnmWAlE/I=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580208889;
+	bh=9r+N9j6Uh5HIT9QZzlnmyWiMEO8+p0YA2cyHJko35iA=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rgnH9VuGtyUKOkRim+u5Px+LSqCfiaoBqqw7o/aLd7Yhfi2CRXbOrON1QkvWWgI/F
-	 UF/HyTSpFQqzHOSedM0asdMMyTUAWbq1PX231AcuUFVlhhHK3HJ0kGmSr67LvKWK2d
-	 6fCuNEwl4eoFIwvhngyNvCng5L4WKnZxHcduEF/E=
+	b=snQ8kA9XWrm6zaJP2ajE4t3/rpxLFSETXCTfd38IRHIs03MSsgBN/73w+G0zZrYmZ
+	 /VqdXuDmWPJFWfXcGFmokbIhl51ptVkDUw1ms3wTR196cu3YqElKTFmxIe0fLptkJ7
+	 fvhZNtf8DCZ0gUDpIA77lefatZR2y7irkCkhqho0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6A13FF8027B;
-	Tue, 28 Jan 2020 11:50:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 807B8F8027D;
+	Tue, 28 Jan 2020 11:50:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BDCAF8027B; Tue, 28 Jan 2020 11:50:03 +0100 (CET)
+ id 38330F8028B; Tue, 28 Jan 2020 11:50:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
  version=3.4.0
-Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
- [216.228.121.64])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 57665F8027D
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:50:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57665F8027D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="E8Xuor/X"
+Received: from localhost (unknown [223.226.101.206])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B2A00F80274
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:49:59 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B2A00F80274
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="GGRf+pJA"
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e3011c20000>; Tue, 28 Jan 2020 02:49:38 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Tue, 28 Jan 2020 02:49:57 -0800
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Tue, 28 Jan 2020 02:49:57 -0800
-Received: from [10.24.44.92] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 28 Jan
- 2020 10:49:52 +0000
-To: <perex@perex.cz>, <tiwai@suse.com>, <robh+dt@kernel.org>
-References: <1579530198-13431-1-git-send-email-spujar@nvidia.com>
-From: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <81db77b5-a65a-eafe-d42d-947c38ea1d3c@nvidia.com>
-Date: Tue, 28 Jan 2020 16:19:49 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by mail.kernel.org (Postfix) with ESMTPSA id 02E9A24681;
+ Tue, 28 Jan 2020 10:50:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1580208643;
+ bh=xn/+wGx2wdvNYeHfEvNeO9WqRTrsPri3ACJFwmTconE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=E8Xuor/XyPCcJ/eHtBuGVcURbPZfWcNDdBL71eqV6irDMNC+JnkPU37rKtXRpzmC+
+ YZXjADJoa564vYuXQQ0ywV++HJOWuoWtvX/HHgl0bYwqIitAf6iloWvd1Wgxy6qVQf
+ MmUBL3o691pKPKp857GVAyujlSeuqUTkEXYhXcpA=
+Date: Tue, 28 Jan 2020 16:20:36 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20200128105036.GO2841@vkoul-mobl>
+References: <20200114060959.GA2818@vkoul-mobl>
+ <6635bf0b-c20a-7561-bcbf-4a480a077ae4@linux.intel.com>
+ <20200118071257.GY2818@vkoul-mobl>
+ <73907607-0763-576d-b24e-4773dfb15f0b@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <1579530198-13431-1-git-send-email-spujar@nvidia.com>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-GB
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1580208578; bh=YJZpPWHErsEBxHrNnw+7ltmiDCP3p5OqwD9FoVMZl8s=;
- h=X-PGP-Universal:CC:Subject:To:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Transfer-Encoding:
- Content-Language;
- b=GGRf+pJA/37DUqeFZZ+QEJAPVLUqv0jNTBrKfmNf2YcNL+Plv90d/EUA2GyQ0WlkJ
- 2gBm2anH62Us1wy83XjvFWA3paGGD6+vvwTYy3ob0Z3lDvUzYXJgpi76hGZdstJLNY
- TlKFdvAWxlEzRTniUUxcuCSqS5zxSpeb8YyacEN/j5YP6An8on6/mGvET9KigdUUuP
- q4BJMP7gjbjFaBCIZpzBYvrVmW7vz50OVO0ESrYLWAa7y/spVPoDWQEnIyTNI5Kj2U
- SWRXxbY3aplmFUi1+S/Q68oq281voufJaXEz3W7MYJgp4ADF6IIawhM3N3zf5eXnld
- gn9sOBGfTPjnA==
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- atalambedu@nvidia.com, linux-kernel@vger.kernel.org, spujar@nvidia.com,
- lgirdwood@gmail.com, jonathanh@nvidia.com, viswanathl@nvidia.com,
- sharadg@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org, rlokhande@nvidia.com, mkumard@nvidia.com,
- dramesh@nvidia.com
-Subject: Re: [alsa-devel] [PATCH 0/9] add ASoC components for AHUB
+Content-Disposition: inline
+In-Reply-To: <73907607-0763-576d-b24e-4773dfb15f0b@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH v5 09/17] soundwire: intel: remove platform
+ devices and use 'Master Devices' instead
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,109 +84,94 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Pierre,
+
+I took some time to look into the overall code and how this is fitting
+into big picture and help recommend way forward.
+
+On 21-01-20, 11:31, Pierre-Louis Bossart wrote:
+> 
+> 
+> > A rename away from probe will certainly be very helpful as
+> > you would also agree that terms 'probe' and 'remove' have a very
+> > special meaning in kernel, so let us avoid these
+> 
+> ok, so would the following be ok with you?
+> 
+> /**
+>  * struct sdw_md_driver - SoundWire 'Master Device' driver
+>  *
+>  * @init: allocations and initializations (hardware may not be enabled yet)
+>  * @startup: initialization handled after the hardware is enabled, all
+>  * clock/power dependencies are available
+>  * @shutdown: cleanups before hardware is disabled (optional)
+>  * @exit: free all remaining resources
+>  * @autonomous_clock_stop_enable: enable/disable driver control while
+>  * in clock-stop mode, typically in always-on/D0ix modes. When the driver
+>  * yields control, another entity in the system (typically firmware
+>  * running on an always-on microprocessor) is responsible to tracking
+>  * Slave-initiated wakes
+>  */
+> struct sdw_md_driver {
+> 	int (*init)(struct sdw_master_device *md, void *link_ctx);
+> 	int (*startup)(struct sdw_master_device *md);
+> 	int (*shutdown)(struct sdw_master_device *md);
+> 	int (*exit)(struct sdw_master_device *md);
+> 	int (*autonomous_clock_stop_enable)(struct sdw_master_device *md,
+> 					    bool state);
+> };
+
+So this is a soundwire core driver structure, but the modelling and
+explanation provided here suggests the reasoning to be based on hardware
+sequencing. I am not sure if we should follow this approach. Solving
+hardware sequencing is fine but that should IMO be restricted to intel
+code as that is intel issue which may or may not be present on other
+controllers.
+
+If I look at the calling sequence of the code (looked up the sof code on
+github, topic/sof-dev-rebase), the sof code sound/soc/sof/intel/hda.c
+invokes the sdw_intel_startup() and sdw_intel_probe() based on hardware
+sequencing and further you call .init and .probe/startup of sdw_md_driver.
+
+I really do not see why we need a sdw_md_driver object to do that. You can
+easily have a another function exported by sdw_intel driver and you call
+these and do same functionality without having a sdw_md_driver in
+between.
+
+Now, I am going to step back one more step and ask you why should we
+have a sdw_md_driver? I am not seeing the driver object achieving
+anything here expect adding wrappers which we can avoid. But we still
+need to add the sdw_master_device() as a new device object and use that
+for both sysfs representation as well as representing the master device
+and do all the things we want, but it *can* come without having
+accompanying sdw_md_driver.
+
+This way you can retain you calling sequence and add the master device.
+
+Stretching this one more step I would ask that maybe it is even better
+idea that we should hide sdw_master_device_add() calling for soundwire
+drivers and move that internal to bus as part of bus registration as
+well, I don't see sdw_master_device calling back into the driver so it
+should not impact your sequences as well.
+
+Do you see a reason for sdw_md_driver which is must have? I couldn't
+find that by looking at the code, let me know if I have missed anything
+here.
 
 
-On 1/20/2020 7:53 PM, Sameer Pujar wrote:
-> Overview
-> ========
-> The Audio Hub (AHUB) is part of the Audio Processing Engine (APE) which
-> comprises a collection of hardware accelerators for audio pre-processing
-> and post-processing. It also includes a programmable full crossbar for
-> routing audio data across these accelerators.
->
-> This series exposes some of these below mentioned HW devices as ASoC
-> components for Tegra platforms from Tegra210 onwards.
->   * ADMAIF : The interface between ADMA and AHUB
->   * XBAR   : Crossbar for routing audio samples across various modules
->   * I2S    : Inter-IC Sound Controller
->   * DMIC   : Digital Microphone
->   * DSPK   : Digital Speaker
->
-> Following is the summary of current series.
->   1. Add YAML DT binding documentation for above mentioned modules.
->   2. ACIF programming is same for Tegra generations and hence it is moved
->      to a common file.
->   3. Add ASoC driver components for each of the above modules.
->   4. Add DT entries for above components for Tegra210, Tegra186 and
->      Tegra194.
->   5. Enable these components for Jetson-Tx1, Jetson-Tx2 and
->      Jetson-Xavier.
->
-> Machine driver series will be sent separately.
->
-> Sameer Pujar (9):
->    dt-bindings: sound: tegra: add DT binding for AHUB
->    ASoC: tegra: add support for CIF programming
->    ASoC: tegra: add Tegra210 based DMIC driver
->    ASoC: tegra: add Tegra210 based I2S driver
->    ASoC: tegra: add Tegra210 based AHUB driver
->    ASoC: tegra: add Tegra186 based DSPK driver
->    ASoC: tegra: add Tegra210 based ADMAIF driver
->    arm64: tegra: add AHUB components for few Tegra chips
->    arm64: tegra: enable AHUB modules for few Tegra chips
+So to summarize, my recommendation would be to drop sdw_md_driver, keep
+sdw_master_device object and make sdw_master_device_add() hidden to
+driver and call it from sdw_add_bus_master() and keep intel specific
+startup/init routine which do same steps as they have now.
 
-If any comments on the series, please let me know.
-I am planning to publish v2 based on the discussion we had in v1.
-
-Thanks,
-Sameer.
->
->   .../bindings/sound/nvidia,tegra186-dspk.yaml       | 105 +++
->   .../bindings/sound/nvidia,tegra210-admaif.yaml     | 165 ++++
->   .../bindings/sound/nvidia,tegra210-ahub.yaml       | 130 +++
->   .../bindings/sound/nvidia,tegra210-dmic.yaml       | 105 +++
->   .../bindings/sound/nvidia,tegra210-i2s.yaml        | 112 +++
->   arch/arm64/boot/dts/nvidia/tegra186-p2771-0000.dts |  48 ++
->   arch/arm64/boot/dts/nvidia/tegra186.dtsi           | 231 ++++-
->   arch/arm64/boot/dts/nvidia/tegra194-p2972-0000.dts |  36 +
->   arch/arm64/boot/dts/nvidia/tegra194.dtsi           | 239 +++++-
->   arch/arm64/boot/dts/nvidia/tegra210-p2371-2180.dts |  40 +
->   arch/arm64/boot/dts/nvidia/tegra210.dtsi           | 145 ++++
->   sound/soc/tegra/Kconfig                            |  56 ++
->   sound/soc/tegra/Makefile                           |  12 +
->   sound/soc/tegra/tegra186_dspk.c                    | 516 +++++++++++
->   sound/soc/tegra/tegra186_dspk.h                    |  73 ++
->   sound/soc/tegra/tegra210_admaif.c                  | 896 ++++++++++++++++++++
->   sound/soc/tegra/tegra210_admaif.h                  | 164 ++++
->   sound/soc/tegra/tegra210_ahub.c                    | 667 +++++++++++++++
->   sound/soc/tegra/tegra210_ahub.h                    | 125 +++
->   sound/soc/tegra/tegra210_dmic.c                    | 522 ++++++++++++
->   sound/soc/tegra/tegra210_dmic.h                    |  85 ++
->   sound/soc/tegra/tegra210_i2s.c                     | 941 +++++++++++++++++++++
->   sound/soc/tegra/tegra210_i2s.h                     | 132 +++
->   sound/soc/tegra/tegra30_ahub.c                     |  94 +-
->   sound/soc/tegra/tegra30_ahub.h                     | 129 ---
->   sound/soc/tegra/tegra30_i2s.c                      |  35 +-
->   sound/soc/tegra/tegra30_i2s.h                      |   7 -
->   sound/soc/tegra/tegra_cif.c                        |  34 +
->   sound/soc/tegra/tegra_cif.h                        |  50 ++
->   sound/soc/tegra/tegra_pcm.c                        | 224 ++++-
->   sound/soc/tegra/tegra_pcm.h                        |  23 +-
->   31 files changed, 5897 insertions(+), 244 deletions(-)
->   create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
->   create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
->   create mode 100644 sound/soc/tegra/tegra186_dspk.c
->   create mode 100644 sound/soc/tegra/tegra186_dspk.h
->   create mode 100644 sound/soc/tegra/tegra210_admaif.c
->   create mode 100644 sound/soc/tegra/tegra210_admaif.h
->   create mode 100644 sound/soc/tegra/tegra210_ahub.c
->   create mode 100644 sound/soc/tegra/tegra210_ahub.h
->   create mode 100644 sound/soc/tegra/tegra210_dmic.c
->   create mode 100644 sound/soc/tegra/tegra210_dmic.h
->   create mode 100644 sound/soc/tegra/tegra210_i2s.c
->   create mode 100644 sound/soc/tegra/tegra210_i2s.h
->   create mode 100644 sound/soc/tegra/tegra_cif.c
->   create mode 100644 sound/soc/tegra/tegra_cif.h
->
-
+Thanks
+-- 
+~Vinod
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

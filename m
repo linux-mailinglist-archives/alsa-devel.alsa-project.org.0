@@ -2,56 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9AC114B2E6
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:45:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7825D14B2F0
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:46:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B15A1672;
-	Tue, 28 Jan 2020 11:45:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B15A1672
+	by alsa0.perex.cz (Postfix) with ESMTPS id 13FDE1670;
+	Tue, 28 Jan 2020 11:45:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 13FDE1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580208356;
-	bh=XEC1f34Ms0CxTNS8jsJ77XI+YA8AtFJ65HXMOVektLI=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=YFj7N0/SvIH2sKjkamlDoapFT6QzUU1MkXWxeqdKnjx2WxJKNdcgrhFk47hI/Q5GA
-	 RzKlKT3MlolHOYGqBhMZMnwIpBiR79LVTYOIgdjZr2YiJMLxJh4mfdgCfYBLK0uwbG
-	 cO1NbE4VzAS7i0aX8fXeB+w75IlEJIbv/n2X8Adk=
+	s=default; t=1580208401;
+	bh=J9ap4Jcmx061nbXdTRhevrEx9f0ynKBj0KD6k9KEzPY=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=OxC7Bcf2gwmLocegWOC1deTUslc+btDIy1XeFAW7N4A0p3DmKaZFCly1rZaUoG11S
+	 XVWdcciw9u75+724VTOOW08nimvzgdcuWhRU6fsoCnC5LGPCSQKoZ3rMKuUNuRdYkA
+	 IKnoEE+t65A18UVHp3NySzoJqMqlkdFTrvhgQgKA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 24F7AF80123;
-	Tue, 28 Jan 2020 11:44:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8B2DEF800FF;
+	Tue, 28 Jan 2020 11:44:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6C692F800FF; Tue, 28 Jan 2020 11:44:12 +0100 (CET)
+ id CAFEBF800FF; Tue, 28 Jan 2020 11:44:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D2681F800FF
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:44:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2681F800FF
+ by alsa1.perex.cz (Postfix) with ESMTPS id DD424F80123
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:44:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DD424F80123
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2020 02:44:06 -0800
+ 28 Jan 2020 02:44:07 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,373,1574150400"; d="scan'208";a="429292858"
+X-IronPort-AV: E=Sophos;i="5.70,373,1574150400"; d="scan'208";a="429292868"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga006.fm.intel.com with ESMTP; 28 Jan 2020 02:44:04 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 28 Jan 2020 02:44:06 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 28 Jan 2020 11:43:45 +0100
-Message-Id: <20200128104356.16570-1-cezary.rojewski@intel.com>
+Date: Tue, 28 Jan 2020 11:43:46 +0100
+Message-Id: <20200128104356.16570-2-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200128104356.16570-1-cezary.rojewski@intel.com>
+References: <20200128104356.16570-1-cezary.rojewski@intel.com>
 Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
  broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
-Subject: [alsa-devel] [PATCH v3 00/11] ASoC: SOF: Data probing
+Subject: [alsa-devel] [PATCH v3 01/11] ALSA: hda: Allow for compress stream
+	to hdac_ext_stream assignment
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,101 +74,144 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This set of patches achieves few goals in order to enable data probing
-feature for audio DSP.
+Currently only PCM streams can enlist hdac_stream for their data
+transfer. Add cstream field to hdac_ext_stream to expose possibility of
+compress stream assignment in place of PCM one.
+Limited to HOST-type only.
 
-First, provide new and alter existing interfaces (page allocation,
-runtime flow adjustments) to make them compress friendly.
+Rather than copying entire hdac_ext_host_stream_assign, declare separate
+PCM and compress wrappers and reuse it for both cases.
 
-For HDA part, work has been done to account for compress streams when
-servicing IRQs, setting up BDLs and assigning DMAs.
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+---
+ include/sound/hdaudio.h         |  1 +
+ include/sound/hdaudio_ext.h     |  2 ++
+ sound/hda/ext/hdac_ext_stream.c | 49 +++++++++++++++++++++++++++++----
+ 3 files changed, 46 insertions(+), 6 deletions(-)
 
-Finally, the end goal which are the probe APIs and usage itself. Probes
-can be treated as endpoints which allow for data extraction from or
-injection to target module - a great ally when debugging problematic
-audio issues such as distortions, glitches or gaps.
-Compress streams are a weapon of choice here to provide a lightweight
-implementation.
-
-While all available IPCs have been defined, current implementation
-covers extraction only, with injection scheduled for a later date.
-
-Initial review and development of probes can be found under:
-https://github.com/thesofproject/linux/pull/1276
-
-with the hda-compress-enable set of patches being separated and
-reviewed on:
-https://github.com/thesofproject/linux/pull/1571
-
-Tested on CML-U with rt5682 i2s board.
-
-Changes in v3:
-- Addressed sparse and all doc related warnings as reported by Pierre
-- Moved _DEBUG_PROBES config outside of _DEVELOPER_SUPPORT block
-- Renamed 'extractor' field to 'extractor_stream_tag' as requested
-- Relocated 'extractor_stream_tag' declaration from patch 07 to 08
-
-Changes in v2:
-- No changes to ALSA core and hda patches
-
-- Removed "ASoC: Intel: sof_rt5682: Add compress probe DAI links" from
-  the patchset list as requested by Pierre
-- updated copyright header for newly added files (dates)
-- probes over HDA no longer require SND_SOC_SOF_HDA_LINK enabled
-- renamed debugfs probe functions as requested by Pierre
-
-- probe IPC API has been updated to align with newest SOF FW & probe
-  debug app (struct_size macro has been enlisted to make the size
-  calculations transparent). This targets only "ASoC: SOF: Implement
-  Probe IPC API" patch
-
-Cezary Rojewski (11):
-  ALSA: hda: Allow for compress stream to hdac_ext_stream assignment
-  ALSA: hda: Prepare for compress stream support
-  ALSA: hda: Interrupt servicing and BDL setup for compress streams
-  ALSA: core: Expand DMA buffer information
-  ALSA: core: Implement compress page allocation and free routines
-  ASoC: SOF: Intel: Account for compress streams when servicing IRQs
-  ASoC: SOF: Implement Probe IPC API
-  ASoC: SOF: Generic probe compress operations
-  ASoC: SOF: Intel: Probe compress operations
-  ASoC: SOF: Provide probe debugfs support
-  ASoC: SOF: Intel: Add Probe compress CPU DAIs
-
- include/sound/compress_driver.h    |  40 +++-
- include/sound/hdaudio.h            |   2 +
- include/sound/hdaudio_ext.h        |   2 +
- include/sound/sof/header.h         |  11 ++
- sound/core/compress_offload.c      |  42 +++++
- sound/hda/ext/hdac_ext_stream.c    |  49 ++++-
- sound/hda/hdac_controller.c        |   4 +-
- sound/hda/hdac_stream.c            |  52 ++++--
- sound/soc/sof/Kconfig              |   9 +
- sound/soc/sof/Makefile             |   3 +-
- sound/soc/sof/compress.c           | 140 ++++++++++++++
- sound/soc/sof/compress.h           |  29 +++
- sound/soc/sof/debug.c              | 208 +++++++++++++++++++++
- sound/soc/sof/intel/Kconfig        |   9 +
- sound/soc/sof/intel/Makefile       |   1 +
- sound/soc/sof/intel/apl.c          |   9 +
- sound/soc/sof/intel/cnl.c          |   9 +
- sound/soc/sof/intel/hda-compress.c | 132 +++++++++++++
- sound/soc/sof/intel/hda-dai.c      |  28 +++
- sound/soc/sof/intel/hda-ipc.c      |   4 +-
- sound/soc/sof/intel/hda-stream.c   |  26 ++-
- sound/soc/sof/intel/hda.h          |  30 +++
- sound/soc/sof/ops.h                |  43 +++++
- sound/soc/sof/pcm.c                |  11 +-
- sound/soc/sof/probe.c              | 286 +++++++++++++++++++++++++++++
- sound/soc/sof/probe.h              |  85 +++++++++
- sound/soc/sof/sof-priv.h           |  24 +++
- 27 files changed, 1247 insertions(+), 41 deletions(-)
- create mode 100644 sound/soc/sof/compress.c
- create mode 100644 sound/soc/sof/compress.h
- create mode 100644 sound/soc/sof/intel/hda-compress.c
- create mode 100644 sound/soc/sof/probe.c
- create mode 100644 sound/soc/sof/probe.h
-
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index e05b95e83d5a..9a8bf1eb7d69 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -481,6 +481,7 @@ struct hdac_stream {
+ 	struct snd_pcm_substream *substream;	/* assigned substream,
+ 						 * set in PCM open
+ 						 */
++	struct snd_compr_stream *cstream;
+ 	unsigned int format_val;	/* format value to be set in the
+ 					 * controller and the codec
+ 					 */
+diff --git a/include/sound/hdaudio_ext.h b/include/sound/hdaudio_ext.h
+index ef88b20c7b0a..ec01f2024f0b 100644
+--- a/include/sound/hdaudio_ext.h
++++ b/include/sound/hdaudio_ext.h
+@@ -84,6 +84,8 @@ int snd_hdac_ext_stream_init_all(struct hdac_bus *bus, int start_idx,
+ 		int num_stream, int dir);
+ void snd_hdac_stream_free_all(struct hdac_bus *bus);
+ void snd_hdac_link_free_all(struct hdac_bus *bus);
++struct hdac_ext_stream *snd_hdac_ext_cstream_assign(struct hdac_bus *bus,
++					   struct snd_compr_stream *cstream);
+ struct hdac_ext_stream *snd_hdac_ext_stream_assign(struct hdac_bus *bus,
+ 					   struct snd_pcm_substream *substream,
+ 					   int type);
+diff --git a/sound/hda/ext/hdac_ext_stream.c b/sound/hda/ext/hdac_ext_stream.c
+index 6b1b4b834bae..488a52570062 100644
+--- a/sound/hda/ext/hdac_ext_stream.c
++++ b/sound/hda/ext/hdac_ext_stream.c
+@@ -14,6 +14,7 @@
+ #include <sound/pcm.h>
+ #include <sound/hda_register.h>
+ #include <sound/hdaudio_ext.h>
++#include <sound/compress_driver.h>
+ 
+ /**
+  * snd_hdac_ext_stream_init - initialize each stream (aka device)
+@@ -281,8 +282,7 @@ hdac_ext_link_stream_assign(struct hdac_bus *bus,
+ }
+ 
+ static struct hdac_ext_stream *
+-hdac_ext_host_stream_assign(struct hdac_bus *bus,
+-				struct snd_pcm_substream *substream)
++hdac_ext_host_stream_assign(struct hdac_bus *bus, int direction)
+ {
+ 	struct hdac_ext_stream *res = NULL;
+ 	struct hdac_stream *stream = NULL;
+@@ -296,12 +296,13 @@ hdac_ext_host_stream_assign(struct hdac_bus *bus,
+ 		struct hdac_ext_stream *hstream = container_of(stream,
+ 						struct hdac_ext_stream,
+ 						hstream);
+-		if (stream->direction != substream->stream)
++		if (stream->direction != direction)
+ 			continue;
+ 
+ 		if (!stream->opened) {
+ 			if (!hstream->decoupled)
+-				snd_hdac_ext_stream_decouple(bus, hstream, true);
++				snd_hdac_ext_stream_decouple(bus,
++						hstream, true);
+ 			res = hstream;
+ 			break;
+ 		}
+@@ -310,13 +311,49 @@ hdac_ext_host_stream_assign(struct hdac_bus *bus,
+ 		spin_lock_irq(&bus->reg_lock);
+ 		res->hstream.opened = 1;
+ 		res->hstream.running = 0;
+-		res->hstream.substream = substream;
++		res->hstream.substream = NULL;
++		res->hstream.cstream = NULL;
+ 		spin_unlock_irq(&bus->reg_lock);
+ 	}
+ 
+ 	return res;
+ }
+ 
++static struct hdac_ext_stream *
++hdac_ext_host_stream_pcm_assign(struct hdac_bus *bus,
++				struct snd_pcm_substream *substream)
++{
++	struct hdac_ext_stream *res;
++
++	res = hdac_ext_host_stream_assign(bus, substream->stream);
++	if (res)
++		res->hstream.substream = substream;
++
++	return res;
++}
++
++/**
++ * snd_hdac_ext_cstream_assign - assign a host stream for compress
++ * @bus: HD-audio core bus
++ * @cstream: Compress stream to assign
++ *
++ * Assign an unused host stream for the given compress stream.
++ * If no stream is free, NULL is returned. Stream is decoupled
++ * before assignment.
++ */
++struct hdac_ext_stream *snd_hdac_ext_cstream_assign(struct hdac_bus *bus,
++					   struct snd_compr_stream *cstream)
++{
++	struct hdac_ext_stream *res;
++
++	res = hdac_ext_host_stream_assign(bus, cstream->direction);
++	if (res)
++		res->hstream.cstream = cstream;
++
++	return res;
++}
++EXPORT_SYMBOL_GPL(snd_hdac_ext_cstream_assign);
++
+ /**
+  * snd_hdac_ext_stream_assign - assign a stream for the PCM
+  * @bus: HD-audio core bus
+@@ -350,7 +387,7 @@ struct hdac_ext_stream *snd_hdac_ext_stream_assign(struct hdac_bus *bus,
+ 		return hstream;
+ 
+ 	case HDAC_EXT_STREAM_TYPE_HOST:
+-		return hdac_ext_host_stream_assign(bus, substream);
++		return hdac_ext_host_stream_pcm_assign(bus, substream);
+ 
+ 	case HDAC_EXT_STREAM_TYPE_LINK:
+ 		return hdac_ext_link_stream_assign(bus, substream);
 -- 
 2.17.1
 

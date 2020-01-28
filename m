@@ -2,66 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9EF714B321
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:59:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 997F314B330
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 12:01:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DC891682;
-	Tue, 28 Jan 2020 11:58:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DC891682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 448B41682;
+	Tue, 28 Jan 2020 12:00:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 448B41682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580209177;
-	bh=LB3zWsvj4nXu3RzKi3OeoNoBlmMmILyvwZ+qwKb8e4I=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580209302;
+	bh=ENDmOytKfQ1eprQVi0MD6hTAlBJ3BluRBzqMvZ/1sv8=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o2wNMruGbT6m9GJ95W3CVqJIQygmCK9z93gLn3TmEcmyzVVW5SmG74fVBSIwf4BPT
-	 L096VYO9iP9KHkEgo5jBRKpwTQpbfoBuh1bLiuPDTlfgDbiQ2q81DW3+QPyAgxSfbF
-	 OxaOznRrjYj7CMMvYlxLdUzXiVNFgT4LYscYoApA=
+	b=JhnJqUI13xkSApOhVSAhrxztAUnzQUBIldAAIYvq7tv4c/ny6f3zEQUJm5kwAGSif
+	 7l1oHX8FX24wxZdm1ceDPuNCNz4lIYOyEIG9bUwGlhP4HR0mzuUJNS6T3BamnSRPAP
+	 WrVdh9T78C0X4km4XzZ+aaG09/t6V7Ck+QB5a/iA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 879B8F800FF;
-	Tue, 28 Jan 2020 11:57:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0B3AF80150;
+	Tue, 28 Jan 2020 12:00:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFF8DF80150; Tue, 28 Jan 2020 11:57:53 +0100 (CET)
+ id CC6A7F8014B; Tue, 28 Jan 2020 11:59:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 09CA7F80082
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:59:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 09CA7F80082
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="ci4YCOPp"
+Received: from localhost (unknown [223.226.101.206])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D10A0F800FF
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:57:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D10A0F800FF
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2020 02:57:45 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,373,1574150400"; d="scan'208";a="231881381"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.237.137.172])
- ([10.237.137.172])
- by orsmga006.jf.intel.com with ESMTP; 28 Jan 2020 02:57:43 -0800
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <20200127121243.15813-1-cezary.rojewski@intel.com>
- <20200127121243.15813-9-cezary.rojewski@intel.com>
- <bff9507d-c3c3-53b8-3ee2-ce737ebadfee@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <f2983031-a0a9-56d2-003b-f751df7224ab@intel.com>
-Date: Tue, 28 Jan 2020 11:57:42 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+ by mail.kernel.org (Postfix) with ESMTPSA id 823872467B;
+ Tue, 28 Jan 2020 10:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1580209192;
+ bh=k0SvNUtpz1DwV73rIZmM3abGe3+wRTZxNYyrAGnJzT4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ci4YCOPpiI/uFDU+1Bl0lEylfpbxo/ah7QhZnhN9uR3GnqMLmjW1Uih2RKeSfSDS6
+ qS7SKcXtqXwAY3mu0YWYU2XzzMe2dfk56CyR0JxcPcl7ZLEq8GYXERBv6wUXpjceHG
+ 9W9mCMMy5VYKdEdldE+bdd3U7FGCNWYn4oCpoYJM=
+Date: Tue, 28 Jan 2020 16:29:46 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <20200128105946.GP2841@vkoul-mobl>
+References: <20200128104356.16570-1-cezary.rojewski@intel.com>
+ <20200128104356.16570-5-cezary.rojewski@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <bff9507d-c3c3-53b8-3ee2-ce737ebadfee@linux.intel.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
- tiwai@suse.com
-Subject: Re: [alsa-devel] [PATCH v2 08/11] ASoC: SOF: Generic probe compress
- operations
+Content-Disposition: inline
+In-Reply-To: <20200128104356.16570-5-cezary.rojewski@intel.com>
+Cc: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
+ broonie@kernel.org, lgirdwood@gmail.com, tiwai@suse.com
+Subject: Re: [alsa-devel] [PATCH v3 04/11] ALSA: core: Expand DMA buffer
+ information
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,44 +77,119 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gMjAyMC0wMS0yNyAyMjoxNywgUGllcnJlLUxvdWlzIEJvc3NhcnQgd3JvdGU6Cj4gCj4+IGRp
-ZmYgLS1naXQgYS9zb3VuZC9zb2Mvc29mL0tjb25maWcgYi9zb3VuZC9zb2Mvc29mL0tjb25maWcK
-Pj4gaW5kZXggODI3YjBlYzkyNTIyLi4wZmNhODYxNjQ0NzIgMTAwNjQ0Cj4+IC0tLSBhL3NvdW5k
-L3NvYy9zb2YvS2NvbmZpZwo+PiArKysgYi9zb3VuZC9zb2Mvc29mL0tjb25maWcKPj4gQEAgLTE3
-MSw2ICsxNzEsMTUgQEAgY29uZmlnIFNORF9TT0NfU09GX0RFQlVHX1JFVEFJTl9EU1BfQ09OVEVY
-VAo+PiDCoMKgwqDCoMKgwqDCoCBTYXkgWSBpZiB5b3Ugd2FudCB0byByZXRhaW4gRFNQIGNvbnRl
-eHQgZm9yIEZXIGV4Y2VwdGlvbnMuCj4+IMKgwqDCoMKgwqDCoMKgIElmIHVuc3VyZSwgc2VsZWN0
-ICJOIi4KPj4gK2NvbmZpZyBTTkRfU09DX1NPRl9ERUJVR19QUk9CRVMKPj4gK8KgwqDCoCBib29s
-ICJTT0YgZW5hYmxlIGRhdGEgcHJvYmluZyIKPj4gK8KgwqDCoCBzZWxlY3QgU05EX1NPQ19DT01Q
-UkVTUwo+PiArwqDCoMKgIGhlbHAKPj4gK8KgwqDCoMKgwqAgVGhpcyBvcHRpb24gZW5hYmxlcyB0
-aGUgZGF0YSBwcm9iaW5nIGZlYXR1cmUgdGhhdCBjYW4gYmUgdXNlZCB0bwo+PiArwqDCoMKgwqDC
-oCBnYXRoZXIgZGF0YSBkaXJlY3RseSBmcm9tIHNwZWNpZmljIHBvaW50cyBvZiB0aGUgYXVkaW8g
-cGlwZWxpbmUuCj4+ICvCoMKgwqDCoMKgIFNheSBZIGlmIHlvdSB3YW50IHRvIGVuYWJsZSBwcm9i
-ZXMuCj4+ICvCoMKgwqDCoMKgIElmIHVuc3VyZSwgc2VsZWN0ICJOIi4KPj4gKwo+PiDCoCBlbmRp
-ZiAjIyBTTkRfU09DX1NPRl9ERUJVRwo+PiDCoCBlbmRpZiAjIyBTTkRfU09DX1NPRl9ERVZFTE9Q
-RVJfU1VQUE9SVAo+IAo+IHdlIG5lZWQgdG8gYWdyZWUgd2l0aCBmaXJtd2FyZSBmb2xrcyBvbgo+
-IGEpIG1ha2luZyBzdXJlIHRoZSBwcm9iZXMgYXJlIGVuYWJsZWQgb24gYWxsIFNLTCsgZmlybXdh
-cmUKPiBiKSB3ZSBoYXZlIGEgbWVhbnMgdG8gZGV0ZWN0IGlmIHByb2JlcyBhcmUgc3VwcG9ydGVk
-IGJ5IHRoZSBmaXJtd2FyZS4KPiAKPiBJIHRoaW5rIHRoZSBwcm9iZXMgc2hvdWxkIGJlIGVuYWJs
-ZWQgaW4gYWxsIGRpc3RyaWJ1dGlvbnMsIGV2ZW4gd2hlbiAKPiB1c2luZyBmaXJtd2FyZSBzaWdu
-ZWQgd2l0aCBhIHByb2R1Y3Rpb24ga2V5LCBpdCBkb2Vzbid0IGltcGFjdCBhbnl0aGluZyAKPiB1
-bnRpbCB0aGUgcm9vdCB1c2VyIGV4cGxpY2l0bHkgY29uZmlndXJlcyBwcm9iZSBwb2ludHMuCj4g
-Cj4gU2luY2Ugd2UgZXhwbGljaXRseSBhZHZpc2UgZGlzdHJpYnV0aW9ucyBub3QgdG8gaW5jbHVk
-ZSBkZXZlbG9wZXIgCj4gb3B0aW9ucywgd2UgcHJvYmFibHkgbmVlZCB0byBtb3ZlIHRoaXMgS2Nv
-bmZpZyBvdXRzaWRlLiBvZiB0aGVzZSB0d28gCj4gJ2lmJyBibG9ja3MuCgpJbmRlZWQsIG5vdyBp
-dCdzIEZXIGZvbGtzIHRpbWUgdG8gYWN0LgoKTW92ZWQgb3V0c2lkZSBvZiBfREVWRUxPUEVSX1NV
-UFBPUlQgYmxvY2sgYXMgcmVxdWVzdGVkLiBMZWZ0IHRoZSBfREVCVUdfIAp0YWcgdG8gbm90aWZ5
-IHVzZXIgYWJvdXQgcHJvYmUgYmVpbmcgYSBkZWJ1ZyBmZWF0dXJlLiBPbmNlIHRoZSAKX0RFVkVM
-T1BFUl9TVVBQT1JUIC8gX0RFQlVHIGZlYXR1cmVzIGFyZSBzb3J0ZWQgb3V0LCB0aGlzIHdpbGwg
-YmUgCnJlbG9jYXRlZCB1bmRlciBfREVCVUcgYmxvY2sgYWdhaW4uCgpBcyBzdGF0ZWQgaW4gcGF0
-Y2ggMDcsICdleHRyYWN0b3Jfc3RyZWFtX3RhZycgZGVjbGFyYXRpb24gaGFzIGJlZW4gCnJlbG9j
-YXRlZCBpbnRvIHRoaXMgdmVyeSBwYXRjaCBhcyBpdCBzaG91bGQgYmUgZnJvbSB0aGUgZ2V0LWdv
-LgoKVGhhbmtzLApDemFyZWsKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0
-Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fs
-c2EtZGV2ZWwK
+On 28-01-20, 11:43, Cezary Rojewski wrote:
+> Update DMA buffer definition for snd_compr_runtime so it is represented
+> similarly as in snd_pcm_runtime. While at it, modify
+> snd_compr_set_runtime_buffer to account for newly added members.
+
+Please run ./scripts/get_maintainer.pl, it will tell you the people you
+should CC on a patch.
+
+Also Takashi already acked, so you should add the acks/reviews received
+in subsequent versions (unless they changed)
+
+And for this:
+
+Acked-by: Vinod Koul <vkoul@kernel.org>
+
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>  include/sound/compress_driver.h | 35 ++++++++++++++++++++++++---------
+>  1 file changed, 26 insertions(+), 9 deletions(-)
+> 
+> diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
+> index bc88d6f964da..00f633c0c3ba 100644
+> --- a/include/sound/compress_driver.h
+> +++ b/include/sound/compress_driver.h
+> @@ -23,7 +23,6 @@ struct snd_compr_ops;
+>   * struct snd_compr_runtime: runtime stream description
+>   * @state: stream state
+>   * @ops: pointer to DSP callbacks
+> - * @dma_buffer_p: runtime dma buffer pointer
+>   * @buffer: pointer to kernel buffer, valid only when not in mmap mode or
+>   *	DSP doesn't implement copy
+>   * @buffer_size: size of the above buffer
+> @@ -34,11 +33,14 @@ struct snd_compr_ops;
+>   * @total_bytes_transferred: cumulative bytes transferred by offload DSP
+>   * @sleep: poll sleep
+>   * @private_data: driver private data pointer
+> + * @dma_area: virtual buffer address
+> + * @dma_addr: physical buffer address (not accessible from main CPU)
+> + * @dma_bytes: size of DMA area
+> + * @dma_buffer_p: runtime dma buffer pointer
+>   */
+>  struct snd_compr_runtime {
+>  	snd_pcm_state_t state;
+>  	struct snd_compr_ops *ops;
+> -	struct snd_dma_buffer *dma_buffer_p;
+>  	void *buffer;
+>  	u64 buffer_size;
+>  	u32 fragment_size;
+> @@ -47,6 +49,11 @@ struct snd_compr_runtime {
+>  	u64 total_bytes_transferred;
+>  	wait_queue_head_t sleep;
+>  	void *private_data;
+> +
+> +	unsigned char *dma_area;
+> +	dma_addr_t dma_addr;
+> +	size_t dma_bytes;
+> +	struct snd_dma_buffer *dma_buffer_p;
+>  };
+>  
+>  /**
+> @@ -180,19 +187,29 @@ static inline void snd_compr_drain_notify(struct snd_compr_stream *stream)
+>  
+>  /**
+>   * snd_compr_set_runtime_buffer - Set the Compress runtime buffer
+> - * @substream: compress substream to set
+> + * @stream: compress stream to set
+>   * @bufp: the buffer information, NULL to clear
+>   *
+>   * Copy the buffer information to runtime buffer when @bufp is non-NULL.
+>   * Otherwise it clears the current buffer information.
+>   */
+> -static inline void snd_compr_set_runtime_buffer(
+> -					struct snd_compr_stream *substream,
+> -					struct snd_dma_buffer *bufp)
+> +static inline void
+> +snd_compr_set_runtime_buffer(struct snd_compr_stream *stream,
+> +			     struct snd_dma_buffer *bufp)
+>  {
+> -	struct snd_compr_runtime *runtime = substream->runtime;
+> -
+> -	runtime->dma_buffer_p = bufp;
+> +	struct snd_compr_runtime *runtime = stream->runtime;
+> +
+> +	if (bufp) {
+> +		runtime->dma_buffer_p = bufp;
+> +		runtime->dma_area = bufp->area;
+> +		runtime->dma_addr = bufp->addr;
+> +		runtime->dma_bytes = bufp->bytes;
+> +	} else {
+> +		runtime->dma_buffer_p = NULL;
+> +		runtime->dma_area = NULL;
+> +		runtime->dma_addr = 0;
+> +		runtime->dma_bytes = 0;
+> +	}
+>  }
+>  
+>  int snd_compr_stop_error(struct snd_compr_stream *stream,
+> -- 
+> 2.17.1
+> 
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+-- 
+~Vinod
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEC9614B2F7
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:48:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CAC0B14B2F8
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 11:49:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5756A1674;
-	Tue, 28 Jan 2020 11:47:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5756A1674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 31B2E167A;
+	Tue, 28 Jan 2020 11:48:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 31B2E167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580208526;
-	bh=KM7+a0G9ASW1enpJmogmnBtFW8hiYVmO+FKaEZMIYYI=;
+	s=default; t=1580208557;
+	bh=52OeLapKGTpaIJmp151N0jvXDUiVkny96An3Iy+ee5A=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=StJj5IZ82zQt84SHCbrEUyf0QoXC53oDUXPlK0dJEiFs5Kh/6lGqBzZcsGmYPBvc+
-	 oHWTwj7WcFgiYC16wCH9y9O+s5CvTNq0WAiQVDb4vol+GsNRDsexJGxtMI8da/Xe3Q
-	 2ROE9Yr2DzJFiDOmNS8uGslvhRdN/JbUg5egAmI0=
+	b=M0G81UqrHBZhCi1wKSCs14583pnx83C6y6NT1eVs/QOT6CkXwwSubu4mBRTue+hZ4
+	 fg2p0uv0972Y2k/frjK1Dv5XibzeNp6zD+PBA2U+3eUso2Jz3LR3yJDSf+uQ1GoAgn
+	 mrirWaEYhXLyJGiL/3yu/EuwJphl78RAgpozEMsk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 97097F8028F;
-	Tue, 28 Jan 2020 11:44:29 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3CA6EF80299;
+	Tue, 28 Jan 2020 11:44:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AC2E6F80273; Tue, 28 Jan 2020 11:44:19 +0100 (CET)
+ id 69A0CF80273; Tue, 28 Jan 2020 11:44:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
@@ -33,31 +33,29 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BDC9BF80150
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:44:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDC9BF80150
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2C3ABF8014B
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 11:44:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C3ABF8014B
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Jan 2020 02:44:15 -0800
+ 28 Jan 2020 02:44:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,373,1574150400"; d="scan'208";a="429292897"
+X-IronPort-AV: E=Sophos;i="5.70,373,1574150400"; d="scan'208";a="429292903"
 Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga006.fm.intel.com with ESMTP; 28 Jan 2020 02:44:13 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 28 Jan 2020 02:44:15 -0800
 From: Cezary Rojewski <cezary.rojewski@intel.com>
 To: alsa-devel@alsa-project.org
-Date: Tue, 28 Jan 2020 11:43:50 +0100
-Message-Id: <20200128104356.16570-6-cezary.rojewski@intel.com>
+Date: Tue, 28 Jan 2020 11:43:51 +0100
+Message-Id: <20200128104356.16570-7-cezary.rojewski@intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200128104356.16570-1-cezary.rojewski@intel.com>
 References: <20200128104356.16570-1-cezary.rojewski@intel.com>
-Cc: pierre-louis.bossart@linux.intel.com,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Divya Prakash <divya1.prakash@intel.com>, lgirdwood@gmail.com, tiwai@suse.com,
- broonie@kernel.org
-Subject: [alsa-devel] [PATCH v3 05/11] ALSA: core: Implement compress page
-	allocation and free routines
+Cc: lgirdwood@gmail.com, Cezary Rojewski <cezary.rojewski@intel.com>,
+ broonie@kernel.org, tiwai@suse.com, pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] [PATCH v3 06/11] ASoC: SOF: Intel: Account for
+	compress streams when servicing IRQs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,100 +74,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add simple malloc and free methods for memory management for compress
-streams. Based on snd_pcm_lib_malloc_pages and snd_pcm_lib_free_pages
-implementation.
+Update stream irq handler definition to correctly set hdac_stream
+current position when servicing stream interrupts for compress streams.
 
 Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Signed-off-by: Divya Prakash <divya1.prakash@intel.com>
 ---
- include/sound/compress_driver.h |  5 ++++
- sound/core/compress_offload.c   | 42 +++++++++++++++++++++++++++++++++
- 2 files changed, 47 insertions(+)
+ include/sound/hdaudio.h          |  1 +
+ sound/soc/sof/intel/hda-stream.c | 26 ++++++++++++++++++++++++--
+ 2 files changed, 25 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/compress_driver.h b/include/sound/compress_driver.h
-index 00f633c0c3ba..6ce8effa0b12 100644
---- a/include/sound/compress_driver.h
-+++ b/include/sound/compress_driver.h
-@@ -67,6 +67,7 @@ struct snd_compr_runtime {
-  * @metadata_set: metadata set flag, true when set
-  * @next_track: has userspace signal next track transition, true when set
-  * @private_data: pointer to DSP private data
-+ * @dma_buffer: allocated buffer if any
-  */
- struct snd_compr_stream {
- 	const char *name;
-@@ -78,6 +79,7 @@ struct snd_compr_stream {
- 	bool metadata_set;
- 	bool next_track;
- 	void *private_data;
-+	struct snd_dma_buffer dma_buffer;
- };
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index 9a8bf1eb7d69..9a24d57f0cf2 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -496,6 +496,7 @@ struct hdac_stream {
+ 	bool locked:1;
+ 	bool stripe:1;			/* apply stripe control */
  
- /**
-@@ -212,6 +214,9 @@ snd_compr_set_runtime_buffer(struct snd_compr_stream *stream,
++	unsigned long curr_pos;
+ 	/* timestamp */
+ 	unsigned long start_wallclk;	/* start + minimum wallclk */
+ 	unsigned long period_wallclk;	/* wallclk for period */
+diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
+index c0ab9bb2a797..c8920a60e346 100644
+--- a/sound/soc/sof/intel/hda-stream.c
++++ b/sound/soc/sof/intel/hda-stream.c
+@@ -571,6 +571,23 @@ bool hda_dsp_check_stream_irq(struct snd_sof_dev *sdev)
+ 	return ret;
+ }
+ 
++static void hda_dsp_set_bytes_transferred(struct hdac_stream *hstream,
++					  u64 buffer_size)
++{
++	unsigned int prev_pos;
++	int pos, num_bytes;
++
++	div_u64_rem(hstream->curr_pos, buffer_size, &prev_pos);
++	pos = snd_hdac_stream_get_pos_posbuf(hstream);
++
++	if (pos < prev_pos)
++		num_bytes = (buffer_size - prev_pos) +  pos;
++	else
++		num_bytes = pos - prev_pos;
++
++	hstream->curr_pos += num_bytes;
++}
++
+ static bool hda_dsp_stream_check(struct hdac_bus *bus, u32 status)
+ {
+ 	struct sof_intel_hda_dev *sof_hda = bus_to_sof_hda(bus);
+@@ -588,14 +605,19 @@ static bool hda_dsp_stream_check(struct hdac_bus *bus, u32 status)
+ 			snd_hdac_stream_writeb(s, SD_STS, sd_status);
+ 
+ 			active = true;
+-			if (!s->substream ||
++			if ((!s->substream && !s->cstream) ||
+ 			    !s->running ||
+ 			    (sd_status & SOF_HDA_CL_DMA_SD_INT_COMPLETE) == 0)
+ 				continue;
+ 
+ 			/* Inform ALSA only in case not do that with IPC */
+-			if (sof_hda->no_ipc_position)
++			if (s->substream && sof_hda->no_ipc_position) {
+ 				snd_sof_pcm_period_elapsed(s->substream);
++			} else if (s->cstream) {
++				hda_dsp_set_bytes_transferred(s,
++					s->cstream->runtime->buffer_size);
++				snd_compr_fragment_elapsed(s->cstream);
++			}
+ 		}
  	}
- }
  
-+int snd_compr_malloc_pages(struct snd_compr_stream *stream, size_t size);
-+int snd_compr_free_pages(struct snd_compr_stream *stream);
-+
- int snd_compr_stop_error(struct snd_compr_stream *stream,
- 			 snd_pcm_state_t state);
- 
-diff --git a/sound/core/compress_offload.c b/sound/core/compress_offload.c
-index f34ce564d92c..638c9314284f 100644
---- a/sound/core/compress_offload.c
-+++ b/sound/core/compress_offload.c
-@@ -488,6 +488,48 @@ snd_compr_get_codec_caps(struct snd_compr_stream *stream, unsigned long arg)
- }
- #endif /* !COMPR_CODEC_CAPS_OVERFLOW */
- 
-+int snd_compr_malloc_pages(struct snd_compr_stream *stream, size_t size)
-+{
-+	struct snd_dma_buffer *dmab;
-+	int ret;
-+
-+	if (snd_BUG_ON(!(stream) || !(stream)->runtime))
-+		return -EINVAL;
-+	dmab = kzalloc(sizeof(*dmab), GFP_KERNEL);
-+	if (!dmab)
-+		return -ENOMEM;
-+	dmab->dev = stream->dma_buffer.dev;
-+	ret = snd_dma_alloc_pages(dmab->dev.type, dmab->dev.dev, size, dmab);
-+	if (ret < 0) {
-+		kfree(dmab);
-+		return ret;
-+	}
-+
-+	snd_compr_set_runtime_buffer(stream, dmab);
-+	stream->runtime->dma_bytes = size;
-+	return 1;
-+}
-+EXPORT_SYMBOL(snd_compr_malloc_pages);
-+
-+int snd_compr_free_pages(struct snd_compr_stream *stream)
-+{
-+	struct snd_compr_runtime *runtime = stream->runtime;
-+
-+	if (snd_BUG_ON(!(stream) || !(stream)->runtime))
-+		return -EINVAL;
-+	if (runtime->dma_area == NULL)
-+		return 0;
-+	if (runtime->dma_buffer_p != &stream->dma_buffer) {
-+		/* It's a newly allocated buffer. Release it now. */
-+		snd_dma_free_pages(runtime->dma_buffer_p);
-+		kfree(runtime->dma_buffer_p);
-+	}
-+
-+	snd_compr_set_runtime_buffer(stream, NULL);
-+	return 0;
-+}
-+EXPORT_SYMBOL(snd_compr_free_pages);
-+
- /* revisit this with snd_pcm_preallocate_xxx */
- static int snd_compr_allocate_buffer(struct snd_compr_stream *stream,
- 		struct snd_compr_params *params)
 -- 
 2.17.1
 

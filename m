@@ -2,106 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0228B14BED7
-	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 18:47:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78F2914BF02
+	for <lists+alsa-devel@lfdr.de>; Tue, 28 Jan 2020 18:56:44 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 90718166D;
-	Tue, 28 Jan 2020 18:46:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90718166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DC3211670;
+	Tue, 28 Jan 2020 18:55:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DC3211670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580233625;
-	bh=6Vs/LqZE1kWBkoMx8nRRudHuiw39brN6WCv6zqIq8h4=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580234204;
+	bh=Qap19Z7FgSgaz9T9tthFJVE73WL85aVdraUh2LiZw84=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Xb76io5+AfQ02RkiX0qALPJTcwB3jJogOKZnPGIpz/l9hMxZu8ftpmvbUWZRy1Ha4
-	 vBG6XdGUsc8DTHvzNx49O/xfDJ8vfhObrEMsdwWJCRuta+1DAu98iPzRiTimow6vHj
-	 N6zvXUQlI5ga1vGMjRBBb2d3wYxjcCNEzHPn8hr4=
+	b=MI1Ty1XNFGBNKtcCiwmzZUYpuHqD0jBzH7adZhm1p1H8XEB+ni+eZgPfHuaR1hXcw
+	 uQumEF46qhMyeBifp5j8OnF8nNKfchiLLgyk/k5PSly8zjShCttshRrYrQ/55aC+Tg
+	 KEKxxRGDC/9GgBphR0KcWcdPQIcYWpvjama1yi6w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CA2ADF80082;
-	Tue, 28 Jan 2020 18:45:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DB096F801EB;
+	Tue, 28 Jan 2020 18:55:02 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9BE1EF80123; Tue, 28 Jan 2020 18:45:17 +0100 (CET)
+ id 12A14F80082; Tue, 28 Jan 2020 18:55:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: **
-X-Spam-Status: No, score=2.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,PRX_BODYSUB_1,SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-il1-x141.google.com (mail-il1-x141.google.com
+ [IPv6:2607:f8b0:4864:20::141])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BA15F80123
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 18:45:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BA15F80123
+ by alsa1.perex.cz (Postfix) with ESMTPS id E8EF9F80082
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 18:54:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8EF9F80082
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="tyRM2jJR"
-Received: by mail-lj1-x242.google.com with SMTP id a13so15586960ljm.10
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 09:45:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=icILle18HVOYU+uj4/uNvBEQiUod1fP5bgB83wQWJnk=;
- b=tyRM2jJRNkoAJxaVoib7+S23mzDrbW7WsPPee7HvUcnnl0hiXgmLER8SlROe/QlR6J
- 2+TRk8bvgmrE2VX08bGujTS2e1zNcWXH6I+1Tu1Is8KQJwpMTwnx+xCRHEbfn1nhPDqx
- jGseFjhe9JIen0SYm9WAPw1/BbptnRodHR783nrlnEI1Fu/1K4QYZyqvcxaQWhR0Pn11
- f8x28Ifsvexy0mIxRxvxmSPizllL8TCn8bi6INbMdWp5dc8ohIXXUUW6v2vbizmOeFrG
- Q+A9y69XXiqCrK8927L7XKpZr97uorA7/Sp0XnDOh8Wq54jyWALuseqex8B4UXWRxQq4
- m9pQ==
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="F+P9oz+v"
+Received: by mail-il1-x141.google.com with SMTP id f70so6444450ill.6
+ for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 09:54:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=8oZ5utNEfevDNG+rJGjb3/QAU0tfL0IZTp7vmaPCpoU=;
+ b=F+P9oz+vcZA8qqlljILp7v4WjhJOWZHcsgc5OjVSQKlz9/CZcnjDVQ/uwzXXOkirx8
+ +pog/ny8K0VJRYxIL8qtLOgNuUQ5/58JAx+cOWMq9rABODune2RdgSdfgioAzt8baOTe
+ FqSY4DGdRWigPeU/adYjcvncwqkHnn334xsNvB0L1vo9dXcUX6aNJknqLhZHH8aC7jRG
+ m/R2Smpz08MUr8CYagN/RqQS6mpk0Gz3yi8+7VZo3gs6nXh3ZStWBJlPFF9H8HZeYJ6k
+ 9pnla+Q4N703m6qq+eX9eeqQbz3ktNX080CXNzbxwLdrj+Zoy0ofWKxC2cfJEAN0SPAh
+ AYTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=icILle18HVOYU+uj4/uNvBEQiUod1fP5bgB83wQWJnk=;
- b=b7qoPNs3cwGYBMWqdFY1CcVeheHiqthUUKDDt8fAoHPfSHR/g8ulIUkoYXC0GcYY8X
- 7JqvD4s5dfe9XYwaQ8ya9dhDEAFy3aGP/80OFtgHVA3njoxvdPnk3YjEydzoY3GlGgsu
- SsDV+KcQbalqZSbHiLhnBhEIEWwYoqgO4g5ocxFbyVpw+qaH+ESAR7IEaBZpEcqfY4J4
- rWUCQIq1XLRSJ03jRoluLq9mU2hoiI9i5lQ3h8rBqTescFVzLkd4Y6lO+fp0xcSxFY75
- dLf/xP+dSfsnaDR8iimwI04ZSFnFWSlIHM7ay8kDw5ebimIYJVQJb1ytSHCz3jYiPsjv
- 0LoA==
-X-Gm-Message-State: APjAAAUQf9YW2GIr6paGphGZty6GUx5dxj3mSR04ltUPhMpsGu9YcCEM
- 7nba47+xUo3EfaTuXqstmII=
-X-Google-Smtp-Source: APXvYqz6tGItOVEzQ/02MHrmG4vWp62+B1xQn16Kd/IMfQjApCRvrnge+3eMOmx1l8H2wUO4buAm7Q==
-X-Received: by 2002:a2e:3c05:: with SMTP id j5mr8257219lja.131.1580233513348; 
- Tue, 28 Jan 2020 09:45:13 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.googlemail.com with ESMTPSA id c8sm10104395lfm.65.2020.01.28.09.45.12
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2020 09:45:12 -0800 (PST)
-To: Mark Brown <broonie@kernel.org>, Jon Hunter <jonathanh@nvidia.com>
-References: <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
- <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
- <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
- <a2744ea0-cf6d-d083-75e6-853746195001@gmail.com>
- <28cafc56-095b-68c6-638d-270608a2983f@codethink.co.uk>
- <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
- <1b3c2af4-510e-306c-749a-efffc994b20a@gmail.com>
- <1aa6a4bf-10ea-001d-2d35-44494d9554f8@gmail.com>
- <62cea895-c1f1-a833-b63c-050642bb8a79@codethink.co.uk>
- <d6bb92e2-16ba-3c00-2f07-e741ecaa5ec8@nvidia.com>
- <20200128152632.GF4689@sirena.org.uk>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <a9ed4d18-94f6-06e0-d7b7-cbbcbee058b0@gmail.com>
-Date: Tue, 28 Jan 2020 20:45:11 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=8oZ5utNEfevDNG+rJGjb3/QAU0tfL0IZTp7vmaPCpoU=;
+ b=DQqo1Slga8UfBV7Hohkz2JMjLOltQynFdZPun28HE+xAoOA7XVQT2YEWXKN0/whkDw
+ bIoVgTwkc04D1QvHPdpE2CW4DYcKFi+rcJYeEiA8z2ntZ5v7AyFqytXys2GFNRW77sJc
+ f5X+vFDqcNpsQbGp0KJ6ACDbwjDKXsS5tn6l3G3wNaBs7Fhr6YrPFgXntE6RaI+hBRUW
+ Vdl1haQGzGebdolDYRE7tcV0eO488hOvEyIWtmF51T2p4oEcI+POlSI8UYVdYenkxJJ1
+ 0rc+kSzK+RV9ItZHjBjkHIbvoaor8PzhhpAaQqPE5u0u4OKcoAk9euUYB53vj0WciI+i
+ 0amg==
+X-Gm-Message-State: APjAAAW+Lb4DqdZnXeO2DTnHHycEeAkIIDvp+DHk26N4AMO/yeN9pxt7
+ Na6Atqc6QxQR2scBxcw+boMzzW5ixm8CcnUwKov4LA==
+X-Google-Smtp-Source: APXvYqxs2runCX3AHt4VKfOTPb5GVp/pTSXnVKe7gbXsQtzsvvVOc1SiEP2p7sNkTPVa6xLL4LyhEOdzJPxXxTdA6xU=
+X-Received: by 2002:a92:911b:: with SMTP id t27mr20905744ild.142.1580234091903; 
+ Tue, 28 Jan 2020 09:54:51 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200128152632.GF4689@sirena.org.uk>
-Content-Language: en-US
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Ben Dooks <ben.dooks@codethink.co.uk>,
- Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org
-Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
- 24bit and 32bit samples
+References: <20200128104356.16570-1-cezary.rojewski@intel.com>
+ <20200128104356.16570-11-cezary.rojewski@intel.com>
+In-Reply-To: <20200128104356.16570-11-cezary.rojewski@intel.com>
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Tue, 28 Jan 2020 09:54:41 -0800
+Message-ID: <CAFQqKeWb4X1C0fn0HckOS-fsm6OTv2onUM0yYw4ETw0qFKsWbw@mail.gmail.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, tiwai@suse.com
+Subject: Re: [alsa-devel] [PATCH v3 10/11] ASoC: SOF: Provide probe debugfs
+	support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,46 +95,232 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MjguMDEuMjAyMCAxODoyNiwgTWFyayBCcm93biDQv9C40YjQtdGCOgo+IE9uIFR1ZSwgSmFuIDI4
-LCAyMDIwIGF0IDAxOjE5OjE3UE0gKzAwMDAsIEpvbiBIdW50ZXIgd3JvdGU6Cj4+IE9uIDI4LzAx
-LzIwMjAgMDg6NTksIEJlbiBEb29rcyB3cm90ZToKPj4+IE9uIDI3LzAxLzIwMjAgMTk6MjMsIERt
-aXRyeSBPc2lwZW5rbyB3cm90ZToKPj4+PiAyNy4wMS4yMDIwIDIyOjIwLCBEbWl0cnkgT3NpcGVu
-a28g0L/QuNGI0LXRgjoKPj4+PiBJIGFsc28gc3VzcGVjdCB0aGF0IHMzMiBtYXkgbmVlZCBzb21l
-IGV4dHJhIHBhdGNoZXMgYW5kIHRodXMgY291bGQgYmUKPj4+PiB3b3J0aHdoaWxlIHRvIHN0b3Ag
-YWR2ZXJ0aXNpbmcgaXQgYXMgd2VsbC4KPiAKPj4+IEFzIGZhciBhcyBJIGFtIGF3YXJlIHRoYXQg
-d29ya3MgYW5kIHdlIGNhbiBoaXQgdGhlIGF1ZGlvIHJhdGVzIGZvciBpdC4KPiAKPj4gSSByYW4g
-YSB0ZXN0IG9uIFRlZ3JhMTI0IEpldHNvbi1USzEgYW5kIDI0LWJpdCBwbGF5YmFjayBzZWVtcyB0
-byB3b3JrIGFzCj4+IEJlbiBoYXMgaW5kaWNhdGVkLiBTbyBJIGRvbid0IHRoaW5rIGl0IGlzIGJy
-b2tlbi4KPiAKPj4gQ2FuIHlvdSB0cnkgQmVuJ3MgdGVzdGNhc2Ugb24gVGVncmEzMCAoaWUuIGdl
-bmVyYXRlIGEgdG9uZSB1c2luZyBzb3ggYW5kCj4+IHVzZSBhcGxheSB0byBwbGF5KT8KPiAKPiBB
-bm90aGVyIHRlc3QgYXBwbGljYXRpb24gdGhhdCdzIHF1aXRlIHVzZWZ1bCBmb3IgdGhpcyBzb3J0
-IG9mIHN0dWZmIGlzCj4gc3BlYWtlci10ZXN0LCBpdCBnZW5lcmF0ZXMgYXVkaW8gZGF0YSBkaXJl
-Y3RseSBpbiBhcmJhdHJhcnkgZm9ybWF0cyBhbmQKPiBpdCdzIHBhcnQgb2YgYWxzYS11dGlscyBz
-byBpZiB5b3UndmUgZ290IGFwbGF5IGFuZCBmcmllbmRzIHlvdSBtYXkKPiBhbHJlYWR5IGhhdmUg
-aXQgYWxyZWFkeSBpbnN0YWxsZWQuCgpJIHRyaWVkIHNwZWFrZXItdGVzdCBhbmQgaXQgZG9lc24n
-dCBzdXBwb3J0IFMyNF9MRToKCiMgc3BlYWtlci10ZXN0IC1oCgpzcGVha2VyLXRlc3QgMS4xLjkK
-ClVzYWdlOiBzcGVha2VyLXRlc3QgW09QVElPTl0uLi4KLWgsLS1oZWxwICAgICAgIGhlbHAKLUQs
-LS1kZXZpY2UgICAgIHBsYXliYWNrIGRldmljZQotciwtLXJhdGUgICAgICAgc3RyZWFtIHJhdGUg
-aW4gSHoKLWMsLS1jaGFubmVscyAgIGNvdW50IG9mIGNoYW5uZWxzIGluIHN0cmVhbQotZiwtLWZy
-ZXF1ZW5jeSAgc2luZSB3YXZlIGZyZXF1ZW5jeSBpbiBIegotRiwtLWZvcm1hdCAgICAgc2FtcGxl
-IGZvcm1hdAotYiwtLWJ1ZmZlciAgICAgcmluZyBidWZmZXIgc2l6ZSBpbiB1cwotcCwtLXBlcmlv
-ZCAgICAgcGVyaW9kIHNpemUgaW4gdXMKLVAsLS1ucGVyaW9kcyAgIG51bWJlciBvZiBwZXJpb2Rz
-Ci10LC0tdGVzdCAgICAgICBwaW5rPXVzZSBwaW5rIG5vaXNlLCBzaW5lPXVzZSBzaW5lIHdhdmUs
-IHdhdj1XQVYgZmlsZQotbCwtLW5sb29wcyAgICAgc3BlY2lmeSBudW1iZXIgb2YgbG9vcHMgdG8g
-dGVzdCwgMCA9IGluZmluaXRlCi1zLC0tc3BlYWtlciAgICBzaW5nbGUgc3BlYWtlciB0ZXN0LiBW
-YWx1ZXMgMT1MZWZ0LCAyPXJpZ2h0LCBldGMKLXcsLS13YXZmaWxlICAgIFVzZSB0aGUgZ2l2ZW4g
-V0FWIGZpbGUgYXMgYSB0ZXN0IHNvdW5kCi1XLC0td2F2ZGlyICAgICBTcGVjaWZ5IHRoZSBkaXJl
-Y3RvcnkgY29udGFpbmluZyBXQVYgZmlsZXMKLW0sLS1jaG1hcCAgICAgIFNwZWNpZnkgdGhlIGNo
-YW5uZWwgbWFwIHRvIG92ZXJyaWRlCi1YLC0tZm9yY2UtZnJlcXVlbmN5ICAgIGZvcmNlIGZyZXF1
-ZW5jaWVzIG91dHNpZGUgdGhlIDMwLTgwMDBoeiByYW5nZQotUywtLXNjYWxlICAgICAgU2NhbGUg
-b2YgZ2VuZXJhdGVkIHRlc3QgdG9uZXMgaW4gcGVyY2VudCAoZGVmYXVsdD04MCkKClJlY29nbml6
-ZWQgc2FtcGxlIGZvcm1hdHMgYXJlOiBTOCBTMTZfTEUgUzE2X0JFIEZMT0FUX0xFIFMyNF8zTEUg
-UzI0XzNCRQpTMzJfTEUgUzMyX0JFCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9q
-ZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2Fsc2EtZGV2ZWwK
+On Tue, Jan 28, 2020 at 2:51 AM Cezary Rojewski <cezary.rojewski@intel.com>
+wrote:
+
+> Define debugfs subdirectory delegated for IPC communication with DSP.
+> Input format: uint,uint,(...) which are later translated into DWORDS
+> sequence and further into instances of struct of interest given the IPC
+> type.
+>
+> For Extractor probes, following have been enabled:
+> - PROBE_POINT_ADD (echo <..> probe_points)
+> - PROBE_POINT_REMOVE (echo <..> probe_points_remove)
+> - PROBE_POINT_INFO (cat probe_points)
+>
+> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+> ---
+>
+> Changes in v2:
+> - renamed debugfs probe functions as requested by Pierre
+>
+>
+>  sound/soc/sof/debug.c | 208 ++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 208 insertions(+)
+>
+> diff --git a/sound/soc/sof/debug.c b/sound/soc/sof/debug.c
+> index d2b3b99d3a20..d38ab59e9a98 100644
+> --- a/sound/soc/sof/debug.c
+> +++ b/sound/soc/sof/debug.c
+> @@ -17,6 +17,203 @@
+>  #include "sof-priv.h"
+>  #include "ops.h"
+>
+> +#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
+> +#include "probe.h"
+> +
+> +/**
+> + * strsplit_u32 - Split string into sequence of u32 tokens
+> + * @buf:       String to split into tokens.
+> + * @delim:     String containing delimiter characters.
+> + * @tkns:      Returned u32 sequence pointer.
+> + * @num_tkns:  Returned number of tokens obtained.
+> + */
+> +static int
+> +strsplit_u32(char **buf, const char *delim, u32 **tkns, size_t *num_tkns)
+> +{
+> +       char *s;
+> +       u32 *data, *tmp;
+> +       size_t count = 0;
+> +       size_t cap = 32;
+> +       int ret = 0;
+> +
+> +       *tkns = NULL;
+> +       *num_tkns = 0;
+> +       data = kcalloc(cap, sizeof(*data), GFP_KERNEL);
+> +       if (!data)
+> +               return -ENOMEM;
+> +
+> +       while ((s = strsep(buf, delim)) != NULL) {
+> +               ret = kstrtouint(s, 0, data + count);
+> +               if (ret)
+> +                       goto exit;
+> +               if (++count >= cap) {
+> +                       cap *= 2;
+> +                       tmp = krealloc(data, cap * sizeof(*data),
+> GFP_KERNEL);
+> +                       if (!tmp) {
+> +                               ret = -ENOMEM;
+> +                               goto exit;
+> +                       }
+> +                       data = tmp;
+> +               }
+> +       }
+> +
+> +       if (!count)
+> +               goto exit;
+> +       *tkns = kmemdup(data, count * sizeof(*data), GFP_KERNEL);
+> +       if (*tkns == NULL) {
+> +               ret = -ENOMEM;
+> +               goto exit;
+> +       }
+> +       *num_tkns = count;
+> +
+> +exit:
+> +       kfree(data);
+> +       return ret;
+> +}
+> +
+> +static int tokenize_input(const char __user *from, size_t count,
+> +               loff_t *ppos, u32 **tkns, size_t *num_tkns)
+> +{
+> +       char *buf;
+> +       int ret;
+> +
+> +       buf = kmalloc(count + 1, GFP_KERNEL);
+> +       if (!buf)
+> +               return -ENOMEM;
+> +
+> +       ret = simple_write_to_buffer(buf, count, ppos, from, count);
+> +       if (ret != count) {
+> +               ret = ret >= 0 ? -EIO : ret;
+> +               goto exit;
+> +       }
+> +
+> +       buf[count] = '\0';
+> +       ret = strsplit_u32((char **)&buf, ",", tkns, num_tkns);
+> +exit:
+> +       kfree(buf);
+> +       return ret;
+> +}
+> +
+> +static ssize_t probe_points_read(struct file *file,
+> +               char __user *to, size_t count, loff_t *ppos)
+> +{
+> +       struct snd_sof_dfsentry *dfse = file->private_data;
+> +       struct sof_probe_point_desc *desc;
+> +       size_t num_desc, len = 0;
+> +       char *buf;
+> +       int i, ret;
+> +
+> +       buf = kzalloc(PAGE_SIZE, GFP_KERNEL);
+> +       if (!buf)
+> +               return -ENOMEM;
+> +
+> +       ret = sof_ipc_probe_points_info(dfse->sdev, &desc, &num_desc);
+> +       if (ret < 0)
+> +               goto exit;
+> +
+> +       for (i = 0; i < num_desc; i++) {
+> +               ret = snprintf(buf + len, PAGE_SIZE - len,
+> +                       "Id: %#010x  Purpose: %d  Node id: %#x\n",
+> +                       desc[i].buffer_id, desc[i].purpose,
+> desc[i].stream_tag);
+> +               if (ret < 0)
+> +                       goto free_desc;
+> +               len += ret;
+> +       }
+> +
+> +       ret = simple_read_from_buffer(to, count, ppos, buf, len);
+> +free_desc:
+> +       kfree(desc);
+> +exit:
+> +       kfree(buf);
+> +       return ret;
+> +}
+> +
+> +static ssize_t probe_points_write(struct file *file,
+> +               const char __user *from, size_t count, loff_t *ppos)
+> +{
+> +       struct snd_sof_dfsentry *dfse = file->private_data;
+> +       struct sof_probe_point_desc *desc;
+> +       size_t num_tkns, bytes;
+> +       u32 *tkns;
+> +       int ret;
+> +
+> +       ret = tokenize_input(from, count, ppos, &tkns, &num_tkns);
+> +       if (ret < 0)
+> +               return ret;
+> +       bytes = sizeof(*tkns) * num_tkns;
+> +       if (!num_tkns || (bytes % sizeof(*desc))) {
+> +               ret = -EINVAL;
+> +               goto exit;
+> +       }
+> +
+> +       desc = (struct sof_probe_point_desc *)tkns;
+> +       ret = sof_ipc_probe_points_add(dfse->sdev,
+> +                       desc, bytes / sizeof(*desc));
+> +       if (!ret)
+> +               ret = count;
+> +exit:
+> +       kfree(tkns);
+> +       return ret;
+> +}
+> +
+> +static const struct file_operations probe_points_fops = {
+> +       .open = simple_open,
+> +       .read = probe_points_read,
+> +       .write = probe_points_write,
+> +       .llseek = default_llseek,
+> +};
+> +
+> +static ssize_t probe_points_remove_write(struct file *file,
+> +               const char __user *from, size_t count, loff_t *ppos)
+> +{
+> +       struct snd_sof_dfsentry *dfse = file->private_data;
+> +       size_t num_tkns;
+> +       u32 *tkns;
+> +       int ret;
+> +
+> +       ret = tokenize_input(from, count, ppos, &tkns, &num_tkns);
+> +       if (ret < 0)
+> +               return ret;
+> +       if (!num_tkns) {
+> +               ret = -EINVAL;
+> +               goto exit;
+> +       }
+> +
+> +       ret = sof_ipc_probe_points_remove(dfse->sdev, tkns, num_tkns);
+> +       if (!ret)
+> +               ret = count;
+> +exit:
+> +       kfree(tkns);
+> +       return ret;
+> +}
+> +
+> +static const struct file_operations probe_points_remove_fops = {
+> +       .open = simple_open,
+> +       .write = probe_points_remove_write,
+> +       .llseek = default_llseek,
+> +};
+> +
+> +static int snd_sof_debugfs_probe_item(struct snd_sof_dev *sdev,
+> +                                const char *name, mode_t mode,
+> +                                const struct file_operations *fops)
+
+Hi Cezary,
+
+Any particular reason to not use the existing snd_sof_debugfs_buf_item()
+and adding a new one that does pretty much the same thing?
+
+Thanks,
+Ranjani
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

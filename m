@@ -2,88 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D9E414D170
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 20:53:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5693414D199
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 20:58:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8C0DB167D;
-	Wed, 29 Jan 2020 20:52:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8C0DB167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 05478167E;
+	Wed, 29 Jan 2020 20:57:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05478167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580327583;
-	bh=yavTReSNXwqKKoeVUsosAJQto6T58+fyr1FWGpy5l9U=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580327897;
+	bh=CTI2iQ/DuZsm1g56357s3s35tegmmJYXizkONAd6ZSg=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=szYZ/eMmaVcn4kmbksvnCSr2x4fSyxumUm5MkhnUFXikP6tyY0aARIwEE8pcz0yfG
-	 AJ6GHFP+XkZjBPOysXh8iKVxb4Xml6jSstTtLzKm5yro4emPREW3f8EEtoSWAwcjRx
-	 1yPThGNtGxJ8HzxHd2iPtoPdP0IgpXcR9JaVye5w=
+	b=lm1PAhaZYQ4TdgZ7z9CXUbXatOpCO+Ay9Lta4lJr0gaKWaoADBH3+55rsr4X4ozM9
+	 jrFNRLkoyzVHgo6L7cNZI/3H+FlFW78XqtILHZTYRsLe9MjNvM9fBMgLOO5I+YmK1a
+	 jGffGWNTsm9KaqqhwhwuCbK81XQ4Nygx4cVH1eb4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A386FF8021E;
-	Wed, 29 Jan 2020 20:51:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1B6F9F8021E;
+	Wed, 29 Jan 2020 20:56:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD16CF8021E; Wed, 29 Jan 2020 20:51:20 +0100 (CET)
+ id 671B5F80123; Wed, 29 Jan 2020 20:56:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
- PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC49FF80123
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 20:56:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC49FF80123
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="VqnIza4d"
+Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
+ [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A9C89F80123
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 20:51:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A9C89F80123
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="i+SbOgfP"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 00TJp1Lr078023;
- Wed, 29 Jan 2020 13:51:01 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1580327461;
- bh=rbB/lD7xEgzLxXwTLa3JpCV55iUJ31TPZ7JK+o77KyA=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=i+SbOgfPYo7oQJfA+Q3vNaHmk6uHqFgEJ28i3Fxt7pifIhEH2MdjGg/uPNV9NVRsc
- zc+SHz4kE0B1WMghT0gX6uVeGbGIST4r+ydRgsHFPkxh1t/ew60x+KwLXY0RuCMcgK
- BoyjKqrW1p9iPtwSYX4spV6syCAb1RVBuU8FVrVY=
-Received: from DFLE112.ent.ti.com (dfle112.ent.ti.com [10.64.6.33])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 00TJp1fk010922
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 29 Jan 2020 13:51:01 -0600
-Received: from DFLE112.ent.ti.com (10.64.6.33) by DFLE112.ent.ti.com
- (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Wed, 29
- Jan 2020 13:51:01 -0600
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE112.ent.ti.com
- (10.64.6.33) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Wed, 29 Jan 2020 13:51:01 -0600
-Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 00TJowTf087910;
- Wed, 29 Jan 2020 13:50:59 -0600
-To: Marek Szyprowski <m.szyprowski@samsung.com>, <dmaengine@vger.kernel.org>, 
- <alsa-devel@alsa-project.org>, <linux-kernel@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>
-References: <CGME20200129163716eucas1p19550fcbfff81ca8586df28782399cff0@eucas1p1.samsung.com>
- <20200129163548.11096-1-m.szyprowski@samsung.com>
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <3d7a612a-851f-85f1-4207-531f5a87212a@ti.com>
-Date: Wed, 29 Jan 2020 21:51:46 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by mail.kernel.org (Postfix) with ESMTPSA id C54B32067C;
+ Wed, 29 Jan 2020 19:56:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1580327784;
+ bh=q1z4cMceE9Ua/rLT8Dn67z+U6ZHbOuti30wvKj8qUQM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=VqnIza4dIQNSF83zDwgdHCsuYxQ4cfRyJAGXlM1sOSA5jFLFcVZFXbR6nG3TwtGB4
+ VG4D7NF3bzetsbLuXB+L2JO/3/Dt4xqIR6bfojyE3rgcE+Lwt9sMqoOY89AcVlBvGO
+ sq1w0fXFnrgAgHIlYER06Yf7FEXg5iUIIVwF1izs=
+Date: Wed, 29 Jan 2020 20:56:22 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20200129195622.GA582499@kroah.com>
+References: <CAFQqKeUnT=QHkBWp3ZDeuBtYCS=f7FLa0+eS9sRo8reK0N6YWg@mail.gmail.com>
+ <20200129185947.GA478824@kroah.com>
+ <CAFQqKeXOGOHpqWCmUskw4r5z1kKQG-_1zuKpaXb6gBozWWG+0g@mail.gmail.com>
+ <95481116-cb3e-8025-87b8-554b1a8bc37e@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20200129163548.11096-1-m.szyprowski@samsung.com>
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>
-Subject: Re: [alsa-devel] [PATCH] dmaengine: Fix return value for
- dma_requrest_chan() in case of failure
+Content-Disposition: inline
+In-Reply-To: <95481116-cb3e-8025-87b8-554b1a8bc37e@linux.intel.com>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, "Sridharan,
+ Ranjani" <ranjani.sridharan@intel.com>,
+ Pierre-louis Bossart <pierre-louis.bossart@intel.com>
+Subject: Re: [alsa-devel] Question about the correct license to use with
+ debugfs in SOF
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,36 +80,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-CgpPbiAyOS8wMS8yMDIwIDE4LjM1LCBNYXJlayBTenlwcm93c2tpIHdyb3RlOgo+IENvbW1pdCA3
-MTcyM2E5NmI4YjEgKCJkbWFlbmdpbmU6IENyZWF0ZSBzeW1saW5rcyBiZXR3ZWVuIERNQSBjaGFu
-bmVscyBhbmQKPiBzbGF2ZXMiKSBjaGFuZ2VkIHRoZSBkbWFfcmVxdWVzdF9jaGFuKCkgZnVuY3Rp
-b24gZmxvdyBpbiBzdWNoIGEgd2F5IHRoYXQKPiBpdCBhbHdheXMgcmV0dXJucyBFUFJPQkVfREVG
-RVIgaW4gY2FzZSBvZiBjaGFubmVscyB0aGF0IGNhbm5vdCBiZSBmb3VuZC4KPiBUaGlzIGJyZWFr
-IHRoZSBvcGVyYXRpb24gb2YgdGhlIGRldmljZXMgd2hpY2ggaGF2ZSBvcHRpb25hbCBETUEgY2hh
-bm5lbHMKPiBhcyBpdCBwdXRzIHRoZWlyIGRyaXZlcnMgaW4gZW5kbGVzcyBkZWZlcnJlZCBwcm9i
-ZSBsb29wLiBGaXggdGhpcyBieQo+IHByb3BhZ2F0aW5nIHRoZSBwcm9wZXIgZXJyb3IgdmFsdWUu
-Cj4gCj4gRml4ZXM6IDcxNzIzYTk2YjhiMSAoImRtYWVuZ2luZTogQ3JlYXRlIHN5bWxpbmtzIGJl
-dHdlZW4gRE1BIGNoYW5uZWxzIGFuZCBzbGF2ZXMiKQo+IFNpZ25lZC1vZmYtYnk6IE1hcmVrIFN6
-eXByb3dza2kgPG0uc3p5cHJvd3NraUBzYW1zdW5nLmNvbT4KPiAtLS0KPiAgZHJpdmVycy9kbWEv
-ZG1hZW5naW5lLmMgfCAyICstCj4gIDEgZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBk
-ZWxldGlvbigtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2RtYS9kbWFlbmdpbmUuYyBiL2Ry
-aXZlcnMvZG1hL2RtYWVuZ2luZS5jCj4gaW5kZXggZjNlZjRlZGQ0ZGUxLi4yN2I2NGE2NjUzNDcg
-MTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9kbWEvZG1hZW5naW5lLmMKPiArKysgYi9kcml2ZXJzL2Rt
-YS9kbWFlbmdpbmUuYwo+IEBAIC03NTksNyArNzU5LDcgQEAgc3RydWN0IGRtYV9jaGFuICpkbWFf
-cmVxdWVzdF9jaGFuKHN0cnVjdCBkZXZpY2UgKmRldiwgY29uc3QgY2hhciAqbmFtZSkKPiAgCWlm
-ICghSVNfRVJSX09SX05VTEwoY2hhbikpCj4gIAkJZ290byBmb3VuZDsKPiAgCj4gLQlyZXR1cm4g
-RVJSX1BUUigtRVBST0JFX0RFRkVSKTsKPiArCXJldHVybiBjaGFuOwoKSXQgc2hvdWxkIGJlOgpy
-ZXR1cm4gY2hhbiA/IGNoYW4gOiBFUlJfUFRSKC1FUFJPQkVfREVGRVIpOwoKZG1hX3JlcXVlc3Rf
-Y2hhbigpIHNob3VsZCBuZXZlciByZXR1cm4gTlVMTCwgaXQgZWl0aGVyIHJldHVybnMgdGhlCmRt
-YV9jaGFuLCBvciBFUlJfUFRSKCkuCgo+ICAKPiAgZm91bmQ6Cj4gIAljaGFuLT5zbGF2ZSA9IGRl
-djsKPiAKCi0gUMOpdGVyCgpUZXhhcyBJbnN0cnVtZW50cyBGaW5sYW5kIE95LCBQb3Jra2FsYW5r
-YXR1IDIyLCAwMDE4MCBIZWxzaW5raS4KWS10dW5udXMvQnVzaW5lc3MgSUQ6IDA2MTU1MjEtNC4g
-S290aXBhaWtrYS9Eb21pY2lsZTogSGVsc2lua2kKX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBh
-bHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4v
-bGlzdGluZm8vYWxzYS1kZXZlbAo=
+On Wed, Jan 29, 2020 at 01:41:34PM -0600, Pierre-Louis Bossart wrote:
+> 
+> > > > Currently, it is dual licensed with GPLv2.0 and BSD. But Pierre brought
+> > > up
+> > > > a concern about this conflicting with all the exports in the file being
+> > > > GPLv2.0. Should this be fixed to change the license to GPLv2.0 only?
+> > > > Appreciate your help in this regard.
+> > > 
+> > > Why ask a developer a legal question, don't you all have a whole huge
+> > > legal department who knows all of this type of thing really really well?
+> > > 
+> > > Would you ask a programmer a medical question?
+> > > 
+> > > That being said, think about trying to justify the existance of a BSD
+> > > licensed file trying to access gpl-only symbols, why in the world would
+> > > this even be a question?  Why have it dual licensed at all when I was
+> > > told that Intel was NOT going to do this anymore for any kernel code?
+> > > 
+> > Thanks for your patience and clarification.
+> > We discovered the discrepancy while vetting the licenses in the files
+> > again. Something we should be a bit more careful about moving forward.
+> > Sorry for the trouble!
+> 
+> Indeed it's not our intention to use dual-licensing for debugfs at all.
+> 
+> Please treat this thread as a desire to be transparent with maintainers
+> about a miss rather than an evil scheme to work around GPL.
+> 
+> Ranjani and I discovered the issue only a couple of hours ago while moving
+> code around. I don't have any explanation for this other than a review
+> oversight where we saw the EXPORT_SYMBOL_GPL and not the SPDX line. It's a
+> mistake, not a feature.
+> 
+> I just checked the history and all the changes were made by Intel, except
+> for your change "ASoC: SOF: no need to check return value of debugfs_create
+> functions", and 2 minor other fixes for memory leaks.
+> 
+> We'll immediately change the license to GPLv2 only, move the code in a
+> dedicated module that's GPLv2 only, and scan the rest of the
+> Intel-contributed parts to make sure we don't have this mistake in other
+> places.
+
+Don't create a new module, unless your lawyers say you have to do so.
+That way lies madness...
+
+Why is this code dual-licensed in the first place anyway?  It only will
+work on Linux, right?
+
+Anyway, I thought Intel had stopped doing this, just changing the
+license on the one file should be sufficient for now.  But again, I am
+not your lawyer, go talk to yours before doing anything.
+
+thanks,
+
+greg k-h
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

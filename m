@@ -2,98 +2,94 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81DD314C8FC
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 11:51:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6241414C97B
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 12:20:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D30381673;
-	Wed, 29 Jan 2020 11:50:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D30381673
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD8541673;
+	Wed, 29 Jan 2020 12:19:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD8541673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580295090;
-	bh=wJaEHr795rdeVL1CpzSjnOd7PnC8mizmdFGirlgEfIQ=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580296833;
+	bh=uaERRVi0nQDuN1slWN7YyQavuIpMrf86duBqB0gqOLc=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=PsuiYTkCwnLm8PNgvpKoLGLox9r8gFo8qlY9NkXkvDTw7oo9R1E6v46AWm/eHNlze
-	 Q2NwFjTIE0jwkcyjy00rW9TyFTxcJgN/SN2sQVX/PkII9RpwzmEBXyqr0CL1GgbaYk
-	 b7RsCgtxo7EnUiez4C4bAqI8JLyLYXTRFPEBsxcY=
+	b=HNtCHNPfd7QI7ymOFqZcT6pNYrlpKJ5B1Jmx0EgtFtND3VUJ06VY5XG02x8g6HF5+
+	 GahhvFrHnLsYz4GDhUaXqBUG4hXwNvLLflSbRVRLZXQe0Fk0IlHsc+9g4FOi7AWFxu
+	 7AstcU3DP0TsB4hRnVgFxWB4sN+mjN9dcvnFjSgo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 06B1CF80229;
-	Wed, 29 Jan 2020 11:49:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DE750F80229;
+	Wed, 29 Jan 2020 12:18:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50396F80123; Wed, 29 Jan 2020 11:49:47 +0100 (CET)
+ id B8E2EF8021E; Wed, 29 Jan 2020 12:18:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 94722F80123
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 11:49:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94722F80123
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCD1EF80123
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 12:18:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCD1EF80123
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="SyMYxB+n"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e3163370000>; Wed, 29 Jan 2020 02:49:27 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Wed, 29 Jan 2020 02:49:41 -0800
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Wed, 29 Jan 2020 02:49:41 -0800
-Received: from [10.21.133.51] (172.20.13.39) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Wed, 29 Jan
- 2020 10:49:39 +0000
-To: Mark Brown <broonie@kernel.org>, Dmitry Osipenko <digetx@gmail.com>
-References: <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
- <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
- <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
- <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
- <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
- <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
- <a2744ea0-cf6d-d083-75e6-853746195001@gmail.com>
- <28cafc56-095b-68c6-638d-270608a2983f@codethink.co.uk>
- <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
- <1b3c2af4-510e-306c-749a-efffc994b20a@gmail.com>
- <20200128121315.GD4689@sirena.org.uk>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <4b90efd2-5d0c-84df-961d-80cee288e0d4@nvidia.com>
-Date: Wed, 29 Jan 2020 10:49:37 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="Sw3HgBhF"
+Received: by mail-wr1-x442.google.com with SMTP id t2so19714004wrr.1
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 03:18:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=WdEwvXuf/f1ew5arKRFGjQIWnawCPhuYtVKO7QPsc9Y=;
+ b=Sw3HgBhFTNZBQ36hs9fAypBBY7Fa4Sh5OhqWXeKEPKx1kmSDHDG26lN9LA8NuPw2qF
+ p1DHCrsJ8EOijNoxlSKupI7Zxp/jNH8T5E9VvGgDRaqOitPqAwUS74HmiAa2e9jQLPbv
+ 89Du9baS80tY7ud1v+dhJl/UHWfb1rsw6BinQLgP7jPdxm3FsWERhB7LLxEIdmcc48pv
+ IvpJw07fjov6WMjVtkzx0qF2RvIxiyEMBsvtYuAZEu6G6dxXDSHBPJDgjeuZ9nxRC4Vq
+ xKwuGm14d1NEDJdCQHvkh2GjoQQsU1G/gsuEuT6g11JkYEZpLnLFNMDd8mOBL+N7a+4f
+ yEnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=WdEwvXuf/f1ew5arKRFGjQIWnawCPhuYtVKO7QPsc9Y=;
+ b=gqVv3y7uD7Sun4CA5rmVbauYyPMOj+G2vIhVS/91ovw8S56czaZaGHyoQsh/DRN6ZH
+ HcGOeJ0hwude1aAou09TjpmcdZOxRAHSOoM5JRneTFIaLIJors7zNHNs5BXgy+l810p0
+ NGRb8sRIqTu5LENpU9ZZA/7JS9L4vJC1HkdJ+ZX0ExSZOu1BCRo4eeWoNXnE0MnM5YPX
+ BybFe5yTzH7RYhJp+dLnWLyd+mWkLB/sv1eSfR+1ZQmpPnzEYr/1StVNtIEuloPovLVE
+ 1LRx2lRTdW+GhRWtyRenTiqYK1203KDqnAXumA48s/20wYqvecwd1Mmi5y0Nd8MpGhzR
+ yBfA==
+X-Gm-Message-State: APjAAAVGdvTiDaAmSxuTf/gqzCF5TbwW9shl8uqWFSBJA+4ae6qK2PdT
+ mXRhmCoAHqqJDyeRKgld8H0nsA==
+X-Google-Smtp-Source: APXvYqyMoIcsyaEqYxxW6ffIc7cM/EHFn0b6ThBfRh9LHZ4nCf4C8TEqE1Hf1HzIgoqg9YnSyuDr8A==
+X-Received: by 2002:adf:a109:: with SMTP id o9mr35424484wro.189.1580296726681; 
+ Wed, 29 Jan 2020 03:18:46 -0800 (PST)
+Received: from dell ([2.27.35.227])
+ by smtp.gmail.com with ESMTPSA id b17sm2448180wrx.15.2020.01.29.03.18.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Jan 2020 03:18:45 -0800 (PST)
+Date: Wed, 29 Jan 2020 11:18:58 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <20200129111858.GC3548@dell>
+References: <20191219103153.14875-1-srinivas.kandagatla@linaro.org>
+ <20191219103153.14875-3-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <20200128121315.GD4689@sirena.org.uk>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1580294967; bh=8oeXNa7PQw59Mhh8dYLmZBqtB+uRob3RjBpDu8t6TmE=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=SyMYxB+n/w0CCa0NBzF6RBJsankibifU7BZr5i5kXPqdIP6L7RxHjMexAwZQuR8gO
- 7vhJlCWz6qqDqJvnZxfThUOFxEbVysb4ZVLezWOHmn8cdole4ggIljrLrELM/y2EZ9
- VGjNWdhUEpaHEZLfhNPjL2oqHYO64PF7/eAKkhpxF8gPEYaKyPcKNLOz5dj7RCixsN
- e0kCcvcEvLZXwp/4qfe5b1/p5Vhp3v0+N8G9t0adSdI3VAzPsRPaxi40Rp13sUipwu
- B+WTZN8SdwxuIHpUC9t33r9pj/J0S4uk+ySFBXA5suhDN3CUWJ2ZWeSVm/iTrjqvhU
- owhgSrLDMd+IQ==
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Ben Dooks <ben.dooks@codethink.co.uk>,
- Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org
-Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
- 24bit and 32bit samples
+Content-Disposition: inline
+In-Reply-To: <20191219103153.14875-3-srinivas.kandagatla@linaro.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: robh@kernel.org, alsa-devel@alsa-project.org, bgoswami@codeaurora.org,
+ vinod.koul@linaro.org, devicetree@vger.kernel.org, linus.walleij@linaro.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, broonie@kernel.org,
+ spapothi@codeaurora.org
+Subject: Re: [alsa-devel] [PATCH v6 02/11] mfd: wcd934x: add support to
+ wcd9340/wcd9341 codec
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,35 +102,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-On 28/01/2020 12:13, Mark Brown wrote:
-> I really don't understand why this is all taking so long, this thread
-> just seems to be going round in interminable circles long after it
-> looked like the issue was understood.  I have to admit I've not read
-> every single message in the thread but it's difficult to see why it
-> doesn't seem to be making any progress.
-
-Sorry about that. On reviewing this with the audio team at NVIDIA, I was
-told we don't support S24_LE for I2S. The reason being that the crossbar
-between the DMA and I2S is not able to extract the correct 24-bits from
-the 32-bit sample to feed to the I2S interface. The Tegra documentation
-does show support for 24-bits, but not state explicit support for S24_LE.
-
-Now Ben says that he has this working, but I am unable to reproduce
-this, so before just dropping the S24_LE support, I would like to
-understand how this is working for Ben in case there is something that
-we have overlooked here.
-
-Jon
-
--- 
-nvpublic
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVGh1LCAxOSBEZWMgMjAxOSwgU3Jpbml2YXMgS2FuZGFnYXRsYSB3cm90ZToKCj4gUXVhbGNv
+bW0gV0NEOTM0MC9XQ0Q5MzQxIENvZGVjIGlzIGEgc3RhbmRhbG9uZSBIaS1GaSBhdWRpbyBjb2Rl
+YyBJQy4KPiAKPiBUaGlzIGNvZGVjIGhhcyBpbnRlZ3JhdGVkIFNvdW5kV2lyZSBjb250cm9sbGVy
+LCBwaW4gY29udHJvbGxlciBhbmQKPiBpbnRlcnJ1cHQgY29udHJvbGxlci4KPiAKPiBTaWduZWQt
+b2ZmLWJ5OiBTcmluaXZhcyBLYW5kYWdhdGxhIDxzcmluaXZhcy5rYW5kYWdhdGxhQGxpbmFyby5v
+cmc+Cj4gQWNrZWQtZm9yLU1GRC1ieTogTGVlIEpvbmVzIDxsZWUuam9uZXNAbGluYXJvLm9yZz4K
+PiAtLS0KPiAgZHJpdmVycy9tZmQvS2NvbmZpZyAgICAgICAgICAgICAgICAgICB8ICAxMiArCj4g
+IGRyaXZlcnMvbWZkL01ha2VmaWxlICAgICAgICAgICAgICAgICAgfCAgIDEgKwo+ICBkcml2ZXJz
+L21mZC93Y2Q5MzR4LmMgICAgICAgICAgICAgICAgIHwgMzA2ICsrKysrKysrKysrKysrKwo+ICBp
+bmNsdWRlL2xpbnV4L21mZC93Y2Q5MzR4L3JlZ2lzdGVycy5oIHwgNTMxICsrKysrKysrKysrKysr
+KysrKysrKysrKysrCj4gIGluY2x1ZGUvbGludXgvbWZkL3djZDkzNHgvd2NkOTM0eC5oICAgfCAg
+MzEgKysKPiAgNSBmaWxlcyBjaGFuZ2VkLCA4ODEgaW5zZXJ0aW9ucygrKQo+ICBjcmVhdGUgbW9k
+ZSAxMDA2NDQgZHJpdmVycy9tZmQvd2NkOTM0eC5jCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBpbmNs
+dWRlL2xpbnV4L21mZC93Y2Q5MzR4L3JlZ2lzdGVycy5oCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBp
+bmNsdWRlL2xpbnV4L21mZC93Y2Q5MzR4L3djZDkzNHguaAoKQXBwbGllZCwgdGhhbmtzLgoKLS0g
+CkxlZSBKb25lcyBb5p2O55C85pavXQpMaW5hcm8gU2VydmljZXMgVGVjaG5pY2FsIExlYWQKTGlu
+YXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFSTSBTb0NzCkZvbGxvdyBMaW5h
+cm86IEZhY2Vib29rIHwgVHdpdHRlciB8IEJsb2cKX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBh
+bHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4v
+bGlzdGluZm8vYWxzYS1kZXZlbAo=

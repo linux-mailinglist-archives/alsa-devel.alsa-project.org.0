@@ -2,88 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 223D114C9D0
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 12:35:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E93DE14C9CE
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 12:34:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6159167E;
-	Wed, 29 Jan 2020 12:34:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6159167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98C1D1674;
+	Wed, 29 Jan 2020 12:34:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98C1D1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580297742;
-	bh=vocIdaghoEOea0ejPWNairoF8kdBZ1rXykIPu9M/HQA=;
-	h=To:From:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=tEm635ggjoEa98/+/I6WWlNj3MH83pHBpP3FA1B5el1XbfEnb1hBxMAU4/+MQjqgQ
-	 W/U2BzJWhUWl2j/5u7eMItbvP35Y1R3zF10TrlUJnu+93UII8Zvnp1wUOdLTc4325O
-	 Hts0wHyU09Jh9m4EQJg8DlXhaTqv2VUiGxyRY2j8=
+	s=default; t=1580297698;
+	bh=CPSdEIVAy+ht2IkV20HjtDE/Het3Fasm08XVIT1uxkU=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=k5Gmli8I7GeuUAC1WrzWOnVlF0w7MP6AWUa90eya7ToRBi5tnJqTOMIlDovPdlT8V
+	 YtPT+8EaxW2iLkdCd0mKBy3yMPXgxpBnywtrj4nJkIFOfb5rYn5qyLCy6F3RwoCU3Y
+	 OKcQTFhaBz1bYjAczlcrxppciMNzOsiPmXrIErBU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 167ECF80252;
-	Wed, 29 Jan 2020 12:33:38 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9CB6CF80229;
+	Wed, 29 Jan 2020 12:33:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96D6EF8014B; Tue, 28 Jan 2020 12:51:36 +0100 (CET)
+ id 59E0FF8021E; Wed, 29 Jan 2020 12:33:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,RCVD_IN_DNSWL_NONE,SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
- [IPv6:2a00:1450:4864:20::32d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DFDCEF800FF
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 12:51:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFDCEF800FF
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="gWfQ/Q+5"
-Received: by mail-wm1-x32d.google.com with SMTP id a9so2194725wmj.3
- for <alsa-devel@alsa-project.org>; Tue, 28 Jan 2020 03:51:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=to:from:subject:message-id:date:user-agent:mime-version
- :content-transfer-encoding:content-language;
- bh=/Nop3yhdKygAvT9F93tUxq5UTFs8tG2vCvT0L8EqIf8=;
- b=gWfQ/Q+5/xsxtYL+lFyqO27FBSkQB+UyYaTo6EJUP6iQGWdmdSUSVYHIMY0YwRq5R/
- wP2qqTXD1p5OHAP8G9wTKU5mEK5mMKMVWdgwarONykpwKbXVFuwJg9CHn958qBcf4umk
- G5ROdIonPCXbhU8CAabuh4tWP72dpGBBD7N28TSX7sKgjrP709gnUy7wfCQFlMbTpcEu
- vGHg/67V6zK/zejmLaMLh9wAiM0bByM/owva7Wge5IdwVAQ8JvHVFhAt85U3Ee84sN8F
- ohFx+YkCMrlZWYCqvYX1lAH/JmKDYeodRX/FjWbeGnqY+t8WxgWjvw7dO+Ou41YFEnEo
- UoaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:to:from:subject:message-id:date:user-agent
- :mime-version:content-transfer-encoding:content-language;
- bh=/Nop3yhdKygAvT9F93tUxq5UTFs8tG2vCvT0L8EqIf8=;
- b=BAcdCMn0SiRh70X4yBFnJZcUjnd8A8vAKseSIVXev8mp0I+CvNdIiFHvdpmfQ1qXbH
- RdFD9pARHvOyua6xjOSEbBhUzrtEaXrpORwQbdPuu/0JrJ3Sj+6ubOQqhqWy4MF5qYR9
- ZL7K2pf5//eHEY26duzRRaclEtcg29Tpem1YkblRUVXKcgXt9s001ibm18cu58hvdKsg
- kRjGR5M0ILyIDVzZDVu+XjhBlkeOa6gp/C9EaETjQh3fWCT6hGjCkRp/yn3WaxK31syD
- YOkDxTWUwxEhgy4aWQuEVd0KqjU5Nq2qq+NQiznMjcea/YVIQSzLuVM0HFFm8YbyIdry
- LKUw==
-X-Gm-Message-State: APjAAAX95nLbkJmooKwKyNUI5IGdWF8jIgOoEc8EBIs/swrxXB2xBSai
- xmcy687jZ8nC5s06EwKNZWF9lGKvscI=
-X-Google-Smtp-Source: APXvYqxTabut6u/lqGM30sgYEuvZ0DBxt5MmbpN3ieTH4Rn+qEFB4woq59CC1avcSFft8LSn0KfrpA==
-X-Received: by 2002:a05:600c:21c6:: with SMTP id
- x6mr4607071wmj.177.1580212292418; 
- Tue, 28 Jan 2020 03:51:32 -0800 (PST)
-Received: from [130.208.171.199] (vr2-pc38.rhi.hi.is. [130.208.171.199])
- by smtp.gmail.com with ESMTPSA id y12sm2621905wmj.6.2020.01.28.03.51.31
- for <alsa-devel@alsa-project.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jan 2020 03:51:31 -0800 (PST)
-To: alsa-devel@alsa-project.org
-From: Pedro Costa <p.simoes.costa@gmail.com>
-Message-ID: <719056d4-aa45-8186-697c-76c1e89492ce@gmail.com>
-Date: Tue, 28 Jan 2020 11:49:53 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
-MIME-Version: 1.0
-Content-Language: en-US
-X-Mailman-Approved-At: Wed, 29 Jan 2020 12:33:36 +0100
-Subject: [alsa-devel] issue with alsa lib (ucm vs ucm2 folders?)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 04A24F80082
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 12:33:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04A24F80082
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 6B398AE06;
+ Wed, 29 Jan 2020 11:33:06 +0000 (UTC)
+Date: Wed, 29 Jan 2020 12:33:06 +0100
+Message-ID: <s5hy2tqfqfh.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Roman =?UTF-8?B?xaBtYWthbA==?= <schmakerisko@gmail.com>
+In-Reply-To: <2520086.mvXUDI8C0e@schmakbook>
+References: <2520086.mvXUDI8C0e@schmakbook>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [CX2075] No sound after suspend/resume from
+	front	speaker
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,29 +66,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dear all,
-
-My apologies in advance for a very non-technical feedback from a non-expert.
-
-I was unable to get sound output after updating alsa-lib on my Manjaro 
-Linux system. I managed to get it working after downgrading it to 
-version 1.1.9.2. It seems that I faced the same problem as reported here:
-
-https://bbs.archlinux.org/viewtopic.php?id=251113
-
-You may already be aware of the issue, but just in case I would like be 
-sure that you are!
-
-Best regards,
-
-Pedro Costa
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gU2F0LCAyNSBKYW4gMjAyMCAyMzozMDozMiArMDEwMCwKUm9tYW4gxaBtYWthbCB3cm90ZToK
+PiAKPiBIaSwKPiAKPiB0aGlzIHN0aWxsIHNlZW0gdG8gYmUgYW4gaXNzdWUuIEFmdGVyIHN0YXJ0
+dXAgZXZlcnl0aGluZyB3b3JrcyB3ZWxsIHVudGlsIHRoZSAKPiBsYXB0b3AgZ29lcyB0byBzdXNw
+ZW5kLgo+IAo+IFRyaWVkIHByZXR0eSBtdWNoIGV2ZXJ5dGhpbmcgYmFzaWMgdXNlciBjYW4gZG8g
+KHVubXV0ZXMsIHJtbW9kcyBhbmQgc28gb24pLCAKPiBzdGlsbCBubyB3YXkgdG8gd2FrZSB0aGUg
+b3V0cHV0LiBBTFNBIHNlZW1zIHRvIGJlIHRoaW5raW5nLCB0aGF0IG91dHB1dCBpcyAKPiBhY3Rp
+dmUsIHlvdSBjYW4gc2V0IHZvbHVtZSBhbmQgc3R1ZmYsIGJ1dCBub3RoaW5nIGhhcHBlbnMuCj4g
+Cj4gQUxTQSBpbmZvOgo+IGh0dHA6Ly9hbHNhLXByb2plY3Qub3JnL2RiLz9mPTlkMWVlODFmZTAz
+N2FjYjUzY2EzODFmMmRlMjdiZTQyMGY4M2EzNzMKPiAKPiBSZWxhdGVkIGxpbmtzOgo+IGh0dHBz
+Oi8vd3d3LnJlZGRpdC5jb20vci9hcmNobGludXgvY29tbWVudHMvNG53enVhLwo+IG5vX3NvdW5k
+X2FmdGVyX3N1c3BlbmRfa2lsbGluZ19vcl9yZXN0YXJ0aW5nLwo+IGh0dHBzOi8vYnVncy5sYXVu
+Y2hwYWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4LytidWcvMTYxMjkxNgo+IGh0dHBzOi8vYnVn
+cy5kZWJpYW4ub3JnL2NnaS1iaW4vYnVncmVwb3J0LmNnaT9idWc9ODUxNDA0CgpUaGUgZmlyc3Qg
+dGhpbmcgdG8gY2hlY2sgaXMgdG8gY29tcGFyZSBhbHNhLWluZm8uc2ggb3V0cHV0cyBiZWZvcmUg
+YW5kCmFmdGVyIHRoZSBzdXNwZW5kLgoKQWxzbyBwYXNzIHNuZF9oZGFfY29kZWMuZHVtcF9jb2Vm
+PTEgbW9kdWxlIG9wdGlvbiB0byBlbmFibGUgdGhlIENPRUYKZHVtcC4gIFRoaXMgd2lsbCBnaXZl
+IG1vcmUgaW5mb3JtYXRpb24gaW4gYWxzYS1pbmZvLnNoIG91dHB1dHMuCgoKVGFrYXNoaQpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1h
+aWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFs
+c2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

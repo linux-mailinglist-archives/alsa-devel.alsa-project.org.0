@@ -2,75 +2,108 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A35DE14CCE7
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 16:01:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 101E614CD4B
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 16:24:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 21BD5167A;
-	Wed, 29 Jan 2020 16:00:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 21BD5167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id A7DD4167B;
+	Wed, 29 Jan 2020 16:23:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A7DD4167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580310072;
-	bh=xjNdE0bgcUNaCmohA6jLFR5mGPgXaJjDbzDbnRLb9pg=;
+	s=default; t=1580311463;
+	bh=rHQYz2pmXu9d9REgIZH2t+ddzPDi7r+5979+hS/YmNc=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eBXk4DQFfBgYVx0if4t4cFweLWaVWVLfzbrNoewPk5zUExByMeV3IwyJDUJE7SSMp
-	 lGwzntn56fIvQfqZGjpqhwhI83qSuKy1+RIuZVlFsh4eFsgg8Yo1Np266ag9yeb1AB
-	 RHbjMpHA/Q22dXekiHf5AP69frb8uM1iGGVa0lh0=
+	b=D6DLVOONwUyaupGe9ZJjGBj2kjrN8Jr0VYuHClI7Lo4xf5kanmdYZ+4o7WwMMw8L7
+	 4geWLTN0nS+w1CEswtF4gyPPhqKVkVE2wck8tGQ0ZQ2B6C0pbgd8DlH1SfLx/XALqW
+	 RZ4KEJJ+ncYZtdk4jHGMqFtQemaT4Jtlxei3LFgI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2DACCF80123;
-	Wed, 29 Jan 2020 15:59:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B9307F80082;
+	Wed, 29 Jan 2020 16:22:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 05734F80229; Wed, 29 Jan 2020 15:59:28 +0100 (CET)
+ id C7CA1F8021E; Wed, 29 Jan 2020 16:22:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2DD51F80082
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 15:59:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DD51F80082
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2020 06:59:16 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,378,1574150400"; d="scan'208";a="222474171"
-Received: from rnoffsin-mobl.amr.corp.intel.com (HELO [10.252.139.181])
- ([10.252.139.181])
- by orsmga008.jf.intel.com with ESMTP; 29 Jan 2020 06:59:15 -0800
-To: Vinod Koul <vkoul@kernel.org>
-References: <20200114060959.GA2818@vkoul-mobl>
- <6635bf0b-c20a-7561-bcbf-4a480a077ae4@linux.intel.com>
- <20200118071257.GY2818@vkoul-mobl>
- <73907607-0763-576d-b24e-4773dfb15f0b@linux.intel.com>
- <20200128105036.GO2841@vkoul-mobl>
- <d9478d9b-68a9-3d2c-338e-ca02e81e218e@linux.intel.com>
- <20200129050817.GW2841@vkoul-mobl>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <4c49c9d0-e7b7-6c9b-03b8-90a94bfd1407@linux.intel.com>
-Date: Wed, 29 Jan 2020 08:59:14 -0600
+ by alsa1.perex.cz (Postfix) with ESMTPS id DF3B1F80123
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 16:22:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF3B1F80123
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="QapQxTJV"
+Received: by mail-lj1-x242.google.com with SMTP id f25so5999470ljg.12
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 07:22:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=GditBgjv04bGKi5ughJOq3WqReWgzWw+7OJFtryNwQY=;
+ b=QapQxTJVfP76PPBBJ3+k0t6YauG1bfsaydAmNX0jW/tS37X7uFBwn3rBSK+/t0DNBm
+ wXlXGQHn/K5L+khuuAeBFy/yZexQyRpjbc8yp30rFQLAvtHMf86d3+h5dir+xyrDuZMD
+ Ozhga00M1apPXuPe1i9duLFbhO6FljsyhAbvXuP8mAMUx9r+iSxA9qSWAAQ1It75h7Iu
+ 4T38TUqEj8Ri3qfyJPc6VihILIETCT9oScM4zGWc21bDZJrna04NK/k1OVRLK2C8K8ob
+ dFix87ZfZNrD1itEGb/KyTdqOVKgXWH1+EEVhlAl4hjGGUslgw9wfWOTJK2D6bW5NNHk
+ dVzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=GditBgjv04bGKi5ughJOq3WqReWgzWw+7OJFtryNwQY=;
+ b=SKfxDNXMY2iZpxXMnVzQlpn3sLJntMzidQLqC5y6gvg2SDlvYL6OCTR/4M9711iMPQ
+ PpxCBC5nsXOoJUX4LvM+kzl2FdjOnzdse5hgznCrsTfXCU9OnR6fjSMP+isokAuXND+m
+ GbSHJUXWe+4V9N9j2KY1OM1gNpl0ZbeP0bjrkHcGnEO02cWT3BjN6yMKV0Vm8in06SWM
+ U2QFSYw39PD5gJHuvY60iFYVVjJ4pJE3CtIIXYI2wp3l1bd0GYO3sz5hQElT5Jf0YJ/X
+ lolipFjC8ZsDEfWUoNy26NPYaWQWSPBqLpzpmgChs/UCmalEEcEZ2Z1ep+EOfxgpPO25
+ XjHA==
+X-Gm-Message-State: APjAAAVd3MAJJBrizUoDauXPaZS1AW89B99aLGA6UvWU1YL6QqMyeXU/
+ jldFsVfattBSJmaf0+WyJIE=
+X-Google-Smtp-Source: APXvYqyHTxmhchYypqQ3D/M1NjRJy8h5Jmpf0J5DuiV5vm886ljgNTxQBYcUHuMT8r1CfpWdKQrAdQ==
+X-Received: by 2002:a2e:97c1:: with SMTP id m1mr16381367ljj.270.1580311350631; 
+ Wed, 29 Jan 2020 07:22:30 -0800 (PST)
+Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
+ [79.139.233.37])
+ by smtp.googlemail.com with ESMTPSA id f16sm1134650ljn.17.2020.01.29.07.22.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jan 2020 07:22:29 -0800 (PST)
+To: Jon Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
+ Ben Dooks <ben.dooks@codethink.co.uk>
+References: <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
+ <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
+ <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
+ <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
+ <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
+ <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
+ <a2744ea0-cf6d-d083-75e6-853746195001@gmail.com>
+ <28cafc56-095b-68c6-638d-270608a2983f@codethink.co.uk>
+ <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
+ <1b3c2af4-510e-306c-749a-efffc994b20a@gmail.com>
+ <20200128121315.GD4689@sirena.org.uk>
+ <4b90efd2-5d0c-84df-961d-80cee288e0d4@nvidia.com>
+ <586ea2b9-c204-2bd1-f8e2-875e0974e42d@nvidia.com>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <5a239652-0964-7234-21ab-00519c6c40f0@gmail.com>
+Date: Wed, 29 Jan 2020 18:22:28 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <20200129050817.GW2841@vkoul-mobl>
+In-Reply-To: <586ea2b9-c204-2bd1-f8e2-875e0974e42d@nvidia.com>
 Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v5 09/17] soundwire: intel: remove platform
- devices and use 'Master Devices' instead
+Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org
+Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
+ 24bit and 32bit samples
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,206 +116,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Vinod,
-
->>> If I look at the calling sequence of the code (looked up the sof code on
->>> github, topic/sof-dev-rebase), the sof code sound/soc/sof/intel/hda.c
->>> invokes the sdw_intel_startup() and sdw_intel_probe() based on hardware
->>> sequencing and further you call .init and .probe/startup of sdw_md_driver.
->>>
->>> I really do not see why we need a sdw_md_driver object to do that. You can
->>> easily have a another function exported by sdw_intel driver and you call
->>> these and do same functionality without having a sdw_md_driver in
->>> between.
->>
->> I must admit I am beyond my comfort zone: I introduced this
->> sdw_master_driver only based on Greg's recommendation to look at GreyBus.
-> 
-> Well the recommendation was to add a device, so adding sdw_master_device
-> was the right approach. But we don't need to add driver as well.
-
-I provided two reasons below why we need one
-[1] ASoC use of dev->driver
-[2] PM hooks.
-
-I would kindly ask that you re-check these points and reply on each, 
-thank you. I did not remove them from my reply so that you don't have to 
-go back to the previous emails.
-
->> That said, I have two key points that I should explain further.
->>
->> When we started this work, we initially did not have a notion of 'master
->> driver' coupled with the 'master_device'. But we faced a number of issues
->> with ASoC registrations, which seemed to required a driver to be registered
->> and associated with the device. We kept this part as a separate commit to
->> make sure this requirement wasn't lost:
-> 
-> Yes ASoC does require the DAI driver as it holds a reference to it. That
-> was the reason we have a platform device and a platform driver for
-> "int-sdw".
-
-no, it's not related to references, it's using the name, see [1]. And 
-it's not related to the 'dai driver' which is a separate entity 
-unrelated to devices.
-
-> Would it make sense to keep this as is and then export the init and
-> startup APIs which can be invoked by SOF part for hardware
-> initialization. So driver loading is a separate step from hardware
-> initialization and sequencing.
-> 
-> Also you continue with the benefit of parent-child relations for this
-> device :) and pm should be simpler.
-
-the parent-child relationship was used in all cases, I don't understand 
-why things would be different, you still need to add hooks in the 
-'driver' for the pm of the 'master' child device, be it a platform 
-device or not.
-
-> Btw this helps if ever in future you have a separate instance of sdw
-> controller that can be just hooked to acpi/pci/whatever device part and
-> driver works without big plumbing
-> 
->> https://github.com/thesofproject/linux/commit/28b934ce9c165e095dac5cf71da5685768831337
->>
-
-[1]
-
->> Looking back at my notes, this came from this piece of code:
->>
->> static char *fmt_single_name(struct device *dev, int *id)
->> {
->> 	char *found, name[NAME_SIZE];
->> 	int id1, id2;
->>
->> 	if (dev_name(dev) == NULL)
->> 		return NULL;
->>
->> 	strlcpy(name, dev_name(dev), NAME_SIZE);
->>
->> 	/* are we a "%s.%d" name (platform and SPI components) */
->> 	found = strstr(name, dev->driver->name); <<< oops
->>
->> so for ASoC, there is an expectation that each device does have a driver
->> associated with it. Just for fun I reverted the commit above and that
->> immediately trigger an kernel oops.
-
-[2]
-
->> The other point that we came across is that PM support is only enabled
->> thanks to a hook in the driver structure:
->>
->> static const struct dev_pm_ops intel_pm = {
->> 	SET_SYSTEM_SLEEP_PM_OPS(intel_suspend, intel_resume)
->> 	SET_RUNTIME_PM_OPS(intel_suspend_runtime, intel_resume_runtime, NULL)
->> };
->>
->> struct sdw_master_driver intel_sdw_driver = {
->> 	.driver = {
->> 		.name = "intel-sdw",
->> 		.owner = THIS_MODULE,
->> 		.bus = &sdw_bus_type,
->> 		.pm = &intel_pm, <<<<
->> 	},
->> 	.probe = intel_master_probe,
->> 	.startup = intel_master_startup,
->> 	.process_wake_event = intel_master_process_wakeen_event,
->> 	.remove = intel_master_remove,
->> };
->>
->> I am not aware of any other way to do this.
-
-I suggested a minimal way of using the 'device_driver' directly in 
-https://github.com/thesofproject/linux/pull/1755
-
->>> So to summarize, my recommendation would be to drop sdw_md_driver, keep
->>> sdw_master_device object and make sdw_master_device_add() hidden to
->>> driver and call it from sdw_add_bus_master() and keep intel specific
->>> startup/init routine which do same steps as they have now.
->>
->> I am afraid the sequence you suggest is not technically possible:
->> sdw_add_bus_master() requires a device to be created already, see e.g. how
->> it's used by Qualcomm:
->>
->> https://github.com/thesofproject/linux/blob/4026efd12ac983d363fb43c37a8af741a2c90dc8/drivers/soundwire/qcom.c#L811
->>
->> sdw_add_bus_master() is called from the platform device probe.
->> I cannot insert a device creation in this code.
-> 
-> So there are two things, lets discuss them independently. One is the
-> device behind the controller object. I think I have given a
-> recommendation above to keep the existing platform device for "int-sdw".
-> This device can be PCI/ACPI/OF/Platform, we typically should not worry
-> about it.
-
-I don't understand how a platform device can be PCI/ACPI/OF? what did 
-you mean here?
-
-> Second is we create the bus instance and that also create the
-> sdw_master_device to represent the soundwire master device in sysfs,
-> since this would be done by soundwire core (as I suggested), it would be
-> independent of which type of driver is invoking this. In fact this needs
-> to be completely independent of the driver calling this.
-> 
-> Intel code will call sdw_add_bus_master() and we would create a
-> sdw_master_device for it and add the representation. So would the qcom
-> code (btw with this, we wont need to do anything on qc code and it
-> 'should just work (tm)'.
-> 
->> It'd actually be counter productive to add device management at the bus
->> level, since we'd soon have incompatibilities between Intel, Qualcomm and
->> others. What is platform-specific should be handled outside of the bus
->> layer.
-> 
-> The vision I am thinking is that sdw_master_device is a representation
-> of master for everyone independent of the platform it is being used.
-> 
-> Let me know if this helps
-
-Sorry no, your reply just confused me completely.
-
-The recommendation from Greg was "remove platform devices". Here's the 
-quote from his May 9, 2019 reply:
-
-"So soundwire is creating platform devices?  Ick, no!  Don't do that,
-create a "real" device that is the root of your bus and attach that to
-the platform/pci/whatever device that is the parent of that device's
-resources."
-
-If your suggestion is to keep platform devices as currently done, then I 
-will kindly ask that you speak with Greg and let me know what the 
-agreement is.
-
-The second part of your reply gets more confusing, you are suggesting 
-that "Intel code will call sdw_add_bus_master() and we would create a 
-sdw_master_device for it and add the representation". That is in direct 
-contradiction with the notion of using platform devices. And it would by 
-construction break the Qualcomm controller code just merged weeks ago. 
-Are you suggesting I start changing Qualcomm code? Or that we add a new 
-function that does device creation+bus addition in one shot?
-
-And last you didn't acknowledge my two technical points as to why a 
-driver is needed for this sdw_master_device.
-
-So I am back to scratching my head on what the direction is? I just do 
-not understand your line of thought.
-
-Maybe we need to stop the long sentences and use this decision flow:
-
-a) is the master device a platform device (Yes/No)?
-b) if No for a) then
-b.1) is the master device created within sdw_add_bus_master()
-b.2) is the master device created before calling sdw_add_bus_master()
-
-Can you please clarify what your desired choices are on this last paragraph?
-
-Thanks
--Pierre
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+MjkuMDEuMjAyMCAxNzozMywgSm9uIEh1bnRlciDQv9C40YjQtdGCOgo+IAo+IE9uIDI5LzAxLzIw
+MjAgMTA6NDksIEpvbiBIdW50ZXIgd3JvdGU6Cj4+Cj4+IE9uIDI4LzAxLzIwMjAgMTI6MTMsIE1h
+cmsgQnJvd24gd3JvdGU6Cj4+PiBJIHJlYWxseSBkb24ndCB1bmRlcnN0YW5kIHdoeSB0aGlzIGlz
+IGFsbCB0YWtpbmcgc28gbG9uZywgdGhpcyB0aHJlYWQKPj4+IGp1c3Qgc2VlbXMgdG8gYmUgZ29p
+bmcgcm91bmQgaW4gaW50ZXJtaW5hYmxlIGNpcmNsZXMgbG9uZyBhZnRlciBpdAo+Pj4gbG9va2Vk
+IGxpa2UgdGhlIGlzc3VlIHdhcyB1bmRlcnN0b29kLiAgSSBoYXZlIHRvIGFkbWl0IEkndmUgbm90
+IHJlYWQKPj4+IGV2ZXJ5IHNpbmdsZSBtZXNzYWdlIGluIHRoZSB0aHJlYWQgYnV0IGl0J3MgZGlm
+ZmljdWx0IHRvIHNlZSB3aHkgaXQKPj4+IGRvZXNuJ3Qgc2VlbSB0byBiZSBtYWtpbmcgYW55IHBy
+b2dyZXNzLgo+Pgo+PiBTb3JyeSBhYm91dCB0aGF0LiBPbiByZXZpZXdpbmcgdGhpcyB3aXRoIHRo
+ZSBhdWRpbyB0ZWFtIGF0IE5WSURJQSwgSSB3YXMKPj4gdG9sZCB3ZSBkb24ndCBzdXBwb3J0IFMy
+NF9MRSBmb3IgSTJTLiBUaGUgcmVhc29uIGJlaW5nIHRoYXQgdGhlIGNyb3NzYmFyCj4+IGJldHdl
+ZW4gdGhlIERNQSBhbmQgSTJTIGlzIG5vdCBhYmxlIHRvIGV4dHJhY3QgdGhlIGNvcnJlY3QgMjQt
+Yml0cyBmcm9tCj4+IHRoZSAzMi1iaXQgc2FtcGxlIHRvIGZlZWQgdG8gdGhlIEkyUyBpbnRlcmZh
+Y2UuIFRoZSBUZWdyYSBkb2N1bWVudGF0aW9uCj4+IGRvZXMgc2hvdyBzdXBwb3J0IGZvciAyNC1i
+aXRzLCBidXQgbm90IHN0YXRlIGV4cGxpY2l0IHN1cHBvcnQgZm9yIFMyNF9MRS4KPj4KPj4gTm93
+IEJlbiBzYXlzIHRoYXQgaGUgaGFzIHRoaXMgd29ya2luZywgYnV0IEkgYW0gdW5hYmxlIHRvIHJl
+cHJvZHVjZQo+PiB0aGlzLCBzbyBiZWZvcmUganVzdCBkcm9wcGluZyB0aGUgUzI0X0xFIHN1cHBv
+cnQsIEkgd291bGQgbGlrZSB0bwo+PiB1bmRlcnN0YW5kIGhvdyB0aGlzIGlzIHdvcmtpbmcgZm9y
+IEJlbiBpbiBjYXNlIHRoZXJlIGlzIHNvbWV0aGluZyB0aGF0Cj4+IHdlIGhhdmUgb3Zlcmxvb2tl
+ZCBoZXJlLgo+IAo+IEFoLCBJIHNlZSB0aGF0IHBhcnQgb2YgdGhlIHByb2JsZW0gaXMgdGhhdCBw
+YXRjaGVzIDYgYW5kIDcgYXJlIHlldCB0byBiZQo+IGFwcGxpZWQgYW5kIHdpdGhvdXQgdGhlc2Ug
+dGhlIGF1ZGlvIGlzIGNvbXBsZXRlbHkgZGlzdG9ydGVkIGJlY2F1c2UKPiB0aGVyZSBpcyBhIG1p
+c21hdGNoIGluIHRoZSBkYXRhIHNpemUgYmV0d2VlbiB0aGUgQVBCSUYgYW5kIEkyUwo+IGNvbnRy
+b2xsZXIuIEFwcGx5aW5nIHRoZXNlIHBhdGNoZXMgaXQgaXMgbm90IGRpc3RvcnRlZCBidXQgbm93
+IEkgYW0KPiBvYnNlcnZpbmcgdGhlIGNsb2NraW5nIGlzc3VlIEJlbiByZXBvcnRlZCBhbmQgc28g
+dGhlIHRvbmUgaXMgbm90IHF1aXRlCj4gcmlnaHQuCj4gCj4gQmVuLCBJIHdhcyBhYmxlIHRvIHdv
+cmthcm91bmQgdGhlIGNsb2NraW5nIGlzc3VlIGJ5IG1ha2luZyB0aGUgSTJTIHdvcmQKPiBjbG9j
+ayA2NCBiaXRzIGxvbmcgYW5kIG5vdCA0OC4KPiAKPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL3Rl
+Z3JhL3RlZ3JhMzBfaTJzLmMgYi9zb3VuZC9zb2MvdGVncmEvdGVncmEzMF9pMnMuYwo+IGluZGV4
+IGJiZjgxYjVhYTcyMy4uM2M5YjQ3NzllNjFiIDEwMDY0NAo+IC0tLSBhL3NvdW5kL3NvYy90ZWdy
+YS90ZWdyYTMwX2kycy5jCj4gKysrIGIvc291bmQvc29jL3RlZ3JhL3RlZ3JhMzBfaTJzLmMKPiBA
+QCAtMTQzLDcgKzE0Myw3IEBAIHN0YXRpYyBpbnQgdGVncmEzMF9pMnNfaHdfcGFyYW1zKHN0cnVj
+dAo+IHNuZF9wY21fc3Vic3RyZWFtICpzdWJzdHJlYW0sCj4gICAgICAgICBjYXNlIFNORFJWX1BD
+TV9GT1JNQVRfUzI0X0xFOgo+ICAgICAgICAgICAgICAgICB2YWwgPSBURUdSQTMwX0kyU19DVFJM
+X0JJVF9TSVpFXzI0Owo+ICAgICAgICAgICAgICAgICBhdWRpb19iaXRzID0gVEVHUkEzMF9BVURJ
+T0NJRl9CSVRTXzI0Owo+IC0gICAgICAgICAgICAgICBzYW1wbGVfc2l6ZSA9IDI0Owo+ICsgICAg
+ICAgICAgICAgICBzYW1wbGVfc2l6ZSA9IDMyOwo+ICAgICAgICAgICAgICAgICBicmVhazsKPiAg
+ICAgICAgIGNhc2UgU05EUlZfUENNX0ZPUk1BVF9TMzJfTEU6Cj4gICAgICAgICAgICAgICAgIHZh
+bCA9IFRFR1JBMzBfSTJTX0NUUkxfQklUX1NJWkVfMzI7Cj4gCj4gRm9yIEkyUyBJIGJlbGlldmUg
+d2Ugb25seSBjYXJlIGFib3V0IHRoZSBlZGdlcyBvZiB0aGUgd29yZCBjbG9jayBhbmQgc28KPiB3
+ZSBtYWtlIHRoZSBvdmVyYWxsIHBlcmlvZCBvZiB0aGUgd29yZCBjbG9jayA2NCBiaXQgY2xvY2tz
+IHRoZW4gd2Ugbm8KPiBsb25nZXIgaGF2ZSBhbiBpc3N1ZSB3aXRoIHRoZSBiaXQgY2xvY2sgZnJl
+cXVlbmN5LiBJIGFzc3VtZSB0aGF0IHRoaXMKPiBzaG91bGQgYWxzbyBiZSBmaW5lIGZvciBURE0g
+bW9kZXMgYXMgd2VsbC4KPiAKPiBDYW4geW91IGxldCBtZSBrbm93IGlmIHRoaXMgd29ya3MgZm9y
+IHlvdT8KCmNhdCAvcHJvYy9hc291bmQvY2FyZDAvcGNtMHAvc3ViMC9od19wYXJhbXMKCmFjY2Vz
+czogTU1BUF9JTlRFUkxFQVZFRApmb3JtYXQ6IFMyNF9MRQpzdWJmb3JtYXQ6IFNURApjaGFubmVs
+czogMgpyYXRlOiA0ODAwMCAoNDgwMDAvMSkKcGVyaW9kX3NpemU6IDUxMgpidWZmZXJfc2l6ZTog
+NDA5NgoKTm8gZGlzdG9ydGlvbiBhdCBhbGwhIEpvbiwgdGhhbmsgeW91IHZlcnkgbXVjaCEKX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBt
+YWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5h
+bHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

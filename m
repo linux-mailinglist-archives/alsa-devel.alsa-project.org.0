@@ -2,59 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5343F14CFF8
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 18:57:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5D6714D00E
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 19:01:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F2E58169F;
-	Wed, 29 Jan 2020 18:56:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2E58169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B6E916AB;
+	Wed, 29 Jan 2020 19:01:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B6E916AB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580320659;
-	bh=/hqSU7VYDc7aYnl67jTM/L0sargkny8zKMOTN7Crmhs=;
-	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=glakNllml/8HiQJ5BEY6sww7h7UGpJW/qzuxW2oQ0Tt3XWaMsGaYh42igsxOJxfAJ
-	 GqwUtZmrzn2R/PYJHhHsU0UyanOxoICfxy5qUb1Taovpi24iXh7qLPFgvNIyb5hIAb
-	 TYQind4eNLYuv5s6bbY8lckaSaZiGXY9oBmaAfMc=
+	s=default; t=1580320919;
+	bh=TaDDvh0Vkknb+LwLdurxjeGcfKJUQG/Q2TcFaeFMQCc=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mq7Az0APTCKuitghylWmpYEHKQcDh+HGir1lfQA8NkgmSZuKPTQ2LteH4oaNtsjg8
+	 krE38nTBW92lOUxq27b9pEfo9FamOcUz4pr9Kl/NEMIdEyex6lC+Rq4NQG+hDt+TGY
+	 Snr7akH8ljn+rw4t23WBB97ThswhrMe2ioRrGQa4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA832F8027D;
-	Wed, 29 Jan 2020 18:54:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 48685F80122;
+	Wed, 29 Jan 2020 19:00:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D251FF80277; Wed, 29 Jan 2020 18:54:30 +0100 (CET)
+ id 8579BF8021E; Wed, 29 Jan 2020 17:06:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 2DE3DF80273
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 18:54:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2DE3DF80273
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74C111045;
- Wed, 29 Jan 2020 09:54:26 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E69153F67D;
- Wed, 29 Jan 2020 09:54:25 -0800 (PST)
-Date: Wed, 29 Jan 2020 17:54:24 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Akshu Agrawal <akshu.agrawal@amd.com>
-In-Reply-To: <20200128103029.128841-1-akshu.agrawal@amd.com>
-Message-Id: <applied-20200128103029.128841-1-akshu.agrawal@amd.com>
-X-Patchwork-Hint: ignore
-Cc: "SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>, open list <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- list@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Wei Yongjun <weiyongjun1@huawei.com>, moderated@alsa-project.org,
- vishnuvardhanrao.ravulapati@amd.com, akshu.agrawal@amd.com,
- "Cc:"@alsa-project.org
-Subject: [alsa-devel] Applied "ASoC: amd: Fix simultaneous playback and
-	capture" to the asoc tree
+X-Spam-Level: ****
+X-Spam-Status: No, score=4.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
+ [209.85.166.199])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C1B5BF80122
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 17:06:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1B5BF80122
+Received: by mail-il1-f199.google.com with SMTP id h18so193328ilc.2
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 08:06:16 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=fEUlUjM8SEojeOk6pwtcSTQDu8D7nALBWF21TUkUjFQ=;
+ b=XiO9mRQduQN2+H5JxE1NOK1tgmf3nYcGZUSZiiGRP3GR2ybMifSnKnkfX4KqD8qrmD
+ 1ToVfJS8Rw8wvFPEaYt9yANhB0Oas+zMdcHgxtiycUzn69xjmrDvMmTZTPM1yoHIdPNO
+ 7aPPfnWn143hVeEigdmE3JehV+oHSfYLKxh+zgrbteZo8JTDJYHi6nWLzeK9XfIVTxfj
+ 4stMBcElnMRPwb63bDqR3VvnheeQQLvDKFpXjWkoU478yMiJEv/7g0/wyc58Uh146RBa
+ DcUKxTGaNxOWWJHbQWwK8KV+2WnCiQ2KRMK6v0HL/OGnXVUpdemqDPOiV933aTMQxZ2O
+ q5ng==
+X-Gm-Message-State: APjAAAVEX2nkAksw3P1cz4IVCtoa7fgCWuJVXYC+K9hZX7DyU3RtrHSY
+ ya1d5eWEe7jsF/JwldhyQNaHQOjdxpRB7r7auQ6IFBoDn8iR
+X-Google-Smtp-Source: APXvYqxRd2se19n9AMGBF0tsd+V/QMOOXynWF3G0Gosz8cItmjCbMWlTR4gOeDt0e9z2keIjwUnyAv5NoJ294QR5X7nnb81NTilm
+MIME-Version: 1.0
+X-Received: by 2002:a92:914a:: with SMTP id t71mr26674745ild.293.1580313974646; 
+ Wed, 29 Jan 2020 08:06:14 -0800 (PST)
+Date: Wed, 29 Jan 2020 08:06:14 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <00000000000017ad0d059d498531@google.com>
+From: syzbot <syzbot+30edd0f34bfcdc548ac4@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, perex@perex.cz, sumit.semwal@linaro.org, 
+ syzkaller-bugs@googlegroups.com, tglx@linutronix.de, tiwai@suse.com
+X-Mailman-Approved-At: Wed, 29 Jan 2020 19:00:16 +0100
+Subject: [alsa-devel] memory leak in snd_pcm_hw_params
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,103 +78,73 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Hello,
 
-   ASoC: amd: Fix simultaneous playback and capture
+syzbot found the following crash on:
 
-has been applied to the asoc tree at
+HEAD commit:    b3a60822 Merge branch 'for-v5.6' of git://git.kernel.org:/..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1351cf66e00000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e97a1bc78afb77f
+dashboard link: https://syzkaller.appspot.com/bug?extid=30edd0f34bfcdc548ac4
+compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14e97735e00000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13cd9bc9e00000
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+30edd0f34bfcdc548ac4@syzkaller.appspotmail.com
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+executing program
+executing program
+executing program
+BUG: memory leak
+unreferenced object 0xffff888108fdefc0 (size 64):
+  comm "syz-executor222", pid 7310, jiffies 4294946025 (age 13.660s)
+  hex dump (first 32 bytes):
+    07 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+    00 10 33 02 00 c9 ff ff 00 00 00 00 00 00 00 00  ..3.............
+  backtrace:
+    [<00000000c59c6b0c>] kmemleak_alloc_recursive include/linux/kmemleak.h:43 [inline]
+    [<00000000c59c6b0c>] slab_post_alloc_hook mm/slab.h:586 [inline]
+    [<00000000c59c6b0c>] slab_alloc mm/slab.c:3320 [inline]
+    [<00000000c59c6b0c>] kmem_cache_alloc_trace+0x145/0x2c0 mm/slab.c:3549
+    [<00000000478172ce>] kmalloc include/linux/slab.h:556 [inline]
+    [<00000000478172ce>] kzalloc include/linux/slab.h:670 [inline]
+    [<00000000478172ce>] snd_pcm_lib_malloc_pages+0x12b/0x200 sound/core/pcm_memory.c:404
+    [<0000000091532e16>] snd_pcm_hw_params+0x720/0x830 sound/core/pcm_native.c:691
+    [<000000002070a986>] snd_pcm_kernel_ioctl+0xb5/0x170 sound/core/pcm_native.c:3238
+    [<00000000394e99f4>] snd_pcm_oss_change_params_locked+0x745/0x1140 sound/core/oss/pcm_oss.c:944
+    [<00000000c81f42ac>] snd_pcm_oss_change_params+0x43/0x80 sound/core/oss/pcm_oss.c:1087
+    [<000000007710a1c0>] snd_pcm_oss_make_ready+0x55/0xc0 sound/core/oss/pcm_oss.c:1146
+    [<0000000069305204>] snd_pcm_oss_sync.isra.0+0xb8/0x310 sound/core/oss/pcm_oss.c:1707
+    [<00000000692460c8>] snd_pcm_oss_release+0xef/0x100 sound/core/oss/pcm_oss.c:2545
+    [<0000000013ba02c9>] __fput+0xed/0x300 fs/file_table.c:280
+    [<0000000080810f18>] ____fput+0x16/0x20 fs/file_table.c:313
+    [<00000000e6bb3aa6>] task_work_run+0x9d/0xc0 kernel/task_work.c:113
+    [<00000000b6ce71eb>] exit_task_work include/linux/task_work.h:22 [inline]
+    [<00000000b6ce71eb>] do_exit+0x3fa/0xe20 kernel/exit.c:801
+    [<0000000045ce7ad3>] do_group_exit+0x4b/0xe0 kernel/exit.c:899
+    [<00000000aeb85903>] __do_sys_exit_group kernel/exit.c:910 [inline]
+    [<00000000aeb85903>] __se_sys_exit_group kernel/exit.c:908 [inline]
+    [<00000000aeb85903>] __x64_sys_exit_group+0x1c/0x20 kernel/exit.c:908
+    [<000000008b12db16>] do_syscall_64+0x73/0x220 arch/x86/entry/common.c:294
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 67e69e1d46becd934a03489c38fc42bb2510c1c6 Mon Sep 17 00:00:00 2001
-From: Akshu Agrawal <akshu.agrawal@amd.com>
-Date: Tue, 28 Jan 2020 16:00:22 +0530
-Subject: [PATCH] ASoC: amd: Fix simultaneous playback and capture
-
-Stopping of one stream is killing the other stream when they
-are running simultaneously. This is because, IER register is
-cleared which disables I2S and overrides any other block enables.
-
-Clearing IER register only when all streams on a channel are disabled,
-fixes the issue.
-
-Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
-Link: https://lore.kernel.org/r/20200128103029.128841-1-akshu.agrawal@amd.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/amd/raven/acp3x-i2s.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+This bug is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/sound/soc/amd/raven/acp3x-i2s.c b/sound/soc/amd/raven/acp3x-i2s.c
-index bf51cadf8682..31cd4008e33f 100644
---- a/sound/soc/amd/raven/acp3x-i2s.c
-+++ b/sound/soc/amd/raven/acp3x-i2s.c
-@@ -234,30 +234,32 @@ static int acp3x_i2s_trigger(struct snd_pcm_substream *substream,
- 			switch (rtd->i2s_instance) {
- 			case I2S_BT_INSTANCE:
- 				reg_val = mmACP_BTTDM_ITER;
--				ier_val = mmACP_BTTDM_IER;
- 				break;
- 			case I2S_SP_INSTANCE:
- 			default:
- 				reg_val = mmACP_I2STDM_ITER;
--				ier_val = mmACP_I2STDM_IER;
- 			}
- 
- 		} else {
- 			switch (rtd->i2s_instance) {
- 			case I2S_BT_INSTANCE:
- 				reg_val = mmACP_BTTDM_IRER;
--				ier_val = mmACP_BTTDM_IER;
- 				break;
- 			case I2S_SP_INSTANCE:
- 			default:
- 				reg_val = mmACP_I2STDM_IRER;
--				ier_val = mmACP_I2STDM_IER;
- 			}
- 		}
- 		val = rv_readl(rtd->acp3x_base + reg_val);
- 		val = val & ~BIT(0);
- 		rv_writel(val, rtd->acp3x_base + reg_val);
--		rv_writel(0, rtd->acp3x_base + ier_val);
-+
-+		if (!(rv_readl(rtd->acp3x_base + mmACP_BTTDM_ITER) & BIT(0)) &&
-+		     !(rv_readl(rtd->acp3x_base + mmACP_BTTDM_IRER) & BIT(0)))
-+			rv_writel(0, rtd->acp3x_base + mmACP_BTTDM_IER);
-+		if (!(rv_readl(rtd->acp3x_base + mmACP_I2STDM_ITER) & BIT(0)) &&
-+		     !(rv_readl(rtd->acp3x_base + mmACP_I2STDM_IRER) & BIT(0)))
-+			rv_writel(0, rtd->acp3x_base + mmACP_I2STDM_IER);
- 		ret = 0;
- 		break;
- 	default:
--- 
-2.20.1
-
+syzbot will keep track of this bug report. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this bug, for details see:
+https://goo.gl/tpsmEJ#testing-patches
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

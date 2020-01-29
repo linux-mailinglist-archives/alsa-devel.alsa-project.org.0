@@ -2,72 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5693414D199
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 20:58:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECD2214D19E
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 21:00:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05478167E;
-	Wed, 29 Jan 2020 20:57:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05478167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5FA36167B;
+	Wed, 29 Jan 2020 21:00:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5FA36167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580327897;
-	bh=CTI2iQ/DuZsm1g56357s3s35tegmmJYXizkONAd6ZSg=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=lm1PAhaZYQ4TdgZ7z9CXUbXatOpCO+Ay9Lta4lJr0gaKWaoADBH3+55rsr4X4ozM9
-	 jrFNRLkoyzVHgo6L7cNZI/3H+FlFW78XqtILHZTYRsLe9MjNvM9fBMgLOO5I+YmK1a
-	 jGffGWNTsm9KaqqhwhwuCbK81XQ4Nygx4cVH1eb4=
+	s=default; t=1580328056;
+	bh=1aHLtEM6spF/1zZTfBAXoEysm+qq6fuChT3FywQWFjk=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=OQ1CoeztoEVZo7a5gtn7+E+Pu0iq7dzTOmNCS4X633bPUmVx2pzQjbASurg4apnnH
+	 YsvFsTxbQNWbaZsLADtaJDOuD7Y6T1KqC1LrHFpyHvKuzTCD0t6BMt66EAneUdxjCu
+	 OdBpiSqROlV/Et1E12jDvfpG4NCwlNHyWDlsyuts=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1B6F9F8021E;
-	Wed, 29 Jan 2020 20:56:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7F561F80123;
+	Wed, 29 Jan 2020 20:59:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 671B5F80123; Wed, 29 Jan 2020 20:56:33 +0100 (CET)
+ id B6419F8021E; Wed, 29 Jan 2020 20:59:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AC49FF80123
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 20:56:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC49FF80123
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="VqnIza4d"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C54B32067C;
- Wed, 29 Jan 2020 19:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1580327784;
- bh=q1z4cMceE9Ua/rLT8Dn67z+U6ZHbOuti30wvKj8qUQM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=VqnIza4dIQNSF83zDwgdHCsuYxQ4cfRyJAGXlM1sOSA5jFLFcVZFXbR6nG3TwtGB4
- VG4D7NF3bzetsbLuXB+L2JO/3/Dt4xqIR6bfojyE3rgcE+Lwt9sMqoOY89AcVlBvGO
- sq1w0fXFnrgAgHIlYER06Yf7FEXg5iUIIVwF1izs=
-Date: Wed, 29 Jan 2020 20:56:22 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20200129195622.GA582499@kroah.com>
-References: <CAFQqKeUnT=QHkBWp3ZDeuBtYCS=f7FLa0+eS9sRo8reK0N6YWg@mail.gmail.com>
- <20200129185947.GA478824@kroah.com>
- <CAFQqKeXOGOHpqWCmUskw4r5z1kKQG-_1zuKpaXb6gBozWWG+0g@mail.gmail.com>
- <95481116-cb3e-8025-87b8-554b1a8bc37e@linux.intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <95481116-cb3e-8025-87b8-554b1a8bc37e@linux.intel.com>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, "Sridharan,
- Ranjani" <ranjani.sridharan@intel.com>,
- Pierre-louis Bossart <pierre-louis.bossart@intel.com>
-Subject: Re: [alsa-devel] Question about the correct license to use with
- debugfs in SOF
+ by alsa1.perex.cz (Postfix) with ESMTPS id 273BCF80122
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 20:59:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 273BCF80122
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D42D7AE5C
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 19:59:08 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Date: Wed, 29 Jan 2020 20:59:07 +0100
+Message-Id: <20200129195907.12197-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Subject: [alsa-devel] [PATCH] ALSA: pcm: Fix memory leak at closing a stream
+	without hw_free
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,66 +59,86 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 29, 2020 at 01:41:34PM -0600, Pierre-Louis Bossart wrote:
-> 
-> > > > Currently, it is dual licensed with GPLv2.0 and BSD. But Pierre brought
-> > > up
-> > > > a concern about this conflicting with all the exports in the file being
-> > > > GPLv2.0. Should this be fixed to change the license to GPLv2.0 only?
-> > > > Appreciate your help in this regard.
-> > > 
-> > > Why ask a developer a legal question, don't you all have a whole huge
-> > > legal department who knows all of this type of thing really really well?
-> > > 
-> > > Would you ask a programmer a medical question?
-> > > 
-> > > That being said, think about trying to justify the existance of a BSD
-> > > licensed file trying to access gpl-only symbols, why in the world would
-> > > this even be a question?  Why have it dual licensed at all when I was
-> > > told that Intel was NOT going to do this anymore for any kernel code?
-> > > 
-> > Thanks for your patience and clarification.
-> > We discovered the discrepancy while vetting the licenses in the files
-> > again. Something we should be a bit more careful about moving forward.
-> > Sorry for the trouble!
-> 
-> Indeed it's not our intention to use dual-licensing for debugfs at all.
-> 
-> Please treat this thread as a desire to be transparent with maintainers
-> about a miss rather than an evil scheme to work around GPL.
-> 
-> Ranjani and I discovered the issue only a couple of hours ago while moving
-> code around. I don't have any explanation for this other than a review
-> oversight where we saw the EXPORT_SYMBOL_GPL and not the SPDX line. It's a
-> mistake, not a feature.
-> 
-> I just checked the history and all the changes were made by Intel, except
-> for your change "ASoC: SOF: no need to check return value of debugfs_create
-> functions", and 2 minor other fixes for memory leaks.
-> 
-> We'll immediately change the license to GPLv2 only, move the code in a
-> dedicated module that's GPLv2 only, and scan the rest of the
-> Intel-contributed parts to make sure we don't have this mistake in other
-> places.
+ALSA PCM core recently introduced a new managed PCM buffer allocation
+mode that does allocate / free automatically at hw_params and
+hw_free.  However, it overlooked the code path directly calling
+hw_free PCM ops at releasing the PCM substream, and it may result in a
+memory leak as spotted by syzkaller when no buffer preallocation is
+used (e.g. vmalloc buffer).
 
-Don't create a new module, unless your lawyers say you have to do so.
-That way lies madness...
+This patch papers over it with a slight refactoring.  The hw_free ops
+call and relevant tasks are unified in a new helper function, and call
+it from both places.
 
-Why is this code dual-licensed in the first place anyway?  It only will
-work on Linux, right?
+Fixes: 0dba808eae26 ("ALSA: pcm: Introduce managed buffer allocation mode")
+Reported-by: syzbot+30edd0f34bfcdc548ac4@syzkaller.appspotmail.com
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/core/pcm_native.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-Anyway, I thought Intel had stopped doing this, just changing the
-license on the one file should be sufficient for now.  But again, I am
-not your lawyer, go talk to yours before doing anything.
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index bb23f5066654..4ac42ee1238c 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -786,10 +786,22 @@ static int snd_pcm_hw_params_user(struct snd_pcm_substream *substream,
+ 	return err;
+ }
+ 
++static int do_hw_free(struct snd_pcm_substream *substream)
++{
++	int result = 0;
++
++	snd_pcm_sync_stop(substream);
++	if (substream->ops->hw_free)
++		result = substream->ops->hw_free(substream);
++	if (substream->managed_buffer_alloc)
++		snd_pcm_lib_free_pages(substream);
++	return result;
++}
++
+ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_pcm_runtime *runtime;
+-	int result = 0;
++	int result;
+ 
+ 	if (PCM_RUNTIME_CHECK(substream))
+ 		return -ENXIO;
+@@ -806,11 +818,7 @@ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	snd_pcm_stream_unlock_irq(substream);
+ 	if (atomic_read(&substream->mmap_count))
+ 		return -EBADFD;
+-	snd_pcm_sync_stop(substream);
+-	if (substream->ops->hw_free)
+-		result = substream->ops->hw_free(substream);
+-	if (substream->managed_buffer_alloc)
+-		snd_pcm_lib_free_pages(substream);
++	result = do_hw_free(substream);
+ 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_OPEN);
+ 	pm_qos_remove_request(&substream->latency_pm_qos_req);
+ 	return result;
+@@ -2529,9 +2537,7 @@ void snd_pcm_release_substream(struct snd_pcm_substream *substream)
+ 
+ 	snd_pcm_drop(substream);
+ 	if (substream->hw_opened) {
+-		if (substream->ops->hw_free &&
+-		    substream->runtime->status->state != SNDRV_PCM_STATE_OPEN)
+-			substream->ops->hw_free(substream);
++		do_hw_free(substream);
+ 		substream->ops->close(substream);
+ 		substream->hw_opened = 0;
+ 	}
+-- 
+2.16.4
 
-thanks,
-
-greg k-h
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

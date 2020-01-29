@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D33314CF4A
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 18:09:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9163114CF66
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 18:16:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C83DA167C;
-	Wed, 29 Jan 2020 18:08:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C83DA167C
+	by alsa0.perex.cz (Postfix) with ESMTPS id CF506167E;
+	Wed, 29 Jan 2020 18:15:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CF506167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580317746;
-	bh=7kGSTgLHavzxAVkYMBPiKoYrKMvOTIztgb/v/jIpVbI=;
+	s=default; t=1580318172;
+	bh=8vcgZdK90H16KWpZRds4MuriH5vhrPeSS4ZbTmA/77E=;
 	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HvCrGbW7nDYzorEvURGYNw1l1kMkCPXHnNivSNcd2n8CF+LS94rgY+BNzrB+cugLj
-	 N14DLd1KSPtU2Se6Zu+VsFbgGCjW+TMxSZdNpidayAO08PKiHz0QvPxnhhfLkkcm8K
-	 HgCktLJfPQqlb6riF5BrDS1eWD9WR1qgyqATwoSs=
+	b=gBTMPUnYlr9WFSpFNa165bMUdyd3S1t1I4SNCs6uUhkR290btxTnPJermOHR9Dar1
+	 yFUjDWXmVPu/wsVyUJPR3YTRsuuMEohryfIbLnVyG45Bu4+lsNbfiu+OYCN8AA+qtF
+	 TRvNJk+Uddx9E7vxMqqEnsCpB2HmbBdXQNpMAKh4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EE0D8F80218;
-	Wed, 29 Jan 2020 18:07:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E84E6F80218;
+	Wed, 29 Jan 2020 18:14:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2320BF8021E; Wed, 29 Jan 2020 18:07:24 +0100 (CET)
+ id D69BAF8021E; Wed, 29 Jan 2020 18:14:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -33,23 +33,24 @@ X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE7BBF80123
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 18:07:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE7BBF80123
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7515AF80123
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 18:14:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7515AF80123
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 9E3C2AD33;
- Wed, 29 Jan 2020 17:07:20 +0000 (UTC)
-Date: Wed, 29 Jan 2020 18:07:20 +0100
-Message-ID: <s5ho8umdwdz.wl-tiwai@suse.de>
+ by mx2.suse.de (Postfix) with ESMTP id AD111AF2F;
+ Wed, 29 Jan 2020 17:14:26 +0000 (UTC)
+Date: Wed, 29 Jan 2020 18:14:26 +0100
+Message-ID: <s5hlfpqdw25.wl-tiwai@suse.de>
 From: Takashi Iwai <tiwai@suse.de>
 To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-In-Reply-To: <d143aa71-92c7-5ba7-4866-68eef82b99b0@linux.intel.com>
+In-Reply-To: <s5ho8umdwdz.wl-tiwai@suse.de>
 References: <CAFQqKeW5b5BEU1cXRzxqmmSNCQ8Qnifn3mivx4yVnrtk7Ho0Tg@mail.gmail.com>
  <s5hsgjyn1ci.wl-tiwai@suse.de>
  <aff5f7fd-13d2-b523-b3c6-a4529c4cf26e@linux.intel.com>
  <s5htv4edxf5.wl-tiwai@suse.de>
  <d143aa71-92c7-5ba7-4866-68eef82b99b0@linux.intel.com>
+ <s5ho8umdwdz.wl-tiwai@suse.de>
 User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
  FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
  (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
@@ -74,41 +75,61 @@ Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-T24gV2VkLCAyOSBKYW4gMjAyMCAxODowMTowMCArMDEwMCwKUGllcnJlLUxvdWlzIEJvc3NhcnQg
-d3JvdGU6Cj4gCj4gCj4gCj4gPj4+PiBXZSdyZSBzZWVpbmcgdGhlIGZvbGxvd2luZyBzcGFyc2Ug
-d2FybmluZyBpbiB0aGUgU09GIGNvZGU6Cj4gPj4+Pgo+ID4+Pj4gc291bmQvc29jL3NvZi9zb2Yt
-YXVkaW8uYzo4NjozMTogd2FybmluZzogaW5jb3JyZWN0IHR5cGUgaW4gYXNzaWdubWVudCAoZGlm
-ZmVyZW50IGJhc2UgdHlwZXMpCj4gPj4+PiBzb3VuZC9zb2Mvc29mL3NvZi1hdWRpby5jOjg2OjMx
-OiAgICBleHBlY3RlZCByZXN0cmljdGVkIHNuZF9wY21fc3RhdGVfdCBbdXNlcnR5cGVdIHN0YXRl
-Cj4gPj4+PiBzb3VuZC9zb2Mvc29mL3NvZi1hdWRpby5jOjg2OjMxOiAgICBnb3Qgc2lnbmVkIGlu
-dCBbc2lnbmVkXSBbdXNlcnR5cGVdIFtleHBsaWNpdGx5LXNpZ25lZF0gc3RhdGUKPiA+Pj4+Cj4g
-Pj4+PiBUaGUgbGluZSB1bmRlciBzY3J1dGlueSB3aGVyZSB3ZSBhc3NpZ24gInN0YXRlIiBpcyBh
-cyBmb2xsb3dzOgo+ID4+Pj4KPiA+Pj4+IHN0YXRlID0gc3Vic3RyZWFtLT5ydW50aW1lLT5zdGF0
-dXMtPnN0YXRlOwo+ID4+Pj4KPiA+Pj4+IGFuZCBpdCBpcyBkZWZpbmVkIGFzCj4gPj4+PiBzbmRf
-cGNtX3N0YXRlX3Qgc3RhdGU7Cj4gPj4+Pgo+ID4+Pj4gVGhlcmUgYXJlIG90aGVyIHBsYWNlcyAo
-ZXggcGNtX29zcy5jKSB3aGVyZSBhIHNpbWlsYXIgYXNzaWdubWVudCBoYXMgYmVlbiB1c2VkCj4g
-Pj4+PiBhcyB3ZWxsLgo+ID4+Pj4KPiA+Pj4+IFdoYXQgZml4ZXMgdGhlIGlzc3VlIGlzIGEgZm9y
-Y2VkIGNhc3QgdG8gc25kX3BjbV9zdGF0ZV90IGFzIGJlbG93IGJlZm9yZQo+ID4+Pj4gYXNzaWdu
-aW5nOgo+ID4+Pj4gICDCoHN0YXRlID0gKF9fZm9yY2Ugc25kX3BjbV9zdGF0ZV90KXN1YnN0cmVh
-bS0+cnVudGltZS0+c3RhdHVzLT5zdGF0ZTsKPiA+Pj4+Cj4gPj4+PiBEbyB5b3UgdGhpbmsgdGhp
-cyBpcyBhY2NlcHRhYmxlPyBJZiBub3QsIGNvdWxkIHlvdSBwbGVhc2Ugc3VnZ2VzdCBhbgo+ID4+
-Pj4gYWx0ZXJuYXRpdmU/Cj4gPj4+Cj4gPj4+IEhtLCBJIGRvbid0IHNlZSB0aGUgd2FybmluZyBp
-biBteSBjb2RlLiAgRGlkIHlvdSBtZXJnZSBhbGwgdXBzdHJlYW0KPiA+Pj4gc3R1ZmYgYW5kIHN0
-aWxsIGdldCBpdD8KPiA+Pgo+ID4+IEl0J3MgYmVlbiBtZXJnZWQgaW4gdGhlIFNPRiB0cmVlICh0
-b3BpYy9zb2YtZGV2KSBhbmQgaXQnbGwgYmUgaW4gdGhlCj4gPj4gbmV4dCBiYXRjaCBJIHNlbmQu
-IEl0J3Mgbm90IHVwc3RyZWFtIGp1c3QgeWV0IGJlY2F1c2Ugd2Ugd2FudCB0bwo+ID4+IHJlbW92
-ZSB0aGUgd2FybmluZyB0byBtYWtlIHRoZSBwYXRjaCBuaWNlIGFuZCBzaGlueSA6LSkKPiA+Cj4g
-PiBJIHN0aWxsIHdvbmRlciB3aHkgSSBjb3VsZG4ndCBnZXQgaXQgb24gbXkgdHJlZS4gIEkgZ3Vl
-c3MgdGhlIGNvZGUKPiA+IGFyb3VuZCB0aGF0IGhhc24ndCBjaGFuZ2VkLCByaWdodD8KPiA+Cj4g
-PiBXYWl0Li4uICBJcyBpdCBhIHRlc3Qgb24gMzJiaXQgYXJjaD8gIElmIHNvLCBpdCBtaWdodCBi
-ZSBhIG5ldyB0aGluZwo+ID4gZm9yIHkyMDM4IHN1cHBvcnQuICBUaGVuIHdlIG1heSBmaXggdGhl
-IHVhcGkgZGVmaW5pdGlvbiBpbnN0ZWFkLgo+IAo+IEl0J3MgYWN0dWFsbHkgaW4geW91ciB0cmVl
-IGFscmVhZHksIG15IG1pc3Rha2UsIHNlZToKPiAKPiBlZTFlNzliNzJlM2NmICgiQVNvQzogU09G
-OiBwYXJ0aXRpb24gYXVkaW8tcmVsYXRlZCBwYXJ0cyBmcm9tIFNPRiBjb3JlIikKPiAKPiBJdCdz
-IHdpdGggcGxhaW4tdmFuaWxsYSB4ODZfNjQsIEkgY2FuIHNoYXJlIHRoZSBjb25maWcuCgpTb3Jy
-eSwgbXkgYmFkLCBpdCBzZWVtcyB0aGF0IG15IHNwYXJzZSBwcm9ncmFtIHdhcyB0b28gb2xkLiAg
-QWZ0ZXIKdXBncmFkaW5nIHRvIHRoZSBsYXRlc3QgdmVyc2lvbiwgSSBjb3VsZCBzZWUgdGhlIHdh
-cm5pbmcsIHRvby4KCgpUYWthc2hpCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJv
-amVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5m
-by9hbHNhLWRldmVsCg==
+T24gV2VkLCAyOSBKYW4gMjAyMCAxODowNzoyMCArMDEwMCwKVGFrYXNoaSBJd2FpIHdyb3RlOgo+
+IAo+IE9uIFdlZCwgMjkgSmFuIDIwMjAgMTg6MDE6MDAgKzAxMDAsCj4gUGllcnJlLUxvdWlzIEJv
+c3NhcnQgd3JvdGU6Cj4gPiAKPiA+IAo+ID4gCj4gPiA+Pj4+IFdlJ3JlIHNlZWluZyB0aGUgZm9s
+bG93aW5nIHNwYXJzZSB3YXJuaW5nIGluIHRoZSBTT0YgY29kZToKPiA+ID4+Pj4KPiA+ID4+Pj4g
+c291bmQvc29jL3NvZi9zb2YtYXVkaW8uYzo4NjozMTogd2FybmluZzogaW5jb3JyZWN0IHR5cGUg
+aW4gYXNzaWdubWVudCAoZGlmZmVyZW50IGJhc2UgdHlwZXMpCj4gPiA+Pj4+IHNvdW5kL3NvYy9z
+b2Yvc29mLWF1ZGlvLmM6ODY6MzE6ICAgIGV4cGVjdGVkIHJlc3RyaWN0ZWQgc25kX3BjbV9zdGF0
+ZV90IFt1c2VydHlwZV0gc3RhdGUKPiA+ID4+Pj4gc291bmQvc29jL3NvZi9zb2YtYXVkaW8uYzo4
+NjozMTogICAgZ290IHNpZ25lZCBpbnQgW3NpZ25lZF0gW3VzZXJ0eXBlXSBbZXhwbGljaXRseS1z
+aWduZWRdIHN0YXRlCj4gPiA+Pj4+Cj4gPiA+Pj4+IFRoZSBsaW5lIHVuZGVyIHNjcnV0aW55IHdo
+ZXJlIHdlIGFzc2lnbiAic3RhdGUiIGlzIGFzIGZvbGxvd3M6Cj4gPiA+Pj4+Cj4gPiA+Pj4+IHN0
+YXRlID0gc3Vic3RyZWFtLT5ydW50aW1lLT5zdGF0dXMtPnN0YXRlOwo+ID4gPj4+Pgo+ID4gPj4+
+PiBhbmQgaXQgaXMgZGVmaW5lZCBhcwo+ID4gPj4+PiBzbmRfcGNtX3N0YXRlX3Qgc3RhdGU7Cj4g
+PiA+Pj4+Cj4gPiA+Pj4+IFRoZXJlIGFyZSBvdGhlciBwbGFjZXMgKGV4IHBjbV9vc3MuYykgd2hl
+cmUgYSBzaW1pbGFyIGFzc2lnbm1lbnQgaGFzIGJlZW4gdXNlZAo+ID4gPj4+PiBhcyB3ZWxsLgo+
+ID4gPj4+Pgo+ID4gPj4+PiBXaGF0IGZpeGVzIHRoZSBpc3N1ZSBpcyBhIGZvcmNlZCBjYXN0IHRv
+IHNuZF9wY21fc3RhdGVfdCBhcyBiZWxvdyBiZWZvcmUKPiA+ID4+Pj4gYXNzaWduaW5nOgo+ID4g
+Pj4+PiAgIMKgc3RhdGUgPSAoX19mb3JjZSBzbmRfcGNtX3N0YXRlX3Qpc3Vic3RyZWFtLT5ydW50
+aW1lLT5zdGF0dXMtPnN0YXRlOwo+ID4gPj4+Pgo+ID4gPj4+PiBEbyB5b3UgdGhpbmsgdGhpcyBp
+cyBhY2NlcHRhYmxlPyBJZiBub3QsIGNvdWxkIHlvdSBwbGVhc2Ugc3VnZ2VzdCBhbgo+ID4gPj4+
+PiBhbHRlcm5hdGl2ZT8KPiA+ID4+Pgo+ID4gPj4+IEhtLCBJIGRvbid0IHNlZSB0aGUgd2Fybmlu
+ZyBpbiBteSBjb2RlLiAgRGlkIHlvdSBtZXJnZSBhbGwgdXBzdHJlYW0KPiA+ID4+PiBzdHVmZiBh
+bmQgc3RpbGwgZ2V0IGl0Pwo+ID4gPj4KPiA+ID4+IEl0J3MgYmVlbiBtZXJnZWQgaW4gdGhlIFNP
+RiB0cmVlICh0b3BpYy9zb2YtZGV2KSBhbmQgaXQnbGwgYmUgaW4gdGhlCj4gPiA+PiBuZXh0IGJh
+dGNoIEkgc2VuZC4gSXQncyBub3QgdXBzdHJlYW0ganVzdCB5ZXQgYmVjYXVzZSB3ZSB3YW50IHRv
+Cj4gPiA+PiByZW1vdmUgdGhlIHdhcm5pbmcgdG8gbWFrZSB0aGUgcGF0Y2ggbmljZSBhbmQgc2hp
+bnkgOi0pCj4gPiA+Cj4gPiA+IEkgc3RpbGwgd29uZGVyIHdoeSBJIGNvdWxkbid0IGdldCBpdCBv
+biBteSB0cmVlLiAgSSBndWVzcyB0aGUgY29kZQo+ID4gPiBhcm91bmQgdGhhdCBoYXNuJ3QgY2hh
+bmdlZCwgcmlnaHQ/Cj4gPiA+Cj4gPiA+IFdhaXQuLi4gIElzIGl0IGEgdGVzdCBvbiAzMmJpdCBh
+cmNoPyAgSWYgc28sIGl0IG1pZ2h0IGJlIGEgbmV3IHRoaW5nCj4gPiA+IGZvciB5MjAzOCBzdXBw
+b3J0LiAgVGhlbiB3ZSBtYXkgZml4IHRoZSB1YXBpIGRlZmluaXRpb24gaW5zdGVhZC4KPiA+IAo+
+ID4gSXQncyBhY3R1YWxseSBpbiB5b3VyIHRyZWUgYWxyZWFkeSwgbXkgbWlzdGFrZSwgc2VlOgo+
+ID4gCj4gPiBlZTFlNzliNzJlM2NmICgiQVNvQzogU09GOiBwYXJ0aXRpb24gYXVkaW8tcmVsYXRl
+ZCBwYXJ0cyBmcm9tIFNPRiBjb3JlIikKPiA+IAo+ID4gSXQncyB3aXRoIHBsYWluLXZhbmlsbGEg
+eDg2XzY0LCBJIGNhbiBzaGFyZSB0aGUgY29uZmlnLgo+IAo+IFNvcnJ5LCBteSBiYWQsIGl0IHNl
+ZW1zIHRoYXQgbXkgc3BhcnNlIHByb2dyYW0gd2FzIHRvbyBvbGQuICBBZnRlcgo+IHVwZ3JhZGlu
+ZyB0byB0aGUgbGF0ZXN0IHZlcnNpb24sIEkgY291bGQgc2VlIHRoZSB3YXJuaW5nLCB0b28uCgou
+Li4gYW5kIHRoZSBjYXVzZSB3YXMgd2hhdCBJIHN1c3BlY3RlZDogaXQncyBhIDY0Yml0IGNvbXBh
+dCB0eXBlIHRoYXQKZGVmaW5lcyB0aGUgZmllbGRzIGV4cGxpY2l0bHkgd2l0aCBfX3MzMi4gIEkg
+b3Zlcmxvb2tlZCB0aGF0IGl0J3MKYWx3YXlzIHVzZWQgZm9yIF9fS0VSTkVMX18uICBUaGUgdGVu
+dGF0aXZlIGZpeCBpcyBiZWxvdy4KCgp0aGFua3MsCgpUYWthc2hpCgoKLS0tIGEvaW5jbHVkZS91
+YXBpL3NvdW5kL2Fzb3VuZC5oCisrKyBiL2luY2x1ZGUvdWFwaS9zb3VuZC9hc291bmQuaApAQCAt
+NTY0LDEzICs1NjQsMTMgQEAgdHlwZWRlZiBjaGFyIF9fcGFkX2FmdGVyX3VmcmFtZVtzaXplb2Yo
+X191NjQpIC0gc2l6ZW9mKHNuZF9wY21fdWZyYW1lc190KV07CiAjZW5kaWYKIAogc3RydWN0IF9f
+c25kX3BjbV9tbWFwX3N0YXR1czY0IHsKLQlfX3MzMiBzdGF0ZTsJCQkvKiBSTzogc3RhdGUgLSBT
+TkRSVl9QQ01fU1RBVEVfWFhYWCAqLworCXNuZF9wY21fc3RhdGVfdCBzdGF0ZTsJCS8qIFJPOiBz
+dGF0ZSAtIFNORFJWX1BDTV9TVEFURV9YWFhYICovCiAJX191MzIgcGFkMTsJCQkvKiBOZWVkZWQg
+Zm9yIDY0IGJpdCBhbGlnbm1lbnQgKi8KIAlfX3BhZF9iZWZvcmVfdWZyYW1lIF9fcGFkMTsKIAlz
+bmRfcGNtX3VmcmFtZXNfdCBod19wdHI7CS8qIFJPOiBodyBwdHIgKDAuLi5ib3VuZGFyeS0xKSAq
+LwogCV9fcGFkX2FmdGVyX3VmcmFtZSBfX3BhZDI7CiAJc3RydWN0IF9fc25kX3RpbWVzcGVjNjQg
+dHN0YW1wOwkvKiBUaW1lc3RhbXAgKi8KLQlfX3MzMiBzdXNwZW5kZWRfc3RhdGU7CQkvKiBSTzog
+c3VzcGVuZGVkIHN0cmVhbSBzdGF0ZSAqLworCXNuZF9wY21fc3RhdGVfdCBzdXNwZW5kZWRfc3Rh
+dGU7CS8qIFJPOiBzdXNwZW5kZWQgc3RyZWFtIHN0YXRlICovCiAJX191MzIgcGFkMzsJCQkvKiBO
+ZWVkZWQgZm9yIDY0IGJpdCBhbGlnbm1lbnQgKi8KIAlzdHJ1Y3QgX19zbmRfdGltZXNwZWM2NCBh
+dWRpb190c3RhbXA7IC8qIHNhbXBsZSBjb3VudGVyIG9yIHdhbGwgY2xvY2sgKi8KIH07Cl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFp
+bGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxz
+YS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK

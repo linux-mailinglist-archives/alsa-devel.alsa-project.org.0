@@ -2,70 +2,81 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A5D6714D00E
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 19:01:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 646DD14D086
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 19:31:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B6E916AB;
-	Wed, 29 Jan 2020 19:01:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B6E916AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id D3038167B;
+	Wed, 29 Jan 2020 19:30:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3038167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580320919;
-	bh=TaDDvh0Vkknb+LwLdurxjeGcfKJUQG/Q2TcFaeFMQCc=;
-	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=mq7Az0APTCKuitghylWmpYEHKQcDh+HGir1lfQA8NkgmSZuKPTQ2LteH4oaNtsjg8
-	 krE38nTBW92lOUxq27b9pEfo9FamOcUz4pr9Kl/NEMIdEyex6lC+Rq4NQG+hDt+TGY
-	 Snr7akH8ljn+rw4t23WBB97ThswhrMe2ioRrGQa4=
+	s=default; t=1580322671;
+	bh=JXtRH/vJdBiqkJCvnNsGEmTAlC6RuKTOLxPbNLJrzA0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZiZ2x1yq9kucAo/qN6Ve5QK4PQlheoWrEZ4epUnHCRaa9IuO3M/IQboqDmJIgswu9
+	 o7akIUO+XLYENpGYWv8EgH7bvRcgLKQD83Onoh3hwoI6jxiSQ50NYzlk9+/GN++Stf
+	 8zrjYN+ttMRT0uYeCVJrIenyH3jMt4NKmGiuWaEQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 48685F80122;
-	Wed, 29 Jan 2020 19:00:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBDE3F80123;
+	Wed, 29 Jan 2020 19:29:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8579BF8021E; Wed, 29 Jan 2020 17:06:19 +0100 (CET)
+ id B9D62F8021E; Wed, 29 Jan 2020 19:29:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: ****
-X-Spam-Status: No, score=4.1 required=5.0 tests=FROM_LOCAL_HEX,
- HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
+X-Spam-Level: *
+X-Spam-Status: No, score=1.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
  SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
- [209.85.166.199])
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
+ [209.85.208.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C1B5BF80122
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 17:06:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C1B5BF80122
-Received: by mail-il1-f199.google.com with SMTP id h18so193328ilc.2
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 08:06:16 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A1910F80123
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 19:29:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1910F80123
+Received: by mail-ed1-f42.google.com with SMTP id g19so761657eds.11
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 10:29:21 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
- bh=fEUlUjM8SEojeOk6pwtcSTQDu8D7nALBWF21TUkUjFQ=;
- b=XiO9mRQduQN2+H5JxE1NOK1tgmf3nYcGZUSZiiGRP3GR2ybMifSnKnkfX4KqD8qrmD
- 1ToVfJS8Rw8wvFPEaYt9yANhB0Oas+zMdcHgxtiycUzn69xjmrDvMmTZTPM1yoHIdPNO
- 7aPPfnWn143hVeEigdmE3JehV+oHSfYLKxh+zgrbteZo8JTDJYHi6nWLzeK9XfIVTxfj
- 4stMBcElnMRPwb63bDqR3VvnheeQQLvDKFpXjWkoU478yMiJEv/7g0/wyc58Uh146RBa
- DcUKxTGaNxOWWJHbQWwK8KV+2WnCiQ2KRMK6v0HL/OGnXVUpdemqDPOiV933aTMQxZ2O
- q5ng==
-X-Gm-Message-State: APjAAAVEX2nkAksw3P1cz4IVCtoa7fgCWuJVXYC+K9hZX7DyU3RtrHSY
- ya1d5eWEe7jsF/JwldhyQNaHQOjdxpRB7r7auQ6IFBoDn8iR
-X-Google-Smtp-Source: APXvYqxRd2se19n9AMGBF0tsd+V/QMOOXynWF3G0Gosz8cItmjCbMWlTR4gOeDt0e9z2keIjwUnyAv5NoJ294QR5X7nnb81NTilm
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=4qkJva2WsjlzXbLrXwOCyzngWVPfhRPEm+QIF0TxRCs=;
+ b=PjMXkh+6WMRDat96Grr28LaAhYl+A6oo1vPWg8NwI1JlElF1Re0Xw1BHhaz/qz7rWV
+ BN6G+T+QifGmBhz2BgjdeTp4huOHjKnR5n/07sZvzWMgQgjM4x6iPUni+x14EBgm98KM
+ z2mWoztmWs8XHMGQcSfsPwrMQUOz66gPws+URF5HGn8v0lpvgLH/Mq3DXI5JrAF8ZVw4
+ w9R5uJPCXfbLwHdb0QlhzUi+2Pf3rg9f42WYyo7uEiaZBgCwIZq+YRMvrQoQeYx57mP+
+ DIJvj7Fu/SIyO2oMEKAIdnvJiwugGMy2mKfD/XJzX6w2hZWy9F6sCOCgATwoyb/3a6ky
+ d9bw==
+X-Gm-Message-State: APjAAAUMCp9CXBH6v4SZVSEq+PL8MoCCHOR1PZvIvUIQERTgUXkhMaTU
+ G0WukLH6kYh7s9F/eBaNXVk=
+X-Google-Smtp-Source: APXvYqz1/cdG+k42XUqB4QSIVvZhpddvdczacL56EyIVANpjoiUGIhsZmLCd2Gpp1rr/aNnryIFmnw==
+X-Received: by 2002:a17:906:3cea:: with SMTP id
+ d10mr719187ejh.32.1580322561227; 
+ Wed, 29 Jan 2020 10:29:21 -0800 (PST)
+Received: from kozik-lap ([194.230.155.229])
+ by smtp.googlemail.com with ESMTPSA id x2sm311343edi.95.2020.01.29.10.29.19
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 29 Jan 2020 10:29:20 -0800 (PST)
+Date: Wed, 29 Jan 2020 19:29:18 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20200129182918.GA13626@kozik-lap>
+References: <5e31aaaa.1c69fb81.a7667.f187@mx.google.com>
+ <20200129161113.GE3928@sirena.org.uk>
 MIME-Version: 1.0
-X-Received: by 2002:a92:914a:: with SMTP id t71mr26674745ild.293.1580313974646; 
- Wed, 29 Jan 2020 08:06:14 -0800 (PST)
-Date: Wed, 29 Jan 2020 08:06:14 -0800
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <00000000000017ad0d059d498531@google.com>
-From: syzbot <syzbot+30edd0f34bfcdc548ac4@syzkaller.appspotmail.com>
-To: alsa-devel@alsa-project.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, perex@perex.cz, sumit.semwal@linaro.org, 
- syzkaller-bugs@googlegroups.com, tglx@linutronix.de, tiwai@suse.com
-X-Mailman-Approved-At: Wed, 29 Jan 2020 19:00:16 +0100
-Subject: [alsa-devel] memory leak in snd_pcm_hw_params
+Content-Disposition: inline
+In-Reply-To: <20200129161113.GE3928@sirena.org.uk>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
+ kernel-build-reports@lists.linaro.org, Sangbeom Kim <sbkim73@samsung.com>,
+ Kukjin Kim <kgene@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [alsa-devel] next/master boot: 148 boots: 10 failed,
+ 136 passed with 2 untried/unknown (next-20200129)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,68 +94,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hello,
+On Wed, Jan 29, 2020 at 04:11:13PM +0000, Mark Brown wrote:
+> On Wed, Jan 29, 2020 at 07:54:18AM -0800, kernelci.org bot wrote:
+> 
+> Today's -next fails to boot on Odroid X2 and XU3 with exynos_defconfig
+> or multi_v7_defconfig with SMP=n.  It appears to get stuck in a loop
+> probing the I2S secondary DAI for some reason:
+> 
+> 12:07:05.997409  <6>[    6.421596] exynos-bus: new bus device registered: soc:bus_mscl ( 84000 KHz ~ 666000 KHz)
+> 12:07:05.997653  <4>[    6.429763] samsung-i2s 3830000.i2s-sec: DMA channels sourced from device 3830000.i2s
+> 12:07:06.006838  <4>[    6.439652] samsung-i2s 3830000.i2s-sec: DMA channels sourced from device 3830000.i2s
+> 12:07:06.015764  <4>[    6.448666] samsung-i2s 3830000.i2s-sec: DMA channels sourced from device 3830000.i2s
+> 
+> and so on ad infinitum.  Vanilla multi_v7_defconfig is fine and just
+> displays a saingle copy of that log message.  Full logs and other
+> details here:
+> 
+> 	https://kernelci.org/boot/id/5e3176467f121dbdef2824fc/
+> 	https://kernelci.org/boot/id/5e317b7322dcdaa3e5282500/
+> 	https://kernelci.org/boot/id/5e317c0f6bfd765fb42824f1/
+> 	https://kernelci.org/boot/id/5e317517be8559c7542824f1/
+> 
+> I don't *think* it's an audio issue as mainline seems fine and all the
+> ASoC changes have already landed in mainline for this merge window.
 
-syzbot found the following crash on:
+Thanks for the report.
 
-HEAD commit:    b3a60822 Merge branch 'for-v5.6' of git://git.kernel.org:/..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1351cf66e00000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=e97a1bc78afb77f
-dashboard link: https://syzkaller.appspot.com/bug?extid=30edd0f34bfcdc548ac4
-compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14e97735e00000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13cd9bc9e00000
+Marek spotted it as well and sent a patch
 
-IMPORTANT: if you fix the bug, please add the following tag to the commit:
-Reported-by: syzbot+30edd0f34bfcdc548ac4@syzkaller.appspotmail.com
+Best regards,
+Krzysztof
 
-executing program
-executing program
-executing program
-BUG: memory leak
-unreferenced object 0xffff888108fdefc0 (size 64):
-  comm "syz-executor222", pid 7310, jiffies 4294946025 (age 13.660s)
-  hex dump (first 32 bytes):
-    07 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-    00 10 33 02 00 c9 ff ff 00 00 00 00 00 00 00 00  ..3.............
-  backtrace:
-    [<00000000c59c6b0c>] kmemleak_alloc_recursive include/linux/kmemleak.h:43 [inline]
-    [<00000000c59c6b0c>] slab_post_alloc_hook mm/slab.h:586 [inline]
-    [<00000000c59c6b0c>] slab_alloc mm/slab.c:3320 [inline]
-    [<00000000c59c6b0c>] kmem_cache_alloc_trace+0x145/0x2c0 mm/slab.c:3549
-    [<00000000478172ce>] kmalloc include/linux/slab.h:556 [inline]
-    [<00000000478172ce>] kzalloc include/linux/slab.h:670 [inline]
-    [<00000000478172ce>] snd_pcm_lib_malloc_pages+0x12b/0x200 sound/core/pcm_memory.c:404
-    [<0000000091532e16>] snd_pcm_hw_params+0x720/0x830 sound/core/pcm_native.c:691
-    [<000000002070a986>] snd_pcm_kernel_ioctl+0xb5/0x170 sound/core/pcm_native.c:3238
-    [<00000000394e99f4>] snd_pcm_oss_change_params_locked+0x745/0x1140 sound/core/oss/pcm_oss.c:944
-    [<00000000c81f42ac>] snd_pcm_oss_change_params+0x43/0x80 sound/core/oss/pcm_oss.c:1087
-    [<000000007710a1c0>] snd_pcm_oss_make_ready+0x55/0xc0 sound/core/oss/pcm_oss.c:1146
-    [<0000000069305204>] snd_pcm_oss_sync.isra.0+0xb8/0x310 sound/core/oss/pcm_oss.c:1707
-    [<00000000692460c8>] snd_pcm_oss_release+0xef/0x100 sound/core/oss/pcm_oss.c:2545
-    [<0000000013ba02c9>] __fput+0xed/0x300 fs/file_table.c:280
-    [<0000000080810f18>] ____fput+0x16/0x20 fs/file_table.c:313
-    [<00000000e6bb3aa6>] task_work_run+0x9d/0xc0 kernel/task_work.c:113
-    [<00000000b6ce71eb>] exit_task_work include/linux/task_work.h:22 [inline]
-    [<00000000b6ce71eb>] do_exit+0x3fa/0xe20 kernel/exit.c:801
-    [<0000000045ce7ad3>] do_group_exit+0x4b/0xe0 kernel/exit.c:899
-    [<00000000aeb85903>] __do_sys_exit_group kernel/exit.c:910 [inline]
-    [<00000000aeb85903>] __se_sys_exit_group kernel/exit.c:908 [inline]
-    [<00000000aeb85903>] __x64_sys_exit_group+0x1c/0x20 kernel/exit.c:908
-    [<000000008b12db16>] do_syscall_64+0x73/0x220 arch/x86/entry/common.c:294
-
-
-
----
-This bug is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this bug report. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-syzbot can test patches for this bug, for details see:
-https://goo.gl/tpsmEJ#testing-patches
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

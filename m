@@ -2,68 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 18F8C14C7EF
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 10:18:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 07E1014C7D5
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 10:10:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 919181673;
-	Wed, 29 Jan 2020 10:17:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 919181673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 502EE1674;
+	Wed, 29 Jan 2020 10:09:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 502EE1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580289506;
-	bh=of3m4rh6kQKt8Jq004zYkqbZJ0sfChc4xPKBmH4kE/M=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580289030;
+	bh=7FJGiBmIOk3fKSe0VK4Y0XEGuXXhyig9Eihx6bV9M5o=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oDZyOt3nQjTrN4/mfuHq1osOaGgxPNEAAWOk7ByGvAS6lRrN4expoA/tIV9VqG6fQ
-	 5hVG8e3dlKtsgPKHH3oIRUDsY3cHzQXIJ2H4Tn8jLQdrwgYSjSs54r84GehH4YQtO8
-	 QFAPO1N5ZDgs5kF+Zxq9Gg/5pIvJbhUQ0/mWCBsc=
+	b=gBWe2R3Opvy2L9E3kggeMNONynawZjPWB+1yH+JmmAkHkS9qi37bSdWrrouuNse7i
+	 4soXeOV721YPsm48JePZ7x5puqiyNY+XIr/md1GcKt2GYdfkDNDA5kL5uKIemCfFEY
+	 eXAfhf6U0WBQzLDCOk60aIrDS7mwoxYBvAGg2erc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AA70AF80218;
-	Wed, 29 Jan 2020 10:16:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69561F80082;
+	Wed, 29 Jan 2020 10:08:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A096F8021E; Wed, 29 Jan 2020 10:16:43 +0100 (CET)
+ id C080AF8021E; Wed, 29 Jan 2020 10:08:47 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DAA09F80123
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 10:16:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DAA09F80123
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2020 01:04:38 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,377,1574150400"; d="scan'208";a="261736673"
-Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.237.137.172])
- ([10.237.137.172])
- by fmsmga002.fm.intel.com with ESMTP; 29 Jan 2020 01:04:36 -0800
-To: Daniel Baluta <daniel.baluta@nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7C47EF80082
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 10:08:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C47EF80082
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id F0FCFAE2C;
+ Wed, 29 Jan 2020 09:08:43 +0000 (UTC)
+Date: Wed, 29 Jan 2020 10:08:43 +0100
+Message-ID: <s5hd0b2mxyc.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+In-Reply-To: <57fa4c0d-3b64-d0c2-3d19-3b3569557069@intel.com>
 References: <20200128104356.16570-1-cezary.rojewski@intel.com>
- <20200128104356.16570-9-cezary.rojewski@intel.com>
- <c31e40d6e082729b3e28285fd915808ba8187183.camel@nxp.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <b38b32ff-feef-9ef6-4b25-b4d73c4556b1@intel.com>
-Date: Wed, 29 Jan 2020 10:04:36 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
-MIME-Version: 1.0
-In-Reply-To: <c31e40d6e082729b3e28285fd915808ba8187183.camel@nxp.com>
-Content-Language: en-US
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "broonie@kernel.org" <broonie@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "pierre-louis.bossart@linux.intel.com" <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v3 08/11] ASoC: SOF: Generic probe compress
- operations
+ <20200128104356.16570-5-cezary.rojewski@intel.com>
+ <20200128105946.GP2841@vkoul-mobl>
+ <57fa4c0d-3b64-d0c2-3d19-3b3569557069@intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ pierre-louis.bossart@linux.intel.com, tiwai@suse.com,
+ Vinod Koul <vkoul@kernel.org>, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH v3 04/11] ALSA: core: Expand DMA buffer
+	information
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,55 +70,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-01-29 08:48, Daniel Baluta wrote:
-> One comment below:
+On Tue, 28 Jan 2020 12:58:18 +0100,
+Cezary Rojewski wrote:
+> 
+> On 2020-01-28 11:59, Vinod Koul wrote:
+> > On 28-01-20, 11:43, Cezary Rojewski wrote:
+> >> Update DMA buffer definition for snd_compr_runtime so it is represented
+> >> similarly as in snd_pcm_runtime. While at it, modify
+> >> snd_compr_set_runtime_buffer to account for newly added members.
+> >
+> > Please run ./scripts/get_maintainer.pl, it will tell you the people you
+> > should CC on a patch.
+> >
+> > Also Takashi already acked, so you should add the acks/reviews received
+> > in subsequent versions (unless they changed)
+> >
+> > And for this:
+> >
+> > Acked-by: Vinod Koul <vkoul@kernel.org>
+> >
+> 
+> No ALSA core & hda patches changed since v1. Sorry for missing the
+> Acked-by signature from Takashi. Should I resend and add the missing
+> ack in v4?
 
-Thanks for review Daniel!
+Not necessary just for the lack of my ack.
+Of course, if you plan to submit v4 in anyway later, feel free to add
+them there :)
+
+
+thanks,
+
+Takashi
+
 
 > 
->> +int sof_probe_compr_set_params(struct snd_compr_stream *cstream,
->> +		struct snd_compr_params *params, struct snd_soc_dai
->> *dai)
->> +{
->> +	struct snd_compr_runtime *rtd = cstream->runtime;
->> +	struct snd_sof_dev *sdev =
->> +				snd_soc_component_get_drvdata(dai-
->>> component);
->> +	int ret;
->> +
->> +	cstream->dma_buffer.dev.type = SNDRV_DMA_TYPE_DEV_SG;
->> +	cstream->dma_buffer.dev.dev = sdev->dev;
->> +	ret = snd_compr_malloc_pages(cstream, rtd->buffer_size);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	ret = snd_sof_probe_compr_set_params(sdev, cstream, params,
->> dai);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	ret = sof_ipc_probe_init(sdev, sdev->extractor_stream_tag,
->> +				 rtd->dma_bytes);
->> +	if (ret < 0) {
->> +		dev_err(dai->dev, "Failed to init probe: %d\n", ret);
->> +		return ret;
->> +	}
->>
+> Czarek
 > 
-> Should we call snd_compr_free_pages on error case?
-> 
-
-_set_params() failure is automatically followed by _free(). This is done 
-by the compr core. As you can see in the _free() itself, regardless of 
-IPCs outcome, code will get to _free_pages() and thus all occupied 
-resources are released.
-
-Czarek
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

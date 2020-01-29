@@ -2,81 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 646DD14D086
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 19:31:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 63F4814D0A9
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 19:46:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D3038167B;
-	Wed, 29 Jan 2020 19:30:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D3038167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F2AE2166D;
+	Wed, 29 Jan 2020 19:45:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F2AE2166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580322671;
-	bh=JXtRH/vJdBiqkJCvnNsGEmTAlC6RuKTOLxPbNLJrzA0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZiZ2x1yq9kucAo/qN6Ve5QK4PQlheoWrEZ4epUnHCRaa9IuO3M/IQboqDmJIgswu9
-	 o7akIUO+XLYENpGYWv8EgH7bvRcgLKQD83Onoh3hwoI6jxiSQ50NYzlk9+/GN++Stf
-	 8zrjYN+ttMRT0uYeCVJrIenyH3jMt4NKmGiuWaEQ=
+	s=default; t=1580323599;
+	bh=R0FOIhtzpN8pZWxCuXqM2PNLavGV76Mm+okACxp5fm0=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=mRLdlcUY4XuI9pnmPQjnWLNunl3MDCC7cj8aBY6LMBbnViXwyCAYulqaY/NKBKzL8
+	 3oROnIQVjE+1gDemQmV5AXfodLZwU837zDg3WzzKkumzslPVqvpzgYqMeijup8BaBy
+	 R1yrXhjMVJWWc3X267PVbZfk+93DYz2QgN81hWZM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CBDE3F80123;
-	Wed, 29 Jan 2020 19:29:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2B0E4F80082;
+	Wed, 29 Jan 2020 19:44:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9D62F8021E; Wed, 29 Jan 2020 19:29:26 +0100 (CET)
+ id 3B31CF8021E; Wed, 29 Jan 2020 19:44:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,
- SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com
- [209.85.208.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A1910F80123
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 19:29:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A1910F80123
-Received: by mail-ed1-f42.google.com with SMTP id g19so761657eds.11
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 10:29:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=4qkJva2WsjlzXbLrXwOCyzngWVPfhRPEm+QIF0TxRCs=;
- b=PjMXkh+6WMRDat96Grr28LaAhYl+A6oo1vPWg8NwI1JlElF1Re0Xw1BHhaz/qz7rWV
- BN6G+T+QifGmBhz2BgjdeTp4huOHjKnR5n/07sZvzWMgQgjM4x6iPUni+x14EBgm98KM
- z2mWoztmWs8XHMGQcSfsPwrMQUOz66gPws+URF5HGn8v0lpvgLH/Mq3DXI5JrAF8ZVw4
- w9R5uJPCXfbLwHdb0QlhzUi+2Pf3rg9f42WYyo7uEiaZBgCwIZq+YRMvrQoQeYx57mP+
- DIJvj7Fu/SIyO2oMEKAIdnvJiwugGMy2mKfD/XJzX6w2hZWy9F6sCOCgATwoyb/3a6ky
- d9bw==
-X-Gm-Message-State: APjAAAUMCp9CXBH6v4SZVSEq+PL8MoCCHOR1PZvIvUIQERTgUXkhMaTU
- G0WukLH6kYh7s9F/eBaNXVk=
-X-Google-Smtp-Source: APXvYqz1/cdG+k42XUqB4QSIVvZhpddvdczacL56EyIVANpjoiUGIhsZmLCd2Gpp1rr/aNnryIFmnw==
-X-Received: by 2002:a17:906:3cea:: with SMTP id
- d10mr719187ejh.32.1580322561227; 
- Wed, 29 Jan 2020 10:29:21 -0800 (PST)
-Received: from kozik-lap ([194.230.155.229])
- by smtp.googlemail.com with ESMTPSA id x2sm311343edi.95.2020.01.29.10.29.19
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 29 Jan 2020 10:29:20 -0800 (PST)
-Date: Wed, 29 Jan 2020 19:29:18 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Mark Brown <broonie@kernel.org>
-Message-ID: <20200129182918.GA13626@kozik-lap>
-References: <5e31aaaa.1c69fb81.a7667.f187@mx.google.com>
- <20200129161113.GE3928@sirena.org.uk>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200129161113.GE3928@sirena.org.uk>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: alsa-devel@alsa-project.org, linux-samsung-soc@vger.kernel.org,
- kernel-build-reports@lists.linaro.org, Sangbeom Kim <sbkim73@samsung.com>,
- Kukjin Kim <kgene@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [alsa-devel] next/master boot: 148 boots: 10 failed,
- 136 passed with 2 untried/unknown (next-20200129)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 097C9F80123
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 19:44:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 097C9F80123
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Jan 2020 10:44:49 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,378,1574150400"; d="scan'208";a="309487330"
+Received: from akahan1-mobl3.amr.corp.intel.com (HELO localhost.localdomain)
+ ([10.255.95.46])
+ by orsmga001.jf.intel.com with ESMTP; 29 Jan 2020 10:44:49 -0800
+From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Date: Wed, 29 Jan 2020 10:44:48 -0800
+Message-Id: <20200129184448.3005-1-ranjani.sridharan@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
+Cc: tiwai@suse.de, pierre-louis.bossart@linux.intel.com
+Subject: [alsa-devel] [PATCH] ALSA: uapi: Fix sparse warning
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,41 +64,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Jan 29, 2020 at 04:11:13PM +0000, Mark Brown wrote:
-> On Wed, Jan 29, 2020 at 07:54:18AM -0800, kernelci.org bot wrote:
-> 
-> Today's -next fails to boot on Odroid X2 and XU3 with exynos_defconfig
-> or multi_v7_defconfig with SMP=n.  It appears to get stuck in a loop
-> probing the I2S secondary DAI for some reason:
-> 
-> 12:07:05.997409  <6>[    6.421596] exynos-bus: new bus device registered: soc:bus_mscl ( 84000 KHz ~ 666000 KHz)
-> 12:07:05.997653  <4>[    6.429763] samsung-i2s 3830000.i2s-sec: DMA channels sourced from device 3830000.i2s
-> 12:07:06.006838  <4>[    6.439652] samsung-i2s 3830000.i2s-sec: DMA channels sourced from device 3830000.i2s
-> 12:07:06.015764  <4>[    6.448666] samsung-i2s 3830000.i2s-sec: DMA channels sourced from device 3830000.i2s
-> 
-> and so on ad infinitum.  Vanilla multi_v7_defconfig is fine and just
-> displays a saingle copy of that log message.  Full logs and other
-> details here:
-> 
-> 	https://kernelci.org/boot/id/5e3176467f121dbdef2824fc/
-> 	https://kernelci.org/boot/id/5e317b7322dcdaa3e5282500/
-> 	https://kernelci.org/boot/id/5e317c0f6bfd765fb42824f1/
-> 	https://kernelci.org/boot/id/5e317517be8559c7542824f1/
-> 
-> I don't *think* it's an audio issue as mainline seems fine and all the
-> ASoC changes have already landed in mainline for this merge window.
+Fix the following sparse warning generated due to
+64-bit compat type having fields defined explicitly
+with __32:
+sound/soc/sof/sof-audio.c:46:31: warning: incorrect type in assignment (different base types)
+sound/soc/sof/sof-audio.c:46:31: expected restricted snd_pcm_state_t [usertype] state
+sound/soc/sof/sof-audio.c:46:31: got signed int [usertype] state
 
-Thanks for the report.
+Reported-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+---
+ include/uapi/sound/asound.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Marek spotted it as well and sent a patch
-
-Best regards,
-Krzysztof
+diff --git a/include/uapi/sound/asound.h b/include/uapi/sound/asound.h
+index 30ebb2a42983..535a7229e1d9 100644
+--- a/include/uapi/sound/asound.h
++++ b/include/uapi/sound/asound.h
+@@ -564,13 +564,13 @@ typedef char __pad_after_uframe[sizeof(__u64) - sizeof(snd_pcm_uframes_t)];
+ #endif
+ 
+ struct __snd_pcm_mmap_status64 {
+-	__s32 state;			/* RO: state - SNDRV_PCM_STATE_XXXX */
++	snd_pcm_state_t state;		/* RO: state - SNDRV_PCM_STATE_XXXX */
+ 	__u32 pad1;			/* Needed for 64 bit alignment */
+ 	__pad_before_uframe __pad1;
+ 	snd_pcm_uframes_t hw_ptr;	/* RO: hw ptr (0...boundary-1) */
+ 	__pad_after_uframe __pad2;
+ 	struct __snd_timespec64 tstamp;	/* Timestamp */
+-	__s32 suspended_state;		/* RO: suspended stream state */
++	snd_pcm_state_t suspended_state;/* RO: suspended stream state */
+ 	__u32 pad3;			/* Needed for 64 bit alignment */
+ 	struct __snd_timespec64 audio_tstamp; /* sample counter or wall clock */
+ };
+-- 
+2.17.1
 
 _______________________________________________
 Alsa-devel mailing list

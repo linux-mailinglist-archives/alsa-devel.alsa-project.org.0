@@ -2,66 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6A4A14CEFF
-	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 18:02:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E2B5F14CF2D
+	for <lists+alsa-devel@lfdr.de>; Wed, 29 Jan 2020 18:06:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 67E701674;
-	Wed, 29 Jan 2020 18:02:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67E701674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8D19E167D;
+	Wed, 29 Jan 2020 18:05:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8D19E167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580317370;
-	bh=Lyikqh5XiJBdsZ3+dvCDK7GrSGm3Mth/ypxzpGltNmo=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=Ay/bzeKhUPebpA5A+IgrHqv+1F123y9ptQSTXavHxyA6hFrT8RV3qMSJVVJgtdWE8
-	 X5YG3IzuZUc+Z69SxnUinJt6bZ2Hznd8SLcHb39J8oGYyjFtNVaaXgROyrTa7WO8Df
-	 nCryzr8ezeZFCyTfuOfgrAsO/taOTZOsdajVVeH4=
+	s=default; t=1580317566;
+	bh=eAu71s2DiaGpmJrwwZ3VqANZu3GSAkVTsAEhfqPlMpk=;
+	h=From:Date:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=Chj5E+zj83u07G7VthOX773c1oNDEZ4dM0/7Dtebv6uXCQBMFz0zlUNC0EN8uWisS
+	 iym+r7TWu8XO4RfkrzEbTa1CHLENH3XZ84Oc9fEELB0WRjLtkptYTwUwljRjuFK6K0
+	 6pxIBGpoMzd9vahjNNTz9GFUwogogFo1ZqSCccdI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5A02CF80229;
-	Wed, 29 Jan 2020 18:01:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B6496F80218;
+	Wed, 29 Jan 2020 18:04:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B0FB5F8021E; Wed, 29 Jan 2020 18:01:07 +0100 (CET)
+ id EC8EFF80082; Wed, 29 Jan 2020 18:04:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E3797F80082
- for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 18:01:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E3797F80082
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2020 09:01:01 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,378,1574150400"; d="scan'208";a="222507714"
-Received: from rnoffsin-mobl.amr.corp.intel.com (HELO [10.252.139.181])
- ([10.252.139.181])
- by orsmga008.jf.intel.com with ESMTP; 29 Jan 2020 09:01:00 -0800
-To: Takashi Iwai <tiwai@suse.de>
-References: <CAFQqKeW5b5BEU1cXRzxqmmSNCQ8Qnifn3mivx4yVnrtk7Ho0Tg@mail.gmail.com>
- <s5hsgjyn1ci.wl-tiwai@suse.de>
- <aff5f7fd-13d2-b523-b3c6-a4529c4cf26e@linux.intel.com>
- <s5htv4edxf5.wl-tiwai@suse.de>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <d143aa71-92c7-5ba7-4866-68eef82b99b0@linux.intel.com>
-Date: Wed, 29 Jan 2020 11:01:00 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9DB8EF80082
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 18:04:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DB8EF80082
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="dkwuBgML"
+Received: by mail-io1-xd30.google.com with SMTP id k24so529559ioc.4
+ for <alsa-devel@alsa-project.org>; Wed, 29 Jan 2020 09:04:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=1VKz16bGFD5JJCHCpvd/xZmlj1D7yt96LGZlRDYsxS0=;
+ b=dkwuBgMLt6+DXnNVk7j6in13L9Oy+KEm2O31Midm+rTbTOhYNakkGekZRSFn/ICtoG
+ /FNmQsxhJ6gaiTOwV+fd4/e0A0G685jICDiGua4Qkp4+XAqsA6pplqT9yCaqpdB+OTeL
+ PP2HfdMo3/Qi8z4ZH78A0Ynt5TVkiMW9ewllfzVuHyzKPoLcWsQnHLcomO4ye3SjYiAE
+ te60N9rdoV7eeYywD8GWnP1hsyhVBPqvnfhKEhN2nfABfK6yg5kHLkrBp1UE4lzZ/o3g
+ KtWb/GxYGaWuG88T2rngkRub6wrkhAsacRT96t6jvXmVvrYjX86VTbHhr9irzNq3PasL
+ G1ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=1VKz16bGFD5JJCHCpvd/xZmlj1D7yt96LGZlRDYsxS0=;
+ b=ZVzfjOyXet2F2HEtaNHga7zon2OW0GEyLuFSKkcFvSkcPa7xKVKX0nSyNyfNJamJlO
+ Va5QM4BIDxCSmsRCvJ4hduXWw9Is+b/2WIvEJkXRUASxdl9nvYHXdLvlA7inUprkHpqa
+ 5fADaJnCXFN7BA+W87di4VVAxDmv0VN3kZt5okyxZTVJd1ow9FBjVs416JbtAH5SZg+0
+ sqiF+ucnhDXEqPOm1MCndw88AyeLGW6RCv8lLpEbSlHIU+6NfqAC0g4AdT0jsNgZ09JZ
+ BMKnbcTfbAczEf4ZTI522ceSlsTs8TYhMBRdLBnY1R0V/xtUiykrtDqPh1PAxLJ1difo
+ LP2A==
+X-Gm-Message-State: APjAAAX+V1tghql9Jo5aXyz7rB3eaabxeYbSv5Fku4cXBcbpyipoTZ+E
+ anaKoJYYs41flefXkVZgUep1E5INAgqW8QWDRXKVNg8I
+X-Google-Smtp-Source: APXvYqyPjfz7y5qFmVXiBVHJXRUJH9g1Kvzlj9paBhkFLViui0xeS3pUymW2OafIeYFGFttmkYjgDF1xbKIYj2DZoKs=
+X-Received: by 2002:a6b:5503:: with SMTP id j3mr390064iob.142.1580317457182;
+ Wed, 29 Jan 2020 09:04:17 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <s5htv4edxf5.wl-tiwai@suse.de>
-Content-Language: en-US
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, "Sridharan,
- Ranjani" <ranjani.sridharan@intel.com>
-Subject: Re: [alsa-devel] Question about the right fix for a sparse warning
+From: "Sridharan, Ranjani" <ranjani.sridharan@intel.com>
+Date: Wed, 29 Jan 2020 09:04:06 -0800
+Message-ID: <CAFQqKeUnT=QHkBWp3ZDeuBtYCS=f7FLa0+eS9sRo8reK0N6YWg@mail.gmail.com>
+To: Linux-ALSA <alsa-devel@alsa-project.org>, gregkh@linuxfoundation.org
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Pierre-louis Bossart <pierre-louis.bossart@intel.com>
+Subject: [alsa-devel] Question about the correct license to use with debugfs
+	in SOF
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,41 +87,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Cgo+Pj4+IFdlJ3JlIHNlZWluZyB0aGUgZm9sbG93aW5nIHNwYXJzZSB3YXJuaW5nIGluIHRoZSBT
-T0YgY29kZToKPj4+Pgo+Pj4+IHNvdW5kL3NvYy9zb2Yvc29mLWF1ZGlvLmM6ODY6MzE6IHdhcm5p
-bmc6IGluY29ycmVjdCB0eXBlIGluIGFzc2lnbm1lbnQgKGRpZmZlcmVudCBiYXNlIHR5cGVzKQo+
-Pj4+IHNvdW5kL3NvYy9zb2Yvc29mLWF1ZGlvLmM6ODY6MzE6ICAgIGV4cGVjdGVkIHJlc3RyaWN0
-ZWQgc25kX3BjbV9zdGF0ZV90IFt1c2VydHlwZV0gc3RhdGUKPj4+PiBzb3VuZC9zb2Mvc29mL3Nv
-Zi1hdWRpby5jOjg2OjMxOiAgICBnb3Qgc2lnbmVkIGludCBbc2lnbmVkXSBbdXNlcnR5cGVdIFtl
-eHBsaWNpdGx5LXNpZ25lZF0gc3RhdGUKPj4+Pgo+Pj4+IFRoZSBsaW5lIHVuZGVyIHNjcnV0aW55
-IHdoZXJlIHdlIGFzc2lnbiAic3RhdGUiIGlzIGFzIGZvbGxvd3M6Cj4+Pj4KPj4+PiBzdGF0ZSA9
-IHN1YnN0cmVhbS0+cnVudGltZS0+c3RhdHVzLT5zdGF0ZTsKPj4+Pgo+Pj4+IGFuZCBpdCBpcyBk
-ZWZpbmVkIGFzCj4+Pj4gc25kX3BjbV9zdGF0ZV90IHN0YXRlOwo+Pj4+Cj4+Pj4gVGhlcmUgYXJl
-IG90aGVyIHBsYWNlcyAoZXggcGNtX29zcy5jKSB3aGVyZSBhIHNpbWlsYXIgYXNzaWdubWVudCBo
-YXMgYmVlbiB1c2VkCj4+Pj4gYXMgd2VsbC4KPj4+Pgo+Pj4+IFdoYXQgZml4ZXMgdGhlIGlzc3Vl
-IGlzIGEgZm9yY2VkIGNhc3QgdG8gc25kX3BjbV9zdGF0ZV90IGFzIGJlbG93IGJlZm9yZQo+Pj4+
-IGFzc2lnbmluZzoKPj4+PiAgIMKgc3RhdGUgPSAoX19mb3JjZSBzbmRfcGNtX3N0YXRlX3Qpc3Vi
-c3RyZWFtLT5ydW50aW1lLT5zdGF0dXMtPnN0YXRlOwo+Pj4+Cj4+Pj4gRG8geW91IHRoaW5rIHRo
-aXMgaXMgYWNjZXB0YWJsZT8gSWYgbm90LCBjb3VsZCB5b3UgcGxlYXNlIHN1Z2dlc3QgYW4KPj4+
-PiBhbHRlcm5hdGl2ZT8KPj4+Cj4+PiBIbSwgSSBkb24ndCBzZWUgdGhlIHdhcm5pbmcgaW4gbXkg
-Y29kZS4gIERpZCB5b3UgbWVyZ2UgYWxsIHVwc3RyZWFtCj4+PiBzdHVmZiBhbmQgc3RpbGwgZ2V0
-IGl0Pwo+Pgo+PiBJdCdzIGJlZW4gbWVyZ2VkIGluIHRoZSBTT0YgdHJlZSAodG9waWMvc29mLWRl
-dikgYW5kIGl0J2xsIGJlIGluIHRoZQo+PiBuZXh0IGJhdGNoIEkgc2VuZC4gSXQncyBub3QgdXBz
-dHJlYW0ganVzdCB5ZXQgYmVjYXVzZSB3ZSB3YW50IHRvCj4+IHJlbW92ZSB0aGUgd2FybmluZyB0
-byBtYWtlIHRoZSBwYXRjaCBuaWNlIGFuZCBzaGlueSA6LSkKPiAKPiBJIHN0aWxsIHdvbmRlciB3
-aHkgSSBjb3VsZG4ndCBnZXQgaXQgb24gbXkgdHJlZS4gIEkgZ3Vlc3MgdGhlIGNvZGUKPiBhcm91
-bmQgdGhhdCBoYXNuJ3QgY2hhbmdlZCwgcmlnaHQ/Cj4gCj4gV2FpdC4uLiAgSXMgaXQgYSB0ZXN0
-IG9uIDMyYml0IGFyY2g/ICBJZiBzbywgaXQgbWlnaHQgYmUgYSBuZXcgdGhpbmcKPiBmb3IgeTIw
-Mzggc3VwcG9ydC4gIFRoZW4gd2UgbWF5IGZpeCB0aGUgdWFwaSBkZWZpbml0aW9uIGluc3RlYWQu
-CgpJdCdzIGFjdHVhbGx5IGluIHlvdXIgdHJlZSBhbHJlYWR5LCBteSBtaXN0YWtlLCBzZWU6Cgpl
-ZTFlNzliNzJlM2NmICgiQVNvQzogU09GOiBwYXJ0aXRpb24gYXVkaW8tcmVsYXRlZCBwYXJ0cyBm
-cm9tIFNPRiBjb3JlIikKCkl0J3Mgd2l0aCBwbGFpbi12YW5pbGxhIHg4Nl82NCwgSSBjYW4gc2hh
-cmUgdGhlIGNvbmZpZy4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3Jn
-Cmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1k
-ZXZlbAo=
+Hi Greg,
+
+Can I please bother you with you quick question about the right license to
+use for the
+debug.c file in the SOF directory?
+
+Currently, it is dual licensed with GPLv2.0 and BSD. But Pierre brought up
+a concern about this conflicting with all the exports in the file being
+GPLv2.0. Should this be fixed to change the license to GPLv2.0 only?
+Appreciate your help in this regard.
+
+Thanks,
+Ranjani
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

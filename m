@@ -2,74 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D32114D766
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 09:19:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAE5D14D767
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 09:20:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 842AF1678;
-	Thu, 30 Jan 2020 09:18:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 842AF1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5B9711665;
+	Thu, 30 Jan 2020 09:19:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B9711665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580372367;
-	bh=1z04gJQOH4pSNvw3r1o8MFXHMyz+WRZheWaYiYiJQU4=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580372411;
+	bh=7oTcOpG770k/kHjxTDNvLQ/h5loLG3JZebSWmRmdAMA=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NtbCai4q0g9JItotVSXOn6WvzasgmcSz2OvM77VcV5YRmYYmkouHtjzG2D2trIIXj
-	 IQZKbDUQzV9PjM2VYoqXUnyYKBRTzU01Lyjgx/06/xGlvCGUU4Koc8ZmXFg8Vm0cyn
-	 UQd+75OniILeSfvm0p25nG/loaf14CKIEtUng3bE=
+	b=BEhHVLXwG5WMr7GBfrpQ5KpfEf1h6EhtCoC4IICsdzT4sT7E02Q+RcumfGtwJKS/V
+	 oMH3fPfBiZRtZUdAfDhopLe0QOmSyA0tCUDOlf6XO0tq/JK9NSKOiVwz7d3GJfkX0h
+	 2llZKaMh3Bf/AB3htY6dIiw++J1UMepteg2dUmR8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2CC9F80082;
-	Thu, 30 Jan 2020 09:17:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D0179F801EB;
+	Thu, 30 Jan 2020 09:19:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C7860F80150; Thu, 30 Jan 2020 09:17:43 +0100 (CET)
+ id CD6AFF801F7; Thu, 30 Jan 2020 09:19:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk
- [78.40.148.184])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
+ [209.85.210.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0895AF80082
- for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 09:17:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0895AF80082
-Received: from [167.98.27.226] (helo=[172.16.102.1])
- by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
- id 1ix517-0001zU-Md; Thu, 30 Jan 2020 08:17:37 +0000
-To: Jon Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
- Dmitry Osipenko <digetx@gmail.com>
-References: <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
- <9a5447e2-155c-7e6e-b8f1-95523c6f42c6@gmail.com>
- <b4a416fb-f2b1-660d-27e3-aebf602178f9@codethink.co.uk>
- <680e2dfd-6f4f-5c96-63b7-97520961dc82@gmail.com>
- <0e0cd260e39ad293edb881da1c565510@codethink.co.uk>
- <507dcd5a-672b-61ac-aa7f-af5ff01accff@codethink.co.uk>
- <a2744ea0-cf6d-d083-75e6-853746195001@gmail.com>
- <28cafc56-095b-68c6-638d-270608a2983f@codethink.co.uk>
- <3d8544be-af20-f382-85fd-32183365267b@nvidia.com>
- <1b3c2af4-510e-306c-749a-efffc994b20a@gmail.com>
- <20200128121315.GD4689@sirena.org.uk>
- <4b90efd2-5d0c-84df-961d-80cee288e0d4@nvidia.com>
- <586ea2b9-c204-2bd1-f8e2-875e0974e42d@nvidia.com>
-From: Ben Dooks <ben.dooks@codethink.co.uk>
-Organization: Codethink Limited.
-Message-ID: <fe002ec7-ae6e-f770-b82a-49237e0b29c6@codethink.co.uk>
-Date: Thu, 30 Jan 2020 08:17:37 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00888F800F1
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 09:19:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00888F800F1
+Received: by mail-ot1-f65.google.com with SMTP id g64so2279373otb.13
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 00:19:07 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=s3I41ZfIrOT79LBysL0u65vz33Hk4LOsapeDNAzlOAI=;
+ b=e9tFcbFVBY2AotzF+hsbu/tByPX08E855XObUjo3rugMP0TAh095MwfG1rtuQ03jW1
+ B1oi6KWB7mOjmIKH4iWh9sgKNLvZlbbHQ77Tc/wCBDHQN1CdDNnh+WI9US/i/vHhJUWu
+ gpfgMwb1cRfU5NggsJFAfGtIapcUnpQf3ERQ36mMO7KHECh1lDdVupVoh1aNwnEipMOB
+ uBhwKzCq2YDleBmiNWI5ZDmZlW9qy6DwCj0C5znBzjzoplrIpIZk6+mSnkPr88TrupTk
+ Zk4RM62f8pcS/G1I5QL64S41ZSB70hyVysv16ZYkAmFdpc+hRe77RYP1uf7D83CYUpbh
+ X7jA==
+X-Gm-Message-State: APjAAAV5kUOu7QXWtYWNd8SlFhHjGWJV/chV/DTbRWxIaQSJeH16aaw1
+ gDHkzI49fnlIB6ai10xE9cgXuG5X/aQOeELH0ps=
+X-Google-Smtp-Source: APXvYqwqmdaXGxYCmHJq4Z/tqKv+f7ulnVAfvZ/0q3dXE5eP+LWDnJSN+Cu5ZkUVt32Ur/IHm3qlurwn2y4v9rtXjm8=
+X-Received: by 2002:a9d:8f1:: with SMTP id 104mr2494065otf.107.1580372345508; 
+ Thu, 30 Jan 2020 00:19:05 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <586ea2b9-c204-2bd1-f8e2-875e0974e42d@nvidia.com>
-Content-Language: en-GB
-Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Edward Cragg <edward.cragg@codethink.co.uk>, linux-tegra@vger.kernel.org
-Subject: Re: [alsa-devel] [Linux-kernel] [PATCH v5 2/7] ASoC: tegra: Allow
- 24bit and 32bit samples
+References: <CGME20200130070850eucas1p1a7a09e2bec2f6fe652f206b61a8a04ae@eucas1p1.samsung.com>
+ <20200130070834.17537-1-m.szyprowski@samsung.com>
+In-Reply-To: <20200130070834.17537-1-m.szyprowski@samsung.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 30 Jan 2020 09:18:54 +0100
+Message-ID: <CAMuHMdWcNK_9RTaWRsEeOZ3k9=LduZOrSLcYHE8Ud1aYfZPUnA@mail.gmail.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
+ dmaengine@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH v2] dmaengine: Fix return value for
+ dma_requrest_chan() in case of failure
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,77 +87,41 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 29/01/2020 14:33, Jon Hunter wrote:
-> 
-> On 29/01/2020 10:49, Jon Hunter wrote:
->>
->> On 28/01/2020 12:13, Mark Brown wrote:
->>> I really don't understand why this is all taking so long, this thread
->>> just seems to be going round in interminable circles long after it
->>> looked like the issue was understood.  I have to admit I've not read
->>> every single message in the thread but it's difficult to see why it
->>> doesn't seem to be making any progress.
->>
->> Sorry about that. On reviewing this with the audio team at NVIDIA, I was
->> told we don't support S24_LE for I2S. The reason being that the crossbar
->> between the DMA and I2S is not able to extract the correct 24-bits from
->> the 32-bit sample to feed to the I2S interface. The Tegra documentation
->> does show support for 24-bits, but not state explicit support for S24_LE.
->>
->> Now Ben says that he has this working, but I am unable to reproduce
->> this, so before just dropping the S24_LE support, I would like to
->> understand how this is working for Ben in case there is something that
->> we have overlooked here.
-> 
-> Ah, I see that part of the problem is that patches 6 and 7 are yet to be
-> applied and without these the audio is completely distorted because
-> there is a mismatch in the data size between the APBIF and I2S
-> controller. Applying these patches it is not distorted but now I am
-> observing the clocking issue Ben reported and so the tone is not quite
-> right.
+Hi Marek,
 
-I thought they had been applied? I probably dragged them back in when
-putting in the support for the test channel on the colibri.
+s/dma_requrest_chan/dma_request_chan/ in one-line summary.
 
-> Ben, I was able to workaround the clocking issue by making the I2S word
-> clock 64 bits long and not 48.
+On Thu, Jan 30, 2020 at 8:08 AM Marek Szyprowski
+<m.szyprowski@samsung.com> wrote:
+> Commit 71723a96b8b1 ("dmaengine: Create symlinks between DMA channels and
+> slaves") changed the dma_request_chan() function flow in such a way that
+> it always returns EPROBE_DEFER in case of channels that cannot be found.
+> This break the operation of the devices which have optional DMA channels
+> as it puts their drivers in endless deferred probe loop. Fix this by
+> propagating the proper error value.
+>
+> Fixes: 71723a96b8b1 ("dmaengine: Create symlinks between DMA channels and slaves")
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
 
-Ok, that will work for I2S case, but maybe not TDM? I'd have to check.
+Sorry for breaking this, and thanks a lot for your fix!
 
-> diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
-> index bbf81b5aa723..3c9b4779e61b 100644
-> --- a/sound/soc/tegra/tegra30_i2s.c
-> +++ b/sound/soc/tegra/tegra30_i2s.c
-> @@ -143,7 +143,7 @@ static int tegra30_i2s_hw_params(struct
-> snd_pcm_substream *substream,
->          case SNDRV_PCM_FORMAT_S24_LE:
->                  val = TEGRA30_I2S_CTRL_BIT_SIZE_24;
->                  audio_bits = TEGRA30_AUDIOCIF_BITS_24;
-> -               sample_size = 24;
-> +               sample_size = 32;
->                  break;
->          case SNDRV_PCM_FORMAT_S32_LE:
->                  val = TEGRA30_I2S_CTRL_BIT_SIZE_32;
-> 
-> For I2S I believe we only care about the edges of the word clock and so
-> we make the overall period of the word clock 64 bit clocks then we no
-> longer have an issue with the bit clock frequency. I assume that this
-> should also be fine for TDM modes as well.
-> 
-> Can you let me know if this works for you?
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-I'll be back in the office next week to test.
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Ben Dooks				http://www.codethink.co.uk/
-Senior Engineer				Codethink - Providing Genius
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-https://www.codethink.co.uk/privacy.html
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

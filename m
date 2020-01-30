@@ -2,126 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E786714D6F4
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 08:10:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF7E914D71C
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 08:48:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EA721678;
-	Thu, 30 Jan 2020 08:09:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EA721678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 467101673;
+	Thu, 30 Jan 2020 08:47:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 467101673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580368240;
-	bh=TDZ4mo0Bw0UBvwkv9V24sUQoO3g2eWvU2MNrltmxYsU=;
-	h=From:To:Date:References:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=Nx8QHBUs63xdi5SCH5cXOt2nq+FTmk2grWjd1jKixsYxuicWnpxchEAMyUsqVtgne
-	 X/x85YZJzydwUx8ya8nnHMd/yK6wHrtvEEmxbJBjk69AKELQ3MsWOVZLBEWFI7m/Vt
-	 BKpi8m12o/x5ZsOszcKGBvs1DsNb147BKM4+xfo4=
+	s=default; t=1580370515;
+	bh=tZuh4miYrBLJdmSOT890zu0TwandbVoRVJmNALEWr1U=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=fbYn9SmMjsVLJ/GqT6Af94madNv7Rezo6aI+jy8o+ZCBOJGZVoKYwi1rud+ochi1K
+	 ZSnI5vt0I/vqNRDSiQn6Dh8sNyZhEtGv2pxNqpQAOcxw7gAMWu60dPR1BSZOCxgtr1
+	 cPc9h3IbmRpcDaP6a6q4eGYX2NFn86pLbATUrwNA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 849CAF8014B;
-	Thu, 30 Jan 2020 08:08:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5959DF80150;
+	Thu, 30 Jan 2020 08:46:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CA549F80150; Thu, 30 Jan 2020 08:08:55 +0100 (CET)
+ id 0C10DF80150; Thu, 30 Jan 2020 08:46:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1293F800F1
- for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 08:08:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1293F800F1
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="c9fhm0Qk"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200130070850euoutp01e07e69f6c7a69991dd3db3efe86bdde4~umHEJSaVr0693106931euoutp01D
- for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 07:08:50 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200130070850euoutp01e07e69f6c7a69991dd3db3efe86bdde4~umHEJSaVr0693106931euoutp01D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1580368130;
- bh=Pztbs1SooUHpR9Ka324ZsDUVPuCK37S2FVX9ZA3EIgM=;
- h=From:To:Cc:Subject:Date:References:From;
- b=c9fhm0Qkpwsfp1AFFssAiEOoUQgabAy1hlJmwXiQUSUCKx3KB4ikVef7u6Rn0Fy7M
- Gcq9InmmIMaPafwow9ocvV39uE5ANKIAc1xbJLcByZ5a+rY9WB4Mqktf+fpdlug86k
- VdHl0274+dtp7SKlMwwyVibdUfnefylbL+fnaHSU=
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200130070850eucas1p1de25dae51dab0db0f8a0c68b266f8238~umHD9kdVE0857108571eucas1p1U;
- Thu, 30 Jan 2020 07:08:50 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id 43.66.61286.201823E5; Thu, 30
- Jan 2020 07:08:50 +0000 (GMT)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20200130070850eucas1p1a7a09e2bec2f6fe652f206b61a8a04ae~umHDtadOd0078500785eucas1p1K;
- Thu, 30 Jan 2020 07:08:50 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200130070850eusmtrp18991581ad7f07aeaa6bc511e491ba8c4~umHDssTEz2633426334eusmtrp1Q;
- Thu, 30 Jan 2020 07:08:50 +0000 (GMT)
-X-AuditID: cbfec7f2-ef1ff7000001ef66-51-5e32810237c6
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 85.EE.08375.101823E5; Thu, 30
- Jan 2020 07:08:49 +0000 (GMT)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20200130070849eusmtip14c0ca2e951d10105d9999a650bea69da~umHDKiW7p3268232682eusmtip1O;
- Thu, 30 Jan 2020 07:08:49 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: dmaengine@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-samsung-soc@vger.kernel.org
-Date: Thu, 30 Jan 2020 08:08:34 +0100
-Message-Id: <20200130070834.17537-1-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.17.1
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmphleLIzCtJLcpLzFFi42LZduznOV2mRqM4g6+bBSyuXDzEZLFxxnpW
- i6kPn7BZrJ76l9Vi7uxJjBbnz29gt7i8aw6bxYzz+5gs1h65y24x6+MPVoudd04wO3B7bPjc
- xOYx8ayux6ZVnWwefVtWMXocv7GdyePzJrkAtigum5TUnMyy1CJ9uwSujB/vLjIVbOOomNi9
- ibmBsYW9i5GTQ0LARGLtiXtMILaQwApGif0TdLsYuYDsL4wSl6YfYYdwPjNKPNu5jrWLkQOs
- o/kTVNFyRon2ddeZ4Dr+Le1nBhnFJmAo0fW2iw3EFhGolVjVsYsZpIhZYBWTxImpU1lAJgkL
- xEgsPuUFYrIIqEqcOmYPUs4rYCvx+/5WNojr5CVWbzjADGF/Z5Po2x0EYbtIzDnSC/WBsMSr
- 41ugbBmJ05N7WEBWSQg0M0o8PLeWHcLpYZS43DSDEaLKWuLOuV9sIIuZBTQl1u/Shwg7Srxe
- NIUF4kk+iRtvBUHCzEDmpG3TmSHCvBIdbUIQ1WoSs46vg1t78MIlqDM9JOYfWMYCCdBYiTkX
- N7BOYJSbhbBrASPjKkbx1NLi3PTUYsO81HK94sTc4tK8dL3k/NxNjMC0cfrf8U87GL9eSjrE
- KMDBqMTDK1FmGCfEmlhWXJl7iFGCg1lJhFfUFSjEm5JYWZValB9fVJqTWnyIUZqDRUmc13jR
- y1ghgfTEktTs1NSC1CKYLBMHp1QDY3NpVris6VqGI+9NNJaYfsmpyfu5vXFLk4Gem8nV83KL
- b6RYBbaG/23YoPuoTto4UvlaysLy8yvjHT4+vlI6V+Teg1AfZT2BnfeeZ8s3BySc+OlyVWtF
- uae70NZfav+XnZ325OznyKfPb8XNXFz9dBrfzVzHqClv1/04qVUo7Sr4x2je5olpc5VYijMS
- DbWYi4oTAYLoamoXAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrDLMWRmVeSWpSXmKPExsVy+t/xu7qMjUZxBtv7rS2uXDzEZLFxxnpW
- i6kPn7BZrJ76l9Vi7uxJjBbnz29gt7i8aw6bxYzz+5gs1h65y24x6+MPVoudd04wO3B7bPjc
- xOYx8ayux6ZVnWwefVtWMXocv7GdyePzJrkAtig9m6L80pJUhYz84hJbpWhDCyM9Q0sLPSMT
- Sz1DY/NYKyNTJX07m5TUnMyy1CJ9uwS9jB/vLjIVbOOomNi9ibmBsYW9i5GDQ0LARKL5k24X
- IxeHkMBSRonfG2+zdTFyAsVlJE5Oa2CFsIUl/lzrYoMo+sQocWPvaRaQBJuAoUTXW4iEiEAj
- o0T3vWfsIAlmgXVMEu92VYHYwgJREnd6L4JtYxFQlTh1zB4kzCtgK/H7/laoZfISqzccYJ7A
- yLOAkWEVo0hqaXFuem6xoV5xYm5xaV66XnJ+7iZGYMhuO/Zz8w7GSxuDDzEKcDAq8fBKlBnG
- CbEmlhVX5h5ilOBgVhLhFXUFCvGmJFZWpRblxxeV5qQWH2I0Bdo9kVlKNDkfGE95JfGGpobm
- FpaG5sbmxmYWSuK8HQIHY4QE0hNLUrNTUwtSi2D6mDg4pRoY23UVnf4Jff/A2BiSKf/jQm5P
- c1TM1d+dS2RDHwqJqlw68eUa04nWvLknmzqTNaLk967dmDr30BfhjU4HvjUfS+l1Ws/n6bTl
- th5zpZik2bbkT/GGE1gCpz+PTl8waTbfy+AdByLD5I+Fydnt/TXlZitPWbKAG/P20KMHd3Fo
- xnWJxqotOH5eiaU4I9FQi7moOBEA8GzLMm8CAAA=
-X-CMS-MailID: 20200130070850eucas1p1a7a09e2bec2f6fe652f206b61a8a04ae
-X-Msg-Generator: CA
-X-RootMTR: 20200130070850eucas1p1a7a09e2bec2f6fe652f206b61a8a04ae
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20200130070850eucas1p1a7a09e2bec2f6fe652f206b61a8a04ae
-References: <CGME20200130070850eucas1p1a7a09e2bec2f6fe652f206b61a8a04ae@eucas1p1.samsung.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
- Vinod Koul <vkoul@kernel.org>, Mark Brown <broonie@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: [alsa-devel] [PATCH v2] dmaengine: Fix return value for
- dma_requrest_chan() in case of failure
+ by alsa1.perex.cz (Postfix) with ESMTPS id B116AF800F1
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 08:46:43 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 65F63A003F;
+ Thu, 30 Jan 2020 08:46:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 65F63A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1580370402; bh=oclTF+6FTb8l5YhguDp/D3D+QAasjKx2QbXbY+xxpnQ=;
+ h=Subject:To:References:From:Date:In-Reply-To:From;
+ b=APpeWFiK5N9SS/AmM1zUYx2gKFWUk6chBLgArA2yYCQjWU0iG/q/laCDyjK0BjTFJ
+ lW3hNh4uDnkkhNX2F7+3rdKN77RvWcyyB880tspcmZbU5LG4q9/5oJfK5gbcr4WlAf
+ 4ViOAGMqE6QTZpwfY9IwD1/sIx6OmARkgjxqnSmw=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Thu, 30 Jan 2020 08:46:39 +0100 (CET)
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ sylvain.bertrand@gmail.com, alsa-devel@alsa-project.org
+References: <20200129232340.GA23769@freedom>
+ <fffaf462-fd7a-6d09-e808-21d94f883365@linux.intel.com>
+ <20200130070642.GA7741@workstation>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <857505b9-2375-7d73-5c1a-644dff952cdd@perex.cz>
+Date: Thu, 30 Jan 2020 08:46:39 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <20200130070642.GA7741@workstation>
+Content-Language: en-US
+Subject: Re: [alsa-devel] no period wakeup support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,41 +77,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Commit 71723a96b8b1 ("dmaengine: Create symlinks between DMA channels and
-slaves") changed the dma_request_chan() function flow in such a way that
-it always returns EPROBE_DEFER in case of channels that cannot be found.
-This break the operation of the devices which have optional DMA channels
-as it puts their drivers in endless deferred probe loop. Fix this by
-propagating the proper error value.
+Dne 30. 01. 20 v 8:06 Takashi Sakamoto napsal(a):
+> On Wed, Jan 29, 2020 at 05:43:19PM -0600, Pierre-Louis Bossart wrote:
+>>> Nowadays, is this reasonable to consider disabling the period wakeup as default
+>>> instead of expecting period wakeup by default?
+>>
+>> I'd say yes - it's been nearly 10 years since this capability was added, and
+>> it's quite common across HDaudio, Chrome, Android plaforms.
+>>
+>> But considering this as a default doesn't mean it's available in 100% of the
+>> cases, you still you need to check that
+>>
+>> a) the driver is capable of disabling the period wakeup
+>> b) the driver is capable of providing a precise position outside of period
+>> elapsed events (usually marked with the INFO_BATCH capability).
+>>
+>> alsa-lib gives you the means to query both cases.
+>>
+>> Note that you also have the case where you cannot disable interrupts but can
+>> still use timer-based solutions (e.g. for USB audio).
+> 
+> I suspect this advice.
+> 
+> In design of ALSA PCM core, runtime of PCM substream is configured for
+> the mode of no-period-wakeup just in a case that userspace application
+> requests it[1].
+> 
+> As long as developers take enough care of compatibility for existent
+> applications, it's better to support period wakeup for each IRQ as a
+> default, then support no-period-wakeup mode as an option.
+> 
+> 
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound.git/tree/sound/core/pcm_native.c#n715
 
-Fixes: 71723a96b8b1 ("dmaengine: Create symlinks between DMA channels and slaves")
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- drivers/dma/dmaengine.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I agree. We should not break the basic part of the API.
 
-diff --git a/drivers/dma/dmaengine.c b/drivers/dma/dmaengine.c
-index f3ef4edd4de1..7b1cefc3213a 100644
---- a/drivers/dma/dmaengine.c
-+++ b/drivers/dma/dmaengine.c
-@@ -759,7 +759,7 @@ struct dma_chan *dma_request_chan(struct device *dev, const char *name)
- 	if (!IS_ERR_OR_NULL(chan))
- 		goto found;
- 
--	return ERR_PTR(-EPROBE_DEFER);
-+	return chan ? chan : ERR_PTR(-EPROBE_DEFER);
- 
- found:
- 	chan->slave = dev;
+					Jaroslav
+
 -- 
-2.17.1
-
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,92 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC04714DA29
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 12:51:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA31E14DA46
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 12:59:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 15DF51674;
-	Thu, 30 Jan 2020 12:50:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 15DF51674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38F651677;
+	Thu, 30 Jan 2020 12:58:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38F651677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580385085;
-	bh=OpRLSeoXuaErP+Z4LVxMdAsOqwP8U/JVCxBoqMnqJNU=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SUDZ9Vqyzx44Q/c0musioUUOJAz+tbE92A00HgDuXgzFPc6F0AyglXKsPkrrkVdJu
-	 nvrMIzQAN3mkdztxISFCVdBSCINaQ+f5d4EnVaECgX6bjegiqNiBQKe/CKhjWZxdX6
-	 g4i6VqWZTvr+Ftk/SKs3xnuZEj1wfPd6o83Gq14o=
+	s=default; t=1580385560;
+	bh=skCV1wU6Hkt3M/NFTl7UV/2UtaLKZ9/R/qLC/G90ZGs=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=L1vEutKelZqbBE4NiS22q6jaU/IudxcCeyi1kHqnv1jXyNQPlIGg2jqsLfRSgeFSf
+	 ZvIbgNymQW4VVtO/wml9r3gmWY0JEflfVGxN+PEoyxsMJSxActOM55gm1CAP15lupz
+	 dQ2OzrpN/DEUSGEw3QyVOl5ZHZ54dKTQP8TCMSXY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C88AF801EB;
-	Thu, 30 Jan 2020 12:49:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 58BE0F801EB;
+	Thu, 30 Jan 2020 12:57:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6507BF80150; Thu, 30 Jan 2020 12:49:42 +0100 (CET)
+ id 2D83AF80150; Thu, 30 Jan 2020 12:57:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from esa6.microchip.iphmx.com (esa6.microchip.iphmx.com
- [216.71.154.253])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D1FE5F80123
- for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 12:49:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D1FE5F80123
-Received-SPF: Pass (esa6.microchip.iphmx.com: domain of
- Codrin.Ciubotariu@microchip.com designates 198.175.253.82 as
- permitted sender) identity=mailfrom;
- client-ip=198.175.253.82; receiver=esa6.microchip.iphmx.com;
- envelope-from="Codrin.Ciubotariu@microchip.com";
- x-sender="Codrin.Ciubotariu@microchip.com";
- x-conformance=spf_only; x-record-type="v=spf1";
- x-record-text="v=spf1 mx a:ushub1.microchip.com
- a:smtpout.microchip.com -exists:%{i}.spf.microchip.iphmx.com
- include:servers.mcsv.net include:mktomail.com
- include:spf.protection.outlook.com ~all"
-Received-SPF: None (esa6.microchip.iphmx.com: no sender
- authenticity information available from domain of
- postmaster@email.microchip.com) identity=helo;
- client-ip=198.175.253.82; receiver=esa6.microchip.iphmx.com;
- envelope-from="Codrin.Ciubotariu@microchip.com";
- x-sender="postmaster@email.microchip.com"; x-conformance=spf_only
-Authentication-Results: esa6.microchip.iphmx.com;
- dkim=none (message not signed) header.i=none;
- spf=Pass smtp.mailfrom=Codrin.Ciubotariu@microchip.com;
- spf=None smtp.helo=postmaster@email.microchip.com;
- dmarc=pass (p=none dis=none) d=microchip.com
-IronPort-SDR: xm0/6OSD4e+3eQpnHGyGLqKiqn5zcKLCSW07SQYPKaHETLJb8Cr1jT3JcB9qfT69PjIEUbFwrF
- knBEIWTizVC1LSKwksO7EZLNZT/YzBbYzUhpdnIqYBOAoVhoFK3J4SvgdTboGySlMVP4lNakOI
- KB08x4lJtkfay8FabYr4VRx9xb3q7DZNdLsXPdVPMEqUoDmga1+IDmRvGRMJpCn2Lo4tGpZNLz
- 1ZUZj1Pdc28yUXZ3F6akK/2GepLoKhvr+gZt1V9NCetew+b1q/EMq210kiZPFjtHeR2R0owp5j
- voI=
-X-IronPort-AV: E=Sophos;i="5.70,381,1574146800"; 
-   d="scan'208";a="604905"
-Received: from smtpout.microchip.com (HELO email.microchip.com)
- ([198.175.253.82])
- by esa6.microchip.iphmx.com with ESMTP/TLS/AES256-SHA256;
- 30 Jan 2020 04:49:34 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Thu, 30 Jan 2020 04:49:34 -0700
-Received: from rob-ult-m19940.microchip.com (10.10.85.251) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.1713.5 via Frontend Transport; Thu, 30 Jan 2020 04:49:31 -0700
-From: Codrin Ciubotariu <codrin.ciubotariu@microchip.com>
-To: <alsa-devel@alsa-project.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>
-Date: Thu, 30 Jan 2020 13:49:30 +0200
-Message-ID: <20200130114930.28882-1-codrin.ciubotariu@microchip.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-Cc: alexandre.belloni@bootlin.com, Arnd Bergmann <arnd@arndb.de>,
- nicolas.ferre@microchip.com, mirq-linux@rere.qmqm.pl,
- ludovic.desroches@microchip.com, broonie@kernel.org
-Subject: [alsa-devel] [RESEND PATCH] ASoC: atmel: fix atmel_ssc_set_audio
-	link failure
+ by alsa1.perex.cz (Postfix) with ESMTPS id 31F5BF800F1
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 12:57:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31F5BF800F1
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 5FDBAAC24;
+ Thu, 30 Jan 2020 11:57:32 +0000 (UTC)
+Date: Thu, 30 Jan 2020 12:57:32 +0100
+Message-ID: <s5h36bxdumr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Roman =?UTF-8?B?xaBtYWthbA==?= <schmakerisko@gmail.com>
+In-Reply-To: <4530256.31r3eYUQgx@schmakbook>
+References: <2520086.mvXUDI8C0e@schmakbook> <s5hy2tqfqfh.wl-tiwai@suse.de>
+ <4530256.31r3eYUQgx@schmakbook>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [CX2075] No sound after suspend/resume from
+	front	speaker
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,77 +67,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Arnd Bergmann <arnd@arndb.de>
-
-The ssc audio driver can call into both pdc and dma backends.  With the
-latest rework, the logic to do this in a safe way avoiding link errors
-was removed, bringing back link errors that were fixed long ago in commit
-061981ff8cc8 ("ASoC: atmel: properly select dma driver state") such as
-
-sound/soc/atmel/atmel_ssc_dai.o: In function `atmel_ssc_set_audio':
-atmel_ssc_dai.c:(.text+0xac): undefined reference to `atmel_pcm_pdc_platform_register'
-
-Fix it this time using Makefile hacks and a comment to prevent this
-from accidentally getting removed again rather than Kconfig hacks.
-
-Fixes: 18291410557f ("ASoC: atmel: enable SOC_SSC_PDC and SOC_SSC_DMA in Kconfig")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-
-This patch applies fine to me on asoc/for-next, so this is just a resend.
-
- sound/soc/atmel/Kconfig  |  4 ++--
- sound/soc/atmel/Makefile | 10 ++++++++--
- 2 files changed, 10 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
-index d1dc8e6366dc..71f2d42188c4 100644
---- a/sound/soc/atmel/Kconfig
-+++ b/sound/soc/atmel/Kconfig
-@@ -10,11 +10,11 @@ config SND_ATMEL_SOC
- if SND_ATMEL_SOC
- 
- config SND_ATMEL_SOC_PDC
--	tristate
-+	bool
- 	depends on HAS_DMA
- 
- config SND_ATMEL_SOC_DMA
--	tristate
-+	bool
- 	select SND_SOC_GENERIC_DMAENGINE_PCM
- 
- config SND_ATMEL_SOC_SSC
-diff --git a/sound/soc/atmel/Makefile b/sound/soc/atmel/Makefile
-index 1f6890ed3738..c7d2989791be 100644
---- a/sound/soc/atmel/Makefile
-+++ b/sound/soc/atmel/Makefile
-@@ -6,8 +6,14 @@ snd-soc-atmel_ssc_dai-objs := atmel_ssc_dai.o
- snd-soc-atmel-i2s-objs := atmel-i2s.o
- snd-soc-mchp-i2s-mcc-objs := mchp-i2s-mcc.o
- 
--obj-$(CONFIG_SND_ATMEL_SOC_PDC) += snd-soc-atmel-pcm-pdc.o
--obj-$(CONFIG_SND_ATMEL_SOC_DMA) += snd-soc-atmel-pcm-dma.o
-+# pdc and dma need to both be built-in if any user of
-+# ssc is built-in.
-+ifdef CONFIG_SND_ATMEL_SOC_PDC
-+obj-$(CONFIG_SND_ATMEL_SOC_SSC) += snd-soc-atmel-pcm-pdc.o
-+endif
-+ifdef CONFIG_SND_ATMEL_SOC_DMA
-+obj-$(CONFIG_SND_ATMEL_SOC_SSC) += snd-soc-atmel-pcm-dma.o
-+endif
- obj-$(CONFIG_SND_ATMEL_SOC_SSC) += snd-soc-atmel_ssc_dai.o
- obj-$(CONFIG_SND_ATMEL_SOC_I2S) += snd-soc-atmel-i2s.o
- obj-$(CONFIG_SND_MCHP_SOC_I2S_MCC) += snd-soc-mchp-i2s-mcc.o
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gVGh1LCAzMCBKYW4gMjAyMCAxMjo0MjowMSArMDEwMCwKUm9tYW4gxaBtYWthbCB3cm90ZToK
+PiAKPiBEbmUgc3TFmWVkYSAyOS4gbGVkbmEgMjAyMCAxMjozMzowNiBDRVQganN0ZSBuYXBzYWwo
+YSk6Cj4gPiBPbiBTYXQsIDI1IEphbiAyMDIwIDIzOjMwOjMyICswMTAwLAo+ID4gCj4gPiBSb21h
+biDFoG1ha2FsIHdyb3RlOgo+ID4gPiBIaSwKPiA+ID4gCj4gPiA+IHRoaXMgc3RpbGwgc2VlbSB0
+byBiZSBhbiBpc3N1ZS4gQWZ0ZXIgc3RhcnR1cCBldmVyeXRoaW5nIHdvcmtzIHdlbGwgdW50aWwK
+PiA+ID4gdGhlIGxhcHRvcCBnb2VzIHRvIHN1c3BlbmQuCj4gPiA+IAo+ID4gPiBUcmllZCBwcmV0
+dHkgbXVjaCBldmVyeXRoaW5nIGJhc2ljIHVzZXIgY2FuIGRvICh1bm11dGVzLCBybW1vZHMgYW5k
+IHNvCj4gPiA+IG9uKSwKPiA+ID4gc3RpbGwgbm8gd2F5IHRvIHdha2UgdGhlIG91dHB1dC4gQUxT
+QSBzZWVtcyB0byBiZSB0aGlua2luZywgdGhhdCBvdXRwdXQgaXMKPiA+ID4gYWN0aXZlLCB5b3Ug
+Y2FuIHNldCB2b2x1bWUgYW5kIHN0dWZmLCBidXQgbm90aGluZyBoYXBwZW5zLgo+ID4gPiAKPiA+
+ID4gQUxTQSBpbmZvOgo+ID4gPiBodHRwOi8vYWxzYS1wcm9qZWN0Lm9yZy9kYi8/Zj05ZDFlZTgx
+ZmUwMzdhY2I1M2NhMzgxZjJkZTI3YmU0MjBmODNhMzczCj4gPiA+IAo+ID4gPiBSZWxhdGVkIGxp
+bmtzOgo+ID4gPiBodHRwczovL3d3dy5yZWRkaXQuY29tL3IvYXJjaGxpbnV4L2NvbW1lbnRzLzRu
+d3p1YS8KPiA+ID4gbm9fc291bmRfYWZ0ZXJfc3VzcGVuZF9raWxsaW5nX29yX3Jlc3RhcnRpbmcv
+Cj4gPiA+IGh0dHBzOi8vYnVncy5sYXVuY2hwYWQubmV0L3VidW50dS8rc291cmNlL2xpbnV4Lyti
+dWcvMTYxMjkxNgo+ID4gPiBodHRwczovL2J1Z3MuZGViaWFuLm9yZy9jZ2ktYmluL2J1Z3JlcG9y
+dC5jZ2k/YnVnPTg1MTQwNAo+ID4gCj4gPiBUaGUgZmlyc3QgdGhpbmcgdG8gY2hlY2sgaXMgdG8g
+Y29tcGFyZSBhbHNhLWluZm8uc2ggb3V0cHV0cyBiZWZvcmUgYW5kCj4gPiBhZnRlciB0aGUgc3Vz
+cGVuZC4KPiA+IAo+ID4gQWxzbyBwYXNzIHNuZF9oZGFfY29kZWMuZHVtcF9jb2VmPTEgbW9kdWxl
+IG9wdGlvbiB0byBlbmFibGUgdGhlIENPRUYKPiA+IGR1bXAuICBUaGlzIHdpbGwgZ2l2ZSBtb3Jl
+IGluZm9ybWF0aW9uIGluIGFsc2EtaW5mby5zaCBvdXRwdXRzLgo+ID4gCj4gPiAKPiA+IFRha2Fz
+aGkKPiAKPiBPa2F5LCBpIGRpZCBzb21lIGNvbXBhcmluZyB3aXRoIG1vZHVsZSBvcHRpb24gZW5h
+YmxlZC4KPiAKPiAKPiBTb3VuZCB3b3JraW5nCj4gaHR0cDovL2Fsc2EtcHJvamVjdC5vcmcvZGIv
+P2Y9YWRmYjBiM2FkNWQ5YjhkODgyODlhYzdlMzViNzQyMjU0YmViNzU4OAo+IAo+IFNvdW5kIG5v
+dCB3b3JraW5nOgo+IGh0dHA6Ly9hbHNhLXByb2plY3Qub3JnL2RiLz9mPWM3OTZiMTRkZjBlZmIw
+MDc5YWVmMWRmNWY3MDc2NDE5NGNmZjhkNGQKPiAKPiBXaGF0J3Mgd2llcmQgdG8gbWUgaXMsIHRo
+YXQgb24gdGhlIHJvdyA1MjEgdGhlcmUgaXMgY2hhbmdlIGluIGFwbGF5IFN1YmRldmljZXMgCj4g
+ZnJvbSAxLzEgdG8gMC8xLgo+IAo+IEFsc28sIHN0YXRlLlBDSCBjb250cm9sIDE4IHNob3dzIGNo
+YW5nZSBpbiBwbGF5YmFjayBjaGFubmVsIG1hcC4KPiAKPiBBbnkgb3RoZXIgdGhpbmcgaSBjYW4g
+Y2hlY2sgb3IgdHJ5IHRvIGRvZm9yIGRlYnVnaW5nPwoKWW91IHBhc3NlZCBhIHdyb25nIG9wdGlv
+bi4gIFRoZSBvcHRpb24gaXMgZm9yIHNuZF9oZGFfY29kZWMgbW9kdWxlLgpTbyBlaXRoZXIgY3Jl
+YXRlIGEgbW9kcHJvYmUuZC8qLmNvbmYgZmlsZSBjb250YWluaW5nOgogIG9wdGlvbnMgc25kX2hk
+YV9jb2RlYyBkdW1wX2NvZWY9MQoKb3IgcGFzcyBzbmRfaGRhX2NvZGVjLmR1bXBfY29lZj0xIGF0
+IGJvb3QgY21kbGluZSBvcHRpb24uCgpCVFcsIGl0J2QgYmUgYmV0dGVyIHRvIGdldCB0aGUgb3V0
+cHV0cyB3aXRoIC0tbm8tdXBsb2FkIG9wdGlvbiBvZgphbHNhLWluZm8uc2gsIGFuZCBhdHRhY2gg
+dGhlbS4KCkxhc3QgYnV0IG5vdCBsZWFzdCwgcGxlYXNlIGRvbid0IGRyb3AgQ2MgdG8gTUwgdW5s
+ZXNzIHlvdSBuZWVkIHRvIGRvCnNvLgoKCnRoYW5rcywKClRha2FzaGkKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QK
+QWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qu
+b3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=

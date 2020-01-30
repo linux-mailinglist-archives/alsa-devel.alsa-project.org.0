@@ -2,60 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0C1B14DD69
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 15:57:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1257214DD87
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 16:06:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 23BCD1673;
-	Thu, 30 Jan 2020 15:56:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 23BCD1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F1F8167A;
+	Thu, 30 Jan 2020 16:05:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F1F8167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580396259;
-	bh=BH9Qu+8fsNgf2D3/3yfkSD7WPHM5bY91k4jv4Qiiw3o=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580396802;
+	bh=j4nmAocuXmDWTKHunBnan/xaKFyhSz2ZwecijJU8S8E=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=bwtOj7ocF4OFC4fpgNG6GwCkxQU3funjZXij25zhTpGtmy9J+HUXWZ6/TeHUXjwFW
-	 UI2GFgXxCpmvl1kWe2n8oOSfNkfqxyTVDBH6/4ZEa0QvgS761eJ3gb8SWdut91CFYo
-	 RbGmVv4tdTEQP/98MI5BtctucB1cl/uN7ocjKiuQ=
+	b=Du/SdspGprom5s5MBUSHLwVueKzW2FB+n4UGKRNKljteA2eRxQo/pVvMUrqnD3K8l
+	 mcSOsuIjdcR0SrlpwBbrKJ4ufF0DXbSpmi0a9qbVN0PotLLu8mDWhAENrJrrGLHatn
+	 ZmEB9p74PMo9YVmhOSD8NOT+jEWLIdYRUk6D7RDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15CD3F800F1;
-	Thu, 30 Jan 2020 15:55:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4BF6F80123;
+	Thu, 30 Jan 2020 16:05:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 76093F80150; Thu, 30 Jan 2020 15:55:55 +0100 (CET)
+ id 401D9F80150; Thu, 30 Jan 2020 16:04:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 96E71F800F1
- for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 15:55:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 96E71F800F1
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2C81F31B;
- Thu, 30 Jan 2020 06:55:50 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9F42A3F68E;
- Thu, 30 Jan 2020 06:55:49 -0800 (PST)
-Date: Thu, 30 Jan 2020 14:55:48 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20200130145548.GE6682@sirena.org.uk>
-References: <20200129223603.2569-1-pierre-louis.bossart@linux.intel.com>
- <20200129223603.2569-2-pierre-louis.bossart@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0706F80123
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 16:04:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0706F80123
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 30 Jan 2020 07:04:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,382,1574150400"; d="scan'208";a="377069658"
+Received: from jsmesenc-mobl.amr.corp.intel.com (HELO [10.252.140.145])
+ ([10.252.140.145])
+ by orsmga004.jf.intel.com with ESMTP; 30 Jan 2020 07:04:52 -0800
+To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>, alsa-devel@alsa-project.org
+References: <20200129220726.31792-1-pierre-louis.bossart@linux.intel.com>
+ <20200129220726.31792-6-pierre-louis.bossart@linux.intel.com>
+ <2c982980-32f2-60a4-a384-7b767fafab66@linux.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <615262ec-2515-ef6f-1ed4-8c42170490c4@linux.intel.com>
+Date: Thu, 30 Jan 2020 07:34:06 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200129223603.2569-2-pierre-louis.bossart@linux.intel.com>
-X-Cookie: Positively no smoking.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- tiwai@suse.de, Pan Xiuli <xiuli.pan@linux.intel.com>,
+In-Reply-To: <2c982980-32f2-60a4-a384-7b767fafab66@linux.intel.com>
+Content-Language: en-US
+Cc: tiwai@suse.de, broonie@kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH 1/3] ASoC: Intel: sof_pcm512x: add support
- for SOF platforms with pcm512x
+Subject: Re: [alsa-devel] [PATCH 5/9] ASoC: SOF: Move DSP power state
+ transitions to platform-specific ops
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,60 +75,32 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0933446837228380972=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---===============0933446837228380972==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6e7ZaeXHKrTJCxdu"
-Content-Disposition: inline
-
-
---6e7ZaeXHKrTJCxdu
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Wed, Jan 29, 2020 at 04:36:01PM -0600, Pierre-Louis Bossart wrote:
-
-> +static int sof_pcm512x_codec_init(struct snd_soc_pcm_runtime *rtd)
-> +{
-> +	struct snd_soc_component *codec = rtd->codec_dai->component;
-> +
-> +	snd_soc_component_update_bits(codec, PCM512x_GPIO_EN, 0x08, 0x08);
-> +	snd_soc_component_update_bits(codec, PCM512x_GPIO_OUTPUT_4, 0x0f, 0x02);
-> +	snd_soc_component_update_bits(codec, PCM512x_GPIO_CONTROL_1,
-> +				      0x08, 0x08);
-
-These look like they might be a DAPM widget of some kind?
-
---6e7ZaeXHKrTJCxdu
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl4y7nMACgkQJNaLcl1U
-h9BCPwf/RSPtA6f6N+XUAXvj0VTh+RlgvZU8JHOH0QmuE3AwtzphoMXnSbyuVDqB
-n3FQtpZ27mUnm4duPOHmHCPgNBIBQSmGa0VoFI2yojF2M1foLANcvpypSHYYYtwC
-8c4VuRcJcy89ccBhkJJXNig3sYTQp4UPU8yBHdoL6gHgpuSum2pmLbXlseCkW9OU
-pMDXL26pFnufnhW3bUA2S+ebVRamNOYik4iNmzzDo8/gn3aSy+27vD4bx0iMLSdA
-8JMSFmGmRaldGZxj5V+EYHNMlhxrOlzrrgM7IlZh8t2cm6ABgG0upIuhisMGxqO/
-zECxIyLajqCeA4QjwUpJ+z+NblIawQ==
-=MUP/
------END PGP SIGNATURE-----
-
---6e7ZaeXHKrTJCxdu--
-
---===============0933446837228380972==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============0933446837228380972==--
+Cj4+IEBAIC00OTUsMTMgKzY0NSwyNyBAQCBpbnQgaGRhX2RzcF9yZXN1bWUoc3RydWN0IHNuZF9z
+b2ZfZGV2ICpzZGV2KQo+PiDCoMKgwqDCoMKgIH0KPj4gwqDCoMKgwqDCoCAvKiBpbml0IGhkYSBj
+b250cm9sbGVyLiBEU1AgY29yZXMgd2lsbCBiZSBwb3dlcmVkIHVwIGR1cmluZyBmdyAKPj4gYm9v
+dCAqLwo+PiAtwqDCoMKgIHJldHVybiBoZGFfcmVzdW1lKHNkZXYsIGZhbHNlKTsKPj4gK8KgwqDC
+oCByZXQgPSBoZGFfcmVzdW1lKHNkZXYsIGZhbHNlKTsKPj4gK8KgwqDCoCBpZiAocmV0IDwgMCkK
+Pj4gK8KgwqDCoMKgwqDCoMKgIHJldHVybiByZXQ7Cj4+ICsKPj4gK8KgwqDCoCBoZGFfZHNwX3Nl
+dF9wb3dlcl9zdGF0ZShzZGV2LCAmdGFyZ2V0X3N0YXRlKTsKPiAKPiBSZXR1cm4gdmFsdWXCoCBv
+ZiBoZGFfZHNwX3NldF9wb3dlcl9zdGF0ZSgpIHNlZW1zIHRvIGJlIGNoZWNrZWQgb3IgCj4gZGly
+ZWN0bHkgcmV0dXJuZWQgaW4gb3RoZXIgZnVuY3Rpb25zLCBhbnkgcmVhc29uIHRvIG5vdCBkbyBp
+dCBoZXJlPwoKR29vZCBwb2ludCBBbWFkZXVzeiwgbm90IHN1cmUgd2h5LiBBbmQgbG9va2luZyBh
+dCB0aGUgY29kZSwgSSBhbSBub3QgCnN1cmUgZWl0aGVyIHdoeSB3ZSBkb24ndCB1c2UgdGhlIGFi
+c3RyYWN0aW9uIHcvIC5zZXRfcG93ZXJfc3RhdGUoKSA/CgppbnRlbC9hcGwuYzogICAgLnNldF9w
+b3dlcl9zdGF0ZSAgICAgICAgPSBoZGFfZHNwX3NldF9wb3dlcl9zdGF0ZSwKaW50ZWwvY25sLmM6
+ICAgIC5zZXRfcG93ZXJfc3RhdGUgICAgICAgID0gaGRhX2RzcF9zZXRfcG93ZXJfc3RhdGUsCgoK
+Z2l0IGdyZXAgc25kX3NvZl9kc3Bfc2V0X3Bvd2VyX3N0YXRlCnNvZi9pcGMuYzogICAgICByZXQg
+PSBzbmRfc29mX2RzcF9zZXRfcG93ZXJfc3RhdGUoaXBjLT5zZGV2LCAmdGFyZ2V0X3N0YXRlKTsK
+c29mL29wcy5oOnNuZF9zb2ZfZHNwX3NldF9wb3dlcl9zdGF0ZShzdHJ1Y3Qgc25kX3NvZl9kZXYg
+KnNkZXYsCgpJZiB0aGUgY29kZSBjYW4gYmUgcGxhdGZvcm0tc3BlY2lmaWMsIHdlIHNob3VsZG4n
+dCBtYWtlIGEgZGlyZWN0IGNhbGwgCmJ1dCBnbyB0aHJvdWdoIHRoZSBwbGF0Zm9ybSBpbmRpcmVj
+dGlvbi4gaXQncyBmaW5lIGZvciBub3cgc2luY2UgdGhlIApzYW1lIHJvdXRpbmUgaXMgdXNlZCBp
+biBhbGwgY2FzZXMgYnV0IGl0J3Mgbm90IHNjYWxhYmxlL2Z1dHVyZS1wcm9vZi4KClJhbmphbmk/
+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRl
+dmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWls
+bWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

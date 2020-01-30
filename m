@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A382B14D748
-	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 09:07:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D32114D766
+	for <lists+alsa-devel@lfdr.de>; Thu, 30 Jan 2020 09:19:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 455A71663;
-	Thu, 30 Jan 2020 09:06:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 455A71663
+	by alsa0.perex.cz (Postfix) with ESMTPS id 842AF1678;
+	Thu, 30 Jan 2020 09:18:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 842AF1678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580371668;
-	bh=jOeqex/lRq7DaPdWm+MTmsMFW1LIJ4RXAM3NQlO9xIg=;
+	s=default; t=1580372367;
+	bh=1z04gJQOH4pSNvw3r1o8MFXHMyz+WRZheWaYiYiJQU4=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JW83et7PqtgbiFRmDxjYOrjR0e+zxiiXhg81KJsKtEsBK/XJECu5whBj+W1rYXTW7
-	 5RZE4Ti32c1MWx66heJargRaPDlC+Nqe3OJOP6DgPdsSRftD2a2YnrQbZ8znuTe9ne
-	 XybUR6iM1LbrJKSTWuidlfdKdGkeitaFWdr8FR3A=
+	b=NtbCai4q0g9JItotVSXOn6WvzasgmcSz2OvM77VcV5YRmYYmkouHtjzG2D2trIIXj
+	 IQZKbDUQzV9PjM2VYoqXUnyYKBRTzU01Lyjgx/06/xGlvCGUU4Koc8ZmXFg8Vm0cyn
+	 UQd+75OniILeSfvm0p25nG/loaf14CKIEtUng3bE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 385C0F8014B;
-	Thu, 30 Jan 2020 09:06:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2CC9F80082;
+	Thu, 30 Jan 2020 09:17:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 341EEF801EB; Thu, 30 Jan 2020 09:06:44 +0100 (CET)
+ id C7860F80150; Thu, 30 Jan 2020 09:17:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
@@ -34,12 +34,12 @@ Received: from imap2.colo.codethink.co.uk (imap2.colo.codethink.co.uk
  [78.40.148.184])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8B950F80082
- for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 09:06:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B950F80082
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0895AF80082
+ for <alsa-devel@alsa-project.org>; Thu, 30 Jan 2020 09:17:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0895AF80082
 Received: from [167.98.27.226] (helo=[172.16.102.1])
  by imap2.colo.codethink.co.uk with esmtpsa  (Exim 4.92 #3 (Debian))
- id 1ix4qT-0001h1-5b; Thu, 30 Jan 2020 08:06:37 +0000
+ id 1ix517-0001zU-Md; Thu, 30 Jan 2020 08:17:37 +0000
 To: Jon Hunter <jonathanh@nvidia.com>, Mark Brown <broonie@kernel.org>,
  Dmitry Osipenko <digetx@gmail.com>
 References: <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
@@ -54,14 +54,15 @@ References: <29db3df4-6f51-7c0f-1eef-90171f1d233a@codethink.co.uk>
  <1b3c2af4-510e-306c-749a-efffc994b20a@gmail.com>
  <20200128121315.GD4689@sirena.org.uk>
  <4b90efd2-5d0c-84df-961d-80cee288e0d4@nvidia.com>
+ <586ea2b9-c204-2bd1-f8e2-875e0974e42d@nvidia.com>
 From: Ben Dooks <ben.dooks@codethink.co.uk>
 Organization: Codethink Limited.
-Message-ID: <675c0efd-1655-b850-760c-3d7e7b68e8c2@codethink.co.uk>
-Date: Thu, 30 Jan 2020 08:06:36 +0000
+Message-ID: <fe002ec7-ae6e-f770-b82a-49237e0b29c6@codethink.co.uk>
+Date: Thu, 30 Jan 2020 08:17:37 +0000
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <4b90efd2-5d0c-84df-961d-80cee288e0d4@nvidia.com>
+In-Reply-To: <586ea2b9-c204-2bd1-f8e2-875e0974e42d@nvidia.com>
 Content-Language: en-GB
 Cc: linux-kernel@lists.codethink.co.uk, alsa-devel@alsa-project.org,
  Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
@@ -86,30 +87,66 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 29/01/2020 10:49, Jon Hunter wrote:
+On 29/01/2020 14:33, Jon Hunter wrote:
 > 
-> On 28/01/2020 12:13, Mark Brown wrote:
->> I really don't understand why this is all taking so long, this thread
->> just seems to be going round in interminable circles long after it
->> looked like the issue was understood.  I have to admit I've not read
->> every single message in the thread but it's difficult to see why it
->> doesn't seem to be making any progress.
+> On 29/01/2020 10:49, Jon Hunter wrote:
+>>
+>> On 28/01/2020 12:13, Mark Brown wrote:
+>>> I really don't understand why this is all taking so long, this thread
+>>> just seems to be going round in interminable circles long after it
+>>> looked like the issue was understood.  I have to admit I've not read
+>>> every single message in the thread but it's difficult to see why it
+>>> doesn't seem to be making any progress.
+>>
+>> Sorry about that. On reviewing this with the audio team at NVIDIA, I was
+>> told we don't support S24_LE for I2S. The reason being that the crossbar
+>> between the DMA and I2S is not able to extract the correct 24-bits from
+>> the 32-bit sample to feed to the I2S interface. The Tegra documentation
+>> does show support for 24-bits, but not state explicit support for S24_LE.
+>>
+>> Now Ben says that he has this working, but I am unable to reproduce
+>> this, so before just dropping the S24_LE support, I would like to
+>> understand how this is working for Ben in case there is something that
+>> we have overlooked here.
 > 
-> Sorry about that. On reviewing this with the audio team at NVIDIA, I was
-> told we don't support S24_LE for I2S. The reason being that the crossbar
-> between the DMA and I2S is not able to extract the correct 24-bits from
-> the 32-bit sample to feed to the I2S interface. The Tegra documentation
-> does show support for 24-bits, but not state explicit support for S24_LE.
-> 
-> Now Ben says that he has this working, but I am unable to reproduce
-> this, so before just dropping the S24_LE support, I would like to
-> understand how this is working for Ben in case there is something that
-> we have overlooked here.
-> 
-> Jon
-> 
-Let's go back to S24_3LE isn't supportable, S24_LE is
+> Ah, I see that part of the problem is that patches 6 and 7 are yet to be
+> applied and without these the audio is completely distorted because
+> there is a mismatch in the data size between the APBIF and I2S
+> controller. Applying these patches it is not distorted but now I am
+> observing the clocking issue Ben reported and so the tone is not quite
+> right.
 
+I thought they had been applied? I probably dragged them back in when
+putting in the support for the test channel on the colibri.
+
+> Ben, I was able to workaround the clocking issue by making the I2S word
+> clock 64 bits long and not 48.
+
+Ok, that will work for I2S case, but maybe not TDM? I'd have to check.
+
+> diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
+> index bbf81b5aa723..3c9b4779e61b 100644
+> --- a/sound/soc/tegra/tegra30_i2s.c
+> +++ b/sound/soc/tegra/tegra30_i2s.c
+> @@ -143,7 +143,7 @@ static int tegra30_i2s_hw_params(struct
+> snd_pcm_substream *substream,
+>          case SNDRV_PCM_FORMAT_S24_LE:
+>                  val = TEGRA30_I2S_CTRL_BIT_SIZE_24;
+>                  audio_bits = TEGRA30_AUDIOCIF_BITS_24;
+> -               sample_size = 24;
+> +               sample_size = 32;
+>                  break;
+>          case SNDRV_PCM_FORMAT_S32_LE:
+>                  val = TEGRA30_I2S_CTRL_BIT_SIZE_32;
+> 
+> For I2S I believe we only care about the edges of the word clock and so
+> we make the overall period of the word clock 64 bit clocks then we no
+> longer have an issue with the bit clock frequency. I assume that this
+> should also be fine for TDM modes as well.
+> 
+> Can you let me know if this works for you?
+
+I'll be back in the office next week to test.
 
 -- 
 Ben Dooks				http://www.codethink.co.uk/

@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51FDC14FD06
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Feb 2020 13:10:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AD5014FD07
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Feb 2020 13:11:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C1090168E;
-	Sun,  2 Feb 2020 13:09:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C1090168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id EADCD15E2;
+	Sun,  2 Feb 2020 13:10:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EADCD15E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580645437;
-	bh=FYYeVOIsWzDleRfgaCtcxVhkCKP9Lfrew/cuDAK/yEQ=;
+	s=default; t=1580645482;
+	bh=NXRyAXsZw5F1qHkTFcZenEcmKS72Lf3QXjRgI9INP98=;
 	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=CSbT4EhKUeIp0+cQ+fOVo40Y3n6qzYPFHz894FvcpIYGrWPyyBgLgW1sF5cpCkVDB
-	 E8SJ1U3TFxy9Y8Y/lTObIxt3I36eDFaqH3IMk80Ac2z0U5aQZUusMZtIele5aMErG7
-	 z5fAsQwLqICRsepOxxaYMYFoAAli5vxh+CqXiMhM=
+	b=f5DmsnRwH1pL0bnBcIlgRYHo5Ggm3s7A1WPBI0w7Ci8jHGMepWyqkudniYwmk6Svq
+	 xYFQm+swPyqzc7TbD79H6Xma22885Spv2DgF/X1e2DXK8FxTwMg7auOV0lL6ZQpdQs
+	 I8FBqFUej3bh0XjdV33EUt0ADbRRNbx6t5Yqc8Es=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD528F801DB;
-	Sun,  2 Feb 2020 13:08:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C1DE6F80212;
+	Sun,  2 Feb 2020 13:08:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 14C88F801DB; Sun,  2 Feb 2020 13:08:55 +0100 (CET)
+ id 58EAAF800B8; Sun,  2 Feb 2020 13:08:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,43 +34,40 @@ Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
  [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D11DBF8011D
- for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2020 13:08:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D11DBF8011D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8F594F800B8
+ for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2020 13:08:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F594F800B8
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="Hu2Oc6hN"
+ header.b="nStP1vaF"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
  Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
  List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=SaO73ONbQdM0mbDqkJQ7S6ALPlHo+RxgSer8+54eNsc=; b=Hu2Oc6hNzvU7
- ro9DWvxU/LISS94/NYcDE1XLEoS7lVb03Zwrhe/L6shup+YQy56QjZC1A44osRcxpJW/+36KFoRDA
- ymrY/exov98SejEk6watqG9oRt8VpQcqGejFJsdt7Tc/hQE5oM+wRWd0uGORsRCSwp/YQ7qg8RrY1
- qWRF8=;
+ List-Archive; bh=o8fuEFkxXFx0PrQz0pJqfxYgnm7tfYXB7+HpzXyuEEs=; b=nStP1vaF6w7n
+ 9kb85VQSv1uw4D/5u5SgeX+6JZQkhmrKHw8ZziDglHmmRY/mnFdhqe1W6NVMGGxnXBfXH1echZbO7
+ /Jj37LxoSnDDu5MA7JVPvAEArlfzp0aLqV2F784GPZ8sRgDoYj+X7X6RfLLomc0ebCliJOZa75vH9
+ rqW4U=;
 Received: from [151.216.144.116] (helo=fitzroy.sirena.org.uk)
  by heliosphere.sirena.org.uk with esmtpsa
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <broonie@sirena.org.uk>)
- id 1iyE3W-0006sp-J5; Sun, 02 Feb 2020 12:08:50 +0000
+ id 1iyE3W-0006sq-JB; Sun, 02 Feb 2020 12:08:50 +0000
 Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 7B482D00C8C; Sun,  2 Feb 2020 12:08:49 +0000 (GMT)
+ id 9F34FD01A54; Sun,  2 Feb 2020 12:08:49 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-In-Reply-To: <20200131091901.13014-1-jonathanh@nvidia.com>
-Message-Id: <applied-20200131091901.13014-1-jonathanh@nvidia.com>
+To: Yong Zhi <yong.zhi@intel.com>
+In-Reply-To: <20200131204032.10213-1-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200131204032.10213-1-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
 Date: Sun,  2 Feb 2020 12:08:49 +0000 (GMT)
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org,
- Ben Dooks <ben.dooks@codethink.co.uk>,
- Thierry Reding <thierry.reding@gmail.com>, linux-tegra@vger.kernel.org,
- Dmitry Osipenko <digetx@gmail.com>
-Subject: [alsa-devel] Applied "ASoC: tegra: Revert 24 and 32 bit support" to
-	the asoc tree
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Divagar Mohandass <divagar.mohandass@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] Applied "ASoC: SOF: Intel: add PCI ID for JasperLake"
+	to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,11 +88,11 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: tegra: Revert 24 and 32 bit support
+   ASoC: SOF: Intel: add PCI ID for JasperLake
 
 has been applied to the asoc tree at
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
@@ -116,100 +113,35 @@ to this mail.
 Thanks,
 Mark
 
-From 961b91a93ea27495022b2bdc3ca0f608f2c97b5f Mon Sep 17 00:00:00 2001
-From: Jon Hunter <jonathanh@nvidia.com>
-Date: Fri, 31 Jan 2020 09:19:01 +0000
-Subject: [PATCH] ASoC: tegra: Revert 24 and 32 bit support
+From 6ba7fc99680b2250deba1a23f34d31fd25125d61 Mon Sep 17 00:00:00 2001
+From: Yong Zhi <yong.zhi@intel.com>
+Date: Fri, 31 Jan 2020 14:40:32 -0600
+Subject: [PATCH] ASoC: SOF: Intel: add PCI ID for JasperLake
 
-Commit f3ee99087c8ca0ecfdd549ef5a94f557c42d5428 ("ASoC: tegra: Allow
-24bit and 32bit samples") added 24-bit and 32-bit support for to the
-Tegra30 I2S driver. However, there are two additional commits that are
-also needed to get 24-bit and 32-bit support to work correctly. These
-commits are not yet applied because there are still some review comments
-that need to be addressed. With only this change applied, 24-bit and
-32-bit support is advertised by the I2S driver, but it does not work and
-the audio is distorted. Therefore, revert this patch for now until the
-other changes are also ready.
+Mirror ID added for legacy HDaudio.
 
-Furthermore, a clock issue with 24-bit support has been identified with
-this change and so if we revert this now, we can also fix that in the
-updated version.
-
-Reported-by: Dmitry Osipenko <digetx@gmail.com>
-Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
-Tested-by: Dmitry Osipenko <digetx@gmail.com>
-Link: https://lore.kernel.org/r/20200131091901.13014-1-jonathanh@nvidia.com
+Signed-off-by: Yong Zhi <yong.zhi@intel.com>
+Signed-off-by: Divagar Mohandass <divagar.mohandass@intel.com>
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200131204032.10213-1-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
-Cc: stable@vger.kernel.org
 ---
- sound/soc/tegra/tegra30_i2s.c | 25 +++++--------------------
- 1 file changed, 5 insertions(+), 20 deletions(-)
+ sound/soc/sof/sof-pci-dev.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/tegra/tegra30_i2s.c b/sound/soc/tegra/tegra30_i2s.c
-index dbed3c5408e7..d59882ec48f1 100644
---- a/sound/soc/tegra/tegra30_i2s.c
-+++ b/sound/soc/tegra/tegra30_i2s.c
-@@ -127,7 +127,7 @@ static int tegra30_i2s_hw_params(struct snd_pcm_substream *substream,
- 	struct device *dev = dai->dev;
- 	struct tegra30_i2s *i2s = snd_soc_dai_get_drvdata(dai);
- 	unsigned int mask, val, reg;
--	int ret, sample_size, srate, i2sclock, bitcnt, audio_bits;
-+	int ret, sample_size, srate, i2sclock, bitcnt;
- 	struct tegra30_ahub_cif_conf cif_conf;
- 
- 	if (params_channels(params) != 2)
-@@ -137,19 +137,8 @@ static int tegra30_i2s_hw_params(struct snd_pcm_substream *substream,
- 	switch (params_format(params)) {
- 	case SNDRV_PCM_FORMAT_S16_LE:
- 		val = TEGRA30_I2S_CTRL_BIT_SIZE_16;
--		audio_bits = TEGRA30_AUDIOCIF_BITS_16;
- 		sample_size = 16;
- 		break;
--	case SNDRV_PCM_FORMAT_S24_LE:
--		val = TEGRA30_I2S_CTRL_BIT_SIZE_24;
--		audio_bits = TEGRA30_AUDIOCIF_BITS_24;
--		sample_size = 24;
--		break;
--	case SNDRV_PCM_FORMAT_S32_LE:
--		val = TEGRA30_I2S_CTRL_BIT_SIZE_32;
--		audio_bits = TEGRA30_AUDIOCIF_BITS_32;
--		sample_size = 32;
--		break;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -181,8 +170,8 @@ static int tegra30_i2s_hw_params(struct snd_pcm_substream *substream,
- 	cif_conf.threshold = 0;
- 	cif_conf.audio_channels = 2;
- 	cif_conf.client_channels = 2;
--	cif_conf.audio_bits = audio_bits;
--	cif_conf.client_bits = audio_bits;
-+	cif_conf.audio_bits = TEGRA30_AUDIOCIF_BITS_16;
-+	cif_conf.client_bits = TEGRA30_AUDIOCIF_BITS_16;
- 	cif_conf.expand = 0;
- 	cif_conf.stereo_conv = 0;
- 	cif_conf.replicate = 0;
-@@ -317,18 +306,14 @@ static const struct snd_soc_dai_driver tegra30_i2s_dai_template = {
- 		.channels_min = 2,
- 		.channels_max = 2,
- 		.rates = SNDRV_PCM_RATE_8000_96000,
--		.formats = SNDRV_PCM_FMTBIT_S32_LE |
--			   SNDRV_PCM_FMTBIT_S24_LE |
--			   SNDRV_PCM_FMTBIT_S16_LE,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 	},
- 	.capture = {
- 		.stream_name = "Capture",
- 		.channels_min = 2,
- 		.channels_max = 2,
- 		.rates = SNDRV_PCM_RATE_8000_96000,
--		.formats = SNDRV_PCM_FMTBIT_S32_LE |
--			   SNDRV_PCM_FMTBIT_S24_LE |
--			   SNDRV_PCM_FMTBIT_S16_LE,
-+		.formats = SNDRV_PCM_FMTBIT_S16_LE,
- 	},
- 	.ops = &tegra30_i2s_dai_ops,
- 	.symmetric_rates = 1,
+diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
+index bf01b92f0dac..cec631a1389b 100644
+--- a/sound/soc/sof/sof-pci-dev.c
++++ b/sound/soc/sof/sof-pci-dev.c
+@@ -417,6 +417,8 @@ static const struct pci_device_id sof_pci_ids[] = {
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_JASPERLAKE)
+ 	{ PCI_DEVICE(0x8086, 0x38c8),
+ 		.driver_data = (unsigned long)&jsl_desc},
++	{ PCI_DEVICE(0x8086, 0x4dc8),
++		.driver_data = (unsigned long)&jsl_desc},
+ #endif
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
+ 	{ PCI_DEVICE(0x8086, 0x02c8),
 -- 
 2.20.1
 

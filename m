@@ -2,123 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96E241534F5
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Feb 2020 17:06:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F4771535DF
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Feb 2020 18:03:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 09BFB1682;
-	Wed,  5 Feb 2020 17:05:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09BFB1682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85ABF1689;
+	Wed,  5 Feb 2020 18:03:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85ABF1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580918805;
-	bh=kSjdQjXdseRygLN7FQQ9chluzdpJiqVgqPX7lRe5Jkc=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Xj41IFb1i0p/Aqbw8WqbLGPv6qcARdVX3tY2qp61UnIgUpbGb/5KImXJaGdw0Vu8u
-	 6tj68UUj/xFlu1o5Ho6ai9Ash1xRnc5kIJ4dPSJ7UJ9h1omKJbgefM0/SG2JGOx1Hs
-	 CkdgSWV5/JbvBIc/J8xx+bUDOVEPcXjLfgnU7Xwg=
+	s=default; t=1580922234;
+	bh=k2upI7l7IGrLp3FcZkKvB3mbyHm0Tb5neSuV7Rs7E4A=;
+	h=Date:In-Reply-To:From:To:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=LqfixM8HWCE1fQH2Bb3W/EHLFNDnXj6/7NhuCD0bcnovWpyNj6dvOkhXoOghtDv2n
+	 QSfQpqmIVMp9sUMMeU0XzyntmMHM0drnvxRzM6gVSa9XtLdjatgqXfOfl5ESoLiqsO
+	 Oi1/M3sxLS4LusEKmrqtLTOiZ6u9WMZ9gkis7qt4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C12C3F8014C;
-	Wed,  5 Feb 2020 17:05:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 87A65F8014C;
+	Wed,  5 Feb 2020 18:02:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EE09FF80148; Wed,  5 Feb 2020 17:05:00 +0100 (CET)
+ id 486C6F801DB; Sun,  2 Feb 2020 13:56:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,MSGID_FROM_MTA_HEADER,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from EUR05-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur05hn20327.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:7d00::327])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: ***
+X-Spam-Status: No, score=3.1 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SORTED_RECIPS,SPF_HELO_NONE,
+ SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-io1-f69.google.com (mail-io1-f69.google.com
+ [209.85.166.69])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5848AF80051
- for <alsa-devel@alsa-project.org>; Wed,  5 Feb 2020 17:04:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5848AF80051
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com
- header.b="KxLjUhCm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=IZC1FHSO3kZ3QI1sbnGRdH/F7I2Uw5rxqhYHs6WYUnFlgDQAg2ocP9ILQg4dFAMsuxmCpZ5gJfR5P8iA6wmH90REiDCDeNxdlgOQshQMeV23wH79AjSbjuNFldyojgsiWy9n2dULVKKK78jhoMoWlk1ku8T2iuZxxxwdPN6G0/4eEYQT8xBxX7N0moxnrhoSLQyAI9Gz12z3WhP4oJdFr82OY6cqqPo3Q8pz3zuVFqcb0+k+iFcDK4Jl9s1UTQy//9EVHZS85p03XzshKeo7ZJuy6AKdKBfEm5NXFgRRevuVnhuf/KZVuwuV3q8sJ7tu1/hwbYYf+txi1hVXcv3X/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=itU0ED0w/Hmd36ELD5ckm1ecQ5jx70sKj6AhR/rNJO4=;
- b=A1+8EMfI2mYCWYacb7StJFvkcXZy+9cp1ugQWqRLIFcTS9/RWiVl5NwxJEelTjzAYECCtRON0zzoPQraIWMsL60AN2Jek1bfEdqcF9QtQMPYnbIer5MtxIpjZ8v5X5g3MzgprPoRpO4NQUlo/Wi0HvCH1Ssk1efOIxf5Lz3fz044qGdJxxrj5acQPv+hrQnbQ145HAmraIiR4OnxhDwwNkbTjBHippKbSAk2IO0jYCUUltLgR5k/yaevolOVGHIZNAqlqkYhDNlzYZhdaAqk7MxfNO8OT2MmhHxATPuGEfciSlLTyvCVpZ2aLEyfL4G+lyjICE+cZ6p9HhWV6HH5YQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=toradex.com; dmarc=pass action=none header.from=toradex.com;
- dkim=pass header.d=toradex.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=itU0ED0w/Hmd36ELD5ckm1ecQ5jx70sKj6AhR/rNJO4=;
- b=KxLjUhCmBrsxDjBLFUQH0NtbbjopsKx0MYZV6hfBktchcd/SShE+0OVgtvd7Axberk05+wwIDrjPsnWX+QCOrhfVcjDcRsjuXuylg275sLBpyCa4FAJk2R9uWmzcTiK92HAxRVPqVl9NWaVclUF9paA70JXFHmgn0pM1bMe4qC0=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=oleksandr.suvorov@toradex.com; 
-Received: from VI1PR05MB3279.eurprd05.prod.outlook.com (10.170.238.24) by
- VI1PR05MB5197.eurprd05.prod.outlook.com (20.178.11.151) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2686.33; Wed, 5 Feb 2020 16:04:41 +0000
-Received: from VI1PR05MB3279.eurprd05.prod.outlook.com
- ([fe80::c14f:4592:515f:6e52]) by VI1PR05MB3279.eurprd05.prod.outlook.com
- ([fe80::c14f:4592:515f:6e52%7]) with mapi id 15.20.2686.035; Wed, 5 Feb 2020
- 16:04:41 +0000
-From: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
-To: alsa-devel@alsa-project.org
-Date: Wed,  5 Feb 2020 18:04:36 +0200
-Message-Id: <20200205160436.3813642-1-oleksandr.suvorov@toradex.com>
-X-Mailer: git-send-email 2.24.1
-X-ClientProxiedBy: GV0P278CA0030.CHEP278.PROD.OUTLOOK.COM
- (2603:10a6:710:28::17) To VI1PR05MB3279.eurprd05.prod.outlook.com
- (2603:10a6:802:1c::24)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 22BA2F80116
+ for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2020 13:56:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 22BA2F80116
+Received: by mail-io1-f69.google.com with SMTP id x10so7544205iob.2
+ for <alsa-devel@alsa-project.org>; Sun, 02 Feb 2020 04:56:12 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:date:in-reply-to:message-id:subject
+ :from:to;
+ bh=sePf426ABt6fcfW2msbuyQb20FjZbY8UnbS/9wl19Js=;
+ b=H0Prcn7C4ASZRHQsv/uPTZJ+Zn6jy6LPoAFuXf+JHUIoqVLlw22hA2L1xsN8isY1mp
+ yRX43pu4MG0lwsJzc2Jv2R3fwxgF4/v2B3DVtT6V6ecCdHogIotd9pT3vFHrYQ8Z2DkI
+ g8phe2i8ENCvfaC16Bzp3EhnxFN0NKFaKs/BXta61Jw98ddaCOH6RMPWpg77tmeDFmzy
+ pE18RFv0oR8deSrs7A0vwj1iI8/7YmN0gLcHVy/nLuKVK8JXM0Tu6GCamzhZxRk8S8pN
+ MGf29ujC74A1Fj8MlYE/kjinet2qfn0rf21gGfhoAsGKZIskSfGFkEfci0FyhpqXADbT
+ AA6A==
+X-Gm-Message-State: APjAAAVUd29zQZwuVdWh7nHL55BnvPG3RynIUGUEI8wKUeAjtoPF8ux8
+ M1ewzHE15IRpnrjZzcliAfo2gx5X5Ucadc/MvfP1WtD+f5GI
+X-Google-Smtp-Source: APXvYqy8VV3RncJn8Jm0k2KOgfBpYPIkjpHi0oXQcFF20WQB2AgJX5sLyq/vbRVZhP3msfaLP4/botoBnFUJ0k3g+eS+HaUHZXJi
 MIME-Version: 1.0
-Received: from localhost (194.105.145.90) by
- GV0P278CA0030.CHEP278.PROD.OUTLOOK.COM (2603:10a6:710:28::17) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2707.21 via Frontend Transport; Wed, 5 Feb 2020 16:04:40 +0000
-X-Mailer: git-send-email 2.24.1
-X-Originating-IP: [194.105.145.90]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1544a42a-6a1e-4d4a-0b73-08d7aa551bc4
-X-MS-TrafficTypeDiagnostic: VI1PR05MB5197:|VI1PR05MB5197:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR05MB5197C785940398ECBB568757F9020@VI1PR05MB5197.eurprd05.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:4714;
-X-Forefront-PRVS: 0304E36CA3
-X-Forefront-Antispam-Report: SFV:SPM;
- SFS:(10019020)(4636009)(346002)(366004)(136003)(39850400004)(376002)(396003)(199004)(189003)(316002)(16526019)(81156014)(8676002)(186003)(81166006)(956004)(8936002)(66946007)(6666004)(7416002)(66556008)(66476007)(478600001)(6916009)(6496006)(36756003)(52116002)(26005)(86362001)(1076003)(2906002)(6486002)(44832011)(4326008)(2616005)(54906003)(5660300002)(23200700001);
- DIR:OUT; SFP:1501; SCL:5; SRVR:VI1PR05MB5197;
- H:VI1PR05MB3279.eurprd05.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; CAT:OSPM; 
-Received-SPF: None (protection.outlook.com: toradex.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: Sw0vJi4XEAvc11+yt9IK+E2rAzJi47VDLVXns3uw2GZVgLf5kjN59NQG0FK/wxnPNUkdkMoLN0sno7pqP+M2kqJeztgiOhR3vmwXuuurZRePT2R3ChiS5JrrUVQAQyrCpggz6ZyqnO00bKfvIBhRoKWoo7NHZuP7N/cjL6mhIq6KI2rk18FjzxAVc5J8SDPoRhK163H+39pMoqM6I8PiLsXZxGkVG1WfAZd6vH5rf+rDaPaceB9c8ZHq3Coi4FjJYW/dK29RImKF7Y6PvGuWAKHScr/pFbfe+fHo2txlU4HoxzNg6/8CWXDR2FSe7j40c/DAVlV5X8sm48CDvSc+uulMZQpL4XaB+LEWf4kffM4HWtHBoVwxAkcV00Sony07YX919QZK5B/zDLIGpj++Hdd7OVEXW2dwtj8PseR4qh0Mq8rXhyUGr3tiYD0qYT3ARyhdb07llH4UGf+hFAdVTuUh3pjDN4QFQ2vjkuacHXAzPEiw+/twtWQIZJuDfeReESRsmPjUGGbdisftcCAeFkX36XQSm7q+vfzBhfQg3V3PL8FMYjBa0aCxiVGPrU/6ujUVNoqw5MjBpULvlIlTeiCzp2cuRyfF2sbF8/At9CJw4dfoMWejU28NnUnT8FQd/BzZcZ6QczvuRFQN4RsFVAfq4BNfbbDoEnBzoIP8g9FWm9TgzlUlGHIc01/HeUb1DkscTXFJwu5rpuT5QyONl3xvxK1A1Cxcyx585J6v4ghjwDg+J07HQcebYBwiNoqLtwVxwadFQqAUvNFJa+Jr/w==
-X-MS-Exchange-AntiSpam-MessageData: Mz2GOcg9jXO8x4f4wfofIOvEJSlpXjescALvGGIQ6gdROHOSs9GWCRi+xwk6a565B1JqZXim7M2kJesMJIQMv1wdvDdvNNHlN+p70wTXSIVebwF2Ea+z5IvpOsB/3MOIAd+ghx3PVjpHRhxZoqGZmQ==
-X-OriginatorOrg: toradex.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1544a42a-6a1e-4d4a-0b73-08d7aa551bc4
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Feb 2020 16:04:41.2908 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 2xEopcBa3erDQ2vMSJK4aW7H4B2pFPiqyx7PY6qZSwWhafhplRl5lxd1iX4Ow30M7wWXwnMvsCscOPgovzZ0Fu6C0ikVHQJkCATMF80+hRA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR05MB5197
-Cc: Nicolin Chen <nicoleotsuka@gmail.com>,
- Igor Opaniuk <igor.opaniuk@toradex.com>, linuxppc-dev@lists.ozlabs.org,
- Timur Tabi <timur@kernel.org>, Xiubo Li <Xiubo.Lee@gmail.com>,
- Marcel Ziswiler <marcel.ziswiler@toradex.com>,
- Fabio Estevam <festevam@gmail.com>, Shengjiu Wang <shengjiu.wang@nxp.com>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Oleksandr Suvorov <oleksandr.suvorov@toradex.com>,
- Philippe Schenker <philippe.schenker@toradex.com>,
- Mark Brown <broonie@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ASoC: fsl_sai: Fix exiting path on probing
-	failure
+X-Received: by 2002:a6b:bf06:: with SMTP id p6mr16156143iof.255.1580648170848; 
+ Sun, 02 Feb 2020 04:56:10 -0800 (PST)
+Date: Sun, 02 Feb 2020 04:56:10 -0800
+In-Reply-To: <000000000000729d74059c30ddff@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000bd0524059d975403@google.com>
+From: syzbot <syzbot+2b2ef983f973e5c40943@syzkaller.appspotmail.com>
+To: 20200115203733.26530-1-tiwai@suse.de, alsa-devel-owner@alsa-project.org, 
+ alsa-devel@alsa-project.org, arnd@arndb.de, baolin.wang@linaro.org, 
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org, perex@perex.cz, 
+ stable-commits@vger.kernel.org, stable@vger.kernel.org, 
+ syzkaller-bugs@googlegroups.com, tiwai@suse.com, tiwai@suse.de
+X-Mailman-Approved-At: Wed, 05 Feb 2020 18:02:10 +0100
+Subject: Re: [alsa-devel] KASAN: use-after-free Read in snd_timer_resolution
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,63 +86,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If the imx-sdma driver is built as a module, the fsl-sai device doesn't
-disable on probing failure, which causes the warning in the next probing:
+syzbot has found a reproducer for the following crash on:
+
+HEAD commit:    2747d5fd Add linux-next specific files for 20200116
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=1147e101e00000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=22f506e7a3a37fe2
+dashboard link: https://syzkaller.appspot.com/bug?extid=2b2ef983f973e5c40943
+compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10c0864ee00000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14738df1e00000
+
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+2b2ef983f973e5c40943@syzkaller.appspotmail.com
 
 ==================================================================
-fsl-sai 308a0000.sai: Unbalanced pm_runtime_enable!
-fsl-sai 308a0000.sai: Unbalanced pm_runtime_enable!
-fsl-sai 308a0000.sai: Unbalanced pm_runtime_enable!
-fsl-sai 308a0000.sai: Unbalanced pm_runtime_enable!
-fsl-sai 308a0000.sai: Unbalanced pm_runtime_enable!
-fsl-sai 308a0000.sai: Unbalanced pm_runtime_enable!
+BUG: KASAN: use-after-free in snd_timer_resolution+0xf1/0x110 sound/core/timer.c:487
+Read of size 8 at addr ffff88809e0f5a00 by task syz-executor911/9849
+
+CPU: 1 PID: 9849 Comm: syz-executor911 Not tainted 5.5.0-rc6-next-20200116-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0x197/0x210 lib/dump_stack.c:118
+ print_address_description.constprop.0.cold+0xd4/0x30b mm/kasan/report.c:374
+ __kasan_report.cold+0x1b/0x32 mm/kasan/report.c:506
+ kasan_report+0x12/0x20 mm/kasan/common.c:641
+ __asan_report_load8_noabort+0x14/0x20 mm/kasan/generic_report.c:135
+ snd_timer_resolution+0xf1/0x110 sound/core/timer.c:487
+ snd_seq_info_timer_read+0x95/0x2f1 sound/core/seq/seq_timer.c:480
+ snd_info_seq_show+0xcb/0x120 sound/core/info.c:362
+ seq_read+0x4ca/0x1170 fs/seq_file.c:229
+ proc_reg_read+0x1f8/0x2b0 fs/proc/inode.c:223
+ do_loop_readv_writev fs/read_write.c:714 [inline]
+ do_loop_readv_writev fs/read_write.c:701 [inline]
+ do_iter_read+0x4a4/0x660 fs/read_write.c:935
+ vfs_readv+0xf0/0x160 fs/read_write.c:997
+ do_preadv+0x1c4/0x280 fs/read_write.c:1089
+ __do_sys_preadv fs/read_write.c:1139 [inline]
+ __se_sys_preadv fs/read_write.c:1134 [inline]
+ __x64_sys_preadv+0x9a/0xf0 fs/read_write.c:1134
+ do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+RIP: 0033:0x441389
+Code: e8 ac e8 ff ff 48 83 c4 18 c3 0f 1f 80 00 00 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 eb 08 fc ff c3 66 2e 0f 1f 84 00 00 00 00
+RSP: 002b:00007ffc8aa7ce38 EFLAGS: 00000246 ORIG_RAX: 0000000000000127
+RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 0000000000441389
+RDX: 0000000000000227 RSI: 00000000200017c0 RDI: 0000000000000004
+RBP: 00007ffc8aa7ce50 R08: 000000000000000f R09: 00000000000000c2
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000402100
+R13: 0000000000402190 R14: 0000000000000000 R15: 0000000000000000
+
+Allocated by task 9852:
+ save_stack+0x23/0x90 mm/kasan/common.c:72
+ set_track mm/kasan/common.c:80 [inline]
+ __kasan_kmalloc mm/kasan/common.c:515 [inline]
+ __kasan_kmalloc.constprop.0+0xcf/0xe0 mm/kasan/common.c:488
+ kasan_kmalloc+0x9/0x10 mm/kasan/common.c:529
+ kmem_cache_alloc_trace+0x158/0x790 mm/slab.c:3551
+ kmalloc include/linux/slab.h:555 [inline]
+ kzalloc include/linux/slab.h:669 [inline]
+ snd_timer_instance_new+0x4a/0x300 sound/core/timer.c:142
+ snd_seq_timer_open+0x1c0/0x590 sound/core/seq/seq_timer.c:275
+ queue_use+0xf1/0x270 sound/core/seq/seq_queue.c:489
+ snd_seq_queue_alloc+0x2c5/0x4d0 sound/core/seq/seq_queue.c:176
+ snd_seq_ioctl_create_queue+0xb0/0x330 sound/core/seq/seq_clientmgr.c:1548
+ snd_seq_kernel_client_ctl+0xf8/0x140 sound/core/seq/seq_clientmgr.c:2353
+ alloc_seq_queue.isra.0+0xdc/0x180 sound/core/seq/oss/seq_oss_init.c:357
+ snd_seq_oss_open+0x2ff/0x960 sound/core/seq/oss/seq_oss_init.c:215
+ odev_open+0x70/0x90 sound/core/seq/oss/seq_oss.c:125
+ soundcore_open+0x453/0x610 sound/sound_core.c:593
+ chrdev_open+0x245/0x6b0 fs/char_dev.c:414
+ do_dentry_open+0x4ca/0x1350 fs/open.c:797
+ vfs_open+0xa0/0xd0 fs/open.c:914
+ do_last fs/namei.c:3487 [inline]
+ path_openat+0x12fd/0x34d0 fs/namei.c:3604
+ do_filp_open+0x192/0x260 fs/namei.c:3634
+ do_sys_openat2+0x633/0x840 fs/open.c:1151
+ do_sys_open+0xfc/0x190 fs/open.c:1167
+ __do_sys_openat fs/open.c:1181 [inline]
+ __se_sys_openat fs/open.c:1176 [inline]
+ __x64_sys_openat+0x9d/0x100 fs/open.c:1176
+ do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+Freed by task 9852:
+ save_stack+0x23/0x90 mm/kasan/common.c:72
+ set_track mm/kasan/common.c:80 [inline]
+ kasan_set_free_info mm/kasan/common.c:337 [inline]
+ __kasan_slab_free+0x102/0x150 mm/kasan/common.c:476
+ kasan_slab_free+0xe/0x10 mm/kasan/common.c:485
+ __cache_free mm/slab.c:3426 [inline]
+ kfree+0x10a/0x2c0 mm/slab.c:3757
+ snd_timer_instance_free sound/core/timer.c:166 [inline]
+ snd_timer_instance_free+0x7c/0xa0 sound/core/timer.c:160
+ snd_seq_timer_close+0x99/0xe0 sound/core/seq/seq_timer.c:319
+ queue_delete+0x52/0xb0 sound/core/seq/seq_queue.c:134
+ snd_seq_queue_delete+0x4e/0x70 sound/core/seq/seq_queue.c:196
+ snd_seq_ioctl_delete_queue+0x6a/0x90 sound/core/seq/seq_clientmgr.c:1570
+ snd_seq_kernel_client_ctl+0xf8/0x140 sound/core/seq/seq_clientmgr.c:2353
+ delete_seq_queue.part.0+0xb6/0x120 sound/core/seq/oss/seq_oss_init.c:376
+ delete_seq_queue sound/core/seq/oss/seq_oss_init.c:372 [inline]
+ snd_seq_oss_release+0x116/0x150 sound/core/seq/oss/seq_oss_init.c:421
+ odev_release+0x54/0x80 sound/core/seq/oss/seq_oss.c:140
+ __fput+0x2ff/0x890 fs/file_table.c:280
+ ____fput+0x16/0x20 fs/file_table.c:313
+ task_work_run+0x145/0x1c0 kernel/task_work.c:113
+ exit_task_work include/linux/task_work.h:22 [inline]
+ do_exit+0xbcb/0x2f80 kernel/exit.c:801
+ do_group_exit+0x135/0x360 kernel/exit.c:899
+ __do_sys_exit_group kernel/exit.c:910 [inline]
+ __se_sys_exit_group kernel/exit.c:908 [inline]
+ __x64_sys_exit_group+0x44/0x50 kernel/exit.c:908
+ do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+The buggy address belongs to the object at ffff88809e0f5a00
+ which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 0 bytes inside of
+ 256-byte region [ffff88809e0f5a00, ffff88809e0f5b00)
+The buggy address belongs to the page:
+page:ffffea0002783d40 refcount:1 mapcount:0 mapping:ffff8880aa4008c0 index:0x0
+flags: 0xfffe0000000200(slab)
+raw: 00fffe0000000200 ffffea0002783948 ffffea00027872c8 ffff8880aa4008c0
+raw: 0000000000000000 ffff88809e0f5000 0000000100000008 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff88809e0f5900: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88809e0f5980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>ffff88809e0f5a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                   ^
+ ffff88809e0f5a80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88809e0f5b00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
 ==================================================================
-
-Disabling the device properly fixes the issue.
-
-Fixes: 812ad463e089 ("ASoC: fsl_sai: Add support for runtime pm")
-Signed-off-by: Oleksandr Suvorov <oleksandr.suvorov@toradex.com>
----
-
- sound/soc/fsl/fsl_sai.c | 22 +++++++++++++++++-----
- 1 file changed, 17 insertions(+), 5 deletions(-)
-
-diff --git a/sound/soc/fsl/fsl_sai.c b/sound/soc/fsl/fsl_sai.c
-index 8c3ea7300972..9d436b0c5718 100644
---- a/sound/soc/fsl/fsl_sai.c
-+++ b/sound/soc/fsl/fsl_sai.c
-@@ -1020,12 +1020,24 @@ static int fsl_sai_probe(struct platform_device *pdev)
- 	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_component,
- 			&fsl_sai_dai, 1);
- 	if (ret)
--		return ret;
-+		goto err_pm_disable;
- 
--	if (sai->soc_data->use_imx_pcm)
--		return imx_pcm_dma_init(pdev, IMX_SAI_DMABUF_SIZE);
--	else
--		return devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
-+	if (sai->soc_data->use_imx_pcm) {
-+		ret = imx_pcm_dma_init(pdev, IMX_SAI_DMABUF_SIZE);
-+		if (ret)
-+			goto err_pm_disable;
-+	} else {
-+		ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
-+		if (ret)
-+			goto err_pm_disable;
-+	}
-+
-+	return ret;
-+
-+err_pm_disable:
-+	pm_runtime_disable(&pdev->dev);
-+
-+	return ret;
- }
- 
- static int fsl_sai_remove(struct platform_device *pdev)
--- 
-2.24.1
 
 _______________________________________________
 Alsa-devel mailing list

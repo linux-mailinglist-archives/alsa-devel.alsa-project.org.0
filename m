@@ -2,60 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 303A714FC36
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Feb 2020 08:46:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D7C514FC53
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Feb 2020 09:39:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CCB7F168B;
-	Sun,  2 Feb 2020 08:45:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCB7F168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id CED4B168B;
+	Sun,  2 Feb 2020 09:38:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CED4B168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580629607;
-	bh=qOzsp5bJw/QuDd+nOn/p/vpIVOrC0xj1ViiFEeo/l8Q=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=rbi27SwRrF8bflE2CG1wWdsVuf5PtPDFbMPStjXf3EYzv1ogM/qmtx0e6RoYUfKfp
-	 1FlzAoMsc0ORyMLdZ2QXklb6XWMQAxI0XhixB38Fha0bolYvrEyPEhhluec3ylA6z3
-	 BagBjAB3Vi2M7a47kIx2gwXliooY574LXH7b+eLk=
+	s=default; t=1580632774;
+	bh=XKgTlFMBabY+whhnBr9avNxE7X/6NciDHyKwuZqTvOI=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=lJyJYVnBin2Jj2LlvCzlsaiHqMdzYKPvd4gD+6ChGAOXzHEbCRJhVXW2jqZKaiLbJ
+	 eDr/rEA3ZNMO726lL/pmnfJKK+SVJrv/yJl5gG0zzEfjetTDXzBSm23VY+ykdxrKih
+	 CsmphpvzNav0YxWoHfpAWx2KfLWl9wscC8TzKDBo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3450F800B8;
-	Sun,  2 Feb 2020 08:45:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F1A37F80116;
+	Sun,  2 Feb 2020 09:37:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7CAC5F80162; Sun,  2 Feb 2020 08:45:03 +0100 (CET)
+ id D9DCFF80162; Sun,  2 Feb 2020 09:37:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AB672F800B8
- for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2020 08:44:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AB672F800B8
-Received: from DGGEMS412-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id EF867CAA9F20E8809C09;
- Sun,  2 Feb 2020 15:44:50 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
- DGGEMS412-HUB.china.huawei.com (10.3.19.212) with Microsoft SMTP Server id
- 14.3.439.0; Sun, 2 Feb 2020 15:44:41 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, "Matthias
- Brugger" <matthias.bgg@gmail.com>, Jeff Chang <jeff_chang@richtek.com>
-Date: Sun, 2 Feb 2020 07:39:17 +0000
-Message-ID: <20200202073917.195880-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.20.1
-MIME-Version: 1.0
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
- kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH -next] ASoC: Remove unused including
-	<linux/version.h>
+ by alsa1.perex.cz (Postfix) with ESMTPS id ED09AF80116
+ for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2020 09:37:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ED09AF80116
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 78556AD14;
+ Sun,  2 Feb 2020 08:37:44 +0000 (UTC)
+Date: Sun, 02 Feb 2020 09:37:44 +0100
+Message-ID: <s5hmua18jvr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Martin Regner <martin@larkos.de>
+In-Reply-To: <0b827293-cc8b-3c3e-9160-565037ff172b@larkos.de>
+References: <20191119084710.29267-5-nmahale@nvidia.com>
+ <0b827293-cc8b-3c3e-9160-565037ff172b@larkos.de>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: nmahale@nvidia.com, tiwai@suse.com, alsa-devel@alsa-project.org,
+ aplattner@nvidia.com
+Subject: Re: [alsa-devel] [PATCH v3 4/4] ALSA: hda - Add DP-MST support for
+	NVIDIA codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,36 +67,29 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Remove including <linux/version.h> that don't need it.
-
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
----
- sound/soc/codecs/mt6660.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/sound/soc/codecs/mt6660.c b/sound/soc/codecs/mt6660.c
-index a36c416caad4..1a3515df1764 100644
---- a/sound/soc/codecs/mt6660.c
-+++ b/sound/soc/codecs/mt6660.c
-@@ -4,7 +4,6 @@
- 
- #include <linux/module.h>
- #include <linux/kernel.h>
--#include <linux/version.h>
- #include <linux/err.h>
- #include <linux/i2c.h>
- #include <linux/pm_runtime.h>
-
-
-
-
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gU2F0LCAwMSBGZWIgMjAyMCAxNjoyODowOCArMDEwMCwKTWFydGluIFJlZ25lciB3cm90ZToK
+PiAKPiBIaSB0aGVyZSwKPiAKPiBzaW5jZSBpIHVwZGF0ZWQgdG8ga2VybmVsIDUuNSBpIGhhdmUg
+bm8gc291bmQgb3ZlciBoZG1pIGFueW1vcmUgKEdlRm9yY2UgUlRYCj4gMjA3MCkuCj4gCj4gV2l0
+aCB0aGUgcHJldmlvdXMga2VybmVsIDUuNC4xNCBldmVyeXRoaW5nIGlzIGZpbmUuCj4gCj4gQWx0
+aG91Z2ggaSBnb3Qgc291bmQgd2l0aCBzcGVha2VyLXRlc3QgLUQgaGRtaTpDQVJEPU5WaWRpYSxE
+RVY9MiAtYyAyIC1yCj4gNDQxMDAsIHBhdnVjb250cm9sIHNob3dzIGFsbCBoZG1pIHNvdW5kIGRl
+dmljZXMgYXMgdW5wbHVnZ2VkLgo+IAo+IEkgYmlzZWN0ZWQgaXQgZG93biB0byB0aGlzIGNvbW1p
+dCAoNTM5OGU5NGZiNzUzZDAyMjMwMTgyNWViZmE1ZjdjZjhhNjYwZDhlYikKPiBhbmQgY2hhbmdl
+ZCB0aGUgbGluZQo+IAo+IEhEQV9DT0RFQ19FTlRSWSgweDEwZGUwMDkzLCAiR1BVIDkzIEhETUkv
+RFAiLMKgIHBhdGNoX252aGRtaSkKPiAKPiB0bwo+IAo+IEhEQV9DT0RFQ19FTlRSWSgweDEwZGUw
+MDkzLCAiR1BVIDkzIEhETUkvRFAiLMKgIHBhdGNoX252aGRtaV9sZWdhY3kpCj4gCj4gTm93IGl0
+J3Mgd29ya2luZyBhZ2Fpbi4gSSdtIG5vdCBzdXJlIGlmIHRoaXMgaXMgYSBwcm9ibGVtIHdpdGgg
+cHVsc2VhdWRpbyBvcgo+IGlmIHRoZSBSVFggMjA3MCBkb2VzIG5vdCBzdXBwb3J0IHRoZSBtZW50
+aW9uZWQgY29kZWMuCgpUaGUgcnVudGltZSBQTSB0dXJucyBvZmYgdGhlIGxpbmssIHNvIHRoZSBo
+b3RwbHVnIG5vdGlmaWNhdGlvbiB3b24ndApiZSBkZWxpdmVyZWQgYXMgZGVmYXVsdC4gIFBsZWFz
+ZSB0cnkgcmVhZGluZyB0aGUgY29ycmVzcG9uZGluZyBwcm9jCmZpbGUsIC9wcm9jL2Fzb3VuZC9j
+YXJkKi9jb2RlYyogZmlsZS4gIFRoaXMgbWF5IHBvd2VyIHVwIHRoZSBjb2RlYyBhbmQgCnRyaWdn
+ZXIgdGhlIGhvdHBsdWcgZGV0ZWN0aW9uIGlmIHRoYXQncyB0aGUgY2F1c2UuCgoKVGFrYXNoaQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVs
+IG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFu
+LmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

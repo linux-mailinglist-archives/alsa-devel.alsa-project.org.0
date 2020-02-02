@@ -2,72 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AD5014FD07
-	for <lists+alsa-devel@lfdr.de>; Sun,  2 Feb 2020 13:11:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A5C2E14FD7E
+	for <lists+alsa-devel@lfdr.de>; Sun,  2 Feb 2020 15:20:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EADCD15E2;
-	Sun,  2 Feb 2020 13:10:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EADCD15E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3A50315F2;
+	Sun,  2 Feb 2020 15:19:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3A50315F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580645482;
-	bh=NXRyAXsZw5F1qHkTFcZenEcmKS72Lf3QXjRgI9INP98=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=f5DmsnRwH1pL0bnBcIlgRYHo5Ggm3s7A1WPBI0w7Ci8jHGMepWyqkudniYwmk6Svq
-	 xYFQm+swPyqzc7TbD79H6Xma22885Spv2DgF/X1e2DXK8FxTwMg7auOV0lL6ZQpdQs
-	 I8FBqFUej3bh0XjdV33EUt0ADbRRNbx6t5Yqc8Es=
+	s=default; t=1580653215;
+	bh=2BLsM8avcZMu+MWFprCKd7UU1zBBtXy1WzOwI/mAI5w=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=e54fMqFW+AnJsCAkvrErprF0woPqRdZu92XY4x15q59cQJLVn8T4uU44L34R4ff5G
+	 vvXYLeQkPgJ7rESKpjYSYbIb+M4aqDWYjj/RUm74C7PNggE1z3FxgDeVpjhQW2uRD6
+	 Kjr5krpbn68lUzmwdKJRAkMf/lA7Mjmx8d0CqNns=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C1DE6F80212;
-	Sun,  2 Feb 2020 13:08:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 468DCF8011D;
+	Sun,  2 Feb 2020 15:18:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 58EAAF800B8; Sun,  2 Feb 2020 13:08:56 +0100 (CET)
+ id 0AE78F80162; Sun,  2 Feb 2020 15:18:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
+X-Spam-Status: No, score=1.0 required=5.0 tests=PRX_BODY_30,SPF_HELO_PASS,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from larkos.de (larkos.de [188.68.52.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8F594F800B8
- for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2020 13:08:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8F594F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="nStP1vaF"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=o8fuEFkxXFx0PrQz0pJqfxYgnm7tfYXB7+HpzXyuEEs=; b=nStP1vaF6w7n
- 9kb85VQSv1uw4D/5u5SgeX+6JZQkhmrKHw8ZziDglHmmRY/mnFdhqe1W6NVMGGxnXBfXH1echZbO7
- /Jj37LxoSnDDu5MA7JVPvAEArlfzp0aLqV2F784GPZ8sRgDoYj+X7X6RfLLomc0ebCliJOZa75vH9
- rqW4U=;
-Received: from [151.216.144.116] (helo=fitzroy.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1iyE3W-0006sq-JB; Sun, 02 Feb 2020 12:08:50 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 9F34FD01A54; Sun,  2 Feb 2020 12:08:49 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Yong Zhi <yong.zhi@intel.com>
-In-Reply-To: <20200131204032.10213-1-pierre-louis.bossart@linux.intel.com>
-Message-Id: <applied-20200131204032.10213-1-pierre-louis.bossart@linux.intel.com>
-X-Patchwork-Hint: ignore
-Date: Sun,  2 Feb 2020 12:08:49 +0000 (GMT)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- Divagar Mohandass <divagar.mohandass@intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Intel: add PCI ID for JasperLake"
-	to the asoc tree
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1537BF8011D
+ for <alsa-devel@alsa-project.org>; Sun,  2 Feb 2020 15:18:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1537BF8011D
+Received: from a89-182-228-91.net-htp.de ([89.182.228.91]
+ helo=[192.168.178.12])
+ by larkos.de with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <martin@larkos.de>)
+ id 1iyG4x-0000wh-99; Sun, 02 Feb 2020 15:18:27 +0100
+To: Takashi Iwai <tiwai@suse.de>
+References: <20191119084710.29267-5-nmahale@nvidia.com>
+ <0b827293-cc8b-3c3e-9160-565037ff172b@larkos.de>
+ <s5hmua18jvr.wl-tiwai@suse.de>
+From: Martin Regner <martin@larkos.de>
+Message-ID: <3a15996e-1b8f-b5f0-77da-2fcfa8334bcb@larkos.de>
+Date: Sun, 2 Feb 2020 15:18:26 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
+MIME-Version: 1.0
+In-Reply-To: <s5hmua18jvr.wl-tiwai@suse.de>
+Content-Language: en-GB
+Cc: nmahale@nvidia.com, tiwai@suse.com, alsa-devel@alsa-project.org,
+ aplattner@nvidia.com
+Subject: Re: [alsa-devel] [PATCH v3 4/4] ALSA: hda - Add DP-MST support for
+ NVIDIA codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,72 +69,38 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
-
-   ASoC: SOF: Intel: add PCI ID for JasperLake
-
-has been applied to the asoc tree at
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 6ba7fc99680b2250deba1a23f34d31fd25125d61 Mon Sep 17 00:00:00 2001
-From: Yong Zhi <yong.zhi@intel.com>
-Date: Fri, 31 Jan 2020 14:40:32 -0600
-Subject: [PATCH] ASoC: SOF: Intel: add PCI ID for JasperLake
-
-Mirror ID added for legacy HDaudio.
-
-Signed-off-by: Yong Zhi <yong.zhi@intel.com>
-Signed-off-by: Divagar Mohandass <divagar.mohandass@intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200131204032.10213-1-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sof/sof-pci-dev.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/sound/soc/sof/sof-pci-dev.c b/sound/soc/sof/sof-pci-dev.c
-index bf01b92f0dac..cec631a1389b 100644
---- a/sound/soc/sof/sof-pci-dev.c
-+++ b/sound/soc/sof/sof-pci-dev.c
-@@ -417,6 +417,8 @@ static const struct pci_device_id sof_pci_ids[] = {
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_JASPERLAKE)
- 	{ PCI_DEVICE(0x8086, 0x38c8),
- 		.driver_data = (unsigned long)&jsl_desc},
-+	{ PCI_DEVICE(0x8086, 0x4dc8),
-+		.driver_data = (unsigned long)&jsl_desc},
- #endif
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMETLAKE_LP)
- 	{ PCI_DEVICE(0x8086, 0x02c8),
--- 
-2.20.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGkgVGFrYXNoaSwKCnRoYW5rcyBmb3IgeW91ciByZXBseS4gSSB0cmllZCB0aGF0IHdpdGgKCmNh
+dCAvcHJvYy9hc291bmQvY2FyZDAvY29kZWMjMAoKYnV0IHRoYXQgZG9lc24ndCBoZWxwLiBJJ20g
+ZGlnZ2luZyBtZSB0aHJvdWdoIHRoZSBrZXJuZWwgY29uZmlnIHJpZ2h0IApub3cuIE1heSBoYXZl
+IHRvIGNoYW5nZSBzb21ldGhpbmcgZWxzZS4KCkkgc2ltcGx5IGNvdWxkIGNyZWF0ZSBhIHBhdGNo
+IG9uIG15IGdlbnRvbyBzeXN0ZW0gc3dpdGNoaW5nIGZyb20gCnBhdGNoX252aGRtaSB0byBwYXRj
+aF9udmhkbWlfbGVnYWN5IGZvciBldmVyeSBuZXcga2VybmVsLCBidXQgdGhhdCB3b24ndCAKd29y
+ayBmb3JldmVyLgoKSWYgeW91IGhhdmUgb3RoZXIgdGhpbmtzIGkgY291bGQgdHJ5IGknZCBhcHBy
+ZWNpYXRlIHRvIGhlYXIgdGhlbS4KCmtpbmQgcmVnYXJkcwpNYXJ0aW4KCk9uIDAyLjAyLjIwIDA5
+OjM3LCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4gT24gU2F0LCAwMSBGZWIgMjAyMCAxNjoyODowOCAr
+MDEwMCwKPiBNYXJ0aW4gUmVnbmVyIHdyb3RlOgo+PiBIaSB0aGVyZSwKPj4KPj4gc2luY2UgaSB1
+cGRhdGVkIHRvIGtlcm5lbCA1LjUgaSBoYXZlIG5vIHNvdW5kIG92ZXIgaGRtaSBhbnltb3JlIChH
+ZUZvcmNlIFJUWAo+PiAyMDcwKS4KPj4KPj4gV2l0aCB0aGUgcHJldmlvdXMga2VybmVsIDUuNC4x
+NCBldmVyeXRoaW5nIGlzIGZpbmUuCj4+Cj4+IEFsdGhvdWdoIGkgZ290IHNvdW5kIHdpdGggc3Bl
+YWtlci10ZXN0IC1EIGhkbWk6Q0FSRD1OVmlkaWEsREVWPTIgLWMgMiAtcgo+PiA0NDEwMCwgcGF2
+dWNvbnRyb2wgc2hvd3MgYWxsIGhkbWkgc291bmQgZGV2aWNlcyBhcyB1bnBsdWdnZWQuCj4+Cj4+
+IEkgYmlzZWN0ZWQgaXQgZG93biB0byB0aGlzIGNvbW1pdCAoNTM5OGU5NGZiNzUzZDAyMjMwMTgy
+NWViZmE1ZjdjZjhhNjYwZDhlYikKPj4gYW5kIGNoYW5nZWQgdGhlIGxpbmUKPj4KPj4gSERBX0NP
+REVDX0VOVFJZKDB4MTBkZTAwOTMsICJHUFUgOTMgSERNSS9EUCIswqAgcGF0Y2hfbnZoZG1pKQo+
+Pgo+PiB0bwo+Pgo+PiBIREFfQ09ERUNfRU5UUlkoMHgxMGRlMDA5MywgIkdQVSA5MyBIRE1JL0RQ
+IizCoCBwYXRjaF9udmhkbWlfbGVnYWN5KQo+Pgo+PiBOb3cgaXQncyB3b3JraW5nIGFnYWluLiBJ
+J20gbm90IHN1cmUgaWYgdGhpcyBpcyBhIHByb2JsZW0gd2l0aCBwdWxzZWF1ZGlvIG9yCj4+IGlm
+IHRoZSBSVFggMjA3MCBkb2VzIG5vdCBzdXBwb3J0IHRoZSBtZW50aW9uZWQgY29kZWMuCj4gVGhl
+IHJ1bnRpbWUgUE0gdHVybnMgb2ZmIHRoZSBsaW5rLCBzbyB0aGUgaG90cGx1ZyBub3RpZmljYXRp
+b24gd29uJ3QKPiBiZSBkZWxpdmVyZWQgYXMgZGVmYXVsdC4gIFBsZWFzZSB0cnkgcmVhZGluZyB0
+aGUgY29ycmVzcG9uZGluZyBwcm9jCj4gZmlsZSwgL3Byb2MvYXNvdW5kL2NhcmQqL2NvZGVjKiBm
+aWxlLiAgVGhpcyBtYXkgcG93ZXIgdXAgdGhlIGNvZGVjIGFuZAo+IHRyaWdnZXIgdGhlIGhvdHBs
+dWcgZGV0ZWN0aW9uIGlmIHRoYXQncyB0aGUgY2F1c2UuCj4KPgo+IFRha2FzaGkKCgpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxp
+bmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2Et
+cHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

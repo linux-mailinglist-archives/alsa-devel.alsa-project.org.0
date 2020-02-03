@@ -2,92 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DB7DD15031E
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Feb 2020 10:16:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B96F41503D6
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Feb 2020 11:08:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 552FE168B;
-	Mon,  3 Feb 2020 10:15:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 552FE168B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2A4A4168B;
+	Mon,  3 Feb 2020 11:07:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2A4A4168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580721385;
-	bh=KvM0RX9F0KPjFi7CkFDzoWe8AmmDIsh9K2JD1+7Vx44=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=fKqhN2+9f19PVdxyKyt31Toz+UdBHvzf010koT3fihSJEoZGak9mIzOdMWj3irHwn
-	 VWtNByUv53H6cQhmsgpse3n1Cj2gRlX0x4iRhX8y9usdy/kEPqjVVk4/S3GIvVD9iN
-	 3B9gM5XTB3ENwYIlHycbxieJqnbtjnH1E9bIT9M0=
+	s=default; t=1580724527;
+	bh=xdZVtCV7gGw20RoHS6hq9klloXDjy86bIfWuUJ8hq8c=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=KbNGoc5n1mB0LPJJ4WGuKRhCMKLgcA2m3Ozh3zpR7lYOoeD3UHeRfmK/Cfy1wOjbE
+	 lm20SWmov1ULi+suT6BA43XYWSSHuIqObVhP9kQAxRfy3SQej/sF80oVqZ6y6fpevq
+	 Qz6vdazHd8u8GXz7K3F2Uv7XXnUAEF+SdUsbPDCM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D6C6F80051;
-	Mon,  3 Feb 2020 10:14:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06A60F80051;
+	Mon,  3 Feb 2020 11:07:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 089FFF80148; Mon,  3 Feb 2020 10:14:41 +0100 (CET)
+ id 8644DF80148; Mon,  3 Feb 2020 11:07:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID, DKIM_VALID_AU, PRX_BODY_30, RCVD_IN_MSPIKE_H2, SPF_HELO_NONE,
- SPF_PASS, URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from hqnvemgate25.nvidia.com (hqnvemgate25.nvidia.com
+ [216.228.121.64])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2BC3DF800B8
- for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2020 10:14:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BC3DF800B8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4F914F80051
+ for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2020 11:06:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4F914F80051
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="oSMIV5u0"
+ header.b="KHQ/EQcg"
 Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e37e46b0000>; Mon, 03 Feb 2020 01:14:19 -0800
+ hqnvemgate25.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e37f0a70000>; Mon, 03 Feb 2020 02:06:31 -0800
 Received: from hqmail.nvidia.com ([172.20.161.6])
  by hqpgpgate101.nvidia.com (PGP Universal service);
- Mon, 03 Feb 2020 01:14:33 -0800
+ Mon, 03 Feb 2020 02:06:53 -0800
 X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Mon, 03 Feb 2020 01:14:33 -0800
-Received: from [10.24.218.119] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Mon, 3 Feb
- 2020 09:14:31 +0000
-To: Jaroslav Kysela <perex@perex.cz>, Martin Regner <martin@larkos.de>,
- Takashi Iwai <tiwai@suse.de>
-References: <20191119084710.29267-5-nmahale@nvidia.com>
- <0b827293-cc8b-3c3e-9160-565037ff172b@larkos.de>
- <s5hmua18jvr.wl-tiwai@suse.de>
- <3a15996e-1b8f-b5f0-77da-2fcfa8334bcb@larkos.de>
- <cbf24d05-9bff-4aba-0f7a-601a949e98a5@perex.cz>
- <1ba208d8-4a65-c7ab-283e-ba9850edd94f@larkos.de>
- <dd1124fb-e3cd-3f8a-a231-f6a0597b4b51@perex.cz>
-X-Nvconfidentiality: Public
+ by hqpgpgate101.nvidia.com on Mon, 03 Feb 2020 02:06:53 -0800
+Received: from nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com (172.20.187.13)
+ with Microsoft SMTP Server (TLS) id 15.0.1473.3;
+ Mon, 3 Feb 2020 10:06:51 +0000
 From: Nikhil Mahale <nmahale@nvidia.com>
-Message-ID: <7a374408-27cb-aa33-b4bc-ee7d9e54baa2@nvidia.com>
-Date: Mon, 3 Feb 2020 14:44:28 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+To: <tiwai@suse.com>, <kai.vehmanen@linux.intel.com>
+Date: Mon, 3 Feb 2020 15:36:17 +0530
+Message-ID: <20200203100617.3856-1-nmahale@nvidia.com>
+X-Mailer: git-send-email 2.16.4
+X-NVConfidentiality: public
 MIME-Version: 1.0
-In-Reply-To: <dd1124fb-e3cd-3f8a-a231-f6a0597b4b51@perex.cz>
 X-Originating-IP: [10.124.1.5]
 X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
  HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1580721259; bh=tVSiiGeqSGyiz4mXgZrw5IDqnjstZZrOya5qJtuK4Jk=;
- h=X-PGP-Universal:Subject:To:CC:References:X-Nvconfidentiality:From:
- Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
- X-Originating-IP:X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=oSMIV5u0KU7CJwff2xH2A2Q/49Tyan7G/Q0DT3MGNjS41tCFA5PmjxJ9yvNW2utL0
- TMpEOhsZQECMUjNY4+PgvL08Sqi8NBCYs7EJzjULQUfHgzlYWgqNmjz73/xM0mV8ac
- Z3+I2rDtBeoibNSiH0P3Uw72t1TC/edUO1cXRvirj7WxilCRPJ/OGoapReLl75Cmr2
- gcDVm03VXepRI7cRnF2f7sPy4HgRbwNb+hu9jtnLLYi+9cEFXGZUP5eLGJt110jBzr
- B3tU9Tqa5k8xxJeLezzQJrDD5LT7NtN+PsDL9VQPMHOApknhyBcoh4tNEDduXSpeIo
- u84n9EMSpPlgg==
-Cc: alsa-devel@alsa-project.org, tiwai@suse.com, aplattner@nvidia.com
-Subject: Re: [alsa-devel] [PATCH v3 4/4] ALSA: hda - Add DP-MST support for
- NVIDIA codecs
+ t=1580724391; bh=ND4KdA3FJRtfsT75nyVJMDjTLlff1KmcKNUOjjStcmg=;
+ h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+ X-NVConfidentiality:MIME-Version:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type;
+ b=KHQ/EQcgZoRhDrprRZkGGowO3f3MvfCZTUukNctHZskVZgHMGaQKNnyTGkIyeLzV2
+ Lb7FtGv6itd4Hh2n3Q+1RVw2FXoIe/XYUSEv8NoH0h8v7Md0WANJKp85VjNPi5ZRXb
+ TLMPTNglbCGrC2YkAXWADppkb6jvO3TLkpUDmfbRG43u6xLJQMg6+3oIeD+b4R35EM
+ OKMcsJxEm3nRNAgS1w+SwVg2/DnQ9O3FJkracQl3lBlKtffvhwdo6hYJrc8wNOnrgz
+ pC/4ywc1oCv1BHVdeBSXk70wM8NxtbXzmE1iJaZ5JXRveBy38AWfRfN16ZT+2VFuUV
+ NcOyUbF65gAPQ==
+Cc: alsa-devel@alsa-project.org, martin@larkos.de,
+ Nikhil Mahale <nmahale@nvidia.com>, aplattner@nvidia.com
+Subject: [alsa-devel] [PATCH] ALSA: hda - Fix DP-MST support for NVIDIA
+	codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,73 +88,168 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-aGRtaV9wcmVzZW50X3NlbnNlKCkKICB8LT4gaGRtaV9wcmVzZW50X3NlbnNlX3ZpYV92ZXJicygp
-CmNvZGUgcGF0aCBuZWVkIHRvIHF1ZXJ5IFBDTSBqYWNrIHVzaW5nIHBpbl9pZHhfdG9famFjaygp
-IGZ1bmN0aW9uIGFuZCB1cGRhdGUKaXRzIHN0YXR1cywganVzdCBsaWtlIHN5bmNfZWxkX3ZpYV9h
-Y29tcCgpLgoKU2VuZGluZyBwYXRjaCB0byBnZXQgaXQgZml4ZWQuCgpUaGFua3MsCk5pa2hpbCBN
-YWhhbGUKCk9uIDIvMy8yMCAxOjA3IFBNLCBKYXJvc2xhdiBLeXNlbGEgd3JvdGU6Cj4gRXh0ZXJu
-YWwgZW1haWw6IFVzZSBjYXV0aW9uIG9wZW5pbmcgbGlua3Mgb3IgYXR0YWNobWVudHMKPiAKPiAK
-PiBEbmUgMDMuIDAyLiAyMCB2IDA6NTAgTWFydGluIFJlZ25lciBuYXBzYWwoYSk6Cj4+IEhpIEph
-cm9zbGF2LAo+Pgo+PiB0aGFua3MgZm9yIHRoZSB0aXAuIEkgdHJpZWQgdGhpcyAoaW4gbXkgY2Fz
-ZSBlY2hvIG9uwqAgPgo+PiAvc3lzL2J1cy9wY2kvZGV2aWNlcy8wMDAwXDowOVw6MDAuMS9wb3dl
-ci9jb250cm9sKSBidXQgdGhhdCBkaWRuJ3QgaGVscC4KPj4KPj4gSWYgaSBjb21tZW50IG91dCB0
-aGUgbGluZQo+Pgo+PiBzcGVjLT5keW5fcGNtX2Fzc2lnbiA9IHRydWU7Cj4+Cj4+IGluIHBhdGNo
-X252aGRtaSBzb3VuZCBpcyB3b3JraW5nIGFnYWluLgo+IAo+IENvdWxkIHlvdSBzaG93IHVzICh1
-cGxvYWQgaXQgdG8gdGhlIGFsc2Egc2VydmVyIGFuZCBwb3N0IG9ubHkgVVJMcykgdGhlIG91dHB1
-dAo+IGZyb20gYWxzYS1pbmZvLnNoIGZvciBib3RoIHZhcmlhbnRzIChzcGVjLT5keW5fcGNtX2Fz
-c2lnbiA9IHRydWUgYW5kIGZhbHNlKSA/Cj4gCj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBUaGFua3Ms
-Cj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgSmFyb3NsYXYKPiAKPj4KPj4g
-Q3VyaW91c2x5IG5vYm9keSBlbHNlIHNlZW1zIHRvIGhhdmUgdGhpcyBwcm9ibGVtLiBUaGlzIG1h
-a2VzIG1lIHRoaW5rCj4+IHRoZSBwcm9ibGVtIGxpZXMgZWxzZXdoZXJlIGJ1dCBpIGhhdmUgbm8g
-bW9yZSBpZGVhcyBhdCB0aGUgbW9tZW50Lgo+Pgo+PiBPbiAwMy4wMi4yMCAwMDowMCwgSmFyb3Ns
-YXYgS3lzZWxhIHdyb3RlOgo+Pj4gRG5lIDAyLiAwMi4gMjAgdiAxNToxOCBNYXJ0aW4gUmVnbmVy
-IG5hcHNhbChhKToKPj4+PiBIaSBUYWthc2hpLAo+Pj4+Cj4+Pj4gdGhhbmtzIGZvciB5b3VyIHJl
-cGx5LiBJIHRyaWVkIHRoYXQgd2l0aAo+Pj4+Cj4+Pj4gY2F0IC9wcm9jL2Fzb3VuZC9jYXJkMC9j
-b2RlYyMwCj4+Pj4KPj4+PiBidXQgdGhhdCBkb2Vzbid0IGhlbHAuIEknbSBkaWdnaW5nIG1lIHRo
-cm91Z2ggdGhlIGtlcm5lbCBjb25maWcgcmlnaHQKPj4+PiBub3cuIE1heSBoYXZlIHRvIGNoYW5n
-ZSBzb21ldGhpbmcgZWxzZS4KPj4+Pgo+Pj4+IEkgc2ltcGx5IGNvdWxkIGNyZWF0ZSBhIHBhdGNo
-IG9uIG15IGdlbnRvbyBzeXN0ZW0gc3dpdGNoaW5nIGZyb20KPj4+PiBwYXRjaF9udmhkbWkgdG8g
-cGF0Y2hfbnZoZG1pX2xlZ2FjeSBmb3IgZXZlcnkgbmV3IGtlcm5lbCwgYnV0IHRoYXQgd29uJ3QK
-Pj4+PiB3b3JrIGZvcmV2ZXIuCj4+Pj4KPj4+PiBJZiB5b3UgaGF2ZSBvdGhlciB0aGlua3MgaSBj
-b3VsZCB0cnkgaSdkIGFwcHJlY2lhdGUgdG8gaGVhciB0aGVtLgo+Pj4KPj4+IFlvdSBtYXkgdHJ5
-IHRvIGRpc2FibGUgUE06Cj4+Pgo+Pj4gZWNobyBvbiA+IC9zeXMvYnVzL3BjaS9kZXZpY2VzLzAw
-MDBcOjAxXDowMC4xL3Bvd2VyL2NvbnRyb2wKPj4+Cj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBKYXJvc2xhdgo+Pj4KPj4+Cj4+Pj4KPj4+PiBraW5kIHJlZ2FyZHMKPj4+PiBN
-YXJ0aW4KPj4+Pgo+Pj4+IE9uIDAyLjAyLjIwIDA5OjM3LCBUYWthc2hpIEl3YWkgd3JvdGU6Cj4+
-Pj4+IE9uIFNhdCwgMDEgRmViIDIwMjAgMTY6Mjg6MDggKzAxMDAsCj4+Pj4+IE1hcnRpbiBSZWdu
-ZXIgd3JvdGU6Cj4+Pj4+PiBIaSB0aGVyZSwKPj4+Pj4+Cj4+Pj4+PiBzaW5jZSBpIHVwZGF0ZWQg
-dG8ga2VybmVsIDUuNSBpIGhhdmUgbm8gc291bmQgb3ZlciBoZG1pIGFueW1vcmUKPj4+Pj4+IChH
-ZUZvcmNlIFJUWAo+Pj4+Pj4gMjA3MCkuCj4+Pj4+Pgo+Pj4+Pj4gV2l0aCB0aGUgcHJldmlvdXMg
-a2VybmVsIDUuNC4xNCBldmVyeXRoaW5nIGlzIGZpbmUuCj4+Pj4+Pgo+Pj4+Pj4gQWx0aG91Z2gg
-aSBnb3Qgc291bmQgd2l0aCBzcGVha2VyLXRlc3QgLUQgaGRtaTpDQVJEPU5WaWRpYSxERVY9MiAt
-Ywo+Pj4+Pj4gMiAtcgo+Pj4+Pj4gNDQxMDAsIHBhdnVjb250cm9sIHNob3dzIGFsbCBoZG1pIHNv
-dW5kIGRldmljZXMgYXMgdW5wbHVnZ2VkLgo+Pj4+Pj4KPj4+Pj4+IEkgYmlzZWN0ZWQgaXQgZG93
-biB0byB0aGlzIGNvbW1pdAo+Pj4+Pj4gKDUzOThlOTRmYjc1M2QwMjIzMDE4MjVlYmZhNWY3Y2Y4
-YTY2MGQ4ZWIpCj4+Pj4+PiBhbmQgY2hhbmdlZCB0aGUgbGluZQo+Pj4+Pj4KPj4+Pj4+IEhEQV9D
-T0RFQ19FTlRSWSgweDEwZGUwMDkzLCAiR1BVIDkzIEhETUkvRFAiLMKgIHBhdGNoX252aGRtaSkK
-Pj4+Pj4+Cj4+Pj4+PiB0bwo+Pj4+Pj4KPj4+Pj4+IEhEQV9DT0RFQ19FTlRSWSgweDEwZGUwMDkz
-LCAiR1BVIDkzIEhETUkvRFAiLCBwYXRjaF9udmhkbWlfbGVnYWN5KQo+Pj4+Pj4KPj4+Pj4+IE5v
-dyBpdCdzIHdvcmtpbmcgYWdhaW4uIEknbSBub3Qgc3VyZSBpZiB0aGlzIGlzIGEgcHJvYmxlbSB3
-aXRoCj4+Pj4+PiBwdWxzZWF1ZGlvIG9yCj4+Pj4+PiBpZiB0aGUgUlRYIDIwNzAgZG9lcyBub3Qg
-c3VwcG9ydCB0aGUgbWVudGlvbmVkIGNvZGVjLgo+Pj4+PiBUaGUgcnVudGltZSBQTSB0dXJucyBv
-ZmYgdGhlIGxpbmssIHNvIHRoZSBob3RwbHVnIG5vdGlmaWNhdGlvbiB3b24ndAo+Pj4+PiBiZSBk
-ZWxpdmVyZWQgYXMgZGVmYXVsdC7CoCBQbGVhc2UgdHJ5IHJlYWRpbmcgdGhlIGNvcnJlc3BvbmRp
-bmcgcHJvYwo+Pj4+PiBmaWxlLCAvcHJvYy9hc291bmQvY2FyZCovY29kZWMqIGZpbGUuwqAgVGhp
-cyBtYXkgcG93ZXIgdXAgdGhlIGNvZGVjIGFuZAo+Pj4+PiB0cmlnZ2VyIHRoZSBob3RwbHVnIGRl
-dGVjdGlvbiBpZiB0aGF0J3MgdGhlIGNhdXNlLgo+Pj4+Pgo+Pj4+Pgo+Pj4+PiBUYWthc2hpCj4+
-Pj4KPj4+Pgo+Pj4+IF9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fCj4+Pj4gQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKPj4+PiBBbHNhLWRldmVsQGFsc2EtcHJv
-amVjdC5vcmcKPj4+PiBodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xp
-c3RpbmZvL2Fsc2EtZGV2ZWwKPj4+Pgo+Pj4KPj4+Cj4+Cj4gCj4gCj4gLS0gCj4gSmFyb3NsYXYg
-S3lzZWxhIDxwZXJleEBwZXJleC5jej4KPiBMaW51eCBTb3VuZCBNYWludGFpbmVyOyBBTFNBIFBy
-b2plY3Q7IFJlZCBIYXQsIEluYy4KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2pl
-Y3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
-YWxzYS1kZXZlbAo=
+If dyn_pcm_assign is set, different jack objects are being created
+for pcm and pins.
+
+If dyn_pcm_assign is set, generic_hdmi_build_jack() calls into
+add_hdmi_jack_kctl() to create and track separate jack object for
+pcm. Like sync_eld_via_acomp(), hdmi_present_sense_via_verbs() also
+need to report status change of the pcm jack.
+
+Rename pin_idx_to_jack() to pin_idx_to_pcm_jack(). The code to
+report status change of pcm jack, move it to update_eld() which is
+common for acomp and !acomp code paths.
+
+Fixes: 5398e94fb753 ALSA: hda - Add DP-MST support for NVIDIA codecs
+Signed-off-by: Nikhil Mahale <nmahale@nvidia.com>
+---
+ sound/pci/hda/patch_hdmi.c | 87 ++++++++++++++++++++++++----------------------
+ 1 file changed, 45 insertions(+), 42 deletions(-)
+
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index 48bddc218829..7b5360037217 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -1480,6 +1480,35 @@ static void hdmi_pcm_reset_pin(struct hdmi_spec *spec,
+ 	per_pin->channels = 0;
+ }
+ 
++static struct snd_jack *pin_idx_to_pcm_jack(struct hda_codec *codec,
++					    struct hdmi_spec_per_pin *per_pin)
++{
++	struct hdmi_spec *spec = codec->spec;
++	struct snd_jack *jack = NULL;
++	struct hda_jack_tbl *jack_tbl;
++
++	/* if !dyn_pcm_assign, get jack from hda_jack_tbl
++	 * in !dyn_pcm_assign case, spec->pcm_rec[].jack is not
++	 * NULL even after snd_hda_jack_tbl_clear() is called to
++	 * free snd_jack. This may cause access invalid memory
++	 * when calling snd_jack_report
++	 */
++	if (per_pin->pcm_idx >= 0 && spec->dyn_pcm_assign) {
++		jack = spec->pcm_rec[per_pin->pcm_idx].jack;
++	} else if (!spec->dyn_pcm_assign) {
++		/*
++		 * jack tbl doesn't support DP MST
++		 * DP MST will use dyn_pcm_assign,
++		 * so DP MST will never come here
++		 */
++		jack_tbl = snd_hda_jack_tbl_get_mst(codec, per_pin->pin_nid,
++						    per_pin->dev_id);
++		if (jack_tbl)
++			jack = jack_tbl->jack;
++	}
++	return jack;
++}
++
+ /* update per_pin ELD from the given new ELD;
+  * setup info frame and notification accordingly
+  */
+@@ -1490,9 +1519,15 @@ static bool update_eld(struct hda_codec *codec,
+ 	struct hdmi_eld *pin_eld = &per_pin->sink_eld;
+ 	struct hdmi_spec *spec = codec->spec;
+ 	bool old_eld_valid = pin_eld->eld_valid;
++	struct snd_jack *pcm_jack;
+ 	bool eld_changed;
+ 	int pcm_idx;
+ 
++	/* pcm_idx >=0 before update_eld() means it is in monitor
++	 * disconnected event. Jack must be fetched before update_eld()
++	 */
++	pcm_jack = pin_idx_to_pcm_jack(codec, per_pin);
++
+ 	/* for monitor disconnection, save pcm_idx firstly */
+ 	pcm_idx = per_pin->pcm_idx;
+ 	if (spec->dyn_pcm_assign) {
+@@ -1547,6 +1582,14 @@ static bool update_eld(struct hda_codec *codec,
+ 			       SNDRV_CTL_EVENT_MASK_VALUE |
+ 			       SNDRV_CTL_EVENT_MASK_INFO,
+ 			       &get_hdmi_pcm(spec, pcm_idx)->eld_ctl->id);
++
++	if (!pcm_jack)
++		pcm_jack = pin_idx_to_pcm_jack(codec, per_pin);
++	if (eld_changed && pcm_jack)
++		snd_jack_report(pcm_jack,
++				(eld->monitor_present && eld->eld_valid) ?
++				SND_JACK_AVOUT : 0);
++
+ 	return eld_changed;
+ }
+ 
+@@ -1615,43 +1658,12 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
+ 	return ret;
+ }
+ 
+-static struct snd_jack *pin_idx_to_jack(struct hda_codec *codec,
+-				 struct hdmi_spec_per_pin *per_pin)
+-{
+-	struct hdmi_spec *spec = codec->spec;
+-	struct snd_jack *jack = NULL;
+-	struct hda_jack_tbl *jack_tbl;
+-
+-	/* if !dyn_pcm_assign, get jack from hda_jack_tbl
+-	 * in !dyn_pcm_assign case, spec->pcm_rec[].jack is not
+-	 * NULL even after snd_hda_jack_tbl_clear() is called to
+-	 * free snd_jack. This may cause access invalid memory
+-	 * when calling snd_jack_report
+-	 */
+-	if (per_pin->pcm_idx >= 0 && spec->dyn_pcm_assign)
+-		jack = spec->pcm_rec[per_pin->pcm_idx].jack;
+-	else if (!spec->dyn_pcm_assign) {
+-		/*
+-		 * jack tbl doesn't support DP MST
+-		 * DP MST will use dyn_pcm_assign,
+-		 * so DP MST will never come here
+-		 */
+-		jack_tbl = snd_hda_jack_tbl_get_mst(codec, per_pin->pin_nid,
+-						    per_pin->dev_id);
+-		if (jack_tbl)
+-			jack = jack_tbl->jack;
+-	}
+-	return jack;
+-}
+-
+ /* update ELD and jack state via audio component */
+ static void sync_eld_via_acomp(struct hda_codec *codec,
+ 			       struct hdmi_spec_per_pin *per_pin)
+ {
+ 	struct hdmi_spec *spec = codec->spec;
+ 	struct hdmi_eld *eld = &spec->temp_eld;
+-	struct snd_jack *jack = NULL;
+-	bool changed;
+ 	int size;
+ 
+ 	mutex_lock(&per_pin->lock);
+@@ -1674,17 +1686,8 @@ static void sync_eld_via_acomp(struct hda_codec *codec,
+ 		eld->eld_size = 0;
+ 	}
+ 
+-	/* pcm_idx >=0 before update_eld() means it is in monitor
+-	 * disconnected event. Jack must be fetched before update_eld()
+-	 */
+-	jack = pin_idx_to_jack(codec, per_pin);
+-	changed = update_eld(codec, per_pin, eld);
+-	if (jack == NULL)
+-		jack = pin_idx_to_jack(codec, per_pin);
+-	if (changed && jack)
+-		snd_jack_report(jack,
+-				(eld->monitor_present && eld->eld_valid) ?
+-				SND_JACK_AVOUT : 0);
++	update_eld(codec, per_pin, eld);
++
+ 	mutex_unlock(&per_pin->lock);
+ }
+ 
+-- 
+2.16.4
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

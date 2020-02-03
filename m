@@ -2,88 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 943F2150FE3
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Feb 2020 19:44:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AFFF151018
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Feb 2020 20:04:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14F4B1685;
-	Mon,  3 Feb 2020 19:44:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14F4B1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id C210B168B;
+	Mon,  3 Feb 2020 20:03:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C210B168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580755496;
-	bh=GgVd9AhXft2m41bV3bEXKZUAnTA6uicMBaszaGRkkzE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1580756687;
+	bh=6ozowow79EHY7Ki1ndbT1p1AY7J9PkTvj9su7ewx5xA=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=nqIjrxen/6WxyGXeaFAjJ/Yv0qY6Sfw/UJqUjji3nRmjml+6dA5S1qSQP0rrYHmpm
-	 XvRv6/qdkoYCkzDx31GEQkWdk2hFrorf6BbRnWIKjem1dtbxLpqfm96NPqrFdlavx+
-	 k43fWISZ78Fb4P/LlS655LP7G3OyOXMD4bwTXXFo=
+	b=IN8/1IhWK3SlSkANmH8mFEUYBBcFinwZaZ0KEAOqobLEhPCvp2B8A+b8dQUIG42HB
+	 PpX8r1uw1Yw2NH3HaPFc3MLabAlY0M9R1gPhkbGWuETUW6HPi9cWeVdSqR+m9jQ286
+	 74ukXhci/Q5eI6ZFcdN4JPsEFsjjiAj9qo/G6htY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 03C7BF80142;
-	Mon,  3 Feb 2020 19:43:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BDC7EF80150;
+	Mon,  3 Feb 2020 20:03:06 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 10E33F80148; Mon,  3 Feb 2020 19:43:12 +0100 (CET)
+ id E5482F80148; Mon,  3 Feb 2020 20:03:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from larkos.de (larkos.de [188.68.52.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 559A8F800B8
- for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2020 19:43:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 559A8F800B8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
- header.b="Yo1y1Xav"
-Received: by mail-qk1-x744.google.com with SMTP id q15so15223160qke.9
- for <alsa-devel@alsa-project.org>; Mon, 03 Feb 2020 10:43:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4PMgClN19IhUmet8zzgKP6n4a6viDIBm9kvnRUtH3mA=;
- b=Yo1y1XavCUEy1wE5P7+cmjzPnnfg1oFVKZVmBL5dtthCguCkZ1WQnpf2YAC7eHPaDm
- LAIKxbOy+zNgxZgCta9TGT+psszC8jdSUX+mmFt4blUWtcmCkMJVzzsTh65pnXnuuFti
- F2uSLrsCNrlosOXGbZRwweYEiSo/SJzkncSnM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4PMgClN19IhUmet8zzgKP6n4a6viDIBm9kvnRUtH3mA=;
- b=MuioU/Z+gW3CT3XHw8AmtTA/vZFz9y7GH3YrnxNkpGD85TCOVg0tZa89N/bURBQUzS
- zXPW2xD9BbzRIKf//s7pnCaDu04arzigLg6MXCGFLSI4SsB8FSKRli+ssD0V3WLEE8eF
- QLL6tuG4Xp0jHR2hbP+O3lVfWNNiajMHqlcOG8Mat1vqItlvVJYC2oPS8B9c7Cbm3Rh3
- goqcz63In4TDeffpUj0uV0qqqH4KqhQQfPzEfwwqekUqesYSHYQq6bTVFvLqBryO/vVV
- z5+nDFF5Tq6uqRzjoee7KLoKVWZQv/KWuhJfoDg0qsZzsn6FJ7isQD6+mBmtvWtM6Nx/
- Sasw==
-X-Gm-Message-State: APjAAAXaU+OgmZ1DHhzrTySKgbc/XGqoMourt4E2fj7kmI9kOBq5Ek8E
- VOO908fH/8A99J31jzh+BRJEnpZ4WMuk0AnNaP0ZXA==
-X-Google-Smtp-Source: APXvYqw1bX0A3kJ4KvUVv86WXufvnleEdtH4TO5zCbHUJmtjESA5AF1NOa9A9O2Tbs2y01O4QjbPgw6zzCm91hZD6E4=
-X-Received: by 2002:a05:620a:2218:: with SMTP id
- m24mr25211961qkh.442.1580755381994; 
- Mon, 03 Feb 2020 10:43:01 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3BBFBF800B8
+ for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2020 20:03:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BBFBF800B8
+Received: from a89-182-229-197.net-htp.de ([89.182.229.197]
+ helo=[192.168.178.12])
+ by larkos.de with esmtpsa (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ (Exim 4.90_1) (envelope-from <martin@larkos.de>)
+ id 1iygzr-0006lX-IM; Mon, 03 Feb 2020 20:03:00 +0100
+To: Nikhil Mahale <nmahale@nvidia.com>, tiwai@suse.com,
+ kai.vehmanen@linux.intel.com
+References: <20200203100617.3856-1-nmahale@nvidia.com>
+From: Martin Regner <martin@larkos.de>
+Message-ID: <9b122308-490e-c3c4-edf7-25ef26720906@larkos.de>
+Date: Mon, 3 Feb 2020 20:02:59 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
 MIME-Version: 1.0
-References: <20200130203106.201894-1-pmalani@chromium.org>
- <20200130203106.201894-12-pmalani@chromium.org>
- <20200201110358.GR3897@sirena.org.uk>
-In-Reply-To: <20200201110358.GR3897@sirena.org.uk>
-From: Prashant Malani <pmalani@chromium.org>
-Date: Mon, 3 Feb 2020 10:42:51 -0800
-Message-ID: <CACeCKaf2=_6jEaUSKgEiucmO4KNgQu7F-P2Po=UjLdfXZwm_Bg@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
- <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Guenter Roeck <groeck@chromium.org>,
- Enric Balletbo i Serra <enric.balletbo@collabora.com>,
- Benson Leung <bleung@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
-Subject: Re: [alsa-devel] [PATCH 11/17] ASoC: cros_ec_codec: Use
-	cros_ec_send_cmd_msg()
+In-Reply-To: <20200203100617.3856-1-nmahale@nvidia.com>
+Content-Language: en-GB
+Cc: alsa-devel@alsa-project.org, aplattner@nvidia.com
+Subject: Re: [alsa-devel] [PATCH] ALSA: hda - Fix DP-MST support for NVIDIA
+	codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,30 +67,174 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Mark, thanks for looking at the patch. Please see inline.
+The patch neatly applies and seems to fix my issue.
+I had to acivate the device once with pavucontrol (not unplugged 
+anymore) and after that the device is working without any extra actions 
+after reboot.
 
-On Sun, Feb 2, 2020 at 4:00 AM Mark Brown <broonie@kernel.org> wrote:
->
-> On Thu, Jan 30, 2020 at 12:30:56PM -0800, Prashant Malani wrote:
-> > Replace send_ec_host_command() with cros_ec_send_cmd_msg() which does
-> > the same thing, but is defined in a common location in platform/chrome
-> > and exposed for other modules to use. This allows us to remove
-> > send_ec_host_command() entirely.
->
-> I only have this patch, I've nothing else from the series or a
-> cover letter.  What's the story with dependencies and so on?
-Sorry about that. I will add you to the cover letter for subsequent
-versions (I followed https://lwn.net/Articles/585782/ but I think it
-only adds the relevant mailing lists to the cover letter...)
-Just for reference, the cover series LKML link is here:
-https://lkml.org/lkml/2020/1/30/802
+Thank you very much.
 
-Best regards,
+On 03.02.20 11:06, Nikhil Mahale wrote:
+> If dyn_pcm_assign is set, different jack objects are being created
+> for pcm and pins.
+>
+> If dyn_pcm_assign is set, generic_hdmi_build_jack() calls into
+> add_hdmi_jack_kctl() to create and track separate jack object for
+> pcm. Like sync_eld_via_acomp(), hdmi_present_sense_via_verbs() also
+> need to report status change of the pcm jack.
+>
+> Rename pin_idx_to_jack() to pin_idx_to_pcm_jack(). The code to
+> report status change of pcm jack, move it to update_eld() which is
+> common for acomp and !acomp code paths.
+>
+> Fixes: 5398e94fb753 ALSA: hda - Add DP-MST support for NVIDIA codecs
+> Signed-off-by: Nikhil Mahale <nmahale@nvidia.com>
+> ---
+>   sound/pci/hda/patch_hdmi.c | 87 ++++++++++++++++++++++++----------------------
+>   1 file changed, 45 insertions(+), 42 deletions(-)
+>
+> diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+> index 48bddc218829..7b5360037217 100644
+> --- a/sound/pci/hda/patch_hdmi.c
+> +++ b/sound/pci/hda/patch_hdmi.c
+> @@ -1480,6 +1480,35 @@ static void hdmi_pcm_reset_pin(struct hdmi_spec *spec,
+>   	per_pin->channels = 0;
+>   }
+>   
+> +static struct snd_jack *pin_idx_to_pcm_jack(struct hda_codec *codec,
+> +					    struct hdmi_spec_per_pin *per_pin)
+> +{
+> +	struct hdmi_spec *spec = codec->spec;
+> +	struct snd_jack *jack = NULL;
+> +	struct hda_jack_tbl *jack_tbl;
+> +
+> +	/* if !dyn_pcm_assign, get jack from hda_jack_tbl
+> +	 * in !dyn_pcm_assign case, spec->pcm_rec[].jack is not
+> +	 * NULL even after snd_hda_jack_tbl_clear() is called to
+> +	 * free snd_jack. This may cause access invalid memory
+> +	 * when calling snd_jack_report
+> +	 */
+> +	if (per_pin->pcm_idx >= 0 && spec->dyn_pcm_assign) {
+> +		jack = spec->pcm_rec[per_pin->pcm_idx].jack;
+> +	} else if (!spec->dyn_pcm_assign) {
+> +		/*
+> +		 * jack tbl doesn't support DP MST
+> +		 * DP MST will use dyn_pcm_assign,
+> +		 * so DP MST will never come here
+> +		 */
+> +		jack_tbl = snd_hda_jack_tbl_get_mst(codec, per_pin->pin_nid,
+> +						    per_pin->dev_id);
+> +		if (jack_tbl)
+> +			jack = jack_tbl->jack;
+> +	}
+> +	return jack;
+> +}
+> +
+>   /* update per_pin ELD from the given new ELD;
+>    * setup info frame and notification accordingly
+>    */
+> @@ -1490,9 +1519,15 @@ static bool update_eld(struct hda_codec *codec,
+>   	struct hdmi_eld *pin_eld = &per_pin->sink_eld;
+>   	struct hdmi_spec *spec = codec->spec;
+>   	bool old_eld_valid = pin_eld->eld_valid;
+> +	struct snd_jack *pcm_jack;
+>   	bool eld_changed;
+>   	int pcm_idx;
+>   
+> +	/* pcm_idx >=0 before update_eld() means it is in monitor
+> +	 * disconnected event. Jack must be fetched before update_eld()
+> +	 */
+> +	pcm_jack = pin_idx_to_pcm_jack(codec, per_pin);
+> +
+>   	/* for monitor disconnection, save pcm_idx firstly */
+>   	pcm_idx = per_pin->pcm_idx;
+>   	if (spec->dyn_pcm_assign) {
+> @@ -1547,6 +1582,14 @@ static bool update_eld(struct hda_codec *codec,
+>   			       SNDRV_CTL_EVENT_MASK_VALUE |
+>   			       SNDRV_CTL_EVENT_MASK_INFO,
+>   			       &get_hdmi_pcm(spec, pcm_idx)->eld_ctl->id);
+> +
+> +	if (!pcm_jack)
+> +		pcm_jack = pin_idx_to_pcm_jack(codec, per_pin);
+> +	if (eld_changed && pcm_jack)
+> +		snd_jack_report(pcm_jack,
+> +				(eld->monitor_present && eld->eld_valid) ?
+> +				SND_JACK_AVOUT : 0);
+> +
+>   	return eld_changed;
+>   }
+>   
+> @@ -1615,43 +1658,12 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
+>   	return ret;
+>   }
+>   
+> -static struct snd_jack *pin_idx_to_jack(struct hda_codec *codec,
+> -				 struct hdmi_spec_per_pin *per_pin)
+> -{
+> -	struct hdmi_spec *spec = codec->spec;
+> -	struct snd_jack *jack = NULL;
+> -	struct hda_jack_tbl *jack_tbl;
+> -
+> -	/* if !dyn_pcm_assign, get jack from hda_jack_tbl
+> -	 * in !dyn_pcm_assign case, spec->pcm_rec[].jack is not
+> -	 * NULL even after snd_hda_jack_tbl_clear() is called to
+> -	 * free snd_jack. This may cause access invalid memory
+> -	 * when calling snd_jack_report
+> -	 */
+> -	if (per_pin->pcm_idx >= 0 && spec->dyn_pcm_assign)
+> -		jack = spec->pcm_rec[per_pin->pcm_idx].jack;
+> -	else if (!spec->dyn_pcm_assign) {
+> -		/*
+> -		 * jack tbl doesn't support DP MST
+> -		 * DP MST will use dyn_pcm_assign,
+> -		 * so DP MST will never come here
+> -		 */
+> -		jack_tbl = snd_hda_jack_tbl_get_mst(codec, per_pin->pin_nid,
+> -						    per_pin->dev_id);
+> -		if (jack_tbl)
+> -			jack = jack_tbl->jack;
+> -	}
+> -	return jack;
+> -}
+> -
+>   /* update ELD and jack state via audio component */
+>   static void sync_eld_via_acomp(struct hda_codec *codec,
+>   			       struct hdmi_spec_per_pin *per_pin)
+>   {
+>   	struct hdmi_spec *spec = codec->spec;
+>   	struct hdmi_eld *eld = &spec->temp_eld;
+> -	struct snd_jack *jack = NULL;
+> -	bool changed;
+>   	int size;
+>   
+>   	mutex_lock(&per_pin->lock);
+> @@ -1674,17 +1686,8 @@ static void sync_eld_via_acomp(struct hda_codec *codec,
+>   		eld->eld_size = 0;
+>   	}
+>   
+> -	/* pcm_idx >=0 before update_eld() means it is in monitor
+> -	 * disconnected event. Jack must be fetched before update_eld()
+> -	 */
+> -	jack = pin_idx_to_jack(codec, per_pin);
+> -	changed = update_eld(codec, per_pin, eld);
+> -	if (jack == NULL)
+> -		jack = pin_idx_to_jack(codec, per_pin);
+> -	if (changed && jack)
+> -		snd_jack_report(jack,
+> -				(eld->monitor_present && eld->eld_valid) ?
+> -				SND_JACK_AVOUT : 0);
+> +	update_eld(codec, per_pin, eld);
+> +
+>   	mutex_unlock(&per_pin->lock);
+>   }
+>   
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

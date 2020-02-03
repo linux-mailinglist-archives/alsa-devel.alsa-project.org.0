@@ -2,81 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19B6E150093
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Feb 2020 03:30:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 222A3150189
+	for <lists+alsa-devel@lfdr.de>; Mon,  3 Feb 2020 06:53:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7B37F168F;
-	Mon,  3 Feb 2020 03:29:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7B37F168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id A9409168B;
+	Mon,  3 Feb 2020 06:52:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A9409168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580697022;
-	bh=BjwMwhE9J0225BsfC5X0+t/qFftV3KPplajomTjAJ8g=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=X0jgC030UIYoOPtWL/Vs/m6N+VonEyMTeJhC40JbAxJe89bZcQKjQZh656trYhKRg
-	 C89XHj/+rx7OrA1Pbelq3b4hQFgxE2/5UId9HnPF/FylUXCHb7+E5sTHAOpG6trWb8
-	 shASpkuToVi+1FwTGf9Tj+2ce7LjgwXPKwrb+inU=
+	s=default; t=1580709225;
+	bh=57tdo2HaBWIiJ1QGlbmw/sH9wHu1+8nrSfMpsm+7ytg=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Lgr1vw3onn4QzTXiT1IP65PXpTMe2GZ5PsCDYH5jKAjpCCvW+fW/uWGTrAAruM1uQ
+	 mmU5sziYiV4MGPjdCc2DfBkCpHDt22zqyePZ9HO60WRn6tpL2M8wwN1MX2SouQ0ymw
+	 rPo4bgJp5/IA/sIaPFFkZXIx7FLz3Eq5GDO/jYa8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83B34F801DB;
-	Mon,  3 Feb 2020 03:28:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8211F80148;
+	Mon,  3 Feb 2020 06:52:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC7B6F80162; Mon,  3 Feb 2020 03:28:36 +0100 (CET)
+ id B33EDF80148; Mon,  3 Feb 2020 06:52:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5BCD2F8011D
- for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2020 03:28:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5BCD2F8011D
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 0132SM07027263,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 0132SM07027263
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 3 Feb 2020 10:28:22 +0800
-Received: from RTEXMB05.realtek.com.tw (172.21.6.98) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Mon, 3 Feb 2020 10:28:22 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB05.realtek.com.tw (172.21.6.98) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Mon, 3 Feb 2020 10:28:21 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f]) by
- RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f%6]) with mapi id
- 15.01.1779.005; Mon, 3 Feb 2020 10:28:21 +0800
-Content-Type: multipart/mixed;
- boundary="_000_3ae27357f98a406a958304386a1457bcrealtekcom_"
-From: Oder Chiou <oder_chiou@realtek.com>
-To: "broonie@kernel.org" <broonie@kernel.org>, "lgirdwood@gmail.com"
- <lgirdwood@gmail.com>
-Thread-Topic: [PATCH] MAINTAINERS: Remove the Bard Liao from the MAINTAINERS
- of Realtek CODECs
-Thread-Index: AdXaOZnSQKd9fVRXScCM1aoIY85NoA==
-Date: Mon, 3 Feb 2020 02:28:21 +0000
-Message-ID: <3ae27357f98a406a958304386a1457bc@realtek.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: <3ae27357f98a406a958304386a1457bc@realtek.com>
-x-originating-ip: [60.250.204.174]
+X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_FROM,SPF_HELO_NONE,
+ SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from r3-17.sinamail.sina.com.cn (r3-17.sinamail.sina.com.cn
+ [202.108.3.17]) by alsa1.perex.cz (Postfix) with SMTP id 52D79F800B8
+ for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2020 06:51:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52D79F800B8
+Received: from unknown (HELO localhost.localdomain)([114.246.227.35])
+ by sina.com with ESMTP
+ id 5E37B4E40000992A; Mon, 3 Feb 2020 13:51:43 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+X-SMAIL-MID: 24462249283572
+From: Hillf Danton <hdanton@sina.com>
+To: syzbot <syzbot+2b2ef983f973e5c40943@syzkaller.appspotmail.com>
+Date: Mon,  3 Feb 2020 13:51:22 +0800
+Message-Id: <20200203055122.18020-1-hdanton@sina.com>
+In-Reply-To: <000000000000729d74059c30ddff@google.com>
+References: 
 MIME-Version: 1.0
-Cc: Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "david.ward@ll.mit.edu" <david.ward@ll.mit.edu>,
- =?big5?B?RGVyZWsgW6TovHe4cV0=?= <derek.fang@realtek.com>,
- =?big5?B?U2h1bWluZyBbrVOu0bvKXQ==?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
-Subject: [alsa-devel] [PATCH] MAINTAINERS: Remove the Bard Liao from the
-	MAINTAINERS of Realtek CODECs
+Cc: alsa-devel@alsa-project.org, arnd@arndb.de, baolin.wang@linaro.org,
+ tiwai@suse.de, gregkh@linuxfoundation.org, tiwai@suse.com,
+ syzkaller-bugs@googlegroups.com, linux-kernel@vger.kernel.org,
+ alsa-devel-owner@alsa-project.org, stable@vger.kernel.org,
+ stable-commits@vger.kernel.org, Hillf Danton <hdanton@sina.com>
+Subject: Re: [alsa-devel] KASAN: use-after-free Read in snd_timer_resolution
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,130 +65,172 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
---_000_3ae27357f98a406a958304386a1457bcrealtekcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
 
-UmVtb3ZlIHRoZSBtYWludGFpbmVyICJCYXJkIExpYW8iIHNpbmNlIGhlIGhhZCBxdWl0dGVkIGZy
-b20gUmVhbHRlay4NCg0KU2lnbmVkLW9mZi1ieTogT2RlciBDaGlvdSA8b2Rlcl9jaGlvdUByZWFs
-dGVrLmNvbT4NCi0tLQ0KIE1BSU5UQUlORVJTIHwgMSAtDQogMSBmaWxlIGNoYW5nZWQsIDEgZGVs
-ZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL01BSU5UQUlORVJTIGIvTUFJTlRBSU5FUlMNCmluZGV4
-IGNmNmNjY2E2ZTYxYy4uOTMxNmRjZjI3OTBmIDEwMDY0NA0KLS0tIGEvTUFJTlRBSU5FUlMNCisr
-KyBiL01BSU5UQUlORVJTDQpAQCAtMTM5NDcsNyArMTM5NDcsNiBAQCBGOglpbmNsdWRlL2xpbnV4
-L3BsYXRmb3JtX2RhdGEvcnRjLSoNCiBGOgl0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9ydGMvDQog
-DQogUkVBTFRFSyBBVURJTyBDT0RFQ1MNCi1NOglCYXJkIExpYW8gPGJhcmRsaWFvQHJlYWx0ZWsu
-Y29tPg0KIE06CU9kZXIgQ2hpb3UgPG9kZXJfY2hpb3VAcmVhbHRlay5jb20+DQogUzoJTWFpbnRh
-aW5lZA0KIEY6CXNvdW5kL3NvYy9jb2RlY3MvcnQqDQotLSANCjIuMjQuMQ0KDQo=
+Sun, 02 Feb 2020 04:56:10 -0800 (PST)
+> syzbot has found a reproducer for the following crash on:
+> 
+> HEAD commit:    2747d5fd Add linux-next specific files for 20200116
+> git tree:       linux-next
+> console output: https://syzkaller.appspot.com/x/log.txt?x=1147e101e00000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=22f506e7a3a37fe2
+> dashboard link: https://syzkaller.appspot.com/bug?extid=2b2ef983f973e5c40943
+> compiler:       gcc (GCC) 9.0.0 20181231 (experimental)
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10c0864ee00000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14738df1e00000
+> 
+> IMPORTANT: if you fix the bug, please add the following tag to the commit:
+> Reported-by: syzbot+2b2ef983f973e5c40943@syzkaller.appspotmail.com
+> 
+> ==================================================================
+> BUG: KASAN: use-after-free in snd_timer_resolution+0xf1/0x110 sound/core/timer.c:487
+> Read of size 8 at addr ffff88809e0f5a00 by task syz-executor911/9849
+> 
+> CPU: 1 PID: 9849 Comm: syz-executor911 Not tainted 5.5.0-rc6-next-20200116-syzkaller #0
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+> Call Trace:
+>  __dump_stack lib/dump_stack.c:77 [inline]
+>  dump_stack+0x197/0x210 lib/dump_stack.c:118
+>  print_address_description.constprop.0.cold+0xd4/0x30b mm/kasan/report.c:374
+>  __kasan_report.cold+0x1b/0x32 mm/kasan/report.c:506
+>  kasan_report+0x12/0x20 mm/kasan/common.c:641
+>  __asan_report_load8_noabort+0x14/0x20 mm/kasan/generic_report.c:135
+>  snd_timer_resolution+0xf1/0x110 sound/core/timer.c:487
+>  snd_seq_info_timer_read+0x95/0x2f1 sound/core/seq/seq_timer.c:480
+>  snd_info_seq_show+0xcb/0x120 sound/core/info.c:362
+>  seq_read+0x4ca/0x1170 fs/seq_file.c:229
+>  proc_reg_read+0x1f8/0x2b0 fs/proc/inode.c:223
+>  do_loop_readv_writev fs/read_write.c:714 [inline]
+>  do_loop_readv_writev fs/read_write.c:701 [inline]
+>  do_iter_read+0x4a4/0x660 fs/read_write.c:935
+>  vfs_readv+0xf0/0x160 fs/read_write.c:997
+>  do_preadv+0x1c4/0x280 fs/read_write.c:1089
+>  __do_sys_preadv fs/read_write.c:1139 [inline]
+>  __se_sys_preadv fs/read_write.c:1134 [inline]
+>  __x64_sys_preadv+0x9a/0xf0 fs/read_write.c:1134
+>  do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
+>  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> RIP: 0033:0x441389
+> Code: e8 ac e8 ff ff 48 83 c4 18 c3 0f 1f 80 00 00 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 eb 08 fc ff c3 66 2e 0f 1f 84 00 00 00 00
+> RSP: 002b:00007ffc8aa7ce38 EFLAGS: 00000246 ORIG_RAX: 0000000000000127
+> RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 0000000000441389
+> RDX: 0000000000000227 RSI: 00000000200017c0 RDI: 0000000000000004
+> RBP: 00007ffc8aa7ce50 R08: 000000000000000f R09: 00000000000000c2
+> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000402100
+> R13: 0000000000402190 R14: 0000000000000000 R15: 0000000000000000
+> 
+> Allocated by task 9852:
+>  save_stack+0x23/0x90 mm/kasan/common.c:72
+>  set_track mm/kasan/common.c:80 [inline]
+>  __kasan_kmalloc mm/kasan/common.c:515 [inline]
+>  __kasan_kmalloc.constprop.0+0xcf/0xe0 mm/kasan/common.c:488
+>  kasan_kmalloc+0x9/0x10 mm/kasan/common.c:529
+>  kmem_cache_alloc_trace+0x158/0x790 mm/slab.c:3551
+>  kmalloc include/linux/slab.h:555 [inline]
+>  kzalloc include/linux/slab.h:669 [inline]
+>  snd_timer_instance_new+0x4a/0x300 sound/core/timer.c:142
+>  snd_seq_timer_open+0x1c0/0x590 sound/core/seq/seq_timer.c:275
+>  queue_use+0xf1/0x270 sound/core/seq/seq_queue.c:489
+>  snd_seq_queue_alloc+0x2c5/0x4d0 sound/core/seq/seq_queue.c:176
+>  snd_seq_ioctl_create_queue+0xb0/0x330 sound/core/seq/seq_clientmgr.c:1548
+>  snd_seq_kernel_client_ctl+0xf8/0x140 sound/core/seq/seq_clientmgr.c:2353
+>  alloc_seq_queue.isra.0+0xdc/0x180 sound/core/seq/oss/seq_oss_init.c:357
+>  snd_seq_oss_open+0x2ff/0x960 sound/core/seq/oss/seq_oss_init.c:215
+>  odev_open+0x70/0x90 sound/core/seq/oss/seq_oss.c:125
+>  soundcore_open+0x453/0x610 sound/sound_core.c:593
+>  chrdev_open+0x245/0x6b0 fs/char_dev.c:414
+>  do_dentry_open+0x4ca/0x1350 fs/open.c:797
+>  vfs_open+0xa0/0xd0 fs/open.c:914
+>  do_last fs/namei.c:3487 [inline]
+>  path_openat+0x12fd/0x34d0 fs/namei.c:3604
+>  do_filp_open+0x192/0x260 fs/namei.c:3634
+>  do_sys_openat2+0x633/0x840 fs/open.c:1151
+>  do_sys_open+0xfc/0x190 fs/open.c:1167
+>  __do_sys_openat fs/open.c:1181 [inline]
+>  __se_sys_openat fs/open.c:1176 [inline]
+>  __x64_sys_openat+0x9d/0x100 fs/open.c:1176
+>  do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
+>  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> 
+> Freed by task 9852:
+>  save_stack+0x23/0x90 mm/kasan/common.c:72
+>  set_track mm/kasan/common.c:80 [inline]
+>  kasan_set_free_info mm/kasan/common.c:337 [inline]
+>  __kasan_slab_free+0x102/0x150 mm/kasan/common.c:476
+>  kasan_slab_free+0xe/0x10 mm/kasan/common.c:485
+>  __cache_free mm/slab.c:3426 [inline]
+>  kfree+0x10a/0x2c0 mm/slab.c:3757
+>  snd_timer_instance_free sound/core/timer.c:166 [inline]
+>  snd_timer_instance_free+0x7c/0xa0 sound/core/timer.c:160
+>  snd_seq_timer_close+0x99/0xe0 sound/core/seq/seq_timer.c:319
+>  queue_delete+0x52/0xb0 sound/core/seq/seq_queue.c:134
+>  snd_seq_queue_delete+0x4e/0x70 sound/core/seq/seq_queue.c:196
+>  snd_seq_ioctl_delete_queue+0x6a/0x90 sound/core/seq/seq_clientmgr.c:1570
+>  snd_seq_kernel_client_ctl+0xf8/0x140 sound/core/seq/seq_clientmgr.c:2353
+>  delete_seq_queue.part.0+0xb6/0x120 sound/core/seq/oss/seq_oss_init.c:376
+>  delete_seq_queue sound/core/seq/oss/seq_oss_init.c:372 [inline]
+>  snd_seq_oss_release+0x116/0x150 sound/core/seq/oss/seq_oss_init.c:421
+>  odev_release+0x54/0x80 sound/core/seq/oss/seq_oss.c:140
+>  __fput+0x2ff/0x890 fs/file_table.c:280
+>  ____fput+0x16/0x20 fs/file_table.c:313
+>  task_work_run+0x145/0x1c0 kernel/task_work.c:113
+>  exit_task_work include/linux/task_work.h:22 [inline]
+>  do_exit+0xbcb/0x2f80 kernel/exit.c:801
+>  do_group_exit+0x135/0x360 kernel/exit.c:899
+>  __do_sys_exit_group kernel/exit.c:910 [inline]
+>  __se_sys_exit_group kernel/exit.c:908 [inline]
+>  __x64_sys_exit_group+0x44/0x50 kernel/exit.c:908
+>  do_syscall_64+0xfa/0x790 arch/x86/entry/common.c:294
+>  entry_SYSCALL_64_after_hwframe+0x49/0xbe
+> 
+> The buggy address belongs to the object at ffff88809e0f5a00
+>  which belongs to the cache kmalloc-256 of size 256
+> The buggy address is located 0 bytes inside of
+>  256-byte region [ffff88809e0f5a00, ffff88809e0f5b00)
+> The buggy address belongs to the page:
+> page:ffffea0002783d40 refcount:1 mapcount:0 mapping:ffff8880aa4008c0 index:0x0
+> flags: 0xfffe0000000200(slab)
+> raw: 00fffe0000000200 ffffea0002783948 ffffea00027872c8 ffff8880aa4008c0
+> raw: 0000000000000000 ffff88809e0f5000 0000000100000008 0000000000000000
+> page dumped because: kasan: bad access detected
+> 
+> Memory state around the buggy address:
+>  ffff88809e0f5900: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+>  ffff88809e0f5980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+> >ffff88809e0f5a00: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>                    ^
+>  ffff88809e0f5a80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>  ffff88809e0f5b00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+> ==================================================================
 
---_000_3ae27357f98a406a958304386a1457bcrealtekcom_
-Content-Disposition: attachment; filename="winmail.dat"
-Content-Transfer-Encoding: base64
-Content-Type: application/ms-tnef; name="winmail.dat"
+Release resources after all users of queue go home.
 
-eJ8+IvoBAQaQCAAEAAAAAAABAAEAAQeQBgAIAAAAtgMAAAAAAAC5AAEJgAEAIQAAADc0MUE1MEVC
-MUFCMDkwNDlBQjRFODZGNTI1MTQ2MEYyABIHAQ2ABAACAAAAAgACAAEFgAMADgAAAOQHAgADAAIA
-HAAVAAEAJAEBIIADAA4AAADkBwIAAwACABwAFQABACQBAQiABwAYAAAASVBNLk1pY3Jvc29mdCBN
-YWlsLk5vdGUAMQgBBIABAFEAAABbUEFUQ0hdIE1BSU5UQUlORVJTOiBSZW1vdmUgdGhlIEJhcmQg
-TGlhbyBmcm9tIHRoZSBNQUlOVEFJTkVSUyBvZiBSZWFsdGVrIENPREVDcwBIGQELgAEAIQAAADc0
-MUE1MEVCMUFCMDkwNDlBQjRFODZGNTI1MTQ2MEYyABIHAQOQBgDcEgAARAAAAAIBfwABAAAALwAA
-ADwzYWUyNzM1N2Y5OGE0MDZhOTU4MzA0Mzg2YTE0NTdiY0ByZWFsdGVrLmNvbT4AAAsAHw4AAAAA
-AgEJEAEAAACYAgAAlAIAAOcDAABMWkZ15BkeQmEACmZiaWQEAABjY8BwZzEyNTIA/gND8HRleHQB
-9wKkA+MCAARjaArAc2V0MCDvB20CgwBQEU0yCoAGtAKAln0KgAjIOwliMTkOwL8JwxZyCjIWcQKA
-FWIqCbBzCfAEkGF0BbIOUANgc6JvAYAgRXgRwW4YMF0GUnYEkBe2AhByAMB0fQhQbhoxECAFwAWg
-G2RkmiADUiAQIheyXHYIkOR3awuAZDUdUwTwB0ANF3AwCnEX8mJrbWsGcwGQACAgQk1fQuBFR0lO
-fQr8AfEL8d0H8GUEYBowHMBoGeAAwE8LgAGQC4AbsSJCCxEgIkwHMG8iIACQbmOPGeAiIRHQHGBx
-dWkCQA8cViGgB0AQIGsuXGxHIrEKgSX0U2lnGFBkAi0ZMGYtYnk6IEJPBIEgQ2hpCGAg2jwEcl8R
-wCghQAlwJYTpBaBtPiXlLSpQJeUF0EpBICBUKxFFUgXwfNggMSAqdyvgZgMQGeC5GZRkLCvRAQAe
-cHQoIPBuKC0pJewN4AEgK/BELWcksCBhLysKYh8wCiXlHbEQMBvQZjZjATKgYTZlNjFjLkAuOTMx
-NmQycDIYNzkwL3AekTY0NHcp6C/sJeUrNnAwzyYSQAJAK/AxMzk0NyxINyArODQ2IDfxRi46I9EK
-QAEALyXxdXjOLwtRADAa8V9kGIAv8PkAIGMtGBAqlTlwGJAG8JxzLxAgH2ALgGcvEgDebAGAPLE8
-gDtRLyqGKoYAUkVBTFRFSyAgQVVESU8n8E9ExEVDMZYtTTojFyhQvmILESXwI4ApHyrDOie/4yjP
-QtdTOk0iZgswO7ftGSB1HcA9EG894AWgBYEPPaI7ljUBJeUyLjI0Hi4AUCX7FUJLYB8AQgABAAAA
-FgAAAE8AZABlAHIAIABDAGgAaQBvAHUAAAAAAB8AZQABAAAALgAAAG8AZABlAHIAXwBjAGgAaQBv
-AHUAQAByAGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AZAABAAAACgAAAFMATQBUAFAAAAAAAAIB
-QQABAAAAZgAAAAAAAACBKx+kvqMQGZ1uAN0BD1QCAAAAgE8AZABlAHIAIABDAGgAaQBvAHUAAABT
-AE0AVABQAAAAbwBkAGUAcgBfAGMAaABpAG8AdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAAAA
-HwACXQEAAAAuAAAAbwBkAGUAcgBfAGMAaABpAG8AdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAA
-AAAAHwDlXwEAAAA2AAAAcwBpAHAAOgBvAGQAZQByAF8AYwBoAGkAbwB1AEAAcgBlAGEAbAB0AGUA
-awAuAGMAbwBtAAAAAAAfABoMAQAAABYAAABPAGQAZQByACAAQwBoAGkAbwB1AAAAAAAfAB8MAQAA
-AC4AAABvAGQAZQByAF8AYwBoAGkAbwB1AEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAAAAAAAfAB4M
-AQAAAAoAAABTAE0AVABQAAAAAAACARkMAQAAAGYAAAAAAAAAgSsfpL6jEBmdbgDdAQ9UAgAAAIBP
-AGQAZQByACAAQwBoAGkAbwB1AAAAUwBNAFQAUAAAAG8AZABlAHIAXwBjAGgAaQBvAHUAQAByAGUA
-YQBsAHQAZQBrAC4AYwBvAG0AAAAAAB8AAV0BAAAALgAAAG8AZABlAHIAXwBjAGgAaQBvAHUAQABy
-AGUAYQBsAHQAZQBrAC4AYwBvAG0AAAAAAAsAQDoBAAAAHwAaAAEAAAASAAAASQBQAE0ALgBOAG8A
-dABlAAAAAAADAPE/BAQAAAsAQDoBAAAAAwD9P7YDAAACAQswAQAAABAAAAB0GlDrGrCQSatOhvUl
-FGDyAwAXAAEAAABAADkAgJAPmjna1QFAAAgw125Pmjna1QELACkAAAAAAB8A2T8BAAAAAAIAAFIA
-ZQBtAG8AdgBlACAAdABoAGUAIABtAGEAaQBuAHQAYQBpAG4AZQByACAAIgBCAGEAcgBkACAATABp
-AGEAbwAiACAAcwBpAG4AYwBlACAAaABlACAAaABhAGQAIABxAHUAaQB0AHQAZQBkACAAZgByAG8A
-bQAgAFIAZQBhAGwAdABlAGsALgANAAoADQAKAFMAaQBnAG4AZQBkAC0AbwBmAGYALQBiAHkAOgAg
-AE8AZABlAHIAIABDAGgAaQBvAHUAIAA8AG8AZABlAHIAXwBjAGgAaQBvAHUAQAByAGUAYQBsAHQA
-ZQBrAC4AYwBvAG0APgANAAoALQAtAC0ADQAKACAATQBBAEkATgBUAEEASQBOAEUAUgBTACAAfAAg
-ADEAIAAtAA0ACgAgADEAIABmAGkAbABlACAAYwBoAGEAbgBnAGUAZAAsACAAMQAgAGQAZQBsAGUA
-dABpAG8AbgAoAC0AKQANAAoADQAKAGQAaQBmAGYAIAAtAC0AZwBpAHQAIABhAC8ATQBBAEkATgBU
-AEEASQBOAEUAUgBTACAAYgAvAE0AQQBJAE4AVABBAEkATgBFAFIAUwANAAoAaQBuAGQAZQB4ACAA
-YwBmADYAYwBjAGMAYQA2AGUANgAxAGMALgAuADkAMwAxADYAZABjAGYAMgA3ADkAMABmAAAACwAA
-gAggBgAAAAAAwAAAAAAAAEYAAAAAFIUAAAEAAAAfAACAhgMCAAAAAADAAAAAAAAARgEAAAAeAAAA
-YQBjAGMAZQBwAHQAbABhAG4AZwB1AGEAZwBlAAAAAAABAAAAGgAAAHoAaAAtAFQAVwAsACAAZQBu
-AC0AVQBTAAAAAAADAACACCAGAAAAAADAAAAAAAAARgEAAAAyAAAARQB4AGMAaABhAG4AZwBlAEEA
-cABwAGwAaQBjAGEAdABpAG8AbgBGAGwAYQBnAHMAAAAAACAAAABIAACACCAGAAAAAADAAAAAAAAA
-RgEAAAAiAAAATgBlAHQAdwBvAHIAawBNAGUAcwBzAGEAZwBlAEkAZAAAAAAAjeCwJcGqQ0Vg6QjX
-qFC86R8AAIATj/JB9IMUQaWE7ttaawv/AQAAABYAAABDAGwAaQBlAG4AdABJAG4AZgBvAAAAAAAB
-AAAAKgAAAEMAbABpAGUAbgB0AD0ATQBTAEUAeABjAGgAYQBuAGcAZQBSAFAAQwAAAAAAHwD6PwEA
-AAAWAAAATwBkAGUAcgAgAEMAaABpAG8AdQAAAAAAHwA3AAEAAACiAAAAWwBQAEEAVABDAEgAXQAg
-AE0AQQBJAE4AVABBAEkATgBFAFIAUwA6ACAAUgBlAG0AbwB2AGUAIAB0AGgAZQAgAEIAYQByAGQA
-IABMAGkAYQBvACAAZgByAG8AbQAgAHQAaABlACAATQBBAEkATgBUAEEASQBOAEUAUgBTACAAbwBm
-ACAAUgBlAGEAbAB0AGUAawAgAEMATwBEAEUAQwBzAAAAAAAfAD0AAQAAAAIAAAAAAAAAAwA2AAAA
-AAACAXEAAQAAABYAAAAB1do5mdJAp319VFdJwIzVqghjzk2gAAAfAHAAAQAAAKIAAABbAFAAQQBU
-AEMASABdACAATQBBAEkATgBUAEEASQBOAEUAUgBTADoAIABSAGUAbQBvAHYAZQAgAHQAaABlACAA
-QgBhAHIAZAAgAEwAaQBhAG8AIABmAHIAbwBtACAAdABoAGUAIABNAEEASQBOAFQAQQBJAE4ARQBS
-AFMAIABvAGYAIABSAGUAYQBsAHQAZQBrACAAQwBPAEQARQBDAHMAAAAAAB8ANRABAAAAXgAAADwA
-MwBhAGUAMgA3ADMANQA3AGYAOQA4AGEANAAwADYAYQA5ADUAOAAzADAANAAzADgANgBhADEANAA1
-ADcAYgBjAEAAcgBlAGEAbAB0AGUAawAuAGMAbwBtAD4AAAAAAAMA3j+2AwAAAwATEgAAAAACAQCA
-E4/yQfSDFEGlhO7bWmsL/wEAAAAuAAAASABlAGEAZABlAHIAQgBvAGQAeQBGAHIAYQBnAG0AZQBu
-AHQATABpAHMAdAAAAAAAAQAAACIAAAABAAoAAAAEAAAAAAAAABQAAAAAAAAAAAAAAP////8AAAAA
-AAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAcAAAASABhAHMAUQB1AG8AdABlAGQAVABlAHgAdAAA
-AAAAAAALAACAE4/yQfSDFEGlhO7bWmsL/wEAAAAoAAAASQBzAFEAdQBvAHQAZQBkAFQAZQB4AHQA
-QwBoAGEAbgBnAGUAZAAAAAAAAABAAAcw0MhAmjna1QECAQsAAQAAABAAAAB0GlDrGrCQSatOhvUl
-FGDyAwAmAAAAAAALAAYMAAAAAAIBEDABAAAARgAAAAAAAAAWCXGv9Mp0TYNT7F4Yo/seBwARIeEX
-rU7OSYgKOJo5YhW7AEeAcPD3AABmqxo5nup8TZR2vBtlcNRCAEeAVYrJAAAAAAIBEzABAAAAEAAA
-AECnfX1UV0nAjNWqCGPOTaACARQwAQAAAAwAAAA3AAAAHZiI9FIAAAAfAPg/AQAAABYAAABPAGQA
-ZQByACAAQwBoAGkAbwB1AAAAAAAfACJAAQAAAAYAAABFAFgAAAAAAB8AI0ABAAAAsgAAAC8ATwA9
-AFIAVABFAFgAQwBIAC8ATwBVAD0ARQBYAEMASABBAE4ARwBFACAAQQBEAE0ASQBOAEkAUwBUAFIA
-QQBUAEkAVgBFACAARwBSAE8AVQBQACAAKABGAFkARABJAEIATwBIAEYAMgAzAFMAUABEAEwAVAAp
-AC8AQwBOAD0AUgBFAEMASQBQAEkARQBOAFQAUwAvAEMATgA9AE8ARABFAFIAXwBDAEgASQBPAFUA
-AAAAAB8AJEABAAAABgAAAEUAWAAAAAAAHwAlQAEAAACyAAAALwBPAD0AUgBUAEUAWABDAEgALwBP
-AFUAPQBFAFgAQwBIAEEATgBHAEUAIABBAEQATQBJAE4ASQBTAFQAUgBBAFQASQBWAEUAIABHAFIA
-TwBVAFAAIAAoAEYAWQBEAEkAQgBPAEgARgAyADMAUwBQAEQATABUACkALwBDAE4APQBSAEUAQwBJ
-AFAASQBFAE4AVABTAC8AQwBOAD0ATwBEAEUAUgBfAEMASABJAE8AVQAAAAAAHwAwQAEAAAAWAAAA
-TwBkAGUAcgAgAEMAaABpAG8AdQAAAAAAHwAxQAEAAAAWAAAATwBkAGUAcgAgAEMAaABpAG8AdQAA
-AAAAHwA4QAEAAAAWAAAATwBkAGUAcgAgAEMAaABpAG8AdQAAAAAAHwA5QAEAAAAWAAAATwBkAGUA
-cgAgAEMAaABpAG8AdQAAAAAAAwBZQAAAAAADAFpAAAAAAAMACVkBAAAAHwAKXQEAAAAuAAAAbwBk
-AGUAcgBfAGMAaABpAG8AdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAAAAHwALXQEAAAAuAAAA
-bwBkAGUAcgBfAGMAaABpAG8AdQBAAHIAZQBhAGwAdABlAGsALgBjAG8AbQAAAAAAHwAAgB+k6zOo
-ei5Cvnt54amOVLMBAAAAOAAAAEMAbwBuAHYAZQByAHMAYQB0AGkAbwBuAEkAbgBkAGUAeABUAHIA
-YQBjAGsAaQBuAGcARQB4AAAAAQAAACQBAABJAEkAPQBbAEMASQBEAD0ANwBkADcAZABhADcANAAw
-AC0ANQA3ADUANAAtAGMAMAA0ADkALQA4AGMAZAA1AC0AYQBhADAAOAA2ADMAYwBlADQAZABhADAA
-OwBJAEQAWABIAEUAQQBEAD0ARAA1AEQAQQAzADkAOQA5AEQAMgA7AEkARABYAEMATwBVAE4AVAA9
-ADEAXQA7AFAAUwA9AFUAbgBrAG4AbwB3AG4AOwBWAGUAcgBzAGkAbwBuAD0AVgBlAHIAcwBpAG8A
-bgAgADEANQAuADEAIAAoAEIAdQBpAGwAZAAgADEANwA3ADkALgAwACkALAAgAFMAdABhAGcAZQA9
-AEgANAA7AFUAUAA9ADEAMAA7AEQAUAA9ADEAQwA1AAAACwAAgAggBgAAAAAAwAAAAAAAAEYAAAAA
-goUAAAAAAAADAA00/T8AAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACAAAAB4AC0AbQBzAC0AaABh
-AHMALQBhAHQAdABhAGMAaAAAAAEAAAACAAAAAAAAAB8AAICGAwIAAAAAAMAAAAAAAABGAQAAACIA
-AAB4AC0AbwByAGkAZwBpAG4AYQB0AGkAbgBnAC0AaQBwAAAAAAABAAAAIgAAAFsANgAwAC4AMgA1
-ADAALgAyADAANAAuADEANwA0AF0AAAAAAJVd
-
---_000_3ae27357f98a406a958304386a1457bcrealtekcom_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+--- a/sound/core/seq/seq_queue.c
++++ b/sound/core/seq/seq_queue.c
+@@ -128,13 +128,15 @@ static struct snd_seq_queue *queue_new(i
+ /* delete queue (destructor) */
+ static void queue_delete(struct snd_seq_queue *q)
+ {
++	/* wait until access free */
++	snd_use_lock_sync(&q->use_lock);
++
+ 	/* stop and release the timer */
+ 	mutex_lock(&q->timer_mutex);
+ 	snd_seq_timer_stop(q->timer);
+ 	snd_seq_timer_close(q);
+ 	mutex_unlock(&q->timer_mutex);
+-	/* wait until access free */
+-	snd_use_lock_sync(&q->use_lock);
++
+ 	/* release resources... */
+ 	snd_seq_prioq_delete(&q->tickq);
+ 	snd_seq_prioq_delete(&q->timeq);
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---_000_3ae27357f98a406a958304386a1457bcrealtekcom_--

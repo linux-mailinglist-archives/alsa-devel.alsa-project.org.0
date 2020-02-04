@@ -2,79 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D4EE151471
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Feb 2020 04:06:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEC7F1514B8
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Feb 2020 04:43:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BDA36168F;
-	Tue,  4 Feb 2020 04:05:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDA36168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 90CB7168A;
+	Tue,  4 Feb 2020 04:42:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 90CB7168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580785568;
-	bh=8RdklSQX029wSxS+u6DtSavlr0g1wgMD/IW1VanD9T8=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1580787817;
+	bh=yZs3LuGVXkRu3RJeiccSeeC8lfSd/OAAnieCww/2tEQ=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=hjcpbFvwp+ch7mvdpmbD4iSqWDXV5IlzX2pg6kCvnhlYjnoF5yMzeQghnlTbnjUuo
-	 1Z4LCn1BW/IqNPCHXr6Qp+/5ZN3NUqss+Oo/yQEn0r0GgVRSAL2lTXXkJBnYEhv9lO
-	 r7QpF5FgCH/ni3QSESIPZ5B61D44h1Ea2BZCFw38=
+	b=kAG9oj5RhjEY3kwslfZia3/90I5ZLVO4aGxwmJf6PCCKcAtGR+KnQKVOhYZJKOJKe
+	 RFMkf2O5BZf+NOK5SxM8xEq9UP+tFGOn6QwiHrrhjv/pIYJcVMHvnoIqY3WkcYq1ff
+	 jv2Q4FhBG4pKSANbqd+viNhxos/0YGK4Z5A+cpCs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A65CAF800AB;
-	Tue,  4 Feb 2020 04:04:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AEBCBF80051;
+	Tue,  4 Feb 2020 04:41:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id ED947F80162; Tue,  4 Feb 2020 04:04:24 +0100 (CET)
+ id C684DF80162; Tue,  4 Feb 2020 04:41:53 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
-Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
- [IPv6:2607:f8b0:4864:20::1049])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
+ [IPv6:2607:f8b0:4864:20::543])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89903F800F4
- for <alsa-devel@alsa-project.org>; Tue,  4 Feb 2020 04:04:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89903F800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2BF3DF80051
+ for <alsa-devel@alsa-project.org>; Tue,  4 Feb 2020 04:41:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2BF3DF80051
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="AMZGi+pg"
-Received: by mail-pj1-x1049.google.com with SMTP id z12so990737pju.0
- for <alsa-devel@alsa-project.org>; Mon, 03 Feb 2020 19:04:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=pjoVMI4UL3mw7HTSPvFNKw/yaHKC0iepvwwrCPVHdV0=;
- b=AMZGi+pg32HR63+0CvYfp2+hF7vLNE2rvXFXw8ZQqvIzei8o1A6tZqXkbPv7zoFTp5
- IspTPem07MET9NHlsqV1/4kBJZiFC6brk2jjnyRLOP2jBtElA7+VFDygTjDWJWQyQkqO
- 2Oxkj+BXJCLrkoP7Rhezv9EQWCQnoPOnEw86cO+xH44ehSetSp6MLHGCHSQcGb+OLxPy
- WLaMC83HfA4AG/bYUXzOLIcsVCTBnwYJFA3Q4jgD9P4HDdNmyXw2/0Dk0FV89BpnJXjg
- HNmqU4dIJp32LdtdgmR5Xg6662/+AEos1X1YwsJViU+msSEgqEj4y4f3NjUR6yWmjfKk
- gM6g==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="noKxKsEi"
+Received: by mail-pg1-x543.google.com with SMTP id w21so3190436pgl.9
+ for <alsa-devel@alsa-project.org>; Mon, 03 Feb 2020 19:41:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=1wmDFAPTkYAVmGiYdseoOV0PhssU/32kZAP1D1mGzWo=;
+ b=noKxKsEi5hJ2cN/mBOCu3khdeeb7bbWj7tR9w6qPmD+eX8jqCpDkZyQY9nO5WpAeZA
+ GzNWgpYijTZ0q7eBbDClz2SaJONmfVvs40Amgr75dA7c7xRfDL/NoCYojvslUcK3l+gV
+ nur8NYEHNaC7kp2kCeYxQbi7G98N/2gM2sD9U4AxFQGYoqgJzhcZIPn39aRiRX1EavUk
+ 21Pzq6OyY9jQjvZC0/smnR24WtF0kPZk6kT74Roc4sx2zTN7i+JSsfHsCr+oXo2NidiA
+ vcHoCfVrdx/DoGAOclpJlomGpakDmrVb0mgdFGU4txNrSgm8N9HZ0/qoG7xPODXUdGP+
+ ydbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=pjoVMI4UL3mw7HTSPvFNKw/yaHKC0iepvwwrCPVHdV0=;
- b=SDXYLKM1/ODsbVSToy72VpoubtaM8L8Sfr/09DS/BYOnJ/OMFpmQhxEmxSG5Dz25La
- tEr30G7bHa8VArz7hG1SM8KKTscr1IK0aR+9lZTPoYyjlN+J69OuuOKYP6IIa6zOgPmu
- yvOSU5Dk3zItaz71hdWVkqimldruznyvRtRmOvrRVYuQhY/w5+YMa926QvCareQLWBmJ
- 36srJluJqnmARmZ9K+qW234wKpBCnJH/3pllqYL5Q+MxmyMvKPCx12oasVbBfUd4GtHQ
- 2blayH0p0bjLBmpKxCo/riuU4plnbnKQ/TDENnqgcsXwdYY2R2OH+x0b/V7Cs5vJFDLE
- 9Jxw==
-X-Gm-Message-State: APjAAAXgWvLypDc2kDOiOMt0ijGBU8GwDF9dn/fc4yA4y6W8WCaoS36R
- 2yBT9Ry7byw1VXbxA86OV5e4JfC6jN29
-X-Google-Smtp-Source: APXvYqw8leoO2gNLGmM63FpYBHV0IN5W6HyPYjN9wVbnCT6WzG4lbvYl/O3CkBRgGsmpGo2AktyTOPrscZL8
-X-Received: by 2002:a65:43cb:: with SMTP id n11mr4683909pgp.65.1580785456784; 
- Mon, 03 Feb 2020 19:04:16 -0800 (PST)
-Date: Tue,  4 Feb 2020 11:04:06 +0800
-Message-Id: <20200204102016.I73b26b5e319de173d05823e79f5861bf1826261c@changeid>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
-From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org
-Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
- cychiang@google.com, jiaxin.yu@mediatek.com
-Subject: [alsa-devel] [PATCH] ASoC: max98357a: add speaker switch
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=1wmDFAPTkYAVmGiYdseoOV0PhssU/32kZAP1D1mGzWo=;
+ b=dNO6lwlXA7WX8RkVtW0bHROJ/DHk2D2QuoebFftR9wiL5P2KRTVNRosLLbEA2gC2Wz
+ p7YOcqXZK86texqqOtm+IyQ2d2m3OcOEnhBhLtl5WWIs7TbGUvrgroMvNm0VEEgIcd2O
+ TnVzghewkcZ+Pn/MMmQrwNhNJfEPKrI0j6GCEOTrmF/lvavPJiMU2JyXGdbjpCXthB2+
+ t8k/t3DszkT1b2lC/PPxC2WF0kImq5pQ+iho7H9UfbULqKsfqoVYNfosj7Q+SU4dKoLu
+ pBHjNIBT8ObzjO1oZ7QPbT7XOc742sT28+jsgbmNSEGHzRRKPR5pNhFwwJBjZZZl0KSH
+ zu9Q==
+X-Gm-Message-State: APjAAAWnZm2WjrfzkuSpu2iAT4FXGMABgxig1Y8MaO0M9t4JRzMVs4rx
+ KBnrN18ammJ93dMK6prQ2H4=
+X-Google-Smtp-Source: APXvYqxg3TSdFJZZvoI2dsCVEsSxKOoClXMJvrr+oBpfUQsKLTXYgnyJiFnjM+W2BxkO+0zW38D7rA==
+X-Received: by 2002:a63:e309:: with SMTP id f9mr29046059pgh.391.1580787703774; 
+ Mon, 03 Feb 2020 19:41:43 -0800 (PST)
+Received: from localhost.localdomain ([101.12.16.40])
+ by smtp.gmail.com with ESMTPSA id 23sm11294194pfh.28.2020.02.03.19.41.41
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 03 Feb 2020 19:41:43 -0800 (PST)
+From: Jeff Chang <richtek.jeff.chang@gmail.com>
+To: lgirdwood@gmail.com
+Date: Tue,  4 Feb 2020 11:41:37 +0800
+Message-Id: <1580787697-3041-1-git-send-email-richtek.jeff.chang@gmail.com>
+X-Mailer: git-send-email 2.7.4
+Cc: alsa-devel@alsa-project.org, richtek.jeff.chang@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, jeff_chang@richtek.com,
+ broonie@kernel.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH] ASoC: MT6660 update to 1.0.8_G
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,111 +92,246 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some machine may share the same I2S lines for multiple codecs. For
-example, mediatek/mt8183/mt8183-da7219-max98357 shares the same lines
-between max98357a and da7219.  When writing audio data through the I2S
-lines, all codecs on the lines would try to generate sound if they
-accepts DO line.  As a result, multiple codecs generate sound at a
-time.
+From: Jeff Chang <jeff_chang@richtek.com>
 
-Adds a separate switch to max98357a.  Userspace program has choices to
-turn on or off the switch.  Note that, userspace program should change
-the switch before opening the stream.  The switch won't take effects if
-the stream is already there.
+1. add parsing register initial table via device tree.
+2. add applying initial register value function at component driver.
 
-Default value of the switch is on to not break existing driver usages
-(who are unlikely aware of existence of the switch).
-
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+Signed-off-by: Jeff Chang <jeff_chang@richtek.com>
 ---
- sound/soc/codecs/max98357a.c | 39 +++++++++++++++++++++++++++++++++++-
- 1 file changed, 38 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/mt6660.txt |  53 ++++++++++
+ sound/soc/codecs/mt6660.c                          | 114 ++++++++++++++++++++-
+ 2 files changed, 164 insertions(+), 3 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/sound/mt6660.txt
 
-diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
-index 16313b973eaa..a2c3be69a0ee 100644
---- a/sound/soc/codecs/max98357a.c
-+++ b/sound/soc/codecs/max98357a.c
-@@ -22,6 +22,7 @@
- struct max98357a_priv {
- 	struct gpio_desc *sdmode;
- 	unsigned int sdmode_delay;
-+	int spk_switch;
- };
+
+Following Mr. Mark's Suggestion, I create another patch for applying our chip INIT SETTING.
+
+
+diff --git a/Documentation/devicetree/bindings/sound/mt6660.txt b/Documentation/devicetree/bindings/sound/mt6660.txt
+new file mode 100644
+index 0000000..2a1736b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/mt6660.txt
+@@ -0,0 +1,53 @@
++MT6660 MediaTek Speaker Amplifier
++
++This device supports I2C mode only.
++
++Required properties:
++
++	- compatible : "mediatek,mt6660"
++	
++	- reg : The I2C slave address
++
++Optional properties:
++
++	- rt,init_setting_num : The initial register setting element number.
++
++	- rt,init_setting_addr : the addreses array for INIT Setting table.
++
++	- rt,init_setting_mask : the mask array for INIT Setting table.
++
++	- rt,init_setting_val : the value array for INIT Setting table.
++
++Example:
++
++	mt6660@34 {
++		status = "ok";
++		compatible = "mediatek,mt6660";
++		reg = <0x34>;
++		rt,init_setting_num = <26>;
++		rt,init_setting_addr =
++			<0x20 0x30 0x50 0xB1
++			 0xD3 0xE0 0x98 0xB9
++			 0xB7 0xB6 0x6B 0x07
++			 0xBB 0x69 0xBD 0x70
++			 0x7C 0x46 0x1A 0x1B
++			 0x51 0xA2 0x33 0x4C
++			 0x15 0x68>;
++		rt,init_setting_mask =
++			<0x80 0x01 0x1c 0x0c
++			 0x03 0x01 0x44 0xff
++			 0x7777 0x07 0xe0 0xff
++			 0xff 0xff 0xffff 0xff
++			 0xff 0xff 0xffffffff 0xffffffff
++			 0xff 0xff 0xffff 0xffff
++			 0x1800 0x1f>;
++		rt,init_setting_val =
++			<0x00 0x00 0x04 0x00
++			 0x03 0x00 0x04 0x82
++			 0x7273 0x03 0x20 0x70
++			 0x20 0x40 0x17f8 0x15
++			 0x00 0x1d 0x7fdb7ffe 0x7fdb7ffe
++			 0x58 0xce 0x7fff 0x0116
++			 0x0800 0x07>;
++	};
++
+diff --git a/sound/soc/codecs/mt6660.c b/sound/soc/codecs/mt6660.c
+index a36c416..5df2780 100644
+--- a/sound/soc/codecs/mt6660.c
++++ b/sound/soc/codecs/mt6660.c
+@@ -9,7 +9,6 @@
+ #include <linux/i2c.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/delay.h>
+-#include <linux/debugfs.h>
+ #include <sound/soc.h>
+ #include <sound/tlv.h>
+ #include <sound/pcm_params.h>
+@@ -225,14 +224,48 @@ static int _mt6660_chip_power_on(struct mt6660_chip *chip, int on_off)
+ 				 0x01, on_off ? 0x00 : 0x01);
+ }
  
- static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
-@@ -29,7 +30,7 @@ static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
++static int mt6660_apply_plat_data(struct mt6660_chip *chip,
++		struct snd_soc_component *component)
++{
++	size_t i;
++	int num = chip->plat_data.init_setting_num;
++	int ret;
++
++	ret = _mt6660_chip_power_on(chip, 1);
++	if (ret < 0) {
++		dev_err(chip->dev, "%s power on failed\n", __func__);
++		return ret;
++	}
++
++	for (i = 0; i < num; i++) {
++		ret = snd_soc_component_update_bits(component,
++				chip->plat_data.init_setting_addr[i],
++				chip->plat_data.init_setting_mask[i],
++				chip->plat_data.init_setting_val[i]);
++		if (ret < 0)
++			return ret;
++	}
++	ret = _mt6660_chip_power_on(chip, 0);
++	if (ret < 0) {
++		dev_err(chip->dev, "%s power on failed\n", __func__);
++		return ret;
++	}
++	return 0;
++}
++
+ static int mt6660_component_probe(struct snd_soc_component *component)
  {
- 	struct max98357a_priv *max98357a = snd_soc_dai_get_drvdata(dai);
+ 	struct mt6660_chip *chip = snd_soc_component_get_drvdata(component);
++	int ret;
  
--	if (!max98357a->sdmode)
-+	if (!max98357a->sdmode || !max98357a->spk_switch)
- 		return 0;
+ 	dev_dbg(component->dev, "%s\n", __func__);
+ 	snd_soc_component_init_regmap(component, chip->regmap);
  
- 	switch (cmd) {
-@@ -49,6 +50,37 @@ static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
+-	return 0;
++	ret = mt6660_apply_plat_data(chip, component);
++	if (ret < 0)
++		dev_err(chip->dev, "mt6660 apply plat data failed\n");
++
++	return ret;
+ }
+ 
+ static void mt6660_component_remove(struct snd_soc_component *component)
+@@ -386,6 +419,75 @@ static int _mt6660_read_chip_revision(struct mt6660_chip *chip)
  	return 0;
  }
  
-+static int max98357a_get_spk_switch(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
++static int mt6660_parse_dt(struct mt6660_chip *chip, struct device *dev)
 +{
-+	struct snd_soc_component *component =
-+		snd_soc_kcontrol_component(kcontrol);
-+	struct max98357a_priv *max98357a =
-+		snd_soc_component_get_drvdata(component);
++	struct device_node *np = dev->of_node;
++	u32 val;
++	size_t i;
 +
-+	ucontrol->value.integer.value[0] = max98357a->spk_switch;
++	if (!np) {
++		dev_err(dev, "no device node\n");
++		return -EINVAL;
++	}
++
++	if (of_property_read_u32(np, "rt,init_setting_num", &val)) {
++		dev_err(dev, "no init setting\n");
++		chip->plat_data.init_setting_num = 0;
++	} else {
++		chip->plat_data.init_setting_num = val;
++	}
++
++	if (chip->plat_data.init_setting_num) {
++		chip->plat_data.init_setting_addr =
++			devm_kzalloc(dev, sizeof(u32) *
++			chip->plat_data.init_setting_num, GFP_KERNEL);
++		if (!chip->plat_data.init_setting_addr) {
++			dev_err(dev, "%s addr memory alloc failed\n", __func__);
++			return -ENOMEM;
++		}
++		chip->plat_data.init_setting_mask =
++			devm_kzalloc(dev, sizeof(u32) *
++			chip->plat_data.init_setting_num, GFP_KERNEL);
++		if (!chip->plat_data.init_setting_mask) {
++			dev_err(dev, "%s mask memory alloc failed\n", __func__);
++			return -ENOMEM;
++		}
++		chip->plat_data.init_setting_val =
++			devm_kzalloc(dev, sizeof(u32) *
++			chip->plat_data.init_setting_num, GFP_KERNEL);
++		if (!chip->plat_data.init_setting_val) {
++			dev_err(dev, "%s val memory alloc failed\n", __func__);
++			return -ENOMEM;
++		}
++
++		if (of_property_read_u32_array(np, "rt,init_setting_addr",
++					chip->plat_data.init_setting_addr,
++					chip->plat_data.init_setting_num)) {
++			dev_err(dev, "no init setting addr\n");
++		}
++		if (of_property_read_u32_array(np, "rt,init_setting_mask",
++					chip->plat_data.init_setting_mask,
++					chip->plat_data.init_setting_num)) {
++			dev_err(dev, "no init setting mask\n");
++		}
++		if (of_property_read_u32_array(np, "rt,init_setting_val",
++					chip->plat_data.init_setting_val,
++					chip->plat_data.init_setting_num)) {
++			dev_err(dev, "no init setting val\n");
++		}
++	}
++
++	dev_dbg(dev, "%s, init stting table, num = %d\n", __func__,
++		chip->plat_data.init_setting_num);
++	for (i = 0; i < chip->plat_data.init_setting_num; i++) {
++		dev_dbg(dev, "0x%02x, 0x%08x, 0x%08x\n",
++				chip->plat_data.init_setting_addr[i],
++				chip->plat_data.init_setting_mask[i],
++				chip->plat_data.init_setting_val[i]);
++	}
 +	return 0;
 +}
 +
-+static int max98357a_put_spk_switch(struct snd_kcontrol *kcontrol,
-+		struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component =
-+		snd_soc_kcontrol_component(kcontrol);
-+	struct max98357a_priv *max98357a =
-+		snd_soc_component_get_drvdata(component);
-+
-+	max98357a->spk_switch = ucontrol->value.integer.value[0];
-+	dev_info(component->dev,
-+		 "put speaker switch: %d\n", max98357a->spk_switch);
-+	return 0;
-+}
-+
-+static const struct snd_kcontrol_new max98357a_snd_controls[] = {
-+	SOC_SINGLE_BOOL_EXT("Speaker Switch", 0,
-+		max98357a_get_spk_switch, max98357a_put_spk_switch),
-+};
-+
- static const struct snd_soc_dapm_widget max98357a_dapm_widgets[] = {
- 	SND_SOC_DAPM_OUTPUT("Speaker"),
- };
-@@ -58,6 +90,8 @@ static const struct snd_soc_dapm_route max98357a_dapm_routes[] = {
- };
+ static int mt6660_i2c_probe(struct i2c_client *client,
+ 			    const struct i2c_device_id *id)
+ {
+@@ -401,6 +503,12 @@ static int mt6660_i2c_probe(struct i2c_client *client,
+ 	mutex_init(&chip->io_lock);
+ 	i2c_set_clientdata(client, chip);
  
- static const struct snd_soc_component_driver max98357a_component_driver = {
-+	.controls		= max98357a_snd_controls,
-+	.num_controls		= ARRAY_SIZE(max98357a_snd_controls),
- 	.dapm_widgets		= max98357a_dapm_widgets,
- 	.num_dapm_widgets	= ARRAY_SIZE(max98357a_dapm_widgets),
- 	.dapm_routes		= max98357a_dapm_routes,
-@@ -117,6 +151,9 @@ static int max98357a_platform_probe(struct platform_device *pdev)
- 			"default: no delay\n");
- 	}
- 
-+	/* For drivers who are not aware of the switch, default set to on. */
-+	max98357a->spk_switch = 1;
++	ret = mt6660_parse_dt(chip, &client->dev);
++	if (ret < 0) {
++		dev_err(&client->dev, "parsing dts failed\n");
++		return ret;
++	}
 +
- 	dev_set_drvdata(&pdev->dev, max98357a);
- 
- 	return devm_snd_soc_register_component(&pdev->dev,
+ 	chip->regmap = devm_regmap_init(&client->dev,
+ 		NULL, chip, &mt6660_regmap_config);
+ 	if (IS_ERR(chip->regmap)) {
+@@ -506,4 +614,4 @@ module_i2c_driver(mt6660_i2c_driver);
+ MODULE_AUTHOR("Jeff Chang <jeff_chang@richtek.com>");
+ MODULE_DESCRIPTION("MT6660 SPKAMP Driver");
+ MODULE_LICENSE("GPL");
+-MODULE_VERSION("1.0.7_G");
++MODULE_VERSION("1.0.8_G");
 -- 
-2.25.0.341.g760bfbb309-goog
+2.7.4
 
 _______________________________________________
 Alsa-devel mailing list

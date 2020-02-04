@@ -2,88 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89DAE1518DE
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Feb 2020 11:33:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E011215193A
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Feb 2020 12:06:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0E4DE168E;
-	Tue,  4 Feb 2020 11:32:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0E4DE168E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7C44A1696;
+	Tue,  4 Feb 2020 12:05:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7C44A1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580812428;
-	bh=e59rXJtJDh+ZP1Qipr4EYQIuMJVn1dwKqTZqFLWj1xI=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580814381;
+	bh=91AquUzVW6V0V2n/b5e+tkWC9M+xZOfVpVAV8U53wdY=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fdlCtL+uC/P9S1NLg95x+jyhojRCQOktPzqUVEYu+UrFEaAAU88K5JgcFp42jtU9V
-	 QYCmJi4styAB2D8jGNyYGXWkWE1liwoUhmlB17wWRpWVd5QAO/Z9te5z0rq9KiaJzl
-	 NwEDVvvE4rgf2YeHbrlImH2CjS8VQOJZVull2Ed4=
+	b=Ws1GOEWjfZ9jiUWzu8SGKtM4R+nahkDXD7Cj6CjqWF+AcLYziH94rjeFRLtEnJli1
+	 tdK3RMUXIDUYjLOG57LDYU5DO7rOUEg2pItoyMsnu9X/70umQpH+Aag7B3EXNvZoEb
+	 BSVcXbGUzYf7vjOeJOZX4hRYxw0pSVGb7vSt3FNw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0BCD3F801DB;
-	Tue,  4 Feb 2020 11:32:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78536F801DB;
+	Tue,  4 Feb 2020 12:04:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 52270F80162; Tue,  4 Feb 2020 11:32:05 +0100 (CET)
+ id B9DE7F80162; Tue,  4 Feb 2020 12:04:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
  version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 194AEF800F4
- for <alsa-devel@alsa-project.org>; Tue,  4 Feb 2020 11:31:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 194AEF800F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80255F800F4
+ for <alsa-devel@alsa-project.org>; Tue,  4 Feb 2020 12:04:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80255F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="RbeLQ+pL"
-Received: from hqpgpgate102.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e39480b0000>; Tue, 04 Feb 2020 02:31:39 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate102.nvidia.com (PGP Universal service);
- Tue, 04 Feb 2020 02:31:53 -0800
-X-PGP-Universal: processed;
- by hqpgpgate102.nvidia.com on Tue, 04 Feb 2020 02:31:53 -0800
-Received: from [10.24.218.119] (10.124.1.5) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Tue, 4 Feb
- 2020 10:31:51 +0000
-To: Takashi Iwai <tiwai@suse.de>
-References: <20200203100617.3856-1-nmahale@nvidia.com>
- <s5hk154rm2f.wl-tiwai@suse.de>
- <acd84229-07f8-46c5-fe5b-e027e918c56c@nvidia.com>
- <s5hzhdy7q2e.wl-tiwai@suse.de> <s5hpneu7mi5.wl-tiwai@suse.de>
-From: Nikhil Mahale <nmahale@nvidia.com>
-Message-ID: <1672c477-8795-8a37-4033-bb3982f64225@nvidia.com>
-Date: Tue, 4 Feb 2020 16:01:48 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="MOxQIAQi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=vY3Qq+U7Jn5c6tt2grI3S9+S5kIDQYwY4zy6sNCZABs=; b=MOxQIAQicikK15Kj0qop8iY1C
+ g5bDWw+WyvmkNNXYQWpVnXHKpJEIwDQ6I3XgKA3rkOAXFL3vmkmU8huVXdo1mghxMVl4cQmb4SiDZ
+ Hh3CphlWzl3rDRmIPIUNYmR308WNmMF4KJTQafrd3OOTXo8qhBQXJw0qnU4Val6hZH09c=;
+Received: from fw-tnat-cam2.arm.com ([217.140.106.50]
+ helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1iyw0O-0007Ky-Je; Tue, 04 Feb 2020 11:04:32 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id EE06DD01A54; Tue,  4 Feb 2020 11:04:31 +0000 (GMT)
+Date: Tue, 4 Feb 2020 11:04:31 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <20200204110431.GC3897@sirena.org.uk>
+References: <20200204102428.26021-1-srinivas.kandagatla@linaro.org>
 MIME-Version: 1.0
-In-Reply-To: <s5hpneu7mi5.wl-tiwai@suse.de>
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL105.nvidia.com (172.20.187.12) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1580812299; bh=UKfeQJe9mSop6LyglHXmJr08+VG/luFGK2qBalorGRY=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=RbeLQ+pLCeRDGYI+vlONj77N1zKBPQOfV6w62qLzuBlBdiF23wGsb04xa6t1bn26R
- 8Jvw4f6rgFO7vTeOrdyqZL7me37++F2VCcXtQWAZfCgwvZUsbwtefdU+BliiYM83Bu
- 9dj4piF1TmzhojuERB4jNzlUxVinpEYa6YGDcPnqq/57dV9BmtkXuzxV1TOxCgM2We
- Y2+/Qb6VH0OT3rstpkzVSEn7pF8RmaGf5AG99r8lbE6KKQsdRMdWviib1WSIZ+QFWm
- JYjmiGrambfQ3Q7QY6FXs8mvoiC9mge+neTD6+SL/gT5BlbHKrtd19cEYOE+4s6P1J
- JSADGA59cPjng==
-Cc: alsa-devel@alsa-project.org, martin@larkos.de, kai.vehmanen@linux.intel.com,
- aplattner@nvidia.com
-Subject: Re: [alsa-devel] [PATCH] ALSA: hda - Fix DP-MST support for NVIDIA
-	codecs
+In-Reply-To: <20200204102428.26021-1-srinivas.kandagatla@linaro.org>
+X-Cookie: Programming is an unnatural act.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: sfr@canb.auug.org.au, alsa-devel@alsa-project.org, lee.jones@linaro.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: wcd934x: Add missing COMMON_CLK
+	dependency
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,124 +82,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============1734064704706657214=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/4/20 2:33 PM, Takashi Iwai wrote:
-> External email: Use caution opening links or attachments
-> 
-> 
-> On Tue, 04 Feb 2020 08:46:17 +0100,
-> Takashi Iwai wrote:
->>
->> On Tue, 04 Feb 2020 06:08:19 +0100,
->> Nikhil Mahale wrote:
->>>
->>> On 2/3/20 4:10 PM, Takashi Iwai wrote:
->>>> External email: Use caution opening links or attachments
->>>>
->>>>
->>>> On Mon, 03 Feb 2020 11:06:17 +0100,
->>>> Nikhil Mahale wrote:
->>>>>
->>>>> If dyn_pcm_assign is set, different jack objects are being created
->>>>> for pcm and pins.
->>>>>
->>>>> If dyn_pcm_assign is set, generic_hdmi_build_jack() calls into
->>>>> add_hdmi_jack_kctl() to create and track separate jack object for
->>>>> pcm. Like sync_eld_via_acomp(), hdmi_present_sense_via_verbs() also
->>>>> need to report status change of the pcm jack.
->>>>>
->>>>> Rename pin_idx_to_jack() to pin_idx_to_pcm_jack(). The code to
->>>>> report status change of pcm jack, move it to update_eld() which is
->>>>> common for acomp and !acomp code paths.
->>>>
->>>> Thanks, that's the cause of the regression.
->>>> However, this needs yet more careful handling, I'm afraid.
->>>>
->>>> - hdmi_present_sense_via_verbs() may return true, and its callers
->>>> (both check_presence_and_report() and hdmi_repoll_eld()) do call
->>>> snd_hda_jack_report_sync() again.
->>>>
->>>> - For non-dyn_pcm_assign case, we shouldn't call jack report there,
->>>> but rather simply return true for calling report sync.
->>>>
->>>> - There is another workaround to block the jack report in
->>>> hdmi_present_sense_via_verbs() which is applied after update_eld(),
->>>> and this will be ignored.
->>>>
->>>> So, I guess that we need the conditional application of the individual
->>>> snd_jack_report() only for spec->dyn_pcm_assign==true, and assure that
->>>> hdmi_present() returns false.
->>> Yeah, you are right. But I don't think we should return false from
->>> hdmi_present().
->>>
->>> Before dyn_pcm_assign support for non-acomp drivers:
->>> 1) pcm and pin plug detection were controlled by same jack object, and
->>> 2) change in plug status was reported from snd_hda_jack_report_sync().
->>>
->>> If dyn_pcm_assign support is enabled for non-acomp drivers, then pcm
->>> and pin detection are controlled by different jack object. Now, report
->>> for plug status change of both jack object, requires to be in sync.
->>
->> That's my concern.  Basically we're seeing two different jacks for a
->> single hotplug.  OTOH, from the user-space POV, it must be one jack
->> that should report back.  IOW, with dyn_pcm_assign, you should ignore
->> the jack triggered from the unsol handler but report back only for the
->> jack that is assigned to the PCM.
-> 
-> Scratch this.  The code is so complex and fuzzing me.  Oh well.
-> 
-> For dyn_pcm_assign, the snd_hda_jack stuff is used only for the unsol
-> event notification but it's not bound with snd_jack object.  Hence
-> snd_hda_jack_report_sync() is harmless -- but it's also useless for
-> dyn_pcm_assign, too.
-> 
-> So basically the logic of your patch 4 is OK.  But it's still
-> misleading in a few points.
-> 
-> - The snd_hda_jack state was already updated via
->   snd_hda_jack_pin_sense() call at the beginning of
->   hdmi_present_sense_via_verbs() before calling
->   snd_hda_jack_report_sync().
-> 
->   That implies that what's jack->pinse_sense assignment at the end
->   of this function does is to override the jack->pin_sense value that
->   was already updated.
-> 
-> - snd_hda_jack_report_sync() is superfluous for dyn_pcm_assign case.
->   The jack update was already performed, as mentioned in the above,
->   and hda_jack->jack is NULL for dyn_pcm_assign.
-> 
->   Moreover, snd_hda_jack_report_sync() can be replaced with the
->   individual snd_jack_report() call even for non-dyn_pcm_assign case,
->   too.  The difference is only how to get snd_jack object; for
->   dyn_pcm_assign, it's pin_idx_to_jack() while non-dyn_pcm_assign,
->   it's hda_jack->jack.  I guess the call of snd_jack_report() can be
->   unified in a helper (that can be called from sync_eld_via_acomp()
->   too).
-The code is really complex and fuzzing me too. Anyways, I have send
-out fresh patch for review, see that is exactly what we are
-looking for. As you said earlier, cleanup change will go in separate
-patch set.
 
-Thanks,
-Nikhil Mahale
+--===============1734064704706657214==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3m6ZAtymzEdXvUYk"
+Content-Disposition: inline
 
-> thanks,
-> 
-> Takashi
-> 
 
------------------------------------------------------------------------------------
-This email message is for the sole use of the intended recipient(s) and may contain
-confidential information.  Any unauthorized review, use, disclosure or distribution
-is prohibited.  If you are not the intended recipient, please contact the sender by
-reply email and destroy all copies of the original message.
------------------------------------------------------------------------------------
+--3m6ZAtymzEdXvUYk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Feb 04, 2020 at 10:24:28AM +0000, Srinivas Kandagatla wrote:
+> Looks like some platforms are not yet using COMMON CLK.
+>=20
+> PowerPC allyesconfig failed with below error in next
+
+This doesn't apply against current code, please check and resend.
+
+--3m6ZAtymzEdXvUYk
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl45T78ACgkQJNaLcl1U
+h9CV4gf8DoN1L+3ztg3WWNOFL83oV1ry1PG0ADTcRk9kGu6Bvgko4UJq906Df5Or
+eptXPYaalkBhWiCTSb8BVHB4zyOCgMRqdOIBa6II2emQStrWOtbP5PEdMuPxuuie
+1jMV5D3Tio6GZ/RWQmNhSEZrmizFtKqF9iLFGl21FIu3NtCvrPR7+8V1G8GUsoR8
+UntEZCkHvy+QKycJgrZHrAlbRi7fguvG/dVHV7GsKLg9PKkobU1NGVXYfa5hqDTf
+oi8gg1xK0Sparvh223uvCYST/QX/w3a+/dvWAJIqPcG0ke9hjtTUPfIxkZMT7W5U
+GbzCVPWpVOvL3xQB2yyd5h+h3zH/5g==
+=42ud
+-----END PGP SIGNATURE-----
+
+--3m6ZAtymzEdXvUYk--
+
+--===============1734064704706657214==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============1734064704706657214==--

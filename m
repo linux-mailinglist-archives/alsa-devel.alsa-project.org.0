@@ -2,99 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C62F41510EC
-	for <lists+alsa-devel@lfdr.de>; Mon,  3 Feb 2020 21:21:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D4EE151471
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Feb 2020 04:06:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 66FA01697;
-	Mon,  3 Feb 2020 21:20:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 66FA01697
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDA36168F;
+	Tue,  4 Feb 2020 04:05:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDA36168F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580761276;
-	bh=kVydC2OpE5e4LgGHSuW3/mNIdUE+e0l+L4V8kNXzs8g=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=F4/D9p4KkPfcBA+SrNMp5jl7tHKvUurw8M6PK/aipHdIzKZAUlt6ia/oeoq10bW8c
-	 EZGXgHyIsp49dvUugltN2XQt8Phcdlq2Dibyt2acuuY5YVeMtOcz3yCUSbPPxpF+1T
-	 KZybRfEhVI+VVOvvnfM96rELpFIPG/4yLU3WpoqQ=
+	s=default; t=1580785568;
+	bh=8RdklSQX029wSxS+u6DtSavlr0g1wgMD/IW1VanD9T8=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hjcpbFvwp+ch7mvdpmbD4iSqWDXV5IlzX2pg6kCvnhlYjnoF5yMzeQghnlTbnjUuo
+	 1Z4LCn1BW/IqNPCHXr6Qp+/5ZN3NUqss+Oo/yQEn0r0GgVRSAL2lTXXkJBnYEhv9lO
+	 r7QpF5FgCH/ni3QSESIPZ5B61D44h1Ea2BZCFw38=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F723F8011D;
-	Mon,  3 Feb 2020 21:19:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A65CAF800AB;
+	Tue,  4 Feb 2020 04:04:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AD007F80148; Mon,  3 Feb 2020 21:19:32 +0100 (CET)
+ id ED947F80162; Tue,  4 Feb 2020 04:04:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-lf1-x142.google.com (mail-lf1-x142.google.com
- [IPv6:2a00:1450:4864:20::142])
+X-Spam-Status: No, score=-6.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
+ [IPv6:2607:f8b0:4864:20::1049])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79299F8011D
- for <alsa-devel@alsa-project.org>; Mon,  3 Feb 2020 21:19:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79299F8011D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 89903F800F4
+ for <alsa-devel@alsa-project.org>; Tue,  4 Feb 2020 04:04:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89903F800F4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="s8G/UjN6"
-Received: by mail-lf1-x142.google.com with SMTP id z26so10566454lfg.13
- for <alsa-devel@alsa-project.org>; Mon, 03 Feb 2020 12:19:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=9GXJ+7r6oiE/L24yszgp1Pie8R7EQEZ8furWhzEtKIk=;
- b=s8G/UjN6/Iggd3V7YYei6RXf4vXI2Jj2Jd9wlbbaFcBkjtKIph8VvxRkG+njnQdjHT
- sPK4Fbtmb08yfyvcb9STkYPkuFcOWUfRwN+k7JLRCWAaP3Mnm8pmEmK4JLE5xmn0YQt3
- FAjbFsz4E8y6vCQRCYlhJp44FjPd7hfGBH6Tgx4K1fc5MAs/5P0UyBBUEgaVn/h0srmX
- qMCyfYzt2XiRLrggy/kOMG0ls5i+GE/d+uUvJIr0wogUDluYJe1+JVc9PKPFcBpi7JFR
- /MLYzCV1lWewB+3w6xqFX2XLOxr02yuWi8s1q0kLPcp+LSNS6cmed5/qe+ELInKkeWic
- RQ2g==
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="AMZGi+pg"
+Received: by mail-pj1-x1049.google.com with SMTP id z12so990737pju.0
+ for <alsa-devel@alsa-project.org>; Mon, 03 Feb 2020 19:04:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=pjoVMI4UL3mw7HTSPvFNKw/yaHKC0iepvwwrCPVHdV0=;
+ b=AMZGi+pg32HR63+0CvYfp2+hF7vLNE2rvXFXw8ZQqvIzei8o1A6tZqXkbPv7zoFTp5
+ IspTPem07MET9NHlsqV1/4kBJZiFC6brk2jjnyRLOP2jBtElA7+VFDygTjDWJWQyQkqO
+ 2Oxkj+BXJCLrkoP7Rhezv9EQWCQnoPOnEw86cO+xH44ehSetSp6MLHGCHSQcGb+OLxPy
+ WLaMC83HfA4AG/bYUXzOLIcsVCTBnwYJFA3Q4jgD9P4HDdNmyXw2/0Dk0FV89BpnJXjg
+ HNmqU4dIJp32LdtdgmR5Xg6662/+AEos1X1YwsJViU+msSEgqEj4y4f3NjUR6yWmjfKk
+ gM6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=9GXJ+7r6oiE/L24yszgp1Pie8R7EQEZ8furWhzEtKIk=;
- b=TbazUmDJ4YiGHnbp1caMMKGhobDp6xcgTLhbNxR4yOvR0Ifrae+4RI4deycSnFwrMv
- 5fd7ryGDtEFFhh6aVDty7OJAYpekovCOer/OQo+lX+o9MAgFt8/GxxtQTJ676ZXeTaI7
- FrdbPI1M35HZ14rPynRAt/kCvOSF51wLSaGEGx4k4TVrSuzyahSJoT80Qk0EyUGKwFk6
- Y+xgLZ6cAdFEcrWOUoY8mvkL9gjuOuz3mYI5libeoC5UcFeq0pWtmGacynDkv7Wlk6ah
- kb3kMEMWoZapFCQLeOnsRoj5jklegs9j7BzILcwEs7oMbIb7RXhdTF5OVMOdv+YpxJCu
- 0eQQ==
-X-Gm-Message-State: APjAAAXuIsX0XfbZ30Zv6l1ZSGvUTE99hGJufrYAbNqiIloUypcW4C4+
- vmUI0atsYXTLjVkmYh6nwuc=
-X-Google-Smtp-Source: APXvYqwzpgdvLMjIj20yWb5w3ZfeDuvBaMreduxxHsa9a72L0x/lbj7UgdSdmQVXk1ab61jn6P20Sg==
-X-Received: by 2002:a19:c192:: with SMTP id
- r140mr12870058lff.113.1580761166596; 
- Mon, 03 Feb 2020 12:19:26 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37]) by smtp.googlemail.com with ESMTPSA id
- r12sm10298001ljh.105.2020.02.03.12.19.25
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Feb 2020 12:19:25 -0800 (PST)
-To: Sameer Pujar <spujar@nvidia.com>, perex@perex.cz, tiwai@suse.com,
- robh+dt@kernel.org
-References: <1580380422-3431-1-git-send-email-spujar@nvidia.com>
- <1580380422-3431-2-git-send-email-spujar@nvidia.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <32d6c62d-0ac4-54e0-2efb-9f9a8cf2d271@gmail.com>
-Date: Mon, 3 Feb 2020 23:19:19 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
-MIME-Version: 1.0
-In-Reply-To: <1580380422-3431-2-git-send-email-spujar@nvidia.com>
-Content-Language: en-US
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- atalambedu@nvidia.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
- jonathanh@nvidia.com, viswanathl@nvidia.com, sharadg@nvidia.com,
- broonie@kernel.org, thierry.reding@gmail.com, linux-tegra@vger.kernel.org,
- rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
-Subject: Re: [alsa-devel] [PATCH v2 1/9] dt-bindings: sound: tegra: add DT
-	binding for AHUB
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=pjoVMI4UL3mw7HTSPvFNKw/yaHKC0iepvwwrCPVHdV0=;
+ b=SDXYLKM1/ODsbVSToy72VpoubtaM8L8Sfr/09DS/BYOnJ/OMFpmQhxEmxSG5Dz25La
+ tEr30G7bHa8VArz7hG1SM8KKTscr1IK0aR+9lZTPoYyjlN+J69OuuOKYP6IIa6zOgPmu
+ yvOSU5Dk3zItaz71hdWVkqimldruznyvRtRmOvrRVYuQhY/w5+YMa926QvCareQLWBmJ
+ 36srJluJqnmARmZ9K+qW234wKpBCnJH/3pllqYL5Q+MxmyMvKPCx12oasVbBfUd4GtHQ
+ 2blayH0p0bjLBmpKxCo/riuU4plnbnKQ/TDENnqgcsXwdYY2R2OH+x0b/V7Cs5vJFDLE
+ 9Jxw==
+X-Gm-Message-State: APjAAAXgWvLypDc2kDOiOMt0ijGBU8GwDF9dn/fc4yA4y6W8WCaoS36R
+ 2yBT9Ry7byw1VXbxA86OV5e4JfC6jN29
+X-Google-Smtp-Source: APXvYqw8leoO2gNLGmM63FpYBHV0IN5W6HyPYjN9wVbnCT6WzG4lbvYl/O3CkBRgGsmpGo2AktyTOPrscZL8
+X-Received: by 2002:a65:43cb:: with SMTP id n11mr4683909pgp.65.1580785456784; 
+ Mon, 03 Feb 2020 19:04:16 -0800 (PST)
+Date: Tue,  4 Feb 2020 11:04:06 +0800
+Message-Id: <20200204102016.I73b26b5e319de173d05823e79f5861bf1826261c@changeid>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org
+Cc: tzungbi@google.com, alsa-devel@alsa-project.org, dgreid@google.com,
+ cychiang@google.com, jiaxin.yu@mediatek.com
+Subject: [alsa-devel] [PATCH] ASoC: max98357a: add speaker switch
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,20 +87,113 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MzAuMDEuMjAyMCAxMzozMywgU2FtZWVyIFB1amFyINC/0LjRiNC10YI6Ci4uLgo+ICtwcm9wZXJ0
-aWVzOgo+ICsgIGNvbXBhdGlibGU6Cj4gKyAgICBvbmVPZjoKPiArICAgICAgLSBpdGVtczoKPiAr
-ICAgICAgICAgIGNvbnN0OiBudmlkaWEsdGVncmEyMTAtaTJzCj4gKyAgICAgIC0gaXRlbXM6Cj4g
-KyAgICAgICAgICAtIGVudW06Cj4gKyAgICAgICAgICAgICAgLSBudmlkaWEsdGVncmExOTQtaTJz
-Cj4gKyAgICAgICAgICAgICAgLSBudmlkaWEsdGVncmExODYtaTJzCj4gKyAgICAgICAgICAtIGVu
-dW06Cj4gKyAgICAgICAgICAgICAgLSBudmlkaWEsdGVncmEyMTAtaTJzCgpDb3VsZG4ndCB0aGlz
-IGJlIHNvbWV0aGluZyBsaWtlIHRoaXM6Cgpwcm9wZXJ0aWVzOgogIGNvbXBhdGlibGU6CiAgICAt
-IGVudW06CiAgICAgIC0gbnZpZGlhLHRlZ3JhMjEwLWkycwogICAgICAtIG52aWRpYSx0ZWdyYTE4
-Ni1pMnMKICAgICAgLSBudmlkaWEsdGVncmExOTQtaTJzCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2
-ZWxAYWxzYS1wcm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWls
-bWFuL2xpc3RpbmZvL2Fsc2EtZGV2ZWwK
+Some machine may share the same I2S lines for multiple codecs. For
+example, mediatek/mt8183/mt8183-da7219-max98357 shares the same lines
+between max98357a and da7219.  When writing audio data through the I2S
+lines, all codecs on the lines would try to generate sound if they
+accepts DO line.  As a result, multiple codecs generate sound at a
+time.
+
+Adds a separate switch to max98357a.  Userspace program has choices to
+turn on or off the switch.  Note that, userspace program should change
+the switch before opening the stream.  The switch won't take effects if
+the stream is already there.
+
+Default value of the switch is on to not break existing driver usages
+(who are unlikely aware of existence of the switch).
+
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+ sound/soc/codecs/max98357a.c | 39 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 38 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
+index 16313b973eaa..a2c3be69a0ee 100644
+--- a/sound/soc/codecs/max98357a.c
++++ b/sound/soc/codecs/max98357a.c
+@@ -22,6 +22,7 @@
+ struct max98357a_priv {
+ 	struct gpio_desc *sdmode;
+ 	unsigned int sdmode_delay;
++	int spk_switch;
+ };
+ 
+ static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
+@@ -29,7 +30,7 @@ static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
+ {
+ 	struct max98357a_priv *max98357a = snd_soc_dai_get_drvdata(dai);
+ 
+-	if (!max98357a->sdmode)
++	if (!max98357a->sdmode || !max98357a->spk_switch)
+ 		return 0;
+ 
+ 	switch (cmd) {
+@@ -49,6 +50,37 @@ static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
++static int max98357a_get_spk_switch(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct max98357a_priv *max98357a =
++		snd_soc_component_get_drvdata(component);
++
++	ucontrol->value.integer.value[0] = max98357a->spk_switch;
++	return 0;
++}
++
++static int max98357a_put_spk_switch(struct snd_kcontrol *kcontrol,
++		struct snd_ctl_elem_value *ucontrol)
++{
++	struct snd_soc_component *component =
++		snd_soc_kcontrol_component(kcontrol);
++	struct max98357a_priv *max98357a =
++		snd_soc_component_get_drvdata(component);
++
++	max98357a->spk_switch = ucontrol->value.integer.value[0];
++	dev_info(component->dev,
++		 "put speaker switch: %d\n", max98357a->spk_switch);
++	return 0;
++}
++
++static const struct snd_kcontrol_new max98357a_snd_controls[] = {
++	SOC_SINGLE_BOOL_EXT("Speaker Switch", 0,
++		max98357a_get_spk_switch, max98357a_put_spk_switch),
++};
++
+ static const struct snd_soc_dapm_widget max98357a_dapm_widgets[] = {
+ 	SND_SOC_DAPM_OUTPUT("Speaker"),
+ };
+@@ -58,6 +90,8 @@ static const struct snd_soc_dapm_route max98357a_dapm_routes[] = {
+ };
+ 
+ static const struct snd_soc_component_driver max98357a_component_driver = {
++	.controls		= max98357a_snd_controls,
++	.num_controls		= ARRAY_SIZE(max98357a_snd_controls),
+ 	.dapm_widgets		= max98357a_dapm_widgets,
+ 	.num_dapm_widgets	= ARRAY_SIZE(max98357a_dapm_widgets),
+ 	.dapm_routes		= max98357a_dapm_routes,
+@@ -117,6 +151,9 @@ static int max98357a_platform_probe(struct platform_device *pdev)
+ 			"default: no delay\n");
+ 	}
+ 
++	/* For drivers who are not aware of the switch, default set to on. */
++	max98357a->spk_switch = 1;
++
+ 	dev_set_drvdata(&pdev->dev, max98357a);
+ 
+ 	return devm_snd_soc_register_component(&pdev->dev,
+-- 
+2.25.0.341.g760bfbb309-goog
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

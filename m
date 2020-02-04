@@ -2,83 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FC2915166E
-	for <lists+alsa-devel@lfdr.de>; Tue,  4 Feb 2020 08:24:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A52815169A
+	for <lists+alsa-devel@lfdr.de>; Tue,  4 Feb 2020 08:48:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C77FE168F;
-	Tue,  4 Feb 2020 08:23:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C77FE168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3F207168A;
+	Tue,  4 Feb 2020 08:47:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3F207168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580801057;
-	bh=d40i2Kcj5A4GeEbF6v1I2WGmJFxurYbXemzWQrLDaw4=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1580802490;
+	bh=sn3Wa6U64H6nJvv7n+d6HktOZ0UE+vfOqL4c/osImgw=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=qvvT4XwSAEgupdY+7/HNG1F6PywTlgvuMkAQ1EeoVOePTxB6/gPtydeJVvqgBTWrA
-	 pMUqoS7EIymMinFV5RlkqyK7mY0C2MSzkIc2fz++AM0c5RPbkIoX7J88LfSC/FISBJ
-	 t48xqblAhvhjPxnri7flFeR2mR0jrChOUEICiytc=
+	b=iDI0evIi56bj7YE1IY5jBFxE1z3RdxpXAykkloCuj8r5nHUdo4DVtEzFUHaN418zT
+	 0bYmH7HxXeEB0t9qE6avcuddGheKDhQgzA3cdzjkTx9tyLJAIV/KUSR9CARU92gLop
+	 LdXLtHwehR4aI8jT0HxUJKn/f5aNTZbPGLD5pR5U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 583B7F8028A;
-	Tue,  4 Feb 2020 08:20:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 40D14F80051;
+	Tue,  4 Feb 2020 08:46:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CC798F8027B; Tue,  4 Feb 2020 08:20:55 +0100 (CET)
+ id 92040F80162; Tue,  4 Feb 2020 08:46:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
- [216.228.121.143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2882BF80051
- for <alsa-devel@alsa-project.org>; Tue,  4 Feb 2020 08:20:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2882BF80051
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="RHSjqgG+"
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e391b170000>; Mon, 03 Feb 2020 23:19:51 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Mon, 03 Feb 2020 23:20:47 -0800
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Mon, 03 Feb 2020 23:20:47 -0800
-Received: from nvidia.com (10.124.1.5) by HQMAIL107.nvidia.com (172.20.187.13)
- with Microsoft SMTP Server (TLS) id 15.0.1473.3;
- Tue, 4 Feb 2020 07:20:45 +0000
-From: Nikhil Mahale <nmahale@nvidia.com>
-To: <tiwai@suse.com>, <kai.vehmanen@linux.intel.com>
-Date: Tue, 4 Feb 2020 12:50:17 +0530
-Message-ID: <20200204072017.9554-4-nmahale@nvidia.com>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20200204072017.9554-1-nmahale@nvidia.com>
-References: <20200204072017.9554-1-nmahale@nvidia.com>
-X-NVConfidentiality: public
-MIME-Version: 1.0
-X-Originating-IP: [10.124.1.5]
-X-ClientProxiedBy: HQMAIL111.nvidia.com (172.20.187.18) To
- HQMAIL107.nvidia.com (172.20.187.13)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1580800791; bh=kCy9fAKwheK3ADaCT7sqTfpvLiAud5Ex4FRiqG0PBg8=;
- h=X-PGP-Universal:From:To:CC:Subject:Date:Message-ID:X-Mailer:
- In-Reply-To:References:X-NVConfidentiality:MIME-Version:
- X-Originating-IP:X-ClientProxiedBy:Content-Type;
- b=RHSjqgG+vcq/8dcX5p7f3lNcyUA4WtB5PP0/cNQHga+1y+HnbmVlRvoZ2eK7l4fM6
- P/+cR1Vb+C4uPO24WX4ClLtYLONrC/oe6x/6Mc84RTla/Yw1H9YPEkZ+BuSKJ6htm5
- xDpqpjNngwVlVF7w0inrYJ8o9uAWlxWTa2trdBdlkKBJd9iDyT8QyNpc448g6wc+xo
- C1uHFHhrILt0+W/eZ6Lv3+hq4+jJyzoS9A5Vc8SCLlgu685M142D7PKLwhhi4z7v77
- ucOvJcMXs4TU54PZ2M0q3VQZilNKyvDpAaGYWbEC9w+QIU7CTg6EcKVuTgUVeob36/
- gQZSEPPiay2Pw==
-Cc: alsa-devel@alsa-project.org, martin@larkos.de,
- Nikhil Mahale <nmahale@nvidia.com>, aplattner@nvidia.com
-Subject: [alsa-devel] [PATCH v1 4/4] ALSA: hda - Fix DP-MST support for
-	NVIDIA codecs
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3F308F80051
+ for <alsa-devel@alsa-project.org>; Tue,  4 Feb 2020 08:46:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F308F80051
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 41A1BAC35;
+ Tue,  4 Feb 2020 07:46:19 +0000 (UTC)
+Date: Tue, 04 Feb 2020 08:46:17 +0100
+Message-ID: <s5hzhdy7q2e.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Nikhil Mahale <nmahale@nvidia.com>
+In-Reply-To: <acd84229-07f8-46c5-fe5b-e027e918c56c@nvidia.com>
+References: <20200203100617.3856-1-nmahale@nvidia.com>
+ <s5hk154rm2f.wl-tiwai@suse.de>
+ <acd84229-07f8-46c5-fe5b-e027e918c56c@nvidia.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, martin@larkos.de, kai.vehmanen@linux.intel.com,
+ aplattner@nvidia.com
+Subject: Re: [alsa-devel] [PATCH] ALSA: hda - Fix DP-MST support for NVIDIA
+	codecs
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,154 +73,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-If dyn_pcm_assign is set, different jack objects are being created
-for pcm and pins.
+On Tue, 04 Feb 2020 06:08:19 +0100,
+Nikhil Mahale wrote:
+> 
+> On 2/3/20 4:10 PM, Takashi Iwai wrote:
+> > External email: Use caution opening links or attachments
+> > 
+> > 
+> > On Mon, 03 Feb 2020 11:06:17 +0100,
+> > Nikhil Mahale wrote:
+> >>
+> >> If dyn_pcm_assign is set, different jack objects are being created
+> >> for pcm and pins.
+> >>
+> >> If dyn_pcm_assign is set, generic_hdmi_build_jack() calls into
+> >> add_hdmi_jack_kctl() to create and track separate jack object for
+> >> pcm. Like sync_eld_via_acomp(), hdmi_present_sense_via_verbs() also
+> >> need to report status change of the pcm jack.
+> >>
+> >> Rename pin_idx_to_jack() to pin_idx_to_pcm_jack(). The code to
+> >> report status change of pcm jack, move it to update_eld() which is
+> >> common for acomp and !acomp code paths.
+> > 
+> > Thanks, that's the cause of the regression.
+> > However, this needs yet more careful handling, I'm afraid.
+> > 
+> > - hdmi_present_sense_via_verbs() may return true, and its callers
+> > (both check_presence_and_report() and hdmi_repoll_eld()) do call
+> > snd_hda_jack_report_sync() again.
+> > 
+> > - For non-dyn_pcm_assign case, we shouldn't call jack report there,
+> > but rather simply return true for calling report sync.
+> > 
+> > - There is another workaround to block the jack report in
+> > hdmi_present_sense_via_verbs() which is applied after update_eld(),
+> > and this will be ignored.
+> > 
+> > So, I guess that we need the conditional application of the individual
+> > snd_jack_report() only for spec->dyn_pcm_assign==true, and assure that
+> > hdmi_present() returns false.
+> Yeah, you are right. But I don't think we should return false from
+> hdmi_present().
+> 
+> Before dyn_pcm_assign support for non-acomp drivers:
+> 1) pcm and pin plug detection were controlled by same jack object, and
+> 2) change in plug status was reported from snd_hda_jack_report_sync().
+> 
+> If dyn_pcm_assign support is enabled for non-acomp drivers, then pcm
+> and pin detection are controlled by different jack object. Now, report
+> for plug status change of both jack object, requires to be in sync.
 
-If dyn_pcm_assign is set, generic_hdmi_build_jack() calls into
-add_hdmi_jack_kctl() to create and track separate jack object for
-pcm. Like sync_eld_via_acomp(), hdmi_present_sense_via_verbs() also
-need to report status change of the pcm jack.
+That's my concern.  Basically we're seeing two different jacks for a
+single hotplug.  OTOH, from the user-space POV, it must be one jack
+that should report back.  IOW, with dyn_pcm_assign, you should ignore
+the jack triggered from the unsol handler but report back only for the
+jack that is assigned to the PCM.
 
-Rename pin_idx_to_jack() to pin_idx_to_pcm_jack(). Update
-hdmi_present_sense_via_verbs() to report plug state of pcm jack
-object. Unlike sync_eld_via_acomp(), for !acomp drivers the pcm
-jack's plug state must be consistent with plug state
-of pin's jack.
+> snd_hda_jack_report_sync() reports change in plug status of pin jack
+> object.
+>
+> I think after snd_hda_jack_report_sync() we should loop over
+> all pins, detect change in plug status, and report change in plug
+> status of pcm jack.
 
-Fixes: 5398e94fb753 ALSA: hda - Add DP-MST support for NVIDIA codecs
-Signed-off-by: Nikhil Mahale <nmahale@nvidia.com>
----
- sound/pci/hda/patch_hdmi.c | 80 +++++++++++++++++++++++++++-------------------
- 1 file changed, 48 insertions(+), 32 deletions(-)
+This is what snd_hda_jack_report_sync() does; it loops over all
+registered jacks and report the changes.
 
-diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
-index 1cf0604020bc..6da87dad03ff 100644
---- a/sound/pci/hda/patch_hdmi.c
-+++ b/sound/pci/hda/patch_hdmi.c
-@@ -1551,6 +1551,34 @@ static void update_eld(struct hda_codec *codec,
- 			       &get_hdmi_pcm(spec, pcm_idx)->eld_ctl->id);
- }
- 
-+static struct snd_jack *pin_idx_to_pcm_jack(struct hda_codec *codec,
-+					    struct hdmi_spec_per_pin *per_pin)
-+{
-+	struct hdmi_spec *spec = codec->spec;
-+	struct snd_jack *jack = NULL;
-+	struct hda_jack_tbl *jack_tbl;
-+
-+	/* if !dyn_pcm_assign, get jack from hda_jack_tbl
-+	 * in !dyn_pcm_assign case, spec->pcm_rec[].jack is not
-+	 * NULL even after snd_hda_jack_tbl_clear() is called to
-+	 * free snd_jack. This may cause access invalid memory
-+	 * when calling snd_jack_report
-+	 */
-+	if (per_pin->pcm_idx >= 0 && spec->dyn_pcm_assign) {
-+		jack = spec->pcm_rec[per_pin->pcm_idx].jack;
-+	} else if (!spec->dyn_pcm_assign) {
-+		/*
-+		 * jack tbl doesn't support DP MST
-+		 * DP MST will use dyn_pcm_assign,
-+		 * so DP MST will never come here
-+		 */
-+		jack_tbl = snd_hda_jack_tbl_get_mst(codec, per_pin->pin_nid,
-+						    per_pin->dev_id);
-+		if (jack_tbl)
-+			jack = jack_tbl->jack;
-+	}
-+	return jack;
-+}
- /* update ELD and jack state via HD-audio verbs */
- static void hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
- 					 int repoll,
-@@ -1572,6 +1600,7 @@ static void hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
- 	 */
- 	int present;
- 	bool do_repoll = false;
-+	struct snd_jack *pcm_jack = NULL;
- 
- 	present = snd_hda_jack_pin_sense(codec, pin_nid, dev_id);
- 
-@@ -1599,10 +1628,17 @@ static void hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
- 			do_repoll = true;
- 	}
- 
--	if (do_repoll)
-+	if (do_repoll) {
- 		schedule_delayed_work(&per_pin->work, msecs_to_jiffies(300));
--	else
-+	} else {
-+		/* pcm_idx >=0 before update_eld() means it is in monitor
-+		 * disconnected event. Jack must be fetched before update_eld()
-+		 */
-+		pcm_jack = pin_idx_to_pcm_jack(codec, per_pin);
- 		update_eld(codec, per_pin, eld);
-+		if (!pcm_jack)
-+			pcm_jack = pin_idx_to_pcm_jack(codec, per_pin);
-+	}
- 
- 	jack = snd_hda_jack_tbl_get_mst(codec, pin_nid, per_pin->dev_id);
- 	if (jack) {
-@@ -1614,36 +1650,16 @@ static void hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
- 	if (!do_repoll && jack_report_sync)
- 		snd_hda_jack_report_sync(codec);
- 
--	mutex_unlock(&per_pin->lock);
--}
--
--static struct snd_jack *pin_idx_to_jack(struct hda_codec *codec,
--				 struct hdmi_spec_per_pin *per_pin)
--{
--	struct hdmi_spec *spec = codec->spec;
--	struct snd_jack *jack = NULL;
--	struct hda_jack_tbl *jack_tbl;
-+	/* snd_hda_jack_report_sync() updates jack->pin_sense */
-+	if (spec->dyn_pcm_assign && pcm_jack && !do_repoll) {
-+		int state = 0;
- 
--	/* if !dyn_pcm_assign, get jack from hda_jack_tbl
--	 * in !dyn_pcm_assign case, spec->pcm_rec[].jack is not
--	 * NULL even after snd_hda_jack_tbl_clear() is called to
--	 * free snd_jack. This may cause access invalid memory
--	 * when calling snd_jack_report
--	 */
--	if (per_pin->pcm_idx >= 0 && spec->dyn_pcm_assign)
--		jack = spec->pcm_rec[per_pin->pcm_idx].jack;
--	else if (!spec->dyn_pcm_assign) {
--		/*
--		 * jack tbl doesn't support DP MST
--		 * DP MST will use dyn_pcm_assign,
--		 * so DP MST will never come here
--		 */
--		jack_tbl = snd_hda_jack_tbl_get_mst(codec, per_pin->pin_nid,
--						    per_pin->dev_id);
--		if (jack_tbl)
--			jack = jack_tbl->jack;
-+		if (jack && !!(jack->pin_sense & AC_PINSENSE_PRESENCE))
-+			state = SND_JACK_AVOUT;
-+		snd_jack_report(pcm_jack, state);
- 	}
--	return jack;
-+
-+	mutex_unlock(&per_pin->lock);
- }
- 
- /* update ELD and jack state via audio component */
-@@ -1678,10 +1694,10 @@ static void sync_eld_via_acomp(struct hda_codec *codec,
- 	/* pcm_idx >=0 before update_eld() means it is in monitor
- 	 * disconnected event. Jack must be fetched before update_eld()
- 	 */
--	jack = pin_idx_to_jack(codec, per_pin);
-+	jack = pin_idx_to_pcm_jack(codec, per_pin);
- 	update_eld(codec, per_pin, eld);
- 	if (jack == NULL)
--		jack = pin_idx_to_jack(codec, per_pin);
-+		jack = pin_idx_to_pcm_jack(codec, per_pin);
- 	if (jack)
- 		snd_jack_report(jack,
- 				(eld->monitor_present && eld->eld_valid) ?
--- 
-2.16.4
+So, I think that in dyn_pcm_assign=true without acomp, we need to
+clear jack->dirty for the originally reported jack in addition to the
+translation to the PCM jack and reporting.  FWIW, the dirty flag is
+set in hdmi_intrinsic_event() and hdmi_repoll_eld().
 
+And if you call snd_jack_report() for the necessary jack, there is no
+need to call snd_jack_report_sync() at all.  This is utterly
+superfluous.  Hence, if the repoll isn't needed and dyn_pcm_assign=1,
+the function should return false.
+
+> > The last item (the jack report block) is still unclear to me; it's a
+> > workaround that was needed for Nvidia drivers in the past due to
+> > instability.  If this is still needed for DP-MST case, we have to
+> > reconsider how to deal with it.  Otherwise, this can be applied only
+> > for non-dyn_pcm_assign case.
+> The jack report block, was added by commit 464837a7bc0a (ALSA: hda -
+> block HDMI jack reports while repolling), to avoid race condition
+> with repolling. That is not NVIDIA specific.
+
+Ah yes, that was for some unstable state handling.  I thought the same
+workaround applied to some old Nvidia driver, too, though.
+
+> > BTW, the condition for jack->block_report and return value in
+> > hdmi_present_sense_via_verbs() looks currently complicated, but it
+> > could have been simplified like:
+> > 
+> > -- 8< --
+> > --- a/sound/pci/hda/patch_hdmi.c
+> > +++ b/sound/pci/hda/patch_hdmi.c
+> > @@ -1569,7 +1569,6 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
+> >          * the unsolicited response to avoid custom WARs.
+> >          */
+> >         int present;
+> > -       bool ret;
+> >         bool do_repoll = false;
+> > 
+> >         present = snd_hda_jack_pin_sense(codec, pin_nid, dev_id);
+> > @@ -1603,16 +1602,14 @@ static bool hdmi_present_sense_via_verbs(struct hdmi_spec_per_pin *per_pin,
+> >         else
+> >                 update_eld(codec, per_pin, eld);
+> > 
+> > -       ret = !repoll || !eld->monitor_present || eld->eld_valid;
+> > -
+> >         jack = snd_hda_jack_tbl_get_mst(codec, pin_nid, per_pin->dev_id);
+> >         if (jack) {
+> > -               jack->block_report = !ret;
+> > +               jack->block_report = do_repoll;
+> >                 jack->pin_sense = (eld->monitor_present && eld->eld_valid) ?
+> >                         AC_PINSENSE_PRESENCE : 0;
+> >         }
+> >         mutex_unlock(&per_pin->lock);
+> > -       return ret;
+> > +       return !do_repoll;
+> >  }
+> > 
+> >  static struct snd_jack *pin_idx_to_jack(struct hda_codec *codec,
+> > -- 8< --
+> Yeah, this is simple to understand.
+> 
+> I am sending fresh patches, see if they make sense.
+
+The cleanup like the above shouldn't be applied before the critical
+fix.  That is, we have to fix the regression at the very first patch
+with Cc to stable.  This must be applicable cleanly and working on 5.5
+kernel as is.  After the fix, we may apply the remaining cleanups like
+the above.
+
+So, let's concentrate on one (or split if needed) fix patch for now.
+
+
+thanks,
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

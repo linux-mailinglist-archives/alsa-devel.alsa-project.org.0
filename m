@@ -2,73 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 909091528D9
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Feb 2020 11:07:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D02B7152906
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Feb 2020 11:21:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 329031684;
-	Wed,  5 Feb 2020 11:06:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 329031684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 40478168D;
+	Wed,  5 Feb 2020 11:20:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 40478168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580897266;
-	bh=miFf0NjKNlKW1nQYsNKidRoX/GH/eHMu7chKsdmnF2g=;
-	h=From:To:In-Reply-To:Date:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=oLpImmdxf/SOXGig1/CZEPC5h1wiYw+uEkq1SMfEMN25g7agDT88eZQoJavY23Fbm
-	 oebtRr6uh9MSe3nA/pkLb+UfYTKHtGVW9rn30vlpUAwVGToQ0QRoye9RFL277NUDiG
-	 W6nvXkqrk7LpZDG3xTKdlg7TO9HsdRI360/CZ19c=
+	s=default; t=1580898081;
+	bh=5uHwLNjwgpdY1nXTQEUnmjCgUOQg3wYYxcOAbqxAXGU=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Iq7r5DGVaIieHZl8Iw3TasUGMbVPdNO1q2vw+wgbYWpwYCVHsFxXw76LYW7ZcxYNi
+	 BflnYjPltKO8xn7sMA+Xsmo9HPOZLuQbRSQQrSW5mnGj7tjC/DEGqZS6AlCe2Fbqo8
+	 0rHxE/g30TiJfKoAbRdTu25wBwrYzYo1BfRSLI1A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 27CEFF80148;
-	Wed,  5 Feb 2020 11:06:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4552CF8014C;
+	Wed,  5 Feb 2020 11:19:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 543F6F80148; Wed,  5 Feb 2020 11:06:02 +0100 (CET)
+ id 88857F80148; Wed,  5 Feb 2020 11:19:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [172.104.155.198])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2E257F80051
- for <alsa-devel@alsa-project.org>; Wed,  5 Feb 2020 11:05:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E257F80051
+ by alsa1.perex.cz (Postfix) with ESMTPS id A3693F800AB
+ for <alsa-devel@alsa-project.org>; Wed,  5 Feb 2020 11:19:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3693F800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="FwZ3FTZB"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
- Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
- List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
- List-Archive; bh=A5wlAvzYuuyw/lJ8xTeNin0AyoeXmNQPK3Uj4VxKxHA=; b=FwZ3FTZBAxil
- Hqp2wHP41VqRWUSIbId1g0prfYEx0I3vVuAGnkLhkk1BLb2INYvV5DX5P3KDKVeoUcvAbF/quWTSs
- yUEwUzXsLrf+RJecjDGZX+kxJvNrKIa4PtVLLOxQ8f1GIFsnzs3NOo0UEN2l5a9QID9ZbybcJyhTD
- s3jtE=;
-Received: from fw-tnat-cam3.arm.com ([217.140.106.51]
- helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.org.uk>)
- id 1izHZC-0003qV-Pg; Wed, 05 Feb 2020 10:05:54 +0000
-Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
- id 7B621D01D7F; Wed,  5 Feb 2020 10:05:54 +0000 (GMT)
-From: Mark Brown <broonie@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-In-Reply-To: <20200204131857.7634-1-geert@linux-m68k.org>
-Message-Id: <applied-20200204131857.7634-1-geert@linux-m68k.org>
-X-Patchwork-Hint: ignore
-Date: Wed,  5 Feb 2020 10:05:54 +0000 (GMT)
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>, alsa-devel@alsa-project.org,
- Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Subject: [alsa-devel] Applied "ASoC: wcd934x: Add missing COMMON_CLK
-	dependency to SND_SOC_ALL_CODECS" to the asoc tree
+ dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
+ header.b="7OAWNR/d"; 
+ dkim=pass (2048-bit key) header.d=messagingengine.com
+ header.i=@messagingengine.com header.b="qwkNqUee"
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+ by mailout.west.internal (Postfix) with ESMTP id 44E445BD;
+ Wed,  5 Feb 2020 05:19:26 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute1.internal (MEProxy); Wed, 05 Feb 2020 05:19:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=iYi4VOIq59tPJk7wzbvTAPdLUiD
+ WCl8nRRDq2YtnAp8=; b=7OAWNR/d4AQYpUJGzbZpAMh58hodLDem6g5cqP0cwA7
+ GTbgV+5xBs3+DWQK4vvDIwR3WpAVABOyWyzMgifK8UjzrDN261qgaKcWX+CKhecf
+ 86AFNiWiuuUrLouxivEA3Ku63CiSPVQmqH+icETr47oHchYas54YwfNDfUfU6rdk
+ cgWRbApboN2M2RBfL0wZo+gyHR3Kh7tG/0OjNF7HbMFIsvWIIXDBI03mOFKRrT2S
+ 0n2bYzAJx5/7SiarR8OFZohs2hkQSccWL+GNkscepXFDlCpliix+5zIA20kB5vIb
+ nye1lHj0Uc90wSUtRvW8G287NygGkiBUgi7HIs49k6w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=iYi4VO
+ Iq59tPJk7wzbvTAPdLUiDWCl8nRRDq2YtnAp8=; b=qwkNqUeeLh4hTgWjgPhmMs
+ JWRbS8p4ivQZEYRgCkdrww6PaOBGkrmAFoGJ9ccWpiHlQywX859rlDt64XdhxOW4
+ VFr1MFesHSBRxk58SIHeqB2ptyV9iIr9/W+2BwN/Ctjne44ABECSXpV5L1aYKJrv
+ jiybzjYQxnTiUT1fXQ/+sVp4hR2bXpDkgFcec2edzEJ+5kyiCGHp3eUcfF87+rK2
+ CY/3/sTLWW6tU7oeBpfJQLqOasq3RQKg/oIGJsA14hbwEFJqJgjrvX/r9A40E9pq
+ y0wQbFtis49gbb4UNRtiYdmFizzf9irPnPY3rIkTnTre5NZYLetheYfN2/v20weg
+ ==
+X-ME-Sender: <xms:rZY6XhD_kgl6KtzfqCS-adPVroVWfMbIoY96QiIvpIGeFQd6UD4AjA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrhedugddufecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujggfsehttdertddtredvnecuhfhrohhmpefvrghkrghs
+ hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
+ hpqeenucffohhmrghinhepghhnuhdrohhrghdprghlshgrqdhprhhojhgvtghtrdhorhhg
+ necukfhppedugedrfedrjeegrdduieeknecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+ hrrghmpehmrghilhhfrhhomhepohdqthgrkhgrshhhihesshgrkhgrmhhotggthhhirdhj
+ ph
+X-ME-Proxy: <xmx:rZY6Xj4z0O8V8dY-IYiy4a-jFL9pgmUCprQ0QahcjAHtV3eBSem48w>
+ <xmx:rZY6XqfChV2PTV2tv7bplLICgJw8xETIGvLUL9RweGT4JyX61qgPXg>
+ <xmx:rZY6XpuBVIkcUuvLpKawxY9zS7v7QFH1EM-fkHYjMYCNaGE1-smYvw>
+ <xmx:rZY6Xt0HCuGmsj0blfcFPbPxA9CdvXzanc83FN1fY6mEX2fzKTxvmg>
+Received: from workstation (ae074168.dynamic.ppp.asahi-net.or.jp [14.3.74.168])
+ by mail.messagingengine.com (Postfix) with ESMTPA id AC17F3280059;
+ Wed,  5 Feb 2020 05:19:24 -0500 (EST)
+Date: Wed, 5 Feb 2020 19:19:22 +0900
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+To: Michael Forney <mforney@mforney.org>
+Message-ID: <20200205101921.GA9810@workstation>
+Mail-Followup-To: Michael Forney <mforney@mforney.org>,
+ alsa-devel@alsa-project.org
+References: <20200205081221.18665-1-mforney@mforney.org>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20200205081221.18665-1-mforney@mforney.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH alsa-utils 1/4] Use __func__ instead of
+	__FUNCTION__
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,86 +111,82 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+On Wed, Feb 05, 2020 at 12:12:18AM -0800, Michael Forney wrote:
+> They are equivalent, but __func__ is in C99. __FUNCTION__ exists only
+> for backwards compatibility with old gcc versions.
+> 
+> Signed-off-by: Michael Forney <mforney@mforney.org>
 
-   ASoC: wcd934x: Add missing COMMON_CLK dependency to SND_SOC_ALL_CODECS
+Reviewd-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-has been applied to the asoc tree at
+For out information:
+https://gcc.gnu.org/onlinedocs/gcc/Function-Names.html
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 13426feaf46c48fcddb591e89d35120fcc90527f Mon Sep 17 00:00:00 2001
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 4 Feb 2020 14:18:57 +0100
-Subject: [PATCH] ASoC: wcd934x: Add missing COMMON_CLK dependency to
- SND_SOC_ALL_CODECS
-
-Just adding a dependency on COMMON_CLK to SND_SOC_WCD934X is not
-sufficient, as enabling SND_SOC_ALL_CODECS will still select it,
-breaking the build later:
-
-    WARNING: unmet direct dependencies detected for SND_SOC_WCD934X
-      Depends on [n]: SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && COMMON_CLK [=n] && MFD_WCD934X [=m]
-      Selected by [m]:
-      - SND_SOC_ALL_CODECS [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && COMPILE_TEST [=y] && MFD_WCD934X [=m]
-    ...
-    ERROR: "of_clk_add_provider" [sound/soc/codecs/snd-soc-wcd934x.ko] undefined!
-    ERROR: "of_clk_src_simple_get" [sound/soc/codecs/snd-soc-wcd934x.ko] undefined!
-    ERROR: "clk_hw_register" [sound/soc/codecs/snd-soc-wcd934x.ko] undefined!
-    ERROR: "__clk_get_name" [sound/soc/codecs/snd-soc-wcd934x.ko] undefined!
-
-Fix this by adding the missing dependency to SND_SOC_ALL_CODECS
-
-Fixes: 42b716359beca106 ("ASoC: wcd934x: Add missing COMMON_CLK dependency")
-Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Tested-by: Stephen Rothwell <sfr@canb.auug.org.au>
-Link: https://lore.kernel.org/r/20200204131857.7634-1-geert@linux-m68k.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/codecs/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 286514865960..7e90f5d83097 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -214,7 +214,7 @@ config SND_SOC_ALL_CODECS
- 	select SND_SOC_UDA134X
- 	select SND_SOC_UDA1380 if I2C
- 	select SND_SOC_WCD9335 if SLIMBUS
--	select SND_SOC_WCD934X if MFD_WCD934X
-+	select SND_SOC_WCD934X if MFD_WCD934X && COMMON_CLK
- 	select SND_SOC_WL1273 if MFD_WL1273_CORE
- 	select SND_SOC_WM0010 if SPI_MASTER
- 	select SND_SOC_WM1250_EV1 if I2C
--- 
-2.20.1
-
+> ---
+>  alsactl/alsactl.h | 16 ++++++++--------
+>  aplay/aplay.c     |  4 ++--
+>  2 files changed, 10 insertions(+), 10 deletions(-)
+> 
+> diff --git a/alsactl/alsactl.h b/alsactl/alsactl.h
+> index 4f969ec..69b539c 100644
+> --- a/alsactl/alsactl.h
+> +++ b/alsactl/alsactl.h
+> @@ -13,15 +13,15 @@ void cerror_(const char *fcn, long line, int cond, const char *fmt, ...);
+>  void dbg_(const char *fcn, long line, const char *fmt, ...);
+>  
+>  #if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 95)
+> -#define info(...) do { info_(__FUNCTION__, __LINE__, __VA_ARGS__); } while (0)
+> -#define error(...) do { error_(__FUNCTION__, __LINE__, __VA_ARGS__); } while (0)
+> -#define cerror(cond, ...) do { cerror_(__FUNCTION__, __LINE__, (cond) != 0, __VA_ARGS__); } while (0)
+> -#define dbg(...) do { dbg_(__FUNCTION__, __LINE__, __VA_ARGS__); } while (0)
+> +#define info(...) do { info_(__func__, __LINE__, __VA_ARGS__); } while (0)
+> +#define error(...) do { error_(__func__, __LINE__, __VA_ARGS__); } while (0)
+> +#define cerror(cond, ...) do { cerror_(__func__, __LINE__, (cond) != 0, __VA_ARGS__); } while (0)
+> +#define dbg(...) do { dbg_(__func__, __LINE__, __VA_ARGS__); } while (0)
+>  #else
+> -#define info(args...) do { info_(__FUNCTION__, __LINE__, ##args); }  while (0)
+> -#define error(args...) do { error_(__FUNCTION__, __LINE__, ##args); }  while (0)
+> -#define cerror(cond, ...) do { error_(__FUNCTION__, __LINE__, (cond) != 0, ##args); } while (0)
+> -#define dbg(args...) do { dbg_(__FUNCTION__, __LINE__, ##args); }  while (0)
+> +#define info(args...) do { info_(__func__, __LINE__, ##args); }  while (0)
+> +#define error(args...) do { error_(__func__, __LINE__, ##args); }  while (0)
+> +#define cerror(cond, ...) do { error_(__func__, __LINE__, (cond) != 0, ##args); } while (0)
+> +#define dbg(args...) do { dbg_(__func__, __LINE__, ##args); }  while (0)
+>  #endif	
+>  
+>  int init(const char *file, const char *cardname);
+> diff --git a/aplay/aplay.c b/aplay/aplay.c
+> index 1a887e4..908093c 100644
+> --- a/aplay/aplay.c
+> +++ b/aplay/aplay.c
+> @@ -186,13 +186,13 @@ static const struct fmt_capture {
+>  
+>  #if __GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 95)
+>  #define error(...) do {\
+> -	fprintf(stderr, "%s: %s:%d: ", command, __FUNCTION__, __LINE__); \
+> +	fprintf(stderr, "%s: %s:%d: ", command, __func__, __LINE__); \
+>  	fprintf(stderr, __VA_ARGS__); \
+>  	putc('\n', stderr); \
+>  } while (0)
+>  #else
+>  #define error(args...) do {\
+> -	fprintf(stderr, "%s: %s:%d: ", command, __FUNCTION__, __LINE__); \
+> +	fprintf(stderr, "%s: %s:%d: ", command, __func__, __LINE__); \
+>  	fprintf(stderr, ##args); \
+>  	putc('\n', stderr); \
+>  } while (0)
+> -- 
+> 2.25.0
+> 
+> _______________________________________________
+> Alsa-devel mailing list
+> Alsa-devel@alsa-project.org
+> https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

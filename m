@@ -2,55 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98D0C152A39
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Feb 2020 12:49:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C081A1530D1
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Feb 2020 13:32:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42B271685;
-	Wed,  5 Feb 2020 12:48:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42B271685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4A4851684;
+	Wed,  5 Feb 2020 13:31:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A4851684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580903356;
-	bh=ZZ0Q3eyrqAravKo3SF5kQwc3WPwmd6EDaprH9UvwxLg=;
-	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1580905961;
+	bh=9qRyKStyzfH1GuKO/NDvCbYQKF7xVjZiWX5lIRF9No0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JMiH3kNxXc8Ax6pToUOVLb7+IF0yGE5uHa41iJ8cIc1NffCBSC2zvsKC7nB1c5HSl
-	 oaFH7/6NdEDvq9fq5LlmbzYFUnLRUWM6/dt8o/BViz7f17fWNrBviouNBJBSDwrEU8
-	 DkGtu4hkVFhmHAfYZ9ZaYyj70NcYmfIi831Seqyk=
+	b=XF0+J9nCY6oJ0r9VNlRW8LL6eY0lifVQfMlB8Vn/hFCY7fc4Cd/OX9SHXP7IdiU4N
+	 lW+ocbXwPb25X4vj8jHCivINgEqmAvlN2OxzcrnoZ0JE2QWkcYIIUh7/LSVDfzYIv8
+	 4SdMzVkopdKFhi4P+Ffod/DC96pQOYlFeJBQuU/0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD4ABF80142;
-	Wed,  5 Feb 2020 12:47:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A375BF80051;
+	Wed,  5 Feb 2020 13:30:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B3D5CF8019B; Wed,  5 Feb 2020 12:47:31 +0100 (CET)
+ id AF853F80148; Wed,  5 Feb 2020 13:30:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 41E0DF80051
- for <alsa-devel@alsa-project.org>; Wed,  5 Feb 2020 12:47:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 41E0DF80051
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 89151ADC8;
- Wed,  5 Feb 2020 11:47:28 +0000 (UTC)
-Date: Wed, 05 Feb 2020 12:47:28 +0100
-Message-ID: <s5h36bpb6i7.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Mark Brown <broonie@kernel.org>
-In-Reply-To: <20200205102025.GA31084@sirena.org.uk>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B2C6F80051
+ for <alsa-devel@alsa-project.org>; Wed,  5 Feb 2020 13:30:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B2C6F80051
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="dk1zBpnu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=EDnThXKdbh/MHjoQI/NRI08VsIEkveWhix5qkb3X+J4=; b=dk1zBpnu77KlmO8ZMOVzkZWJL
+ NpilnOp0x9xrk/clWsFk2t+fR8ROnyAxQ79kMf5+6hiHHWMNVtGXSexudUJPRTq0PzbNDtcBl2uHz
+ Cv2sCFBbE7bE/RdvWlDEZb5xkQVAnyX8ZCXqzOtCFTt7HbdJV/JkiTQ+CZsmadqoFghW8=;
+Received: from fw-tnat-cam3.arm.com ([217.140.106.51]
+ helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1izJpU-0004Hs-D0; Wed, 05 Feb 2020 12:30:52 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id DAC6BD01D7F; Wed,  5 Feb 2020 12:30:51 +0000 (GMT)
+Date: Wed, 5 Feb 2020 12:30:51 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Takashi Iwai <tiwai@suse.de>
+Message-ID: <20200205123051.GH3897@sirena.org.uk>
 References: <20200205094707.GD3897@sirena.org.uk>
  <20200205102025.GA31084@sirena.org.uk>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
- FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
- (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
-MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+ <s5h36bpb6i7.wl-tiwai@suse.de>
+MIME-Version: 1.0
+In-Reply-To: <s5h36bpb6i7.wl-tiwai@suse.de>
+X-Cookie: Programming is an unnatural act.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: alsa-devel@alsa-project.org, Lee Jones <lee.jones@linaro.org>,
  Liam Girdwood <lgirdwood@gmail.com>
 Subject: Re: [alsa-devel] [GIT PULL] ASoC fixes for v5.6
@@ -66,30 +83,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============6326541163164176088=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 05 Feb 2020 11:20:25 +0100,
-Mark Brown wrote:
-> 
-> On Wed, Feb 05, 2020 at 09:47:07AM +0000, Mark Brown wrote:
-> 
-> > A collection of updates for bugs fixed since the initial pull
-> > request, the most important one being the addition of COMMON_CLK
-> > for wcd934x which is needed for MFD to be merged.
-> 
-> There'll be another patch on top of that which fixes some
-> additional cases.
 
-Is the additional PR planned in this week, or later?
+--===============6326541163164176088==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8Dt/lkN5I0m8i0o7"
+Content-Disposition: inline
 
 
-thanks,
+--8Dt/lkN5I0m8i0o7
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Takashi
+On Wed, Feb 05, 2020 at 12:47:28PM +0100, Takashi Iwai wrote:
+> Mark Brown wrote:
+
+> > There'll be another patch on top of that which fixes some
+> > additional cases.
+
+> Is the additional PR planned in this week, or later?
+
+Later today or tomorrow, depending on when CI finishes and stuff
+I've got on today.
+
+--8Dt/lkN5I0m8i0o7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl46tXgACgkQJNaLcl1U
+h9B/uQf+OjDCt6mEROx7X6cFz2Owd17/CUCPCxMrH0d+xkPoBPuXs9lg4BFCPVM4
+in0z3JpIM/z/NbFPFwldmC5QP9/77nLZMmroUxG0sKNd7t7JcDZoafJ2giFS6Ji7
+DccU0RGQ/gqpUGuk8cLT6UK6aj2NAejlNFBeHoVykRYsZdXVM8owYy1bB3K4SUez
+HP3AgTZDILdyNcbYjgxENNouXoQKY2WRhav4IGyaag0rskRcM/XpIdI8wCWalau7
+n5WPjYS1iBO7qec1YlPSLM/ZFap6J2fq6yXOq6V+5bgiUB3FpU4qVdjwNaAkoqAQ
+EcpaV7oagJ4au9B198wGrQs6A16XLg==
+=aX1B
+-----END PGP SIGNATURE-----
+
+--8Dt/lkN5I0m8i0o7--
+
+--===============6326541163164176088==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============6326541163164176088==--

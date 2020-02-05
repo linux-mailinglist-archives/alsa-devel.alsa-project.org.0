@@ -2,83 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 050C61535F4
-	for <lists+alsa-devel@lfdr.de>; Wed,  5 Feb 2020 18:10:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E67E21538DB
+	for <lists+alsa-devel@lfdr.de>; Wed,  5 Feb 2020 20:16:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 70D781693;
-	Wed,  5 Feb 2020 18:09:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70D781693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60E981682;
+	Wed,  5 Feb 2020 20:16:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60E981682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580922624;
-	bh=/Mng73yq9zxLWGRlvgNe6ta5EDVY2kv/mGGMeZ4VcAA=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580930214;
+	bh=brFDpvNwh2CRaA3np61nRW9l3COK6b8ajpOv5WQeNxU=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NK0jZkqrcgpUG7YnD46k4rgpZjVOfXUiniZMq56H0GIpSuoag+Nl9zqdT4/HJ8CYG
-	 tINOKfKSV7DsqAmvJ+MQBr3kV+ApZHW21qYIOJCi84+mXVtJbJ0Hcw1bOvJCty+xBY
-	 Bx7fqN6BrC/A6krHNYy2y0J7dqPvDVGgy8TNrPkA=
+	b=ebDxzs/A/dyH+JHKUMb/fjjrzmkDceSN+djNrgLOfbi7LZp+HP8GBEpTyL6xuhvHt
+	 PMJAnlZXIUhqOafv0tzMkaPSOSZVN97GvyF8+ptimB0R8rL0qeEVwtmZLSZiS1vj0U
+	 nj8yNyAL4fsQj4rQzWSnF0SAvuRjeS+BBArpw4j8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6E28FF800E2;
-	Wed,  5 Feb 2020 18:08:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C8C2F800E2;
+	Wed,  5 Feb 2020 20:15:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6E268F80148; Wed,  5 Feb 2020 18:08:41 +0100 (CET)
+ id 9207EF80148; Wed,  5 Feb 2020 20:15:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
- [209.85.221.66])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CC72DF800E2
- for <alsa-devel@alsa-project.org>; Wed,  5 Feb 2020 18:08:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC72DF800E2
-Received: by mail-wr1-f66.google.com with SMTP id z9so3639008wrs.10
- for <alsa-devel@alsa-project.org>; Wed, 05 Feb 2020 09:08:35 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A8116F80051
+ for <alsa-devel@alsa-project.org>; Wed,  5 Feb 2020 20:15:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8116F80051
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org
+ header.b="UPgujWka"
+Received: by mail-pl1-x642.google.com with SMTP id y8so1255079pll.13
+ for <alsa-devel@alsa-project.org>; Wed, 05 Feb 2020 11:15:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chromium.org; s=google;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=/Au7vyzp7l2LzZghmAjt7fLaBwN+1gtH+DoV5Fi0iNs=;
+ b=UPgujWkaUyq4Fm2bZm8MTevViA78PsBnVMJ846OvkIxXtx11SQcVqrHnDP9xn8xzqk
+ AwZ6C9psjdQhnF21RL15+d/RXPMvQm+s0DFdbFPopibDyysyg5tya+HZWfbfWMTenljB
+ OP9PLi4qjb+OWavPkCmeUfE+c9hPXD46Y9B8g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=wVyS98mSn4UeFr2rUO9PasOfBrlg4kFydqotmUAfD/w=;
- b=rtr6KDm9FigFE16jg5AE0O6vOsBFmqBXqpMxkRNctH+gR3iM7uV1Jo/6g8RMcSB4Ja
- woHvtTkd3PWbXRYEk/CUzLoeLA1NfhOhOzP34v0G4JzH4FbuxHruFF5vOGD4UU1zCgOK
- YRV+n/ikoeTGQWay0wyH6ew408bImCtcDxC/yJYXht3v2QUWx+SogY09fzeVQBGOfusU
- KZYknQ/KmS+BYBlv/VEAsclSMqWU48wjdAgkz4KHjxVPgMYnclmbfi9PuuyXDdYeubuZ
- mUMTo8zumjbDdrSHwGG01D+HskcgWll0E3ewqQbKSbvjvucF57RhfypK+zr255F4XSpq
- 4C2A==
-X-Gm-Message-State: APjAAAXj+VBEgzgjgpg5SINXVS9WHdE041hq13rpOAC+AhHyFTZ7wCCF
- qqczhUCrywK9mdB2Qtx/SQ==
-X-Google-Smtp-Source: APXvYqwaQiQMAa8h+Izmp9nvuziS6m0uiZRyCGM1+IZ+qyjy4io1DJ/1o+lCJNm/dF9gYXsu8JczlA==
-X-Received: by 2002:adf:ecd0:: with SMTP id s16mr28949693wro.325.1580922514565; 
- Wed, 05 Feb 2020 09:08:34 -0800 (PST)
-Received: from rob-hp-laptop ([212.187.182.166])
- by smtp.gmail.com with ESMTPSA id q1sm561081wrw.5.2020.02.05.09.08.33
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=/Au7vyzp7l2LzZghmAjt7fLaBwN+1gtH+DoV5Fi0iNs=;
+ b=a0tzUcAtDUCWVvXeeegCQJpYXjWs5GfUYONL4WIiYGeP1aXTuDiKVkt6RZm7f2vX9t
+ wrFYGV+EZloaxvqKjAWbFu8W9EYPf54NVhm2OCX28j2W7jPOhyXhM+nvf1mssbu9dHtG
+ xf4u+t8j4gKcYroZpfqbuCBCx+7va5bf1ikcqaYD8srcs1/AomR6kP/zSo8GygaC6q3f
+ SYjPtj2AOHGelYs2sH50Gb3bgZFo1yas7AkYRj+aRwodsLheMBF3kN+neyXmy57fSY7h
+ uaP8OxS+5yOcp+7xOrePDIp5elmp/xjCp4deaHXrWtyTXNTQD8qxTwsFwnGBtKN+Gtcr
+ /zWA==
+X-Gm-Message-State: APjAAAWbO1CvHDjvl8bezAjYIq83RhYRcNyB/kj/8mW/xwIRUw95ryll
+ PXl7h5VXjKQyeblMiaaksRjDyA==
+X-Google-Smtp-Source: APXvYqzsjFJdUq2dQRQEBZgCnMW+01KFo+QQdIKRxFr72pSEntwurTGr8lW0FWH4D1quKkcvS6AfVQ==
+X-Received: by 2002:a17:90b:4004:: with SMTP id
+ ie4mr7299409pjb.49.1580930101392; 
+ Wed, 05 Feb 2020 11:15:01 -0800 (PST)
+Received: from pmalani2.mtv.corp.google.com
+ ([2620:15c:202:201:172e:4646:c089:ce59])
+ by smtp.gmail.com with ESMTPSA id u23sm257224pfm.29.2020.02.05.11.15.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Feb 2020 09:08:33 -0800 (PST)
-Received: (nullmailer pid 27473 invoked by uid 1000);
- Wed, 05 Feb 2020 17:08:32 -0000
-Date: Wed, 5 Feb 2020 17:08:32 +0000
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-Message-ID: <20200205170832.GA19383@bogus>
-References: <20200127125420.29827-1-olivier.moysan@st.com>
+ Wed, 05 Feb 2020 11:15:00 -0800 (PST)
+From: Prashant Malani <pmalani@chromium.org>
+To: linux-kernel@vger.kernel.org
+Date: Wed,  5 Feb 2020 11:00:16 -0800
+Message-Id: <20200205190028.183069-12-pmalani@chromium.org>
+X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
+In-Reply-To: <20200205190028.183069-1-pmalani@chromium.org>
+References: <20200205190028.183069-1-pmalani@chromium.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200127125420.29827-1-olivier.moysan@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, alexandre.torgue@st.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- broonie@kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: dt-bindings: stm32: convert i2s to
-	json-schema
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Guenter Roeck <groeck@chromium.org>,
+ Mark Brown <broonie@kernel.org>, Prashant Malani <pmalani@chromium.org>,
+ Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ Benson Leung <bleung@chromium.org>, Cheng-Yi Chiang <cychiang@chromium.org>
+Subject: [alsa-devel] [PATCH v2 11/17] ASoC: cros_ec_codec: Use cros_ec_cmd()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,197 +104,277 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Jan 27, 2020 at 01:54:20PM +0100, Olivier Moysan wrote:
-> Convert the STM32 I2S bindings to DT schema format using json-schema.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-> ---
-> The items for dma-names and clock-names properties are all
-> mandatory, but may be provided in any order.
-> The syntax used for these properties allows to avoid order constraint.
+Replace send_ec_host_command() with cros_ec_cmd() which does the same
+thing, but is defined in a common location in platform/chrome and
+exposed for other modules to use. This allows us to remove
+send_ec_host_command() entirely.
 
-Other than having .dts files with differing order, I don't see any 
-reason we need to allow any order here. So decide which order is most 
-prevalent and use that, and then fix the other dts files.
+Signed-off-by: Prashant Malani <pmalani@chromium.org>
+---
 
-> ---
->  .../bindings/sound/st,stm32-i2s.txt           | 62 -------------
->  .../bindings/sound/st,stm32-i2s.yaml          | 91 +++++++++++++++++++
->  2 files changed, 91 insertions(+), 62 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt b/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-> deleted file mode 100644
-> index cbf24bcd1b8d..000000000000
-> --- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
-> +++ /dev/null
-> @@ -1,62 +0,0 @@
-> -STMicroelectronics STM32 SPI/I2S Controller
-> -
-> -The SPI/I2S block supports I2S/PCM protocols when configured on I2S mode.
-> -Only some SPI instances support I2S.
-> -
-> -Required properties:
-> -  - compatible: Must be "st,stm32h7-i2s"
-> -  - reg: Offset and length of the device's register set.
-> -  - interrupts: Must contain the interrupt line id.
-> -  - clocks: Must contain phandle and clock specifier pairs for each entry
-> -	in clock-names.
-> -  - clock-names: Must contain "i2sclk", "pclk", "x8k" and "x11k".
-> -	"i2sclk": clock which feeds the internal clock generator
-> -	"pclk": clock which feeds the peripheral bus interface
-> -	"x8k": I2S parent clock for sampling rates multiple of 8kHz.
-> -	"x11k": I2S parent clock for sampling rates multiple of 11.025kHz.
-> -  - dmas: DMA specifiers for tx and rx dma.
-> -    See Documentation/devicetree/bindings/dma/stm32-dma.txt.
-> -  - dma-names: Identifier for each DMA request line. Must be "tx" and "rx".
-> -  - pinctrl-names: should contain only value "default"
-> -  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
-> -
-> -Optional properties:
-> -  - resets: Reference to a reset controller asserting the reset controller
-> -
-> -The device node should contain one 'port' child node with one child 'endpoint'
-> -node, according to the bindings defined in Documentation/devicetree/bindings/
-> -graph.txt.
-> -
-> -Example:
-> -sound_card {
-> -	compatible = "audio-graph-card";
-> -	dais = <&i2s2_port>;
-> -};
-> -
-> -i2s2: audio-controller@40003800 {
-> -	compatible = "st,stm32h7-i2s";
-> -	reg = <0x40003800 0x400>;
-> -	interrupts = <36>;
-> -	clocks = <&rcc PCLK1>, <&rcc SPI2_CK>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
-> -	clock-names = "pclk", "i2sclk",  "x8k", "x11k";
-> -	dmas = <&dmamux2 2 39 0x400 0x1>,
-> -           <&dmamux2 3 40 0x400 0x1>;
-> -	dma-names = "rx", "tx";
-> -	pinctrl-names = "default";
-> -	pinctrl-0 = <&pinctrl_i2s2>;
-> -
-> -	i2s2_port: port@0 {
-> -		cpu_endpoint: endpoint {
-> -			remote-endpoint = <&codec_endpoint>;
-> -			format = "i2s";
-> -		};
-> -	};
-> -};
-> -
-> -audio-codec {
-> -	codec_port: port@0 {
-> -		codec_endpoint: endpoint {
-> -			remote-endpoint = <&cpu_endpoint>;
-> -		};
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
-> new file mode 100644
-> index 000000000000..cdfb375c7a14
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
-> @@ -0,0 +1,91 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/st,stm32-i2s.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32 SPI/I2S Controller
-> +
-> +maintainers:
-> +  - Olivier Moysan <olivier.moysan@st.com>
-> +
-> +description:
-> +  The SPI/I2S block supports I2S/PCM protocols when configured on I2S mode.
-> +  Only some SPI instances support I2S.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32h7-i2s
-> +
-> +  "#sound-dai-cells":
-> +    const: 0
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: clock feeding the peripheral bus interface.
-> +      - description: clock feeding the internal clock generator.
-> +      - description: I2S parent clock for sampling rates multiple of 8kHz.
-> +      - description: I2S parent clock for sampling rates multiple of 11.025kHz.
-> +
-> +  clock-names:
-> +    items:
-> +      - enum: [ pclk, i2sclk, x8k, x11k ]
-> +      - enum: [ pclk, i2sclk, x8k, x11k ]
-> +      - enum: [ pclk, i2sclk, x8k, x11k ]
-> +      - enum: [ pclk, i2sclk, x8k, x11k ]
-> +    allOf:
-> +      - $ref: /schemas/types.yaml#/definitions/string-array
+Changes in v2:
+- Updated to use new function name and parameter list.
 
-*-names already has a type, so this is not needed.
+ sound/soc/codecs/cros_ec_codec.c | 119 +++++++++++--------------------
+ 1 file changed, 42 insertions(+), 77 deletions(-)
 
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  dmas:
-> +    items:
-> +      - description: audio capture DMA.
-> +      - description: audio playback DMA.
-> +
-> +  dma-names:
-> +    items:
-> +      - enum: [ rx, tx ]
-> +      - enum: [ rx, tx ]
-> +    allOf:
-> +      - $ref: /schemas/types.yaml#/definitions/string-array
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - "#sound-dai-cells"
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - dmas
-> +  - dma-names
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    i2s2: audio-controller@4000b000 {
-> +        compatible = "st,stm32h7-i2s";
-> +        #sound-dai-cells = <0>;
-> +        reg = <0x4000b000 0x400>;
-> +        clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
-> +        clock-names = "pclk", "i2sclk", "x8k", "x11k";
-> +        interrupts = <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
-> +        dmas = <&dmamux1 39 0x400 0x01>,
-> +               <&dmamux1 40 0x400 0x01>;
-> +        dma-names = "rx", "tx";
-> +        pinctrl-names = "default";
-> +        pinctrl-0 = <&i2s2_pins_a>;
-> +    };
-> +
-> +...
-> -- 
-> 2.17.1
-> 
+diff --git a/sound/soc/codecs/cros_ec_codec.c b/sound/soc/codecs/cros_ec_codec.c
+index 6a24f570c5e86f..8516ba5f7624f8 100644
+--- a/sound/soc/codecs/cros_ec_codec.c
++++ b/sound/soc/codecs/cros_ec_codec.c
+@@ -69,38 +69,6 @@ static int ec_codec_capable(struct cros_ec_codec_priv *priv, uint8_t cap)
+ 	return priv->ec_capabilities & BIT(cap);
+ }
+ 
+-static int send_ec_host_command(struct cros_ec_device *ec_dev, uint32_t cmd,
+-				uint8_t *out, size_t outsize,
+-				uint8_t *in, size_t insize)
+-{
+-	int ret;
+-	struct cros_ec_command *msg;
+-
+-	msg = kmalloc(sizeof(*msg) + max(outsize, insize), GFP_KERNEL);
+-	if (!msg)
+-		return -ENOMEM;
+-
+-	msg->version = 0;
+-	msg->command = cmd;
+-	msg->outsize = outsize;
+-	msg->insize = insize;
+-
+-	if (outsize)
+-		memcpy(msg->data, out, outsize);
+-
+-	ret = cros_ec_cmd_xfer_status(ec_dev, msg);
+-	if (ret < 0)
+-		goto error;
+-
+-	if (insize)
+-		memcpy(in, msg->data, insize);
+-
+-	ret = 0;
+-error:
+-	kfree(msg);
+-	return ret;
+-}
+-
+ static int calculate_sha256(struct cros_ec_codec_priv *priv,
+ 			    uint8_t *buf, uint32_t size, uint8_t *digest)
+ {
+@@ -149,18 +117,18 @@ static int dmic_get_gain(struct snd_kcontrol *kcontrol,
+ 
+ 	p.cmd = EC_CODEC_DMIC_GET_GAIN_IDX;
+ 	p.get_gain_idx_param.channel = EC_CODEC_DMIC_CHANNEL_0;
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_DMIC,
+-				   (uint8_t *)&p, sizeof(p),
+-				   (uint8_t *)&r, sizeof(r));
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_DMIC,
++			  (uint8_t *)&p, sizeof(p), (uint8_t *)&r, sizeof(r),
++			  NULL);
+ 	if (ret < 0)
+ 		return ret;
+ 	ucontrol->value.integer.value[0] = r.gain;
+ 
+ 	p.cmd = EC_CODEC_DMIC_GET_GAIN_IDX;
+ 	p.get_gain_idx_param.channel = EC_CODEC_DMIC_CHANNEL_1;
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_DMIC,
+-				   (uint8_t *)&p, sizeof(p),
+-				   (uint8_t *)&r, sizeof(r));
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_DMIC,
++			  (uint8_t *)&p, sizeof(p), (uint8_t *)&r, sizeof(r),
++			  NULL);
+ 	if (ret < 0)
+ 		return ret;
+ 	ucontrol->value.integer.value[1] = r.gain;
+@@ -191,16 +159,16 @@ static int dmic_put_gain(struct snd_kcontrol *kcontrol,
+ 	p.cmd = EC_CODEC_DMIC_SET_GAIN_IDX;
+ 	p.set_gain_idx_param.channel = EC_CODEC_DMIC_CHANNEL_0;
+ 	p.set_gain_idx_param.gain = left;
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_DMIC,
+-				   (uint8_t *)&p, sizeof(p), NULL, 0);
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_DMIC,
++			  (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ 	if (ret < 0)
+ 		return ret;
+ 
+ 	p.cmd = EC_CODEC_DMIC_SET_GAIN_IDX;
+ 	p.set_gain_idx_param.channel = EC_CODEC_DMIC_CHANNEL_1;
+ 	p.set_gain_idx_param.gain = right;
+-	return send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_DMIC,
+-				    (uint8_t *)&p, sizeof(p), NULL, 0);
++	return cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_DMIC,
++			   (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ }
+ 
+ static const DECLARE_TLV_DB_SCALE(dmic_gain_tlv, 0, 100, 0);
+@@ -231,9 +199,9 @@ static int dmic_probe(struct snd_soc_component *component)
+ 
+ 	p.cmd = EC_CODEC_DMIC_GET_MAX_GAIN;
+ 
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_DMIC,
+-				   (uint8_t *)&p, sizeof(p),
+-				   (uint8_t *)&r, sizeof(r));
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_DMIC,
++			  (uint8_t *)&p, sizeof(p), (uint8_t *)&r, sizeof(r),
++			  NULL);
+ 	if (ret < 0) {
+ 		dev_warn(dev, "get_max_gain() unsupported\n");
+ 		return 0;
+@@ -279,8 +247,8 @@ static int i2s_rx_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	p.cmd = EC_CODEC_I2S_RX_SET_SAMPLE_DEPTH;
+ 	p.set_sample_depth_param.depth = depth;
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
+-				   (uint8_t *)&p, sizeof(p), NULL, 0);
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_I2S_RX,
++			  (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -289,8 +257,8 @@ static int i2s_rx_hw_params(struct snd_pcm_substream *substream,
+ 
+ 	p.cmd = EC_CODEC_I2S_RX_SET_BCLK;
+ 	p.set_bclk_param.bclk = snd_soc_params_to_bclk(params);
+-	return send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
+-				    (uint8_t *)&p, sizeof(p), NULL, 0);
++	return cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_I2S_RX,
++			   (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ }
+ 
+ static int i2s_rx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+@@ -333,8 +301,8 @@ static int i2s_rx_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 
+ 	p.cmd = EC_CODEC_I2S_RX_SET_DAIFMT;
+ 	p.set_daifmt_param.daifmt = daifmt;
+-	return send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
+-				    (uint8_t *)&p, sizeof(p), NULL, 0);
++	return cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_I2S_RX,
++			   (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ }
+ 
+ static const struct snd_soc_dai_ops i2s_rx_dai_ops = {
+@@ -364,8 +332,8 @@ static int i2s_rx_event(struct snd_soc_dapm_widget *w,
+ 		return 0;
+ 	}
+ 
+-	return send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_I2S_RX,
+-				    (uint8_t *)&p, sizeof(p), NULL, 0);
++	return cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_I2S_RX,
++			   (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ }
+ 
+ static struct snd_soc_dapm_widget i2s_rx_dapm_widgets[] = {
+@@ -415,9 +383,8 @@ static void *wov_map_shm(struct cros_ec_codec_priv *priv,
+ 
+ 	p.cmd = EC_CODEC_GET_SHM_ADDR;
+ 	p.get_shm_addr_param.shm_id = shm_id;
+-	if (send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC,
+-				 (uint8_t *)&p, sizeof(p),
+-				 (uint8_t *)&r, sizeof(r)) < 0) {
++	if (cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC, (uint8_t *)&p,
++			sizeof(p), (uint8_t *)&r, sizeof(r), NULL) < 0) {
+ 		dev_err(priv->dev, "failed to EC_CODEC_GET_SHM_ADDR\n");
+ 		return NULL;
+ 	}
+@@ -453,9 +420,8 @@ static void *wov_map_shm(struct cros_ec_codec_priv *priv,
+ 		p.set_shm_addr_param.phys_addr = priv->ap_shm_last_alloc;
+ 		p.set_shm_addr_param.len = req;
+ 		p.set_shm_addr_param.shm_id = shm_id;
+-		if (send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC,
+-					 (uint8_t *)&p, sizeof(p),
+-					 NULL, 0) < 0) {
++		if (cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC,
++				(uint8_t *)&p, sizeof(p), NULL, 0, NULL) < 0) {
+ 			dev_err(priv->dev, "failed to EC_CODEC_SET_SHM_ADDR\n");
+ 			return NULL;
+ 		}
+@@ -571,9 +537,9 @@ static int wov_read_audio_shm(struct cros_ec_codec_priv *priv)
+ 	int ret;
+ 
+ 	p.cmd = EC_CODEC_WOV_READ_AUDIO_SHM;
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
+-				   (uint8_t *)&p, sizeof(p),
+-				   (uint8_t *)&r, sizeof(r));
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_WOV,
++			  (uint8_t *)&p, sizeof(p), (uint8_t *)&r, sizeof(r),
++			  NULL);
+ 	if (ret) {
+ 		dev_err(priv->dev, "failed to EC_CODEC_WOV_READ_AUDIO_SHM\n");
+ 		return ret;
+@@ -596,9 +562,9 @@ static int wov_read_audio(struct cros_ec_codec_priv *priv)
+ 
+ 	while (remain >= 0) {
+ 		p.cmd = EC_CODEC_WOV_READ_AUDIO;
+-		ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
+-					   (uint8_t *)&p, sizeof(p),
+-					   (uint8_t *)&r, sizeof(r));
++		ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_WOV,
++				  (uint8_t *)&p, sizeof(p), (uint8_t *)&r,
++				  sizeof(r), NULL);
+ 		if (ret) {
+ 			dev_err(priv->dev,
+ 				"failed to EC_CODEC_WOV_READ_AUDIO\n");
+@@ -669,8 +635,8 @@ static int wov_enable_put(struct snd_kcontrol *kcontrol,
+ 		else
+ 			p.cmd = EC_CODEC_WOV_DISABLE;
+ 
+-		ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
+-					   (uint8_t *)&p, sizeof(p), NULL, 0);
++		ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_WOV,
++				  (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ 		if (ret) {
+ 			dev_err(priv->dev, "failed to %s wov\n",
+ 				enabled ? "enable" : "disable");
+@@ -716,8 +682,8 @@ static int wov_set_lang_shm(struct cros_ec_codec_priv *priv,
+ 	p.cmd = EC_CODEC_WOV_SET_LANG_SHM;
+ 	memcpy(pp->hash, digest, SHA256_DIGEST_SIZE);
+ 	pp->total_len = size;
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
+-				   (uint8_t *)&p, sizeof(p), NULL, 0);
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_WOV,
++			  (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ 	if (ret) {
+ 		dev_err(priv->dev, "failed to EC_CODEC_WOV_SET_LANG_SHM\n");
+ 		return ret;
+@@ -743,8 +709,8 @@ static int wov_set_lang(struct cros_ec_codec_priv *priv,
+ 		pp->offset = i;
+ 		memcpy(pp->buf, buf + i, req);
+ 		pp->len = req;
+-		ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
+-					   (uint8_t *)&p, sizeof(p), NULL, 0);
++		ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_WOV,
++				  (uint8_t *)&p, sizeof(p), NULL, 0, NULL);
+ 		if (ret) {
+ 			dev_err(priv->dev, "failed to EC_CODEC_WOV_SET_LANG\n");
+ 			return ret;
+@@ -782,9 +748,9 @@ static int wov_hotword_model_put(struct snd_kcontrol *kcontrol,
+ 		goto leave;
+ 
+ 	p.cmd = EC_CODEC_WOV_GET_LANG;
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC_WOV,
+-				   (uint8_t *)&p, sizeof(p),
+-				   (uint8_t *)&r, sizeof(r));
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC_WOV,
++			  (uint8_t *)&p, sizeof(p), (uint8_t *)&r, sizeof(r),
++			  NULL);
+ 	if (ret)
+ 		goto leave;
+ 
+@@ -1020,9 +986,8 @@ static int cros_ec_codec_platform_probe(struct platform_device *pdev)
+ 	atomic_set(&priv->dmic_probed, 0);
+ 
+ 	p.cmd = EC_CODEC_GET_CAPABILITIES;
+-	ret = send_ec_host_command(priv->ec_device, EC_CMD_EC_CODEC,
+-				   (uint8_t *)&p, sizeof(p),
+-				   (uint8_t *)&r, sizeof(r));
++	ret = cros_ec_cmd(priv->ec_device, 0, EC_CMD_EC_CODEC, (uint8_t *)&p,
++			  sizeof(p), (uint8_t *)&r, sizeof(r), NULL);
+ 	if (ret) {
+ 		dev_err(dev, "failed to EC_CODEC_GET_CAPABILITIES\n");
+ 		return ret;
+-- 
+2.25.0.341.g760bfbb309-goog
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

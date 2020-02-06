@@ -2,104 +2,83 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4047D153CCC
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 02:55:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20023153D87
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 04:20:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B30E5168A;
-	Thu,  6 Feb 2020 02:54:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B30E5168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6D2E3168A;
+	Thu,  6 Feb 2020 04:19:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6D2E3168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580954124;
-	bh=WoSHsQrlHm+zATOtEaada/jY3CdyoR7HevnL9iDZu1A=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=JCtPA2ccq03B99gyPOg4T+02sWCk2mZOV6I3Ng7D1ZlWq3Uk4lMqccbXlpypL5y88
-	 1ZXcKgm7bU4ppDvT+hTKfLi32qsRq/N5mBuM4wTjj2n5JTCjhkP0Gea0mhlzUAM46R
-	 8zxJeETdA/oezSi0/xZxDSA/8U8KDK0cv4mgXF4k=
+	s=default; t=1580959200;
+	bh=ukBqRbJiT3XXkH6PjOmlG9340cwkDNC9bs+jE15hoAc=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=UXYbIl6s9CxNd5tVnKpbsEUAaIHwH/Hh/s2lZav9bji8scUEUNbBxfxLHlqH7Z+7r
+	 xvwXXgXTbNOFmDM8ZWlRxGFgYacDdzYsgCtvC8IP7ubh4/y61Bfpx2TzTjMDbgRNaD
+	 SvlI+BLJ6KB8H6ZEsEXOJ5kW+WK1mH5I0raP1EfU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E0BA3F800AB;
-	Thu,  6 Feb 2020 02:53:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6B7A2F800AB;
+	Thu,  6 Feb 2020 04:18:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AB043F80148; Thu,  6 Feb 2020 02:53:41 +0100 (CET)
+ id 593A3F80162; Thu,  6 Feb 2020 04:18:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+Received: from mail-pj1-x1049.google.com (mail-pj1-x1049.google.com
+ [IPv6:2607:f8b0:4864:20::1049])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4FFC6F800AB
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 02:53:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4FFC6F800AB
+ by alsa1.perex.cz (Postfix) with ESMTPS id 18A35F800AB
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 04:18:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 18A35F800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="zuysHgoU"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="VPfNvOkQ"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 723A46AC;
- Wed,  5 Feb 2020 20:53:33 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Wed, 05 Feb 2020 20:53:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=l52a7o/q04E9vt6OS0mC2Mkt7Rz
- Yy8rgKQ+XLSVZc9Y=; b=zuysHgoUck4QIanag10F6I1O/3qTfl3ryREH0nvdTiK
- HLEHxECMQfBpQIFlK9NYgW63NbRLZ+yVKJIP7GMQDPQPqVZIRbG5sOqHOJdZbQzu
- WIdfHjvzrkbZYF5yIy0w4I1BuLJboRqnZLzM5BpTf9s4igm7eQnvqhxK4lRC1qkx
- eBkJpJMPKoGIBDMD9uIWoQ/HrNJYOnksQUf6yrG8/CoKdvHWZuMWo2wflKzYlYHw
- Mc43KSxuBCWdYM+/JyjQ0eCHpluGWdqLdy0khoz8vteuxBuKu4EEiijTtz5fYF5X
- wOnbymfA6MFR31e2FFkmERnHX3wspgYDy+3F7UdHXBQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=l52a7o
- /q04E9vt6OS0mC2Mkt7RzYy8rgKQ+XLSVZc9Y=; b=VPfNvOkQZaAjQ1CZ/bw2Pj
- pbMExFs75gv1N7m2U8xZU+St6dj/2csZFQSbXHRGe5JUfxd9Adt2hl3iOMN6l1LM
- mpWR6bScL+GQDQ4Lw4g/SECR2/OWYUzlA2cW7YQeml0tF0sESNR4+M/7w7uWCxN9
- tfAd9zhEUpIvO0SSWBniBjHF3nRMqBt+cv+1Ly5++jRDTY9j21NiXVHjbeSwxbTX
- JFK1MlgHcdetUbwYc/Px2ZknW70sI6sliScQTXoTHP1N6q2GvU2/hwX9Yktspv3J
- EG4bWHdTbY+NTQGbUNZbvhUVObjXwvxW3GkcHRRjDEOJmHpJy6aiPzWgRPVW3h3Q
- ==
-X-ME-Sender: <xms:nHE7XlGBoJ7XQogzUTpdFpQVG8fnhz7bVdmQiFq2rxSKk0_WJbTYDg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrhedvgdegtdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujggfsehttdertddtredvnecuhfhrohhmpefvrghkrghs
- hhhiucfurghkrghmohhtohcuoehoqdhtrghkrghshhhisehsrghkrghmohgttghhihdrjh
- hpqeenucfkphepudegrdefrdejgedrudeikeenucevlhhushhtvghrufhiiigvpedtnecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpehoqdhtrghkrghshhhisehsrghkrghmohgttghhih
- drjhhp
-X-ME-Proxy: <xmx:nHE7XjoHkCTq5uf-mK0TWyN9pHuomHV6KySVYdIFN-kAHV2gHc7nnA>
- <xmx:nHE7XvKYGje9JUrq_UkSauErsN7OToGrhEDO8NEIdInnTv_l-_SXiQ>
- <xmx:nHE7Xkzq43r3To1wkCqu4-njJFzuKnWcqsXDB4_Ek8_GXOcz1tqkLw>
- <xmx:nXE7XstMKIq0xnMo3AR5aT3NkEeTOPZNAYaPfUNeNJhjkEuKIA091g>
-Received: from workstation (ae074168.dynamic.ppp.asahi-net.or.jp [14.3.74.168])
- by mail.messagingengine.com (Postfix) with ESMTPA id B8A1030606E9;
- Wed,  5 Feb 2020 20:53:31 -0500 (EST)
-Date: Thu, 6 Feb 2020 10:53:29 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Michael Forney <mforney@mforney.org>
-Message-ID: <20200206015328.GA5014@workstation>
-Mail-Followup-To: Michael Forney <mforney@mforney.org>,
- alsa-devel@alsa-project.org
-References: <20200205081221.18665-1-mforney@mforney.org>
- <20200205081221.18665-4-mforney@mforney.org>
- <20200205102553.GD9810@workstation>
- <CAGw6cBsYot=_AZRKkctate=CczPuy0kk10133c8-e3NhZXYE3Q@mail.gmail.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAGw6cBsYot=_AZRKkctate=CczPuy0kk10133c8-e3NhZXYE3Q@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] [PATCH alsa-utils 4/4] Avoid empty initializer list
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="kQipj1HO"
+Received: by mail-pj1-x1049.google.com with SMTP id x16so2423713pjq.7
+ for <alsa-devel@alsa-project.org>; Wed, 05 Feb 2020 19:18:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=uzNslwih52mut38yu2zPYARWSPgX7/Fj9tEkbUQiLCY=;
+ b=kQipj1HOw6H9RjfqtABkLQr6XZs45QySHOuXfNbVYLTKTbVR6lJvlWXrJJqmXEvNHv
+ 7KYy3ZYtw0T7EMWkG267WNwwf4j5dBwiBhQN/aWL6NT+/nrNvt+BqaLm69DMvYP1KeMz
+ 533QlILj02oeM4k42xqA5qS3IicNO2AP9Y6p0MiBG1SswCLxhpani/zASYBossTXapj7
+ xCOIY45RzAA3+a98PuK+kRfWpAFwI10l/MgT8hrB85mslJA+g8whCZVdw4+dXVcmGT90
+ G6nhcNyzFXY1D15PmKFR/A1K2wIyT/Vaz5RxYW4oxehV7MFgH2WlXGb26+pAoO8+LBRG
+ Lrtw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=uzNslwih52mut38yu2zPYARWSPgX7/Fj9tEkbUQiLCY=;
+ b=jUnusRh5yT5OsQcv0kyWnupt8HAqDL9QRwteNCWrMV0pROvoHq/fSnaDCX1w0R8QN5
+ cjxE09wDWZWyXzs4sB9Uw9G85LWbyMBeP0T7Fk8l/JfNdB4ciwYUYtEr1llVVuz3QESw
+ l0kMAAX8+jTu2vkDxkPBPKxzpWKb9r0wWzqT0vLCDojAgkWqZsqVbb0MPYbq/PR18v9C
+ +1hLG1j9kb0ch/0hEjSNOHy8wh/a5rqWI+gX4fb6ZMGXLEXjPFmY3PUH3UnNty7RHvIx
+ qoeTYV2lGtylbLxsu7ghbgGAwwYg5dPzV+uPdGZDgP/QMqxiuy7eT57N0jEi92x6mLoy
+ yh4A==
+X-Gm-Message-State: APjAAAWYl2r9vpsqaT1CdLaB/hJXf9tC3FbzbYFUBJ3JumZyiEripwbZ
+ TMJgn92Gy2Ef0oZvOlIvQNzbuxXuobKT
+X-Google-Smtp-Source: APXvYqxvANnV5oSf4Bvv4neQ0kGoZkwLa+xHXPicON44dm/8skMS0QJiNuOflobRRu27n/GdR45z8/gaqNb5
+X-Received: by 2002:a63:2bc3:: with SMTP id r186mr1296081pgr.294.1580959090963; 
+ Wed, 05 Feb 2020 19:18:10 -0800 (PST)
+Date: Thu,  6 Feb 2020 11:17:49 +0800
+Message-Id: <20200206031752.193298-1-tzungbi@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
+From: Tzung-Bi Shih <tzungbi@google.com>
+To: broonie@kernel.org, airlied@linux.ie, daniel@ffwll.ch
+Cc: alsa-devel@alsa-project.org, cychiang@google.com, tzungbi@google.com,
+ dri-devel@lists.freedesktop.org, ck.hu@mediatek.com,
+ linux-mediatek@lists.infradead.org, p.zabel@pengutronix.de,
+ matthias.bgg@gmail.com, dgreid@google.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH v2 0/3] ASoC: mediatek: mt8173-rt5650: HDMI
+	jack reporting
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,24 +96,31 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Feb 05, 2020 at 04:02:54PM -0800, Michael Forney wrote:
-> On 2020-02-05, Takashi Sakamoto <o-takashi@sakamocchi.jp> wrote:
-> > Good to me.
-> 
-> Thanks for reviewing.
-> 
-> > I think it better for you to generate cover-letter (--cover-letter
-> > option for git-send-email) when posting a batch of patches.
-> 
-> Sorry about that. I'll make sure to add a cover letter next time.
+The series supports HDMI jack reporting to mt8173-rt5650.
 
-Oops. It's an option for 'git-format-patch' command... I'd like to
-correct it, sorry.
+The 1st patch is less related.  It stops running in probe() if failed
+to register audio driver.
 
+The 2nd patch supports jack reporting in DRM driver.
 
-Regards
+The 3rd patch supports jack reporting in mt8173-rt5650 ASoC machine
+driver.
 
-Takashi Sakamoto
+Changes from v1:
+- refactor the 2nd patch to simplify the code
+
+Tzung-Bi Shih (3):
+  drm/mediatek: exit earlier if failed to register audio driver
+  drm/mediatek: support HDMI jack status reporting
+  ASoC: mediatek: mt8173-rt5650: support HDMI jack reporting
+
+ drivers/gpu/drm/mediatek/mtk_hdmi.c       | 45 ++++++++++++++++++++---
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c | 17 ++++++++-
+ 2 files changed, 55 insertions(+), 7 deletions(-)
+
+-- 
+2.25.0.341.g760bfbb309-goog
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

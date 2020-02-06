@@ -2,77 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8AA5154EBD
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 23:11:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E95FC154F5D
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Feb 2020 00:30:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6215416BC;
-	Thu,  6 Feb 2020 23:10:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6215416BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 67122169E;
+	Fri,  7 Feb 2020 00:29:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 67122169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581027085;
-	bh=S7JB72hBvPxW+Cb+Lp2yDu4A6RC/kHRurv4pA+eo8qg=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1581031834;
+	bh=cIcIWZpjgE4ZbnTl9HNVuGDjDh/aTYHqbm/9E+QHO+4=;
+	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=OtKKihO1/6gXXoRjjSJ1U1qQ4dUCDdPw+LIK/Wi1Jvine4sXIEpaU6VCfLdMeEqRd
-	 +IKFl/WB8fb4tmZ+MhS5bDcXkwtljCEsf4XghpB0Tw+fp3KgYsSdzlJpGclhH01p4q
-	 LzKOC3nJRN7BIn+jLY+nyJDjYoBPanOhoIZh5UKE=
+	b=GxsM6NXh/VVF8yk1ZBxnfy4HjHnkrqdG/GdWamfEhWLJYU5itpW14iSCqC9d4fg+B
+	 s//MPmYu+dpM33o7Cx+a0Tzpr2Fn2s62OZoeykqz/gcbUM6TWBYloM8Mg3etrdNU9T
+	 pOwZI4m/aqQPSyZAyYRdwEkYsTauyu34Rnr7wvaU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68345F801DB;
-	Thu,  6 Feb 2020 23:09:44 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 69554F800AB;
+	Fri,  7 Feb 2020 00:28:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A8D4CF80162; Thu,  6 Feb 2020 23:09:42 +0100 (CET)
+ id ABEFEF80162; Fri,  7 Feb 2020 00:28:49 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_PASS,SPF_PASS
+X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from puleglot.ru (puleglot.ru [IPv6:2a01:4f8:1c0c:58e8::2])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-x549.google.com (mail-pg1-x549.google.com
+ [IPv6:2607:f8b0:4864:20::549])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74DBFF80059
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 23:09:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74DBFF80059
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06718F800AB
+ for <alsa-devel@alsa-project.org>; Fri,  7 Feb 2020 00:28:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06718F800AB
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=tsoy.me header.i=@tsoy.me
- header.b="oG+KEv6z"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=tsoy.me;
- s=mymail; h=Sender:Content-Transfer-Encoding:MIME-Version:Content-Type:
- References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe
- :List-Post:List-Owner:List-Archive;
- bh=PQbZZ39LgUNR0a9tZdiP5+lkL/DRu/s25arrhlqes9U=; b=oG+KEv6zEXyE4GFCCEpqTKhNQg
- WafZWxhminAzbIbB9OfaGF8x2I1CxYnSr/BioyOKC2SALlT3sPucINTFKZ+0iAZpISt+3WHEnohZf
- hUShyiDufvbYFJ/tcRraSDyjIi7C2NuS4gQj3aDy+JSMxecJlTJVDO9Pq5hKsfA6nELo=;
-Received: from [2a00:1370:8125:a23e:55c9:2d3a:3db9:4bca] (helo=home)
- by puleglot.ru with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.92.3) (envelope-from <puleglot@puleglot.ru>)
- id 1izpL4-0000oS-AU; Fri, 07 Feb 2020 01:09:34 +0300
-Message-ID: <84ddb2438f13cc8c4a08aaffbca9faaec679c067.camel@tsoy.me>
-From: Alexander Tsoy <alexander@tsoy.me>
-To: Tobias <toszlanyi@yahoo.de>, "alsa-devel@alsa-project.org"
- <alsa-devel@alsa-project.org>
-Date: Fri, 07 Feb 2020 01:09:33 +0300
-In-Reply-To: <05edff76-729f-0ffa-9a2b-908fa42c24d8@yahoo.de>
-References: <9457db14-4084-c0dd-5c89-821b35c3db66.ref@yahoo.de>
- <9457db14-4084-c0dd-5c89-821b35c3db66@yahoo.de>
- <697208e751dcbcc70cf00af7b625a4109b9c66cb.camel@tsoy.me>
- <a0e87326-839d-76df-dfd1-6d571017fc27@yahoo.de>
- <6a0079e3343a6bc860b495d9258fada061bf83ba.camel@tsoy.me>
- <1697977016.25666627.1579681629054@mail.yahoo.com>
- <d9cdf599-6e53-29bc-e42f-a2a8acee85be@yahoo.de>
- <6cb1135be692d460256de2cf65b0a023eea1295e.camel@tsoy.me>
- <05edff76-729f-0ffa-9a2b-908fa42c24d8@yahoo.de>
-User-Agent: Evolution 3.32.5 
-MIME-Version: 1.0
-Cc: Takashi Iwai <tiwai@suse.de>
-Subject: Re: [alsa-devel] USB Audio Interface / Denon MC7000 and MC8000
- controller
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="ZcKoqhVq"
+Received: by mail-pg1-x549.google.com with SMTP id h21so333470pgl.19
+ for <alsa-devel@alsa-project.org>; Thu, 06 Feb 2020 15:28:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:in-reply-to:message-id:mime-version:references:subject:from:to
+ :cc; bh=PSJH9GYraFPbhcG+DGJnLRxMg/i8Sc5VCunvDN6ByYQ=;
+ b=ZcKoqhVqqTxaA7bcY8f1rBLOLO2Mlig83ZXxynCX61+JalVusJ5YJZuiZQPmpNMDhf
+ qxHbsKwEo+cMzNEoJ2u7H+ZwvQOiIb/udcQF70az20a4Bpk0w9WHnpSjajxQ5hB4ijfc
+ X2uSaNAiJrkMGCJ/uRZ2BkjsQ5dEpv2kyNN6CGK7P4MIPSBCZlgYMC/VePgg0c9jN7mv
+ cpF+JJblF4iEO00UI1S9tHbJ892XOaCfG8gmnOyhdAHFVtTDelqzIBWMwbmKYeFiKZbq
+ msmqODnP8qH3gI7v1zwWTLqqsZ5nJoQdPb6O76k76Qni2tEulHYLM68KfzR58nacD8dQ
+ BwLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:in-reply-to:message-id:mime-version
+ :references:subject:from:to:cc;
+ bh=PSJH9GYraFPbhcG+DGJnLRxMg/i8Sc5VCunvDN6ByYQ=;
+ b=GFFO7lyMv6GcPr9tZG6eAB2+/TptKrba9aQ7j7FMONRaM5e1Q1r4fFXvvr326Y5yil
+ Z7PRiSOz4warsTzFDi8rAkUgPmS63jeSYCtE4KvMoCLuoFUhM/qikwzBkF3poXCU0ZqW
+ XHnJzpmoBnCCha9g5Bb0kNRHAdk/3W4r5RYgP+HN0HcW19jgGbn/VojyPnDUZSuq69cC
+ s7aYf4Y4NOkYbsMLpJYeTJCiwaX620wQ/ghK2/7B1FU5OZvijQOgpF/L+QvSPxeySpV5
+ gf4xT6wtDQqSvW4G6nbUXm3i47/nXQre06VCLYXsEEbLyXLzw2P2yFjmVgDxzyBFsqVR
+ yiiw==
+X-Gm-Message-State: APjAAAVffDgQfaoHAkSFazMzWzpj1EWUFeulbiIHJIaEVWLDMUJsGRhK
+ fyImPTX1B9qBbo9BhN7URvmq6EGN1XHoNkwkbNU=
+X-Google-Smtp-Source: APXvYqxU+blpeLlP9bV/bbHLagRRMIGJxCkP2rCxNMXwLELINAyD+jYB2Eb4CHdzI3chcTfQARAPyBxdMqhPAZR0/KI=
+X-Received: by 2002:a63:ba03:: with SMTP id k3mr6733096pgf.52.1581031722616;
+ Thu, 06 Feb 2020 15:28:42 -0800 (PST)
+Date: Thu,  6 Feb 2020 15:28:40 -0800
+In-Reply-To: <20200206200345.175344-1-caij2003@gmail.com>
+Message-Id: <20200206232840.227705-1-ndesaulniers@google.com>
+Mime-Version: 1.0
+References: <20200206200345.175344-1-caij2003@gmail.com>
+X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
+From: Nick Desaulniers <ndesaulniers@google.com>
+To: caij2003@gmail.com
+Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com,
+ clang-built-linux@googlegroups.com, broonie@kernel.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: soc-core: fix an uninitialized use
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,135 +92,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-0JIg0KfRgiwgMDYvMDIvMjAyMCDQsiAxMTowNiArMDEwMCwgVG9iaWFzINC/0LjRiNC10YI6Cj4g
-VGhhbmsgeW91IHNvIG11Y2ggQWxleGFuZGVyIQo+IEkgdXNlZCBsYXRlc3QgS2VybmVsIGFuZCBw
-YXRjaGVkIGFzIHlvdSBzdWdnZXN0ZWQuIFRoZSBEZXZpY2UgaXMKPiB3b3JraW5nIAo+IG5vdyBn
-aXZpbmcgc291bmQgb24gYWxsIDQgY2hhbm5lbHMsIGV2ZW4gdGhvdWdoIGRtZXNnIHN0aWxsIHNo
-b3dzCj4gdGhlIAo+IGVycm9yIG1lc3NhZ2UgYXMgeW91IGNhbiBzZWUgaGVyZToKPiAKPiB1bmFt
-ZSAtYToKPiBMaW51eCB0b2JpYXMtVjEzMCA1LjUuMiAjMSBTTVAgVGh1IEZlYiA2IDA5OjQxOjU3
-IENFVCAyMDIwIHg4Nl82NAo+IHg4Nl82NCAKPiB4ODZfNjQgR05VL0xpbnV4Cj4gCj4gZG1lc2c6
-Cj4gWyAgIDYyLjkxODc3N10gdXNiIDEtMS4zOiBuZXcgaGlnaC1zcGVlZCBVU0IgZGV2aWNlIG51
-bWJlciA2IHVzaW5nCj4geGhjaV9oY2QKPiBbICAgNjIuOTM5MjkzXSB1c2IgMS0xLjM6IE5ldyBV
-U0IgZGV2aWNlIGZvdW5kLCBpZFZlbmRvcj0xNWU0LCAKPiBpZFByb2R1Y3Q9ODAwNCwgYmNkRGV2
-aWNlPTExLjEwCj4gWyAgIDYyLjkzOTI5NV0gdXNiIDEtMS4zOiBOZXcgVVNCIGRldmljZSBzdHJp
-bmdzOiBNZnI9MSwgUHJvZHVjdD0yLCAKPiBTZXJpYWxOdW1iZXI9Mwo+IFsgICA2Mi45MzkyOTdd
-IHVzYiAxLTEuMzogUHJvZHVjdDogREVOT04gREogTUM3MDAwCj4gWyAgIDYyLjkzOTI5OF0gdXNi
-IDEtMS4zOiBNYW51ZmFjdHVyZXI6IERFTk9OIERKCj4gWyAgIDYyLjkzOTI5OV0gdXNiIDEtMS4z
-OiBTZXJpYWxOdW1iZXI6IDIwMTYwMwo+IFsgICA2Mi45NDIyMzJdIHVzYiAxLTEuMzogY2xvY2sg
-c291cmNlIDY1IGlzIG5vdCB2YWxpZCwgY2Fubm90IHVzZQo+IFsgICA2Mi45NDM5OThdIHVzYiAx
-LTEuMzogY2xvY2sgc291cmNlIDY1IGlzIG5vdCB2YWxpZCwgY2Fubm90IHVzZQo+IFsgICA2My4w
-MTMzMDZdIHVzYiAxLTEuMzogY2xvY2sgc291cmNlIDY1IGlzIG5vdCB2YWxpZCwgY2Fubm90IHVz
-ZQo+IFsgICA2My4wMjg5MTJdIHVzYiAxLTEuMzogY2xvY2sgc291cmNlIDY1IGlzIG5vdCB2YWxp
-ZCwgY2Fubm90IHVzZQo+IFsgICA2My4wMjk2NzVdIHVzYiAxLTEuMzogY2xvY2sgc291cmNlIDY1
-IGlzIG5vdCB2YWxpZCwgY2Fubm90IHVzZQo+IFsgICA2My4wMzc4MTNdIHVzYiAxLTEuMzogY2xv
-Y2sgc291cmNlIDY1IGlzIG5vdCB2YWxpZCwgY2Fubm90IHVzZQo+IFsgICA2My4wNjM4NjVdIHVz
-YiAxLTEuMzogY2xvY2sgc291cmNlIDY1IGlzIG5vdCB2YWxpZCwgY2Fubm90IHVzZQoKWWVzLCB0
-aGlzIGlzIGV4cGVjdGVkLgoKPiAKPiBJIGNoZWNrZWQgaW4gZmlsZSAvc291bmQvdXNiL2Nsb2Nr
-LmMgdGhhdCB3aXRoaW4gZnVuY3Rpb25zCj4gCj4gc3RhdGljIGludCBfX3VhY19jbG9ja19maW5k
-X3NvdXJjZQo+IHN0YXRpYyBpbnQgX191YWMzX2Nsb2NrX2ZpbmRfc291cmNlCj4gCj4gdGhlcmUg
-aXMgYW5vdGhlciBjaGVjayB0aGF0IHBvc3NpYmx5IGdpdmVzIHRoZSB3YXJuaW5nLgo+IAo+IE1h
-eWJlIHRoZSB3YXJuaW5nICJjYW5ub3QgdXNlIiBzaG91bGQgbm90IGJlIGRpc3BsYXllZCB3aGVu
-IGEgRGVub24gCj4gQXVkaW8gZGV2aWNlIGlzIGF0dGFjaGVkIGFzIGl0IGlzIG1pc2xlYWRpbmcu
-CgpQbGVhc2UgdHJ5IHRoZSBwYXRjaCBiZWxvdy4gSSd2ZSBkcm9wcGVkIFVBQzMgc3VwcG9ydCBh
-bmQgY2hhbmdlZApfX3VhY19jbG9ja19maW5kX3NvdXJjZSgpIGFuZCBfX3VhYzNfY2xvY2tfZmlu
-ZF9zb3VyY2UoKSB0byBwcmludAplcnJvcnMgb25seSBpbiBkZWJ1ZyBtb2RlLCBhcyB3ZSBtYWtl
-IHRoZSBmaW5hbCBkZWNpc2lvbiBhYm91dCBjbG9jawp2YWxpZGl0eSBpbiBzZXRfc2FtcGxlX3Jh
-dGVfdjJ2MygpLgoKCkRlYXIgVGFrYXNoaSwgd2hhdCBkbyB5b3UgdGhpbmsgYWJvdXQgdGhpcyBh
-cHByb2FjaC4gSXMgaXQgYWNjZXB0YWJsZT8KCgpkaWZmIC0tZ2l0IGEvc291bmQvdXNiL2Nsb2Nr
-LmMgYi9zb3VuZC91c2IvY2xvY2suYwppbmRleCAwMThiMWVjYjU0MDQuLmU5NzhiNDZlZmM4NSAx
-MDA2NDQKLS0tIGEvc291bmQvdXNiL2Nsb2NrLmMKKysrIGIvc291bmQvdXNiL2Nsb2NrLmMKQEAg
-LTE5Nyw2ICsxOTcsMzIgQEAgc3RhdGljIGJvb2wgdWFjX2Nsb2NrX3NvdXJjZV9pc192YWxpZChz
-dHJ1Y3Qgc25kX3VzYl9hdWRpbyAqY2hpcCwKIAlyZXR1cm4gZGF0YSA/IHRydWUgOiAgZmFsc2U7
-CiB9CiAKKy8qCisgKiBBc3N1bWUgdGhlIGNsb2NrIGlzIHZhbGlkIGlmIGNsb2NrIHNvdXJjZSBz
-dXBwb3J0cyBvbmx5IG9uZSBzaW5nbGUgc2FtcGxlCisgKiByYXRlLCBpdHMgdHlwZSBpcyBub3Qg
-ZXh0ZXJuYWwgYW5kIGEgdGVybWluYWwgaXMgY29ubmVjdGVkIGRpcmVjdGx5IHRvIGl0CisgKiAo
-dGhlcmUgaXMgbm8gY2xvY2sgc2VsZWN0b3IpLiBUaGlzIGlzIG5lZWRlZCBmb3Igc29tZSBEZW5v
-biBESiBjb250cm9sbGVycywKKyAqIHRoYXQgYWx3YXlzIHJlcG9ydHMgdGhhdCBjbG9jayBpcyBp
-bnZhbGlkLgorICovCitzdGF0aWMgYm9vbCB1YWNfY2xvY2tfc291cmNlX2lzX3ZhbGlkX3F1aXJr
-KHN0cnVjdCBzbmRfdXNiX2F1ZGlvICpjaGlwLAorCQkJCQkgICAgc3RydWN0IGF1ZGlvZm9ybWF0
-ICpmbXQsCisJCQkJCSAgICBpbnQgY2xvY2spCit7CisJaWYgKGZtdC0+cHJvdG9jb2wgPT0gVUFD
-X1ZFUlNJT05fMikgeworCQlzdHJ1Y3QgdWFjX2Nsb2NrX3NvdXJjZV9kZXNjcmlwdG9yICpjc19k
-ZXNjID0KKwkJCXNuZF91c2JfZmluZF9jbG9ja19zb3VyY2UoY2hpcC0+Y3RybF9pbnRmLCBjbG9j
-ayk7CisKKwkJaWYgKCFjc19kZXNjKQorCQkJcmV0dXJuIGZhbHNlOworCisJCXJldHVybiAoZm10
-LT5ucl9yYXRlcyA9PSAxICYmCisJCQkoZm10LT5jbG9jayAmIDB4ZmYpID09IGNzX2Rlc2MtPmJD
-bG9ja0lEICYmCisJCQkoY3NfZGVzYy0+Ym1BdHRyaWJ1dGVzICYgMHgzKSAhPQorCQkJCVVBQ19D
-TE9DS19TT1VSQ0VfVFlQRV9FWFQpOworCX0KKworCXJldHVybiBmYWxzZTsKK30KKwogc3RhdGlj
-IGludCBfX3VhY19jbG9ja19maW5kX3NvdXJjZShzdHJ1Y3Qgc25kX3VzYl9hdWRpbyAqY2hpcCwg
-aW50IGVudGl0eV9pZCwKIAkJCQkgICB1bnNpZ25lZCBsb25nICp2aXNpdGVkLCBib29sIHZhbGlk
-YXRlKQogewpAQCAtMjE5LDcgKzI0NSw3IEBAIHN0YXRpYyBpbnQgX191YWNfY2xvY2tfZmluZF9z
-b3VyY2Uoc3RydWN0IHNuZF91c2JfYXVkaW8gKmNoaXAsIGludCBlbnRpdHlfaWQsCiAJCWVudGl0
-eV9pZCA9IHNvdXJjZS0+YkNsb2NrSUQ7CiAJCWlmICh2YWxpZGF0ZSAmJiAhdWFjX2Nsb2NrX3Nv
-dXJjZV9pc192YWxpZChjaGlwLCBVQUNfVkVSU0lPTl8yLAogCQkJCQkJCQllbnRpdHlfaWQpKSB7
-Ci0JCQl1c2JfYXVkaW9fZXJyKGNoaXAsCisJCQl1c2JfYXVkaW9fZGJnKGNoaXAsCiAJCQkJImNs
-b2NrIHNvdXJjZSAlZCBpcyBub3QgdmFsaWQsIGNhbm5vdCB1c2VcbiIsCiAJCQkJZW50aXR5X2lk
-KTsKIAkJCXJldHVybiAtRU5YSU87CkBAIC0zMDksNyArMzM1LDcgQEAgc3RhdGljIGludCBfX3Vh
-YzNfY2xvY2tfZmluZF9zb3VyY2Uoc3RydWN0IHNuZF91c2JfYXVkaW8gKmNoaXAsIGludCBlbnRp
-dHlfaWQsCiAJCWVudGl0eV9pZCA9IHNvdXJjZS0+YkNsb2NrSUQ7CiAJCWlmICh2YWxpZGF0ZSAm
-JiAhdWFjX2Nsb2NrX3NvdXJjZV9pc192YWxpZChjaGlwLCBVQUNfVkVSU0lPTl8zLAogCQkJCQkJ
-CQllbnRpdHlfaWQpKSB7Ci0JCQl1c2JfYXVkaW9fZXJyKGNoaXAsCisJCQl1c2JfYXVkaW9fZGJn
-KGNoaXAsCiAJCQkJImNsb2NrIHNvdXJjZSAlZCBpcyBub3QgdmFsaWQsIGNhbm5vdCB1c2VcbiIs
-CiAJCQkJZW50aXR5X2lkKTsKIAkJCXJldHVybiAtRU5YSU87CkBAIC01NzcsNyArNjAzLDExIEBA
-IHN0YXRpYyBpbnQgc2V0X3NhbXBsZV9yYXRlX3YydjMoc3RydWN0IHNuZF91c2JfYXVkaW8gKmNo
-aXAsIGludCBpZmFjZSwKIAogdmFsaWRhdGlvbjoKIAkvKiB2YWxpZGF0ZSBjbG9jayBhZnRlciBy
-YXRlIGNoYW5nZSAqLwotCWlmICghdWFjX2Nsb2NrX3NvdXJjZV9pc192YWxpZChjaGlwLCBmbXQt
-PnByb3RvY29sLCBjbG9jaykpCisJaWYgKCF1YWNfY2xvY2tfc291cmNlX2lzX3ZhbGlkKGNoaXAs
-IGZtdC0+cHJvdG9jb2wsIGNsb2NrKSAmJgorCSAgICAhdWFjX2Nsb2NrX3NvdXJjZV9pc192YWxp
-ZF9xdWlyayhjaGlwLCBmbXQsIGNsb2NrKSkKKwkJdXNiX2F1ZGlvX2VycihjaGlwLAorCQkJICAg
-ICAgImNsb2NrIHNvdXJjZSAlZCBpcyBub3QgdmFsaWQsIGNhbm5vdCB1c2VcbiIsCisJCQkgICAg
-ICBlbnRpdHlfaWQpOwogCQlyZXR1cm4gLUVOWElPOwogCXJldHVybiAwOwogfQoKCj4gCj4gVGhh
-bmtzIGEgbG90IGZvciB5b3VyIG5leHQgcGF0Y2ggdGhhdCBJIHdvdWxkIGxpa2UgdG8gdGVzdC4K
-PiBUb2JpYXMKPiAKPiAKPiAKPiBBbSAwNS4wMi4yMCB1bSAyMDowNyBzY2hyaWViIEFsZXhhbmRl
-ciBUc295Ogo+ID4g0JIg0J/QvSwgMDMvMDIvMjAyMCDQsiAxMToyMyArMDEwMCwgVG9iaWFzINC/
-0LjRiNC10YI6Cj4gPiA+IERlYXIgQWxleGFuZGVyIC0gdW5mb3J0dW5hdGVseSBJIGRpZCBob3Qg
-aGVhciBiYWNrIGZyb20geW91LiBJCj4gPiA+IGd1ZXNzCj4gPiA+IHRoaXMgbWF5IG5vdCBiZSB5
-b3VyIGhpZ2hlc3QgcHJpb3JpdHkgYnV0IHN0aWxsIC0gZG8geW91IGhhdmUgYW55Cj4gPiA+IG90
-aGVyCj4gPiA+IGlkZWEgdG8gbWFrZSB0aGUgTUM3MDAwIHNvdW5kIGRldmljZSB3b3JraW5nPyBU
-aGFua3MgYSBsb3QuCj4gPiBJIHRoaW5rIGl0IHNob3VsZCBiZSBzYWZlIHRvIGlnbm9yZSBjbG9j
-ayB2YWxpZGl0eSBjaGVjayByZXN1bHQgaWY6Cj4gPiAtIG9ubHkgb25lIHNpbmdsZSBzYW1wbGUg
-cmF0ZSBpcyBzdXBwb3J0ZWQ7Cj4gPiAtIHRoZSBjbG9jayBzb3VyY2UgaXMgaW50ZXJuYWwsCj4g
-PiAtIHRoZXJlIGlzIG5vIGNsb2NrIHNlbGVjdG9yLgo+ID4gCj4gPiBDb3VsZCB5b3UgdHJ5IHRo
-ZSBmb2xsb3dpbmcgcGF0Y2g/Cj4gPiAKPiA+IAo+ID4gZGlmZiAtLWdpdCBhL3NvdW5kL3VzYi9j
-bG9jay5jIGIvc291bmQvdXNiL2Nsb2NrLmMKPiA+IGluZGV4IDAxOGIxZWNiNTQwNC4uNjM2YzM0
-MGQ0ZjlmIDEwMDY0NAo+ID4gLS0tIGEvc291bmQvdXNiL2Nsb2NrLmMKPiA+ICsrKyBiL3NvdW5k
-L3VzYi9jbG9jay5jCj4gPiBAQCAtMTk3LDYgKzE5NywzOCBAQCBzdGF0aWMgYm9vbCB1YWNfY2xv
-Y2tfc291cmNlX2lzX3ZhbGlkKHN0cnVjdAo+ID4gc25kX3VzYl9hdWRpbyAqY2hpcCwKPiA+ICAg
-CXJldHVybiBkYXRhID8gdHJ1ZSA6ICBmYWxzZTsKPiA+ICAgfQo+ID4gICAKPiA+ICsvKgo+ID4g
-KyAqIEFzc3VtZSB0aGUgY2xvY2sgaXMgdmFsaWQgaWYgY2xvY2sgc291cmNlIHN1cHBvcnRzIG9u
-bHkgb25lCj4gPiBzaW5nbGUgc2FtcGxlCj4gPiArICogcmF0ZSwgaXRzIHR5cGUgaXMgbm90IGV4
-dGVybmFsIGFuZCB0aGVyZSBpcyBubyBjbG9jayBzZWxlY3Rvci4KPiA+IFRoaXMgaXMgbmVlZGVk
-Cj4gPiArICogZm9yIHNvbWUgRGVub24gREogY29udHJvbGxlcnMsIHRoYXQgYWx3YXlzIHJlcG9y
-dCB0aGF0IGNsb2NrIGlzCj4gPiBpbnZhbGlkLgo+ID4gKyAqLwo+ID4gK3N0YXRpYyBib29sIHVh
-Y19jbG9ja19zb3VyY2VfaXNfdmFsaWRfcXVpcmsoc3RydWN0IHNuZF91c2JfYXVkaW8KPiA+ICpj
-aGlwLAo+ID4gKwkJCQkJICAgIHN0cnVjdCBhdWRpb2Zvcm1hdCAqZm10LAo+ID4gKwkJCQkJICAg
-IGludCBjbG9jaykKPiA+ICt7Cj4gPiArCWlmIChmbXQtPnByb3RvY29sID09IFVBQ19WRVJTSU9O
-XzMpIHsKPiA+ICsJCXN0cnVjdCB1YWMzX2Nsb2NrX3NvdXJjZV9kZXNjcmlwdG9yICpjc19kZXNj
-ID0KPiA+ICsJCQlzbmRfdXNiX2ZpbmRfY2xvY2tfc291cmNlX3YzKGNoaXAtPmN0cmxfaW50ZiwK
-PiA+IGNsb2NrKTsKPiA+ICsKPiA+ICsJCWlmICghY3NfZGVzYykKPiA+ICsJCQlyZXR1cm4gZmFs
-c2U7Cj4gPiArCj4gPiArCQlyZXR1cm4gKGZtdC0+bnJfcmF0ZXMgPT0gMSAmJgo+ID4gKwkJCShm
-bXQtPmNsb2NrICYgMHhmZikgPT0gY3NfZGVzYy0+YkNsb2NrSUQgJiYKPiA+ICsJCQkoY3NfZGVz
-Yy0+Ym1BdHRyaWJ1dGVzICYgMHgxKSAhPQo+ID4gVUFDM19DTE9DS19TT1VSQ0VfVFlQRV9FWFQp
-Owo+ID4gKwl9IGVsc2UgeyAvKiBVQUNfVkVSU0lPTl8yICovCj4gPiArCQlzdHJ1Y3QgdWFjX2Ns
-b2NrX3NvdXJjZV9kZXNjcmlwdG9yICpjc19kZXNjID0KPiA+ICsJCQlzbmRfdXNiX2ZpbmRfY2xv
-Y2tfc291cmNlKGNoaXAtPmN0cmxfaW50ZiwKPiA+IGNsb2NrKTsKPiA+ICsKPiA+ICsJCWlmICgh
-Y3NfZGVzYykKPiA+ICsJCQlyZXR1cm4gZmFsc2U7Cj4gPiArCj4gPiArCQlyZXR1cm4gKGZtdC0+
-bnJfcmF0ZXMgPT0gMSAmJgo+ID4gKwkJCShmbXQtPmNsb2NrICYgMHhmZikgPT0gY3NfZGVzYy0+
-YkNsb2NrSUQgJiYKPiA+ICsJCQkoY3NfZGVzYy0+Ym1BdHRyaWJ1dGVzICYgMHgzKSAhPQo+ID4g
-VUFDX0NMT0NLX1NPVVJDRV9UWVBFX0VYVCk7Cj4gPiArCX0KPiA+ICt9Cj4gPiArCj4gPiAgIHN0
-YXRpYyBpbnQgX191YWNfY2xvY2tfZmluZF9zb3VyY2Uoc3RydWN0IHNuZF91c2JfYXVkaW8gKmNo
-aXAsCj4gPiBpbnQgZW50aXR5X2lkLAo+ID4gICAJCQkJICAgdW5zaWduZWQgbG9uZyAqdmlzaXRl
-ZCwgYm9vbAo+ID4gdmFsaWRhdGUpCj4gPiAgIHsKPiA+IEBAIC01NzcsNyArNjA5LDggQEAgc3Rh
-dGljIGludCBzZXRfc2FtcGxlX3JhdGVfdjJ2MyhzdHJ1Y3QKPiA+IHNuZF91c2JfYXVkaW8gKmNo
-aXAsIGludCBpZmFjZSwKPiA+ICAgCj4gPiAgIHZhbGlkYXRpb246Cj4gPiAgIAkvKiB2YWxpZGF0
-ZSBjbG9jayBhZnRlciByYXRlIGNoYW5nZSAqLwo+ID4gLQlpZiAoIXVhY19jbG9ja19zb3VyY2Vf
-aXNfdmFsaWQoY2hpcCwgZm10LT5wcm90b2NvbCwgY2xvY2spKQo+ID4gKwlpZiAoIXVhY19jbG9j
-a19zb3VyY2VfaXNfdmFsaWQoY2hpcCwgZm10LT5wcm90b2NvbCwgY2xvY2spICYmCj4gPiArCSAg
-ICAhdWFjX2Nsb2NrX3NvdXJjZV9pc192YWxpZF9xdWlyayhjaGlwLCBmbXQsIGNsb2NrKSkKPiA+
-ICAgCQlyZXR1cm4gLUVOWElPOwo+ID4gICAJcmV0dXJuIDA7Cj4gPiAgIH0KPiA+IAoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWls
-aW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNh
-LXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8vYWxzYS1kZXZlbAo=
+> Fixed the uninitialized use of a signed integer variable ret in
+> soc_probe_component when all its definitions are not executed. This
+> caused  -ftrivial-auto-var-init=pattern to initialize the variable to
+> repeated 0xAA (i.e. a negative value) and triggered the following code
+> unintentionally.
+
+> Signed-off-by: Jian Cai <caij2003@gmail.com>
+
+Hi Jian,
+I don't quite follow; it looks like `ret` is assigned to multiple times in
+`soc_probe_component`. Are one of the return values of one of the functions
+that are called then assigned to `ret` undefined? What control flow path leaves
+`ret` unitialized?
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

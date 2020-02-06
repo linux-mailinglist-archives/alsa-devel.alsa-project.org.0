@@ -2,54 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D2515494C
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 17:34:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF28D15497A
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 17:44:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B79916A6;
-	Thu,  6 Feb 2020 17:33:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B79916A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5DB0A16CA;
+	Thu,  6 Feb 2020 17:43:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DB0A16CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581006850;
-	bh=XkW5Rj0g4gHaxy5qDUZRE47TjhDgwKZsswran6hO/gI=;
-	h=From:To:Date:In-Reply-To:References:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=DNJ3d9teZLKR9gykbuVJuVq7kXhOKZMDnNwnWqn7MdSWrKdrN2PpQu74S6Wc0ZFAN
-	 0Mu3KgW9WnIQUZnf+JTxJgCaFs1cGrzgHzUbRhdcdORzWKL3LLB9kqCp/xLz5YgnJD
-	 wtog33iW/oUF+y/GeuR+HDRH1HQIf04Vie08gslc=
+	s=default; t=1581007447;
+	bh=SsE25Jcp9nTGqbMpb8u/uTvarPYICBZvRc+cZOhgINw=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=QB6672QWwHAg5tcecTyJvRTnaVTePcfuUIkk9+FReqrFQD7lbNrswG19ES3chOIIN
+	 LwP5CIa2kjrWLBSvdp7HucrRYYNaMy/0F//be72xxgUGAnSP0oyGC+aRT7lOVQwrCj
+	 y+Xr3lRDEUMA94OdfEzeKsZvVaiU+iz2fcjAes08=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BDEC2F80276;
-	Thu,  6 Feb 2020 17:32:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8FBCCF8028E;
+	Thu,  6 Feb 2020 17:40:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 06256F80277; Thu,  6 Feb 2020 17:32:01 +0100 (CET)
+ id CFEB2F80278; Thu,  6 Feb 2020 17:39:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0D01BF80162
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 17:31:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0D01BF80162
+ by alsa1.perex.cz (Postfix) with ESMTPS id D0440F80162
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 17:39:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0440F80162
 X-Virus-Scanned: by amavisd-new at test-mx.suse.de
 Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 32E13AFAA
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 16:31:53 +0000 (UTC)
+ by mx2.suse.de (Postfix) with ESMTP id E3F22AB92
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 16:39:46 +0000 (UTC)
 From: Takashi Iwai <tiwai@suse.de>
 To: alsa-devel@alsa-project.org
-Date: Thu,  6 Feb 2020 17:31:52 +0100
-Message-Id: <20200206163152.6073-4-tiwai@suse.de>
+Date: Thu,  6 Feb 2020 17:39:37 +0100
+Message-Id: <20200206163945.6797-1-tiwai@suse.de>
 X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20200206163152.6073-1-tiwai@suse.de>
-References: <20200206163152.6073-1-tiwai@suse.de>
-Subject: [alsa-devel] [PATCH 3/3] ALSA: emu8000: Fix the cast to __user
-	pointer
+Subject: [alsa-devel] [PATCH 0/8] ALSA: Another sparse warning fix round
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,38 +63,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fixes the sparse warnings.  The cast to __user pointer needs __force:
-  sound/isa/sb/emu8000_pcm.c:528:9: warning: cast removes address space '<asn:1>' of expression
+Hi,
 
-No functional changes, just sparse warning fixes.
+this is another pile of patches to fix sparse warnings, at this time,
+about the strong-types like snd_pcm_format_t.  The patch 2 introduces
+a new macro for the iteration loop and some other tasks so that the
+driver doesn't need to use ugly __force cast.
 
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/isa/sb/emu8000_pcm.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/isa/sb/emu8000_pcm.c b/sound/isa/sb/emu8000_pcm.c
-index e377ac93f37f..8e8257c574b0 100644
---- a/sound/isa/sb/emu8000_pcm.c
-+++ b/sound/isa/sb/emu8000_pcm.c
-@@ -435,7 +435,7 @@ enum {
- #define LOOP_WRITE(rec, offset, _buf, count, mode)		\
- 	do {							\
- 		struct snd_emu8000 *emu = (rec)->emu;		\
--		unsigned short *buf = (unsigned short *)(_buf); \
-+		unsigned short *buf = (__force unsigned short *)(_buf); \
- 		snd_emu8000_write_wait(emu, 1);			\
- 		EMU8000_SMALW_WRITE(emu, offset);		\
- 		while (count > 0) {				\
-@@ -492,7 +492,7 @@ static int emu8k_pcm_silence(struct snd_pcm_substream *subs,
- #define LOOP_WRITE(rec, pos, _buf, count, mode)				\
- 	do {								\
- 		struct snd_emu8000 *emu = rec->emu;			\
--		unsigned short *buf = (unsigned short *)(_buf);		\
-+		unsigned short *buf = (__force unsigned short *)(_buf);	\
- 		snd_emu8000_write_wait(emu, 1);				\
- 		EMU8000_SMALW_WRITE(emu, pos + rec->loop_start[0]);	\
- 		if (rec->voices > 1)					\
+Takashi
+
+===
+
+Takashi Iwai (8):
+  ALSA: aloop: Fix PCM format assignment
+  ALSA: pcm: More helper macros for reducing snd_pcm_format_t cast
+  ALSA: usb-audio: Use pcm_for_each_format() macro for PCM format
+    iterations
+  ALSA: dummy: Use standard macros for fixing PCM format cast
+  ALSA: pcm: Use standard macros for fixing PCM format cast
+  ALSA: pcm: Use a macro for parameter masks to reduce the needed cast
+  ALSA: pcm_dmaengine: Use pcm_for_each_format() macro for PCM format
+    iteration
+  ALSA: pcm: Minor refactoring
+
+ include/sound/pcm.h        |  9 +++++++++
+ include/sound/pcm_params.h |  7 +++++++
+ sound/core/oss/pcm_oss.c   | 19 ++++++++-----------
+ sound/core/pcm_dmaengine.c |  2 +-
+ sound/core/pcm_misc.c      | 17 +++++++++++------
+ sound/core/pcm_native.c    | 47 +++++++++++++++++++++++++---------------------
+ sound/drivers/aloop.c      |  6 +++---
+ sound/drivers/dummy.c      |  6 +++---
+ sound/usb/proc.c           |  2 +-
+ 9 files changed, 69 insertions(+), 46 deletions(-)
+
 -- 
 2.16.4
 

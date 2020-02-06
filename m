@@ -2,29 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4E51153FCC
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 09:15:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C49B7153FCD
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 09:15:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2D1AB166D;
-	Thu,  6 Feb 2020 09:14:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2D1AB166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6423F1689;
+	Thu,  6 Feb 2020 09:15:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6423F1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580976909;
-	bh=7+daM/hpGmKp292QE9EcLpF8TIxjl2XD5MArXJjlDA4=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=bjb7ADqSMvMokCqdDgpW1slYL0MJ59L1Gok92V2D1xp5hS/dpdMAbI+T7SvUYfWX/
-	 mslFBU+IulJNO1S/CeWurWaCaykLpowqjp6gmOngCDgilZOfMkLDMCzVA1gjN/3ZPv
-	 Y5BS6hFeP/qnStVGYP+vCblTlpnuM313WKGTGo+Q=
+	s=default; t=1580976953;
+	bh=EfYahE2RCKA5uLgeYpexKlu/ue7DeX5ev+6Zd+6Bgbk=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=ZJGZLpfen1cAz/iOz9unq46odOzsjuKN+d5gNbAsKPIEELoTTzQulpMC50vVfG42l
+	 ilsiGG632LRzMidxSji6+ENYzlzJrrT0GZO95X3K1ToVPMt5yTqObpF1OgTab0wemy
+	 bnpmzUzt+n+msNndUHvlguv/repxnySRIWd6AxlQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3FD30F8015B;
-	Thu,  6 Feb 2020 09:13:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA597F801DB;
+	Thu,  6 Feb 2020 09:14:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 904ACF80162; Thu,  6 Feb 2020 09:13:25 +0100 (CET)
+ id 148A9F80212; Thu,  6 Feb 2020 09:14:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -33,65 +34,83 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from de-out1.bosch-org.com (de-out1.bosch-org.com [139.15.230.186])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B1C2EF80051;
- Thu,  6 Feb 2020 09:13:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B1C2EF80051
+ by alsa1.perex.cz (Postfix) with ESMTPS id A52E8F800AB;
+ Thu,  6 Feb 2020 09:14:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A52E8F800AB
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=in.bosch.com header.i=@in.bosch.com
- header.b="iItXR6TE"
-Received: from si0vm1947.rbesz01.com (unknown [139.15.230.188])
- by si0vms0217.rbdmz01.com (Postfix) with ESMTPS id 48Crly2S41z4f3lwJ;
- Thu,  6 Feb 2020 09:13:18 +0100 (CET)
+ header.b="ejJKFyVY"
+Received: from fe0vm1649.rbesz01.com (unknown [139.15.230.188])
+ by fe0vms0186.rbdmz01.com (Postfix) with ESMTPS id 48Crnf1yWpz1XLFjd;
+ Thu,  6 Feb 2020 09:14:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=in.bosch.com;
- s=key3-intmail; t=1580976798;
- bh=j9ghyqlcIsq1VvBEl8XAwe9fmi0UKdHNOBlJj7mLn+I=; l=10;
+ s=key3-intmail; t=1580976886;
+ bh=1yDiA/cwYgFH9o2PUR4pXrQTa+EzRle8VLpopTF4DoM=; l=10;
  h=From:Subject:From:Reply-To:Sender;
- b=iItXR6TEz/AuZiY5qNxYinDDRX9CrFbjuBLncfAYmNLZMxELElonTmisA8jvZSk60
- cxQXAg/+Eu9P8v0HWNgxyNhblDC0c4R8EMXS5gwJz1Qc6RPvt47FXTnAI+uSAmd5EM
- s9X35NQr+TtXKPWUkGCaA8hJ+swyXnVOpZikCWcg=
-Received: from fe0vm7918.rbesz01.com (unknown [10.58.172.176])
- by si0vm1947.rbesz01.com (Postfix) with ESMTPS id 48Crly1s64z6CjR46;
- Thu,  6 Feb 2020 09:13:18 +0100 (CET)
-X-AuditID: 0a3aad10-8b5ff70000004724-64-5e3bca9e47ca
-Received: from si0vm1950.rbesz01.com ( [10.58.173.29])
+ b=ejJKFyVYMTbwfi4VuzM0X4/Oz/JfdGGiEgSrjlDbN+5hUazNETnyJRgkhWRci+jIU
+ IZqSCMNkEEee++M3pefWbFu9yTWzTHltgDpZE5piLZgCdflZETbfPWwO0iPMd/kE/s
+ NvavanLbVHMyTeAOebZyRbe8vkpfaB1So3AO+sJg=
+Received: from si0vm4642.rbesz01.com (unknown [10.58.172.176])
+ by fe0vm1649.rbesz01.com (Postfix) with ESMTPS id 48Crnf1L7zz1ws;
+ Thu,  6 Feb 2020 09:14:46 +0100 (CET)
+X-AuditID: 0a3aad12-e6bff700000045d7-04-5e3bcaf5e488
+Received: from fe0vm1652.rbesz01.com ( [10.58.173.29])
  (using TLS with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (Client did not present a certificate)
- by fe0vm7918.rbesz01.com (SMG Outbound) with SMTP id 74.C9.18212.E9ACB3E5;
- Thu,  6 Feb 2020 09:13:18 +0100 (CET)
-Received: from SI-HUB2000.de.bosch.com (si-hub2000.de.bosch.com [10.4.103.108])
- by si0vm1950.rbesz01.com (Postfix) with ESMTPS id 48Crly07bNzW7H;
- Thu,  6 Feb 2020 09:13:18 +0100 (CET)
-Received: from vchannaiah-VirtualBox.bmh.apac.bosch.com (10.168.128.129) by
- SI-HUB2000.de.bosch.com (10.4.103.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id
- 15.1.1847.3; Thu, 6 Feb 2020 09:13:16 +0100
-From: <vanitha.channaiah@in.bosch.com>
-To: <vanitha.channaiah@in.bosch.com>, <patch@alsa-project.org>
-Date: Thu, 6 Feb 2020 13:43:01 +0530
-Message-ID: <1580976781-6642-1-git-send-email-vanitha.channaiah@in.bosch.com>
-X-Mailer: git-send-email 2.7.4
+ by si0vm4642.rbesz01.com (SMG Outbound) with SMTP id 89.06.17879.5FACB3E5;
+ Thu,  6 Feb 2020 09:14:45 +0100 (CET)
+Received: from FE-MBX2032.de.bosch.com (fe-mbx2032.de.bosch.com [10.3.231.42])
+ by fe0vm1652.rbesz01.com (Postfix) with ESMTPS id 48Crnd6XvFzB0w;
+ Thu,  6 Feb 2020 09:14:45 +0100 (CET)
+Received: from SGPMBX2001.APAC.bosch.com (10.187.56.75) by
+ FE-MBX2032.de.bosch.com (10.3.231.42) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1847.3; Thu, 6 Feb 2020 09:14:45 +0100
+Received: from SGPMBX2003.APAC.bosch.com (10.187.56.76) by
+ SGPMBX2001.APAC.bosch.com (10.187.56.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1847.3; Thu, 6 Feb 2020 16:14:42 +0800
+Received: from SGPMBX2003.APAC.bosch.com ([fe80::d4a:a83a:3749:3836]) by
+ SGPMBX2003.APAC.bosch.com ([fe80::d4a:a83a:3749:3836%3]) with mapi id
+ 15.01.1847.005; Thu, 6 Feb 2020 16:14:42 +0800
+From: "Channaiah Vanitha (RBEI/ECF3)" <Vanitha.Channaiah@in.bosch.com>
+To: "patch@alsa-project.org" <patch@alsa-project.org>
+Thread-Topic: [PATCH - 1/1] pcm: direct: Round down of slave_hw_ptr when
+ buffer size is two period size
+Thread-Index: AQHV3MVKy90mxXyeWUCn8A/zmbhqMagN0SFA
+Date: Thu, 6 Feb 2020 08:14:42 +0000
+Message-ID: <40c16023f7af40bba1ee87876a740253@in.bosch.com>
+References: <1580976781-6642-1-git-send-email-vanitha.channaiah@in.bosch.com>
+In-Reply-To: <1580976781-6642-1-git-send-email-vanitha.channaiah@in.bosch.com>
+Accept-Language: en-US, en-SG
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.187.56.204]
 MIME-Version: 1.0
-X-Originating-IP: [10.168.128.129]
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFmpgl+LIzCtJLcpLzFFi42LhslorqzvvlHWcwd3rbBZXLh5isli7vIHV
- YtG0mUwOzB4bPjexecxqX80ewBTFZZOSmpNZllqkb5fAlfFizznmgjVCFT9fvWFrYOzi72Lk
- 5JAQMJF413OArYuRi0NIYDqTxNETJ5ggnN2MEuu+nmaGcBqZJB5um88O0sImoCZx5NoHMFtE
- wE5i0t3VjF2MHBzMAjYSc/uzQcLCAkkS57fdZAMJswioSLROYgQJ8wr4Spy9eZsZYrGcxM1z
- ncwQcUGJkzOfsIDYzAISEgdfvICqUZJ4c/Ix4wRGvllIymYhKVvAyLSKUTQt1aAs19zS0EKv
- KCm1uMrAUC85P3cTIySwBHYw7jyVdoiRiYPxEKMpB5OSKC9HrXWcEF9SfkplRmJxRnxRaU5q
- sZIUb/2bzlghYbhwcWlSbmZxcWZ+3iFGCQ5mJRHe8/qWcUK8KYmVValF+RBthxilOViUxHnT
- OfxjhATSE0tSs1NTC1KLYLLWHBxKEryHjgMtFCxKTU+tSMvMKYFJK8nyMjIwMAiJIcsgW8vE
- wXmI0ZiDB2i310mgEbzFBYm5xZnpUO2SEO1CMFGE1lOM5lLivI0ngHoEQLIZpXlwW6VkeNcH
- WsUJiSJJIHS+YrzJyMGoJMybBbKQB5jyEPZJ8DaAgkgQKojQZLQUqEfgLIfE4Q+7GCWmrF/I
- JjH57RMuidVv5nFLLL4zl0dix5f1fBKX+jYLSty6OF1IYufJS0ISZ5YeF5aYsKZRTGLlloli
- El9mXxSX2PJqiYTElakLpSXWPDwnLXGv64uMxPmD/YoSZ65u0pL4c32ptsS9Ka16IPP0JCb/
- 3aAn8XvrPAOJl3P3Gkic/PfSCGj8fROgUUetgbIfrCX2rLxoI7H51DtbiXvHJju+AgYmEzAw
- pb0tQIFZkliCJTChogjfSTUwupoUaLRPmGLenVt5/7hw5cxv0pUhX9/qfdKTnxlQdjuo4uba
- OW8uvf7NyuDu/3HnDK0zi5kF4h6FZ6lWZjULvjJUiCm/cSzg56z6pckLdBzb/4isunB8yspU
- Scu4kxyv9c+9+3k8L/+vwdSlUYY3VAP+2bZsd5A8UVQQfE6jT+rL2uw+nbc9SizFGYmGWsxF
- xYkAW5M+zRMEAAA=
-Cc: twischer@de.adit-jv.com, alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH - 1/1] pcm: direct: Round down of slave_hw_ptr
-	when buffer size is two period size
+X-Brightmail-Tracker: H4sIAAAAAAAAA22Tf0wbZRjHee+O20vHkeuVwrNCE3dhiZmTAYLBdZmaGHVbtrlF/WNRtiIH
+ rYO26RX2w5gxE5UVguDATrBIS5lWYUxGLCjEUbcsbMOujE3AxTglKowFBnRqZtRrr6z9w38u
+ 3/d5ns/zfN/n7jDJncIabDTZBKtJX87TCkqxqVv7aOiSriin9ZvNheNBP1HY/Ul14lPE82eW
+ 3qJfQHsVm0uEcmOVYN24Zb/C4K53E5YBzaHLrrrEanRfbUcYA5sPI8c4O1JgjnUQsHTXs0o+
+ fIXAe81Hyod5BAvOGsqOkqTDIgJXXZWcGEYw0dhKhxM0+yzM28ciOpUtgIXAnYgm2YMwdPtE
+ BFaxBrhyIRCtMYKj5jQh6zxw1nsjcYrNgkDfAgprhtXBta7ORHnwDuia/ZMM6yR2JwyeqY3U
+ I1YL7sn3KXlWOkxNfxzpCSwLnsEAKWs1zPzyT6Ks18Lccu8quX4DtH+9GPX5CJxy3SbluUoY
+ +XCaakDQEte2JQ5piUNa4pB2RH2G1KIxp6oi//H8vGxrsSAeycnNfs1c0Yvkl8b1oy9ulPoR
+ gZEfFWCCVzP4TV0Rl1JsLjls0IuGfdbKckHkNczRueOvcqoHYbGyuMIoikazyY8Ak3wqE9j4
+ RBHHlOgPHxGsZhnzowxM8elMGd71CseW6W3CAUGwCNaV7HMYs+PD51uRhjKZTQIPjP+iNFxp
+ FcqEQ6XGcttKKa9lUEJCApcWn4m3QOAkP3oMJ0s+to1ILRjRoq8QjWVRfI2McyvRGHoJbcUN
+ M043iYcvtLlJLmJEk84I4S5suN5QaXrgQ5PJ9OzeVMSp4xKxXrNoEmHEq5jXw3Cy9H/EHABT
+ HV6gMhqMQXmdEsOGGPh2QfrO25auI2gO/iA9/rpKQVOPi4Yat5+GnnuXaWi62oyhbfqkAk7c
+ mVbAwI1fFfD5XNtq+PTuzGrouOlMhv7lnhQYqz+rhKmgg4OBkTEOrnReVMHJ691qaOg6lgbe
+ vsY0WG4NpkPfrAeg97hjDYw3uzKg69Z3GfCjfTkTmk6HMuF849BDEBh+by14Q53rZqX1EtJ6
+ M7YXhtdr09v+Z73RaOx2mmqU9eL9pJ0Jpjre8VKpkk59d//fv9PnfOu99/7Y9szoELvXt2vL
+ w0S/JfDBG3sKFj/qeNm3LtXj6dAFJ0fPUk9/73rHV2Oc2XBusGMfXatrbwwlZ9cfraq0fKlO
+ mcq/+eTPtVk7Joozt+usfN6/v436Jt7+qd+LnCqtVnVQW3vg1tb5XJ4SDfrc9aRV1P8HjPTL
+ trkEAAA=
+Cc: "Wischer Timo \(ADITG/ESS\)" <twischer@de.adit-jv.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] [PATCH - 1/1] pcm: direct: Round down of
+ slave_hw_ptr when buffer size is two period size
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,10 +128,30 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello Takashi-san,
+
+This patch is regarding the fix for rounding down/up of slave pointers.
+For buffer_size >= 2*period_size, round down of slave pointers and
+for buffer_size < 2*period_size, round up of slave pointers will avoid xruns.
+which otherwise causes snd_pcm_wait() to block for more than expected snd_pcm_period_elapsed() which leads to xruns.
+
+We had similar discussion for same issue in below link:
+https://mailman.alsa-project.org/pipermail/alsa-devel/2019-June/151169.html
+
+Regards,
+Vanitha
+
+
+-----Original Message-----
+From: Channaiah Vanitha (RBEI/ECF3) <Vanitha.Channaiah@in.bosch.com> 
+Sent: Thursday, February 6, 2020 1:43 PM
+To: Channaiah Vanitha (RBEI/ECF3) <Vanitha.Channaiah@in.bosch.com>; patch@alsa-project.org
+Cc: alsa-devel@alsa-project.org; Wischer Timo (ADITG/ESS) <twischer@de.adit-jv.com>
+Subject: [PATCH - 1/1] pcm: direct: Round down of slave_hw_ptr when buffer size is two period size
+
 From: Vanitha Channaiah <vanitha.channaiah@in.bosch.com>
 
-For buffer size equal to two period size, the start position
-of slave_hw_ptr is rounded down in order to avoid xruns
+For buffer size equal to two period size, the start position of slave_hw_ptr is rounded down in order to avoid xruns
 
 For e.g.:
 Considering below parameters and its values:
@@ -146,14 +185,12 @@ Fix:
 
 Signed-off-by: Vanitha Channaiah <vanitha.channaiah@in.bosch.com>
 
-diff --git a/src/pcm/pcm_direct.c b/src/pcm/pcm_direct.c
-index 54d9900..a201fa3 100644
+diff --git a/src/pcm/pcm_direct.c b/src/pcm/pcm_direct.c index 54d9900..a201fa3 100644
 --- a/src/pcm/pcm_direct.c
 +++ b/src/pcm/pcm_direct.c
 @@ -2043,10 +2043,14 @@ int snd_pcm_direct_parse_open_conf(snd_config_t *root, snd_config_t *conf,
  
- void snd_pcm_direct_reset_slave_ptr(snd_pcm_t *pcm, snd_pcm_direct_t *dmix)
- {
+ void snd_pcm_direct_reset_slave_ptr(snd_pcm_t *pcm, snd_pcm_direct_t *dmix)  {
 +    /*
 +     * For buffer size equal to two period size, slave_hw_ptr is rounded down
 +     * to avoid xruns
@@ -166,7 +203,7 @@ index 54d9900..a201fa3 100644
  		dmix->slave_appl_ptr =
  			((dmix->slave_appl_ptr + dmix->slave_period_size - 1) /
  			dmix->slave_period_size) * dmix->slave_period_size;
--- 
+--
 2.7.4
 
 _______________________________________________

@@ -2,61 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1965F154C9D
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 21:05:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 284D8154D83
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 21:49:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B7DBA16E0;
-	Thu,  6 Feb 2020 21:04:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7DBA16E0
+	by alsa0.perex.cz (Postfix) with ESMTPS id A378D16E5;
+	Thu,  6 Feb 2020 21:48:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A378D16E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581019503;
-	bh=YFfrztoNigSFXbunzb8k5OEpxv1b0VoKTRHlvGuirKk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1581022142;
+	bh=B4X6o5IjFZVyEBNDFJHvhV5dLwfZHDZywwSW0IAyZt8=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YeGKR3usrJKLVrIf7YHuOBhyLH9+cCzLx8j23PAPk7mbqFp914cP3x+yWDzMXMCb/
-	 qFfNJvlz4XghlfrCinIoAaAN6Nu3lvadELxYY87BKz6jO4rRlVWip9m9hRWuK4KIul
-	 KhecLn7st3Dw6w7Qah+uyzHa4OWFvcF22lfKvwlI=
+	b=CvG0M687cPEMjY+gJ68n1zehR/u6WMLN00IkXBRjjqcj7jgWXbG4m8PTttTylokL7
+	 fFGSBExURLLqAlf9xf/wDT2pwjJkxzgflRoj4A1hyiie57OC50S2t4aN7hkDkgWauP
+	 IuMzorCssapF7c6Zi0NRZVVuwp3GfvBdaOsXCqZc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C06FBF80162;
-	Thu,  6 Feb 2020 21:02:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70EAAF80212;
+	Thu,  6 Feb 2020 21:46:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44A25F80255; Thu,  6 Feb 2020 21:02:48 +0100 (CET)
+ id A4AEEF80162; Thu,  6 Feb 2020 21:46:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
+ [209.85.214.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E9923F800C6
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 21:02:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E9923F800C6
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 06 Feb 2020 12:02:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,410,1574150400"; d="scan'208";a="255197721"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by fmsmga004.fm.intel.com with ESMTP; 06 Feb 2020 12:02:38 -0800
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-To: alsa-devel@alsa-project.org,
-	broonie@kernel.org
-Date: Thu,  6 Feb 2020 22:02:23 +0200
-Message-Id: <20200206200223.7715-3-kai.vehmanen@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200206200223.7715-1-kai.vehmanen@linux.intel.com>
-References: <20200206200223.7715-1-kai.vehmanen@linux.intel.com>
-Cc: tiwai@suse.de, pierre-louis.bossart@linux.intel.com,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, ranjani.sridharan@linux.intel.com
-Subject: [alsa-devel] [PATCH 3/3] ASoC: SOF: Intel: hda: move i915 init
-	earlier
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0F071F800AB
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 21:46:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F071F800AB
+Received: by mail-pl1-f195.google.com with SMTP id c23so41039plz.4
+ for <alsa-devel@alsa-project.org>; Thu, 06 Feb 2020 12:46:27 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=5OOXYFIqEU+LJl0CSasuKCfoYnWm1dEiiEdMWamRXfA=;
+ b=GDFnZlhGcv5TrmmxAo7xaYzJDRLg8nqoz05bmKGUTimYUSl3+Z4TJ+wcToQtoK2Y4B
+ 6nz2vr3JxBZB7lpeJLnKGwTpND/oMX9l67uhMVaAoXxRlQoyuPAgyDsBP23W+KAKcLBT
+ JR8yBMUITSRVxRuadfFkUTf9S2xM+j2PrJB3Vm8UBAzi2f74lJN+T8hN2rafiv7xuQJw
+ troSOfSJs9UARpZCOdLXXyFexBYq76O+AwEJE3LMA3OTGclgGBO5dVouI9p/CYjWYQMU
+ /liALjY+lPXfFSlr3guYT4WW7waaxcjVZcu6kbSAGlNWEL6+KP5xAKSuVHHznXRSZyu7
+ 5khA==
+X-Gm-Message-State: APjAAAU/Qc6LGlgJToErLZQv8LOVZXTdLekJ3xJFBJyJy0SpzZN9CR7n
+ 03iElmRXB804hD8qF/ITgg==
+X-Google-Smtp-Source: APXvYqxMKyyGgfS4SNqE734iihQ1ZSY1xsIAJkFzRqu4B/i+hbGP+oW2VzzUFxFzAEqoHOJ1wkbqVA==
+X-Received: by 2002:a17:902:7203:: with SMTP id
+ ba3mr5720574plb.249.1581021985220; 
+ Thu, 06 Feb 2020 12:46:25 -0800 (PST)
+Received: from rob-hp-laptop (63-158-47-182.dia.static.qwest.net.
+ [63.158.47.182])
+ by smtp.gmail.com with ESMTPSA id x11sm283522pfn.53.2020.02.06.12.46.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Feb 2020 12:46:24 -0800 (PST)
+Received: (nullmailer pid 21869 invoked by uid 1000);
+ Thu, 06 Feb 2020 18:10:45 -0000
+Date: Thu, 6 Feb 2020 18:10:45 +0000
+From: Rob Herring <robh@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Message-ID: <20200206181045.GA31521@bogus>
+References: <1580380422-3431-1-git-send-email-spujar@nvidia.com>
+ <1580380422-3431-2-git-send-email-spujar@nvidia.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <1580380422-3431-2-git-send-email-spujar@nvidia.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, jonathanh@nvidia.com, viswanathl@nvidia.com,
+ sharadg@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, digetx@gmail.com, rlokhande@nvidia.com,
+ mkumard@nvidia.com, dramesh@nvidia.com
+Subject: Re: [alsa-devel] [PATCH v2 1/9] dt-bindings: sound: tegra: add DT
+	binding for AHUB
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,78 +95,265 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-To be compliant with i915 display driver requirements, i915 power-up
-must be done before any HDA communication takes place, including
-parsing the bus capabilities. Otherwise the initial codec probe
-may fail.
+On Thu, Jan 30, 2020 at 04:03:34PM +0530, Sameer Pujar wrote:
+> Audio Hub (AHUB) comprises a collection of hardware accelerators for audio
+> pre-processing and post-processing and a programmable full crossbar for
+> audio routing across these accelerators. This patch adds YAML schema for DT
+> binding of AHUB and few of its following components. These devices will be
+> registered as ASoC components.
+>  * ADMAIF
+>  * I2S
+>  * DMIC
+>  * DSPK
+> 
+> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> ---
+>  .../bindings/sound/nvidia,tegra186-dspk.yaml       | 105 +++++++++++++
+>  .../bindings/sound/nvidia,tegra210-admaif.yaml     | 165 +++++++++++++++++++++
+>  .../bindings/sound/nvidia,tegra210-ahub.yaml       | 130 ++++++++++++++++
+>  .../bindings/sound/nvidia,tegra210-dmic.yaml       | 105 +++++++++++++
+>  .../bindings/sound/nvidia,tegra210-i2s.yaml        | 112 ++++++++++++++
+>  5 files changed, 617 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
+>  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
+> new file mode 100644
+> index 0000000..dc9fef3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
+> @@ -0,0 +1,105 @@
+> +# SPDX-License-Identifier: (GPL-2.0)
 
-Move i915 initialization earlier in the SOF HDA sequence. This
-sequence is now aligned with the snd-hda-intel driver where the
-display_power() call is before snd_hdac_bus_parse_capabilities()
-and rest of the capability parsing.
+Dual license new bindings:
 
-Also remove unnecessary ifdef around hda_codec_i915_init(). There's
-a dummy implementation provided if CONFIG_SND_SOC_SOF_HDA is not
-enabled.
+(GPL-2.0-only OR BSD-2-Clause)
 
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- sound/soc/sof/intel/hda.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/nvidia,tegra186-dspk.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Tegra186 DSPK Controller Device Tree Bindings
+> +
+> +description: |
+> +  The Digital Speaker Controller (DSPK) can be viewed as a Pulse
+> +  Density Modulation (PDM) transmitter that up-samples the input to
+> +  the desired sampling rate by interpolation and then converts the
+> +  over sampled Pulse Code Modulation (PCM) input to the desired 1-bit
+> +  output via Delta Sigma Modulation (DSM).
+> +
+> +maintainers:
+> +  - Jon Hunter <jonathanh@nvidia.com>
+> +  - Sameer Pujar <spujar@nvidia.com>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
 
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 8fddafb5c1d4..25946a1c2822 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -286,6 +286,13 @@ static int hda_init(struct snd_sof_dev *sdev)
- 	/* HDA base */
- 	sdev->bar[HDA_DSP_HDA_BAR] = bus->remap_addr;
- 
-+	/* init i915 and HDMI codecs */
-+	ret = hda_codec_i915_init(sdev);
-+	if (ret < 0) {
-+		dev_err(sdev->dev, "error: init i915 and HDMI codec failed\n");
-+		return ret;
-+	}
-+
- 	/* get controller capabilities */
- 	ret = hda_dsp_ctrl_get_caps(sdev);
- 	if (ret < 0)
-@@ -353,15 +360,6 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
- 	if (bus->ppcap)
- 		dev_dbg(sdev->dev, "PP capability, will probe DSP later.\n");
- 
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
--	/* init i915 and HDMI codecs */
--	ret = hda_codec_i915_init(sdev);
--	if (ret < 0) {
--		dev_err(sdev->dev, "error: init i915 and HDMI codec failed\n");
--		return ret;
--	}
--#endif
--
- 	/* Init HDA controller after i915 init */
- 	ret = hda_dsp_ctrl_init_chip(sdev, true);
- 	if (ret < 0) {
-@@ -611,6 +609,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 	iounmap(sdev->bar[HDA_DSP_BAR]);
- hdac_bus_unmap:
- 	iounmap(bus->remap_addr);
-+	hda_codec_i915_exit(sdev);
- err:
- 	return ret;
- }
--- 
-2.17.1
+Drop 'items' for a single entry.
 
+> +          const: nvidia,tegra186-dspk
+> +      - items:
+> +          - enum:
+> +              - nvidia,tegra194-dspk
+> +          - enum:
+> +              - nvidia,tegra186-dspk
+
+This can be a 'const'
+
+> +
+> +  reg:
+> +    description: offset and length of the register set for the device.
+
+That's every 'reg'. Drop.
+
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: must contain an entry for each entry in clock-names.
+> +      See ../clocks/clocks-bindings.txt for details.
+> +    minItems: 1
+
+Drop description and minItems. minItems is implied by the length of 
+'items'.
+
+> +    items:
+> +      - description: Module clock
+> +
+> +  clock-names:
+> +    description: must contain clock names for each corresponding entry in clocks.
+> +      See ../clocks/clocks-bindings.txt for details.
+> +    minItems: 1
+
+ditto
+
+> +    items:
+> +      - const: dspk
+> +
+> +  assigned-clocks:
+> +    description: list of input clocks and dividers for the audio system.
+> +      See ../clocks/clock-bindings.txt for details.
+> +    minItems: 1
+
+ditto
+
+> +    items:
+> +      - description: Module clock
+> +
+> +  assigned-clock-parents:
+> +    description: parent clock for each entry in assigned-clocks
+> +      See ../clocks/clock-bindings.txt for details.
+> +    minItems: 1
+
+ditto
+
+> +    items:
+> +      - description: Parent for module clock
+> +
+> +  assigned-clock-rates:
+> +    description: clock rate for each entry in assigned-clocks
+> +      See ../clocks/clock-bindings.txt for details.
+
+ditto
+
+> +    items:
+> +      - description: initial module clock rate
+> +
+> +  "#sound-dai-cells":
+> +    const: 1
+> +
+> +  sound-name-prefix:
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    description:
+> +      Used as prefix for sink/source names of the component. Must be a
+> +      unique string among multiple instances of the same component.
+> +      The name can be "DSPK1" or "DSPKx", where x depends on the maximum
+
+Sounds like a constraint.
+
+> +      available instances on a Tegra SoC.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - assigned-clocks
+> +  - assigned-clock-parents
+> +  - "#sound-dai-cells"
+> +
+> +examples:
+> +  - |
+> +    #include<dt-bindings/clock/tegra186-clock.h>
+> +
+> +    tegra_dspk1: dspk@2905000 {
+> +        compatible = "nvidia,tegra186-dspk";
+> +        reg = <0x2905000 0x100>;
+> +        clocks = <&bpmp TEGRA186_CLK_DSPK1>;
+> +        clock-names = "dspk";
+> +        assigned-clocks = <&bpmp TEGRA186_CLK_DSPK1>;
+> +        assigned-clock-parents = <&bpmp TEGRA186_CLK_PLL_A_OUT0>;
+> +        assigned-clock-rates = <12288000>;
+> +        #sound-dai-cells = <1>;
+> +        sound-name-prefix = "DSPK1";
+> +    };
+> +
+> +...
+> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
+> new file mode 100644
+> index 0000000..a8a41ba
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
+> @@ -0,0 +1,165 @@
+> +# SPAT-License-Identifier: (GPL-2.0)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/nvidia,tegra210-admaif.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Tegra210 ADMAIF Device Tree Bindings
+> +
+> +description: |
+> +  ADMAIF is the interface between ADMA and AHUB. Each ADMA channel
+> +  that sends/receives data to/from AHUB must interface through an
+> +  ADMAIF channel. ADMA channel sending data to AHUB pairs with ADMAIF
+> +  Tx channel and ADMA channel receiving data from AHUB pairs with
+> +  ADMAIF Rx channel.
+> +
+> +maintainers:
+> +  - Jon Hunter <jonathanh@nvidia.com>
+> +  - Sameer Pujar <spujar@nvidia.com>
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          const: nvidia,tegra210-admaif
+> +      - items:
+> +          const: nvidia,tegra186-admaif
+
+These 2 can be a single enum.
+
+> +      - items:
+> +          - enum:
+> +             - nvidia,tegra194-admaif
+> +          - enum:
+> +             - nvidia,tegra186-admaif
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  dmas: true
+> +
+> +  dma-names: true
+> +
+> +  "#sound-dai-cells":
+> +    const: 1
+> +
+> +if:
+> +  properties:
+> +    compatible:
+> +      contains:
+> +        const: nvidia,tegra210-admaif
+> +
+> +then:
+> +  properties:
+> +    dmas:
+> +      $ref: /schemas/types.yaml#/definitions/phandle-array
+
+Drop. Common properties already have a type.
+
+Plus this is wrong. A '$ref' means all other keywords are ignored (until 
+we move to draft8).
+
+> +      description:
+> +        Two or more DMA channel specifiers, equally divided for Tx and Rx.
+> +      minItems: 2
+> +      maxItems: 20
+> +    dma-names:
+> +      $ref: /schemas/types.yaml#/definitions/string-array
+
+drop
+
+> +      description:
+> +        There must be at least one channel named "tx1" for transmit and "rx1"
+> +        for receive. If more channels need to be specified then "tx1",
+> +        "tx2" ... "tx10" can be used. Similarly for Rx channels as well.
+
+Sounds like constraints.
+
+
+Stopping there. Similar issues on the rest...
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

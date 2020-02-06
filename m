@@ -2,56 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB356154423
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 13:37:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B6D815459B
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 14:59:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33F0A169F;
-	Thu,  6 Feb 2020 13:37:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33F0A169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id B0664169E;
+	Thu,  6 Feb 2020 14:58:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B0664169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580992670;
-	bh=AvxCFg6wrMOSLPvSEGRenEwb6WRGod2EJ2Psov+MtFI=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1580997546;
+	bh=TrOLhD7TyqpuAtzzDjV0dlSFSllpVXeXnu1Dvq8+0Jk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ZT4haq2cS8s4zogZ+VXU/5Y0RDycMhX+FU2GlJRBlXfPEZwDfj0CK9IUfIkVXua2p
-	 KJ9geTwM3mvji1g1RsekR1Ba133h3+tn/dtrSG9vPPwkn66/1fJVZ/f9K4SdGjE91/
-	 ncokxZ5KhwDlv4CyoqHyMhtw7+Cgln5oE8HNH3B4=
+	b=aFHaHCIg44YssRwm7egJsrS/sD9ol4g5SFI1V2JRpz/67j9U0mnYXpRG5KpRIoUsZ
+	 1xnjXJIfcHIhfIXJ0PI2QkqOVHTq7+3Dd265lAWT2qtu/uAxVydba2k0DJXVCvux07
+	 J3sg1QU5XnKsu2bXML/kWMb68o4E6wW5a4l1w/hc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 26CDDF8015B;
-	Thu,  6 Feb 2020 13:36:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BBA5FF8015B;
+	Thu,  6 Feb 2020 14:57:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42017F80162; Thu,  6 Feb 2020 13:36:07 +0100 (CET)
+ id 32250F80162; Thu,  6 Feb 2020 14:57:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 9EAC4F800AB
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 13:36:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EAC4F800AB
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2A7B630E;
- Thu,  6 Feb 2020 04:36:01 -0800 (PST)
-Received: from [192.168.1.123] (unknown [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 03BE73F68E;
- Thu,  6 Feb 2020 04:35:59 -0800 (PST)
-To: Mark Brown <broonie@kernel.org>
+X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6B6EBF800C6
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 14:57:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B6EBF800C6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="h1BSwCcL"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=BY3bAmfDGpjwi1ZC/nQxJs5fLqd4G6irce8OC6djfEA=; b=h1BSwCcLlgimk6Oh3na09vu/N
+ AbeV6VNbvypZMJ77dtITNE6feYpGs3nzvQ6YOFFredtdIeVKhbrW6GAZkBdPIHoxS2SbWCUBfUzSG
+ SiiXB0bFFLqXUm+Sl79j8fgCaHIktc6HeQdPXZAt8eHrQpqugIU9jadLOG+04x/pKALtU=;
+Received: from fw-tnat-cam2.arm.com ([217.140.106.50]
+ helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1izheg-0002Jg-TW; Thu, 06 Feb 2020 13:57:18 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 8977ED01D7F; Thu,  6 Feb 2020 13:57:18 +0000 (GMT)
+Date: Thu, 6 Feb 2020 13:57:18 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Robin Murphy <robin.murphy@arm.com>
+Message-ID: <20200206135718.GQ3897@sirena.org.uk>
 References: <cover.1580950046.git.robin.murphy@arm.com>
  <29a846da33c02df64eca62b5fa0f3884652f788f.1580950046.git.robin.murphy@arm.com>
  <20200206114606.GM3897@sirena.org.uk>
-From: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <ad2c941a-9724-510e-959f-3cca3cab1dc2@arm.com>
-Date: Thu, 6 Feb 2020 12:36:04 +0000
-User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101
- Thunderbird/68.4.2
+ <ad2c941a-9724-510e-959f-3cca3cab1dc2@arm.com>
 MIME-Version: 1.0
-In-Reply-To: <20200206114606.GM3897@sirena.org.uk>
-Content-Language: en-GB
+In-Reply-To: <ad2c941a-9724-510e-959f-3cca3cab1dc2@arm.com>
+X-Cookie: Programming is an unnatural act.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, heiko@sntech.de,
  lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, pgwipeout@gmail.com,
  linux-arm-kernel@lists.infradead.org
@@ -69,50 +86,64 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============0080288747176685048=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-02-06 11:46 am, Mark Brown wrote:
-> On Thu, Feb 06, 2020 at 01:07:12AM +0000, Robin Murphy wrote:
->> The RK3328 reference design uses an external line driver IC as a buffer
->> on the analog codec output, enabled by the GPIO_MUTE pin, and such a
->> configuration is currently assumed in the codec driver's direct poking
->> of GRF_SOC_CON10 to control the GPIO_MUTE output value. However, some
-> 
-> This makes sense but it is an ABI break so is going to need
-> quirking for existing boards that unfortunately rely on the
-> existing behaviour.
 
-Yeah, that's where it gets tricky - there doesn't seem to be a nice way 
-to differentiate between "no GPIO because old DT" and "no GPIO because 
-the enable is hard-wired/irrelevant and GPIO_MUTE doesn't do what you 
-think it does", and it seems really improper to introduce a DT property 
-for the sole purpose of telling a Linux driver not to assume something 
-it shouldn't really have in the first place.
+--===============0080288747176685048==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="k1RcuuA4CmYq3pph"
+Content-Disposition: inline
 
-My opinion fell on the side of a minor ABI break being the lesser of two 
-evils, given that the worst case once people start enabling this codec 
-on Renegade/ROC-CC boards (which I was only anticipating, but have just 
-discovered is happening already[1]) results in unexpectedly stuffing 
-3.3V into the SD card and SoC I/O domain while both are in 1.8V mode, 
-and that the change would only really affect one other current board 
-(Rock64), where most mainline users are likely to be upgrading their DTB 
-in lock-step with the kernel anyway.
 
-I guess the existing (mis)behaviour could be predicated on an 
-of_machine_is_compatible() check for Rock64 boards - it's ugly, but 
-should do the job if you feel it's more important to be 100% strict 
-about not regressing supported systems for any possible kernel/DTB 
-combination.
+--k1RcuuA4CmYq3pph
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-Robin.
+On Thu, Feb 06, 2020 at 12:36:04PM +0000, Robin Murphy wrote:
+> On 2020-02-06 11:46 am, Mark Brown wrote:
 
-[1] 
-https://github.com/armbian/build/commit/18b24717be9639b65b86db3dbcf2b42fe73ca12c
+> > This makes sense but it is an ABI break so is going to need
+> > quirking for existing boards that unfortunately rely on the
+> > existing behaviour.
+
+> I guess the existing (mis)behaviour could be predicated on an
+> of_machine_is_compatible() check for Rock64 boards - it's ugly, but should
+> do the job if you feel it's more important to be 100% strict about not
+> regressing supported systems for any possible kernel/DTB combination.
+
+Yes, that's what I'm suggesting - we don't need to be exhaustive
+but having an obvious place for people to put the quirk in if
+they are affected is much better practice than just silently
+letting things break.
+
+--k1RcuuA4CmYq3pph
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl48Gz0ACgkQJNaLcl1U
+h9Dqlwf/e9pbZnoHIpXKjbaTLD0JTMQR2bflNKfkFgJa4HN0EBmRU/2zzjhQsMBj
+FwXbRw0mbFlfh8DvJcHwjp9Nt+DzRk084QZm1xjXyIdok04lxQCq0/XwBENKJGUp
+icw2FFpQGCVQJRixdXMaY0M0woDlf8GF/gk+KkNrJWvtD3JYD3pbaNqDO3Sfg4C/
+ECfMVskfkS0XSKhcMWqbmFBf8ImMABUOu8qV6oWbEmxRlmjMxv28pNjXi+L96X83
+qZ9St2FvccCApJ7twkomusHVtpw62Cpwy0OOwxOFIjEWTHXzhyAH/vFtPmMJwZJJ
+vHRSZAgaioZ451LfVRCV/L6YnOeigg==
+=S0B3
+-----END PGP SIGNATURE-----
+
+--k1RcuuA4CmYq3pph--
+
+--===============0080288747176685048==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============0080288747176685048==--

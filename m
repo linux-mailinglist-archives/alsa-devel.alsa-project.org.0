@@ -2,84 +2,65 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97237154D7F
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 21:48:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CC08154E25
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 22:40:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E488C16DA;
-	Thu,  6 Feb 2020 21:47:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E488C16DA
+	by alsa0.perex.cz (Postfix) with ESMTPS id BE74116DA;
+	Thu,  6 Feb 2020 22:39:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BE74116DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581022099;
-	bh=JGOWcq/bRA5huNG6SA4YeDbMtwQOZMBsf9SIk277MI0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581025210;
+	bh=yWdiE8YQZ03YtkQPcr4TPMWOQj0qGvk5GTfe0uuqnzo=;
+	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dTjw8OoZflfrNo+HZJMQJcF3ATQasYNpe3ooPcwn1tAM0OCnBGycR+QH5VPMPk6ku
-	 ICOC/Aus1Fro2FudqIfFxjJQ0zgC1HMciv75pVexQ9XWEY5yNgdwpAsLyepd1aVmOQ
-	 feDKyufXjqAWN6LcPuhFwlXavy6+2Cz5A2qTEDMQ=
+	b=rPWz/AdS9oxXmiT+g4q9u7Oi1MbIneW+g/9S6YDj1v1gkoPw8aEVw2QAgCgkgV0ur
+	 DfCuc/XGPW7lViXkBcUOSzh+Xtxk3INIjvd11XVsIzeDLsIxLAHbNwsPdfUN8lY2gO
+	 Dfq6SwjgJrrCADwqkL+3Zzkr5URUt9xHBHDyjmqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DA400F801DB;
-	Thu,  6 Feb 2020 21:46:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D7568F800C6;
+	Thu,  6 Feb 2020 22:38:29 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 870FAF801DB; Thu,  6 Feb 2020 21:46:35 +0100 (CET)
+ id B073CF80162; Thu,  6 Feb 2020 22:38:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
- [209.85.214.196])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D86ADF80059
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 21:46:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D86ADF80059
-Received: by mail-pl1-f196.google.com with SMTP id t6so39530plj.5
- for <alsa-devel@alsa-project.org>; Thu, 06 Feb 2020 12:46:31 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=+JpCejRz9cTdKzvN/s1Lqz/r+3bLOvKPVHP2ixVIjaA=;
- b=WUcS3tHfVKlUD8APq9LPTkuda5ZyyKSxmQ3897q+133CRx0OI7Eb2sYQlSKjsKI13Y
- DUn3y+IqiV2SUJ1joVFEoQRm7wfdajx4XP/WBi4b/aK2+o1gPxO61thkBh2CDGPis7nW
- qPA7EfNuDNeYtC31ZGPFaJD6AwZO+JR5wmbnmiNhCMccgKFLqNByjI1ghSeUP/QAHxht
- y8Pn3ogji0xCm4lTkn4SYiR1tGpLoRWIV30ST5qAuil4f2zr9QEHtjczzquO2kzwkLZG
- VrLuWnX2bRggUvTqUlWwVqRdoqzZSxNm7UGjIYy9lAYr3ipOTORnfWU4kZY8YESmPSvR
- m4cA==
-X-Gm-Message-State: APjAAAWNMyV34n6elxMlZCBObXfnmQ6+u1X4Q1974tJNXqQembvVKgkw
- Pn6A/5D5ZDT/Vo1celZ1kQ==
-X-Google-Smtp-Source: APXvYqwbC73hm+Agme/rCp48d6/0xYRA1eDWiKJsCgthOldvBiGk6RxTKAWpaJjx1M145Mgn2+p7Ag==
-X-Received: by 2002:a17:902:504:: with SMTP id 4mr5425237plf.276.1581021989698; 
- Thu, 06 Feb 2020 12:46:29 -0800 (PST)
-Received: from rob-hp-laptop (63-158-47-182.dia.static.qwest.net.
- [63.158.47.182])
- by smtp.gmail.com with ESMTPSA id g7sm288861pfq.33.2020.02.06.12.46.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Feb 2020 12:46:29 -0800 (PST)
-Received: (nullmailer pid 9682 invoked by uid 1000);
- Thu, 06 Feb 2020 18:21:25 -0000
-Date: Thu, 6 Feb 2020 18:21:25 +0000
-From: Rob Herring <robh@kernel.org>
-To: Olivier Moysan <olivier.moysan@st.com>
-Message-ID: <20200206182125.GA23274@bogus>
-References: <20200130135040.22575-1-olivier.moysan@st.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 0396CF800C6
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 22:38:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0396CF800C6
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5932F30E;
+ Thu,  6 Feb 2020 13:38:20 -0800 (PST)
+Received: from [192.168.1.123] (unknown [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 03C7C3F52E;
+ Thu,  6 Feb 2020 13:38:18 -0800 (PST)
+From: Robin Murphy <robin.murphy@arm.com>
+To: Peter Geis <pgwipeout@gmail.com>, Mark Brown <broonie@kernel.org>
+References: <cover.1580950046.git.robin.murphy@arm.com>
+ <29a846da33c02df64eca62b5fa0f3884652f788f.1580950046.git.robin.murphy@arm.com>
+ <20200206114606.GM3897@sirena.org.uk>
+ <ad2c941a-9724-510e-959f-3cca3cab1dc2@arm.com>
+ <20200206135718.GQ3897@sirena.org.uk>
+ <CAMdYzYqTEnG_Q-8SvO2R6PeaPXQ3VBKu6iVYhYvb=wK7tT7c3A@mail.gmail.com>
+Message-ID: <bca13994-a8b1-fa21-fdf0-9f362d693f39@arm.com>
+Date: Thu, 6 Feb 2020 21:38:11 +0000
+User-Agent: Mozilla/5.0 (Windows NT 10.0; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.2
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200130135040.22575-1-olivier.moysan@st.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, alexandre.torgue@st.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- broonie@kernel.org, mcoquelin.stm32@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: dt-bindings: stm32: convert sai to
-	json-schema
+In-Reply-To: <CAMdYzYqTEnG_Q-8SvO2R6PeaPXQ3VBKu6iVYhYvb=wK7tT7c3A@mail.gmail.com>
+Content-Language: en-GB
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Heiko Stuebner <heiko@sntech.de>, lgirdwood@gmail.com,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH v2 2/3] ASoC: rockchip: Make RK3328 GPIO_MUTE
+	control explicit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,233 +78,142 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 30, 2020 at 02:50:40PM +0100, Olivier Moysan wrote:
-> Convert the STM32 SAI bindings to DT schema format using json-schema.
+On 2020-02-06 6:05 pm, Peter Geis wrote:
+> On Thu, Feb 6, 2020 at 8:57 AM Mark Brown <broonie@kernel.org> wrote:
+>>
+>> On Thu, Feb 06, 2020 at 12:36:04PM +0000, Robin Murphy wrote:
+>>> On 2020-02-06 11:46 am, Mark Brown wrote:
+>>
+>>>> This makes sense but it is an ABI break so is going to need
+>>>> quirking for existing boards that unfortunately rely on the
+>>>> existing behaviour.
+>>
+>>> I guess the existing (mis)behaviour could be predicated on an
+>>> of_machine_is_compatible() check for Rock64 boards - it's ugly, but should
+>>> do the job if you feel it's more important to be 100% strict about not
+>>> regressing supported systems for any possible kernel/DTB combination.
+>>
+>> Yes, that's what I'm suggesting - we don't need to be exhaustive
+>> but having an obvious place for people to put the quirk in if
+>> they are affected is much better practice than just silently
+>> letting things break.
 > 
-> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
-> ---
->  .../bindings/sound/st,stm32-sai.txt           | 107 ----------
->  .../bindings/sound/st,stm32-sai.yaml          | 193 ++++++++++++++++++
->  2 files changed, 193 insertions(+), 107 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.txt
->  create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+> Might want to put a warning in there too, so that if someone is paying
+> attention they will see that they are using an out of date device
+> tree.
 
+Of course, that much is a given :)
 
-> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> new file mode 100644
-> index 000000000000..33dca007fc86
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
-> @@ -0,0 +1,193 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/st,stm32-sai.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STMicroelectronics STM32 Serial Audio Interface (SAI)
-> +
-> +maintainers:
-> +  - Olivier Moysan <olivier.moysan@st.com>
-> +
-> +description:
-> +  The SAI interface (Serial Audio Interface) offers a wide set of audio
-> +  protocols as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
-> +  The SAI contains two independent audio sub-blocks. Each sub-block has
-> +  its own clock generator and I/O lines controller.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - st,stm32f4-sai
-> +      - st,stm32h7-sai
-> +
-> +  reg:
-> +    items:
-> +      - description: Base address and size of SAI common register set.
-> +      - description: Base address and size of SAI identification register set.
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  ranges:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: pclk feeds the peripheral bus interface.
-> +      - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
-> +      - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
-> +
-> +  clock-names:
-> +    items:
-> +      enum: [ pclk, x8k, x11k ]
-> +    minItems: 3
-> +    maxItems: 3
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - ranges
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - clocks
-> +  - clock-names
-> +
-> +patternProperties:
-> +  "^audio-controller@[0-9a-f]+$":
-> +    type: object
-> +    description:
-> +      Two subnodes corresponding to SAI sub-block instances A et B
-> +      can be defined. Subnode can be omitted for unsused sub-block.
-> +
-> +    properties:
-> +      compatible:
-> +        description: Compatible for SAI sub-block A or B.
-> +        enum:
-> +          - st,stm32-sai-sub-a
-> +          - st,stm32-sai-sub-b
+Having thought it over some more, I reckon there's a reasonable
+compromise that isn't too hideous, preserves the logical cleanup but
+at least prevents audio going silent with old DTBs (plus handling GPIO
+probe deferral properly which I forgot about first time around). How
+does this look?
 
-pattern: 'st,stm32-sai-sub-[ab]'
+Robin.
 
-> +
-> +      "#sound-dai-cells":
-> +        const: 0
-> +
-> +      reg:
-> +        maxItems: 1
-> +
-> +      clocks:
-> +        items:
-> +          - description: sai_ck clock feeding the internal clock generator.
-> +          - description: MCLK clock from a SAI set as master clock provider.
-> +        minItems: 1
-> +        maxItems: 2
-> +
-> +      clock-names:
-> +        items:
-> +          - const: sai_ck
-> +          - const: MCLK
-> +        minItems: 1
-> +        maxItems: 2
-> +
-> +      dmas:
-> +        items:
-> +          - description: SAI sub-block is configured as a capture DAI.
-> +          - description: SAI sub-block is configured as a playback DAI.
-> +        minItems: 1
-> +        maxItems: 1
+----->8-----
 
-This is defining that dmas has 2 entries, but then limits it to the 1st 
-entry only.
+The RK3328 reference design uses an external line driver IC as a buffer
+on the analog codec output, enabled by the GPIO_MUTE pin, and such a
+configuration is currently assumed in the codec driver's direct poking
+of GRF_SOC_CON10 to control the GPIO_MUTE output value. However, some
+boards wire up analog audio yet use that pin for some other purpose, so
+that assumption doesn't always hold. Update this functionality to rely
+on an explicit GPIO descriptor, such that it can be managed at the
+board level.
 
-> +
-> +      dma-names:
-> +        items:
-> +          - enum: [ rx, tx ]
-> +
-> +      st,sync:
-> +        description:
-> +          Configure the SAI sub-block as slave of another SAI sub-block.
-> +          By default SAI sub-block is in asynchronous mode.
-> +          Must contain the phandle and index of the SAI sub-block providing
-> +          the synchronization.
-> +        allOf:
-> +          - $ref: /schemas/types.yaml#definitions/phandle-array
-> +          - maxItems: 1
-> +
-> +      st,iec60958:
-> +        description:
-> +          If set, support S/PDIF IEC6958 protocol for playback.
-> +          IEC60958 protocol is not available for capture.
-> +          By default, custom protocol is assumed, meaning that protocol is
-> +          configured according to protocol defined in related DAI link node,
-> +          such as i2s, left justified, right justified, dsp and pdm protocols.
-> +        allOf:
-> +          - $ref: /schemas/types.yaml#definitions/flag
-> +
-> +      "#clock-cells":
-> +        description: Configure the SAI device as master clock provider.
-> +        const: 0
-> +
-> +    required:
-> +      - compatible
-> +      - "#sound-dai-cells"
-> +      - reg
-> +      - clocks
-> +      - clock-names
-> +      - dmas
-> +      - dma-names
+Signed-off-by: Robin Murphy <robin.murphy@arm.com>
+---
+ sound/soc/codecs/rk3328_codec.c | 31 ++++++++++++++++---------------
+ 1 file changed, 16 insertions(+), 15 deletions(-)
 
-       additionalProperties: false.
+diff --git a/sound/soc/codecs/rk3328_codec.c b/sound/soc/codecs/rk3328_codec.c
+index 287c962ba00d..115706a55577 100644
+--- a/sound/soc/codecs/rk3328_codec.c
++++ b/sound/soc/codecs/rk3328_codec.c
+@@ -7,6 +7,7 @@
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+@@ -31,7 +32,7 @@
 
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: st,stm32f4-sai
-> +
-> +  - then:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +          maxItems: 2
-> +
-> +        clock-names:
-> +          items:
-> +            enum: [ x8k, x11k ]
+ struct rk3328_codec_priv {
+ 	struct regmap *regmap;
+-	struct regmap *grf;
++	struct gpio_desc *mute;
+ 	struct clk *mclk;
+ 	struct clk *pclk;
+ 	unsigned int sclk;
+@@ -106,16 +107,6 @@ static int rk3328_set_dai_fmt(struct snd_soc_dai *dai, unsigned int fmt)
+ 	return 0;
+ }
 
-Define the order.
+-static void rk3328_analog_output(struct rk3328_codec_priv *rk3328, int mute)
+-{
+-	unsigned int val = BIT(17);
+-
+-	if (mute)
+-		val |= BIT(1);
+-
+-	regmap_write(rk3328->grf, RK3328_GRF_SOC_CON10, val);
+-}
+-
+ static int rk3328_digital_mute(struct snd_soc_dai *dai, int mute)
+ {
+ 	struct rk3328_codec_priv *rk3328 =
+@@ -205,7 +196,7 @@ static int rk3328_codec_open_playback(struct rk3328_codec_priv *rk3328)
+ 	}
 
-> +          minItems: 2
-> +          maxItems: 2
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +    #include <dt-bindings/reset/stm32mp1-resets.h>
-> +    sai1: sai@4400a000 {
-> +      compatible = "st,stm32h7-sai";
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
-> +      ranges = <0 0x4400a000 0x400>;
-> +      reg = <0x4400a000 0x4>, <0x4400a3f0 0x10>;
-> +      interrupts = <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
-> +      clocks = <&rcc SAI1>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
-> +      clock-names = "pclk", "x8k", "x11k";
-> +      resets = <&rcc SAI1_R>;
-> +
-> +      sai1a: audio-controller@4400a004 {
-> +        compatible = "st,stm32-sai-sub-a";
-> +        #sound-dai-cells = <0>;
-> +        reg = <0x4 0x1c>;
-> +        clocks = <&rcc SAI1_K>;
-> +        clock-names = "sai_ck";
-> +        dmas = <&dmamux1 87 0x400 0x01>;
-> +        dma-names = "tx";
-> +      };
-> +    };
-> +
-> +...
-> -- 
-> 2.17.1
-> 
+ 	msleep(rk3328->spk_depop_time);
+-	rk3328_analog_output(rk3328, 1);
++	gpiod_set_value(rk3328->mute, 0);
+
+ 	regmap_update_bits(rk3328->regmap, HPOUTL_GAIN_CTRL,
+ 			   HPOUTL_GAIN_MASK, OUT_VOLUME);
+@@ -246,7 +237,7 @@ static int rk3328_codec_close_playback(struct rk3328_codec_priv *rk3328)
+ {
+ 	size_t i;
+
+-	rk3328_analog_output(rk3328, 0);
++	gpiod_set_value(rk3328->mute, 1);
+
+ 	regmap_update_bits(rk3328->regmap, HPOUTL_GAIN_CTRL,
+ 			   HPOUTL_GAIN_MASK, 0);
+@@ -446,7 +437,6 @@ static int rk3328_platform_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "missing 'rockchip,grf'\n");
+ 		return PTR_ERR(grf);
+ 	}
+-	rk3328->grf = grf;
+ 	/* enable i2s_acodec_en */
+ 	regmap_write(grf, RK3328_GRF_SOC_CON2,
+ 		     (BIT(14) << 16 | BIT(14)));
+@@ -458,7 +448,18 @@ static int rk3328_platform_probe(struct platform_device *pdev)
+ 		rk3328->spk_depop_time = 200;
+ 	}
+
+-	rk3328_analog_output(rk3328, 0);
++	rk3328->mute = gpiod_get_optional(&pdev->dev, "mute", GPIOD_OUT_HIGH);
++	if (IS_ERR(rk3328->mute))
++		return PTR_ERR(rk3328->mute);
++	/*
++	 * Rock64 is the only supported platform to have widely relied on
++	 * this; if we do happen to come across an old DTB, just leave the
++	 * external mute forced off.
++	 */
++	if (!rk3328->mute && of_machine_is_compatible("pine64,rock64")) {
++		dev_warn(&pdev->dev, "assuming implicit control of GPIO_MUTE; update devicetree if possible\n");
++		regmap_write(grf, RK3328_GRF_SOC_CON10, BIT(17) | BIT(1));
++	}
+
+ 	rk3328->mclk = devm_clk_get(&pdev->dev, "mclk");
+ 	if (IS_ERR(rk3328->mclk))
+-- 
+2.17.1
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

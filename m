@@ -2,75 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C764C153D8C
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 04:21:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 081AA153D91
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 04:21:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 645C01668;
-	Thu,  6 Feb 2020 04:20:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 645C01668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 95F5C16A2;
+	Thu,  6 Feb 2020 04:20:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 95F5C16A2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1580959269;
-	bh=K7jvHd/nyqsObtlZMvNtIpR/YFMMIuT/KyeoouBobG8=;
+	s=default; t=1580959304;
+	bh=uzq0zuDqOYCJ90ejD0z8FRESahyYoUZEm6jpVbv5GDg=;
 	h=Date:In-Reply-To:References:From:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eC5yMUR/7BH4LcV37QIu3JNj8g/H0DF/H/Ea7QAdHLpLcGnRMuJXRud4Xzqu3OQRC
-	 Q6+N4uJDbdADeE0y9WyiUWsJNLsT67mRKhZe1RQPQeVMVVLYDVVqbjF6yDPXY8diei
-	 1b4dC7JzlCFmbvApY6Tun64XtwTUWaIRx5caO9Lw=
+	b=JaFU0Of4hkEcIWqCSufTdJXACzbtHSkR1WkOGieAICgeIVm3iEM0RUE+nOWTr+0bp
+	 cfLgnDhTyfWULoeYQVYX0MPlZ1vEqJGYNBB0/XTCjqBGtj0AOAhrAKIBY0C4pue3ey
+	 WbmkWk3RYMP6u2PGGhopH7xyCxjnD/8u9IecX4iU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 29A1CF80276;
-	Thu,  6 Feb 2020 04:18:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 10FF4F8028D;
+	Thu,  6 Feb 2020 04:18:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E0E40F80274; Thu,  6 Feb 2020 04:18:29 +0100 (CET)
+ id 10BD4F80278; Thu,  6 Feb 2020 04:18:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mail-qt1-x84a.google.com (mail-qt1-x84a.google.com
- [IPv6:2607:f8b0:4864:20::84a])
+Received: from mail-qv1-xf49.google.com (mail-qv1-xf49.google.com
+ [IPv6:2607:f8b0:4864:20::f49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08765F80248
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 04:18:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08765F80248
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0A33FF8025F
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 04:18:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0A33FF8025F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="naFzHNYg"
-Received: by mail-qt1-x84a.google.com with SMTP id r9so2906478qtc.4
- for <alsa-devel@alsa-project.org>; Wed, 05 Feb 2020 19:18:22 -0800 (PST)
+ header.b="ueuYkYfz"
+Received: by mail-qv1-xf49.google.com with SMTP id f17so2859758qvi.6
+ for <alsa-devel@alsa-project.org>; Wed, 05 Feb 2020 19:18:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=GKdSBpWKS5JubKvYHooQ1tsJLs+L1G4clF+7s5FbyHw=;
- b=naFzHNYgTkl6FjZpBOkCA2X/QrskO3Nyj3+Up6Q4sv70fhZlsQ9OfLbIfk1r0c13f4
- eZ7iIngf+0/feqrVf4l2k8moJ1SVAXQLPEgJmjMmLuiAAM62o0X1gRX7fFP7t6Mr4H36
- 0+tUG3s5KDIURJ7Z1Rk1MINTJQ76nBZiKGmkjah2srKyBHJuv9h4O7MfxPvMBZK1fY6M
- wiMDH4EIJkavj55219XnSvbSenUmn+5oNJblgUzaI2YDjn6mPonp1jk3SsKy5ukJVDVO
- t+iWto0HpgeelkmDD2dNdvWDV9C80RAhjpVNvaLx92zuCH5OS92Vsn3t90c9w2TAruRG
- +bSQ==
+ :cc; bh=3xSqtFmkuhmH7fZvAamf8hbYq+ufSxebJYVWVye4C7Y=;
+ b=ueuYkYfzd1J7mUX84rods+zZPBEDPeQEpjWo1fKgNXmmkJRjFmQ57clQ25FbxVrB81
+ 0BoeuWRSAlLi4ikcBydPblOqMIIYdUZlWt96IlppvTopxt4MrWxe1NJNb00pEILdALIL
+ mwP9m3shNI4otFS5JNL2mDva9EvmqHjaLpSPV+4fWAoYFTZp1nvG0CRMuMvaQQpiTocd
+ RdQCWBIwo+BGVgpp3NbIEtfA/GO13BcJrwl9r2EoO9jqfv5ogBgO5W/6Q7nyLCxted8+
+ Q/tls29mCNiLAHzFozF2uSg8V5VCuOfUUjtgXE6vmEdrV5rvwC9qaa9Tedzul30Dx9L2
+ FkGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=GKdSBpWKS5JubKvYHooQ1tsJLs+L1G4clF+7s5FbyHw=;
- b=mcy7VG/UDTVangvE2/hwg2CHnouZph7JYl2X2uI9+do+APbZDpooRAWi5ojsKQ3pAP
- WlsSdCwSqlZx/rbKsHKkBVx1JjRCXuWHa6BqeZS5VDbzMQsoT6mjgXS8TlWIvSW7m5mi
- DUnmbg0VfSLz/wbiDCnT1h/LiHe6j0muQGU6wlZwl8gSRbAPFflC7sOZzswhMWIpVIie
- AVVim+OzE50cF/nu7ptp0YYSeIFJmtPyRuynZeEtNjQ0ipip35o6BC9bh9Ek3OVTLP5h
- HMjASrvYPuGrib5Dwc1DjwoOyz/P97Grnn938W+FGKdnaw3jxEYyLSnmdTGgxZLRxeIY
- j8ug==
-X-Gm-Message-State: APjAAAV3Vl0LmBbI/h+LvhnP/UVUnLTcHWe6bv0u6V9l0Y+mlEwoefqz
- mGcGzUEdZLg16mFz29Z7rRMJWY+MYY6R
-X-Google-Smtp-Source: APXvYqyJ0n0UFWdJRGiNBcfGeJ9XTuOgIvFLDSVvgEpiQSthosjpQX4dk4r4oRet+K8HdyV3vkafiTKoFhUX
-X-Received: by 2002:a0c:ffc4:: with SMTP id h4mr662384qvv.233.1580959101083;
- Wed, 05 Feb 2020 19:18:21 -0800 (PST)
-Date: Thu,  6 Feb 2020 11:17:51 +0800
+ bh=3xSqtFmkuhmH7fZvAamf8hbYq+ufSxebJYVWVye4C7Y=;
+ b=G0o0MlGXKR3A8zvpUIGMzU2mJWypkQtkW202BT3top5JHP84swKate+y42HtS8qGQv
+ nRJ+W+ONnkJRmJZZ/IxFap/Hw3g9I3R0aAhdwb6pGccxlZrNYKsncJiz3f711KwD/JUe
+ D0N6aLjRIhsDOC/aIC426stcWvY3pp8bUWNmxPmvpsVkkq4YAQtZpHDAHtMer0iaJhy4
+ hRye11V52SfRGFNSRqTH9UwW+2tT0bpEQCcom3SrcaxEPR1T2CDnylTXq7lzysQmopyK
+ f8I84ncqfMLSQfE31bx88Kwr8sZ3eMeSo2779BCldvji5s0VARPGj/4gCzkYIkWbtkfm
+ TFwA==
+X-Gm-Message-State: APjAAAVDvXv5YGKNq27cmADdcDk77KNIQQ9h5ZFHtrfEvkPC7nfP3SYW
+ 08/hDoDbLrfqyd8G53rahTQZYMrJYOER
+X-Google-Smtp-Source: APXvYqz/fAMuYGvIwuayOCKaf8jH3Jt4uA2sxWoRh0ciqFGB/O4svWNUa/d29O7qRqPWaudemfa9s6lehhZc
+X-Received: by 2002:a0c:fe8e:: with SMTP id d14mr705336qvs.106.1580959106204; 
+ Wed, 05 Feb 2020 19:18:26 -0800 (PST)
+Date: Thu,  6 Feb 2020 11:17:52 +0800
 In-Reply-To: <20200206031752.193298-1-tzungbi@google.com>
-Message-Id: <20200206102509.2.I230fd59de28e73934a91cb01424e25b9e84727f4@changeid>
+Message-Id: <20200206102509.3.I253f51edff62df1d88005de12ba601aa029b1e99@changeid>
 Mime-Version: 1.0
 References: <20200206031752.193298-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.25.0.341.g760bfbb309-goog
@@ -81,8 +81,8 @@ Cc: alsa-devel@alsa-project.org, cychiang@google.com, tzungbi@google.com,
  linux-mediatek@lists.infradead.org, p.zabel@pengutronix.de,
  matthias.bgg@gmail.com, dgreid@google.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH v2 2/3] drm/mediatek: support HDMI jack status
-	reporting
+Subject: [alsa-devel] [PATCH v2 3/3] ASoC: mediatek: mt8173-rt5650: support
+	HDMI jack reporting
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,107 +100,62 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-1.
-Provides a callback (i.e. mtk_hdmi_audio_hook_plugged_cb) to hdmi-codec.
-When ASoC machine driver calls hdmi_codec_set_jack_detect(), the
-callback will be invoked to save plugged_cb and codec_dev parameters.
-
-+---------+  set_jack_  +------------+ plugged_cb  +----------+
-| machine | ----------> | hdmi-codec | ----------> | mtk-hdmi |
-+---------+  detect()   +------------+ codec_dev   +----------+
-
-2.
-When there is any jack status changes, mtk-hdmi will call the
-plugged_cb() to notify hdmi-codec.  And then hdmi-codec will call
-snd_soc_jack_report().
-
-+----------+ plugged_cb  +------------+
-| mtk-hdmi | ----------> | hdmi-codec | -> snd_soc_jack_report()
-+----------+ codec_dev   +------------+
-             connector_status
+Uses hdmi-codec to support HDMI jack reporting.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- drivers/gpu/drm/mediatek/mtk_hdmi.c | 34 ++++++++++++++++++++++++++---
- 1 file changed, 31 insertions(+), 3 deletions(-)
+ sound/soc/mediatek/mt8173/mt8173-rt5650.c | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-index 23c2b0e8693d..fccdd975947d 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-@@ -169,6 +169,8 @@ struct mtk_hdmi {
- 	bool audio_enable;
- 	bool powered;
- 	bool enabled;
-+	hdmi_codec_plugged_cb plugged_cb;
-+	struct device *codec_dev;
+diff --git a/sound/soc/mediatek/mt8173/mt8173-rt5650.c b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+index ef6f23675286..849b050a54d1 100644
+--- a/sound/soc/mediatek/mt8173/mt8173-rt5650.c
++++ b/sound/soc/mediatek/mt8173/mt8173-rt5650.c
+@@ -11,6 +11,7 @@
+ #include <linux/of_gpio.h>
+ #include <sound/soc.h>
+ #include <sound/jack.h>
++#include <sound/hdmi-codec.h>
+ #include "../../codecs/rt5645.h"
+ 
+ #define MCLK_FOR_CODECS		12288000
+@@ -98,7 +99,7 @@ static const struct snd_soc_ops mt8173_rt5650_ops = {
+ 	.hw_params = mt8173_rt5650_hw_params,
  };
  
- static inline struct mtk_hdmi *hdmi_ctx_from_bridge(struct drm_bridge *b)
-@@ -1194,13 +1196,23 @@ static void mtk_hdmi_clk_disable_audio(struct mtk_hdmi *hdmi)
- 	clk_disable_unprepare(hdmi->clk[MTK_HDMI_CLK_AUD_SPDIF]);
- }
+-static struct snd_soc_jack mt8173_rt5650_jack;
++static struct snd_soc_jack mt8173_rt5650_jack, mt8173_rt5650_hdmi_jack;
  
-+static enum drm_connector_status
-+mtk_hdmi_update_plugged_status(struct mtk_hdmi *hdmi)
-+{
-+	bool connected = mtk_cec_hpd_high(hdmi->cec_dev);
-+
-+	if (hdmi->plugged_cb && hdmi->codec_dev)
-+		hdmi->plugged_cb(hdmi->codec_dev, connected);
-+
-+	return connected ?
-+	       connector_status_connected : connector_status_disconnected;
-+}
-+
- static enum drm_connector_status hdmi_conn_detect(struct drm_connector *conn,
- 						  bool force)
+ static int mt8173_rt5650_init(struct snd_soc_pcm_runtime *runtime)
  {
- 	struct mtk_hdmi *hdmi = hdmi_ctx_from_conn(conn);
--
--	return mtk_cec_hpd_high(hdmi->cec_dev) ?
--	       connector_status_connected : connector_status_disconnected;
-+	return mtk_hdmi_update_plugged_status(hdmi);
+@@ -144,6 +145,19 @@ static int mt8173_rt5650_init(struct snd_soc_pcm_runtime *runtime)
+ 				      &mt8173_rt5650_jack);
  }
  
- static void hdmi_conn_destroy(struct drm_connector *conn)
-@@ -1648,20 +1660,36 @@ static int mtk_hdmi_audio_get_eld(struct device *dev, void *data, uint8_t *buf,
- 	return 0;
- }
- 
-+static int mtk_hdmi_audio_hook_plugged_cb(struct device *dev, void *data,
-+					  hdmi_codec_plugged_cb fn,
-+					  struct device *codec_dev)
++static int mt8173_rt5650_hdmi_init(struct snd_soc_pcm_runtime *rtd)
 +{
-+	struct mtk_hdmi *hdmi = data;
++	int ret;
 +
-+	hdmi->plugged_cb = fn;
-+	hdmi->codec_dev = codec_dev;
-+	mtk_hdmi_update_plugged_status(hdmi);
++	ret = snd_soc_card_jack_new(rtd->card, "HDMI Jack", SND_JACK_LINEOUT,
++				    &mt8173_rt5650_hdmi_jack, NULL, 0);
++	if (ret)
++		return ret;
 +
-+	return 0;
++	return hdmi_codec_set_jack_detect(rtd->codec_dai->component,
++					  &mt8173_rt5650_hdmi_jack);
 +}
 +
- static const struct hdmi_codec_ops mtk_hdmi_audio_codec_ops = {
- 	.hw_params = mtk_hdmi_audio_hw_params,
- 	.audio_startup = mtk_hdmi_audio_startup,
- 	.audio_shutdown = mtk_hdmi_audio_shutdown,
- 	.digital_mute = mtk_hdmi_audio_digital_mute,
- 	.get_eld = mtk_hdmi_audio_get_eld,
-+	.hook_plugged_cb = mtk_hdmi_audio_hook_plugged_cb,
+ enum {
+ 	DAI_LINK_PLAYBACK,
+ 	DAI_LINK_CAPTURE,
+@@ -222,6 +236,7 @@ static struct snd_soc_dai_link mt8173_rt5650_dais[] = {
+ 		.name = "HDMI BE",
+ 		.no_pcm = 1,
+ 		.dpcm_playback = 1,
++		.init = mt8173_rt5650_hdmi_init,
+ 		SND_SOC_DAILINK_REG(hdmi_be),
+ 	},
  };
- 
- static int mtk_hdmi_register_audio_driver(struct device *dev)
- {
-+	struct mtk_hdmi *hdmi = dev_get_drvdata(dev);
- 	struct hdmi_codec_pdata codec_data = {
- 		.ops = &mtk_hdmi_audio_codec_ops,
- 		.max_i2s_channels = 2,
- 		.i2s = 1,
-+		.data = hdmi,
- 	};
- 	struct platform_device *pdev;
- 
 -- 
 2.25.0.341.g760bfbb309-goog
 

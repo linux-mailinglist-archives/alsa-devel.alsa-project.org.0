@@ -2,96 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6C3B1549DE
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 18:01:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CDA8154A06
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 18:08:51 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6BFB316CC;
-	Thu,  6 Feb 2020 18:00:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6BFB316CC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4869616D1;
+	Thu,  6 Feb 2020 18:08:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4869616D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581008473;
-	bh=Y5ZAbhiaAZO0aRy+P8m/Olt83ztMfMQYX7vXbcLYF10=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581008931;
+	bh=3/N3AIjmzgenJDIcBLno4kBjkciip1mvoyyWRVx7atQ=;
+	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=peJsqGAZ7YduhQiL+Txy0jJ0dYx/75rRipZD0/B371vow8jYi3NA2nVASH5YqmJ7M
-	 kdfI7+8yTEpsAe6MoyRMw4gE3Xk1dUGkLOd5gQqxH4u3Xfw879AYQ4pogUoPo9n555
-	 INYWchAl7qqSO1qyCb9L5Lunfn4qR0tzjtvmxLmQ=
+	b=eT0oeuTk2va1k6YilY0BVM305ztKwf3v6u9a6M4gUZsRkZiLQ7ayskldNLNMpY7ys
+	 yNNa3Rdok8R7h92FvkDZcR0VOOSDfuS7lGaomhAr2ZvowlTCxLzKQAFLkvEzuL/9Ep
+	 UWZ42q7/kcWw2UYfU82LNN18FfAOJkGaAr6EVWxw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7E44DF800AB;
-	Thu,  6 Feb 2020 17:59:32 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4C901F80162;
+	Thu,  6 Feb 2020 18:07:10 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 43066F8015B; Thu,  6 Feb 2020 17:59:30 +0100 (CET)
+ id 96D7DF8015B; Thu,  6 Feb 2020 18:07:08 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail-lj1-x241.google.com (mail-lj1-x241.google.com
- [IPv6:2a00:1450:4864:20::241])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=0.4 required=5.0 tests=NO_DNS_FOR_FROM, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [207.82.80.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3F590F80059
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 17:59:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3F590F80059
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="HRo6PM95"
-Received: by mail-lj1-x241.google.com with SMTP id q8so6835363ljj.11
- for <alsa-devel@alsa-project.org>; Thu, 06 Feb 2020 08:59:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=og0ADzsSpshRIcdeT+Ks5xnjpqRL7rIYjLZFqgQChC8=;
- b=HRo6PM95VaVbLvysaWne6f1YcD6Xn8ky7qGhXssAk+65rmhIhxrSsaq1vkT4jVTRWJ
- Vcg3sSdqitzIy5JSWb03RkBU8I/AWKITP9G5QxgsvxVSJKIIUUoUpfPzFdybKYxboX8m
- KiwDB9pm+oXNwHJ9gMCaR2lVltrz6cj9O2C4RTILmHCSu4jevdPaDT0WkensyZEykNCQ
- XevyWbBJbNfxFTQOsguMTpusj2kEjDl3Ppqzd0/Cs7bjkxI2lZIqBmbkqUSZDhOkxPwj
- CCAIvnNKUrs1OdnnVGd5zb99/zb075vJPrcfM0c76n9AoWoiQVOsJdJkoAYvK++HUC0j
- NSjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=og0ADzsSpshRIcdeT+Ks5xnjpqRL7rIYjLZFqgQChC8=;
- b=PxJoCNMuyBEGHsxgk3vVX95/dXgoxPxShEQ6LKOBR8JvV8WjJUKse25u3zC6ImnlFY
- SIuNLhzwjrao+Et9OFTO2ob+c8YH8B3qQQBJgk2bkIU7vjjAeLpX2WKu/lnNrkVOhcni
- bnOFzTtmJVbawrSiFZXE9ZxLrGvFIMm1DDlSPaTJhuTz3TPOz7Q26rIKo6nWc+SIvBUZ
- ffAZ83LZBtW0sIL02wRSxxQ74LHojeM0orY10ufh4vW84jAn4l/I6qjucoWWugzoPlri
- PrTvLqiSlvq46ANNyAmps9oP7wU3UJlykyeA3xyllkTLfAtLxCTZGYSykpDU/Wvja2Xs
- cBgA==
-X-Gm-Message-State: APjAAAXKCUnovg8C2UxFetW/yu+JhhNOmCQE/ph7S2n2O6uYrfhiMTgX
- VtmdRvlH0FPH2wmx5X4KUFs=
-X-Google-Smtp-Source: APXvYqyguhImDG7VTsNciB0wVBuwnFI+0C60WcsTjlt52pFAY46lNafpCyeCJnDDsMLILiEPwTOYGg==
-X-Received: by 2002:a2e:9c85:: with SMTP id x5mr2681644lji.50.1581008366212;
- Thu, 06 Feb 2020 08:59:26 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.googlemail.com with ESMTPSA id p15sm1546166lfo.88.2020.02.06.08.59.24
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Feb 2020 08:59:25 -0800 (PST)
-To: Sameer Pujar <spujar@nvidia.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2EF13F80059
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 18:06:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2EF13F80059
+Received: from AcuMS.aculab.com (156.67.243.126 [156.67.243.126]) (Using
+ TLS) by relay.mimecast.com with ESMTP id
+ uk-mta-244-k3KJlLTsOyOEt3BxP61xAA-1; Thu, 06 Feb 2020 17:06:48 +0000
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) by
+ AcuMS.aculab.com (fd9f:af1c:a25b:0:43c:695e:880f:8750) with Microsoft SMTP
+ Server (TLS) id 15.0.1347.2; Thu, 6 Feb 2020 17:06:47 +0000
+Received: from AcuMS.Aculab.com ([fe80::43c:695e:880f:8750]) by
+ AcuMS.aculab.com ([fe80::43c:695e:880f:8750%12]) with mapi id 15.00.1347.000; 
+ Thu, 6 Feb 2020 17:06:47 +0000
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Dmitry Osipenko' <digetx@gmail.com>, Sameer Pujar <spujar@nvidia.com>
+Thread-Topic: [PATCH v2 4/9] ASoC: tegra: add Tegra210 based I2S driver
+Thread-Index: AQHV3Q7P9u0Xi3sD8kGXpD/1/LgEEKgOY//Q
+Date: Thu, 6 Feb 2020 17:06:47 +0000
+Message-ID: <90ae7badcb3441daa8144233de8f6825@AcuMS.aculab.com>
 References: <1580380422-3431-1-git-send-email-spujar@nvidia.com>
  <1580380422-3431-5-git-send-email-spujar@nvidia.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <3a586a6b-5f53-dc44-b9fc-67c633c626ef@gmail.com>
-Date: Thu, 6 Feb 2020 19:59:24 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
-MIME-Version: 1.0
-In-Reply-To: <1580380422-3431-5-git-send-email-spujar@nvidia.com>
+ <3a586a6b-5f53-dc44-b9fc-67c633c626ef@gmail.com>
+In-Reply-To: <3a586a6b-5f53-dc44-b9fc-67c633c626ef@gmail.com>
+Accept-Language: en-GB, en-US
 Content-Language: en-US
-Cc: jonathanh@nvidia.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, atalambedu@nvidia.com,
- linux-kernel@vger.kernel.org, lgirdwood@gmail.com, robh+dt@kernel.org,
- tiwai@suse.com, viswanathl@nvidia.com, sharadg@nvidia.com, broonie@kernel.org,
- thierry.reding@gmail.com, linux-tegra@vger.kernel.org, rlokhande@nvidia.com,
- mkumard@nvidia.com, dramesh@nvidia.com
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
+MIME-Version: 1.0
+X-MC-Unique: k3KJlLTsOyOEt3BxP61xAA-1
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: aculab.com
+Cc: "jonathanh@nvidia.com" <jonathanh@nvidia.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "atalambedu@nvidia.com" <atalambedu@nvidia.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>, "tiwai@suse.com" <tiwai@suse.com>,
+ "viswanathl@nvidia.com" <viswanathl@nvidia.com>,
+ "sharadg@nvidia.com" <sharadg@nvidia.com>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ "rlokhande@nvidia.com" <rlokhande@nvidia.com>,
+ "mkumard@nvidia.com" <mkumard@nvidia.com>,
+ "dramesh@nvidia.com" <dramesh@nvidia.com>
 Subject: Re: [alsa-devel] [PATCH v2 4/9] ASoC: tegra: add Tegra210 based I2S
 	driver
 X-BeenThere: alsa-devel@alsa-project.org
@@ -111,13 +100,20 @@ Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-MzAuMDEuMjAyMCAxMzozMywgU2FtZWVyIFB1amFyINC/0LjRiNC10YI6Ci4uLgo+ICtzdGF0aWMg
-Y29uc3QgaW50IHRlZ3JhMjEwX2NpZl9mbXRbXSA9IHsKPiArCTAsCj4gKwlURUdSQV9BQ0lGX0JJ
-VFNfMTYsCj4gKwlURUdSQV9BQ0lGX0JJVFNfMzIsCj4gK307Cj4gKwo+ICtzdGF0aWMgY29uc3Qg
-aW50IHRlZ3JhMjEwX2kyc19iaXRfZm10W10gPSB7Cj4gKwkwLAo+ICsJSTJTX0JJVFNfMTYsCj4g
-KwlJMlNfQklUU18zMiwKPiArfTsKPiArCj4gK3N0YXRpYyBjb25zdCBpbnQgdGVncmEyMTBfaTJz
-X3NhbXBsZV9zaXplW10gPSB7Cj4gKwkwLAo+ICsJMTYsCj4gKwkzMiwKPiArfTsKCnN0YXRpYyBj
-b25zdCAqdW5zaWduZWQqIGludD8KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXByb2pl
-Y3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGluZm8v
-YWxzYS1kZXZlbAo=
+RnJvbTogZiBEbWl0cnkgT3NpcGVua28NCj4gU2VudDogMDYgRmVicnVhcnkgMjAyMCAxNjo1OQ0K
+PiANCj4gMzAuMDEuMjAyMCAxMzozMywgU2FtZWVyIFB1amFyINC/0LjRiNC10YI6DQo+IC4uLg0K
+PiA+ICtzdGF0aWMgY29uc3QgaW50IHRlZ3JhMjEwX2NpZl9mbXRbXSA9IHsNCj4gPiArCTAsDQo+
+ID4gKwlURUdSQV9BQ0lGX0JJVFNfMTYsDQo+ID4gKwlURUdSQV9BQ0lGX0JJVFNfMzIsDQo+ID4g
+K307DQo+ID4gKw0KPiA+ICtzdGF0aWMgY29uc3QgaW50IHRlZ3JhMjEwX2kyc19iaXRfZm10W10g
+PSB7DQo+ID4gKwkwLA0KPiA+ICsJSTJTX0JJVFNfMTYsDQo+ID4gKwlJMlNfQklUU18zMiwNCj4g
+PiArfTsNCj4gPiArDQo+ID4gK3N0YXRpYyBjb25zdCBpbnQgdGVncmEyMTBfaTJzX3NhbXBsZV9z
+aXplW10gPSB7DQo+ID4gKwkwLA0KPiA+ICsJMTYsDQo+ID4gKwkzMiwNCj4gPiArfTsNCj4gDQo+
+IHN0YXRpYyBjb25zdCAqdW5zaWduZWQqIGludD8NCg0KT3IgZ2V0IHJpZCBvZiB0aGUgdGFibGUg
+bG9va3VwcyBjb21wbGV0ZWx5Lg0KQXNzdW1pbmcgdGhlIGluZGV4IGlzIG5ldmVyIHplcm8gdGhl
+biB0aGUgdmFsdWUNCmNhbiBiZSBjYWxjdWxhdGVkIGFzIChjb25zdF9hICsgY29uc3RfYiAqIGlu
+ZGV4KS4NCg0KCURhdmlkDQoNCi0NClJlZ2lzdGVyZWQgQWRkcmVzcyBMYWtlc2lkZSwgQnJhbWxl
+eSBSb2FkLCBNb3VudCBGYXJtLCBNaWx0b24gS2V5bmVzLCBNSzEgMVBULCBVSw0KUmVnaXN0cmF0
+aW9uIE5vOiAxMzk3Mzg2IChXYWxlcykNCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1w
+cm9qZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3Rp
+bmZvL2Fsc2EtZGV2ZWwK

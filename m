@@ -2,87 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 284D8154D83
-	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 21:49:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97237154D7F
+	for <lists+alsa-devel@lfdr.de>; Thu,  6 Feb 2020 21:48:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A378D16E5;
-	Thu,  6 Feb 2020 21:48:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A378D16E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id E488C16DA;
+	Thu,  6 Feb 2020 21:47:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E488C16DA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581022142;
-	bh=B4X6o5IjFZVyEBNDFJHvhV5dLwfZHDZywwSW0IAyZt8=;
+	s=default; t=1581022099;
+	bh=JGOWcq/bRA5huNG6SA4YeDbMtwQOZMBsf9SIk277MI0=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=CvG0M687cPEMjY+gJ68n1zehR/u6WMLN00IkXBRjjqcj7jgWXbG4m8PTttTylokL7
-	 fFGSBExURLLqAlf9xf/wDT2pwjJkxzgflRoj4A1hyiie57OC50S2t4aN7hkDkgWauP
-	 IuMzorCssapF7c6Zi0NRZVVuwp3GfvBdaOsXCqZc=
+	b=dTjw8OoZflfrNo+HZJMQJcF3ATQasYNpe3ooPcwn1tAM0OCnBGycR+QH5VPMPk6ku
+	 ICOC/Aus1Fro2FudqIfFxjJQ0zgC1HMciv75pVexQ9XWEY5yNgdwpAsLyepd1aVmOQ
+	 feDKyufXjqAWN6LcPuhFwlXavy6+2Cz5A2qTEDMQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 70EAAF80212;
-	Thu,  6 Feb 2020 21:46:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA400F801DB;
+	Thu,  6 Feb 2020 21:46:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A4AEEF80162; Thu,  6 Feb 2020 21:46:31 +0100 (CET)
+ id 870FAF801DB; Thu,  6 Feb 2020 21:46:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
  FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pl1-f195.google.com (mail-pl1-f195.google.com
- [209.85.214.195])
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com
+ [209.85.214.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F071F800AB
- for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 21:46:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F071F800AB
-Received: by mail-pl1-f195.google.com with SMTP id c23so41039plz.4
- for <alsa-devel@alsa-project.org>; Thu, 06 Feb 2020 12:46:27 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D86ADF80059
+ for <alsa-devel@alsa-project.org>; Thu,  6 Feb 2020 21:46:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D86ADF80059
+Received: by mail-pl1-f196.google.com with SMTP id t6so39530plj.5
+ for <alsa-devel@alsa-project.org>; Thu, 06 Feb 2020 12:46:31 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to:user-agent;
- bh=5OOXYFIqEU+LJl0CSasuKCfoYnWm1dEiiEdMWamRXfA=;
- b=GDFnZlhGcv5TrmmxAo7xaYzJDRLg8nqoz05bmKGUTimYUSl3+Z4TJ+wcToQtoK2Y4B
- 6nz2vr3JxBZB7lpeJLnKGwTpND/oMX9l67uhMVaAoXxRlQoyuPAgyDsBP23W+KAKcLBT
- JR8yBMUITSRVxRuadfFkUTf9S2xM+j2PrJB3Vm8UBAzi2f74lJN+T8hN2rafiv7xuQJw
- troSOfSJs9UARpZCOdLXXyFexBYq76O+AwEJE3LMA3OTGclgGBO5dVouI9p/CYjWYQMU
- /liALjY+lPXfFSlr3guYT4WW7waaxcjVZcu6kbSAGlNWEL6+KP5xAKSuVHHznXRSZyu7
- 5khA==
-X-Gm-Message-State: APjAAAU/Qc6LGlgJToErLZQv8LOVZXTdLekJ3xJFBJyJy0SpzZN9CR7n
- 03iElmRXB804hD8qF/ITgg==
-X-Google-Smtp-Source: APXvYqxMKyyGgfS4SNqE734iihQ1ZSY1xsIAJkFzRqu4B/i+hbGP+oW2VzzUFxFzAEqoHOJ1wkbqVA==
-X-Received: by 2002:a17:902:7203:: with SMTP id
- ba3mr5720574plb.249.1581021985220; 
- Thu, 06 Feb 2020 12:46:25 -0800 (PST)
+ bh=+JpCejRz9cTdKzvN/s1Lqz/r+3bLOvKPVHP2ixVIjaA=;
+ b=WUcS3tHfVKlUD8APq9LPTkuda5ZyyKSxmQ3897q+133CRx0OI7Eb2sYQlSKjsKI13Y
+ DUn3y+IqiV2SUJ1joVFEoQRm7wfdajx4XP/WBi4b/aK2+o1gPxO61thkBh2CDGPis7nW
+ qPA7EfNuDNeYtC31ZGPFaJD6AwZO+JR5wmbnmiNhCMccgKFLqNByjI1ghSeUP/QAHxht
+ y8Pn3ogji0xCm4lTkn4SYiR1tGpLoRWIV30ST5qAuil4f2zr9QEHtjczzquO2kzwkLZG
+ VrLuWnX2bRggUvTqUlWwVqRdoqzZSxNm7UGjIYy9lAYr3ipOTORnfWU4kZY8YESmPSvR
+ m4cA==
+X-Gm-Message-State: APjAAAWNMyV34n6elxMlZCBObXfnmQ6+u1X4Q1974tJNXqQembvVKgkw
+ Pn6A/5D5ZDT/Vo1celZ1kQ==
+X-Google-Smtp-Source: APXvYqwbC73hm+Agme/rCp48d6/0xYRA1eDWiKJsCgthOldvBiGk6RxTKAWpaJjx1M145Mgn2+p7Ag==
+X-Received: by 2002:a17:902:504:: with SMTP id 4mr5425237plf.276.1581021989698; 
+ Thu, 06 Feb 2020 12:46:29 -0800 (PST)
 Received: from rob-hp-laptop (63-158-47-182.dia.static.qwest.net.
  [63.158.47.182])
- by smtp.gmail.com with ESMTPSA id x11sm283522pfn.53.2020.02.06.12.46.23
+ by smtp.gmail.com with ESMTPSA id g7sm288861pfq.33.2020.02.06.12.46.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Feb 2020 12:46:24 -0800 (PST)
-Received: (nullmailer pid 21869 invoked by uid 1000);
- Thu, 06 Feb 2020 18:10:45 -0000
-Date: Thu, 6 Feb 2020 18:10:45 +0000
+ Thu, 06 Feb 2020 12:46:29 -0800 (PST)
+Received: (nullmailer pid 9682 invoked by uid 1000);
+ Thu, 06 Feb 2020 18:21:25 -0000
+Date: Thu, 6 Feb 2020 18:21:25 +0000
 From: Rob Herring <robh@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-Message-ID: <20200206181045.GA31521@bogus>
-References: <1580380422-3431-1-git-send-email-spujar@nvidia.com>
- <1580380422-3431-2-git-send-email-spujar@nvidia.com>
+To: Olivier Moysan <olivier.moysan@st.com>
+Message-ID: <20200206182125.GA23274@bogus>
+References: <20200130135040.22575-1-olivier.moysan@st.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <1580380422-3431-2-git-send-email-spujar@nvidia.com>
+In-Reply-To: <20200130135040.22575-1-olivier.moysan@st.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- atalambedu@nvidia.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
- lgirdwood@gmail.com, jonathanh@nvidia.com, viswanathl@nvidia.com,
- sharadg@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org, digetx@gmail.com, rlokhande@nvidia.com,
- mkumard@nvidia.com, dramesh@nvidia.com
-Subject: Re: [alsa-devel] [PATCH v2 1/9] dt-bindings: sound: tegra: add DT
-	binding for AHUB
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, alexandre.torgue@st.com,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ broonie@kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH] ASoC: dt-bindings: stm32: convert sai to
+	json-schema
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,260 +97,233 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 30, 2020 at 04:03:34PM +0530, Sameer Pujar wrote:
-> Audio Hub (AHUB) comprises a collection of hardware accelerators for audio
-> pre-processing and post-processing and a programmable full crossbar for
-> audio routing across these accelerators. This patch adds YAML schema for DT
-> binding of AHUB and few of its following components. These devices will be
-> registered as ASoC components.
->  * ADMAIF
->  * I2S
->  * DMIC
->  * DSPK
+On Thu, Jan 30, 2020 at 02:50:40PM +0100, Olivier Moysan wrote:
+> Convert the STM32 SAI bindings to DT schema format using json-schema.
 > 
-> Signed-off-by: Sameer Pujar <spujar@nvidia.com>
+> Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
 > ---
->  .../bindings/sound/nvidia,tegra186-dspk.yaml       | 105 +++++++++++++
->  .../bindings/sound/nvidia,tegra210-admaif.yaml     | 165 +++++++++++++++++++++
->  .../bindings/sound/nvidia,tegra210-ahub.yaml       | 130 ++++++++++++++++
->  .../bindings/sound/nvidia,tegra210-dmic.yaml       | 105 +++++++++++++
->  .../bindings/sound/nvidia,tegra210-i2s.yaml        | 112 ++++++++++++++
->  5 files changed, 617 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
->  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
->  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-ahub.yaml
->  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-dmic.yaml
->  create mode 100644 Documentation/devicetree/bindings/sound/nvidia,tegra210-i2s.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
+>  .../bindings/sound/st,stm32-sai.txt           | 107 ----------
+>  .../bindings/sound/st,stm32-sai.yaml          | 193 ++++++++++++++++++
+>  2 files changed, 193 insertions(+), 107 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.txt
+>  create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+
+
+> diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
 > new file mode 100644
-> index 0000000..dc9fef3
+> index 000000000000..33dca007fc86
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra186-dspk.yaml
-> @@ -0,0 +1,105 @@
-> +# SPDX-License-Identifier: (GPL-2.0)
-
-Dual license new bindings:
-
-(GPL-2.0-only OR BSD-2-Clause)
-
+> +++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+> @@ -0,0 +1,193 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/sound/nvidia,tegra186-dspk.yaml#
+> +$id: http://devicetree.org/schemas/sound/st,stm32-sai.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Tegra186 DSPK Controller Device Tree Bindings
-> +
-> +description: |
-> +  The Digital Speaker Controller (DSPK) can be viewed as a Pulse
-> +  Density Modulation (PDM) transmitter that up-samples the input to
-> +  the desired sampling rate by interpolation and then converts the
-> +  over sampled Pulse Code Modulation (PCM) input to the desired 1-bit
-> +  output via Delta Sigma Modulation (DSM).
+> +title: STMicroelectronics STM32 Serial Audio Interface (SAI)
 > +
 > +maintainers:
-> +  - Jon Hunter <jonathanh@nvidia.com>
-> +  - Sameer Pujar <spujar@nvidia.com>
+> +  - Olivier Moysan <olivier.moysan@st.com>
+> +
+> +description:
+> +  The SAI interface (Serial Audio Interface) offers a wide set of audio
+> +  protocols as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
+> +  The SAI contains two independent audio sub-blocks. Each sub-block has
+> +  its own clock generator and I/O lines controller.
 > +
 > +properties:
 > +  compatible:
-> +    oneOf:
-> +      - items:
-
-Drop 'items' for a single entry.
-
-> +          const: nvidia,tegra186-dspk
-> +      - items:
-> +          - enum:
-> +              - nvidia,tegra194-dspk
-> +          - enum:
-> +              - nvidia,tegra186-dspk
-
-This can be a 'const'
-
+> +    enum:
+> +      - st,stm32f4-sai
+> +      - st,stm32h7-sai
 > +
 > +  reg:
-> +    description: offset and length of the register set for the device.
-
-That's every 'reg'. Drop.
-
+> +    items:
+> +      - description: Base address and size of SAI common register set.
+> +      - description: Base address and size of SAI identification register set.
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  ranges:
 > +    maxItems: 1
 > +
-> +  clocks:
-> +    description: must contain an entry for each entry in clock-names.
-> +      See ../clocks/clocks-bindings.txt for details.
-> +    minItems: 1
-
-Drop description and minItems. minItems is implied by the length of 
-'items'.
-
-> +    items:
-> +      - description: Module clock
+> +  interrupts:
+> +    maxItems: 1
 > +
-> +  clock-names:
-> +    description: must contain clock names for each corresponding entry in clocks.
-> +      See ../clocks/clocks-bindings.txt for details.
-> +    minItems: 1
-
-ditto
-
-> +    items:
-> +      - const: dspk
+> +  resets:
+> +    maxItems: 1
 > +
-> +  assigned-clocks:
-> +    description: list of input clocks and dividers for the audio system.
-> +      See ../clocks/clock-bindings.txt for details.
-> +    minItems: 1
-
-ditto
-
-> +    items:
-> +      - description: Module clock
-> +
-> +  assigned-clock-parents:
-> +    description: parent clock for each entry in assigned-clocks
-> +      See ../clocks/clock-bindings.txt for details.
-> +    minItems: 1
-
-ditto
-
-> +    items:
-> +      - description: Parent for module clock
-> +
-> +  assigned-clock-rates:
-> +    description: clock rate for each entry in assigned-clocks
-> +      See ../clocks/clock-bindings.txt for details.
-
-ditto
-
-> +    items:
-> +      - description: initial module clock rate
-> +
-> +  "#sound-dai-cells":
+> +  "#address-cells":
 > +    const: 1
 > +
-> +  sound-name-prefix:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description:
-> +      Used as prefix for sink/source names of the component. Must be a
-> +      unique string among multiple instances of the same component.
-> +      The name can be "DSPK1" or "DSPKx", where x depends on the maximum
-
-Sounds like a constraint.
-
-> +      available instances on a Tegra SoC.
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: pclk feeds the peripheral bus interface.
+> +      - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
+> +      - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
+> +
+> +  clock-names:
+> +    items:
+> +      enum: [ pclk, x8k, x11k ]
+> +    minItems: 3
+> +    maxItems: 3
 > +
 > +required:
 > +  - compatible
 > +  - reg
+> +  - ranges
+> +  - "#address-cells"
+> +  - "#size-cells"
 > +  - clocks
 > +  - clock-names
-> +  - assigned-clocks
-> +  - assigned-clock-parents
-> +  - "#sound-dai-cells"
+> +
+> +patternProperties:
+> +  "^audio-controller@[0-9a-f]+$":
+> +    type: object
+> +    description:
+> +      Two subnodes corresponding to SAI sub-block instances A et B
+> +      can be defined. Subnode can be omitted for unsused sub-block.
+> +
+> +    properties:
+> +      compatible:
+> +        description: Compatible for SAI sub-block A or B.
+> +        enum:
+> +          - st,stm32-sai-sub-a
+> +          - st,stm32-sai-sub-b
+
+pattern: 'st,stm32-sai-sub-[ab]'
+
+> +
+> +      "#sound-dai-cells":
+> +        const: 0
+> +
+> +      reg:
+> +        maxItems: 1
+> +
+> +      clocks:
+> +        items:
+> +          - description: sai_ck clock feeding the internal clock generator.
+> +          - description: MCLK clock from a SAI set as master clock provider.
+> +        minItems: 1
+> +        maxItems: 2
+> +
+> +      clock-names:
+> +        items:
+> +          - const: sai_ck
+> +          - const: MCLK
+> +        minItems: 1
+> +        maxItems: 2
+> +
+> +      dmas:
+> +        items:
+> +          - description: SAI sub-block is configured as a capture DAI.
+> +          - description: SAI sub-block is configured as a playback DAI.
+> +        minItems: 1
+> +        maxItems: 1
+
+This is defining that dmas has 2 entries, but then limits it to the 1st 
+entry only.
+
+> +
+> +      dma-names:
+> +        items:
+> +          - enum: [ rx, tx ]
+> +
+> +      st,sync:
+> +        description:
+> +          Configure the SAI sub-block as slave of another SAI sub-block.
+> +          By default SAI sub-block is in asynchronous mode.
+> +          Must contain the phandle and index of the SAI sub-block providing
+> +          the synchronization.
+> +        allOf:
+> +          - $ref: /schemas/types.yaml#definitions/phandle-array
+> +          - maxItems: 1
+> +
+> +      st,iec60958:
+> +        description:
+> +          If set, support S/PDIF IEC6958 protocol for playback.
+> +          IEC60958 protocol is not available for capture.
+> +          By default, custom protocol is assumed, meaning that protocol is
+> +          configured according to protocol defined in related DAI link node,
+> +          such as i2s, left justified, right justified, dsp and pdm protocols.
+> +        allOf:
+> +          - $ref: /schemas/types.yaml#definitions/flag
+> +
+> +      "#clock-cells":
+> +        description: Configure the SAI device as master clock provider.
+> +        const: 0
+> +
+> +    required:
+> +      - compatible
+> +      - "#sound-dai-cells"
+> +      - reg
+> +      - clocks
+> +      - clock-names
+> +      - dmas
+> +      - dma-names
+
+       additionalProperties: false.
+
+> +
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: st,stm32f4-sai
+> +
+> +  - then:
+> +      properties:
+> +        clocks:
+> +          minItems: 2
+> +          maxItems: 2
+> +
+> +        clock-names:
+> +          items:
+> +            enum: [ x8k, x11k ]
+
+Define the order.
+
+> +          minItems: 2
+> +          maxItems: 2
+> +
+> +additionalProperties: false
 > +
 > +examples:
 > +  - |
-> +    #include<dt-bindings/clock/tegra186-clock.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/clock/stm32mp1-clks.h>
+> +    #include <dt-bindings/reset/stm32mp1-resets.h>
+> +    sai1: sai@4400a000 {
+> +      compatible = "st,stm32h7-sai";
+> +      #address-cells = <1>;
+> +      #size-cells = <1>;
+> +      ranges = <0 0x4400a000 0x400>;
+> +      reg = <0x4400a000 0x4>, <0x4400a3f0 0x10>;
+> +      interrupts = <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
+> +      clocks = <&rcc SAI1>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
+> +      clock-names = "pclk", "x8k", "x11k";
+> +      resets = <&rcc SAI1_R>;
 > +
-> +    tegra_dspk1: dspk@2905000 {
-> +        compatible = "nvidia,tegra186-dspk";
-> +        reg = <0x2905000 0x100>;
-> +        clocks = <&bpmp TEGRA186_CLK_DSPK1>;
-> +        clock-names = "dspk";
-> +        assigned-clocks = <&bpmp TEGRA186_CLK_DSPK1>;
-> +        assigned-clock-parents = <&bpmp TEGRA186_CLK_PLL_A_OUT0>;
-> +        assigned-clock-rates = <12288000>;
-> +        #sound-dai-cells = <1>;
-> +        sound-name-prefix = "DSPK1";
+> +      sai1a: audio-controller@4400a004 {
+> +        compatible = "st,stm32-sai-sub-a";
+> +        #sound-dai-cells = <0>;
+> +        reg = <0x4 0x1c>;
+> +        clocks = <&rcc SAI1_K>;
+> +        clock-names = "sai_ck";
+> +        dmas = <&dmamux1 87 0x400 0x01>;
+> +        dma-names = "tx";
+> +      };
 > +    };
 > +
 > +...
-> diff --git a/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml b/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
-> new file mode 100644
-> index 0000000..a8a41ba
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/nvidia,tegra210-admaif.yaml
-> @@ -0,0 +1,165 @@
-> +# SPAT-License-Identifier: (GPL-2.0)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/nvidia,tegra210-admaif.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Tegra210 ADMAIF Device Tree Bindings
-> +
-> +description: |
-> +  ADMAIF is the interface between ADMA and AHUB. Each ADMA channel
-> +  that sends/receives data to/from AHUB must interface through an
-> +  ADMAIF channel. ADMA channel sending data to AHUB pairs with ADMAIF
-> +  Tx channel and ADMA channel receiving data from AHUB pairs with
-> +  ADMAIF Rx channel.
-> +
-> +maintainers:
-> +  - Jon Hunter <jonathanh@nvidia.com>
-> +  - Sameer Pujar <spujar@nvidia.com>
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          const: nvidia,tegra210-admaif
-> +      - items:
-> +          const: nvidia,tegra186-admaif
-
-These 2 can be a single enum.
-
-> +      - items:
-> +          - enum:
-> +             - nvidia,tegra194-admaif
-> +          - enum:
-> +             - nvidia,tegra186-admaif
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  dmas: true
-> +
-> +  dma-names: true
-> +
-> +  "#sound-dai-cells":
-> +    const: 1
-> +
-> +if:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        const: nvidia,tegra210-admaif
-> +
-> +then:
-> +  properties:
-> +    dmas:
-> +      $ref: /schemas/types.yaml#/definitions/phandle-array
-
-Drop. Common properties already have a type.
-
-Plus this is wrong. A '$ref' means all other keywords are ignored (until 
-we move to draft8).
-
-> +      description:
-> +        Two or more DMA channel specifiers, equally divided for Tx and Rx.
-> +      minItems: 2
-> +      maxItems: 20
-> +    dma-names:
-> +      $ref: /schemas/types.yaml#/definitions/string-array
-
-drop
-
-> +      description:
-> +        There must be at least one channel named "tx1" for transmit and "rx1"
-> +        for receive. If more channels need to be specified then "tx1",
-> +        "tx2" ... "tx10" can be used. Similarly for Rx channels as well.
-
-Sounds like constraints.
-
-
-Stopping there. Similar issues on the rest...
+> -- 
+> 2.17.1
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

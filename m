@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64496155F2E
-	for <lists+alsa-devel@lfdr.de>; Fri,  7 Feb 2020 21:17:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC2BB155F53
+	for <lists+alsa-devel@lfdr.de>; Fri,  7 Feb 2020 21:18:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B994016BD;
-	Fri,  7 Feb 2020 21:16:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B994016BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 463E616D1;
+	Fri,  7 Feb 2020 21:17:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 463E616D1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581106655;
+	s=default; t=1581106699;
 	bh=uREwwcPEB6ZFX+jiFiR74K+0x96NxUqHgSF7lrQUnIE=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ecL60dB7hBaAuivbTmqE+0IM7F6dExrgnd2yLcBx7N73hDQbnY6B2+WW/f1oT3H+k
-	 Ouh06RMqWce1071i/OVpwbmargfkySh7z0NH9k5gpDb76DVbGk9qd+or3IBun6j2yC
-	 OYBXRaV3pTmbailZMzih86S7ALiqtx3bCSDshVL8=
+	b=hYMkPMDZwv75yEbsPn5cjYk8z8sFgnRG6T8j2JW0lOr/TjlslnJFMRKLXJs3LHMHo
+	 dYAesvHRPCAq06UcNActD5G2etSow0R6LTkvn0YU9bi+p5Wjehu+nHl6XDOw7uYieo
+	 uwfS6zQApSnNRN7OKO69zR0zLcyDl6XeVZEb/Qzg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CE359F80148;
-	Fri,  7 Feb 2020 21:15:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E0B64F80254;
+	Fri,  7 Feb 2020 21:15:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 895EEF8014C; Fri,  7 Feb 2020 21:15:52 +0100 (CET)
+ id A9977F80148; Fri,  7 Feb 2020 21:15:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,9 +35,9 @@ Received: from sonic302-21.consmr.mail.ir2.yahoo.com
  (sonic302-21.consmr.mail.ir2.yahoo.com [87.248.110.84])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 322E6F800B2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60422F8012F
  for <alsa-devel@alsa-project.org>; Fri,  7 Feb 2020 21:15:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 322E6F800B2
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60422F8012F
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=yahoo.de header.i=@yahoo.de
  header.b="guDq+ZpV"

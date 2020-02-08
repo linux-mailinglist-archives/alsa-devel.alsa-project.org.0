@@ -2,29 +2,29 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC097156810
-	for <lists+alsa-devel@lfdr.de>; Sat,  8 Feb 2020 23:36:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 091ED156815
+	for <lists+alsa-devel@lfdr.de>; Sat,  8 Feb 2020 23:43:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C57D16B2;
-	Sat,  8 Feb 2020 23:35:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C57D16B2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E56716BA;
+	Sat,  8 Feb 2020 23:43:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E56716BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581201396;
-	bh=mn8kuripCl10teeJ8FgfcTl6bRQ8ypB2JVyJH9O4luM=;
+	s=default; t=1581201836;
+	bh=60Z8mFkcGo8jfoZRq0Z8MX3RD/mKGKFp/rk1jReY9fo=;
 	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=bYZU0HJJr8rrcQWHqQBXfjFDIhzJrG3wt35zE0HteyguGADJyWjsm6YTfrr3xXdPs
-	 0tEfS8d6bRq15OQNyKEw/YdlpYt6qVzevaKGTH/msr3WZ56jePt8svegjIyW/E8b79
-	 fqHXjeHD94BGlexgJnbhnqb2ptwW8fpncHIdJHl4=
+	b=NO4UQN/MsUxYsM4/QBDDwhiR08WIvOaGdrz55qJk0hsOvTyxpHnov1bhVL5JxXyW5
+	 tShq4IzsF8zOyJPxMsxCd7OW9tE+0zq3emBV1aIxpKbCwzZ+HIsYbI2zdc5zV0AQ8W
+	 Gl9DVEOuS39HslgsnVYpAOPsiOOmeR4gOCpgVnno=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 45A38F801DB;
-	Sat,  8 Feb 2020 23:34:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 13FA7F801DB;
+	Sat,  8 Feb 2020 23:42:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4401EF80162; Sat,  8 Feb 2020 23:34:51 +0100 (CET)
+ id CB159F80162; Sat,  8 Feb 2020 23:42:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,24 +34,24 @@ Received: from youngberry.canonical.com (youngberry.canonical.com
  [91.189.89.112])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6ED9BF8012F
- for <alsa-devel@alsa-project.org>; Sat,  8 Feb 2020 23:34:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6ED9BF8012F
+ by alsa1.perex.cz (Postfix) with ESMTPS id 404E0F8012F
+ for <alsa-devel@alsa-project.org>; Sat,  8 Feb 2020 23:42:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 404E0F8012F
 Received: from 1.general.cking.uk.vpn ([10.172.193.212] helo=localhost)
  by youngberry.canonical.com with esmtpsa
  (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
  (envelope-from <colin.king@canonical.com>)
- id 1j0YgV-0001jM-Q3; Sat, 08 Feb 2020 22:34:43 +0000
+ id 1j0Yne-00026V-Lx; Sat, 08 Feb 2020 22:42:06 +0000
 From: Colin King <colin.king@canonical.com>
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  alsa-devel@alsa-project.org
-Date: Sat,  8 Feb 2020 22:34:43 +0000
-Message-Id: <20200208223443.38047-1-colin.king@canonical.com>
+Date: Sat,  8 Feb 2020 22:42:06 +0000
+Message-Id: <20200208224206.38540-1-colin.king@canonical.com>
 X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
 Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH] ALSA: ali5451: remove redundant variable
-	capture_flag
+Subject: [alsa-devel] [PATCH] ALSA: info: remove redundant assignment to
+	variable c
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,46 +71,29 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Colin Ian King <colin.king@canonical.com>
 
-Variable capture_flag is only ever assigned values, it is never read
-and hence it is redundant. Remove it.
+Variable c is being assigned with the value -1 that is never read,
+it is assigned a new value in a following while-loop. The assignment
+is redundant and can be removed.
 
-Addresses-Coverity ("Unused value")
+Addresses-Coverity: ("Unused value")
 Signed-off-by: Colin Ian King <colin.king@canonical.com>
 ---
- sound/pci/ali5451/ali5451.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ sound/core/info.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/pci/ali5451/ali5451.c b/sound/pci/ali5451/ali5451.c
-index 4f524a9dbbca..4462375d2d82 100644
---- a/sound/pci/ali5451/ali5451.c
-+++ b/sound/pci/ali5451/ali5451.c
-@@ -1070,7 +1070,7 @@ static int snd_ali_trigger(struct snd_pcm_substream *substream,
+diff --git a/sound/core/info.c b/sound/core/info.c
+index ca87ae4c30ba..8c6bc5241df5 100644
+--- a/sound/core/info.c
++++ b/sound/core/info.c
+@@ -604,7 +604,7 @@ int snd_info_card_free(struct snd_card *card)
+  */
+ int snd_info_get_line(struct snd_info_buffer *buffer, char *line, int len)
  {
- 	struct snd_ali *codec = snd_pcm_substream_chip(substream);
- 	struct snd_pcm_substream *s;
--	unsigned int what, whati, capture_flag;
-+	unsigned int what, whati;
- 	struct snd_ali_voice *pvoice, *evoice;
- 	unsigned int val;
- 	int do_start;
-@@ -1088,7 +1088,7 @@ static int snd_ali_trigger(struct snd_pcm_substream *substream,
- 		return -EINVAL;
- 	}
+-	int c = -1;
++	int c;
  
--	what = whati = capture_flag = 0;
-+	what = whati = 0;
- 	snd_pcm_group_for_each_entry(s, substream) {
- 		if ((struct snd_ali *) snd_pcm_substream_chip(s) == codec) {
- 			pvoice = s->runtime->private_data;
-@@ -1110,8 +1110,6 @@ static int snd_ali_trigger(struct snd_pcm_substream *substream,
- 					evoice->running = 0;
- 			}
- 			snd_pcm_trigger_done(s, substream);
--			if (pvoice->mode)
--				capture_flag = 1;
- 		}
- 	}
- 	spin_lock(&codec->reg_lock);
+ 	if (snd_BUG_ON(!buffer || !buffer->buffer))
+ 		return 1;
 -- 
 2.25.0
 

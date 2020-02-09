@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD971156B44
-	for <lists+alsa-devel@lfdr.de>; Sun,  9 Feb 2020 16:54:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A65156B36
+	for <lists+alsa-devel@lfdr.de>; Sun,  9 Feb 2020 16:50:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7E5B81699;
-	Sun,  9 Feb 2020 16:54:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E5B81699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6EE36167B;
+	Sun,  9 Feb 2020 16:49:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6EE36167B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581263698;
-	bh=G4r1mJGFO2PFJeOi4mXqd793cp+1FZMSwphFJ4MKGHo=;
+	s=default; t=1581263407;
+	bh=4R3vvGbmpx8/Ye5Zzz+QK3fBI6XJgaKQNlweOi/Jt+4=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fb2IaLBgCKop2L9mPgXNVVmXuLanmCa/rvZ8WXWJGtWA9PZRGaLhHMcJ4ZLLUXOgB
-	 1lnkNxZBzpIasHSKVI/w2cTlq1Yh3irKPz+zppLuABLXZ7HNiKYpesNd2Nx1Nrt+GA
-	 n09akzrR1b+Opa4r//6soJwX9Kmw8brEstEi2IwE=
+	b=IZjeUsk8+ZJehyO+wXtH7H6h7mtJus4MgIjwrxBZuaBQvJlbtTQu0dfI6g2IFKbLA
+	 BfFsXfV1F3hb9qVCJsD/t14fqGViexgqUz1fW07+PxtZ7vmS3PDOsDDpUbddTDCF87
+	 x6vdUK8kSrn2gvAfzNSOJcMmGJB1LhYc2I2hQZLo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F11B4F802E0;
-	Sun,  9 Feb 2020 16:49:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 774DDF80147;
+	Sun,  9 Feb 2020 16:48:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A0B7CF802A8; Sun,  9 Feb 2020 16:48:59 +0100 (CET)
+ id AEC17F80146; Sun,  9 Feb 2020 16:48:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -34,39 +34,39 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
 Received: from mail.serbinski.com (mail.serbinski.com [162.218.126.2])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BBABEF802A8
- for <alsa-devel@alsa-project.org>; Sun,  9 Feb 2020 16:48:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BBABEF802A8
+ by alsa1.perex.cz (Postfix) with ESMTPS id 026A8F800ED
+ for <alsa-devel@alsa-project.org>; Sun,  9 Feb 2020 16:48:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 026A8F800ED
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=serbinski.com header.i=@serbinski.com
- header.b="ETlwUEJ2"
+ header.b="jKbwn2xW"
 Received: from localhost (unknown [127.0.0.1])
- by mail.serbinski.com (Postfix) with ESMTP id E7F66D006F9;
- Sun,  9 Feb 2020 15:48:51 +0000 (UTC)
+ by mail.serbinski.com (Postfix) with ESMTP id C2536D00721;
+ Sun,  9 Feb 2020 15:48:17 +0000 (UTC)
 X-Virus-Scanned: amavisd-new at serbinski.com
 Received: from mail.serbinski.com ([127.0.0.1])
  by localhost (mail.serbinski.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id oQcHkTViZkgQ; Sun,  9 Feb 2020 10:48:39 -0500 (EST)
+ with ESMTP id fK_TCpBGIyr1; Sun,  9 Feb 2020 10:48:08 -0500 (EST)
 Received: from anet (23-233-80-73.cpe.pppoe.ca [23.233.80.73])
  (using TLSv1 with cipher AES256-SHA (256/256 bits))
  (No client certificate requested)
- by mail.serbinski.com (Postfix) with ESMTPSA id BF41ED0071A;
- Sun,  9 Feb 2020 10:48:11 -0500 (EST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.serbinski.com BF41ED0071A
+ by mail.serbinski.com (Postfix) with ESMTPSA id E5ED8D006FC;
+ Sun,  9 Feb 2020 10:48:07 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.serbinski.com E5ED8D006FC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=serbinski.com;
- s=default; t=1581263291;
- bh=Li+7uO9ANVGhw/mLvHKkrDnYRFTrSj70ZU/KaJjHjjc=;
+ s=default; t=1581263288;
+ bh=eajbKqGkxZ7eyaNOIY0gFw9T3e78d/CAluEu3zjDsX8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ETlwUEJ2nvH1QDsIib//+2lZNDN3rwSAwBbjRyTNP+Y3Zo/ylXM6Jwb7c/SppWkq9
- TBXxPx/Ku0ZV5V/fLhQ00U3t7YqAVo+DCzCfHu8mVTBqpj4R4/VvD9gT4S7Nr4Cbap
- TCM0WpTNxGEYU0RvfX3EhztfmH+yLLSmaTQsfOLk=
+ b=jKbwn2xWq2g+5yFX3dvPgYwsQ/mvKhtGSmB0mPUDOQly9wKZFs+QYjVWB/XzS6IFa
+ NYHUBWDZBoiUmMyLfM9+StZBFy0L1bAfreDDL7Le31eSxqb7LMF74/jfbCTYp6Uh5N
+ UnRSByqKQunKOEYJhTfWYjxeB8NH6ki9XJuAzFUo=
 From: Adam Serbinski <adam@serbinski.com>
 To: Mark Brown <broonie@kernel.org>,
  Srini Kandagatla <srinivas.kandagatla@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>
-Date: Sun,  9 Feb 2020 10:47:43 -0500
-Message-Id: <20200209154748.3015-4-adam@serbinski.com>
+Date: Sun,  9 Feb 2020 10:47:44 -0500
+Message-Id: <20200209154748.3015-5-adam@serbinski.com>
 X-Mailer: git-send-email 2.21.1
 In-Reply-To: <20200209154748.3015-1-adam@serbinski.com>
 References: <20200207205013.12274-1-adam@serbinski.com>
@@ -78,8 +78,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Andy Gross <agross@kernel.org>, Adam Serbinski <adam@serbinski.com>,
  linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH v2 3/8] ASoC: qdsp6: q6afe-dai: add support to
-	pcm port dais
+Subject: [alsa-devel] [PATCH v2 4/8] ASoC: qdsp6: q6routing: add pcm port
+	routing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,7 +97,8 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch adds support of AFE DAI for PCM port.
+This patch adds support to PCM_PORT mixers required to
+select path between ASM stream and AFE ports.
 
 Signed-off-by: Adam Serbinski <adam@serbinski.com>
 CC: Andy Gross <agross@kernel.org>
@@ -112,279 +113,92 @@ CC: linux-arm-msm@vger.kernel.org
 CC: devicetree@vger.kernel.org
 CC: linux-kernel@vger.kernel.org
 ---
- sound/soc/qcom/qdsp6/q6afe-dai.c | 198 ++++++++++++++++++++++++++++++-
- 1 file changed, 197 insertions(+), 1 deletion(-)
+ sound/soc/qcom/qdsp6/q6routing.c | 44 ++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
-index c1a7624eaf17..23b29591ef47 100644
---- a/sound/soc/qcom/qdsp6/q6afe-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
-@@ -151,6 +151,28 @@ static int q6hdmi_hw_params(struct snd_pcm_substream *substream,
- 	return 0;
- }
+diff --git a/sound/soc/qcom/qdsp6/q6routing.c b/sound/soc/qcom/qdsp6/q6routing.c
+index 20724102e85a..3a81d2161707 100644
+--- a/sound/soc/qcom/qdsp6/q6routing.c
++++ b/sound/soc/qcom/qdsp6/q6routing.c
+@@ -67,6 +67,10 @@
+ 	{ mix_name, "SEC_MI2S_TX", "SEC_MI2S_TX" },	\
+ 	{ mix_name, "QUAT_MI2S_TX", "QUAT_MI2S_TX" },	\
+ 	{ mix_name, "TERT_MI2S_TX", "TERT_MI2S_TX" },		\
++	{ mix_name, "PRI_PCM_TX", "PRI_PCM_TX" },		\
++	{ mix_name, "SEC_PCM_TX", "SEC_PCM_TX" },		\
++	{ mix_name, "TERT_PCM_TX", "TERT_PCM_TX" },		\
++	{ mix_name, "QUAT_PCM_TX", "QUAT_PCM_TX" },		\
+ 	{ mix_name, "SLIMBUS_0_TX", "SLIMBUS_0_TX" },		\
+ 	{ mix_name, "SLIMBUS_1_TX", "SLIMBUS_1_TX" },		\
+ 	{ mix_name, "SLIMBUS_2_TX", "SLIMBUS_2_TX" },		\
+@@ -128,6 +132,18 @@
+ 	SOC_SINGLE_EXT("QUAT_MI2S_TX", QUATERNARY_MI2S_TX,		\
+ 		id, 1, 0, msm_routing_get_audio_mixer,			\
+ 		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("PRI_PCM_TX", PRIMARY_PCM_TX,			\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("SEC_PCM_TX", SECONDARY_PCM_TX,			\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("TERT_PCM_TX", TERTIARY_PCM_TX,			\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
++	SOC_SINGLE_EXT("QUAT_PCM_TX", QUATERNARY_PCM_TX,		\
++		id, 1, 0, msm_routing_get_audio_mixer,			\
++		msm_routing_put_audio_mixer),				\
+ 	SOC_SINGLE_EXT("SLIMBUS_0_TX", SLIMBUS_0_TX,			\
+ 		id, 1, 0, msm_routing_get_audio_mixer,			\
+ 		msm_routing_put_audio_mixer),				\
+@@ -468,6 +484,18 @@ static const struct snd_kcontrol_new quaternary_mi2s_rx_mixer_controls[] = {
+ static const struct snd_kcontrol_new tertiary_mi2s_rx_mixer_controls[] = {
+ 	Q6ROUTING_RX_MIXERS(TERTIARY_MI2S_RX) };
  
-+static int q6pcm_hw_params(struct snd_pcm_substream *substream,
-+			   struct snd_pcm_hw_params *params,
-+			   struct snd_soc_dai *dai)
-+{
-+	struct q6afe_dai_data *dai_data = dev_get_drvdata(dai->dev);
-+	struct q6afe_pcm_cfg *pcm = &dai_data->port_config[dai->id].pcm_cfg;
++static const struct snd_kcontrol_new primary_pcm_rx_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(PRIMARY_PCM_RX) };
 +
-+	pcm->sample_rate = params_rate(params);
++static const struct snd_kcontrol_new secondary_pcm_rx_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(SECONDARY_PCM_RX) };
 +
-+	return 0;
-+}
++static const struct snd_kcontrol_new tertiary_pcm_rx_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(TERTIARY_PCM_RX) };
 +
-+static int q6pcm_set_fmt(struct snd_soc_dai *dai, unsigned int fmt)
-+{
-+	struct q6afe_dai_data *dai_data = dev_get_drvdata(dai->dev);
-+	struct q6afe_pcm_cfg *pcm = &dai_data->port_config[dai->id].pcm_cfg;
++static const struct snd_kcontrol_new quaternary_pcm_rx_mixer_controls[] = {
++	Q6ROUTING_RX_MIXERS(QUATERNARY_PCM_RX) };
 +
-+	pcm->fmt = fmt;
-+
-+	return 0;
-+}
-+
- static int q6i2s_hw_params(struct snd_pcm_substream *substream,
- 			   struct snd_pcm_hw_params *params,
- 			   struct snd_soc_dai *dai)
-@@ -358,6 +380,15 @@ static int q6afe_dai_prepare(struct snd_pcm_substream *substream,
- 			return rc;
- 		}
- 		break;
-+	case PRIMARY_PCM_RX ... QUATERNARY_PCM_TX:
-+		rc = q6afe_pcm_port_prepare(dai_data->port[dai->id],
-+				&dai_data->port_config[dai->id].pcm_cfg);
-+		if (rc < 0) {
-+			dev_err(dai->dev, "fail to prepare AFE port %x\n",
-+				dai->id);
-+			return rc;
-+		}
-+		break;
- 	case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
- 		q6afe_tdm_port_prepare(dai_data->port[dai->id],
- 					&dai_data->port_config[dai->id].tdm);
-@@ -429,11 +460,32 @@ static int q6afe_mi2s_set_sysclk(struct snd_soc_dai *dai,
- 					     Q6AFE_LPASS_CLK_ROOT_DEFAULT,
- 					     freq, dir);
- 	case Q6AFE_LPASS_CLK_ID_PRI_MI2S_IBIT ... Q6AFE_LPASS_CLK_ID_QUI_MI2S_OSR:
-+	case Q6AFE_LPASS_CLK_ID_PRI_PCM_IBIT ... Q6AFE_LPASS_CLK_ID_QUI_PCM_OSR:
- 	case Q6AFE_LPASS_CLK_ID_MCLK_1 ... Q6AFE_LPASS_CLK_ID_INT_MCLK_1:
- 		return q6afe_port_set_sysclk(port, clk_id,
- 					     Q6AFE_LPASS_CLK_ATTRIBUTE_COUPLE_NO,
- 					     Q6AFE_LPASS_CLK_ROOT_DEFAULT,
- 					     freq, dir);
-+	}
-+
-+	return 0;
-+}
-+
-+static int q6afe_tdm_set_sysclk(struct snd_soc_dai *dai,
-+		int clk_id, unsigned int freq, int dir)
-+{
-+	struct q6afe_dai_data *dai_data = dev_get_drvdata(dai->dev);
-+	struct q6afe_port *port = dai_data->port[dai->id];
-+
-+	switch (clk_id) {
-+	case LPAIF_DIG_CLK:
-+		return q6afe_port_set_sysclk(port, clk_id, 0, 5, freq, dir);
-+	case LPAIF_BIT_CLK:
-+	case LPAIF_OSR_CLK:
-+		return q6afe_port_set_sysclk(port, clk_id,
-+					     Q6AFE_LPASS_CLK_SRC_INTERNAL,
-+					     Q6AFE_LPASS_CLK_ROOT_DEFAULT,
-+					     freq, dir);
- 	case Q6AFE_LPASS_CLK_ID_PRI_TDM_IBIT ... Q6AFE_LPASS_CLK_ID_QUIN_TDM_EBIT:
- 		return q6afe_port_set_sysclk(port, clk_id,
- 					     Q6AFE_LPASS_CLK_ATTRIBUTE_INVERT_COUPLE_NO,
-@@ -468,6 +520,11 @@ static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
- 	{"Tertiary MI2S Playback", NULL, "TERT_MI2S_RX"},
- 	{"Quaternary MI2S Playback", NULL, "QUAT_MI2S_RX"},
+ static const struct snd_kcontrol_new slimbus_rx_mixer_controls[] = {
+ 	Q6ROUTING_RX_MIXERS(SLIMBUS_0_RX) };
  
-+	{"Primary PCM Playback", NULL, "PRI_PCM_RX"},
-+	{"Secondary PCM Playback", NULL, "SEC_PCM_RX"},
-+	{"Tertiary PCM Playback", NULL, "TERT_PCM_RX"},
-+	{"Quaternary PCM Playback", NULL, "QUAT_PCM_RX"},
-+
- 	{"Primary TDM0 Playback", NULL, "PRIMARY_TDM_RX_0"},
- 	{"Primary TDM1 Playback", NULL, "PRIMARY_TDM_RX_1"},
- 	{"Primary TDM2 Playback", NULL, "PRIMARY_TDM_RX_2"},
-@@ -562,6 +619,11 @@ static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
- 	{"PRI_MI2S_TX", NULL, "Primary MI2S Capture"},
- 	{"SEC_MI2S_TX", NULL, "Secondary MI2S Capture"},
- 	{"QUAT_MI2S_TX", NULL, "Quaternary MI2S Capture"},
-+
-+	{"PRI_PCM_TX", NULL, "Primary PCM Capture"},
-+	{"SEC_PCM_TX", NULL, "Secondary PCM Capture"},
-+	{"TERT_PCM_TX", NULL, "Tertiary PCM Capture"},
-+	{"QUAT_PCM_TX", NULL, "Quaternary PCM Capture"},
- };
- 
- static const struct snd_soc_dai_ops q6hdmi_ops = {
-@@ -578,6 +640,14 @@ static const struct snd_soc_dai_ops q6i2s_ops = {
- 	.set_sysclk	= q6afe_mi2s_set_sysclk,
- };
- 
-+static const struct snd_soc_dai_ops q6pcm_ops = {
-+	.prepare	= q6afe_dai_prepare,
-+	.hw_params	= q6pcm_hw_params,
-+	.set_fmt	= q6pcm_set_fmt,
-+	.shutdown	= q6afe_dai_shutdown,
-+	.set_sysclk	= q6afe_mi2s_set_sysclk,
-+};
-+
- static const struct snd_soc_dai_ops q6slim_ops = {
- 	.prepare	= q6afe_dai_prepare,
- 	.hw_params	= q6slim_hw_params,
-@@ -588,7 +658,7 @@ static const struct snd_soc_dai_ops q6slim_ops = {
- static const struct snd_soc_dai_ops q6tdm_ops = {
- 	.prepare	= q6afe_dai_prepare,
- 	.shutdown	= q6afe_dai_shutdown,
--	.set_sysclk	= q6afe_mi2s_set_sysclk,
-+	.set_sysclk	= q6afe_tdm_set_sysclk,
- 	.set_tdm_slot     = q6tdm_set_tdm_slot,
- 	.set_channel_map  = q6tdm_set_channel_map,
- 	.hw_params        = q6tdm_hw_params,
-@@ -1012,6 +1082,115 @@ static struct snd_soc_dai_driver q6afe_dais[] = {
- 		.ops = &q6i2s_ops,
- 		.probe = msm_dai_q6_dai_probe,
- 		.remove = msm_dai_q6_dai_remove,
-+	}, {
-+		.playback = {
-+			.stream_name = "Primary PCM Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.rate_min =     8000,
-+			.rate_max =     16000,
-+		},
-+		.id = PRIMARY_PCM_RX,
-+		.name = "PRI_PCM_RX",
-+		.ops = &q6pcm_ops,
-+		.probe = msm_dai_q6_dai_probe,
-+		.remove = msm_dai_q6_dai_remove,
-+	}, {
-+		.capture = {
-+			.stream_name = "Primary PCM Capture",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.rate_min =     8000,
-+			.rate_max =     16000,
-+		},
-+		.id = PRIMARY_PCM_TX,
-+		.name = "PRI_PCM_TX",
-+		.ops = &q6pcm_ops,
-+		.probe = msm_dai_q6_dai_probe,
-+		.remove = msm_dai_q6_dai_remove,
-+	}, {
-+		.playback = {
-+			.stream_name = "Secondary PCM Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+			.rate_min =     8000,
-+			.rate_max =     16000,
-+		},
-+		.name = "SEC_PCM_RX",
-+		.id = SECONDARY_PCM_RX,
-+		.ops = &q6pcm_ops,
-+		.probe = msm_dai_q6_dai_probe,
-+		.remove = msm_dai_q6_dai_remove,
-+	}, {
-+		.capture = {
-+			.stream_name = "Secondary PCM Capture",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.rate_min =     8000,
-+			.rate_max =     16000,
-+		},
-+		.id = SECONDARY_PCM_TX,
-+		.name = "SEC_PCM_TX",
-+		.ops = &q6pcm_ops,
-+		.probe = msm_dai_q6_dai_probe,
-+		.remove = msm_dai_q6_dai_remove,
-+	}, {
-+		.playback = {
-+			.stream_name = "Tertiary PCM Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+			.rate_min =     8000,
-+			.rate_max =     16000,
-+		},
-+		.name = "TERT_PCM_RX",
-+		.id = TERTIARY_PCM_RX,
-+		.ops = &q6pcm_ops,
-+		.probe = msm_dai_q6_dai_probe,
-+		.remove = msm_dai_q6_dai_remove,
-+	}, {
-+		.capture = {
-+			.stream_name = "Tertiary PCM Capture",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.rate_min =     8000,
-+			.rate_max =     16000,
-+		},
-+		.id = TERTIARY_PCM_TX,
-+		.name = "TERT_PCM_TX",
-+		.ops = &q6pcm_ops,
-+		.probe = msm_dai_q6_dai_probe,
-+		.remove = msm_dai_q6_dai_remove,
-+	}, {
-+		.playback = {
-+			.stream_name = "Quaternary PCM Playback",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+			.rate_min =     8000,
-+			.rate_max =     16000,
-+		},
-+		.name = "QUAT_PCM_RX",
-+		.id = QUATERNARY_PCM_RX,
-+		.ops = &q6pcm_ops,
-+		.probe = msm_dai_q6_dai_probe,
-+		.remove = msm_dai_q6_dai_remove,
-+	}, {
-+		.capture = {
-+			.stream_name = "Quaternary PCM Capture",
-+			.rates = SNDRV_PCM_RATE_8000 | SNDRV_PCM_RATE_16000,
-+			.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+				   SNDRV_PCM_FMTBIT_S24_LE,
-+			.rate_min =     8000,
-+			.rate_max =     16000,
-+		},
-+		.id = QUATERNARY_PCM_TX,
-+		.name = "QUAT_PCM_TX",
-+		.ops = &q6pcm_ops,
-+		.probe = msm_dai_q6_dai_probe,
-+		.remove = msm_dai_q6_dai_remove,
- 	},
- 	Q6AFE_TDM_PB_DAI("Primary", 0, PRIMARY_TDM_RX_0),
- 	Q6AFE_TDM_PB_DAI("Primary", 1, PRIMARY_TDM_RX_1),
-@@ -1169,6 +1348,23 @@ static const struct snd_soc_dapm_widget q6afe_dai_widgets[] = {
- 	SND_SOC_DAPM_AIF_OUT("PRI_MI2S_TX", NULL,
- 						0, 0, 0, 0),
- 
-+	SND_SOC_DAPM_AIF_IN("QUAT_PCM_RX", NULL,
-+			    0, 0, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("QUAT_PCM_TX", NULL,
-+			     0, 0, 0, 0),
-+	SND_SOC_DAPM_AIF_IN("TERT_PCM_RX", NULL,
-+			    0, 0, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("TERT_PCM_TX", NULL,
-+			     0, 0, 0, 0),
-+	SND_SOC_DAPM_AIF_IN("SEC_PCM_RX", NULL,
-+			    0, 0, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("SEC_PCM_TX", NULL,
-+			     0, 0, 0, 0),
-+	SND_SOC_DAPM_AIF_IN("PRI_PCM_RX", NULL,
-+			    0, 0, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("PRI_PCM_TX", NULL,
-+			     0, 0, 0, 0),
-+
- 	SND_SOC_DAPM_AIF_IN("PRIMARY_TDM_RX_0", NULL,
- 			     0, 0, 0, 0),
- 	SND_SOC_DAPM_AIF_IN("PRIMARY_TDM_RX_1", NULL,
+@@ -695,6 +723,18 @@ static const struct snd_soc_dapm_widget msm_qdsp6_widgets[] = {
+ 	SND_SOC_DAPM_MIXER("TERT_MI2S_RX Audio Mixer", SND_SOC_NOPM, 0, 0,
+ 			   tertiary_mi2s_rx_mixer_controls,
+ 			   ARRAY_SIZE(tertiary_mi2s_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("PRI_PCM_RX Audio Mixer", SND_SOC_NOPM, 0, 0,
++			   primary_pcm_rx_mixer_controls,
++			   ARRAY_SIZE(primary_pcm_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("SEC_PCM_RX Audio Mixer", SND_SOC_NOPM, 0, 0,
++			   secondary_pcm_rx_mixer_controls,
++			   ARRAY_SIZE(secondary_pcm_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("TERT_PCM_RX Audio Mixer", SND_SOC_NOPM, 0, 0,
++			   tertiary_pcm_rx_mixer_controls,
++			   ARRAY_SIZE(tertiary_pcm_rx_mixer_controls)),
++	SND_SOC_DAPM_MIXER("QUAT_PCM_RX Audio Mixer", SND_SOC_NOPM, 0, 0,
++			   quaternary_pcm_rx_mixer_controls,
++			   ARRAY_SIZE(quaternary_pcm_rx_mixer_controls)),
+ 	SND_SOC_DAPM_MIXER("PRIMARY_TDM_RX_0 Audio Mixer", SND_SOC_NOPM, 0, 0,
+ 				pri_tdm_rx_0_mixer_controls,
+ 				ARRAY_SIZE(pri_tdm_rx_0_mixer_controls)),
+@@ -853,6 +893,10 @@ static const struct snd_soc_dapm_route intercon[] = {
+ 	Q6ROUTING_RX_DAPM_ROUTE("TERT_MI2S_RX Audio Mixer", "TERT_MI2S_RX"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("SEC_MI2S_RX Audio Mixer", "SEC_MI2S_RX"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("PRI_MI2S_RX Audio Mixer", "PRI_MI2S_RX"),
++	Q6ROUTING_RX_DAPM_ROUTE("PRI_PCM_RX Audio Mixer", "PRI_PCM_RX"),
++	Q6ROUTING_RX_DAPM_ROUTE("SEC_PCM_RX Audio Mixer", "SEC_PCM_RX"),
++	Q6ROUTING_RX_DAPM_ROUTE("TERT_PCM_RX Audio Mixer", "TERT_PCM_RX"),
++	Q6ROUTING_RX_DAPM_ROUTE("QUAT_PCM_RX Audio Mixer", "QUAT_PCM_RX"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("PRIMARY_TDM_RX_0 Audio Mixer",
+ 				"PRIMARY_TDM_RX_0"),
+ 	Q6ROUTING_RX_DAPM_ROUTE("PRIMARY_TDM_RX_1 Audio Mixer",
 -- 
 2.21.1
 

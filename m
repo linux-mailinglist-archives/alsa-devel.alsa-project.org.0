@@ -2,54 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37C3E157D11
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 15:10:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C4E5157D16
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 15:11:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DACC816A9;
-	Mon, 10 Feb 2020 15:09:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DACC816A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 727C316CC;
+	Mon, 10 Feb 2020 15:10:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 727C316CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581343801;
-	bh=wJjZJi+z3PXR3rfWrkSRRjslPM9tOVzzyqTWpJj0Q6E=;
-	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=OqYbrq0d56B276A/lVGu2lX0bPpBgaQEKi/XVpYFfrjI0VO1KRBB7Kg/O1MY0DXd7
-	 APwf75bcFXBYfrrXCKlKM9wVqZZ/tFthttcXNxz4jecpSShCuRVqYSXVX9fIA/kUae
-	 LVxAIhvXRmnAMRD48vntvVs+st/pTdSQxdY+fQ9U=
+	s=default; t=1581343879;
+	bh=+XHIWxZMGJ2NIOU5fWzLfUorOyf2EaCnKknqHgab89s=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=d8u21Kb2ONjD7gCaIHthVXpi3XETg95V0xuCemRQ3AG9l+jDzTz5+So/y7edFYm09
+	 25MTqyF7U2PObAR5Ch1pguBMaS4pg9F5nQD6pDZIuHbcEo7+SjVtoIpfzkAhiYBgp8
+	 ZGuA4RJzDGlluhT2JNexbeoghej7Gl8WFeYnRg4w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3054AF800FD;
-	Mon, 10 Feb 2020 15:07:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E58FF80228;
+	Mon, 10 Feb 2020 15:09:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CDCE5F80276; Mon, 10 Feb 2020 15:07:37 +0100 (CET)
+ id E724DF80158; Mon, 10 Feb 2020 15:09:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A2E40F80240
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 15:07:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A2E40F80240
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 81E4C1063;
- Mon, 10 Feb 2020 06:07:32 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0866B3F68E;
- Mon, 10 Feb 2020 06:07:31 -0800 (PST)
-Date: Mon, 10 Feb 2020 14:07:30 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-In-Reply-To: <20200206200223.7715-1-kai.vehmanen@linux.intel.com>
-Message-Id: <applied-20200206200223.7715-1-kai.vehmanen@linux.intel.com>
-X-Patchwork-Hint: ignore
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
-Subject: [alsa-devel] Applied "ALSA: hda: do not override bus codec_mask in
-	link_get()" to the asoc tree
+X-Spam-Level: 
+X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1945AF800E7
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 15:09:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1945AF800E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="x7QuikBu"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01AE9nqD042976;
+ Mon, 10 Feb 2020 08:09:49 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1581343789;
+ bh=5SWEDjV8RjZqu6QNQ9A81HKRSvkfZXZG5JQT8OU6c7s=;
+ h=From:To:CC:Subject:Date;
+ b=x7QuikBu7HLkdaKpnAPF/NcI0hr2JXXAgqUr8ghZ2ryUDDwODDqdFYNkaxT0hwuuu
+ GyquK0ooCLwa0O9omxxVIm+GmNmBlNW5gw+2rQ4Yd0GCwhDGkE3LD9NMEUvW8crEsn
+ LMMZhKUx5TG4aTMaNUCjRk4ZDT+OIdmFOpojprLM=
+Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01AE9nLX095987
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 10 Feb 2020 08:09:49 -0600
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 10
+ Feb 2020 08:09:49 -0600
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE101.ent.ti.com
+ (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Mon, 10 Feb 2020 08:09:49 -0600
+Received: from feketebors.ti.com (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01AE9lrt046182;
+ Mon, 10 Feb 2020 08:09:48 -0600
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Date: Mon, 10 Feb 2020 16:09:48 +0200
+Message-ID: <20200210140950.11090-1-peter.ujfalusi@ti.com>
+X-Mailer: git-send-email 2.25.0
+MIME-Version: 1.0
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH 0/2] ASoC: ti: Support for TI K3 family of
+	devices
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,94 +85,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
+Hi,
 
-   ALSA: hda: do not override bus codec_mask in link_get()
+K3 devices (am654 and j721e) have UDMAP as system DMA and McASP for audio
+interface.
 
-has been applied to the asoc tree at
+5.6-rc1 includes the DMA support.
+This series will enable the audio support for devices using UDMAP.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 43bcb1c0507858cdc95e425017dcc33f8105df39 Mon Sep 17 00:00:00 2001
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Thu, 6 Feb 2020 22:02:21 +0200
-Subject: [PATCH] ALSA: hda: do not override bus codec_mask in link_get()
-
-snd_hdac_ext_bus_link_get() does not work correctly in case
-there are multiple codecs on the bus. It unconditionally
-resets the bus->codec_mask value. As per documentation in
-hdaudio.h and existing use in client code, this field should
-be used to store bit flag of detected codecs on the bus.
-
-By overwriting value of the codec_mask, information on all
-detected codecs is lost. No current user of hdac is impacted,
-but use of bus->codec_mask is planned in future patches
-for SOF.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20200206200223.7715-1-kai.vehmanen@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Regards,
+Peter
 ---
- sound/hda/ext/hdac_ext_controller.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Peter Ujfalusi (2):
+  ASoC: ti: Add udma-pcm platform driver for UDMA
+  ASoC: ti: davinci-mcasp: Add support for platforms using UDMA
 
-diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
-index cfab60d88c92..09ff209df4a3 100644
---- a/sound/hda/ext/hdac_ext_controller.c
-+++ b/sound/hda/ext/hdac_ext_controller.c
-@@ -254,6 +254,7 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_link_power_down_all);
- int snd_hdac_ext_bus_link_get(struct hdac_bus *bus,
- 				struct hdac_ext_link *link)
- {
-+	unsigned long codec_mask;
- 	int ret = 0;
- 
- 	mutex_lock(&bus->lock);
-@@ -280,9 +281,11 @@ int snd_hdac_ext_bus_link_get(struct hdac_bus *bus,
- 		 *  HDA spec section 4.3 - Codec Discovery
- 		 */
- 		udelay(521);
--		bus->codec_mask = snd_hdac_chip_readw(bus, STATESTS);
--		dev_dbg(bus->dev, "codec_mask = 0x%lx\n", bus->codec_mask);
--		snd_hdac_chip_writew(bus, STATESTS, bus->codec_mask);
-+		codec_mask = snd_hdac_chip_readw(bus, STATESTS);
-+		dev_dbg(bus->dev, "codec_mask = 0x%lx\n", codec_mask);
-+		snd_hdac_chip_writew(bus, STATESTS, codec_mask);
-+		if (!bus->codec_mask)
-+			bus->codec_mask = codec_mask;
- 	}
- 
- 	mutex_unlock(&bus->lock);
+ sound/soc/ti/Kconfig         |  8 ++++++-
+ sound/soc/ti/Makefile        |  2 ++
+ sound/soc/ti/davinci-mcasp.c |  7 ++++++
+ sound/soc/ti/udma-pcm.c      | 43 ++++++++++++++++++++++++++++++++++++
+ sound/soc/ti/udma-pcm.h      | 18 +++++++++++++++
+ 5 files changed, 77 insertions(+), 1 deletion(-)
+ create mode 100644 sound/soc/ti/udma-pcm.c
+ create mode 100644 sound/soc/ti/udma-pcm.h
+
 -- 
-2.20.1
+Peter
+
+Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
+Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
 
 _______________________________________________
 Alsa-devel mailing list

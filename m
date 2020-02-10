@@ -2,77 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC5C015702B
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 09:00:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 10B801570C6
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 09:25:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 81E7D1678;
-	Mon, 10 Feb 2020 08:59:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 81E7D1678
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9E406167A;
+	Mon, 10 Feb 2020 09:24:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9E406167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581321619;
-	bh=czcBQEdrRZstN3v2no4cgrwzFxD4pcTydMD1bRu9v9M=;
-	h=To:From:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1581323106;
+	bh=LHlioKb4fUlQv9HJp12YdrR7Vte33ZTje9mc1oTj4sE=;
+	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=se8ELQXEqRkMUQjuMLZuFno1OO3sux5gLL1EzbA15rP4bkZy2PCgWL/jHWOa3oy1V
-	 K7PpzD116wC0LlNnNj0D7/ePOcoVYCLcKLCfxTUkDfZsnMg1k6IasbGaSr9Utohnl8
-	 RS168QPi+hQUIHOSQKuNHTAkw8CMoL9Bk7EUbvB8=
+	b=kaRxHDB5mfzEks0rZrwqhhCubaAsEYPbKrI4dUKDLNA58UruqzjfYL5tdpgHaHhOK
+	 gq1L31E8orBzK3AphgRdWeZ4/3JSqGpQo/AR3d/xetOlP8TeP8Ridf2BS3kN01KEt1
+	 fCllEfaX/13pG+9HrFU5TpIwKvRBLefcu5EGgIMM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F0D75F80158;
-	Mon, 10 Feb 2020 08:58:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A1887F8014F;
+	Mon, 10 Feb 2020 09:23:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5075DF80157; Mon, 10 Feb 2020 08:58:31 +0100 (CET)
+ id 303BEF80157; Mon, 10 Feb 2020 09:23:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from cable.insite.cz (cable.insite.cz [84.242.75.189])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0A64F800E7
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 08:58:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0A64F800E7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.b="nCkMf2Uo"; 
- dkim=pass (1024-bit key) header.d=ivitera.com header.i=@ivitera.com
- header.b="nCkMf2Uo"
-Received: from localhost (localhost [127.0.0.1])
- by cable.insite.cz (Postfix) with ESMTP id CFDA4A1A40B0A
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 08:58:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
- t=1581321506; bh=XgIuesuTI+GMvop1+rJWuP4exK0rC+2UCkNPmzaLAdo=;
- h=To:From:Subject:Date:From;
- b=nCkMf2UoQe8j7Tw5lNRtUMvk9AYlBzosNTSafHLtOBKyzGwQlkAAyYAS+IxI7/bLu
- ntwMDSRenMY0th+JpUIs2PRlAJhLr3483rmQ9XG0y7YSZfO2RzXIv2YK0M4F+TNnXl
- 7jmRQDejA+SQGzDVxNb0DxJBf/K+GwMuYGgLl9AQ=
-Received: from cable.insite.cz ([84.242.75.189])
- by localhost (server.insite.cz [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id EqMjsa4bF7DP for <alsa-devel@alsa-project.org>;
- Mon, 10 Feb 2020 08:58:26 +0100 (CET)
-Received: from [192.168.100.32] (unknown [192.168.100.32])
- (Authenticated sender: pavel)
- by cable.insite.cz (Postfix) with ESMTPSA id A9DA9A1A40B09
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 08:58:26 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=ivitera.com; s=mail;
- t=1581321506; bh=XgIuesuTI+GMvop1+rJWuP4exK0rC+2UCkNPmzaLAdo=;
- h=To:From:Subject:Date:From;
- b=nCkMf2UoQe8j7Tw5lNRtUMvk9AYlBzosNTSafHLtOBKyzGwQlkAAyYAS+IxI7/bLu
- ntwMDSRenMY0th+JpUIs2PRlAJhLr3483rmQ9XG0y7YSZfO2RzXIv2YK0M4F+TNnXl
- 7jmRQDejA+SQGzDVxNb0DxJBf/K+GwMuYGgLl9AQ=
-To: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
-From: Pavel Hofman <pavel.hofman@ivitera.com>
-Message-ID: <cd5ca9c8-0714-3dac-e91e-b45b1008b350@ivitera.com>
-Date: Mon, 10 Feb 2020 08:58:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-Content-Language: en-US
-Subject: [alsa-devel] Options for u_audio.c behavior when UAC2 host is
-	disconnected/idle
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB38BF80118
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 09:23:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB38BF80118
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2020 00:23:16 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,424,1574150400"; d="scan'208";a="251116475"
+Received: from brentlu-desk0.itwn.intel.com ([10.5.253.11])
+ by orsmga002.jf.intel.com with ESMTP; 10 Feb 2020 00:23:13 -0800
+From: Brent Lu <brent.lu@intel.com>
+To: alsa-devel@alsa-project.org
+Date: Mon, 10 Feb 2020 16:16:51 +0800
+Message-Id: <1581322611-25695-1-git-send-email-brent.lu@intel.com>
+X-Mailer: git-send-email 2.7.4
+Cc: Support Opensource <support.opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Takashi Iwai <tiwai@suse.com>,
+ linux-kernel@vger.kernel.org, mac.chiang@intel.com,
+ Mark Brown <broonie@kernel.org>, Brent Lu <brent.lu@intel.com>,
+ cychiang@google.com
+Subject: [alsa-devel] [PATCH] ASoC: da7219: check SRM lock in trigger
+	callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,47 +68,126 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+Intel sst firmware turns on BCLK/WCLK in START Ioctl call which timing is
+later than the DAPM SUPPLY event handler da7219_dai_event is called (in
+PREPARED state). Therefore, the SRM lock check always fail.
 
-I would like to discuss options to make the g_audio device more usable.
-Currently if the USB UAC2 function does not supply/consume any audio
-data (USB disconnected or the host side is not using the UAC2 gadget,
-the g_audio devices (both capture and playback) are waiting, leading
-eventually to an error. This makes using the feature rather inconvenient.
+Moving the check to trigger callback could ensure the SRM is locked before
+DSP starts to process data and avoid possisble noise.
 
-Possible options (certainly more are available)
+Signed-off-by: Brent Lu <brent.lu@intel.com>
+---
+ sound/soc/codecs/da7219.c | 68 +++++++++++++++++++++++++++++++----------------
+ 1 file changed, 45 insertions(+), 23 deletions(-)
 
-1) The alsa devices will be openable at any time and when the UAC2 is
-not producing/consuming, the alsa devices will be generating
-zeros/dropping samples. Dropping samples would be similar to the
-snd-aloop behavior.
+diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+index f83a6ea..0fb5ea5 100644
+--- a/sound/soc/codecs/da7219.c
++++ b/sound/soc/codecs/da7219.c
+@@ -794,9 +794,7 @@ static int da7219_dai_event(struct snd_soc_dapm_widget *w,
+ 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+ 	struct da7219_priv *da7219 = snd_soc_component_get_drvdata(component);
+ 	struct clk *bclk = da7219->dai_clks[DA7219_DAI_BCLK_IDX];
+-	u8 pll_ctrl, pll_status;
+-	int i = 0, ret;
+-	bool srm_lock = false;
++	int ret;
+ 
+ 	switch (event) {
+ 	case SND_SOC_DAPM_PRE_PMU:
+@@ -820,26 +818,6 @@ static int da7219_dai_event(struct snd_soc_dapm_widget *w,
+ 		/* PC synchronised to DAI */
+ 		snd_soc_component_update_bits(component, DA7219_PC_COUNT,
+ 				    DA7219_PC_FREERUN_MASK, 0);
+-
+-		/* Slave mode, if SRM not enabled no need for status checks */
+-		pll_ctrl = snd_soc_component_read32(component, DA7219_PLL_CTRL);
+-		if ((pll_ctrl & DA7219_PLL_MODE_MASK) != DA7219_PLL_MODE_SRM)
+-			return 0;
+-
+-		/* Check SRM has locked */
+-		do {
+-			pll_status = snd_soc_component_read32(component, DA7219_PLL_SRM_STS);
+-			if (pll_status & DA7219_PLL_SRM_STS_SRM_LOCK) {
+-				srm_lock = true;
+-			} else {
+-				++i;
+-				msleep(50);
+-			}
+-		} while ((i < DA7219_SRM_CHECK_RETRIES) && (!srm_lock));
+-
+-		if (!srm_lock)
+-			dev_warn(component->dev, "SRM failed to lock\n");
+-
+ 		return 0;
+ 	case SND_SOC_DAPM_POST_PMD:
+ 		/* PC free-running */
+@@ -1658,12 +1636,56 @@ static int da7219_hw_params(struct snd_pcm_substream *substream,
+ 	return 0;
+ }
+ 
++static int da7219_set_dai_trigger(struct snd_pcm_substream *substream, int cmd,
++				  struct snd_soc_dai *dai)
++{
++	struct snd_soc_component *component = dai->component;
++	u8 pll_ctrl, pll_status;
++	int i = 0;
++	bool srm_lock = false;
++
++	switch (cmd) {
++	case SNDRV_PCM_TRIGGER_START:
++		/* Slave mode, if SRM not enabled no need for status checks */
++		pll_ctrl = snd_soc_component_read32(component, DA7219_PLL_CTRL);
++		if ((pll_ctrl & DA7219_PLL_MODE_MASK) != DA7219_PLL_MODE_SRM)
++			return 0;
++
++		/* Check SRM has locked */
++		do {
++			pll_status = snd_soc_component_read32(component,
++							DA7219_PLL_SRM_STS);
++			if (pll_status & DA7219_PLL_SRM_STS_SRM_LOCK) {
++				srm_lock = true;
++			} else {
++				++i;
++				msleep(50);
++			}
++		} while ((i < DA7219_SRM_CHECK_RETRIES) && (!srm_lock));
++
++		if (!srm_lock)
++			dev_warn(component->dev, "SRM failed to lock\n");
++
++		break;
++	case SNDRV_PCM_TRIGGER_RESUME:
++	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
++	case SNDRV_PCM_TRIGGER_STOP:
++	case SNDRV_PCM_TRIGGER_SUSPEND:
++	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
++	default:
++		break;
++	}
++
++	return 0;
++}
++
+ static const struct snd_soc_dai_ops da7219_dai_ops = {
+ 	.hw_params	= da7219_hw_params,
+ 	.set_sysclk	= da7219_set_dai_sysclk,
+ 	.set_pll	= da7219_set_dai_pll,
+ 	.set_fmt	= da7219_set_dai_fmt,
+ 	.set_tdm_slot	= da7219_set_dai_tdm_slot,
++	.trigger	= da7219_set_dai_trigger,
+ };
+ 
+ #define DA7219_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE |\
+-- 
+2.7.4
 
-2) Opening the alsa devices will fail when the UAC2 is not actively
-running, and the pcm stream will be closed when UAC2 stops being active.
-This is similar to how SPDIF receivers are coded in alsa drivers - if
-change in the incoming SPDIF stream is detected (no samples, different
-sample rate), the pcm stream is closed
-https://github.com/torvalds/linux/blob/master/sound/i2c/other/ak4117.c#L504
-It is up to the application to handle the error/close.
-
-The behavior could be configurable via some params, if needed.
-
-Thanks a lot for any suggestions and recommendations.
-
-Best regards,
-
-
-Pavel.
-
-P.S.: I posted the same message to linux-usb mailing list, with no
-response. I think this issue is more alsa-related, hence re-posting to
-alsa-devel. Or should I keep both mailing lists posted? Thanks for
-understanding.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

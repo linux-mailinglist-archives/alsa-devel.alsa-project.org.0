@@ -2,65 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7D87157CE7
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 14:58:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 29B42157D06
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 15:05:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3C68F1673;
-	Mon, 10 Feb 2020 14:57:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C68F1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 988141678;
+	Mon, 10 Feb 2020 15:04:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 988141678
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581343114;
-	bh=JqI+U7PtMy+ueGYx9Tg/0Igoz8LECYvQ1AiUWNFGPfs=;
+	s=default; t=1581343501;
+	bh=CO8BbZnLagN+NDqnpjYDzy7c1DvphPrJuFtumwRWpsQ=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Dt8iln6e4RytzCiod2xeUbAhEpJIbTuizhBS/1KkqER4mgpCsuldPt+sh6tBDefLo
-	 Z1CrmmMSRFwego0Ld6uMl5/UPC8k4xrUj9+Am23zajnCC1vg6WX83lpL3zvy2EKWAN
-	 v2HFzTyXC21FaxGBew5jXBurq7ZIjqP9456OMat8=
+	b=J4140NBOmz67XcuDHinyV8YpIZ/m7k+doFckD+OgaEfcKl8WVtgpaHQV84JSJtqrv
+	 aKy8vYYOC3l1uGKQsdC1H62mtBaQ14WJXF0cwk+lDf58c2JcGOXmXxdJN0GNGJZDS8
+	 b6ZCHi58ul9UM7MvBXJP/yflcspmecJvCEKDYnDk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 64EB6F80158;
-	Mon, 10 Feb 2020 14:56:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9738FF800FD;
+	Mon, 10 Feb 2020 15:03:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6CB84F80157; Mon, 10 Feb 2020 14:56:50 +0100 (CET)
+ id 604ADF80157; Mon, 10 Feb 2020 15:03:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E2CBEF80118
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 14:56:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E2CBEF80118
+ by alsa1.perex.cz (Postfix) with ESMTP id 5D0D8F800FD
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 15:03:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5D0D8F800FD
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 863881FB;
- Mon, 10 Feb 2020 05:56:46 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D343F1FB;
+ Mon, 10 Feb 2020 06:03:10 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0A80B3F68E;
- Mon, 10 Feb 2020 05:56:45 -0800 (PST)
-Date: Mon, 10 Feb 2020 13:56:44 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5816E3F68E;
+ Mon, 10 Feb 2020 06:03:10 -0800 (PST)
+Date: Mon, 10 Feb 2020 14:03:08 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Message-ID: <20200210135644.GL7685@sirena.org.uk>
-References: <cover.1580950046.git.robin.murphy@arm.com>
- <29a846da33c02df64eca62b5fa0f3884652f788f.1580950046.git.robin.murphy@arm.com>
- <20200206114606.GM3897@sirena.org.uk>
- <ad2c941a-9724-510e-959f-3cca3cab1dc2@arm.com>
- <20200206135718.GQ3897@sirena.org.uk>
- <CAMdYzYqTEnG_Q-8SvO2R6PeaPXQ3VBKu6iVYhYvb=wK7tT7c3A@mail.gmail.com>
- <bca13994-a8b1-fa21-fdf0-9f362d693f39@arm.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Message-ID: <20200210140308.GN7685@sirena.org.uk>
+References: <20200207091351.18133-1-geert@linux-m68k.org>
 MIME-Version: 1.0
-In-Reply-To: <bca13994-a8b1-fa21-fdf0-9f362d693f39@arm.com>
+In-Reply-To: <20200207091351.18133-1-geert@linux-m68k.org>
 X-Cookie: Avoid gunfire in the bathroom tonight.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Heiko Stuebner <heiko@sntech.de>, lgirdwood@gmail.com,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Peter Geis <pgwipeout@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [PATCH v2 2/3] ASoC: rockchip: Make RK3328
- GPIO_MUTE control explicit
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>
+Subject: Re: [alsa-devel] [PATCH] [RFC] ASoC: Use imply for
+	SND_SOC_ALL_CODECS
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,59 +66,51 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7661452361963120927=="
+Content-Type: multipart/mixed; boundary="===============2572348713620724917=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============7661452361963120927==
+--===============2572348713620724917==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sMZCuqyhuhd4ycTi"
+	protocol="application/pgp-signature"; boundary="TXIPBuAs4GDcsx9K"
 Content-Disposition: inline
 
 
---sMZCuqyhuhd4ycTi
+--TXIPBuAs4GDcsx9K
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Feb 06, 2020 at 09:38:11PM +0000, Robin Murphy wrote:
-> On 2020-02-06 6:05 pm, Peter Geis wrote:
-> > On Thu, Feb 6, 2020 at 8:57 AM Mark Brown <broonie@kernel.org> wrote:
-> >>
-
-
-> compromise that isn't too hideous, preserves the logical cleanup but
-> at least prevents audio going silent with old DTBs (plus handling GPIO
-> probe deferral properly which I forgot about first time around). How
-> does this look?
+On Fri, Feb 07, 2020 at 10:13:51AM +0100, Geert Uytterhoeven wrote:
+> Currently SND_SOC_ALL_CODECS selects the config symbols for all codec
+> drivers.  As "select" bypasses dependencies, lots of "select" statements
+> need explicit dependencies, which are hard to get right, and hard to
+> maintain[*].
 >=20
-> Robin.
->=20
-> ----->8-----
+> Fix this by using "imply" instead, which is a weak version of "select",
+> and which obeys dependencies of target symbols.
 
-Please don't send revisions of individual patches in reply to discussion
-of a series, it makes it really hard to follow what's going on with the
-series.  Please just send patches normally.
+This is a *really* badly named feature :/
 
---sMZCuqyhuhd4ycTi
+--TXIPBuAs4GDcsx9K
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5BYRsACgkQJNaLcl1U
-h9Du0wf9HO3Q6AaZJ1I4tRS3loJ/OXK/v8QMTdDtKmw/Ek+JwYeQh3npOWMQBItK
-6pwxmpW5l4Cej0jPXpea00qCFYlQEadT1topkaNHLoNic2dlkVSv2seRbm3R6dwP
-ghjNr4Mwv3vycd1P46hmJZsB+eDH4HmZnQGKSFkdz4i1j6MOLfwWxdnJLWpOP740
-dwaB4VXKiS3EKCw5A3Q07jMCTuNyeXumjmq79/4POKCmN7FcE5Gr64c747stLQ+g
-cDRDRKWiVhLuAFTDTnHf4ry9bTlGulap1bs2xN2qlmbxIKMT5ZV/UGQDhqrDQ6MV
-/A1zX6aZmKOe6X82hUl4CSeTgIR6HQ==
-=TcrG
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5BYpwACgkQJNaLcl1U
+h9AJ6wf+JoGh6XxETeSB4TWntPU4POgBDY7UzyJaSzC/k9dxItOpbvF8sZbh3YVO
+RqfpWryUL/Icpn8pUC785qgCczDrAzW3YB3tkwvAma8tNK/HA6TC4b5/pl2h0F1e
+R5gValaXJ4qG0+Q9ZDNlDNmVX06fSlutz4K+UUBAP8DUgrXcQXqo4PhjIptTRix/
+GKtNAePn3171ofUgEhfSpVE6I7zZHkcD0IC3CQ5Ss9ui/7YBzRls6qq5HOqEbvDD
+4KvKMTM4lDu7u7f+R9ov/N0NEDS2ZtKNfoALHeQTBCplEhIbXSHZ5r0hF4LBAE9r
+CI47bCrYKahz5DDreklkq0WdmyUZQw==
+=MBOV
 -----END PGP SIGNATURE-----
 
---sMZCuqyhuhd4ycTi--
+--TXIPBuAs4GDcsx9K--
 
---===============7661452361963120927==
+--===============2572348713620724917==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -136,4 +121,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============7661452361963120927==--
+--===============2572348713620724917==--

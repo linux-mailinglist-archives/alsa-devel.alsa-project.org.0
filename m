@@ -2,91 +2,119 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 954DC1572CE
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 11:27:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFAD615724C
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 11:01:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 32F1983E;
-	Mon, 10 Feb 2020 11:27:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 32F1983E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7F7E2168A;
+	Mon, 10 Feb 2020 11:00:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7F7E2168A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581330473;
-	bh=yMjqGIN74TyCpZ3H2GdUDozVdAix329JAXoKvyTQ1Yg=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581328868;
+	bh=3nrNdvuv7L3zQNMaeQ403PLC9HcEVvBbN4d/R1v/kn0=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FtCAoH5yIWj6AaRDeZK9GfjMvseCzn63rrGZTh+3RYmFeZJmvyIUTKU2E6dQdDU/k
-	 +9xzF/jRh19xAtr8tjI20HqHnaFl6R7nUQbe8qmoBBpg9i44wVRfKluwQOP64doR1e
-	 MX90ohxK+qSETTG85DyP/QNStWnZ459rLh03i42A=
+	b=rtcun2r/92dZ1D7Ah80OTCz1vpI9GI4GjPzGGZ0bS0Wu7Hy8urzyf30v+LgLGhpZA
+	 IwuHO0G4cpCXPbUjVfA9OzDxhv1Vw44ZRonL7uKIVeP2RqT+Lt+mhuiC39c5cYCxkn
+	 W+JpaPI3BpmqCQk/HW0uJkWjp+kmHUa6cbu64COw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B0B52F802FD;
-	Mon, 10 Feb 2020 11:20:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E351F80157;
+	Mon, 10 Feb 2020 10:58:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DF0A2F80157; Mon, 10 Feb 2020 04:04:29 +0100 (CET)
+ id 58AA2F80228; Mon, 10 Feb 2020 10:58:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ MSGID_FROM_MTA_HEADER,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from EUR05-VI1-obe.outbound.protection.outlook.com
+ (mail-vi1eur05on2062.outbound.protection.outlook.com [40.107.21.62])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B09F5F80118
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 04:04:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B09F5F80118
+ by alsa1.perex.cz (Postfix) with ESMTPS id 7AFC7F800FD
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 10:58:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7AFC7F800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CNttfqco"
-Received: by mail-pf1-x444.google.com with SMTP id 185so2979931pfv.3
- for <alsa-devel@alsa-project.org>; Sun, 09 Feb 2020 19:04:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=+v3tugkO1iOaOq7ovlKkaRUNoP5wxMdesvR7lwgSDp8=;
- b=CNttfqcoV4DUETNVZ151AX1GoPCGswSucCrZ7FqXJVVVd5FVzp1/G9yKj2WumW512R
- lzQr7kBs/olQiHV97kKC8r2U9K2qBBb4fICgK8DCNYDTQnfvr4BSgY+VttQ3AqvZPY1N
- 2bKC9pdtpKMS/sr26RmTDpMbyAeLEN1cScUKu8XC4QLKfjVAsV859IDi325uE9AZ3chG
- e0DQRaURNyp2ax7QHcgzaJ2FDULxpwTqhJsTExKwNNNZEqZOWTf7fEXEzM7SENOY9G+K
- kYvRztckLjngK++nKjDcYC0EP396Kwtu4zPBuacVCKea4XslKGtKT6G3DTWNyAn0pnQy
- TMVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=+v3tugkO1iOaOq7ovlKkaRUNoP5wxMdesvR7lwgSDp8=;
- b=b5Ltqv+OYtHTl8Sx161n24OZcCNalC+a0eoS5uw+lBjqRxndI2KATYmO6DZ3QLac4z
- Slh/mArvqJNmHGVX3pKIU8hbvmsjVuNvsD49yueLVEaRODkABQSl1LSUMe1Kb8GBcj7+
- getsiaUDI8Y9+ZhrXgVSOgcLOmbj01JpWqcWq59/dXs4ranRfGXn2UowVMpj0VWej0wi
- 6BfzRHyd4GvE368P0uklIgqxT7UrNx0fmANGwMcTqQ/nHJYsijJRmzjdowx4MVlH2o3A
- lf1K5cntJ0UzJo005uHEos26hiOHpUgZS5JJwJF9WtK5AsJ5SZ83vmT/SsuR5t5tYbt5
- RMQw==
-X-Gm-Message-State: APjAAAWa+E2c9v9sWJEndw+jfj90xD18yFZGLguZ9F0cYeo9tZ1Srars
- cEwLZ8myHYdLzIupEajHHA0=
-X-Google-Smtp-Source: APXvYqyqAkF1kb2L/Z2ThpDSVEyV9/PCas0aP0/u5srrP7gK+MpWwzSeiK32cpiFxtR4UwxsnRSVRQ==
-X-Received: by 2002:a65:68ce:: with SMTP id k14mr11674041pgt.336.1581303861067; 
- Sun, 09 Feb 2020 19:04:21 -0800 (PST)
-Received: from f3 (ag119225.dynamic.ppp.asahi-net.or.jp. [157.107.119.225])
- by smtp.gmail.com with ESMTPSA id x65sm10697309pfb.171.2020.02.09.19.04.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Feb 2020 19:04:20 -0800 (PST)
-Date: Mon, 10 Feb 2020 12:04:16 +0900
-From: Benjamin Poirier <benjamin.poirier@gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <20200210030416.GA3302@f3>
-References: <20191129144027.14765-1-perex@perex.cz> <20200210025249.GA2700@f3>
+ dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
+ header.i=@NXP1.onmicrosoft.com header.b="PrLJrquw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=WiVw3Q7aFLyi8L+1u/VS+katfYs6Qd9exOVyM5Jmnvvp6JCIOSE/IIMQg4vIYd8M9AuTohXXDns1DPBMb+hWNSv6FalsCcNJwg0AKawrI/Ag5Et9zCnqNwfGWJzI2Uc8O66RzAjtOavzGyG0yia5K6bA+vZ4T1E2pGDTCE0oYYMTnsNOpMfyY9Pwgrw+/l5c5NALH1rsNsz08f7Jd9C1iODrSW/GUQspNa4jspk4nTjaG0iKvSOm7Mv3RibLBgrP4gVxV3JKqdoChHhpO1uIZEFMezPWZjBbjQW/TklAWvs4Daaa1ixhVCkdTDxIc1Swpwi5ZzqDPc7ExtpIsUPXUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P4xkXgOTXEDGM4vG9pjFIajOXLwO+HSfi52xcgH5L4o=;
+ b=IsAyO75Xs2nhnd9B/BwrMko+ESUv/9B+JoCnDMtN2BknY++q2yDAUq16Gur2WgGOcButrESLBLZjlvwOcgMoNsmpYsI4NOFAjB9KmqangiQ/tPUvLxDxFCs/F06iEaAtxT3T2oqjqtBsPE8qVGzk6Kyjz+RoUVm4pGu7z7ZfoUsDHr7YkbYlu3l91bN8lUJTwioIpvl5PLJYIUIY9HeH1VqBWyzYqo/nNDo/nobLjgsJ1zvIuSS1jVIA/uxMPEHdMMvdxfMiTYF0MJQNRZy4ul1GfKjll1I2i7LsGmX3yjJ/rNvBg/Rlmw+IYhaok6hlpZpefmSp2iC8HwbLrkN9vQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector2-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=P4xkXgOTXEDGM4vG9pjFIajOXLwO+HSfi52xcgH5L4o=;
+ b=PrLJrquw68SAY5f/FDCxNSXrnMEo7rKNrEWyDY2pALqXddi2VptvYdvJCWPYu5uspJPgPB1IZSV+G60lI28+EJFkmFfJ/cgJBw3GRqnCBviJUvWPSnlMCzMreaX38yhBm9QbMSMM3MikMVjek/0YCIikIhePpnK6r4cynAKTGgU=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=daniel.baluta@oss.nxp.com; 
+Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com (52.134.16.147) by
+ VI1PR0402MB3423.eurprd04.prod.outlook.com (52.134.4.145) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2707.21; Mon, 10 Feb 2020 09:58:34 +0000
+Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com
+ ([fe80::8881:e155:f058:c0d1]) by VI1PR0402MB3839.eurprd04.prod.outlook.com
+ ([fe80::8881:e155:f058:c0d1%4]) with mapi id 15.20.2707.028; Mon, 10 Feb 2020
+ 09:58:34 +0000
+From: Daniel Baluta <daniel.baluta@oss.nxp.com>
+To: broonie@kernel.org,
+	robh+dt@kernel.org
+Date: Mon, 10 Feb 2020 11:58:14 +0200
+Message-Id: <20200210095817.13226-2-daniel.baluta@oss.nxp.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200210095817.13226-1-daniel.baluta@oss.nxp.com>
+References: <20200210095817.13226-1-daniel.baluta@oss.nxp.com>
+X-ClientProxiedBy: AM3PR07CA0076.eurprd07.prod.outlook.com
+ (2603:10a6:207:4::34) To VI1PR0402MB3839.eurprd04.prod.outlook.com
+ (2603:10a6:803:21::19)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200210025249.GA2700@f3>
-X-Mailman-Approved-At: Mon, 10 Feb 2020 11:20:06 +0100
-Cc: Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Kailang Yang <kailang@realtek.com>
-Subject: Re: [alsa-devel] [PATCH] ALSA: hda - fixup for the bass speaker on
- Lenovo Carbon X1 7th gen
+Received: from fsr-ub1864-103.ro-buh02.nxp.com (89.37.124.34) by
+ AM3PR07CA0076.eurprd07.prod.outlook.com (2603:10a6:207:4::34) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.2729.9 via Frontend Transport; Mon, 10 Feb 2020 09:58:33 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [89.37.124.34]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 79d65ab5-1c4b-4856-5f9c-08d7ae0fca84
+X-MS-TrafficTypeDiagnostic: VI1PR0402MB3423:|VI1PR0402MB3423:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <VI1PR0402MB34233BBE544F4D0F98E67803B8190@VI1PR0402MB3423.eurprd04.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:7219;
+X-Forefront-PRVS: 03094A4065
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(376002)(136003)(396003)(366004)(346002)(39860400002)(189003)(199004)(66556008)(66946007)(66476007)(1076003)(5660300002)(6666004)(44832011)(2616005)(956004)(8936002)(6512007)(6486002)(81166006)(81156014)(54906003)(6506007)(316002)(16526019)(186003)(8676002)(4326008)(26005)(2906002)(478600001)(86362001)(52116002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR0402MB3423;
+ H:VI1PR0402MB3839.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:0; 
+Received-SPF: None (protection.outlook.com: oss.nxp.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: DsQBzE3fFM/IvOWLdcp6tmlEYN0NvpwHWFzIMNiTDkElkxr2TGXIxb6cPButTx4W/OyESD+QV/GV3V73ys/z8iu5+bGiMSuPwb8eTNC6tguDE4f2arcO8VcHTYcApGd8YoIs2/zI1KjyufV7gEgME7N4z4u7kwQAxUCbFfsNcdEVhXapUT+OfnpuPrkmjHriXpiec1FIDImcEDN9REofLmYzSkA69gAWtMa9/zWb9RDFqrxdfM+FRC//hwqQc0TQ8qsbnvolF3aM+0ySGdaL2H8W1oQY/GRBzgCl7TxXqfObUQ2b7us5n3tTOgPwyeK6ECtLhRJ593vIbNKpBBFp+WbRqn/f4yJpChcS7cZXvJuAh5kUEXbildWvWlmhoxKW+lZnUxdR6nCCtMepEaeE1+dnPHUHucET3EefYSfP4FuUcZT/gQEq6gHNZDgx06w3
+X-MS-Exchange-AntiSpam-MessageData: j7Ey8aafduSTYeeaBVepEdk+E1LAuE2FPC49tCCajeBx8rOhOWiNTFkZvDuL+LKMsCfgKlGZ5SY+q1+jG/OsYgnYbF9rwIJTtOhGsm3a6r9fLnhJpCGg9tMTstLZI8ttPyc04b1uI9ToZXTz0SV4Sw==
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 79d65ab5-1c4b-4856-5f9c-08d7ae0fca84
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2020 09:58:34.4178 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MtfErVf1WekAeYvnoMK/4gowTnY5iNj/v0iVzSiT7zm3rIO2bmzXSZuR2zEAFRj3O0BVGgcoIo20qTRfH1scgg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3423
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org,
+ Paul Olaru <paul.olaru@nxp.com>, linux-imx@nxp.com, festevam@gmail.com
+Subject: [alsa-devel] [RESEND 1/4] ASoC: SOF: Rename i.MX8 platform to i.MX8X
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,61 +132,79 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020/02/10 11:52 +0900, Benjamin Poirier wrote:
-> On 2019/11/29 15:40 +0100, Jaroslav Kysela wrote:
-> > The auto-parser assigns the bass speaker to DAC3 (NID 0x06) which
-> > is without the volume control. I do not see a reason to use DAC2,
-> > because the shared output to all speakers produces the sufficient
-> > and well balanced sound. The stereo support is enough for this
-> > purpose (laptop).
-> > 
-> > Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-> > ---
-> >  sound/pci/hda/patch_realtek.c | 17 +++++++++++++++++
-> >  1 file changed, 17 insertions(+)
-> 
-> This patch is now commit d2cd795c4ece ("ALSA: hda - fixup for the bass
-> speaker on Lenovo Carbon X1 7th gen"). There was then followup commit
-> 86353aa70ed0 ("ALSA: hda/realtek - Add quirk for the bass speaker on
-> Lenovo Yoga X1 7th gen").
+From: Paul Olaru <paul.olaru@nxp.com>
 
-Sorry, commit id 86353aa70ed0 is the backport on stable/linux-5.4.y
-branch, mainline id is:
-54a6a7dc107d ("ALSA: hda/realtek - Add quirk for the bass speaker on
-Lenovo Yoga X1 7th gen")
+i.MX8 and i.MX8X platforms are very similar and were treated the same.
+Anyhow, we need to account for the differences somehow.
 
-> 
-> As a result of those, the maximum sound output level on my laptop
-> reduced to ~60% of what it used to be.
-> 
-> Moreover, the quirk name is inaccurate. I have a "ThinkPad X1 Carbon
-> 7th" (as confirmed by dmidecode) and its audio device id is:
->         Subsystem: Lenovo Cannon Point-LP High Definition Audio Controller [17aa:2292]
-> but the patches list:
-> 	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Yoga 7th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
-> 	SND_PCI_QUIRK(0x17aa, 0x2293, "Thinkpad X1 Carbon 7th", ALC295_FIXUP_DISABLE_DAC3),
-> (notice the mixup of id 0x2292).
-> 
-> Applying the following diff brings the volume back to previous levels
-> and brings functional volume control:
-> 
-> diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-> index 68832f52c1ad..ed41e3fb5566 100644
-> --- a/sound/pci/hda/patch_realtek.c
-> +++ b/sound/pci/hda/patch_realtek.c
-> @@ -7260,7 +7260,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
->  	SND_PCI_QUIRK(0x17aa, 0x224c, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
->  	SND_PCI_QUIRK(0x17aa, 0x224d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
->  	SND_PCI_QUIRK(0x17aa, 0x225d, "Thinkpad T480", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
-> -	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Yoga 7th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
-> +	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Yoga 7th", ALC295_FIXUP_DISABLE_DAC3),
->  	SND_PCI_QUIRK(0x17aa, 0x2293, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
->  	SND_PCI_QUIRK(0x17aa, 0x30bb, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
->  	SND_PCI_QUIRK(0x17aa, 0x30e2, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
-> 
-> I can send a patch to fix the problems for my laptop but then I don't
-> know what's up for other devices that built on
-> ALC285_FIXUP_SPEAKER2_TO_DAC1.
+Current supported platform is i.MX8QXP which is from i.MX8X family.
+Rename i.MX8 platform to i.MX8X to prepare for future i.MX8 platforms.
+
+Signed-off-by: Paul Olaru <paul.olaru@nxp.com>
+Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ sound/soc/sof/imx/imx8.c   | 10 +++++-----
+ sound/soc/sof/sof-of-dev.c |  4 ++--
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
+index b2556f5e2871..9ffc2a955e4f 100644
+--- a/sound/soc/sof/imx/imx8.c
++++ b/sound/soc/sof/imx/imx8.c
+@@ -138,7 +138,7 @@ static int imx8_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
+ /*
+  * DSP control.
+  */
+-static int imx8_run(struct snd_sof_dev *sdev)
++static int imx8x_run(struct snd_sof_dev *sdev)
+ {
+ 	struct imx8_priv *dsp_priv = (struct imx8_priv *)sdev->private;
+ 	int ret;
+@@ -360,13 +360,13 @@ static struct snd_soc_dai_driver imx8_dai[] = {
+ },
+ };
+ 
+-/* i.MX8  ops */
+-struct snd_sof_dsp_ops sof_imx8_ops = {
++/* i.MX8X ops */
++struct snd_sof_dsp_ops sof_imx8x_ops = {
+ 	/* probe and remove */
+ 	.probe		= imx8_probe,
+ 	.remove		= imx8_remove,
+ 	/* DSP core boot */
+-	.run		= imx8_run,
++	.run		= imx8x_run,
+ 
+ 	/* Block IO */
+ 	.block_read	= sof_block_read,
+@@ -398,6 +398,6 @@ struct snd_sof_dsp_ops sof_imx8_ops = {
+ 			SNDRV_PCM_INFO_PAUSE |
+ 			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP
+ };
+-EXPORT_SYMBOL(sof_imx8_ops);
++EXPORT_SYMBOL(sof_imx8x_ops);
+ 
+ MODULE_LICENSE("Dual BSD/GPL");
+diff --git a/sound/soc/sof/sof-of-dev.c b/sound/soc/sof/sof-of-dev.c
+index 39ea8af6213f..2da1bd859d98 100644
+--- a/sound/soc/sof/sof-of-dev.c
++++ b/sound/soc/sof/sof-of-dev.c
+@@ -19,9 +19,9 @@ extern struct snd_sof_dsp_ops sof_imx8_ops;
+ static struct sof_dev_desc sof_of_imx8qxp_desc = {
+ 	.default_fw_path = "imx/sof",
+ 	.default_tplg_path = "imx/sof-tplg",
+-	.default_fw_filename = "sof-imx8.ri",
++	.default_fw_filename = "sof-imx8x.ri",
+ 	.nocodec_tplg_filename = "sof-imx8-nocodec.tplg",
+-	.ops = &sof_imx8_ops,
++	.ops = &sof_imx8x_ops,
+ };
+ #endif
+ 
+-- 
+2.17.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

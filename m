@@ -2,77 +2,100 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4A1C157F95
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 17:20:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7721158117
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 18:15:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 658CC166D;
-	Mon, 10 Feb 2020 17:20:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 658CC166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51A161670;
+	Mon, 10 Feb 2020 18:14:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51A161670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581351656;
-	bh=RPHlvUMtbDvtS/2x9XAzuu9UT7hghl2Qo8AwlQmPdR4=;
+	s=default; t=1581354921;
+	bh=25MJcPkkUwnNe0mDDpXbbF6auMjATOGbsr+6nWqVg4Q=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h+1BbIENG7xboF4thuP57+7c/zwOMhKX4/dZ8GxnTpO2lbJUEoqbg1rN2FnGXWblg
-	 vkMuxPIJ9QUyCiiCuALqFKTbjMDAIdoQYguE452YkubpO7Vt9UTFcUyft759bHftVv
-	 Ep9OjBaSIEUOfY+1psTgNX9yO5i8DXK2KRsv+pfg=
+	b=n5QMIfXcFx9Fy2p7S6Tl5esqk0LxDVSJZjTYAjwNVB1eDWzQSzeDTy0QZd1ycN0Mv
+	 fS0XDm+A5GRVJFIV1wt5YzShpD4EI6y37li40CWnvSRgvW3J+bwnxF4+SP7ERs/Q9M
+	 jQ4g/w/YsQ2Ohj7EI4bK3ac/l2Qo+bORP4H2RH5o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CD7D1F800E7;
-	Mon, 10 Feb 2020 17:18:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FDA5F80158;
+	Mon, 10 Feb 2020 18:13:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 753D7F80277; Mon, 10 Feb 2020 17:18:57 +0100 (CET)
+ id E64F9F80157; Mon, 10 Feb 2020 18:13:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9EF73F80234
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 17:18:54 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id D2E9FA0040;
- Mon, 10 Feb 2020 17:18:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz D2E9FA0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1581351533; bh=6ExE5SHf5KGKP9Eqe2SGbKrxUq3WaQaBxGJiWXG6iko=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=m6FpaT80CfDEzUcWXaCKcDjQN/pSyIlaAET4eDBtPaN2KirUghpS8G8SgbXcaN/9H
- nB5jAGCrfLvAYekHW9v5mj/HIACOQiEcmxP4MFGjiuUbKijeZZGyoc+vKbI0/VcjA9
- o5TOjxPCsD7Bz2Z/SW2usA+Xnawsc6iFHXnPVrac=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Mon, 10 Feb 2020 17:18:38 +0100 (CET)
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2FA33F800E7
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 18:13:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2FA33F800E7
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
+ header.b="mJ2x+0R0"
+Received: by mail-wr1-x441.google.com with SMTP id z7so8694486wrl.13
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 09:13:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=DSU+tE7/gI2emqC2rIzadepHX0f2kKadx71NAW+DB9c=;
+ b=mJ2x+0R0KG/zW9mIk2M541OD92fCUzci3ZA329+8cFqWKkKoiYinhkyd1Jrxr6rS6o
+ XzAdYkfUKOg8fLKFIuQLVAtDlVky8uxBVPPeEZVK1N4BX2ybShGvTRvZtumVm6OHfrIq
+ XOyc0/kGBjxkdPEt41xI+CVY3WQM0UQtYwmrQNC4kp/zAVMslhWKnjTJJnInArcQwtls
+ fY1X5FX7K14iEp44Q/RVA8efFh5NjzSaBfQwNJHRMeMzB57wlDqxplKrCv/I8BdpZTyG
+ XZlOO4zgEJC4kThvpMC/eudPXsSHKe0GwibyEQECmv0IJxekTVidJ9XRo8VGQxZmcClm
+ /FZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=DSU+tE7/gI2emqC2rIzadepHX0f2kKadx71NAW+DB9c=;
+ b=q4gZuOuOKoogvuCF6cVluWr4lkCKkqdIcArzvN7jEnzFe+d6y3WOixFwo8rKQToIr9
+ /Eo3Fkii6XLVjS//n4qHNt+xgdRZC8DJhu2V6AUybQe1swZjnXfMJWeahsr0Pn1F4ai0
+ aQSu11pUL6NfnN6pnmzqVcqfCoYVCGPxr4V12Iitu/GeNNmYZM9bFIbTbWlK3MH8osek
+ ulOsl8ZOHimJeRidE1oprdii70RDjpdhuw3sj9Uw98JjAjVAxHyxQGjSUya97upwnj84
+ 7FjL0q3Oy8e34Go7MgVABoj2FKYxVG/tWeMVn+Mh5qC9LyokbRxe6AnI/5Id0PfDzzH5
+ umvQ==
+X-Gm-Message-State: APjAAAUmvCyn+FkkvZuW71IXWVBhxuNLn1yfnaNQIeitsUEQcNZ8tNyI
+ +EOXiaT/m6qu4dZKZMgl6ExSEw==
+X-Google-Smtp-Source: APXvYqygfM/XPvD44FZpBV06QPyRiPM1bpOlyzUpNUVyAgaDXnrZJoL6ryy34a3DovTGrMav5A6R7w==
+X-Received: by 2002:adf:dfc8:: with SMTP id q8mr3005070wrn.135.1581354814017; 
+ Mon, 10 Feb 2020 09:13:34 -0800 (PST)
+Received: from [192.168.86.34]
+ (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
+ by smtp.googlemail.com with ESMTPSA id d22sm1344739wmd.39.2020.02.10.09.13.32
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 10 Feb 2020 09:13:33 -0800 (PST)
 To: Adam Serbinski <adam@serbinski.com>, Mark Brown <broonie@kernel.org>,
- Srini Kandagatla <srinivas.kandagatla@linaro.org>,
  Rob Herring <robh+dt@kernel.org>,
  Bjorn Andersson <bjorn.andersson@linaro.org>
 References: <20200207205013.12274-1-adam@serbinski.com>
  <20200209154748.3015-1-adam@serbinski.com>
- <20200209154748.3015-9-adam@serbinski.com>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <317edce5-a982-549b-84c2-84cdc1d92c9a@perex.cz>
-Date: Mon, 10 Feb 2020 17:18:38 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ <20200209154748.3015-4-adam@serbinski.com>
+From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+Message-ID: <d0437f6d-84c8-e1cd-b6f5-c1009e00245d@linaro.org>
+Date: Mon, 10 Feb 2020 17:13:32 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-In-Reply-To: <20200209154748.3015-9-adam@serbinski.com>
+In-Reply-To: <20200209154748.3015-4-adam@serbinski.com>
 Content-Language: en-US
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
  linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
  Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
  Andy Gross <agross@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH v2 8/8] ASoC: qcom: apq8096: add kcontrols
-	to set PCM rate
+Subject: Re: [alsa-devel] [PATCH v2 3/8] ASoC: qdsp6: q6afe-dai: add support
+ to pcm port dais
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,24 +113,10 @@ Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 09. 02. 20 v 16:47 Adam Serbinski napsal(a):
-> This makes it possible for the backend sample rate to be
-> set to 8000 or 16000 Hz, depending on the needs of the HFP
-> call being set up.
+Few minor comments
 
-Two points:
-
-Why enum? It adds just more code than the integer value handlers.
-
-Also, this belongs to the PCM interface, so it should be handled with 
-SNDRV_CTL_ELEM_IFACE_PCM not mixer.
-
-The name should be probably "Rate" and assigned to the corresponding PCM device.
-
-Add this to Documentation/sound/designs/control-names.rst .
-
-					Jaroslav
-
+On 09/02/2020 15:47, Adam Serbinski wrote:
+> This patch adds support of AFE DAI for PCM port.
 > 
 > Signed-off-by: Adam Serbinski <adam@serbinski.com>
 > CC: Andy Gross <agross@kernel.org>
@@ -122,141 +131,85 @@ Add this to Documentation/sound/designs/control-names.rst .
 > CC: devicetree@vger.kernel.org
 > CC: linux-kernel@vger.kernel.org
 > ---
->   sound/soc/qcom/apq8096.c | 92 +++++++++++++++++++++++++++++++++++++++-
->   1 file changed, 90 insertions(+), 2 deletions(-)
+>   sound/soc/qcom/qdsp6/q6afe-dai.c | 198 ++++++++++++++++++++++++++++++-
+>   1 file changed, 197 insertions(+), 1 deletion(-)
 > 
-> diff --git a/sound/soc/qcom/apq8096.c b/sound/soc/qcom/apq8096.c
-> index 1edcaa15234f..882f2c456321 100644
-> --- a/sound/soc/qcom/apq8096.c
-> +++ b/sound/soc/qcom/apq8096.c
-> @@ -16,6 +16,9 @@
->   #define MI2S_BCLK_RATE			1536000
->   #define PCM_BCLK_RATE			1024000
->   
-> +static int pri_pcm_sample_rate = 16000;
-> +static int quat_pcm_sample_rate = 16000;
+> diff --git a/sound/soc/qcom/qdsp6/q6afe-dai.c b/sound/soc/qcom/qdsp6/q6afe-dai.c
+> index c1a7624eaf17..23b29591ef47 100644
+> --- a/sound/soc/qcom/qdsp6/q6afe-dai.c
+> +++ b/sound/soc/qcom/qdsp6/q6afe-dai.c
+
+...
+
+> +static int q6afe_tdm_set_sysclk(struct snd_soc_dai *dai,
+> +		int clk_id, unsigned int freq, int dir)
+> +{
+
+Why are we adding exactly duplicate function of q6afe_mi2s_set_sysclk here?
+
+> +	struct q6afe_dai_data *dai_data = dev_get_drvdata(dai->dev);
+> +	struct q6afe_port *port = dai_data->port[dai->id];
 > +
->   static int msm_snd_hw_params(struct snd_pcm_substream *substream,
->   			     struct snd_pcm_hw_params *params)
->   {
-> @@ -33,10 +36,15 @@ static int msm_snd_hw_params(struct snd_pcm_substream *substream,
->   	switch (cpu_dai->id) {
->   	case PRIMARY_PCM_RX:
->   	case PRIMARY_PCM_TX:
-> +		rate->min = pri_pcm_sample_rate;
-> +		rate->max = pri_pcm_sample_rate;
-> +		channels->min = 1;
-> +		channels->max = 1;
-> +		break;
->   	case QUATERNARY_PCM_RX:
->   	case QUATERNARY_PCM_TX:
-> -		rate->min = 16000;
-> -		rate->max = 16000;
-> +		rate->min = quat_pcm_sample_rate;
-> +		rate->max = quat_pcm_sample_rate;
->   		channels->min = 1;
->   		channels->max = 1;
->   		break;
-> @@ -121,6 +129,83 @@ static struct snd_soc_ops apq8096_ops = {
->   	.startup = msm_snd_startup,
+> +	switch (clk_id) {
+> +	case LPAIF_DIG_CLK:
+> +		return q6afe_port_set_sysclk(port, clk_id, 0, 5, freq, dir);
+> +	case LPAIF_BIT_CLK:
+> +	case LPAIF_OSR_CLK:
+> +		return q6afe_port_set_sysclk(port, clk_id,
+> +					     Q6AFE_LPASS_CLK_SRC_INTERNAL,
+> +					     Q6AFE_LPASS_CLK_ROOT_DEFAULT,
+> +					     freq, dir);
+>   	case Q6AFE_LPASS_CLK_ID_PRI_TDM_IBIT ... Q6AFE_LPASS_CLK_ID_QUIN_TDM_EBIT:
+>   		return q6afe_port_set_sysclk(port, clk_id,
+>   					     Q6AFE_LPASS_CLK_ATTRIBUTE_INVERT_COUPLE_NO,
+> @@ -468,6 +520,11 @@ static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
+>   	{"Tertiary MI2S Playback", NULL, "TERT_MI2S_RX"},
+>   	{"Quaternary MI2S Playback", NULL, "QUAT_MI2S_RX"},
+>   
+> +	{"Primary PCM Playback", NULL, "PRI_PCM_RX"},
+> +	{"Secondary PCM Playback", NULL, "SEC_PCM_RX"},
+> +	{"Tertiary PCM Playback", NULL, "TERT_PCM_RX"},
+> +	{"Quaternary PCM Playback", NULL, "QUAT_PCM_RX"},
+> +
+>   	{"Primary TDM0 Playback", NULL, "PRIMARY_TDM_RX_0"},
+>   	{"Primary TDM1 Playback", NULL, "PRIMARY_TDM_RX_1"},
+>   	{"Primary TDM2 Playback", NULL, "PRIMARY_TDM_RX_2"},
+> @@ -562,6 +619,11 @@ static const struct snd_soc_dapm_route q6afe_dapm_routes[] = {
+>   	{"PRI_MI2S_TX", NULL, "Primary MI2S Capture"},
+>   	{"SEC_MI2S_TX", NULL, "Secondary MI2S Capture"},
+>   	{"QUAT_MI2S_TX", NULL, "Quaternary MI2S Capture"},
+> +
+> +	{"PRI_PCM_TX", NULL, "Primary PCM Capture"},
+> +	{"SEC_PCM_TX", NULL, "Secondary PCM Capture"},
+> +	{"TERT_PCM_TX", NULL, "Tertiary PCM Capture"},
+> +	{"QUAT_PCM_TX", NULL, "Quaternary PCM Capture"},
 >   };
 >   
-> +static char const *pcm_sample_rate_text[] = {"8 kHz", "16 kHz"};
-> +static const struct soc_enum pcm_snd_enum =
-> +		SOC_ENUM_SINGLE_EXT(2, pcm_sample_rate_text);
-> +
-> +static int get_sample_rate_idx(int sample_rate)
-> +{
-> +	int sample_rate_idx = 0;
-> +
-> +	switch (sample_rate) {
-> +	case 8000:
-> +		sample_rate_idx = 0;
-> +		break;
-> +	case 16000:
-> +	default:
-> +		sample_rate_idx = 1;
-> +		break;
-> +	}
-> +
-> +	return sample_rate_idx;
-> +}
-> +
-> +static int pri_pcm_sample_rate_get(struct snd_kcontrol *kcontrol,
-> +				   struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	ucontrol->value.integer.value[0] =
-> +		get_sample_rate_idx(pri_pcm_sample_rate);
-> +	return 0;
-> +}
-> +
-> +static int quat_pcm_sample_rate_get(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	ucontrol->value.integer.value[0] =
-> +		get_sample_rate_idx(quat_pcm_sample_rate);
-> +	return 0;
-> +}
-> +
-> +static int get_sample_rate(int idx)
-> +{
-> +	int sample_rate_val = 0;
-> +
-> +	switch (idx) {
-> +	case 0:
-> +		sample_rate_val = 8000;
-> +		break;
-> +	case 1:
-> +	default:
-> +		sample_rate_val = 16000;
-> +		break;
-> +	}
-> +
-> +	return sample_rate_val;
-> +}
-> +
-> +static int pri_pcm_sample_rate_put(struct snd_kcontrol *kcontrol,
-> +				   struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	pri_pcm_sample_rate =
-> +		get_sample_rate(ucontrol->value.integer.value[0]);
-> +	return 0;
-> +}
-> +
-> +static int quat_pcm_sample_rate_put(struct snd_kcontrol *kcontrol,
-> +				    struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	quat_pcm_sample_rate =
-> +		get_sample_rate(ucontrol->value.integer.value[0]);
-> +	return 0;
-> +}
-> +
-> +static const struct snd_kcontrol_new card_controls[] = {
-> +	SOC_ENUM_EXT("PRI_PCM SampleRate", pcm_snd_enum,
-> +		     pri_pcm_sample_rate_get, pri_pcm_sample_rate_put),
-> +	SOC_ENUM_EXT("QUAT_PCM SampleRate", pcm_snd_enum,
-> +		     quat_pcm_sample_rate_get, quat_pcm_sample_rate_put),
-> +};
-> +
->   static int apq8096_init(struct snd_soc_pcm_runtime *rtd)
->   {
->   	struct snd_soc_dai *codec_dai = rtd->codec_dai;
-> @@ -182,6 +267,9 @@ static int apq8096_platform_probe(struct platform_device *pdev)
->   	if (ret)
->   		goto err_card_register;
+
+...
+
 >   
-> +	snd_soc_add_card_controls(card, card_controls,
-> +				  ARRAY_SIZE(card_controls));
-> +
->   	return 0;
->   
->   err_card_register:
-> 
+> +	SND_SOC_DAPM_AIF_IN("QUAT_PCM_RX", NULL,
+> +			    0, 0, 0, 0),
+
+This can be in single line, same for below
 
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> +	SND_SOC_DAPM_AIF_OUT("QUAT_PCM_TX", NULL,
+> +			     0, 0, 0, 0),
+> +	SND_SOC_DAPM_AIF_IN("TERT_PCM_RX", NULL,
+> +			    0, 0, 0, 0),
+> +	SND_SOC_DAPM_AIF_OUT("TERT_PCM_TX", NULL,
+> +			     0, 0, 0, 0),
+> +	SND_SOC_DAPM_AIF_IN("SEC_PCM_RX", NULL,
+> +			    0, 0, 0, 0),
+> +	SND_SOC_DAPM_AIF_OUT("SEC_PCM_TX", NULL,
+> +			     0, 0, 0, 0),
+> +	SND_SOC_DAPM_AIF_IN("PRI_PCM_RX", NULL,
+> +			    0, 0, 0, 0),
+> +	SND_SOC_DAPM_AIF_OUT("PRI_PCM_TX", NULL,
+> +			     0, 0, 0, 0),
+> +
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

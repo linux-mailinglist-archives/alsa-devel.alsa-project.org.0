@@ -2,55 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2110D157C71
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 14:37:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D2C7157CAF
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 14:46:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C3DC9169B;
-	Mon, 10 Feb 2020 14:36:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C3DC9169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id DD5831676;
+	Mon, 10 Feb 2020 14:45:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DD5831676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581341858;
-	bh=4E6Zpi5Zpnpb8hQDNHM/8pJuFSDNh8SKqRVVpb8+tCs=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581342385;
+	bh=NS9OzfcyLn+lEIgglKX5l8LeTfQJ+JpO1Ca7SsEmIwg=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=BXWqOVj5M35jzGT0Mcp2BDUoIgXRjP/NlPHrSUrcLa5d8ARWFcF6GgUOL1b38A28a
-	 KC1zWAq0ejUnwWKtDN1g1bQJ5It17GbS9+irHNsmTkB+Fz6G1nX2A/WQTyef181EPr
-	 0W36UjkTz3/YbtFmeFQpveCv90Jk9zLz95tIOBhI=
+	b=DfR67QQQdPmuB3NVP9NVagp464+E+qA6w3q1rogSe7ko5AarKipIIjgd/i6oIBS7r
+	 +72VizDwsLmVaqPfsdOPM7jigmMrxXQ5hvHvVpi71cVn+SrkCJTiCWB/KJeGfHJVKu
+	 esZTiLUe4IJNBzWMaor7HgnastCy3NZjI5H+BBKI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7DD6EF8020B;
-	Mon, 10 Feb 2020 14:36:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0AB43F80118;
+	Mon, 10 Feb 2020 14:44:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 44363F8020B; Mon, 10 Feb 2020 14:36:44 +0100 (CET)
+ id C6E05F80157; Mon, 10 Feb 2020 14:44:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 2C3B4F8014F
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 14:36:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C3B4F8014F
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BAAE41FB;
- Mon, 10 Feb 2020 05:36:38 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3FC653F68E;
- Mon, 10 Feb 2020 05:36:38 -0800 (PST)
-Date: Mon, 10 Feb 2020 13:36:36 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Adam Serbinski <adam@serbinski.com>
-Message-ID: <20200210133636.GJ7685@sirena.org.uk>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail.serbinski.com (mail.serbinski.com [162.218.126.2])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id A18FEF800FD
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 14:44:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A18FEF800FD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=serbinski.com header.i=@serbinski.com
+ header.b="vvcUgFrb"
+Received: from localhost (unknown [127.0.0.1])
+ by mail.serbinski.com (Postfix) with ESMTP id 0DB0AD006F9;
+ Mon, 10 Feb 2020 13:44:36 +0000 (UTC)
+X-Virus-Scanned: amavisd-new at serbinski.com
+Received: from mail.serbinski.com ([127.0.0.1])
+ by localhost (mail.serbinski.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id CtK7mfW-1BDu; Mon, 10 Feb 2020 08:44:31 -0500 (EST)
+Received: from mail.serbinski.com (localhost [127.0.0.1])
+ by mail.serbinski.com (Postfix) with ESMTP id B5D6DD00693;
+ Mon, 10 Feb 2020 08:44:31 -0500 (EST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.serbinski.com B5D6DD00693
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=serbinski.com;
+ s=default; t=1581342271;
+ bh=zoaUdtUdAwbS6W/qIOBURXTRFBcaTr0B8ofCyG3hjjw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=vvcUgFrbvvVbBiV8cAwNiGEhy7uaAKlWb93nxC7EAozNJol/8FnH6LclBYzz9RWM3
+ Gch97PXEEO9SY26Glk7blM68U4i1+UL1IieXWRg+6pm31uNkDVPlz2HortA8N5H61H
+ 2wKj988HcHOKIs2dJMG/uu5MraB0px8kCJo2J72E=
+MIME-Version: 1.0
+Date: Mon, 10 Feb 2020 08:44:31 -0500
+From: Adam Serbinski <adam@serbinski.com>
+To: Mark Brown <broonie@kernel.org>
+In-Reply-To: <20200210121747.GB7685@sirena.org.uk>
 References: <20200207205013.12274-1-adam@serbinski.com>
  <20200209154748.3015-1-adam@serbinski.com>
- <20200209154748.3015-9-adam@serbinski.com>
-MIME-Version: 1.0
-In-Reply-To: <20200209154748.3015-9-adam@serbinski.com>
-X-Cookie: Avoid gunfire in the bathroom tonight.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ <20200210121747.GB7685@sirena.org.uk>
+User-Agent: Roundcube Webmail/1.4-beta
+Message-ID: <007098fa20e161bf94d65e248955ff6c@serbinski.com>
+X-Sender: adam@serbinski.com
 Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
  linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
@@ -58,8 +75,8 @@ Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
  Bjorn Andersson <bjorn.andersson@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Srini Kandagatla <srinivas.kandagatla@linaro.org>,
  Andy Gross <agross@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH v2 8/8] ASoC: qcom: apq8096: add kcontrols
-	to set PCM rate
+Subject: Re: [alsa-devel] [PATCH v2 0/8] ASoC: qdsp6: db820c: Add support
+ for external and bluetooth audio
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,55 +89,25 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============9073066257494648059=="
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On 2020-02-10 07:17, Mark Brown wrote:
+> On Sun, Feb 09, 2020 at 10:47:40AM -0500, Adam Serbinski wrote:
+>> Changes from V1:
+>> 
+>> 	Rename patch:
+>> 		from: dts: msm8996/db820c: enable primary pcm and quaternary i2s
+> 
+> Please don't send new serieses in reply to old ones, it can make it
+> confusing what's going on and what the current version is.
 
---===============9073066257494648059==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wRtZRu2mMGBZ6YQ7"
-Content-Disposition: inline
+My apologies. Its my first time doing this. Thank you for the advice.
 
-
---wRtZRu2mMGBZ6YQ7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Sun, Feb 09, 2020 at 10:47:48AM -0500, Adam Serbinski wrote:
-> This makes it possible for the backend sample rate to be
-> set to 8000 or 16000 Hz, depending on the needs of the HFP
-> call being set up.
-
-This would seem like an excellent thing to put in the driver for the
-baseband or bluetooth.
-
---wRtZRu2mMGBZ6YQ7
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5BXGQACgkQJNaLcl1U
-h9AaBgf/S2n2UV3JEObzW9MyD7j/N5w4SvGvTVxS91cgeKu1rLXmmHjuWYZSkaf3
-F5GLSWxp+xnfPHW3I1PioBN+E7uXVrbl4yioIysIumaqNFaSEfLvtmGZwCqY0jsd
-n8bC+RS7QHYba/2TIGEBgKM2EsXYq+wzmbkh3Yck0VsV6N1JdXtqppOkL9uaLfU1
-QesTdj6bYw+Ul7pRm4/whPeJP+Qot4l/Yc0vM1waMQ4/YCgWzPwH4/+lbO1hoZou
-fe6kJPWTXV0sCG71B7xIeGnUnsrI53fPAk0ojiFY4EOvEGdFN7yvgMnjsn8cSsBY
-9IE7v0TTt++29YGCUuAYhGAFqAw/2Q==
-=LG8v
------END PGP SIGNATURE-----
-
---wRtZRu2mMGBZ6YQ7--
-
---===============9073066257494648059==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-Adam
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============9073066257494648059==--

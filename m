@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C193B157DA6
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 15:43:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F6F7157DA8
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 15:44:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 237941671;
-	Mon, 10 Feb 2020 15:43:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 237941671
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1A8F3167D;
+	Mon, 10 Feb 2020 15:43:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A8F3167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581345833;
-	bh=0RfM2lL/orHkmtII3wD8I2CKMOJq2eEobSolMFF8xYU=;
+	s=default; t=1581345876;
+	bh=t4EE//svf8M6MQwTF7kurejmIhOuuGJwppfbGV+u/9M=;
 	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gILdfYXGnx5psjsqe7mzQ707ak/tuV5ntMp3d21+KWO4+zD9TlJ3t/FWioI70/zAt
-	 RceKOfyjfHcjnUUoSLExL38vWu2gGAKqpxQicexlOCqmA24QEbMWmIbCmAHpoH25lM
-	 xDOKD5BKr6Fb4rud3pluCR1rkaKZ1YvZh78OP3aI=
+	b=LprpsuIoOCPl+zoqRABRt5127tM/lDqET7NRdg8h1MNNFPO5wj25QmT5lTKmVGDCp
+	 DkfvHGP6rkLMo2zqWzy8wdbLT2UfOIip9oz6GSm2Fubk0s3pC7MnhkkViTyD/nZncF
+	 k9uB9FitwobbdNddIEncbfPaX3/pgP5gEkhX5RuU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 40D0AF8020B;
-	Mon, 10 Feb 2020 15:42:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D65F5F8027C;
+	Mon, 10 Feb 2020 15:42:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 56303F800E7; Mon, 10 Feb 2020 15:42:09 +0100 (CET)
+ id 336C4F8020B; Mon, 10 Feb 2020 15:42:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,39 +33,35 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 006A7F800E7
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 15:42:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 006A7F800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10AF6F80157
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 15:42:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10AF6F80157
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga007.fm.intel.com ([10.253.24.52])
  by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Feb 2020 06:42:03 -0800
+ 10 Feb 2020 06:42:05 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,425,1574150400"; d="scan'208";a="226213708"
+X-IronPort-AV: E=Sophos;i="5.70,425,1574150400"; d="scan'208";a="226213714"
 Received: from ykatsuma-mobl1.gar.corp.intel.com (HELO [10.251.140.95])
  ([10.251.140.95])
- by fmsmga007.fm.intel.com with ESMTP; 10 Feb 2020 06:42:02 -0800
-To: Colin King <colin.king@canonical.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Vinod Koul <vkoul@kernel.org>,
- "Subhransu S . Prusty" <subhransu.s.prusty@intel.com>,
- alsa-devel@alsa-project.org
-References: <20200208220720.36657-1-colin.king@canonical.com>
+ by fmsmga007.fm.intel.com with ESMTP; 10 Feb 2020 06:42:05 -0800
+To: Brent Lu <brent.lu@intel.com>, alsa-devel@alsa-project.org
+References: <1581322611-25695-1-git-send-email-brent.lu@intel.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <96b4d153-2ee5-ea88-7176-a2d9ebf19982@linux.intel.com>
-Date: Mon, 10 Feb 2020 08:09:26 -0600
+Message-ID: <00ed82c4-404a-ec70-970e-56ddce9285ae@linux.intel.com>
+Date: Mon, 10 Feb 2020 08:18:06 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200208220720.36657-1-colin.king@canonical.com>
+In-Reply-To: <1581322611-25695-1-git-send-email-brent.lu@intel.com>
 Content-Language: en-US
-Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH] ASoC: Intel: mrfld: return error codes
- when an error occurs
+Cc: Support Opensource <support.opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, mac.chiang@intel.com,
+ Mark Brown <broonie@kernel.org>, cychiang@google.com
+Subject: Re: [alsa-devel] [PATCH] ASoC: da7219: check SRM lock in trigger
+ callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,42 +81,125 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 2/8/20 4:07 PM, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
+On 2/10/20 2:16 AM, Brent Lu wrote:
+> Intel sst firmware turns on BCLK/WCLK in START Ioctl call which timing is
+> later than the DAPM SUPPLY event handler da7219_dai_event is called (in
+> PREPARED state). Therefore, the SRM lock check always fail.
 > 
-> Currently function sst_platform_get_resources always returns zero and
-> error return codes set by the function are never returned. Fix this
-> by returning the error return code in variable ret rather than the
-> hard coded zero.
+> Moving the check to trigger callback could ensure the SRM is locked before
+> DSP starts to process data and avoid possisble noise.
+
+This codec is used quite a bit by Chromebooks across multiple 
+generations and with both SST and SOF drivers, we need to be careful 
+about changes.
+I am personally not aware of any issues and never saw an 'SRM failed to 
+lock message'. On which platform did you see a problem?
+
 > 
-> Addresses-Coverity: ("Unused value")
-> Fixes: f533a035e4da ("ASoC: Intel: mrfld - create separate module for pci part")
-> Signed-off-by: Colin Ian King <colin.king@canonical.com>
-
-Yes, it's clearly bad.
-
-Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-
-I don't think this impacts anyone though, the code can only be used for 
-Merrifield/Tangier.
-
+> Signed-off-by: Brent Lu <brent.lu@intel.com>
 > ---
->   sound/soc/intel/atom/sst/sst_pci.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
+>   sound/soc/codecs/da7219.c | 68 +++++++++++++++++++++++++++++++----------------
+>   1 file changed, 45 insertions(+), 23 deletions(-)
 > 
-> diff --git a/sound/soc/intel/atom/sst/sst_pci.c b/sound/soc/intel/atom/sst/sst_pci.c
-> index d952719bc098..5862fe968083 100644
-> --- a/sound/soc/intel/atom/sst/sst_pci.c
-> +++ b/sound/soc/intel/atom/sst/sst_pci.c
-> @@ -99,7 +99,7 @@ static int sst_platform_get_resources(struct intel_sst_drv *ctx)
->   	dev_dbg(ctx->dev, "DRAM Ptr %p\n", ctx->dram);
->   do_release_regions:
->   	pci_release_regions(pci);
-> -	return 0;
-> +	return ret;
+> diff --git a/sound/soc/codecs/da7219.c b/sound/soc/codecs/da7219.c
+> index f83a6ea..0fb5ea5 100644
+> --- a/sound/soc/codecs/da7219.c
+> +++ b/sound/soc/codecs/da7219.c
+> @@ -794,9 +794,7 @@ static int da7219_dai_event(struct snd_soc_dapm_widget *w,
+>   	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+>   	struct da7219_priv *da7219 = snd_soc_component_get_drvdata(component);
+>   	struct clk *bclk = da7219->dai_clks[DA7219_DAI_BCLK_IDX];
+> -	u8 pll_ctrl, pll_status;
+> -	int i = 0, ret;
+> -	bool srm_lock = false;
+> +	int ret;
+>   
+>   	switch (event) {
+>   	case SND_SOC_DAPM_PRE_PMU:
+> @@ -820,26 +818,6 @@ static int da7219_dai_event(struct snd_soc_dapm_widget *w,
+>   		/* PC synchronised to DAI */
+>   		snd_soc_component_update_bits(component, DA7219_PC_COUNT,
+>   				    DA7219_PC_FREERUN_MASK, 0);
+> -
+> -		/* Slave mode, if SRM not enabled no need for status checks */
+> -		pll_ctrl = snd_soc_component_read32(component, DA7219_PLL_CTRL);
+> -		if ((pll_ctrl & DA7219_PLL_MODE_MASK) != DA7219_PLL_MODE_SRM)
+> -			return 0;
+> -
+> -		/* Check SRM has locked */
+> -		do {
+> -			pll_status = snd_soc_component_read32(component, DA7219_PLL_SRM_STS);
+> -			if (pll_status & DA7219_PLL_SRM_STS_SRM_LOCK) {
+> -				srm_lock = true;
+> -			} else {
+> -				++i;
+> -				msleep(50);
+> -			}
+> -		} while ((i < DA7219_SRM_CHECK_RETRIES) && (!srm_lock));
+> -
+> -		if (!srm_lock)
+> -			dev_warn(component->dev, "SRM failed to lock\n");
+> -
+>   		return 0;
+>   	case SND_SOC_DAPM_POST_PMD:
+>   		/* PC free-running */
+> @@ -1658,12 +1636,56 @@ static int da7219_hw_params(struct snd_pcm_substream *substream,
+>   	return 0;
 >   }
 >   
->   /*
+> +static int da7219_set_dai_trigger(struct snd_pcm_substream *substream, int cmd,
+> +				  struct snd_soc_dai *dai)
+> +{
+> +	struct snd_soc_component *component = dai->component;
+> +	u8 pll_ctrl, pll_status;
+> +	int i = 0;
+> +	bool srm_lock = false;
+> +
+> +	switch (cmd) {
+> +	case SNDRV_PCM_TRIGGER_START:
+> +		/* Slave mode, if SRM not enabled no need for status checks */
+> +		pll_ctrl = snd_soc_component_read32(component, DA7219_PLL_CTRL);
+> +		if ((pll_ctrl & DA7219_PLL_MODE_MASK) != DA7219_PLL_MODE_SRM)
+> +			return 0;
+> +
+> +		/* Check SRM has locked */
+> +		do {
+> +			pll_status = snd_soc_component_read32(component,
+> +							DA7219_PLL_SRM_STS);
+> +			if (pll_status & DA7219_PLL_SRM_STS_SRM_LOCK) {
+> +				srm_lock = true;
+> +			} else {
+> +				++i;
+> +				msleep(50);
+> +			}
+> +		} while ((i < DA7219_SRM_CHECK_RETRIES) && (!srm_lock));
+> +
+> +		if (!srm_lock)
+> +			dev_warn(component->dev, "SRM failed to lock\n");
+> +
+> +		break;
+> +	case SNDRV_PCM_TRIGGER_RESUME:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +	case SNDRV_PCM_TRIGGER_STOP:
+> +	case SNDRV_PCM_TRIGGER_SUSPEND:
+> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static const struct snd_soc_dai_ops da7219_dai_ops = {
+>   	.hw_params	= da7219_hw_params,
+>   	.set_sysclk	= da7219_set_dai_sysclk,
+>   	.set_pll	= da7219_set_dai_pll,
+>   	.set_fmt	= da7219_set_dai_fmt,
+>   	.set_tdm_slot	= da7219_set_dai_tdm_slot,
+> +	.trigger	= da7219_set_dai_trigger,
+>   };
+>   
+>   #define DA7219_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE |\
 > 
 _______________________________________________
 Alsa-devel mailing list

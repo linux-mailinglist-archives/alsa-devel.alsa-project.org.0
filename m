@@ -2,120 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AAE47157262
-	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 11:02:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 39CAF157302
+	for <lists+alsa-devel@lfdr.de>; Mon, 10 Feb 2020 11:49:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4A9BD169B;
-	Mon, 10 Feb 2020 11:02:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4A9BD169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id A5F38166D;
+	Mon, 10 Feb 2020 11:48:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A5F38166D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581328974;
-	bh=8PxW6aC4uyATRfe0OrDYvQKEqAGjp6Zk4pXN17qYNOk=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1581331745;
+	bh=e5WD7Hr6MJ0Y3+wGpTiuSGkPGSg/Ktcznjh7FzD4Opo=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uJ5VEAyXZDpu3VFaMhpP1tq0GdPRPE/i1geND/wYRn16oW7SW3OSUsCafjkn7v9Zk
-	 mpMGh3ZwNDPMUbh3DDGy/dJtPazP5w+Wk44CmSsg+weD+s7ZrfMzzZJHaYWnCebMgH
-	 NClz458U2/VB3HSAW2dZW2gvmJsSjdK0zu3A7lyY=
+	b=HYA9TnPKs6nHtc/D20DUBg3mDHaHDUQXJ48DMBLlRb4NqyYNdfOpF5gGUrNo5/LhG
+	 ainUSf0VZTLnORJWlLwyAuk4/P/KG0p7GxAgVgoE154wPmPTIEtlKzHVzCnhfHBy38
+	 b1Hj21/3F8tY2H3wS5FSzcxmO9KhG3rz33WtFK2E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B281DF80291;
-	Mon, 10 Feb 2020 10:58:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DF7D4F800FD;
+	Mon, 10 Feb 2020 11:47:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60BCFF800FD; Mon, 10 Feb 2020 10:58:45 +0100 (CET)
+ id 72BDDF80157; Mon, 10 Feb 2020 11:47:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- MSGID_FROM_MTA_HEADER,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from EUR02-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr00083.outbound.protection.outlook.com [40.107.0.83])
+X-Spam-Status: No, score=1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08EEEF800FD
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 10:58:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08EEEF800FD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6DC27F800FD
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 11:47:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DC27F800FD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="DQNgSiiP"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ESMkRwGppluJDuD6ytF+EpC+n/goV/aQqVpBVHmLm5YyeuB8iaGK99oTNJZlHaFUz59YMgeGGMyfOmWqpaHa+THQYqB3Tx7M27erBg/hIJqHq1tzGbrCLadIw2d9vOA89ojoHMFvZ75GiKunASTl3ZzwZr8vKj/K0qIpgjV54cvJtsZJ9nYXJlEuQujwyDXpM0kluxg+0O4jQ0KkWuucbmE/vma1GOD1vUf61K0ioZebJUTkyibmslColqwcZASWYZ297zbcaWe8Sv9g80R3wiyRLHk6Yi7CbTrsYUyPQZyHgEVHeK6hFZXp39Sv7PIYHJu7AxJfTqGxhjSEcVsDmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T+QA1YSM6T6NusxwnbWRJCIoo6V643ml0FFpPb+ARMU=;
- b=g6ZWC9mxj5trXGARQYVZTzGT6ybE4slRFeLMRCbrpA/f8QLuTMqgVAgq5Mb81WTLXVp4hr4tesvQXOuaoKnSBJdeFO+6lK/pztpqHXuZKBb4FWkuCLrcKlV6KwEVPsrZ0ey8mhSVn7EkcmUkd0y6sFgngbbQKgcDRrWicYTbWWM6JGtz8p5GI4Qi9aNJT2tU1p1IY+8lmFrpEUShn+jlMo+14UyFmwrHvyKeLnNz5lJeoCj5QVbQr1w94aGb4ZlNH+rvh87EN9C7Priesq8fvcGRNBuaCt+nqnMWBhmoXQSUqQsvQio8nzTWGpRQ2Uv0mQiBGtnm6Oy9PjGup1vRHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=T+QA1YSM6T6NusxwnbWRJCIoo6V643ml0FFpPb+ARMU=;
- b=DQNgSiiPBOKdOKXQYVu1hF8qvZjumfV6uJl8XKPS/lqK3YY23scGDwxR6oPQ0nxdH3pJ3p5jgirQN7va5EeesPcrSAiP2c2x0gxxI7Ej7Z3Y+Fd1zW+gZfB0cOSu9RKzukAAghCAzcnhLj2ifV5DOHSdbVbtFIT59JHQQGgJklM=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=daniel.baluta@oss.nxp.com; 
-Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com (52.134.16.147) by
- VI1PR0402MB3599.eurprd04.prod.outlook.com (52.134.1.13) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2707.26; Mon, 10 Feb 2020 09:58:38 +0000
-Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com
- ([fe80::8881:e155:f058:c0d1]) by VI1PR0402MB3839.eurprd04.prod.outlook.com
- ([fe80::8881:e155:f058:c0d1%4]) with mapi id 15.20.2707.028; Mon, 10 Feb 2020
- 09:58:38 +0000
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-To: broonie@kernel.org,
-	robh+dt@kernel.org
-Date: Mon, 10 Feb 2020 11:58:17 +0200
-Message-Id: <20200210095817.13226-5-daniel.baluta@oss.nxp.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200210095817.13226-1-daniel.baluta@oss.nxp.com>
-References: <20200210095817.13226-1-daniel.baluta@oss.nxp.com>
-X-ClientProxiedBy: AM3PR07CA0076.eurprd07.prod.outlook.com
- (2603:10a6:207:4::34) To VI1PR0402MB3839.eurprd04.prod.outlook.com
- (2603:10a6:803:21::19)
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="GB+F6x/q"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01AAlEEC094006;
+ Mon, 10 Feb 2020 04:47:14 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1581331634;
+ bh=B8GRA+CrLBCOGT5Ccz74+e8To+cVE5Fs8SCDmKQIwrA=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=GB+F6x/qzwuL0HMOreac7zKVQQdL5DxjkgqgA0qQg5j7Qt5Y09lF3qlP4N5o27vGs
+ czS7WgoKIqBr61mKS6c9z5V631fFqAN3Wnvra6b/pHcwO8b4NywFv0JzEhUE9BnO40
+ NqqD8cFPsveU+/+a7yAEaBijwEnMs08Rhlw5arm4=
+Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01AAlEXB076613
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 10 Feb 2020 04:47:14 -0600
+Received: from DLEE107.ent.ti.com (157.170.170.37) by DLEE100.ent.ti.com
+ (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 10
+ Feb 2020 04:47:13 -0600
+Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE107.ent.ti.com
+ (157.170.170.37) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Mon, 10 Feb 2020 04:47:13 -0600
+Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01AAlBTe091641;
+ Mon, 10 Feb 2020 04:47:12 -0600
+To: Colin King <colin.king@canonical.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+ <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ <alsa-devel@alsa-project.org>
+References: <20200210092423.327499-1-colin.king@canonical.com>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Message-ID: <bc05a46a-fc38-c95f-4aa1-25034d3eb6cc@ti.com>
+Date: Mon, 10 Feb 2020 12:47:14 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Received: from fsr-ub1864-103.ro-buh02.nxp.com (89.37.124.34) by
- AM3PR07CA0076.eurprd07.prod.outlook.com (2603:10a6:207:4::34) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2729.9 via Frontend Transport; Mon, 10 Feb 2020 09:58:37 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [89.37.124.34]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: c78cdf9a-243a-4e31-3326-08d7ae0fccc6
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB3599:|VI1PR0402MB3599:
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR0402MB3599D434531AC7A3E73B7868B8190@VI1PR0402MB3599.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:6108;
-X-Forefront-PRVS: 03094A4065
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(346002)(39860400002)(376002)(396003)(136003)(366004)(199004)(189003)(956004)(2616005)(54906003)(16526019)(44832011)(6506007)(186003)(26005)(6486002)(66556008)(66946007)(66476007)(86362001)(4326008)(2906002)(478600001)(6512007)(81156014)(81166006)(8676002)(8936002)(316002)(4744005)(1076003)(5660300002)(6666004)(52116002)(142933001);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR0402MB3599;
- H:VI1PR0402MB3839.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:0; MX:1; 
-Received-SPF: None (protection.outlook.com: oss.nxp.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 8bRFm1tUey/GL6h2qjN3Ry4Vb+lyMNQyWXQjzNJCuL4Q+Of+10htYZhrAdjN7rq1ekKMc6Dirhgt6H/b8E7pQ9ssCheza5LxHpEq+aX9ED2yWe6a1HuPCgHxBowNn8VLLQCTyninV6r5Pj8pIIarrpYJBgWUdONzHX6AGNZzAmHfNjZh9bcTedq9ZnjMZPkKjk1rArNM2AP1n7VqwxpJ5/pVK/M3VWNCeR8CkW1AGZJijlty4vuvs2EBU3rdTz0BiNEj5ck+GnL0wOiZZmvGw8r48eskA/f1KT9IEODQvim6EL8/4SAIvHbIHsSKAqDxcDPEK+G3QGOlS+3yZMB0k/a7idFUwAc2Y2y14Nox5J/B9ZtYL9zeiB8BRlFUu2/QJg9gZQKerm4O58CDZVsfQnXwqf1Xa97qT0fbw6xZihPF9kDn10TfJ7XMb7hkL5UjLkMlHnMIQB7fl0JJTBwqNptVuL7u3tAcaT1bxQmmoCy9UGjujEIBR1W2EFAIRGou
-X-MS-Exchange-AntiSpam-MessageData: Kv0UYy8Z9hG7n0dOrLgjkac4XVfelzURe1w2XfxRxuYe+5arRwdQP6w6Wv6ni0mVOUhRCNqxTrNekhx/CV3pD2/aIEkXai7ScyvzFgKkPOZWbK20HlKue3DPwIWmZJIf8KbPNumJLSR1jgPEF2V51A==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c78cdf9a-243a-4e31-3326-08d7ae0fccc6
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Feb 2020 09:58:38.1517 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: c6I9FuetUnJevu+dbuxEJMRIuI/c9+S1vB1p541xQWGnSmEfmu6+aR/uVP2FMusv0ywKj9S2gXzFosA+oMknSw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB3599
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Daniel Baluta <daniel.baluta@nxp.com>, linux-kernel@vger.kernel.org,
- Paul Olaru <paul.olaru@nxp.com>, linux-imx@nxp.com, festevam@gmail.com
-Subject: [alsa-devel] [RESEND 4/4] dt-bindings: dsp: fsl: Add fsl,
-	imx8qm-dsp entry
+In-Reply-To: <20200210092423.327499-1-colin.king@canonical.com>
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [alsa-devel] [PATCH][V2] ASoC: ti: davinci-mcasp: remove
+ redundant assignment to variable ret
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,39 +93,34 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Paul Olaru <paul.olaru@nxp.com>
-
-This is the same DSP from the hardware point of view, but it gets a
-different compatible string due to usage in a separate platform.
-
-Signed-off-by: Paul Olaru <paul.olaru@nxp.com>
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- Documentation/devicetree/bindings/dsp/fsl,dsp.yaml | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-index f04870d84542..30bc0db7f539 100644
---- a/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-+++ b/Documentation/devicetree/bindings/dsp/fsl,dsp.yaml
-@@ -17,6 +17,7 @@ properties:
-   compatible:
-     enum:
-       - fsl,imx8qxp-dsp
-+      - fsl,imx8qm-dsp
- 
-   reg:
-     description: Should contain register location and length
--- 
-2.17.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+CgpPbiAxMC8wMi8yMDIwIDExLjI0LCBDb2xpbiBLaW5nIHdyb3RlOgo+IEZyb206IENvbGluIElh
+biBLaW5nIDxjb2xpbi5raW5nQGNhbm9uaWNhbC5jb20+Cj4gCj4gVGhlIGFzc2lnbm1lbnQgdG8g
+cmV0IGlzIHJlZHVuZGFudCBhcyBpdCBpcyBub3QgdXNlZCBpbiB0aGUgZXJyb3IKPiByZXR1cm4g
+cGF0aCBhbmQgaGVuY2UgY2FuIGJlIHJlbW92ZWQuCgpBY2tlZC1ieTogUGV0ZXIgVWpmYWx1c2kg
+PHBldGVyLnVqZmFsdXNpQHRpLmNvbT4KCj4gQWRkcmVzc2VzLUNvdmVyaXR5OiAoIlVudXNlZCB2
+YWx1ZSIpCj4gU2lnbmVkLW9mZi1ieTogQ29saW4gSWFuIEtpbmcgPGNvbGluLmtpbmdAY2Fub25p
+Y2FsLmNvbT4KPiAtLS0KPiBWMjogZXhwbGljaXRseSByZXR1cm4gTlVMTCB0byBpbXByb3ZlIHJl
+YWRhYmlsaXR5LiBUaGFua3MgdG8gRGFuIENhcnBlbnRlciBmb3IKPiAgICAgc3VnZ2VzdGluZyB0
+aGlzIGltcHJvdmVtZW50Lgo+IC0tLQo+ICBzb3VuZC9zb2MvdGkvZGF2aW5jaS1tY2FzcC5jIHwg
+NiArKy0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9ucygrKSwgNCBkZWxldGlvbnMo
+LSkKPiAKPiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL3RpL2RhdmluY2ktbWNhc3AuYyBiL3NvdW5k
+L3NvYy90aS9kYXZpbmNpLW1jYXNwLmMKPiBpbmRleCBlMWU5MzdlYjFkYzEuLjZmOTc2MzljNDZj
+ZCAxMDA2NDQKPiAtLS0gYS9zb3VuZC9zb2MvdGkvZGF2aW5jaS1tY2FzcC5jCj4gKysrIGIvc291
+bmQvc29jL3RpL2RhdmluY2ktbWNhc3AuYwo+IEBAIC0xNzY0LDEwICsxNzY0LDggQEAgc3RhdGlj
+IHN0cnVjdCBkYXZpbmNpX21jYXNwX3BkYXRhICpkYXZpbmNpX21jYXNwX3NldF9wZGF0YV9mcm9t
+X29mKAo+ICAJfSBlbHNlIGlmIChtYXRjaCkgewo+ICAJCXBkYXRhID0gZGV2bV9rbWVtZHVwKCZw
+ZGV2LT5kZXYsIG1hdGNoLT5kYXRhLCBzaXplb2YoKnBkYXRhKSwKPiAgCQkJCSAgICAgR0ZQX0tF
+Uk5FTCk7Cj4gLQkJaWYgKCFwZGF0YSkgewo+IC0JCQlyZXQgPSAtRU5PTUVNOwo+IC0JCQlyZXR1
+cm4gcGRhdGE7Cj4gLQkJfQo+ICsJCWlmICghcGRhdGEpCj4gKwkJCXJldHVybiBOVUxMOwo+ICAJ
+fSBlbHNlIHsKPiAgCQkvKiBjb250cm9sIHNob3VsZG4ndCByZWFjaCBoZXJlLiBzb21ldGhpbmcg
+aXMgd3JvbmcgKi8KPiAgCQlyZXQgPSAtRUlOVkFMOwo+IAoKLSBQw6l0ZXIKClRleGFzIEluc3Ry
+dW1lbnRzIEZpbmxhbmQgT3ksIFBvcmtrYWxhbmthdHUgMjIsIDAwMTgwIEhlbHNpbmtpLgpZLXR1
+bm51cy9CdXNpbmVzcyBJRDogMDYxNTUyMS00LiBLb3RpcGFpa2thL0RvbWljaWxlOiBIZWxzaW5r
+aQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRl
+dmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWls
+bWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

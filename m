@@ -2,54 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 88CAD15960E
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 18:19:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D59301597C9
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 19:10:34 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EEBEA886;
-	Tue, 11 Feb 2020 18:18:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EEBEA886
+	by alsa0.perex.cz (Postfix) with ESMTPS id 53C611657;
+	Tue, 11 Feb 2020 19:09:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 53C611657
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581441542;
-	bh=5kVitip/I3lHT4UX5rXpQoc2qxf4zKNsam8zFknL2Rg=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=nrIjK1xC5d0V2z12aKoe6uFQFCYmNsh1O2Avui+9mgrmg4SXCEQ9dpgPbb5r72sQ4
-	 QgQ+ooxU46u8WVrL5aZ0r2nTIEUH5w9anqRT07gMsDsLLmkVVtHTF7wtbPqG4EyOXq
-	 IS/3gh8LtrG7Tezir8lt4zWjQhPk5YT9w0+Nt0b0=
+	s=default; t=1581444634;
+	bh=sgnN+7OhrQAI3IGzSOhzXoWnEeSLqimkRNqRSbob9YU=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=sntKYUiKJaejb+Ez9ZK5IGlIgSdG7qr8EHIob74tqMlM2ltwrJYi3DfkDU2QFc5Em
+	 nYB1ivxJFr6TjTze3/bBU8WBabaSSwcW9Md8xPNWU9MRdG7WqFK4Nw5GmR/bdSl3C0
+	 hJZKHezrQ3o/B7JNqok/Z6Rc63pbXSMOHCay70u8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A3A32F800F0;
-	Tue, 11 Feb 2020 18:17:20 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 68B58F80146;
+	Tue, 11 Feb 2020 19:08:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BCE34F8013E; Tue, 11 Feb 2020 18:17:17 +0100 (CET)
+ id 1F1CCF80145; Tue, 11 Feb 2020 19:08:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=NO_DNS_FOR_FROM, SPF_HELO_NONE,
- SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from muru.com (muru.com [72.249.23.125])
- by alsa1.perex.cz (Postfix) with ESMTP id 3D7BFF800E7
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 18:16:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3D7BFF800E7
-Received: from hillo.muru.com (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTP id DA26E80D4;
- Tue, 11 Feb 2020 17:17:39 +0000 (UTC)
-From: Tony Lindgren <tony@atomide.com>
-To: Mark Brown <broonie@kernel.org>
-Date: Tue, 11 Feb 2020 09:16:45 -0800
-Message-Id: <20200211171645.41990-1-tony@atomide.com>
-X-Mailer: git-send-email 2.25.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 747C0F800E7
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 19:08:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 747C0F800E7
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2020 10:08:36 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,428,1574150400"; d="scan'208";a="222014389"
+Received: from mahaling-mobl.amr.corp.intel.com (HELO [10.254.185.201])
+ ([10.254.185.201])
+ by orsmga007.jf.intel.com with ESMTP; 11 Feb 2020 10:08:34 -0800
+To: "Lu, Brent" <brent.lu@intel.com>,
+ Adam Thomson <Adam.Thomson.Opensource@diasemi.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>
+References: <1581322611-25695-1-git-send-email-brent.lu@intel.com>
+ <AM6PR10MB2263F302A86B17C95B16361280190@AM6PR10MB2263.EURPRD10.PROD.OUTLOOK.COM>
+ <SN6PR11MB26702B2E7E5F705425517F4897180@SN6PR11MB2670.namprd11.prod.outlook.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <855c88fb-4438-aefb-ac9b-a9a5a2dc8caa@linux.intel.com>
+Date: Tue, 11 Feb 2020 10:30:35 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Merlijn Wajer <merlijn@wizzup.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- Peter Ujfalusi <peter.ujfalusi@ti.com>, Pavel Machek <pavel@ucw.cz>,
- Sebastian Reichel <sre@kernel.org>, linux-omap@vger.kernel.org,
- "Arthur D ." <spinal.by@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
-Subject: [alsa-devel] [PATCH] ASoC: ti: Allocate dais dynamically for TDM
-	and audio graph card
+In-Reply-To: <SN6PR11MB26702B2E7E5F705425517F4897180@SN6PR11MB2670.namprd11.prod.outlook.com>
+Content-Language: en-US
+Cc: Support Opensource <Support.Opensource@diasemi.com>,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, "Chiang, Mac" <mac.chiang@intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ "cychiang@google.com" <cychiang@google.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: da7219: check SRM lock in trigger
+ callback
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,157 +81,44 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-We can have multiple connections on a single McBSP instance configured
-with audio graph card when using TDM (Time Division Multiplexing). Let's
-allow that by configuring dais dynamically.
 
-See Documentation/devicetree/bindings/sound/audio-graph-card.txt and
-Documentation/devicetree/bindings/graph.txt for more details for
-multiple endpoints.
+>> Could ensure? This change seems specific to Intel DSP based systems, at
+>> least from the description. Having looked through the core, the trigger code
+>> for a codec is seemingly always called before the trigger for the CPU. How will
+>> this work for other platforms, assuming their clocks are enabled in the CPU
+>> DAI trigger function by default?
+>>
+>> Can we always guarantee the CPU side isn't going to send anything other
+>> than 0s until after SRM has locked?
 
-I've tested this with droid4 where cpcap pmic and modem voice are both
-both wired to mcbsp3. I've also tested this on droid4 both with and
-without the pending modem audio codec driver that is waiting for n_gsm
-serdev dependencies to clear.
+Not with the default mode for the SSP, all clocks are enabled at trigger 
+time.
+We can enable the MCLK and BCLK ahead of time (which would require a 
+change in firmware). But if we want to enable the FSYNC (word-clock), 
+then we have to trigger DMA transfers with pretend-buffers, this is a 
+lot more invasive.
 
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>
-Cc: Arthur D. <spinal.by@gmail.com>
-Cc: Jarkko Nikula <jarkko.nikula@bitmer.com>
-Cc: Merlijn Wajer <merlijn@wizzup.org>
-Cc: Pavel Machek <pavel@ucw.cz>
-Cc: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Cc: Sebastian Reichel <sre@kernel.org>
-Signed-off-by: Tony Lindgren <tony@atomide.com>
----
- sound/soc/ti/omap-mcbsp-priv.h |  2 +
- sound/soc/ti/omap-mcbsp.c      | 76 ++++++++++++++++++++++++----------
- 2 files changed, 55 insertions(+), 23 deletions(-)
+So just to be clear, which of the MCLK, BCLK, FSYNC do you need enabled?
 
-diff --git a/sound/soc/ti/omap-mcbsp-priv.h b/sound/soc/ti/omap-mcbsp-priv.h
---- a/sound/soc/ti/omap-mcbsp-priv.h
-+++ b/sound/soc/ti/omap-mcbsp-priv.h
-@@ -262,6 +262,8 @@ struct omap_mcbsp {
- 	struct omap_mcbsp_platform_data *pdata;
- 	struct omap_mcbsp_st_data *st_data;
- 	struct omap_mcbsp_reg_cfg cfg_regs;
-+	struct snd_soc_dai_driver *dais;
-+	int dai_count;
- 	struct snd_dmaengine_dai_dma_data dma_data[2];
- 	unsigned int dma_req[2];
- 	int dma_op_mode;
-diff --git a/sound/soc/ti/omap-mcbsp.c b/sound/soc/ti/omap-mcbsp.c
---- a/sound/soc/ti/omap-mcbsp.c
-+++ b/sound/soc/ti/omap-mcbsp.c
-@@ -14,6 +14,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/of.h>
- #include <linux/of_device.h>
-+#include <linux/of_graph.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
-@@ -1304,23 +1305,53 @@ static int omap_mcbsp_remove(struct snd_soc_dai *dai)
- 	return 0;
- }
- 
--static struct snd_soc_dai_driver omap_mcbsp_dai = {
--	.probe = omap_mcbsp_probe,
--	.remove = omap_mcbsp_remove,
--	.playback = {
--		.channels_min = 1,
--		.channels_max = 16,
--		.rates = OMAP_MCBSP_RATES,
--		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE,
--	},
--	.capture = {
--		.channels_min = 1,
--		.channels_max = 16,
--		.rates = OMAP_MCBSP_RATES,
--		.formats = SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S32_LE,
--	},
--	.ops = &mcbsp_dai_ops,
--};
-+static int omap_mcbsp_init_dais(struct omap_mcbsp *mcbsp)
-+{
-+	struct device_node *np = mcbsp->dev->of_node;
-+	int i;
-+
-+	if (np)
-+		mcbsp->dai_count = of_graph_get_endpoint_count(np);
-+
-+	if (!mcbsp->dai_count)
-+		mcbsp->dai_count = 1;
-+
-+	mcbsp->dais = devm_kcalloc(mcbsp->dev, mcbsp->dai_count,
-+				   sizeof(*mcbsp->dais), GFP_KERNEL);
-+	if (!mcbsp->dais)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < mcbsp->dai_count; i++) {
-+		struct snd_soc_dai_driver *dai = &mcbsp->dais[i];
-+
-+		dai->name = devm_kasprintf(mcbsp->dev, GFP_KERNEL, "%s-dai%i",
-+					   dev_name(mcbsp->dev), i);
-+
-+		if (i == 0) {
-+			dai->probe = omap_mcbsp_probe;
-+			dai->remove = omap_mcbsp_remove;
-+			dai->ops = &mcbsp_dai_ops;
-+		}
-+		dai->playback.channels_min = 1;
-+		dai->playback.channels_max = 16;
-+		dai->playback.rates = OMAP_MCBSP_RATES;
-+		if (mcbsp->pdata->reg_size == 2)
-+			dai->playback.formats = SNDRV_PCM_FMTBIT_S16_LE;
-+		else
-+			dai->playback.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+						SNDRV_PCM_FMTBIT_S32_LE;
-+		dai->capture.channels_min = 1;
-+		dai->capture.channels_max = 16;
-+		dai->capture.rates = OMAP_MCBSP_RATES;
-+		if (mcbsp->pdata->reg_size == 2)
-+			dai->capture.formats = SNDRV_PCM_FMTBIT_S16_LE;
-+		else
-+			dai->capture.formats = SNDRV_PCM_FMTBIT_S16_LE |
-+					       SNDRV_PCM_FMTBIT_S32_LE;
-+	}
-+
-+	return 0;
-+}
- 
- static const struct snd_soc_component_driver omap_mcbsp_component = {
- 	.name		= "omap-mcbsp",
-@@ -1409,18 +1440,17 @@ static int asoc_mcbsp_probe(struct platform_device *pdev)
- 	mcbsp->dev = &pdev->dev;
- 	platform_set_drvdata(pdev, mcbsp);
- 
--	ret = omap_mcbsp_init(pdev);
-+	ret = omap_mcbsp_init_dais(mcbsp);
- 	if (ret)
- 		return ret;
- 
--	if (mcbsp->pdata->reg_size == 2) {
--		omap_mcbsp_dai.playback.formats = SNDRV_PCM_FMTBIT_S16_LE;
--		omap_mcbsp_dai.capture.formats = SNDRV_PCM_FMTBIT_S16_LE;
--	}
-+	ret = omap_mcbsp_init(pdev);
-+	if (ret)
-+		return ret;
- 
- 	ret = devm_snd_soc_register_component(&pdev->dev,
- 					      &omap_mcbsp_component,
--					      &omap_mcbsp_dai, 1);
-+					      mcbsp->dais, mcbsp->dai_count);
- 	if (ret)
- 		return ret;
- 
--- 
-2.25.0
+> I think the patch is for those systems which enable I2S clocks in pcm_start instead
+> of pcm_prepare. It has no effect on systems already be able to turn on clocks in
+> supply widgets or set_bias_level() function.
+> 
+> If the trigger type in the DAI link is TRIGGER_PRE, then the trigger function of FE port
+> (component or CPU DAI) will be called before codec driver's trigger function. In this
+> case we will be able to turn on the clock in time. However, if the trigger type is
+> TRIGGER_POST, then the patch does not help because just like what you said, codec
+> driver's trigger function is called first.
+
+IIRC we recently did a change to deal with underflows. Ranjani, can you 
+remind us what the issue was?
+Thanks
+-Pierre
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

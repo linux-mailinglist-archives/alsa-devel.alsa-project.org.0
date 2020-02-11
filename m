@@ -2,72 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED30B159120
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 14:58:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 47BA915935C
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 16:40:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 826F4166C;
-	Tue, 11 Feb 2020 14:57:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 826F4166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 98D4615F2;
+	Tue, 11 Feb 2020 16:39:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 98D4615F2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581429520;
-	bh=dz/byLQo9TjXxAvv7tDuUNAiww1CwBWHMOCH3IL8P4o=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581435637;
+	bh=xJMCxDUAKk6BwGxialvlrbGrjnl5S8jSLXFrgQaoElk=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=puh2DC189zE1SDS3TkLTD1+teoR4a0ssLTSNnEKqVBk/Kwuv3yFIMEWCVyUvNw5dm
-	 gjDbp4R2L28CC+/dkkFrWW7ql9Ltao5+B7cCr/82afzebFf70b/qWbiiINGyTJ4VR8
-	 AwNDr5QZDgy29dYJgOg4daShJkWQmSCtEUF2Apxg=
+	b=beM2BubNPPJUDRW2sLlXVqDyUrvVLnNKYc5UzxnACdiz5LDK6GFBjHTLhIXFr4MSx
+	 YHn9SLyWKUZchPzBs0NRwKO4tG/zuEzRp504bVooaINnYdxFdGsUd0WfjIBZAefNU5
+	 boUlzRmdBdHbbZw5/yWHghYjNGLdjJJlIACGD5xc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 90A25F80146;
-	Tue, 11 Feb 2020 14:56:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 791FDF80145;
+	Tue, 11 Feb 2020 16:38:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C418F8013E; Tue, 11 Feb 2020 14:56:58 +0100 (CET)
+ id 0A636F80145; Tue, 11 Feb 2020 16:38:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9820AF800E7
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 14:56:54 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 7D989A003F;
- Tue, 11 Feb 2020 14:56:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 7D989A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1581429414; bh=0Efa0Tgr98zcPceZ4tbN4DZiSyq5I8m4PkCL59yHp3o=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=NN8HG1D2L/3gEJ/meRsyWd/7KBVTrXmjMaIcYTXyVfkFDnO1MS8+732vArByas6dR
- Bl4sYldTseqMeA2YjD2Rh6QswFfDPRFCeNicytb4Kk3DCLIzAco8ygmmrPNgac1SFj
- zkkTGQrTt5PtbL120pT1SlmEEAx7V2OHqecum6+g=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Tue, 11 Feb 2020 14:56:49 +0100 (CET)
-To: Benjamin Poirier <benjamin.poirier@gmail.com>
-References: <20200211055651.4405-1-benjamin.poirier@gmail.com>
- <20200211055651.4405-2-benjamin.poirier@gmail.com>
- <b23abac0-401c-9472-320c-4e9d7eab26de@perex.cz> <20200211081604.GA8286@f3>
- <901c395a-7fb5-5672-5955-d6d211824177@perex.cz> <20200211114236.GA2691@f3>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <1274df6a-010c-0e84-d916-f59c36ae3993@perex.cz>
-Date: Tue, 11 Feb 2020 14:56:49 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 94BF3F800E7
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 16:38:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94BF3F800E7
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 400CF30E;
+ Tue, 11 Feb 2020 07:38:49 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B88483F68E;
+ Tue, 11 Feb 2020 07:38:48 -0800 (PST)
+Date: Tue, 11 Feb 2020 15:38:47 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>
+Message-ID: <20200211153847.GK4543@sirena.org.uk>
+References: <1581426768-8937-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
 MIME-Version: 1.0
-In-Reply-To: <20200211114236.GA2691@f3>
-Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>, alsa-devel@alsa-project.org,
- Kailang Yang <kailang@realtek.com>, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH 2/2] ALSA: hda/realtek - Fix Lenovo
- Thinkpad X1 Carbon 7th quirk value
+In-Reply-To: <1581426768-8937-1-git-send-email-Vishnuvardhanrao.Ravulapati@amd.com>
+X-Cookie: Hire the morally handicapped.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, open list <linux-kernel@vger.kernel.org>,
+ YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ Akshu Agrawal <akshu.agrawal@amd.com>, Wei Yongjun <weiyongjun1@huawei.com>,
+ Vijendar Mukunda <Vijendar.Mukunda@amd.com>, Alexander.Deucher@amd.com,
+ Colin Ian King <colin.king@canonical.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: amd: Buffer Size instead of MAX
+	Buffer
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,103 +71,59 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============3418200923953766448=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 11. 02. 20 v 12:42 Benjamin Poirier napsal(a):
-> On 2020/02/11 10:35 +0100, Jaroslav Kysela wrote:
->> Dne 11. 02. 20 v 9:16 Benjamin Poirier napsal(a):
-> [...]
->>>>
->>>> Why PA handles the rear volume control with the current driver code in the
->>>> legacy ALSA driver? It should be handled like standard stereo device. I'll
->>>> check.
->>>
->>> The device comes up with "Analog Stereo Output" profile by default. I
->>> changed it to "Analog Surround 4.0 Output" to test controlling each
->>> channel individually:
->>
->> Yes, but does the volume control work (does PA change the appropriate ALSA
->> mixer volume)? Sometimes, it's difficult to see the difference between soft
->> volume attenuation and the hardware volume control.
-> 
-> I see what you mean.
-> When set to the "Analog Surround 4.0 Output", pulseaudio didn't change
-> the "Bass Speaker" mixer (always at 0dB gain). It used a combination of
-> Master, Front and sometimes PCM mixers to control all four speakers.
 
-Yes, that was the reason to keep only one volume control in the driver until 
-we have a solution for this.
-
-> For example:
-> pacmd list-sinks
-> 	name: <alsa_output.pci-0000_00_1f.3.analog-surround-40>
-> 	volume: front-left: 10349 /  16% / -48.09 dB,   front-right:
-> 	39377 /  60% / -13.27 dB,   rear-left: 23979 /  37% / -26.20 dB,
-> 	rear-right: 47974 /  73% / -8.13 dB
->                  balance 0.61
-> alsactl -f /tmp/output store 0
-> 		iface MIXER
-> 		name 'Front Playback Volume'
-> 		value.0 33
-> 		value.1 79
-> 			range '0 - 87'
-> 
-> 		name 'Bass Speaker Playback Volume'
-> 		value.0 87
-> 		value.1 87
-> 			range '0 - 87'
-> 
-> 		name 'Master Playback Volume'
-> 		value 77
-> 			range '0 - 87'
-> 
-> 		name 'PCM Playback Volume'
-> 		value.0 255
-> 		value.1 255
-> 			range '0 - 255'
-> 
->>>>
->>>> You should also test PA with UCM.
->>>
->>> Please let me know what do I need to test exactly? I'm not familiar with
->>> UCM.
->>
->> Just install the latest pulseaudio (latest from repo), alsa-lib and
->> alsa-ucm-conf (also from repo). If pulseaudio detects UCM, it has the
->> preference.
-> 
-> Using the packages in debian unstable, `pacmd list` shows "use_ucm=yes".
-> alsa-ucm-conf was already installed. Hopefully that's enough.
-> 
-> ii  alsa-ucm-conf    1.2.1.2-2    all          ALSA Use Case Manager configuration files
-> ii  libasound2:amd64 1.2.1.2-2    amd64        shared library for ALSA applications
-> ii  pulseaudio       13.0-5       amd64        PulseAudio sound server
-
-You should use the latest code. I will release ALSA packages version 1.2.2 
-soon, but PA must be latest (not yet released 14.0). Previous versions do not 
-handle the volume control and HDMI jack detection. There are many UCM changes 
-in 14.0.
-
-						Jaroslav
-
-> 
-> pacmd list
->          name: <module-alsa-card>
-> 	argument: <device_id="0" name="pci-0000_00_1f.3"
-> 	card_name="alsa_card.pci-0000_00_1f.3" namereg_fail=false
-> 	tsched=yes fixed_latency_range=no ignore_dB=no
-> 	deferred_volume=yes use_ucm=yes avoid_resampling=no
-> 	card_properties="module-udev-detect.discovered=1">
-> 
+--===============3418200923953766448==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="lildS9pRFgpM/xzO"
+Content-Disposition: inline
 
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+--lildS9pRFgpM/xzO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Feb 11, 2020 at 06:42:28PM +0530, Ravulapati Vishnu vardhan rao wrote:
+
+> Because of MAX BUFFER size in register,when user/app give small
+> buffer size produces noise of old data in buffer.
+> This patch rectifies this noise when using different
+> buffer sizes less than MAX BUFFER.
+
+In what way does this patch fix the issue?  I looks like it's moving a
+buffer size setting from DMA to I2S but it's not clear why or how this
+fixes the issue, or indeed what the actual issue that's causing what are
+presumably underruns is?
+
+--lildS9pRFgpM/xzO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5CyoYACgkQJNaLcl1U
+h9DyKAf/ZqhMDhn36gZKS7USGUlNR9zhfLFj4h/Cwx4a0d+eNSjpmYaELKeXq060
+kbOYE49cI3V4OnSDP1yoDQ7Tsuz9hQzebIzC+0KJdpCRIGyU10lKhK1pDI8JV3lK
+vFofPqpWSGaTUj8abYbTHXyQf2T2ZPQqm14Sx7FQgPSnXI6M0gfo4I9hEyT4oe0E
+NJqNs6e8uSUerJdPSDfSeV2hR04V8A8MEd4g4kjDM4ktTqmyv0HetsXFMiAfH3wF
+ws4lB18nTxEDkvq1pZL/3Vfp5GVs8HVU1qWcJHgtUoZ5yLFUAF96MnAhPabLz2xH
+V6keJYLuBDl29iEV1T20hO9NFdt7aQ==
+=Evcz
+-----END PGP SIGNATURE-----
+
+--lildS9pRFgpM/xzO--
+
+--===============3418200923953766448==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3418200923953766448==--

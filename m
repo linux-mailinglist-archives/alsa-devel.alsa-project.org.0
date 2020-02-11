@@ -2,81 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB206158C40
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 10:59:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06353158C49
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 11:01:16 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6159B1668;
-	Tue, 11 Feb 2020 10:58:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6159B1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A5821665;
+	Tue, 11 Feb 2020 11:00:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A5821665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581415158;
-	bh=mToV+IRoonSDgSKUN2eJvF2JGGsLYKdvX1WYVIdWokQ=;
-	h=From:To:Date:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581415275;
+	bh=clKMgwavPsd05Az75pCHc8+eAR/OAqAWe4Slxp6KlX4=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XosW9MYrB16XSHQsIaEBFgLqc7lOhkodFxksLD8EYnU8RC4cGeToxbUz3ff1ugF9A
-	 b9C1eGARGUqaYphqStzaxYSPb7+0RhixygiC6sOa0sRgfRRDCoWJ3/iUYfns2R3Ino
-	 S1f/HXMe52VSO7dJ4/tvEdRx4fyClvp1C+jTvTmg=
+	b=DJIMB5BRxDX9xAHQNgc6Su0ONsAoBbIUV6HMIY8VBK4jMs/csBs3x5/GSj/F3/3mF
+	 DuPt4KSYOGObi/ldM7G21vIM8DzzT85SRoWUfPuNawCd8+wq6hRcEc+F941cqkXY5C
+	 7zGQSTnvSYUWMxV92Hyft7yJVxKOAwpJPt73zikI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80867F800F0;
-	Tue, 11 Feb 2020 10:57:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C4A3FF80146;
+	Tue, 11 Feb 2020 10:59:34 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BBEFDF80145; Tue, 11 Feb 2020 10:57:35 +0100 (CET)
+ id 25CCDF80145; Tue, 11 Feb 2020 10:59:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8CB6CF800F0
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 10:57:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8CB6CF800F0
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 01B9vNh6002288,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 01B9vNh6002288
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 11 Feb 2020 17:57:23 +0800
-Received: from RTEXMB02.realtek.com.tw (172.21.6.95) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Tue, 11 Feb 2020 17:57:23 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB02.realtek.com.tw (172.21.6.95) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Tue, 11 Feb 2020 17:57:23 +0800
-Received: from RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f]) by
- RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f%6]) with mapi id
- 15.01.1779.005; Tue, 11 Feb 2020 17:57:23 +0800
-From: Kailang <kailang@realtek.com>
-To: Takashi Iwai <tiwai@suse.de>
-Thread-Topic: [PATCH 2/2] ALSA: hda/realtek - Fix Lenovo Thinkpad X1 Carbon
- 7th quirk value
-Thread-Index: AQHV4KAyVK0d0c4RkUCatRD1s4Jmc6gVFbAAgAAJ9ACAAJRvkP//fXAAgACQDTA=
-Date: Tue, 11 Feb 2020 09:57:22 +0000
-Message-ID: <c28f48325bb34d55bf83acbf8085f676@realtek.com>
-References: <20200211055651.4405-1-benjamin.poirier@gmail.com>
- <20200211055651.4405-2-benjamin.poirier@gmail.com>
- <b23abac0-401c-9472-320c-4e9d7eab26de@perex.cz>	<20200211081604.GA8286@f3>
- <ab7a0abd24df485d8f8cc3723403a44f@realtek.com> <s5ho8u54h19.wl-tiwai@suse.de>
-In-Reply-To: <s5ho8u54h19.wl-tiwai@suse.de>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [172.22.105.169]
+ by alsa1.perex.cz (Postfix) with ESMTPS id 03FAEF800F0
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 10:59:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 03FAEF800F0
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Ontb1bxQ"
+Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com
+ [209.85.167.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 72A5620714
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 09:59:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1581415167;
+ bh=eZTJW3fyuVfF78EHcMrcN6Hj2iRFml/KLBuxmsVst/I=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=Ontb1bxQ5hDW5q1FR8Br/ISHJ7XHTUW3ug/87faSNg2bqLqit8Rl8hfXZsGqLbSJq
+ hJw4R7PUK3ijRg0f8YseHgmgZlH61VXB6J80qFs5xjpKY/rHGAE8NnaVwdbMf9DhdK
+ BfhtnOclYZp6S2JCpvk8o1itiL2qrI3frrZZk4MU=
+Received: by mail-lf1-f52.google.com with SMTP id t23so6536036lfk.6
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 01:59:27 -0800 (PST)
+X-Gm-Message-State: APjAAAXrds8rKQDtdvvkIYXXpJxGtKaJkqf/nx+OvcbywuJSmagbQH4J
+ BrnS0KwTNQMh9h1jCPhV1kzG9inlxbi1fPIoSx4=
+X-Google-Smtp-Source: APXvYqwAHORsy+C2v7lVpCe02Mf1CVE+/0/5jXb/E/zbgMCk+yjlFnDzUNYbiYCIu0+5WnyY8bNqPOsV8tBJAugOUOM=
+X-Received: by 2002:a19:228c:: with SMTP id i134mr3249949lfi.2.1581415165575; 
+ Tue, 11 Feb 2020 01:59:25 -0800 (PST)
 MIME-Version: 1.0
-Cc: Benjamin Poirier <benjamin.poirier@gmail.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] [PATCH 2/2] ALSA: hda/realtek - Fix Lenovo
-	Thinkpad X1 Carbon 7th quirk value
+References: <20200210061544.7600-1-yuehaibing@huawei.com>
+ <9351a746-8823-ee26-70da-fd3127a02c91@linux.intel.com>
+ <be093793-3514-840a-ff2f-4dc21d8ee7f1@huawei.com>
+ <CAEnQRZDWFgXocRJxtc2e7McRCAtod6-GwPJaVMdb4ymBZgSD1w@mail.gmail.com>
+In-Reply-To: <CAEnQRZDWFgXocRJxtc2e7McRCAtod6-GwPJaVMdb4ymBZgSD1w@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Date: Tue, 11 Feb 2020 10:59:14 +0100
+X-Gmail-Original-Message-ID: <CAJKOXPcxL2vpWGwO1OL9Vv0g6hzbW-AyGJNn=7Yq2iy10_cbhg@mail.gmail.com>
+Message-ID: <CAJKOXPcxL2vpWGwO1OL9Vv0g6hzbW-AyGJNn=7Yq2iy10_cbhg@mail.gmail.com>
+To: Daniel Baluta <daniel.baluta@gmail.com>
+Cc: Daniel Baluta <daniel.baluta@nxp.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Yuehaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>, dl-linux-imx <linux-imx@nxp.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH -next] ASoC: SOF: imx8: Fix randbuild error
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,93 +99,74 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Tue, 11 Feb 2020 at 10:46, Daniel Baluta <daniel.baluta@gmail.com> wrote:
+>
+> On Tue, Feb 11, 2020 at 3:59 AM Yuehaibing <yuehaibing@huawei.com> wrote:
+> >
+> > On 2020/2/11 5:00, Pierre-Louis Bossart wrote:
+> > >
+> > >
+> > > On 2/10/20 12:15 AM, YueHaibing wrote:
+> > >> when do randconfig like this:
+> > >> CONFIG_SND_SOC_SOF_IMX8_SUPPORT=y
+> > >> CONFIG_SND_SOC_SOF_IMX8=y
+> > >> CONFIG_SND_SOC_SOF_OF=y
+> > >> CONFIG_IMX_DSP=m
+> > >> CONFIG_IMX_SCU=y
+> > >>
+> > >> there is a link error:
+> > >>
+> > >> sound/soc/sof/imx/imx8.o: In function 'imx8_send_msg':
+> > >> imx8.c:(.text+0x380): undefined reference to 'imx_dsp_ring_doorbell'
+> > >>
+> > >> Select IMX_DSP in SND_SOC_SOF_IMX8_SUPPORT to fix this
+> > >>
+> > >> Reported-by: Hulk Robot <hulkci@huawei.com>
+> > >> Fixes: f9ad75468453 ("ASoC: SOF: imx: fix reverse CONFIG_SND_SOC_SOF_OF dependency")
+> > >> Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> > >
+> > > Thanks for the report.
+> > >
+> > > Would you mind sharing the .config and instructions to reproduce this case? we have an unrelated issue with allyesconfig that was reviewed here:
+> > >
+> > > https://github.com/thesofproject/linux/pull/1778
+> > >
+> > > and I'd probably a good thing to fix everything in one shot.
+> >
+> > config is attached, which is on x86_64
+>
+> Thanks, I think this is legit. It was introduced with:
+>
+> commit f52cdcce9197fef9d4a68792dd3b840ad2b77117
+> Author: Daniel Baluta <daniel.baluta@nxp.com>
+> Date:   Sat Jan 4 15:39:53 2020 +0000
+>
+>     firmware: imx: Allow IMX DSP to be selected as module
+>
+>     IMX DSP is only needed by SOF or any other module that
+>     wants to communicate with the DSP. When SOF is build
+>     as a module IMX DSP is forced to be built inside the
+>     kernel image. This is not optimal, so allow IMX DSP
+>     to be built as a module.
+>
+>     Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+>     Signed-off-by: Shawn Guo <shawnguo@kernel.org>
 
+Hi,
 
-> -----Original Message-----
-> From: Takashi Iwai <tiwai@suse.de>
-> Sent: Tuesday, February 11, 2020 5:20 PM
-> To: Kailang <kailang@realtek.com>
-> Cc: Benjamin Poirier <benjamin.poirier@gmail.com>; Jaroslav Kysela
-> <perex@perex.cz>; alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org
-> Subject: Re: [PATCH 2/2] ALSA: hda/realtek - Fix Lenovo Thinkpad X1 Carbon
-> 7th quirk value
-> 
-> On Tue, 11 Feb 2020 10:10:50 +0100,
-> Kailang wrote:
-> >
-> > Hi,
-> >
-> > Speaker 2 connect to DAC 0x2 was Lenovo requested.
-> > This was tune for EQ setting.
-> > I didn't know more for this.
-> 
-> Thanks, that was my expectation, too.  Applying EQ to built-in speakers is an
-> oft-seen workaround for laptops to avoid the possible hardware damage.
-> 
-> Now the question is whether this obvious level of lowering is the expected
-> result.
-> 
-> Kailang, could you try to ask Lenovo about it?
-> 
-Yes, this is expected. I confirm this with our Lenovo AE.
+Since it's a module, don't you just miss EXPORT_SYMBOL there?
 
-> 
-> Takashi
-> 
-> >
-> > BR,
-> > Kailang
-> >
-> > > -----Original Message-----
-> > > From: Benjamin Poirier <benjamin.poirier@gmail.com>
-> > > Sent: Tuesday, February 11, 2020 4:16 PM
-> > > To: Jaroslav Kysela <perex@perex.cz>
-> > > Cc: Takashi Iwai <tiwai@suse.de>; Kailang <kailang@realtek.com>;
-> > > alsa-devel@alsa-project.org; linux-kernel@vger.kernel.org
-> > > Subject: Re: [PATCH 2/2] ALSA: hda/realtek - Fix Lenovo Thinkpad X1
-> > > Carbon 7th quirk value
-> > >
-> > > On 2020/02/11 08:40 +0100, Jaroslav Kysela wrote:
-> > > [...]
-> > > > >
-> > > > > In summary, Node 0x17 DAC connection 0x3 offers the loudest max
-> > > > > volume and the most detailed mixer controls. That connection is
-> > > > > obtained with quirk ALC295_FIXUP_DISABLE_DAC3. Therefore, change
-> > > > > the ThinkPad X1 Carbon 7th to use ALC295_FIXUP_DISABLE_DAC3.
-> > > >
-> > > > The volume split (individual volume control) will cause trouble
-> > > > for the UCM volume control at the moment which is the target for
-> > > > this device to get the digital microphone working. If there is no
-> > > > possibility to share DAC, it would be probably more nice to join
-> > > > the volume
-> > > control in the driver.
-> > > >
-> > > > Have you tried to use 0x03 as source for all four speakers?
-> > >
-> > > Front speakers are fixed to 0x02. Node 0x14
-> > >   Connection: 1
-> > >      0x02
-> > >
-> > > >
-> > > > Why PA handles the rear volume control with the current driver
-> > > > code in the legacy ALSA driver? It should be handled like standard
-> > > > stereo device. I'll check.
-> > >
-> > > The device comes up with "Analog Stereo Output" profile by default.
-> > > I changed it to "Analog Surround 4.0 Output" to test controlling each
-> channel individually:
-> > >
-> > > > > pavucontrol controls are reported with the device configured
-> > > > > with the "Analog Surround 4.0 Output" profile.
-> > >
-> > > >
-> > > > You should also test PA with UCM.
-> > >
-> > > Please let me know what do I need to test exactly? I'm not familiar with
-> UCM.
-> > >
-> > > ------Please consider the environment before printing this e-mail.
-> >
+> So, I think we should change the Fixes tag. Are there
+> any clear rules on when to use select vs depends?
+>
+> On my side, I know what both are doing but it is not clear
+> when to use them.
+
+Visible symbols usually should not be selected. The same with symbols
+with dependencies. The docs have this rule mentioned.
+
+Best regards,
+Krzysztof
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

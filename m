@@ -2,59 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D473158E3E
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 13:18:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C738158E67
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 13:25:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B88A91616;
-	Tue, 11 Feb 2020 13:17:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B88A91616
+	by alsa0.perex.cz (Postfix) with ESMTPS id E189F1664;
+	Tue, 11 Feb 2020 13:24:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E189F1664
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581423486;
-	bh=aIKTtDxOIEwNX80s/IKofgwsphpdcEZ/6K/uJlZNBQk=;
+	s=default; t=1581423941;
+	bh=MBJlQa69pENicuuBNBXgO+AQ7Py8oRIqPPBddzzXk0w=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=o173i42ewSNMrp6msaJrl8gzhtfeZcQmPSjzUdxHQwPvkaE9mwbVgamsS8C+x/0L9
-	 TRfvW0tl9Wyg6hqlqea7iknUKEfBvqM6W0sLn5NtFhEyFJJ4acYPHJGwEjn9XXxPKn
-	 w/JFlsz9Oepsyz/N6dt7DEy4dPVKBitmSTWHjpfk=
+	b=Ta+RVAYBt9T1prRJf+c6f2NhsXIMP3Y4MdXkZJ8lOiXcQhQndTcjpaV0UD9WCXlFO
+	 7iGSLkRmTPcipOor2VOOIISD7acGGkq67yK8KpI56yumA+VhwpWal27tsomTeV+ZV1
+	 aw5Hl6wZT/i3O3LoVRlP1tgXFbN/aqfBBZqo9Tf0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B5DF5F800E7;
-	Tue, 11 Feb 2020 13:16:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 116A9F8013E;
+	Tue, 11 Feb 2020 13:24:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CF3CBF80145; Tue, 11 Feb 2020 13:16:22 +0100 (CET)
+ id 7BD71F80145; Tue, 11 Feb 2020 13:23:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 6D9F9F8013D
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 13:16:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6D9F9F8013D
+ by alsa1.perex.cz (Postfix) with ESMTP id EA76FF8013D
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 13:23:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA76FF8013D
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5E4391FB;
- Tue, 11 Feb 2020 04:16:18 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 14B7D1FB;
+ Tue, 11 Feb 2020 04:23:53 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D73DE3F6CF;
- Tue, 11 Feb 2020 04:16:17 -0800 (PST)
-Date: Tue, 11 Feb 2020 12:16:16 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8DE723F6CF;
+ Tue, 11 Feb 2020 04:23:52 -0800 (PST)
+Date: Tue, 11 Feb 2020 12:23:51 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20200211121616.GI4543@sirena.org.uk>
-References: <87d0anceze.wl-kuninori.morimoto.gx@renesas.com>
- <874kvzcey1.wl-kuninori.morimoto.gx@renesas.com>
- <095fdf34-5736-b79a-7bad-56f5a478e939@linux.intel.com>
+To: =?utf-8?B?amVmZl9jaGFuZyjlvLXkuJbkvbMp?= <jeff_chang@richtek.com>
+Message-ID: <20200211122351.GJ4543@sirena.org.uk>
+References: <1580787697-3041-1-git-send-email-richtek.jeff.chang@gmail.com>
+ <20200210185121.GC14166@sirena.org.uk>
+ <a9895e583c9b47608aeb3e29d7852f47@ex1.rt.l>
 MIME-Version: 1.0
-In-Reply-To: <095fdf34-5736-b79a-7bad-56f5a478e939@linux.intel.com>
+In-Reply-To: <a9895e583c9b47608aeb3e29d7852f47@ex1.rt.l>
 X-Cookie: Hire the morally handicapped.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [alsa-devel] [PATCH v3 6/8] ASoC: soc-pcm: call
- snd_soc_component_open/close() once
+Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ Jeff Chang <richtek.jeff.chang@gmail.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH] ASoC: MT6660 update to 1.0.8_G
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,48 +70,50 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1655721047988197795=="
+Content-Type: multipart/mixed; boundary="===============5580487451735756150=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============1655721047988197795==
+--===============5580487451735756150==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="byLs0wutDcxFdwtm"
+	protocol="application/pgp-signature"; boundary="1ou9v+QBCNysIXaH"
 Content-Disposition: inline
 
 
---byLs0wutDcxFdwtm
-Content-Type: text/plain; charset=us-ascii
+--1ou9v+QBCNysIXaH
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Feb 10, 2020 at 08:41:07AM -0600, Pierre-Louis Bossart wrote:
+On Tue, Feb 11, 2020 at 02:04:42AM +0000, jeff_chang(=E5=BC=B5=E4=B8=96=E4=
+=BD=B3) wrote:
 
-> Maybe a red-herring but is there a potential for race conditions here if
-> that function is called twice from different places? Don't we need some sort
-> of lock for all the new flags introduced here?
+> What should I do is just apply them to be hard code into the driver? I ca=
+nnot use event a table to descript it like below?
+>=20
+> static const struct codec_reg_val e4_reg_inits[] =3D {
 
-The probe stuff is all going to get pretty upset if it's called from
-multiple paths already.
+Doing what you've got here is hard coding it in the driver.
 
---byLs0wutDcxFdwtm
+--1ou9v+QBCNysIXaH
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5Cmw8ACgkQJNaLcl1U
-h9Cshwf9EC1H+ac3QlcVkDxKfpUmtBTY3tXnIxl/yAMqYWIOusIRxAZc0JfsSKHm
-hXuAC7rJndVNxeaIz5dUxDQnjlvOVsW49qzD21rKgGMnI/u204pr6dCBOd0yuDEg
-PybAxiS5xgE/ztFlIknc5WoIe7m7m/RlCJZ3ODN3KRyHpzBOmlwNTWjOmQA+ZTB5
-Nn2kbf8hX6Hjk2kdIsjipOJlgrJLBewBD1HTItQvuJP8+6EYrzrBZLMyM9GXF3hf
-Fu6Qpo+l/LKYWR6zjLcQ5h4M3l/aQNugE8Go+LPp2fHnCWEO3y1bKYLMhtOhdV1A
-g+0WBx6pqk5uWPvo4rdxe7yAOoiC7w==
-=ezhu
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5CnNYACgkQJNaLcl1U
+h9CmmAf/f2m+iY01h2zxveePh8kLV67hfAIacGMZXGLIzsnhrSXN/FwdW1get7dG
+oG5R50Qosg/i9F2Ov0oqOGqJqtc039++uyXkbFR0gxSl5o7ixX5NlXLVRuqV/qWl
+KSmiv4UWKiDVGLu3ITfwdwcLU/0mu1++10XgspK4ZDrexG2sXJAJ4rUN/ntD0nz0
+utsW2B0LoZyU5bNQ7qoSPMWQaRWbzIoSYlupXIF9exiO6c+Qh3AL1NSHzwcrAOrp
+px7Iu0pVaBC3lcaKw3IkDDcbSwzU+kGfl1WaMcQaHior5sQmZhrL1jlTXigvBLn0
+8o8LXGIwL0xXh6O3XWKghL+taEW33w==
+=twZR
 -----END PGP SIGNATURE-----
 
---byLs0wutDcxFdwtm--
+--1ou9v+QBCNysIXaH--
 
---===============1655721047988197795==
+--===============5580487451735756150==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -119,4 +124,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============1655721047988197795==--
+--===============5580487451735756150==--

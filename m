@@ -2,53 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9410158C9E
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 11:24:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 402D9158CB9
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 11:34:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 83DD01665;
-	Tue, 11 Feb 2020 11:23:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 83DD01665
+	by alsa0.perex.cz (Postfix) with ESMTPS id DADCB1662;
+	Tue, 11 Feb 2020 11:33:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DADCB1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581416646;
-	bh=juDTutxUmTbKNKmp9kzSP5vpDsX8vA0WT4r+4E8UJZE=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BOoz2oR73v+5YzaqG6fWFQEQjRVYsUoVVb0s6CcVMuXsfZOob7zt/5KBRicj5H5bh
-	 cKbYmRwb8xulFInVWI2WrM247xiUUFKyV/+Ifza4guSJQlnjGxrBvL/gp1NPLuTfa0
-	 yWzQMgktW7ylXgBeK6QzHKE6WU1U1vkMtT7yvuOY=
+	s=default; t=1581417260;
+	bh=mXmaA5nTKpknROZUmEJzR93VzaWZ9+GxlqS0bojN4yw=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=XIjXHmw9OWcZu5THjERtw9TwWOnqH1oNQhdkdFfmjwW79M78Uoa9sL8EecL4iOnmT
+	 XdO9qdDdfc+E1Iar/pZiwWi3BieIboYRIw2ZdnwOOMY289qT2ueJ4XfI2PnNwgdZed
+	 fWalcxuPNMF3P9yV0WN9A1yX3u8Yd91zdPlV3Qmk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 66EF9F80146;
-	Tue, 11 Feb 2020 11:22:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E7D43F800F0;
+	Tue, 11 Feb 2020 11:32:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04411F80145; Tue, 11 Feb 2020 11:22:23 +0100 (CET)
+ id 30CD4F80145; Tue, 11 Feb 2020 11:32:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mx1.emlix.com (mx1.emlix.com [188.40.240.192])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
+Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
+ [IPv6:2607:f8b0:4864:20::d43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81F9BF800E7;
- Tue, 11 Feb 2020 11:22:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81F9BF800E7
-Received: from mailer.emlix.com (unknown [81.20.119.6])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mx1.emlix.com (Postfix) with ESMTPS id B53CB5FB81;
- Tue, 11 Feb 2020 11:22:18 +0100 (CET)
-From: Rolf Eike Beer <eb@emlix.com>
-To: patch@alsa-project.org
-Date: Tue, 11 Feb 2020 11:22:18 +0100
-Message-ID: <5948808.FfnTCzJfH2@devpool35>
-Organization: emlix GmbH
+ by alsa1.perex.cz (Postfix) with ESMTPS id 031D4F8013D
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 11:32:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 031D4F8013D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="F75AoJ0k"
+Received: by mail-io1-xd43.google.com with SMTP id s24so11139864iog.5
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 02:32:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=acqKIKxMk1ga+UXjZx0pO+uULDhx0aD237j2IcuMs3M=;
+ b=F75AoJ0kE/X4joGuYl5xuOPa2s930Y4vJgrkNUNO1fnchEjO2OBLTCPkNZupv354Hk
+ ysqBNxv/hWQLLx+r4Uk19L9veEAEh3o9botS4SeVrCQSSnWvIzDjzmvdz1XAqWMF+Bdu
+ sZNdT6+KhorsUbgf0DeEWK4U30apjPtUjnEPhDjrILdKXanKgkhB+2sp//U3+uJhcOXf
+ U/AfUAL6Dz/jnr+HlbIb1sbx72VYPI1e4lhN5b6qSeohm8EbxnTbykmLCFHStGO8924v
+ R9navfXcEC8P/hRi+gZVBgt5b9Bi3HweWDk3wOeyol/sQ8CZQA2/C+MW1MNRA3C4Zh3T
+ +FJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=acqKIKxMk1ga+UXjZx0pO+uULDhx0aD237j2IcuMs3M=;
+ b=tGqjepOiU1b+/X0aro++S+Iz3uTSdcRrIgpDDkudBLBnSPeZX9baAhNZlZqcw3F/mp
+ Alo3npuwdJI5ngA0DNlopFY1rXCLrajni/yGkHtIYliOOtyirxZiPFbr4QPODP5hJFHl
+ xNb9/PwqqdYpGuvV+/bTnyvNZ+6waWGP+a7UMNpIAiViRq5E7PDqVESsHDw/MQksmo95
+ 1f3i/lHS/sBn6s52Zrt9fazuokJDGKwduId3a2HMhXHkKKL7cxKaFO3Touv1FVYETk6H
+ zgK98vcyHVCl6eKwbdhdVEUuqjEtax7L//Ke6GqevrVgh5sBBO+MPTOz0fbH3DcfSykz
+ a5GQ==
+X-Gm-Message-State: APjAAAWSHunM2AY6+5wQ4UouMxZxheyD79zHpdCJNcY13FgnF6xr6Zk+
+ ARYtcO/XyZSCZ0VVWEo/lTSbExzHCR2g7Guc+O/gvw==
+X-Google-Smtp-Source: APXvYqz81+/FxW2t3SgtfxeX3WldboHtJGgBOruwzqwjN8VV3Ao1Ie3aqPBBA1FViU7oWq6aTuLVpKvWPBjTK1wJ3B4=
+X-Received: by 2002:a5d:9f12:: with SMTP id q18mr12882878iot.235.1581417151646; 
+ Tue, 11 Feb 2020 02:32:31 -0800 (PST)
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH] do not set close-on-exec flag on descriptor if
-	it was already set
+References: <20200204102016.I73b26b5e319de173d05823e79f5861bf1826261c@changeid>
+ <20200210183803.GB14166@sirena.org.uk>
+In-Reply-To: <20200210183803.GB14166@sirena.org.uk>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Tue, 11 Feb 2020 18:32:20 +0800
+Message-ID: <CA+Px+wV8R1eA9cy5V9LsEAAd2TxjKjf5aPBhwh+5a4-qeimOPA@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Dylan Reid <dgreid@google.com>, Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ =?UTF-8?B?SmlheGluIFl1ICjkv57lrrbpkasp?= <jiaxin.yu@mediatek.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: max98357a: add speaker switch
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,28 +92,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-VGhlcmUgaXMgbm8gbmVlZCB0byBzZXQgdGhpcyBhZ2FpbiBpZiBPX0NMT0VYRUMgaXMgc3VwcG9y
-dGVkLgoKU2lnbmVkLW9mZi1ieTogUm9sZiBFaWtlIEJlZXIgPGViQGVtbGl4LmNvbT4KLS0tCiBp
-bmNsdWRlL2xvY2FsLmggfCAyICsrCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25zKCspCgpk
-aWZmIC0tZ2l0IGEvaW5jbHVkZS9sb2NhbC5oIGIvaW5jbHVkZS9sb2NhbC5oCmluZGV4IGVhMGVj
-MzJkLi5lZDZiYTkzNiAxMDA2NDQKLS0tIGEvaW5jbHVkZS9sb2NhbC5oCisrKyBiL2luY2x1ZGUv
-bG9jYWwuaApAQCAtMzIwLDggKzMyMCwxMCBAQCBzdGF0aWMgaW5saW5lIGludCBzbmRfb3Blbl9k
-ZXZpY2UoY29uc3QgY2hhciAqZmlsZW5hbWUsIGludCBmbW9kZSkKIAkJCWZkID0gcnNtX29wZW5f
-ZGV2aWNlKGZpbGVuYW1lLCBmbW9kZSk7CiAJfQogI2VuZGlmCisjaWZuZGVmIE9fQ0xPRVhFQwog
-CWlmIChmZCA+PSAwKQogCQlmY250bChmZCwgRl9TRVRGRCwgRkRfQ0xPRVhFQyk7CisjZW5kaWYK
-IAlyZXR1cm4gZmQ7CiB9CiAKLS0gCjIuMjUuMAoKCi0tIApSb2xmIEVpa2UgQmVlciwgZW1saXgg
-R21iSCwgaHR0cDovL3d3dy5lbWxpeC5jb20KRm9uICs0OSA1NTEgMzA2NjQtMCwgRmF4ICs0OSA1
-NTEgMzA2NjQtMTEKR290aGFlciBQbGF0eiAzLCAzNzA4MyBHw7Z0dGluZ2VuLCBHZXJtYW55ClNp
-dHogZGVyIEdlc2VsbHNjaGFmdDogR8O2dHRpbmdlbiwgQW10c2dlcmljaHQgR8O2dHRpbmdlbiBI
-UiBCIDMxNjAKR2VzY2jDpGZ0c2bDvGhydW5nOiBIZWlrZSBKb3JkYW4sIERyLiBVd2UgS3JhY2tl
-IOKAkyBVc3QtSWROci46IERFIDIwNSAxOTggMDU1CgplbWxpeCAtIHNtYXJ0IGVtYmVkZGVkIG9w
-ZW4gc291cmNlCgpCZXN1Y2hlbiBTaWUgdW5zIGF1ZiBkZXIgRW1iZWRkZWQgV29ybGQgMjAyMCBp
-biBOw7xybmJlcmchCi0+IEhhbGxlIDQsIFN0YW5kIDM2OAoKCgpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNh
-LWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcv
-bWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+On Tue, Feb 11, 2020 at 2:38 AM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Tue, Feb 04, 2020 at 11:04:06AM +0800, Tzung-Bi Shih wrote:
+>
+> > Some machine may share the same I2S lines for multiple codecs. For
+> > example, mediatek/mt8183/mt8183-da7219-max98357 shares the same lines
+> > between max98357a and da7219.  When writing audio data through the I2S
+> > lines, all codecs on the lines would try to generate sound if they
+> > accepts DO line.  As a result, multiple codecs generate sound at a
+> > time.
+>
+> Rather than adding this in the driver it would be better to add some
+> _PIN_SWITCH() widgets to the speaker outputs, those exist for
+> essentially this purpose.
+
+(We take rockchip/rk3399_gru_sound.c as a reference to use SOC_DAPM_PIN_SWITCH.)
+
+Did you mean (in machine driver):
+- Add SND_SOC_DAPM_SPK("Speakers", NULL)
+- Add SOC_DAPM_PIN_SWITCH("Speakers")
+- Add DAPM route "Speaker" (from max98357a) to "Speakers"
+User space program controls "Speakers Switch" to toggle the switch?
+
+We found the method cannot avoid max98357a->sdmode being set.  As a
+result, max98357a consumes power even if we don't switch on it.
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

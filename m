@@ -2,84 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 402D9158CB9
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 11:34:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AB96A158D59
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 12:15:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DADCB1662;
-	Tue, 11 Feb 2020 11:33:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DADCB1662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 55F2F1668;
+	Tue, 11 Feb 2020 12:14:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 55F2F1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581417260;
-	bh=mXmaA5nTKpknROZUmEJzR93VzaWZ9+GxlqS0bojN4yw=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1581419729;
+	bh=9mQ9U3rokZN36ydw1KPxowGw0tuPSDrVOcPKSw8K4sw=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XIjXHmw9OWcZu5THjERtw9TwWOnqH1oNQhdkdFfmjwW79M78Uoa9sL8EecL4iOnmT
-	 XdO9qdDdfc+E1Iar/pZiwWi3BieIboYRIw2ZdnwOOMY289qT2ueJ4XfI2PnNwgdZed
-	 fWalcxuPNMF3P9yV0WN9A1yX3u8Yd91zdPlV3Qmk=
+	b=aewVKo/xQBs6/RDWUa6rj90gduG1b/bkgKwgy7HPt/QV3GGthgOre9B3Ojo3sRI2j
+	 919ConCmpbrWsA6RaOr+ifKurl/IoL5nveOiW/9XpriLHRejel5ToqaYCYyKR4unmV
+	 YWeu6UvaPASCJI4QT1tKY756UEBLzMBz0PKHAzQU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E7D43F800F0;
-	Tue, 11 Feb 2020 11:32:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CB82F80146;
+	Tue, 11 Feb 2020 12:13:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30CD4F80145; Tue, 11 Feb 2020 11:32:37 +0100 (CET)
+ id 3AAF3F80145; Tue, 11 Feb 2020 12:13:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled version=3.4.0
-Received: from mail-io1-xd43.google.com (mail-io1-xd43.google.com
- [IPv6:2607:f8b0:4864:20::d43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 031D4F8013D
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 11:32:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 031D4F8013D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="F75AoJ0k"
-Received: by mail-io1-xd43.google.com with SMTP id s24so11139864iog.5
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 02:32:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=acqKIKxMk1ga+UXjZx0pO+uULDhx0aD237j2IcuMs3M=;
- b=F75AoJ0kE/X4joGuYl5xuOPa2s930Y4vJgrkNUNO1fnchEjO2OBLTCPkNZupv354Hk
- ysqBNxv/hWQLLx+r4Uk19L9veEAEh3o9botS4SeVrCQSSnWvIzDjzmvdz1XAqWMF+Bdu
- sZNdT6+KhorsUbgf0DeEWK4U30apjPtUjnEPhDjrILdKXanKgkhB+2sp//U3+uJhcOXf
- U/AfUAL6Dz/jnr+HlbIb1sbx72VYPI1e4lhN5b6qSeohm8EbxnTbykmLCFHStGO8924v
- R9navfXcEC8P/hRi+gZVBgt5b9Bi3HweWDk3wOeyol/sQ8CZQA2/C+MW1MNRA3C4Zh3T
- +FJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=acqKIKxMk1ga+UXjZx0pO+uULDhx0aD237j2IcuMs3M=;
- b=tGqjepOiU1b+/X0aro++S+Iz3uTSdcRrIgpDDkudBLBnSPeZX9baAhNZlZqcw3F/mp
- Alo3npuwdJI5ngA0DNlopFY1rXCLrajni/yGkHtIYliOOtyirxZiPFbr4QPODP5hJFHl
- xNb9/PwqqdYpGuvV+/bTnyvNZ+6waWGP+a7UMNpIAiViRq5E7PDqVESsHDw/MQksmo95
- 1f3i/lHS/sBn6s52Zrt9fazuokJDGKwduId3a2HMhXHkKKL7cxKaFO3Touv1FVYETk6H
- zgK98vcyHVCl6eKwbdhdVEUuqjEtax7L//Ke6GqevrVgh5sBBO+MPTOz0fbH3DcfSykz
- a5GQ==
-X-Gm-Message-State: APjAAAWSHunM2AY6+5wQ4UouMxZxheyD79zHpdCJNcY13FgnF6xr6Zk+
- ARYtcO/XyZSCZ0VVWEo/lTSbExzHCR2g7Guc+O/gvw==
-X-Google-Smtp-Source: APXvYqz81+/FxW2t3SgtfxeX3WldboHtJGgBOruwzqwjN8VV3Ao1Ie3aqPBBA1FViU7oWq6aTuLVpKvWPBjTK1wJ3B4=
-X-Received: by 2002:a5d:9f12:: with SMTP id q18mr12882878iot.235.1581417151646; 
- Tue, 11 Feb 2020 02:32:31 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9C125F800F0;
+ Tue, 11 Feb 2020 12:13:42 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A714FA003F;
+ Tue, 11 Feb 2020 12:13:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A714FA003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1581419621; bh=93dcy1ASdaTdET66E6qZ9A3eYuEmk2RSdjK8T7ZE4XM=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=jx/wPlvuIq3S6l+m4dQpb5NZ+YkmKGrwpk3XJnwYaPwRdKp67fPPvkWmx0z3pVG10
+ JX02iOEjT6vooCnkL6BqnEWb1j/0QHEBSnzw3Frkqdt3FyI0OQbEpXwD4Ly9h9Pbv+
+ mvm+0sh+mhrrc2zJgVjuFIvdkLUDN2AACiXhY9zo=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Tue, 11 Feb 2020 12:13:38 +0100 (CET)
+To: Rolf Eike Beer <eb@emlix.com>, patch@alsa-project.org
+References: <5948808.FfnTCzJfH2@devpool35>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <fce7bfe6-428f-77bd-2bce-96f28e287ded@perex.cz>
+Date: Tue, 11 Feb 2020 12:13:38 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-References: <20200204102016.I73b26b5e319de173d05823e79f5861bf1826261c@changeid>
- <20200210183803.GB14166@sirena.org.uk>
-In-Reply-To: <20200210183803.GB14166@sirena.org.uk>
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Tue, 11 Feb 2020 18:32:20 +0800
-Message-ID: <CA+Px+wV8R1eA9cy5V9LsEAAd2TxjKjf5aPBhwh+5a4-qeimOPA@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Dylan Reid <dgreid@google.com>, Jimmy Cheng-Yi Chiang <cychiang@google.com>,
- =?UTF-8?B?SmlheGluIFl1ICjkv57lrrbpkasp?= <jiaxin.yu@mediatek.com>
-Subject: Re: [alsa-devel] [PATCH] ASoC: max98357a: add speaker switch
+In-Reply-To: <5948808.FfnTCzJfH2@devpool35>
+Content-Language: en-US
+Cc: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH] do not set close-on-exec flag on
+ descriptor if it was already set
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,36 +76,45 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Feb 11, 2020 at 2:38 AM Mark Brown <broonie@kernel.org> wrote:
->
-> On Tue, Feb 04, 2020 at 11:04:06AM +0800, Tzung-Bi Shih wrote:
->
-> > Some machine may share the same I2S lines for multiple codecs. For
-> > example, mediatek/mt8183/mt8183-da7219-max98357 shares the same lines
-> > between max98357a and da7219.  When writing audio data through the I2S
-> > lines, all codecs on the lines would try to generate sound if they
-> > accepts DO line.  As a result, multiple codecs generate sound at a
-> > time.
->
-> Rather than adding this in the driver it would be better to add some
-> _PIN_SWITCH() widgets to the speaker outputs, those exist for
-> essentially this purpose.
+Dne 11. 02. 20 v 11:22 Rolf Eike Beer napsal(a):
+> There is no need to set this again if O_CLOEXEC is supported.
 
-(We take rockchip/rk3399_gru_sound.c as a reference to use SOC_DAPM_PIN_SWITCH.)
+Thanks. Applied.
 
-Did you mean (in machine driver):
-- Add SND_SOC_DAPM_SPK("Speakers", NULL)
-- Add SOC_DAPM_PIN_SWITCH("Speakers")
-- Add DAPM route "Speaker" (from max98357a) to "Speakers"
-User space program controls "Speakers Switch" to toggle the switch?
+				Jroslav
 
-We found the method cannot avoid max98357a->sdmode being set.  As a
-result, max98357a consumes power even if we don't switch on it.
+> 
+> Signed-off-by: Rolf Eike Beer <eb@emlix.com>
+> ---
+>   include/local.h | 2 ++
+>   1 file changed, 2 insertions(+)
+> 
+> diff --git a/include/local.h b/include/local.h
+> index ea0ec32d..ed6ba936 100644
+> --- a/include/local.h
+> +++ b/include/local.h
+> @@ -320,8 +320,10 @@ static inline int snd_open_device(const char *filename, int fmode)
+>   			fd = rsm_open_device(filename, fmode);
+>   	}
+>   #endif
+> +#ifndef O_CLOEXEC
+>   	if (fd >= 0)
+>   		fcntl(fd, F_SETFD, FD_CLOEXEC);
+> +#endif
+>   	return fd;
+>   }
+>   
+> 
+
+
+-- 
+Jaroslav Kysela <perex@perex.cz>
+Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

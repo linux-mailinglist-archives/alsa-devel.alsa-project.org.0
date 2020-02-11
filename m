@@ -2,88 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 992D81589DA
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 06:58:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD3221589DC
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 06:59:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 370721682;
-	Tue, 11 Feb 2020 06:57:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 370721682
+	by alsa0.perex.cz (Postfix) with ESMTPS id 505FF1697;
+	Tue, 11 Feb 2020 06:58:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 505FF1697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581400710;
-	bh=DY5jhO4Ooqy3NK6D5l2fpKrZY/Gp8dN3mgpaXzl7XAQ=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KwWP65+DBU1rAQaEjc6T4w+4LBjjpjz7wNWs+/jDOnRr0rH9tLs/0oE23DKgJX1yN
-	 JNq8yr9/bgTLHYxcS/L8oktoPp5PFTH+XVuK+FGR3SV//GSLPhEx4V8uH2GxcN0u2F
-	 zu5rTblsGa2t5yRexeLIvaDclFJOPDH0cHHtOCmM=
+	s=default; t=1581400758;
+	bh=/MAZO9tpPY2ob7L/C/mYC+PI12V/nyhlixQRAW4kIOo=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=d/b/LqH2cSIblqRy9xt/KHqsdLA+AQ267Swn+XQRe5CaFt6hSje1Rl044cpvGGeRx
+	 gz5By75HMoEAISI7Kq7WyLY0T+tw6oPjbGlmRQUjPgXY2iqeeRHPHsGjCHBef628Wu
+	 vPec/B0NT5FdqGamHVyqoam65f5drWN0rpC1wJq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 63E9FF801DA;
-	Tue, 11 Feb 2020 06:57:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 93D53F800E7;
+	Tue, 11 Feb 2020 06:57:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B2CBDF80147; Tue, 11 Feb 2020 06:57:34 +0100 (CET)
+ id 328D4F80146; Tue, 11 Feb 2020 06:57:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 84B43F8013E
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 06:57:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 84B43F8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 23E00F800E7
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 06:57:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 23E00F800E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="gvZxgNzB"
-Received: by mail-pg1-x541.google.com with SMTP id 6so5151574pgk.0
- for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 21:57:30 -0800 (PST)
+ header.b="uGIPMgze"
+Received: by mail-pf1-x441.google.com with SMTP id 84so4930874pfy.6
+ for <alsa-devel@alsa-project.org>; Mon, 10 Feb 2020 21:57:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kjJUuCHQpi9LW6K3SCFPHipBrAr50LwcH0CdlL5eTMs=;
- b=gvZxgNzBgl0TJLLOKiE2TTF3Pqx0vKD/tvCvkLUzP6Om61XXLI7C0Qtt/rFQyK5dB7
- 3081QHioDn8bO1jrkqq6QgBIAhFiA3iKHTFllBxbdjVXK9AmD6iK5/zaJwYyGerB3tsb
- i9HejBAl/Y46aLKXfQVF0q/+B9l3Emf8TkFcTwy2Y9zKgQOZAf4+bNbASentgv46zlAB
- FAXINDmBSg2RS+R4+YZrVyYvWQCSfm7hbo3nczDBuHvaBrrFfqyPpfA81uNMJ4m2cGDI
- IzoFbN+WC5Gnr22i/Zaho7uMJYu2Vu+QNZXW1s7DtpvQuoNlgUON9cKcRc9plXUCIs7d
- 39mw==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=RtcACHY1GteKSUYIoiEzAwSY/JFxUKopsQ/nQ/UelxI=;
+ b=uGIPMgze54HdLetRttejcgVMdUMlVlZkhEspiWqqqdkOH3lzSVGcJCK3qlMJp4oEoO
+ +AQibt5qwbOn4CDt02cT4IXmHlE5WOz2XRHjXT/EyeOcfZuPiPlvmR+lw6FixpphVsmq
+ yuXuVtzmNrDo8qXM/xuVARxvnjcJcQNYS77qsMazdQG3e10aiXkJ6ZHgKyxQbTVrRb0n
+ ZDzXRMxWhE+WmLA2DjSVqB2DVkkOCzX2frTVlAHsYRVY3rKNCJTU9cMpOfuyW/4EnD9V
+ OKpguDR32powtQmqXuS6zW4EEfT1FRxc14JeR3LcCkLZKu3AsSWGUrKOBxmHOwi38KcJ
+ zm0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kjJUuCHQpi9LW6K3SCFPHipBrAr50LwcH0CdlL5eTMs=;
- b=ekOt3cvWBBCjiVF5SU8uT18TDwCZxeyHskDclZkM7qa7oxZr7tFuqOSW+fGkgTIAK4
- O9ePAw5prYrL5/37/m3q69OuL6iHjpv2xBn3NcDiwDD84ZGGhZLBo9eV8TbX6+mpvVNs
- I/EPUOUkoiyGVbLbnD//ZYBcpvhwi1fln+q0JwD4fdSD1vJcJe+JzVc9qvk2x2BakcQ0
- giAw2YR/Fe1lZesf8JK55MueJ6WgVvPoKgohHrVw3Soe6xJ75lqKPaaDHd+53e9HQwVP
- gxuR0u7/I5GqAQv3yXFY6pMZVngexXE657+JlNHbvF4tdrpLFTZ7EGZil8RQYlntcfT2
- 1kOQ==
-X-Gm-Message-State: APjAAAXYalSxpEkgRQEh7vjIf7joNondWw2NFkJ5gTvUM3N4GSAIYyP7
- nQMiAF9IvyMpb2+9zgjVfz4=
-X-Google-Smtp-Source: APXvYqzOBM4eqdyXiL3AzHLtbF778Ggsf2iOPk8M3cfPyFjBwDrfq3tLZnzRT7QmuN3of3XJvP8++Q==
-X-Received: by 2002:a63:cc4c:: with SMTP id q12mr5144257pgi.443.1581400648891; 
- Mon, 10 Feb 2020 21:57:28 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=RtcACHY1GteKSUYIoiEzAwSY/JFxUKopsQ/nQ/UelxI=;
+ b=uIi4ixYE2UpW6nH5KqujXQLqj6a9Dvdm07uf23L4AeiquKZT+8tjr+px51SmcOC9xd
+ U+nsA5NhngfID+pTetJvfEOh8KaDnI5MZbBrYFgHo6AUinLN+JI42a8RjpoxbVJz/CnS
+ AjQXAvDnmyoNdlr8UoWeJAKEa602ZbcTVY3jtixzn+P6SdygDdfpZmJaKSKq0a0ONCBJ
+ YGWD20whU5G2i8TkGuj+zrriE32vTteqvF+3NNiZH72F864HzhDPYbryfi3ul3LhW8Fv
+ u4iTNdlbKAMF/E8QCLDZ4koxLW3fWCL6vz41/RJ48rRWrlCMiRxjdhi4bAAwPvT7oWIM
+ GcTQ==
+X-Gm-Message-State: APjAAAWjAb+U8p5qr7K12EDFYpx4064DKFpB7h//znZ1dB7pIfG8I5Xj
+ +R+BFPnqGe4e8sBDxhGlMPw=
+X-Google-Smtp-Source: APXvYqy7gDZtDUPcbSurzNtWPfxbcVBQ4CDX+IzdlO8ruSHzRLLXhc2oxOV/u5IcG5LFaVannNLK7A==
+X-Received: by 2002:a63:6607:: with SMTP id a7mr5450503pgc.310.1581400669771; 
+ Mon, 10 Feb 2020 21:57:49 -0800 (PST)
 Received: from f3.synalogic.ca (ag119225.dynamic.ppp.asahi-net.or.jp.
  [157.107.119.225])
- by smtp.gmail.com with ESMTPSA id x6sm2355617pfi.83.2020.02.10.21.57.26
+ by smtp.gmail.com with ESMTPSA id x6sm2355617pfi.83.2020.02.10.21.57.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 10 Feb 2020 21:57:28 -0800 (PST)
+ Mon, 10 Feb 2020 21:57:49 -0800 (PST)
 From: Benjamin Poirier <benjamin.poirier@gmail.com>
 To: Jaroslav Kysela <perex@perex.cz>,
 	Takashi Iwai <tiwai@suse.de>
-Date: Tue, 11 Feb 2020 14:56:50 +0900
-Message-Id: <20200211055651.4405-1-benjamin.poirier@gmail.com>
+Date: Tue, 11 Feb 2020 14:56:51 +0900
+Message-Id: <20200211055651.4405-2-benjamin.poirier@gmail.com>
 X-Mailer: git-send-email 2.25.0
+In-Reply-To: <20200211055651.4405-1-benjamin.poirier@gmail.com>
+References: <20200211055651.4405-1-benjamin.poirier@gmail.com>
 MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org, Kailang Yang <kailang@realtek.com>,
  linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH 1/2] ALSA: hda/realtek - Fix Lenovo Thinkpad X1
-	Carbon 7th quirk subdevice id
+Subject: [alsa-devel] [PATCH 2/2] ALSA: hda/realtek - Fix Lenovo Thinkpad X1
+	Carbon 7th quirk value
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,79 +104,116 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-fixes the pci subsystem device ids for the "Thinkpad X1 Carbon 7th" and
-"Thinkpad X1 Yoga 7th" quirks.
+As a result of commit d2cd795c4ece ("ALSA: hda - fixup for the bass speaker
+on Lenovo Carbon X1 7th gen"), the maximum sound output level on my
+machine, an X1 Carbon, was reduced to ~60% of its previous level.
 
-My machine reports the following:
-dmidecode -t system
-        Manufacturer: LENOVO
-        Product Name: 20QDCTO1WW
-        Version: ThinkPad X1 Carbon 7th
+This laptop model has two sets of stereo speakers: Front and Bass (aka Rear
+in some contexts).
+Before commit d2cd795c4ece, volume control was commonly ineffective (using
+the Master slider in alsa or pulseaudio apparently had little effect or
+alternated between mute or max with nothing in between - more details
+below)
+commit d2cd795c4ece added quirk ALC285_FIXUP_SPEAKER2_TO_DAC1 which
+resulted in assigning both sets of speakers to the same DAC, bringing
+the two sets of speakers under one effective volume control but also
+lowering the max output volume noticeably.
 
-lspci -s 1f.3 -vnn
-00:1f.3 Audio device [0403]: Intel Corporation Cannon Point-LP High Definition Audio Controller [8086:9dc8] (rev 11) (prog-if 80)
-        Subsystem: Lenovo Cannon Point-LP High Definition Audio Controller [17aa:2292]
+Fix this by changing the quirk so that each set of speakers can be
+controlled individually and the max output volume is restored to what it
+was before commit d2cd795c4ece.
 
-/proc/asound/card0/codec#0
-	Subsystem Id: 0x17aa2293
+Since there is no documentation about the audio codec, here is some
+detailed information about the result of applying different quirks.
+DAC connection (which is what's affected by the quirk) is reported as found
+in /proc/asound/card0/codec#0, Node 0x17.
+pavucontrol controls are reported with the device configured with the
+"Analog Surround 4.0 Output" profile.
 
-Notice the different subsystem device ids between pci info and codec info.
+no quirk
+	Loud max output volume
+	DAC connection
+	  Connection: 3
+	     0x02 0x03 0x06*
+	Controls in alsamixer
+		Master controls front speakers only.
+		Speaker controls front speakers only.
+		Bass Speaker is a toggle that mutes everything.
+		PCM controls all speakers.
+		There is no "Front" mixer.
+	Controls in pavucontrol
+		"Front Left"/"Front Right" sliders work as expected.
+		"Rear Left"/"Rear Right" sliders seem to operate in a
+		non-linear fashion such that most values above 0% result in
+		max volume output.
+		-> Because the bass speakers (Rear) are more powerful, the
+		net effect is that when the channels are linked into a
+		single slider, it seems like it has just two modes: mute or
+		max.
+ALC285_FIXUP_SPEAKER2_TO_DAC1
+	Weak (~60%) max output volume
+	DAC connection
+	  Connection: 3
+	     0x02* 0x03 0x06
+	  In-driver Connection: 1
+	     0x02
+	Controls in alsamixer
+		Master controls all four speakers.
+		Speaker controls all four speakers.
+		Bass Speaker is a toggle that mutes everything.
+		PCM controls all four speakers.
+		There is no "Front" mixer.
+	Controls in pavucontrol
+		"Front Left"/"Front Right" sliders have no effect.
+		"Rear Left"/"Rear Right" sliders control both front and
+		bass speakers.
+		-> Volume control is effective but it's not possible to
+		control front and bass speakers individually.
+ALC295_FIXUP_DISABLE_DAC3
+	Loud max output volume
+	DAC connection
+	  Connection: 3
+	     0x02 0x03* 0x06
+	  In-driver Connection: 2
+	     0x02 0x03
+	Controls in alsamixer
+		Master controls all speakers.
+		Speaker is a toggle that mutes everything.
+		Bass Speaker controls bass speakers only.
+		PCM controls all speakers.
+		Front controls front speakers only.
+	Controls in pavucontrol
+		"Front Left"/"Front Right" sliders control front speakers
+		only.
+		"Rear Left"/"Rear Right" sliders control bass speakers
+		only.
+		-> Volume control is effective and it's possible to control
+		each of the four speakers individually.
 
-commit d2cd795c4ece ("ALSA: hda - fixup for the bass speaker on Lenovo
-Carbon X1 7th gen") added a quirk meant for the X1 Carbon but used device
-id 0x2293. Note that this does not match the PCI SSID but it matches the
-codec SSID.
-commit 54a6a7dc107d ("ALSA: hda/realtek - Add quirk for the bass speaker on
-Lenovo Yoga X1 7th gen") added a quirk meant for the X1 Yoga but used
-subdevice id 0x2292, the PCI SSID used on the X1 Carbon.
-
-Given that in snd_hdac_device_init() quirks are first matched by PCI SSID
-and then, if there is no match, by codec SSID, the net result is that the
-quirk labelled "Thinkpad X1 Yoga 7th" now gets applied on the X1 Carbon.
-Example from my machine (an X1 Carbon, not Yoga):
-[   15.817637] snd_hda_codec_realtek hdaudioC0D0: ALC285: picked fixup Thinkpad X1 Yoga 7th (PCI SSID)
-
-Therefore, fix the subdevice id for the "ThinkPad X1 Carbon 7th" quirk.
-
-Note that looking through the lspci outputs collected at
-https://github.com/linuxhw/LsPCI/tree/master/Notebook/Lenovo/ThinkPad
-all X1 Carbon there have an Audio device with PCI SSID 0x2292, which
-matches with the output from my machine.
-
-This leaves the question of what to do with the quirk labelled "Thinkpad X1
-Yoga 7th".
-
-From email discussions, it seems that the author of commit 54a6a7dc107d
-("ALSA: hda/realtek - Add quirk for the bass speaker on Lenovo Yoga X1 7th
-gen") did not have a device to test the changes. I don't have an X1 Yoga
-either and I did not find a sample lspci listing for it online. Therefore,
-the best course of action seems to be to remove that quirk. In the best
-case, the quirk for the X1 Carbon will match the X1 Yoga (via PCI SSID or
-codec SSID). In the worst case, it will not and someone who actually has
-such a machine should come forth with concrete data about subsystem ids and
-needed quirks.
+In summary, Node 0x17 DAC connection 0x3 offers the loudest max volume and
+the most detailed mixer controls. That connection is obtained with quirk
+ALC295_FIXUP_DISABLE_DAC3. Therefore, change the ThinkPad X1 Carbon 7th to
+use ALC295_FIXUP_DISABLE_DAC3.
 
 Fixes: d2cd795c4ece ("ALSA: hda - fixup for the bass speaker on Lenovo Carbon X1 7th gen")
-Fixes: 54a6a7dc107d ("ALSA: hda/realtek - Add quirk for the bass speaker on Lenovo Yoga X1 7th gen")
 Link: https://lore.kernel.org/alsa-devel/20200210025249.GA2700@f3/
 Cc: Jaroslav Kysela <perex@perex.cz>
 Cc: Kailang Yang <kailang@realtek.com>
 Signed-off-by: Benjamin Poirier <benjamin.poirier@gmail.com>
 ---
- sound/pci/hda/patch_realtek.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ sound/pci/hda/patch_realtek.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 4770fb3f51fb..05d44df2008e 100644
+index 05d44df2008e..3171da10123e 100644
 --- a/sound/pci/hda/patch_realtek.c
 +++ b/sound/pci/hda/patch_realtek.c
-@@ -7268,8 +7268,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
+@@ -7268,7 +7268,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
  	SND_PCI_QUIRK(0x17aa, 0x224c, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x224d, "Thinkpad", ALC298_FIXUP_TPT470_DOCK),
  	SND_PCI_QUIRK(0x17aa, 0x225d, "Thinkpad T480", ALC269_FIXUP_LIMIT_INT_MIC_BOOST),
--	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Yoga 7th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
--	SND_PCI_QUIRK(0x17aa, 0x2293, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
-+	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
+-	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC285_FIXUP_SPEAKER2_TO_DAC1),
++	SND_PCI_QUIRK(0x17aa, 0x2292, "Thinkpad X1 Carbon 7th", ALC295_FIXUP_DISABLE_DAC3),
  	SND_PCI_QUIRK(0x17aa, 0x30bb, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
  	SND_PCI_QUIRK(0x17aa, 0x30e2, "ThinkCentre AIO", ALC233_FIXUP_LENOVO_LINE2_MIC_HOTKEY),
  	SND_PCI_QUIRK(0x17aa, 0x310c, "ThinkCentre Station", ALC294_FIXUP_LENOVO_MIC_LOCATION),

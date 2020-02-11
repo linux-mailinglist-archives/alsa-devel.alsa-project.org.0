@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38C9F159A32
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 21:05:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 48576159A38
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 21:06:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB6DD165F;
-	Tue, 11 Feb 2020 21:04:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB6DD165F
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAB591668;
+	Tue, 11 Feb 2020 21:06:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAB591668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581451508;
-	bh=Zbfjn5YO2jzZOdAaTTo3rz0VWJJCdb+g6DGz1ly6AZ8=;
+	s=default; t=1581451614;
+	bh=BiPhDYXi2p7q8a65Tr/J1vhuieLi4JCLoNGtyvOHybE=;
 	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=LZw3V4+1Dzo3nhELYvZT/OSBJYi3CCNH0v4q+QL6eUqKmETNWRSCu2QHMoQGPugvd
-	 5fNG1fVnwuCuFL0AXh+hFcykAw/1ADVCT749ZlYHWBcxlAAju1rrtdt/ZhxrmR/6Im
-	 mjfThcexMnKkffjRsqX7gNC+54CyfAWIgCkbWwUE=
+	b=GO/WzsdxsteKxOvMCF2ItKljlwO9iw/LvIqhKqPkeS9nI74U4RtB7gcrG+jf7Zy4H
+	 TfSCuFENrEQB63U2oHVEBflgHoJswEfcBXXStFX8oRltC/1Sosqa69WAtxG425ZQUD
+	 XssI5xqCiP9eG5VUKv4oKo47i1O45/XDvH6jaSvI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AE530F800F0;
-	Tue, 11 Feb 2020 21:03:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CBFCF80146;
+	Tue, 11 Feb 2020 21:05:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8A45F80145; Tue, 11 Feb 2020 21:03:24 +0100 (CET)
+ id 8D27CF80145; Tue, 11 Feb 2020 21:05:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from gateway23.websitewelcome.com (gateway23.websitewelcome.com
- [192.185.50.185])
+Received: from gateway30.websitewelcome.com (gateway30.websitewelcome.com
+ [192.185.198.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 48DB4F8013D
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 21:03:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 48DB4F8013D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9EBA8F8013E
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 21:05:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9EBA8F8013E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com
- header.b="Geu0/VC1"
+ header.b="weMQvBYm"
 Received: from cm14.websitewelcome.com (cm14.websitewelcome.com [100.42.49.7])
- by gateway23.websitewelcome.com (Postfix) with ESMTP id 58D77CDC
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 14:03:16 -0600 (CST)
+ by gateway30.websitewelcome.com (Postfix) with ESMTP id AE6D04E81
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 14:05:05 -0600 (CST)
 Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
- id 1bkZjHX4vXVkQ1bkajfs41; Tue, 11 Feb 2020 14:03:16 -0600
+ id 1bmLjHaUZXVkQ1bmLjfvSZ; Tue, 11 Feb 2020 14:05:05 -0600
 X-Authority-Reason: nr=8
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=embeddedor.com; s=default; h=Content-Type:MIME-Version:Message-ID:Subject:
@@ -52,21 +52,20 @@ DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
  :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
  List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QizRvNIXF5DCCYH7u737lg5G394CbFtXby/EhqCQDuw=; b=Geu0/VC1a9bUnDK6UTB9KqkiDb
- 00iQRld7kRim+DS53Mfew6B4tfD75rs5d7hV33SuZJUKAlBhhtA5v19dV0b5rK/hoF9iFJ5Yy6v/D
- Rty6bJrYNpI1JA/ph9yYQ3TAJeCDi+4WLy2Dy67gi0cJiXngA7QhZkyikdbM2IirBJVbCNDV99TdY
- Uuw8dhb4u7Kcfu1c3veFSLBtQwJDRE9SNefXYznkTWyDajHwpEgjC2gQjKhXA5vPgHic5SmaowxEb
- 7WrO7VW5d44awiisOW/SPTSncQGo0MSx5YC7s7aT22F3DjPZGZ8FsdpaksTXeZEbRZAXfbp3x3Fu5
- TIdLIjwA==;
-Received: from [200.68.140.36] (port=25245 helo=embeddedor)
+ bh=/tp6uW3/KGGzX+IaZSk0xiuqdbBGhNQT/R1tOYylFy8=; b=weMQvBYmjgdObbIebT4M8WF6fv
+ kPl/oEy0+cyPOhCdmXHd4fMLEObGBQID/VsVYRX6pKJw90lddBPBbvyASHnaZl21iUcRzgvhAN+Xv
+ QTFJY2U3KEB28zzoeKVCwql8KG0s88fEnIaNTcWaIrwglakJRH3UI7jvJHOs4ip04IaWFJECOrA5/
+ KRe/FR9CmiUnG+kLNg8gTPlvPGndr/cHja091MEST2cR7/3onb487vMXL7p8R22Xs0Hc/4pE9By/z
+ h2YS5t+S6gOiOUhWpMcMepZjvk18jfNW67YiYXwZGHOF/PezTs2wmrlmbri5KUCtdvXpYuhDkStgj
+ 1XaoIm4Q==;
+Received: from [200.68.140.36] (port=21189 helo=embeddedor)
  by gator4166.hostgator.com with esmtpa (Exim 4.92)
  (envelope-from <gustavo@embeddedor.com>)
- id 1j1bkY-001WQz-Cy; Tue, 11 Feb 2020 14:03:14 -0600
-Date: Tue, 11 Feb 2020 14:05:49 -0600
+ id 1j1bmK-001XNW-Bj; Tue, 11 Feb 2020 14:05:04 -0600
+Date: Tue, 11 Feb 2020 14:07:39 -0600
 From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Message-ID: <20200211200549.GA12072@embeddedor>
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Message-ID: <20200211200739.GA12948@embeddedor>
 MIME-Version: 1.0
 Content-Disposition: inline
 User-Agent: Mutt/1.9.4 (2018-02-28)
@@ -79,19 +78,19 @@ X-AntiAbuse: Sender Address Domain - embeddedor.com
 X-BWhitelist: no
 X-Source-IP: 200.68.140.36
 X-Source-L: No
-X-Exim-ID: 1j1bkY-001WQz-Cy
+X-Exim-ID: 1j1bmK-001XNW-Bj
 X-Source: 
 X-Source-Args: 
 X-Source-Dir: 
-X-Source-Sender: (embeddedor) [200.68.140.36]:25245
+X-Source-Sender: (embeddedor) [200.68.140.36]:21189
 X-Source-Auth: gustavo@embeddedor.com
-X-Email-Count: 6
+X-Email-Count: 10
 X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
 X-Local-Domain: yes
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, "Gustavo A. R. Silva" <gustavo@embeddedor.com>
-Subject: [alsa-devel] [PATCH] ASoC: wm0010: Replace zero-length array with
- flexible-array member
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Subject: [alsa-devel] [PATCH] ALSA: hda_codec: Replace zero-length array
+ with flexible-array member
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,22 +131,22 @@ This issue was found with the help of Coccinelle.
 
 Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
 ---
- sound/soc/codecs/wm0010.c | 2 +-
+ sound/pci/hda/hda_codec.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm0010.c b/sound/soc/codecs/wm0010.c
-index abd2defe7530..d7a882a6adf2 100644
---- a/sound/soc/codecs/wm0010.c
-+++ b/sound/soc/codecs/wm0010.c
-@@ -46,7 +46,7 @@ struct dfw_binrec {
- 	u8 command;
- 	u32 length:24;
- 	u32 address;
--	uint8_t data[0];
-+	uint8_t data[];
- } __packed;
+diff --git a/sound/pci/hda/hda_codec.c b/sound/pci/hda/hda_codec.c
+index 701a69d856f5..0fbca35509cd 100644
+--- a/sound/pci/hda/hda_codec.c
++++ b/sound/pci/hda/hda_codec.c
+@@ -102,7 +102,7 @@ struct hda_conn_list {
+ 	struct list_head list;
+ 	int len;
+ 	hda_nid_t nid;
+-	hda_nid_t conns[0];
++	hda_nid_t conns[];
+ };
  
- struct dfw_inforec {
+ /* look up the cached results */
 -- 
 2.25.0
 

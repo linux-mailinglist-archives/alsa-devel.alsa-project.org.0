@@ -2,51 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB199158D5A
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 12:16:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA0E6158D90
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 12:31:31 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7097283E;
-	Tue, 11 Feb 2020 12:15:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7097283E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 46D4B166E;
+	Tue, 11 Feb 2020 12:30:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 46D4B166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581419771;
-	bh=mgHr1wfrAlCr078EkV6vnSv19Z5V5hFfDPmI6tFqjCc=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BAOMKZSgz36I6K0NcHnpdw3eIwP/RHtTAr6mLD1GigLUlAEMRCRfZv3qAFqYqV8dr
-	 mM4s+YQO4xnos9R6cZKg7j467FXrx20KPwl4CWxT3noW885FdyCc0/rhePeIur5YUw
-	 k1qTMPHh7TYNGvlr5a5gCcfPbBzxxNfadKjJqsHQ=
+	s=default; t=1581420691;
+	bh=nUuyJ4Fs5Bo7dpMuppGvwy+reXsM3+ORHSToJxU7h6c=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Kte+rLvZOUYvKfvj7l1xj+MLp9iow66UXVv85ZMpbgj9mi+Y+ttLFz+g4Yf82B3gD
+	 Xd4510z5qBtBC7ncgNukpC81vnmfRK2drKabUL5DLYdn2ORmJhTO81IfTA8U++oCcW
+	 v3B9Gkze0dEzlTQMlM8ba+XyE4I9aSPAGp/beniw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8893DF80252;
-	Tue, 11 Feb 2020 12:14:26 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70FABF800F0;
+	Tue, 11 Feb 2020 12:29:50 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1B918F8021E; Tue, 11 Feb 2020 12:14:24 +0100 (CET)
+ id 5ED3BF80145; Tue, 11 Feb 2020 12:29:44 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 88E82F8013D
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 12:14:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 88E82F8013D
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 90CA9AB95
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 11:14:20 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Tue, 11 Feb 2020 12:14:19 +0100
-Message-Id: <20200211111419.5895-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-Subject: [alsa-devel] [PATCH] ALSA: usb-audio: Apply 48kHz fixed rate
-	playback for Jabra Evolve 65 headset
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 2C368F800F0
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 12:29:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2C368F800F0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F227831B;
+ Tue, 11 Feb 2020 03:29:38 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 75F5A3F6CF;
+ Tue, 11 Feb 2020 03:29:38 -0800 (PST)
+Date: Tue, 11 Feb 2020 11:29:36 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Message-ID: <20200211112936.GB4543@sirena.org.uk>
+References: <20200204102016.I73b26b5e319de173d05823e79f5861bf1826261c@changeid>
+ <20200210183803.GB14166@sirena.org.uk>
+ <CA+Px+wV8R1eA9cy5V9LsEAAd2TxjKjf5aPBhwh+5a4-qeimOPA@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CA+Px+wV8R1eA9cy5V9LsEAAd2TxjKjf5aPBhwh+5a4-qeimOPA@mail.gmail.com>
+X-Cookie: Hire the morally handicapped.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Dylan Reid <dgreid@google.com>, Jimmy Cheng-Yi Chiang <cychiang@google.com>,
+ Jiaxin Yu =?utf-8?B?KOS/nuWutumRqyk=?= <jiaxin.yu@mediatek.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: max98357a: add speaker switch
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,87 +67,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3924819006828361256=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Jabra Evolve 65 headset appears as if supporting lower rates than
-48kHz, but it actually doesn't work but with 48kHz for playback.
 
-This patch applies a workaround to enforce the 48kHz like LINE6
-devices already did.  The workaround is put in a unified helper
-function, set_fixed_rate(), to be called from both places now.
+--===============3924819006828361256==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kORqDWCi7qDJ0mEj"
+Content-Disposition: inline
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206149
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/format.c | 33 ++++++++++++++++++++++-----------
- 1 file changed, 22 insertions(+), 11 deletions(-)
 
-diff --git a/sound/usb/format.c b/sound/usb/format.c
-index 9260136e4c9b..50cb183958bf 100644
---- a/sound/usb/format.c
-+++ b/sound/usb/format.c
-@@ -151,6 +151,19 @@ static u64 parse_audio_format_i_type(struct snd_usb_audio *chip,
- 	return pcm_formats;
- }
- 
-+static int set_fixed_rate(struct audioformat *fp, int rate, int rate_bits)
-+{
-+	kfree(fp->rate_table);
-+	fp->rate_table = kmalloc(sizeof(int), GFP_KERNEL);
-+	if (!fp->rate_table)
-+		return -ENOMEM;
-+	fp->nr_rates = 1;
-+	fp->rate_min = rate;
-+	fp->rate_max = rate;
-+	fp->rates = rate_bits;
-+	fp->rate_table[0] = rate;
-+	return 0;
-+}
- 
- /*
-  * parse the format descriptor and stores the possible sample rates
-@@ -223,6 +236,14 @@ static int parse_audio_format_rates_v1(struct snd_usb_audio *chip, struct audiof
- 		fp->rate_min = combine_triple(&fmt[offset + 1]);
- 		fp->rate_max = combine_triple(&fmt[offset + 4]);
- 	}
-+
-+	/* Jabra Evolve 65 headset */
-+	if (chip->usb_id == USB_ID(0x0b0e, 0x030b)) {
-+		/* only 48kHz for playback while keeping 16kHz for capture */
-+		if (fp->nr_rates != 1)
-+			return set_fixed_rate(fp, 48000, SNDRV_PCM_RATE_48000);
-+	}
-+
- 	return 0;
- }
- 
-@@ -299,17 +320,7 @@ static int line6_parse_audio_format_rates_quirk(struct snd_usb_audio *chip,
- 	case USB_ID(0x0e41, 0x4248): /* Line6 Helix >= fw 2.82 */
- 	case USB_ID(0x0e41, 0x4249): /* Line6 Helix Rack >= fw 2.82 */
- 	case USB_ID(0x0e41, 0x424a): /* Line6 Helix LT >= fw 2.82 */
--		/* supported rates: 48Khz */
--		kfree(fp->rate_table);
--		fp->rate_table = kmalloc(sizeof(int), GFP_KERNEL);
--		if (!fp->rate_table)
--			return -ENOMEM;
--		fp->nr_rates = 1;
--		fp->rate_min = 48000;
--		fp->rate_max = 48000;
--		fp->rates = SNDRV_PCM_RATE_48000;
--		fp->rate_table[0] = 48000;
--		return 0;
-+		return set_fixed_rate(fp, 48000, SNDRV_PCM_RATE_48000);
- 	}
- 
- 	return -ENODEV;
--- 
-2.16.4
+--kORqDWCi7qDJ0mEj
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Feb 11, 2020 at 06:32:20PM +0800, Tzung-Bi Shih wrote:
+
+> Did you mean (in machine driver):
+> - Add SND_SOC_DAPM_SPK("Speakers", NULL)
+> - Add SOC_DAPM_PIN_SWITCH("Speakers")
+> - Add DAPM route "Speaker" (from max98357a) to "Speakers"
+> User space program controls "Speakers Switch" to toggle the switch?
+
+Yes.
+
+> We found the method cannot avoid max98357a->sdmode being set.  As a
+> result, max98357a consumes power even if we don't switch on it.
+
+That seems like something that you can address by improving integration
+with DAPM.
+
+--kORqDWCi7qDJ0mEj
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5CkCAACgkQJNaLcl1U
+h9DdHAf+KIzWUkR+2BQzcFwHKkDUsotb6ohYaNG9NevFCKOUlJSA6prdn2B3oKsm
+n4R7SDAmeVuARbfZHH4AgA8HT9z5J2qqM/rme6JZxx2GbojGT+ujkXrxm9HXC41m
+RLFWkTON5CvxOIZSo521FMEuPUL5HVh2gBAPPZYYDKkxWwMo3WaFkJU97JF5ecmA
+pvng5l5RRfKy3jroKQawNIAOyiey4twjHNqc7VH8AD4Tbwp4C2thAAaO0EH3zmc/
+Jt/8NcNLu1PPDXEkGPaYX1vfsiqfO6CvKIj9tZmzuW0Bq0A+IeK17SKdDvvFcb97
+BzECwoAnhdHXsH47dv+cQqdmLaPxsw==
+=7wKu
+-----END PGP SIGNATURE-----
+
+--kORqDWCi7qDJ0mEj--
+
+--===============3924819006828361256==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3924819006828361256==--

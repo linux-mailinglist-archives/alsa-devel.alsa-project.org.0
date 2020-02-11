@@ -2,56 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5D1B159449
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 17:05:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4CF715944F
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 17:05:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93E7C16BC;
-	Tue, 11 Feb 2020 17:04:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93E7C16BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 981CA1676;
+	Tue, 11 Feb 2020 17:05:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981CA1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581437121;
-	bh=K2P5IeSmqcDX3n2o5r5Gtuf78I3DWuTnZhzWNzsNy3I=;
+	s=default; t=1581437156;
+	bh=FCBtDkobZGM5Iu15LBxSUP3xFn1cQUwmLug4uzS6/c4=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=EcfstxX8ViEtQxH5pFKr+0Sz66rdMeGbJE3LeNKO52TUvI/vIm5PpKRLv3A9loxn0
-	 0XH98pHRhovEH2AQU11ZejFtj+2aueBMQmHd17ax8VvCLTfa0D9jNQXC3d2bmCJZ35
-	 u3ZDmsxdMBicYoyJCzoB3hGoa37ppeoE1LYQ9lDg=
+	b=XqsXFNDkBaqMDWCDjuD1a08URbjR1sLr3EO+eVYrWgV6H5X/Ikrp328zwGjdpgquy
+	 dDrCrn67VSGVrafKkxUr+DlnA9YxEZjcnUgOepCyV0lpNZFhZV+YifmoBnqWR6ILT3
+	 MukT6t6HxQbDuUnoANVODBM5UdDnqeeiCM/tP0sg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D60B7F8038C;
-	Tue, 11 Feb 2020 16:49:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3C905F8038E;
+	Tue, 11 Feb 2020 16:49:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2167CF8036C; Tue, 11 Feb 2020 16:49:28 +0100 (CET)
+ id BF61DF80370; Tue, 11 Feb 2020 16:49:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 108C7F80362
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 16:49:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 108C7F80362
+ by alsa1.perex.cz (Postfix) with ESMTP id 5CA50F8036B
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 16:49:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CA50F8036B
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5C74D31B;
- Tue, 11 Feb 2020 07:49:22 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD3F531B;
+ Tue, 11 Feb 2020 07:49:24 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D63A03F68E;
- Tue, 11 Feb 2020 07:49:21 -0800 (PST)
-Date: Tue, 11 Feb 2020 15:49:20 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 329183F68E;
+ Tue, 11 Feb 2020 07:49:24 -0800 (PST)
+Date: Tue, 11 Feb 2020 15:49:22 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Paul Olaru <paul.olaru@nxp.com>
-In-Reply-To: <20200210095817.13226-2-daniel.baluta@oss.nxp.com>
-Message-Id: <applied-20200210095817.13226-2-daniel.baluta@oss.nxp.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+In-Reply-To: <20200210093027.6672-1-geert@linux-m68k.org>
+Message-Id: <applied-20200210093027.6672-1-geert@linux-m68k.org>
 X-Patchwork-Hint: ignore
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, festevam@gmail.com,
- linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- Mark Brown <broonie@kernel.org>, linux-imx@nxp.com,
- Daniel Baluta <daniel.baluta@nxp.com>
-Subject: [alsa-devel] Applied "ASoC: SOF: Rename i.MX8 platform to i.MX8X"
-	to the asoc tree
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org
+Subject: [alsa-devel] Applied "spi: pxa2xx: Enable support for
+	compile-testing" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,7 +73,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Rename i.MX8 platform to i.MX8X
+   spi: pxa2xx: Enable support for compile-testing
 
 has been applied to the asoc tree at
 
@@ -97,81 +98,45 @@ to this mail.
 Thanks,
 Mark
 
-From 9da9ace29ba556d5a2ae6d044070daba5b7d3638 Mon Sep 17 00:00:00 2001
-From: Paul Olaru <paul.olaru@nxp.com>
-Date: Mon, 10 Feb 2020 11:58:14 +0200
-Subject: [PATCH] ASoC: SOF: Rename i.MX8 platform to i.MX8X
+From 0d4416446897a91bb19ba837b97b607caea59a8f Mon Sep 17 00:00:00 2001
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 10 Feb 2020 10:30:27 +0100
+Subject: [PATCH] spi: pxa2xx: Enable support for compile-testing
 
-i.MX8 and i.MX8X platforms are very similar and were treated the same.
-Anyhow, we need to account for the differences somehow.
+m68k/allmodconfig:
 
-Current supported platform is i.MX8QXP which is from i.MX8X family.
-Rename i.MX8 platform to i.MX8X to prepare for future i.MX8 platforms.
+    WARNING: unmet direct dependencies detected for SPI_PXA2XX
+      Depends on [n]: SPI [=y] && SPI_MASTER [=y] && (ARCH_PXA || ARCH_MMP || PCI [=n] || ACPI)
+      Selected by [m]:
+      - SND_SOC_INTEL_BDW_RT5677_MACH [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_SOC_INTEL_MACH [=y] && (SND_SOC_INTEL_HASWELL [=n] || SND_SOC_SOF_BROADWELL [=m]) && I2C [=m] && (I2C_DESIGNWARE_PLATFORM [=m] || COMPILE_TEST [=y]) && (GPIOLIB [=y] || COMPILE_TEST [=y]) && (X86_INTEL_LPSS || COMPILE_TEST [=y]) && SPI_MASTER [=y]
 
-Signed-off-by: Paul Olaru <paul.olaru@nxp.com>
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+This happens because SND_SOC_INTEL_BDW_RT5677_MACH selects SPI_PXA2XX,
+and the former depends on COMPILE_TEST, while the latter does not.
+
+Fix this by enabling compile-testing for SPI_PXA2XX.
+
+Fixes: 630db1549356f644 ("ASoC: Intel: bdw-rt5677: fix Kconfig dependencies")
+Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200210095817.13226-2-daniel.baluta@oss.nxp.com
+Link: https://lore.kernel.org/r/20200210093027.6672-1-geert@linux-m68k.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/imx/imx8.c   | 10 +++++-----
- sound/soc/sof/sof-of-dev.c |  4 ++--
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/spi/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/sof/imx/imx8.c b/sound/soc/sof/imx/imx8.c
-index b2556f5e2871..9ffc2a955e4f 100644
---- a/sound/soc/sof/imx/imx8.c
-+++ b/sound/soc/sof/imx/imx8.c
-@@ -138,7 +138,7 @@ static int imx8_send_msg(struct snd_sof_dev *sdev, struct snd_sof_ipc_msg *msg)
- /*
-  * DSP control.
-  */
--static int imx8_run(struct snd_sof_dev *sdev)
-+static int imx8x_run(struct snd_sof_dev *sdev)
- {
- 	struct imx8_priv *dsp_priv = (struct imx8_priv *)sdev->private;
- 	int ret;
-@@ -360,13 +360,13 @@ static struct snd_soc_dai_driver imx8_dai[] = {
- },
- };
+diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
+index d6ed0c355954..912cd6e35726 100644
+--- a/drivers/spi/Kconfig
++++ b/drivers/spi/Kconfig
+@@ -551,7 +551,7 @@ config SPI_PPC4xx
  
--/* i.MX8  ops */
--struct snd_sof_dsp_ops sof_imx8_ops = {
-+/* i.MX8X ops */
-+struct snd_sof_dsp_ops sof_imx8x_ops = {
- 	/* probe and remove */
- 	.probe		= imx8_probe,
- 	.remove		= imx8_remove,
- 	/* DSP core boot */
--	.run		= imx8_run,
-+	.run		= imx8x_run,
- 
- 	/* Block IO */
- 	.block_read	= sof_block_read,
-@@ -398,6 +398,6 @@ struct snd_sof_dsp_ops sof_imx8_ops = {
- 			SNDRV_PCM_INFO_PAUSE |
- 			SNDRV_PCM_INFO_NO_PERIOD_WAKEUP
- };
--EXPORT_SYMBOL(sof_imx8_ops);
-+EXPORT_SYMBOL(sof_imx8x_ops);
- 
- MODULE_LICENSE("Dual BSD/GPL");
-diff --git a/sound/soc/sof/sof-of-dev.c b/sound/soc/sof/sof-of-dev.c
-index 39ea8af6213f..2da1bd859d98 100644
---- a/sound/soc/sof/sof-of-dev.c
-+++ b/sound/soc/sof/sof-of-dev.c
-@@ -19,9 +19,9 @@ extern struct snd_sof_dsp_ops sof_imx8_ops;
- static struct sof_dev_desc sof_of_imx8qxp_desc = {
- 	.default_fw_path = "imx/sof",
- 	.default_tplg_path = "imx/sof-tplg",
--	.default_fw_filename = "sof-imx8.ri",
-+	.default_fw_filename = "sof-imx8x.ri",
- 	.nocodec_tplg_filename = "sof-imx8-nocodec.tplg",
--	.ops = &sof_imx8_ops,
-+	.ops = &sof_imx8x_ops,
- };
- #endif
- 
+ config SPI_PXA2XX
+ 	tristate "PXA2xx SSP SPI master"
+-	depends on (ARCH_PXA || ARCH_MMP || PCI || ACPI)
++	depends on ARCH_PXA || ARCH_MMP || PCI || ACPI || COMPILE_TEST
+ 	select PXA_SSP if ARCH_PXA || ARCH_MMP
+ 	help
+ 	  This enables using a PXA2xx or Sodaville SSP port as a SPI master
 -- 
 2.20.1
 

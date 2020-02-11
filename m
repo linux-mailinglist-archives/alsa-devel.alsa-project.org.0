@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 962BE1594F7
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 17:31:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9175C159532
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 17:41:21 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 10E091684;
-	Tue, 11 Feb 2020 17:30:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 10E091684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 36C031693;
+	Tue, 11 Feb 2020 17:40:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 36C031693
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581438665;
-	bh=MeLOKVcxzFmUgj3U//1I4BRdtYMw+jt/h72//TzpdLM=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581439281;
+	bh=KiJY2NS588lr/QHvdkCERT4yPDYP+/TyEwOLzHI5xGQ=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=HRpIniuHqqc2XSCR72uPc1zHlBQW5a3wXIm+2S7oDBYCTi2H/h/TR1V3BHewIboZ7
-	 CdUmTVwxF9cD0lW5iouVrJvEdVu1RNVfX+uQgH6A9lFYG3+ZOXYZUGIonEzF/2nurC
-	 dNm6S2WK99CMVfbapcH4L9+TmWfAOXHM+gOfL/pc=
+	b=RDa2Ei3weEdioasF03JuhO0NJ8KGzRLw4C/mIQSaXYAUhllf/y5NPv165vSZ8gKiP
+	 eS3Qh0GonsRTb65xAUOeaoPpouuCO0Rvy2CSiLZPoTQ7w0dhgMUHTJCUKp68mIcD9l
+	 7pc+w1xwQ5hT8qg5Q/yza5gtKuPE2OM00G5LPuWI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 20411F80145;
-	Tue, 11 Feb 2020 17:29:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 39884F800E7;
+	Tue, 11 Feb 2020 17:39:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 833F7F8013E; Tue, 11 Feb 2020 17:29:19 +0100 (CET)
+ id B5CE0F8013E; Tue, 11 Feb 2020 17:39:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_SOFTFAIL autolearn=disabled version=3.4.0
+Received: from conssluserg-06.nifty.com (conssluserg-06.nifty.com
+ [210.131.2.91])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 37597F800E7
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 17:29:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 37597F800E7
+ by alsa1.perex.cz (Postfix) with ESMTPS id 40965F800F0
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 17:39:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 40965F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="OqEGPXPt"
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01BGTBSI003892;
- Tue, 11 Feb 2020 10:29:11 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1581438551;
- bh=s1rC3bq7DiLStu9i9FHCNZqJRoyzQUYiiRwZ0lgfqNk=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=OqEGPXPt5QwUNgkg/gJ83e8RQiQA1cziseyMFONvToT9J19EOR1xLkr/hYeIJDZgO
- zMlzp8JU1iAaFXl3PvZoDoIunbcxrU+RCl+QKuhLDRsgCn9enG+LnR+Te/9TR7CHk3
- CVjBpAscqMiQg6QPj6u2cgbsc5MrO1uys1f6rFVg=
-Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01BGTBel084455
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 11 Feb 2020 10:29:11 -0600
-Received: from DFLE114.ent.ti.com (10.64.6.35) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Tue, 11
- Feb 2020 10:29:11 -0600
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE114.ent.ti.com
- (10.64.6.35) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Tue, 11 Feb 2020 10:29:11 -0600
-Received: from [10.250.65.13] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01BGTAKw024424;
- Tue, 11 Feb 2020 10:29:10 -0600
-To: Mark Brown <broonie@kernel.org>
-References: <20200207194533.29967-1-dmurphy@ti.com>
- <20200207194533.29967-2-dmurphy@ti.com> <20200210135252.GK7685@sirena.org.uk>
-From: Dan Murphy <dmurphy@ti.com>
-Message-ID: <1148672d-4053-65cd-61dd-0039658d85a4@ti.com>
-Date: Tue, 11 Feb 2020 10:24:36 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ dkim=pass (2048-bit key) header.d=nifty.com header.i=@nifty.com
+ header.b="Ml5vePao"
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
+ [209.85.222.46]) (authenticated)
+ by conssluserg-06.nifty.com with ESMTP id 01BGcrOV010483
+ for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 01:38:53 +0900
+DKIM-Filter: OpenDKIM Filter v2.10.3 conssluserg-06.nifty.com 01BGcrOV010483
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nifty.com;
+ s=dec2015msa; t=1581439134;
+ bh=Fx7J1tLvigpB2TQEKEHL9mZZJiUbmOHvoP/GiGlFxss=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=Ml5vePaorXfWR1IkIk8aVOLkwlszo/+IPtOdpx3YlN/JlOhIDQ1811ZmaQg7TQzKf
+ bcDqvAXL4TZhPPQP3QYuoomkHT+lEzdWKy0TWGCJ0+LapfKTzHltrwMTcheEu9mzYu
+ SXLbW1/Bfmtc1F6G4cZifJzDpf35danf/c1FpWsQWYcMk6TOtRcAXpV+kFrgItqOz3
+ YZUK/KUSpMN7kT6+3AhYk5oHM+exipqr+dgQ/12DV4pkfyT79UCk/jOU4rokh3E/DZ
+ FgjL5ZyrIoqWGTRNUbmKU3Fx+yx4yPtBV+1cBl4SxehYVGl2Zr4PDx5okApw3FZt0F
+ Kp2SnkqOUuqTQ==
+X-Nifty-SrcIP: [209.85.222.46]
+Received: by mail-ua1-f46.google.com with SMTP id 59so4166882uap.12
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 08:38:53 -0800 (PST)
+X-Gm-Message-State: APjAAAVmNVhu4rVXN6p5br9VkN8932+zm12RJSdwjLnvHN5wiyjOCQXO
+ eTfnQe9ifoV1nRYBCOsUKGGthaTTZ3eXJO7kQKs=
+X-Google-Smtp-Source: APXvYqwHm08bawF4IR7j/P5H17OzWDZmArcl2jYMsqSgfZ5kjpP6JGy/GtBXXkiRnojqD0Ml3k0SUtEHhHi7Machn7o=
+X-Received: by 2002:ab0:2ea6:: with SMTP id y6mr2151127uay.25.1581439132256;
+ Tue, 11 Feb 2020 08:38:52 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200210135252.GK7685@sirena.org.uk>
-Content-Language: en-US
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com
-Subject: Re: [alsa-devel] [PATCH 2/2] ASoC: tlv320adcx140: Add the
- tlv320adcx140 codec driver family
+References: <20200207091351.18133-1-geert@linux-m68k.org>
+ <CAK7LNAQGcw1jbb=fWd_CbWv5hQrkqG_QFCw3uY4LXroONGM6BA@mail.gmail.com>
+ <20200211161905.GM4543@sirena.org.uk>
+In-Reply-To: <20200211161905.GM4543@sirena.org.uk>
+From: Masahiro Yamada <masahiroy@kernel.org>
+Date: Wed, 12 Feb 2020 01:38:16 +0900
+X-Gmail-Original-Message-ID: <CAK7LNARCr8afvs=h5-ZWVs=Bkk7PSMNvX+M_SeBSF-L99UencA@mail.gmail.com>
+Message-ID: <CAK7LNARCr8afvs=h5-ZWVs=Bkk7PSMNvX+M_SeBSF-L99UencA@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
+ Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [alsa-devel] [PATCH] [RFC] ASoC: Use imply for
+	SND_SOC_ALL_CODECS
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,97 +92,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="windows-1252"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Mark
-
-Thanks for the review
-
-On 2/10/20 7:52 AM, Mark Brown wrote:
-> On Fri, Feb 07, 2020 at 01:45:33PM -0600, Dan Murphy wrote:
+On Wed, Feb 12, 2020 at 1:19 AM Mark Brown <broonie@kernel.org> wrote:
 >
->> +	/* interface format */
->> +	switch (fmt & SND_SOC_DAIFMT_FORMAT_MASK) {
->> +	case SND_SOC_DAIFMT_I2S:
->> +		iface_reg1 |=3D ADCX140_I2S_MODE_BIT;
->> +		break;
->> +	case SND_SOC_DAIFMT_LEFT_J:
->> +		iface_reg1 |=3D ADCX140_LEFT_JUST_BIT;
->> +		break;
->> +	case SND_SOC_DAIFMT_DSP_A:
->> +	case SND_SOC_DAIFMT_DSP_B:
->> +		break;
-> _DSP_A and _DSP_B are two different format so I'd expect the device to
-> be configured differently for them, or for only one to be supported.
-Ack.=A0 I will need to adjust the TX offset for these.=A0 I will do add a =
-
-prepare call back and set the offset there.=A0 These can fall through =
-
-since TDM is default.
+> On Wed, Feb 12, 2020 at 01:09:30AM +0900, Masahiro Yamada wrote:
 >
->> +static int adcx140_mute(struct snd_soc_dai *codec_dai, int mute)
->> +{
->> +	struct snd_soc_component *component =3D codec_dai->component;
->> +	int config_reg;
->> +	int mic_enable;
->> +	int i;
->> +
->> +	/* There is not a single register to mute.  Each enabled path has to be
->> +	 * muted individually.  Read which path is enabled and mute it.
->> +	 */
->> +	snd_soc_component_read(component, ADCX140_IN_CH_EN, &mic_enable);
->> +	if (!mic_enable)
->> +		return 0;
-> You could also just offer this control to userspace, it's not
-> *essential* to have this operation though it can help with glitching
-> during stream startup.
+> > Why does SND_SOC_ALL_CODECS exist in the first place?
+> > Is this compile-test or run-test?
 >
->> +
->> +	for (i =3D 0; i < ADCX140_MAX_CHANNELS; i++) {
->> +		config_reg =3D ADCX140_CH8_CFG2 - (5 * i);
->> +		if (!(mic_enable & BIT(i)))
->> +			continue;
->> +
->> +		if (mute)
->> +			snd_soc_component_write(component, config_reg, 0);
->> +	}
-> How does the unmute work?
-This is unmuted through volume control.=A0 I can remove this as the device =
-
-is muted when the volume register is set to 0.=A0 That will force the user =
-
-to have to set a volume.
+> It's for compile coverage.
 >
->> +	internal_reg =3D device_property_present(adcx140->dev,
->> +					       "ti,use-internal-areg");
->> +
->> +	if (internal_reg)
->> +		sleep_cfg_val |=3D ADCX140_AREG_INTERNAL;
-> Does this actually need a specific property or could you support the
-> regulator API and then use regulator_get_optional() to figure out if an
-> external AVDD is attached?
-
-Yes we could set internal AREG bit if no supply is given.
-
+> > If it is the former, allyesconfig / allmodconfig
+> > covers all of them.
 >
->> +static int adcx140_codec_probe(struct snd_soc_component *component)
->> +{
->> +	struct adcx140_priv *adcx140 =3D snd_soc_component_get_drvdata(compone=
-nt);
->> +
->> +	return adc5410_init(adcx140);
->> +}
-> Does the separate init function buy us anything?
+> No it doesn't.  Those only enable user selectable options, many CODEC
+> drivers don't have user selectable options as they are selected by
+> machine drivers some of which either have more platform specific
+> dependencies that the CODEC drivers or aren't upstream.
 
-No that is an artifact of my development I can move everything to =
 
-codec_probe
+Maybe, can you add a prompt which is only displayed
+if COMPILE_TEST is enabled?
 
-Dan
 
+
+For example,
+
+config SND_SOC_L3
+        tristate "some prompt" if COMPILE_TEST
+
+
+
+
+In normal use-cases, this CONFIG option is hidden
+since we expect it to be selected by some machine options.
+
+If COMPILE_TEST is enabled, we can toggle as you like.
+
+
+If I run
+ $ git grep  "if COMPILE_TEST"
+
+I see many usages of this tip.
+
+
+-- 
+Best Regards
+Masahiro Yamada
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

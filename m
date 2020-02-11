@@ -2,57 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4CF715944F
-	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 17:05:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37A9415945B
+	for <lists+alsa-devel@lfdr.de>; Tue, 11 Feb 2020 17:06:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 981CA1676;
-	Tue, 11 Feb 2020 17:05:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 981CA1676
+	by alsa0.perex.cz (Postfix) with ESMTPS id CD6D516C7;
+	Tue, 11 Feb 2020 17:05:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CD6D516C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581437156;
-	bh=FCBtDkobZGM5Iu15LBxSUP3xFn1cQUwmLug4uzS6/c4=;
+	s=default; t=1581437187;
+	bh=ILHSCnTsnmTzpGKR49FDCPmEHksBGq575VYgXggRnSQ=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=XqsXFNDkBaqMDWCDjuD1a08URbjR1sLr3EO+eVYrWgV6H5X/Ikrp328zwGjdpgquy
-	 dDrCrn67VSGVrafKkxUr+DlnA9YxEZjcnUgOepCyV0lpNZFhZV+YifmoBnqWR6ILT3
-	 MukT6t6HxQbDuUnoANVODBM5UdDnqeeiCM/tP0sg=
+	b=H4MDeQJWb/VXCpo/fiBzJQQGNzzIzZm4xtWO1RJjO2Xe+didLPe5RouV6cghbtu9Q
+	 lO20I/5vA2p9er1UHnbXsdgGr3tpLB3HF22Lz9UEJs6Rs1HnbzN1jmNpLa9YSS6VmY
+	 d3X+EQQTTpN7ThaytdmZDbHegCO5lBDseHeEcv6s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3C905F8038E;
-	Tue, 11 Feb 2020 16:49:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C4A0F8038D;
+	Tue, 11 Feb 2020 16:49:40 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF61DF80370; Tue, 11 Feb 2020 16:49:31 +0100 (CET)
+ id A34E8F8036F; Tue, 11 Feb 2020 16:49:32 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 5CA50F8036B
- for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 16:49:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5CA50F8036B
+ by alsa1.perex.cz (Postfix) with ESMTP id 940BFF801DA
+ for <alsa-devel@alsa-project.org>; Tue, 11 Feb 2020 16:49:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 940BFF801DA
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AD3F531B;
- Tue, 11 Feb 2020 07:49:24 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0BFCD1063;
+ Tue, 11 Feb 2020 07:49:27 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 329183F68E;
- Tue, 11 Feb 2020 07:49:24 -0800 (PST)
-Date: Tue, 11 Feb 2020 15:49:22 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 85EC33F68E;
+ Tue, 11 Feb 2020 07:49:26 -0800 (PST)
+Date: Tue, 11 Feb 2020 15:49:25 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-In-Reply-To: <20200210093027.6672-1-geert@linux-m68k.org>
-Message-Id: <applied-20200210093027.6672-1-geert@linux-m68k.org>
+To: Colin Ian King <colin.king@canonical.com>
+In-Reply-To: <20200208221529.37105-1-colin.king@canonical.com>
+Message-Id: <applied-20200208221529.37105-1-colin.king@canonical.com>
 X-Patchwork-Hint: ignore
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- alsa-devel@alsa-project.org, Cezary Rojewski <cezary.rojewski@intel.com>,
- Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
- linux-kernel@vger.kernel.org, Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, linux-spi@vger.kernel.org
-Subject: [alsa-devel] Applied "spi: pxa2xx: Enable support for
-	compile-testing" to the asoc tree
+Cc: Oder Chiou <oder_chiou@realtek.com>, alsa-devel@alsa-project.org,
+ Takashi Iwai <tiwai@suse.com>, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Subject: [alsa-devel] Applied "ASoC: rt5659: remove redundant assignment to
+	variable idx" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,7 +72,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   spi: pxa2xx: Enable support for compile-testing
+   ASoC: rt5659: remove redundant assignment to variable idx
 
 has been applied to the asoc tree at
 
@@ -98,45 +97,36 @@ to this mail.
 Thanks,
 Mark
 
-From 0d4416446897a91bb19ba837b97b607caea59a8f Mon Sep 17 00:00:00 2001
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 10 Feb 2020 10:30:27 +0100
-Subject: [PATCH] spi: pxa2xx: Enable support for compile-testing
+From 1646484ed2430e37f00945db4755449d54354b57 Mon Sep 17 00:00:00 2001
+From: Colin Ian King <colin.king@canonical.com>
+Date: Sat, 8 Feb 2020 22:15:29 +0000
+Subject: [PATCH] ASoC: rt5659: remove redundant assignment to variable idx
 
-m68k/allmodconfig:
+Variable idx is being assigned with a value that is never idx, it is
+assigned a new value a couple of statements later. The assignment is
+redundant and can be removed.
 
-    WARNING: unmet direct dependencies detected for SPI_PXA2XX
-      Depends on [n]: SPI [=y] && SPI_MASTER [=y] && (ARCH_PXA || ARCH_MMP || PCI [=n] || ACPI)
-      Selected by [m]:
-      - SND_SOC_INTEL_BDW_RT5677_MACH [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m] && SND_SOC_INTEL_MACH [=y] && (SND_SOC_INTEL_HASWELL [=n] || SND_SOC_SOF_BROADWELL [=m]) && I2C [=m] && (I2C_DESIGNWARE_PLATFORM [=m] || COMPILE_TEST [=y]) && (GPIOLIB [=y] || COMPILE_TEST [=y]) && (X86_INTEL_LPSS || COMPILE_TEST [=y]) && SPI_MASTER [=y]
-
-This happens because SND_SOC_INTEL_BDW_RT5677_MACH selects SPI_PXA2XX,
-and the former depends on COMPILE_TEST, while the latter does not.
-
-Fix this by enabling compile-testing for SPI_PXA2XX.
-
-Fixes: 630db1549356f644 ("ASoC: Intel: bdw-rt5677: fix Kconfig dependencies")
-Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200210093027.6672-1-geert@linux-m68k.org
+Addresses-Coverity: ("Unused value")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Link: https://lore.kernel.org/r/20200208221529.37105-1-colin.king@canonical.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- drivers/spi/Kconfig | 2 +-
+ sound/soc/codecs/rt5659.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-index d6ed0c355954..912cd6e35726 100644
---- a/drivers/spi/Kconfig
-+++ b/drivers/spi/Kconfig
-@@ -551,7 +551,7 @@ config SPI_PPC4xx
+diff --git a/sound/soc/codecs/rt5659.c b/sound/soc/codecs/rt5659.c
+index e66d08398f74..89e0f58512fa 100644
+--- a/sound/soc/codecs/rt5659.c
++++ b/sound/soc/codecs/rt5659.c
+@@ -1604,7 +1604,7 @@ static int set_dmic_clk(struct snd_soc_dapm_widget *w,
+ {
+ 	struct snd_soc_component *component = snd_soc_dapm_to_component(w->dapm);
+ 	struct rt5659_priv *rt5659 = snd_soc_component_get_drvdata(component);
+-	int pd, idx = -EINVAL;
++	int pd, idx;
  
- config SPI_PXA2XX
- 	tristate "PXA2xx SSP SPI master"
--	depends on (ARCH_PXA || ARCH_MMP || PCI || ACPI)
-+	depends on ARCH_PXA || ARCH_MMP || PCI || ACPI || COMPILE_TEST
- 	select PXA_SSP if ARCH_PXA || ARCH_MMP
- 	help
- 	  This enables using a PXA2xx or Sodaville SSP port as a SPI master
+ 	pd = rl6231_get_pre_div(rt5659->regmap,
+ 		RT5659_ADDA_CLK_1, RT5659_I2S_PD1_SFT);
 -- 
 2.20.1
 

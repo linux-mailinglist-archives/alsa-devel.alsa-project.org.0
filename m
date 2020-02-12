@@ -2,53 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53C4A15B59F
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 01:03:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E932115B5A0
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 01:04:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E4C521693;
-	Thu, 13 Feb 2020 01:03:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E4C521693
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8412D1683;
+	Thu, 13 Feb 2020 01:03:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8412D1683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581552232;
-	bh=UvV07tqN7ppIRdm369P2Uai3sg/LiQkk9n2tm1UAk48=;
+	s=default; t=1581552257;
+	bh=849sVpGsDIVP+zHhoGJuUWNVB7gclnT6dsnauCvYIr0=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=djqWl22WnWOuJgUUZT/TFN15M0cbsnLiHFeFLr4DqfG1RWCJFVfnPo1Ko1y72MpdK
-	 Ii/AlCAzcw+Jl2MLqJ8tYvtQ4O0vT2E3OxqYUdV7FAavGiu6CzkjuTB7xRBvgCd2b+
-	 /geGOeM32aFsoZ7plKXhut72DR38h6GfUbFk7dLM=
+	b=FSG8P3YoYNqWaxF1nv9G6EkDKQct4nqN1Fk86F8tom/TLZAsC1rySKwLZttsu1ZN3
+	 DDuGq8eLymfQs3PWqs6g1GjYKc4Adz9aWR52OezidM7D6leQvbtf7qm4Bn1VMOtc25
+	 LEXCut/hyotrecGxwQARzY9Y8vQCTya7f8Ogbnko=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CC7AF802E1;
-	Thu, 13 Feb 2020 00:57:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37FD9F802DD;
+	Thu, 13 Feb 2020 00:57:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 94A53F802D2; Thu, 13 Feb 2020 00:57:34 +0100 (CET)
+ id C1C14F802E3; Thu, 13 Feb 2020 00:57:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E43C6F802C3
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 00:57:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E43C6F802C3
+ by alsa1.perex.cz (Postfix) with ESMTP id 15D5FF802DD
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 00:57:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 15D5FF802DD
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A7BD2106F;
- Wed, 12 Feb 2020 15:57:30 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1205C106F;
+ Wed, 12 Feb 2020 15:57:35 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2BFBD3F68E;
- Wed, 12 Feb 2020 15:57:30 -0800 (PST)
-Date: Wed, 12 Feb 2020 23:57:28 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8C37C3F68E;
+ Wed, 12 Feb 2020 15:57:34 -0800 (PST)
+Date: Wed, 12 Feb 2020 23:57:33 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-In-Reply-To: <20200212124608.1.I73b26b5e319de173d05823e79f5861bf1826261c@changeid>
-Message-Id: <applied-20200212124608.1.I73b26b5e319de173d05823e79f5861bf1826261c@changeid>
+To: Gustavo A. R. Silva <gustavo@embeddedor.com>
+In-Reply-To: <20200211200549.GA12072@embeddedor>
+Message-Id: <applied-20200211200549.GA12072@embeddedor>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, cychiang@google.com, jiaxin.yu@mediatek.com,
- tzungbi@google.com, Mark Brown <broonie@kernel.org>, dgreid@google.com
-Subject: [alsa-devel] Applied "ASoC: max98357a: move control of SD_MODE to
-	DAPM" to the asoc tree
+Cc: alsa-devel@alsa-project.org, Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, patches@opensource.cirrus.com,
+ "Gustavo A. R. Silva" <gustavo@embeddedor.com>, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
+Subject: [alsa-devel] Applied "ASoC: wm0010: Replace zero-length array with
+	flexible-array member" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +72,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: max98357a: move control of SD_MODE to DAPM
+   ASoC: wm0010: Replace zero-length array with flexible-array member
 
 has been applied to the asoc tree at
 
@@ -94,113 +97,54 @@ to this mail.
 Thanks,
 Mark
 
-From 128f825aeab79ebff9679a84f49105eda85ecf2c Mon Sep 17 00:00:00 2001
-From: Tzung-Bi Shih <tzungbi@google.com>
-Date: Wed, 12 Feb 2020 13:55:16 +0800
-Subject: [PATCH] ASoC: max98357a: move control of SD_MODE to DAPM
+From 681c896ceb411ccd2ce0a88059d86ccf8d7a497e Mon Sep 17 00:00:00 2001
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Date: Tue, 11 Feb 2020 14:05:49 -0600
+Subject: [PATCH] ASoC: wm0010: Replace zero-length array with flexible-array
+ member
 
-Some machine may share the same I2S lines for multiple codecs. For
-example, mediatek/mt8183/mt8183-da7219-max98357 shares the same lines
-between max98357a and da7219.  When writing audio data through the I2S
-lines, all codecs on the lines would try to generate sound if they
-accepts DO line.  As a result, multiple codecs generate sound at a
-time.
+The current codebase makes use of the zero-length array language
+extension to the C90 standard, but the preferred mechanism to declare
+variable-length types such as these ones is a flexible array member[1][2],
+introduced in C99:
 
-Moves control of SD_MODE to DAPM so that machine drivers have chances
-to manipulate DAPM widget to turn on/off max98357a.
+struct foo {
+        int stuff;
+        struct boo array[];
+};
 
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
-Link: https://lore.kernel.org/r/20200212124608.1.I73b26b5e319de173d05823e79f5861bf1826261c@changeid
+By making use of the mechanism above, we will get a compiler warning
+in case the flexible array does not occur last in the structure, which
+will help us prevent some kind of undefined behavior bugs from being
+inadvertenly introduced[3] to the codebase from now on.
+
+This issue was found with the help of Coccinelle.
+
+[1] https://gcc.gnu.org/onlinedocs/gcc/Zero-Length.html
+[2] https://github.com/KSPP/linux/issues/21
+[3] commit 76497732932f ("cxgb3/l2t: Fix undefined behaviour")
+
+Signed-off-by: Gustavo A. R. Silva <gustavo@embeddedor.com>
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20200211200549.GA12072@embeddedor
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/max98357a.c | 36 +++++++++++++++++-------------------
- 1 file changed, 17 insertions(+), 19 deletions(-)
+ sound/soc/codecs/wm0010.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/max98357a.c b/sound/soc/codecs/max98357a.c
-index 16313b973eaa..74f20114297c 100644
---- a/sound/soc/codecs/max98357a.c
-+++ b/sound/soc/codecs/max98357a.c
-@@ -5,6 +5,7 @@
-  */
+diff --git a/sound/soc/codecs/wm0010.c b/sound/soc/codecs/wm0010.c
+index 727d6703c905..fbcee21736e8 100644
+--- a/sound/soc/codecs/wm0010.c
++++ b/sound/soc/codecs/wm0010.c
+@@ -43,7 +43,7 @@ struct dfw_binrec {
+ 	u8 command;
+ 	u32 length:24;
+ 	u32 address;
+-	uint8_t data[0];
++	uint8_t data[];
+ } __packed;
  
- #include <linux/acpi.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/err.h>
- #include <linux/gpio.h>
-@@ -24,26 +25,24 @@ struct max98357a_priv {
- 	unsigned int sdmode_delay;
- };
- 
--static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
--		int cmd, struct snd_soc_dai *dai)
-+static int max98357a_sdmode_event(struct snd_soc_dapm_widget *w,
-+		struct snd_kcontrol *kcontrol, int event)
- {
--	struct max98357a_priv *max98357a = snd_soc_dai_get_drvdata(dai);
-+	struct snd_soc_component *component =
-+		snd_soc_dapm_to_component(w->dapm);
-+	struct max98357a_priv *max98357a =
-+		snd_soc_component_get_drvdata(component);
- 
- 	if (!max98357a->sdmode)
- 		return 0;
- 
--	switch (cmd) {
--	case SNDRV_PCM_TRIGGER_START:
--	case SNDRV_PCM_TRIGGER_RESUME:
--	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
--		mdelay(max98357a->sdmode_delay);
-+	if (event & SND_SOC_DAPM_POST_PMU) {
-+		msleep(max98357a->sdmode_delay);
- 		gpiod_set_value(max98357a->sdmode, 1);
--		break;
--	case SNDRV_PCM_TRIGGER_STOP:
--	case SNDRV_PCM_TRIGGER_SUSPEND:
--	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-+		dev_dbg(component->dev, "set sdmode to 1");
-+	} else if (event & SND_SOC_DAPM_PRE_PMD) {
- 		gpiod_set_value(max98357a->sdmode, 0);
--		break;
-+		dev_dbg(component->dev, "set sdmode to 0");
- 	}
- 
- 	return 0;
-@@ -51,10 +50,14 @@ static int max98357a_daiops_trigger(struct snd_pcm_substream *substream,
- 
- static const struct snd_soc_dapm_widget max98357a_dapm_widgets[] = {
- 	SND_SOC_DAPM_OUTPUT("Speaker"),
-+	SND_SOC_DAPM_OUT_DRV_E("SD_MODE", SND_SOC_NOPM, 0, 0, NULL, 0,
-+			max98357a_sdmode_event,
-+			SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
- };
- 
- static const struct snd_soc_dapm_route max98357a_dapm_routes[] = {
--	{"Speaker", NULL, "HiFi Playback"},
-+	{"SD_MODE", NULL, "HiFi Playback"},
-+	{"Speaker", NULL, "SD_MODE"},
- };
- 
- static const struct snd_soc_component_driver max98357a_component_driver = {
-@@ -68,10 +71,6 @@ static const struct snd_soc_component_driver max98357a_component_driver = {
- 	.non_legacy_dai_naming	= 1,
- };
- 
--static const struct snd_soc_dai_ops max98357a_dai_ops = {
--	.trigger	= max98357a_daiops_trigger,
--};
--
- static struct snd_soc_dai_driver max98357a_dai_driver = {
- 	.name = "HiFi",
- 	.playback = {
-@@ -91,7 +90,6 @@ static struct snd_soc_dai_driver max98357a_dai_driver = {
- 		.channels_min	= 1,
- 		.channels_max	= 2,
- 	},
--	.ops    = &max98357a_dai_ops,
- };
- 
- static int max98357a_platform_probe(struct platform_device *pdev)
+ struct dfw_inforec {
 -- 
 2.20.1
 

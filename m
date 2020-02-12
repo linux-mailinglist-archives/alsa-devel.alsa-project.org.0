@@ -2,99 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3EC615A58C
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Feb 2020 11:01:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F38F515A5A0
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Feb 2020 11:05:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 899F9167E;
-	Wed, 12 Feb 2020 11:00:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 899F9167E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 818B5167A;
+	Wed, 12 Feb 2020 11:04:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 818B5167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581501707;
-	bh=CICgCkOhoTJWkHGRqN/+9LwDR8Iljyo1LdOMKlrUw/E=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581501939;
+	bh=hNKieJTYohAxzL6MaHnViEIgLrw6n1e4Zt+ORcTc9u8=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Yh4h9IkKIlH3SwIfgYbrrRVKx0f1nzhSFt53shEw0q/Ad/UAL2tx8iAQArqBSsO4T
-	 PsqXbmVgwFSnC0toMRMEysfSaN2w1nQlEq4/KZeien0mvANNXw5CXZxRMVBla1+tPs
-	 g1uJBLwJVMP1JeZ958qDxWxkLKDAhJf7O/vTi4fQ=
+	b=ait2K9uzwM6AnU9tnxRQqKEYjSAx6CMboJzDIxBELdist1yH90/t9VowPeOdKHYEV
+	 EYxPiXWjAw0r4gCtukQrIvKxPqcpcWKBn8qwwiGmDr+PW7qKwa4sPW0j1lSvbgI2Bo
+	 oLjKPvCMANA8vZQtgkP31rLPHzBAu8Xf45ptSY3k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A09D9F8014F;
-	Wed, 12 Feb 2020 11:00:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0264F8014F;
+	Wed, 12 Feb 2020 11:03:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3F4DFF80157; Wed, 12 Feb 2020 11:00:03 +0100 (CET)
+ id B97B9F80157; Wed, 12 Feb 2020 11:03:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED autolearn=disabled
+X-Spam-Status: No, score=0.5 required=5.0 tests=PRX_BODY_13, RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
- [IPv6:2a00:1450:4864:20::442])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BF54F800E7
- for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 10:59:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BF54F800E7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org
- header.b="vNmQgvcB"
-Received: by mail-wr1-x442.google.com with SMTP id g3so1404360wrs.12
- for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 01:59:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=TgdHUqu43QugB+XJry+tdyUlOnTQbDHzldNID7DKlTY=;
- b=vNmQgvcBd+artf/9LPE/bD4l5LGoyC7mcQ8eWEnPD2c9BJ+S0YBX6l6t6NQUVqekRD
- d9eJvrgCNzevsgfSw1LSeTea18i9CBlJTtw+tBATGKp0V3lgO2xdn7YGBdzbQAgMKnhC
- zhHNqxJTFZLTFivI+lAZU6IKyoD6BKFZ/3P0TVsW7WhfahXuS68v+iFlA9BMlNupGZWm
- 28B+5W8qtN+alZHPotZySvmBg3gBx6+jAMHZ3ogJXXqCwrTTLfQjGtpbjhrAxaToIxOF
- nHKuTg6/srC6vAcUDSVrFz7wYvbLXCQ3UApDKKEVAeWK+rz70hr7fPyoS3uHqZ8QlRHZ
- fgsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=TgdHUqu43QugB+XJry+tdyUlOnTQbDHzldNID7DKlTY=;
- b=UrOV2Sf1D8txjg+mOH/7RlLOtUHfpVFsftU7V19uzRL8uebPVtELfARaHxXrCn5FjV
- z94/noB2XHTL0nMF+kxZ7rSG+XWnd2WQ4wATlazQrrliMwapUKykLw3PjqNsry8nB1bs
- Tu7Ke7vILe1SKXCa/2uU7jr6ljc/+fkOKPdJbPsxDL4xLxyyfn59kqiR5y8xQRJUHNqF
- VsJ0hKRbkcfBFo9lCj76CAHOMDx1IpTCxlNWSDTtS+C3YdJqsDGXjL0mMqEULanj8Nxc
- y7nyY/OLoLRqLZ/ejIzmobXQy38vJbWH6WBNcj5xlbcTgHX7/55uphDkBKCZhDOd83CV
- VPxQ==
-X-Gm-Message-State: APjAAAWwggAJbRxi1Wqk7zj9QMEDhzao1DPM6tk/1XXAswYBfJtEfE3D
- Vw9kyQD8GBigg3v+fCBJAi3srYyXP08=
-X-Google-Smtp-Source: APXvYqwWhJvMF+JERj9lJ5S96xuxaaQT7YqaxjBM5IG5LhDeP1ZB8cANLTbQQGoG5DVj5KHNGWum3g==
-X-Received: by 2002:adf:a389:: with SMTP id l9mr14229912wrb.411.1581501597101; 
- Wed, 12 Feb 2020 01:59:57 -0800 (PST)
-Received: from [192.168.86.34]
- (cpc89974-aztw32-2-0-cust43.18-1.cable.virginm.net. [86.30.250.44])
- by smtp.googlemail.com with ESMTPSA id t128sm38157wmf.28.2020.02.12.01.59.55
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 12 Feb 2020 01:59:56 -0800 (PST)
-To: Adam Serbinski <adam@serbinski.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>
-References: <20200212015222.8229-1-adam@serbinski.com>
- <20200212015222.8229-7-adam@serbinski.com>
-From: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Message-ID: <579e0ae1-f257-7af3-eac9-c8e3ab3b52c7@linaro.org>
-Date: Wed, 12 Feb 2020 09:59:55 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <20200212015222.8229-7-adam@serbinski.com>
-Content-Language: en-US
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Banajit Goswami <bgoswami@codeaurora.org>,
- linux-arm-msm@vger.kernel.org, Patrick Lai <plai@codeaurora.org>,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Andy Gross <agross@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH v3 6/6] ASoC: qdsp6: dt-bindings: Add q6afe
- pcm dt binding documentation
+ by alsa1.perex.cz (Postfix) with ESMTPS id BCBDAF800E7
+ for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 11:03:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BCBDAF800E7
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3F929AB3D;
+ Wed, 12 Feb 2020 10:03:52 +0000 (UTC)
+Date: Wed, 12 Feb 2020 11:03:52 +0100
+Message-ID: <s5hr1z0yvef.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: <Lucien_Kao@compal.com>
+In-Reply-To: <14c541a9b3bf4f39b24edc1d77036ab1@TPEMBX03.compal.com>
+References: <d7aba6970fbd48f2b32e2bc6d838ab20@TPEMBX01.compal.com>
+ <s5hwoa8j3xi.wl-tiwai@suse.de>
+ <5aff22f1e36e484fa52e17c855e8ddc8@TPEMBX03.compal.com>
+ <20200107172457.GA18938@nc-hades.jf.intel.com>
+ <s5h7e23p01c.wl-tiwai@suse.de>
+ <bbbfbfa04bd046c78bba621974c9186f@TPEMBX03.compal.com>
+ <s5hwoa2o4ji.wl-tiwai@suse.de>
+ <14c541a9b3bf4f39b24edc1d77036ab1@TPEMBX03.compal.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: nathan.d.ciobanu@linux.intel.com, AJ_Cheng@compal.com,
+ alsa-devel@alsa-project.org, CindyXT_Wang@compal.com,
+ intel-gfx@lists.freedesktop.org, Nelson_Ye@compal.com, Shane_Yap@compal.com,
+ Evan_Tseng@compal.com
+Subject: Re: [alsa-devel] USB Type-C monitor flashes once when play a video
+	file after unplug and re-plug the monitor
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,97 +76,187 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-
-On 12/02/2020 01:52, Adam Serbinski wrote:
-> This patch adds documentation of bindings required for PCM ports on AFE.
+On Wed, 12 Feb 2020 10:37:30 +0100,
+<Lucien_Kao@compal.com> wrote:
 > 
-> Signed-off-by: Adam Serbinski <adam@serbinski.com>
-> CC: Andy Gross <agross@kernel.org>
-> CC: Mark Rutland <mark.rutland@arm.com>
-> CC: Liam Girdwood <lgirdwood@gmail.com>
-> CC: Patrick Lai <plai@codeaurora.org>
-> CC: Banajit Goswami <bgoswami@codeaurora.org>
-> CC: Jaroslav Kysela <perex@perex.cz>
-> CC: Takashi Iwai <tiwai@suse.com>
-> CC: alsa-devel@alsa-project.org
-> CC: linux-arm-msm@vger.kernel.org
-> CC: devicetree@vger.kernel.org
-> CC: linux-kernel@vger.kernel.org
-> ---
->   .../devicetree/bindings/sound/qcom,q6afe.txt  | 42 +++++++++++++++++++
->   1 file changed, 42 insertions(+)
+> Hi Takashi
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6afe.txt b/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
-> index d74888b9f1bb..6b1b17d31a2a 100644
-> --- a/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
-> +++ b/Documentation/devicetree/bindings/sound/qcom,q6afe.txt
-> @@ -51,6 +51,24 @@ configuration of each dai. Must contain the following properties.
->   	Definition: Must be list of serial data lines used by this dai.
->   	should be one or more of the 0-3 sd lines.
->   
-> + - qcom,pcm-quantype
-> +	Usage: required for pcm interface
-> +	Value type: <u32>
-> +	Definition: PCM quantization type
-> +		0 - ALAW, no padding
-> +		1 - MULAW, no padding
-> +		2 - Linear, no padding
-> +		3 - ALAW, padding
-> +		4 - MULAW, padding
-> +		5 - Linear, padding
-> +
-> + - qcom,pcm-slot-mapping
-> +	Usage: required for pcm interface
+> Sorry to bother you again, during this period I do some experiment then issue may be fixed by my local patch, but I am not sure, however may I have your suggestion if you are available.
+> I put snd_hda_codec_read and snd_hda_codec_set_power_to_all ahead then add debug log in function haswell_verify_D0 I found my changes cause cvt_nid and nid could get "power state: 1" every single time after re-plug type-c cable then playing music, you can see flash_once_fixed_messages in details. But without my patch which nid gets "power state: 0" and external type-c monitor flashes once after playing music. Assume my finding is right, do we have chance to submit code to fix issue? Thanks.
 
-Are these not specific to 8k and 16k mode ?
-We should probably list values for both modes here.
+Is the issue reproduced with the latest upstream code (or at least
+5.4.y stable)?
+Then yeah, we need to take a deeper look.
 
---srini
 
-> +	Value type: <prop-encoded-array>
-> +	Definition: Slot mapping for audio channels. Array size is the number
-> +		of slots, minimum 1, maximum 4. The value is 0 for no mapping
-> +		to the slot, or the channel number from 1 to 32.
-> +
->    - qcom,tdm-sync-mode:
->   	Usage: required for tdm interface
->   	Value type: <prop-encoded-array>
-> @@ -174,5 +192,29 @@ q6afe@4 {
->   			reg = <23>;
->   			qcom,sd-lines = <1>;
->   		};
-> +
-> +		pri-pcm-rx@105 {
-> +			reg = <105>;
-> +			qcom,pcm-quantype = <2>;
-> +			qcom,pcm-slot-mapping = <1>;
-> +		};
-> +
-> +		pri-pcm-tx@106 {
-> +			reg = <106>;
-> +			qcom,pcm-quantype = <2>;
-> +			qcom,pcm-slot-mapping = <1>;
-> +		};
-> +
-> +		quat-pcm-rx@111 {
-> +			reg = <111>;
-> +			qcom,pcm-quantype = <5>;
-> +			qcom,pcm-slot-mapping = <0 0 1>;
-> +		};
-> +
-> +		quat-pcm-tx@112 {
-> +			reg = <112>;
-> +			qcom,pcm-quantype = <5>;
-> +			qcom,pcm-slot-mapping = <0 0 1>;
-> +		};
->   	};
->   };
+thanks,
+
+Takashi
+
+> 
+> With patch
+> 2020-02-12T00:58:27.496016-08:00 ERR kernel: [   47.729823] @@@ cvt_nid power state: 1
+> 2020-02-12T00:58:27.496024-08:00 ERR kernel: [   47.729883] @@@ nid power state: 1
+> 
+> Without patch
+> 2020-02-12T00:55:36.795016-08:00 ERR kernel: [  125.047502] @@@ cvt_nid power state: 1
+> 2020-02-12T00:55:36.795026-08:00 ERR kernel: [  125.047565] @@@ nid power state: 0
+> 
+> -----Original Message-----
+> From: Takashi Iwai <tiwai@suse.de> 
+> Sent: Wednesday, January 8, 2020 2:18 PM
+> To: Kao. Lucien (TPE) <Lucien_Kao@compal.com>
+> Cc: nathan.d.ciobanu@linux.intel.com; Cheng. AJ (TPE) <AJ_Cheng@compal.com>; intel-gfx@lists.freedesktop.org; alsa-devel@alsa-project.org; Wang. CindyXT (TPE) <CindyXT_Wang@compal.com>; Ye. Nelson (TPE) <Nelson_Ye@compal.com>; Yap. Shane (TPE) <Shane_Yap@compal.com>; Tseng. Evan (TPE) <Evan_Tseng@compal.com>
+> Subject: Re: [alsa-devel] USB Type-C monitor flashes once when play a video file after unplug and re-plug the monitor
+> 
+> On Wed, 08 Jan 2020 04:07:17 +0100,
+> <Lucien_Kao@compal.com> wrote:
+> > 
+> > Hi Takashi
+> > 
+> > Is the attachment what you suspect? That merged to our kernel v4.19 already, have any suggestions? Thanks.
+> 
+> Then I have no concrete idea.  It might be some other changes in HDMI codec driver or it might be a fix in i915 graphics side, or even thunderbolt or whatever, too...
+> 
+> Takashi
+> 
+> > 
+> > -----Original Message-----
+> > From: Takashi Iwai <tiwai@suse.de>
+> > Sent: Wednesday, January 8, 2020 2:57 AM
+> > To: Nathan Ciobanu <nathan.d.ciobanu@linux.intel.com>
+> > Cc: Kao. Lucien (TPE) <Lucien_Kao@compal.com>; Cheng. AJ (TPE) 
+> > <AJ_Cheng@compal.com>; intel-gfx@lists.freedesktop.org; 
+> > alsa-devel@alsa-project.org; Wang. CindyXT (TPE) 
+> > <CindyXT_Wang@compal.com>; Ye. Nelson (TPE) <Nelson_Ye@compal.com>; 
+> > Yap. Shane (TPE) <Shane_Yap@compal.com>; Tseng. Evan (TPE) 
+> > <Evan_Tseng@compal.com>
+> > Subject: Re: [alsa-devel] USB Type-C monitor flashes once when play a 
+> > video file after unplug and re-plug the monitor
+> > 
+> > On Tue, 07 Jan 2020 18:24:57 +0100,
+> > Nathan Ciobanu wrote:
+> > > 
+> > > On Mon, Jan 06, 2020 at 08:08:04AM +0000, Lucien_Kao@compal.com wrote:
+> > > > Hi Takashi
+> > > > 
+> > > > We verified on Ubuntu 19.10 with kernel 5.4.0.0-050400-generic (please refer to attachment), the result is positive which symptom doesn't happen anymore once I played music or video sound output through Dell S2718D Type-C monitor. It seems had some fix in latest kernel.
+> > > 
+> > > Takashi, can you point to the patch series you suspect may have fixed this issue? 
+> > 
+> > The first suspect would be
+> > 2756d9143aa517b97961e85412882b8ce31371a6
+> >     ALSA: hda - Fix intermittent CORB/RIRB stall on Intel chips
+> > 
+> > Takashi
+> > 
+> > > 
+> > > Thanks,
+> > > Nathan
+> > > > 
+> > > > Thanks.
+> > > > 
+> > > > 
+> > > > -----Original Message-----
+> > > > From: Takashi Iwai <tiwai@suse.de>
+> > > > Sent: Friday, January 3, 2020 5:16 PM
+> > > > To: Cheng. AJ (TPE) <AJ_Cheng@compal.com>
+> > > > Cc: intel-gfx@lists.freedesktop.org; alsa-devel@alsa-project.org; 
+> > > > nathan.d.ciobanu@linux.intel.com; Wang. CindyXT (TPE) 
+> > > > <CindyXT_Wang@compal.com>; Ye. Nelson (TPE) 
+> > > > <Nelson_Ye@compal.com>; Yap. Shane (TPE) <Shane_Yap@compal.com>; 
+> > > > Kao. Lucien (TPE) <Lucien_Kao@compal.com>; Tseng. Evan (TPE) 
+> > > > <Evan_Tseng@compal.com>
+> > > > Subject: Re: [alsa-devel] USB Type-C monitor flashes once when 
+> > > > play a video file after unplug and re-plug the monitor
+> > > > 
+> > > > On Fri, 03 Jan 2020 02:57:03 +0100, <AJ_Cheng@compal.com> wrote:
+> > > > > 
+> > > > > Hi Sirs,
+> > > > >         Here is chromebook SW team from Compal.
+> > > > > As the mail title, we hit issue that the external monitor will flash once when play video after hot pluging.
+> > > > > We can reproduce not only on chromebook but also ubuntu 16.04.
+> > > > > There has higher failure rate with Dell Solomon dock and Dell S2718D monitor.
+> > > > > 
+> > > > > We found adding the delay in "sound/pci/hda/patch_hdmi.c " can 
+> > > > > fix this issue.(as the attachment) May need your help to review and advice. Thanks.
+> > > > > 
+> > > > > Here is the issue number in gitlab for more detail.
+> > > > > https://gitlab.freedesktop.org/drm/intel/issues/318
+> > > > 
+> > > > Could you check whether it still happens with the latest upstream kernel, at least 5.4.y, if it wasn't tested yet?
+> > > > 
+> > > > I don't want to put a long delay just because of random reason unless it's really mandatory.  I'm wondering whether the recent write-sync change improves the situation, so let's check the recent code.
+> > > > 
+> > > > 
+> > > > thanks,
+> > > > 
+> > > > Takashi
+> > > > 
+> > > > > 
+> > > > > 
+> > > > > 
+> > > > > AJ Cheng
+> > > > > NID/NID1
+> > > > > e-mail: AJ_Cheng@compal.com<mailto:AJ_Cheng@compal.com>
+> > > > > Tel:  +886-2-8797-8599 ext. 17561 Mobile : +886-932827829 COMPAL 
+> > > > > Electronics, Inc.
+> > > > > 
+> > > > > [2 flash_once.diff <application/octet-stream (base64)>]
+> > > > > 
+> > > > > _______________________________________________
+> > > > > Alsa-devel mailing list
+> > > > > Alsa-devel@alsa-project.org
+> > > > > https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+> > > 
+> > > 
+> > 
+> > ======================================================================
+> > ========
+> > =================================
+> > This message may contain information which is private, privileged or 
+> > confidential of Compal Electronics, Inc.
+> > If you are not the intended recipient of this message, please notify 
+> > the sender and destroy/delete the message.
+> > Any review, retransmission, dissemination or other use of, or taking 
+> > of any action in reliance upon this information, by persons or 
+> > entities other than the intended recipient is prohibited.
+> > ======================================================================
+> > ========
+> > =================================
+> > 
+> > 
+> > [1.2  <text/plain; us-ascii (base64)>]
+> > 
+> > [2 0001-UPSTREAM-ALSA-hda-Fix-intermittent-CORB-RIRB-stall-o.patch 
+> > <application/octet-stream (base64)>]
+> > 
+> 
+> ==============================================================================
+> =================================
+> This message may contain information which is private, privileged or
+> confidential of Compal Electronics, Inc.
+> If you are not the intended recipient of this message, please notify the
+> sender and destroy/delete the message.
+> Any review, retransmission, dissemination or other use of, or taking of any
+> action in reliance upon this information,
+> by persons or entities other than the intended recipient is prohibited.
+> ==============================================================================
+> =================================
+> 
+> 
+> [1.2  <text/plain; us-ascii (base64)>]
+> 
+> [2 flash_once_fixed_messages <application/octet-stream (base64)>]
+> 
+> [3 flash_once_present_messages <application/octet-stream (base64)>]
+> 
+> [4 flash_once.diff <application/octet-stream (base64)>]
 > 
 _______________________________________________
 Alsa-devel mailing list

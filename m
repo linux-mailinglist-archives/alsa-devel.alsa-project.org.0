@@ -2,62 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E8B815AB82
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Feb 2020 15:59:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B30715AB8E
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Feb 2020 15:59:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D78E9166D;
-	Wed, 12 Feb 2020 15:58:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D78E9166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 22E771677;
+	Wed, 12 Feb 2020 15:58:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 22E771677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581519564;
-	bh=77znf2YnOkdCFnqf9cK9at6jFCG908JLcC4JQ837WCI=;
+	s=default; t=1581519589;
+	bh=MU+sg0AouHEolomRkjgnl0sR+yQ0IAPJ4BQ4oONDc5I=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=uncXvubeDe2J69S2pQ4zH8c5gt72ZbofFhAjHqARwF0l4zhmHYjZvOnWilZkIznBu
-	 wPjwGoDCDxX21Gk+F7VEwBhnLX7Pihge3ms1/Nx+cE0omPqaov108Zsl3GdcauJ8/g
-	 MNYYckFQrpo0Kj8x+B0Fq/Ke8KvOejrlh8YTPKYg=
+	b=pe5p5FFv1+OdVyIRff9/+PgdlJtNQHlRcLlCC+U6iJX6EhHUU47aRzKlM0G9K4olx
+	 WZD1yIItYzE3cqlw3LUevQIz89GA9jC0JsTtvZG3FYsSk8Ak0MjL8/wrGctUvSUn6R
+	 +mlNBxsUl9VVq4K9Mr+YYv2hNs8DFAGX0JOkOuHM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 68030F8019B;
-	Wed, 12 Feb 2020 15:57:02 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74A0EF80125;
+	Wed, 12 Feb 2020 15:57:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0F0B6F80157; Wed, 12 Feb 2020 15:56:59 +0100 (CET)
+ id B44EEF80276; Wed, 12 Feb 2020 15:57:06 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from xavier.telenet-ops.be (xavier.telenet-ops.be
- [IPv6:2a02:1800:120:4::f00:14])
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from baptiste.telenet-ops.be (baptiste.telenet-ops.be
+ [IPv6:2a02:1800:120:4::f00:13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 3FBC8F8014F
- for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 15:56:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FBC8F8014F
-Received: from ramsan ([84.195.182.253]) by xavier.telenet-ops.be with bizsmtp
- id 1qwu2200e5USYZQ01qwuw1; Wed, 12 Feb 2020 15:56:55 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8AA6DF80125
+ for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 15:57:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8AA6DF80125
+Received: from ramsan ([84.195.182.253])
+ by baptiste.telenet-ops.be with bizsmtp
+ id 1qwu2200V5USYZQ01qwuij; Wed, 12 Feb 2020 15:57:02 +0100
 Received: from rox.of.borg ([192.168.97.57]) by ramsan with esmtp (Exim 4.90_1)
  (envelope-from <geert@linux-m68k.org>)
- id 1j1tRe-0004yr-Nr; Wed, 12 Feb 2020 15:56:54 +0100
+ id 1j1tRe-0004yt-OW; Wed, 12 Feb 2020 15:56:54 +0100
 Received: from geert by rox.of.borg with local (Exim 4.90_1)
  (envelope-from <geert@linux-m68k.org>)
- id 1j1tRe-0001DZ-Mm; Wed, 12 Feb 2020 15:56:54 +0100
+ id 1j1tRe-0001Dk-NQ; Wed, 12 Feb 2020 15:56:54 +0100
 From: Geert Uytterhoeven <geert@linux-m68k.org>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Randy Dunlap <rdunlap@infradead.org>
-Date: Wed, 12 Feb 2020 15:56:49 +0100
-Message-Id: <20200212145650.4602-3-geert@linux-m68k.org>
+Date: Wed, 12 Feb 2020 15:56:50 +0100
+Message-Id: <20200212145650.4602-4-geert@linux-m68k.org>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200212145650.4602-1-geert@linux-m68k.org>
 References: <20200212145650.4602-1-geert@linux-m68k.org>
-MIME-Version: 1.0
 Cc: alsa-devel@alsa-project.org, Geert Uytterhoeven <geert@linux-m68k.org>,
  linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH 2/3] ASoC: Fix SND_SOC_ALL_CODECS imply I2C
+Subject: [alsa-devel] [PATCH 3/3] ASoC: Fix SND_SOC_ALL_CODECS imply misc
 	fallout
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -71,56 +71,106 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Rml4ZXMgZm9yIENPTkZJR19JMkM9bjoKCiAgICBXQVJOSU5HOiB1bm1ldCBkaXJlY3QgZGVwZW5k
-ZW5jaWVzIGRldGVjdGVkIGZvciBSRUdNQVBfSTJDCiAgICAgIERlcGVuZHMgb24gW25dOiBJMkMg
-Wz1uXQogICAgICBTZWxlY3RlZCBieSBbbV06CiAgICAgIC0gU05EX1NPQ19BREFVMTc4MV9JMkMg
-Wz1tXSAmJiBTT1VORCBbPW1dICYmICFVTUwgJiYgU05EIFs9bV0gJiYgU05EX1NPQyBbPW1dCiAg
-ICAgIC0gU05EX1NPQ19BREFVMTk3N19JMkMgWz1tXSAmJiBTT1VORCBbPW1dICYmICFVTUwgJiYg
-U05EIFs9bV0gJiYgU05EX1NPQyBbPW1dCiAgICAgIC0gU05EX1NPQ19SVDU2NzcgWz1tXSAmJiBT
-T1VORCBbPW1dICYmICFVTUwgJiYgU05EIFs9bV0gJiYgU05EX1NPQyBbPW1dCgogICAgc291bmQv
-c29jL2NvZGVjcy8uLi46IGVycm9yOiB0eXBlIGRlZmF1bHRzIHRvIOKAmGludOKAmSBpbiBkZWNs
-YXJhdGlvbiBvZiDigJhtb2R1bGVfaTJjX2RyaXZlcuKAmSBbLVdlcnJvcj1pbXBsaWNpdC1pbnRd
-CgogICAgZHJpdmVycy9iYXNlL3JlZ21hcC9yZWdtYXAtaTJjLmM6IEluIGZ1bmN0aW9uIOKAmHJl
-Z21hcF9zbWJ1c19ieXRlX3JlZ19yZWFk4oCZOgogICAgZHJpdmVycy9iYXNlL3JlZ21hcC9yZWdt
-YXAtaTJjLmM6MjU6ODogZXJyb3I6IGltcGxpY2l0IGRlY2xhcmF0aW9uIG9mIGZ1bmN0aW9uIOKA
-mGkyY19zbWJ1c19yZWFkX2J5dGVfZGF0YeKAmTsgZGlkIHlvdSBtZWFuIOKAmGkyY19zZXRfYWRh
-cGRhdGHigJk/IFstV2Vycm9yPWltcGxpY2l0LWZ1bmN0aW9uLWRlY2xhcmF0aW9uXQoKRml4ZXM6
-IGVhMDBkOTUyMDBkMDJlY2UgKCJBU29DOiBVc2UgaW1wbHkgZm9yIFNORF9TT0NfQUxMX0NPREVD
-UyIpClNpZ25lZC1vZmYtYnk6IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2VlcnRAbGludXgtbTY4ay5v
-cmc+Ci0tLQogc291bmQvc29jL2NvZGVjcy9LY29uZmlnIHwgOSArKysrKysrKysKIDEgZmlsZSBj
-aGFuZ2VkLCA5IGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9zb3VuZC9zb2MvY29kZWNzL0tj
-b25maWcgYi9zb3VuZC9zb2MvY29kZWNzL0tjb25maWcKaW5kZXggYzJmYjk4NWRlOGM0ZTAyYS4u
-M2VmODA0ZDA3ZGVlYTQxZCAxMDA2NDQKLS0tIGEvc291bmQvc29jL2NvZGVjcy9LY29uZmlnCisr
-KyBiL3NvdW5kL3NvYy9jb2RlY3MvS2NvbmZpZwpAQCAtMzM5LDYgKzMzOSw3IEBAIGNvbmZpZyBT
-TkRfU09DX0FEMTkzWF9TUEkKIAogY29uZmlnIFNORF9TT0NfQUQxOTNYX0kyQwogCXRyaXN0YXRl
-CisJZGVwZW5kcyBvbiBJMkMKIAlzZWxlY3QgU05EX1NPQ19BRDE5M1gKIAogY29uZmlnIFNORF9T
-T0NfQUQxOTgwCkBAIC0zNTMsNiArMzU0LDcgQEAgY29uZmlnIFNORF9TT0NfQURBVV9VVElMUwog
-CiBjb25maWcgU05EX1NPQ19BREFVMTM3MwogCXRyaXN0YXRlCisJZGVwZW5kcyBvbiBJMkMKIAlz
-ZWxlY3QgU05EX1NPQ19BREFVX1VUSUxTCiAKIGNvbmZpZyBTTkRfU09DX0FEQVUxNzAxCkBAIC0z
-ODcsNiArMzg5LDcgQEAgY29uZmlnIFNORF9TT0NfQURBVTE3ODEKIAogY29uZmlnIFNORF9TT0Nf
-QURBVTE3ODFfSTJDCiAJdHJpc3RhdGUKKwlkZXBlbmRzIG9uIEkyQwogCXNlbGVjdCBTTkRfU09D
-X0FEQVUxNzgxCiAJc2VsZWN0IFJFR01BUF9JMkMKIApAQCAtNDA3LDYgKzQxMCw3IEBAIGNvbmZp
-ZyBTTkRfU09DX0FEQVUxOTc3X1NQSQogCiBjb25maWcgU05EX1NPQ19BREFVMTk3N19JMkMKIAl0
-cmlzdGF0ZQorCWRlcGVuZHMgb24gSTJDCiAJc2VsZWN0IFNORF9TT0NfQURBVTE5NzcKIAlzZWxl
-Y3QgUkVHTUFQX0kyQwogCkBAIC00NTAsNiArNDU0LDcgQEAgY29uZmlnIFNORF9TT0NfQURBVjgw
-MQogCiBjb25maWcgU05EX1NPQ19BREFWODAzCiAJdHJpc3RhdGUKKwlkZXBlbmRzIG9uIEkyQwog
-CXNlbGVjdCBTTkRfU09DX0FEQVY4MFgKIAogY29uZmlnIFNORF9TT0NfQURTMTE3WApAQCAtNDcx
-LDYgKzQ3Niw3IEBAIGNvbmZpZyBTTkRfU09DX0FLNDQ1OAogCiBjb25maWcgU05EX1NPQ19BSzQ1
-MzUKIAl0cmlzdGF0ZQorCWRlcGVuZHMgb24gSTJDCiAKIGNvbmZpZyBTTkRfU09DX0FLNDU1NAog
-CXRyaXN0YXRlICJBS00gQUs0NTU0IENPREVDIgpAQCAtNDgxLDYgKzQ4Nyw3IEBAIGNvbmZpZyBT
-TkRfU09DX0FLNDYxMwogCiBjb25maWcgU05EX1NPQ19BSzQ2NDEKIAl0cmlzdGF0ZQorCWRlcGVu
-ZHMgb24gSTJDCiAKIGNvbmZpZyBTTkRfU09DX0FLNDY0MgogCXRyaXN0YXRlICJBS00gQUs0NjQy
-IENPREVDIgpAQCAtNDg4LDYgKzQ5NSw3IEBAIGNvbmZpZyBTTkRfU09DX0FLNDY0MgogCiBjb25m
-aWcgU05EX1NPQ19BSzQ2NzEKIAl0cmlzdGF0ZQorCWRlcGVuZHMgb24gSTJDCiAKIGNvbmZpZyBT
-TkRfU09DX0FLNTM4NgogCXRyaXN0YXRlICJBS00gQUs1NjM4IENPREVDIgpAQCAtMTExMiw2ICsx
-MTIwLDcgQEAgY29uZmlnIFNORF9TT0NfUlQ1NjcwCiAKIGNvbmZpZyBTTkRfU09DX1JUNTY3Nwog
-CXRyaXN0YXRlCisJZGVwZW5kcyBvbiBJMkMKIAlzZWxlY3QgUkVHTUFQX0kyQwogCXNlbGVjdCBS
-RUdNQVBfSVJRCiAKLS0gCjIuMTcuMQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KQWxzYS1kZXZlbCBtYWlsaW5nIGxpc3QKQWxzYS1kZXZlbEBhbHNhLXBy
-b2plY3Qub3JnCmh0dHBzOi8vbWFpbG1hbi5hbHNhLXByb2plY3Qub3JnL21haWxtYW4vbGlzdGlu
-Zm8vYWxzYS1kZXZlbAo=
+Fixes for missing miscellaneous support:
+
+    ERROR: "abx500_get_register_interruptible" [...] undefined!
+    ERROR: "abx500_set_register_interruptible" [...] undefined!
+    ERROR: "arizona_free_irq" [...] undefined!
+    ERROR: "arizona_request_irq" [...] undefined!
+    ERROR: "arizona_set_irq_wake" [...] undefined!
+    ERROR: "mc13xxx_reg_rmw" [...] undefined!
+    ERROR: "mc13xxx_reg_write" [...] undefined!
+    ERROR: "snd_soc_free_ac97_component" [...] undefined!
+    ERROR: "snd_soc_new_ac97_component" [...] undefined!
+
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Fixes: ea00d95200d02ece ("ASoC: Use imply for SND_SOC_ALL_CODECS")
+Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+---
+ sound/soc/codecs/Kconfig | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 3ef804d07deea41d..d957fd6980b10a92 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -319,6 +319,7 @@ config SND_SOC_WM_ADSP
+ 
+ config SND_SOC_AB8500_CODEC
+ 	tristate
++	depends on ABX500_CORE
+ 
+ config SND_SOC_AC97_CODEC
+ 	tristate "Build generic ASoC AC97 CODEC driver"
+@@ -343,8 +344,9 @@ config SND_SOC_AD193X_I2C
+ 	select SND_SOC_AD193X
+ 
+ config SND_SOC_AD1980
+-	select REGMAP_AC97
+ 	tristate
++	depends on SND_SOC_AC97_BUS
++	select REGMAP_AC97
+ 
+ config SND_SOC_AD73311
+ 	tristate
+@@ -646,6 +648,7 @@ config SND_SOC_CS47L15
+ 
+ config SND_SOC_CS47L24
+ 	tristate
++	depends on MFD_CS47L24
+ 
+ config SND_SOC_CS47L35
+ 	tristate
+@@ -1234,6 +1237,7 @@ config SND_SOC_STA529
+ 
+ config SND_SOC_STAC9766
+ 	tristate
++	depends on SND_SOC_AC97_BUS
+ 
+ config SND_SOC_STI_SAS
+ 	tristate "codec Audio support for STI SAS codec"
+@@ -1415,9 +1419,11 @@ config SND_SOC_WM5100
+ 
+ config SND_SOC_WM5102
+ 	tristate
++	depends on MFD_WM5102
+ 
+ config SND_SOC_WM5110
+ 	tristate
++	depends on MFD_WM5110
+ 
+ config SND_SOC_WM8350
+ 	tristate
+@@ -1579,9 +1585,11 @@ config SND_SOC_WM8996
+ 
+ config SND_SOC_WM8997
+ 	tristate
++	depends on MFD_WM8997
+ 
+ config SND_SOC_WM8998
+ 	tristate
++	depends on MFD_WM8998
+ 
+ config SND_SOC_WM9081
+ 	tristate
+@@ -1639,6 +1647,7 @@ config SND_SOC_MAX9877
+ 
+ config SND_SOC_MC13783
+ 	tristate
++	depends on MFD_MC13XXX
+ 
+ config SND_SOC_ML26124
+ 	tristate
+-- 
+2.17.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

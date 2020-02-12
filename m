@@ -2,74 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EB6C15A611
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Feb 2020 11:17:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 87A5315A61A
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Feb 2020 11:18:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D1A6B1665;
-	Wed, 12 Feb 2020 11:16:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D1A6B1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 85A1D1682;
+	Wed, 12 Feb 2020 11:17:41 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85A1D1682
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581502668;
-	bh=AUx5NA7kQ/iXyY/tChwAV4PJuSyA8iuUd8BEXcFocTs=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581502711;
+	bh=XdwQOfUCRwP9O5h4c/qvob1QIdqTZzjEop09vf0ANpI=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EH5hwdCqfa+B7xNZzwZn/VANuPoLTJYcROduQEBiUPhDYzhGbbhmcjWCebMVAdpGr
-	 FH2bxVU0uEuingHBo0hwUZI8v2A+S6vicd5ZCqGQ9snB/3AVxCiLiBIdtcExG5V1rE
-	 Rjf0ZgKnrVkRYSRNbFiZNidg5vglkZ3lFtgdU0nY=
+	b=IZMIaxXar5eUkZDhBTYvXg2uAbLBN3zhdsU25ZkmpQPh4owr1c+QY1C5H93NDe6IB
+	 TwUlpPpJl+xFkS3ZrpV6UevhKZgUuIC33v0xbWF9h2xOjK9DgvrfdOHw9a4CYpMXJy
+	 HDQPwqTbwi4xwPocEmmMUtoHrHhweKjnKm4f7Iq4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A6E9CF800F0;
-	Wed, 12 Feb 2020 11:16:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C903DF800E7;
+	Wed, 12 Feb 2020 11:16:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 31A62F800E7; Wed, 12 Feb 2020 11:16:05 +0100 (CET)
+ id AEC21F8020B; Wed, 12 Feb 2020 11:16:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
+ FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 04A17F800E7
- for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 11:16:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 04A17F800E7
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="DRXxX5tK"
-Received: from localhost (unknown [223.226.122.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3841C2073C;
- Wed, 12 Feb 2020 10:15:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581502559;
- bh=0ZfvCJyD4aws5BJOETfWcvOs5Q4TcRSl+cvngTFFj4E=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=DRXxX5tKi7piaFyca09jdXFxsKPiEvspBonnyZ0Dz+rdmgDlp7PZWbfSQxiu5WByV
- uSSt22QM8Rq5SK4NtQ7xuJBzHjHJlZAwd9cBlQeefylCVNRDA1MgMWStiu98e6C1QR
- SaA06dY+p9Nyoth4MBm5Pu7Hy3oewdHYwCIRyVbA=
-Date: Wed, 12 Feb 2020 15:45:54 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20200212101554.GB2618@vkoul-mobl>
-References: <20200114234257.14336-1-pierre-louis.bossart@linux.intel.com>
- <20200114234257.14336-6-pierre-louis.bossart@linux.intel.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id D144FF800E7
+ for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 11:16:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D144FF800E7
+Received: by mail-ot1-f66.google.com with SMTP id j16so1388500otl.1
+ for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 02:16:40 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BSd7L1WcqmA7Rn1t/qtLYAH7L9DL0l8H2ANtY/V6cDc=;
+ b=M+cwjQcu9D/1zFT/rHHz8qyUi6PdJfwZ/sv+LE8y24QTKNpCf35fMf+kc9WPojgUUn
+ oS6tfwoWPeFQDE2jHIGW9gYo5cxe9Pj0SIzJ9vGGfMy/fPXFt0EWdj5IOVBvZkysTOBe
+ dcZFR/O0PEKs8ZM1YHoUnyh5HND7gnuU9jgR/bCi8AhyaVsNkw4+nsjHSSwd37YSTxHa
+ 5jTicybzVfdeqIN5zHShB686VZ2l0Nm+hFwjzdFAp/LY3QsZsVopnp1rkmd+k3ggzlUH
+ hI1jxNwfDkPsY0yJSCFX1qJvPSGp7FXcBaSczImJt3dHy4VZRnBSxWZu+B6yt0gLq97j
+ ZykQ==
+X-Gm-Message-State: APjAAAX7G+m3EjkJTf7WXASElDM40xkmFJW39s6tTuV6xZBV7HmCu59/
+ Jg4pVNyQWXE2cmHRM60d7S9UAv9l3h/xRhsiIyQ=
+X-Google-Smtp-Source: APXvYqyfmunP1o2BTpeb9JU1HjP2UYYEVp4pQeJQcvu4Jqvu9FNFexZwM5K2BHzwypUIBN4OQGyWST7sYQ52txz7keM=
+X-Received: by 2002:a9d:67d7:: with SMTP id c23mr8759446otn.262.1581502598886; 
+ Wed, 12 Feb 2020 02:16:38 -0800 (PST)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20200114234257.14336-6-pierre-louis.bossart@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v2 5/5] soundwire: intel: free all
-	resources on hw_free()
+References: <1654227.8mz0SueHsU@kreacher> <197693303.hiACyxC3Vm@kreacher>
+ <20200212100810.GA4028@sirena.org.uk>
+In-Reply-To: <20200212100810.GA4028@sirena.org.uk>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Wed, 12 Feb 2020 11:16:27 +0100
+Message-ID: <CAJZ5v0i8DsjQkf_4ezOYMrvB47ZuxsgNmTbHQB-JEK8bMHUpPg@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Linux PM <linux-pm@vger.kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, "Rafael J. Wysocki" <rjw@rjwysocki.net>,
+ Takashi Iwai <tiwai@suse.com>, Amit Kucheria <amit.kucheria@linaro.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [alsa-devel] [PATCH 24/28] sound: Call cpu_latency_qos_*()
+	instead of pm_qos_*()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,89 +88,24 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 14-01-20, 17:42, Pierre-Louis Bossart wrote:
-> Make sure all calls to the SoundWire stream API are done and involve
-> callback
-> 
-> Signed-off-by: Rander Wang <rander.wang@linux.intel.com>
-> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
->  drivers/soundwire/intel.c | 40 +++++++++++++++++++++++++++++++++++++--
->  1 file changed, 38 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
-> index c498812522ab..e0c1fff7c4a0 100644
-> --- a/drivers/soundwire/intel.c
-> +++ b/drivers/soundwire/intel.c
-> @@ -550,6 +550,25 @@ static int intel_params_stream(struct sdw_intel *sdw,
->  	return -EIO;
->  }
->  
-> +static int intel_free_stream(struct sdw_intel *sdw,
-> +			     struct snd_pcm_substream *substream,
-> +			     struct snd_soc_dai *dai,
-> +			     int link_id)
-> +{
-> +	struct sdw_intel_link_res *res = sdw->link_res;
-> +	struct sdw_intel_stream_free_data free_data;
+On Wed, Feb 12, 2020 at 11:08 AM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Wed, Feb 12, 2020 at 12:34:15AM +0100, Rafael J. Wysocki wrote:
+> > From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
+> >
+> > Call cpu_latency_qos_add/update/remove_request() and
+> > cpu_latency_qos_request_active() instead of
+> > pm_qos_add/update/remove_request() and pm_qos_request_active(),
+> > respectively, because the latter are going to be dropped.
+>
+> What's the story with dependencies here, I only have this patch and not
+> the cover letter?
 
-where is this struct sdw_intel_stream_free_data defined. I dont see it
-in this patch or this series..
+The cover letter is here:
 
-> +
-> +	free_data.substream = substream;
-> +	free_data.dai = dai;
-> +	free_data.link_id = link_id;
-> +
-> +	if (res->ops && res->ops->free_stream && res->dev)
-> +		return res->ops->free_stream(res->dev,
-> +					     &free_data);
-> +
-> +	return 0;
-> +}
-> +
->  /*
->   * bank switch routines
->   */
-> @@ -817,6 +836,7 @@ static int
->  intel_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
->  {
->  	struct sdw_cdns *cdns = snd_soc_dai_get_drvdata(dai);
-> +	struct sdw_intel *sdw = cdns_to_intel(cdns);
->  	struct sdw_cdns_dma_data *dma;
->  	int ret;
->  
-> @@ -824,12 +844,28 @@ intel_hw_free(struct snd_pcm_substream *substream, struct snd_soc_dai *dai)
->  	if (!dma)
->  		return -EIO;
->  
-> +	ret = sdw_deprepare_stream(dma->stream);
-> +	if (ret) {
-> +		dev_err(dai->dev, "sdw_deprepare_stream: failed %d", ret);
-> +		return ret;
-> +	}
-> +
->  	ret = sdw_stream_remove_master(&cdns->bus, dma->stream);
-> -	if (ret < 0)
-> +	if (ret < 0) {
->  		dev_err(dai->dev, "remove master from stream %s failed: %d\n",
->  			dma->stream->name, ret);
-> +		return ret;
-> +	}
->  
-> -	return ret;
-> +	ret = intel_free_stream(sdw, substream, dai, sdw->instance);
-> +	if (ret < 0) {
-> +		dev_err(dai->dev, "intel_free_stream: failed %d", ret);
-> +		return ret;
-> +	}
-> +
-> +	sdw_release_stream(dma->stream);
+https://lore.kernel.org/linux-pm/CAJZ5v0h1z2p66J5KB3P0RjPkLE-DfDbcfhG_OrnDG_weir7HMA@mail.gmail.com/T/#m92ce7ffd743083e89e45c0a98da8c0140e44c70b
 
-I think, free the 'name' here would be apt
-
--- 
-~Vinod
+Generally speaking, this patch depends on the previous patches in the series.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

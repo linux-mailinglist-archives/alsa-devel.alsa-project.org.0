@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A22A615B58C
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 00:58:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3216115B58D
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 00:59:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4C99C166C;
-	Thu, 13 Feb 2020 00:58:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C99C166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id D19A6167E;
+	Thu, 13 Feb 2020 00:58:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D19A6167E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581551939;
-	bh=3t2lp1XCSKpB+UrueN7uWYNni4smOitL/kWvdZhRgVc=;
+	s=default; t=1581551982;
+	bh=MVi/Cd8hbgcEWcAZ5O1QxZAVAHQiLU+Glt5EpB/B4vs=;
 	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=GytewHxGe7ItgGE1rXO8AM+2HN8YVNUjFB3ltRNrKaQIpmsl2Gky8L5O560Ky/kQZ
-	 8dSlwSZRSG9IgeIJBnDScGNuRDkVSFmQVCLpsMEkC0ug4H9PfaihD2ZtcCgUFEHpvt
-	 TkKAV4SRetEA1SmMhP9/VdzJ1jxXVpvqieQgB9L8=
+	b=MVP/RVhaQPWIR1XHsXYpeW0prhs7zX+zDaJMDMwwtbyz52kHrJjpUOnruQq3LsXZH
+	 ZQEZTP3LE3a4ttY2J/6+XGRl7jPmB8pEW8Z1zDgrx+zCJ60kebMqLL9SVK9gdseMbS
+	 BeNtQZVkmMIzKUwe8PWpQmVL+4mW+115NFmR/lpY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 86FE0F80125;
-	Thu, 13 Feb 2020 00:57:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A83ABF80257;
+	Thu, 13 Feb 2020 00:57:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B9240F8019B; Thu, 13 Feb 2020 00:57:15 +0100 (CET)
+ id 7C71FF80234; Thu, 13 Feb 2020 00:57:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 91436F800E7
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 00:57:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 91436F800E7
+ by alsa1.perex.cz (Postfix) with ESMTP id 5A162F80125
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 00:57:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A162F80125
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2F4F328;
- Wed, 12 Feb 2020 15:57:07 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1289DFEC;
+ Wed, 12 Feb 2020 15:57:10 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 35CCE3F68E;
- Wed, 12 Feb 2020 15:57:07 -0800 (PST)
-Date: Wed, 12 Feb 2020 23:57:05 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8B56E3F68E;
+ Wed, 12 Feb 2020 15:57:09 -0800 (PST)
+Date: Wed, 12 Feb 2020 23:57:08 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Geert Uytterhoeven <geert@linux-m68k.org>
-In-Reply-To: <20200212145650.4602-4-geert@linux-m68k.org>
-Message-Id: <applied-20200212145650.4602-4-geert@linux-m68k.org>
+In-Reply-To: <20200212145650.4602-3-geert@linux-m68k.org>
+Message-Id: <applied-20200212145650.4602-3-geert@linux-m68k.org>
 X-Patchwork-Hint: ignore
 Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
  linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
  Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>
-Subject: [alsa-devel] Applied "ASoC: Fix SND_SOC_ALL_CODECS imply misc
+Subject: [alsa-devel] Applied "ASoC: Fix SND_SOC_ALL_CODECS imply I2C
 	fallout" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -64,14 +64,16 @@ List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8247601739191102450=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+--===============8247601739191102450==
+Content-Type: text/plain
+
 The patch
 
-   ASoC: Fix SND_SOC_ALL_CODECS imply misc fallout
+   ASoC: Fix SND_SOC_ALL_CODECS imply I2C fallout
 
 has been applied to the asoc tree at
 
@@ -96,107 +98,125 @@ to this mail.
 Thanks,
 Mark
 
-From d8dd3f92a6ba11f9046df48765e6f12ad70a3946 Mon Sep 17 00:00:00 2001
+From 1d0158f547e0dbefa9e18930e93f270ab0309707 Mon Sep 17 00:00:00 2001
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 12 Feb 2020 15:56:50 +0100
-Subject: [PATCH] ASoC: Fix SND_SOC_ALL_CODECS imply misc fallout
+Date: Wed, 12 Feb 2020 15:56:49 +0100
+Subject: [PATCH] ASoC: Fix SND_SOC_ALL_CODECS imply I2C fallout
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Fixes for missing miscellaneous support:
+Fixes for CONFIG_I2C=n:
 
-    ERROR: "abx500_get_register_interruptible" [...] undefined!
-    ERROR: "abx500_set_register_interruptible" [...] undefined!
-    ERROR: "arizona_free_irq" [...] undefined!
-    ERROR: "arizona_request_irq" [...] undefined!
-    ERROR: "arizona_set_irq_wake" [...] undefined!
-    ERROR: "mc13xxx_reg_rmw" [...] undefined!
-    ERROR: "mc13xxx_reg_write" [...] undefined!
-    ERROR: "snd_soc_free_ac97_component" [...] undefined!
-    ERROR: "snd_soc_new_ac97_component" [...] undefined!
+    WARNING: unmet direct dependencies detected for REGMAP_I2C
+      Depends on [n]: I2C [=n]
+      Selected by [m]:
+      - SND_SOC_ADAU1781_I2C [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m]
+      - SND_SOC_ADAU1977_I2C [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m]
+      - SND_SOC_RT5677 [=m] && SOUND [=m] && !UML && SND [=m] && SND_SOC [=m]
 
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
+    sound/soc/codecs/...: error: type defaults to ‘int’ in declaration of ‘module_i2c_driver’ [-Werror=implicit-int]
+
+    drivers/base/regmap/regmap-i2c.c: In function ‘regmap_smbus_byte_reg_read’:
+    drivers/base/regmap/regmap-i2c.c:25:8: error: implicit declaration of function ‘i2c_smbus_read_byte_data’; did you mean ‘i2c_set_adapdata’? [-Werror=implicit-function-declaration]
+
 Fixes: ea00d95200d02ece ("ASoC: Use imply for SND_SOC_ALL_CODECS")
 Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Link: https://lore.kernel.org/r/20200212145650.4602-4-geert@linux-m68k.org
+Link: https://lore.kernel.org/r/20200212145650.4602-3-geert@linux-m68k.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/Kconfig | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ sound/soc/codecs/Kconfig | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index 3ef804d07dee..d957fd6980b1 100644
+index c2fb985de8c4..3ef804d07dee 100644
 --- a/sound/soc/codecs/Kconfig
 +++ b/sound/soc/codecs/Kconfig
-@@ -319,6 +319,7 @@ config SND_SOC_WM_ADSP
+@@ -339,6 +339,7 @@ config SND_SOC_AD193X_SPI
  
- config SND_SOC_AB8500_CODEC
+ config SND_SOC_AD193X_I2C
  	tristate
-+	depends on ABX500_CORE
- 
- config SND_SOC_AC97_CODEC
- 	tristate "Build generic ASoC AC97 CODEC driver"
-@@ -343,8 +344,9 @@ config SND_SOC_AD193X_I2C
++	depends on I2C
  	select SND_SOC_AD193X
  
  config SND_SOC_AD1980
--	select REGMAP_AC97
- 	tristate
-+	depends on SND_SOC_AC97_BUS
-+	select REGMAP_AC97
+@@ -353,6 +354,7 @@ config SND_SOC_ADAU_UTILS
  
- config SND_SOC_AD73311
+ config SND_SOC_ADAU1373
  	tristate
-@@ -646,6 +648,7 @@ config SND_SOC_CS47L15
++	depends on I2C
+ 	select SND_SOC_ADAU_UTILS
  
- config SND_SOC_CS47L24
+ config SND_SOC_ADAU1701
+@@ -387,6 +389,7 @@ config SND_SOC_ADAU1781
+ 
+ config SND_SOC_ADAU1781_I2C
  	tristate
-+	depends on MFD_CS47L24
++	depends on I2C
+ 	select SND_SOC_ADAU1781
+ 	select REGMAP_I2C
  
- config SND_SOC_CS47L35
+@@ -407,6 +410,7 @@ config SND_SOC_ADAU1977_SPI
+ 
+ config SND_SOC_ADAU1977_I2C
  	tristate
-@@ -1234,6 +1237,7 @@ config SND_SOC_STA529
++	depends on I2C
+ 	select SND_SOC_ADAU1977
+ 	select REGMAP_I2C
  
- config SND_SOC_STAC9766
+@@ -450,6 +454,7 @@ config SND_SOC_ADAV801
+ 
+ config SND_SOC_ADAV803
  	tristate
-+	depends on SND_SOC_AC97_BUS
++	depends on I2C
+ 	select SND_SOC_ADAV80X
  
- config SND_SOC_STI_SAS
- 	tristate "codec Audio support for STI SAS codec"
-@@ -1415,9 +1419,11 @@ config SND_SOC_WM5100
+ config SND_SOC_ADS117X
+@@ -471,6 +476,7 @@ config SND_SOC_AK4458
  
- config SND_SOC_WM5102
+ config SND_SOC_AK4535
  	tristate
-+	depends on MFD_WM5102
++	depends on I2C
  
- config SND_SOC_WM5110
- 	tristate
-+	depends on MFD_WM5110
+ config SND_SOC_AK4554
+ 	tristate "AKM AK4554 CODEC"
+@@ -481,6 +487,7 @@ config SND_SOC_AK4613
  
- config SND_SOC_WM8350
+ config SND_SOC_AK4641
  	tristate
-@@ -1579,9 +1585,11 @@ config SND_SOC_WM8996
++	depends on I2C
  
- config SND_SOC_WM8997
- 	tristate
-+	depends on MFD_WM8997
+ config SND_SOC_AK4642
+ 	tristate "AKM AK4642 CODEC"
+@@ -488,6 +495,7 @@ config SND_SOC_AK4642
  
- config SND_SOC_WM8998
+ config SND_SOC_AK4671
  	tristate
-+	depends on MFD_WM8998
++	depends on I2C
  
- config SND_SOC_WM9081
- 	tristate
-@@ -1639,6 +1647,7 @@ config SND_SOC_MAX9877
+ config SND_SOC_AK5386
+ 	tristate "AKM AK5638 CODEC"
+@@ -1112,6 +1120,7 @@ config SND_SOC_RT5670
  
- config SND_SOC_MC13783
+ config SND_SOC_RT5677
  	tristate
-+	depends on MFD_MC13XXX
++	depends on I2C
+ 	select REGMAP_I2C
+ 	select REGMAP_IRQ
  
- config SND_SOC_ML26124
- 	tristate
 -- 
 2.20.1
+
+
+--===============8247601739191102450==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8247601739191102450==--

@@ -2,83 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C2DD015A7E8
-	for <lists+alsa-devel@lfdr.de>; Wed, 12 Feb 2020 12:31:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6206A15A7F5
+	for <lists+alsa-devel@lfdr.de>; Wed, 12 Feb 2020 12:33:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5DEBE167B;
-	Wed, 12 Feb 2020 12:30:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5DEBE167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id F0A6E167A;
+	Wed, 12 Feb 2020 12:33:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F0A6E167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581507083;
-	bh=ZScPrYEYGjUs+sPrTbbh3MRQZw1Ke+rrBerLBa9A2Rk=;
-	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=uhJAOJ+X3PKzXNuwMLx5UQrr38O9PWoz8c1JRC+CCiXZpUq2e6o5u69sMwaAoaB6x
-	 Hhb3eGSuFRe5SNXFu9HeqXa/A58VEFezjHhniylS51fBDqql/UpcJca88KN/UiERHA
-	 tl0D7ynEBtJYAXVNCmAYNpQyLyz16BfZz6PDm3U0=
+	s=default; t=1581507235;
+	bh=ZLXSDQaweiF48Z6F/vtuD10ojqAeSVzUm8RDqnSNEnI=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=sFCO5ne8N9L77HEdyoA9nw+2EpTF5QSEUP0nVoH6DH7ZAXsyuS3ngCFgMzdraJV5p
+	 TTxlQU1mfBYNbvC5hLQdB5uVkIQtVCy0JpFFjkcLrWuKnVAS+DXcgP9v1JccZbob7g
+	 vAoK1dbuB4sROBbRtbcTwBNquvnSqf5OCtEYlVq0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7BB6F80125;
-	Wed, 12 Feb 2020 12:29:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D4674F800E7;
+	Wed, 12 Feb 2020 12:32:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D22BBF80157; Wed, 12 Feb 2020 12:29:34 +0100 (CET)
+ id C76AEF80157; Wed, 12 Feb 2020 12:32:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
  autolearn=disabled version=3.4.0
-Received: from mail-vk1-xa49.google.com (mail-vk1-xa49.google.com
- [IPv6:2607:f8b0:4864:20::a49])
+Received: from mail-il1-x142.google.com (mail-il1-x142.google.com
+ [IPv6:2607:f8b0:4864:20::142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 811D5F80125
- for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 12:29:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 811D5F80125
+ by alsa1.perex.cz (Postfix) with ESMTPS id E385AF800E7
+ for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 12:32:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E385AF800E7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="nyH6pgf9"
-Received: by mail-vk1-xa49.google.com with SMTP id s4so550836vkk.7
- for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 03:29:30 -0800 (PST)
+ header.b="srnvxZf3"
+Received: by mail-il1-x142.google.com with SMTP id f70so1432963ill.6
+ for <alsa-devel@alsa-project.org>; Wed, 12 Feb 2020 03:32:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=SoC6rVFw6F86jiDloCCVTNvG0+gKemeB0EmmXCP7Dqg=;
- b=nyH6pgf9J7jaOR4zodSFCo3vHMcfatUXwv5n7EHIEZbmRrQN+0sIsCn6NSi7ItZBzY
- D/cMkzBlGf5EtGq2wYbkshowisriEzSCbb1Fm+rGXDC5UwWt9g+6IITPIUDddcapovlT
- RjvkKv2xZQ9ShYTeIG2lniDAvvyhIq3sujIr03QpCMcmFtm2dS+v0iTr5Hb04MZy5H6P
- IZyVwIakftF3kEqIS9c9cSzlS7kay0muLEipZmyxcWeu4c/R+r1Py+bHs8wRgHgnpeh8
- 6YYFhX3MntuPRW9adOTAk6Ng43es7I7dTb03xVA9sjLDnbA+gp+D7ibFk9xIFeZi60w1
- Icdg==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Jhq+F5Vg5gXGVxGGwDzRsCFJAnXHio4Ba0xV8d1yBL0=;
+ b=srnvxZf32dbXBAR2MEM61jw+61/pI7td4FK9ZdgDyMp0QtdHGlPNBy/srI2I18KHEy
+ EMEQ9341OZ3cRoKeX8R32S5GkitAS+q7fMCGKLg37SuVwmaX8hHlYBR38lWBImfZjPYS
+ T4SDTQY51JhRumhmP40nk7NvcMU463kJjwo57HiZp5F53TT0GxursZcOjkLsM99FxN43
+ 8QccU2bziUos6H+hlNHAtrPprHf98VrqOrG44HDQhpO56gokfkyKANs5YprJN64nnZ3F
+ hf1b71J2CNUbl1S5SCYw1LjTU7BhjpZsfTSzuCNKu0TBvtAx4nMIQYIFYpGW/sy5Xx+Y
+ J78w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=SoC6rVFw6F86jiDloCCVTNvG0+gKemeB0EmmXCP7Dqg=;
- b=R6dQgSpD/QWa5pvpYgwOe0zuNLeaLe/U7K6KNa/u4Xu6A+lX8FB01SXdfcd4e3ETA/
- qjKuB+iO1xqK5/WSsFMG3PhbeTBOJfyvWu/t4zaPDg14dwUomdS6e8ouB7NfBIB5TBch
- wPkbJ0gWZOWJG69i0oUgNtx8r6OWmltw/tHGrcgeUrEGno1lboFf0VWS6uovwCTj9XV6
- pTszw2nETGZBErK4KoooYWZmct+2U60eTIpmzOsQqDst+eQckcSAL49FDKB0RW7VYLgc
- 1baQ1OO1ad58fv8A/fK57vJmdMdnNfN4wRtkm1crhpE1gS0UCqOSfuK6b6Z67/iQJNWn
- t2kA==
-X-Gm-Message-State: APjAAAW1vYm0+LijmofuzDENxmmCSDBk2rkfNa0eDLRBaGO+1VlTS+0q
- MfQlbpgwc+7AkGeDVRrneKkmfLv10Nns
-X-Google-Smtp-Source: APXvYqwyE18TjD5fW1MmWZFJv3Wb2a8JX+p8pSY+ifSY8r0QabHqn8yasFBmFMDQqG/e+oN4hNYjpMz/g3u3
-X-Received: by 2002:a1f:328a:: with SMTP id y132mr7449492vky.60.1581506968242; 
- Wed, 12 Feb 2020 03:29:28 -0800 (PST)
-Date: Wed, 12 Feb 2020 19:29:16 +0800
-Message-Id: <20200212192707.PATCH.I477092c2f104fd589133436c3ae4590e6fc6323b@changeid>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.25.0.225.g125e21ebc7-goog
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Jhq+F5Vg5gXGVxGGwDzRsCFJAnXHio4Ba0xV8d1yBL0=;
+ b=uGTLwLIvSinT44VdVi8BlYYVYrExfVBeQSD4uc3Z5fffNBOJPqA2IxWFXj49tzb/vB
+ 83jP1fEul/AlLteNQWDh6cir9tV3FclWeorBhu9wy05fEZgv7qIl3fIe0IzX0o0PEkf/
+ ehXmyyPAYcU6dZM+dchpgGjBR7v8Qa/1Hg/+1v2eKWMraxk3Yhk6APsy5rW7gFbf3Wf0
+ 30KA9VDFzfqWe80V3Soo3AcghqE7AYS7LvVxPcpJs7KvpOoor4xOTERVUyNqF53HxOkV
+ X4IvRsyS5Fe6/eYoFGkG6KyMuLeygtRwcOCAS1kGuA4IT6RltcarX0waEb6n1/RS2H6C
+ 5ypg==
+X-Gm-Message-State: APjAAAVH6REdfBlH9Qk5ede0nCBwNI3fV0+X3QH/E9oU4lDzrkNJ9RxB
+ PG8pTuJ33vtyNdz5K75r4N57fSeXCKmukOGuN2dbsw==
+X-Google-Smtp-Source: APXvYqyCysF+Xty0Kw6QgHoXI6zCDRRSPRDXxL0EER6sqVcOTJNMCRiWOwxITCc6kPH9uv3UKjyIma87orV8iEBRlE4=
+X-Received: by 2002:a92:981b:: with SMTP id l27mr10824698ili.118.1581507125520; 
+ Wed, 12 Feb 2020 03:32:05 -0800 (PST)
+MIME-Version: 1.0
+References: <20200206031752.193298-1-tzungbi@google.com>
+ <20200206102509.2.I230fd59de28e73934a91cb01424e25b9e84727f4@changeid>
+ <1581495554.22603.2.camel@mtksdaap41>
+In-Reply-To: <1581495554.22603.2.camel@mtksdaap41>
 From: Tzung-Bi Shih <tzungbi@google.com>
-To: broonie@kernel.org, airlied@linux.ie, daniel@ffwll.ch
-Cc: alsa-devel@alsa-project.org, cychiang@google.com, tzungbi@google.com,
- dri-devel@lists.freedesktop.org, ck.hu@mediatek.com,
- linux-mediatek@lists.infradead.org, p.zabel@pengutronix.de,
- matthias.bgg@gmail.com, dgreid@google.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH] drm/mediatek: fix race condition of plugged_cb
-	and codec_dev
+Date: Wed, 12 Feb 2020 19:31:54 +0800
+Message-ID: <CA+Px+wXjC1rchzUGhYYCJVyEbm7RQNFnqf-sQNaky6d82DyLyw@mail.gmail.com>
+To: CK Hu <ck.hu@mediatek.com>
+Cc: ALSA development <alsa-devel@alsa-project.org>,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>, David Airlie <airlied@linux.ie>,
+ dri-devel@lists.freedesktop.org, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Daniel Vetter <daniel@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>, p.zabel@pengutronix.de,
+ Dylan Reid <dgreid@google.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH v2 2/3] drm/mediatek: support HDMI jack
+	status reporting
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,59 +103,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-hdmi_conn_detect and mtk_hdmi_audio_hook_plugged_cb woule be called
-by different threads.  plugged_cb and codec_dev are in danger of race
-condition.
+On Wed, Feb 12, 2020 at 4:19 PM CK Hu <ck.hu@mediatek.com> wrote:
+> I think hdmi_conn_detect() and mtk_hdmi_audio_hook_plugged_cb() would be
+> called in different thread. So it's necessary to use a mutex to protect
+> this.
 
-Fixes by:
-- Checks NULLs first.
-- Uses WRITE_ONCE() to prevent store tearing (i.e. write to plugged_cb
-  after codec_dev).
-- Uses codec_dev as a signal to report HDMI jack status.
-
-The patch intends to not use mutex to protect the shared variables.
-In runtime, mtk_hdmi_audio_hook_plugged_cb would be called only once
-if no one rebinds the sound card.  In contrast, hdmi_conn_detect could
-be called multiple times.  Uses a mutex within hdmi_conn_detect calling
-path is a waste (no lock contention).
-
-Fixes: 5d3c64477392 ("drm/mediatek: support HDMI jack status reporting")
-Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
----
- drivers/gpu/drm/mediatek/mtk_hdmi.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_hdmi.c b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-index 03aeb73005ef..746567c91bb7 100644
---- a/drivers/gpu/drm/mediatek/mtk_hdmi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_hdmi.c
-@@ -1201,7 +1201,7 @@ mtk_hdmi_update_plugged_status(struct mtk_hdmi *hdmi)
- {
- 	bool connected = mtk_cec_hpd_high(hdmi->cec_dev);
- 
--	if (hdmi->plugged_cb && hdmi->codec_dev)
-+	if (hdmi->codec_dev)
- 		hdmi->plugged_cb(hdmi->codec_dev, connected);
- 
- 	return connected ?
-@@ -1669,8 +1669,12 @@ static int mtk_hdmi_audio_hook_plugged_cb(struct device *dev, void *data,
- {
- 	struct mtk_hdmi *hdmi = data;
- 
--	hdmi->plugged_cb = fn;
--	hdmi->codec_dev = codec_dev;
-+	if (!fn || !codec_dev)
-+		return -EINVAL;
-+
-+	/* Use WRITE_ONCE() to prevent store tearing. */
-+	WRITE_ONCE(hdmi->plugged_cb, fn);
-+	WRITE_ONCE(hdmi->codec_dev, codec_dev);
- 	mtk_hdmi_update_plugged_status(hdmi);
- 
- 	return 0;
--- 
-2.25.0.225.g125e21ebc7-goog
-
+Thanks for the reminder.  I feel using mutex here is overkill.  Please
+see https://patchwork.kernel.org/patch/11378413/ for my proposed
+solution.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

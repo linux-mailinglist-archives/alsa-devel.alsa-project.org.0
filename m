@@ -2,105 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 14ADA15B9AF
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 07:41:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85BE015B99A
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 07:32:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B61FC1687;
-	Thu, 13 Feb 2020 07:40:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B61FC1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id EAA221679;
+	Thu, 13 Feb 2020 07:31:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EAA221679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581576077;
-	bh=A/RAAHLPJyqcBRLEn9dhrE5lEDOuJiwuetalbBoywNA=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1581575527;
+	bh=6lKUwheWJUCwaVUZGzG3q5l5D9M/8dfnXBfaGGgTxoQ=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=u7HZZaQ6nKiHNaDdHbtIgJ+8zJuYZoa5QirnexngOkiGTfj95V1pIayV6CbT2nrbr
-	 MeocGJo+Lvo916G1CrU0uwey7oPJESAFhbqA50cyHI6VFuUHkWLLcPfgI5ipoyBYQP
-	 M2I3V1kZX0kUBAxVM0Q7ZHOlsyYio3xaTsxyAnJI=
+	b=eQoxTS6i6G2zdknEdRhfMNT0mh5wSgokKjRFl+oVBey0tbfC4yLsu0zlpVZs3bMP/
+	 mtZ/Kne+MmUogT83BP1n4IktCbF3xVf7WCb1DrIHYM8alxsg0AbXN821q+2v7Taiqt
+	 6W615myaGuPt8ReDKthiYWD9qBR69kwPPGk2WvTE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 828FFF802A0;
-	Thu, 13 Feb 2020 07:36:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1EA8F80146;
+	Thu, 13 Feb 2020 07:30:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AE5EEF8021E; Thu, 13 Feb 2020 07:12:03 +0100 (CET)
+ id 212C7F80145; Thu, 13 Feb 2020 07:30:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8DAACF80145
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 07:11:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8DAACF80145
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="oO1fEF3q"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="oIifojuq"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 4A4185787;
- Thu, 13 Feb 2020 01:11:52 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 13 Feb 2020 01:11:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=a9fTVyecXZrj4
- 58LoOMqCDqMuCHq/1PpDqlvwxBn0+c=; b=oO1fEF3quLxfZqwDeQ9/UNhL3HvU7
- EsJHZLhrBLEbi/R5gpHI8kHWC/7NXVLisih/bgVrWjQK3ZNPBdzcWkpgxwiX39Ia
- q98Vh2qnkGidwIgdd0fhWVIr+eAF6Ln4nB+0drCqIrm1S/1nQ70u//5dQ8gUSRtw
- Wib4kghZMCtGyyKRPEgmUG6DEHTmtpVzKCsxHX0YE/As829aSAmT/YiavYW5k+b1
- xM5NZLX5HRbPMMFMwKDUBB7Z5kT/0M+0sJH0TOh/UhQHOxdQPXs64+3FuHGEPiJH
- oyOehFN1eLBoB8zuviA1BQ9fYnBIaEoDLR9jCxW5MFgknDBs+BlqqozwA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=a9fTVyecXZrj458LoOMqCDqMuCHq/1PpDqlvwxBn0+c=; b=oIifojuq
- S5ysWOq2g9Cx7o/fk4hirjDVqXdBd8nyMR2KoJWIB+ddmM329Uc/f1e/FkgjkAGr
- hOrFyuMc+B+frHaT9+GvQokTBhve7+mqGFoBRHs9FcG6BTVu/PO8AuD3E05MlPC3
- DcXl290S97f5922T8EWufCmkFbSJO9g40EfNPwa6QngMMkBSk4K/5IS8ZczCmqY9
- crAcoBD62VsajZhu1lYFjGM5PV3fTXvxQwGZFtHXyBNICzKlA77yVMMU3lo8A3Qt
- BxY3vhfpT9btBQUjhS29I+Ue66jUVXhQkKDHlZz6u2sSO1Upv6G3CBRSQAZUmKkr
- IH2M2hxfMDfncw==
-X-ME-Sender: <xms:qOhEXooMJhtRvkCJDvNnjLyNRcAwO4xiWjOPZZ0MRQg38HBZ4ZHuDg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrieejgdelhecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhvffufffkofgjfhgggfestdekredtredttdenucfhrhhomhepufgrmhhuvghl
- ucfjohhllhgrnhguuceoshgrmhhuvghlsehshhholhhlrghnugdrohhrgheqnecukfhppe
- ejtddrudefhedrudegkedrudehudenucevlhhushhtvghrufhiiigvpedunecurfgrrhgr
- mhepmhgrihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhg
-X-ME-Proxy: <xmx:qOhEXq8_Wrvd1OZCq8AlQQpfWQbjrbPnz7M5UjPbZikWqz8OoEHkTg>
- <xmx:qOhEXv9g92D09xqgbZ78izXkK0rw5PyY_Iuq1DyQHtSvI71vKzw0-A>
- <xmx:qOhEXhsGIfBscFXYf-IGYPEpMGri3E_eJwGDABLdjpKT36FYGuOb5Q>
- <xmx:qOhEXkzjoOxGGG-uqS15ZlGwDxj5xaMwH3uvkM6tgnwSP7KxBHShJQ>
-Received: from titanium.stl.sholland.net
- (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id 69E5C3280059;
- Thu, 13 Feb 2020 01:11:51 -0500 (EST)
-From: Samuel Holland <samuel@sholland.org>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- Jonathan Corbet <corbet@lwn.net>, Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 13 Feb 2020 00:11:47 -0600
-Message-Id: <20200213061147.29386-5-samuel@sholland.org>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200213061147.29386-1-samuel@sholland.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 006D9F80138
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 07:30:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 006D9F80138
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id AC132ADAD;
+ Thu, 13 Feb 2020 06:30:17 +0000 (UTC)
+Date: Thu, 13 Feb 2020 07:30:16 +0100
+Message-ID: <s5ha75nyp6v.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Samuel Holland <samuel@sholland.org>
+In-Reply-To: <20200213061147.29386-3-samuel@sholland.org>
 References: <20200213061147.29386-1-samuel@sholland.org>
-MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 13 Feb 2020 07:36:42 +0100
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Samuel Holland <samuel@sholland.org>, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: [alsa-devel] [PATCH 4/4] ASoC: simple-card: Add support for
-	codec-to-codec dai_links
+ <20200213061147.29386-3-samuel@sholland.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Rob Herring <robh+dt@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [alsa-devel] [PATCH 2/4] ALSA: pcm: Make snd_pcm_limit_hw_rates
+	take hw directly
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,159 +77,353 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-For now we assume there are only a few sets of valid PCM stream
-parameters, to avoid needing to specify them in the device tree. We
-also assume they are the same in both directions. We calculate the
-common subset of parameters, and then the existing code automatically
-chooses the highest quality of the remaining values.
+On Thu, 13 Feb 2020 07:11:45 +0100,
+Samuel Holland wrote:
+> 
+> It can be useful to derive min/max rates of a snd_pcm_hardware without
+> having a snd_pcm_runtime, such as before constructing an ASoC DAI link.
+> 
+> Since snd_pcm_limit_hw_rates only uses runtime->hw, it does not actually
+> need the snd_pcm_runtime. Modify it to take a pointer to hw directly.
 
-Signed-off-by: Samuel Holland <samuel@sholland.org>
----
- .../devicetree/bindings/sound/simple-card.txt |  1 +
- Documentation/sound/soc/codec-to-codec.rst    |  9 ++++-
- include/sound/simple_card_utils.h             |  1 +
- sound/soc/generic/simple-card-utils.c         | 39 +++++++++++++++++++
- sound/soc/generic/simple-card.c               | 12 ++++++
- 5 files changed, 60 insertions(+), 2 deletions(-)
+I prefer adding a new function and change snd_pcm_limit_hw_rates() to
+static inline just calling the new one with &runtime->hw, instead of
+touching so many callers site.
 
-diff --git a/Documentation/devicetree/bindings/sound/simple-card.txt b/Documentation/devicetree/bindings/sound/simple-card.txt
-index 79954cd6e37b..18a62e404a30 100644
---- a/Documentation/devicetree/bindings/sound/simple-card.txt
-+++ b/Documentation/devicetree/bindings/sound/simple-card.txt
-@@ -63,6 +63,7 @@ Optional dai-link subnode properties:
- - mclk-fs             			: Multiplication factor between stream
- 					  rate and codec mclk, applied only for
- 					  the dai-link.
-+- codec-to-codec			: Indicates a codec-to-codec dai-link.
- 
- For backward compatibility the frame-master and bitclock-master
- properties can be used as booleans in codec subnode to indicate if the
-diff --git a/Documentation/sound/soc/codec-to-codec.rst b/Documentation/sound/soc/codec-to-codec.rst
-index 810109d7500d..efe0a8c07933 100644
---- a/Documentation/sound/soc/codec-to-codec.rst
-+++ b/Documentation/sound/soc/codec-to-codec.rst
-@@ -104,5 +104,10 @@ Make sure to name your corresponding cpu and codec playback and capture
- dai names ending with "Playback" and "Capture" respectively as dapm core
- will link and power those dais based on the name.
- 
--Note that in current device tree there is no way to mark a dai_link
--as codec to codec. However, it may change in future.
-+A dai_link in a "simple-audio-card" can be marked as codec to codec in
-+the device tree by adding the "codec-to-codec" property. The dai_link
-+will be initialized with the subset of stream parameters (channels,
-+format, sample rate) supported by all DAIs on the link. Since there is
-+no way to provide these parameters in the device tree, this is mostly
-+useful for communication with simple fixed-function codecs, such as a
-+Bluetooth controller or cellular modem.
-diff --git a/include/sound/simple_card_utils.h b/include/sound/simple_card_utils.h
-index bbdd1542d6f1..80b60237b3cd 100644
---- a/include/sound/simple_card_utils.h
-+++ b/include/sound/simple_card_utils.h
-@@ -49,6 +49,7 @@ struct asoc_simple_priv {
- 		struct asoc_simple_data adata;
- 		struct snd_soc_codec_conf *codec_conf;
- 		unsigned int mclk_fs;
-+		bool codec_to_codec;
- 	} *dai_props;
- 	struct asoc_simple_jack hp_jack;
- 	struct asoc_simple_jack mic_jack;
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 9b794775df53..2de4cfead790 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -331,6 +331,41 @@ static int asoc_simple_init_dai(struct snd_soc_dai *dai,
- 	return 0;
- }
- 
-+static int asoc_simple_init_dai_link_params(struct snd_soc_pcm_runtime *rtd,
-+					    struct simple_dai_props *dai_props)
-+{
-+	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-+	struct snd_soc_pcm_stream *params;
-+	struct snd_pcm_hardware hw;
-+	int ret;
-+
-+	if (!dai_props->codec_to_codec)
-+		return 0;
-+
-+	/* Assumes the hardware capabilities are the same in both directions */
-+	ret = snd_soc_runtime_calc_hw(rtd, &hw, SNDRV_PCM_STREAM_PLAYBACK);
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "simple-card: no valid dai_link params\n");
-+		return ret;
-+	}
-+
-+	params = devm_kzalloc(rtd->dev, sizeof(*params), GFP_KERNEL);
-+	if (!params)
-+		return -ENOMEM;
-+
-+	params->formats = hw.formats;
-+	params->rates = hw.rates;
-+	params->rate_min = hw.rate_min;
-+	params->rate_max = hw.rate_max;
-+	params->channels_min = hw.channels_min;
-+	params->channels_max = hw.channels_max;
-+
-+	dai_link->params = params;
-+	dai_link->num_params = 1;
-+
-+	return 0;
-+}
-+
- int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-@@ -347,6 +382,10 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = asoc_simple_init_dai_link_params(rtd, dai_props);
-+	if (ret < 0)
-+		return ret;
-+
- 	return 0;
- }
- EXPORT_SYMBOL_GPL(asoc_simple_dai_init);
-diff --git a/sound/soc/generic/simple-card.c b/sound/soc/generic/simple-card.c
-index 55e9f8800b3e..179ab4482d10 100644
---- a/sound/soc/generic/simple-card.c
-+++ b/sound/soc/generic/simple-card.c
-@@ -77,6 +77,16 @@ static int asoc_simple_parse_dai(struct device_node *node,
- 	return 0;
- }
- 
-+static void simple_parse_codec_to_codec(struct device_node *node,
-+					struct simple_dai_props *props,
-+					char *prefix)
-+{
-+	char prop[128];
-+
-+	snprintf(prop, sizeof(prop), "%scodec-to-codec", prefix);
-+	props->codec_to_codec = of_property_read_bool(node, prop);
-+}
-+
- static void simple_parse_convert(struct device *dev,
- 				 struct device_node *np,
- 				 struct asoc_simple_data *adata)
-@@ -217,6 +227,7 @@ static int simple_dai_link_of_dpcm(struct asoc_simple_priv *priv,
- 					     "prefix");
- 	}
- 
-+	simple_parse_codec_to_codec(node, dai_props, prefix);
- 	simple_parse_convert(dev, np, &dai_props->adata);
- 	simple_parse_mclk_fs(top, np, codec, dai_props, prefix);
- 
-@@ -292,6 +303,7 @@ static int simple_dai_link_of(struct asoc_simple_priv *priv,
- 	if (ret < 0)
- 		goto dai_link_of_err;
- 
-+	simple_parse_codec_to_codec(node, dai_props, prefix);
- 	simple_parse_mclk_fs(top, cpu, codec, dai_props, prefix);
- 
- 	ret = asoc_simple_parse_cpu(cpu, dai_link, &single_cpu);
--- 
-2.24.1
 
+thanks,
+
+Takashi
+
+> 
+> Signed-off-by: Samuel Holland <samuel@sholland.org>
+> ---
+>  .../gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c    |  2 +-
+>  include/sound/pcm.h                                |  2 +-
+>  sound/arm/aaci.c                                   |  2 +-
+>  sound/arm/pxa2xx-ac97.c                            |  2 +-
+>  sound/core/pcm_misc.c                              | 14 +++++++-------
+>  sound/firewire/dice/dice-pcm.c                     |  2 +-
+>  sound/firewire/digi00x/digi00x-pcm.c               |  2 +-
+>  sound/firewire/fireworks/fireworks_pcm.c           |  2 +-
+>  sound/firewire/motu/motu-pcm.c                     |  2 +-
+>  sound/firewire/tascam/tascam-pcm.c                 |  2 +-
+>  sound/pci/atiixp.c                                 |  2 +-
+>  sound/pci/cs5535audio/cs5535audio_pcm.c            |  4 ++--
+>  sound/pci/hda/hda_controller.c                     |  4 ++--
+>  sound/pci/intel8x0.c                               |  2 +-
+>  sound/pci/sis7019.c                                |  2 +-
+>  sound/pci/via82xx.c                                |  4 ++--
+>  sound/soc/soc-pcm.c                                |  4 ++--
+>  sound/usb/caiaq/audio.c                            |  4 ++--
+>  18 files changed, 29 insertions(+), 29 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
+> index 2b7539701b42..33f7bcf992a4 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-ahb-audio.c
+> @@ -328,7 +328,7 @@ static int dw_hdmi_open(struct snd_pcm_substream *substream)
+>  	if (ret < 0)
+>  		return ret;
+>  
+> -	ret = snd_pcm_limit_hw_rates(runtime);
+> +	ret = snd_pcm_limit_hw_rates(&runtime->hw);
+>  	if (ret < 0)
+>  		return ret;
+>  
+> diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+> index 8a89fa6fdd5e..203b79d2712a 100644
+> --- a/include/sound/pcm.h
+> +++ b/include/sound/pcm.h
+> @@ -1121,7 +1121,7 @@ snd_pcm_kernel_readv(struct snd_pcm_substream *substream,
+>  	return __snd_pcm_lib_xfer(substream, bufs, false, frames, true);
+>  }
+>  
+> -int snd_pcm_limit_hw_rates(struct snd_pcm_runtime *runtime);
+> +int snd_pcm_limit_hw_rates(struct snd_pcm_hardware *hw);
+>  unsigned int snd_pcm_rate_to_rate_bit(unsigned int rate);
+>  unsigned int snd_pcm_rate_bit_to_rate(unsigned int rate_bit);
+>  unsigned int snd_pcm_rate_mask_intersect(unsigned int rates_a,
+> diff --git a/sound/arm/aaci.c b/sound/arm/aaci.c
+> index b5399b0090a7..5052689247f9 100644
+> --- a/sound/arm/aaci.c
+> +++ b/sound/arm/aaci.c
+> @@ -413,7 +413,7 @@ static int aaci_pcm_open(struct snd_pcm_substream *substream)
+>  	runtime->private_data = aacirun;
+>  	runtime->hw = aaci_hw_info;
+>  	runtime->hw.rates = aacirun->pcm->rates;
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  
+>  	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+>  		runtime->hw.channels_max = 6;
+> diff --git a/sound/arm/pxa2xx-ac97.c b/sound/arm/pxa2xx-ac97.c
+> index acfaf1d4ec25..cfb23073471e 100644
+> --- a/sound/arm/pxa2xx-ac97.c
+> +++ b/sound/arm/pxa2xx-ac97.c
+> @@ -77,7 +77,7 @@ static int pxa2xx_ac97_pcm_open(struct snd_pcm_substream *substream)
+>  	i = (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) ?
+>  		AC97_RATES_FRONT_DAC : AC97_RATES_ADC;
+>  	runtime->hw.rates = pxa2xx_ac97_ac97->rates[i];
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  
+>  	platform_ops = substream->pcm->card->dev->platform_data;
+>  	if (platform_ops && platform_ops->startup) {
+> diff --git a/sound/core/pcm_misc.c b/sound/core/pcm_misc.c
+> index c4eb561d2008..435688855ed0 100644
+> --- a/sound/core/pcm_misc.c
+> +++ b/sound/core/pcm_misc.c
+> @@ -474,25 +474,25 @@ EXPORT_SYMBOL(snd_pcm_format_set_silence);
+>  
+>  /**
+>   * snd_pcm_limit_hw_rates - determine rate_min/rate_max fields
+> - * @runtime: the runtime instance
+> + * @runtime: the pcm hw instance
+>   *
+>   * Determines the rate_min and rate_max fields from the rates bits of
+> - * the given runtime->hw.
+> + * the given hw.
+>   *
+>   * Return: Zero if successful.
+>   */
+> -int snd_pcm_limit_hw_rates(struct snd_pcm_runtime *runtime)
+> +int snd_pcm_limit_hw_rates(struct snd_pcm_hardware *hw)
+>  {
+>  	int i;
+>  	for (i = 0; i < (int)snd_pcm_known_rates.count; i++) {
+> -		if (runtime->hw.rates & (1 << i)) {
+> -			runtime->hw.rate_min = snd_pcm_known_rates.list[i];
+> +		if (hw->rates & (1 << i)) {
+> +			hw->rate_min = snd_pcm_known_rates.list[i];
+>  			break;
+>  		}
+>  	}
+>  	for (i = (int)snd_pcm_known_rates.count - 1; i >= 0; i--) {
+> -		if (runtime->hw.rates & (1 << i)) {
+> -			runtime->hw.rate_max = snd_pcm_known_rates.list[i];
+> +		if (hw->rates & (1 << i)) {
+> +			hw->rate_max = snd_pcm_known_rates.list[i];
+>  			break;
+>  		}
+>  	}
+> diff --git a/sound/firewire/dice/dice-pcm.c b/sound/firewire/dice/dice-pcm.c
+> index be79d659eedf..85941d945067 100644
+> --- a/sound/firewire/dice/dice-pcm.c
+> +++ b/sound/firewire/dice/dice-pcm.c
+> @@ -117,7 +117,7 @@ static int limit_channels_and_rates(struct snd_dice *dice,
+>  		hw->channels_max = max(hw->channels_max, channels);
+>  	}
+>  
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(hw);
+>  
+>  	return 0;
+>  }
+> diff --git a/sound/firewire/digi00x/digi00x-pcm.c b/sound/firewire/digi00x/digi00x-pcm.c
+> index 57cbce4fd836..0709070ab5af 100644
+> --- a/sound/firewire/digi00x/digi00x-pcm.c
+> +++ b/sound/firewire/digi00x/digi00x-pcm.c
+> @@ -78,7 +78,7 @@ static int pcm_init_hw_params(struct snd_dg00x *dg00x,
+>  		    SNDRV_PCM_RATE_48000 |
+>  		    SNDRV_PCM_RATE_88200 |
+>  		    SNDRV_PCM_RATE_96000;
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(hw);
+>  
+>  	err = snd_pcm_hw_rule_add(substream->runtime, 0,
+>  				  SNDRV_PCM_HW_PARAM_CHANNELS,
+> diff --git a/sound/firewire/fireworks/fireworks_pcm.c b/sound/firewire/fireworks/fireworks_pcm.c
+> index e69896d748df..2ee8e98ea2b6 100644
+> --- a/sound/firewire/fireworks/fireworks_pcm.c
+> +++ b/sound/firewire/fireworks/fireworks_pcm.c
+> @@ -149,7 +149,7 @@ pcm_init_hw_params(struct snd_efw *efw,
+>  
+>  	/* limit rates */
+>  	runtime->hw.rates = efw->supported_sampling_rate,
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  
+>  	limit_channels(&runtime->hw, pcm_channels);
+>  
+> diff --git a/sound/firewire/motu/motu-pcm.c b/sound/firewire/motu/motu-pcm.c
+> index 005970931030..338eb0572890 100644
+> --- a/sound/firewire/motu/motu-pcm.c
+> +++ b/sound/firewire/motu/motu-pcm.c
+> @@ -92,7 +92,7 @@ static void limit_channels_and_rates(struct snd_motu *motu,
+>  		hw->channels_max = max(hw->channels_max, pcm_channels);
+>  	}
+>  
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(hw);
+>  }
+>  
+>  static int init_hw_info(struct snd_motu *motu,
+> diff --git a/sound/firewire/tascam/tascam-pcm.c b/sound/firewire/tascam/tascam-pcm.c
+> index 8e9b444c8bff..6722c1a65a42 100644
+> --- a/sound/firewire/tascam/tascam-pcm.c
+> +++ b/sound/firewire/tascam/tascam-pcm.c
+> @@ -35,7 +35,7 @@ static int pcm_init_hw_params(struct snd_tscm *tscm,
+>  		    SNDRV_PCM_RATE_48000 |
+>  		    SNDRV_PCM_RATE_88200 |
+>  		    SNDRV_PCM_RATE_96000;
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(hw);
+>  
+>  	return amdtp_tscm_add_pcm_hw_constraints(stream, runtime);
+>  }
+> diff --git a/sound/pci/atiixp.c b/sound/pci/atiixp.c
+> index 1e1ededf8eb2..d7af407306b7 100644
+> --- a/sound/pci/atiixp.c
+> +++ b/sound/pci/atiixp.c
+> @@ -1039,7 +1039,7 @@ static int snd_atiixp_pcm_open(struct snd_pcm_substream *substream,
+>  	dma->ac97_pcm_type = pcm_type;
+>  	if (pcm_type >= 0) {
+>  		runtime->hw.rates = chip->pcms[pcm_type]->rates;
+> -		snd_pcm_limit_hw_rates(runtime);
+> +		snd_pcm_limit_hw_rates(&runtime->hw);
+>  	} else {
+>  		/* direct SPDIF */
+>  		runtime->hw.formats = SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE;
+> diff --git a/sound/pci/cs5535audio/cs5535audio_pcm.c b/sound/pci/cs5535audio/cs5535audio_pcm.c
+> index 4642e5384e83..7ce1664a8148 100644
+> --- a/sound/pci/cs5535audio/cs5535audio_pcm.c
+> +++ b/sound/pci/cs5535audio/cs5535audio_pcm.c
+> @@ -84,7 +84,7 @@ static int snd_cs5535audio_playback_open(struct snd_pcm_substream *substream)
+>  
+>  	runtime->hw = snd_cs5535audio_playback;
+>  	runtime->hw.rates = cs5535au->ac97->rates[AC97_RATES_FRONT_DAC];
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  	cs5535au->playback_substream = substream;
+>  	runtime->private_data = &(cs5535au->dmas[CS5535AUDIO_DMA_PLAYBACK]);
+>  	if ((err = snd_pcm_hw_constraint_integer(runtime,
+> @@ -343,7 +343,7 @@ static int snd_cs5535audio_capture_open(struct snd_pcm_substream *substream)
+>  
+>  	runtime->hw = snd_cs5535audio_capture;
+>  	runtime->hw.rates = cs5535au->ac97->rates[AC97_RATES_ADC];
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  	cs5535au->capture_substream = substream;
+>  	runtime->private_data = &(cs5535au->dmas[CS5535AUDIO_DMA_CAPTURE]);
+>  	if ((err = snd_pcm_hw_constraint_integer(runtime,
+> diff --git a/sound/pci/hda/hda_controller.c b/sound/pci/hda/hda_controller.c
+> index ba56b59b3e17..3728dbfae7b0 100644
+> --- a/sound/pci/hda/hda_controller.c
+> +++ b/sound/pci/hda/hda_controller.c
+> @@ -605,7 +605,7 @@ static int azx_pcm_open(struct snd_pcm_substream *substream)
+>  	runtime->hw.channels_max = hinfo->channels_max;
+>  	runtime->hw.formats = hinfo->formats;
+>  	runtime->hw.rates = hinfo->rates;
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  	snd_pcm_hw_constraint_integer(runtime, SNDRV_PCM_HW_PARAM_PERIODS);
+>  
+>  	/* avoid wrap-around with wall-clock */
+> @@ -648,7 +648,7 @@ static int azx_pcm_open(struct snd_pcm_substream *substream)
+>  		azx_release_device(azx_dev);
+>  		goto powerdown;
+>  	}
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  	/* sanity check */
+>  	if (snd_BUG_ON(!runtime->hw.channels_min) ||
+>  	    snd_BUG_ON(!runtime->hw.channels_max) ||
+> diff --git a/sound/pci/intel8x0.c b/sound/pci/intel8x0.c
+> index 12374ba08ca2..7f85a30291a1 100644
+> --- a/sound/pci/intel8x0.c
+> +++ b/sound/pci/intel8x0.c
+> @@ -1119,7 +1119,7 @@ static int snd_intel8x0_pcm_open(struct snd_pcm_substream *substream, struct ich
+>  	ichdev->substream = substream;
+>  	runtime->hw = snd_intel8x0_stream;
+>  	runtime->hw.rates = ichdev->pcm->rates;
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  	if (chip->device_type == DEVICE_SIS) {
+>  		runtime->hw.buffer_bytes_max = 64*1024;
+>  		runtime->hw.period_bytes_max = 64*1024;
+> diff --git a/sound/pci/sis7019.c b/sound/pci/sis7019.c
+> index ef7dd290ae05..4d8e852d438f 100644
+> --- a/sound/pci/sis7019.c
+> +++ b/sound/pci/sis7019.c
+> @@ -681,7 +681,7 @@ static int sis_capture_open(struct snd_pcm_substream *substream)
+>  	runtime->private_data = voice;
+>  	runtime->hw = sis_capture_hw_info;
+>  	runtime->hw.rates = sis->ac97[0]->rates[AC97_RATES_ADC];
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  	snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
+>  						9, 0xfff9);
+>  	snd_pcm_hw_constraint_minmax(runtime, SNDRV_PCM_HW_PARAM_BUFFER_SIZE,
+> diff --git a/sound/pci/via82xx.c b/sound/pci/via82xx.c
+> index 30c817b6b635..8a55153a6ea3 100644
+> --- a/sound/pci/via82xx.c
+> +++ b/sound/pci/via82xx.c
+> @@ -1180,7 +1180,7 @@ static int snd_via82xx_pcm_open(struct via82xx *chip, struct viadev *viadev,
+>  	if (chip->spdif_on && viadev->reg_offset == 0x30) {
+>  		/* DXS#3 and spdif is on */
+>  		runtime->hw.rates = chip->ac97->rates[AC97_RATES_SPDIF];
+> -		snd_pcm_limit_hw_rates(runtime);
+> +		snd_pcm_limit_hw_rates(&runtime->hw);
+>  	} else if (chip->dxs_fixed && viadev->reg_offset < 0x40) {
+>  		/* fixed DXS playback rate */
+>  		runtime->hw.rates = SNDRV_PCM_RATE_48000;
+> @@ -1195,7 +1195,7 @@ static int snd_via82xx_pcm_open(struct via82xx *chip, struct viadev *viadev,
+>  	} else if (! ratep->rate) {
+>  		int idx = viadev->direction ? AC97_RATES_ADC : AC97_RATES_FRONT_DAC;
+>  		runtime->hw.rates = chip->ac97->rates[idx];
+> -		snd_pcm_limit_hw_rates(runtime);
+> +		snd_pcm_limit_hw_rates(&runtime->hw);
+>  	} else {
+>  		/* a fixed rate */
+>  		runtime->hw.rates = SNDRV_PCM_RATE_KNOT;
+> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> index 01e7bc03d92f..bd7b3cfcfa62 100644
+> --- a/sound/soc/soc-pcm.c
+> +++ b/sound/soc/soc-pcm.c
+> @@ -416,7 +416,7 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+>  		hw->formats = formats & cpu_stream->formats;
+>  	hw->rates = snd_pcm_rate_mask_intersect(rates, cpu_stream->rates);
+>  
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(hw);
+>  
+>  	hw->rate_min = max(hw->rate_min, cpu_stream->rate_min);
+>  	hw->rate_min = max(hw->rate_min, rate_min);
+> @@ -1951,7 +1951,7 @@ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
+>  	fe->dpcm[stream].state = SND_SOC_DPCM_STATE_OPEN;
+>  
+>  	dpcm_set_fe_runtime(fe_substream);
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  
+>  	ret = dpcm_apply_symmetry(fe_substream, stream);
+>  	if (ret < 0) {
+> diff --git a/sound/usb/caiaq/audio.c b/sound/usb/caiaq/audio.c
+> index 970eb0865ba3..242f50ebc63a 100644
+> --- a/sound/usb/caiaq/audio.c
+> +++ b/sound/usb/caiaq/audio.c
+> @@ -145,7 +145,7 @@ static int snd_usb_caiaq_substream_open(struct snd_pcm_substream *substream)
+>  
+>  	dev_dbg(dev, "%s(%p)\n", __func__, substream);
+>  	substream->runtime->hw = cdev->pcm_info;
+> -	snd_pcm_limit_hw_rates(substream->runtime);
+> +	snd_pcm_limit_hw_rates(&substream->runtime->hw);
+>  
+>  	return 0;
+>  }
+> @@ -243,7 +243,7 @@ static int snd_usb_caiaq_pcm_prepare(struct snd_pcm_substream *substream)
+>  		if (runtime->rate == rates[i])
+>  			cdev->pcm_info.rates = 1 << i;
+>  
+> -	snd_pcm_limit_hw_rates(runtime);
+> +	snd_pcm_limit_hw_rates(&runtime->hw);
+>  
+>  	bytes_per_sample = BYTES_PER_SAMPLE;
+>  	if (cdev->spec.data_alignment >= 2)
+> -- 
+> 2.24.1
+> 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

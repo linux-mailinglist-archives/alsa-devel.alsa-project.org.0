@@ -2,84 +2,84 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E112315C56B
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 16:58:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C0EC15C56C
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 16:58:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85BE316E5;
-	Thu, 13 Feb 2020 16:57:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85BE316E5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F66A16DD;
+	Thu, 13 Feb 2020 16:57:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F66A16DD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581609482;
-	bh=fys5UashVDFCQIQviGdoWwcnUABE68JIRzqDlt1Agd0=;
+	s=default; t=1581609519;
+	bh=Kz5hTMG4f+9nhN0+vkdKhX/wNczyiCDqvH/NkcSBHC8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ro2hGuoNjOIryAWCPUT+Evc88gT+N3a8GnjFcrp/hBFBmvH6WuoyC1///c0BiGS20
-	 2qpRjxOF80mxM61r0k/5Y25NbKZHT5QSciX6kfHrBV2NPQaYBT3FPB2ZIYVy/o39X/
-	 EAFvX2eud/iEzSyEX3hU79XBERow22pJ2zUzKYTA=
+	b=pOt6uNOqUZM/PGPYCT+G0qw2vLYoqTaPDMI79/Ew17MtgtMIfSp7Hrp4dwk94L7Lu
+	 IBRnjU7eVkwIZiso5KfDVb4uk58uNxmU4RTre6q6enhTs5l6Dr81PyEAYn0ykNkPGC
+	 2ovH5nH6OblL3+/N3Uk5FghaaSc2TdnZ4ew6kQBc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3CB3DF802A9;
-	Thu, 13 Feb 2020 16:52:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 462D9F802C4;
+	Thu, 13 Feb 2020 16:52:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBF40F8028F; Thu, 13 Feb 2020 16:52:27 +0100 (CET)
+ id 25329F80291; Thu, 13 Feb 2020 16:52:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
+Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
+ [IPv6:2a00:1450:4864:20::341])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D807AF800F0
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 16:52:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D807AF800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80412F8013E
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 16:52:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80412F8013E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="ZCJgo/bd"
-Received: by mail-wr1-x429.google.com with SMTP id n10so5352077wrm.1
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 07:52:16 -0800 (PST)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="OcbaJySh"
+Received: by mail-wm1-x341.google.com with SMTP id t14so7311830wmi.5
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 07:52:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
  h=from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=T1g855CS59jrh8SfK06mUR/Pthrs1DKdWIhgcvf/5RA=;
- b=ZCJgo/bdkSCVvMzBckcPAr7Bb2qUBTV679cow4tumi6A34TqMO1khsOmJCqlpE3nf8
- NPBMErlh4gnrGnDpouHkhd67f11Wvf0kKseO1gKmknSUECRbCnR2xq3o50SnIhHgtWyH
- k9csymi780aSj777AIavG5nAxHMkIdK93Mno2DRvf1KdEkgTPJ21Xyix/Fk/pfXrJYpy
- HR6F8R1KUjG7RVfDkiwflbTIBu9x7BEF6lqZls/320swiS10Ha+LUVWS69okKa3aV/2i
- yE6WdHxy0B0vCcoffHyU1oeIC7pc5Nqty+jjF7NFNsf/h4diCTBL6UJs/ieQEq7fpr81
- 21Pg==
+ bh=tveyt6J2X+uabgEQ/mj5bAqqccazTsWZH5vIdnttJSg=;
+ b=OcbaJyShdx1CRYbEg0P7r6/7tU4ttgaXvOw6dIVStzuNDwuKZO9sZNgWdCK71k8pFE
+ b5WfunilEzaZF/54lgN1xTSDCi8dtm+WwiyEoWeHJHdRbKu65sCJehSgDxSqLMjvjIlW
+ yX4Kb7FqQFH/cos/EMvelQGbB1mLmMkYqpS6OhqmmuPN0Z8Gp+qcUKe1i0bEKveAIsJH
+ Tn4kkGKR82GtzFUa5hRT5YyorS9UTW3iFMnyNpPKh04AdbXI9l7uGBrm917etxPjNnMP
+ SrcIGXWJ6tWyHuSv7aCiQSbNuq+b9jHF0ozI3VdqXAbEAq8WkGyb1R7X62iKuS6GDHwG
+ 6NwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=T1g855CS59jrh8SfK06mUR/Pthrs1DKdWIhgcvf/5RA=;
- b=F+8SSDU9Q1V3+LNSatmqW/E7ZdBakw9aY6kcX1T/5syeFZU78nfpIWO9i0gmqJ/zJu
- PHmKWh7g+Cj6LPm9Yh4JKb0AsnppSsl+17ayPwDMoHlKYQf17irsY4SZqJwwUrtn33Xs
- p65aOs3vtFVupAcjAFrodv5u+oI/iljeVx4YYUubUq/C6jTDw8Mn2lS6wkcsYZMJOFOZ
- inlJfAK0Ss3nhZWuhgigbgcdamgX8eCCgxiRZFJAKgXa198/6TNyRGg4OeRqMLi2l0wh
- 2glBItDES9KOe6jHSAmb6FNtzbyXLRzuQMRw64Fz/zEJ/rwx/D7nohxuy0cSYdWz5yXc
- 0NVQ==
-X-Gm-Message-State: APjAAAWSQ5Ki+S3eBSDo2hT7GTz0HgUTKQ7+ItBpvha9fC2cwHPZslh3
- IKqLmRH/q/iY65EJzczIG75RuA==
-X-Google-Smtp-Source: APXvYqzX5hIDcuU5EdxX0EcpHWnkLsb/NVSMa6VEMThGZDOYBjYlw1628Xp6uOcnr1jk2AWjKEL9hA==
-X-Received: by 2002:adf:de0b:: with SMTP id b11mr21740714wrm.89.1581609135767; 
- Thu, 13 Feb 2020 07:52:15 -0800 (PST)
+ bh=tveyt6J2X+uabgEQ/mj5bAqqccazTsWZH5vIdnttJSg=;
+ b=SAGwbqxwmlQq1bd+8AoGssZ7SnXoHnVKyOFxzWdnCVrNN8QdM6fP0ldj3Gj+UZB1ZP
+ om7Y7KpDeVEHDvtbJc9xPwrBs3lpcosd2LN7gHpjD7sBkHYEl6AAKm40sXTMF8wJG5tW
+ LgoIldRrfJxGgi+IwHkkzUWLQdKykENeSiWrlh99UZsy2Xn3v38ge04+9xSJftGczv4z
+ itY4ebju38dc7DA2sV3HnPsxmHSHdY2Da6awpGfyl+dJThLZWQe2skzg7BIO4aDgusdh
+ FhCGRh/YbFylYYtHkLvHK/1IH4tnW0zRT9MMHkYom2jrAfxGOJyXizi+QsFz+aiLZUXL
+ n/BA==
+X-Gm-Message-State: APjAAAUgwNqp/DE91Y4ECepNco97Qqow7myymyHuBzWtHSAZJKDgfNCU
+ //tJ4Ugb2H8NJH1ARfJ1GHX8+eO5eyw=
+X-Google-Smtp-Source: APXvYqwA041IWnaiiF8p6WaNGCtAIMpLGWSuvS9KZogSxJnR7PyvLosI31gLD3ccOvYkV2nUj2AC7g==
+X-Received: by 2002:a7b:cbd6:: with SMTP id n22mr6783621wmi.118.1581609136778; 
+ Thu, 13 Feb 2020 07:52:16 -0800 (PST)
 Received: from starbuck.baylibre.local
  (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id e1sm3319814wrt.84.2020.02.13.07.52.14
+ by smtp.googlemail.com with ESMTPSA id e1sm3319814wrt.84.2020.02.13.07.52.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2020 07:52:15 -0800 (PST)
+ Thu, 13 Feb 2020 07:52:16 -0800 (PST)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
-Date: Thu, 13 Feb 2020 16:51:58 +0100
-Message-Id: <20200213155159.3235792-9-jbrunet@baylibre.com>
+Date: Thu, 13 Feb 2020 16:51:59 +0100
+Message-Id: <20200213155159.3235792-10-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200213155159.3235792-1-jbrunet@baylibre.com>
 References: <20200213155159.3235792-1-jbrunet@baylibre.com>
@@ -88,8 +88,7 @@ X-Patchwork-Bot: notify
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
  linux-amlogic@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH 8/9] ASoC: meson: gx: add sound card dt-binding
-	documentation
+Subject: [alsa-devel] [PATCH 9/9] ASoC: meson: gx: add sound card support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,134 +106,199 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add the dt-binding documentation of sound card supporting the amlogic
-GX SoC family
+Add support for the sound card used on the amlogic GX SoC family
 
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- .../bindings/sound/amlogic,gx-sound-card.yaml | 113 ++++++++++++++++++
- 1 file changed, 113 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml
+ sound/soc/meson/Kconfig   |   7 ++
+ sound/soc/meson/Makefile  |   2 +
+ sound/soc/meson/gx-card.c | 141 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 150 insertions(+)
+ create mode 100644 sound/soc/meson/gx-card.c
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml b/Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml
+diff --git a/sound/soc/meson/Kconfig b/sound/soc/meson/Kconfig
+index 347fa78e309a..22d2af75b59e 100644
+--- a/sound/soc/meson/Kconfig
++++ b/sound/soc/meson/Kconfig
+@@ -101,6 +101,13 @@ config SND_MESON_CARD_UTILS
+ config SND_MESON_CODEC_GLUE
+ 	tristate
+ 
++config SND_MESON_GX_SOUND_CARD
++	tristate "Amlogic GX Sound Card Support"
++	select SND_MESON_CARD_UTILS
++	imply SND_MESON_AIU
++	help
++	  Select Y or M to add support for the GXBB/GXL SoC sound card
++
+ config SND_MESON_G12A_TOHDMITX
+ 	tristate "Amlogic G12A To HDMI TX Control Support"
+ 	select REGMAP_MMIO
+diff --git a/sound/soc/meson/Makefile b/sound/soc/meson/Makefile
+index bef2b72fd7a7..f9c90c391498 100644
+--- a/sound/soc/meson/Makefile
++++ b/sound/soc/meson/Makefile
+@@ -21,6 +21,7 @@ snd-soc-meson-axg-spdifout-objs := axg-spdifout.o
+ snd-soc-meson-axg-pdm-objs := axg-pdm.o
+ snd-soc-meson-card-utils-objs := meson-card-utils.o
+ snd-soc-meson-codec-glue-objs := meson-codec-glue.o
++snd-soc-meson-gx-sound-card-objs := gx-card.o
+ snd-soc-meson-g12a-tohdmitx-objs := g12a-tohdmitx.o
+ 
+ obj-$(CONFIG_SND_MESON_AIU) += snd-soc-meson-aiu.o
+@@ -37,4 +38,5 @@ obj-$(CONFIG_SND_MESON_AXG_SPDIFOUT) += snd-soc-meson-axg-spdifout.o
+ obj-$(CONFIG_SND_MESON_AXG_PDM) += snd-soc-meson-axg-pdm.o
+ obj-$(CONFIG_SND_MESON_CARD_UTILS) += snd-soc-meson-card-utils.o
+ obj-$(CONFIG_SND_MESON_CODEC_GLUE) += snd-soc-meson-codec-glue.o
++obj-$(CONFIG_SND_MESON_GX_SOUND_CARD) += snd-soc-meson-gx-sound-card.o
+ obj-$(CONFIG_SND_MESON_G12A_TOHDMITX) += snd-soc-meson-g12a-tohdmitx.o
+diff --git a/sound/soc/meson/gx-card.c b/sound/soc/meson/gx-card.c
 new file mode 100644
-index 000000000000..fb374c659be1
+index 000000000000..7b01dcb73e5e
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/amlogic,gx-sound-card.yaml
-@@ -0,0 +1,113 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/amlogic,gx-sound-card.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/sound/soc/meson/gx-card.c
+@@ -0,0 +1,141 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++//
++// Copyright (c) 2020 BayLibre, SAS.
++// Author: Jerome Brunet <jbrunet@baylibre.com>
 +
-+title: Amlogic GX sound card
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <sound/soc.h>
++#include <sound/soc-dai.h>
 +
-+maintainers:
-+  - Jerome Brunet <jbrunet@baylibre.com>
++#include "meson-card.h"
 +
-+properties:
-+  compatible:
-+    items:
-+      - const: amlogic,gx-sound-card
++struct gx_dai_link_i2s_data {
++	unsigned int mclk_fs;
++};
 +
-+  audio-aux-devs:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description: list of auxiliary devices
++/*
++ * Base params for the codec to codec links
++ * Those will be over-written by the CPU side of the link
++ */
++static const struct snd_soc_pcm_stream codec_params = {
++	.formats = SNDRV_PCM_FMTBIT_S24_LE,
++	.rate_min = 5525,
++	.rate_max = 192000,
++	.channels_min = 1,
++	.channels_max = 8,
++};
 +
-+  audio-routing:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    minItems: 2
-+    description: |-
-+      A list of the connections between audio components. Each entry is a
-+      pair of strings, the first being the connection's sink, the second
-+      being the connection's source.
++static int gx_card_i2s_be_hw_params(struct snd_pcm_substream *substream,
++				    struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct meson_card *priv = snd_soc_card_get_drvdata(rtd->card);
++	struct gx_dai_link_i2s_data *be =
++		(struct gx_dai_link_i2s_data *)priv->link_data[rtd->num];
 +
-+  audio-widgets:
-+    $ref: /schemas/types.yaml#/definitions/non-unique-string-array
-+    minItems: 2
-+    description: |-
-+      A list off component DAPM widget. Each entry is a pair of strings,
-+      the first being the widget type, the second being the widget name
++	return meson_card_i2s_set_sysclk(substream, params, be->mclk_fs);
++}
 +
-+  model:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: User specified audio sound card name
++static const struct snd_soc_ops gx_card_i2s_be_ops = {
++	.hw_params = gx_card_i2s_be_hw_params,
++};
 +
-+patternProperties:
-+  "^dai-link-[0-9]+$":
-+    type: object
-+    description: |-
-+      dai-link child nodes:
-+        Container for dai-link level properties and the CODEC sub-nodes.
-+        There should be at least one (and probably more) subnode of this type
++static int gx_card_parse_i2s(struct snd_soc_card *card,
++			     struct device_node *node,
++			     int *index)
++{
++	struct meson_card *priv = snd_soc_card_get_drvdata(card);
++	struct snd_soc_dai_link *link = &card->dai_link[*index];
++	struct gx_dai_link_i2s_data *be;
 +
-+    properties:
-+      dai-format:
-+        $ref: /schemas/types.yaml#/definitions/string
-+        enum: [ i2s, left-j, dsp_a ]
++	/* Allocate i2s link parameters */
++	be = devm_kzalloc(card->dev, sizeof(*be), GFP_KERNEL);
++	if (!be)
++		return -ENOMEM;
++	priv->link_data[*index] = be;
 +
-+      mclk-fs:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        description: |-
-+          Multiplication factor between the frame rate and master clock
-+          rate
++	/* Setup i2s link */
++	link->ops = &gx_card_i2s_be_ops;
++	link->dai_fmt = meson_card_parse_daifmt(node, link->cpus->of_node);
 +
-+      sound-dai:
-+        $ref: /schemas/types.yaml#/definitions/phandle
-+        description: phandle of the CPU DAI
++	of_property_read_u32(node, "mclk-fs", &be->mclk_fs);
 +
-+    patternProperties:
-+      "^codec-[0-9]+$":
-+        type: object
-+        description: |-
-+          Codecs:
-+          dai-link representing backend links should have at least one subnode.
-+          One subnode for each codec of the dai-link. dai-link representing
-+          frontend links have no codec, therefore have no subnodes
++	return 0;
++}
 +
-+        properties:
-+          sound-dai:
-+            $ref: /schemas/types.yaml#/definitions/phandle
-+            description: phandle of the codec DAI
++static int gx_card_cpu_identify(struct snd_soc_dai_link_component *c,
++				char *match)
++{
++	if (of_device_is_compatible(c->of_node, DT_PREFIX "aiu")) {
++		if (strstr(c->dai_name, match))
++			return 1;
++	}
 +
-+        required:
-+          - sound-dai
++	/* dai not matched */
++	return 0;
++}
 +
-+    required:
-+      - sound-dai
++static int gx_card_add_link(struct snd_soc_card *card, struct device_node *np,
++			    int *index)
++{
++	struct snd_soc_dai_link *dai_link = &card->dai_link[*index];
++	struct snd_soc_dai_link_component *cpu;
++	int ret;
 +
-+required:
-+  - model
-+  - dai-link-0
++	cpu = devm_kzalloc(card->dev, sizeof(*cpu), GFP_KERNEL);
++	if (!cpu)
++		return -ENOMEM;
 +
-+examples:
-+  - |
-+    sound {
-+        compatible = "amlogic,gx-sound-card";
-+        model = "GXL-ACME-S905X-FOO";
-+        audio-aux-devs = <&amp>;
-+        audio-routing = "I2S ENCODER I2S IN", "I2S FIFO Playback";
++	dai_link->cpus = cpu;
++	dai_link->num_cpus = 1;
 +
-+        dai-link-0 {
-+               sound-dai = <&i2s_fifo>;
-+        };
++	ret = meson_card_parse_dai(card, np, &dai_link->cpus->of_node,
++				   &dai_link->cpus->dai_name);
++	if (ret)
++		return ret;
 +
-+        dai-link-1 {
-+                sound-dai = <&i2s_encoder>;
-+                dai-format = "i2s";
-+                mclk-fs = <256>;
++	if (gx_card_cpu_identify(dai_link->cpus, "FIFO"))
++		ret = meson_card_set_fe_link(card, dai_link, np, true);
++	else
++		ret = meson_card_set_be_link(card, dai_link, np);
 +
-+                codec-0 {
-+                        sound-dai = <&codec0>;
-+                };
++	if (ret)
++		return ret;
 +
-+                codec-1 {
-+                        sound-dai = <&codec1>;
-+                };
-+        };
-+    };
++	/* Check if the cpu is the i2s encoder and parse i2s data */
++	if (gx_card_cpu_identify(dai_link->cpus, "I2S Encoder"))
++		ret = gx_card_parse_i2s(card, np, index);
 +
++	/* Or apply codec to codec params if necessary */
++	else if (gx_card_cpu_identify(dai_link->cpus, "CODEC CTRL"))
++		dai_link->params = &codec_params;
++
++	return ret;
++}
++
++static const struct meson_card_match_data gx_card_match_data = {
++	.add_link = gx_card_add_link,
++};
++
++static const struct of_device_id gx_card_of_match[] = {
++	{
++		.compatible = "amlogic,gx-sound-card",
++		.data = &gx_card_match_data,
++	}, {}
++};
++MODULE_DEVICE_TABLE(of, gx_card_of_match);
++
++static struct platform_driver gx_card_pdrv = {
++	.probe = meson_card_probe,
++	.remove = meson_card_remove,
++	.driver = {
++		.name = "gx-sound-card",
++		.of_match_table = gx_card_of_match,
++	},
++};
++module_platform_driver(gx_card_pdrv);
++
++MODULE_DESCRIPTION("Amlogic GX ALSA machine driver");
++MODULE_AUTHOR("Jerome Brunet <jbrunet@baylibre.com>");
++MODULE_LICENSE("GPL v2");
 -- 
 2.24.1
 

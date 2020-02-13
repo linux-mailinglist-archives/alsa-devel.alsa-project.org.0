@@ -2,57 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01ECE15BE6B
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 13:28:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB48115BF6E
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 14:33:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A42A11673;
-	Thu, 13 Feb 2020 13:28:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A42A11673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 24BBE1676;
+	Thu, 13 Feb 2020 14:32:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 24BBE1676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581596937;
-	bh=4qVn7YU+FDFdSXW2EdeerdCC5qpbrEA3tacH98/hXt0=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=BmaDe7TzRHP4lAHYn/gP8EA4F+4SFVz2WcPfp77lDCdtlRhAV8LXRH+bA4yP7caJf
-	 thCyy+dgaBHoDnjNbtvxYr9OPm2/TNt/qVvWAlWeis5XY3WQujfAYBO9oN9ms5vA25
-	 F2jKf7ld00RzICn/8l8wKkBWrIPzB4IIw1oaXGUs=
+	s=default; t=1581600829;
+	bh=01K5oIkCJPIt8BLgLXKRaAidpTrfjwwW1tjiOiiFIMk=;
+	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=sn7d+WmMFxyGX8rdQnlfdydWBWpeL8D8Utr+TJiRaNDtTVkYprZ4PTM05kmUep1dW
+	 XP9tS9GOpwVRFhi3UMzg+TW1h0kSb4hrnv8kqEaKmsmScyuY8KKiVPoY7/ijjUYKAr
+	 g28LmjHB9oKUfMMPq+kcMCGBSwib6PhX2Z4uxgNw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C73EAF8013E;
-	Thu, 13 Feb 2020 13:27:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA0E1F8013E;
+	Thu, 13 Feb 2020 14:32:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2E5E4F80145; Thu, 13 Feb 2020 13:27:14 +0100 (CET)
+ id B1E4FF80145; Thu, 13 Feb 2020 14:32:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id DFA29F80139
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 13:27:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DFA29F80139
+ by alsa1.perex.cz (Postfix) with ESMTP id B170EF80138
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 14:31:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B170EF80138
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 73D3A1FB;
- Thu, 13 Feb 2020 04:27:10 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 77F861FB;
+ Thu, 13 Feb 2020 05:31:58 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB91F3F6CF;
- Thu, 13 Feb 2020 04:27:09 -0800 (PST)
-Date: Thu, 13 Feb 2020 12:27:08 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E74B73F6CF;
+ Thu, 13 Feb 2020 05:31:57 -0800 (PST)
+Date: Thu, 13 Feb 2020 13:31:56 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Tzung-Bi Shih <tzungbi@google.com>
-Message-ID: <20200213122708.GE4333@sirena.org.uk>
-References: <20200213032728.199462-1-tzungbi@google.com>
- <20200213112003.4.Ia542007f51d3de753a9e0a83135ee074581dbf71@changeid>
-MIME-Version: 1.0
-In-Reply-To: <20200213112003.4.Ia542007f51d3de753a9e0a83135ee074581dbf71@changeid>
-X-Cookie: Academicians care, that's who.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, dgreid@google.com, cychiang@google.com
-Subject: Re: [alsa-devel] [RESEND PATCH 4/4] ASoC: mediatek: mt8183-da7219:
- apply some refactors
+To: Samuel Holland <samuel@sholland.org>
+In-Reply-To: <20200213061147.29386-2-samuel@sholland.org>
+Message-Id: <applied-20200213061147.29386-2-samuel@sholland.org>
+X-Patchwork-Hint: ignore
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, Jonathan Corbet <corbet@lwn.net>,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Mark Brown <broonie@kernel.org>, stable@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Jerome Brunet <jbrunet@baylibre.com>
+Subject: [alsa-devel] Applied "ASoC: codec2codec: avoid invalid/double-free
+	of pcm runtime" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,56 +66,75 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2432486108027511647=="
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---===============2432486108027511647==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="G6nVm6DDWH/FONJq"
-Content-Disposition: inline
+   ASoC: codec2codec: avoid invalid/double-free of pcm runtime
 
+has been applied to the asoc tree at
 
---G6nVm6DDWH/FONJq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.6
 
-On Thu, Feb 13, 2020 at 11:27:28AM +0800, Tzung-Bi Shih wrote:
-> 1. Moves headset jack to card-specific storage.
-> 2. Removes trailing blank line.
-> 3. Moves card registration to the end of probe.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-I'll apply this but it feels like it should be at least two patches - if
-you're writing a changelog with numbered changes like this it's a big
-warning sign.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
---G6nVm6DDWH/FONJq
-Content-Type: application/pgp-signature; name="signature.asc"
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
------BEGIN PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5FQJsACgkQJNaLcl1U
-h9Aidgf+JwrAqdcozzfnMI6mZlMZXWd5pDVALFrkeGrP0hSK0gI4U4Fj4G6tIzvV
-C2Yx83socKmi5lGDsAGsWCYZk9uzzqziCpkzVe9hk4sleRKClHcsWyr4gija4K1o
-AVNsQxNghzdU+ATZ9A2frExvYoKo9T1P1TNlhOz4gyMRZwAIBgVHGIcF6WHfisEB
-z0Ll/I24+pT8vj99s0ubtwrKmotS2UMMGy404sEQSI8Wpnv/RUtGShSUPBvlqwk+
-YG4m3wje9+7jhw4M86bliJi7fteRkZNQPhGKLAYy8PuSUZk4fnSFrCB+hNuVBxcj
-lKJOeFrdHO1NWtvmyYZRjmQDUJCcWA==
-=3AId
------END PGP SIGNATURE-----
+Thanks,
+Mark
 
---G6nVm6DDWH/FONJq--
+From b6570fdb96edf45bcf71884bd2644bd73d348d1a Mon Sep 17 00:00:00 2001
+From: Samuel Holland <samuel@sholland.org>
+Date: Thu, 13 Feb 2020 00:11:44 -0600
+Subject: [PATCH] ASoC: codec2codec: avoid invalid/double-free of pcm runtime
 
---===============2432486108027511647==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+The PCM runtime was freed during PMU in the case that the event hook
+encountered an error. However, it is also unconditionally freed during
+PMD. Avoid a double-free by dropping the call to kfree in the PMU hook.
+
+Fixes: a72706ed8208 ("ASoC: codec2codec: remove ephemeral variables")
+Cc: stable@vger.kernel.org
+Signed-off-by: Samuel Holland <samuel@sholland.org>
+Link: https://lore.kernel.org/r/20200213061147.29386-2-samuel@sholland.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/soc-dapm.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index bc20ad9abf8b..8b24396675ec 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3916,9 +3916,6 @@ snd_soc_dai_link_event_pre_pmu(struct snd_soc_dapm_widget *w,
+ 	runtime->rate = params_rate(params);
+ 
+ out:
+-	if (ret < 0)
+-		kfree(runtime);
+-
+ 	kfree(params);
+ 	return ret;
+ }
+-- 
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============2432486108027511647==--

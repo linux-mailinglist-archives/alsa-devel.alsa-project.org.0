@@ -2,94 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C855415C991
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 18:39:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4929A15C9A5
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 18:42:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64D9C16D3;
-	Thu, 13 Feb 2020 18:38:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64D9C16D3
+	by alsa0.perex.cz (Postfix) with ESMTPS id D47A416D2;
+	Thu, 13 Feb 2020 18:41:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D47A416D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581615580;
-	bh=GXMlnMKGXnY0SOCO7WA9uh1OaMGvyrzUpso2gXp2jSs=;
-	h=References:From:To:In-reply-to:Date:Cc:Subject:List-Id:
+	s=default; t=1581615758;
+	bh=+RWKxHlQ3sp8q9ytf8VGDZOE+NBgXVllzRnZD3aU+/w=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=XzQjdaDJaJEuWP7W5bZthoqJnaNOmRY/NkuMwaJlxRX+j2Fwax8kBl5YDPdNe6Nts
-	 guwmBv4U0QgcZWNfX/mTJ/maZZox0IiZBh5mZGIhUORkEUUBQ7mzT2HbKBTwLPO11A
-	 giP3WMgT2rYu7qhI5lILAfk1H57U9ZSZ/0PJX+ow=
+	b=Y6kr8ZFY2M28i3oKCnF+tT3tTZdg5RUwL2YmQzWCEpvxkFHFH1DsHk3BxyGSb5sc7
+	 k7FY9/Qnkplgr1cn7jSKyTK2tnbIYVemJoEjkzFDRqR84Al8vtYpyVaJlP3wzCQnWK
+	 tUaGIR1Q/ZEaVKYo9Bu8GHfjjUlDWHjt24DsjYYc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7D694F8013E;
-	Thu, 13 Feb 2020 18:37:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03ACFF8013E;
+	Thu, 13 Feb 2020 18:40:58 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1348EF80145; Thu, 13 Feb 2020 18:37:57 +0100 (CET)
+ id 3ADE3F80145; Thu, 13 Feb 2020 18:40:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_INVALID,DKIM_SIGNED,
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
- [IPv6:2a00:1450:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 32B6EF80138
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 18:37:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 32B6EF80138
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="y4z9797W"
-Received: by mail-wm1-x343.google.com with SMTP id g1so7184832wmh.4
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 09:37:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=references:user-agent:from:to:cc:subject:in-reply-to:date
- :message-id:mime-version;
- bh=Zvz2XeVTIF+ueC8ZSbcXCfTRm4NOaCnXy121PGkk+Yg=;
- b=y4z9797WK5rw61o0bHX20MVMCzpPi8e1XV3NNiGnUzy/usayLB7afqaJPX9RbfFN8d
- DTHjeJKKl0pf+6s56FBO6zp7C85vj8QTq9rii/FdwUiZoqKNj2guPNqtyP8wgQNOtmdv
- UmaS7phuNaxUHCjYa2YlwmNpOzXz4C8VUr6ecOtZfSqBYOmP7+4uubq2yIunsJr3QiXl
- LX8W4qZbMWDrTV7lJnlgFd0vCm3XBm13uk9eSp8VTYshLUJcLJ6P1lfAfGOL5EPZQvVi
- OimW08hzSH5ujRFZxkJhUKNViVxC/yetGRK+uJ2pXq3g+0gHCPA1imWM3FBb0b/dl8fF
- KtLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject
- :in-reply-to:date:message-id:mime-version;
- bh=Zvz2XeVTIF+ueC8ZSbcXCfTRm4NOaCnXy121PGkk+Yg=;
- b=I3vJfP7m4lRnVCkxR6N6xRcywZYyt+zuV5FZFO/dnyDldJiDnu4GsCP/3ZTYUGIRMI
- Nd2wsTyxLCkkxrq9u9Z24OCkgw2S0dkc2I7DTs4Mw6pkuMFbwZH1gV8nhlSxDkB2trbo
- kN63BNHwKh18X5aW39wYfRek+jE5AzyOj4FIfItdrwD6IlQi8X30sdHgruvl2Rwcjgcf
- bFpyIy/qhukXM9pH+7gsgjv/D4UDeExijiu+VjIEc/pbWYe3y5hqGDbcJS5Jw1wMuSTo
- pnsHYWmNCy7ag2wKBlU/Mv2yefgxCarUx0AisNAUWkbmaaxDj1r82or/lcja/8cE7NkH
- hBnw==
-X-Gm-Message-State: APjAAAWYnaQB0VmjtL7i8iEMgruAg/NiIyONAkZaUCa2gh8cE522xX72
- +SW1mRuT6EeeYGgIQT3BpAlE4w==
-X-Google-Smtp-Source: APXvYqykC+mTy5IPmmZi7PPVz1FJbeRW+wBfOOUQU58sYIdkyHAaUT8ZIB+UlNf0ucjzIZv+uzieOg==
-X-Received: by 2002:a05:600c:228f:: with SMTP id
- 15mr7314496wmf.56.1581615463076; 
- Thu, 13 Feb 2020 09:37:43 -0800 (PST)
-Received: from localhost (cag06-3-82-243-161-21.fbx.proxad.net.
- [82.243.161.21])
- by smtp.gmail.com with ESMTPSA id y185sm4054871wmg.2.2020.02.13.09.37.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2020 09:37:42 -0800 (PST)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5A797F800F0
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 18:40:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A797F800F0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 11579328;
+ Thu, 13 Feb 2020 09:40:51 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 88E763F6CF;
+ Thu, 13 Feb 2020 09:40:50 -0800 (PST)
+Date: Thu, 13 Feb 2020 17:40:49 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Message-ID: <20200213174049.GI4333@sirena.org.uk>
 References: <20200213155159.3235792-1-jbrunet@baylibre.com>
  <20200213155159.3235792-2-jbrunet@baylibre.com>
  <20200213171830.GH4333@sirena.org.uk>
-User-agent: mu4e 1.3.3; emacs 26.3
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>
-In-reply-to: <20200213171830.GH4333@sirena.org.uk>
-Date: Thu, 13 Feb 2020 18:37:41 +0100
-Message-ID: <1j4kvufkwq.fsf@starbuckisacylon.baylibre.com>
+ <1j4kvufkwq.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
+In-Reply-To: <1j4kvufkwq.fsf@starbuckisacylon.baylibre.com>
+X-Cookie: Academicians care, that's who.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
  linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
 Subject: Re: [alsa-devel] [PATCH 1/9] ASoC: core: allow a dt node to provide
-	several components
+ several components
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,58 +69,63 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5361299996534891631=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On Thu 13 Feb 2020 at 18:18, Mark Brown <broonie@kernel.org> wrote:
+--===============5361299996534891631==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2xeD/fx0+7k8I/QN"
+Content-Disposition: inline
 
-> On Thu, Feb 13, 2020 at 04:51:51PM +0100, Jerome Brunet wrote:
->
->> At the moment, querying the dai_name will stop of the first component
->> matching the dt node. This does not allow a device (single dt node) to
->> provide several ASoC components which could then be used through DT.
->
->> This change let the search go on if the xlate function of the component
->> returns an error, giving the possibility to another component to match
->> and return the dai_name.
->
-> My first question here would be why you'd want to do that rather than
-> combine everything into a single component since the hardware seems to
-> be doing that anyway.  Hopefully the rest of the series will answer this
-> but it'd be good in the changelog here.
 
-Hi Mark,
+--2xeD/fx0+7k8I/QN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Sorry if I was not clear enough.
+On Thu, Feb 13, 2020 at 06:37:41PM +0100, Jerome Brunet wrote:
 
-This HW is messy. It is indeed one monolithic device which
-provides several functions/sub-devices/components
+> > My first question here would be why you'd want to do that rather than
+> > combine everything into a single component since the hardware seems to
+> > be doing that anyway.  Hopefully the rest of the series will answer this
+> > but it'd be good in the changelog here.
 
-I tried several approaches:
+> Do you think there is something wrong with a linux device providing
+> several ASoC components ?
 
-* Just 1 component: This was ugly because the part that is present only on 1
-SoC variant, I needed to reconstruct the dai, widget, route and control
-table which involved a fair amount of useless copies.
+I don't know that it's actively wrong, it's more a comment about the
+changelog only describing the what of the change and not the why - the
+original idea for a component was that there should be a 1:1 mapping
+between components and devices but as you say it's not actually a big
+change to let things get split up more.
 
-* A lot of devices (and components) with syscon: This ended up being even
-  uglier, difficult to work with since it did not really reflected the
-  actual HW.
+--2xeD/fx0+7k8I/QN
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The solution proposed here is just one device with 3 possible
-components (groups):
-* The CPU producers a associated path
-* The HDMI control
-* The Internal DAC control
+-----BEGIN PGP SIGNATURE-----
 
-The impact on ASoC is rather small, the driver reflect quite well what
-the HW is and, with a sound-dai-cell=2, it fairly simple in DT as well.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5FiiAACgkQJNaLcl1U
+h9C46Af/TpnlCjwtU4fMMnm8c7NfPorK7RegG0x4rLJk+edJ9/SFZTQw+xzrqVqN
+nPQMM1kD0EyLWF7yyIfRTupKgib8azZih6jb2hxU1kp8LdmkDqNsN4urF9cPw16i
+0ZljRlQJlVyNLarFet7ctm38otSlAXCadIlzZVODeytxnXrrh0Av6wujTqqBaRCV
+8DGNYnfvQxHLh07dxM93Yxe2kP2wWHjYnbPiaXqsYARsK7KfqdqZEW+ojCptuhPL
+VXgEbh9Gn9ZHCClylentU1Y3Tg9AmpyUpHrNeEvFT9urgLpTDbcAzW1vP/k/35CD
+GBbkYBwAxXr8jfIftVZwP9foH48WRg==
+=WHzO
+-----END PGP SIGNATURE-----
 
-Do you think there is something wrong with a linux device providing
-several ASoC components ?
+--2xeD/fx0+7k8I/QN--
+
+--===============5361299996534891631==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============5361299996534891631==--

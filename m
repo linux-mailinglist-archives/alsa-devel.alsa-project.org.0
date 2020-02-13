@@ -2,76 +2,52 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58AE615B890
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 05:25:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40F1F15B891
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 05:26:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E7639166D;
-	Thu, 13 Feb 2020 05:24:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E7639166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBA3B167C;
+	Thu, 13 Feb 2020 05:25:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBA3B167C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581567940;
-	bh=UklSzqsIizfb2ZqVi/STRFoQZ51NdIBaypk0QEOPfzc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cqR0IG00ysdYywrr9a6l1fHFH7vXzJlfF+39fXUQVDZsLMVh8jylbX3isx4s5nEnG
-	 GpZjGo8pKehsAM1UOXW+dzcyxHaXkqV4oNU8AQFPAOuhnLNk4T5zirmY9JhlDSJUPE
-	 FQJmRRRExQxmtKk97rqldm9mTBjaqedmVLQLH4zk=
+	s=default; t=1581567989;
+	bh=qfv0FI+x9732B687s+U1jzRmdzB4/+Mc93wiYEU+K8U=;
+	h=Date:From:To:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=eLg/kqcsJyh54nVHanh03jE5UyEsNNtzRSANRwBGb/pSojLoYdz2YdRKtKYlsHSVI
+	 R1el971CZu0lnMo+7cRMxr03Y+9S006TKjdnw21Akr+nDbD+h81eN/BxL0SKp+ea9W
+	 Z8lpOR2wuGzKshDl9zV/Mx/D56MwN42JXQ5yO6XM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EFB59F80139;
-	Thu, 13 Feb 2020 05:23:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C01E9F801DA;
+	Thu, 13 Feb 2020 05:25:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2CA68F80145; Thu, 13 Feb 2020 05:23:56 +0100 (CET)
+ id F1E65F80147; Thu, 13 Feb 2020 05:25:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 33691F800F0
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 05:23:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 33691F800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="lMpVF6tI"
-Received: from localhost (unknown [106.201.58.38])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 93A87206ED;
- Thu, 13 Feb 2020 04:23:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581567830;
- bh=oFuIKIBbpfNJBIKi9hk26HAIHYBy5AhoYQE6BtbHQ9g=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=lMpVF6tIkzuSqTk30LsQb7Tf+42ncsEE9P1Dn7O+0GWQ/HLAEtHpecBJaBseE/iJJ
- 7UsYE+9ClL8TrQAnSG+ARtHxSvTfTVEhLF7sz5s2dfMHW/FhSS/CSc1S0niFxNkY/e
- nVZTLYtnEYnA+2Vf0pq9rbPMp+hhNwYPr3oHdD2Q=
-Date: Thu, 13 Feb 2020 09:53:44 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <20200213042344.GC2618@vkoul-mobl>
-References: <20200114234257.14336-1-pierre-louis.bossart@linux.intel.com>
- <20200114234257.14336-6-pierre-louis.bossart@linux.intel.com>
- <20200212101554.GB2618@vkoul-mobl>
- <c8219635-30be-9695-a3f5-cd649aa6fab7@linux.intel.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <c8219635-30be-9695-a3f5-cd649aa6fab7@linux.intel.com>
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
- linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [PATCH v2 5/5] soundwire: intel: free all
- resources on hw_free()
+X-Spam-Level: **
+X-Spam-Status: No, score=2.2 required=5.0 tests=AC_FROM_MANY_DOTS,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id F2D15F8013E
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 05:25:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F2D15F8013E
+Date: 13 Feb 2020 13:25:28 +0900
+X-IronPort-AV: E=Sophos;i="5.70,434,1574089200"; d="scan'208";a="38931960"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 13 Feb 2020 13:25:28 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id F3387418DAAA;
+ Thu, 13 Feb 2020 13:25:27 +0900 (JST)
+Message-ID: <87blq3ru4w.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+To: Mark Brown <broonie@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+Subject: [alsa-devel] [PATCH 00/10] ASoC: soc-pcm cleanup step3
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,42 +65,44 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 12-02-20, 09:37, Pierre-Louis Bossart wrote:
-> Hi Vinod,
-> 
-> > > +static int intel_free_stream(struct sdw_intel *sdw,
-> > > +			     struct snd_pcm_substream *substream,
-> > > +			     struct snd_soc_dai *dai,
-> > > +			     int link_id)
-> > > +{
-> > > +	struct sdw_intel_link_res *res = sdw->link_res;
-> > > +	struct sdw_intel_stream_free_data free_data;
-> > 
-> > where is this struct sdw_intel_stream_free_data defined. I dont see it
-> > in this patch or this series..
-> 
-> the definition is already upstream :-)
 
-Oops did i look at wrong branch, sorry!
+Hi Mark
 
-> > > +	ret = intel_free_stream(sdw, substream, dai, sdw->instance);
-> > > +	if (ret < 0) {
-> > > +		dev_err(dai->dev, "intel_free_stream: failed %d", ret);
-> > > +		return ret;
-> > > +	}
-> > > +
-> > > +	sdw_release_stream(dma->stream);
-> > 
-> > I think, free the 'name' here would be apt
-> 
-> Right, this is something we discussed with Rander shortly before Chinese New
-> Year and we wanted to handle this with a follow-up patch, would that work
-> for you? if not I can send a v3, your choice.
+These are step3 of soc-pcm cleanup.
+Basically it do nothing for behavior, but cleanup code.
+But, only [09/10] patch exchanges behavior (= care Multi Codec).
+It is one challenge.
 
-It would be better if we fix this up in this series :)
+Kuninori Morimoto (10):
+   1) ASoC: soc-pcm: move dai_get_widget()
+   2) ASoC: soc-pcm: use dai_get_widget() at dpcm_get_be()
+   3) ASoC: soc-pcm: use dai_get_widget() at dpcm_end_walk_at_be()
+   4) ASoC: soc-pcm: use dpcm_get_be() at dpcm_end_walk_at_be()
+   5) ASoC: soc-pcm: remove soc_dpcm_be_digital_mute()
+   6) ASoC: soc-pcm: remove snd_soc_dpcm_be_get/set_state()
+   7) ASoC: soc-pcm: add snd_soc_dpcm_can_be() and remove duplicate code
+   8) ASoC: soc-pcm: use goto and remove multi return
+   9) ASoC: soc-pcm: care Multi Codec at soc_dpcm_fe_runtime_update()
+  10) ASoC: soc.h: add for_each_pcm_stream()
+
+ include/sound/soc-dpcm.h     |   9 --
+ include/sound/soc.h          |   5 +
+ sound/soc/fsl/fsl_asrc_dma.c |   4 +-
+ sound/soc/soc-core.c         |  31 ++---
+ sound/soc/soc-pcm.c          | 237 +++++++++++++----------------------
+ 5 files changed, 105 insertions(+), 181 deletions(-)
 
 -- 
-~Vinod
+2.17.1
+
+
+
+
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

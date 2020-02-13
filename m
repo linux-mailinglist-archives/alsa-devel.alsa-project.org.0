@@ -2,75 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8C7515C9A8
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 18:43:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4E5F15CA43
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 19:23:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4670D16DE;
-	Thu, 13 Feb 2020 18:42:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4670D16DE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2B86F16C5;
+	Thu, 13 Feb 2020 19:22:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B86F16C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581615802;
-	bh=4apR0HiGO6QTOATCUBjFNHr85zcoQvEz/rxmpPPmdSQ=;
-	h=From:To:References:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581618228;
+	bh=BdKN7LlGWzvLuzKF56joFaOIbCQE/t+aBDWtBRklKtc=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ryHxfvj/g/cnM6Afl8eFVCqrHJWLHIoaocj1FKzlCvJoTCH8tw4lz70Dwu9eUkMZs
-	 fuKWAvTMRMYZtUOCnIHG/pEoxmNVvpiSTFbUj8PWHslpntxwu+fG37XSCoCPwpJ12j
-	 h96r/uD2M0rUEuTcnOH4Oy/a9R4SrIEn2LHg2pyc=
+	b=NjLstYstZIhN5nTu6/FCsqx+qvgNgvx+tuj1eFek64dsftCpzxVcAhfHval5Dl5ps
+	 JwRBOaMWhZyUhxQIIrx9K/m4s9APYdIchJAji+FSvYY0pWYd82KJBfxkP6Wmv424Ny
+	 fuSTVgg0aUM6dTJJ2SEYwg0D0SApSXSLgvNliDKI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id ACB34F80218;
-	Thu, 13 Feb 2020 18:41:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 35EB9F80146;
+	Thu, 13 Feb 2020 19:22:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5EA9F801DA; Thu, 13 Feb 2020 18:41:27 +0100 (CET)
+ id 88E55F80145; Thu, 13 Feb 2020 19:22:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0907CF80146
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 18:41:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0907CF80146
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="G2IrNlrN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:
- Subject:Sender:Reply-To:Content-ID:Content-Description;
- bh=g0qlXJoh4ngb/QmDMiYQd823EO/vda2eM/qz6r97Mmg=; b=G2IrNlrNBazBWx5ojTUFdydJxn
- IUfqKxJrVJo8KfP5XVw7LCCGTVga2u29p1D/c3nXC+DUk6ZXcCE+XbcLVo7pkVPRWsxLezPI8HfYT
- 4a6v+Mp6fRD5CuQLC9xVi1H13rgBNcYUJttqsERAw3F4TzXyAgAUjHZtypT1JDPwoim/dKij5FyiK
- mRRl9PO8Ds9p8XU/5SdM5K24u/XpuAvOlpTJ4AB+/xoiAtX+NzVWcZeYNHOIA3/w7gm5u9rC7qZ8/
- r/5lO8k1w7eylvq+FthaQyZe2ShRCkjIjzCKFtYWvxchc0g+ePXRJ+f3cdJtHAZP6+qRtR3ITBkDI
- NXA5xnow==;
-Received: from [2601:1c0:6280:3f0::19c2]
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1j2IUJ-0002HY-3a; Thu, 13 Feb 2020 17:41:19 +0000
-From: Randy Dunlap <rdunlap@infradead.org>
-To: Stephen Rothwell <sfr@canb.auug.org.au>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <20200213145240.2ff2b6a2@canb.auug.org.au>
- <d8dbd288-5270-42f1-0d55-b0f1516addb1@infradead.org>
-Message-ID: <d0d9a245-f336-1334-90a8-631faf95d071@infradead.org>
-Date: Thu, 13 Feb 2020 09:41:16 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id D3853F800F0
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 19:22:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3853F800F0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ACFE6328;
+ Thu, 13 Feb 2020 10:21:59 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 300043F68E;
+ Thu, 13 Feb 2020 10:21:59 -0800 (PST)
+Date: Thu, 13 Feb 2020 18:21:57 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Message-ID: <20200213182157.GJ4333@sirena.org.uk>
+References: <20200213155159.3235792-1-jbrunet@baylibre.com>
+ <20200213155159.3235792-6-jbrunet@baylibre.com>
 MIME-Version: 1.0
-In-Reply-To: <d8dbd288-5270-42f1-0d55-b0f1516addb1@infradead.org>
-Content-Language: en-US
-Cc: Takashi Iwai <tiwai@suse.de>,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [alsa-devel] linux-next: Tree for Feb 13
- (sound/soc/codecs/snd-soc-ab8500-codec)
+In-Reply-To: <20200213155159.3235792-6-jbrunet@baylibre.com>
+X-Cookie: Academicians care, that's who.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
+Subject: Re: [alsa-devel] [PATCH 5/9] ASoC: meson: aiu: add hdmi codec
+	control support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,36 +67,70 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7443057751367034463=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/13/20 9:06 AM, Randy Dunlap wrote:
-> On 2/12/20 7:52 PM, Stephen Rothwell wrote:
->> Hi all,
->>
->> Changes since 20200212:
->>
-> 
-> on x86_64:
-> 
-> # CONFIG_ABX500_CORE is not set [this is in MFD]
-> 
-> ERROR: "abx500_set_register_interruptible" [sound/soc/codecs/snd-soc-ab8500-codec.ko] undefined!
-> ERROR: "abx500_get_register_interruptible" [sound/soc/codecs/snd-soc-ab8500-codec.ko] undefined!
-> 
-> 
-> Full randconfig file is attached.
-> 
-> 
 
-[adding Geert, dropping 3 ST people due to bounced email addresses]
+--===============7443057751367034463==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QnBU6tTI9sljzm9u"
+Content-Disposition: inline
 
--- 
-~Randy
+
+--QnBU6tTI9sljzm9u
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Feb 13, 2020 at 04:51:55PM +0100, Jerome Brunet wrote:
+
+> +int aiu_add_component(struct device *dev,
+> +		      const struct snd_soc_component_driver *component_driver,
+> +		      struct snd_soc_dai_driver *dai_drv,
+> +		      int num_dai,
+> +		      const char *debugfs_prefix)
+> +{
+> +	struct snd_soc_component *component;
+> +
+> +	component = devm_kzalloc(dev, sizeof(*component), GFP_KERNEL);
+> +	if (!component)
+> +		return -ENOMEM;
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +	component->debugfs_prefix = debugfs_prefix;
+> +#endif
+
+You really shouldn't be doing this as it could conflict with something
+the machine driver wants to do however it's probably not going to be an
+issue in practice as it's not like there's going to be multiple SoCs in
+the card at once and if there were there'd doubltess be other issues.
+
+--QnBU6tTI9sljzm9u
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5Fk8QACgkQJNaLcl1U
+h9CAhwf/cuQA52n4KErDZvZn7/DzU7OY4w6BULQb6pd6r1CgFm/rd1Fgf9QLK2yQ
+Yu4cKdsOCcT4YH0Abf5r7n0uNFnCdd4U9c+L+MnQ912Yu8ZV70+X9D9OniFif59u
+WVmnNC/sRTatvyefGnTDu//nHF29Yc10S6V+wPbFFACYONJ2s9SKEWCGZrclawkE
+mIopqJBFRcz7q2iCaPI8onRuIe5VtF7SeEk0XkFRQsdqPacrJF0JQQFuui2vYBq5
+Nu1SDN2ma7iXiSssC9Oy/iCv70WpDLMtYTHz35XiooaHkYKxi2xKkluXWOpy/Dcc
+hMVncK5RF58ft+ILMKSg9TXFiEcN0w==
+=iCR2
+-----END PGP SIGNATURE-----
+
+--QnBU6tTI9sljzm9u--
+
+--===============7443057751367034463==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============7443057751367034463==--

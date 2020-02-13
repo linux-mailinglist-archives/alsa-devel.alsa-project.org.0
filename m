@@ -2,56 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7177A15BD9D
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 12:23:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EAAC315BDCA
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 12:38:52 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F1827167A;
-	Thu, 13 Feb 2020 12:22:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F1827167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5CD8D1673;
+	Thu, 13 Feb 2020 12:38:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5CD8D1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581593012;
-	bh=yWz3ePsxwN8w6GzX78pxKRU+ROMA8MNdB/uv0XWI0eg=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1581593932;
+	bh=4/dLsar1ImurAnff+PephmmGnwBJZPCq68HBBdKUfQ4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=LRgP+DkrNlRHBsXqYBeVaLdRNvlvlBKuNy61NhLCdr/vDKPGAmX4zMvE6lDoJ2xfI
-	 ZXncENllcW2LV1qvu51CluW3F7x1lDJ0oS+6bnfH++kE7f+rPCS5i+vQ/7sPcrrOax
-	 gxL8dxBhxCaKlwKOt+Py54awmtrseCWBAFUDwaXE=
+	b=s+jd0E1It3NiUO4dgvBbOR5GYctK6T+WO2L5nd0tWo48iatxIS9PbyyvF8oSzTm3w
+	 p2zJwu3nBMb4yghwALhtY0NW5zJSUpMdQOxdNYcr7rAKDq/760Iehh6lwF7QkCMx6Q
+	 dRy6ATu47cMSTuNKCpAkg7/xlh1mQX6Zp6sRbztg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D5440F8021E;
-	Thu, 13 Feb 2020 12:21:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 77312F800F0;
+	Thu, 13 Feb 2020 12:37:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5CA5FF8013E; Thu, 13 Feb 2020 12:21:05 +0100 (CET)
+ id 11B91F80145; Thu, 13 Feb 2020 12:37:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 81AD2F8013E
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 12:21:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 81AD2F8013E
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 8D908B198;
- Thu, 13 Feb 2020 11:21:01 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Thu, 13 Feb 2020 12:20:59 +0100
-Message-Id: <20200213112059.18745-3-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-In-Reply-To: <20200213112059.18745-1-tiwai@suse.de>
-References: <20200213112059.18745-1-tiwai@suse.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [alsa-devel] [PATCH 2/2] ALSA: usb-audio: Parse source ID of UAC2
-	effect unit
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id C66FBF80139
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 12:37:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C66FBF80139
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2B9201FB;
+ Thu, 13 Feb 2020 03:37:03 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A4F8C3F6CF;
+ Thu, 13 Feb 2020 03:37:02 -0800 (PST)
+Date: Thu, 13 Feb 2020 11:37:01 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Message-ID: <20200213113701.GA4333@sirena.org.uk>
+References: <20200213061147.29386-1-samuel@sholland.org>
+ <20200213061147.29386-2-samuel@sholland.org>
+ <1jr1yyannl.fsf@starbuckisacylon.baylibre.com>
+MIME-Version: 1.0
+In-Reply-To: <1jr1yyannl.fsf@starbuckisacylon.baylibre.com>
+X-Cookie: Academicians care, that's who.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, Jonathan Corbet <corbet@lwn.net>,
+ alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
+ linux-doc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ stable@vger.kernel.org, devicetree@vger.kernel.org,
+ Rob Herring <robh+dt@kernel.org>
+Subject: Re: [alsa-devel] [PATCH 1/4] ASoC: codec2codec: avoid
+ invalid/double-free of pcm runtime
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,47 +71,55 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============2057564296364419008=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-During parsing the input source, we currently cut off at the Effect
-Unit node without parsing further its source id.  It's no big problem,
-so far, but it should be more consistent to parse it properly.
 
-This patch adds the recursive parsing in parse_term_effect_unit().
-It doesn't add anything in the audio unit parser itself, and the
-effect unit itself is still skipped, though.
+--===============2057564296364419008==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qMm9M+Fa2AknHoGS"
+Content-Disposition: inline
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206147
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/usb/mixer.c | 6 ++++++
- 1 file changed, 6 insertions(+)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 81b2db0edd5f..56d0878e4999 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -901,6 +901,12 @@ static int parse_term_effect_unit(struct mixer_build *state,
- 				  struct usb_audio_term *term,
- 				  void *p1, int id)
- {
-+	struct uac2_effect_unit_descriptor *d = p1;
-+	int err;
-+
-+	err = __check_input_term(state, d->bSourceID, term);
-+	if (err < 0)
-+		return err;
- 	term->type = UAC3_EFFECT_UNIT << 16; /* virtual type */
- 	term->id = id;
- 	return 0;
--- 
-2.16.4
+--qMm9M+Fa2AknHoGS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Thu, Feb 13, 2020 at 09:37:18AM +0100, Jerome Brunet wrote:
+
+> This brings another question/problem:
+> A link which has failed in PMU, could try in PMD to hw_free/shutdown a
+> dai which has not gone through startup/hw_params, right ?
+
+I think so, yes.
+
+--qMm9M+Fa2AknHoGS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5FNNoACgkQJNaLcl1U
+h9Anuwf/SQT6ubriSIEq1TwGCzPNYCbx2WjOhRIjTbtNwtmezyCgzCOThrEEuRZh
+VjvYkn7VqZBgoHsh43+vqiwtI3eLXwrX02o4izW1srdqfh2ZDAMmHH37qf8zfYmv
+S7bC9gDSY8sFOjSevEKgk6MC/3h60PKK0Q7FWc/A1B8Fqo5ZaoeuYrMqw0x2yQVI
+1DRTlhVoOKIQ+tjKIPmRwTt1KyJi9FlhN5oW2hEpIpMOK34jnVyKBMHESopGF6tT
+fFPPHWKfZlxP8SkwtcYsH1xxrZC5LwlPA8haNBQAtniDaVG+PlndvoN69UfBudPw
+s7tJfn+2MEXC0NEJzXukYpwwHkuu1A==
+=r51Q
+-----END PGP SIGNATURE-----
+
+--qMm9M+Fa2AknHoGS--
+
+--===============2057564296364419008==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============2057564296364419008==--

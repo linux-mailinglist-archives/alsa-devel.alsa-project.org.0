@@ -2,82 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD9A615CC9B
-	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 21:54:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ADAE215CCC6
+	for <lists+alsa-devel@lfdr.de>; Thu, 13 Feb 2020 22:00:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 79D781698;
-	Thu, 13 Feb 2020 21:53:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 79D781698
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3260316AF;
+	Thu, 13 Feb 2020 21:59:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3260316AF
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581627276;
-	bh=g5dCUhFdm6ZgRfir2GsI3Bm8U1ZW04EVd7gFQ2Wnn5s=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=t/0hU4xr38JChIeEGyBB8xuvcIGYmfod2gHE3xbtDLAcVKAamykKpAPizdRm/21W4
-	 wFyNJhAXSSokzLmk+OaYdO9LAGaK7Liav55jgQkdFb27iOzJIY/Tw8wDdHsoL5DcHL
-	 tA6bEikxqFEVT8etnpkIo5m29L4o5F8l3Oqs8vw0=
+	s=default; t=1581627609;
+	bh=d88kATSESRt/x+G36kwfyB/33gEVTpVV0+YkM8VWOzg=;
+	h=Date:From:To:In-Reply-To:Cc:Subject:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=mU7AfoTgv+fYo6SbGT5Vn0Zk9xmioS4Yy0jaedg2jb/k6U489FowDcZmMW2g5PqgR
+	 q0SB205uHkQT4XGQIU2Uhu199hKJeBwwx1BCWI5zyr0JBOgireCqUHMtOmuIvwk6zT
+	 7W7ZsmI2hsXz19AB6g5pmsHruB40AuV6ixdo0Bt4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8BEEFF80146;
-	Thu, 13 Feb 2020 21:52:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 34B10F80138;
+	Thu, 13 Feb 2020 21:58:28 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9E93BF80145; Thu, 13 Feb 2020 21:52:37 +0100 (CET)
+ id B18E5F80145; Thu, 13 Feb 2020 21:58:03 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-oi1-f195.google.com (mail-oi1-f195.google.com
- [209.85.167.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 00DFFF80139
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 21:52:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00DFFF80139
-Received: by mail-oi1-f195.google.com with SMTP id l9so7228442oii.5
- for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 12:52:33 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=s8i10ohrT2+weilggglqs0Ir1n1ZSXHJ2uT8Wx+VWFA=;
- b=h0J47eGHK2WLP+eR/AeBykuo9Aytk9GxNDsEuEKLb5xN+/zOIyx9IgIM3q3Sgplu/9
- wjGT2PW3/QViciVcs12NmuFY/FAKv+7bv2/FSBOfYya2H5dGiyAvlTfZGIb9MUe57qeS
- P3xctakzxjy2y6jI4VHhMKnp03BLjKR750sz8BfvVxSgPDJK+Ca0q//05jUI69rlp2GE
- mh7t5pQ5E/Uih9ls5xiwVwH8KK7HaGpw7454LH06Cl5aAvD8mxzrsSdNdcn5cJRJ3Evz
- CQvpVEzvdaTphfqne035MBH2Ybhtk9TWV+wdAUZ9K72D/1TVmjqOEWajb5IwKHNDdL+G
- loVw==
-X-Gm-Message-State: APjAAAVWATR5nqr+4XjwkMEh9czZ/ObxO+LGUUp/0iTR/Z2WcDeJZYlG
- 01DB750q3vfnBB8iah0+Lw==
-X-Google-Smtp-Source: APXvYqyxzp7FojO4VNDr08MgWew7G0vsADdfBY2x0CqIPVAPAt7ZS5c/S285NmepbwZyFpewQmPbIA==
-X-Received: by 2002:a54:4010:: with SMTP id x16mr4368671oie.174.1581627151779; 
- Thu, 13 Feb 2020 12:52:31 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id p184sm1046185oic.40.2020.02.13.12.52.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Feb 2020 12:52:30 -0800 (PST)
-Received: (nullmailer pid 14780 invoked by uid 1000);
- Thu, 13 Feb 2020 20:52:30 -0000
-Date: Thu, 13 Feb 2020 14:52:30 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Message-ID: <20200213205230.GA13640@bogus>
-References: <87tv3vqc93.wl-kuninori.morimoto.gx@renesas.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <87tv3vqc93.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
-Subject: Re: [alsa-devel] [PATCH] ASoC: dt-bindings: renesas,
- rsnd: switch to yaml base Documentation
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id DDF3AF80138
+ for <alsa-devel@alsa-project.org>; Thu, 13 Feb 2020 21:57:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DDF3AF80138
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED6A71FB;
+ Thu, 13 Feb 2020 12:57:57 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6F6873F6CF;
+ Thu, 13 Feb 2020 12:57:57 -0800 (PST)
+Date: Thu, 13 Feb 2020 20:57:55 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <20200213155159.3235792-10-jbrunet@baylibre.com>
+Message-Id: <applied-20200213155159.3235792-10-jbrunet@baylibre.com>
+X-Patchwork-Hint: ignore
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
+Subject: [alsa-devel] Applied "ASoC: meson: gx: add sound card support" to
+	the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,37 +64,242 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 13 Feb 2020 14:37:04 +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> This patch switches from .txt base to .yaml base Document.
-> It is still keeping detail explanations at .txt
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  .../bindings/sound/renesas,rsnd.txt           | 518 -----------------
->  .../bindings/sound/renesas,rsnd.yaml          | 528 ++++++++++++++++++
->  2 files changed, 528 insertions(+), 518 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> 
+The patch
 
-My bot found errors running 'make dt_binding_check' on your patch:
+   ASoC: meson: gx: add sound card support
 
-Unknown file referenced: [Errno 2] No such file or directory: '/usr/local/lib/python3.6/dist-packages/dtschema/schemas/sound/simple-card.yaml'
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml: patternProperties:^rcar_sound,src$:patternProperties:src-.: 'if' is not one of ['type', 'description', 'dependencies', 'properties', 'patternProperties', 'additionalProperties', 'unevaluatedProperties', 'deprecated', 'required', 'allOf', 'anyOf', 'oneOf', '$ref']
-/builds/robherring/linux-dt-review/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml: patternProperties:^rcar_sound,src$:patternProperties:src-.: 'then' is not one of ['type', 'description', 'dependencies', 'properties', 'patternProperties', 'additionalProperties', 'unevaluatedProperties', 'deprecated', 'required', 'allOf', 'anyOf', 'oneOf', '$ref']
-Documentation/devicetree/bindings/Makefile:12: recipe for target 'Documentation/devicetree/bindings/sound/renesas,rsnd.example.dts' failed
-make[1]: *** [Documentation/devicetree/bindings/sound/renesas,rsnd.example.dts] Error 255
-Makefile:1263: recipe for target 'dt_binding_check' failed
-make: *** [dt_binding_check] Error 2
+has been applied to the asoc tree at
 
-See https://patchwork.ozlabs.org/patch/1237280
-Please check and re-submit.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From e37a0c313a0f8ba0b8de9c30db98fbc77bd8d446 Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Thu, 13 Feb 2020 16:51:59 +0100
+Subject: [PATCH] ASoC: meson: gx: add sound card support
+
+Add support for the sound card used on the amlogic GX SoC family
+
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Link: https://lore.kernel.org/r/20200213155159.3235792-10-jbrunet@baylibre.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/meson/Kconfig   |   7 ++
+ sound/soc/meson/Makefile  |   2 +
+ sound/soc/meson/gx-card.c | 141 ++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 150 insertions(+)
+ create mode 100644 sound/soc/meson/gx-card.c
+
+diff --git a/sound/soc/meson/Kconfig b/sound/soc/meson/Kconfig
+index 347fa78e309a..22d2af75b59e 100644
+--- a/sound/soc/meson/Kconfig
++++ b/sound/soc/meson/Kconfig
+@@ -101,6 +101,13 @@ config SND_MESON_CARD_UTILS
+ config SND_MESON_CODEC_GLUE
+ 	tristate
+ 
++config SND_MESON_GX_SOUND_CARD
++	tristate "Amlogic GX Sound Card Support"
++	select SND_MESON_CARD_UTILS
++	imply SND_MESON_AIU
++	help
++	  Select Y or M to add support for the GXBB/GXL SoC sound card
++
+ config SND_MESON_G12A_TOHDMITX
+ 	tristate "Amlogic G12A To HDMI TX Control Support"
+ 	select REGMAP_MMIO
+diff --git a/sound/soc/meson/Makefile b/sound/soc/meson/Makefile
+index bef2b72fd7a7..f9c90c391498 100644
+--- a/sound/soc/meson/Makefile
++++ b/sound/soc/meson/Makefile
+@@ -21,6 +21,7 @@ snd-soc-meson-axg-spdifout-objs := axg-spdifout.o
+ snd-soc-meson-axg-pdm-objs := axg-pdm.o
+ snd-soc-meson-card-utils-objs := meson-card-utils.o
+ snd-soc-meson-codec-glue-objs := meson-codec-glue.o
++snd-soc-meson-gx-sound-card-objs := gx-card.o
+ snd-soc-meson-g12a-tohdmitx-objs := g12a-tohdmitx.o
+ 
+ obj-$(CONFIG_SND_MESON_AIU) += snd-soc-meson-aiu.o
+@@ -37,4 +38,5 @@ obj-$(CONFIG_SND_MESON_AXG_SPDIFOUT) += snd-soc-meson-axg-spdifout.o
+ obj-$(CONFIG_SND_MESON_AXG_PDM) += snd-soc-meson-axg-pdm.o
+ obj-$(CONFIG_SND_MESON_CARD_UTILS) += snd-soc-meson-card-utils.o
+ obj-$(CONFIG_SND_MESON_CODEC_GLUE) += snd-soc-meson-codec-glue.o
++obj-$(CONFIG_SND_MESON_GX_SOUND_CARD) += snd-soc-meson-gx-sound-card.o
+ obj-$(CONFIG_SND_MESON_G12A_TOHDMITX) += snd-soc-meson-g12a-tohdmitx.o
+diff --git a/sound/soc/meson/gx-card.c b/sound/soc/meson/gx-card.c
+new file mode 100644
+index 000000000000..7b01dcb73e5e
+--- /dev/null
++++ b/sound/soc/meson/gx-card.c
+@@ -0,0 +1,141 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++//
++// Copyright (c) 2020 BayLibre, SAS.
++// Author: Jerome Brunet <jbrunet@baylibre.com>
++
++#include <linux/module.h>
++#include <linux/of_platform.h>
++#include <sound/soc.h>
++#include <sound/soc-dai.h>
++
++#include "meson-card.h"
++
++struct gx_dai_link_i2s_data {
++	unsigned int mclk_fs;
++};
++
++/*
++ * Base params for the codec to codec links
++ * Those will be over-written by the CPU side of the link
++ */
++static const struct snd_soc_pcm_stream codec_params = {
++	.formats = SNDRV_PCM_FMTBIT_S24_LE,
++	.rate_min = 5525,
++	.rate_max = 192000,
++	.channels_min = 1,
++	.channels_max = 8,
++};
++
++static int gx_card_i2s_be_hw_params(struct snd_pcm_substream *substream,
++				    struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct meson_card *priv = snd_soc_card_get_drvdata(rtd->card);
++	struct gx_dai_link_i2s_data *be =
++		(struct gx_dai_link_i2s_data *)priv->link_data[rtd->num];
++
++	return meson_card_i2s_set_sysclk(substream, params, be->mclk_fs);
++}
++
++static const struct snd_soc_ops gx_card_i2s_be_ops = {
++	.hw_params = gx_card_i2s_be_hw_params,
++};
++
++static int gx_card_parse_i2s(struct snd_soc_card *card,
++			     struct device_node *node,
++			     int *index)
++{
++	struct meson_card *priv = snd_soc_card_get_drvdata(card);
++	struct snd_soc_dai_link *link = &card->dai_link[*index];
++	struct gx_dai_link_i2s_data *be;
++
++	/* Allocate i2s link parameters */
++	be = devm_kzalloc(card->dev, sizeof(*be), GFP_KERNEL);
++	if (!be)
++		return -ENOMEM;
++	priv->link_data[*index] = be;
++
++	/* Setup i2s link */
++	link->ops = &gx_card_i2s_be_ops;
++	link->dai_fmt = meson_card_parse_daifmt(node, link->cpus->of_node);
++
++	of_property_read_u32(node, "mclk-fs", &be->mclk_fs);
++
++	return 0;
++}
++
++static int gx_card_cpu_identify(struct snd_soc_dai_link_component *c,
++				char *match)
++{
++	if (of_device_is_compatible(c->of_node, DT_PREFIX "aiu")) {
++		if (strstr(c->dai_name, match))
++			return 1;
++	}
++
++	/* dai not matched */
++	return 0;
++}
++
++static int gx_card_add_link(struct snd_soc_card *card, struct device_node *np,
++			    int *index)
++{
++	struct snd_soc_dai_link *dai_link = &card->dai_link[*index];
++	struct snd_soc_dai_link_component *cpu;
++	int ret;
++
++	cpu = devm_kzalloc(card->dev, sizeof(*cpu), GFP_KERNEL);
++	if (!cpu)
++		return -ENOMEM;
++
++	dai_link->cpus = cpu;
++	dai_link->num_cpus = 1;
++
++	ret = meson_card_parse_dai(card, np, &dai_link->cpus->of_node,
++				   &dai_link->cpus->dai_name);
++	if (ret)
++		return ret;
++
++	if (gx_card_cpu_identify(dai_link->cpus, "FIFO"))
++		ret = meson_card_set_fe_link(card, dai_link, np, true);
++	else
++		ret = meson_card_set_be_link(card, dai_link, np);
++
++	if (ret)
++		return ret;
++
++	/* Check if the cpu is the i2s encoder and parse i2s data */
++	if (gx_card_cpu_identify(dai_link->cpus, "I2S Encoder"))
++		ret = gx_card_parse_i2s(card, np, index);
++
++	/* Or apply codec to codec params if necessary */
++	else if (gx_card_cpu_identify(dai_link->cpus, "CODEC CTRL"))
++		dai_link->params = &codec_params;
++
++	return ret;
++}
++
++static const struct meson_card_match_data gx_card_match_data = {
++	.add_link = gx_card_add_link,
++};
++
++static const struct of_device_id gx_card_of_match[] = {
++	{
++		.compatible = "amlogic,gx-sound-card",
++		.data = &gx_card_match_data,
++	}, {}
++};
++MODULE_DEVICE_TABLE(of, gx_card_of_match);
++
++static struct platform_driver gx_card_pdrv = {
++	.probe = meson_card_probe,
++	.remove = meson_card_remove,
++	.driver = {
++		.name = "gx-sound-card",
++		.of_match_table = gx_card_of_match,
++	},
++};
++module_platform_driver(gx_card_pdrv);
++
++MODULE_DESCRIPTION("Amlogic GX ALSA machine driver");
++MODULE_AUTHOR("Jerome Brunet <jbrunet@baylibre.com>");
++MODULE_LICENSE("GPL v2");
+-- 
+2.20.1
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25E0E15DF9C
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:10:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A78D215DFB6
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:10:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C4C42167A;
-	Fri, 14 Feb 2020 17:09:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C4C42167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4C7EE828;
+	Fri, 14 Feb 2020 17:09:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4C7EE828
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581696610;
-	bh=YP4YI9+Bse5nrhbaSfpyaXQlwOZ49cneDGZfsbfw8OM=;
+	s=default; t=1581696645;
+	bh=9IRNB2z6fJGnsRj7nCsZUiCMuIKfTgBmrjNStCQBEZg=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=UwN4fu8djudKiu7DNrhEnH3PNVFQbBPHV1bfXxva1es3Av5OhJ5Q+ULjqXC23fD/z
-	 n0R+Mbl1HfU3jOrQAv8aDd5aR0161e0LgJnbr5JaNrsulIFK7H7FrAK1gkgkoWxibC
-	 MNb7AM0p4oIxHWDAVn3RWsrmx0ERXdFctltEGqz4=
+	b=WhlsCDqOhSTcXMLhS7SiMfhaes39PEOBwI/zgQ7X/I7bbyuGgJXZkkXlx4vOQ6QUg
+	 jJnAVGo3HU54ZFIaSk7mF96cvIkM8eSfh/4qbKbw5V6Knh8YU26ouHUx2PcRRS3eKv
+	 XD8ym5BefqPdEwZctZ0w1IAz7YhUVWJIBWYNESqY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6C651F80276;
-	Fri, 14 Feb 2020 17:06:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 29D21F802A0;
+	Fri, 14 Feb 2020 17:07:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98823F80290; Fri, 14 Feb 2020 17:06:45 +0100 (CET)
+ id 9E8E2F8029B; Fri, 14 Feb 2020 17:07:01 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 89968F800F0
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:06:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89968F800F0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 82B15F80299
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:06:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 82B15F80299
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="gL5syfcc"
+ header.b="MaLy1uiI"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 1E766222C2;
- Fri, 14 Feb 2020 16:06:40 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 2938322314;
+ Fri, 14 Feb 2020 16:06:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696400;
- bh=BMSj3i+Zs6AHfdEoKpkr+5pJSuTkEp65CL/I5pXfE30=;
+ s=default; t=1581696416;
+ bh=6DSdMFjxgWRdypq5833DUzQbfzCUretx9y9XI87VwjY=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=gL5syfccITRa7zVVmoA+jIjQ4Qb/72Wg4mOxCOMNNxfFzuRSmIX0hJWxJUThO5dI8
- BKLsJlJhU0g1veilL4c52EhrRv1cbHWyPp8R8Qcjr5hklLdqlqlLogsCFEdUsF+rvE
- LKxqUDOl3PbHQXiciy5m7z+CS7A2Eatrm2gwINto=
+ b=MaLy1uiI71EZAV6y632w9nMn/KTQiU2q3XOt4pozsdWYHtuzHZirkoX8pYG7lLkWJ
+ 6mnRt9j1pbJLxEMkABaSX8z9SfJH5LkvKljB5YOU/LqpT77/6J28zpcZVZnC8MeEvt
+ Db51kACCRo4liUfjblNkKmoR3ZxHpgcw5u9A2QC0=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:57:55 -0500
-Message-Id: <20200214160149.11681-225-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 10:58:08 -0500
+Message-Id: <20200214160149.11681-238-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, Hulk Robot <hulkci@huawei.com>,
- alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
- YueHaibing <yuehaibing@huawei.com>
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 225/459] ASoC: Intel:
-	kbl_da7219_max98357a: remove unused variable
-	'constraints_16000' and 'ch_mono'
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 238/459] ASoC: soc-topology: fix
+	endianness issues
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,50 +86,142 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: YueHaibing <yuehaibing@huawei.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-[ Upstream commit c5614fb8e3d13be7bba79f71b798468a3a6224f7 ]
+[ Upstream commit 72bbeda0222bcd382ee33b3aff71346074410c21 ]
 
-sound/soc/intel/boards/kbl_da7219_max98357a.c:343:48:
- warning: constraints_16000 defined but not used [-Wunused-const-variable=]
-sound/soc/intel/boards/kbl_da7219_max98357a.c:348:27:
- warning: ch_mono defined but not used [-Wunused-const-variable=]
+Sparse complains about a series of easy warnings, fix.
 
-They are never used, so can be removed.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20191224140237.36732-1-yuehaibing@huawei.com
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200102195952.9465-3-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/kbl_da7219_max98357a.c | 13 -------------
- 1 file changed, 13 deletions(-)
+ sound/soc/soc-topology.c | 42 +++++++++++++++++++++-------------------
+ 1 file changed, 22 insertions(+), 20 deletions(-)
 
-diff --git a/sound/soc/intel/boards/kbl_da7219_max98357a.c b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-index 537a88932bb69..0d55319a0773c 100644
---- a/sound/soc/intel/boards/kbl_da7219_max98357a.c
-+++ b/sound/soc/intel/boards/kbl_da7219_max98357a.c
-@@ -336,19 +336,6 @@ static struct snd_soc_ops kabylake_dmic_ops = {
- 	.startup = kabylake_dmic_startup,
- };
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index fef01e1dd15c5..d00203ef8305f 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -604,9 +604,11 @@ static int soc_tplg_kcontrol_bind_io(struct snd_soc_tplg_ctl_hdr *hdr,
+ 		ext_ops = tplg->bytes_ext_ops;
+ 		num_ops = tplg->bytes_ext_ops_count;
+ 		for (i = 0; i < num_ops; i++) {
+-			if (!sbe->put && ext_ops[i].id == be->ext_ops.put)
++			if (!sbe->put &&
++			    ext_ops[i].id == le32_to_cpu(be->ext_ops.put))
+ 				sbe->put = ext_ops[i].put;
+-			if (!sbe->get && ext_ops[i].id == be->ext_ops.get)
++			if (!sbe->get &&
++			    ext_ops[i].id == le32_to_cpu(be->ext_ops.get))
+ 				sbe->get = ext_ops[i].get;
+ 		}
  
--static const unsigned int rates_16000[] = {
--	16000,
--};
--
--static const struct snd_pcm_hw_constraint_list constraints_16000 = {
--	.count = ARRAY_SIZE(rates_16000),
--	.list  = rates_16000,
--};
--
--static const unsigned int ch_mono[] = {
--	1,
--};
--
- SND_SOC_DAILINK_DEF(dummy,
- 	DAILINK_COMP_ARRAY(COMP_DUMMY()));
+@@ -621,11 +623,11 @@ static int soc_tplg_kcontrol_bind_io(struct snd_soc_tplg_ctl_hdr *hdr,
+ 	num_ops = tplg->io_ops_count;
+ 	for (i = 0; i < num_ops; i++) {
  
+-		if (k->put == NULL && ops[i].id == hdr->ops.put)
++		if (k->put == NULL && ops[i].id == le32_to_cpu(hdr->ops.put))
+ 			k->put = ops[i].put;
+-		if (k->get == NULL && ops[i].id == hdr->ops.get)
++		if (k->get == NULL && ops[i].id == le32_to_cpu(hdr->ops.get))
+ 			k->get = ops[i].get;
+-		if (k->info == NULL && ops[i].id == hdr->ops.info)
++		if (k->info == NULL && ops[i].id == le32_to_cpu(hdr->ops.info))
+ 			k->info = ops[i].info;
+ 	}
+ 
+@@ -638,11 +640,11 @@ static int soc_tplg_kcontrol_bind_io(struct snd_soc_tplg_ctl_hdr *hdr,
+ 	num_ops = ARRAY_SIZE(io_ops);
+ 	for (i = 0; i < num_ops; i++) {
+ 
+-		if (k->put == NULL && ops[i].id == hdr->ops.put)
++		if (k->put == NULL && ops[i].id == le32_to_cpu(hdr->ops.put))
+ 			k->put = ops[i].put;
+-		if (k->get == NULL && ops[i].id == hdr->ops.get)
++		if (k->get == NULL && ops[i].id == le32_to_cpu(hdr->ops.get))
+ 			k->get = ops[i].get;
+-		if (k->info == NULL && ops[i].id == hdr->ops.info)
++		if (k->info == NULL && ops[i].id == le32_to_cpu(hdr->ops.info))
+ 			k->info = ops[i].info;
+ 	}
+ 
+@@ -931,7 +933,7 @@ static int soc_tplg_denum_create_texts(struct soc_enum *se,
+ 	if (se->dobj.control.dtexts == NULL)
+ 		return -ENOMEM;
+ 
+-	for (i = 0; i < ec->items; i++) {
++	for (i = 0; i < le32_to_cpu(ec->items); i++) {
+ 
+ 		if (strnlen(ec->texts[i], SNDRV_CTL_ELEM_ID_NAME_MAXLEN) ==
+ 			SNDRV_CTL_ELEM_ID_NAME_MAXLEN) {
+@@ -1325,7 +1327,7 @@ static struct snd_kcontrol_new *soc_tplg_dapm_widget_dmixer_create(
+ 		if (kc[i].name == NULL)
+ 			goto err_sm;
+ 		kc[i].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+-		kc[i].access = mc->hdr.access;
++		kc[i].access = le32_to_cpu(mc->hdr.access);
+ 
+ 		/* we only support FL/FR channel mapping atm */
+ 		sm->reg = tplc_chan_get_reg(tplg, mc->channel,
+@@ -1337,10 +1339,10 @@ static struct snd_kcontrol_new *soc_tplg_dapm_widget_dmixer_create(
+ 		sm->rshift = tplc_chan_get_shift(tplg, mc->channel,
+ 			SNDRV_CHMAP_FR);
+ 
+-		sm->max = mc->max;
+-		sm->min = mc->min;
+-		sm->invert = mc->invert;
+-		sm->platform_max = mc->platform_max;
++		sm->max = le32_to_cpu(mc->max);
++		sm->min = le32_to_cpu(mc->min);
++		sm->invert = le32_to_cpu(mc->invert);
++		sm->platform_max = le32_to_cpu(mc->platform_max);
+ 		sm->dobj.index = tplg->index;
+ 		INIT_LIST_HEAD(&sm->dobj.list);
+ 
+@@ -1401,7 +1403,7 @@ static struct snd_kcontrol_new *soc_tplg_dapm_widget_denum_create(
+ 			goto err_se;
+ 
+ 		tplg->pos += (sizeof(struct snd_soc_tplg_enum_control) +
+-				ec->priv.size);
++			      le32_to_cpu(ec->priv.size));
+ 
+ 		dev_dbg(tplg->dev, " adding DAPM widget enum control %s\n",
+ 			ec->hdr.name);
+@@ -1411,7 +1413,7 @@ static struct snd_kcontrol_new *soc_tplg_dapm_widget_denum_create(
+ 		if (kc[i].name == NULL)
+ 			goto err_se;
+ 		kc[i].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+-		kc[i].access = ec->hdr.access;
++		kc[i].access = le32_to_cpu(ec->hdr.access);
+ 
+ 		/* we only support FL/FR channel mapping atm */
+ 		se->reg = tplc_chan_get_reg(tplg, ec->channel, SNDRV_CHMAP_FL);
+@@ -1420,8 +1422,8 @@ static struct snd_kcontrol_new *soc_tplg_dapm_widget_denum_create(
+ 		se->shift_r = tplc_chan_get_shift(tplg, ec->channel,
+ 						  SNDRV_CHMAP_FR);
+ 
+-		se->items = ec->items;
+-		se->mask = ec->mask;
++		se->items = le32_to_cpu(ec->items);
++		se->mask = le32_to_cpu(ec->mask);
+ 		se->dobj.index = tplg->index;
+ 
+ 		switch (le32_to_cpu(ec->hdr.ops.info)) {
+@@ -1523,9 +1525,9 @@ static struct snd_kcontrol_new *soc_tplg_dapm_widget_dbytes_create(
+ 		if (kc[i].name == NULL)
+ 			goto err_sbe;
+ 		kc[i].iface = SNDRV_CTL_ELEM_IFACE_MIXER;
+-		kc[i].access = be->hdr.access;
++		kc[i].access = le32_to_cpu(be->hdr.access);
+ 
+-		sbe->max = be->max;
++		sbe->max = le32_to_cpu(be->max);
+ 		INIT_LIST_HEAD(&sbe->dobj.list);
+ 
+ 		/* map standard io handlers and check for external handlers */
 -- 
 2.20.1
 

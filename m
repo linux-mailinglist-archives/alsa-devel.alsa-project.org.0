@@ -2,57 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F61015E920
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 18:05:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31F6E15E96B
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 18:07:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1AD301683;
-	Fri, 14 Feb 2020 18:04:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AD301683
+	by alsa0.perex.cz (Postfix) with ESMTPS id C8886169F;
+	Fri, 14 Feb 2020 18:07:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C8886169F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581699930;
-	bh=5BQBfj4iqawQSKGo+BzB+6TjzuE3NwiEeOQuP/OOOR4=;
+	s=default; t=1581700077;
+	bh=KRlR803jVoxJ8CTZdZQEiAATY7ETRmDhQCF+L5F5lkc=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=mXdmTjuuBIGCgJZZ6SniSLjPOSxjZSQYNeWnnKtuo9U+LkVbOlfJb6IfkI0/tvrSO
-	 ajF5L6nyJL7sLaC2U9BK8o7rhFrfNq+LFKMokyXRqZ7RNuAcBpe86z4n9KgnvizRIv
-	 A+p7oi89JwOL+PtxB2WEzR2p9sUJBsRTOnzrrCIQ=
+	b=HX4IFpbSYMF8NaB3lPRQt8MZybtZBl3X8F9jQSigWXPgDZ14Yy2HoYVJSMy6mCzaP
+	 3RAfuE13attEEi6OkmZaTUYwJY+4N1ollDtvJY7N0yUyEyJJFAnlo3NSAkNrUwhxkW
+	 lsIgtlVUggmctbnoId3nWbWLsLLj0Y9RrGNM0siw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 522CBF800F0;
-	Fri, 14 Feb 2020 18:03:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F40D7F80086;
+	Fri, 14 Feb 2020 18:06:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9CBE3F8013E; Fri, 14 Feb 2020 18:03:43 +0100 (CET)
+ id DF782F8013E; Fri, 14 Feb 2020 18:06:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.4 required=5.0 tests=NO_DNS_FOR_FROM, SPF_HELO_NONE,
+ SPF_NONE autolearn=disabled version=3.4.0
 Received: from muru.com (muru.com [72.249.23.125])
- by alsa1.perex.cz (Postfix) with ESMTP id 139E5F80086
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 18:03:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 139E5F80086
+ by alsa1.perex.cz (Postfix) with ESMTP id 6DFE3F80086
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 18:06:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DFE3F80086
 Received: from atomide.com (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id B396480E7;
- Fri, 14 Feb 2020 17:04:09 +0000 (UTC)
-Date: Fri, 14 Feb 2020 09:03:22 -0800
+ by muru.com (Postfix) with ESMTPS id CF2AC80E7;
+ Fri, 14 Feb 2020 17:06:46 +0000 (UTC)
+Date: Fri, 14 Feb 2020 09:05:59 -0800
 From: Tony Lindgren <tony@atomide.com>
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <20200214170322.GZ64767@atomide.com>
+To: Mark Brown <broonie@kernel.org>
+Message-ID: <20200214170559.GA64767@atomide.com>
 References: <20200211171645.41990-1-tony@atomide.com>
  <cd46c6ec-80e3-332f-4922-e58a3acbfc61@ti.com>
  <20200212143543.GI64767@atomide.com>
  <346dfd2b-23f8-87e0-6f45-27a5099b1066@ti.com>
+ <20200214124920.GH4827@sirena.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <346dfd2b-23f8-87e0-6f45-27a5099b1066@ti.com>
+In-Reply-To: <20200214124920.GH4827@sirena.org.uk>
 Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
  Aaro Koskinen <aaro.koskinen@iki.fi>, linux-kernel@vger.kernel.org,
  Merlijn Wajer <merlijn@wizzup.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi <peter.ujfalusi@ti.com>,
  Pavel Machek <pavel@ucw.cz>, Sebastian Reichel <sre@kernel.org>,
  "Arthur D ." <spinal.by@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
 Subject: Re: [alsa-devel] [PATCH] ASoC: ti: Allocate dais dynamically for
@@ -74,199 +75,28 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-* Peter Ujfalusi <peter.ujfalusi@ti.com> [200214 12:42]:
-> Hi Tony,
+* Mark Brown <broonie@kernel.org> [200214 12:50]:
+> On Fri, Feb 14, 2020 at 02:41:30PM +0200, Peter Ujfalusi wrote:
+> > On 12/02/2020 16.35, Tony Lindgren wrote:
 > 
-> On 12/02/2020 16.35, Tony Lindgren wrote:
-> > * Peter Ujfalusi <peter.ujfalusi@ti.com> [200212 08:02]:
-> >>
-> >>
-> >> On 11/02/2020 19.16, Tony Lindgren wrote:
-> >>> We can have multiple connections on a single McBSP instance configured
-> >>> with audio graph card when using TDM (Time Division Multiplexing). Let's
-> >>> allow that by configuring dais dynamically.
-> >>
-> >> It is still one DAI...
-> >> If you have multiple codec connected to the same I2S lines, but the
-> >> codecs communicate within different time slots, you still have one DAI
-> >> on the CPU side, but multiple codecs (codec DAIs) with different TDM slot.
-> > 
-> > OK so subject should say "dodec DAIs" then I guess?
-> > 
-> >>> See Documentation/devicetree/bindings/sound/audio-graph-card.txt and
-> >>> Documentation/devicetree/bindings/graph.txt for more details for
-> >>> multiple endpoints.
-> >>
-> >> See the example for 'Multi DAI with DPCM' in audio-graph-card.txt
-> >> The PCM3168a have 2 DAIs: playback and capture, but you can have
-> >> multiple endpoints within a DAI.
-> > 
-> > Yes this should follow the audio-graph-card.txt example. We end up with
-> > mcbsp3 dts node as below on droid4:
-> > 
-> > &mcbsp3 {
-> >         #sound-dai-cells = <0>;
-> >         pinctrl-names = "default";
-> >         pinctrl-0 = <&mcbsp3_pins>;
-> >         status = "okay";
-> > 
-> >         ports {
-> >                 mcbsp3_port: port@0 {
-> >                         #address-cells = <1>;
-> >                         #size-cells = <0>;
-> > 
-> >                         cpu_dai3: endpoint@0 {
-> >                                 reg = <0>;
-> >                                 dai-format = "dsp_a";
-> >                                 frame-master = <&cpcap_audio_codec1>;
-> >                                 bitclock-master = <&cpcap_audio_codec1>;
-> >                                 remote-endpoint = <&cpcap_audio_codec1>;
-> >                         };
-> > 
-> >                         cpu_dai_mdm: endpoint@1 {
-> >                                 reg = <1>;
-> >                                 dai-format = "dsp_a";
-> >                                 frame-master = <&cpcap_audio_codec1>;
-> >                                 bitclock-master = <&cpcap_audio_codec1>;
-> >                                 remote-endpoint = <&mot_mdm6600_audio_codec0>;
-> >                         };
-> >                 };
-> >         };
-> > };
+> > > Oops, that's not good. So should we just keep the old naming if there's
+> > > only one endpoint?
 > 
-> According to
-> Documentation/devicetree/bindings/sound/audio-graph-card.txt
-> it should be something like this:
-> &mcbsp3 {
->         #sound-dai-cells = <0>;
->         pinctrl-names = "default";
->         pinctrl-0 = <&mcbsp3_pins>;
->         status = "okay";
+> > That's an option, yes, if we really need extra dummy McBSP DAIs at all,
+> > again, let's hear from Morimoto-san or Mark.
 > 
->         ports {
-> 		#address-cells = <1>;
-> 		#size-cells = <0>;
->                 port@0 {
-> 			reg = <0>;
-> 
-> 			cpu_dai3: endpoint@0 {
-> 				dai-format = "dsp_a";
-> 				frame-master = <&cpcap_audio_codec1>;
-> 				bitclock-master = <&cpcap_audio_codec1>;
-> 				remote-endpoint = <&cpcap_audio_codec1>;
-> 			};
-> 
-> 			cpu_dai_mdm: endpoint@1 {
-> 				dai-format = "dsp_a";
-> 				frame-master = <&cpcap_audio_codec1>;
-> 				bitclock-master = <&cpcap_audio_codec1>;
-> 				remote-endpoint = <&mot_mdm6600_audio_codec0>;
-> 			};
-> 		};
-> 	};
-> };
+> We really shouldn't need dummy DAIs at all I think, if we do it feels
+> like there's a problem.  It's quite possible that there is actually a
+> problem here though...
 
-Hmms so I only spot reg use at different level changing above. Well
-that's not according to Documentation/devicetree/bindings/graph.txt,
-the reg numbering is per endpoint.
+It's dummy in the droid4 voice call case as mcbsp is not the clock-master
+and there's nothing to configure for mcbsp.
 
-Sounds like the we have the example not following graph.txt in
-Documentation/devicetree/bindings/sound/audio-graph-card.txt while
-the code is now behaving as in graph.txt.
+But I guess in some cases mcbsp could be the clock-master and then the
+secondary DAI would have ops.
 
-> If you span out dummy DAIs got dai1+ then how you will get anything
-> working via endpoint1+?
-> There will be no ops for McBSP, so it is not going to do anything...
-
-Eventually it could have ops though. For things like capture of the tdm
-slot data for recording audio call for example, I don't know how that's
-supposed to work though. I guess mcbsp could be the clock master too,
-and for those cases it would have ops.
-
-But right now in droid4 voice call case mcbsp is just the i2s transport,
-and everything happens betwee the modem and the cpcap pmic.
-
-> > That is pretty much the same as the 'Multi DAI with DPCM' example, with
-> > dne dai, and multiple endpoints. I think we still have just one port
-> > for one i2s transport on the mcbsp :)
-> > 
-> > Does the above look as what you would expect based on the binding?
-> 
-> The audio-graph-card.txt example shows pcm3168a which have two DAIs,
-> one for playback and one for capture.
-> 
-> I guess Morimoto-san can explain if he carries out of tree patches to
-> get the described setup working on top of mainline...
->
-> But, no, based on the documentation I don't ;)
-
-Sounds like audio-graph-card.txt is just out of sync with graph.txt
-as we do have several working examples?
-
-> >>> I've tested this with droid4 where cpcap pmic and modem voice are both
-> >>> both wired to mcbsp3. I've also tested this on droid4 both with and
-> >>> without the pending modem audio codec driver that is waiting for n_gsm
-> >>> serdev dependencies to clear.
-> >>
-> >> What this patch you effectively just creating dummy-dais on top of the
-> >> real McBSP DAI.
-> > 
-> > Yes I think this is needed for snd-soc-audio-graph-card, and this allows
-> > configuring whatever is needed for the i2s slot. But maybe you have some
-> > better way of doing it in mind?
-> > 
-> >> You also rename the DAIs, which might break ams-delta.
-> > 
-> > Oops, that's not good. So should we just keep the old naming if there's
-> > only one endpoint?
-> 
-> That's an option, yes, if we really need extra dummy McBSP DAIs at all,
-> again, let's hear from Morimoto-san or Mark.
-
-Well it would not necessarily be a dummy mcbsp dai in all cases it seems
-to me. But yeah nothing for the second dai to do right now for droid4
-voice call as it's all between the modem and the pmic.
-
-> >> We still have legacy support in
-> >> omap-twl4030.c
-> >> omap3pandora.c
-> >> osk5912.c
-> >> rx51.c
-> >>
-> >> which will break with the renamed DAI. On the other hand I think the
-> >> legacy support can be dropped from them.
-> > 
-> > I'm not sure what all that would take.
-> 
-> For some it should not be a big deal as they only boot in DT mode.
-> /me adds this to the TODO list.
-
-OK
-
-> >> I know it was discussed, but can not find the mail:
-> >> Can you brief again on the audio connection?
-> > 
-> > Below is a link to a mailing list thread where Sebastian describes
-> > the audio connection:
-> > 
-> > https://lkml.org/lkml/2018/3/28/881
-> 
-> Thanks!
->  
-> >> Do you have branch with working code?
-> > 
-> > Yeah I have slightly older set of the patches in my droid4-pending-v5.5
-> > kernel.org git branch with voice calls working.
-> 
-> I think I should put my droid4 out and try to get it working...
-> Do you have a link for dummies to follow to get started? ;)
-
-Probably the easiest one to use right now is the Maemo-leste devuan based
-test image using v5.5 kernel + modem and audio patches:
-
-https://leste.maemo.org/Motorola_Droid_4
-
-Just use a decent speed micro-sd card rated "a1" for example.
+I could be wrong though, this is just based on my experience with
+getting one device working.
 
 Regards,
 

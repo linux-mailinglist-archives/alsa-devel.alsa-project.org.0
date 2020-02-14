@@ -2,68 +2,92 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EA3615FAB1
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Feb 2020 00:36:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F2CDA15FB40
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Feb 2020 01:01:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6D0A1673;
-	Sat, 15 Feb 2020 00:35:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6D0A1673
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E0E51676;
+	Sat, 15 Feb 2020 01:00:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E0E51676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581723395;
-	bh=etGO/qCSLmY5RpUEDrG8PprU89xprGGs8ss+vDVvPh0=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581724873;
+	bh=lyeLlT8T/Hnk6XsivFhKUekD2fvpgmkdqUrlemSipG8=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rhpoKI/w1QUOwYRpKDyBFzI0ufZ5NzrJ0rb5K4NvQfXW6mEJbruylmYfKejlPb32R
-	 czAZFm0hB2j21KbPEmGYlaKdWlUKbqLa+46eEJ3mNfH093ZYgKTeO+hcdpWGTVRRvO
-	 MVKzIN9/RoiehdOYziq/YnWJX/WwVXApqQLqgpkA=
+	b=gThFM1glAyIB1KlLKdTZz4n3rbRUGFWibT7Ut9IyfAQWdbNY8SB4OVW77FHh5XIAH
+	 p8ovvi+l7kHhxbqABkveR5Ytj4c8MRDAGJ2eTkxgvDNcYAHBQonldMrLMLXQO//cPX
+	 yaWFenBtJm0OFLkhz0yROk0Kks2cSzm4JvsdV70k=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C693AF80157;
-	Sat, 15 Feb 2020 00:34:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A9B99F80086;
+	Sat, 15 Feb 2020 00:59:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A39AAF8014F; Sat, 15 Feb 2020 00:34:51 +0100 (CET)
+ id CAF6BF8014F; Sat, 15 Feb 2020 00:59:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
+ autolearn=disabled version=3.4.0
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF885F80086
- for <alsa-devel@alsa-project.org>; Sat, 15 Feb 2020 00:34:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF885F80086
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2020 15:34:42 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,442,1574150400"; d="scan'208";a="227772276"
-Received: from edgarher-mobl.amr.corp.intel.com (HELO [10.255.228.112])
- ([10.255.228.112])
- by orsmga008.jf.intel.com with ESMTP; 14 Feb 2020 15:34:41 -0800
-To: Greg KH <gregkh@linuxfoundation.org>
-References: <20200201042011.5781-1-pierre-louis.bossart@linux.intel.com>
- <20200214164919.GB4016987@kroah.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <0ec41a5b-6132-6940-f1b3-bac1724b70a4@linux.intel.com>
-Date: Fri, 14 Feb 2020 17:34:40 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id B9105F80086
+ for <alsa-devel@alsa-project.org>; Sat, 15 Feb 2020 00:59:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B9105F80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="qoZ8bvp1"
+Received: by mail-io1-xd41.google.com with SMTP id c16so12423362ioh.6
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 15:59:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1d6JlykbVicmjG0A2XUt4eGD3FJVfi/fh9TSeO7qCwM=;
+ b=qoZ8bvp1ZKuu6goMKUjVMTPgR9GgeGjmljCOt3XjoV9fORvvcDsIAjo0g3xIbB5Ik7
+ KdGkT5lt9iXWZ/z/MBilIsHWc1nzMp+g5gcU/hLP3vaaScigRfoYnnNQDPZ6vWCu/3rX
+ 3tNKdFZUQnZ2J6y90kTjadH6BTGSsLBoexQkRbptaj3XneVQq9+fqz0sEQZQtCyq4aPH
+ EsqRQsZv57w2f+dNLbWlzBU4HQkLfnvHLaz+tjNhVSDD0ZhI0UAhcui0sTQ/IAblTagH
+ 68V0nNAsfXuA0agsT9wdDsreszDD+Ha/TE2LwH2nuoLj4yJ61g317518G0bMp5PPuA9w
+ uoYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1d6JlykbVicmjG0A2XUt4eGD3FJVfi/fh9TSeO7qCwM=;
+ b=MJIu9xXURXMYr2jp0PxiiAR0aXxplIUHujhVm5gJMZC72L21iquT21uAY+Ps8mXqSS
+ 21oxXscB3eYeRkGEHtlE0pkNXdqQx7aYs8ShPgAA5dsEBvT6jPpi86C8+xhnyZZf9Gfp
+ HZ40dVRjQn3SVPvCjnfmFNv7VBwrrms39DqyK9+Riyn4TAT1isleXmd3Jrk0QHP3E7Z7
+ Qv3ojsf0+r2PJTlDqDA2HXxbTejAiP0f92bT3GNf6hRst7lgWQja4Bd6HydrwLPGTlrE
+ Z5rN8UTUwXvZzQumRJUneRwwTPkXHlrvpB8c55vgIxjdwDwTjJkJ18uu8A2k6UZA0KVj
+ u3dg==
+X-Gm-Message-State: APjAAAWN0zrWDoT5cARJRlZOpm7c0qAVkWmgEo36mGRCLU+HYiX6W68O
+ XU7ncpT65ErjB6mapez/WwiubHOIDn2WDPzpMMnoYA==
+X-Google-Smtp-Source: APXvYqzCcV3CabKkAZK0b1p7Mn18+1jLNQikB9SRQht9Z9uo7mLVPhCQ74Zh2zqPN2EZXKwwi7uQIrNePZqAf4dxm7A=
+X-Received: by 2002:a05:6638:538:: with SMTP id
+ j24mr4421937jar.12.1581724764168; 
+ Fri, 14 Feb 2020 15:59:24 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200214164919.GB4016987@kroah.com>
-Content-Language: en-US
-Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
- broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
- slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
-Subject: Re: [alsa-devel] [RFC PATCH 0/2] soundwire: add
- master_device/driver support
+References: <20200213153226.I477092c2f104fd589133436c3ae4590e6fc6323b@changeid>
+ <1581664042.20487.4.camel@mtksdaap41>
+ <CA+Px+wW0BWz0-8L_UXJ-OYbwG6W9vmCWRr7kevpk0yokp+NKKg@mail.gmail.com>
+ <1581669243.29925.13.camel@mtksdaap41>
+In-Reply-To: <1581669243.29925.13.camel@mtksdaap41>
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Sat, 15 Feb 2020 07:59:13 +0800
+Message-ID: <CA+Px+wUacX+HbgLTSjAuq0feoeYNb5pp=1w8C4_zm=0jGVcHUw@mail.gmail.com>
+To: CK Hu <ck.hu@mediatek.com>
+Cc: ALSA development <alsa-devel@alsa-project.org>, p.zabel@pengutronix.de,
+ David Airlie <airlied@linux.ie>, dri-devel@lists.freedesktop.org,
+ Mark Brown <broonie@kernel.org>, linux-mediatek@lists.infradead.org,
+ Daniel Vetter <daniel@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Dylan Reid <dgreid@google.com>, linux-arm-kernel@lists.infradead.org,
+ Jimmy Cheng-Yi Chiang <cychiang@google.com>
+Subject: Re: [alsa-devel] [PATCH] drm/mediatek: fix race condition for HDMI
+	jack status reporting
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,93 +100,18 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Fri, Feb 14, 2020 at 4:34 PM CK Hu <ck.hu@mediatek.com> wrote:
+> It looks like that even though sound driver is removed, hdmi driver
+> would still callback to sound core. This is so weird. After sound driver
+> is removed, hdmi driver would callback with codec_dev which is invalid.
+> I think this may cause some problem.
 
-
-On 2/14/20 10:49 AM, Greg KH wrote:
-> On Fri, Jan 31, 2020 at 10:20:09PM -0600, Pierre-Louis Bossart wrote:
->> The SoundWire master representation needs to evolve to take into account:
->>
->> a) a May 2019 recommendation from Greg KH to remove platform devices
->>
->> b) the need on Intel platforms to support hardware startup only once
->> the power rail dependencies are settled. The SoundWire master is not
->> an independent IP at all.
->>
->> c) the need to deal with external wakes handled by the PCI subsystem
->> in specific low-power modes
->>
->> In case it wasn't clear, the SoundWire subsystem is currently unusable
->> with v5.5 on devices hitting the shelves very soon (race conditions,
->> power management, suspend/resume, etc). v5.6 will only provide
->> interface changes and no functional improvement. We've circled on the
->> same concepts since September 2019, and I hope this direction is now
->> aligned with the suggestions from Vinod Koul and that we can target
->> v5.7 as the 'SoundWire just works(tm)' version.
->>
->> This series is provided as an RFC since it depends on patches already
->> for review.
-> 
-> Both of these look sane to me, nice work!
-> 
-> Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-
-
-Thanks Greg, I really appreciate the review and educational guidance on 
-the use of platform devices!
-
-If that's alright with Vinod and you, I'd like to defer the integration 
-of these patches a bit so that we can improve them a bit e.g.
-
-- I realized earlier this week there's a potential issue with the 
-'shutdown' callback, what I did looks duplicated with 'shutdown' called 
-from the device core and by the parent.
-
-- it would make sense to add support for this 'master device' in the 
-Qualcomm drivers as well, so that we are aligned with a similar device 
-hierarchy (PCI -> sdw_master_device and DT/plaforms ->sdw_master_device).
-
-- we probably want to add the sysfs patches that started this discussion 
-on the platform devices. This would be very useful to debug new 
-platforms, we depend on BIOS/firmware and we can't always know the 
-actual settings just by looking at the DSDT static contents (multiple 
-tests and overridden values).
-
-My preference in terms of integration in drivers/soundwire would be
-
-1. Intel DAI cleanup (only one kfree missing, will resubmit v3 today)
-
-2. [PATCH 00/10] soundwire: bus: fix race conditions, add suspend-resume
-this series solves a lot of issues and should go first.
-
-3. ASoC/SOF integration (still with platform devices)
-I narrowed this down to 6 patches, that would help me submit the rest of 
-the ASoC/SOF patches in Mark Brown's tree. That would be Intel specific. 
-This step would be the first where everything SoundWire-related can be 
-enabled in a build, and while we've caught a lot of cross-compilation 
-issues it's likely some bots will find corner cases to keep us busy.
-
-4. master_device/driver transition: these updated patches removing 
-platform devices + sysfs support + Qualcomm support (the last point 
-would depend on the workload/support of Qualcomm/Linaro folks, I don't 
-want to commit on their behalf).
-
-5. New SoundWire functionality for Intel platforms (clock-stop/restart 
-and synchronized links). The code would be only located in 
-drivers/soundwire and be easier to handle. For the synchronized links we 
-still have a bit of validation work to do so it should really come last.
-
-Would this work for everyone?
-
-Thanks,
--Pierre
-
-
-
+Will do some tests and get back to you.
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

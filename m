@@ -2,51 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A6EA15D9C8
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 15:51:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 623B515DBDA
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 16:51:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E05B1167B;
-	Fri, 14 Feb 2020 15:50:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E05B1167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D18101677;
+	Fri, 14 Feb 2020 16:50:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D18101677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581691876;
-	bh=XVIgtE25UySu7aJGH+V4x5dYxzFaoQwGVyLAGFWQ8Do=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=iinWcuMAMpv9v8WQ+Diat10v3aPHjwOwrZTjoLtO6IqlUXVc3hZxNsUwYSdrztr38
-	 axKm4LtRZlEQwdugovw7yhzsrQWcPzLyWJBTrgdQjjJB4FktEvHE2E0m5Iml07Irch
-	 5ZExduJk9UMRpLffg6JoDXcRVN+DvxvLQrk+uuQ4=
+	s=default; t=1581695485;
+	bh=w6y011bSSnnTa4xCV4vSUJMVjWdX+ktpvnsUXE+AM+Q=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=mWe8IF8J3iaDMyf45CYF55PiLbKoxpTZPwCXcpbqqhLCGCpgxwMKzt861XEsg1TqV
+	 5/RWJKmAMzKCTEWK/pvPHaN/eUgsb7i9gSWR3oi3wHdDfIPTI2MsllLnhj5tkh5PKy
+	 L6+0Soez2oz3YFyklWbq0ue22N2arbTSBj/OrYvY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id F202CF80138;
-	Fri, 14 Feb 2020 15:49:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 98CABF80086;
+	Fri, 14 Feb 2020 16:49:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8CCB9F8014F; Fri, 14 Feb 2020 15:49:33 +0100 (CET)
+ id AEBEDF8014F; Fri, 14 Feb 2020 16:49:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E7AECF800F0
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 15:49:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E7AECF800F0
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 11976B03B
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 14:49:30 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Fri, 14 Feb 2020 15:49:28 +0100
-Message-Id: <20200214144928.23628-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-Subject: [alsa-devel] [PATCH] ALSA: usb-audio: Don't create a mixer element
-	with bogus volume range
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3A2CF80086
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 16:49:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3A2CF80086
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="Y9yjBnN3"
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id F018A24654;
+ Fri, 14 Feb 2020 15:49:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1581695377;
+ bh=CqYiNBMlMWHKkp/lCav82O14317gOiqR2e73IbrS+zI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Y9yjBnN3Cc3qspPMg5aXvaIoMyk+Be8a0Vqyaj8jpw6j1KVGJEh87/wmYdLpSfIw3
+ 0gCzp8i6T5HwWSAaj1VqQ9c6nvzv0J3vqolBwD7y9J+OLmEqhMHvDhtrUTPYPEZ64o
+ 47CXTMKrc8Qjzm4mdwNVHPK6Oc8+Ud3MYJLqJsvM=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Fri, 14 Feb 2020 10:40:25 -0500
+Message-Id: <20200214154854.6746-33-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
+References: <20200214154854.6746-1-sashal@kernel.org>
+MIME-Version: 1.0
+X-stable: review
+X-Patchwork-Hint: Ignore
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH AUTOSEL 5.5 033/542] ALSA: ctl: allow TLV read
+	operation for callback type of element in locked case
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,45 +80,65 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Some USB-audio descriptors provide a bogus volume range (e.g. volume
-min and max are identical), which confuses user-space.
-This patch makes the driver skipping such a control element.
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206221
+[ Upstream commit d61fe22c2ae42d9fd76c34ef4224064cca4b04b0 ]
+
+A design of ALSA control core allows applications to execute three
+operations for TLV feature; read, write and command. Furthermore, it
+allows driver developers to process the operations by two ways; allocated
+array or callback function. In the former, read operation is just allowed,
+thus developers uses the latter when device driver supports variety of
+models or the target model is expected to dynamically change information
+stored in TLV container.
+
+The core also allows applications to lock any element so that the other
+applications can't perform write operation to the element for element
+value and TLV information. When the element is locked, write and command
+operation for TLV information are prohibited as well as element value.
+Any read operation should be allowed in the case.
+
+At present, when an element has callback function for TLV information,
+TLV read operation returns EPERM if the element is locked. On the
+other hand, the read operation is success when an element has allocated
+array for TLV information. In both cases, read operation is success for
+element value expectedly.
+
+This commit fixes the bug. This change can be backported to v4.14
+kernel or later.
+
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+Link: https://lore.kernel.org/r/20191223093347.15279-1-o-takashi@sakamocchi.jp
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/mixer.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ sound/core/control.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/mixer.c b/sound/usb/mixer.c
-index 81b2db0edd5f..906fd38ce647 100644
---- a/sound/usb/mixer.c
-+++ b/sound/usb/mixer.c
-@@ -1674,6 +1674,16 @@ static void __build_feature_ctl(struct usb_mixer_interface *mixer,
- 	/* get min/max values */
- 	get_min_max_with_quirks(cval, 0, kctl);
+diff --git a/sound/core/control.c b/sound/core/control.c
+index 7a4d8690ce41f..08ca7666e84cf 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -1430,8 +1430,9 @@ static int call_tlv_handler(struct snd_ctl_file *file, int op_flag,
+ 	if (kctl->tlv.c == NULL)
+ 		return -ENXIO;
  
-+	/* skip a bogus volume range */
-+	if (cval->max <= cval->min) {
-+		usb_audio_dbg(mixer->chip,
-+			      "[%d] FU [%s] skipped due to invalid volume\n",
-+			      cval->head.id, kctl->id.name);
-+		snd_ctl_free_one(kctl);
-+		return;
-+	}
-+
-+
- 	if (control == UAC_FU_VOLUME) {
- 		check_mapped_dB(map, cval);
- 		if (cval->dBmin < cval->dBmax || !cval->initialized) {
+-	/* When locked, this is unavailable. */
+-	if (vd->owner != NULL && vd->owner != file)
++	/* Write and command operations are not allowed for locked element. */
++	if (op_flag != SNDRV_CTL_TLV_OP_READ &&
++	    vd->owner != NULL && vd->owner != file)
+ 		return -EPERM;
+ 
+ 	return kctl->tlv.c(kctl, op_flag, size, buf);
 -- 
-2.16.4
+2.20.1
 
 _______________________________________________
 Alsa-devel mailing list

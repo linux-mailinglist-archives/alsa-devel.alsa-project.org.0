@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0E9A15E33F
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:29:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6004215E351
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:29:39 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4B49516E1;
-	Fri, 14 Feb 2020 17:28:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4B49516E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id F25C016E4;
+	Fri, 14 Feb 2020 17:28:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F25C016E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581697740;
-	bh=Bvq5xN99+OEjyXnuZhNfSYvqD0hmi/YU156/JSBI1yI=;
+	s=default; t=1581697779;
+	bh=K3lxUjfYapMVgi6LqhwNIVEhBYhEZugXVVTuDWBTTp0=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=VCBJ7U4c+grC/crEFiNo/Upx8xNS2/C7hTOFpvj9svq0a4B+rK1rB47PG5pugj9pK
-	 yfagwCJzDPo62AkoMVwcdeRWewZixQfs62PseE+LCx86gi9pUTOzlzLpyZxLYK6153
-	 j9s3N0lSH4vdVz8KXLcNTQCW3E2mexRExh2E9zIU=
+	b=sTmyF7Ihi7izBxWeRvDTvd4p7uv4XHsQCJAfGIMEFTzAufTfYkAykV4GRs29AJlY8
+	 TEhkl9Hanw9hLxn0urh9x6c5pLJDnmbG1huPDApgjwIEjw4QSdp1fRIifPLLkoII2/
+	 z+2W22QYyeAodmqnfWLqU3eV6TI/YrALMXMOe7hk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1E8C0F80279;
-	Fri, 14 Feb 2020 17:25:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B03E9F802A0;
+	Fri, 14 Feb 2020 17:25:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EC9C7F80279; Fri, 14 Feb 2020 17:25:21 +0100 (CET)
+ id A2BBEF802A0; Fri, 14 Feb 2020 17:25:40 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 204F9F8019B
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:25:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 204F9F8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id D3B44F800F0
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:25:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D3B44F800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="USy2cNse"
+ header.b="pliuNyal"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A1749247B1;
- Fri, 14 Feb 2020 16:25:16 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id F07FB247C7;
+ Fri, 14 Feb 2020 16:25:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581697517;
- bh=ReZmYkg/prqMorqUqyrtzUfOZklO5ccW/CxxVmBonHc=;
+ s=default; t=1581697534;
+ bh=gG8HGprrQBBywmF5eY3kLdDk0um/SI/w5sXTZx28iH8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=USy2cNse9NQZo2wqbAOMv5tHzbJWI8sAWEHCslVJ+3uEEouTNHnqb4vZWDyFDsyW5
- fURQNGfVPt48Dj6Os8XF7D3MEyTdO1YYVJc7Ixiobv62PrJPdowvMvSWYeTznJ/eZF
- TSdv67z5MKiHUbibqB7Ur5OF8Z4Ij7E1kAG81apA=
+ b=pliuNyalW5zKX4wlsHvXqNilErETr8l3A9U/T56w5+8/KiqlkLc2eweq2ngCHtGDr
+ iTOMkTW6XURWA5Jw84QstQkjBWGvoPI0FtlMeHkWHLKJwbhstFo1KYeSiO4Pdu2AZf
+ FwBqqPXhvfN6LuSesoQsLPdKPGDlod6A6GL8e7Xg=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 11:23:26 -0500
-Message-Id: <20200214162425.21071-42-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 11:23:40 -0500
+Message-Id: <20200214162425.21071-56-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214162425.21071-1-sashal@kernel.org>
 References: <20200214162425.21071-1-sashal@kernel.org>
@@ -65,10 +65,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- Nathan Chancellor <natechancellor@gmail.com>, alsa-devel@alsa-project.org,
- clang-built-linux@googlegroups.com
-Subject: [alsa-devel] [PATCH AUTOSEL 4.4 042/100] ALSA: usx2y: Adjust
-	indentation in snd_usX2Y_hwdep_dsp_status
+ alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH AUTOSEL 4.4 056/100] ALSA: sh: Fix compile
+	warning wrt const
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,49 +85,39 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Nathan Chancellor <natechancellor@gmail.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit df4654bd6e42125d9b85ce3a26eaca2935290b98 ]
+[ Upstream commit f1dd4795b1523fbca7ab4344dd5a8bb439cc770d ]
 
-Clang warns:
+A long-standing compile warning was seen during build test:
+  sound/sh/aica.c: In function 'load_aica_firmware':
+  sound/sh/aica.c:521:25: warning: passing argument 2 of 'spu_memload' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
 
-../sound/usb/usx2y/usX2Yhwdep.c:122:3: warning: misleading indentation;
-statement is not part of the previous 'if' [-Wmisleading-indentation]
-        info->version = USX2Y_DRIVER_VERSION;
-        ^
-../sound/usb/usx2y/usX2Yhwdep.c:120:2: note: previous statement is here
-        if (us428->chip_status & USX2Y_STAT_CHIP_INIT)
-        ^
-1 warning generated.
-
-This warning occurs because there is a space before the tab on this
-line. Remove it so that the indentation is consistent with the Linux
-kernel coding style and clang no longer warns.
-
-This was introduced before the beginning of git history so no fixes tag.
-
-Link: https://github.com/ClangBuiltLinux/linux/issues/831
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
-Link: https://lore.kernel.org/r/20191218034257.54535-1-natechancellor@gmail.com
+Fixes: 198de43d758c ("[ALSA] Add ALSA support for the SEGA Dreamcast PCM device")
+Link: https://lore.kernel.org/r/20200105144823.29547-69-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/usx2y/usX2Yhwdep.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/sh/aica.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
-index 0b34dbc8f3020..7dcb33d3886bc 100644
---- a/sound/usb/usx2y/usX2Yhwdep.c
-+++ b/sound/usb/usx2y/usX2Yhwdep.c
-@@ -132,7 +132,7 @@ static int snd_usX2Y_hwdep_dsp_status(struct snd_hwdep *hw,
- 	info->num_dsps = 2;		// 0: Prepad Data, 1: FPGA Code
- 	if (us428->chip_status & USX2Y_STAT_CHIP_INIT)
- 		info->chip_ready = 1;
-- 	info->version = USX2Y_DRIVER_VERSION; 
-+	info->version = USX2Y_DRIVER_VERSION;
- 	return 0;
+diff --git a/sound/sh/aica.c b/sound/sh/aica.c
+index ad3d9ae380349..dd601b39f69ef 100644
+--- a/sound/sh/aica.c
++++ b/sound/sh/aica.c
+@@ -120,10 +120,10 @@ static void spu_memset(u32 toi, u32 what, int length)
  }
  
+ /* spu_memload - write to SPU address space */
+-static void spu_memload(u32 toi, void *from, int length)
++static void spu_memload(u32 toi, const void *from, int length)
+ {
+ 	unsigned long flags;
+-	u32 *froml = from;
++	const u32 *froml = from;
+ 	u32 __iomem *to = (u32 __iomem *) (SPU_MEMORY_BASE + toi);
+ 	int i;
+ 	u32 val;
 -- 
 2.20.1
 

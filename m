@@ -2,73 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FA7815DC9E
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 16:55:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D4A515DB48
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 16:44:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F08B51674;
-	Fri, 14 Feb 2020 16:54:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F08B51674
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9DFD8166C;
+	Fri, 14 Feb 2020 16:44:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9DFD8166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581695734;
-	bh=HaszbcXX2qln8cL8GvmZcdQR46z7qKt3F5xQufNQKdw=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1581695094;
+	bh=9GPgMdMuBYEpAFENI7egU9gT8TMUQhP4hNhr63Y+rW0=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=n9YZ9Ovo0wON8HaAXtf5OKik6vRMjFl8N1bV0KalDdVNkbLx+70IK3zgb8L4+7Qa+
-	 NpzS2hve1UTQYmrHUsKLHGbI92/RDytmM7ebSFNiFgk1EoX/iNvECIpzR1WSQX7Cn6
-	 sbl07+ODILEeM3B6dAPV8LoMq4iTLaGRzqoyZTpM=
+	b=poCzRS6EsKy6CkgWlZwq88jOinc26gnreeorAI0MiWTmBPPBa60RTbbpZmZXBaMU3
+	 7hpxRwXKdydx7mNcT/E89uMxvEe/IWEOPWVQG4J8+KAAiKcHOjkzBptO8FkKBpnYo3
+	 x/6sA+thbSsTxEmI1p5XeCZkNgxRRX5BnjxIJnuA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 88EFDF80234;
-	Fri, 14 Feb 2020 16:52:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A8C53F80086;
+	Fri, 14 Feb 2020 16:43:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 65A10F80228; Fri, 14 Feb 2020 16:52:48 +0100 (CET)
+ id 71AFCF8014F; Fri, 14 Feb 2020 16:43:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D948AF800F0
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 16:52:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D948AF800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="2NnFF8qi"
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 9C99924673;
- Fri, 14 Feb 2020 15:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695562;
- bh=sedOC4hZMGE2g2i99HGX1ZfpSvh9kBm9p5Cv+cu1atc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=2NnFF8qixATBTm3bSIkwFCW6kMbUPS9+uvnd85ZyyigYlxJpsg0HJbGwL6XDd3EHS
- 5ozWsyFtIkSf2/Ey3YtTR6LgjY5ERbA03zvhekj5b+m/5B4b2q2OQDUS6McUfWcbiY
- 8ewxAH8A/wjNLw5NHzTPX+5VC+rqACrUbtQAukU4=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:42:47 -0500
-Message-Id: <20200214154854.6746-175-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
-References: <20200214154854.6746-1-sashal@kernel.org>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id D8CD2F80086
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 16:43:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D8CD2F80086
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8BC2E328;
+ Fri, 14 Feb 2020 07:43:06 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F1953F68E;
+ Fri, 14 Feb 2020 07:43:05 -0800 (PST)
+Date: Fri, 14 Feb 2020 15:43:04 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Message-ID: <20200214154304.GP4827@sirena.org.uk>
+References: <20200214105744.82258-1-tzungbi@google.com>
+ <20200214105744.82258-4-tzungbi@google.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: [alsa-devel] [PATCH AUTOSEL 5.5 175/542] ASoC: SOF: Intel: hda:
-	solve MSI issues by merging ipc and stream irq handlers
+In-Reply-To: <20200214105744.82258-4-tzungbi@google.com>
+X-Cookie: Shipping not included.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, dgreid@google.com, cychiang@google.com
+Subject: Re: [alsa-devel] [PATCH 3/3] ASoC: core: remove SND_SOC_BYTES_E
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,346 +64,53 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============3086947808919035477=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Bard Liao <yung-chuan.liao@linux.intel.com>
 
-[ Upstream commit 7c11af9fcdc425b80f140a218d4fef9f17734bfc ]
+--===============3086947808919035477==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="K8zN2sh9fO5jmbe4"
+Content-Disposition: inline
 
-The existing code uses two handlers for a shared edge-based MSI interrupts.
-In corner cases, interrupts are lost, leading to IPC timeouts. Those
-timeouts do not appear in legacy mode.
 
-This patch merges the two handlers and threads into a single one, and
-simplifies the mask/unmask operations by using a single top-level mask
-(Global Interrupt Enable). The handler only checks for interrupt
-sources using the Global Interrupt Status (GIS) field, and all the
-actual work happens in the thread. This also enables us to remove the
-use of spin locks. Stream events are prioritized over IPC ones.
+--K8zN2sh9fO5jmbe4
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch was tested with HDaudio and SoundWire platforms, and all
-known IPC timeout issues are solved in MSI mode. The
-SoundWire-specific patches will be provided in follow-up patches,
-where the SoundWire interrupts are handled in the same thread as IPC
-and stream interrupts.
+On Fri, Feb 14, 2020 at 06:57:44PM +0800, Tzung-Bi Shih wrote:
+> Reverts commit fb5126778333 ("ASoC: core: add SND_SOC_BYTES_E").
 
-Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20191204212859.13239-1-pierre-louis.bossart@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/sof/intel/apl.c        |  1 -
- sound/soc/sof/intel/cnl.c        |  5 ---
- sound/soc/sof/intel/hda-ipc.c    | 23 +++--------
- sound/soc/sof/intel/hda-stream.c | 20 ++++-----
- sound/soc/sof/intel/hda.c        | 69 ++++++++++++++++++++++----------
- sound/soc/sof/intel/hda.h        | 11 ++---
- 6 files changed, 70 insertions(+), 59 deletions(-)
+Not sure I see any great need to do this - it's not doing any harm and
+something else might come along which could use it.
 
-diff --git a/sound/soc/sof/intel/apl.c b/sound/soc/sof/intel/apl.c
-index 7daa8eb456c8d..6f45e14f2b2e3 100644
---- a/sound/soc/sof/intel/apl.c
-+++ b/sound/soc/sof/intel/apl.c
-@@ -41,7 +41,6 @@ const struct snd_sof_dsp_ops sof_apl_ops = {
- 	.block_write	= sof_block_write,
- 
- 	/* doorbell */
--	.irq_handler	= hda_dsp_ipc_irq_handler,
- 	.irq_thread	= hda_dsp_ipc_irq_thread,
- 
- 	/* ipc */
-diff --git a/sound/soc/sof/intel/cnl.c b/sound/soc/sof/intel/cnl.c
-index 0e1e265f3f3b3..9bd169e2691e2 100644
---- a/sound/soc/sof/intel/cnl.c
-+++ b/sound/soc/sof/intel/cnl.c
-@@ -106,10 +106,6 @@ static irqreturn_t cnl_ipc_irq_thread(int irq, void *context)
- 				    "nothing to do in IPC IRQ thread\n");
- 	}
- 
--	/* re-enable IPC interrupt */
--	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIC,
--				HDA_DSP_ADSPIC_IPC, HDA_DSP_ADSPIC_IPC);
--
- 	return IRQ_HANDLED;
- }
- 
-@@ -231,7 +227,6 @@ const struct snd_sof_dsp_ops sof_cnl_ops = {
- 	.block_write	= sof_block_write,
- 
- 	/* doorbell */
--	.irq_handler	= hda_dsp_ipc_irq_handler,
- 	.irq_thread	= cnl_ipc_irq_thread,
- 
- 	/* ipc */
-diff --git a/sound/soc/sof/intel/hda-ipc.c b/sound/soc/sof/intel/hda-ipc.c
-index 0fd2153c17695..1837f66e361fd 100644
---- a/sound/soc/sof/intel/hda-ipc.c
-+++ b/sound/soc/sof/intel/hda-ipc.c
-@@ -230,22 +230,15 @@ irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context)
- 				    "nothing to do in IPC IRQ thread\n");
- 	}
- 
--	/* re-enable IPC interrupt */
--	snd_sof_dsp_update_bits(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIC,
--				HDA_DSP_ADSPIC_IPC, HDA_DSP_ADSPIC_IPC);
--
- 	return IRQ_HANDLED;
- }
- 
--/* is this IRQ for ADSP ? - we only care about IPC here */
--irqreturn_t hda_dsp_ipc_irq_handler(int irq, void *context)
-+/* Check if an IPC IRQ occurred */
-+bool hda_dsp_check_ipc_irq(struct snd_sof_dev *sdev)
- {
--	struct snd_sof_dev *sdev = context;
--	int ret = IRQ_NONE;
-+	bool ret = false;
- 	u32 irq_status;
- 
--	spin_lock(&sdev->hw_lock);
--
- 	/* store status */
- 	irq_status = snd_sof_dsp_read(sdev, HDA_DSP_BAR, HDA_DSP_REG_ADSPIS);
- 	dev_vdbg(sdev->dev, "irq handler: irq_status:0x%x\n", irq_status);
-@@ -255,16 +248,10 @@ irqreturn_t hda_dsp_ipc_irq_handler(int irq, void *context)
- 		goto out;
- 
- 	/* IPC message ? */
--	if (irq_status & HDA_DSP_ADSPIS_IPC) {
--		/* disable IPC interrupt */
--		snd_sof_dsp_update_bits_unlocked(sdev, HDA_DSP_BAR,
--						 HDA_DSP_REG_ADSPIC,
--						 HDA_DSP_ADSPIC_IPC, 0);
--		ret = IRQ_WAKE_THREAD;
--	}
-+	if (irq_status & HDA_DSP_ADSPIS_IPC)
-+		ret = true;
- 
- out:
--	spin_unlock(&sdev->hw_lock);
- 	return ret;
- }
- 
-diff --git a/sound/soc/sof/intel/hda-stream.c b/sound/soc/sof/intel/hda-stream.c
-index 29ab432816701..927a36f92c242 100644
---- a/sound/soc/sof/intel/hda-stream.c
-+++ b/sound/soc/sof/intel/hda-stream.c
-@@ -549,22 +549,23 @@ int hda_dsp_stream_hw_free(struct snd_sof_dev *sdev,
- 	return 0;
- }
- 
--irqreturn_t hda_dsp_stream_interrupt(int irq, void *context)
-+bool hda_dsp_check_stream_irq(struct snd_sof_dev *sdev)
- {
--	struct hdac_bus *bus = context;
--	int ret = IRQ_WAKE_THREAD;
-+	struct hdac_bus *bus = sof_to_bus(sdev);
-+	bool ret = false;
- 	u32 status;
- 
--	spin_lock(&bus->reg_lock);
-+	/* The function can be called at irq thread, so use spin_lock_irq */
-+	spin_lock_irq(&bus->reg_lock);
- 
- 	status = snd_hdac_chip_readl(bus, INTSTS);
- 	dev_vdbg(bus->dev, "stream irq, INTSTS status: 0x%x\n", status);
- 
--	/* Register inaccessible, ignore it.*/
--	if (status == 0xffffffff)
--		ret = IRQ_NONE;
-+	/* if Register inaccessible, ignore it.*/
-+	if (status != 0xffffffff)
-+		ret = true;
- 
--	spin_unlock(&bus->reg_lock);
-+	spin_unlock_irq(&bus->reg_lock);
- 
- 	return ret;
- }
-@@ -602,7 +603,8 @@ static bool hda_dsp_stream_check(struct hdac_bus *bus, u32 status)
- 
- irqreturn_t hda_dsp_stream_threaded_handler(int irq, void *context)
- {
--	struct hdac_bus *bus = context;
-+	struct snd_sof_dev *sdev = context;
-+	struct hdac_bus *bus = sof_to_bus(sdev);
- #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
- 	u32 rirb_status;
- #endif
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index fb17b87b684bf..82ecadda886c6 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -499,6 +499,49 @@ static const struct sof_intel_dsp_desc
- 	return chip_info;
- }
- 
-+static irqreturn_t hda_dsp_interrupt_handler(int irq, void *context)
-+{
-+	struct snd_sof_dev *sdev = context;
-+
-+	/*
-+	 * Get global interrupt status. It includes all hardware interrupt
-+	 * sources in the Intel HD Audio controller.
-+	 */
-+	if (snd_sof_dsp_read(sdev, HDA_DSP_HDA_BAR, SOF_HDA_INTSTS) &
-+	    SOF_HDA_INTSTS_GIS) {
-+
-+		/* disable GIE interrupt */
-+		snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
-+					SOF_HDA_INTCTL,
-+					SOF_HDA_INT_GLOBAL_EN,
-+					0);
-+
-+		return IRQ_WAKE_THREAD;
-+	}
-+
-+	return IRQ_NONE;
-+}
-+
-+static irqreturn_t hda_dsp_interrupt_thread(int irq, void *context)
-+{
-+	struct snd_sof_dev *sdev = context;
-+
-+	/* deal with streams and controller first */
-+	if (hda_dsp_check_stream_irq(sdev))
-+		hda_dsp_stream_threaded_handler(irq, sdev);
-+
-+	if (hda_dsp_check_ipc_irq(sdev))
-+		sof_ops(sdev)->irq_thread(irq, sdev);
-+
-+	/* enable GIE interrupt */
-+	snd_sof_dsp_update_bits(sdev, HDA_DSP_HDA_BAR,
-+				SOF_HDA_INTCTL,
-+				SOF_HDA_INT_GLOBAL_EN,
-+				SOF_HDA_INT_GLOBAL_EN);
-+
-+	return IRQ_HANDLED;
-+}
-+
- int hda_dsp_probe(struct snd_sof_dev *sdev)
- {
- 	struct pci_dev *pci = to_pci_dev(sdev->dev);
-@@ -603,9 +646,7 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 	 */
- 	if (hda_use_msi && pci_alloc_irq_vectors(pci, 1, 1, PCI_IRQ_MSI) > 0) {
- 		dev_info(sdev->dev, "use msi interrupt mode\n");
--		hdev->irq = pci_irq_vector(pci, 0);
--		/* ipc irq number is the same of hda irq */
--		sdev->ipc_irq = hdev->irq;
-+		sdev->ipc_irq = pci_irq_vector(pci, 0);
- 		/* initialised to "false" by kzalloc() */
- 		sdev->msi_enabled = true;
- 	}
-@@ -616,28 +657,17 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 		 * in IO-APIC mode, hda->irq and ipc_irq are using the same
- 		 * irq number of pci->irq
- 		 */
--		hdev->irq = pci->irq;
- 		sdev->ipc_irq = pci->irq;
- 	}
- 
--	dev_dbg(sdev->dev, "using HDA IRQ %d\n", hdev->irq);
--	ret = request_threaded_irq(hdev->irq, hda_dsp_stream_interrupt,
--				   hda_dsp_stream_threaded_handler,
--				   IRQF_SHARED, "AudioHDA", bus);
--	if (ret < 0) {
--		dev_err(sdev->dev, "error: failed to register HDA IRQ %d\n",
--			hdev->irq);
--		goto free_irq_vector;
--	}
--
- 	dev_dbg(sdev->dev, "using IPC IRQ %d\n", sdev->ipc_irq);
--	ret = request_threaded_irq(sdev->ipc_irq, hda_dsp_ipc_irq_handler,
--				   sof_ops(sdev)->irq_thread, IRQF_SHARED,
--				   "AudioDSP", sdev);
-+	ret = request_threaded_irq(sdev->ipc_irq, hda_dsp_interrupt_handler,
-+				   hda_dsp_interrupt_thread,
-+				   IRQF_SHARED, "AudioDSP", sdev);
- 	if (ret < 0) {
- 		dev_err(sdev->dev, "error: failed to register IPC IRQ %d\n",
- 			sdev->ipc_irq);
--		goto free_hda_irq;
-+		goto free_irq_vector;
- 	}
- 
- 	pci_set_master(pci);
-@@ -668,8 +698,6 @@ int hda_dsp_probe(struct snd_sof_dev *sdev)
- 
- free_ipc_irq:
- 	free_irq(sdev->ipc_irq, sdev);
--free_hda_irq:
--	free_irq(hdev->irq, bus);
- free_irq_vector:
- 	if (sdev->msi_enabled)
- 		pci_free_irq_vectors(pci);
-@@ -715,7 +743,6 @@ int hda_dsp_remove(struct snd_sof_dev *sdev)
- 				SOF_HDA_PPCTL_GPROCEN, 0);
- 
- 	free_irq(sdev->ipc_irq, sdev);
--	free_irq(hda->irq, bus);
- 	if (sdev->msi_enabled)
- 		pci_free_irq_vectors(pci);
- 
-diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
-index 18d7e72bf9b72..63df888dddb6c 100644
---- a/sound/soc/sof/intel/hda.h
-+++ b/sound/soc/sof/intel/hda.h
-@@ -43,11 +43,14 @@
- /* SOF_HDA_GCTL register bist */
- #define SOF_HDA_GCTL_RESET		BIT(0)
- 
--/* SOF_HDA_INCTL and SOF_HDA_INTSTS regs */
-+/* SOF_HDA_INCTL regs */
- #define SOF_HDA_INT_GLOBAL_EN		BIT(31)
- #define SOF_HDA_INT_CTRL_EN		BIT(30)
- #define SOF_HDA_INT_ALL_STREAM		0xff
- 
-+/* SOF_HDA_INTSTS regs */
-+#define SOF_HDA_INTSTS_GIS		BIT(31)
-+
- #define SOF_HDA_MAX_CAPS		10
- #define SOF_HDA_CAP_ID_OFF		16
- #define SOF_HDA_CAP_ID_MASK		GENMASK(SOF_HDA_CAP_ID_OFF + 11,\
-@@ -406,8 +409,6 @@ struct sof_intel_hda_dev {
- 	/* the maximum number of streams (playback + capture) supported */
- 	u32 stream_max;
- 
--	int irq;
--
- 	/* PM related */
- 	bool l1_support_changed;/* during suspend, is L1SEN changed or not */
- 
-@@ -511,11 +512,12 @@ int hda_dsp_stream_hw_params(struct snd_sof_dev *sdev,
- 			     struct snd_pcm_hw_params *params);
- int hda_dsp_stream_trigger(struct snd_sof_dev *sdev,
- 			   struct hdac_ext_stream *stream, int cmd);
--irqreturn_t hda_dsp_stream_interrupt(int irq, void *context);
- irqreturn_t hda_dsp_stream_threaded_handler(int irq, void *context);
- int hda_dsp_stream_setup_bdl(struct snd_sof_dev *sdev,
- 			     struct snd_dma_buffer *dmab,
- 			     struct hdac_stream *stream);
-+bool hda_dsp_check_ipc_irq(struct snd_sof_dev *sdev);
-+bool hda_dsp_check_stream_irq(struct snd_sof_dev *sdev);
- 
- struct hdac_ext_stream *
- 	hda_dsp_stream_get(struct snd_sof_dev *sdev, int direction);
-@@ -540,7 +542,6 @@ void hda_dsp_ipc_get_reply(struct snd_sof_dev *sdev);
- int hda_dsp_ipc_get_mailbox_offset(struct snd_sof_dev *sdev);
- int hda_dsp_ipc_get_window_offset(struct snd_sof_dev *sdev, u32 id);
- 
--irqreturn_t hda_dsp_ipc_irq_handler(int irq, void *context);
- irqreturn_t hda_dsp_ipc_irq_thread(int irq, void *context);
- int hda_dsp_ipc_cmd_done(struct snd_sof_dev *sdev, int dir);
- 
--- 
-2.20.1
+--K8zN2sh9fO5jmbe4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5GwAcACgkQJNaLcl1U
+h9B/Sgf/X32Q0oK6g5R91Wy4BoWfrVozp7scHEikjUURK8+S7ay7WPigoFX3q/cE
+aTSfMRc0RcEgyo3cwkMaQJwEBLHhrzGG5niiPEhhecNA8CRgElIVUR0qi9h3483b
+5HbUvzZUlBQWZdGYiOXmQShTL1O4gWanOCf2anpwpuBxDG/YD9/9ldZDL6zO8hAo
+oT1AUXCY6QUYXM1H5kvuq0w/pYiimLo5IOMvBhj0RTLc9Q6KBESuKCqTlS+1Q8Yp
+U4a+/b5kQ+WVpCLhSfHncuvcX8V+M0MhhLJbfRZZPkHf4+YL6f+5IuQzMRYGbn78
+4IxFoB4MFXslPnsU5+R/KiNxHXxy2Q==
+=VqrR
+-----END PGP SIGNATURE-----
+
+--K8zN2sh9fO5jmbe4--
+
+--===============3086947808919035477==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============3086947808919035477==--

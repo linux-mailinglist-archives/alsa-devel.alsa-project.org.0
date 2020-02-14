@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9C3215E1D5
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:20:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A0015E1E1
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:21:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5304A16D0;
-	Fri, 14 Feb 2020 17:20:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5304A16D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E0EF16ED;
+	Fri, 14 Feb 2020 17:20:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E0EF16ED
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581697257;
-	bh=ff4nUF2qDyl+hB6Be9AleM3ybymIQ3dp86M3qixJdpY=;
+	s=default; t=1581697296;
+	bh=lp8VaULgaAPf6ytKEys4Ph2cGaND48a6ypRvWSw7ZRc=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rZZ0G0u4NAStXnuH0B7gD1DGZyxA/JOqGzFzcOybwwkptQU7eNFIVxjMkAOQQ7Dm8
-	 NzJgS4fP0SNfFZmVZLpRD1tAVAmOsKM00LXZr0uEaHx8Y/pQJ02SU4VrsErKlinyVb
-	 EgPuxq+i1D4G8yk+836gINIMRprUWesv83BXpgT0=
+	b=R3GE3Alr9FsjES5w4f0e9M3LmOs2ZuK29bxRWLR842HLfMDkWVBCU9AiN29f8T+gj
+	 1Q6uaal7bF9phuGycy+ojkfA6pQpMqm1lmnwD3aIQ+Qla9sC42uCWRS9UMtBfGWoXX
+	 EqS3K9CoN5/pLj+uhLZbazTf2YqHYJ/TiJ6rOLV8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7882CF8028B;
-	Fri, 14 Feb 2020 17:15:12 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67659F8028E;
+	Fri, 14 Feb 2020 17:16:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 77B9BF802A8; Fri, 14 Feb 2020 17:15:09 +0100 (CET)
+ id 4EBBDF8028C; Fri, 14 Feb 2020 17:16:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,41 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 31968F8027C
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:15:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 31968F8027C
+ by alsa1.perex.cz (Postfix) with ESMTPS id 60F45F80086
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:16:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 60F45F80086
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="fmSSGRew"
+ header.b="DVviZVr4"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id A7EC4246E6;
- Fri, 14 Feb 2020 16:15:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 07016246F5;
+ Fri, 14 Feb 2020 16:15:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696905;
- bh=3kbU4PpQCtspoH5V5Ms/X/D2pQJR9+ziZQiWMj764e8=;
+ s=default; t=1581696960;
+ bh=zCSN13PuFpNnQ8k862eulbO3JS6sVcwQ5D/rjbdsX/8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=fmSSGRew/47yA0yEBxLwKTOqXE0TvQtg3hyll+OPj9M4tSid3rRH6zcf6HFjWRC/N
- /kHtoHE88BBhXRJbt5y1CBQ/383FYe70m7HXBHaO9WgbkciFlnoOh1er2eoamcltZk
- hN1enDJj3whD4owIIuJvhpSRqApNj9hn4y7hughA=
+ b=DVviZVr4MI8XA3hA925LV5jjaxWnYSYVI5B9ey0CLAGPoWHTA6y/NJE5XD0GLN1mK
+ V0AHen7dX9YJOiiFSMi5SV/mMT8dvCNB6xzHiexd9NL6HL7b1u3z28CtnJ3CdnxkDt
+ sFUNM+OFAaTTKhAljt92GpWwLOQtzJdGezYONRNI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 11:10:10 -0500
-Message-Id: <20200214161147.15842-155-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 11:10:55 -0500
+Message-Id: <20200214161147.15842-200-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214161147.15842-1-sashal@kernel.org>
 References: <20200214161147.15842-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Chen Zhou <chenzhou10@huawei.com>, Hulk Robot <hulkci@huawei.com>,
- Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 155/252] ASoC: atmel: fix build
-	error with CONFIG_SND_ATMEL_SOC_DMA=m
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: [alsa-devel] [PATCH AUTOSEL 4.19 200/252] ALSA: hda/hdmi - add
+	retry logic to parse_intel_hdmi()
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,41 +85,50 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Chen Zhou <chenzhou10@huawei.com>
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-[ Upstream commit 8fea78029f5e6ed734ae1957bef23cfda1af4354 ]
+[ Upstream commit 2928fa0a97ebb9549cb877fdc99aed9b95438c3a ]
 
-If CONFIG_SND_ATMEL_SOC_DMA=m, build error:
+The initial snd_hda_get_sub_node() can fail on certain
+devices (e.g. some Chromebook models using Intel GLK).
+The failure rate is very low, but as this is is part of
+the probe process, end-user impact is high.
 
-sound/soc/atmel/atmel_ssc_dai.o: In function `atmel_ssc_set_audio':
-(.text+0x7cd): undefined reference to `atmel_pcm_dma_platform_register'
+In observed cases, related hardware status registers have
+expected values, but the node query still fails. Retrying
+the node query does seem to help, so fix the problem by
+adding retry logic to the query. This does not impact
+non-Intel platforms.
 
-Function atmel_pcm_dma_platform_register is defined under
-CONFIG SND_ATMEL_SOC_DMA, so select SND_ATMEL_SOC_DMA in
-CONFIG SND_ATMEL_SOC_SSC, same to CONFIG_SND_ATMEL_SOC_PDC.
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
-Link: https://lore.kernel.org/r/20200113133242.144550-1-chenzhou10@huawei.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+BugLink: https://github.com/thesofproject/linux/issues/1642
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20200120160117.29130-4-kai.vehmanen@linux.intel.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/atmel/Kconfig | 2 ++
- 1 file changed, 2 insertions(+)
+ sound/pci/hda/patch_hdmi.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
-index 64b784e96f844..dad778e5884bd 100644
---- a/sound/soc/atmel/Kconfig
-+++ b/sound/soc/atmel/Kconfig
-@@ -25,6 +25,8 @@ config SND_ATMEL_SOC_DMA
+diff --git a/sound/pci/hda/patch_hdmi.c b/sound/pci/hda/patch_hdmi.c
+index c827a2a89cc3d..c67fadd5aae53 100644
+--- a/sound/pci/hda/patch_hdmi.c
++++ b/sound/pci/hda/patch_hdmi.c
+@@ -2604,9 +2604,12 @@ static int alloc_intel_hdmi(struct hda_codec *codec)
+ /* parse and post-process for Intel codecs */
+ static int parse_intel_hdmi(struct hda_codec *codec)
+ {
+-	int err;
++	int err, retries = 3;
++
++	do {
++		err = hdmi_parse_codec(codec);
++	} while (err < 0 && retries--);
  
- config SND_ATMEL_SOC_SSC_DMA
- 	tristate
-+	select SND_ATMEL_SOC_DMA
-+	select SND_ATMEL_SOC_PDC
- 
- config SND_ATMEL_SOC_SSC
- 	tristate
+-	err = hdmi_parse_codec(codec);
+ 	if (err < 0) {
+ 		generic_spec_free(codec);
+ 		return err;
 -- 
 2.20.1
 

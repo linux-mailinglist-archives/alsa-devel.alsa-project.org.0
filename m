@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DD8715E048
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:13:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B29815E078
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:14:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C451616AE;
-	Fri, 14 Feb 2020 17:12:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C451616AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id AD60316C9;
+	Fri, 14 Feb 2020 17:13:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AD60316C9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581696816;
-	bh=YyYlLQkUZqXgIYRELPlbafV4V7OfzK9qxiM4QkFKhYA=;
+	s=default; t=1581696851;
+	bh=4CC7r2TwhP2QRyKSdoKJkZNH4fYdIzUtmIg0kS608eo=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h8EpjjhHaZjI/wSeXbcq/SWTSvEt/befInDg/65b3W+jcq49ooEXtZmcgAIob4hNt
-	 0oUr3GyRuG0nmMJDcxIw/Zc6h0bnorEeEx3Td0DpXXUMU1ClPWL7bzE8UdL9I43Sfi
-	 7sSu1SLNFw63FMbPduWSWGvlp/Qon9tjKK6jgqsY=
+	b=RyxJ7CCPJiXFmAcHX1fE/1wJHJrZ3qkBBkGfdHzREnxvbtpNob/4yh8qAs/eEhRgw
+	 IE5Rf9mtzGCwLyTCA1tQS88OHCO1vFxgzQ29aD2GtLsWVEPUhRmXEqo3tCI49usaOL
+	 tKwFo+dzm9K0nDJ09iDlSEuC0LmOvqEFHChVQPBw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BB873F802E0;
-	Fri, 14 Feb 2020 17:08:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0051EF80260;
+	Fri, 14 Feb 2020 17:08:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CBE58F802E0; Fri, 14 Feb 2020 17:08:09 +0100 (CET)
+ id 28838F802E3; Fri, 14 Feb 2020 17:08:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C13FDF8019B
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:08:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C13FDF8019B
+ by alsa1.perex.cz (Postfix) with ESMTPS id 10C4EF80260
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:08:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 10C4EF80260
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="p2jRsS3K"
+ header.b="Kx88ZxmP"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 601922187F;
- Fri, 14 Feb 2020 16:08:04 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 91266222C2;
+ Fri, 14 Feb 2020 16:08:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696485;
- bh=jL6j0v0f9MVjx5AE0XIrGAimUcz+A06QyJSz/62WD3w=;
+ s=default; t=1581696486;
+ bh=abcxH2FDkY67ywKz9OWa3xtvSrEUbS2mzMluiL1bXfE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=p2jRsS3KqDSa/a5UplhgDjmL01sUOrwBuqbhM8sAwTftHBjh4mRA9ESi4F3z8V/rd
- CZctFaCk+Z6gpYi3Xp5c9OzAcP4yZ6bKifocYTC2wQgciACx6vHjoZKTyR9UYboZex
- QfgeJZgCOT454JnijMwXOq3cXtWqfMy6EIwYCWWo=
+ b=Kx88ZxmPEFGf3efP04Cj49sxWbjo47Y+dR6ttjlsXBISmdIOQOJJykuV5WEBOCIVK
+ bIX+OU23gpyGCQVA9yDbPX+/gfIEz7z6fooOrKidx0ixs8ZusDjGk5N3fghs8uz9Yx
+ lUJJbcJu/knaUUA8wytQmgw2m6jYWFhzoXFZK+Ww=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:59:01 -0500
-Message-Id: <20200214160149.11681-291-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 10:59:02 -0500
+Message-Id: <20200214160149.11681-292-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- Alexander Tsoy <alexander@tsoy.me>, alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 291/459] ALSA: usb-audio: Add boot
-	quirk for MOTU M Series
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Chen Zhou <chenzhou10@huawei.com>, Hulk Robot <hulkci@huawei.com>,
+ Mark Brown <broonie@kernel.org>, linux-arm-kernel@lists.infradead.org
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 292/459] ASoC: atmel: fix build
+	error with CONFIG_SND_ATMEL_SOC_DMA=m
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,117 +86,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Alexander Tsoy <alexander@tsoy.me>
+From: Chen Zhou <chenzhou10@huawei.com>
 
-[ Upstream commit 73ac9f5e5b43a5dbadb61f27dae7a971f7ec0d22 ]
+[ Upstream commit 8fea78029f5e6ed734ae1957bef23cfda1af4354 ]
 
-Add delay to make sure that audio urbs are not sent too early.
-Otherwise the device hangs. Windows driver makes ~2s delay, so use
-about the same time delay value.
+If CONFIG_SND_ATMEL_SOC_DMA=m, build error:
 
-snd_usb_apply_boot_quirk() is called 3 times for my MOTU M4, which
-is an overkill. Thus a quirk that is called only once is implemented.
+sound/soc/atmel/atmel_ssc_dai.o: In function `atmel_ssc_set_audio':
+(.text+0x7cd): undefined reference to `atmel_pcm_dma_platform_register'
 
-Also send two vendor-specific control messages before and after
-the delay. This behaviour is blindly copied from the Windows driver.
+Function atmel_pcm_dma_platform_register is defined under
+CONFIG SND_ATMEL_SOC_DMA, so select SND_ATMEL_SOC_DMA in
+CONFIG SND_ATMEL_SOC_SSC, same to CONFIG_SND_ATMEL_SOC_PDC.
 
-Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
-Link: https://lore.kernel.org/r/20200112102358.18085-1-alexander@tsoy.me
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Reported-by: Hulk Robot <hulkci@huawei.com>
+Signed-off-by: Chen Zhou <chenzhou10@huawei.com>
+Link: https://lore.kernel.org/r/20200113133242.144550-1-chenzhou10@huawei.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/card.c   |  4 ++++
- sound/usb/quirks.c | 38 ++++++++++++++++++++++++++++++++++++++
- sound/usb/quirks.h |  5 +++++
- 3 files changed, 47 insertions(+)
+ sound/soc/atmel/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/sound/usb/card.c b/sound/usb/card.c
-index db91dc76cc915..e6a618a239948 100644
---- a/sound/usb/card.c
-+++ b/sound/usb/card.c
-@@ -597,6 +597,10 @@ static int usb_audio_probe(struct usb_interface *intf,
- 		}
- 	}
- 	if (! chip) {
-+		err = snd_usb_apply_boot_quirk_once(dev, intf, quirk, id);
-+		if (err < 0)
-+			return err;
-+
- 		/* it's a fresh one.
- 		 * now look for an empty slot and create a new card instance
- 		 */
-diff --git a/sound/usb/quirks.c b/sound/usb/quirks.c
-index 82184036437b5..0464df785f2ee 100644
---- a/sound/usb/quirks.c
-+++ b/sound/usb/quirks.c
-@@ -1113,6 +1113,31 @@ static int snd_usb_motu_microbookii_boot_quirk(struct usb_device *dev)
- 	return err;
- }
+diff --git a/sound/soc/atmel/Kconfig b/sound/soc/atmel/Kconfig
+index f118c229ed829..d1dc8e6366dcb 100644
+--- a/sound/soc/atmel/Kconfig
++++ b/sound/soc/atmel/Kconfig
+@@ -19,6 +19,8 @@ config SND_ATMEL_SOC_DMA
  
-+static int snd_usb_motu_m_series_boot_quirk(struct usb_device *dev)
-+{
-+	int ret;
-+
-+	if (snd_usb_pipe_sanity_check(dev, usb_sndctrlpipe(dev, 0)))
-+		return -EINVAL;
-+	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
-+			      1, USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-+			      0x0, 0, NULL, 0, 1000);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	msleep(2000);
-+
-+	ret = usb_control_msg(dev, usb_sndctrlpipe(dev, 0),
-+			      1, USB_TYPE_VENDOR | USB_RECIP_DEVICE,
-+			      0x20, 0, NULL, 0, 1000);
-+
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
- /*
-  * Setup quirks
-  */
-@@ -1297,6 +1322,19 @@ int snd_usb_apply_boot_quirk(struct usb_device *dev,
- 	return 0;
- }
+ config SND_ATMEL_SOC_SSC
+ 	tristate
++	select SND_ATMEL_SOC_DMA
++	select SND_ATMEL_SOC_PDC
  
-+int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
-+				  struct usb_interface *intf,
-+				  const struct snd_usb_audio_quirk *quirk,
-+				  unsigned int id)
-+{
-+	switch (id) {
-+	case USB_ID(0x07fd, 0x0008): /* MOTU M Series */
-+		return snd_usb_motu_m_series_boot_quirk(dev);
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * check if the device uses big-endian samples
-  */
-diff --git a/sound/usb/quirks.h b/sound/usb/quirks.h
-index a80e0ddd07364..df0355843a4c1 100644
---- a/sound/usb/quirks.h
-+++ b/sound/usb/quirks.h
-@@ -20,6 +20,11 @@ int snd_usb_apply_boot_quirk(struct usb_device *dev,
- 			     const struct snd_usb_audio_quirk *quirk,
- 			     unsigned int usb_id);
- 
-+int snd_usb_apply_boot_quirk_once(struct usb_device *dev,
-+				  struct usb_interface *intf,
-+				  const struct snd_usb_audio_quirk *quirk,
-+				  unsigned int usb_id);
-+
- void snd_usb_set_format_quirk(struct snd_usb_substream *subs,
- 			      struct audioformat *fmt);
- 
+ config SND_ATMEL_SOC_SSC_PDC
+ 	tristate "SoC PCM DAI support for AT91 SSC controller using PDC"
 -- 
 2.20.1
 

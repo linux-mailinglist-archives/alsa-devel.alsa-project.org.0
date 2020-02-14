@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD32A15E17F
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:19:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B08E15E19E
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:19:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5E93916D0;
-	Fri, 14 Feb 2020 17:18:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5E93916D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 35EB116E1;
+	Fri, 14 Feb 2020 17:19:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 35EB116E1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581697157;
-	bh=P2O7G+wXuY99MCLVwQJA/riOxd5aSiE6gVyttDJJpjA=;
+	s=default; t=1581697194;
+	bh=m4AWLYtFhzCTrzcrSoS8hJKVwUNpqeTw0BxSbf7ADn8=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Z5S3qJgFZ69SvUEzZfpODShrE0W/PawFlE+ay4wpnh+SxGKKo63aHfM0rqoaHMGAX
-	 bpv2v4PYzvhqP8q0l+tAUFrZt9eSU7QJL1EzIgKOajsn3HnudZ9ZLEvuFGMksWic9H
-	 vJcB3cHAm4KAo6QUaDu85LQy95XPTL8qqpFCdJL8=
+	b=OvpbUCyfu9MnceZ3RUJuSyFWhanE1k4POMaeSBbLDTzHkpLU2NMQLfKooGcm+tRuC
+	 mPQNv+htTj0JFEnsX1IapmEHlij38xOYN7bAZhil/vOq9HlLBrRTLR5g1YqsIO1S+H
+	 x6viuLZr0PN5JKrPkT4xosVWemYV49aUwtlz8I7A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E144AF80279;
-	Fri, 14 Feb 2020 17:14:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 670F6F8019B;
+	Fri, 14 Feb 2020 17:14:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7E50F80264; Fri, 14 Feb 2020 17:14:01 +0100 (CET)
+ id C139DF8027B; Fri, 14 Feb 2020 17:14:34 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AFB1CF80157
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:13:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AFB1CF80157
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0E1FBF80234
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:14:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E1FBF80234
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="dSkYyvCa"
+ header.b="TuVMW6DN"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 45FF7246CC;
- Fri, 14 Feb 2020 16:13:56 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id CB3CC246D0;
+ Fri, 14 Feb 2020 16:14:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696837;
- bh=lv5xvxyMif5bZ1fAdyvV/Px71qvpbnTsgaX777TW9vE=;
+ s=default; t=1581696870;
+ bh=09CLZHhNHNyqqmnT9B63fYO3RiBBKa0IUbToH8AhA4g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dSkYyvCaS7UeOEvgnACYj7lyCGVS520l/konivTkxu1gAmHZslVgqqsSeTrcrhsB3
- SyHAjz56lb0FN3LW2nDSjaAWMhLFHPEPKSzg80HKoNymHdTnC7h3kdlAXTbXF0ct9w
- AFto/aPxuDMsa3Y4YJ8mjDa3NeNZ72tDf9gJG3HE=
+ b=TuVMW6DNusx4wcTRieqx/1aaJlGpuXF9WkHk+yZvhOY6iuQXECU9Vs07wWwMMPvGr
+ sxDCfBCvAFhpcLlZdIpparJfQhQD6GxRWkfhBvR8W1XxVgQt0Ixg8Wyp3Ewbk2j0V1
+ qctBqZFUiARry81EHLfbnMzf0KxKn6gufecnXqMI=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 11:09:16 -0500
-Message-Id: <20200214161147.15842-101-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 11:09:43 -0500
+Message-Id: <20200214161147.15842-128-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214161147.15842-1-sashal@kernel.org>
 References: <20200214161147.15842-1-sashal@kernel.org>
@@ -65,10 +65,9 @@ MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- Nathan Chancellor <natechancellor@gmail.com>, alsa-devel@alsa-project.org,
- clang-built-linux@googlegroups.com
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 101/252] ALSA: usx2y: Adjust
-	indentation in snd_usX2Y_hwdep_dsp_status
+ alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH AUTOSEL 4.19 128/252] ALSA: sh: Fix unused
+	variable warnings
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,49 +85,52 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Nathan Chancellor <natechancellor@gmail.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit df4654bd6e42125d9b85ce3a26eaca2935290b98 ]
+[ Upstream commit 5da116f164ce265e397b8f59af5c39e4a61d61a5 ]
 
-Clang warns:
+Remove unused variables that are left over after the conversion of new
+PCM ops:
+  sound/sh/sh_dac_audio.c:166:26: warning: unused variable 'runtime'
+  sound/sh/sh_dac_audio.c:186:26: warning: unused variable 'runtime'
+  sound/sh/sh_dac_audio.c:205:26: warning: unused variable 'runtime'
 
-../sound/usb/usx2y/usX2Yhwdep.c:122:3: warning: misleading indentation;
-statement is not part of the previous 'if' [-Wmisleading-indentation]
-        info->version = USX2Y_DRIVER_VERSION;
-        ^
-../sound/usb/usx2y/usX2Yhwdep.c:120:2: note: previous statement is here
-        if (us428->chip_status & USX2Y_STAT_CHIP_INIT)
-        ^
-1 warning generated.
-
-This warning occurs because there is a space before the tab on this
-line. Remove it so that the indentation is consistent with the Linux
-kernel coding style and clang no longer warns.
-
-This was introduced before the beginning of git history so no fixes tag.
-
-Link: https://github.com/ClangBuiltLinux/linux/issues/831
-Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
-Link: https://lore.kernel.org/r/20191218034257.54535-1-natechancellor@gmail.com
+Fixes: 1cc2f8ba0b3e ("ALSA: sh: Convert to the new PCM ops")
+Link: https://lore.kernel.org/r/20200104110057.13875-1-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/usx2y/usX2Yhwdep.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/sh/sh_dac_audio.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
-index c1dd9a7b48df6..36b3459703640 100644
---- a/sound/usb/usx2y/usX2Yhwdep.c
-+++ b/sound/usb/usx2y/usX2Yhwdep.c
-@@ -131,7 +131,7 @@ static int snd_usX2Y_hwdep_dsp_status(struct snd_hwdep *hw,
- 	info->num_dsps = 2;		// 0: Prepad Data, 1: FPGA Code
- 	if (us428->chip_status & USX2Y_STAT_CHIP_INIT)
- 		info->chip_ready = 1;
-- 	info->version = USX2Y_DRIVER_VERSION; 
-+	info->version = USX2Y_DRIVER_VERSION;
- 	return 0;
- }
+diff --git a/sound/sh/sh_dac_audio.c b/sound/sh/sh_dac_audio.c
+index 834b2574786f5..6251b5e1b64a2 100644
+--- a/sound/sh/sh_dac_audio.c
++++ b/sound/sh/sh_dac_audio.c
+@@ -190,7 +190,6 @@ static int snd_sh_dac_pcm_copy(struct snd_pcm_substream *substream,
+ {
+ 	/* channel is not used (interleaved data) */
+ 	struct snd_sh_dac *chip = snd_pcm_substream_chip(substream);
+-	struct snd_pcm_runtime *runtime = substream->runtime;
  
+ 	if (copy_from_user_toio(chip->data_buffer + pos, src, count))
+ 		return -EFAULT;
+@@ -210,7 +209,6 @@ static int snd_sh_dac_pcm_copy_kernel(struct snd_pcm_substream *substream,
+ {
+ 	/* channel is not used (interleaved data) */
+ 	struct snd_sh_dac *chip = snd_pcm_substream_chip(substream);
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+ 
+ 	memcpy_toio(chip->data_buffer + pos, src, count);
+ 	chip->buffer_end = chip->data_buffer + pos + count;
+@@ -229,7 +227,6 @@ static int snd_sh_dac_pcm_silence(struct snd_pcm_substream *substream,
+ {
+ 	/* channel is not used (interleaved data) */
+ 	struct snd_sh_dac *chip = snd_pcm_substream_chip(substream);
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+ 
+ 	memset_io(chip->data_buffer + pos, 0, count);
+ 	chip->buffer_end = chip->data_buffer + pos + count;
 -- 
 2.20.1
 

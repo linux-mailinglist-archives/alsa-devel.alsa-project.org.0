@@ -2,85 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28F5515F60B
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 19:47:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 209EA15F763
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 21:04:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AC8291679;
-	Fri, 14 Feb 2020 19:46:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AC8291679
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9ACC91674;
+	Fri, 14 Feb 2020 21:03:44 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9ACC91674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581706026;
-	bh=WjCz1KugVUMCrmz82ITagvOChUDYzUbfymnOFIfBobI=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
+	s=default; t=1581710674;
+	bh=cokPICcsu0DktKj6FijT6i7hbl4ZQ9B0gKijjltp12A=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=ctVkLaLI9P17HDM5NjID+TBNXURixaujbbgSkD9T6QG5U6KSUQJkTcNjB5v990Ap/
-	 GhHvnmz4uRWPVyGVedotraKnYjEtPrGabYrO4rax/6W1AdTQkgYvx6E8+R7cJDQvdO
-	 B3vNs4Z0HvQ6QGYhltSoedHq2X4OTpJtKMTB9kqY=
+	b=N+WZv6AZW3Jlko41evn9MLJI8YbDFXD/tWuc8SshJq5iRM6Op/EDZmoUr9ekKQp59
+	 +AqPubcUqNIlW3Oar0qaQGPmeBc7KF49M107dtWnnWj2xetEPMJZh9AWpwwc/dGhVs
+	 GVft1w4r9i35buAQKxSuJj3HpYqwqDW46GADyubo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C15F6F80157;
-	Fri, 14 Feb 2020 19:45:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 74A12F80157;
+	Fri, 14 Feb 2020 21:02:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A718BF8014F; Fri, 14 Feb 2020 19:45:23 +0100 (CET)
+ id 2A4C6F8014F; Fri, 14 Feb 2020 21:02:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL
- autolearn=disabled version=3.4.0
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: *
+X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_03_06,
+ DKIMWL_WL_HIGH,DKIM_SIGNED,DKIM_VALID,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CE7AFF80086
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 19:45:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CE7AFF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id B6AD6F800F0
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 21:02:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B6AD6F800F0
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="KqpYxaTL"
-Received: by mail-qk1-x743.google.com with SMTP id v2so10206620qkj.2
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 10:45:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Of8Awt9rEqyy32r52fmiKSVswu4h8kjSfTeTq0F8J4E=;
- b=KqpYxaTLsAdtqFx55QtzvTbe4EEZjE0rIX2YU2htiloGVOq4C6XT9VE4mil2to2AQm
- wZKQIWsfzfIr8pu3GH00kxGao+y9Y0kUOY8LKoC1dtn9w1/WCs6DX17omnV2qmo/mgb9
- pH5zyyd9CqWQgDOJdwBcoAQJjMPv7oGrkRmRbqKiEcKfa/tia4/fielGQFo5mlNdd3zs
- MslMHHjwr38O6dlYSntivcQX8Z/9Vt2U2LqX/sw79Svgm3C9Hxo0FiVb2rkCXuz8WxQA
- SAdC0p73QmYMwDTEN8N058kiiGFs/wTJST8o2j/HefuS+Z5k8L7oHhUqMpzejah4403D
- Szlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Of8Awt9rEqyy32r52fmiKSVswu4h8kjSfTeTq0F8J4E=;
- b=tjnxnhRvnVZi9ECGig8z8kWD9qw0a6Y6v9+LAkPXADPYPGs/ynUjriWMpPlcusvEVd
- 7TW4PyimyuNh/9A7HlLnI8fRwuy3Idvc4dRPZjSgWERMZWa5QPGaadWIf5sqCDNMdntC
- wqEQJ8ehddyxD/CVWrboKLCvZ9CVaMC7xx7aT0Uqz09j2LIalAwd4z1gT/FIXRaGVndB
- 7+KfwMeoV//1V2T51fIdO73A1h33BlqRK2jVzbq1g0/u8M4ycmM/WUQ7LY/zfGnqSrBO
- 3d+RnlkYnRdfgoCr1KGPsBPlnfjNnrw5gJ4f85XGFl+lqQrmJPSx+D3c6v3vYcoCG4mF
- QmCw==
-X-Gm-Message-State: APjAAAWCSfDGAYxIBuoVLV2TrLlMpoUwhIe1XYjsJCZSOqc+Ut26KTJj
- EasBvfVGe4g33BiQrhChh5jPtxSeWXDma2c/hveIOQ==
-X-Google-Smtp-Source: APXvYqxGmPNWxuQXZFZCy72dkVbRKbbt7Y9RLlLF9LjdVlwHZ3zO/WBtLuxQ+6RxDjDZioBVsDs1UafTOvbvlu1Ewq8=
-X-Received: by 2002:a37:a78d:: with SMTP id q135mr3757202qke.158.1581705917366; 
- Fri, 14 Feb 2020 10:45:17 -0800 (PST)
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="BcAQT7b3"
+Received: from localhost (unknown [12.246.51.142])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id EE68B22314;
+ Fri, 14 Feb 2020 20:02:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1581710564;
+ bh=QcIJ80cSrTLbc0ijPcYyAEl69PScjRPdVxZgDXvJ9xc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=BcAQT7b3UsozO8tgtKaqo0+sV/Y3pR/4in8pvPvVbfeyVmmGtiURftnAz3sPr0ADO
+ ubEZXiZVhn4f/gAdDv5P9tSLslG6flQmBhk/2bmHUxK65O6y7mKiZjppO0tRApp+0C
+ AK1LIajBj0wi4Mzq5Uy5O3d4BI9UqXf+PHT/T/28=
+Date: Fri, 14 Feb 2020 08:49:19 -0800
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <20200214164919.GB4016987@kroah.com>
+References: <20200201042011.5781-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
-References: <CAOReqxhbvG03QvqkbjnGB8w5cM4WOK4qeZ+bh0apNna7i3ZimA@mail.gmail.com>
- <23daf96d-f854-f01f-bc4e-2afc47299c0a@perex.cz>
-In-Reply-To: <23daf96d-f854-f01f-bc4e-2afc47299c0a@perex.cz>
-From: Curtis Malainey <cujomalainey@google.com>
-Date: Fri, 14 Feb 2020 10:45:06 -0800
-Message-ID: <CAOReqxgK3BPnm3ds0fvMjc4q0mUnDgK5E1X2tV2nXz3uYwymLA@mail.gmail.com>
-To: Jaroslav Kysela <perex@perex.cz>
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Dylan Reid <dgreid@google.com>, Takashi Iwai <tiwai@suse.com>,
- Jimmy Cheng-Yi Chiang <cychiang@google.com>
-Subject: Re: [alsa-devel] alsa-ucm-conf via portage on arm
+Content-Disposition: inline
+In-Reply-To: <20200201042011.5781-1-pierre-louis.bossart@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>, vkoul@kernel.org,
+ broonie@kernel.org, srinivas.kandagatla@linaro.org, jank@cadence.com,
+ slawomir.blauciak@intel.com, Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
+Subject: Re: [alsa-devel] [RFC PATCH 0/2] soundwire: add
+	master_device/driver support
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,35 +84,32 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Not yet, that was going to be my follow up. I just wanted to make sure
-there is not ALSA restriction first. I assumed there wasn't but
-figured better safe than sorry. I will follow up with Lars.
+On Fri, Jan 31, 2020 at 10:20:09PM -0600, Pierre-Louis Bossart wrote:
+> The SoundWire master representation needs to evolve to take into account:
+> 
+> a) a May 2019 recommendation from Greg KH to remove platform devices
+> 
+> b) the need on Intel platforms to support hardware startup only once
+> the power rail dependencies are settled. The SoundWire master is not
+> an independent IP at all.
+> 
+> c) the need to deal with external wakes handled by the PCI subsystem
+> in specific low-power modes
+> 
+> In case it wasn't clear, the SoundWire subsystem is currently unusable
+> with v5.5 on devices hitting the shelves very soon (race conditions,
+> power management, suspend/resume, etc). v5.6 will only provide
+> interface changes and no functional improvement. We've circled on the
+> same concepts since September 2019, and I hope this direction is now
+> aligned with the suggestions from Vinod Koul and that we can target
+> v5.7 as the 'SoundWire just works(tm)' version.
+> 
+> This series is provided as an RFC since it depends on patches already
+> for review.
 
-On Fri, Feb 14, 2020 at 10:39 AM Jaroslav Kysela <perex@perex.cz> wrote:
->
-> Dne 14. 02. 20 v 19:23 Curtis Malainey napsal(a):
-> > Hello Takashi and Jaroslav,
-> >
-> > There appears to be a upstream package issue for alsa-ucm-conf in that
-> > portage seems to have it restricted to x86 and amd64 platforms. Given
-> > the nature of the ucms I figure this is an error and was hoping you
-> > know who to speak to in order to resolve this. If this isn't an error
-> > what can I do to help get the repo to state in which it is supported
-> > on arm/arm64?
-> >
-> > See https://gitweb.gentoo.org/repo/gentoo.git/commit/media-libs/alsa-ucm-conf/alsa-ucm-conf-1.2.1.2.ebuild?id=dd3e0570e2465639431709bce0410b787d312bbe
-> >
-> > Curtis
->
-> It's Gentoo specific and you see signed-off-by in this commit.
->
-> Did you contact this person (Lars Wendler) from Gentoo?
->
->                                         Jaroslav
->
-> --
-> Jaroslav Kysela <perex@perex.cz>
-> Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+Both of these look sane to me, nice work!
+
+Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C9315E0DE
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:15:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7689F15E0E7
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:16:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4075C16A8;
-	Fri, 14 Feb 2020 17:15:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4075C16A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id BDB7B16B5;
+	Fri, 14 Feb 2020 17:15:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BDB7B16B5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581696952;
-	bh=0SWgQkJQOKWSPBkmd87aRoK032f+Kv+nm8qzQkOZh2w=;
+	s=default; t=1581696986;
+	bh=hUBOwsoTpeDcFdcoisiNOmgTrqi0Z0W46FWqpQhqkbA=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V1bYF3c5mfFZo9+pvwxdCeuu2Fwlv6pZS0KCUHCAh0WsYNJiIGWDUcMp6YRiiuZGu
-	 7m7Fi0hOCU/7rd1Wlh/80Et045d/JOkN+H0cXFptGPxaCuKwFW/d4SMt60TyDmwDKt
-	 8ZSwZvV9GTCB9NxyzC83smyDY3FMCm2uhl9MnpW4=
+	b=m1Pc7aKKsn+Y8cfutbK9upr3LB7QMW0LvLDNEHyWkGf4H3k1Q7/ozKXXAkOkOcvnc
+	 rESe8fEhSCZ48HQFJv8g5BqSbwW5Bl2ddj1WMKPtmFCbcGEXNpoePNrFCflDE13+Qk
+	 MJEpKjNdMaTqK+dQe5/O2YD1gRu8/zMPuvxe7Z9s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3D50FF8028E;
-	Fri, 14 Feb 2020 17:09:03 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 31B84F802EC;
+	Fri, 14 Feb 2020 17:09:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5944F8027D; Fri, 14 Feb 2020 17:08:59 +0100 (CET)
+ id 0DF69F802E8; Fri, 14 Feb 2020 17:09:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,42 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 86F25F80138
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:08:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 86F25F80138
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0FFD4F80228
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:09:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0FFD4F80228
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="k+cSaa6W"
+ header.b="PIP68oub"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 2AC3A22314;
- Fri, 14 Feb 2020 16:08:54 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id A5053222C2;
+ Fri, 14 Feb 2020 16:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696534;
- bh=smEs9DZXB4IjMLlUyI3DmUCZLnk/s0uOHhPvWXcrfnE=;
+ s=default; t=1581696558;
+ bh=7AOqokVREmq51fFdwM3EZKsgEKghH5r7iEePC9Yg5p8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=k+cSaa6WIGy+Gx2SUQ1YVWI2nFZMBobgWyIM/nM2e6/s1v2kbyUOokKI7cUmVat42
- oe58hBeJWlIWZq3FEC6HKc7ijgz+4JOwyDvhNCAwWZs8K8Es3cA0Wrn4GfGL9/ZWTh
- GYHHgocGwvYMSjDB6O2xntRde/yGGapAsyNnpmOY=
+ b=PIP68oub6oTUylm+dRNL20to9FzeDcghQYG43xgS+/SzXqc1w4+9U/90dgspyabpg
+ mcB7yVE+qIYm9FFZWJJ5y1WEpUVpnUaRCXVgfHkWpI9MziF80jBWdAHTzmX/y9m2vW
+ R35PpnbRNdPbLsTBH2Ln5hcOrX0VznH91ZnNtRbM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:59:41 -0500
-Message-Id: <20200214160149.11681-331-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 10:59:59 -0500
+Message-Id: <20200214160149.11681-349-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- Alexander Tsoy <alexander@tsoy.me>, alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 331/459] ALSA: usb-audio: add
-	implicit fb quirk for MOTU M Series
+Cc: Sasha Levin <sashal@kernel.org>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 349/459] ASoC: SOF: Intel: hda: Fix
+	SKL dai count
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,41 +87,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Alexander Tsoy <alexander@tsoy.me>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
 
-[ Upstream commit c249177944b650816069f6c49b769baaa94339dc ]
+[ Upstream commit a6947c9d86bcfd61b758b5693eba58defe7fd2ae ]
 
-This fixes crackling sound during playback.
+With fourth pin added for iDisp for skl_dai, update SOF_SKL_DAI_NUM to
+account for the change. Without this, dais from the bottom of the list
+are skipped. In current state that's the case for 'Alt Analog CPU DAI'.
 
-Further note: MOTU is known for reusing Product IDs for different
-devices or different generations of the device (e.g. MicroBook
-I/II/IIc shares a single Product ID). This patch was only tested with
-M4 audio interface, but the same Product ID is also used by M2. Hope
-it will work for M2 as well.
-
-Signed-off-by: Alexander Tsoy <alexander@tsoy.me>
-Link: https://lore.kernel.org/r/20200115151358.56672-1-alexander@tsoy.me
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: ac42b142cd76 ("ASoC: SOF: Intel: hda: Add iDisp4 DAI")
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200113114054.9716-1-cezary.rojewski@intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/pcm.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/sof/intel/hda.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index fa24bd491cf6a..ad8f38380aa3e 100644
---- a/sound/usb/pcm.c
-+++ b/sound/usb/pcm.c
-@@ -348,6 +348,10 @@ static int set_sync_ep_implicit_fb_quirk(struct snd_usb_substream *subs,
- 		ep = 0x84;
- 		ifnum = 0;
- 		goto add_sync_ep_from_ifnum;
-+	case USB_ID(0x07fd, 0x0008): /* MOTU M Series */
-+		ep = 0x81;
-+		ifnum = 2;
-+		goto add_sync_ep_from_ifnum;
- 	case USB_ID(0x0582, 0x01d8): /* BOSS Katana */
- 		/* BOSS Katana amplifiers do not need quirks */
- 		return 0;
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index 23e430d3e0568..4be53ef2eab6e 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -336,7 +336,7 @@
+ 
+ /* Number of DAIs */
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+-#define SOF_SKL_NUM_DAIS		14
++#define SOF_SKL_NUM_DAIS		15
+ #else
+ #define SOF_SKL_NUM_DAIS		8
+ #endif
 -- 
 2.20.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 869AE15E214
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:22:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D9D1915E235
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:22:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2BA6016F1;
-	Fri, 14 Feb 2020 17:21:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2BA6016F1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8ABD416C5;
+	Fri, 14 Feb 2020 17:21:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8ABD416C5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581697334;
-	bh=T4yviQpV5wPfyzhm86rebkuf35mhjobbiG/WKsZ4hp8=;
+	s=default; t=1581697366;
+	bh=XAB6owUri0jXGfksJ/gknAirkbI0aBKrBK9f0a0OTrM=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=GHPiF8fXUcbKr7IFy4efK13S4lOJEKNwGGY/4M2y9D19Yf2N7TGnlMD9UFlcOhtr5
-	 rHcV8pfqSU31DUddUWCPxn30qM6AvFmsd/GuvcdwdA+jhv7NFA6FrwZMp/kwjMpoIa
-	 KClGLph2iCLAWiM+fSkeHtC6U0LZbXIUlN8E33mA=
+	b=ZNodlmE7dK2EN4nReYprCz5eZvttiZuxbkmU9u9sJoz+pCLSQsFOuDrEoZoieLCIh
+	 jhysRlXSQMACOUmf8Omqx4nEwHa6HM35nZSi1ipLWbeBjGRhx1uIkduGAAJXzijO8O
+	 y8EzpkU2Zmem9SIrqQw+05Q0SCkI46huwti/DYF0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 5F0EDF80292;
-	Fri, 14 Feb 2020 17:16:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8C372F802C3;
+	Fri, 14 Feb 2020 17:17:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E4976F802C3; Fri, 14 Feb 2020 17:16:16 +0100 (CET)
+ id 53BFBF802C4; Fri, 14 Feb 2020 17:17:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2AC3BF80138
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:16:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2AC3BF80138
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D907F800F0
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:17:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D907F800F0
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OJ6H0WT7"
+ header.b="f871c1EM"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B9C94246E1;
- Fri, 14 Feb 2020 16:16:07 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 186B8246F4;
+ Fri, 14 Feb 2020 16:17:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696968;
- bh=FZr1vJbLWvUVdAmTXPwpL+bR07vhRqlrUYW3GBOLOlQ=;
+ s=default; t=1581697050;
+ bh=8aHHGS6tkGBLeGkwk9FMJYUq4EvcCZ+0UidKSNcAdGs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OJ6H0WT7kjxa4wwuydol1IYjNG7ksmW6YouH7mRQWeV8QKMisZ4Pew40I/YOqKGhu
- Ei01Ua0q8Nfge/QqVTpvjGUSosG/coiPM8lB1TBmkkp25D9KUy1Xl7z8G8/Fp4+dS2
- ti2TW+O5hRVkotcwgBUFWSv4r2ZR+bG73ScVyzpI=
+ b=f871c1EMNV7nfLzXbgTMAsT12Kq3SiTy1hrmZOVVH9gQ2cHClfo33i1HqGWO66hWW
+ q3Nb8hs7gLUstKBVjP2ITRwU/NHLvA1GG2ciEZLv1sFmAw0ndy0d1tZZUn6s3ZUVpL
+ 7ku+eOclzzMaVFsch21IybdHh9xEfX+/1lGgsegQ=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 11:11:02 -0500
-Message-Id: <20200214161147.15842-207-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 11:14:20 -0500
+Message-Id: <20200214161715.18113-11-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200214161147.15842-1-sashal@kernel.org>
-References: <20200214161147.15842-1-sashal@kernel.org>
+In-Reply-To: <20200214161715.18113-1-sashal@kernel.org>
+References: <20200214161715.18113-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, =?UTF-8?q?Peter=20Gro=C3=9Fe?= <pegro@friiks.de>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.19 207/252] ALSA: hda - Add docking
-	station support for Lenovo Thinkpad T420s
+ alsa-devel@alsa-project.org
+Subject: [alsa-devel] [PATCH AUTOSEL 4.14 011/186] ALSA: ctl: allow TLV read
+	operation for callback type of element in locked case
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +80,67 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RnJvbTogUGV0ZXIgR3Jvw59lIDxwZWdyb0Bmcmlpa3MuZGU+CgpbIFVwc3RyZWFtIGNvbW1pdCBl
-ZjdkODRjYWE1OTI4YjQwYjFjOTNhMjZkYmU1YTNmMTI3MzdjNmFiIF0KCkxlbm92byBUaGlua3Bh
-ZCBUNDIwcyB1c2VzIHRoZSBzYW1lIGNvZGVjIGFzIFQ0MjAsIHNvIGFwcGx5IHRoZQpzYW1lIHF1
-aXJrIHRvIGVuYWJsZSBhdWRpbyBvdXRwdXQgb24gYSBkb2NraW5nIHN0YXRpb24uCgpTaWduZWQt
-b2ZmLWJ5OiBQZXRlciBHcm/Dn2UgPHBlZ3JvQGZyaWlrcy5kZT4KTGluazogaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvci8yMDIwMDEyMjE4MDEwNi45MzUxLTEtcGVncm9AZnJpaWtzLmRlClNpZ25l
-ZC1vZmYtYnk6IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4KU2lnbmVkLW9mZi1ieTogU2Fz
-aGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIHNvdW5kL3BjaS9oZGEvcGF0Y2hfY29u
-ZXhhbnQuYyB8IDEgKwogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCgpkaWZmIC0tZ2l0
-IGEvc291bmQvcGNpL2hkYS9wYXRjaF9jb25leGFudC5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9j
-b25leGFudC5jCmluZGV4IDU1MDBkZDQzN2I0NGQuLjc4YmI5NjI2M2JjMjcgMTAwNjQ0Ci0tLSBh
-L3NvdW5kL3BjaS9oZGEvcGF0Y2hfY29uZXhhbnQuYworKysgYi9zb3VuZC9wY2kvaGRhL3BhdGNo
-X2NvbmV4YW50LmMKQEAgLTkzNSw2ICs5MzUsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9w
-Y2lfcXVpcmsgY3h0NTA2Nl9maXh1cHNbXSA9IHsKIAlTTkRfUENJX1FVSVJLKDB4MTdhYSwgMHgy
-MTVmLCAiTGVub3ZvIFQ1MTAiLCBDWFRfUElOQ0ZHX0xFTk9WT19UUDQxMCksCiAJU05EX1BDSV9R
-VUlSSygweDE3YWEsIDB4MjFjZSwgIkxlbm92byBUNDIwIiwgQ1hUX1BJTkNGR19MRU5PVk9fVFA0
-MTApLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAweDIxY2YsICJMZW5vdm8gVDUyMCIsIENYVF9Q
-SU5DRkdfTEVOT1ZPX1RQNDEwKSwKKwlTTkRfUENJX1FVSVJLKDB4MTdhYSwgMHgyMWQyLCAiTGVu
-b3ZvIFQ0MjBzIiwgQ1hUX1BJTkNGR19MRU5PVk9fVFA0MTApLAogCVNORF9QQ0lfUVVJUksoMHgx
-N2FhLCAweDIxZGEsICJMZW5vdm8gWDIyMCIsIENYVF9QSU5DRkdfTEVOT1ZPX1RQNDEwKSwKIAlT
-TkRfUENJX1FVSVJLKDB4MTdhYSwgMHgyMWRiLCAiTGVub3ZvIFgyMjAtdGFibGV0IiwgQ1hUX1BJ
-TkNGR19MRU5PVk9fVFA0MTApLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAweDM4YWYsICJMZW5v
-dm8gSWRlYVBhZCBaNTYwIiwgQ1hUX0ZJWFVQX01VVEVfTEVEX0VBUEQpLAotLSAKMi4yMC4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVs
-IG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFu
-LmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+
+[ Upstream commit d61fe22c2ae42d9fd76c34ef4224064cca4b04b0 ]
+
+A design of ALSA control core allows applications to execute three
+operations for TLV feature; read, write and command. Furthermore, it
+allows driver developers to process the operations by two ways; allocated
+array or callback function. In the former, read operation is just allowed,
+thus developers uses the latter when device driver supports variety of
+models or the target model is expected to dynamically change information
+stored in TLV container.
+
+The core also allows applications to lock any element so that the other
+applications can't perform write operation to the element for element
+value and TLV information. When the element is locked, write and command
+operation for TLV information are prohibited as well as element value.
+Any read operation should be allowed in the case.
+
+At present, when an element has callback function for TLV information,
+TLV read operation returns EPERM if the element is locked. On the
+other hand, the read operation is success when an element has allocated
+array for TLV information. In both cases, read operation is success for
+element value expectedly.
+
+This commit fixes the bug. This change can be backported to v4.14
+kernel or later.
+
+Signed-off-by: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Reviewed-by: Jaroslav Kysela <perex@perex.cz>
+Link: https://lore.kernel.org/r/20191223093347.15279-1-o-takashi@sakamocchi.jp
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/core/control.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/sound/core/control.c b/sound/core/control.c
+index 36571cd49be33..a0ce22164957c 100644
+--- a/sound/core/control.c
++++ b/sound/core/control.c
+@@ -1467,8 +1467,9 @@ static int call_tlv_handler(struct snd_ctl_file *file, int op_flag,
+ 	if (kctl->tlv.c == NULL)
+ 		return -ENXIO;
+ 
+-	/* When locked, this is unavailable. */
+-	if (vd->owner != NULL && vd->owner != file)
++	/* Write and command operations are not allowed for locked element. */
++	if (op_flag != SNDRV_CTL_TLV_OP_READ &&
++	    vd->owner != NULL && vd->owner != file)
+ 		return -EPERM;
+ 
+ 	return kctl->tlv.c(kctl, op_flag, size, buf);
+-- 
+2.20.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C1AF15DFF6
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:11:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD0D415E029
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:12:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB7D116BB;
-	Fri, 14 Feb 2020 17:11:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB7D116BB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 50B5116BB;
+	Fri, 14 Feb 2020 17:12:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 50B5116BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581696711;
-	bh=3vDCWwfJelILWuYOsvVoHDt/H7nztnZiJPu3a5H3ueE=;
+	s=default; t=1581696778;
+	bh=kdqGTpszHByimBYGzCCGz5jDdUmnh1M0LA/YCJJG0ok=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WpT/JCXNa6qu/28gRi8MJ3nZGEJVeKeh+HrJ48tRFbVussx7JHc1iJ1YdO9zOTVOR
-	 xPNIRE2sY0Ks0f2Bg/XSDjCqIuwtHuEXTF6mzM3AQhT1lFzyuOePrhPTtbaHFuZSlY
-	 /gk0lq8BosE/9SvOrCKh5zhxYMvDjbC31S+D/Uac=
+	b=XFasrJaCrjrd4u/WhmexjNQ7oFl+QLSUkO44NJ7Jaf3KoDojgHgB3vNDqbkVdxIrs
+	 WET9hreSUCNwPqRHJyMupEWACb18dmaz5aaua08gchzXWQ+EltG9Ij/2G3A0r+n43E
+	 lW9zFIA36DU5yz0JzvPwByJyuIUcy4vMB90iyOUE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6787BF802BE;
-	Fri, 14 Feb 2020 17:07:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 00E71F802C4;
+	Fri, 14 Feb 2020 17:07:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C36F1F802C2; Fri, 14 Feb 2020 17:07:12 +0100 (CET)
+ id BB1E1F802D2; Fri, 14 Feb 2020 17:07:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7CC6EF802BD
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:07:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7CC6EF802BD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 75976F802A7
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:07:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 75976F802A7
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="0jXyYpM7"
+ header.b="aBNWAtsG"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B46AF222C2;
- Fri, 14 Feb 2020 16:07:05 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 48FCF222C2;
+ Fri, 14 Feb 2020 16:07:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581696426;
- bh=XXuW7JzIbkyZH1HN0+8zkHQTFS+HQMpPRX/xz57n+ic=;
+ s=default; t=1581696432;
+ bh=AIbo4S4usFiwy+n5RgPSDhWrfMvr5ydKo17MWKxWy40=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=0jXyYpM7t0zH8pLhFgk2rDfK0ZqDT2zieW/3LWgX6YpF5NR0EYHiGBmRfzygm68CK
- tH6xXEfjLJJNZPbx0eTc6JVASEBgNkshNFiUoLzf+wiDHjyM7+dknbQzrKZpZV1Mas
- 4p97Busyh4lRVHF7/kToWB2cSkHlf5moHmByKfv4=
+ b=aBNWAtsGN6eXarS0jW8LYqFg1EinNcfHonhonbb2RBQLnaQbtPcYzISWSxdjSx036
+ 7eiPv3QSn2MNlMxT1tZzAyV92YbPtl6lW6WFCtjAfDoq8PToKj5R3kCTO2DHPGqk1O
+ 0O4mVM+9NVaO4k/XIl2W6TM0QWSz87Hl/spqstrU=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:58:16 -0500
-Message-Id: <20200214160149.11681-246-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 10:58:20 -0500
+Message-Id: <20200214160149.11681-250-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214160149.11681-1-sashal@kernel.org>
 References: <20200214160149.11681-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 5.4 246/459] ALSA: sh: Fix compile
-	warning wrt const
+Cc: Sasha Levin <sashal@kernel.org>, Sam McNally <sammc@chromium.org>,
+ alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: [alsa-devel] [PATCH AUTOSEL 5.4 250/459] ASoC: Intel: sof_rt5682:
+	Ignore the speaker amp when there isn't one.
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,39 +86,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Takashi Iwai <tiwai@suse.de>
+From: Sam McNally <sammc@chromium.org>
 
-[ Upstream commit f1dd4795b1523fbca7ab4344dd5a8bb439cc770d ]
+[ Upstream commit d4b74e218a8d0d6cf58e546627ab9d4d4f2645ab ]
 
-A long-standing compile warning was seen during build test:
-  sound/sh/aica.c: In function 'load_aica_firmware':
-  sound/sh/aica.c:521:25: warning: passing argument 2 of 'spu_memload' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
+Some members of the Google_Hatch family include a rt5682 jack codec, but
+no speaker amplifier. This uses the same driver (sof_rt5682) as a
+combination of rt5682 jack codec and max98357a speaker amplifier. Within
+the sof_rt5682 driver, these cases are not currently distinguishable,
+relying on a DMI quirk to decide the configuration. This causes an
+incorrect configuration when only the rt5682 is present on a
+Google_Hatch device.
 
-Fixes: 198de43d758c ("[ALSA] Add ALSA support for the SEGA Dreamcast PCM device")
-Link: https://lore.kernel.org/r/20200105144823.29547-69-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+For CML, the jack codec is used as the primary key when matching,
+with a possible speaker amplifier described in quirk_data. The two cases
+of interest are the second and third 10EC5682 entries in
+snd_soc_acpi_intel_cml_machines[]. The second entry matches the
+combination of rt5682 and max98357a, resulting in the quirk_data field
+in the snd_soc_acpi_mach being non-null, pointing at
+max98357a_spk_codecs, the snd_soc_acpi_codecs for the matched speaker
+amplifier. The third entry matches just the rt5682, resulting in a null
+quirk_data.
+
+The sof_rt5682 driver's DMI data matching identifies that a speaker
+amplifier is present for all Google_Hatch family devices. Detect cases
+where there is no speaker amplifier by checking for a null quirk_data in
+the snd_soc_acpi_mach and remove the speaker amplifier bit in that case.
+
+Signed-off-by: Sam McNally <sammc@chromium.org>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200103124921.v3.1.Ib87c4a7fbb3fc818ea12198e291b87dc2d5bc8c2@changeid
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/sh/aica.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/intel/boards/sof_rt5682.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/sound/sh/aica.c b/sound/sh/aica.c
-index 52e9cfb4f8197..8421b2f9c9f38 100644
---- a/sound/sh/aica.c
-+++ b/sound/sh/aica.c
-@@ -101,10 +101,10 @@ static void spu_memset(u32 toi, u32 what, int length)
- }
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 9441ddfeea5e6..06b7d6c6c9a04 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -594,6 +594,14 @@ static int sof_audio_probe(struct platform_device *pdev)
  
- /* spu_memload - write to SPU address space */
--static void spu_memload(u32 toi, void *from, int length)
-+static void spu_memload(u32 toi, const void *from, int length)
- {
- 	unsigned long flags;
--	u32 *froml = from;
-+	const u32 *froml = from;
- 	u32 __iomem *to = (u32 __iomem *) (SPU_MEMORY_BASE + toi);
- 	int i;
- 	u32 val;
+ 	dmi_check_system(sof_rt5682_quirk_table);
+ 
++	mach = (&pdev->dev)->platform_data;
++
++	/* A speaker amp might not be present when the quirk claims one is.
++	 * Detect this via whether the machine driver match includes quirk_data.
++	 */
++	if ((sof_rt5682_quirk & SOF_SPEAKER_AMP_PRESENT) && !mach->quirk_data)
++		sof_rt5682_quirk &= ~SOF_SPEAKER_AMP_PRESENT;
++
+ 	if (soc_intel_is_byt() || soc_intel_is_cht()) {
+ 		is_legacy_cpu = 1;
+ 		dmic_be_num = 0;
+@@ -654,7 +662,6 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 	INIT_LIST_HEAD(&ctx->hdmi_pcm_list);
+ 
+ 	sof_audio_card_rt5682.dev = &pdev->dev;
+-	mach = (&pdev->dev)->platform_data;
+ 
+ 	/* set platform name for each dailink */
+ 	ret = snd_soc_fixup_dai_links_platform_name(&sof_audio_card_rt5682,
 -- 
 2.20.1
 

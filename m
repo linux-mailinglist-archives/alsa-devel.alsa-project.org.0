@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83A1B15E26E
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:23:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A024915E288
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:24:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2989D16AE;
-	Fri, 14 Feb 2020 17:23:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2989D16AE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 41C5416F8;
+	Fri, 14 Feb 2020 17:23:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41C5416F8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581697435;
-	bh=m4AWLYtFhzCTrzcrSoS8hJKVwUNpqeTw0BxSbf7ADn8=;
+	s=default; t=1581697467;
+	bh=HGySNeI6gzaTDR50XqN9RHdhxwO0s3G39Mm6RMfWgEs=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=NuV4SgP2DI1Nwtxv7wubEOMp8gJBYyxTcKB29sxXxo07+bmx2+PBX2h4fNcQ+u9xY
-	 cTy2H2A16BiF5j4zo8g3wUG0J6rJ3bi4WQSrdL/YY31YVfF6jeS3bcvSE0innuEC70
-	 TyLYVAYPWBDljnwH5k3XXs9CK58WNlNevSIzaYWU=
+	b=rZyJF18RfYUpzDvOVgJubLnC45Ux/uB5iZymKJSrjVuWbBJtYIZmilg0aG00H5RVT
+	 4Kb6hXSBLk+NRcbZaZuSPGIpnTafbWw0X7IyU4hyeCSAUo04i+Wpm0KAiw+G4tdLwv
+	 z8+Len+UIneOLYdyNIWBy9S4GDWlHFEmhdTRlgdo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3E390F80279;
-	Fri, 14 Feb 2020 17:19:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3E678F8029A;
+	Fri, 14 Feb 2020 17:19:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E7CF2F80279; Fri, 14 Feb 2020 17:19:25 +0100 (CET)
+ id 9DADCF80264; Fri, 14 Feb 2020 17:19:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,30 +34,30 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 594E1F80234
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:19:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 594E1F80234
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0B499F80277
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:19:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0B499F80277
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="C+Zev86r"
+ header.b="VjFG9OTf"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id AB88F24702;
- Fri, 14 Feb 2020 16:19:20 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 1E90924713;
+ Fri, 14 Feb 2020 16:19:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581697161;
- bh=09CLZHhNHNyqqmnT9B63fYO3RiBBKa0IUbToH8AhA4g=;
+ s=default; t=1581697162;
+ bh=+Ts59TTOA1rvaRdu5/xxg8OWUnAZMchTrOzvI7sDYtg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=C+Zev86rRxy20Eg8yT37x9fcglTqXDj71piP0GGRIjQTOxLpQXFsb5uguvkaPoitM
- 3AxGHK3PbQMNFWeIcc4/PdfL8evMy4z2yUoo/2idCmyaOMwNfUinp1ZlJaHWJUX1kx
- KsbreSH3O4xJfR1aO3afUx5Uvq9SHhKQEpPyhofA=
+ b=VjFG9OTfKMBohdQJQfCvCEoLUdSCrcn5be+oZaNEgCF+qP7TXuMLQLNytHvLXoyDK
+ HKHDAGyN+IFEDAPj44gvpvrMyBpM2qcnPQ7Xylupd0qABkah7dZWLBLTGwYHZM0QuQ
+ Wwp0uNoixPWl+azYlHYvU9Ubc9ZvVZhlGtIhogZk=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 11:15:47 -0500
-Message-Id: <20200214161715.18113-98-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 11:15:48 -0500
+Message-Id: <20200214161715.18113-99-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214161715.18113-1-sashal@kernel.org>
 References: <20200214161715.18113-1-sashal@kernel.org>
@@ -66,8 +66,8 @@ X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
  alsa-devel@alsa-project.org
-Subject: [alsa-devel] [PATCH AUTOSEL 4.14 098/186] ALSA: sh: Fix unused
-	variable warnings
+Subject: [alsa-devel] [PATCH AUTOSEL 4.14 099/186] ALSA: sh: Fix compile
+	warning wrt const
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,50 +87,37 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 5da116f164ce265e397b8f59af5c39e4a61d61a5 ]
+[ Upstream commit f1dd4795b1523fbca7ab4344dd5a8bb439cc770d ]
 
-Remove unused variables that are left over after the conversion of new
-PCM ops:
-  sound/sh/sh_dac_audio.c:166:26: warning: unused variable 'runtime'
-  sound/sh/sh_dac_audio.c:186:26: warning: unused variable 'runtime'
-  sound/sh/sh_dac_audio.c:205:26: warning: unused variable 'runtime'
+A long-standing compile warning was seen during build test:
+  sound/sh/aica.c: In function 'load_aica_firmware':
+  sound/sh/aica.c:521:25: warning: passing argument 2 of 'spu_memload' discards 'const' qualifier from pointer target type [-Wdiscarded-qualifiers]
 
-Fixes: 1cc2f8ba0b3e ("ALSA: sh: Convert to the new PCM ops")
-Link: https://lore.kernel.org/r/20200104110057.13875-1-tiwai@suse.de
+Fixes: 198de43d758c ("[ALSA] Add ALSA support for the SEGA Dreamcast PCM device")
+Link: https://lore.kernel.org/r/20200105144823.29547-69-tiwai@suse.de
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/sh/sh_dac_audio.c | 3 ---
- 1 file changed, 3 deletions(-)
+ sound/sh/aica.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/sh/sh_dac_audio.c b/sound/sh/sh_dac_audio.c
-index 834b2574786f5..6251b5e1b64a2 100644
---- a/sound/sh/sh_dac_audio.c
-+++ b/sound/sh/sh_dac_audio.c
-@@ -190,7 +190,6 @@ static int snd_sh_dac_pcm_copy(struct snd_pcm_substream *substream,
- {
- 	/* channel is not used (interleaved data) */
- 	struct snd_sh_dac *chip = snd_pcm_substream_chip(substream);
--	struct snd_pcm_runtime *runtime = substream->runtime;
+diff --git a/sound/sh/aica.c b/sound/sh/aica.c
+index fdc680ae8aa09..d9acf551a8985 100644
+--- a/sound/sh/aica.c
++++ b/sound/sh/aica.c
+@@ -117,10 +117,10 @@ static void spu_memset(u32 toi, u32 what, int length)
+ }
  
- 	if (copy_from_user_toio(chip->data_buffer + pos, src, count))
- 		return -EFAULT;
-@@ -210,7 +209,6 @@ static int snd_sh_dac_pcm_copy_kernel(struct snd_pcm_substream *substream,
+ /* spu_memload - write to SPU address space */
+-static void spu_memload(u32 toi, void *from, int length)
++static void spu_memload(u32 toi, const void *from, int length)
  {
- 	/* channel is not used (interleaved data) */
- 	struct snd_sh_dac *chip = snd_pcm_substream_chip(substream);
--	struct snd_pcm_runtime *runtime = substream->runtime;
- 
- 	memcpy_toio(chip->data_buffer + pos, src, count);
- 	chip->buffer_end = chip->data_buffer + pos + count;
-@@ -229,7 +227,6 @@ static int snd_sh_dac_pcm_silence(struct snd_pcm_substream *substream,
- {
- 	/* channel is not used (interleaved data) */
- 	struct snd_sh_dac *chip = snd_pcm_substream_chip(substream);
--	struct snd_pcm_runtime *runtime = substream->runtime;
- 
- 	memset_io(chip->data_buffer + pos, 0, count);
- 	chip->buffer_end = chip->data_buffer + pos + count;
+ 	unsigned long flags;
+-	u32 *froml = from;
++	const u32 *froml = from;
+ 	u32 __iomem *to = (u32 __iomem *) (SPU_MEMORY_BASE + toi);
+ 	int i;
+ 	u32 val;
 -- 
 2.20.1
 

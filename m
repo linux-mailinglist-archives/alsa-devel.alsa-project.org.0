@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2062115DDFB
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:02:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CB15115DE06
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:02:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BA2FD1687;
-	Fri, 14 Feb 2020 17:01:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BA2FD1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7CC961686;
+	Fri, 14 Feb 2020 17:01:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7CC961686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581696122;
-	bh=cBIHMNe4Yfufalcje8h0rEccB0qEiFzrIO0HCxE9npQ=;
+	s=default; t=1581696157;
+	bh=bMfN5zDeeYl5ReMyQiaDSaDT776R/nu9VuOobsM7WgE=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=spoe4a+zdEPOFCy3hA0qZ3U9BYgv0Cumgv2EtlTOjMtpQWmrsXTMoLYqpCoAfSXbC
-	 OuN3KORCCp3LCsrtOC81YYMvaJMPFq1C1YvhR0YGQJJ/og1SJonmKAttx86eUNrBvZ
-	 A0lZtvb3Rb5uWK/l/ITHCOxuSLBoxUZHRcFXcbJ4=
+	b=EBIvgXta1DX4N7C+CvfkWTVAq3i1ndOkSLXZ0CeBwlVBhHbYZe3DM4ZooZ5Ig1Z+n
+	 tLjhO+PTVn5ZxgH2WOH+kuOIfwJPUTzRZRdZIBY9MUB0izldvwWrf+CEwGrCxFfMTW
+	 1eYyzRBpSDpdDP0hTPq6xejGh2A1t+oL6oM8BFDg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BE41F80158;
-	Fri, 14 Feb 2020 16:56:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 27CCEF802DB;
+	Fri, 14 Feb 2020 16:57:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB250F802D2; Fri, 14 Feb 2020 16:56:28 +0100 (CET)
+ id C6BB6F802DF; Fri, 14 Feb 2020 16:56:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,42 +34,40 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0F66BF802C3
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 16:56:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0F66BF802C3
+ by alsa1.perex.cz (Postfix) with ESMTPS id CB849F8028E
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 16:56:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB849F8028E
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="Tv+FnrA7"
+ header.b="ssaNg2Dh"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8C9312082F;
- Fri, 14 Feb 2020 15:56:23 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 701C42067D;
+ Fri, 14 Feb 2020 15:56:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581695784;
- bh=cBFPbr8CVvdMgTjBagQOmxmbeGJeF3llcrP0PGr67TY=;
+ s=default; t=1581695813;
+ bh=1rEREmuUihtXcVVSX2bzp7bwvtbz9D5X+fmfAb9h+MU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Tv+FnrA7Iaj9m0LNlO0UH+q17RzMRLX8VJ5uquS68rvOGdfMEeSoTn55fyfy0cpK5
- aPzxiGih0+tsvuCPNm6PL8077e32fRAot2tqR01Tdi44vLOYv74RvO7hwzdkDRM+Qh
- z//8I4mK1VvpU9XEB1Teb3EzVS2JDCHfsZjXE1Ek=
+ b=ssaNg2DhBl8kjkzDohC0F5jrfxAqf88hojCbY8Jhlo01s1dfs9jvtCOZX8K5euE5p
+ v08dvCtYSD6D6uPIBEKZaPEl8zLwog4AWbt2z7DQiab2X5qGBc4MEcb2W7UMlBqM2I
+ 73rF2fYZ2wtOzRvLYoSNV9Gn7PREuxns8+L4LDCM=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 10:45:40 -0500
-Message-Id: <20200214154854.6746-348-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 10:46:03 -0500
+Message-Id: <20200214154854.6746-371-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200214154854.6746-1-sashal@kernel.org>
 References: <20200214154854.6746-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: [alsa-devel] [PATCH AUTOSEL 5.5 348/542] ASoC: SOF: Intel: hda-dai:
-	fix compilation warning in pcm_prepare
+Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
+ alsa-devel@alsa-project.org, Dan Carpenter <dan.carpenter@oracle.com>
+Subject: [alsa-devel] [PATCH AUTOSEL 5.5 371/542] ALSA: usb-audio: unlock on
+	error in probe
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,41 +80,43 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RnJvbTogUGllcnJlLUxvdWlzIEJvc3NhcnQgPHBpZXJyZS1sb3Vpcy5ib3NzYXJ0QGxpbnV4Lmlu
-dGVsLmNvbT4KClsgVXBzdHJlYW0gY29tbWl0IGQ4NzM5OTcxOTJkZGNhY2I1MzMzNTc1NTAyYmUy
-ZjkxZWE0YjQ3YjggXQoKRml4IEdDQyB3YXJuaW5nIHdpdGggVz0xLCBwcmV2aW91cyBjbGVhbnVw
-IGRpZCBub3QgcmVtb3ZlIHVubmVjZXNzYXJ5CnZhcmlhYmxlLgoKc291bmQvc29jL3NvZi9pbnRl
-bC9oZGEtZGFpLmM6IEluIGZ1bmN0aW9uIOKAmGhkYV9saW5rX3BjbV9wcmVwYXJl4oCZOgoKc291
-bmQvc29jL3NvZi9pbnRlbC9oZGEtZGFpLmM6MjY1OjMxOiB3YXJuaW5nOiB2YXJpYWJsZSDigJho
-ZGFfc3RyZWFt4oCZCnNldCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWJ1dC1zZXQtdmFyaWFibGVd
-CiAgMjY1IHwgIHN0cnVjdCBzb2ZfaW50ZWxfaGRhX3N0cmVhbSAqaGRhX3N0cmVhbTsKICAgICAg
-fCAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBefn5+fn5+fn5+CgpGaXhlczogYTNlYmNj
-YjUyZWZkZiAoIkFTb0M6IFNPRjogSW50ZWw6IGhkYTogcmVzZXQgbGluayBETUEgc3RhdGUgaW4g
-cHJlcGFyZSIpCkNjOiBLYWkgVmVobWFuZW4gPGthaS52ZWhtYW5lbkBsaW51eC5pbnRlbC5jb20+
-ClNpZ25lZC1vZmYtYnk6IFBpZXJyZS1Mb3VpcyBCb3NzYXJ0IDxwaWVycmUtbG91aXMuYm9zc2Fy
-dEBsaW51eC5pbnRlbC5jb20+Ckxpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvMjAyMDAx
-MTMyMDU2MjAuMjcyODUtMS1waWVycmUtbG91aXMuYm9zc2FydEBsaW51eC5pbnRlbC5jb20KU2ln
-bmVkLW9mZi1ieTogTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3JnPgpTaWduZWQtb2ZmLWJ5
-OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQogc291bmQvc29jL3NvZi9pbnRl
-bC9oZGEtZGFpLmMgfCAzIC0tLQogMSBmaWxlIGNoYW5nZWQsIDMgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvc291bmQvc29jL3NvZi9pbnRlbC9oZGEtZGFpLmMgYi9zb3VuZC9zb2Mvc29mL2lu
-dGVsL2hkYS1kYWkuYwppbmRleCA4OTZkMjE5ODRiNzM1Li4xOTIzYjBjMzZiY2VmIDEwMDY0NAot
-LS0gYS9zb3VuZC9zb2Mvc29mL2ludGVsL2hkYS1kYWkuYworKysgYi9zb3VuZC9zb2Mvc29mL2lu
-dGVsL2hkYS1kYWkuYwpAQCAtMjYxLDE0ICsyNjEsMTEgQEAgc3RhdGljIGludCBoZGFfbGlua19w
-Y21fcHJlcGFyZShzdHJ1Y3Qgc25kX3BjbV9zdWJzdHJlYW0gKnN1YnN0cmVhbSwKIHsKIAlzdHJ1
-Y3QgaGRhY19leHRfc3RyZWFtICpsaW5rX2RldiA9CiAJCQkJc25kX3NvY19kYWlfZ2V0X2RtYV9k
-YXRhKGRhaSwgc3Vic3RyZWFtKTsKLQlzdHJ1Y3Qgc29mX2ludGVsX2hkYV9zdHJlYW0gKmhkYV9z
-dHJlYW07CiAJc3RydWN0IHNuZF9zb2ZfZGV2ICpzZGV2ID0KIAkJCQlzbmRfc29jX2NvbXBvbmVu
-dF9nZXRfZHJ2ZGF0YShkYWktPmNvbXBvbmVudCk7CiAJc3RydWN0IHNuZF9zb2NfcGNtX3J1bnRp
-bWUgKnJ0ZCA9IHNuZF9wY21fc3Vic3RyZWFtX2NoaXAoc3Vic3RyZWFtKTsKIAlpbnQgc3RyZWFt
-ID0gc3Vic3RyZWFtLT5zdHJlYW07CiAKLQloZGFfc3RyZWFtID0gaHN0cmVhbV90b19zb2ZfaGRh
-X3N0cmVhbShsaW5rX2Rldik7Ci0KIAlpZiAobGlua19kZXYtPmxpbmtfcHJlcGFyZWQpCiAJCXJl
-dHVybiAwOwogCi0tIAoyLjIwLjEKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9q
-ZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
-L2Fsc2EtZGV2ZWwK
+From: Dan Carpenter <dan.carpenter@oracle.com>
+
+[ Upstream commit a3afa29942b84b4e2548beacccc3a68b8d77e3dc ]
+
+We need to unlock before we returning on this error path.
+
+Fixes: 73ac9f5e5b43 ("ALSA: usb-audio: Add boot quirk for MOTU M Series")
+Signed-off-by: Dan Carpenter <dan.carpenter@oracle.com>
+Link: https://lore.kernel.org/r/20200115174604.rhanfgy4j3uc65cx@kili.mountain
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/card.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/usb/card.c b/sound/usb/card.c
+index 2f582ac7cf789..827fb0bc8b561 100644
+--- a/sound/usb/card.c
++++ b/sound/usb/card.c
+@@ -602,7 +602,7 @@ static int usb_audio_probe(struct usb_interface *intf,
+ 	if (! chip) {
+ 		err = snd_usb_apply_boot_quirk_once(dev, intf, quirk, id);
+ 		if (err < 0)
+-			return err;
++			goto __error;
+ 
+ 		/* it's a fresh one.
+ 		 * now look for an empty slot and create a new card instance
+-- 
+2.20.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

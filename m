@@ -2,88 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2A5215D844
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 14:19:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1852115D857
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 14:24:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 93C801684;
-	Fri, 14 Feb 2020 14:18:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93C801684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9221C1674;
+	Fri, 14 Feb 2020 14:23:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9221C1674
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581686352;
-	bh=eUM8sYe/QxmD99v59sAg8abKfOdFu52J7t2nt0WPGFQ=;
-	h=References:From:To:In-reply-to:Date:Cc:Subject:List-Id:
+	s=default; t=1581686641;
+	bh=coaBlmEsSajAP0SZZMp8chDQwwzPhZDtsywwmkHPqO8=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YddQYzVoHXFsPvPdamIDL3Q/vAHzS/2sPO2+Ob2+KQ7wKfUCRLNQW/GIcrTtvDZIu
-	 F0W406UuQA7vsFGYjWprhhuIOaAwridXb3InjVzLQ8ZMtq7X+PsvhN+jdEsoxjDmDx
-	 PdS2RLGFXJbz/pl3r5D66JzF5+6lwPC9nBXIZyCg=
+	b=liLl1B5o77M1zZSRAxrtD3R8ptBw8SU7IU9QPxEyWhouNb0aSHVPQXUNBT4rzdGZK
+	 VXRTHMXpUd8D57c9Z+j9vjcvECwA+G9Y7l1U1y/kj+k0zRXSEpQANq4Ny0aLo5RqAI
+	 rVykqGAnrlBYTSoPFF57CTURkszCjVA8RtGdDtM0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 12B13F8019B;
-	Fri, 14 Feb 2020 14:16:18 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 96DDCF8013E;
+	Fri, 14 Feb 2020 14:22:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id F131BF80158; Fri, 14 Feb 2020 14:16:15 +0100 (CET)
+ id 9DB98F8014F; Fri, 14 Feb 2020 14:22:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
- [IPv6:2a00:1450:4864:20::441])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1BA36F80086
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 14:16:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1BA36F80086
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="n4dLxQPN"
-Received: by mail-wr1-x441.google.com with SMTP id c9so10874753wrw.8
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 05:16:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=references:user-agent:from:to:cc:subject:in-reply-to:date
- :message-id:mime-version;
- bh=dttGVPvYe+0DFSlsyRJJUIcITjzQToEc+jk1zM06Pt4=;
- b=n4dLxQPN0JhQQXTz6SAWnhIsES9PG/QVSp0Dyca5BW5cpCWum4eN99uqSXNHYL7Enn
- +dQ6hjLXyzNN+qRU6P8ZQ3bymeC05amrV2ZQs/Oru8U9C/TTUrBI0e7s1j31+6c0lBlB
- X50KMfhdpCPfu63obK7Sgb6H6mVprmx1vYdIUpn1TSeCMXVI0PiitAaY/f+5+fHwDg3V
- l5+gFxyYCqkIhi+K84UgNZ5lyLXjnNjI2x6z7PmmTgecaZchzZWhTuT761DMKg4ESnYa
- AxfmDuOlpYhvctS4KcMy0He5uS0OxyE9fDBB+PVucONar1gJtmNqOQJANF+zrODomHHX
- SOsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject
- :in-reply-to:date:message-id:mime-version;
- bh=dttGVPvYe+0DFSlsyRJJUIcITjzQToEc+jk1zM06Pt4=;
- b=Fg01TG5uJ8cc8aeUFffAvxtpdQ/ik0TLpId7pH/Qw3n2HNyoYLLb5fiaODFkrkLEcG
- h3ItjbG6KIpxJNTeL9CdmNx8BRNL6ho+j8WUu/L+RMPvC90qYYaKEr/f0t4sh6/e6xzc
- cYZ5JZe7xu3tZv7SdWLo8Q/xxvT4o15VKBngC7xd8nlk8RjJ/TmzxhHHQjdHzAiouCLj
- Vo/HTPrP1d6qMiTGsfmHQQ4EdLkZfd9WNU1bgtwQMOWzqPsnP7EC0drzY4FQFXvE9u9v
- eHa5wJw9nV4F1I2FKSayAYsiWfUkys3P30I3etgOwaCQiLkyaEmB3Bx/rNSh38zQ/GpZ
- v7wg==
-X-Gm-Message-State: APjAAAXq1mt5f0NlEbCZKdBJxXS1TCTIh+0UAx0E8YZFTvap+xTO7JIA
- Ev2UsRMSjHxagxM3FgXHV3yZVw==
-X-Google-Smtp-Source: APXvYqwJkUMkAB0wiz7MQgXQAaFjzRStc5erCu+G50eOFaOD6CBvB6S541TCYfW4sox+swqm82Pg5A==
-X-Received: by 2002:adf:81c2:: with SMTP id 60mr3995329wra.8.1581686171959;
- Fri, 14 Feb 2020 05:16:11 -0800 (PST)
-Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
- [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id s23sm7147787wra.15.2020.02.14.05.16.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Feb 2020 05:16:11 -0800 (PST)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id D0480F80086
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 14:22:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0480F80086
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A70E61FB;
+ Fri, 14 Feb 2020 05:22:13 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2ABF23F68F;
+ Fri, 14 Feb 2020 05:22:13 -0800 (PST)
+Date: Fri, 14 Feb 2020 13:22:11 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Message-ID: <20200214132211.GK4827@sirena.org.uk>
 References: <20200213155159.3235792-1-jbrunet@baylibre.com>
  <20200213155159.3235792-6-jbrunet@baylibre.com>
  <20200213182157.GJ4333@sirena.org.uk>
-User-agent: mu4e 1.3.3; emacs 26.3
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>
-In-reply-to: <20200213182157.GJ4333@sirena.org.uk>
-Date: Fri, 14 Feb 2020 14:16:10 +0100
-Message-ID: <1j36bdfgx1.fsf@starbuckisacylon.baylibre.com>
+ <1j36bdfgx1.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
+In-Reply-To: <1j36bdfgx1.fsf@starbuckisacylon.baylibre.com>
+X-Cookie: Shipping not included.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
  Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
  linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
@@ -101,57 +69,78 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============8214676491162802890=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On Thu 13 Feb 2020 at 19:21, Mark Brown <broonie@kernel.org> wrote:
+--===============8214676491162802890==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="QxIEt88oQPsT6QmF"
+Content-Disposition: inline
 
-> On Thu, Feb 13, 2020 at 04:51:55PM +0100, Jerome Brunet wrote:
->
->> +int aiu_add_component(struct device *dev,
->> +		      const struct snd_soc_component_driver *component_driver,
->> +		      struct snd_soc_dai_driver *dai_drv,
->> +		      int num_dai,
->> +		      const char *debugfs_prefix)
->> +{
->> +	struct snd_soc_component *component;
->> +
->> +	component = devm_kzalloc(dev, sizeof(*component), GFP_KERNEL);
->> +	if (!component)
->> +		return -ENOMEM;
->> +
->> +#ifdef CONFIG_DEBUG_FS
->> +	component->debugfs_prefix = debugfs_prefix;
->> +#endif
->
-> You really shouldn't be doing this as it could conflict with something
-> the machine driver wants to do however it's probably not going to be an
-> issue in practice as it's not like there's going to be multiple SoCs in
-> the card at once and if there were there'd doubltess be other issues.
 
-I'm not sure I understand (and I'd prefer to :) )
+--QxIEt88oQPsT6QmF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-As you said before, initially the there was supposed to be a 1:1 mapping
-between device and component. The component name is directly derived
-from the device name, and the debugfs directory is created from component name.
+On Fri, Feb 14, 2020 at 02:16:10PM +0100, Jerome Brunet wrote:
+> On Thu 13 Feb 2020 at 19:21, Mark Brown <broonie@kernel.org> wrote:
 
-I would have preferred to use snd_soc_register_component() directly, but
-with multiple components from the same device I got:
+> >> +#ifdef CONFIG_DEBUG_FS
+> >> +	component->debugfs_prefix = debugfs_prefix;
+> >> +#endif
 
-debugfs: Directory 'c1105400.audio-controller' with parent 'AWESOME-CARD' already present!
-debugfs: Directory 'c1105400.audio-controller' with parent 'AWESOME-CARD' already present!
+> > You really shouldn't be doing this as it could conflict with something
+> > the machine driver wants to do however it's probably not going to be an
+> > issue in practice as it's not like there's going to be multiple SoCs in
+> > the card at once and if there were there'd doubltess be other issues.
 
-I copied the code above from other direct users of
-snd_soc_add_component() (soc-generic-dmaengine-pcm.c and
-stm32_adfsdm.c). I suppose they had the same name collision issue.
+> I'm not sure I understand (and I'd prefer to :) )
 
-Instead of addressing the debugfs side effect, maybe  we could just make
-sure that each component name is unique within ASoC ? I'd be happy submit
-something if you think this can helpful.
+> As you said before, initially the there was supposed to be a 1:1 mapping
+> between device and component. The component name is directly derived
+> from the device name, and the debugfs directory is created from component name.
+
+I understand why you're doing it but that feature is intended for the
+use of cards when they're integrating components, not for devices
+trying to register multiple components on the same device.  This means
+that a card that tries to use the feature will conflict with what the
+driver is doing, but like I say there's no obvious use case for a card
+doing that.
+
+> Instead of addressing the debugfs side effect, maybe  we could just make
+> sure that each component name is unique within ASoC ? I'd be happy submit
+> something if you think this can helpful.
+
+That'd be better.
+
+--QxIEt88oQPsT6QmF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5GnwIACgkQJNaLcl1U
+h9ConAf/ZGIifJ2A3GT7/6hgGBOd30DCPyZ8wpzAq0wHv/ihVoH/uLJqlLiRVglQ
+Nqx0WU3HNlkMaHwiGc/1rp2fiXdZ1hzXQsCcHMX+0vQyLVRqtsITAVkHauL9RVE8
+U+DlOVSjkI7k4jPw9NQgATNCA0a5cw1WMzorwS6WNeLMUS3eqQdqxBZeLgwTqtdz
+zRg9Fwb/c9xmCJgQ8PdybSvDTxW0G9Mx/0BWAfeJqSUTk/2tQjpODkaGQP1fH/Az
+keB6n64qi+KoaIGZNUVEfiLL2zJ0w49nfDKyb1n5KndN0+iOVbk9jxRtnDaGajYF
+/ZLH5B59EjOw9RfRJTsAvNs2GO8JIA==
+=YJRb
+-----END PGP SIGNATURE-----
+
+--QxIEt88oQPsT6QmF--
+
+--===============8214676491162802890==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============8214676491162802890==--

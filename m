@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0EC615E2FA
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:26:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4187015E309
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:26:48 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 633F216FB;
-	Fri, 14 Feb 2020 17:25:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 633F216FB
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5FD51706;
+	Fri, 14 Feb 2020 17:25:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5FD51706
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581697573;
-	bh=awaBFRMPk7JiWy7DqtvxX9Rk1paJPI/fhgD03LHYiMs=;
+	s=default; t=1581697608;
+	bh=Bvq5xN99+OEjyXnuZhNfSYvqD0hmi/YU156/JSBI1yI=;
 	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tDJPZnE55XkGFhPN3CurbLt0fkKGlMw+DLG0pfjlxAjbiL9+qdgyYUTEOBcTe300j
-	 jQCFI3rp1Tnexdd1D99kYMf+4Oef+72VJxKLJEOH0Bd/OmrWn3L6SEKbUkM0xFhAdQ
-	 7qbtsc1uzXB0BfH9nQJn8TgHQ2CKBHD+WDyPtof8=
+	b=kJk6TDNFFxZlpTbmNlTqQZvu5SPJhIu/MJox1Nf7E/Dm6JULLlddkLvSXgAcDauXW
+	 vPHxoIZE65mF8lrluLMqiTQ8MN38Er0pvGZLomWIFambzu/1BPeIFNz5/R6hM/CbXD
+	 oLJ08mppO1PeedqtV+rgLLshHTPe1sRz833Ly664=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60F1AF802BD;
-	Fri, 14 Feb 2020 17:20:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A17B3F80228;
+	Fri, 14 Feb 2020 17:22:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AFCF2F802BC; Fri, 14 Feb 2020 17:20:36 +0100 (CET)
+ id 63236F80228; Fri, 14 Feb 2020 17:22:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
@@ -34,40 +34,41 @@ X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 4B932F802A0
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:20:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4B932F802A0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 472EEF80138
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:22:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 472EEF80138
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="A1myqndC"
+ header.b="K95lsVCD"
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id E925D2472C;
- Fri, 14 Feb 2020 16:20:31 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id D5C41246D9;
+ Fri, 14 Feb 2020 16:22:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581697232;
- bh=Sxg0R93GbOQROQbzavKod+ynQMnPQ8PoZ+nJxzzu8sI=;
+ s=default; t=1581697357;
+ bh=ReZmYkg/prqMorqUqyrtzUfOZklO5ccW/CxxVmBonHc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=A1myqndC6G2Py91ceLy47Wt9RKwfQ9Q/58vAqFYn0g83VdIsYYjNMEQ6GVRvNht/v
- E8KHZeQV1OoCeKhjuPg3Ts0HzIgamQqg/X0RfJWUknMsQqD24ZrlfxsEe2paLK4VYQ
- 9u/QSYvqm9rBBSeEXGkz5ULw8B/ql5nM6wuJxjKs=
+ b=K95lsVCDdSFPErr9U1unoqZPLgMRRw1pcVmutti9zLwU24RjQX8r089kaBXnHSKwn
+ eWNSYQZrTEPLlXskt4cyY3ABVPbJ99mUaLO4oeYlkyL59yc7c4WVe6aNlP3o7YaiI8
+ g+Sfu7aZ8GwzcPp/9z5VF53j8pzh6E9FJ6i55a9E=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 11:16:43 -0500
-Message-Id: <20200214161715.18113-154-sashal@kernel.org>
+Date: Fri, 14 Feb 2020 11:19:59 -0500
+Message-Id: <20200214162122.19794-59-sashal@kernel.org>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200214161715.18113-1-sashal@kernel.org>
-References: <20200214161715.18113-1-sashal@kernel.org>
+In-Reply-To: <20200214162122.19794-1-sashal@kernel.org>
+References: <20200214162122.19794-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
 Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, =?UTF-8?q?Peter=20Gro=C3=9Fe?= <pegro@friiks.de>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.14 154/186] ALSA: hda - Add docking
-	station support for Lenovo Thinkpad T420s
+ Nathan Chancellor <natechancellor@gmail.com>, alsa-devel@alsa-project.org,
+ clang-built-linux@googlegroups.com
+Subject: [alsa-devel] [PATCH AUTOSEL 4.9 059/141] ALSA: usx2y: Adjust
+	indentation in snd_usX2Y_hwdep_dsp_status
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +81,58 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RnJvbTogUGV0ZXIgR3Jvw59lIDxwZWdyb0Bmcmlpa3MuZGU+CgpbIFVwc3RyZWFtIGNvbW1pdCBl
-ZjdkODRjYWE1OTI4YjQwYjFjOTNhMjZkYmU1YTNmMTI3MzdjNmFiIF0KCkxlbm92byBUaGlua3Bh
-ZCBUNDIwcyB1c2VzIHRoZSBzYW1lIGNvZGVjIGFzIFQ0MjAsIHNvIGFwcGx5IHRoZQpzYW1lIHF1
-aXJrIHRvIGVuYWJsZSBhdWRpbyBvdXRwdXQgb24gYSBkb2NraW5nIHN0YXRpb24uCgpTaWduZWQt
-b2ZmLWJ5OiBQZXRlciBHcm/Dn2UgPHBlZ3JvQGZyaWlrcy5kZT4KTGluazogaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvci8yMDIwMDEyMjE4MDEwNi45MzUxLTEtcGVncm9AZnJpaWtzLmRlClNpZ25l
-ZC1vZmYtYnk6IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4KU2lnbmVkLW9mZi1ieTogU2Fz
-aGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIHNvdW5kL3BjaS9oZGEvcGF0Y2hfY29u
-ZXhhbnQuYyB8IDEgKwogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCgpkaWZmIC0tZ2l0
-IGEvc291bmQvcGNpL2hkYS9wYXRjaF9jb25leGFudC5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9j
-b25leGFudC5jCmluZGV4IDM4MmI2ZDJlZDgwMzYuLjljYzkzMDRmZjIxYTcgMTAwNjQ0Ci0tLSBh
-L3NvdW5kL3BjaS9oZGEvcGF0Y2hfY29uZXhhbnQuYworKysgYi9zb3VuZC9wY2kvaGRhL3BhdGNo
-X2NvbmV4YW50LmMKQEAgLTk2OSw2ICs5NjksNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9w
-Y2lfcXVpcmsgY3h0NTA2Nl9maXh1cHNbXSA9IHsKIAlTTkRfUENJX1FVSVJLKDB4MTdhYSwgMHgy
-MTVmLCAiTGVub3ZvIFQ1MTAiLCBDWFRfUElOQ0ZHX0xFTk9WT19UUDQxMCksCiAJU05EX1BDSV9R
-VUlSSygweDE3YWEsIDB4MjFjZSwgIkxlbm92byBUNDIwIiwgQ1hUX1BJTkNGR19MRU5PVk9fVFA0
-MTApLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAweDIxY2YsICJMZW5vdm8gVDUyMCIsIENYVF9Q
-SU5DRkdfTEVOT1ZPX1RQNDEwKSwKKwlTTkRfUENJX1FVSVJLKDB4MTdhYSwgMHgyMWQyLCAiTGVu
-b3ZvIFQ0MjBzIiwgQ1hUX1BJTkNGR19MRU5PVk9fVFA0MTApLAogCVNORF9QQ0lfUVVJUksoMHgx
-N2FhLCAweDIxZGEsICJMZW5vdm8gWDIyMCIsIENYVF9QSU5DRkdfTEVOT1ZPX1RQNDEwKSwKIAlT
-TkRfUENJX1FVSVJLKDB4MTdhYSwgMHgyMWRiLCAiTGVub3ZvIFgyMjAtdGFibGV0IiwgQ1hUX1BJ
-TkNGR19MRU5PVk9fVFA0MTApLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAweDM4YWYsICJMZW5v
-dm8gSWRlYVBhZCBaNTYwIiwgQ1hUX0ZJWFVQX01VVEVfTEVEX0VBUEQpLAotLSAKMi4yMC4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVs
-IG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFu
-LmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+From: Nathan Chancellor <natechancellor@gmail.com>
+
+[ Upstream commit df4654bd6e42125d9b85ce3a26eaca2935290b98 ]
+
+Clang warns:
+
+../sound/usb/usx2y/usX2Yhwdep.c:122:3: warning: misleading indentation;
+statement is not part of the previous 'if' [-Wmisleading-indentation]
+        info->version = USX2Y_DRIVER_VERSION;
+        ^
+../sound/usb/usx2y/usX2Yhwdep.c:120:2: note: previous statement is here
+        if (us428->chip_status & USX2Y_STAT_CHIP_INIT)
+        ^
+1 warning generated.
+
+This warning occurs because there is a space before the tab on this
+line. Remove it so that the indentation is consistent with the Linux
+kernel coding style and clang no longer warns.
+
+This was introduced before the beginning of git history so no fixes tag.
+
+Link: https://github.com/ClangBuiltLinux/linux/issues/831
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+Link: https://lore.kernel.org/r/20191218034257.54535-1-natechancellor@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/usx2y/usX2Yhwdep.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
+index 0b34dbc8f3020..7dcb33d3886bc 100644
+--- a/sound/usb/usx2y/usX2Yhwdep.c
++++ b/sound/usb/usx2y/usX2Yhwdep.c
+@@ -132,7 +132,7 @@ static int snd_usX2Y_hwdep_dsp_status(struct snd_hwdep *hw,
+ 	info->num_dsps = 2;		// 0: Prepad Data, 1: FPGA Code
+ 	if (us428->chip_status & USX2Y_STAT_CHIP_INIT)
+ 		info->chip_ready = 1;
+- 	info->version = USX2Y_DRIVER_VERSION; 
++	info->version = USX2Y_DRIVER_VERSION;
+ 	return 0;
+ }
+ 
+-- 
+2.20.1
+
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

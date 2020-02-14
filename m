@@ -2,105 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DE0B15D901
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 15:06:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D398415D965
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 15:26:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1A59D166C;
-	Fri, 14 Feb 2020 15:06:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1A59D166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 39B261676;
+	Fri, 14 Feb 2020 15:25:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39B261676
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581689217;
-	bh=7Ihbjb5ZL8bDz6KB2uaaypLFb43ouV3t74RIeicoNno=;
-	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581690401;
+	bh=FzflA8Ztsaw7svr4lkN89QlUTtvCxWgfIw3rIFXCYLI=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WlmDOTVqiFdOJPdQIVLzgL037yHgZGNNIRFAPwIynmAN3Zr6AvhKsNYb2bMwRAl/e
-	 S6Raml0/L8G2/5zy/DVfmsWcC/4OFl5/RtYzAcUk48jmAJ5eOMUjm65GpHeF8qjagk
-	 saaimdtxpa0/4jHRgyx2+C5T2l5mCQ8GGpGKicgg=
+	b=j1r3WeK2f6VYNaL5hCkJ3kedN6C8799FvXNr5B3x0ooGddl3iffzTDPbVo3mBwq27
+	 1A2hW41K27f0Zu7E/beCNUJ/GX7vkeFyJUuyc4zQfB0+QO2YNm8F2LQ0wVcIBgi3g3
+	 8PWMuLlKs7Wwr07sjIZWAVDM+hFlhAPPxuzNIMAs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 99302F800F0;
-	Fri, 14 Feb 2020 15:05:15 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2A24BF8013E;
+	Fri, 14 Feb 2020 15:25:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C4FBBF8014F; Fri, 14 Feb 2020 15:05:13 +0100 (CET)
+ id CE76FF8014F; Fri, 14 Feb 2020 15:24:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
- version=3.4.0
-Received: from hqnvemgate26.nvidia.com (hqnvemgate26.nvidia.com
- [216.228.121.65])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DF8BEF800F0
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 15:05:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DF8BEF800F0
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
- header.b="QI6Ew9ps"
-Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
- hqnvemgate26.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
- id <B5e46a9050000>; Fri, 14 Feb 2020 06:04:53 -0800
-Received: from hqmail.nvidia.com ([172.20.161.6])
- by hqpgpgate101.nvidia.com (PGP Universal service);
- Fri, 14 Feb 2020 06:05:07 -0800
-X-PGP-Universal: processed;
- by hqpgpgate101.nvidia.com on Fri, 14 Feb 2020 06:05:07 -0800
-Received: from [10.21.133.51] (172.20.13.39) by HQMAIL107.nvidia.com
- (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 14 Feb
- 2020 14:05:04 +0000
-To: Dmitry Osipenko <digetx@gmail.com>, Sameer Pujar <spujar@nvidia.com>
-References: <1579530198-13431-1-git-send-email-spujar@nvidia.com>
- <1579530198-13431-5-git-send-email-spujar@nvidia.com>
- <a440d105-8db9-ecf1-3718-e58804ce14b8@gmail.com>
- <0c571858-d72c-97c2-2d6a-ead6fdde06eb@nvidia.com>
- <444731da-c4cd-8578-a732-c803eef31ef0@gmail.com>
- <bdc749bc-b62c-a041-c17c-33fd49fe8e2e@nvidia.com>
- <598fe377-5b95-d30a-eb64-89a645166d42@gmail.com>
- <3f51939d-cf4b-f69b-728a-7eb99bbae458@nvidia.com>
- <34ac1fd3-ae0f-07f2-555f-a55087a2c9dc@nvidia.com>
- <1a84b393-938f-8bed-d08e-cc3bb6ed4844@gmail.com>
- <0fc814c2-0dc6-7741-b954-463381ff7fb9@nvidia.com>
- <b5c581b9-17af-d004-33fb-2cc782ab820a@gmail.com>
- <9f73afdf-1e9a-cdbd-f972-a022d503ef51@nvidia.com>
- <264d3354-8a2e-ee12-44ae-aff69213d551@nvidia.com>
- <075e476a-36bb-5fee-15bc-76af4474a797@gmail.com>
- <c6022a93-b79a-c691-1d75-d007d0b64ead@nvidia.com>
- <3b42c858-733b-0d17-f457-8043d97f5058@gmail.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Message-ID: <62b8ffbc-aa32-ae44-6cb4-b176b8ba9b0e@nvidia.com>
-Date: Fri, 14 Feb 2020 14:05:02 +0000
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 6F1D9F80138
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 15:24:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F1D9F80138
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Feb 2020 06:24:50 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,440,1574150400"; d="scan'208";a="223029129"
+Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
+ by orsmga007.jf.intel.com with ESMTP; 14 Feb 2020 06:24:47 -0800
+Received: from andy by smile with local (Exim 4.93)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1j2btg-001MyR-Vd; Fri, 14 Feb 2020 16:24:48 +0200
+Date: Fri, 14 Feb 2020 16:24:48 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Thomas Gleixner <tglx@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, "H. Peter Anvin" <hpa@zytor.com>,
+ x86@kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-kernel@vger.kernel.org
+Message-ID: <20200214142448.GK10400@smile.fi.intel.com>
+References: <20200122112306.64598-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <3b42c858-733b-0d17-f457-8043d97f5058@gmail.com>
-X-Originating-IP: [172.20.13.39]
-X-ClientProxiedBy: HQMAIL107.nvidia.com (172.20.187.13) To
- HQMAIL107.nvidia.com (172.20.187.13)
-Content-Language: en-US
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
- t=1581689093; bh=FOw4bWZEh/AbWKd98TO0Ip7GRAKPee6mZCFYh4kd40w=;
- h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
- User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
- X-ClientProxiedBy:Content-Type:Content-Language:
- Content-Transfer-Encoding;
- b=QI6Ew9ps6koVrDmIS4lwL+Pl6aXPVaJAaivfgwoF8faY4OsNX+S91a24nV6/HZcH0
- x4z16S42vrq91k5KA4wW6nxUmq1PH9BQso2+95cd3aVczvqbIHKD3RiZ6YjI6L0xez
- tS2AvbiMQSRsUHdLtb9rKZjfE/aiRO6q0MXMwHw5u09kdx76ScVdRz8sG3lS6NS7yX
- j1oMBmq1rDwScwRul3uDTm2Dhl9Z+uiPksmBfnrsb5GKcyJOzPD1fH2HgP/4mxkNQk
- sl66OawXc9aDMOAWMkGseZWc03IyOsKWBrt/Rr0BPoZjVIV3L24MmqxqU+7wlBeVNc
- X4TdHMw1quYBA==
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com, atalambedu@nvidia.com,
- robh+dt@kernel.org, lgirdwood@gmail.com, viswanathl@nvidia.com,
- sharadg@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
- linux-tegra@vger.kernel.org, rlokhande@nvidia.com, mkumard@nvidia.com,
- dramesh@nvidia.com
-Subject: Re: [alsa-devel] [PATCH 4/9] ASoC: tegra: add Tegra210 based I2S
- driver
+Content-Disposition: inline
+In-Reply-To: <20200122112306.64598-1-andriy.shevchenko@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Jie Yang <yang.jie@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [PATCH v3 0/9] x86: Easy way of detecting MS
+	Surface 3
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,25 +85,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Wed, Jan 22, 2020 at 01:22:57PM +0200, Andy Shevchenko wrote:
+> While working on RTC regression, I noticed that we are using the same DMI check
+> over and over in the drivers for MS Surface 3 platform. This series dedicated
+> for making it easier in the same way how it's done for Apple machines.
 
-On 29/01/2020 03:41, Dmitry Osipenko wrote:
 
-...
+Any comments on this?
 
-> The !RPM case isn't supported by Tegra anymore in upstream kernel. I'm
-> trying to help to make yours driver better and gave you reasons to
-> remove the unneeded code, while you're keep saying that "there is no
-> harm to retain it", which is not a reason to clutter up the code. I
-> don't feel that it's worthwhile to continue arguing here.
-
-On further review, it does look like a reasonable argument to get rid of
-this now completely. Like you see less clutter and the soc-core should
-ensure that the card is shutdown before unloading. OK, so fine with me.
-
-Jon
+> Changelog v3:
+> - fixed typo in patch 5 (Jonathan)
+> - returned back to if {} else {} condition in ASoC driver (Mark)
+> - added Mark's Ack tag
+> 
+> Changelog v2:
+> - removed RTC patches for now (the fix will be independent to this series)
+> - added couple more clean ups to arch/x86/kernel/quirks.c
+> - redone DMI quirk to use driver_data instead of callback
+> - simplified check in soc-acpi-intel-cht-match.c to be oneliner
+> - added a new patch to cover rt5645 codec driver
+> 
+> Cc: Cezary Rojewski <cezary.rojewski@intel.com>
+> Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+> Cc: Liam Girdwood <liam.r.girdwood@linux.intel.com>
+> Cc: Jie Yang <yang.jie@linux.intel.com>
+> Cc: Mark Brown <broonie@kernel.org>
+> Cc: alsa-devel@alsa-project.org
+> 
+> Andy Shevchenko (9):
+>   x86/platform: Rename x86/apple.h -> x86/machine.h
+>   x86/quirks: Add missed include to satisfy static checker
+>   x86/quirks: Introduce hpet_dev_print_force_hpet_address() helper
+>   x86/quirks: Join string literals back
+>   x86/quirks: Convert DMI matching to use a table
+>   x86/quirks: Add a DMI quirk for Microsoft Surface 3
+>   platform/x86: surface3_wmi: Switch DMI table match to a test of
+>     variable
+>   ASoC: rt5645: Switch DMI table match to a test of variable
+>   ASoC: Intel: Switch DMI table match to a test of variable
+> 
+>  arch/x86/kernel/quirks.c                      | 91 +++++++++++++------
+>  drivers/platform/x86/surface3-wmi.c           | 16 +---
+>  include/linux/platform_data/x86/apple.h       | 14 +--
+>  include/linux/platform_data/x86/machine.h     | 20 ++++
+>  sound/soc/codecs/rt5645.c                     | 14 ++-
+>  .../intel/common/soc-acpi-intel-cht-match.c   | 28 +-----
+>  6 files changed, 93 insertions(+), 90 deletions(-)
+>  create mode 100644 include/linux/platform_data/x86/machine.h
+> 
+> -- 
+> 2.24.1
+> 
 
 -- 
-nvpublic
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

@@ -2,72 +2,61 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9004015E37B
-	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 17:30:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F61015E920
+	for <lists+alsa-devel@lfdr.de>; Fri, 14 Feb 2020 18:05:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39C5B170D;
-	Fri, 14 Feb 2020 17:29:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39C5B170D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1AD301683;
+	Fri, 14 Feb 2020 18:04:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1AD301683
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581697848;
-	bh=UJrrXE1kyNBfmZ6LZjLndTQA6Ig0Nv0ABCDWWTnsSh8=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1581699930;
+	bh=5BQBfj4iqawQSKGo+BzB+6TjzuE3NwiEeOQuP/OOOR4=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FdwoeMtts2GGPx+iMatier5d1L7DX2nCecbAnlV6QyxFqa1eDlY9rMVJScAoAL6oL
-	 hH+y3O7HA75lvEYuyt42Vmz64gswZ5B+yZlaLKGavX9sRTLlf5clzKDmiQuccKdTwf
-	 vjVmn+zNcEzNTPxEui2YT06V9QPNBuZA8E9qFTJA=
+	b=mXdmTjuuBIGCgJZZ6SniSLjPOSxjZSQYNeWnnKtuo9U+LkVbOlfJb6IfkI0/tvrSO
+	 ajF5L6nyJL7sLaC2U9BK8o7rhFrfNq+LFKMokyXRqZ7RNuAcBpe86z4n9KgnvizRIv
+	 A+p7oi89JwOL+PtxB2WEzR2p9sUJBsRTOnzrrCIQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DE752F802A7;
-	Fri, 14 Feb 2020 17:26:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 522CBF800F0;
+	Fri, 14 Feb 2020 18:03:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E5BC8F802BC; Fri, 14 Feb 2020 17:26:07 +0100 (CET)
+ id 9CBE3F8013E; Fri, 14 Feb 2020 18:03:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C15ECF8014F
- for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 17:26:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C15ECF8014F
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sASzKkBG"
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 65134247C2;
- Fri, 14 Feb 2020 16:26:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581697563;
- bh=iKESaSe8KqutxIY0wXUL7WNxpaQHoif996AI3uvbYa4=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sASzKkBGKvM+nWL0bPqO7fDh/2IUXS5jiBPP9IsqD8qOslAVE0f93vKkWsMN5mfax
- u7Y33Ktskz39VLwUU1wYRYOkEU1ovqBFrrcXmrCeP/lh4Bt2336zURRfQ/0UyrPPFW
- 6bBBDz7DQqabS7Va8iTjTVi/Pu/wTQqaUDN+Rk3I=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Date: Fri, 14 Feb 2020 11:24:03 -0500
-Message-Id: <20200214162425.21071-79-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200214162425.21071-1-sashal@kernel.org>
-References: <20200214162425.21071-1-sashal@kernel.org>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from muru.com (muru.com [72.249.23.125])
+ by alsa1.perex.cz (Postfix) with ESMTP id 139E5F80086
+ for <alsa-devel@alsa-project.org>; Fri, 14 Feb 2020 18:03:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 139E5F80086
+Received: from atomide.com (localhost [127.0.0.1])
+ by muru.com (Postfix) with ESMTPS id B396480E7;
+ Fri, 14 Feb 2020 17:04:09 +0000 (UTC)
+Date: Fri, 14 Feb 2020 09:03:22 -0800
+From: Tony Lindgren <tony@atomide.com>
+To: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Message-ID: <20200214170322.GZ64767@atomide.com>
+References: <20200211171645.41990-1-tony@atomide.com>
+ <cd46c6ec-80e3-332f-4922-e58a3acbfc61@ti.com>
+ <20200212143543.GI64767@atomide.com>
+ <346dfd2b-23f8-87e0-6f45-27a5099b1066@ti.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-Cc: Takashi Iwai <tiwai@suse.de>, Sasha Levin <sashal@kernel.org>,
- alsa-devel@alsa-project.org, =?UTF-8?q?Peter=20Gro=C3=9Fe?= <pegro@friiks.de>
-Subject: [alsa-devel] [PATCH AUTOSEL 4.4 079/100] ALSA: hda - Add docking
-	station support for Lenovo Thinkpad T420s
+Content-Disposition: inline
+In-Reply-To: <346dfd2b-23f8-87e0-6f45-27a5099b1066@ti.com>
+Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, linux-kernel@vger.kernel.org,
+ Merlijn Wajer <merlijn@wizzup.org>, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Pavel Machek <pavel@ucw.cz>, Sebastian Reichel <sre@kernel.org>,
+ "Arthur D ." <spinal.by@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: ti: Allocate dais dynamically for
+ TDM and audio graph card
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,34 +69,209 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-RnJvbTogUGV0ZXIgR3Jvw59lIDxwZWdyb0Bmcmlpa3MuZGU+CgpbIFVwc3RyZWFtIGNvbW1pdCBl
-ZjdkODRjYWE1OTI4YjQwYjFjOTNhMjZkYmU1YTNmMTI3MzdjNmFiIF0KCkxlbm92byBUaGlua3Bh
-ZCBUNDIwcyB1c2VzIHRoZSBzYW1lIGNvZGVjIGFzIFQ0MjAsIHNvIGFwcGx5IHRoZQpzYW1lIHF1
-aXJrIHRvIGVuYWJsZSBhdWRpbyBvdXRwdXQgb24gYSBkb2NraW5nIHN0YXRpb24uCgpTaWduZWQt
-b2ZmLWJ5OiBQZXRlciBHcm/Dn2UgPHBlZ3JvQGZyaWlrcy5kZT4KTGluazogaHR0cHM6Ly9sb3Jl
-Lmtlcm5lbC5vcmcvci8yMDIwMDEyMjE4MDEwNi45MzUxLTEtcGVncm9AZnJpaWtzLmRlClNpZ25l
-ZC1vZmYtYnk6IFRha2FzaGkgSXdhaSA8dGl3YWlAc3VzZS5kZT4KU2lnbmVkLW9mZi1ieTogU2Fz
-aGEgTGV2aW4gPHNhc2hhbEBrZXJuZWwub3JnPgotLS0KIHNvdW5kL3BjaS9oZGEvcGF0Y2hfY29u
-ZXhhbnQuYyB8IDEgKwogMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspCgpkaWZmIC0tZ2l0
-IGEvc291bmQvcGNpL2hkYS9wYXRjaF9jb25leGFudC5jIGIvc291bmQvcGNpL2hkYS9wYXRjaF9j
-b25leGFudC5jCmluZGV4IDA1ZTc0NWUyZjQyNzEuLjMxNTBkZGZiZGIyNWUgMTAwNjQ0Ci0tLSBh
-L3NvdW5kL3BjaS9oZGEvcGF0Y2hfY29uZXhhbnQuYworKysgYi9zb3VuZC9wY2kvaGRhL3BhdGNo
-X2NvbmV4YW50LmMKQEAgLTg2Niw2ICs4NjYsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHNuZF9w
-Y2lfcXVpcmsgY3h0NTA2Nl9maXh1cHNbXSA9IHsKIAlTTkRfUENJX1FVSVJLKDB4MTdhYSwgMHgy
-MTVmLCAiTGVub3ZvIFQ1MTAiLCBDWFRfUElOQ0ZHX0xFTk9WT19UUDQxMCksCiAJU05EX1BDSV9R
-VUlSSygweDE3YWEsIDB4MjFjZSwgIkxlbm92byBUNDIwIiwgQ1hUX1BJTkNGR19MRU5PVk9fVFA0
-MTApLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAweDIxY2YsICJMZW5vdm8gVDUyMCIsIENYVF9Q
-SU5DRkdfTEVOT1ZPX1RQNDEwKSwKKwlTTkRfUENJX1FVSVJLKDB4MTdhYSwgMHgyMWQyLCAiTGVu
-b3ZvIFQ0MjBzIiwgQ1hUX1BJTkNGR19MRU5PVk9fVFA0MTApLAogCVNORF9QQ0lfUVVJUksoMHgx
-N2FhLCAweDIxZGEsICJMZW5vdm8gWDIyMCIsIENYVF9QSU5DRkdfTEVOT1ZPX1RQNDEwKSwKIAlT
-TkRfUENJX1FVSVJLKDB4MTdhYSwgMHgyMWRiLCAiTGVub3ZvIFgyMjAtdGFibGV0IiwgQ1hUX1BJ
-TkNGR19MRU5PVk9fVFA0MTApLAogCVNORF9QQ0lfUVVJUksoMHgxN2FhLCAweDM4YWYsICJMZW5v
-dm8gSWRlYVBhZCBaNTYwIiwgQ1hUX0ZJWFVQX01VVEVfTEVEX0VBUEQpLAotLSAKMi4yMC4xCgpf
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVs
-IG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFu
-LmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==
+* Peter Ujfalusi <peter.ujfalusi@ti.com> [200214 12:42]:
+> Hi Tony,
+> 
+> On 12/02/2020 16.35, Tony Lindgren wrote:
+> > * Peter Ujfalusi <peter.ujfalusi@ti.com> [200212 08:02]:
+> >>
+> >>
+> >> On 11/02/2020 19.16, Tony Lindgren wrote:
+> >>> We can have multiple connections on a single McBSP instance configured
+> >>> with audio graph card when using TDM (Time Division Multiplexing). Let's
+> >>> allow that by configuring dais dynamically.
+> >>
+> >> It is still one DAI...
+> >> If you have multiple codec connected to the same I2S lines, but the
+> >> codecs communicate within different time slots, you still have one DAI
+> >> on the CPU side, but multiple codecs (codec DAIs) with different TDM slot.
+> > 
+> > OK so subject should say "dodec DAIs" then I guess?
+> > 
+> >>> See Documentation/devicetree/bindings/sound/audio-graph-card.txt and
+> >>> Documentation/devicetree/bindings/graph.txt for more details for
+> >>> multiple endpoints.
+> >>
+> >> See the example for 'Multi DAI with DPCM' in audio-graph-card.txt
+> >> The PCM3168a have 2 DAIs: playback and capture, but you can have
+> >> multiple endpoints within a DAI.
+> > 
+> > Yes this should follow the audio-graph-card.txt example. We end up with
+> > mcbsp3 dts node as below on droid4:
+> > 
+> > &mcbsp3 {
+> >         #sound-dai-cells = <0>;
+> >         pinctrl-names = "default";
+> >         pinctrl-0 = <&mcbsp3_pins>;
+> >         status = "okay";
+> > 
+> >         ports {
+> >                 mcbsp3_port: port@0 {
+> >                         #address-cells = <1>;
+> >                         #size-cells = <0>;
+> > 
+> >                         cpu_dai3: endpoint@0 {
+> >                                 reg = <0>;
+> >                                 dai-format = "dsp_a";
+> >                                 frame-master = <&cpcap_audio_codec1>;
+> >                                 bitclock-master = <&cpcap_audio_codec1>;
+> >                                 remote-endpoint = <&cpcap_audio_codec1>;
+> >                         };
+> > 
+> >                         cpu_dai_mdm: endpoint@1 {
+> >                                 reg = <1>;
+> >                                 dai-format = "dsp_a";
+> >                                 frame-master = <&cpcap_audio_codec1>;
+> >                                 bitclock-master = <&cpcap_audio_codec1>;
+> >                                 remote-endpoint = <&mot_mdm6600_audio_codec0>;
+> >                         };
+> >                 };
+> >         };
+> > };
+> 
+> According to
+> Documentation/devicetree/bindings/sound/audio-graph-card.txt
+> it should be something like this:
+> &mcbsp3 {
+>         #sound-dai-cells = <0>;
+>         pinctrl-names = "default";
+>         pinctrl-0 = <&mcbsp3_pins>;
+>         status = "okay";
+> 
+>         ports {
+> 		#address-cells = <1>;
+> 		#size-cells = <0>;
+>                 port@0 {
+> 			reg = <0>;
+> 
+> 			cpu_dai3: endpoint@0 {
+> 				dai-format = "dsp_a";
+> 				frame-master = <&cpcap_audio_codec1>;
+> 				bitclock-master = <&cpcap_audio_codec1>;
+> 				remote-endpoint = <&cpcap_audio_codec1>;
+> 			};
+> 
+> 			cpu_dai_mdm: endpoint@1 {
+> 				dai-format = "dsp_a";
+> 				frame-master = <&cpcap_audio_codec1>;
+> 				bitclock-master = <&cpcap_audio_codec1>;
+> 				remote-endpoint = <&mot_mdm6600_audio_codec0>;
+> 			};
+> 		};
+> 	};
+> };
+
+Hmms so I only spot reg use at different level changing above. Well
+that's not according to Documentation/devicetree/bindings/graph.txt,
+the reg numbering is per endpoint.
+
+Sounds like the we have the example not following graph.txt in
+Documentation/devicetree/bindings/sound/audio-graph-card.txt while
+the code is now behaving as in graph.txt.
+
+> If you span out dummy DAIs got dai1+ then how you will get anything
+> working via endpoint1+?
+> There will be no ops for McBSP, so it is not going to do anything...
+
+Eventually it could have ops though. For things like capture of the tdm
+slot data for recording audio call for example, I don't know how that's
+supposed to work though. I guess mcbsp could be the clock master too,
+and for those cases it would have ops.
+
+But right now in droid4 voice call case mcbsp is just the i2s transport,
+and everything happens betwee the modem and the cpcap pmic.
+
+> > That is pretty much the same as the 'Multi DAI with DPCM' example, with
+> > dne dai, and multiple endpoints. I think we still have just one port
+> > for one i2s transport on the mcbsp :)
+> > 
+> > Does the above look as what you would expect based on the binding?
+> 
+> The audio-graph-card.txt example shows pcm3168a which have two DAIs,
+> one for playback and one for capture.
+> 
+> I guess Morimoto-san can explain if he carries out of tree patches to
+> get the described setup working on top of mainline...
+>
+> But, no, based on the documentation I don't ;)
+
+Sounds like audio-graph-card.txt is just out of sync with graph.txt
+as we do have several working examples?
+
+> >>> I've tested this with droid4 where cpcap pmic and modem voice are both
+> >>> both wired to mcbsp3. I've also tested this on droid4 both with and
+> >>> without the pending modem audio codec driver that is waiting for n_gsm
+> >>> serdev dependencies to clear.
+> >>
+> >> What this patch you effectively just creating dummy-dais on top of the
+> >> real McBSP DAI.
+> > 
+> > Yes I think this is needed for snd-soc-audio-graph-card, and this allows
+> > configuring whatever is needed for the i2s slot. But maybe you have some
+> > better way of doing it in mind?
+> > 
+> >> You also rename the DAIs, which might break ams-delta.
+> > 
+> > Oops, that's not good. So should we just keep the old naming if there's
+> > only one endpoint?
+> 
+> That's an option, yes, if we really need extra dummy McBSP DAIs at all,
+> again, let's hear from Morimoto-san or Mark.
+
+Well it would not necessarily be a dummy mcbsp dai in all cases it seems
+to me. But yeah nothing for the second dai to do right now for droid4
+voice call as it's all between the modem and the pmic.
+
+> >> We still have legacy support in
+> >> omap-twl4030.c
+> >> omap3pandora.c
+> >> osk5912.c
+> >> rx51.c
+> >>
+> >> which will break with the renamed DAI. On the other hand I think the
+> >> legacy support can be dropped from them.
+> > 
+> > I'm not sure what all that would take.
+> 
+> For some it should not be a big deal as they only boot in DT mode.
+> /me adds this to the TODO list.
+
+OK
+
+> >> I know it was discussed, but can not find the mail:
+> >> Can you brief again on the audio connection?
+> > 
+> > Below is a link to a mailing list thread where Sebastian describes
+> > the audio connection:
+> > 
+> > https://lkml.org/lkml/2018/3/28/881
+> 
+> Thanks!
+>  
+> >> Do you have branch with working code?
+> > 
+> > Yeah I have slightly older set of the patches in my droid4-pending-v5.5
+> > kernel.org git branch with voice calls working.
+> 
+> I think I should put my droid4 out and try to get it working...
+> Do you have a link for dummies to follow to get started? ;)
+
+Probably the easiest one to use right now is the Maemo-leste devuan based
+test image using v5.5 kernel + modem and audio patches:
+
+https://leste.maemo.org/Motorola_Droid_4
+
+Just use a decent speed micro-sd card rated "a1" for example.
+
+Regards,
+
+Tony
+_______________________________________________
+Alsa-devel mailing list
+Alsa-devel@alsa-project.org
+https://mailman.alsa-project.org/mailman/listinfo/alsa-devel

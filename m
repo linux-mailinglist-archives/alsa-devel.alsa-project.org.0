@@ -2,63 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 952BA15FC3F
-	for <lists+alsa-devel@lfdr.de>; Sat, 15 Feb 2020 02:49:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B48F415FC41
+	for <lists+alsa-devel@lfdr.de>; Sat, 15 Feb 2020 02:50:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2F1BB1665;
-	Sat, 15 Feb 2020 02:48:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2F1BB1665
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C5B31665;
+	Sat, 15 Feb 2020 02:49:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C5B31665
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581731380;
-	bh=w/icvHVsNJVa6aHN+UyKtA51l7iAprRgdrmzUpYtMCk=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=WvBPCpH2xGZrM1Y5PVhC+qwBUT8YtOMOfnn7HYM8LSwgbXC/XSPzHol4n7TWVIba3
-	 yo62WtsK7vfWaqb8dw/bBv0oONOnXlYqwReKWhSRtR9yq4KQXTxCBGIV58pIUvG0B5
-	 TrHGzfJutatidjfZlLfAktk7x7nP/G7gHoN2dRAI=
+	s=default; t=1581731447;
+	bh=lhaVcvVDqJvbGz4fCn6+gd11OxzJBMgKSeNVwboowjk=;
+	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=CqKTiyPnqrrWRaKBJWvEWEApn/tcbVPTZxivulvFTmFSI9EksOxeCIun7H1Z18lT+
+	 4iAAG3s3UagDL+UNU11OWzVMmxfctWxyeUsv5ZaQG2gEeewpme2N1atkaZpTak4Ie7
+	 uOjstJOiPduQao20jXEFezgBr0C7FZbakYSHSoXE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 04DB3F800F0;
-	Sat, 15 Feb 2020 02:47:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 26F0AF80276;
+	Sat, 15 Feb 2020 02:48:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AA392F80138; Sat, 15 Feb 2020 02:47:55 +0100 (CET)
+ id 9959AF80260; Sat, 15 Feb 2020 02:47:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9DD89F80138
- for <alsa-devel@alsa-project.org>; Sat, 15 Feb 2020 02:47:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9DD89F80138
+ by alsa1.perex.cz (Postfix) with ESMTPS id F03E8F80138
+ for <alsa-devel@alsa-project.org>; Sat, 15 Feb 2020 02:47:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F03E8F80138
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga006.fm.intel.com ([10.253.24.20])
  by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2020 17:47:48 -0800
+ 14 Feb 2020 17:47:50 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,442,1574150400"; d="scan'208";a="434975914"
+X-IronPort-AV: E=Sophos;i="5.70,442,1574150400"; d="scan'208";a="434975929"
 Received: from gosalsar-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.252.136.64])
- by fmsmga006.fm.intel.com with ESMTP; 14 Feb 2020 17:47:46 -0800
+ by fmsmga006.fm.intel.com with ESMTP; 14 Feb 2020 17:47:48 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Date: Fri, 14 Feb 2020 19:47:35 -0600
-Message-Id: <20200215014740.27580-1-pierre-louis.bossart@linux.intel.com>
+Date: Fri, 14 Feb 2020 19:47:36 -0600
+Message-Id: <20200215014740.27580-2-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200215014740.27580-1-pierre-louis.bossart@linux.intel.com>
+References: <20200215014740.27580-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
  gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
  Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
  srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
  Bard liao <yung-chuan.liao@linux.intel.com>,
  Rander Wang <rander.wang@linux.intel.com>
-Subject: [alsa-devel] [PATCH v3 0/5] soundwire: intel: add DAI callbacks
+Subject: [alsa-devel] [PATCH v3 1/5] soundwire: intel: rename res field as
+	link_res
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,37 +81,166 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The existing mainline code is missing most of the DAI callbacks needed
-for a functional implementation, and the existing ones need to be
-modified to provide the relevant information to ASoC/SOF drivers.
+There are too many fields called 'res' so add prefix to make it easier
+to track what the structures are.
 
-As suggested by Vinod, these patches are shared first - with the risk
-that they are separated from the actual DAI enablement, so reviewers
-might wonder why they are needed in the first place.
+Pure rename, no functionality change
 
-For reference, the complete set of 90+ patches required for SoundWire
-on Intel platforms is available here:
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+---
+ drivers/soundwire/intel.c | 37 +++++++++++++++++++------------------
+ 1 file changed, 19 insertions(+), 18 deletions(-)
 
-https://github.com/thesofproject/linux/pull/1692
-
-Changes since v2:
-Add missing kfree for stream name (feedback from Vinod)
-
-changes since v1:
-Fix string allocation (only feedback from Vinod)
-
-Pierre-Louis Bossart (2):
-  soundwire: intel: rename res field as link_res
-  soundwire: intel: free all resources on hw_free()
-
-Rander Wang (3):
-  soundwire: intel: add prepare support in sdw dai driver
-  soundwire: intel: add trigger support in sdw dai driver
-  soundwire: intel: add sdw_stream_setup helper for .startup callback
-
- drivers/soundwire/intel.c | 198 ++++++++++++++++++++++++++++++++++----
- 1 file changed, 178 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/soundwire/intel.c b/drivers/soundwire/intel.c
+index 06ef3a3ac080..78b2ebf0119c 100644
+--- a/drivers/soundwire/intel.c
++++ b/drivers/soundwire/intel.c
+@@ -103,7 +103,7 @@ enum intel_pdi_type {
+ struct sdw_intel {
+ 	struct sdw_cdns cdns;
+ 	int instance;
+-	struct sdw_intel_link_res *res;
++	struct sdw_intel_link_res *link_res;
+ #ifdef CONFIG_DEBUG_FS
+ 	struct dentry *debugfs;
+ #endif
+@@ -193,8 +193,8 @@ static ssize_t intel_sprintf(void __iomem *mem, bool l,
+ static int intel_reg_show(struct seq_file *s_file, void *data)
+ {
+ 	struct sdw_intel *sdw = s_file->private;
+-	void __iomem *s = sdw->res->shim;
+-	void __iomem *a = sdw->res->alh;
++	void __iomem *s = sdw->link_res->shim;
++	void __iomem *a = sdw->link_res->alh;
+ 	char *buf;
+ 	ssize_t ret;
+ 	int i, j;
+@@ -289,7 +289,7 @@ static void intel_debugfs_exit(struct sdw_intel *sdw) {}
+ static int intel_link_power_up(struct sdw_intel *sdw)
+ {
+ 	unsigned int link_id = sdw->instance;
+-	void __iomem *shim = sdw->res->shim;
++	void __iomem *shim = sdw->link_res->shim;
+ 	int spa_mask, cpa_mask;
+ 	int link_control, ret;
+ 
+@@ -309,7 +309,7 @@ static int intel_link_power_up(struct sdw_intel *sdw)
+ 
+ static int intel_shim_init(struct sdw_intel *sdw)
+ {
+-	void __iomem *shim = sdw->res->shim;
++	void __iomem *shim = sdw->link_res->shim;
+ 	unsigned int link_id = sdw->instance;
+ 	int sync_reg, ret;
+ 	u16 ioctl = 0, act = 0;
+@@ -370,7 +370,7 @@ static int intel_shim_init(struct sdw_intel *sdw)
+ static void intel_pdi_init(struct sdw_intel *sdw,
+ 			   struct sdw_cdns_stream_config *config)
+ {
+-	void __iomem *shim = sdw->res->shim;
++	void __iomem *shim = sdw->link_res->shim;
+ 	unsigned int link_id = sdw->instance;
+ 	int pcm_cap, pdm_cap;
+ 
+@@ -404,7 +404,7 @@ static void intel_pdi_init(struct sdw_intel *sdw,
+ static int
+ intel_pdi_get_ch_cap(struct sdw_intel *sdw, unsigned int pdi_num, bool pcm)
+ {
+-	void __iomem *shim = sdw->res->shim;
++	void __iomem *shim = sdw->link_res->shim;
+ 	unsigned int link_id = sdw->instance;
+ 	int count;
+ 
+@@ -476,7 +476,7 @@ static int intel_pdi_ch_update(struct sdw_intel *sdw)
+ static void
+ intel_pdi_shim_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
+ {
+-	void __iomem *shim = sdw->res->shim;
++	void __iomem *shim = sdw->link_res->shim;
+ 	unsigned int link_id = sdw->instance;
+ 	int pdi_conf = 0;
+ 
+@@ -508,7 +508,7 @@ intel_pdi_shim_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
+ static void
+ intel_pdi_alh_configure(struct sdw_intel *sdw, struct sdw_cdns_pdi *pdi)
+ {
+-	void __iomem *alh = sdw->res->alh;
++	void __iomem *alh = sdw->link_res->alh;
+ 	unsigned int link_id = sdw->instance;
+ 	unsigned int conf;
+ 
+@@ -535,7 +535,7 @@ static int intel_params_stream(struct sdw_intel *sdw,
+ 			       struct snd_pcm_hw_params *hw_params,
+ 			       int link_id, int alh_stream_id)
+ {
+-	struct sdw_intel_link_res *res = sdw->res;
++	struct sdw_intel_link_res *res = sdw->link_res;
+ 	struct sdw_intel_stream_params_data params_data;
+ 
+ 	params_data.substream = substream;
+@@ -558,7 +558,7 @@ static int intel_pre_bank_switch(struct sdw_bus *bus)
+ {
+ 	struct sdw_cdns *cdns = bus_to_cdns(bus);
+ 	struct sdw_intel *sdw = cdns_to_intel(cdns);
+-	void __iomem *shim = sdw->res->shim;
++	void __iomem *shim = sdw->link_res->shim;
+ 	int sync_reg;
+ 
+ 	/* Write to register only for multi-link */
+@@ -577,7 +577,7 @@ static int intel_post_bank_switch(struct sdw_bus *bus)
+ {
+ 	struct sdw_cdns *cdns = bus_to_cdns(bus);
+ 	struct sdw_intel *sdw = cdns_to_intel(cdns);
+-	void __iomem *shim = sdw->res->shim;
++	void __iomem *shim = sdw->link_res->shim;
+ 	int sync_reg, ret;
+ 
+ 	/* Write to register only for multi-link */
+@@ -937,9 +937,9 @@ static int intel_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	sdw->instance = pdev->id;
+-	sdw->res = dev_get_platdata(&pdev->dev);
++	sdw->link_res = dev_get_platdata(&pdev->dev);
+ 	sdw->cdns.dev = &pdev->dev;
+-	sdw->cdns.registers = sdw->res->registers;
++	sdw->cdns.registers = sdw->link_res->registers;
+ 	sdw->cdns.instance = sdw->instance;
+ 	sdw->cdns.msg_count = 0;
+ 	sdw->cdns.bus.dev = &pdev->dev;
+@@ -979,11 +979,12 @@ static int intel_probe(struct platform_device *pdev)
+ 	intel_pdi_ch_update(sdw);
+ 
+ 	/* Acquire IRQ */
+-	ret = request_threaded_irq(sdw->res->irq, sdw_cdns_irq, sdw_cdns_thread,
++	ret = request_threaded_irq(sdw->link_res->irq,
++				   sdw_cdns_irq, sdw_cdns_thread,
+ 				   IRQF_SHARED, KBUILD_MODNAME, &sdw->cdns);
+ 	if (ret < 0) {
+ 		dev_err(sdw->cdns.dev, "unable to grab IRQ %d, disabling device\n",
+-			sdw->res->irq);
++			sdw->link_res->irq);
+ 		goto err_init;
+ 	}
+ 
+@@ -1013,7 +1014,7 @@ static int intel_probe(struct platform_device *pdev)
+ 
+ err_interrupt:
+ 	sdw_cdns_enable_interrupt(&sdw->cdns, false);
+-	free_irq(sdw->res->irq, sdw);
++	free_irq(sdw->link_res->irq, sdw);
+ err_init:
+ 	sdw_delete_bus_master(&sdw->cdns.bus);
+ 	return ret;
+@@ -1028,7 +1029,7 @@ static int intel_remove(struct platform_device *pdev)
+ 	if (!sdw->cdns.bus.prop.hw_disabled) {
+ 		intel_debugfs_exit(sdw);
+ 		sdw_cdns_enable_interrupt(&sdw->cdns, false);
+-		free_irq(sdw->res->irq, sdw);
++		free_irq(sdw->link_res->irq, sdw);
+ 		snd_soc_unregister_component(sdw->cdns.dev);
+ 	}
+ 	sdw_delete_bus_master(&sdw->cdns.bus);
 -- 
 2.20.1
 

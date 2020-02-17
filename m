@@ -2,64 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C5D7161236
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 13:38:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79393161242
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 13:43:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AF1F81677;
-	Mon, 17 Feb 2020 13:37:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AF1F81677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0370F1677;
+	Mon, 17 Feb 2020 13:42:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0370F1677
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581943120;
-	bh=ydifzsJ40KU0yQFS5L7E9psBLEjJmYBfvnPBxZQejfs=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581943394;
+	bh=pvHWASK059smUQjwzuXPdcEMfgW/RdQbXw4k029uF4k=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rOkKZRncVmL5B7zA+7WFHEMVGTbxJHKrA5yrBUJ7BmqfpWjPcLmLSU1qsE54JOdS9
-	 yd0/JC7TsJXjzR/oWC9nB03adp6RBpm3I3R7V97n2XBy54T4SnHn0V7hM7Gf7bhd5h
-	 +XpHW1WJ3mXqGd6UyiEYeCB3vTCjxjLXYSHWCkRE=
+	b=nlpO0u1vRjk7ym9H/nyQc1ukQbtZTlz0NoJWvJIy5DIsxer77iVoh/BWO2hqOHtal
+	 MXCmTLSumVLti+948rQB7B8FhIw3H28NvGsxSOmWqP2ymV/5dp3W42q0hFZmk6yMCk
+	 X2G5QK5FE11sVTqOw5ZU6nK8tshtuGpGT1KJvDZE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BD4C4F801F4;
-	Mon, 17 Feb 2020 13:36:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03B62F80172;
+	Mon, 17 Feb 2020 13:41:32 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7DDA4F80172; Mon, 17 Feb 2020 13:36:57 +0100 (CET)
+ id 5AE68F80096; Mon, 17 Feb 2020 13:41:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id A8DD5F800B6
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 13:36:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A8DD5F800B6
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 30CBB30E;
- Mon, 17 Feb 2020 04:36:52 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A84553F703;
- Mon, 17 Feb 2020 04:36:51 -0800 (PST)
-Date: Mon, 17 Feb 2020 12:36:50 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Derek =?utf-8?B?W+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
-Message-ID: <20200217123650.GD9304@sirena.org.uk>
-References: <1581666814-6380-1-git-send-email-derek.fang@realtek.com>
- <20200214123803.GG4827@sirena.org.uk>
- <b9cfe003aeb34216b59c9a22c4601bf1@realtek.com>
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C7214F80096
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 13:41:26 +0100 (CET)
+Received: from mail1.perex.cz (localhost [127.0.0.1])
+ by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 92142A003F;
+ Mon, 17 Feb 2020 13:41:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 92142A003F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
+ t=1581943285; bh=q44d5lWEaRzbYYqlC+9R5XR1liScE0RbmzJQ1dnNfSo=;
+ h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
+ b=XibUzzoMbE7XsvfXunJZSpXkyT8Vw9IqQk6jIjAOGM1qpT+vgrxnZEJZM7aPD/6U2
+ 5uWJM6s4RcbON2w9HaZOgmzihneD3uFJPDx6HrcCgB7hy78puGjMSzUE2HaQ8AzZL1
+ endgvvfSOycJEYoRzv84kpkesObgd21b7gFAU9aY=
+Received: from p50.perex-int.cz (unknown [192.168.100.94])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: perex)
+ by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
+ Mon, 17 Feb 2020 13:41:21 +0100 (CET)
+To: Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Ujfalusi <peter.ujfalusi@ti.com>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>
+References: <77884bad-81fd-f876-3f72-1f96a39d6329@perex.cz>
+ <d1d0be54-5bdb-0405-320a-d7e542fdbcde@metafoo.de>
+ <20200217113540.GB108283@ediswmail.ad.cirrus.com>
+ <4fafa55a-acd0-8a64-2ebe-0ed38b306678@ti.com>
+ <ce896073-df9e-7504-6c37-c611dd750936@metafoo.de>
+From: Jaroslav Kysela <perex@perex.cz>
+Message-ID: <1ba08788-7def-30ff-7232-699d2f40dc27@perex.cz>
+Date: Mon, 17 Feb 2020 13:41:21 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <b9cfe003aeb34216b59c9a22c4601bf1@realtek.com>
-X-Cookie: There was a phone call for you.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lars@metafoo.de" <lars@metafoo.de>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- Albert Chen <albertchen@realtek.com>,
- Shuming =?utf-8?B?W+iMg+abuOmKmF0=?= <shumingf@realtek.com>,
- "Flove\(HsinFu\)" <flove@realtek.com>
-Subject: Re: [alsa-devel] [PATCH 1/2] ASoC: rt5682: Add CCF usage for
-	providing I2S clks
+In-Reply-To: <ce896073-df9e-7504-6c37-c611dd750936@metafoo.de>
+Content-Language: en-US
+Cc: ALSA development <alsa-devel@alsa-project.org>
+Subject: Re: [alsa-devel] DMARC & gmail & cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,75 +81,57 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5898061874182434278=="
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
---===============5898061874182434278==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/3yNEOqWowh/8j+e"
-Content-Disposition: inline
-
-
---/3yNEOqWowh/8j+e
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Feb 17, 2020 at 10:59:55AM +0000, Derek [=E6=96=B9=E5=BE=B7=E7=BE=
-=A9] wrote:
-> > Subject: Re: [PATCH 1/2] ASoC: rt5682: Add CCF usage for providing I2S =
-clks
-
-> > > +	if (parent_rate !=3D CLK_PLL2_FIN)
-> > > +		dev_warn(component->dev, "clk %s only support %d Hz input\n",
-> > > +			clk_name, CLK_PLL2_FIN);
-
-> > > +	if (rate !=3D CLK_48) {
-> > > +		dev_warn(component->dev, "clk %s only support %d Hz output\n",
-> > > +			clk_name, CLK_48);
-> > > +		rate =3D CLK_48;
-> > > +	}
-
-> > Are these genuine restrictions of the hardware or is this just being
-> > hard coded in the driver?
-
-> It's hard coded for an application case.
-> Generate a 48kHz clk with a parent 48 MHz clk.
-
-I see...  obviously this is really not good quality of implementation
-although it doesn't actually break any external interfaces so I guess we
-could take it.  I would at least want to see some clear comments in both
-the code and the changelog explaining that this limitation is just a
-temporary hack until a better implementation is done though.
-
---/3yNEOqWowh/8j+e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5KiOEACgkQJNaLcl1U
-h9DMXQf+Kon4Z0ajfBKari7ZjfJBGGoDxE3CDeiCPfGliI89G4zGAZkg4rOyrNkE
-xnvk5TsRwBCe+yYRz6PXukm8FXIV6Th0tcABe/KzKfSfsJpk7T0Mmez2Yz++SNKa
-QKOHFXF2AGtXFhbfQ6eq6nj9d+9es49KWBixzf6HBrpBrqoGCGmK/eUcmvggjEgs
-tOq3WIDTjHnSvR1Zt/I15u0O46NVQ2jwvwP2htvHVcrId2Kk3lInSkXl3mMshqf6
-Lio0vKQ4mSkgLOPXh+tUlYWRBpLfrbZFLFRLvoZnD5aUCB9aZ3UaFvFzy17cUL5W
-ldYn9lt0R26U9RgCzF1jAkgxQDaaRQ==
-=L9HC
------END PGP SIGNATURE-----
-
---/3yNEOqWowh/8j+e--
-
---===============5898061874182434278==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============5898061874182434278==--
+RG5lIDE3LiAwMi4gMjAgdiAxMzoxNyBMYXJzLVBldGVyIENsYXVzZW4gbmFwc2FsKGEpOgo+IE9u
+IDIvMTcvMjAgMTI6NTYgUE0sIFBldGVyIFVqZmFsdXNpIHdyb3RlOgo+PiBIaSwKPj4KPj4gT24g
+MTcvMDIvMjAyMCAxMy4zNSwgQ2hhcmxlcyBLZWVwYXggd3JvdGU6Cj4+PiBPbiBNb24sIEZlYiAx
+NywgMjAyMCBhdCAxMDozMzo1NUFNICswMTAwLCBMYXJzLVBldGVyIENsYXVzZW4gd3JvdGU6Cj4+
+Pj4gT24gMi8xNy8yMCA5OjQ2IEFNLCBKYXJvc2xhdiBLeXNlbGEgd3JvdGU6Cj4+Pj4+ICAgwqDC
+oMKgwqBJIGNhbiBlbmFibGUgdGhlICJSZXBsYWNlIHRoZSBGcm9tOiBoZWFkZXIgYWRkcmVzcyIg
+aW4gdGhlCj4+Pj4+IG1haWxtYW4gY29uZmlnIHRvICJNdW5nZSBGcm9tIiBsaWtlIGluIHRoZSBh
+Ym92ZSBleGFtcGxlLCBidXQgaXQKPj4+Pj4gd2lsbCBtZWFuIHRoYXQgRnJvbTogd2lsbCBiZSBh
+bHRlcmVkIChzZWUgdGhlIGV4cGxhbmF0aW9uKS4KPj4+Pgo+Pj4+IFRoZSB3YXkgSSB1bmRlcnN0
+YW5kIHRoZSBvcHRpb24gdG8gcmVwbGFjZSB0aGUgRnJvbTogaGVhZGVyIGlzIHRoYXQKPj4+PiBp
+dCB3aWxsIG9ubHkgaGFwcGVuIGZvciB0aG9zZSB0aGF0IGhhdmUgYSByZWplY3QgcG9saWN5LCBm
+b3IKPj4+PiBldmVyeWJvZHkgZWxzZSBub3RoaW5nIGNoYW5nZXMuIFNvIGlmIHRoZSBtYWlsaW5n
+bGlzdCBpcyBzdXBwb3NlZCB0bwo+Pj4+IHN0YXkgdXNlZnVsIGZvciB0aG9zZSB3aXRoIGEgcmVq
+ZWN0IHBvbGljeSB0aGUgb25seSBvcHRpb24gaXMgdG8KPj4+PiByZXdyaXRlIHRoZSBmcm9tIGhl
+YWRlciBmb3IgdGhlbS4KPj4+Pgo+Pj4KPj4+IFJld3JpdGluZyBzZWVtcyBsaWtlIHRoZSBiZXN0
+IG9wdGlvbiByZWFsbHksIEkgZG91YnQgdGhlcmUKPj4+IGlzIG11Y2ggY2hhbmNlIG9mIG1lIG1h
+bmFnaW5nIHRvIGdldCB0aGUgSVMgZ3V5cyB0byBjaGFuZ2UKPj4+IGNpcnJ1cy5jb20ncyBETUFS
+QyBwb2xpY3kgYW5kIEkgZ3Vlc3Mgd2UgbWlnaHQgbm90IGJlIHRoZSBvbmx5Cj4+PiBwZW9wbGUg
+d2hvIGNhdXNlIHRyb3VibGUgb24gdGhpcyBmcm9udC4KPj4KPj4gdGkuY29tIGFsc28gaGFkIGlz
+c3VlcyBjYXVzZWQgYnkgRE1BUkMgcG9saWN5LiBXZSBoYXZlIGV4dGVuc2l2ZWx5Cj4+IG5hZ2dl
+ZCBvdXIgSVQgZGVwYXJ0bWVudCBvdmVyIHRoaXMgYW5kIGl0IGdvdCByZXNvbHZlZD8KPj4gUHJv
+YmFibHkuIE5vdCBzdXJlLCBidXQgSSBoYXZlIG5vdCBiZWVuIHVuc3Vic2NyaWJlZCBsYXRlbHkg
+ZnJvbSBsaXN0cwo+PiBhbmQgbm8gY29tcGxhaW50cyBvbiBwZW9wbGUgbm90IHJlY2VpdmluZyBt
+eSBtYWlscy4uLiBpdCBjb3VsZCBiZSB0aGF0Cj4+IHRoZXkgZG8gbm90IGluZGVlZCByZWNlaXZl
+IHRoZSBtYWlscyB3aGljaCBtYWtlcyB0aGVtIGhhcHB5IDspCj4gSXRzIG5vdCB0aGF0IHlvdSBn
+ZXQgdW5zdWJzY3JpYmVkLCBidXQgZXZlcnlib2R5IGVsc2Ugd2hvIGlzIHJlamVjdGluZwo+IHlv
+dXIgbWFpbHMgOykKPiAKPiBfZG1hcmMudGkuY29tLgkJMzYwMAlJTglUWFQKPiAidj1ETUFSQzE7
+cD1xdWFyYW50aW5lO3NwPW5vbmU7cnVhPW1haWx0bzpkbWFyYy1hZ2dyQHRpLmNvbTtydWY9bWFp
+bHRvOmRtYXJjLWZvckB0aS5jb207Zm89MCIKPiAKPiBUaGUgcD1xdWFyYW50aW5lIG1lYW5zIHRo
+YXQgeW91ciBtZXNzYWdlcyBmb3J3YXJkZWQgYnkgdGhlIEFMU0EKPiBtYWlsaW5nbGlzdCB3aWxs
+IHByb2JhYmx5IGdvIHRvIHNwYW0gZm9yIHBlb3BsZSB1c2luZyBnbWFpbC4KPiAKPiBTb21lIG90
+aGVyIG1haWxpbmdsaXN0cyBidHcgZG9uJ3QgaGF2ZSB0aGlzIHByb2JsZW0sIHNpbmNlIHRoZXkg
+Zm9yd2FyZAo+IHRoZSBzaWduZWQgY29udGVudCBvZiB0aGUgbWFpbCB1bm1vZGlmaWVkLiBCdXQg
+c2luY2UgYWxzYSBtb2RpZmllcyB0aGUKPiBzdWJqZWN0IGFzIHdlbGwgYXMgYWRkaW5nIHRoZSBp
+bmZvIGZvb3RlciB0aGUgb3JpZ2luYWwgc2lnbmF0dXJlIGlzIG5vCj4gbG9uZ2VyIHZhbGlkLgoK
+SSBhZGRlZCBhIGZpbHRlciBmb3IgdGhlIGdtYWlsIERNQVJDIGJvdW5jZXMgKHNvIG1haWxtYW4g
+d2lsbCBub3QgcmVjZWl2ZSAKdGhlbSkgYW5kIGluY3JlYXNlZCB0aGUgdW5zdWJzY3JpYmUgdGhy
+ZXNob2xkIG5vdy4gQnV0IGFzIHlvdSBub3RlZCwgaXQgZG9lcyAKbm90IHJlc29sdmUgdGhlIGlz
+c3VlIHdpdGggdGhlIHVuZGVsaXZlcmVkIGUtbWFpbHMgZnJvbSB0aGUgbWFpbGluZyBsaXN0IApi
+ZWNhdXNlIHRoZSBETUFSQyBwb2xpY3kgaXMgdG9vIHN0cm9uZyBvbiB0aGUgc2VuZGVyJ3Mgc2lk
+ZS4KCkkgY2FuIHJlbW92ZSB0aGUgc3ViamVjdCBwcmVmaXggYW5kIGZvb3RlciBidXQgYXJlIHlv
+dSBhbGwgb2sgd2l0aCB0aGlzPyBJIApvbmx5IGhvcGUgdGhhdCBtYWlsbWFuIHdpbGwgbm90IGRv
+IG90aGVyIHRoaW5ncyB3aXRoIG1lc3NhZ2UgYm9keSB0byBicmVhayB0aGUgCnNpZ25hdHVyZS4g
+SXQgc2VlbXMgdGhhdCBMS01MIGFsc28gZG9lcyBub3QgYWx0ZXIgdGhlIG1lc3NhZ2UgY29udGVu
+dHMuCgoJCQkJCQlKYXJvc2xhdgoKLS0gCkphcm9zbGF2IEt5c2VsYSA8cGVyZXhAcGVyZXguY3o+
+CkxpbnV4IFNvdW5kIE1haW50YWluZXI7IEFMU0EgUHJvamVjdDsgUmVkIEhhdCwgSW5jLgpfX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpBbHNhLWRldmVsIG1h
+aWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6Ly9tYWlsbWFuLmFs
+c2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

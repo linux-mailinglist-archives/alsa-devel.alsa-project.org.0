@@ -2,106 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92621160B5E
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 08:03:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B236160B64
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 08:05:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 399B116DC;
-	Mon, 17 Feb 2020 08:02:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 399B116DC
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2669171E;
+	Mon, 17 Feb 2020 08:04:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2669171E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581923005;
-	bh=2p1z52Fkjp0nFliS2dEWRVTmYCOSmHsPwj3BFtvqAjo=;
-	h=From:To:Date:In-Reply-To:References:Cc:Subject:List-Id:
+	s=default; t=1581923130;
+	bh=g/tH0fZsPNi10O/dzWjsRuZyE3qqFVOMslIVVN5Vvn8=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=JP55ZXviPQXRGhVIuwK+xqqKIzcUQCZrjrdKNHkEInCPxtzqPGAb3OYfFwlbnQnvt
-	 43MNS11+v12BNkdoB2q80Y8lKy8oLvMhjVo6gd9NKcZBIlqgimbOLNbmjuguaX4ggm
-	 P/x34sUUyV9uQ3NSDFsXC1z2QJHAbLFG9aCwCpRU=
+	b=I2fvCevy4Fnnt+N+crpwiaHx2YHRrf0EXq07Zy3aKLV6SAIE0OUYvm71E/loDciLm
+	 sd5Z8ACsnQtJz+IW4M58GGW3t5A5mI/GtBSS1h603dafmm6E25LcxDzkUb4UPveeWz
+	 7eXioLecJ4bOxi4q40MjEVBYY2DCCOpbS7zMi+Ps=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B06E5F803D6;
-	Mon, 17 Feb 2020 07:44:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1CF23F801F4;
+	Mon, 17 Feb 2020 07:56:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9B3F3F802C4; Mon, 17 Feb 2020 07:43:53 +0100 (CET)
+ id C193AF8015E; Mon, 17 Feb 2020 07:56:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_26,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Level: **
+X-Spam-Status: No, score=2.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ PRX_BODY_30,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com
+ [209.85.208.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 17362F802D2
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 07:43:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 17362F802D2
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="KkPIDrxN"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="AwV6073b"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 26FD9586D;
- Mon, 17 Feb 2020 01:43:12 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Mon, 17 Feb 2020 01:43:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
- from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=WMkmsxGWAZAP4
- sWxF/e88HgunxucfP1/cWpmUNmh5DM=; b=KkPIDrxNZh4osC8sxcoD0YDsGt3oq
- /RjE7PpItQWjbLhHMTu3857HawDyzwt5XuMovwHEiO1nTn3Hgd2RvdBkU/3ZNLUw
- znz4TyERmOdQDs74YhXWDFh8B2Lbm8Q7O51flkV+2A5AyL859V/FrmA6E630et3J
- c/2SiHjfTAskw04WkQWlcnpOrgqLYsbjV9ItPlsq2nZeWksKtRBxXCnp7oder1AZ
- xbElMkJ7GJKzBBldygXlyyHcD9W6Bifl7eSYuVErBV+HU9aR9m0ssKXbvU0bzNUe
- LTm00tC596xrRDYlQtET1c5kOsZu76dlLIq2q9iy/C2TWmC0oG8ZrGQ3A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=WMkmsxGWAZAP4sWxF/e88HgunxucfP1/cWpmUNmh5DM=; b=AwV6073b
- vssgZIpuBnh8D8Vau4Kf6hmBmrQvGuk4vlQMRT6DKP4+TscL61EmqX29S1+c3rL9
- ALjTDE/6ke0UJakfYmk47quOtX5QLrpLigt+tt/anFm1dnotyRIj6N+Jz6SmrfLB
- 8U3rdPZl3zQk+E+rcs1svZOvSrO/tcu0H9fgTLA/WV7NPdNTMpdyepVqGoqG//nz
- AbWSHaEkpz66Iia0Gz5mIyRPcJqg0ev7zaJDtGxhmzqZmR6PNBzXF00OpBiZN/Oe
- qoqPbT8c/PtLr4fZJrzK4w8cC3UOhqNRWu6PWhufTaFDvFvX46rukNiCLzSGQstS
- hhxejdzcK/sjSA==
-X-ME-Sender: <xms:ADZKXo5OmVddj7BEv-6VAgmFPFzSLxOs7GAwM6SVI483Pm2ukR6Ovg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrjeehgdelkecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefhvffufffkofgjfhgggfestdekredtredttdenucfhrhhomhepufgrmhhuvghl
- ucfjohhllhgrnhguuceoshgrmhhuvghlsehshhholhhlrghnugdrohhrgheqnecukfhppe
- ejtddrudefhedrudegkedrudehudenucevlhhushhtvghrufhiiigvpedvjeenucfrrghr
- rghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghnugdrohhrgh
-X-ME-Proxy: <xmx:ADZKXuz5Epqh8939N10zNHgP3h0R3QNNnLKnuwG4__k5Jn7OOaq2dQ>
- <xmx:ADZKXlCCWgxpotqBH2iSdRaes-VwQP3HjkCYiC3zPKmesX9yk9_CwA>
- <xmx:ADZKXvMrACIXbY9ZCR1dTSoy5XJImO1Ki0wlkWyHQXLJUPeaLRU7rw>
- <xmx:ADZKXrHrJOSeRSxGMfAZAK40icIVBotqIHPJ_ya6FZqPN0zwPVh2fw>
-Received: from titanium.stl.sholland.net
- (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id 660FB3280059;
- Mon, 17 Feb 2020 01:43:11 -0500 (EST)
-From: Samuel Holland <samuel@sholland.org>
-To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Maxime Ripard <mripard@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Vasily Khoruzhick <anarsoul@gmail.com>,
- =?UTF-8?q?Myl=C3=A8ne=20Josserand?= <mylene.josserand@free-electrons.com>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Date: Mon, 17 Feb 2020 00:42:50 -0600
-Message-Id: <20200217064250.15516-35-samuel@sholland.org>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20200217064250.15516-1-samuel@sholland.org>
-References: <20200217064250.15516-1-samuel@sholland.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 4C87CF80172
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 07:56:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4C87CF80172
+Received: by mail-ed1-f67.google.com with SMTP id v28so19392428edw.12
+ for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2020 22:56:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/WHKaTGOgOAJM+VcnF+6HFOUNwxgDydG90xB7o+8lGE=;
+ b=p9pgF/RsOi1EH1MNpUoFQcTRACCwWHkwvEO+VJSCWhJeSTX1pMxeveaUTso12ezECT
+ xT1kO2c6QqoCmuaYSPd6iCY8w54WGN27v5CGQc+RpDokyqbta7yK5d635dQOJ8MbUX1T
+ CZ3NBcyhyNPFKimOr3Y7SuqvMCNGwJ/4rHcQ+VgZAVOi0OLzrgjXWyex6nkHXl02aWul
+ VaD/IlbVFEV4pbW2p+OB4MaUDxcO7Op7D3ai4c0LSZBNeBoQAlkn8bkdnpQLQTGhP7MM
+ fdZKaSpdS44Lx44SuTQH19AYJWXv/7fSAyKdJA1yoE5BnaJ4QQ042t//EFjqaIJrvWul
+ S5Qg==
+X-Gm-Message-State: APjAAAW2my/sgQB3ue3Pn1OeLVd06i/g0Cx9uyiX1rl66V9rvXW+P/oj
+ iSxHhjieKIb9XpRIQGMH/lslfcVFrlg=
+X-Google-Smtp-Source: APXvYqzp2Fa6dSwTKVhdr50HrsrA8NsGOymgkeYBIzhfEZkCX2ilZ94yMT3AvjBRgpNzGi7GLib3ig==
+X-Received: by 2002:a05:6402:797:: with SMTP id
+ d23mr13239952edy.138.1581922586046; 
+ Sun, 16 Feb 2020 22:56:26 -0800 (PST)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com.
+ [209.85.128.53])
+ by smtp.gmail.com with ESMTPSA id 29sm793756ejb.4.2020.02.16.22.56.25
+ for <alsa-devel@alsa-project.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 16 Feb 2020 22:56:25 -0800 (PST)
+Received: by mail-wm1-f53.google.com with SMTP id a9so17119302wmj.3
+ for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2020 22:56:25 -0800 (PST)
+X-Received: by 2002:a05:600c:10d2:: with SMTP id
+ l18mr20086133wmd.122.1581922585072; 
+ Sun, 16 Feb 2020 22:56:25 -0800 (PST)
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Samuel Holland <samuel@sholland.org>
-Subject: [alsa-devel] [RFC PATCH 34/34] arm64: dts: allwinner: a64: Add
-	pinmux for AIF2/AIF3
+References: <20200217021813.53266-1-samuel@sholland.org>
+ <20200217021813.53266-5-samuel@sholland.org>
+ <CAGb2v677p8u8_0jhcbN07QsyVc21dKJmeK6=rxLCbde+AOqreQ@mail.gmail.com>
+ <de0a08a8-eb02-375f-4364-2935cf4c3d7c@sholland.org>
+In-Reply-To: <de0a08a8-eb02-375f-4364-2935cf4c3d7c@sholland.org>
+From: Chen-Yu Tsai <wens@csie.org>
+Date: Mon, 17 Feb 2020 14:56:14 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64xLO_=EFoa=vGh-HRY=nQuE0a+mv-nfveimK=pb=FjGQ@mail.gmail.com>
+Message-ID: <CAGb2v64xLO_=EFoa=vGh-HRY=nQuE0a+mv-nfveimK=pb=FjGQ@mail.gmail.com>
+To: Samuel Holland <samuel@sholland.org>
+Cc: Luca Weiss <luca@z3ntu.xyz>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Maxime Ripard <mripard@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Vasily Khoruzhick <anarsoul@gmail.com>, Mark Brown <broonie@kernel.org>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [alsa-devel] [PATCH 4/8] ASoC: sun50i-codec-analog: Make
+	headphone routes stereo
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,42 +104,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that the codec driver supports AIF2 and AIF3,
-boards can use them in DAI links.
+On Mon, Feb 17, 2020 at 11:57 AM Samuel Holland <samuel@sholland.org> wrote:
+>
+> Hello,
+>
+> On 2/16/20 9:48 PM, Chen-Yu Tsai wrote:
+> > Hi,
+> >
+> > On Mon, Feb 17, 2020 at 10:18 AM Samuel Holland <samuel@sholland.org> wrote:
+> >>
+> >> This matches the hardware more accurately, and is necessary for
+> >> including the (stereo) headphone mute switch in the DAPM graph.
+> >>
+> >> Signed-off-by: Samuel Holland <samuel@sholland.org>
+> >> ---
+> >>  sound/soc/sunxi/sun50i-codec-analog.c | 28 +++++++++++++++++++--------
+> >>  1 file changed, 20 insertions(+), 8 deletions(-)
+> >>
+> >> diff --git a/sound/soc/sunxi/sun50i-codec-analog.c b/sound/soc/sunxi/sun50i-codec-analog.c
+> >> index 17165f1ddb63..f98851067f97 100644
+> >> --- a/sound/soc/sunxi/sun50i-codec-analog.c
+> >> +++ b/sound/soc/sunxi/sun50i-codec-analog.c
+> >> @@ -311,9 +311,15 @@ static const struct snd_soc_dapm_widget sun50i_a64_codec_widgets[] = {
+> >>          */
+> >>
+> >>         SND_SOC_DAPM_REGULATOR_SUPPLY("cpvdd", 0, 0),
+> >> -       SND_SOC_DAPM_MUX("Headphone Source Playback Route",
+> >> +       SND_SOC_DAPM_MUX("Left Headphone Source",
+> >>                          SND_SOC_NOPM, 0, 0, sun50i_codec_hp_src),
+> >> -       SND_SOC_DAPM_OUT_DRV("Headphone Amp", SUN50I_ADDA_HP_CTRL,
+> >> +       SND_SOC_DAPM_MUX("Right Headphone Source",
+> >
+> > Please don't remove the widget suffix. The suffix was chosen to work with
+> > alsa-lib's control parsing code. The term "Playback Route" is appropriate
+> > because it is playback only, and it is a routing switch, not a source or
+> > sink.
+>
+> Removing the suffix here doesn't affect the control name as seen by userspace,
+> because the control is shared between multiple widgets (Left and Right).
 
-Add the pinmux nodes.
+You're right.
 
-Signed-off-by: Samuel Holland <samuel@sholland.org>
----
- arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+> > Also, what's wrong with just having a single "stereo" widget instead of
+> > two "mono" widgets? I added stereo (2-channel) support to DAPM quite
+> > some time ago. You just have to have two routes in and out.
+>
+> If you have any completed path through a widget, the widget is turned on. A
+> stereo mute switch is logically two separate paths. So if I break one path by
+> muting one channel, that lets me turn off everything before and after in the
+> path (e.g. turning off the right side of the DAC lets DAPM turn off the right
+> mixer, the right side of the output amp, even the right side of the AIF or the
+> ADC if that was the only input. That only works if there are separate Left/Right
+> widgets.
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-index 78353893c3b9..ee09a2dd6f69 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-@@ -605,6 +605,18 @@ pio: pinctrl@1c20800 {
- 			interrupt-controller;
- 			#interrupt-cells = <3>;
- 
-+			/omit-if-no-ref/
-+			aif2_pins: aif2-pins {
-+				pins = "PB4", "PB5", "PB6", "PB7";
-+				function = "aif2";
-+			};
-+
-+			/omit-if-no-ref/
-+			aif3_pins: aif3-pins {
-+				pins = "PG10", "PG11", "PG12", "PG13";
-+				function = "aif3";
-+			};
-+
- 			csi_pins: csi-pins {
- 				pins = "PE0", "PE2", "PE3", "PE4", "PE5", "PE6",
- 				       "PE7", "PE8", "PE9", "PE10", "PE11";
--- 
-2.24.1
+Looks like that's the case indeed. Might be worth revisiting the core DAPM code
+later on if I can find the time.
 
+Since the widgets and routes changed are internal to the codec, there won't be
+any issue if we rework this stuff later on. So for now,
+
+Reviewed-by: Chen-Yu Tsai <wens@csie.org>
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

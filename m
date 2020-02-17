@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9E09160B7C
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 08:19:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00E1E160B7E
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 08:20:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 389CB168A;
-	Mon, 17 Feb 2020 08:19:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 389CB168A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9BF4416A4;
+	Mon, 17 Feb 2020 08:19:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BF4416A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581923994;
-	bh=xhirEYxJ3+T5uOxOr5vqmKhhnWuZNQnWKw4sCZByXL8=;
+	s=default; t=1581924037;
+	bh=xT3p/OspRfs/d46mCzSoK8fXmBh/20rxwvMSKCjYt8s=;
 	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=R9AhZu/9uQXUVsEKAASSn9USuC0fPbNmzmBH1l4o55inVKY2mk20VOtkIDQ7JBNx1
-	 RQuIzp2LijetNnMddwCcEzlOZzUgFiVOEt/QyAz5mhtEa20kOjExu7qZfOxW1LbY6I
-	 G+Ot8WtzoNQyqcFVAzXcMdpG5Rgp5Y7WvM1MSh9k=
+	b=lHaFyWFk+Gwxn4y7Y3wsn+4Q9n8U+79tTq6rv7f5M4uO/58I2RPe+XA4nbmRq3s+2
+	 +NW0fpkQofjw93jqynQXdHcsZ6ZM3yRkHiXPugY9u5RFq/pDgfDkEC7NHU8x9Y29rF
+	 t/YUTpGq1GyCUyqnjRIJzKgHg+NSsb05qRjmADAM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 3F8CCF801F4;
-	Mon, 17 Feb 2020 08:18:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id BE98FF800B6;
+	Mon, 17 Feb 2020 08:19:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0360CF80172; Mon, 17 Feb 2020 08:18:11 +0100 (CET)
+ id 59DBEF801F5; Mon, 17 Feb 2020 08:19:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.7 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
@@ -36,55 +36,54 @@ Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com
  [209.85.208.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 53CBCF80096
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 08:18:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 53CBCF80096
-Received: by mail-ed1-f68.google.com with SMTP id m13so19475684edb.6
- for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2020 23:18:06 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3FDEAF800B6
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 08:19:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3FDEAF800B6
+Received: by mail-ed1-f68.google.com with SMTP id p23so19476918edr.5
+ for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2020 23:19:23 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=dW4Ej8MLzzPbydvCeEmiQskFOW2o/76spt2iKZQxuT0=;
- b=R3dUg7vOj29oNUe5Q7MvTqHUGkxj0VpN3JolC05PwcYKBAXa2h+iNAp4LaUWaCMb/p
- Pl3JFUT3F0gaoLiLJT6anSkqk4smdLj+8bfqvcCK/9x2LGkqiA3eUvENtUyGETatPPqO
- pqYufhEiARdkJ29iGze8VakcmOwnueNY7gD3I4ZauVi7dEGMBZKHk0/CMRozX68cMuCo
- wP4+DC29dnrLGKDWG4tfsyFJfO/BakIy9SQ+cwVbopVyLJd5AO69lF5hvPRn/al62rhN
- hDAdxD+CZ6aviCnWz+2GrJo8NnvBMdP2btFBnSez2/ejxVpDDGZfpbpH6ICRrDAL/YoU
- kyww==
-X-Gm-Message-State: APjAAAWwOKzb+8q760r2UzSUuXkjwbjfUDTEaF0buRKY3nwkEjptIr9y
- qUl5thzyyBhez4ouPLDL06fmS13XkQI=
-X-Google-Smtp-Source: APXvYqzI6H+0R9rUEaSevdxYW70vvAEgTzWxU6Ht7vgudd/3R8iYsOd+ynxZJ8Q7jim67zGJsycsaA==
-X-Received: by 2002:a17:906:b351:: with SMTP id
- cd17mr13061347ejb.45.1581923885156; 
- Sun, 16 Feb 2020 23:18:05 -0800 (PST)
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com.
- [209.85.128.46])
- by smtp.gmail.com with ESMTPSA id y4sm855073ejp.50.2020.02.16.23.18.04
+ bh=wKr+1RTfgQ42+vPKzJm3cC+KqIteJwDJeivtrGtPfY0=;
+ b=ktmwnM41VGvkoQDbRaUvrmcpprl/OzkHvP2VaCSctOdA1kFINutO9DRYeQs9sp2j54
+ jUfvEup5js4k9iYYW8kvcEB6RIK5CJ4zms3u30udta63VHVAxXyYgF2XkRJdBApH/oYy
+ mMmzpBzfrFQE3TTZ/Paa2zW2iY3a6STNaw0TREtmuOCXUSOFKtzocwwUHp8lZiHtpmAi
+ Zs9dPcKDIuThWyHXh2OPxfi5pzjDpNjSwNu3WLMLvgioA5qmzpZJJ7LAMFBiwx3JvwhC
+ iPOElqap7O3aG1UHfQ5hNE9OxEcW+4Vu3SaLA1yAmrhNd/0YKTcXovAeljUNs7YUWypV
+ L6BA==
+X-Gm-Message-State: APjAAAWffPJxrahE6VV8iaHNZDvPUx7knah7JQ7FcBn3/xZvrqMdHAF4
+ aWjvqwe8dYTEuI5TyULEuB4kyed5Ey4=
+X-Google-Smtp-Source: APXvYqzBGdfKNbtcIBpnBEsMm0RVvoHUW44XO5Ng4W/7iEoccSPCgkESwcq2rqfkhEik5RtgMXwvEw==
+X-Received: by 2002:a50:fb08:: with SMTP id d8mr12659896edq.79.1581923962083; 
+ Sun, 16 Feb 2020 23:19:22 -0800 (PST)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com.
+ [209.85.128.53])
+ by smtp.gmail.com with ESMTPSA id z10sm810120ejn.16.2020.02.16.23.19.21
  for <alsa-devel@alsa-project.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 16 Feb 2020 23:18:04 -0800 (PST)
-Received: by mail-wm1-f46.google.com with SMTP id a9so17168886wmj.3
- for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2020 23:18:04 -0800 (PST)
-X-Received: by 2002:a05:600c:34d:: with SMTP id
- u13mr21111044wmd.77.1581923883938; 
- Sun, 16 Feb 2020 23:18:03 -0800 (PST)
+ Sun, 16 Feb 2020 23:19:21 -0800 (PST)
+Received: by mail-wm1-f53.google.com with SMTP id p9so15992114wmc.2
+ for <alsa-devel@alsa-project.org>; Sun, 16 Feb 2020 23:19:21 -0800 (PST)
+X-Received: by 2002:a05:600c:10d2:: with SMTP id
+ l18mr20205144wmd.122.1581923961163; 
+ Sun, 16 Feb 2020 23:19:21 -0800 (PST)
 MIME-Version: 1.0
 References: <20200217021813.53266-1-samuel@sholland.org>
- <20200217021813.53266-6-samuel@sholland.org>
-In-Reply-To: <20200217021813.53266-6-samuel@sholland.org>
+ <20200217021813.53266-7-samuel@sholland.org>
+In-Reply-To: <20200217021813.53266-7-samuel@sholland.org>
 From: Chen-Yu Tsai <wens@csie.org>
-Date: Mon, 17 Feb 2020 15:17:53 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65v=wPJNxPfOzp2bcevk0qoDiW-+KFBO1MKHz6gE86DPQ@mail.gmail.com>
-Message-ID: <CAGb2v65v=wPJNxPfOzp2bcevk0qoDiW-+KFBO1MKHz6gE86DPQ@mail.gmail.com>
+Date: Mon, 17 Feb 2020 15:19:10 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66Te_DD5zVU4_qAja0hSzcW0=bQZzwiWaVNoRQ3ms_wrg@mail.gmail.com>
+Message-ID: <CAGb2v66Te_DD5zVU4_qAja0hSzcW0=bQZzwiWaVNoRQ3ms_wrg@mail.gmail.com>
 To: Samuel Holland <samuel@sholland.org>
 Cc: Luca Weiss <luca@z3ntu.xyz>, Linux-ALSA <alsa-devel@alsa-project.org>,
  linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
  Maxime Ripard <mripard@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Vasily Khoruzhick <anarsoul@gmail.com>, Mark Brown <broonie@kernel.org>,
  linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [alsa-devel] [PATCH 5/8] ASoC: sun50i-codec-analog: Enable DAPM
-	for headphone switch
+Subject: Re: [alsa-devel] [PATCH 6/8] ASoC: sun50i-codec-analog: Make line
+	out routes stereo
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,21 +103,12 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 On Mon, Feb 17, 2020 at 10:18 AM Samuel Holland <samuel@sholland.org> wrote:
 >
-> By including the headphone mute switch to the DAPM graph, both the
-> headphone amplifier and the Mixer/DAC inputs can be powered off when
-> the headphones are muted.
->
-> The mute switch is between the source selection and the amplifier,
-> as per the diagram in the SoC manual.
+> This matches the hardware more accurately, and is necessary for
+> including the (stereo) line out mute switch in the DAPM graph.
 >
 > Signed-off-by: Samuel Holland <samuel@sholland.org>
 
 Reviewed-by: Chen-Yu Tsai <wens@csie.org>
-
-BTW, have you also considered tying in the headphone volume control?
-It also has a mute setting.
-
-ChenYu
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

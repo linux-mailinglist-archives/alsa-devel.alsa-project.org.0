@@ -2,64 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5B78161638
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 16:32:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DC04A161675
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 16:44:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 41688166C;
-	Mon, 17 Feb 2020 16:31:24 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 41688166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id 75294166C;
+	Mon, 17 Feb 2020 16:44:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 75294166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581953534;
-	bh=BAJtar/5sRR5rj/UpDdz+BoQbze/LWEs2wS7Ij55BUs=;
+	s=default; t=1581954290;
+	bh=kU6gKL4v1gWycgfPl806VJHpp311C/YIJqbT914BOUQ=;
 	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hw/so/vzAyVIg0Th1MjLfKKe1+ikwzL0FResda8BGRgQgFwT3fsvsnMuDthWOIco4
-	 Gea6VBpTssfdLWgMwNHtXeq+hltGO9qjN6fr0VlXF4M15xAsTjxdqMbPj+rCW+LZ8u
-	 KAeINlt9ANRbuyVswrecheaw9dEX8DDQDRCvjSck=
+	b=VOOjsLghqk29IO/OwoHnGam8CFOYvE0exD3DxNprAbjhxBD9fRuo+7ZjUQl6+rbs2
+	 XhjRJSjdGuVRHRBTplOsA+yTOqph2Tb001vdzTuSE1EezG6b/BH/nFa7diA6k/gdFw
+	 T2Kt0/UJxG3wbfZaem3jQy0MhL2poEmRRiZyOuwY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 563B5F801F4;
-	Mon, 17 Feb 2020 16:30:33 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F381F801F4;
+	Mon, 17 Feb 2020 16:43:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9968CF80172; Mon, 17 Feb 2020 16:30:30 +0100 (CET)
+ id A3627F80172; Mon, 17 Feb 2020 16:43:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 94B73F80096
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 16:30:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94B73F80096
+ by alsa1.perex.cz (Postfix) with ESMTP id 0993FF80096
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 16:43:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0993FF80096
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CCCDE30E;
- Mon, 17 Feb 2020 07:30:25 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1F72C30E;
+ Mon, 17 Feb 2020 07:43:03 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4E50E3F703;
- Mon, 17 Feb 2020 07:30:25 -0800 (PST)
-Date: Mon, 17 Feb 2020 15:30:23 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 982983F703;
+ Mon, 17 Feb 2020 07:43:02 -0800 (PST)
+Date: Mon, 17 Feb 2020 15:43:01 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Samuel Holland <samuel@sholland.org>
-Message-ID: <20200217153023.GL9304@sirena.org.uk>
-References: <20200217064250.15516-1-samuel@sholland.org>
- <20200217064250.15516-11-samuel@sholland.org>
+To: Stephan Gerhold <stephan@gerhold.net>
+Message-ID: <20200217154301.GN9304@sirena.org.uk>
+References: <1579443563-12287-1-git-send-email-spujar@nvidia.com>
+ <20200217144120.GA243254@gerhold.net>
 MIME-Version: 1.0
-In-Reply-To: <20200217064250.15516-11-samuel@sholland.org>
+In-Reply-To: <20200217144120.GA243254@gerhold.net>
 X-Cookie: There was a phone call for you.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Vasily Khoruzhick <anarsoul@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- =?iso-8859-1?Q?Myl=E8ne?= Josserand <mylene.josserand@free-electrons.com>,
- stable@kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [RFC PATCH 10/34] ASoC: sun8i-codec: Advertise
- only hardware-supported rates
+Cc: linux-kernel@vger.kernel.org, Sameer Pujar <spujar@nvidia.com>,
+ tiwai@suse.com, alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] [RFC] ASoC: soc-pcm: crash in snd_soc_dapm_new_dai
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,56 +65,48 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============6067526400003327137=="
+Content-Type: multipart/mixed; boundary="===============2704214401570002124=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---===============6067526400003327137==
+--===============2704214401570002124==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="0qVF/w3MHQqLSynd"
+	protocol="application/pgp-signature"; boundary="b1ERR0FXR0PvNIRE"
 Content-Disposition: inline
 
 
---0qVF/w3MHQqLSynd
+--b1ERR0FXR0PvNIRE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Feb 17, 2020 at 12:42:26AM -0600, Samuel Holland wrote:
-> The hardware does not support 64kHz, 88.2kHz, or 176.4kHz sample rates,
-> so the driver should not advertise them. The hardware can handle two
-> additional non-standard sample rates: 12kHz and 24kHz, so declare
-> support for them via SNDRV_PCM_RATE_KNOT.
->=20
-> Cc: stable@kernel.org
-> Fixes: 36c684936fae ("ASoC: Add sun8i digital audio codec")
-> Fixes: eda85d1fee05 ("ASoC: sun8i-codec: Add ADC support for a33")
-> Signed-off-by: Samuel Holland <samuel@sholland.org>
+On Mon, Feb 17, 2020 at 03:41:20PM +0100, Stephan Gerhold wrote:
 
-The new sample rates are new functionality, they are definitely not
-stable material.   For the sample rates you are removing do we
-understand why they were added - do they work for people, are they
-perhaps supported for some users and not others for example?
+> I'm a bit confused about this patch, isn't SNDRV_PCM_STREAM_PLAYBACK
+> used for both cpu_dai and codec_dai in the playback case?
 
---0qVF/w3MHQqLSynd
+It is in the normal case, but with a CODEC<->CODEC link (which was what
+this was targeting) we need to bodge things by swapping playback and
+capture on one end of the link.
+
+--b1ERR0FXR0PvNIRE
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5KsY8ACgkQJNaLcl1U
-h9DgKwf/RkeIHeM2sJ2RgbLTXWX8YZmWkvlMjMbuWBeFxHTz/Hdo+gM34z7glK5D
-vTsYnMg6wYSVtkRJzw6JOjJE/YqT+KFTmpqMHlhJkHhh+0Ce33hnN5vhPWAOyDLX
-ajN4NNYMR/RvlHVhAD8YVCjWKy65hpslCTajh+74Pn5GNtXao1z2mH6vDaVOntZj
-KsuP3g6wxqKicdi4lrAYDS80cpUVlOD4OkMk49MT5h1U78w3hblZkKULqFjOt3BL
-jgdv2os2/zg+/7OxQCcAlJfrfd4m4kBHbI9HF+0IMV9CIt+pR7Kmy7H+zcliwi9L
-1zUYINK1EWJvcb+4lIeZcMRp0sH7aQ==
-=ZBtq
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5KtIQACgkQJNaLcl1U
+h9ARMgf+NQDaYx839skXXMcRLyATLepufKGk9l1m2+rsQ1ajEhuvgD8/e4YhVxcE
+kbFp40QlkXHOJVhDmDdTzdGQAVw4bZUk4++qr0sv9wbyPE/vnN1eL1g86TN2jYYR
+p6N2CzZLf6bqK10PNGgBxKu7ybsFm745FxIhEcPkYEAKUF3H9PANqu8hLvwmTNdW
+YRUBomA6kOqU+odw/XwK8ztCS5cruwTjaAHZP6QsiHuGWFovmomqXJRNZhcpWXRU
+HJnA40MLOI6wqd1eKDL+sZsIh26xr5hapqLdLYBwvXCh8gzup+ECt59LHEm/7hdQ
+OePPOr10MHw9LA7a4ByEiuvTidCFUw==
+=44+D
 -----END PGP SIGNATURE-----
 
---0qVF/w3MHQqLSynd--
+--b1ERR0FXR0PvNIRE--
 
---===============6067526400003327137==
+--===============2704214401570002124==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -132,4 +117,4 @@ Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
 
---===============6067526400003327137==--
+--===============2704214401570002124==--

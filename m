@@ -2,90 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 77770160E5F
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 10:22:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F271160EAA
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 10:35:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0F43B83B;
-	Mon, 17 Feb 2020 10:21:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0F43B83B
+	by alsa0.perex.cz (Postfix) with ESMTPS id D8C051672;
+	Mon, 17 Feb 2020 10:35:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D8C051672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581931336;
-	bh=aJYX1nSryugbM118/zBsBLG5zrZN2YIN5tVapu7g39k=;
-	h=From:To:Date:Cc:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=eQtMYW6hDqs1Zw/q8YeYxQXGxeA4HnfpI8j3j88bUq/zwxH9TQbPwgRHXVCo07Mfm
-	 xbPnzUlhPKF56WspmlGRjgHsREwWWTddboNuLN+lGt+UFe6v6K/mR8gTj/5tuRQiY/
-	 dD+cRMDIZmdnmt4OAdE6f0ZbFDfFH6ZtaL16TaF8=
+	s=default; t=1581932152;
+	bh=yoyD7JQowP823Fbm9eYRRglTArmUYtNsTO0lgUvs9O4=;
+	h=To:References:From:Date:In-Reply-To:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=Ys35mewcOfT0PosGXAvCRGqVYcn0is90eka+84zDpLWSeGivuMTCk8VThgR6LlSuc
+	 9fg+kvqEOca1N4soe64yU96kRDpeqCxOqpgPWzZWluscdH8r6Qd6cC00RjTG8darI3
+	 iX7Dmg3fmHsRZmDMzgfnqLKcl1kxNsGQwofX3M58=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 44C6AF801F4;
-	Mon, 17 Feb 2020 10:20:35 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E3458F801F4;
+	Mon, 17 Feb 2020 10:34:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 044CBF80172; Mon, 17 Feb 2020 10:20:33 +0100 (CET)
+ id 44912F80172; Mon, 17 Feb 2020 10:34:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Level: 
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from www381.your-server.de (www381.your-server.de [78.46.137.84])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5637DF800B6
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 10:20:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5637DF800B6
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE53FF80096
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 10:33:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE53FF80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="jRUI4paO"
-Received: by mail-wm1-x341.google.com with SMTP id b17so17568679wmb.0
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 01:20:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eUz2G04Bb89tsKE0msFkZ9blTmeu3DgvQbssg5zQwVU=;
- b=jRUI4paOxqTsdkPUlKyQza5/FpjH5wFiT0l/DFu9r7BUgb5pGXIndS5vpdCLOkBORf
- Iw+TAURuUy2azNJ5jTx10V/NAz11y/TrDoYRIxoeYulS/whZYSte8nrQQIQ4M4tljIlR
- pY+9l2bv/3db1tfrEDEwqJTo83NafxBBIqp/n5hD70GxBtSbrgc42/kigzd3koASPoWg
- lo6X9DGrQnQTFf936OV0/inNqQ9bMc9UApXK58C//1tqFBjEmbRBjWcmPxEZGOy8auim
- MwgHdRDNZmNQ1gq8FfvGBfXsZxE7f8Rdswb4B5H9Gl7VpXYwXcQtG/ZjnOPJB/MzlxPW
- CAeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=eUz2G04Bb89tsKE0msFkZ9blTmeu3DgvQbssg5zQwVU=;
- b=Par83MhG1hbK7mPKf0h1ix6zwtGf3599tEx/M61NyQ5R07vHoDb9avcdcqAQl/q5w+
- kxiwvOahdZOT+/hOmZNoQYdaFpApLohMnj5fez0MpKsShqaKq7vWqFsbLefc1dOJihmR
- oz8zXaPFILi09VvMmvz1IE2f5JlrKrhBdXhrgsq9VZ3KAJuBCwceDIi2YC5BQA6CHIFs
- kfMjvoiUNqjhfByPu1noP3qRp5z8vqwUXKsAxjkEKPnJhsN3F8dYS5zsy0Hgt9sR91aY
- rAHrQuQmiOxEfulp+W392RZrU4GfrHCDXGfV3Aq6ge+zLHOAlbrlSVVN3ZRmN+TuAIN4
- eI7w==
-X-Gm-Message-State: APjAAAU8Y8QCvgD26yRDn/3Hn64WFiJ3CHQ4/0XNhqhIh5J9cuI6PxA8
- iANFN3AODLd0Gh6ZOMQ3iPZJTA==
-X-Google-Smtp-Source: APXvYqzW2Cgw9zR9wxV2rpAUJf7+def0ERox9GI5jHN5hfn2bae9qIgwbWg171C1Ty1FYR9HcduUeQ==
-X-Received: by 2002:a7b:cf0d:: with SMTP id l13mr22297831wmg.13.1581931229174; 
- Mon, 17 Feb 2020 01:20:29 -0800 (PST)
-Received: from starbuck.baylibre.local
- (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id v14sm67373wrm.28.2020.02.17.01.20.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2020 01:20:28 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Date: Mon, 17 Feb 2020 10:20:19 +0100
-Message-Id: <20200217092019.433402-1-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.24.1
+ dkim=pass (2048-bit key) header.d=metafoo.de header.i=@metafoo.de
+ header.b="Vky6TI5N"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=metafoo.de; 
+ s=default2002;
+ h=Content-Transfer-Encoding:Content-Type:In-Reply-To:
+ MIME-Version:Date:Message-ID:From:References:To:Subject:Sender:Reply-To:Cc:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=5fvZZPmA2L/TOyQGRM4Qr6BxX/Q4zyAQ6rpl6eombl8=; b=Vky6TI5NmBfw+AwQuPUx8WDrVd
+ 6yCkJBmdgu+2zr5EhmlCTZMhqX/yBhv8Z6E6uGRWD+lTF6YW6Ui6yGvSMLnXgOReD602Z3cOXssxN
+ 9ljVjg2T7Qabb7q5ehaSMoA/bn5BtPgsJKyNS36G3aCvQfVtCTpAsX3xDIfdVtdULIBA1Erdehr26
+ I5qGbH1YvR2Fs5OA2nHKiRZYEnqnQQqZTg7eQqYDCy3LllZ9BGBFNUuEanNVFxB0z/OtIvgxepOXu
+ nB2Wc6ALtM8+/mwoAqRwB5fXbg3ohp83R5F95vYq1BY8YAfM4srzsoiDi56+kxbsbiTCyCL+Rr8JW
+ u/c184lQ==;
+Received: from sslproxy05.your-server.de ([78.46.172.2])
+ by www381.your-server.de with esmtpsa (TLSv1.2:DHE-RSA-AES256-GCM-SHA384:256)
+ (Exim 4.89_1) (envelope-from <lars@metafoo.de>)
+ id 1j3cmr-0004Hs-FJ; Mon, 17 Feb 2020 10:33:58 +0100
+Received: from [93.104.109.112] (helo=[192.168.178.20])
+ by sslproxy05.your-server.de with esmtpsa (TLSv1.3:TLS_AES_256_GCM_SHA384:256)
+ (Exim 4.92) (envelope-from <lars@metafoo.de>)
+ id 1j3cmr-000Fmt-7t; Mon, 17 Feb 2020 10:33:57 +0100
+To: Jaroslav Kysela <perex@perex.cz>,
+ ALSA development <alsa-devel@alsa-project.org>
+References: <77884bad-81fd-f876-3f72-1f96a39d6329@perex.cz>
+From: Lars-Peter Clausen <lars@metafoo.de>
+Message-ID: <d1d0be54-5bdb-0405-320a-d7e542fdbcde@metafoo.de>
+Date: Mon, 17 Feb 2020 10:33:55 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
- linux-amlogic@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [alsa-devel] [PATCH] ASoC: meson: aiu: simplify component addition
+In-Reply-To: <77884bad-81fd-f876-3f72-1f96a39d6329@perex.cz>
+Content-Language: en-US
+X-Authenticated-Sender: lars@metafoo.de
+X-Virus-Scanned: Clear (ClamAV 0.102.1/25725/Sun Feb 16 13:04:22 2020)
+Subject: Re: [alsa-devel] DMARC & gmail & cirrus.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,119 +87,40 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that the component name is unique within ASoC, there is no need to
-hack the debugfs prefix to add more than one ASoC component to a linux
-device. Remove the unnecessary function and use
-snd_soc_register_component() directly.
-
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- sound/soc/meson/aiu-acodec-ctrl.c |  7 +++----
- sound/soc/meson/aiu-codec-ctrl.c  |  7 +++----
- sound/soc/meson/aiu.c             | 20 --------------------
- sound/soc/meson/aiu.h             |  8 --------
- 4 files changed, 6 insertions(+), 36 deletions(-)
-
-diff --git a/sound/soc/meson/aiu-acodec-ctrl.c b/sound/soc/meson/aiu-acodec-ctrl.c
-index b8e88b1a4fc8..7078197e0cc5 100644
---- a/sound/soc/meson/aiu-acodec-ctrl.c
-+++ b/sound/soc/meson/aiu-acodec-ctrl.c
-@@ -197,8 +197,7 @@ static const struct snd_soc_component_driver aiu_acodec_ctrl_component = {
- 
- int aiu_acodec_ctrl_register_component(struct device *dev)
- {
--	return aiu_add_component(dev, &aiu_acodec_ctrl_component,
--				 aiu_acodec_ctrl_dai_drv,
--				 ARRAY_SIZE(aiu_acodec_ctrl_dai_drv),
--				 "acodec");
-+	return snd_soc_register_component(dev, &aiu_acodec_ctrl_component,
-+					  aiu_acodec_ctrl_dai_drv,
-+					  ARRAY_SIZE(aiu_acodec_ctrl_dai_drv));
- }
-diff --git a/sound/soc/meson/aiu-codec-ctrl.c b/sound/soc/meson/aiu-codec-ctrl.c
-index 8646a953e3b3..4b773d3e8b07 100644
---- a/sound/soc/meson/aiu-codec-ctrl.c
-+++ b/sound/soc/meson/aiu-codec-ctrl.c
-@@ -144,9 +144,8 @@ static const struct snd_soc_component_driver aiu_hdmi_ctrl_component = {
- 
- int aiu_hdmi_ctrl_register_component(struct device *dev)
- {
--	return aiu_add_component(dev, &aiu_hdmi_ctrl_component,
--				 aiu_hdmi_ctrl_dai_drv,
--				 ARRAY_SIZE(aiu_hdmi_ctrl_dai_drv),
--				 "hdmi");
-+	return snd_soc_register_component(dev, &aiu_hdmi_ctrl_component,
-+					  aiu_hdmi_ctrl_dai_drv,
-+					  ARRAY_SIZE(aiu_hdmi_ctrl_dai_drv));
- }
- 
-diff --git a/sound/soc/meson/aiu.c b/sound/soc/meson/aiu.c
-index 34b40b8b8299..d3e2d40e9562 100644
---- a/sound/soc/meson/aiu.c
-+++ b/sound/soc/meson/aiu.c
-@@ -71,26 +71,6 @@ int aiu_of_xlate_dai_name(struct snd_soc_component *component,
- 	return 0;
- }
- 
--int aiu_add_component(struct device *dev,
--		      const struct snd_soc_component_driver *component_driver,
--		      struct snd_soc_dai_driver *dai_drv,
--		      int num_dai,
--		      const char *debugfs_prefix)
--{
--	struct snd_soc_component *component;
--
--	component = devm_kzalloc(dev, sizeof(*component), GFP_KERNEL);
--	if (!component)
--		return -ENOMEM;
--
--#ifdef CONFIG_DEBUG_FS
--	component->debugfs_prefix = debugfs_prefix;
--#endif
--
--	return snd_soc_add_component(dev, component, component_driver,
--				     dai_drv, num_dai);
--}
--
- static int aiu_cpu_of_xlate_dai_name(struct snd_soc_component *component,
- 				     struct of_phandle_args *args,
- 				     const char **dai_name)
-diff --git a/sound/soc/meson/aiu.h b/sound/soc/meson/aiu.h
-index 097c26de7b7c..06a968c55728 100644
---- a/sound/soc/meson/aiu.h
-+++ b/sound/soc/meson/aiu.h
-@@ -11,9 +11,7 @@ struct clk;
- struct clk_bulk_data;
- struct device;
- struct of_phandle_args;
--struct snd_soc_component_driver;
- struct snd_soc_dai;
--struct snd_soc_dai_driver;
- struct snd_soc_dai_ops;
- 
- enum aiu_clk_ids {
-@@ -45,12 +43,6 @@ int aiu_of_xlate_dai_name(struct snd_soc_component *component,
- 			  const char **dai_name,
- 			  unsigned int component_id);
- 
--int aiu_add_component(struct device *dev,
--		      const struct snd_soc_component_driver *component_driver,
--		      struct snd_soc_dai_driver *dai_drv,
--		      int num_dai,
--		      const char *debugfs_prefix);
--
- int aiu_hdmi_ctrl_register_component(struct device *dev);
- int aiu_acodec_ctrl_register_component(struct device *dev);
- 
--- 
-2.24.1
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+T24gMi8xNy8yMCA5OjQ2IEFNLCBKYXJvc2xhdiBLeXNlbGEgd3JvdGU6Cj4gSGkgYWxsLAo+Cj4g
+wqDCoMKgwqB0b2RheSwgYWxsIGdtYWlsIHVzZXJzIHdlcmUgdW5zdWJzY3JpYmVkIGZyb20gdGhl
+IG1haWxpbmcgbGlzdCwgCj4gYmVjYXVzZSB3ZSBoYXZlIHVzZXJzIHdobyBzZW5kcyBlLW1haWxz
+IGZyb20gZG9tYWlucyB3aXRoIHRoZSBETUFSQyAKPiBwb2xpY3kgcmVqZWN0IChsaWtlIGNpcnJ1
+cy5jb20pLiBUaGUgbWFpbG1hbiBjb3VudHMgdGhvc2UgYm91bmNlcyBhbmQgCj4gdW5zdWJzY3Jp
+YmUgdXNlcnMgd2hvIGRvIG5vdCByZWNlaXZlIHRob3NlIGUtbWFpbHMuIFRoZSBuaWNlIAo+IGV4
+cGxhbmF0aW9uIGlzIGhlcmU6Cj4KPiBodHRwczovL3d3dy5saW51eGNoaXgub3JnL2NvbnRlbnQv
+bWFpbGluZy1saXN0LWNoYW5nZXMKPgo+IMKgwqDCoMKgSSBjYW4gZW5hYmxlIHRoZSAiUmVwbGFj
+ZSB0aGUgRnJvbTogaGVhZGVyIGFkZHJlc3MiIGluIHRoZSBtYWlsbWFuIAo+IGNvbmZpZyB0byAi
+TXVuZ2UgRnJvbSIgbGlrZSBpbiB0aGUgYWJvdmUgZXhhbXBsZSwgYnV0IGl0IHdpbGwgbWVhbiAK
+PiB0aGF0IEZyb206IHdpbGwgYmUgYWx0ZXJlZCAoc2VlIHRoZSBleHBsYW5hdGlvbikuCj4KPiDC
+oMKgwqDCoEFub3RoZXIgb3B0aW9uIGlzIHRvIGRpc2FibGUgdGhlIGJvdW5jZSBjaGVjayBpbiBt
+YWlsbWFuLCBidXQgaXQgCj4gd2lsbCBjYXVzZSB0aGF0IHRoZSAiZGVhZCIgc3Vic2NyaWJlcnMg
+YXJlIG5vdCBkZXRlY3RlZCBhbnltb3JlLgo+Cj4gwqDCoMKgwqBBbnkgb3BpbmlvbnMgb24gdGhp
+cz8KPgo+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIEphcm9zbGF2IAoK
+VGhlIHdheSBJIHVuZGVyc3RhbmQgaXQgb3B0aW9uIDIgd291bGQgYWxzbyBtZWFuIHRoYXQgbm9i
+b2R5IGF0IGEgCnNlcnZpY2UgcHJvdmlkZXIgdGhhdCBpbXBsZW1lbnRzIERNQVJDIGNoZWNrcyBv
+biB0aGUgcmVjZWl2ZXIgc2lkZSB3b3VsZCAKcmVjZWl2ZSBtYWlsIHNlbnQgdG8gdGhlIGxpc3Qg
+YnkgcGVvcGxlIHVzaW5nIGEgc2VydmljZSBwcm92aWRlciB0aGF0IApoYXMgYSByZWplY3QgcG9s
+aWN5IGZvciBvdXRnb2luZyBtYWlscy4gRS5nLiBpbiB5b3VyIGV4YW1wbGUgd2hpbGUgZ21haWwg
+CnVzZXJzIHdvdWxkIG5vdCBiZSB1bnN1YnNjcmliZWQgZnJvbSB0aGUgbWFpbGluZy1saXN0LCBi
+dXQgdGhleSBzdGlsbCAKd291bGRuJ3QgcmVjZWl2ZSB0aGUgbWFpbHMgc2VudCBmcm9tIGNpcnJ1
+cy5jb20uIFdoaWNoIGtpbmQgb2YgbWFrZXMgdGhlIAptYWlsaW5nbGlzdCB1c2VsZXNzLgoKVGhl
+IHdheSBJIHVuZGVyc3RhbmQgdGhlIG9wdGlvbiB0byByZXBsYWNlIHRoZSBGcm9tOiBoZWFkZXIg
+aXMgdGhhdCBpdCAKd2lsbCBvbmx5IGhhcHBlbiBmb3IgdGhvc2UgdGhhdCBoYXZlIGEgcmVqZWN0
+IHBvbGljeSwgZm9yIGV2ZXJ5Ym9keSBlbHNlIApub3RoaW5nIGNoYW5nZXMuIFNvIGlmIHRoZSBt
+YWlsaW5nbGlzdCBpcyBzdXBwb3NlZCB0byBzdGF5IHVzZWZ1bCBmb3IgCnRob3NlIHdpdGggYSBy
+ZWplY3QgcG9saWN5IHRoZSBvbmx5IG9wdGlvbiBpcyB0byByZXdyaXRlIHRoZSBmcm9tIGhlYWRl
+ciAKZm9yIHRoZW0uCgotIExhcnMKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fCkFsc2EtZGV2ZWwgbWFpbGluZyBsaXN0CkFsc2EtZGV2ZWxAYWxzYS1wcm9q
+ZWN0Lm9yZwpodHRwczovL21haWxtYW4uYWxzYS1wcm9qZWN0Lm9yZy9tYWlsbWFuL2xpc3RpbmZv
+L2Fsc2EtZGV2ZWwK

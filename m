@@ -2,71 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45C3316147B
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 15:24:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D578816148C
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 15:27:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DB64D828;
-	Mon, 17 Feb 2020 15:23:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DB64D828
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7E517829;
+	Mon, 17 Feb 2020 15:26:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7E517829
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581949457;
-	bh=Tlj6xL3WvQ5ViSrN9fjmXNjdx9cYt199CUCARCm/00c=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581949622;
+	bh=eTLljTJ2MG4j2Fp9w2cijFOhpdV2JPLBumcoj/wwDv8=;
+	h=Date:From:To:In-Reply-To:References:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=eetTxxKNjKkngjqN7vSuF/jkSqp+Aetja4+HoBEgmS2HuyuO2oE+UPOnz9DbPHF9Z
-	 eysfKhruGfvG18NP3ENK1BNEDWFSy49xk59U9Km+UpTDjg3XmCSIuTvDeNQrpQUBwG
-	 4IOFQ/1+IPrR63TcKiLlSkJC5BpV+wxZUDQBGanw=
+	b=auc5WbF0CnGiiBU+v6V1y1zkhPMZ2MkS1rSEjLYIlklPRRWVoHJRgWahMQFhsc7Qm
+	 /+sI0yeE5tiLPoyqjD9wpGyW4XJRhevEnmR3eXqbFF0tKnn+T8DnMH8xkzICsNF7l5
+	 mJoMlD4uQi1GOUwtMgF0siIoJ6rUAG7kVOr/bRFQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36588F80214;
-	Mon, 17 Feb 2020 15:22:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E69EF800B6;
+	Mon, 17 Feb 2020 15:25:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DEC96F801F5; Mon, 17 Feb 2020 15:22:45 +0100 (CET)
+ id DC9E5F80172; Mon, 17 Feb 2020 15:25:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14B60F8015E
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 15:22:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14B60F8015E
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="LIoYI2jN"
-Received: from localhost (83-86-89-107.cable.dynamic.v4.ziggo.nl
- [83.86.89.107])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 3FAE32072C;
- Mon, 17 Feb 2020 14:22:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1581949360;
- bh=8DTBdEIPZHL+pnTNBLijhXTQYXxTMAMa6+mt+KfaJxo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=LIoYI2jNtpluO89Bo+oIxKnwb861QMKWvv9jbloLr7yjtwXSIkR/ugSZedB3dJAsY
- n9xDDt7MdwpSEDjI5yOV3qZxwkuE5oVOTbXFum43Jpqimv/gVVThMB6DB3XdB3BqFL
- WYZQ6paTHo48EYtY0N8YweFCo5ERGUNw3SO1QO8Q=
-Date: Mon, 17 Feb 2020 15:22:38 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Takashi Iwai <tiwai@suse.de>
-Message-ID: <20200217142238.GA1144881@kroah.com>
-References: <20200213112059.18745-1-tiwai@suse.de>
- <20200213112059.18745-2-tiwai@suse.de>
- <s5hd0adguv9.wl-tiwai@suse.de>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <s5hd0adguv9.wl-tiwai@suse.de>
-Cc: alsa-devel@alsa-project.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [alsa-devel] [PATCH 1/2] usb: audio-v2: Add
- uac2_effect_unit_descriptor definition
+ by alsa1.perex.cz (Postfix) with ESMTPS id 95A1DF800B6
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 15:25:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 95A1DF800B6
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 3FC82AED7;
+ Mon, 17 Feb 2020 14:25:17 +0000 (UTC)
+Date: Mon, 17 Feb 2020 15:25:17 +0100
+Message-ID: <s5h8sl1guk2.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+In-Reply-To: <alpine.DEB.2.21.2002171612320.2957@eliteleevi.tm.intel.com>
+References: <20200216203516.10869-1-tiwai@suse.de>
+ <alpine.DEB.2.21.2002171506330.2957@eliteleevi.tm.intel.com>
+ <s5hk14lgvy6.wl-tiwai@suse.de>
+ <alpine.DEB.2.21.2002171612320.2957@eliteleevi.tm.intel.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [alsa-devel] [PATCH] ASoC: SOF: intel: Fix probe error without
+	i915 graphics
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,51 +75,42 @@ Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Mon, Feb 17, 2020 at 03:18:34PM +0100, Takashi Iwai wrote:
-> On Thu, 13 Feb 2020 12:20:58 +0100,
-> Takashi Iwai wrote:
-> > 
-> > The UAC2 Effect Unit Descriptor has a slightly different definition
-> > from other similar ones like Processing Unit or Extension Unit.
-> > Define it here so that it can be used in USB-audio driver in a later
-> > patch.
-> > 
-> > Signed-off-by: Takashi Iwai <tiwai@suse.de>
-> > ---
-> >  include/linux/usb/audio-v2.h | 12 ++++++++++++
-> >  1 file changed, 12 insertions(+)
-> > 
-> > diff --git a/include/linux/usb/audio-v2.h b/include/linux/usb/audio-v2.h
-> > index ba4b3e3327ff..cb9900b34b67 100644
-> > --- a/include/linux/usb/audio-v2.h
-> > +++ b/include/linux/usb/audio-v2.h
-> > @@ -156,6 +156,18 @@ struct uac2_feature_unit_descriptor {
-> >  	__u8 bmaControls[0]; /* variable length */
-> >  } __attribute__((packed));
-> >  
-> > +/* 4.7.2.10 Effect Unit Descriptor */
-> > +
-> > +struct uac2_effect_unit_descriptor {
-> > +	__u8 bLength;
-> > +	__u8 bDescriptorType;
-> > +	__u8 bDescriptorSubtype;
-> > +	__u8 bUnitID;
-> > +	__le16 wEffectType;
-> > +	__u8 bSourceID;
-> > +	__u8 bmaControls[]; /* variable length */
-> > +} __attribute__((packed));
-> > +
-> >  /* 4.9.2 Class-Specific AS Interface Descriptor */
-> >  
-> >  struct uac2_as_header_descriptor {
+On Mon, 17 Feb 2020 15:21:37 +0100,
+Kai Vehmanen wrote:
 > 
-> Greg, I suppose you are OK with this addition?
+> Hey,
 > 
+> On Mon, 17 Feb 2020, Takashi Iwai wrote:
 > 
+> > On Mon, 17 Feb 2020 14:17:54 +0100, Kai Vehmanen wrote:
+> > >  snd_hdac_i915_exit() calls
+> > >    -> snd_hdac_acomp_exit(), which again calls
+> > >    -> component.c:component_master_del(dev, &hdac_component_master_ops);
+> > >    -> component.c:take_down_master()
+> > >    -> devres.c:devres_release_group(master->dev, NULL);
+> > > 
+> > > ...  now that is somewhat suprising. Basicly that goes on to release all 
+> > > devres resources for the hdac_bus device (not just those related to 
+> > > acomp!).
+> > 
+> > Does it really?  I thought it applies only to the group, and id=NULL
+> > indicating that it's a local group that was created with id=NULL (by
+> > address match).
+> 
+> at least in my tests, acomp_exit() ended up releasing a bunch of devres 
+> allocations made with devm_kzalloc() that had no relation to acomp. I 
+> noted that in devres.c:find_group(), docs say:
+> 
+> /* Find devres group with ID @id.  If @id is NULL, look for the latest. */
+> static struct devres_group * find_group(struct device *dev, void *id)
+> 
+> ... I don't see how it would be limiting a local group.
 
-Yes, that's fine with me:
+Isn't it the devres object allocated in the component base code
+itself?
 
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+Takashi
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

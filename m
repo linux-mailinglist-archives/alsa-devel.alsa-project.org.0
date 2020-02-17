@@ -2,90 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 427721615AC
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 16:12:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72FBF1615FD
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 16:21:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DF6C4167A;
-	Mon, 17 Feb 2020 16:11:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6C4167A
+	by alsa0.perex.cz (Postfix) with ESMTPS id E69CC166E;
+	Mon, 17 Feb 2020 16:20:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E69CC166E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581952329;
-	bh=jjWW/TdfSh7TIkxYe/HDrmCHX2tg+HWTtXZef2rvoDE=;
-	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=UwwiG8HkSS0UjJSs9lukPUspHZCwVHV4zwmbpFSqiICmhLMLof0tHc2AQPIfX/jfE
-	 kKX81RS3TW/KzXWTQ2yoAjLSP8AghdkqcdkMgisiasCtmtY2Aa0XhTFQxuAmLRrUQN
-	 vIHmHQyMqOXQSXI3G7/KkYDtPWxMmIrqaocXLpeM=
+	s=default; t=1581952897;
+	bh=x2f9GAsXGmK3bsvO9hWOMf3QDavCsd638WNmj+yMqik=;
+	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=MuRP5jrtOjVcfj1g7S29QrVVXqUU9AJdzeqhfFuj3l8aSHjQeUAurO6A2lFdfYV5C
+	 vZhVaGT+sgVsIOKjSHHDmgGN8pQ/prHY5dPv6UOtMyG68TvJAGTUY2c80+fjjWEpFu
+	 GJT1CPs/vmSeFTmh3a5PA7CKzyvD3ZkRsrDVJdfM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A2F1EF800C4;
-	Mon, 17 Feb 2020 16:11:14 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 071BCF80096;
+	Mon, 17 Feb 2020 16:19:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4C82EF801F5; Mon, 17 Feb 2020 16:11:12 +0100 (CET)
+ id 013D0F80172; Mon, 17 Feb 2020 16:19:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com
- [IPv6:2607:f8b0:4864:20::e43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 06379F80096
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 16:11:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06379F80096
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ojab.ru header.i=@ojab.ru
- header.b="bugPKFwp"
-Received: by mail-vs1-xe43.google.com with SMTP id p14so10560491vsq.6
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 07:11:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ojab.ru; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qDrsHCqzOJSGzZxsJvq3uCka6/zV41PReEFhdfgZzLw=;
- b=bugPKFwps3gcgpDw18lVDQKvmYLwc1Mb2Md6a6ii2HUwjmKwHfadWNjOyjNbCkB5Qn
- MJsVV/iG7Gn5RSKljPc2d30pPsdl+tQ/rvLu15GLtmzZIp6uqIJW5wEpy9QPX2BLJqf5
- JZZCvIk0JfcR2ztIs/M1oXdpJhFLUVKwL+kco=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qDrsHCqzOJSGzZxsJvq3uCka6/zV41PReEFhdfgZzLw=;
- b=tG2Y8eH3qP7rddXhn1UHsYNb3/SzJ4JuZefSGkA9MJSAZJz/cqJLCR2SGlbSEoEuCz
- s0BKgz08dS0kIxd57ntLQH7z5uS3qjIAat3Sbz1zCgQISdxT5TAcAS0MD0U3eOZDLjWX
- cY1J6gJ3PPZXOtfKJ7wR6Wpgdn93yNQwtmIGqHeWtjCC7eaMu8O6+suUbTKk53HT0prD
- IzkLtVprzvwWzsdmC8Gq/H3z31AoefVKGRf2J7BybcQrXevlx3S2k0LZNCkEeg+767SP
- G9miIFXZVZ/TWLWv0Uxh+uIulwMjyqai5tkgFPfjBM9ZjSxcn7bBn3/8ue3y9einfxDc
- 3NUQ==
-X-Gm-Message-State: APjAAAWqP2FuqPZczc4tG3U3ud3btVmK0glBHHbzyskYBXt3MKIbiYwu
- pK8CqmuBoIQyb4pHo1qeZchA8NwO256pGzMTd/utQw==
-X-Google-Smtp-Source: APXvYqzhRZHagOk8MCS4WxswV2u7jOZOL8UuHiuBdm5QySlhumfkYxxiQlHiBvEfJLrl8zgvPswI3w/PYJvjd9MTWBU=
-X-Received: by 2002:a67:e94c:: with SMTP id p12mr8276324vso.84.1581952266628; 
- Mon, 17 Feb 2020 07:11:06 -0800 (PST)
-MIME-Version: 1.0
-References: <CAKzrAgTD2oeyajKGOaPea98vZ-uKJOn6uOqABA+CKtpvYpWYvQ@mail.gmail.com>
- <CAKzrAgTCE4btXr04pkvLUG6PPbtn9dm5h_9rjqDYG0HrTZ0zbg@mail.gmail.com>
- <87h80x8t41.wl-kuninori.morimoto.gx@renesas.com>
- <130af222-1086-ebcf-6a0f-9a390f9afbc3@linux.intel.com>
- <CAKzrAgRJZd4UZjt411vA8WwUv1KyVahVTNyUS8nA1TbKsA57dg@mail.gmail.com>
- <14259e97-72f5-439f-b2f1-356b6e45bcfb@linux.intel.com>
- <CAKzrAgQR0iZWPCudQ6k+RNWGk3L-=UU792RW6s7LxF+8wOPDUw@mail.gmail.com>
- <7de214eb-d6a0-3f86-9eb3-76488f0ec99f@linux.intel.com>
- <87r2001bsi.wl-kuninori.morimoto.gx@renesas.com>
- <6d0f1830-a2f0-997a-99cc-05c268acefc6@linux.intel.com>
- <20200116145708.GQ3897@sirena.org.uk>
-In-Reply-To: <20200116145708.GQ3897@sirena.org.uk>
-From: "ojab //" <ojab@ojab.ru>
-Date: Mon, 17 Feb 2020 18:10:54 +0300
-Message-ID: <CAKzrAgQapgQtxMLYjEe9mSaXp_uYxMyH8fwvoJqM3Or0sqqfiw@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Subject: Re: [alsa-devel] No sound since 5.4 on skl_n88l25_s4567
+ by alsa1.perex.cz (Postfix) with ESMTPS id 78C85F80096
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 16:19:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78C85F80096
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 7E3B8B2F1
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 15:19:49 +0000 (UTC)
+From: Takashi Iwai <tiwai@suse.de>
+To: alsa-devel@alsa-project.org
+Date: Mon, 17 Feb 2020 16:19:47 +0100
+Message-Id: <20200217151947.17528-1-tiwai@suse.de>
+X-Mailer: git-send-email 2.16.4
+Subject: [alsa-devel] [PATCH] ALSA: hda/realtek - Apply quirk for MSI GP63,
+	too
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,27 +59,37 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thu, Jan 16, 2020 at 5:57 PM Mark Brown <broonie@kernel.org> wrote:
->
-> On Wed, Jan 15, 2020 at 07:04:48PM -0600, Pierre-Louis Bossart wrote:
->
-> > Maybe we could have some sort of boolean flag in the component->driver
-> > definition and explicitly request a backwards-compatible behavior (e.g. for
-> > all SKL/KBL machine drivers) when that driver is known to be flaky. There's
-> > already things like 'fully_routed', maybe we can add something such as
-> > 'disable_route_check'?
->
-> A quirk for old stuff that can't be fixed sounds like a sensible
-> solution to this.
+The same quirk that was applied to MSI GL73 is needed for MSI GP63,
+too.  Adding the entry with the SSID 1462:1228.
 
-Any update on this?
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206503
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+---
+ sound/pci/hda/patch_realtek.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-//wbr ojab
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 6c8cb4ce517e..82485e06dde1 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -2447,6 +2447,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
+ 	SND_PCI_QUIRK(0x1071, 0x8258, "Evesham Voyaeger", ALC882_FIXUP_EAPD),
+ 	SND_PCI_QUIRK(0x1458, 0xa002, "Gigabyte EP45-DS3/Z87X-UD3H", ALC889_FIXUP_FRONT_HP_NO_PRESENCE),
+ 	SND_PCI_QUIRK(0x1458, 0xa0b8, "Gigabyte AZ370-Gaming", ALC1220_FIXUP_GB_DUAL_CODECS),
++	SND_PCI_QUIRK(0x1462, 0x1228, "MSI-GP63", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x1276, "MSI-GL73", ALC1220_FIXUP_CLEVO_P950),
+ 	SND_PCI_QUIRK(0x1462, 0x7350, "MSI-7350", ALC889_FIXUP_CD),
+ 	SND_PCI_QUIRK(0x1462, 0xda57, "MSI Z270-Gaming", ALC1220_FIXUP_GB_DUAL_CODECS),
+-- 
+2.16.4
+
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org

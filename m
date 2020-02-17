@@ -2,51 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 72FBF1615FD
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 16:21:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EF114161621
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 16:26:11 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E69CC166E;
-	Mon, 17 Feb 2020 16:20:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E69CC166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72A641672;
+	Mon, 17 Feb 2020 16:25:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72A641672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581952897;
-	bh=x2f9GAsXGmK3bsvO9hWOMf3QDavCsd638WNmj+yMqik=;
-	h=From:To:Date:Subject:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=MuRP5jrtOjVcfj1g7S29QrVVXqUU9AJdzeqhfFuj3l8aSHjQeUAurO6A2lFdfYV5C
-	 vZhVaGT+sgVsIOKjSHHDmgGN8pQ/prHY5dPv6UOtMyG68TvJAGTUY2c80+fjjWEpFu
-	 GJT1CPs/vmSeFTmh3a5PA7CKzyvD3ZkRsrDVJdfM=
+	s=default; t=1581953171;
+	bh=rE/hG0cfjxvN8w3fIGZZT2pTC0Z07YtHBGOI4Qh4SBc=;
+	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=bUz46MYLcDwtTRA9vVR+NWM7FsSUOIKInMcpZbtQQ05UU1Ii6x74FKKwNQ0itM01D
+	 MckQOd+xTZ41OakzLs2XUiuBvjN+GNWVWQQBuAFoKP8PpVrwVU14T7LDU76djn9LOv
+	 i6FYbghyy9bl3IA4VzqeDRqO4DmRqTPshmsUF1as=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 071BCF80096;
-	Mon, 17 Feb 2020 16:19:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7FB61F80096;
+	Mon, 17 Feb 2020 16:24:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 013D0F80172; Mon, 17 Feb 2020 16:19:52 +0100 (CET)
+ id C46F7F80172; Mon, 17 Feb 2020 16:24:27 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 78C85F80096
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 16:19:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 78C85F80096
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-Received: from relay2.suse.de (unknown [195.135.220.254])
- by mx2.suse.de (Postfix) with ESMTP id 7E3B8B2F1
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 15:19:49 +0000 (UTC)
-From: Takashi Iwai <tiwai@suse.de>
-To: alsa-devel@alsa-project.org
-Date: Mon, 17 Feb 2020 16:19:47 +0100
-Message-Id: <20200217151947.17528-1-tiwai@suse.de>
-X-Mailer: git-send-email 2.16.4
-Subject: [alsa-devel] [PATCH] ALSA: hda/realtek - Apply quirk for MSI GP63,
-	too
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 07D03F800C4
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 16:24:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07D03F800C4
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F112530E;
+ Mon, 17 Feb 2020 07:24:22 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74CEB3F703;
+ Mon, 17 Feb 2020 07:24:22 -0800 (PST)
+Date: Mon, 17 Feb 2020 15:24:20 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Samuel Holland <samuel@sholland.org>
+Message-ID: <20200217152420.GK9304@sirena.org.uk>
+References: <20200217064250.15516-1-samuel@sholland.org>
+ <20200217064250.15516-10-samuel@sholland.org>
+MIME-Version: 1.0
+In-Reply-To: <20200217064250.15516-10-samuel@sholland.org>
+X-Cookie: There was a phone call for you.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Vasily Khoruzhick <anarsoul@gmail.com>,
+ Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
+ =?iso-8859-1?Q?Myl=E8ne?= Josserand <mylene.josserand@free-electrons.com>,
+ stable@kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [alsa-devel] [RFC PATCH 09/34] ASoC: sun8i-codec: Fix broken
+	DAPM routing
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,38 +71,62 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============5296854945196220754=="
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The same quirk that was applied to MSI GL73 is needed for MSI GP63,
-too.  Adding the entry with the SSID 1462:1228.
 
-BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206503
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
----
- sound/pci/hda/patch_realtek.c | 1 +
- 1 file changed, 1 insertion(+)
+--===============5296854945196220754==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="opg8F0UgoHELSI+9"
+Content-Disposition: inline
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 6c8cb4ce517e..82485e06dde1 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -2447,6 +2447,7 @@ static const struct snd_pci_quirk alc882_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1071, 0x8258, "Evesham Voyaeger", ALC882_FIXUP_EAPD),
- 	SND_PCI_QUIRK(0x1458, 0xa002, "Gigabyte EP45-DS3/Z87X-UD3H", ALC889_FIXUP_FRONT_HP_NO_PRESENCE),
- 	SND_PCI_QUIRK(0x1458, 0xa0b8, "Gigabyte AZ370-Gaming", ALC1220_FIXUP_GB_DUAL_CODECS),
-+	SND_PCI_QUIRK(0x1462, 0x1228, "MSI-GP63", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1462, 0x1276, "MSI-GL73", ALC1220_FIXUP_CLEVO_P950),
- 	SND_PCI_QUIRK(0x1462, 0x7350, "MSI-7350", ALC889_FIXUP_CD),
- 	SND_PCI_QUIRK(0x1462, 0xda57, "MSI Z270-Gaming", ALC1220_FIXUP_GB_DUAL_CODECS),
--- 
-2.16.4
+
+--opg8F0UgoHELSI+9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Mon, Feb 17, 2020 at 12:42:25AM -0600, Samuel Holland wrote:
+
+> This commit provides the minimal necessary changes to the driver's
+> device tree ABI, so that the driver can begin to describe the full
+> hardware topology.
+
+> Cc: stable@kernel.org
+
+You're changing the ABI and trying to CC this to stable.  This is
+obviously not at all OK, this would mean that if someone got a stable
+update with this change the ABI break would mean that their existing
+device tree would not work.  The code should be making every effort to
+provide a stable ABI over new kernel releases, never mind within a
+stable point release.
+
+--opg8F0UgoHELSI+9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5KsCQACgkQJNaLcl1U
+h9DlOQf/fnliV8i6hOsjjmuPNKhYpYFB0CpQahOVaYcseah4KRMxgLYafPDPCBFi
+YOG1uPOnbNmX7j2Vk4tA4fobq2c9iAJjVUafUWsNm6qiftRtSKHw8NgpDcH/i5+A
+hQpjcJoW+zdzoV3a/l0/lA0Ntot3eligdLNJZEukfJTWU5KndAo0k6jJH0WNj3zw
+xjiw6WNJee1j6xkOZEWzHoIZNZ+eXQjebMa5KbArSwzBXVS3SeaYZ9eMCzph7OpI
+CXcIBWJssHvQlSxZeCjB64bwsBCbzUuRW6doz1Ikjn/IdAfjudwjwODeRENTKykJ
+JCEiaoF87UkEhPoF68ycyKTgcgrxRA==
+=pmEj
+-----END PGP SIGNATURE-----
+
+--opg8F0UgoHELSI+9--
+
+--===============5296854945196220754==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+
+--===============5296854945196220754==--

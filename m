@@ -2,95 +2,89 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16F7A16132A
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 14:21:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FEA816133C
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 14:24:13 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A72361677;
-	Mon, 17 Feb 2020 14:20:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A72361677
+	by alsa0.perex.cz (Postfix) with ESMTPS id D68F282A;
+	Mon, 17 Feb 2020 14:23:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D68F282A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581945702;
-	bh=9PreaBNOk5WPBbfvEz9rgcf1z1T/OioURMe9DWOc7PE=;
-	h=References:From:To:In-reply-to:Date:Cc:Subject:List-Id:
+	s=default; t=1581945852;
+	bh=pfASghQluCZIK+bryqUGI/qFyapPo49hN5AONNQPlnQ=;
+	h=To:References:From:Date:In-Reply-To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h7CbfaFarXz8dCT+RM20vEoT1OspkKHJ0SlpjFaxHfO5SMXC4DfZqqtigFQq81p5E
-	 CpR5bXydV2ZrXy1qrLiTGYpLFrSecHchMQ9Bc29GuCsKuaZfvQjZC63HhXkiQjHN43
-	 yF6dRh0qvIKNfL1fmqKCFVQII4UNDtQ5IetFQoI0=
+	b=JXNDY/ZmWXhhYAxiSNoP+ozZg36kLqxDuFr7Z8h2LcgblKKA5yeXRvaUUJIYqhlVc
+	 NYdL1iNnEC2L0wxg9mSiwkT+pNSJ4aJizFj+Ij9YiFV02zRCo3vUyA0e6chJaIXsyF
+	 j8JJ3cA5OJc77HqSzVrrGkxxaGEsUL+DhSywTJ6A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D2415F80233;
-	Mon, 17 Feb 2020 14:19:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E9F53F80096;
+	Mon, 17 Feb 2020 14:22:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 62E61F80172; Mon, 17 Feb 2020 14:18:51 +0100 (CET)
+ id 8DEAAF80172; Mon, 17 Feb 2020 14:22:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- PRX_BODYSUB_18,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=1.5 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODYSUB_18,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E196EF80096
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 14:18:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E196EF80096
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5FD1BF80096
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 14:22:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5FD1BF80096
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="bu1b6jMv"
-Received: by mail-wr1-x444.google.com with SMTP id n10so17752665wrm.1
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 05:18:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=references:user-agent:from:to:cc:subject:in-reply-to:date
- :message-id:mime-version;
- bh=YsWUgG/A1RZWWoaKKpKtl6eolamJNCA8Zl+/ra7bXwo=;
- b=bu1b6jMv6E2v000SuMorlPfUd6XRDkUoKnvwiHwZoMHbWBGLX5+Opkcv5SUahJFjxq
- cflEM4E92DiUtK84pEdyZNZzFDZi050+zm12D9jVW1FY95FkOBru8fVHglsjLvrF47zm
- q4WUXSVhW7LgeUVisf2LHEkSvH5Gzq5BbhXhPeSSnh5+t0wpPZtA/8m/BMQPXMjj80Ya
- LlQKwG0w9Mz4btcToPxvTfAYYIYrsNLJOAusI3GTRNPFw8Je4mCeo960Kd9Z29sseRVk
- m65IcIw6Oq6hTQh2S750t1kPMPMIxojcHjP4Q1tdvNXSMM4ratjIKRbYGKNW1topyamY
- IoXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject
- :in-reply-to:date:message-id:mime-version;
- bh=YsWUgG/A1RZWWoaKKpKtl6eolamJNCA8Zl+/ra7bXwo=;
- b=iwaf0F6up6eXavk8hTT7i6Q+luxuTl20fNdz8xs6BMISPuYJkswA3RMkNz/flRpKX2
- D6udr9Mib/J37Oz4cZI+Pzk37V4jV+tQJzfDIgGl93AxE4u8VU5exw3LHhftwohXTHou
- LDJB+KCThQXbkesOXLvvFf+aCye1AtFK7LXqhtXVhLiBWcZbTVOOQGvF7UlAu7BjdoVT
- 9xBTBdUAH9XCH56pnKME79tgAW0/Nm7IZ29ga0qT7jIn6E38Q5QOVgpm+Wxn0bRv9H8a
- HdnKwNZy6Qhd5e5UP7fR5sbwsRF7Qxyt/qaFlsokUocJeUZGdn4C/KCa6o+CpOBV5wLR
- 7SJQ==
-X-Gm-Message-State: APjAAAV9ytgTroVFmoEVHuOXQl05BmKtexL4jnVS/RdYvRLCVaxNmuDb
- nzf5aMtKXGONVM0iZvoqp6q3kw==
-X-Google-Smtp-Source: APXvYqyVzViNW8p+semJPrLGxN45G6nSsz6IAD2iJV9BNgd+4KsxAmit2+YXh/IlG6lm+0Fqsrsoug==
-X-Received: by 2002:adf:806c:: with SMTP id 99mr21298879wrk.328.1581945522687; 
- Mon, 17 Feb 2020 05:18:42 -0800 (PST)
-Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
- [90.63.244.31])
- by smtp.gmail.com with ESMTPSA id s1sm903553wro.66.2020.02.17.05.18.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2020 05:18:41 -0800 (PST)
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="KmGaC1ET"
+Received: from lelv0265.itg.ti.com ([10.180.67.224])
+ by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01HDMGZl068170;
+ Mon, 17 Feb 2020 07:22:16 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1581945736;
+ bh=bvLUBeYztx/CgIqExJFNFdBzNBWf7vXfx+mjvD/XCkc=;
+ h=Subject:To:CC:References:From:Date:In-Reply-To;
+ b=KmGaC1ETFvw+fuSOinAXCHNPVV5o6z8uDr8tf2QcZpoZo4rGxaba4+p3ekvHLVGzT
+ f9kQwFB05Lu31ZYYhFcyVA55l1K6GLrWkmi2KyTiM31zgJPU55AkpEFotNgqA6b/hp
+ rHOuRuti0JYCspir7eTwSG5al6Ni4kahh6xFnHeA=
+Received: from DFLE106.ent.ti.com (dfle106.ent.ti.com [10.64.6.27])
+ by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01HDMGI3068205
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 17 Feb 2020 07:22:16 -0600
+Received: from DFLE100.ent.ti.com (10.64.6.21) by DFLE106.ent.ti.com
+ (10.64.6.27) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Mon, 17
+ Feb 2020 07:22:16 -0600
+Received: from fllv0039.itg.ti.com (10.64.41.19) by DFLE100.ent.ti.com
+ (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Mon, 17 Feb 2020 07:22:16 -0600
+Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01HDMDBs018786;
+ Mon, 17 Feb 2020 07:22:14 -0600
+To: Marek Szyprowski <m.szyprowski@samsung.com>, Mark Brown
+ <broonie@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>, Vinod
+ <vkoul@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>
 References: <applied-20200214134704.342501-1-jbrunet@baylibre.com>
  <CGME20200217121336eucas1p2deb35417f5c4646a89762fd6146c3cf9@eucas1p2.samsung.com>
  <f666e600-2b44-f1fa-7ccf-aa44da6b8979@samsung.com>
-User-agent: mu4e 1.3.3; emacs 26.3
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- Mark Brown <broonie@kernel.org>
-In-reply-to: <f666e600-2b44-f1fa-7ccf-aa44da6b8979@samsung.com>
-Date: Mon, 17 Feb 2020 14:18:41 +0100
-Message-ID: <1jlfp1z70u.fsf@starbuckisacylon.baylibre.com>
+From: Peter Ujfalusi <peter.ujfalusi@ti.com>
+Message-ID: <427d2360-d67c-48cf-327e-c764182a2758@ti.com>
+Date: Mon, 17 Feb 2020 15:22:21 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
- linux-kernel@vger.kernel.org
+In-Reply-To: <f666e600-2b44-f1fa-7ccf-aa44da6b8979@samsung.com>
+Content-Language: en-US
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: "dmaengine@vger.kernel.org" <dmaengine@vger.kernel.org>,
+ linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
+ Liam Girdwood <lgirdwood@gmail.com>,
+ linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>
 Subject: Re: [alsa-devel] Applied "ASoC: core: ensure component names are
-	unique" to the asoc tree
+ unique" to the asoc tree
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,253 +97,173 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
-On Mon 17 Feb 2020 at 13:13, Marek Szyprowski <m.szyprowski@samsung.com> wrote:
-
-> Dear All,
->
-> On 14.02.2020 21:56, Mark Brown wrote:
->> The patch
->>
->>     ASoC: core: ensure component names are unique
->>
->> has been applied to the asoc tree at
->>
->>     https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git
->>
->> All being well this means that it will be integrated into the linux-next
->> tree (usually sometime in the next 24 hours) and sent to Linus during
->> the next merge window (or sooner if it is a bug fix), however if
->> problems are discovered then the patch may be dropped or reverted.
->>
->> You may get further e-mails resulting from automated or manual testing
->> and review of the tree, please engage with people reporting problems and
->> send followup patches addressing any issues that are reported if needed.
->>
->> If any updates are required or you are submitting further changes they
->> should be sent as incremental updates against current git, existing
->> patches will not be replaced.
->>
->> Please add any relevant lists and maintainers to the CCs when replying
->> to this mail.
->>
->> Thanks,
->> Mark
->>
->>  From b2354e4009a773c00054b964d937e1b81cb92078 Mon Sep 17 00:00:00 2001
->> From: Jerome Brunet <jbrunet@baylibre.com>
->> Date: Fri, 14 Feb 2020 14:47:04 +0100
->> Subject: [PATCH] ASoC: core: ensure component names are unique
->>
->> Make sure each ASoC component is registered with a unique name.
->> The component is derived from the device name. If a device registers more
->> than one component, the component names will be the same.
->>
->> This usually brings up a warning about the debugfs directory creation of
->> the component since directory already exists.
->>
->> In such case, start numbering the component of the device so the names
->> don't collide anymore.
->>
->> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
->> Link: https://lore.kernel.org/r/20200214134704.342501-1-jbrunet@baylibre.com
->> Signed-off-by: Mark Brown <broonie@kernel.org>
->
-> This patch landed in today's linux-next and I've noticed that it breaks 
-> registration of VC4 DRM driver on Raspberry Pi3 boards (I've compiled 
-> kernel from bcm2835_defconfig):
-
-I think I have an idea about what is going on. (good catch in the defer BTW)
-
-1) Funny to see that the vc4-hdmi already registers several (3) ASoC
-components. It must have had warning about the debugfs entry before this patch.
-
-2) Let say that vc4 hdmi driver defers after the registration of the 2nd
-component (/drivers/gpu/drm/vc4/vc4-hdmi.c:1082). The devm callback of
-the 2nd component will run first and call
-snd_soc_unregister_component(). The catch is that this function
-unregisters all the components registered by the linux device so far.
-
-3) Then the devm callback of the dma_engine will run
-snd_dmaengine_pcm_unregister()
-(sound/soc/soc-generic-dmaengine-pcm.c:466) and the lookup will not find
-the component dmaengine component since it is already unregistered. The
-function bails out and dmaengine_pcm_release_chan() is not run.
-
-4) Next time the hdmi driver tries to probe, the it will fail to
-allocate the DMA channel because the sysfs entry already exists.
-
-I would suspect that any driver doing:
-1) devm_snd_dmaengine_pcm_register()
-2) devm_snd_soc_register_component()
-could be exposed to this issue, even before this patch.
-I don't really get is triggering the issue in this change.
-
-Maybe it would be better if the devm callback of
-devm_snd_soc_register_component() unregistered only the related component.
-
->
-> sysfs: cannot create duplicate filename 
-> '/devices/platform/soc/3f902000.hdmi/dma:audio-rx'
-> CPU: 0 PID: 67 Comm: kworker/0:2 Tainted: G        W 
-> 5.6.0-rc2-next-20200217 #314
-> Hardware name: BCM2835
-> Workqueue: events deferred_probe_work_func
-> Backtrace:
-> [<c010c424>] (dump_backtrace) from [<c010c8a8>] (show_stack+0x20/0x24)
->   r7:eb73d5c0 r6:eb53a8f0 r5:eb73d5c0 r4:eb4d3000
-> [<c010c888>] (show_stack) from [<c080ad40>] (dump_stack+0x20/0x28)
-> [<c080ad20>] (dump_stack) from [<c02be6e0>] (sysfs_warn_dup+0x60/0x74)
-> [<c02be680>] (sysfs_warn_dup) from [<c02bea00>] 
-> (sysfs_do_create_link_sd+0xa4/0xc0)
->   r7:eb73d5c0 r6:eb53a8f0 r5:eb6becb8 r4:ffffffef
-> [<c02be95c>] (sysfs_do_create_link_sd) from [<c02beb68>] 
-> (sysfs_create_link+0x34/0x44)
->   r9:eb698c40 r8:c093e47c r7:00000000 r6:eb537e10 r5:eb6f9900 r4:eb537e10
-> [<c02beb34>] (sysfs_create_link) from [<c0415afc>] 
-> (dma_request_chan+0x1b8/0x208)
-> [<c0415944>] (dma_request_chan) from [<c05f25a0>] 
-> (snd_dmaengine_pcm_register+0xf4/0x1bc)
->   r10:c0963460 r9:eb537e10 r8:c093e47c r7:00000000 r6:eb537e10 r5:eb6f9900
->   r4:c093e468
-> [<c05f24ac>] (snd_dmaengine_pcm_register) from [<c05f0ebc>] 
-> (devm_snd_dmaengine_pcm_register+0x4c/0x84)
->   r10:eb715c4c r9:c093e3d4 r8:eb537e00 r7:00000000 r6:eb537e10 r5:eb7ca240
->   r4:c093e468
-> [<c05f0e70>] (devm_snd_dmaengine_pcm_register) from [<c0492dc0>] 
-> (vc4_hdmi_bind+0x3a8/0x590)
->   r7:eb537e10 r6:eb537e10 r5:eb715440 r4:eb715c40
-> [<c0492a18>] (vc4_hdmi_bind) from [<c049b6e0>] 
-> (component_bind_all+0x128/0x238)
->   r10:eb7267c0 r9:00000008 r8:eb73f800 r7:00000018 r6:00000000 r5:eb7016c0
->   r4:eb6c9240
-> [<c049b5b8>] (component_bind_all) from [<c048c150>] 
-> (vc4_drm_bind+0xe4/0x17c)
->   r9:00000008 r8:eb6c88c0 r7:eb6a2840 r6:eb53b210 r5:00000000 r4:eb73f800
-> [<c048c06c>] (vc4_drm_bind) from [<c049adc8>] 
-> (try_to_bring_up_master+0x190/0x264)
->   r7:eb6a2840 r6:000000a8 r5:eb7267c0 r4:eb6c9240
-> [<c049ac38>] (try_to_bring_up_master) from [<c049b13c>] 
-> (__component_add+0x80/0x114)
->   r10:c0d57488 r9:00000012 r8:00000000 r7:eb6c9240 r6:c093e924 r5:c0d572f8
->   r4:eb7267c0
-> [<c049b0bc>] (__component_add) from [<c049b1ec>] (component_add+0x1c/0x20)
->   r7:c0d56f7c r6:c0d56f7c r5:eb534a10 r4:00000000
-> [<c049b1d0>] (component_add) from [<c0493864>] (vc4_vec_dev_probe+0x20/0x28)
-> [<c0493844>] (vc4_vec_dev_probe) from [<c04a43a4>] 
-> (platform_drv_probe+0x58/0xa8)
-> [<c04a434c>] (platform_drv_probe) from [<c04a2298>] 
-> (really_probe+0x1a8/0x428)
->   r7:c0d56f7c r6:00000000 r5:c0e579b8 r4:eb534a10
-> [<c04a20f0>] (really_probe) from [<c04a2840>] 
-> (driver_probe_device+0x158/0x1ac)
->   r9:00000000 r8:00000001 r7:eb70fe9c r6:c0d56f7c r5:c0d56f7c r4:eb534a10
-> [<c04a26e8>] (driver_probe_device) from [<c04a2a40>] 
-> (__device_attach_driver+0xb0/0xf8)
->   r9:00000000 r8:00000001 r7:eb70fe9c r6:c0d56f7c r5:eb534a10 r4:00000001
-> [<c04a2990>] (__device_attach_driver) from [<c04a0408>] 
-> (bus_for_each_drv+0xa0/0xc8)
->   r7:c04a2990 r6:eb70fe9c r5:c0d04248 r4:00000000
-> [<c04a0368>] (bus_for_each_drv) from [<c04a25bc>] 
-> (__device_attach+0xa4/0x158)
->   r7:eb534a54 r6:c0d04248 r5:c0d576a8 r4:eb534a10
-> [<c04a2518>] (__device_attach) from [<c04a2aa4>] 
-> (device_initial_probe+0x1c/0x20)
->   r8:eb9c7300 r7:00000000 r6:eb534a10 r5:c0d576a8 r4:eb534a10
-> [<c04a2a88>] (device_initial_probe) from [<c04a12d4>] 
-> (bus_probe_device+0x38/0x90)
-> [<c04a129c>] (bus_probe_device) from [<c04a1848>] 
-> (deferred_probe_work_func+0x70/0xb0)
->   r7:00000000 r6:c0d57478 r5:c0d5746c r4:eb534a10
-> [<c04a17d8>] (deferred_probe_work_func) from [<c0135a50>] 
-> (process_one_work+0x1a8/0x2ac)
->   r7:00000000 r6:c0d0c8a4 r5:c0d57484 r4:eb6ed880
-> [<c01358a8>] (process_one_work) from [<c0136ddc>] 
-> (worker_thread+0x1f0/0x2e8)
->   r10:00000000 r9:c0d156e0 r8:c0d0c8b8 r7:c0d156e0 r6:c0d0c8a4 r5:eb6ed894
->   r4:eb6ed880
-> [<c0136bec>] (worker_thread) from [<c013b5a0>] (kthread+0x120/0x130)
->   r10:00000000 r9:eb6f5018 r8:eb4e9e98 r7:c0136bec r6:eb6ed880 r5:eb6e6b40
->   r4:eb6f5000 r3:00000000
-> [<c013b480>] (kthread) from [<c01010e8>] (ret_from_fork+0x14/0x2c)
-> Exception stack(0xeb70ffb0 to 0xeb70fff8)
-> ffa0:                                     00000000 00000000 00000000 
-> 00000000
-> ffc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 
-> 00000000
-> ffe0: 00000000 00000000 00000000 00000000 00000013 00000000
->   r9:00000000 r8:00000000 r7:00000000 r6:00000000 r5:c013b480 r4:eb6e6b40
-> vc4_hdmi 3f902000.hdmi: Cannot create DMA dma:audio-rx symlink
-> vc4_hdmi 3f902000.hdmi: ASoC: CODEC DAI vc4-hdmi-hifi not registered
-> vc4_hdmi 3f902000.hdmi: Could not register sound card: -517
-> vc4-drm soc:gpu: failed to bind 3f902000.hdmi (ops vc4_hdmi_ops): -517
-> vc4-drm soc:gpu: master bind failed: -517
->
-> Reverting this patch fixes vc4-drm driver registration and 
-> initialization. If I find some spare time I will debug this issue 
-> further, but it looks that it is somehow related to deferred probe.
->
->
->> ---
->>   sound/soc/soc-core.c | 29 ++++++++++++++++++++++++++++-
->>   1 file changed, 28 insertions(+), 1 deletion(-)
->>
->> diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
->> index 03b87427faa7..6a58a8f6e3c4 100644
->> --- a/sound/soc/soc-core.c
->> +++ b/sound/soc/soc-core.c
->> @@ -2446,6 +2446,33 @@ static int snd_soc_register_dais(struct snd_soc_component *component,
->>   	return ret;
->>   }
->>   
->> +static char *snd_soc_component_unique_name(struct device *dev,
->> +					   struct snd_soc_component *component)
->> +{
->> +	struct snd_soc_component *pos;
->> +	int count = 0;
->> +	char *name, *unique;
->> +
->> +	name = fmt_single_name(dev, &component->id);
->> +	if (!name)
->> +		return name;
->> +
->> +	/* Count the number of components registred by the device */
->> +	for_each_component(pos) {
->> +		if (dev == pos->dev)
->> +			count++;
->> +	}
->> +
->> +	/* Keep naming as it is for the 1st component */
->> +	if (!count)
->> +		return name;
->> +
->> +	unique = devm_kasprintf(dev, GFP_KERNEL, "%s-%d", name, count);
->> +	devm_kfree(dev, name);
->> +
->> +	return unique;
->> +}
->> +
->>   static int snd_soc_component_initialize(struct snd_soc_component *component,
->>   	const struct snd_soc_component_driver *driver, struct device *dev)
->>   {
->> @@ -2454,7 +2481,7 @@ static int snd_soc_component_initialize(struct snd_soc_component *component,
->>   	INIT_LIST_HEAD(&component->card_list);
->>   	mutex_init(&component->io_mutex);
->>   
->> -	component->name = fmt_single_name(dev, &component->id);
->> +	component->name = snd_soc_component_unique_name(dev, component);
->>   	if (!component->name) {
->>   		dev_err(dev, "ASoC: Failed to allocate name\n");
->>   		return -ENOMEM;
->
-> Best regards
-
-_______________________________________________
-Alsa-devel mailing list
-Alsa-devel@alsa-project.org
-https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
+SGksCgpPbiAxNy8wMi8yMDIwIDE0LjEzLCBNYXJlayBTenlwcm93c2tpIHdyb3RlOgo+IERlYXIg
+QWxsLAoKQWRkaW5nIFZpbm9kIGFuZCBHZWVydCArIGRtYWVuZ2luZSBsaXN0Cgo+IAo+IE9uIDE0
+LjAyLjIwMjAgMjE6NTYsIE1hcmsgQnJvd24gd3JvdGU6Cj4+IFRoZSBwYXRjaAo+Pgo+PiAgICAg
+QVNvQzogY29yZTogZW5zdXJlIGNvbXBvbmVudCBuYW1lcyBhcmUgdW5pcXVlCj4+Cj4+IGhhcyBi
+ZWVuIGFwcGxpZWQgdG8gdGhlIGFzb2MgdHJlZSBhdAo+Pgo+PiAgICAgaHR0cHM6Ly9naXQua2Vy
+bmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvYnJvb25pZS9zb3VuZC5naXQKPj4KPj4g
+QWxsIGJlaW5nIHdlbGwgdGhpcyBtZWFucyB0aGF0IGl0IHdpbGwgYmUgaW50ZWdyYXRlZCBpbnRv
+IHRoZSBsaW51eC1uZXh0Cj4+IHRyZWUgKHVzdWFsbHkgc29tZXRpbWUgaW4gdGhlIG5leHQgMjQg
+aG91cnMpIGFuZCBzZW50IHRvIExpbnVzIGR1cmluZwo+PiB0aGUgbmV4dCBtZXJnZSB3aW5kb3cg
+KG9yIHNvb25lciBpZiBpdCBpcyBhIGJ1ZyBmaXgpLCBob3dldmVyIGlmCj4+IHByb2JsZW1zIGFy
+ZSBkaXNjb3ZlcmVkIHRoZW4gdGhlIHBhdGNoIG1heSBiZSBkcm9wcGVkIG9yIHJldmVydGVkLgo+
+Pgo+PiBZb3UgbWF5IGdldCBmdXJ0aGVyIGUtbWFpbHMgcmVzdWx0aW5nIGZyb20gYXV0b21hdGVk
+IG9yIG1hbnVhbCB0ZXN0aW5nCj4+IGFuZCByZXZpZXcgb2YgdGhlIHRyZWUsIHBsZWFzZSBlbmdh
+Z2Ugd2l0aCBwZW9wbGUgcmVwb3J0aW5nIHByb2JsZW1zIGFuZAo+PiBzZW5kIGZvbGxvd3VwIHBh
+dGNoZXMgYWRkcmVzc2luZyBhbnkgaXNzdWVzIHRoYXQgYXJlIHJlcG9ydGVkIGlmIG5lZWRlZC4K
+Pj4KPj4gSWYgYW55IHVwZGF0ZXMgYXJlIHJlcXVpcmVkIG9yIHlvdSBhcmUgc3VibWl0dGluZyBm
+dXJ0aGVyIGNoYW5nZXMgdGhleQo+PiBzaG91bGQgYmUgc2VudCBhcyBpbmNyZW1lbnRhbCB1cGRh
+dGVzIGFnYWluc3QgY3VycmVudCBnaXQsIGV4aXN0aW5nCj4+IHBhdGNoZXMgd2lsbCBub3QgYmUg
+cmVwbGFjZWQuCj4+Cj4+IFBsZWFzZSBhZGQgYW55IHJlbGV2YW50IGxpc3RzIGFuZCBtYWludGFp
+bmVycyB0byB0aGUgQ0NzIHdoZW4gcmVwbHlpbmcKPj4gdG8gdGhpcyBtYWlsLgo+Pgo+PiBUaGFu
+a3MsCj4+IE1hcmsKPj4KPj4gIEZyb20gYjIzNTRlNDAwOWE3NzNjMDAwNTRiOTY0ZDkzN2UxYjgx
+Y2I5MjA3OCBNb24gU2VwIDE3IDAwOjAwOjAwIDIwMDEKPj4gRnJvbTogSmVyb21lIEJydW5ldCA8
+amJydW5ldEBiYXlsaWJyZS5jb20+Cj4+IERhdGU6IEZyaSwgMTQgRmViIDIwMjAgMTQ6NDc6MDQg
+KzAxMDAKPj4gU3ViamVjdDogW1BBVENIXSBBU29DOiBjb3JlOiBlbnN1cmUgY29tcG9uZW50IG5h
+bWVzIGFyZSB1bmlxdWUKPj4KPj4gTWFrZSBzdXJlIGVhY2ggQVNvQyBjb21wb25lbnQgaXMgcmVn
+aXN0ZXJlZCB3aXRoIGEgdW5pcXVlIG5hbWUuCj4+IFRoZSBjb21wb25lbnQgaXMgZGVyaXZlZCBm
+cm9tIHRoZSBkZXZpY2UgbmFtZS4gSWYgYSBkZXZpY2UgcmVnaXN0ZXJzIG1vcmUKPj4gdGhhbiBv
+bmUgY29tcG9uZW50LCB0aGUgY29tcG9uZW50IG5hbWVzIHdpbGwgYmUgdGhlIHNhbWUuCj4+Cj4+
+IFRoaXMgdXN1YWxseSBicmluZ3MgdXAgYSB3YXJuaW5nIGFib3V0IHRoZSBkZWJ1Z2ZzIGRpcmVj
+dG9yeSBjcmVhdGlvbiBvZgo+PiB0aGUgY29tcG9uZW50IHNpbmNlIGRpcmVjdG9yeSBhbHJlYWR5
+IGV4aXN0cy4KPj4KPj4gSW4gc3VjaCBjYXNlLCBzdGFydCBudW1iZXJpbmcgdGhlIGNvbXBvbmVu
+dCBvZiB0aGUgZGV2aWNlIHNvIHRoZSBuYW1lcwo+PiBkb24ndCBjb2xsaWRlIGFueW1vcmUuCj4+
+Cj4+IFNpZ25lZC1vZmYtYnk6IEplcm9tZSBCcnVuZXQgPGpicnVuZXRAYmF5bGlicmUuY29tPgo+
+PiBMaW5rOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9yLzIwMjAwMjE0MTM0NzA0LjM0MjUwMS0x
+LWpicnVuZXRAYmF5bGlicmUuY29tCj4+IFNpZ25lZC1vZmYtYnk6IE1hcmsgQnJvd24gPGJyb29u
+aWVAa2VybmVsLm9yZz4KPiAKPiBUaGlzIHBhdGNoIGxhbmRlZCBpbiB0b2RheSdzIGxpbnV4LW5l
+eHQgYW5kIEkndmUgbm90aWNlZCB0aGF0IGl0IGJyZWFrcyAKPiByZWdpc3RyYXRpb24gb2YgVkM0
+IERSTSBkcml2ZXIgb24gUmFzcGJlcnJ5IFBpMyBib2FyZHMgKEkndmUgY29tcGlsZWQgCj4ga2Vy
+bmVsIGZyb20gYmNtMjgzNV9kZWZjb25maWcpOgo+IAo+IHN5c2ZzOiBjYW5ub3QgY3JlYXRlIGR1
+cGxpY2F0ZSBmaWxlbmFtZSAKPiAnL2RldmljZXMvcGxhdGZvcm0vc29jLzNmOTAyMDAwLmhkbWkv
+ZG1hOmF1ZGlvLXJ4JwoKSXQgbG9va3MgbGlrZSB0aGF0IERNQWVuZ2luZSB0cmllcyB0byBjcmVh
+dGUgdGhlIHNhbWUgbGluayBtdWx0aXBsZSB0aW1lcz8KCkknbSBub3Qgc3VyZSB3aHkgcmV2ZXJ0
+aW5nIHRoaXMgcGF0Y2ggZml4ZXMgdGhlIGlzc3VlLi4uCgotIFDDqXRlcgoKPiBDUFU6IDAgUElE
+OiA2NyBDb21tOiBrd29ya2VyLzA6MiBUYWludGVkOiBHwqDCoMKgwqDCoMKgwqAgVyAKPiA1LjYu
+MC1yYzItbmV4dC0yMDIwMDIxNyAjMzE0Cj4gSGFyZHdhcmUgbmFtZTogQkNNMjgzNQo+IFdvcmtx
+dWV1ZTogZXZlbnRzIGRlZmVycmVkX3Byb2JlX3dvcmtfZnVuYwo+IEJhY2t0cmFjZToKPiBbPGMw
+MTBjNDI0Pl0gKGR1bXBfYmFja3RyYWNlKSBmcm9tIFs8YzAxMGM4YTg+XSAoc2hvd19zdGFjaysw
+eDIwLzB4MjQpCj4gIMKgcjc6ZWI3M2Q1YzAgcjY6ZWI1M2E4ZjAgcjU6ZWI3M2Q1YzAgcjQ6ZWI0
+ZDMwMDAKPiBbPGMwMTBjODg4Pl0gKHNob3dfc3RhY2spIGZyb20gWzxjMDgwYWQ0MD5dIChkdW1w
+X3N0YWNrKzB4MjAvMHgyOCkKPiBbPGMwODBhZDIwPl0gKGR1bXBfc3RhY2spIGZyb20gWzxjMDJi
+ZTZlMD5dIChzeXNmc193YXJuX2R1cCsweDYwLzB4NzQpCj4gWzxjMDJiZTY4MD5dIChzeXNmc193
+YXJuX2R1cCkgZnJvbSBbPGMwMmJlYTAwPl0gCj4gKHN5c2ZzX2RvX2NyZWF0ZV9saW5rX3NkKzB4
+YTQvMHhjMCkKPiAgwqByNzplYjczZDVjMCByNjplYjUzYThmMCByNTplYjZiZWNiOCByNDpmZmZm
+ZmZlZgo+IFs8YzAyYmU5NWM+XSAoc3lzZnNfZG9fY3JlYXRlX2xpbmtfc2QpIGZyb20gWzxjMDJi
+ZWI2OD5dIAo+IChzeXNmc19jcmVhdGVfbGluaysweDM0LzB4NDQpCj4gIMKgcjk6ZWI2OThjNDAg
+cjg6YzA5M2U0N2Mgcjc6MDAwMDAwMDAgcjY6ZWI1MzdlMTAgcjU6ZWI2Zjk5MDAgcjQ6ZWI1Mzdl
+MTAKPiBbPGMwMmJlYjM0Pl0gKHN5c2ZzX2NyZWF0ZV9saW5rKSBmcm9tIFs8YzA0MTVhZmM+XSAK
+PiAoZG1hX3JlcXVlc3RfY2hhbisweDFiOC8weDIwOCkKPiBbPGMwNDE1OTQ0Pl0gKGRtYV9yZXF1
+ZXN0X2NoYW4pIGZyb20gWzxjMDVmMjVhMD5dIAo+IChzbmRfZG1hZW5naW5lX3BjbV9yZWdpc3Rl
+cisweGY0LzB4MWJjKQo+ICDCoHIxMDpjMDk2MzQ2MCByOTplYjUzN2UxMCByODpjMDkzZTQ3YyBy
+NzowMDAwMDAwMCByNjplYjUzN2UxMCByNTplYjZmOTkwMAo+ICDCoHI0OmMwOTNlNDY4Cj4gWzxj
+MDVmMjRhYz5dIChzbmRfZG1hZW5naW5lX3BjbV9yZWdpc3RlcikgZnJvbSBbPGMwNWYwZWJjPl0g
+Cj4gKGRldm1fc25kX2RtYWVuZ2luZV9wY21fcmVnaXN0ZXIrMHg0Yy8weDg0KQo+ICDCoHIxMDpl
+YjcxNWM0YyByOTpjMDkzZTNkNCByODplYjUzN2UwMCByNzowMDAwMDAwMCByNjplYjUzN2UxMCBy
+NTplYjdjYTI0MAo+ICDCoHI0OmMwOTNlNDY4Cj4gWzxjMDVmMGU3MD5dIChkZXZtX3NuZF9kbWFl
+bmdpbmVfcGNtX3JlZ2lzdGVyKSBmcm9tIFs8YzA0OTJkYzA+XSAKPiAodmM0X2hkbWlfYmluZCsw
+eDNhOC8weDU5MCkKPiAgwqByNzplYjUzN2UxMCByNjplYjUzN2UxMCByNTplYjcxNTQ0MCByNDpl
+YjcxNWM0MAo+IFs8YzA0OTJhMTg+XSAodmM0X2hkbWlfYmluZCkgZnJvbSBbPGMwNDliNmUwPl0g
+Cj4gKGNvbXBvbmVudF9iaW5kX2FsbCsweDEyOC8weDIzOCkKPiAgwqByMTA6ZWI3MjY3YzAgcjk6
+MDAwMDAwMDggcjg6ZWI3M2Y4MDAgcjc6MDAwMDAwMTggcjY6MDAwMDAwMDAgcjU6ZWI3MDE2YzAK
+PiAgwqByNDplYjZjOTI0MAo+IFs8YzA0OWI1Yjg+XSAoY29tcG9uZW50X2JpbmRfYWxsKSBmcm9t
+IFs8YzA0OGMxNTA+XSAKPiAodmM0X2RybV9iaW5kKzB4ZTQvMHgxN2MpCj4gIMKgcjk6MDAwMDAw
+MDggcjg6ZWI2Yzg4YzAgcjc6ZWI2YTI4NDAgcjY6ZWI1M2IyMTAgcjU6MDAwMDAwMDAgcjQ6ZWI3
+M2Y4MDAKPiBbPGMwNDhjMDZjPl0gKHZjNF9kcm1fYmluZCkgZnJvbSBbPGMwNDlhZGM4Pl0gCj4g
+KHRyeV90b19icmluZ191cF9tYXN0ZXIrMHgxOTAvMHgyNjQpCj4gIMKgcjc6ZWI2YTI4NDAgcjY6
+MDAwMDAwYTggcjU6ZWI3MjY3YzAgcjQ6ZWI2YzkyNDAKPiBbPGMwNDlhYzM4Pl0gKHRyeV90b19i
+cmluZ191cF9tYXN0ZXIpIGZyb20gWzxjMDQ5YjEzYz5dIAo+IChfX2NvbXBvbmVudF9hZGQrMHg4
+MC8weDExNCkKPiAgwqByMTA6YzBkNTc0ODggcjk6MDAwMDAwMTIgcjg6MDAwMDAwMDAgcjc6ZWI2
+YzkyNDAgcjY6YzA5M2U5MjQgcjU6YzBkNTcyZjgKPiAgwqByNDplYjcyNjdjMAo+IFs8YzA0OWIw
+YmM+XSAoX19jb21wb25lbnRfYWRkKSBmcm9tIFs8YzA0OWIxZWM+XSAoY29tcG9uZW50X2FkZCsw
+eDFjLzB4MjApCj4gIMKgcjc6YzBkNTZmN2MgcjY6YzBkNTZmN2MgcjU6ZWI1MzRhMTAgcjQ6MDAw
+MDAwMDAKPiBbPGMwNDliMWQwPl0gKGNvbXBvbmVudF9hZGQpIGZyb20gWzxjMDQ5Mzg2ND5dICh2
+YzRfdmVjX2Rldl9wcm9iZSsweDIwLzB4MjgpCj4gWzxjMDQ5Mzg0ND5dICh2YzRfdmVjX2Rldl9w
+cm9iZSkgZnJvbSBbPGMwNGE0M2E0Pl0gCj4gKHBsYXRmb3JtX2Rydl9wcm9iZSsweDU4LzB4YTgp
+Cj4gWzxjMDRhNDM0Yz5dIChwbGF0Zm9ybV9kcnZfcHJvYmUpIGZyb20gWzxjMDRhMjI5OD5dIAo+
+IChyZWFsbHlfcHJvYmUrMHgxYTgvMHg0MjgpCj4gIMKgcjc6YzBkNTZmN2MgcjY6MDAwMDAwMDAg
+cjU6YzBlNTc5YjggcjQ6ZWI1MzRhMTAKPiBbPGMwNGEyMGYwPl0gKHJlYWxseV9wcm9iZSkgZnJv
+bSBbPGMwNGEyODQwPl0gCj4gKGRyaXZlcl9wcm9iZV9kZXZpY2UrMHgxNTgvMHgxYWMpCj4gIMKg
+cjk6MDAwMDAwMDAgcjg6MDAwMDAwMDEgcjc6ZWI3MGZlOWMgcjY6YzBkNTZmN2MgcjU6YzBkNTZm
+N2MgcjQ6ZWI1MzRhMTAKPiBbPGMwNGEyNmU4Pl0gKGRyaXZlcl9wcm9iZV9kZXZpY2UpIGZyb20g
+WzxjMDRhMmE0MD5dIAo+IChfX2RldmljZV9hdHRhY2hfZHJpdmVyKzB4YjAvMHhmOCkKPiAgwqBy
+OTowMDAwMDAwMCByODowMDAwMDAwMSByNzplYjcwZmU5YyByNjpjMGQ1NmY3YyByNTplYjUzNGEx
+MCByNDowMDAwMDAwMQo+IFs8YzA0YTI5OTA+XSAoX19kZXZpY2VfYXR0YWNoX2RyaXZlcikgZnJv
+bSBbPGMwNGEwNDA4Pl0gCj4gKGJ1c19mb3JfZWFjaF9kcnYrMHhhMC8weGM4KQo+ICDCoHI3OmMw
+NGEyOTkwIHI2OmViNzBmZTljIHI1OmMwZDA0MjQ4IHI0OjAwMDAwMDAwCj4gWzxjMDRhMDM2OD5d
+IChidXNfZm9yX2VhY2hfZHJ2KSBmcm9tIFs8YzA0YTI1YmM+XSAKPiAoX19kZXZpY2VfYXR0YWNo
+KzB4YTQvMHgxNTgpCj4gIMKgcjc6ZWI1MzRhNTQgcjY6YzBkMDQyNDggcjU6YzBkNTc2YTggcjQ6
+ZWI1MzRhMTAKPiBbPGMwNGEyNTE4Pl0gKF9fZGV2aWNlX2F0dGFjaCkgZnJvbSBbPGMwNGEyYWE0
+Pl0gCj4gKGRldmljZV9pbml0aWFsX3Byb2JlKzB4MWMvMHgyMCkKPiAgwqByODplYjljNzMwMCBy
+NzowMDAwMDAwMCByNjplYjUzNGExMCByNTpjMGQ1NzZhOCByNDplYjUzNGExMAo+IFs8YzA0YTJh
+ODg+XSAoZGV2aWNlX2luaXRpYWxfcHJvYmUpIGZyb20gWzxjMDRhMTJkND5dIAo+IChidXNfcHJv
+YmVfZGV2aWNlKzB4MzgvMHg5MCkKPiBbPGMwNGExMjljPl0gKGJ1c19wcm9iZV9kZXZpY2UpIGZy
+b20gWzxjMDRhMTg0OD5dIAo+IChkZWZlcnJlZF9wcm9iZV93b3JrX2Z1bmMrMHg3MC8weGIwKQo+
+ICDCoHI3OjAwMDAwMDAwIHI2OmMwZDU3NDc4IHI1OmMwZDU3NDZjIHI0OmViNTM0YTEwCj4gWzxj
+MDRhMTdkOD5dIChkZWZlcnJlZF9wcm9iZV93b3JrX2Z1bmMpIGZyb20gWzxjMDEzNWE1MD5dIAo+
+IChwcm9jZXNzX29uZV93b3JrKzB4MWE4LzB4MmFjKQo+ICDCoHI3OjAwMDAwMDAwIHI2OmMwZDBj
+OGE0IHI1OmMwZDU3NDg0IHI0OmViNmVkODgwCj4gWzxjMDEzNThhOD5dIChwcm9jZXNzX29uZV93
+b3JrKSBmcm9tIFs8YzAxMzZkZGM+XSAKPiAod29ya2VyX3RocmVhZCsweDFmMC8weDJlOCkKPiAg
+wqByMTA6MDAwMDAwMDAgcjk6YzBkMTU2ZTAgcjg6YzBkMGM4Yjggcjc6YzBkMTU2ZTAgcjY6YzBk
+MGM4YTQgcjU6ZWI2ZWQ4OTQKPiAgwqByNDplYjZlZDg4MAo+IFs8YzAxMzZiZWM+XSAod29ya2Vy
+X3RocmVhZCkgZnJvbSBbPGMwMTNiNWEwPl0gKGt0aHJlYWQrMHgxMjAvMHgxMzApCj4gIMKgcjEw
+OjAwMDAwMDAwIHI5OmViNmY1MDE4IHI4OmViNGU5ZTk4IHI3OmMwMTM2YmVjIHI2OmViNmVkODgw
+IHI1OmViNmU2YjQwCj4gIMKgcjQ6ZWI2ZjUwMDAgcjM6MDAwMDAwMDAKPiBbPGMwMTNiNDgwPl0g
+KGt0aHJlYWQpIGZyb20gWzxjMDEwMTBlOD5dIChyZXRfZnJvbV9mb3JrKzB4MTQvMHgyYykKPiBF
+eGNlcHRpb24gc3RhY2soMHhlYjcwZmZiMCB0byAweGViNzBmZmY4KQo+IGZmYTA6wqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgIDAwMDAwMDAwIDAwMDAwMDAwIDAwMDAwMDAwIAo+IDAwMDAwMDAwCj4gZmZjMDogMDAw
+MDAwMDAgMDAwMDAwMDAgMDAwMDAwMDAgMDAwMDAwMDAgMDAwMDAwMDAgMDAwMDAwMDAgMDAwMDAw
+MDAgCj4gMDAwMDAwMDAKPiBmZmUwOiAwMDAwMDAwMCAwMDAwMDAwMCAwMDAwMDAwMCAwMDAwMDAw
+MCAwMDAwMDAxMyAwMDAwMDAwMAo+ICDCoHI5OjAwMDAwMDAwIHI4OjAwMDAwMDAwIHI3OjAwMDAw
+MDAwIHI2OjAwMDAwMDAwIHI1OmMwMTNiNDgwIHI0OmViNmU2YjQwCj4gdmM0X2hkbWkgM2Y5MDIw
+MDAuaGRtaTogQ2Fubm90IGNyZWF0ZSBETUEgZG1hOmF1ZGlvLXJ4IHN5bWxpbmsKPiB2YzRfaGRt
+aSAzZjkwMjAwMC5oZG1pOiBBU29DOiBDT0RFQyBEQUkgdmM0LWhkbWktaGlmaSBub3QgcmVnaXN0
+ZXJlZAo+IHZjNF9oZG1pIDNmOTAyMDAwLmhkbWk6IENvdWxkIG5vdCByZWdpc3RlciBzb3VuZCBj
+YXJkOiAtNTE3Cj4gdmM0LWRybSBzb2M6Z3B1OiBmYWlsZWQgdG8gYmluZCAzZjkwMjAwMC5oZG1p
+IChvcHMgdmM0X2hkbWlfb3BzKTogLTUxNwo+IHZjNC1kcm0gc29jOmdwdTogbWFzdGVyIGJpbmQg
+ZmFpbGVkOiAtNTE3Cj4gCj4gUmV2ZXJ0aW5nIHRoaXMgcGF0Y2ggZml4ZXMgdmM0LWRybSBkcml2
+ZXIgcmVnaXN0cmF0aW9uIGFuZCAKPiBpbml0aWFsaXphdGlvbi4gSWYgSSBmaW5kIHNvbWUgc3Bh
+cmUgdGltZSBJIHdpbGwgZGVidWcgdGhpcyBpc3N1ZSAKPiBmdXJ0aGVyLCBidXQgaXQgbG9va3Mg
+dGhhdCBpdCBpcyBzb21laG93IHJlbGF0ZWQgdG8gZGVmZXJyZWQgcHJvYmUuCj4gCj4gCj4+IC0t
+LQo+PiAgIHNvdW5kL3NvYy9zb2MtY29yZS5jIHwgMjkgKysrKysrKysrKysrKysrKysrKysrKysr
+KysrKy0KPj4gICAxIGZpbGUgY2hhbmdlZCwgMjggaW5zZXJ0aW9ucygrKSwgMSBkZWxldGlvbigt
+KQo+Pgo+PiBkaWZmIC0tZ2l0IGEvc291bmQvc29jL3NvYy1jb3JlLmMgYi9zb3VuZC9zb2Mvc29j
+LWNvcmUuYwo+PiBpbmRleCAwM2I4NzQyN2ZhYTcuLjZhNThhOGY2ZTNjNCAxMDA2NDQKPj4gLS0t
+IGEvc291bmQvc29jL3NvYy1jb3JlLmMKPj4gKysrIGIvc291bmQvc29jL3NvYy1jb3JlLmMKPj4g
+QEAgLTI0NDYsNiArMjQ0NiwzMyBAQCBzdGF0aWMgaW50IHNuZF9zb2NfcmVnaXN0ZXJfZGFpcyhz
+dHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCwKPj4gICAJcmV0dXJuIHJldDsKPj4g
+ICB9Cj4+ICAgCj4+ICtzdGF0aWMgY2hhciAqc25kX3NvY19jb21wb25lbnRfdW5pcXVlX25hbWUo
+c3RydWN0IGRldmljZSAqZGV2LAo+PiArCQkJCQkgICBzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQg
+KmNvbXBvbmVudCkKPj4gK3sKPj4gKwlzdHJ1Y3Qgc25kX3NvY19jb21wb25lbnQgKnBvczsKPj4g
+KwlpbnQgY291bnQgPSAwOwo+PiArCWNoYXIgKm5hbWUsICp1bmlxdWU7Cj4+ICsKPj4gKwluYW1l
+ID0gZm10X3NpbmdsZV9uYW1lKGRldiwgJmNvbXBvbmVudC0+aWQpOwo+PiArCWlmICghbmFtZSkK
+Pj4gKwkJcmV0dXJuIG5hbWU7Cj4+ICsKPj4gKwkvKiBDb3VudCB0aGUgbnVtYmVyIG9mIGNvbXBv
+bmVudHMgcmVnaXN0cmVkIGJ5IHRoZSBkZXZpY2UgKi8KPj4gKwlmb3JfZWFjaF9jb21wb25lbnQo
+cG9zKSB7Cj4+ICsJCWlmIChkZXYgPT0gcG9zLT5kZXYpCj4+ICsJCQljb3VudCsrOwo+PiArCX0K
+Pj4gKwo+PiArCS8qIEtlZXAgbmFtaW5nIGFzIGl0IGlzIGZvciB0aGUgMXN0IGNvbXBvbmVudCAq
+Lwo+PiArCWlmICghY291bnQpCj4+ICsJCXJldHVybiBuYW1lOwo+PiArCj4+ICsJdW5pcXVlID0g
+ZGV2bV9rYXNwcmludGYoZGV2LCBHRlBfS0VSTkVMLCAiJXMtJWQiLCBuYW1lLCBjb3VudCk7Cj4+
+ICsJZGV2bV9rZnJlZShkZXYsIG5hbWUpOwo+PiArCj4+ICsJcmV0dXJuIHVuaXF1ZTsKPj4gK30K
+Pj4gKwo+PiAgIHN0YXRpYyBpbnQgc25kX3NvY19jb21wb25lbnRfaW5pdGlhbGl6ZShzdHJ1Y3Qg
+c25kX3NvY19jb21wb25lbnQgKmNvbXBvbmVudCwKPj4gICAJY29uc3Qgc3RydWN0IHNuZF9zb2Nf
+Y29tcG9uZW50X2RyaXZlciAqZHJpdmVyLCBzdHJ1Y3QgZGV2aWNlICpkZXYpCj4+ICAgewo+PiBA
+QCAtMjQ1NCw3ICsyNDgxLDcgQEAgc3RhdGljIGludCBzbmRfc29jX2NvbXBvbmVudF9pbml0aWFs
+aXplKHN0cnVjdCBzbmRfc29jX2NvbXBvbmVudCAqY29tcG9uZW50LAo+PiAgIAlJTklUX0xJU1Rf
+SEVBRCgmY29tcG9uZW50LT5jYXJkX2xpc3QpOwo+PiAgIAltdXRleF9pbml0KCZjb21wb25lbnQt
+PmlvX211dGV4KTsKPj4gICAKPj4gLQljb21wb25lbnQtPm5hbWUgPSBmbXRfc2luZ2xlX25hbWUo
+ZGV2LCAmY29tcG9uZW50LT5pZCk7Cj4+ICsJY29tcG9uZW50LT5uYW1lID0gc25kX3NvY19jb21w
+b25lbnRfdW5pcXVlX25hbWUoZGV2LCBjb21wb25lbnQpOwo+PiAgIAlpZiAoIWNvbXBvbmVudC0+
+bmFtZSkgewo+PiAgIAkJZGV2X2VycihkZXYsICJBU29DOiBGYWlsZWQgdG8gYWxsb2NhdGUgbmFt
+ZVxuIik7Cj4+ICAgCQlyZXR1cm4gLUVOT01FTTsKPiAKPiBCZXN0IHJlZ2FyZHMKPiAKClRleGFz
+IEluc3RydW1lbnRzIEZpbmxhbmQgT3ksIFBvcmtrYWxhbmthdHUgMjIsIDAwMTgwIEhlbHNpbmtp
+LgpZLXR1bm51cy9CdXNpbmVzcyBJRDogMDYxNTUyMS00LiBLb3RpcGFpa2thL0RvbWljaWxlOiBI
+ZWxzaW5raQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpB
+bHNhLWRldmVsIG1haWxpbmcgbGlzdApBbHNhLWRldmVsQGFsc2EtcHJvamVjdC5vcmcKaHR0cHM6
+Ly9tYWlsbWFuLmFsc2EtcHJvamVjdC5vcmcvbWFpbG1hbi9saXN0aW5mby9hbHNhLWRldmVsCg==

@@ -2,93 +2,77 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B254916196B
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 19:08:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86F19161B30
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 20:02:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 52C74167B;
-	Mon, 17 Feb 2020 19:07:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 52C74167B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1515B839;
+	Mon, 17 Feb 2020 20:02:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1515B839
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581962901;
-	bh=qYBOxYcHIiS1efKt2TyETIE6WoIaoGjWKXFvtgsvnBw=;
+	s=default; t=1581966174;
+	bh=d6u20ymNGDGT/s/mTlhh2v1n/whenhAnS82N9faW8Cc=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=gO22vw4DpX7sBBXMIY635L/h3KLQNpcgZqxNATr1C7WRjvvLt/ImovSOQT9HMo0N5
-	 R7crkkLitBUucST60VGSEuDNm80f/WadNGvOuHZX6PkRpoz9AgFnxa7hUXc7NzaqMr
-	 yYZla+SXfcmE9gc2y2umOxORugB+vk5rRMxp25MA=
+	b=UyXL7BWEmgBG7uoMUxKqZvgOmusiJTInxNUQ46YME9X9Rw26a7k8pcF5kSx5T7iwX
+	 DmNFJrEYCoBObtiKchRDURQvaD8Q7S1AQpJZX3qkeQmg9nb069/8/a+Kaf9wt7n3df
+	 yczC3TI/ezA/MCkMNSxa9hBi2ei7XPWH5YMNokRA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 78132F8015E;
-	Mon, 17 Feb 2020 19:06:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 15E13F800C4;
+	Mon, 17 Feb 2020 20:01:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 462E4F80172; Mon, 17 Feb 2020 19:06:38 +0100 (CET)
+ id C754CF80172; Mon, 17 Feb 2020 20:01:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 79E84F80096
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 19:06:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 79E84F80096
+X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,RDNS_NONE,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from berkelium.ap2c.org (unknown
+ [IPv6:2a01:e35:1386:d790:250:fcff:fe42:7bed])
+ by alsa1.perex.cz (Postfix) with ESMTP id 47FF3F800C4
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 20:01:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47FF3F800C4
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="FOth/oyb"
-Received: by mail-wr1-x444.google.com with SMTP id r11so20816996wrq.10
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 10:06:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=4nIGgpR6dxPbUKvKu1GNRxbB1TO6afrCiGpP741rVUc=;
- b=FOth/oybwE6qAHw51eAfFYXowWJRP1oRU/FExfez93psv5Gj5qjfSN6kJfOSkyjz4V
- NVNb81QmvBTEFdlF29ucdGdDwgVnxRO0yXZD95TOIkMhnvkJNe8tG1rXjG+sAD75BCW2
- qwp0GQUrwiNg9YFERbyCbBi7ozKTd6DlUxquL96omY2Bjb2SjJFajgm+LzhL6FI8SxTE
- 17wbUIuezRS5Wr99jkcYZwkNa51UY9c8CoIqFxeJccxr3QtNvmzryk/GD+Pe9FskEoMk
- 1nGyeBFn19MZ/d0KecUtTsuqEuL820uKbYGtM6fzGegr2a8Gg5+Fpqp9sisr/UGzFTbW
- CvZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=4nIGgpR6dxPbUKvKu1GNRxbB1TO6afrCiGpP741rVUc=;
- b=sP7qaGKnQbpIa8vKWBm913yt5cvNq9IjgfZ05Wnt+TAqDmOAggQIf4wwJkhtUPDxza
- b4WS4etQB7uFIbbo4D42NTLDwNJuiuQ1tLTIx701DrtwFIoowuaTWQk162YKYRmlIkym
- WCybNmOCFsNOzsah9fA1LuRaofQdRYbgv+71AQs7iFG87cgx4FLOKxAUNeDBb3H/PfHZ
- sdVUxmWNsgRUAgrmW2jM8pAOyUPHdF5I8E/vVgAQsMtzo19LBU9m/laeQ3fbe2o3cYTR
- OhdluvQUrsOJ8WnYH+Yf0zEtRBO+S3otVKfy5zavXL6vVOHNHad63RCVd5acsYmA5sPk
- NAMQ==
-X-Gm-Message-State: APjAAAXFRQhDkZMK7ujY26vLjG9GfrnjrrFr1yBvdV2g7/wcLMxiR+jd
- uBe0G6izQikVx+1IVzdsxxt5+Q==
-X-Google-Smtp-Source: APXvYqyBEo4ZFXC6CR3RHyHS3MGnk6ZzfhtbpwNrhWU7GWupMw65B4+Li8NoPZ09CArtzdmLc4ueXw==
-X-Received: by 2002:adf:dc86:: with SMTP id r6mr23671245wrj.68.1581962794494; 
- Mon, 17 Feb 2020 10:06:34 -0800 (PST)
-Received: from starbuck.baylibre.local
- (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id d204sm254850wmd.30.2020.02.17.10.06.33
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 17 Feb 2020 10:06:33 -0800 (PST)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Marek Szyprowski <m.szyprowski@samsung.com>,
- Mark Brown <broonie@kernel.org>
-Subject: [RFT/DONTMERGE] ASoC: devm_snd_soc_register_component fixup
-Date: Mon, 17 Feb 2020 19:06:26 +0100
-Message-Id: <20200217180626.593909-1-jbrunet@baylibre.com>
-X-Mailer: git-send-email 2.24.1
-In-Reply-To: <20557448-d6d2-7584-e2ac-c46d337e1778@samsung.com>
-References: <20557448-d6d2-7584-e2ac-c46d337e1778@samsung.com>
+ dkim=pass (1024-bit key) header.d=ap2c.com header.i=@ap2c.com
+ header.b="Ae7MdXi7"
+Received: from berkelium.ap2c.org (localhost [127.0.0.1])
+ by berkelium.ap2c.org (Postfix) with ESMTP id 982131164;
+ Mon, 17 Feb 2020 20:01:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ap2c.com; s=ap2cCom;
+ t=1581966066; bh=d6u20ymNGDGT/s/mTlhh2v1n/whenhAnS82N9faW8Cc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=Ae7MdXi7+sdE7bA42VHO3APIeICApFeSqUysqJRzDxlz0ulTA79pVrCGMsR2lDd8F
+ rDZqmLDbz0MAXHr0wlM60MVNxO/njkZpalRQYgWfQIjegU5q3LFqKT7EEcIdMOmscb
+ wjJVvLNmzmG/AwhUHOertSHKMQ/L7KC4I5lnP4KM=
+X-Virus-Scanned: amavisd-new at ap2c.org
+Received: from berkelium.ap2c.org ([127.0.0.1])
+ by berkelium.ap2c.org (berkelium.ap2c.org [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id EJvim-mLAqJv; Mon, 17 Feb 2020 20:01:05 +0100 (CET)
+Received: from antimony.ap2c.org (unknown
+ [IPv6:2a01:e34:ec20:ab90:63ad:3e9d:5e02:f5e0])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by berkelium.ap2c.org (Postfix) with ESMTPSA;
+ Mon, 17 Feb 2020 20:01:05 +0100 (CET)
+From: =?ISO-8859-1?Q?Aur=E9lien?= Croc <aurelien@ap2c.com>
+To: alsa-devel@alsa-project.org
+Subject: Re: [alsa-devel] No sound with Realtek ALC298 on a Samsung Galaxy book
+Date: Mon, 17 Feb 2020 20:01:05 +0100
+Message-ID: <5023991.OkN0jAucn1@antimony.ap2c.org>
+Organization: =?UTF-8?B?QVDCskM=?=
+In-Reply-To: <s5hd0adfapa.wl-tiwai@suse.de>
+References: <1610933.XPBrhYXKCp@antimony.ap2c.org>
+ <2757884.e1HrdM282F@antimony.ap2c.org> <s5hd0adfapa.wl-tiwai@suse.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org,
- Liam Girdwood <lgirdwood@gmail.com>,
- linux-rpi-kernel <linux-rpi-kernel@lists.infradead.org>,
- Jerome Brunet <jbrunet@baylibre.com>
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
+Cc: Takashi Iwai <tiwai@suse.de>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,117 +88,40 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Marek, would you mind trying the following patch. It should target the
-component removal intead of removing them all. I'd like to comfirm this is
-your problem before pushing in this direction. Thanks
+> Sometimes you have some data in *.INF file or such.  At least, if the
+> standard Windows driver (not the h/w vendor's one) works, the extra
+> configuration is usually put there.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
----
- include/sound/soc.h                   |  1 +
- sound/soc/soc-core.c                  |  8 +++++++
- sound/soc/soc-devres.c                | 32 ++++++++++++++++++---------
- sound/soc/soc-generic-dmaengine-pcm.c |  2 +-
- 4 files changed, 31 insertions(+), 12 deletions(-)
+The Windows driver is the one provided by Realtek. The manufacturer ID is 
+"INTELAUDIO\FUNC_01&VEN_10EC&DEV_0298&SUBSYS_144DC14F".
+I looked into the INF file which corresponds to this driver but I'm not sure 
+to understand it. There is a specific section attached to this device which 
+looks like:
+[CusEffectSettingsMaxim.AddReg]
+HKR,SSTPPCfg\{C75061F3-F2B2-4DCC-8F9F-82ABB4131E66}\SPK\EFX,16777217, 1, 
+1,0,0,1,1,0,0,0
+HKR,SSTPPCfg\{C75061F3-F2B2-4DCC-8F9F-82ABB4131E66}\SPK\EFX,16777218, 1, 
+2,0,0,1,0,0,80,2
+....
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index f0e4f36f83bf..e5bfe2609110 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -442,6 +442,7 @@ int snd_soc_add_component(struct device *dev,
- 		const struct snd_soc_component_driver *component_driver,
- 		struct snd_soc_dai_driver *dai_drv,
- 		int num_dai);
-+void snd_soc_del_component(struct snd_soc_component *component);
- int snd_soc_register_component(struct device *dev,
- 			 const struct snd_soc_component_driver *component_driver,
- 			 struct snd_soc_dai_driver *dai_drv, int num_dai);
-diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 6a58a8f6e3c4..bf6a64fbfa52 100644
---- a/sound/soc/soc-core.c
-+++ b/sound/soc/soc-core.c
-@@ -2599,6 +2599,14 @@ static void snd_soc_del_component_unlocked(struct snd_soc_component *component)
- 	list_del(&component->list);
- }
- 
-+void snd_soc_del_component(struct snd_soc_component *component)
-+{
-+	mutex_lock(&client_mutex);
-+	snd_soc_del_component_unlocked(component);
-+	mutex_unlock(&client_mutex);
-+}
-+EXPORT_SYMBOL_GPL(snd_soc_del_component);
-+
- int snd_soc_add_component(struct device *dev,
- 			struct snd_soc_component *component,
- 			const struct snd_soc_component_driver *component_driver,
-diff --git a/sound/soc/soc-devres.c b/sound/soc/soc-devres.c
-index a9ea172a66a7..d5e9e2bed2ce 100644
---- a/sound/soc/soc-devres.c
-+++ b/sound/soc/soc-devres.c
-@@ -11,7 +11,7 @@
- 
- static void devm_component_release(struct device *dev, void *res)
- {
--	snd_soc_unregister_component(*(struct device **)res);
-+	snd_soc_del_component(*(struct snd_soc_component **)res);
- }
- 
- /**
-@@ -28,21 +28,31 @@ int devm_snd_soc_register_component(struct device *dev,
- 			 const struct snd_soc_component_driver *cmpnt_drv,
- 			 struct snd_soc_dai_driver *dai_drv, int num_dai)
- {
--	struct device **ptr;
--	int ret;
-+	struct snd_soc_component *component;
-+	struct snd_soc_component **ptr;
-+	int ret = -ENOMEM;
-+
-+	component = devm_kzalloc(dev, sizeof(*component), GFP_KERNEL);
-+	if (!component)
-+		return -ENOMEM;
- 
- 	ptr = devres_alloc(devm_component_release, sizeof(*ptr), GFP_KERNEL);
- 	if (!ptr)
--		return -ENOMEM;
-+	        goto err_devres;
- 
--	ret = snd_soc_register_component(dev, cmpnt_drv, dai_drv, num_dai);
--	if (ret == 0) {
--		*ptr = dev;
--		devres_add(dev, ptr);
--	} else {
--		devres_free(ptr);
--	}
-+	ret = snd_soc_add_component(dev, component, cmpnt_drv, dai_drv,
-+				    num_dai);
-+	if (ret)
-+		goto err_add;
-+
-+	*ptr = component;
-+	devres_add(dev, ptr);
-+	return 0;
- 
-+err_add:
-+	devres_free(ptr);
-+err_devres:
-+	devm_kfree(dev, component);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(devm_snd_soc_register_component);
-diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index 2cc25651661c..a33f21ce2d7a 100644
---- a/sound/soc/soc-generic-dmaengine-pcm.c
-+++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -474,7 +474,7 @@ void snd_dmaengine_pcm_unregister(struct device *dev)
- 
- 	pcm = soc_component_to_pcm(component);
- 
--	snd_soc_unregister_component(dev);
-+	snd_soc_del_component(component);
- 	dmaengine_pcm_release_chan(pcm);
- 	kfree(pcm);
- }
--- 
-2.24.1
+I don't know if the solution is in these lines or not..
+
+
+> Also, when you test the sound, don't use PulseAudio but test directly
+> with ALSA native apps (e.g. aplay with -Dhw:0 or -Dplughw:0, etc).
+> You can use speaker-test program, too.
+
+I tried again all the channels with headphone only by using only ALSA and not 
+pulseaudio. There is no sound at all.
+Note that the internal microphone and the microphone of my headphone when it's 
+plugged in works very well..
+
+> And always try a headphone output at first.  The headset mic might not
+> work, but the headphone output is usually the easiest one to get
+> working.
+
+
+Thank you for your help. I hope we'll find the problem..
+
+
 

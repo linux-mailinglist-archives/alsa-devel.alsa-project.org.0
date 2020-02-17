@@ -2,63 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64CEF16159E
-	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 16:11:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 427721615AC
+	for <lists+alsa-devel@lfdr.de>; Mon, 17 Feb 2020 16:12:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 07F5F3E;
-	Mon, 17 Feb 2020 16:10:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 07F5F3E
+	by alsa0.perex.cz (Postfix) with ESMTPS id DF6C4167A;
+	Mon, 17 Feb 2020 16:11:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DF6C4167A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581952285;
-	bh=VrDlbWz3JqeymI9UrIB55PlCStCb348wDLkSvHiThRc=;
-	h=Date:From:To:References:In-Reply-To:Cc:Subject:List-Id:
+	s=default; t=1581952329;
+	bh=jjWW/TdfSh7TIkxYe/HDrmCHX2tg+HWTtXZef2rvoDE=;
+	h=References:In-Reply-To:From:Date:To:Cc:Subject:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=hAYbjEG4/DN9wrcP30aFXcwIkI3+YKsd1jjgmxAM4deB/t/RdFI+zpRWRgcp1GU9y
-	 7fPTCxfXJRj6R8RrKpLzixk0p9Vpqs0p5Fel+WW5EHP0vc8xpPhKFsag8pZUs+dcvH
-	 z5Hx7ybxw60IpIfHebMFUU8LEUT4EpyLs8jDRrEs=
+	b=UwwiG8HkSS0UjJSs9lukPUspHZCwVHV4zwmbpFSqiICmhLMLof0tHc2AQPIfX/jfE
+	 kKX81RS3TW/KzXWTQ2yoAjLSP8AghdkqcdkMgisiasCtmtY2Aa0XhTFQxuAmLRrUQN
+	 vIHmHQyMqOXQSXI3G7/KkYDtPWxMmIrqaocXLpeM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9B8BF801F4;
-	Mon, 17 Feb 2020 16:09:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A2F1EF800C4;
+	Mon, 17 Feb 2020 16:11:14 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9C7DF80172; Mon, 17 Feb 2020 16:09:41 +0100 (CET)
+ id 4C82EF801F5; Mon, 17 Feb 2020 16:11:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 3BA45F80096
- for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 16:09:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3BA45F80096
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D841630E;
- Mon, 17 Feb 2020 07:09:37 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5B7BA3F703;
- Mon, 17 Feb 2020 07:09:37 -0800 (PST)
-Date: Mon, 17 Feb 2020 15:09:35 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Samuel Holland <samuel@sholland.org>
-Message-ID: <20200217150935.GJ9304@sirena.org.uk>
-References: <20200217064250.15516-1-samuel@sholland.org>
- <20200217064250.15516-9-samuel@sholland.org>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mail-vs1-xe43.google.com (mail-vs1-xe43.google.com
+ [IPv6:2607:f8b0:4864:20::e43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06379F80096
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 16:11:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06379F80096
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ojab.ru header.i=@ojab.ru
+ header.b="bugPKFwp"
+Received: by mail-vs1-xe43.google.com with SMTP id p14so10560491vsq.6
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 07:11:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ojab.ru; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qDrsHCqzOJSGzZxsJvq3uCka6/zV41PReEFhdfgZzLw=;
+ b=bugPKFwps3gcgpDw18lVDQKvmYLwc1Mb2Md6a6ii2HUwjmKwHfadWNjOyjNbCkB5Qn
+ MJsVV/iG7Gn5RSKljPc2d30pPsdl+tQ/rvLu15GLtmzZIp6uqIJW5wEpy9QPX2BLJqf5
+ JZZCvIk0JfcR2ztIs/M1oXdpJhFLUVKwL+kco=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qDrsHCqzOJSGzZxsJvq3uCka6/zV41PReEFhdfgZzLw=;
+ b=tG2Y8eH3qP7rddXhn1UHsYNb3/SzJ4JuZefSGkA9MJSAZJz/cqJLCR2SGlbSEoEuCz
+ s0BKgz08dS0kIxd57ntLQH7z5uS3qjIAat3Sbz1zCgQISdxT5TAcAS0MD0U3eOZDLjWX
+ cY1J6gJ3PPZXOtfKJ7wR6Wpgdn93yNQwtmIGqHeWtjCC7eaMu8O6+suUbTKk53HT0prD
+ IzkLtVprzvwWzsdmC8Gq/H3z31AoefVKGRf2J7BybcQrXevlx3S2k0LZNCkEeg+767SP
+ G9miIFXZVZ/TWLWv0Uxh+uIulwMjyqai5tkgFPfjBM9ZjSxcn7bBn3/8ue3y9einfxDc
+ 3NUQ==
+X-Gm-Message-State: APjAAAWqP2FuqPZczc4tG3U3ud3btVmK0glBHHbzyskYBXt3MKIbiYwu
+ pK8CqmuBoIQyb4pHo1qeZchA8NwO256pGzMTd/utQw==
+X-Google-Smtp-Source: APXvYqzhRZHagOk8MCS4WxswV2u7jOZOL8UuHiuBdm5QySlhumfkYxxiQlHiBvEfJLrl8zgvPswI3w/PYJvjd9MTWBU=
+X-Received: by 2002:a67:e94c:: with SMTP id p12mr8276324vso.84.1581952266628; 
+ Mon, 17 Feb 2020 07:11:06 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20200217064250.15516-9-samuel@sholland.org>
-X-Cookie: There was a phone call for you.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Vasily Khoruzhick <anarsoul@gmail.com>,
- Chen-Yu Tsai <wens@csie.org>, Rob Herring <robh+dt@kernel.org>,
- =?iso-8859-1?Q?Myl=E8ne?= Josserand <mylene.josserand@free-electrons.com>,
- stable@kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [alsa-devel] [RFC PATCH 08/34] ASoC: sun8i-codec: Fix direction
- of AIF1 outputs
+References: <CAKzrAgTD2oeyajKGOaPea98vZ-uKJOn6uOqABA+CKtpvYpWYvQ@mail.gmail.com>
+ <CAKzrAgTCE4btXr04pkvLUG6PPbtn9dm5h_9rjqDYG0HrTZ0zbg@mail.gmail.com>
+ <87h80x8t41.wl-kuninori.morimoto.gx@renesas.com>
+ <130af222-1086-ebcf-6a0f-9a390f9afbc3@linux.intel.com>
+ <CAKzrAgRJZd4UZjt411vA8WwUv1KyVahVTNyUS8nA1TbKsA57dg@mail.gmail.com>
+ <14259e97-72f5-439f-b2f1-356b6e45bcfb@linux.intel.com>
+ <CAKzrAgQR0iZWPCudQ6k+RNWGk3L-=UU792RW6s7LxF+8wOPDUw@mail.gmail.com>
+ <7de214eb-d6a0-3f86-9eb3-76488f0ec99f@linux.intel.com>
+ <87r2001bsi.wl-kuninori.morimoto.gx@renesas.com>
+ <6d0f1830-a2f0-997a-99cc-05c268acefc6@linux.intel.com>
+ <20200116145708.GQ3897@sirena.org.uk>
+In-Reply-To: <20200116145708.GQ3897@sirena.org.uk>
+From: "ojab //" <ojab@ojab.ru>
+Date: Mon, 17 Feb 2020 18:10:54 +0300
+Message-ID: <CAKzrAgQapgQtxMLYjEe9mSaXp_uYxMyH8fwvoJqM3Or0sqqfiw@mail.gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [alsa-devel] No sound since 5.4 on skl_n88l25_s4567
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,59 +98,28 @@ List-Post: <mailto:alsa-devel@alsa-project.org>
 List-Help: <mailto:alsa-devel-request@alsa-project.org?subject=help>
 List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>, 
  <mailto:alsa-devel-request@alsa-project.org?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3212100216559896468=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+On Thu, Jan 16, 2020 at 5:57 PM Mark Brown <broonie@kernel.org> wrote:
+>
+> On Wed, Jan 15, 2020 at 07:04:48PM -0600, Pierre-Louis Bossart wrote:
+>
+> > Maybe we could have some sort of boolean flag in the component->driver
+> > definition and explicitly request a backwards-compatible behavior (e.g. for
+> > all SKL/KBL machine drivers) when that driver is known to be flaky. There's
+> > already things like 'fully_routed', maybe we can add something such as
+> > 'disable_route_check'?
+>
+> A quirk for old stuff that can't be fixed sounds like a sensible
+> solution to this.
 
---===============3212100216559896468==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4vpci17Ql0Nrbul2"
-Content-Disposition: inline
+Any update on this?
 
-
---4vpci17Ql0Nrbul2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-On Mon, Feb 17, 2020 at 12:42:24AM -0600, Samuel Holland wrote:
-> The naming convention for AIFs in this codec is to call the "DAC" the
-> path from the AIF into the codec, and the ADC the path from the codec
-> back to the AIF, regardless of if there is any analog path involved.
-
-This renames widgets but does not update any DAPM routes from those
-widgets which will break things if this patch is applied.
-
-> Cc: stable@kernel.org
-
-Why is this suitable for stable?  It's a random textual cleanup.
-
---4vpci17Ql0Nrbul2
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5KrK8ACgkQJNaLcl1U
-h9Ab9Af/b8sQj3zwynBYYxusscd9/aduwhw7qF+DAdPBw6PYNIA/g/Ts6oULrx9/
-F9O4MHo55RlwYbfi8iuyYJ8LpLv4y7txkM5x5y5oauIL+soV6TB8bszuwBvk5jHu
-qMxAhPDo6mD2D1QYL7GJeWvid+lBr7MGrlzbxg+0uW1jEw3pEJjXL4WTXu0e2l4T
-cTZ4Am744vhS15WDE0s/wJSvB2rxPn6xVVi93LtdEE9+YgE4lE9Y7ruezZibMFQb
-hrTkWC0l92y8sbIkHpAzlo5gh5qNn6UahJRlr+wCILtXuEJMgPEEmx0DoTciwQUr
-su1mRVq9kOQOtpw4mjBq3iDo8MiP3A==
-=UkmS
------END PGP SIGNATURE-----
-
---4vpci17Ql0Nrbul2--
-
---===============3212100216559896468==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+//wbr ojab
 _______________________________________________
 Alsa-devel mailing list
 Alsa-devel@alsa-project.org
 https://mailman.alsa-project.org/mailman/listinfo/alsa-devel
-
---===============3212100216559896468==--

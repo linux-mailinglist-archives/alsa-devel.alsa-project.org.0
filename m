@@ -2,113 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 062BD161F7F
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 04:19:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0C0D1620F3
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 07:35:22 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8265166F;
-	Tue, 18 Feb 2020 04:18:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8265166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 51F171616;
+	Tue, 18 Feb 2020 07:34:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 51F171616
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581995981;
-	bh=8V3fw9ycgUa0+hZJOdoiPEqi3w6uN5WBt8CdKA6MMxg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1582007722;
+	bh=iqmGDFaZ2/FOKoLFgPJMgUDOoXvyg8uJd5+fHIVRfmo=;
+	h=From:To:Subject:Date:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=h1knPaHc0YlY49+U84cFSwTwod20O2FBLGwk4Wun+CEbb2W9N/e/wcULaCvysc9Wv
-	 ddyNEIpmXqG2xFCWmJPT5h23bYALGN5alz+ACGxVK4VpK85Lowsp4s67JpucKuU8m1
-	 1MqqyNMIII6pCCv1z5EyiIqGI5bCDVUJxCZjsZm8=
+	b=JXHvX4dn52UwJo7F1dPzg2RIXLqI7XAKjX25QrdkKjblZwvNfcF6S7hqzFecKXVLO
+	 IK+5OGu47dMMSk69UOuuCeOYuXMM8lcA6S1asSH4JpDFROFrTf3DJCs0bHOCnCVm1f
+	 uCeB0dT+8AnkpKmjxU4DrGbgYXUs9lFKT4SIriIk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B481BF800C4;
-	Tue, 18 Feb 2020 04:18:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1A635F80137;
+	Tue, 18 Feb 2020 07:33:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A7075F80148; Tue, 18 Feb 2020 04:17:57 +0100 (CET)
+ id 93132F80137; Tue, 18 Feb 2020 07:33:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
- [66.111.4.221])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 9A2B3F800C4
- for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 04:17:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A2B3F800C4
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="XXy/h+U7"; 
- dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="38X4/aeX"
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 30F0976A3;
- Mon, 17 Feb 2020 22:17:51 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Mon, 17 Feb 2020 22:17:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
- subject:to:cc:references:from:message-id:date:mime-version
- :in-reply-to:content-type:content-transfer-encoding; s=fm2; bh=h
- UYsN1IRDrlEB0uxQHQLvlcqoA9TjcxIRinpfgTMp/0=; b=XXy/h+U7Wwb/BSG4D
- c8PjcyCWsIk1Rd13jAQgegM4xS8fOuN1ov2gdbsDYSNy3PXrinTXzEOlNIhWl+ob
- un5b2GXDYVNl64Es23moKifHR0MjNBL4v6MDG8FZjg1duzgXsFucD+vnBtPBt94n
- M23cQMMLEkEA56G5wdrGE+8j9aOQvlwEhEpXWRDcbFazgRv7rdVNtpZRGslF4Myl
- yiUTFrCsXYN4NNYqiukFm/vDMQPOJSsVrrhiQAIuB7xoS5xoVlcwJJSzwgQp/jrv
- 0m3iLuLz8I1cXPCal4cRao6mDzDr6xbFA1id3ARsf8XfgJzXAG/Eh84sb5khKF+B
- VCSQA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=hUYsN1IRDrlEB0uxQHQLvlcqoA9TjcxIRinpfgTMp
- /0=; b=38X4/aeX+nSPkX0b9fiZoBrJWYH9eI9uEF8FN1BFksP9/rsJem6MHsxSL
- F8x7GQC9eeREFWkrrAhSSA1+HBkfTV6QzlZcF9639EN/cf4hSqb2UxMEVKCShgR6
- UXAYdctO48dhTuc7WK+4KGofzFNe4IeeOI6S014tAwc+pRm4dZp1rKp7sh0JkcBA
- KhJjV6/E7dID+oIovF2K5iaby8ulG42ufVYy7h8aJxOEgXFbbP8o5zGOx+fBCOYU
- cCUkMsaAAFgzgTVYmM6ST/TCviNXMJl07IynIwg8gjLw5gPb8fXzmd5VC0uNoPOT
- UoI89h1udYGvevalQVArvAU8Tmz2A==
-X-ME-Sender: <xms:XFdLXht9B8Qf5zYb3xiI2zwpmUFEzQ_AwfRipbb5OJYd8IQsFTwoJQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrjeejgdehiecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefuvfhfhffkffgfgggjtgfgsehtjeertddtfeejnecuhfhrohhmpefurghmuhgv
- lhcujfholhhlrghnugcuoehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhgqeenucfkph
- epjedtrddufeehrddugeekrdduhedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
- rghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghnugdrohhrgh
-X-ME-Proxy: <xmx:XFdLXq48HAIvPM1mp-Ncum_3QC8Cp3v8gEMTmhYP55RjHEsWhLQDFA>
- <xmx:XFdLXlcm-eHBGK7WMd39T5ufO0O9TzhXWHtvO1vX4jErP67b6qZD9g>
- <xmx:XFdLXvxjh1FuEw3fH6fVfDNKP9bo31pdbQrXgSY48QANmUqSTf0-JA>
- <xmx:X1dLXnbMkM62scKMPNlWn66hA7xHTC3iHvsuvMuZo9ZB_dbfbk1tYg>
-Received: from [192.168.50.169]
- (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id 96BD13060BD1;
- Mon, 17 Feb 2020 22:17:47 -0500 (EST)
-Subject: Re: [RFC PATCH 01/34] ASoC: dt-bindings: Add a separate compatible
- for the A64 codec
-To: Chen-Yu Tsai <wens@csie.org>
-References: <20200217064250.15516-1-samuel@sholland.org>
- <20200217064250.15516-2-samuel@sholland.org>
- <CAGb2v670SH1Ra26eKgOhLYAeRTV719a3TDAfCyMr49bKU8Z=PA@mail.gmail.com>
-From: Samuel Holland <samuel@sholland.org>
-Message-ID: <dab9cbc2-c0ad-4f12-e792-a900c13f083f@sholland.org>
-Date: Mon, 17 Feb 2020 21:17:47 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.2.2
+ by alsa1.perex.cz (Postfix) with ESMTPS id 131C0F80137
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 07:33:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 131C0F80137
+Authenticated-By: 
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 01I6XKk4028510,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 01I6XKk4028510
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 18 Feb 2020 14:33:20 +0800
+Received: from RTEXMB03.realtek.com.tw (172.21.6.96) by
+ RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Tue, 18 Feb 2020 14:33:20 +0800
+Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
+ RTEXMB03.realtek.com.tw (172.21.6.96) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Tue, 18 Feb 2020 14:33:19 +0800
+Received: from RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f]) by
+ RTEXMB01.realtek.com.tw ([fe80::1832:8abc:ec2d:974f%6]) with mapi id
+ 15.01.1779.005; Tue, 18 Feb 2020 14:33:19 +0800
+From: =?utf-8?B?RGVyZWsgW+aWueW+t+e+qV0=?= <derek.fang@realtek.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: RE: [PATCH 1/2] ASoC: rt5682: Add CCF usage for providing I2S clks
+Thread-Topic: [PATCH 1/2] ASoC: rt5682: Add CCF usage for providing I2S clks
+Thread-Index: AQHV4wvtH7yiUMiVn0yLTwoY4Ri/YagaGv6AgAUZexD//50sAIABreBQ
+Date: Tue, 18 Feb 2020 06:33:19 +0000
+Message-ID: <6f7994b39e9444eaaf269cca76104585@realtek.com>
+References: <1581666814-6380-1-git-send-email-derek.fang@realtek.com>
+ <20200214123803.GG4827@sirena.org.uk>
+ <b9cfe003aeb34216b59c9a22c4601bf1@realtek.com>
+ <20200217123650.GD9304@sirena.org.uk>
+In-Reply-To: <20200217123650.GD9304@sirena.org.uk>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [172.22.102.141]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <CAGb2v670SH1Ra26eKgOhLYAeRTV719a3TDAfCyMr49bKU8Z=PA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Mark Rutland <mark.rutland@arm.com>,
- devicetree <devicetree@vger.kernel.org>,
- Linux-ALSA <alsa-devel@alsa-project.org>, Ondrej Jirman <megous@megous.com>,
- linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Vasily Khoruzhick <anarsoul@gmail.com>, Mark Brown <broonie@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- linux-arm-kernel <linux-arm-kernel@lists.infradead.org>
+Cc: Oder Chiou <oder_chiou@realtek.com>, Jack Yu <jack.yu@realtek.com>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "lars@metafoo.de" <lars@metafoo.de>,
+ "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ Albert Chen <albertchen@realtek.com>,
+ =?utf-8?B?U2h1bWluZyBb6IyD5pu46YqYXQ==?= <shumingf@realtek.com>,
+ "Flove\(HsinFu\)" <flove@realtek.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,27 +96,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/17/20 3:49 AM, Chen-Yu Tsai wrote:
-> On Mon, Feb 17, 2020 at 2:42 PM Samuel Holland <samuel@sholland.org> wrote:
->>
->> The digital codec in the A64 is largely compatible with the one in the
->> A33, with two changes:
->>  - It is missing some muxing options for AIF1/2/3 (not currently
->>    supported by the driver)
-> 
-> Is this at the pinctrl level or mixer level? If it's at the pinctrl level
-> then it's out of the scope of this driver/binding. It could very well have
-> those signals, just that they aren't routed outside the SoC.
-
-This is in reference to the muxes shown at the top of the A33 diagram, above the
-I2S/PCM interfaces. These appear to map to bits 0-6 of AIF3_SGP_CTRL, which are
-marked as reserved on the A64 and the AC100.
-
-Comparing the three datasheets in a bit more detail (but by no means exhaustively):
- - The A64 has a second DRC block, unlike the A33 and AC100.
- - The jack detection registers (0x310-0x318) are present on the A64
-   and AC100, but undocumented/missing on the A33.
-
-So there are enough differences to warrant a new compatible, but since none of
-the unique functionality is used by the driver (even after this series), a
-fallback should work.
+PiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gQVNvQzogcnQ1NjgyOiBBZGQgQ0NGIHVzYWdlIGZv
+ciBwcm92aWRpbmcgSTJTIGNsa3MNCj4gDQo+IE9uIE1vbiwgRmViIDE3LCAyMDIwIGF0IDEwOjU5
+OjU1QU0gKzAwMDAsIERlcmVrIFvmlrnlvrfnvqldIHdyb3RlOg0KPiA+ID4gU3ViamVjdDogUmU6
+IFtQQVRDSCAxLzJdIEFTb0M6IHJ0NTY4MjogQWRkIENDRiB1c2FnZSBmb3IgcHJvdmlkaW5nIEky
+UyBjbGtzDQo+IA0KPiA+ID4gPiArCWlmIChwYXJlbnRfcmF0ZSAhPSBDTEtfUExMMl9GSU4pDQo+
+ID4gPiA+ICsJCWRldl93YXJuKGNvbXBvbmVudC0+ZGV2LCAiY2xrICVzIG9ubHkgc3VwcG9ydCAl
+ZCBIeg0KPiBpbnB1dFxuIiwNCj4gPiA+ID4gKwkJCWNsa19uYW1lLCBDTEtfUExMMl9GSU4pOw0K
+PiANCj4gPiA+ID4gKwlpZiAocmF0ZSAhPSBDTEtfNDgpIHsNCj4gPiA+ID4gKwkJZGV2X3dhcm4o
+Y29tcG9uZW50LT5kZXYsICJjbGsgJXMgb25seSBzdXBwb3J0ICVkIEh6DQo+IG91dHB1dFxuIiwN
+Cj4gPiA+ID4gKwkJCWNsa19uYW1lLCBDTEtfNDgpOw0KPiA+ID4gPiArCQlyYXRlID0gQ0xLXzQ4
+Ow0KPiA+ID4gPiArCX0NCj4gDQo+ID4gPiBBcmUgdGhlc2UgZ2VudWluZSByZXN0cmljdGlvbnMg
+b2YgdGhlIGhhcmR3YXJlIG9yIGlzIHRoaXMganVzdCBiZWluZw0KPiA+ID4gaGFyZCBjb2RlZCBp
+biB0aGUgZHJpdmVyPw0KPiANCj4gPiBJdCdzIGhhcmQgY29kZWQgZm9yIGFuIGFwcGxpY2F0aW9u
+IGNhc2UuDQo+ID4gR2VuZXJhdGUgYSA0OGtIeiBjbGsgd2l0aCBhIHBhcmVudCA0OCBNSHogY2xr
+Lg0KPiANCj4gSSBzZWUuLi4gIG9idmlvdXNseSB0aGlzIGlzIHJlYWxseSBub3QgZ29vZCBxdWFs
+aXR5IG9mIGltcGxlbWVudGF0aW9uDQo+IGFsdGhvdWdoIGl0IGRvZXNuJ3QgYWN0dWFsbHkgYnJl
+YWsgYW55IGV4dGVybmFsIGludGVyZmFjZXMgc28gSSBndWVzcyB3ZQ0KPiBjb3VsZCB0YWtlIGl0
+LiAgSSB3b3VsZCBhdCBsZWFzdCB3YW50IHRvIHNlZSBzb21lIGNsZWFyIGNvbW1lbnRzIGluIGJv
+dGgNCj4gdGhlIGNvZGUgYW5kIHRoZSBjaGFuZ2Vsb2cgZXhwbGFpbmluZyB0aGF0IHRoaXMgbGlt
+aXRhdGlvbiBpcyBqdXN0IGENCj4gdGVtcG9yYXJ5IGhhY2sgdW50aWwgYSBiZXR0ZXIgaW1wbGVt
+ZW50YXRpb24gaXMgZG9uZSB0aG91Z2guDQoNCk9rLiBUaGFua3MgZm9yIHRoZSBhZHZpY2UuDQpJ
+IHdpbGwgYWRkIG1vcmUgY29tbWVudHMgYm90aCBpbiB0aGUgc291cmNlIGFuZCBjb21taXQgdG8g
+Y2xlYXJseSBkZXNjcmliZQ0KdGhlIGRyaXZlciBzdXBwb3J0IGFuZCBsaW1pdGF0aW9uLCBhbmQg
+dGhlbiBzZW5kIHRoZSBQQVRDSCB2Mi4NCg0KLS0tLS0tUGxlYXNlIGNvbnNpZGVyIHRoZSBlbnZp
+cm9ubWVudCBiZWZvcmUgcHJpbnRpbmcgdGhpcyBlLW1haWwuDQo=

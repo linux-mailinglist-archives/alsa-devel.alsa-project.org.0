@@ -2,66 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37D31162EEE
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 19:44:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 206C3162EF9
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 19:50:24 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A0C021697;
-	Tue, 18 Feb 2020 19:43:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A0C021697
+	by alsa0.perex.cz (Postfix) with ESMTPS id B6B251696;
+	Tue, 18 Feb 2020 19:49:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6B251696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582051467;
-	bh=UEYwBF1dADz4xBezZ7vxVILKW1ZLaaBZHljDN3HGzTc=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1582051823;
+	bh=BldLJUMeLfjzF7LWWWVI8kglnk/rWLvFMyWyQafRjYs=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EJMvBokh2I13McHvYRJIVd9FkDl41M09rzeRGETeoYIe/9zmbplqAcN4IIu6CHuwm
-	 lave7BMMXcTWGhedRPF4cccBfiy+1DI+b40AIlRKPjKfDT6Lx6cIQicNo5rwwwZX+G
-	 jlXq7n5O3ZeLYv6y5qABYjB+GF0O/rayKlkGI3Ek=
+	b=ZOCjn3d96y236WgVpjH0X6Kwc7rY1xbHHRwBTJJdvMqAkcmt8pEy32S3/KKt8O49D
+	 vGfHmxamsJiUltGL0pEYRiiQFo+Zrb3zc5I4fWQp/bT+2sdashOmPv8Rsd3U/BpwyN
+	 +RAtfAUj20EEevNH/MPU8/Qw2jfHg5+XKLvrihlI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 92885F80145;
-	Tue, 18 Feb 2020 19:42:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 798E8F8014A;
+	Tue, 18 Feb 2020 19:48:42 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3920BF8014A; Tue, 18 Feb 2020 19:42:44 +0100 (CET)
+ id 2FFA6F80148; Tue, 18 Feb 2020 19:48:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 62CD3F80145
- for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 19:42:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 62CD3F80145
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2020 10:42:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,456,1574150400"; d="scan'208";a="268865804"
-Received: from amholmes-mobl3.ger.corp.intel.com (HELO [10.251.87.78])
- ([10.251.87.78])
- by fmsmga002.fm.intel.com with ESMTP; 18 Feb 2020 10:42:33 -0800
-Subject: Re: [PATCH] ASoC: SOF: Intel: Fix stream cleanup on pcm close
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-References: <20200218141013.7290-1-cezary.rojewski@intel.com>
- <63adf568-74f4-2c01-8257-955d5aa51420@linux.intel.com>
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-Message-ID: <95efa175-e72a-fe48-9c91-ec65d31ae130@intel.com>
-Date: Tue, 18 Feb 2020 19:42:31 +0100
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.1
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 8B03BF80135
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 19:48:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8B03BF80135
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5CC9731B;
+ Tue, 18 Feb 2020 10:48:34 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D3DC53F703;
+ Tue, 18 Feb 2020 10:48:33 -0800 (PST)
+Date: Tue, 18 Feb 2020 18:48:32 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>
+Subject: Re: [PATCH] ASoC: tas2562: Return invalid for when bitwidth is invalid
+Message-ID: <20200218184832.GL4232@sirena.org.uk>
+References: <20200218174706.27309-1-dmurphy@ti.com>
 MIME-Version: 1.0
-In-Reply-To: <63adf568-74f4-2c01-8257-955d5aa51420@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
- tiwai@suse.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="0qVF/w3MHQqLSynd"
+Content-Disposition: inline
+In-Reply-To: <20200218174706.27309-1-dmurphy@ti.com>
+X-Cookie: No alcohol, dogs or horses.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,48 +71,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2020-02-18 17:45, Pierre-Louis Bossart wrote:
-> On 2/18/20 8:10 AM, Cezary Rojewski wrote:
->> Field "substream" gets assigned during stream setup in
->> hda_dsp_pcm_hw_params() but it is never cleared afterwards during
->> hda_dsp_pcm_close(). Now, any non-pcm operation e.g.: compress can
->> mistakenly make use of that pointer as it's bypassing all
->> "if (s->substream)" checks.
->>
->> Nulling the pointer during close operation ensures no wild pointers are
->> left behind.
->>
->> Fixes: cdae3b9a47aa ("ASoC: SOF: Intel: Add Intel specific HDA PCM 
->> operations")
->> Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
->> ---
->>   sound/soc/sof/intel/hda-pcm.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
->> diff --git a/sound/soc/sof/intel/hda-pcm.c 
->> b/sound/soc/sof/intel/hda-pcm.c
->> index a46a6baa1c3f..4b3a89cf20e7 100644
->> --- a/sound/soc/sof/intel/hda-pcm.c
->> +++ b/sound/soc/sof/intel/hda-pcm.c
->> @@ -246,5 +246,6 @@ int hda_dsp_pcm_close(struct snd_sof_dev *sdev,
->>       /* unbinding pcm substream to hda stream */
->>       substream->runtime->private_data = NULL;
->> +    hstream->substream = NULL;
->>       return 0;
->>   }
-> 
-> 
-> Humm, yes we should clean this, but wondering if the close() operation 
-> is the right place. Doing this is hda_dsp_stream_hw_free() sounds more 
-> logical to me?
 
-Ain't hda-pcm.c the best place for it as "hstream->substream = 
-substream" happens there too? If the cleanup is to be done in 
-_hw_free(), then I'd expect the same to happen to the original 
-assignments. Doubt we want to do the later so.. _close() for the win?
+--0qVF/w3MHQqLSynd
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-In general the existing hstream->substream initialization looks kinda 
-disconnected from the actual stream assignment code - _stream_get() - as 
-if the duties of the state machine were shared.
+On Tue, Feb 18, 2020 at 11:47:06AM -0600, Dan Murphy wrote:
+> If the bitwidth passed in to the set_bitwidth function is not supported
+> then return an error.
+>=20
+> Fixes: 29b74236bd57 ("ASoC: tas2562: Introduce the TAS2562 amplifier")
+> Signed-off-by: Dan Murphy <dmurphy@ti.com>
+> ---
+>  scripts/conmakehash        | Bin 0 -> 13120 bytes
+>  scripts/sortextable        | Bin 0 -> 18040 bytes
+>  sound/soc/codecs/tas2562.c |   3 ++-
+>  3 files changed, 2 insertions(+), 1 deletion(-)
+>  create mode 100755 scripts/conmakehash
+>  create mode 100755 scripts/sortextable
+>=20
+> diff --git a/scripts/conmakehash b/scripts/conmakehash
+> new file mode 100755
+> index 0000000000000000000000000000000000000000..17eec37019b8ae45f42f3c820=
+46d1a55a6f69cb3
+> GIT binary patch
+> literal 13120
+> zcmeHOeQ;D&mcN}25CU`u1i`Q23C#=3Dv(j@XB0Wx-n4!le?@~!SFHl6fK(rc$X+x=3DRD
 
-Czarek
+This is...  fun?  I'm guessing it's not intentional, it's certainly a
+little difficult to review.  :)
+
+--0qVF/w3MHQqLSynd
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5MMX8ACgkQJNaLcl1U
+h9AE1Qf/Zp6m3NI0e0rXFXTJ2XbGhyY0eb9a56oQ6NAH8Cxv75wmSpRtYY56PGpK
+XgBcQN67E9zoR9G+t8WS3t60tOmLAOyAVVDNQ4llIzUsl5oq0zcN5QZhG0GeDPwF
+gfKhGhyKgyZ7cNY0IJETfg9kgF+zvUq49Dh9APTHkBr4OMd0XDJxuBSc2+oCFeAb
+ozO7V5pje1NZe3zcwJY7ZvrjJ+MXnwevO+V9r+1QpFXS6als6G+JC3nChaDBHT7P
+3rQJVO1Wtbl9m9cN2zUj18Zbg5dYjGQLr2ak91NLBjeawlzVSCQucidm0rAaGL4H
+BrBsxv18mqZb8bouvke9jMA+15ovmw==
+=piVj
+-----END PGP SIGNATURE-----
+
+--0qVF/w3MHQqLSynd--

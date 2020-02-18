@@ -2,96 +2,103 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7B3816265D
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 13:45:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DA0341626DC
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 14:11:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 38FE2167D;
-	Tue, 18 Feb 2020 13:44:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38FE2167D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7D3311686;
+	Tue, 18 Feb 2020 14:10:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7D3311686
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582029911;
-	bh=aU9q3EZoe/HmAR0Ldu/kjzG3s7tXhDZi+/zi3+g7nZg=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1582031479;
+	bh=e8CVTZoY2/8fGVfb6bMCURMFiV43qvJi7sf/2U6M+KA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=sez0k7J1GS49cbWDCvk/kEs7PKs4zj/zk7zmcHWDRqtQt7DCh56UDSE1pGSVzU9qG
-	 EFQAntFpSxP5yawBiDae6BQQs6Yr3AznFtPuO/ApAWPjGx/+hrJcBXbYR3Jq3Ra877
-	 ngag0StB4lv1LavmI7O3n5TwhQrEH0Aqe83vMT2c=
+	b=hnWVTI/3gwWQhlf7IMusi+03npaTBd/u7JNLP82dawhvGZgW9Wu5ytc0z/qrCHW03
+	 NYhzyAnhC1XGyJBwfc9NxxOunEaERN8VP6sCBypSYKoJqUEvQDEwPH+7iUc5Asfw2k
+	 tZQ9e10oSB6geL1Bc3O9WbFYDSX6/3fG/3rRRYRw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E4CDF8014A;
-	Tue, 18 Feb 2020 13:43:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F6C6F80135;
+	Tue, 18 Feb 2020 14:09:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2878AF80148; Tue, 18 Feb 2020 13:43:28 +0100 (CET)
+ id A2B05F80148; Tue, 18 Feb 2020 14:09:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_30,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
+X-Spam-Level: 
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com
+ [67.231.149.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D9901F800C4
- for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 13:43:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D9901F800C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC798F80135
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 14:09:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC798F80135
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="chFZvMok"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01IChFUY016476;
- Tue, 18 Feb 2020 06:43:15 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1582029795;
- bh=ta+i5kdqlBabGZiL7sfQra7k6ZhyhgsMg6lC7O4YRD4=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=chFZvMokcZf3+ThmhqogSYcURzUmjtM+mSxFkhhuLBLvJ5HeogjpZH8LIk93wfSAz
- FDDhnTTRIOIdNddPOnaH3ZvulVWD5JJRLbqL7Z9kSAng1sfyoc8S6vmUaMvXhiuuGH
- se9vRKHuocyxMXT5XN2s5iUB0WE6QiRv2SnuAGhA=
-Received: from DLEE100.ent.ti.com (dlee100.ent.ti.com [157.170.170.30])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01IChFi1081232
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 18 Feb 2020 06:43:15 -0600
-Received: from DLEE106.ent.ti.com (157.170.170.36) by DLEE100.ent.ti.com
- (157.170.170.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Tue, 18
- Feb 2020 06:43:14 -0600
-Received: from fllv0039.itg.ti.com (10.64.41.19) by DLEE106.ent.ti.com
- (157.170.170.36) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Tue, 18 Feb 2020 06:43:14 -0600
-Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0039.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01IChA0F048688;
- Tue, 18 Feb 2020 06:43:11 -0600
-Subject: Re: [PATCH] ASoC: ti: Allocate dais dynamically for TDM and audio
- graph card
-To: Tony Lindgren <tony@atomide.com>
-References: <20200211171645.41990-1-tony@atomide.com>
- <cd46c6ec-80e3-332f-4922-e58a3acbfc61@ti.com>
- <20200212143543.GI64767@atomide.com>
- <346dfd2b-23f8-87e0-6f45-27a5099b1066@ti.com>
- <20200214170322.GZ64767@atomide.com>
- <d9a43fcb-ed0f-5cd5-7e22-58924d571d17@ti.com>
- <20200217231001.GC35972@atomide.com>
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <5402eba8-4f84-0973-e11b-6ab2667ada85@ti.com>
-Date: Tue, 18 Feb 2020 14:43:19 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="NsCAGbcs"
+Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
+ by mx0a-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01ID9UNt031732; Tue, 18 Feb 2020 07:09:30 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=oDcx9+nhLtRKd/7eK4F56Q9mkdC8+Ult+qCe6UIxF9s=;
+ b=NsCAGbcsw+md0TtFXe9kWes3YmvZFfcZgPP7KR/NsxiVmjwa2j/TPV96ErN5zgQvmMqB
+ jE3ZW+VNL7zyV5M5OHiFfpR1l0rbt6M+tq9a+/vpEnmbJUpzR1Wv0Qe48E3PRS0w/3r4
+ ujHXOCh2LYbC7lv9p8KSmzuWe/2ntWpwbfGHOUalU2/yZAFB5MIgUofbAXrzuZ7ILsRs
+ bUGJ8HosMA4hmNcwmCwXX9s0J1Cf2zglX87HrBSJ+VVWHRRZvGWItCVUdauEMw5ttQiU
+ 0RoSLANukDTLibLcV+1+Rw6sFC0GoxbamC0MNspKK4UTiZZXJFVBqESkkv2KD0aS38jD DQ== 
+Authentication-Results: ppops.net;
+ spf=pass smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex02.ad.cirrus.com ([5.172.152.52])
+ by mx0a-001ae601.pphosted.com with ESMTP id 2y6ex9c1uc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Tue, 18 Feb 2020 07:09:30 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX02.ad.cirrus.com
+ (198.61.84.81) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Tue, 18 Feb
+ 2020 13:09:25 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Tue, 18 Feb 2020 13:09:25 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 401F72DC;
+ Tue, 18 Feb 2020 13:09:25 +0000 (UTC)
+Date: Tue, 18 Feb 2020 13:09:25 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: Re: linux-next: Tree for Feb 18 (sound/soc/codecs/wm5110.c)
+Message-ID: <20200218130925.GG108283@ediswmail.ad.cirrus.com>
+References: <20200218152853.67e2482a@canb.auug.org.au>
+ <89ef264f-12c9-ccb0-5cdd-ee5f70a469dd@infradead.org>
+ <c2273472-18af-e206-c942-fd460e0d192c@infradead.org>
+ <20200218100959.GD108283@ediswmail.ad.cirrus.com>
+ <20200218113116.GA4232@sirena.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <20200217231001.GC35972@atomide.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, linux-kernel@vger.kernel.org,
- Merlijn Wajer <merlijn@wizzup.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Pavel Machek <pavel@ucw.cz>, Sebastian Reichel <sre@kernel.org>, "Arthur D
- ." <spinal.by@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20200218113116.GA4232@sirena.org.uk>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com
+ ip4:5.172.152.52 -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ suspectscore=0
+ adultscore=0 clxscore=1015 mlxlogscore=999 priorityscore=1501 spamscore=0
+ bulkscore=0 mlxscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
+ definitions=main-2002180105
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
+ moderated for non-subscribers <alsa-devel@alsa-project.org>,
+ patches@opensource.cirrus.com, Randy Dunlap <rdunlap@infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>, geert@linux-m68k.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,162 +114,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Tony,
-
-On 18/02/2020 1.10, Tony Lindgren wrote:
-> * Peter Ujfalusi <peter.ujfalusi@ti.com> [200217 12:10]:
->> On 14/02/2020 19.03, Tony Lindgren wrote:
->>> But right now in droid4 voice call case mcbsp is just the i2s transport,
->>> and everything happens betwee the modem and the cpcap pmic.
->>
->> Iow you don't need McBSP DAI at all. If you would have added the dummy
->> codec to McBSP !3 and use that, it would work in a same way, or to DMIC
->> or McPDM...
->>
->> The McBSP ops are NULL for the dummy dai, so McBSP is turned off.
+On Tue, Feb 18, 2020 at 11:31:16AM +0000, Mark Brown wrote:
+> On Tue, Feb 18, 2020 at 10:09:59AM +0000, Charles Keepax wrote:
+> > 2) We could update the machine drivers to a depends on and make
+> > the CODEC symbols manually selectable. I guess this also has the
+> > advantages that it would be necessary for the simple card stuff
+> > that seems to be everyones first choice for machine drivers these
+> > days.
 > 
-> Hmm yeah I don't know if the cpcap codec on the same mcbsp needs
-> mcbsp for voice call.
+> That's not good, it means people have to know exactly what CODECs and
+> DAIs are on their board to even see the config option.
 > 
-> According to Sebastian sounds like mcbsp can be idle at that point.
+> > Mark do you have any strong feelings on this I am leaning towards
+> > 2?
 > 
-> But what about capture of voice call at the mcbsp from the
-> TDM slot? In that case mcbsp would be active.
+> Why not just continue adding the relevant dependencies to the machine
+> drivers like we've always done?
 
-Sure, but with the dummy dai it won't....
+Hmm... a good point. The machine drivers are already depending
+on MFD_ARIZONA, if we swapped that for the actual CODECs
+involved I guess that should fix the situation as well.
 
-If I understand correctly the HW setup:
-McBSP2 -> CPCAP_hifi (only playback)
+I will fire out a patch shortly.
 
-CPCAP_voice is the i2s clock master.
-McBSP3, CPCAP_voice, MDM6600 and WL1285 are all connected together via
-i2s lines.
-
-In case of Voice call with analog mic/speaker only CPCAP_voice and
-MDM6600 is used.
-In case of Voice call with BT only MDM6600 and WL1285 is used (but
-CPCAP_voice must provide the clocks?)
-In case you would have any algorithm running on OMAP4 for the calls,
-then you will have McBSP3 inserted and used between MDM6600 and
-CPAC_voice/WL1285.
-Similarly, if you would like to tap in and record the data from the bus
-you will have McBSP3 enabled.
-
-The simplest use cases you want to support:
-A. McBSP3 <-> CPCAP_voice (playback/capture)
-B. MDM6600 <-> CPCAP_voice (handset mic/speaker voice call)
-C. MDM6600 <-> WL1285 (BT voice call)
-D. McBSP3 <-> BT (VoIP?)
-
-I would not bother with recording the call as you would need tom
-reconfigure the McBSP playback pin (is it even possible) as input to
-OMAP4, I think..
-
-B/C is codec2codec, McBSP3 is not involved at all.
-A/D is when McBSP3 is used only.
-
-Imho this can be represented as
-McBSP2: 1 port
-	1.1: to CPCAP_hifi
-
-McBSP3: 1 port, 2 endpoint
-	2.1: to CPCAP_voice
-	2.2: to WL1285
-CPCAP: 2 ports
-	hifi:	3.1: to McBSP2
-	voice:	4.1: to McBSP3
-		4.2: to MDM6600
-MDM6600: 2 ports
-	5.1: to CPAC_voice
-	5.2: to WL1285
-WL1285: 2 ports
-	6.1: to McBSP3
-	6.2: to MDM6600
-
-The machine driver should switch between the graph links based on the
-use case for the interconnected devices:
-A: 2.2 <-> 4.1
-B: 4.2 <-> 5.1
-C: 6.2 <-> 5.1
-D: 2.2 <-> 6.1
-
-Can a generic card provide such a functionality?
-In case of B/C you should not have a running stream imho.
-In all cases CPCAP_voice should be able to run the clocks on i2s, even
-if it is not used by the audio setup.
-Not sure if you can just turn Wl1285 as master, but it is possible that
-it is master, but silent when it is not used?
-
-I'm not sure if we should span out dummy dais for endpoints within a
-port. Imho the port _is_ the dai. Different endpoints might use
-different TDM slots on the port (or the same slot, which makes them
-exclusive).
-
-> 
->>>>>> I know it was discussed, but can not find the mail:
->>>>>> Can you brief again on the audio connection?
->>>>>
->>>>> Below is a link to a mailing list thread where Sebastian describes
->>>>> the audio connection:
->>>>>
->>>>> https://lkml.org/lkml/2018/3/28/881
->>>>
->>>> Thanks!
->>>>  
->>>>>> Do you have branch with working code?
->>>>>
->>>>> Yeah I have slightly older set of the patches in my droid4-pending-v5.5
->>>>> kernel.org git branch with voice calls working.
->>>>
->>>> I think I should put my droid4 out and try to get it working...
->>>> Do you have a link for dummies to follow to get started? ;)
->>>
->>> Probably the easiest one to use right now is the Maemo-leste devuan based
->>> test image using v5.5 kernel + modem and audio patches:
->>>
->>> https://leste.maemo.org/Motorola_Droid_4
->>>
->>> Just use a decent speed micro-sd card rated "a1" for example.
->>
->> Cool. Now I can dual boot the droid4 :D
->> I needed to rewrite the /etc/shadow to get a known root password so I
->> can log in.
-> 
-> Not sure if you mean password for the droid4-kexecboot or the
-> Linux distro you installed..
-
-It was for the maemo-leste.
-Bringing up Gentoo will be a bit harder as I don't have wifi stuff in my
-reference image...
-
-> But for droid4-kexecboot, you
-> can configure it to automatically download new kernels over wlan.
-> There's some info on the machine specific password and how to
-> configure wlan in the droid4-kexecboot buildroot commits here:
-> 
-> https://github.com/tmlind/buildroot/commits/droid4-kexecboot-2017.11
-> 
->> Wifi is up, so in theory I can scp kernel/dtb to /boot/boot/ and update
->> the /boot/boot/boot.cfg to boot my kernel, right?
-> 
-> Yeah you can update kernels and modules over wlan from the distro(s)
-> you have configured, and also from droid4-kexecboot as above.
-
-I need to try droid4-kexecboot's wifi support then.
-
-> And note that kexecboot looks for a boot/boot.cfg file to use on
-> every usable parition it finds and uses all the found entries
-> based on the priority configured for the boot.cfg entry.
-
-OK, thanks!
-
-> 
-> Regards,
-> 
-> Tony
-> 
-
-- Péter
-
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+Thanks,
+Charles

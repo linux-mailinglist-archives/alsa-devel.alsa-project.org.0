@@ -2,67 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D79A162F60
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 20:07:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E24B162F98
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 20:16:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 093CD1697;
-	Tue, 18 Feb 2020 20:06:39 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093CD1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1BC7A1696;
+	Tue, 18 Feb 2020 20:15:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1BC7A1696
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582052849;
-	bh=qlpXZ52m2pYD8JDtKYh+8GNIDyCrRAsNcCOCum32xiI=;
+	s=default; t=1582053372;
+	bh=pNX2hYY6hJOUK6tHCizU9s7PfL377YrnIWGBgtQ3u2g=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=T7qvX02wlvw8rrmIAxGv1yaYL9x7vYzAiYBbzJi9wPR0AgEovnitGvXMESTsRxnOq
-	 5TYh3GoezYc9HOjK+EYaAj2GQVmyG+Mve2GTWY342bnQwP5cf3ZRYY1L19ndP/pKiN
-	 ubZrY5ubNA6DUJDInd0+umn9D5+u5NDRoSykOmSc=
+	b=UJF08R15phcKIOXajsASmm0XL42bRQKi4+R2qnaLuLhc14gEgWsvbSEbN8zyqUT/1
+	 UyJx7dzUsEHJft2DUaEtJ6bNRlpvIGIpGTtwMTuArhpFktRTzuKL4P6EvAUT3pcDXn
+	 e2nJIa28JnOTsd0PbpqkKky3gshZ5tVrsI8N2s7g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E13DF8014A;
-	Tue, 18 Feb 2020 20:05:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F33A9F8014A;
+	Tue, 18 Feb 2020 20:14:30 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 839D8F80148; Tue, 18 Feb 2020 20:05:46 +0100 (CET)
+ id 08A9EF800C4; Tue, 18 Feb 2020 20:14:29 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
+ [IPv6:2a00:1450:4864:20::242])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 126A1F800C4
- for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 20:05:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 126A1F800C4
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Feb 2020 11:05:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,457,1574150400"; d="scan'208";a="408174834"
-Received: from bmerugul-mobl1.amr.corp.intel.com (HELO [10.251.159.61])
- ([10.251.159.61])
- by orsmga005.jf.intel.com with ESMTP; 18 Feb 2020 11:05:39 -0800
-Subject: Re: [PATCH] ASoC: SOF: Intel: Fix stream cleanup on pcm close
-To: Cezary Rojewski <cezary.rojewski@intel.com>
-References: <20200218141013.7290-1-cezary.rojewski@intel.com>
- <63adf568-74f4-2c01-8257-955d5aa51420@linux.intel.com>
- <95efa175-e72a-fe48-9c91-ec65d31ae130@intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <446b11ad-648f-1add-e827-06088e13ee2f@linux.intel.com>
-Date: Tue, 18 Feb 2020 13:05:38 -0600
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2F417F800C4
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 20:14:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F417F800C4
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="nkyzVVvC"
+Received: by mail-lj1-x242.google.com with SMTP id h23so24302295ljc.8
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 11:14:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=eqiE3ON3yUFSWQHKc7DsePJvNE/YOV216x163adef4w=;
+ b=nkyzVVvCjXm5Dc+wEe5FRHcJmm2DILVTS3MOfXabzi8uCeyHBbnCdLzUtz4Leu/IX2
+ zZf7AvhQ6ikGYTAAoWftJ6SHRT5KHZu6M9snNXAHHc36JjoWKWrbR7zGfgBTdk3L+ygB
+ 7jjBQq9IQoO5xm9MwiaAbzO2pmumMHtLedqURR7VpQ999zigyD+vJVVHDEuOgYUdvLPe
+ btuTNUdl2BsY6f1cvOcdLklA/fOaeySMlBQeIhDZ8zJ2upuzTgJPMpXf8cLISdDnEDwk
+ kwCCfyfeFmcZs7NovzFTmQk2s3FCLpwE1cUv+HLZ2WBu2OU+eck9c3Km2CSDbsrXgO5N
+ EzTA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=eqiE3ON3yUFSWQHKc7DsePJvNE/YOV216x163adef4w=;
+ b=L2h5Nw8yy8Ytof5g7wOw+Sma1b4L4aDGUhvdtPKH2flyDLGW4vVPldLPjwljO0pqtH
+ ahoz2lzDf4oSLHBtamJZj92yeJWCrAtmS5tZU21hLrFh1OuNxsujJV9NONbrS39JdyJN
+ LcG5fRqfQyHpRQYiN3I09gDt6J0ViBe5I+NTndYHIeoUqEgc3th78Eoeltk9MhxEnb3e
+ sgshdpkDx5Ul0V5XHwN3U5Yn0Ps4TBIpbJ61pZ6HKOimQx+vwqd1gSoVYwSnEOWCHUKE
+ 4vuQkoXe4o5Ce59uDEZwRkz1ePSnxiq0PX9OKXt8+JuxcZCsj4Uutg0qD+eCgp5Crcm+
+ WeSg==
+X-Gm-Message-State: APjAAAW3ifPeAvF/7Wc+NMgNB3IrbxsOHcn/8D8r9mxl5XLK4p4Z2nGS
+ fcHNdKfi4PA7gQsBD8ZRTYQ=
+X-Google-Smtp-Source: APXvYqyGnasuo5bWLCYC6VtvaeSL5aFUT3UwMeqw5vPdKz/BYt6TG+kaIm8AeIV/kAjtHaYfcFiMqg==
+X-Received: by 2002:a2e:9942:: with SMTP id r2mr13187756ljj.182.1582053264782; 
+ Tue, 18 Feb 2020 11:14:24 -0800 (PST)
+Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
+ [79.139.233.37])
+ by smtp.googlemail.com with ESMTPSA id z8sm3024582ljk.13.2020.02.18.11.14.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 18 Feb 2020 11:14:23 -0800 (PST)
+Subject: Re: [alsa-devel] [PATCH v3 0/7] ASoC: soc-pcm cleanup step2
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ Mark Brown <broonie@kernel.org>
+References: <87d0anceze.wl-kuninori.morimoto.gx@renesas.com>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <5d19876d-86a4-a461-f47a-68c7ba1f46ac@gmail.com>
+Date: Tue, 18 Feb 2020 22:14:22 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <95efa175-e72a-fe48-9c91-ec65d31ae130@intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <87d0anceze.wl-kuninori.morimoto.gx@renesas.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
- tiwai@suse.com
+Cc: "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Jon Hunter <jonathanh@nvidia.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,44 +106,115 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Cezary,
-
->>> diff --git a/sound/soc/sof/intel/hda-pcm.c 
->>> b/sound/soc/sof/intel/hda-pcm.c
->>> index a46a6baa1c3f..4b3a89cf20e7 100644
->>> --- a/sound/soc/sof/intel/hda-pcm.c
->>> +++ b/sound/soc/sof/intel/hda-pcm.c
->>> @@ -246,5 +246,6 @@ int hda_dsp_pcm_close(struct snd_sof_dev *sdev,
->>>       /* unbinding pcm substream to hda stream */
->>>       substream->runtime->private_data = NULL;
->>> +    hstream->substream = NULL;
->>>       return 0;
->>>   }
->>
->>
->> Humm, yes we should clean this, but wondering if the close() operation 
->> is the right place. Doing this is hda_dsp_stream_hw_free() sounds more 
->> logical to me?
+10.02.2020 06:13, Kuninori Morimoto пишет:
 > 
-> Ain't hda-pcm.c the best place for it as "hstream->substream = 
-> substream" happens there too? If the cleanup is to be done in 
-> _hw_free(), then I'd expect the same to happen to the original 
-> assignments. Doubt we want to do the later so.. _close() for the win?
+> Hi Mark
 > 
-> In general the existing hstream->substream initialization looks kinda 
-> disconnected from the actual stream assignment code - _stream_get() - as 
-> if the duties of the state machine were shared.
+> These are v3 of soc-pcm cleanup.
+> Original [5/7] [6/7] patch call open / start function for all DAI / component.
+> And, it calls close / stop function for all if some of them got error.
+> But in such case, error occured DAI / component don't need to call close / stop.
+> 
+> This issue can be solved if it had flag, and my local tree has such patch.
+> But it was planed to post to ML a little later.
+> This time, I merged original patch and this new flag patch on [5/7] [6/7].
+> 
+> These mention that "it is prepare for soc-pcm-open() cleanup".
+> But it will be happen later.
+> 
+> These are based on v5.6-rc1
+> 
+> Kuninori Morimoto (8):
+>   1) ASoC: soc-pcm: add snd_soc_runtime_action()
+>   2) ASoC: soc-pcm: adjustment for DAI member 0 reset
+>   3) ASoC: soc-pcm: add for_each_dapm_widgets() macro
+>   4) ASoC: soc-pcm: don't use bit-OR'ed error
+>   5) ASoC: soc-pcm: call snd_soc_dai_startup()/shutdown() once
+>   6) ASoC: soc-pcm: call snd_soc_component_open/close() once
+>   7) ASoC: soc-pcm: move soc_pcm_close() next to soc_pcm_open()
+>   8) ASoC: soc-pcm: tidyup soc_pcm_open() order
+> 
+>  include/sound/soc-component.h |   7 +-
+>  include/sound/soc-dai.h       |   5 +-
+>  include/sound/soc-dapm.h      |   5 +
+>  sound/soc/soc-component.c     |  35 ++++--
+>  sound/soc/soc-dai.c           |  11 +-
+>  sound/soc/soc-dapm.c          |   8 +-
+>  sound/soc/soc-pcm.c           | 246 +++++++++++++++++++-----------------------
+>  7 files changed, 161 insertions(+), 156 deletions(-)
+> 
 
-I am having difficulties interpreting your answer, i.e. I don't know 
-what the last sentence refers to.
+Hello,
 
-Currently open() and close() are perfectly symmetrical, I don't really 
-see why you'd want to change and add an imbalanced set of operations, 
-unless you moved
+I'm observing a NULL dereference on NVIDIA Tegra20/30 once PulseAudio is
+loaded.
 
-hstream->substream = substream;
+The offending patch is:
 
-to the open() instead of hw_params().
+  ASoC: soc-pcm: call snd_soc_component_open/close() once
 
-Or alternatively add a hw_free() in hda-pcm.c to mirror what's done in 
-hw_params.
+Please fix, thanks in advance.
+
+[   61.860826] 8<--- cut here ---
+[   61.860965] Unable to handle kernel NULL pointer dereference at
+virtual address 00000000
+[   61.861037] pgd = ef2eab54
+[   61.861155] [00000000] *pgd=00000000
+[   61.861228] Internal error: Oops: 5 [#1] SMP THUMB2
+[   61.861298] Modules linked in:
+[   61.861427] CPU: 2 PID: 599 Comm: pulseaudio Not tainted
+5.6.0-rc2-next-20200218-00168-g1e584fed87b9 #1275
+[   61.861546] Hardware name: NVIDIA Tegra SoC (Flattened Device Tree)
+[   61.861626] PC is at snd_dmaengine_pcm_close+0x1c/0x3c
+[   61.861756] LR is at snd_soc_component_close+0x1d/0x3c
+[   61.861823] pc : [<c072a36c>]    lr : [<c0751b51>]    psr: 60000033
+[   61.861944] sp : dc01bc88  ip : 00000000  fp : ffffffea
+[   61.862013] r10: 00000010  r9 : dd81a840  r8 : de318e00
+[   61.862080] r7 : dd81adfc  r6 : 00000000  r5 : 00000003  r4 : 00000000
+[   61.862199] r3 : dc19f800  r2 : 00000000  r1 : 00000447  r0 : c0e2f438
+[   61.862322] Flags: nZCv  IRQs on  FIQs on  Mode SVC_32  ISA Thumb
+Segment none
+[   61.862390] Control: 50c5387d  Table: 9db0c04a  DAC: 00000051
+[   61.862510] Process pulseaudio (pid: 599, stack limit = 0xcfc4cd60)
+[   61.862576] Stack: (0xdc01bc88 to 0xdc01c000)
+[   61.862700] bc80:                   c0756611 de31b60c 00000003
+c0751b51 de31b60c c07525ff
+...
+[   61.865643] bfe0: 00000142 beb9b7e8 b6c35f0d b6bbcd56 00000030
+ffffff9c 00000000 00000000
+[   61.865773] [<c072a36c>] (snd_dmaengine_pcm_close) from [<c0751b51>]
+(snd_soc_component_close+0x1d/0x3c)
+[   61.865920] [<c0751b51>] (snd_soc_component_close) from [<c07525ff>]
+(soc_pcm_components_close+0x27/0x54)
+[   61.865993] [<c07525ff>] (soc_pcm_components_close) from [<c0752c27>]
+(soc_pcm_close+0x73/0xf0)
+[   61.866130] [<c0752c27>] (soc_pcm_close) from [<c072370d>]
+(snd_pcm_release_substream.part.0+0x29/0x6c)
+[   61.866258] [<c072370d>] (snd_pcm_release_substream.part.0) from
+[<c0723d5f>] (snd_pcm_open_substream+0x5f7/0x638)
+[   61.866383] [<c0723d5f>] (snd_pcm_open_substream) from [<c0723e45>]
+(snd_pcm_open+0xa5/0x184)
+[   61.866510] [<c0723e45>] (snd_pcm_open) from [<c0723f51>]
+(snd_pcm_capture_open+0x2d/0x40)
+[   61.866589] [<c0723f51>] (snd_pcm_capture_open) from [<c025fb69>]
+(chrdev_open+0xa9/0x148)
+[   61.866724] [<c025fb69>] (chrdev_open) from [<c02588a5>]
+(do_dentry_open+0xd5/0x2e8)
+[   61.866855] [<c02588a5>] (do_dentry_open) from [<c0267a8b>]
+(path_openat+0x203/0xd44)
+[   61.866981] [<c0267a8b>] (path_openat) from [<c02690d5>]
+(do_filp_open+0x49/0x90)
+[   61.867055] [<c02690d5>] (do_filp_open) from [<c0258e4b>]
+(do_sys_openat2+0x1a7/0x210)
+[   61.867180] [<c0258e4b>] (do_sys_openat2) from [<c0259ca9>]
+(do_sys_open+0x6d/0x98)
+[   61.867310] [<c0259ca9>] (do_sys_open) from [<c01011cb>]
+(__sys_trace_return+0x1/0x16)
+[   61.867377] Exception stack(0xdc01bfa8 to 0xdc01bff0)
+[   61.867498] bfa0:                   00000000 b6fac2e0 ffffff9c
+beb9b964 00080802 00000000
+[   61.867624] bfc0: 00000000 b6fac2e0 ffffffff 00000142 b22f57a8
+beb9b840 beb9b964 81204101
+[   61.867692] bfe0: 00000142 beb9b7e8 b6c35f0d b6bbcd56
+[   61.867819] Code: f2cc 00e2 f8d3 40e0 (6825) f615
+[   61.867959] ---[ end trace 335017ef9fedfd8c ]---

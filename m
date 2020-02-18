@@ -2,65 +2,116 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3ED4161DF5
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 00:38:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C29C7161E5D
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 02:02:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 39B2683D;
-	Tue, 18 Feb 2020 00:37:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 39B2683D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5AB05166C;
+	Tue, 18 Feb 2020 02:01:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5AB05166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581982706;
-	bh=lSLMhe+7VCVLcP5B1FoHJfF7pENKybzRI1BJAnOg6kw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1581987722;
+	bh=cPu0yeLIOxtLIBiES+iYkVIZVwZc3MSy6vA8v5xhFjA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=syziL6jc6S5gnrsed+PQenFOKRKhxoU3YYm5gCZ1t1i+LRhMgyh7lvoOzJMHCvZmf
-	 7n51LoWxSrP5/bk9CaxHjJYtYdBKYDU7Xpfpqh1CQ1v0hKzOELSZv+s8TaAtO5apES
-	 9/CZtlD8cnEVp8JEaoV0y6U0gr3+VxSCzow2D058=
+	b=EsDRxa8RNNzTKoXm95YquPrbb8cMgrPo4MmS8480dVY0W5/L5Dk6uwZDWvqOUivnC
+	 kKtU1LetNwF0mNLYxZjuChAELRaL7OubEavUjov7cs7satS5ZnrEfeDiLAFATefjw8
+	 6oxHfaMFPzJxzn29qiIGgSfKEzif7t736ezxTRRg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42D13F801F4;
-	Tue, 18 Feb 2020 00:36:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6417CF80172;
+	Tue, 18 Feb 2020 02:00:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A9081F80172; Tue, 18 Feb 2020 00:36:41 +0100 (CET)
+ id 6626FF80172; Tue, 18 Feb 2020 02:00:19 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: *
-X-Spam-Status: No, score=1.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from muru.com (muru.com [72.249.23.125])
- by alsa1.perex.cz (Postfix) with ESMTP id 7198AF800B6
- for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 00:36:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7198AF800B6
-Received: from atomide.com (localhost [127.0.0.1])
- by muru.com (Postfix) with ESMTPS id 20F528087;
- Mon, 17 Feb 2020 23:37:11 +0000 (UTC)
-Date: Mon, 17 Feb 2020 15:36:23 -0800
-From: Tony Lindgren <tony@atomide.com>
-To: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Subject: Re: [PATCH] ASoC: ti: Allocate dais dynamically for TDM and audio
- graph card
-Message-ID: <20200217233623.GE35972@atomide.com>
-References: <20200211171645.41990-1-tony@atomide.com>
- <cd46c6ec-80e3-332f-4922-e58a3acbfc61@ti.com>
- <20200212143543.GI64767@atomide.com>
- <346dfd2b-23f8-87e0-6f45-27a5099b1066@ti.com>
- <20200214170322.GZ64767@atomide.com>
- <d9a43fcb-ed0f-5cd5-7e22-58924d571d17@ti.com>
- <20200217231001.GC35972@atomide.com>
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from mail-lj1-x243.google.com (mail-lj1-x243.google.com
+ [IPv6:2a00:1450:4864:20::243])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id B0E59F800B6
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 02:00:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B0E59F800B6
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="sfe5YN1O"
+Received: by mail-lj1-x243.google.com with SMTP id d10so20912147ljl.9
+ for <alsa-devel@alsa-project.org>; Mon, 17 Feb 2020 17:00:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=N3Wa2BGzPuFtAt4Hvp1UfThMFJPTB2GMc1k1np2GKU0=;
+ b=sfe5YN1OtoDO+kekL/Xz4/fWFMfVhU6pzKL8YOgzJQD3luNHeLeXmr+NtbNbHzHNfl
+ h18FQuBh6ucdum9WYBnUXurSnMOIOo3TblCnfNS/ccQYsk2SJvl1IeNKXGYG07FV6+bR
+ cfi1uJFeJeqzQ38t5O1sa1j1E/kOKKvT8WZ9BP+uIh6Gq3x1u2fO9QvV8hIXnS71uzqV
+ ruveI2mT8tKWW5IvQjlppD2rsCGC9WwkGeVAglKs+Wj7VFhSaIJO2Vsqbh/ZHWcyj4M6
+ DXJhh7TexQlxvg90SIt8vXVqe14SKpbTmey9+55/e/D4Q4jD4vz+s5if9U/ErQPfoFS1
+ I7Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=N3Wa2BGzPuFtAt4Hvp1UfThMFJPTB2GMc1k1np2GKU0=;
+ b=TmaK7hwz+BIlDQYQyprp2vrG9nuGYQnEh6OXcIQz9hJlG8MBW9Dki7UmuaKLDRCceC
+ 2fDovMo3dv12zLmDPqt9CrsgK/lywCpNYoSw4bcvd0DEFDxXFhWtT+rdroVeLP6MSIor
+ /FkXeGuxB2JYXH03EFBNjUZ5Y+fvqsmKeheELnTgw8jaDqJsuFro11LNN6F4cWRQzie/
+ fXN1iXQZe3CGcs1wr3rxQ4PbSb7300h9g2+6FeN/fRR5wbie6OeF6uSf/OAyK0mchgXw
+ 3htL2dl9vrB3SjsuPzAS4e0pKFHR1oLWKMAh0q6eItTkioBNXzd6FHvy5ifvFH5ZLrTv
+ K0qQ==
+X-Gm-Message-State: APjAAAUbRHh6yVDxQrkxTkh8wCamFCYZ9C59qDHN3PRcw5IB/W+f92rf
+ pD3e0ojsT8h/y5QZ/KqYpfQ=
+X-Google-Smtp-Source: APXvYqxl0e2saUaXkBe5/Mraz7tV+hghoh3F+M045Hp3wjrFqzmf1QxgPCmplNEo0DL99MdfIIB+4A==
+X-Received: by 2002:a2e:809a:: with SMTP id i26mr11565660ljg.108.1581987615650; 
+ Mon, 17 Feb 2020 17:00:15 -0800 (PST)
+Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
+ [79.139.233.37])
+ by smtp.googlemail.com with ESMTPSA id u16sm1315815ljl.34.2020.02.17.17.00.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 17 Feb 2020 17:00:14 -0800 (PST)
+Subject: Re: [alsa-devel] [PATCH 4/9] ASoC: tegra: add Tegra210 based I2S
+ driver
+To: Jon Hunter <jonathanh@nvidia.com>, Sameer Pujar <spujar@nvidia.com>
+References: <1579530198-13431-1-git-send-email-spujar@nvidia.com>
+ <1579530198-13431-5-git-send-email-spujar@nvidia.com>
+ <a440d105-8db9-ecf1-3718-e58804ce14b8@gmail.com>
+ <0c571858-d72c-97c2-2d6a-ead6fdde06eb@nvidia.com>
+ <444731da-c4cd-8578-a732-c803eef31ef0@gmail.com>
+ <bdc749bc-b62c-a041-c17c-33fd49fe8e2e@nvidia.com>
+ <598fe377-5b95-d30a-eb64-89a645166d42@gmail.com>
+ <3f51939d-cf4b-f69b-728a-7eb99bbae458@nvidia.com>
+ <34ac1fd3-ae0f-07f2-555f-a55087a2c9dc@nvidia.com>
+ <1a84b393-938f-8bed-d08e-cc3bb6ed4844@gmail.com>
+ <0fc814c2-0dc6-7741-b954-463381ff7fb9@nvidia.com>
+ <b5c581b9-17af-d004-33fb-2cc782ab820a@gmail.com>
+ <9f73afdf-1e9a-cdbd-f972-a022d503ef51@nvidia.com>
+ <264d3354-8a2e-ee12-44ae-aff69213d551@nvidia.com>
+ <075e476a-36bb-5fee-15bc-76af4474a797@gmail.com>
+ <c6022a93-b79a-c691-1d75-d007d0b64ead@nvidia.com>
+ <3b42c858-733b-0d17-f457-8043d97f5058@gmail.com>
+ <62b8ffbc-aa32-ae44-6cb4-b176b8ba9b0e@nvidia.com>
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <847739f8-6f54-cf64-54b8-94707944850b@gmail.com>
+Date: Tue, 18 Feb 2020 04:00:13 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.3.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20200217231001.GC35972@atomide.com>
-Cc: alsa-devel@alsa-project.org, linux-omap@vger.kernel.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, linux-kernel@vger.kernel.org,
- Merlijn Wajer <merlijn@wizzup.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Pavel Machek <pavel@ucw.cz>, Sebastian Reichel <sre@kernel.org>,
- "Arthur D ." <spinal.by@gmail.com>, Jarkko Nikula <jarkko.nikula@bitmer.com>
+In-Reply-To: <62b8ffbc-aa32-ae44-6cb4-b176b8ba9b0e@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ linux-kernel@vger.kernel.org, tiwai@suse.com, atalambedu@nvidia.com,
+ robh+dt@kernel.org, lgirdwood@gmail.com, viswanathl@nvidia.com,
+ sharadg@nvidia.com, broonie@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, rlokhande@nvidia.com, mkumard@nvidia.com,
+ dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,56 +127,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-* Tony Lindgren <tony@atomide.com> [200217 23:10]:
-> * Peter Ujfalusi <peter.ujfalusi@ti.com> [200217 12:10]:
-> > On 14/02/2020 19.03, Tony Lindgren wrote:
-> > > But right now in droid4 voice call case mcbsp is just the i2s transport,
-> > > and everything happens betwee the modem and the cpcap pmic.
-> > 
-> > Iow you don't need McBSP DAI at all. If you would have added the dummy
-> > codec to McBSP !3 and use that, it would work in a same way, or to DMIC
-> > or McPDM...
-> > 
-> > The McBSP ops are NULL for the dummy dai, so McBSP is turned off.
+14.02.2020 17:05, Jon Hunter пишет:
 > 
-> Hmm yeah I don't know if the cpcap codec on the same mcbsp needs
-> mcbsp for voice call.
+> On 29/01/2020 03:41, Dmitry Osipenko wrote:
 > 
-> According to Sebastian sounds like mcbsp can be idle at that point.
+> ...
 > 
-> But what about capture of voice call at the mcbsp from the
-> TDM slot? In that case mcbsp would be active.
+>> The !RPM case isn't supported by Tegra anymore in upstream kernel. I'm
+>> trying to help to make yours driver better and gave you reasons to
+>> remove the unneeded code, while you're keep saying that "there is no
+>> harm to retain it", which is not a reason to clutter up the code. I
+>> don't feel that it's worthwhile to continue arguing here.
+> 
+> On further review, it does look like a reasonable argument to get rid of
+> this now completely. Like you see less clutter and the soc-core should
+> ensure that the card is shutdown before unloading. OK, so fine with me.
 
-Looks like only initializing only one mcbsp3 instance here
-instead of two will produce an oops as below.
+And the RPM core ensures that state is synced on disable, sorry if I
+didn't make it clear before.
 
-I'm not sure how this is supposed to work for
-snd-soc-audio-graph-card with multipe endpoints connected
-to just one mcbsp dai instance?
-
-Regards,
-
-Tony
-
-8< -------------------
-Internal error: Oops: 805 [#1] PREEMPT SMP ARM
-snd_soc_del_component_unlocked+0xf4/0x110
-...
-[   39.616027] Backtrace:
-[   39.616149] [<bf3f6bc4>] (snd_soc_del_component_unlocked [snd_soc_core]) from [<bf3f8ff4>] (snd_soc_add_component+0x238/0x374 [snd_s)
-[   39.616149]  r7:00000002 r6:00000002 r5:ec9a0e78 r4:00000122
-[   39.678283] qmi_wwan 1-1:1.6: cdc-wdm1: USB WDM device
-[   39.739074] [<bf3f8dbc>] (snd_soc_add_component [snd_soc_core]) from [<bf3f9180>] (snd_soc_register_component+0x50/0x60 [snd_soc_cor)
-[   39.739074]  r10:bf4582d0 r9:ec9d0840 r8:00000002 r7:00000002 r6:ec9d0640 r5:bf4584ac
-[   39.800842] asoc-audio-graph-card soundcard: using device tree for GPIO lookup
-[   39.808685]  r4:eed52410
-[   39.862304] [<bf3f9130>] (snd_soc_register_component [snd_soc_core]) from [<bf4088b4>] (devm_snd_soc_register_component+0x54/0x90 [s)
-[   39.862304]  r7:ec9d0640 r6:bf4584ac r5:ec9d3040 r4:eed52410
-[   39.925048] qmi_wwan 1-1:1.6 wwan1: register 'qmi_wwan' at usb-4a064800.ohci-1, WWAN/QMI device, 2e:59:df:3f:4f:ef
-[   39.984558] [<bf408860>] (devm_snd_soc_register_component [snd_soc_core]) from [<bf456fb8>] (asoc_mcbsp_probe+0x3e8/0x574 [snd_soc_o)
-[   39.984558]  r9:ec9d0840 r8:ec9f4000 r7:eed52410 r6:00000000 r5:eed52400 r4:ec9d0840
-[   39.984588] [<bf456bd0>] (asoc_mcbsp_probe [snd_soc_omap_mcbsp]) from [<c068475c>] (platform_drv_probe+0x58/0xa8)
-[   39.984619]  r10:00000000 r9:0000002e r8:bf459014 r7:00000000 r6:bf459014 r5:00000000
-[   40.044342] of_get_named_gpiod_flags: can't parse 'pa-gpios' property of node '/soundcard[0]'
-[   40.051788]  r4:eed52410
-[   40.100769] [<c0684704>] (platform_drv_probe) from [<c06820ac>] (really_probe+0x1ec/0x358)
++1 for less clutter :)

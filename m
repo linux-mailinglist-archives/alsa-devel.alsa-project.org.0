@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D176161E95
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 02:37:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 31D94161EA1
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 02:46:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DDE9B1668;
-	Tue, 18 Feb 2020 02:36:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DDE9B1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id B7508166C;
+	Tue, 18 Feb 2020 02:45:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B7508166C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1581989824;
-	bh=hUS/eP/k5KDRetTIu9BexvM9ewO4ohWBh+vpXTxvZy0=;
+	s=default; t=1581990404;
+	bh=TdtT0KYjyP4HRSlgJWIKe821UfLKetNb5WVHDK7Mc/o=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=rM5QTFw2qn7odIuCxT8X2QxS3KSlGqPnlq/iXoEdqCqE011u/cS3H7FuOWa6pIkLG
-	 v6JPsoBww8nUV/Z+QANff6J8LlDcc7ZhGaQDpm3jDsH++pAj51WFUZHUtEOaqc64R9
-	 KF89XU26hqyz+5i7tuoFTQtXDHV30rw09CC4pIh0=
+	b=naVi8P1n813OMKFc3qf7HuYyxhCJUeaHMxTGV8bBBnX0f9F8oNdWD8YCTjVF/piXN
+	 ZBz5lBkHltCUnLdswvNcx8d+HpX9volwyGm8Dgncs7RVztLF/+BOFwfAuwM9u/hnTY
+	 u7eaDGzm8u8TC4ZTSv/Ri3P7Qa06gpe0hMbzmv/A=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EAE4CF800C4;
-	Tue, 18 Feb 2020 02:35:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D518DF8015E;
+	Tue, 18 Feb 2020 02:45:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B37F7F80172; Tue, 18 Feb 2020 02:35:19 +0100 (CET)
+ id 0DDF9F80172; Tue, 18 Feb 2020 02:44:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
@@ -35,69 +35,68 @@ Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
  [66.111.4.221])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 71386F800C4
- for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 02:35:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 71386F800C4
+ by alsa1.perex.cz (Postfix) with ESMTPS id 2E2B3F800B6
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 02:44:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E2B3F800B6
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="TBjUAvH2"; 
+ header.b="CSF1Iph5"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="emEn5VRV"
+ header.i=@messagingengine.com header.b="GVNTuwA5"
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id 2C406713D;
- Mon, 17 Feb 2020 20:35:13 -0500 (EST)
+ by mailnew.nyi.internal (Postfix) with ESMTP id CC3CE6CB1;
+ Mon, 17 Feb 2020 20:44:51 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Mon, 17 Feb 2020 20:35:13 -0500
+ by compute5.internal (MEProxy); Mon, 17 Feb 2020 20:44:51 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  subject:to:cc:references:from:message-id:date:mime-version
- :in-reply-to:content-type:content-transfer-encoding; s=fm2; bh=3
- /frFdDog4FFMXYLrMEqlb9W6/lavkPu4eDG9CYrLUs=; b=TBjUAvH2+r4py/WeH
- dYAXfAV4xxtqVJJvqORkLcT/xfwC5knGW4m8noq+FusysuQMjxp9A9H9lNss2gnE
- ymgEbL6i0MGS6OF8k1usR5lR+Cg9edB4Rv9Ib/c3SSX2UApy0Xa0c00d3U3ox/o9
- 4Q5K9XHW/gNfqp/j/Q0WXTD/9Qke/BMjRGiRYkbaheZ+HU2Jld0d6KfqMuxhuvr/
- OFqZyDIAvhvNiue09cak608wjlJRg9VirPCiEYtWK50FUC6uOZzuW/f2ekpg6F+M
- XIm0oTZZVUAWHUScEwFvVdjHnkB6zB5DnF6H0dAARSAY8Et9XLfz0qBp6j+TO5f/
- gZcfg==
+ :in-reply-to:content-type:content-transfer-encoding; s=fm2; bh=k
+ tP0xjLMEYow5iCaqBZHaqnwO8wceFlWoz7H7k4O0xM=; b=CSF1Iph5pp4vOyZeL
+ LGmqeplv+4ylrO/x70YmMfcWggiReinVQ3yb90y947u4uncH8wP66FQrAaIcXRY1
+ niPYqALKjfxthOU5BoK3N8KCBjjEuXdNrNJ7CUOHgax/mKCY4VtH/c4x8pwI+VEb
+ IOj6YcK3bGb0rkkL1NWBTFZ4KveA1N6Nl35GVlfRj8ZOldCctkvhwFPSb6xgbdcN
+ QaHgqAFk6QId33dp/3boQGeRuOJwmrDz8ZGi847KuAFi6n+d3jbq1VWOFcItMV/5
+ Wfvy7PvqW7M4nmqo8D5rqxadkZ8ek2LnfVL0Wl0TvfAPB9rPZyLYitdcs6zKOadG
+ kYaCg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
  :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=3/frFdDog4FFMXYLrMEqlb9W6/lavkPu4eDG9CYrL
- Us=; b=emEn5VRVxNTBoJPTmLWomfIy5R32M8Md760VVUhJ8eGdlPLXN/bBDeAhn
- +GcRJWZ+ZcfYF+TjHHHmpxUG2qZH9XzsdXTHFcnislY/u2Fx3s+0ze1T0G/q/Nr9
- pV0YUiWSfpM1yX7Qc08gt5hHW5RUaRe0kEN7x6p4rTO0uwbJYi5mzghsgYonmo5h
- UgrwwrrjA8pjcj8qu3DprW0R2++v1uvMz4mGtCPNJ5nt4KL8Ius1gwBwa8qRoyOd
- 6SvpNR9WOVvc26Rp8jw00FcSlVDTCEUoYaNwABsoBbqg4v/t6Gctsh1lsY6TtMHY
- fD5VzybJD8UZnTSBy9Lg6S1ohvpbw==
-X-ME-Sender: <xms:TT9LXgMZLVK3eoy7lHkwIhGNH59zEU_eNFtjj4jAdQj4T8gzQPs2xw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrjeejgdefhecutefuodetggdotefrodftvf
+ :x-sasl-enc; s=fm2; bh=ktP0xjLMEYow5iCaqBZHaqnwO8wceFlWoz7H7k4O0
+ xM=; b=GVNTuwA5FHJB7rHrw/IlqU+ChDQVJwnXfOBzXIcglBuetJUkEzMBtyCk/
+ hSLS6RKANUBT8bIibhU+2mhlyVHauVATvTEcxtN1UJxjZnYDpxMvVSyFjWraokB/
+ Fduimjg06dChp9OeyqHfs/y38GTafH39Q6SNmaWmBJDb0jkMGYp+utesivcrRBre
+ imap9PkskDGb6Ot6RDo4ZjlvNC50W21naaSXfh227bNdhH/sxpiQBSw6mPdE16sZ
+ urL/zNgWFKYok8BYY+KH/O4jik7JjrDJjy3Wmp1Gp/6+KjhrSGv5ExrkT9GcmxRd
+ wKPT+SrqFtqxpXVjOgvVioDlp/49g==
+X-ME-Sender: <xms:kkFLXpFVoqimNSYPZ9i_OtN7A_2b2eQVo-jr8hcxqeEe16FtTMEE1w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrjeejgdefjecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefuvfhfhffkffgfgggjtgfgsehtjeertddtfeejnecuhfhrohhmpefurghmuhgv
  lhcujfholhhlrghnugcuoehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhgqeenucfkph
  epjedtrddufeehrddugeekrdduhedunecuvehluhhsthgvrhfuihiivgeptdenucfrrghr
  rghmpehmrghilhhfrhhomhepshgrmhhuvghlsehshhholhhlrghnugdrohhrgh
-X-ME-Proxy: <xmx:TT9LXo2V3EfTC9_V2ZPSxdf994TQft8hgcC1iX8yeLmBq9K211zslw>
- <xmx:TT9LXr3xwclyYDuE7X_abSeevmEbdYeyRHoI4C0PUBnTzHN2mAuSkg>
- <xmx:TT9LXmW8Slb9DKdlRHeHD8iOTo1pmbW9sKShTs1y-AM3XGHDPHyf9A>
- <xmx:UT9LXsmgCGu_GY9u1ruN_VtYA7ZhFghMMyHEI-o8EdG6-txapHEZVQ>
+X-ME-Proxy: <xmx:kkFLXp_ry0IomhF9gV77h-FQeJdENobIvLxdsoVEfGSdcG5fNB-KhA>
+ <xmx:kkFLXlmj-llT9aC3l-_jsDWxPiPcgd_2vWob-w5npInW2CvSx2JfBA>
+ <xmx:kkFLXs-b9KWeuSg9QslXBZhqkMGigL59cx7ZIhKs2042twxghnhAhA>
+ <xmx:k0FLXoVLLKcqDWrf4DXnoRpIvRmxqIcjWWh3soQfruWpxMbN4fCH7A>
 Received: from [192.168.50.169]
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id 88DCB3060BD1;
- Mon, 17 Feb 2020 20:35:08 -0500 (EST)
-Subject: Re: [RFC PATCH 05/34] ASoC: sun8i-codec: Remove incorrect
- SND_SOC_DAIFMT_DSP_B
+ by mail.messagingengine.com (Postfix) with ESMTPA id 219B33060C28;
+ Mon, 17 Feb 2020 20:44:50 -0500 (EST)
+Subject: Re: [RFC PATCH 08/34] ASoC: sun8i-codec: Fix direction of AIF1 outputs
 To: Mark Brown <broonie@kernel.org>
 References: <20200217064250.15516-1-samuel@sholland.org>
- <20200217064250.15516-6-samuel@sholland.org>
- <20200217150208.GG9304@sirena.org.uk>
+ <20200217064250.15516-9-samuel@sholland.org>
+ <20200217150935.GJ9304@sirena.org.uk>
 From: Samuel Holland <samuel@sholland.org>
-Message-ID: <1cdcbc0d-39c7-25f2-68eb-a44e815fb9b8@sholland.org>
-Date: Mon, 17 Feb 2020 19:35:08 -0600
+Message-ID: <7108ff30-df7e-09bd-f895-2768347d45ba@sholland.org>
+Date: Mon, 17 Feb 2020 19:44:49 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.2.2
 MIME-Version: 1.0
-In-Reply-To: <20200217150208.GG9304@sirena.org.uk>
+In-Reply-To: <20200217150935.GJ9304@sirena.org.uk>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -123,24 +122,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On 2/17/20 9:02 AM, Mark Brown wrote:
-> On Mon, Feb 17, 2020 at 12:42:21AM -0600, Samuel Holland wrote:
->> DSP_A and DSP_B are not interchangeable. The timing used by the codec in
->> DSP mode is consistent with DSP_A. This is verified with an EG25-G modem
->> connected to AIF2, as well as by comparing with the BSP driver.
->>
->> Remove the DSP_B option, as it is not supported by the hardware.
->>
->> Cc: stable@kernel.org
->> Fixes: 36c684936fae ("ASoC: Add sun8i digital audio codec")
+On 2/17/20 9:09 AM, Mark Brown wrote:
+> On Mon, Feb 17, 2020 at 12:42:24AM -0600, Samuel Holland wrote:
+>> The naming convention for AIFs in this codec is to call the "DAC" the
+>> path from the AIF into the codec, and the ADC the path from the codec
+>> back to the AIF, regardless of if there is any analog path involved.
 > 
-> This can only break things for existing systems using stable, if they
-> haven't noticed a problem with DSP B they'll certainly notice failing to
-> set up the DAI at all without it.
+> This renames widgets but does not update any DAPM routes from those
+> widgets which will break things if this patch is applied.
 
-Are you suggesting that I drop this patch entirely, or only that I remove the CC
-to stable (and/or Fixes: tag)? Is this something that can't be removed once it's
-there, or is the concern about making user-visible changes on stable?
+This commit doesn't change the widget name, only the widget type. My commit
+message did not make that clear.
 
-Thanks,
-Samuel
+>> Cc: stable@kernel.org
+> 
+> Why is this suitable for stable?  It's a random textual cleanup.
+
+This was one of the first patches I wrote. Now that I understand DAPM better, I
+realize that it has no functional impact, and this shouldn't go to stable.
+(snd_soc_dapm_aif_in and snd_soc_dapm_aif_out are handled exactly the same, so
+fixing the widget type is, as you say, just a textual cleanup.)

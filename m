@@ -2,62 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36FEE162F59
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 20:05:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6D79A162F60
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 20:07:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id BBE541699;
-	Tue, 18 Feb 2020 20:04:14 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BBE541699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 093CD1697;
+	Tue, 18 Feb 2020 20:06:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 093CD1697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582052704;
-	bh=AOzSoobEDE7EhEFICl1pLxHiCCZDR6d7DRTiE1UV2SM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1582052849;
+	bh=qlpXZ52m2pYD8JDtKYh+8GNIDyCrRAsNcCOCum32xiI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Y4tTxHbZSonbSa2YFkKURuNClbs0imcs+x3otvTftsSdmEOmPG3n/j59kPqCJkmET
-	 PkA+JHHAnGFeLC6QVsQqhSNsaY0MYMG2GCIsozlCTvIFpa11eDOZCopWy+1qbZ0PB2
-	 GZKhAj6mzWcu2ZMutf/KIdT21FlOhUonWitbSTVw=
+	b=T7qvX02wlvw8rrmIAxGv1yaYL9x7vYzAiYBbzJi9wPR0AgEovnitGvXMESTsRxnOq
+	 5TYh3GoezYc9HOjK+EYaAj2GQVmyG+Mve2GTWY342bnQwP5cf3ZRYY1L19ndP/pKiN
+	 ubZrY5ubNA6DUJDInd0+umn9D5+u5NDRoSykOmSc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id CC477F8014A;
-	Tue, 18 Feb 2020 20:03:23 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2E13DF8014A;
+	Tue, 18 Feb 2020 20:05:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B4CFF80148; Tue, 18 Feb 2020 20:03:21 +0100 (CET)
+ id 839D8F80148; Tue, 18 Feb 2020 20:05:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 74733F800C4
- for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 20:03:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74733F800C4
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8442831B;
- Tue, 18 Feb 2020 11:03:16 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 07DEC3F703;
- Tue, 18 Feb 2020 11:03:15 -0800 (PST)
-Date: Tue, 18 Feb 2020 19:03:14 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Subject: Re: Applied "ASoC: core: ensure component names are unique" to the
- asoc tree
-Message-ID: <20200218190314.GM4232@sirena.org.uk>
-References: <20200214134704.342501-1-jbrunet@baylibre.com>
- <applied-20200214134704.342501-1-jbrunet@baylibre.com>
- <1jblpvraho.fsf@starbuckisacylon.baylibre.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+ autolearn=disabled version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 126A1F800C4
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 20:05:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 126A1F800C4
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Feb 2020 11:05:40 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,457,1574150400"; d="scan'208";a="408174834"
+Received: from bmerugul-mobl1.amr.corp.intel.com (HELO [10.251.159.61])
+ ([10.251.159.61])
+ by orsmga005.jf.intel.com with ESMTP; 18 Feb 2020 11:05:39 -0800
+Subject: Re: [PATCH] ASoC: SOF: Intel: Fix stream cleanup on pcm close
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+References: <20200218141013.7290-1-cezary.rojewski@intel.com>
+ <63adf568-74f4-2c01-8257-955d5aa51420@linux.intel.com>
+ <95efa175-e72a-fe48-9c91-ec65d31ae130@intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <446b11ad-648f-1add-e827-06088e13ee2f@linux.intel.com>
+Date: Tue, 18 Feb 2020 13:05:38 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="DXTueXWT3Da08pik"
-Content-Disposition: inline
-In-Reply-To: <1jblpvraho.fsf@starbuckisacylon.baylibre.com>
-X-Cookie: No alcohol, dogs or horses.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org
+In-Reply-To: <95efa175-e72a-fe48-9c91-ec65d31ae130@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, broonie@kernel.org, lgirdwood@gmail.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,48 +78,44 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hi Cezary,
 
---DXTueXWT3Da08pik
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+>>> diff --git a/sound/soc/sof/intel/hda-pcm.c 
+>>> b/sound/soc/sof/intel/hda-pcm.c
+>>> index a46a6baa1c3f..4b3a89cf20e7 100644
+>>> --- a/sound/soc/sof/intel/hda-pcm.c
+>>> +++ b/sound/soc/sof/intel/hda-pcm.c
+>>> @@ -246,5 +246,6 @@ int hda_dsp_pcm_close(struct snd_sof_dev *sdev,
+>>>       /* unbinding pcm substream to hda stream */
+>>>       substream->runtime->private_data = NULL;
+>>> +    hstream->substream = NULL;
+>>>       return 0;
+>>>   }
+>>
+>>
+>> Humm, yes we should clean this, but wondering if the close() operation 
+>> is the right place. Doing this is hda_dsp_stream_hw_free() sounds more 
+>> logical to me?
+> 
+> Ain't hda-pcm.c the best place for it as "hstream->substream = 
+> substream" happens there too? If the cleanup is to be done in 
+> _hw_free(), then I'd expect the same to happen to the original 
+> assignments. Doubt we want to do the later so.. _close() for the win?
+> 
+> In general the existing hstream->substream initialization looks kinda 
+> disconnected from the actual stream assignment code - _stream_get() - as 
+> if the duties of the state machine were shared.
 
-On Tue, Feb 18, 2020 at 07:55:31PM +0100, Jerome Brunet wrote:
+I am having difficulties interpreting your answer, i.e. I don't know 
+what the last sentence refers to.
 
-> 1) Multiple components :
-> I found out that in fact it is common for linux devices to register
-> multiple components. For most, it is a combination of the dmaengine
-> generic and the actual device component, but other register more
-> component. Ex:
-> - vc4-hdmi
-> - atmel-classd
-> - atmel-pdmic
-> - cros-ec-codec
-> - mtXXXX-afe-pcm
-> I suspect these trigger the debugfs warning
-> Even dummy register two components :D
+Currently open() and close() are perfectly symmetrical, I don't really 
+see why you'd want to change and add an imbalanced set of operations, 
+unless you moved
 
-I hadn't realized we have so many - I'd have expected the debugfs
-complaints would've been noticable to people, I was hoping based on the
-initial discussion that it was just a couple of quick fixed needed.
-Guess not :/
+hstream->substream = substream;
 
-Anyway, I agree that a revert is probably sensible for the time being
-and getting this done is more involved - can you send patches doing the
-revert with a changelog explaining the rationale please?
+to the open() instead of hw_params().
 
---DXTueXWT3Da08pik
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5MNPEACgkQJNaLcl1U
-h9BjvAf+Pmlt7fyU83FfsWzxULYtc7fHXyMM3Gf12+JrIrwu/PfdPt3ip6EdC8Zl
-qK6l8aX76eSj3zVwp8XZtQzqNflip6GgTbIT6eO1JslOAGWXRPbKFs0XAuu5jOMf
-LfNEZoaFYp7FTrgltQsZ9viQyk8oO8/WWFwcomy717MTimKsBCiU8A0itn+0zQj7
-wobZKZ03lqgIaEgwhUdmGhCBZzKNbpAlgN+tFIsYZtm+d3oPHQHO/MG8m1YBjlzs
-UlhBrFJPUp4Wovahwd/OI7frBmGOLX6QhZSm7A0aoVs8c9I+icM73/sbqKSmsqq7
-crR5zlLSQuqvMLLIuX47uaEEcFXSOg==
-=GtzH
------END PGP SIGNATURE-----
-
---DXTueXWT3Da08pik--
+Or alternatively add a hw_free() in hda-pcm.c to mirror what's done in 
+hw_params.

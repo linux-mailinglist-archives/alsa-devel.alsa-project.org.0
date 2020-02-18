@@ -2,77 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 658FD162158
-	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 08:07:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E73E8162188
+	for <lists+alsa-devel@lfdr.de>; Tue, 18 Feb 2020 08:29:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0B3DC1657;
-	Tue, 18 Feb 2020 08:06:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0B3DC1657
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8099C1673;
+	Tue, 18 Feb 2020 08:29:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8099C1673
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582009636;
-	bh=AfYUPtLWJs/2TGiVPf1QeSHly4Aa7i6HvXrL/xDlWkA=;
-	h=Subject:From:To:References:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1582010997;
+	bh=vQ/DAHdM3umyPLc3WvET3H2vZaGfrvtwwYo/hzFp5aE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jC61i4Xg98+dRc5aPktdyNZFUo4ZbJ+HtLn347rWUQ4IV0EEUDRipKeVNlVDp+RJP
-	 OmDHIQESiKYYyFdsoX0yGkxA2yhBI7llE3nY/oxWxY9rnA/5cpkD5HHpXIHpBwxCiY
-	 UdoBe/vPvNTAhScDq6LeCMHJ8+ZElpV5iIgCdsc8=
+	b=JSJwKrVI7jRfSU83zJKRgY5WhJcBEuH6ycbB7ZhxU9VFQY0GCpSzgQ9Flhc/2esUy
+	 VOi4dlTeyxmV7vzWaA+ULdpBRLb187b/6QbM88B3jx7n7Tzn7kOn7iKxNFvJnYH5bl
+	 MGgDYwoRSvoztQx3jC1kkgODhb5kImRCrzgLIGi8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 836D2F80135;
-	Tue, 18 Feb 2020 08:06:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A080AF8014A;
+	Tue, 18 Feb 2020 08:28:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 53216F8014C; Tue, 18 Feb 2020 08:06:15 +0100 (CET)
+ id 86EE5F80148; Tue, 18 Feb 2020 08:28:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,NO_DNS_FOR_FROM,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [IPv6:2607:7c80:54:e::133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
+ RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DADA4F80135
- for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 08:05:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DADA4F80135
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
- header.b="fJZBxTcu"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:References:Cc:To:From:
- Subject:Sender:Reply-To:Content-ID:Content-Description;
- bh=0WDK64CvM/aOQVQpYJeiENx5iDKotnOnD6ArMqWTlLE=; b=fJZBxTcuObVqaB4Sl29v/3xeDX
- 6AqALUVY+GjDnDPWVnbDnKpR9cm+PhFZ/rplZOPXo1sbhhixioVCR0qYsolGnfbB647PNW1sKNAwu
- hdWvGi89OsUnCZBkZv0zTQGcd55gWNBR7PtROfR7PW7sIKJ4CW0GhZgrrcFPQ19UdvlOOL9p/O0pu
- eYVbFg0nvQpJ3Gn6gV5mNaNJWh61T6oKyZF3IFdRe1IRlQ4gNoMc5n8ncp+ai63HLGJ+9LRpLHufL
- X1DF7SB0/GqiAR7ejMLmR8YtyzVo0ZPzuAE0K7L90sEz9/cRV2mxNW1azEhE/JOLq1JhQj2Tdsc/p
- 0bN2FsCg==;
-Received: from [2601:1c0:6280:3f0::19c2]
- by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
- id 1j3wx4-0002kg-Qk; Tue, 18 Feb 2020 07:05:52 +0000
-Subject: Re: linux-next: Tree for Feb 18 (sound/soc/codecs/wm5110.c)
-From: Randy Dunlap <rdunlap@infradead.org>
-To: Stephen Rothwell <sfr@canb.auug.org.au>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-References: <20200218152853.67e2482a@canb.auug.org.au>
- <89ef264f-12c9-ccb0-5cdd-ee5f70a469dd@infradead.org>
-Message-ID: <c2273472-18af-e206-c942-fd460e0d192c@infradead.org>
-Date: Mon, 17 Feb 2020 23:05:49 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <89ef264f-12c9-ccb0-5cdd-ee5f70a469dd@infradead.org>
-Content-Type: text/plain; charset=windows-1252
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: patches@opensource.cirrus.com,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id B3277F80135
+ for <alsa-devel@alsa-project.org>; Tue, 18 Feb 2020 08:28:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B3277F80135
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id 13069AAC3;
+ Tue, 18 Feb 2020 07:28:05 +0000 (UTC)
+Date: Tue, 18 Feb 2020 08:28:04 +0100
+Message-ID: <s5hy2t09wxn.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Takashi Sakamoto <o-takashi@sakamocchi.jp>
+Subject: Re: Questions about event implementation in ALSA Sequencer
+In-Reply-To: <20200218031101.GA12168@workstation>
+References: <20200218031101.GA12168@workstation>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,29 +68,84 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-[resending to broonie@kernel.org; other email address got message too big for mailbox]
+On Tue, 18 Feb 2020 04:11:02 +0100,
+Takashi Sakamoto wrote:
+> 
+> Hi,
+> 
+> I'm working for alsa-gobject[1] so that it supports API for ALSA Sequencer.
+> At present I've mostly done it just with direct dispatch support[2] (thus
+> transmission via queue is for my later work). Then I have some questions
+> about the design of event in ALSA Sequencer. I'd like to ask for some advices
+> (mainly Iwai-san, perhaps).
+> 
+> 1. use case of SNDRV_SEQ_EVENT_LENGTH_VARUSR in 'struct snd_seq_event'
+> 
+> In my understanding, the flag is used for a case that sender transmits the
+> value of pointer itself and its length to the receiver in the shape of
+> 'struct snd_seq_ev_ext'. I assume that two use cases. If the sender and
+> receiver are in the same process, the event is a request for the receiver to
+> operate data in the same VMA. If the sender and receiver are in different
+> processes, the event is a request for pointer-based calculation between the
+> peer.
+> 
+> If the above understanding is correct, it's hard to represent this type of
+> event for g-i interface because g-i is the object-based framework. Any raw
+> pointer without explicit type is hard to be exposed to g-i applications as
+> long as I know, and it's going to be unsupported, perhaps.
+
+To be more exact, the usage isn't restricted whether belonging to the
+same process or not.  The event with VARUSR is processed only for the
+direct transfer, not for the scheduled transfer.  That is, the written
+packet is immediately processed and the user-space data is copied to
+the destinations at this point.  In this sense, it's no zero-copy but
+rather just for saving the space in the input pool.
 
 
-On 2/17/20 11:04 PM, Randy Dunlap wrote:
-> On 2/17/20 8:28 PM, Stephen Rothwell wrote:
->> Hi all,
->>
->> Changes since 20200217:
->>
+> 2. event data type corresponding to event type
 > 
-> on x86_64:
+> Some event types are expected to specific data type; e.g. SNDRV_SEQ_EVENT_NOTE
+> is for 'struct snd_seq_ev_note' and SNDRV_SEQ_EVENT_CONTROLLER is for
+> 'struct snd_seq_ev_ctrl'. However there're some types for any data type; e.g.
+> SNDRV_SEQ_EVENT_ECHO or SNDRV_SEQ_EVENT_USR0. For the kind of types, the
+> event structure has no information about which data type should be used and
+> user applications voluntarily decide the data type. Therefore the sender
+> and receiver should share a kind of protocol in advance.
 > 
-> WARNING: unmet direct dependencies detected for SND_SOC_WM5110
->   Depends on [n]: SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && MFD_WM5110 [=n]
->   Selected by [y]:
->   - SND_SOC_BELLS [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_SAMSUNG [=y] && MFD_ARIZONA [=y] && I2C [=y] && SPI_MASTER [=y] && (MACH_WLF_CRAGG_6410 || COMPILE_TEST [=y])
->   - SND_SOC_SAMSUNG_TM2_WM5110 [=y] && SOUND [=y] && !UML && SND [=y] && SND_SOC [=y] && SND_SOC_SAMSUNG [=y] && MFD_ARIZONA [=y] && I2C [=y] && SPI_MASTER [=y] && (GPIOLIB [=y] || COMPILE_TEST [=y])
-> 
-> 
-> Full randconfig file is attached.
-> 
+> This means that userspace applications require API to select data type
+> independent of event type itself.
+
+Right, those 'any-type' events have no specification of the event
+data, hence both sender and receiver need to agree with the handling.
+IOW, if not known, the receiver should discard the event.
 
 
--- 
-~Randy
-Reported-by: Randy Dunlap <rdunlap@infradead.org>
+> 3. quote event and specific event types.
+> 
+> Two event types are reserved for 'struct snd_seq_ev_quote'; i.e.
+> SNDRV_SEQ_EVENT_KERNEL_ERROR and SNDRV_SEQ_EVENT_KERNEL_QUOTE(obsoleted?).
+> However, the quote structure is exposed to userspace itself. Furthermore,
+> as of v5.5 kernel, there's no in-kernel code to check the quote data
+> from/to user client.
+> 
+> Is it better to produce API so that userspace application can transfer
+> the quote event?
+
+You can, but it makes little sense other than as a fuzzer.
+The quote events are only for the error bounce that is used
+internally.
+
+
+thanks,
+
+Takashi
+
+> 
+> [1] https://github.com/alsa-project/alsa-gobject
+> [2] https://github.com/takaswie/alsa-gobject/tree/topic/seq
+> 
+> Regards
+> 
+> 
+> Takashi Sakamoto
+> 

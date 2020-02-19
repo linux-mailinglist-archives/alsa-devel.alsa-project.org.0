@@ -2,76 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7DB516408C
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 10:40:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC323164093
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 10:41:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3D18F1697;
-	Wed, 19 Feb 2020 10:39:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3D18F1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id 37A0C16AC;
+	Wed, 19 Feb 2020 10:40:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37A0C16AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582105234;
-	bh=VLmwpV5tpkvlHE6Sw+cauFthmC2AW802ltloeLddhGE=;
-	h=Date:Subject:From:To:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=sXJgFVjIzqTEcdHD/mdfBT7bPsOoqKBpTvH3uRAMRZd2W7HJvQFfFFcmSHc/oV567
-	 iT/1Do5UsSajdzSOF2v4eFPPUmT9uNkr9Vpn4Rdx90LHEjQkZXNZUfaI9RKkOSeOjO
-	 2dMvD5ihuntAnLVwB9gh92XdeTHKRk4U+2RS63o8=
+	s=default; t=1582105279;
+	bh=OBZQzOG2R4XS20d7rA2EYccUz/uvYDmXFAWAKLRX6dY=;
+	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=YMFClt3DJjyul76eRcWx5EISlEGsgIfAeN4uMdwItM00K/7mkM1nLgU4gFBVrmme8
+	 cf5wAQERQFszxOLdC6nooVUH5213znshN/7J3x6d2KXa2OSLK2TGUAxzVWIPncZPoY
+	 ZolLDSWIvbFAkguiF1VPhcJe5j7dsR92acxv+Q5w=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4AB94F801F5;
-	Wed, 19 Feb 2020 10:38:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 83698F80233;
+	Wed, 19 Feb 2020 10:38:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8004FF80172; Wed, 19 Feb 2020 10:38:50 +0100 (CET)
+ id 941D6F80233; Wed, 19 Feb 2020 10:38:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mail-pl1-x64a.google.com (mail-pl1-x64a.google.com
- [IPv6:2607:f8b0:4864:20::64a])
+Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
+ [IPv6:2607:f8b0:4864:20::b49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 370CBF80114
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 10:38:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 370CBF80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id DCCDDF801F4
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 10:38:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCCDDF801F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="XzeUQSD9"
-Received: by mail-pl1-x64a.google.com with SMTP id d20so11806328pls.15
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 01:38:46 -0800 (PST)
+ header.b="G3FDYkqz"
+Received: by mail-yb1-xb49.google.com with SMTP id 10so19681461ybj.16
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 01:38:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=89YIg0h2ZkhbFzJoBn22XaYKclfRvptQY13fnAt8VIY=;
- b=XzeUQSD9NuDGXC9zl85pKCOYwHpWghWSXSeReSrHwcTJ0al5Uzt7RAifLM3G8DpVla
- CbJ7X6lwbegFw4wIyNvk2fCLHtyCXwOWAAEKS5yFTyth4oQ4K86BVSE49ZPzt+hWyxJQ
- RCuWGCPumMKh2Y5YT+2BEA7ZUudYjGJhwIwvHohskQOmhHmOxmPdPfjAy0ysA5ZnKZRM
- JXD83RdOBT/fKjy/gjIPLeZ9zxiJE+5aBsZ9NkSOO53wCjzv/JIzTI/w5PLkuXapf/zv
- jvWVrgxkaGQSI9DvnaivgAxW0u9/3GaGnKjEgMBKGoLS/S8kAP6/2PDvRKyPCLwr4ZGK
- MABw==
+ h=date:in-reply-to:message-id:mime-version:references:subject:from:to
+ :cc; bh=PfxnM1OPCFMeeyxBGFe7FfHyay3SkeXUIwQbujCAFcs=;
+ b=G3FDYkqz9PnILDVaOFoBqH4ELlxC6rsdB6UNLRA6+9tvXb2j4/j6eteYvTvV8lEyb1
+ MBJBQSonmAhOv4yOoUJlSSLJc+mpj42ptDZ/p8iLZjoPTJ01xD1e/5UmAo0DPx9LqW5t
+ vM4LuTf4deKaDvI6dg73qP7nuskQghmQqQm/iH2GcsG/APK5WfuJWTbDAIe9y3An2gES
+ +adrNB3I1ZoIJpKSFVDHxpdDH91/ujWWeLRDy9/Byjz2VNH81tt+rgZtkQMNfcBDT+en
+ FcyBHwKhuHaDvDZJnCcQbCfbVos/79LYHS8g8ewUsLeqQfXij8rVD0xxdP+TIh3AZI52
+ vd2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=89YIg0h2ZkhbFzJoBn22XaYKclfRvptQY13fnAt8VIY=;
- b=iQnjGgCEaOIcL38qnf/51RWBbrI/CSMZsxV2IU/f+2a3sepoEniArieHJZ/7o0Fd4F
- LMuHel0tXv05P46UB4xyE8A79FbInCAOubuUVytbvXXcgiKPsjooYzTPFmDLsKctiSdS
- 8jSLjzpfUEAgiuFi3NyvwT0ldq6zKvWFk0oVhj0OVWT2S0X9MCueG3ybiR+Cn8kKBjgb
- DVzbF1sIl+GfF0Y6vB28yTR76MDLHn4d4pGRy8MqiAtDg8rr7OjZw6s1XxSXV2SRB4zt
- 3cMO3Rs6yxO40Ier4r8Qkq2wjBLppcj4aMNwBOVW1lnYmvE2JhJWsy+5Cbdlb0EpqTFS
- 80og==
-X-Gm-Message-State: APjAAAXm9j1ZRD4ArICvnPldBVl540Qo+dFmhldrdNKLXQfk3QdEjVuu
- t3xwTwc2dxJfHXNvM6nPIdZYIQvDGn7F
-X-Google-Smtp-Source: APXvYqz8NcglE9PVo77P6bbUAIyLmIzJ/IbeYxKCjrYdLSIug+yTVnKBpNnwnijnW8ug6Q4zygXjIuZ5Qp0c
-X-Received: by 2002:a63:aa07:: with SMTP id e7mr27182669pgf.90.1582105124718; 
- Wed, 19 Feb 2020 01:38:44 -0800 (PST)
-Date: Wed, 19 Feb 2020 17:38:37 +0800
-Message-Id: <20200219093839.6212-1-tzungbi@google.com>
+ h=x-gm-message-state:date:in-reply-to:message-id:mime-version
+ :references:subject:from:to:cc;
+ bh=PfxnM1OPCFMeeyxBGFe7FfHyay3SkeXUIwQbujCAFcs=;
+ b=gY4OwiPIyaHnYkWy2z5qAot1X1A7uvRdXJ/03gHQWJSvZCZPJGlw+jB26mAVnIHkd2
+ 4M2ePHQWErYzEOez2DAlaTWJOdhvlwfXi/z5t82QWELO5vYePCEMFn+Ya48Bjr3cef89
+ km24btYYGf0dPGZJN9Qc2vGDjM6D0tSyU2VcztBYtTTilwkKyjKaSGRgNjVAmeqAIJfx
+ HJjlxnWPsIzsIt/b8cDNkjmwvowDnF0zt0ygfj5WjOP3uO5fygs9zkEQYquPp0S01NAv
+ JVRF+FgOzEopaUiEHl5w8dIGLRc/x4VRFO3+SoVecNdCUSo0FlqaMdaJCTPzOKsygMV5
+ BdoA==
+X-Gm-Message-State: APjAAAXFSESgBSXW+OMGJ3kEUtBkflnGU5iDzBNXxQB1L9H0CsQjedb8
+ W13YN8bsi1S1E2xcfqeV0ZhdjHcM5J4P
+X-Google-Smtp-Source: APXvYqyyCa0omhPTEKNegysXWXOskjHYqFcsJ+Q3sNWdtfShf5IVar4flTcYrteEsh0l4irKey9zBRXFnlc6
+X-Received: by 2002:a25:8892:: with SMTP id d18mr19870478ybl.397.1582105129540; 
+ Wed, 19 Feb 2020 01:38:49 -0800 (PST)
+Date: Wed, 19 Feb 2020 17:38:38 +0800
+In-Reply-To: <20200219093839.6212-1-tzungbi@google.com>
+Message-Id: <20200219170951.1.I61f6559a37a6a40a6fde0737cb16100fb17c0480@changeid>
 Mime-Version: 1.0
+References: <20200219093839.6212-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.25.0.265.gbab2e86ba0-goog
-Subject: [RFC PATCH 0/2] ASoC: mediatek: mt8183-da7219: use
- SND_SOC_DAPM_PINCTRL
+Subject: [RFC PATCH 1/2] ASoC: dapm: select sleep_state when initializing
+ PINCTRL widget
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -92,31 +96,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-In previous discussion[1], Mark thinks we should have something general
-pinctrl integration with DAPM.  SND_SOC_DAPM_PINCTRL is exactly what we
-want but I failed to find existing usage (maybe in topology files?).
+Selects sleep_state when initializing PINCTRL widget.
 
-To be equivalent to mt8183-da7219's original implementation, the 1st
-patch selects sleep-state at the beginning.  The 2nd patch attaches the
-DAPM widget to playback stream.  When the stream is about to start, the
-power on sequence selects the active-state.  When the stream is about
-to stop, the power off sequence selects the sleep-state.
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+---
+ sound/soc/soc-dapm.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Note: the DAI links will connect to hdmi-codec, that's why the playback
-      stream name is "I2S Playback".
-Note: this is a RFC series.  If it makes sense, will also apply to
-      mt8183-mt6358.
-
-[1]: https://patchwork.kernel.org/patch/11379735/
-
-Tzung-Bi Shih (2):
-  ASoC: dapm: select sleep_state when initializing PINCTRL widget
-  ASoC: mediatek: mt8183-da7219: use SND_SOC_DAPM_PINCTRL in TDM out
-
- .../mediatek/mt8183/mt8183-da7219-max98357.c  | 98 ++-----------------
- sound/soc/soc-dapm.c                          |  3 +
- 2 files changed, 13 insertions(+), 88 deletions(-)
-
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 34c832686637..59302cbcb04e 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -3600,6 +3600,9 @@ snd_soc_dapm_new_control_unlocked(struct snd_soc_dapm_context *dapm,
+ 			ret = PTR_ERR(w->pinctrl);
+ 			goto request_failed;
+ 		}
++
++		/* set to sleep_state when initializing */
++		dapm_pinctrl_event(w, NULL, SND_SOC_DAPM_POST_PMD);
+ 		break;
+ 	case snd_soc_dapm_clock_supply:
+ 		w->clk = devm_clk_get(dapm->dev, w->name);
 -- 
 2.25.0.265.gbab2e86ba0-goog
 

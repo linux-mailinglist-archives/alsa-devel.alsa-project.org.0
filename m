@@ -2,54 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFA4D165153
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 22:06:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA664165156
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 22:06:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 65A9E16AC;
-	Wed, 19 Feb 2020 22:05:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 65A9E16AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8DDFC169E;
+	Wed, 19 Feb 2020 22:06:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8DDFC169E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582146372;
-	bh=0556/W4oJCT2Llotqt/ikhVTlPFGLryOXw5ErmcBMjY=;
+	s=default; t=1582146410;
+	bh=EyufY38Z9nGUxmcEP1ZllO/CxlUOwLG40fEWwHRg0tU=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=FL1dQ5LU9LOY0SQj8NB1F7OCNlHZbtZWZi3mSzRJv1sfmu8Ur4nfxLgvrUB6bunyr
-	 bq1ySQZQdtw3tL+QgNgI1lQ9YezU7IYt3Tvg2bzQoxirAE0wfxCGy0LRbuUTygPT5M
-	 G4Y8z4wSqqFjjYoD2T3XxwwjHBzgornXvO1JN0Xk=
+	b=YDd3DnIiqv9V/oBid4bQpTwVt8dCpTyBstabZRw56tHWkyUWiW3N0IF2K9zeCSmj1
+	 yZGRFQlbchAVfVQu3NeRT+S2dQLOs1meN2GO6k4aWlETbBkJqv40u1sG+knagEPY9c
+	 08achLuHcGjsDd23yDuk4GFdrnN4AnyBnSxW4jnU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 10BDAF80317;
-	Wed, 19 Feb 2020 21:57:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AE9C2F80331;
+	Wed, 19 Feb 2020 21:57:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 492A9F80317; Wed, 19 Feb 2020 21:57:52 +0100 (CET)
+ id 04D1DF80321; Wed, 19 Feb 2020 21:57:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D0D78F80308
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 21:57:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D0D78F80308
+ by alsa1.perex.cz (Postfix) with ESMTP id 5A0A3F80306
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 21:57:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5A0A3F80306
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3225F1FB;
- Wed, 19 Feb 2020 12:57:45 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 92B67FEC;
+ Wed, 19 Feb 2020 12:57:49 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id ABEED3F68F;
- Wed, 19 Feb 2020 12:57:44 -0800 (PST)
-Date: Wed, 19 Feb 2020 20:57:43 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 177803F68F;
+ Wed, 19 Feb 2020 12:57:48 -0800 (PST)
+Date: Wed, 19 Feb 2020 20:57:47 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Dan Murphy <dmurphy@ti.com>
-Subject: Applied "ASoC: tas2562: Add support for ISENSE and VSENSE" to the
- asoc tree
-In-Reply-To: <20200219134622.22066-1-dmurphy@ti.com>
-Message-Id: <applied-20200219134622.22066-1-dmurphy@ti.com>
+To: Tzung-Bi Shih <tzungbi@google.com>
+Subject: Applied "ASoC: mediatek: mt8183-da7219: use SND_SOC_DAPM_PINCTRL in
+ TDM out" to the asoc tree
+In-Reply-To: <20200219170951.2.I7ed16ef57d9e0bcafc37e766142f68cbad5b54c6@changeid>
+Message-Id: <applied-20200219170951.2.I7ed16ef57d9e0bcafc37e766142f68cbad5b54c6@changeid>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- linux-kernel@vger.kernel.org, tiwai@suse.com, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, cychiang@google.com, jiaxin.yu@mediatek.com,
+ tzungbi@google.com, Mark Brown <broonie@kernel.org>, dgreid@google.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,7 +66,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: tas2562: Add support for ISENSE and VSENSE
+   ASoC: mediatek: mt8183-da7219: use SND_SOC_DAPM_PINCTRL in TDM out
 
 has been applied to the asoc tree at
 
@@ -92,122 +91,170 @@ to this mail.
 Thanks,
 Mark
 
-From 69e53129d01317d94e8b97ec11688880106a2f97 Mon Sep 17 00:00:00 2001
-From: Dan Murphy <dmurphy@ti.com>
-Date: Wed, 19 Feb 2020 07:46:22 -0600
-Subject: [PATCH] ASoC: tas2562: Add support for ISENSE and VSENSE
+From c77b8317ee3ab43634421afb73fdb1ea253d3d47 Mon Sep 17 00:00:00 2001
+From: Tzung-Bi Shih <tzungbi@google.com>
+Date: Wed, 19 Feb 2020 17:38:39 +0800
+Subject: [PATCH] ASoC: mediatek: mt8183-da7219: use SND_SOC_DAPM_PINCTRL in
+ TDM out
 
-Add additional support for ISENSE and VSENSE feature for the TAS2562.
-This feature monitors the output to the loud speaker attempts to
-eliminate IR drop errors due to packaging.
+Uses SND_SOC_DAPM_PINCTRL in TDM out to simplify code.
 
-This feature is defined in Section 8.4.5 IV Sense of the data sheet.
-
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
-Link: https://lore.kernel.org/r/20200219134622.22066-1-dmurphy@ti.com
+Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
+Link: https://lore.kernel.org/r/20200219170951.2.I7ed16ef57d9e0bcafc37e766142f68cbad5b54c6@changeid
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tas2562.c | 32 +++++++++++++++++++++++++++-----
- sound/soc/codecs/tas2562.h |  6 +++---
- 2 files changed, 30 insertions(+), 8 deletions(-)
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  | 98 ++-----------------
+ 1 file changed, 10 insertions(+), 88 deletions(-)
 
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index 729acd874c48..b517ada7e809 100644
---- a/sound/soc/codecs/tas2562.c
-+++ b/sound/soc/codecs/tas2562.c
-@@ -382,18 +382,34 @@ static int tas2562_dac_event(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *component =
- 					snd_soc_dapm_to_component(w->dapm);
- 	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+	int ret;
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index c0c85972cfb7..03d104fbe185 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -16,20 +16,7 @@
+ #include "../../codecs/da7219-aad.h"
+ #include "../../codecs/da7219.h"
  
- 	switch (event) {
- 	case SND_SOC_DAPM_POST_PMU:
--		dev_info(tas2562->dev, "SND_SOC_DAPM_POST_PMU\n");
-+		ret = snd_soc_component_update_bits(component,
-+			TAS2562_PWR_CTRL,
-+			TAS2562_MODE_MASK,
-+			TAS2562_MUTE);
-+		if (ret)
-+			goto end;
- 		break;
- 	case SND_SOC_DAPM_PRE_PMD:
--		dev_info(tas2562->dev, "SND_SOC_DAPM_PRE_PMD\n");
-+		ret = snd_soc_component_update_bits(component,
-+			TAS2562_PWR_CTRL,
-+			TAS2562_MODE_MASK,
-+			TAS2562_SHUTDOWN);
-+		if (ret)
-+			goto end;
- 		break;
- 	default:
--		break;
-+		dev_err(tas2562->dev, "Not supported evevt\n");
-+		return -EINVAL;
- 	}
+-enum PINCTRL_PIN_STATE {
+-	PIN_STATE_DEFAULT = 0,
+-	PIN_TDM_OUT_ON,
+-	PIN_TDM_OUT_OFF,
+-	PIN_STATE_MAX
+-};
+-
+-static const char * const mt8183_pin_str[PIN_STATE_MAX] = {
+-	"default", "aud_tdm_out_on", "aud_tdm_out_off",
+-};
+-
+ struct mt8183_da7219_max98357_priv {
+-	struct pinctrl *pinctrl;
+-	struct pinctrl_state *pin_states[PIN_STATE_MAX];
+ 	struct snd_soc_jack headset_jack;
+ };
  
-+end:
-+	if (ret < 0)
-+		return ret;
-+
- 	return 0;
- }
+@@ -259,47 +246,6 @@ SND_SOC_DAILINK_DEFS(tdm,
+ 	DAILINK_COMP_ARRAY(COMP_DUMMY()),
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()));
  
-@@ -415,7 +431,6 @@ static const struct snd_kcontrol_new tas2562_snd_controls[] = {
- static const struct snd_soc_dapm_widget tas2562_dapm_widgets[] = {
- 	SND_SOC_DAPM_AIF_IN("ASI1", "ASI1 Playback", 0, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_MUX("ASI1 Sel", SND_SOC_NOPM, 0, 0, &tas2562_asi1_mux),
--	SND_SOC_DAPM_AIF_IN("DAC IN", "Playback", 0, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_DAC_E("DAC", NULL, SND_SOC_NOPM, 0, 0, tas2562_dac_event,
- 			   SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD),
- 	SND_SOC_DAPM_SWITCH("ISENSE", TAS2562_PWR_CTRL, 3, 1, &isense_switch),
-@@ -430,7 +445,7 @@ static const struct snd_soc_dapm_route tas2562_audio_map[] = {
- 	{"ASI1 Sel", "Left", "ASI1"},
- 	{"ASI1 Sel", "Right", "ASI1"},
- 	{"ASI1 Sel", "LeftRightDiv2", "ASI1"},
--	{ "DAC", NULL, "DAC IN" },
-+	{ "DAC", NULL, "ASI1 Sel" },
- 	{ "OUT", NULL, "DAC" },
- 	{"ISENSE", "Switch", "IMON"},
- 	{"VSENSE", "Switch", "VMON"},
-@@ -471,6 +486,13 @@ static struct snd_soc_dai_driver tas2562_dai[] = {
- 			.rates      = SNDRV_PCM_RATE_8000_192000,
- 			.formats    = TAS2562_FORMATS,
- 		},
-+		.capture = {
-+			.stream_name    = "ASI1 Capture",
-+			.channels_min   = 0,
-+			.channels_max   = 2,
-+			.rates		= SNDRV_PCM_RATE_8000_192000,
-+			.formats	= TAS2562_FORMATS,
-+		},
- 		.ops = &tas2562_speaker_dai_ops,
+-static int mt8183_da7219_tdm_startup(struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct mt8183_da7219_max98357_priv *priv =
+-		snd_soc_card_get_drvdata(rtd->card);
+-	int ret;
+-
+-	if (IS_ERR(priv->pin_states[PIN_TDM_OUT_ON]))
+-		return PTR_ERR(priv->pin_states[PIN_TDM_OUT_ON]);
+-
+-	ret = pinctrl_select_state(priv->pinctrl,
+-				   priv->pin_states[PIN_TDM_OUT_ON]);
+-	if (ret)
+-		dev_err(rtd->card->dev, "%s failed to select state %d\n",
+-			__func__, ret);
+-
+-	return ret;
+-}
+-
+-static void mt8183_da7219_tdm_shutdown(struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct mt8183_da7219_max98357_priv *priv =
+-		snd_soc_card_get_drvdata(rtd->card);
+-	int ret;
+-
+-	if (IS_ERR(priv->pin_states[PIN_TDM_OUT_OFF]))
+-		return;
+-
+-	ret = pinctrl_select_state(priv->pinctrl,
+-				   priv->pin_states[PIN_TDM_OUT_OFF]);
+-	if (ret)
+-		dev_err(rtd->card->dev, "%s failed to select state %d\n",
+-			__func__, ret);
+-}
+-
+-static struct snd_soc_ops mt8183_da7219_tdm_ops = {
+-	.startup = mt8183_da7219_tdm_startup,
+-	.shutdown = mt8183_da7219_tdm_shutdown,
+-};
+-
+ static struct snd_soc_dai_link mt8183_da7219_max98357_dai_links[] = {
+ 	/* FE */
+ 	{
+@@ -455,7 +401,6 @@ static struct snd_soc_dai_link mt8183_da7219_max98357_dai_links[] = {
+ 		.dpcm_playback = 1,
+ 		.ignore_suspend = 1,
+ 		.be_hw_params_fixup = mt8183_i2s_hw_params_fixup,
+-		.ops = &mt8183_da7219_tdm_ops,
+ 		SND_SOC_DAILINK_REG(tdm),
  	},
  };
-diff --git a/sound/soc/codecs/tas2562.h b/sound/soc/codecs/tas2562.h
-index 62e659ab786d..6f55ebcf19ea 100644
---- a/sound/soc/codecs/tas2562.h
-+++ b/sound/soc/codecs/tas2562.h
-@@ -40,7 +40,7 @@
+@@ -482,10 +427,13 @@ static const struct snd_kcontrol_new mt8183_da7219_max98357_snd_controls[] = {
+ static const
+ struct snd_soc_dapm_widget mt8183_da7219_max98357_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SPK("Speakers", NULL),
++	SND_SOC_DAPM_PINCTRL("TDM_OUT_PINCTRL",
++			     "aud_tdm_out_on", "aud_tdm_out_off"),
+ };
  
- #define TAS2562_RESET	BIT(0)
+ static const struct snd_soc_dapm_route mt8183_da7219_max98357_dapm_routes[] = {
+ 	{"Speakers", NULL, "Speaker"},
++	{"I2S Playback", NULL, "TDM_OUT_PINCTRL"},
+ };
  
--#define TAS2562_MODE_MASK	0x3
-+#define TAS2562_MODE_MASK	GENMASK(1,0)
- #define TAS2562_ACTIVE		0x0
- #define TAS2562_MUTE		0x1
- #define TAS2562_SHUTDOWN	0x2
-@@ -73,8 +73,8 @@
- #define TAS2562_TDM_CFG2_RXWLEN_24B	BIT(3)
- #define TAS2562_TDM_CFG2_RXWLEN_32B	(BIT(2) | BIT(3))
+ static struct snd_soc_card mt8183_da7219_max98357_card = {
+@@ -534,6 +482,7 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
+ 	struct device_node *platform_node;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct mt8183_da7219_max98357_priv *priv;
++	struct pinctrl *pinctrl;
+ 	int ret, i;
  
--#define TAS2562_VSENSE_POWER_EN		BIT(2)
--#define TAS2562_ISENSE_POWER_EN		BIT(3)
-+#define TAS2562_VSENSE_POWER_EN		2
-+#define TAS2562_ISENSE_POWER_EN		3
+ 	card->dev = &pdev->dev;
+@@ -566,39 +515,12 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
  
- #define TAS2562_TDM_CFG5_VSNS_EN	BIT(6)
- #define TAS2562_TDM_CFG5_VSNS_SLOT_MASK	GENMASK(5, 0)
+ 	snd_soc_card_set_drvdata(card, priv);
+ 
+-	priv->pinctrl = devm_pinctrl_get(&pdev->dev);
+-	if (IS_ERR(priv->pinctrl)) {
+-		dev_err(&pdev->dev, "%s devm_pinctrl_get failed\n",
+-			__func__);
+-		return PTR_ERR(priv->pinctrl);
+-	}
+-
+-	for (i = 0; i < PIN_STATE_MAX; i++) {
+-		priv->pin_states[i] = pinctrl_lookup_state(priv->pinctrl,
+-							   mt8183_pin_str[i]);
+-		if (IS_ERR(priv->pin_states[i])) {
+-			ret = PTR_ERR(priv->pin_states[i]);
+-			dev_info(&pdev->dev, "%s Can't find pin state %s %d\n",
+-				 __func__, mt8183_pin_str[i], ret);
+-		}
+-	}
+-
+-	if (!IS_ERR(priv->pin_states[PIN_TDM_OUT_OFF])) {
+-		ret = pinctrl_select_state(priv->pinctrl,
+-					   priv->pin_states[PIN_TDM_OUT_OFF]);
+-		if (ret)
+-			dev_info(&pdev->dev,
+-				 "%s failed to select state %d\n",
+-				 __func__, ret);
+-	}
+-
+-	if (!IS_ERR(priv->pin_states[PIN_STATE_DEFAULT])) {
+-		ret = pinctrl_select_state(priv->pinctrl,
+-					   priv->pin_states[PIN_STATE_DEFAULT]);
+-		if (ret)
+-			dev_info(&pdev->dev,
+-				 "%s failed to select state %d\n",
+-				 __func__, ret);
++	pinctrl = devm_pinctrl_get_select(&pdev->dev, PINCTRL_STATE_DEFAULT);
++	if (IS_ERR(pinctrl)) {
++		ret = PTR_ERR(pinctrl);
++		dev_err(&pdev->dev, "%s failed to select default state %d\n",
++			__func__, ret);
++		return ret;
+ 	}
+ 
+ 	return devm_snd_soc_register_card(&pdev->dev, card);
 -- 
 2.20.1
 

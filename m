@@ -2,62 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id F41D21643ED
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 13:08:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCE341644FA
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 14:06:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 410171695;
-	Wed, 19 Feb 2020 13:07:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 410171695
+	by alsa0.perex.cz (Postfix) with ESMTPS id 777161697;
+	Wed, 19 Feb 2020 14:05:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 777161697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582114082;
-	bh=IpLhAi9AooA4Gf4th3c5XahCCwCq9g4w7rArbqpTPwM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=RHgpUJv+6AlsIuui2Q3nBgli0n3Z2Kbrxvm9K3ggWwM92UEMqiDUYnoc8ymPDZgiK
-	 ByC5VxwJkfaftkqs+7xfPsgF1FvZYdkCSmaRclVrZB8LD47jUip4X7kcGDo7TXypHe
-	 WQbzzyFyZB8JaPCdIIUyGxbAatXFFWCFCKRpgt+c=
+	s=default; t=1582117578;
+	bh=2OH8uyzRnKGZ80RuK7L0CY6+aUGbeKNsMO3PJZ34OwM=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=jPvkNpJbYew9sxHzYwX0nDOp3RwhXI84hBKQ+DMGGQLSlfSz4Ukzted8INxC99iQ2
+	 /5pKPz1ec5olTiqfPfsvaeHPXe5OEk1xIQilYxmrXUxML0vwhxnyLS/ga3Z0AQJMAH
+	 WeJw8XexQv6zxK7WU8o+pcMLQhUA6QmT3ytVuMnM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6BEDDF801F5;
-	Wed, 19 Feb 2020 13:06:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6CD77F8027C;
+	Wed, 19 Feb 2020 14:04:37 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 97964F80273; Wed, 19 Feb 2020 13:06:18 +0100 (CET)
+ id 75DD8F80277; Wed, 19 Feb 2020 14:04:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 07788F801F5
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 13:06:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 07788F801F5
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E6B9731B;
- Wed, 19 Feb 2020 04:06:13 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6A28E3F6CF;
- Wed, 19 Feb 2020 04:06:13 -0800 (PST)
-Date: Wed, 19 Feb 2020 12:06:11 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Robin Murphy <robin.murphy@arm.com>
-Subject: Re: [PATCH v2 2/3] ASoC: rockchip: Make RK3328 GPIO_MUTE control
- explicit
-Message-ID: <20200219120611.GB4488@sirena.org.uk>
-References: <cover.1581376744.git.robin.murphy@arm.com>
- <5bc383ed1832f0f5d1dcb3c97ad92fd68e5217e3.1581376744.git.robin.murphy@arm.com>
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id D5C8FF801F5
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 14:04:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D5C8FF801F5
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="rpuXHCGN"
+Received: from lelv0266.itg.ti.com ([10.180.67.225])
+ by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01JD4R81119667;
+ Wed, 19 Feb 2020 07:04:27 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
+ s=ti-com-17Q1; t=1582117467;
+ bh=QYfk/0tLN4Oql6dXwlH5d6evBQcLGicLwy72d29I5bM=;
+ h=From:To:CC:Subject:Date;
+ b=rpuXHCGNdzmZFyvV91ah83UrwHMlI2xoau9rC8bKyOTb0aZerrOwq7D3lF3wh55gq
+ 4qUFQszANHZ6kPUSg1hh9Pp+zR5pXpE6u3U3n3KBLKCuAgZM4wncKzFYkYvFJeTRrp
+ Wbl29MmHiNKSTte1OoKoYFK/uLe477Ytox06pFzY=
+Received: from DFLE110.ent.ti.com (dfle110.ent.ti.com [10.64.6.31])
+ by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01JD4Q39130488
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 19 Feb 2020 07:04:27 -0600
+Received: from DFLE110.ent.ti.com (10.64.6.31) by DFLE110.ent.ti.com
+ (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Wed, 19
+ Feb 2020 07:04:26 -0600
+Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE110.ent.ti.com
+ (10.64.6.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
+ Frontend Transport; Wed, 19 Feb 2020 07:04:26 -0600
+Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
+ by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01JD4QHi062569;
+ Wed, 19 Feb 2020 07:04:26 -0600
+From: Dan Murphy <dmurphy@ti.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>
+Subject: [PATCH v3 0/2] Introduce the TLV320ADCx140 codec family
+Date: Wed, 19 Feb 2020 06:59:40 -0600
+Message-ID: <20200219125942.22013-1-dmurphy@ti.com>
+X-Mailer: git-send-email 2.25.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="yNb1oOkm5a9FJOVX"
-Content-Disposition: inline
-In-Reply-To: <5bc383ed1832f0f5d1dcb3c97ad92fd68e5217e3.1581376744.git.robin.murphy@arm.com>
-X-Cookie: FORTH IF HONK THEN
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org, heiko@sntech.de,
- lgirdwood@gmail.com, linux-rockchip@lists.infradead.org, pgwipeout@gmail.com,
- linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
+ Dan Murphy <dmurphy@ti.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,32 +91,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+Hello
 
---yNb1oOkm5a9FJOVX
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Introducing the Texas Instruments TLV320ADCx140 quad channel audio ADC.
+This device supports 4 analog inputs, 8 digital inputs or a combination of
+analog and digital microphones.
 
-On Tue, Feb 18, 2020 at 09:31:59PM +0000, Robin Murphy wrote:
+TLV320ADC3140 - http://www.ti.com/lit/gpn/tlv320adc3140
+TLV320ADC5140 - http://www.ti.com/lit/gpn/tlv320adc5140
+TLV320ADC6140 - http://www.ti.com/lit/gpn/tlv320adc6140
 
->  - add fallback case to avoid possible Rock64 regressions
+Dan Murphy (2):
+  dt-bindings: sound: Add TLV320ADCx140 dt bindings
+  ASoC: tlv320adcx140: Add the tlv320adcx140 codec driver family
 
-This should really have been called out in the changelog, were I reading
-this cold I might've stopped at the changelog and said you needed to
-keep the ABI stable for old boards.
+ .../bindings/sound/tlv320adcx140.yaml         |  83 ++
+ sound/soc/codecs/Kconfig                      |   9 +
+ sound/soc/codecs/Makefile                     |   2 +
+ sound/soc/codecs/tlv320adcx140.c              | 849 ++++++++++++++++++
+ sound/soc/codecs/tlv320adcx140.h              | 130 +++
+ 5 files changed, 1073 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/tlv320adcx140.yaml
+ create mode 100644 sound/soc/codecs/tlv320adcx140.c
+ create mode 100644 sound/soc/codecs/tlv320adcx140.h
 
---yNb1oOkm5a9FJOVX
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+2.25.0
 
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5NJLMACgkQJNaLcl1U
-h9A6EQf+M4FxgJh7NoGwjteEBX6uwLvxHTrgo0677EFqqDjc/b5TNCDU720Q7dbi
-Mead2pPB06lQOHGO2piOu+A55lWuHX17hfnh9t1AECnZmZDQv/kTgZ/qb/yYU02d
-rJLGP0+Uy8bYU3SAzIGZyC0RJ3MydsaHp5/w3qXNiTQ/RB90k4CkqeYpCw0uT9yX
-8fgIUqUdiOgOvGjDn91teqXcoAjIU7VXfvz6yijqhqNynx1ybjgXklR1TJ2S2bZc
-kY35dvMUXpVraf/NcNJMYZVBaMRHMqj7LmRGUUAcVZZ982bWNAXx1FOPzY19ri6v
-NZyWPTowIagAhp65YyKen9nUh3a4sA==
-=Inf+
------END PGP SIGNATURE-----
-
---yNb1oOkm5a9FJOVX--

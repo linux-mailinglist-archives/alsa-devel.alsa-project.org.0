@@ -2,86 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DCA4165024
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 21:38:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA3F0165071
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 21:58:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E871516AD;
-	Wed, 19 Feb 2020 21:38:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E871516AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2DDC116B2;
+	Wed, 19 Feb 2020 21:57:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2DDC116B2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582144738;
-	bh=8NYFF4YlCTWY69UMMi0yJb62MRJA7ArQ4xU3etEGdaE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ancoqYkV+xQpTGfAd26k30aSlZrIfXEKAXqlIdqWZsq0wSCg6UUg+bRsX4NYJkLsE
-	 I3VxanvexR70JJB6eSM8tkabOiPCUsxtmkjV+r/v+Wgy1vT6n/OfBpM8VA/xwjQNo+
-	 ogu0AfWfmQUpT7S0YF+EjN5kS0pIU7toS38x17LQ=
+	s=default; t=1582145915;
+	bh=+In/NbRaxzWP5JEHpIxQZEOzgN7oCp+SmLGOHSb95rg=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=vojvn/ykFMtU2n4S80SXsf/MBr4iPqNW6YC5AthIw+EpORMFUiyOwmHuNtcVSo+Y0
+	 MxzBb2826rsyOpgDzOpvXCR42/FN+z/y04dAh90X8RKK4JgwpiA0EQCjss+MHF9dJ6
+	 cOxbEdg5sFIR8mRbgL+y7Pr8ooQkZL+G6ufnxh+c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E1D44F80276;
-	Wed, 19 Feb 2020 21:37:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 277AFF80276;
+	Wed, 19 Feb 2020 21:56:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9FD10F80273; Wed, 19 Feb 2020 21:37:13 +0100 (CET)
+ id CCF8CF80273; Wed, 19 Feb 2020 21:56:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
- [209.85.210.66])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92C88F80142
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 21:37:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92C88F80142
-Received: by mail-ot1-f66.google.com with SMTP id 77so1487946oty.6
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 12:37:10 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=+AqBZPuPGulRkYz04Uc64jE9ynggKm16TfsBQmv6si8=;
- b=Hu3qAZ1fRkJr2DpZDRYXWfIRcNJ3EvGNDKhtT7ZbLuLzo6zPBTGx/9NHy6+hb2QQJu
- f4h8M8UF2hb/GUiOXRPZ8Gs5P0Nd49ZcUUyHaU5M47pXYFK7LhIQzWtawDfdbe/DGU9v
- RzToX7Q8L4Jdp5/u4SQLQG4iYogKWKLtboXshXEIX16Pfa14LrGpCsS9JOuB4bLr592b
- 8ldNzgDhaSFaCZSqNXO3Dlzxiggp2JK/U/kpaN+u5cp6Fy8IC9C/GA7vwgt8AE08pRko
- URMDbWXRREdlNeGssRvlrSVleYiQy5R/CXLvxxvdVzaa+7Q28WDrlpdvzwHdegtQT7kT
- fj2Q==
-X-Gm-Message-State: APjAAAVR9989AHOlIVLkXULkmcSgM5USfsp8VtZ3bQdMwbWbNtyCPaV/
- wfQDYSVIAG0KDzz0glE+cw==
-X-Google-Smtp-Source: APXvYqwXHqdPF0eGfWGHZFMcj2qYo0Y8tJNnbLJqbB+BFR7YXs5aR7a2j8huyc4ZAUmLqR7q9DjA/w==
-X-Received: by 2002:a9d:67d7:: with SMTP id c23mr21034247otn.262.1582144628599; 
- Wed, 19 Feb 2020 12:37:08 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id n17sm282683otq.46.2020.02.19.12.37.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2020 12:37:07 -0800 (PST)
-Received: (nullmailer pid 27543 invoked by uid 1000);
- Wed, 19 Feb 2020 20:37:06 -0000
-Date: Wed, 19 Feb 2020 14:37:06 -0600
-From: Rob Herring <robh@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: fsl_easrc: Add document for
- EASRC
-Message-ID: <20200219203706.GA25618@bogus>
-References: <cover.1582007379.git.shengjiu.wang@nxp.com>
- <a02af544c73914fe3a5ab2f35eb237ef68ee29e7.1582007379.git.shengjiu.wang@nxp.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a02af544c73914fe3a5ab2f35eb237ef68ee29e7.1582007379.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 722BBF801F5
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 21:56:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 722BBF801F5
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 491D61FB;
+ Wed, 19 Feb 2020 12:56:46 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C17EF3F68F;
+ Wed, 19 Feb 2020 12:56:45 -0800 (PST)
+Date: Wed, 19 Feb 2020 20:56:44 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Olivier Moysan <olivier.moysan@st.com>
+Subject: Applied "ASoC: dt-bindings: stm32: convert i2s to json-schema" to the
+ asoc tree
+In-Reply-To: <20200207120345.24672-1-olivier.moysan@st.com>
+Message-Id: <applied-20200207120345.24672-1-olivier.moysan@st.com>
+X-Patchwork-Hint: ignore
 Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
- nicoleotsuka@gmail.com, broonie@kernel.org, festevam@gmail.com,
- linux-kernel@vger.kernel.org
+ alsa-devel@alsa-project.org, olivier.moysan@st.com, alexandre.torgue@st.com,
+ robh@kernel.org, tiwai@suse.com, arnaud.pouliquen@st.com, lgirdwood@gmail.com,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, benjamin.gaignard@st.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,16 +69,212 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Feb 18, 2020 at 02:39:36PM +0800, Shengjiu Wang wrote:
-> EASRC (Enhanced Asynchronous Sample Rate Converter) is a new
-> IP module found on i.MX8MN.
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
->  .../devicetree/bindings/sound/fsl,easrc.txt   | 57 +++++++++++++++++++
->  1 file changed, 57 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.txt
+The patch
 
-Bindings are now in DT schema format. See 
-Documentation/devicetree/writing-schema.rst.
+   ASoC: dt-bindings: stm32: convert i2s to json-schema
+
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 95e9e205fcbe34d003c558e0a98e6ae6f9ab3a61 Mon Sep 17 00:00:00 2001
+From: Olivier Moysan <olivier.moysan@st.com>
+Date: Fri, 7 Feb 2020 13:03:45 +0100
+Subject: [PATCH] ASoC: dt-bindings: stm32: convert i2s to json-schema
+
+Convert the STM32 I2S bindings to DT schema format using json-schema.
+
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20200207120345.24672-1-olivier.moysan@st.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ .../bindings/sound/st,stm32-i2s.txt           | 62 -------------
+ .../bindings/sound/st,stm32-i2s.yaml          | 87 +++++++++++++++++++
+ 2 files changed, 87 insertions(+), 62 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt b/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
+deleted file mode 100644
+index cbf24bcd1b8d..000000000000
+--- a/Documentation/devicetree/bindings/sound/st,stm32-i2s.txt
++++ /dev/null
+@@ -1,62 +0,0 @@
+-STMicroelectronics STM32 SPI/I2S Controller
+-
+-The SPI/I2S block supports I2S/PCM protocols when configured on I2S mode.
+-Only some SPI instances support I2S.
+-
+-Required properties:
+-  - compatible: Must be "st,stm32h7-i2s"
+-  - reg: Offset and length of the device's register set.
+-  - interrupts: Must contain the interrupt line id.
+-  - clocks: Must contain phandle and clock specifier pairs for each entry
+-	in clock-names.
+-  - clock-names: Must contain "i2sclk", "pclk", "x8k" and "x11k".
+-	"i2sclk": clock which feeds the internal clock generator
+-	"pclk": clock which feeds the peripheral bus interface
+-	"x8k": I2S parent clock for sampling rates multiple of 8kHz.
+-	"x11k": I2S parent clock for sampling rates multiple of 11.025kHz.
+-  - dmas: DMA specifiers for tx and rx dma.
+-    See Documentation/devicetree/bindings/dma/stm32-dma.txt.
+-  - dma-names: Identifier for each DMA request line. Must be "tx" and "rx".
+-  - pinctrl-names: should contain only value "default"
+-  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+-
+-Optional properties:
+-  - resets: Reference to a reset controller asserting the reset controller
+-
+-The device node should contain one 'port' child node with one child 'endpoint'
+-node, according to the bindings defined in Documentation/devicetree/bindings/
+-graph.txt.
+-
+-Example:
+-sound_card {
+-	compatible = "audio-graph-card";
+-	dais = <&i2s2_port>;
+-};
+-
+-i2s2: audio-controller@40003800 {
+-	compatible = "st,stm32h7-i2s";
+-	reg = <0x40003800 0x400>;
+-	interrupts = <36>;
+-	clocks = <&rcc PCLK1>, <&rcc SPI2_CK>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
+-	clock-names = "pclk", "i2sclk",  "x8k", "x11k";
+-	dmas = <&dmamux2 2 39 0x400 0x1>,
+-           <&dmamux2 3 40 0x400 0x1>;
+-	dma-names = "rx", "tx";
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_i2s2>;
+-
+-	i2s2_port: port@0 {
+-		cpu_endpoint: endpoint {
+-			remote-endpoint = <&codec_endpoint>;
+-			format = "i2s";
+-		};
+-	};
+-};
+-
+-audio-codec {
+-	codec_port: port@0 {
+-		codec_endpoint: endpoint {
+-			remote-endpoint = <&cpu_endpoint>;
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+new file mode 100644
+index 000000000000..f32410890589
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/st,stm32-i2s.yaml
+@@ -0,0 +1,87 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/st,stm32-i2s.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 SPI/I2S Controller
++
++maintainers:
++  - Olivier Moysan <olivier.moysan@st.com>
++
++description:
++  The SPI/I2S block supports I2S/PCM protocols when configured on I2S mode.
++  Only some SPI instances support I2S.
++
++properties:
++  compatible:
++    enum:
++      - st,stm32h7-i2s
++
++  "#sound-dai-cells":
++    const: 0
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: clock feeding the peripheral bus interface.
++      - description: clock feeding the internal clock generator.
++      - description: I2S parent clock for sampling rates multiple of 8kHz.
++      - description: I2S parent clock for sampling rates multiple of 11.025kHz.
++
++  clock-names:
++    items:
++      - const: pclk
++      - const: i2sclk
++      - const: x8k
++      - const: x11k
++
++  interrupts:
++    maxItems: 1
++
++  dmas:
++    items:
++      - description: audio capture DMA.
++      - description: audio playback DMA.
++
++  dma-names:
++    items:
++      - const: rx
++      - const: tx
++
++  resets:
++    maxItems: 1
++
++required:
++  - compatible
++  - "#sound-dai-cells"
++  - reg
++  - clocks
++  - clock-names
++  - interrupts
++  - dmas
++  - dma-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    i2s2: audio-controller@4000b000 {
++        compatible = "st,stm32h7-i2s";
++        #sound-dai-cells = <0>;
++        reg = <0x4000b000 0x400>;
++        clocks = <&rcc SPI2>, <&rcc SPI2_K>, <&rcc PLL3_Q>, <&rcc PLL3_R>;
++        clock-names = "pclk", "i2sclk", "x8k", "x11k";
++        interrupts = <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++        dmas = <&dmamux1 39 0x400 0x01>,
++               <&dmamux1 40 0x400 0x01>;
++        dma-names = "rx", "tx";
++        pinctrl-names = "default";
++        pinctrl-0 = <&i2s2_pins_a>;
++    };
++
++...
+-- 
+2.20.1
 

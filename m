@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4FF8163851
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 01:13:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 617F3163852
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 01:14:18 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6114F1685;
-	Wed, 19 Feb 2020 01:12:53 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6114F1685
+	by alsa0.perex.cz (Postfix) with ESMTPS id 09A0F16A4;
+	Wed, 19 Feb 2020 01:13:28 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 09A0F16A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582071223;
-	bh=qsGWScV+YIQ1zMk5RYMnyjs808fY5rdvAHq+P+YKbwg=;
+	s=default; t=1582071258;
+	bh=G2HAbi5umGSupa1sdFld8vsJPe0HrE9pJ/tJvumD8hE=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=oM305WqsIICZydXvFc9Wshf6i+tlaCJV7bD/Wd7SunrUKJ+wShIdnuKw6xsoSCaM/
-	 rvcOe4R99SYbijNSaYmxroIRtgVTQ7LCiZ6GoqpyMF/9w25OQ72tzlMHPnX5wJb4VE
-	 PnkzJs68FKnjdf8UZkowDugzGkq/NJGCO4fbfjhk=
+	b=F3luHf+5hz7pxIgSacJxA28DexvqIbM+rZA8AAdj5UruAutUooov92wwQQEngVSEP
+	 uEf7JDWDlG8M40knTmwJ/9Ev66fnHfXx84qnm9+kcd0cteCWce5TZ4A9tt2qO7gbN0
+	 TMuV261ypLnfIKSNm/HtShepofpd/zB1WDN5ijSs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31A57F8028B;
-	Wed, 19 Feb 2020 01:09:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7DF11F80299;
+	Wed, 19 Feb 2020 01:09:39 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 858B4F8028E; Wed, 19 Feb 2020 01:09:32 +0100 (CET)
+ id EE52DF80292; Wed, 19 Feb 2020 01:09:36 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 0DD91F8028B
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 01:09:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0DD91F8028B
+ by alsa1.perex.cz (Postfix) with ESMTP id 8D6ACF8028F
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 01:09:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D6ACF8028F
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id CFC881FB;
- Tue, 18 Feb 2020 16:09:27 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5CBB71FB;
+ Tue, 18 Feb 2020 16:09:32 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 540B63F68F;
- Tue, 18 Feb 2020 16:09:27 -0800 (PST)
-Date: Wed, 19 Feb 2020 00:09:25 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D2DC53F68F;
+ Tue, 18 Feb 2020 16:09:31 -0800 (PST)
+Date: Wed, 19 Feb 2020 00:09:30 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: soc-generic-dmaengine-pcm: use for_each_pcm_streams()
- macro" to the asoc tree
+Subject: Applied "ASoC: soc-pcm: use for_each_pcm_streams() macro" to the asoc
+ tree
 In-Reply-To: 
 Message-Id: 
 X-Patchwork-Hint: ignore
@@ -66,7 +66,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-generic-dmaengine-pcm: use for_each_pcm_streams() macro
+   ASoC: soc-pcm: use for_each_pcm_streams() macro
 
 has been applied to the asoc tree at
 
@@ -91,54 +91,156 @@ to this mail.
 Thanks,
 Mark
 
-From ee10fbe1cdf7cb4ae62f5e23ccd771e696b8f404 Mon Sep 17 00:00:00 2001
+From 7083f877ea66e106f90e9a1a0dabb19ebbacc4e6 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Mon, 17 Feb 2020 17:28:32 +0900
-Subject: [PATCH] ASoC: soc-generic-dmaengine-pcm: use for_each_pcm_streams()
- macro
+Date: Mon, 17 Feb 2020 17:28:28 +0900
+Subject: [PATCH] ASoC: soc-pcm: use for_each_pcm_streams() macro
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/87zhdhaa8x.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/871rqtboth.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-generic-dmaengine-pcm.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ sound/soc/soc-pcm.c | 97 ++++++++++++++++-----------------------------
+ 1 file changed, 35 insertions(+), 62 deletions(-)
 
-diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
-index 2cc25651661c..d6b4831e8aec 100644
---- a/sound/soc/soc-generic-dmaengine-pcm.c
-+++ b/sound/soc/soc-generic-dmaengine-pcm.c
-@@ -237,7 +237,7 @@ static int dmaengine_pcm_new(struct snd_soc_component *component,
- 		max_buffer_size = SIZE_MAX;
- 	}
- 
--	for (i = SNDRV_PCM_STREAM_PLAYBACK; i <= SNDRV_PCM_STREAM_CAPTURE; i++) {
-+	for_each_pcm_streams(i) {
- 		substream = rtd->pcm->streams[i].substream;
- 		if (!substream)
- 			continue;
-@@ -371,8 +371,7 @@ static int dmaengine_pcm_request_chan_of(struct dmaengine_pcm *pcm,
- 		dev = config->dma_dev;
- 	}
- 
--	for (i = SNDRV_PCM_STREAM_PLAYBACK; i <= SNDRV_PCM_STREAM_CAPTURE;
--	     i++) {
-+	for_each_pcm_streams(i) {
- 		if (pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX)
- 			name = "rx-tx";
- 		else
-@@ -401,8 +400,7 @@ static void dmaengine_pcm_release_chan(struct dmaengine_pcm *pcm)
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 6fd69574ca31..63f67eb7c077 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -2612,6 +2612,7 @@ static int dpcm_run_old_update(struct snd_soc_pcm_runtime *fe, int stream)
+ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
  {
- 	unsigned int i;
+ 	struct snd_soc_dapm_widget_list *list;
++	int stream;
+ 	int count, paths;
  
--	for (i = SNDRV_PCM_STREAM_PLAYBACK; i <= SNDRV_PCM_STREAM_CAPTURE;
--	     i++) {
-+	for_each_pcm_streams(i) {
- 		if (!pcm->chan[i])
- 			continue;
- 		dma_release_channel(pcm->chan[i]);
+ 	if (!fe->dai_link->dynamic)
+@@ -2625,69 +2626,42 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 	dev_dbg(fe->dev, "ASoC: DPCM %s runtime update for FE %s\n",
+ 		new ? "new" : "old", fe->dai_link->name);
+ 
+-	/* skip if FE doesn't have playback capability */
+-	if (!snd_soc_dai_stream_valid(fe->cpu_dai,   SNDRV_PCM_STREAM_PLAYBACK) ||
+-	    !snd_soc_dai_stream_valid(fe->codec_dai, SNDRV_PCM_STREAM_PLAYBACK))
+-		goto capture;
+-
+-	/* skip if FE isn't currently playing */
+-	if (!fe->cpu_dai->stream_active[SNDRV_PCM_STREAM_PLAYBACK] ||
+-	    !fe->codec_dai->stream_active[SNDRV_PCM_STREAM_PLAYBACK])
+-		goto capture;
+-
+-	paths = dpcm_path_get(fe, SNDRV_PCM_STREAM_PLAYBACK, &list);
+-	if (paths < 0) {
+-		dev_warn(fe->dev, "ASoC: %s no valid %s path\n",
+-			 fe->dai_link->name,  "playback");
+-		return paths;
+-	}
+-
+-	/* update any playback paths */
+-	count = dpcm_process_paths(fe, SNDRV_PCM_STREAM_PLAYBACK, &list, new);
+-	if (count) {
+-		if (new)
+-			dpcm_run_new_update(fe, SNDRV_PCM_STREAM_PLAYBACK);
+-		else
+-			dpcm_run_old_update(fe, SNDRV_PCM_STREAM_PLAYBACK);
++	for_each_pcm_streams(stream) {
+ 
+-		dpcm_clear_pending_state(fe, SNDRV_PCM_STREAM_PLAYBACK);
+-		dpcm_be_disconnect(fe, SNDRV_PCM_STREAM_PLAYBACK);
+-	}
+-
+-	dpcm_path_put(&list);
++		/* skip if FE doesn't have playback/capture capability */
++		if (!snd_soc_dai_stream_valid(fe->cpu_dai,   stream) ||
++		    !snd_soc_dai_stream_valid(fe->codec_dai, stream))
++			continue;
+ 
+-capture:
+-	/* skip if FE doesn't have capture capability */
+-	if (!snd_soc_dai_stream_valid(fe->cpu_dai,   SNDRV_PCM_STREAM_CAPTURE) ||
+-	    !snd_soc_dai_stream_valid(fe->codec_dai, SNDRV_PCM_STREAM_CAPTURE))
+-		return 0;
++		/* skip if FE isn't currently playing/capturing */
++		if (!fe->cpu_dai->stream_active[stream] ||
++		    !fe->codec_dai->stream_active[stream])
++			continue;
+ 
+-	/* skip if FE isn't currently capturing */
+-	if (!fe->cpu_dai->stream_active[SNDRV_PCM_STREAM_CAPTURE] ||
+-	    !fe->codec_dai->stream_active[SNDRV_PCM_STREAM_CAPTURE])
+-		return 0;
++		paths = dpcm_path_get(fe, stream, &list);
++		if (paths < 0) {
++			dev_warn(fe->dev, "ASoC: %s no valid %s path\n",
++				 fe->dai_link->name,
++				 stream == SNDRV_PCM_STREAM_PLAYBACK ?
++				 "playback" : "capture");
++			return paths;
++		}
+ 
+-	paths = dpcm_path_get(fe, SNDRV_PCM_STREAM_CAPTURE, &list);
+-	if (paths < 0) {
+-		dev_warn(fe->dev, "ASoC: %s no valid %s path\n",
+-			 fe->dai_link->name,  "capture");
+-		return paths;
+-	}
++		/* update any playback/capture paths */
++		count = dpcm_process_paths(fe, stream, &list, new);
++		if (count) {
++			if (new)
++				dpcm_run_new_update(fe, stream);
++			else
++				dpcm_run_old_update(fe, stream);
+ 
+-	/* update any old capture paths */
+-	count = dpcm_process_paths(fe, SNDRV_PCM_STREAM_CAPTURE, &list, new);
+-	if (count) {
+-		if (new)
+-			dpcm_run_new_update(fe, SNDRV_PCM_STREAM_CAPTURE);
+-		else
+-			dpcm_run_old_update(fe, SNDRV_PCM_STREAM_CAPTURE);
++			dpcm_clear_pending_state(fe, stream);
++			dpcm_be_disconnect(fe, stream);
++		}
+ 
+-		dpcm_clear_pending_state(fe, SNDRV_PCM_STREAM_CAPTURE);
+-		dpcm_be_disconnect(fe, SNDRV_PCM_STREAM_CAPTURE);
++		dpcm_path_put(&list);
+ 	}
+ 
+-	dpcm_path_put(&list);
+-
+ 	return 0;
+ }
+ 
+@@ -3114,19 +3088,18 @@ static ssize_t dpcm_state_read_file(struct file *file, char __user *user_buf,
+ {
+ 	struct snd_soc_pcm_runtime *fe = file->private_data;
+ 	ssize_t out_count = PAGE_SIZE, offset = 0, ret = 0;
++	int stream;
+ 	char *buf;
+ 
+ 	buf = kmalloc(out_count, GFP_KERNEL);
+ 	if (!buf)
+ 		return -ENOMEM;
+ 
+-	if (snd_soc_dai_stream_valid(fe->cpu_dai, SNDRV_PCM_STREAM_PLAYBACK))
+-		offset += dpcm_show_state(fe, SNDRV_PCM_STREAM_PLAYBACK,
+-					buf + offset, out_count - offset);
+-
+-	if (snd_soc_dai_stream_valid(fe->cpu_dai, SNDRV_PCM_STREAM_CAPTURE))
+-		offset += dpcm_show_state(fe, SNDRV_PCM_STREAM_CAPTURE,
+-					buf + offset, out_count - offset);
++	for_each_pcm_streams(stream)
++		if (snd_soc_dai_stream_valid(fe->cpu_dai, stream))
++			offset += dpcm_show_state(fe, stream,
++						  buf + offset,
++						  out_count - offset);
+ 
+ 	ret = simple_read_from_buffer(user_buf, count, ppos, buf, offset);
+ 
 -- 
 2.20.1
 

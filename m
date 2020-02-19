@@ -2,83 +2,87 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A65C1649FD
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 17:20:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3D55164A06
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 17:20:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 28CE91699;
-	Wed, 19 Feb 2020 17:19:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 28CE91699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4546316AA;
+	Wed, 19 Feb 2020 17:20:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4546316AA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582129203;
-	bh=eMg3OUEvYgvOWMNJ0/9emwTDUZRsmT6SoMU+VQzSgJQ=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=ZX9Rwro9/TQbvc+PHJpWauULx7BO/CgLWW8xSR6p75L0SpoW5KUOnPfGgmhF11KL+
-	 h4U66oETj+zptL+VKE6pSyt9HV20mQ5NGo+/Sjtbg6HoEMl16q9iJCqbbD45gkKXm4
-	 15csh8Cgvk9e5lTUsfip36FkO8IrWaQEqZr742r4=
+	s=default; t=1582129250;
+	bh=uFHcnW+/wztS01j0k/KF9pPhHtw8LVl+1FnPqqa0V5A=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=hiS9Tjqt4KursSFbMRZvdXNFtt3ULJZCq3CPiJxUw2KPB2XEsCqSOri6hr1ekHs5F
+	 vTYt1BJpDlwwH9SRtSdgGNqMiOxFoHXXbxqKg0VusRxZlsgnOk2mhm9wN/gX6m/D/4
+	 kB7etXYCSBnls9I8nyhMC0Q03K+33PgyrPP6N86M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 990CCF80277;
-	Wed, 19 Feb 2020 17:17:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CFFE3F802A0;
+	Wed, 19 Feb 2020 17:17:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 3C316F80291; Wed, 19 Feb 2020 17:17:39 +0100 (CET)
+ id CB49DF8029B; Wed, 19 Feb 2020 17:17:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-ot1-f65.google.com (mail-ot1-f65.google.com
- [209.85.210.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 19957F80277
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 17:17:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19957F80277
-Received: by mail-ot1-f65.google.com with SMTP id j20so678475otq.3
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 08:17:35 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=ds9PNQU/0xKGagUGpbNRwzbcpa6Vu1q+oJ59YcOdPi0=;
- b=UdcL0YPJj2fI+RoZoNPtl8fUvEfg1wH5xHCDsH1oYK8GOQ18VzsTT+kGJUbvSOxjZM
- 40I8AJBxzYy+h2ROMVPItwXHa0T1ghrt+hrNe75JEbTMIDDtN4yrjZeaceueh+YlAKaG
- ZVg0cUOm+Pw2DMplUGHCty58BGehBsm4iX+oeUScGww7IbhEBIiwgAkyPtYQyMnTnSCU
- FqysYpFve0/wUHNMNl/g37W8zbkMTHuNc8RPP/I8B7jElxxECmOBuBEF/SOxDQjwJIrc
- JQo1JiqtSVmRn5guD8dv6Tg25D+lzQMkFI/RzBmjc8lrPnyQW1k7AdWuP44MabmQk52g
- EedA==
-X-Gm-Message-State: APjAAAXpyHFEmRFLUh9fE91wK35NWv0t2pwrhSDGjNlhg7tRYoWQu6ox
- Be7/yd+B5eU4FUfOP/wVwg==
-X-Google-Smtp-Source: APXvYqy1sIK+bQ9+QK9kxSA5x1Hp5G1Fhhfz+WOFk1ML9CuM4rwn0Z+YdLeKOItdqrKcKtW+PAOkxQ==
-X-Received: by 2002:a9d:bb8:: with SMTP id 53mr18271477oth.150.1582129054008; 
- Wed, 19 Feb 2020 08:17:34 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id e206sm113387oia.24.2020.02.19.08.17.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2020 08:17:33 -0800 (PST)
-Received: (nullmailer pid 25053 invoked by uid 1000);
- Wed, 19 Feb 2020 16:17:32 -0000
-Date: Wed, 19 Feb 2020 10:17:32 -0600
-From: Rob Herring <robh@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: renesas,rsnd: switch to yaml base
- Documentation
-Message-ID: <20200219161732.GB25095@bogus>
-References: <87d0ahzr9d.wl-kuninori.morimoto.gx@renesas.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 80890F80299
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 17:17:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 80890F80299
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=st.com header.i=@st.com header.b="QH9+HyeV"
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01JGCh9U031765; Wed, 19 Feb 2020 17:17:48 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=st.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=STMicroelectronics;
+ bh=9NamLGhs1g5nnm8A0MBVlS+ZYEhBZEt4VSnOcM6QmqY=;
+ b=QH9+HyeVbVNWVK5fp53HuhGwzhf6GG20PkI37SxmrAuUbYpQ9BskBOEirw7zc5sWAk3l
+ oyiUOVC+hRCzM+N8z5q36dNApzXbshQf0BX2dflNnGnNAFAvb3+9UaO+XSP1HbiRg6fg
+ KwgbCPuLz55kvRTb82qHrzaf0ymnGeJhhVWEWjApFeNKo5/DuDYYlFfWqDQuZmoFg6hh
+ N334lc0SfBU/SxK5/zXYk1/gONIVThL4KbaVnOr/2mp/irL/+Z2B7Xigt84cbcE4VzTr
+ K1WANXI8z2MqHpud67o5DvVLv5yg0ib96amV9LQlZGBLSWfTlcIOeNAWGcGM4j1Y4GXC JQ== 
+Received: from beta.dmz-eu.st.com (beta.dmz-eu.st.com [164.129.1.35])
+ by mx07-00178001.pphosted.com with ESMTP id 2y8uafm22d-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 19 Feb 2020 17:17:48 +0100
+Received: from euls16034.sgp.st.com (euls16034.sgp.st.com [10.75.44.20])
+ by beta.dmz-eu.st.com (STMicroelectronics) with ESMTP id 85A5110002A;
+ Wed, 19 Feb 2020 17:17:46 +0100 (CET)
+Received: from Webmail-eu.st.com (sfhdag6node2.st.com [10.75.127.17])
+ by euls16034.sgp.st.com (STMicroelectronics) with ESMTP id 5E6D62D7CC0;
+ Wed, 19 Feb 2020 17:17:46 +0100 (CET)
+Received: from localhost (10.75.127.47) by SFHDAG6NODE2.st.com (10.75.127.17)
+ with Microsoft SMTP Server (TLS) id 15.0.1347.2;
+ Wed, 19 Feb 2020 17:17:45 +0100
+From: Olivier Moysan <olivier.moysan@st.com>
+To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
+ <tiwai@suse.com>, <alexandre.torgue@st.com>, <robh@kernel.org>,
+ <mark.rutland@arm.com>
+Subject: [PATCH v3] ASoC: dt-bindings: stm32: convert sai to json-schema
+Date: Wed, 19 Feb 2020 17:17:33 +0100
+Message-ID: <20200219161733.9317-1-olivier.moysan@st.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87d0ahzr9d.wl-kuninori.morimoto.gx@renesas.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>
+Content-Type: text/plain
+X-Originating-IP: [10.75.127.47]
+X-ClientProxiedBy: SFHDAG1NODE3.st.com (10.75.127.3) To SFHDAG6NODE2.st.com
+ (10.75.127.17)
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
+ definitions=2020-02-19_04:2020-02-19,
+ 2020-02-19 signatures=0
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ olivier.moysan@st.com, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,300 +98,336 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Fri, Feb 14, 2020 at 02:12:39PM +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> This patch switches from .txt base to .yaml base Document.
-> It is still keeping detail explanations at .txt
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
-> v1 -> v2
-> 	- fixup dtc error
-> 
->  .../bindings/sound/renesas,rsnd.txt           | 518 -----------------
->  .../bindings/sound/renesas,rsnd.yaml          | 529 ++++++++++++++++++
->  2 files changed, 529 insertions(+), 518 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
+Convert the STM32 SAI bindings to DT schema format using json-schema.
 
+Signed-off-by: Olivier Moysan <olivier.moysan@st.com>
+---
+Changes in v2:
+- use pattern for compatible of child nodes
+- rework dmas and clocks properties
+- add "additionalProperties"
 
-> diff --git a/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> new file mode 100644
-> index 000000000000..0958255c8542
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/renesas,rsnd.yaml
-> @@ -0,0 +1,529 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/renesas,rsnd.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Renesas R-Car Sound Driver Device Tree Bindings
-> +
-> +maintainers:
-> +  - Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> +
-> +properties:
-> +  $nodename:
-> +    pattern: "^sound@.*"
-> +
-> +  compatible:
-> +    oneOf:
-> +      # for Gen1 SoC
-> +      - items:
-> +        - enum:
+Changes in v3:
+- move clocks properties for st,stm32h7-sai compatible, to 'else' clause
+---
+ .../bindings/sound/st,stm32-sai.txt           | 107 ----------
+ .../bindings/sound/st,stm32-sai.yaml          | 193 ++++++++++++++++++
+ 2 files changed, 193 insertions(+), 107 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.txt
+ create mode 100644 Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
 
-nit: Should be indented 2 more spaces.
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt b/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
+deleted file mode 100644
+index 944743dd9212..000000000000
+--- a/Documentation/devicetree/bindings/sound/st,stm32-sai.txt
++++ /dev/null
+@@ -1,107 +0,0 @@
+-STMicroelectronics STM32 Serial Audio Interface (SAI).
+-
+-The SAI interface (Serial Audio Interface) offers a wide set of audio protocols
+-as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
+-The SAI contains two independent audio sub-blocks. Each sub-block has
+-its own clock generator and I/O lines controller.
+-
+-Required properties:
+-  - compatible: Should be "st,stm32f4-sai" or "st,stm32h7-sai"
+-  - reg: Base address and size of SAI common register set.
+-  - clocks: Must contain phandle and clock specifier pairs for each entry
+-	in clock-names.
+-  - clock-names: Must contain "pclk" "x8k" and "x11k"
+-	"pclk": Clock which feeds the peripheral bus interface.
+-	        Mandatory for "st,stm32h7-sai" compatible.
+-	        Not used for "st,stm32f4-sai" compatible.
+-	"x8k": SAI parent clock for sampling rates multiple of 8kHz.
+-	"x11k": SAI parent clock for sampling rates multiple of 11.025kHz.
+-  - interrupts: cpu DAI interrupt line shared by SAI sub-blocks
+-
+-Optional properties:
+-  - resets: Reference to a reset controller asserting the SAI
+-
+-SAI subnodes:
+-Two subnodes corresponding to SAI sub-block instances A et B can be defined.
+-Subnode can be omitted for unsused sub-block.
+-
+-SAI subnodes required properties:
+-  - compatible: Should be "st,stm32-sai-sub-a" or "st,stm32-sai-sub-b"
+-	for SAI sub-block A or B respectively.
+-  - reg: Base address and size of SAI sub-block register set.
+-  - clocks: Must contain one phandle and clock specifier pair
+-	for sai_ck which feeds the internal clock generator.
+-	If the SAI shares a master clock, with another SAI set as MCLK
+-	clock provider, SAI provider phandle must be specified here.
+-  - clock-names: Must contain "sai_ck".
+-	Must also contain "MCLK", if SAI shares a master clock,
+-	with a SAI set as MCLK clock provider.
+-  - dmas: see Documentation/devicetree/bindings/dma/stm32-dma.txt
+-  - dma-names: identifier string for each DMA request line
+-	"tx": if sai sub-block is configured as playback DAI
+-	"rx": if sai sub-block is configured as capture DAI
+-  - pinctrl-names: should contain only value "default"
+-  - pinctrl-0: see Documentation/devicetree/bindings/pinctrl/st,stm32-pinctrl.yaml
+-
+-SAI subnodes Optional properties:
+-  - st,sync: specify synchronization mode.
+-	By default SAI sub-block is in asynchronous mode.
+-	This property sets SAI sub-block as slave of another SAI sub-block.
+-	Must contain the phandle and index of the sai sub-block providing
+-	the synchronization.
+-  - st,iec60958: support S/PDIF IEC6958 protocol for playback
+-	IEC60958 protocol is not available for capture.
+-	By default, custom protocol is assumed, meaning that protocol is
+-	configured according to protocol defined in related DAI link node,
+-	such as i2s, left justified, right justified, dsp and pdm protocols.
+-	Note: ac97 protocol is not supported by SAI driver
+-   - #clock-cells: should be 0. This property must be present if the SAI device
+-	is a master clock provider, according to clocks bindings, described in
+-	Documentation/devicetree/bindings/clock/clock-bindings.txt.
+-
+-The device node should contain one 'port' child node with one child 'endpoint'
+-node, according to the bindings defined in Documentation/devicetree/bindings/
+-graph.txt.
+-
+-Example:
+-sound_card {
+-	compatible = "audio-graph-card";
+-	dais = <&sai1b_port>;
+-};
+-
+-sai1: sai1@40015800 {
+-	compatible = "st,stm32h7-sai";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges = <0 0x40015800 0x400>;
+-	reg = <0x40015800 0x4>;
+-	clocks = <&rcc SAI1_CK>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
+-	clock-names = "pclk", "x8k", "x11k";
+-	interrupts = <87>;
+-
+-	sai1a: audio-controller@40015804 {
+-		compatible = "st,stm32-sai-sub-a";
+-		reg = <0x4 0x1C>;
+-		clocks = <&rcc SAI1_CK>;
+-		clock-names = "sai_ck";
+-		dmas = <&dmamux1 1 87 0x400 0x0>;
+-		dma-names = "tx";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_sai1a>;
+-
+-		sai1b_port: port {
+-			cpu_endpoint: endpoint {
+-				remote-endpoint = <&codec_endpoint>;
+-				format = "i2s";
+-			};
+-		};
+-	};
+-};
+-
+-audio-codec {
+-	codec_port: port {
+-		codec_endpoint: endpoint {
+-			remote-endpoint = <&cpu_endpoint>;
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+new file mode 100644
+index 000000000000..cdea20150c1e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/st,stm32-sai.yaml
+@@ -0,0 +1,193 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/st,stm32-sai.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 Serial Audio Interface (SAI)
++
++maintainers:
++  - Olivier Moysan <olivier.moysan@st.com>
++
++description:
++  The SAI interface (Serial Audio Interface) offers a wide set of audio
++  protocols as I2S standards, LSB or MSB-justified, PCM/DSP, TDM, and AC'97.
++  The SAI contains two independent audio sub-blocks. Each sub-block has
++  its own clock generator and I/O lines controller.
++
++properties:
++  compatible:
++    enum:
++      - st,stm32f4-sai
++      - st,stm32h7-sai
++
++  reg:
++    items:
++      - description: Base address and size of SAI common register set.
++      - description: Base address and size of SAI identification register set.
++    minItems: 1
++    maxItems: 2
++
++  ranges:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - ranges
++  - "#address-cells"
++  - "#size-cells"
++  - clocks
++  - clock-names
++
++patternProperties:
++  "^audio-controller@[0-9a-f]+$":
++    type: object
++    description:
++      Two subnodes corresponding to SAI sub-block instances A et B
++      can be defined. Subnode can be omitted for unsused sub-block.
++
++    properties:
++      compatible:
++        description: Compatible for SAI sub-block A or B.
++        pattern: "st,stm32-sai-sub-[ab]"
++
++      "#sound-dai-cells":
++        const: 0
++
++      reg:
++        maxItems: 1
++
++      clocks:
++        items:
++          - description: sai_ck clock feeding the internal clock generator.
++          - description: MCLK clock from a SAI set as master clock provider.
++        minItems: 1
++        maxItems: 2
++
++      clock-names:
++        items:
++          - const: sai_ck
++          - const: MCLK
++        minItems: 1
++        maxItems: 2
++
++      dmas:
++        maxItems: 1
++
++      dma-names:
++        description: |
++          rx: SAI sub-block is configured as a capture DAI.
++          tx: SAI sub-block is configured as a playback DAI.
++        enum: [ rx, tx ]
++
++      st,sync:
++        description:
++          Configure the SAI sub-block as slave of another SAI sub-block.
++          By default SAI sub-block is in asynchronous mode.
++          Must contain the phandle and index of the SAI sub-block providing
++          the synchronization.
++        allOf:
++          - $ref: /schemas/types.yaml#definitions/phandle-array
++          - maxItems: 1
++
++      st,iec60958:
++        description:
++          If set, support S/PDIF IEC6958 protocol for playback.
++          IEC60958 protocol is not available for capture.
++          By default, custom protocol is assumed, meaning that protocol is
++          configured according to protocol defined in related DAI link node,
++          such as i2s, left justified, right justified, dsp and pdm protocols.
++        allOf:
++          - $ref: /schemas/types.yaml#definitions/flag
++
++      "#clock-cells":
++        description: Configure the SAI device as master clock provider.
++        const: 0
++
++    required:
++      - compatible
++      - "#sound-dai-cells"
++      - reg
++      - clocks
++      - clock-names
++      - dmas
++      - dma-names
++
++    additionalProperties: false
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: st,stm32f4-sai
++
++  - then:
++      properties:
++        clocks:
++          items:
++            - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
++            - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.        
++
++        clock-names:
++          items:
++            - const: x8k
++            - const: x11k
++
++  - else:
++      properties:
++        clocks:
++          items:
++            - description: pclk feeds the peripheral bus interface.
++            - description: x8k, SAI parent clock for sampling rates multiple of 8kHz.
++            - description: x11k, SAI parent clock for sampling rates multiple of 11.025kHz.
++
++        clock-names:
++          items:
++            - const: pclk
++            - const: x8k
++            - const: x11k
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/stm32mp1-clks.h>
++    #include <dt-bindings/reset/stm32mp1-resets.h>
++    sai1: sai@4400a000 {
++      compatible = "st,stm32h7-sai";
++      #address-cells = <1>;
++      #size-cells = <1>;
++      ranges = <0 0x4400a000 0x400>;
++      reg = <0x4400a000 0x4>, <0x4400a3f0 0x10>;
++      interrupts = <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&rcc SAI1>, <&rcc PLL1_Q>, <&rcc PLL2_P>;
++      clock-names = "pclk", "x8k", "x11k";
++      resets = <&rcc SAI1_R>;
++
++      sai1a: audio-controller@4400a004 {
++        compatible = "st,stm32-sai-sub-a";
++        #sound-dai-cells = <0>;
++        reg = <0x4 0x1c>;
++        clocks = <&rcc SAI1_K>;
++        clock-names = "sai_ck";
++        dmas = <&dmamux1 87 0x400 0x01>;
++        dma-names = "tx";
++      };
++    };
++
++...
+-- 
+2.17.1
 
-> +          - renesas,rcar_sound-r8a7778 # R-Car M1A
-> +          - renesas,rcar_sound-r8a7779 # R-Car H1
-> +        - enum:
-> +          - renesas,rcar_sound-gen1
-> +      # for Gen2 SoC
-> +      - items:
-> +        - enum:
-> +          - renesas,rcar_sound-r8a7743   # RZ/G1M
-> +          - renesas,rcar_sound-r8a7744   # RZ/G1N
-> +          - renesas,rcar_sound-r8a7745   # RZ/G1E
-> +          - renesas,rcar_sound-r8a77470  # RZ/G1C
-> +          - renesas,rcar_sound-r8a7790   # R-Car H2
-> +          - renesas,rcar_sound-r8a7791   # R-Car M2-W
-> +          - renesas,rcar_sound-r8a7793   # R-Car M2-N
-> +          - renesas,rcar_sound-r8a7794   # R-Car E2
-> +        - enum:
-> +          - renesas,rcar_sound-gen2
-> +      # for Gen3 SoC
-> +      - items:
-> +        - enum:
-> +          - renesas,rcar_sound-r8a774a1  # RZ/G2M
-> +          - renesas,rcar_sound-r8a774b1  # RZ/G2N
-> +          - renesas,rcar_sound-r8a774c0  # RZ/G2E
-> +          - renesas,rcar_sound-r8a7795   # R-Car H3
-> +          - renesas,rcar_sound-r8a7796   # R-Car M3-W
-> +          - renesas,rcar_sound-r8a77965  # R-Car M3-N
-> +          - renesas,rcar_sound-r8a77990  # R-Car E3
-> +          - renesas,rcar_sound-r8a77995  # R-Car D3
-> +        - enum:
-> +          - renesas,rcar_sound-gen3
-> +      # for Generic
-> +      - items:
-> +        - enum:
-> +          - renesas,rcar_sound-gen1
-> +          - renesas,rcar_sound-gen2
-> +          - renesas,rcar_sound-gen3
-> +
-> +  reg:
-> +    minItems: 3 # Gen1
-> +    maxItems: 5 # Gen2/Gen3
-> +
-> +  reg-names:
-> +    description: |
-> +      Should contain the register names.
-> +      scu/adg/ssi              if generation1
-> +      scu/adg/ssiu/ssi/audmapp if generation2/generation3
-> +    minItems: 3 # Gen1
-> +    maxItems: 5 # Gen2/Gen3
-> +    allOf:
-> +      - items:
-> +          enum:
-> +            - scu
-> +            - adg
-> +            - ssiu
-> +            - ssi
-> +            - audmapp
-
-This should be 2 'oneOf' entries listing out the exact names and index.
-
-> +
-> +  "#sound-dai-cells":
-> +    description: |
-> +      it must be 0 if your system is using single DAI
-> +      it must be 1 if your system is using multi  DAIs
-> +    enum: [0, 1]
-> +
-> +  "#clock-cells":
-> +    description: |
-> +      it must be 0 if your system has audio_clkout
-> +      it must be 1 if your system has audio_clkout0/1/2/3
-> +    enum: [0, 1]
-> +
-> +  clock-frequency:
-> +    description: for audio_clkout0/1/2/3
-> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-
-This already has a common definition and this conflicts with that. 
-'clock-frequency' is a single uint32 or uint64.
-
-> +
-> +  clkout-lr-asynchronous:
-> +    description: audio_clkoutn is asynchronizes with lr-clock.
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +
-> +  power-domains: true
-> +
-> +  resets:
-> +    description: References to SSI resets
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +
-> +  reset-names:
-> +    description: List of valid reset names.
-> +    allOf:
-
-Don't need allOf here.
-
-You do need to define how many items.
-
-> +      - items:
-> +          enum:
-> +            - ssi-all
-> +            - ssi.9
-> +            - ssi.8
-> +            - ssi.7
-> +            - ssi.6
-> +            - ssi.5
-> +            - ssi.4
-> +            - ssi.3
-> +            - ssi.2
-> +            - ssi.1
-> +            - ssi.0
-
-Looks like a pattern.
-
-pattern: '^ssi(-all|\.[0-9])$'
-
-
-> +
-> +  clocks:
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-
-Already has a type definition. Need to define how many.
-
-> +    description: References to SSI/SRC/MIX/CTU/DVC/AUDIO_CLK clocks.
-> +
-> +  clock-names:
-> +    description: List of necessary clock names.
-> +    allOf:
-> +      - items:
-> +          enum:
-> +            - ssi-all
-> +            - ssi.9
-> +            - ssi.8
-> +            - ssi.7
-> +            - ssi.6
-> +            - ssi.5
-> +            - ssi.4
-> +            - ssi.3
-> +            - ssi.2
-> +            - ssi.1
-> +            - ssi.0
-> +            - src.9
-> +            - src.8
-> +            - src.7
-> +            - src.6
-> +            - src.5
-> +            - src.4
-> +            - src.3
-> +            - src.2
-> +            - src.1
-> +            - src.0
-> +            - mix.1
-> +            - mix.0
-> +            - ctu.1
-> +            - ctu.0
-> +            - dvc.1
-> +            - dvc.0
-> +            - clk_a
-> +            - clk_b
-> +            - clk_c
-> +            - clk_i
-
-Looks like a couple of patterns.
-
-> +
-> +  # For OF-graph
-> +  port:
-> +    description: OF-Graph subnode
-> +    type: object
-> +    properties:
-> +      reg:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-
-No unit-address for 'port', so you don't need 'reg' here.
-
-> +      endpoint:
-> +        type: object
-> +        properties:
-> +          remote-endpoint:
-> +            $ref: /schemas/types.yaml#/definitions/phandle-array
-
-Assume this already has a type.
-
-> +          dai-format:
-> +            $ref: "simple-card.yaml#/definitions/format"
-> +          playback:
-> +            $ref: /schemas/types.yaml#/definitions/phandle-array
-> +          capture:
-> +            $ref: /schemas/types.yaml#/definitions/phandle-array
-> +        required:
-> +            - remote-endpoint
-> +
-> +  # For multi OF-graph
-> +  ports:
-> +    description: multi OF-Graph subnode
-> +    type: object
-> +    patternProperties:
-> +      "port(@.*)?":
-
-^port(@[0-9a-f])?$"
-
-Perhaps there's max number of ports that's less than 0xf?
-
-> +        $ref: "#properties/port"
-
-Would be more simple to just always have 'ports'.
-
-> +
-> +patternProperties:
-> +  "^rcar_sound,dvc$":
-
-Not a pattern, but a fixed string...
-
-> +    description: DVC subnode.
-> +    type: object
-> +    patternProperties:
-> +      "dvc-.":
-> +        type: object
-> +        properties:
-> +          dmas:
-> +            $ref: /schemas/types.yaml#/definitions/phandle-array
-
-Already has a type, just need 'maxItems: 1'.
-
-> +          dma-names:
-> +            const: "tx"
-> +        required:
-> +          - dmas
-> +          - dma-names
-> +    additionalProperties: false
-> +
-> +  "^rcar_sound,mix$":
-
-Not a pattern...
-
-> +    description: MIX subnode.
-> +    type: object
-> +    patternProperties:
-> +      "mix-.":
-
-foomix-bar is valid?
-
-> +        type: object
-
-Aren't there properties in this node?
-
-> +    additionalProperties: false
-
-Stopping here because the rest looks like more of the same comments.
-
-Rob

@@ -2,53 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE6AA165075
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 22:00:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12726165076
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 22:00:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9279216A6;
-	Wed, 19 Feb 2020 21:59:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9279216A6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8CDC016BA;
+	Wed, 19 Feb 2020 21:59:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8CDC016BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582146005;
-	bh=ajPhoR4vVeeQ9H2pLcFp2wmLsu6sl8BihJA3cOM02r8=;
+	s=default; t=1582146022;
+	bh=bC1wXQy0ssQaspOauUTabvcEMXoPRo33J3ZTfrwjZCA=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=aRuvK0EtllF/Gdl4x3t97nqdIPu1Eu3P7fYuudgph3s8qXlTSUHN4LCIqG8kLWQ96
-	 K0CVcP+qoumBQYMnF6sJIwXOSn47Z2hNB1ZqEJ7WWDLu58ZC8Fyi1QrsirO4ONhXRW
-	 AW/FOtJ7tXPSl17rzjG4Opxg4ot7l1XrOdtbgbV0=
+	b=qqJ9KE0IAvAIEYc5TTC58e3p3H5GYzdLNgeuU7PIHVbIGb+8sPMFq3DObkyD39b09
+	 MHRLIOn4MhKvQZoGlCZJHBjFf1lKwvd0ggJaS9iQAOP11z+FtrpIMm4677MiUq6DHd
+	 Zs7ACIwYEAgZnvy5ka5fHxzzCrnErmpXZp4I/mxc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id EB7E5F80291;
-	Wed, 19 Feb 2020 21:57:04 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 03EFFF80142;
+	Wed, 19 Feb 2020 21:57:08 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E8479F8028C; Wed, 19 Feb 2020 21:57:00 +0100 (CET)
+ id 4DB2EF80142; Wed, 19 Feb 2020 21:57:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D2EA9F80142
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 21:56:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2EA9F80142
+ by alsa1.perex.cz (Postfix) with ESMTP id E824BF80142
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 21:57:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E824BF80142
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C5A89101E;
- Wed, 19 Feb 2020 12:56:56 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4B0BAFEC;
+ Wed, 19 Feb 2020 12:57:01 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C9A593F68F;
- Wed, 19 Feb 2020 12:56:54 -0800 (PST)
-Date: Wed, 19 Feb 2020 20:56:53 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C55293F68F;
+ Wed, 19 Feb 2020 12:57:00 -0800 (PST)
+Date: Wed, 19 Feb 2020 20:56:59 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Subject: Applied "ASoC: meson: add t9015 internal codec binding documentation"
- to the asoc tree
-In-Reply-To: 
-Message-Id: 
+To: Dragos Tarcatu <dragos_tarcatu@mentor.com>
+Subject: Applied "ASoC: topology: Fix memleak in soc_tplg_manifest_load()" to
+ the asoc tree
+In-Reply-To: <20200207185325.22320-3-dragos_tarcatu@mentor.com>
+Message-Id: <applied-20200207185325.22320-3-dragos_tarcatu@mentor.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: mengdong.lin@linux.intel.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, pierre-louis.bossart@linux.intel.com,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,7 +68,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: meson: add t9015 internal codec binding documentation
+   ASoC: topology: Fix memleak in soc_tplg_manifest_load()
 
 has been applied to the asoc tree at
 
@@ -91,86 +93,63 @@ to this mail.
 Thanks,
 Mark
 
-From 5c36abcd2621adc3d50d05628f0ef0be6e7840a9 Mon Sep 17 00:00:00 2001
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Wed, 19 Feb 2020 18:35:02 +0100
-Subject: [PATCH] ASoC: meson: add t9015 internal codec binding documentation
+From 242c46c023610dbc0213fc8fb6b71eb836bc5d95 Mon Sep 17 00:00:00 2001
+From: Dragos Tarcatu <dragos_tarcatu@mentor.com>
+Date: Fri, 7 Feb 2020 20:53:25 +0200
+Subject: [PATCH] ASoC: topology: Fix memleak in soc_tplg_manifest_load()
 
-Add the DT binding documention of the internal DAC found in the Amlogic
-gxl, g12a and sm1 SoC family.
+In case of ABI version mismatch, _manifest needs to be freed as
+it is just a copy of the original topology manifest. However, if
+a driver manifest handler is defined, that would get executed and
+the cleanup is never reached. Fix that by getting the return status
+of manifest() instead of returning directly.
 
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Link: https://lore.kernel.org/r/20200219173503.1112561-2-jbrunet@baylibre.com
+Fixes: 583958fa2e52 ("ASoC: topology: Make manifest backward compatible from ABI v4")
+Signed-off-by: Dragos Tarcatu <dragos_tarcatu@mentor.com>
+Link: https://lore.kernel.org/r/20200207185325.22320-3-dragos_tarcatu@mentor.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- .../bindings/sound/amlogic,t9015.yaml         | 58 +++++++++++++++++++
- 1 file changed, 58 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/sound/amlogic,t9015.yaml
+ sound/soc/soc-topology.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/amlogic,t9015.yaml b/Documentation/devicetree/bindings/sound/amlogic,t9015.yaml
-new file mode 100644
-index 000000000000..b7c38c2b5b54
---- /dev/null
-+++ b/Documentation/devicetree/bindings/sound/amlogic,t9015.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: GPL-2.0
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/sound/amlogic,t9015.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Amlogic T9015 Internal Audio DAC
-+
-+maintainers:
-+  - Jerome Brunet <jbrunet@baylibre.com>
-+
-+properties:
-+  $nodename:
-+    pattern: "^audio-controller@.*"
-+
-+  "#sound-dai-cells":
-+    const: 0
-+
-+  compatible:
-+    items:
-+      - const: amlogic,t9015
-+
-+  clocks:
-+    items:
-+      - description: Peripheral clock
-+
-+  clock-names:
-+    items:
-+      - const: pclk
-+
-+  reg:
-+    maxItems: 1
-+
-+  resets:
-+    maxItems: 1
-+
-+required:
-+  - "#sound-dai-cells"
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - resets
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/g12a-clkc.h>
-+    #include <dt-bindings/reset/amlogic,meson-g12a-reset.h>
-+
-+    acodec: audio-controller@32000 {
-+        compatible = "amlogic,t9015";
-+        reg = <0x0 0x32000 0x0 0x14>;
-+        #sound-dai-cells = <0>;
-+        clocks = <&clkc CLKID_AUDIO_CODEC>;
-+        clock-names = "pclk";
-+        resets = <&reset RESET_AUDIO_CODEC>;
-+    };
-+
+diff --git a/sound/soc/soc-topology.c b/sound/soc/soc-topology.c
+index 953517a73298..22c38df40d5a 100644
+--- a/sound/soc/soc-topology.c
++++ b/sound/soc/soc-topology.c
+@@ -2544,7 +2544,7 @@ static int soc_tplg_manifest_load(struct soc_tplg *tplg,
+ {
+ 	struct snd_soc_tplg_manifest *manifest, *_manifest;
+ 	bool abi_match;
+-	int err;
++	int ret = 0;
+ 
+ 	if (tplg->pass != SOC_TPLG_PASS_MANIFEST)
+ 		return 0;
+@@ -2557,19 +2557,19 @@ static int soc_tplg_manifest_load(struct soc_tplg *tplg,
+ 		_manifest = manifest;
+ 	} else {
+ 		abi_match = false;
+-		err = manifest_new_ver(tplg, manifest, &_manifest);
+-		if (err < 0)
+-			return err;
++		ret = manifest_new_ver(tplg, manifest, &_manifest);
++		if (ret < 0)
++			return ret;
+ 	}
+ 
+ 	/* pass control to component driver for optional further init */
+ 	if (tplg->comp && tplg->ops && tplg->ops->manifest)
+-		return tplg->ops->manifest(tplg->comp, tplg->index, _manifest);
++		ret = tplg->ops->manifest(tplg->comp, tplg->index, _manifest);
+ 
+ 	if (!abi_match)	/* free the duplicated one */
+ 		kfree(_manifest);
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /* validate header magic, size and type */
 -- 
 2.20.1
 

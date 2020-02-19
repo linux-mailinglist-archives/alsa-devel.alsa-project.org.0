@@ -2,56 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95F8C163877
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 01:21:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDBDF16387B
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 01:22:35 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1E1B71702;
-	Wed, 19 Feb 2020 01:21:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E1B71702
+	by alsa0.perex.cz (Postfix) with ESMTPS id 77EDA16EC;
+	Wed, 19 Feb 2020 01:21:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77EDA16EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582071718;
-	bh=JXmDCaubVcNcEJTNZQBKciA5gwQVemHpKo+MsSzaA8Q=;
+	s=default; t=1582071755;
+	bh=hLwBTsKxXffyR7SFKAARP74ux3moEFbT18oflpeAsiU=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=BBc/zToqRsgumsyVGyb6nsE+Y2BiqxunsEf17Tat6L2tv1i5+ZMghaSZFIu+oLlN/
-	 74S9yG7HJX4MMCvNWzkBC3F+SRTIB33IVQXQrSOIvIvin5dMFvk5tbCOLb073nwJ7x
-	 rrnCRWWwsYuq6tVqRQmLtJr6K8CpguOJvTUfcPJA=
+	b=UJ00amBrMvgVOaZu9ap1aTrP2HzDVK7/tA8Tkp6JqHwyI4OesmuaMY3UvZb0q/DoC
+	 +DYFojpZEC0NRK2xj88YsCpm2y2nxgDj6NWKUvtD7Jy4l6bUec2g8UpTKO8+X79/Im
+	 LIvlyN7yGguZX/Z4EOzxa20gFWnmXDpKkl2DTUKk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C3DDF80344;
-	Wed, 19 Feb 2020 01:10:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9585EF80348;
+	Wed, 19 Feb 2020 01:10:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 00FFCF80342; Wed, 19 Feb 2020 01:10:34 +0100 (CET)
+ id 3AE7CF80346; Wed, 19 Feb 2020 01:10:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 1D33DF80340
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 01:10:31 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D33DF80340
+ by alsa1.perex.cz (Postfix) with ESMTP id 8D0B7F80343
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 01:10:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D0B7F80343
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7001F1FB;
- Tue, 18 Feb 2020 16:10:30 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E1BEEFEC;
+ Tue, 18 Feb 2020 16:10:34 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C1D463F68F;
- Tue, 18 Feb 2020 16:10:29 -0800 (PST)
-Date: Wed, 19 Feb 2020 00:10:28 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6579B3F68F;
+ Tue, 18 Feb 2020 16:10:34 -0800 (PST)
+Date: Wed, 19 Feb 2020 00:10:32 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Derek Fang <derek.fang@realtek.com>
-Subject: Applied "ASoC: rt5682: Add CCF usage for providing I2S clks" to the
- asoc tree
-In-Reply-To: <1582033912-6841-1-git-send-email-derek.fang@realtek.com>
-Message-Id: <applied-1582033912-6841-1-git-send-email-derek.fang@realtek.com>
+To: Cezary Rojewski <cezary.rojewski@intel.com>
+Subject: Applied "ASoC: SOF: Intel: Add Probe compress CPU DAIs" to the asoc
+ tree
+In-Reply-To: 
+Message-Id: 
 X-Patchwork-Hint: ignore
-Cc: oder_chiou@realtek.com, jack.yu@realtek.com, alsa-devel@alsa-project.org,
- lars@metafoo.de, lgirdwood@gmail.com, albertchen@realtek.com,
- Mark Brown <broonie@kernel.org>, derek.fang@realtek.com, shumingf@realtek.com,
- flove@realtek.com
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5682: Add CCF usage for providing I2S clks
+   ASoC: SOF: Intel: Add Probe compress CPU DAIs
 
 has been applied to the asoc tree at
 
@@ -94,558 +92,143 @@ to this mail.
 Thanks,
 Mark
 
-From ebbfabc16d23dfd20eecd4b6e68212fec37ae7c6 Mon Sep 17 00:00:00 2001
-From: Derek Fang <derek.fang@realtek.com>
-Date: Tue, 18 Feb 2020 21:51:51 +0800
-Subject: [PATCH] ASoC: rt5682: Add CCF usage for providing I2S clks
+From 70368106467cd8c420176bf3ab0acc797f6584bf Mon Sep 17 00:00:00 2001
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Date: Tue, 18 Feb 2020 15:39:24 +0100
+Subject: [PATCH] ASoC: SOF: Intel: Add Probe compress CPU DAIs
 
-There is a need to use RT5682 as DAI clock master for other codecs
-within a platform, which means that the DAI clocks are required to
-remain, regardless of whether the RT5682 is actually running
-playback/capture.
+Declare extraction CPU DAI as well as sof_probe_compr_ops. FE DAIs can
+link against these new CPU DAI to create new compress devices.
 
-The RT5682 CCF basic functions are implemented almost by the existing
-internal functions and asoc apis. It needs a clk provider (rt5682 mclk)
-to generate the bclk and wclk outputs.
-
-The RT5682 CCF supports and restricts as below:
-1. Fmt of DAI-AIF1 must be configured to master before using CCF.
-2. Only accept a 48MHz clk as the clk provider.
-3. Only provide a 48kHz wclk and a set of multiples of wclk as bclk.
-
-There are some temporary limitations in this patch until a better
-implementation.
-
-Signed-off-by: Derek Fang <derek.fang@realtek.com>
-Link: https://lore.kernel.org/r/1582033912-6841-1-git-send-email-derek.fang@realtek.com
+Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Acked-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200218143924.10565-10-cezary.rojewski@intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/rt5682.h    |   8 +
- sound/soc/codecs/rt5682.c | 407 +++++++++++++++++++++++++++++++++++++-
- sound/soc/codecs/rt5682.h |   4 +-
- 3 files changed, 415 insertions(+), 4 deletions(-)
+ sound/soc/sof/compress.c      |  5 +++++
+ sound/soc/sof/compress.h      |  2 ++
+ sound/soc/sof/intel/hda-dai.c | 28 ++++++++++++++++++++++++++++
+ sound/soc/sof/intel/hda.h     |  6 ++++++
+ sound/soc/sof/pcm.c           |  7 +++++++
+ 5 files changed, 48 insertions(+)
 
-diff --git a/include/sound/rt5682.h b/include/sound/rt5682.h
-index bc2c31734df1..6bf0e3581056 100644
---- a/include/sound/rt5682.h
-+++ b/include/sound/rt5682.h
-@@ -24,6 +24,12 @@ enum rt5682_jd_src {
- 	RT5682_JD1,
- };
+diff --git a/sound/soc/sof/compress.c b/sound/soc/sof/compress.c
+index e87cc81a0599..7354dc6a49cf 100644
+--- a/sound/soc/sof/compress.c
++++ b/sound/soc/sof/compress.c
+@@ -13,6 +13,11 @@
+ #include "ops.h"
+ #include "probe.h"
  
-+enum rt5682_dai_clks {
-+	RT5682_DAI_WCLK_IDX,
-+	RT5682_DAI_BCLK_IDX,
-+	RT5682_DAI_NUM_CLKS,
++struct snd_compr_ops sof_probe_compressed_ops = {
++	.copy		= sof_probe_compr_copy,
++};
++EXPORT_SYMBOL(sof_probe_compressed_ops);
++
+ int sof_probe_compr_open(struct snd_compr_stream *cstream,
+ 		struct snd_soc_dai *dai)
+ {
+diff --git a/sound/soc/sof/compress.h b/sound/soc/sof/compress.h
+index dccc9e008f81..800f163603e1 100644
+--- a/sound/soc/sof/compress.h
++++ b/sound/soc/sof/compress.h
+@@ -13,6 +13,8 @@
+ 
+ #include <sound/compress_driver.h>
+ 
++extern struct snd_compr_ops sof_probe_compressed_ops;
++
+ int sof_probe_compr_open(struct snd_compr_stream *cstream,
+ 		struct snd_soc_dai *dai);
+ int sof_probe_compr_free(struct snd_compr_stream *cstream,
+diff --git a/sound/soc/sof/intel/hda-dai.c b/sound/soc/sof/intel/hda-dai.c
+index 9c6e3f990ee3..ed5e7d2c0d43 100644
+--- a/sound/soc/sof/intel/hda-dai.c
++++ b/sound/soc/sof/intel/hda-dai.c
+@@ -399,6 +399,19 @@ static const struct snd_soc_dai_ops hda_link_dai_ops = {
+ 	.trigger = hda_link_pcm_trigger,
+ 	.prepare = hda_link_pcm_prepare,
+ };
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
++#include "../compress.h"
++
++static struct snd_soc_cdai_ops sof_probe_compr_ops = {
++	.startup	= sof_probe_compr_open,
++	.shutdown	= sof_probe_compr_free,
++	.set_params	= sof_probe_compr_set_params,
++	.trigger	= sof_probe_compr_trigger,
++	.pointer	= sof_probe_compr_pointer,
 +};
 +
- struct rt5682_platform_data {
- 
- 	int ldo1_en; /* GPIO for LDO1_EN */
-@@ -32,6 +38,8 @@ struct rt5682_platform_data {
- 	enum rt5682_dmic1_clk_pin dmic1_clk_pin;
- 	enum rt5682_jd_src jd_src;
- 	unsigned int btndet_delay;
-+
-+	const char *dai_clk_names[RT5682_DAI_NUM_CLKS];
- };
- 
++#endif
  #endif
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 9fbb3862f8d7..6774813e0eea 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -27,6 +27,9 @@
- #include <sound/soc-dapm.h>
- #include <sound/initval.h>
- #include <sound/tlv.h>
-+#include <linux/clk.h>
-+#include <linux/clkdev.h>
-+#include <linux/clk-provider.h>
- #include <sound/rt5682.h>
  
- #include "rl6231.h"
-@@ -45,6 +48,8 @@ static const struct rt5682_platform_data i2s_default_platform_data = {
- 	.dmic1_clk_pin = RT5682_DMIC1_CLK_GPIO3,
- 	.jd_src = RT5682_JD1,
- 	.btndet_delay = 16,
-+	.dai_clk_names[RT5682_DAI_WCLK_IDX] = "rt5682-dai-wclk",
-+	.dai_clk_names[RT5682_DAI_BCLK_IDX] = "rt5682-dai-bclk",
+ /*
+@@ -460,5 +473,20 @@ struct snd_soc_dai_driver skl_dai[] = {
+ 	.name = "Alt Analog CPU DAI",
+ 	.ops = &hda_link_dai_ops,
+ },
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
++{
++	.name = "Probe Extraction CPU DAI",
++	.compress_new = snd_soc_new_compress,
++	.cops = &sof_probe_compr_ops,
++	.capture = {
++		.stream_name = "Probe Extraction",
++		.channels_min = 1,
++		.channels_max = 8,
++		.rates = SNDRV_PCM_RATE_48000,
++		.rate_min = 48000,
++		.rate_max = 48000,
++	},
++},
++#endif
+ #endif
  };
+diff --git a/sound/soc/sof/intel/hda.h b/sound/soc/sof/intel/hda.h
+index ca44ecb76534..537c0a930a15 100644
+--- a/sound/soc/sof/intel/hda.h
++++ b/sound/soc/sof/intel/hda.h
+@@ -349,7 +349,13 @@
  
- struct rt5682_priv {
-@@ -58,6 +63,13 @@ struct rt5682_priv {
- 	struct mutex calibrate_mutex;
- 	bool is_sdw;
- 
-+#ifdef CONFIG_COMMON_CLK
-+	struct clk_hw dai_clks_hw[RT5682_DAI_NUM_CLKS];
-+	struct clk_lookup *dai_clks_lookup[RT5682_DAI_NUM_CLKS];
-+	struct clk *dai_clks[RT5682_DAI_NUM_CLKS];
-+	struct clk *mclk;
+ /* Number of DAIs */
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
++
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_PROBES)
++#define SOF_SKL_NUM_DAIS		16
++#else
+ #define SOF_SKL_NUM_DAIS		15
 +#endif
 +
- 	int sysclk;
- 	int sysclk_src;
- 	int lrck[RT5682_AIFS];
-@@ -921,6 +933,7 @@ static int rt5682_headset_detect(struct snd_soc_component *component,
- 		int jack_insert)
- {
- 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
-+	struct snd_soc_dapm_context *dapm = &component->dapm;
- 	unsigned int val, count;
- 
- 	if (jack_insert) {
-@@ -963,8 +976,13 @@ static int rt5682_headset_detect(struct snd_soc_component *component,
- 		rt5682_enable_push_button_irq(component, false);
- 		snd_soc_component_update_bits(component, RT5682_CBJ_CTRL_1,
- 			RT5682_TRIG_JD_MASK, RT5682_TRIG_JD_LOW);
--		snd_soc_component_update_bits(component, RT5682_PWR_ANLG_1,
--			RT5682_PWR_VREF2 | RT5682_PWR_MB, 0);
-+		if (snd_soc_dapm_get_pin_status(dapm, "MICBIAS"))
-+			snd_soc_component_update_bits(component,
-+				RT5682_PWR_ANLG_1, RT5682_PWR_VREF2, 0);
-+		else
-+			snd_soc_component_update_bits(component,
-+				RT5682_PWR_ANLG_1,
-+				RT5682_PWR_VREF2 | RT5682_PWR_MB, 0);
- 		snd_soc_component_update_bits(component, RT5682_PWR_ANLG_3,
- 			RT5682_PWR_CBJ, 0);
- 
-@@ -1633,6 +1651,7 @@ static const struct snd_soc_dapm_widget rt5682_dapm_widgets[] = {
- 		rt5655_set_verf, SND_SOC_DAPM_PRE_PMU | SND_SOC_DAPM_POST_PMU),
- 	SND_SOC_DAPM_SUPPLY("Vref2", RT5682_PWR_ANLG_1, RT5682_PWR_VREF2_BIT, 0,
- 		NULL, 0),
-+	SND_SOC_DAPM_SUPPLY("MICBIAS", SND_SOC_NOPM, 0, 0, NULL, 0),
- 
- 	/* ASRC */
- 	SND_SOC_DAPM_SUPPLY_S("DAC STO1 ASRC", 1, RT5682_PLL_TRACK_1,
-@@ -2459,12 +2478,380 @@ static int rt5682_set_bias_level(struct snd_soc_component *component,
- 	return 0;
- }
- 
-+#ifdef CONFIG_COMMON_CLK
-+#define CLK_PLL2_FIN 48000000
-+#define CLK_PLL2_FOUT 24576000
-+#define CLK_48 48000
-+
-+static bool rt5682_clk_check(struct rt5682_priv *rt5682)
-+{
-+	if (!rt5682->master[RT5682_AIF1]) {
-+		dev_err(rt5682->component->dev, "sysclk/dai not set correctly\n");
-+		return false;
-+	}
-+	return true;
-+}
-+
-+static int rt5682_wclk_prepare(struct clk_hw *hw)
-+{
-+	struct rt5682_priv *rt5682 =
-+		container_of(hw, struct rt5682_priv,
-+			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
-+	struct snd_soc_component *component = rt5682->component;
-+	struct snd_soc_dapm_context *dapm =
-+			snd_soc_component_get_dapm(component);
-+
-+	if (!rt5682_clk_check(rt5682))
-+		return -EINVAL;
-+
-+	snd_soc_dapm_mutex_lock(dapm);
-+
-+	snd_soc_dapm_force_enable_pin_unlocked(dapm, "MICBIAS");
-+	snd_soc_component_update_bits(component, RT5682_PWR_ANLG_1,
-+				RT5682_PWR_MB, RT5682_PWR_MB);
-+	snd_soc_dapm_force_enable_pin_unlocked(dapm, "I2S1");
-+	snd_soc_dapm_force_enable_pin_unlocked(dapm, "PLL2F");
-+	snd_soc_dapm_force_enable_pin_unlocked(dapm, "PLL2B");
-+	snd_soc_dapm_sync_unlocked(dapm);
-+
-+	snd_soc_dapm_mutex_unlock(dapm);
-+
-+	return 0;
-+}
-+
-+static void rt5682_wclk_unprepare(struct clk_hw *hw)
-+{
-+	struct rt5682_priv *rt5682 =
-+		container_of(hw, struct rt5682_priv,
-+			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
-+	struct snd_soc_component *component = rt5682->component;
-+	struct snd_soc_dapm_context *dapm =
-+			snd_soc_component_get_dapm(component);
-+
-+	if (!rt5682_clk_check(rt5682))
-+		return;
-+
-+	snd_soc_dapm_mutex_lock(dapm);
-+
-+	snd_soc_dapm_disable_pin_unlocked(dapm, "MICBIAS");
-+	if (!rt5682->jack_type)
-+		snd_soc_component_update_bits(component, RT5682_PWR_ANLG_1,
-+				RT5682_PWR_MB, 0);
-+	snd_soc_dapm_disable_pin_unlocked(dapm, "I2S1");
-+	snd_soc_dapm_disable_pin_unlocked(dapm, "PLL2F");
-+	snd_soc_dapm_disable_pin_unlocked(dapm, "PLL2B");
-+	snd_soc_dapm_sync_unlocked(dapm);
-+
-+	snd_soc_dapm_mutex_unlock(dapm);
-+}
-+
-+static unsigned long rt5682_wclk_recalc_rate(struct clk_hw *hw,
-+					     unsigned long parent_rate)
-+{
-+	struct rt5682_priv *rt5682 =
-+		container_of(hw, struct rt5682_priv,
-+			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
-+
-+	if (!rt5682_clk_check(rt5682))
-+		return 0;
-+	/*
-+	 * Only accept to set wclk rate to 48kHz temporarily.
-+	 */
-+	return CLK_48;
-+}
-+
-+static long rt5682_wclk_round_rate(struct clk_hw *hw, unsigned long rate,
-+				   unsigned long *parent_rate)
-+{
-+	struct rt5682_priv *rt5682 =
-+		container_of(hw, struct rt5682_priv,
-+			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
-+
-+	if (!rt5682_clk_check(rt5682))
-+		return -EINVAL;
-+	/*
-+	 * Only accept to set wclk rate to 48kHz temporarily.
-+	 */
-+	return CLK_48;
-+}
-+
-+static int rt5682_wclk_set_rate(struct clk_hw *hw, unsigned long rate,
-+				unsigned long parent_rate)
-+{
-+	struct rt5682_priv *rt5682 =
-+		container_of(hw, struct rt5682_priv,
-+			     dai_clks_hw[RT5682_DAI_WCLK_IDX]);
-+	struct snd_soc_component *component = rt5682->component;
-+	struct clk *parent_clk;
-+	const char * const clk_name = __clk_get_name(hw->clk);
-+	int pre_div;
-+
-+	if (!rt5682_clk_check(rt5682))
-+		return -EINVAL;
-+
-+	/*
-+	 * Whether the wclk's parent clk (mclk) exists or not, please ensure
-+	 * it is fixed or set to 48MHz before setting wclk rate. It's a
-+	 * temporary limitation. Only accept 48MHz clk as the clk provider.
-+	 *
-+	 * It will set the codec anyway by assuming mclk is 48MHz.
-+	 */
-+	parent_clk = clk_get_parent(hw->clk);
-+	if (!parent_clk)
-+		dev_warn(component->dev,
-+			"Parent mclk of wclk not acquired in driver. Please ensure mclk was provided as %d Hz.\n",
-+			CLK_PLL2_FIN);
-+
-+	if (parent_rate != CLK_PLL2_FIN)
-+		dev_warn(component->dev, "clk %s only support %d Hz input\n",
-+			clk_name, CLK_PLL2_FIN);
-+
-+	/*
-+	 * It's a temporary limitation. Only accept to set wclk rate to 48kHz.
-+	 * It will force wclk to 48kHz even it's not.
-+	 */
-+	if (rate != CLK_48) {
-+		dev_warn(component->dev, "clk %s only support %d Hz output\n",
-+			clk_name, CLK_48);
-+		rate = CLK_48;
-+	}
-+
-+	/*
-+	 * To achieve the rate conversion from 48MHz to 48kHz, PLL2 is needed.
-+	 */
-+	rt5682_set_component_pll(component, RT5682_PLL2, RT5682_PLL2_S_MCLK,
-+		CLK_PLL2_FIN, CLK_PLL2_FOUT);
-+
-+	rt5682_set_component_sysclk(component, RT5682_SCLK_S_PLL2, 0,
-+		CLK_PLL2_FOUT, SND_SOC_CLOCK_IN);
-+
-+	pre_div = rl6231_get_clk_info(rt5682->sysclk, rate);
-+
-+	snd_soc_component_update_bits(component, RT5682_ADDA_CLK_1,
-+		RT5682_I2S_M_DIV_MASK | RT5682_I2S_CLK_SRC_MASK,
-+		pre_div << RT5682_I2S_M_DIV_SFT |
-+		(rt5682->sysclk_src) << RT5682_I2S_CLK_SRC_SFT);
-+
-+	return 0;
-+}
-+
-+static unsigned long rt5682_bclk_recalc_rate(struct clk_hw *hw,
-+					     unsigned long parent_rate)
-+{
-+	struct rt5682_priv *rt5682 =
-+		container_of(hw, struct rt5682_priv,
-+			     dai_clks_hw[RT5682_DAI_BCLK_IDX]);
-+	struct snd_soc_component *component = rt5682->component;
-+	unsigned int bclks_per_wclk;
-+
-+	snd_soc_component_read(component, RT5682_TDM_TCON_CTRL,
-+				&bclks_per_wclk);
-+
-+	switch (bclks_per_wclk & RT5682_TDM_BCLK_MS1_MASK) {
-+	case RT5682_TDM_BCLK_MS1_256:
-+		return parent_rate * 256;
-+	case RT5682_TDM_BCLK_MS1_128:
-+		return parent_rate * 128;
-+	case RT5682_TDM_BCLK_MS1_64:
-+		return parent_rate * 64;
-+	case RT5682_TDM_BCLK_MS1_32:
-+		return parent_rate * 32;
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static unsigned long rt5682_bclk_get_factor(unsigned long rate,
-+					    unsigned long parent_rate)
-+{
-+	unsigned long factor;
-+
-+	factor = rate / parent_rate;
-+	if (factor < 64)
-+		return 32;
-+	else if (factor < 128)
-+		return 64;
-+	else if (factor < 256)
-+		return 128;
-+	else
-+		return 256;
-+}
-+
-+static long rt5682_bclk_round_rate(struct clk_hw *hw, unsigned long rate,
-+				   unsigned long *parent_rate)
-+{
-+	struct rt5682_priv *rt5682 =
-+		container_of(hw, struct rt5682_priv,
-+			     dai_clks_hw[RT5682_DAI_BCLK_IDX]);
-+	unsigned long factor;
-+
-+	if (!*parent_rate || !rt5682_clk_check(rt5682))
-+		return -EINVAL;
-+
-+	/*
-+	 * BCLK rates are set as a multiplier of WCLK in HW.
-+	 * We don't allow changing the parent WCLK. We just do
-+	 * some rounding down based on the parent WCLK rate
-+	 * and find the appropriate multiplier of BCLK to
-+	 * get the rounded down BCLK value.
-+	 */
-+	factor = rt5682_bclk_get_factor(rate, *parent_rate);
-+
-+	return *parent_rate * factor;
-+}
-+
-+static int rt5682_bclk_set_rate(struct clk_hw *hw, unsigned long rate,
-+				unsigned long parent_rate)
-+{
-+	struct rt5682_priv *rt5682 =
-+		container_of(hw, struct rt5682_priv,
-+			     dai_clks_hw[RT5682_DAI_BCLK_IDX]);
-+	struct snd_soc_component *component = rt5682->component;
-+	struct snd_soc_dai *dai = NULL;
-+	unsigned long factor;
-+
-+	if (!rt5682_clk_check(rt5682))
-+		return -EINVAL;
-+
-+	factor = rt5682_bclk_get_factor(rate, parent_rate);
-+
-+	for_each_component_dais(component, dai)
-+		if (dai->id == RT5682_AIF1)
-+			break;
-+	if (!dai) {
-+		dev_err(component->dev, "dai %d not found in component\n",
-+			RT5682_AIF1);
-+		return -ENODEV;
-+	}
-+
-+	return rt5682_set_bclk1_ratio(dai, factor);
-+}
-+
-+static const struct clk_ops rt5682_dai_clk_ops[RT5682_DAI_NUM_CLKS] = {
-+	[RT5682_DAI_WCLK_IDX] = {
-+		.prepare = rt5682_wclk_prepare,
-+		.unprepare = rt5682_wclk_unprepare,
-+		.recalc_rate = rt5682_wclk_recalc_rate,
-+		.round_rate = rt5682_wclk_round_rate,
-+		.set_rate = rt5682_wclk_set_rate,
-+	},
-+	[RT5682_DAI_BCLK_IDX] = {
-+		.recalc_rate = rt5682_bclk_recalc_rate,
-+		.round_rate = rt5682_bclk_round_rate,
-+		.set_rate = rt5682_bclk_set_rate,
-+	},
-+};
-+
-+static int rt5682_register_dai_clks(struct snd_soc_component *component)
-+{
-+	struct device *dev = component->dev;
-+	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
-+	struct rt5682_platform_data *pdata = &rt5682->pdata;
-+	struct clk_init_data init;
-+	struct clk *dai_clk;
-+	struct clk_lookup *dai_clk_lookup;
-+	struct clk_hw *dai_clk_hw;
-+	const char *parent_name;
-+	int i, ret;
-+
-+	for (i = 0; i < RT5682_DAI_NUM_CLKS; ++i) {
-+		dai_clk_hw = &rt5682->dai_clks_hw[i];
-+
-+		switch (i) {
-+		case RT5682_DAI_WCLK_IDX:
-+			/* Make MCLK the parent of WCLK */
-+			if (rt5682->mclk) {
-+				parent_name = __clk_get_name(rt5682->mclk);
-+				init.parent_names = &parent_name;
-+				init.num_parents = 1;
-+			} else {
-+				init.parent_names = NULL;
-+				init.num_parents = 0;
-+			}
-+			break;
-+		case RT5682_DAI_BCLK_IDX:
-+			/* Make WCLK the parent of BCLK */
-+			parent_name = __clk_get_name(
-+				rt5682->dai_clks[RT5682_DAI_WCLK_IDX]);
-+			init.parent_names = &parent_name;
-+			init.num_parents = 1;
-+			break;
-+		default:
-+			dev_err(dev, "Invalid clock index\n");
-+			ret = -EINVAL;
-+			goto err;
-+		}
-+
-+		init.name = pdata->dai_clk_names[i];
-+		init.ops = &rt5682_dai_clk_ops[i];
-+		init.flags = CLK_GET_RATE_NOCACHE | CLK_SET_RATE_GATE;
-+		dai_clk_hw->init = &init;
-+
-+		dai_clk = devm_clk_register(dev, dai_clk_hw);
-+		if (IS_ERR(dai_clk)) {
-+			dev_warn(dev, "Failed to register %s: %ld\n",
-+				 init.name, PTR_ERR(dai_clk));
-+			ret = PTR_ERR(dai_clk);
-+			goto err;
-+		}
-+		rt5682->dai_clks[i] = dai_clk;
-+
-+		if (dev->of_node) {
-+			devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
-+						    dai_clk_hw);
-+		} else {
-+			dai_clk_lookup = clkdev_create(dai_clk, init.name,
-+						       "%s", dev_name(dev));
-+			if (!dai_clk_lookup) {
-+				ret = -ENOMEM;
-+				goto err;
-+			} else {
-+				rt5682->dai_clks_lookup[i] = dai_clk_lookup;
-+			}
-+		}
-+	}
-+
-+	return 0;
-+
-+err:
-+	do {
-+		if (rt5682->dai_clks_lookup[i])
-+			clkdev_drop(rt5682->dai_clks_lookup[i]);
-+	} while (i-- > 0);
-+
-+	return ret;
-+}
-+#endif /* CONFIG_COMMON_CLK */
-+
- static int rt5682_probe(struct snd_soc_component *component)
- {
- 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
- 
-+#ifdef CONFIG_COMMON_CLK
-+	int ret;
+ #else
+ #define SOF_SKL_NUM_DAIS		8
+ #endif
+diff --git a/sound/soc/sof/pcm.c b/sound/soc/sof/pcm.c
+index db3df02c7398..b239bbff4b5c 100644
+--- a/sound/soc/sof/pcm.c
++++ b/sound/soc/sof/pcm.c
+@@ -16,6 +16,9 @@
+ #include "sof-priv.h"
+ #include "sof-audio.h"
+ #include "ops.h"
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
++#include "compress.h"
 +#endif
- 	rt5682->component = component;
  
-+#ifdef CONFIG_COMMON_CLK
-+	/* Check if MCLK provided */
-+	rt5682->mclk = devm_clk_get(component->dev, "mclk");
-+	if (IS_ERR(rt5682->mclk)) {
-+		if (PTR_ERR(rt5682->mclk) != -ENOENT) {
-+			ret = PTR_ERR(rt5682->mclk);
-+			return ret;
-+		}
-+		rt5682->mclk = NULL;
-+	}
-+
-+	/* Register CCF DAI clock control */
-+	ret = rt5682_register_dai_clks(component);
-+	if (ret)
-+		return ret;
-+
-+	/* Initial setup for CCF */
-+	rt5682->lrck[RT5682_AIF1] = CLK_48;
+ /* Create DMA buffer page table for DSP */
+ static int create_page_table(struct snd_soc_component *component,
+@@ -787,6 +790,10 @@ void snd_sof_new_platform_drv(struct snd_sof_dev *sdev)
+ 
+ #if IS_ENABLED(CONFIG_SND_SOC_SOF_COMPRESS)
+ 	pd->compr_ops = &sof_compressed_ops;
 +#endif
-+
- 	return 0;
- }
- 
-@@ -2472,6 +2859,15 @@ static void rt5682_remove(struct snd_soc_component *component)
- {
- 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
- 
-+#ifdef CONFIG_COMMON_CLK
-+	int i;
-+
-+	for (i = RT5682_DAI_NUM_CLKS - 1; i >= 0; --i) {
-+		if (rt5682->dai_clks_lookup[i])
-+			clkdev_drop(rt5682->dai_clks_lookup[i]);
-+	}
-+#endif
-+
- 	rt5682_reset(rt5682);
- }
- 
-@@ -2606,6 +3002,13 @@ static int rt5682_parse_dt(struct rt5682_priv *rt5682, struct device *dev)
- 	rt5682->pdata.ldo1_en = of_get_named_gpio(dev->of_node,
- 		"realtek,ldo1-en-gpios", 0);
- 
-+	if (device_property_read_string_array(dev, "clock-output-names",
-+					      rt5682->pdata.dai_clk_names,
-+					      RT5682_DAI_NUM_CLKS) < 0)
-+		dev_warn(dev, "Using default DAI clk names: %s, %s\n",
-+			 rt5682->pdata.dai_clk_names[RT5682_DAI_WCLK_IDX],
-+			 rt5682->pdata.dai_clk_names[RT5682_DAI_BCLK_IDX]);
-+
- 	return 0;
- }
- 
-diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
-index 465c99b7f906..f82126a6f211 100644
---- a/sound/soc/codecs/rt5682.h
-+++ b/sound/soc/codecs/rt5682.h
-@@ -841,8 +841,8 @@
- #define RT5682_TDM_M_LP_INV			(0x1 << 1)
- #define RT5682_TDM_MS_MASK			(0x1 << 0)
- #define RT5682_TDM_MS_SFT			0
--#define RT5682_TDM_MS_M				(0x0 << 0)
--#define RT5682_TDM_MS_S				(0x1 << 0)
-+#define RT5682_TDM_MS_S				(0x0 << 0)
-+#define RT5682_TDM_MS_M				(0x1 << 0)
- 
- /* Global Clock Control (0x0080) */
- #define RT5682_SCLK_SRC_MASK			(0x7 << 13)
++#if IS_ENABLED(CONFIG_SND_SOC_SOF_DEBUG_PROBES)
++	/* override cops when probe support is enabled */
++	pd->compr_ops = &sof_probe_compressed_ops;
+ #endif
+ 	pd->pcm_construct = sof_pcm_new;
+ 	pd->ignore_machine = drv_name;
 -- 
 2.20.1
 

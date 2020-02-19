@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64D84163D53
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 07:58:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 65D6E163D57
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 07:59:03 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 050CF16CA;
-	Wed, 19 Feb 2020 07:57:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 050CF16CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0EBAA16E9;
+	Wed, 19 Feb 2020 07:58:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0EBAA16E9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582095508;
-	bh=p8g1z+kG/QnHH7HXBVQ3U6owQXMDj9EMZs0m80A8Ljk=;
+	s=default; t=1582095543;
+	bh=Naj5n2oXDo/O69MDXzw+HhDaE7wFXZqA5wLXPUom9Hc=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=kp4ole+SfzXSxrFOrpniI6WXegtCxTB5FAMh5j3t1W1HTQDXIVuomkdqLQYY4SlJR
-	 2bpqXyfqJtrKoA24SELD5jG/amCmU53E5deNBzSm8qBvO0PJHi6/Yb/Vtuv+XZyHTB
-	 Z7hUL4INgFpDIkDYktjkioZ0lq20SYHA4T5RgIfY=
+	b=snYG/rRsuyYbkoNA0YfaMtXCrN2j+gVCxqkC16PJcR6FuX1nCTKElZLpuobhAoMZ+
+	 s+RriUHf4hBLETAOHuJdwGaMm+agofpb4MZaChHedsSMFA0z827X13XRh7xcpmYaCe
+	 hMl13gUR2+tmQYgOjzQbMoCPtjjHveELhYaAIsE0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9990DF80273;
-	Wed, 19 Feb 2020 07:56:16 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 17DA8F8027B;
+	Wed, 19 Feb 2020 07:56:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 049FDF80273; Wed, 19 Feb 2020 07:56:09 +0100 (CET)
+ id 93A22F8025F; Wed, 19 Feb 2020 07:56:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by alsa1.perex.cz (Postfix) with ESMTP id 06216F80233
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 07:56:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06216F80233
-Date: 19 Feb 2020 15:56:01 +0900
-X-IronPort-AV: E=Sophos;i="5.70,459,1574089200"; d="scan'208";a="39688723"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie5.idc.renesas.com with ESMTP; 19 Feb 2020 15:56:01 +0900
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 94EA2F8025F
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 07:56:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 94EA2F8025F
+Date: 19 Feb 2020 15:56:09 +0900
+X-IronPort-AV: E=Sophos;i="5.70,459,1574089200"; d="scan'208";a="39472447"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 19 Feb 2020 15:56:09 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 68DD541D9BF2;
- Wed, 19 Feb 2020 15:56:01 +0900 (JST)
-Message-ID: <87mu9fjcb4.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 4BD484009F79;
+ Wed, 19 Feb 2020 15:56:09 +0900 (JST)
+Message-ID: <87lfozjcaw.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 02/13] ASoC: qcom: sdm845: use for_each_rtd_codec_dai() macro
+Subject: [PATCH 03/13] ASoC: qcom: apq8016_sbc: use for_each_rtd_codec_dai()
+ macro
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87pnebjcc4.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,93 +68,41 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/qcom/sdm845.c | 20 +++++++++-----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
+ sound/soc/qcom/apq8016_sbc.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
-index 3b5547a27aad..5a23597261ac 100644
---- a/sound/soc/qcom/sdm845.c
-+++ b/sound/soc/qcom/sdm845.c
-@@ -43,14 +43,14 @@ static int sdm845_slim_snd_hw_params(struct snd_pcm_substream *substream,
- 				     struct snd_pcm_hw_params *params)
+diff --git a/sound/soc/qcom/apq8016_sbc.c b/sound/soc/qcom/apq8016_sbc.c
+index ac75838bbfab..2d064f3bc9b6 100644
+--- a/sound/soc/qcom/apq8016_sbc.c
++++ b/sound/soc/qcom/apq8016_sbc.c
+@@ -34,8 +34,8 @@ struct apq8016_sbc_data {
+ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
  {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
++	struct snd_soc_dai *codec_dai;
+ 	struct snd_soc_component *component;
 -	struct snd_soc_dai_link *dai_link = rtd->dai_link;
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai;
- 	u32 rx_ch[SLIM_MAX_RX_PORTS], tx_ch[SLIM_MAX_TX_PORTS];
- 	u32 rx_ch_cnt = 0, tx_ch_cnt = 0;
- 	int ret = 0, i;
- 
--	for (i = 0 ; i < dai_link->num_codecs; i++) {
--		ret = snd_soc_dai_get_channel_map(rtd->codec_dais[i],
-+	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+		ret = snd_soc_dai_get_channel_map(codec_dai,
- 				&tx_ch_cnt, tx_ch, &rx_ch_cnt, rx_ch);
- 
- 		if (ret != 0 && ret != -ENOTSUPP) {
-@@ -77,6 +77,7 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *codec_dai;
- 	int ret = 0, j;
- 	int channels, slot_width;
- 
-@@ -125,8 +126,7 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_substream *substream,
- 		}
+ 	struct snd_soc_card *card = rtd->card;
+ 	struct apq8016_sbc_data *pdata = snd_soc_card_get_drvdata(card);
+ 	int i, rval;
+@@ -90,10 +90,9 @@ static int apq8016_sbc_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 		pdata->jack_setup = true;
  	}
  
--	for (j = 0; j < rtd->num_codecs; j++) {
--		struct snd_soc_dai *codec_dai = rtd->codec_dais[j];
-+	for_each_rtd_codec_dai(rtd, j, codec_dai) {
+-	for (i = 0 ; i < dai_link->num_codecs; i++) {
+-		struct snd_soc_dai *dai = rtd->codec_dais[i];
++	for_each_rtd_codec_dai(rtd, i, codec_dai) {
  
- 		if (!strcmp(codec_dai->component->name_prefix, "Left")) {
- 			ret = snd_soc_dai_set_tdm_slot(
-@@ -214,7 +214,6 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
- 	struct sdm845_snd_data *pdata = snd_soc_card_get_drvdata(card);
- 	struct snd_jack *jack;
--	struct snd_soc_dai_link *dai_link = rtd->dai_link;
- 	/*
- 	 * Codec SLIMBUS configuration
- 	 * RX1, RX2, RX3, RX4, RX5, RX6, RX7, RX8, RX9, RX10, RX11, RX12, RX13
-@@ -266,8 +265,8 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 		}
- 		break;
- 	case SLIMBUS_0_RX...SLIMBUS_6_TX:
--		for (i = 0 ; i < dai_link->num_codecs; i++) {
--			rval = snd_soc_dai_set_channel_map(rtd->codec_dais[i],
-+		for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+			rval = snd_soc_dai_set_channel_map(codec_dai,
- 							  ARRAY_SIZE(tx_ch),
- 							  tx_ch,
- 							  ARRAY_SIZE(rx_ch),
-@@ -275,7 +274,7 @@ static int sdm845_dai_init(struct snd_soc_pcm_runtime *rtd)
- 			if (rval != 0 && rval != -ENOTSUPP)
- 				return rval;
- 
--			snd_soc_dai_set_sysclk(rtd->codec_dais[i], 0,
-+			snd_soc_dai_set_sysclk(codec_dai, 0,
- 					       WCD934X_DEFAULT_MCLK_RATE,
- 					       SNDRV_PCM_STREAM_PLAYBACK);
- 		}
-@@ -345,8 +344,7 @@ static int sdm845_snd_startup(struct snd_pcm_substream *substream)
- 
- 		codec_dai_fmt |= SND_SOC_DAIFMT_IB_NF | SND_SOC_DAIFMT_DSP_B;
- 
--		for (j = 0; j < rtd->num_codecs; j++) {
--			codec_dai = rtd->codec_dais[j];
-+		for_each_rtd_codec_dai(rtd, j, codec_dai) {
- 
- 			if (!strcmp(codec_dai->component->name_prefix,
- 				    "Left")) {
+-		component = dai->component;
++		component = codec_dai->component;
+ 		/* Set default mclk for internal codec */
+ 		rval = snd_soc_component_set_sysclk(component, 0, 0, DEFAULT_MCLK_RATE,
+ 				       SND_SOC_CLOCK_IN);
 -- 
 2.17.1
 

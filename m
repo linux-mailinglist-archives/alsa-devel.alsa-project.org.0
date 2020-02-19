@@ -2,93 +2,90 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13BE5164BF3
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 18:32:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3682D164C0A
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 18:36:57 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A34F016A1;
-	Wed, 19 Feb 2020 18:31:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A34F016A1
+	by alsa0.perex.cz (Postfix) with ESMTPS id D553116A1;
+	Wed, 19 Feb 2020 18:36:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D553116A1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582133544;
-	bh=7DvGNIBb0cyHFlIWh0Xfi3DvLnCsL6xP1amv1+iU6Xc=;
-	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=MAJXLVo9X2Z5Aod2iKGUBfFIYmIfSID77vaLGvlqijmYXSvDaDghwvznNJx1RI0vB
-	 hcsJKERkVCGjXuQRlWQO+bMfbIfUPxYIQJxMpYF/NZls6lcjzvhDr1g/fUzVh9eZ8L
-	 5cC6xkFNxIw1Z/HWUog0MTATFGDm00kGOI7aAu4s=
+	s=default; t=1582133816;
+	bh=3IpkmeNpM+HKZJZnc/BR0Sq1nSfC409kaPYTvO5H8GE=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=V6TuCnVbKqPyu3j7SiOg23VKqunTND7Vc3f81bQfd7briVD7seGAGkLL4m/5Yl90N
+	 zMTE6aWN+o2ZWHfljKEKoDxVv+O6TyTml1PBgpZepy/X78XllaRfV7rOv1/V1cd9zb
+	 WWV8hXGUpF3mwznV+pN5KwD9y1nvVDru9vkkvmr0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F242F80142;
-	Wed, 19 Feb 2020 18:30:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B7DBEF80277;
+	Wed, 19 Feb 2020 18:35:15 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D9F61F80273; Wed, 19 Feb 2020 18:30:40 +0100 (CET)
+ id C83A4F80276; Wed, 19 Feb 2020 18:35:12 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
  SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
+Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
+ [IPv6:2a00:1450:4864:20::444])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F1B6BF801F5
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 18:30:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F1B6BF801F5
+ by alsa1.perex.cz (Postfix) with ESMTPS id D771FF801F5
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 18:35:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D771FF801F5
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="rTS8Mo3O"
-Received: by mail-wm1-x341.google.com with SMTP id a9so1565001wmj.3
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 09:30:36 -0800 (PST)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="X2e0sx2O"
+Received: by mail-wr1-x444.google.com with SMTP id w15so1532564wru.4
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 09:35:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=references:user-agent:from:to:cc:subject:in-reply-to:date
- :message-id:mime-version;
- bh=Vzj5fYuKhjSJIX8LLdjrzndSdJzkfLdinYyCt3Ld6uA=;
- b=rTS8Mo3OfNleBFSAn1y54h2JccThE9WwvMh1CPzzw8Yv/pYj4cc9te+MrhhNmIfNNC
- yfMLNteGG2e0ZAG+BLaoho4eshauB17hHBJVUTQUMShg50KLiriDQfNh8KH3ZF8uc1dZ
- WOUriIwI7kgYXc1ltbH177D3QQ6VSgG6tpZAbDp+kvoBwLCodiK0/tTVNyjFghyem1Pv
- MKMcF4HEcr+GlYtisjzch3biOCeX3/FJjysohqklTAVaEM6UUBQAOcoszVsj9eHalJOv
- hsk9E+Bb5gW7eR8kkEABhXOQvYd2l6jdyRDi91HdpmBNdmK5Il+GGcqBVVBeONfFY/gk
- +0+w==
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SKZ1ddDPfUYCjUQ7kAF3t+orQ6m6BZIYkrSaotWcAmM=;
+ b=X2e0sx2O23WHDyj+CdogMOZnhLzlHGUY84Cw/1358tG4/lp0p4QzlF4gTn0S3FY5aF
+ wlKpLxS0Pq7GvSWtJJZlnc1/BhuJaSmmxc957ERCeTZfWstj/7P9ynHWGySHKdNut72W
+ OixpFUrGD9ADXYh9sGhd7pCeG+MDemjlpISXz9n5guTcFXHwC4ltNKQPsv1xZyo0nH/6
+ oedY9idCZ394g4kRJLT2t10k1kTREfbTfiWs8hohLdnCJxCwkXRaSe0izO0rYPp5W3V3
+ 9d0Pm7TJCz+eu+Qnazm4qvj9KIpCTIg+eKRCDKN8gdAj8G6lYG+tTsbqRHk2AaBkxfcw
+ YygA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:references:user-agent:from:to:cc:subject
- :in-reply-to:date:message-id:mime-version;
- bh=Vzj5fYuKhjSJIX8LLdjrzndSdJzkfLdinYyCt3Ld6uA=;
- b=ZMR+IQjHbeCT839w56nzw+8Z+5HuSQS2Hs8C5mG/BHIPLq6+XjKnTyS42GOVerh50l
- 9qTT3Ttdt3rA0rb3ci7d6u6BT4yYdXA2/RdCKveoaZ5S4MWZiXZUgyZ/dFKJBS8ZFXGO
- KEWVHQxWPgmq0aBuJtcGl01OBWDjR9n23fZqXeExKxO+uVcPDUBV2O9cfKW9/zU0EDWL
- 8mpstAVyQ2ekDNm8iYcOb6BRu2Yyk+iAcVgO7GIinH5ykNsp9QZVGfNeEeojeuxDxzyu
- 4JRqqzzq+M8wY13nw3GWo5BgxW0T6kQCvkWYcFeBEDSWTLuDdpVC0ozU0N8sFZfs75DA
- QQDg==
-X-Gm-Message-State: APjAAAUqtEgHxvdRVnV7ZqI23SJNGuVf1isksVOh0I7Gfhysz928oldp
- ap2qgE9Z3Zs3/UfD6HjcdIA6LA==
-X-Google-Smtp-Source: APXvYqz8SvtcLoz81n/o1JvdjzZKZJ/qf8otl/+1C1BQrR5Z5QNE8zns0Qa9uLXu/e2c+diOPxnt3g==
-X-Received: by 2002:a7b:c3cd:: with SMTP id t13mr6145330wmj.88.1582133435029; 
- Wed, 19 Feb 2020 09:30:35 -0800 (PST)
-Received: from localhost (cag06-3-82-243-161-21.fbx.proxad.net.
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=SKZ1ddDPfUYCjUQ7kAF3t+orQ6m6BZIYkrSaotWcAmM=;
+ b=G5qeIg2BhzBS/joRBoOF5b0FTlveGfKuHUUH/SHHgL0roSyP3ZVerInNUvMiL3i+aQ
+ HoICEV5K26l/51BjOuZ2yFgpudM/BlSGJiNqTUgNQm6wGOq+ulnuw31pSpfm9RLs4LjV
+ FiJyv9CQb6V7u724eIpWlLb9OFl/FINvVdYWJQrp5u1bZQRvu6O70Ybh6RqVxFkAbglG
+ k9HMTueAHUzwC5WqVGcl0TKsj4pJZlgyDZTIyS7ptYA0huUl4X9YKTzx3uhe7HWWtCo1
+ Hfui4KBVz9oddPsa44UYiiPv4luu4SE0j9WFQ2slAjp6txEVJC2a22UV9OkKVWxA0Hy8
+ mTxg==
+X-Gm-Message-State: APjAAAVzAj4X/VohQwl9bFolbHVpo1vug96Qw4Yy0do6fqlg4NQfyJ94
+ zqEWPVkTOFs8hZlqX2OJve2Q8A==
+X-Google-Smtp-Source: APXvYqzk6aYz8GK14PUd7/aAq+BxUqQaODL7ymtKvwWlFXfp7QfRzdYohN9IJrf2eOWE2Tw9MfdveA==
+X-Received: by 2002:adf:cd0a:: with SMTP id w10mr37515585wrm.107.1582133708455; 
+ Wed, 19 Feb 2020 09:35:08 -0800 (PST)
+Received: from localhost.localdomain (cag06-3-82-243-161-21.fbx.proxad.net.
  [82.243.161.21])
- by smtp.gmail.com with ESMTPSA id s65sm600755wmf.48.2020.02.19.09.30.33
+ by smtp.googlemail.com with ESMTPSA id v15sm648120wrf.7.2020.02.19.09.35.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Feb 2020 09:30:34 -0800 (PST)
-References: <20200219161625.1078051-1-jbrunet@baylibre.com>
- <20200219161625.1078051-3-jbrunet@baylibre.com>
- <20200219162000.GF4488@sirena.org.uk>
-User-agent: mu4e 1.3.3; emacs 26.3
+ Wed, 19 Feb 2020 09:35:07 -0800 (PST)
 From: Jerome Brunet <jbrunet@baylibre.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH v2 2/2] ASoC: meson: add t9015 internal DAC driver
-In-reply-to: <20200219162000.GF4488@sirena.org.uk>
-Date: Wed, 19 Feb 2020 18:30:33 +0100
-Message-ID: <1j8skyxz5y.fsf@starbuckisacylon.baylibre.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Subject: [PATCH v3 0/2] ASoC: meson: add internal DAC support
+Date: Wed, 19 Feb 2020 18:35:01 +0100
+Message-Id: <20200219173503.1112561-1-jbrunet@baylibre.com>
+X-Mailer: git-send-email 2.24.1
 MIME-Version: 1.0
-Content-Type: text/plain
+X-Patchwork-Bot: notify
+Content-Transfer-Encoding: 8bit
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, linux-amlogic@lists.infradead.org
+ Kevin Hilman <khilman@baylibre.com>, linux-kernel@vger.kernel.org,
+ linux-amlogic@lists.infradead.org, Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,24 +101,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+This patchset adds support for the internal audio DAC provided on the
+Amlogic gxl, g12a and sm1 SoC families. On each of these SoC families,
+there is glue between this codec on the audio provider. The architecture
+is similar to the one used for the synopsys hdmi codec on these SoCs
 
-On Wed 19 Feb 2020 at 17:20, Mark Brown <broonie@kernel.org> wrote:
+Changes since v2 [1]:
+* Fix Mute kcontrol name
 
-> On Wed, Feb 19, 2020 at 05:16:25PM +0100, Jerome Brunet wrote:
->
->> +	SOC_SINGLE("Playback Mute Switch", VOL_CTRL1, DAC_SOFT_MUTE, 1, 0),
->> +	SOC_DOUBLE_TLV("Playback Volume", VOL_CTRL1, DACL_VC, DACR_VC,
->> +		       0xff, 0, dac_vol_tlv),
->
-> Sorry, that should just be plain "Playback Switch" - this can be used by
-> applications to present a combined mute/volume control together with the
-> Volume control
+Changes since v1 [0]:
+* Change some kcontrol names
+* Move DAC sources to DAPM
 
-Ah, Ok. I thought it was important to make difference between Mute
-(Playing silence) and a Stream stop ... I guess the app does not care
-about such detail. No problem, I'll fix this.
+[0]: https://lore.kernel.org/r/20200219133646.1035506-1-jbrunet@baylibre.com
+[1]: https://lore.kernel.org/r/20200219161625.1078051-1-jbrunet@baylibre.com
 
-> (though as in this case there's no per-channel control it
-> is possible some applications will struggle with that).
+Jerome Brunet (2):
+  ASoC: meson: add t9015 internal codec binding documentation
+  ASoC: meson: add t9015 internal DAC driver
 
-alsamixer seems happy enough with it :)
+ .../bindings/sound/amlogic,t9015.yaml         |  58 +++
+ sound/soc/meson/Kconfig                       |   8 +
+ sound/soc/meson/Makefile                      |   2 +
+ sound/soc/meson/t9015.c                       | 333 ++++++++++++++++++
+ 4 files changed, 401 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/amlogic,t9015.yaml
+ create mode 100644 sound/soc/meson/t9015.c
+
+-- 
+2.24.1
+

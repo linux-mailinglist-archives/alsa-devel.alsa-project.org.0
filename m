@@ -2,80 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC323164093
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 10:41:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AE19F164095
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 10:41:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37A0C16AC;
-	Wed, 19 Feb 2020 10:40:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37A0C16AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 544ED1695;
+	Wed, 19 Feb 2020 10:40:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 544ED1695
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582105279;
-	bh=OBZQzOG2R4XS20d7rA2EYccUz/uvYDmXFAWAKLRX6dY=;
+	s=default; t=1582105300;
+	bh=E+0slooCSG9BioJSZQ1BmBJ4LSqlI8jE2MUXjjvMV4o=;
 	h=Date:In-Reply-To:References:Subject:From:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=YMFClt3DJjyul76eRcWx5EISlEGsgIfAeN4uMdwItM00K/7mkM1nLgU4gFBVrmme8
-	 cf5wAQERQFszxOLdC6nooVUH5213znshN/7J3x6d2KXa2OSLK2TGUAxzVWIPncZPoY
-	 ZolLDSWIvbFAkguiF1VPhcJe5j7dsR92acxv+Q5w=
+	b=PLxsbxoNCGQlLRuIkt4ityMRC4WlRuqBpWzhVswFysbIo0jg5TglNzzSFFL1Hljp6
+	 r1O25WdelYnMKcXIxOSb5YyUdHnk44sZpKsGkd1ylyZTwb/yroaHmkMSXAnHXsqGNs
+	 xJQNEwp2BWBlDGhayDNfxuAXIvW85Hf88+3K1by8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 83698F80233;
-	Wed, 19 Feb 2020 10:38:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 06306F80276;
+	Wed, 19 Feb 2020 10:39:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 941D6F80233; Wed, 19 Feb 2020 10:38:54 +0100 (CET)
+ id 9E2F1F80273; Wed, 19 Feb 2020 10:38:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-7.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
  autolearn=disabled version=3.4.0
-Received: from mail-yb1-xb49.google.com (mail-yb1-xb49.google.com
- [IPv6:2607:f8b0:4864:20::b49])
+Received: from mail-vs1-xe4a.google.com (mail-vs1-xe4a.google.com
+ [IPv6:2607:f8b0:4864:20::e4a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id DCCDDF801F4
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 10:38:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DCCDDF801F4
+ by alsa1.perex.cz (Postfix) with ESMTPS id DC31CF801F4
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 10:38:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz DC31CF801F4
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
- header.b="G3FDYkqz"
-Received: by mail-yb1-xb49.google.com with SMTP id 10so19681461ybj.16
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 01:38:51 -0800 (PST)
+ header.b="azLn6BGP"
+Received: by mail-vs1-xe4a.google.com with SMTP id x1so1836407vsj.17
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 01:38:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=PfxnM1OPCFMeeyxBGFe7FfHyay3SkeXUIwQbujCAFcs=;
- b=G3FDYkqz9PnILDVaOFoBqH4ELlxC6rsdB6UNLRA6+9tvXb2j4/j6eteYvTvV8lEyb1
- MBJBQSonmAhOv4yOoUJlSSLJc+mpj42ptDZ/p8iLZjoPTJ01xD1e/5UmAo0DPx9LqW5t
- vM4LuTf4deKaDvI6dg73qP7nuskQghmQqQm/iH2GcsG/APK5WfuJWTbDAIe9y3An2gES
- +adrNB3I1ZoIJpKSFVDHxpdDH91/ujWWeLRDy9/Byjz2VNH81tt+rgZtkQMNfcBDT+en
- FcyBHwKhuHaDvDZJnCcQbCfbVos/79LYHS8g8ewUsLeqQfXij8rVD0xxdP+TIh3AZI52
- vd2A==
+ :cc; bh=pj5VCG1MPaTGtnRrJLH6+mF9GNS2bP/wgfbDqZ0XUMM=;
+ b=azLn6BGPPuwLVZtVkjMP+vhlzJ7rJhyBnxWT5W4FT9oTxeEDPoGMvpXw7IEgpSUyvL
+ xBjLcaL8uZjBgnMMUksiJ4i5Ex6758Z598h3AANbsUrckoaq7xrn/8j0yoFe0IIKWmh3
+ 96clJA6WfHROVtCNoQLDegomEXSJfi77cEJ9SAh2RQnomXmgBwfXHTj/utF5oXly0kJX
+ TENYfArF/yLqhQSbO7DpLCicaioGxgnlJ5y0zN2AWMv4TPkC/nsvml4xjy3JbyyQwWT2
+ mOesvd2GA9BnowjepZIi39P2yKyo9d31ag7bY4pIFvzFppV1SasM7j3mLVvXYghXT1dw
+ WJ1A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=PfxnM1OPCFMeeyxBGFe7FfHyay3SkeXUIwQbujCAFcs=;
- b=gY4OwiPIyaHnYkWy2z5qAot1X1A7uvRdXJ/03gHQWJSvZCZPJGlw+jB26mAVnIHkd2
- 4M2ePHQWErYzEOez2DAlaTWJOdhvlwfXi/z5t82QWELO5vYePCEMFn+Ya48Bjr3cef89
- km24btYYGf0dPGZJN9Qc2vGDjM6D0tSyU2VcztBYtTTilwkKyjKaSGRgNjVAmeqAIJfx
- HJjlxnWPsIzsIt/b8cDNkjmwvowDnF0zt0ygfj5WjOP3uO5fygs9zkEQYquPp0S01NAv
- JVRF+FgOzEopaUiEHl5w8dIGLRc/x4VRFO3+SoVecNdCUSo0FlqaMdaJCTPzOKsygMV5
- BdoA==
-X-Gm-Message-State: APjAAAXFSESgBSXW+OMGJ3kEUtBkflnGU5iDzBNXxQB1L9H0CsQjedb8
- W13YN8bsi1S1E2xcfqeV0ZhdjHcM5J4P
-X-Google-Smtp-Source: APXvYqyyCa0omhPTEKNegysXWXOskjHYqFcsJ+Q3sNWdtfShf5IVar4flTcYrteEsh0l4irKey9zBRXFnlc6
-X-Received: by 2002:a25:8892:: with SMTP id d18mr19870478ybl.397.1582105129540; 
- Wed, 19 Feb 2020 01:38:49 -0800 (PST)
-Date: Wed, 19 Feb 2020 17:38:38 +0800
+ bh=pj5VCG1MPaTGtnRrJLH6+mF9GNS2bP/wgfbDqZ0XUMM=;
+ b=IFlq/xQt6IDSCR6pbma+ttIJ5rch/xbUE8m2uY4xO5D881QJdcCTYsEhmBLmHsC4FC
+ bgOsT20C046Bbpxdzcwi2HohuCQLHJ5qPR30WkjwBBrHrM85IweEh+mEkM6gTgbGqBlq
+ 3z61BVYJh7+eCIPgPMW8gv6DC7fIhGpVDYA1Ao+CqL06eSev9a8JFMJsy1kMkLqbezbz
+ WLTgmKN1DlZtK7Zc+Kg5d7fzz+UOfO5dbIF3vZn80sn45SSaShzHl3XLo+QJzNbxal0w
+ f8M/ju8RHde70BYU5pvRMHxqCjIC+WJZQEPKMWMj+Atkd7AwQe3JJE8j3YqjNOfW2Pp+
+ IziQ==
+X-Gm-Message-State: APjAAAV5ZcGpTs57V8Ayb4Mj6a+7Xif1AtkDVStrT0oEmGrD5h5VoFSp
+ aAHJ6aFvwqNU2RvpvrsieN/vA61S+Yu4
+X-Google-Smtp-Source: APXvYqw6VSaWFAJe/GE5FRIBuj+vGf1X+LC28V8aRtMCEIocQi8HY5Sdie25HAEX0nFz/6XIAx4xPuj9Oe8R
+X-Received: by 2002:a67:ce93:: with SMTP id c19mr12956859vse.64.1582105134705; 
+ Wed, 19 Feb 2020 01:38:54 -0800 (PST)
+Date: Wed, 19 Feb 2020 17:38:39 +0800
 In-Reply-To: <20200219093839.6212-1-tzungbi@google.com>
-Message-Id: <20200219170951.1.I61f6559a37a6a40a6fde0737cb16100fb17c0480@changeid>
+Message-Id: <20200219170951.2.I7ed16ef57d9e0bcafc37e766142f68cbad5b54c6@changeid>
 Mime-Version: 1.0
 References: <20200219093839.6212-1-tzungbi@google.com>
 X-Mailer: git-send-email 2.25.0.265.gbab2e86ba0-goog
-Subject: [RFC PATCH 1/2] ASoC: dapm: select sleep_state when initializing
- PINCTRL widget
+Subject: [RFC PATCH 2/2] ASoC: mediatek: mt8183-da7219: use
+ SND_SOC_DAPM_PINCTRL in TDM out
 From: Tzung-Bi Shih <tzungbi@google.com>
 To: broonie@kernel.org
 Content-Type: text/plain; charset="UTF-8"
@@ -96,27 +96,162 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Selects sleep_state when initializing PINCTRL widget.
+Uses SND_SOC_DAPM_PINCTRL in TDM out to simplify code.
 
 Signed-off-by: Tzung-Bi Shih <tzungbi@google.com>
 ---
- sound/soc/soc-dapm.c | 3 +++
- 1 file changed, 3 insertions(+)
+ .../mediatek/mt8183/mt8183-da7219-max98357.c  | 98 ++-----------------
+ 1 file changed, 10 insertions(+), 88 deletions(-)
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 34c832686637..59302cbcb04e 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -3600,6 +3600,9 @@ snd_soc_dapm_new_control_unlocked(struct snd_soc_dapm_context *dapm,
- 			ret = PTR_ERR(w->pinctrl);
- 			goto request_failed;
- 		}
-+
-+		/* set to sleep_state when initializing */
-+		dapm_pinctrl_event(w, NULL, SND_SOC_DAPM_POST_PMD);
- 		break;
- 	case snd_soc_dapm_clock_supply:
- 		w->clk = devm_clk_get(dapm->dev, w->name);
+diff --git a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+index c0c85972cfb7..03d104fbe185 100644
+--- a/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
++++ b/sound/soc/mediatek/mt8183/mt8183-da7219-max98357.c
+@@ -16,20 +16,7 @@
+ #include "../../codecs/da7219-aad.h"
+ #include "../../codecs/da7219.h"
+ 
+-enum PINCTRL_PIN_STATE {
+-	PIN_STATE_DEFAULT = 0,
+-	PIN_TDM_OUT_ON,
+-	PIN_TDM_OUT_OFF,
+-	PIN_STATE_MAX
+-};
+-
+-static const char * const mt8183_pin_str[PIN_STATE_MAX] = {
+-	"default", "aud_tdm_out_on", "aud_tdm_out_off",
+-};
+-
+ struct mt8183_da7219_max98357_priv {
+-	struct pinctrl *pinctrl;
+-	struct pinctrl_state *pin_states[PIN_STATE_MAX];
+ 	struct snd_soc_jack headset_jack;
+ };
+ 
+@@ -259,47 +246,6 @@ SND_SOC_DAILINK_DEFS(tdm,
+ 	DAILINK_COMP_ARRAY(COMP_DUMMY()),
+ 	DAILINK_COMP_ARRAY(COMP_EMPTY()));
+ 
+-static int mt8183_da7219_tdm_startup(struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct mt8183_da7219_max98357_priv *priv =
+-		snd_soc_card_get_drvdata(rtd->card);
+-	int ret;
+-
+-	if (IS_ERR(priv->pin_states[PIN_TDM_OUT_ON]))
+-		return PTR_ERR(priv->pin_states[PIN_TDM_OUT_ON]);
+-
+-	ret = pinctrl_select_state(priv->pinctrl,
+-				   priv->pin_states[PIN_TDM_OUT_ON]);
+-	if (ret)
+-		dev_err(rtd->card->dev, "%s failed to select state %d\n",
+-			__func__, ret);
+-
+-	return ret;
+-}
+-
+-static void mt8183_da7219_tdm_shutdown(struct snd_pcm_substream *substream)
+-{
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+-	struct mt8183_da7219_max98357_priv *priv =
+-		snd_soc_card_get_drvdata(rtd->card);
+-	int ret;
+-
+-	if (IS_ERR(priv->pin_states[PIN_TDM_OUT_OFF]))
+-		return;
+-
+-	ret = pinctrl_select_state(priv->pinctrl,
+-				   priv->pin_states[PIN_TDM_OUT_OFF]);
+-	if (ret)
+-		dev_err(rtd->card->dev, "%s failed to select state %d\n",
+-			__func__, ret);
+-}
+-
+-static struct snd_soc_ops mt8183_da7219_tdm_ops = {
+-	.startup = mt8183_da7219_tdm_startup,
+-	.shutdown = mt8183_da7219_tdm_shutdown,
+-};
+-
+ static struct snd_soc_dai_link mt8183_da7219_max98357_dai_links[] = {
+ 	/* FE */
+ 	{
+@@ -455,7 +401,6 @@ static struct snd_soc_dai_link mt8183_da7219_max98357_dai_links[] = {
+ 		.dpcm_playback = 1,
+ 		.ignore_suspend = 1,
+ 		.be_hw_params_fixup = mt8183_i2s_hw_params_fixup,
+-		.ops = &mt8183_da7219_tdm_ops,
+ 		SND_SOC_DAILINK_REG(tdm),
+ 	},
+ };
+@@ -482,10 +427,13 @@ static const struct snd_kcontrol_new mt8183_da7219_max98357_snd_controls[] = {
+ static const
+ struct snd_soc_dapm_widget mt8183_da7219_max98357_dapm_widgets[] = {
+ 	SND_SOC_DAPM_SPK("Speakers", NULL),
++	SND_SOC_DAPM_PINCTRL("TDM_OUT_PINCTRL",
++			     "aud_tdm_out_on", "aud_tdm_out_off"),
+ };
+ 
+ static const struct snd_soc_dapm_route mt8183_da7219_max98357_dapm_routes[] = {
+ 	{"Speakers", NULL, "Speaker"},
++	{"I2S Playback", NULL, "TDM_OUT_PINCTRL"},
+ };
+ 
+ static struct snd_soc_card mt8183_da7219_max98357_card = {
+@@ -534,6 +482,7 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
+ 	struct device_node *platform_node;
+ 	struct snd_soc_dai_link *dai_link;
+ 	struct mt8183_da7219_max98357_priv *priv;
++	struct pinctrl *pinctrl;
+ 	int ret, i;
+ 
+ 	card->dev = &pdev->dev;
+@@ -566,39 +515,12 @@ static int mt8183_da7219_max98357_dev_probe(struct platform_device *pdev)
+ 
+ 	snd_soc_card_set_drvdata(card, priv);
+ 
+-	priv->pinctrl = devm_pinctrl_get(&pdev->dev);
+-	if (IS_ERR(priv->pinctrl)) {
+-		dev_err(&pdev->dev, "%s devm_pinctrl_get failed\n",
+-			__func__);
+-		return PTR_ERR(priv->pinctrl);
+-	}
+-
+-	for (i = 0; i < PIN_STATE_MAX; i++) {
+-		priv->pin_states[i] = pinctrl_lookup_state(priv->pinctrl,
+-							   mt8183_pin_str[i]);
+-		if (IS_ERR(priv->pin_states[i])) {
+-			ret = PTR_ERR(priv->pin_states[i]);
+-			dev_info(&pdev->dev, "%s Can't find pin state %s %d\n",
+-				 __func__, mt8183_pin_str[i], ret);
+-		}
+-	}
+-
+-	if (!IS_ERR(priv->pin_states[PIN_TDM_OUT_OFF])) {
+-		ret = pinctrl_select_state(priv->pinctrl,
+-					   priv->pin_states[PIN_TDM_OUT_OFF]);
+-		if (ret)
+-			dev_info(&pdev->dev,
+-				 "%s failed to select state %d\n",
+-				 __func__, ret);
+-	}
+-
+-	if (!IS_ERR(priv->pin_states[PIN_STATE_DEFAULT])) {
+-		ret = pinctrl_select_state(priv->pinctrl,
+-					   priv->pin_states[PIN_STATE_DEFAULT]);
+-		if (ret)
+-			dev_info(&pdev->dev,
+-				 "%s failed to select state %d\n",
+-				 __func__, ret);
++	pinctrl = devm_pinctrl_get_select(&pdev->dev, PINCTRL_STATE_DEFAULT);
++	if (IS_ERR(pinctrl)) {
++		ret = PTR_ERR(pinctrl);
++		dev_err(&pdev->dev, "%s failed to select default state %d\n",
++			__func__, ret);
++		return ret;
+ 	}
+ 
+ 	return devm_snd_soc_register_card(&pdev->dev, card);
 -- 
 2.25.0.265.gbab2e86ba0-goog
 

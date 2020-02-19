@@ -2,95 +2,86 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24032164F09
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 20:39:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6DCA4165024
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 21:38:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AB94816AD;
-	Wed, 19 Feb 2020 20:38:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB94816AD
+	by alsa0.perex.cz (Postfix) with ESMTPS id E871516AD;
+	Wed, 19 Feb 2020 21:38:07 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E871516AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582141168;
-	bh=d0uvZGBq0urLFgPlMVJkZ+12wabocbfsya8skJX3wPo=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1582144738;
+	bh=8NYFF4YlCTWY69UMMi0yJb62MRJA7ArQ4xU3etEGdaE=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=evjtL5677Q6cTun6Zfkp4JqGj+emm9934NCOA4v+Q6mmwnH69sjcUKLTKdUZD04Cz
-	 6abJWK9xe50UbOiYlh/GSz9FqXRxkptMGmUEkz6uBgGLJ2WTZUUUaP4Vn76EGw/GpY
-	 bIX3J8fT5gGZk8EqnuYJfB33b00A/ueeYw9eUmlQ=
+	b=ancoqYkV+xQpTGfAd26k30aSlZrIfXEKAXqlIdqWZsq0wSCg6UUg+bRsX4NYJkLsE
+	 I3VxanvexR70JJB6eSM8tkabOiPCUsxtmkjV+r/v+Wgy1vT6n/OfBpM8VA/xwjQNo+
+	 ogu0AfWfmQUpT7S0YF+EjN5kS0pIU7toS38x17LQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A7763F80276;
-	Wed, 19 Feb 2020 20:37:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E1D44F80276;
+	Wed, 19 Feb 2020 21:37:16 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5D1C0F80273; Wed, 19 Feb 2020 20:37:45 +0100 (CET)
+ id 9FD10F80273; Wed, 19 Feb 2020 21:37:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
- [IPv6:2a00:1450:4864:20::244])
+X-Spam-Status: No, score=0.8 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-ot1-f66.google.com (mail-ot1-f66.google.com
+ [209.85.210.66])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 92FE4F80142
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 20:37:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92FE4F80142
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="KFGut0nt"
-Received: by mail-lj1-x244.google.com with SMTP id e18so1580762ljn.12
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 11:37:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=mzWZicQ2at9CpDZ83VmBTNUZQfIsC35v3C9eIFua7XI=;
- b=KFGut0ntTndLGQqzVLszp7IXot4CQXsHkzMHHFkvp90c8UR3SnJnaAHtjD0Rue2KJc
- 1J7xkyi5oZmdr18H6QhImwkH66a9gCLiJW3ovAwsQrhfOikH4rKMZ2uw+xQCOmmDAEkB
- 35UXqRSuuS0dAMGt2Wv2NaBcXkVukbu/QMEKJla9xjpnSyRwjS4/c3rbp0/KysTPtRbI
- AmmnHqXHZc2NfjHxAGoetavDIttNQZtQ0iAgjfeNxcCjbhOBKUCo8ugobo9rMkO9o/WA
- FOXfAndVPwuzyn/0nMe6jzEBhv+QucXn2ZkvSXqM8bOEVDspcKVa22HtANBydqVn5+yN
- +0dA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92C88F80142
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 21:37:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92C88F80142
+Received: by mail-ot1-f66.google.com with SMTP id 77so1487946oty.6
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 12:37:10 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=mzWZicQ2at9CpDZ83VmBTNUZQfIsC35v3C9eIFua7XI=;
- b=qzLczi6+V9LuJlGwiGH8wjTEQTw19HyBybxMVbrXyHDkHLznatHzicDo56SAoPP7s0
- 3mbIKQX+v8DtU8q2g38qyb/KXQs7iQYfldJhasoDVVUJZaBFZ4AT/wlBXawa5qzlFl9j
- ftJkP4Z9p0zwmQ/++gxJcliJZFTzelpDldNnUxfyvuMYrptSl1/CpwFXSALmKO3877Bt
- 01Bw5DMpsJge3VlRiE8+ErMctswgqR2Np7bGUBBu1VQnj0Gc373TGq9pPh8qqM7q/2bK
- akYkcLMkDySlhI62SjWUo9RPhB8iA57nI/KYflETnESaNSwRhhlIcIKQI+uQBmEDE6IX
- 4M8Q==
-X-Gm-Message-State: APjAAAUzYts4BwxIA4+0rdousgbwXYZVMB04AtbQ5eeZ7YG2JIQGMt6J
- NqP6YMkfzLzIGHzWoYR7RI0=
-X-Google-Smtp-Source: APXvYqzQ8PKwhTI+g3u7v/eT+ES1E56alKNLw3KsYp9bX8pItjRpRSvzC2bITwOPJqUyWjZIZVsS9Q==
-X-Received: by 2002:a2e:9157:: with SMTP id q23mr16694881ljg.196.1582141061483; 
- Wed, 19 Feb 2020 11:37:41 -0800 (PST)
-Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
- [79.139.233.37])
- by smtp.googlemail.com with ESMTPSA id d22sm313850lfi.49.2020.02.19.11.37.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Feb 2020 11:37:40 -0800 (PST)
-Subject: Re: [PATCH] ASoC: soc-pcm: Revert "call
- snd_soc_component_open/close() once"
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, broonie@kernel.org,
- alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com
-References: <20200219182650.1416-1-kai.vehmanen@linux.intel.com>
-From: Dmitry Osipenko <digetx@gmail.com>
-Message-ID: <5d7260a6-a9fe-4e2e-4f0e-54a0dbeae44d@gmail.com>
-Date: Wed, 19 Feb 2020 22:37:40 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.3.0
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=+AqBZPuPGulRkYz04Uc64jE9ynggKm16TfsBQmv6si8=;
+ b=Hu3qAZ1fRkJr2DpZDRYXWfIRcNJ3EvGNDKhtT7ZbLuLzo6zPBTGx/9NHy6+hb2QQJu
+ f4h8M8UF2hb/GUiOXRPZ8Gs5P0Nd49ZcUUyHaU5M47pXYFK7LhIQzWtawDfdbe/DGU9v
+ RzToX7Q8L4Jdp5/u4SQLQG4iYogKWKLtboXshXEIX16Pfa14LrGpCsS9JOuB4bLr592b
+ 8ldNzgDhaSFaCZSqNXO3Dlzxiggp2JK/U/kpaN+u5cp6Fy8IC9C/GA7vwgt8AE08pRko
+ URMDbWXRREdlNeGssRvlrSVleYiQy5R/CXLvxxvdVzaa+7Q28WDrlpdvzwHdegtQT7kT
+ fj2Q==
+X-Gm-Message-State: APjAAAVR9989AHOlIVLkXULkmcSgM5USfsp8VtZ3bQdMwbWbNtyCPaV/
+ wfQDYSVIAG0KDzz0glE+cw==
+X-Google-Smtp-Source: APXvYqwXHqdPF0eGfWGHZFMcj2qYo0Y8tJNnbLJqbB+BFR7YXs5aR7a2j8huyc4ZAUmLqR7q9DjA/w==
+X-Received: by 2002:a9d:67d7:: with SMTP id c23mr21034247otn.262.1582144628599; 
+ Wed, 19 Feb 2020 12:37:08 -0800 (PST)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id n17sm282683otq.46.2020.02.19.12.37.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Feb 2020 12:37:07 -0800 (PST)
+Received: (nullmailer pid 27543 invoked by uid 1000);
+ Wed, 19 Feb 2020 20:37:06 -0000
+Date: Wed, 19 Feb 2020 14:37:06 -0600
+From: Rob Herring <robh@kernel.org>
+To: Shengjiu Wang <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2 2/3] ASoC: dt-bindings: fsl_easrc: Add document for
+ EASRC
+Message-ID: <20200219203706.GA25618@bogus>
+References: <cover.1582007379.git.shengjiu.wang@nxp.com>
+ <a02af544c73914fe3a5ab2f35eb237ef68ee29e7.1582007379.git.shengjiu.wang@nxp.com>
 MIME-Version: 1.0
-In-Reply-To: <20200219182650.1416-1-kai.vehmanen@linux.intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a02af544c73914fe3a5ab2f35eb237ef68ee29e7.1582007379.git.shengjiu.wang@nxp.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, timur@kernel.org, Xiubo.Lee@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, tiwai@suse.com, lgirdwood@gmail.com,
+ nicoleotsuka@gmail.com, broonie@kernel.org, festevam@gmail.com,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,16 +97,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-19.02.2020 21:26, Kai Vehmanen пишет:
-> ASoC component open/close and snd_soc_component_module_get/put are
-> called independently for each component-substream pair, so the logic
-> in the reverted patch was not sufficient and led to PCM playback and
-> module unload errors.
+On Tue, Feb 18, 2020 at 02:39:36PM +0800, Shengjiu Wang wrote:
+> EASRC (Enhanced Asynchronous Sample Rate Converter) is a new
+> IP module found on i.MX8MN.
 > 
-> Fixes: dd03907bf129 ("ASoC: soc-pcm: call snd_soc_component_open/close() once")
-> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 > ---
+>  .../devicetree/bindings/sound/fsl,easrc.txt   | 57 +++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.txt
 
-Thanks,
+Bindings are now in DT schema format. See 
+Documentation/devicetree/writing-schema.rst.
 
-Tested-by: Dmitry Osipenko <digetx@gmail.com>

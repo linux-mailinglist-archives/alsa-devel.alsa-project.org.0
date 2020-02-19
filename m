@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416E1163D58
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 07:59:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF86D163D5E
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 08:00:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DA91416E7;
-	Wed, 19 Feb 2020 07:58:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DA91416E7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6450B16CA;
+	Wed, 19 Feb 2020 08:00:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6450B16CA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582095588;
-	bh=mb+PM8OlQMOs6IC1Y/Ka8YlR+i6xONmGs+aUwR35E6s=;
+	s=default; t=1582095650;
+	bh=LjFSJk0nlIZ4KgLU3gm4GTZRsT7HVTQGVWmz6BWBS2A=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WXspKGCLM6d1YxDIU6xTTtwyjDgIPG9d24ISX1GjuRygMYSLtO82QbntnYKpAYaGX
-	 pQGJNMDAvnYRyLy7Owkc9gBq71RB/97P5VBZ+DKF/Bea6sDchyejfkUhlfaYC2Suzy
-	 unwdHNan2Sz+AkHyR3lJhLSEbFALdxNR1QxSm+AA=
+	b=DzbIZbnENcSUHMTtij6yBOWIuJJ9K+R4fu/ODRRBaE/BGMzjX1MWGCE21slBl8rJS
+	 KrgKxsjhA7ljUTxX6PwTFHdeA+mY1NC2BgeE+xD8kQHpEFRaNQ48dR0k9G5+c+NziV
+	 Fn4bvMXfI3ssrpQa18UAQekkBYW6701/p7zNLyVE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 36892F8028C;
-	Wed, 19 Feb 2020 07:56:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 427FBF802A2;
+	Wed, 19 Feb 2020 07:56:36 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 07A24F80292; Wed, 19 Feb 2020 07:56:29 +0100 (CET)
+ id 2BF16F8029B; Wed, 19 Feb 2020 07:56:31 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 47280F8028C
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 07:56:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47280F8028C
-Date: 19 Feb 2020 15:56:20 +0900
-X-IronPort-AV: E=Sophos;i="5.70,459,1574089200"; d="scan'208";a="39472474"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id EA607F80278
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 07:56:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA607F80278
+Date: 19 Feb 2020 15:56:15 +0900
+X-IronPort-AV: E=Sophos;i="5.70,459,1574089200"; d="scan'208";a="39688757"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 19 Feb 2020 15:56:20 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 19 Feb 2020 15:56:15 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 99E1A4009F79;
- Wed, 19 Feb 2020 15:56:20 +0900 (JST)
-Message-ID: <87imk3jcal.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 61D6E4008C5C;
+ Wed, 19 Feb 2020 15:56:15 +0900 (JST)
+Message-ID: <87k14jjcaq.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 05/13] ASoC: intel: kbl_da7219_max98927: use
+Subject: [PATCH 04/13] ASoC: intel: cml_rt1011_rt5682: use
  for_each_rtd_codec_dai() macro
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
@@ -73,39 +73,23 @@ From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/kbl_da7219_max98927.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/intel/boards/cml_rt1011_rt5682.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/sound/soc/intel/boards/kbl_da7219_max98927.c b/sound/soc/intel/boards/kbl_da7219_max98927.c
-index 7a13e9b35187..88f69e3697d2 100644
---- a/sound/soc/intel/boards/kbl_da7219_max98927.c
-+++ b/sound/soc/intel/boards/kbl_da7219_max98927.c
-@@ -176,10 +176,10 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
- 	struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *runtime = substream->private_data;
-+	struct snd_soc_dai *codec_dai;
- 	int ret, j;
+diff --git a/sound/soc/intel/boards/cml_rt1011_rt5682.c b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+index dd80d0186a6c..02aa18d24319 100644
+--- a/sound/soc/intel/boards/cml_rt1011_rt5682.c
++++ b/sound/soc/intel/boards/cml_rt1011_rt5682.c
+@@ -164,8 +164,7 @@ static int cml_rt1011_hw_params(struct snd_pcm_substream *substream,
  
--	for (j = 0; j < runtime->num_codecs; j++) {
--		struct snd_soc_dai *codec_dai = runtime->codec_dais[j];
-+	for_each_rtd_codec_dai(runtime, j, codec_dai) {
+ 	srate = params_rate(params);
  
- 		if (!strcmp(codec_dai->component->name, MAX98927_DEV0_NAME)) {
- 			ret = snd_soc_dai_set_tdm_slot(codec_dai, 0x30, 3, 8, 16);
-@@ -221,10 +221,10 @@ static int kabylake_ssp0_hw_params(struct snd_pcm_substream *substream,
- static int kabylake_ssp0_trigger(struct snd_pcm_substream *substream, int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_soc_dai *codec_dai;
- 	int j, ret;
+-	for (i = 0; i < rtd->num_codecs; i++) {
+-		codec_dai = rtd->codec_dais[i];
++	for_each_rtd_codec_dai(rtd, i, codec_dai) {
  
--	for (j = 0; j < rtd->num_codecs; j++) {
--		struct snd_soc_dai *codec_dai = rtd->codec_dais[j];
-+	for_each_rtd_codec_dai(rtd, j, codec_dai) {
- 		const char *name = codec_dai->component->name;
- 		struct snd_soc_component *component = codec_dai->component;
- 		struct snd_soc_dapm_context *dapm =
+ 		/* 100 Fs to drive 24 bit data */
+ 		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1011_PLL1_S_BCLK,
 -- 
 2.17.1
 

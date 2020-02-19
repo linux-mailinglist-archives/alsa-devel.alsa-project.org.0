@@ -2,67 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CE84164EE4
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 20:29:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 24032164F09
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 20:39:29 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9BF4916A8;
-	Wed, 19 Feb 2020 20:28:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9BF4916A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id AB94816AD;
+	Wed, 19 Feb 2020 20:38:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AB94816AD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582140578;
-	bh=485ZrrtckWWjpby7br51eluuXPCnzNqykffBxaBPluw=;
+	s=default; t=1582141168;
+	bh=d0uvZGBq0urLFgPlMVJkZ+12wabocbfsya8skJX3wPo=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DjaUb0G8Hp/URpQ7xrcymplblRCkBtHXMkgkG0IA6SPircRqGfr7ZMRhB1INh06ok
-	 TrhPkNQ0/Uznnu9D9gh2mQF23hIqfiSzbbVJ6GTiJnjYeZiTbM40E5YIgJEtey51td
-	 qpMpZIA310vOM3l4r5A1FXzNif3+JYkBhTO4ku0A=
+	b=evjtL5677Q6cTun6Zfkp4JqGj+emm9934NCOA4v+Q6mmwnH69sjcUKLTKdUZD04Cz
+	 6abJWK9xe50UbOiYlh/GSz9FqXRxkptMGmUEkz6uBgGLJ2WTZUUUaP4Vn76EGw/GpY
+	 bIX3J8fT5gGZk8EqnuYJfB33b00A/ueeYw9eUmlQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AED2AF801F5;
-	Wed, 19 Feb 2020 20:27:57 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A7763F80276;
+	Wed, 19 Feb 2020 20:37:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id AF125F80114; Wed, 19 Feb 2020 20:27:50 +0100 (CET)
+ id 5D1C0F80273; Wed, 19 Feb 2020 20:37:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-lj1-x244.google.com (mail-lj1-x244.google.com
+ [IPv6:2a00:1450:4864:20::244])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id F0E6DF80114
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 20:27:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz F0E6DF80114
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga006.fm.intel.com ([10.253.24.20])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Feb 2020 11:27:36 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,461,1574150400"; d="scan'208";a="436338569"
-Received: from aibautis-mobl2.amr.corp.intel.com (HELO [10.251.151.242])
- ([10.251.151.242])
- by fmsmga006.fm.intel.com with ESMTP; 19 Feb 2020 11:27:35 -0800
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92FE4F80142
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 20:37:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92FE4F80142
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="KFGut0nt"
+Received: by mail-lj1-x244.google.com with SMTP id e18so1580762ljn.12
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 11:37:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=mzWZicQ2at9CpDZ83VmBTNUZQfIsC35v3C9eIFua7XI=;
+ b=KFGut0ntTndLGQqzVLszp7IXot4CQXsHkzMHHFkvp90c8UR3SnJnaAHtjD0Rue2KJc
+ 1J7xkyi5oZmdr18H6QhImwkH66a9gCLiJW3ovAwsQrhfOikH4rKMZ2uw+xQCOmmDAEkB
+ 35UXqRSuuS0dAMGt2Wv2NaBcXkVukbu/QMEKJla9xjpnSyRwjS4/c3rbp0/KysTPtRbI
+ AmmnHqXHZc2NfjHxAGoetavDIttNQZtQ0iAgjfeNxcCjbhOBKUCo8ugobo9rMkO9o/WA
+ FOXfAndVPwuzyn/0nMe6jzEBhv+QucXn2ZkvSXqM8bOEVDspcKVa22HtANBydqVn5+yN
+ +0dA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=mzWZicQ2at9CpDZ83VmBTNUZQfIsC35v3C9eIFua7XI=;
+ b=qzLczi6+V9LuJlGwiGH8wjTEQTw19HyBybxMVbrXyHDkHLznatHzicDo56SAoPP7s0
+ 3mbIKQX+v8DtU8q2g38qyb/KXQs7iQYfldJhasoDVVUJZaBFZ4AT/wlBXawa5qzlFl9j
+ ftJkP4Z9p0zwmQ/++gxJcliJZFTzelpDldNnUxfyvuMYrptSl1/CpwFXSALmKO3877Bt
+ 01Bw5DMpsJge3VlRiE8+ErMctswgqR2Np7bGUBBu1VQnj0Gc373TGq9pPh8qqM7q/2bK
+ akYkcLMkDySlhI62SjWUo9RPhB8iA57nI/KYflETnESaNSwRhhlIcIKQI+uQBmEDE6IX
+ 4M8Q==
+X-Gm-Message-State: APjAAAUzYts4BwxIA4+0rdousgbwXYZVMB04AtbQ5eeZ7YG2JIQGMt6J
+ NqP6YMkfzLzIGHzWoYR7RI0=
+X-Google-Smtp-Source: APXvYqzQ8PKwhTI+g3u7v/eT+ES1E56alKNLw3KsYp9bX8pItjRpRSvzC2bITwOPJqUyWjZIZVsS9Q==
+X-Received: by 2002:a2e:9157:: with SMTP id q23mr16694881ljg.196.1582141061483; 
+ Wed, 19 Feb 2020 11:37:41 -0800 (PST)
+Received: from [192.168.2.145] (79-139-233-37.dynamic.spd-mgts.ru.
+ [79.139.233.37])
+ by smtp.googlemail.com with ESMTPSA id d22sm313850lfi.49.2020.02.19.11.37.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 19 Feb 2020 11:37:40 -0800 (PST)
 Subject: Re: [PATCH] ASoC: soc-pcm: Revert "call
  snd_soc_component_open/close() once"
-To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com
 References: <20200219182650.1416-1-kai.vehmanen@linux.intel.com>
- <alpine.DEB.2.21.2002192046250.2957@eliteleevi.tm.intel.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <4b7feeff-3cc7-166e-a3fd-4cfd942166a2@linux.intel.com>
-Date: Wed, 19 Feb 2020 13:27:35 -0600
+From: Dmitry Osipenko <digetx@gmail.com>
+Message-ID: <5d7260a6-a9fe-4e2e-4f0e-54a0dbeae44d@gmail.com>
+Date: Wed, 19 Feb 2020 22:37:40 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ Thunderbird/68.3.0
 MIME-Version: 1.0
-In-Reply-To: <alpine.DEB.2.21.2002192046250.2957@eliteleevi.tm.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <20200219182650.1416-1-kai.vehmanen@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: digetx@gmail.com, alsa-devel@alsa-project.org, broonie@kernel.org,
- ranjani.sridharan@linux.intel.com, kuninori.morimoto.gx@renesas.com
+Content-Transfer-Encoding: 8bit
+Cc: pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,33 +106,16 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+19.02.2020 21:26, Kai Vehmanen пишет:
+> ASoC component open/close and snd_soc_component_module_get/put are
+> called independently for each component-substream pair, so the logic
+> in the reverted patch was not sufficient and led to PCM playback and
+> module unload errors.
+> 
+> Fixes: dd03907bf129 ("ASoC: soc-pcm: call snd_soc_component_open/close() once")
+> Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+> ---
 
+Thanks,
 
-On 2/19/20 12:53 PM, Kai Vehmanen wrote:
-> Hey,
-> 
-> On Wed, 19 Feb 2020, Kai Vehmanen wrote:
-> 
->> ASoC component open/close and snd_soc_component_module_get/put are
->> called independently for each component-substream pair, so the logic
->> in the reverted patch was not sufficient and led to PCM playback and
->> module unload errors.
-> 
-> I tried to keep part of the original patch at first, but I kept hitting
-> new issues either in component load, or in module unload-reload flow.
-> Thanks to Pierre and Ranjani for early reviews.
-> 
-> So in the end I ended up with a full revert. This at least works on all
-> SOF device topologies I tested with.
-> 
-> At the root of the problem is that component open is called with multiple
-> substreams and driver open (and close) should be called for each substream
-> as well. This also caused problems to the added module refcounting logic..
-> so that is reverted as well.
-
-I also tried to find a fix in parallel with Kai's work, but no luck. 
-First I am not sure why we need to add a 'module' state in addition to 
-the existing module ref-counting, and the 'opened' state management 
-looks too simple. revert-and-revisit seems like the best course of 
-action indeed.
-
+Tested-by: Dmitry Osipenko <digetx@gmail.com>

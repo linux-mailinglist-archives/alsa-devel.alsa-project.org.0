@@ -2,55 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56101163CA4
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 06:25:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED32D163CCE
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 06:53:30 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 05D2016D6;
-	Wed, 19 Feb 2020 06:24:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 05D2016D6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8883516D2;
+	Wed, 19 Feb 2020 06:52:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8883516D2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582089909;
-	bh=lK0Wy/HjCHY0D7gRwlWWYbwxPjXJ4mlXYStYh8KKd9Y=;
-	h=From:To:Subject:Date:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=auhrMKNRgxg2pkkNMnbw0CqNStL6f6DLe4BRqBLESeulaCkpkjimA8QLtTpc1m0oW
-	 MT71wB1njTbly6s8W+GhnF3/aVIdDx0ZQgbL47bh0/02wMzfRs9EY3JCX1FPR+RW7K
-	 b+jaFsrYrK3s6QEcJwsq1DWrHwEdUQe6xQ58GvTQ=
+	s=default; t=1582091610;
+	bh=/cPuSPHCa8yhtyme52EVKZPMCJygtIPuM5pWxUWwhYo=;
+	h=From:To:In-Reply-To:References:Subject:Date:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=la4rRDA7KQ4JyXVEffrqELuptFZYN3jP3PDbed6W/1i/d7mOd0Jd2U2OmT6ZgCN22
+	 tclJ0O5yj2DRwY7kAnbi42Rt6cU2kZAa58YA4YE9VaWBnhd0LEdyTEIhqGEpw8ybhz
+	 MVMlXHmGjGL5yA+8lsGWhKp8sk1X6WSGAJg1Bjeo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 34DB1F800C4;
-	Wed, 19 Feb 2020 06:23:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 968A4F800C4;
+	Wed, 19 Feb 2020 06:51:49 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A9B4F80172; Wed, 19 Feb 2020 06:23:26 +0100 (CET)
+ id 6B6C1F80172; Wed, 19 Feb 2020 06:51:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from youngberry.canonical.com (youngberry.canonical.com
- [91.189.89.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6BAE9F80114
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 06:23:23 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6BAE9F80114
-Received: from [222.130.141.161] (helo=localhost.localdomain)
- by youngberry.canonical.com with esmtpsa
- (TLS1.2:ECDHE_RSA_AES_128_GCM_SHA256:128) (Exim 4.86_2)
- (envelope-from <hui.wang@canonical.com>)
- id 1j4HpR-0005y0-Tl; Wed, 19 Feb 2020 05:23:22 +0000
-From: Hui Wang <hui.wang@canonical.com>
-To: alsa-devel@alsa-project.org,
-	tiwai@suse.de,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: hda/realtek - Fix a regression for mute led on Lenovo
- Carbon X1
-Date: Wed, 19 Feb 2020 13:23:06 +0800
-Message-Id: <20200219052306.24935-1-hui.wang@canonical.com>
-X-Mailer: git-send-email 2.17.1
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=5.0 tests=MISSING_DATE,MISSING_MID,
+ SPF_FAIL,SPF_HELO_NONE autolearn=disabled version=3.4.0
+Received: from webhooks-bot.alsa-project.org (gate.perex.cz [77.48.224.242])
+ by alsa1.perex.cz (Postfix) with ESMTP id BE40EF800C4
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 06:51:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE40EF800C4
+MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+From: GitHub issues - opened <github@alsa-project.org>
+To: alsa-devel@alsa-project.org
+In-Reply-To: <1582091501705790043-webhooks-bot@alsa-project.org>
+References: <1582091501705790043-webhooks-bot@alsa-project.org>
+Subject: ALSA raw MIDI API - client hangup and amidi exits midiC3D0 failed:
+ Device or resource busy
+Message-Id: <20200219055146.6B6C1F80172@alsa1.perex.cz>
+Date: Wed, 19 Feb 2020 06:51:46 +0100 (CET)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,29 +60,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Need to chain the THINKPAD_ACPI, otherwise the mute led will not
-work.
+alsa-project/alsa-lib issue #25 was opened from MusicMaker:
 
-Fixes: d2cd795c4ece ("ALSA: hda - fixup for the bass speaker on Lenovo Carbon X1 7th gen")
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Hui Wang <hui.wang@canonical.com>
----
- sound/pci/hda/patch_realtek.c | 2 ++
- 1 file changed, 2 insertions(+)
+While developing a client using the raw MIDI interface, bumped into an issue that
+went away after rebooting Ubuntu 19.10 - 64 bit. Using a MIDISPORT 4x4 one of the 4 ports could not be opened. The client (written in C) call hang and the client thus went unresponsive. No timeout, no error, no nothing. CTRL-BREAK the client and retrying many times gave the exact same result, no other apps were using the port. The other 3 ports on the interface and any other MIDI USB device connected could be opened and used without any problem.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 477589e7ec1d..31bee0512334 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -6684,6 +6684,8 @@ static const struct hda_fixup alc269_fixups[] = {
- 	[ALC285_FIXUP_SPEAKER2_TO_DAC1] = {
- 		.type = HDA_FIXUP_FUNC,
- 		.v.func = alc285_fixup_speaker2_to_dac1,
-+		.chained = true,
-+		.chain_id = ALC269_FIXUP_THINKPAD_ACPI
- 	},
- 	[ALC256_FIXUP_DELL_INSPIRON_7559_SUBWOOFER] = {
- 		.type = HDA_FIXUP_PINS,
--- 
-2.17.1
+When opening the port with amidi, an error was reported, it seems amidi did not gracefully exit as well.
 
+amidi -receive -p hw:3,0,1
+ALSA lib rawmidi_hw.c:233:(snd_rawmidi_hw_open) open /dev/snd/midiC3D0 failed: Device or resource busy
+cannot open port "hw:3,0,1": Device or resource busy
+
+Looking at the rawmidi_hw.c code there is a GOTO and SYSERR statement. Not sure if those caused this .
+
+   if (fd < 0) {
+            snd_ctl_close(ctl);
+            SYSERR("open %s failed", filename);
+            return -errno;
+.
+After reboot the problem went away. The problem could have been caused while fixing some by coding issue. Maybe someone with more understanding of the code can spot an issue in the code. While  many applications use the raw MIDI interface. believe Bitwig and most others use the sequencer API to open ports.
+
+Just wanted to log this just in case anyone else experiences this
+
+Issue URL     : https://github.com/alsa-project/alsa-lib/issues/25
+Repository URL: https://github.com/alsa-project/alsa-lib

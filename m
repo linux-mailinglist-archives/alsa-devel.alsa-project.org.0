@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEB49163D61
-	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 08:02:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 33B6A163D62
+	for <lists+alsa-devel@lfdr.de>; Wed, 19 Feb 2020 08:03:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5271F16FF;
-	Wed, 19 Feb 2020 08:01:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5271F16FF
+	by alsa0.perex.cz (Postfix) with ESMTPS id CCA40170C;
+	Wed, 19 Feb 2020 08:02:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CCA40170C
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582095751;
-	bh=/KON2fEL0n6o2d1QAa6X3bZ0yF+yxdVd3iBxP60JDNw=;
+	s=default; t=1582095794;
+	bh=3KInVJMiFo/HZ908T97IPcIjUu6nqJoYmZ5y5LsNIZs=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=S9HJjBc4HLVnOopfk+d/viUyeoMEyYuDphyiRgHheeKVJGL6gx8eF2aHSpLO8kgud
-	 dvyg+BiNZUROSbQu23qFbmocvLPHpwYEMeW3blCNojgsLVGPODM3/fw+j9K3PDy0ok
-	 bPEjxtd97EMRN+nnQXHBPjikdtbAbsVaMxbBw+g4=
+	b=UdzhwJZKttp+Lm5831rdaVrO6aScoeFZ7Dvse8fiysXcCFe399VA2b1N+cE3xrvMt
+	 byt+J2JG+5YkxUk8twciE+oE7a3jnLeK1C7bRvJ7p5QaZe9Idfd3wBuwVS61Jmc+KP
+	 Z12zvv7nUb3oZ/pFSQTPCaX9n7m77m/Zh2TY0q4Y=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 947DFF802C4;
-	Wed, 19 Feb 2020 07:56:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EA903F802EA;
+	Wed, 19 Feb 2020 07:56:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A33DF802D2; Wed, 19 Feb 2020 07:56:48 +0100 (CET)
+ id 95B49F802E8; Wed, 19 Feb 2020 07:56:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D883FF802C2
- for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 07:56:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D883FF802C2
-Date: 19 Feb 2020 15:56:41 +0900
-X-IronPort-AV: E=Sophos;i="5.70,459,1574089200"; d="scan'208";a="39472512"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9E5ABF802BD
+ for <alsa-devel@alsa-project.org>; Wed, 19 Feb 2020 07:56:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9E5ABF802BD
+Date: 19 Feb 2020 15:56:46 +0900
+X-IronPort-AV: E=Sophos;i="5.70,459,1574089200"; d="scan'208";a="39688815"
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 19 Feb 2020 15:56:41 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 19 Feb 2020 15:56:46 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 0B6084001977;
- Wed, 19 Feb 2020 15:56:41 +0900 (JST)
-Message-ID: <87d0abjca1.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 5BE17400964C;
+ Wed, 19 Feb 2020 15:56:46 +0900 (JST)
+Message-ID: <87blpvjc9v.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 09/13] ASoC: soc-pcm: add snd_soc_dai_get_widget()
+Subject: [PATCH 10/13] ASoC: soc-pcm: merge dpcm_run_new/old_update() into
+ dpcm_fe_runtime_update()
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87pnebjcc4.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,151 +68,77 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-soc-pcm.c has dai_get_widget(), but it can be more generic.
-This patch renames it to snd_soc_dai_get_widget(), and use it.
+soc-pcm has dpcm_run_new/old_update(), but these are used from
+dpcm_fe_runtime_update() only, and are very verbose functions.
+This patch disassembles these.
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- include/sound/soc-dai.h           |  8 ++++++++
- sound/soc/intel/skylake/skl-pcm.c | 10 ++--------
- sound/soc/soc-dapm.c              | 10 ++--------
- sound/soc/soc-pcm.c               | 17 ++++-------------
- 4 files changed, 16 insertions(+), 29 deletions(-)
+ sound/soc/soc-pcm.c | 35 +++++++----------------------------
+ 1 file changed, 7 insertions(+), 28 deletions(-)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index c1089194ddf1..92c382690930 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -359,6 +359,14 @@ snd_soc_dai_get_pcm_stream(const struct snd_soc_dai *dai, int stream)
- 		&dai->driver->playback : &dai->driver->capture;
- }
- 
-+static inline
-+struct snd_soc_dapm_widget *snd_soc_dai_get_widget(
-+	struct snd_soc_dai *dai, int stream)
-+{
-+	return (stream == SNDRV_PCM_STREAM_PLAYBACK) ?
-+		dai->playback_widget : dai->capture_widget;
-+}
-+
- static inline void *snd_soc_dai_get_dma_data(const struct snd_soc_dai *dai,
- 					     const struct snd_pcm_substream *ss)
- {
-diff --git a/sound/soc/intel/skylake/skl-pcm.c b/sound/soc/intel/skylake/skl-pcm.c
-index b99509675d29..05a9677c5a53 100644
---- a/sound/soc/intel/skylake/skl-pcm.c
-+++ b/sound/soc/intel/skylake/skl-pcm.c
-@@ -112,10 +112,7 @@ static void skl_set_suspend_active(struct snd_pcm_substream *substream,
- 	struct snd_soc_dapm_widget *w;
- 	struct skl_dev *skl = bus_to_skl(bus);
- 
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--		w = dai->playback_widget;
--	else
--		w = dai->capture_widget;
-+	w = snd_soc_dai_get_widget(dai, substream->stream);
- 
- 	if (w->ignore_suspend && enable)
- 		skl->supend_active++;
-@@ -475,10 +472,7 @@ static int skl_pcm_trigger(struct snd_pcm_substream *substream, int cmd,
- 	if (!mconfig)
- 		return -EIO;
- 
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--		w = dai->playback_widget;
--	else
--		w = dai->capture_widget;
-+	w = snd_soc_dai_get_widget(dai, substream->stream);
- 
- 	switch (cmd) {
- 	case SNDRV_PCM_TRIGGER_RESUME:
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index cc17a3730d3d..4bee5f42f3be 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -2620,10 +2620,7 @@ static int dapm_update_dai_unlocked(struct snd_pcm_substream *substream,
- 	struct snd_soc_dapm_widget *w;
- 	int ret;
- 
--	if (dir == SNDRV_PCM_STREAM_PLAYBACK)
--		w = dai->playback_widget;
--	else
--		w = dai->capture_widget;
-+	w = snd_soc_dai_get_widget(dai, dir);
- 
- 	if (!w)
- 		return 0;
-@@ -4386,10 +4383,7 @@ static void soc_dapm_dai_stream_event(struct snd_soc_dai *dai, int stream,
- 	struct snd_soc_dapm_widget *w;
- 	unsigned int ep;
- 
--	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
--		w = dai->playback_widget;
--	else
--		w = dai->capture_widget;
-+	w = snd_soc_dai_get_widget(dai, stream);
- 
- 	if (w) {
- 		dapm_mark_dirty(w, "stream event");
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 4b9ade4349aa..09104013b984 100644
+index 09104013b984..066b9e3e60dc 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -82,15 +82,6 @@ static int soc_rtd_trigger(struct snd_soc_pcm_runtime *rtd,
- 	return 0;
+@@ -2538,37 +2538,12 @@ static int dpcm_run_update_startup(struct snd_soc_pcm_runtime *fe, int stream)
+ 	return ret;
  }
  
--static inline
--struct snd_soc_dapm_widget *dai_get_widget(struct snd_soc_dai *dai, int stream)
+-static int dpcm_run_new_update(struct snd_soc_pcm_runtime *fe, int stream)
 -{
--	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
--		return dai->playback_widget;
--	else
--		return dai->capture_widget;
+-	int ret;
+-
+-	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_BE);
+-	ret = dpcm_run_update_startup(fe, stream);
+-	if (ret < 0)
+-		dev_err(fe->dev, "ASoC: failed to startup some BEs\n");
+-	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
+-
+-	return ret;
 -}
 -
- static void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
- 				   int stream, int action)
+-static int dpcm_run_old_update(struct snd_soc_pcm_runtime *fe, int stream)
+-{
+-	int ret;
+-
+-	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_BE);
+-	ret = dpcm_run_update_shutdown(fe, stream);
+-	if (ret < 0)
+-		dev_err(fe->dev, "ASoC: failed to shutdown some BEs\n");
+-	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
+-
+-	return ret;
+-}
+-
+ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
  {
-@@ -1242,7 +1233,7 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
- 		if (!be->dai_link->no_pcm)
- 			continue;
+ 	struct snd_soc_dapm_widget_list *list;
+ 	int stream;
+ 	int count, paths;
++	int ret;
  
--		w = dai_get_widget(be->cpu_dai, stream);
-+		w = snd_soc_dai_get_widget(be->cpu_dai, stream);
+ 	if (!fe->dai_link->dynamic)
+ 		return 0;
+@@ -2605,10 +2580,14 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 		/* update any playback/capture paths */
+ 		count = dpcm_process_paths(fe, stream, &list, new);
+ 		if (count) {
++			dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_BE);
+ 			if (new)
+-				dpcm_run_new_update(fe, stream);
++				ret = dpcm_run_update_startup(fe, stream);
+ 			else
+-				dpcm_run_old_update(fe, stream);
++				ret = dpcm_run_update_shutdown(fe, stream);
++			if (ret < 0)
++				dev_err(fe->dev, "ASoC: failed to shutdown some BEs\n");
++			dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
  
- 		dev_dbg(card->dev, "ASoC: try BE : %s\n",
- 			w ? w->name : "(not set)");
-@@ -1251,7 +1242,7 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
- 			return be;
- 
- 		for_each_rtd_codec_dai(be, i, dai) {
--			w = dai_get_widget(dai, stream);
-+			w = snd_soc_dai_get_widget(dai, stream);
- 
- 			if (w == widget)
- 				return be;
-@@ -1328,7 +1319,7 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 		unsigned int i;
- 
- 		/* is there a valid CPU DAI widget for this BE */
--		widget = dai_get_widget(dpcm->be->cpu_dai, stream);
-+		widget = snd_soc_dai_get_widget(dpcm->be->cpu_dai, stream);
- 
- 		/* prune the BE if it's no longer in our active list */
- 		if (widget && widget_in_list(list, widget))
-@@ -1337,7 +1328,7 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 		/* is there a valid CODEC DAI widget for this BE */
- 		do_prune = 1;
- 		for_each_rtd_codec_dai(dpcm->be, i, dai) {
--			widget = dai_get_widget(dai, stream);
-+			widget = snd_soc_dai_get_widget(dai, stream);
- 
- 			/* prune the BE if it's no longer in our active list */
- 			if (widget && widget_in_list(list, widget))
+ 			dpcm_clear_pending_state(fe, stream);
+ 			dpcm_be_disconnect(fe, stream);
 -- 
 2.17.1
 

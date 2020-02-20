@@ -2,53 +2,55 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C825166A47
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 23:21:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDE16166A48
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 23:22:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id DCFB116AC;
-	Thu, 20 Feb 2020 23:20:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DCFB116AC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 798DD16C7;
+	Thu, 20 Feb 2020 23:21:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 798DD16C7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582237288;
-	bh=65pe97zysSsFa4bOAOqI5q4+FonP19X0C/zqJrwQ8I8=;
+	s=default; t=1582237329;
+	bh=+zKm1tUdGSsvuH3shu5fP3OUFzb9BuzSM3WNQ6rDguo=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=E4YmZ4pl/co0P+SoyM1/ime0M80gCQ5CZYsIYboc4J6Vt+6CEALJnLkkQnihmL/+o
-	 CmDzajNbOeDlhFd+/6gE//um/yPnJpXVO60KCuzktu8VkYTCAG87vL4VFTmBJeDCQN
-	 zU6o6CNoalE+JedQZd3Y+nPPmWKr6Pgu3RpBLjNA=
+	b=miIiXXl4t3orHNdccAmVAJ1SfLY4WN32krEQ66S50gHgUUO/th9Grabd2u6IKfqhf
+	 RltlhN3YFiOalPmA0sebOkSPYrQULyus2dGYX2/MZg2y8UYDoTXIlvEGlk+unwEcqx
+	 PumAmIBMQiETCooENPCpTLsft50JYIithqo0+P/I=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C278F8028D;
-	Thu, 20 Feb 2020 23:18:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCF86F8029A;
+	Thu, 20 Feb 2020 23:18:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1AE11F80101; Thu, 20 Feb 2020 23:18:46 +0100 (CET)
+ id 96272F80299; Thu, 20 Feb 2020 23:18:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 2E6DEF8027D
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 23:18:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2E6DEF8027D
+ by alsa1.perex.cz (Postfix) with ESMTP id 9A748F80290
+ for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 23:18:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A748F80290
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 97E63328;
- Thu, 20 Feb 2020 14:18:41 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 523BC1045;
+ Thu, 20 Feb 2020 14:18:46 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0FD5E3F6CF;
- Thu, 20 Feb 2020 14:18:40 -0800 (PST)
-Date: Thu, 20 Feb 2020 22:18:39 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA1763F6CF;
+ Thu, 20 Feb 2020 14:18:45 -0800 (PST)
+Date: Thu, 20 Feb 2020 22:18:44 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Matthias Reichl <hias@horus.com>
-Subject: Applied "ASoC: pcm512x: Fix unbalanced regulator enable call in probe
- error path" to the asoc tree
-In-Reply-To: <20200220202956.29233-1-hias@horus.com>
-Message-Id: <applied-20200220202956.29233-1-hias@horus.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Applied "ASoC: SOF: Intel: hda: allow operation without i915 gfx" to
+ the asoc tree
+In-Reply-To: <20200220171028.22023-3-kai.vehmanen@linux.intel.com>
+Message-Id: <applied-20200220171028.22023-3-kai.vehmanen@linux.intel.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com, tiwai@suse.de,
+ pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,7 +68,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: pcm512x: Fix unbalanced regulator enable call in probe error path
+   ASoC: SOF: Intel: hda: allow operation without i915 gfx
 
 has been applied to the asoc tree at
 
@@ -91,50 +93,131 @@ to this mail.
 Thanks,
 Mark
 
-From ac0a68997935c4acb92eaae5ad8982e0bb432d56 Mon Sep 17 00:00:00 2001
-From: Matthias Reichl <hias@horus.com>
-Date: Thu, 20 Feb 2020 21:29:56 +0100
-Subject: [PATCH] ASoC: pcm512x: Fix unbalanced regulator enable call in probe
- error path
+From 71cc8abb6ec705ce4efbb54e401004687d40a641 Mon Sep 17 00:00:00 2001
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Date: Thu, 20 Feb 2020 19:10:28 +0200
+Subject: [PATCH] ASoC: SOF: Intel: hda: allow operation without i915 gfx
 
-When we get a clock error during probe we have to call
-regulator_bulk_disable before bailing out, otherwise we trigger
-a warning in regulator_put.
+Add support to configure the HDA controller with an external HDA
+codec even if iDisp codec in i915 is not available.
 
-Fix this by using "goto err" like in the error cases above.
+This can happen for multiple reasons:
+ - internal graphics is disabled on the system
+ - i915 driver is not enabled in kernel or it fails to init
+ - i915 codec reports error in HDA codec probe
+ - HDA codec driver probe fails
 
-Fixes: 5a3af1293194d ("ASoC: pcm512x: Add PCM512x driver")
-Signed-off-by: Matthias Reichl <hias@horus.com>
+Address all these scenarios, but keep using the existing topology.
+In case failures occur, HDMI PCM nodes are created, but they will
+report error if application tries to use them. No ALSA mixer controls
+are created. If the external HDA codec init fails as well, SOF probe
+will return error as before.
+
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Link: https://lore.kernel.org/r/20200220202956.29233-1-hias@horus.com
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206085
+BugLink: https://bugzilla.opensuse.org/show_bug.cgi?id=1163677
+BugLink: https://github.com/thesofproject/linux/issues/1658
+Link: https://lore.kernel.org/r/20200220171028.22023-3-kai.vehmanen@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/pcm512x.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ sound/soc/sof/intel/hda-codec.c | 11 ++++++++++-
+ sound/soc/sof/intel/hda.c       | 22 ++++++++--------------
+ 2 files changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/sound/soc/codecs/pcm512x.c b/sound/soc/codecs/pcm512x.c
-index 861210f6bf4f..4cbef9affffd 100644
---- a/sound/soc/codecs/pcm512x.c
-+++ b/sound/soc/codecs/pcm512x.c
-@@ -1564,13 +1564,15 @@ int pcm512x_probe(struct device *dev, struct regmap *regmap)
- 	}
+diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
+index ff45075ef720..3041fbbb010a 100644
+--- a/sound/soc/sof/intel/hda-codec.c
++++ b/sound/soc/sof/intel/hda-codec.c
+@@ -113,8 +113,14 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
+ 	if (ret < 0)
+ 		return ret;
  
- 	pcm512x->sclk = devm_clk_get(dev, NULL);
--	if (PTR_ERR(pcm512x->sclk) == -EPROBE_DEFER)
--		return -EPROBE_DEFER;
-+	if (PTR_ERR(pcm512x->sclk) == -EPROBE_DEFER) {
-+		ret = -EPROBE_DEFER;
-+		goto err;
+-	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL)
++	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL) {
++		if (!hdev->bus->audio_component) {
++			dev_dbg(sdev->dev,
++				"iDisp hw present but no driver\n");
++			return -ENOENT;
++		}
+ 		hda_priv->need_display_power = true;
 +	}
- 	if (!IS_ERR(pcm512x->sclk)) {
- 		ret = clk_prepare_enable(pcm512x->sclk);
- 		if (ret != 0) {
- 			dev_err(dev, "Failed to enable SCLK: %d\n", ret);
--			return ret;
-+			goto err;
- 		}
+ 
+ 	/*
+ 	 * if common HDMI codec driver is not used, codec load
+@@ -203,6 +209,9 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev)
+ 	struct hdac_bus *bus = sof_to_bus(sdev);
+ 	int ret;
+ 
++	if (!bus->audio_component)
++		return 0;
++
+ 	/* power down unconditionally */
+ 	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
+ 
+diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
+index 726a9ef2d627..7ca887041a34 100644
+--- a/sound/soc/sof/intel/hda.c
++++ b/sound/soc/sof/intel/hda.c
+@@ -288,10 +288,8 @@ static int hda_init(struct snd_sof_dev *sdev)
+ 
+ 	/* init i915 and HDMI codecs */
+ 	ret = hda_codec_i915_init(sdev);
+-	if (ret < 0) {
+-		dev_err(sdev->dev, "error: init i915 and HDMI codec failed\n");
+-		return ret;
+-	}
++	if (ret < 0)
++		dev_warn(sdev->dev, "init of i915 and HDMI codec failed\n");
+ 
+ 	/* get controller capabilities */
+ 	ret = hda_dsp_ctrl_get_caps(sdev);
+@@ -365,9 +363,6 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 	if (ret < 0) {
+ 		dev_err(bus->dev, "error: init chip failed with ret: %d\n",
+ 			ret);
+-#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
+-		hda_codec_i915_exit(sdev);
+-#endif
+ 		return ret;
  	}
  
+@@ -379,7 +374,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
+ 	hda_codec_probe_bus(sdev, hda_codec_use_common_hdmi);
+ 
+ 	if (!HDA_IDISP_CODEC(bus->codec_mask))
+-		hda_codec_i915_exit(sdev);
++		hda_codec_i915_display_power(sdev, false);
+ 
+ 	/*
+ 	 * we are done probing so decrement link counts
+@@ -699,12 +694,11 @@ static int hda_generic_machine_select(struct snd_sof_dev *sdev)
+ 		/*
+ 		 * If no machine driver is found, then:
+ 		 *
+-		 * hda machine driver is used if :
+-		 * 1. there is one HDMI codec and one external HDAudio codec
+-		 * 2. only HDMI codec
++		 * generic hda machine driver can handle:
++		 *  - one HDMI codec, and/or
++		 *  - one external HDAudio codec
+ 		 */
+-		if (!pdata->machine && codec_num <= 2 &&
+-		    HDA_IDISP_CODEC(bus->codec_mask)) {
++		if (!pdata->machine && codec_num <= 2) {
+ 			hda_mach = snd_soc_acpi_intel_hda_machines;
+ 
+ 			/* topology: use the info from hda_machines */
+@@ -714,7 +708,7 @@ static int hda_generic_machine_select(struct snd_sof_dev *sdev)
+ 			dev_info(bus->dev, "using HDA machine driver %s now\n",
+ 				 hda_mach->drv_name);
+ 
+-			if (codec_num == 1)
++			if (codec_num == 1 && HDA_IDISP_CODEC(bus->codec_mask))
+ 				idisp_str = "-idisp";
+ 			else
+ 				idisp_str = "";
 -- 
 2.20.1
 

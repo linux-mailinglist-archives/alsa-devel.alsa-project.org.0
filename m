@@ -2,80 +2,148 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 148B91666B3
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 19:56:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CA9461666A4
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 19:51:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9782516EE;
-	Thu, 20 Feb 2020 19:55:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9782516EE
+	by alsa0.perex.cz (Postfix) with ESMTPS id 728F916E2;
+	Thu, 20 Feb 2020 19:50:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 728F916E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582224984;
-	bh=JKqp95SvPECvQkNqL69x6n+3vvEms1ZNM/w7nhbS23E=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=KqDcdsLhgh4erQTI+eCzK9CSy7fw6K00575fhwqkqQRxuiudy+IhCpmq0bmbO4LGq
-	 FDQqyp2gMUfo9ZaF1cCvzrq/FRtUOxje7WEpFV3WucrVBrUk5pEcpTNQNuvKKE/46W
-	 5lxIP5mVLquiirThVNlDieqZW0kDdlcsNNr5Q+0M=
+	s=default; t=1582224698;
+	bh=JRafAys5M0P+NT+rP1wtIPumBMCD+ft+NL7NYtGYopw=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=eRK7mpOiq7bPBQL+pyKnr8PC25js4KrklgTsQDXn5bK512Otav4nMYqNy0xh1+jKK
+	 UELtFztkEgioHlo/f96J2aObxU1jkJkIoQgdMlRajbYTfKmP05cE/6Ev2tZzogfeW8
+	 P4eXK0ZX319jcnmZPN19pZQtF7KKBTGn7dE3atok=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C2E8CF8014A;
-	Thu, 20 Feb 2020 19:54:43 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6ECC3F80145;
+	Thu, 20 Feb 2020 19:49:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 08514F80148; Thu, 20 Feb 2020 19:54:42 +0100 (CET)
+ id 82C92F8014A; Thu, 20 Feb 2020 19:49:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS autolearn=disabled version=3.4.0
+Received: from gateway36.websitewelcome.com (gateway36.websitewelcome.com
+ [192.185.200.11])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 66D35F80114
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 19:54:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66D35F80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id 672C3F80101
+ for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 19:49:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 672C3F80101
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="P7+C4UiQ"
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01KIsafT124931;
- Thu, 20 Feb 2020 12:54:36 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1582224876;
- bh=wEEg/7za58pz0OaOTo3rUQEadWNihDSZlnn0QWWoCnM=;
- h=From:To:CC:Subject:Date;
- b=P7+C4UiQDFiF1OIOZUGBuLjv8kT+nRqJgYvEb0sk8E0J9rbFr139HY6dLIPk2zEo+
- s0YmzvOcprfpjSiDhpwJu2b681WGZQTU7kcuNv389Q8T0LAqWaqoUBHrtg98XoGr9N
- 98N3XAOc3qv5HsgPurzax+iae2D0PWm2Vxaw6asg=
-Received: from DFLE109.ent.ti.com (dfle109.ent.ti.com [10.64.6.30])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01KIsaR6062873
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 20 Feb 2020 12:54:36 -0600
-Received: from DFLE100.ent.ti.com (10.64.6.21) by DFLE109.ent.ti.com
- (10.64.6.30) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Thu, 20
- Feb 2020 12:54:36 -0600
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DFLE100.ent.ti.com
- (10.64.6.21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Thu, 20 Feb 2020 12:54:36 -0600
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01KIsamG100034;
- Thu, 20 Feb 2020 12:54:36 -0600
-From: Dan Murphy <dmurphy@ti.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [PATCH v2] ASoC: tas2562: Add support for digital volume control
-Date: Thu, 20 Feb 2020 12:49:30 -0600
-Message-ID: <20200220184930.21543-1-dmurphy@ti.com>
-X-Mailer: git-send-email 2.25.0
+ dkim=pass (2048-bit key) header.d=embeddedor.com header.i=@embeddedor.com
+ header.b="Ld5Ine+r"
+Received: from cm12.websitewelcome.com (cm12.websitewelcome.com [100.42.49.8])
+ by gateway36.websitewelcome.com (Postfix) with ESMTP id B954E406E4395
+ for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 12:04:16 -0600 (CST)
+Received: from gator4166.hostgator.com ([108.167.133.22]) by cmsmtp with SMTP
+ id 4qtOj3maLvBMd4qtOj0pja; Thu, 20 Feb 2020 12:49:46 -0600
+X-Authority-Reason: nr=8
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=embeddedor.com; s=default; h=Content-Transfer-Encoding:Content-Type:
+ In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:Subject:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=PnLsEqamYFnwPbyA+qZ1KnpcmCRc//6WuQIrgN7JSCQ=; b=Ld5Ine+r9BZgpBfcbRzAXZJhmp
+ z0Edazyx0kgb5CI2Hf73fft01NkD96q0rZhnsJ2ioPJUaoKSAj7VIHQo0CAJaWSiyhvWMOLNRbzzC
+ 6hS1PUah1nbdG8FZLpBg9l3DRcXuz6ZoeYxnaKhS7J3pc3gy3Ocbz5rR1rVRZX+OAmq7J6SQv1IfG
+ Re26YxmVUp3AURPhx+qYoL5HFRGNZBq03FHDXOOVUkyX0dIKrGWINMo5sMD3xTK6dNaat+Rej3B5l
+ yTMy5hL45DzakdQeRcKwjhuJCJoUz8TBXBy5DEh9dneoKHrruPOpXle4956cl8k3ys6cQcPQLu736
+ Q2ZFHtQQ==;
+Received: from [201.144.174.47] (port=26561 helo=[192.168.43.131])
+ by gator4166.hostgator.com with esmtpsa
+ (TLSv1.2:ECDHE-RSA-AES128-GCM-SHA256:128) (Exim 4.92)
+ (envelope-from <gustavo@embeddedor.com>)
+ id 1j4qtO-0023aV-8A; Thu, 20 Feb 2020 12:49:46 -0600
+Subject: Re: [PATCH] sound: Replace zero-length array with flexible-array
+ member
+To: Mark Brown <broonie@kernel.org>
+References: <20200220132420.GA29765@embeddedor>
+ <20200220184544.GG3926@sirena.org.uk>
+From: "Gustavo A. R. Silva" <gustavo@embeddedor.com>
+Autocrypt: addr=gustavo@embeddedor.com; keydata=
+ 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
+ VtSixD1uOgytAP7RWS474w==
+Message-ID: <5ad38fde-5878-0c44-bc67-968328f743cb@embeddedor.com>
+Date: Thu, 20 Feb 2020 12:52:28 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Dan Murphy <dmurphy@ti.com>
+In-Reply-To: <20200220184544.GG3926@sirena.org.uk>
+Content-Type: text/plain; charset=windows-1252
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - gator4166.hostgator.com
+X-AntiAbuse: Original Domain - alsa-project.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - embeddedor.com
+X-BWhitelist: no
+X-Source-IP: 201.144.174.47
+X-Source-L: No
+X-Exim-ID: 1j4qtO-0023aV-8A
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: ([192.168.43.131]) [201.144.174.47]:26561
+X-Source-Auth: gustavo@embeddedor.com
+X-Email-Count: 15
+X-Source-Cap: Z3V6aWRpbmU7Z3V6aWRpbmU7Z2F0b3I0MTY2Lmhvc3RnYXRvci5jb20=
+X-Local-Domain: yes
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>, alsa-devel@alsa-project.org,
+ Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
+ Clemens Ladisch <clemens@ladisch.de>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,178 +159,19 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Add support for digital volume control.  There is no dedicated register
-for volume control but instead there are 4.  The values of the registers
-are determined with exponential floating point math.
-So a table was created with register values for 2dB step increments
-from -110dB to 0dB.
 
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
----
 
-v2 - Fix init values to lower volume CFG4 is the LSB and CFG1 is MSB
+On 2/20/20 12:45, Mark Brown wrote:
+> On Thu, Feb 20, 2020 at 07:24:20AM -0600, Gustavo A. R. Silva wrote:
+>> The current codebase makes use of the zero-length array language
+>> extension to the C90 standard, but the preferred mechanism to declare
+>> variable-length types such as these ones is a flexible array member[1][2],
+>> introduced in C99:
+> 
+> Acked-by: Mark Brown <broonie@kernel.org>
+> 
 
- sound/soc/codecs/tas2562.c | 94 ++++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/tas2562.h |  6 ++-
- 2 files changed, 98 insertions(+), 2 deletions(-)
+Thanks, Mark.
 
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index b2682c2360b6..92e4bf34b35c 100644
---- a/sound/soc/codecs/tas2562.c
-+++ b/sound/soc/codecs/tas2562.c
-@@ -26,6 +26,24 @@
- #define TAS2562_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S24_LE |\
- 			 SNDRV_PCM_FORMAT_S32_LE)
- 
-+/* DVC equation involves floating point math
-+ * round(10^(volume in dB/20)*2^30)
-+ * so create a lookup table for 2dB step
-+ */
-+static const unsigned int float_vol_db_lookup[] = {
-+0x00000d43, 0x000010b2, 0x00001505, 0x00001a67, 0x00002151,
-+0x000029f1, 0x000034cd, 0x00004279, 0x000053af, 0x0000695b,
-+0x0000695b, 0x0000a6fa, 0x0000d236, 0x000108a4, 0x00014d2a,
-+0x0001a36e, 0x00021008, 0x000298c0, 0x000344df, 0x00041d8f,
-+0x00052e5a, 0x000685c8, 0x00083621, 0x000a566d, 0x000d03a7,
-+0x0010624d, 0x0014a050, 0x0019f786, 0x0020b0bc, 0x0029279d,
-+0x0033cf8d, 0x004139d3, 0x00521d50, 0x00676044, 0x0082248a,
-+0x00a3d70a, 0x00ce4328, 0x0103ab3d, 0x0146e75d, 0x019b8c27,
-+0x02061b89, 0x028c423f, 0x03352529, 0x0409c2b0, 0x05156d68,
-+0x080e9f96, 0x0a24b062, 0x0cc509ab, 0x10137987, 0x143d1362,
-+0x197a967f, 0x2013739e, 0x28619ae9, 0x32d64617, 0x40000000
-+};
-+
- struct tas2562_data {
- 	struct snd_soc_component *component;
- 	struct gpio_desc *sdz_gpio;
-@@ -34,6 +52,7 @@ struct tas2562_data {
- 	struct i2c_client *client;
- 	int v_sense_slot;
- 	int i_sense_slot;
-+	int volume_lvl;
- };
- 
- static int tas2562_set_bias_level(struct snd_soc_component *component,
-@@ -334,6 +353,22 @@ static int tas2562_codec_probe(struct snd_soc_component *component)
- 	if (ret < 0)
- 		return ret;
- 
-+	/* Set the Digital volume to -110dB */
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG4, 0x43);
-+	if (ret)
-+		return ret;
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG3, 0x0d);
-+	if (ret)
-+		return ret;
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG2, 0x00);
-+	if (ret)
-+		return ret;
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG1, 0x00);
-+	if (ret)
-+		return ret;
-+
-+	tas2562->volume_lvl = 0;
-+
- 	return 0;
- }
- 
-@@ -414,6 +449,50 @@ static int tas2562_dac_event(struct snd_soc_dapm_widget *w,
- 	return 0;
- }
- 
-+static int tas2562_volume_control_get(struct snd_kcontrol *kcontrol,
-+				      struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+
-+	ucontrol->value.integer.value[0] = tas2562->volume_lvl;
-+	return 0;
-+}
-+
-+static int tas2562_volume_control_put(struct snd_kcontrol *kcontrol,
-+				      struct snd_ctl_elem_value *ucontrol)
-+{
-+	struct snd_soc_component *component = snd_soc_kcontrol_component(kcontrol);
-+	struct tas2562_data *tas2562 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+	u32 reg_val;
-+
-+	reg_val = float_vol_db_lookup[ucontrol->value.integer.value[0]/2];
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG4,
-+				      (reg_val & 0xff));
-+	if (ret)
-+		return ret;
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG3,
-+				      ((reg_val >> 8) & 0xff));
-+	if (ret)
-+		return ret;
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG2,
-+				      ((reg_val >> 16) & 0xff));
-+	if (ret)
-+		return ret;
-+	ret = snd_soc_component_write(component, TAS2562_DVC_CFG1,
-+				      ((reg_val >> 24) & 0xff));
-+	if (ret)
-+		return ret;
-+
-+	tas2562->volume_lvl = ucontrol->value.integer.value[0];
-+
-+	return ret;
-+}
-+
-+/* Digital Volume Control. From 0 dB to -110 dB in 1 dB steps */
-+static const DECLARE_TLV_DB_SCALE(dvc_tlv, -11000, 100, 0);
-+
- static DECLARE_TLV_DB_SCALE(tas2562_dac_tlv, 850, 50, 0);
- 
- static const struct snd_kcontrol_new isense_switch =
-@@ -427,6 +506,17 @@ static const struct snd_kcontrol_new vsense_switch =
- static const struct snd_kcontrol_new tas2562_snd_controls[] = {
- 	SOC_SINGLE_TLV("Amp Gain Volume", TAS2562_PB_CFG1, 0, 0x1c, 0,
- 		       tas2562_dac_tlv),
-+	{
-+		.iface = SNDRV_CTL_ELEM_IFACE_MIXER,
-+		.name = "Digital Volume Control",
-+		.index = 0,
-+		.tlv.p = dvc_tlv,
-+		.access = SNDRV_CTL_ELEM_ACCESS_TLV_READ | SNDRV_CTL_ELEM_ACCESS_READWRITE,
-+		.info = snd_soc_info_volsw,
-+		.get = tas2562_volume_control_get,
-+		.put = tas2562_volume_control_put,
-+		.private_value = SOC_SINGLE_VALUE(TAS2562_DVC_CFG1, 0, 110, 0, 0) ,
-+	},
- };
- 
- static const struct snd_soc_dapm_widget tas2562_dapm_widgets[] = {
-@@ -517,6 +607,10 @@ static const struct reg_default tas2562_reg_defaults[] = {
- 	{ TAS2562_PB_CFG1, 0x20 },
- 	{ TAS2562_TDM_CFG0, 0x09 },
- 	{ TAS2562_TDM_CFG1, 0x02 },
-+	{ TAS2562_DVC_CFG1, 0x40 },
-+	{ TAS2562_DVC_CFG2, 0x40 },
-+	{ TAS2562_DVC_CFG3, 0x00 },
-+	{ TAS2562_DVC_CFG4, 0x00 },
- };
- 
- static const struct regmap_config tas2562_regmap_config = {
-diff --git a/sound/soc/codecs/tas2562.h b/sound/soc/codecs/tas2562.h
-index 6f55ebcf19ea..28e75fc431d0 100644
---- a/sound/soc/codecs/tas2562.h
-+++ b/sound/soc/codecs/tas2562.h
-@@ -35,8 +35,10 @@
- #define TAS2562_REV_ID		TAS2562_REG(0, 0x7d)
- 
- /* Page 2 */
--#define TAS2562_DVC_CFG1	TAS2562_REG(2, 0x01)
--#define TAS2562_DVC_CFG2	TAS2562_REG(2, 0x02)
-+#define TAS2562_DVC_CFG1	TAS2562_REG(2, 0x0c)
-+#define TAS2562_DVC_CFG2	TAS2562_REG(2, 0x0d)
-+#define TAS2562_DVC_CFG3	TAS2562_REG(2, 0x0e)
-+#define TAS2562_DVC_CFG4	TAS2562_REG(2, 0x0f)
- 
- #define TAS2562_RESET	BIT(0)
- 
--- 
-2.25.0
-
+--
+Gustavo

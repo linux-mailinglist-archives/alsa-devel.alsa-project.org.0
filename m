@@ -2,60 +2,57 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F7B3165D29
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 13:01:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 333B5165DE8
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 13:53:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 17F2A16A9;
-	Thu, 20 Feb 2020 13:00:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17F2A16A9
+	by alsa0.perex.cz (Postfix) with ESMTPS id 87E3516A4;
+	Thu, 20 Feb 2020 13:53:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87E3516A4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582200092;
-	bh=DgIDC6AkM6u7D6TFw5trf2GMUZytPlcHAL4yQI7PLyw=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LwGkPz3wQv8FE3RDDS3l6e2ALvJyezPIawASRr1NW9ociFjojKUSk2VilVoeJ4wTi
-	 cEaY856NxjOdHZRpvg1kGHcjiVwEMWWWZr0Vr66XwKOIfsqX4Yd834oACY9Rg2IIao
-	 DMxMj+hqzXYq9sircy4QqyUARc7ab5uWH5Dru7wA=
+	s=default; t=1582203234;
+	bh=UCXHpee8Fe2ZRHRCrRayNd1qvPurIX7DGHc7PK+7MJU=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=kswstwEZtmcvBbcVh47ziABTPGbkkvFirGMgVZoPCSd0bZrVfJ9gMVWaJiVxyGn/R
+	 jb825xrkOTduv0wFU6jmZ/FRkgdJ9XRZtk3u8zDuvIDrBFHDwLfC1QkkFLpCsYjOo+
+	 sq40zhUDhgyAc1fttG9pRNaxo34DYvP/3/8R4MgQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 316A5F80101;
-	Thu, 20 Feb 2020 12:59:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9C411F8011D;
+	Thu, 20 Feb 2020 13:52:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1E5FDF80148; Thu, 20 Feb 2020 12:59:48 +0100 (CET)
+ id 02296F8014A; Thu, 20 Feb 2020 13:52:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 9658DF80114
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 12:59:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9658DF80114
+ by alsa1.perex.cz (Postfix) with ESMTP id 55DF3F80114
+ for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 13:52:05 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55DF3F80114
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6AC9630E;
- Thu, 20 Feb 2020 03:59:43 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 038ED31B;
+ Thu, 20 Feb 2020 04:52:04 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E0F503F6CF;
- Thu, 20 Feb 2020 03:59:42 -0800 (PST)
-Date: Thu, 20 Feb 2020 11:59:41 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 79AA03F703;
+ Thu, 20 Feb 2020 04:52:03 -0800 (PST)
+Date: Thu, 20 Feb 2020 12:52:01 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Dan Murphy <dmurphy@ti.com>
-Subject: Re: [RFC] Volume control across multiple registers
-Message-ID: <20200220115941.GB3926@sirena.org.uk>
-References: <20200219134622.22066-1-dmurphy@ti.com>
- <2f74b971-4a6a-016f-8121-4da941eeccef@ti.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="XF85m9dhOBO43t/C"
-Content-Disposition: inline
-In-Reply-To: <2f74b971-4a6a-016f-8121-4da941eeccef@ti.com>
-X-Cookie: You are number 6!  Who is number one?
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com
+To: Jerome Brunet <jbrunet@baylibre.com>
+Subject: Applied "ASoC: dpcm: remove confusing trace in dpcm_get_be()" to the
+ asoc tree
+In-Reply-To: <20200219115048.934678-1-jbrunet@baylibre.com>
+Message-Id: <applied-20200219115048.934678-1-jbrunet@baylibre.com>
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-kernel@vger.kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,34 +68,73 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---XF85m9dhOBO43t/C
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+   ASoC: dpcm: remove confusing trace in dpcm_get_be()
 
-On Wed, Feb 19, 2020 at 03:11:47PM -0600, Dan Murphy wrote:
+has been applied to the asoc tree at
 
-> I was looking at using the DAPM calls and use PGA_E and define an event but
-> there really is no good way to get the current volume setting.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
-Store it in a variable in the driver's private data (there's a number of
-examples of doing that for various controls, the process doesn't change
-just because it's a volume), or if you've got a register cache it could
-be just as easy to do the register reads and combine the values.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
---XF85m9dhOBO43t/C
-Content-Type: application/pgp-signature; name="signature.asc"
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
------BEGIN PGP SIGNATURE-----
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5OdKwACgkQJNaLcl1U
-h9A0RAf/W6cdjwyRlUnVVDMRW9E8OYU778ZcT/8O3eYOjfj3OliJKZes2TIivLM8
-FdRFixhp7U/o0zx3SRlCj4NcwGh5JNXGp5NU26NhEwUlB4WrvGEZJboN4cNTd42z
-woKw/OgNgoBjaB79q4OWG8ms8/Wos+Pf2Kft4ihHoAGYfL4udV2CAbcwf0zvfjaU
-gI3vDSEwT3C4PIRmwumO2AVW6/23YBuJA8ftoD2hzZPw9xwImpNHayXHKYo3arwO
-0hwIF6njdvkMHjTjkrJSPwdcbiRU1AIYTbuFkq0A63tVzVueEn0UKlRAMKDDUX2s
-A92V04yL3sc7xYYS2OxKi6O3fkGciQ==
-=tSQZ
------END PGP SIGNATURE-----
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
---XF85m9dhOBO43t/C--
+Thanks,
+Mark
+
+From 9d6ee3656a9fbfe906be5ce6f828f1639da1ee7f Mon Sep 17 00:00:00 2001
+From: Jerome Brunet <jbrunet@baylibre.com>
+Date: Wed, 19 Feb 2020 12:50:48 +0100
+Subject: [PATCH] ASoC: dpcm: remove confusing trace in dpcm_get_be()
+
+Now that dpcm_get_be() is used in dpcm_end_walk_at_be(), it is not a error
+if this function does not find a BE for the provided widget. Remove the
+related dev_err() trace which is confusing since things might be working
+as expected.
+
+When called from dpcm_add_paths(), it is an error if dpcm_get_be() fails to
+find a BE for the provided widget. The necessary error trace is already
+done in this case.
+
+Fixes: 027a48387183 ("ASoC: soc-pcm: use dpcm_get_be() at dpcm_end_walk_at_be()")
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Link: https://lore.kernel.org/r/20200219115048.934678-1-jbrunet@baylibre.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/soc-pcm.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 63f67eb7c077..aff27c8599ef 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -1270,9 +1270,7 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
+ 		}
+ 	}
+ 
+-	/* dai link name and stream name set correctly ? */
+-	dev_err(card->dev, "ASoC: can't get %s BE for %s\n",
+-		stream ? "capture" : "playback", widget->name);
++	/* Widget provided is not a BE */
+ 	return NULL;
+ }
+ 
+-- 
+2.20.1
+

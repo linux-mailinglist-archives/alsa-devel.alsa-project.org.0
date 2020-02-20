@@ -2,57 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 333B5165DE8
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 13:53:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EACCC165DE9
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 13:54:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 87E3516A4;
-	Thu, 20 Feb 2020 13:53:04 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 87E3516A4
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9285C16A3;
+	Thu, 20 Feb 2020 13:53:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9285C16A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582203234;
-	bh=UCXHpee8Fe2ZRHRCrRayNd1qvPurIX7DGHc7PK+7MJU=;
+	s=default; t=1582203278;
+	bh=z9nOf1oU0xYTu/GFyQReJSfFTx4y9SLQPKyNDDGJufk=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=kswstwEZtmcvBbcVh47ziABTPGbkkvFirGMgVZoPCSd0bZrVfJ9gMVWaJiVxyGn/R
-	 jb825xrkOTduv0wFU6jmZ/FRkgdJ9XRZtk3u8zDuvIDrBFHDwLfC1QkkFLpCsYjOo+
-	 sq40zhUDhgyAc1fttG9pRNaxo34DYvP/3/8R4MgQ=
+	b=KLHEwiuArScX/Sisr1bPRWXbQCqtNavAtoCqfBcdqVOkIT1RjoDKyLC+p95bVx7Jt
+	 H+oSiEr0+JnmDOu8vmhxrOt9OSSW0CVH6AGi4resBs5vOf1NAM9nSAeO1BSZpVfLh1
+	 XLseLZrJs11FpvjGs0CKG8ogtbVZ3tBvabx0Rqwk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9C411F8011D;
-	Thu, 20 Feb 2020 13:52:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id B8AF7F80145;
+	Thu, 20 Feb 2020 13:52:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02296F8014A; Thu, 20 Feb 2020 13:52:11 +0100 (CET)
+ id 5326FF8011D; Thu, 20 Feb 2020 13:52:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 55DF3F80114
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 13:52:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 55DF3F80114
+ by alsa1.perex.cz (Postfix) with ESMTP id 9260CF8011D
+ for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 13:52:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9260CF8011D
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 038ED31B;
- Thu, 20 Feb 2020 04:52:04 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2968D31B;
+ Thu, 20 Feb 2020 04:52:09 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 79AA03F703;
- Thu, 20 Feb 2020 04:52:03 -0800 (PST)
-Date: Thu, 20 Feb 2020 12:52:01 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id A257B3F703;
+ Thu, 20 Feb 2020 04:52:08 -0800 (PST)
+Date: Thu, 20 Feb 2020 12:52:07 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Subject: Applied "ASoC: dpcm: remove confusing trace in dpcm_get_be()" to the
- asoc tree
-In-Reply-To: <20200219115048.934678-1-jbrunet@baylibre.com>
-Message-Id: <applied-20200219115048.934678-1-jbrunet@baylibre.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Applied "ASoC: soc-core: fix for_rtd_codec_dai_rollback() macro" to
+ the asoc tree
+In-Reply-To: <20200219222130.29933-1-pierre-louis.bossart@linux.intel.com>
+Message-Id: <applied-20200219222130.29933-1-pierre-louis.bossart@linux.intel.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- linux-kernel@vger.kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: dpcm: remove confusing trace in dpcm_get_be()
+   ASoC: soc-core: fix for_rtd_codec_dai_rollback() macro
 
 has been applied to the asoc tree at
 
@@ -95,45 +92,36 @@ to this mail.
 Thanks,
 Mark
 
-From 9d6ee3656a9fbfe906be5ce6f828f1639da1ee7f Mon Sep 17 00:00:00 2001
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Wed, 19 Feb 2020 12:50:48 +0100
-Subject: [PATCH] ASoC: dpcm: remove confusing trace in dpcm_get_be()
+From 63d68382f5fb5f71772357e31841c19c4a133182 Mon Sep 17 00:00:00 2001
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Date: Wed, 19 Feb 2020 16:21:30 -0600
+Subject: [PATCH] ASoC: soc-core: fix for_rtd_codec_dai_rollback() macro
 
-Now that dpcm_get_be() is used in dpcm_end_walk_at_be(), it is not a error
-if this function does not find a BE for the provided widget. Remove the
-related dev_err() trace which is confusing since things might be working
-as expected.
+The use of parentheses to protect the argument is fine for (i)++ but
+not for (--i).
 
-When called from dpcm_add_paths(), it is an error if dpcm_get_be() fails to
-find a BE for the provided widget. The necessary error trace is already
-done in this case.
-
-Fixes: 027a48387183 ("ASoC: soc-pcm: use dpcm_get_be() at dpcm_end_walk_at_be()")
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Tested-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Fixes: 83f94a2e293d61 ("ASoC: soc-core: add snd_soc_close_delayed_work()")
+Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/20200219115048.934678-1-jbrunet@baylibre.com
+Link: https://lore.kernel.org/r/20200219222130.29933-1-pierre-louis.bossart@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-pcm.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ include/sound/soc.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 63f67eb7c077..aff27c8599ef 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -1270,9 +1270,7 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
- 		}
- 	}
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index f0e4f36f83bf..8a2266676b2d 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -1157,7 +1157,7 @@ struct snd_soc_pcm_runtime {
+ 	     ((i) < rtd->num_codecs) && ((dai) = rtd->codec_dais[i]); \
+ 	     (i)++)
+ #define for_each_rtd_codec_dai_rollback(rtd, i, dai)		\
+-	for (; ((--i) >= 0) && ((dai) = rtd->codec_dais[i]);)
++	for (; (--(i) >= 0) && ((dai) = rtd->codec_dais[i]);)
  
--	/* dai link name and stream name set correctly ? */
--	dev_err(card->dev, "ASoC: can't get %s BE for %s\n",
--		stream ? "capture" : "playback", widget->name);
-+	/* Widget provided is not a BE */
- 	return NULL;
- }
+ void snd_soc_close_delayed_work(struct snd_soc_pcm_runtime *rtd);
  
 -- 
 2.20.1

@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDE16166A48
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 23:22:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46E93166A4A
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 23:22:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 798DD16C7;
-	Thu, 20 Feb 2020 23:21:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 798DD16C7
+	by alsa0.perex.cz (Postfix) with ESMTPS id E186916B9;
+	Thu, 20 Feb 2020 23:21:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E186916B9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582237329;
-	bh=+zKm1tUdGSsvuH3shu5fP3OUFzb9BuzSM3WNQ6rDguo=;
+	s=default; t=1582237369;
+	bh=YtwERpCS4cVj4E0w5pdDcFpSHIwe04dw8BHBMDjNxcM=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=miIiXXl4t3orHNdccAmVAJ1SfLY4WN32krEQ66S50gHgUUO/th9Grabd2u6IKfqhf
-	 RltlhN3YFiOalPmA0sebOkSPYrQULyus2dGYX2/MZg2y8UYDoTXIlvEGlk+unwEcqx
-	 PumAmIBMQiETCooENPCpTLsft50JYIithqo0+P/I=
+	b=jVVGj4a2brUJAkgESdS2no0zSr1lg//6JOklCoX3U1E9l15/sPclTFj1wvAGsKjTc
+	 V9rmPzauUy7d6VaiJM+DoBl4I9+C1B8Xd/9uARpUiKTb8knOS41v+Cn/bI1I8UCXWb
+	 eoQBbm7ldah5cNODDdD4+yvIpe9C1H90c7xH5KH4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DCF86F8029A;
-	Thu, 20 Feb 2020 23:18:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DA951F80299;
+	Thu, 20 Feb 2020 23:18:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 96272F80299; Thu, 20 Feb 2020 23:18:50 +0100 (CET)
+ id 01D89F802A1; Thu, 20 Feb 2020 23:18:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 9A748F80290
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 23:18:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9A748F80290
+ by alsa1.perex.cz (Postfix) with ESMTP id 0E3C7F80299
+ for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 23:18:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0E3C7F80299
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 523BC1045;
- Thu, 20 Feb 2020 14:18:46 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0A2BC1063;
+ Thu, 20 Feb 2020 14:18:51 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA1763F6CF;
- Thu, 20 Feb 2020 14:18:45 -0800 (PST)
-Date: Thu, 20 Feb 2020 22:18:44 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74A7F3F6CF;
+ Thu, 20 Feb 2020 14:18:50 -0800 (PST)
+Date: Thu, 20 Feb 2020 22:18:48 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Subject: Applied "ASoC: SOF: Intel: hda: allow operation without i915 gfx" to
- the asoc tree
-In-Reply-To: <20200220171028.22023-3-kai.vehmanen@linux.intel.com>
-Message-Id: <applied-20200220171028.22023-3-kai.vehmanen@linux.intel.com>
+Subject: Applied "ASoC: intel/skl/hda - add no-HDMI cases to generic HDA
+ driver" to the asoc tree
+In-Reply-To: <20200220171028.22023-2-kai.vehmanen@linux.intel.com>
+Message-Id: <applied-20200220171028.22023-2-kai.vehmanen@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: alsa-devel@alsa-project.org, kai.vehmanen@linux.intel.com, tiwai@suse.de,
  pierre-louis.bossart@linux.intel.com, ranjani.sridharan@linux.intel.com,
@@ -68,7 +68,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: SOF: Intel: hda: allow operation without i915 gfx
+   ASoC: intel/skl/hda - add no-HDMI cases to generic HDA driver
 
 has been applied to the asoc tree at
 
@@ -93,25 +93,15 @@ to this mail.
 Thanks,
 Mark
 
-From 71cc8abb6ec705ce4efbb54e401004687d40a641 Mon Sep 17 00:00:00 2001
+From d2ad9d6ca5b2435754a0fd811f57d30914c612ce Mon Sep 17 00:00:00 2001
 From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Date: Thu, 20 Feb 2020 19:10:28 +0200
-Subject: [PATCH] ASoC: SOF: Intel: hda: allow operation without i915 gfx
+Date: Thu, 20 Feb 2020 19:10:27 +0200
+Subject: [PATCH] ASoC: intel/skl/hda - add no-HDMI cases to generic HDA driver
 
-Add support to configure the HDA controller with an external HDA
-codec even if iDisp codec in i915 is not available.
-
-This can happen for multiple reasons:
- - internal graphics is disabled on the system
- - i915 driver is not enabled in kernel or it fails to init
- - i915 codec reports error in HDA codec probe
- - HDA codec driver probe fails
-
-Address all these scenarios, but keep using the existing topology.
-In case failures occur, HDMI PCM nodes are created, but they will
-report error if application tries to use them. No ALSA mixer controls
-are created. If the external HDA codec init fails as well, SOF probe
-will return error as before.
+Extend the generic HDA driver to support systems where iDisp/HDMI
+audio codecs are disabled for some reason. Switch codecs to
+SoC dummy in the affected DAI links. This allows to reuse
+existing topologies for this case.
 
 Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
@@ -119,105 +109,87 @@ Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 BugLink: https://bugzilla.kernel.org/show_bug.cgi?id=206085
 BugLink: https://bugzilla.opensuse.org/show_bug.cgi?id=1163677
 BugLink: https://github.com/thesofproject/linux/issues/1658
-Link: https://lore.kernel.org/r/20200220171028.22023-3-kai.vehmanen@linux.intel.com
+Link: https://lore.kernel.org/r/20200220171028.22023-2-kai.vehmanen@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/sof/intel/hda-codec.c | 11 ++++++++++-
- sound/soc/sof/intel/hda.c       | 22 ++++++++--------------
- 2 files changed, 18 insertions(+), 15 deletions(-)
+ sound/soc/intel/boards/skl_hda_dsp_common.h  |  4 ++++
+ sound/soc/intel/boards/skl_hda_dsp_generic.c | 25 ++++++++++++++++----
+ 2 files changed, 24 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/sof/intel/hda-codec.c b/sound/soc/sof/intel/hda-codec.c
-index ff45075ef720..3041fbbb010a 100644
---- a/sound/soc/sof/intel/hda-codec.c
-+++ b/sound/soc/sof/intel/hda-codec.c
-@@ -113,8 +113,14 @@ static int hda_codec_probe(struct snd_sof_dev *sdev, int address,
- 	if (ret < 0)
- 		return ret;
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_common.h b/sound/soc/intel/boards/skl_hda_dsp_common.h
+index d6150670ca05..e8545d13062f 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_common.h
++++ b/sound/soc/intel/boards/skl_hda_dsp_common.h
+@@ -49,6 +49,10 @@ static inline int skl_hda_hdmi_build_controls(struct snd_soc_card *card)
+ 	struct snd_soc_component *component;
+ 	struct skl_hda_hdmi_pcm *pcm;
  
--	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL)
-+	if ((resp & 0xFFFF0000) == IDISP_VID_INTEL) {
-+		if (!hdev->bus->audio_component) {
-+			dev_dbg(sdev->dev,
-+				"iDisp hw present but no driver\n");
-+			return -ENOENT;
-+		}
- 		hda_priv->need_display_power = true;
-+	}
- 
- 	/*
- 	 * if common HDMI codec driver is not used, codec load
-@@ -203,6 +209,9 @@ int hda_codec_i915_exit(struct snd_sof_dev *sdev)
- 	struct hdac_bus *bus = sof_to_bus(sdev);
- 	int ret;
- 
-+	if (!bus->audio_component)
++	/* HDMI disabled, do not create controls */
++	if (list_empty(&ctx->hdmi_pcm_list))
 +		return 0;
 +
- 	/* power down unconditionally */
- 	snd_hdac_display_power(bus, HDA_CODEC_IDX_CONTROLLER, false);
+ 	pcm = list_first_entry(&ctx->hdmi_pcm_list, struct skl_hda_hdmi_pcm,
+ 			       head);
+ 	component = pcm->codec_dai->component;
+diff --git a/sound/soc/intel/boards/skl_hda_dsp_generic.c b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+index 11eaee9ae41f..fe2d3a23a4ef 100644
+--- a/sound/soc/intel/boards/skl_hda_dsp_generic.c
++++ b/sound/soc/intel/boards/skl_hda_dsp_generic.c
+@@ -61,6 +61,9 @@ static const struct snd_soc_dapm_route skl_hda_map[] = {
+ 	{ "Alt Analog CPU Capture", NULL, "Alt Analog Codec Capture" },
+ };
  
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 726a9ef2d627..7ca887041a34 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -288,10 +288,8 @@ static int hda_init(struct snd_sof_dev *sdev)
++SND_SOC_DAILINK_DEF(dummy_codec,
++	DAILINK_COMP_ARRAY(COMP_CODEC("snd-soc-dummy", "snd-soc-dummy-dai")));
++
+ static int skl_hda_card_late_probe(struct snd_soc_card *card)
+ {
+ 	return skl_hda_hdmi_jack_init(card);
+@@ -114,13 +117,19 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
+ {
+ 	struct snd_soc_card *card = &hda_soc_card;
+ 	struct snd_soc_dai_link *dai_link;
+-	u32 codec_count, codec_mask;
++	u32 codec_count, codec_mask, idisp_mask;
+ 	int i, num_links, num_route;
  
- 	/* init i915 and HDMI codecs */
- 	ret = hda_codec_i915_init(sdev);
--	if (ret < 0) {
--		dev_err(sdev->dev, "error: init i915 and HDMI codec failed\n");
--		return ret;
--	}
-+	if (ret < 0)
-+		dev_warn(sdev->dev, "init of i915 and HDMI codec failed\n");
+ 	codec_mask = mach_params->codec_mask;
+ 	codec_count = hweight_long(codec_mask);
++	idisp_mask = codec_mask & IDISP_CODEC_MASK;
++
++	if (!codec_count || codec_count > 2 ||
++	    (codec_count == 2 && !idisp_mask))
++		return -EINVAL;
  
- 	/* get controller capabilities */
- 	ret = hda_dsp_ctrl_get_caps(sdev);
-@@ -365,9 +363,6 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
- 	if (ret < 0) {
- 		dev_err(bus->dev, "error: init chip failed with ret: %d\n",
- 			ret);
--#if IS_ENABLED(CONFIG_SND_SOC_SOF_HDA)
--		hda_codec_i915_exit(sdev);
--#endif
- 		return ret;
+-	if (codec_count == 1 && codec_mask & IDISP_CODEC_MASK) {
++	if (codec_mask == idisp_mask) {
++		/* topology with iDisp as the only HDA codec */
+ 		num_links = IDISP_DAI_COUNT + DMIC_DAI_COUNT;
+ 		num_route = IDISP_ROUTE_COUNT;
+ 
+@@ -135,13 +144,19 @@ static int skl_hda_fill_card_info(struct snd_soc_acpi_mach_params *mach_params)
+ 				skl_hda_be_dai_links[IDISP_DAI_COUNT +
+ 					HDAC_DAI_COUNT + i];
+ 		}
+-	} else if (codec_count == 2 && codec_mask & IDISP_CODEC_MASK) {
++	} else {
++		/* topology with external and iDisp HDA codecs */
+ 		num_links = ARRAY_SIZE(skl_hda_be_dai_links);
+ 		num_route = ARRAY_SIZE(skl_hda_map);
+ 		card->dapm_widgets = skl_hda_widgets;
+ 		card->num_dapm_widgets = ARRAY_SIZE(skl_hda_widgets);
+-	} else {
+-		return -EINVAL;
++		if (!idisp_mask) {
++			for (i = 0; i < IDISP_DAI_COUNT; i++) {
++				skl_hda_be_dai_links[i].codecs = dummy_codec;
++				skl_hda_be_dai_links[i].num_codecs =
++					ARRAY_SIZE(dummy_codec);
++			}
++		}
  	}
  
-@@ -379,7 +374,7 @@ static int hda_init_caps(struct snd_sof_dev *sdev)
- 	hda_codec_probe_bus(sdev, hda_codec_use_common_hdmi);
- 
- 	if (!HDA_IDISP_CODEC(bus->codec_mask))
--		hda_codec_i915_exit(sdev);
-+		hda_codec_i915_display_power(sdev, false);
- 
- 	/*
- 	 * we are done probing so decrement link counts
-@@ -699,12 +694,11 @@ static int hda_generic_machine_select(struct snd_sof_dev *sdev)
- 		/*
- 		 * If no machine driver is found, then:
- 		 *
--		 * hda machine driver is used if :
--		 * 1. there is one HDMI codec and one external HDAudio codec
--		 * 2. only HDMI codec
-+		 * generic hda machine driver can handle:
-+		 *  - one HDMI codec, and/or
-+		 *  - one external HDAudio codec
- 		 */
--		if (!pdata->machine && codec_num <= 2 &&
--		    HDA_IDISP_CODEC(bus->codec_mask)) {
-+		if (!pdata->machine && codec_num <= 2) {
- 			hda_mach = snd_soc_acpi_intel_hda_machines;
- 
- 			/* topology: use the info from hda_machines */
-@@ -714,7 +708,7 @@ static int hda_generic_machine_select(struct snd_sof_dev *sdev)
- 			dev_info(bus->dev, "using HDA machine driver %s now\n",
- 				 hda_mach->drv_name);
- 
--			if (codec_num == 1)
-+			if (codec_num == 1 && HDA_IDISP_CODEC(bus->codec_mask))
- 				idisp_str = "-idisp";
- 			else
- 				idisp_str = "";
+ 	card->num_links = num_links;
 -- 
 2.20.1
 

@@ -2,81 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8230D16674E
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 20:40:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D125A16675A
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 20:42:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id F3B0816BC;
-	Thu, 20 Feb 2020 20:39:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz F3B0816BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 70E2016BA;
+	Thu, 20 Feb 2020 20:41:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 70E2016BA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582227649;
-	bh=IImhIpXQHLsVWHOTFfRjPqr3DNYlAfqdkTR10VY+v08=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
+	s=default; t=1582227758;
+	bh=ZF+yF3yQPqplRh3NGkt9AfosvVB37x7typbIEstBhrk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IfpgVjeg6nQ09ZT10dP7/QSD2DtDEdiFIbedKQYJg6hoY4sbVdlryq1vOYx6RTdIe
-	 kMorWbvxS/is08ULZy3ze6R5VgQS2hkqDcp1WuHfrGgQp700JTQYWJI+F9PBMt0RgK
-	 95TQh6qHoLm9UYleeLLrfhz9JyooHCSy0+P02MJc=
+	b=Sf7anQt8Ji1HhZrDWN4Q9Kf/Qva4aAXBMbflgWjPbfPXdsAK/DcgavQSCVnBhfzlc
+	 aPxv0cLA+TIbXFx+LJoW+ai4JLsxhRc0pPZf69Hj3l+mk1zbziOB38HsepWCjd4ng/
+	 rfMbiaKH19ArHtq9gpJVleRldKpSNCh6YOHQma3M=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1952AF8014A;
-	Thu, 20 Feb 2020 20:39:08 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A5A22F8014A;
+	Thu, 20 Feb 2020 20:40:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B60B1F80148; Thu, 20 Feb 2020 20:39:05 +0100 (CET)
+ id 15484F8014A; Thu, 20 Feb 2020 20:40:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A3CDBF80101
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 20:39:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A3CDBF80101
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="yexM5yuU"
-Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
- [209.85.222.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 8393924654
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 19:38:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1582227538;
- bh=IImhIpXQHLsVWHOTFfRjPqr3DNYlAfqdkTR10VY+v08=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=yexM5yuUfCHrhwQCWxbacWrejBJwLeYpC4gbEYNXidG5m7O5gIJKHk/a8FLE+few2
- IJJj3tBU5nRKpumEqIJi07lyB+1CpG9+0Kw18eAbxEszu9oZPMiEWFE2y9k6dyOMvN
- teJJ4C0NuI1YBa0uuXycY7pnBO71LRHZFwhWHCgI=
-Received: by mail-qk1-f176.google.com with SMTP id a2so4678699qko.12
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 11:38:58 -0800 (PST)
-X-Gm-Message-State: APjAAAVtpgazfWNxFYtAiPIyf8eSWTwRwlHGKiQNVom0ClX9Ishhieia
- 30OhbSZeP3wF7g35wskkt0NIt3Hvms+NhVz5sA==
-X-Google-Smtp-Source: APXvYqxK31PuR/mC2GifOubTB/mAdkh3PZjv+HTIqg9smA3ua/7xRkdCEU8fN2lAdCqevLlUfHaorEEVN8o3jWhflzE=
-X-Received: by 2002:a37:9d47:: with SMTP id g68mr24107540qke.119.1582227537683; 
- Thu, 20 Feb 2020 11:38:57 -0800 (PST)
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 306E5F80101
+ for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 20:40:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 306E5F80101
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4C38530E;
+ Thu, 20 Feb 2020 11:40:50 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B5DB73F6CF;
+ Thu, 20 Feb 2020 11:40:49 -0800 (PST)
+Date: Thu, 20 Feb 2020 19:40:48 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>
+Subject: Re: [PATCH] ASoC: tas2562: Add support for digital volume control
+Message-ID: <20200220194048.GI3926@sirena.org.uk>
+References: <20200220172721.10547-1-dmurphy@ti.com>
+ <20200220184507.GF3926@sirena.org.uk>
+ <de0e8a5b-8c2a-ee04-856f-f0d678a3c66b@ti.com>
+ <20200220191803.GH3926@sirena.org.uk>
+ <6f3ff810-5e75-cb33-10d6-198a7c5cd202@ti.com>
 MIME-Version: 1.0
-References: <87blq1zr8n.wl-kuninori.morimoto.gx@renesas.com>
- <20200219155808.GA25095@bogus>
- <871rqqt0nj.wl-kuninori.morimoto.gx@renesas.com>
-In-Reply-To: <871rqqt0nj.wl-kuninori.morimoto.gx@renesas.com>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 20 Feb 2020 13:38:46 -0600
-X-Gmail-Original-Message-ID: <CAL_JsqJJMNr6BWiw=Sv-nN8zQ=C+TrwFua0zWrMYJdxoNoZ09Q@mail.gmail.com>
-Message-ID: <CAL_JsqJJMNr6BWiw=Sv-nN8zQ=C+TrwFua0zWrMYJdxoNoZ09Q@mail.gmail.com>
-Subject: Re: [PATCH v2] ASoC: dt-bindings: simple-card: switch to yaml base
- Documentation
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Mark Brown <broonie@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="Op27XXJsWz80g3oF"
+Content-Disposition: inline
+In-Reply-To: <6f3ff810-5e75-cb33-10d6-198a7c5cd202@ti.com>
+X-Cookie: You are number 6!  Who is number one?
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,32 +74,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, Feb 19, 2020 at 9:09 PM Kuninori Morimoto
-<kuninori.morimoto.gx@renesas.com> wrote:
->
->
-> Hi Rob
->
-> > > From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > >
-> > > This patch switches from .txt base to .yaml base Document.
-> > >
-> > > Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> > > ---
-> (snip)
-> > > +  dai:
-> > > +    type: object
-> > > +    properties:
-> > > +      sound-dai:
-> > > +        $ref: /schemas/types.yaml#/definitions/phandle-array
-> >
-> > This should have a common definition elsewhere which I'd prefer be in
-> > the dtschema repo. You can just assume there is and do 'maxItems: 1'
-> > here assuming it's only 1.
->
-> I think dai and/or sound-dai are not common definition.
-> These are very simple-card specific property.
 
-Qcom platforms also use 'sound-dai' and they aren't simple-card.
+--Op27XXJsWz80g3oF
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Rob
+On Thu, Feb 20, 2020 at 01:22:34PM -0600, Dan Murphy wrote:
+> On 2/20/20 1:18 PM, Mark Brown wrote:
+
+> > decisions causing changes in the driver.  The system may have an
+> > external amplifier they prefer to use for hardware volume control, may
+> > prefer to do entirely soft volume control in their sound server or
+> > something like that.
+
+> But this is an amplifier.=A0 Not sure why the system designer would design
+> cascading amplifiers.
+
+> And if that was the case wouldn't you want the output to be low so you do=
+n't
+> overdrive the ext amplifier front end?
+
+The point is that we don't know what people are doing and should try to
+keep the kernel out of policy decisions unless there's something that's
+clearly just unconditionaly right for all systems.  It's a lot easier to
+just have a clear rule that we defer to the wisdom of the silicon vendor
+than try to get into defaults, and it's a lot easier to just do this as
+consistently as we can rather than debating individual configuration
+changes.
+
+> I was considering safety in that the device is on at full blast (not sure
+> why the HW is defaulted that way but it is).
+
+I bet there's been issues with people turning things on and not
+realising they need register writes to hear anything, and the volume
+control here is a bit complex as well.
+
+> But if volume is adjusted prior to playback then this is not an issue.=A0=
+ But
+> if volume is not adjusted then it plays full blast.
+
+Wouldn't be the first time.  See all the dual purpose headphone/line
+outputs that people build, sensible defaults for headphones and line
+outputs are rather different.
+
+--Op27XXJsWz80g3oF
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5O4L8ACgkQJNaLcl1U
+h9A7ywf/a70pEqcaoFyz44HUYWAA/C7/HptVOyj9BF7YOHzPCROQheZtAOnK/irB
+NQ/wVoUly0UK4lakCGKSiAOvpqJIQ0XTEWP8KYt/SnA8jTsehWTlJaOlDuotsnOw
+e3hQkhBz03kXfyuNO0VdGEbmIivWqb5rgzVykCYo0wS1qSYKFITdIKyK6uvLfDnX
+g0l/AQmep2hERqDbM0g+zi8vOtgabdblq2/q93zTwEJidA2C7dpJBs/BpelKxzT1
+I3sDvPo3XXCCKdLjiMi6Bp6e9tlZ4qcly412+bMUfCJjCKOYOgH3jsGdG4M87UR+
+wvOv3ovPVjWTsSaVrlzJjFPabYYauQ==
+=NqJ2
+-----END PGP SIGNATURE-----
+
+--Op27XXJsWz80g3oF--

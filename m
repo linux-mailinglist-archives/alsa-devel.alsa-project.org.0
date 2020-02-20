@@ -2,90 +2,60 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C50D8165CBF
-	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 12:26:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F7B3165D29
+	for <lists+alsa-devel@lfdr.de>; Thu, 20 Feb 2020 13:01:32 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id ADA4F16A3;
-	Thu, 20 Feb 2020 12:25:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ADA4F16A3
+	by alsa0.perex.cz (Postfix) with ESMTPS id 17F2A16A9;
+	Thu, 20 Feb 2020 13:00:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 17F2A16A9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582197975;
-	bh=EuvV5bK/D2GyFMuoOvIrzBlledsmeDArdQZV/I4d9XE=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1582200092;
+	bh=DgIDC6AkM6u7D6TFw5trf2GMUZytPlcHAL4yQI7PLyw=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Zts9b2mAT7Kzio9w7lbMoebwde47yo8Tb53aunEmpRR8fOvVDHMJgqxq1ezIyaorR
-	 sLov8VRoi3PT4tQreT8sz3WT7VUHgj7nhCC6zX9BJaUq+KGL0myuE7tjrfr1CowP5R
-	 GS8NrTCeGcovC/RIn8Zk7WwRtUM1q/GgMI7a0YmA=
+	b=LwGkPz3wQv8FE3RDDS3l6e2ALvJyezPIawASRr1NW9ociFjojKUSk2VilVoeJ4wTi
+	 cEaY856NxjOdHZRpvg1kGHcjiVwEMWWWZr0Vr66XwKOIfsqX4Yd834oACY9Rg2IIao
+	 DMxMj+hqzXYq9sircy4QqyUARc7ab5uWH5Dru7wA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B87BFF8014A;
-	Thu, 20 Feb 2020 12:24:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 316A5F80101;
+	Thu, 20 Feb 2020 12:59:51 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 50E5EF80148; Thu, 20 Feb 2020 12:24:32 +0100 (CET)
+ id 1E5FDF80148; Thu, 20 Feb 2020 12:59:48 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B02DBF80101
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 12:24:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B02DBF80101
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=superlative.org header.i=@superlative.org
- header.b="ckVQr/Gm"
-Received: by mail-wm1-x344.google.com with SMTP id a6so1627924wme.2
- for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 03:24:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=superlative.org; s=google;
- h=from:to:cc:subject:date:message-id:user-agent:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=/nR/8S2uaSFBekc5otIILZjPc7HoKij8yl6sQpf3OA4=;
- b=ckVQr/GmxB6FN4LxrbxK4792ISfIocutEILWSD24wui/BmD5NOw0DEOY19+zYF7HJs
- EOnDHvW/jl/aQC/xDn0u5dSaRQhP+/24GhqZEdh2/Ucw3WIT59D3lomkEN6Mr95kORpz
- lalaVHD0XaGxk7Po8KiCHN1RtVrz37Xw/eaa3v+TTYHHk4CgNPAk2s5zwItGhlaqPlB+
- bR2bdCcmkcYWgL4awedp1guP4MEQ0S5Q5ihFKBRoCDNuwoE7BRgm6VVZ/vFerxZl3Nry
- WIX6Q427hqfb6UKfcwzFizhUwGm+/IbrL+0TYP26EOfSx0pp+YiKxzrTFHroqKuu7U5T
- ZUhg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:user-agent
- :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=/nR/8S2uaSFBekc5otIILZjPc7HoKij8yl6sQpf3OA4=;
- b=M4H7+nd7ZSu1EnM518NR7mtP9zyygpZFk+YOJrAiKJJ9LuWjvM3KYBQNxlz6kUYzCn
- 2wN+mxE59rCSN+eHGXZAuPQzq7b+QWoatmHM46UeJASjpSBJnbHgUTx2rLLWdD6OJJpa
- czrs5NyM3qxMjKDQf9nYpQN1CRsrz9+TtryPCDle/JLxZCG5sUw8J8TYIkJ+8YL3HM9u
- NL9teF/G8JbIr8pID3JblDpiPRECOujSDCczDFBN+ZRbC2pQR7MiMwwxUfNbOggESE6Z
- w6odGm/N7PQnqTMDwjzii4MCIAPuNXButtXXF3nehuDWgYUIYkY5I6hPhnP2A59yqe7F
- BPZA==
-X-Gm-Message-State: APjAAAW2f+Ec+kjB7M5qs5s4WZ4jJi8KJjowTXj/hGvJuYzTBfWeADcY
- E1NVJbJ/R3HfNQihpTWZWrGttJo9aSc=
-X-Google-Smtp-Source: APXvYqwKGh/4BboO3+y8eFROO+W6/4EQi3JkdMaqAj0dml4FX2hvqfIhYzZCGAG9i9jkQ86TMvyqdQ==
-X-Received: by 2002:a7b:ce84:: with SMTP id q4mr3820358wmj.57.1582197868487;
- Thu, 20 Feb 2020 03:24:28 -0800 (PST)
-Received: from kamdesktop.localnet ([2001:8b0:be0a:29af::201])
- by smtp.gmail.com with ESMTPSA id 25sm4206194wmi.32.2020.02.20.03.24.27
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 20 Feb 2020 03:24:27 -0800 (PST)
-From: "Keith A. Milner" <maillist@superlative.org>
-To: alsa-devel@alsa-project.org
-Subject: Re: [alsa-devel] Implicit feedback solution for Boss GT-1 and maybe
- other devices
-Date: Thu, 20 Feb 2020 11:24:27 +0000
-Message-ID: <2821406.4gBEzi3Dfb@kamdesktop>
-User-Agent: KMail/5.2.3 (Linux/4.15.0-74-generic; KDE/5.36.0; x86_64; ; )
-In-Reply-To: <CAHXb3bcrSnAnwS+-HY8jh4eoBdt+tBoZTHSr-5jsGomN156fFw@mail.gmail.com>
-References: <CAHXb3bcrSnAnwS+-HY8jh4eoBdt+tBoZTHSr-5jsGomN156fFw@mail.gmail.com>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 9658DF80114
+ for <alsa-devel@alsa-project.org>; Thu, 20 Feb 2020 12:59:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9658DF80114
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6AC9630E;
+ Thu, 20 Feb 2020 03:59:43 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E0F503F6CF;
+ Thu, 20 Feb 2020 03:59:42 -0800 (PST)
+Date: Thu, 20 Feb 2020 11:59:41 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>
+Subject: Re: [RFC] Volume control across multiple registers
+Message-ID: <20200220115941.GB3926@sirena.org.uk>
+References: <20200219134622.22066-1-dmurphy@ti.com>
+ <2f74b971-4a6a-016f-8121-4da941eeccef@ti.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
-Cc: Mike Oliphant <oliphant@nostatic.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="XF85m9dhOBO43t/C"
+Content-Disposition: inline
+In-Reply-To: <2f74b971-4a6a-016f-8121-4da941eeccef@ti.com>
+X-Cookie: You are number 6!  Who is number one?
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com,
+ lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,31 +71,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Thursday, 23 January 2020 10:06:58 GMT Mike Oliphant wrote:
-> I received a very helpful email response to my previous thread about trying
-> to get the Boss GT-1 pedalboard working reliably, and as a result I now
-> have a working solution.
-> 
-> The issue seems to be that the GT-1 does not send any capture data until it
-> gets some playback data first.
 
-Hi Mike,
+--XF85m9dhOBO43t/C
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-In my original investigations (which you referenced) this was the conclusion I 
-was starting to reach, but real-world events meant I didn't have the time to 
-follow up on it, so I'm grateful that you have.
+On Wed, Feb 19, 2020 at 03:11:47PM -0600, Dan Murphy wrote:
 
-In the kernel.org bugzilla report you also mention that you have a potential 
-fix. I would be willing to test this, subject to time constraints (in other 
-words it may or may not take me some time to get around to testing this).
+> I was looking at using the DAPM calls and use PGA_E and define an event but
+> there really is no good way to get the current volume setting.
 
-Feel free to contact me directly to send me a patch (best email address is 
-user kamilner on the same domain used to send this email).
+Store it in a variable in the driver's private data (there's a number of
+examples of doing that for various controls, the process doesn't change
+just because it's a volume), or if you've got a register cache it could
+be just as easy to do the register reads and combine the values.
 
-For reference, I have a GT-1, a GT-001, and a 1st gen Katana I can test with.
+--XF85m9dhOBO43t/C
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Regards,
+-----BEGIN PGP SIGNATURE-----
 
-Keith
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5OdKwACgkQJNaLcl1U
+h9A0RAf/W6cdjwyRlUnVVDMRW9E8OYU778ZcT/8O3eYOjfj3OliJKZes2TIivLM8
+FdRFixhp7U/o0zx3SRlCj4NcwGh5JNXGp5NU26NhEwUlB4WrvGEZJboN4cNTd42z
+woKw/OgNgoBjaB79q4OWG8ms8/Wos+Pf2Kft4ihHoAGYfL4udV2CAbcwf0zvfjaU
+gI3vDSEwT3C4PIRmwumO2AVW6/23YBuJA8ftoD2hzZPw9xwImpNHayXHKYo3arwO
+0hwIF6njdvkMHjTjkrJSPwdcbiRU1AIYTbuFkq0A63tVzVueEn0UKlRAMKDDUX2s
+A92V04yL3sc7xYYS2OxKi6O3fkGciQ==
+=tSQZ
+-----END PGP SIGNATURE-----
 
-
+--XF85m9dhOBO43t/C--

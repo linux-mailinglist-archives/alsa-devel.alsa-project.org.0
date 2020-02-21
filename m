@@ -2,60 +2,91 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 268E516801B
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 15:23:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A4A0616804C
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 15:33:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A8F5616D0;
-	Fri, 21 Feb 2020 15:22:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A8F5616D0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 2C37216CC;
+	Fri, 21 Feb 2020 15:32:12 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C37216CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582295019;
-	bh=NObKApBSCoVwX7bYn9XZKlfO+0MBCetTBbmkMY3XzRs=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=pEoi7xuj89tNBXMa1Fav3j5Cs/gKyXrJZbugmnbJedtyQh4zdJvksM4TOYCx+SgIm
-	 B96eSEafSydUr0c0n1DzGHrosrRPtJkIIVcqT6ybc4lQPCydAjONfCpdMuvOFKJh3M
-	 X+4V9mttOZMMceJdx9fNYtC9WDFzjrISuw+aI+7Y=
+	s=default; t=1582295582;
+	bh=bZD81CMjdU6PVXU+NW5xkhQARAhHfWh6WcnNsNietXY=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=D70gTi4cuYkp46XQFxJaDWkaCCgKn64JnG3Dbew9HJa6t2IPtnVzHbPsYnLYam1rm
+	 5UTjtcAn2UgqxlEuyAcj6WCTekj1CWvRZTsJHWeUlQhXoVb6xezeMyIxl1NactEM/x
+	 1vZi38QCyUzKlVNLo3BHV0R3wJGxFWnWXExbX1r0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AF106F800C5;
-	Fri, 21 Feb 2020 15:21:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4FBF0F80273;
+	Fri, 21 Feb 2020 15:31:21 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8A3CCF8025F; Fri, 21 Feb 2020 15:21:13 +0100 (CET)
+ id 01166F8025F; Fri, 21 Feb 2020 15:31:17 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 89E21F80114
- for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 15:21:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89E21F80114
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7BD8130E;
- Fri, 21 Feb 2020 06:21:09 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E6AD83F703;
- Fri, 21 Feb 2020 06:21:08 -0800 (PST)
-Date: Fri, 21 Feb 2020 14:21:07 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Samuel Holland <samuel@sholland.org>
-Subject: Applied "ASoC: sun8i-codec: Remove unused dev from codec struct" to
- the asoc tree
-In-Reply-To: <20200217064250.15516-5-samuel@sholland.org>
-Message-Id: <applied-20200217064250.15516-5-samuel@sholland.org>
-X-Patchwork-Hint: ignore
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Liam Girdwood <lgirdwood@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Vasily Khoruzhick <anarsoul@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Chen-Yu Tsai <wens@csie.org>,
- Mark Brown <broonie@kernel.org>,
- =?UTF-8?q?Myl=C3=A8ne=20Josserand?= <mylene.josserand@free-electrons.com>,
- linux-arm-kernel@lists.infradead.org
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS autolearn=disabled
+ version=3.4.0
+Received: from hqnvemgate24.nvidia.com (hqnvemgate24.nvidia.com
+ [216.228.121.143])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8929BF80114
+ for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 15:31:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8929BF80114
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=nvidia.com header.i=@nvidia.com
+ header.b="goEbRFoI"
+Received: from hqpgpgate101.nvidia.com (Not Verified[216.228.121.13]) by
+ hqnvemgate24.nvidia.com (using TLS: TLSv1.2, DES-CBC3-SHA)
+ id <B5e4fe9660000>; Fri, 21 Feb 2020 06:29:58 -0800
+Received: from hqmail.nvidia.com ([172.20.161.6])
+ by hqpgpgate101.nvidia.com (PGP Universal service);
+ Fri, 21 Feb 2020 06:31:11 -0800
+X-PGP-Universal: processed;
+ by hqpgpgate101.nvidia.com on Fri, 21 Feb 2020 06:31:11 -0800
+Received: from [10.21.133.51] (10.124.1.5) by HQMAIL107.nvidia.com
+ (172.20.187.13) with Microsoft SMTP Server (TLS) id 15.0.1473.3; Fri, 21 Feb
+ 2020 14:31:07 +0000
+Subject: Re: [PATCH v3 03/10] ASoC: tegra: add Tegra210 based DMIC driver
+To: Mark Brown <broonie@kernel.org>, Sameer Pujar <spujar@nvidia.com>
+References: <1582180492-25297-1-git-send-email-spujar@nvidia.com>
+ <1582180492-25297-4-git-send-email-spujar@nvidia.com>
+ <20200221130005.GD5546@sirena.org.uk>
+From: Jon Hunter <jonathanh@nvidia.com>
+Message-ID: <316ce0d5-318d-0533-ef06-bd7e8672f893@nvidia.com>
+Date: Fri, 21 Feb 2020 14:31:05 +0000
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
+MIME-Version: 1.0
+In-Reply-To: <20200221130005.GD5546@sirena.org.uk>
+X-Originating-IP: [10.124.1.5]
+X-ClientProxiedBy: HQMAIL101.nvidia.com (172.20.187.10) To
+ HQMAIL107.nvidia.com (172.20.187.13)
+Content-Type: text/plain; charset="windows-1252"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nvidia.com; s=n1;
+ t=1582295398; bh=Ii2FU53gxBnbRqvrbMjLj3GOVXtejYjy/v1iyuD+MP8=;
+ h=X-PGP-Universal:Subject:To:CC:References:From:Message-ID:Date:
+ User-Agent:MIME-Version:In-Reply-To:X-Originating-IP:
+ X-ClientProxiedBy:Content-Type:Content-Language:
+ Content-Transfer-Encoding;
+ b=goEbRFoIBBxyJcX7uUg+O3y3ialsPS2BhhIdSG+PMqy/jzg3qcJr4jSjnDUgktNhN
+ 0HMt1u0Cou33Sg1w5vG96Apvi3i59DVCCWQeADi8BdBRjSFldcGhf5GaoowpbRlB7B
+ azp2fKoZ9qBcj1jefWii8s+8RcbMoYb+xU7R9Ar7+7GEZvg7nFo9/shcynm4qCbilI
+ qhrgOd5wYI/zvViDPhH3Z2p5q+9BtUiOXig8mubW93E4mG+bgZ+x50yA7pf6I5dwoZ
+ UKElyundJcSXSPGoORNjZV80p/NtA/NXJAuJ6RcnDVttOH9FCrSmo4LtzD76ANi36x
+ jI7K6IoobDD8A==
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, linux-kernel@vger.kernel.org, lgirdwood@gmail.com,
+ tiwai@suse.com, viswanathl@nvidia.com, sharadg@nvidia.com, robh+dt@kernel.org,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org, digetx@gmail.com,
+ rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,70 +102,48 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: sun8i-codec: Remove unused dev from codec struct
+On 21/02/2020 13:00, Mark Brown wrote:
+> On Thu, Feb 20, 2020 at 12:04:45PM +0530, Sameer Pujar wrote:
+> 
+>> +++ b/sound/soc/tegra/tegra210_dmic.c
+>> @@ -0,0 +1,515 @@
+>> +// SPDX-License-Identifier: GPL-2.0-only
+>> +/*
+>> + * tegra210_dmic.c - Tegra210 DMIC driver
+>> + *
+>> + * Copyright (c) 2020 NVIDIA CORPORATION.  All rights reserved.
+> 
+> Please make the entire comment a C++ one so things look more
+> intentional.
+> 
+>> +	/* Below enables all filters - DCR, LP and SC */
+>> +	{ TEGRA210_DMIC_DBG_CTRL, 0xe },
+> 
+> So this isn't the hardware default?
+> 
+>> +	srate = params_rate(params);
+>> +	if (dmic->srate_override)
+>> +		srate = dmic->srate_override;
+> 
+> How does this work for userspace?  If we just ignore the sample rate we
+> were asked for I'd expect that the application would get upset.
 
-has been applied to the asoc tree at
+Tegra has a hardware sample rate converter (though driver not yet
+upstream or part of this initial series) and if using the sample-rate
+converter, then the actual rate captured by the DMIC interface could be
+different from the resulting sample-rate.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
+So we want a way to indicate to the DMIC it is capturing at rate X,
+while the resulting sample-rate is Y.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+I am not sure if there is a better way to do this? Ideally, the DMIC
+would query the rate from the upstream MUX it is connected to, but I am
+not sure if there is a way to do that. So right now it is a manual
+process and the user has to configure these which are not ideal.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+Cheers
+Jon
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
-From 150cbf8e66ec86966c13fd7a0e3de8813bca03d8 Mon Sep 17 00:00:00 2001
-From: Samuel Holland <samuel@sholland.org>
-Date: Mon, 17 Feb 2020 00:42:20 -0600
-Subject: [PATCH] ASoC: sun8i-codec: Remove unused dev from codec struct
-
-This field is not used anywhere in the driver, so remove it.
-
-Fixes: 36c684936fae ("ASoC: Add sun8i digital audio codec")
-Signed-off-by: Samuel Holland <samuel@sholland.org>
-Acked-by: Chen-Yu Tsai <wens@csie.org>
-Link: https://lore.kernel.org/r/20200217064250.15516-5-samuel@sholland.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/sunxi/sun8i-codec.c | 3 ---
- 1 file changed, 3 deletions(-)
-
-diff --git a/sound/soc/sunxi/sun8i-codec.c b/sound/soc/sunxi/sun8i-codec.c
-index 55798bc8eae2..41471bd01042 100644
---- a/sound/soc/sunxi/sun8i-codec.c
-+++ b/sound/soc/sunxi/sun8i-codec.c
-@@ -85,7 +85,6 @@
- #define SUN8I_AIF1CLK_CTRL_AIF1_BCLK_DIV_MASK	GENMASK(12, 9)
- 
- struct sun8i_codec {
--	struct device	*dev;
- 	struct regmap	*regmap;
- 	struct clk	*clk_module;
- 	struct clk	*clk_bus;
-@@ -541,8 +540,6 @@ static int sun8i_codec_probe(struct platform_device *pdev)
- 	if (!scodec)
- 		return -ENOMEM;
- 
--	scodec->dev = &pdev->dev;
--
- 	scodec->clk_module = devm_clk_get(&pdev->dev, "mod");
- 	if (IS_ERR(scodec->clk_module)) {
- 		dev_err(&pdev->dev, "Failed to get the module clock\n");
 -- 
-2.20.1
-
+nvpublic

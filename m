@@ -2,65 +2,96 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36B16167A30
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 11:09:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22BC2167AFB
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 11:43:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A237816B6;
-	Fri, 21 Feb 2020 11:08:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A237816B6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 584C416BB;
+	Fri, 21 Feb 2020 11:42:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 584C416BB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582279780;
-	bh=7iv85r/E6IKQiugwycyCXOqnGFwdFq7etKvQyvCf8NM=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=m/ereT89LcxVveMvy0VzUyIH+TdfK9Rs03iJcws281ConQ1uLpqpshVqSzeytOJNu
-	 7W0e0d9C3cU9uNT/tm9l6iyrE0QuXshvMhqwKoTwIN/p9oJlhBw+L+IrG1LvIXVMKc
-	 f5miZmN4H0BoZcpcviyjI690eri2iHwREcKDbm0w=
+	s=default; t=1582281779;
+	bh=nRlbY9nRxti2x53sAveYPcZpF/ji/YAmk8jayyBohnQ=;
+	h=References:From:To:Subject:In-reply-to:Date:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=T9qnhdpo9wYH/FROZzMffioLSUTr5TxoX803DCWg8bzEQw6mFIAFiLyuTX8l8Z1Ht
+	 60nC/dD/07skydCPHb4S9OFbZxAgvBuIy8EuaZPKPfv+mhbMc3e1ZMqU1FRthrTHvd
+	 gxvyP0Ekacku+EqUQn+j4DinDQ+Q6Ix33k10AvWE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 6928DF80114;
-	Fri, 21 Feb 2020 11:07:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 538D0F800C5;
+	Fri, 21 Feb 2020 11:41:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E2482F8025F; Fri, 21 Feb 2020 11:07:56 +0100 (CET)
+ id E67B5F8025F; Fri, 21 Feb 2020 11:41:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wr1-x441.google.com (mail-wr1-x441.google.com
+ [IPv6:2a00:1450:4864:20::441])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DCA4F800C5
- for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 11:07:53 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id A27FDA003F;
- Fri, 21 Feb 2020 11:07:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz A27FDA003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1582279672; bh=TH4JGpiyxD0qWDgfr66r7GV7RqB6a7jzO3/wgLcwVfQ=;
- h=From:To:Cc:Subject:Date:From;
- b=MNIUzmf2vlKATWsd8rJG/7S2aSFs3OKUau3/KieIL6/kbewV2agJFaLKVsFIRE4IG
- 7GCZasutYtNYRj77y+l2ovAkI41ZtwPA2S2rhoBPH7m1m2b3pO6Hcc+ZoNddsSwX39
- Otlx/GvAQHKfaUTVIFaL7TsrsFYqYyvP+shM0JT8=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Fri, 21 Feb 2020 11:07:47 +0100 (CET)
-From: Jaroslav Kysela <perex@perex.cz>
-To: ALSA development <alsa-devel@alsa-project.org>
-Subject: [PATCH] ASoC: SOF - topology - do not change the link trigger order
- for pre-1.4 firmware
-Date: Fri, 21 Feb 2020 11:07:39 +0100
-Message-Id: <20200221100739.3883842-1-perex@perex.cz>
-X-Mailer: git-send-email 2.24.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9B7A4F8011D
+ for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 11:41:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9B7A4F8011D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="jFRFDwIW"
+Received: by mail-wr1-x441.google.com with SMTP id m16so1423428wrx.11
+ for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 02:41:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20150623.gappssmtp.com; s=20150623;
+ h=references:user-agent:from:to:cc:subject:in-reply-to:date
+ :message-id:mime-version;
+ bh=nC38uQjZDz3wMRzUDRjp52c9Hy5uCnGBGkiYQn+GewE=;
+ b=jFRFDwIWQUOtcfddu0setQkrtBAAsg+QM4SFFjMIfs1t2qtIm0uY7i8crq9De6BNzc
+ Dtmli57wfgiv+8hXV/TFGnq9teiaSzgi8MwR1QQlhBXnc+XRDK0+UQ4NT5WD1X+CDrV+
+ sJBDa7KYxgxHPFHz4VxYS/x5pJK+EguZ4u447bTGH5MPg5CdBX3mmARRiypZ7ZyZPr2e
+ FKJTapXALLySo1mmmxFw0kI+65Y+YiqMiLgxJ67v6SZEA35vfk0WbL1/9p0xWJ6+W3pn
+ BizqQ5sktYD0I+kUvccg9I9+ICSSgWYFz/5SmlbSxoi1InaZoRSpRNS//odmTCwExi2r
+ spEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:references:user-agent:from:to:cc:subject
+ :in-reply-to:date:message-id:mime-version;
+ bh=nC38uQjZDz3wMRzUDRjp52c9Hy5uCnGBGkiYQn+GewE=;
+ b=QwU6HhWDQSQZ2Ukm8/XB+RjTebEGcHXl9CXWf7uBbqQzfrD6+nOb2G3os62OHgJq+S
+ MUkPcgdMFhTNv/RszyLqkS1w6y1IlRt6DGi+vcWRX3bIMP9E7DIaM/QFWsxoD1ehL0ww
+ 9CQv27Qfl+7K2vrBrcACJAQWkrbPNAl0OHud0WQta15kGHKIOdA9peOTG5LIQmEEMYfO
+ SrmAGdp9lBDN7S1zotEhXLyW+hU4KsRNfcWA3fkyw9+YtBtIRqU45sopw/oNQeEqH3Su
+ sQR8elGrhaKFUpiRZI1EpWCN8fUzaUpGKxC0K5+7zD6jx1oNNA17L7qDaZRCZ1NpGteC
+ V89g==
+X-Gm-Message-State: APjAAAX1344wyDyRxF/35qKbMtX8KgDOdpbb/FtiIrpMKle9tejV7Iaa
+ SbDP4wdfEj3sJFQHWNcoj0Nx/Q==
+X-Google-Smtp-Source: APXvYqy2Z7KXJqoiyg14kzMzg6EQiEnMDyNve9Bd9jHVjubhjmti6d9+RBVLDiLaHEsRbCPSAAbbmw==
+X-Received: by 2002:adf:a453:: with SMTP id e19mr45872540wra.48.1582281671269; 
+ Fri, 21 Feb 2020 02:41:11 -0800 (PST)
+Received: from localhost (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr.
+ [90.63.244.31])
+ by smtp.gmail.com with ESMTPSA id q9sm3437231wrx.18.2020.02.21.02.41.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 21 Feb 2020 02:41:10 -0800 (PST)
+References: <20200220205711.77953-1-martin.blumenstingl@googlemail.com>
+ <20200220205711.77953-2-martin.blumenstingl@googlemail.com>
+User-agent: mu4e 1.3.3; emacs 26.3
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ broonie@kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ alsa-devel@alsa-project.org, devicetree@vger.kernel.org,
+ linux-amlogic@lists.infradead.org
+Subject: Re: [PATCH 1/3] ASoC: meson: aiu: Document Meson8 and Meson8b support
+ in the dt-bindings
+In-reply-to: <20200220205711.77953-2-martin.blumenstingl@googlemail.com>
+Date: Fri, 21 Feb 2020 11:41:09 +0100
+Message-ID: <1jtv3k2pfe.fsf@starbuckisacylon.baylibre.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Takashi Iwai <tiwai@suse.de>, Mark Brown <broonie@kernel.org>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain
+Cc: linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,48 +107,31 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This patch is for SOF v1.3 firmware. The DSP firmware will crash (DSP oops)
-without this patch. The 1.4.1 firmare has this issue fixed.
 
-The ABI version is used for the comparison, because the firmware version
-for the firmware files before 1.4.2 was not set properly (git hash was
-used).
+On Thu 20 Feb 2020 at 21:57, Martin Blumenstingl <martin.blumenstingl@googlemail.com> wrote:
 
-BugLink: https://github.com/thesofproject/sof/issues/2102
-Signed-off-by: Jaroslav Kysela <perex@perex.cz>
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Cc: Mark Brown <broonie@kernel.org>
----
- sound/soc/sof/topology.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+> The AIU audio output controller on the Meson8 and Meson8b SoC families
+> is compatible with the one found in the GXBB family. Document the
+> compatible string for these two older SoCs.
+>
+> Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
 
-diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
-index 9f4f8868b386..58ff4766b47b 100644
---- a/sound/soc/sof/topology.c
-+++ b/sound/soc/sof/topology.c
-@@ -3111,6 +3111,7 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
- 	struct snd_soc_tplg_private *private = &cfg->priv;
- 	struct sof_ipc_dai_config config;
- 	struct snd_soc_tplg_hw_config *hw_config;
-+	struct sof_ipc_fw_version *v = &sdev->fw_ready.version;
- 	int num_hw_configs;
- 	int ret;
- 	int i = 0;
-@@ -3128,9 +3129,12 @@ static int sof_link_load(struct snd_soc_component *scomp, int index,
- 	if (!link->no_pcm) {
- 		link->nonatomic = true;
- 
--		/* set trigger order */
--		link->trigger[0] = SND_SOC_DPCM_TRIGGER_POST;
--		link->trigger[1] = SND_SOC_DPCM_TRIGGER_POST;
-+		/* this causes DSP panic on firmware v1.3 */
-+		if (v->abi_version > SOF_ABI_VER(3, 7, 0)) {
-+			/* set trigger order */
-+			link->trigger[0] = SND_SOC_DPCM_TRIGGER_POST;
-+			link->trigger[1] = SND_SOC_DPCM_TRIGGER_POST;
-+		}
- 
- 		/* nothing more to do for FE dai links */
- 		return 0;
--- 
-2.24.1
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+
+> ---
+>  Documentation/devicetree/bindings/sound/amlogic,aiu.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/sound/amlogic,aiu.yaml b/Documentation/devicetree/bindings/sound/amlogic,aiu.yaml
+> index 3ef7632dcb59..a61bccf915d8 100644
+> --- a/Documentation/devicetree/bindings/sound/amlogic,aiu.yaml
+> +++ b/Documentation/devicetree/bindings/sound/amlogic,aiu.yaml
+> @@ -21,6 +21,8 @@ properties:
+>        - enum:
+>          - amlogic,aiu-gxbb
+>          - amlogic,aiu-gxl
+> +        - amlogic,aiu-meson8
+> +        - amlogic,aiu-meson8b
+>        - const:
+>            amlogic,aiu
+

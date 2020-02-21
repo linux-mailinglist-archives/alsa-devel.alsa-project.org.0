@@ -2,101 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D875167E62
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 14:22:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DE827167E6B
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 14:22:56 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CA70916D7;
-	Fri, 21 Feb 2020 14:21:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CA70916D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 7EC2F1690;
+	Fri, 21 Feb 2020 14:22:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7EC2F1690
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582291332;
-	bh=g889pRlvHTgkb4izufwHKiFw7+cPqLj8ffKrZfcmpek=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1582291376;
+	bh=7jBCZFzRAMGvkjduzvrnNgKG2uWZV8YyKE222d9XAbk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RjaRarpqd0xg8JFmTgH89cb/L0N6mQtVBuPWohFVhvGbaErQaDbniI/1MIr4Ka/Xy
-	 y+UV88cJzG4kQabRYLDqcbnliMPGrr7g8eO/Mt5aZ+Pg2ZGnhuL/XTs/cORh+zBwqY
-	 Icc8gEY8X+Q9CZ+8H7BGuQ6oOH7IIWT3o6DXf+OM=
+	b=Lv8NbTbVvcLb648IIA951BgXT+22w+3dmrqR45VvuOJAI6vshZPhTzhovYECE9wEP
+	 hJ0jhqxLg94Sk5dmEo1J4RTm4xSitfRYa2Zb8OWo6qEw4Xue8ciETqQFTV/GDvades
+	 2vIGezynf00XmfXBBGronrYxTjfj4J5hPEFh8vV4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9F1E8F80273;
-	Fri, 21 Feb 2020 14:20:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 20C0FF8011D;
+	Fri, 21 Feb 2020 14:21:38 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E9FF2F8025F; Fri, 21 Feb 2020 14:20:28 +0100 (CET)
+ id D09BEF80276; Fri, 21 Feb 2020 14:21:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,PRX_BODY_78,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B498EF8011D
- for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 14:20:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B498EF8011D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="KSAeNn6U"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01LDKJBt130065;
- Fri, 21 Feb 2020 07:20:19 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1582291219;
- bh=1oz4ttO8AEWwtQd/0Abg8qIyHP8s13hjB9qY+Pr19SM=;
- h=Subject:To:CC:References:From:Date:In-Reply-To;
- b=KSAeNn6Uc1TrPeECEzlqA9rbx4asW6aOnWdKG49BvYT+gM2fPw24dU9RTPwYDp3K5
- f65YHvoODNH32HgY/8B/G21HrDMN8PT0OlXux9zW7IDmkEQm367zvd/S4cEvpt9wjr
- 1vBtwgl3m7PDZfS6IPQv9eRBrZKxRB8zlF5X0DaY=
-Received: from DFLE103.ent.ti.com (dfle103.ent.ti.com [10.64.6.24])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01LDKJ8n100794
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 21 Feb 2020 07:20:19 -0600
-Received: from DFLE113.ent.ti.com (10.64.6.34) by DFLE103.ent.ti.com
- (10.64.6.24) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Fri, 21
- Feb 2020 07:20:18 -0600
-Received: from lelv0327.itg.ti.com (10.180.67.183) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Fri, 21 Feb 2020 07:20:18 -0600
-Received: from [192.168.2.6] (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0327.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01LDKENm121770;
- Fri, 21 Feb 2020 07:20:14 -0600
-Subject: Re: [PATCH] ASoC: ti: Allocate dais dynamically for TDM and audio
- graph card
-To: Tony Lindgren <tony@atomide.com>
-References: <20200211171645.41990-1-tony@atomide.com>
- <cd46c6ec-80e3-332f-4922-e58a3acbfc61@ti.com>
- <20200212143543.GI64767@atomide.com>
- <346dfd2b-23f8-87e0-6f45-27a5099b1066@ti.com>
- <20200214170322.GZ64767@atomide.com>
- <d9a43fcb-ed0f-5cd5-7e22-58924d571d17@ti.com>
- <20200217231001.GC35972@atomide.com>
- <5402eba8-4f84-0973-e11b-6ab2667ada85@ti.com>
- <20200218211631.fxojsxzvttoidfed@earth.universe>
- <a263a857-bb8a-0e37-6932-dd07df98ad63@ti.com>
- <20200220201559.GX37466@atomide.com>
-From: Peter Ujfalusi <peter.ujfalusi@ti.com>
-Message-ID: <9ea8239f-3b2d-8206-95ee-2789fbae83d4@ti.com>
-Date: Fri, 21 Feb 2020 15:20:24 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 73617F80240
+ for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 14:21:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 73617F80240
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6CD1630E;
+ Fri, 21 Feb 2020 05:21:30 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D526C3F703;
+ Fri, 21 Feb 2020 05:21:29 -0800 (PST)
+Date: Fri, 21 Feb 2020 13:21:28 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v3 04/10] ASoC: tegra: add Tegra210 based I2S driver
+Message-ID: <20200221132128.GE5546@sirena.org.uk>
+References: <1582180492-25297-1-git-send-email-spujar@nvidia.com>
+ <1582180492-25297-5-git-send-email-spujar@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <20200220201559.GX37466@atomide.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
- Merlijn Wajer <merlijn@wizzup.org>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Takashi Iwai <tiwai@suse.com>, Mark Brown <broonie@kernel.org>,
- Pavel Machek <pavel@ucw.cz>, Sebastian Reichel <sre@kernel.org>,
- linux-omap@vger.kernel.org, "Arthur D ." <spinal.by@gmail.com>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="FEz7ebHBGB6b2e8X"
+Content-Disposition: inline
+In-Reply-To: <1582180492-25297-5-git-send-email-spujar@nvidia.com>
+X-Cookie: Dead?	No excuse for laying off work.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, jonathanh@nvidia.com, viswanathl@nvidia.com,
+ sharadg@nvidia.com, robh+dt@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, digetx@gmail.com, rlokhande@nvidia.com,
+ mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,37 +75,83 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Tony,
 
-On 20/02/2020 22.15, Tony Lindgren wrote:
-> * Peter Ujfalusi <peter.ujfalusi@ti.com> [200220 14:16]:
->> On 18/02/2020 23.16, Sebastian Reichel wrote:
->>> I suppose in the end its a question if generic card can provide TDM
->>> support.
->>
->> Sure it can, but can it handle the switching between the paths based on
->> use cases?
->> There should be machine level DAPM widgets to kick codec2codec (MDM6600
->> - CPAC_voice for example) and also to make sure that when you switch
->> between them the system is not going to get misconfigured.
->> Switching between CPAC and BT route during call?
->> Not allowing VoIP while on call, etc.
-> 
-> Well I guess the key thing to check here is if it's enough to
-> keep track of things in the cpcap codec driver. If cpcap is always
-> involved, that should be sufficient.
+--FEz7ebHBGB6b2e8X
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-The codec driver should keep track on what it can do, but should not
-start policing the outside world.
-The machine driver knows the connections and should tell the components
-on what to do.
+On Thu, Feb 20, 2020 at 12:04:46PM +0530, Sameer Pujar wrote:
 
-> Regards,
-> 
-> Tony
-> 
+> @@ -0,0 +1,938 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * tegra210_i2s.c - Tegra210 I2S driver
+> + *
 
-- Péter
+All C++ please.
 
-Texas Instruments Finland Oy, Porkkalankatu 22, 00180 Helsinki.
-Y-tunnus/Business ID: 0615521-4. Kotipaikka/Domicile: Helsinki
+> +static void tegra210_i2s_set_data_offset(struct tegra210_i2s *i2s,
+> +					 unsigned int data_offset)
+> +{
+> +	unsigned int mask = I2S_CTRL_DATA_OFFSET_MASK;
+> +	unsigned int shift = I2S_DATA_SHIFT;
+> +	unsigned int reg;
+> +
+> +	reg = TEGRA210_I2S_TX_CTRL;
+> +	regmap_update_bits(i2s->regmap, reg, mask, data_offset << shift);
+> +
+> +	reg = TEGRA210_I2S_RX_CTRL;
+> +	regmap_update_bits(i2s->regmap, reg, mask, data_offset << shift);
+
+The way this is written is *weird*, especially the use of reg - it'd
+probably be clearer to just use the values directly rather than have
+these intermediate temporary values.
+
+> +static int tegra210_i2s_get_control(struct snd_kcontrol *kcontrol,
+> +				    struct snd_ctl_elem_value *ucontrol)
+> +{
+> +	struct snd_soc_component *compnt = snd_soc_kcontrol_component(kcontrol);
+> +	struct tegra210_i2s *i2s = snd_soc_component_get_drvdata(compnt);
+> +	long *uctl_val = &ucontrol->value.integer.value[0];
+> +
+> +	if (strstr(kcontrol->id.name, "Loopback"))
+> +		*uctl_val = i2s->loopback;
+> +	else if (strstr(kcontrol->id.name, "Sample Rate"))
+> +		*uctl_val = i2s->srate_override;
+> +	else if (strstr(kcontrol->id.name, "FSYNC Width"))
+> +		*uctl_val = i2s->fsync_width;
+> +	else if (strstr(kcontrol->id.name, "Playback Audio Bit Format"))
+> +		*uctl_val = i2s->audio_fmt_override[I2S_RX_PATH];
+> +	else if (strstr(kcontrol->id.name, "Capture Audio Bit Format"))
+> +		*uctl_val = i2s->audio_fmt_override[I2S_TX_PATH];
+
+Same issue as the DMIC driver, these really shouldn't be exposed to
+userspace as regular controls.
+
+> +	/*
+> +	 * For playback I2S RX-CIF and for capture TX-CIF is used.
+> +	 * With reference to AHUB, for I2S, SNDRV_PCM_STREAM_CAPTURE stream is
+> +	 * actually for playback.
+> +	 */
+> +	path = (substream->stream == SNDRV_PCM_STREAM_CAPTURE) ?
+> +	       I2S_RX_PATH : I2S_TX_PATH;
+
+Please write normal conditional statements, it makes things easier to
+read.
+
+--FEz7ebHBGB6b2e8X
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5P2VcACgkQJNaLcl1U
+h9D/awf/U2ZCR7nNWNrI95I8xTMDKuA/JDQe0xYLuDIfs3GKQSPQMpUDhki+WZMN
+DqFveacFKjMaU6kxGpoFWONkDSLzRjWguMjv0+SwXJPDbwYmJFsfOFNPc8AjXIDc
+YsgXv6n/zHWQGC9w7tU3/Goy7n87FGWsBIKsBAQF2K4ZhubTgA9zggVBKLArj7J1
+WpidsKFtr0DqBk/BKpQfERYQIQqND2xScFnTkrp80A55wu0rzNW2wP4XXWcOkPbS
+jYoVHY81EV3ExQzN3T7FbOO6PWfXZMPwUw+UwfODLvFCbpmQJSkiMiv5x4qXJDrS
+wxx80JuxpcjWr6qKYltb4t/R/+AgZg==
+=0K47
+-----END PGP SIGNATURE-----
+
+--FEz7ebHBGB6b2e8X--

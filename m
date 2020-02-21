@@ -2,55 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EB3B167EB4
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 14:34:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82C3F167ECD
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 14:39:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2108C16E2;
-	Fri, 21 Feb 2020 14:33:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2108C16E2
+	by alsa0.perex.cz (Postfix) with ESMTPS id EC0BB16D0;
+	Fri, 21 Feb 2020 14:39:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EC0BB16D0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582292071;
-	bh=U/gHYr8sl3aK+jYWw6PwcQsEDqxAchevD2FJehyKjm0=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=BFJxPRbuM2zO7rtOAFpaG8pL7LTbo83hAPRP0zHd4Guzrvx9Ir71gEC4ws9UGf3a6
-	 Vij0PmSD2aSx+3njCSBfWEN6CDQ/u968BjkH0QmF/+tXUC52VwIapYYclflP8ZG7Rc
-	 sI75Sf0O7ErSZg72u4WyZyVn+6Af7oP7rdZzbPPg=
+	s=default; t=1582292394;
+	bh=xwZtYdVGm1YdaKV8BKeiJhwK+7maJ+h8QKPM8JBtYqQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=rIm2wFhk+9hv8AnkKOqE4nHmuWfrRak3LJVPE5cgb/nDkGyHikSHk5sFST26STSyA
+	 UyqeohOJ8eu6tHsJRkjtm7x6D7dqnKfVC4fErpxJ6kRTQmUJOqNWxcbijMeowGtjXe
+	 4OzGBhcsJUp0TNyjGZw8mtmlDl3aGzq/2ndD+fPE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0F955F8028E;
-	Fri, 21 Feb 2020 14:31:22 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id F3A6DF80273;
+	Fri, 21 Feb 2020 14:38:12 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BF1D1F8028E; Fri, 21 Feb 2020 14:31:19 +0100 (CET)
+ id 53708F8025F; Fri, 21 Feb 2020 14:38:10 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 2F452F8028C
- for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 14:31:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2F452F8028C
+ by alsa1.perex.cz (Postfix) with ESMTP id 6908FF800C5
+ for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 14:38:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6908FF800C5
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BFFD330E;
- Fri, 21 Feb 2020 05:31:15 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1539630E;
+ Fri, 21 Feb 2020 05:38:06 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 383B83F703;
- Fri, 21 Feb 2020 05:31:15 -0800 (PST)
-Date: Fri, 21 Feb 2020 13:31:13 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 24D5D3F703;
+ Fri, 21 Feb 2020 05:38:05 -0800 (PST)
+Date: Fri, 21 Feb 2020 13:38:03 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Jerome Brunet <jbrunet@baylibre.com>
-Subject: Applied "ASoC: meson: g12a: add tohdmitx reset" to the asoc tree
-In-Reply-To: <20200221121146.1498427-1-jbrunet@baylibre.com>
-Message-Id: <applied-20200221121146.1498427-1-jbrunet@baylibre.com>
-X-Patchwork-Hint: ignore
+To: Sameer Pujar <spujar@nvidia.com>
+Subject: Re: [PATCH v3 05/10] ASoC: tegra: add Tegra210 based AHUB driver
+Message-ID: <20200221133803.GF5546@sirena.org.uk>
+References: <1582180492-25297-1-git-send-email-spujar@nvidia.com>
+ <1582180492-25297-6-git-send-email-spujar@nvidia.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="p8PhoBjPxaQXD0vg"
+Content-Disposition: inline
+In-Reply-To: <1582180492-25297-6-git-send-email-spujar@nvidia.com>
+X-Cookie: Dead?	No excuse for laying off work.
+User-Agent: Mutt/1.10.1 (2018-07-13)
 Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-amlogic@lists.infradead.org
+ atalambedu@nvidia.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, jonathanh@nvidia.com, viswanathl@nvidia.com,
+ sharadg@nvidia.com, robh+dt@kernel.org, thierry.reding@gmail.com,
+ linux-tegra@vger.kernel.org, digetx@gmail.com, rlokhande@nvidia.com,
+ mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,71 +75,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The patch
 
-   ASoC: meson: g12a: add tohdmitx reset
+--p8PhoBjPxaQXD0vg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-has been applied to the asoc tree at
+On Thu, Feb 20, 2020 at 12:04:47PM +0530, Sameer Pujar wrote:
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+> The Audio Hub (AHUB) comprises a collection of hardware accelerators for
+> audio pre/post-processing and a programmable full crossbar (XBAR) for
+> routing audio data across these accelerators in time and in parallel.
+> AHUB supports multiple interfaces to I2S, DSPK, DMIC etc., XBAR is a
+> switch used to configure or modify audio routing between HW accelerators
+> present inside AHUB.
+>=20
+> This patch registers AHUB component with ASoC framework. The component
+> driver exposes DAPM widgets, routes and kcontrols for the device. The DAI
+> driver exposes AHUB interfaces, which can be used to connect different
+> components in the ASoC layer. Currently the driver takes care of XBAR
+> programming to allow audio data flow through various clients of the AHUB.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.  
+The current way to represent complex digitial routing inside SoCs is to
+use DPCM, this is not great and causes a bunch of problems with the
+framework but it's at least consistent between SoCs and is less visible
+to the ABI than this is.  Ideally what we'd be doing is propagating
+digital configuration along audio paths like we do for analog with DAPM,
+Morimoto-san has done a lot of the groundwork for doing that with
+converting everything to components but nobody has worked on that yet.
+Your stuff looks a lot more like this than it does DPCM at the minute
+but it completely sidesteps the digital configuration part of things
+without trying to integrate with the framework which isn't great.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+I'm really not thrilled about the idea of just hacking around the side
+of things like this is doing, the ideal thing would be starting the work
+on the framework to propagate digital configuration - I *think* you can
+get away with only a subset of the problem here (just copying
+configuration straight through) since this looks like it's just straight
+point to point links with little in the way of DSP.  If not DPCM would
+be the way to go I think.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+--p8PhoBjPxaQXD0vg
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+-----BEGIN PGP SIGNATURE-----
 
-Thanks,
-Mark
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5P3ToACgkQJNaLcl1U
+h9Dwzwf/advF/uesEAwOfyBFgKsZU2OvOfZNWh3z/hn0WbNlr6NtvLRDYEOjdsbA
+1cWkU2QWhi1rmf+aeWuOOXLwfJ69OczEeEmo0PODUMrWFNFfWGhnyyo7vGU5MP0S
+lHxiqyUhlU4SQJDNuHKhUZigSKEcwH1ofxGTk4SS43VGvG4KrQIZrIZeuWkYcdzN
+Py+JpKWnpqDPAs19Rqe9jNUY2qFnF0V7VT5zZKMnXEVwHSjlHqzMHH/maokSugYa
+ftNy9GuN7MKL18zAZ7DKDqljpUOPnRfnoiys4qq1LYXXey7e5nbFpOdihRBU5XQS
+csloEVBpHZgw77kXeOmlE5dbWwlsQw==
+=c0+G
+-----END PGP SIGNATURE-----
 
-From 22946f37557e27697aabc8e4f62642bfe4a17fd8 Mon Sep 17 00:00:00 2001
-From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Fri, 21 Feb 2020 13:11:46 +0100
-Subject: [PATCH] ASoC: meson: g12a: add tohdmitx reset
-
-Reset the g12a hdmi codec glue on probe. This ensure a sane startup state.
-
-Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
-Link: https://lore.kernel.org/r/20200221121146.1498427-1-jbrunet@baylibre.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
----
- sound/soc/meson/g12a-tohdmitx.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/sound/soc/meson/g12a-tohdmitx.c b/sound/soc/meson/g12a-tohdmitx.c
-index 9cfbd343a00c..8a0db28a6a40 100644
---- a/sound/soc/meson/g12a-tohdmitx.c
-+++ b/sound/soc/meson/g12a-tohdmitx.c
-@@ -8,6 +8,7 @@
- #include <linux/module.h>
- #include <sound/pcm_params.h>
- #include <linux/regmap.h>
-+#include <linux/reset.h>
- #include <sound/soc.h>
- #include <sound/soc-dai.h>
- 
-@@ -378,6 +379,11 @@ static int g12a_tohdmitx_probe(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	void __iomem *regs;
- 	struct regmap *map;
-+	int ret;
-+
-+	ret = device_reset(dev);
-+	if (ret)
-+		return ret;
- 
- 	regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(regs))
--- 
-2.20.1
-
+--p8PhoBjPxaQXD0vg--

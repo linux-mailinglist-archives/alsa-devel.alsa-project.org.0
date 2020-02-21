@@ -2,84 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744E9167D6C
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 13:24:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EEE1D167D70
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 13:25:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2574716BC;
-	Fri, 21 Feb 2020 13:23:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2574716BC
+	by alsa0.perex.cz (Postfix) with ESMTPS id 964B116D3;
+	Fri, 21 Feb 2020 13:24:30 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 964B116D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582287877;
-	bh=ngWxF7aO5t5MRSt7sNRFkMbY7w8K1HztgdLGyebIsDc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=CfUDPUfur/wuLmtnbume0SWBwAkRtLLVPYdr1AMXgskfVXoGOU2dqOIEX9GYriHOS
-	 1ziiO92OOVPcvslj/E15TenAFMrUajEPH3amIQrVcsF43xiLLWP9drNsuRx6opI0/g
-	 KH9zyjoDpmtn7n5064xdkHiwzPJ92k8KC1xa88JA=
+	s=default; t=1582287920;
+	bh=VC5U4yQWHmrhC1M2VClflGsBB5OqN3bIsn5IxRjGnIc=;
+	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HNdZdsd75qcO8dRTqbmzOMIWyp+I7iflDFa6Kfk0DKJEUGSZldSUF1A6Cga992Vzj
+	 aMfLo7hI4nLlUZvXc7UFfS0Nvc4MWdTVDyHCRhSkMbHqyzsbZTjrcwjXzfaZgTzCJ2
+	 oxz0HPpnY2D+BTzYD0ZTOoa3Gto1UiQtp6a89Q0E=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2B7F7F80276;
-	Fri, 21 Feb 2020 13:22:56 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 7652AF80240;
+	Fri, 21 Feb 2020 13:22:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6F63AF80273; Fri, 21 Feb 2020 13:22:52 +0100 (CET)
+ id 43CD9F80276; Fri, 21 Feb 2020 13:22:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-wr1-x444.google.com (mail-wr1-x444.google.com
- [IPv6:2a00:1450:4864:20::444])
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BE5CCF80114
- for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 13:22:49 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE5CCF80114
+ by alsa1.perex.cz (Postfix) with ESMTPS id BD8A2F8011D
+ for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 13:22:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BD8A2F8011D
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=baylibre-com.20150623.gappssmtp.com
- header.i=@baylibre-com.20150623.gappssmtp.com header.b="Hzswd1IE"
-Received: by mail-wr1-x444.google.com with SMTP id c9so1811207wrw.8
- for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 04:22:49 -0800 (PST)
+ header.i=@baylibre-com.20150623.gappssmtp.com header.b="PLua7VeZ"
+Received: by mail-wm1-x343.google.com with SMTP id b17so1599184wmb.0
+ for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 04:22:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=baylibre-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/BYedZ4pOByhHvdhuJN4fjl+rXQW3qUeEEUr/kFsWVU=;
- b=Hzswd1IEpFgBP9efY9SXOGNd64ap93yVYNG4hX5JRFgq6BqQLP6NMpaXnrsS4yshJr
- d/cfs5VudtvLHi7xt1YxbKlxcbTdIfYFPDd4pbfMC10jwUIEmdupU+I/U319Ue7iQcHZ
- zTXIEVK1lyRXExDAjWQpCwqdmy+CthZHkPEpn4TuEfRuqoQKL9020Dy69beWpRhBEMDG
- 8U/JBaYO045Zy7LLbkTq6YQzTkojCkI+UcobfIiQBV7lKe5KUl9fL9wvZZ7TQmI6OSzr
- iPqtJ7k1iNdxG0deDdtmqbUqZrShsZSA6X2Hra92Yigm2T2ltYn6+y7wvAEIK4FZhoRo
- QZlA==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=tqEQ5jIvmw/mgMvZjaDSuL/3Rd6IGcOEgjWBEmD6jMI=;
+ b=PLua7VeZzwIcVj+hwSLftKcsvF1Az9k4Ybcwyye6rFiPkd7V2kwZ2LlM9IKZQhsrcY
+ lwYXqpdC5p36lJSnLd6SOnMvqf2G5mVtvcoRvCNxZ6FOwnffUb6GWd1lt1SpU4RiAKVB
+ Zeui1EzKUaGoGIfjXdrE/vrBlk23BcChYfCaNoRsZAMzi8UxMw6nxXXL3yiiJXLHE10b
+ cIC7lVXkXe1coFDD0SnJ7ALecL3azNVCfR6MFh4z0KUvzxmO3FNG3hS8GEvfieUfL3jw
+ Sbw7H6LCzKahIZC0x4flfGCGOjrmxVITR9PGduGTCm/Odfp0jo8Yi23/dVkt7rF3oEpP
+ yjrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=/BYedZ4pOByhHvdhuJN4fjl+rXQW3qUeEEUr/kFsWVU=;
- b=lRsim+Jj1kamygNLJ7Y5KK5ow8o2sboZlY79evgeQanAF81HkJS+lytE3OZNJiNoxY
- yPNZQ0sd1yFfQFxHt5cjAXyGMGHEjjOZYmDY+FPojGN4PCpqjrlagiM0hh8YXdSiP6jV
- 1DRvaHuywNLP+Tlp5KwunDK0jbyu8OpBNyI5jU7Ro4lfBiAvzu4US87M3w47tC8ufYNZ
- DI0ZyaVW/xC35We8DXVsYzsYIvanJs+zPL0Cr9m7t0maobmm4RXMRcihnptKtcwyKObh
- F9mfdZ0WP9Dy06x4YrXae/oWisF1Zhwe/ttVbfoHRsrKQGhZ85bMXvgqRwwH20m5kxco
- +KJw==
-X-Gm-Message-State: APjAAAUPqlErcw35q3xbzuQoh+RstmcfF0RBNyrjGj5r3OUERD5NOl+C
- t3R1kvFzf1Py+Bwx2U+kmbVVhg==
-X-Google-Smtp-Source: APXvYqzmjIqVT9st1OIarukP3BJalnkRPkvKDXMRg5ZK7MmjuG/5QwKMBZb6+Mmv5heghIB9nKAzwA==
-X-Received: by 2002:adf:fd8d:: with SMTP id d13mr49039936wrr.208.1582287768611; 
- Fri, 21 Feb 2020 04:22:48 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=tqEQ5jIvmw/mgMvZjaDSuL/3Rd6IGcOEgjWBEmD6jMI=;
+ b=Fhl6wsQGhzf1r6iVbiWLeVIlJ6z19RHDGqcHK+EEMDNHc3ySXVx6jLWhIkyuyU2L8/
+ i4KL0i/s5f5CE/RsK08ihn5bhG6aY4lqPq5TwFwNnN1mURc7aZ4306ypydlZOklOH3Ja
+ QvOSMWTyvPznSgGqPFkfTCBld7SMnhQ03b0nTQCCeAlhq1vQStzWVTpy830Xg/PI9Zc7
+ dtRsCdWyGRJrJCBy4JPIJPFIXC1NMd28NL55oB0jrlUwgCpzUC7dx1i6nsGxUsH5bba6
+ MjHPsNVfP9U10USGVopCHW1kC4sdAnfSUHKM0WRcVncs6CeTvwFe9yi2bsFBzlKrGNpo
+ nSYA==
+X-Gm-Message-State: APjAAAV8MOLHUny+PkdYmmdeg8CAeCYPJZJIqtugATDd2W0P659XEx2N
+ QBw2lPAnMBV4sT7Z4N/+zYDyDg==
+X-Google-Smtp-Source: APXvYqzOPdCf7kHIVEmbaZYquZ7dKDOguVj3XvMjZhAdZ4A1XLpWmDHIv64vXwu7v/J8V8d8c4HS7Q==
+X-Received: by 2002:a1c:f008:: with SMTP id a8mr3477355wmb.81.1582287769710;
+ Fri, 21 Feb 2020 04:22:49 -0800 (PST)
 Received: from starbuck.baylibre.local
  (laubervilliers-658-1-213-31.w90-63.abo.wanadoo.fr. [90.63.244.31])
- by smtp.googlemail.com with ESMTPSA id p26sm3454653wmc.24.2020.02.21.04.22.47
+ by smtp.googlemail.com with ESMTPSA id p26sm3454653wmc.24.2020.02.21.04.22.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 21 Feb 2020 04:22:47 -0800 (PST)
+ Fri, 21 Feb 2020 04:22:49 -0800 (PST)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
-Subject: [PATCH 0/3] ASoC: meson: g12a: add internal audio DAC support
-Date: Fri, 21 Feb 2020 13:22:39 +0100
-Message-Id: <20200221122242.1500093-1-jbrunet@baylibre.com>
+Subject: [PATCH 1/3] ASoC: meson: g12a: add toacodec dt-binding documentation
+Date: Fri, 21 Feb 2020 13:22:40 +0100
+Message-Id: <20200221122242.1500093-2-jbrunet@baylibre.com>
 X-Mailer: git-send-email 2.24.1
+In-Reply-To: <20200221122242.1500093-1-jbrunet@baylibre.com>
+References: <20200221122242.1500093-1-jbrunet@baylibre.com>
 MIME-Version: 1.0
 X-Patchwork-Bot: notify
 Content-Transfer-Encoding: 8bit
@@ -101,27 +105,90 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Like the gxl, the Amlogic g12a and sm1 SoC families have a t9015 internal
-audio DAC. On these more recent SoCs, any of the 3 TDM outputs can be
-routed to the internal DAC. This routing is done by a small glue device
-called 'toacodec'. This patchset adds support for it.
+Add the DT bindings and documentation of the internal audio DAC glue found
+on Amlogic g12a and sm1 SoC families
 
-Jerome Brunet (3):
-  ASoC: meson: g12a: add toacodec dt-binding documentation
-  ASoC: meson: g12a: add internal DAC glue driver
-  ASoC: meson: axg-card: add toacodec support
-
- .../bindings/sound/amlogic,g12a-toacodec.yaml |  51 ++++
- .../dt-bindings/sound/meson-g12a-toacodec.h   |  10 +
- sound/soc/meson/Kconfig                       |   9 +
- sound/soc/meson/Makefile                      |   2 +
- sound/soc/meson/axg-card.c                    |   3 +-
- sound/soc/meson/g12a-toacodec.c               | 240 ++++++++++++++++++
- 6 files changed, 314 insertions(+), 1 deletion(-)
+Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+---
+ .../bindings/sound/amlogic,g12a-toacodec.yaml | 51 +++++++++++++++++++
+ .../dt-bindings/sound/meson-g12a-toacodec.h   | 10 ++++
+ 2 files changed, 61 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
  create mode 100644 include/dt-bindings/sound/meson-g12a-toacodec.h
- create mode 100644 sound/soc/meson/g12a-toacodec.c
 
+diff --git a/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml b/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
+new file mode 100644
+index 000000000000..f778d3371fde
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/amlogic,g12a-toacodec.yaml
+@@ -0,0 +1,51 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/amlogic,g12a-toacodec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Amlogic G12a Internal DAC Control Glue
++
++maintainers:
++  - Jerome Brunet <jbrunet@baylibre.com>
++
++properties:
++  $nodename:
++    pattern: "^audio-controller@.*"
++
++  "#sound-dai-cells":
++    const: 1
++
++  compatible:
++    oneOf:
++      - items:
++        - const:
++            amlogic,g12a-toacodec
++      - items:
++        - enum:
++          - amlogic,sm1-toacodec
++        - const:
++            amlogic,g12a-toacodec
++
++  reg:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++required:
++  - "#sound-dai-cells"
++  - compatible
++  - reg
++  - resets
++
++examples:
++  - |
++    #include <dt-bindings/reset/amlogic,meson-g12a-audio-reset.h>
++
++    toacodec: audio-controller@740 {
++        compatible = "amlogic,g12a-toacodec";
++        reg = <0x0 0x740 0x0 0x4>;
++        #sound-dai-cells = <1>;
++        resets = <&clkc_audio AUD_RESET_TOACODEC>;
++    };
+diff --git a/include/dt-bindings/sound/meson-g12a-toacodec.h b/include/dt-bindings/sound/meson-g12a-toacodec.h
+new file mode 100644
+index 000000000000..69d7a75592a2
+--- /dev/null
++++ b/include/dt-bindings/sound/meson-g12a-toacodec.h
+@@ -0,0 +1,10 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef __DT_MESON_G12A_TOACODEC_H
++#define __DT_MESON_G12A_TOACODEC_H
++
++#define TOACODEC_IN_A	0
++#define TOACODEC_IN_B	1
++#define TOACODEC_IN_C	2
++#define TOACODEC_OUT	3
++
++#endif /* __DT_MESON_G12A_TOACODEC_H */
 -- 
 2.24.1
 

@@ -2,68 +2,66 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7EE4168220
-	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 16:45:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69A9A168443
+	for <lists+alsa-devel@lfdr.de>; Fri, 21 Feb 2020 17:57:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 3DE6016CB;
-	Fri, 21 Feb 2020 16:44:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3DE6016CB
+	by alsa0.perex.cz (Postfix) with ESMTPS id E2FDF16CD;
+	Fri, 21 Feb 2020 17:56:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E2FDF16CD
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582299922;
-	bh=jkZQFgPsPyR5A+kSjTDPH7u9v+FrkGj0BEFlkIdTo3Q=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1582304246;
+	bh=S/BpOi5B7fUj5UR+I6/VosoOE7/wYYHXw7HeqdF4ZJQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FIwkEJSNvSwYYANDsXbomAF4JIXjJJlOcVzXQsXjv6uy47e9n0cq29XMI4obBrQZ/
-	 NiXBgG8ekjav0GERZYXjQTsJY2nvS9VXbqA0WEFZUBVhxLmjREt5KH0sEbI28v1EoX
-	 ToFlIWarFik2iUKg/goibWfkW6ULkda70QB0N+WA=
+	b=LZgJVFYtVcXaNO3ao7OcMwmcPOtNml12e4q4eFY+NejrtV7ez781cJNk0a9Hq/wXZ
+	 j0eEHkdEon7DCQcUtXG+7BpGCXWVGO2bAGm7t2HZtLKohmXS1hlMwkJhDztvbG39II
+	 k5kPwkk6rbjPA9XmRLWOnhHXDOBRtkVNO0sUeunM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2BDDDF80273;
-	Fri, 21 Feb 2020 16:43:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EBAFFF80273;
+	Fri, 21 Feb 2020 17:55:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5752DF8025F; Fri, 21 Feb 2020 16:43:38 +0100 (CET)
+ id 88973F8025F; Fri, 21 Feb 2020 17:55:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE autolearn=disabled version=3.4.0
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 466A5F800C5
- for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 16:43:34 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 466A5F800C5
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2020 07:43:33 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,468,1574150400"; d="scan'208";a="236603814"
-Received: from mdiamon1-mobl.amr.corp.intel.com (HELO [10.252.143.193])
- ([10.252.143.193])
- by orsmga003.jf.intel.com with ESMTP; 21 Feb 2020 07:43:30 -0800
-Subject: Re: [PATCH] Intel: Skylake: Fix inconsistent IS_ERR and PTR_ERR
-To: Joe Perches <joe@perches.com>, Xu Wang <vulab@iscas.ac.cn>,
- perex@perex.cz, tiwai@suse.com, alsa-devel@alsa-project.org
-References: <20200221101112.3104-1-vulab@iscas.ac.cn>
- <1247da797bc0a860e845989241385e124e589063.camel@perches.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <8e96c207-cdf8-2d1f-755e-be60555c8728@linux.intel.com>
-Date: Fri, 21 Feb 2020 09:40:13 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id B7694F8011D
+ for <alsa-devel@alsa-project.org>; Fri, 21 Feb 2020 17:55:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B7694F8011D
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B070830E;
+ Fri, 21 Feb 2020 08:55:37 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 266203F68F;
+ Fri, 21 Feb 2020 08:55:37 -0800 (PST)
+Date: Fri, 21 Feb 2020 16:55:35 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jon Hunter <jonathanh@nvidia.com>
+Subject: Re: [PATCH v3 03/10] ASoC: tegra: add Tegra210 based DMIC driver
+Message-ID: <20200221165535.GG5546@sirena.org.uk>
+References: <1582180492-25297-1-git-send-email-spujar@nvidia.com>
+ <1582180492-25297-4-git-send-email-spujar@nvidia.com>
+ <20200221130005.GD5546@sirena.org.uk>
+ <316ce0d5-318d-0533-ef06-bd7e8672f893@nvidia.com>
 MIME-Version: 1.0
-In-Reply-To: <1247da797bc0a860e845989241385e124e589063.camel@perches.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: "Rojewski, Cezary" <cezary.rojewski@intel.com>,
- linux-kernel@vger.kernel.org, "Slawinski,
- AmadeuszX" <amadeuszx.slawinski@intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="JkW1gnuWHDypiMFO"
+Content-Disposition: inline
+In-Reply-To: <316ce0d5-318d-0533-ef06-bd7e8672f893@nvidia.com>
+X-Cookie: Dead?	No excuse for laying off work.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ atalambedu@nvidia.com, linux-kernel@vger.kernel.org,
+ Sameer Pujar <spujar@nvidia.com>, lgirdwood@gmail.com, tiwai@suse.com,
+ viswanathl@nvidia.com, sharadg@nvidia.com, robh+dt@kernel.org,
+ thierry.reding@gmail.com, linux-tegra@vger.kernel.org, digetx@gmail.com,
+ rlokhande@nvidia.com, mkumard@nvidia.com, dramesh@nvidia.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,77 +78,55 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
+--JkW1gnuWHDypiMFO
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 2/21/20 8:41 AM, Joe Perches wrote:
-> On Fri, 2020-02-21 at 18:11 +0800, Xu Wang wrote:
->> PTR_ERR should access the value just tested by IS_ERR.
->> In skl_clk_dev_probe(),it is inconsistent.
-> []
->> diff --git a/sound/soc/intel/skylake/skl-ssp-clk.c b/sound/soc/intel/skylake/skl-ssp-clk.c
-> []
->> @@ -384,7 +384,7 @@ static int skl_clk_dev_probe(struct platform_device *pdev)
->>   				&clks[i], clk_pdata, i);
->>   
->>   		if (IS_ERR(data->clk[data->avail_clk_cnt])) {
->> -			ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
->> +			ret = PTR_ERR(data->clk[data->avail_clk_cnt]);
-> 
-> NAK.
-> 
-> This is not inconsistent and you are removing the ++
-> which is a post increment.  Likely that is necessary.
-> 
-> You could write the access and the increment as two
-> separate statements if it confuses you.
+On Fri, Feb 21, 2020 at 02:31:05PM +0000, Jon Hunter wrote:
+> On 21/02/2020 13:00, Mark Brown wrote:
 
-Well to be fair the code is far from clear.
+> >> +	srate = params_rate(params);
+> >> +	if (dmic->srate_override)
+> >> +		srate = dmic->srate_override;
 
-the post-increment is likely needed because of the error handling in 
-unregister_src_clk 1
-		data->clk[data->avail_clk_cnt] = register_skl_clk(dev,
-				&clks[i], clk_pdata, i);
+> > How does this work for userspace?  If we just ignore the sample rate we
+> > were asked for I'd expect that the application would get upset.
 
-		if (IS_ERR(data->clk[data->avail_clk_cnt])) {
-			ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
-			goto err_unreg_skl_clk;
-		}
-	}
+> Tegra has a hardware sample rate converter (though driver not yet
+> upstream or part of this initial series) and if using the sample-rate
+> converter, then the actual rate captured by the DMIC interface could be
+> different from the resulting sample-rate.
 
-	platform_set_drvdata(pdev, data);
+The ideal thing in a component model would be to represent those sample
+rate convertors directly to usrspace so the routing and rewriting is
+explicit.
 
-	return 0;
+> So we want a way to indicate to the DMIC it is capturing at rate X,
+> while the resulting sample-rate is Y.
 
-err_unreg_skl_clk:
-	unregister_src_clk(data);
+> I am not sure if there is a better way to do this? Ideally, the DMIC
+> would query the rate from the upstream MUX it is connected to, but I am
+> not sure if there is a way to do that. So right now it is a manual
+> process and the user has to configure these which are not ideal.
 
-static void unregister_src_clk(struct skl_clk_data *dclk)
-{
-	while (dclk->avail_clk_cnt--)
-		clkdev_drop(dclk->clk[dclk->avail_clk_cnt]->lookup);
-}
+Is there any *need* for these to be user configurable?  What's normally
+happening at the minute is that either the external DAIs are fixed
+configuration and the DSP just converts everything or there's no format
+conversion done and things get passed through.
 
-So the post-increment is cancelled in the while().
+--JkW1gnuWHDypiMFO
+Content-Type: application/pgp-signature; name="signature.asc"
 
-That said, the avail_clk_cnt field is never initialized or incremented 
-in normal usages so the code looks quite suspicious indeed.
+-----BEGIN PGP SIGNATURE-----
 
-gitk tells me this patch is likely the culprit:
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5QC4YACgkQJNaLcl1U
+h9BuAQf9FRu14PuOOZ+O9sauEIcPzDlfRncn0yonqpoiOL8kSVmvII1P6SzUxVjG
+KFT1ryG8Jk6CHEYPsfj5meLFRtbk+gB/l/j4+UoVvLdEy6SGGuadmkktdEJucjRG
+FOHdt2hfaLzIAZKebaESc7yfGhrQ+2B6W1+FW+SxxpZrN4J8FeugjB31LOhCaKZo
+ZGxy4cHJYjQRWAPKz5fHsjOkHU7Es0ZpqZ+jKq3j/IGQtaNy/T+j+x2kQohcWN7f
+Bt3DpnlXTOy+iKdk2+7kvWZdo7Cqwydu8IuzvE9cyJc6xsLecENvaOdcbAPwtwvy
+AScUw0aer+7MukF/p0KS8880tO3ilw==
+=lUQu
+-----END PGP SIGNATURE-----
 
-6ee927f2f01466 ('ASoC: Intel: Skylake: Fix NULL ptr dereference when 
-unloading clk dev')
-
--		data->clk[i] = register_skl_clk(dev, &clks[i], clk_pdata, i);
--		if (IS_ERR(data->clk[i])) {
--			ret = PTR_ERR(data->clk[i]);
-+		data->clk[data->avail_clk_cnt] = register_skl_clk(dev,
-+				&clks[i], clk_pdata, i);
-+
-+		if (IS_ERR(data->clk[data->avail_clk_cnt])) {
-+			ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
-  			goto err_unreg_skl_clk;
-  		}
--
--		data->avail_clk_cnt++;
-
-That last removal is probably wrong. Cezary and Amadeusz, you may want 
-to look at this?
+--JkW1gnuWHDypiMFO--

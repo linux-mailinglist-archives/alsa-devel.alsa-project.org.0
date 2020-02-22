@@ -2,101 +2,95 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A766168B8F
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Feb 2020 02:27:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 81D90168CFF
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Feb 2020 07:55:14 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7AAAF16CD;
-	Sat, 22 Feb 2020 02:26:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7AAAF16CD
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1F86F16CC;
+	Sat, 22 Feb 2020 07:54:24 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1F86F16CC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582334828;
-	bh=Fm7BxxRzXSNgV5A391EcwB7oTYB2Y40jFKrtjhHAQf4=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1582354514;
+	bh=LT3r03nKQTi3BCdKRZKhRxShtV58Iw2CRkPjXm6rJJQ=;
+	h=Subject:From:To:Date:In-Reply-To:References:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=k3cBV6IN7mhBNWTkpzkCzM6HWybh9Tdo7TLjrbLqkbPD/6pGz8rPYpiqLZE7GtLR0
-	 N0DFZAZ+exd9P0YL9NphITkpTr1h0812Uktu0TzzJbnoLhZu+EEMNo0P6KLGzkttmr
-	 TYTk4xhDYHbDkL9z5GyFs5ui5kf3yNsf8OID2uh0=
+	b=OlagTJRJ6TY4TEhBaHcicu9St86ipSf/99dvyKqN5tYgdsIpQjxn4CtuBWVLXSILj
+	 yu8kUpH78nRecxCqcbiXSkEcTzm7DMh4Ir3lMDxeiIZ8+oAqVhWNmkKrvvNNfVL4QQ
+	 Z7PmqVc+mXBmt6G16/O5mscuo8VUn3SAQHgS2jCc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4B433F800C5;
-	Sat, 22 Feb 2020 02:25:27 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1AA1EF8011D;
+	Sat, 22 Feb 2020 07:53:33 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 42B9FF8025F; Sat, 22 Feb 2020 02:25:24 +0100 (CET)
+ id 10F27F80148; Sat, 22 Feb 2020 07:53:30 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.4 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,PRX_BODY_14,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+X-Spam-Level: *
+X-Spam-Status: No, score=1.7 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ PRX_BODY_30,SPF_HELO_PASS,SPF_NEUTRAL,SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
+ [64.147.123.24])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id E6C46F800C5
- for <alsa-devel@alsa-project.org>; Sat, 22 Feb 2020 02:25:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E6C46F800C5
+ by alsa1.perex.cz (Postfix) with ESMTPS id 00F62F8011D
+ for <alsa-devel@alsa-project.org>; Sat, 22 Feb 2020 07:53:23 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 00F62F8011D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=sakamocchi.jp header.i=@sakamocchi.jp
- header.b="HUcR9Z/F"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="EETV85N1"
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id E60B921F3C;
- Fri, 21 Feb 2020 20:25:16 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Fri, 21 Feb 2020 20:25:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sakamocchi.jp;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=etNejSiORDG69abi+dMzIKIEgmd
- yfOVRWWPlP+zM1pQ=; b=HUcR9Z/FPdvORp8AENi0/jEQLIe6egoluTkCUHr28yK
- TZB0FVBpdbbEgeHZaihWIVdccccyZbZXK+xt8nCXYl5AOfbEab+G/r6wFR2Ez0Nc
- EdiNoGmukyOKaeYyDpvSjBk/jMFGEr/SKwa5ANmOpsi2I9qRViPiY/g+ZehIN1vH
- cOzfxd7O0edo3LPLU+v5S+hob59GbJ014lnWsPF0PewI9zBRbSX+xeCZhO+1qs+R
- e4ppCC6uyT+YDLT4nQSgwdyIgsxFHjgJoFiho7EoouafreAxHQbHZCOn/ECkyyXG
- uS/eq66VR//qCCczNxjCgRto2y+i6fgPN1qTCM0qwqg==
+ header.i=@messagingengine.com header.b="ak/R1E1n"
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 1ACCA548;
+ Sat, 22 Feb 2020 01:53:21 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Sat, 22 Feb 2020 01:53:21 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=etNejS
- iORDG69abi+dMzIKIEgmdyfOVRWWPlP+zM1pQ=; b=EETV85N1iCI0O3MhF3b707
- aZ2zp8wbUOx27NAQ7z0Cqu2pmm6YxYydPJOYYQlHo8T5EHNqnXqhJruHRQzh8stU
- 9LdgYT/UY7TMb1S51IDOTqijbAMVDoC7yk1Ch1pe48IxYiMLSd2NnrRRo21/xhkO
- 9LqRARhY4IuqJzmxDfL4PDod/xaaQg3mwTQmUoGWJNBF53nL4uTZol6ac05qmPXC
- ceIfHc5eevdIaiagJtzJvFLLAOFC5hTTXQeW7d86WvSxAGOsUS+vmgpFhORSZNVP
- KTb96WvCuCCVCBNWoVaR4ab0Y++At+J0HKXQoWBjyr1YNd+YuidGaTels2WCz0Ow
- ==
-X-ME-Sender: <xms:-4JQXlrAJUkdUHH49Ky0lcJ0S1luEK_UzjbfEL5kc5YRtt3KM2JpGA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrkeehgdefgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjfgesthdtre
- dttdervdenucfhrhhomhepvfgrkhgrshhhihcuufgrkhgrmhhothhouceoohdqthgrkhgr
- shhhihesshgrkhgrmhhotggthhhirdhjpheqnecukfhppedvudekrddvvdehrdduhedurd
- einecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepohdq
- thgrkhgrshhhihesshgrkhgrmhhotggthhhirdhjph
-X-ME-Proxy: <xmx:-4JQXoYgsmlEvok6r8Sbh0T4FgTFY7jt0WCtYZR3RXd-MC3XCTt1cA>
- <xmx:-4JQXmB8jc3GyAGXdJJIXNxlrgRKW2meuB-n3GAgHHlmtOnnq4-qrg>
- <xmx:-4JQXifjleXXQzefLAejfdlVvR8BMqacXNRtmlR_b9fdzpAx4jxSVA>
- <xmx:_IJQXqkeWZz8R2V6N6xHYxyu9_TmwElbP7pV51HNcOvq0U8UXSY5MA>
-Received: from laptop (g6.218-225-151.ppp.wakwak.ne.jp [218.225.151.6])
- by mail.messagingengine.com (Postfix) with ESMTPA id DD4E73060FE0;
- Fri, 21 Feb 2020 20:25:14 -0500 (EST)
-Date: Sat, 22 Feb 2020 10:25:12 +0900
-From: Takashi Sakamoto <o-takashi@sakamocchi.jp>
-To: Mathias Buhr <napcode@apparatus.de>
-Subject: Re: snd_dice: Clicking artifacts with TC StudioKonnekt 48
-Message-ID: <20200222012510.GA4883@laptop>
-Mail-Followup-To: Mathias Buhr <napcode@apparatus.de>,
- "(alsa-devel@alsa-project.org)" <alsa-devel@alsa-project.org>
-References: <921a3b13-b44e-3300-bb72-84cbc9e3dd88@apparatus.de>
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=DAiYFLRAw63ZkiYgzIoY2uVvgcSdll8JYAkCTo1jl
+ +s=; b=ak/R1E1nDhJMMPhVUzu8DD66c5MZf9Jlr2bK/jjjkMmjN921sis5YlT93
+ QAQoxdGf8H2kDkIjn1zOOrRJ81pB9lwVdXlyIPczYKSs4+L1U4iHksCMentxNOXX
+ HDjr5zXiNHVDsvKh6v6jMnn6hfUUmvooA7CRgWSN2ZyrNK0+r1OjG0wzRaFdyEUR
+ qH0W0wX7QzbHajmc45eBvrw36+/Sqlgma7+lHHyzaMVj/8M8vRFpxJRpmgZjbIew
+ wZGImlNgmjRNUOihe0sRQHlHtIzukwbWJ4RWGGGvRDBbDPHQX9W7lWJ7FQ7JEblt
+ F1rqBgp9df+RguOMTPXZyk3PARyNg==
+X-ME-Sender: <xms:3s9QXnXSBbyKUH4tTF5qFZ1d50NL7uSk1l-gZu56oxrDsoMLbtLlIA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrkeehgddutddvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepkffuhffvffgjfhgtfggggfesthejredttderjeenucfhrhhomhepvfgrnhhu
+ ucfmrghskhhinhgvnhcuoehtrghnuhhksehikhhirdhfiheqnecuffhomhgrihhnpehprg
+ htrhgvohhnrdgtohhmpdhlihgsvghrrghprgihrdgtohhmnecukfhppeduleeirddvgeeg
+ rdduledurdduudegnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilh
+ hfrhhomhepthgrnhhukhesihhkihdrfhhi
+X-ME-Proxy: <xmx:3s9QXjFvQ_mP8CfUFuap5dK1sUy5PaZS08Ec5GhQfP5eUhTqghAbMw>
+ <xmx:3s9QXqI4GAVPBMUH2pjLmXSAzQf9epHlghOmeIQeEtTuJCqStBdQnQ>
+ <xmx:3s9QXgmmTHMQqWAde-YWd7KbsryZjXdNtENS-znc92tlUuMTHnK4rQ>
+ <xmx:4M9QXsZz_Pm2zteFwLRFIBEgQpL8wCz69okbSRk_4jZVmMIcloCXrg>
+Received: from laptop (unknown [196.244.191.114])
+ by mail.messagingengine.com (Postfix) with ESMTPA id EF83F3280059;
+ Sat, 22 Feb 2020 01:53:17 -0500 (EST)
+Message-ID: <9c35a20952f53624c8cd082a5e7de33d2d34adca.camel@iki.fi>
+Subject: Re: [pulseaudio-discuss] [alsa-devel] Question about the various
+ mixer options in UCM
+From: Tanu Kaskinen <tanuk@iki.fi>
+To: Jaroslav Kysela <perex@perex.cz>, General PulseAudio Discussion
+ <pulseaudio-discuss@lists.freedesktop.org>, alsa-devel
+ <alsa-devel@alsa-project.org>
+Date: Sat, 22 Feb 2020 08:53:13 +0200
+In-Reply-To: <fc493e83-3eaa-3580-483b-4bb7754245ef@perex.cz>
+References: <50ae39498982ba2fc3fc8df1b9f0eac15a2b98c8.camel@iki.fi>
+ <cb58008e-e9cc-8390-cfc8-c5c93d31c862@perex.cz>
+ <ae7b6d8a745ef718d8a6f3f2d7e4aeabe4f7d2b6.camel@iki.fi>
+ <99522cac281eb998981ef2552c7e06846171b25f.camel@iki.fi>
+ <fc493e83-3eaa-3580-483b-4bb7754245ef@perex.cz>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.5-1.1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <921a3b13-b44e-3300-bb72-84cbc9e3dd88@apparatus.de>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: "\(alsa-devel@alsa-project.org\)" <alsa-devel@alsa-project.org>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,80 +106,171 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
-
-On Thu, Feb 20, 2020 at 09:34:02PM +0100, Mathias Buhr wrote:
-> Hi,
+On Sun, 2020-02-16 at 18:38 +0100, Jaroslav Kysela wrote:
+> Dne 16. 02. 20 v 11:06 Tanu Kaskinen napsal(a):
+> > On Sun, 2020-02-16 at 11:42 +0200, Tanu Kaskinen wrote:
+> > > + pulseaudio-discuss@lists.freedesktop.org
+> > > 
+> > > On Sat, 2020-02-15 at 17:25 +0100, Jaroslav Kysela wrote:
+> > > > Dne 15. 02. 20 v 7:29 Tanu Kaskinen napsal(a):
+> > > > > What's the difference between PlaybackVolume, PlaybackMixerElem and
+> > > > > PlaybackMasterElem? Other than the obvious difference that
+> > > > > PlaybackVolume is used only to configure the volume control, whereas
+> > > > > PlaybackMixerElem and PlaybackMasterElem are used also to configure the
+> > > > > mute control.
+> > > > 
+> > > > At first, I don't really know if someone uses PlaybackVolume/PlaybackSwitch.
+> > > > It was defined for the direct control interface (not the mixer interface). I
+> > > > do not think that we should support this.
+> > > 
+> > > PlaybackVolume/Switch is currently defined for PandaBoard,
+> > > PandaBoardES, SDP4430 and sof-hda-dsp. Do you mean those definitions
+> > > should be removed and replaced with PlaybackMixerElem? It seems that
+> > > PlaybackVolume and PlaybackSwitch don't always match the same simple
+> > > mixer element (e.g. PandaBoard), so I'm not sure if it's possible to
+> > > use PlaybackMixerElem with those platforms.
+> > > 
+> > > As you know, PulseAudio added support for PlaybackVolume recently.
+> > > Should we remove the support? I'm not against that, if
+> > > PlaybackMixerElem is the canonical way to control volume.
+> > > 
+> > > AFAIK CRAS is a major user of UCM, are there others? I think the CRAS
+> > > developers' opinion would be very useful here.
+> > > 
+> > > > I defined new PlaybackMixerElem to select the simple mixer element which
+> > > > controls both volume and switch (mute) in the ALSA API. The master volume
+> > > > might be also in the chain (thus PlaybackMasterElem) was introduced.
+> > > > 
+> > > > It seems that it might be not enough and I play with an idea to build custom
+> > > > mixer description to handle the special cases (like several speakers with the
+> > > > different volume controls connected to the single stereo stream etc.).
+> > > > 
+> > > > To keep things simple, I would probably hide all functionality to
+> > > > PlaybackMixer/PlaybackMixerElem and CaptureMixer/CaptureMixerElem . The
+> > > > special mixer name will create the abstract mixer for the applications and
+> > > > only one simple mixer element control will set the appropriate volume for
+> > > > the stream (like pulseaudio actually does for the legacy ALSA support - volume
+> > > > synthetizer). So UCM will describe the mixer for alsa-lib and application will
+> > > > use only abstract interface to set / get the volume and mute state.
+> > > 
+> > > Hiding everything behind an abstract mixer element sounds VERY good,
+> > > but how to handle a situation where the application uses two devices at
+> > > the same time and the devices share a volume control? For example, a
+> > > phone playing a ringtone to both headphones and speakers. If the
+> > > headphone output has its own abstract mixer element and the speaker
+> > > output has its own abstract mixer element, the application may imagine
+> > > that it can change the volumes independently, but if the outputs share
+> > > a master volume control that is used by both abstract volume elements,
+> > > the volumes aren't really independent, and the resulting volumes may
+> > > not be what the application intended.
 > 
-> thanks to this group, both of my firewire interfaces are (almost)
-> working! Big thank you!
+> This is something which should UCM take in the account. In this case, the 
+> "common" parts should be probably set to a maximum value (or the safe maximum 
+> value) in UCM. Another way is to mark those devices as "conflicting", thus the 
+> I/O won't be used simultaneously.
+
+Hmm, in my example I assumed (but I didn't say) that the headphones and
+speaker use the same PCM device. In this case the devices will be
+marked as conflicting anyway, which I didn't take into account, so if
+an application nevertheless wants to use both outputs, there needs to
+be a separate headphones+speaker device, which can set up the volume
+control in a sensible way. The application won't have control over the
+independent volumes, unless some new UCM feature is invented, but
+that's a separate issue. In conclusion, in this case the abstract
+element idea works well.
+
+If the PCMs are separate, I guess it's less likely that the two devices
+will share a master volume control.
+
+> > > > Actually, I am also trying to resolve the description of the speaker
+> > > > configuration. It may not be only enough to give the PCM device, because we
+> > > > don't know, if user connected the stereo or surround speakers to the sound
+> > > > card output for example. I play with an idea to add device variants to UCM,
+> > > > but the question is, how we can map this to pulseaudio profile/port schematics.
+> > > > 
+> > > > My quick idea is to export those variants via the verbs, so the exported verb
+> > > > names might look like:
+> > > > 
+> > > > HiFi:Speaker-Stereo
+> > > > HiFi:Speaker-5.1
+> > > > 
+> > > > Where 'HiFi' is the verb name, 'Speaker' is the device name and 'Stereo' is
+> > > > the variant name.
+> > > > 
+> > > > If we need to define multiple variants, all may be exported like:
+> > > > 
+> > > > HiFi:Speaker-5.1,Mic-4.0
+> > > > 
+> > > > Also, we can enhance this and store the configuration to a file, thus 'HiFi'
+> > > > can refer to 'HiFi@Speaker-5.1,Mic-4.0' by default.
+> > > 
+> > > Verb + list-of-device-variants sounds like a good way to map UCM
+> > > devices to pulseaudio profiles (and if there's just one verb, which I
+> > > expect to be the common case, don't show it in the profile name). I
+> > > don't know how the variants should be configured in UCM, but I know
+> > > that device variants should be able to declare conflicts with other
+> > > devices (or device variants). For example, 5.1 speaker output may make
+> > > recording impossible, while stereo speaker output can be used toghether
+> > > with a mic. If this information is not provided by UCM, pulseaudio will
+> > > have to probe all variant combinations (like it currently does with the
+> > > legacy mixer system).
+> > 
+> > Sorry, now I realized that the Verb + list-of-device-variants scheme
+> > doesn't really work after all as the profile scheme. Or maybe it does,
+> > but it's significantly different from what we do currently. Switching
+> > between Headphones and Speaker-Stereo often doesn't require reopening
+> > the PCM device, so there's no need for separate Headphones and Speaker-
+> > Stereo profiles. I guess we could still create separate profiles, it
+> > just means that the profile list will get much longer.
+> > 
+> > We could add a separate optimization step to the profile creation
+> > process. That is, first create all possible device-variant combinations
+> > as the initial profile list, and then inspect which profiles can be
+> > merged. Naming the merged profiles becomes a problem, but I imagine
+> > it's solvable with static rules (e.g. merging Speakers-Stereo and
+> > Headphones becomes Analog-Stereo), and if necessary the merging can be
+> > improved gradually over time.
+> > 
+> > > From profile creation perspective the ideal scheme would be not based
+> > on UCM devices but on PCM devices and their configuration variants, but
+> > I imagine naming would be an even bigger problem with this scheme (how
+> > to map PCM device names to sensible user friendly names?).
 > 
-> While the TC Konnekt 24D works fine (playback and recording), the
-> StudioKonnekt 48 produces clicking artifacts during playback when using
-> snd_dice. This interface is working flawless on Windows and on a
-> Jack/FFADO combination. This artifact occurs in all use cases (alsa via
-> aplay, pulseaudio and jack) and does not seem to be in recorded streams.
-> After recording the playback with another device, it looks like the
-> level of the artifact is scaling with the signal and its interval is
-> interestingly 256ms. Is there anything I can do to further debug this
-> issue? Capture firewire packets? I would love to get this device fully
-> working.
-> 
-> I'm using kernel version 5.5.4 but this issue has been there for a long
-> time.
-> 
-> Thanks,
-> 
-> Mathias
+> I think that I didn't explain my idea in detail. The variant verbs may be 
+> almost identical (thus all devices will be defined) like the "master" one. But 
+> the specific variant configuration will be returned to the application. So it 
+> will differ only in the channel count value for the Speaker device or so. The 
+> PCM device name + PCM parameters check will be fine. I don't think that we 
+> should modify something on the PA side. PA activates only one verb per 
+> soundcard now.
 
-Yes. ALSA dice driver brings the issue to your unit regardless of XRUNs.
-I can see this issue for recent 5 years (so long time).
+Oh, you want to create variant verbs? Is the idea that all possible
+device combinations will be made separate verbs? That would make life
+easier for PulseAudio, but wouldn't it mean a lot more work for UCM
+configuration writers? Rather than generating the device combinations
+automatically in PulseAudio, the combinations would have to be manually
+listed in every UCM configuration.
 
-At present, ALSA dice driver is designed with the expectation that the
-devices performs 'clock-recovery' with timestamp in isochronous packets
-transmitted by the driver. The driver transfers PCM frames with
-timestamps as exactly the same number as configured sampling rate; e.g.
-48,000 frames/sec or 44,096/44,104 frames/sec.
+I think it would be better to define only one verb per sound card and
+declare the conflicts between the devices or device variants, and let
+PulseAudio automatically generate the device combinations as profiles.
 
-However, many devices including yours don't perform it actually. For
-example, all of devices from TC Electronics don't perform it:
+I may be misunderstanding something, I didn't for example understand
+what you meant by "the PCM device name + PCM parameters check will be
+fine". Some examples could be useful. Let's say that there's a sound
+card that has stereo output (either headphones or line-out), 4.0
+output, 5.1 output, SPDIF output and stereo input. If input is used,
+5.1 output can't be used at the same time. Would UCM define the
+following verbs?:
 
- - Konnekt 24D (Dice II STD ASIC)
- - Konnekt 8 (Dice II STD ASIC)
- - Konnkt Live (Dice II STD ASIC)
- - Studio Konnekt 48 (DICE II STD and DICE Mini ASICs)
- - Impact Twin (DICE II STD ASIC)
- - Desktop Konnekt 6 (DICE Mini ASIC)
- - Digital Konnekt 32 (DICE II STD)
+HiFi:Headphones,SPDIF,Mic
+HiFi:Line-Stereo,SPDIF,Mic
+HiFi:Line-4.0,SPDIF,Mic
+HiFi:Line-5.1,SPDIF
 
+-- 
+Tanu
 
-They work with sampling clock independent of the timestamp from driver.
-Thus it's not possible to synchronize multiple devices on the same
-IEEE 1394 bus (this is against the 'myth' that the devices can be
-synchronized for its internal sampling, but it's the fact).
+https://www.patreon.com/tanuk
+https://liberapay.com/tanuk
 
-Instead, the device expects the driver to perform the 'clock-recovery'
-and transfer PCM frames as mostly the same as the calculated sampling
-rate. Even if the device is configured to handle 48,000 PCM frames per
-second, the device actually handles less or more PCM frames; e.g.
-47,988, 47,992 or 48,008, 48,016. Unfortunately, current ALSA dice
-driver is not designed to work for it. In device internal, it handles
-surplus PCM frames or the lack of PCM frames for several seconds, then
-causes noisy sound I guess.
-
-The libffado2 is programmed for the 'clock-recovery'. On the other hand,
-it includes design mistake to aggregate several types of devices and give
-abstracted device to applications such as jackd. When considering the
-above design of actual hardware, the design is not good since each actual
-hardware works independent sampling clocks.
-
-Anyway, if you're satisfied to libffado2, it's better to continue to use
-it. ALSA IEC 61883-1/6 packet streaming engine is completely different
-from the one in libffado2. It's the most convenient way to avoid
-involvement in such difficult issue which developers have left for a
-long time.
-
-
-Regards
-
-Takashi Sakamoto

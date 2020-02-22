@@ -2,101 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F67416907F
-	for <lists+alsa-devel@lfdr.de>; Sat, 22 Feb 2020 17:51:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30E66169099
+	for <lists+alsa-devel@lfdr.de>; Sat, 22 Feb 2020 18:04:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5B18F16D5;
-	Sat, 22 Feb 2020 17:50:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5B18F16D5
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8FC3D16D6;
+	Sat, 22 Feb 2020 18:03:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8FC3D16D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582390277;
-	bh=24jyoZB2dH130XFae9bUoJJHGg9W/NMPL3o9HE+bCBY=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mAH+JsjmrFUdZxk7EIJ8AumNfloQComAcFzbReo3zQSQg/uaCdzm+enbQC4jrBEq0
-	 Yge1JURzrHBMIN76VRcbwXc3o3aNsjKx2wJw8lyqrnc7qo0b/WF+CPBFeXl7LiCYQe
-	 z7Xez5kMYDJK3vPiV9HiK+JfvVdyLpAc6wISJf4M=
+	s=default; t=1582391066;
+	bh=y2bwBvi8dfSiMOlriOPEOKsA3VtSudqksJtJNxl9Cq8=;
+	h=Date:From:To:Subject:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=nwaov3zXCcg1uctCGstjvCW9T6ScR6oGyKk1v49gAQXBSJmHmtCd1650x24dacyHU
+	 z9soubSrQF52wx91eotDILTEh+t9vG5eCMq4DXRS72NBOyvRrpym63+jBl/7SRafsT
+	 xXvUUeqGL/cKg+S6BoRSCgQYuH8aVOk/VN4/I6sM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2546DF800F3;
-	Sat, 22 Feb 2020 17:49:36 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8349DF80148;
+	Sat, 22 Feb 2020 18:02:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 714DBF80148; Sat, 22 Feb 2020 17:49:33 +0100 (CET)
+ id 6DFAFF8011D; Sat, 22 Feb 2020 18:02:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- UNPARSEABLE_RELAY autolearn=disabled version=3.4.0
-Received: from apparatus.de (apparatus.de [116.203.57.180])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2290AF800F3
- for <alsa-devel@alsa-project.org>; Sat, 22 Feb 2020 17:49:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2290AF800F3
-Received: from authenticated-user (PRIMARY_HOSTNAME [PUBLIC_IP])
- by apparatus.de (Postfix) with ESMTPA id EA0CA23585D
- for <alsa-devel@alsa-project.org>; Sat, 22 Feb 2020 16:49:29 +0000 (UTC)
-Subject: Re: snd_dice: Clicking artifacts with TC StudioKonnekt 48
-To: alsa-devel@alsa-project.org
-References: <921a3b13-b44e-3300-bb72-84cbc9e3dd88@apparatus.de>
- <20200222012510.GA4883@laptop>
-From: Mathias Buhr <napcode@apparatus.de>
-Autocrypt: addr=napcode@apparatus.de; keydata=
- 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
-Message-ID: <e29617da-9d34-c99f-f425-5d2aef59b623@apparatus.de>
-Date: Sat, 22 Feb 2020 17:49:29 +0100
+ by alsa1.perex.cz (Postfix) with ESMTPS id 06AF8F8011D
+ for <alsa-devel@alsa-project.org>; Sat, 22 Feb 2020 18:02:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 06AF8F8011D
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2020 09:02:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,472,1574150400"; d="scan'208";a="409443870"
+Received: from lkp-server01.sh.intel.com (HELO lkp-server01) ([10.239.97.150])
+ by orsmga005.jf.intel.com with ESMTP; 22 Feb 2020 09:02:35 -0800
+Received: from kbuild by lkp-server01 with local (Exim 4.89)
+ (envelope-from <lkp@intel.com>)
+ id 1j5YAk-0004N7-QX; Sun, 23 Feb 2020 01:02:34 +0800
+Date: Sun, 23 Feb 2020 01:01:46 +0800
+From: kbuild test robot <lkp@intel.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Subject: [asoc:for-5.7 134/139] sound/soc/meson/aiu-encoder-i2s.c:129:2-3:
+ Unneeded semicolon
+Message-ID: <202002230135.WpIL6nAs%lkp@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20200222012510.GA4883@laptop>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US-large
-Authentication-Results: apparatus.de;
- auth=pass smtp.auth=buhr@apparatus.de smtp.mailfrom=napcode@apparatus.de
-X-Spamd-Bar: /
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>,
+ kbuild-all@lists.01.org, Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,11 +75,20 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Thanks for your reply Takashi! It clarifies the situation. I'lll stick
-with ffado then.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-5.7
+head:   b38c4a8a0291c31a660cd77761202ebb18332fb7
+commit: 3e25c44598aa44134207ad7b3c5ad6b586135777 [134/139] ASoC: meson: aiu: add support for the Meson8 and Meson8b SoC families
 
-Regards,
+If you fix the issue, kindly add following tag
+Reported-by: kbuild test robot <lkp@intel.com>
 
-Mathias
 
+coccinelle warnings: (new ones prefixed by >>)
 
+>> sound/soc/meson/aiu-encoder-i2s.c:129:2-3: Unneeded semicolon
+
+Please review and possibly fold the followup patch.
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org

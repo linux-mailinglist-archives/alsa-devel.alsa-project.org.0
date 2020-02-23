@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66E521695A8
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Feb 2020 04:48:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 755321695A6
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Feb 2020 04:47:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0810516BD;
-	Sun, 23 Feb 2020 04:47:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0810516BD
+	by alsa0.perex.cz (Postfix) with ESMTPS id D20F816D7;
+	Sun, 23 Feb 2020 04:46:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D20F816D7
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582429713;
-	bh=SJevFYG4c62qz0fwmyS/IzWhBzJLTTl1HspFXC2f/lc=;
+	s=default; t=1582429647;
+	bh=uaLFz/V937gh7Bur0STGGP5WizaD72/yIZz4J7Am2xI=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p0Di6Ud43JPrKC8UBHrpL0b+znugkP8fI6C05yjPC1h+nyzyHxtRsPHYg0l47SG9Z
-	 iiruw53QbrDxD2ipgYaTibPdytrLLovxauB41FtILo773lFaRi7kxRMnbRwBFVcrn6
-	 J4iDE2SuFl2k0Z6G0dGWj5ALb5vmXOIT0/ZPyY5Y=
+	b=dz22EnUDQsbfRVDjflQ+CT20oZD8wAWXcQAYzLhYzsyz611YvSjCORSASQBeaUT+Y
+	 xR6BjXNkqu7AIxFcrbBn7uK7o39aNipHEMGT+ZVPal2lDs2j01h10MD4CJodRqDg//
+	 SCImf+uCcM+KZ927b6NdZrdNXKk5nN9l03izZ464=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 384F2F8028A;
-	Sun, 23 Feb 2020 04:45:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A4E77F80161;
+	Sun, 23 Feb 2020 04:45:46 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A268F80142; Sun, 23 Feb 2020 04:45:45 +0100 (CET)
+ id 2A250F80161; Sun, 23 Feb 2020 04:45:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 47557F8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id 59744F80142
  for <alsa-devel@alsa-project.org>; Sun, 23 Feb 2020 04:45:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 47557F8013E
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59744F80142
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="Nnk7ZUOb"; 
+ header.b="OVAe4Sx4"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="nDYUDI5q"
+ header.i=@messagingengine.com header.b="u+rr7xFz"
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id C4F966A1E;
+ by mailnew.nyi.internal (Postfix) with ESMTP id CAA9F6A25;
  Sat, 22 Feb 2020 22:45:35 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
  by compute5.internal (MEProxy); Sat, 22 Feb 2020 22:45:35 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=xEUgRs6Eo7JPj
- +m5PuuwJ2k+XGQGKRuM1/o6sSyplzM=; b=Nnk7ZUObs/FREDBnMBIGIQlbk9/hB
- OHnQtloJwUPBSezuEntlSgCdrcuj49sBrzn+52lag/e10aT0skZWeUSN6C27672D
- s+yhPhKqHrV/p22xuXd4/fo0hD4cnmW3L5ECeeevPICnHmI7x0R8j7T7Yy/2xhQN
- XGoKxbZ+jL6aufYTesxziewgZ548tXriI2XjIvfEKXsuFlwk2PnQO5qPNd62wv1g
- c2dz16JrReSTHVrZSou953WnzKst8pDfS+1LTLJefpRznjPrl4XOdwGnKM3E0Agi
- sixVwXvy9Z/fb62b2zFZEfCzJebb2fd/53lm+kg5YslT3G1CBN0L5GkTw==
+ :mime-version:content-transfer-encoding; s=fm2; bh=nH7Kmg7ThlWd7
+ kEVdMu3S/euAwB/rKaoU3VHdY5QxBQ=; b=OVAe4Sx446LxGgN5sp1ikghZE7vAR
+ O9pJYZuq22lK0wfTAr3jJsryYqoAJ5DogOJ4JZNW4l2oKVC0Vzc1knQVb32VdHGv
+ BLCN+OX1IUrFzaUBeSdKmPe6XWVyuZgoeOJUcJmaqijqgj80j9R3ovhBLZD+WWi7
+ rC0RR7jMk1UaZ5A9DT1cVLxW7cUMUfjTkudqqD75QumsQq0uzkBopXJDpOrPTs0+
+ 3/k6qnarHW2QtCSjR2tsHcoQ33nldPUxN/Y8USiJEWpx8ZcEbCc9/duhxcmQsTxB
+ 79XzGTPyqDArJv+7uO8b9RmHTCr9vjMnjbgwg5hguc1ZBrFwEp+QgUq6g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=xEUgRs6Eo7JPj+m5PuuwJ2k+XGQGKRuM1/o6sSyplzM=; b=nDYUDI5q
- 8FR8xwUv4oxtygL7IpTmLDh/3bqPDsly1+AlprNxpKvRMKIxvU0XG7OJOUxllv+6
- 5fjXtsYbM00wkW3dEKY2gGomFaY2Pcbtr/a8CDd9yotmgmJhrfhtvoV3ggU0Yxdz
- L8JIKZe9e0dwNEYy+zaN1lE6bUpNRyeIm8x63kyrNUAQt3W4V1ABwHQDpPaqKQXk
- w/O6VKlYGkHWEkit1/IRWGHLcb4s0ZsQTc9uPj5Z9NUsKz+ieV3qg4lRxRZPtgVM
- AxNWbhNcBZh5Hp9L6NtSiw16Jh43z0H9bURtPOz9zqNjqZNfpnIDr7YHPROl/isB
- YaerEMfAw4iAYg==
-X-ME-Sender: <xms:XvVRXsGPhieLJ9ydI2nOrn5F2bTAYDPC2uNGwuU9Pjby6-2gR3AxiQ>
+ fm2; bh=nH7Kmg7ThlWd7kEVdMu3S/euAwB/rKaoU3VHdY5QxBQ=; b=u+rr7xFz
+ EzRsweMFroTrcBPjNfiLh+lsfVdofaxUzMmJFL0xF4latTvCHfpHs4vHOmT142F0
+ AZHjT0FzhUlOl2oE1SGV1XoZdiZjRPaQcSXRWBTqegCfjJCTOsULNRCz3V05Kick
+ 4koySjvhzuWjR6Tn6BgqYNFYHovkxdAtZIeRVdutj8ayzqctLfqMy99Wb3qhlyT4
+ CglMhK6N5OJPIr2BEFLViKhVfCoVMzN+f/+Q9C6QyAOnxgLsbc5I23SzBlXah5c3
+ GqvKv7iasWCbHOeF2hozFVhlBqkuVr3IqK4nKZxapOCtnwEj30UOeSnTFKWsKdUv
+ 2aff2/f3uj9loA==
+X-ME-Sender: <xms:X_VRXjBy9mqHTZJCAsn0KlG589KyUBYs1G5haL151xoBKrDSYaSxVw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrkeejgdeitdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -76,22 +76,21 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrkeejgdeitdcutefuodetggdote
  ucfjohhllhgrnhguuceoshgrmhhuvghlsehshhholhhlrghnugdrohhrgheqnecukfhppe
  ejtddrudefhedrudegkedrudehudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
  mhepmhgrihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhg
-X-ME-Proxy: <xmx:XvVRXg5FlqsUU1rgAW3-fYS5k3_LfJ4BW7rihWdkjvCZCM3he3aumw>
- <xmx:XvVRXtZEvRLeZ2-FlV6LSk-2uOz01uxpN3iIRJoRXzSVoPfH8Xq1dg>
- <xmx:XvVRXmfWil9w341ftIJdPZIthQJPbbvyXQoCgVKuispyKio3Gvg6iQ>
- <xmx:X_VRXkYXIkMNm3jW85dIxNcE7kl3MiOt4yI7aMamSjIfOhofnNdWzw>
+X-ME-Proxy: <xmx:X_VRXkv8xKkgvZm-CJw1aJHqcC4ZRYEV7Cin7HP6mYq1vZq8Lujwvg>
+ <xmx:X_VRXiZM5x68EsXSDGT1oJn2wx3rMtKocxtvloZFl7WLhy2rvyVCUA>
+ <xmx:X_VRXgGWmvzK1DFA-tjY2VIsU7tb9fNgxZmJC54M1ENxk0vwTWmHAw>
+ <xmx:X_VRXqk_wSKm55TmQKgCKr6ge91tNMaZdwh8nIbaoeCD0z4Yz2OVjA>
 Received: from titanium.stl.sholland.net
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7105C3060F9B;
+ by mail.messagingengine.com (Postfix) with ESMTPA id E22E43060FCB;
  Sat, 22 Feb 2020 22:45:34 -0500 (EST)
 From: Samuel Holland <samuel@sholland.org>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Jonathan Corbet <corbet@lwn.net>, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [PATCH v3 1/3] ALSA: pcm: Add a standalone version of
- snd_pcm_limit_hw_rates
-Date: Sat, 22 Feb 2020 21:45:31 -0600
-Message-Id: <20200223034533.1035-2-samuel@sholland.org>
+Subject: [PATCH v3 2/3] ASoC: pcm: Export parameter intersection logic
+Date: Sat, 22 Feb 2020 21:45:32 -0600
+Message-Id: <20200223034533.1035-3-samuel@sholland.org>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200223034533.1035-1-samuel@sholland.org>
 References: <20200223034533.1035-1-samuel@sholland.org>
@@ -115,85 +114,136 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-It can be useful to derive min/max rates of a snd_pcm_hardware without
-having a snd_pcm_runtime, such as before constructing an ASoC DAI link.
-
-Create a new helper that takes a pointer to a snd_pcm_hardware directly,
-and refactor the original function as a wrapper around it, to avoid
-needing to update any call sites.
+The logic to calculate the subset of stream parameters supported by all
+DAIs associated with a PCM stream is nontrivial. Export a helper
+function so it can be used to set up simple codec2codec DAI links.
 
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
- include/sound/pcm.h   |  9 ++++++++-
- sound/core/pcm_misc.c | 18 +++++++++---------
- 2 files changed, 17 insertions(+), 10 deletions(-)
+ include/sound/soc.h |  3 +++
+ sound/soc/soc-pcm.c | 55 ++++++++++++++++++++++++++++++++-------------
+ 2 files changed, 42 insertions(+), 16 deletions(-)
 
-diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index f657ff08f317..89529dfffaac 100644
---- a/include/sound/pcm.h
-+++ b/include/sound/pcm.h
-@@ -1122,7 +1122,14 @@ snd_pcm_kernel_readv(struct snd_pcm_substream *substream,
- 	return __snd_pcm_lib_xfer(substream, bufs, false, frames, true);
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index f0e4f36f83bf..8724928d02c5 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -471,6 +471,9 @@ bool snd_soc_runtime_ignore_pmdown_time(struct snd_soc_pcm_runtime *rtd);
+ void snd_soc_runtime_activate(struct snd_soc_pcm_runtime *rtd, int stream);
+ void snd_soc_runtime_deactivate(struct snd_soc_pcm_runtime *rtd, int stream);
+ 
++int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
++			    struct snd_pcm_hardware *hw, int stream);
++
+ int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
+ 	unsigned int dai_fmt);
+ 
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index ff1b7c7078e5..6680d31eece3 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -402,11 +402,18 @@ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
+ 	soc_pcm_set_msb(substream, cpu_bits);
  }
  
--int snd_pcm_limit_hw_rates(struct snd_pcm_runtime *runtime);
-+int snd_pcm_hw_limit_rates(struct snd_pcm_hardware *hw);
-+
-+static inline int
-+snd_pcm_limit_hw_rates(struct snd_pcm_runtime *runtime)
-+{
-+	return snd_pcm_hw_limit_rates(&runtime->hw);
-+}
-+
- unsigned int snd_pcm_rate_to_rate_bit(unsigned int rate);
- unsigned int snd_pcm_rate_bit_to_rate(unsigned int rate_bit);
- unsigned int snd_pcm_rate_mask_intersect(unsigned int rates_a,
-diff --git a/sound/core/pcm_misc.c b/sound/core/pcm_misc.c
-index a6a541511534..5dd2e5335900 100644
---- a/sound/core/pcm_misc.c
-+++ b/sound/core/pcm_misc.c
-@@ -474,32 +474,32 @@ int snd_pcm_format_set_silence(snd_pcm_format_t format, void *data, unsigned int
- EXPORT_SYMBOL(snd_pcm_format_set_silence);
- 
- /**
-- * snd_pcm_limit_hw_rates - determine rate_min/rate_max fields
-- * @runtime: the runtime instance
-+ * snd_pcm_hw_limit_rates - determine rate_min/rate_max fields
-+ * @hw: the pcm hw instance
-  *
-  * Determines the rate_min and rate_max fields from the rates bits of
-- * the given runtime->hw.
-+ * the given hw.
-  *
-  * Return: Zero if successful.
-  */
--int snd_pcm_limit_hw_rates(struct snd_pcm_runtime *runtime)
-+int snd_pcm_hw_limit_rates(struct snd_pcm_hardware *hw)
+-static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
++/**
++ * snd_soc_runtime_calc_hw() - Calculate hw limits for a PCM stream
++ * @rtd: ASoC PCM runtime
++ * @hw: PCM hardware parameters (output)
++ * @stream: Direction of the PCM stream
++ *
++ * Calculates the subset of stream parameters supported by all DAIs
++ * associated with the PCM stream.
++ */
++int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
++			    struct snd_pcm_hardware *hw, int stream)
  {
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_pcm_hardware *hw = &runtime->hw;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_soc_dai *codec_dai;
+ 	struct snd_soc_dai_driver *cpu_dai_drv = rtd->cpu_dai->driver;
+ 	struct snd_soc_dai_driver *codec_dai_drv;
+@@ -418,7 +425,7 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 	u64 formats = ULLONG_MAX;
  	int i;
- 	for (i = 0; i < (int)snd_pcm_known_rates.count; i++) {
--		if (runtime->hw.rates & (1 << i)) {
--			runtime->hw.rate_min = snd_pcm_known_rates.list[i];
-+		if (hw->rates & (1 << i)) {
-+			hw->rate_min = snd_pcm_known_rates.list[i];
- 			break;
- 		}
- 	}
- 	for (i = (int)snd_pcm_known_rates.count - 1; i >= 0; i--) {
--		if (runtime->hw.rates & (1 << i)) {
--			runtime->hw.rate_max = snd_pcm_known_rates.list[i];
-+		if (hw->rates & (1 << i)) {
-+			hw->rate_max = snd_pcm_known_rates.list[i];
- 			break;
- 		}
- 	}
- 	return 0;
- }
--EXPORT_SYMBOL(snd_pcm_limit_hw_rates);
-+EXPORT_SYMBOL(snd_pcm_hw_limit_rates);
  
- /**
-  * snd_pcm_rate_to_rate_bit - converts sample rate to SNDRV_PCM_RATE_xxx bit
+-	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 		cpu_stream = &cpu_dai_drv->playback;
+ 	else
+ 		cpu_stream = &cpu_dai_drv->capture;
+@@ -431,16 +438,12 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 		 * Otherwise, since the rate, channel, and format values will
+ 		 * zero in that case, we would have no usable settings left,
+ 		 * causing the resulting setup to fail.
+-		 * At least one CODEC should match, otherwise we should have
+-		 * bailed out on a higher level, since there would be no
+-		 * CODEC to support the transfer direction in that case.
+ 		 */
+-		if (!snd_soc_dai_stream_valid(codec_dai,
+-					      substream->stream))
++		if (!snd_soc_dai_stream_valid(codec_dai, stream))
+ 			continue;
+ 
+ 		codec_dai_drv = codec_dai->driver;
+-		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
++		if (stream == SNDRV_PCM_STREAM_PLAYBACK)
+ 			codec_stream = &codec_dai_drv->playback;
+ 		else
+ 			codec_stream = &codec_dai_drv->capture;
+@@ -452,6 +455,9 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 		rates = snd_pcm_rate_mask_intersect(codec_stream->rates, rates);
+ 	}
+ 
++	if (!chan_min)
++		return -EINVAL;
++
+ 	/*
+ 	 * chan min/max cannot be enforced if there are multiple CODEC DAIs
+ 	 * connected to a single CPU DAI, use CPU DAI's directly and let
+@@ -464,18 +470,35 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 
+ 	hw->channels_min = max(chan_min, cpu_stream->channels_min);
+ 	hw->channels_max = min(chan_max, cpu_stream->channels_max);
+-	if (hw->formats)
+-		hw->formats &= formats & cpu_stream->formats;
+-	else
+-		hw->formats = formats & cpu_stream->formats;
++	hw->formats = formats & cpu_stream->formats;
+ 	hw->rates = snd_pcm_rate_mask_intersect(rates, cpu_stream->rates);
+ 
+-	snd_pcm_limit_hw_rates(runtime);
++	snd_pcm_hw_limit_rates(hw);
+ 
+ 	hw->rate_min = max(hw->rate_min, cpu_stream->rate_min);
+ 	hw->rate_min = max(hw->rate_min, rate_min);
+ 	hw->rate_max = min_not_zero(hw->rate_max, cpu_stream->rate_max);
+ 	hw->rate_max = min_not_zero(hw->rate_max, rate_max);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(snd_soc_runtime_calc_hw);
++
++static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_hardware *hw = &substream->runtime->hw;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	u64 formats = hw->formats;
++
++	/*
++	 * At least one CODEC should match, otherwise we should have
++	 * bailed out on a higher level, since there would be no
++	 * CODEC to support the transfer direction in that case.
++	 */
++	snd_soc_runtime_calc_hw(rtd, hw, substream->stream);
++
++	if (formats)
++		hw->formats &= formats;
+ }
+ 
+ static int soc_pcm_components_open(struct snd_pcm_substream *substream,
 -- 
 2.24.1
 

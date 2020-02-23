@@ -2,73 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755321695A6
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Feb 2020 04:47:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB3011695A7
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Feb 2020 04:48:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D20F816D7;
-	Sun, 23 Feb 2020 04:46:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D20F816D7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 348FE16E5;
+	Sun, 23 Feb 2020 04:47:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 348FE16E5
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582429647;
-	bh=uaLFz/V937gh7Bur0STGGP5WizaD72/yIZz4J7Am2xI=;
+	s=default; t=1582429692;
+	bh=ts1Q7Z5fIkJaGZzzItXRWCrWKeQ1SpyrxRBmGKc6XIE=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=dz22EnUDQsbfRVDjflQ+CT20oZD8wAWXcQAYzLhYzsyz611YvSjCORSASQBeaUT+Y
-	 xR6BjXNkqu7AIxFcrbBn7uK7o39aNipHEMGT+ZVPal2lDs2j01h10MD4CJodRqDg//
-	 SCImf+uCcM+KZ927b6NdZrdNXKk5nN9l03izZ464=
+	b=SdIAN7sgzqK+gAGR7qXkutBBuvEJjCuvAZKzyBm8bnvAFuKWZTHUHXIeXNjuKT238
+	 0fOL0MitEcSTC8GWEPZKQ5PVMoNUeOywhwtU0eJ83e4+wWc/CRGpYepLgEPYq3NH80
+	 CsMnAbS07200ajjLBz/dUutSbm2891AqrpaVv5Ss=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A4E77F80161;
-	Sun, 23 Feb 2020 04:45:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C6FFDF80278;
+	Sun, 23 Feb 2020 04:45:48 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2A250F80161; Sun, 23 Feb 2020 04:45:43 +0100 (CET)
+ id EBE6EF80276; Sun, 23 Feb 2020 04:45:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED autolearn=disabled
+ DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,URIBL_BLOCKED autolearn=disabled
  version=3.4.0
 Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
  [66.111.4.230])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 59744F80142
+ by alsa1.perex.cz (Postfix) with ESMTPS id 43D1DF80137
  for <alsa-devel@alsa-project.org>; Sun, 23 Feb 2020 04:45:37 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 59744F80142
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 43D1DF80137
 Authentication-Results: alsa1.perex.cz;
  dkim=pass (2048-bit key) header.d=sholland.org header.i=@sholland.org
- header.b="OVAe4Sx4"; 
+ header.b="agoHeIJB"; 
  dkim=pass (2048-bit key) header.d=messagingengine.com
- header.i=@messagingengine.com header.b="u+rr7xFz"
+ header.i=@messagingengine.com header.b="wMBMws10"
 Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailnew.nyi.internal (Postfix) with ESMTP id CAA9F6A25;
+ by mailnew.nyi.internal (Postfix) with ESMTP id EFD236A2F;
  Sat, 22 Feb 2020 22:45:35 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
  by compute5.internal (MEProxy); Sat, 22 Feb 2020 22:45:35 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sholland.org; h=
  from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=nH7Kmg7ThlWd7
- kEVdMu3S/euAwB/rKaoU3VHdY5QxBQ=; b=OVAe4Sx446LxGgN5sp1ikghZE7vAR
- O9pJYZuq22lK0wfTAr3jJsryYqoAJ5DogOJ4JZNW4l2oKVC0Vzc1knQVb32VdHGv
- BLCN+OX1IUrFzaUBeSdKmPe6XWVyuZgoeOJUcJmaqijqgj80j9R3ovhBLZD+WWi7
- rC0RR7jMk1UaZ5A9DT1cVLxW7cUMUfjTkudqqD75QumsQq0uzkBopXJDpOrPTs0+
- 3/k6qnarHW2QtCSjR2tsHcoQ33nldPUxN/Y8USiJEWpx8ZcEbCc9/duhxcmQsTxB
- 79XzGTPyqDArJv+7uO8b9RmHTCr9vjMnjbgwg5hguc1ZBrFwEp+QgUq6g==
+ :mime-version:content-transfer-encoding; s=fm2; bh=4ICm2QiFFrbgz
+ aDEtX2KVwTyX394xQzW/xM+H9iBcqc=; b=agoHeIJBkFE8vM94ydHTpyvjB0qFM
+ A1aev+Pi8n9nMYjxLGXQ8iDyzOiC78x+wn+GGx8bsoTBZgo6HFsZwWapTJP0qyMC
+ d3Abr2s/bjgxDfDCSkett3ede2X1EDKkEy/eAY/81KOc+MLkd5R3ML5Hp8/WmClv
+ 8AOQbJtEGqVdqVGJllDo291TytjBkGKmaeWrZMOtEOcTupzzvG0ENZDbxrDjXCln
+ 4hsq7CHtUitYTv8aSw+4N8fj3PVCCkO/N9iA3DlW8T0Oh6Zz9kegtLlaHAiRRntm
+ RerTMI4ZSN+lfHajI8UvgXjZZLG1jUEVZ9xLVeaiu5bDC/AbjW9bh3OKQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=nH7Kmg7ThlWd7kEVdMu3S/euAwB/rKaoU3VHdY5QxBQ=; b=u+rr7xFz
- EzRsweMFroTrcBPjNfiLh+lsfVdofaxUzMmJFL0xF4latTvCHfpHs4vHOmT142F0
- AZHjT0FzhUlOl2oE1SGV1XoZdiZjRPaQcSXRWBTqegCfjJCTOsULNRCz3V05Kick
- 4koySjvhzuWjR6Tn6BgqYNFYHovkxdAtZIeRVdutj8ayzqctLfqMy99Wb3qhlyT4
- CglMhK6N5OJPIr2BEFLViKhVfCoVMzN+f/+Q9C6QyAOnxgLsbc5I23SzBlXah5c3
- GqvKv7iasWCbHOeF2hozFVhlBqkuVr3IqK4nKZxapOCtnwEj30UOeSnTFKWsKdUv
- 2aff2/f3uj9loA==
-X-ME-Sender: <xms:X_VRXjBy9mqHTZJCAsn0KlG589KyUBYs1G5haL151xoBKrDSYaSxVw>
+ fm2; bh=4ICm2QiFFrbgzaDEtX2KVwTyX394xQzW/xM+H9iBcqc=; b=wMBMws10
+ Ui0bo5OH5A12RmpyiDmmKuvRD+LID9AY1Nh3UlT5gbxz3QecDa6K3QyBpspb8uPZ
+ 6XQQMceuurNnNKqnViNatEjjaVFX9LDi8RCcJvo8Re8q01JvsOZWTZCnJm3wYaDw
+ EGBc1MdPOn+kw7zA5R/5aktN1pb0fArKLMgQpVE29IroiKSjv1GKDEHy7iCiUC2D
+ vnof129FN904ItAhaUTJ+trJE3t5jTXFx9qmquKiwbWOXzOlYhde5MfS9aj0eh8H
+ n4XMA+Ovd36OD3xOwK1mk0CTKFh7haqtXeFG+5qo6y4ONxxBv/FFd9BtIe04e53Q
+ odY5tYWt8SMg5w==
+X-ME-Sender: <xms:X_VRXgn8aeoKZE50Ng_InK50I28l8xaYg78eezvHXUqtUKB95GW0fA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrkeejgdeitdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
@@ -76,21 +76,22 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrkeejgdeitdcutefuodetggdote
  ucfjohhllhgrnhguuceoshgrmhhuvghlsehshhholhhlrghnugdrohhrgheqnecukfhppe
  ejtddrudefhedrudegkedrudehudenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgr
  mhepmhgrihhlfhhrohhmpehsrghmuhgvlhesshhhohhllhgrnhgurdhorhhg
-X-ME-Proxy: <xmx:X_VRXkv8xKkgvZm-CJw1aJHqcC4ZRYEV7Cin7HP6mYq1vZq8Lujwvg>
- <xmx:X_VRXiZM5x68EsXSDGT1oJn2wx3rMtKocxtvloZFl7WLhy2rvyVCUA>
- <xmx:X_VRXgGWmvzK1DFA-tjY2VIsU7tb9fNgxZmJC54M1ENxk0vwTWmHAw>
- <xmx:X_VRXqk_wSKm55TmQKgCKr6ge91tNMaZdwh8nIbaoeCD0z4Yz2OVjA>
+X-ME-Proxy: <xmx:X_VRXsJSh-_Xp4KYzi3-OayVKioWZvt8DzXLcVhki34Uggvppzlm_w>
+ <xmx:X_VRXhaSzyYnVEZCLJydXyRn5fZFVSKcQ2m9qDLco6IB3pY3Uu8pxw>
+ <xmx:X_VRXuaWfJzW42Ckaf-qWfVnCgeracm8-yZHTygKEIEH_HE3xsJ_ww>
+ <xmx:X_VRXt0GR8nimMRxItRqt9DqUWcD-c7x7BsXaoVI7CBTNDXPPhgVag>
 Received: from titanium.stl.sholland.net
  (70-135-148-151.lightspeed.stlsmo.sbcglobal.net [70.135.148.151])
- by mail.messagingengine.com (Postfix) with ESMTPA id E22E43060FCB;
- Sat, 22 Feb 2020 22:45:34 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5F4303060FD3;
+ Sat, 22 Feb 2020 22:45:35 -0500 (EST)
 From: Samuel Holland <samuel@sholland.org>
 To: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
  Jonathan Corbet <corbet@lwn.net>, Jerome Brunet <jbrunet@baylibre.com>
-Subject: [PATCH v3 2/3] ASoC: pcm: Export parameter intersection logic
-Date: Sat, 22 Feb 2020 21:45:32 -0600
-Message-Id: <20200223034533.1035-3-samuel@sholland.org>
+Subject: [PATCH v3 3/3] ASoC: simple-card: Add support for codec2codec DAI
+ links
+Date: Sat, 22 Feb 2020 21:45:33 -0600
+Message-Id: <20200223034533.1035-4-samuel@sholland.org>
 X-Mailer: git-send-email 2.24.1
 In-Reply-To: <20200223034533.1035-1-samuel@sholland.org>
 References: <20200223034533.1035-1-samuel@sholland.org>
@@ -114,136 +115,108 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The logic to calculate the subset of stream parameters supported by all
-DAIs associated with a PCM stream is nontrivial. Export a helper
-function so it can be used to set up simple codec2codec DAI links.
+Following the example in cb2cf0de1174 ("ASoC: soc-core: care Codec <->
+Codec case by non_legacy_dai_naming"), determine if a DAI link contains
+only codec DAIs by examining the non_legacy_dai_naming flag in each
+DAI's component.
+
+For now, we assume there is only one or a small set of valid PCM stream
+parameters, so num_params == 1 is good enough. We also assume that the
+same params are valid for all supported streams. params is set to the
+subset of parameters common among all DAIs, and then the existing code
+automatically chooses the highest quality of the remaining values when
+the link is brought up.
 
 Signed-off-by: Samuel Holland <samuel@sholland.org>
 ---
- include/sound/soc.h |  3 +++
- sound/soc/soc-pcm.c | 55 ++++++++++++++++++++++++++++++++-------------
- 2 files changed, 42 insertions(+), 16 deletions(-)
+ Documentation/sound/soc/codec-to-codec.rst |  9 +++-
+ sound/soc/generic/simple-card-utils.c      | 49 ++++++++++++++++++++++
+ 2 files changed, 56 insertions(+), 2 deletions(-)
 
-diff --git a/include/sound/soc.h b/include/sound/soc.h
-index f0e4f36f83bf..8724928d02c5 100644
---- a/include/sound/soc.h
-+++ b/include/sound/soc.h
-@@ -471,6 +471,9 @@ bool snd_soc_runtime_ignore_pmdown_time(struct snd_soc_pcm_runtime *rtd);
- void snd_soc_runtime_activate(struct snd_soc_pcm_runtime *rtd, int stream);
- void snd_soc_runtime_deactivate(struct snd_soc_pcm_runtime *rtd, int stream);
+diff --git a/Documentation/sound/soc/codec-to-codec.rst b/Documentation/sound/soc/codec-to-codec.rst
+index 810109d7500d..4eaa9a0c41fc 100644
+--- a/Documentation/sound/soc/codec-to-codec.rst
++++ b/Documentation/sound/soc/codec-to-codec.rst
+@@ -104,5 +104,10 @@ Make sure to name your corresponding cpu and codec playback and capture
+ dai names ending with "Playback" and "Capture" respectively as dapm core
+ will link and power those dais based on the name.
  
-+int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
-+			    struct snd_pcm_hardware *hw, int stream);
-+
- int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
- 	unsigned int dai_fmt);
- 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index ff1b7c7078e5..6680d31eece3 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -402,11 +402,18 @@ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
- 	soc_pcm_set_msb(substream, cpu_bits);
+-Note that in current device tree there is no way to mark a dai_link
+-as codec to codec. However, it may change in future.
++A dai_link in a "simple-audio-card" will automatically be detected as
++codec to codec when all DAIs on the link belong to codec components.
++The dai_link will be initialized with the subset of stream parameters
++(channels, format, sample rate) supported by all DAIs on the link. Since
++there is no way to provide these parameters in the device tree, this is
++mostly useful for communication with simple fixed-function codecs, such
++as a Bluetooth controller or cellular modem.
+diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
+index 9b794775df53..54294367a40f 100644
+--- a/sound/soc/generic/simple-card-utils.c
++++ b/sound/soc/generic/simple-card-utils.c
+@@ -331,6 +331,51 @@ static int asoc_simple_init_dai(struct snd_soc_dai *dai,
+ 	return 0;
  }
  
--static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
-+/**
-+ * snd_soc_runtime_calc_hw() - Calculate hw limits for a PCM stream
-+ * @rtd: ASoC PCM runtime
-+ * @hw: PCM hardware parameters (output)
-+ * @stream: Direction of the PCM stream
-+ *
-+ * Calculates the subset of stream parameters supported by all DAIs
-+ * associated with the PCM stream.
-+ */
-+int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
-+			    struct snd_pcm_hardware *hw, int stream)
- {
--	struct snd_pcm_runtime *runtime = substream->runtime;
--	struct snd_pcm_hardware *hw = &runtime->hw;
--	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_dai_driver *cpu_dai_drv = rtd->cpu_dai->driver;
- 	struct snd_soc_dai_driver *codec_dai_drv;
-@@ -418,7 +425,7 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 	u64 formats = ULLONG_MAX;
- 	int i;
- 
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
- 		cpu_stream = &cpu_dai_drv->playback;
- 	else
- 		cpu_stream = &cpu_dai_drv->capture;
-@@ -431,16 +438,12 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 		 * Otherwise, since the rate, channel, and format values will
- 		 * zero in that case, we would have no usable settings left,
- 		 * causing the resulting setup to fail.
--		 * At least one CODEC should match, otherwise we should have
--		 * bailed out on a higher level, since there would be no
--		 * CODEC to support the transfer direction in that case.
- 		 */
--		if (!snd_soc_dai_stream_valid(codec_dai,
--					      substream->stream))
-+		if (!snd_soc_dai_stream_valid(codec_dai, stream))
- 			continue;
- 
- 		codec_dai_drv = codec_dai->driver;
--		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		if (stream == SNDRV_PCM_STREAM_PLAYBACK)
- 			codec_stream = &codec_dai_drv->playback;
- 		else
- 			codec_stream = &codec_dai_drv->capture;
-@@ -452,6 +455,9 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 		rates = snd_pcm_rate_mask_intersect(codec_stream->rates, rates);
- 	}
- 
-+	if (!chan_min)
-+		return -EINVAL;
++static int asoc_simple_init_dai_link_params(struct snd_soc_pcm_runtime *rtd,
++					    struct simple_dai_props *dai_props)
++{
++	struct snd_soc_dai_link *dai_link = rtd->dai_link;
++	struct snd_soc_component *component;
++	struct snd_soc_rtdcom_list *rtdcom;
++	struct snd_soc_pcm_stream *params;
++	struct snd_pcm_hardware hw;
++	int i, ret, stream;
 +
- 	/*
- 	 * chan min/max cannot be enforced if there are multiple CODEC DAIs
- 	 * connected to a single CPU DAI, use CPU DAI's directly and let
-@@ -464,18 +470,35 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 
- 	hw->channels_min = max(chan_min, cpu_stream->channels_min);
- 	hw->channels_max = min(chan_max, cpu_stream->channels_max);
--	if (hw->formats)
--		hw->formats &= formats & cpu_stream->formats;
--	else
--		hw->formats = formats & cpu_stream->formats;
-+	hw->formats = formats & cpu_stream->formats;
- 	hw->rates = snd_pcm_rate_mask_intersect(rates, cpu_stream->rates);
- 
--	snd_pcm_limit_hw_rates(runtime);
-+	snd_pcm_hw_limit_rates(hw);
- 
- 	hw->rate_min = max(hw->rate_min, cpu_stream->rate_min);
- 	hw->rate_min = max(hw->rate_min, rate_min);
- 	hw->rate_max = min_not_zero(hw->rate_max, cpu_stream->rate_max);
- 	hw->rate_max = min_not_zero(hw->rate_max, rate_max);
++	/* Only codecs should have non_legacy_dai_naming set. */
++	for_each_rtd_components(rtd, i, component) {
++		if (!component->driver->non_legacy_dai_naming)
++			return 0;
++	}
++
++	/* Assumes the capabilities are the same for all supported streams */
++	for (stream = 0; stream < 2; stream++) {
++		ret = snd_soc_runtime_calc_hw(rtd, &hw, stream);
++		if (ret == 0)
++			break;
++	}
++
++	if (ret < 0) {
++		dev_err(rtd->dev, "simple-card: no valid dai_link params\n");
++		return ret;
++	}
++
++	params = devm_kzalloc(rtd->dev, sizeof(*params), GFP_KERNEL);
++	if (!params)
++		return -ENOMEM;
++
++	params->formats = hw.formats;
++	params->rates = hw.rates;
++	params->rate_min = hw.rate_min;
++	params->rate_max = hw.rate_max;
++	params->channels_min = hw.channels_min;
++	params->channels_max = hw.channels_max;
++
++	dai_link->params = params;
++	dai_link->num_params = 1;
 +
 +	return 0;
 +}
-+EXPORT_SYMBOL_GPL(snd_soc_runtime_calc_hw);
 +
-+static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
-+{
-+	struct snd_pcm_hardware *hw = &substream->runtime->hw;
-+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	u64 formats = hw->formats;
-+
-+	/*
-+	 * At least one CODEC should match, otherwise we should have
-+	 * bailed out on a higher level, since there would be no
-+	 * CODEC to support the transfer direction in that case.
-+	 */
-+	snd_soc_runtime_calc_hw(rtd, hw, substream->stream);
-+
-+	if (formats)
-+		hw->formats &= formats;
- }
+ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
+@@ -347,6 +392,10 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
+ 	if (ret < 0)
+ 		return ret;
  
- static int soc_pcm_components_open(struct snd_pcm_substream *substream,
++	ret = asoc_simple_init_dai_link_params(rtd, dai_props);
++	if (ret < 0)
++		return ret;
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(asoc_simple_dai_init);
 -- 
 2.24.1
 

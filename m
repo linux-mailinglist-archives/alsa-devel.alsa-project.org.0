@@ -2,77 +2,68 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E4021697FC
-	for <lists+alsa-devel@lfdr.de>; Sun, 23 Feb 2020 14:56:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D5D9E16988C
+	for <lists+alsa-devel@lfdr.de>; Sun, 23 Feb 2020 17:01:25 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 9FB1616B1;
-	Sun, 23 Feb 2020 14:56:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9FB1616B1
+	by alsa0.perex.cz (Postfix) with ESMTPS id 38AFC1679;
+	Sun, 23 Feb 2020 17:00:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 38AFC1679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582466210;
-	bh=SvGsjNeyKsYIJIMHZypFG9LnWuDn9ryThIY0Lr8dP10=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1582473685;
+	bh=o3ZFB83ZHkOy/zq2nMvCh439JVnz11cyMcnPrvg6TXA=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Hd2clB+XXQMwbWjq1WrRbByZjvcsb5YddoFC+/uLgQ/aks/DfIVjAXXN4ZTwzGZDK
-	 3jPnWGB0QbGSsBn3dd8JZK+lad7uWUo5gcOMIRfjpTaYIAt9qN1ejZBxx7hIwzR0j5
-	 7/+DH/pr9mFUTUKCgsFVPJOm9H5CEtZOV4Ks6OUE=
+	b=UYTSxbkg4/M8sEmgR98/+5fZzFRyLj+l/YKqgeF1nLUPPI9B1UPA46w1hCeDNenI+
+	 +wr/fEfvog9qU8STKAaggjbQgt+K5poYAlD7Oqnu1W1VHNoAnlJQfPKn3rZnVZdH3D
+	 3Mcs1JgL9siUmEjhTwGDUYD39I2yh2re1PBT9MD0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 51A9CF80136;
-	Sun, 23 Feb 2020 14:55:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3AA27F80143;
+	Sun, 23 Feb 2020 16:59:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7A693F80142; Sun, 23 Feb 2020 14:55:07 +0100 (CET)
+ id 1A062F80142; Sun, 23 Feb 2020 16:59:41 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id A99E4F80136
- for <alsa-devel@alsa-project.org>; Sun, 23 Feb 2020 14:55:04 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 9A315A0040;
- Sun, 23 Feb 2020 14:55:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 9A315A0040
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1582466103; bh=NuILzpxHG8usJhpQd8MQ8BJheQYBUyKPvYDjIgFhPsU=;
- h=Subject:To:References:From:Date:In-Reply-To:From;
- b=cUFEGkP7PUPJU9zOxnFYrdLfaVhgrpeqvm4/J/Ni0cqVSzH1yKgK6nSGKKEWlQ+t7
- xcWhDONEo7cNse9TIE5q6GTV7IGgBRKDYueLizrk6XpqIaSoumBg3nU0R6w17LSt2T
- PBq+fOKMsCwj6J0xD0FEildfFpfW7BzGVCr7ytVs=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Sun, 23 Feb 2020 14:55:00 +0100 (CET)
-Subject: Re: [pulseaudio-discuss] [alsa-devel] Question about the various
- mixer options in UCM
-To: Tanu Kaskinen <tanuk@iki.fi>,
- General PulseAudio Discussion <pulseaudio-discuss@lists.freedesktop.org>,
- alsa-devel <alsa-devel@alsa-project.org>
-References: <50ae39498982ba2fc3fc8df1b9f0eac15a2b98c8.camel@iki.fi>
- <cb58008e-e9cc-8390-cfc8-c5c93d31c862@perex.cz>
- <ae7b6d8a745ef718d8a6f3f2d7e4aeabe4f7d2b6.camel@iki.fi>
- <99522cac281eb998981ef2552c7e06846171b25f.camel@iki.fi>
- <fc493e83-3eaa-3580-483b-4bb7754245ef@perex.cz>
- <9c35a20952f53624c8cd082a5e7de33d2d34adca.camel@iki.fi>
- <084fc279e86e5fdf7439161aede4a75c85be69a0.camel@iki.fi>
-From: Jaroslav Kysela <perex@perex.cz>
-Message-ID: <06be7c66-ef8e-f7ee-ae1c-69db8fa59f24@perex.cz>
-Date: Sun, 23 Feb 2020 14:55:00 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id B89C3F800C6
+ for <alsa-devel@alsa-project.org>; Sun, 23 Feb 2020 16:59:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B89C3F800C6
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 23 Feb 2020 07:59:34 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,476,1574150400"; d="scan'208";a="409638642"
+Received: from crojewsk-mobl1.ger.corp.intel.com (HELO [10.252.23.197])
+ ([10.252.23.197])
+ by orsmga005.jf.intel.com with ESMTP; 23 Feb 2020 07:59:31 -0800
+Subject: Re: [PATCH] Intel: Skylake: Fix inconsistent IS_ERR and PTR_ERR
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Joe Perches <joe@perches.com>, Xu Wang <vulab@iscas.ac.cn>,
+ "Slawinski, AmadeuszX" <amadeuszx.slawinski@intel.com>
+References: <20200221101112.3104-1-vulab@iscas.ac.cn>
+ <1247da797bc0a860e845989241385e124e589063.camel@perches.com>
+ <8e96c207-cdf8-2d1f-755e-be60555c8728@linux.intel.com>
+From: Cezary Rojewski <cezary.rojewski@intel.com>
+Message-ID: <a0f5a3bc-3814-4e96-f81a-b693f78d2511@intel.com>
+Date: Sun, 23 Feb 2020 16:59:30 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.1
 MIME-Version: 1.0
-In-Reply-To: <084fc279e86e5fdf7439161aede4a75c85be69a0.camel@iki.fi>
+In-Reply-To: <8e96c207-cdf8-2d1f-755e-be60555c8728@linux.intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Cc: linux-kernel@vger.kernel.org, alsa-devel@alsa-project.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,151 +79,106 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 23. 02. 20 v 10:00 Tanu Kaskinen napsal(a):
-> On Sat, 2020-02-22 at 08:53 +0200, Tanu Kaskinen wrote:
->> On Sun, 2020-02-16 at 18:38 +0100, Jaroslav Kysela wrote:
->>> Dne 16. 02. 20 v 11:06 Tanu Kaskinen napsal(a):
->>>> On Sun, 2020-02-16 at 11:42 +0200, Tanu Kaskinen wrote:
->>>>> + pulseaudio-discuss@lists.freedesktop.org
->>>>>
->>>>> On Sat, 2020-02-15 at 17:25 +0100, Jaroslav Kysela wrote:
->>>>>> Actually, I am also trying to resolve the description of the speaker
->>>>>> configuration. It may not be only enough to give the PCM device, because we
->>>>>> don't know, if user connected the stereo or surround speakers to the sound
->>>>>> card output for example. I play with an idea to add device variants to UCM,
->>>>>> but the question is, how we can map this to pulseaudio profile/port schematics.
->>>>>>
->>>>>> My quick idea is to export those variants via the verbs, so the exported verb
->>>>>> names might look like:
->>>>>>
->>>>>> HiFi:Speaker-Stereo
->>>>>> HiFi:Speaker-5.1
->>>>>>
->>>>>> Where 'HiFi' is the verb name, 'Speaker' is the device name and 'Stereo' is
->>>>>> the variant name.
->>>>>>
->>>>>> If we need to define multiple variants, all may be exported like:
->>>>>>
->>>>>> HiFi:Speaker-5.1,Mic-4.0
->>>>>>
->>>>>> Also, we can enhance this and store the configuration to a file, thus 'HiFi'
->>>>>> can refer to 'HiFi@Speaker-5.1,Mic-4.0' by default.
->>>>>
->>>>> Verb + list-of-device-variants sounds like a good way to map UCM
->>>>> devices to pulseaudio profiles (and if there's just one verb, which I
->>>>> expect to be the common case, don't show it in the profile name). I
->>>>> don't know how the variants should be configured in UCM, but I know
->>>>> that device variants should be able to declare conflicts with other
->>>>> devices (or device variants). For example, 5.1 speaker output may make
->>>>> recording impossible, while stereo speaker output can be used toghether
->>>>> with a mic. If this information is not provided by UCM, pulseaudio will
->>>>> have to probe all variant combinations (like it currently does with the
->>>>> legacy mixer system).
->>>>
->>>> Sorry, now I realized that the Verb + list-of-device-variants scheme
->>>> doesn't really work after all as the profile scheme. Or maybe it does,
->>>> but it's significantly different from what we do currently. Switching
->>>> between Headphones and Speaker-Stereo often doesn't require reopening
->>>> the PCM device, so there's no need for separate Headphones and Speaker-
->>>> Stereo profiles. I guess we could still create separate profiles, it
->>>> just means that the profile list will get much longer.
->>>>
->>>> We could add a separate optimization step to the profile creation
->>>> process. That is, first create all possible device-variant combinations
->>>> as the initial profile list, and then inspect which profiles can be
->>>> merged. Naming the merged profiles becomes a problem, but I imagine
->>>> it's solvable with static rules (e.g. merging Speakers-Stereo and
->>>> Headphones becomes Analog-Stereo), and if necessary the merging can be
->>>> improved gradually over time.
->>>>
->>>>>  From profile creation perspective the ideal scheme would be not based
->>>> on UCM devices but on PCM devices and their configuration variants, but
->>>> I imagine naming would be an even bigger problem with this scheme (how
->>>> to map PCM device names to sensible user friendly names?).
->>>
->>> I think that I didn't explain my idea in detail. The variant verbs may be
->>> almost identical (thus all devices will be defined) like the "master" one. But
->>> the specific variant configuration will be returned to the application. So it
->>> will differ only in the channel count value for the Speaker device or so. The
->>> PCM device name + PCM parameters check will be fine. I don't think that we
->>> should modify something on the PA side. PA activates only one verb per
->>> soundcard now.
+On 2020-02-21 16:40, Pierre-Louis Bossart wrote:
+> On 2/21/20 8:41 AM, Joe Perches wrote:
+>> On Fri, 2020-02-21 at 18:11 +0800, Xu Wang wrote:
+>>> PTR_ERR should access the value just tested by IS_ERR.
+>>> In skl_clk_dev_probe(),it is inconsistent.
+
+Please include all maintainers of given driver when submitting the 
+patch, thank you.
+
+>> []
+>>> diff --git a/sound/soc/intel/skylake/skl-ssp-clk.c 
+>>> b/sound/soc/intel/skylake/skl-ssp-clk.c
+>> []
+>>> @@ -384,7 +384,7 @@ static int skl_clk_dev_probe(struct 
+>>> platform_device *pdev)
+>>>                   &clks[i], clk_pdata, i);
+>>>           if (IS_ERR(data->clk[data->avail_clk_cnt])) {
+>>> -            ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
+>>> +            ret = PTR_ERR(data->clk[data->avail_clk_cnt]);
 >>
->> Oh, you want to create variant verbs? Is the idea that all possible
->> device combinations will be made separate verbs? That would make life
->> easier for PulseAudio, but wouldn't it mean a lot more work for UCM
->> configuration writers? Rather than generating the device combinations
->> automatically in PulseAudio, the combinations would have to be manually
->> listed in every UCM configuration.
+>> NAK.
 >>
->> I think it would be better to define only one verb per sound card and
->> declare the conflicts between the devices or device variants, and let
->> PulseAudio automatically generate the device combinations as profiles.
+>> This is not inconsistent and you are removing the ++
+>> which is a post increment.  Likely that is necessary.
 >>
->> I may be misunderstanding something, I didn't for example understand
->> what you meant by "the PCM device name + PCM parameters check will be
->> fine". Some examples could be useful. Let's say that there's a sound
->> card that has stereo output (either headphones or line-out), 4.0
->> output, 5.1 output, SPDIF output and stereo input. If input is used,
->> 5.1 output can't be used at the same time. Would UCM define the
->> following verbs?:
->>
->> HiFi:Headphones,SPDIF,Mic
->> HiFi:Line-Stereo,SPDIF,Mic
->> HiFi:Line-4.0,SPDIF,Mic
->> HiFi:Line-5.1,SPDIF
+>> You could write the access and the increment as two
+>> separate statements if it confuses you.
 > 
-> I'm currently writing UCM configuration for Audigy2, because
-> PulseAudio's default configuration doesn't work with that card
-> properly. I'm creating verbs for each possible device combination, and
+> Well to be fair the code is far from clear.
 
-Note that variants are not supported in UCM yet. I expect to add the 
-VariantSection to the DeviceSection like this:
+Thanks for notifying, Pierre.
 
-SectionDevice."Speaker" {
-   SectionVariant."4.0" {
-     Value {
-       PlaybackChannels 4
-       ... channel mapping (todo) ...
-     }
-   }
-}
+Although NAK is upheld here. Proposed change is likely to introduce 
+regression.
 
-etc.. The alsa-lib will compose the verbs variants. I believe that we should 
-not duplicate all verb configs just because one line requires a change.
-
-> I ran into a naming issue. How should "bidirectional" devices be listed
-> in the verb name?
-
-If there is a difference between playback/capture parameters or mixer 
-settings, you cannot define the bidirectional device. But you can use indexes:
-
-SectionDevice."Line1" {
-   comment "Rear line output"
-   ...  configuration for line-out ...
-}
-
-SectionDevice."Line2" {
-   comment "Rear line input"
-   ... configuration for line-in ...
-}
-
-plus variants.
-
-> If there's both line-out and line-in and SPDIF
-> supports both input and output, maybe the verb name could be for
-> example this:
 > 
-> HiFi:Line-4.0-Out,SPDIF-Out,Line-Stereo-In,SPDIF-In
+> the post-increment is likely needed because of the error handling in 
+> unregister_src_clk 1
+>          data->clk[data->avail_clk_cnt] = register_skl_clk(dev,
+>                  &clks[i], clk_pdata, i);
 > 
-> The device name in SectionDevice would be just "Line" or "SPDIF".
+>          if (IS_ERR(data->clk[data->avail_clk_cnt])) {
+>              ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
+>              goto err_unreg_skl_clk;
+>          }
+>      }
 > 
-> I don't really like bidirectional devices, i.e. I'd prefer have
-> separate SectionDevice names for Line-In and Line-Out, but I guess
-> merging them into one device can work.
+>      platform_set_drvdata(pdev, data);
+> 
+>      return 0;
+> 
+> err_unreg_skl_clk:
+>      unregister_src_clk(data);
+> 
+> static void unregister_src_clk(struct skl_clk_data *dclk)
+> {
+>      while (dclk->avail_clk_cnt--)
+>          clkdev_drop(dclk->clk[dclk->avail_clk_cnt]->lookup);
+> }
+> 
+> So the post-increment is cancelled in the while().
+> 
+> That said, the avail_clk_cnt field is never initialized or incremented 
+> in normal usages so the code looks quite suspicious indeed.
 
-					Jaroslav
+As basically entire old Skylake code, so no surprises here : )
+struct skl_clk_data::avail_clk_cnt field is initialized with 0 via 
+devm_kzalloc in skl_clk_dev_probe().
 
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.
+> 
+> gitk tells me this patch is likely the culprit:
+> 
+> 6ee927f2f01466 ('ASoC: Intel: Skylake: Fix NULL ptr dereference when 
+> unloading clk dev')
+> 
+> -        data->clk[i] = register_skl_clk(dev, &clks[i], clk_pdata, i);
+> -        if (IS_ERR(data->clk[i])) {
+> -            ret = PTR_ERR(data->clk[i]);
+> +        data->clk[data->avail_clk_cnt] = register_skl_clk(dev,
+> +                &clks[i], clk_pdata, i);
+> +
+> +        if (IS_ERR(data->clk[data->avail_clk_cnt])) {
+> +            ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
+>               goto err_unreg_skl_clk;
+>           }
+> -
+> -        data->avail_clk_cnt++;
+> 
+> That last removal is probably wrong. Cezary and Amadeusz, you may want 
+> to look at this?
+
+Indeed, code looks wrong. Idk what are we even dropping in 
+unregister_src_clk() if register_skl_clk() fails and avail_clk_cnt gets 
+incremented anyway.
+
+In general usage of while(ptr->counter--) (example of which is present 
+in unregister_src_clk()) is prone to errors. Decrementation happens 
+regardless of while's check outcome and caller may receive back handle 
+in invalid state.
+
+Amadeo, your thoughts?
+
+Czarek

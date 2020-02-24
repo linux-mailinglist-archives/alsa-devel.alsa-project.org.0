@@ -2,70 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3E1C16A72E
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 14:20:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E17C16A77F
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 14:43:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2631E1686;
-	Mon, 24 Feb 2020 14:19:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2631E1686
+	by alsa0.perex.cz (Postfix) with ESMTPS id 64C161684;
+	Mon, 24 Feb 2020 14:42:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64C161684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582550432;
-	bh=lv1M7Ii9Kt5bXH1YXOoOMU/lPivMJ76BP24o9zQYoQI=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=tR9vDjcjv7MP1gyYhjJJS45MqPaPNViwemmPeva7qzSzAFZsatg0zLlDQIUSAJCb0
-	 e0Cfe7oMnvmetP6AfhsGhPoBr0i6WvAwYrZ1I66tBWByBU6aONBSlcYDNGXw6lOA1C
-	 OfUlPE+mRsCsusD4OV+23raECIc37U6bjDQ8OSVo=
+	s=default; t=1582551816;
+	bh=FOgCjEgDaQENpXVQMQgyw0n+m8DA/scz7nAp7sfQMdg=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=SlAZrrQR2OuM0YbPgJFP/5ed1WqoMFcTJ3yPceqK/2zowhUohTy3QKbVGgb9+g3/W
+	 rz7BzB1B9cPbRaIATUoRCFtystG7ESGq74sli70/+FODehFa6AYKRFHwCGg+gDQ3nX
+	 HBv0XcMwyO5rcegKH/I50AlpfTjn9h9+pyt0NB8Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 415B9F80137;
-	Mon, 24 Feb 2020 14:18:51 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 42E26F8014E;
+	Mon, 24 Feb 2020 14:41:55 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5A338F8014E; Mon, 24 Feb 2020 14:18:48 +0100 (CET)
+ id 6B880F8014E; Mon, 24 Feb 2020 14:41:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
+X-Spam-Level: *
+X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C89AEF80137
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 14:18:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C89AEF80137
+ by alsa1.perex.cz (Postfix) with ESMTP id 873DBF800C6
+ for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 14:41:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 873DBF800C6
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C53E730E;
- Mon, 24 Feb 2020 05:18:28 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 609AF30E;
+ Mon, 24 Feb 2020 05:41:46 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 49DE93F534;
- Mon, 24 Feb 2020 05:18:28 -0800 (PST)
-Date: Mon, 24 Feb 2020 13:18:26 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D95A33F534;
+ Mon, 24 Feb 2020 05:41:45 -0800 (PST)
+Date: Mon, 24 Feb 2020 13:41:44 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Sameer Pujar <spujar@nvidia.com>
-Subject: Re: Re: [PATCH v3 03/10] ASoC: tegra: add Tegra210 based DMIC driver
-Message-ID: <20200224131826.GI6215@sirena.org.uk>
-References: <1582180492-25297-1-git-send-email-spujar@nvidia.com>
- <1582180492-25297-4-git-send-email-spujar@nvidia.com>
- <20200221130005.GD5546@sirena.org.uk>
- <316ce0d5-318d-0533-ef06-bd7e8672f893@nvidia.com>
- <20200221165535.GG5546@sirena.org.uk>
- <47f94534-e997-d56c-5793-ae832fb2add4@nvidia.com>
- <20200224114406.GB6215@sirena.org.uk>
- <f70c7c12-dbc0-a725-f06a-86fab868e7dc@nvidia.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="CNK/L7dwKXQ4Ub8J"
-Content-Disposition: inline
-In-Reply-To: <f70c7c12-dbc0-a725-f06a-86fab868e7dc@nvidia.com>
-X-Cookie: How you look depends on where you go.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, tiwai@suse.com, lgirdwood@gmail.com,
- robh+dt@kernel.org, viswanathl@nvidia.com, sharadg@nvidia.com,
- thierry.reding@gmail.com, atalambedu@nvidia.com, linux-tegra@vger.kernel.org,
- digetx@gmail.com, Jon Hunter <jonathanh@nvidia.com>, rlokhande@nvidia.com,
- mkumard@nvidia.com, dramesh@nvidia.com
+To: kbuild test robot <lkp@intel.com>
+Subject: Applied "ASoC: meson: aiu: fix semicolon.cocci warnings" to the asoc
+ tree
+In-Reply-To: 
+Message-Id: 
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,58 +64,66 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
+The patch
 
---CNK/L7dwKXQ4Ub8J
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+   ASoC: meson: aiu: fix semicolon.cocci warnings
 
-On Mon, Feb 24, 2020 at 05:59:33PM +0530, Sameer Pujar wrote:
-> On 2/24/2020 5:14 PM, Mark Brown wrote:
+has been applied to the asoc tree at
 
-> > I don't think so, I'd not expect the individual drivers to be doing
-> > anything user visible here - if we know what a digital transformation
-> > looks like the framework should be offering anything that's needed to
-> > users (and hiding controls that don't have any practical control in a
-> > given system).
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
 
-> Are you suggesting to have some alternate way of users configuring sample
-> rates (and other params) and not use mixer control method?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-I'm mainly saying the driver shouldn't be doing it directly, it should
-be doing something much closer to hwparams for digital formats.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-> This is a typical use case we see,
-> - [stream-1] Lets say high resolution audio is playing (96kHz, 24-bit,
-> stereo)
-> - [stream-2] Randomly system notifications of small durations come (48kHz,
-> 16-bit, stereo)
-> The requirement is, both streams should be mixed and played.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Most systems like this would run the output at a fixed sample rate here
-so there'd be no runtime configuration.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> Is there a better way for user to configure custom audio paths?
+Thanks,
+Mark
 
-Fit what you're doing into DPCM.  It's not particularly great but it's
-what we have at the minute.
+From 1640c8df0bbac9e5156132e24c0f0a932c2b2865 Mon Sep 17 00:00:00 2001
+From: kbuild test robot <lkp@intel.com>
+Date: Sun, 23 Feb 2020 01:01:54 +0800
+Subject: [PATCH] ASoC: meson: aiu: fix semicolon.cocci warnings
 
-This isn't me not understanding your use case, this is me saying that
-it would be better to either work like other existing drivers or improve
-the framework so that it works better for everyone.
+sound/soc/meson/aiu-encoder-i2s.c:129:2-3: Unneeded semicolon
 
---CNK/L7dwKXQ4Ub8J
-Content-Type: application/pgp-signature; name="signature.asc"
+ Remove unneeded semicolon.
 
------BEGIN PGP SIGNATURE-----
+Generated by: scripts/coccinelle/misc/semicolon.cocci
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5TzSEACgkQJNaLcl1U
-h9BAhwf/QhpoDg6KiehDe7VRnOhtmPEXAczk9wdg+IxjQr0QRsmC+kn/PQ9O+TJG
-puwkmjpN5PJmU+kUECaCiZO5midMxKemgI4ITEHhtBGmuOhaRv/Fq4HwHJoYPvNu
-QCgOqLmAA/A7GSMZFPKterSWZ37254QlSiiBo77wWvzBgsByJ/JaBEyvWOPHQfaJ
-S+TsoKJV2hh73j8GfBxMJPzoDxoetly2+sUhudtNG7fPAlKyoX7rkRYn/JBmlFxf
-Zz3VF3oq+6zyraU3o7z/Ki76E5MXclTItaA0qQ0sYKJmVdbN4VMAwmzsqBhVe1e9
-fGzmk+Ai8I9CHO4TczYKw5D5YYxs8A==
-=ZFLp
------END PGP SIGNATURE-----
+Fixes: 3e25c44598aa ("ASoC: meson: aiu: add support for the Meson8 and Meson8b SoC families")
+Signed-off-by: kbuild test robot <lkp@intel.com>
+CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Link: https://lore.kernel.org/r/20200222170154.GA119396@e50d7db646c3
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/meson/aiu-encoder-i2s.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---CNK/L7dwKXQ4Ub8J--
+diff --git a/sound/soc/meson/aiu-encoder-i2s.c b/sound/soc/meson/aiu-encoder-i2s.c
+index cc73b5d5c2b7..832e22d275fe 100644
+--- a/sound/soc/meson/aiu-encoder-i2s.c
++++ b/sound/soc/meson/aiu-encoder-i2s.c
+@@ -126,7 +126,7 @@ static int aiu_encoder_i2s_set_legacy_div(struct snd_soc_component *component,
+ 	default:
+ 		dev_err(component->dev, "Unsupported i2s divider: %u\n", bs);
+ 		return -EINVAL;
+-	};
++	}
+ 
+ 	snd_soc_component_update_bits(component, AIU_CLK_CTRL,
+ 				      AIU_CLK_CTRL_I2S_DIV,
+-- 
+2.20.1
+

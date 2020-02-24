@@ -2,93 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DEC916AF1E
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 19:29:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0187716B3CF
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 23:23:23 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CEBE61699;
-	Mon, 24 Feb 2020 19:28:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CEBE61699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 60EB71694;
+	Mon, 24 Feb 2020 23:22:32 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 60EB71694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582568988;
-	bh=umAnb5ekYeQXE5qdZwgUn2od2g+XRXhwSwaqS5+ud0w=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=rUYE7T2JLQ/vnHsQlVt+hZPQIZ3ZKx0hlClnJKMVAMPEnABeoZX9icKDlhZAg2Uyi
-	 AYN4jTPBmODL5RmCkXLYVrz1dC2UBrAIrbMGNoSCKTuOmQx+MCHGEGb3XF5uYHVqrq
-	 +VFryZOcjzkKo1pj+vKONSbFdnOVsedviyXGRKWI=
+	s=default; t=1582583002;
+	bh=NH96DvUvD8K2myWeHIzk/fZ+QVCd0b3k5S53dexthgQ=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=QYN3KDWNcZtXRmPh8WBrWekQGHNq6WgskiuHAjq24QfoyX5WCCRXG0aQ6koHsa1oc
+	 95sIF+FC+u0jHFWpu0rvcCQeYhez1eND4ZCMO7MSTJftyPiZg2IkBeAYSnL+hBMVTc
+	 mhxqdWzVmEVIwwC27S8TFWKRDBF5d3EHWHuFws7o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id BFAA8F8014D;
-	Mon, 24 Feb 2020 19:28:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 56F62F8016F;
+	Mon, 24 Feb 2020 23:21:41 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 9C8B3F8014E; Mon, 24 Feb 2020 19:28:03 +0100 (CET)
+ id B8077F80137; Mon, 24 Feb 2020 23:21:38 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail-oi1-f194.google.com (mail-oi1-f194.google.com
- [209.85.167.194])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 2D3BCF80090
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 19:27:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 2D3BCF80090
-Received: by mail-oi1-f194.google.com with SMTP id b18so9895587oie.2
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 10:27:58 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=8b3MliEDFbDrUpBm8jGhwYqreoGs6m8FNnF/yNIueEU=;
- b=uhOdlMf2Cwubnd2XNr8DtDw0obYZf0UNQDRLy4QnA8Nei+a1wL55AKWioYxSa1L4U6
- cXovIzhDbVfWWrAIigTq+sc9eTNrdvXwvFDmRVZWqa05Lap6UOthzFvmGNPTG30h2lls
- wX1GOmraX5WwG5xj3EE9IHRPI1Z2ztP9JMqbGyiVUescLog9ysA0Zot+CVV7/rPlF/Ax
- lbWY2Bb+rDgaKQX1Fn5S4u023GzK+fMq/U9iOP6gDZqY1xC1j3NFQqjj6SxooAeUTLG1
- QKQXA18jroeseZxLn5SDX3Dfwq2LqK/wqbGTsW/fasxUupFldQ2uRutkH8BSgVfrMtlk
- Vntw==
-X-Gm-Message-State: APjAAAVoPYuCgFgg/1VqcAbfX1eavuu7T0kvMgdNQAjNjOpt8NcNMWpp
- i0gXIBaqEDIrJqR8E70gQA==
-X-Google-Smtp-Source: APXvYqyzy4iiGXu+ZZ3t2yBP3j4K/yU2pKb0H/blTr6+iujeHVCL8mJihe7tO3CjLAVcADKqUCNWGQ==
-X-Received: by 2002:aca:bfc2:: with SMTP id p185mr318449oif.57.1582568876626; 
- Mon, 24 Feb 2020 10:27:56 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id v10sm4255017oic.32.2020.02.24.10.27.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Feb 2020 10:27:56 -0800 (PST)
-Received: (nullmailer pid 13156 invoked by uid 1000);
- Mon, 24 Feb 2020 18:27:55 -0000
-Date: Mon, 24 Feb 2020 12:27:55 -0600
-From: Rob Herring <robh@kernel.org>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Subject: Re: [PATCH] docs: dt: fix several broken doc references
-Message-ID: <20200224182755.GB27161@bogus>
-References: <0e530494349b37eb2eab4a8eccf56626e0b18e6d.1582448388.git.mchehab+huawei@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0e530494349b37eb2eab4a8eccf56626e0b18e6d.1582448388.git.mchehab+huawei@kernel.org>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Olivier Moysan <olivier.moysan@st.com>,
- =?iso-8859-1?B?Suly9G1l?= Pouiller <jerome.pouiller@silabs.com>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Vignesh Raghavendra <vigneshr@ti.com>, devel@driverdev.osuosl.org,
- Jonathan Corbet <corbet@lwn.net>, Richard Weinberger <richard@nod.at>,
- Piotr Sroka <piotrs@cadence.com>, devicetree@vger.kernel.org,
- Alexandre Torgue <alexandre.torgue@st.com>, Mark Brown <broonie@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnaud Pouliquen <arnaud.pouliquen@st.com>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-spi@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id C45F7F80137
+ for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 23:21:35 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C45F7F80137
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7E48830E;
+ Mon, 24 Feb 2020 14:21:33 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F27553F534;
+ Mon, 24 Feb 2020 14:21:32 -0800 (PST)
+Date: Mon, 24 Feb 2020 22:21:31 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Subject: Applied "ASoC: soc-pcm: fix state tracking error in
+ snd_soc_component_open/close()" to the asoc tree
+In-Reply-To: <20200220094955.16968-1-kai.vehmanen@linux.intel.com>
+Message-Id: <applied-20200220094955.16968-1-kai.vehmanen@linux.intel.com>
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
+ kai.vehmanen@linux.intel.com, pierre-louis.bossart@linux.intel.com,
+ ranjani.sridharan@linux.intel.com, Mark Brown <broonie@kernel.org>,
+ Dmitry Osipenko <digetx@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,25 +67,224 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Feb 23, 2020 at 09:59:53AM +0100, Mauro Carvalho Chehab wrote:
-> There are several DT doc references that require manual fixes.
-> I found 3 cases fixed on this patch:
-> 
-> 	- directory named "binding/" instead of "bindings/";
-> 	- .txt to .yaml renames;
-> 	- file renames (still on txt format);
-> 
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-> ---
->  .../devicetree/bindings/mtd/cadence-nand-controller.txt       | 2 +-
->  .../devicetree/bindings/net/brcm,bcm7445-switch-v4.0.txt      | 2 +-
->  Documentation/devicetree/bindings/sound/st,stm32-sai.txt      | 2 +-
->  Documentation/devicetree/bindings/sound/st,stm32-spdifrx.txt  | 2 +-
->  Documentation/devicetree/bindings/spi/st,stm32-spi.yaml       | 2 +-
->  MAINTAINERS                                                   | 4 ++--
->  .../devicetree/bindings/net/wireless/siliabs,wfx.txt          | 2 +-
->  7 files changed, 8 insertions(+), 8 deletions(-)
+The patch
 
-Applied.
+   ASoC: soc-pcm: fix state tracking error in snd_soc_component_open/close()
 
-Rob
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From d2aaa8d8bfba93237ac944ee058fb98e2c2ef983 Mon Sep 17 00:00:00 2001
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Date: Thu, 20 Feb 2020 11:49:55 +0200
+Subject: [PATCH] ASoC: soc-pcm: fix state tracking error in
+ snd_soc_component_open/close()
+
+ASoC component open/close and snd_soc_component_module_get/put are called
+independently for each component-substream pair, so the logic added in
+commit dd03907bf129 ("ASoC: soc-pcm: call snd_soc_component_open/close()
+once") was not sufficient and led to PCM playback and module unload errors.
+
+Implement handling of failures directly in soc_pcm_components_open(),
+so that any successfully opened components are closed upon error with
+other components. This allows to clean up error handling in
+soc_pcm_open() without adding more state tracking.
+
+Fixes: dd03907bf129 ("ASoC: soc-pcm: call snd_soc_component_open/close() once")
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Tested-by: Dmitry Osipenko <digetx@gmail.com>
+Link: https://lore.kernel.org/r/20200220094955.16968-1-kai.vehmanen@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ include/sound/soc-component.h |  7 ++-----
+ sound/soc/soc-component.c     | 35 +++++++----------------------------
+ sound/soc/soc-pcm.c           | 27 +++++++++++++++++++++------
+ 3 files changed, 30 insertions(+), 39 deletions(-)
+
+diff --git a/include/sound/soc-component.h b/include/sound/soc-component.h
+index 1866ecc8e94b..154d02fbbfed 100644
+--- a/include/sound/soc-component.h
++++ b/include/sound/soc-component.h
+@@ -147,6 +147,8 @@ struct snd_soc_component {
+ 
+ 	unsigned int active;
+ 
++	unsigned int suspended:1; /* is in suspend PM state */
++
+ 	struct list_head list;
+ 	struct list_head card_aux_list; /* for auxiliary bound components */
+ 	struct list_head card_list;
+@@ -180,11 +182,6 @@ struct snd_soc_component {
+ 	struct dentry *debugfs_root;
+ 	const char *debugfs_prefix;
+ #endif
+-
+-	/* bit field */
+-	unsigned int suspended:1; /* is in suspend PM state */
+-	unsigned int opened:1;
+-	unsigned int module:1;
+ };
+ 
+ #define for_each_component_dais(component, dai)\
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index ee00c09df5e7..14e175cdeeb8 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -297,55 +297,34 @@ EXPORT_SYMBOL_GPL(snd_soc_component_set_jack);
+ int snd_soc_component_module_get(struct snd_soc_component *component,
+ 				 int upon_open)
+ {
+-	if (component->module)
+-		return 0;
+-
+ 	if (component->driver->module_get_upon_open == !!upon_open &&
+ 	    !try_module_get(component->dev->driver->owner))
+ 		return -ENODEV;
+ 
+-	component->module = 1;
+-
+ 	return 0;
+ }
+ 
+ void snd_soc_component_module_put(struct snd_soc_component *component,
+ 				  int upon_open)
+ {
+-	if (component->module &&
+-	    component->driver->module_get_upon_open == !!upon_open)
++	if (component->driver->module_get_upon_open == !!upon_open)
+ 		module_put(component->dev->driver->owner);
+-
+-	component->module = 0;
+ }
+ 
+ int snd_soc_component_open(struct snd_soc_component *component,
+ 			   struct snd_pcm_substream *substream)
+ {
+-	int ret = 0;
+-
+-	if (!component->opened &&
+-	    component->driver->open)
+-		ret = component->driver->open(component, substream);
+-
+-	if (ret == 0)
+-		component->opened = 1;
+-
+-	return ret;
++	if (component->driver->open)
++		return component->driver->open(component, substream);
++	return 0;
+ }
+ 
+ int snd_soc_component_close(struct snd_soc_component *component,
+ 			    struct snd_pcm_substream *substream)
+ {
+-	int ret = 0;
+-
+-	if (component->opened &&
+-	    component->driver->close)
+-		ret = component->driver->close(component, substream);
+-
+-	component->opened = 0;
+-
+-	return ret;
++	if (component->driver->close)
++		return component->driver->close(component, substream);
++	return 0;
+ }
+ 
+ int snd_soc_component_prepare(struct snd_soc_component *component,
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index aff27c8599ef..235baeb2d56a 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -469,28 +469,43 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ static int soc_pcm_components_open(struct snd_pcm_substream *substream)
+ {
+ 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_component *last = NULL;
+ 	struct snd_soc_component *component;
+ 	int i, ret = 0;
+ 
+ 	for_each_rtd_components(rtd, i, component) {
++		last = component;
++
+ 		ret = snd_soc_component_module_get_when_open(component);
+ 		if (ret < 0) {
+ 			dev_err(component->dev,
+ 				"ASoC: can't get module %s\n",
+ 				component->name);
+-			return ret;
++			break;
+ 		}
+ 
+ 		ret = snd_soc_component_open(component, substream);
+ 		if (ret < 0) {
++			snd_soc_component_module_put_when_close(component);
+ 			dev_err(component->dev,
+ 				"ASoC: can't open component %s: %d\n",
+ 				component->name, ret);
+-			return ret;
++			break;
+ 		}
+ 	}
+ 
+-	return 0;
++	if (ret < 0) {
++		/* rollback on error */
++		for_each_rtd_components(rtd, i, component) {
++			if (component == last)
++				break;
++
++			snd_soc_component_close(component, substream);
++			snd_soc_component_module_put_when_close(component);
++		}
++	}
++
++	return ret;
+ }
+ 
+ static int soc_pcm_components_close(struct snd_pcm_substream *substream)
+@@ -585,7 +600,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	if (ret < 0) {
+ 		pr_err("ASoC: %s startup failed: %d\n",
+ 		       rtd->dai_link->name, ret);
+-		goto component_err;
++		goto rtd_startup_err;
+ 	}
+ 
+ 	/* startup the audio subsystem */
+@@ -681,9 +696,9 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	snd_soc_dai_shutdown(cpu_dai, substream);
+ 
+ 	soc_rtd_shutdown(rtd, substream);
+-component_err:
++rtd_startup_err:
+ 	soc_pcm_components_close(substream);
+-
++component_err:
+ 	mutex_unlock(&rtd->card->pcm_mutex);
+ 
+ 	for_each_rtd_components(rtd, i, component) {
+-- 
+2.20.1
+

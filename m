@@ -2,123 +2,71 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F19216A0A6
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 09:55:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E869216A437
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 11:44:15 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D50801690;
-	Mon, 24 Feb 2020 09:54:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D50801690
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8F2B116AC;
+	Mon, 24 Feb 2020 11:43:25 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8F2B116AC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582534515;
-	bh=laI3Iqey3L9L3z9gsnV5W27AnC1j/VdFiE+QumulNqc=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=e9kkFYuhfFGcZo8L0K4KhDgYNx9WBQs6Mue4tiJH++9bqwPQGw4J4CYuuPNZOd8Vx
-	 DTga/RyyI73NdJLH4b5P6I6tS5xV5TngOtii4N0+GvUIHABGhA6MU5qCIML2AGlV3G
-	 mI8rlh7xpA/jkzcKWROWPLApv3BhuKRfKJRPzqtQ=
+	s=default; t=1582541055;
+	bh=e+5Gq3+CTN8X/VB4OrUNu6tJzjBIwox13nQLzF6Qpsg=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=MtgKL9Ewo8v+XRlgKohI8gZXAkbl9w2IBhIcpSsEXIDF0O3swzK4n5mNxemIqRGI/
+	 UVBxAL+N1UmKaLUl06mbxiSyNHY03QrvEpdMEQKUBwQPnLUaVZhGSFxj04iF8oDzgL
+	 f2xbgQMxB6OEY4N5b0cpQXR8S3ddr5hPLsDD00dA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D9C93F80090;
-	Mon, 24 Feb 2020 09:53:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C702BF801F2;
+	Mon, 24 Feb 2020 11:43:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D4188F8014E; Mon, 24 Feb 2020 09:53:32 +0100 (CET)
+ id D8A2CF80171; Mon, 24 Feb 2020 11:43:11 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_PASS,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_NONE
  autolearn=disabled version=3.4.0
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70059.outbound.protection.outlook.com [40.107.7.59])
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 28979F80090
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 09:53:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 28979F80090
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=nxp.com header.i=@nxp.com
- header.b="qxmS1PNM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ne7teBaqIlrdQPDd9JaxmSXOsDVZRsBAL0GTTkRispZx44zZ+WRaqCScM3Hike5mI49A82m5aGGMZbWa6X2mkN/BjGpHJX0+dlvB+fNZoekcIUn9lzpEuMAcCsLJVdmBINKL3heJb5MA9N+Z7cwB4dnYygMgSNHYanR+Va23CdZOWVxhxpScgVVkBoAkkX9UKFxS52ITtlZxNHXwHJJFUfyFULHH3WUx8tph/lZAwBVL6pUZZ2uBMM3Nx6sBwR2CEktTuxj9csXXv1ppm5uUoLBmZOlEAWwYnSYBEF4ipxOAnhn9uJfp0RHaYnqCwxK2gvreX0yRDOO7rzV6iomOFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=39ZpzOZDMlgUHdjcgSEY5oRnIiqbOuAoG3PMp076Lbo=;
- b=htuiyNYNHpTpzxWdK5Tv/DiygHEXSAg/coJ6lYwIKQ6sU4yokFfYKMdBjvBiRFzBPjRvXjMurnY1VmNdUKyAeZhi9O59s/sH251ykc8pbySRS3W1wog6wsIiF60+EDBIUb/fNrDXibH+Nwpd6V2ihZPglqQV4idjE3giq3PaGYZA9rOxTQQSG/Hz2YqFii4vFiDnTmoFgeWDIXPWMAARPPrc84Ts3epKmR/dL9iS59m/x8OW4mghxNqYEWQXhmByhPY5OZcAIRSmwyoxbwOgfRpTln7BQVegoCXTUDeAtVLlNtHyY3P9mXuwonyv2Ih8lPHStjJ9kaoUTVksVHQ91w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=39ZpzOZDMlgUHdjcgSEY5oRnIiqbOuAoG3PMp076Lbo=;
- b=qxmS1PNMCHIJEN5frCv5iP7B7297bi+IDREMXDkkBM3DyES3JBZnycp0BfGQ0PbH12nkUI94hm43h+4tAL+wmW2qVEiHoOChY50KUywjsVXVoEEwWAd3JXiy+4oGwJSiihs4Y9Rh6jzogDwqAbbTfskZBcM9ocd50dY1w5/2+YQ=
-Received: from VE1PR04MB6479.eurprd04.prod.outlook.com (20.179.232.225) by
- VE1PR04MB6606.eurprd04.prod.outlook.com (20.179.235.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2750.18; Mon, 24 Feb 2020 08:53:26 +0000
-Received: from VE1PR04MB6479.eurprd04.prod.outlook.com
- ([fe80::2075:2c31:f78a:23a4]) by VE1PR04MB6479.eurprd04.prod.outlook.com
- ([fe80::2075:2c31:f78a:23a4%5]) with mapi id 15.20.2729.033; Mon, 24 Feb 2020
- 08:53:25 +0000
-From: "S.j. Wang" <shengjiu.wang@nxp.com>
-To: Nicolin Chen <nicoleotsuka@gmail.com>
-Subject: Re: [PATCH v2 3/3] ASoC: fsl_easrc: Add EASRC ASoC CPU DAI and
- platform drivers
-Thread-Topic: [PATCH v2 3/3] ASoC: fsl_easrc: Add EASRC ASoC CPU DAI and
- platform drivers
-Thread-Index: AdXq7zKbRo5k9O0MQoSy/99vj57qYQ==
-Date: Mon, 24 Feb 2020 08:53:25 +0000
-Message-ID: <VE1PR04MB6479BCA376502F6F1251602BE3EC0@VE1PR04MB6479.eurprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=shengjiu.wang@nxp.com; 
-x-originating-ip: [101.86.209.67]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: 1e08fdfd-4cb4-4e99-3420-08d7b90702b9
-x-ms-traffictypediagnostic: VE1PR04MB6606:
-x-microsoft-antispam-prvs: <VE1PR04MB66060C1F0041F6A9ADD08884E3EC0@VE1PR04MB6606.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6790;
-x-forefront-prvs: 032334F434
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(4636009)(39860400002)(346002)(376002)(396003)(366004)(136003)(199004)(189003)(9686003)(186003)(6916009)(316002)(7696005)(76116006)(33656002)(478600001)(55016002)(6506007)(26005)(81166006)(81156014)(5660300002)(2906002)(66946007)(66446008)(8676002)(64756008)(66476007)(66556008)(71200400001)(52536014)(54906003)(4326008)(86362001)(8936002)(7416002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VE1PR04MB6606;
- H:VE1PR04MB6479.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: nxp.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: o3WWhM5TJLrHi8gznmjIIIzZGx/b7VImqyt4nB4PcK+IaUgb0NNapjhMX5NAkDCrKnFkhJmpFsL/AcabJVEFo3Ys/7rL3gx+ydIAV/RPUqYrXkKlp1NappXM6nXGmDK4pHd4xfPyBBMK9KTF+Kjq0n9UFvuPe1JMBmYq25iTh8l3h7p94x1Q77TpVXQrX1C4XxkLzJO5NzQhBiyAhRVd+UvexgnjPXeiuj0PCmgSraIbXs4F8NWg2MSgRmoaE7858ovNREUjwRvnn9su6Ti1By1pbt7nRl66gHoraJRjMwvSSPShWNjWjxu/GUefpdt3N39gwDzBjgjcEvcKCFQ0aP9uMrCaw1MkyvfTktxfYYN5YBrkLZlIfysoXOCTNmm6WLTp8mm+IRoE4q2EeHssmrJgitFP7TVxWO1F921x3L6EujGEix7OcGCnAG5Dn6jJ
-x-ms-exchange-antispam-messagedata: fPiDTjYFKXg/lfnBsTO3GteZXyVRssejJyoDRenaez1X/YyWKTPQrjkzR6KKazjbJM+/kk9VK0/0UWk3JDNxuceiN66P6ZGXwyIuslwmUoCXdprrZegm2CuPWEe6XKak4QbH6G80hkUthaoUnaZEkg==
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8D0A9F80137
+ for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 11:43:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8D0A9F80137
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Feb 2020 02:43:04 -0800
+X-IronPort-AV: E=Sophos;i="5.70,479,1574150400"; d="scan'208";a="225935345"
+Received: from aslawinx-mobl1.ger.corp.intel.com (HELO [10.249.154.74])
+ ([10.249.154.74])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-SHA;
+ 24 Feb 2020 02:43:02 -0800
+Subject: Re: [PATCH] Intel: Skylake: Fix inconsistent IS_ERR and PTR_ERR
+To: Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Joe Perches <joe@perches.com>, Xu Wang <vulab@iscas.ac.cn>,
+ "Slawinski, AmadeuszX" <amadeuszx.slawinski@intel.com>
+References: <20200221101112.3104-1-vulab@iscas.ac.cn>
+ <1247da797bc0a860e845989241385e124e589063.camel@perches.com>
+ <8e96c207-cdf8-2d1f-755e-be60555c8728@linux.intel.com>
+ <a0f5a3bc-3814-4e96-f81a-b693f78d2511@intel.com>
+From: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Message-ID: <f05ddcba-4cd2-fb55-1829-53e7ef19943f@linux.intel.com>
+Date: Mon, 24 Feb 2020 11:42:59 +0100
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e08fdfd-4cb4-4e99-3420-08d7b90702b9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Feb 2020 08:53:25.6346 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: k/pYfVM/+CVio65/5mb01LolyoelAriE93P4OgG3QKflkvmLzB7fC2LWyjezZpiu41FMFEEnD9ZLVh0k86TM/A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VE1PR04MB6606
-Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "timur@kernel.org" <timur@kernel.org>,
- "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
- "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+In-Reply-To: <a0f5a3bc-3814-4e96-f81a-b693f78d2511@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org, tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,60 +82,113 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi
 
-> >
-> > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> > ---
-> >  sound/soc/fsl/Kconfig           |   10 +
-> >  sound/soc/fsl/Makefile          |    2 +
-> >  sound/soc/fsl/fsl_asrc_common.h |    1 +
-> >  sound/soc/fsl/fsl_easrc.c       | 2265 +++++++++++++++++++++++++++++++
-> >  sound/soc/fsl/fsl_easrc.h       |  668 +++++++++
-> >  sound/soc/fsl/fsl_easrc_dma.c   |  440 ++++++
->=20
-> I see a 90% similarity between fsl_asrc_dma and fsl_easrc_dma files.
-> Would it be possible reuse the existing code? Could share structures from
-> my point of view, just like it reuses "enum asrc_pair_index", I know
-> differentiating "pair" and "context" is a big point here though.
->=20
-> A possible quick solution for that, off the top of my head, could be:
->=20
-> 1) in fsl_asrc_common.h
->=20
->         struct fsl_asrc {
->                 ....
->         };
->=20
->         struct fsl_asrc_pair {
->                 ....
->         };
->=20
-> 2) in fsl_easrc.h
->=20
->         /* Renaming shared structures */
->         #define fsl_easrc fsl_asrc
->         #define fsl_easrc_context fsl_asrc_pair
->=20
-> May be a good idea to see if others have some opinion too.
->=20
 
-We need to modify the fsl_asrc and fsl_asrc_pair, let them
-To be used by both driver,  also we need to put the specific
-Definition for each module to same struct, right?
+On 2/23/2020 4:59 PM, Cezary Rojewski wrote:
+> On 2020-02-21 16:40, Pierre-Louis Bossart wrote:
+>> On 2/21/20 8:41 AM, Joe Perches wrote:
+>>> On Fri, 2020-02-21 at 18:11 +0800, Xu Wang wrote:
+>>>> PTR_ERR should access the value just tested by IS_ERR.
+>>>> In skl_clk_dev_probe(),it is inconsistent.
+> 
+> Please include all maintainers of given driver when submitting the 
+> patch, thank you.
+> 
+>>> []
+>>>> diff --git a/sound/soc/intel/skylake/skl-ssp-clk.c 
+>>>> b/sound/soc/intel/skylake/skl-ssp-clk.c
+>>> []
+>>>> @@ -384,7 +384,7 @@ static int skl_clk_dev_probe(struct 
+>>>> platform_device *pdev)
+>>>>                   &clks[i], clk_pdata, i);
+>>>>           if (IS_ERR(data->clk[data->avail_clk_cnt])) {
+>>>> -            ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
+>>>> +            ret = PTR_ERR(data->clk[data->avail_clk_cnt]);
+>>>
+>>> NAK.
+>>>
+>>> This is not inconsistent and you are removing the ++
+>>> which is a post increment.  Likely that is necessary.
+>>>
+>>> You could write the access and the increment as two
+>>> separate statements if it confuses you.
+>>
+>> Well to be fair the code is far from clear.
+> 
+> Thanks for notifying, Pierre.
+> 
+> Although NAK is upheld here. Proposed change is likely to introduce 
+> regression.
+> 
+>>
+>> the post-increment is likely needed because of the error handling in 
+>> unregister_src_clk 1
+>>          data->clk[data->avail_clk_cnt] = register_skl_clk(dev,
+>>                  &clks[i], clk_pdata, i);
+>>
+>>          if (IS_ERR(data->clk[data->avail_clk_cnt])) {
+>>              ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
+>>              goto err_unreg_skl_clk;
+>>          }
+>>      }
+>>
+>>      platform_set_drvdata(pdev, data);
+>>
+>>      return 0;
+>>
+>> err_unreg_skl_clk:
+>>      unregister_src_clk(data);
+>>
+>> static void unregister_src_clk(struct skl_clk_data *dclk)
+>> {
+>>      while (dclk->avail_clk_cnt--)
+>>          clkdev_drop(dclk->clk[dclk->avail_clk_cnt]->lookup);
+>> }
+>>
+>> So the post-increment is cancelled in the while().
+>>
+>> That said, the avail_clk_cnt field is never initialized or incremented 
+>> in normal usages so the code looks quite suspicious indeed.
+> 
+> As basically entire old Skylake code, so no surprises here : )
+> struct skl_clk_data::avail_clk_cnt field is initialized with 0 via 
+> devm_kzalloc in skl_clk_dev_probe().
+> 
+>>
+>> gitk tells me this patch is likely the culprit:
+>>
+>> 6ee927f2f01466 ('ASoC: Intel: Skylake: Fix NULL ptr dereference when 
+>> unloading clk dev')
+>>
+>> -        data->clk[i] = register_skl_clk(dev, &clks[i], clk_pdata, i);
+>> -        if (IS_ERR(data->clk[i])) {
+>> -            ret = PTR_ERR(data->clk[i]);
+>> +        data->clk[data->avail_clk_cnt] = register_skl_clk(dev,
+>> +                &clks[i], clk_pdata, i);
+>> +
+>> +        if (IS_ERR(data->clk[data->avail_clk_cnt])) {
+>> +            ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
+>>               goto err_unreg_skl_clk;
+>>           }
+>> -
+>> -        data->avail_clk_cnt++;
+>>
+>> That last removal is probably wrong. Cezary and Amadeusz, you may want 
+>> to look at this?
+> 
+> Indeed, code looks wrong. Idk what are we even dropping in 
+> unregister_src_clk() if register_skl_clk() fails and avail_clk_cnt gets 
+> incremented anyway.
+> 
+> In general usage of while(ptr->counter--) (example of which is present 
+> in unregister_src_clk()) is prone to errors. Decrementation happens 
+> regardless of while's check outcome and caller may receive back handle 
+> in invalid state.
+> 
+> Amadeo, your thoughts?
+>
 
->=20
-> > +static const struct regmap_config fsl_easrc_regmap_config =3D {
-> > +     .readable_reg =3D fsl_easrc_readable_reg,
-> > +     .volatile_reg =3D fsl_easrc_volatile_reg,
-> > +     .writeable_reg =3D fsl_easrc_writeable_reg,
->=20
-> Can we use regmap_range and regmap_access_table?
->=20
+Right, there is a problem with how we do increment available clock 
+counter. It should be done in success path, sent fix.
 
-Can the regmap_range support discontinuous registers?  The
-reg_stride =3D 4.
-
-Best regards
-Wang shengjiu
-
+Amadeusz

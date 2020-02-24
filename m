@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90B1516ACA9
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 18:07:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E70EA16ACB0
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 18:08:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 0442C169F;
-	Mon, 24 Feb 2020 18:06:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0442C169F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 513E81684;
+	Mon, 24 Feb 2020 18:07:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 513E81684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582564061;
-	bh=EkBLuLn9r0JV3bvo2spu25mGYzNHZ4unn6+SegXFZbQ=;
+	s=default; t=1582564127;
+	bh=sYQ+udyDfpCYQOde5eyNwJYZWDs2CE9nxqxpICnRaIo=;
 	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=AnjRISdu/y6XUpPjbwSmTk4mO09+PWDPJfwowWiZ9qFaNlo0zY93ATgggUOIW7FJX
-	 ikS4lXch0Ysc1GhpyAydKlRVo9fxxN6EItodHhlSYx81Ry8DrwormUOWSfQOhGj1rG
-	 ZIs77kSCL1Yl9DdBnznihP3qu3JodPSt9ZnXePqk=
+	b=AZUXqMZ5rgkBWvkWc+gLW6U2xqBgFcYZ8ZVO2S8/YH6y2g9urzAzxzJfOfMrTlcOj
+	 LH9GbSs+Rj83l5WP1yy8DgeN/EQWBzs6yKBqXpudsP7HGPNRjIp8PEsJjUja3pOcjc
+	 QrcI0xXUFgxIyQAWNDOMIehItotggerI4mSgTF8s=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 212B4F801F2;
-	Mon, 24 Feb 2020 18:06:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A999AF80216;
+	Mon, 24 Feb 2020 18:06:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19A44F8014D; Mon, 24 Feb 2020 18:05:58 +0100 (CET)
+ id DB0C9F80213; Mon, 24 Feb 2020 18:06:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
@@ -34,39 +34,38 @@ X-Spam-Status: No, score=1.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
 Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1F72DF8014D
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 18:05:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1F72DF8014D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1222CF80137
+ for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 18:05:56 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1222CF80137
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 24 Feb 2020 09:05:50 -0800
+ 24 Feb 2020 09:05:55 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,480,1574150400"; d="scan'208";a="230713367"
+X-IronPort-AV: E=Sophos;i="5.70,480,1574150400"; d="scan'208";a="230713397"
 Received: from rjgardn2-mobl1.amr.corp.intel.com (HELO [10.254.182.151])
  ([10.254.182.151])
- by orsmga008.jf.intel.com with ESMTP; 24 Feb 2020 09:05:49 -0800
-Subject: Re: [PATCH] ASoC: Intel: Skylake: Fix available clock counter
- incrementation
-To: =?UTF-8?Q?Amadeusz_S=c5=82awi=c5=84ski?=
- <amadeuszx.slawinski@linux.intel.com>,
- Cezary Rojewski <cezary.rojewski@intel.com>
-References: <20200224125202.13784-1-amadeuszx.slawinski@linux.intel.com>
+ by orsmga008.jf.intel.com with ESMTP; 24 Feb 2020 09:05:54 -0800
+Subject: Re: [PATCH] ASoC: soc-pcm: fix state tracking error in
+ snd_soc_component_open/close()
+To: Dmitry Osipenko <digetx@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>
+References: <20200220094955.16968-1-kai.vehmanen@linux.intel.com>
+ <20200224120157.GF6215@sirena.org.uk>
+ <a435d244-573a-4e57-362d-08b7e4a6d012@gmail.com>
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <2ff5ef8e-8a95-14a3-b050-3dc974ffe22c@linux.intel.com>
-Date: Mon, 24 Feb 2020 10:18:30 -0600
+Message-ID: <59c8b078-f18f-1959-ccc7-b14674134daf@linux.intel.com>
+Date: Mon, 24 Feb 2020 11:05:33 -0600
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <20200224125202.13784-1-amadeuszx.slawinski@linux.intel.com>
+In-Reply-To: <a435d244-573a-4e57-362d-08b7e4a6d012@gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-Cc: "moderated list:INTEL ASoC DRIVERS" <alsa-devel@alsa-project.org>,
- Jie Yang <yang.jie@linux.intel.com>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ kuninori.morimoto.gx@renesas.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,44 +83,43 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
 
-On 2/24/20 6:52 AM, Amadeusz Sławiński wrote:
-> Incrementation of avail_clk_cnt was incorrectly moved to error path. Put
-> it back to success path.
+On 2/24/20 9:47 AM, Dmitry Osipenko wrote:
+> 24.02.2020 15:01, Mark Brown пишет:
+>> On Thu, Feb 20, 2020 at 11:49:55AM +0200, Kai Vehmanen wrote:
+>>> ASoC component open/close and snd_soc_component_module_get/put are called
+>>> independently for each component-substream pair, so the logic added in
+>>> commit dd03907bf129 ("ASoC: soc-pcm: call snd_soc_component_open/close()
+>>> once") was not sufficient and led to PCM playback and module unload errors.
+>>>
+>>> Implement handling of failures directly in soc_pcm_components_open(),
+>>> so that any successfully opened components are closed upon error with
+>>> other components. This allows to clean up error handling in
+>>> soc_pcm_open() without adding more state tracking.
+>>
+>> Do people have thoughts on this?  I do like this approach but can't
+>> really test effectively myself.
+>>
 > 
-> Fixes: 6ee927f2f01466 ('ASoC: Intel: Skylake: Fix NULL ptr dereference when unloading clk dev')
-> Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
-> ---
->   sound/soc/intel/skylake/skl-ssp-clk.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
+> I haven't tried to review this patch, but it works fine on NVIDIA Tegra:
 > 
-> diff --git a/sound/soc/intel/skylake/skl-ssp-clk.c b/sound/soc/intel/skylake/skl-ssp-clk.c
-> index 1c0e5226cb5b..bd43885f3805 100644
-> --- a/sound/soc/intel/skylake/skl-ssp-clk.c
-> +++ b/sound/soc/intel/skylake/skl-ssp-clk.c
-> @@ -384,9 +384,11 @@ static int skl_clk_dev_probe(struct platform_device *pdev)
->   				&clks[i], clk_pdata, i);
->   
->   		if (IS_ERR(data->clk[data->avail_clk_cnt])) {
-> -			ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
-> +			ret = PTR_ERR(data->clk[data->avail_clk_cnt]);
+> Tested-by: Dmitry Osipenko <digetx@gmail.com>
 
-Are you sure?
+LGTM - I believe Kai tested for Intel platforms.
 
-If you start with avail_clk_cnt set to zero, the error handling will 
-decrement and access offset -1
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 
-static void unregister_src_clk(struct skl_clk_data *dclk)
+Note that the code could be simplified further with a 
+for_each_rtd_components_rollback() macro, and we could also simplify the 
+hw_free code below - the use of the 'last' pointer is not really 
+necessary since we already have an index. That's for another cleanup though.
+
+static int soc_pcm_components_hw_free(struct snd_pcm_substream *substream,
+				      struct snd_soc_component *last)
 {
-      while (dclk->avail_clk_cnt--)
-          clkdev_drop(dclk->clk[dclk->avail_clk_cnt]->lookup); <<< oob 
-access with offset -1
-}
+	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+	struct snd_soc_component *component;
+	int i, r, ret = 0;
 
->   			goto err_unreg_skl_clk;
->   		}
-> +
-> +		data->avail_clk_cnt++;
->   	}
->   
->   	platform_set_drvdata(pdev, data);
-> 
+	for_each_rtd_components(rtd, i, component) {
+		if (component == last)
+			break;

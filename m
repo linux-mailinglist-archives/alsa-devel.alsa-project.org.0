@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFC5F16B3D6
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 23:24:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB52416B3D8
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 23:25:05 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 576BC1684;
-	Mon, 24 Feb 2020 23:23:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 576BC1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8AF801679;
+	Mon, 24 Feb 2020 23:24:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8AF801679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582583068;
-	bh=WpwuHGDdL2nU0u8E72sOir8jCufBFVcqjs39i4/OjjQ=;
+	s=default; t=1582583105;
+	bh=ZqQfiDANLZxNXKb1ITClCK7AN6NuFr/iL6WSOW77ALs=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=cI9ZICUp+IFlTPv4jjELrLhWRuW2jwmtub9SDA10AJkURY1HHgoM6wSCzADus2bz8
-	 TNWZp0UO4HGRhf0Kcyy45peLpY95l//tMzddlpLAFiRbG6FSRIAkC0/SvWpqMaBarP
-	 6fhOQj/ykrQH2rxPj6jZSdIcOhrr6IUzLfzY/RpM=
+	b=gq0X02iGQWdh4QJaJk8gcCWzJHDPRDdcor1OA0GNHnuNxFIewSViRNOX74LN/2TK2
+	 EIcd4zu0R4Tk5XA/vvjfa4hfy0SQwFyg+yGizzlHNttMWD47mR4TqNexIxkSX1FkTr
+	 K/lMeFZafxX4l7R+pGLVxC0v5zwG6HOSb6eVtMFc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 8FACCF80213;
-	Mon, 24 Feb 2020 23:21:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E871EF8029A;
+	Mon, 24 Feb 2020 23:21:53 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A1EE1F8027D; Mon, 24 Feb 2020 23:21:47 +0100 (CET)
+ id 7D5DAF80299; Mon, 24 Feb 2020 23:21:51 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 13BACF80137
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 23:21:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 13BACF80137
+ by alsa1.perex.cz (Postfix) with ESMTP id 6B686F8028A
+ for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 23:21:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6B686F8028A
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 995E931B;
- Mon, 24 Feb 2020 14:21:42 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2655231B;
+ Mon, 24 Feb 2020 14:21:47 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1B9453F534;
- Mon, 24 Feb 2020 14:21:41 -0800 (PST)
-Date: Mon, 24 Feb 2020 22:21:40 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9EFD03F534;
+ Mon, 24 Feb 2020 14:21:46 -0800 (PST)
+Date: Mon, 24 Feb 2020 22:21:45 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: soc-pcm: move CONFIG_DEBUG_FS functions to top side"
- to the asoc tree
-In-Reply-To: <878skzjc9k.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-878skzjc9k.wl-kuninori.morimoto.gx@renesas.com>
+Subject: Applied "ASoC: soc-pcm: move dpcm_path_put() to soc-pcm.c" to the
+ asoc tree
+In-Reply-To: <87a75fjc9q.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-87a75fjc9q.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
 Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
@@ -66,7 +66,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-pcm: move CONFIG_DEBUG_FS functions to top side
+   ASoC: soc-pcm: move dpcm_path_put() to soc-pcm.c
 
 has been applied to the asoc tree at
 
@@ -91,311 +91,138 @@ to this mail.
 Thanks,
 Mark
 
-From c3212829f812a4ac0c6078978c109c6f1ff882c2 Mon Sep 17 00:00:00 2001
+From 52645e332d227a3d3cd345e97a10d99b7e80fae4 Mon Sep 17 00:00:00 2001
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Feb 2020 15:56:57 +0900
-Subject: [PATCH] ASoC: soc-pcm: move CONFIG_DEBUG_FS functions to top side
+Date: Wed, 19 Feb 2020 15:56:52 +0900
+Subject: [PATCH] ASoC: soc-pcm: move dpcm_path_put() to soc-pcm.c
 
-This is prepare for CONFIG_DEBUG_FS cleanup
+dpcm_path_put() (A) is calling kfree(*list).
+The freed list is created by dapm_widget_list_create() (B) which is called
+from snd_soc_dapm_dai_get_connected_widgets() (C) which is called from
+dpcm_path_get() (D).
+
+(B)	dapm_widget_list_create(**list, ...)
+	{
+		...
+=>		*list = kzalloc();
+		...
+	}
+
+(C)	snd_soc_dapm_dai_get_connected_widgets(..., **list, ...)
+	{
+		...
+		dapm_widget_list_create(list, ...);
+		...
+	}
+
+(D)	dpcm_path_get(..., **list)
+	{
+		...
+		snd_soc_dapm_dai_get_connected_widgets(..., list, ...);
+		...
+	}
+
+(A)	dpcm_path_put(**list)
+	{
+=>		kfree(*list);
+	}
+
+This kind of unbalance code is very difficult to read/understand.
+To avoid this issue, this patch adds each missing paired function
+dapm_widget_list_free()         for dapm_widget_list_create() (B), and
+snd_soc_dapm_dai_free_widgets() for snd_soc_dapm_dai_get_connected_widgets() (C).
+
+This patch uses these, and moves dpcm_path_put() next to dpcm_path_get().
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/878skzjc9k.wl-kuninori.morimoto.gx@renesas.com
+Link: https://lore.kernel.org/r/87a75fjc9q.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-pcm.c | 276 ++++++++++++++++++++++----------------------
- 1 file changed, 138 insertions(+), 138 deletions(-)
+ include/sound/soc-dapm.h |  1 +
+ include/sound/soc-dpcm.h |  7 +------
+ sound/soc/soc-dapm.c     | 10 ++++++++++
+ sound/soc/soc-pcm.c      |  5 +++++
+ 4 files changed, 17 insertions(+), 6 deletions(-)
 
+diff --git a/include/sound/soc-dapm.h b/include/sound/soc-dapm.h
+index 9439e75945f6..464b20acd720 100644
+--- a/include/sound/soc-dapm.h
++++ b/include/sound/soc-dapm.h
+@@ -484,6 +484,7 @@ int snd_soc_dapm_dai_get_connected_widgets(struct snd_soc_dai *dai, int stream,
+ 	struct snd_soc_dapm_widget_list **list,
+ 	bool (*custom_stop_condition)(struct snd_soc_dapm_widget *,
+ 				      enum snd_soc_dapm_direction));
++void snd_soc_dapm_dai_free_widgets(struct snd_soc_dapm_widget_list **list);
+ 
+ struct snd_soc_dapm_context *snd_soc_dapm_kcontrol_dapm(
+ 	struct snd_kcontrol *kcontrol);
+diff --git a/include/sound/soc-dpcm.h b/include/sound/soc-dpcm.h
+index 3e7819d2a6aa..40223577ec4a 100644
+--- a/include/sound/soc-dpcm.h
++++ b/include/sound/soc-dpcm.h
+@@ -145,6 +145,7 @@ static inline void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd)
+ 
+ int dpcm_path_get(struct snd_soc_pcm_runtime *fe,
+ 	int stream, struct snd_soc_dapm_widget_list **list_);
++void dpcm_path_put(struct snd_soc_dapm_widget_list **list);
+ int dpcm_process_paths(struct snd_soc_pcm_runtime *fe,
+ 	int stream, struct snd_soc_dapm_widget_list **list, int new);
+ int dpcm_be_dai_startup(struct snd_soc_pcm_runtime *fe, int stream);
+@@ -158,10 +159,4 @@ int dpcm_be_dai_prepare(struct snd_soc_pcm_runtime *fe, int stream);
+ int dpcm_dapm_stream_event(struct snd_soc_pcm_runtime *fe, int dir,
+ 	int event);
+ 
+-static inline void dpcm_path_put(struct snd_soc_dapm_widget_list **list)
+-{
+-	kfree(*list);
+-}
+-
+-
+ #endif
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index f2e678865480..8a7d700a0fda 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -1105,6 +1105,11 @@ static int snd_soc_dapm_suspend_check(struct snd_soc_dapm_widget *widget)
+ 	}
+ }
+ 
++static void dapm_widget_list_free(struct snd_soc_dapm_widget_list **list)
++{
++	kfree(*list);
++}
++
+ static int dapm_widget_list_create(struct snd_soc_dapm_widget_list **list,
+ 	struct list_head *widgets)
+ {
+@@ -1310,6 +1315,11 @@ int snd_soc_dapm_dai_get_connected_widgets(struct snd_soc_dai *dai, int stream,
+ 	return paths;
+ }
+ 
++void snd_soc_dapm_dai_free_widgets(struct snd_soc_dapm_widget_list **list)
++{
++	dapm_widget_list_free(list);
++}
++
+ /*
+  * Handler for regulator supply widget.
+  */
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 3b3b32923783..fc98ab87fa45 100644
+index 1bf2db1732bf..3b3b32923783 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -28,6 +28,144 @@
- 
- #define DPCM_MAX_BE_USERS	8
- 
-+#ifdef CONFIG_DEBUG_FS
-+static const char *dpcm_state_string(enum snd_soc_dpcm_state state)
-+{
-+	switch (state) {
-+	case SND_SOC_DPCM_STATE_NEW:
-+		return "new";
-+	case SND_SOC_DPCM_STATE_OPEN:
-+		return "open";
-+	case SND_SOC_DPCM_STATE_HW_PARAMS:
-+		return "hw_params";
-+	case SND_SOC_DPCM_STATE_PREPARE:
-+		return "prepare";
-+	case SND_SOC_DPCM_STATE_START:
-+		return "start";
-+	case SND_SOC_DPCM_STATE_STOP:
-+		return "stop";
-+	case SND_SOC_DPCM_STATE_SUSPEND:
-+		return "suspend";
-+	case SND_SOC_DPCM_STATE_PAUSED:
-+		return "paused";
-+	case SND_SOC_DPCM_STATE_HW_FREE:
-+		return "hw_free";
-+	case SND_SOC_DPCM_STATE_CLOSE:
-+		return "close";
-+	}
-+
-+	return "unknown";
-+}
-+
-+static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
-+			       int stream, char *buf, size_t size)
-+{
-+	struct snd_pcm_hw_params *params = &fe->dpcm[stream].hw_params;
-+	struct snd_soc_dpcm *dpcm;
-+	ssize_t offset = 0;
-+	unsigned long flags;
-+
-+	/* FE state */
-+	offset += snprintf(buf + offset, size - offset,
-+			   "[%s - %s]\n", fe->dai_link->name,
-+			   stream ? "Capture" : "Playback");
-+
-+	offset += snprintf(buf + offset, size - offset, "State: %s\n",
-+			   dpcm_state_string(fe->dpcm[stream].state));
-+
-+	if ((fe->dpcm[stream].state >= SND_SOC_DPCM_STATE_HW_PARAMS) &&
-+	    (fe->dpcm[stream].state <= SND_SOC_DPCM_STATE_STOP))
-+		offset += snprintf(buf + offset, size - offset,
-+				   "Hardware Params: "
-+				   "Format = %s, Channels = %d, Rate = %d\n",
-+				   snd_pcm_format_name(params_format(params)),
-+				   params_channels(params),
-+				   params_rate(params));
-+
-+	/* BEs state */
-+	offset += snprintf(buf + offset, size - offset, "Backends:\n");
-+
-+	if (list_empty(&fe->dpcm[stream].be_clients)) {
-+		offset += snprintf(buf + offset, size - offset,
-+				   " No active DSP links\n");
-+		goto out;
-+	}
-+
-+	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
-+	for_each_dpcm_be(fe, stream, dpcm) {
-+		struct snd_soc_pcm_runtime *be = dpcm->be;
-+		params = &dpcm->hw_params;
-+
-+		offset += snprintf(buf + offset, size - offset,
-+				   "- %s\n", be->dai_link->name);
-+
-+		offset += snprintf(buf + offset, size - offset,
-+				   "   State: %s\n",
-+				   dpcm_state_string(be->dpcm[stream].state));
-+
-+		if ((be->dpcm[stream].state >= SND_SOC_DPCM_STATE_HW_PARAMS) &&
-+		    (be->dpcm[stream].state <= SND_SOC_DPCM_STATE_STOP))
-+			offset += snprintf(buf + offset, size - offset,
-+					   "   Hardware Params: "
-+					   "Format = %s, Channels = %d, Rate = %d\n",
-+					   snd_pcm_format_name(params_format(params)),
-+					   params_channels(params),
-+					   params_rate(params));
-+	}
-+	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
-+out:
-+	return offset;
-+}
-+
-+static ssize_t dpcm_state_read_file(struct file *file, char __user *user_buf,
-+				    size_t count, loff_t *ppos)
-+{
-+	struct snd_soc_pcm_runtime *fe = file->private_data;
-+	ssize_t out_count = PAGE_SIZE, offset = 0, ret = 0;
-+	int stream;
-+	char *buf;
-+
-+	buf = kmalloc(out_count, GFP_KERNEL);
-+	if (!buf)
-+		return -ENOMEM;
-+
-+	for_each_pcm_streams(stream)
-+		if (snd_soc_dai_stream_valid(fe->cpu_dai, stream))
-+			offset += dpcm_show_state(fe, stream,
-+						  buf + offset,
-+						  out_count - offset);
-+
-+	ret = simple_read_from_buffer(user_buf, count, ppos, buf, offset);
-+
-+	kfree(buf);
-+	return ret;
-+}
-+
-+static const struct file_operations dpcm_state_fops = {
-+	.open = simple_open,
-+	.read = dpcm_state_read_file,
-+	.llseek = default_llseek,
-+};
-+
-+void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd)
-+{
-+	if (!rtd->dai_link)
-+		return;
-+
-+	if (!rtd->dai_link->dynamic)
-+		return;
-+
-+	if (!rtd->card->debugfs_card_root)
-+		return;
-+
-+	rtd->debugfs_dpcm_root = debugfs_create_dir(rtd->dai_link->name,
-+						    rtd->card->debugfs_card_root);
-+
-+	debugfs_create_file("state", 0444, rtd->debugfs_dpcm_root,
-+			    rtd, &dpcm_state_fops);
-+}
-+#endif
-+
- static int soc_rtd_startup(struct snd_soc_pcm_runtime *rtd,
- 			   struct snd_pcm_substream *substream)
- {
-@@ -2930,141 +3068,3 @@ int snd_soc_dpcm_can_be_params(struct snd_soc_pcm_runtime *fe,
- 	return snd_soc_dpcm_check_state(fe, be, stream, state, ARRAY_SIZE(state));
+@@ -1302,6 +1302,11 @@ int dpcm_path_get(struct snd_soc_pcm_runtime *fe,
+ 	return paths;
  }
- EXPORT_SYMBOL_GPL(snd_soc_dpcm_can_be_params);
--
--#ifdef CONFIG_DEBUG_FS
--static const char *dpcm_state_string(enum snd_soc_dpcm_state state)
--{
--	switch (state) {
--	case SND_SOC_DPCM_STATE_NEW:
--		return "new";
--	case SND_SOC_DPCM_STATE_OPEN:
--		return "open";
--	case SND_SOC_DPCM_STATE_HW_PARAMS:
--		return "hw_params";
--	case SND_SOC_DPCM_STATE_PREPARE:
--		return "prepare";
--	case SND_SOC_DPCM_STATE_START:
--		return "start";
--	case SND_SOC_DPCM_STATE_STOP:
--		return "stop";
--	case SND_SOC_DPCM_STATE_SUSPEND:
--		return "suspend";
--	case SND_SOC_DPCM_STATE_PAUSED:
--		return "paused";
--	case SND_SOC_DPCM_STATE_HW_FREE:
--		return "hw_free";
--	case SND_SOC_DPCM_STATE_CLOSE:
--		return "close";
--	}
--
--	return "unknown";
--}
--
--static ssize_t dpcm_show_state(struct snd_soc_pcm_runtime *fe,
--				int stream, char *buf, size_t size)
--{
--	struct snd_pcm_hw_params *params = &fe->dpcm[stream].hw_params;
--	struct snd_soc_dpcm *dpcm;
--	ssize_t offset = 0;
--	unsigned long flags;
--
--	/* FE state */
--	offset += snprintf(buf + offset, size - offset,
--			"[%s - %s]\n", fe->dai_link->name,
--			stream ? "Capture" : "Playback");
--
--	offset += snprintf(buf + offset, size - offset, "State: %s\n",
--	                dpcm_state_string(fe->dpcm[stream].state));
--
--	if ((fe->dpcm[stream].state >= SND_SOC_DPCM_STATE_HW_PARAMS) &&
--	    (fe->dpcm[stream].state <= SND_SOC_DPCM_STATE_STOP))
--		offset += snprintf(buf + offset, size - offset,
--				"Hardware Params: "
--				"Format = %s, Channels = %d, Rate = %d\n",
--				snd_pcm_format_name(params_format(params)),
--				params_channels(params),
--				params_rate(params));
--
--	/* BEs state */
--	offset += snprintf(buf + offset, size - offset, "Backends:\n");
--
--	if (list_empty(&fe->dpcm[stream].be_clients)) {
--		offset += snprintf(buf + offset, size - offset,
--				" No active DSP links\n");
--		goto out;
--	}
--
--	spin_lock_irqsave(&fe->card->dpcm_lock, flags);
--	for_each_dpcm_be(fe, stream, dpcm) {
--		struct snd_soc_pcm_runtime *be = dpcm->be;
--		params = &dpcm->hw_params;
--
--		offset += snprintf(buf + offset, size - offset,
--				"- %s\n", be->dai_link->name);
--
--		offset += snprintf(buf + offset, size - offset,
--				"   State: %s\n",
--				dpcm_state_string(be->dpcm[stream].state));
--
--		if ((be->dpcm[stream].state >= SND_SOC_DPCM_STATE_HW_PARAMS) &&
--		    (be->dpcm[stream].state <= SND_SOC_DPCM_STATE_STOP))
--			offset += snprintf(buf + offset, size - offset,
--				"   Hardware Params: "
--				"Format = %s, Channels = %d, Rate = %d\n",
--				snd_pcm_format_name(params_format(params)),
--				params_channels(params),
--				params_rate(params));
--	}
--	spin_unlock_irqrestore(&fe->card->dpcm_lock, flags);
--out:
--	return offset;
--}
--
--static ssize_t dpcm_state_read_file(struct file *file, char __user *user_buf,
--				size_t count, loff_t *ppos)
--{
--	struct snd_soc_pcm_runtime *fe = file->private_data;
--	ssize_t out_count = PAGE_SIZE, offset = 0, ret = 0;
--	int stream;
--	char *buf;
--
--	buf = kmalloc(out_count, GFP_KERNEL);
--	if (!buf)
--		return -ENOMEM;
--
--	for_each_pcm_streams(stream)
--		if (snd_soc_dai_stream_valid(fe->cpu_dai, stream))
--			offset += dpcm_show_state(fe, stream,
--						  buf + offset,
--						  out_count - offset);
--
--	ret = simple_read_from_buffer(user_buf, count, ppos, buf, offset);
--
--	kfree(buf);
--	return ret;
--}
--
--static const struct file_operations dpcm_state_fops = {
--	.open = simple_open,
--	.read = dpcm_state_read_file,
--	.llseek = default_llseek,
--};
--
--void soc_dpcm_debugfs_add(struct snd_soc_pcm_runtime *rtd)
--{
--	if (!rtd->dai_link)
--		return;
--
--	if (!rtd->dai_link->dynamic)
--		return;
--
--	if (!rtd->card->debugfs_card_root)
--		return;
--
--	rtd->debugfs_dpcm_root = debugfs_create_dir(rtd->dai_link->name,
--			rtd->card->debugfs_card_root);
--
--	debugfs_create_file("state", 0444, rtd->debugfs_dpcm_root,
--			    rtd, &dpcm_state_fops);
--}
--#endif
+ 
++void dpcm_path_put(struct snd_soc_dapm_widget_list **list)
++{
++	snd_soc_dapm_dai_free_widgets(list);
++}
++
+ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
+ 	struct snd_soc_dapm_widget_list **list_)
+ {
 -- 
 2.20.1
 

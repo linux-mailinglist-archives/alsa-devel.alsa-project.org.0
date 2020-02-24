@@ -2,53 +2,59 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8CC816B3E6
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 23:27:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E7F1016B3F1
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 23:28:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6A5B316A2;
-	Mon, 24 Feb 2020 23:26:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A5B316A2
+	by alsa0.perex.cz (Postfix) with ESMTPS id 912E91679;
+	Mon, 24 Feb 2020 23:27:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 912E91679
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582583248;
-	bh=ZhKukPInoy7+KUiQikAGKC9zuCC62IR+/ZbZ6eZwrgw=;
+	s=default; t=1582583290;
+	bh=/Db1hGkv61DSFydXkWXgcdnj364iw4h0/yproIBXzs0=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=U1PvquJoyjHBxKgVlpsq8E0TstagGFChSCEqBRF9Kj/WEu6PNlG2fe+E31GAZ4lJs
-	 3LVwYbJ9qtbEiSX2k56xsbtX/1okgp5N0W0k0pLGhx4Ij1nx0qUgXhQN3PtEaD2bji
-	 UWMz2BdwcQwdMouoIT4Ji2ZG9ayVIof0TJ5CzDbY=
+	b=hhXzT8/HNruVciIK76F2SOdfAcIkKJbCTO1E5eRHqKSzpmwdxh6i+seWYcfL0WVoZ
+	 CmSPacaoQdlLKNBESZPj1RR4bNzt5QQJ3/Xk9Ri7Z2NFtaXG/5E+BWlIur/dAB+JI3
+	 7ymf/Ll7OCy15ByMD0y5zfeyryxUlfTxrcR0ewgA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 08EECF802DC;
-	Mon, 24 Feb 2020 23:22:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E801F802E8;
+	Mon, 24 Feb 2020 23:22:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 214ABF802DB; Mon, 24 Feb 2020 23:22:09 +0100 (CET)
+ id A53E4F802E3; Mon, 24 Feb 2020 23:22:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
-X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+X-Spam-Status: No, score=1.6 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ MIME_8BIT_HEADER, SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 348C8F802C3
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 23:22:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 348C8F802C3
+ by alsa1.perex.cz (Postfix) with ESMTP id 9C790F802DD
+ for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 23:22:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9C790F802DD
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8CC3330E;
- Mon, 24 Feb 2020 14:22:05 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4FE630E;
+ Mon, 24 Feb 2020 14:22:10 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE0273F534;
- Mon, 24 Feb 2020 14:22:04 -0800 (PST)
-Date: Mon, 24 Feb 2020 22:22:02 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A8953F534;
+ Mon, 24 Feb 2020 14:22:10 -0800 (PST)
+Date: Mon, 24 Feb 2020 22:22:08 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: soc-pcm: add snd_soc_dai_get_pcm_stream()" to the asoc
- tree
-In-Reply-To: <87ftf7jcab.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-87ftf7jcab.wl-kuninori.morimoto.gx@renesas.com>
+To: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Subject: Applied "ASoC: Intel: Skylake: Fix available clock counter
+ incrementation" to the asoc tree
+In-Reply-To: <20200224125202.13784-1-amadeuszx.slawinski@linux.intel.com>
+Message-Id: <applied-20200224125202.13784-1-amadeuszx.slawinski@linux.intel.com>
 X-Patchwork-Hint: ignore
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
+Cc: "moderated list:INTEL ASoC DRIVERS" <alsa-devel@alsa-project.org>,
+ Takashi Iwai <tiwai@suse.com>, Jie Yang <yang.jie@linux.intel.com>,
+ Cezary Rojewski <cezary.rojewski@intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Liam Girdwood <liam.r.girdwood@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ =?utf-8?q?Amadeusz_S=C5=82awi=C5=84ski?= <amadeuszx.slawinski@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,7 +72,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-pcm: add snd_soc_dai_get_pcm_stream()
+   ASoC: Intel: Skylake: Fix available clock counter incrementation
 
 has been applied to the asoc tree at
 
@@ -91,189 +97,46 @@ to this mail.
 Thanks,
 Mark
 
-From acf253c11329caa6be6d2abc14dfc8c0ec83718a Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Wed, 19 Feb 2020 15:56:30 +0900
-Subject: [PATCH] ASoC: soc-pcm: add snd_soc_dai_get_pcm_stream()
+From 8308a09e87d2cb51adb186dc7d5a5c1913fb0758 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?=
+ <amadeuszx.slawinski@linux.intel.com>
+Date: Mon, 24 Feb 2020 07:52:02 -0500
+Subject: [PATCH] ASoC: Intel: Skylake: Fix available clock counter
+ incrementation
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-DAI driver has playback/capture stream.
-OTOH, we have SNDRV_PCM_STREAM_PLAYBACK/CAPTURE.
-Because of this kind of implementation,
-ALSA SoC needs to have many verbose code.
+Incrementation of avail_clk_cnt was incorrectly moved to error path. Put
+it back to success path.
 
-To solve this issue, this patch adds snd_soc_dai_get_pcm_stream() macro
-to get playback/capture stream pointer from stream.
-
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Link: https://lore.kernel.org/r/87ftf7jcab.wl-kuninori.morimoto.gx@renesas.com
+Fixes: 6ee927f2f01466 ('ASoC: Intel: Skylake: Fix NULL ptr dereference when unloading clk dev')
+Signed-off-by: Amadeusz Sławiński <amadeuszx.slawinski@linux.intel.com>
+Reviewed-by: Cezary Rojewski <cezary.rojewski@intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Link: https://lore.kernel.org/r/20200224125202.13784-1-amadeuszx.slawinski@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- include/sound/soc-dai.h |  7 ++++++
- sound/soc/soc-dai.c     |  7 +-----
- sound/soc/soc-pcm.c     | 49 ++++++++---------------------------------
- 3 files changed, 17 insertions(+), 46 deletions(-)
+ sound/soc/intel/skylake/skl-ssp-clk.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/include/sound/soc-dai.h b/include/sound/soc-dai.h
-index 7481e468be39..c1089194ddf1 100644
---- a/include/sound/soc-dai.h
-+++ b/include/sound/soc-dai.h
-@@ -352,6 +352,13 @@ struct snd_soc_dai {
- 	unsigned int started:1;
- };
+diff --git a/sound/soc/intel/skylake/skl-ssp-clk.c b/sound/soc/intel/skylake/skl-ssp-clk.c
+index 1c0e5226cb5b..bd43885f3805 100644
+--- a/sound/soc/intel/skylake/skl-ssp-clk.c
++++ b/sound/soc/intel/skylake/skl-ssp-clk.c
+@@ -384,9 +384,11 @@ static int skl_clk_dev_probe(struct platform_device *pdev)
+ 				&clks[i], clk_pdata, i);
  
-+static inline struct snd_soc_pcm_stream *
-+snd_soc_dai_get_pcm_stream(const struct snd_soc_dai *dai, int stream)
-+{
-+	return (stream == SNDRV_PCM_STREAM_PLAYBACK) ?
-+		&dai->driver->playback : &dai->driver->capture;
-+}
-+
- static inline void *snd_soc_dai_get_dma_data(const struct snd_soc_dai *dai,
- 					     const struct snd_pcm_substream *ss)
- {
-diff --git a/sound/soc/soc-dai.c b/sound/soc/soc-dai.c
-index 73a829393652..19142f6e533c 100644
---- a/sound/soc/soc-dai.c
-+++ b/sound/soc/soc-dai.c
-@@ -390,12 +390,7 @@ int snd_soc_dai_compress_new(struct snd_soc_dai *dai,
-  */
- bool snd_soc_dai_stream_valid(struct snd_soc_dai *dai, int dir)
- {
--	struct snd_soc_pcm_stream *stream;
--
--	if (dir == SNDRV_PCM_STREAM_PLAYBACK)
--		stream = &dai->driver->playback;
--	else
--		stream = &dai->driver->capture;
-+	struct snd_soc_pcm_stream *stream = snd_soc_dai_get_pcm_stream(dai, dir);
- 
- 	/* If the codec specifies any channels at all, it supports the stream */
- 	return stream->channels_min;
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index aff27c8599ef..7cb445bb1b54 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -396,20 +396,16 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 	struct snd_pcm_hardware *hw = &runtime->hw;
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_dai *codec_dai;
--	struct snd_soc_dai_driver *cpu_dai_drv = rtd->cpu_dai->driver;
--	struct snd_soc_dai_driver *codec_dai_drv;
- 	struct snd_soc_pcm_stream *codec_stream;
- 	struct snd_soc_pcm_stream *cpu_stream;
- 	unsigned int chan_min = 0, chan_max = UINT_MAX;
- 	unsigned int rate_min = 0, rate_max = UINT_MAX;
- 	unsigned int rates = UINT_MAX;
- 	u64 formats = ULLONG_MAX;
-+	int stream = substream->stream;
- 	int i;
- 
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--		cpu_stream = &cpu_dai_drv->playback;
--	else
--		cpu_stream = &cpu_dai_drv->capture;
-+	cpu_stream = snd_soc_dai_get_pcm_stream(rtd->cpu_dai, stream);
- 
- 	/* first calculate min/max only for CODECs in the DAI link */
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-@@ -427,11 +423,8 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 					      substream->stream))
- 			continue;
- 
--		codec_dai_drv = codec_dai->driver;
--		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--			codec_stream = &codec_dai_drv->playback;
--		else
--			codec_stream = &codec_dai_drv->capture;
-+		codec_stream = snd_soc_dai_get_pcm_stream(codec_dai, stream);
-+
- 		chan_min = max(chan_min, codec_stream->channels_min);
- 		chan_max = min(chan_max, codec_stream->channels_max);
- 		rate_min = max(rate_min, codec_stream->rate_min);
-@@ -1600,7 +1593,6 @@ static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
- 
- 	for_each_dpcm_be(fe, stream, dpcm) {
- 		struct snd_soc_pcm_runtime *be = dpcm->be;
--		struct snd_soc_dai_driver *codec_dai_drv;
- 		struct snd_soc_pcm_stream *codec_stream;
- 		int i;
- 
-@@ -1612,11 +1604,7 @@ static void dpcm_runtime_merge_format(struct snd_pcm_substream *substream,
- 			if (!snd_soc_dai_stream_valid(dai, stream))
- 				continue;
- 
--			codec_dai_drv = dai->driver;
--			if (stream == SNDRV_PCM_STREAM_PLAYBACK)
--				codec_stream = &codec_dai_drv->playback;
--			else
--				codec_stream = &codec_dai_drv->capture;
-+			codec_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
- 			*formats &= codec_stream->formats;
+ 		if (IS_ERR(data->clk[data->avail_clk_cnt])) {
+-			ret = PTR_ERR(data->clk[data->avail_clk_cnt++]);
++			ret = PTR_ERR(data->clk[data->avail_clk_cnt]);
+ 			goto err_unreg_skl_clk;
  		}
-@@ -1641,15 +1629,10 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
++
++		data->avail_clk_cnt++;
+ 	}
  
- 	for_each_dpcm_be(fe, stream, dpcm) {
- 		struct snd_soc_pcm_runtime *be = dpcm->be;
--		struct snd_soc_dai_driver *cpu_dai_drv =  be->cpu_dai->driver;
--		struct snd_soc_dai_driver *codec_dai_drv;
- 		struct snd_soc_pcm_stream *codec_stream;
- 		struct snd_soc_pcm_stream *cpu_stream;
- 
--		if (stream == SNDRV_PCM_STREAM_PLAYBACK)
--			cpu_stream = &cpu_dai_drv->playback;
--		else
--			cpu_stream = &cpu_dai_drv->capture;
-+		cpu_stream = snd_soc_dai_get_pcm_stream(be->cpu_dai, stream);
- 
- 		*channels_min = max(*channels_min, cpu_stream->channels_min);
- 		*channels_max = min(*channels_max, cpu_stream->channels_max);
-@@ -1659,12 +1642,7 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
- 		 * DAIs connected to a single CPU DAI, use CPU DAI's directly
- 		 */
- 		if (be->num_codecs == 1) {
--			codec_dai_drv = be->codec_dais[0]->driver;
--
--			if (stream == SNDRV_PCM_STREAM_PLAYBACK)
--				codec_stream = &codec_dai_drv->playback;
--			else
--				codec_stream = &codec_dai_drv->capture;
-+			codec_stream = snd_soc_dai_get_pcm_stream(be->codec_dais[0], stream);
- 
- 			*channels_min = max(*channels_min,
- 					    codec_stream->channels_min);
-@@ -1693,17 +1671,12 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
- 
- 	for_each_dpcm_be(fe, stream, dpcm) {
- 		struct snd_soc_pcm_runtime *be = dpcm->be;
--		struct snd_soc_dai_driver *cpu_dai_drv =  be->cpu_dai->driver;
--		struct snd_soc_dai_driver *codec_dai_drv;
- 		struct snd_soc_pcm_stream *codec_stream;
- 		struct snd_soc_pcm_stream *cpu_stream;
- 		struct snd_soc_dai *dai;
- 		int i;
- 
--		if (stream == SNDRV_PCM_STREAM_PLAYBACK)
--			cpu_stream = &cpu_dai_drv->playback;
--		else
--			cpu_stream = &cpu_dai_drv->capture;
-+		cpu_stream = snd_soc_dai_get_pcm_stream(be->cpu_dai, stream);
- 
- 		*rate_min = max(*rate_min, cpu_stream->rate_min);
- 		*rate_max = min_not_zero(*rate_max, cpu_stream->rate_max);
-@@ -1717,11 +1690,7 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
- 			if (!snd_soc_dai_stream_valid(dai, stream))
- 				continue;
- 
--			codec_dai_drv = dai->driver;
--			if (stream == SNDRV_PCM_STREAM_PLAYBACK)
--				codec_stream = &codec_dai_drv->playback;
--			else
--				codec_stream = &codec_dai_drv->capture;
-+			codec_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
- 			*rate_min = max(*rate_min, codec_stream->rate_min);
- 			*rate_max = min_not_zero(*rate_max,
+ 	platform_set_drvdata(pdev, data);
 -- 
 2.20.1
 

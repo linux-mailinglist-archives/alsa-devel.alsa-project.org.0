@@ -2,53 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E17C16A77F
-	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 14:43:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B0A616A783
+	for <lists+alsa-devel@lfdr.de>; Mon, 24 Feb 2020 14:44:20 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 64C161684;
-	Mon, 24 Feb 2020 14:42:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 64C161684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E62F1694;
+	Mon, 24 Feb 2020 14:43:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E62F1694
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582551816;
-	bh=FOgCjEgDaQENpXVQMQgyw0n+m8DA/scz7nAp7sfQMdg=;
+	s=default; t=1582551859;
+	bh=ZOzVybOYVC4CBHM5d8bpe9dlvbOWYAWyUT4hQNsoR7M=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=SlAZrrQR2OuM0YbPgJFP/5ed1WqoMFcTJ3yPceqK/2zowhUohTy3QKbVGgb9+g3/W
-	 rz7BzB1B9cPbRaIATUoRCFtystG7ESGq74sli70/+FODehFa6AYKRFHwCGg+gDQ3nX
-	 HBv0XcMwyO5rcegKH/I50AlpfTjn9h9+pyt0NB8Q=
+	b=MUL1sPV9O+BVjs1WJKuodwhbLhIPQTPTS+Yt3aZyIeEY512clwnM6mPlN0WdsSH9H
+	 d649DSwXsBH/u134MSovcy8CsiORyfomLdsx31XBSmZi8gTje3gkGoAYk0Lbgq2IX2
+	 ogqiPgC+b/J1KE9psE9orjd2xOTHHKuKDbdlKhtQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 42E26F8014E;
-	Mon, 24 Feb 2020 14:41:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 70D3CF8014D;
+	Mon, 24 Feb 2020 14:41:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6B880F8014E; Mon, 24 Feb 2020 14:41:51 +0100 (CET)
+ id 978F3F80213; Mon, 24 Feb 2020 14:41:55 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 873DBF800C6
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 14:41:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 873DBF800C6
+ by alsa1.perex.cz (Postfix) with ESMTP id 5F23EF80137
+ for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 14:41:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5F23EF80137
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 609AF30E;
- Mon, 24 Feb 2020 05:41:46 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E909D30E;
+ Mon, 24 Feb 2020 05:41:50 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D95A33F534;
- Mon, 24 Feb 2020 05:41:45 -0800 (PST)
-Date: Mon, 24 Feb 2020 13:41:44 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6EC433F534;
+ Mon, 24 Feb 2020 05:41:50 -0800 (PST)
+Date: Mon, 24 Feb 2020 13:41:48 +0000
 From: Mark Brown <broonie@kernel.org>
-To: kbuild test robot <lkp@intel.com>
-Subject: Applied "ASoC: meson: aiu: fix semicolon.cocci warnings" to the asoc
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Applied "ASoC: Fix SND_SOC_ALL_CODECS imply ac97 fallout" to the asoc
  tree
-In-Reply-To: 
-Message-Id: 
+In-Reply-To: <20200224112537.14483-1-geert@linux-m68k.org>
+Message-Id: <applied-20200224112537.14483-1-geert@linux-m68k.org>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kernel@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,7 +69,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: meson: aiu: fix semicolon.cocci warnings
+   ASoC: Fix SND_SOC_ALL_CODECS imply ac97 fallout
 
 has been applied to the asoc tree at
 
@@ -91,39 +94,54 @@ to this mail.
 Thanks,
 Mark
 
-From 1640c8df0bbac9e5156132e24c0f0a932c2b2865 Mon Sep 17 00:00:00 2001
-From: kbuild test robot <lkp@intel.com>
-Date: Sun, 23 Feb 2020 01:01:54 +0800
-Subject: [PATCH] ASoC: meson: aiu: fix semicolon.cocci warnings
+From 5a309875787db47d69610e45f00a727ef9e62aa0 Mon Sep 17 00:00:00 2001
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 24 Feb 2020 12:25:37 +0100
+Subject: [PATCH] ASoC: Fix SND_SOC_ALL_CODECS imply ac97 fallout
 
-sound/soc/meson/aiu-encoder-i2s.c:129:2-3: Unneeded semicolon
+On i386 randconfig:
 
- Remove unneeded semicolon.
+    sound/soc/codecs/wm9705.o: In function `wm9705_soc_resume':
+    wm9705.c:(.text+0x128): undefined reference to `snd_ac97_reset'
+    sound/soc/codecs/wm9712.o: In function `wm9712_soc_resume':
+    wm9712.c:(.text+0x2d1): undefined reference to `snd_ac97_reset'
+    sound/soc/codecs/wm9713.o: In function `wm9713_soc_resume':
+    wm9713.c:(.text+0x820): undefined reference to `snd_ac97_reset'
 
-Generated by: scripts/coccinelle/misc/semicolon.cocci
+Fix this by adding the missing dependencies on SND_SOC_AC97_BUS.
 
-Fixes: 3e25c44598aa ("ASoC: meson: aiu: add support for the Meson8 and Meson8b SoC families")
-Signed-off-by: kbuild test robot <lkp@intel.com>
-CC: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Link: https://lore.kernel.org/r/20200222170154.GA119396@e50d7db646c3
+Reported-by: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: Geert Uytterhoeven <geert@linux-m68k.org>
+Link: https://lore.kernel.org/r/20200224112537.14483-1-geert@linux-m68k.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/meson/aiu-encoder-i2s.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/Kconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/meson/aiu-encoder-i2s.c b/sound/soc/meson/aiu-encoder-i2s.c
-index cc73b5d5c2b7..832e22d275fe 100644
---- a/sound/soc/meson/aiu-encoder-i2s.c
-+++ b/sound/soc/meson/aiu-encoder-i2s.c
-@@ -126,7 +126,7 @@ static int aiu_encoder_i2s_set_legacy_div(struct snd_soc_component *component,
- 	default:
- 		dev_err(component->dev, "Unsupported i2s divider: %u\n", bs);
- 		return -EINVAL;
--	};
-+	}
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 9e9d54e4576c..a7e89567edbe 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -1610,16 +1610,19 @@ config SND_SOC_WM9090
  
- 	snd_soc_component_update_bits(component, AIU_CLK_CTRL,
- 				      AIU_CLK_CTRL_I2S_DIV,
+ config SND_SOC_WM9705
+ 	tristate
++	depends on SND_SOC_AC97_BUS
+ 	select REGMAP_AC97
+ 	select AC97_BUS_COMPAT if AC97_BUS_NEW
+ 
+ config SND_SOC_WM9712
+ 	tristate
++	depends on SND_SOC_AC97_BUS
+ 	select REGMAP_AC97
+ 	select AC97_BUS_COMPAT if AC97_BUS_NEW
+ 
+ config SND_SOC_WM9713
+ 	tristate
++	depends on SND_SOC_AC97_BUS
+ 	select REGMAP_AC97
+ 	select AC97_BUS_COMPAT if AC97_BUS_NEW
+ 
 -- 
 2.20.1
 

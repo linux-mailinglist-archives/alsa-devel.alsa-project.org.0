@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B399116F520
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 02:38:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 02F8116F522
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 02:38:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 42E8F1670;
-	Wed, 26 Feb 2020 02:37:18 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 42E8F1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id A28D516A3;
+	Wed, 26 Feb 2020 02:37:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A28D516A3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582681088;
-	bh=1P6d9S1eTbYO+JvLbcy+6FU1JsH3qf/co5li7fbWwBc=;
+	s=default; t=1582681125;
+	bh=EQO6660DvhiIOpnaJaBabwpK0zaYdjWopvgnefRNnl0=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fFPuvsbWq/X/WQIaPddDafMPl+4Q/HItYeNCFwS6HqRZ7i5gUza8w6WfJGkAObCpN
-	 P2x42IcF9ltlxKwZzDHsk6FVGxqxucZUn+yFkw/0Qp007WAS/o1Uq+A7PaJShi12eh
-	 K93bC+Vbd98fwJ6bpE95iVmdskqNGxCTEWPcSU8M=
+	b=f+OjwKB7ey9SRt/H46JINWzNwFPVHXips7xFSxCYMyl7fsQkglKsup8+V2++BXZNV
+	 DuI8YXoM1JnZgQ1luQ9OeGNdgCLOTmLa3HSixHg5Es8z3vQbCs64PtW6X0dhA/0Kop
+	 hywh194ZCXCH0URjtNZm8FzRV8JcNQtpkE0mgo2g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 47989F8028B;
-	Wed, 26 Feb 2020 02:35:28 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E2B84F80290;
+	Wed, 26 Feb 2020 02:35:31 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B602EF8027D; Wed, 26 Feb 2020 02:35:22 +0100 (CET)
+ id 9172AF80161; Wed, 26 Feb 2020 02:35:23 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: *
 X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
@@ -34,24 +34,24 @@ X-Spam-Status: No, score=1.1 required=5.0 tests=DATE_IN_PAST_06_12,
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B722EF8013E
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 02:35:16 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B722EF8013E
+ by alsa1.perex.cz (Postfix) with ESMTPS id AE80CF80142
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 02:35:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AE80CF80142
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga005.fm.intel.com ([10.253.24.32])
  by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2020 17:35:14 -0800
+ 25 Feb 2020 17:35:16 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,486,1574150400"; d="scan'208";a="436460980"
+X-IronPort-AV: E=Sophos;i="5.70,486,1574150400"; d="scan'208";a="436460984"
 Received: from bard-ubuntu.sh.intel.com ([10.239.13.33])
- by fmsmga005.fm.intel.com with ESMTP; 25 Feb 2020 17:35:12 -0800
+ by fmsmga005.fm.intel.com with ESMTP; 25 Feb 2020 17:35:14 -0800
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
 To: broonie@kernel.org,
 	tiwai@suse.de
-Subject: [PATCH v5 2/6] ASoC: Add multiple CPU DAI support for PCM ops
-Date: Tue, 25 Feb 2020 21:39:13 +0800
-Message-Id: <20200225133917.21314-3-yung-chuan.liao@linux.intel.com>
+Subject: [PATCH v5 3/6] ASoC: Add dapm_add_valid_dai_widget helper
+Date: Tue, 25 Feb 2020 21:39:14 +0800
+Message-Id: <20200225133917.21314-4-yung-chuan.liao@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200225133917.21314-1-yung-chuan.liao@linux.intel.com>
 References: <20200225133917.21314-1-yung-chuan.liao@linux.intel.com>
@@ -75,9 +75,8 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Shreyas NC <shreyas.nc@intel.com>
 
-Add support in PCM operations to invoke multiple cpu dais as we do
-for multiple codec dais. Also the symmetry calculations are updated to
-reflect multiple cpu dais.
+Adding a helper to connect widget for a specific cpu and codec dai
+The helper will help dapm_connect_dai_link_widgets() to reduce indents.
 
 Signed-off-by: Vinod Koul <vkoul@kernel.org>
 Signed-off-by: Shreyas NC <shreyas.nc@intel.com>
@@ -85,808 +84,161 @@ Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/soc-pcm.c | 396 +++++++++++++++++++++++++++++---------------
- 1 file changed, 261 insertions(+), 135 deletions(-)
+ sound/soc/soc-dapm.c | 119 +++++++++++++++++++++++--------------------
+ 1 file changed, 63 insertions(+), 56 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 4c27c77206f1..44694e65fc4a 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -253,18 +253,22 @@ static int soc_rtd_trigger(struct snd_soc_pcm_runtime *rtd,
- static void snd_soc_runtime_action(struct snd_soc_pcm_runtime *rtd,
- 				   int stream, int action)
- {
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	int i;
- 
- 	lockdep_assert_held(&rtd->card->pcm_mutex);
- 
--	cpu_dai->stream_active[stream] += action;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		cpu_dai->stream_active[stream] += action;
-+
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		codec_dai->stream_active[stream] += action;
- 
--	cpu_dai->active += action;
--	cpu_dai->component->active += action;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		cpu_dai->active += action;
-+		cpu_dai->component->active += action;
-+	}
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
- 		codec_dai->active += action;
- 		codec_dai->component->active += action;
-@@ -434,7 +438,7 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- 				struct snd_pcm_hw_params *params)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	unsigned int rate, channels, sample_bits, symmetry, i;
- 
-@@ -443,40 +447,60 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- 	sample_bits = snd_pcm_format_physical_width(params_format(params));
- 
- 	/* reject unmatched parameters when applying symmetry */
--	symmetry = cpu_dai->driver->symmetric_rates ||
--		rtd->dai_link->symmetric_rates;
-+	symmetry = rtd->dai_link->symmetric_rates;
-+
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		symmetry |= cpu_dai->driver->symmetric_rates;
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		symmetry |= codec_dai->driver->symmetric_rates;
- 
--	if (symmetry && cpu_dai->rate && cpu_dai->rate != rate) {
--		dev_err(rtd->dev, "ASoC: unmatched rate symmetry: %d - %d\n",
--				cpu_dai->rate, rate);
--		return -EINVAL;
-+	if (symmetry) {
-+		for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+			if (cpu_dai->rate && cpu_dai->rate != rate) {
-+				dev_err(rtd->dev, "ASoC: unmatched rate symmetry: %d - %d\n",
-+					cpu_dai->rate, rate);
-+				return -EINVAL;
-+			}
-+		}
- 	}
- 
--	symmetry = cpu_dai->driver->symmetric_channels ||
--		rtd->dai_link->symmetric_channels;
-+	symmetry = rtd->dai_link->symmetric_channels;
-+
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		symmetry |= cpu_dai->driver->symmetric_channels;
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		symmetry |= codec_dai->driver->symmetric_channels;
- 
--	if (symmetry && cpu_dai->channels && cpu_dai->channels != channels) {
--		dev_err(rtd->dev, "ASoC: unmatched channel symmetry: %d - %d\n",
--				cpu_dai->channels, channels);
--		return -EINVAL;
-+	if (symmetry) {
-+		for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+			if (cpu_dai->channels &&
-+			    cpu_dai->channels != channels) {
-+				dev_err(rtd->dev, "ASoC: unmatched channel symmetry: %d - %d\n",
-+					cpu_dai->channels, channels);
-+				return -EINVAL;
-+			}
-+		}
- 	}
- 
--	symmetry = cpu_dai->driver->symmetric_samplebits ||
--		rtd->dai_link->symmetric_samplebits;
-+	symmetry = rtd->dai_link->symmetric_samplebits;
-+
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		symmetry |= cpu_dai->driver->symmetric_samplebits;
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		symmetry |= codec_dai->driver->symmetric_samplebits;
- 
--	if (symmetry && cpu_dai->sample_bits && cpu_dai->sample_bits != sample_bits) {
--		dev_err(rtd->dev, "ASoC: unmatched sample bits symmetry: %d - %d\n",
--				cpu_dai->sample_bits, sample_bits);
--		return -EINVAL;
-+	if (symmetry) {
-+		for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+			if (cpu_dai->sample_bits &&
-+			    cpu_dai->sample_bits != sample_bits) {
-+				dev_err(rtd->dev, "ASoC: unmatched sample bits symmetry: %d - %d\n",
-+					cpu_dai->sample_bits, sample_bits);
-+				return -EINVAL;
-+			}
-+		}
- 	}
- 
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 58c318c9debb..539a1eaebeac 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -4277,16 +4277,15 @@ int snd_soc_dapm_link_dai_widgets(struct snd_soc_card *card)
  	return 0;
-@@ -485,14 +509,20 @@ static int soc_pcm_params_symmetry(struct snd_pcm_substream *substream,
- static bool soc_pcm_has_symmetry(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai_driver *cpu_driver = rtd->cpu_dai->driver;
- 	struct snd_soc_dai_link *link = rtd->dai_link;
- 	struct snd_soc_dai *codec_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	unsigned int symmetry, i;
- 
--	symmetry = cpu_driver->symmetric_rates || link->symmetric_rates ||
--		cpu_driver->symmetric_channels || link->symmetric_channels ||
--		cpu_driver->symmetric_samplebits || link->symmetric_samplebits;
-+	symmetry = link->symmetric_rates ||
-+		link->symmetric_channels ||
-+		link->symmetric_samplebits;
-+
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		symmetry = symmetry ||
-+			cpu_dai->driver->symmetric_rates ||
-+			cpu_dai->driver->symmetric_channels ||
-+			cpu_dai->driver->symmetric_samplebits;
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		symmetry = symmetry ||
-@@ -520,12 +550,12 @@ static void soc_pcm_set_msb(struct snd_pcm_substream *substream, int bits)
- static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	struct snd_soc_pcm_stream *pcm_codec, *pcm_cpu;
- 	int stream = substream->stream;
- 	int i;
--	unsigned int bits = 0, cpu_bits;
-+	unsigned int bits = 0, cpu_bits = 0;
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
- 		pcm_codec = snd_soc_dai_get_pcm_stream(codec_dai, stream);
-@@ -537,8 +567,15 @@ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
- 		bits = max(pcm_codec->sig_bits, bits);
- 	}
- 
--	pcm_cpu = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
--	cpu_bits = pcm_cpu->sig_bits;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		pcm_cpu = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
-+
-+		if (pcm_cpu->sig_bits == 0) {
-+			cpu_bits = 0;
-+			break;
-+		}
-+		cpu_bits = max(pcm_cpu->sig_bits, cpu_bits);
-+	}
- 
- 	soc_pcm_set_msb(substream, bits);
- 	soc_pcm_set_msb(substream, cpu_bits);
-@@ -550,18 +587,32 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 	struct snd_pcm_hardware *hw = &runtime->hw;
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_dai *codec_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_pcm_stream *codec_stream;
- 	struct snd_soc_pcm_stream *cpu_stream;
- 	unsigned int chan_min = 0, chan_max = UINT_MAX;
-+	unsigned int cpu_chan_min = 0, cpu_chan_max = UINT_MAX;
- 	unsigned int rate_min = 0, rate_max = UINT_MAX;
--	unsigned int rates = UINT_MAX;
-+	unsigned int cpu_rate_min = 0, cpu_rate_max = UINT_MAX;
-+	unsigned int rates = UINT_MAX, cpu_rates = UINT_MAX;
- 	u64 formats = ULLONG_MAX;
- 	int stream = substream->stream;
- 	int i;
- 
--	cpu_stream = snd_soc_dai_get_pcm_stream(rtd->cpu_dai, stream);
-+	/* first calculate min/max only for CPUs in the DAI link */
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		cpu_stream = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
-+
-+		cpu_chan_min = max(cpu_chan_min, cpu_stream->channels_min);
-+		cpu_chan_max = min(cpu_chan_max, cpu_stream->channels_max);
-+		cpu_rate_min = max(cpu_rate_min, cpu_stream->rate_min);
-+		cpu_rate_max = min_not_zero(cpu_rate_max, cpu_stream->rate_max);
-+		formats &= cpu_stream->formats;
-+		cpu_rates = snd_pcm_rate_mask_intersect(cpu_stream->rates,
-+							cpu_rates);
-+	}
- 
--	/* first calculate min/max only for CODECs in the DAI link */
-+	/* second calculate min/max only for CODECs in the DAI link */
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
- 
- 		/*
-@@ -589,27 +640,28 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 
- 	/*
- 	 * chan min/max cannot be enforced if there are multiple CODEC DAIs
--	 * connected to a single CPU DAI, use CPU DAI's directly and let
-+	 * connected to CPU DAI(s), use CPU DAI's directly and let
- 	 * channel allocation be fixed up later
- 	 */
- 	if (rtd->num_codecs > 1) {
--		chan_min = cpu_stream->channels_min;
--		chan_max = cpu_stream->channels_max;
-+		chan_min = cpu_chan_min;
-+		chan_max = cpu_chan_max;
- 	}
- 
--	hw->channels_min = max(chan_min, cpu_stream->channels_min);
--	hw->channels_max = min(chan_max, cpu_stream->channels_max);
-+	/* finally find a intersection between CODECs and CPUs */
-+	hw->channels_min = max(chan_min, cpu_chan_min);
-+	hw->channels_max = min(chan_max, cpu_chan_max);
- 	if (hw->formats)
--		hw->formats &= formats & cpu_stream->formats;
-+		hw->formats &= formats;
- 	else
--		hw->formats = formats & cpu_stream->formats;
--	hw->rates = snd_pcm_rate_mask_intersect(rates, cpu_stream->rates);
-+		hw->formats = formats;
-+	hw->rates = snd_pcm_rate_mask_intersect(rates, cpu_rates);
- 
- 	snd_pcm_limit_hw_rates(runtime);
- 
--	hw->rate_min = max(hw->rate_min, cpu_stream->rate_min);
-+	hw->rate_min = max(hw->rate_min, cpu_rate_min);
- 	hw->rate_min = max(hw->rate_min, rate_min);
--	hw->rate_max = min_not_zero(hw->rate_max, cpu_stream->rate_max);
-+	hw->rate_max = min_not_zero(hw->rate_max, cpu_rate_max);
- 	hw->rate_max = min_not_zero(hw->rate_max, rate_max);
  }
  
-@@ -681,7 +733,7 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
+-static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
+-					  struct snd_soc_pcm_runtime *rtd)
++static void dapm_add_valid_dai_widget(struct snd_soc_card *card,
++				      struct snd_soc_pcm_runtime *rtd,
++				      struct snd_soc_dai *codec_dai,
++				      struct snd_soc_dai *cpu_dai)
  {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_component *component;
 -	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	int i;
+-	struct snd_soc_dai *codec_dai;
+ 	struct snd_soc_dapm_widget *playback = NULL, *capture = NULL;
+ 	struct snd_soc_dapm_widget *codec, *playback_cpu, *capture_cpu;
+ 	struct snd_pcm_substream *substream;
+ 	struct snd_pcm_str *streams = rtd->pcm->streams;
+-	int i;
  
-@@ -689,9 +741,11 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
- 
- 	snd_soc_runtime_deactivate(rtd, substream->stream);
- 
--	snd_soc_dai_digital_mute(cpu_dai, 1, substream->stream);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		snd_soc_dai_digital_mute(cpu_dai, 1, substream->stream);
- 
--	snd_soc_dai_shutdown(cpu_dai, substream);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		snd_soc_dai_shutdown(cpu_dai, substream);
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		snd_soc_dai_shutdown(codec_dai, substream);
-@@ -726,9 +780,10 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_component *component;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	const char *codec_dai_name = "multicodec";
-+	const char *cpu_dai_name = "multicpu";
- 	int i, ret = 0;
- 
- 	for_each_rtd_components(rtd, i, component)
-@@ -751,11 +806,13 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+ 	if (rtd->dai_link->params) {
+ 		playback_cpu = cpu_dai->capture_widget;
+@@ -4298,67 +4297,75 @@ static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
+ 		capture_cpu = capture;
  	}
  
- 	/* startup the audio subsystem */
--	ret = snd_soc_dai_startup(cpu_dai, substream);
--	if (ret < 0) {
--		dev_err(cpu_dai->dev, "ASoC: can't open interface %s: %d\n",
--			cpu_dai->name, ret);
--		goto cpu_dai_err;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		ret = snd_soc_dai_startup(cpu_dai, substream);
-+		if (ret < 0) {
-+			dev_err(cpu_dai->dev, "ASoC: can't open interface %s: %d\n",
-+				cpu_dai->name, ret);
-+			goto cpu_dai_err;
-+		}
- 	}
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-@@ -783,34 +840,39 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	if (rtd->num_codecs == 1)
- 		codec_dai_name = rtd->codec_dai->name;
- 
-+	if (rtd->num_cpus == 1)
-+		cpu_dai_name = rtd->cpu_dai->name;
+-	for_each_rtd_codec_dai(rtd, i, codec_dai) {
+-		/* connect BE DAI playback if widgets are valid */
+-		codec = codec_dai->playback_widget;
+-
+-		if (playback_cpu && codec) {
+-			if (!playback) {
+-				substream = streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
+-				playback = snd_soc_dapm_new_dai(card, substream,
+-								"playback");
+-				if (IS_ERR(playback)) {
+-					dev_err(rtd->dev,
+-						"ASoC: Failed to create DAI %s: %ld\n",
+-						codec_dai->name,
+-						PTR_ERR(playback));
+-					continue;
+-				}
+-
+-				snd_soc_dapm_add_path(&card->dapm, playback_cpu,
+-						      playback, NULL, NULL);
++	/* connect BE DAI playback if widgets are valid */
++	codec = codec_dai->playback_widget;
 +
- 	if (soc_pcm_has_symmetry(substream))
- 		runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
++	if (playback_cpu && codec) {
++		if (!playback) {
++			substream = streams[SNDRV_PCM_STREAM_PLAYBACK].substream;
++			playback = snd_soc_dapm_new_dai(card, substream,
++							"playback");
++			if (IS_ERR(playback)) {
++				dev_err(rtd->dev,
++					"ASoC: Failed to create DAI %s: %ld\n",
++					codec_dai->name,
++					PTR_ERR(playback));
++				goto capture;
+ 			}
  
- 	ret = -EINVAL;
- 	if (!runtime->hw.rates) {
- 		printk(KERN_ERR "ASoC: %s <-> %s No matching rates\n",
--			codec_dai_name, cpu_dai->name);
-+			codec_dai_name, cpu_dai_name);
- 		goto config_err;
- 	}
- 	if (!runtime->hw.formats) {
- 		printk(KERN_ERR "ASoC: %s <-> %s No matching formats\n",
--			codec_dai_name, cpu_dai->name);
-+			codec_dai_name, cpu_dai_name);
- 		goto config_err;
- 	}
- 	if (!runtime->hw.channels_min || !runtime->hw.channels_max ||
- 	    runtime->hw.channels_min > runtime->hw.channels_max) {
- 		printk(KERN_ERR "ASoC: %s <-> %s No matching channels\n",
--				codec_dai_name, cpu_dai->name);
-+				codec_dai_name, cpu_dai_name);
- 		goto config_err;
- 	}
- 
- 	soc_pcm_apply_msb(substream);
- 
- 	/* Symmetry only applies if we've already got an active stream. */
--	if (cpu_dai->active) {
--		ret = soc_pcm_apply_symmetry(substream, cpu_dai);
--		if (ret != 0)
--			goto config_err;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		if (cpu_dai->active) {
-+			ret = soc_pcm_apply_symmetry(substream, cpu_dai);
-+			if (ret != 0)
-+				goto config_err;
-+		}
- 	}
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-@@ -822,7 +884,7 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	}
- 
- 	pr_debug("ASoC: %s <-> %s info:\n",
--			codec_dai_name, cpu_dai->name);
-+		 codec_dai_name, cpu_dai_name);
- 	pr_debug("ASoC: rate mask 0x%x\n", runtime->hw.rates);
- 	pr_debug("ASoC: min ch %d max ch %d\n", runtime->hw.channels_min,
- 		 runtime->hw.channels_max);
-@@ -840,7 +902,8 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		snd_soc_dai_shutdown(codec_dai, substream);
- cpu_dai_err:
--	snd_soc_dai_shutdown(cpu_dai, substream);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		snd_soc_dai_shutdown(cpu_dai, substream);
- 
- 	soc_rtd_shutdown(rtd, substream);
- rtd_startup_err:
-@@ -879,7 +942,7 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_component *component;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret = 0;
- 
-@@ -911,11 +974,13 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
+-			dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
+-				cpu_dai->component->name, playback_cpu->name,
+-				codec_dai->component->name, codec->name);
+-
+-			snd_soc_dapm_add_path(&card->dapm, playback, codec,
+-					      NULL, NULL);
++			snd_soc_dapm_add_path(&card->dapm, playback_cpu,
++					      playback, NULL, NULL);
  		}
- 	}
+-	}
  
--	ret = snd_soc_dai_prepare(cpu_dai, substream);
--	if (ret < 0) {
--		dev_err(cpu_dai->dev,
--			"ASoC: cpu DAI prepare error: %d\n", ret);
--		goto out;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		ret = snd_soc_dai_prepare(cpu_dai, substream);
-+		if (ret < 0) {
-+			dev_err(cpu_dai->dev,
-+				"ASoC: cpu DAI prepare error: %d\n", ret);
-+			goto out;
-+		}
- 	}
- 
- 	/* cancel any delayed stream shutdown that is pending */
-@@ -931,7 +996,8 @@ static int soc_pcm_prepare(struct snd_pcm_substream *substream)
- 	for_each_rtd_codec_dai(rtd, i, codec_dai)
- 		snd_soc_dai_digital_mute(codec_dai, 0,
- 					 substream->stream);
--	snd_soc_dai_digital_mute(cpu_dai, 0, substream->stream);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		snd_soc_dai_digital_mute(cpu_dai, 0, substream->stream);
- 
- out:
- 	mutex_unlock(&rtd->card->pcm_mutex);
-@@ -978,7 +1044,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_component *component;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret = 0;
- 
-@@ -1042,17 +1108,19 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 		snd_soc_dapm_update_dai(substream, &codec_params, codec_dai);
- 	}
- 
--	ret = snd_soc_dai_hw_params(cpu_dai, substream, params);
--	if (ret < 0)
--		goto interface_err;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		ret = snd_soc_dai_hw_params(cpu_dai, substream, params);
-+		if (ret < 0)
-+			goto interface_err;
- 
--	/* store the parameters for each DAIs */
--	cpu_dai->rate = params_rate(params);
--	cpu_dai->channels = params_channels(params);
--	cpu_dai->sample_bits =
--		snd_pcm_format_physical_width(params_format(params));
-+		/* store the parameters for each DAI */
-+		cpu_dai->rate = params_rate(params);
-+		cpu_dai->channels = params_channels(params);
-+		cpu_dai->sample_bits =
-+			snd_pcm_format_physical_width(params_format(params));
- 
--	snd_soc_dapm_update_dai(substream, params, cpu_dai);
-+		snd_soc_dapm_update_dai(substream, params, cpu_dai);
-+	}
- 
- 	for_each_rtd_components(rtd, i, component) {
- 		ret = snd_soc_component_hw_params(component, substream, params);
-@@ -1072,10 +1140,14 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- component_err:
- 	soc_pcm_components_hw_free(substream, component);
- 
--	snd_soc_dai_hw_free(cpu_dai, substream);
--	cpu_dai->rate = 0;
-+	i = rtd->num_cpus;
- 
- interface_err:
-+	for_each_rtd_cpu_dai_rollback(rtd, i, cpu_dai) {
-+		snd_soc_dai_hw_free(cpu_dai, substream);
-+		cpu_dai->rate = 0;
+-	for_each_rtd_codec_dai(rtd, i, codec_dai) {
+-		/* connect BE DAI capture if widgets are valid */
+-		codec = codec_dai->capture_widget;
+-
+-		if (codec && capture_cpu) {
+-			if (!capture) {
+-				substream = streams[SNDRV_PCM_STREAM_CAPTURE].substream;
+-				capture = snd_soc_dapm_new_dai(card, substream,
+-							       "capture");
+-				if (IS_ERR(capture)) {
+-					dev_err(rtd->dev,
+-						"ASoC: Failed to create DAI %s: %ld\n",
+-						codec_dai->name,
+-						PTR_ERR(capture));
+-					continue;
+-				}
+-
+-				snd_soc_dapm_add_path(&card->dapm, capture,
+-						      capture_cpu, NULL, NULL);
++		dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
++			cpu_dai->component->name, playback_cpu->name,
++			codec_dai->component->name, codec->name);
++
++		snd_soc_dapm_add_path(&card->dapm, playback, codec,
++				      NULL, NULL);
 +	}
 +
- 	i = rtd->num_codecs;
++capture:
++	/* connect BE DAI capture if widgets are valid */
++	codec = codec_dai->capture_widget;
++
++	if (codec && capture_cpu) {
++		if (!capture) {
++			substream = streams[SNDRV_PCM_STREAM_CAPTURE].substream;
++			capture = snd_soc_dapm_new_dai(card, substream,
++						       "capture");
++			if (IS_ERR(capture)) {
++				dev_err(rtd->dev,
++					"ASoC: Failed to create DAI %s: %ld\n",
++					codec_dai->name,
++					PTR_ERR(capture));
++				return;
+ 			}
  
- codec_err:
-@@ -1099,7 +1171,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	bool playback = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	int i;
-@@ -1107,10 +1179,12 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
- 
- 	/* clear the corresponding DAIs parameters when going to be inactive */
--	if (cpu_dai->active == 1) {
--		cpu_dai->rate = 0;
--		cpu_dai->channels = 0;
--		cpu_dai->sample_bits = 0;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		if (cpu_dai->active == 1) {
-+			cpu_dai->rate = 0;
-+			cpu_dai->channels = 0;
-+			cpu_dai->sample_bits = 0;
-+		}
- 	}
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
-@@ -1146,7 +1220,8 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 		snd_soc_dai_hw_free(codec_dai, substream);
- 	}
- 
--	snd_soc_dai_hw_free(cpu_dai, substream);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+		snd_soc_dai_hw_free(cpu_dai, substream);
- 
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 	return 0;
-@@ -1156,7 +1231,7 @@ static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_component *component;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret;
- 
-@@ -1170,9 +1245,11 @@ static int soc_pcm_trigger_start(struct snd_pcm_substream *substream, int cmd)
- 			return ret;
- 	}
- 
--	ret = snd_soc_dai_trigger(cpu_dai, substream, cmd);
--	if (ret < 0)
--		return ret;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		ret = snd_soc_dai_trigger(cpu_dai, substream, cmd);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
- 		ret = snd_soc_dai_trigger(codec_dai, substream, cmd);
-@@ -1187,7 +1264,7 @@ static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_component *component;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret;
- 
-@@ -1197,9 +1274,11 @@ static int soc_pcm_trigger_stop(struct snd_pcm_substream *substream, int cmd)
- 			return ret;
- 	}
- 
--	ret = snd_soc_dai_trigger(cpu_dai, substream, cmd);
--	if (ret < 0)
--		return ret;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		ret = snd_soc_dai_trigger(cpu_dai, substream, cmd);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
- 	for_each_rtd_components(rtd, i, component) {
- 		ret = snd_soc_component_trigger(component, substream, cmd);
-@@ -1240,7 +1319,7 @@ static int soc_pcm_bespoke_trigger(struct snd_pcm_substream *substream,
- 				   int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	int i, ret;
- 
-@@ -1250,9 +1329,11 @@ static int soc_pcm_bespoke_trigger(struct snd_pcm_substream *substream,
- 			return ret;
- 	}
- 
--	ret = snd_soc_dai_bespoke_trigger(cpu_dai, substream, cmd);
--	if (ret < 0)
--		return ret;
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		ret = snd_soc_dai_bespoke_trigger(cpu_dai, substream, cmd);
-+		if (ret < 0)
-+			return ret;
-+	}
- 
- 	return 0;
- }
-@@ -1264,12 +1345,13 @@ static int soc_pcm_bespoke_trigger(struct snd_pcm_substream *substream,
- static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	snd_pcm_uframes_t offset = 0;
- 	snd_pcm_sframes_t delay = 0;
- 	snd_pcm_sframes_t codec_delay = 0;
-+	snd_pcm_sframes_t cpu_delay = 0;
- 	int i;
- 
- 	/* clearing the previous total delay */
-@@ -1280,7 +1362,11 @@ static snd_pcm_uframes_t soc_pcm_pointer(struct snd_pcm_substream *substream)
- 	/* base delay if assigned in pointer callback */
- 	delay = runtime->delay;
- 
--	delay += snd_soc_dai_delay(cpu_dai, substream);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		cpu_delay = max(cpu_delay,
-+				snd_soc_dai_delay(cpu_dai, substream));
-+	}
-+	delay += cpu_delay;
- 
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
- 		codec_delay = max(codec_delay,
-@@ -1403,13 +1489,15 @@ static struct snd_soc_pcm_runtime *dpcm_get_be(struct snd_soc_card *card,
- 		if (!be->dai_link->no_pcm)
- 			continue;
- 
--		w = snd_soc_dai_get_widget(be->cpu_dai, stream);
-+		for_each_rtd_cpu_dai(be, i, dai) {
-+			w = snd_soc_dai_get_widget(dai, stream);
- 
--		dev_dbg(card->dev, "ASoC: try BE : %s\n",
--			w ? w->name : "(not set)");
-+			dev_dbg(card->dev, "ASoC: try BE : %s\n",
-+				w ? w->name : "(not set)");
- 
--		if (w == widget)
--			return be;
-+			if (w == widget)
-+				return be;
-+		}
- 
- 		for_each_rtd_codec_dai(be, i, dai) {
- 			w = snd_soc_dai_get_widget(dai, stream);
-@@ -1492,10 +1580,18 @@ static int dpcm_prune_paths(struct snd_soc_pcm_runtime *fe, int stream,
- 		unsigned int i;
- 
- 		/* is there a valid CPU DAI widget for this BE */
--		widget = snd_soc_dai_get_widget(dpcm->be->cpu_dai, stream);
-+		do_prune = 1;
-+		for_each_rtd_cpu_dai(dpcm->be, i, dai) {
-+			widget = snd_soc_dai_get_widget(dai, stream);
- 
--		/* prune the BE if it's no longer in our active list */
--		if (widget && widget_in_list(list, widget))
-+			/*
-+			 * The BE is pruned only if none of the cpu_dai
-+			 * widgets are in the active list.
-+			 */
-+			if (widget && widget_in_list(list, widget))
-+				do_prune = 0;
-+		}
-+		if (!do_prune)
- 			continue;
- 
- 		/* is there a valid CODEC DAI widget for this BE */
-@@ -1792,11 +1888,17 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
- 		struct snd_soc_pcm_runtime *be = dpcm->be;
- 		struct snd_soc_pcm_stream *codec_stream;
- 		struct snd_soc_pcm_stream *cpu_stream;
-+		struct snd_soc_dai *dai;
-+		int i;
- 
--		cpu_stream = snd_soc_dai_get_pcm_stream(be->cpu_dai, stream);
-+		for_each_rtd_cpu_dai(be, i, dai) {
-+			cpu_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
--		*channels_min = max(*channels_min, cpu_stream->channels_min);
--		*channels_max = min(*channels_max, cpu_stream->channels_max);
-+			*channels_min = max(*channels_min,
-+					    cpu_stream->channels_min);
-+			*channels_max = min(*channels_max,
-+					    cpu_stream->channels_max);
-+		}
- 
- 		/*
- 		 * chan min/max cannot be enforced if there are multiple CODEC
-@@ -1837,11 +1939,15 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
- 		struct snd_soc_dai *dai;
- 		int i;
- 
--		cpu_stream = snd_soc_dai_get_pcm_stream(be->cpu_dai, stream);
-+		for_each_rtd_cpu_dai(be, i, dai) {
-+			cpu_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
--		*rate_min = max(*rate_min, cpu_stream->rate_min);
--		*rate_max = min_not_zero(*rate_max, cpu_stream->rate_max);
--		*rates = snd_pcm_rate_mask_intersect(*rates, cpu_stream->rates);
-+			*rate_min = max(*rate_min, cpu_stream->rate_min);
-+			*rate_max = min_not_zero(*rate_max,
-+						 cpu_stream->rate_max);
-+			*rates = snd_pcm_rate_mask_intersect(*rates,
-+						cpu_stream->rates);
-+		}
- 
- 		for_each_rtd_codec_dai(be, i, dai) {
- 			/*
-@@ -1866,13 +1972,17 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
- {
- 	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
--	struct snd_soc_dai_driver *cpu_dai_drv = cpu_dai->driver;
-+	struct snd_soc_dai *cpu_dai;
-+	struct snd_soc_dai_driver *cpu_dai_drv;
-+	int i;
- 
--	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
--		dpcm_init_runtime_hw(runtime, &cpu_dai_drv->playback);
--	else
--		dpcm_init_runtime_hw(runtime, &cpu_dai_drv->capture);
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		cpu_dai_drv = cpu_dai->driver;
-+		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
-+			dpcm_init_runtime_hw(runtime, &cpu_dai_drv->playback);
-+		else
-+			dpcm_init_runtime_hw(runtime, &cpu_dai_drv->capture);
-+	}
- 
- 	dpcm_runtime_merge_format(substream, &runtime->hw.formats);
- 	dpcm_runtime_merge_chan(substream, &runtime->hw.channels_min,
-@@ -1909,18 +2019,21 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- {
- 	struct snd_soc_dpcm *dpcm;
- 	struct snd_soc_pcm_runtime *fe = fe_substream->private_data;
--	struct snd_soc_dai *fe_cpu_dai = fe->cpu_dai;
-+	struct snd_soc_dai *fe_cpu_dai;
- 	int err;
-+	int i;
- 
- 	/* apply symmetry for FE */
- 	if (soc_pcm_has_symmetry(fe_substream))
- 		fe_substream->runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
- 
--	/* Symmetry only applies if we've got an active stream. */
--	if (fe_cpu_dai->active) {
--		err = soc_pcm_apply_symmetry(fe_substream, fe_cpu_dai);
--		if (err < 0)
--			return err;
-+	for_each_rtd_cpu_dai (fe, i, fe_cpu_dai) {
-+		/* Symmetry only applies if we've got an active stream. */
-+		if (fe_cpu_dai->active) {
-+			err = soc_pcm_apply_symmetry(fe_substream, fe_cpu_dai);
-+			if (err < 0)
-+				return err;
-+		}
- 	}
- 
- 	/* apply symmetry for BE */
-@@ -1930,6 +2043,7 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- 			snd_soc_dpcm_get_substream(be, stream);
- 		struct snd_soc_pcm_runtime *rtd;
- 		struct snd_soc_dai *codec_dai;
-+		struct snd_soc_dai *cpu_dai;
- 		int i;
- 
- 		/* A backend may not have the requested substream */
-@@ -1944,11 +2058,13 @@ static int dpcm_apply_symmetry(struct snd_pcm_substream *fe_substream,
- 			be_substream->runtime->hw.info |= SNDRV_PCM_INFO_JOINT_DUPLEX;
- 
- 		/* Symmetry only applies if we've got an active stream. */
--		if (rtd->cpu_dai->active) {
--			err = soc_pcm_apply_symmetry(fe_substream,
--						     rtd->cpu_dai);
--			if (err < 0)
--				return err;
-+		for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+			if (cpu_dai->active) {
-+				err = soc_pcm_apply_symmetry(fe_substream,
-+							     cpu_dai);
-+				if (err < 0)
-+					return err;
-+			}
+-			dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
+-				codec_dai->component->name, codec->name,
+-				cpu_dai->component->name, capture_cpu->name);
+-
+-			snd_soc_dapm_add_path(&card->dapm, codec, capture,
+-					      NULL, NULL);
++			snd_soc_dapm_add_path(&card->dapm, capture,
++					      capture_cpu, NULL, NULL);
  		}
- 
- 		for_each_rtd_codec_dai(rtd, i, codec_dai) {
-@@ -2863,7 +2979,7 @@ static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
- int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- {
- 	struct snd_soc_dai *codec_dai;
--	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
-+	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_component *component;
- 	struct snd_pcm *pcm;
- 	char new_name[64];
-@@ -2881,6 +2997,16 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 			SNDRV_PCM_STREAM_CAPTURE : SNDRV_PCM_STREAM_PLAYBACK;
- 
- 		for_each_rtd_codec_dai(rtd, i, codec_dai) {
-+			if (rtd->num_cpus == 1) {
-+				cpu_dai = rtd->cpu_dais[0];
-+			} else if (rtd->num_cpus == rtd->num_codecs) {
-+				cpu_dai = rtd->cpu_dais[i];
-+			} else {
-+				dev_err(rtd->card->dev,
-+					"N cpus to M codecs link is not supported yet\n");
-+				return -EINVAL;
-+			}
 +
- 			if (snd_soc_dai_stream_valid(codec_dai, SNDRV_PCM_STREAM_PLAYBACK) &&
- 			    snd_soc_dai_stream_valid(cpu_dai,   cpu_playback))
- 				playback = 1;
-@@ -3001,7 +3127,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- out:
- 	dev_info(rtd->card->dev, "%s <-> %s mapping ok\n",
- 		 (rtd->num_codecs > 1) ? "multicodec" : rtd->codec_dai->name,
--		 cpu_dai->name);
-+		 (rtd->num_cpus > 1) ? "multicpu" : rtd->cpu_dai->name);
- 	return ret;
++		dev_dbg(rtd->dev, "connected DAI link %s:%s -> %s:%s\n",
++			codec_dai->component->name, codec->name,
++			cpu_dai->component->name, capture_cpu->name);
++
++		snd_soc_dapm_add_path(&card->dapm, codec, capture,
++				      NULL, NULL);
+ 	}
  }
  
++static void dapm_connect_dai_link_widgets(struct snd_soc_card *card,
++					  struct snd_soc_pcm_runtime *rtd)
++{
++	struct snd_soc_dai *codec_dai;
++	int i;
++
++	for_each_rtd_codec_dai(rtd, i, codec_dai)
++		dapm_add_valid_dai_widget(card, rtd,
++					  codec_dai, rtd->cpu_dais[0]);
++}
++
+ static void soc_dapm_dai_stream_event(struct snd_soc_dai *dai, int stream,
+ 	int event)
+ {
 -- 
 2.17.1
 

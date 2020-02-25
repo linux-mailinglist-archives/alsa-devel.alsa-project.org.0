@@ -2,89 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4304616BAAF
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Feb 2020 08:32:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 09B9A16BB7B
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Feb 2020 09:05:49 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A3227168F;
-	Tue, 25 Feb 2020 08:31:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A3227168F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 84C0F1692;
+	Tue, 25 Feb 2020 09:04:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 84C0F1692
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582615938;
-	bh=lrJpVntXrlb5Wnbrzsf32BCJCxvDECVLZeK7HLhKawQ=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=OHODSUQTjAJnyvO2GQMN+bygK1jQipRuPR0yUxtst9r92j43UQicBUw3+ozKCi7tr
-	 nNUBlzzHzh5Q0cBjz2lt4ymWO8eSBHd6YfabgrAVZt3JsBgLXe/eChonNWUjFTkpwT
-	 qcCyJlMfIeP5jOZ55FquebRtgLw/NPIJQ3sOgNdk=
+	s=default; t=1582617948;
+	bh=Z8zheNF/lBKScsp2lU2FeVnKoBKct1UF0SkPmY+Jll8=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=GfcXlluyhTFa3uR3VS2B/qEuCogG3bQI7re2e+lA8jbd3VjrwVAKfah7az7Gl1mS2
+	 TMh5cE3M5wqqy/hZjbAVMMJSFtLTgJZkgN1znNaDYecDwWYuCiLuPqIYoX/qBU275g
+	 Bq5H7inOCkTE9L5AHtrelG47QMygBzKaAyVEIT74=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B34DEF80143;
-	Tue, 25 Feb 2020 08:30:37 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8F221F80090;
+	Tue, 25 Feb 2020 09:04:07 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1F3CEF80142; Tue, 25 Feb 2020 08:30:33 +0100 (CET)
+ id E7B2EF80142; Tue, 25 Feb 2020 09:04:05 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id BF4A0F800AD
- for <alsa-devel@alsa-project.org>; Tue, 25 Feb 2020 08:30:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BF4A0F800AD
+ by alsa1.perex.cz (Postfix) with ESMTPS id 66898F800AD
+ for <alsa-devel@alsa-project.org>; Tue, 25 Feb 2020 09:04:01 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 66898F800AD
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=endlessm-com.20150623.gappssmtp.com
- header.i=@endlessm-com.20150623.gappssmtp.com header.b="QTiTs3ao"
-Received: by mail-pg1-x541.google.com with SMTP id t24so2058464pgj.7
- for <alsa-devel@alsa-project.org>; Mon, 24 Feb 2020 23:30:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=endlessm-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=E829NU76QDF3cP/NsyErXF/fNnm7bAZiWaUr7fUocZ8=;
- b=QTiTs3aoEEiRq3DT0rUxnmFQocgrrfwNw1ly2CM7jAB6Z81aRWuSBtnCqw+Tt8oY1Q
- +auweEAILHLb6ZWPUWiZErDojNz6vcZ+I5Ip45q5dna8/Of5jGzziSqbFtPZkVndOrTm
- DKOSyjrdGGIIGeT/HH4KFmvW8ZtjX1PFCzR1uRi4pdDc4XFut+Jtl8thk/LSyn6dWcVH
- yA/0wjuouCUKi33ywydJR9L3xdPEQMq+lr6ZzmW8TjrM8LJ3cR00TULafnOY27yZeXLd
- rhGArS8UOg+Shp7IcB3T8Zx1uEztrfbJxKDjAWkRJ5lFq6S0FwPQxcQURr6pF9GLAdIV
- My/g==
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="kDWNGF9v"
+Received: by mail-pf1-x443.google.com with SMTP id i19so6768391pfa.2
+ for <alsa-devel@alsa-project.org>; Tue, 25 Feb 2020 00:04:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=3UwgyNGegYf+ShQWoRWvT/NL7ARqm4MqRGArNYI3who=;
+ b=kDWNGF9vw5evEFnyTn5rudlI/14OO67KtZuSmNARz8zTE4vVP7Hhc6JwfRZjCo85Z2
+ tvgyuCBpwge1k7uxAL3cVdZdd0QGzOONoXlY+5TvHTzrZZoIbbnkxtUVyXYv0RR+Vity
+ fOXvHDB3esTtnVmpSpmzuRqas5eMJ9vZFO4fAMfsF60iMsVd/vW2Bzs8+2d+xXASD2zh
+ SUjAI5xrrtkyJAoK+q4wao8cymtP54e+xRZfxO+DeDmxIwT0qBTqrTWjbSlS9EpolcvA
+ HhiiBRfm4FTS4F09uPw+SswFfyUOtYA5VfsHVt5vnwZO3TjYll5qx31WeHyUw/SVquMa
+ Xd9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=E829NU76QDF3cP/NsyErXF/fNnm7bAZiWaUr7fUocZ8=;
- b=m6tn26IiEyxl5bAjyL2Z68ExUKD07eoM5XJlSNGFdDJg8yp+Fb5yX1ZoOAlcuNFWge
- 27lUu6F4WVQa2pkIdPL6QrJ2H1ouadeFWXEII8ZibJhnZJn3u2lKUCUjuU84nPknWbv/
- AInA3K1Ls+16bYs0a0Lsfb19Ze/ybwXq4mZTo5n92r+rO893dMR75g3XDqs4AXxxlokO
- FeYuk6jqOC7slSpLyjrl6ww6/2S0mSxyjv4i2e0BzxIJai55ieehDRBGYRlzMwKOLlx3
- N/gpaStRnaMiHb5RKBjU4Ap9CqUUGNu0pzoj3RlHeGWraOIP+Y6xjd8itOBPi+6rc3GT
- zyCw==
-X-Gm-Message-State: APjAAAVlBdZiNw9UmVTZdst0q7Ace8rqmXKmHuSF5uFLLJVi8gKVxDWd
- d4dmCzSbTY9x4mGvfulixSTYzw==
-X-Google-Smtp-Source: APXvYqzXPXVTEmI4sSnMC//AihHYA7770hDbD0z2yO5l63QvCrokdmPOorLFdPHTa0VvcKMZjmxfeg==
-X-Received: by 2002:aa7:8e88:: with SMTP id a8mr33713851pfr.254.1582615825187; 
- Mon, 24 Feb 2020 23:30:25 -0800 (PST)
-Received: from starnight.endlessm-sf.com
- (ec2-34-209-191-27.us-west-2.compute.amazonaws.com. [34.209.191.27])
- by smtp.googlemail.com with ESMTPSA id s13sm1796960pjp.1.2020.02.24.23.30.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Feb 2020 23:30:24 -0800 (PST)
-From: Jian-Hong Pan <jian-hong@endlessm.com>
-To: Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ALSA: hda/realtek - Enable the headset of ASUS B9450FA with
- ALC294
-Date: Tue, 25 Feb 2020 15:29:21 +0800
-Message-Id: <20200225072920.109199-1-jian-hong@endlessm.com>
-X-Mailer: git-send-email 2.25.1
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=3UwgyNGegYf+ShQWoRWvT/NL7ARqm4MqRGArNYI3who=;
+ b=qkTOrVZ8TTywFm0kZ3lwvJmujBWSqk1zjyH59R6i0P4Y6vZFiU4bBuFExkltCxjAcn
+ yqVu1XUUCB7+l0qi6PHyNtjLxwrhr0Hq5YR7YKtlmklTAQCoLS+Sfh+8GBtsF4A+OFr9
+ ESkB9WlzxdwB8lo1r4NWSA7Hsz5DKRx7UR3Dtxd2ePuyhRn5A47kXTj7qNY7zI+jZlzv
+ aNPvI4uVeV7wbheKXpNR2jMt2V0UnSNdZef1WGfQAoM7BQSJ6bT844B9sKnR1vnw0aez
+ vJZnEUBoRB0ExGDEJBrZ91hpmJAYo3ul9zQwXO2s8UzqE8bVDEs621v3vS5WiKTxLjeT
+ K2Xg==
+X-Gm-Message-State: APjAAAWAvcuU8SqzKZFB2HY+r++sjVY8wnOH1P91bO/mLZqld/cYRmxL
+ DurBtFL0AYupa//0CKv99eE=
+X-Google-Smtp-Source: APXvYqwMRtQpYwUBTrb0+cvHPd0eiLB/R3rhnLG6W+uGQXS+JAd8tDieKTnw2v05Noa4gwMj4BMhpg==
+X-Received: by 2002:a63:d344:: with SMTP id u4mr35777777pgi.153.1582617838655; 
+ Tue, 25 Feb 2020 00:03:58 -0800 (PST)
+Received: from Asurada (c-73-162-191-63.hsd1.ca.comcast.net. [73.162.191.63])
+ by smtp.gmail.com with ESMTPSA id
+ b18sm15964609pfd.63.2020.02.25.00.03.57
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 25 Feb 2020 00:03:58 -0800 (PST)
+Date: Tue, 25 Feb 2020 00:03:50 -0800
+From: Nicolin Chen <nicoleotsuka@gmail.com>
+To: "S.j. Wang" <shengjiu.wang@nxp.com>
+Subject: Re: [PATCH v2 3/3] ASoC: fsl_easrc: Add EASRC ASoC CPU DAI and
+ platform drivers
+Message-ID: <20200225080350.GA11332@Asurada>
+References: <VE1PR04MB6479BCA376502F6F1251602BE3EC0@VE1PR04MB6479.eurprd04.prod.outlook.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Jian-Hong Pan <jian-hong@endlessm.com>, alsa-devel@alsa-project.org,
- Kailang Yang <kailang@realtek.com>, linux@endlessm.com,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <VE1PR04MB6479BCA376502F6F1251602BE3EC0@VE1PR04MB6479.eurprd04.prod.outlook.com>
+User-Agent: Mutt/1.5.22 (2013-10-16)
+Cc: "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
+ "timur@kernel.org" <timur@kernel.org>,
+ "Xiubo.Lee@gmail.com" <Xiubo.Lee@gmail.com>,
+ "linuxppc-dev@lists.ozlabs.org" <linuxppc-dev@lists.ozlabs.org>,
+ "tiwai@suse.com" <tiwai@suse.com>, "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>,
+ "broonie@kernel.org" <broonie@kernel.org>,
+ "festevam@gmail.com" <festevam@gmail.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,55 +112,63 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-A headset on the laptop like ASUS B9450FA does not work, until quirk
-ALC294_FIXUP_ASUS_HPE is applied.
+On Mon, Feb 24, 2020 at 08:53:25AM +0000, S.j. Wang wrote:
+> Hi
+> 
+> > >
+> > > Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
+> > > ---
+> > >  sound/soc/fsl/Kconfig           |   10 +
+> > >  sound/soc/fsl/Makefile          |    2 +
+> > >  sound/soc/fsl/fsl_asrc_common.h |    1 +
+> > >  sound/soc/fsl/fsl_easrc.c       | 2265 +++++++++++++++++++++++++++++++
+> > >  sound/soc/fsl/fsl_easrc.h       |  668 +++++++++
+> > >  sound/soc/fsl/fsl_easrc_dma.c   |  440 ++++++
+> > 
+> > I see a 90% similarity between fsl_asrc_dma and fsl_easrc_dma files.
+> > Would it be possible reuse the existing code? Could share structures from
+> > my point of view, just like it reuses "enum asrc_pair_index", I know
+> > differentiating "pair" and "context" is a big point here though.
+> > 
+> > A possible quick solution for that, off the top of my head, could be:
+> > 
+> > 1) in fsl_asrc_common.h
+> > 
+> >         struct fsl_asrc {
+> >                 ....
+> >         };
+> > 
+> >         struct fsl_asrc_pair {
+> >                 ....
+> >         };
+> > 
+> > 2) in fsl_easrc.h
+> > 
+> >         /* Renaming shared structures */
+> >         #define fsl_easrc fsl_asrc
+> >         #define fsl_easrc_context fsl_asrc_pair
+> > 
+> > May be a good idea to see if others have some opinion too.
+> > 
+> 
+> We need to modify the fsl_asrc and fsl_asrc_pair, let them
+> To be used by both driver,  also we need to put the specific
+> Definition for each module to same struct, right?
 
-Signed-off-by: Jian-Hong Pan <jian-hong@endlessm.com>
-Singed-off-by: Kailang Yang <kailang@realtek.com>
----
- sound/pci/hda/patch_realtek.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+Yea. A merged structure if that doesn't look that bad. I see most
+of the fields in struct fsl_asrc are being reused by in fsl_easrc.
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 477589e7ec1d..a47f6404aea9 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -5920,7 +5920,7 @@ enum {
- 	ALC289_FIXUP_DUAL_SPK,
- 	ALC294_FIXUP_SPK2_TO_DAC1,
- 	ALC294_FIXUP_ASUS_DUAL_SPK,
--
-+	ALC294_FIXUP_ASUS_HPE,
- };
- 
- static const struct hda_fixup alc269_fixups[] = {
-@@ -7040,7 +7040,17 @@ static const struct hda_fixup alc269_fixups[] = {
- 		.chained = true,
- 		.chain_id = ALC294_FIXUP_SPK2_TO_DAC1
- 	},
--
-+	[ALC294_FIXUP_ASUS_HPE] = {
-+		.type = HDA_FIXUP_VERBS,
-+		.v.verbs = (const struct hda_verb[]) {
-+			/* Set EAPD high */
-+			{ 0x20, AC_VERB_SET_COEF_INDEX, 0x0f },
-+			{ 0x20, AC_VERB_SET_PROC_COEF, 0x7774 },
-+			{ }
-+		},
-+		.chained = true,
-+		.chain_id = ALC294_FIXUP_ASUS_HEADSET_MIC
-+	},
- };
- 
- static const struct snd_pci_quirk alc269_fixup_tbl[] = {
-@@ -7204,6 +7214,7 @@ static const struct snd_pci_quirk alc269_fixup_tbl[] = {
- 	SND_PCI_QUIRK(0x1043, 0x16e3, "ASUS UX50", ALC269_FIXUP_STEREO_DMIC),
- 	SND_PCI_QUIRK(0x1043, 0x17d1, "ASUS UX431FL", ALC294_FIXUP_ASUS_DUAL_SPK),
- 	SND_PCI_QUIRK(0x1043, 0x18b1, "Asus MJ401TA", ALC256_FIXUP_ASUS_HEADSET_MIC),
-+	SND_PCI_QUIRK(0x1043, 0x19ce, "ASUS B9450FA", ALC294_FIXUP_ASUS_HPE),
- 	SND_PCI_QUIRK(0x1043, 0x1a13, "Asus G73Jw", ALC269_FIXUP_ASUS_G73JW),
- 	SND_PCI_QUIRK(0x1043, 0x1a30, "ASUS X705UD", ALC256_FIXUP_ASUS_MIC),
- 	SND_PCI_QUIRK(0x1043, 0x1b13, "Asus U41SV", ALC269_FIXUP_INV_DMIC),
--- 
-2.25.1
+> > 
+> > > +static const struct regmap_config fsl_easrc_regmap_config = {
+> > > +     .readable_reg = fsl_easrc_readable_reg,
+> > > +     .volatile_reg = fsl_easrc_volatile_reg,
+> > > +     .writeable_reg = fsl_easrc_writeable_reg,
+> > 
+> > Can we use regmap_range and regmap_access_table?
+> > 
+> 
+> Can the regmap_range support discontinuous registers?  The
+> reg_stride = 4.
 
+I think it does. Giving an example here:
+https://github.com/torvalds/linux/blob/master/drivers/mfd/da9063-i2c.c

@@ -2,68 +2,75 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B60A616EC0C
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Feb 2020 18:04:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C34D516F09A
+	for <lists+alsa-devel@lfdr.de>; Tue, 25 Feb 2020 21:52:37 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 533CA1684;
-	Tue, 25 Feb 2020 18:03:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 533CA1684
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4DC2E168D;
+	Tue, 25 Feb 2020 21:51:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4DC2E168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582650276;
-	bh=fWjU7DMJ29NvdGa5YpLMFzVPfhqJtW1bBL4gaNdR0xI=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=LBdhRy1a4rYg9b+jvWpVj1HO8/vsHF9lkVR+c2MsUhiknYaqxNUHp8ugSIYE4ek22
-	 RkYKhfmwpV5wBEW+jibHiBoQaTY6EZbzAkOjLdG0/FBGQ0Lxhf3gtrWyAZr/ljQUAd
-	 fYxiK0KkWth+iEoWFIvhI7cAq3bpHkmNLUCz3cbw=
+	s=default; t=1582663957;
+	bh=Q3oe1jxf23yBLBrYYE0k+LTqlIPd2rBAHhHvbGkjQlo=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=FJPCga+TIyzOCKionSVNppvl3KfSvG1JKa+HGhgpsYOFhB8saXdAtNyCuJNNvonpk
+	 GaQol6IrBwz/qzyO5U8kJvSLj/tCcH8xssaUnsBrVuy8i8zxCr1qJN9Em+LuKOIwLP
+	 e1o0JmDL7PeRQNNU+v/htShdjpvPy3K99XSNzDng=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1C384F8028E;
-	Tue, 25 Feb 2020 18:01:30 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 5EC0DF8013E;
+	Tue, 25 Feb 2020 21:50:56 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id B7D0AF8028B; Tue, 25 Feb 2020 18:01:26 +0100 (CET)
+ id 935C2F80142; Tue, 25 Feb 2020 21:50:54 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,FAKE_REPLY_C,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id EBBA1F800AD
+ for <alsa-devel@alsa-project.org>; Tue, 25 Feb 2020 21:50:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EBBA1F800AD
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="tmyBTjgn"
+Received: from localhost (mobile-166-175-186-165.mycingular.net
+ [166.175.186.165])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 739AEF80161
- for <alsa-devel@alsa-project.org>; Tue, 25 Feb 2020 18:01:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 739AEF80161
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2020 09:01:04 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,484,1574150400"; d="scan'208";a="317139738"
-Received: from sorin-mobl1.amr.corp.intel.com (HELO
- pbossart-mobl3.amr.corp.intel.com) ([10.254.45.43])
- by orsmga001.jf.intel.com with ESMTP; 25 Feb 2020 09:01:01 -0800
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/3] soundwire: add helper macros for devID fields
-Date: Tue, 25 Feb 2020 11:00:41 -0600
-Message-Id: <20200225170041.23644-4-pierre-louis.bossart@linux.intel.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200225170041.23644-1-pierre-louis.bossart@linux.intel.com>
-References: <20200225170041.23644-1-pierre-louis.bossart@linux.intel.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id A8A6520675;
+ Tue, 25 Feb 2020 20:50:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1582663849;
+ bh=Q3oe1jxf23yBLBrYYE0k+LTqlIPd2rBAHhHvbGkjQlo=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=tmyBTjgnONnSCV+zBj0HV0B4XxFIdMnoFPCfUcc6+p3zeJfkCYynmcFx5XzEJJeWx
+ 2d1rVmeeWj9K9LOxXYsW1QaAv+IAA0OJi9Ty4i1N04Tj1urzCMLDNqSSSDW79mAhXy
+ Bb/oqu2up4Ig0LQ6MNqF38n633K3DyjjSlyYGaRk=
+Date: Tue, 25 Feb 2020 14:50:47 -0600
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [PATCH v3 1/8] PCI: add constant PCI_STATUS_ERROR_BITS
+Message-ID: <20200225205047.GA194679@google.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>, tiwai@suse.de,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Hui Wang <hui.wang@canonical.com>, vkoul@kernel.org, broonie@kernel.org,
- srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
- Sanyog Kale <sanyog.r.kale@intel.com>,
- Bard liao <yung-chuan.liao@linux.intel.com>,
- Rander Wang <rander.wang@linux.intel.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <73dd692e-bbce-35f5-88e9-417fb0f7229e@gmail.com>
+User-Agent: Mutt/1.12.2 (2019-09-21)
+Cc: alsa-devel@alsa-project.org,
+ Realtek linux nic maintainers <nic_swsd@realtek.com>,
+ "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+ Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>,
+ Stephen Hemminger <stephen@networkplumber.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ David Miller <davem@davemloft.net>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mirko Lindner <mlindner@marvell.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,82 +86,96 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Move bit extractors to macros, so that the definitions can be used by
-other drivers parsing the MIPI definitions extracted from firmware
-tables (ACPI or DT).
+On Tue, Feb 25, 2020 at 03:03:44PM +0100, Heiner Kallweit wrote:
 
-Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
----
- drivers/soundwire/bus.c       | 21 +++++----------------
- include/linux/soundwire/sdw.h | 23 +++++++++++++++++++++++
- 2 files changed, 28 insertions(+), 16 deletions(-)
+Run "git log --oneline drivers/pci" and make yours match.  In
+particular, capitalize the first word ("Add").  Same for the other PCI
+patches.  I don't know the drivers/net convention, but please find and
+follow that as well.
 
-diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
-index b8a7a84aca1c..01be7220d117 100644
---- a/drivers/soundwire/bus.c
-+++ b/drivers/soundwire/bus.c
-@@ -589,22 +589,11 @@ void sdw_extract_slave_id(struct sdw_bus *bus,
- {
- 	dev_dbg(bus->dev, "SDW Slave Addr: %llx\n", addr);
- 
--	/*
--	 * Spec definition
--	 *   Register		Bit	Contents
--	 *   DevId_0 [7:4]	47:44	sdw_version
--	 *   DevId_0 [3:0]	43:40	unique_id
--	 *   DevId_1		39:32	mfg_id [15:8]
--	 *   DevId_2		31:24	mfg_id [7:0]
--	 *   DevId_3		23:16	part_id [15:8]
--	 *   DevId_4		15:08	part_id [7:0]
--	 *   DevId_5		07:00	class_id
--	 */
--	id->sdw_version = (addr >> 44) & GENMASK(3, 0);
--	id->unique_id = (addr >> 40) & GENMASK(3, 0);
--	id->mfg_id = (addr >> 24) & GENMASK(15, 0);
--	id->part_id = (addr >> 8) & GENMASK(15, 0);
--	id->class_id = addr & GENMASK(7, 0);
-+	id->sdw_version = SDW_VERSION(addr);
-+	id->unique_id = SDW_UNIQUE_ID(addr);
-+	id->mfg_id = SDW_MFG_ID(addr);
-+	id->part_id = SDW_PART_ID(addr);
-+	id->class_id = SDW_CLASS_ID(addr);
- 
- 	dev_dbg(bus->dev,
- 		"SDW Slave class_id %x, part_id %x, mfg_id %x, unique_id %x, version %x\n",
-diff --git a/include/linux/soundwire/sdw.h b/include/linux/soundwire/sdw.h
-index b8427df034ce..ee349a4c5349 100644
---- a/include/linux/soundwire/sdw.h
-+++ b/include/linux/soundwire/sdw.h
-@@ -439,6 +439,29 @@ struct sdw_slave_id {
- 	__u8 sdw_version:4;
- };
- 
-+/*
-+ * Helper macros to extract the MIPI-defined IDs
-+ *
-+ * Spec definition
-+ *   Register		Bit	Contents
-+ *   DevId_0 [7:4]	47:44	sdw_version
-+ *   DevId_0 [3:0]	43:40	unique_id
-+ *   DevId_1		39:32	mfg_id [15:8]
-+ *   DevId_2		31:24	mfg_id [7:0]
-+ *   DevId_3		23:16	part_id [15:8]
-+ *   DevId_4		15:08	part_id [7:0]
-+ *   DevId_5		07:00	class_id
-+ *
-+ * The MIPI DisCo for SoundWire defines in addition the link_id as bits 51:48
-+ */
-+
-+#define SDW_DISCO_LINK_ID(adr)	(((adr) >> 48) & GENMASK(3, 0))
-+#define SDW_VERSION(adr)	(((adr) >> 44) & GENMASK(3, 0))
-+#define SDW_UNIQUE_ID(adr)	(((adr) >> 40) & GENMASK(3, 0))
-+#define SDW_MFG_ID(adr)		(((adr) >> 24) & GENMASK(15, 0))
-+#define SDW_PART_ID(adr)	(((adr) >> 8) & GENMASK(15, 0))
-+#define SDW_CLASS_ID(adr)	((adr) & GENMASK(7, 0))
-+
- /**
-  * struct sdw_slave_intr_status - Slave interrupt status
-  * @control_port: control port status
--- 
-2.20.1
+> This constant is used (with different names) in more than one driver,
+> so move it to the PCI core.
 
+The driver constants in *this* patch at least use the same name.
+
+> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+> ---
+>  drivers/net/ethernet/marvell/skge.h | 6 ------
+>  drivers/net/ethernet/marvell/sky2.h | 6 ------
+>  include/uapi/linux/pci_regs.h       | 7 +++++++
+>  3 files changed, 7 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/marvell/skge.h b/drivers/net/ethernet/marvell/skge.h
+> index 6fa7b6a34..e149bdfe1 100644
+> --- a/drivers/net/ethernet/marvell/skge.h
+> +++ b/drivers/net/ethernet/marvell/skge.h
+> @@ -15,12 +15,6 @@
+>  #define  PCI_VPD_ROM_SZ	7L<<14	/* VPD ROM size 0=256, 1=512, ... */
+>  #define  PCI_REV_DESC	1<<2	/* Reverse Descriptor bytes */
+>  
+> -#define PCI_STATUS_ERROR_BITS (PCI_STATUS_DETECTED_PARITY | \
+> -			       PCI_STATUS_SIG_SYSTEM_ERROR | \
+> -			       PCI_STATUS_REC_MASTER_ABORT | \
+> -			       PCI_STATUS_REC_TARGET_ABORT | \
+> -			       PCI_STATUS_PARITY)
+> -
+>  enum csr_regs {
+>  	B0_RAP	= 0x0000,
+>  	B0_CTST	= 0x0004,
+> diff --git a/drivers/net/ethernet/marvell/sky2.h b/drivers/net/ethernet/marvell/sky2.h
+> index b02b65230..851d8ed34 100644
+> --- a/drivers/net/ethernet/marvell/sky2.h
+> +++ b/drivers/net/ethernet/marvell/sky2.h
+> @@ -252,12 +252,6 @@ enum {
+>  };
+>  
+>  
+> -#define PCI_STATUS_ERROR_BITS (PCI_STATUS_DETECTED_PARITY | \
+> -			       PCI_STATUS_SIG_SYSTEM_ERROR | \
+> -			       PCI_STATUS_REC_MASTER_ABORT | \
+> -			       PCI_STATUS_REC_TARGET_ABORT | \
+> -			       PCI_STATUS_PARITY)
+> -
+>  enum csr_regs {
+>  	B0_RAP		= 0x0000,
+>  	B0_CTST		= 0x0004,
+> diff --git a/include/uapi/linux/pci_regs.h b/include/uapi/linux/pci_regs.h
+> index 543769048..9b84a1278 100644
+> --- a/include/uapi/linux/pci_regs.h
+> +++ b/include/uapi/linux/pci_regs.h
+> @@ -68,6 +68,13 @@
+>  #define  PCI_STATUS_SIG_SYSTEM_ERROR	0x4000 /* Set when we drive SERR */
+>  #define  PCI_STATUS_DETECTED_PARITY	0x8000 /* Set on parity error */
+>  
+> +#define PCI_STATUS_ERROR_BITS (PCI_STATUS_DETECTED_PARITY  | \
+> +			       PCI_STATUS_SIG_SYSTEM_ERROR | \
+> +			       PCI_STATUS_REC_MASTER_ABORT | \
+> +			       PCI_STATUS_REC_TARGET_ABORT | \
+> +			       PCI_STATUS_SIG_TARGET_ABORT | \
+> +			       PCI_STATUS_PARITY)
+
+This actually *adds* PCI_STATUS_SIG_TARGET_ABORT, which is not in the
+driver definitions.  At the very least that should be mentioned in the
+commit log.
+
+Ideally the addition would be in its own patch so it's obvious and
+bisectable, but I see the problem -- the subsequent patches
+consolidate things that aren't really quite the same.  One alternative
+would be to have preliminary patches that change the drivers
+individually so they all use this new mask, then do the consolidation
+afterwards.
+
+There is pitifully little documentation about the use of include/uapi,
+but AFAICT that is for the user API, and this isn't part of that.  I
+think this #define could go in include/linux/pci.h instead.
+
+> +
+>  #define PCI_CLASS_REVISION	0x08	/* High 24 bits are class, low 8 revision */
+>  #define PCI_REVISION_ID		0x08	/* Revision ID */
+>  #define PCI_CLASS_PROG		0x09	/* Reg. Level Programming Interface */
+> -- 
+> 2.25.1
+> 
+> 
+> 
+> 

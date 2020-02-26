@@ -2,65 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E400916F27C
-	for <lists+alsa-devel@lfdr.de>; Tue, 25 Feb 2020 23:14:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 728C116F490
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 01:57:46 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 37BE2168D;
-	Tue, 25 Feb 2020 23:14:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 37BE2168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id C5EA8168B;
+	Wed, 26 Feb 2020 01:56:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C5EA8168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582668892;
-	bh=MhNmvQbW+vghvzkuDj8h3c/6YB3oBskm7VEsd1ld9AA=;
-	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
+	s=default; t=1582678660;
+	bh=M0ZDhR8DIEX0KKpr2UrhH+9a6oYVLlHsb+wBVrjF8+8=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=KVG1knUwWPbpJQu7dDsYrsupCIx3CAI8/LeOjecPo8wAqo2xna3e+A/X1vIYwY91t
-	 n6/NzPpz+fLh88dkDmTPGj9XYVcLjgbq2VWAoK/svdnq1t19vIGY3sZQBmC21ICndN
-	 h9Iv2Rc4mbYLrCKOVMrFeqeGmxvMG/fA+IwKASMg=
+	b=txBLd2kGb6u/XBmdt1EQXLGcNvIqABXic3zRQTP5QKCR7R34SE7EnjLtscMSmp+R2
+	 NUVcozGsnn/4RGqLSSTVIe2brpBG5wvlYohFlQOIJOvJlkRr711V5fpZtq/MPs71jt
+	 zZ5BbcVbdkCWTDOuKSq/RsP1VwChF0rNDioZScUw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 54E09F80096;
-	Tue, 25 Feb 2020 23:13:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D3D64F80096;
+	Wed, 26 Feb 2020 01:55:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 30562F800AD; Tue, 25 Feb 2020 23:13:09 +0100 (CET)
+ id D5EA0F80142; Wed, 26 Feb 2020 01:55:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
  autolearn=disabled version=3.4.0
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id EDFC2F800AD
- for <alsa-devel@alsa-project.org>; Tue, 25 Feb 2020 23:13:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EDFC2F800AD
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Feb 2020 14:13:02 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,485,1574150400"; d="scan'208";a="256101945"
-Received: from jcastell-mobl1.amr.corp.intel.com (HELO [10.251.141.17])
- ([10.251.141.17])
- by orsmga002.jf.intel.com with ESMTP; 25 Feb 2020 14:13:01 -0800
-Subject: Re: [alsa-devel] [PATCH] ASoC: rt1015: add rt1015 amplifier driver
-To: jack.yu@realtek.com, broonie@kernel.org, lgirdwood@gmail.com
-References: <20200114025628.4241-1-jack.yu@realtek.com>
-From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Message-ID: <754ef0d7-d265-00a2-218a-072f086c3e02@linux.intel.com>
-Date: Tue, 25 Feb 2020 16:08:52 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <20200114025628.4241-1-jack.yu@realtek.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, lars@metafoo.de, kent_chen@realtek.com,
- kenny_chen@realtek.com, mingjane_hsieh@realtek.com, flove@realtek.com
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 72D47F80096
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 01:55:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 72D47F80096
+Date: 26 Feb 2020 09:55:47 +0900
+X-IronPort-AV: E=Sophos;i="5.70,486,1574089200"; d="scan'208";a="40028707"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 26 Feb 2020 09:55:47 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id DF66E4112308;
+ Wed, 26 Feb 2020 09:55:47 +0900 (JST)
+Message-ID: <87ftey88wk.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, broonie@kernel.org
+Subject: Re: [PATCH] ASoC: soc-pcm: Revert "call
+ snd_soc_component_open/close() once"
+In-Reply-To: <87mu978pob.wl-kuninori.morimoto.gx@renesas.com>
+References: <20200219182650.1416-1-kai.vehmanen@linux.intel.com>
+ <87blput7hh.wl-kuninori.morimoto.gx@renesas.com>
+ <alpine.DEB.2.21.2002201103060.2957@eliteleevi.tm.intel.com>
+ <87mu9cspyf.wl-kuninori.morimoto.gx@renesas.com>
+ <alpine.DEB.2.21.2002211251280.2957@eliteleevi.tm.intel.com>
+ <87mu978pob.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ digetx@gmail.com, pierre-louis.bossart@linux.intel.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,45 +74,68 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Now that we have a machine driver based on this rt1015 amplifier, our 
-sparse checks report two minor issues with this driver:
 
-> +struct snd_soc_dai_ops rt1015_aif_dai_ops = {
-> +	.hw_params = rt1015_hw_params,
-> +	.set_fmt = rt1015_set_dai_fmt,
-> +};
+Hi Kai, again
+Cc Mark
 
-This structure is not defined so could be static, but doing so shows 
-it's not used either?
+Maybe this is too late, but I want to tell
+the reason why I wanted to add flag on each component.
 
-> +struct snd_soc_dai_driver rt1015_dai[] = {
-> +	{
-> +		.name = "rt1015-aif",
-> +		.id = 0,
-> +		.playback = {
-> +			.stream_name = "AIF Playback",
-> +			.channels_min = 1,
-> +			.channels_max = 4,
-> +			.rates = RT1015_STEREO_RATES,
-> +			.formats = RT1015_FORMATS,
-> +		},
-> +	}
-> +};
+> > 1. do the cleanup locally in soc_pcm_components_open()
+> > 	[PATCH] ASoC: soc-pcm: fix state tracking error in snd_soc_component_open/close()
+> >
+> > 2. revert to original implementation with "last" passed to components_open()
+> > 	[PATCH] ASoC: soc-pcm: Revert "call snd_soc_component_open/close() once"
+> >
+> > 3. implement opened/module counters
+> > 	[PATCH][RFC] ASoC: soc-component: count snd_soc_component_open/close()
 
-This should be declared as static.
+I can see this kind of implementation at many place.
 
-see logs below for reference.
+For example, soc_pcm_open() has error handling.
+But, it is same as soc_pcm_close(), but it can't call it directly,
+because it needs to care about "successed until where" for now.
 
-  CHECK   sound/soc/codecs/rt1015.c
-/soc/codecs/rt1015.c:844:24: warning: symbol 'rt1015_aif_dai_ops' was 
-not declared. Should it be static?
-sound/soc/codecs/rt1015.c:849:27: warning: symbol 'rt1015_dai' was not 
-declared. Should it be static?
+If each component / rtd / dai have "done" flag or count,
+soc_pcm_open() can call soc_pcm_close() directly
+without thinking about "until", because each flag can handle/indicate it.
 
-  CC [M]  sound/soc/codecs/rt1015.o
-sound/soc/codecs/rt1015.c:844:31: warning: ‘rt1015_aif_dai_ops’ defined 
-but not used [-Wunused-variable]
-   844 | static struct snd_soc_dai_ops rt1015_aif_dai_ops = {
-       |
+The good point is we can reduce duplicate implementation.
+And it can avoid future bug. Because today, we need to care both
+soc_pcm_close() and error handling in soc_pcm_open(), it is not good for me.
 
-Thanks!
+	static int soc_pcm_open(struct snd_pcm_substream *substream)
+	{
+		...
+		return 0;
+
+		/*
+		 * From here, "implementation" is same as soc_pcm_close()
+		 */
+
+	config_err:
+		for_each_rtd_dais(rtd, i, dai)
+			snd_soc_dai_shutdown(dai, substream);
+
+		soc_rtd_shutdown(rtd, substream);
+	rtd_startup_err:
+		soc_pcm_components_close(substream, NULL);
+	component_err:
+		mutex_unlock(&rtd->card->pcm_mutex);
+
+		for_each_rtd_components(rtd, i, component) {
+			pm_runtime_mark_last_busy(component->dev);
+			pm_runtime_put_autosuspend(component->dev);
+		}
+
+		for_each_rtd_components(rtd, i, component)
+			if (!component->active)
+				pinctrl_pm_select_sleep_state(component->dev);
+
+		return ret;
+	}
+
+Thank you for your help !!
+Best regards
+---
+Kuninori Morimoto

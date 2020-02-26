@@ -2,127 +2,122 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AE3316FBAE
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 11:10:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D0A516FC7D
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 11:50:02 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 007DF169A;
-	Wed, 26 Feb 2020 11:09:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 007DF169A
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9F65C1689;
+	Wed, 26 Feb 2020 11:49:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9F65C1689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582711849;
-	bh=z8ADW/XV5r2o51NRA2SPw1RzZ+AeTTl1Ko/NyywtSes=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=j+wPKYdW28SpSQnG+V1lbCt2u2aVfbK6yjrkp8OGcAoG3ThOQ947WPHK+70lgviLS
-	 /D+rEaa7rGL7572xtpyAebagSW3pXOmwYITF6WG/wZn3taZ/WceWWRAFfeFWVwGOQw
-	 pTwDF8fH7OUDjwqH0W2eC0OTXBVG5OZ2mA/JRzDo=
+	s=default; t=1582714201;
+	bh=zrDL0zPXlqXLlJajJa28X8nbamB74ZT0CoNk4GT5+7U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=tI97m5BzQaFo06X4RBdH9VoERdbioBMjfxS6uhugNCYK5Qg8FuU3TftvDPaWaRu3F
+	 QeAJ2kUdS/aLdC3eeEf0j7TsaluylTEDHvpujI7nlH15YgVfj/IJfv6O/56Hsugz/b
+	 ejMIvxCcCqMjP6M8IS0F/yyffdpssxIHusPkEQ7g=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 11BA5F8024A;
-	Wed, 26 Feb 2020 11:08:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id AC971F80089;
+	Wed, 26 Feb 2020 11:48:20 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE786F8014E; Wed, 26 Feb 2020 11:08:21 +0100 (CET)
+ id 27D74F8014E; Wed, 26 Feb 2020 11:48:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_PASS,
- SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ MSGID_FROM_MTA_HEADER, SPF_NONE, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from NAM10-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam10on2082.outbound.protection.outlook.com [40.107.94.82])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6271EF80089
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 11:08:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6271EF80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id 97A64F80089
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 11:48:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 97A64F80089
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com
- header.b="izdwBI6U"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20200226100815euoutp01ef8efd0f677f261d2d327afe9810abbe~26_bTOL1k1266212662euoutp01h
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 10:08:15 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20200226100815euoutp01ef8efd0f677f261d2d327afe9810abbe~26_bTOL1k1266212662euoutp01h
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1582711695;
- bh=odmVlu3IWMO2MMx78wYMzn/eBqxQI465FK6+timZniI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=izdwBI6U9t7d3eoTy6CoWcpIM36WAiwjc43sL7Ls9kiwmpmY7ZPwLgqeaYOIUML8A
- kVTMtURN3Otwiex7OQrLdbrJcYP2avOSkd4z/zQj8K2pDIE52t7lh0KQtqM2GqtxWi
- DCgG/FPJP8atm9hWJ1aX/qc8PL2gmCRJ/Fzpxs1U=
-Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20200226100815eucas1p1c2dfb065e617406e9307e106d61c7a6c~26_bAMare1157311573eucas1p1s;
- Wed, 26 Feb 2020 10:08:15 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges2new.samsung.com (EUCPMTA) with SMTP id F2.E3.60679.F83465E5; Wed, 26
- Feb 2020 10:08:15 +0000 (GMT)
-Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20200226100815eucas1p2f4448e3dea078bfc58a8acdc70340c11~26_auDTQA1144611446eucas1p27;
- Wed, 26 Feb 2020 10:08:15 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20200226100815eusmtrp15a775f2d53936094604fe8484e42dec1~26_atbpbX1384413844eusmtrp1Z;
- Wed, 26 Feb 2020 10:08:15 +0000 (GMT)
-X-AuditID: cbfec7f4-0e5ff7000001ed07-8b-5e56438f08b8
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id E2.8B.07950.E83465E5; Wed, 26
- Feb 2020 10:08:15 +0000 (GMT)
-Received: from AMDC2765.digital.local (unknown [106.120.51.73]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20200226100814eusmtip187073e44d397c1495484d540c13c1121~26_aTCZkw0568105681eusmtip1J;
- Wed, 26 Feb 2020 10:08:14 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/2] mfd: wm8994: Fix unbalanced calls to
- regulator_bulk_disable()
-Date: Wed, 26 Feb 2020 11:08:02 +0100
-Message-Id: <20200226100802.16384-2-m.szyprowski@samsung.com>
+ dkim=pass (1024-bit key) header.d=amdcloud.onmicrosoft.com
+ header.i=@amdcloud.onmicrosoft.com header.b="iUmc3+8l"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jlm4NdWdxKoCoLRfR4c50s88mvBEVGMebcU9SkahPTAzHNkHBxQ7DHC+lOeZtkG1kO8iQQOD0ZxecPpdbth+h6DaaaLiN87fi4kS2s1GjGWZ6Yul+7KFFKSiu4Br+0ILqQnpFq6jW5ajM9FWwMBk6gZ5fK31dHhMxq1Su60GsgxzMTJR3GzWF9C6K29CSc70ZGj0iTEedGPTbhKw07FNvZqlLokFScapaGrRu47F4Q8W+J8LDEo5cmbny/BghnvOQ2WIevlLs8VxcBejjNE9Z4myZzSeK7wsYZFe+fErtKeehR9YqbEUD03z8uBj/DFIlHe7Q2vdl2sBPxIme3kfmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e05O7S0fVACmLEUf4sQLdymJPZrazZng7CpD9B9TZqc=;
+ b=DyEGUlxlSkluRnCTaAJxTaey3Kt5XxSQbRQ5ZMoRA2Yud0BQzgrhIIv6/JXI2x2saP1/meR/GxXIpnTMAK8kSrJSyzchXP4hLyoVbfYsHLqVfyEMfI47EOeZFwNzZutkzDhsp213u6vb2SDALdL1XjqeVBptSZ6/ZQyfD9c04Ymw+G9j2xDRUGHzxXxR7t/qtggzmp91gWYZQLCiqBE1p0KiUupGHP3hqtXDcyCLYARtxoS3MotAf5jHmoochP8fMCV9oJlBoSWOgl60BRH1g3g+NosKG5CAcAL9QtrWlMKCmFNQwCzRhrKho3OLt3W5OrVhzhguwg4/ot7Rdh7vlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=amdcloud.onmicrosoft.com; s=selector2-amdcloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e05O7S0fVACmLEUf4sQLdymJPZrazZng7CpD9B9TZqc=;
+ b=iUmc3+8lEBxNmrrmvGoiwLhpii89biNTF+/92YInBEoPeJZ9IE8H4p/mxX3h9NGee1CO/NMJTBh21xUTJ4uTLvAIScb10I0MQFp0ngJwKlDqsx0o242kXLzfXrcD1PHb2OoZO0SSrEu+HaSM3WTHrJJBaFwdoiSDU6XtEDbHRVU=
+Authentication-Results: spf=none (sender IP is )
+ smtp.mailfrom=Akshu.Agrawal@amd.com; 
+Received: from MN2PR12MB2878.namprd12.prod.outlook.com (2603:10b6:208:aa::15)
+ by MN2PR12MB3933.namprd12.prod.outlook.com (2603:10b6:208:162::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Wed, 26 Feb
+ 2020 10:48:09 +0000
+Received: from MN2PR12MB2878.namprd12.prod.outlook.com
+ ([fe80::c895:8c76:61ae:980f]) by MN2PR12MB2878.namprd12.prod.outlook.com
+ ([fe80::c895:8c76:61ae:980f%3]) with mapi id 15.20.2750.021; Wed, 26 Feb 2020
+ 10:48:09 +0000
+From: Akshu Agrawal <akshu.agrawal@amd.com>
+To: 
+Subject: [PATCH] ASoC: amd: Allow I2S wake event after ACP is powerd On
+Date: Wed, 26 Feb 2020 16:17:44 +0530
+Message-Id: <20200226104746.208656-1-akshu.agrawal@amd.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200226100802.16384-1-m.szyprowski@samsung.com>
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrNIsWRmVeSWpSXmKPExsWy7djP87r9zmFxBhemClpcuXiIyWLjjPWs
- FlMfPmGzuP/1KKPF5V1z2CzWHrnLbnH4TTurA7vHhs9NbB6bVnWyedy5tofNo2/LKkaPz5vk
- AlijuGxSUnMyy1KL9O0SuDKmbLzMXvCfu2JOYy9zA+MMri5GTg4JAROJ2zPOs3UxcnEICaxg
- lOjae4cFwvnCKDFh1VZGCOczo8T3E+uZYFouL2mFalnOKNF0cRtCy6trJ1lAqtgEDCW63nax
- gdgiArYSr3c0gBUxC9xklNhxpw+sSFggXKLp0jewsSwCqhJHrp0Gs3mBGm5v7GGGWCcvsXrD
- ASCbg4NTwE7i6fFMiPBrNonVv5QhbBeJOW8nsULYwhKvjm9hh7BlJE5P7gHbKyHQzCjx8Nxa
- dginh1HictMMRogqa4k7536xgSxgFtCUWL9LHyLsKDHt/BsmkLCEAJ/EjbeCIGFmIHPStunM
- EGFeiY42IYhqNYlZx9fBrT144RJUiYfE4gZDSPBMZJSYd/IE2wRG+VkIuxYwMq5iFE8tLc5N
- Ty02ykst1ytOzC0uzUvXS87P3cQITBKn/x3/soNx15+kQ4wCHIxKPLwvOEPjhFgTy4orcw8x
- SnAwK4nwbvwKFOJNSaysSi3Kjy8qzUktPsQozcGiJM5rvOhlrJBAemJJanZqakFqEUyWiYNT
- qoGxwe+LkF+jyatzZuc5e//8dLc5I8W7d6egZgg7s1G739bJE+MzEu8duMbscy71dOOmTUkb
- qrIXL5r0zl+syblT5tevnssB/25HdP1a8MbO7e3/mkvZ+256BxSZyrRqpS23Y3qlfU7zdRd3
- eWGpaLz7WdVgm8J3G3xcCxeJnn+uJPHi09xzfg5KLMUZiYZazEXFiQBy8kOvDgMAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrNLMWRmVeSWpSXmKPExsVy+t/xu7r9zmFxBl+KLK5cPMRksXHGelaL
- qQ+fsFnc/3qU0eLyrjlsFmuP3GW3OPymndWB3WPD5yY2j02rOtk87lzbw+bRt2UVo8fnTXIB
- rFF6NkX5pSWpChn5xSW2StGGFkZ6hpYWekYmlnqGxuaxVkamSvp2NimpOZllqUX6dgl6GVM2
- XmYv+M9dMaexl7mBcQZXFyMnh4SAicTlJa1sXYxcHEICSxklOr5tZ4NIyEicnNbACmELS/y5
- 1gVV9IlRYu+LHmaQBJuAoUTX2y6wBhEBe4kHv/6B2cwCdxklrrz2A7GFBUIlpm+6yQRiswio
- Shy5dhrM5hWwlbi9EWKOhIC8xOoNB4BsDg5OATuJp8czQcJCQCWrrx1lncDIt4CRYRWjSGpp
- cW56brGRXnFibnFpXrpecn7uJkZgwG479nPLDsaud8GHGAU4GJV4eF9whsYJsSaWFVfmHmKU
- 4GBWEuHd+BUoxJuSWFmVWpQfX1Sak1p8iNEU6KaJzFKiyfnAaMoriTc0NTS3sDQ0NzY3NrNQ
- EuftEDgYIySQnliSmp2aWpBaBNPHxMEp1cC4zNPoSKVT9xZn5Qcyt1YXRFZ88K41vDD9xL7n
- 11h0BH/ofg18Wbnvw9lPr4trvl0QN1mQf2HebasM1Q8nBd/VZS0NCzilrW564rBEfcjZlSWB
- HUzXd2kZK86NesHp1LJUpHiz8He+V30eDw0/31hnmq11Jngnm9XEwkshyy98tNm1+qdljUii
- EktxRqKhFnNRcSIAdJuZPm4CAAA=
-X-CMS-MailID: 20200226100815eucas1p2f4448e3dea078bfc58a8acdc70340c11
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20200226100815eucas1p2f4448e3dea078bfc58a8acdc70340c11
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20200226100815eucas1p2f4448e3dea078bfc58a8acdc70340c11
-References: <20200226100802.16384-1-m.szyprowski@samsung.com>
- <CGME20200226100815eucas1p2f4448e3dea078bfc58a8acdc70340c11@eucas1p2.samsung.com>
-Cc: Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Mark Brown <broonie@kernel.org>, Lee Jones <lee.jones@linaro.org>,
- Sylwester Nawrocki <s.nawrocki@samsung.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>
+Content-Type: text/plain
+X-ClientProxiedBy: MAXPR0101CA0011.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a00:c::21) To MN2PR12MB2878.namprd12.prod.outlook.com
+ (2603:10b6:208:aa::15)
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from ETHANOL2.amd.com (165.204.156.251) by
+ MAXPR0101CA0011.INDPRD01.PROD.OUTLOOK.COM (2603:1096:a00:c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
+ Transport; Wed, 26 Feb 2020 10:48:06 +0000
+X-Mailer: git-send-email 2.17.1
+X-Originating-IP: [165.204.156.251]
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-HT: Tenant
+X-MS-Office365-Filtering-Correlation-Id: 05ecfdab-50cc-4128-2458-08d7baa95e35
+X-MS-TrafficTypeDiagnostic: MN2PR12MB3933:|MN2PR12MB3933:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: <MN2PR12MB3933B7DE54A25F2EFFE6850CF8EA0@MN2PR12MB3933.namprd12.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:2582;
+X-Forefront-PRVS: 0325F6C77B
+X-Forefront-Antispam-Report: SFV:NSPM;
+ SFS:(10009020)(4636009)(366004)(346002)(136003)(396003)(39860400002)(376002)(189003)(199004)(7696005)(52116002)(4326008)(86362001)(109986005)(26005)(186003)(4744005)(6666004)(6486002)(66476007)(66556008)(66946007)(16526019)(478600001)(81166006)(316002)(36756003)(8936002)(1076003)(8676002)(81156014)(44832011)(2906002)(2616005)(956004)(5660300002)(54906003)(266003);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:MN2PR12MB3933;
+ H:MN2PR12MB2878.namprd12.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+Received-SPF: None (protection.outlook.com: amd.com does not designate
+ permitted sender hosts)
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: C5J+773CcQoj6IuBubWZfetl0KizZytqnnJWyVQlHXrGOFdob+VotnsGQlLWKYj8CZ2U2l6A3EjNwr6AhhbO9Rm3Jj2JAORqSANuUhnfGbVpGn+TnJ1NO+SCLdtJBV8BR6yt5LuQ8iNLJlbRyaiqYUfeCR11VDot/jX1B/BFgJLo9u2AFUu3qHAffOLDNhPzN144kTwmEpTYu0DXphol4kGhK8cE33pbnYCIk76ozfv1bupQBWEfISeswbZDWlsyCqeXmSuEWkOy7NDyjD2kp0kCUX7dSQqsUM7LMl4X36kWCB8Hi5oP+R73wX0+NTGJgVKIol+2W6V6RjPwr0tjIB49I9mqVKIcjo37jecH1Daw+AQqapCBrINN32jsSwuqWfojTNkpPgy5sWE9b/qbKk8HyjEJ9WWRH4u7NaCkLfQWkL249j70PpRhT9IzMVSPQ+QG3+5VLmCa6Lg+6e7ilRYkp3vytl8Lgcj83UocewA=
+X-MS-Exchange-AntiSpam-MessageData: Z7DxFJib44MiGgv53aQjZjx9fioIo37G2p/9E+33yZfiYAwDbrPSyM7p33XjFd5IcKjyxhZiGMoCsA58geqLIYCD2cB0fmwKC1MEzd3hOgb8YDfCRkhrzNUxFthkSpcfuFAmzbDM01aE3r+g56uoMw==
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 05ecfdab-50cc-4128-2458-08d7baa95e35
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 10:48:09.3652 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7zhSEfmkIPS3deL0oQEhhFZUa6J2sLzH+8wRXS85CogxsJgiRp1TKYQHk3bbtpBaHYTJBwUajiIqsmGgK/PwVQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB3933
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ open list <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Mark Brown <broonie@kernel.org>,
+ Ravulapati Vishnu vardhan rao <Vishnuvardhanrao.Ravulapati@amd.com>,
+ akshu.agrawal@amd.com, Dan Carpenter <dan.carpenter@oracle.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,43 +133,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-When runtime PM is enabled, regulators are being controlled by the
-driver's suspend and resume callbacks. They are also unconditionally
-enabled at driver's probe(), and disabled in remove() functions. Add
-more calls to runtime PM framework to ensure that the device's runtime
-PM state matches the regulators state:
-1. at the end of probe() function: set runtime PM state to active, so
-there will be no spurious call to resume();
-2. in remove(), ensure that resume() is called before disabling runtime PM
-management and unconditionally disabling the regulators.
+ACP_PME_EN allows wake interrupt to be generated when I2S wake
+feature is enabled. On turning ACP On, ACP_PME_EN gets cleared.
+Setting the bit back ensures that wake event can be received
+when ACP is On.
 
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
 ---
- drivers/mfd/wm8994-core.c | 3 +++
- 1 file changed, 3 insertions(+)
+ sound/soc/amd/raven/pci-acp3x.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/wm8994-core.c b/drivers/mfd/wm8994-core.c
-index 737dede4a95c..69d973ec42bf 100644
---- a/drivers/mfd/wm8994-core.c
-+++ b/drivers/mfd/wm8994-core.c
-@@ -584,6 +584,7 @@ static int wm8994_device_init(struct wm8994 *wm8994, int irq)
- 		goto err_irq;
+diff --git a/sound/soc/amd/raven/pci-acp3x.c b/sound/soc/amd/raven/pci-acp3x.c
+index da60e2ec5535..f25ce50f1a90 100644
+--- a/sound/soc/amd/raven/pci-acp3x.c
++++ b/sound/soc/amd/raven/pci-acp3x.c
+@@ -38,8 +38,13 @@ static int acp3x_power_on(void __iomem *acp3x_base)
+ 	timeout = 0;
+ 	while (++timeout < 500) {
+ 		val = rv_readl(acp3x_base + mmACP_PGFSM_STATUS);
+-		if (!val)
++		if (!val) {
++			/* Set PME_EN as after ACP power On,
++			 * PME_EN gets cleared
++			 */
++			rv_writel(0x1, acp3x_base + mmACP_PME_EN);
+ 			return 0;
++		}
+ 		udelay(1);
  	}
- 
-+	pm_runtime_set_active(wm8994->dev);
- 	pm_runtime_enable(wm8994->dev);
- 	pm_runtime_idle(wm8994->dev);
- 
-@@ -603,7 +604,9 @@ static int wm8994_device_init(struct wm8994 *wm8994, int irq)
- 
- static void wm8994_device_exit(struct wm8994 *wm8994)
- {
-+	pm_runtime_get_sync(wm8994->dev);
- 	pm_runtime_disable(wm8994->dev);
-+	pm_runtime_put_noidle(wm8994->dev);
- 	wm8994_irq_exit(wm8994);
- 	regulator_bulk_disable(wm8994->num_supplies, wm8994->supplies);
- 	regulator_bulk_free(wm8994->num_supplies, wm8994->supplies);
+ 	return -ETIMEDOUT;
 -- 
 2.17.1
 

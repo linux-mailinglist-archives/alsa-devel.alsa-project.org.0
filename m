@@ -2,63 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37EC31706A3
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 18:51:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9F5170800
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 19:48:59 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B4778168D;
-	Wed, 26 Feb 2020 18:50:56 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B4778168D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8253B1699;
+	Wed, 26 Feb 2020 19:48:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8253B1699
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582739506;
-	bh=16IH0sQEo2VsQQ2AHajjh4BS+4kehGgBMlTMnFcdIwY=;
-	h=Subject:From:To:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=NQrpUo9SISzr7E5NZw/KDVBCA6kCF5hszg5ObtTV26m7hTpAH0IGvfN3XfRTe/2+z
-	 wCXKU68UzL4oHLBm1kKlwCEJL0uqB7JKUT9wtNRAQ7h9KyaSWkiAgjR2ftjFcrI6Uv
-	 hezqgyWgqAVV8bgkrudPOt0qKU2NDgWtn0GQYQNU=
+	s=default; t=1582742938;
+	bh=ygKXUP/zlNrD1JP9tprOUPDs+qn0SEaRxxiS+kQqvV8=;
+	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
+	 List-Archive:List-Post:List-Help:List-Subscribe:From;
+	b=lNVcTXcpQKRfZSNY1Y538UAMzqiKW1i0gs6OmgDSY+Isj+cfqqofoKpy7vIl53Zft
+	 W7Pon6J0YKm4A1LA2tyHPc57EXZxGY4OV4fNw2CEvDRIm3Crq0i6gQ0qg/bDAdCrlm
+	 kFi8dBj3kJR43SdgT2Uc6mRBUDcY2pGEo57S1jR8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9996F8016F;
-	Wed, 26 Feb 2020 18:50:05 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 4992EF80171;
+	Wed, 26 Feb 2020 19:47:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1D809F8014E; Wed, 26 Feb 2020 18:50:03 +0100 (CET)
+ id 993C2F8014E; Wed, 26 Feb 2020 19:47:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CA803F800AD
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 18:49:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CA803F800AD
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 26 Feb 2020 09:49:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,488,1574150400"; d="scan'208";a="230510128"
-Received: from walkernx-mobl.amr.corp.intel.com ([10.254.14.92])
- by fmsmga007.fm.intel.com with ESMTP; 26 Feb 2020 09:49:55 -0800
-Message-ID: <5d98cb39bfdc4fe806fa5ec249f02dfc03d994ee.camel@linux.intel.com>
-Subject: Re: [PATCH 4/8] ASoC: soc-pcm: add dpcm_fe_dai_clean()
-From: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Mark Brown
- <broonie@kernel.org>
-Date: Wed, 26 Feb 2020 09:49:55 -0800
-In-Reply-To: <878skp97in.wl-kuninori.morimoto.gx@renesas.com>
-References: <87eeuh97k4.wl-kuninori.morimoto.gx@renesas.com>
- <878skp97in.wl-kuninori.morimoto.gx@renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Cc: Linux-ALSA <alsa-devel@alsa-project.org>
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id C9C35F80089
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 19:47:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9C35F80089
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C96930E;
+ Wed, 26 Feb 2020 10:47:09 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 023F43F881;
+ Wed, 26 Feb 2020 10:47:08 -0800 (PST)
+Date: Wed, 26 Feb 2020 18:47:07 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Dan Murphy <dmurphy@ti.com>
+Subject: Applied "ASoC: tas2562: Add entries for the TAS2563 audio amplifier"
+ to the asoc tree
+In-Reply-To: 
+Message-Id: 
+X-Patchwork-Hint: ignore
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,37 +64,82 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Wed, 2020-02-26 at 15:40 +0900, Kuninori Morimoto wrote:
-> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> 
-> dpcm_fe_dai_close() and error case of dpcm_fe_dai_open()
-> need to do same cleanup operation.
-> To avoid duplicate code, this patch adds dpcm_fe_dai_clean()
-> and use it.
-> 
-> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-> ---
->  sound/soc/soc-pcm.c | 30 ++++++++++++++++--------------
->  1 file changed, 16 insertions(+), 14 deletions(-)
-> 
-> diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-> index 3686dda097e2..d578dbdfa846 100644
-> --- a/sound/soc/soc-pcm.c
-> +++ b/sound/soc/soc-pcm.c
-> @@ -2978,14 +2978,11 @@ int soc_dpcm_runtime_update(struct
-> snd_soc_card *card)
->  	return ret;
->  }
->  
-> -static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
-> +static void dpcm_fe_dai_clean(struct snd_pcm_substream
-> *fe_substream)
-The series looks good to me, Morimoto-san. But a minor suggestion if
-you're doing a v2 to address other comments. Could you please change
-the name of the function above to dpcm_fe_dai_cleanup() instead?
+The patch
 
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+   ASoC: tas2562: Add entries for the TAS2563 audio amplifier
+
+has been applied to the asoc tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git 
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Ranjani
+Mark
+
+From 14f8c8d8fd62207f081549d45099a90dd3717696 Mon Sep 17 00:00:00 2001
+From: Dan Murphy <dmurphy@ti.com>
+Date: Wed, 26 Feb 2020 07:03:04 -0600
+Subject: [PATCH] ASoC: tas2562: Add entries for the TAS2563 audio amplifier
+
+The TAS2563 is register compatible with the TAS2562.  The main
+difference is the TAS2563 has a programmable DSP to manage different
+audio profiles.
+
+Signed-off-by: Dan Murphy <dmurphy@ti.com>
+Link: https://lore.kernel.org/r/20200226130305.12043-2-dmurphy@ti.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ sound/soc/codecs/tas2562.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
+index d5e04030a0c1..79c3c3d79766 100644
+--- a/sound/soc/codecs/tas2562.c
++++ b/sound/soc/codecs/tas2562.c
+@@ -55,6 +55,11 @@ struct tas2562_data {
+ 	int volume_lvl;
+ };
+ 
++enum tas256x_model {
++	TAS2562,
++	TAS2563,
++};
++
+ static int tas2562_set_bias_level(struct snd_soc_component *component,
+ 				 enum snd_soc_bias_level level)
+ {
+@@ -664,13 +669,15 @@ static int tas2562_probe(struct i2c_client *client,
+ }
+ 
+ static const struct i2c_device_id tas2562_id[] = {
+-	{ "tas2562", 0 },
++	{ "tas2562", TAS2562 },
++	{ "tas2563", TAS2563 },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, tas2562_id);
+ 
+ static const struct of_device_id tas2562_of_match[] = {
+ 	{ .compatible = "ti,tas2562", },
++	{ .compatible = "ti,tas2563", },
+ 	{ },
+ };
+ MODULE_DEVICE_TABLE(of, tas2562_of_match);
+-- 
+2.20.1
 

@@ -2,49 +2,50 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5EA816F82C
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 07:44:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BB0C16F82D
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 07:45:36 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 77DBD16AB;
-	Wed, 26 Feb 2020 07:44:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 77DBD16AB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 0470B1697;
+	Wed, 26 Feb 2020 07:44:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 0470B1697
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582699491;
-	bh=nyk4DLr4zvKcSZcvRnlpMGo8iM1+R/1x0SOo7cC9UMc=;
+	s=default; t=1582699536;
+	bh=OkpxYBtbO1a4igSL3dxguNf7f9Pv/OUExlAwgkQ+xvg=;
 	h=Date:From:Subject:To:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=DaW2WgnvErVe3WpFabXm0NBgXY8tsL9SrXNYDn+T4gqL4DPsikVgO2YSWA0XnHDCW
-	 uGKO2REtLy7MdPr9F2kWJc7PeV7hN58UReJKbeRHC0SqHhI7h7g2I5DJh1ducJt0fP
-	 VVP3lXonM/DhnypHcRw88O5tcYRF2A9q9TVpNCsI=
+	b=ApJNawM8dCrJUtSVrbMLiLbeLQOcVgRNFNIptOpxCtODWyiPh0znjXbjtTQPDhE/i
+	 RcswlhFdgY/IwNMOEatSNyAaA37+PCfp/5tTRJrnB3SOVgmtXx4xxEKzzWjOYlVGOg
+	 CwGFJ6EItS6kZj4ui7k/GP6OCe7HDfCUk7YKYzDI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C3D6AF802A7;
-	Wed, 26 Feb 2020 07:40:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 8E45AF802DB;
+	Wed, 26 Feb 2020 07:41:04 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id C6C7AF802A1; Wed, 26 Feb 2020 07:40:50 +0100 (CET)
+ id C5C2DF802C2; Wed, 26 Feb 2020 07:40:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=KHOP_HELO_FCRDNS, SPF_HELO_NONE,
  SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id E8434F8029B
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 07:40:45 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz E8434F8029B
-Date: 26 Feb 2020 15:40:44 +0900
-X-IronPort-AV: E=Sophos;i="5.70,486,1574089200"; d="scan'208";a="40068555"
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by alsa1.perex.cz (Postfix) with ESMTP id 6F816F800E8
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 07:40:55 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6F816F800E8
+Date: 26 Feb 2020 15:40:53 +0900
+X-IronPort-AV: E=Sophos;i="5.70,487,1574089200"; d="scan'208";a="40284309"
 Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 26 Feb 2020 15:40:44 +0900
+ by relmlie5.idc.renesas.com with ESMTP; 26 Feb 2020 15:40:53 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id A1E9E4189CC5;
- Wed, 26 Feb 2020 15:40:44 +0900 (JST)
-Message-ID: <875zft97i4.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id A6B9841890F8;
+ Wed, 26 Feb 2020 15:40:53 +0900 (JST)
+Message-ID: <874kvd97hu.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: [PATCH 6/8] ASoC: soc-pcm: check DAI's activity more simply
+Subject: [PATCH 7/8] ASoC: soc-pcm: Do Digital Mute for both CPU/Codec in same
+ timing.
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 To: Mark Brown <broonie@kernel.org>
 In-Reply-To: <87eeuh97k4.wl-kuninori.morimoto.gx@renesas.com>
@@ -67,44 +68,45 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-DAI is counting its activity, and both playback/capture directional
-activity. When considering mute, DAI's activity is enough instead of
-caring both playback/capture.
-This patch makes mute check simply.
+Digital Mute for CPU   is done at soc_pcm_close(), and
+Digital Mute for Codec is done at soc_pcm_hw_free().
+It is just confusable.
+This patch do Digital Mute for both CPU/Codec in same timing.
+Then, it cares DAI activity
 
 Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 ---
- sound/soc/soc-pcm.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ sound/soc/soc-pcm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 4a14f10b8c90..7e0464ec802e 100644
+index 7e0464ec802e..1f7a86c4bc02 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -1202,7 +1202,6 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
- 	struct snd_soc_dai *cpu_dai;
- 	struct snd_soc_dai *codec_dai;
--	bool playback = substream->stream == SNDRV_PCM_STREAM_PLAYBACK;
- 	int i;
+@@ -760,9 +760,6 @@ static int soc_pcm_close(struct snd_pcm_substream *substream)
  
- 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
-@@ -1226,11 +1225,7 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+ 	snd_soc_runtime_deactivate(rtd, substream->stream);
  
- 	/* apply codec digital mute */
- 	for_each_rtd_codec_dai(rtd, i, codec_dai) {
--		int playback_active = codec_dai->stream_active[SNDRV_PCM_STREAM_PLAYBACK];
--		int capture_active  = codec_dai->stream_active[SNDRV_PCM_STREAM_CAPTURE];
+-	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
+-		snd_soc_dai_digital_mute(cpu_dai, 1, substream->stream);
 -
--		if ((playback && playback_active == 1) ||
--		    (!playback && capture_active == 1))
-+		if (codec_dai->active == 1)
+ 	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
+ 		snd_soc_dai_shutdown(cpu_dai, substream);
+ 
+@@ -1229,6 +1226,11 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
  			snd_soc_dai_digital_mute(codec_dai, 1,
  						 substream->stream);
  	}
++	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
++		if (cpu_dai->active == 1)
++			snd_soc_dai_digital_mute(cpu_dai, 1,
++						 substream->stream);
++	}
+ 
+ 	/* free any machine hw params */
+ 	soc_rtd_hw_free(rtd, substream);
 -- 
 2.17.1
 

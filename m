@@ -2,75 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C09016FFAF
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 14:10:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B47916FFAD
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 14:10:09 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C16661676;
-	Wed, 26 Feb 2020 14:10:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C16661676
+	by alsa0.perex.cz (Postfix) with ESMTPS id DBE91167D;
+	Wed, 26 Feb 2020 14:09:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz DBE91167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582722652;
-	bh=dNc0eS6oSQZT89ZI4OCIpykeXmnn+VAVjnKi+xIqecc=;
+	s=default; t=1582722608;
+	bh=oN0y6TXA1vaow9sxAXty+RyWp/7oFhjNuNfLo8EgdZY=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=tG5jn1z3kFhZDuRJc8ZyzQ5h8YY4mjh2ZQ26STbseQ3VnU4y5AV82bI4vt7tftPnI
-	 bcZbn7p/fI7Z1MqgCXJ4qltAunlNpWSXggR5h6gYlnhzR8+HBCv5392HH/IlKo0N/W
-	 Fu/XKsqlUYY+ecoXq2C/zMgCJyyw8b7oiPjDR30w=
+	b=qcsShhtUAnKfW2ZV5M4umu+SoBYi2sT0Z3b6P+5PACrQy5Dry4L+EGTTNslXaysw4
+	 Jf1a+IxklOYCrtW1BtUyBHiUCfGwhMlEdzNHwzRhRwKOqd0NG3qR+vrGefh9z8aosw
+	 d6CU/6BEt0asgajfD+lXlgMsixx9nYAIExovNwwc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D8D35F800E8;
-	Wed, 26 Feb 2020 14:08:31 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D1F6EF80089;
+	Wed, 26 Feb 2020 14:08:27 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 6BBFDF8014E; Wed, 26 Feb 2020 14:08:26 +0100 (CET)
+ id 28B7FF80171; Wed, 26 Feb 2020 14:08:26 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SURBL_BLOCKED,URIBL_BLOCKED
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+Received: from fllv0016.ext.ti.com (fllv0016.ext.ti.com [198.47.19.142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8E486F80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id AC215F800E8
  for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 14:08:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E486F80089
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AC215F800E8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="qYpHFfAE"
-Received: from lelv0266.itg.ti.com ([10.180.67.225])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01QD8KDq026097;
+ dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="RT8Ou6ue"
+Received: from fllv0034.itg.ti.com ([10.64.40.246])
+ by fllv0016.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01QD8KRu097208;
  Wed, 26 Feb 2020 07:08:20 -0600
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
  s=ti-com-17Q1; t=1582722500;
- bh=d8zidl/dWA5daRtdqdUI0IcTVlC1FTBnu1YV5N+kDIM=;
+ bh=U2/8MofG7oIU/EBLKqUbVXsN2VlldAOoMRTLHW4tTgg=;
  h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=qYpHFfAEroVYTzVAolOxuarisbqOPJ4azI7FfwZsT/g1qHzBuZHgs+6AAe4rVgZN9
- XuBecHYUEGF/cH80XWVAr8n0SMN6mqF3YR+d9usz2ArXGLWauV+UeRPVLBP8yk0lAd
- pAFUN7u4jcHAuxl+T1wlvPUaFyLf6MEyX21QHr4c=
-Received: from DLEE115.ent.ti.com (dlee115.ent.ti.com [157.170.170.26])
- by lelv0266.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01QD8KbM032740
+ b=RT8Ou6ueGxFz9OE7DoSdeK399eoXe1tRq3NGVKavsPyI6d4WOEXY241aCe91/vpUi
+ 3IHitAzsi0Ya5q3YZEEs+7Vpyea+bRwABZo1fKli1w2B8DgyTO27Zu8OHXBbnAYyAf
+ kp/dwk9YmImgD5HvKrVyDxsl0NIm7u3voWMwzxjI=
+Received: from DLEE114.ent.ti.com (dlee114.ent.ti.com [157.170.170.25])
+ by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01QD8KKF021752
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
  Wed, 26 Feb 2020 07:08:20 -0600
-Received: from DLEE110.ent.ti.com (157.170.170.21) by DLEE115.ent.ti.com
- (157.170.170.26) with Microsoft SMTP Server (version=TLS1_2,
+Received: from DLEE101.ent.ti.com (157.170.170.31) by DLEE114.ent.ti.com
+ (157.170.170.25) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Wed, 26
- Feb 2020 07:08:19 -0600
-Received: from lelv0326.itg.ti.com (10.180.67.84) by DLEE110.ent.ti.com
- (157.170.170.21) with Microsoft SMTP Server (version=TLS1_2,
+ Feb 2020 07:08:20 -0600
+Received: from localhost.localdomain (10.64.41.19) by DLEE101.ent.ti.com
+ (157.170.170.31) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Wed, 26 Feb 2020 07:08:19 -0600
+ Frontend Transport; Wed, 26 Feb 2020 07:08:20 -0600
 Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by lelv0326.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01QD8JdB105926;
- Wed, 26 Feb 2020 07:08:19 -0600
+ by localhost.localdomain (8.15.2/8.15.2) with ESMTP id 01QD8JJN121280;
+ Wed, 26 Feb 2020 07:08:20 -0600
 From: Dan Murphy <dmurphy@ti.com>
 To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
  <tiwai@suse.com>
-Subject: [PATCH for-next 2/3] ASoC: tas2562: Add entries for the TAS2563 audio
- amplifier
-Date: Wed, 26 Feb 2020 07:03:04 -0600
-Message-ID: <20200226130305.12043-2-dmurphy@ti.com>
+Subject: [PATCH for-next 3/3] ASoC: tas2562: Fix sample rate error message
+Date: Wed, 26 Feb 2020 07:03:05 -0600
+Message-ID: <20200226130305.12043-3-dmurphy@ti.com>
 X-Mailer: git-send-email 2.25.0
 In-Reply-To: <20200226130305.12043-1-dmurphy@ti.com>
 References: <20200226130305.12043-1-dmurphy@ti.com>
@@ -95,48 +94,27 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The TAS2563 is register compatible with the TAS2562.  The main
-difference is the TAS2563 has a programmable DSP to manage different
-audio profiles.
+Fix error message for setting the sample rate.  It says bitwidth but
+should say sample rate.
 
 Signed-off-by: Dan Murphy <dmurphy@ti.com>
 ---
- sound/soc/codecs/tas2562.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ sound/soc/codecs/tas2562.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index d5e04030a0c1..79c3c3d79766 100644
+index 79c3c3d79766..6b7f7a18da36 100644
 --- a/sound/soc/codecs/tas2562.c
 +++ b/sound/soc/codecs/tas2562.c
-@@ -55,6 +55,11 @@ struct tas2562_data {
- 	int volume_lvl;
- };
+@@ -276,7 +276,7 @@ static int tas2562_hw_params(struct snd_pcm_substream *substream,
  
-+enum tas256x_model {
-+	TAS2562,
-+	TAS2563,
-+};
-+
- static int tas2562_set_bias_level(struct snd_soc_component *component,
- 				 enum snd_soc_bias_level level)
- {
-@@ -664,13 +669,15 @@ static int tas2562_probe(struct i2c_client *client,
+ 	ret = tas2562_set_samplerate(tas2562, params_rate(params));
+ 	if (ret)
+-		dev_err(tas2562->dev, "set bitwidth failed, %d\n", ret);
++		dev_err(tas2562->dev, "set sample rate failed, %d\n", ret);
+ 
+ 	return ret;
  }
- 
- static const struct i2c_device_id tas2562_id[] = {
--	{ "tas2562", 0 },
-+	{ "tas2562", TAS2562 },
-+	{ "tas2563", TAS2563 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, tas2562_id);
- 
- static const struct of_device_id tas2562_of_match[] = {
- 	{ .compatible = "ti,tas2562", },
-+	{ .compatible = "ti,tas2563", },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, tas2562_of_match);
 -- 
 2.25.0
 

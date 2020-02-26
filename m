@@ -2,55 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E91617080F
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 19:51:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2FC3170811
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 19:52:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E3D5D1699;
-	Wed, 26 Feb 2020 19:50:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3D5D1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 6A1D11689;
+	Wed, 26 Feb 2020 19:51:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6A1D11689
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582743083;
-	bh=9tsK6bOKb9ZI6ThgF9LV4PCzLZAFN/HmBRoNyo+JNdE=;
+	s=default; t=1582743124;
+	bh=irE/PgADhe/F3YGzuvCbRt11BIFRBrZ7odOJmklIff4=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=p4RsPRu3M/tWWh4BXVswbPawIfQ6btOpJXabl1kT1gMepJRPLMH4bIqJXwJFUEHGa
-	 ZRx5ZwOit0jspPP+J2ZZTDkLrBuy/eIsjdks4r/JtGd+xwzYXHUTA7FelJ2HnhNRmq
-	 a0AKDkBfGY7c9YPBaZPJ4Jb8Y0zIuFqDfa2LoJ2I=
+	b=YU5trvo0vGq/O2YM/KztduGy5RJOBYOkWDUsYbMSSPrDmQjapweP063PhVM0TQTtn
+	 yiA55P1KDhS9b1DLH3Jv/wXqLVRUuGz37DXYuMEhWC9LijTSx3eauLZrYueJcR/ttu
+	 MkQpoXlTIkPlxtlJTosfEckyRThAMvQ8/YMYW57o=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 60F5BF80292;
-	Wed, 26 Feb 2020 19:47:40 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 9F9E5F802BC;
+	Wed, 26 Feb 2020 19:47:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 19F36F80291; Wed, 26 Feb 2020 19:47:34 +0100 (CET)
+ id 5A93FF8029A; Wed, 26 Feb 2020 19:47:39 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D64BBF8028E
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 19:47:29 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D64BBF8028E
+ by alsa1.perex.cz (Postfix) with ESMTP id C9406F8028F
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 19:47:34 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9406F8028F
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 391D130E;
- Wed, 26 Feb 2020 10:47:29 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 09BFA30E;
+ Wed, 26 Feb 2020 10:47:34 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 756323F881;
- Wed, 26 Feb 2020 10:47:28 -0800 (PST)
-Date: Wed, 26 Feb 2020 18:47:26 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7169A3F881;
+ Wed, 26 Feb 2020 10:47:33 -0800 (PST)
+Date: Wed, 26 Feb 2020 18:47:31 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Oder Chiou <oder_chiou@realtek.com>
-Subject: Applied "ASoC: rt5682: Add the soundwire support" to the asoc tree
-In-Reply-To: <20200219102858.20166-1-oder_chiou@realtek.com>
-Message-Id: <applied-20200219102858.20166-1-oder_chiou@realtek.com>
+To: Akshu Agrawal <akshu.agrawal@amd.com>
+Subject: Applied "ASoC: amd: Add machine driver for Raven based platform" to
+ the asoc tree
+In-Reply-To: <20200217050515.3847-1-akshu.agrawal@amd.com>
+Message-Id: <applied-20200217050515.3847-1-akshu.agrawal@amd.com>
 X-Patchwork-Hint: ignore
-Cc: jack.yu@realtek.com, alsa-devel@alsa-project.org, lgirdwood@gmail.com,
- pierre-louis.bossart@linux.intel.com, Mark Brown <broonie@kernel.org>,
- derek.fang@realtek.com, shumingf@realtek.com, yung-chuan.liao@linux.intel.com,
- flove@realtek.com
+Cc: , "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Takashi Iwai <tiwai@suse.com>, YueHaibing <yuehaibing@huawei.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, akshu.agrawal@amd.com,
+ Mark Brown <broonie@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,7 +71,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5682: Add the soundwire support
+   ASoC: amd: Add machine driver for Raven based platform
 
 has been applied to the asoc tree at
 
@@ -93,1166 +96,397 @@ to this mail.
 Thanks,
 Mark
 
-From 03f6fc6de9192f4e4209ceee0e92f5947d44fc0a Mon Sep 17 00:00:00 2001
-From: Oder Chiou <oder_chiou@realtek.com>
-Date: Wed, 19 Feb 2020 18:28:57 +0800
-Subject: [PATCH] ASoC: rt5682: Add the soundwire support
+From 6b8e4e7db3cd236a2cbb720360fb135087a2ac1d Mon Sep 17 00:00:00 2001
+From: Akshu Agrawal <akshu.agrawal@amd.com>
+Date: Mon, 17 Feb 2020 10:35:01 +0530
+Subject: [PATCH] ASoC: amd: Add machine driver for Raven based platform
 
-This patch adds the soundwire support for ALC5682.
+Add machine driver for Raven based platform using
+RT5682 + MAX9836 + CROS_EC codecs
 
-Signed-off-by: Oder Chiou <oder_chiou@realtek.com>
-Link: https://lore.kernel.org/r/20200219102858.20166-1-oder_chiou@realtek.com
+Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
+Link: https://lore.kernel.org/r/20200217050515.3847-1-akshu.agrawal@amd.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/Kconfig      |   7 +
- sound/soc/codecs/Makefile     |   2 +
- sound/soc/codecs/rt5682-sdw.c | 333 +++++++++++++++++++++
- sound/soc/codecs/rt5682-sdw.h |  20 ++
- sound/soc/codecs/rt5682.c     | 526 +++++++++++++++++++++++++++++++---
- sound/soc/codecs/rt5682.h     |  49 ++++
- 6 files changed, 897 insertions(+), 40 deletions(-)
- create mode 100644 sound/soc/codecs/rt5682-sdw.c
- create mode 100644 sound/soc/codecs/rt5682-sdw.h
+ sound/soc/amd/Kconfig                |  10 +
+ sound/soc/amd/Makefile               |   2 +
+ sound/soc/amd/acp3x-rt5682-max9836.c | 334 +++++++++++++++++++++++++++
+ 3 files changed, 346 insertions(+)
+ create mode 100644 sound/soc/amd/acp3x-rt5682-max9836.c
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index a7e89567edbe..6aee70ed43df 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -168,6 +168,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_RT5670
- 	imply SND_SOC_RT5677
- 	imply SND_SOC_RT5682
-+	imply SND_SOC_RT5682_SDW
- 	imply SND_SOC_RT700_SDW
- 	imply SND_SOC_RT711_SDW
- 	imply SND_SOC_RT715_SDW
-@@ -1136,6 +1137,12 @@ config SND_SOC_RT5682
- 	tristate
- 	depends on I2C
- 
-+config SND_SOC_RT5682_SDW
-+	tristate "Realtek RT5682 Codec - SDW"
-+	depends on SOUNDWIRE
+diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+index 5f40517717c4..b29ef1373946 100644
+--- a/sound/soc/amd/Kconfig
++++ b/sound/soc/amd/Kconfig
+@@ -26,3 +26,13 @@ config SND_SOC_AMD_ACP3x
+ 	depends on X86 && PCI
+ 	help
+ 	 This option enables ACP v3.x I2S support on AMD platform
++
++config SND_SOC_AMD_RV_RT5682_MACH
++	tristate "AMD RV support for RT5682"
 +	select SND_SOC_RT5682
-+	select REGMAP_SOUNDWIRE
-+
- config SND_SOC_RT700
- 	tristate
++	select SND_SOC_MAX98357A
++	select SND_SOC_CROS_EC_CODEC
++	select I2C_CROS_EC_TUNNEL
++	depends on SND_SOC_AMD_ACP3x && I2C
++	help
++	 This option enables machine driver for RT5682 and MAX9835.
+diff --git a/sound/soc/amd/Makefile b/sound/soc/amd/Makefile
+index c4ddc6adb6f0..e6f3d9b469f3 100644
+--- a/sound/soc/amd/Makefile
++++ b/sound/soc/amd/Makefile
+@@ -2,8 +2,10 @@
+ acp_audio_dma-objs := acp-pcm-dma.o
+ snd-soc-acp-da7219mx98357-mach-objs := acp-da7219-max98357a.o
+ snd-soc-acp-rt5645-mach-objs := acp-rt5645.o
++snd-soc-acp-rt5682-mach-objs := acp3x-rt5682-max9836.o
  
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 943ebc93fbc1..03533157cda6 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -177,6 +177,7 @@ snd-soc-rt5670-objs := rt5670.o
- snd-soc-rt5677-objs := rt5677.o
- snd-soc-rt5677-spi-objs := rt5677-spi.o
- snd-soc-rt5682-objs := rt5682.o
-+snd-soc-rt5682-sdw-objs := rt5682-sdw.o
- snd-soc-rt700-objs := rt700.o rt700-sdw.o
- snd-soc-rt711-objs := rt711.o rt711-sdw.o
- snd-soc-rt715-objs := rt715.o rt715-sdw.o
-@@ -477,6 +478,7 @@ obj-$(CONFIG_SND_SOC_RT5670)	+= snd-soc-rt5670.o
- obj-$(CONFIG_SND_SOC_RT5677)	+= snd-soc-rt5677.o
- obj-$(CONFIG_SND_SOC_RT5677_SPI)	+= snd-soc-rt5677-spi.o
- obj-$(CONFIG_SND_SOC_RT5682)	+= snd-soc-rt5682.o
-+obj-$(CONFIG_SND_SOC_RT5682_SDW)	+= snd-soc-rt5682-sdw.o
- obj-$(CONFIG_SND_SOC_RT700)     += snd-soc-rt700.o
- obj-$(CONFIG_SND_SOC_RT711)     += snd-soc-rt711.o
- obj-$(CONFIG_SND_SOC_RT715)     += snd-soc-rt715.o
-diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
+ obj-$(CONFIG_SND_SOC_AMD_ACP) += acp_audio_dma.o
+ obj-$(CONFIG_SND_SOC_AMD_CZ_DA7219MX98357_MACH) += snd-soc-acp-da7219mx98357-mach.o
+ obj-$(CONFIG_SND_SOC_AMD_CZ_RT5645_MACH) += snd-soc-acp-rt5645-mach.o
+ obj-$(CONFIG_SND_SOC_AMD_ACP3x) += raven/
++obj-$(CONFIG_SND_SOC_AMD_RV_RT5682_MACH) += snd-soc-acp-rt5682-mach.o
+diff --git a/sound/soc/amd/acp3x-rt5682-max9836.c b/sound/soc/amd/acp3x-rt5682-max9836.c
 new file mode 100644
-index 000000000000..fc31d04b5203
+index 000000000000..96fbcd29e3ed
 --- /dev/null
-+++ b/sound/soc/codecs/rt5682-sdw.c
-@@ -0,0 +1,333 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/sound/soc/amd/acp3x-rt5682-max9836.c
+@@ -0,0 +1,334 @@
++// SPDX-License-Identifier: GPL-2.0+
 +//
-+// rt5682-sdw.c  --  RT5682 ALSA SoC audio component driver
++// Machine driver for AMD ACP Audio engine using DA7219 & MAX98357 codec.
 +//
-+// Copyright 2019 Realtek Semiconductor Corp.
-+// Author: Oder Chiou <oder_chiou@realtek.com>
-+//
++//Copyright 2016 Advanced Micro Devices, Inc.
 +
-+#include <linux/module.h>
-+#include <linux/moduleparam.h>
-+#include <linux/init.h>
-+#include <linux/delay.h>
-+#include <linux/pm.h>
-+#include <linux/acpi.h>
-+#include <linux/gpio.h>
-+#include <linux/of_gpio.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/mutex.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_type.h>
 +#include <sound/core.h>
++#include <sound/soc.h>
 +#include <sound/pcm.h>
 +#include <sound/pcm_params.h>
-+#include <sound/jack.h>
-+#include <sound/soc.h>
 +#include <sound/soc-dapm.h>
-+#include <sound/initval.h>
-+#include <sound/tlv.h>
++#include <sound/jack.h>
++#include <linux/clk.h>
++#include <linux/gpio.h>
++#include <linux/module.h>
++#include <linux/i2c.h>
++#include <linux/input.h>
++#include <linux/acpi.h>
 +
-+#include "rt5682.h"
-+#include "rt5682-sdw.h"
++#include "raven/acp3x.h"
++#include "../codecs/rt5682.h"
 +
-+static bool rt5682_sdw_readable_register(struct device *dev, unsigned int reg)
++#define PCO_PLAT_CLK 48000000
++#define RT5682_PLL_FREQ (48000 * 512)
++#define DUAL_CHANNEL		2
++
++static struct snd_soc_jack pco_jack;
++static struct clk *rt5682_dai_wclk;
++static struct clk *rt5682_dai_bclk;
++
++static int acp3x_5682_init(struct snd_soc_pcm_runtime *rtd)
 +{
-+	switch (reg) {
-+	case 0x00e0:
-+	case 0x00f0:
-+	case 0x3000:
-+	case 0x3001:
-+	case 0x3004:
-+	case 0x3005:
-+	case 0x3008:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+const struct regmap_config rt5682_sdw_regmap = {
-+	.name = "sdw",
-+	.reg_bits = 32,
-+	.val_bits = 8,
-+	.max_register = RT5682_I2C_MODE,
-+	.readable_reg = rt5682_sdw_readable_register,
-+	.cache_type = REGCACHE_NONE,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+};
-+
-+static int rt5682_update_status(struct sdw_slave *slave,
-+					enum sdw_slave_status status)
-+{
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(&slave->dev);
-+
-+	/* Update the status */
-+	rt5682->status = status;
-+
-+	if (status == SDW_SLAVE_UNATTACHED)
-+		rt5682->hw_init = false;
-+
-+	/*
-+	 * Perform initialization only if slave status is present and
-+	 * hw_init flag is false
-+	 */
-+	if (rt5682->hw_init || rt5682->status != SDW_SLAVE_ATTACHED)
-+		return 0;
-+
-+	/* perform I/O transfers required for Slave initialization */
-+	return rt5682_io_init(&slave->dev, slave);
-+}
-+
-+static int rt5682_read_prop(struct sdw_slave *slave)
-+{
-+	struct sdw_slave_prop *prop = &slave->prop;
-+	int nval, i, num_of_ports = 1;
-+	u32 bit;
-+	unsigned long addr;
-+	struct sdw_dpn_prop *dpn;
-+
-+	prop->paging_support = false;
-+
-+	/* first we need to allocate memory for set bits in port lists */
-+	prop->source_ports = 0x4;	/* BITMAP: 00000100 */
-+	prop->sink_ports = 0x2;		/* BITMAP: 00000010 */
-+
-+	nval = hweight32(prop->source_ports);
-+	num_of_ports += nval;
-+	prop->src_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+					  sizeof(*prop->src_dpn_prop),
-+					  GFP_KERNEL);
-+	if (!prop->src_dpn_prop)
-+		return -ENOMEM;
-+
-+	i = 0;
-+	dpn = prop->src_dpn_prop;
-+	addr = prop->source_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[i].num = bit;
-+		dpn[i].type = SDW_DPN_FULL;
-+		dpn[i].simple_ch_prep_sm = true;
-+		dpn[i].ch_prep_timeout = 10;
-+		i++;
-+	}
-+
-+	/* do this again for sink now */
-+	nval = hweight32(prop->sink_ports);
-+	num_of_ports += nval;
-+	prop->sink_dpn_prop = devm_kcalloc(&slave->dev, nval,
-+					   sizeof(*prop->sink_dpn_prop),
-+					   GFP_KERNEL);
-+	if (!prop->sink_dpn_prop)
-+		return -ENOMEM;
-+
-+	i = 0;
-+	dpn = prop->sink_dpn_prop;
-+	addr = prop->sink_ports;
-+	for_each_set_bit(bit, &addr, 32) {
-+		dpn[i].num = bit;
-+		dpn[i].type = SDW_DPN_FULL;
-+		dpn[i].simple_ch_prep_sm = true;
-+		dpn[i].ch_prep_timeout = 10;
-+		i++;
-+	}
-+
-+	/* Allocate port_ready based on num_of_ports */
-+	slave->port_ready = devm_kcalloc(&slave->dev, num_of_ports,
-+					 sizeof(*slave->port_ready),
-+					 GFP_KERNEL);
-+	if (!slave->port_ready)
-+		return -ENOMEM;
-+
-+	/* Initialize completion */
-+	for (i = 0; i < num_of_ports; i++)
-+		init_completion(&slave->port_ready[i]);
-+
-+	/* set the timeout values */
-+	prop->clk_stop_timeout = 20;
-+
-+	/* wake-up event */
-+	prop->wake_capable = 1;
-+
-+	return 0;
-+}
-+
-+/* Bus clock frequency */
-+#define RT5682_CLK_FREQ_9600000HZ 9600000
-+#define RT5682_CLK_FREQ_12000000HZ 12000000
-+#define RT5682_CLK_FREQ_6000000HZ 6000000
-+#define RT5682_CLK_FREQ_4800000HZ 4800000
-+#define RT5682_CLK_FREQ_2400000HZ 2400000
-+#define RT5682_CLK_FREQ_12288000HZ 12288000
-+
-+int rt5682_clock_config(struct device *dev)
-+{
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
-+	unsigned int clk_freq, value;
-+
-+	clk_freq = (rt5682->params.curr_dr_freq >> 1);
-+
-+	switch (clk_freq) {
-+	case RT5682_CLK_FREQ_12000000HZ:
-+		value = 0x0;
-+		break;
-+	case RT5682_CLK_FREQ_6000000HZ:
-+		value = 0x1;
-+		break;
-+	case RT5682_CLK_FREQ_9600000HZ:
-+		value = 0x2;
-+		break;
-+	case RT5682_CLK_FREQ_4800000HZ:
-+		value = 0x3;
-+		break;
-+	case RT5682_CLK_FREQ_2400000HZ:
-+		value = 0x4;
-+		break;
-+	case RT5682_CLK_FREQ_12288000HZ:
-+		value = 0x5;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	regmap_write(rt5682->sdw_regmap, 0xe0, value);
-+	regmap_write(rt5682->sdw_regmap, 0xf0, value);
-+
-+	dev_dbg(dev, "%s complete, clk_freq=%d\n", __func__, clk_freq);
-+
-+	return 0;
-+}
-+
-+static int rt5682_bus_config(struct sdw_slave *slave,
-+					struct sdw_bus_params *params)
-+{
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(&slave->dev);
 +	int ret;
-+
-+	memcpy(&rt5682->params, params, sizeof(*params));
-+
-+	ret = rt5682_clock_config(&slave->dev);
-+	if (ret < 0)
-+		dev_err(&slave->dev, "Invalid clk config");
-+
-+	return ret;
-+}
-+
-+static int rt5682_interrupt_callback(struct sdw_slave *slave,
-+					struct sdw_slave_intr_status *status)
-+{
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(&slave->dev);
-+
-+	dev_dbg(&slave->dev,
-+		"%s control_port_stat=%x", __func__, status->control_port);
-+
-+	if (status->control_port & 0x4) {
-+		mod_delayed_work(system_power_efficient_wq,
-+			&rt5682->jack_detect_work, msecs_to_jiffies(250));
-+	}
-+
-+	return 0;
-+}
-+
-+static struct sdw_slave_ops rt5682_slave_ops = {
-+	.read_prop = rt5682_read_prop,
-+	.interrupt_callback = rt5682_interrupt_callback,
-+	.update_status = rt5682_update_status,
-+	.bus_config = rt5682_bus_config,
-+};
-+
-+static int rt5682_sdw_probe(struct sdw_slave *slave,
-+			   const struct sdw_device_id *id)
-+{
-+	struct regmap *regmap;
-+
-+	/* Assign ops */
-+	slave->ops = &rt5682_slave_ops;
-+
-+	/* Regmap Initialization */
-+	regmap = devm_regmap_init_sdw(slave, &rt5682_sdw_regmap);
-+	if (IS_ERR(regmap))
-+		return -EINVAL;
-+
-+	rt5682_sdw_init(&slave->dev, regmap, slave);
-+
-+	return 0;
-+}
-+
-+static int rt5682_sdw_remove(struct sdw_slave *slave)
-+{
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(&slave->dev);
-+
-+	if (rt5682 && rt5682->hw_init)
-+		cancel_delayed_work(&rt5682->jack_detect_work);
-+
-+	return 0;
-+}
-+
-+static const struct sdw_device_id rt5682_id[] = {
-+	SDW_SLAVE_ENTRY(0x025d, 0x5682, 0),
-+	{},
-+};
-+MODULE_DEVICE_TABLE(sdw, rt5682_id);
-+
-+static int rt5682_dev_suspend(struct device *dev)
-+{
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
-+
-+	if (!rt5682->hw_init)
-+		return 0;
-+
-+	regcache_cache_only(rt5682->regmap, true);
-+	regcache_mark_dirty(rt5682->regmap);
-+
-+	return 0;
-+}
-+
-+static int rt5682_dev_resume(struct device *dev)
-+{
-+	struct sdw_slave *slave = dev_to_sdw_dev(dev);
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
-+	unsigned long time;
-+
-+	if (!rt5682->hw_init)
-+		return 0;
-+
-+	if (!slave->unattach_request)
-+		goto regmap_sync;
-+
-+	time = wait_for_completion_timeout(&slave->initialization_complete,
-+				msecs_to_jiffies(RT5682_PROBE_TIMEOUT));
-+	if (!time) {
-+		dev_err(&slave->dev, "Initialization not complete, timed out\n");
-+		return -ETIMEDOUT;
-+	}
-+
-+regmap_sync:
-+	slave->unattach_request = 0;
-+	regcache_cache_only(rt5682->regmap, false);
-+	regcache_sync(rt5682->regmap);
-+
-+	return 0;
-+}
-+
-+static const struct dev_pm_ops rt5682_pm = {
-+	SET_SYSTEM_SLEEP_PM_OPS(rt5682_dev_suspend, rt5682_dev_resume)
-+	SET_RUNTIME_PM_OPS(rt5682_dev_suspend, rt5682_dev_resume, NULL)
-+};
-+
-+static struct sdw_driver rt5682_sdw_driver = {
-+	.driver = {
-+		.name = "rt5682",
-+		.owner = THIS_MODULE,
-+		.pm = &rt5682_pm,
-+	},
-+	.probe = rt5682_sdw_probe,
-+	.remove = rt5682_sdw_remove,
-+	.ops = &rt5682_slave_ops,
-+	.id_table = rt5682_id,
-+};
-+module_sdw_driver(rt5682_sdw_driver);
-+
-+MODULE_DESCRIPTION("ASoC RT5682 driver SDW");
-+MODULE_AUTHOR("Oder Chiou <oder_chiou@realtek.com>");
-+MODULE_LICENSE("GPL v2");
-diff --git a/sound/soc/codecs/rt5682-sdw.h b/sound/soc/codecs/rt5682-sdw.h
-new file mode 100644
-index 000000000000..76e6f607066e
---- /dev/null
-+++ b/sound/soc/codecs/rt5682-sdw.h
-@@ -0,0 +1,20 @@
-+/* SPDX-License-Identifier: GPL-2.0-only
-+ *
-+ * rt5682-sdw.h  --  RT5682 SDW ALSA SoC audio driver
-+ *
-+ * Copyright 2019 Realtek Semiconductor Corp.
-+ * Author: Oder Chiou <oder_chiou@realtek.com>
-+ */
-+
-+#ifndef __RT5682_SDW_H__
-+#define __RT5682_SDW_H__
-+
-+#define RT5682_SDW_ADDR_L			0x3000
-+#define RT5682_SDW_ADDR_H			0x3001
-+#define RT5682_SDW_DATA_L			0x3004
-+#define RT5682_SDW_DATA_H			0x3005
-+#define RT5682_SDW_CMD				0x3008
-+
-+#define RT5682_PROBE_TIMEOUT			2000
-+
-+#endif /* __RT5682_SDW_H__ */
-diff --git a/sound/soc/codecs/rt5682.c b/sound/soc/codecs/rt5682.c
-index 6774813e0eea..1795a8bbea1a 100644
---- a/sound/soc/codecs/rt5682.c
-+++ b/sound/soc/codecs/rt5682.c
-@@ -11,13 +11,13 @@
- #include <linux/init.h>
- #include <linux/delay.h>
- #include <linux/pm.h>
-+#include <linux/pm_runtime.h>
- #include <linux/i2c.h>
- #include <linux/platform_device.h>
- #include <linux/spi/spi.h>
- #include <linux/acpi.h>
- #include <linux/gpio.h>
- #include <linux/of_gpio.h>
--#include <linux/regulator/consumer.h>
- #include <linux/mutex.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
-@@ -27,15 +27,11 @@
- #include <sound/soc-dapm.h>
- #include <sound/initval.h>
- #include <sound/tlv.h>
--#include <linux/clk.h>
--#include <linux/clkdev.h>
--#include <linux/clk-provider.h>
- #include <sound/rt5682.h>
- 
- #include "rl6231.h"
- #include "rt5682.h"
--
--#define RT5682_NUM_SUPPLIES 3
-+#include "rt5682-sdw.h"
- 
- static const char *rt5682_supply_names[RT5682_NUM_SUPPLIES] = {
- 	"AVDD",
-@@ -52,37 +48,6 @@ static const struct rt5682_platform_data i2s_default_platform_data = {
- 	.dai_clk_names[RT5682_DAI_BCLK_IDX] = "rt5682-dai-bclk",
- };
- 
--struct rt5682_priv {
--	struct snd_soc_component *component;
--	struct rt5682_platform_data pdata;
--	struct regmap *regmap;
--	struct snd_soc_jack *hs_jack;
--	struct regulator_bulk_data supplies[RT5682_NUM_SUPPLIES];
--	struct delayed_work jack_detect_work;
--	struct delayed_work jd_check_work;
--	struct mutex calibrate_mutex;
--	bool is_sdw;
--
--#ifdef CONFIG_COMMON_CLK
--	struct clk_hw dai_clks_hw[RT5682_DAI_NUM_CLKS];
--	struct clk_lookup *dai_clks_lookup[RT5682_DAI_NUM_CLKS];
--	struct clk *dai_clks[RT5682_DAI_NUM_CLKS];
--	struct clk *mclk;
--#endif
--
--	int sysclk;
--	int sysclk_src;
--	int lrck[RT5682_AIFS];
--	int bclk[RT5682_AIFS];
--	int master[RT5682_AIFS];
--
--	int pll_src[RT5682_PLLS];
--	int pll_in[RT5682_PLLS];
--	int pll_out[RT5682_PLLS];
--
--	int jack_type;
--};
--
- static const struct reg_sequence patch_list[] = {
- 	{RT5682_HP_IMP_SENS_CTRL_19, 0x1000},
- 	{RT5682_DAC_ADC_DIG_VOL1, 0xa020},
-@@ -819,6 +784,22 @@ static const struct snd_kcontrol_new rt5682_if1_45_adc_swap_mux =
- static const struct snd_kcontrol_new rt5682_if1_67_adc_swap_mux =
- 	SOC_DAPM_ENUM("IF1 67 ADC Swap Mux", rt5682_if1_67_adc_enum);
- 
-+static const char * const rt5682_dac_select[] = {
-+	"IF1", "SOUND"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(rt5682_dacl_enum,
-+	RT5682_AD_DA_MIXER, RT5682_DAC1_L_SEL_SFT, rt5682_dac_select);
-+
-+static const struct snd_kcontrol_new rt5682_dac_l_mux =
-+	SOC_DAPM_ENUM("DAC L Mux", rt5682_dacl_enum);
-+
-+static SOC_ENUM_SINGLE_DECL(rt5682_dacr_enum,
-+	RT5682_AD_DA_MIXER, RT5682_DAC1_R_SEL_SFT, rt5682_dac_select);
-+
-+static const struct snd_kcontrol_new rt5682_dac_r_mux =
-+	SOC_DAPM_ENUM("DAC R Mux", rt5682_dacr_enum);
-+
- static void rt5682_reset(struct rt5682_priv *rt5682)
- {
- 	regmap_write(rt5682->regmap, RT5682_RESET, 0);
-@@ -1271,6 +1252,9 @@ static int set_filter_clk(struct snd_soc_dapm_widget *w,
- 	static const int div_f[] = {1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48};
- 	static const int div_o[] = {1, 2, 4, 6, 8, 12, 16, 24, 32, 48};
- 
-+	if (rt5682->is_sdw)
-+		return 0;
-+
- 	val = snd_soc_component_read32(component, RT5682_GPIO_CTRL_1) &
- 		RT5682_GP4_PIN_MASK;
- 	if (w->shift == RT5682_PWR_ADC_S1F_BIT &&
-@@ -1743,6 +1727,8 @@ static const struct snd_soc_dapm_widget rt5682_dapm_widgets[] = {
- 	SND_SOC_DAPM_PGA("IF1 DAC1", SND_SOC_NOPM, 0, 0, NULL, 0),
- 	SND_SOC_DAPM_PGA("IF1 DAC1 L", SND_SOC_NOPM, 0, 0, NULL, 0),
- 	SND_SOC_DAPM_PGA("IF1 DAC1 R", SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_PGA("SOUND DAC L", SND_SOC_NOPM, 0, 0, NULL, 0),
-+	SND_SOC_DAPM_PGA("SOUND DAC R", SND_SOC_NOPM, 0, 0, NULL, 0),
- 
- 	/* Digital Interface Select */
- 	SND_SOC_DAPM_MUX("IF1 01 ADC Swap Mux", SND_SOC_NOPM, 0, 0,
-@@ -1759,12 +1745,19 @@ static const struct snd_soc_dapm_widget rt5682_dapm_widgets[] = {
- 	SND_SOC_DAPM_MUX("ADCDAT Mux", SND_SOC_NOPM, 0, 0,
- 			&rt5682_adcdat_pin_ctrl),
- 
-+	SND_SOC_DAPM_MUX("DAC L Mux", SND_SOC_NOPM, 0, 0,
-+			&rt5682_dac_l_mux),
-+	SND_SOC_DAPM_MUX("DAC R Mux", SND_SOC_NOPM, 0, 0,
-+			&rt5682_dac_r_mux),
-+
- 	/* Audio Interface */
- 	SND_SOC_DAPM_AIF_OUT("AIF1TX", "AIF1 Capture", 0,
- 		RT5682_I2S1_SDP, RT5682_SEL_ADCDAT_SFT, 1),
- 	SND_SOC_DAPM_AIF_OUT("AIF2TX", "AIF2 Capture", 0,
- 		RT5682_I2S2_SDP, RT5682_I2S2_PIN_CFG_SFT, 1),
- 	SND_SOC_DAPM_AIF_IN("AIF1RX", "AIF1 Playback", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_AIF_IN("SDWRX", "SDW Playback", 0, SND_SOC_NOPM, 0, 0),
-+	SND_SOC_DAPM_AIF_OUT("SDWTX", "SDW Capture", 0, SND_SOC_NOPM, 0, 0),
- 
- 	/* Output Side */
- 	/* DAC mixer before sound effect  */
-@@ -1921,8 +1914,8 @@ static const struct snd_soc_dapm_route rt5682_dapm_routes[] = {
- 	{"IF1_ADC Mux", "Slot 2", "IF1 23 ADC Swap Mux"},
- 	{"IF1_ADC Mux", "Slot 4", "IF1 45 ADC Swap Mux"},
- 	{"IF1_ADC Mux", "Slot 6", "IF1 67 ADC Swap Mux"},
--	{"IF1_ADC Mux", NULL, "I2S1"},
- 	{"ADCDAT Mux", "ADCDAT1", "IF1_ADC Mux"},
-+	{"AIF1TX", NULL, "I2S1"},
- 	{"AIF1TX", NULL, "ADCDAT Mux"},
- 	{"IF2 ADC Swap Mux", "L/R", "Stereo1 ADC MIX"},
- 	{"IF2 ADC Swap Mux", "R/L", "Stereo1 ADC MIX"},
-@@ -1931,6 +1924,10 @@ static const struct snd_soc_dapm_route rt5682_dapm_routes[] = {
- 	{"ADCDAT Mux", "ADCDAT2", "IF2 ADC Swap Mux"},
- 	{"AIF2TX", NULL, "ADCDAT Mux"},
- 
-+	{"SDWTX", NULL, "PLL2B"},
-+	{"SDWTX", NULL, "PLL2F"},
-+	{"SDWTX", NULL, "ADCDAT Mux"},
-+
- 	{"IF1 DAC1 L", NULL, "AIF1RX"},
- 	{"IF1 DAC1 L", NULL, "I2S1"},
- 	{"IF1 DAC1 L", NULL, "DAC Stereo1 Filter"},
-@@ -1938,10 +1935,24 @@ static const struct snd_soc_dapm_route rt5682_dapm_routes[] = {
- 	{"IF1 DAC1 R", NULL, "I2S1"},
- 	{"IF1 DAC1 R", NULL, "DAC Stereo1 Filter"},
- 
-+	{"SOUND DAC L", NULL, "SDWRX"},
-+	{"SOUND DAC L", NULL, "DAC Stereo1 Filter"},
-+	{"SOUND DAC L", NULL, "PLL2B"},
-+	{"SOUND DAC L", NULL, "PLL2F"},
-+	{"SOUND DAC R", NULL, "SDWRX"},
-+	{"SOUND DAC R", NULL, "DAC Stereo1 Filter"},
-+	{"SOUND DAC R", NULL, "PLL2B"},
-+	{"SOUND DAC R", NULL, "PLL2F"},
-+
-+	{"DAC L Mux", "IF1", "IF1 DAC1 L"},
-+	{"DAC L Mux", "SOUND", "SOUND DAC L"},
-+	{"DAC R Mux", "IF1", "IF1 DAC1 R"},
-+	{"DAC R Mux", "SOUND", "SOUND DAC R"},
-+
- 	{"DAC1 MIXL", "Stereo ADC Switch", "Stereo1 ADC MIXL"},
--	{"DAC1 MIXL", "DAC1 Switch", "IF1 DAC1 L"},
-+	{"DAC1 MIXL", "DAC1 Switch", "DAC L Mux"},
- 	{"DAC1 MIXR", "Stereo ADC Switch", "Stereo1 ADC MIXR"},
--	{"DAC1 MIXR", "DAC1 Switch", "IF1 DAC1 R"},
-+	{"DAC1 MIXR", "DAC1 Switch", "DAC R Mux"},
- 
- 	{"Stereo1 DAC MIXL", "DAC L1 Switch", "DAC1 MIXL"},
- 	{"Stereo1 DAC MIXL", "DAC R1 Switch", "DAC1 MIXR"},
-@@ -2826,6 +2837,8 @@ static int rt5682_register_dai_clks(struct snd_soc_component *component)
- static int rt5682_probe(struct snd_soc_component *component)
- {
- 	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
-+	struct sdw_slave *slave;
-+	unsigned long time;
- 
- #ifdef CONFIG_COMMON_CLK
- 	int ret;
-@@ -2852,6 +2865,17 @@ static int rt5682_probe(struct snd_soc_component *component)
- 	rt5682->lrck[RT5682_AIF1] = CLK_48;
- #endif
- 
-+	if (rt5682->is_sdw) {
-+		slave = rt5682->slave;
-+		time = wait_for_completion_timeout(
-+			&slave->initialization_complete,
-+			msecs_to_jiffies(RT5682_PROBE_TIMEOUT));
-+		if (!time) {
-+			dev_err(&slave->dev, "Initialization not complete, timed out\n");
-+			return -ETIMEDOUT;
-+		}
-+	}
-+
- 	return 0;
- }
- 
-@@ -2914,6 +2938,194 @@ static const struct snd_soc_dai_ops rt5682_aif2_dai_ops = {
- 	.set_bclk_ratio = rt5682_set_bclk2_ratio,
- };
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_RT5682_SDW)
-+struct sdw_stream_data {
-+	struct sdw_stream_runtime *sdw_stream;
-+};
-+
-+static int rt5682_set_sdw_stream(struct snd_soc_dai *dai, void *sdw_stream,
-+				int direction)
-+{
-+	struct sdw_stream_data *stream;
-+
-+	stream = kzalloc(sizeof(*stream), GFP_KERNEL);
-+	if (!stream)
-+		return -ENOMEM;
-+
-+	stream->sdw_stream = (struct sdw_stream_runtime *)sdw_stream;
-+
-+	/* Use tx_mask or rx_mask to configure stream tag and set dma_data */
-+	if (direction == SNDRV_PCM_STREAM_PLAYBACK)
-+		dai->playback_dma_data = stream;
-+	else
-+		dai->capture_dma_data = stream;
-+
-+	return 0;
-+}
-+
-+static void rt5682_sdw_shutdown(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct sdw_stream_data *stream;
-+
-+	stream = snd_soc_dai_get_dma_data(dai, substream);
-+	snd_soc_dai_set_dma_data(dai, substream, NULL);
-+	kfree(stream);
-+}
-+
-+static int rt5682_sdw_hw_params(struct snd_pcm_substream *substream,
-+				struct snd_pcm_hw_params *params,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_config stream_config;
-+	struct sdw_port_config port_config;
-+	enum sdw_data_direction direction;
-+	struct sdw_stream_data *stream;
-+	int retval, port, num_channels;
-+	unsigned int val_p = 0, val_c = 0, osr_p = 0, osr_c = 0;
-+
-+	dev_dbg(dai->dev, "%s %s", __func__, dai->name);
-+	stream = snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!stream)
-+		return -ENOMEM;
-+
-+	if (!rt5682->slave)
-+		return -EINVAL;
-+
-+	/* SoundWire specific configuration */
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		direction = SDW_DATA_DIR_RX;
-+		port = 1;
-+	} else {
-+		direction = SDW_DATA_DIR_TX;
-+		port = 2;
-+	}
-+
-+	stream_config.frame_rate = params_rate(params);
-+	stream_config.ch_count = params_channels(params);
-+	stream_config.bps = snd_pcm_format_width(params_format(params));
-+	stream_config.direction = direction;
-+
-+	num_channels = params_channels(params);
-+	port_config.ch_mask = (1 << (num_channels)) - 1;
-+	port_config.num = port;
-+
-+	retval = sdw_stream_add_slave(rt5682->slave, &stream_config,
-+				      &port_config, 1, stream->sdw_stream);
-+	if (retval) {
-+		dev_err(dai->dev, "Unable to configure port\n");
-+		return retval;
-+	}
-+
-+	switch (params_rate(params)) {
-+	case 48000:
-+		val_p = RT5682_SDW_REF_1_48K;
-+		val_c = RT5682_SDW_REF_2_48K;
-+		break;
-+	case 96000:
-+		val_p = RT5682_SDW_REF_1_96K;
-+		val_c = RT5682_SDW_REF_2_96K;
-+		break;
-+	case 192000:
-+		val_p = RT5682_SDW_REF_1_192K;
-+		val_c = RT5682_SDW_REF_2_192K;
-+		break;
-+	case 32000:
-+		val_p = RT5682_SDW_REF_1_32K;
-+		val_c = RT5682_SDW_REF_2_32K;
-+		break;
-+	case 24000:
-+		val_p = RT5682_SDW_REF_1_24K;
-+		val_c = RT5682_SDW_REF_2_24K;
-+		break;
-+	case 16000:
-+		val_p = RT5682_SDW_REF_1_16K;
-+		val_c = RT5682_SDW_REF_2_16K;
-+		break;
-+	case 12000:
-+		val_p = RT5682_SDW_REF_1_12K;
-+		val_c = RT5682_SDW_REF_2_12K;
-+		break;
-+	case 8000:
-+		val_p = RT5682_SDW_REF_1_8K;
-+		val_c = RT5682_SDW_REF_2_8K;
-+		break;
-+	case 44100:
-+		val_p = RT5682_SDW_REF_1_44K;
-+		val_c = RT5682_SDW_REF_2_44K;
-+		break;
-+	case 88200:
-+		val_p = RT5682_SDW_REF_1_88K;
-+		val_c = RT5682_SDW_REF_2_88K;
-+		break;
-+	case 176400:
-+		val_p = RT5682_SDW_REF_1_176K;
-+		val_c = RT5682_SDW_REF_2_176K;
-+		break;
-+	case 22050:
-+		val_p = RT5682_SDW_REF_1_22K;
-+		val_c = RT5682_SDW_REF_2_22K;
-+		break;
-+	case 11025:
-+		val_p = RT5682_SDW_REF_1_11K;
-+		val_c = RT5682_SDW_REF_2_11K;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (params_rate(params) <= 48000) {
-+		osr_p = RT5682_DAC_OSR_D_8;
-+		osr_c = RT5682_ADC_OSR_D_8;
-+	} else if (params_rate(params) <= 96000) {
-+		osr_p = RT5682_DAC_OSR_D_4;
-+		osr_c = RT5682_ADC_OSR_D_4;
-+	} else {
-+		osr_p = RT5682_DAC_OSR_D_2;
-+		osr_c = RT5682_ADC_OSR_D_2;
-+	}
-+
-+	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-+		regmap_update_bits(rt5682->regmap, RT5682_SDW_REF_CLK,
-+			RT5682_SDW_REF_1_MASK, val_p);
-+		regmap_update_bits(rt5682->regmap, RT5682_ADDA_CLK_1,
-+			RT5682_DAC_OSR_MASK, osr_p);
-+	} else {
-+		regmap_update_bits(rt5682->regmap, RT5682_SDW_REF_CLK,
-+			RT5682_SDW_REF_2_MASK, val_c);
-+		regmap_update_bits(rt5682->regmap, RT5682_ADDA_CLK_1,
-+			RT5682_ADC_OSR_MASK, osr_c);
-+	}
-+
-+	return retval;
-+}
-+
-+static int rt5682_sdw_hw_free(struct snd_pcm_substream *substream,
-+				struct snd_soc_dai *dai)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct rt5682_priv *rt5682 = snd_soc_component_get_drvdata(component);
-+	struct sdw_stream_data *stream =
-+		snd_soc_dai_get_dma_data(dai, substream);
-+
-+	if (!rt5682->slave)
-+		return -EINVAL;
-+
-+	sdw_stream_remove_slave(rt5682->slave, stream->sdw_stream);
-+	return 0;
-+}
-+
-+static struct snd_soc_dai_ops rt5682_sdw_ops = {
-+	.hw_params	= rt5682_sdw_hw_params,
-+	.hw_free	= rt5682_sdw_hw_free,
-+	.set_sdw_stream	= rt5682_set_sdw_stream,
-+	.shutdown	= rt5682_sdw_shutdown,
-+};
-+#endif
-+
- static struct snd_soc_dai_driver rt5682_dai[] = {
- 	{
- 		.name = "rt5682-aif1",
-@@ -2946,6 +3158,27 @@ static struct snd_soc_dai_driver rt5682_dai[] = {
- 		},
- 		.ops = &rt5682_aif2_dai_ops,
- 	},
-+#if IS_ENABLED(CONFIG_SND_SOC_RT5682_SDW)
-+	{
-+		.name = "rt5682-sdw",
-+		.id = RT5682_SDW,
-+		.playback = {
-+			.stream_name = "SDW Playback",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = RT5682_STEREO_RATES,
-+			.formats = RT5682_FORMATS,
-+		},
-+		.capture = {
-+			.stream_name = "SDW Capture",
-+			.channels_min = 1,
-+			.channels_max = 2,
-+			.rates = RT5682_STEREO_RATES,
-+			.formats = RT5682_FORMATS,
-+		},
-+		.ops = &rt5682_sdw_ops,
-+	},
-+#endif
- };
- 
- static const struct snd_soc_component_driver soc_component_dev_rt5682 = {
-@@ -3064,6 +3297,219 @@ static void rt5682_calibrate(struct rt5682_priv *rt5682)
- 
- }
- 
-+#if IS_ENABLED(CONFIG_SND_SOC_RT5682_SDW)
-+static int rt5682_sdw_read(void *context, unsigned int reg, unsigned int *val)
-+{
-+	struct device *dev = context;
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
-+	unsigned int data_l, data_h;
-+
-+	regmap_write(rt5682->sdw_regmap, RT5682_SDW_CMD, 0);
-+	regmap_write(rt5682->sdw_regmap, RT5682_SDW_ADDR_H, (reg >> 8) & 0xff);
-+	regmap_write(rt5682->sdw_regmap, RT5682_SDW_ADDR_L, (reg & 0xff));
-+	regmap_read(rt5682->sdw_regmap, RT5682_SDW_DATA_H, &data_h);
-+	regmap_read(rt5682->sdw_regmap, RT5682_SDW_DATA_L, &data_l);
-+
-+	*val = (data_h << 8) | data_l;
-+
-+	dev_vdbg(dev, "[%s] %04x => %04x\n", __func__, reg, *val);
-+
-+	return 0;
-+}
-+
-+static int rt5682_sdw_write(void *context, unsigned int reg, unsigned int val)
-+{
-+	struct device *dev = context;
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
-+
-+	regmap_write(rt5682->sdw_regmap, RT5682_SDW_CMD, 1);
-+	regmap_write(rt5682->sdw_regmap, RT5682_SDW_ADDR_H, (reg >> 8) & 0xff);
-+	regmap_write(rt5682->sdw_regmap, RT5682_SDW_ADDR_L, (reg & 0xff));
-+	regmap_write(rt5682->sdw_regmap, RT5682_SDW_DATA_H, (val >> 8) & 0xff);
-+	regmap_write(rt5682->sdw_regmap, RT5682_SDW_DATA_L, (val & 0xff));
-+
-+	dev_vdbg(dev, "[%s] %04x <= %04x\n", __func__, reg, val);
-+
-+	return 0;
-+}
-+
-+static const struct regmap_config rt5682_sdw_regmap = {
-+	.reg_bits = 16,
-+	.val_bits = 16,
-+	.max_register = RT5682_I2C_MODE,
-+	.volatile_reg = rt5682_volatile_register,
-+	.readable_reg = rt5682_readable_register,
-+	.cache_type = REGCACHE_RBTREE,
-+	.reg_defaults = rt5682_reg,
-+	.num_reg_defaults = ARRAY_SIZE(rt5682_reg),
-+	.use_single_read = true,
-+	.use_single_write = true,
-+	.reg_read = rt5682_sdw_read,
-+	.reg_write = rt5682_sdw_write,
-+};
-+
-+int rt5682_sdw_init(struct device *dev, struct regmap *regmap,
-+	struct sdw_slave *slave)
-+{
-+	struct rt5682_priv *rt5682;
-+	int ret;
-+
-+	rt5682 = devm_kzalloc(dev, sizeof(*rt5682), GFP_KERNEL);
-+	if (!rt5682)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(dev, rt5682);
-+	rt5682->slave = slave;
-+	rt5682->sdw_regmap = regmap;
-+	rt5682->is_sdw = true;
-+
-+	rt5682->regmap = devm_regmap_init(dev, NULL, dev, &rt5682_sdw_regmap);
-+	if (IS_ERR(rt5682->regmap)) {
-+		ret = PTR_ERR(rt5682->regmap);
-+		dev_err(dev, "Failed to allocate register map: %d\n",
-+			ret);
++	struct snd_soc_card *card = rtd->card;
++	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct snd_soc_component *component = codec_dai->component;
++
++	dev_info(rtd->dev, "codec dai name = %s\n", codec_dai->name);
++
++	/* set rt5682 dai fmt */
++	ret =  snd_soc_dai_set_fmt(codec_dai, SND_SOC_DAIFMT_I2S
++			| SND_SOC_DAIFMT_NB_NF
++			| SND_SOC_DAIFMT_CBM_CFM);
++	if (ret < 0) {
++		dev_err(rtd->card->dev,
++				"Failed to set rt5682 dai fmt: %d\n", ret);
 +		return ret;
 +	}
 +
-+	/*
-+	 * Mark hw_init to false
-+	 * HW init will be performed when device reports present
-+	 */
-+	rt5682->hw_init = false;
-+	rt5682->first_hw_init = false;
++	/* set codec PLL */
++	ret = snd_soc_dai_set_pll(codec_dai, RT5682_PLL2, RT5682_PLL2_S_MCLK,
++				  PCO_PLAT_CLK, RT5682_PLL_FREQ);
++	if (ret < 0) {
++		dev_err(rtd->dev, "can't set rt5682 PLL: %d\n", ret);
++		return ret;
++	}
 +
-+	mutex_init(&rt5682->calibrate_mutex);
-+	INIT_DELAYED_WORK(&rt5682->jack_detect_work,
-+		rt5682_jack_detect_handler);
++	/* Set codec sysclk */
++	ret = snd_soc_dai_set_sysclk(codec_dai, RT5682_SCLK_S_PLL2,
++			RT5682_PLL_FREQ, SND_SOC_CLOCK_IN);
++	if (ret < 0) {
++		dev_err(rtd->dev,
++			"Failed to set rt5682 SYSCLK: %d\n", ret);
++		return ret;
++	}
 +
-+	ret = devm_snd_soc_register_component(dev, &soc_component_dev_rt5682,
-+		rt5682_dai, ARRAY_SIZE(rt5682_dai));
++	/* Set tdm/i2s1 master bclk ratio */
++	ret = snd_soc_dai_set_bclk_ratio(codec_dai, 64);
++	if (ret < 0) {
++		dev_err(rtd->dev,
++			"Failed to set rt5682 tdm bclk ratio: %d\n", ret);
++		return ret;
++	}
 +
-+	dev_dbg(&slave->dev, "%s\n", __func__);
++	rt5682_dai_wclk = clk_get(component->dev, "rt5682-dai-wclk");
++	rt5682_dai_bclk = clk_get(component->dev, "rt5682-dai-bclk");
++
++	ret = snd_soc_card_jack_new(card, "Headset Jack",
++				SND_JACK_HEADSET | SND_JACK_LINEOUT |
++				SND_JACK_BTN_0 | SND_JACK_BTN_1 |
++				SND_JACK_BTN_2 | SND_JACK_BTN_3,
++				&pco_jack, NULL, 0);
++	if (ret) {
++		dev_err(card->dev, "HP jack creation failed %d\n", ret);
++		return ret;
++	}
++
++	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_0, KEY_PLAYPAUSE);
++	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_1, KEY_VOLUMEUP);
++	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_2, KEY_VOLUMEDOWN);
++	snd_jack_set_key(pco_jack.jack, SND_JACK_BTN_3, KEY_VOICECOMMAND);
++
++	ret = snd_soc_component_set_jack(component, &pco_jack, NULL);
++	if (ret) {
++		dev_err(rtd->dev, "Headset Jack call-back failed: %d\n", ret);
++		return ret;
++	}
 +
 +	return ret;
 +}
-+EXPORT_SYMBOL_GPL(rt5682_sdw_init);
 +
-+int rt5682_io_init(struct device *dev, struct sdw_slave *slave)
++static int rt5682_clk_enable(struct snd_pcm_substream *substream)
 +{
-+	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
 +	int ret = 0;
-+	unsigned int val;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
 +
-+	if (rt5682->hw_init)
-+		return 0;
-+
-+	regmap_read(rt5682->regmap, RT5682_DEVICE_ID, &val);
-+	if (val != DEVICE_ID) {
-+		pr_err("Device with ID register %x is not rt5682\n", val);
-+		return -ENODEV;
++	/* RT5682 will support only 48K output with 48M mclk */
++	clk_set_rate(rt5682_dai_wclk, 48000);
++	clk_set_rate(rt5682_dai_bclk, 48000 * 64);
++	ret = clk_prepare_enable(rt5682_dai_wclk);
++	if (ret < 0) {
++		dev_err(rtd->dev, "can't enable wclk %d\n", ret);
++		return ret;
 +	}
-+
-+	/*
-+	 * PM runtime is only enabled when a Slave reports as Attached
-+	 */
-+	if (!rt5682->first_hw_init) {
-+		/* set autosuspend parameters */
-+		pm_runtime_set_autosuspend_delay(&slave->dev, 3000);
-+		pm_runtime_use_autosuspend(&slave->dev);
-+
-+		/* update count of parent 'active' children */
-+		pm_runtime_set_active(&slave->dev);
-+
-+		/* make sure the device does not suspend immediately */
-+		pm_runtime_mark_last_busy(&slave->dev);
-+
-+		pm_runtime_enable(&slave->dev);
-+	}
-+
-+	pm_runtime_get_noresume(&slave->dev);
-+
-+	rt5682_reset(rt5682);
-+
-+	if (rt5682->first_hw_init) {
-+		regcache_cache_only(rt5682->regmap, false);
-+		regcache_cache_bypass(rt5682->regmap, true);
-+	}
-+
-+	rt5682_calibrate(rt5682);
-+
-+	if (rt5682->first_hw_init) {
-+		regcache_cache_bypass(rt5682->regmap, false);
-+		regcache_mark_dirty(rt5682->regmap);
-+		regcache_sync(rt5682->regmap);
-+
-+		/* volatile registers */
-+		regmap_update_bits(rt5682->regmap, RT5682_CBJ_CTRL_2,
-+			RT5682_EXT_JD_SRC, RT5682_EXT_JD_SRC_MANUAL);
-+
-+		goto reinit;
-+	}
-+
-+	ret = regmap_multi_reg_write(rt5682->regmap, patch_list,
-+				    ARRAY_SIZE(patch_list));
-+	if (ret != 0)
-+		dev_warn(dev, "Failed to apply regmap patch: %d\n", ret);
-+
-+	regmap_write(rt5682->regmap, RT5682_DEPOP_1, 0x0000);
-+
-+	regmap_update_bits(rt5682->regmap, RT5682_PWR_ANLG_1,
-+			RT5682_LDO1_DVO_MASK | RT5682_HP_DRIVER_MASK,
-+			RT5682_LDO1_DVO_12 | RT5682_HP_DRIVER_5X);
-+	regmap_write(rt5682->regmap, RT5682_MICBIAS_2, 0x0380);
-+	regmap_write(rt5682->regmap, RT5682_TEST_MODE_CTRL_1, 0x0000);
-+	regmap_update_bits(rt5682->regmap, RT5682_BIAS_CUR_CTRL_8,
-+			RT5682_HPA_CP_BIAS_CTRL_MASK, RT5682_HPA_CP_BIAS_3UA);
-+	regmap_update_bits(rt5682->regmap, RT5682_CHARGE_PUMP_1,
-+			RT5682_CP_CLK_HP_MASK, RT5682_CP_CLK_HP_300KHZ);
-+
-+	/* Soundwire */
-+	regmap_write(rt5682->regmap, RT5682_PLL2_INTERNAL, 0xa266);
-+	regmap_write(rt5682->regmap, RT5682_PLL2_CTRL_1, 0x1700);
-+	regmap_write(rt5682->regmap, RT5682_PLL2_CTRL_2, 0x0006);
-+	regmap_write(rt5682->regmap, RT5682_PLL2_CTRL_3, 0x2600);
-+	regmap_write(rt5682->regmap, RT5682_PLL2_CTRL_4, 0x0c8f);
-+	regmap_write(rt5682->regmap, RT5682_PLL_TRACK_2, 0x3000);
-+	regmap_write(rt5682->regmap, RT5682_PLL_TRACK_3, 0x4000);
-+	regmap_update_bits(rt5682->regmap, RT5682_GLB_CLK,
-+		RT5682_SCLK_SRC_MASK | RT5682_PLL2_SRC_MASK,
-+		RT5682_SCLK_SRC_PLL2 | RT5682_PLL2_SRC_SDW);
-+
-+	regmap_update_bits(rt5682->regmap, RT5682_CBJ_CTRL_2,
-+		RT5682_EXT_JD_SRC, RT5682_EXT_JD_SRC_MANUAL);
-+	regmap_write(rt5682->regmap, RT5682_CBJ_CTRL_1, 0xd042);
-+	regmap_update_bits(rt5682->regmap, RT5682_CBJ_CTRL_3,
-+		RT5682_CBJ_IN_BUF_EN, RT5682_CBJ_IN_BUF_EN);
-+	regmap_update_bits(rt5682->regmap, RT5682_SAR_IL_CMD_1,
-+		RT5682_SAR_POW_MASK, RT5682_SAR_POW_EN);
-+	regmap_update_bits(rt5682->regmap, RT5682_RC_CLK_CTRL,
-+			RT5682_POW_IRQ | RT5682_POW_JDH |
-+			RT5682_POW_ANA, RT5682_POW_IRQ |
-+			RT5682_POW_JDH | RT5682_POW_ANA);
-+	regmap_update_bits(rt5682->regmap, RT5682_PWR_ANLG_2,
-+		RT5682_PWR_JDH, RT5682_PWR_JDH);
-+	regmap_update_bits(rt5682->regmap, RT5682_IRQ_CTRL_2,
-+		RT5682_JD1_EN_MASK | RT5682_JD1_IRQ_MASK,
-+		RT5682_JD1_EN | RT5682_JD1_IRQ_PUL);
-+
-+reinit:
-+	mod_delayed_work(system_power_efficient_wq,
-+		   &rt5682->jack_detect_work, msecs_to_jiffies(250));
-+
-+	/* Mark Slave initialization complete */
-+	rt5682->hw_init = true;
-+	rt5682->first_hw_init = true;
-+
-+	pm_runtime_mark_last_busy(&slave->dev);
-+	pm_runtime_put_autosuspend(&slave->dev);
-+
-+	dev_dbg(&slave->dev, "%s hw_init complete\n", __func__);
 +
 +	return ret;
 +}
-+EXPORT_SYMBOL_GPL(rt5682_io_init);
-+#endif
 +
- static int rt5682_i2c_probe(struct i2c_client *i2c,
- 		    const struct i2c_device_id *id)
- {
-diff --git a/sound/soc/codecs/rt5682.h b/sound/soc/codecs/rt5682.h
-index f82126a6f211..43de6e802309 100644
---- a/sound/soc/codecs/rt5682.h
-+++ b/sound/soc/codecs/rt5682.h
-@@ -10,6 +10,12 @@
- #define __RT5682_H__
- 
- #include <sound/rt5682.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/clk.h>
-+#include <linux/clkdev.h>
-+#include <linux/clk-provider.h>
-+#include <linux/soundwire/sdw.h>
-+#include <linux/soundwire/sdw_type.h>
- 
- #define DEVICE_ID 0x6530
- 
-@@ -1355,6 +1361,7 @@ enum {
- enum {
- 	RT5682_AIF1,
- 	RT5682_AIF2,
-+	RT5682_SDW,
- 	RT5682_AIFS
- };
- 
-@@ -1370,7 +1377,49 @@ enum {
- 	RT5682_CLK_SEL_I2S2_ASRC,
- };
- 
-+#define RT5682_NUM_SUPPLIES 3
++static void rt5682_clk_disable(void)
++{
++	clk_disable_unprepare(rt5682_dai_wclk);
++}
 +
-+struct rt5682_priv {
-+	struct snd_soc_component *component;
-+	struct rt5682_platform_data pdata;
-+	struct regmap *regmap;
-+	struct regmap *sdw_regmap;
-+	struct snd_soc_jack *hs_jack;
-+	struct regulator_bulk_data supplies[RT5682_NUM_SUPPLIES];
-+	struct delayed_work jack_detect_work;
-+	struct delayed_work jd_check_work;
-+	struct mutex calibrate_mutex;
-+	struct sdw_slave *slave;
-+	enum sdw_slave_status status;
-+	struct sdw_bus_params params;
-+	bool hw_init;
-+	bool first_hw_init;
-+	bool is_sdw;
-+
-+#ifdef CONFIG_COMMON_CLK
-+	struct clk_hw dai_clks_hw[RT5682_DAI_NUM_CLKS];
-+	struct clk_lookup *dai_clks_lookup[RT5682_DAI_NUM_CLKS];
-+	struct clk *dai_clks[RT5682_DAI_NUM_CLKS];
-+	struct clk *mclk;
-+#endif
-+
-+	int sysclk;
-+	int sysclk_src;
-+	int lrck[RT5682_AIFS];
-+	int bclk[RT5682_AIFS];
-+	int master[RT5682_AIFS];
-+
-+	int pll_src[RT5682_PLLS];
-+	int pll_in[RT5682_PLLS];
-+	int pll_out[RT5682_PLLS];
-+
-+	int jack_type;
++static const unsigned int channels[] = {
++	DUAL_CHANNEL,
 +};
 +
- int rt5682_sel_asrc_clk_src(struct snd_soc_component *component,
- 		unsigned int filter_mask, unsigned int clk_src);
-+int rt5682_sdw_init(struct device *dev, struct regmap *regmap,
-+	       struct sdw_slave *slave);
-+int rt5682_io_init(struct device *dev, struct sdw_slave *slave);
- 
- #endif /* __RT5682_H__ */
++static const unsigned int rates[] = {
++	48000,
++};
++
++static const struct snd_pcm_hw_constraint_list constraints_rates = {
++	.count = ARRAY_SIZE(rates),
++	.list  = rates,
++	.mask = 0,
++};
++
++static const struct snd_pcm_hw_constraint_list constraints_channels = {
++	.count = ARRAY_SIZE(channels),
++	.list = channels,
++	.mask = 0,
++};
++
++static int acp3x_5682_startup(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_card *card = rtd->card;
++	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
++
++	machine->play_i2s_instance = I2S_SP_INSTANCE;
++	machine->cap_i2s_instance = I2S_SP_INSTANCE;
++
++	runtime->hw.channels_max = DUAL_CHANNEL;
++	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
++				   &constraints_channels);
++	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
++				   &constraints_rates);
++	return rt5682_clk_enable(substream);
++}
++
++static int acp3x_max_startup(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_runtime *runtime = substream->runtime;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_card *card = rtd->card;
++	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
++
++	machine->play_i2s_instance = I2S_BT_INSTANCE;
++
++	runtime->hw.channels_max = DUAL_CHANNEL;
++	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_CHANNELS,
++				   &constraints_channels);
++	snd_pcm_hw_constraint_list(runtime, 0, SNDRV_PCM_HW_PARAM_RATE,
++				   &constraints_rates);
++	return rt5682_clk_enable(substream);
++}
++
++static int acp3x_ec_startup(struct snd_pcm_substream *substream)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_card *card = rtd->card;
++	struct snd_soc_dai *codec_dai = rtd->codec_dai;
++	struct acp3x_platform_info *machine = snd_soc_card_get_drvdata(card);
++
++	machine->cap_i2s_instance = I2S_BT_INSTANCE;
++	snd_soc_dai_set_bclk_ratio(codec_dai, 64);
++
++	return rt5682_clk_enable(substream);
++}
++
++static void rt5682_shutdown(struct snd_pcm_substream *substream)
++{
++	rt5682_clk_disable();
++}
++
++static const struct snd_soc_ops acp3x_5682_ops = {
++	.startup = acp3x_5682_startup,
++	.shutdown = rt5682_shutdown,
++};
++
++static const struct snd_soc_ops acp3x_max_play_ops = {
++	.startup = acp3x_max_startup,
++	.shutdown = rt5682_shutdown,
++};
++
++static const struct snd_soc_ops acp3x_ec_cap_ops = {
++	.startup = acp3x_ec_startup,
++	.shutdown = rt5682_shutdown,
++};
++
++SND_SOC_DAILINK_DEF(acp3x_i2s,
++	DAILINK_COMP_ARRAY(COMP_CPU("acp3x_i2s_playcap.0")));
++SND_SOC_DAILINK_DEF(acp3x_bt,
++	DAILINK_COMP_ARRAY(COMP_CPU("acp3x_i2s_playcap.2")));
++
++SND_SOC_DAILINK_DEF(rt5682,
++	DAILINK_COMP_ARRAY(COMP_CODEC("i2c-10EC5682:00", "rt5682-aif1")));
++SND_SOC_DAILINK_DEF(max,
++	DAILINK_COMP_ARRAY(COMP_CODEC("MX98357A:00", "HiFi")));
++SND_SOC_DAILINK_DEF(cros_ec,
++	DAILINK_COMP_ARRAY(COMP_CODEC("GOOG0013:00", "EC Codec I2S RX")));
++
++SND_SOC_DAILINK_DEF(platform,
++	DAILINK_COMP_ARRAY(COMP_PLATFORM("acp3x_rv_i2s_dma.0")));
++
++static struct snd_soc_dai_link acp3x_dai_5682_98357[] = {
++	{
++		.name = "acp3x-5682-play",
++		.stream_name = "Playback",
++		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
++				| SND_SOC_DAIFMT_CBM_CFM,
++		.init = acp3x_5682_init,
++		.dpcm_playback = 1,
++		.dpcm_capture = 1,
++		.ops = &acp3x_5682_ops,
++		SND_SOC_DAILINK_REG(acp3x_i2s, rt5682, platform),
++	},
++	{
++		.name = "acp3x-max98357-play",
++		.stream_name = "HiFi Playback",
++		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
++				| SND_SOC_DAIFMT_CBM_CFM,
++		.dpcm_playback = 1,
++		.ops = &acp3x_max_play_ops,
++		SND_SOC_DAILINK_REG(acp3x_bt, max, platform),
++	},
++	{
++		.name = "acp3x-ec-capture",
++		.stream_name = "Capture",
++		.dai_fmt = SND_SOC_DAIFMT_I2S | SND_SOC_DAIFMT_NB_NF
++				| SND_SOC_DAIFMT_CBS_CFS,
++		.dpcm_capture = 1,
++		.ops = &acp3x_ec_cap_ops,
++		SND_SOC_DAILINK_REG(acp3x_bt, cros_ec, platform),
++	},
++};
++
++static const struct snd_soc_dapm_widget acp3x_widgets[] = {
++	SND_SOC_DAPM_HP("Headphone Jack", NULL),
++	SND_SOC_DAPM_SPK("Spk", NULL),
++	SND_SOC_DAPM_MIC("Headset Mic", NULL),
++};
++
++static const struct snd_soc_dapm_route acp3x_audio_route[] = {
++	{"Headphone Jack", NULL, "HPOL"},
++	{"Headphone Jack", NULL, "HPOR"},
++	{"IN1P", NULL, "Headset Mic"},
++	{"Spk", NULL, "Speaker"},
++};
++
++static const struct snd_kcontrol_new acp3x_mc_controls[] = {
++	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
++	SOC_DAPM_PIN_SWITCH("Spk"),
++	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++};
++
++static struct snd_soc_card acp3x_card = {
++	.name = "acp3xalc5682m98357",
++	.owner = THIS_MODULE,
++	.dai_link = acp3x_dai_5682_98357,
++	.num_links = ARRAY_SIZE(acp3x_dai_5682_98357),
++	.dapm_widgets = acp3x_widgets,
++	.num_dapm_widgets = ARRAY_SIZE(acp3x_widgets),
++	.dapm_routes = acp3x_audio_route,
++	.num_dapm_routes = ARRAY_SIZE(acp3x_audio_route),
++	.controls = acp3x_mc_controls,
++	.num_controls = ARRAY_SIZE(acp3x_mc_controls),
++};
++
++static int acp3x_probe(struct platform_device *pdev)
++{
++	int ret;
++	struct snd_soc_card *card;
++	struct acp3x_platform_info *machine;
++
++	machine = devm_kzalloc(&pdev->dev, sizeof(*machine), GFP_KERNEL);
++	if (!machine)
++		return -ENOMEM;
++
++	card = &acp3x_card;
++	acp3x_card.dev = &pdev->dev;
++	platform_set_drvdata(pdev, card);
++	snd_soc_card_set_drvdata(card, machine);
++	ret = devm_snd_soc_register_card(&pdev->dev, &acp3x_card);
++	if (ret) {
++		dev_err(&pdev->dev,
++				"devm_snd_soc_register_card(%s) failed: %d\n",
++				acp3x_card.name, ret);
++		return ret;
++	}
++	return 0;
++}
++
++static const struct acpi_device_id acp3x_audio_acpi_match[] = {
++	{ "AMDI5682", 0 },
++	{},
++};
++MODULE_DEVICE_TABLE(acpi, acp3x_audio_acpi_match);
++
++static struct platform_driver acp3x_audio = {
++	.driver = {
++		.name = "acp3x-alc5682-max98357",
++		.acpi_match_table = ACPI_PTR(acp3x_audio_acpi_match),
++		.pm = &snd_soc_pm_ops,
++	},
++	.probe = acp3x_probe,
++};
++
++module_platform_driver(acp3x_audio);
++
++MODULE_AUTHOR("akshu.agrawal@amd.com");
++MODULE_DESCRIPTION("ALC5682 & MAX98357 audio support");
++MODULE_LICENSE("GPL v2");
 -- 
 2.20.1
 

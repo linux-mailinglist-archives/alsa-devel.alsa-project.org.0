@@ -2,49 +2,49 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F9F5170800
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 19:48:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D41FC170805
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 19:49:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 8253B1699;
-	Wed, 26 Feb 2020 19:48:08 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8253B1699
+	by alsa0.perex.cz (Postfix) with ESMTPS id 3C2D11685;
+	Wed, 26 Feb 2020 19:48:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 3C2D11685
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582742938;
-	bh=ygKXUP/zlNrD1JP9tprOUPDs+qn0SEaRxxiS+kQqvV8=;
+	s=default; t=1582742982;
+	bh=f8S4ZBNZwujUDwycfaHba+lcky+KdUoDZMnfXQYgiNA=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=lNVcTXcpQKRfZSNY1Y538UAMzqiKW1i0gs6OmgDSY+Isj+cfqqofoKpy7vIl53Zft
-	 W7Pon6J0YKm4A1LA2tyHPc57EXZxGY4OV4fNw2CEvDRIm3Crq0i6gQ0qg/bDAdCrlm
-	 kFi8dBj3kJR43SdgT2Uc6mRBUDcY2pGEo57S1jR8=
+	b=gN+eMiSAxKw4NOmJsNZPJodFtPnf+mlDBuDSItTLTdJlPKKgw+/gS0YqeECv3nt3Z
+	 d5oCIOHvdf3gO9lha+G+BFNri1NR332XqhMqOBQc89FYFqTx0cCnUraQ3qo+hi1hKY
+	 g0ELzQ5+T1NbAnS5dhwNQrt0Jxz/JPb+w75Ax/GI=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4992EF80171;
-	Wed, 26 Feb 2020 19:47:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C2B7BF800AD;
+	Wed, 26 Feb 2020 19:47:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 993C2F8014E; Wed, 26 Feb 2020 19:47:14 +0100 (CET)
+ id 5EEF1F8016F; Wed, 26 Feb 2020 19:47:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C9C35F80089
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 19:47:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C9C35F80089
+ by alsa1.perex.cz (Postfix) with ESMTP id 58942F801F2
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 19:47:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 58942F801F2
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C96930E;
- Wed, 26 Feb 2020 10:47:09 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4BE4330E;
+ Wed, 26 Feb 2020 10:47:14 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 023F43F881;
- Wed, 26 Feb 2020 10:47:08 -0800 (PST)
-Date: Wed, 26 Feb 2020 18:47:07 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B5D383F881;
+ Wed, 26 Feb 2020 10:47:13 -0800 (PST)
+Date: Wed, 26 Feb 2020 18:47:12 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Dan Murphy <dmurphy@ti.com>
-Subject: Applied "ASoC: tas2562: Add entries for the TAS2563 audio amplifier"
- to the asoc tree
+Subject: Applied "ASoC: dt-bindings: Add TAS2563 compatible to the TAS2562
+ binding" to the asoc tree
 In-Reply-To: 
 Message-Id: 
 X-Patchwork-Hint: ignore
@@ -66,7 +66,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: tas2562: Add entries for the TAS2563 audio amplifier
+   ASoC: dt-bindings: Add TAS2563 compatible to the TAS2562 binding
 
 has been applied to the asoc tree at
 
@@ -91,55 +91,36 @@ to this mail.
 Thanks,
 Mark
 
-From 14f8c8d8fd62207f081549d45099a90dd3717696 Mon Sep 17 00:00:00 2001
+From f87cdb1f9937e6f5234e3300804ac156e639bc00 Mon Sep 17 00:00:00 2001
 From: Dan Murphy <dmurphy@ti.com>
-Date: Wed, 26 Feb 2020 07:03:04 -0600
-Subject: [PATCH] ASoC: tas2562: Add entries for the TAS2563 audio amplifier
+Date: Wed, 26 Feb 2020 07:03:03 -0600
+Subject: [PATCH] ASoC: dt-bindings: Add TAS2563 compatible to the TAS2562
+ binding
 
-The TAS2563 is register compatible with the TAS2562.  The main
-difference is the TAS2563 has a programmable DSP to manage different
-audio profiles.
+Add the Texas Instruments TAS2563 audio amplifier to the TAS262
+binding.
 
 Signed-off-by: Dan Murphy <dmurphy@ti.com>
-Link: https://lore.kernel.org/r/20200226130305.12043-2-dmurphy@ti.com
+CC: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20200226130305.12043-1-dmurphy@ti.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/tas2562.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ Documentation/devicetree/bindings/sound/tas2562.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index d5e04030a0c1..79c3c3d79766 100644
---- a/sound/soc/codecs/tas2562.c
-+++ b/sound/soc/codecs/tas2562.c
-@@ -55,6 +55,11 @@ struct tas2562_data {
- 	int volume_lvl;
- };
+diff --git a/Documentation/devicetree/bindings/sound/tas2562.txt b/Documentation/devicetree/bindings/sound/tas2562.txt
+index 658e1fb18a99..94796b547184 100644
+--- a/Documentation/devicetree/bindings/sound/tas2562.txt
++++ b/Documentation/devicetree/bindings/sound/tas2562.txt
+@@ -8,7 +8,7 @@ real time monitoring of loudspeaker behavior.
+ Required properties:
+  - #address-cells  - Should be <1>.
+  - #size-cells     - Should be <0>.
+- - compatible:	   - Should contain "ti,tas2562".
++ - compatible:	   - Should contain "ti,tas2562", "ti,tas2563".
+  - reg:		   - The i2c address. Should be 0x4c, 0x4d, 0x4e or 0x4f.
+  - ti,imon-slot-no:- TDM TX current sense time slot.
  
-+enum tas256x_model {
-+	TAS2562,
-+	TAS2563,
-+};
-+
- static int tas2562_set_bias_level(struct snd_soc_component *component,
- 				 enum snd_soc_bias_level level)
- {
-@@ -664,13 +669,15 @@ static int tas2562_probe(struct i2c_client *client,
- }
- 
- static const struct i2c_device_id tas2562_id[] = {
--	{ "tas2562", 0 },
-+	{ "tas2562", TAS2562 },
-+	{ "tas2563", TAS2563 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, tas2562_id);
- 
- static const struct of_device_id tas2562_of_match[] = {
- 	{ .compatible = "ti,tas2562", },
-+	{ .compatible = "ti,tas2563", },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, tas2562_of_match);
 -- 
 2.20.1
 

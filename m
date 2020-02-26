@@ -2,83 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADCEF16FD4E
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 12:20:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2E9DB16FD70
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 12:25:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 323AD166F;
-	Wed, 26 Feb 2020 12:19:32 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 323AD166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id C9429168B;
+	Wed, 26 Feb 2020 12:24:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C9429168B
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582716022;
-	bh=K1FAKOLW1wq4KF6KztY04dRMHK27V37g7sRLFs61MwY=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1582716340;
+	bh=hPQSI2mhEwSPq3W2NAxngWnT/c3bgReeK3fd/TfuSWo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=EKkF5P70ex086SmN8achY/vFPWO4tPk5Sk8Td88VFh5tWn4QkzMtL1si+3+96vLtW
-	 cUmUiyhIQ/tGvqP1h7KbYaaAtHnrVRd1DhsK11YbNH3h5rWRdDMt9w8JOGHPz2kzkf
-	 W1K+CbIsyLOpMkKgcD2AeBnbgChdWnttymGcDmms=
+	b=KFGBenlX0T0AGBXt/sh9bt5HSPSE/gQ9/7zirYhu9NHXJmnZrgkNDlWJ7SQ7vt42C
+	 mv+fi8FGvB4Ki22/NsDhUWnRbOlKha0VC5ohZmm2kT4MiKrnCxoOcgMoJJ5/C0oxlO
+	 IW9J2wBnM7jXp7U2Lp854cGWlAznva5BepfiDxoo=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 422FAF80089;
-	Wed, 26 Feb 2020 12:18:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DEEAAF800E8;
+	Wed, 26 Feb 2020 12:23:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 69EA8F8014E; Wed, 26 Feb 2020 12:18:39 +0100 (CET)
+ id 04D1BF8014E; Wed, 26 Feb 2020 12:23:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,SPF_HELO_NONE,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from smtp2.axis.com (smtp2.axis.com [195.60.68.18])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 8C0FBF80089
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 12:18:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8C0FBF80089
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=axis.com header.i=@axis.com
- header.b="XtTE0RIr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=axis.com; l=3583; q=dns/txt; s=axis-central1;
- t=1582715917; x=1614251917;
- h=date:from:to:cc:subject:in-reply-to:message-id:
- references:mime-version:content-transfer-encoding;
- bh=Hv403MB3fJ/nudFxpKI8mhxgcwJ2vMWrIa/zuMIGGwQ=;
- b=XtTE0RIrG4GRXHtYUPUi96QKZ0ZDMn/2Cg0zeLXOhQN9NjwfPbNC8Qpg
- xozfGwOqYx/5jTb6Wng1NswGT2vKx2qVv/N2oFHwaT5CjdtJjD12Wnz6K
- +Op7Z447CfgnSWAgB7fwdr3TgNY0+VWksHEgxSja3mY7UmIXNqxsbAyXb
- ZkVkxewq6tcWveyHP18fv2bpxM2Ulve8tZRyH2wRlH6laHEgkPcyuAR8n
- 1UnMtUbzAn8RBJscbTAtA+jhBm5NGnwlhHaK5NBEo6qi3GMDcNvvEjkhV
- wJ35lIhTDlLYTuKgOJjq1Ssl4oD9wLEC8TA3Ze3TQD2Fg4bfJeCTNvOIB A==;
-IronPort-SDR: xNdLtj/Y/Zx3jbKBFF2d3A3R47JOypJ8M83BBv6Q9VLihj3+LMJOEhD/UN9Cj1efQMcpEgvUde
- DuhCA4VfSOoVk4G3yy/SMaEI0kWPvHaSasS+yaCt30UJFACCWfCcYlqscgK1VfTGbnQsyCFqME
- XXmqEqad0PyAqXjmQvzucku77Z7FqdkE3nP404btD1qxtt53E/Mco/Gm+pcCx0CyYxIbtU8xvQ
- IEPUVo8hQY9cRlJvBFi5m9PCaTC8lGnnFMH5QSecqwpukYq8G/MJ85gSEr6MRI3GvjtIjU99zD
- xEg=
-X-IronPort-AV: E=Sophos;i="5.70,487,1574118000"; 
-   d="scan'208";a="5677792"
-Date: Wed, 26 Feb 2020 12:18:29 +0100
-From: Ricard Wanderlof <ricardw@axis.com>
-X-X-Sender: ricardw@lnxricardw1.se.axis.com
-To: Dan Murphy <dmurphy@ti.com>
-Subject: Re: [PATCH v3 2/2] ASoC: tlv320adcx140: Add the tlv320adcx140 codec
- driver family
-In-Reply-To: <20200219125942.22013-3-dmurphy@ti.com>
-Message-ID: <alpine.DEB.2.20.2002261138040.19469@lnxricardw1.se.axis.com>
-References: <20200219125942.22013-1-dmurphy@ti.com>
- <20200219125942.22013-3-dmurphy@ti.com>
-User-Agent: Alpine 2.20 (DEB 67 2015-01-07)
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 033E4F80089
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 12:23:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 033E4F80089
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F10E51FB;
+ Wed, 26 Feb 2020 03:23:48 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 74E273FA00;
+ Wed, 26 Feb 2020 03:23:48 -0800 (PST)
+Date: Wed, 26 Feb 2020 11:23:47 +0000
+From: Mark Brown <broonie@kernel.org>
+To: "Agrawal, Akshu" <aagrawal2@amd.com>
+Subject: Re: [PATCH] ASoC: amd: Add machine driver for Raven based platform
+Message-ID: <20200226112347.GB4136@sirena.org.uk>
+References: <20200217050515.3847-1-akshu.agrawal@amd.com>
+ <d436063d-098b-f49c-c387-abc13bf3b570@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="ISO-8859-15"
-Content-Transfer-Encoding: 8BIT
-X-Originating-IP: [10.0.5.60]
-X-ClientProxiedBy: XBOX02.axis.com (10.0.5.16) To XBOX03.axis.com (10.0.5.17)
-Cc: "alsa-devel@alsa-project.org" <alsa-devel@alsa-project.org>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "tiwai@suse.com" <tiwai@suse.com>, "broonie@kernel.org" <broonie@kernel.org>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="bCsyhTFzCvuiizWE"
+Content-Disposition: inline
+In-Reply-To: <d436063d-098b-f49c-c387-abc13bf3b570@amd.com>
+X-Cookie: May all your PUSHes be POPped.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: "moderated list:SOUND - SOC LAYER / DYNAMIC AUDIO POWER MANAGEM..."
+ <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ Thomas Gleixner <tglx@linutronix.de>, Akshu Agrawal <akshu.agrawal@amd.com>,
+ open list <linux-kernel@vger.kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,112 +76,49 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-On Wed, 19 Feb 2020, Dan Murphy wrote:
+--bCsyhTFzCvuiizWE
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> Add the tlv320adcx140 codec driver family.
->
+On Wed, Feb 26, 2020 at 12:52:08PM +0530, Agrawal, Akshu wrote:
+> On 2/17/2020 10:35 AM, Akshu Agrawal wrote:
+> > Add machine driver for Raven based platform using
+> > RT5682 + MAX9836 + CROS_EC codecs
+> >=20
+> > Signed-off-by: Akshu Agrawal <akshu.agrawal@amd.com>
+> > ---
+> > This patch is dependent on https://patchwork.kernel.org/patch/11381839/
 
-...
+> We can take this patch for review now as the patch it was dependent is
+> merged.
 
-> +
-> +static int adcx140_set_dai_fmt(struct snd_soc_dai *codec_dai,
-> +                              unsigned int fmt)
-> +{
-> +       struct snd_soc_component *component = codec_dai->component;
-> +       struct adcx140_priv *adcx140 =
-> snd_soc_component_get_drvdata(component);
-> +       u8 iface_reg1 = 0;
-> +       u8 iface_reg2 = 0;
-> +
-> +       /* set master/slave audio interface */
-> +       switch (fmt & SND_SOC_DAIFMT_MASTER_MASK) {
-> +       case SND_SOC_DAIFMT_CBM_CFM:
-> +               iface_reg2 |= ADCX140_BCLK_FSYNC_MASTER;
+Please don't send content free pings and please allow a reasonable time
+for review.  People get busy, go on holiday, attend conferences and so=20
+on so unless there is some reason for urgency (like critical bug fixes)
+please allow at least a couple of weeks for review.  If there have been
+review comments then people may be waiting for those to be addressed.
 
-Although this sets up the codec to be I2S master, there doesn't seem to be 
-a way of actually configuring the master clock frequency in master mode, 
-as there is no .set_sysclk member in adcx140_dai_ops (and the 
-corresponding register field appears never to be touched by the driver).
+Sending content free pings adds to the mail volume (if they are seen at
+all) which is often the problem and since they can't be reviewed
+directly if something has gone wrong you'll have to resend the patches
+anyway, so sending again is generally a better approach though there are
+some other maintainers who like them - if in doubt look at how patches
+for the subsystem are normally handled.
 
-> +               break;
-> +       case SND_SOC_DAIFMT_CBS_CFS:
-> +               break;
-> +       case SND_SOC_DAIFMT_CBS_CFM:
-> +       case SND_SOC_DAIFMT_CBM_CFS:
-> +       default:
-> +               dev_err(component->dev, "Invalid DAI master/slave interface\n");
-> +               return -EINVAL;
-> +       }
+--bCsyhTFzCvuiizWE
+Content-Type: application/pgp-signature; name="signature.asc"
 
-...
+-----BEGIN PGP SIGNATURE-----
 
-> +
-> +static int adcx140_codec_probe(struct snd_soc_component *component)
-> +{
-> +       struct adcx140_priv *adcx140 =
-> snd_soc_component_get_drvdata(component);
-> +       int sleep_cfg_val = ADCX140_WAKE_DEV;
-> +       u8 bias_source;
-> +       u8 vref_source;
-> +       int ret;
-> +
-> +       ret = device_property_read_u8(adcx140->dev, "ti,mic-bias-source",
-> +                                     &bias_source);
-> +       if (ret)
-> +               bias_source = ADCX140_MIC_BIAS_VAL_VREF;
-> +
-> +       if (bias_source != ADCX140_MIC_BIAS_VAL_VREF &&
-> +           bias_source != ADCX140_MIC_BIAS_VAL_VREF_1096 &&
-> +           bias_source != ADCX140_MIC_BIAS_VAL_AVDD) {
-> +               dev_err(adcx140->dev, "Mic Bias source value is invalid\n");
-> +               return -EINVAL;
-> +       }
-> +
-> +       ret = device_property_read_u8(adcx140->dev, "ti,vref-source",
-> +                                     &vref_source);
-> +       if (ret)
-> +               vref_source = ADCX140_MIC_BIAS_VREF_275V;
-> +
-> +       if (vref_source != ADCX140_MIC_BIAS_VREF_275V &&
-> +           vref_source != ADCX140_MIC_BIAS_VREF_25V &&
-> +           vref_source != ADCX140_MIC_BIAS_VREF_1375V) {
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5WVUIACgkQJNaLcl1U
+h9Aiwgf+MwWFsDp/SpGestLnyB4u39j7wugEM/Vp/YFOYOJvAaI1oD6AilRN7dnB
+VZbn+9+PEuFX8InCL2QjkHk6oYJHdbaDo81x2nmKB3W3vLu/Bf3hDfePKHihW9Iv
+Ai+S+SAeGiSteLO7W37lNqIRZ1006XKQbISB+p3irPTqjeUTJYcA2QFtzZh/30zJ
+Z9ufz1wEF8311klqfVYFFZqZGk6rSxDJDonJ0xSvlAMxk9j8F7PUtg2x/JpeNaCP
++RpLDHt5q5zLfY5W11ipPPYsjFxjHj+qV7mNV4vGJ/BCVXsSpa5PtC6NUv8DeBOW
+ZtY/Crb7H0W0G6iKmFfET8XIn7NmFA==
+=h+wH
+-----END PGP SIGNATURE-----
 
-According to the data sheet, this setting controls the ADC full scale 
-setting and has nothing to do with the mic bias voltage, hence using 
-MIC_BIAS as part of the macro name is misleaading.
-
-> +               dev_err(adcx140->dev, "Mic Bias source value is invalid\n");
-
-Error text does not reflect the actual error, suggest "VREF value is 
-invalid".
-
-> +               return -EINVAL;
-> +       }
-> +
-> +       bias_source |= vref_source;
-> +
-> +       ret = adcx140_reset(adcx140);
-> +       if (ret)
-> +               goto out;
-> +
-> +       if(adcx140->supply_areg == NULL)
-> +               sleep_cfg_val |= ADCX140_AREG_INTERNAL;
-> +
-> +       ret = regmap_write(adcx140->regmap, ADCX140_SLEEP_CFG,
-> sleep_cfg_val);
-> +       if (ret) {
-> +               dev_err(adcx140->dev, "setting sleep config failed %d\n",
-> ret);
-> +               goto out;
-> +       }
-> --
-> 2.25.0
-> 
-> 
-> 
-
-/Ricard
--- 
-Ricard Wolf Wanderlof                           ricardw(at)axis.com
-Axis Communications AB, Lund, Sweden            www.axis.com
-Phone +46 46 272 2016                           Fax +46 46 13 61 30
+--bCsyhTFzCvuiizWE--

@@ -2,84 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED2CF170445
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 17:24:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8113B170492
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 17:39:53 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2C39B1697;
-	Wed, 26 Feb 2020 17:23:26 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2C39B1697
+	by alsa0.perex.cz (Postfix) with ESMTPS id ECEDC168D;
+	Wed, 26 Feb 2020 17:39:02 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz ECEDC168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582734256;
-	bh=OEl7YbpV04RHazuekxw2LIaUVT80xHunJDv48jpnAY8=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1582735193;
+	bh=YQDMakzKkwIwb2i/m5HHcukmQxJFQ48650m7wR+rLnI=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Bhew3IrF79feiIA5kV9RKFbkWpFeY0WfF7QOjOqX70/MvdXRJHSLPoKTTVA6Pz7Uj
-	 60U2IDAFcGvqjdTT50BImxhVDoNUj4IA8ZRSDDONt/cLN6F693ldIRkezP8GOq8ccy
-	 iEqbbMGCHu3bScQbbZYr1QQxmY83FAQ4Po/se3vU=
+	b=osBc+A37UqJcTMQxNYfpsdmQYKXQVhnCtx9MvSGu13kYzKY82p3Vh3mMebwehL/c+
+	 rGvpaqdeIFaIlIiYnDsSce/gWUNHk/8QvQ2REM2Z987cNh9Cg2x5Q46+kGU06TuNdA
+	 Z9yfZeO0a6Wl3vHBwMCrchXtxvLY0+vjncAIZtg4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9A477F80213;
-	Wed, 26 Feb 2020 17:21:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id D2959F8014D;
+	Wed, 26 Feb 2020 17:38:11 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 955BEF8016F; Wed, 26 Feb 2020 17:21:49 +0100 (CET)
+ id 622CFF8016F; Wed, 26 Feb 2020 17:38:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from fllv0015.ext.ti.com (fllv0015.ext.ti.com [198.47.19.141])
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 659A0F8014D
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 17:21:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 659A0F8014D
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Tik595Gh"
-Received: from fllv0034.itg.ti.com ([10.64.40.246])
- by fllv0015.ext.ti.com (8.15.2/8.15.2) with ESMTP id 01QGLhUY077662;
- Wed, 26 Feb 2020 10:21:43 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1582734103;
- bh=7PBDsbXxj4AX8n3D3XLYg0rJuiB68wdam0M5qbWaRh8=;
- h=From:To:CC:Subject:Date:In-Reply-To:References;
- b=Tik595GhNchxiBpHFQRMneZll48OMlkT78PYfme5fF+OJUZsTlAQeu/JiYz2HQHSF
- Arpaqo9e+mrjSZxLt6rA1GgzcxLy22CMo7RrVBb1RE5AobYeF15ARXhNMcxGsvC0Tv
- umVAfPuQn04p4CIo/bgyZzGQ3v8KZrwF16SjCTuo=
-Received: from DLEE109.ent.ti.com (dlee109.ent.ti.com [157.170.170.41])
- by fllv0034.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 01QGLhGa060397
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 26 Feb 2020 10:21:43 -0600
-Received: from DLEE104.ent.ti.com (157.170.170.34) by DLEE109.ent.ti.com
- (157.170.170.41) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Wed, 26
- Feb 2020 10:21:42 -0600
-Received: from fllv0040.itg.ti.com (10.64.41.20) by DLEE104.ent.ti.com
- (157.170.170.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Wed, 26 Feb 2020 10:21:42 -0600
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by fllv0040.itg.ti.com (8.15.2/8.15.2) with ESMTP id 01QGLgpq068594;
- Wed, 26 Feb 2020 10:21:42 -0600
-From: Dan Murphy <dmurphy@ti.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [RESEND PATCH for-next 3/3] ASoC: tas2562: Add entries for the
- TAS2563 audio amplifier
-Date: Wed, 26 Feb 2020 10:16:28 -0600
-Message-ID: <20200226161628.29960-3-dmurphy@ti.com>
-X-Mailer: git-send-email 2.25.0
-In-Reply-To: <20200226161628.29960-1-dmurphy@ti.com>
-References: <20200226161628.29960-1-dmurphy@ti.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 5E4FCF80089
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 17:38:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5E4FCF80089
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 26 Feb 2020 08:38:02 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,488,1574150400"; d="scan'208";a="410671937"
+Received: from nkaburla-mobl.amr.corp.intel.com (HELO [10.252.133.245])
+ ([10.252.133.245])
+ by orsmga005.jf.intel.com with ESMTP; 26 Feb 2020 08:38:01 -0800
+Subject: Re: [PATCH] soundwire: bus: provide correct return value on error
+To: Vinod Koul <vkoul@kernel.org>
+References: <20200225164907.23358-1-pierre-louis.bossart@linux.intel.com>
+ <20200226080326.GU2618@vkoul-mobl>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <69a06304-c869-0539-0c85-9ab154807269@linux.intel.com>
+Date: Wed, 26 Feb 2020 08:54:37 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Dan Murphy <dmurphy@ti.com>
+In-Reply-To: <20200226080326.GU2618@vkoul-mobl>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,48 +83,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-The TAS2563 is register compatible with the TAS2562.  The main
-difference is the TAS2563 has a programmable DSP to manage different
-audio profiles.
 
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
----
- sound/soc/codecs/tas2562.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/tas2562.c b/sound/soc/codecs/tas2562.c
-index c7a4b3b74654..6b7f7a18da36 100644
---- a/sound/soc/codecs/tas2562.c
-+++ b/sound/soc/codecs/tas2562.c
-@@ -55,6 +55,11 @@ struct tas2562_data {
- 	int volume_lvl;
- };
- 
-+enum tas256x_model {
-+	TAS2562,
-+	TAS2563,
-+};
-+
- static int tas2562_set_bias_level(struct snd_soc_component *component,
- 				 enum snd_soc_bias_level level)
- {
-@@ -664,13 +669,15 @@ static int tas2562_probe(struct i2c_client *client,
- }
- 
- static const struct i2c_device_id tas2562_id[] = {
--	{ "tas2562", 0 },
-+	{ "tas2562", TAS2562 },
-+	{ "tas2563", TAS2563 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, tas2562_id);
- 
- static const struct of_device_id tas2562_of_match[] = {
- 	{ .compatible = "ti,tas2562", },
-+	{ .compatible = "ti,tas2563", },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, tas2562_of_match);
--- 
-2.25.0
+On 2/26/20 2:03 AM, Vinod Koul wrote:
+> On 25-02-20, 10:49, Pierre-Louis Bossart wrote:
+>> From: Bard Liao <yung-chuan.liao@linux.intel.com>
+>>
+>> It seems to be a typo. It makes more sense to return the return value
+>> of sdw_update() instead of the value we want to update.
+>>
+>> Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
+>> Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+>> ---
+>>   drivers/soundwire/bus.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/soundwire/bus.c b/drivers/soundwire/bus.c
+>> index 13887713f311..b8a7a84aca1c 100644
+>> --- a/drivers/soundwire/bus.c
+>> +++ b/drivers/soundwire/bus.c
+>> @@ -1070,7 +1070,7 @@ static int sdw_initialize_slave(struct sdw_slave *slave)
+>>   	if (ret < 0) {
+>>   		dev_err(slave->bus->dev,
+>>   			"SDW_DP0_INTMASK read failed:%d\n", ret);
+>> -		return val;
+>> +		return ret;
+> 
+> good catch. But can we optimize it to:
+>>   	}
+>>   
+>>   	return 0;
+> 
+> make this as below and remove the return above.
 
+ok, will resend as v2.

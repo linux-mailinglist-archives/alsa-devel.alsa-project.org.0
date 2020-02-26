@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1714B170813
-	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 19:53:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD2FA170814
+	for <lists+alsa-devel@lfdr.de>; Wed, 26 Feb 2020 19:53:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B687A16A0;
-	Wed, 26 Feb 2020 19:52:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B687A16A0
+	by alsa0.perex.cz (Postfix) with ESMTPS id 63C5482A;
+	Wed, 26 Feb 2020 19:52:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 63C5482A
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582743187;
-	bh=PQhne9ttSLDX0rKHR3kqAklhUHbGzQFg0awOZT7AiLw=;
+	s=default; t=1582743222;
+	bh=zsF8Qa2LRQPjcDwppVTyT1bQfTMreBNpd0aPXySBg78=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=erQhIDdJwsZr49+GRsMQPZvcF4+WECc727dQtq3NdX/oKuh9YKDbaAW1JC9HI1YwW
-	 JrC3oEkz167zx0nZMP9y94MZNRYqnd1E/AteXJld7iYe7Bi2ob6jHDpoH+sq99FNP3
-	 +y9vk9eqOp+K6A82281MJ38jilSSPTr1cj1lcPik=
+	b=dCT9AFlw2F1AM9x8l+eFiyNJ0h5awNYqcqIeF9ASioyhH4ZqHY/1wGcnXZwL/9KdM
+	 nBdfmGRY1kaR4GzZXlFGF8uWK42wiXfQKjV2mNZF7BFSggQ246oJuo8AHQ9A9mrZ47
+	 HFXvqPYCS/VXnYV/FP7KV3yYcjYzUGdZUGpX+lfM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E9658F802DC;
-	Wed, 26 Feb 2020 19:47:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id EB622F802E2;
+	Wed, 26 Feb 2020 19:47:57 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id EBEBEF802C2; Wed, 26 Feb 2020 19:47:47 +0100 (CET)
+ id A6114F802D2; Wed, 26 Feb 2020 19:47:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 7B306F802A7
- for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 19:47:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7B306F802A7
+ by alsa1.perex.cz (Postfix) with ESMTP id C8F72F802BD
+ for <alsa-devel@alsa-project.org>; Wed, 26 Feb 2020 19:47:48 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8F72F802BD
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7360C31B;
- Wed, 26 Feb 2020 10:47:43 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 2B33C30E;
+ Wed, 26 Feb 2020 10:47:48 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DCDC53F881;
- Wed, 26 Feb 2020 10:47:42 -0800 (PST)
-Date: Wed, 26 Feb 2020 18:47:41 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 958ED3F881;
+ Wed, 26 Feb 2020 10:47:47 -0800 (PST)
+Date: Wed, 26 Feb 2020 18:47:45 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Bard Liao <yung-chuan.liao@linux.intel.com>
-Subject: Applied "ASoC: pcm: check if cpu-dai supports a given stream" to the
- asoc tree
-In-Reply-To: <20200225133917.21314-7-yung-chuan.liao@linux.intel.com>
-Message-Id: <applied-20200225133917.21314-7-yung-chuan.liao@linux.intel.com>
+Subject: Applied "ASoC: Return error if the function does not support
+ multi-cpu" to the asoc tree
+In-Reply-To: <20200225133917.21314-6-yung-chuan.liao@linux.intel.com>
+Message-Id: <applied-20200225133917.21314-6-yung-chuan.liao@linux.intel.com>
 X-Patchwork-Hint: ignore
 Cc: alsa-devel@alsa-project.org, kuninori.morimoto.gx@renesas.com,
  tiwai@suse.de, Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
@@ -69,7 +69,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: pcm: check if cpu-dai supports a given stream
+   ASoC: Return error if the function does not support multi-cpu
 
 has been applied to the asoc tree at
 
@@ -94,127 +94,128 @@ to this mail.
 Thanks,
 Mark
 
-From 0e9cf4c452ad7e2776441cbac0b9983abaf17ff0 Mon Sep 17 00:00:00 2001
+From 6e1276a5e613d25af71e3494b2dcb331d24f06ce Mon Sep 17 00:00:00 2001
 From: Bard Liao <yung-chuan.liao@linux.intel.com>
-Date: Tue, 25 Feb 2020 21:39:17 +0800
-Subject: [PATCH] ASoC: pcm: check if cpu-dai supports a given stream
+Date: Tue, 25 Feb 2020 21:39:16 +0800
+Subject: [PATCH] ASoC: Return error if the function does not support multi-cpu
 
-Now multi-cpu-dais are supported, we can skip cpi-dais which don't
-support the current stream, following the example of multi-codec-dais.
+Multi cpu is not supported by all functions yet. Add an error message
+and return.
 
+Suggested-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 Signed-off-by: Bard Liao <yung-chuan.liao@linux.intel.com>
-Link: https://lore.kernel.org/r/20200225133917.21314-7-yung-chuan.liao@linux.intel.com
+Link: https://lore.kernel.org/r/20200225133917.21314-6-yung-chuan.liao@linux.intel.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-pcm.c | 51 ++++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 50 insertions(+), 1 deletion(-)
+ sound/soc/soc-compress.c              |  5 +++--
+ sound/soc/soc-generic-dmaengine-pcm.c | 18 ++++++++++++++++++
+ sound/soc/soc-pcm.c                   | 18 ++++++++++++++++++
+ 3 files changed, 39 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index adbceaff07b8..90857138c823 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -607,6 +607,20 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 
- 	/* first calculate min/max only for CPUs in the DAI link */
- 	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+
-+		/*
-+		 * Skip CPUs which don't support the current stream type.
-+		 * Otherwise, since the rate, channel, and format values will
-+		 * zero in that case, we would have no usable settings left,
-+		 * causing the resulting setup to fail.
-+		 * At least one CPU should match, otherwise we should have
-+		 * bailed out on a higher level, since there would be no
-+		 * CPU to support the transfer direction in that case.
-+		 */
-+		if (!snd_soc_dai_stream_valid(cpu_dai,
-+					      substream->stream))
-+			continue;
-+
- 		cpu_stream = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
- 
- 		cpu_chan_min = max(cpu_chan_min, cpu_stream->channels_min);
-@@ -1115,6 +1129,13 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 	}
- 
- 	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		/*
-+		 * Skip CPUs which don't support the current stream
-+		 * type. See soc_pcm_init_runtime_hw() for more details
-+		 */
-+		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
-+			continue;
-+
- 		ret = snd_soc_dai_hw_params(cpu_dai, substream, params);
- 		if (ret < 0)
- 			goto interface_err;
-@@ -1150,6 +1171,9 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 
- interface_err:
- 	for_each_rtd_cpu_dai_rollback(rtd, i, cpu_dai) {
-+		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
-+			continue;
-+
- 		snd_soc_dai_hw_free(cpu_dai, substream);
- 		cpu_dai->rate = 0;
- 	}
-@@ -1226,8 +1250,12 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
- 		snd_soc_dai_hw_free(codec_dai, substream);
- 	}
- 
--	for_each_rtd_cpu_dai(rtd, i, cpu_dai)
-+	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
-+			continue;
-+
- 		snd_soc_dai_hw_free(cpu_dai, substream);
-+	}
- 
- 	mutex_unlock(&rtd->card->pcm_mutex);
- 	return 0;
-@@ -1904,6 +1932,13 @@ static void dpcm_runtime_merge_chan(struct snd_pcm_substream *substream,
- 		int i;
- 
- 		for_each_rtd_cpu_dai(be, i, dai) {
-+			/*
-+			 * Skip CPUs which don't support the current stream
-+			 * type. See soc_pcm_init_runtime_hw() for more details
-+			 */
-+			if (!snd_soc_dai_stream_valid(dai, stream))
-+				continue;
-+
- 			cpu_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
- 			*channels_min = max(*channels_min,
-@@ -1952,6 +1987,13 @@ static void dpcm_runtime_merge_rate(struct snd_pcm_substream *substream,
- 		int i;
- 
- 		for_each_rtd_cpu_dai(be, i, dai) {
-+			/*
-+			 * Skip CPUs which don't support the current stream
-+			 * type. See soc_pcm_init_runtime_hw() for more details
-+			 */
-+			if (!snd_soc_dai_stream_valid(dai, stream))
-+				continue;
-+
- 			cpu_stream = snd_soc_dai_get_pcm_stream(dai, stream);
- 
- 			*rate_min = max(*rate_min, cpu_stream->rate_min);
-@@ -1989,6 +2031,13 @@ static void dpcm_set_fe_runtime(struct snd_pcm_substream *substream)
+diff --git a/sound/soc/soc-compress.c b/sound/soc/soc-compress.c
+index 392a1c5b15d3..50062eb79adb 100644
+--- a/sound/soc/soc-compress.c
++++ b/sound/soc/soc-compress.c
+@@ -810,9 +810,10 @@ int snd_soc_new_compress(struct snd_soc_pcm_runtime *rtd, int num)
+ 	int playback = 0, capture = 0;
  	int i;
  
- 	for_each_rtd_cpu_dai(rtd, i, cpu_dai) {
-+		/*
-+		 * Skip CPUs which don't support the current stream
-+		 * type. See soc_pcm_init_runtime_hw() for more details
-+		 */
-+		if (!snd_soc_dai_stream_valid(cpu_dai, substream->stream))
-+			continue;
+-	if (rtd->num_codecs > 1) {
++	if (rtd->num_cpus > 1 ||
++	    rtd->num_codecs > 1) {
+ 		dev_err(rtd->card->dev,
+-			"Compress ASoC: Multicodec not supported\n");
++			"Compress ASoC: Multi CPU/Codec not supported\n");
+ 		return -EINVAL;
+ 	}
+ 
+diff --git a/sound/soc/soc-generic-dmaengine-pcm.c b/sound/soc/soc-generic-dmaengine-pcm.c
+index d6b4831e8aec..facf1922a714 100644
+--- a/sound/soc/soc-generic-dmaengine-pcm.c
++++ b/sound/soc/soc-generic-dmaengine-pcm.c
+@@ -62,6 +62,12 @@ int snd_dmaengine_pcm_prepare_slave_config(struct snd_pcm_substream *substream,
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+ 	int ret;
+ 
++	if (rtd->num_cpus > 1) {
++		dev_err(rtd->dev,
++			"%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
 +
- 		cpu_dai_drv = cpu_dai->driver;
- 		if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK)
- 			dpcm_init_runtime_hw(runtime, &cpu_dai_drv->playback);
+ 	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
+ 
+ 	ret = snd_hwparams_to_dma_slave_config(substream, params, slave_config);
+@@ -118,6 +124,12 @@ dmaengine_pcm_set_runtime_hwparams(struct snd_soc_component *component,
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+ 	struct snd_pcm_hardware hw;
+ 
++	if (rtd->num_cpus > 1) {
++		dev_err(rtd->dev,
++			"%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	if (pcm->config && pcm->config->pcm_hardware)
+ 		return snd_soc_set_runtime_hwparams(substream,
+ 				pcm->config->pcm_hardware);
+@@ -185,6 +197,12 @@ static struct dma_chan *dmaengine_pcm_compat_request_channel(
+ 	struct snd_dmaengine_dai_dma_data *dma_data;
+ 	dma_filter_fn fn = NULL;
+ 
++	if (rtd->num_cpus > 1) {
++		dev_err(rtd->dev,
++			"%s doesn't support Multi CPU yet\n", __func__);
++		return NULL;
++	}
++
+ 	dma_data = snd_soc_dai_get_dma_data(rtd->cpu_dai, substream);
+ 
+ 	if ((pcm->flags & SND_DMAENGINE_PCM_FLAG_HALF_DUPLEX) && pcm->chan[0])
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index 44694e65fc4a..adbceaff07b8 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -125,6 +125,12 @@ static ssize_t dpcm_state_read_file(struct file *file, char __user *user_buf,
+ 	int stream;
+ 	char *buf;
+ 
++	if (fe->num_cpus > 1) {
++		dev_err(fe->dev,
++			"%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	buf = kmalloc(out_count, GFP_KERNEL);
+ 	if (!buf)
+ 		return -ENOMEM;
+@@ -1550,6 +1556,12 @@ int dpcm_path_get(struct snd_soc_pcm_runtime *fe,
+ 	struct snd_soc_dai *cpu_dai = fe->cpu_dai;
+ 	int paths;
+ 
++	if (fe->num_cpus > 1) {
++		dev_err(fe->dev,
++			"%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	/* get number of valid DAI paths and their widgets */
+ 	paths = snd_soc_dapm_dai_get_connected_widgets(cpu_dai, stream, list,
+ 			dpcm_end_walk_at_be);
+@@ -2834,6 +2846,12 @@ static int soc_dpcm_fe_runtime_update(struct snd_soc_pcm_runtime *fe, int new)
+ 	int count, paths;
+ 	int ret;
+ 
++	if (fe->num_cpus > 1) {
++		dev_err(fe->dev,
++			"%s doesn't support Multi CPU yet\n", __func__);
++		return -EINVAL;
++	}
++
+ 	if (!fe->dai_link->dynamic)
+ 		return 0;
+ 
 -- 
 2.20.1
 

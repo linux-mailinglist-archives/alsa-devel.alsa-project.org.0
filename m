@@ -2,70 +2,101 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 822D11717CC
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2020 13:47:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7A87171A83
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2020 14:54:33 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 1CBF7169B;
-	Thu, 27 Feb 2020 13:46:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1CBF7169B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 319EC16A0;
+	Thu, 27 Feb 2020 14:53:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 319EC16A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582807658;
-	bh=1CPN/ERKX9LmY4WzGC8/HcDS4EYyjLg6AA7nICRDHE8=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1582811673;
+	bh=8z3ywkXBoxjABqzZPop6fexjis8wd7nePJ1lagL4bpQ=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=V7UPmPAy4GUOGULJo+TmnAVLUTDr3R1M5467uLiGQ2HLQIuONaRYSC29S+ocOTn/l
-	 +wA2H+z3FsbYIAt8/ddB5zrea2hqS62Lr+f+yMWqTMxzYpZUFI6o7GpexDMldn0p4u
-	 LJCpL2vvH6v0TGzfGE4J+CTb2YeQqf85R7GLrDF4=
+	b=lg+Jl4Mge2Xt9ltx4kyj9cOlVgOzVWC2qLutsu3kceRWrIHtP/7bjFmM+DkMU6RwG
+	 awuorctvCZc2qklP6eDG6kuRo7UMcbVUIRLZgXvREsDBn2gdGS/eijF82XgKPHfUOR
+	 fKR0nNekGuVjWW9TkxAlDhINx2ilJXs0dqV6ZHDQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 84C21F80089;
-	Thu, 27 Feb 2020 13:45:54 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 41A95F8013E;
+	Thu, 27 Feb 2020 14:52:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2F057F80142; Thu, 27 Feb 2020 13:45:52 +0100 (CET)
+ id 2EDDDF80142; Thu, 27 Feb 2020 14:52:50 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE
- autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 61DDAF80089
- for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2020 13:45:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 61DDAF80089
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2020 04:45:45 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,492,1574150400"; d="scan'208";a="227126673"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga007.jf.intel.com with ESMTP; 27 Feb 2020 04:45:43 -0800
-Date: Thu, 27 Feb 2020 14:45:43 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Jaroslav Kysela <perex@perex.cz>
-Subject: Re: [PATCH] ASoC: SOF - topology - do not change the link trigger
- order for pre-1.4 firmware
-In-Reply-To: <aa6805c3-212b-13ce-3d91-dcd377b4a491@perex.cz>
-Message-ID: <alpine.DEB.2.21.2002271426070.2957@eliteleevi.tm.intel.com>
-References: <20200221100739.3883842-1-perex@perex.cz>
- <alpine.DEB.2.21.2002211510050.2957@eliteleevi.tm.intel.com>
- <3901b16e-372e-4839-0e97-929115ea130a@perex.cz>
- <1ebd94a8-a461-4b5b-dc30-53f35a7fca47@linux.intel.com>
- <aa6805c3-212b-13ce-3d91-dcd377b4a491@perex.cz>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+ by alsa1.perex.cz (Postfix) with ESMTPS id 12B56F80089
+ for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2020 14:52:46 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12B56F80089
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="M/B+wVKT"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 01RDqCX8026476; Thu, 27 Feb 2020 07:52:44 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=date : from : to : cc
+ : subject : message-id : references : mime-version : content-type :
+ in-reply-to; s=PODMain02222019;
+ bh=cslc29hczETAlQa0X23hPQTj91TBsgGjB1S2qq30ylY=;
+ b=M/B+wVKT5KIY+EntGHNNSZmwep7JogzZUSHR9y5Lu1mtdz+qaXHl6WUBeazJOMmcPMZn
+ V2ADsuQHEMe0IwJtbsDkeyvi7RfXBX4LGQBtDllcAp47SjURfr3/ygBwfxwgRELGeHM7
+ BHbxihSv89oKLzzc8RkbfKVrcJiA4YSY8Iidxia9rgTvnPDIIp2n5j9i1SlrmE4LrI/0
+ agCe7zQUga4ocNJiHd6oCmdcuyq8mEQrzcZDsrcAHnSBjBb4kGknLwUUPU8OHZ8Rdqwd
+ mAm6TRMjIeKcI6ipuEC5/bD+iUrsfA3hI6B3ZXELjrxl9d+1g/SX/M8uZY8QSyfUStnP RQ== 
+Authentication-Results: ppops.net;
+ spf=pass smtp.mailfrom=ckeepax@opensource.cirrus.com
+Received: from ediex01.ad.cirrus.com ([5.172.152.52])
+ by mx0b-001ae601.pphosted.com with ESMTP id 2ydcmbbkgp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Thu, 27 Feb 2020 07:52:44 -0600
+Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Thu, 27 Feb
+ 2020 13:52:43 +0000
+Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
+ (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
+ Frontend Transport; Thu, 27 Feb 2020 13:52:43 +0000
+Received: from ediswmail.ad.cirrus.com (ediswmail.ad.cirrus.com [198.61.86.93])
+ by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 0E48645D;
+ Thu, 27 Feb 2020 13:52:43 +0000 (UTC)
+Date: Thu, 27 Feb 2020 13:52:43 +0000
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Subject: Re: [PATCH v2 1/2] mfd: wm8994: Fix driver operation if loaded as
+ modules
+Message-ID: <20200227135243.GI108283@ediswmail.ad.cirrus.com>
+References: <CGME20200226100814eucas1p1ef5e4d5eb763f37bcd4eceffc798792d@eucas1p1.samsung.com>
+ <20200226100802.16384-1-m.szyprowski@samsung.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: ALSA development <alsa-devel@alsa-project.org>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- ranjani.sridharan@linux.intel.com, Mark Brown <broonie@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20200226100802.16384-1-m.szyprowski@samsung.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com
+ ip4:5.172.152.52 -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ spamscore=0 adultscore=0
+ bulkscore=0 malwarescore=0 clxscore=1011 priorityscore=1501 mlxscore=0
+ lowpriorityscore=0 mlxlogscore=999 suspectscore=0 impostorscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2001150001
+ definitions=main-2002270110
+Cc: alsa-devel@alsa-project.org,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>, Lee Jones <lee.jones@linaro.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,56 +112,23 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+On Wed, Feb 26, 2020 at 11:08:01AM +0100, Marek Szyprowski wrote:
+> WM8994 chip has built-in regulators, which might be used for chip
+> operation. They are controlled by a separate wm8994-regulator driver,
+> which should be loaded before this driver calls regulator_get(), because
+> that driver also provides consumer-supply mapping for the them. If that
+> driver is not yet loaded, regulator core substitute them with dummy
+> regulator, what breaks chip operation, because the built-in regulators are
+> never enabled. Fix this by annotating this driver with MODULE_SOFTDEP()
+> "pre" dependency to "wm8994_regulator" module.
+> 
+> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
 
-On Fri, 21 Feb 2020, Jaroslav Kysela wrote:
-> Dne 21. 02. 20 v 20:23 Pierre-Louis Bossart napsal(a):
-> > > Ok, it's really weird that we cannot determine the firmware/driver
-> > > combination which cause the DSP lock. I would propose to block the older
-> > > firmware load <1.4 (or 1.4.2 which has the correct firmware version!)
-[...]
-> It makes sense. At least a hint that something may be wrong. I believe that it
-> might help to identify issues.
+Acked-by: Charles Keepax <ckeepax@opensource.cirrus.com>
 
-I've continued testing today on multiple machines using the official (old) 
-v1.3 binaries [1] we have and I cannot reproduce the DSP error you 
-Jaroslav have seen. On all of my machines, latest sound tree with old v1.3 
-FW works just fine. This matches earlier reports on SOF issue #2102.
+Be good to ensure patches@opensource.cirrus.com is CCed on
+patches for the old Wolfson CODECs.
 
-I also looked back at the history of the kernel trigger order change, and 
-it's a kernel-only change, to fix issues with certain pause-resume cases. 
-It's not a change that was done in tandem with some specific FW side 
-change, so I can't find a solid reason why DMA triggering order should be 
-changed for old FW versions. One FW patch that was done at a time (and 
-referred in the discussions) is:
-
-dai: prevent dai_config while in active state 
-https://github.com/thesofproject/sof/commit/c623e9246325dbee615a5cad0c8e4b0c29976056
-
-.. but this is not changing the logic, just avoiding a DSP crash by 
-returning an error (but IPC and use-case will still fail).
-
-So although I cannot explain why Jaroslav you see the crash on the old 
-v1.3 firmware on the Lenovo device, I would still recommend to leave 
-current kernel code as is and not add any warnings. To summarize my 
-rationale:
-
-- we have known error in SOF driver logic, which was fixed
-  in 5.5, and now backported to 5.4
-- if above driver error was hit, very old FW versions would 
-  end up with DSP crash, instead returning a proper error
-- for many systems, new 5.5 kernel and old 1.3 FW works ok with 
-  no notable issues
-- we have at least one system, where new kernel and old FW does
-  not work -> on these machines, upgrade to v1.4.2 firmware helps
-
-Unless we get more reports, I'd lean towards not adding any new warnings. 
-If someone hits a similar case as Jaroslav you did, we can see this from 
-dmesg based on fw version and DSP oops dump (and/or reported IPC error). 
-And the recommended action is to upgrade the FW to 1.4.2.
-
-How about it?
-
-[1] https://github.com/thesofproject/sof/releases
-
-Br, Kai
+Thanks,
+Charles

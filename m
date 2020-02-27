@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE3D5172B71
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2020 23:35:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2A2172B77
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2020 23:36:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 68AE716DF;
-	Thu, 27 Feb 2020 23:35:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 68AE716DF
+	by alsa0.perex.cz (Postfix) with ESMTPS id 105F916D3;
+	Thu, 27 Feb 2020 23:35:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 105F916D3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582842955;
-	bh=ZcWKMuooExomcFQKrOITrqcMb/Wl05zWCaJJ15rx8co=;
+	s=default; t=1582843002;
+	bh=JD75hAAmP1cKJkwViEJKxYmo48ZD7vrSRdzPriSqhtg=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=khwhYy51XSapvpVsvBAfmbA/iD/Wj7/5b3EyJHIY518zhvZQmFui1f8bMr55rC0cD
-	 Ue+duq25sOdjD6cE+U2TAp+VVKI+cHKNR+87H/d2EKm4SJRP64zzQIINRZawmt8f2H
-	 QUxEOtYtTR6IQC7AMnj+gaZnDkQsAudmHzhDf1EY=
+	b=Yt+jlf+VujL92adCma5yO1FldBUm+MCcYc02lRNGn9M+6i2rAATvRNX9vKuuo1gF6
+	 Ybi21Hi20zy7GSzQ3OOlPJJd8K3JIeUOGpROfMJVyLYyN2gda+QCZ+aIhNUdklrxO3
+	 1s25xQyVUGkdAiGXj9rWlZCvd6cAcWY0PJmgxc0Q=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D3166F8029B;
-	Thu, 27 Feb 2020 23:32:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 81804F802A7;
+	Thu, 27 Feb 2020 23:32:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DB486F80161; Thu, 27 Feb 2020 23:32:32 +0100 (CET)
+ id 99C01F8028A; Thu, 27 Feb 2020 23:32:35 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 08666F80089
- for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2020 23:32:27 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 08666F80089
+ by alsa1.perex.cz (Postfix) with ESMTPS id 38016F80125
+ for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2020 23:32:31 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 38016F80125
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 27 Feb 2020 14:32:27 -0800
+ 27 Feb 2020 14:32:29 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,493,1574150400"; d="scan'208";a="411194826"
+X-IronPort-AV: E=Sophos;i="5.70,493,1574150400"; d="scan'208";a="411194841"
 Received: from azeira-mobl.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.251.147.250])
- by orsmga005.jf.intel.com with ESMTP; 27 Feb 2020 14:32:25 -0800
+ by orsmga005.jf.intel.com with ESMTP; 27 Feb 2020 14:32:27 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 3/8] soundwire: intel_init: add implementation of
- sdw_intel_enable_irq()
-Date: Thu, 27 Feb 2020 16:32:01 -0600
-Message-Id: <20200227223206.5020-4-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 4/8] soundwire: intel_init: use EXPORT_SYMBOL_NS
+Date: Thu, 27 Feb 2020 16:32:02 -0600
+Message-Id: <20200227223206.5020-5-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200227223206.5020-1-pierre-louis.bossart@linux.intel.com>
 References: <20200227223206.5020-1-pierre-louis.bossart@linux.intel.com>
@@ -80,48 +79,71 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This function is required to enable all interrupts across all links.
+Make sure all symbols in this soundwire-intel-init module are exported
+with a namespace.
 
+The MODULE_IMPORT_NS will be used in Intel/SOF HDaudio modules to be
+posted in a separate series.
+
+Namespaces are only introduced for the Intel parts of the SoundWire
+code at this time, in future patches we should also add namespaces for
+Cadence parts and the SoundWire core.
+
+Suggested-by: Greg KH <gregkh@linuxfoundation.org>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- drivers/soundwire/intel_init.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/soundwire/intel_init.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/soundwire/intel_init.c b/drivers/soundwire/intel_init.c
-index a6ff7d2ae8be..88ad2a1637ad 100644
+index 88ad2a1637ad..01c8b390887b 100644
 --- a/drivers/soundwire/intel_init.c
 +++ b/drivers/soundwire/intel_init.c
-@@ -141,6 +141,30 @@ sdw_intel_scan_controller(struct sdw_intel_acpi_info *info)
- 	return 0;
- }
+@@ -163,7 +163,7 @@ void sdw_intel_enable_irq(void __iomem *mmio_base, bool enable)
  
-+#define HDA_DSP_REG_ADSPIC2             (0x10)
-+#define HDA_DSP_REG_ADSPIS2             (0x14)
-+#define HDA_DSP_REG_ADSPIC2_SNDW        BIT(5)
-+
-+/**
-+ * sdw_intel_enable_irq() - enable/disable Intel SoundWire IRQ
-+ * @mmio_base: The mmio base of the control register
-+ * @enable: true if enable
-+ */
-+void sdw_intel_enable_irq(void __iomem *mmio_base, bool enable)
-+{
-+	u32 val;
-+
-+	val = readl(mmio_base + HDA_DSP_REG_ADSPIC2);
-+
-+	if (enable)
-+		val |= HDA_DSP_REG_ADSPIC2_SNDW;
-+	else
-+		val &= ~HDA_DSP_REG_ADSPIC2_SNDW;
-+
-+	writel(val, mmio_base + HDA_DSP_REG_ADSPIC2);
-+}
-+EXPORT_SYMBOL(sdw_intel_enable_irq);
-+
+ 	writel(val, mmio_base + HDA_DSP_REG_ADSPIC2);
+ }
+-EXPORT_SYMBOL(sdw_intel_enable_irq);
++EXPORT_SYMBOL_NS(sdw_intel_enable_irq, SOUNDWIRE_INTEL_INIT);
+ 
  static struct sdw_intel_ctx
  *sdw_intel_probe_controller(struct sdw_intel_res *res)
+@@ -355,7 +355,7 @@ int sdw_intel_acpi_scan(acpi_handle *parent_handle,
+ 
+ 	return sdw_intel_scan_controller(info);
+ }
+-EXPORT_SYMBOL(sdw_intel_acpi_scan);
++EXPORT_SYMBOL_NS(sdw_intel_acpi_scan, SOUNDWIRE_INTEL_INIT);
+ 
+ /**
+  * sdw_intel_probe() - SoundWire Intel probe routine
+@@ -370,7 +370,7 @@ struct sdw_intel_ctx
  {
+ 	return sdw_intel_probe_controller(res);
+ }
+-EXPORT_SYMBOL(sdw_intel_probe);
++EXPORT_SYMBOL_NS(sdw_intel_probe, SOUNDWIRE_INTEL_INIT);
+ 
+ /**
+  * sdw_intel_startup() - SoundWire Intel startup
+@@ -381,7 +381,7 @@ int sdw_intel_startup(struct sdw_intel_ctx *ctx)
+ {
+ 	return sdw_intel_startup_controller(ctx);
+ }
+-EXPORT_SYMBOL(sdw_intel_startup);
++EXPORT_SYMBOL_NS(sdw_intel_startup, SOUNDWIRE_INTEL_INIT);
+ /**
+  * sdw_intel_exit() - SoundWire Intel exit
+  * @ctx: SoundWire context allocated in the probe
+@@ -393,7 +393,7 @@ void sdw_intel_exit(struct sdw_intel_ctx *ctx)
+ 	sdw_intel_cleanup(ctx);
+ 	kfree(ctx);
+ }
+-EXPORT_SYMBOL(sdw_intel_exit);
++EXPORT_SYMBOL_NS(sdw_intel_exit, SOUNDWIRE_INTEL_INIT);
+ 
+ MODULE_LICENSE("Dual BSD/GPL");
+ MODULE_DESCRIPTION("Intel Soundwire Init Library");
 -- 
 2.20.1
 

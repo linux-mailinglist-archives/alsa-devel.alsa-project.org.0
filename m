@@ -2,66 +2,58 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60AB7170D12
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2020 01:13:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 078C5170D15
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2020 01:14:38 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 094FF1674;
-	Thu, 27 Feb 2020 01:12:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 094FF1674
+	by alsa0.perex.cz (Postfix) with ESMTPS id A4A8C16A0;
+	Thu, 27 Feb 2020 01:13:47 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A4A8C16A0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582762428;
-	bh=pnRimu/n4opE3RtHU075afOXbaV8MRLv/XD86J+WyY8=;
+	s=default; t=1582762477;
+	bh=dzRL3KKgHUI3E4W5PaOBw79VE5j5LdBTmBFzWILgMDU=;
 	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=jgrMMsAIQAqge/wJwr4Yd6KZRveQ9Vt7aUA1dlT7SRHKKKWo3LOflA0bhHOqqi9sJ
-	 8f30DbEKteLNVaVAVJm8ZS+HYri4Rim6BJNp+xux5DGbh/1EJsd4UghXV0KWoUPt+6
-	 31zePeVxowHnRKkVG6PnLq74cL1KsWiJw8LysWrk=
+	b=Ve5epbJpkIZMoST8dGbRhc0sb44RvkfdL3mxYeNl6WiblqWBBFTP54jCdZuuySOvk
+	 PjRpN+uy5MCcsxeyqc6HCE0U+0NgRxlqECloQMvuFvSrIKoAal/zIs052XEKjIKwom
+	 WFl9r6U2Ct1AjQ0Scrfns/40uJUFKFxKDBoY4HqQ=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0C8D6F800E8;
-	Thu, 27 Feb 2020 01:12:07 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2DE49F801F2;
+	Thu, 27 Feb 2020 01:13:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id CB22AF8014E; Thu, 27 Feb 2020 01:12:03 +0100 (CET)
+ id E284EF80171; Thu, 27 Feb 2020 01:13:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 5AA54F800E8
- for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2020 01:11:58 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5AA54F800E8
-Date: 27 Feb 2020 09:11:56 +0900
-X-IronPort-AV: E=Sophos;i="5.70,490,1574089200"; d="scan'208";a="40133506"
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 27 Feb 2020 09:11:56 +0900
+ by alsa1.perex.cz (Postfix) with ESMTP id 52E63F80089
+ for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2020 01:13:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 52E63F80089
+Date: 27 Feb 2020 09:13:37 +0900
+X-IronPort-AV: E=Sophos;i="5.70,490,1574089200"; d="scan'208";a="40133628"
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie6.idc.renesas.com with ESMTP; 27 Feb 2020 09:13:37 +0900
 Received: from mercury.renesas.com (unknown [10.166.252.133])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id 61BB34114CD7;
- Thu, 27 Feb 2020 09:11:56 +0900 (JST)
-Message-ID: <87y2so7usz.wl-kuninori.morimoto.gx@renesas.com>
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 216EC400A0F9;
+ Thu, 27 Feb 2020 09:13:37 +0900 (JST)
+Message-ID: <87wo887uq6.wl-kuninori.morimoto.gx@renesas.com>
 From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-To: Mark Brown <broonie@kernel.org>
-Subject: Re: [PATCH] ASoC: soc-pcm: Revert "call
- snd_soc_component_open/close() once"
-In-Reply-To: <20200226173611.GI4136@sirena.org.uk>
-References: <20200219182650.1416-1-kai.vehmanen@linux.intel.com>
- <87blput7hh.wl-kuninori.morimoto.gx@renesas.com>
- <alpine.DEB.2.21.2002201103060.2957@eliteleevi.tm.intel.com>
- <87mu9cspyf.wl-kuninori.morimoto.gx@renesas.com>
- <alpine.DEB.2.21.2002211251280.2957@eliteleevi.tm.intel.com>
- <87mu978pob.wl-kuninori.morimoto.gx@renesas.com>
- <87ftey88wk.wl-kuninori.morimoto.gx@renesas.com>
- <20200226173611.GI4136@sirena.org.uk>
+To: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Subject: Re: [PATCH 4/8] ASoC: soc-pcm: add dpcm_fe_dai_clean()
+In-Reply-To: <5d98cb39bfdc4fe806fa5ec249f02dfc03d994ee.camel@linux.intel.com>
+References: <87eeuh97k4.wl-kuninori.morimoto.gx@renesas.com>
+ <878skp97in.wl-kuninori.morimoto.gx@renesas.com>
+ <5d98cb39bfdc4fe806fa5ec249f02dfc03d994ee.camel@linux.intel.com>
 User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
 MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Cc: digetx@gmail.com, alsa-devel@alsa-project.org,
- ranjani.sridharan@linux.intel.com, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- pierre-louis.bossart@linux.intel.com
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -78,24 +70,30 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
-Hi Mark
+Hi Ranjani
 
-> > If each component / rtd / dai have "done" flag or count,
-> > soc_pcm_open() can call soc_pcm_close() directly
-> > without thinking about "until", because each flag can handle/indicate it.
-> 
-> > The good point is we can reduce duplicate implementation.
-> > And it can avoid future bug. Because today, we need to care both
-> > soc_pcm_close() and error handling in soc_pcm_open(), it is not good for me.
-> 
-> That goal definitely makes sense, if we can avoid problems like the ones
-> here it seems like a useful change.
+Thank you for your review
 
-Thank you for your feedback.
-The one big headache is that, as Kai mentioned, how to know
-the "handled substream". We need list or array, but...
-I will postpone this kind of patches now, and post other patches.
-And I will re-think about it again after that.
+> > diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+> > index 3686dda097e2..d578dbdfa846 100644
+> > --- a/sound/soc/soc-pcm.c
+> > +++ b/sound/soc/soc-pcm.c
+> > @@ -2978,14 +2978,11 @@ int soc_dpcm_runtime_update(struct
+> > snd_soc_card *card)
+> >  	return ret;
+> >  }
+> >  
+> > -static int dpcm_fe_dai_close(struct snd_pcm_substream *fe_substream)
+> > +static void dpcm_fe_dai_clean(struct snd_pcm_substream
+> > *fe_substream)
+> The series looks good to me, Morimoto-san. But a minor suggestion if
+> you're doing a v2 to address other comments. Could you please change
+> the name of the function above to dpcm_fe_dai_cleanup() instead?
+
+Yeah, will do.
+Thanks
+
+> Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
 
 Thank you for your help !!
 Best regards

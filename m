@@ -2,70 +2,63 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3A07170E35
-	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2020 03:08:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50FA6170E7F
+	for <lists+alsa-devel@lfdr.de>; Thu, 27 Feb 2020 03:36:40 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 5EA10166C;
-	Thu, 27 Feb 2020 03:07:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5EA10166C
+	by alsa0.perex.cz (Postfix) with ESMTPS id E3FBD1670;
+	Thu, 27 Feb 2020 03:35:49 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E3FBD1670
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582769320;
-	bh=qCw5u5UZfSxyMlz2nE9j8ZIawnB7YE2+cEtvsYHXAPU=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Jz7G0Ws5FnqEM2gGV76LUayd3TAKbdaTjmDjSshYF8GpdjqpricWAr6H+KGfg8MdF
-	 ffF9SsTP/hNCu9wVEqcxfWPYwFFqnKlc7AO/kEzy5VLMFY+PPUM3qePlPgN0B0UTkf
-	 1Xvtz6eaT5IpkBQZniKU4tlZ7agL/0M/dl2TxhKQ=
+	s=default; t=1582771000;
+	bh=54093go0b7TnYSbXYi+jWNtBYpx90u1wc6yBe+YR1zI=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=t95jbwJl9o2fApGsT38kUuXV2puFdtELkjVsHDcLW5PUW3E/nEPj9VSRN8NrxNb0A
+	 BUkewtcE3ElxAR0v32/xSJ+pNPkPt0+ARxSbMW+YwoioIM50bZHVU6/Ah3nR8pka3U
+	 UUCBLuqt1JNn3ywyxW+BDv0gcmKIdEWd8dGE3vrg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 77626F8016F;
-	Thu, 27 Feb 2020 03:06:59 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 07FF2F80142;
+	Thu, 27 Feb 2020 03:34:59 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 98F51F8014E; Thu, 27 Feb 2020 03:06:57 +0100 (CET)
+ id EF02EF80142; Thu, 27 Feb 2020 03:34:56 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0C4BDF800AD
- for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2020 03:06:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C4BDF800AD
-Authenticated-By: 
-X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 01R26iBB022786,
- This message is accepted by code: ctloc85258
-Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
- by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 01R26iBB022786
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 27 Feb 2020 10:06:44 +0800
-Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
- RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Thu, 27 Feb 2020 10:06:44 +0800
-Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
- (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Thu, 27 Feb
- 2020 10:06:44 +0800
-From: <jack.yu@realtek.com>
-To: <broonie@kernel.org>, <lgirdwood@gmail.com>
-Subject: [PATCH] ASoC: rt1015: modify some structure to be static.
-Date: Thu, 27 Feb 2020 10:06:37 +0800
-Message-ID: <20200227020637.15135-1-jack.yu@realtek.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [172.22.102.1]
-X-ClientProxiedBy: RTEXMB05.realtek.com.tw (172.21.6.98) To
- RTEXMB01.realtek.com.tw (172.21.6.94)
-Cc: oder_chiou@realtek.com, Jack Yu <jack.yu@realtek.com>,
- alsa-devel@alsa-project.org, lars@metafoo.de, kent_chen@realtek.com,
- kenny_chen@realtek.com, derek.fang@realtek.com, shumingf@realtek.com,
- mingjane_hsieh@realtek.com, flove@realtek.com
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id BDEEAF800E8
+ for <alsa-devel@alsa-project.org>; Thu, 27 Feb 2020 03:34:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BDEEAF800E8
+Date: 27 Feb 2020 11:34:47 +0900
+X-IronPort-AV: E=Sophos;i="5.70,490,1574089200"; d="scan'208";a="40152281"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 27 Feb 2020 11:34:47 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 3338841644D8;
+ Thu, 27 Feb 2020 11:34:47 +0900 (JST)
+Message-ID: <87a7547o6w.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 6/8] ASoC: soc-pcm: check DAI's activity more simply
+In-Reply-To: <87blpk7psk.wl-kuninori.morimoto.gx@renesas.com>
+References: <87eeuh97k4.wl-kuninori.morimoto.gx@renesas.com>
+ <875zft97i4.wl-kuninori.morimoto.gx@renesas.com>
+ <704a2cb1-ebcd-d433-0b8a-0f8d97d72fa5@linux.intel.com>
+ <87v9ns7tpk.wl-kuninori.morimoto.gx@renesas.com>
+ <f99bfbaa-c1a3-3545-aef9-dcb6ad9bd77f@linux.intel.com>
+ <87tv3c7tc5.wl-kuninori.morimoto.gx@renesas.com>
+ <d2638e3f-37f4-a347-f5c8-c76d49e2bb8c@linux.intel.com>
+ <87blpk7psk.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Linux-ALSA <alsa-devel@alsa-project.org>, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,34 +74,32 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Jack Yu <jack.yu@realtek.com>
 
-Modify rt1015_aif_dai_ops and rt1015_dai[] to be static.
+Hi Pierre-Louis, again
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
+> > Not in this case though, the initial idea was to do the mute when only
+> > playback or capture were enabled? If you mute when both are enabled
+> > then that's a real change.
+> 
+> Let's check original
+> 
+> 	if ((playback && playback_active == 1) ||
+> 	    (!playback && capture_active == 1))
+> 		snd_soc_dai_digital_mute(...)
+> 
+> It calls mute if Playback or Capture is working.
+> and my patch (v2) is
+> 
+> 	if (codec_dai->activity)
+> 		snd_soc_dai_digital_mute(...)
+> 
+> It calls mute if Codec DAI is working (= Playback or Capture).
+> I think it doesn't change behavior.
+
+Oops !
+I was wrong. I will post mail to v2 patch for detail
+
+Thank you for your help !!
+Best regards
 ---
- sound/soc/codecs/rt1015.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index d300b417dd50..c118d030bd2d 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -841,12 +841,12 @@ static void rt1015_remove(struct snd_soc_component *component)
- #define RT1015_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
- 			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S8)
- 
--struct snd_soc_dai_ops rt1015_aif_dai_ops = {
-+static struct snd_soc_dai_ops rt1015_aif_dai_ops = {
- 	.hw_params = rt1015_hw_params,
- 	.set_fmt = rt1015_set_dai_fmt,
- };
- 
--struct snd_soc_dai_driver rt1015_dai[] = {
-+static struct snd_soc_dai_driver rt1015_dai[] = {
- 	{
- 		.name = "rt1015-aif",
- 		.id = 0,
--- 
-2.25.1
-
+Kuninori Morimoto

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09D451742E7
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Feb 2020 00:18:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26B141742E6
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Feb 2020 00:18:10 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id A67C116CA;
-	Sat, 29 Feb 2020 00:17:43 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A67C116CA
+	by alsa0.perex.cz (Postfix) with ESMTPS id C0B6216E4;
+	Sat, 29 Feb 2020 00:17:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C0B6216E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582931913;
-	bh=YgjK18fMC7nPm5K8zqoM4Wq1OHJokYGU2sm5YCvbxus=;
+	s=default; t=1582931889;
+	bh=XyfdBT8qgzMTQgbUWhuqIzm3fUSjPl/a+npELi+JJ+M=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=FH7aiQdNRtrTS13FjnHr9Ko/jGmB7AZc/CIkFVHDgH2ud+NZ1llsoaWus7a227+KW
-	 g8XsNi+M7KF85B8Vd1U4qzswyfk8kQoILarFDgID7wfa/ccPGTbXFIHEqF8JIZFy0G
-	 8QSCCqSSixJtwoiO0XbuE46Ys5Ww2LfE4JVnIhlc=
+	b=qRnPOwFFQX5g/niCkYYXwMRGefJ0J3qE5y7BWis2tP9rOIFOq2iRTNWR26bJZMupc
+	 X78khM71Fv9o8Zg5Jgx0rVnGXV4bwefqdsFK/VsxHcng3KgdF2LMmgvnXWeHYNWQwu
+	 lj22Nf6aBs5y4pzP2+RfPEKuyuH5juCDqou2Cl28=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 656C0F802D2;
-	Sat, 29 Feb 2020 00:12:46 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 61200F802BC;
+	Sat, 29 Feb 2020 00:12:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 60B38F8016F; Sat, 29 Feb 2020 00:12:29 +0100 (CET)
+ id CB690F8016F; Sat, 29 Feb 2020 00:12:28 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,25 +33,24 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D491BF80086
+ by alsa1.perex.cz (Postfix) with ESMTPS id EF11DF801F2
  for <alsa-devel@alsa-project.org>; Sat, 29 Feb 2020 00:12:22 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D491BF80086
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EF11DF801F2
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2020 15:12:20 -0800
+ 28 Feb 2020 15:12:21 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,497,1574150400"; d="scan'208";a="232402974"
+X-IronPort-AV: E=Sophos;i="5.70,497,1574150400"; d="scan'208";a="232402978"
 Received: from rbconrad-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.254.95.100])
- by orsmga008.jf.intel.com with ESMTP; 28 Feb 2020 15:12:19 -0800
+ by orsmga008.jf.intel.com with ESMTP; 28 Feb 2020 15:12:20 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 8/9] ASoC: Intel: sof_da7219_max98373: Add support for
- max98360a speaker amp
-Date: Fri, 28 Feb 2020 17:12:03 -0600
-Message-Id: <20200228231204.9026-9-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 9/9] ASoC: Intel: sof_rt5682: Add rt1015 speaker amp support
+Date: Fri, 28 Feb 2020 17:12:04 -0600
+Message-Id: <20200228231204.9026-10-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200228231204.9026-1-pierre-louis.bossart@linux.intel.com>
 References: <20200228231204.9026-1-pierre-louis.bossart@linux.intel.com>
@@ -77,236 +76,277 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 From: Yong Zhi <yong.zhi@intel.com>
 
-Add Maxim MAX98360A plug-and-play Class-D amplifier support on SSP1,
-new card ID is sofda7219max98360a, name sof-da7219max98360a.
+This patch adds jsl_rt5682_rt1015 which supports the
+RT5682 headset codec and RT1015 speaker amplifier combination
+on JasperLake platform.
 
 Signed-off-by: Yong Zhi <yong.zhi@intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/intel/boards/Kconfig                |  4 +-
- sound/soc/intel/boards/sof_da7219_max98373.c  | 74 +++++++++++++++++--
- .../intel/common/soc-acpi-intel-jsl-match.c   | 19 ++++-
- 3 files changed, 87 insertions(+), 10 deletions(-)
+ sound/soc/intel/boards/Kconfig                |   1 +
+ sound/soc/intel/boards/sof_rt5682.c           | 108 +++++++++++++++++-
+ .../intel/common/soc-acpi-intel-jsl-match.c   |  15 ++-
+ 3 files changed, 118 insertions(+), 6 deletions(-)
 
 diff --git a/sound/soc/intel/boards/Kconfig b/sound/soc/intel/boards/Kconfig
-index 6833ef548710..ab4ce652cc1a 100644
+index ab4ce652cc1a..fb8d83518c47 100644
 --- a/sound/soc/intel/boards/Kconfig
 +++ b/sound/soc/intel/boards/Kconfig
-@@ -507,7 +507,7 @@ endif ## SND_SOC_SOF_COMETLAKE_LP && SND_SOC_SOF_HDA_LINK
- if SND_SOC_SOF_JASPERLAKE
- 
- config SND_SOC_INTEL_SOF_DA7219_MAX98373_MACH
--	tristate "SOF with DA7219 and MAX98373 in I2S Mode"
-+	tristate "SOF with DA7219 and MAX98373/MAX98360A in I2S Mode"
- 	depends on I2C && ACPI
- 	depends on MFD_INTEL_LPSS || COMPILE_TEST
+@@ -450,6 +450,7 @@ config SND_SOC_INTEL_SOF_RT5682_MACH
+ 	depends on (SND_SOC_SOF_HDA_LINK && (MFD_INTEL_LPSS || COMPILE_TEST)) ||\
+ 		   (SND_SOC_SOF_BAYTRAIL && (X86_INTEL_LPSS || COMPILE_TEST))
  	depends on SND_HDA_CODEC_HDMI
-@@ -516,7 +516,7 @@ config SND_SOC_INTEL_SOF_DA7219_MAX98373_MACH
++	select SND_SOC_RT1015
+ 	select SND_SOC_RT5682
  	select SND_SOC_DMIC
- 	help
- 	  This adds support for ASoC machine driver for SOF platforms
--	  with DA7219 + MAX98373 I2S audio codec.
-+	  with DA7219 + MAX98373/MAX98360A I2S audio codec.
- 	  Say Y if you have such a device.
- 	  If unsure select "N".
- 
-diff --git a/sound/soc/intel/boards/sof_da7219_max98373.c b/sound/soc/intel/boards/sof_da7219_max98373.c
-index 8c657da5fcf0..7847dd44f41b 100644
---- a/sound/soc/intel/boards/sof_da7219_max98373.c
-+++ b/sound/soc/intel/boards/sof_da7219_max98373.c
-@@ -2,7 +2,7 @@
- // Copyright(c) 2019 Intel Corporation.
+ 	select SND_SOC_HDAC_HDMI
+diff --git a/sound/soc/intel/boards/sof_rt5682.c b/sound/soc/intel/boards/sof_rt5682.c
+index 99b5a5e01e38..f4cd11c943bc 100644
+--- a/sound/soc/intel/boards/sof_rt5682.c
++++ b/sound/soc/intel/boards/sof_rt5682.c
+@@ -1,9 +1,9 @@
+ // SPDX-License-Identifier: GPL-2.0
+-// Copyright(c) 2019 Intel Corporation.
++// Copyright(c) 2019-2020 Intel Corporation.
  
  /*
-- * Intel SOF Machine driver for DA7219 + MAX98373 codec
-+ * Intel SOF Machine driver for DA7219 + MAX98373/MAX98360A codec
+  * Intel SOF Machine Driver with Realtek rt5682 Codec
+- * and speaker codec MAX98357A
++ * and speaker codec MAX98357A or RT1015.
   */
- 
+ #include <linux/i2c.h>
  #include <linux/input.h>
-@@ -69,11 +69,14 @@ static const struct snd_kcontrol_new controls[] = {
- 	SOC_DAPM_PIN_SWITCH("Right Spk"),
+@@ -18,6 +18,7 @@
+ #include <sound/soc.h>
+ #include <sound/rt5682.h>
+ #include <sound/soc-acpi.h>
++#include "../../codecs/rt1015.h"
+ #include "../../codecs/rt5682.h"
+ #include "../../codecs/hdac_hdmi.h"
+ #include "../common/soc-intel-quirks.h"
+@@ -39,6 +40,7 @@
+ #define SOF_RT5682_NUM_HDMIDEV_MASK		(GENMASK(12, 10))
+ #define SOF_RT5682_NUM_HDMIDEV(quirk)	\
+ 	((quirk << SOF_RT5682_NUM_HDMIDEV_SHIFT) & SOF_RT5682_NUM_HDMIDEV_MASK)
++#define SOF_RT1015_SPEAKER_AMP_PRESENT		BIT(13)
+ 
+ /* Default: MCLK on, MCLK 19.2M, SSP0  */
+ static unsigned long sof_rt5682_quirk = SOF_RT5682_MCLK_EN |
+@@ -260,6 +262,42 @@ static struct snd_soc_ops sof_rt5682_ops = {
+ 	.hw_params = sof_rt5682_hw_params,
  };
  
-+static const struct snd_kcontrol_new m98360a_controls[] = {
-+	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
-+	SOC_DAPM_PIN_SWITCH("Headset Mic"),
++static int sof_rt1015_hw_params(struct snd_pcm_substream *substream,
++				struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	struct snd_soc_card *card = rtd->card;
++	struct snd_soc_dai *codec_dai;
++	int i, ret;
++
++	if (!snd_soc_card_get_codec_dai(card, "rt1015-aif"))
++		return 0;
++
++	for_each_rtd_codec_dai(rtd, i, codec_dai) {
++		ret = snd_soc_dai_set_pll(codec_dai, 0, RT1015_PLL_S_BCLK,
++					  params_rate(params) * 50,
++					  params_rate(params) * 256);
++		if (ret < 0) {
++			dev_err(card->dev, "failed to set pll\n");
++			return ret;
++		}
++		/* Configure sysclk for codec */
++		ret = snd_soc_dai_set_sysclk(codec_dai, RT1015_SCLK_S_PLL,
++					     params_rate(params) * 256,
++					     SND_SOC_CLOCK_IN);
++		if (ret < 0) {
++			dev_err(card->dev, "failed to set sysclk\n");
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++static struct snd_soc_ops sof_rt1015_ops = {
++	.hw_params = sof_rt1015_hw_params,
 +};
 +
- static const struct snd_soc_dapm_widget widgets[] = {
+ static struct snd_soc_dai_link_component platform_component[] = {
+ 	{
+ 		/* name might be overridden during probe */
+@@ -316,12 +354,17 @@ static const struct snd_kcontrol_new sof_controls[] = {
+ 	SOC_DAPM_PIN_SWITCH("Headphone Jack"),
+ 	SOC_DAPM_PIN_SWITCH("Headset Mic"),
+ 	SOC_DAPM_PIN_SWITCH("Spk"),
++	SOC_DAPM_PIN_SWITCH("Left Spk"),
++	SOC_DAPM_PIN_SWITCH("Right Spk"),
++
+ };
+ 
+ static const struct snd_soc_dapm_widget sof_widgets[] = {
  	SND_SOC_DAPM_HP("Headphone Jack", NULL),
  	SND_SOC_DAPM_MIC("Headset Mic", NULL),
--	SND_SOC_DAPM_SPK("Left Spk", NULL),
--	SND_SOC_DAPM_SPK("Right Spk", NULL),
- 	SND_SOC_DAPM_SUPPLY("Platform Clock", SND_SOC_NOPM, 0, 0,
- 			    platform_clock_control, SND_SOC_DAPM_POST_PMD |
- 			    SND_SOC_DAPM_PRE_PMU),
-@@ -83,15 +86,23 @@ static const struct snd_soc_dapm_route audio_map[] = {
- 	{ "Headphone Jack", NULL, "HPL" },
- 	{ "Headphone Jack", NULL, "HPR" },
- 
--	{ "Left Spk", NULL, "Left BE_OUT" },
--	{ "Right Spk", NULL, "Right BE_OUT" },
--
- 	{ "MIC", NULL, "Headset Mic" },
- 
- 	{ "Headphone Jack", NULL, "Platform Clock" },
- 	{ "Headset Mic", NULL, "Platform Clock" },
- };
- 
-+/* For MAX98373 amp */
-+static const struct snd_soc_dapm_widget max98373_widgets[] = {
+ 	SND_SOC_DAPM_SPK("Spk", NULL),
 +	SND_SOC_DAPM_SPK("Left Spk", NULL),
 +	SND_SOC_DAPM_SPK("Right Spk", NULL),
-+};
-+
-+static const struct snd_soc_dapm_route max98373_map[] = {
-+	{ "Left Spk", NULL, "Left BE_OUT" },
-+	{ "Right Spk", NULL, "Right BE_OUT" },
-+};
-+
- static struct snd_soc_jack headset;
+ };
  
- static int da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
-@@ -133,6 +144,21 @@ static int da7219_codec_init(struct snd_soc_pcm_runtime *rtd)
+ static const struct snd_soc_dapm_widget dmic_widgets[] = {
+@@ -342,11 +385,22 @@ static const struct snd_soc_dapm_route speaker_map[] = {
+ 	{ "Spk", NULL, "Speaker" },
+ };
+ 
++static const struct snd_soc_dapm_route speaker_map_lr[] = {
++	{ "Left Spk", NULL, "Left SPO" },
++	{ "Right Spk", NULL, "Right SPO" },
++};
++
+ static const struct snd_soc_dapm_route dmic_map[] = {
+ 	/* digital mics */
+ 	{"DMic", NULL, "SoC DMIC"},
+ };
+ 
++static int speaker_codec_init_lr(struct snd_soc_pcm_runtime *rtd)
++{
++	return snd_soc_dapm_add_routes(&rtd->card->dapm, speaker_map_lr,
++				       ARRAY_SIZE(speaker_map_lr));
++}
++
+ static int speaker_codec_init(struct snd_soc_pcm_runtime *rtd)
+ {
+ 	struct snd_soc_card *card = rtd->card;
+@@ -382,6 +436,17 @@ static int dmic_init(struct snd_soc_pcm_runtime *rtd)
  	return ret;
  }
  
-+static int speaker_amp_init(struct snd_soc_pcm_runtime *rtd)
-+{
-+	int ret;
-+
-+	/* Add widgets */
-+	ret = snd_soc_dapm_new_controls(&rtd->card->dapm, max98373_widgets,
-+					ARRAY_SIZE(max98373_widgets));
-+	if (ret)
-+		return ret;
-+
-+	/* Add routes */
-+	return snd_soc_dapm_add_routes(&rtd->card->dapm, max98373_map,
-+				       ARRAY_SIZE(max98373_map));
-+}
-+
- static int ssp1_hw_params(struct snd_pcm_substream *substream,
- 			      struct snd_pcm_hw_params *params)
- {
-@@ -223,6 +249,8 @@ SND_SOC_DAILINK_DEF(ssp1_amps,
- 	DAILINK_COMP_ARRAY(
- 	/* Left */	COMP_CODEC(MAXIM_DEV0_NAME, MAX98373_CODEC_DAI),
- 	/* Right */	COMP_CODEC(MAXIM_DEV1_NAME, MAX98373_CODEC_DAI)));
-+/* For the driver-less spk amp */
-+SND_SOC_DAILINK_DEF(dummy, DAILINK_COMP_ARRAY(COMP_DUMMY()));
- 
- SND_SOC_DAILINK_DEF(dmic_pin,
- 	DAILINK_COMP_ARRAY(COMP_CPU("DMIC01 Pin")));
-@@ -254,6 +282,7 @@ static struct snd_soc_dai_link dais[] = {
- 		.id = 0,
- 		.ignore_pmdown_time = 1,
- 		.no_pcm = 1,
-+		.init = speaker_amp_init,
- 		.dpcm_playback = 1,
- 		.dpcm_capture = 1, /* IV feedback */
- 		.ops = &ssp1_ops,
-@@ -320,6 +349,21 @@ static struct snd_soc_card card_da7219_m98373 = {
- 	.late_probe = card_late_probe,
- };
- 
-+static struct snd_soc_card card_da7219_m98360a = {
-+	.name = "da7219max98360a",
-+	.owner = THIS_MODULE,
-+	.dai_link = dais,
-+	.num_links = ARRAY_SIZE(dais),
-+	.controls = m98360a_controls,
-+	.num_controls = ARRAY_SIZE(m98360a_controls),
-+	.dapm_widgets = widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(widgets),
-+	.dapm_routes = audio_map,
-+	.num_dapm_routes = ARRAY_SIZE(audio_map),
-+	.fully_routed = true,
-+	.late_probe = card_late_probe,
++static struct snd_soc_codec_conf rt1015_amp_conf[] = {
++	{
++		.dlc = COMP_CODEC_CONF("i2c-10EC1015:00"),
++		.name_prefix = "Left",
++	},
++	{
++		.dlc = COMP_CODEC_CONF("i2c-10EC1015:01"),
++		.name_prefix = "Right",
++	},
 +};
 +
- static int audio_probe(struct platform_device *pdev)
- {
- 	static struct snd_soc_card *card;
-@@ -331,6 +375,17 @@ static int audio_probe(struct platform_device *pdev)
- 	if (!ctx)
- 		return -ENOMEM;
+ /* sof audio machine driver for rt5682 codec */
+ static struct snd_soc_card sof_audio_card_rt5682 = {
+ 	.name = "rt5682", /* the sof- prefix is added by the core */
+@@ -417,6 +482,17 @@ static struct snd_soc_dai_link_component max98357a_component[] = {
+ 	}
+ };
  
-+	/* By default dais[0] is configured for max98373 */
-+	if (!strcmp(pdev->name, "sof_da7219_max98360a")) {
-+		dais[0] = (struct snd_soc_dai_link) {
-+			.name = "SSP1-Codec",
-+			.id = 0,
-+			.no_pcm = 1,
-+			.dpcm_playback = 1,
-+			.ignore_pmdown_time = 1,
-+			SND_SOC_DAILINK_REG(ssp1_pin, dummy, platform) };
++static struct snd_soc_dai_link_component rt1015_components[] = {
++	{
++		.name = "i2c-10EC1015:00",
++		.dai_name = "rt1015-aif",
++	},
++	{
++		.name = "i2c-10EC1015:01",
++		.dai_name = "rt1015-aif",
++	},
++};
++
+ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 							  int ssp_codec,
+ 							  int ssp_amp,
+@@ -556,11 +632,18 @@ static struct snd_soc_dai_link *sof_card_dai_links_create(struct device *dev,
+ 			goto devm_err;
+ 
+ 		links[id].id = id;
+-		links[id].codecs = max98357a_component;
+-		links[id].num_codecs = ARRAY_SIZE(max98357a_component);
++		if (sof_rt5682_quirk & SOF_RT1015_SPEAKER_AMP_PRESENT) {
++			links[id].codecs = rt1015_components;
++			links[id].num_codecs = ARRAY_SIZE(rt1015_components);
++			links[id].init = speaker_codec_init_lr;
++			links[id].ops = &sof_rt1015_ops;
++		} else {
++			links[id].codecs = max98357a_component;
++			links[id].num_codecs = ARRAY_SIZE(max98357a_component);
++			links[id].init = speaker_codec_init;
++		}
+ 		links[id].platforms = platform_component;
+ 		links[id].num_platforms = ARRAY_SIZE(platform_component);
+-		links[id].init = speaker_codec_init,
+ 		links[id].nonatomic = true;
+ 		links[id].dpcm_playback = 1;
+ 		links[id].no_pcm = 1;
+@@ -669,6 +752,11 @@ static int sof_audio_probe(struct platform_device *pdev)
+ 
+ 	sof_audio_card_rt5682.dai_link = dai_links;
+ 
++	if (sof_rt5682_quirk & SOF_RT1015_SPEAKER_AMP_PRESENT) {
++		sof_audio_card_rt5682.codec_conf = rt1015_amp_conf;
++		sof_audio_card_rt5682.num_configs = ARRAY_SIZE(rt1015_amp_conf);
 +	}
 +
  	INIT_LIST_HEAD(&ctx->hdmi_pcm_list);
- 	card = (struct snd_soc_card *)pdev->id_entry->driver_data;
- 	card->dev = &pdev->dev;
-@@ -351,13 +406,17 @@ static const struct platform_device_id board_ids[] = {
- 		.name = "sof_da7219_max98373",
- 		.driver_data = (kernel_ulong_t)&card_da7219_m98373,
+ 
+ 	sof_audio_card_rt5682.dev = &pdev->dev;
+@@ -714,6 +802,15 @@ static const struct platform_device_id board_ids[] = {
+ 					SOF_RT5682_SSP_AMP(1) |
+ 					SOF_RT5682_NUM_HDMIDEV(4)),
  	},
 +	{
-+		.name = "sof_da7219_max98360a",
-+		.driver_data = (kernel_ulong_t)&card_da7219_m98360a,
++		.name = "jsl_rt5682_rt1015",
++		.driver_data = (kernel_ulong_t)(SOF_RT5682_MCLK_EN |
++					SOF_RT5682_MCLK_24MHZ |
++					SOF_RT5682_SSP_CODEC(0) |
++					SOF_SPEAKER_AMP_PRESENT |
++					SOF_RT1015_SPEAKER_AMP_PRESENT |
++					SOF_RT5682_SSP_AMP(1)),
 +	},
  	{ }
  };
  
- static struct platform_driver audio = {
- 	.probe = audio_probe,
- 	.driver = {
--		.name = "sof_da7219_max98373",
-+		.name = "sof_da7219_max98_360a_373",
- 		.pm = &snd_soc_pm_ops,
- 	},
- 	.id_table = board_ids,
-@@ -368,4 +427,5 @@ module_platform_driver(audio)
- MODULE_DESCRIPTION("ASoC Intel(R) SOF Machine driver");
- MODULE_AUTHOR("Yong Zhi <yong.zhi@intel.com>");
+@@ -735,3 +832,4 @@ MODULE_AUTHOR("Sathya Prakash M R <sathya.prakash.m.r@intel.com>");
  MODULE_LICENSE("GPL v2");
-+MODULE_ALIAS("platform:sof_da7219_max98360a");
- MODULE_ALIAS("platform:sof_da7219_max98373");
+ MODULE_ALIAS("platform:sof_rt5682");
+ MODULE_ALIAS("platform:tgl_max98357a_rt5682");
++MODULE_ALIAS("platform:jsl_rt5682_rt1015");
 diff --git a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-index ed2b125f6a11..70f01495a166 100644
+index 70f01495a166..4388a32718d8 100644
 --- a/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
 +++ b/sound/soc/intel/common/soc-acpi-intel-jsl-match.c
-@@ -9,13 +9,30 @@
- #include <sound/soc-acpi.h>
- #include <sound/soc-acpi-intel-match.h>
+@@ -2,7 +2,7 @@
+ /*
+  * soc-apci-intel-jsl-match.c - tables and support for JSL ACPI enumeration.
+  *
+- * Copyright (c) 2019, Intel Corporation.
++ * Copyright (c) 2019-2020, Intel Corporation.
+  *
+  */
  
-+static struct snd_soc_acpi_codecs jsl_7219_98373_codecs = {
+@@ -14,6 +14,11 @@ static struct snd_soc_acpi_codecs jsl_7219_98373_codecs = {
+ 	.codecs = {"MX98373"}
+ };
+ 
++static struct snd_soc_acpi_codecs rt1015_spk = {
 +	.num_codecs = 1,
-+	.codecs = {"MX98373"}
++	.codecs = {"10EC1015"}
 +};
 +
-+/*
-+ * When adding new entry to the snd_soc_acpi_intel_jsl_machines array,
-+ * use .quirk_data member to distinguish different machine driver,
-+ * and keep ACPI .id field unchanged for the common codec.
-+ */
- struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
- 	{
- 		.id = "DLGS7219",
- 		.drv_name = "sof_da7219_max98373",
--		.machine_quirk = snd_soc_acpi_codec_list,
+ /*
+  * When adding new entry to the snd_soc_acpi_intel_jsl_machines array,
+  * use .quirk_data member to distinguish different machine driver,
+@@ -34,6 +39,14 @@ struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = {
  		.sof_fw_filename = "sof-jsl.ri",
- 		.sof_tplg_filename = "sof-jsl-da7219.tplg",
-+		.machine_quirk = snd_soc_acpi_codec_list,
-+		.quirk_data = &jsl_7219_98373_codecs,
-+	},
-+	{
-+		.id = "DLGS7219",
-+		.drv_name = "sof_da7219_max98360a",
-+		.sof_fw_filename = "sof-jsl.ri",
-+		.sof_tplg_filename = "sof-jsl-da7219-mx98360a.tplg",
+ 		.sof_tplg_filename = "sof-jsl-da7219-mx98360a.tplg",
  	},
++	{
++		.id = "10EC5682",
++		.drv_name = "jsl_rt5682_rt1015",
++		.sof_fw_filename = "sof-jsl.ri",
++		.machine_quirk = snd_soc_acpi_codec_list,
++		.quirk_data = &rt1015_spk,
++		.sof_tplg_filename = "sof-jsl-rt5682-rt1015.tplg",
++	},
  	{},
  };
+ EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_jsl_machines);
 -- 
 2.20.1
 

@@ -2,30 +2,30 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A1DD1742DE
-	for <lists+alsa-devel@lfdr.de>; Sat, 29 Feb 2020 00:15:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 542E91742E2
+	for <lists+alsa-devel@lfdr.de>; Sat, 29 Feb 2020 00:16:54 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id EE07D16E1;
-	Sat, 29 Feb 2020 00:14:57 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE07D16E1
+	by alsa0.perex.cz (Postfix) with ESMTPS id E9BCD16E4;
+	Sat, 29 Feb 2020 00:16:03 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E9BCD16E4
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582931748;
-	bh=LVabuym36BsCnSfkXSyjS9wfCbfBnN2MUnPh30NVyrs=;
+	s=default; t=1582931814;
+	bh=35p5YyXxfbhMIF5WWXKeHFeXpG5Vg3hUQPFzAwCbxLA=;
 	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=m6mBAq5FM7+piZDRpsmSOXAgLEt9xLmRuC3iQZ3QHtZybAlIUO5IS0gnHWH5o0ih7
-	 +2NjZiYcandYEMMYQGUUicCp0GUaKIChVg2WtffC+wZB3nW1QygtP35cI/XvJ1AxLs
-	 0s7Yyx9xQkJ3to9P4OKMI8Ez9Z3+i6+jCYW+ezKA=
+	b=cu83ZGyJ9h0Jg+lsnIPoHbo8M/VdErhHtOokRpEIAw0Mpix1xhIpmWpKCnpnVmGKv
+	 oNPiIWKfs/TfY64cRQEcIAGX320tPdrABkMqu1JtaH3PKtwJTrTl/hz5pX06VosIU/
+	 Vh8/6EFcgiR3bl6B3+Kj3fDqCeghAPJKeXCKoQxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 75323F8028B;
-	Sat, 29 Feb 2020 00:12:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 581F0F802A0;
+	Sat, 29 Feb 2020 00:12:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 252DFF80278; Sat, 29 Feb 2020 00:12:24 +0100 (CET)
+ id 4A57EF80089; Sat, 29 Feb 2020 00:12:25 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
@@ -33,33 +33,34 @@ X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 6DB6CF80171
- for <alsa-devel@alsa-project.org>; Sat, 29 Feb 2020 00:12:19 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 6DB6CF80171
+ by alsa1.perex.cz (Postfix) with ESMTPS id EB9A3F80089
+ for <alsa-devel@alsa-project.org>; Sat, 29 Feb 2020 00:12:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EB9A3F80089
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Feb 2020 15:12:16 -0800
+ 28 Feb 2020 15:12:17 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,497,1574150400"; d="scan'208";a="232402952"
+X-IronPort-AV: E=Sophos;i="5.70,497,1574150400"; d="scan'208";a="232402957"
 Received: from rbconrad-mobl1.amr.corp.intel.com (HELO
  pbossart-mobl3.amr.corp.intel.com) ([10.254.95.100])
  by orsmga008.jf.intel.com with ESMTP; 28 Feb 2020 15:12:16 -0800
 From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 To: alsa-devel@alsa-project.org
-Subject: [PATCH 4/9] ASoC: SOF: Intel: hda: remove
- SND_SOC_SOF_HDA_COMMON_HDMI_CODEC
-Date: Fri, 28 Feb 2020 17:11:59 -0600
-Message-Id: <20200228231204.9026-5-pierre-louis.bossart@linux.intel.com>
+Subject: [PATCH 5/9] ASoC: codecs: hdac_hdmi: (cosmetic) remove redundant
+ variable initialisations
+Date: Fri, 28 Feb 2020 17:12:00 -0600
+Message-Id: <20200228231204.9026-6-pierre-louis.bossart@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20200228231204.9026-1-pierre-louis.bossart@linux.intel.com>
 References: <20200228231204.9026-1-pierre-louis.bossart@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Cc: tiwai@suse.de, broonie@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Cc: tiwai@suse.de,
+ Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+ broonie@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,65 +76,35 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 
-To help user-space with HDMI codec driver transition, both
-a kernel module parameter and a kernel option were initially
-provided to configure default behaviour of SOF on Intel hardware
-with commit 139c7febad1a ("ASoC: SOF: Intel: add support for
-snd-hda-codec-hdmi").
+Remove several redundant variable initialisations.
 
-As hdac-hdmi is already now lagging in features compared to
-snd-hda-codec-hdmi, move ahead with the transition and remove
-the build option to select between the two, and instead default
-to snd-hda-codec-hdmi if it is enabled in kernel build.
-
-The old behaviour of using hdac-hdmi driver can still be forced
-via the kernel module parameter.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 Signed-off-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
 ---
- sound/soc/sof/intel/Kconfig | 11 -----------
- sound/soc/sof/intel/hda.c   |  3 +--
- 2 files changed, 1 insertion(+), 13 deletions(-)
+ sound/soc/codecs/hdac_hdmi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/sof/intel/Kconfig b/sound/soc/sof/intel/Kconfig
-index 3bc64dee7c39..c9a2bee4b55c 100644
---- a/sound/soc/sof/intel/Kconfig
-+++ b/sound/soc/sof/intel/Kconfig
-@@ -324,17 +324,6 @@ config SND_SOC_SOF_HDA_ALWAYS_ENABLE_DMI_L1
- 	  Say Y if you want to enable DMI Link L1
- 	  If unsure, select "N".
+diff --git a/sound/soc/codecs/hdac_hdmi.c b/sound/soc/codecs/hdac_hdmi.c
+index e6558475e006..fba9b749839d 100644
+--- a/sound/soc/codecs/hdac_hdmi.c
++++ b/sound/soc/codecs/hdac_hdmi.c
+@@ -1998,11 +1998,11 @@ static struct hdac_hdmi_drv_data intel_drv_data  = {
  
--config SND_SOC_SOF_HDA_COMMON_HDMI_CODEC
--	bool "SOF common HDA HDMI codec driver"
--	depends on SND_SOC_SOF_HDA_LINK
--	depends on SND_HDA_CODEC_HDMI
--	default SND_HDA_CODEC_HDMI
--	help
--	  This adds support for HDMI audio by using the common HDA
--	  HDMI/DisplayPort codec driver.
--	  Say Y if you want to use the common codec driver with SOF.
--	  If unsure select "Y".
--
- endif ## SND_SOC_SOF_HDA_COMMON
+ static int hdac_hdmi_dev_probe(struct hdac_device *hdev)
+ {
+-	struct hdac_hdmi_priv *hdmi_priv = NULL;
++	struct hdac_hdmi_priv *hdmi_priv;
+ 	struct snd_soc_dai_driver *hdmi_dais = NULL;
+-	struct hdac_ext_link *hlink = NULL;
++	struct hdac_ext_link *hlink;
+ 	int num_dais = 0;
+-	int ret = 0;
++	int ret;
+ 	struct hdac_driver *hdrv = drv_to_hdac_driver(hdev->dev.driver);
+ 	const struct hda_device_id *hdac_id = hdac_get_device_id(hdev, hdrv);
  
- config SND_SOC_SOF_HDA_LINK_BASELINE
-diff --git a/sound/soc/sof/intel/hda.c b/sound/soc/sof/intel/hda.c
-index 7ca887041a34..1de750a1dd19 100644
---- a/sound/soc/sof/intel/hda.c
-+++ b/sound/soc/sof/intel/hda.c
-@@ -54,8 +54,7 @@ static int hda_dmic_num = -1;
- module_param_named(dmic_num, hda_dmic_num, int, 0444);
- MODULE_PARM_DESC(dmic_num, "SOF HDA DMIC number");
- 
--static bool hda_codec_use_common_hdmi =
--	IS_ENABLED(CONFIG_SND_SOC_SOF_HDA_COMMON_HDMI_CODEC);
-+static bool hda_codec_use_common_hdmi = IS_ENABLED(CONFIG_SND_HDA_CODEC_HDMI);
- module_param_named(use_common_hdmi, hda_codec_use_common_hdmi, bool, 0444);
- MODULE_PARM_DESC(use_common_hdmi, "SOF HDA use common HDMI codec driver");
- #endif
 -- 
 2.20.1
 

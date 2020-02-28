@@ -2,55 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CDA7173F94
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 19:28:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E5AF8173F95
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 19:29:01 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 96A4416F7;
-	Fri, 28 Feb 2020 19:27:28 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 96A4416F7
+	by alsa0.perex.cz (Postfix) with ESMTPS id 78D7316EC;
+	Fri, 28 Feb 2020 19:28:11 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78D7316EC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582914498;
-	bh=/gNPUTSjBQMQK++qwr9w2viNHrCODNu4EVf3Ks9ZWcs=;
+	s=default; t=1582914541;
+	bh=QLmmEZFuHXJ7yXUJdSS+mV11P5t21nKq3BxdAcXPhT0=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=GcS+Ig+vZvAZ4cDaaQrlrOIdRuUrLv4nfpe0DHPQ++fjTfIHAFQ2svvRshx0uJr8q
-	 XsEpC2m6L8H9xFw8FHcg79pmzbgeBVcFhcWtEScFvLwOGvyL2lgGk9IoJ0ltKQija4
-	 PqRJAVjiLC6PPHKqQex8UGgl/nxvINDu9ChSbTnE=
+	b=FW0ttdeskhiThSm7VVsBpoi1YKxSNk+o2w3KK0vknfPLNvhyq4iFOiceBoJ4iLzgX
+	 RPCbbYKWfdkxBNbWhLNoj8JIRkCK9x1YONDV1VEBPfWMNTmgq2H3pwl0m227LAWhrI
+	 f1YZvz3Y2eZJitqpmEKlFPfidzVgUC4Q5TeFIPkg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B4968F8028F;
-	Fri, 28 Feb 2020 19:25:17 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0E04EF8028E;
+	Fri, 28 Feb 2020 19:25:19 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8D515F8028D; Fri, 28 Feb 2020 19:25:05 +0100 (CET)
+ id 1ADE0F8028D; Fri, 28 Feb 2020 19:25:09 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id C2F91F80171
- for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 19:25:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C2F91F80171
+ by alsa1.perex.cz (Postfix) with ESMTP id 1200BF80171
+ for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 19:25:06 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1200BF80171
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4159731B;
- Fri, 28 Feb 2020 10:25:00 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE363FEC;
+ Fri, 28 Feb 2020 10:25:04 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B78703F7B4;
- Fri, 28 Feb 2020 10:24:59 -0800 (PST)
-Date: Fri, 28 Feb 2020 18:24:58 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 611EF3F7B4;
+ Fri, 28 Feb 2020 10:25:04 -0800 (PST)
+Date: Fri, 28 Feb 2020 18:25:02 +0000
 From: Mark Brown <broonie@kernel.org>
-To: YueHaibing <yuehaibing@huawei.com>
-Subject: Applied "ASoC: rt5682: Make rt5682_clock_config static" to the asoc
- tree
-In-Reply-To: <20200228075609.38236-1-yuehaibing@huawei.com>
-Message-Id: <applied-20200228075609.38236-1-yuehaibing@huawei.com>
+To: Jack Yu <jack.yu@realtek.com>
+Subject: Applied "ASoC: rt1015: modify some structure to be static." to the
+ asoc tree
+In-Reply-To: <20200227020637.15135-1-jack.yu@realtek.com>
+Message-Id: <applied-20200227020637.15135-1-jack.yu@realtek.com>
 X-Patchwork-Hint: ignore
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, tiwai@suse.com,
- lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
- Hulk Robot <hulkci@huawei.com>, Mark Brown <broonie@kernel.org>
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, lgirdwood@gmail.com,
+ Mark Brown <broonie@kernel.org>, derek.fang@realtek.com, shumingf@realtek.com,
+ mingjane_hsieh@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,7 +69,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt5682: Make rt5682_clock_config static
+   ASoC: rt1015: modify some structure to be static.
 
 has been applied to the asoc tree at
 
@@ -93,37 +94,39 @@ to this mail.
 Thanks,
 Mark
 
-From a3c2e894cdafbfa376a28a89a60df415b6ab6ee6 Mon Sep 17 00:00:00 2001
-From: YueHaibing <yuehaibing@huawei.com>
-Date: Fri, 28 Feb 2020 15:56:09 +0800
-Subject: [PATCH] ASoC: rt5682: Make rt5682_clock_config static
+From 4a88b7dec331cf1ac661e38d610cd0ff0c073607 Mon Sep 17 00:00:00 2001
+From: Jack Yu <jack.yu@realtek.com>
+Date: Thu, 27 Feb 2020 10:06:37 +0800
+Subject: [PATCH] ASoC: rt1015: modify some structure to be static.
 
-Fix sparse warning:
+Modify rt1015_aif_dai_ops and rt1015_dai[] to be static.
 
-sound/soc/codecs/rt5682-sdw.c:163:5: warning:
- symbol 'rt5682_clock_config' was not declared. Should it be static?
-
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
-Link: https://lore.kernel.org/r/20200228075609.38236-1-yuehaibing@huawei.com
+Signed-off-by: Jack Yu <jack.yu@realtek.com>
+Link: https://lore.kernel.org/r/20200227020637.15135-1-jack.yu@realtek.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt5682-sdw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/codecs/rt1015.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
-index fc31d04b5203..1d6963dd6403 100644
---- a/sound/soc/codecs/rt5682-sdw.c
-+++ b/sound/soc/codecs/rt5682-sdw.c
-@@ -160,7 +160,7 @@ static int rt5682_read_prop(struct sdw_slave *slave)
- #define RT5682_CLK_FREQ_2400000HZ 2400000
- #define RT5682_CLK_FREQ_12288000HZ 12288000
+diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
+index d300b417dd50..c118d030bd2d 100644
+--- a/sound/soc/codecs/rt1015.c
++++ b/sound/soc/codecs/rt1015.c
+@@ -841,12 +841,12 @@ static void rt1015_remove(struct snd_soc_component *component)
+ #define RT1015_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
+ 			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S8)
  
--int rt5682_clock_config(struct device *dev)
-+static int rt5682_clock_config(struct device *dev)
- {
- 	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
- 	unsigned int clk_freq, value;
+-struct snd_soc_dai_ops rt1015_aif_dai_ops = {
++static struct snd_soc_dai_ops rt1015_aif_dai_ops = {
+ 	.hw_params = rt1015_hw_params,
+ 	.set_fmt = rt1015_set_dai_fmt,
+ };
+ 
+-struct snd_soc_dai_driver rt1015_dai[] = {
++static struct snd_soc_dai_driver rt1015_dai[] = {
+ 	{
+ 		.name = "rt1015-aif",
+ 		.id = 0,
 -- 
 2.20.1
 

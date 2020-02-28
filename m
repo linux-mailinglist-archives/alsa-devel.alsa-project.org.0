@@ -2,93 +2,85 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E29B3173B73
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 16:33:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83731173C29
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 16:49:58 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7FD6816DB;
-	Fri, 28 Feb 2020 16:32:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7FD6816DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1757C16E2;
+	Fri, 28 Feb 2020 16:49:08 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1757C16E2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582904016;
-	bh=IgtTCe+jhVxYSlBBHiKVyBMxV0u2g6VqKnF7+5Gf3V0=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=kqQM9iI7uwEoSmk64D7kQZ3pOBE896QwtFtRX3vKVrD4Hvxtt3cqU5XmOFG63Kg78
-	 EZquQbe5hDhSGeykzj6vej39DFao78IRGHCOhLlGJxnkA9mPTYhmKlCLv2rxwQX2x2
-	 uIM/32KI0xWHpGpjDl12g/LTLwSH2rcOUxCE358w=
+	s=default; t=1582904998;
+	bh=Oy2ldJn4Mh6A6U9cW0jozVZjlJ2RPb9dnTRhitgLVgk=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=HpBBXZTt0+8pHp/St3k60i64b4v63et+U3AB+KIKr65LS6wjYxTyAf8dR7dNjCTF3
+	 lihAiCIrXysIEoKATA0z+/vZmGrg3DcxF1fUfGmKYbyM9EMo4cWhrym3kl6BKg9kyu
+	 v/Z3tLRLkgRtNR5z4cQRuM3kvgz8pEOCq9dDhJig=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 15086F8014D;
-	Fri, 28 Feb 2020 16:31:55 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 1F98EF8014E;
+	Fri, 28 Feb 2020 16:48:17 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id E428CF8014E; Fri, 28 Feb 2020 16:31:52 +0100 (CET)
+ id 87727F8014E; Fri, 28 Feb 2020 16:48:15 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
- [67.231.152.168])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.5 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
+ FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-ot1-f68.google.com (mail-ot1-f68.google.com
+ [209.85.210.68])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 74A35F80089
- for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 16:31:48 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 74A35F80089
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
- header.b="FmFGkqv8"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
- by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 01SFQdZ5024247; Fri, 28 Feb 2020 09:31:47 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
- h=from : to : cc :
- subject : date : message-id : mime-version : content-type;
- s=PODMain02222019; bh=ehz8hMy8J412PnLgQ5lnPMe5MU0o4UacxFwxRNIFd3s=;
- b=FmFGkqv8+KYdAK+lY5wDp/vS6LaeIL1t5IzWPeVhOddarpp63pN7ihvUp/ltmDNlfGz1
- StEOivrxn3FtL5aZiiPMkDVjZWNvu/wQdAl42GOvJg/ou2+HH5ZU62OGHRSTlywDrjiw
- u0QqnOWp/djxCsHAuCf5k6r5S0uC19y1kqm03I1hiI41ovu59YmjqRCy1z6/xSLecBFx
- umYZkjUiTPUkCxkJvi6I8mvQ63aSipda3jKi3hk+2Jvdz7+1Z5Gdm2mJgrVHB6mw1gqz
- YAAEase+5MsAec1JzAOZb3zub3nx2rj9IbguLGm/+z1UnUqMN/hfjaSDqGfcIcaFSk4c oA== 
-Authentication-Results: ppops.net;
- spf=pass smtp.mailfrom=ckeepax@opensource.cirrus.com
-Received: from ediex01.ad.cirrus.com ([5.172.152.52])
- by mx0b-001ae601.pphosted.com with ESMTP id 2yepvmscrj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Fri, 28 Feb 2020 09:31:46 -0600
-Received: from EDIEX01.ad.cirrus.com (198.61.84.80) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Fri, 28 Feb
- 2020 15:31:45 +0000
-Received: from ediswmail.ad.cirrus.com (198.61.86.93) by EDIEX01.ad.cirrus.com
- (198.61.84.80) with Microsoft SMTP Server id 15.1.1591.10 via
- Frontend Transport; Fri, 28 Feb 2020 15:31:45 +0000
-Received: from algalon.ad.cirrus.com (algalon.ad.cirrus.com [198.90.251.122])
- by ediswmail.ad.cirrus.com (Postfix) with ESMTP id 4925345A;
- Fri, 28 Feb 2020 15:31:45 +0000 (UTC)
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: <broonie@kernel.org>
-Subject: [PATCH] ASoC: dapm: Correct DAPM handling of active widgets during
- shutdown
-Date: Fri, 28 Feb 2020 15:31:45 +0000
-Message-ID: <20200228153145.21013-1-ckeepax@opensource.cirrus.com>
-X-Mailer: git-send-email 2.11.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id D2ADBF80113
+ for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 16:48:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D2ADBF80113
+Received: by mail-ot1-f68.google.com with SMTP id x97so2977103ota.6
+ for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 07:48:09 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=04LO6bJs9Ua8w0YW0IQRrzZktCzF8p2YIFQW4LHwyB0=;
+ b=VcsrAJX3MqonwSVm5qsoLXe512GjY859auzQuFVTC6ElGWYAM6YvysnAMKMXPFmiPe
+ Hc23frArgKrANN+4dVg5QfXMYARPO36rla2KykgQgmefTfGosL1H//m2/esLPzLtAtCq
+ CRCFdAdsbzSUUEgyOk1jo6r05sktNqbBPi7V+ubRjMB5U6LUpYSVsxexkA2ktQu6p4ef
+ ZYnnmKYuX48C8Fy0gCZTLbic6pxfFyyrf8bqwDD+CQ4ZcAj8fzAip0gkh9mviQTdk4Eh
+ DCWm5uquzRk8aWv6Pu4TqVmGof8CagiolEGE9qCdXvZ4ZfZVrIebrf9atNhcow3U3zxh
+ 4ShQ==
+X-Gm-Message-State: APjAAAUCkFdPp1qQwD/TUZc6Sr4GgqZ93sS+NxsP8Pil7ykcHO32ptgR
+ W8HIvJB7yYJLih1Ogr3B7A==
+X-Google-Smtp-Source: APXvYqwV+P2KDc8CtB9VtadeSMw2dPxupLHtu2jRnsumBHTjh6d8J/zLIoII9iqRfrM9E79eDylpmg==
+X-Received: by 2002:a05:6830:150:: with SMTP id
+ j16mr3791728otp.301.1582904887823; 
+ Fri, 28 Feb 2020 07:48:07 -0800 (PST)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id k201sm3273559oih.43.2020.02.28.07.48.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Feb 2020 07:48:07 -0800 (PST)
+Received: (nullmailer pid 24254 invoked by uid 1000);
+ Fri, 28 Feb 2020 15:48:06 -0000
+Date: Fri, 28 Feb 2020 09:48:06 -0600
+From: Rob Herring <robh@kernel.org>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Subject: Re: [PATCH 1/9] ASoC: meson: gx-card: fix sound-dai dt schema
+Message-ID: <20200228154806.GA19636@bogus>
+References: <20200224145821.262873-1-jbrunet@baylibre.com>
+ <20200224145821.262873-2-jbrunet@baylibre.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-SPF-Result: pass
-X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
- include:spf.protection.outlook.com
- ip4:5.172.152.52 -all
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
- clxscore=1015
- lowpriorityscore=0 mlxlogscore=999 spamscore=0 priorityscore=1501
- impostorscore=0 adultscore=0 phishscore=0 suspectscore=1 mlxscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2001150001 definitions=main-2002280123
-Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- lgirdwood@gmail.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20200224145821.262873-2-jbrunet@baylibre.com>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+ Kevin Hilman <khilman@baylibre.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ linux-kernel@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ linux-amlogic@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,38 +96,38 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-commit c2caa4da46a4 ("ASoC: Fix widget powerdown on shutdown") added a
-set of the power state during snd_soc_dapm_shutdown to ensure the
-widgets powered off. However, when commit 39eb5fd13dff
-("ASoC: dapm: Delay w->power update until the changes are written")
-added the new_power member of the widget structure, to differentiate
-between the current power state and the target power state, it did not
-update the shutdown to use the new_power member.
+On Mon, Feb 24, 2020 at 03:58:13PM +0100, Jerome Brunet wrote:
+> There is a fair amount of warnings when running 'make dtbs_check' with
+> amlogic,gx-sound-card.yaml.
+> 
+> Ex:
+> arch/arm64/boot/dts/amlogic/meson-gxm-q200.dt.yaml: sound: dai-link-0:sound-dai:0:1: missing phandle tag in 0
+> arch/arm64/boot/dts/amlogic/meson-gxm-q200.dt.yaml: sound: dai-link-0:sound-dai:0:2: missing phandle tag in 0
+> arch/arm64/boot/dts/amlogic/meson-gxm-q200.dt.yaml: sound: dai-link-0:sound-dai:0: [66, 0, 0] is too long
+> 
+> The reason is that the sound-dai phandle provided has cells, and in such
+> case the schema should use 'phandle-array' instead of 'phandle', even if
+> the property expects a single phandle.
+> 
+> Fixes: fd00366b8e41 ("ASoC: meson: gx: add sound card dt-binding documentation")
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+> ---
+>  Hi Mark,
+> 
+>  The statement above is based on this LKML discussion I found:
+>  https://lkml.org/lkml/2019/9/30/382
+> 
+>  To be honest, I don't really get why the consumer should know whether
+>  the phandle will have cells or not. AFAIK, the consumer does not care
+>  about this ...
 
-As new_power has not updated it will be left in the state set by the
-last DAPM sequence, ie. 1 for active widgets. So as the DAPM sequence
-for the shutdown proceeds it will turn the widgets on (despite them
-already being on) rather than turning them off.
+Yeah, I think another type definition is needed here to distinguish 
+between a single phandle+args and an array of phandle+args.
 
-Fixes: 39eb5fd13dff ("ASoC: dapm: Delay w->power update until the changes are written")
-Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
----
- sound/soc/soc-dapm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+In any case,
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index 6ce024d52170e..83e7ce9e4aba8 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -4794,7 +4794,7 @@ static void soc_dapm_shutdown_dapm(struct snd_soc_dapm_context *dapm)
- 			continue;
- 		if (w->power) {
- 			dapm_seq_insert(w, &down_list, false);
--			w->power = 0;
-+			w->new_power = 0;
- 			powerdown = 1;
- 		}
- 	}
--- 
-2.11.0
+Acked-by: Rob Herring <robh@kernel.org>
 
+> 
+>  .../devicetree/bindings/sound/amlogic,gx-sound-card.yaml      | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)

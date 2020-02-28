@@ -2,58 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CF68173240
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 08:58:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 56CA7173242
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 08:59:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 14E4C16CF;
-	Fri, 28 Feb 2020 08:57:30 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 14E4C16CF
+	by alsa0.perex.cz (Postfix) with ESMTPS id EA0C116E3;
+	Fri, 28 Feb 2020 08:58:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EA0C116E3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582876700;
-	bh=jN0PfQiV3DOd33C3f2jJvjGCu4TssJmQr0knISO9zeI=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=SiQ3IxxvoBD7BNl7blesQ1eYfPoW0aamnZmHUTgHKgR1jgyQjU61YAu9GDnE1WuSd
-	 idJyy/EbDwVgmAtmlHNz3Rrc4id8DFhNztmvmGVln+cwDOcEzuWUcX1iBnGE13WCuN
-	 2iL75GL+9jmDQmaFI4Vh4hi0pM5vnXWV3CFQ3K2Y=
+	s=default; t=1582876744;
+	bh=4cethoaChBf4vjJFA/XxJ1Fzdpv4cmyIrohkAFDiVNk=;
+	h=Date:From:To:Subject:In-Reply-To:References:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=reaD/YtlclMEo8HmJDCVtC0I+q2ef/TzwztKe/iEY47SPM7+KzYW5FYpqBZrhIwlo
+	 j3L4US6cESSo/7a7RBoDozErMr3mQmAtqFhRq024Lqoe8MiFDTMRRyMjCd+T3NS232
+	 rLycz87Ek68fkLWRfra58hQZP61q8Z7RGIzLPJnY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 2E2C9F8016F;
-	Fri, 28 Feb 2020 08:56:39 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 59D57F80113;
+	Fri, 28 Feb 2020 08:57:54 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 8080EF80113; Fri, 28 Feb 2020 08:56:36 +0100 (CET)
+ id 3E03FF80171; Fri, 28 Feb 2020 08:57:52 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_PASS,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from huawei.com (szxga06-in.huawei.com [45.249.212.32])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B030BF80113
- for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 08:56:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B030BF80113
-Received: from DGGEMS410-HUB.china.huawei.com (unknown [172.30.72.59])
- by Forcepoint Email with ESMTP id 2C76D39943DAE07629C6;
- Fri, 28 Feb 2020 15:56:27 +0800 (CST)
-Received: from localhost (10.173.223.234) by DGGEMS410-HUB.china.huawei.com
- (10.3.19.210) with Microsoft SMTP Server id 14.3.439.0; Fri, 28 Feb 2020
- 15:56:21 +0800
-From: YueHaibing <yuehaibing@huawei.com>
-To: <oder_chiou@realtek.com>, <lgirdwood@gmail.com>, <broonie@kernel.org>,
- <perex@perex.cz>, <tiwai@suse.com>
-Subject: [PATCH -next] ASoC: rt5682: Make rt5682_clock_config static
-Date: Fri, 28 Feb 2020 15:56:09 +0800
-Message-ID: <20200228075609.38236-1-yuehaibing@huawei.com>
-X-Mailer: git-send-email 2.10.2.windows.1
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.173.223.234]
-X-CFilter-Loop: Reflected
-Cc: alsa-devel@alsa-project.org, YueHaibing <yuehaibing@huawei.com>,
- linux-kernel@vger.kernel.org
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 12D85F80113
+ for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 08:57:45 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 12D85F80113
+Date: 28 Feb 2020 16:57:43 +0900
+X-IronPort-AV: E=Sophos;i="5.70,493,1574089200"; d="scan'208";a="40295078"
+Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
+ by relmlie6.idc.renesas.com with ESMTP; 28 Feb 2020 16:57:43 +0900
+Received: from mercury.renesas.com (unknown [10.166.252.133])
+ by relmlir6.idc.renesas.com (Postfix) with ESMTP id 85B4741F4DF6;
+ Fri, 28 Feb 2020 16:57:43 +0900 (JST)
+Message-ID: <87zhd35eko.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Kai Vehmanen <kai.vehmanen@linux.intel.com>, broonie@kernel.org,
+ alsa-devel@alsa-project.org, ranjani.sridharan@linux.intel.com,
+ digetx@gmail.com, pierre-louis.bossart@linux.intel.com
+Subject: Re: [PATCH] ASoC: soc-pcm: Revert "call
+ snd_soc_component_open/close() once"
+In-Reply-To: <871rqf6xas.wl-kuninori.morimoto.gx@renesas.com>
+References: <20200219182650.1416-1-kai.vehmanen@linux.intel.com>
+ <87blput7hh.wl-kuninori.morimoto.gx@renesas.com>
+ <alpine.DEB.2.21.2002201103060.2957@eliteleevi.tm.intel.com>
+ <87mu9cspyf.wl-kuninori.morimoto.gx@renesas.com>
+ <alpine.DEB.2.21.2002211251280.2957@eliteleevi.tm.intel.com>
+ <87mu978pob.wl-kuninori.morimoto.gx@renesas.com>
+ <87ftey88wk.wl-kuninori.morimoto.gx@renesas.com>
+ <alpine.DEB.2.21.2002271110010.2957@eliteleevi.tm.intel.com>
+ <874kvb7d38.wl-kuninori.morimoto.gx@renesas.com>
+ <871rqf6xas.wl-kuninori.morimoto.gx@renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/25.2 Mule/6.0
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,31 +78,112 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix sparse warning:
 
-sound/soc/codecs/rt5682-sdw.c:163:5: warning:
- symbol 'rt5682_clock_config' was not declared. Should it be static?
+Hi Kai, again, and, again
 
-Reported-by: Hulk Robot <hulkci@huawei.com>
-Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+> > 	start(substream-A); <=
+> > 	start(substream-B);
+> > 	start(substream-C);
+> >
+> > 	stop(substream-Z);  <=
+> > 	stop(substream-B);
+> > 	stop(substream-C);
+(snip)
+> Ohh, yes indeed !! I was confused.
+> But Hmm... I don't want to have substream list on each component...
+> Hmm... I will re-consider it again.
+
+I don't want to have substream list on each components,
+and keep simple code as much as possible.
+
+My current idea is using ID. What do you think ?
+It is not super simple though...
+
+	int soc_pcm_components_open(struct snd_pcm_substream *substream, u8 id)
+	{
+		int ret = 0;
+
+		/*
+		 * Add ID to each component to know "which open".
+		 */
+		for_each_rtd_components(rtd, i, component) {
+			if (component->driver->open) {
+				ret = component->driver->open(component, substream);
+				if (ret < 0)
+					return ret;
+
+				component->open_id = id; /* add ID */
+			}
+		}
+
+		return 0;
+	}
+
+	int soc_pcm_components_close(struct snd_pcm_substream *substream, u8 id)
+	{
+		/*
+		 * if ID > 0,  it is only target.
+		 * if ID == 0, all components are the target
+		 */
+		for_each_rtd_components(rtd, i, component) {
+			if ((id == 0 ||
+			     id == component->open_id) &&
+			    component->driver->close)
+				component->driver->close(component, substream);
+		}
+		...
+	}
+
+
+=>	int soc_pcm_clear(..., u8 id)
+	{
+		...
+		/*
+		 * if ID > 0,  it is only target.
+		 * if ID == 0, all components are the target
+		 */
+		soc_pcm_components_close(substream, id);
+		...
+	}
+
+	int soc_pcm_close(...)
+	{
+		/*
+		 * ID = 0
+		 * All components are target of close
+		 */
+=>		soc_pcm_clear(xxx, 0);
+	}
+
+	int soc_pcm_open(...)
+	{
+		static u8 id;
+
+		/* update ID */
+		id++;
+		if (id == 0)
+			id++;
+
+		...
+		ret = soc_pcm_components_open(substream, id);
+		if (ret < 0)
+			goto open_err;
+		...
+
+		return 0; /* success */
+
+	open_err:
+		/*
+		 * ID = id
+		 * Only this IDs are the target
+		 */
+=>		soc_pcm_clear(xxx, id)
+
+		return ret;
+	}
+
+
+Thank you for your help !!
+Best regards
 ---
- sound/soc/codecs/rt5682-sdw.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/rt5682-sdw.c b/sound/soc/codecs/rt5682-sdw.c
-index fc31d04..1d6963d 100644
---- a/sound/soc/codecs/rt5682-sdw.c
-+++ b/sound/soc/codecs/rt5682-sdw.c
-@@ -160,7 +160,7 @@ static int rt5682_read_prop(struct sdw_slave *slave)
- #define RT5682_CLK_FREQ_2400000HZ 2400000
- #define RT5682_CLK_FREQ_12288000HZ 12288000
- 
--int rt5682_clock_config(struct device *dev)
-+static int rt5682_clock_config(struct device *dev)
- {
- 	struct rt5682_priv *rt5682 = dev_get_drvdata(dev);
- 	unsigned int clk_freq, value;
--- 
-2.7.4
-
-
+Kuninori Morimoto

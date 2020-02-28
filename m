@@ -2,54 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5186D173F96
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 19:29:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1CC4173F99
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 19:30:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id E5F4216DB;
-	Fri, 28 Feb 2020 19:28:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5F4216DB
+	by alsa0.perex.cz (Postfix) with ESMTPS id 4F52E16FA;
+	Fri, 28 Feb 2020 19:29:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4F52E16FA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582914581;
-	bh=n6yxZ42MjJ9G0miW5rDMaS1EBvKHDzWriw+LldtsFtE=;
+	s=default; t=1582914604;
+	bh=AjNaO1ynVhGu4veAbpJK2ixFEw2KR6+DdEdLWJP+/Do=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=o/sP74FZamotlpbyg7TwUH3NtxD0rWHjPH6KWP1syPPDzk1tWiZSZDqaw5k+AYmuh
-	 M+IdcNj7rCRhQvhv9Y6n4neAUsW/AII2d1MeJPACoqRY/JNy7oge9/+KdCfxAHDNzc
-	 7h2kUBkcQxjz5sdQN50CrCFiW+sDRBBLNowchUs8=
+	b=jVTkJuTGWnw2rR6g3ZQtZIIH9PnjBXDxpZX4nhDA+OQxMcjoHpOrV3DmbKhp9ehNz
+	 orfu8knmLxT7jDD76InQM83629LUC9WvSQgR9zOmtyiu+k5XQdAwDvTxA84NU7ysYU
+	 LVy0UVp1GbC9lqPZ1cl/VaIy1cP2OaZAN5JJyTgs=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 67F60F802BC;
-	Fri, 28 Feb 2020 19:25:25 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 3B023F802C3;
+	Fri, 28 Feb 2020 19:25:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id D5C90F8028A; Fri, 28 Feb 2020 19:25:13 +0100 (CET)
+ id 1C1BBF80291; Fri, 28 Feb 2020 19:25:18 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id EA22EF8028A
- for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 19:25:10 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA22EF8028A
+ by alsa1.perex.cz (Postfix) with ESMTP id 8E849F80171
+ for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 19:25:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8E849F80171
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53290106F;
- Fri, 28 Feb 2020 10:25:09 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C3298106F;
+ Fri, 28 Feb 2020 10:25:13 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CBD583F7B4;
- Fri, 28 Feb 2020 10:25:08 -0800 (PST)
-Date: Fri, 28 Feb 2020 18:25:07 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 476493F7B4;
+ Fri, 28 Feb 2020 10:25:13 -0800 (PST)
+Date: Fri, 28 Feb 2020 18:25:11 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: soc-component: tidyup
- snd_soc_pcm_component_sync_stop()" to the asoc tree
-In-Reply-To: <8736av7a8c.wl-kuninori.morimoto.gx@renesas.com>
-Message-Id: <applied-8736av7a8c.wl-kuninori.morimoto.gx@renesas.com>
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Applied "ASoC: dapm: Correct DAPM handling of active widgets during
+ shutdown" to the asoc tree
+In-Reply-To: <20200228153145.21013-1-ckeepax@opensource.cirrus.com>
+Message-Id: <applied-20200228153145.21013-1-ckeepax@opensource.cirrus.com>
 X-Patchwork-Hint: ignore
-Cc: Takashi Iwai <tiwai@suse.de>, Linux-ALSA <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>
+Cc: patches@opensource.cirrus.com, alsa-devel@alsa-project.org,
+ Mark Brown <broonie@kernel.org>, lars@metafoo.de, lgirdwood@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-component: tidyup snd_soc_pcm_component_sync_stop()
+   ASoC: dapm: Correct DAPM handling of active widgets during shutdown
 
 has been applied to the asoc tree at
 
@@ -92,38 +92,46 @@ to this mail.
 Thanks,
 Mark
 
-From f1861a7c58ba1ba43c7adff6909d9a920338e4a8 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Fri, 28 Feb 2020 10:48:35 +0900
-Subject: [PATCH] ASoC: soc-component: tidyup snd_soc_pcm_component_sync_stop()
+From 9b3193089e77d3b59b045146ff1c770dd899acb1 Mon Sep 17 00:00:00 2001
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+Date: Fri, 28 Feb 2020 15:31:45 +0000
+Subject: [PATCH] ASoC: dapm: Correct DAPM handling of active widgets during
+ shutdown
 
-commit 1e5ddb6ba73894 ("ASoC: component: Add sync_stop PCM ops")
-added snd_soc_pcm_component_sync_stop(), but it is checking
-ioctrl instead of sync_stop. This is bug.
-This patch fixup it.
+commit c2caa4da46a4 ("ASoC: Fix widget powerdown on shutdown") added a
+set of the power state during snd_soc_dapm_shutdown to ensure the
+widgets powered off. However, when commit 39eb5fd13dff
+("ASoC: dapm: Delay w->power update until the changes are written")
+added the new_power member of the widget structure, to differentiate
+between the current power state and the target power state, it did not
+update the shutdown to use the new_power member.
 
-Fixes: commit 1e5ddb6ba73894 ("ASoC: component: Add sync_stop PCM ops")
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Cc: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/8736av7a8c.wl-kuninori.morimoto.gx@renesas.com
+As new_power has not updated it will be left in the state set by the
+last DAPM sequence, ie. 1 for active widgets. So as the DAPM sequence
+for the shutdown proceeds it will turn the widgets on (despite them
+already being on) rather than turning them off.
+
+Fixes: 39eb5fd13dff ("ASoC: dapm: Delay w->power update until the changes are written")
+Signed-off-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Link: https://lore.kernel.org/r/20200228153145.21013-1-ckeepax@opensource.cirrus.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-component.c | 2 +-
+ sound/soc/soc-dapm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
-index 14e175cdeeb8..785a0385cc7f 100644
---- a/sound/soc/soc-component.c
-+++ b/sound/soc/soc-component.c
-@@ -451,7 +451,7 @@ int snd_soc_pcm_component_sync_stop(struct snd_pcm_substream *substream)
- 	int i, ret;
- 
- 	for_each_rtd_components(rtd, i, component) {
--		if (component->driver->ioctl) {
-+		if (component->driver->sync_stop) {
- 			ret = component->driver->sync_stop(component,
- 							   substream);
- 			if (ret < 0)
+diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
+index 9b130561d562..9fb54e6fe254 100644
+--- a/sound/soc/soc-dapm.c
++++ b/sound/soc/soc-dapm.c
+@@ -4772,7 +4772,7 @@ static void soc_dapm_shutdown_dapm(struct snd_soc_dapm_context *dapm)
+ 			continue;
+ 		if (w->power) {
+ 			dapm_seq_insert(w, &down_list, false);
+-			w->power = 0;
++			w->new_power = 0;
+ 			powerdown = 1;
+ 		}
+ 	}
 -- 
 2.20.1
 

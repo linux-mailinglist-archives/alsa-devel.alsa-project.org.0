@@ -2,56 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E5AF8173F95
-	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 19:29:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5186D173F96
+	for <lists+alsa-devel@lfdr.de>; Fri, 28 Feb 2020 19:29:41 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 78D7316EC;
-	Fri, 28 Feb 2020 19:28:11 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 78D7316EC
+	by alsa0.perex.cz (Postfix) with ESMTPS id E5F4216DB;
+	Fri, 28 Feb 2020 19:28:50 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz E5F4216DB
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1582914541;
-	bh=QLmmEZFuHXJ7yXUJdSS+mV11P5t21nKq3BxdAcXPhT0=;
+	s=default; t=1582914581;
+	bh=n6yxZ42MjJ9G0miW5rDMaS1EBvKHDzWriw+LldtsFtE=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=FW0ttdeskhiThSm7VVsBpoi1YKxSNk+o2w3KK0vknfPLNvhyq4iFOiceBoJ4iLzgX
-	 RPCbbYKWfdkxBNbWhLNoj8JIRkCK9x1YONDV1VEBPfWMNTmgq2H3pwl0m227LAWhrI
-	 f1YZvz3Y2eZJitqpmEKlFPfidzVgUC4Q5TeFIPkg=
+	b=o/sP74FZamotlpbyg7TwUH3NtxD0rWHjPH6KWP1syPPDzk1tWiZSZDqaw5k+AYmuh
+	 M+IdcNj7rCRhQvhv9Y6n4neAUsW/AII2d1MeJPACoqRY/JNy7oge9/+KdCfxAHDNzc
+	 7h2kUBkcQxjz5sdQN50CrCFiW+sDRBBLNowchUs8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 0E04EF8028E;
-	Fri, 28 Feb 2020 19:25:19 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 67F60F802BC;
+	Fri, 28 Feb 2020 19:25:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1ADE0F8028D; Fri, 28 Feb 2020 19:25:09 +0100 (CET)
+ id D5C90F8028A; Fri, 28 Feb 2020 19:25:13 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS, SURBL_BLOCKED,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 1200BF80171
- for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 19:25:06 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1200BF80171
+ by alsa1.perex.cz (Postfix) with ESMTP id EA22EF8028A
+ for <alsa-devel@alsa-project.org>; Fri, 28 Feb 2020 19:25:10 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz EA22EF8028A
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DE363FEC;
- Fri, 28 Feb 2020 10:25:04 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 53290106F;
+ Fri, 28 Feb 2020 10:25:09 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 611EF3F7B4;
- Fri, 28 Feb 2020 10:25:04 -0800 (PST)
-Date: Fri, 28 Feb 2020 18:25:02 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CBD583F7B4;
+ Fri, 28 Feb 2020 10:25:08 -0800 (PST)
+Date: Fri, 28 Feb 2020 18:25:07 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Jack Yu <jack.yu@realtek.com>
-Subject: Applied "ASoC: rt1015: modify some structure to be static." to the
- asoc tree
-In-Reply-To: <20200227020637.15135-1-jack.yu@realtek.com>
-Message-Id: <applied-20200227020637.15135-1-jack.yu@realtek.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Subject: Applied "ASoC: soc-component: tidyup
+ snd_soc_pcm_component_sync_stop()" to the asoc tree
+In-Reply-To: <8736av7a8c.wl-kuninori.morimoto.gx@renesas.com>
+Message-Id: <applied-8736av7a8c.wl-kuninori.morimoto.gx@renesas.com>
 X-Patchwork-Hint: ignore
-Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
- kent_chen@realtek.com, kenny_chen@realtek.com, lgirdwood@gmail.com,
- Mark Brown <broonie@kernel.org>, derek.fang@realtek.com, shumingf@realtek.com,
- mingjane_hsieh@realtek.com, flove@realtek.com
+Cc: Takashi Iwai <tiwai@suse.de>, Linux-ALSA <alsa-devel@alsa-project.org>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: rt1015: modify some structure to be static.
+   ASoC: soc-component: tidyup snd_soc_pcm_component_sync_stop()
 
 has been applied to the asoc tree at
 
@@ -94,39 +92,38 @@ to this mail.
 Thanks,
 Mark
 
-From 4a88b7dec331cf1ac661e38d610cd0ff0c073607 Mon Sep 17 00:00:00 2001
-From: Jack Yu <jack.yu@realtek.com>
-Date: Thu, 27 Feb 2020 10:06:37 +0800
-Subject: [PATCH] ASoC: rt1015: modify some structure to be static.
+From f1861a7c58ba1ba43c7adff6909d9a920338e4a8 Mon Sep 17 00:00:00 2001
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Date: Fri, 28 Feb 2020 10:48:35 +0900
+Subject: [PATCH] ASoC: soc-component: tidyup snd_soc_pcm_component_sync_stop()
 
-Modify rt1015_aif_dai_ops and rt1015_dai[] to be static.
+commit 1e5ddb6ba73894 ("ASoC: component: Add sync_stop PCM ops")
+added snd_soc_pcm_component_sync_stop(), but it is checking
+ioctrl instead of sync_stop. This is bug.
+This patch fixup it.
 
-Signed-off-by: Jack Yu <jack.yu@realtek.com>
-Link: https://lore.kernel.org/r/20200227020637.15135-1-jack.yu@realtek.com
+Fixes: commit 1e5ddb6ba73894 ("ASoC: component: Add sync_stop PCM ops")
+Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+Cc: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/8736av7a8c.wl-kuninori.morimoto.gx@renesas.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/codecs/rt1015.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/soc-component.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
-index d300b417dd50..c118d030bd2d 100644
---- a/sound/soc/codecs/rt1015.c
-+++ b/sound/soc/codecs/rt1015.c
-@@ -841,12 +841,12 @@ static void rt1015_remove(struct snd_soc_component *component)
- #define RT1015_FORMATS (SNDRV_PCM_FMTBIT_S16_LE | SNDRV_PCM_FMTBIT_S20_3LE | \
- 			SNDRV_PCM_FMTBIT_S24_LE | SNDRV_PCM_FMTBIT_S8)
+diff --git a/sound/soc/soc-component.c b/sound/soc/soc-component.c
+index 14e175cdeeb8..785a0385cc7f 100644
+--- a/sound/soc/soc-component.c
++++ b/sound/soc/soc-component.c
+@@ -451,7 +451,7 @@ int snd_soc_pcm_component_sync_stop(struct snd_pcm_substream *substream)
+ 	int i, ret;
  
--struct snd_soc_dai_ops rt1015_aif_dai_ops = {
-+static struct snd_soc_dai_ops rt1015_aif_dai_ops = {
- 	.hw_params = rt1015_hw_params,
- 	.set_fmt = rt1015_set_dai_fmt,
- };
- 
--struct snd_soc_dai_driver rt1015_dai[] = {
-+static struct snd_soc_dai_driver rt1015_dai[] = {
- 	{
- 		.name = "rt1015-aif",
- 		.id = 0,
+ 	for_each_rtd_components(rtd, i, component) {
+-		if (component->driver->ioctl) {
++		if (component->driver->sync_stop) {
+ 			ret = component->driver->sync_stop(component,
+ 							   substream);
+ 			if (ret < 0)
 -- 
 2.20.1
 

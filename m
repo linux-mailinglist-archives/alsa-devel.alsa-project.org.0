@@ -2,51 +2,51 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B210174B83
-	for <lists+alsa-devel@lfdr.de>; Sun,  1 Mar 2020 06:33:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B3DAD174B86
+	for <lists+alsa-devel@lfdr.de>; Sun,  1 Mar 2020 06:34:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id C450F16C6;
-	Sun,  1 Mar 2020 06:32:41 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C450F16C6
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5527816E8;
+	Sun,  1 Mar 2020 06:33:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5527816E8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583040811;
-	bh=4zj0S8V8QSOe2r0WI3NGf8jOHJAMAwAB8PUvFcujgoU=;
+	s=default; t=1583040846;
+	bh=N+r32YvIJlSJ6m7iyAbzGrBC7Q0VsYcnbo1vc3qx808=;
 	h=From:To:Subject:Date:In-Reply-To:References:In-Reply-To:
 	 References:Cc:List-Id:List-Unsubscribe:List-Archive:List-Post:
 	 List-Help:List-Subscribe:From;
-	b=ByJZlx3p4b75UGgzA/5FZATPMW2uenHvR2UAEzmeO12l+mm2XNwIUqeuUgHWicRSa
-	 9OAMfIO2RNue+CcshS1ZI24KalGfoq6tmJ2lQGvuwxMlAw36/O+EvzLpbCiVbACZKp
-	 3z7VmLNGfAIjRG0A0hCo07bMsBh/mBcvUbYWwB9g=
+	b=iT/IGSbrG2e4xdKZymOGEJzi/c5v9WUuZvO18rNiVpF015m+rK70XMI6esaRtLLAC
+	 q4TNRQcV8zwG9bwgFYeAvmLMfm9UQUy4MXOt+fgG9ej9za0Sv27OskGf+Cw2zwEcJ6
+	 tqKg7D9KU4QU4hj6p14j4x8I66CEq3/+Bp8csTUc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 62511F80131;
-	Sun,  1 Mar 2020 06:30:50 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id E484AF80271;
+	Sun,  1 Mar 2020 06:30:52 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 2B6EBF80273; Sun,  1 Mar 2020 06:30:43 +0100 (CET)
+ id 93F00F8026A; Sun,  1 Mar 2020 06:30:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
- SURBL_BLOCKED,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id C8380F8013E
- for <alsa-devel@alsa-project.org>; Sun,  1 Mar 2020 06:30:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C8380F8013E
-Received: from inva020.nxp.com (localhost [127.0.0.1])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 738A11A09C0;
- Sun,  1 Mar 2020 06:30:35 +0100 (CET)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 92B5AF80245
+ for <alsa-devel@alsa-project.org>; Sun,  1 Mar 2020 06:30:37 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 92B5AF80245
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 88CEB200A32;
+ Sun,  1 Mar 2020 06:30:36 +0100 (CET)
 Received: from invc005.ap-rdc01.nxp.com (invc005.ap-rdc01.nxp.com
  [165.114.16.14])
- by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 30C241A09C6;
- Sun,  1 Mar 2020 06:30:26 +0100 (CET)
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 44BF9200A2B;
+ Sun,  1 Mar 2020 06:30:27 +0100 (CET)
 Received: from localhost.localdomain (shlinux2.ap.freescale.net
  [10.192.224.44])
- by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 03A8D40299;
- Sun,  1 Mar 2020 13:30:14 +0800 (SGT)
+ by invc005.ap-rdc01.nxp.com (Postfix) with ESMTP id 83DD3402A7;
+ Sun,  1 Mar 2020 13:30:16 +0800 (SGT)
 From: Shengjiu Wang <shengjiu.wang@nxp.com>
 To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
  festevam@gmail.com, broonie@kernel.org, alsa-devel@alsa-project.org,
@@ -54,10 +54,9 @@ To: timur@kernel.org, nicoleotsuka@gmail.com, Xiubo.Lee@gmail.com,
  mark.rutland@arm.com, devicetree@vger.kernel.org, shawnguo@kernel.org,
  s.hauer@pengutronix.de, kernel@pengutronix.de, linux-imx@nxp.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v4 1/8] ASoC: dt-bindings: fsl_asrc: Change asrc-width to
- asrc-format
-Date: Sun,  1 Mar 2020 13:24:12 +0800
-Message-Id: <872c2e1082de6348318e14ccd31884d62355c282.1583039752.git.shengjiu.wang@nxp.com>
+Subject: [PATCH v4 2/8] ARM: dts: imx6qdl: Change asrc-width to asrc-format
+Date: Sun,  1 Mar 2020 13:24:13 +0800
+Message-Id: <5bb6329e32d7c12019daec403b8f01758df675da.1583039752.git.shengjiu.wang@nxp.com>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <cover.1583039752.git.shengjiu.wang@nxp.com>
 References: <cover.1583039752.git.shengjiu.wang@nxp.com>
@@ -83,27 +82,26 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 asrc_format is more inteligent, which is align with the alsa
 definition snd_pcm_format_t, we don't need to convert it to
 format in driver, and it can distinguish S24_LE & S24_3LE.
+default value is SNDRV_PCM_FORMAT_S16_LE(2).
 
 Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
 ---
- Documentation/devicetree/bindings/sound/fsl,asrc.txt | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/imx6qdl.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/sound/fsl,asrc.txt b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
-index cb9a25165503..0cbb86c026d5 100644
---- a/Documentation/devicetree/bindings/sound/fsl,asrc.txt
-+++ b/Documentation/devicetree/bindings/sound/fsl,asrc.txt
-@@ -38,7 +38,9 @@ Required properties:
+diff --git a/arch/arm/boot/dts/imx6qdl.dtsi b/arch/arm/boot/dts/imx6qdl.dtsi
+index e6b4b8525f98..062d98ee513b 100644
+--- a/arch/arm/boot/dts/imx6qdl.dtsi
++++ b/arch/arm/boot/dts/imx6qdl.dtsi
+@@ -481,7 +481,7 @@
+ 					dma-names = "rxa", "rxb", "rxc",
+ 							"txa", "txb", "txc";
+ 					fsl,asrc-rate  = <48000>;
+-					fsl,asrc-width = <16>;
++					fsl,asrc-format = <2>;
+ 					status = "okay";
+ 				};
  
-    - fsl,asrc-rate	: Defines a mutual sample rate used by DPCM Back Ends.
- 
--   - fsl,asrc-width	: Defines a mutual sample width used by DPCM Back Ends.
-+   - fsl,asrc-format	: Defines a mutual sample format used by DPCM Back
-+			  Ends. The value is one of SNDRV_PCM_FORMAT_XX in
-+			  "include/uapi/sound/asound.h"
- 
-    - fsl,asrc-clk-map   : Defines clock map used in driver. which is required
- 			  by imx8qm/imx8qxp platform
 -- 
 2.21.0
 

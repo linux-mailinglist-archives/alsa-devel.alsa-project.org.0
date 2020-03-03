@@ -2,73 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B86D176B7B
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 03:50:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F63C176D1E
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 04:01:17 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B61B616A8;
-	Tue,  3 Mar 2020 03:49:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B61B616A8
+	by alsa0.perex.cz (Postfix) with ESMTPS id 93F791687;
+	Tue,  3 Mar 2020 04:00:26 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 93F791687
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583203841;
-	bh=ssKvFUgnI1L6vedipqOf+KiYAXpk4XNBlD8QG1x3TBg=;
+	s=default; t=1583204476;
+	bh=SNotp8DXsUiyim7dLXY1LqLcqyb14XzmjHoUzkGelEQ=;
 	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=qkshLwOhCxh1E4dPdRatgdyo/zmaYZ8D5HFNfdYnIx5weu6IvE7A8ieP3vjLyS6kY
-	 9zfpko4kwL3DfXU/EUJoLT42hkkKS4xzt+p/uxAa6S7dfStCo1YN9JcGqIc7Vs3krd
-	 /T3QPWMvw+sobZcVeZKxwTIuUsTOmGauKmDqExKU=
+	b=PfGiy8I26eHjYgwL25wyCHzgK2n6uRbFG4z7Ukg8reyzWLIjV9JgLH3BspgCwR3q6
+	 F4wSBBIEE9AnxDobkODZ+VieKlaQ9c0L3VuOACOgPtcMSGrVQppZuS7uoGc5oU+Xu7
+	 1qvAdU4Pi8m0bB6yoaWqGNPC/0DdTgYBuf9bWfCw=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id D4AF3F80131;
-	Tue,  3 Mar 2020 03:49:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A0349F80266;
+	Tue,  3 Mar 2020 03:59:35 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A5CA2F80131; Tue,  3 Mar 2020 03:48:58 +0100 (CET)
+ id 8FC8DF8025F; Tue,  3 Mar 2020 03:59:33 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.9 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
- autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id D445EF80131
- for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 03:48:55 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D445EF80131
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="OZfSeyrU"
-Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
- [73.47.72.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id B9E8D24680;
- Tue,  3 Mar 2020 02:48:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583203733;
- bh=ssKvFUgnI1L6vedipqOf+KiYAXpk4XNBlD8QG1x3TBg=;
- h=From:To:Cc:Subject:Date:From;
- b=OZfSeyrUqh8nAz5gSywhf8iRItSkPMcuOTmr/8nRhqgxh9+hg6TsYjzxplCrurT2f
- aacSXVwGxZ1N5kLlbzOD8EpttTpBKApl6Dq+n31CXzTIGM8Y90uktf8Up7p3+MOhgH
- 34XYGxydM/h2S+eVbqrB/B+f5RryTyWPf8m+xY6M=
-From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH AUTOSEL 4.19 01/32] ALSA: hda: do not override bus codec_mask
- in link_get()
-Date: Mon,  2 Mar 2020 21:48:20 -0500
-Message-Id: <20200303024851.10054-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.20.1
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1D614F8012D
+ for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 03:59:27 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1D614F8012D
+Authenticated-By: 
+X-SpamFilter-By: BOX Solutions SpamTrap 5.62 with qID 0232xKj8010512,
+ This message is accepted by code: ctloc85258
+Received: from mail.realtek.com (RTEXMB06.realtek.com.tw[172.21.6.99])
+ by rtits2.realtek.com.tw (8.15.2/2.57/5.78) with ESMTPS id 0232xKj8010512
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 3 Mar 2020 10:59:20 +0800
+Received: from RTEXMB01.realtek.com.tw (172.21.6.94) by
+ RTEXMB06.realtek.com.tw (172.21.6.99) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1779.2; Tue, 3 Mar 2020 10:59:20 +0800
+Received: from localhost.localdomain (172.22.102.1) by RTEXMB01.realtek.com.tw
+ (172.21.6.94) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1779.2; Tue, 3 Mar 2020
+ 10:59:19 +0800
+From: <jack.yu@realtek.com>
+To: <broonie@kernel.org>, <lgirdwood@gmail.com>
+Subject: [PATCH] ASoC: rt1015: modify pre-divider for sysclk
+Date: Tue, 3 Mar 2020 10:59:13 +0800
+Message-ID: <20200303025913.24499-1-jack.yu@realtek.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
 Content-Transfer-Encoding: 8bit
-Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Mark Brown <broonie@kernel.org>
+Content-Type: text/plain
+X-Originating-IP: [172.22.102.1]
+X-ClientProxiedBy: RTEXMB05.realtek.com.tw (172.21.6.98) To
+ RTEXMB01.realtek.com.tw (172.21.6.94)
+Cc: oder_chiou@realtek.com, Jack Yu <jack.yu@realtek.com>,
+ alsa-devel@alsa-project.org, lars@metafoo.de, kent_chen@realtek.com,
+ kenny_chen@realtek.com, derek.fang@realtek.com, shumingf@realtek.com,
+ albertwang@realtek.com, flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,59 +81,28 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+From: Jack Yu <jack.yu@realtek.com>
 
-[ Upstream commit 43bcb1c0507858cdc95e425017dcc33f8105df39 ]
+Modify pre-divider for system clock.
 
-snd_hdac_ext_bus_link_get() does not work correctly in case
-there are multiple codecs on the bus. It unconditionally
-resets the bus->codec_mask value. As per documentation in
-hdaudio.h and existing use in client code, this field should
-be used to store bit flag of detected codecs on the bus.
-
-By overwriting value of the codec_mask, information on all
-detected codecs is lost. No current user of hdac is impacted,
-but use of bus->codec_mask is planned in future patches
-for SOF.
-
-Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
-Link: https://lore.kernel.org/r/20200206200223.7715-1-kai.vehmanen@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Jack Yu <jack.yu@realtek.com>
 ---
- sound/hda/ext/hdac_ext_controller.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ sound/soc/codecs/rt1015.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
-index 60cb00fd0c693..84b44cdae28a1 100644
---- a/sound/hda/ext/hdac_ext_controller.c
-+++ b/sound/hda/ext/hdac_ext_controller.c
-@@ -262,6 +262,7 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_link_power_down_all);
- int snd_hdac_ext_bus_link_get(struct hdac_bus *bus,
- 				struct hdac_ext_link *link)
- {
-+	unsigned long codec_mask;
- 	int ret = 0;
+diff --git a/sound/soc/codecs/rt1015.c b/sound/soc/codecs/rt1015.c
+index 5fa21d8ab620..bb310bc7febd 100644
+--- a/sound/soc/codecs/rt1015.c
++++ b/sound/soc/codecs/rt1015.c
+@@ -664,7 +664,7 @@ static int rt1015_hw_params(struct snd_pcm_substream *substream,
+ 	snd_soc_component_update_bits(component, RT1015_TDM_MASTER,
+ 		RT1015_I2S_DL_MASK, val_len);
+ 	snd_soc_component_update_bits(component, RT1015_CLK2,
+-		RT1015_FS_PD_MASK, pre_div);
++		RT1015_FS_PD_MASK, pre_div << RT1015_FS_PD_SFT);
  
- 	mutex_lock(&bus->lock);
-@@ -283,9 +284,11 @@ int snd_hdac_ext_bus_link_get(struct hdac_bus *bus,
- 		 *  HDA spec section 4.3 - Codec Discovery
- 		 */
- 		udelay(521);
--		bus->codec_mask = snd_hdac_chip_readw(bus, STATESTS);
--		dev_dbg(bus->dev, "codec_mask = 0x%lx\n", bus->codec_mask);
--		snd_hdac_chip_writew(bus, STATESTS, bus->codec_mask);
-+		codec_mask = snd_hdac_chip_readw(bus, STATESTS);
-+		dev_dbg(bus->dev, "codec_mask = 0x%lx\n", codec_mask);
-+		snd_hdac_chip_writew(bus, STATESTS, codec_mask);
-+		if (!bus->codec_mask)
-+			bus->codec_mask = codec_mask;
- 	}
- 
- 	mutex_unlock(&bus->lock);
+ 	return 0;
+ }
 -- 
-2.20.1
+2.25.1
 

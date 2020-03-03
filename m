@@ -2,98 +2,78 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EE6F177BB7
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 17:16:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A6DC177C82
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 17:56:45 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AE3641655;
-	Tue,  3 Mar 2020 17:16:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AE3641655
+	by alsa0.perex.cz (Postfix) with ESMTPS id EE9DB826;
+	Tue,  3 Mar 2020 17:55:54 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz EE9DB826
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583252212;
-	bh=+iql/zkUqoRsxihlG2SiKyAvCHVyENPogrjW1qdx8pM=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1583254605;
+	bh=4Iu72ZqZPGr/AjqOSDI7Zng1ndHkGYdIqZnvpMUgZ64=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=p6F74eUWZK3Pq9GqNNKwF5vXMrkgh9oMjlfb+6q8NkzIUmTEY4JiIupElporFTV7g
-	 Iy5/4l6BI5r2Zih5ngkyoFGNHzX//UAgMxF09Rj4RMLb5g26FGemA7hAtkEx3TMs9P
-	 ENcn99QmRP0UUsTFSDkvgO95AogTLSXeGGH+06xA=
+	b=hn3KEfUZE4L0alUlmWGwbdw1KJrD5XOi+WIX2s3wLcRcG+JKjJc4shSlLZrRSFtrF
+	 IwXqLqv/pArVRzL903DdYyYlfbITSWrsk/HKb2UOti4YoqzmLIxOhaKht6kkKYNfOB
+	 JX+kLuSE8Z7XVckAoL88RcUcBPXTdew5+lskkkn8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id AC3A8F8011C;
-	Tue,  3 Mar 2020 17:15:06 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 0273CF80266;
+	Tue,  3 Mar 2020 17:55:03 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 1A95AF8025F; Tue,  3 Mar 2020 17:15:04 +0100 (CET)
+ id C8C09F8012D; Tue,  3 Mar 2020 17:55:00 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.5 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
- HEADER_FROM_DIFFERENT_DOMAINS,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_NONE,SURBL_BLOCKED,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 57C38F8011C
- for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 17:14:46 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 57C38F8011C
+ by alsa1.perex.cz (Postfix) with ESMTPS id BE4F8F8012D
+ for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 17:54:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz BE4F8F8012D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="iRm2UbJA"
-Received: by mail-pg1-x543.google.com with SMTP id t24so1744234pgj.7
- for <alsa-devel@alsa-project.org>; Tue, 03 Mar 2020 08:14:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=W6bZJgA2B8yV92ToUdbhDnWn8Wf8SVbR4fdlo/S3zYg=;
- b=iRm2UbJAX2KPPtw/bXpNYbHTxPhnF9TrWTcUJhwMwBI16gSfrqYYcNgFsgFeeb3pjN
- sMlsweLT6FEy/aGSKQ/hPhiIRuNmFeEb1lAGPiOu+A9QKPb7Q+/kV9PzMwnZ2HfhhAKe
- YR3GUIsL80GB869gdjQ1UXmMYhuBzdqlzlYrFjg2IY8uaW37xHB8Y0KX6ssYmTkfVDIR
- AyQTx0V5o3Df/Eu/eh9rT6kNPFnBvJEHo3X3thcSXE0yY/cT9sAm3PusIP2MduOEGa1g
- rwGJ+lAkLZyW+SAwv/6Fj8dDlOsQpivJVxcE/mrDTzGXB8WzrX2iWc5NPGUuP0dGwBtP
- fy0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition
- :content-transfer-encoding:in-reply-to:user-agent;
- bh=W6bZJgA2B8yV92ToUdbhDnWn8Wf8SVbR4fdlo/S3zYg=;
- b=YdiIwOXcivmzrULjGU23/5gViX4VxtBnOb8EZn1s1XfTd16QIMUbfW/2FKAPQL0Ggf
- kMdf9qHnJ5hkZ7ZUKzQbp1E43BiiJysHNeUhzvHLLN7csZ0E8e6ysYwIqxgJtxzk5Uic
- MPWaY9NHNUwVk110pWibF3aIP3GWeIR9/N5fE5+lchAkG3CKNIdh4U0NwbC9nB78nT4n
- 87ijUQlIIllEop8Bu6M+SbqgKsmlfq4rAlAglWrdm5Frmgbr0fDHwFu0x0H33HPsC/As
- dbHSp9XQJ3XTET44srKvYc7yjgHaoe9iS+bfbRYFlISIRABtrD9I4QSeW7w4IVrE3EMb
- nZ3Q==
-X-Gm-Message-State: ANhLgQ1zIeXgUJBt4XIZaYu2BGMT09USDPG3DRqet+JIXWsLhVH0lCy1
- rmgII8ns2Qq+P5y0lg0/O1s=
-X-Google-Smtp-Source: ADFU+vugfk5YAPZd2rPmqKWvu0ze5swsKp4lwvB0qve9j0052KotJHbV2aNn8l27fjDnDSRKs1OPxg==
-X-Received: by 2002:a63:d241:: with SMTP id t1mr4545801pgi.283.1583252084874; 
- Tue, 03 Mar 2020 08:14:44 -0800 (PST)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id q66sm23071256pgq.50.2020.03.03.08.14.43
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 03 Mar 2020 08:14:43 -0800 (PST)
-Date: Tue, 3 Mar 2020 08:14:43 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: [PATCH] ASoC: Fix SND_SOC_ALL_CODECS imply ac97 fallout
-Message-ID: <20200303161443.GA23017@roeck-us.net>
-References: <20200224112537.14483-1-geert@linux-m68k.org>
- <20200303143444.GA25683@roeck-us.net>
- <CAMuHMdWZxc5KjHaOhk5xdcjSn54i3ku7b1dW6tXhXbjku1eLww@mail.gmail.com>
+ dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org
+ header.b="o4b8Fvsz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:MIME-Version:Date:Message-ID:From:References:Cc:To:
+ Subject:Sender:Reply-To:Content-ID:Content-Description;
+ bh=0h9eZXUbT/+wZn18IzVeTxSKw0VaeM+576oP9khRe6o=; b=o4b8FvszcUQVJsc7FTwT0eGsg2
+ 8IGAsPOmZEt3I7SeQ1YmMBj/ZGYGdXT9eTMWdDnusCnGWhT7wWB7fwX5ygtZL/FKfGUU70EidZkIZ
+ 7HQywX5V/rCqHkxjrPXBYVJ4jmZ7/XKBvA/SfBcJW7m68jJk9MqVg8rGu9VJqLKcYjTv7G2OWc/cQ
+ ono48DKQUjNB59qUvXs3PDRsi1sCWSLPNy3Nr+Agttxw3T8gc5PV3R9vYg6Vi1WlqdapXMz2flidi
+ HlTiTw6+5t6dO8uQIx5IwhrlLwVN1B84IkJeEihitV7XkAm5UMP8rwAWyNWFZNWZwuR+ntBNTb/S8
+ r0NMFSOg==;
+Received: from [2601:1c0:6280:3f0::19c2]
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1j9AoX-0004ah-2t; Tue, 03 Mar 2020 16:54:37 +0000
+Subject: Re: [PATCH] ASoC: amd: AMD RV RT5682 should depends on CROS_EC
+To: Enric Balletbo i Serra <enric.balletbo@collabora.com>,
+ linux-kernel@vger.kernel.org
+References: <20200303110514.3267126-1-enric.balletbo@collabora.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+Message-ID: <3e34a902-2a7c-c13c-d569-9d6479a65627@infradead.org>
+Date: Tue, 3 Mar 2020 08:54:34 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAMuHMdWZxc5KjHaOhk5xdcjSn54i3ku7b1dW6tXhXbjku1eLww@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-Cc: ALSA Development Mailing List <alsa-devel@alsa-project.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Takashi Iwai <tiwai@suse.com>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Robert Jarzmik <robert.jarzmik@free.fr>
+In-Reply-To: <20200303110514.3267126-1-enric.balletbo@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ YueHaibing <yuehaibing@huawei.com>, Takashi Iwai <tiwai@suse.com>,
+ Akshu Agrawal <akshu.agrawal@amd.com>, Mark Brown <broonie@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>,
+ Collabora Kernel ML <kernel@collabora.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,43 +89,50 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Tue, Mar 03, 2020 at 03:56:25PM +0100, Geert Uytterhoeven wrote:
-> Hi Günter
+On 3/3/20 3:05 AM, Enric Balletbo i Serra wrote:
+> If SND_SOC_AMD_RV_RT5682_MACH=y, below kconfig and build errors can be seen:
 > 
-> On Tue, Mar 3, 2020 at 3:34 PM Guenter Roeck <linux@roeck-us.net> wrote:
-> > On Mon, Feb 24, 2020 at 12:25:37PM +0100, Geert Uytterhoeven wrote:
-> > > On i386 randconfig:
-> > >
-> > >     sound/soc/codecs/wm9705.o: In function `wm9705_soc_resume':
-> > >     wm9705.c:(.text+0x128): undefined reference to `snd_ac97_reset'
-> > >     sound/soc/codecs/wm9712.o: In function `wm9712_soc_resume':
-> > >     wm9712.c:(.text+0x2d1): undefined reference to `snd_ac97_reset'
-> > >     sound/soc/codecs/wm9713.o: In function `wm9713_soc_resume':
-> > >     wm9713.c:(.text+0x820): undefined reference to `snd_ac97_reset'
-> > >
-> > > Fix this by adding the missing dependencies on SND_SOC_AC97_BUS.
-> > >
-> >
-> > With this patch applied, arm:pxa_defconfig reports a variety of unmet
-> > SND_SOC dependencies, and it fails to build.
-> >
-> > ERROR: "snd_ac97_reset" [sound/soc/codecs/snd-soc-wm9713.ko] undefined!
-> > ERROR: "snd_ac97_reset" [sound/soc/codecs/snd-soc-wm9712.ko] undefined!
-> > ERROR: "snd_ac97_reset" [sound/soc/codecs/snd-soc-wm9705.ko] undefined!
-> >
-> > Reverting this patch fixes the problem.
+>  WARNING: unmet direct dependencies detected for SND_SOC_CROS_EC_CODEC
+>  WARNING: unmet direct dependencies detected for I2C_CROS_EC_TUNNEL
 > 
-> Should SND_PXA2XX_SOC_AC97 in sound/soc/pxa/Kconfig select
-> SND_SOC_AC97_BUS instead of SND_SOC_AC97_BUS_NEW?
-> The latter does not exist.
+>  ld: drivers/i2c/busses/i2c-cros-ec-tunnel.o: in function `ec_i2c_xfer':
+>  i2c-cros-ec-tunnel.c:(.text+0x2fc): undefined reference to `cros_ec_cmd_xfer_status'
+>  ld: sound/soc/codecs/cros_ec_codec.o: in function `wov_host_event':
+>  cros_ec_codec.c:(.text+0x4fb): undefined reference to `cros_ec_get_host_event'
+>  ld: sound/soc/codecs/cros_ec_codec.o: in function `send_ec_host_command':
+>  cros_ec_codec.c:(.text+0x831): undefined reference to `cros_ec_cmd_xfer_status'
+> 
+> This is because it will select SND_SOC_CROS_EC_CODEC and I2c_CROS_EC_TUNNEL but
+> both depends on CROS_EC.
+> 
+> Fixes: 6b8e4e7db3cd ("ASoC: amd: Add machine driver for Raven based platform")
+> Reported-by: Randy Dunlap <rdunlap@infradead.org>
+> Signed-off-by: Enric Balletbo i Serra <enric.balletbo@collabora.com>
+
+Acked-by: Randy Dunlap <rdunlap@infradead.org> # build-tested
+
+Thanks.
+
+> ---
+> 
+>  sound/soc/amd/Kconfig | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/sound/soc/amd/Kconfig b/sound/soc/amd/Kconfig
+> index b29ef1373946..bce4cee5cb54 100644
+> --- a/sound/soc/amd/Kconfig
+> +++ b/sound/soc/amd/Kconfig
+> @@ -33,6 +33,6 @@ config SND_SOC_AMD_RV_RT5682_MACH
+>  	select SND_SOC_MAX98357A
+>  	select SND_SOC_CROS_EC_CODEC
+>  	select I2C_CROS_EC_TUNNEL
+> -	depends on SND_SOC_AMD_ACP3x && I2C
+> +	depends on SND_SOC_AMD_ACP3x && I2C && CROS_EC
+>  	help
+>  	 This option enables machine driver for RT5682 and MAX9835.
 > 
 
-Doing that results in:
 
-sound/soc/pxa/Kconfig:24:error: recursive dependency detected!
-sound/soc/pxa/Kconfig:24:	symbol SND_PXA2XX_SOC_AC97 is selected by SND_PXA2XX_SOC_TOSA
-sound/soc/pxa/Kconfig:79:	symbol SND_PXA2XX_SOC_TOSA depends on AC97_BUS
-sound/Kconfig:109:	symbol AC97_BUS is selected by SND_SOC_AC97_BUS
-sound/soc/Kconfig:26:	symbol SND_SOC_AC97_BUS is selected by SND_PXA2XX_SOC_AC97
+-- 
+~Randy
 
-Guenter

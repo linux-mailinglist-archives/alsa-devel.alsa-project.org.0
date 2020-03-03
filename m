@@ -2,62 +2,72 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 968711775F9
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 13:35:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED93B177665
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 13:49:28 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 272E11683;
-	Tue,  3 Mar 2020 13:34:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 272E11683
+	by alsa0.perex.cz (Postfix) with ESMTPS id 725A5167D;
+	Tue,  3 Mar 2020 13:48:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 725A5167D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583238915;
-	bh=2rCSLxe62hKFmu9Wq3m9gb95gGynLEiWwhZ3yjr9GzE=;
+	s=default; t=1583239768;
+	bh=UbXuZRyvxQEDOwMNOUPOm66QPzbIXhylpFRPvHLl7So=;
 	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=Euate91WgI/mOO1cOXylg9o078kkhH+R1//FEgM/TzIc/6pz740n2aC1EXg8A4juk
-	 gcv4b9n3UtegDdz0GmIA3wwBYvWfk+ZUaOsEg2vjy6cvRe8eVopuJArBE0GTqyk4te
-	 AOTfKcpUObX27bxu33FDnYLvX/yDeeRqiZ2LkWoo=
+	b=dG7C/c2XS4sO3+rdE4+h6lwXIvNTGj9nHr4r2OBWdHlNZaphbk/bqamCnm8tfCGH3
+	 chSIdytTDetOVE7OvxWsULzYS1t4TWUIxDfwMeUrmo7myLv24aWF7jTQ/TSKwf+4Xs
+	 4+3SliYRK9KbhYAjgf50Gkp7u1RM4az1/QNUWT6c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 363D8F80266;
-	Tue,  3 Mar 2020 13:33:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 78E56F80266;
+	Tue,  3 Mar 2020 13:47:47 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 95E6BF8012D; Tue,  3 Mar 2020 13:33:32 +0100 (CET)
+ id 52391F8025F; Tue,  3 Mar 2020 13:47:45 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SPF_PASS,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D11EBF8012D
- for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 13:33:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D11EBF8012D
+ by alsa1.perex.cz (Postfix) with ESMTP id CB3BFF80131
+ for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 13:47:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CB3BFF80131
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C8B93FEC;
- Tue,  3 Mar 2020 04:33:23 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EBA03FEC;
+ Tue,  3 Mar 2020 04:47:40 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4A66D3F534;
- Tue,  3 Mar 2020 04:33:23 -0800 (PST)
-Date: Tue, 3 Mar 2020 12:33:21 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6FB513F534;
+ Tue,  3 Mar 2020 04:47:40 -0800 (PST)
+Date: Tue, 3 Mar 2020 12:47:39 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Colin King <colin.king@canonical.com>
-Subject: Re: [PATCH][next] ASoc: amd: use correct format specifier for a long
- int
-Message-ID: <20200303123321.GC3866@sirena.org.uk>
-References: <20200303103903.9259-1-colin.king@canonical.com>
+To: Shengjiu Wang <shengjiu.wang@gmail.com>
+Subject: Re: [PATCH v4 1/8] ASoC: dt-bindings: fsl_asrc: Change asrc-width to
+ asrc-format
+Message-ID: <20200303124739.GE3866@sirena.org.uk>
+References: <cover.1583039752.git.shengjiu.wang@nxp.com>
+ <872c2e1082de6348318e14ccd31884d62355c282.1583039752.git.shengjiu.wang@nxp.com>
+ <20200303014133.GA24596@bogus>
+ <CAA+D8ANgECaz=tRtRwNP=jMXBD0XciAE0HUYROH8uuo03iDejg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="JgQwtEuHJzHdouWu"
+ protocol="application/pgp-signature"; boundary="XuV1QlJbYrcVoo+x"
 Content-Disposition: inline
-In-Reply-To: <20200303103903.9259-1-colin.king@canonical.com>
+In-Reply-To: <CAA+D8ANgECaz=tRtRwNP=jMXBD0XciAE0HUYROH8uuo03iDejg@mail.gmail.com>
 X-Cookie: Drilling for oil is boring.
 User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org,
- Takashi Iwai <tiwai@suse.com>, Akshu Agrawal <akshu.agrawal@amd.com>
+Cc: Mark Rutland <mark.rutland@arm.com>, Rob Herring <robh@kernel.org>,
+ Linux-ALSA <alsa-devel@alsa-project.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Timur Tabi <timur@kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, shawnguo@kernel.org,
+ Shengjiu Wang <shengjiu.wang@nxp.com>, Xiubo Li <Xiubo.Lee@gmail.com>,
+ linux-kernel <linux-kernel@vger.kernel.org>, Takashi Iwai <tiwai@suse.com>,
+ Nicolin Chen <nicoleotsuka@gmail.com>, linux-imx@nxp.com,
+ kernel@pengutronix.de, Fabio Estevam <festevam@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org, s.hauer@pengutronix.de,
+ linux-arm-kernel@lists.infradead.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,32 +84,40 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---JgQwtEuHJzHdouWu
+--XuV1QlJbYrcVoo+x
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, Mar 03, 2020 at 10:39:03AM +0000, Colin King wrote:
-> From: Colin Ian King <colin.king@canonical.com>
->=20
-> Currently the format specifier %d is being used for a long int. Fix
-> the by using %ld instead.
+On Tue, Mar 03, 2020 at 11:59:30AM +0800, Shengjiu Wang wrote:
+> On Tue, Mar 3, 2020 at 9:43 AM Rob Herring <robh@kernel.org> wrote:
 
-Someone already sent a fix for this.
+> > > -   - fsl,asrc-width  : Defines a mutual sample width used by DPCM Back Ends.
+> > > +   - fsl,asrc-format : Defines a mutual sample format used by DPCM Back
+> > > +                       Ends. The value is one of SNDRV_PCM_FORMAT_XX in
+> > > +                       "include/uapi/sound/asound.h"
 
---JgQwtEuHJzHdouWu
+> > You can't just change properties. They are an ABI.
+
+> I have updated all the things related with this ABI in this patch series.
+> What else should I do?
+
+Like Nicolin says you should continue to support the old stuff.  The
+kernel should work with people's out of tree DTs too so simply updating
+everything in the tree isn't enough.
+
+--XuV1QlJbYrcVoo+x
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5eTpEACgkQJNaLcl1U
-h9AKuQf/U01aci745PIHD/iQ86xIE2c0Ph5wIDFYgVS45kaTlPwBGX6iX72t/5tT
-/BesrakIoU6wHxO5wNQst+QuxCauSfQTqwuqtA4k4P/sizM7M5NPcoxeM/uECmGf
-Z91qqtfZq492X6yWceLwhCt9SA+5xzJ1bKdeETaOGaiJ594qhD/4+22WjhuibSF5
-FHcllXvFPVKZCVGB0QOAVtUpBK0NQfRBsjshPlNLwMsop+dXJSfI3YhrhiIq5+sS
-41UM1RDsJu3jGE6Lld3dBl5BgUdxR5yxudSuCqPtliEYnKyINev6qqWrrGoiwZ4B
-SbuwgxiOqB11TS0lW97afaTVtdAETQ==
-=tEk3
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5eUeoACgkQJNaLcl1U
+h9AJywf/bSiQfVDbeUAktcdvjHCRmCvZQ5r/DETvXQh3jrq8ZMfLbfd8mIoxnaPL
+QCqx6aL0X4owNuPMZ8fq3jStJL1uCFJudtfA9a+H/n57opep5mhmsAw0VTUSRKxV
+3YPmdTKQtoGd3GnxrcUo9Z62ssQY3K0bCy5wGjcCxOW8alaFlJqj2st0dMbC6UNb
+UbxOrZp2jWpVH3U+/0qh5i5QiV9h+ctw/f1BmEPzZYb32S4Ie9Q2ldINFhbMbnMQ
+gwAeyISGShAYVLuWzbVCe8e09slQqGYmKprtmCn4xgokE2+UvnQNCIuxyx+TLeXY
+6xJH0vBb6D/26k+09f8BENOxCCBv4w==
+=EdGJ
 -----END PGP SIGNATURE-----
 
---JgQwtEuHJzHdouWu--
+--XuV1QlJbYrcVoo+x--

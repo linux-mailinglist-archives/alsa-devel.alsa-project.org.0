@@ -2,88 +2,73 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13754176A2F
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 02:48:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CEF7176B0D
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 03:48:08 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B268C1687;
-	Tue,  3 Mar 2020 02:47:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B268C1687
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9A654168D;
+	Tue,  3 Mar 2020 03:47:17 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9A654168D
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583200110;
-	bh=ctG19+s42J2Y9cC8qlXSPN7mcuF71KKyeyCRAQoX9kA=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=F0UI5iIZZhQcM8YjTLCP/un6iRk5ORQiGsczYGg2+jsZJZViVYJ0zTa7qUd1/IOQ2
-	 1QqRSpJh+KDwMgu7/wJ5oSoNamXIkFz2D3dOeyb+ebNC7IGKq2iVnnvc1PHP6PoNX7
-	 3ZHStukKezd1VwrWS0YncaQJdAvpmB4PEZBIW0FE=
+	s=default; t=1583203687;
+	bh=8zSyvj3eyDdfA65LUCwZBtK20UW9f3gErYuT4Yv70vQ=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=RHmCzp12sqVVVVAxmQZxTtAWUdFtO56aRsIoHjpXC/8Xvqsm5ZTHfoMI1XDSSa6Xa
+	 RS7fouCsMxEMEUi08SAxUFHvvEPl2vu4iq9PG2X8gOOhtvTabDF8HBYU4p/5St9Peh
+	 lgVFi0AubLn28vug/Y77Fi9CxAtRrWpGd7hNUmxA=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C0B90F801ED;
-	Tue,  3 Mar 2020 02:46:49 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A723BF80266;
+	Tue,  3 Mar 2020 03:46:26 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 0EA03F801ED; Tue,  3 Mar 2020 02:46:48 +0100 (CET)
+ id 4B9EFF8025F; Tue,  3 Mar 2020 03:46:24 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=FREEMAIL_ENVFROM_END_DIGIT,
- FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,
- RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,SURBL_BLOCKED,URIBL_BLOCKED
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
  autolearn=disabled version=3.4.0
-Received: from mail-oi1-f196.google.com (mail-oi1-f196.google.com
- [209.85.167.196])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 0C752F80131
+ for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 03:46:20 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0C752F80131
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="xKzP7lUJ"
+Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
+ [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0093FF80130
- for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 02:46:44 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0093FF80130
-Received: by mail-oi1-f196.google.com with SMTP id l12so1348597oil.9
- for <alsa-devel@alsa-project.org>; Mon, 02 Mar 2020 17:46:44 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=0fZprhK1W/+54HzE9JKB5hhmjgGt264/Y236IBMlW68=;
- b=PPD//TCM2mk606EwH0+gBH5TnudBqwZht2tpht6QtZu/ZVscY5xcAKLJuir7TK0frI
- JcEu0/ELlh+KxPm5LukA/vboEWGyJvOStTpz06L7MD/DCV4m7PIJrvpCnuQUOKBiAlWH
- 8qNBp8+ovvdnfZ+Em3uu5VQAdViVYAYhaGA82fbHnHOA42gx+w8RjYJYsN3oxdgaK5Yg
- BvGlyMkRWTGGQGaJpQ2CbNiBaqSNns1EnVI3RGX4kA9+4+AekAaquPCEh4nPFvulubsh
- UHYX0AkxguSqkLEMou3ry1LU97/48fimfMjqS/2pLJ4+wEVVrUxnM0w7rjzRcdq9d/sV
- Tuig==
-X-Gm-Message-State: ANhLgQ2q4UrT/VmWxw/ncg6J4+5m6YCUeRkVEcyN1d3tGTVrBaKYOCK1
- hF7Eh3LZTpfLuOvtwmpOWw==
-X-Google-Smtp-Source: ADFU+vtMKankA5j2TyBMep5zxakZ/gSxHjO96dpd6H9OgS/zdaStVrFVHEAotLCrZcCrix4ZjMErJQ==
-X-Received: by 2002:aca:bfc2:: with SMTP id p185mr936911oif.57.1583200002745; 
- Mon, 02 Mar 2020 17:46:42 -0800 (PST)
-Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id m19sm7258226otn.47.2020.03.02.17.46.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 02 Mar 2020 17:46:42 -0800 (PST)
-Received: (nullmailer pid 467 invoked by uid 1000);
- Tue, 03 Mar 2020 01:46:40 -0000
-Date: Mon, 2 Mar 2020 19:46:40 -0600
-From: Rob Herring <robh@kernel.org>
-To: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: Re: [PATCH v4 7/8] ASoC: dt-bindings: fsl_easrc: Add document for
- EASRC
-Message-ID: <20200303014640.GA26270@bogus>
-References: <cover.1583039752.git.shengjiu.wang@nxp.com>
- <2aa0b446c3e2af59e3472d8f7706298691ec4a5c.1583039752.git.shengjiu.wang@nxp.com>
+ by mail.kernel.org (Postfix) with ESMTPSA id D92B52465E;
+ Tue,  3 Mar 2020 02:46:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1583203577;
+ bh=8zSyvj3eyDdfA65LUCwZBtK20UW9f3gErYuT4Yv70vQ=;
+ h=From:To:Cc:Subject:Date:From;
+ b=xKzP7lUJ5Q4ZJdEW7E5cni6VrppR42ewt3/qKqoXwT6DGq6xoscUTWCvgZeMH44q/
+ 5BUJHWG0K8eZRvP8z8sk6myUOzS6gkIHIMt6ywtclce/WfBGvtH5Y2p+zyyI1SpYOu
+ WwHtaw58b+aRxWfoPY5zJktEFPjueFkzOFPCOWEM=
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH AUTOSEL 5.5 01/66] ALSA: hda: do not override bus codec_mask
+ in link_get()
+Date: Mon,  2 Mar 2020 21:45:10 -0500
+Message-Id: <20200303024615.8889-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2aa0b446c3e2af59e3472d8f7706298691ec4a5c.1583039752.git.shengjiu.wang@nxp.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: mark.rutland@arm.com, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, linuxppc-dev@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, timur@kernel.org, Xiubo.Lee@gmail.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, tiwai@suse.com,
- lgirdwood@gmail.com, nicoleotsuka@gmail.com, broonie@kernel.org,
- linux-imx@nxp.com, kernel@pengutronix.de, festevam@gmail.com,
- linux-arm-kernel@lists.infradead.org
+X-stable: review
+X-Patchwork-Hint: Ignore
+Content-Transfer-Encoding: 8bit
+Cc: Sasha Levin <sashal@kernel.org>, alsa-devel@alsa-project.org,
+ Kai Vehmanen <kai.vehmanen@linux.intel.com>, Takashi Iwai <tiwai@suse.de>,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,147 +84,59 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sun, Mar 01, 2020 at 01:24:18PM +0800, Shengjiu Wang wrote:
-> EASRC (Enhanced Asynchronous Sample Rate Converter) is a new
-> IP module found on i.MX8MN.
-> 
-> Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
-> ---
->  .../devicetree/bindings/sound/fsl,easrc.yaml  | 96 +++++++++++++++++++
->  1 file changed, 96 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/fsl,easrc.yaml b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> new file mode 100644
-> index 000000000000..500af8f0c8f0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/fsl,easrc.yaml
-> @@ -0,0 +1,96 @@
-> +# SPDX-License-Identifier: GPL-2.0
+From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
 
-Dual license new bindings:
+[ Upstream commit 43bcb1c0507858cdc95e425017dcc33f8105df39 ]
 
-(GPL-2.0-only OR BSD-2-Clause)
+snd_hdac_ext_bus_link_get() does not work correctly in case
+there are multiple codecs on the bus. It unconditionally
+resets the bus->codec_mask value. As per documentation in
+hdaudio.h and existing use in client code, this field should
+be used to store bit flag of detected codecs on the bus.
 
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/fsl,easrc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: NXP Asynchronous Sample Rate Converter (ASRC) Controller
-> +
-> +maintainers:
-> +  - Shengjiu Wang <shengjiu.wang@nxp.com>
-> +
-> +properties:
-> +  $nodename:
-> +    pattern: "^easrc@.*"
-> +
-> +  compatible:
-> +    oneOf:
-> +      - items:
+By overwriting value of the codec_mask, information on all
+detected codecs is lost. No current user of hdac is impacted,
+but use of bus->codec_mask is planned in future patches
+for SOF.
 
-You can drop oneOf and items here.
+Signed-off-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
+Link: https://lore.kernel.org/r/20200206200223.7715-1-kai.vehmanen@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/hda/ext/hdac_ext_controller.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> +        - enum:
-> +          - fsl,imx8mn-easrc
+diff --git a/sound/hda/ext/hdac_ext_controller.c b/sound/hda/ext/hdac_ext_controller.c
+index cfab60d88c921..09ff209df4a30 100644
+--- a/sound/hda/ext/hdac_ext_controller.c
++++ b/sound/hda/ext/hdac_ext_controller.c
+@@ -254,6 +254,7 @@ EXPORT_SYMBOL_GPL(snd_hdac_ext_bus_link_power_down_all);
+ int snd_hdac_ext_bus_link_get(struct hdac_bus *bus,
+ 				struct hdac_ext_link *link)
+ {
++	unsigned long codec_mask;
+ 	int ret = 0;
+ 
+ 	mutex_lock(&bus->lock);
+@@ -280,9 +281,11 @@ int snd_hdac_ext_bus_link_get(struct hdac_bus *bus,
+ 		 *  HDA spec section 4.3 - Codec Discovery
+ 		 */
+ 		udelay(521);
+-		bus->codec_mask = snd_hdac_chip_readw(bus, STATESTS);
+-		dev_dbg(bus->dev, "codec_mask = 0x%lx\n", bus->codec_mask);
+-		snd_hdac_chip_writew(bus, STATESTS, bus->codec_mask);
++		codec_mask = snd_hdac_chip_readw(bus, STATESTS);
++		dev_dbg(bus->dev, "codec_mask = 0x%lx\n", codec_mask);
++		snd_hdac_chip_writew(bus, STATESTS, codec_mask);
++		if (!bus->codec_mask)
++			bus->codec_mask = codec_mask;
+ 	}
+ 
+ 	mutex_unlock(&bus->lock);
+-- 
+2.20.1
 
-Blank line between properties please.
-
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    items:
-> +      - description: Peripheral clock
-> +
-> +  clock-names:
-> +    items:
-> +      - const: mem
-> +
-> +  dmas:
-> +    maxItems: 8
-> +
-> +  dma-names:
-> +    oneOf:
-
-Drop oneOf as there is only one.
-
-> +      - items:
-> +          - const: ctx0_rx
-> +          - const: ctx0_tx
-> +          - const: ctx1_rx
-> +          - const: ctx1_tx
-> +          - const: ctx2_rx
-> +          - const: ctx2_tx
-> +          - const: ctx3_rx
-> +          - const: ctx3_tx
-> +
-> +  fsl,easrc-ram-script-name:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: The coefficient table for the filters
-
-Need to define the exact string(s).
-
-> +
-> +  fsl,asrc-rate:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Defines a mutual sample rate used by DPCM Back Ends
-
-Constraints?
-
-> +
-> +  fsl,asrc-format:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Defines a mutual sample format used by DPCM Back Ends
-
-Constraints?
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - dmas
-> +  - dma-name
-
-dma-names
-
-> +  - fsl,easrc-ram-script-name
-> +  - fsl,asrc-rate
-> +  - fsl,asrc-format
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/imx8mn-clock.h>
-> +
-> +    easrc: easrc@300C0000 {
-> +           compatible = "fsl,imx8mn-easrc";
-> +           reg = <0x0 0x300C0000 0x0 0x10000>;
-> +           interrupts = <0x0 122 0x4>;
-> +           clocks = <&clk IMX8MN_CLK_ASRC_ROOT>;
-> +           clock-names = "mem";
-> +           dmas = <&sdma2 16 23 0> , <&sdma2 17 23 0>,
-> +                  <&sdma2 18 23 0> , <&sdma2 19 23 0>,
-> +                  <&sdma2 20 23 0> , <&sdma2 21 23 0>,
-> +                  <&sdma2 22 23 0> , <&sdma2 23 23 0>;
-> +           dma-names = "ctx0_rx", "ctx0_tx",
-> +                       "ctx1_rx", "ctx1_tx",
-> +                       "ctx2_rx", "ctx2_tx",
-> +                       "ctx3_rx", "ctx3_tx";
-> +           fsl,easrc-ram-script-name = "imx/easrc/easrc-imx8mn.bin";
-> +           fsl,asrc-rate  = <8000>;
-> +           fsl,asrc-format = <2>;
-> +           status = "disabled";
-
-Don't show status in examples.
-
-> +    };
-> -- 
-> 2.21.0
-> 

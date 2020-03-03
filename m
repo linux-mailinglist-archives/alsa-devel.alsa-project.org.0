@@ -2,71 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4AF7177565
-	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 12:41:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C5D1775E9
+	for <lists+alsa-devel@lfdr.de>; Tue,  3 Mar 2020 13:31:06 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 2B17E1670;
-	Tue,  3 Mar 2020 12:40:51 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 2B17E1670
+	by alsa0.perex.cz (Postfix) with ESMTPS id BECDC1684;
+	Tue,  3 Mar 2020 13:30:15 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz BECDC1684
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583235701;
-	bh=UXMhDI/Ql+Furl3D/dbvU82sBdWIKg63ndO+GYoJ1Hg=;
-	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1583238665;
+	bh=ncleD2LVkf08XfMdy1P5X6wzcBjLnrYmjxBDohThDvA=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=oDQHSvvSaVC1qss7HrvdjG9/Y2Ne1L4fd0/FWnw8TdhDdnJqpUJQYzhCVMsOFkxyv
-	 i1sOI0SceSIBRJQ+0wsZP4S/gZtH7hAx5yigq1YzZnzmOCK7+aSUD7Ix+G/wLo8fY1
-	 0qyCRDu0BFWeUv5pDT50qA5tA4y9gXhNQ9paJyBs=
+	b=V+az46sJKSDY6KP1I96TJ5vEL4hnfXWOB9tg8keF7GyQlzw4F/dgr+f5v+SVYxrS1
+	 /eGLTjhM1NHj0Z5WYsmKwVGmwWYc3I4illKS6o8anXHc1Ttu4thUOISK6AWbCtE1+o
+	 T2wg5hUUBav9yoONPrDQk2USxBuVVUzkYA0f//lU=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 31CD3F80245;
-	Tue,  3 Mar 2020 12:40:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CCE99F80131;
+	Tue,  3 Mar 2020 13:29:24 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id DE415F8025F; Tue,  3 Mar 2020 12:39:56 +0100 (CET)
+ id C0B23F8025F; Tue,  3 Mar 2020 13:29:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_MSPIKE_H3,
- RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_NONE,URIBL_BLOCKED autolearn=disabled
- version=3.4.0
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1E69CF80131
- for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 12:39:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1E69CF80131
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Mar 2020 03:39:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,511,1574150400"; d="scan'208";a="240044033"
-Received: from eliteleevi.tm.intel.com ([10.237.54.20])
- by orsmga003.jf.intel.com with ESMTP; 03 Mar 2020 03:39:46 -0800
-Date: Tue, 3 Mar 2020 13:39:45 +0200 (EET)
-From: Kai Vehmanen <kai.vehmanen@linux.intel.com>
-X-X-Sender: kvehmane@eliteleevi.tm.intel.com
-To: Dan Carpenter <dan.carpenter@oracle.com>
-Subject: Re: [PATCH] ASoC: SOF: Fix snd_sof_ipc_stream_posn()
-In-Reply-To: <20200303101858.ytehbrivocyp3cnf@kili.mountain>
-Message-ID: <alpine.DEB.2.21.2003031321410.2957@eliteleevi.tm.intel.com>
-References: <20200303101858.ytehbrivocyp3cnf@kili.mountain>
-User-Agent: Alpine 2.21 (DEB 202 2017-01-01)
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7 02160 Espoo
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE, SPF_PASS,
+ URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 19B04F80131
+ for <alsa-devel@alsa-project.org>; Tue,  3 Mar 2020 13:29:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 19B04F80131
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5FA31FEC;
+ Tue,  3 Mar 2020 04:29:11 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D6B603F534;
+ Tue,  3 Mar 2020 04:29:10 -0800 (PST)
+Date: Tue, 3 Mar 2020 12:29:09 +0000
+From: Mark Brown <broonie@kernel.org>
+To: jack.yu@realtek.com
+Subject: Re: [PATCH] ASoC: rt1015: modify pre-divider for sysclk
+Message-ID: <20200303122909.GA3866@sirena.org.uk>
+References: <20200303025913.24499-1-jack.yu@realtek.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
- alsa-devel@alsa-project.org, Kai Vehmanen <kai.vehmanen@linux.intel.com>,
- Liam Girdwood <lgirdwood@gmail.com>, kernel-janitors@vger.kernel.org,
- Keyon Jie <yang.jie@linux.intel.com>,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Takashi Iwai <tiwai@suse.com>,
- Slawomir Blauciak <slawomir.blauciak@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="7AUc2qLy4jB3hD7Z"
+Content-Disposition: inline
+In-Reply-To: <20200303025913.24499-1-jack.yu@realtek.com>
+X-Cookie: Drilling for oil is boring.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: oder_chiou@realtek.com, alsa-devel@alsa-project.org, lars@metafoo.de,
+ kent_chen@realtek.com, kenny_chen@realtek.com, lgirdwood@gmail.com,
+ derek.fang@realtek.com, shumingf@realtek.com, albertwang@realtek.com,
+ flove@realtek.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,30 +73,33 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi, 
 
-On Tue, 3 Mar 2020, Dan Carpenter wrote:
+--7AUc2qLy4jB3hD7Z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-> We're passing "&posn" instead of "posn" so it ends up corrupting
-> memory instead of doing something useful.
-[...]
->  	/* send IPC to the DSP */
->  	err = sof_ipc_tx_message(sdev->ipc,
-> -				 stream.hdr.cmd, &stream, sizeof(stream), &posn,
-> +				 stream.hdr.cmd, &stream, sizeof(stream), posn,
->  				 sizeof(*posn));
+On Tue, Mar 03, 2020 at 10:59:13AM +0800, jack.yu@realtek.com wrote:
+> From: Jack Yu <jack.yu@realtek.com>
+>=20
+> Modify pre-divider for system clock.
 
-ack, thanks, this is clearly wrong. This function is not used by current 
-platforms, so the bug has gone unnnoticed. Most platforms either rely on 
-direct MMIO queries of the DSP position, or the periodic position updates 
-DSPs send after each ALSA period. This function for host to query DSP 
-position via IPC is thus not used, although it's part of the generic audio
-DSP IPC interface.
+This changelog really doesn't describe what the change does - in what
+way is the pre-divider modified and why?
 
-For the SOF folks in CC, I wonder should we keep this function at all? 
+--7AUc2qLy4jB3hD7Z
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Anyways, that's probably a longer discussion, so while it's there, 
-the code should be correct, so for the patch:
-Reviewed-by: Kai Vehmanen <kai.vehmanen@linux.intel.com>
+-----BEGIN PGP SIGNATURE-----
 
-Br, Kai
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5eTZEACgkQJNaLcl1U
+h9B/Mwf/fbbA7utwGf300EYIzySrXmYA9Vep8bLUkr1Rd0rW67slMVGorEZA5Ql0
+pPK5C4Jvkigplm2YLq14bNcmmQnMIdga8jlXnrmFbcn3JthXWPO0u7GlxkmWSqYD
+j53uNDeTTmy9IoScCjbYiy/ZDaN/e7INnG9bLNMGlshzbkWuqbZjvwhCddv0ml4w
+uP/y2PbpdQ+CEX6WH92qsfOzqpprA88Ch8T+mF2DBPrKBn0yHr4Z46OM+/5ci+Xr
+IHIuOylLfUUA6vnU/l1jfgJa1mbkM7mewgz8u9ki3tKkOP78qnmk6Rj9Mq01wXhG
+a66p2T7/ubJ2HoBctYzRkDSAvqBucg==
+=Zl8g
+-----END PGP SIGNATURE-----
+
+--7AUc2qLy4jB3hD7Z--

@@ -2,70 +2,62 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E9EC179356
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Mar 2020 16:27:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCA7617939C
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Mar 2020 16:36:04 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 16EB91662;
-	Wed,  4 Mar 2020 16:27:02 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 16EB91662
+	by alsa0.perex.cz (Postfix) with ESMTPS id 5C9DA1662;
+	Wed,  4 Mar 2020 16:35:14 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 5C9DA1662
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583335672;
-	bh=9rXQvKAQVTQNiz8aLIx1L4CJNnzKfuj0cKZPeiF7ASI=;
-	h=To:From:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1583336164;
+	bh=adJvCWPbOltS3C4TifpkLpEV71SOXadjXyOsg1o2OmM=;
+	h=Date:From:To:Subject:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=eADhKCdcXxcamYBQHZ6hTCepoXdUeQXPF54dB6ls11AavVqknyhD5AOZ+PfSWrchW
-	 eBmr8SqvtEmnnfz4qs68eOLgClKr6cazg70JfzFRwc94n6punvDEHETqM+HXvBcKPk
-	 7kNhiAA0biEzQcwb4s7MXj8nUduxj3uC+M6kdl34=
+	b=Qf0nCHzgtzE0h+lRxn9G0rvHcL275GXMF6/GXny+zhCH7kR77nxFBYVQrRGIx2Hvi
+	 W5PZmawMYDORXsRzouNSKGOVU7DG67KWejI94/qS81vNvm5aiNJp2uTwzQiOldQIz4
+	 LdVMISWB0OdvBZcTmyPAG+cXmNzaJi8UTInIMW8c=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 1FE3AF8011C;
-	Wed,  4 Mar 2020 16:26:11 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 6730AF8012D;
+	Wed,  4 Mar 2020 16:34:23 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id BB61AF801ED; Wed,  4 Mar 2020 16:26:08 +0100 (CET)
+ id D9580F801ED; Wed,  4 Mar 2020 16:34:21 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, RCVD_IN_DNSWL_BLOCKED, SPF_HELO_PASS,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail1.perex.cz (mail1.perex.cz [77.48.224.245])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=SURBL_BLOCKED,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from relay.uni-heidelberg.de (relay.uni-heidelberg.de
+ [129.206.100.212])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id CB6F9F8012D
- for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 16:26:04 +0100 (CET)
-Received: from mail1.perex.cz (localhost [127.0.0.1])
- by smtp1.perex.cz (Perex's E-mail Delivery System) with ESMTP id 4A606A003F;
- Wed,  4 Mar 2020 16:26:01 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp1.perex.cz 4A606A003F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=perex.cz; s=default;
- t=1583335561; bh=fxtx+XqNIX08h6ygcDl8/zsAP2qz/FDotYgnmDnXe8Q=;
- h=To:Cc:From:Subject:Date:From;
- b=QqKvq68ypRbWiXJ0nKIEjxfek+EKnuAiKDSfJG9UehcMt6vqCrSVRCyPy7cohOdRu
- DMzOie2rV6amQfdJoLSY8VypML4tk3EQ9MgwUMnnvDnOhHexNB4kaeX5wUUsOqa/GP
- tVpvW5hzGDNojrpw7X1Pmya7o4JPJrF/7N4o8BmE=
-Received: from p50.perex-int.cz (unknown [192.168.100.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested) (Authenticated sender: perex)
- by mail1.perex.cz (Perex's E-mail Delivery System) with ESMTPSA;
- Wed,  4 Mar 2020 16:25:55 +0100 (CET)
-To: stable@vger.kernel.org
-From: Jaroslav Kysela <perex@perex.cz>
-Subject: 5.5.y - apply "ASoC: intel/skl/hda - export number of digital
- microphones via control components"
-Message-ID: <147efa37-eb57-7f17-b9eb-84a9fe5ad475@perex.cz>
-Date: Wed, 4 Mar 2020 16:25:54 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.5.0
+ by alsa1.perex.cz (Postfix) with ESMTPS id 45714F8011C
+ for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 16:34:18 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 45714F8011C
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A2BvBwCYyV9e/1BozoFmgkGCKVmBGiq?=
+ =?us-ascii?q?EFY8Am1SCBAEBAQEBAQEBAQgsAQIEAQGGRiQ0CQ4CAwEBCwEBBgEBAQEBBQR?=
+ =?us-ascii?q?thWKGDTBbAgUhAhEFKDSGIq06gTKJAoE+gQ4qjCcPgUw/hGOFGIJEMoIsBLA?=
+ =?us-ascii?q?cB4FJdnyVXgwcjwmMJwGqZYFSOYFYMxokgztQGA2NcwGOckMwAoEEAQGNQAE?=
+ =?us-ascii?q?B?=
+Received: from lemon.iwr.uni-heidelberg.de ([129.206.104.80])
+ by relay.uni-heidelberg.de with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 04 Mar 2020 16:34:18 +0100
+Received: from hlauer by lemon.iwr.uni-heidelberg.de with local (Exim 4.92)
+ (envelope-from <hlauer@lemon.iwr.uni-heidelberg.de>)
+ id 1j9W2L-0002AD-12
+ for alsa-devel@alsa-project.org; Wed, 04 Mar 2020 16:34:17 +0100
+Date: Wed, 4 Mar 2020 16:34:17 +0100
+From: Hermann Lauer <Hermann.Lauer@iwr.uni-heidelberg.de>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] ASoC: tas571x: use symbolic register offsets
+Message-ID: <20200304153416.GA8262@lemon.iwr.uni-heidelberg.de>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Cc: Sasha Levin <sashal@kernel.org>, Takashi Iwai <tiwai@suse.de>,
- ALSA development <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Pierre-louis Bossart <pierre-louis.bossart@linux.intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,22 +73,34 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi,
+convert the numeric register offsets in tas5711_reg_defaults to the defined constants TAS571X_* from tas571x.h
+Tested with a tas5713 chip for which the driver works, too.
 
-   could we cherry-pick patch 8cd9956f61c65022209ce6d1e55ed12aea12357d to the 
-5.5 stable tree?
+Signed-off-by: Hermann Lauer <Hermann.Lauer@iwr.uni-heidelberg.de>
 
-8cd9956f61c65022209ce6d1e55ed12aea12357d :
-  "ASoC: intel/skl/hda - export number of digital microphones via control 
-components"
+diff --git a/sound/soc/codecs/tas571x.c b/sound/soc/codecs/tas571x.c
+--- a/sound/soc/codecs/tas571x.c
++++ b/sound/soc/codecs/tas571x.c
+@@ -424,13 +424,13 @@
+ };
+ 
+ static const struct reg_default tas5711_reg_defaults[] = {
+-	{ 0x04, 0x05 },
+-	{ 0x05, 0x40 },
+-	{ 0x06, 0x00 },
+-	{ 0x07, 0xff },
+-	{ 0x08, 0x30 },
+-	{ 0x09, 0x30 },
+-	{ 0x1b, 0x82 },
++	{ TAS571X_SDI_REG,		0x05 },
++	{ TAS571X_SYS_CTRL_2_REG,	0x40 },
++	{ TAS571X_SOFT_MUTE_REG,	0x00 },
++	{ TAS571X_MVOL_REG,		0xff },
++	{ TAS571X_CH1_VOL_REG,		0x30 },
++	{ TAS571X_CH2_VOL_REG,		0x30 },
++	{ TAS571X_OSC_TRIM_REG,		0x82 },
+ };
+ 
+ static const struct regmap_config tas5711_regmap_config = {
 
-   Rerefences:
 
-https://gitlab.freedesktop.org/pulseaudio/pulseaudio/issues/817
-
-				Thank you,
-					Jaroslav
-
--- 
-Jaroslav Kysela <perex@perex.cz>
-Linux Sound Maintainer; ALSA Project; Red Hat, Inc.

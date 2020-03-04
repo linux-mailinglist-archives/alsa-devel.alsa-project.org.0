@@ -2,105 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 344BB179472
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Mar 2020 17:06:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F94D179493
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Mar 2020 17:11:07 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id CBA98166F;
-	Wed,  4 Mar 2020 17:05:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CBA98166F
+	by alsa0.perex.cz (Postfix) with ESMTPS id 72FDE166F;
+	Wed,  4 Mar 2020 17:10:16 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 72FDE166F
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583337962;
-	bh=uZUmvSWn5yvS1oI2sQZ8YQWvUQJtrreF5cPCPjYQRVA=;
-	h=Subject:To:References:From:Date:In-Reply-To:List-Id:
+	s=default; t=1583338266;
+	bh=s3TF4WL3MaslzgAqaQFrV3WsMgeYgAAuiMDowInkXbI=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=fd6e+Ng8VedJP9gHMuXF8drb//Fd97UUbFBE5Jh+Bs+P9uSoa6i3i7IU9Ug414Aa6
-	 Laa+xnGfyJYoxV4N6XYXZ9IKMMafgGjGFtkyqfUKqh/SUJCfnFOYArM2aQbv2qdLJB
-	 J5+ffhPA8Q1Nok1O2zwEhtYaANxBPOcvxLEqyRIE=
+	b=oU8FXixfRMnOSXmrUu30zusr5zeAuGQp1ypCe0oaGgjcLn9O2mQTzqjX+sVYvmjRj
+	 D1KaFT4qy4e6AFzZzevtBVk9Gv/VulUyDvHPG5ATrgAX3B/O/5y6o7r4fbKwr0HWfS
+	 7o0C/0WU68xHVlTMkC9SVQ9wkabWC8YdlvraIG7U=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 28040F801ED;
-	Wed,  4 Mar 2020 17:03:48 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 37418F801F5;
+	Wed,  4 Mar 2020 17:09:25 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5782FF80229; Wed,  4 Mar 2020 17:03:46 +0100 (CET)
+ id D71C1F801ED; Wed,  4 Mar 2020 17:09:22 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU, RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from posta.frantovo.cz (czf.frantovo.cz [91.219.244.97])
- (using TLSv1.1 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 0BCF8F801ED
- for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 17:03:40 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 0BCF8F801ED
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=frantovo.cz header.i=@frantovo.cz
- header.b="gEMYdr9L"
-Received: from [192.168.1.4] (osma.doma.frantovo.cz [192.168.1.4])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: fiki@frantovo.cz)
- by posta.frantovo.cz (Postfix) with ESMTPSA id 45EC619F633
- for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 17:00:52 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=frantovo.cz;
- s=default; t=1583337652;
- bh=uZUmvSWn5yvS1oI2sQZ8YQWvUQJtrreF5cPCPjYQRVA=;
- h=Subject:To:References:From:Date:In-Reply-To;
- b=gEMYdr9L99uXjbZ9psX0Ej+A99DUIQxLxoljWTluvIXCH1N44J5e+87gYnZcpl8xw
- Cy2FRzsG7OkZwRIs/udJq9zGDilsVtqYdhljeFiI5lmPfWgR/76HBoZj2S2u+UC4LB
- 0l20K4ZXee1Zo8+g4GmAL6s/KQbBe3k8hhyp1IgM=
-Subject: Re: [PATCH] quirk for Pioneer DJ DJM-250MK2 usb sound card
-To: alsa-devel@alsa-project.org
-References: <e1e0dbc4-7fd0-ac7a-9b15-1f89172257e5@frantovo.cz>
-From: =?UTF-8?B?RnJhbnRpxaFlayBLdcSNZXJh?= <konference@frantovo.cz>
-Autocrypt: addr=konference@frantovo.cz; prefer-encrypt=mutual; keydata=
- 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
- hW6mcblB0mov13r3UFNF1TB7
-Message-ID: <5e798ba2-8385-e723-3f3a-b7e32da6520e@frantovo.cz>
-Date: Wed, 4 Mar 2020 17:03:39 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS
+ autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 791D5F8011C
+ for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 17:09:19 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 791D5F8011C
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5408031B;
+ Wed,  4 Mar 2020 08:09:18 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C8AED3F6CF;
+ Wed,  4 Mar 2020 08:09:17 -0800 (PST)
+Date: Wed, 4 Mar 2020 16:09:16 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+Subject: Re: 5.5.y - apply "ASoC: intel/skl/hda - export number of digital
+ microphones via control components"
+Message-ID: <20200304160916.GC5646@sirena.org.uk>
+References: <147efa37-eb57-7f17-b9eb-84a9fe5ad475@perex.cz>
+ <20200304154450.GB5646@sirena.org.uk>
+ <a6d57c14-0794-77d0-5c6f-c0c897d254b5@perex.cz>
 MIME-Version: 1.0
-In-Reply-To: <e1e0dbc4-7fd0-ac7a-9b15-1f89172257e5@frantovo.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-Virus-Scanned: clamav-milter 0.98.1 at posta
-X-Virus-Status: Clean
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="lMM8JwqTlfDpEaS6"
+Content-Disposition: inline
+In-Reply-To: <a6d57c14-0794-77d0-5c6f-c0c897d254b5@perex.cz>
+X-Cookie: Tomorrow, you can be anywhere.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Sasha Levin <sashal@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>,
+ Pierre-louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,76 +75,49 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Dne 24. 02. 20 v 17:29 František Kučera napsal(a):
-> Hello,
->
-> I have created a quirk that adds support for the Pioneer DJ DJM-250MK2 mixer (acts like a USB sound card, but Vendor Specific Class).
->
-> Output (from computer to card) is working: 8 channels, 48 000 Hz, S24_3LE.
->
-> Input is not working. I tried, but I was unable to make it working even under an officially supported OS with Pioneer drivers - Audacity or Mixxx see the channels, but there is no signal. It probably works only with Pioneer proprietary application. But I hope that even mere output support will be useful for someone. (it is usable for playback, just not for DVS)
->
-> Franta
->
-> Signed-off-by: František Kučera <franta-linux@frantovo.cz>
-> ---
->  sound/usb/quirks-table.h | 42 ++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 42 insertions(+)
->
-> diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-> index d187aa6d50db..dcaf9eed9a41 100644
-> --- a/sound/usb/quirks-table.h
-> +++ b/sound/usb/quirks-table.h
-> @@ -3592,5 +3592,47 @@ AU0828_DEVICE(0x2040, 0x7270, "Hauppauge", "HVR-950Q"),
->                 }
->         }
->  },
-> +{
-> +       /*
-> +        * Pioneer DJ DJM-250MK2
-> +        * PCM is 8 channels out @ 48 fixed (endpoints 0x01).
-> +        * The output from computer to the mixer is usable.
-> +        *
-> +        * The input (phono or line to computer) is not working.
-> +        * It should be at endpoint 0x82 and probably also 8 channels,
-> +        * but it seems that it works only with Pioneer proprietary software.
-> +        * Even on officially supported OS, the Audacity was unable to record
-> +        * and Mixxx to recognize the control vinyls.
-> +        */
-> +       USB_DEVICE_VENDOR_SPEC(0x2b73, 0x0017),
-> +       .driver_info = (unsigned long) &(const struct snd_usb_audio_quirk) {
-> +               .ifnum = QUIRK_ANY_INTERFACE,
-> +               .type = QUIRK_COMPOSITE,
-> +               .data = (const struct snd_usb_audio_quirk[]) {
-> +                       {
-> +                               .ifnum = 0,
-> +                               .type = QUIRK_AUDIO_FIXED_ENDPOINT,
-> +                               .data = &(const struct audioformat) {
-> +                                       .formats = SNDRV_PCM_FMTBIT_S24_3LE,
-> +                                       .channels = 8, // outputs
-> +                                       .iface = 0,
-> +                                       .altsetting = 1,
-> +                                       .altset_idx = 1,
-> +                                       .endpoint = 0x01,
-> +                                       .ep_attr = USB_ENDPOINT_XFER_ISOC|
-> +                                               USB_ENDPOINT_SYNC_ASYNC,
-> +                                       .rates = SNDRV_PCM_RATE_48000,
-> +                                       .rate_min = 48000,
-> +                                       .rate_max = 48000,
-> +                                       .nr_rates = 1,
-> +                                       .rate_table = (unsigned int[]) { 48000 }
-> +                               }
-> +                       },
-> +                       {
-> +                               .ifnum = -1
-> +                       }
-> +               }
-> +       }
-> +},
->  
->  #undef USB_DEVICE_VENDOR_SPEC
->
-Can anyone review this patch please?
 
-Franta
+--lMM8JwqTlfDpEaS6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Wed, Mar 04, 2020 at 04:53:27PM +0100, Jaroslav Kysela wrote:
+> Dne 04. 03. 20 v 16:44 Mark Brown napsal(a):
+
+> > This looks more like a new feature than a bug fix and I've been trying
+> > to get the stable people to calm down with the backports, there's been
+> > *far* too many regressions introduced recently in just the x86 stuff
+> > found after the fact.  Does this fix systems that used to work?
+
+> The released ALSA UCM does not work correctly for some platforms without
+> this information (the number of digital microphones is not identified
+> correctly).
+
+That's not the question I asked - have these platforms ever worked with
+older kernel versions?
+
+> The regression probability is really low for this one and we're using it in
+> Fedora kernels for months without issues (in this code).
+
+It's partly the principle of the thing, if it were just patches that
+had individually been identified as being good for stable by someone
+with some understanding of the code (like this one :/ ) that were being
+backported I'd be a lot less concerned but the automated selections are
+missing dependencies or other context and people are reporting problems
+with them so I'm inclined to push back on things.
+
+--lMM8JwqTlfDpEaS6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5f0qsACgkQJNaLcl1U
+h9BadQf+O1EQDc7YktVj1dC5/GTJz8ZI39rao4i3XGtN7dx08fwW2RXYC18WBt+x
+riZeag6zydhoqeV55meXCXfC2jLybdLPqmVmVaRd6nKm1oTeaounn0gs7ftCGkz4
+gWcnYcKpOuDbKFRqY8BDZX9f0LwO0huWXRm8+AAaflC0504sJuIerJXZcX3feFmG
+e5ISl0zjH1CUYglUmhpDc/KCuEBF2V+o6zz54klclEgmGYlSJe3eC6JJOX3XrO/p
+N3Tp0rgUVpgF2bcskQtdDx8KeOyejo8wf8a7MV+fG9daHi0Wr4HPBsCcHSvd1OHy
+phspjKXc1sWogPFibsNvaF22PQWA0g==
+=1QQV
+-----END PGP SIGNATURE-----
+
+--lMM8JwqTlfDpEaS6--

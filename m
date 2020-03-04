@@ -2,80 +2,69 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36A65179920
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Mar 2020 20:41:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 223B217991D
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Mar 2020 20:40:27 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id B6278166E;
-	Wed,  4 Mar 2020 20:40:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B6278166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9C9991667;
+	Wed,  4 Mar 2020 20:39:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9C9991667
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583350870;
-	bh=nMaTL4uhEY7LUUa/7pdAy2L05jJJEjV1u9OaYSg+BZs=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=Lfpvs96ykiZgjCAgsuDIIwBhiMAkxOCxhdm7Tr4xY3msb2l8nOLdNGJF1jW6Y8FWT
-	 y/ZVvRjgQtlqS9vd/iH+S2R/WZclzj23QEkNDFZ/YTwy/Apm2rLKFFngwkqc7BUtRe
-	 2/GbFjxDvazh/auaZ/jvEWEm3vG+5Eqdb7Wl8jXg=
+	s=default; t=1583350826;
+	bh=HTVfFAISTkoYVCcdx6H3LGq1DInvTxYEzR7LGvjseBo=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=kj4ebUOUYyuZl/oI1FdpoKwTHQ33F1l1mnzdn8GQ+RMnhh087U/UOvltdF2+mB3iR
+	 /UH0+knIwWoPl+XMX2PgLEDWrsOLZwuZS3v+Ta4GR1q0/WuP+SZoUd0rzBLDZDCaNs
+	 e+3rU85dNaHA/3RBXvk46b65CMyzFHSCweVVY6W4=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 9D2B3F800D8;
-	Wed,  4 Mar 2020 20:39:58 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id A6EB1F801F5;
+	Wed,  4 Mar 2020 20:38:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 21810F801F9; Wed,  4 Mar 2020 20:39:56 +0100 (CET)
+ id 6CCE3F801ED; Wed,  4 Mar 2020 20:38:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from lelv0143.ext.ti.com (lelv0143.ext.ti.com [198.47.23.248])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 1897EF801EC
- for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 20:39:52 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1897EF801EC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="wOMHCfxk"
-Received: from lelv0265.itg.ti.com ([10.180.67.224])
- by lelv0143.ext.ti.com (8.15.2/8.15.2) with ESMTP id 024Jdn0B105016;
- Wed, 4 Mar 2020 13:39:49 -0600
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com;
- s=ti-com-17Q1; t=1583350789;
- bh=r2mknFt8cgYulGR03WSMmgUWqx+HkwzAP0Mh0loWYh8=;
- h=From:To:CC:Subject:Date;
- b=wOMHCfxkWmYSQwhY+zBDpZeBvklZ9uobgr8EHGKfjLyHRRdz3kl8bO6QYfavg7nmQ
- Z8UKDjUzUlmChhRCYkYxw+isnMIyJShg2QjJot8VF8MUZn6Yu66oNZ1Zk+fV2u739a
- fTailUwIdRce8oaBW9vYJ+mOBv5yxmUbwPIP1Hws=
-Received: from DFLE113.ent.ti.com (dfle113.ent.ti.com [10.64.6.34])
- by lelv0265.itg.ti.com (8.15.2/8.15.2) with ESMTPS id 024Jdntj005972
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 4 Mar 2020 13:39:49 -0600
-Received: from DFLE108.ent.ti.com (10.64.6.29) by DFLE113.ent.ti.com
- (10.64.6.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3; Wed, 4 Mar
- 2020 13:39:49 -0600
-Received: from localhost.localdomain (10.64.41.19) by DFLE108.ent.ti.com
- (10.64.6.29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id 15.1.1847.3 via
- Frontend Transport; Wed, 4 Mar 2020 13:39:49 -0600
-Received: from localhost (ileax41-snat.itg.ti.com [10.172.224.153])
- by localhost.localdomain (8.15.2/8.15.2) with ESMTP id 024Jdmnl064182;
- Wed, 4 Mar 2020 13:39:49 -0600
-From: Dan Murphy <dmurphy@ti.com>
-To: <lgirdwood@gmail.com>, <broonie@kernel.org>, <perex@perex.cz>,
- <tiwai@suse.com>
-Subject: [PATCH for-next] ASoC: tlv320adcx140: Fix mic_bias and vref device
- tree verification
-Date: Wed, 4 Mar 2020 13:34:27 -0600
-Message-ID: <20200304193427.16886-1-dmurphy@ti.com>
-X-Mailer: git-send-email 2.25.1
+X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE,
+ SPF_PASS autolearn=disabled version=3.4.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by alsa1.perex.cz (Postfix) with ESMTP id 5201EF8012D
+ for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 20:38:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5201EF8012D
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5B41C4B2;
+ Wed,  4 Mar 2020 11:38:37 -0800 (PST)
+Received: from localhost (unknown [10.37.6.21])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id CDA1C3F6C4;
+ Wed,  4 Mar 2020 11:38:36 -0800 (PST)
+Date: Wed, 4 Mar 2020 19:38:35 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: 5.5.y - apply "ASoC: intel/skl/hda - export number of digital
+ microphones via control components"
+Message-ID: <20200304193835.GH5646@sirena.org.uk>
+References: <147efa37-eb57-7f17-b9eb-84a9fe5ad475@perex.cz>
+ <20200304154450.GB5646@sirena.org.uk>
+ <a6d57c14-0794-77d0-5c6f-c0c897d254b5@perex.cz>
+ <20200304160916.GC5646@sirena.org.uk>
+ <44cf4ff8-120f-79fd-8801-47807b03f912@linux.intel.com>
+ <20200304181113.GE5646@sirena.org.uk>
+ <669e6e57-3a84-7cf5-398f-eefdd333fadb@linux.intel.com>
+ <20200304190620.GF5646@sirena.org.uk>
+ <3b00df9a-6b53-def7-4304-d9829de749c6@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EXCLAIMER-MD-CONFIG: e1e8a2fd-e40a-4ac6-ac9b-f7e9cc9ee180
-Cc: alsa-devel@alsa-project.org, linux-kernel@vger.kernel.org,
- Dan Murphy <dmurphy@ti.com>
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="ZYOWEO2dMm2Af3e3"
+Content-Disposition: inline
+In-Reply-To: <3b00df9a-6b53-def7-4304-d9829de749c6@linux.intel.com>
+X-Cookie: Tomorrow, you can be anywhere.
+User-Agent: Mutt/1.10.1 (2018-07-13)
+Cc: Sasha Levin <sashal@kernel.org>, Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>, stable@vger.kernel.org
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,43 +80,37 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Fix the range verification check for the mic_bias and vref device tree
-entries.
 
-Fixes 37bde5acf040 ("ASoC: tlv320adcx140: Add the tlv320adcx140 codec driver family")
-Signed-off-by: Dan Murphy <dmurphy@ti.com>
----
- sound/soc/codecs/tlv320adcx140.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+--ZYOWEO2dMm2Af3e3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/sound/soc/codecs/tlv320adcx140.c b/sound/soc/codecs/tlv320adcx140.c
-index 93a0cb8e662c..38897568ee96 100644
---- a/sound/soc/codecs/tlv320adcx140.c
-+++ b/sound/soc/codecs/tlv320adcx140.c
-@@ -748,9 +748,8 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
- 	if (ret)
- 		bias_source = ADCX140_MIC_BIAS_VAL_VREF;
- 
--	if (bias_source != ADCX140_MIC_BIAS_VAL_VREF &&
--	    bias_source != ADCX140_MIC_BIAS_VAL_VREF_1096 &&
--	    bias_source != ADCX140_MIC_BIAS_VAL_AVDD) {
-+	if (bias_source < ADCX140_MIC_BIAS_VAL_VREF ||
-+	    bias_source > ADCX140_MIC_BIAS_VAL_AVDD) {
- 		dev_err(adcx140->dev, "Mic Bias source value is invalid\n");
- 		return -EINVAL;
- 	}
-@@ -760,9 +759,8 @@ static int adcx140_codec_probe(struct snd_soc_component *component)
- 	if (ret)
- 		vref_source = ADCX140_MIC_BIAS_VREF_275V;
- 
--	if (vref_source != ADCX140_MIC_BIAS_VREF_275V &&
--	    vref_source != ADCX140_MIC_BIAS_VREF_25V &&
--	    vref_source != ADCX140_MIC_BIAS_VREF_1375V) {
-+	if (vref_source < ADCX140_MIC_BIAS_VREF_275V ||
-+	    vref_source > ADCX140_MIC_BIAS_VREF_1375V) {
- 		dev_err(adcx140->dev, "Mic Bias source value is invalid\n");
- 		return -EINVAL;
- 	}
--- 
-2.25.1
+On Wed, Mar 04, 2020 at 01:30:59PM -0600, Pierre-Louis Bossart wrote:
+> On 3/4/20 1:06 PM, Mark Brown wrote:
 
+> > Anyway, is my understanding correct that this is fixing a regression
+> > caused by switching the default to SOF?
+
+> This is fixing a regression on platforms that have digital microphones,
+> where SOF is automatically selected by default. For platforms without DMICs,
+> the legacy driver is still used and this patch has no effect.
+
+OK, in that case this should go in then - it's certainly a lot better
+than reverting the switch to SOF.
+
+--ZYOWEO2dMm2Af3e3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5gA7oACgkQJNaLcl1U
+h9Aqnwf+N5KM/Cmi4GB26cAI4MASpEEAzL4A2C9YOOvYiffNanyIkQMMmKaXRywa
++AulLIdp9/iTKJ/EnFlGujCSH5t83Jt5/H8wS3DdcMPCCpHG70LcUbVmTZchieTq
+o+Xh90wM52QI+MRhL9l/pyi62VxbTjzD0uY5Rt9fOPS27h+jjrdwMyFrv5V9WbYw
+QBTk9CWCrRyNXaFwadSmkvuWvCiCivC+SQVml37qNMt6ckkRjGClZlOxqK9Drc/u
+graRgpVwPgeFFlvTCacOPd0FLt0HHGjaBdCsRJeyo3+oRN/57rXTXamVgsRlykwI
+JskeYZHzTgqEO/aCf+4+2wKU9rRl/g==
+=f+O1
+-----END PGP SIGNATURE-----
+
+--ZYOWEO2dMm2Af3e3--

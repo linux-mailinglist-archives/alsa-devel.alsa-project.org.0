@@ -2,75 +2,88 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id A21FB1791AB
-	for <lists+alsa-devel@lfdr.de>; Wed,  4 Mar 2020 14:46:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 54DE91791E6
+	for <lists+alsa-devel@lfdr.de>; Wed,  4 Mar 2020 15:04:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 488361661;
-	Wed,  4 Mar 2020 14:45:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 488361661
+	by alsa0.perex.cz (Postfix) with ESMTPS id B8CFD1668;
+	Wed,  4 Mar 2020 15:03:52 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B8CFD1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583329597;
-	bh=jdTUtZCeADw4iFzCvLuSOdsEnfJb9E0SIWAQY6oL210=;
-	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
-	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=fFbkW37PaFRa34HB+8DhblZxxZNzxYbHuyxkDO4RoaeTZOaAHVkYpKh0BmUky3xFz
-	 pCWOfFi8PoFbQoq3fFPvj1iSdgGXk32kLzF6kyYAjmun5ZrAs3/Q+vRx04HIXeFxaH
-	 xf5HK8rAS6MzJhyvaDRUdDQcG3nd/mmvLLl60UPw=
+	s=default; t=1583330682;
+	bh=eSVYZJogGpIujjiEdqEQQzEx1vzdrCNAPXgYaLvALM0=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=enBiWyks86um/peIwbv1zyywtdIE8Xk/qDA55wptMLk4RcC2WqNS8r4Y7TRkhA5cs
+	 C+Vrf0emWXRlMo7V+XU6fEOWPn+aZjCplcUnmVQlkHjvtL2jJxxUv8D/fu1cQlFiZf
+	 yJHmejR5XqvGCxO0hLFbO0Y3IMFnbEIQ8zPN3RGE=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 281B8F800D8;
-	Wed,  4 Mar 2020 14:44:53 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CBCFDF801F5;
+	Wed,  4 Mar 2020 15:03:01 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 7B151F801ED; Wed,  4 Mar 2020 14:44:50 +0100 (CET)
+ id EA530F801ED; Wed,  4 Mar 2020 15:02:59 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
- DKIM_VALID,DKIM_VALID_AU,FAKE_REPLY_C,RCVD_IN_DNSWL_BLOCKED,SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ SPF_HELO_NONE,URIBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 5C29AF800D8
- for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 14:44:47 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 5C29AF800D8
+ by alsa1.perex.cz (Postfix) with ESMTPS id ABC51F800D8
+ for <alsa-devel@alsa-project.org>; Wed,  4 Mar 2020 15:02:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz ABC51F800D8
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
- header.b="sty86Vgj"
-Received: from localhost (173-25-83-245.client.mchsi.com [173.25.83.245])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 7E8A52166E;
- Wed,  4 Mar 2020 13:44:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1583329485;
- bh=jdTUtZCeADw4iFzCvLuSOdsEnfJb9E0SIWAQY6oL210=;
- h=Date:From:To:Cc:Subject:In-Reply-To:From;
- b=sty86VgjWMYbLJNmBzBXyiSMF/i3BdVPFIxs11zNEI6cgDn8K87vzpw5fHgdUq+dz
- +XyL0uG0QmUwVedBDhYOWwShe/8e7SkMsRfEz8dAA6+/+Dd4NfpF0lLLIpIfRXa1U9
- DCjV7Kpo3yeFsYZWF2kEQjvt8ATA4sML11v2Ctk8=
-Date: Wed, 4 Mar 2020 07:44:44 -0600
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [PATCH v4 09/10] PCI: pci-bridge-emul: Use new constant
- PCI_STATUS_ERROR_BITS
-Message-ID: <20200304134444.GA198415@google.com>
+ dkim=pass (2048-bit key) header.d=ingics-com.20150623.gappssmtp.com
+ header.i=@ingics-com.20150623.gappssmtp.com header.b="YLQQtbyY"
+Received: by mail-pj1-x1041.google.com with SMTP id d7so978193pjw.1
+ for <alsa-devel@alsa-project.org>; Wed, 04 Mar 2020 06:02:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ingics-com.20150623.gappssmtp.com; s=20150623;
+ h=from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jd3QBi0Z/HVtmKFucr+pRTHz2pW+2gUiKmDzk3hmOgM=;
+ b=YLQQtbyYQmo/zFyQGFrhxPtZUa5XSYBm3Xvita114rktuoG/gisfoXltcqe96S1kWt
+ P8Jn7B3pY5oGSUczhhy+GxgxgnUZMYAtj02pjeg8f6lbUYiy5OnTCzAG1sAe29auI/kO
+ RkG9PEKw5dyt/R1ZAeJOSgSN2JEr/BR9ruSSSUdi++tPSQtDZci8qNcw04ghXLEv6vsP
+ E7bB22o9x1ZW5A0c3vSJoNg8qMqxnWRa/0M+E9WLEeFzzu/7jKcTQbLjeolxi8Utv5E1
+ jvFXt/aiKMIQYXsNWaK372liH7PMvug+pLFGEzDS9ILYxcc1uhfS8Ysw/D22LOlrVc0T
+ I+Iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=jd3QBi0Z/HVtmKFucr+pRTHz2pW+2gUiKmDzk3hmOgM=;
+ b=KuNFXDYQl37Bm+zpHSahJPNwmSbwmvO/nC2GCMOZZckMIoJcFH+qNm+cnJ+Hhv8qMz
+ uf4ek+KP+Hf6NXaAoo/C0GYuuxJ8bkBPSlCaNqtY4H1BldEcLSJ8RMKUbiCi+5dOBMX0
+ 0dhhVWaFpPy5XFxxcDXgKXlmrPbtg/+fDvv96frBq7XXWNCT8NxiuNAGKWutON3Qg3e/
+ kK5R7N+2VdDi16XwcnIoN+X1YB/Z7vsWnsNI+hlWT5NPpu/2WLJurklVa6/DJatlnWz1
+ 1oJmtg/l3Qq9drppyMeb3JSv4fiWitS7KoxHLQXurzOgkxMYdXyhvbEfCgnPULh41Wk0
+ dLNA==
+X-Gm-Message-State: ANhLgQ3z/HcnGslTzicWkB4Uyv0tZe80UhN3ohxfYLvsfVUTCI6XiO2i
+ +CVRsC2mr1a+I0pdCKp+yTm4aw==
+X-Google-Smtp-Source: ADFU+vsL204RHDKo9b4bge+NlLGf+cxMd2U8YH8DgqhmkIQdOw+o/t0rRgoRjljh6ctB3V14wM6FAQ==
+X-Received: by 2002:a17:90a:34f:: with SMTP id 15mr702004pjf.94.1583330571214; 
+ Wed, 04 Mar 2020 06:02:51 -0800 (PST)
+Received: from localhost.localdomain (220-133-186-239.HINET-IP.hinet.net.
+ [220.133.186.239])
+ by smtp.gmail.com with ESMTPSA id r9sm28937084pfl.136.2020.03.04.06.02.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Mar 2020 06:02:50 -0800 (PST)
+From: Axel Lin <axel.lin@ingics.com>
+To: Mark Brown <broonie@kernel.org>
+Subject: [PATCH] ASoC: wm8741: Fix typo in Kconfig prompt
+Date: Wed,  4 Mar 2020 22:02:41 +0800
+Message-Id: <20200304140241.340-1-axel.lin@ingics.com>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <04851614-b906-2b1b-f937-189c3c210880@gmail.com>
-User-Agent: Mutt/1.12.2 (2019-09-21)
-Cc: alsa-devel@alsa-project.org,
- Realtek linux nic maintainers <nic_swsd@realtek.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- Clemens Ladisch <clemens@ladisch.de>, Takashi Iwai <tiwai@suse.com>,
- Stephen Hemminger <stephen@networkplumber.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- David Miller <davem@davemloft.net>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mirko Lindner <mlindner@marvell.com>
+Content-Transfer-Encoding: 8bit
+Cc: alsa-devel@alsa-project.org, Axel Lin <axel.lin@ingics.com>,
+ Ian Lartey <ian@opensource.wolfsonmicro.com>,
+ Sergej Sawazki <sergej@taudac.com>, Liam Girdwood <lgirdwood@gmail.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,50 +99,26 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-On Sat, Feb 29, 2020 at 11:28:18PM +0100, Heiner Kallweit wrote:
-> Use new constant PCI_STATUS_ERROR_BITS to simplify the code.
-> 
-> Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+Fix trivial copy-n-paste mistake.
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Signed-off-by: Axel Lin <axel.lin@ingics.com>
+---
+ sound/soc/codecs/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> ---
->  drivers/pci/pci-bridge-emul.c | 14 ++------------
->  1 file changed, 2 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/pci/pci-bridge-emul.c b/drivers/pci/pci-bridge-emul.c
-> index fffa77093..4f4f54bc7 100644
-> --- a/drivers/pci/pci-bridge-emul.c
-> +++ b/drivers/pci/pci-bridge-emul.c
-> @@ -50,12 +50,7 @@ static const struct pci_bridge_reg_behavior pci_regs_behavior[] = {
->  		       (PCI_STATUS_CAP_LIST | PCI_STATUS_66MHZ |
->  			PCI_STATUS_FAST_BACK | PCI_STATUS_DEVSEL_MASK) << 16),
->  		.rsvd = GENMASK(15, 10) | ((BIT(6) | GENMASK(3, 0)) << 16),
-> -		.w1c = (PCI_STATUS_PARITY |
-> -			PCI_STATUS_SIG_TARGET_ABORT |
-> -			PCI_STATUS_REC_TARGET_ABORT |
-> -			PCI_STATUS_REC_MASTER_ABORT |
-> -			PCI_STATUS_SIG_SYSTEM_ERROR |
-> -			PCI_STATUS_DETECTED_PARITY) << 16,
-> +		.w1c = PCI_STATUS_ERROR_BITS << 16,
->  	},
->  	[PCI_CLASS_REVISION / 4] = { .ro = ~0 },
->  
-> @@ -100,12 +95,7 @@ static const struct pci_bridge_reg_behavior pci_regs_behavior[] = {
->  			 PCI_STATUS_DEVSEL_MASK) << 16) |
->  		       GENMASK(11, 8) | GENMASK(3, 0)),
->  
-> -		.w1c = (PCI_STATUS_PARITY |
-> -			PCI_STATUS_SIG_TARGET_ABORT |
-> -			PCI_STATUS_REC_TARGET_ABORT |
-> -			PCI_STATUS_REC_MASTER_ABORT |
-> -			PCI_STATUS_SIG_SYSTEM_ERROR |
-> -			PCI_STATUS_DETECTED_PARITY) << 16,
-> +		.w1c = PCI_STATUS_ERROR_BITS << 16,
->  
->  		.rsvd = ((BIT(6) | GENMASK(4, 0)) << 16),
->  	},
-> -- 
-> 2.25.1
-> 
-> 
+diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+index 6aee70ed43df..fd09656d2f6b 100644
+--- a/sound/soc/codecs/Kconfig
++++ b/sound/soc/codecs/Kconfig
+@@ -1486,7 +1486,7 @@ config SND_SOC_WM8737
+ 	depends on SND_SOC_I2C_AND_SPI
+ 
+ config SND_SOC_WM8741
+-	tristate "Wolfson Microelectronics WM8737 DAC"
++	tristate "Wolfson Microelectronics WM8741 DAC"
+ 	depends on SND_SOC_I2C_AND_SPI
+ 
+ config SND_SOC_WM8750
+-- 
+2.20.1
+

@@ -2,60 +2,64 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4B617A856
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 15:58:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8177317A85C
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 15:59:19 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 7461A1677;
-	Thu,  5 Mar 2020 15:57:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 7461A1677
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1D21A1660;
+	Thu,  5 Mar 2020 15:58:29 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1D21A1660
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583420324;
-	bh=ZODkTnWlHPMJkljzSJkb5wSTKWMhW7rJXVOZU51C9+o=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
+	s=default; t=1583420359;
+	bh=J/racvE40ta0Na5abQWXFs8ETXYGcRHZTrMiodNxJtE=;
+	h=Date:From:To:Subject:In-Reply-To:References:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=RspFBqk+2fytE61ftDsGT2HaUm6C2pXiHOQnyhV7og3k9twvEZ0wvZZP/FXo37SZL
-	 3VtSm09ltX5IixVZOrZLIOO+ID9d08ost7JU2t/eWYA5Ezy+XhAY8O54L7R360Y1kn
-	 Gew6hJEewFqSrwg112cbqLUcXBwcevxiYl6987bc=
+	b=a6UMd+NneZVucbNQj24C1QMmkLqics8XBl5+MRLfitkNCmr2m2AcYuXB2xJGdradP
+	 f3jCIwAj4X2xnnC2yjKUyBt5VCRl9VWwXibQ09vhOZcIjzlUthEm7x8joYKCl6QHoi
+	 AoRPftODRvlmRQ3/ozoCAa8blpUrXq5vWRhElWtM=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id E087DF802DD;
-	Thu,  5 Mar 2020 15:54:00 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id CDBF8F80245;
+	Thu,  5 Mar 2020 15:54:09 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 04C11F80290; Thu,  5 Mar 2020 15:53:54 +0100 (CET)
+ id 9153CF802E1; Thu,  5 Mar 2020 15:54:07 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=0.0 required=5.0 tests=RCVD_IN_DNSWL_BLOCKED,
+ RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+ autolearn=disabled version=3.4.0
+Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 67818F80245
- for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 15:53:50 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 67818F80245
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 05 Mar 2020 06:53:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.70,518,1574150400"; d="scan'208";a="352372619"
-Received: from crojewsk-ctrl.igk.intel.com ([10.102.9.28])
- by fmsmga001.fm.intel.com with ESMTP; 05 Mar 2020 06:53:48 -0800
-From: Cezary Rojewski <cezary.rojewski@intel.com>
-To: alsa-devel@alsa-project.org
-Subject: [PATCH 7/7] ASoC: Intel: Skylake: Await purge request ack on CNL
-Date: Thu,  5 Mar 2020 15:53:14 +0100
-Message-Id: <20200305145314.32579-8-cezary.rojewski@intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200305145314.32579-1-cezary.rojewski@intel.com>
-References: <20200305145314.32579-1-cezary.rojewski@intel.com>
-Cc: pierre-louis.bossart@linux.intel.com,
- Cezary Rojewski <cezary.rojewski@intel.com>, lgirdwood@gmail.com,
- tiwai@suse.com, vkoul@kernel.org, broonie@kernel.org
+ by alsa1.perex.cz (Postfix) with ESMTPS id C6115F80245
+ for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 15:53:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C6115F80245
+X-Virus-Scanned: by amavisd-new at test-mx.suse.de
+Received: from relay2.suse.de (unknown [195.135.220.254])
+ by mx2.suse.de (Postfix) with ESMTP id D73E2B2C1;
+ Thu,  5 Mar 2020 14:53:56 +0000 (UTC)
+Date: Thu, 05 Mar 2020 15:53:56 +0100
+Message-ID: <s5h5zfig8e3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Samuel Holland <samuel@sholland.org>
+Subject: Re: [PATCH v4 1/3] ALSA: pcm: Add a standalone version of
+ snd_pcm_limit_hw_rates
+In-Reply-To: <20200305051143.60691-2-samuel@sholland.org>
+References: <20200305051143.60691-1-samuel@sholland.org>
+ <20200305051143.60691-2-samuel@sholland.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI/1.14.6 (Maruoka)
+ FLIM/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL/10.8 Emacs/25.3
+ (x86_64-suse-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI 1.14.6 - "Maruoka")
+Content-Type: text/plain; charset=US-ASCII
+Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
+ Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Jerome Brunet <jbrunet@baylibre.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,85 +75,99 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Each purge request is sent by driver after master core is powered up and
-unresetted but before it is unstalled. On unstall, ROM begins processing
-the request and initializing environment for FW load. Host should await
-ROM's ack before moving forward. Without doing so, ROM init poll may
-start too early and false timeouts can occur.
+On Thu, 05 Mar 2020 06:11:41 +0100,
+Samuel Holland wrote:
+> 
+> It can be useful to derive min/max rates of a snd_pcm_hardware without
+> having a snd_pcm_runtime, such as before constructing an ASoC DAI link.
+> 
+> Create a new helper that takes a pointer to a snd_pcm_hardware directly,
+> and refactor the original function as a wrapper around it, to avoid
+> needing to update any call sites.
+> 
+> Signed-off-by: Samuel Holland <samuel@sholland.org>
 
-Signed-off-by: Cezary Rojewski <cezary.rojewski@intel.com>
-Fixes: cb6a55284629 ("ASoC: Intel: cnl: Add sst library functions for cnl platform")
----
- sound/soc/intel/skylake/bxt-sst.c     |  1 -
- sound/soc/intel/skylake/cnl-sst.c     | 20 ++++++++++++++++++--
- sound/soc/intel/skylake/skl-sst-dsp.h |  1 +
- 3 files changed, 19 insertions(+), 3 deletions(-)
+The code change looks OK to me.
 
-diff --git a/sound/soc/intel/skylake/bxt-sst.c b/sound/soc/intel/skylake/bxt-sst.c
-index cdafade8abd6..38b9d7494083 100644
---- a/sound/soc/intel/skylake/bxt-sst.c
-+++ b/sound/soc/intel/skylake/bxt-sst.c
-@@ -17,7 +17,6 @@
- #include "skl.h"
- 
- #define BXT_BASEFW_TIMEOUT	3000
--#define BXT_INIT_TIMEOUT	300
- #define BXT_ROM_INIT_TIMEOUT	70
- #define BXT_IPC_PURGE_FW	0x01004000
- 
-diff --git a/sound/soc/intel/skylake/cnl-sst.c b/sound/soc/intel/skylake/cnl-sst.c
-index 060e47ae3391..c6abcd5aa67b 100644
---- a/sound/soc/intel/skylake/cnl-sst.c
-+++ b/sound/soc/intel/skylake/cnl-sst.c
-@@ -57,18 +57,34 @@ static int cnl_prepare_fw(struct sst_dsp *ctx, const void *fwdata, u32 fwsize)
- 	ctx->dsp_ops.stream_tag = stream_tag;
- 	memcpy(ctx->dmab.area, fwdata, fwsize);
- 
-+	ret = skl_dsp_core_power_up(ctx, SKL_DSP_CORE0_MASK);
-+	if (ret < 0) {
-+		dev_err(ctx->dev, "dsp core0 power up failed\n");
-+		ret = -EIO;
-+		goto base_fw_load_failed;
-+	}
-+
- 	/* purge FW request */
- 	sst_dsp_shim_write(ctx, CNL_ADSP_REG_HIPCIDR,
- 			   CNL_ADSP_REG_HIPCIDR_BUSY | (CNL_IPC_PURGE |
- 			   ((stream_tag - 1) << CNL_ROM_CTRL_DMA_ID)));
- 
--	ret = cnl_dsp_enable_core(ctx, SKL_DSP_CORE0_MASK);
-+	ret = skl_dsp_start_core(ctx, SKL_DSP_CORE0_MASK);
- 	if (ret < 0) {
--		dev_err(ctx->dev, "dsp boot core failed ret: %d\n", ret);
-+		dev_err(ctx->dev, "Start dsp core failed ret: %d\n", ret);
- 		ret = -EIO;
- 		goto base_fw_load_failed;
- 	}
- 
-+	ret = sst_dsp_register_poll(ctx, CNL_ADSP_REG_HIPCIDA,
-+				    CNL_ADSP_REG_HIPCIDA_DONE,
-+				    CNL_ADSP_REG_HIPCIDA_DONE,
-+				    BXT_INIT_TIMEOUT, "HIPCIDA Done");
-+	if (ret < 0) {
-+		dev_err(ctx->dev, "timeout for purge request: %d\n", ret);
-+		goto base_fw_load_failed;
-+	}
-+
- 	/* enable interrupt */
- 	cnl_ipc_int_enable(ctx);
- 	cnl_ipc_op_int_enable(ctx);
-diff --git a/sound/soc/intel/skylake/skl-sst-dsp.h b/sound/soc/intel/skylake/skl-sst-dsp.h
-index 067d1ea11cde..1df9ef422f61 100644
---- a/sound/soc/intel/skylake/skl-sst-dsp.h
-+++ b/sound/soc/intel/skylake/skl-sst-dsp.h
-@@ -68,6 +68,7 @@ struct skl_dev;
- #define SKL_FW_INIT			0x1
- #define SKL_FW_RFW_START		0xf
- #define BXT_FW_ROM_INIT_RETRY		3
-+#define BXT_INIT_TIMEOUT		300
- 
- #define SKL_ADSPIC_IPC			1
- #define SKL_ADSPIS_IPC			1
--- 
-2.17.1
+Reviewed-by: Takashi Iwai <tiwai@suse.de>
 
+
+thanks,
+
+Takashi
+
+
+> ---
+>  include/sound/pcm.h   |  9 ++++++++-
+>  sound/core/pcm_misc.c | 18 +++++++++---------
+>  2 files changed, 17 insertions(+), 10 deletions(-)
+> 
+> diff --git a/include/sound/pcm.h b/include/sound/pcm.h
+> index 2628246b76fa..f7a95b711100 100644
+> --- a/include/sound/pcm.h
+> +++ b/include/sound/pcm.h
+> @@ -1127,7 +1127,14 @@ snd_pcm_kernel_readv(struct snd_pcm_substream *substream,
+>  	return __snd_pcm_lib_xfer(substream, bufs, false, frames, true);
+>  }
+>  
+> -int snd_pcm_limit_hw_rates(struct snd_pcm_runtime *runtime);
+> +int snd_pcm_hw_limit_rates(struct snd_pcm_hardware *hw);
+> +
+> +static inline int
+> +snd_pcm_limit_hw_rates(struct snd_pcm_runtime *runtime)
+> +{
+> +	return snd_pcm_hw_limit_rates(&runtime->hw);
+> +}
+> +
+>  unsigned int snd_pcm_rate_to_rate_bit(unsigned int rate);
+>  unsigned int snd_pcm_rate_bit_to_rate(unsigned int rate_bit);
+>  unsigned int snd_pcm_rate_mask_intersect(unsigned int rates_a,
+> diff --git a/sound/core/pcm_misc.c b/sound/core/pcm_misc.c
+> index a6a541511534..5dd2e5335900 100644
+> --- a/sound/core/pcm_misc.c
+> +++ b/sound/core/pcm_misc.c
+> @@ -474,32 +474,32 @@ int snd_pcm_format_set_silence(snd_pcm_format_t format, void *data, unsigned int
+>  EXPORT_SYMBOL(snd_pcm_format_set_silence);
+>  
+>  /**
+> - * snd_pcm_limit_hw_rates - determine rate_min/rate_max fields
+> - * @runtime: the runtime instance
+> + * snd_pcm_hw_limit_rates - determine rate_min/rate_max fields
+> + * @hw: the pcm hw instance
+>   *
+>   * Determines the rate_min and rate_max fields from the rates bits of
+> - * the given runtime->hw.
+> + * the given hw.
+>   *
+>   * Return: Zero if successful.
+>   */
+> -int snd_pcm_limit_hw_rates(struct snd_pcm_runtime *runtime)
+> +int snd_pcm_hw_limit_rates(struct snd_pcm_hardware *hw)
+>  {
+>  	int i;
+>  	for (i = 0; i < (int)snd_pcm_known_rates.count; i++) {
+> -		if (runtime->hw.rates & (1 << i)) {
+> -			runtime->hw.rate_min = snd_pcm_known_rates.list[i];
+> +		if (hw->rates & (1 << i)) {
+> +			hw->rate_min = snd_pcm_known_rates.list[i];
+>  			break;
+>  		}
+>  	}
+>  	for (i = (int)snd_pcm_known_rates.count - 1; i >= 0; i--) {
+> -		if (runtime->hw.rates & (1 << i)) {
+> -			runtime->hw.rate_max = snd_pcm_known_rates.list[i];
+> +		if (hw->rates & (1 << i)) {
+> +			hw->rate_max = snd_pcm_known_rates.list[i];
+>  			break;
+>  		}
+>  	}
+>  	return 0;
+>  }
+> -EXPORT_SYMBOL(snd_pcm_limit_hw_rates);
+> +EXPORT_SYMBOL(snd_pcm_hw_limit_rates);
+>  
+>  /**
+>   * snd_pcm_rate_to_rate_bit - converts sample rate to SNDRV_PCM_RATE_xxx bit
+> -- 
+> 2.24.1
+> 

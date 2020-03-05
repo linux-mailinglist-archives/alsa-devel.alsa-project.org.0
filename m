@@ -2,61 +2,67 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95E5417A689
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 14:38:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7DF817A68C
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 14:39:12 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33FB31669;
-	Thu,  5 Mar 2020 14:37:38 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33FB31669
+	by alsa0.perex.cz (Postfix) with ESMTPS id 635071661;
+	Thu,  5 Mar 2020 14:38:22 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 635071661
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583415508;
-	bh=sYZROB2lcYB6D8j4HepYDLXJp9KfK4Os5h8JyufHQzE=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1583415552;
+	bh=+E17eXP1c2DMcbXvhLulVWHFuaZIUbQ3kV9nIGVNpc8=;
+	h=Subject:To:References:From:Date:In-Reply-To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=IMj0FD9efIBoKoCrgMV1Ku7bsQ26cvrHgQpb5qTE7aVqbZnU0RwCcbrmwFPYUguH8
-	 xIjrjW2xmZEJjFrANldcwtzbCLkYsIEP+VgMvdO0XIFKpuhQSPnoQGvZRJqnV4fwr+
-	 Ftp+WjDkm+WDHvm62eXrAI2YBR3OjBzHAZ5G/DiQ=
+	b=bzguRXq8ZB/wgpUdJ9BsIwFrNGNT50nXZ9KV85eWP3RtUi4b5FB8WHPrE2zOKpnGL
+	 lggVa9y3Ee3e6jvipYPGvXS0cYAWllwuBavOWTyNZl3radQSENSUO3/rLD7wS8wQk6
+	 OOttaO2eCcrgIazHcNv7TwD2dOAnnNeFUGEsfRQY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 4E776F80266;
-	Thu,  5 Mar 2020 14:36:47 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 55CCAF800D8;
+	Thu,  5 Mar 2020 14:37:44 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 4A594F8025F; Thu,  5 Mar 2020 14:36:45 +0100 (CET)
+ id C431FF8026A; Thu,  5 Mar 2020 14:37:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id D7E88F80126
- for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 14:36:42 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz D7E88F80126
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2AA81FB;
- Thu,  5 Mar 2020 05:36:40 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 357383F6CF;
- Thu,  5 Mar 2020 05:36:40 -0800 (PST)
-Date: Thu, 5 Mar 2020 13:36:38 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_NONE autolearn=disabled
+ version=3.4.0
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 1B8D9F80245
+ for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 14:37:38 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 1B8D9F80245
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Mar 2020 05:37:37 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,518,1574150400"; d="scan'208";a="229690843"
+Received: from virbhadx-mobl1.amr.corp.intel.com (HELO [10.254.184.168])
+ ([10.254.184.168])
+ by orsmga007.jf.intel.com with ESMTP; 05 Mar 2020 05:37:36 -0800
 Subject: Re: [RFC PATCH 2/3] ASoC: Intel: bdw-rt5677: fix module load/unload
  issues
-Message-ID: <20200305133638.GE4046@sirena.org.uk>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 References: <20200305130616.28658-1-pierre-louis.bossart@linux.intel.com>
  <20200305130616.28658-3-pierre-louis.bossart@linux.intel.com>
+ <20200305132558.GJ1224808@smile.fi.intel.com>
+From: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Message-ID: <269870e7-02d5-22a5-df0b-d36845db6104@linux.intel.com>
+Date: Thu, 5 Mar 2020 07:37:35 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="CGDBiGfvSTbxKZlW"
-Content-Disposition: inline
-In-Reply-To: <20200305130616.28658-3-pierre-louis.bossart@linux.intel.com>
-X-Cookie: When among apes, one must play the ape.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+In-Reply-To: <20200305132558.GJ1224808@smile.fi.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+Cc: tiwai@suse.de, alsa-devel@alsa-project.org, broonie@kernel.org,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -74,31 +80,56 @@ Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 
---CGDBiGfvSTbxKZlW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Mar 05, 2020 at 07:06:15AM -0600, Pierre-Louis Bossart wrote:
-> The use of devm_gpiod_get() in a dailink .init() callback generates issues
-> when unloading modules. The dependencies between modules are not well
-> handled and the snd_soc_rt5677 module cannot be removed:
+On 3/5/20 7:25 AM, Andy Shevchenko wrote:
+> On Thu, Mar 05, 2020 at 07:06:15AM -0600, Pierre-Louis Bossart wrote:
+>> The use of devm_gpiod_get() in a dailink .init() callback generates issues
+>> when unloading modules. The dependencies between modules are not well
+>> handled and the snd_soc_rt5677 module cannot be removed:
+>>
+>> rmmod: ERROR: Module snd_soc_rt5677 is in use
+>>
+>> Removing the use of devm_ and manually releasing the gpio descriptor
+> 
+> gpio -> GPIO
 
-In what way are the dependencies not well managed and why aren't we
-requesting the GPIO on device model probe anyway?
+yep
 
---CGDBiGfvSTbxKZlW
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+>> +static void bdw_rt5677_exit(struct snd_soc_pcm_runtime *rtd)
+>> +{
+>> +	struct bdw_rt5677_priv *bdw_rt5677 =
+>> +			snd_soc_card_get_drvdata(rtd->card);
+>> +
+> 
+>> +	if (!IS_ERR(bdw_rt5677->gpio_hp_en))
+> 
+> I'm wondering if you need this check at all? In the above (I left for context)
+> the GPIO is considered mandatory, does the core handles errors from ->init()
+> correctly?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5hAGUACgkQJNaLcl1U
-h9CsFgf/aQBj/iGDxFHULYVCoRhoPeb+ddNP2SnJ/J4ZCdj2O7BryH/+qRPlkfLL
-hX7peu68F2EhsZsxF1+vEfsW1KgI5Ehtsx4RH38grh72RhTZG95Z8VmoehhwR1iq
-peBmEiwozr669CswN25KwSuGULDgvxvzNYJNk9Jd3wsRwED5zvx9oSunKnylDoYx
-EkV+nVF7iITP1OHPKI7A3hSorvvBrZPhHq9Vfs/KpEJiWnqnChImfNoda8fg7B3X
-f+g2ijmrAqu2dipfX2xcPFLzobvr4nTdOv1YQlVK3VYgJsFnKwtdL74V0EhIDz00
-MaQv2H0pOUa1++/NB0t3qTgCCO5XNw==
-=dtB4
------END PGP SIGNATURE-----
+I just rechecked, the error flow is
 
---CGDBiGfvSTbxKZlW--
+dailink.init()
+soc_init_pcm_runtime
+snd_soc_bind_card probe_end:
+soc_cleanup_card_resources(card, card_probed);
+snd_soc_remove_pcm_runtime(card, rtd);
+dai_link->exit(rtd);
+
+so we do need to recheck if the resources allocated in init() are valid.
+
+I also think the IS_ERR() is correct by looking at the code in 
+gpiod_get_index() but the comments are rather confusing to me:
+
+  * Return a valid GPIO descriptor, -ENOENT if no GPIO has been assigned 
+to the
+  * requested function and/or index, or another IS_ERR() code if an error
+  * occurred while trying to acquire the GPIO.
+
+
+> 
+>> +		gpiod_put(bdw_rt5677->gpio_hp_en);
+>> +}
+>> +
+

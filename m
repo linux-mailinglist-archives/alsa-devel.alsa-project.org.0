@@ -2,82 +2,79 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 22100179FBA
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 07:03:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4241A17A009
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 07:38:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 85AAB1668;
-	Thu,  5 Mar 2020 07:02:12 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 85AAB1668
+	by alsa0.perex.cz (Postfix) with ESMTPS id B129B1668;
+	Thu,  5 Mar 2020 07:37:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz B129B1668
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583388182;
-	bh=yVlWyjwAo9HKaum+EAqNlnChsC2Wxwlso2zSpZJ+K0M=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
-	 List-Post:List-Help:List-Subscribe:From;
-	b=BThb1hJuJWwGwP5R4Layzth4WfySICLTkYDEbVxMa9Df0bYbVi+tqB28esLsJiR9M
-	 3WxL0PugbTwnhX5gha+i0JlLlJaaG+FfbiGhJuXVaHoUreXcP8VxixTcJBCRNbXnMA
-	 JI3PrwISBr6cjEh38hb0vgh4JRwXlO/uZS9n5uts=
+	s=default; t=1583390321;
+	bh=mENfDC//cVzCD446jCffk+9bpHw8jtpmF0r1yQBzLIU=;
+	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
+	 From;
+	b=jX+gUzpndi18EodrIuXoWiXX8BaKmm8jodr17HYszxYxDo1LviNflEyZ1/zd+uqgc
+	 iMDi3pkMRmL5i/HP3UMSOyCV+7lkoGAoLJVHqUnNxpkG0ZeFLZ8qv0oj2boPAQdvhY
+	 lsvTmGll9IghSoJDmq4Mw/TIq+2ZJV9dk/KA0dLk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 65F40F800D8;
-	Thu,  5 Mar 2020 07:01:21 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C026AF80126;
+	Thu,  5 Mar 2020 07:37:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 5ECC6F8025F; Thu,  5 Mar 2020 07:01:17 +0100 (CET)
+ id 675A2F8025F; Thu,  5 Mar 2020 07:36:57 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
-X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- DKIM_VALID_AU,FREEMAIL_ENVFROM_END_DIGIT,FREEMAIL_FROM autolearn=disabled
+X-Spam-Level: *
+X-Spam-Status: No, score=1.4 required=5.0 tests=DKIMWL_WL_HIGH,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,PRX_BODYSUB_10,PRX_BODY_32 autolearn=disabled
  version=3.4.0
-Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
- [IPv6:2607:f8b0:4864:20::444])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id AACEAF8012D
- for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 07:01:09 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz AACEAF8012D
+ by alsa1.perex.cz (Postfix) with ESMTPS id 405D4F8012D
+ for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 07:36:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 405D4F8012D
 Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
- header.b="CflcryAT"
-Received: by mail-pf1-x444.google.com with SMTP id i13so2233222pfe.3
- for <alsa-devel@alsa-project.org>; Wed, 04 Mar 2020 22:01:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=+crT0pBWSfuXBvsoxmaazzTBpnM/2/pQconS/hbBjSE=;
- b=CflcryATJ3b/FURJquNJlND9mLY4WDEwsbNpyJgV7+X7a16X7mWxQ8LoU8cDZI9rdr
- GI2Kc/NheE0BNdceo46E5+J4dTEt6FhdPCD/9gO0tfuLykTDFRmArPpN/mbTc0FhWSOR
- K8cqaftg39gR0DiOX9YBEbpGPVpk8mhT1zq28D/aLfmBT+j6NYsIMjZHCujV5WZTajcF
- xNVleNiKbjEqFlFSm8M11pl4tV6EO2KDNJTTL6oSA5iJ35RQj93hWJbcdOgjX6CPN/uo
- LdTzU/2Exnfr3fgbVMm+Ak1/kiP1vPIUvS+8szG7hJ9coag1Ne9P699SykPE4m8ZGmkx
- Q8Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=+crT0pBWSfuXBvsoxmaazzTBpnM/2/pQconS/hbBjSE=;
- b=MAfOzW7aBLDMbkTUtATUsP0NkN6Yj0Pti27hmHwctfzyni5/bWDL4+NPxABDqxc6jU
- SkTlIHdancvEgn7vLTH+j+2NzEDtu99IKiS3fyfmqKMxtn0hLZDZi9ZTrpCNScPIU3Le
- Tx5ynY6YQRiYkbKPe/hXumRb+EIo2gMicSLLRklLPMm2GehC1LkodruR0KWME8sT41Nf
- Yfs1qB4Kp5m7NgY+DW0j063nqH7jTKyCn+LWvW0OlsE9/63x46mNSWqz/LaGS/2JWWO2
- Xq+08F4qa9J8aQhrVxTbvFCR3OYHC3gSQDLdINUnW6Wd5oyICMF0nSVfbcC5NWiaDRnW
- KsIQ==
-X-Gm-Message-State: ANhLgQ3ntV2NbzV6jLbexF5QllAVj2Kp4HJ5PZJanv2tOsp8zhtdeYT3
- hbUrX3pjZam32ktPolrvvwc=
-X-Google-Smtp-Source: ADFU+vvHjIS0y6Haki+xnAkKnWAaibQMrBK4UejzhrMNkhA0XNRzbYHbqwwN9JidnZp/UGRI/O9pUw==
-X-Received: by 2002:a62:1dc6:: with SMTP id d189mr6807646pfd.153.1583388064938; 
- Wed, 04 Mar 2020 22:01:04 -0800 (PST)
-Received: from sh03840pcu.spreadtrum.com ([117.18.48.82])
- by smtp.gmail.com with ESMTPSA id t19sm29508372pgg.23.2020.03.04.22.01.02
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
- Wed, 04 Mar 2020 22:01:04 -0800 (PST)
-From: Baolin Wang <baolin.wang7@gmail.com>
-To: lgirdwood@gmail.com, broonie@kernel.org, perex@perex.cz, tiwai@suse.com
-Subject: [PATCH] ASoC: sprd: Allow the MCDT driver to build into modules
-Date: Thu,  5 Mar 2020 14:00:53 +0800
-Message-Id: <9306f2b99641136653ae4fe6cf9e859b7f698f77.1583387748.git.baolin.wang7@gmail.com>
-X-Mailer: git-send-email 1.9.1
-Cc: baolin.wang7@gmail.com, orsonzhai@gmail.com, alsa-devel@alsa-project.org,
- linux-kernel@vger.kernel.org, zhang.lyra@gmail.com
+ dkim=pass (1024-bit key) header.d=kernel.org header.i=@kernel.org
+ header.b="YOiuBqq9"
+Received: from localhost (unknown [106.201.121.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 757A4208CD;
+ Thu,  5 Mar 2020 06:36:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1583390210;
+ bh=mENfDC//cVzCD446jCffk+9bpHw8jtpmF0r1yQBzLIU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YOiuBqq9PTVb92B+SGXsdwbRQE9IOT1ihD9jN17oC+CnLtrtWBBTjY7sIsg/Kb0bs
+ DN0cZlbyuE4YhGb75l+bNtZvww5znHGgkrvk4x4igwFuPi4dw20KGCn4JrZL+gD3uf
+ 9dMXy8H+BZbqEWU8ZPisZH2+Ssob8Auz27vvDQGA=
+Date: Thu, 5 Mar 2020 12:06:46 +0530
+From: Vinod Koul <vkoul@kernel.org>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
+Subject: Re: [PATCH 1/8] soundwire: bus_type: add master_device/driver support
+Message-ID: <20200305063646.GW4148@vkoul-mobl>
+References: <20200227223206.5020-1-pierre-louis.bossart@linux.intel.com>
+ <20200227223206.5020-2-pierre-louis.bossart@linux.intel.com>
+ <20200303054136.GP4148@vkoul-mobl>
+ <8a04eda6-cbcf-582f-c229-5d6e4557344b@linux.intel.com>
+ <20200304095312.GT4148@vkoul-mobl>
+ <05dbe43c-abf8-9d5a-d808-35bf4defe4ba@linux.intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <05dbe43c-abf8-9d5a-d808-35bf4defe4ba@linux.intel.com>
+Cc: alsa-devel@alsa-project.org, tiwai@suse.de, gregkh@linuxfoundation.org,
+ linux-kernel@vger.kernel.org,
+ Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+ Hui Wang <hui.wang@canonical.com>, broonie@kernel.org,
+ srinivas.kandagatla@linaro.org, jank@cadence.com, slawomir.blauciak@intel.com,
+ Sanyog Kale <sanyog.r.kale@intel.com>,
+ Bard liao <yung-chuan.liao@linux.intel.com>,
+ Rander Wang <rander.wang@linux.intel.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,42 +90,95 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Change the config to 'tristate' for MCDT driver to allow it to build into
-modules, as well as changing to use IS_ENABLED() to validate if need supply
-dummy functions when building the MCDT driver as a module.
+On 04-03-20, 09:17, Pierre-Louis Bossart wrote:
+> 
+> 
+> > Were the above lines agreed or not? Do you see driver for master devices
+> > or not? Greg was okay with as well as these patches but I am not okay
+> > with the driver part for master, so I would like to see that removed.
+> > 
+> > Different reviewers can have different reasons.. I have given bunch of
+> > reasons here, BUT I have not seen a single technical reason why this
+> > cannot be done.
+> 
+> With all due respect, I consider Greg as THE reviewer for device/driver
+> questions. Your earlier proposal to use platform devices was rejected by
+> Greg, and we've lost an entire month in the process, so I am somewhat
+> dubious on your proposal not to use a driver.
+> 
+> If you want a technical objection, let me restate what I already mentioned:
+> 
+> If you look at the hierarchy, we have
+> 
+> PCI device -> PCI driver
+>   soundwire_master_device0
+>      soundwire_slave(s) -> codec driver
+>   ...
+>   soundwire_master_deviceN
+>      soundwire_slave(s) -> codec driver
+> 
+> You have not explained how I could possibly deal with power management
+> without having a driver for the master_device(s). The pm_ops need to be
+> inserted in a driver structure, which means we need a driver. And if we need
+> a driver, then we might as well have a real driver with .probe .remove
+> support, driver_register(), etc.
 
-Signed-off-by: Baolin Wang <baolin.wang7@gmail.com>
----
- sound/soc/sprd/Kconfig     | 2 +-
- sound/soc/sprd/sprd-mcdt.h | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+Please read the emails sent to you completely, including the reply on
+2nd patch of this series. I think i am repeating this 3rd or 4th time
+now.  Am going to repeat this info here to help move things.
 
-diff --git a/sound/soc/sprd/Kconfig b/sound/soc/sprd/Kconfig
-index 5474fd3..5e0ac82 100644
---- a/sound/soc/sprd/Kconfig
-+++ b/sound/soc/sprd/Kconfig
-@@ -8,7 +8,7 @@ config SND_SOC_SPRD
- 	  the Spreadtrum SoCs' Audio interfaces.
- 
- config SND_SOC_SPRD_MCDT
--	bool "Spreadtrum multi-channel data transfer support"
-+	tristate "Spreadtrum multi-channel data transfer support"
- 	depends on SND_SOC_SPRD
- 	help
- 	  Say y here to enable multi-channel data transfer support. It
-diff --git a/sound/soc/sprd/sprd-mcdt.h b/sound/soc/sprd/sprd-mcdt.h
-index 9cc7e207..679e3af 100644
---- a/sound/soc/sprd/sprd-mcdt.h
-+++ b/sound/soc/sprd/sprd-mcdt.h
-@@ -48,7 +48,7 @@ struct sprd_mcdt_chan {
- 	struct list_head list;
- };
- 
--#ifdef CONFIG_SND_SOC_SPRD_MCDT
-+#if IS_ENABLED(CONFIG_SND_SOC_SPRD_MCDT)
- struct sprd_mcdt_chan *sprd_mcdt_request_chan(u8 channel,
- 					      enum sprd_mcdt_channel_type type);
- void sprd_mcdt_free_chan(struct sprd_mcdt_chan *chan);
+Why do you need a extra driver for this. Do you have another set of
+device object and driver for DSP code? But you do manage that, right?
+I am proposing to simplify the device model here and have only one
+device (SOF PCI) and driver (SOF PCI driver), which is created by actual
+bus (PCI here) as you have in rest of the driver like HDA, DSP etc.
+
+I have already recommended is to make the int-sdw a module which is
+invoked by SOF PCI driver code (thereby all code uses SOF PCI device and
+SOF PCI driver) directly. The DSP in my time for skl was a separate
+module but used the parent objects.
+
+The SOF sdw init (the place where sdw routines are invoked after DSP
+load) can call sdw_probe and startup. Based on DSP sequencing you can
+call these functions directly without waiting for extra device to be
+probed etc.
+
+I feel your flows will be greatly simplified as a result of this.
+
+Second issue of PM:
+ You do manage the DSP PM right? Similar way.
+So here I would expect you to add functions/callbacks from SOF driver to
+this module and call PM routines from SOF PM routines allowing you to
+suspend/resume. Similar way DSP used to be managed.  Something like:
+.sdw_suspend .sdw_resume functions/callbacks which will do sdw specific
+pm configurations. You do not need module specific pm_ops, you can do
+the required steps in callbacks from SOF driver
+
+Bonus, this can be tuned and called at the specific places in DSP
+suspend/resume flow, which is something I suspect you would want.
+
+For places which need dev/driver objects like sdw dai's please pass the
+SOF PCI dev object.
+
+Is there any other technical reason left unexplored/unexplained?
+
+> I really don't see what's broken or unnecessary with these patches.
+
+Adding a layer for Intel in common code is unnecessary IMO. As
+demonstrated above you can use the intel specific callback to do the
+same task in intel specific way. I would very much prefer that approach
+to solve this
+
+We definitely need a sdw_master_device for everyone, but I don't believe
+we need a sdw_master_device for Intel or anyone else.
+
+> I would also kindly ask that you stop using exclamation marks and what I
+> consider as hostile language. I've asked you multiple times, it's not
+> professional, sorry.
+
+oops, i would apologise for that. I seem to have a habit of using that
+which indicates my surprise and not hostile language, maybe it is
+cultural thing, but I would try to refrain. thanks for letting me know.
+
 -- 
-1.9.1
-
+~Vinod 

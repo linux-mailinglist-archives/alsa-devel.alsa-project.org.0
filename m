@@ -2,52 +2,54 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC5A717A635
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 14:17:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF69A17A638
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 14:18:26 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 6B119166B;
-	Thu,  5 Mar 2020 14:16:33 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 6B119166B
+	by alsa0.perex.cz (Postfix) with ESMTPS id 8E13A82E;
+	Thu,  5 Mar 2020 14:17:36 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 8E13A82E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583414243;
-	bh=3Q/K9VkRIGDmtyGTwKcI8eFT56z8ZWkc3aHHWp2bbOA=;
+	s=default; t=1583414306;
+	bh=8Y/+fSmGtQ5niReIDVUsnAPfqnZw8Sl6VHGa4vylWCc=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=ZVHfzGL75EQZSF7siUhK8cPU9Z8cbCfwm9G8Tz24vw4MZMccEeTgsQe1b8sScbDyl
-	 tV78dZIQWZK5P0LeFXniKTgT2gfRzEE0RmJZAzbQKoumeBJ94dSOgM4xDLbBA52FoG
-	 Z5rbdr/6zk8YpTu7Q8GMhTn2AoeBwZ3aJ2in7oqs=
+	b=JuPoCyzyAN/5XbwTXwOAxQ2ZBEyaQP6FYRD3xyY6VDRE9NC43Zw6Vq9X0/7x2avyn
+	 pe/aV9Q0JCX0PwYckGDjFs9itBy76u4jAmPSH9zswllbgdIdHAf1GrnigwBeAUDgBl
+	 nUHkVFqheRkXgaoA3S/RmV7fEiHvvx0RMO65rfj0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 7C306F8025F;
-	Thu,  5 Mar 2020 14:15:42 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 013C1F8028B;
+	Thu,  5 Mar 2020 14:15:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 92FD7F80126; Thu,  5 Mar 2020 14:15:38 +0100 (CET)
+ id C0F67F80279; Thu,  5 Mar 2020 14:15:42 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.3 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- SPF_HELO_NONE, SURBL_BLOCKED,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
+X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
+ SPF_HELO_NONE,SPF_PASS autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id CC10AF80245
- for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 14:15:35 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz CC10AF80245
+ by alsa1.perex.cz (Postfix) with ESMTP id 4784EF800D8
+ for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 14:15:39 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 4784EF800D8
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C87A21FB;
- Thu,  5 Mar 2020 05:15:33 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 393E91FB;
+ Thu,  5 Mar 2020 05:15:38 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4BE143F6CF;
- Thu,  5 Mar 2020 05:15:33 -0800 (PST)
-Date: Thu, 05 Mar 2020 13:15:31 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B22053F6CF;
+ Thu,  5 Mar 2020 05:15:37 -0800 (PST)
+Date: Thu, 05 Mar 2020 13:15:36 +0000
 From: Mark Brown <broonie@kernel.org>
-To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Subject: Applied "ASoC: soc-pcm: use defined stream" to the asoc tree
-In-Reply-To: 
-Message-Id: 
+To: Baolin Wang <baolin.wang7@gmail.com>
+Subject: Applied "ASoC: sprd: Allow the MCDT driver to build into modules" to
+ the asoc tree
+In-Reply-To: <9306f2b99641136653ae4fe6cf9e859b7f698f77.1583387748.git.baolin.wang7@gmail.com>
+Message-Id: <applied-9306f2b99641136653ae4fe6cf9e859b7f698f77.1583387748.git.baolin.wang7@gmail.com>
 X-Patchwork-Hint: ignore
-Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
+Cc: alsa-devel@alsa-project.org, zhang.lyra@gmail.com, tiwai@suse.com,
+ lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ Mark Brown <broonie@kernel.org>, baolin.wang7@gmail.com, orsonzhai@gmail.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,7 +67,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: soc-pcm: use defined stream
+   ASoC: sprd: Allow the MCDT driver to build into modules
 
 has been applied to the asoc tree at
 
@@ -90,86 +92,49 @@ to this mail.
 Thanks,
 Mark
 
-From 25c2f5156dd57f03aee2de079248c23a56222c92 Mon Sep 17 00:00:00 2001
-From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Date: Thu, 27 Feb 2020 10:54:38 +0900
-Subject: [PATCH] ASoC: soc-pcm: use defined stream
+From fd357ec595d36676c239d8d16706a270a961ac32 Mon Sep 17 00:00:00 2001
+From: Baolin Wang <baolin.wang7@gmail.com>
+Date: Thu, 5 Mar 2020 14:00:53 +0800
+Subject: [PATCH] ASoC: sprd: Allow the MCDT driver to build into modules
 
-Many functions defines "stream = substream->stream", but
-some of them is using "substream->stream" instead of "stream".
-It is pointless. This patch uses defined stream.
+Change the config to 'tristate' for MCDT driver to allow it to build into
+modules, as well as changing to use IS_ENABLED() to validate if need supply
+dummy functions when building the MCDT driver as a module.
 
-Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Reviewed-by: Ranjani Sridharan <ranjani.sridharan@linux.intel.com>
-Link: https://lore.kernel.org/r/87mu947q1t.wl-kuninori.morimoto.gx@renesas.com
+Signed-off-by: Baolin Wang <baolin.wang7@gmail.com>
+Link: https://lore.kernel.org/r/9306f2b99641136653ae4fe6cf9e859b7f698f77.1583387748.git.baolin.wang7@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- sound/soc/soc-pcm.c | 15 +++++++--------
- 1 file changed, 7 insertions(+), 8 deletions(-)
+ sound/soc/sprd/Kconfig     | 2 +-
+ sound/soc/sprd/sprd-mcdt.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 90857138c823..8c27eb4d5e4c 100644
---- a/sound/soc/soc-pcm.c
-+++ b/sound/soc/soc-pcm.c
-@@ -644,8 +644,7 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
- 		 * bailed out on a higher level, since there would be no
- 		 * CODEC to support the transfer direction in that case.
- 		 */
--		if (!snd_soc_dai_stream_valid(codec_dai,
--					      substream->stream))
-+		if (!snd_soc_dai_stream_valid(codec_dai, stream))
- 			continue;
+diff --git a/sound/soc/sprd/Kconfig b/sound/soc/sprd/Kconfig
+index 5474fd3de8c0..5e0ac8278572 100644
+--- a/sound/soc/sprd/Kconfig
++++ b/sound/soc/sprd/Kconfig
+@@ -8,7 +8,7 @@ config SND_SOC_SPRD
+ 	  the Spreadtrum SoCs' Audio interfaces.
  
- 		codec_stream = snd_soc_dai_get_pcm_stream(codec_dai, stream);
-@@ -2149,7 +2148,7 @@ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
+ config SND_SOC_SPRD_MCDT
+-	bool "Spreadtrum multi-channel data transfer support"
++	tristate "Spreadtrum multi-channel data transfer support"
+ 	depends on SND_SOC_SPRD
+ 	help
+ 	  Say y here to enable multi-channel data transfer support. It
+diff --git a/sound/soc/sprd/sprd-mcdt.h b/sound/soc/sprd/sprd-mcdt.h
+index 9cc7e207ac76..679e3af3baad 100644
+--- a/sound/soc/sprd/sprd-mcdt.h
++++ b/sound/soc/sprd/sprd-mcdt.h
+@@ -48,7 +48,7 @@ struct sprd_mcdt_chan {
+ 	struct list_head list;
+ };
  
- 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
- 
--	ret = dpcm_be_dai_startup(fe, fe_substream->stream);
-+	ret = dpcm_be_dai_startup(fe, stream);
- 	if (ret < 0) {
- 		dev_err(fe->dev,"ASoC: failed to start some BEs %d\n", ret);
- 		goto be_err;
-@@ -2180,7 +2179,7 @@ static int dpcm_fe_dai_startup(struct snd_pcm_substream *fe_substream)
- 	return 0;
- 
- unwind:
--	dpcm_be_dai_startup_unwind(fe, fe_substream->stream);
-+	dpcm_be_dai_startup_unwind(fe, stream);
- be_err:
- 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_NO);
- 	return ret;
-@@ -2234,7 +2233,7 @@ static int dpcm_fe_dai_shutdown(struct snd_pcm_substream *substream)
- 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
- 
- 	/* shutdown the BEs */
--	dpcm_be_dai_shutdown(fe, substream->stream);
-+	dpcm_be_dai_shutdown(fe, stream);
- 
- 	dev_dbg(fe->dev, "ASoC: close FE %s\n", fe->dai_link->name);
- 
-@@ -2412,9 +2411,9 @@ static int dpcm_fe_dai_hw_params(struct snd_pcm_substream *substream,
- 	mutex_lock_nested(&fe->card->mutex, SND_SOC_CARD_CLASS_RUNTIME);
- 	dpcm_set_fe_update_state(fe, stream, SND_SOC_DPCM_UPDATE_FE);
- 
--	memcpy(&fe->dpcm[substream->stream].hw_params, params,
-+	memcpy(&fe->dpcm[stream].hw_params, params,
- 			sizeof(struct snd_pcm_hw_params));
--	ret = dpcm_be_dai_hw_params(fe, substream->stream);
-+	ret = dpcm_be_dai_hw_params(fe, stream);
- 	if (ret < 0) {
- 		dev_err(fe->dev,"ASoC: hw_params BE failed %d\n", ret);
- 		goto out;
-@@ -2736,7 +2735,7 @@ static int dpcm_fe_dai_prepare(struct snd_pcm_substream *substream)
- 		goto out;
- 	}
- 
--	ret = dpcm_be_dai_prepare(fe, substream->stream);
-+	ret = dpcm_be_dai_prepare(fe, stream);
- 	if (ret < 0)
- 		goto out;
- 
+-#ifdef CONFIG_SND_SOC_SPRD_MCDT
++#if IS_ENABLED(CONFIG_SND_SOC_SPRD_MCDT)
+ struct sprd_mcdt_chan *sprd_mcdt_request_chan(u8 channel,
+ 					      enum sprd_mcdt_channel_type type);
+ void sprd_mcdt_free_chan(struct sprd_mcdt_chan *chan);
 -- 
 2.20.1
 

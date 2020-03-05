@@ -2,51 +2,74 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id E906017AECE
-	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 20:12:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EF5917B039
+	for <lists+alsa-devel@lfdr.de>; Thu,  5 Mar 2020 22:02:55 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 726CF1669;
-	Thu,  5 Mar 2020 20:12:00 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 726CF1669
+	by alsa0.perex.cz (Postfix) with ESMTPS id A89BA1669;
+	Thu,  5 Mar 2020 22:02:04 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz A89BA1669
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583435570;
-	bh=Tg22VAbaXpgfvwqMyFJUM5bgNTIA1RSUTchM0Dcun9M=;
-	h=Date:From:To:Subject:References:In-Reply-To:Cc:List-Id:
+	s=default; t=1583442174;
+	bh=VHeIp7Vf126zTQh+8yKcp+O0GCqPXKBZXNRRpBM9YEE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
 	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
 	 From;
-	b=WU96+OTMUEJ/k1xd4z7xtEAlxS9QWq04YdgGUHtShUOSGVf9TAA0spH5fi6RSxJyQ
-	 y4i5KxknAQYoKgm3Gi2Ce2Yt8nQb1sDxUpARTBkiO+7djISFnl/SgeCk2lcUeOmvWq
-	 7W9h/zkqvwG9yaWYhBMUegn7Ues0l4toyUa+4bPU=
+	b=Kti9640P0bMKf/tlFhrPJJQj0pJUuxACWY1JBxhrReeIKWB8paDinqP+aFrk/6kbv
+	 jhZW5XaCSORumDZfV/5O/zNhHiFJOcfhhVgrEDPtYRD7lvYMwPxyh0DMMLDp/jwV0y
+	 PdtPZcN7vjaXsrqk8+lskTBGsHV0cHXDwl+tpeXk=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 80C74F800D8;
-	Thu,  5 Mar 2020 20:11:09 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 86CADF8025F;
+	Thu,  5 Mar 2020 22:01:13 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 84579F8025F; Thu,  5 Mar 2020 20:11:07 +0100 (CET)
+ id 1F976F8025F; Thu,  5 Mar 2020 22:01:04 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
- RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE,
- SPF_PASS autolearn=disabled version=3.4.0
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 24873F800D8
- for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 20:11:03 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 24873F800D8
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DFBBA30E;
- Thu,  5 Mar 2020 11:11:01 -0800 (PST)
-Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 606893F6CF;
- Thu,  5 Mar 2020 11:11:01 -0800 (PST)
-Date: Thu, 5 Mar 2020 19:10:59 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-Subject: Re: [RFC PATCH 2/3] ASoC: Intel: bdw-rt5677: fix module load/unload
- issues
-Message-ID: <20200305191059.GL4046@sirena.org.uk>
+X-Spam-Status: No, score=-15.6 required=5.0 tests=DKIMWL_WL_MED,DKIM_SIGNED,
+ DKIM_VALID,DKIM_VALID_AU,ENV_AND_HDR_SPF_MATCH,HTML_MESSAGE,SPF_HELO_NONE,
+ SPF_PASS,USER_IN_DEF_DKIM_WL,USER_IN_DEF_SPF_WL autolearn=disabled
+ version=3.4.0
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by alsa1.perex.cz (Postfix) with ESMTPS id C297EF8012D
+ for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 22:00:59 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz C297EF8012D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=google.com header.i=@google.com
+ header.b="I/QXXunR"
+Received: by mail-qt1-x841.google.com with SMTP id v22so132714qtp.10
+ for <alsa-devel@alsa-project.org>; Thu, 05 Mar 2020 13:00:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=rirrIqBp1YR7hjzgEMz3Rta06AiFV4BR0aGUnx3XIoE=;
+ b=I/QXXunRVbFkGm/ZLRBPW3UsEw4H6o4hRmjQMTPkzGnV2vmi3JPOMeBD4CgS++3SeK
+ cLFY8098wcd4R+PA/gxMvKOXe8Ch/CaldGDJCwyFc9tEz51/XIaOH8dQBtv43Q1VlRhG
+ 4OXwRQ8nNdnfOvsEvnyamZ46t2l1rYXoMJKxHv+/ilmczrkKPR1p9T4meSUfi4z8UciP
+ szx0cTJbWHLmmV1SCOj1QGOsxthvh7S3oDFhNl47/R7/NaqbCweMx37J1FoWZBsQe2H2
+ dnQwwIjmzrcDOzz05ZJzcGftWy0KbO7HvrhlbIKGdiB+IaqmsBuGY6zAiHygB4hp3fbB
+ nTtg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=rirrIqBp1YR7hjzgEMz3Rta06AiFV4BR0aGUnx3XIoE=;
+ b=BAU85RA96cjcfpJWqVz/J3jt88heVkrRYq6wye0lhMu4FD3ksAfklkvnIOAwPwr2uf
+ yUrCeewpEHVbTpDhh3lBJBfzGiwkIwm9JengpO0PGCP9GVfj3s/xJu7nrySfc+MGNJQn
+ tRiTekjh6/+E9Y8hHv+Cgi/C7Rz+gTNieOtIBwqsE0Un4bzRTeMkoxMEmkpqJqcjBtV1
+ O7r7vUqDCqxnoq+rWol+iUvfY6730MRKKdNg+FLcDqnFLCMQyKYnt6NakyjBVgykf96D
+ T/zs/Jz4cE7xz7K35YX8OwikRK/AEzUW53TtRIOYwIJXkuAdcmAxcxWuibPfCvTH2qOZ
+ u1ZA==
+X-Gm-Message-State: ANhLgQ0gXytlTZ6aF/iL4PZWt5d2s7JTuLVluy9vaLmjHQy+zUnKwwNR
+ 5NtTRQikGjD6f4Xm6BDY5EyoSRAwIC8kGAlDWL3LJw==
+X-Google-Smtp-Source: ADFU+vvXGIvyNEbhdAXOUMO6fV8hcppcasQNk9Y2u82llE9+NjxPBgupXTgs0hR3vvmt15kRRG1gWVbcMa3Cw/K3Xr4=
+X-Received: by 2002:ac8:17ab:: with SMTP id o40mr92761qtj.308.1583442055471;
+ Thu, 05 Mar 2020 13:00:55 -0800 (PST)
+MIME-Version: 1.0
 References: <20200305130616.28658-1-pierre-louis.bossart@linux.intel.com>
  <20200305130616.28658-3-pierre-louis.bossart@linux.intel.com>
  <20200305133638.GE4046@sirena.org.uk>
@@ -55,16 +78,20 @@ References: <20200305130616.28658-1-pierre-louis.bossart@linux.intel.com>
  <c1419cb1-c1d6-897d-05a4-48e57a3e15db@linux.intel.com>
  <20200305174324.GH4046@sirena.org.uk>
  <7c52ff6f-76ef-7c55-65e6-9c0437bb983a@linux.intel.com>
- <20200305183335.GK4046@sirena.org.uk>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="IuJpT0rwbUevm2bB"
-Content-Disposition: inline
-In-Reply-To: <20200305183335.GK4046@sirena.org.uk>
-X-Cookie: When among apes, one must play the ape.
-User-Agent: Mutt/1.10.1 (2018-07-13)
-Cc: tiwai@suse.de, alsa-devel@alsa-project.org,
+ <20200305183335.GK4046@sirena.org.uk> <20200305191059.GL4046@sirena.org.uk>
+In-Reply-To: <20200305191059.GL4046@sirena.org.uk>
+From: Curtis Malainey <cujomalainey@google.com>
+Date: Thu, 5 Mar 2020 13:00:44 -0800
+Message-ID: <CAOReqxhxZPvnRLssBgKKSHZ70Msj-eZwgNAu5ZmbLk+JWj8DNQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 2/3] ASoC: Intel: bdw-rt5677: fix module load/unload
+ issues
+To: Mark Brown <broonie@kernel.org>, Ben Zhang <benzh@google.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
+Cc: Takashi Iwai <tiwai@suse.de>,
+ ALSA development <alsa-devel@alsa-project.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
  Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
@@ -81,38 +108,24 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
++Ben Zhang <benzh@google.com> who wrote the original driver for our 3.14
+tree.
 
---IuJpT0rwbUevm2bB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Thu, Mar 5, 2020 at 11:12 AM Mark Brown <broonie@kernel.org> wrote:
 
-On Thu, Mar 05, 2020 at 06:33:35PM +0000, Mark Brown wrote:
-> On Thu, Mar 05, 2020 at 12:08:57PM -0600, Pierre-Louis Bossart wrote:
-
-> > b) do you have any objections if we remove this devm_ use without trying to
-> > dig further into the gpio management. This is a 2015 product that we use to
-> > verify the SOF driver on Broadwell, not an Intel-owned device.
-
-> The main thing I'm missing with this is a coherent explanation of the
-> problem and how the changes proposed fix it.
-
-Just to emphasize: the main concern here is that the issue is understood
-and that it's not just going to pop up again as soon as something
-changes.
-
---IuJpT0rwbUevm2bB
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl5hTsMACgkQJNaLcl1U
-h9AR2Af7BOUy+sNAJAEw+WajcIvcrI1wH+yUgoMhOIjlhR8H96l0LNDPxO69Jlpk
-9efrj6YLW1o4dJQ0LPQzj+TrUOKkboN5LGZPiwj5QpzuJZgG/50gqwJ7iIqe1H+q
-b1x4YeqksdyQTvnPqSdBc/l7mSx1LDvWptta91P3DaVZT72gYiV3y5sN8L9uVVma
-w3QJusxR2HkMXHbpM0FannWgm87bwVHsuL0zWFNR8EmpvCEaVnwx3FSDkVK4YxHd
-9iCLe605KPfpHldDminr82ndOANHH/GoFRM0BiMUIoH95PlVhyWLjvXHLqL58WWG
-9T7P5DprVMZzk+/uDMlGcuQdfDkODw==
-=/Brb
------END PGP SIGNATURE-----
-
---IuJpT0rwbUevm2bB--
+> On Thu, Mar 05, 2020 at 06:33:35PM +0000, Mark Brown wrote:
+> > On Thu, Mar 05, 2020 at 12:08:57PM -0600, Pierre-Louis Bossart wrote:
+>
+> > > b) do you have any objections if we remove this devm_ use without
+> trying to
+> > > dig further into the gpio management. This is a 2015 product that we
+> use to
+> > > verify the SOF driver on Broadwell, not an Intel-owned device.
+>
+> > The main thing I'm missing with this is a coherent explanation of the
+> > problem and how the changes proposed fix it.
+>
+> Just to emphasize: the main concern here is that the issue is understood
+> and that it's not just going to pop up again as soon as something
+> changes.
+>

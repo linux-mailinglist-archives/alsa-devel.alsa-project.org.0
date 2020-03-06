@@ -2,60 +2,146 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9546C17D0FC
-	for <lists+alsa-devel@lfdr.de>; Sun,  8 Mar 2020 04:16:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D78BE17D249
+	for <lists+alsa-devel@lfdr.de>; Sun,  8 Mar 2020 08:48:47 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 33014166D;
-	Sun,  8 Mar 2020 04:16:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 33014166D
+	by alsa0.perex.cz (Postfix) with ESMTPS id 097501672;
+	Sun,  8 Mar 2020 08:47:57 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 097501672
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583637417;
-	bh=Tl+Fm62smNyCw9UDj9DJ3n61NrOfZTJ/jp/ncujQ77I=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=cb3rQfk/bPwxGbx9rPrG6z+xU2YMnLE5wPGiK8Xurhz1S3UVoQ1ioa7Vi3VJKU+Xj
-	 qsPeazXsVT4mHd0Z8lnU2NRmVPRaniOPeOSVTYrkIj7hUH9BQQqgBe37zfircbbYV+
-	 ytQi/2QPaaXR69akoZmmbtg1hc87eQNMhJPodt/c=
+	s=default; t=1583653727;
+	bh=rf68DsMPVrmVekTr0QhLG4WLcf+j3ZG2SJHd5BTYz8o=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=J1XDbk+VccauLugxiMwOo3MsEDk0igFCByHysmltPzqQ8aEWs9qSWfiW5bFsfBjB9
+	 93XfPkMAhqbTG0pVJ1ISmqvdCj2HErNtbVzVKXOupVY8rDEfe7i+AypojnpnTKx7is
+	 IQxAKJd54/PlhHwu9MoU6PzqwX/DQew9igVLKZdY=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id A9E5BF80249;
-	Sun,  8 Mar 2020 04:14:45 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 22132F8024A;
+	Sun,  8 Mar 2020 08:46:22 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 02A21F8023F; Sun,  8 Mar 2020 04:14:38 +0100 (CET)
+ id 92FB9F801ED; Fri,  6 Mar 2020 22:10:46 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_PASS
- autolearn=disabled version=3.4.0
-Received: from mail.manjaro.org (mail.manjaro.org [176.9.38.148])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled
+ version=3.4.0
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 7C025F80130
- for <alsa-devel@alsa-project.org>; Sun,  8 Mar 2020 04:14:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 7C025F80130
-Received: from localhost (localhost [127.0.0.1])
- by mail.manjaro.org (Postfix) with ESMTP id 1B65E39611CC;
- Sun,  8 Mar 2020 04:14:36 +0100 (CET)
-X-Virus-Scanned: Debian amavisd-new at manjaro.org
-Received: from mail.manjaro.org ([127.0.0.1])
- by localhost (manjaro.org [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id tbktZ9oDShq1; Sun,  8 Mar 2020 04:14:33 +0100 (CET)
-From: Tobias Schramm <t.schramm@manjaro.org>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Subject: [RFC PATCH 1/1] ASoC: jack: use gpiolib inversion flag for inverted
- gpios
-Date: Sun,  8 Mar 2020 04:13:55 +0100
-Message-Id: <20200308031355.1149173-2-t.schramm@manjaro.org>
-In-Reply-To: <20200308031355.1149173-1-t.schramm@manjaro.org>
-References: <20200308031355.1149173-1-t.schramm@manjaro.org>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 9CCC9F80125
+ for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 22:10:42 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9CCC9F80125
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com
+ header.b="dvd3An2G"; 
+ dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com
+ header.i=@cirrus4.onmicrosoft.com header.b="njew15rE"
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 026KvJnY009995; Fri, 6 Mar 2020 15:10:41 -0600
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com;
+ h=from : to : cc :
+ subject : date : message-id : content-type : content-id :
+ content-transfer-encoding : mime-version; s=PODMain02222019;
+ bh=ne1C7WGsPwwgw8GX7UeNPErRuNboXDAqQL5R3wXVxcA=;
+ b=dvd3An2GVGjU985cYGBvOX+IaTHkGaA4BIVjnwRv1uYQ+1GUffWDO+JZGxv22PZktlBI
+ 7yeuiTPDfoIkyOW8iAvdUDutDfikVluKeIj9U/YwTdM1EmG2dRuabixFelXolubTMfBn
+ bs9OTFCd2NEXzkK3axUWLl7/9hH5tcnas/ti7yLXwAoXpm+RErP/Ze359uGp0/CzBxU9
+ N9a8QPLoB1+7iEssl/Li04KPgTowjZfdAtqP7Q+KP/Dt0sLMvKeNk2TSO+UT8jDhQTpp
+ J5jEheGxLYfRju22QgGOzb5k/Ju5dN7wm0ZaSeQUfWDnVCjQeilOStjlvC4e5dP3fcfQ NQ== 
+Authentication-Results: ppops.net;
+ spf=pass smtp.mailfrom=James.Schulman@cirrus.com
+Received: from nam02-cy1-obe.outbound.protection.outlook.com
+ (mail-cys01nam02lp2050.outbound.protection.outlook.com [104.47.37.50])
+ by mx0b-001ae601.pphosted.com with ESMTP id 2yfn8vku3s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 06 Mar 2020 15:10:41 -0600
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=NggTYrCswjf/G+NOjlBXS2W1BdM6E6V1LHVXdEqtRl3ONNCAKnsHNtrrEl0ql0lElaUd/Buceh0rAGM8HL+7u+OLqkfuX1H6dG8mZDhcRPXa5Fgnta+oZNAOlbYX+Cj9dVaQeM5wdN9kk5d6/KGJT9zke98i96xeUX2BXKxzQjwsUZB2a0SAyfWn5BxqzKyMk0biloPgS5SQjeh0cWfIJ1c78S4Ll6Mhax4RECK6X6etE/iXFtdK5TgeNwY/9lCv/KsafuCAfoJn9fIF4aNwXnkcuU+XWTJ+sv3eYyE+o5r217qz5nC2yMYjRE1eIPUM2+DjMI116u8H3IzmO+29fQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ne1C7WGsPwwgw8GX7UeNPErRuNboXDAqQL5R3wXVxcA=;
+ b=GUgEewvO4VzK7gTvMl+2+aFKTQELB844a4rPaeLhmcIy+sEYJKD1po3QcyADgIo2dXwFJWoY+g/6YA+GOPWr3MyAVWKMMTzidmiBxbH3eBGwBJanXKMO6GIQg35shQ/9kme0tZTN6LY6kPlOqmT8r9ADGp1358fT4NB2kn0kxpSNFVd3tCasOxJ3AJaTauJR/SL4xQGvmDKJPHyrt0RbVRI/UcbhN+L7XxdpJuJWxzDo8vteMH2e4z5hh1ogMFJ4kSWMDkfXvX0oGEx4OPVN5D+xzamuoxHEbKLgQ2M/wSJXXqbO3dthqGEnNGqskw7746yzXlGm6K6jkICbZrHMcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=cirrus.com; dmarc=pass action=none header.from=cirrus.com;
+ dkim=pass header.d=cirrus.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ne1C7WGsPwwgw8GX7UeNPErRuNboXDAqQL5R3wXVxcA=;
+ b=njew15rERj2BTxUZv5J0+J7G/wtrPiM9AoHxsfMk82soPvfb6v3fScq00BArS9tYKHKkHdH3NvbdqcJsCkieJpO4PMRWYM9W9nXhLwC6aNMZkodlLYo6SUZYuzYkOcW3gml7NQ5LbNB/lwL1LaFp+a30HzSFu8K5t1Q/tltGl0w=
+Received: from SN6PR19MB2381.namprd19.prod.outlook.com (2603:10b6:805:64::29)
+ by SN6PR19MB2367.namprd19.prod.outlook.com (2603:10b6:805:53::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2793.15; Fri, 6 Mar
+ 2020 21:10:38 +0000
+Received: from SN6PR19MB2381.namprd19.prod.outlook.com
+ ([fe80::b403:4378:5e7b:4b18]) by SN6PR19MB2381.namprd19.prod.outlook.com
+ ([fe80::b403:4378:5e7b:4b18%3]) with mapi id 15.20.2772.019; Fri, 6 Mar 2020
+ 21:10:38 +0000
+From: "Schulman, James" <James.Schulman@cirrus.com>
+To: "broonie@kernel.org" <broonie@kernel.org>, "alsa-devel@alsa-project.org"
+ <alsa-devel@alsa-project.org>
+Subject: [PATCH] MAINTAINERS: Update Cirrus Logic codec driver maintainers
+Thread-Topic: [PATCH] MAINTAINERS: Update Cirrus Logic codec driver maintainers
+Thread-Index: AQHV8/uvTLLDbdTF00mNe25R2BUq/g==
+Date: Fri, 6 Mar 2020 21:10:38 +0000
+Message-ID: <alpine.DEB.2.21.2003061508150.32557@james-tower>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [141.131.2.3]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 82dec954-54fc-41c5-0dfc-08d7c212d228
+x-ms-traffictypediagnostic: SN6PR19MB2367:
+x-ms-exchange-transport-forked: True
+x-microsoft-antispam-prvs: <SN6PR19MB2367D1C2F9BA20A2446E8D6FE4E30@SN6PR19MB2367.namprd19.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:2657;
+x-forefront-prvs: 0334223192
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(4636009)(7916004)(376002)(39850400004)(366004)(136003)(396003)(346002)(189003)(199004)(107886003)(478600001)(26005)(66556008)(6506007)(186003)(76116006)(64756008)(4326008)(66446008)(66476007)(110136005)(66946007)(316002)(91956017)(2906002)(5660300002)(15650500001)(86362001)(33716001)(6486002)(71200400001)(4744005)(81156014)(81166006)(6512007)(54906003)(8936002)(8676002)(9686003);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:SN6PR19MB2367;
+ H:SN6PR19MB2381.namprd19.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: cirrus.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: oxVuTCIgBMvtW6pt1o+A2dV5OHOcCGr9cw3jpfh6oaVz7Fwr5uHp8i+FBojPZazxv7hFW2JqawInQwuqkxF89FS8ziH2V5J8cTcg3gyGf7hP81gFzHXE0ri9b02jlmUEl+TkBw/qFg5tnK3hZWWCqtNiTsa9RwgGO47I5vwtdZBtiy4/KnpG84byw+gLNvsb5oN6nV3Q13u/g0yJAOZZU5/+nazBKX/Eqng6+mPPXe+1+ZOtXnqMJkmaiCu8xGaazrprhy3VfWs5O9c9awTc48vpW3mZmvLqFhYcx3/0FPsqD0h3J2+2CZqFytf3ChIYnkxY1VFE5X92oaELwcNljiMlDKzQJgyqJ5rKkNUPbnVRtcwlxZztTVQHSCmd91mNNaGs91mqUtYby4hEa7R/ZWKpHX02XzTPWByLeqoMsPrgX0VXm2IEyCQp1Zr7CTqI
+x-ms-exchange-antispam-messagedata: auRMp/5cwXMTLk+KDsHV2VQcY4aHU30ZT9HgoK7RMjImnlu6LmRm6Roi24N6xIIdwDX1fFeRuqk4YPD33QKnGp5fR8Tflng9VPuF4Fl7aBX8LF5YOCX+VpPmYkQVHktoyCo3Iekq1TtEI/ueRLYFRw==
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <8164D63C9827F9428D774CD85257F257@namprd19.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Cc: alsa-devel@alsa-project.org, Liam Girdwood <lgirdwood@gmail.com>,
- Tobias Schramm <t.schramm@manjaro.org>, linux-kernel@vger.kernel.org
+X-OriginatorOrg: cirrus.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82dec954-54fc-41c5-0dfc-08d7c212d228
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Mar 2020 21:10:38.6025 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: zksLtBCy0xATJEbqYs/EhjnrMKe05uQNKGxi523frDgx/p4LMuU5r3a9l58o2r73os3xW54tqZFcY29DwgTFxi/LZivRYDTZ6DFWsPNI91Y=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR19MB2367
+X-Proofpoint-SPF-Result: pass
+X-Proofpoint-SPF-Record: v=spf1 include:spf-001ae601.pphosted.com
+ include:spf.protection.outlook.com
+ include:_spf1.cirrus.com include:_spf2.cirrus.com -all
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 impostorscore=0
+ spamscore=0
+ clxscore=1011 bulkscore=0 priorityscore=1501 suspectscore=0 mlxscore=0
+ malwarescore=0 phishscore=0 mlxlogscore=943 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2001150001 definitions=main-2003060123
+X-Mailman-Approved-At: Sun, 08 Mar 2020 08:46:09 +0100
+Cc: "Austin, Brian" <Brian.Austin@cirrus.com>, "Handrigan,
+ Paul" <Paul.Handrigan@cirrus.com>, "Rhodes, David" <David.Rhodes@cirrus.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,55 +157,30 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-This commit changes the handling of jack gpios with ACTIVE_LOW logic.
-The inversion flag is now passed down and transparently handled by the
-legacy gpiolib.
+Brian & Paul are no longer active audio codec driver
+maintainers. Update list to reflect myself and David
+Rhodes as the active maintainers.
 
-Previously the level of a gpio was inverted manually inside
-snd_soc_jack_gpio_detect and gpiolib ACTIVE_LOW flag was not set on the
-gpio. This resulted in erroneous output in /dev/class/gpio/gpio*/active_low
-and debug interfaces like /sys/kernel/debug/gpio where the gpio was
-still listed as active high while jack status for that gpio actually
-followed an active low logic.
-
-Signed-off-by: Tobias Schramm <t.schramm@manjaro.org>
+Signed-off-by: James Schulman <james.schulman@cirrus.com>
 ---
- sound/soc/soc-jack.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+   MAINTAINERS | 4 ++--
+   1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/sound/soc/soc-jack.c b/sound/soc/soc-jack.c
-index b5748dcd490f..8c17cfdbb883 100644
---- a/sound/soc/soc-jack.c
-+++ b/sound/soc/soc-jack.c
-@@ -254,8 +254,6 @@ static void snd_soc_jack_gpio_detect(struct snd_soc_jack_gpio *gpio)
- 	int report;
- 
- 	enable = gpiod_get_value_cansleep(gpio->desc);
--	if (gpio->invert)
--		enable = !enable;
- 
- 	if (enable)
- 		report = gpio->report;
-@@ -385,6 +383,10 @@ int snd_soc_jack_add_gpios(struct snd_soc_jack *jack, int count,
- 			}
- 		} else {
- 			/* legacy GPIO number */
-+			int flags = GPIOF_IN;
-+
-+			if (gpios[i].invert)
-+				flags |= GPIOF_ACTIVE_LOW;
- 			if (!gpio_is_valid(gpios[i].gpio)) {
- 				dev_err(jack->card->dev,
- 					"ASoC: Invalid gpio %d\n",
-@@ -393,7 +395,7 @@ int snd_soc_jack_add_gpios(struct snd_soc_jack *jack, int count,
- 				goto undo;
- 			}
- 
--			ret = gpio_request_one(gpios[i].gpio, GPIOF_IN,
-+			ret = gpio_request_one(gpios[i].gpio, flags,
- 					       gpios[i].name);
- 			if (ret)
- 				goto undo;
--- 
-2.24.1
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6158a143a13e..05379f8bc8e1 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4021,8 +4021,8 @@ F:
+Documentation/devicetree/bindings/sound/google,cros-ec-codec.txt
+   F:      sound/soc/codecs/cros_ec_codec.*
 
+   CIRRUS LOGIC AUDIO CODEC DRIVERS
+-M:     Brian Austin <brian.austin@cirrus.com>
+-M:     Paul Handrigan <Paul.Handrigan@cirrus.com>
++M:     James Schulman <james.schulman@cirrus.com>
++M:     David Rhodes <david.rhodes@cirrus.com>
+   L:      alsa-devel@alsa-project.org (moderated for non-subscribers)
+   S:      Maintained
+   F:      sound/soc/codecs/cs*
+--
+2.17.1=

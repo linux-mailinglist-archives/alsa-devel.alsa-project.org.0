@@ -2,76 +2,80 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id B583D17BCA1
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 13:19:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4982017BE37
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 14:24:42 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 4EF55828;
-	Fri,  6 Mar 2020 13:19:07 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 4EF55828
+	by alsa0.perex.cz (Postfix) with ESMTPS id CB8709F6;
+	Fri,  6 Mar 2020 14:23:51 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz CB8709F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583497197;
-	bh=Wbxl2lgYfuXExjQFrge1vKIv4WDmZ1/wpMX4ZgH57ZM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=mvHWlZtPzuVMY3xyuo7BDefJ/rOVSxwz1NK/XJtNBdVawB+OOlkbb61Y3Qqy9n43w
-	 vfi2i202hNAoCkucffW6FOfs6X4tMR0NnDAAHZ3BC+O5yw/IlGNBmBU2MOcQEInuom
-	 J/JWvMPUzE4EuDVqmctJRLPJ7aGOWt1GUzhR2vOE=
+	s=default; t=1583501081;
+	bh=p653x8nz7lRnYrh5jtzi+j84PN03m5eYA3XbDIzR4PQ=;
+	h=From:Date:Subject:To:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=ZD163CXo1G4UCtLCStwio+8edoIUalsPNtutt+ucHkbQiEzuOi58zijGTD8/UeuG/
+	 ae/PWmg6x2g1Jkk4ph9u01uhJ6kxPqy5+9qJTrrmdMXcIkXcNbEk1KEfK0LP58uu/F
+	 TZAHPaGqK/oFtr2Fn4nBDSPvhiu1h2Y48p9+nfMc=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id B2847F80125;
-	Fri,  6 Mar 2020 13:18:13 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id DCF50F801F5;
+	Fri,  6 Mar 2020 14:23:00 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 13A0BF801ED; Fri,  6 Mar 2020 13:18:11 +0100 (CET)
+ id BAC9AF801ED; Fri,  6 Mar 2020 10:17:37 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.9 required=5.0 tests=FREEMAIL_FORGED_FROMDOMAIN,
- FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,PRX_BODY_135,RCVD_IN_MSPIKE_H2,
- SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-oi1-f193.google.com (mail-oi1-f193.google.com
- [209.85.167.193])
+X-Spam-Status: No, score=-0.1 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+ DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,SPF_HELO_NONE,SPF_PASS
+ autolearn=disabled version=3.4.0
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com
+ [209.85.217.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 14E8CF80126
- for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 13:18:05 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 14E8CF80126
-Received: by mail-oi1-f193.google.com with SMTP id r16so2311091oie.6
- for <alsa-devel@alsa-project.org>; Fri, 06 Mar 2020 04:18:05 -0800 (PST)
+ by alsa1.perex.cz (Postfix) with ESMTPS id 8BB48F8012D
+ for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 10:17:33 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 8BB48F8012D
+Authentication-Results: alsa1.perex.cz;
+ dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com
+ header.b="TEv6du7L"
+Received: by mail-vs1-f47.google.com with SMTP id n27so1096145vsa.0
+ for <alsa-devel@alsa-project.org>; Fri, 06 Mar 2020 01:17:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=LGhMDjOWvVqy3en4f5zpd2CFuF2dQvzJXZuo68PVo68=;
+ b=TEv6du7LmSro4O0K/QRqungM4CH+7uEplYSZ/1pGX4DtTkE2WGeUHS0iHkQo28ygjk
+ vAOOYwDKP9QmMtLYPi+yjRArE3BHSA1mGuZh0vwZIa7+yh5MHrlDA0i5/zfp5St6EG9X
+ pI+jxbA3ZPS5Q8hBwMq7Ihv4S6AyUcnX1Ng6Y/ThgJgC+nYhPQC3uzf6QIV1Vlkl0vsL
+ cMOSMLn2s47mDJPl9+q6crjpphhfNYtP0BT3Pa3RDSMPWEKhlVNAUfOEmsne2E2rI2CY
+ vSy1idoNUy47uRf/8TByyI9s27bcMYXldkAlSqJLFM0ooBLMsudBmIYGyn4bMFy8szTC
+ DxfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zCzopvBe5pClIDQDJUrJo6Mdp8tlxa91qM1CJIBUoZU=;
- b=EP8bpsU0acsxF1lx0meKIFCQcki9fZRJ+peE32BkdEwYy8bzTElHQnVq8dgvwDeC76
- d5Ee6qEUq+jSap0nOMaT25hYB60NMc5n6D6V4vF/BEUoYMfFrmzTNnXtuygyUST/yBGY
- 7VfdZCCtH6v82EwUnLr/sUQhQT2naqUPsI6QuPmMYU/2M+yLk146RmE0Ik8EyBNnnxES
- ZiDHjEgbn2paI9NqMjwLPkuvPKzFzg+sb7uP3SJtfUG8BobE1U71/2p4uhUp1nJRXJi2
- NYPaVbhbJ7/qkJIX3Sav+V/AbP01DPpe9uPxcFIdsTxTJ8wfVqrvkW5laSX58pKMdUwh
- Ikfw==
-X-Gm-Message-State: ANhLgQ21pfajwuKPkecTgsog4zkqcMcj1/d21uWFg5UHJ9pnY+VvQl9f
- Hqo/3MeGSJ+rbuGdC8QTpK/g7F6eJvAVeGR30Io=
-X-Google-Smtp-Source: ADFU+vv2jlvbLhAc6REVXuwMcnoIkqf+yF7o6TIX59QZjp7iyI4Ry7WdpVGYuGOEEDGnsDWTufmFHi8kMV3eEpcMQTg=
-X-Received: by 2002:aca:1a06:: with SMTP id a6mr2240414oia.148.1583497083839; 
- Fri, 06 Mar 2020 04:18:03 -0800 (PST)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=LGhMDjOWvVqy3en4f5zpd2CFuF2dQvzJXZuo68PVo68=;
+ b=AdsS0u37B+YUWnED5gNboDbQSaZEAkxwJoXuVLe2xPZR9NSzpCsj6rGLY04h6+kkbr
+ h9LCZvkO9LgziLRfzbXi7RFfCTwQCXQGe6DIk/h1uFr3PW7Y2T4ZejFpZvIWsOGLSd20
+ bPcS/q0v6/tW7g0zNzteEN97jHyy33yDBSETAfLuaV471XiZAeRYbx+XiEdJkRP2cdmV
+ PPZ2N3elQVj4MDlrG63mR+CvULjpyXQGZzagzVzsmIvw9/y8ZJbwTxwdF/IAk7peJpw1
+ WZ0IN8UEpkiHdH68LS8HtE2xMNldS0zbZc6dviwUjU4JT50KMToBPaVufb2KPotaoBEw
+ UBmQ==
+X-Gm-Message-State: ANhLgQ3Lpc8+vgfK7gYJA720SV6VgUMTlmx1D6eOCJej0d9/aP6kYtOi
+ rmZ31IV1ThuV5i12qUG4bI/Aa+cUp7qY5kvp9Eis+hSfezE=
+X-Google-Smtp-Source: ADFU+vvnVcjmxjIYlFhfIVJg96atSns8SgJ8VlHSmnFrdr7lqjbUMQbq/3BtVBGcP1ahr9gsaNfpsn04rYJU1AKpORk=
+X-Received: by 2002:a05:6102:248:: with SMTP id
+ a8mr1622136vsq.140.1583486191452; 
+ Fri, 06 Mar 2020 01:16:31 -0800 (PST)
 MIME-Version: 1.0
-References: <20200305175528.5b3ccc09@canb.auug.org.au>
- <fabd49c7-d72e-a5a2-7f2c-47a8bd6c36a1@infradead.org>
-In-Reply-To: <fabd49c7-d72e-a5a2-7f2c-47a8bd6c36a1@infradead.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 6 Mar 2020 13:17:52 +0100
-Message-ID: <CAMuHMdUs00Qtm0CMBTougPyTZxS_cN+x8QWezs_OtPFWB0B2Pw@mail.gmail.com>
-Subject: Re: linux-next: Tree for Mar 5 (sound/soc/codecs/wcd934x.o)
-To: Randy Dunlap <rdunlap@infradead.org>
+From: =?UTF-8?Q?Dr=2E_Jochen_Bl=C3=B6dorn?= <jochen.bloedorn@gmail.com>
+Date: Fri, 6 Mar 2020 10:16:20 +0100
+Message-ID: <CAP4Funb-TKgEs4gxRYc5z64+Oxa4E5wmQm0nQQHmTgdSai83ZA@mail.gmail.com>
+Subject: strange loopback behaviour seen in alsamixer
+To: alsa-devel@alsa-project.org
+X-Mailman-Approved-At: Fri, 06 Mar 2020 14:22:59 +0100
 Content-Type: text/plain; charset="UTF-8"
-Cc: Stephen Rothwell <sfr@canb.auug.org.au>,
- moderated for non-subscribers <alsa-devel@alsa-project.org>,
- Mark Brown <broonie@kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
+X-Content-Filtered-By: Mailman/MimeDel 2.1.15
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,40 +91,22 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-Hi Randy,
+hi,
+while debugging my sound setup in Xubuntu 18.4, I came up on some strange
+behaviour.
+Reason for debugging was, I couldn't play rear line input to line output.
+To check, if I missed some basic settings I started alsamixer.
 
-On Thu, Mar 5, 2020 at 5:49 PM Randy Dunlap <rdunlap@infradead.org> wrote:
-> On 3/4/20 10:55 PM, Stephen Rothwell wrote:
-> > Changes since 20200304:
-> >
->
-> on x86_64:
->
-> CONFIG_MFD_WCD934X=m
-> CONFIG_SND_SOC_WCD934X=y
->
-> ld: sound/soc/codecs/wcd934x.o: in function `wcd934x_trigger':
-> wcd934x.c:(.text+0x754): undefined reference to `slim_stream_prepare'
-> ld: wcd934x.c:(.text+0x768): undefined reference to `slim_stream_enable'
-> ld: wcd934x.c:(.text+0x797): undefined reference to `slim_stream_unprepare'
-> ld: wcd934x.c:(.text+0x7ab): undefined reference to `slim_stream_disable'
-> ld: sound/soc/codecs/wcd934x.o: in function `wcd934x_codec_probe':
-> wcd934x.c:(.text+0x4c6c): undefined reference to `of_slim_get_device'
-> ld: wcd934x.c:(.text+0x4cd4): undefined reference to `slim_get_logical_addr'
-> ld: wcd934x.c:(.text+0x4cfe): undefined reference to `__regmap_init_slimbus'
-> ld: sound/soc/codecs/wcd934x.o: in function `wcd934x_hw_params':
-> wcd934x.c:(.text+0x6027): undefined reference to `slim_stream_allocate'
+As I always do, I toggled each setting, to make sure, that the displayed
+status reflects it's actual state. This routine is one relict from my old
+windows times :-)
 
-This is fixed by:
-https://lore.kernel.org/linux-doc/20200302062340.21453-1-masahiroy@kernel.org/
+When I applied this method to "loopback", which initially was displayed as
+"enabled" ( switch from enabled to disabled and back to enabled), I
+instantly got sound output. This can, and must be, reproduced after every
+restart of the desktop.
 
-Gr{oetje,eeting}s,
+Sorry, if I posted this mail wrong way, wrong place, but I thought, the
+observation might be of interest.
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Jochen

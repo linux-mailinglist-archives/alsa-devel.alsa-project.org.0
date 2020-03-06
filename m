@@ -2,95 +2,70 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71BE117B906
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 10:12:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A9C817B90B
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 10:12:50 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id D60E61616;
-	Fri,  6 Mar 2020 10:11:15 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz D60E61616
+	by alsa0.perex.cz (Postfix) with ESMTPS id 1E97D1607;
+	Fri,  6 Mar 2020 10:12:00 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 1E97D1607
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583485925;
-	bh=irGftE8DSuHSh2boR+DRLBvCgNqD6xwIjX7rgN9XpxY=;
-	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	s=default; t=1583485970;
+	bh=dMCwBeYMw7hKG6aSHpE4C6pDzyLzYzgEKh+2zYayLXU=;
+	h=Date:Subject:From:To:List-Id:List-Unsubscribe:List-Archive:
 	 List-Post:List-Help:List-Subscribe:From;
-	b=L6IbXR6dEyYNWoXmNOYBheDNvBFwlCFCNVVLuiyl2IleNw9E2zphssc17qtvzFzhe
-	 A+2L7p+9yxZqJ9vLlcUEq0tOLcomBkVOUxmh5sNz5WHz/PXxV9q8Dj8BMaVCCKwox8
-	 ZaNubvN9r2z2bt9+P4hQ4UGbN5a5LhM3RK4pHOHQ=
+	b=R+HEPqdeYnOsvNadDKL80eZAhIMFA54/t8kyGa9SisnfTdqvCOR4vcgdsokr7VTnU
+	 5D15jX0AXZrhRgKEqNoPcnev3zMl7lKUHW9wSrmjdE8PGuFVT66aby10XZAbT+mtCQ
+	 vWLDzFKB2LxPtnwBiikWv7l9wFrIV/eJZoY8PwL0=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id C6D01F8012D;
-	Fri,  6 Mar 2020 10:10:24 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id C72DBF80229;
+	Fri,  6 Mar 2020 10:10:43 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 01BDDF8025F; Thu,  5 Mar 2020 18:23:22 +0100 (CET)
+ id 66BF7F801ED; Fri,  6 Mar 2020 09:55:20 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- RCVD_IN_DNSWL_BLOCKED, SPF_HELO_NONE, SPF_NONE,
- URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from mail-lf1-x141.google.com (mail-lf1-x141.google.com
- [IPv6:2a00:1450:4864:20::141])
+X-Spam-Status: No, score=-0.9 required=5.0 tests=FROM_LOCAL_HEX,
+ HEADER_FROM_DIFFERENT_DOMAINS,RCVD_IN_MSPIKE_H2,SPF_HELO_NONE,SPF_PASS,
+ SURBL_BLOCKED autolearn=disabled version=3.4.0
+Received: from mail-il1-f199.google.com (mail-il1-f199.google.com
+ [209.85.166.199])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id 49C06F800D8
- for <alsa-devel@alsa-project.org>; Thu,  5 Mar 2020 18:23:17 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 49C06F800D8
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (2048-bit key) header.d=semihalf-com.20150623.gappssmtp.com
- header.i=@semihalf-com.20150623.gappssmtp.com header.b="A93gzN+Z"
-Received: by mail-lf1-x141.google.com with SMTP id z9so5321132lfa.2
- for <alsa-devel@alsa-project.org>; Thu, 05 Mar 2020 09:23:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=semihalf-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id;
- bh=fPcaCIVhLaLkGll6nxgOHW5KQZcIBDxuWhoHfzoQVN0=;
- b=A93gzN+Zn4n6r51CIk1zU+p7sSs6MHMyNSevDZnnZZEu1MeBqkV5MxsmltQ8zkYhoV
- poNcTljr1IQ1u3tXPUeE5CYCAa/ERTJuTgCXXV6CQjn1ZF/y8TTTqOl25hxkR8/opX9h
- T2NKn1GvTVrWyHuRCWCfhRGwDenKqHGKYyDfae3kMCOAmosGzdzAbaHwpTA+O2E6srg4
- b44Nw3mfA0NRhqNr+8Mv9iU89qEV58OZrBG2wP7SohzKVz5lm1akkF15NTvQKvoohsYL
- mVlocBmDFWM2ruQj64AnISnwbVehPDNvXEAsN7uLZtLyFlWh48EqIwsBwz3NO2mp+JCG
- djZA==
+ by alsa1.perex.cz (Postfix) with ESMTPS id A0B8DF8012D
+ for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 09:55:13 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz A0B8DF8012D
+Received: by mail-il1-f199.google.com with SMTP id v14so1084863ilq.3
+ for <alsa-devel@alsa-project.org>; Fri, 06 Mar 2020 00:55:13 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=fPcaCIVhLaLkGll6nxgOHW5KQZcIBDxuWhoHfzoQVN0=;
- b=N6BTmEK/fZ4VkQttoRTRjgMCp3jw5egvCqWr34jw/hBXiWQzlra4PmeLjWP2OP0Bu7
- DA+o79gXbQaQJApuyBV+LropU8BYKe9s9Xdjwznhpkb4xdfhMCZqss6NNPcdIX5wOqOl
- EowXo6cyPTVs6Q/5bRrZYTHRMCoBgHB5FELBB7aBoyUX4ObnyT6XkGyiOHsaYpl5e8ob
- XrLiscvuhFLaycaUYtuboub+ss8hW31J3WRUjqz7vd/FkUbSw+kJWqjCWDa47/+K3ZDv
- OUThAz0SHeukbL7QOoLfJLmekuoPSTH/zEgl/bEvUMmYz3yNoJZPWNy7mtK/t0Ccrud1
- WZkw==
-X-Gm-Message-State: ANhLgQ0oBvHkxo7l2wAEh4/S72WPiJY5HdPfSl7GQ04zLw/hK/HwWCFl
- Wd9IOYCMMwlf9mAfS1Bl1/RnAQ==
-X-Google-Smtp-Source: ADFU+vsqiH7bKpeE49BGJmj5PDxA/JYqwdl/zBQkFoVsaIP8ZhQ8uEjo2q86RcuN2IJjBI9sjuNwXg==
-X-Received: by 2002:ac2:58ee:: with SMTP id v14mr6276462lfo.62.1583428996947; 
- Thu, 05 Mar 2020 09:23:16 -0800 (PST)
-Received: from rad-H81M-S1.semihalf.local
- (31-172-191-173.noc.fibertech.net.pl. [31.172.191.173])
- by smtp.gmail.com with ESMTPSA id x23sm2377621ljj.8.2020.03.05.09.23.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Mar 2020 09:23:16 -0800 (PST)
-From: Radoslaw Biernacki <rad@semihalf.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Liam Girdwood <liam.r.girdwood@linux.intel.com>,
- Jie Yang <yang.jie@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Subject: [PATCH] ASoC: Intel: boards: Use FS as nau8825 sysclk in
- nau88125_ssm4567 machine
-Date: Thu,  5 Mar 2020 18:22:19 +0100
-Message-Id: <eec72ad35e45a9898027f2d4da82c5c1998febad.1583356568.git.rad@semihalf.com>
-X-Mailer: git-send-email 2.17.1
+ h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+ bh=OHAdMXHEbgyJcd7squtr2O7LMyxk1mH33v8nI4baTFo=;
+ b=LoXtqfMW97EsdRxwBWHY7QsO2jdv+cGCdyBe7lOEAu05zPqNmVLyFu9a0sD9M3DFAT
+ wXVPVqxCOA6SRI6AJAXHklsNFkopgiqWIuFDtzrRNieom2GP71HOi90IIvMoNBH6WCBI
+ Ta65C9LNnKKJfkG1QkBvDhDRB63zDoUOm5UuRje8ECYGxhdPGwVB1F0jLZTNblOnlhA0
+ 1xfRHfmWIw4KFBth8zRXmlWlTZnsNv9baLVInevJpXxq2KH7oFSqOqpMHI6U6+i1pRTZ
+ UsgxdV9sMYmQ1w0hcQ2usvAU7Lj1+Vs+Xg2CpeLuXDtai1ldIl9JHxztwVRCOYmUbzsw
+ Yriw==
+X-Gm-Message-State: ANhLgQ1cesDTnH64ys7MBwShoHYhy7AdB60rqzHmW4VC10rU6BX7stiM
+ GuXVptLH0t+eCezXuNYqtIZN/3WlS5avb6gJrAGT9Bh9ycgp
+X-Google-Smtp-Source: ADFU+vvn5UC2VwfwJe6V1Pu4RpWg0ALGHO73otg+1dPmE4w3rz62g98B4X3bVon9zKjV0Y1R8QWu273z9L+V6y3C02vzW3gSmUIJ
+MIME-Version: 1.0
+X-Received: by 2002:a02:5483:: with SMTP id t125mr1916323jaa.114.1583484912163; 
+ Fri, 06 Mar 2020 00:55:12 -0800 (PST)
+Date: Fri, 06 Mar 2020 00:55:12 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <000000000000b25ea005a02bcf21@google.com>
+Subject: KASAN: slab-out-of-bounds Read in resample_shrink
+From: syzbot <syzbot+e1fe9f44fb8ecf4fb5dd@syzkaller.appspotmail.com>
+To: alsa-devel@alsa-project.org, gustavo@embeddedor.com, 
+ linux-kernel@vger.kernel.org, perex@perex.cz, syzkaller-bugs@googlegroups.com, 
+ tiwai@suse.com
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 06 Mar 2020 10:10:22 +0100
-Cc: Lech Betlej <Lech.Betlej@intel.com>, alsa-devel@alsa-project.org,
- Todd Broch <tbroch@google.com>, Harshapriya <harshapriya.n@intel.com>,
- Radoslaw Biernacki <rad@semihalf.com>, John Hsu <KCHSU0@nuvoton.com>,
- linux-kernel@vger.kernel.org, michal.sienkiewicz@intel.com,
- Ben Zhang <benzh@chromium.org>, Mac Chiang <mac.chiang@intel.com>,
- Yong Zhi <yong.zhi@intel.com>, Marcin Wojtas <mw@semihalf.com>,
- Vamshi Krishna <vamshi.krishna.gopal@intel.com>,
- Alex Levin <levinale@google.com>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,172 +81,133 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Ben Zhang <benzh@chromium.org>
+Hello,
 
-This single fix address two issues on machine with nau88125 + ssm4567:
-1) Audio distortion, due to lack of required clock rate on MCLK line
-2) Loud audible "pops" on headphones if there is no sysclk during nau8825
-   playback power up sequence
+syzbot found the following crash on:
 
-Explanation for:
-1) Due to Skylake HW limitation, MCLK pin can only output 24MHz clk
-   rate (it can be only connected to XTAL parent clk). The BCLK pin 
-   can be driven by dividers and therefore FW is able to set it to rate
-   required by chosen audio format. According to nau8825 datasheet, 256*FS
-   sysclk gives the best audio quality and the only way to achieve this
-   (taking into account the above limitations) its to regenerate the MCLK
-   from BCLK on nau8825 side by FFL. Without required clk rate, audio is
-   distorted by added harmonics.
+HEAD commit:    63623fd4 Merge tag 'for-linus' of git://git.kernel.org/pub..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=110662f9e00000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=5d2e033af114153f
+dashboard link: https://syzkaller.appspot.com/bug?extid=e1fe9f44fb8ecf4fb5dd
+compiler:       clang version 10.0.0 (https://github.com/llvm/llvm-project/ c2443155a0fb245c8f17f2c1c72b6ea391e86e81)
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=160e2e91e00000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=125f09fde00000
 
-2) Currently Skylake does not output MCLK/FS when the back-end DAI op
-   hw_param is called, so we cannot switch to MCLK/FS in hw_param.  This
-   patch reduces pop by letting nau8825 keep using its internal VCO clock
-   during widget power up sequence, until SNDRV_PCM_TRIGGER_START when
-   MCLK/FS is available. Once device resumes, the system will only enable
-   power sequence for playback without doing hardware parameter, audio
-   format, and PLL configure. In the mean time, the jack detecion sequence
-   has changed PLL parameters and switched to internal clock. Thus, the
-   playback signal distorted without correct PLL parameters.  That is why
-   we need to configure the PLL again in SNDRV_PCM_TRIGGER_RESUME case.
+IMPORTANT: if you fix the bug, please add the following tag to the commit:
+Reported-by: syzbot+e1fe9f44fb8ecf4fb5dd@syzkaller.appspotmail.com
 
-Signed-off-by: John Hsu <KCHSU0@nuvoton.com>
-Signed-off-by: Yong Zhi <yong.zhi@intel.com>
-Signed-off-by: Mac Chiang <mac.chiang@intel.com>
-Signed-off-by: Ben Zhang <benzh@chromium.org>
-Signed-off-by: Radoslaw Biernacki <rad@semihalf.com>
+==================================================================
+BUG: KASAN: slab-out-of-bounds in resample_shrink+0x4cd/0x820 sound/core/oss/rate.c:160
+Read of size 2 at addr ffff8880940b8a00 by task syz-executor858/9001
+
+CPU: 0 PID: 9001 Comm: syz-executor858 Not tainted 5.6.0-rc3-syzkaller #0
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 01/01/2011
+Call Trace:
+ __dump_stack lib/dump_stack.c:77 [inline]
+ dump_stack+0x1fb/0x318 lib/dump_stack.c:118
+ print_address_description+0x74/0x5c0 mm/kasan/report.c:374
+ __kasan_report+0x149/0x1c0 mm/kasan/report.c:506
+ kasan_report+0x26/0x50 mm/kasan/common.c:641
+ __asan_report_load2_noabort+0x14/0x20 mm/kasan/generic_report.c:133
+ resample_shrink+0x4cd/0x820 sound/core/oss/rate.c:160
+ rate_transfer+0x51c/0x620 sound/core/oss/rate.c:279
+ snd_pcm_plug_read_transfer+0x1cc/0x270 sound/core/oss/pcm_plugin.c:651
+ snd_pcm_oss_read2 sound/core/oss/pcm_oss.c:1460 [inline]
+ snd_pcm_oss_read1 sound/core/oss/pcm_oss.c:1517 [inline]
+ snd_pcm_oss_read+0x7a6/0xd70 sound/core/oss/pcm_oss.c:2741
+ do_loop_readv_writev fs/read_write.c:714 [inline]
+ do_iter_read+0x4a2/0x5b0 fs/read_write.c:935
+ vfs_readv fs/read_write.c:1053 [inline]
+ do_readv+0x18c/0x330 fs/read_write.c:1090
+ __do_sys_readv fs/read_write.c:1181 [inline]
+ __se_sys_readv fs/read_write.c:1178 [inline]
+ __x64_sys_readv+0x7d/0x90 fs/read_write.c:1178
+ do_syscall_64+0xf7/0x1c0 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+RIP: 0033:0x4467e9
+Code: e8 0c e8 ff ff 48 83 c4 18 c3 0f 1f 80 00 00 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 0f 83 5b 07 fc ff c3 66 2e 0f 1f 84 00 00 00 00
+RSP: 002b:00007fe8f541ddb8 EFLAGS: 00000246 ORIG_RAX: 0000000000000013
+RAX: ffffffffffffffda RBX: 00000000006dbc28 RCX: 00000000004467e9
+RDX: 0000000000000001 RSI: 0000000020395000 RDI: 0000000000000003
+RBP: 00000000006dbc20 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00000000006dbc2c
+R13: 00007ffdbf15dd2f R14: 00007fe8f541e9c0 R15: 000000000000002d
+
+Allocated by task 9001:
+ save_stack mm/kasan/common.c:72 [inline]
+ set_track mm/kasan/common.c:80 [inline]
+ __kasan_kmalloc+0x118/0x1c0 mm/kasan/common.c:515
+ kasan_kmalloc+0x9/0x10 mm/kasan/common.c:529
+ __do_kmalloc_node mm/slab.c:3616 [inline]
+ __kmalloc_node+0x4d/0x60 mm/slab.c:3623
+ kmalloc_node include/linux/slab.h:578 [inline]
+ kvmalloc_node+0x85/0x110 mm/util.c:574
+ kvmalloc include/linux/mm.h:645 [inline]
+ kvzalloc include/linux/mm.h:653 [inline]
+ snd_pcm_plugin_alloc+0x167/0x760 sound/core/oss/pcm_plugin.c:70
+ snd_pcm_plug_alloc+0x193/0x2e0 sound/core/oss/pcm_plugin.c:129
+ snd_pcm_oss_change_params_locked+0x2b34/0x4350 sound/core/oss/pcm_oss.c:1024
+ snd_pcm_oss_change_params sound/core/oss/pcm_oss.c:1087 [inline]
+ snd_pcm_oss_get_active_substream+0x22c/0x2a0 sound/core/oss/pcm_oss.c:1104
+ snd_pcm_oss_get_rate sound/core/oss/pcm_oss.c:1754 [inline]
+ snd_pcm_oss_set_rate sound/core/oss/pcm_oss.c:1746 [inline]
+ snd_pcm_oss_ioctl+0x1d66/0x4600 sound/core/oss/pcm_oss.c:2593
+ vfs_ioctl fs/ioctl.c:47 [inline]
+ ksys_ioctl fs/ioctl.c:763 [inline]
+ __do_sys_ioctl fs/ioctl.c:772 [inline]
+ __se_sys_ioctl+0x113/0x190 fs/ioctl.c:770
+ __x64_sys_ioctl+0x7b/0x90 fs/ioctl.c:770
+ do_syscall_64+0xf7/0x1c0 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+Freed by task 8498:
+ save_stack mm/kasan/common.c:72 [inline]
+ set_track mm/kasan/common.c:80 [inline]
+ kasan_set_free_info mm/kasan/common.c:337 [inline]
+ __kasan_slab_free+0x12e/0x1e0 mm/kasan/common.c:476
+ kasan_slab_free+0xe/0x10 mm/kasan/common.c:485
+ __cache_free mm/slab.c:3426 [inline]
+ kfree+0x10d/0x220 mm/slab.c:3757
+ load_elf_binary+0x2c73/0x3440 fs/binfmt_elf.c:1086
+ search_binary_handler+0x190/0x5e0 fs/exec.c:1662
+ exec_binprm fs/exec.c:1705 [inline]
+ __do_execve_file+0x153b/0x1ca0 fs/exec.c:1825
+ do_execveat_common fs/exec.c:1871 [inline]
+ do_execve fs/exec.c:1888 [inline]
+ __do_sys_execve fs/exec.c:1964 [inline]
+ __se_sys_execve fs/exec.c:1959 [inline]
+ __x64_sys_execve+0x94/0xb0 fs/exec.c:1959
+ do_syscall_64+0xf7/0x1c0 arch/x86/entry/common.c:294
+ entry_SYSCALL_64_after_hwframe+0x49/0xbe
+
+The buggy address belongs to the object at ffff8880940b8800
+ which belongs to the cache kmalloc-512 of size 512
+The buggy address is located 0 bytes to the right of
+ 512-byte region [ffff8880940b8800, ffff8880940b8a00)
+The buggy address belongs to the page:
+page:ffffea0002502e00 refcount:1 mapcount:0 mapping:ffff8880aa400a80 index:0x0
+flags: 0xfffe0000000200(slab)
+raw: 00fffe0000000200 ffffea0002787a08 ffffea00024147c8 ffff8880aa400a80
+raw: 0000000000000000 ffff8880940b8000 0000000100000004 0000000000000000
+page dumped because: kasan: bad access detected
+
+Memory state around the buggy address:
+ ffff8880940b8900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffff8880940b8980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffff8880940b8a00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+                   ^
+ ffff8880940b8a80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff8880940b8b00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+
+
 ---
- sound/soc/intel/boards/skl_nau88l25_ssm4567.c | 71 ++++++++++++++-----
- 1 file changed, 52 insertions(+), 19 deletions(-)
+This bug is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
-index c99c8b23e509..c5354da49670 100644
---- a/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
-+++ b/sound/soc/intel/boards/skl_nau88l25_ssm4567.c
-@@ -12,6 +12,7 @@
- 
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/delay.h>
- #include <sound/core.h>
- #include <sound/pcm.h>
- #include <sound/soc.h>
-@@ -57,7 +58,7 @@ static const struct snd_kcontrol_new skylake_controls[] = {
- };
- 
- static int platform_clock_control(struct snd_soc_dapm_widget *w,
--		struct snd_kcontrol *k, int  event)
-+		struct snd_kcontrol *k, int event)
- {
- 	struct snd_soc_dapm_context *dapm = w->dapm;
- 	struct snd_soc_card *card = dapm->card;
-@@ -70,14 +71,7 @@ static int platform_clock_control(struct snd_soc_dapm_widget *w,
- 		return -EIO;
- 	}
- 
--	if (SND_SOC_DAPM_EVENT_ON(event)) {
--		ret = snd_soc_dai_set_sysclk(codec_dai,
--				NAU8825_CLK_MCLK, 24000000, SND_SOC_CLOCK_IN);
--		if (ret < 0) {
--			dev_err(card->dev, "set sysclk err = %d\n", ret);
--			return -EIO;
--		}
--	} else {
-+	if (!SND_SOC_DAPM_EVENT_ON(event)) {
- 		ret = snd_soc_dai_set_sysclk(codec_dai,
- 				NAU8825_CLK_INTERNAL, 0, SND_SOC_CLOCK_IN);
- 		if (ret < 0) {
-@@ -85,6 +79,7 @@ static int platform_clock_control(struct snd_soc_dapm_widget *w,
- 			return -EIO;
- 		}
- 	}
-+
- 	return ret;
- }
- 
-@@ -344,24 +339,40 @@ static int skylake_dmic_fixup(struct snd_soc_pcm_runtime *rtd,
- 	return 0;
- }
- 
--static int skylake_nau8825_hw_params(struct snd_pcm_substream *substream,
--	struct snd_pcm_hw_params *params)
-+static int skylake_nau8825_trigger(struct snd_pcm_substream *substream, int cmd)
- {
- 	struct snd_soc_pcm_runtime *rtd = substream->private_data;
-+	struct snd_pcm_runtime *runtime = substream->runtime;
- 	struct snd_soc_dai *codec_dai = rtd->codec_dai;
--	int ret;
--
--	ret = snd_soc_dai_set_sysclk(codec_dai,
--			NAU8825_CLK_MCLK, 24000000, SND_SOC_CLOCK_IN);
-+	int ret = 0;
- 
--	if (ret < 0)
--		dev_err(rtd->dev, "snd_soc_dai_set_sysclk err = %d\n", ret);
-+	switch (cmd) {
-+	case SNDRV_PCM_TRIGGER_START:
-+		ret = snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0,
-+					     SND_SOC_CLOCK_IN);
-+		if (ret < 0) {
-+			dev_err(codec_dai->dev, "can't set FS clock %d\n", ret);
-+			break;
-+		}
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate,
-+					  runtime->rate * 256);
-+		if (ret < 0)
-+			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
-+		break;
-+	case SNDRV_PCM_TRIGGER_RESUME:
-+		ret = snd_soc_dai_set_pll(codec_dai, 0, 0, runtime->rate,
-+					  runtime->rate * 256);
-+		if (ret < 0)
-+			dev_err(codec_dai->dev, "can't set FLL: %d\n", ret);
-+		msleep(20);
-+		break;
-+	}
- 
- 	return ret;
- }
- 
--static const struct snd_soc_ops skylake_nau8825_ops = {
--	.hw_params = skylake_nau8825_hw_params,
-+static struct snd_soc_ops skylake_nau8825_ops = {
-+	.trigger = skylake_nau8825_trigger,
- };
- 
- static const unsigned int channels_dmic[] = {
-@@ -671,10 +682,32 @@ static int skylake_card_late_probe(struct snd_soc_card *card)
- 	return hdac_hdmi_jack_port_init(component, &card->dapm);
- }
- 
-+static int __maybe_unused skylake_nau8825_resume_post(struct snd_soc_card *card)
-+{
-+	struct snd_soc_dai *codec_dai;
-+
-+	codec_dai = snd_soc_card_get_codec_dai(card, SKL_NUVOTON_CODEC_DAI);
-+	if (!codec_dai) {
-+		dev_err(card->dev, "Codec dai not found\n");
-+		return -EIO;
-+	}
-+
-+	dev_dbg(codec_dai->dev, "playback_active:%d playback_widget->active:%d codec_dai->rate:%d\n",
-+		codec_dai->playback_active, codec_dai->playback_widget->active,
-+		codec_dai->rate);
-+
-+	if (codec_dai->playback_active && codec_dai->playback_widget->active)
-+		snd_soc_dai_set_sysclk(codec_dai, NAU8825_CLK_FLL_FS, 0,
-+				       SND_SOC_CLOCK_IN);
-+
-+	return 0;
-+}
-+
- /* skylake audio machine driver for SPT + NAU88L25 */
- static struct snd_soc_card skylake_audio_card = {
- 	.name = "sklnau8825adi",
- 	.owner = THIS_MODULE,
-+	.resume_post = skylake_nau8825_resume_post,
- 	.dai_link = skylake_dais,
- 	.num_links = ARRAY_SIZE(skylake_dais),
- 	.controls = skylake_controls,
--- 
-2.17.1
-
+syzbot will keep track of this bug report. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+syzbot can test patches for this bug, for details see:
+https://goo.gl/tpsmEJ#testing-patches

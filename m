@@ -2,125 +2,56 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1529D17BB6F
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 12:17:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD7E817BBB7
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 12:32:00 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id AEFAA1667;
-	Fri,  6 Mar 2020 12:16:20 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz AEFAA1667
+	by alsa0.perex.cz (Postfix) with ESMTPS id C57489F6;
+	Fri,  6 Mar 2020 12:31:09 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz C57489F6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583493430;
-	bh=6M68l+zuv7s+VYkqMFURoJj4v2tthXxK7K6EhOTcoug=;
-	h=From:To:Subject:Date:In-Reply-To:References:Cc:List-Id:
-	 List-Unsubscribe:List-Archive:List-Post:List-Help:List-Subscribe:
-	 From;
-	b=gcA3oULMfG+q6dmgxW9lE3WtCfYogsl2dbOVTYQu5uBuUE0zLFfeO8cRvqpzZo3/C
-	 VGpbn2zh78ofZdODyn6KTu0z08pmniOxYPv7OaoK5YVJALhdMu6XXZBegXgc8VL/+Z
-	 +eG4/W9z7fjET5yaoiKKgwS8v9cZm1852ypg3CG8=
+	s=default; t=1583494320;
+	bh=yXGC46WSMQAwIwuy8UHltizE7LlhY119gFLZWbf6O4U=;
+	h=From:To:Subject:Date:Cc:List-Id:List-Unsubscribe:List-Archive:
+	 List-Post:List-Help:List-Subscribe:From;
+	b=HM246ZpHDyt2kIl5wCAdli7DgO2IHr2KTqKRsnwkvR3K8mFRMjeR0yHRrW/Z38dWp
+	 9jLh0PdC5gHFqOktHA6f+RuLqElfinB2+fy8ZyXk3Ul4/di4sXr+MOrmzod9f4uRa6
+	 I3SSYZZPhp+CKikEE14wOdWS+trYL+FpF3iwvfHg=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id DFB96F80229;
-	Fri,  6 Mar 2020 12:14:34 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 718A6F801F5;
+	Fri,  6 Mar 2020 12:30:18 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id 25484F80290; Fri,  6 Mar 2020 12:14:32 +0100 (CET)
+ id A24A9F801ED; Fri,  6 Mar 2020 12:30:14 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
-X-Spam-Status: No, score=0.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
- MSGID_FROM_MTA_HEADER, SPF_HELO_PASS, SPF_PASS,
+X-Spam-Status: No, score=0.0 required=5.0 tests=SPF_HELO_NONE,SPF_NONE,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
-Received: from EUR04-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr70082.outbound.protection.outlook.com [40.107.7.82])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by alsa1.perex.cz (Postfix) with ESMTPS id B496DF801EC;
- Fri,  6 Mar 2020 12:14:25 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz B496DF801EC
-Authentication-Results: alsa1.perex.cz;
- dkim=pass (1024-bit key) header.d=NXP1.onmicrosoft.com
- header.i=@NXP1.onmicrosoft.com header.b="DzBTX9dR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=nFQpiSGNvXcqLgv+HSRwfMpbyI5gN+gA6CJ8eE8xu4WTb9isMzu/dwzcG5UVMKpmUk0lzfHV2Xfam3tRVa/iBR0eMKXjLpQzeVrWmaAV3WIEwVEzgIqSV3MFth+ryyU0Dad2mwr7trJYHeDmewkLEwdbKhhs45fcpMxq4r/Y4rpV0ndq79R9irX0hvJOPuU8jAgnhP4lEzYxODMZPTOf7CvooUCLsZcqz7c7bNdFyEeWxKhLhtzy1c9iTnViD9VSVpT9DR0ygpbtFHTdqxgF1UFnuLDYE6iA1XF0KWK42aA0wiRTsgWrIoXlly1k22FS27N0bsOyDd11fchulLJfOg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2e2tQpOmki1aNBpvi5OVW1w5U7En4DG/7eHprbH9Skw=;
- b=ej+pebnSQiCLQttJdhYafz8QHzbHdfgNfiYKOcdzIxU8v9pA/IF/l5b5S0Mg3Q0ndiGnhe5D7zg9+bK189jbX4q728U7yiaBfTdXMm7qGH4gbGl+ruxgBLaQZH3fUJBOp7R2ti9p/EDrrRZeTENFcVeWTGbLJGJ42rLn8tqPjVKl96ljUFGO53Nn0kHrF4LJKVIXuJqqIiaHjhP13IdBYQiUhX8COJUidfS96eQpuzRNqXJmVzAXLcHqzMG1/bTYl2PKD5EthDoXPD4vP8wAvlPY7DCf/Ai0X16z7YWkzGgF/s4FxocHyBw3lX/dXQ/2tg2pTMo48+JaGeTtxPuisg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector2-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2e2tQpOmki1aNBpvi5OVW1w5U7En4DG/7eHprbH9Skw=;
- b=DzBTX9dRJ/fgxhym0GLN+L+eePUJs8eiLJC4h4C5YZkAsNUHIsfXgP7UFSI7oiLXzGdoIEEuYLOc+kRU804nAfi0a1VGEkTKfx0iVklZCsVAkWYvcmbHjmO3j4DRy5ZXHfomnf7BDk2jvGW59Oks6eq2k10pmkw+NhOcchxCD+c=
-Authentication-Results: spf=none (sender IP is )
- smtp.mailfrom=daniel.baluta@oss.nxp.com; 
-Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com (52.134.16.147) by
- VI1PR0402MB2830.eurprd04.prod.outlook.com (10.175.21.146) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2772.14; Fri, 6 Mar 2020 11:14:21 +0000
-Received: from VI1PR0402MB3839.eurprd04.prod.outlook.com
- ([fe80::35d0:31bc:91d9:ceb0]) by VI1PR0402MB3839.eurprd04.prod.outlook.com
- ([fe80::35d0:31bc:91d9:ceb0%7]) with mapi id 15.20.2793.013; Fri, 6 Mar 2020
- 11:14:21 +0000
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-To: pierre-louis.bossart@linux.intel.com, alsa-devel@alsa-project.org,
- kuninori.morimoto.gx@renesas.com, peter.ujfalusi@ti.com,
- broonie@kernel.org, linux-imx@nxp.com, robh+dt@kernel.org,
- devicetree@vger.kernel.org
-Subject: [PATCH v2 2/2] ASoC: fsl: Add generic CPU DAI driver
-Date: Fri,  6 Mar 2020 13:13:53 +0200
-Message-Id: <20200306111353.12906-3-daniel.baluta@oss.nxp.com>
+ by alsa1.perex.cz (Postfix) with ESMTPS id 3AF89F80126
+ for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 12:29:58 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 3AF89F80126
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2020 03:29:55 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,521,1574150400"; d="scan'208";a="287948765"
+Received: from mgorski-all-series.igk.intel.com ([10.237.149.201])
+ by FMSMGA003.fm.intel.com with ESMTP; 06 Mar 2020 03:29:52 -0800
+From: Mateusz Gorski <mateusz.gorski@linux.intel.com>
+To: alsa-devel@alsa-project.org
+Subject: [PATCH] topology: Add topology file for generic HDA DSP machine driver
+Date: Fri,  6 Mar 2020 12:29:22 +0100
+Message-Id: <20200306112922.655-1-mateusz.gorski@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200306111353.12906-1-daniel.baluta@oss.nxp.com>
-References: <20200306111353.12906-1-daniel.baluta@oss.nxp.com>
-Content-Type: text/plain
-X-ClientProxiedBy: AM0PR02CA0039.eurprd02.prod.outlook.com
- (2603:10a6:208:d2::16) To VI1PR0402MB3839.eurprd04.prod.outlook.com
- (2603:10a6:803:21::19)
-MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-Received: from fsr-ub1864-103.ro-buh02.nxp.com (89.37.124.34) by
- AM0PR02CA0039.eurprd02.prod.outlook.com (2603:10a6:208:d2::16) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2793.15 via Frontend Transport; Fri, 6 Mar 2020 11:14:19 +0000
-X-Mailer: git-send-email 2.17.1
-X-Originating-IP: [89.37.124.34]
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-HT: Tenant
-X-MS-Office365-Filtering-Correlation-Id: 94be3b16-6776-4641-7c30-08d7c1bf84cb
-X-MS-TrafficTypeDiagnostic: VI1PR0402MB2830:|VI1PR0402MB2830:
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-Transport-Forked: True
-X-Microsoft-Antispam-PRVS: <VI1PR0402MB28307F1FC290DC1026BE0AA8B8E30@VI1PR0402MB2830.eurprd04.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1148;
-X-Forefront-PRVS: 0334223192
-X-Forefront-Antispam-Report: SFV:NSPM;
- SFS:(10009020)(4636009)(136003)(366004)(39860400002)(376002)(346002)(396003)(199004)(189003)(26005)(44832011)(6506007)(7416002)(186003)(956004)(16526019)(8936002)(81156014)(66946007)(66476007)(6486002)(2616005)(316002)(2906002)(81166006)(8676002)(66556008)(478600001)(5660300002)(6512007)(4326008)(6666004)(1076003)(86362001)(52116002)(41533002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:VI1PR0402MB2830;
- H:VI1PR0402MB3839.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:0; MX:1; 
-Received-SPF: None (protection.outlook.com: oss.nxp.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: GhbJOFlWM0494Rmuhw3GcpAuqaGjw3V/1fVYuWe3fKAAuGAm4zCYuWoZqWDqw3JMNVQa7xf7DsrG5zCumhlX8KxO/0sfC1Qkm9nnpLtWKk6WeuXeqohjr35AnWVilk+4kzTJarQQMLfgECaqSltY+U4pntPgRbeNpVFhcm6LhjM91QXLsQygox/M/IzJV6OACEOh4HzoCikw1mau5e7j2fyl9jkLSwodBseCs0g1AjOeYLiApDRrdWwhVabUoagHAGxUx9IWugzvCD/CaKIB+y/hMqOneQ7drGf1nupoRW1hA5FEGEnaA9QeYbgcdMwHq1BWd0DGhBN1FlE7Oas8Vaw5d364Q63ZVGpGCO0V8N9oV3UeSA/Uk4GUgzMcWOVmN8vmxcOYNgBut0fXmijuFzGEsZxtKTwz2siNxaPLr7Nqd+PIRkd8nUt2vVmz84auT4CkakTNeztmd8zibwl3h/QB0pzhGtaa5spx27tNKzdTZF3FSTRElmiVEx1uSJzZ
-X-MS-Exchange-AntiSpam-MessageData: rstWD/zIyOp80rTVG7Io30uUD3zrFVW0VnM83FTpllJf8zUstAqvkDPBm77dmxbex5Wbc4UtCu7bYdoWD4BDR17ZbkSiRDB8c+Rm2grnWUXPT623D/VCpObi2djDectDLWLxUHOLceqKvssxjj9xmw==
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 94be3b16-6776-4641-7c30-08d7c1bf84cb
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Mar 2020 11:14:21.0365 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: U+XGvLy5DJhgJcp2lkMH9zizhZuIvNsOYGdZdvnEiv+lzyPtH2V5+NeSg2O95cT/JLcMTyQjP/h+b6fgPIqiHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR0402MB2830
-Cc: Xiubo.Lee@gmail.com, linux-kernel@vger.kernel.org, shengjiu.wang@nxp.com,
- tiwai@suse.com, ranjani.sridharan@linux.intel.com,
- liam.r.girdwood@linux.intel.com, Daniel Baluta <daniel.baluta@nxp.com>,
- sound-open-firmware@alsa-project.org
+Cc: cezary.rojewski@intel.com, Mateusz Gorski <mateusz.gorski@linux.intel.com>,
+ tiwai@suse.com
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,363 +67,7258 @@ List-Subscribe: <https://mailman.alsa-project.org/mailman/listinfo/alsa-devel>,
 Errors-To: alsa-devel-bounces@alsa-project.org
 Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
-From: Daniel Baluta <daniel.baluta@nxp.com>
+Provide conf file with reference topology for generic HDA DSP machine
+driver.
 
-On i.MX8 platforms that have a DSP the DAI handling is taken care
-of by two entities:
-	* Application Processor (AP), which runs Linux
-	* DSP, which runs a firmware (typically Sound Open Firmware)
-
-The DSP has access to DAI IP registers, but it cannot easily handle
-resources like:
-	* clocks
-	* power domain management
-	* pinctrl
-
-For this reason we introduce a generic FSL DAI driver which will take
-care of the resources above.
-
-Signed-off-by: Daniel Baluta <daniel.baluta@nxp.com>
+Signed-off-by: Mateusz Gorski <mateusz.gorski@linux.intel.com>
 ---
- sound/soc/fsl/Kconfig   |   8 ++
- sound/soc/fsl/Makefile  |   2 +
- sound/soc/fsl/fsl_dai.c | 288 ++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 298 insertions(+)
- create mode 100644 sound/soc/fsl/fsl_dai.c
+ topology/hdadsp/hda_dsp.conf | 7237 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 7237 insertions(+)
+ create mode 100644 topology/hdadsp/hda_dsp.conf
 
-diff --git a/sound/soc/fsl/Kconfig b/sound/soc/fsl/Kconfig
-index 65e8cd4be930..bea8ab2c24f9 100644
---- a/sound/soc/fsl/Kconfig
-+++ b/sound/soc/fsl/Kconfig
-@@ -75,6 +75,14 @@ config SND_SOC_FSL_ESAI
- 	  This option is only useful for out-of-tree drivers since
- 	  in-tree drivers select it automatically.
- 
-+config SND_SOC_FSL_DAI
-+	tristate "Generic FSL DAI support for Sound Open Firmware"
-+	help
-+	  Say Y if you want to enable generic FSL DAI support to be used
-+	  with Sound Open Firmware. This module takes care of enabling
-+	  clocks, power domain, pinctrl for FSL DAIs. The rest of DAI
-+	  control is taken care of by SOF firmware.
-+
- config SND_SOC_FSL_MICFIL
- 	tristate "Pulse Density Modulation Microphone Interface (MICFIL) module support"
- 	select REGMAP_MMIO
-diff --git a/sound/soc/fsl/Makefile b/sound/soc/fsl/Makefile
-index 8cde88c72d93..e4ed253b6657 100644
---- a/sound/soc/fsl/Makefile
-+++ b/sound/soc/fsl/Makefile
-@@ -20,6 +20,7 @@ snd-soc-fsl-ssi-y := fsl_ssi.o
- snd-soc-fsl-ssi-$(CONFIG_DEBUG_FS) += fsl_ssi_dbg.o
- snd-soc-fsl-spdif-objs := fsl_spdif.o
- snd-soc-fsl-esai-objs := fsl_esai.o
-+snd-soc-fsl-dai-objs := fsl_dai.o
- snd-soc-fsl-micfil-objs := fsl_micfil.o
- snd-soc-fsl-utils-objs := fsl_utils.o
- snd-soc-fsl-dma-objs := fsl_dma.o
-@@ -32,6 +33,7 @@ obj-$(CONFIG_SND_SOC_FSL_SAI) += snd-soc-fsl-sai.o
- obj-$(CONFIG_SND_SOC_FSL_SSI) += snd-soc-fsl-ssi.o
- obj-$(CONFIG_SND_SOC_FSL_SPDIF) += snd-soc-fsl-spdif.o
- obj-$(CONFIG_SND_SOC_FSL_ESAI) += snd-soc-fsl-esai.o
-+obj-$(CONFIG_SND_SOC_FSL_DAI) += snd-soc-fsl-dai.o
- obj-$(CONFIG_SND_SOC_FSL_MICFIL) += snd-soc-fsl-micfil.o
- obj-$(CONFIG_SND_SOC_FSL_UTILS) += snd-soc-fsl-utils.o
- obj-$(CONFIG_SND_SOC_FSL_MQS) += snd-soc-fsl-mqs.o
-diff --git a/sound/soc/fsl/fsl_dai.c b/sound/soc/fsl/fsl_dai.c
+diff --git a/topology/hdadsp/hda_dsp.conf b/topology/hdadsp/hda_dsp.conf
 new file mode 100644
-index 000000000000..804e04f87841
+index 0000000..b29cd2d
 --- /dev/null
-+++ b/sound/soc/fsl/fsl_dai.c
-@@ -0,0 +1,288 @@
-+// SPDX-License-Identifier: GPL-2.0
-+//
-+// Freescale Generic DAI driver for DSP
-+//
-+// Copyright 2019 NXP
-+// Author: Daniel Baluta <daniel.baluta@nxp.com>
++++ b/topology/hdadsp/hda_dsp.conf
+@@ -0,0 +1,7237 @@
 +
-+#include <linux/clk.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/pm_domain.h>
-+#include <sound/pcm_params.h>
-+#include <sound/soc.h>
-+
-+enum fsl_dai_type {
-+	FSL_DAI_TYPE_NONE,
-+	FSL_DAI_TYPE_SAI,
-+	FSL_DAI_TYPE_ESAI,
-+};
-+
-+#define FSL_DAI_ESAI_CLK_NUM	4
-+static const char *esai_clks[FSL_DAI_ESAI_CLK_NUM] = {
-+	"core",
-+	"extal",
-+	"fsys",
-+	"spba",
-+};
-+
-+#define FSL_DAI_SAI_CLK_NUM	5
-+static const char *sai_clks[FSL_DAI_SAI_CLK_NUM] = {
-+	"bus",
-+	"mclk0",
-+	"mclk1",
-+	"mclk2",
-+	"mclk3",
-+};
-+
-+struct fsl_dai {
-+	struct platform_device *pdev;
-+
-+	/* DAI clocks */
-+	struct clk **clks;
-+	const char **clk_names;
-+	int num_clks;
-+
-+	/* Power Domain handling */
-+	int num_domains;
-+	struct device **pd_dev;
-+	struct device_link **link;
-+
-+	/* DAIS */
-+	struct snd_soc_dai_driver *dai_drv;
-+	int num_drv;
-+};
-+
-+static struct snd_soc_dai_driver fsl_dai = {
-+};
-+
-+static const struct snd_soc_component_driver fsl_dai_component = {
-+	.name = "fsl-dai",
-+};
-+
-+static int fsl_dai_init_clocks(struct fsl_dai *dai_priv)
-+{
-+	struct device *dev = &dai_priv->pdev->dev;
-+	int i;
-+
-+	dai_priv->clks = devm_kcalloc(dev, dai_priv->num_clks,
-+				      sizeof(*dai_priv->clks), GFP_KERNEL);
-+	if (!dai_priv->clks)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < dai_priv->num_clks; i++) {
-+		dai_priv->clks[i] = devm_clk_get(dev, dai_priv->clk_names[i]);
-+		if (IS_ERR(dai_priv->clks[i])) {
-+			dev_dbg(dev, "Failed to get clk %s\n",
-+				dai_priv->clk_names[i]);
-+			dai_priv->clks[i] = NULL;
-+		}
-+	}
-+
-+	return 0;
++SectionVendorTokens."skl_tokens" {
++    SKL_TKN_UUID "1"
++    SKL_TKN_U8_NUM_BLOCKS "2"
++    SKL_TKN_U8_BLOCK_TYPE "3"
++    SKL_TKN_U8_IN_PIN_TYPE "4"
++    SKL_TKN_U8_OUT_PIN_TYPE "5"
++    SKL_TKN_U8_DYN_IN_PIN "6"
++    SKL_TKN_U8_DYN_OUT_PIN "7"
++    SKL_TKN_U8_IN_QUEUE_COUNT "8"
++    SKL_TKN_U8_OUT_QUEUE_COUNT "9"
++    SKL_TKN_U8_TIME_SLOT "10"
++    SKL_TKN_U8_CORE_ID "11"
++    SKL_TKN_U8_MODULE_TYPE "12"
++    SKL_TKN_U8_CONN_TYPE "13"
++    SKL_TKN_U8_DEV_TYPE "14"
++    SKL_TKN_U8_HW_CONN_TYPE "15"
++    SKL_TKN_U16_MOD_INST_ID "16"
++    SKL_TKN_U16_BLOCK_SIZE "17"
++    SKL_TKN_U32_MAX_MCPS "18"
++    SKL_TKN_U32_MEM_PAGES "19"
++    SKL_TKN_U32_OBS "20"
++    SKL_TKN_U32_IBS "21"
++    SKL_TKN_U32_VBUS_ID "22"
++    SKL_TKN_U32_PARAMS_FIXUP "23"
++    SKL_TKN_U32_CONVERTER "24"
++    SKL_TKN_U32_PIPE_ID "25"
++    SKL_TKN_U32_PIPE_CONN_TYPE "26"
++    SKL_TKN_U32_PIPE_PRIORITY "27"
++    SKL_TKN_U32_PIPE_MEM_PGS "28"
++    SKL_TKN_U32_DIR_PIN_COUNT "29"
++    SKL_TKN_U32_FMT_CH "30"
++    SKL_TKN_U32_FMT_FREQ "31"
++    SKL_TKN_U32_FMT_BIT_DEPTH "32"
++    SKL_TKN_U32_FMT_SAMPLE_SIZE "33"
++    SKL_TKN_U32_FMT_CH_CONFIG "34"
++    SKL_TKN_U32_FMT_INTERLEAVE "35"
++    SKL_TKN_U32_FMT_SAMPLE_TYPE "36"
++    SKL_TKN_U32_FMT_CH_MAP "37"
++    SKL_TKN_U32_PIN_MOD_ID "38"
++    SKL_TKN_U32_PIN_INST_ID "39"
++    SKL_TKN_U32_MOD_SET_PARAMS "40"
++    SKL_TKN_U32_MOD_PARAM_ID "41"
++    SKL_TKN_U32_CAPS_SET_PARAMS "42"
++    SKL_TKN_U32_CAPS_PARAMS_ID "43"
++    SKL_TKN_U32_CAPS_SIZE "44"
++    SKL_TKN_U32_PROC_DOMAIN "45"
++    SKL_TKN_U32_LIB_COUNT "46"
++    SKL_TKN_STR_LIB_NAME "47"
++    SKL_TKN_U32_PMODE "48"
++    SKL_TKN_U32_D0I3_CAPS "49"
++    SKL_TKN_U32_DMA_BUF_SIZE "50"
++    SKL_TKN_U32_PIPE_DIRECTION "51"
++    SKL_TKN_U32_PIPE_CONFIG_ID "52"
++    SKL_TKN_U32_NUM_CONFIGS "53"
++    SKL_TKN_U32_PATH_MEM_PGS "54"
++    SKL_TKN_U32_CFG_FREQ "55"
++    SKL_TKN_U8_CFG_CHAN "56"
++    SKL_TKN_U8_CFG_BPS "57"
++    SKL_TKN_CFG_MOD_RES_ID "58"
++    SKL_TKN_CFG_MOD_FMT_ID "59"
++    SKL_TKN_U8_NUM_MOD "60"
++    SKL_TKN_MM_U8_MOD_IDX "61"
++    SKL_TKN_MM_U8_NUM_RES "62"
++    SKL_TKN_MM_U8_NUM_INTF "63"
++    SKL_TKN_MM_U32_RES_ID "64"
++    SKL_TKN_MM_U32_CPS "65"
++    SKL_TKN_MM_U32_DMA_SIZE "66"
++    SKL_TKN_MM_U32_CPC "67"
++    SKL_TKN_MM_U32_RES_PIN_ID "68"
++    SKL_TKN_MM_U32_INTF_PIN_ID "69"
++    SKL_TKN_MM_U32_PIN_BUF "70"
++    SKL_TKN_MM_U32_FMT_ID "71"
++    SKL_TKN_MM_U32_NUM_IN_FMT "72"
++    SKL_TKN_MM_U32_NUM_OUT_FMT "73"
++    SKL_TKN_U32_ASTATE_IDX "74"
++    SKL_TKN_U32_ASTATE_COUNT "75"
++    SKL_TKN_U32_ASTATE_KCPS "76"
++    SKL_TKN_U32_ASTATE_CLK_SRC "77"
++    SKL_TKN_U32_DMACTRL_CFG_IDX "82"
++    SKL_TKN_U32_DMACTRL_CFG_SIZE "83"
++    SKL_TKN_U32_DMA_IDX "84"
++    SKL_TKN_U32_DMA_TYPE "85"
++    SKL_TKN_U32_DMA_SIZE "86"
++    SKL_TKN_U32_DMA_MAX_SIZE "87"
++    SKL_TKN_U32_DMA_MIN_SIZE "88"
++    SKL_TKN_U32_SCH_TYPE "89"
++    SKL_TKN_U32_SCH_SIZE "90"
++    SKL_TKN_U32_SCH_SYS_TICK_MUL "91"
++    SKL_TKN_U32_SCH_SYS_TICK_DIV "92"
++    SKL_TKN_U32_SCH_SYS_TICK_LL_SRC "93"
++    SKL_TKN_U32_SCH_SYS_TICK_CFG_LEN "94"
++    SKL_TKN_U32_SCH_SYS_TICK_CFG "95"
++    SKL_TKN_U32_FMT_CFG_IDX "96"
 +}
 +
-+int fsl_get_dai_type(struct fsl_dai *dai_priv)
-+{
-+	struct device_node *np = dai_priv->pdev->dev.of_node;
++SectionVendorTuples."mod_type_data_size_desc" {
++    tokens "skl_tokens"
 +
-+	if (of_device_is_compatible(np, "fsl,esai-dai"))
-+		return FSL_DAI_TYPE_ESAI;
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
 +
-+	if (of_device_is_compatible(np, "fsl,sai-dai"))
-+		return FSL_DAI_TYPE_SAI;
-+
-+	return FSL_DAI_TYPE_NONE;
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "5284"
++    }
 +}
 +
-+static int fsl_dai_probe(struct platform_device *pdev)
-+{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct fsl_dai *priv;
-+	char *dai_name;
-+	int dai_type, dai_index;
-+	int ret;
-+	int i;
-+
-+	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->pdev = pdev;
-+
-+	dev_set_drvdata(&pdev->dev, priv);
-+
-+	ret = of_property_read_u32(np, "fsl,dai-index", &dai_index);
-+	if (ret) {
-+		dev_err(&pdev->dev, "dai-index missing or invalid\n");
-+		return ret;
-+	}
-+
-+	dai_type = fsl_get_dai_type(priv);
-+	switch (dai_type) {
-+	case FSL_DAI_TYPE_ESAI:
-+		priv->clk_names = esai_clks;
-+		priv->num_clks = FSL_DAI_ESAI_CLK_NUM;
-+		priv->dai_drv = &fsl_dai;
-+		priv->num_drv = 1;
-+		dai_name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "esai%d",
-+					  dai_index);
-+		if (!dai_name)
-+			return -ENOMEM;
-+		break;
-+	case FSL_DAI_TYPE_SAI:
-+		priv->clk_names = sai_clks;
-+		priv->num_clks = FSL_DAI_SAI_CLK_NUM;
-+		priv->dai_drv = &fsl_dai;
-+		priv->num_drv = 1;
-+		dai_name = devm_kasprintf(&pdev->dev, GFP_KERNEL, "sai%d",
-+					  dai_index);
-+		if (!dai_name)
-+			return -ENOMEM;
-+		break;
-+	default:
-+		dev_err(&pdev->dev, "Invalid DAI type %d\n", dai_type);
-+		return -EINVAL;
-+	}
-+
-+	fsl_dai.name = dai_name;
-+
-+	ret = fsl_dai_init_clocks(priv);
-+	if (ret < 0) {
-+		dev_err(&pdev->dev, "Error at init clocks\n");
-+		return ret;
-+	}
-+
-+	priv->num_domains = of_count_phandle_with_args(np, "power-domains",
-+						       "#power-domain-cells");
-+	if (priv->num_domains < 0) {
-+		dev_err(&pdev->dev, "no power-domains property in %pOF\n", np);
-+		return priv->num_domains;
-+	}
-+
-+	priv->pd_dev = devm_kmalloc_array(&pdev->dev, priv->num_domains,
-+					  sizeof(*priv->pd_dev), GFP_KERNEL);
-+	if (!priv->pd_dev)
-+		return -ENOMEM;
-+
-+	priv->link = devm_kmalloc_array(&pdev->dev, priv->num_domains,
-+					sizeof(*priv->link), GFP_KERNEL);
-+	if (!priv->link)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < priv->num_domains; i++) {
-+		priv->pd_dev[i] = dev_pm_domain_attach_by_id(&pdev->dev, i);
-+		if (IS_ERR(priv->pd_dev[i])) {
-+			ret = PTR_ERR(priv->pd_dev[i]);
-+			goto unroll_pm;
-+		}
-+
-+		priv->link[i] = device_link_add(&pdev->dev, priv->pd_dev[i],
-+						DL_FLAG_STATELESS |
-+						DL_FLAG_PM_RUNTIME |
-+						DL_FLAG_RPM_ACTIVE);
-+		if (!priv->link[i]) {
-+			ret = -EINVAL;
-+			dev_pm_domain_detach(priv->pd_dev[i], false);
-+			goto unroll_pm;
-+		}
-+	}
-+
-+	pm_runtime_enable(&pdev->dev);
-+
-+	ret = devm_snd_soc_register_component(&pdev->dev, &fsl_dai_component,
-+					      &fsl_dai, 1);
-+	if (ret < 0) {
-+		dev_err(&pdev->dev, "Failed to register DAI ret = %d\n", ret);
-+		return ret;
-+	}
-+	return 0;
-+
-+unroll_pm:
-+	while (--i >= 0) {
-+		device_link_del(priv->link[i]);
-+		dev_pm_domain_detach(priv->pd_dev[i], false);
-+	}
-+	return ret;
++SectionData."mod_type_data_size_desc" {
++    tuples "mod_type_data_size_desc"
 +}
 +
-+static int fsl_dai_remove(struct platform_device *pdev)
-+{
-+	struct fsl_dai *priv = platform_get_drvdata(pdev);
-+	int i;
++SectionVendorTuples."mod_type_data" {
++    tokens "skl_tokens"
 +
-+	pm_runtime_disable(&priv->pdev->dev);
++    tuples."byte.u8_num_mod" {
++        SKL_TKN_U8_NUM_MOD "5"
++    }
 +
-+	for (i = 0; i < priv->num_domains; i++) {
-+		device_link_del(priv->link[i]);
-+		dev_pm_domain_detach(priv->pd_dev[i], false);
-+	}
++    tuples."uuid.mod_0" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
 +
-+	return 0;
++    tuples."byte.u8_mod_type_0" {
++        SKL_TKN_MM_U8_MOD_IDX "0"
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_IN_QUEUE_COUNT "1"
++        SKL_TKN_U8_OUT_QUEUE_COUNT "3"
++        SKL_TKN_MM_U8_NUM_RES "1"
++        SKL_TKN_MM_U8_NUM_INTF "1"
++    }
++
++    tuples."word.u32_mod_type_0_res_0" {
++        SKL_TKN_MM_U32_RES_ID "0"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "2666000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "0"
++        SKL_TKN_MM_U32_CPC "2666"
++    }
++
++    tuples."word.u32_mod_type_0_res_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_0_res_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_0_intf_0" {
++        SKL_TKN_MM_U32_FMT_ID "0"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_0_intf_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_0_intf_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."uuid.mod_1" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."byte.u8_mod_type_1" {
++        SKL_TKN_MM_U8_MOD_IDX "1"
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_IN_QUEUE_COUNT "8"
++        SKL_TKN_U8_OUT_QUEUE_COUNT "1"
++        SKL_TKN_MM_U8_NUM_RES "1"
++        SKL_TKN_MM_U8_NUM_INTF "1"
++    }
++
++    tuples."word.u32_mod_type_1_res_0" {
++        SKL_TKN_MM_U32_RES_ID "0"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "1521000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "0"
++        SKL_TKN_MM_U32_CPC "1521"
++    }
++
++    tuples."word.u32_mod_type_1_res_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_1_res_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_1_intf_0" {
++        SKL_TKN_MM_U32_FMT_ID "0"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_1_intf_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_1_intf_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."uuid.mod_2" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_mod_type_2" {
++        SKL_TKN_MM_U8_MOD_IDX "2"
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_IN_QUEUE_COUNT "1"
++        SKL_TKN_U8_OUT_QUEUE_COUNT "4"
++        SKL_TKN_MM_U8_NUM_RES "13"
++        SKL_TKN_MM_U8_NUM_INTF "13"
++    }
++
++    tuples."word.u32_mod_type_2_res_0" {
++        SKL_TKN_MM_U32_RES_ID "0"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "2581000"
++        SKL_TKN_U32_IBS "192"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "384"
++        SKL_TKN_MM_U32_CPC "2581"
++    }
++
++    tuples."word.u32_mod_type_2_res_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "192"
++    }
++
++    tuples."word.u32_mod_type_2_res_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_1" {
++        SKL_TKN_MM_U32_RES_ID "1"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "1000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "768"
++        SKL_TKN_MM_U32_CPC "1"
++    }
++
++    tuples."word.u32_mod_type_2_res_1_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_1_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_2" {
++        SKL_TKN_MM_U32_RES_ID "2"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "3812000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "768"
++        SKL_TKN_MM_U32_CPC "3812"
++    }
++
++    tuples."word.u32_mod_type_2_res_2_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_2_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_3" {
++        SKL_TKN_MM_U32_RES_ID "3"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "4473000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "768"
++        SKL_TKN_MM_U32_CPC "4473"
++    }
++
++    tuples."word.u32_mod_type_2_res_3_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_3_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_4" {
++        SKL_TKN_MM_U32_RES_ID "4"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "1000"
++        SKL_TKN_U32_IBS "192"
++        SKL_TKN_U32_OBS "192"
++        SKL_TKN_MM_U32_DMA_SIZE "384"
++        SKL_TKN_MM_U32_CPC "1"
++    }
++
++    tuples."word.u32_mod_type_2_res_4_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "192"
++    }
++
++    tuples."word.u32_mod_type_2_res_4_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "192"
++    }
++
++    tuples."word.u32_mod_type_2_res_5" {
++        SKL_TKN_MM_U32_RES_ID "5"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "1000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "768"
++        SKL_TKN_MM_U32_CPC "1"
++    }
++
++    tuples."word.u32_mod_type_2_res_5_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_5_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_6" {
++        SKL_TKN_MM_U32_RES_ID "6"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "1000"
++        SKL_TKN_U32_IBS "768"
++        SKL_TKN_U32_OBS "768"
++        SKL_TKN_MM_U32_DMA_SIZE "1536"
++        SKL_TKN_MM_U32_CPC "1"
++    }
++
++    tuples."word.u32_mod_type_2_res_6_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "768"
++    }
++
++    tuples."word.u32_mod_type_2_res_6_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "768"
++    }
++
++    tuples."word.u32_mod_type_2_res_7" {
++        SKL_TKN_MM_U32_RES_ID "7"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "1000"
++        SKL_TKN_U32_IBS "1536"
++        SKL_TKN_U32_OBS "1536"
++        SKL_TKN_MM_U32_DMA_SIZE "3072"
++        SKL_TKN_MM_U32_CPC "1"
++    }
++
++    tuples."word.u32_mod_type_2_res_7_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "1536"
++    }
++
++    tuples."word.u32_mod_type_2_res_7_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "1536"
++    }
++
++    tuples."word.u32_mod_type_2_res_8" {
++        SKL_TKN_MM_U32_RES_ID "8"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "579000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "192"
++        SKL_TKN_MM_U32_DMA_SIZE "768"
++        SKL_TKN_MM_U32_CPC "579"
++    }
++
++    tuples."word.u32_mod_type_2_res_8_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_8_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "192"
++    }
++
++    tuples."word.u32_mod_type_2_res_9" {
++        SKL_TKN_MM_U32_RES_ID "9"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "3812000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "768"
++        SKL_TKN_MM_U32_CPC "3812"
++    }
++
++    tuples."word.u32_mod_type_2_res_9_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_9_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_10" {
++        SKL_TKN_MM_U32_RES_ID "10"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "3812000"
++        SKL_TKN_U32_IBS "192"
++        SKL_TKN_U32_OBS "192"
++        SKL_TKN_MM_U32_DMA_SIZE "384768"
++        SKL_TKN_MM_U32_CPC "3812"
++    }
++
++    tuples."word.u32_mod_type_2_res_10_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "192"
++    }
++
++    tuples."word.u32_mod_type_2_res_10_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "192"
++    }
++
++    tuples."word.u32_mod_type_2_res_11" {
++        SKL_TKN_MM_U32_RES_ID "11"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "3812000"
++        SKL_TKN_U32_IBS "192"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "384768"
++        SKL_TKN_MM_U32_CPC "3812"
++    }
++
++    tuples."word.u32_mod_type_2_res_11_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "192"
++    }
++
++    tuples."word.u32_mod_type_2_res_11_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_12" {
++        SKL_TKN_MM_U32_RES_ID "12"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "3812000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "192"
++        SKL_TKN_MM_U32_DMA_SIZE "384768"
++        SKL_TKN_MM_U32_CPC "3812"
++    }
++
++    tuples."word.u32_mod_type_2_res_12_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_2_res_12_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "192"
++    }
++
++    tuples."word.u32_mod_type_2_intf_0" {
++        SKL_TKN_MM_U32_FMT_ID "0"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_1" {
++        SKL_TKN_MM_U32_FMT_ID "1"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_1_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_1_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_2" {
++        SKL_TKN_MM_U32_FMT_ID "2"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_2_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "24"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_2_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_3" {
++        SKL_TKN_MM_U32_FMT_ID "3"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_3_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_3_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "24"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_4" {
++        SKL_TKN_MM_U32_FMT_ID "4"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_4_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_4_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_5" {
++        SKL_TKN_MM_U32_FMT_ID "5"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_5_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "4"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "5"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294914576"
++    }
++
++    tuples."word.u32_mod_type_2_intf_5_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "4"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "5"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294914576"
++    }
++
++    tuples."word.u32_mod_type_2_intf_6" {
++        SKL_TKN_MM_U32_FMT_ID "6"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_6_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "6"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "8"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4283707920"
++    }
++
++    tuples."word.u32_mod_type_2_intf_6_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "6"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "8"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4283707920"
++    }
++
++    tuples."word.u32_mod_type_2_intf_7" {
++        SKL_TKN_MM_U32_FMT_ID "7"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_7_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "8"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "14"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "1985229328"
++    }
++
++    tuples."word.u32_mod_type_2_intf_7_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "8"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "14"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "1985229328"
++    }
++
++    tuples."word.u32_mod_type_2_intf_8" {
++        SKL_TKN_MM_U32_FMT_ID "8"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_8_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_8_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_9" {
++        SKL_TKN_MM_U32_FMT_ID "9"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_9_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_9_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_10" {
++        SKL_TKN_MM_U32_FMT_ID "10"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_10_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_10_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_11" {
++        SKL_TKN_MM_U32_FMT_ID "11"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_11_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_11_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_12" {
++        SKL_TKN_MM_U32_FMT_ID "12"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_2_intf_12_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_2_intf_12_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "16"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "16"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."uuid.mod_3" {
++        SKL_TKN_UUID "12, 6, 248, 66, 47, 131, 191, 77, 178, 71, 81, 233, 97, 153, 123, 52"
++    }
++
++    tuples."byte.u8_mod_type_3" {
++        SKL_TKN_MM_U8_MOD_IDX "3"
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_IN_QUEUE_COUNT "1"
++        SKL_TKN_U8_OUT_QUEUE_COUNT "1"
++        SKL_TKN_MM_U8_NUM_RES "1"
++        SKL_TKN_MM_U8_NUM_INTF "1"
++    }
++
++    tuples."word.u32_mod_type_3_res_0" {
++        SKL_TKN_MM_U32_RES_ID "0"
++        SKL_TKN_U32_MEM_PAGES "1"
++        SKL_TKN_MM_U32_CPS "100000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "0"
++        SKL_TKN_MM_U32_CPC "2106"
++    }
++
++    tuples."word.u32_mod_type_3_res_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_3_res_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_3_intf_0" {
++        SKL_TKN_MM_U32_FMT_ID "0"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_3_intf_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_3_intf_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."uuid.mod_4" {
++        SKL_TKN_UUID "141, 178, 27, 230, 154, 20, 31, 76, 183, 9, 70, 130, 62, 245, 245, 174"
++    }
++
++    tuples."byte.u8_mod_type_4" {
++        SKL_TKN_MM_U8_MOD_IDX "4"
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_IN_QUEUE_COUNT "1"
++        SKL_TKN_U8_OUT_QUEUE_COUNT "1"
++        SKL_TKN_MM_U8_NUM_RES "1"
++        SKL_TKN_MM_U8_NUM_INTF "1"
++    }
++
++    tuples."word.u32_mod_type_4_res_0" {
++        SKL_TKN_MM_U32_RES_ID "0"
++        SKL_TKN_U32_MEM_PAGES "4"
++        SKL_TKN_MM_U32_CPS "100000"
++        SKL_TKN_U32_IBS "384"
++        SKL_TKN_U32_OBS "384"
++        SKL_TKN_MM_U32_DMA_SIZE "0"
++        SKL_TKN_MM_U32_CPC "10157"
++    }
++
++    tuples."word.u32_mod_type_4_res_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_4_res_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_RES_PIN_ID "0"
++        SKL_TKN_MM_U32_PIN_BUF "384"
++    }
++
++    tuples."word.u32_mod_type_4_intf_0" {
++        SKL_TKN_MM_U32_FMT_ID "0"
++        SKL_TKN_MM_U32_NUM_IN_FMT "1"
++        SKL_TKN_MM_U32_NUM_OUT_FMT "1"
++    }
++
++    tuples."word.u32_mod_type_4_intf_0_input_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
++
++    tuples."word.u32_mod_type_4_intf_0_output_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_MM_U32_INTF_PIN_ID "0"
++        SKL_TKN_U32_FMT_CH "2"
++        SKL_TKN_U32_FMT_FREQ "48000"
++        SKL_TKN_U32_FMT_BIT_DEPTH "32"
++        SKL_TKN_U32_FMT_CH_CONFIG "1"
++        SKL_TKN_U32_FMT_INTERLEAVE "0"
++        SKL_TKN_U32_FMT_SAMPLE_SIZE "32"
++        SKL_TKN_U32_FMT_SAMPLE_TYPE "0"
++        SKL_TKN_U32_FMT_CH_MAP "4294967056"
++    }
 +}
 +
-+static const struct of_device_id fsl_dai_dt_ids[] = {
-+	{ .compatible = "fsl,esai-dai", },
-+	{ .compatible = "fsl,sai-dai", },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, fsl_dai_dt_ids);
-+
-+#ifdef CONFIG_PM
-+static int fsl_dai_runtime_resume(struct device *dev)
-+{
-+	struct fsl_dai *priv = dev_get_drvdata(dev);
-+	int i, ret;
-+
-+	for (i = 0; i < priv->num_clks; i++) {
-+		ret = clk_prepare_enable(priv->clks[i]);
-+		if (ret < 0) {
-+			dev_err(dev, "Failed to enable clk %s\n",
-+				priv->clk_names[i]);
-+			goto out;
-+		}
-+	}
-+	return 0;
-+out:
-+	while (--i >= 0)
-+		clk_disable_unprepare(priv->clks[i]);
-+
-+	return ret;
++SectionData."mod_type_data" {
++    tuples "mod_type_data"
 +}
 +
-+static int fsl_dai_runtime_suspend(struct device *dev)
-+{
-+	struct fsl_dai *priv = dev_get_drvdata(dev);
-+	int i;
++SectionVendorTuples."media0_in cpr 0 num_desc" {
++    tokens "skl_tokens"
 +
-+	for (i = 0; i < priv->num_clks; i++)
-+		clk_disable_unprepare(priv->clks[i]);
-+
-+	return 0;
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
 +}
-+#endif /* CONFIG_PM */
 +
-+static const struct dev_pm_ops fsl_dai_pm_ops = {
-+	SET_RUNTIME_PM_OPS(fsl_dai_runtime_suspend,
-+			   fsl_dai_runtime_resume, NULL)
-+	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
-+				pm_runtime_force_resume)
-+};
++SectionData."media0_in cpr 0 num_desc" {
++    tuples "media0_in cpr 0 num_desc"
++}
 +
-+static struct platform_driver fsl_dai_driver = {
-+	.probe = fsl_dai_probe,
-+	.remove = fsl_dai_remove,
-+	.driver = {
-+		.name = "fsl-dai",
-+		.pm = &fsl_dai_pm_ops,
-+		.of_match_table = fsl_dai_dt_ids,
-+	},
-+};
++SectionVendorTuples."media0_in cpr 0_size_desc" {
++    tokens "skl_tokens"
 +
-+module_platform_driver(fsl_dai_driver);
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
 +
-+MODULE_ALIAS("platform:fsl-dai");
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
 +
-+MODULE_AUTHOR("Daniel Baluta <daniel.baluta@nxp.com>");
-+MODULE_DESCRIPTION("FSL Generic DAI driver for DSP");
-+MODULE_LICENSE("GPL v2");
++SectionData."media0_in cpr 0_size_desc" {
++    tuples "media0_in cpr 0_size_desc"
++}
++
++SectionVendorTuples."media0_in cpr 0" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "0"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "0"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "1"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "8"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "7"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "12, 6, 248, 66, 47, 131, 191, 77, 178, 71, 81, 233, 97, 153, 123, 52"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."media0_in cpr 0" {
++    tuples "media0_in cpr 0"
++}
++
++SectionWidget."media0_in cpr 0" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "media0_in cpr 0 num_desc"
++        "media0_in cpr 0_size_desc"
++        "media0_in cpr 0"
++    ]
++}
++
++SectionVendorTuples."media0_in updwmix 0 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media0_in updwmix 0 num_desc" {
++    tuples "media0_in updwmix 0 num_desc"
++}
++
++SectionVendorTuples."media0_in updwmix 0_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "388"
++    }
++}
++
++SectionData."media0_in updwmix 0_size_desc" {
++    tuples "media0_in updwmix 0_size_desc"
++}
++
++SectionVendorTuples."media0_in updwmix 0" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "12, 6, 248, 66, 47, 131, 191, 77, 178, 71, 81, 233, 97, 153, 123, 52"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "2"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "0"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "0"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "1"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "8"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "8"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "141, 178, 27, 230, 154, 20, 31, 76, 183, 9, 70, 130, 62, 245, 245, 174"
++    }
++}
++
++SectionData."media0_in updwmix 0" {
++    tuples "media0_in updwmix 0"
++}
++
++SectionWidget."media0_in updwmix 0" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    event_type "4"
++
++    data [
++        "media0_in updwmix 0 num_desc"
++        "media0_in updwmix 0_size_desc"
++        "media0_in updwmix 0"
++    ]
++}
++
++SectionVendorTuples."media0_in srcintc 0 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media0_in srcintc 0 num_desc" {
++    tuples "media0_in srcintc 0 num_desc"
++}
++
++SectionVendorTuples."media0_in srcintc 0_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "388"
++    }
++}
++
++SectionData."media0_in srcintc 0_size_desc" {
++    tuples "media0_in srcintc 0_size_desc"
++}
++
++SectionVendorTuples."media0_in srcintc 0" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "141, 178, 27, 230, 154, 20, 31, 76, 183, 9, 70, 130, 62, 245, 245, 174"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "3"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "0"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "0"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "1"
++        SKL_TKN_U32_PROC_DOMAIN "1"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "8"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "7"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "12, 6, 248, 66, 47, 131, 191, 77, 178, 71, 81, 233, 97, 153, 123, 52"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++}
++
++SectionData."media0_in srcintc 0" {
++    tuples "media0_in srcintc 0"
++}
++
++SectionWidget."media0_in srcintc 0" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    event_type "4"
++
++    data [
++        "media0_in srcintc 0 num_desc"
++        "media0_in srcintc 0_size_desc"
++        "media0_in srcintc 0"
++    ]
++}
++
++SectionVendorTuples."media0_in mi num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media0_in mi num_desc" {
++    tuples "media0_in mi num_desc"
++}
++
++SectionVendorTuples."media0_in mi_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "416"
++    }
++}
++
++SectionData."media0_in mi_size_desc" {
++    tuples "media0_in mi_size_desc"
++}
++
++SectionVendorTuples."media0_in mi" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "0"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "0"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "1"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "8"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "8"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "141, 178, 27, 230, 154, 20, 31, 76, 183, 9, 70, 130, 62, 245, 245, 174"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."media0_in mi" {
++    tuples "media0_in mi"
++}
++
++SectionWidget."media0_in mi" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "media0_in mi num_desc"
++        "media0_in mi_size_desc"
++        "media0_in mi"
++    ]
++}
++
++SectionVendorTuples."codec0_out mo num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec0_out mo num_desc" {
++    tuples "codec0_out mo num_desc"
++}
++
++SectionVendorTuples."codec0_out mo_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "536"
++    }
++}
++
++SectionData."codec0_out mo_size_desc" {
++    tuples "codec0_out mo_size_desc"
++}
++
++SectionVendorTuples."codec0_out mo" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "0"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "1"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "16"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "32"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "48"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_4" {
++        SKL_TKN_U32_DIR_PIN_COUNT "64"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_5" {
++        SKL_TKN_U32_DIR_PIN_COUNT "80"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_6" {
++        SKL_TKN_U32_DIR_PIN_COUNT "96"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_7" {
++        SKL_TKN_U32_DIR_PIN_COUNT "112"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "1"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++}
++
++SectionData."codec0_out mo" {
++    tuples "codec0_out mo"
++}
++
++SectionWidget."codec0_out mo" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    subseq "10"
++    event_type "1"
++    event_flags "15"
++
++    mixer [
++        "media0_in mi Switch"
++    ]
++
++    data [
++        "codec0_out mo num_desc"
++        "codec0_out mo_size_desc"
++        "codec0_out mo"
++    ]
++}
++
++SectionVendorTuples."codec0_out cpr 1 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec0_out cpr 1 num_desc" {
++    tuples "codec0_out cpr 1 num_desc"
++}
++
++SectionVendorTuples."codec0_out cpr 1_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."codec0_out cpr 1_size_desc" {
++    tuples "codec0_out cpr 1_size_desc"
++}
++
++SectionVendorTuples."codec0_out cpr 1" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "2"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "1"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "1"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "1"
++        SKL_TKN_CFG_MOD_FMT_ID "1"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "1"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."codec0_out cpr 1" {
++    tuples "codec0_out cpr 1"
++}
++
++SectionWidget."codec0_out cpr 1" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    event_type "4"
++
++    data [
++        "codec0_out cpr 1 num_desc"
++        "codec0_out cpr 1_size_desc"
++        "codec0_out cpr 1"
++    ]
++}
++
++SectionWidget."codec0_out" {
++    index "0"
++    type "aif_out"
++    no_pm "true"
++}
++
++SectionVendorTuples."media1_in cpr 2 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media1_in cpr 2 num_desc" {
++    tuples "media1_in cpr 2 num_desc"
++}
++
++SectionVendorTuples."media1_in cpr 2_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."media1_in cpr 2_size_desc" {
++    tuples "media1_in cpr 2_size_desc"
++}
++
++SectionVendorTuples."media1_in cpr 2" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "2"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "2"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "1"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "1"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."media1_in cpr 2" {
++    tuples "media1_in cpr 2"
++}
++
++SectionWidget."media1_in cpr 2" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "media1_in cpr 2 num_desc"
++        "media1_in cpr 2_size_desc"
++        "media1_in cpr 2"
++    ]
++}
++
++SectionVendorTuples."media1_in mi num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media1_in mi num_desc" {
++    tuples "media1_in mi num_desc"
++}
++
++SectionVendorTuples."media1_in mi_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "416"
++    }
++}
++
++SectionData."media1_in mi_size_desc" {
++    tuples "media1_in mi_size_desc"
++}
++
++SectionVendorTuples."media1_in mi" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "1"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "2"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "1"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "2"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."media1_in mi" {
++    tuples "media1_in mi"
++}
++
++SectionWidget."media1_in mi" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "media1_in mi num_desc"
++        "media1_in mi_size_desc"
++        "media1_in mi"
++    ]
++}
++
++SectionVendorTuples."codec1_out mo num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec1_out mo num_desc" {
++    tuples "codec1_out mo num_desc"
++}
++
++SectionVendorTuples."codec1_out mo_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "536"
++    }
++}
++
++SectionData."codec1_out mo_size_desc" {
++    tuples "codec1_out mo_size_desc"
++}
++
++SectionVendorTuples."codec1_out mo" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "1"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "3"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "16"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "32"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "48"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_4" {
++        SKL_TKN_U32_DIR_PIN_COUNT "64"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_5" {
++        SKL_TKN_U32_DIR_PIN_COUNT "80"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_6" {
++        SKL_TKN_U32_DIR_PIN_COUNT "96"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_7" {
++        SKL_TKN_U32_DIR_PIN_COUNT "112"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "3"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++}
++
++SectionData."codec1_out mo" {
++    tuples "codec1_out mo"
++}
++
++SectionWidget."codec1_out mo" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    subseq "10"
++    event_type "1"
++    event_flags "15"
++
++    mixer [
++        "media1_in mi Switch"
++    ]
++
++    data [
++        "codec1_out mo num_desc"
++        "codec1_out mo_size_desc"
++        "codec1_out mo"
++    ]
++}
++
++SectionVendorTuples."codec1_out cpr 3 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec1_out cpr 3 num_desc" {
++    tuples "codec1_out cpr 3 num_desc"
++}
++
++SectionVendorTuples."codec1_out cpr 3_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."codec1_out cpr 3_size_desc" {
++    tuples "codec1_out cpr 3_size_desc"
++}
++
++SectionVendorTuples."codec1_out cpr 3" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "2"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "3"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "3"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "1"
++        SKL_TKN_CFG_MOD_FMT_ID "1"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "1"
++        SKL_TKN_U32_PIN_INST_ID "1"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."codec1_out cpr 3" {
++    tuples "codec1_out cpr 3"
++}
++
++SectionWidget."codec1_out cpr 3" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    event_type "4"
++
++    data [
++        "codec1_out cpr 3 num_desc"
++        "codec1_out cpr 3_size_desc"
++        "codec1_out cpr 3"
++    ]
++}
++
++SectionWidget."codec1_out" {
++    index "0"
++    type "aif_out"
++    no_pm "true"
++}
++
++SectionVendorTuples."media2_in cpr 4 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media2_in cpr 4 num_desc" {
++    tuples "media2_in cpr 4 num_desc"
++}
++
++SectionVendorTuples."media2_in cpr 4_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."media2_in cpr 4_size_desc" {
++    tuples "media2_in cpr 4_size_desc"
++}
++
++SectionVendorTuples."media2_in cpr 4" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "4"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "4"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "1"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "2"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."media2_in cpr 4" {
++    tuples "media2_in cpr 4"
++}
++
++SectionWidget."media2_in cpr 4" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "media2_in cpr 4 num_desc"
++        "media2_in cpr 4_size_desc"
++        "media2_in cpr 4"
++    ]
++}
++
++SectionVendorTuples."media2_in mi num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media2_in mi num_desc" {
++    tuples "media2_in mi num_desc"
++}
++
++SectionVendorTuples."media2_in mi_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "416"
++    }
++}
++
++SectionData."media2_in mi_size_desc" {
++    tuples "media2_in mi_size_desc"
++}
++
++SectionVendorTuples."media2_in mi" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "2"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "4"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "1"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "4"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."media2_in mi" {
++    tuples "media2_in mi"
++}
++
++SectionWidget."media2_in mi" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "media2_in mi num_desc"
++        "media2_in mi_size_desc"
++        "media2_in mi"
++    ]
++}
++
++SectionVendorTuples."codec2_out mo num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec2_out mo num_desc" {
++    tuples "codec2_out mo num_desc"
++}
++
++SectionVendorTuples."codec2_out mo_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "536"
++    }
++}
++
++SectionData."codec2_out mo_size_desc" {
++    tuples "codec2_out mo_size_desc"
++}
++
++SectionVendorTuples."codec2_out mo" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "2"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "5"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "16"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "32"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "48"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_4" {
++        SKL_TKN_U32_DIR_PIN_COUNT "64"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_5" {
++        SKL_TKN_U32_DIR_PIN_COUNT "80"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_6" {
++        SKL_TKN_U32_DIR_PIN_COUNT "96"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_7" {
++        SKL_TKN_U32_DIR_PIN_COUNT "112"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "5"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++}
++
++SectionData."codec2_out mo" {
++    tuples "codec2_out mo"
++}
++
++SectionWidget."codec2_out mo" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    subseq "10"
++    event_type "1"
++    event_flags "15"
++
++    mixer [
++        "media2_in mi Switch"
++    ]
++
++    data [
++        "codec2_out mo num_desc"
++        "codec2_out mo_size_desc"
++        "codec2_out mo"
++    ]
++}
++
++SectionVendorTuples."codec2_out cpr 5 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec2_out cpr 5 num_desc" {
++    tuples "codec2_out cpr 5 num_desc"
++}
++
++SectionVendorTuples."codec2_out cpr 5_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."codec2_out cpr 5_size_desc" {
++    tuples "codec2_out cpr 5_size_desc"
++}
++
++SectionVendorTuples."codec2_out cpr 5" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "2"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "5"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "5"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "1"
++        SKL_TKN_CFG_MOD_FMT_ID "1"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "1"
++        SKL_TKN_U32_PIN_INST_ID "2"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."codec2_out cpr 5" {
++    tuples "codec2_out cpr 5"
++}
++
++SectionWidget."codec2_out cpr 5" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    event_type "4"
++
++    data [
++        "codec2_out cpr 5 num_desc"
++        "codec2_out cpr 5_size_desc"
++        "codec2_out cpr 5"
++    ]
++}
++
++SectionWidget."codec2_out" {
++    index "0"
++    type "aif_out"
++    no_pm "true"
++}
++
++SectionVendorTuples."codec0_in cpr 6 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec0_in cpr 6 num_desc" {
++    tuples "codec0_in cpr 6 num_desc"
++}
++
++SectionVendorTuples."codec0_in cpr 6_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."codec0_in cpr 6_size_desc" {
++    tuples "codec0_in cpr 6_size_desc"
++}
++
++SectionVendorTuples."codec0_in cpr 6" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "2"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "6"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "6"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "9"
++        SKL_TKN_CFG_MOD_FMT_ID "9"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "3"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."codec0_in cpr 6" {
++    tuples "codec0_in cpr 6"
++}
++
++SectionWidget."codec0_in cpr 6" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "codec0_in cpr 6 num_desc"
++        "codec0_in cpr 6_size_desc"
++        "codec0_in cpr 6"
++    ]
++}
++
++SectionVendorTuples."codec0_in mi num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec0_in mi num_desc" {
++    tuples "codec0_in mi num_desc"
++}
++
++SectionVendorTuples."codec0_in mi_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "416"
++    }
++}
++
++SectionData."codec0_in mi_size_desc" {
++    tuples "codec0_in mi_size_desc"
++}
++
++SectionVendorTuples."codec0_in mi" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "3"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "6"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "6"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."codec0_in mi" {
++    tuples "codec0_in mi"
++}
++
++SectionWidget."codec0_in mi" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "codec0_in mi num_desc"
++        "codec0_in mi_size_desc"
++        "codec0_in mi"
++    ]
++}
++
++SectionWidget."codec0_in" {
++    index "0"
++    type "aif_in"
++    no_pm "true"
++}
++
++SectionVendorTuples."media0_out mo num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media0_out mo num_desc" {
++    tuples "media0_out mo num_desc"
++}
++
++SectionVendorTuples."media0_out mo_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "536"
++    }
++}
++
++SectionData."media0_out mo_size_desc" {
++    tuples "media0_out mo_size_desc"
++}
++
++SectionVendorTuples."media0_out mo" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "3"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "7"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "16"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "32"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "48"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_4" {
++        SKL_TKN_U32_DIR_PIN_COUNT "64"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_5" {
++        SKL_TKN_U32_DIR_PIN_COUNT "80"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_6" {
++        SKL_TKN_U32_DIR_PIN_COUNT "96"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_7" {
++        SKL_TKN_U32_DIR_PIN_COUNT "112"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "7"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++}
++
++SectionData."media0_out mo" {
++    tuples "media0_out mo"
++}
++
++SectionWidget."media0_out mo" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    subseq "10"
++    event_type "1"
++    event_flags "15"
++
++    mixer [
++        "codec0_in mi Switch"
++    ]
++
++    data [
++        "media0_out mo num_desc"
++        "media0_out mo_size_desc"
++        "media0_out mo"
++    ]
++}
++
++SectionVendorTuples."media0_out cpr 7 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media0_out cpr 7 num_desc" {
++    tuples "media0_out cpr 7 num_desc"
++}
++
++SectionVendorTuples."media0_out cpr 7_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."media0_out cpr 7_size_desc" {
++    tuples "media0_out cpr 7_size_desc"
++}
++
++SectionVendorTuples."media0_out cpr 7" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "7"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "7"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "8"
++        SKL_TKN_CFG_MOD_FMT_ID "8"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "1"
++        SKL_TKN_U32_PIN_INST_ID "3"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."media0_out cpr 7" {
++    tuples "media0_out cpr 7"
++}
++
++SectionWidget."media0_out cpr 7" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    event_type "4"
++
++    data [
++        "media0_out cpr 7 num_desc"
++        "media0_out cpr 7_size_desc"
++        "media0_out cpr 7"
++    ]
++}
++
++SectionVendorTuples."codec1_in cpr 8 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec1_in cpr 8 num_desc" {
++    tuples "codec1_in cpr 8 num_desc"
++}
++
++SectionVendorTuples."codec1_in cpr 8_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."codec1_in cpr 8_size_desc" {
++    tuples "codec1_in cpr 8_size_desc"
++}
++
++SectionVendorTuples."codec1_in cpr 8" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "2"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "8"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "8"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "24"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "2"
++        SKL_TKN_CFG_MOD_FMT_ID "2"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "4"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."codec1_in cpr 8" {
++    tuples "codec1_in cpr 8"
++}
++
++SectionWidget."codec1_in cpr 8" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "codec1_in cpr 8 num_desc"
++        "codec1_in cpr 8_size_desc"
++        "codec1_in cpr 8"
++    ]
++}
++
++SectionVendorTuples."codec1_in mi num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec1_in mi num_desc" {
++    tuples "codec1_in mi num_desc"
++}
++
++SectionVendorTuples."codec1_in mi_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "416"
++    }
++}
++
++SectionData."codec1_in mi_size_desc" {
++    tuples "codec1_in mi_size_desc"
++}
++
++SectionVendorTuples."codec1_in mi" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "4"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "8"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "24"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "8"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."codec1_in mi" {
++    tuples "codec1_in mi"
++}
++
++SectionWidget."codec1_in mi" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "codec1_in mi num_desc"
++        "codec1_in mi_size_desc"
++        "codec1_in mi"
++    ]
++}
++
++SectionWidget."codec1_in" {
++    index "0"
++    type "aif_in"
++    no_pm "true"
++}
++
++SectionVendorTuples."media1_out mo num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media1_out mo num_desc" {
++    tuples "media1_out mo num_desc"
++}
++
++SectionVendorTuples."media1_out mo_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "536"
++    }
++}
++
++SectionData."media1_out mo_size_desc" {
++    tuples "media1_out mo_size_desc"
++}
++
++SectionVendorTuples."media1_out mo" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "4"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "9"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "24"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "16"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "32"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "48"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_4" {
++        SKL_TKN_U32_DIR_PIN_COUNT "64"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_5" {
++        SKL_TKN_U32_DIR_PIN_COUNT "80"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_6" {
++        SKL_TKN_U32_DIR_PIN_COUNT "96"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_7" {
++        SKL_TKN_U32_DIR_PIN_COUNT "112"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "9"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++}
++
++SectionData."media1_out mo" {
++    tuples "media1_out mo"
++}
++
++SectionWidget."media1_out mo" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    subseq "10"
++    event_type "1"
++    event_flags "15"
++
++    mixer [
++        "codec1_in mi Switch"
++    ]
++
++    data [
++        "media1_out mo num_desc"
++        "media1_out mo_size_desc"
++        "media1_out mo"
++    ]
++}
++
++SectionVendorTuples."media1_out cpr 9 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media1_out cpr 9 num_desc" {
++    tuples "media1_out cpr 9 num_desc"
++}
++
++SectionVendorTuples."media1_out cpr 9_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."media1_out cpr 9_size_desc" {
++    tuples "media1_out cpr 9_size_desc"
++}
++
++SectionVendorTuples."media1_out cpr 9" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "9"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "9"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "24"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "3"
++        SKL_TKN_CFG_MOD_FMT_ID "3"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "1"
++        SKL_TKN_U32_PIN_INST_ID "4"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."media1_out cpr 9" {
++    tuples "media1_out cpr 9"
++}
++
++SectionWidget."media1_out cpr 9" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    event_type "4"
++
++    data [
++        "media1_out cpr 9 num_desc"
++        "media1_out cpr 9_size_desc"
++        "media1_out cpr 9"
++    ]
++}
++
++SectionVendorTuples."codec2_in cpr 10 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec2_in cpr 10 num_desc" {
++    tuples "codec2_in cpr 10 num_desc"
++}
++
++SectionVendorTuples."codec2_in cpr 10_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."codec2_in cpr 10_size_desc" {
++    tuples "codec2_in cpr 10_size_desc"
++}
++
++SectionVendorTuples."codec2_in cpr 10" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "2"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "10"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "10"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "24"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "2"
++        SKL_TKN_CFG_MOD_FMT_ID "2"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "5"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."codec2_in cpr 10" {
++    tuples "codec2_in cpr 10"
++}
++
++SectionWidget."codec2_in cpr 10" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "codec2_in cpr 10 num_desc"
++        "codec2_in cpr 10_size_desc"
++        "codec2_in cpr 10"
++    ]
++}
++
++SectionVendorTuples."codec2_in mi num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."codec2_in mi num_desc" {
++    tuples "codec2_in mi num_desc"
++}
++
++SectionVendorTuples."codec2_in mi_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "416"
++    }
++}
++
++SectionData."codec2_in mi_size_desc" {
++    tuples "codec2_in mi_size_desc"
++}
++
++SectionVendorTuples."codec2_in mi" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "5"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "10"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "24"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "10"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."codec2_in mi" {
++    tuples "codec2_in mi"
++}
++
++SectionWidget."codec2_in mi" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "codec2_in mi num_desc"
++        "codec2_in mi_size_desc"
++        "codec2_in mi"
++    ]
++}
++
++SectionWidget."codec2_in" {
++    index "0"
++    type "aif_in"
++    no_pm "true"
++}
++
++SectionVendorTuples."media2_out mo num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media2_out mo num_desc" {
++    tuples "media2_out mo num_desc"
++}
++
++SectionVendorTuples."media2_out mo_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "536"
++    }
++}
++
++SectionData."media2_out mo_size_desc" {
++    tuples "media2_out mo_size_desc"
++}
++
++SectionVendorTuples."media2_out mo" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "5"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "11"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "24"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "16"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "32"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "48"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_4" {
++        SKL_TKN_U32_DIR_PIN_COUNT "64"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_5" {
++        SKL_TKN_U32_DIR_PIN_COUNT "80"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_6" {
++        SKL_TKN_U32_DIR_PIN_COUNT "96"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_7" {
++        SKL_TKN_U32_DIR_PIN_COUNT "112"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "11"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++}
++
++SectionData."media2_out mo" {
++    tuples "media2_out mo"
++}
++
++SectionWidget."media2_out mo" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    subseq "10"
++    event_type "1"
++    event_flags "15"
++
++    mixer [
++        "codec2_in mi Switch"
++    ]
++
++    data [
++        "media2_out mo num_desc"
++        "media2_out mo_size_desc"
++        "media2_out mo"
++    ]
++}
++
++SectionVendorTuples."media2_out cpr 11 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."media2_out cpr 11 num_desc" {
++    tuples "media2_out cpr 11 num_desc"
++}
++
++SectionVendorTuples."media2_out cpr 11_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."media2_out cpr 11_size_desc" {
++    tuples "media2_out cpr 11_size_desc"
++}
++
++SectionVendorTuples."media2_out cpr 11" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "11"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "11"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "1"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "32"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "24"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "3"
++        SKL_TKN_CFG_MOD_FMT_ID "3"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "1"
++        SKL_TKN_U32_PIN_INST_ID "5"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."media2_out cpr 11" {
++    tuples "media2_out cpr 11"
++}
++
++SectionWidget."media2_out cpr 11" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    event_type "4"
++
++    data [
++        "media2_out cpr 11 num_desc"
++        "media2_out cpr 11_size_desc"
++        "media2_out cpr 11"
++    ]
++}
++
++SectionVendorTuples."hdmi1_out cpr 12 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."hdmi1_out cpr 12 num_desc" {
++    tuples "hdmi1_out cpr 12 num_desc"
++}
++
++SectionVendorTuples."hdmi1_out cpr 12_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."hdmi1_out cpr 12_size_desc" {
++    tuples "hdmi1_out cpr 12_size_desc"
++}
++
++SectionVendorTuples."hdmi1_out cpr 12" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "12"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "12"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "4"
++        SKL_TKN_CFG_MOD_FMT_ID "4"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "13"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."hdmi1_out cpr 12" {
++    tuples "hdmi1_out cpr 12"
++}
++
++SectionWidget."hdmi1_out cpr 12" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "hdmi1_out cpr 12 num_desc"
++        "hdmi1_out cpr 12_size_desc"
++        "hdmi1_out cpr 12"
++    ]
++}
++
++SectionVendorTuples."hdmi1_out cpr 13 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."hdmi1_out cpr 13 num_desc" {
++    tuples "hdmi1_out cpr 13 num_desc"
++}
++
++SectionVendorTuples."hdmi1_out cpr 13_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."hdmi1_out cpr 13_size_desc" {
++    tuples "hdmi1_out cpr 13_size_desc"
++}
++
++SectionVendorTuples."hdmi1_out cpr 13" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "13"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "12"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "4"
++        SKL_TKN_CFG_MOD_FMT_ID "4"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "12"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."hdmi1_out cpr 13" {
++    tuples "hdmi1_out cpr 13"
++}
++
++SectionWidget."hdmi1_out cpr 13" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "hdmi1_out cpr 13 num_desc"
++        "hdmi1_out cpr 13_size_desc"
++        "hdmi1_out cpr 13"
++    ]
++}
++
++SectionWidget."iDisp1_out" {
++    index "0"
++    type "aif_out"
++    no_pm "true"
++}
++
++SectionVendorTuples."hdmi2_out cpr 14 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."hdmi2_out cpr 14 num_desc" {
++    tuples "hdmi2_out cpr 14 num_desc"
++}
++
++SectionVendorTuples."hdmi2_out cpr 14_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."hdmi2_out cpr 14_size_desc" {
++    tuples "hdmi2_out cpr 14_size_desc"
++}
++
++SectionVendorTuples."hdmi2_out cpr 14" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "14"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "13"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "4"
++        SKL_TKN_CFG_MOD_FMT_ID "4"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "15"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."hdmi2_out cpr 14" {
++    tuples "hdmi2_out cpr 14"
++}
++
++SectionWidget."hdmi2_out cpr 14" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "hdmi2_out cpr 14 num_desc"
++        "hdmi2_out cpr 14_size_desc"
++        "hdmi2_out cpr 14"
++    ]
++}
++
++SectionVendorTuples."hdmi2_out cpr 15 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."hdmi2_out cpr 15 num_desc" {
++    tuples "hdmi2_out cpr 15 num_desc"
++}
++
++SectionVendorTuples."hdmi2_out cpr 15_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."hdmi2_out cpr 15_size_desc" {
++    tuples "hdmi2_out cpr 15_size_desc"
++}
++
++SectionVendorTuples."hdmi2_out cpr 15" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "15"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "13"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "4"
++        SKL_TKN_CFG_MOD_FMT_ID "4"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "14"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."hdmi2_out cpr 15" {
++    tuples "hdmi2_out cpr 15"
++}
++
++SectionWidget."hdmi2_out cpr 15" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "hdmi2_out cpr 15 num_desc"
++        "hdmi2_out cpr 15_size_desc"
++        "hdmi2_out cpr 15"
++    ]
++}
++
++SectionWidget."iDisp2_out" {
++    index "0"
++    type "aif_out"
++    no_pm "true"
++}
++
++SectionVendorTuples."hdmi3_out cpr 16 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."hdmi3_out cpr 16 num_desc" {
++    tuples "hdmi3_out cpr 16 num_desc"
++}
++
++SectionVendorTuples."hdmi3_out cpr 16_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."hdmi3_out cpr 16_size_desc" {
++    tuples "hdmi3_out cpr 16_size_desc"
++}
++
++SectionVendorTuples."hdmi3_out cpr 16" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "16"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "14"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "4"
++        SKL_TKN_CFG_MOD_FMT_ID "4"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "17"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."hdmi3_out cpr 16" {
++    tuples "hdmi3_out cpr 16"
++}
++
++SectionWidget."hdmi3_out cpr 16" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "hdmi3_out cpr 16 num_desc"
++        "hdmi3_out cpr 16_size_desc"
++        "hdmi3_out cpr 16"
++    ]
++}
++
++SectionVendorTuples."hdmi3_out cpr 17 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."hdmi3_out cpr 17 num_desc" {
++    tuples "hdmi3_out cpr 17 num_desc"
++}
++
++SectionVendorTuples."hdmi3_out cpr 17_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."hdmi3_out cpr 17_size_desc" {
++    tuples "hdmi3_out cpr 17_size_desc"
++}
++
++SectionVendorTuples."hdmi3_out cpr 17" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "1"
++        SKL_TKN_U8_HW_CONN_TYPE "1"
++        SKL_TKN_U8_DEV_TYPE "4"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "17"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "14"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "0"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "4"
++        SKL_TKN_CFG_MOD_FMT_ID "4"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "16"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."hdmi3_out cpr 17" {
++    tuples "hdmi3_out cpr 17"
++}
++
++SectionWidget."hdmi3_out cpr 17" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "hdmi3_out cpr 17 num_desc"
++        "hdmi3_out cpr 17_size_desc"
++        "hdmi3_out cpr 17"
++    ]
++}
++
++SectionWidget."iDisp3_out" {
++    index "0"
++    type "aif_out"
++    no_pm "true"
++}
++
++SectionVendorTuples."mch_cap_in cpr 18 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."mch_cap_in cpr 18 num_desc" {
++    tuples "mch_cap_in cpr 18 num_desc"
++}
++
++SectionVendorTuples."mch_cap_in cpr 18_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "500"
++    }
++}
++
++SectionData."mch_cap_in cpr 18_size_desc" {
++    tuples "mch_cap_in cpr 18_size_desc"
++}
++
++SectionVendorTuples."mch_cap_in cpr 18" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "2"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "1"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "18"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "0"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "15"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "11"
++        SKL_TKN_CFG_MOD_FMT_ID "11"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "6"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_1" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_2" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."uuid.out_pin_3" {
++        SKL_TKN_UUID "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
++    }
++}
++
++SectionData."mch_cap_in cpr 18" {
++    tuples "mch_cap_in cpr 18"
++}
++
++SectionWidget."mch_cap_in cpr 18" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    data [
++        "mch_cap_in cpr 18 num_desc"
++        "mch_cap_in cpr 18_size_desc"
++        "mch_cap_in cpr 18"
++    ]
++}
++
++SectionVendorTuples."mch_cap_in mi num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."mch_cap_in mi num_desc" {
++    tuples "mch_cap_in mi num_desc"
++}
++
++SectionVendorTuples."mch_cap_in mi_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "416"
++    }
++}
++
++SectionData."mch_cap_in mi_size_desc" {
++    tuples "mch_cap_in mi_size_desc"
++}
++
++SectionVendorTuples."mch_cap_in mi" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "178, 110, 101, 57, 113, 59, 73, 64, 141, 63, 249, 44, 213, 196, 60, 9"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "6"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "15"
++        SKL_TKN_U32_PIPE_CONN_TYPE "2"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "18"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."mch_cap_in mi" {
++    tuples "mch_cap_in mi"
++}
++
++SectionWidget."mch_cap_in mi" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "mch_cap_in mi num_desc"
++        "mch_cap_in mi_size_desc"
++        "mch_cap_in mi"
++    ]
++}
++
++SectionWidget."dmic01_hifi" {
++    index "0"
++    type "aif_in"
++    no_pm "true"
++}
++
++SectionVendorTuples."mch_cap_out mo num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."mch_cap_out mo num_desc" {
++    tuples "mch_cap_out mo num_desc"
++}
++
++SectionVendorTuples."mch_cap_out mo_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "536"
++    }
++}
++
++SectionData."mch_cap_out mo_size_desc" {
++    tuples "mch_cap_out mo_size_desc"
++}
++
++SectionVendorTuples."mch_cap_out mo" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "1"
++        SKL_TKN_U8_DYN_OUT_PIN "0"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "0"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "6"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "6"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "16"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "0"
++        SKL_TKN_CFG_MOD_FMT_ID "0"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "16"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "32"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "48"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_4" {
++        SKL_TKN_U32_DIR_PIN_COUNT "64"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_5" {
++        SKL_TKN_U32_DIR_PIN_COUNT "80"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_6" {
++        SKL_TKN_U32_DIR_PIN_COUNT "96"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.in_pin_7" {
++        SKL_TKN_U32_DIR_PIN_COUNT "112"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "2"
++        SKL_TKN_U32_PIN_INST_ID "19"
++    }
++
++    tuples."uuid.out_pin_0" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++}
++
++SectionData."mch_cap_out mo" {
++    tuples "mch_cap_out mo"
++}
++
++SectionWidget."mch_cap_out mo" {
++    index "0"
++    type "mixer"
++    no_pm "true"
++    event_type "3"
++    event_flags "9"
++
++    mixer [
++        "mch_cap_in mi Switch"
++    ]
++
++    data [
++        "mch_cap_out mo num_desc"
++        "mch_cap_out mo_size_desc"
++        "mch_cap_out mo"
++    ]
++}
++
++SectionVendorTuples."mch_cap_out cpr 19 num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."mch_cap_out cpr 19 num_desc" {
++    tuples "mch_cap_out cpr 19 num_desc"
++}
++
++SectionVendorTuples."mch_cap_out cpr 19_size_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_block_type" {
++        SKL_TKN_U8_BLOCK_TYPE "0"
++    }
++
++    tuples."short.u16_size_desc" {
++        SKL_TKN_U16_BLOCK_SIZE "440"
++    }
++}
++
++SectionData."mch_cap_out cpr 19_size_desc" {
++    tuples "mch_cap_out cpr 19_size_desc"
++}
++
++SectionVendorTuples."mch_cap_out cpr 19" {
++    tokens "skl_tokens"
++
++    tuples."uuid" {
++        SKL_TKN_UUID "131, 12, 160, 155, 18, 202, 131, 74, 148, 60, 31, 162, 232, 47, 157, 218"
++    }
++
++    tuples."byte.u8_data" {
++        SKL_TKN_U8_IN_PIN_TYPE "0"
++        SKL_TKN_U8_OUT_PIN_TYPE "0"
++        SKL_TKN_U8_DYN_IN_PIN "0"
++        SKL_TKN_U8_DYN_OUT_PIN "1"
++        SKL_TKN_U8_TIME_SLOT "0"
++        SKL_TKN_U8_CORE_ID "0"
++        SKL_TKN_U8_MODULE_TYPE "1"
++        SKL_TKN_U8_CONN_TYPE "0"
++        SKL_TKN_U8_HW_CONN_TYPE "2"
++        SKL_TKN_U8_DEV_TYPE "5"
++    }
++
++    tuples."short.u16_data" {
++        SKL_TKN_U16_MOD_INST_ID "19"
++    }
++
++    tuples."word.u32_data" {
++        SKL_TKN_U32_VBUS_ID "4294967295"
++        SKL_TKN_U32_PARAMS_FIXUP "0"
++        SKL_TKN_U32_CONVERTER "0"
++        SKL_TKN_U32_PIPE_ID "16"
++        SKL_TKN_U32_PIPE_CONN_TYPE "1"
++        SKL_TKN_U32_PIPE_PRIORITY "0"
++        SKL_TKN_U32_PMODE "0"
++        SKL_TKN_U32_D0I3_CAPS "0"
++        SKL_TKN_U32_PROC_DOMAIN "0"
++        SKL_TKN_U32_PIPE_DIRECTION "1"
++        SKL_TKN_U32_NUM_CONFIGS "1"
++        SKL_TKN_U32_DMA_BUF_SIZE "2"
++    }
++
++    tuples."word._pipe_0" {
++        SKL_TKN_U32_PIPE_CONFIG_ID "0"
++        SKL_TKN_U32_PATH_MEM_PGS "2"
++    }
++
++    tuples."word._pipe_u32_cfg_in_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_in_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."word._pipe_u32_cfg_out_fmt_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_CFG_FREQ "48000"
++    }
++
++    tuples."word._pipe_u8_cfg_out_fmt_0" {
++        SKL_TKN_U8_CFG_BPS "16"
++        SKL_TKN_U8_CFG_CHAN "2"
++    }
++
++    tuples."short.u16_pipe_mod_cfg_0" {
++        SKL_TKN_CFG_MOD_RES_ID "12"
++        SKL_TKN_CFG_MOD_FMT_ID "12"
++    }
++
++    tuples."word.in_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "0"
++        SKL_TKN_U32_PIN_MOD_ID "1"
++        SKL_TKN_U32_PIN_INST_ID "6"
++    }
++
++    tuples."uuid.in_pin_0" {
++        SKL_TKN_UUID "90, 80, 86, 60, 215, 36, 143, 65, 189, 220, 193, 245, 163, 172, 42, 224"
++    }
++
++    tuples."word.out_pin_0" {
++        SKL_TKN_U32_DIR_PIN_COUNT "1"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_1" {
++        SKL_TKN_U32_DIR_PIN_COUNT "17"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_2" {
++        SKL_TKN_U32_DIR_PIN_COUNT "33"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++
++    tuples."word.out_pin_3" {
++        SKL_TKN_U32_DIR_PIN_COUNT "49"
++        SKL_TKN_U32_PIN_MOD_ID "0"
++        SKL_TKN_U32_PIN_INST_ID "0"
++    }
++}
++
++SectionData."mch_cap_out cpr 19" {
++    tuples "mch_cap_out cpr 19"
++}
++
++SectionWidget."mch_cap_out cpr 19" {
++    index "0"
++    type "pga"
++    no_pm "true"
++    subseq "10"
++    event_type "4"
++    event_flags "9"
++
++    data [
++        "mch_cap_out cpr 19 num_desc"
++        "mch_cap_out cpr 19_size_desc"
++        "mch_cap_out cpr 19"
++    ]
++}
++
++SectionControlMixer."media0_in mi Switch" {
++    max "1"
++    invert "false"
++    index "0"
++
++    channel."fl" {
++        reg "-1"
++        shift "0"
++    }
++
++    channel."fr" {
++        reg "-1"
++        shift "0"
++    }
++
++    ops."ctl" {
++        get "64"
++        put "64"
++        info "1"
++    }
++}
++
++SectionControlMixer."media1_in mi Switch" {
++    max "1"
++    invert "false"
++    index "0"
++
++    channel."fl" {
++        reg "-1"
++        shift "0"
++    }
++
++    channel."fr" {
++        reg "-1"
++        shift "0"
++    }
++
++    ops."ctl" {
++        get "64"
++        put "64"
++        info "1"
++    }
++}
++
++SectionControlMixer."media2_in mi Switch" {
++    max "1"
++    invert "false"
++    index "0"
++
++    channel."fl" {
++        reg "-1"
++        shift "0"
++    }
++
++    channel."fr" {
++        reg "-1"
++        shift "0"
++    }
++
++    ops."ctl" {
++        get "64"
++        put "64"
++        info "1"
++    }
++}
++
++SectionControlMixer."codec0_in mi Switch" {
++    max "1"
++    invert "false"
++    index "0"
++
++    channel."fl" {
++        reg "-1"
++        shift "0"
++    }
++
++    channel."fr" {
++        reg "-1"
++        shift "0"
++    }
++
++    ops."ctl" {
++        get "64"
++        put "64"
++        info "1"
++    }
++}
++
++SectionControlMixer."codec1_in mi Switch" {
++    max "1"
++    invert "false"
++    index "0"
++
++    channel."fl" {
++        reg "-1"
++        shift "0"
++    }
++
++    channel."fr" {
++        reg "-1"
++        shift "0"
++    }
++
++    ops."ctl" {
++        get "64"
++        put "64"
++        info "1"
++    }
++}
++
++SectionControlMixer."codec2_in mi Switch" {
++    max "1"
++    invert "false"
++    index "0"
++
++    channel."fl" {
++        reg "-1"
++        shift "0"
++    }
++
++    channel."fr" {
++        reg "-1"
++        shift "0"
++    }
++
++    ops."ctl" {
++        get "64"
++        put "64"
++        info "1"
++    }
++}
++
++SectionControlMixer."mch_cap_in mi Switch" {
++    max "1"
++    invert "false"
++    index "0"
++
++    channel."fl" {
++        reg "-1"
++        shift "0"
++    }
++
++    channel."fr" {
++        reg "-1"
++        shift "0"
++    }
++
++    ops."ctl" {
++        get "64"
++        put "64"
++        info "1"
++    }
++}
++
++SectionGraph."Pipeline 1 Graph" {
++    index "0"
++
++    lines [
++        "media0_in cpr 0, , hda-dsp-analog-playback"
++        "media0_in updwmix 0, , media0_in cpr 0"
++        "media0_in srcintc 0, , media0_in updwmix 0"
++        "media0_in mi, , media0_in srcintc 0"
++        "codec0_out cpr 1, , codec0_out mo"
++        "codec0_out, , codec0_out cpr 1"
++        "media1_in cpr 2, , hda-dsp-digital-playback"
++        "media1_in mi, , media1_in cpr 2"
++        "codec1_out cpr 3, , codec1_out mo"
++        "codec1_out, , codec1_out cpr 3"
++        "media2_in cpr 4, , hda-dsp-alt-analog-playback"
++        "media2_in mi, , media2_in cpr 4"
++        "codec2_out cpr 5, , codec2_out mo"
++        "codec2_out, , codec2_out cpr 5"
++        "codec0_in cpr 6, , codec0_in"
++        "codec0_in mi, , codec0_in cpr 6"
++        "media0_out cpr 7, , media0_out mo"
++        "hda-dsp-audio-analog-capture, , media0_out cpr 7"
++        "codec1_in cpr 8, , codec1_in"
++        "codec1_in mi, , codec1_in cpr 8"
++        "media1_out cpr 9, , media1_out mo"
++        "hda-dsp-audio-digital-capture, , media1_out cpr 9"
++        "codec2_in cpr 10, , codec2_in"
++        "codec2_in mi, , codec2_in cpr 10"
++        "media2_out cpr 11, , media2_out mo"
++        "hda-dsp-audio-alt-analog-capture, , media2_out cpr 11"
++        "hdmi1_out cpr 12, , HDMI1 Playback"
++        "hdmi1_out cpr 13, , hdmi1_out cpr 12"
++        "iDisp1_out, , hdmi1_out cpr 13"
++        "hdmi2_out cpr 14, , HDMI2 Playback"
++        "hdmi2_out cpr 15, , hdmi2_out cpr 14"
++        "iDisp2_out, , hdmi2_out cpr 15"
++        "hdmi3_out cpr 16, , HDMI3 Playback"
++        "hdmi3_out cpr 17, , hdmi3_out cpr 16"
++        "iDisp3_out, , hdmi3_out cpr 17"
++        "mch_cap_in cpr 18, , dmic01_hifi"
++        "mch_cap_in mi, , mch_cap_in cpr 18"
++        "mch_cap_out cpr 19, , mch_cap_out mo"
++        "DMIC-PT-Capture, , mch_cap_out cpr 19"
++        "codec0_out mo, media0_in mi Switch, media0_in mi"
++        "codec1_out mo, media1_in mi Switch, media1_in mi"
++        "codec2_out mo, media2_in mi Switch, media2_in mi"
++        "media0_out mo, codec0_in mi Switch, codec0_in mi"
++        "media1_out mo, codec1_in mi Switch, codec1_in mi"
++        "media2_out mo, codec2_in mi Switch, codec2_in mi"
++        "mch_cap_out mo, mch_cap_in mi Switch, mch_cap_in mi"
++    ]
++}
++
++SectionPCMCapabilities."hda-dsp-analog-playback" {
++    formats "S16_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "16"
++}
++
++SectionPCMCapabilities."hda-dsp-audio-analog-capture" {
++    formats "S16_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "16"
++}
++
++SectionPCM."Analog HDA DSP" {
++    index "0"
++    id "0"
++
++    dai."hda-dsp-analog-dai" {
++        id "0"
++    }
++
++    pcm."playback" {
++        capabilities "hda-dsp-analog-playback"
++    }
++
++    pcm."capture" {
++        capabilities "hda-dsp-audio-analog-capture"
++    }
++}
++
++SectionPCMCapabilities."hda-dsp-digital-playback" {
++    formats "S16_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "16"
++}
++
++SectionPCMCapabilities."hda-dsp-audio-digital-capture" {
++    formats "S24_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "24"
++}
++
++SectionPCM."Digital HDA DSP" {
++    index "0"
++    id "0"
++
++    dai."hda-dsp-digital-dai" {
++        id "1"
++    }
++
++    pcm."playback" {
++        capabilities "hda-dsp-digital-playback"
++    }
++
++    pcm."capture" {
++        capabilities "hda-dsp-audio-digital-capture"
++    }
++}
++
++SectionPCMCapabilities."hda-dsp-alt-analog-playback" {
++    formats "S16_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "16"
++}
++
++SectionPCMCapabilities."hda-dsp-audio-alt-analog-capture" {
++    formats "S24_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "24"
++}
++
++SectionPCM."Alt Analog HDA DSP" {
++    index "0"
++    id "0"
++
++    dai."hda-dsp-alt-analog-dai" {
++        id "2"
++    }
++
++    pcm."playback" {
++        capabilities "hda-dsp-alt-analog-playback"
++    }
++
++    pcm."capture" {
++        capabilities "hda-dsp-audio-alt-analog-capture"
++    }
++}
++
++SectionPCMCapabilities."HDMI1 Playback" {
++    formats "S16_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "16"
++}
++
++SectionPCM."HDA DSP HDMI1" {
++    index "0"
++    id "255"
++
++    dai."hdmi1" {
++        id "3"
++    }
++
++    pcm."playback" {
++        capabilities "HDMI1 Playback"
++    }
++}
++
++SectionPCMCapabilities."HDMI2 Playback" {
++    formats "S16_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "16"
++}
++
++SectionPCM."HDA DSP HDMI2" {
++    index "0"
++    id "255"
++
++    dai."hdmi2" {
++        id "4"
++    }
++
++    pcm."playback" {
++        capabilities "HDMI2 Playback"
++    }
++}
++
++SectionPCMCapabilities."HDMI3 Playback" {
++    formats "S16_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "16"
++}
++
++SectionPCM."HDA DSP HDMI3" {
++    index "0"
++    id "255"
++
++    dai."hdmi3" {
++        id "5"
++    }
++
++    pcm."playback" {
++        capabilities "HDMI3 Playback"
++    }
++}
++
++SectionPCMCapabilities."DMIC-PT-Capture" {
++    formats "S16_LE"
++    rates "48000"
++    channels_min "2"
++    channels_max "2"
++    sig_bits "16"
++}
++
++SectionPCM."DMIC HDA DSP" {
++    index "0"
++    id "0"
++
++    dai."hda-dsp-dmic-dai" {
++        id "6"
++    }
++
++    pcm."capture" {
++        capabilities "DMIC-PT-Capture"
++    }
++}
++
++SectionVendorTuples."manifest_data num_desc" {
++    tokens "skl_tokens"
++
++    tuples."byte.u8_num_blocks" {
++        SKL_TKN_U8_NUM_BLOCKS "1"
++    }
++}
++
++SectionData."manifest_data num_desc" {
++    tuples "manifest_data num_desc"
++}
++
++SectionManifest."manifest_data" {
++
++    data [
++        "manifest_data num_desc"
++        "mod_type_data_size_desc"
++        "mod_type_data"
++    ]
++}
 -- 
 2.17.1
 

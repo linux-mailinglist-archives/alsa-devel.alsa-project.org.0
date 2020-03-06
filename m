@@ -2,57 +2,53 @@ Return-Path: <alsa-devel-bounces@alsa-project.org>
 X-Original-To: lists+alsa-devel@lfdr.de
 Delivered-To: lists+alsa-devel@lfdr.de
 Received: from alsa0.perex.cz (alsa0.perex.cz [77.48.224.243])
-	by mail.lfdr.de (Postfix) with ESMTPS id BACA017C144
-	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 16:09:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F35AE17C147
+	for <lists+alsa-devel@lfdr.de>; Fri,  6 Mar 2020 16:09:43 +0100 (CET)
 Received: from alsa1.perex.cz (alsa1.perex.cz [207.180.221.201])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by alsa0.perex.cz (Postfix) with ESMTPS id 213AF166E;
-	Fri,  6 Mar 2020 16:08:13 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 213AF166E
+	by alsa0.perex.cz (Postfix) with ESMTPS id 9761710E;
+	Fri,  6 Mar 2020 16:08:53 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa0.perex.cz 9761710E
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=alsa-project.org;
-	s=default; t=1583507343;
-	bh=EZ3C2rlyNUrRxX2zYtuIyyeToL3vAS26vj8u9F3mNuI=;
+	s=default; t=1583507383;
+	bh=ieXPLfTZ7OQWhIj0ednsZMlHpGSE1FvRtKcDq6szjsE=;
 	h=Date:From:To:Subject:In-Reply-To:Cc:List-Id:List-Unsubscribe:
 	 List-Archive:List-Post:List-Help:List-Subscribe:From;
-	b=S5lfTxZgcEysdtbgijpSdiAS02y+IRZTa8rHr//NRbaXK0VQfScTESYiPf1DMMxuz
-	 z+cTzOlfA9b0p0TpA+hCI0nRICYWcS5FnfnvJlSyZCIBdXTt8BcOlHPIZ0N0YXMlB0
-	 E5oftRGS1v2UlRinaLti1ZywVAiJTIPq/UMSMuuI=
+	b=duckHgICzk/4PpbzKyidqrcE0e7KCDpwdhGC2NY2I94rGSJ0LeW9K4R1y5o8KVbXr
+	 tI8WqgP+0wSVbsiWZH+h24hBZWw+rUAQmFIoRP4Uki3yXUit54yIz5ritH0vD8Sarv
+	 ClBUrX93o57l7Qy0MSMDXWlg9c6POO7NeqVplFk8=
 Received: from alsa1.perex.cz (localhost.localdomain [127.0.0.1])
-	by alsa1.perex.cz (Postfix) with ESMTP id 87D31F802C3;
-	Fri,  6 Mar 2020 16:03:41 +0100 (CET)
+	by alsa1.perex.cz (Postfix) with ESMTP id 2532FF802EC;
+	Fri,  6 Mar 2020 16:03:45 +0100 (CET)
 X-Original-To: alsa-devel@alsa-project.org
 Delivered-To: alsa-devel@alsa-project.org
 Received: by alsa1.perex.cz (Postfix, from userid 50401)
- id A90B3F802DD; Fri,  6 Mar 2020 16:03:39 +0100 (CET)
+ id C32BAF802EB; Fri,  6 Mar 2020 16:03:43 +0100 (CET)
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on alsa1.perex.cz
 X-Spam-Level: 
 X-Spam-Status: No, score=0.2 required=5.0 tests=HEADER_FROM_DIFFERENT_DOMAINS, 
  SPF_HELO_NONE, SPF_PASS,
  URIBL_BLOCKED autolearn=disabled version=3.4.0
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by alsa1.perex.cz (Postfix) with ESMTP id 89CF3F802D2
- for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 16:03:36 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 89CF3F802D2
+ by alsa1.perex.cz (Postfix) with ESMTP id 9777EF802E0
+ for <alsa-devel@alsa-project.org>; Fri,  6 Mar 2020 16:03:40 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.11.0 alsa1.perex.cz 9777EF802E0
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 888A731B;
- Fri,  6 Mar 2020 07:03:35 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 684D44B2;
+ Fri,  6 Mar 2020 07:03:39 -0800 (PST)
 Received: from localhost (unknown [10.37.6.21])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0994B3F237;
- Fri,  6 Mar 2020 07:03:34 -0800 (PST)
-Date: Fri, 06 Mar 2020 15:03:33 +0000
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id DE7EB3F237;
+ Fri,  6 Mar 2020 07:03:38 -0800 (PST)
+Date: Fri, 06 Mar 2020 15:03:37 +0000
 From: Mark Brown <broonie@kernel.org>
 To: Samuel Holland <samuel@sholland.org>
-Subject: Applied "ASoC: simple-card: Add support for codec2codec DAI links" to
- the asoc tree
-In-Reply-To: <20200305051143.60691-4-samuel@sholland.org>
-Message-Id: <applied-20200305051143.60691-4-samuel@sholland.org>
+Subject: Applied "ASoC: pcm: Export parameter intersection logic" to the asoc
+ tree
+In-Reply-To: 
+Message-Id: 
 X-Patchwork-Hint: ignore
-Cc: Ondrej Jirman <megous@megous.com>, alsa-devel@alsa-project.org,
- Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- linux-doc@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>,
- Jerome Brunet <jbrunet@baylibre.com>
+Cc: alsa-devel@alsa-project.org, Mark Brown <broonie@kernel.org>
 X-BeenThere: alsa-devel@alsa-project.org
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +66,7 @@ Sender: "Alsa-devel" <alsa-devel-bounces@alsa-project.org>
 
 The patch
 
-   ASoC: simple-card: Add support for codec2codec DAI links
+   ASoC: pcm: Export parameter intersection logic
 
 has been applied to the asoc tree at
 
@@ -95,114 +91,148 @@ to this mail.
 Thanks,
 Mark
 
-From 95cfc0a0aaf575207152dd7601e782702565a6f1 Mon Sep 17 00:00:00 2001
+From 5854a46486ad5b8d73766735fb0d77f05956b22c Mon Sep 17 00:00:00 2001
 From: Samuel Holland <samuel@sholland.org>
-Date: Wed, 4 Mar 2020 23:11:43 -0600
-Subject: [PATCH] ASoC: simple-card: Add support for codec2codec DAI links
+Date: Wed, 4 Mar 2020 23:11:42 -0600
+Subject: [PATCH] ASoC: pcm: Export parameter intersection logic
 
-Following the example in cb2cf0de1174 ("ASoC: soc-core: care Codec <->
-Codec case by non_legacy_dai_naming"), determine if a DAI link contains
-only codec DAIs by examining the non_legacy_dai_naming flag in each
-DAI's component.
-
-For now, we assume there is only one or a small set of valid PCM stream
-parameters, so num_params == 1 is good enough. We also assume that the
-same params are valid for all supported streams. params is set to the
-subset of parameters common among all DAIs, and then the existing code
-automatically chooses the highest quality of the remaining values when
-the link is brought up.
+The logic to calculate the subset of stream parameters supported by all
+DAIs associated with a PCM stream is nontrivial. Export a helper
+function so it can be used to set up simple codec2codec DAI links.
 
 Signed-off-by: Samuel Holland <samuel@sholland.org>
-Link: https://lore.kernel.org/r/20200305051143.60691-4-samuel@sholland.org
+Link: https://lore.kernel.org/r/20200305051143.60691-3-samuel@sholland.org
 Signed-off-by: Mark Brown <broonie@kernel.org>
 ---
- Documentation/sound/soc/codec-to-codec.rst |  9 +++-
- sound/soc/generic/simple-card-utils.c      | 48 ++++++++++++++++++++++
- 2 files changed, 55 insertions(+), 2 deletions(-)
+ include/sound/soc.h |  3 +++
+ sound/soc/soc-pcm.c | 56 ++++++++++++++++++++++++++++++---------------
+ 2 files changed, 41 insertions(+), 18 deletions(-)
 
-diff --git a/Documentation/sound/soc/codec-to-codec.rst b/Documentation/sound/soc/codec-to-codec.rst
-index 810109d7500d..4eaa9a0c41fc 100644
---- a/Documentation/sound/soc/codec-to-codec.rst
-+++ b/Documentation/sound/soc/codec-to-codec.rst
-@@ -104,5 +104,10 @@ Make sure to name your corresponding cpu and codec playback and capture
- dai names ending with "Playback" and "Capture" respectively as dapm core
- will link and power those dais based on the name.
+diff --git a/include/sound/soc.h b/include/sound/soc.h
+index 81e5d17be935..9543d9246ca4 100644
+--- a/include/sound/soc.h
++++ b/include/sound/soc.h
+@@ -471,6 +471,9 @@ bool snd_soc_runtime_ignore_pmdown_time(struct snd_soc_pcm_runtime *rtd);
+ void snd_soc_runtime_activate(struct snd_soc_pcm_runtime *rtd, int stream);
+ void snd_soc_runtime_deactivate(struct snd_soc_pcm_runtime *rtd, int stream);
  
--Note that in current device tree there is no way to mark a dai_link
--as codec to codec. However, it may change in future.
-+A dai_link in a "simple-audio-card" will automatically be detected as
-+codec to codec when all DAIs on the link belong to codec components.
-+The dai_link will be initialized with the subset of stream parameters
-+(channels, format, sample rate) supported by all DAIs on the link. Since
-+there is no way to provide these parameters in the device tree, this is
-+mostly useful for communication with simple fixed-function codecs, such
-+as a Bluetooth controller or cellular modem.
-diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index 9b794775df53..320e648f7499 100644
---- a/sound/soc/generic/simple-card-utils.c
-+++ b/sound/soc/generic/simple-card-utils.c
-@@ -331,6 +331,50 @@ static int asoc_simple_init_dai(struct snd_soc_dai *dai,
- 	return 0;
++int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
++			    struct snd_pcm_hardware *hw, int stream);
++
+ int snd_soc_runtime_set_dai_fmt(struct snd_soc_pcm_runtime *rtd,
+ 	unsigned int dai_fmt);
+ 
+diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
+index e3a2c4f7757b..de4226357e2b 100644
+--- a/sound/soc/soc-pcm.c
++++ b/sound/soc/soc-pcm.c
+@@ -587,11 +587,18 @@ static void soc_pcm_apply_msb(struct snd_pcm_substream *substream)
+ 	soc_pcm_set_msb(substream, cpu_bits);
  }
  
-+static int asoc_simple_init_dai_link_params(struct snd_soc_pcm_runtime *rtd,
-+					    struct simple_dai_props *dai_props)
-+{
-+	struct snd_soc_dai_link *dai_link = rtd->dai_link;
-+	struct snd_soc_component *component;
-+	struct snd_soc_pcm_stream *params;
-+	struct snd_pcm_hardware hw;
-+	int i, ret, stream;
+-static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
++/**
++ * snd_soc_runtime_calc_hw() - Calculate hw limits for a PCM stream
++ * @rtd: ASoC PCM runtime
++ * @hw: PCM hardware parameters (output)
++ * @stream: Direction of the PCM stream
++ *
++ * Calculates the subset of stream parameters supported by all DAIs
++ * associated with the PCM stream.
++ */
++int snd_soc_runtime_calc_hw(struct snd_soc_pcm_runtime *rtd,
++			    struct snd_pcm_hardware *hw, int stream)
+ {
+-	struct snd_pcm_runtime *runtime = substream->runtime;
+-	struct snd_pcm_hardware *hw = &runtime->hw;
+-	struct snd_soc_pcm_runtime *rtd = substream->private_data;
+ 	struct snd_soc_dai *codec_dai;
+ 	struct snd_soc_dai *cpu_dai;
+ 	struct snd_soc_pcm_stream *codec_stream;
+@@ -602,7 +609,6 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 	unsigned int cpu_rate_min = 0, cpu_rate_max = UINT_MAX;
+ 	unsigned int rates = UINT_MAX, cpu_rates = UINT_MAX;
+ 	u64 formats = ULLONG_MAX;
+-	int stream = substream->stream;
+ 	int i;
+ 
+ 	/* first calculate min/max only for CPUs in the DAI link */
+@@ -613,12 +619,8 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 		 * Otherwise, since the rate, channel, and format values will
+ 		 * zero in that case, we would have no usable settings left,
+ 		 * causing the resulting setup to fail.
+-		 * At least one CPU should match, otherwise we should have
+-		 * bailed out on a higher level, since there would be no
+-		 * CPU to support the transfer direction in that case.
+ 		 */
+-		if (!snd_soc_dai_stream_valid(cpu_dai,
+-					      substream->stream))
++		if (!snd_soc_dai_stream_valid(cpu_dai, stream))
+ 			continue;
+ 
+ 		cpu_stream = snd_soc_dai_get_pcm_stream(cpu_dai, stream);
+@@ -640,9 +642,6 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 		 * Otherwise, since the rate, channel, and format values will
+ 		 * zero in that case, we would have no usable settings left,
+ 		 * causing the resulting setup to fail.
+-		 * At least one CODEC should match, otherwise we should have
+-		 * bailed out on a higher level, since there would be no
+-		 * CODEC to support the transfer direction in that case.
+ 		 */
+ 		if (!snd_soc_dai_stream_valid(codec_dai, stream))
+ 			continue;
+@@ -657,6 +656,10 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 		rates = snd_pcm_rate_mask_intersect(codec_stream->rates, rates);
+ 	}
+ 
++	/* Verify both a valid CPU DAI and a valid CODEC DAI were found */
++	if (!chan_min || !cpu_chan_min)
++		return -EINVAL;
 +
-+	/* Only codecs should have non_legacy_dai_naming set. */
-+	for_each_rtd_components(rtd, i, component) {
-+		if (!component->driver->non_legacy_dai_naming)
-+			return 0;
-+	}
-+
-+	/* Assumes the capabilities are the same for all supported streams */
-+	for (stream = 0; stream < 2; stream++) {
-+		ret = snd_soc_runtime_calc_hw(rtd, &hw, stream);
-+		if (ret == 0)
-+			break;
-+	}
-+
-+	if (ret < 0) {
-+		dev_err(rtd->dev, "simple-card: no valid dai_link params\n");
-+		return ret;
-+	}
-+
-+	params = devm_kzalloc(rtd->dev, sizeof(*params), GFP_KERNEL);
-+	if (!params)
-+		return -ENOMEM;
-+
-+	params->formats = hw.formats;
-+	params->rates = hw.rates;
-+	params->rate_min = hw.rate_min;
-+	params->rate_max = hw.rate_max;
-+	params->channels_min = hw.channels_min;
-+	params->channels_max = hw.channels_max;
-+
-+	dai_link->params = params;
-+	dai_link->num_params = 1;
+ 	/*
+ 	 * chan min/max cannot be enforced if there are multiple CODEC DAIs
+ 	 * connected to CPU DAI(s), use CPU DAI's directly and let
+@@ -670,18 +673,35 @@ static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
+ 	/* finally find a intersection between CODECs and CPUs */
+ 	hw->channels_min = max(chan_min, cpu_chan_min);
+ 	hw->channels_max = min(chan_max, cpu_chan_max);
+-	if (hw->formats)
+-		hw->formats &= formats;
+-	else
+-		hw->formats = formats;
++	hw->formats = formats;
+ 	hw->rates = snd_pcm_rate_mask_intersect(rates, cpu_rates);
+ 
+-	snd_pcm_limit_hw_rates(runtime);
++	snd_pcm_hw_limit_rates(hw);
+ 
+ 	hw->rate_min = max(hw->rate_min, cpu_rate_min);
+ 	hw->rate_min = max(hw->rate_min, rate_min);
+ 	hw->rate_max = min_not_zero(hw->rate_max, cpu_rate_max);
+ 	hw->rate_max = min_not_zero(hw->rate_max, rate_max);
 +
 +	return 0;
 +}
++EXPORT_SYMBOL_GPL(snd_soc_runtime_calc_hw);
 +
- int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
- {
- 	struct asoc_simple_priv *priv = snd_soc_card_get_drvdata(rtd->card);
-@@ -347,6 +391,10 @@ int asoc_simple_dai_init(struct snd_soc_pcm_runtime *rtd)
- 	if (ret < 0)
- 		return ret;
- 
-+	ret = asoc_simple_init_dai_link_params(rtd, dai_props);
-+	if (ret < 0)
-+		return ret;
++static void soc_pcm_init_runtime_hw(struct snd_pcm_substream *substream)
++{
++	struct snd_pcm_hardware *hw = &substream->runtime->hw;
++	struct snd_soc_pcm_runtime *rtd = substream->private_data;
++	u64 formats = hw->formats;
 +
- 	return 0;
++	/*
++	 * At least one CPU and one CODEC should match. Otherwise, we should
++	 * have bailed out on a higher level, since there would be no CPU or
++	 * CODEC to support the transfer direction in that case.
++	 */
++	snd_soc_runtime_calc_hw(rtd, hw, substream->stream);
++
++	if (formats)
++		hw->formats &= formats;
  }
- EXPORT_SYMBOL_GPL(asoc_simple_dai_init);
+ 
+ static int soc_pcm_components_open(struct snd_pcm_substream *substream)
 -- 
 2.20.1
 
